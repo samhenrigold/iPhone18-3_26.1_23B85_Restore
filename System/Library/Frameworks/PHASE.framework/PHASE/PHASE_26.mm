@@ -12,7 +12,7 @@ void std::vector<Phase::Controller::VoicePoolBufferEntry>::clear[abi:ne200100](u
   a1[1] = v2;
 }
 
-uint64_t std::vector<Phase::Controller::VoicePoolBufferEntry>::__emplace_back_slow_path<Phase::Controller::VoicePoolBufferEntry>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<Phase::Controller::VoicePoolBufferEntry>::__emplace_back_slow_path<Phase::Controller::VoicePoolBufferEntry>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -1109,9 +1109,10 @@ LABEL_17:
   return std::unique_ptr<Phase::Controller::VoicePoolEntry const>::reset[abi:ne200100](v7 + 3, a2);
 }
 
-void sub_23A530190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, char a10)
+void sub_23A530190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<Phase::DspLayer23::KernelType,std::unique_ptr<Phase::Controller::VoicePoolEntry const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<Phase::DspLayer23::KernelType,std::unique_ptr<Phase::Controller::VoicePoolEntry const>>,void *>>>>::~unique_ptr[abi:ne200100](&a10);
+  va_start(va, a9);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<Phase::DspLayer23::KernelType,std::unique_ptr<Phase::Controller::VoicePoolEntry const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<Phase::DspLayer23::KernelType,std::unique_ptr<Phase::Controller::VoicePoolEntry const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   std::unique_ptr<Phase::Controller::VoicePoolEntry const>::reset[abi:ne200100](&a9, 0);
   _Unwind_Resume(a1);
 }
@@ -1297,12 +1298,12 @@ double Phase::DspLayer23::ConvolverSlice<1>::MoveStateTo(uint64_t a1, uint64_t a
 
 void Phase::DspLayer23::ConvolverSlice<1>::Process(uint64_t a1, int a2)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = 4 * a2;
   MEMORY[0x28223BE20](a1);
-  v7 = (&v50 - v6);
-  bzero(&v50 - v6, v5);
+  v7 = (&v51 - v6);
+  bzero(&v51 - v6, v5);
   v8 = Phase::DspLayer23::AudioConnections::Sum((a1 + 384), v4, v7);
   v9 = *(a1 + 552);
   if (!v9)
@@ -1316,11 +1317,11 @@ void Phase::DspLayer23::ConvolverSlice<1>::Process(uint64_t a1, int a2)
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         v54 = 1024;
-        v55 = 233;
-        v56 = 1024;
-        *v57 = 1;
-        *&v57[4] = 2048;
-        *&v57[6] = v16;
+        *v55 = 233;
+        *&v55[4] = 1024;
+        *v56 = 1;
+        *&v56[4] = 2048;
+        *&v56[6] = v16;
         _os_log_impl(&dword_23A302000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] buffer exchanger is nullptr. Output will be silent.", buf, 0x22u);
       }
 
@@ -1402,27 +1403,28 @@ LABEL_34:
             {
               v22 = _os_log_pack_size();
               Instance = Phase::Logger::GetInstance(v22);
-              if (caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0))
+              message = caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0);
+              if (message)
               {
-                v24 = _os_log_pack_fill();
-                v25 = *(a1 + 16);
-                v26 = *(a1 + 32);
-                v27 = *(a1 + 548);
-                v28 = *(a1 + 544);
-                v29 = *(*(v25 + 576) + 96);
-                *v24 = 67110400;
-                *(v24 + 4) = 1;
-                *(v24 + 8) = 2048;
-                *(v24 + 10) = v25;
-                *(v24 + 18) = 2048;
-                *(v24 + 20) = v26;
-                *(v24 + 28) = 1024;
-                *(v24 + 30) = v27;
-                *(v24 + 34) = 1024;
-                *(v24 + 36) = v28;
-                *(v24 + 40) = 2048;
-                *(v24 + 42) = v29;
-                Phase::Logger::GetInstance(v24);
+                v25 = _os_log_pack_fill(message + 40, v22, 0, &dword_23A302000, "(Convolver1x%i)%p[%llx] Crossfade interrupt with %i delay frames and %i xfade frames remaining @ VE Frame %llu", v51, v52, *buf, *&buf[8], *&v55[2], *&v56[4]);
+                v26 = *(a1 + 16);
+                v27 = *(a1 + 32);
+                v28 = *(a1 + 548);
+                v29 = *(a1 + 544);
+                v30 = *(*(v26 + 576) + 96);
+                *v25 = 67110400;
+                *(v25 + 4) = 1;
+                *(v25 + 8) = 2048;
+                *(v25 + 10) = v26;
+                *(v25 + 18) = 2048;
+                *(v25 + 20) = v27;
+                *(v25 + 28) = 1024;
+                *(v25 + 30) = v28;
+                *(v25 + 34) = 1024;
+                *(v25 + 36) = v29;
+                *(v25 + 40) = 2048;
+                *(v25 + 42) = v30;
+                Phase::Logger::GetInstance(v25);
                 caulk::concurrent::messenger::enqueue();
               }
             }
@@ -1430,20 +1432,20 @@ LABEL_34:
             *(a1 + 536) = 1065353216;
             *(a1 + 540) = -1.0 / (v21 - 1);
             *(a1 + 544) = v21;
-            v30 = (*(*v12 + 72))(v12);
-            v31 = (*(*v12 + 40))(v12);
-            if (v31 <= (*(*v12 + 56))(v12))
+            v31 = (*(*v12 + 72))(v12);
+            v32 = (*(*v12 + 40))(v12);
+            if (v32 <= (*(*v12 + 56))(v12))
             {
-              v33 = 0;
+              v34 = 0;
             }
 
             else
             {
-              v32 = (*(*v12 + 80))(v12, (v30 - 1));
-              v33 = (*(*v32 + 56))(v32);
+              v33 = (*(*v12 + 80))(v12, (v31 - 1));
+              v34 = (*(*v33 + 56))(v33);
             }
 
-            *(a1 + 548) = v33;
+            *(a1 + 548) = v34;
             v8 = (*(*v14 + 40))(v14);
           }
 
@@ -1454,19 +1456,19 @@ LABEL_34:
 
     if (*(a1 + 561) == 1)
     {
-      v34 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
+        v36 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         v54 = 1024;
-        v55 = 253;
-        v56 = 1024;
-        *v57 = 1;
-        *&v57[4] = 2048;
-        *&v57[6] = v35;
-        _os_log_impl(&dword_23A302000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
+        *v55 = 253;
+        *&v55[4] = 1024;
+        *v56 = 1;
+        *&v56[4] = 2048;
+        *&v56[6] = v36;
+        _os_log_impl(&dword_23A302000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
       }
 
       *(a1 + 561) = 0;
@@ -1476,24 +1478,24 @@ LABEL_34:
   }
 
 LABEL_35:
-  v36 = *(a1 + 520);
-  if (!v36)
+  v37 = *(a1 + 520);
+  if (!v37)
   {
     if (*(a1 + 562) == 1)
     {
-      v40 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v41 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        v41 = *(a1 + 32);
+        v42 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         v54 = 1024;
-        v55 = 271;
-        v56 = 2048;
-        *v57 = a1;
-        *&v57[8] = 2048;
-        *&v57[10] = v41;
-        _os_log_impl(&dword_23A302000, v40, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
+        *v55 = 271;
+        *&v55[4] = 2048;
+        *v56 = a1;
+        *&v56[8] = 2048;
+        *&v56[10] = v42;
+        _os_log_impl(&dword_23A302000, v41, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
       }
 
       *(a1 + 562) = 0;
@@ -1505,38 +1507,38 @@ LABEL_45:
   }
 
   *(a1 + 562) = 1;
-  v37 = *v36;
-  v38 = *(a1 + 528);
-  if (v38 && (v39 = *v38) != 0)
+  v38 = *v37;
+  v39 = *(a1 + 528);
+  if (v39 && (v40 = *v39) != 0)
   {
     if (*(a1 + 548) < 1)
     {
-      (*(*v37 + 24))(v37, v10, a1 + 512);
-      v42 = 1.0 - *(a1 + 536);
-      __Step = -*(a1 + 540);
-      *buf = v42;
-      vDSP_vrampmul(*(a1 + 512), 1, buf, &__Step, *(a1 + 512), 1, v4);
-      MEMORY[0x28223BE20](v43);
-      bzero(&v50 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
-      *buf = &v50 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-      (*(*v39 + 24))(v39, v10, buf);
-      v44 = *(a1 + 536);
-      v51 = *(a1 + 540);
-      __Step = v44;
-      vDSP_vrampmuladd(*buf, 1, &__Step, &v51, *(a1 + 512), 1, v4);
-      v45 = v51;
-      *(a1 + 536) = __Step;
-      *(a1 + 540) = v45;
-      v46 = *(a1 + 544);
-      v47 = __OFSUB__(v46, a2);
-      v48 = v46 - a2;
-      *(a1 + 544) = v48;
-      if ((v48 < 0) ^ v47 | (v48 == 0))
+      (*(*v38 + 24))(v38, v10, a1 + 512);
+      v43 = 1.0 - *(a1 + 536);
+      *(&v52 + 1) = -*(a1 + 540);
+      *buf = v43;
+      vDSP_vrampmul(*(a1 + 512), 1, buf, &v52 + 1, *(a1 + 512), 1, v4);
+      MEMORY[0x28223BE20](v44);
+      bzero(&v51 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
+      *buf = &v51 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+      (*(*v40 + 24))(v40, v10, buf);
+      v45 = *(a1 + 536);
+      LODWORD(v52) = *(a1 + 540);
+      HIDWORD(v52) = v45;
+      vDSP_vrampmuladd(*buf, 1, &v52 + 1, &v52, *(a1 + 512), 1, v4);
+      v46 = v52;
+      *(a1 + 536) = HIDWORD(v52);
+      *(a1 + 540) = v46;
+      v47 = *(a1 + 544);
+      v48 = __OFSUB__(v47, a2);
+      v49 = v47 - a2;
+      *(a1 + 544) = v49;
+      if ((v49 < 0) ^ v48 | (v49 == 0))
       {
-        v49 = *(a1 + 528);
-        if (v49)
+        v50 = *(a1 + 528);
+        if (v50)
         {
-          atomic_store(0, (v49 + 12));
+          atomic_store(0, (v50 + 12));
         }
 
         *(a1 + 528) = 0;
@@ -1548,17 +1550,17 @@ LABEL_45:
     else
     {
       MEMORY[0x28223BE20](v8);
-      bzero(&v50 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
-      *buf = &v50 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-      (*(*v39 + 24))(v39, v10, a1 + 512);
-      (*(*v37 + 24))(v37, v10, buf);
+      bzero(&v51 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
+      *buf = &v51 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+      (*(*v40 + 24))(v40, v10, a1 + 512);
+      (*(*v38 + 24))(v38, v10, buf);
       *(a1 + 548) -= a2;
     }
   }
 
   else
   {
-    (*(*v37 + 24))(v37, v10, a1 + 512);
+    (*(*v38 + 24))(v38, v10, a1 + 512);
   }
 }
 
@@ -1731,11 +1733,11 @@ double Phase::DspLayer23::ConvolverSlice<2>::MoveStateTo(uint64_t a1, uint64_t a
 
 void Phase::DspLayer23::ConvolverSlice<2>::Process(uint64_t a1, int a2)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v4 = a2;
   MEMORY[0x28223BE20](a1);
-  v6 = (&v58 - v5);
-  bzero(&v58 - v5, v7);
+  v6 = (&v59 - v5);
+  bzero(&v59 - v5, v7);
   v8 = Phase::DspLayer23::AudioConnections::Sum((a1 + 512), v4, v6);
   v9 = *(a1 + 688);
   if (!v9)
@@ -1750,10 +1752,10 @@ void Phase::DspLayer23::ConvolverSlice<2>::Process(uint64_t a1, int a2)
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
         *&buf[14] = 233;
-        v62 = 1024;
-        *v63 = 2;
-        *&v63[4] = 2048;
-        *&v63[6] = v16;
+        *&buf[18] = 1024;
+        *v62 = 2;
+        *&v62[4] = 2048;
+        *&v62[6] = v16;
         _os_log_impl(&dword_23A302000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] buffer exchanger is nullptr. Output will be silent.", buf, 0x22u);
       }
 
@@ -1835,27 +1837,28 @@ LABEL_34:
             {
               v22 = _os_log_pack_size();
               Instance = Phase::Logger::GetInstance(v22);
-              if (caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0))
+              message = caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0);
+              if (message)
               {
-                v24 = _os_log_pack_fill();
-                v25 = *(a1 + 16);
-                v26 = *(a1 + 32);
-                v27 = *(a1 + 684);
-                v28 = *(a1 + 680);
-                v29 = *(*(v25 + 576) + 96);
-                *v24 = 67110400;
-                *(v24 + 4) = 2;
-                *(v24 + 8) = 2048;
-                *(v24 + 10) = v25;
-                *(v24 + 18) = 2048;
-                *(v24 + 20) = v26;
-                *(v24 + 28) = 1024;
-                *(v24 + 30) = v27;
-                *(v24 + 34) = 1024;
-                *(v24 + 36) = v28;
-                *(v24 + 40) = 2048;
-                *(v24 + 42) = v29;
-                Phase::Logger::GetInstance(v24);
+                v25 = _os_log_pack_fill(message + 40, v22, 0, &dword_23A302000, "(Convolver1x%i)%p[%llx] Crossfade interrupt with %i delay frames and %i xfade frames remaining @ VE Frame %llu", v59, v60, *buf, *&buf[8], *&buf[16], *&v62[4]);
+                v26 = *(a1 + 16);
+                v27 = *(a1 + 32);
+                v28 = *(a1 + 684);
+                v29 = *(a1 + 680);
+                v30 = *(*(v26 + 576) + 96);
+                *v25 = 67110400;
+                *(v25 + 4) = 2;
+                *(v25 + 8) = 2048;
+                *(v25 + 10) = v26;
+                *(v25 + 18) = 2048;
+                *(v25 + 20) = v27;
+                *(v25 + 28) = 1024;
+                *(v25 + 30) = v28;
+                *(v25 + 34) = 1024;
+                *(v25 + 36) = v29;
+                *(v25 + 40) = 2048;
+                *(v25 + 42) = v30;
+                Phase::Logger::GetInstance(v25);
                 caulk::concurrent::messenger::enqueue();
               }
             }
@@ -1863,20 +1866,20 @@ LABEL_34:
             *(a1 + 672) = 1065353216;
             *(a1 + 676) = -1.0 / (v21 - 1);
             *(a1 + 680) = v21;
-            v30 = (*(*v12 + 72))(v12);
-            v31 = (*(*v12 + 40))(v12);
-            if (v31 <= (*(*v12 + 56))(v12))
+            v31 = (*(*v12 + 72))(v12);
+            v32 = (*(*v12 + 40))(v12);
+            if (v32 <= (*(*v12 + 56))(v12))
             {
-              v33 = 0;
+              v34 = 0;
             }
 
             else
             {
-              v32 = (*(*v12 + 80))(v12, (v30 - 1));
-              v33 = (*(*v32 + 56))(v32);
+              v33 = (*(*v12 + 80))(v12, (v31 - 1));
+              v34 = (*(*v33 + 56))(v33);
             }
 
-            *(a1 + 684) = v33;
+            *(a1 + 684) = v34;
             v8 = (*(*v14 + 40))(v14);
           }
 
@@ -1887,19 +1890,19 @@ LABEL_34:
 
     if (*(a1 + 697) == 1)
     {
-      v34 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
+        v36 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
         *&buf[14] = 253;
-        v62 = 1024;
-        *v63 = 2;
-        *&v63[4] = 2048;
-        *&v63[6] = v35;
-        _os_log_impl(&dword_23A302000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
+        *&buf[18] = 1024;
+        *v62 = 2;
+        *&v62[4] = 2048;
+        *&v62[6] = v36;
+        _os_log_impl(&dword_23A302000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
       }
 
       *(a1 + 697) = 0;
@@ -1909,24 +1912,24 @@ LABEL_34:
   }
 
 LABEL_35:
-  v36 = *(a1 + 656);
-  if (!v36)
+  v37 = *(a1 + 656);
+  if (!v37)
   {
     if (*(a1 + 698) == 1)
     {
-      v43 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v44 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
-        v44 = *(a1 + 32);
+        v45 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
         *&buf[14] = 271;
-        v62 = 2048;
-        *v63 = a1;
-        *&v63[8] = 2048;
-        *&v63[10] = v44;
-        _os_log_impl(&dword_23A302000, v43, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
+        *&buf[18] = 2048;
+        *v62 = a1;
+        *&v62[8] = 2048;
+        *&v62[10] = v45;
+        _os_log_impl(&dword_23A302000, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
       }
 
       *(a1 + 698) = 0;
@@ -1939,55 +1942,55 @@ LABEL_45:
   }
 
   *(a1 + 698) = 1;
-  v37 = *v36;
-  v38 = *(a1 + 664);
-  if (v38 && (v39 = *v38) != 0)
+  v38 = *v37;
+  v39 = *(a1 + 664);
+  if (v39 && (v40 = *v39) != 0)
   {
     if (*(a1 + 684) < 1)
     {
-      v45 = a1 + 664;
-      (*(*v37 + 24))(v37, v10, a1 + 640);
-      v46 = 0;
-      v47 = 1;
+      v46 = a1 + 664;
+      (*(*v38 + 24))(v38, v10, a1 + 640);
+      v47 = 0;
+      v48 = 1;
       do
       {
-        v48 = v47;
-        v49 = 1.0 - *(a1 + 672);
-        __Step = -*(a1 + 676);
-        *buf = v49;
-        vDSP_vrampmul(*(a1 + 640 + 8 * v46), 1, buf, &__Step, *(a1 + 640 + 8 * v46), 1, v4);
-        v47 = 0;
-        v46 = 1;
+        v49 = v48;
+        v50 = 1.0 - *(a1 + 672);
+        *(&v60 + 1) = -*(a1 + 676);
+        *buf = v50;
+        vDSP_vrampmul(*(a1 + 640 + 8 * v47), 1, buf, &v60 + 1, *(a1 + 640 + 8 * v47), 1, v4);
+        v48 = 0;
+        v47 = 1;
       }
 
-      while ((v48 & 1) != 0);
-      MEMORY[0x28223BE20](v50);
-      v52 = &v58 - v51;
-      bzero(&v58 - v51, v53);
-      *buf = v52;
-      *&buf[8] = &v52[4 * v4];
-      (*(*v39 + 24))(v39, v10, buf);
-      v54 = *(a1 + 672);
-      v59 = *(a1 + 676);
-      __Step = v54;
-      vDSP_vrampmuladd(*buf, 1, &__Step, &v59, *(a1 + 640), 1, v4);
+      while ((v49 & 1) != 0);
+      MEMORY[0x28223BE20](v51);
+      v53 = &v59 - v52;
+      bzero(&v59 - v52, v54);
+      *buf = v53;
+      *&buf[8] = &v53[4 * v4];
+      (*(*v40 + 24))(v40, v10, buf);
       v55 = *(a1 + 672);
-      v59 = *(a1 + 676);
-      __Step = v55;
-      vDSP_vrampmuladd(*&buf[8], 1, &__Step, &v59, *(a1 + 648), 1, v4);
-      v56 = v59;
-      *(a1 + 672) = __Step;
-      *(a1 + 676) = v56;
-      v57 = *(a1 + 680) - a2;
-      *(a1 + 680) = v57;
-      if (v57 < 1)
+      LODWORD(v60) = *(a1 + 676);
+      HIDWORD(v60) = v55;
+      vDSP_vrampmuladd(*buf, 1, &v60 + 1, &v60, *(a1 + 640), 1, v4);
+      v56 = *(a1 + 672);
+      LODWORD(v60) = *(a1 + 676);
+      HIDWORD(v60) = v56;
+      vDSP_vrampmuladd(*&buf[8], 1, &v60 + 1, &v60, *(a1 + 648), 1, v4);
+      v57 = v60;
+      *(a1 + 672) = HIDWORD(v60);
+      *(a1 + 676) = v57;
+      v58 = *(a1 + 680) - a2;
+      *(a1 + 680) = v58;
+      if (v58 < 1)
       {
-        if (*v45)
+        if (*v46)
         {
-          atomic_store(0, (*v45 + 12));
+          atomic_store(0, (*v46 + 12));
         }
 
-        *v45 = 0;
+        *v46 = 0;
         *(a1 + 672) = 0;
         *(a1 + 680) = 0;
       }
@@ -1996,19 +1999,19 @@ LABEL_45:
     else
     {
       MEMORY[0x28223BE20](v8);
-      v41 = &v58 - v40;
-      bzero(&v58 - v40, v42);
-      *buf = v41;
-      *&buf[8] = &v41[4 * v4];
-      (*(*v39 + 24))(v39, v10, a1 + 640);
-      (*(*v37 + 24))(v37, v10, buf);
+      v42 = &v59 - v41;
+      bzero(&v59 - v41, v43);
+      *buf = v42;
+      *&buf[8] = &v42[4 * v4];
+      (*(*v40 + 24))(v40, v10, a1 + 640);
+      (*(*v38 + 24))(v38, v10, buf);
       *(a1 + 684) -= a2;
     }
   }
 
   else
   {
-    (*(*v37 + 24))(v37, v10, a1 + 640);
+    (*(*v38 + 24))(v38, v10, a1 + 640);
   }
 }
 
@@ -2160,8 +2163,8 @@ void Phase::DspLayer23::ConvolverSlice<3>::Process(uint64_t a1, int a2)
   v63 = *MEMORY[0x277D85DE8];
   v4 = a2;
   MEMORY[0x28223BE20](a1);
-  v6 = (&v59 - v5);
-  bzero(&v59 - v5, v7);
+  v6 = (&v60 - v5);
+  bzero(&v60 - v5, v7);
   v8 = Phase::DspLayer23::AudioConnections::Sum((a1 + 640), v4, v6);
   v9 = *(a1 + 824);
   if (!v9)
@@ -2261,27 +2264,28 @@ LABEL_34:
             {
               v22 = _os_log_pack_size();
               Instance = Phase::Logger::GetInstance(v22);
-              if (caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0))
+              message = caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0);
+              if (message)
               {
-                v24 = _os_log_pack_fill();
-                v25 = *(a1 + 16);
-                v26 = *(a1 + 32);
-                v27 = *(a1 + 820);
-                v28 = *(a1 + 816);
-                v29 = *(*(v25 + 576) + 96);
-                *v24 = 67110400;
-                *(v24 + 4) = 3;
-                *(v24 + 8) = 2048;
-                *(v24 + 10) = v25;
-                *(v24 + 18) = 2048;
-                *(v24 + 20) = v26;
-                *(v24 + 28) = 1024;
-                *(v24 + 30) = v27;
-                *(v24 + 34) = 1024;
-                *(v24 + 36) = v28;
-                *(v24 + 40) = 2048;
-                *(v24 + 42) = v29;
-                Phase::Logger::GetInstance(v24);
+                v25 = _os_log_pack_fill(message + 40, v22, 0, &dword_23A302000, "(Convolver1x%i)%p[%llx] Crossfade interrupt with %i delay frames and %i xfade frames remaining @ VE Frame %llu", v60, v61, *buf, *&buf[8], *&buf[16], *&buf[24]);
+                v26 = *(a1 + 16);
+                v27 = *(a1 + 32);
+                v28 = *(a1 + 820);
+                v29 = *(a1 + 816);
+                v30 = *(*(v26 + 576) + 96);
+                *v25 = 67110400;
+                *(v25 + 4) = 3;
+                *(v25 + 8) = 2048;
+                *(v25 + 10) = v26;
+                *(v25 + 18) = 2048;
+                *(v25 + 20) = v27;
+                *(v25 + 28) = 1024;
+                *(v25 + 30) = v28;
+                *(v25 + 34) = 1024;
+                *(v25 + 36) = v29;
+                *(v25 + 40) = 2048;
+                *(v25 + 42) = v30;
+                Phase::Logger::GetInstance(v25);
                 caulk::concurrent::messenger::enqueue();
               }
             }
@@ -2289,20 +2293,20 @@ LABEL_34:
             *(a1 + 808) = 1065353216;
             *(a1 + 812) = -1.0 / (v21 - 1);
             *(a1 + 816) = v21;
-            v30 = (*(*v12 + 72))(v12);
-            v31 = (*(*v12 + 40))(v12);
-            if (v31 <= (*(*v12 + 56))(v12))
+            v31 = (*(*v12 + 72))(v12);
+            v32 = (*(*v12 + 40))(v12);
+            if (v32 <= (*(*v12 + 56))(v12))
             {
-              v33 = 0;
+              v34 = 0;
             }
 
             else
             {
-              v32 = (*(*v12 + 80))(v12, (v30 - 1));
-              v33 = (*(*v32 + 56))(v32);
+              v33 = (*(*v12 + 80))(v12, (v31 - 1));
+              v34 = (*(*v33 + 56))(v33);
             }
 
-            *(a1 + 820) = v33;
+            *(a1 + 820) = v34;
             v8 = (*(*v14 + 40))(v14);
           }
 
@@ -2313,10 +2317,10 @@ LABEL_34:
 
     if (*(a1 + 833) == 1)
     {
-      v34 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
+        v36 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -2324,8 +2328,8 @@ LABEL_34:
         *&buf[18] = 1024;
         *&buf[20] = 3;
         *&buf[24] = 2048;
-        *&buf[26] = v35;
-        _os_log_impl(&dword_23A302000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
+        *&buf[26] = v36;
+        _os_log_impl(&dword_23A302000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
       }
 
       *(a1 + 833) = 0;
@@ -2335,15 +2339,15 @@ LABEL_34:
   }
 
 LABEL_35:
-  v36 = *(a1 + 792);
-  if (!v36)
+  v37 = *(a1 + 792);
+  if (!v37)
   {
     if (*(a1 + 834) == 1)
     {
-      v43 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v44 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
-        v44 = *(a1 + 32);
+        v45 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -2351,72 +2355,72 @@ LABEL_35:
         *&buf[18] = 2048;
         *&buf[20] = a1;
         *&buf[28] = 2048;
-        *&buf[30] = v44;
-        _os_log_impl(&dword_23A302000, v43, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
+        *&buf[30] = v45;
+        _os_log_impl(&dword_23A302000, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
       }
 
       *(a1 + 834) = 0;
     }
 
 LABEL_45:
-    v45 = 0;
-    v46 = a1 + 768;
+    v46 = 0;
+    v47 = a1 + 768;
     do
     {
-      vDSP_vclr(*(v46 + v45), 1, v4);
-      v45 += 8;
+      vDSP_vclr(*(v47 + v46), 1, v4);
+      v46 += 8;
     }
 
-    while (v45 != 24);
+    while (v46 != 24);
     return;
   }
 
   *(a1 + 834) = 1;
-  v37 = *v36;
-  v38 = *(a1 + 800);
-  if (v38 && (v39 = *v38) != 0)
+  v38 = *v37;
+  v39 = *(a1 + 800);
+  if (v39 && (v40 = *v39) != 0)
   {
     if (*(a1 + 820) < 1)
     {
-      v47 = a1 + 800;
-      v48 = a1 + 768;
-      (*(*v37 + 24))(v37, v10, a1 + 768);
+      v48 = a1 + 800;
+      v49 = a1 + 768;
+      (*(*v38 + 24))(v38, v10, a1 + 768);
       for (i = 0; i != 24; i += 8)
       {
-        v50 = 1.0 - *(a1 + 808);
-        __Step = -*(a1 + 812);
-        *buf = v50;
-        vDSP_vrampmul(*(v48 + i), 1, buf, &__Step, *(v48 + i), 1, v4);
+        v51 = 1.0 - *(a1 + 808);
+        *(&v61 + 1) = -*(a1 + 812);
+        *buf = v51;
+        vDSP_vrampmul(*(v49 + i), 1, buf, &v61 + 1, *(v49 + i), 1, v4);
       }
 
-      MEMORY[0x28223BE20](v51);
-      v53 = &v59 - v52;
-      bzero(&v59 - v52, v54);
-      *buf = v53;
-      *&buf[8] = &v53[4 * v4];
-      *&buf[16] = &v53[8 * v4];
-      (*(*v39 + 24))(v39, v10, buf);
+      MEMORY[0x28223BE20](v52);
+      v54 = &v60 - v53;
+      bzero(&v60 - v53, v55);
+      *buf = v54;
+      *&buf[8] = &v54[4 * v4];
+      *&buf[16] = &v54[8 * v4];
+      (*(*v40 + 24))(v40, v10, buf);
       for (j = 0; j != 24; j += 8)
       {
-        v56 = *(a1 + 808);
-        v60 = *(a1 + 812);
-        __Step = v56;
-        vDSP_vrampmuladd(*&buf[j], 1, &__Step, &v60, *(v48 + j), 1, v4);
+        v57 = *(a1 + 808);
+        LODWORD(v61) = *(a1 + 812);
+        HIDWORD(v61) = v57;
+        vDSP_vrampmuladd(*&buf[j], 1, &v61 + 1, &v61, *(v49 + j), 1, v4);
       }
 
-      v57 = v60;
-      *(a1 + 808) = __Step;
-      *(a1 + 812) = v57;
-      v58 = *(a1 + 816) - a2;
-      *(a1 + 816) = v58;
-      if (v58 < 1)
+      v58 = v61;
+      *(a1 + 808) = HIDWORD(v61);
+      *(a1 + 812) = v58;
+      v59 = *(a1 + 816) - a2;
+      *(a1 + 816) = v59;
+      if (v59 < 1)
       {
-        if (*v47)
+        if (*v48)
         {
-          atomic_store(0, (*v47 + 12));
+          atomic_store(0, (*v48 + 12));
         }
 
-        *v47 = 0;
+        *v48 = 0;
         *(a1 + 808) = 0;
         *(a1 + 816) = 0;
       }
@@ -2425,20 +2429,20 @@ LABEL_45:
     else
     {
       MEMORY[0x28223BE20](v8);
-      v41 = &v59 - v40;
-      bzero(&v59 - v40, v42);
-      *buf = v41;
-      *&buf[8] = &v41[4 * v4];
-      *&buf[16] = &v41[8 * v4];
-      (*(*v39 + 24))(v39, v10, a1 + 768);
-      (*(*v37 + 24))(v37, v10, buf);
+      v42 = &v60 - v41;
+      bzero(&v60 - v41, v43);
+      *buf = v42;
+      *&buf[8] = &v42[4 * v4];
+      *&buf[16] = &v42[8 * v4];
+      (*(*v40 + 24))(v40, v10, a1 + 768);
+      (*(*v38 + 24))(v38, v10, buf);
       *(a1 + 820) -= a2;
     }
   }
 
   else
   {
-    (*(*v37 + 24))(v37, v10, a1 + 768);
+    (*(*v38 + 24))(v38, v10, a1 + 768);
   }
 }
 
@@ -2591,8 +2595,8 @@ void Phase::DspLayer23::ConvolverSlice<4>::Process(uint64_t a1, int a2)
   v65 = *MEMORY[0x277D85DE8];
   v4 = a2;
   MEMORY[0x28223BE20](a1);
-  v6 = (&v61 - v5);
-  bzero(&v61 - v5, v7);
+  v6 = (v62 - v5);
+  bzero(v62 - v5, v7);
   v8 = Phase::DspLayer23::AudioConnections::Sum((a1 + 768), v4, v6);
   v9 = *(a1 + 960);
   if (!v9)
@@ -2692,27 +2696,28 @@ LABEL_34:
             {
               v22 = _os_log_pack_size();
               Instance = Phase::Logger::GetInstance(v22);
-              if (caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0))
+              message = caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0);
+              if (message)
               {
-                v24 = _os_log_pack_fill();
-                v25 = *(a1 + 16);
-                v26 = *(a1 + 32);
-                v27 = *(a1 + 956);
-                v28 = *(a1 + 952);
-                v29 = *(*(v25 + 576) + 96);
-                *v24 = 67110400;
-                *(v24 + 4) = 4;
-                *(v24 + 8) = 2048;
-                *(v24 + 10) = v25;
-                *(v24 + 18) = 2048;
-                *(v24 + 20) = v26;
-                *(v24 + 28) = 1024;
-                *(v24 + 30) = v27;
-                *(v24 + 34) = 1024;
-                *(v24 + 36) = v28;
-                *(v24 + 40) = 2048;
-                *(v24 + 42) = v29;
-                Phase::Logger::GetInstance(v24);
+                v25 = _os_log_pack_fill(message + 40, v22, 0, &dword_23A302000, "(Convolver1x%i)%p[%llx] Crossfade interrupt with %i delay frames and %i xfade frames remaining @ VE Frame %llu", v62[0], v63, *buf, *&buf[8], *&buf[16], *&buf[24]);
+                v26 = *(a1 + 16);
+                v27 = *(a1 + 32);
+                v28 = *(a1 + 956);
+                v29 = *(a1 + 952);
+                v30 = *(*(v26 + 576) + 96);
+                *v25 = 67110400;
+                *(v25 + 4) = 4;
+                *(v25 + 8) = 2048;
+                *(v25 + 10) = v26;
+                *(v25 + 18) = 2048;
+                *(v25 + 20) = v27;
+                *(v25 + 28) = 1024;
+                *(v25 + 30) = v28;
+                *(v25 + 34) = 1024;
+                *(v25 + 36) = v29;
+                *(v25 + 40) = 2048;
+                *(v25 + 42) = v30;
+                Phase::Logger::GetInstance(v25);
                 caulk::concurrent::messenger::enqueue();
               }
             }
@@ -2720,20 +2725,20 @@ LABEL_34:
             *(a1 + 944) = 1065353216;
             *(a1 + 948) = -1.0 / (v21 - 1);
             *(a1 + 952) = v21;
-            v30 = (*(*v12 + 72))(v12);
-            v31 = (*(*v12 + 40))(v12);
-            if (v31 <= (*(*v12 + 56))(v12))
+            v31 = (*(*v12 + 72))(v12);
+            v32 = (*(*v12 + 40))(v12);
+            if (v32 <= (*(*v12 + 56))(v12))
             {
-              v33 = 0;
+              v34 = 0;
             }
 
             else
             {
-              v32 = (*(*v12 + 80))(v12, (v30 - 1));
-              v33 = (*(*v32 + 56))(v32);
+              v33 = (*(*v12 + 80))(v12, (v31 - 1));
+              v34 = (*(*v33 + 56))(v33);
             }
 
-            *(a1 + 956) = v33;
+            *(a1 + 956) = v34;
             v8 = (*(*v14 + 40))(v14);
           }
 
@@ -2744,10 +2749,10 @@ LABEL_34:
 
     if (*(a1 + 969) == 1)
     {
-      v34 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
+        v36 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -2755,8 +2760,8 @@ LABEL_34:
         *&buf[18] = 1024;
         *&buf[20] = 4;
         *&buf[24] = 2048;
-        *&buf[26] = v35;
-        _os_log_impl(&dword_23A302000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
+        *&buf[26] = v36;
+        _os_log_impl(&dword_23A302000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
       }
 
       *(a1 + 969) = 0;
@@ -2766,15 +2771,15 @@ LABEL_34:
   }
 
 LABEL_35:
-  v36 = *(a1 + 928);
-  if (!v36)
+  v37 = *(a1 + 928);
+  if (!v37)
   {
     if (*(a1 + 970) == 1)
     {
-      v44 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v45 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        v45 = *(a1 + 32);
+        v46 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -2782,79 +2787,79 @@ LABEL_35:
         *&buf[18] = 2048;
         *&buf[20] = a1;
         *&buf[28] = 2048;
-        *&buf[30] = v45;
-        _os_log_impl(&dword_23A302000, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
+        *&buf[30] = v46;
+        _os_log_impl(&dword_23A302000, v45, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
       }
 
       *(a1 + 970) = 0;
     }
 
 LABEL_47:
-    v46 = 0;
-    v47 = a1 + 896;
+    v47 = 0;
+    v48 = a1 + 896;
     do
     {
-      vDSP_vclr(*(v47 + v46), 1, v4);
-      v46 += 8;
+      vDSP_vclr(*(v48 + v47), 1, v4);
+      v47 += 8;
     }
 
-    while (v46 != 32);
+    while (v47 != 32);
     return;
   }
 
   *(a1 + 970) = 1;
-  v37 = *v36;
-  v38 = *(a1 + 936);
-  if (v38 && (v39 = *v38) != 0)
+  v38 = *v37;
+  v39 = *(a1 + 936);
+  if (v39 && (v40 = *v39) != 0)
   {
     if (*(a1 + 956) < 1)
     {
-      v48 = a1 + 936;
-      v49 = a1 + 896;
-      (*(*v37 + 24))(v37, v10, a1 + 896);
+      v49 = a1 + 936;
+      v50 = a1 + 896;
+      (*(*v38 + 24))(v38, v10, a1 + 896);
       for (i = 0; i != 32; i += 8)
       {
-        v51 = 1.0 - *(a1 + 944);
-        __Step = -*(a1 + 948);
-        *buf = v51;
-        vDSP_vrampmul(*(v49 + i), 1, buf, &__Step, *(v49 + i), 1, v4);
+        v52 = 1.0 - *(a1 + 944);
+        *(&v63 + 1) = -*(a1 + 948);
+        *buf = v52;
+        vDSP_vrampmul(*(v50 + i), 1, buf, &v63 + 1, *(v50 + i), 1, v4);
       }
 
-      MEMORY[0x28223BE20](v52);
-      v54 = &v61 - 4 * v53;
-      bzero(v54, v55);
-      v56 = 0;
+      MEMORY[0x28223BE20](v53);
+      v55 = &v62[-v54];
+      bzero(v55, v56);
+      v57 = 0;
       memset(buf, 0, 32);
       do
       {
-        *&buf[v56] = v54;
-        v56 += 8;
-        v54 += 4 * v4;
+        *&buf[v57] = v55;
+        v57 += 8;
+        v55 += v4;
       }
 
-      while (v56 != 32);
-      (*(*v39 + 24))(v39, v10, buf);
+      while (v57 != 32);
+      (*(*v40 + 24))(v40, v10, buf);
       for (j = 0; j != 32; j += 8)
       {
-        v58 = *(a1 + 944);
-        v62 = *(a1 + 948);
-        __Step = v58;
-        vDSP_vrampmuladd(*&buf[j], 1, &__Step, &v62, *(v49 + j), 1, v4);
+        v59 = *(a1 + 944);
+        LODWORD(v63) = *(a1 + 948);
+        HIDWORD(v63) = v59;
+        vDSP_vrampmuladd(*&buf[j], 1, &v63 + 1, &v63, *(v50 + j), 1, v4);
       }
 
-      v59 = v62;
-      *(a1 + 944) = __Step;
-      *(a1 + 948) = v59;
-      v60 = *(a1 + 952) - a2;
-      *(a1 + 952) = v60;
-      if (v60 < 1)
+      v60 = v63;
+      *(a1 + 944) = HIDWORD(v63);
+      *(a1 + 948) = v60;
+      v61 = *(a1 + 952) - a2;
+      *(a1 + 952) = v61;
+      if (v61 < 1)
       {
-        if (*v48)
+        if (*v49)
         {
-          atomic_store(0, (*v48 + 12));
+          atomic_store(0, (*v49 + 12));
         }
 
-        *v48 = 0;
+        *v49 = 0;
         *(a1 + 944) = 0;
         *(a1 + 952) = 0;
       }
@@ -2863,27 +2868,27 @@ LABEL_47:
     else
     {
       MEMORY[0x28223BE20](v8);
-      v41 = &v61 - 4 * v40;
-      bzero(v41, v42);
-      v43 = 0;
+      v42 = &v62[-v41];
+      bzero(v42, v43);
+      v44 = 0;
       memset(buf, 0, 32);
       do
       {
-        *&buf[v43] = v41;
-        v43 += 8;
-        v41 += 4 * v4;
+        *&buf[v44] = v42;
+        v44 += 8;
+        v42 += v4;
       }
 
-      while (v43 != 32);
-      (*(*v39 + 24))(v39, v10, a1 + 896);
-      (*(*v37 + 24))(v37, v10, buf);
+      while (v44 != 32);
+      (*(*v40 + 24))(v40, v10, a1 + 896);
+      (*(*v38 + 24))(v38, v10, buf);
       *(a1 + 956) -= a2;
     }
   }
 
   else
   {
-    (*(*v37 + 24))(v37, v10, a1 + 896);
+    (*(*v38 + 24))(v38, v10, a1 + 896);
   }
 }
 
@@ -3038,8 +3043,8 @@ void Phase::DspLayer23::ConvolverSlice<5>::Process(uint64_t a1, int a2)
   v65 = *MEMORY[0x277D85DE8];
   v4 = a2;
   MEMORY[0x28223BE20](a1);
-  v6 = (&v61 - v5);
-  bzero(&v61 - v5, v7);
+  v6 = (&v62 - v5);
+  bzero(&v62 - v5, v7);
   v8 = Phase::DspLayer23::AudioConnections::Sum((a1 + 896), v4, v6);
   v9 = *(a1 + 1096);
   if (!v9)
@@ -3139,27 +3144,28 @@ LABEL_34:
             {
               v22 = _os_log_pack_size();
               Instance = Phase::Logger::GetInstance(v22);
-              if (caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0))
+              message = caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0);
+              if (message)
               {
-                v24 = _os_log_pack_fill();
-                v25 = *(a1 + 16);
-                v26 = *(a1 + 32);
-                v27 = *(a1 + 1092);
-                v28 = *(a1 + 1088);
-                v29 = *(*(v25 + 576) + 96);
-                *v24 = 67110400;
-                *(v24 + 4) = 5;
-                *(v24 + 8) = 2048;
-                *(v24 + 10) = v25;
-                *(v24 + 18) = 2048;
-                *(v24 + 20) = v26;
-                *(v24 + 28) = 1024;
-                *(v24 + 30) = v27;
-                *(v24 + 34) = 1024;
-                *(v24 + 36) = v28;
-                *(v24 + 40) = 2048;
-                *(v24 + 42) = v29;
-                Phase::Logger::GetInstance(v24);
+                v25 = _os_log_pack_fill(message + 40, v22, 0, &dword_23A302000, "(Convolver1x%i)%p[%llx] Crossfade interrupt with %i delay frames and %i xfade frames remaining @ VE Frame %llu", v62, v63, *buf, *&buf[8], *&buf[16], *&buf[24]);
+                v26 = *(a1 + 16);
+                v27 = *(a1 + 32);
+                v28 = *(a1 + 1092);
+                v29 = *(a1 + 1088);
+                v30 = *(*(v26 + 576) + 96);
+                *v25 = 67110400;
+                *(v25 + 4) = 5;
+                *(v25 + 8) = 2048;
+                *(v25 + 10) = v26;
+                *(v25 + 18) = 2048;
+                *(v25 + 20) = v27;
+                *(v25 + 28) = 1024;
+                *(v25 + 30) = v28;
+                *(v25 + 34) = 1024;
+                *(v25 + 36) = v29;
+                *(v25 + 40) = 2048;
+                *(v25 + 42) = v30;
+                Phase::Logger::GetInstance(v25);
                 caulk::concurrent::messenger::enqueue();
               }
             }
@@ -3167,20 +3173,20 @@ LABEL_34:
             *(a1 + 1080) = 1065353216;
             *(a1 + 1084) = -1.0 / (v21 - 1);
             *(a1 + 1088) = v21;
-            v30 = (*(*v12 + 72))(v12);
-            v31 = (*(*v12 + 40))(v12);
-            if (v31 <= (*(*v12 + 56))(v12))
+            v31 = (*(*v12 + 72))(v12);
+            v32 = (*(*v12 + 40))(v12);
+            if (v32 <= (*(*v12 + 56))(v12))
             {
-              v33 = 0;
+              v34 = 0;
             }
 
             else
             {
-              v32 = (*(*v12 + 80))(v12, (v30 - 1));
-              v33 = (*(*v32 + 56))(v32);
+              v33 = (*(*v12 + 80))(v12, (v31 - 1));
+              v34 = (*(*v33 + 56))(v33);
             }
 
-            *(a1 + 1092) = v33;
+            *(a1 + 1092) = v34;
             v8 = (*(*v14 + 40))(v14);
           }
 
@@ -3191,10 +3197,10 @@ LABEL_34:
 
     if (*(a1 + 1105) == 1)
     {
-      v34 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
+        v36 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -3202,8 +3208,8 @@ LABEL_34:
         *&buf[18] = 1024;
         *&buf[20] = 5;
         *&buf[24] = 2048;
-        *&buf[26] = v35;
-        _os_log_impl(&dword_23A302000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
+        *&buf[26] = v36;
+        _os_log_impl(&dword_23A302000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
       }
 
       *(a1 + 1105) = 0;
@@ -3213,15 +3219,15 @@ LABEL_34:
   }
 
 LABEL_35:
-  v36 = *(a1 + 1064);
-  if (!v36)
+  v37 = *(a1 + 1064);
+  if (!v37)
   {
     if (*(a1 + 1106) == 1)
     {
-      v44 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v45 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        v45 = *(a1 + 32);
+        v46 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -3229,79 +3235,79 @@ LABEL_35:
         *&buf[18] = 2048;
         *&buf[20] = a1;
         *&buf[28] = 2048;
-        *&buf[30] = v45;
-        _os_log_impl(&dword_23A302000, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
+        *&buf[30] = v46;
+        _os_log_impl(&dword_23A302000, v45, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
       }
 
       *(a1 + 1106) = 0;
     }
 
 LABEL_47:
-    v46 = 0;
-    v47 = a1 + 1024;
+    v47 = 0;
+    v48 = a1 + 1024;
     do
     {
-      vDSP_vclr(*(v47 + v46), 1, v4);
-      v46 += 8;
+      vDSP_vclr(*(v48 + v47), 1, v4);
+      v47 += 8;
     }
 
-    while (v46 != 40);
+    while (v47 != 40);
     return;
   }
 
   *(a1 + 1106) = 1;
-  v37 = *v36;
-  v38 = *(a1 + 1072);
-  if (v38 && (v39 = *v38) != 0)
+  v38 = *v37;
+  v39 = *(a1 + 1072);
+  if (v39 && (v40 = *v39) != 0)
   {
     if (*(a1 + 1092) < 1)
     {
-      v48 = a1 + 1072;
-      v49 = a1 + 1024;
-      (*(*v37 + 24))(v37, v10, a1 + 1024);
+      v49 = a1 + 1072;
+      v50 = a1 + 1024;
+      (*(*v38 + 24))(v38, v10, a1 + 1024);
       for (i = 0; i != 40; i += 8)
       {
-        v51 = 1.0 - *(a1 + 1080);
-        __Step = -*(a1 + 1084);
-        *buf = v51;
-        vDSP_vrampmul(*(v49 + i), 1, buf, &__Step, *(v49 + i), 1, v4);
+        v52 = 1.0 - *(a1 + 1080);
+        *(&v63 + 1) = -*(a1 + 1084);
+        *buf = v52;
+        vDSP_vrampmul(*(v50 + i), 1, buf, &v63 + 1, *(v50 + i), 1, v4);
       }
 
-      MEMORY[0x28223BE20](v52);
-      v54 = &v61 - v53;
-      bzero(&v61 - v53, v55);
-      v56 = 0;
+      MEMORY[0x28223BE20](v53);
+      v55 = &v62 - v54;
+      bzero(&v62 - v54, v56);
+      v57 = 0;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v56] = v54;
-        v56 += 8;
-        v54 += 4 * v4;
+        *&buf[v57] = v55;
+        v57 += 8;
+        v55 += 4 * v4;
       }
 
-      while (v56 != 40);
-      (*(*v39 + 24))(v39, v10, buf);
+      while (v57 != 40);
+      (*(*v40 + 24))(v40, v10, buf);
       for (j = 0; j != 40; j += 8)
       {
-        v58 = *(a1 + 1080);
-        v62 = *(a1 + 1084);
-        __Step = v58;
-        vDSP_vrampmuladd(*&buf[j], 1, &__Step, &v62, *(v49 + j), 1, v4);
+        v59 = *(a1 + 1080);
+        LODWORD(v63) = *(a1 + 1084);
+        HIDWORD(v63) = v59;
+        vDSP_vrampmuladd(*&buf[j], 1, &v63 + 1, &v63, *(v50 + j), 1, v4);
       }
 
-      v59 = v62;
-      *(a1 + 1080) = __Step;
-      *(a1 + 1084) = v59;
-      v60 = *(a1 + 1088) - a2;
-      *(a1 + 1088) = v60;
-      if (v60 < 1)
+      v60 = v63;
+      *(a1 + 1080) = HIDWORD(v63);
+      *(a1 + 1084) = v60;
+      v61 = *(a1 + 1088) - a2;
+      *(a1 + 1088) = v61;
+      if (v61 < 1)
       {
-        if (*v48)
+        if (*v49)
         {
-          atomic_store(0, (*v48 + 12));
+          atomic_store(0, (*v49 + 12));
         }
 
-        *v48 = 0;
+        *v49 = 0;
         *(a1 + 1080) = 0;
         *(a1 + 1088) = 0;
       }
@@ -3310,27 +3316,27 @@ LABEL_47:
     else
     {
       MEMORY[0x28223BE20](v8);
-      v41 = &v61 - v40;
-      bzero(&v61 - v40, v42);
-      v43 = 0;
+      v42 = &v62 - v41;
+      bzero(&v62 - v41, v43);
+      v44 = 0;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v43] = v41;
-        v43 += 8;
-        v41 += 4 * v4;
+        *&buf[v44] = v42;
+        v44 += 8;
+        v42 += 4 * v4;
       }
 
-      while (v43 != 40);
-      (*(*v39 + 24))(v39, v10, a1 + 1024);
-      (*(*v37 + 24))(v37, v10, buf);
+      while (v44 != 40);
+      (*(*v40 + 24))(v40, v10, a1 + 1024);
+      (*(*v38 + 24))(v38, v10, buf);
       *(a1 + 1092) -= a2;
     }
   }
 
   else
   {
-    (*(*v37 + 24))(v37, v10, a1 + 1024);
+    (*(*v38 + 24))(v38, v10, a1 + 1024);
   }
 }
 
@@ -3488,8 +3494,8 @@ void Phase::DspLayer23::ConvolverSlice<6>::Process(uint64_t a1, int a2)
   v65 = *MEMORY[0x277D85DE8];
   v4 = a2;
   MEMORY[0x28223BE20](a1);
-  v6 = (&v61 - v5);
-  bzero(&v61 - v5, v7);
+  v6 = (&v62 - v5);
+  bzero(&v62 - v5, v7);
   v8 = Phase::DspLayer23::AudioConnections::Sum((a1 + 1024), v4, v6);
   v9 = *(a1 + 1232);
   if (!v9)
@@ -3589,27 +3595,28 @@ LABEL_34:
             {
               v22 = _os_log_pack_size();
               Instance = Phase::Logger::GetInstance(v22);
-              if (caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0))
+              message = caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0);
+              if (message)
               {
-                v24 = _os_log_pack_fill();
-                v25 = *(a1 + 16);
-                v26 = *(a1 + 32);
-                v27 = *(a1 + 1228);
-                v28 = *(a1 + 1224);
-                v29 = *(*(v25 + 576) + 96);
-                *v24 = 67110400;
-                *(v24 + 4) = 6;
-                *(v24 + 8) = 2048;
-                *(v24 + 10) = v25;
-                *(v24 + 18) = 2048;
-                *(v24 + 20) = v26;
-                *(v24 + 28) = 1024;
-                *(v24 + 30) = v27;
-                *(v24 + 34) = 1024;
-                *(v24 + 36) = v28;
-                *(v24 + 40) = 2048;
-                *(v24 + 42) = v29;
-                Phase::Logger::GetInstance(v24);
+                v25 = _os_log_pack_fill(message + 40, v22, 0, &dword_23A302000, "(Convolver1x%i)%p[%llx] Crossfade interrupt with %i delay frames and %i xfade frames remaining @ VE Frame %llu", v62, v63, *buf, *&buf[8], *&buf[16], *&buf[24]);
+                v26 = *(a1 + 16);
+                v27 = *(a1 + 32);
+                v28 = *(a1 + 1228);
+                v29 = *(a1 + 1224);
+                v30 = *(*(v26 + 576) + 96);
+                *v25 = 67110400;
+                *(v25 + 4) = 6;
+                *(v25 + 8) = 2048;
+                *(v25 + 10) = v26;
+                *(v25 + 18) = 2048;
+                *(v25 + 20) = v27;
+                *(v25 + 28) = 1024;
+                *(v25 + 30) = v28;
+                *(v25 + 34) = 1024;
+                *(v25 + 36) = v29;
+                *(v25 + 40) = 2048;
+                *(v25 + 42) = v30;
+                Phase::Logger::GetInstance(v25);
                 caulk::concurrent::messenger::enqueue();
               }
             }
@@ -3617,20 +3624,20 @@ LABEL_34:
             *(a1 + 1216) = 1065353216;
             *(a1 + 1220) = -1.0 / (v21 - 1);
             *(a1 + 1224) = v21;
-            v30 = (*(*v12 + 72))(v12);
-            v31 = (*(*v12 + 40))(v12);
-            if (v31 <= (*(*v12 + 56))(v12))
+            v31 = (*(*v12 + 72))(v12);
+            v32 = (*(*v12 + 40))(v12);
+            if (v32 <= (*(*v12 + 56))(v12))
             {
-              v33 = 0;
+              v34 = 0;
             }
 
             else
             {
-              v32 = (*(*v12 + 80))(v12, (v30 - 1));
-              v33 = (*(*v32 + 56))(v32);
+              v33 = (*(*v12 + 80))(v12, (v31 - 1));
+              v34 = (*(*v33 + 56))(v33);
             }
 
-            *(a1 + 1228) = v33;
+            *(a1 + 1228) = v34;
             v8 = (*(*v14 + 40))(v14);
           }
 
@@ -3641,10 +3648,10 @@ LABEL_34:
 
     if (*(a1 + 1241) == 1)
     {
-      v34 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
+        v36 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -3652,8 +3659,8 @@ LABEL_34:
         *&buf[18] = 1024;
         *&buf[20] = 6;
         *&buf[24] = 2048;
-        *&buf[26] = v35;
-        _os_log_impl(&dword_23A302000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
+        *&buf[26] = v36;
+        _os_log_impl(&dword_23A302000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
       }
 
       *(a1 + 1241) = 0;
@@ -3663,15 +3670,15 @@ LABEL_34:
   }
 
 LABEL_35:
-  v36 = *(a1 + 1200);
-  if (!v36)
+  v37 = *(a1 + 1200);
+  if (!v37)
   {
     if (*(a1 + 1242) == 1)
     {
-      v44 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v45 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        v45 = *(a1 + 32);
+        v46 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -3679,79 +3686,79 @@ LABEL_35:
         *&buf[18] = 2048;
         *&buf[20] = a1;
         *&buf[28] = 2048;
-        *&buf[30] = v45;
-        _os_log_impl(&dword_23A302000, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
+        *&buf[30] = v46;
+        _os_log_impl(&dword_23A302000, v45, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
       }
 
       *(a1 + 1242) = 0;
     }
 
 LABEL_47:
-    v46 = 0;
-    v47 = a1 + 1152;
+    v47 = 0;
+    v48 = a1 + 1152;
     do
     {
-      vDSP_vclr(*(v47 + v46), 1, v4);
-      v46 += 8;
+      vDSP_vclr(*(v48 + v47), 1, v4);
+      v47 += 8;
     }
 
-    while (v46 != 48);
+    while (v47 != 48);
     return;
   }
 
   *(a1 + 1242) = 1;
-  v37 = *v36;
-  v38 = *(a1 + 1208);
-  if (v38 && (v39 = *v38) != 0)
+  v38 = *v37;
+  v39 = *(a1 + 1208);
+  if (v39 && (v40 = *v39) != 0)
   {
     if (*(a1 + 1228) < 1)
     {
-      v48 = a1 + 1208;
-      v49 = a1 + 1152;
-      (*(*v37 + 24))(v37, v10, a1 + 1152);
+      v49 = a1 + 1208;
+      v50 = a1 + 1152;
+      (*(*v38 + 24))(v38, v10, a1 + 1152);
       for (i = 0; i != 48; i += 8)
       {
-        v51 = 1.0 - *(a1 + 1216);
-        __Step = -*(a1 + 1220);
-        *buf = v51;
-        vDSP_vrampmul(*(v49 + i), 1, buf, &__Step, *(v49 + i), 1, v4);
+        v52 = 1.0 - *(a1 + 1216);
+        *(&v63 + 1) = -*(a1 + 1220);
+        *buf = v52;
+        vDSP_vrampmul(*(v50 + i), 1, buf, &v63 + 1, *(v50 + i), 1, v4);
       }
 
-      MEMORY[0x28223BE20](v52);
-      v54 = &v61 - v53;
-      bzero(&v61 - v53, v55);
-      v56 = 0;
+      MEMORY[0x28223BE20](v53);
+      v55 = &v62 - v54;
+      bzero(&v62 - v54, v56);
+      v57 = 0;
       memset(buf, 0, 48);
       do
       {
-        *&buf[v56] = v54;
-        v56 += 8;
-        v54 += 4 * v4;
+        *&buf[v57] = v55;
+        v57 += 8;
+        v55 += 4 * v4;
       }
 
-      while (v56 != 48);
-      (*(*v39 + 24))(v39, v10, buf);
+      while (v57 != 48);
+      (*(*v40 + 24))(v40, v10, buf);
       for (j = 0; j != 48; j += 8)
       {
-        v58 = *(a1 + 1216);
-        v62 = *(a1 + 1220);
-        __Step = v58;
-        vDSP_vrampmuladd(*&buf[j], 1, &__Step, &v62, *(v49 + j), 1, v4);
+        v59 = *(a1 + 1216);
+        LODWORD(v63) = *(a1 + 1220);
+        HIDWORD(v63) = v59;
+        vDSP_vrampmuladd(*&buf[j], 1, &v63 + 1, &v63, *(v50 + j), 1, v4);
       }
 
-      v59 = v62;
-      *(a1 + 1216) = __Step;
-      *(a1 + 1220) = v59;
-      v60 = *(a1 + 1224) - a2;
-      *(a1 + 1224) = v60;
-      if (v60 < 1)
+      v60 = v63;
+      *(a1 + 1216) = HIDWORD(v63);
+      *(a1 + 1220) = v60;
+      v61 = *(a1 + 1224) - a2;
+      *(a1 + 1224) = v61;
+      if (v61 < 1)
       {
-        if (*v48)
+        if (*v49)
         {
-          atomic_store(0, (*v48 + 12));
+          atomic_store(0, (*v49 + 12));
         }
 
-        *v48 = 0;
+        *v49 = 0;
         *(a1 + 1216) = 0;
         *(a1 + 1224) = 0;
       }
@@ -3760,27 +3767,27 @@ LABEL_47:
     else
     {
       MEMORY[0x28223BE20](v8);
-      v41 = &v61 - v40;
-      bzero(&v61 - v40, v42);
-      v43 = 0;
+      v42 = &v62 - v41;
+      bzero(&v62 - v41, v43);
+      v44 = 0;
       memset(buf, 0, 48);
       do
       {
-        *&buf[v43] = v41;
-        v43 += 8;
-        v41 += 4 * v4;
+        *&buf[v44] = v42;
+        v44 += 8;
+        v42 += 4 * v4;
       }
 
-      while (v43 != 48);
-      (*(*v39 + 24))(v39, v10, a1 + 1152);
-      (*(*v37 + 24))(v37, v10, buf);
+      while (v44 != 48);
+      (*(*v40 + 24))(v40, v10, a1 + 1152);
+      (*(*v38 + 24))(v38, v10, buf);
       *(a1 + 1228) -= a2;
     }
   }
 
   else
   {
-    (*(*v37 + 24))(v37, v10, a1 + 1152);
+    (*(*v38 + 24))(v38, v10, a1 + 1152);
   }
 }
 
@@ -3954,8 +3961,8 @@ void Phase::DspLayer23::ConvolverSlice<7>::Process(uint64_t a1, int a2)
   v66 = *MEMORY[0x277D85DE8];
   v4 = a2;
   MEMORY[0x28223BE20](a1);
-  v6 = (&v61 - v5);
-  bzero(&v61 - v5, v7);
+  v6 = (&v62 - v5);
+  bzero(&v62 - v5, v7);
   v8 = Phase::DspLayer23::AudioConnections::Sum((a1 + 1152), v4, v6);
   v9 = *(a1 + 1368);
   if (!v9)
@@ -4055,27 +4062,28 @@ LABEL_34:
             {
               v22 = _os_log_pack_size();
               Instance = Phase::Logger::GetInstance(v22);
-              if (caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0))
+              message = caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0);
+              if (message)
               {
-                v24 = _os_log_pack_fill();
-                v25 = *(a1 + 16);
-                v26 = *(a1 + 32);
-                v27 = *(a1 + 1364);
-                v28 = *(a1 + 1360);
-                v29 = *(*(v25 + 576) + 96);
-                *v24 = 67110400;
-                *(v24 + 4) = 7;
-                *(v24 + 8) = 2048;
-                *(v24 + 10) = v25;
-                *(v24 + 18) = 2048;
-                *(v24 + 20) = v26;
-                *(v24 + 28) = 1024;
-                *(v24 + 30) = v27;
-                *(v24 + 34) = 1024;
-                *(v24 + 36) = v28;
-                *(v24 + 40) = 2048;
-                *(v24 + 42) = v29;
-                Phase::Logger::GetInstance(v24);
+                v25 = _os_log_pack_fill(message + 40, v22, 0, &dword_23A302000, "(Convolver1x%i)%p[%llx] Crossfade interrupt with %i delay frames and %i xfade frames remaining @ VE Frame %llu", v62, v63, *buf, *&buf[8], *&buf[16], *&buf[24]);
+                v26 = *(a1 + 16);
+                v27 = *(a1 + 32);
+                v28 = *(a1 + 1364);
+                v29 = *(a1 + 1360);
+                v30 = *(*(v26 + 576) + 96);
+                *v25 = 67110400;
+                *(v25 + 4) = 7;
+                *(v25 + 8) = 2048;
+                *(v25 + 10) = v26;
+                *(v25 + 18) = 2048;
+                *(v25 + 20) = v27;
+                *(v25 + 28) = 1024;
+                *(v25 + 30) = v28;
+                *(v25 + 34) = 1024;
+                *(v25 + 36) = v29;
+                *(v25 + 40) = 2048;
+                *(v25 + 42) = v30;
+                Phase::Logger::GetInstance(v25);
                 caulk::concurrent::messenger::enqueue();
               }
             }
@@ -4083,20 +4091,20 @@ LABEL_34:
             *(a1 + 1352) = 1065353216;
             *(a1 + 1356) = -1.0 / (v21 - 1);
             *(a1 + 1360) = v21;
-            v30 = (*(*v12 + 72))(v12);
-            v31 = (*(*v12 + 40))(v12);
-            if (v31 <= (*(*v12 + 56))(v12))
+            v31 = (*(*v12 + 72))(v12);
+            v32 = (*(*v12 + 40))(v12);
+            if (v32 <= (*(*v12 + 56))(v12))
             {
-              v33 = 0;
+              v34 = 0;
             }
 
             else
             {
-              v32 = (*(*v12 + 80))(v12, (v30 - 1));
-              v33 = (*(*v32 + 56))(v32);
+              v33 = (*(*v12 + 80))(v12, (v31 - 1));
+              v34 = (*(*v33 + 56))(v33);
             }
 
-            *(a1 + 1364) = v33;
+            *(a1 + 1364) = v34;
             v8 = (*(*v14 + 40))(v14);
           }
 
@@ -4107,10 +4115,10 @@ LABEL_34:
 
     if (*(a1 + 1377) == 1)
     {
-      v34 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
+        v36 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -4118,8 +4126,8 @@ LABEL_34:
         *&buf[18] = 1024;
         *&buf[20] = 7;
         *&buf[24] = 2048;
-        *&buf[26] = v35;
-        _os_log_impl(&dword_23A302000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
+        *&buf[26] = v36;
+        _os_log_impl(&dword_23A302000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
       }
 
       *(a1 + 1377) = 0;
@@ -4129,15 +4137,15 @@ LABEL_34:
   }
 
 LABEL_35:
-  v36 = *(a1 + 1336);
-  if (!v36)
+  v37 = *(a1 + 1336);
+  if (!v37)
   {
     if (*(a1 + 1378) == 1)
     {
-      v44 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v45 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        v45 = *(a1 + 32);
+        v46 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -4145,80 +4153,80 @@ LABEL_35:
         *&buf[18] = 2048;
         *&buf[20] = a1;
         *&buf[28] = 2048;
-        *&buf[30] = v45;
-        _os_log_impl(&dword_23A302000, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
+        *&buf[30] = v46;
+        _os_log_impl(&dword_23A302000, v45, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
       }
 
       *(a1 + 1378) = 0;
     }
 
 LABEL_47:
-    v46 = 0;
-    v47 = a1 + 1280;
+    v47 = 0;
+    v48 = a1 + 1280;
     do
     {
-      vDSP_vclr(*(v47 + v46), 1, v4);
-      v46 += 8;
+      vDSP_vclr(*(v48 + v47), 1, v4);
+      v47 += 8;
     }
 
-    while (v46 != 56);
+    while (v47 != 56);
     return;
   }
 
   *(a1 + 1378) = 1;
-  v37 = *v36;
-  v38 = *(a1 + 1344);
-  if (v38 && (v39 = *v38) != 0)
+  v38 = *v37;
+  v39 = *(a1 + 1344);
+  if (v39 && (v40 = *v39) != 0)
   {
     if (*(a1 + 1364) < 1)
     {
-      v48 = a1 + 1344;
-      v49 = a1 + 1280;
-      (*(*v37 + 24))(v37, v10, a1 + 1280);
+      v49 = a1 + 1344;
+      v50 = a1 + 1280;
+      (*(*v38 + 24))(v38, v10, a1 + 1280);
       for (i = 0; i != 56; i += 8)
       {
-        v51 = 1.0 - *(a1 + 1352);
-        __Step = -*(a1 + 1356);
-        *buf = v51;
-        vDSP_vrampmul(*(v49 + i), 1, buf, &__Step, *(v49 + i), 1, v4);
+        v52 = 1.0 - *(a1 + 1352);
+        *(&v63 + 1) = -*(a1 + 1356);
+        *buf = v52;
+        vDSP_vrampmul(*(v50 + i), 1, buf, &v63 + 1, *(v50 + i), 1, v4);
       }
 
-      MEMORY[0x28223BE20](v52);
-      v54 = &v61 - v53;
-      bzero(&v61 - v53, v55);
-      v56 = 0;
+      MEMORY[0x28223BE20](v53);
+      v55 = &v62 - v54;
+      bzero(&v62 - v54, v56);
+      v57 = 0;
       v65 = 0;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v56] = v54;
-        v56 += 8;
-        v54 += 4 * v4;
+        *&buf[v57] = v55;
+        v57 += 8;
+        v55 += 4 * v4;
       }
 
-      while (v56 != 56);
-      (*(*v39 + 24))(v39, v10, buf);
+      while (v57 != 56);
+      (*(*v40 + 24))(v40, v10, buf);
       for (j = 0; j != 56; j += 8)
       {
-        v58 = *(a1 + 1352);
-        v62 = *(a1 + 1356);
-        __Step = v58;
-        vDSP_vrampmuladd(*&buf[j], 1, &__Step, &v62, *(v49 + j), 1, v4);
+        v59 = *(a1 + 1352);
+        LODWORD(v63) = *(a1 + 1356);
+        HIDWORD(v63) = v59;
+        vDSP_vrampmuladd(*&buf[j], 1, &v63 + 1, &v63, *(v50 + j), 1, v4);
       }
 
-      v59 = v62;
-      *(a1 + 1352) = __Step;
-      *(a1 + 1356) = v59;
-      v60 = *(a1 + 1360) - a2;
-      *(a1 + 1360) = v60;
-      if (v60 < 1)
+      v60 = v63;
+      *(a1 + 1352) = HIDWORD(v63);
+      *(a1 + 1356) = v60;
+      v61 = *(a1 + 1360) - a2;
+      *(a1 + 1360) = v61;
+      if (v61 < 1)
       {
-        if (*v48)
+        if (*v49)
         {
-          atomic_store(0, (*v48 + 12));
+          atomic_store(0, (*v49 + 12));
         }
 
-        *v48 = 0;
+        *v49 = 0;
         *(a1 + 1352) = 0;
         *(a1 + 1360) = 0;
       }
@@ -4227,28 +4235,28 @@ LABEL_47:
     else
     {
       MEMORY[0x28223BE20](v8);
-      v41 = &v61 - v40;
-      bzero(&v61 - v40, v42);
-      v43 = 0;
+      v42 = &v62 - v41;
+      bzero(&v62 - v41, v43);
+      v44 = 0;
       v65 = 0;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v43] = v41;
-        v43 += 8;
-        v41 += 4 * v4;
+        *&buf[v44] = v42;
+        v44 += 8;
+        v42 += 4 * v4;
       }
 
-      while (v43 != 56);
-      (*(*v39 + 24))(v39, v10, a1 + 1280);
-      (*(*v37 + 24))(v37, v10, buf);
+      while (v44 != 56);
+      (*(*v40 + 24))(v40, v10, a1 + 1280);
+      (*(*v38 + 24))(v38, v10, buf);
       *(a1 + 1364) -= a2;
     }
   }
 
   else
   {
-    (*(*v37 + 24))(v37, v10, a1 + 1280);
+    (*(*v38 + 24))(v38, v10, a1 + 1280);
   }
 }
 
@@ -4407,8 +4415,8 @@ void Phase::DspLayer23::ConvolverSlice<8>::Process(uint64_t a1, int a2)
   v66 = *MEMORY[0x277D85DE8];
   v4 = a2;
   MEMORY[0x28223BE20](a1);
-  v6 = (&v61 - v5);
-  bzero(&v61 - v5, v7);
+  v6 = (v62 - v5);
+  bzero(v62 - v5, v7);
   v8 = Phase::DspLayer23::AudioConnections::Sum((a1 + 1280), v4, v6);
   v9 = *(a1 + 1504);
   if (!v9)
@@ -4508,27 +4516,28 @@ LABEL_34:
             {
               v22 = _os_log_pack_size();
               Instance = Phase::Logger::GetInstance(v22);
-              if (caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0))
+              message = caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0);
+              if (message)
               {
-                v24 = _os_log_pack_fill();
-                v25 = *(a1 + 16);
-                v26 = *(a1 + 32);
-                v27 = *(a1 + 1500);
-                v28 = *(a1 + 1496);
-                v29 = *(*(v25 + 576) + 96);
-                *v24 = 67110400;
-                *(v24 + 4) = 8;
-                *(v24 + 8) = 2048;
-                *(v24 + 10) = v25;
-                *(v24 + 18) = 2048;
-                *(v24 + 20) = v26;
-                *(v24 + 28) = 1024;
-                *(v24 + 30) = v27;
-                *(v24 + 34) = 1024;
-                *(v24 + 36) = v28;
-                *(v24 + 40) = 2048;
-                *(v24 + 42) = v29;
-                Phase::Logger::GetInstance(v24);
+                v25 = _os_log_pack_fill(message + 40, v22, 0, &dword_23A302000, "(Convolver1x%i)%p[%llx] Crossfade interrupt with %i delay frames and %i xfade frames remaining @ VE Frame %llu", v62[0], v63, *buf, *&buf[8], *&buf[16], *&buf[24]);
+                v26 = *(a1 + 16);
+                v27 = *(a1 + 32);
+                v28 = *(a1 + 1500);
+                v29 = *(a1 + 1496);
+                v30 = *(*(v26 + 576) + 96);
+                *v25 = 67110400;
+                *(v25 + 4) = 8;
+                *(v25 + 8) = 2048;
+                *(v25 + 10) = v26;
+                *(v25 + 18) = 2048;
+                *(v25 + 20) = v27;
+                *(v25 + 28) = 1024;
+                *(v25 + 30) = v28;
+                *(v25 + 34) = 1024;
+                *(v25 + 36) = v29;
+                *(v25 + 40) = 2048;
+                *(v25 + 42) = v30;
+                Phase::Logger::GetInstance(v25);
                 caulk::concurrent::messenger::enqueue();
               }
             }
@@ -4536,20 +4545,20 @@ LABEL_34:
             *(a1 + 1488) = 1065353216;
             *(a1 + 1492) = -1.0 / (v21 - 1);
             *(a1 + 1496) = v21;
-            v30 = (*(*v12 + 72))(v12);
-            v31 = (*(*v12 + 40))(v12);
-            if (v31 <= (*(*v12 + 56))(v12))
+            v31 = (*(*v12 + 72))(v12);
+            v32 = (*(*v12 + 40))(v12);
+            if (v32 <= (*(*v12 + 56))(v12))
             {
-              v33 = 0;
+              v34 = 0;
             }
 
             else
             {
-              v32 = (*(*v12 + 80))(v12, (v30 - 1));
-              v33 = (*(*v32 + 56))(v32);
+              v33 = (*(*v12 + 80))(v12, (v31 - 1));
+              v34 = (*(*v33 + 56))(v33);
             }
 
-            *(a1 + 1500) = v33;
+            *(a1 + 1500) = v34;
             v8 = (*(*v14 + 40))(v14);
           }
 
@@ -4560,10 +4569,10 @@ LABEL_34:
 
     if (*(a1 + 1513) == 1)
     {
-      v34 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
+        v36 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -4571,8 +4580,8 @@ LABEL_34:
         *&buf[18] = 1024;
         *&buf[20] = 8;
         *&buf[24] = 2048;
-        *&buf[26] = v35;
-        _os_log_impl(&dword_23A302000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
+        *&buf[26] = v36;
+        _os_log_impl(&dword_23A302000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
       }
 
       *(a1 + 1513) = 0;
@@ -4582,15 +4591,15 @@ LABEL_34:
   }
 
 LABEL_35:
-  v36 = *(a1 + 1472);
-  if (!v36)
+  v37 = *(a1 + 1472);
+  if (!v37)
   {
     if (*(a1 + 1514) == 1)
     {
-      v44 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v45 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        v45 = *(a1 + 32);
+        v46 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -4598,80 +4607,80 @@ LABEL_35:
         *&buf[18] = 2048;
         *&buf[20] = a1;
         *&buf[28] = 2048;
-        *&buf[30] = v45;
-        _os_log_impl(&dword_23A302000, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
+        *&buf[30] = v46;
+        _os_log_impl(&dword_23A302000, v45, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
       }
 
       *(a1 + 1514) = 0;
     }
 
 LABEL_47:
-    v46 = 0;
-    v47 = a1 + 1408;
+    v47 = 0;
+    v48 = a1 + 1408;
     do
     {
-      vDSP_vclr(*(v47 + v46), 1, v4);
-      v46 += 8;
+      vDSP_vclr(*(v48 + v47), 1, v4);
+      v47 += 8;
     }
 
-    while (v46 != 64);
+    while (v47 != 64);
     return;
   }
 
   *(a1 + 1514) = 1;
-  v37 = *v36;
-  v38 = *(a1 + 1480);
-  if (v38 && (v39 = *v38) != 0)
+  v38 = *v37;
+  v39 = *(a1 + 1480);
+  if (v39 && (v40 = *v39) != 0)
   {
     if (*(a1 + 1500) < 1)
     {
-      v48 = a1 + 1480;
-      v49 = a1 + 1408;
-      (*(*v37 + 24))(v37, v10, a1 + 1408);
+      v49 = a1 + 1480;
+      v50 = a1 + 1408;
+      (*(*v38 + 24))(v38, v10, a1 + 1408);
       for (i = 0; i != 64; i += 8)
       {
-        v51 = 1.0 - *(a1 + 1488);
-        __Step = -*(a1 + 1492);
-        *buf = v51;
-        vDSP_vrampmul(*(v49 + i), 1, buf, &__Step, *(v49 + i), 1, v4);
+        v52 = 1.0 - *(a1 + 1488);
+        *(&v63 + 1) = -*(a1 + 1492);
+        *buf = v52;
+        vDSP_vrampmul(*(v50 + i), 1, buf, &v63 + 1, *(v50 + i), 1, v4);
       }
 
-      MEMORY[0x28223BE20](v52);
-      v54 = &v61 - 4 * v53;
-      bzero(v54, v55);
-      v56 = 0;
+      MEMORY[0x28223BE20](v53);
+      v55 = &v62[-v54];
+      bzero(v55, v56);
+      v57 = 0;
       v65 = 0u;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v56] = v54;
-        v56 += 8;
-        v54 += 4 * v4;
+        *&buf[v57] = v55;
+        v57 += 8;
+        v55 += v4;
       }
 
-      while (v56 != 64);
-      (*(*v39 + 24))(v39, v10, buf);
+      while (v57 != 64);
+      (*(*v40 + 24))(v40, v10, buf);
       for (j = 0; j != 64; j += 8)
       {
-        v58 = *(a1 + 1488);
-        v62 = *(a1 + 1492);
-        __Step = v58;
-        vDSP_vrampmuladd(*&buf[j], 1, &__Step, &v62, *(v49 + j), 1, v4);
+        v59 = *(a1 + 1488);
+        LODWORD(v63) = *(a1 + 1492);
+        HIDWORD(v63) = v59;
+        vDSP_vrampmuladd(*&buf[j], 1, &v63 + 1, &v63, *(v50 + j), 1, v4);
       }
 
-      v59 = v62;
-      *(a1 + 1488) = __Step;
-      *(a1 + 1492) = v59;
-      v60 = *(a1 + 1496) - a2;
-      *(a1 + 1496) = v60;
-      if (v60 < 1)
+      v60 = v63;
+      *(a1 + 1488) = HIDWORD(v63);
+      *(a1 + 1492) = v60;
+      v61 = *(a1 + 1496) - a2;
+      *(a1 + 1496) = v61;
+      if (v61 < 1)
       {
-        if (*v48)
+        if (*v49)
         {
-          atomic_store(0, (*v48 + 12));
+          atomic_store(0, (*v49 + 12));
         }
 
-        *v48 = 0;
+        *v49 = 0;
         *(a1 + 1488) = 0;
         *(a1 + 1496) = 0;
       }
@@ -4680,28 +4689,28 @@ LABEL_47:
     else
     {
       MEMORY[0x28223BE20](v8);
-      v41 = &v61 - 4 * v40;
-      bzero(v41, v42);
-      v43 = 0;
+      v42 = &v62[-v41];
+      bzero(v42, v43);
+      v44 = 0;
       v65 = 0u;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v43] = v41;
-        v43 += 8;
-        v41 += 4 * v4;
+        *&buf[v44] = v42;
+        v44 += 8;
+        v42 += v4;
       }
 
-      while (v43 != 64);
-      (*(*v39 + 24))(v39, v10, a1 + 1408);
-      (*(*v37 + 24))(v37, v10, buf);
+      while (v44 != 64);
+      (*(*v40 + 24))(v40, v10, a1 + 1408);
+      (*(*v38 + 24))(v38, v10, buf);
       *(a1 + 1500) -= a2;
     }
   }
 
   else
   {
-    (*(*v37 + 24))(v37, v10, a1 + 1408);
+    (*(*v38 + 24))(v38, v10, a1 + 1408);
   }
 }
 
@@ -4876,8 +4885,8 @@ void Phase::DspLayer23::ConvolverSlice<9>::Process(uint64_t a1, int a2)
   v67 = *MEMORY[0x277D85DE8];
   v4 = a2;
   MEMORY[0x28223BE20](a1);
-  v6 = (&v61 - v5);
-  bzero(&v61 - v5, v7);
+  v6 = (&v62 - v5);
+  bzero(&v62 - v5, v7);
   v8 = Phase::DspLayer23::AudioConnections::Sum((a1 + 1408), v4, v6);
   v9 = *(a1 + 1640);
   if (!v9)
@@ -4977,27 +4986,28 @@ LABEL_34:
             {
               v22 = _os_log_pack_size();
               Instance = Phase::Logger::GetInstance(v22);
-              if (caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0))
+              message = caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0);
+              if (message)
               {
-                v24 = _os_log_pack_fill();
-                v25 = *(a1 + 16);
-                v26 = *(a1 + 32);
-                v27 = *(a1 + 1636);
-                v28 = *(a1 + 1632);
-                v29 = *(*(v25 + 576) + 96);
-                *v24 = 67110400;
-                *(v24 + 4) = 9;
-                *(v24 + 8) = 2048;
-                *(v24 + 10) = v25;
-                *(v24 + 18) = 2048;
-                *(v24 + 20) = v26;
-                *(v24 + 28) = 1024;
-                *(v24 + 30) = v27;
-                *(v24 + 34) = 1024;
-                *(v24 + 36) = v28;
-                *(v24 + 40) = 2048;
-                *(v24 + 42) = v29;
-                Phase::Logger::GetInstance(v24);
+                v25 = _os_log_pack_fill(message + 40, v22, 0, &dword_23A302000, "(Convolver1x%i)%p[%llx] Crossfade interrupt with %i delay frames and %i xfade frames remaining @ VE Frame %llu", v62, v63, *buf, *&buf[8], *&buf[16], *&buf[24]);
+                v26 = *(a1 + 16);
+                v27 = *(a1 + 32);
+                v28 = *(a1 + 1636);
+                v29 = *(a1 + 1632);
+                v30 = *(*(v26 + 576) + 96);
+                *v25 = 67110400;
+                *(v25 + 4) = 9;
+                *(v25 + 8) = 2048;
+                *(v25 + 10) = v26;
+                *(v25 + 18) = 2048;
+                *(v25 + 20) = v27;
+                *(v25 + 28) = 1024;
+                *(v25 + 30) = v28;
+                *(v25 + 34) = 1024;
+                *(v25 + 36) = v29;
+                *(v25 + 40) = 2048;
+                *(v25 + 42) = v30;
+                Phase::Logger::GetInstance(v25);
                 caulk::concurrent::messenger::enqueue();
               }
             }
@@ -5005,20 +5015,20 @@ LABEL_34:
             *(a1 + 1624) = 1065353216;
             *(a1 + 1628) = -1.0 / (v21 - 1);
             *(a1 + 1632) = v21;
-            v30 = (*(*v12 + 72))(v12);
-            v31 = (*(*v12 + 40))(v12);
-            if (v31 <= (*(*v12 + 56))(v12))
+            v31 = (*(*v12 + 72))(v12);
+            v32 = (*(*v12 + 40))(v12);
+            if (v32 <= (*(*v12 + 56))(v12))
             {
-              v33 = 0;
+              v34 = 0;
             }
 
             else
             {
-              v32 = (*(*v12 + 80))(v12, (v30 - 1));
-              v33 = (*(*v32 + 56))(v32);
+              v33 = (*(*v12 + 80))(v12, (v31 - 1));
+              v34 = (*(*v33 + 56))(v33);
             }
 
-            *(a1 + 1636) = v33;
+            *(a1 + 1636) = v34;
             v8 = (*(*v14 + 40))(v14);
           }
 
@@ -5029,10 +5039,10 @@ LABEL_34:
 
     if (*(a1 + 1649) == 1)
     {
-      v34 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
+        v36 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -5040,8 +5050,8 @@ LABEL_34:
         *&buf[18] = 1024;
         *&buf[20] = 9;
         *&buf[24] = 2048;
-        *&buf[26] = v35;
-        _os_log_impl(&dword_23A302000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
+        *&buf[26] = v36;
+        _os_log_impl(&dword_23A302000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
       }
 
       *(a1 + 1649) = 0;
@@ -5051,15 +5061,15 @@ LABEL_34:
   }
 
 LABEL_35:
-  v36 = *(a1 + 1608);
-  if (!v36)
+  v37 = *(a1 + 1608);
+  if (!v37)
   {
     if (*(a1 + 1650) == 1)
     {
-      v44 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v45 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        v45 = *(a1 + 32);
+        v46 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -5067,81 +5077,81 @@ LABEL_35:
         *&buf[18] = 2048;
         *&buf[20] = a1;
         *&buf[28] = 2048;
-        *&buf[30] = v45;
-        _os_log_impl(&dword_23A302000, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
+        *&buf[30] = v46;
+        _os_log_impl(&dword_23A302000, v45, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
       }
 
       *(a1 + 1650) = 0;
     }
 
 LABEL_47:
-    v46 = 0;
-    v47 = a1 + 1536;
+    v47 = 0;
+    v48 = a1 + 1536;
     do
     {
-      vDSP_vclr(*(v47 + v46), 1, v4);
-      v46 += 8;
+      vDSP_vclr(*(v48 + v47), 1, v4);
+      v47 += 8;
     }
 
-    while (v46 != 72);
+    while (v47 != 72);
     return;
   }
 
   *(a1 + 1650) = 1;
-  v37 = *v36;
-  v38 = *(a1 + 1616);
-  if (v38 && (v39 = *v38) != 0)
+  v38 = *v37;
+  v39 = *(a1 + 1616);
+  if (v39 && (v40 = *v39) != 0)
   {
     if (*(a1 + 1636) < 1)
     {
-      v48 = a1 + 1616;
-      v49 = a1 + 1536;
-      (*(*v37 + 24))(v37, v10, a1 + 1536);
+      v49 = a1 + 1616;
+      v50 = a1 + 1536;
+      (*(*v38 + 24))(v38, v10, a1 + 1536);
       for (i = 0; i != 72; i += 8)
       {
-        v51 = 1.0 - *(a1 + 1624);
-        __Step = -*(a1 + 1628);
-        *buf = v51;
-        vDSP_vrampmul(*(v49 + i), 1, buf, &__Step, *(v49 + i), 1, v4);
+        v52 = 1.0 - *(a1 + 1624);
+        *(&v63 + 1) = -*(a1 + 1628);
+        *buf = v52;
+        vDSP_vrampmul(*(v50 + i), 1, buf, &v63 + 1, *(v50 + i), 1, v4);
       }
 
-      MEMORY[0x28223BE20](v52);
-      v54 = &v61 - v53;
-      bzero(&v61 - v53, v55);
-      v56 = 0;
+      MEMORY[0x28223BE20](v53);
+      v55 = &v62 - v54;
+      bzero(&v62 - v54, v56);
+      v57 = 0;
       v66 = 0;
       v65 = 0u;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v56] = v54;
-        v56 += 8;
-        v54 += 4 * v4;
+        *&buf[v57] = v55;
+        v57 += 8;
+        v55 += 4 * v4;
       }
 
-      while (v56 != 72);
-      (*(*v39 + 24))(v39, v10, buf);
+      while (v57 != 72);
+      (*(*v40 + 24))(v40, v10, buf);
       for (j = 0; j != 72; j += 8)
       {
-        v58 = *(a1 + 1624);
-        v62 = *(a1 + 1628);
-        __Step = v58;
-        vDSP_vrampmuladd(*&buf[j], 1, &__Step, &v62, *(v49 + j), 1, v4);
+        v59 = *(a1 + 1624);
+        LODWORD(v63) = *(a1 + 1628);
+        HIDWORD(v63) = v59;
+        vDSP_vrampmuladd(*&buf[j], 1, &v63 + 1, &v63, *(v50 + j), 1, v4);
       }
 
-      v59 = v62;
-      *(a1 + 1624) = __Step;
-      *(a1 + 1628) = v59;
-      v60 = *(a1 + 1632) - a2;
-      *(a1 + 1632) = v60;
-      if (v60 < 1)
+      v60 = v63;
+      *(a1 + 1624) = HIDWORD(v63);
+      *(a1 + 1628) = v60;
+      v61 = *(a1 + 1632) - a2;
+      *(a1 + 1632) = v61;
+      if (v61 < 1)
       {
-        if (*v48)
+        if (*v49)
         {
-          atomic_store(0, (*v48 + 12));
+          atomic_store(0, (*v49 + 12));
         }
 
-        *v48 = 0;
+        *v49 = 0;
         *(a1 + 1624) = 0;
         *(a1 + 1632) = 0;
       }
@@ -5150,29 +5160,29 @@ LABEL_47:
     else
     {
       MEMORY[0x28223BE20](v8);
-      v41 = &v61 - v40;
-      bzero(&v61 - v40, v42);
-      v43 = 0;
+      v42 = &v62 - v41;
+      bzero(&v62 - v41, v43);
+      v44 = 0;
       v66 = 0;
       v65 = 0u;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v43] = v41;
-        v43 += 8;
-        v41 += 4 * v4;
+        *&buf[v44] = v42;
+        v44 += 8;
+        v42 += 4 * v4;
       }
 
-      while (v43 != 72);
-      (*(*v39 + 24))(v39, v10, a1 + 1536);
-      (*(*v37 + 24))(v37, v10, buf);
+      while (v44 != 72);
+      (*(*v40 + 24))(v40, v10, a1 + 1536);
+      (*(*v38 + 24))(v38, v10, buf);
       *(a1 + 1636) -= a2;
     }
   }
 
   else
   {
-    (*(*v37 + 24))(v37, v10, a1 + 1536);
+    (*(*v38 + 24))(v38, v10, a1 + 1536);
   }
 }
 
@@ -5332,8 +5342,8 @@ void Phase::DspLayer23::ConvolverSlice<10>::Process(uint64_t a1, int a2)
   v67 = *MEMORY[0x277D85DE8];
   v4 = a2;
   MEMORY[0x28223BE20](a1);
-  v6 = (&v61 - v5);
-  bzero(&v61 - v5, v7);
+  v6 = (&v62 - v5);
+  bzero(&v62 - v5, v7);
   v8 = Phase::DspLayer23::AudioConnections::Sum((a1 + 1536), v4, v6);
   v9 = *(a1 + 1776);
   if (!v9)
@@ -5433,27 +5443,28 @@ LABEL_34:
             {
               v22 = _os_log_pack_size();
               Instance = Phase::Logger::GetInstance(v22);
-              if (caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0))
+              message = caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0);
+              if (message)
               {
-                v24 = _os_log_pack_fill();
-                v25 = *(a1 + 16);
-                v26 = *(a1 + 32);
-                v27 = *(a1 + 1772);
-                v28 = *(a1 + 1768);
-                v29 = *(*(v25 + 576) + 96);
-                *v24 = 67110400;
-                *(v24 + 4) = 10;
-                *(v24 + 8) = 2048;
-                *(v24 + 10) = v25;
-                *(v24 + 18) = 2048;
-                *(v24 + 20) = v26;
-                *(v24 + 28) = 1024;
-                *(v24 + 30) = v27;
-                *(v24 + 34) = 1024;
-                *(v24 + 36) = v28;
-                *(v24 + 40) = 2048;
-                *(v24 + 42) = v29;
-                Phase::Logger::GetInstance(v24);
+                v25 = _os_log_pack_fill(message + 40, v22, 0, &dword_23A302000, "(Convolver1x%i)%p[%llx] Crossfade interrupt with %i delay frames and %i xfade frames remaining @ VE Frame %llu", v62, v63, *buf, *&buf[8], *&buf[16], *&buf[24]);
+                v26 = *(a1 + 16);
+                v27 = *(a1 + 32);
+                v28 = *(a1 + 1772);
+                v29 = *(a1 + 1768);
+                v30 = *(*(v26 + 576) + 96);
+                *v25 = 67110400;
+                *(v25 + 4) = 10;
+                *(v25 + 8) = 2048;
+                *(v25 + 10) = v26;
+                *(v25 + 18) = 2048;
+                *(v25 + 20) = v27;
+                *(v25 + 28) = 1024;
+                *(v25 + 30) = v28;
+                *(v25 + 34) = 1024;
+                *(v25 + 36) = v29;
+                *(v25 + 40) = 2048;
+                *(v25 + 42) = v30;
+                Phase::Logger::GetInstance(v25);
                 caulk::concurrent::messenger::enqueue();
               }
             }
@@ -5461,20 +5472,20 @@ LABEL_34:
             *(a1 + 1760) = 1065353216;
             *(a1 + 1764) = -1.0 / (v21 - 1);
             *(a1 + 1768) = v21;
-            v30 = (*(*v12 + 72))(v12);
-            v31 = (*(*v12 + 40))(v12);
-            if (v31 <= (*(*v12 + 56))(v12))
+            v31 = (*(*v12 + 72))(v12);
+            v32 = (*(*v12 + 40))(v12);
+            if (v32 <= (*(*v12 + 56))(v12))
             {
-              v33 = 0;
+              v34 = 0;
             }
 
             else
             {
-              v32 = (*(*v12 + 80))(v12, (v30 - 1));
-              v33 = (*(*v32 + 56))(v32);
+              v33 = (*(*v12 + 80))(v12, (v31 - 1));
+              v34 = (*(*v33 + 56))(v33);
             }
 
-            *(a1 + 1772) = v33;
+            *(a1 + 1772) = v34;
             v8 = (*(*v14 + 40))(v14);
           }
 
@@ -5485,10 +5496,10 @@ LABEL_34:
 
     if (*(a1 + 1785) == 1)
     {
-      v34 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
+        v36 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -5496,8 +5507,8 @@ LABEL_34:
         *&buf[18] = 1024;
         *&buf[20] = 10;
         *&buf[24] = 2048;
-        *&buf[26] = v35;
-        _os_log_impl(&dword_23A302000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
+        *&buf[26] = v36;
+        _os_log_impl(&dword_23A302000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
       }
 
       *(a1 + 1785) = 0;
@@ -5507,15 +5518,15 @@ LABEL_34:
   }
 
 LABEL_35:
-  v36 = *(a1 + 1744);
-  if (!v36)
+  v37 = *(a1 + 1744);
+  if (!v37)
   {
     if (*(a1 + 1786) == 1)
     {
-      v44 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v45 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        v45 = *(a1 + 32);
+        v46 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -5523,81 +5534,81 @@ LABEL_35:
         *&buf[18] = 2048;
         *&buf[20] = a1;
         *&buf[28] = 2048;
-        *&buf[30] = v45;
-        _os_log_impl(&dword_23A302000, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
+        *&buf[30] = v46;
+        _os_log_impl(&dword_23A302000, v45, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
       }
 
       *(a1 + 1786) = 0;
     }
 
 LABEL_47:
-    v46 = 0;
-    v47 = a1 + 1664;
+    v47 = 0;
+    v48 = a1 + 1664;
     do
     {
-      vDSP_vclr(*(v47 + v46), 1, v4);
-      v46 += 8;
+      vDSP_vclr(*(v48 + v47), 1, v4);
+      v47 += 8;
     }
 
-    while (v46 != 80);
+    while (v47 != 80);
     return;
   }
 
   *(a1 + 1786) = 1;
-  v37 = *v36;
-  v38 = *(a1 + 1752);
-  if (v38 && (v39 = *v38) != 0)
+  v38 = *v37;
+  v39 = *(a1 + 1752);
+  if (v39 && (v40 = *v39) != 0)
   {
     if (*(a1 + 1772) < 1)
     {
-      v48 = a1 + 1752;
-      v49 = a1 + 1664;
-      (*(*v37 + 24))(v37, v10, a1 + 1664);
+      v49 = a1 + 1752;
+      v50 = a1 + 1664;
+      (*(*v38 + 24))(v38, v10, a1 + 1664);
       for (i = 0; i != 80; i += 8)
       {
-        v51 = 1.0 - *(a1 + 1760);
-        __Step = -*(a1 + 1764);
-        *buf = v51;
-        vDSP_vrampmul(*(v49 + i), 1, buf, &__Step, *(v49 + i), 1, v4);
+        v52 = 1.0 - *(a1 + 1760);
+        *(&v63 + 1) = -*(a1 + 1764);
+        *buf = v52;
+        vDSP_vrampmul(*(v50 + i), 1, buf, &v63 + 1, *(v50 + i), 1, v4);
       }
 
-      MEMORY[0x28223BE20](v52);
-      v54 = &v61 - v53;
-      bzero(&v61 - v53, v55);
-      v56 = 0;
+      MEMORY[0x28223BE20](v53);
+      v55 = &v62 - v54;
+      bzero(&v62 - v54, v56);
+      v57 = 0;
       v65 = 0u;
       v66 = 0u;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v56] = v54;
-        v56 += 8;
-        v54 += 4 * v4;
+        *&buf[v57] = v55;
+        v57 += 8;
+        v55 += 4 * v4;
       }
 
-      while (v56 != 80);
-      (*(*v39 + 24))(v39, v10, buf);
+      while (v57 != 80);
+      (*(*v40 + 24))(v40, v10, buf);
       for (j = 0; j != 80; j += 8)
       {
-        v58 = *(a1 + 1760);
-        v62 = *(a1 + 1764);
-        __Step = v58;
-        vDSP_vrampmuladd(*&buf[j], 1, &__Step, &v62, *(v49 + j), 1, v4);
+        v59 = *(a1 + 1760);
+        LODWORD(v63) = *(a1 + 1764);
+        HIDWORD(v63) = v59;
+        vDSP_vrampmuladd(*&buf[j], 1, &v63 + 1, &v63, *(v50 + j), 1, v4);
       }
 
-      v59 = v62;
-      *(a1 + 1760) = __Step;
-      *(a1 + 1764) = v59;
-      v60 = *(a1 + 1768) - a2;
-      *(a1 + 1768) = v60;
-      if (v60 < 1)
+      v60 = v63;
+      *(a1 + 1760) = HIDWORD(v63);
+      *(a1 + 1764) = v60;
+      v61 = *(a1 + 1768) - a2;
+      *(a1 + 1768) = v61;
+      if (v61 < 1)
       {
-        if (*v48)
+        if (*v49)
         {
-          atomic_store(0, (*v48 + 12));
+          atomic_store(0, (*v49 + 12));
         }
 
-        *v48 = 0;
+        *v49 = 0;
         *(a1 + 1760) = 0;
         *(a1 + 1768) = 0;
       }
@@ -5606,29 +5617,29 @@ LABEL_47:
     else
     {
       MEMORY[0x28223BE20](v8);
-      v41 = &v61 - v40;
-      bzero(&v61 - v40, v42);
-      v43 = 0;
+      v42 = &v62 - v41;
+      bzero(&v62 - v41, v43);
+      v44 = 0;
       v65 = 0u;
       v66 = 0u;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v43] = v41;
-        v43 += 8;
-        v41 += 4 * v4;
+        *&buf[v44] = v42;
+        v44 += 8;
+        v42 += 4 * v4;
       }
 
-      while (v43 != 80);
-      (*(*v39 + 24))(v39, v10, a1 + 1664);
-      (*(*v37 + 24))(v37, v10, buf);
+      while (v44 != 80);
+      (*(*v40 + 24))(v40, v10, a1 + 1664);
+      (*(*v38 + 24))(v38, v10, buf);
       *(a1 + 1772) -= a2;
     }
   }
 
   else
   {
-    (*(*v37 + 24))(v37, v10, a1 + 1664);
+    (*(*v38 + 24))(v38, v10, a1 + 1664);
   }
 }
 
@@ -5804,8 +5815,8 @@ void Phase::DspLayer23::ConvolverSlice<11>::Process(uint64_t a1, int a2)
   v68 = *MEMORY[0x277D85DE8];
   v4 = a2;
   MEMORY[0x28223BE20](a1);
-  v6 = (&v61 - v5);
-  bzero(&v61 - v5, v7);
+  v6 = (&v62 - v5);
+  bzero(&v62 - v5, v7);
   v8 = Phase::DspLayer23::AudioConnections::Sum((a1 + 1664), v4, v6);
   v9 = *(a1 + 1912);
   if (!v9)
@@ -5905,27 +5916,28 @@ LABEL_34:
             {
               v22 = _os_log_pack_size();
               Instance = Phase::Logger::GetInstance(v22);
-              if (caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0))
+              message = caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0);
+              if (message)
               {
-                v24 = _os_log_pack_fill();
-                v25 = *(a1 + 16);
-                v26 = *(a1 + 32);
-                v27 = *(a1 + 1908);
-                v28 = *(a1 + 1904);
-                v29 = *(*(v25 + 576) + 96);
-                *v24 = 67110400;
-                *(v24 + 4) = 11;
-                *(v24 + 8) = 2048;
-                *(v24 + 10) = v25;
-                *(v24 + 18) = 2048;
-                *(v24 + 20) = v26;
-                *(v24 + 28) = 1024;
-                *(v24 + 30) = v27;
-                *(v24 + 34) = 1024;
-                *(v24 + 36) = v28;
-                *(v24 + 40) = 2048;
-                *(v24 + 42) = v29;
-                Phase::Logger::GetInstance(v24);
+                v25 = _os_log_pack_fill(message + 40, v22, 0, &dword_23A302000, "(Convolver1x%i)%p[%llx] Crossfade interrupt with %i delay frames and %i xfade frames remaining @ VE Frame %llu", v62, v63, *buf, *&buf[8], *&buf[16], *&buf[24]);
+                v26 = *(a1 + 16);
+                v27 = *(a1 + 32);
+                v28 = *(a1 + 1908);
+                v29 = *(a1 + 1904);
+                v30 = *(*(v26 + 576) + 96);
+                *v25 = 67110400;
+                *(v25 + 4) = 11;
+                *(v25 + 8) = 2048;
+                *(v25 + 10) = v26;
+                *(v25 + 18) = 2048;
+                *(v25 + 20) = v27;
+                *(v25 + 28) = 1024;
+                *(v25 + 30) = v28;
+                *(v25 + 34) = 1024;
+                *(v25 + 36) = v29;
+                *(v25 + 40) = 2048;
+                *(v25 + 42) = v30;
+                Phase::Logger::GetInstance(v25);
                 caulk::concurrent::messenger::enqueue();
               }
             }
@@ -5933,20 +5945,20 @@ LABEL_34:
             *(a1 + 1896) = 1065353216;
             *(a1 + 1900) = -1.0 / (v21 - 1);
             *(a1 + 1904) = v21;
-            v30 = (*(*v12 + 72))(v12);
-            v31 = (*(*v12 + 40))(v12);
-            if (v31 <= (*(*v12 + 56))(v12))
+            v31 = (*(*v12 + 72))(v12);
+            v32 = (*(*v12 + 40))(v12);
+            if (v32 <= (*(*v12 + 56))(v12))
             {
-              v33 = 0;
+              v34 = 0;
             }
 
             else
             {
-              v32 = (*(*v12 + 80))(v12, (v30 - 1));
-              v33 = (*(*v32 + 56))(v32);
+              v33 = (*(*v12 + 80))(v12, (v31 - 1));
+              v34 = (*(*v33 + 56))(v33);
             }
 
-            *(a1 + 1908) = v33;
+            *(a1 + 1908) = v34;
             v8 = (*(*v14 + 40))(v14);
           }
 
@@ -5957,10 +5969,10 @@ LABEL_34:
 
     if (*(a1 + 1921) == 1)
     {
-      v34 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
+        v36 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -5968,8 +5980,8 @@ LABEL_34:
         *&buf[18] = 1024;
         *&buf[20] = 11;
         *&buf[24] = 2048;
-        *&buf[26] = v35;
-        _os_log_impl(&dword_23A302000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
+        *&buf[26] = v36;
+        _os_log_impl(&dword_23A302000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
       }
 
       *(a1 + 1921) = 0;
@@ -5979,15 +5991,15 @@ LABEL_34:
   }
 
 LABEL_35:
-  v36 = *(a1 + 1880);
-  if (!v36)
+  v37 = *(a1 + 1880);
+  if (!v37)
   {
     if (*(a1 + 1922) == 1)
     {
-      v44 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v45 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        v45 = *(a1 + 32);
+        v46 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -5995,82 +6007,82 @@ LABEL_35:
         *&buf[18] = 2048;
         *&buf[20] = a1;
         *&buf[28] = 2048;
-        *&buf[30] = v45;
-        _os_log_impl(&dword_23A302000, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
+        *&buf[30] = v46;
+        _os_log_impl(&dword_23A302000, v45, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
       }
 
       *(a1 + 1922) = 0;
     }
 
 LABEL_47:
-    v46 = 0;
-    v47 = a1 + 1792;
+    v47 = 0;
+    v48 = a1 + 1792;
     do
     {
-      vDSP_vclr(*(v47 + v46), 1, v4);
-      v46 += 8;
+      vDSP_vclr(*(v48 + v47), 1, v4);
+      v47 += 8;
     }
 
-    while (v46 != 88);
+    while (v47 != 88);
     return;
   }
 
   *(a1 + 1922) = 1;
-  v37 = *v36;
-  v38 = *(a1 + 1888);
-  if (v38 && (v39 = *v38) != 0)
+  v38 = *v37;
+  v39 = *(a1 + 1888);
+  if (v39 && (v40 = *v39) != 0)
   {
     if (*(a1 + 1908) < 1)
     {
-      v48 = a1 + 1888;
-      v49 = a1 + 1792;
-      (*(*v37 + 24))(v37, v10, a1 + 1792);
+      v49 = a1 + 1888;
+      v50 = a1 + 1792;
+      (*(*v38 + 24))(v38, v10, a1 + 1792);
       for (i = 0; i != 88; i += 8)
       {
-        v51 = 1.0 - *(a1 + 1896);
-        __Step = -*(a1 + 1900);
-        *buf = v51;
-        vDSP_vrampmul(*(v49 + i), 1, buf, &__Step, *(v49 + i), 1, v4);
+        v52 = 1.0 - *(a1 + 1896);
+        *(&v63 + 1) = -*(a1 + 1900);
+        *buf = v52;
+        vDSP_vrampmul(*(v50 + i), 1, buf, &v63 + 1, *(v50 + i), 1, v4);
       }
 
-      MEMORY[0x28223BE20](v52);
-      v54 = &v61 - v53;
-      bzero(&v61 - v53, v55);
-      v56 = 0;
+      MEMORY[0x28223BE20](v53);
+      v55 = &v62 - v54;
+      bzero(&v62 - v54, v56);
+      v57 = 0;
       v67 = 0;
       v65 = 0u;
       v66 = 0u;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v56] = v54;
-        v56 += 8;
-        v54 += 4 * v4;
+        *&buf[v57] = v55;
+        v57 += 8;
+        v55 += 4 * v4;
       }
 
-      while (v56 != 88);
-      (*(*v39 + 24))(v39, v10, buf);
+      while (v57 != 88);
+      (*(*v40 + 24))(v40, v10, buf);
       for (j = 0; j != 88; j += 8)
       {
-        v58 = *(a1 + 1896);
-        v62 = *(a1 + 1900);
-        __Step = v58;
-        vDSP_vrampmuladd(*&buf[j], 1, &__Step, &v62, *(v49 + j), 1, v4);
+        v59 = *(a1 + 1896);
+        LODWORD(v63) = *(a1 + 1900);
+        HIDWORD(v63) = v59;
+        vDSP_vrampmuladd(*&buf[j], 1, &v63 + 1, &v63, *(v50 + j), 1, v4);
       }
 
-      v59 = v62;
-      *(a1 + 1896) = __Step;
-      *(a1 + 1900) = v59;
-      v60 = *(a1 + 1904) - a2;
-      *(a1 + 1904) = v60;
-      if (v60 < 1)
+      v60 = v63;
+      *(a1 + 1896) = HIDWORD(v63);
+      *(a1 + 1900) = v60;
+      v61 = *(a1 + 1904) - a2;
+      *(a1 + 1904) = v61;
+      if (v61 < 1)
       {
-        if (*v48)
+        if (*v49)
         {
-          atomic_store(0, (*v48 + 12));
+          atomic_store(0, (*v49 + 12));
         }
 
-        *v48 = 0;
+        *v49 = 0;
         *(a1 + 1896) = 0;
         *(a1 + 1904) = 0;
       }
@@ -6079,30 +6091,30 @@ LABEL_47:
     else
     {
       MEMORY[0x28223BE20](v8);
-      v41 = &v61 - v40;
-      bzero(&v61 - v40, v42);
-      v43 = 0;
+      v42 = &v62 - v41;
+      bzero(&v62 - v41, v43);
+      v44 = 0;
       v67 = 0;
       v65 = 0u;
       v66 = 0u;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v43] = v41;
-        v43 += 8;
-        v41 += 4 * v4;
+        *&buf[v44] = v42;
+        v44 += 8;
+        v42 += 4 * v4;
       }
 
-      while (v43 != 88);
-      (*(*v39 + 24))(v39, v10, a1 + 1792);
-      (*(*v37 + 24))(v37, v10, buf);
+      while (v44 != 88);
+      (*(*v40 + 24))(v40, v10, a1 + 1792);
+      (*(*v38 + 24))(v38, v10, buf);
       *(a1 + 1908) -= a2;
     }
   }
 
   else
   {
-    (*(*v37 + 24))(v37, v10, a1 + 1792);
+    (*(*v38 + 24))(v38, v10, a1 + 1792);
   }
 }
 
@@ -6263,8 +6275,8 @@ void Phase::DspLayer23::ConvolverSlice<12>::Process(uint64_t a1, int a2)
   v68 = *MEMORY[0x277D85DE8];
   v4 = a2;
   MEMORY[0x28223BE20](a1);
-  v6 = (&v61 - v5);
-  bzero(&v61 - v5, v7);
+  v6 = (v62 - v5);
+  bzero(v62 - v5, v7);
   v8 = Phase::DspLayer23::AudioConnections::Sum((a1 + 1792), v4, v6);
   v9 = *(a1 + 2048);
   if (!v9)
@@ -6364,27 +6376,28 @@ LABEL_34:
             {
               v22 = _os_log_pack_size();
               Instance = Phase::Logger::GetInstance(v22);
-              if (caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0))
+              message = caulk::deferred_logger::create_message(*(Instance + 1248), v22 + 88, 0);
+              if (message)
               {
-                v24 = _os_log_pack_fill();
-                v25 = *(a1 + 16);
-                v26 = *(a1 + 32);
-                v27 = *(a1 + 2044);
-                v28 = *(a1 + 2040);
-                v29 = *(*(v25 + 576) + 96);
-                *v24 = 67110400;
-                *(v24 + 4) = 12;
-                *(v24 + 8) = 2048;
-                *(v24 + 10) = v25;
-                *(v24 + 18) = 2048;
-                *(v24 + 20) = v26;
-                *(v24 + 28) = 1024;
-                *(v24 + 30) = v27;
-                *(v24 + 34) = 1024;
-                *(v24 + 36) = v28;
-                *(v24 + 40) = 2048;
-                *(v24 + 42) = v29;
-                Phase::Logger::GetInstance(v24);
+                v25 = _os_log_pack_fill(message + 40, v22, 0, &dword_23A302000, "(Convolver1x%i)%p[%llx] Crossfade interrupt with %i delay frames and %i xfade frames remaining @ VE Frame %llu", v62[0], v63, *buf, *&buf[8], *&buf[16], *&buf[24]);
+                v26 = *(a1 + 16);
+                v27 = *(a1 + 32);
+                v28 = *(a1 + 2044);
+                v29 = *(a1 + 2040);
+                v30 = *(*(v26 + 576) + 96);
+                *v25 = 67110400;
+                *(v25 + 4) = 12;
+                *(v25 + 8) = 2048;
+                *(v25 + 10) = v26;
+                *(v25 + 18) = 2048;
+                *(v25 + 20) = v27;
+                *(v25 + 28) = 1024;
+                *(v25 + 30) = v28;
+                *(v25 + 34) = 1024;
+                *(v25 + 36) = v29;
+                *(v25 + 40) = 2048;
+                *(v25 + 42) = v30;
+                Phase::Logger::GetInstance(v25);
                 caulk::concurrent::messenger::enqueue();
               }
             }
@@ -6392,20 +6405,20 @@ LABEL_34:
             *(a1 + 2032) = 1065353216;
             *(a1 + 2036) = -1.0 / (v21 - 1);
             *(a1 + 2040) = v21;
-            v30 = (*(*v12 + 72))(v12);
-            v31 = (*(*v12 + 40))(v12);
-            if (v31 <= (*(*v12 + 56))(v12))
+            v31 = (*(*v12 + 72))(v12);
+            v32 = (*(*v12 + 40))(v12);
+            if (v32 <= (*(*v12 + 56))(v12))
             {
-              v33 = 0;
+              v34 = 0;
             }
 
             else
             {
-              v32 = (*(*v12 + 80))(v12, (v30 - 1));
-              v33 = (*(*v32 + 56))(v32);
+              v33 = (*(*v12 + 80))(v12, (v31 - 1));
+              v34 = (*(*v33 + 56))(v33);
             }
 
-            *(a1 + 2044) = v33;
+            *(a1 + 2044) = v34;
             v8 = (*(*v14 + 40))(v14);
           }
 
@@ -6416,10 +6429,10 @@ LABEL_34:
 
     if (*(a1 + 2057) == 1)
     {
-      v34 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
+        v36 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -6427,8 +6440,8 @@ LABEL_34:
         *&buf[18] = 1024;
         *&buf[20] = 12;
         *&buf[24] = 2048;
-        *&buf[26] = v35;
-        _os_log_impl(&dword_23A302000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
+        *&buf[26] = v36;
+        _os_log_impl(&dword_23A302000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d Convolver1x%d[%llx] failed to swap buffer. Output will be silent.", buf, 0x22u);
       }
 
       *(a1 + 2057) = 0;
@@ -6438,15 +6451,15 @@ LABEL_34:
   }
 
 LABEL_35:
-  v36 = *(a1 + 2016);
-  if (!v36)
+  v37 = *(a1 + 2016);
+  if (!v37)
   {
     if (*(a1 + 2058) == 1)
     {
-      v44 = **(Phase::Logger::GetInstance(v8) + 160);
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v45 = **(Phase::Logger::GetInstance(v8) + 160);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        v45 = *(a1 + 32);
+        v46 = *(a1 + 32);
         *buf = 136315906;
         *&buf[4] = "VPConvolver.hpp";
         *&buf[12] = 1024;
@@ -6454,82 +6467,82 @@ LABEL_35:
         *&buf[18] = 2048;
         *&buf[20] = a1;
         *&buf[28] = 2048;
-        *&buf[30] = v45;
-        _os_log_impl(&dword_23A302000, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
+        *&buf[30] = v46;
+        _os_log_impl(&dword_23A302000, v45, OS_LOG_TYPE_ERROR, "%25s:%-5d ConvolverVoicePool: slice%p (vid %llu) mConvolverBufferActive == nullptr. Output will be silent. \n", buf, 0x26u);
       }
 
       *(a1 + 2058) = 0;
     }
 
 LABEL_47:
-    v46 = 0;
-    v47 = a1 + 1920;
+    v47 = 0;
+    v48 = a1 + 1920;
     do
     {
-      vDSP_vclr(*(v47 + v46), 1, v4);
-      v46 += 8;
+      vDSP_vclr(*(v48 + v47), 1, v4);
+      v47 += 8;
     }
 
-    while (v46 != 96);
+    while (v47 != 96);
     return;
   }
 
   *(a1 + 2058) = 1;
-  v37 = *v36;
-  v38 = *(a1 + 2024);
-  if (v38 && (v39 = *v38) != 0)
+  v38 = *v37;
+  v39 = *(a1 + 2024);
+  if (v39 && (v40 = *v39) != 0)
   {
     if (*(a1 + 2044) < 1)
     {
-      v48 = a1 + 2024;
-      v49 = a1 + 1920;
-      (*(*v37 + 24))(v37, v10, a1 + 1920);
+      v49 = a1 + 2024;
+      v50 = a1 + 1920;
+      (*(*v38 + 24))(v38, v10, a1 + 1920);
       for (i = 0; i != 96; i += 8)
       {
-        v51 = 1.0 - *(a1 + 2032);
-        __Step = -*(a1 + 2036);
-        *buf = v51;
-        vDSP_vrampmul(*(v49 + i), 1, buf, &__Step, *(v49 + i), 1, v4);
+        v52 = 1.0 - *(a1 + 2032);
+        *(&v63 + 1) = -*(a1 + 2036);
+        *buf = v52;
+        vDSP_vrampmul(*(v50 + i), 1, buf, &v63 + 1, *(v50 + i), 1, v4);
       }
 
-      MEMORY[0x28223BE20](v52);
-      v54 = &v61 - 4 * v53;
-      bzero(v54, v55);
-      v56 = 0;
+      MEMORY[0x28223BE20](v53);
+      v55 = &v62[-v54];
+      bzero(v55, v56);
+      v57 = 0;
       v66 = 0u;
       v67 = 0u;
       v65 = 0u;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v56] = v54;
-        v56 += 8;
-        v54 += 4 * v4;
+        *&buf[v57] = v55;
+        v57 += 8;
+        v55 += v4;
       }
 
-      while (v56 != 96);
-      (*(*v39 + 24))(v39, v10, buf);
+      while (v57 != 96);
+      (*(*v40 + 24))(v40, v10, buf);
       for (j = 0; j != 96; j += 8)
       {
-        v58 = *(a1 + 2032);
-        v62 = *(a1 + 2036);
-        __Step = v58;
-        vDSP_vrampmuladd(*&buf[j], 1, &__Step, &v62, *(v49 + j), 1, v4);
+        v59 = *(a1 + 2032);
+        LODWORD(v63) = *(a1 + 2036);
+        HIDWORD(v63) = v59;
+        vDSP_vrampmuladd(*&buf[j], 1, &v63 + 1, &v63, *(v50 + j), 1, v4);
       }
 
-      v59 = v62;
-      *(a1 + 2032) = __Step;
-      *(a1 + 2036) = v59;
-      v60 = *(a1 + 2040) - a2;
-      *(a1 + 2040) = v60;
-      if (v60 < 1)
+      v60 = v63;
+      *(a1 + 2032) = HIDWORD(v63);
+      *(a1 + 2036) = v60;
+      v61 = *(a1 + 2040) - a2;
+      *(a1 + 2040) = v61;
+      if (v61 < 1)
       {
-        if (*v48)
+        if (*v49)
         {
-          atomic_store(0, (*v48 + 12));
+          atomic_store(0, (*v49 + 12));
         }
 
-        *v48 = 0;
+        *v49 = 0;
         *(a1 + 2032) = 0;
         *(a1 + 2040) = 0;
       }
@@ -6538,30 +6551,30 @@ LABEL_47:
     else
     {
       MEMORY[0x28223BE20](v8);
-      v41 = &v61 - 4 * v40;
-      bzero(v41, v42);
-      v43 = 0;
+      v42 = &v62[-v41];
+      bzero(v42, v43);
+      v44 = 0;
       v66 = 0u;
       v67 = 0u;
       v65 = 0u;
       memset(buf, 0, sizeof(buf));
       do
       {
-        *&buf[v43] = v41;
-        v43 += 8;
-        v41 += 4 * v4;
+        *&buf[v44] = v42;
+        v44 += 8;
+        v42 += v4;
       }
 
-      while (v43 != 96);
-      (*(*v39 + 24))(v39, v10, a1 + 1920);
-      (*(*v37 + 24))(v37, v10, buf);
+      while (v44 != 96);
+      (*(*v40 + 24))(v40, v10, a1 + 1920);
+      (*(*v38 + 24))(v38, v10, buf);
       *(a1 + 2044) -= a2;
     }
   }
 
   else
   {
-    (*(*v37 + 24))(v37, v10, a1 + 1920);
+    (*(*v38 + 24))(v38, v10, a1 + 1920);
   }
 }
 
@@ -6715,8 +6728,7 @@ __n128 Phase::DspLayer23::MatrixMixerSlice<2>::Reset(__n128 *a1)
   a1[14].n128_u64[1] = 0;
   a1[22].n128_u64[1] = 0;
   a1[39].n128_u64[1] = 0;
-  a1[40].n128_u64[1] = 0;
-  a1[40].n128_u64[0] = 0;
+  a1[40] = 0uLL;
   a1[30].n128_u64[1] = 0;
   __asm { FMOV            V0.4S, #1.0 }
 
@@ -8510,7 +8522,7 @@ uint64_t Phase::DspLayer23::MatrixMixerSlice<12>::UpdateParameters(_OWORD *a1)
   return 0;
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<Phase::DspLayer23::KernelType,std::unique_ptr<Phase::Controller::VoicePoolEntry const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<Phase::DspLayer23::KernelType,std::unique_ptr<Phase::Controller::VoicePoolEntry const>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+void ****std::unique_ptr<std::__hash_node<std::__hash_value_type<Phase::DspLayer23::KernelType,std::unique_ptr<Phase::Controller::VoicePoolEntry const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<Phase::DspLayer23::KernelType,std::unique_ptr<Phase::Controller::VoicePoolEntry const>>,void *>>>>::~unique_ptr[abi:ne200100](void ****a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -9341,18 +9353,18 @@ void sub_23A541234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::unordered_map<PHASEExternalStreamVoiceBandwidthType,applesauce::CF::DictionaryRef>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::unordered_map<PHASEExternalStreamVoiceBandwidthType,applesauce::CF::DictionaryRef>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,std::unordered_map<PHASEExternalStreamVoiceBandwidthType,applesauce::CF::DictionaryRef>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::unordered_map<PHASEExternalStreamVoiceBandwidthType,applesauce::CF::DictionaryRef>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1, uint64_t a2)
 {
-  v2 = *a1;
+  v3 = *a1;
   *a1 = 0;
-  if (v2)
+  if (v3)
   {
     if (*(a1 + 16) == 1)
     {
-      std::__hash_table<std::__hash_value_type<PHASEExternalStreamVoiceBandwidthType,applesauce::CF::DictionaryRef>,std::__unordered_map_hasher<PHASEExternalStreamVoiceBandwidthType,std::__hash_value_type<PHASEExternalStreamVoiceBandwidthType,applesauce::CF::DictionaryRef>,std::hash<PHASEExternalStreamVoiceBandwidthType>,std::equal_to<PHASEExternalStreamVoiceBandwidthType>,true>,std::__unordered_map_equal<PHASEExternalStreamVoiceBandwidthType,std::__hash_value_type<PHASEExternalStreamVoiceBandwidthType,applesauce::CF::DictionaryRef>,std::equal_to<PHASEExternalStreamVoiceBandwidthType>,std::hash<PHASEExternalStreamVoiceBandwidthType>,true>,std::allocator<std::__hash_value_type<PHASEExternalStreamVoiceBandwidthType,applesauce::CF::DictionaryRef>>>::~__hash_table(v2 + 24);
+      std::__hash_table<std::__hash_value_type<PHASEExternalStreamVoiceBandwidthType,applesauce::CF::DictionaryRef>,std::__unordered_map_hasher<PHASEExternalStreamVoiceBandwidthType,std::__hash_value_type<PHASEExternalStreamVoiceBandwidthType,applesauce::CF::DictionaryRef>,std::hash<PHASEExternalStreamVoiceBandwidthType>,std::equal_to<PHASEExternalStreamVoiceBandwidthType>,true>,std::__unordered_map_equal<PHASEExternalStreamVoiceBandwidthType,std::__hash_value_type<PHASEExternalStreamVoiceBandwidthType,applesauce::CF::DictionaryRef>,std::equal_to<PHASEExternalStreamVoiceBandwidthType>,std::hash<PHASEExternalStreamVoiceBandwidthType>,true>,std::allocator<std::__hash_value_type<PHASEExternalStreamVoiceBandwidthType,applesauce::CF::DictionaryRef>>>::~__hash_table(v3 + 24);
     }
 
-    operator delete(v2);
+    operator delete(v3);
   }
 
   return a1;
@@ -9845,8 +9857,7 @@ __n128 Phase::DspLayer23::GainControlSlice::MoveStateTo(__n128 *this, __n128 *a2
   a2[13] = v8;
   a2[14] = v6;
   a2[15] = v7;
-  this[14].n128_u64[0] = v2;
-  this[14].n128_u64[1] = 0;
+  this[14] = v2;
   v9 = a2[22].n128_u64[0];
   v10 = this[22];
   v12 = this[20];
@@ -9861,8 +9872,7 @@ __n128 Phase::DspLayer23::GainControlSlice::MoveStateTo(__n128 *this, __n128 *a2
   a2[17] = v13;
   a2[22] = v10;
   a2[16] = this[16];
-  this[22].n128_u64[0] = v9;
-  this[22].n128_u64[1] = 0;
+  this[22] = v9;
   v15 = a2[31].n128_u64[0];
   v16 = this[28];
   v18 = this[30];
@@ -9878,8 +9888,7 @@ __n128 Phase::DspLayer23::GainControlSlice::MoveStateTo(__n128 *this, __n128 *a2
   a2[31] = v17;
   result = this[24];
   a2[24] = result;
-  this[31].n128_u64[0] = v15;
-  this[31].n128_u64[1] = 0;
+  this[31] = v15;
   a2[32].n128_u64[0] = this[32].n128_u64[0];
   return result;
 }
@@ -10302,7 +10311,7 @@ uint64_t Phase::DspLayer23::OscillatorSlice::UpdateParameters(Phase::DspLayer23:
   return 0;
 }
 
-float32x4_t *Phase::DspLayer23::OscillatorSlice::Process(float32x4_t *this, int a2, int a3)
+float32x4_t *Phase::DspLayer23::OscillatorSlice::Process(float32x4_t *this, unsigned int a2, int a3)
 {
   v3 = this[82];
   v4 = this[83];
@@ -11339,7 +11348,7 @@ uint64_t Phase::DspLayer23::PushStreamSamplerSlice::GetData(Phase::DspLayer23::P
   return *(this + a2 + 106);
 }
 
-int8x16_t Phase::DspLayer23::PushStreamSamplerSlice::Process(Phase::DspLayer23::PushStreamSamplerSlice *this, int a2, int a3, int8x16_t result)
+int8x16_t Phase::DspLayer23::PushStreamSamplerSlice::Process(Phase::DspLayer23::PushStreamSamplerSlice *this, unsigned int a2, int a3, int8x16_t result)
 {
   if (a2 >= 1)
   {
@@ -12031,7 +12040,7 @@ uint64_t Phase::DspLayer23::ResidentSamplerSlice::GetData(Phase::DspLayer23::Res
   return *(this + a2 + 110);
 }
 
-float64x2_t Phase::DspLayer23::ResidentSamplerSlice::Process(Phase::DspLayer23::ResidentSamplerSlice *this, int a2, int a3, float64x2_t result)
+float64x2_t Phase::DspLayer23::ResidentSamplerSlice::Process(Phase::DspLayer23::ResidentSamplerSlice *this, unsigned int a2, int a3, float64x2_t result)
 {
   v88 = *MEMORY[0x277D85DE8];
   if (a2 >= 1)
@@ -12933,8 +12942,7 @@ __n128 Phase::DspLayer23::VoiceEngineOutputSlice::MoveStateTo(__n128 *this, __n1
   a2[13] = v8;
   a2[14] = v6;
   a2[15] = v7;
-  this[14].n128_u64[0] = v2;
-  this[14].n128_u64[1] = 0;
+  this[14] = v2;
   v9 = a2[23].n128_u64[0];
   v10 = this[17];
   v11 = this[19];
@@ -12950,8 +12958,7 @@ __n128 Phase::DspLayer23::VoiceEngineOutputSlice::MoveStateTo(__n128 *this, __n1
   a2[23] = v12;
   result = this[16];
   a2[16] = result;
-  this[23].n128_u64[0] = v9;
-  this[23].n128_u64[1] = 0;
+  this[23] = v9;
   a2[24].n128_u32[0] = this[24].n128_u32[0];
   a2[24].n128_u64[1] = this[24].n128_u64[1];
   return result;
@@ -13269,7 +13276,7 @@ LABEL_6:
 void *Phase::Controller::XTCBinauralSpatializer::XTCBinauralSpatializer(void *a1, __int128 *a2, uint64_t a3, uint64_t a4)
 {
   LOBYTE(__p[0]) = 0;
-  std::vector<char>::vector[abi:ne200100](v12, 32);
+  std::vector<char>::vector[abi:ne200100](v12, 32, __p);
   v8 = v12[0];
   *v12[0] = 6619138;
   v8[2] = 0;
@@ -13616,7 +13623,7 @@ void Phase::Controller::XTCBinauralEncoder::Initialize(IR::IRData **this)
   std::terminate();
 }
 
-void sub_23A54A40C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
+void sub_23A54A40C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
 {
   std::__list_imp<std::string>::clear(&a19);
   IR::IRCoordinateTree::~IRCoordinateTree(&a22);
@@ -13691,7 +13698,7 @@ uint64_t Phase::Controller::XTCBinauralEncoder::GetFiltersAndDelays(uint64_t a1,
   return 1;
 }
 
-_BYTE *Phase::Controller::XTCBinauralEncoder::GetDescription@<X0>(Phase::Controller::XTCBinauralEncoder *this@<X0>, _BYTE *a2@<X8>)
+void *Phase::Controller::XTCBinauralEncoder::GetDescription@<X0>(Phase::Controller::XTCBinauralEncoder *this@<X0>, void *a2@<X8>)
 {
   v10 = *MEMORY[0x277D85DE8];
   v3 = *(this + 94);
@@ -13768,7 +13775,7 @@ unint64_t Phase::Controller::XTCBinauralEncoder::GetWorkBufferSizeInBytes(void *
   }
 }
 
-uint64_t Phase::Controller::XTCBinauralEncoder::GetNearestFilter(Phase::Logger *a1, uint64_t a2, float *a3, uint64_t a4)
+int32x2_t *Phase::Controller::XTCBinauralEncoder::GetNearestFilter(Phase::Logger *a1, uint64_t a2, float *a3, int32x2_t *a4)
 {
   v38 = *MEMORY[0x277D85DE8];
   if (!*a2)
@@ -13838,7 +13845,7 @@ uint64_t Phase::Controller::XTCBinauralEncoder::GetNearestFilter(Phase::Logger *
     v34 = LODWORD(v12);
     v35 = vrev64_s32(*a3);
     v14 = *(a1 + 69);
-    MiddleFilter = Phase::Controller::SpatializerFilterDatabase::GetMiddleFilter(*a2, 3);
+    MiddleFilter = Phase::Controller::SpatializerFilterDatabase::GetMiddleFilter(*a2, 3u);
     v17 = Phase::Controller::BinauralUtility::ApplyInHeadFilter(v14, NearestFilterData, MiddleFilter, *(*a2 + 8), &v34, a4, v16);
     v18 = (*(*a1 + 56))(a1, a2);
     if (v17 == a4)
@@ -13860,7 +13867,7 @@ uint64_t Phase::Controller::XTCBinauralEncoder::GetNearestFilter(Phase::Logger *
     else if (v18)
     {
       v19 = (v17 + 4);
-      v20 = (a4 + 4);
+      v20 = a4 + 1;
       do
       {
         *(v20 - 1) = *v19;
@@ -13880,7 +13887,7 @@ uint64_t Phase::Controller::XTCBinauralEncoder::GetNearestFilter(Phase::Logger *
   {
     v21 = *(a1 + 69);
     v22 = Phase::Controller::SpatializerFilterDatabase::GetNearestFilterData(*a2, a3[1], a3[2]);
-    v23 = Phase::Controller::SpatializerFilterDatabase::GetMiddleFilter(*a2, 3);
+    v23 = Phase::Controller::SpatializerFilterDatabase::GetMiddleFilter(*a2, 3u);
     v25 = *(*a2 + 8);
 
     return Phase::Controller::BinauralUtility::ApplyInHeadFilter(v21, v22, v23, v25, a3, a4, v24);
@@ -13899,10 +13906,10 @@ void IR::IRCoordinateTree::~IRCoordinateTree(IR::IRCoordinateTree *this)
   }
 }
 
-uint64_t std::ostream_iterator<std::string,char,std::char_traits<char>>::operator=[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::ostream_iterator<std::string,char,std::char_traits<char>>::operator=[abi:ne200100](uint64_t a1, uint64_t ***a2)
 {
   v3 = *a1;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v5 = *(a2 + 23);
@@ -13925,20 +13932,20 @@ uint64_t std::ostream_iterator<std::string,char,std::char_traits<char>>::operato
   return a1;
 }
 
-void std::__list_imp<std::string>::clear(void *a1)
+void std::__list_imp<std::string>::clear(uint64_t *result)
 {
-  if (a1[2])
+  if (result[2])
   {
-    v2 = a1[1];
-    v3 = *(*a1 + 8);
+    v2 = result[1];
+    v3 = *(*result + 8);
     v4 = *v2;
     v4[1] = v3;
     *v3 = v4;
-    a1[2] = 0;
-    while (v2 != a1)
+    result[2] = 0;
+    while (v2 != result)
     {
       v5 = *(v2 + 8);
-      std::__list_imp<std::string>::__delete_node[abi:ne200100](a1, v2);
+      std::__list_imp<std::string>::__delete_node[abi:ne200100](result, v2);
       v2 = v5;
     }
   }
@@ -13954,7 +13961,7 @@ void std::__list_imp<std::string>::__delete_node[abi:ne200100](int a1, void **__
   operator delete(__p);
 }
 
-void std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -13964,20 +13971,20 @@ void std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne20010
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 24;
+      v6 = v4 - 3;
       do
       {
         v9 = v6;
         std::vector<IR::IRCoordinateTree>::__destroy_vector::operator()[abi:ne200100](&v9);
-        v7 = *(v6 - 24);
+        v7 = *(v6 - 3);
         if (v7)
         {
-          *(v6 - 16) = v7;
+          *(v6 - 2) = v7;
           operator delete(v7);
         }
 
-        v8 = (v6 - 32);
-        v6 -= 56;
+        v8 = v6 - 4;
+        v6 -= 7;
       }
 
       while (v8 != v2);
@@ -13997,11 +14004,11 @@ Phase::Zeppelin::HorizontalSliceDatabaseContext *Phase::Zeppelin::HorizontalSlic
   *(this + 2) = 0;
   *(this + 3) = 0;
   *(this + 1) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 8, *DefaultThirdOctaveBandCenterFrequencies, DefaultThirdOctaveBandCenterFrequencies[1], (DefaultThirdOctaveBandCenterFrequencies[1] - *DefaultThirdOctaveBandCenterFrequencies) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 1, *DefaultThirdOctaveBandCenterFrequencies, *(DefaultThirdOctaveBandCenterFrequencies + 8), (*(DefaultThirdOctaveBandCenterFrequencies + 8) - *DefaultThirdOctaveBandCenterFrequencies) >> 2);
   return this;
 }
 
-Phase::Zeppelin::HorizontalSliceDatabaseContext *Phase::Zeppelin::HorizontalSliceDatabaseContext::HorizontalSliceDatabaseContext(Phase::Zeppelin::HorizontalSliceDatabaseContext *this, int a2, const float *a3, unint64_t a4)
+Phase::Zeppelin::HorizontalSliceDatabaseContext *Phase::Zeppelin::HorizontalSliceDatabaseContext::HorizontalSliceDatabaseContext(Phase::Zeppelin::HorizontalSliceDatabaseContext *this, int a2, float *a3, unint64_t a4)
 {
   v14 = *MEMORY[0x277D85DE8];
   *this = a2;
@@ -14104,11 +14111,11 @@ uint64_t Phase::Zeppelin::ScsRadiationContext::ScsRadiationContext(uint64_t resu
   return result;
 }
 
-float *Phase::Zeppelin::PropagationMediumContext::PropagationMediumContext(float *this, float a2, float a3)
+Phase::Logger *Phase::Zeppelin::PropagationMediumContext::PropagationMediumContext(Phase::Logger *this, float a2, float a3)
 {
   v9 = *MEMORY[0x277D85DE8];
   *this = a2;
-  this[1] = a3;
+  *(this + 1) = a3;
   if (a2 <= 0.0 || a3 <= 0.0)
   {
     v3 = **(Phase::Logger::GetInstance(this) + 944);
@@ -14150,24 +14157,23 @@ void Phase::Zeppelin::SCSRadiationPrecomputedData::~SCSRadiationPrecomputedData(
   }
 }
 
-uint64_t Phase::Zeppelin::SphereSampling::NDimEquiangularHalfCircleData<float,double>::Populate(uint64_t result, uint64_t a2, int a3)
+void Phase::Zeppelin::SphereSampling::NDimEquiangularHalfCircleData<float,double>::Populate(uint64_t a1, uint64_t a2, int a3)
 {
-  v3 = *(result + 8) - *result;
+  v3 = *(a1 + 8) - *a1;
   if (v3)
   {
-    v6 = result;
     v7 = 0;
     v8 = 0;
-    v9 = *(result + 28);
+    v9 = *(a1 + 28);
     v10 = v3 >> 2;
-    v11 = *(result + 24);
+    v11 = *(a1 + 24);
     v12 = 0.0;
     do
     {
-      v13 = *(*v6 + 4 * v7);
+      v13 = *(*a1 + 4 * v7);
       if (a3)
       {
-        result = std::function<double ()(float,float)>::operator()(*(a2 + 24), 0.0, *(*v6 + 4 * v7));
+        std::function<double ()(float,float)>::operator()(*(a2 + 24), 0.0, *(*a1 + 4 * v7));
         v12 = v14;
       }
 
@@ -14176,13 +14182,13 @@ uint64_t Phase::Zeppelin::SphereSampling::NDimEquiangularHalfCircleData<float,do
         for (i = 0; i != v11; ++i)
         {
           v16 = (v9 * i) * 0.0174532925;
-          result = std::function<double ()(float,float)>::operator()(*(a2 + 24), v16, v13);
+          std::function<double ()(float,float)>::operator()(*(a2 + 24), v16, v13);
           if (a3)
           {
             v17 = v17 / v12;
           }
 
-          *(*(v6[4] + 8 * i) + 8 * v7) = v17;
+          *(*(*(a1 + 32) + 8 * i) + 8 * v7) = v17;
         }
       }
 
@@ -14191,8 +14197,6 @@ uint64_t Phase::Zeppelin::SphereSampling::NDimEquiangularHalfCircleData<float,do
 
     while (v10 > v8);
   }
-
-  return result;
 }
 
 void Phase::Zeppelin::HorizontalSliceDatabase::HorizontalSliceDatabase(Phase::Logger *a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -14232,42 +14236,42 @@ uint64_t Phase::Zeppelin::SphereSampling::NDimEquiangularHalfCircleData<float,do
   return *(*(a1 + 32) + 8 * ((llroundf((a3 * 57.296) / *(a1 + 28)) % *(a1 + 24) + *(a1 + 24)) % *(a1 + 24)));
 }
 
-void Phase::Zeppelin::HorizontalSliceDatabase::GenerateDatabaseForNewFrequencyResolution(Phase::Zeppelin::HorizontalSliceDatabase *this, const float *a2, uint64_t a3)
+void Phase::Zeppelin::HorizontalSliceDatabase::GenerateDatabaseForNewFrequencyResolution(Phase::Zeppelin::HorizontalSliceDatabase *this, float *a3, unint64_t a4)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if (a2)
+  v12 = *MEMORY[0x277D85DE8];
+  if (a3)
   {
-    if (a3)
+    if (a4)
     {
       operator new();
     }
 
-    v5 = **(Phase::Logger::GetInstance(this) + 944);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = **(Phase::Logger::GetInstance(this) + 944);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       buf = 136315394;
       buf_4 = "ZeppelinContexts.cpp";
-      v9 = 1024;
-      v10 = 673;
-      _os_log_impl(&dword_23A302000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): HorizontalSliceDatabase: The passed frequencies array length is smaller than or equal to zero.", &buf, 0x12u);
+      v10 = 1024;
+      v11 = 673;
+      _os_log_impl(&dword_23A302000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): HorizontalSliceDatabase: The passed frequencies array length is smaller than or equal to zero.", &buf, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
     std::invalid_argument::invalid_argument[abi:ne200100](exception, "HorizontalSliceDatabase: The passed frequencies array length is smaller than or equal to zero.");
   }
 
-  v3 = **(Phase::Logger::GetInstance(this) + 944);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = **(Phase::Logger::GetInstance(this) + 944);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     buf = 136315394;
     buf_4 = "ZeppelinContexts.cpp";
-    v9 = 1024;
-    v10 = 667;
-    _os_log_impl(&dword_23A302000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument) [(nullptr == pInNewCenterFrequenciesArr) is true]: ErrorDescriptions::kErrDescr_nullPtr", &buf, 0x12u);
+    v10 = 1024;
+    v11 = 667;
+    _os_log_impl(&dword_23A302000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument) [(nullptr == pInNewCenterFrequenciesArr) is true]: ErrorDescriptions::kErrDescr_nullPtr", &buf, 0x12u);
   }
 
-  v4 = __cxa_allocate_exception(0x10uLL);
-  std::invalid_argument::invalid_argument[abi:ne200100](v4, Phase::Zeppelin::ErrorDescriptions::kErrDescr_nullPtr);
+  v5 = __cxa_allocate_exception(0x10uLL);
+  std::invalid_argument::invalid_argument[abi:ne200100](v5, Phase::Zeppelin::ErrorDescriptions::kErrDescr_nullPtr);
 }
 
 uint64_t std::unique_ptr<Phase::Zeppelin::SphereSampling::NDimEquiangularHalfCircleData<float,double>>::reset[abi:ne200100](uint64_t *a1, uint64_t a2)
@@ -14284,12 +14288,12 @@ uint64_t std::unique_ptr<Phase::Zeppelin::SphereSampling::NDimEquiangularHalfCir
   return result;
 }
 
-void Phase::Zeppelin::SphereSampling::NDimEquiangularHalfCircleData<float,double>::NDimEquiangularHalfCircleData(uint64_t a1, int a2, uint64_t *a3)
+void Phase::Zeppelin::SphereSampling::NDimEquiangularHalfCircleData<float,double>::NDimEquiangularHalfCircleData(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a3, a3[1], (a3[1] - *a3) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   *(a1 + 24) = a2;
   *(a1 + 28) = 180.0 / (a2 - 1);
   operator new[]();
@@ -14386,14 +14390,13 @@ void std::__function::__func<Phase::Zeppelin::HorizontalSliceDatabase::Horizonta
   JUMPOUT(0x23EE864A0);
 }
 
-__n128 std::__function::__func<Phase::Zeppelin::HorizontalSliceDatabase::HorizontalSliceDatabase(Phase::Zeppelin::HorizontalSliceDatabaseContext const*,Phase::Zeppelin::ScsRadiationContext *,Phase::Zeppelin::PropagationMediumContext const*,Phase::Zeppelin::NormalizationContext const*)::$_0,std::allocator<Phase::Zeppelin::HorizontalSliceDatabase::HorizontalSliceDatabase(Phase::Zeppelin::HorizontalSliceDatabaseContext const*,Phase::Zeppelin::ScsRadiationContext *,Phase::Zeppelin::PropagationMediumContext const*,Phase::Zeppelin::NormalizationContext const*)::$_0>,double ()(float,float)>::__clone(__n128 *a1, __n128 *a2)
+__n128 std::__function::__func<Phase::Zeppelin::HorizontalSliceDatabase::HorizontalSliceDatabase(Phase::Zeppelin::HorizontalSliceDatabaseContext const*,Phase::Zeppelin::ScsRadiationContext *,Phase::Zeppelin::PropagationMediumContext const*,Phase::Zeppelin::NormalizationContext const*)::$_0,std::allocator<Phase::Zeppelin::HorizontalSliceDatabase::HorizontalSliceDatabase(Phase::Zeppelin::HorizontalSliceDatabaseContext const*,Phase::Zeppelin::ScsRadiationContext *,Phase::Zeppelin::PropagationMediumContext const*,Phase::Zeppelin::NormalizationContext const*)::$_0>,double ()(float,float)>::__clone(uint64_t a1, __n128 *a2)
 {
   a2->n128_u64[0] = &unk_284D3CC90;
-  a2[1].n128_u64[0] = 0;
-  a2[1].n128_u64[1] = 0;
+  a2[1] = 0uLL;
   a2->n128_u64[1] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&a2->n128_i64[1], a1->n128_i64[1], a1[1].n128_i64[0], (a1[1].n128_u64[0] - a1->n128_u64[1]) >> 2);
-  result = a1[2];
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&a2->n128_i64[1], *(a1 + 8), *(a1 + 16), (*(a1 + 16) - *(a1 + 8)) >> 2);
+  result = *(a1 + 32);
   a2[2] = result;
   return result;
 }
@@ -14420,7 +14423,7 @@ void std::__function::__func<Phase::Zeppelin::HorizontalSliceDatabase::Horizonta
   operator delete(__p);
 }
 
-double std::__function::__func<Phase::Zeppelin::HorizontalSliceDatabase::HorizontalSliceDatabase(Phase::Zeppelin::HorizontalSliceDatabaseContext const*,Phase::Zeppelin::ScsRadiationContext *,Phase::Zeppelin::PropagationMediumContext const*,Phase::Zeppelin::NormalizationContext const*)::$_0,std::allocator<Phase::Zeppelin::HorizontalSliceDatabase::HorizontalSliceDatabase(Phase::Zeppelin::HorizontalSliceDatabaseContext const*,Phase::Zeppelin::ScsRadiationContext *,Phase::Zeppelin::PropagationMediumContext const*,Phase::Zeppelin::NormalizationContext const*)::$_0>,double ()(float,float)>::operator()(uint64_t a1, float *a2, float *a3)
+long double std::__function::__func<Phase::Zeppelin::HorizontalSliceDatabase::HorizontalSliceDatabase(Phase::Zeppelin::HorizontalSliceDatabaseContext const*,Phase::Zeppelin::ScsRadiationContext *,Phase::Zeppelin::PropagationMediumContext const*,Phase::Zeppelin::NormalizationContext const*)::$_0,std::allocator<Phase::Zeppelin::HorizontalSliceDatabase::HorizontalSliceDatabase(Phase::Zeppelin::HorizontalSliceDatabaseContext const*,Phase::Zeppelin::ScsRadiationContext *,Phase::Zeppelin::PropagationMediumContext const*,Phase::Zeppelin::NormalizationContext const*)::$_0>,double ()(float,float)>::operator()(uint64_t a1, float *a2, float *a3)
 {
   v15 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 8);
@@ -14464,16 +14467,16 @@ double std::__function::__func<Phase::Zeppelin::HorizontalSliceDatabase::Horizon
   return hypot(v6, v7);
 }
 
-Phase::Logger *Phase::GetBandsFromCenterFrequencies<std::__wrap_iter<double const*>,double>(double **a1, double *a2, double *a3)
+uint64_t *Phase::GetBandsFromCenterFrequencies<std::__wrap_iter<double const*>,double>(uint64_t *a1, double *a2, double *a3)
 {
   v4 = a2;
   v40 = *MEMORY[0x277D85DE8];
   v6 = a3 - a2;
   *v35 = 0;
   *&v35[8] = 0;
-  result = std::vector<Phase::FrequencyBand<double>>::vector[abi:ne200100](a1, v6);
+  result = std::vector<Phase::FrequencyBand<double>>::vector[abi:ne200100](a1, v6, v35);
   v8 = *a1;
-  **a1 = 10.0;
+  **a1 = 0x4024000000000000;
   if (v6 == 31)
   {
     if (a3 == v4)

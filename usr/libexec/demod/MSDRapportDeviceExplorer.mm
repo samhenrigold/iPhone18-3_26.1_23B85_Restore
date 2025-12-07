@@ -68,11 +68,11 @@
   queue = [(MSDRapportDeviceExplorer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100063A54(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceExplorer: Activating explorer!", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceExplorer: Activating explorer!", buf, 2u);
   }
 
   rpClient = [(MSDRapportDeviceExplorer *)self rpClient];
@@ -80,8 +80,8 @@
   if (!rpClient)
   {
     objc_initWeak(buf, self);
-    v6 = objc_alloc_init(RPCompanionLinkClient);
-    [(MSDRapportDeviceExplorer *)self setRpClient:v6];
+    v7 = objc_alloc_init(RPCompanionLinkClient);
+    [(MSDRapportDeviceExplorer *)self setRpClient:v7];
 
     queue2 = [(MSDRapportDeviceExplorer *)self queue];
     rpClient2 = [(MSDRapportDeviceExplorer *)self rpClient];
@@ -96,60 +96,60 @@
     rpClient5 = [(MSDRapportDeviceExplorer *)self rpClient];
     [rpClient5 setPasswordType:2];
 
-    v28[0] = _NSConcreteStackBlock;
-    v28[1] = 3221225472;
-    v28[2] = sub_100045F84;
-    v28[3] = &unk_100169C78;
-    objc_copyWeak(&v29, buf);
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_100045F84;
+    v29[3] = &unk_100169C78;
+    objc_copyWeak(&v30, buf);
     rpClient6 = [(MSDRapportDeviceExplorer *)self rpClient];
-    [rpClient6 setInterruptionHandler:v28];
+    [rpClient6 setInterruptionHandler:v29];
 
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_100045FE0;
-    v26[3] = &unk_100169C78;
-    objc_copyWeak(&v27, buf);
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_100045FE0;
+    v27[3] = &unk_100169C78;
+    objc_copyWeak(&v28, buf);
     rpClient7 = [(MSDRapportDeviceExplorer *)self rpClient];
-    [rpClient7 setInvalidationHandler:v26];
+    [rpClient7 setInvalidationHandler:v27];
 
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_10004603C;
-    v24[3] = &unk_10016AD10;
-    objc_copyWeak(&v25, buf);
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_10004603C;
+    v25[3] = &unk_10016AD10;
+    objc_copyWeak(&v26, buf);
     rpClient8 = [(MSDRapportDeviceExplorer *)self rpClient];
-    [rpClient8 setDeviceFoundHandler:v24];
+    [rpClient8 setDeviceFoundHandler:v25];
 
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_100046098;
-    v22[3] = &unk_10016AD10;
-    objc_copyWeak(&v23, buf);
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100046098;
+    v23[3] = &unk_10016AD10;
+    objc_copyWeak(&v24, buf);
     rpClient9 = [(MSDRapportDeviceExplorer *)self rpClient];
-    [rpClient9 setDeviceLostHandler:v22];
+    [rpClient9 setDeviceLostHandler:v23];
 
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_1000460F4;
-    v20[3] = &unk_10016AD38;
-    objc_copyWeak(&v21, buf);
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_1000460F4;
+    v21[3] = &unk_10016AD38;
+    objc_copyWeak(&v22, buf);
     rpClient10 = [(MSDRapportDeviceExplorer *)self rpClient];
-    [rpClient10 setDeviceChangedHandler:v20];
+    [rpClient10 setDeviceChangedHandler:v21];
 
     rpClient11 = [(MSDRapportDeviceExplorer *)self rpClient];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_100046160;
-    v18[3] = &unk_10016A178;
-    objc_copyWeak(&v19, buf);
-    [rpClient11 activateWithCompletion:v18];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_100046160;
+    v19[3] = &unk_10016A178;
+    objc_copyWeak(&v20, buf);
+    [rpClient11 activateWithCompletion:v19];
 
-    objc_destroyWeak(&v19);
-    objc_destroyWeak(&v21);
-    objc_destroyWeak(&v23);
-    objc_destroyWeak(&v25);
-    objc_destroyWeak(&v27);
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(buf);
   }
 }
@@ -159,11 +159,11 @@
   queue = [(MSDRapportDeviceExplorer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100063A54(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceExplorer: Deactivating explorer!", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceExplorer: Deactivating explorer!", buf, 2u);
   }
 
   rpClient = [(MSDRapportDeviceExplorer *)self rpClient];
@@ -178,7 +178,7 @@
 
     [(MSDRapportDeviceExplorer *)self setRpClient:0];
     devices = [(MSDRapportDeviceExplorer *)self devices];
-    v9 = [NSArray arrayWithArray:devices];
+    v10 = [NSArray arrayWithArray:devices];
 
     devices2 = [(MSDRapportDeviceExplorer *)self devices];
     [devices2 removeAllObjects];
@@ -187,38 +187,38 @@
 
     if (observer)
     {
-      v21 = 0u;
       v22 = 0u;
-      v19 = 0u;
+      v23 = 0u;
       v20 = 0u;
-      v12 = v9;
-      v13 = [v12 countByEnumeratingWithState:&v19 objects:v24 count:16];
-      if (v13)
+      v21 = 0u;
+      v13 = v10;
+      v14 = [v13 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      if (v14)
       {
-        v14 = v13;
-        v15 = *v20;
+        v15 = v14;
+        v16 = *v21;
         do
         {
-          v16 = 0;
+          v17 = 0;
           do
           {
-            if (*v20 != v15)
+            if (*v21 != v16)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v13);
             }
 
-            v17 = *(*(&v19 + 1) + 8 * v16);
+            v18 = *(*(&v20 + 1) + 8 * v17);
             observer2 = [(MSDRapportDeviceExplorer *)self observer];
-            [observer2 explorerDidLoseDevice:v17];
+            [observer2 explorerDidLoseDevice:v18];
 
-            v16 = v16 + 1;
+            v17 = v17 + 1;
           }
 
-          while (v14 != v16);
-          v14 = [v12 countByEnumeratingWithState:&v19 objects:v24 count:16];
+          while (v15 != v17);
+          v15 = [v13 countByEnumeratingWithState:&v20 objects:v25 count:16];
         }
 
-        while (v14);
+        while (v15);
       }
     }
   }
@@ -274,18 +274,18 @@ LABEL_11:
   queue = [(MSDRapportDeviceExplorer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = sub_100063A54(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1000D1CA4();
   }
 
   statusFlags = [foundCopy statusFlags];
-  v8 = [foundCopy statusFlags] & 0x8000;
-  if (!(statusFlags & 0x80000000 | v8))
+  statusFlags2 = [foundCopy statusFlags];
+  if (!(statusFlags & 0x80000000 | (statusFlags2 & 0x8000)))
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sub_100063A54(statusFlags2);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_1000D1D50();
     }
@@ -293,10 +293,10 @@ LABEL_11:
     goto LABEL_18;
   }
 
-  if ((statusFlags & 0x80000000) != 0 && v8)
+  if ((statusFlags & 0x80000000) != 0 && (statusFlags2 & 0x8000) != 0)
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sub_100063A54(statusFlags2);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_1000D1D14();
     }
@@ -304,8 +304,9 @@ LABEL_11:
     goto LABEL_18;
   }
 
-  v9 = [(MSDRapportDeviceExplorer *)self _findMatchingMSDRapportDeviceForRPCompanionLinkDevice:foundCopy];
-  if (!v9)
+  v11 = [(MSDRapportDeviceExplorer *)self _findMatchingMSDRapportDeviceForRPCompanionLinkDevice:foundCopy];
+  v10 = v11;
+  if (!v11)
   {
     observer4 = [[MSDRapportDevice alloc] initWithRPCompanionLinkDevice:foundCopy];
     devices = [(MSDRapportDeviceExplorer *)self devices];
@@ -322,21 +323,21 @@ LABEL_11:
     goto LABEL_17;
   }
 
-  v10 = sub_100063A54();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100063A54(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v16 = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceExplorer: Received duplicated device. Renewing its RPCompanionLinkDevice.", v16, 2u);
+    *v18 = 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceExplorer: Received duplicated device. Renewing its RPCompanionLinkDevice.", v18, 2u);
   }
 
-  [v9 renewRPCompanionLinkDevice:foundCopy];
-  [v9 setDroppedByRapport:0];
+  [v10 renewRPCompanionLinkDevice:foundCopy];
+  [v10 setDroppedByRapport:0];
   observer3 = [(MSDRapportDeviceExplorer *)self observer];
 
   if (observer3)
   {
     observer4 = [(MSDRapportDeviceExplorer *)self observer];
-    [(MSDRapportDevice *)observer4 explorerDidUpdateDevice:v9];
+    [(MSDRapportDevice *)observer4 explorerDidUpdateDevice:v10];
 LABEL_17:
   }
 
@@ -349,26 +350,26 @@ LABEL_18:
   queue = [(MSDRapportDeviceExplorer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = sub_100063A54(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1000D1D8C();
   }
 
-  v7 = [(MSDRapportDeviceExplorer *)self _findMatchingMSDRapportDeviceForRPCompanionLinkDevice:lostCopy];
-  v8 = v7;
-  if (v7)
+  v8 = [(MSDRapportDeviceExplorer *)self _findMatchingMSDRapportDeviceForRPCompanionLinkDevice:lostCopy];
+  v9 = v8;
+  if (v8)
   {
-    [v7 setDroppedByRapport:1];
-    v9 = dispatch_time(0, 1000000000);
+    [v8 setDroppedByRapport:1];
+    v10 = dispatch_time(0, 1000000000);
     queue2 = [(MSDRapportDeviceExplorer *)self queue];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10004691C;
-    v11[3] = &unk_10016A258;
-    v12 = v8;
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10004691C;
+    v12[3] = &unk_10016A258;
+    v13 = v9;
     selfCopy = self;
-    dispatch_after(v9, queue2, v11);
+    dispatch_after(v10, queue2, v12);
   }
 }
 
@@ -378,8 +379,8 @@ LABEL_18:
   queue = [(MSDRapportDeviceExplorer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v7 = sub_100063A54();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = sub_100063A54(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1000D1DFC();
   }

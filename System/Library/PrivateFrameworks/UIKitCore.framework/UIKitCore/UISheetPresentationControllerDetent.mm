@@ -207,9 +207,9 @@ double __80__UISheetPresentationControllerDetent__detentWithIdentifier_container
 
       if (v9 && v10)
       {
-        v12 = [v9 isEqual:v10];
+        isEqual = objc_msgSend_isEqual_(v9);
 
-        if ((v12 & 1) == 0)
+        if ((isEqual & 1) == 0)
         {
           goto LABEL_13;
         }

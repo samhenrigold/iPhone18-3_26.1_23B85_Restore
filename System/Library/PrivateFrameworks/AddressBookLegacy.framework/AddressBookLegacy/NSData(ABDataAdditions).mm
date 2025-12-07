@@ -10,7 +10,7 @@
 
 - (id)abStringAtRange:()ABDataAdditions inEncoding:
 {
-  v6 = [self subdataWithRange:?];
+  v6 = [self subdataWithRange:{a3, a4}];
   if (a5 == 4000100)
   {
 

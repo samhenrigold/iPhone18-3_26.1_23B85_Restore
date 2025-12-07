@@ -48,7 +48,7 @@ uint64_t __60__MKPlaceSectionRowViewAccessibility_isAccessibilityElement__block_
 
 - (id)accessibilityDragSourceDescriptors
 {
-  v14[1] = *MEMORY[0x29EDCA608];
+  v13[1] = *MEMORY[0x29EDCA608];
   v3 = [(MKPlaceSectionRowViewAccessibility *)self _accessibilityFindViewAncestor:&__block_literal_global_294 startWithSelf:1];
   if (v3)
   {
@@ -60,18 +60,16 @@ uint64_t __60__MKPlaceSectionRowViewAccessibility_isAccessibilityElement__block_
     [(MKPlaceSectionRowViewAccessibility *)self accessibilityActivationPoint];
     UIAccessibilityPointToPoint();
     v9 = [v4 initWithName:v8 point:v3 inView:?];
-    v14[0] = v9;
-    accessibilityDragSourceDescriptors = [MEMORY[0x29EDB8D80] arrayWithObjects:v14 count:1];
+    v13[0] = v9;
+    accessibilityDragSourceDescriptors = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
   }
 
   else
   {
-    v13.receiver = self;
-    v13.super_class = MKPlaceSectionRowViewAccessibility;
-    accessibilityDragSourceDescriptors = [(MKPlaceSectionRowViewAccessibility *)&v13 accessibilityDragSourceDescriptors];
+    v12.receiver = self;
+    v12.super_class = MKPlaceSectionRowViewAccessibility;
+    accessibilityDragSourceDescriptors = [(MKPlaceSectionRowViewAccessibility *)&v12 accessibilityDragSourceDescriptors];
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return accessibilityDragSourceDescriptors;
 }

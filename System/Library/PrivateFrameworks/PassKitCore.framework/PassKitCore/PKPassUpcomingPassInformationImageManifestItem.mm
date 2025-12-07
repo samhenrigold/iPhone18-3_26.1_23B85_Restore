@@ -36,9 +36,9 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      v10 = [(__CFString *)scheme isEqualToString:@"https"];
+      isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-      if (v10)
+      if (isEqualToString)
       {
 LABEL_6:
         v11 = [[PKPassUpcomingPassInformationImageManifestItem alloc] _initWithURL:v7];

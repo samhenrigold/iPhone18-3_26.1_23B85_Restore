@@ -476,8 +476,8 @@ CFStringRef sub_100001860(uint64_t a1)
     }
   }
 
-  sub_100005F98(v21, "log-version", "1.0");
-  sub_1000060E0(v22, "accessory_type", "rtm");
+  sub_100005F98(v20, "log-version", "1.0");
+  sub_1000060E0(v21, "accessory_type", "rtm");
   if (valuePtr == 1)
   {
     v6 = "rtm2,1";
@@ -488,7 +488,7 @@ CFStringRef sub_100001860(uint64_t a1)
     v6 = "rtm1,1";
   }
 
-  sub_10000612C(&v23, "accessory_machine_config", v6);
+  sub_10000612C(&v22, "accessory_machine_config", v6);
   if (Mutable)
   {
     CFRetain(Mutable);
@@ -506,27 +506,27 @@ CFStringRef sub_100001860(uint64_t a1)
     cf = 0;
   }
 
-  sub_100005FE4(&v24, "crashlogs");
+  sub_100005FE4(&v23, "crashlogs");
   if (cf)
   {
     CFRetain(cf);
   }
 
-  v25 = cf;
-  __p[0] = v21;
-  __p[1] = 4;
-  v9 = sub_10000237C(__p);
+  v24 = cf;
+  __p.__r_.__value_.__r.__words[0] = v20;
+  __p.__r_.__value_.__l.__size_ = 4;
+  v9 = sub_10000237C(&__p);
   v10 = 0;
-  v19 = v9;
+  v18 = v9;
   do
   {
-    v11 = *(&v25 + v10);
+    v11 = *(&v24 + v10);
     if (v11)
     {
       CFRelease(v11);
     }
 
-    v12 = *(&v24 + v10);
+    v12 = *(&v23 + v10);
     if (v12)
     {
       CFRelease(v12);
@@ -546,21 +546,21 @@ CFStringRef sub_100001860(uint64_t a1)
     CFRelease(Mutable);
   }
 
-  v22[1] = 0;
-  sub_100002890(v9, 0, 0, v21, __p);
-  sub_100005EE4(v21);
-  if (v17 >= 0)
+  v21[1] = 0;
+  sub_100002890(&__p, v9, 0, 0, v20);
+  sub_100005EE4(v20);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v13 = __p;
+    p_p = &__p;
   }
 
   else
   {
-    v13 = __p[0];
+    p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  v14 = CFStringCreateWithCString(kCFAllocatorDefault, v13, 0x8000100u);
-  if ((v17 & 0x80000000) == 0)
+  v14 = CFStringCreateWithCString(kCFAllocatorDefault, p_p, 0x8000100u);
+  if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (!v9)
     {
@@ -570,7 +570,7 @@ CFStringRef sub_100001860(uint64_t a1)
     goto LABEL_33;
   }
 
-  operator delete(__p[0]);
+  operator delete(__p.__r_.__value_.__l.__data_);
   if (v9)
   {
 LABEL_33:
@@ -580,11 +580,11 @@ LABEL_33:
   return v14;
 }
 
-void sub_100001B2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a17, char a18, char a19, uint64_t a20, char a21)
+void sub_100001B2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, __int16 a18, char a19, char a20, uint64_t a21, char a22)
 {
   __cxa_free_exception(v22);
   sub_100002348(&a16);
-  while (v21 != &a21)
+  while (v21 != &a22)
   {
     v21 -= 16;
     sub_100001E38(v21);
@@ -711,28 +711,26 @@ uint64_t sub_100001E38(uint64_t a1)
 __CFString *sub_100001E7C(void *a1)
 {
   Mutable = CFStringCreateMutable(kCFAllocatorDefault, 0);
-  v3 = a1[5];
-  v4 = a1[8];
-  CFStringAppendFormat(Mutable, 0, @"%@\n%@\n!UUID: %@\nTime: %@\n\n", v3, a1[7], v4, a1[9]);
+  CFStringAppendFormat(Mutable, 0, @"%@\n%@\n!UUID: %@\nTime: %@\n\n", a1[5], a1[7], a1[8], a1[9]);
   CFStringAppend(Mutable, @"Faulting task stack frame:\n\n");
   CFStringAppendFormat(Mutable, 0, @"%@\n\n", a1[10]);
   CFStringAppendFormat(Mutable, 0, @"%@\n", a1[11]);
   CFStringAppend(Mutable, @"    ");
-  v5 = a1[12];
-  v9.length = CFArrayGetCount(v5);
-  v9.location = 0;
-  CFArrayApplyFunction(v5, v9, sub_100002004, Mutable);
+  v3 = a1[12];
+  v7.length = CFArrayGetCount(v3);
+  v7.location = 0;
+  CFArrayApplyFunction(v3, v7, sub_100002004, Mutable);
   CFStringAppend(Mutable, @"\n\n");
   CFStringAppend(Mutable, @"RTKit Task List:\n\n");
-  v6 = a1[13];
-  v10.length = CFArrayGetCount(v6);
-  v10.location = 0;
-  CFArrayApplyFunction(v6, v10, sub_100002038, Mutable);
+  v4 = a1[13];
+  v8.length = CFArrayGetCount(v4);
+  v8.location = 0;
+  CFArrayApplyFunction(v4, v8, sub_100002038, Mutable);
   CFStringAppend(Mutable, @"Other memory sections:\n\n");
-  v7 = a1[14];
-  v11.length = CFArrayGetCount(v7);
-  v11.location = 0;
-  CFArrayApplyFunction(v7, v11, sub_100002114, Mutable);
+  v5 = a1[14];
+  v9.length = CFArrayGetCount(v5);
+  v9.location = 0;
+  CFArrayApplyFunction(v5, v9, sub_100002114, Mutable);
   return Mutable;
 }
 
@@ -1048,20 +1046,17 @@ void sub_1000025D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *sub_100002630(void *result, unint64_t a2)
+void sub_100002630(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      sub_100002778(result, a2);
+      sub_100002778(a1, a2);
     }
 
     sub_1000026D0();
   }
-
-  return result;
 }
 
 void sub_1000026E8(const char *a1)
@@ -1125,11 +1120,11 @@ const void **sub_10000285C(const void **a1)
   return a1;
 }
 
-void sub_100002890(CFDictionaryRef theDict@<X0>, size_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void sub_100002890(std::string *__return_ptr a1@<X8>, CFDictionaryRef theDict@<X0>, size_t a3@<X1>, uint64_t a4@<X2>, uint64_t a5@<X3>)
 {
   v10 = 1;
-  *(a5 + 23) = 1;
-  *a5 = 123;
+  *(&a1->__r_.__value_.__s + 23) = 1;
+  LOWORD(a1->__r_.__value_.__l.__data_) = 123;
   sub_10000414C(&v72, theDict);
   sub_10000414C(&v66, theDict);
   v67 = (v69 - v68) >> 3;
@@ -1155,7 +1150,7 @@ LABEL_8:
 
     if (v10)
     {
-      if (a3)
+      if (a4)
       {
         goto LABEL_25;
       }
@@ -1163,15 +1158,15 @@ LABEL_8:
 
     else
     {
-      std::string::append(a5, ",");
-      if (a3)
+      std::string::append(a1, ",");
+      if (a4)
       {
-        std::string::append(a5, " ");
+        std::string::append(a1, " ");
         goto LABEL_25;
       }
     }
 
-    sub_10000326C(&__b, a2 + 2, 32);
+    sub_10000326C(&__b, a3 + 2, 32);
     v12 = std::string::insert(&__b, 0, "\n");
     v13 = *&v12->__r_.__value_.__l.__data_;
     v60 = v12->__r_.__value_.__r.__words[2];
@@ -1199,7 +1194,7 @@ LABEL_8:
       v15 = __p[1];
     }
 
-    std::string::append(a5, v14, v15);
+    std::string::append(a1, v14, v15);
     if (SHIBYTE(v60) < 0)
     {
       operator delete(__p[0]);
@@ -1211,7 +1206,7 @@ LABEL_8:
     }
 
 LABEL_25:
-    sub_10000331C(&v72, __p);
+    sub_10000331C(__p, &v72);
     v17 = 0;
     if (__p[0])
     {
@@ -1234,7 +1229,7 @@ LABEL_25:
 
     if (v17)
     {
-      sub_10000331C(&v72, &cf);
+      sub_10000331C(&cf, &v72);
       if (!cf.__r_.__value_.__r.__words[0])
       {
         exception = __cxa_allocate_exception(0x10uLL);
@@ -1297,7 +1292,7 @@ LABEL_25:
         v25 = __p[1];
       }
 
-      std::string::append(a5, v24, v25);
+      std::string::append(a1, v24, v25);
       if (SHIBYTE(v60) < 0)
       {
         operator delete(__p[0]);
@@ -1328,9 +1323,9 @@ LABEL_25:
         CFRelease(cf.__r_.__value_.__l.__data_);
       }
 
-      sub_10000331C(&v72, &__b);
-      sub_100005DC4(v78, a4);
-      sub_1000037D8(&__b.__r_.__value_.__l.__size_, a2 + 2, a3, v78, __p);
+      sub_10000331C(&__b, &v72);
+      sub_100005DC4(v78, a5);
+      sub_1000037D8(&__b.__r_.__value_.__l.__size_, a3 + 2, a4, v78, __p);
       if (v60 >= 0)
       {
         v26 = __p;
@@ -1351,7 +1346,7 @@ LABEL_25:
         v27 = __p[1];
       }
 
-      std::string::append(a5, v26, v27);
+      std::string::append(a1, v26, v27);
       if (SHIBYTE(v60) < 0)
       {
         operator delete(__p[0]);
@@ -1371,13 +1366,13 @@ LABEL_25:
 
     else
     {
-      if (!*(a4 + 24))
+      if (!*(a5 + 24))
       {
         v50 = __cxa_allocate_exception(0x10uLL);
         std::runtime_error::runtime_error(v50, "Error, not a json style CFDictionary");
       }
 
-      sub_10000331C(&v72, &__b);
+      sub_10000331C(&__b, &v72);
       v28 = __b.__r_.__value_.__r.__words[0];
       if (__b.__r_.__value_.__r.__words[0])
       {
@@ -1386,7 +1381,7 @@ LABEL_25:
 
       v57 = 0;
       v58 = v28;
-      v29 = *(a4 + 24);
+      v29 = *(a5 + 24);
       if (!v29)
       {
         sub_100005E5C();
@@ -1527,7 +1522,7 @@ LABEL_145:
         v45 = __b.__r_.__value_.__l.__size_;
       }
 
-      std::string::append(a5, p_b, v45);
+      std::string::append(a1, p_b, v45);
       if (SHIBYTE(__b.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__b.__r_.__value_.__l.__data_);
@@ -1573,9 +1568,9 @@ LABEL_145:
     ++v73;
   }
 
-  if ((a3 & 1) == 0)
+  if ((a4 & 1) == 0)
   {
-    sub_10000326C(&__b, a2, 32);
+    sub_10000326C(&__b, a3, 32);
     v46 = std::string::insert(&__b, 0, "\n");
     v47 = *&v46->__r_.__value_.__l.__data_;
     v60 = v46->__r_.__value_.__r.__words[2];
@@ -1603,7 +1598,7 @@ LABEL_145:
       v49 = __p[1];
     }
 
-    std::string::append(a5, v48, v49);
+    std::string::append(a1, v48, v49);
     if (SHIBYTE(v60) < 0)
     {
       operator delete(__p[0]);
@@ -1615,7 +1610,7 @@ LABEL_145:
     }
   }
 
-  std::string::append(a5, "}");
+  std::string::append(a1, "}");
   if (v70)
   {
     v71 = v70;
@@ -1663,7 +1658,7 @@ void sub_100003014(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *sub_10000326C(_BYTE *__b, size_t __len, int __c)
+void *sub_10000326C(void *__b, size_t __len, int __c)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1675,32 +1670,32 @@ _BYTE *sub_10000326C(_BYTE *__b, size_t __len, int __c)
     operator new();
   }
 
-  __b[23] = __len;
+  *(__b + 23) = __len;
   if (__len)
   {
     memset(__b, __c, __len);
   }
 
-  __b[__len] = 0;
+  *(__b + __len) = 0;
   return __b;
 }
 
-void sub_10000331C(void *a1@<X0>, void *a2@<X8>)
+void sub_10000331C(void *a1@<X8>, void *a2@<X0>)
 {
-  sub_100004314(a1, &cf);
+  sub_100004314(a2, &cf);
   v3 = cf;
   if (cf)
   {
     CFRetain(cf);
   }
 
-  *a2 = v3;
+  *a1 = v3;
   v4 = v7;
   if (v7)
   {
     CFRetain(v7);
     v5 = v7;
-    a2[1] = v4;
+    a1[1] = v4;
     if (v5)
     {
       CFRelease(v5);
@@ -1709,7 +1704,7 @@ void sub_10000331C(void *a1@<X0>, void *a2@<X8>)
 
   else
   {
-    a2[1] = 0;
+    a1[1] = 0;
   }
 
   if (cf)
@@ -1734,19 +1729,19 @@ uint64_t sub_1000033A4(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_1000033E8(char *a1, uint64_t a2)
+uint64_t sub_1000033E8(unsigned __int8 *a1, uint64_t a2)
 {
-  sub_10000440C(v13);
-  v4 = v14;
-  *(&v14 + *(v14 - 24) + 8) = *(&v14 + *(v14 - 24) + 8) & 0xFFFFFFB5 | 8;
-  *(&v14 + *(v4 - 24) + 8) = *(&v14 + *(v4 - 24) + 8) & 0xFFFFFF4F | 0x80;
-  v5 = &v14 + *(v4 - 24);
+  sub_10000440C(v12);
+  v4 = v13;
+  *(&v13 + *(v13 - 24) + 8) = *(&v13 + *(v13 - 24) + 8) & 0xFFFFFFB5 | 8;
+  *(&v13 + *(v4 - 24) + 8) = *(&v13 + *(v4 - 24) + 8) & 0xFFFFFF4F | 0x80;
+  v5 = &v13 + *(v4 - 24);
   if (*(v5 + 36) == -1)
   {
-    std::ios_base::getloc((&v14 + *(v4 - 24)));
-    v6 = std::locale::use_facet(&v18, &std::ctype<char>::id);
+    std::ios_base::getloc((&v13 + *(v4 - 24)));
+    v6 = std::locale::use_facet(&v17, &std::ctype<char>::id);
     (v6->__vftable[2].~facet_0)(v6, 32);
-    std::locale::~locale(&v18);
+    std::locale::~locale(&v17);
   }
 
   *(v5 + 36) = 48;
@@ -1773,7 +1768,7 @@ uint64_t sub_1000033E8(char *a1, uint64_t a2)
 
     else if (*a1 > 0x21u)
     {
-      v8 = "\\\";
+      v8 = "\\\"";
       if (v7 != 92)
       {
         if (v7 != 34)
@@ -1781,22 +1776,21 @@ uint64_t sub_1000033E8(char *a1, uint64_t a2)
 LABEL_17:
           if (v7 == 127 || v7 - 1 <= 0x1E)
           {
-            v9 = sub_100004874(&v14, "\\u", 2);
+            v9 = sub_100004874(&v13, "\\u", 2);
             *(v9 + *(*v9 - 24) + 24) = 4;
-            v10 = *a1;
             std::ostream::operator<<();
           }
 
           else
           {
-            LOBYTE(v18.__locale_) = v7;
-            sub_100004874(&v14, &v18, 1);
+            LOBYTE(v17.__locale_) = v7;
+            sub_100004874(&v13, &v17, 1);
           }
 
           goto LABEL_23;
         }
 
-        v8 = "\\"";
+        v8 = "\";
       }
     }
 
@@ -1815,32 +1809,31 @@ LABEL_17:
       v8 = "\\r";
     }
 
-    sub_100004874(&v14, v8, 2);
+    sub_100004874(&v13, v8, 2);
 LABEL_23:
     ++a1;
     --a2;
   }
 
   std::stringbuf::str();
-  v14 = v11;
-  if (v17 < 0)
+  v13 = v10;
+  if (v16 < 0)
   {
-    operator delete(v16[7].__locale_);
+    operator delete(v15[7].__locale_);
   }
 
-  std::locale::~locale(v16);
+  std::locale::~locale(v15);
   std::iostream::~basic_iostream();
   return std::ios::~ios();
 }
 
-void sub_100003794(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100003794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
 {
-  va_start(va, a2);
   std::ios::~ios();
   _Unwind_Resume(a1);
 }
 
-void sub_1000037D8(const __CFString **a1@<X0>, size_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void sub_1000037D8(CFTypeRef *a1@<X0>, size_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   v8 = *a1;
   if (!v8)
@@ -1995,7 +1988,7 @@ LABEL_101:
           if (v57 == v58)
           {
             sub_100005DC4(v73, a4);
-            sub_100002890(v31);
+            sub_100002890(a5, v31, a2, a3, v73);
             v32 = v73;
             goto LABEL_101;
           }
@@ -2022,7 +2015,7 @@ LABEL_52:
 
         v65 = 0;
         sub_100005EA8(&v64, a1);
-        sub_100004064(a4);
+        sub_100004064(a4, &v65);
         sub_1000027F4(&v64);
         sub_1000027F4(&v65);
         v34 = SHIBYTE(v66.__r_.__value_.__r.__words[2]);
@@ -2250,17 +2243,17 @@ LABEL_105:
   std::to_string(a5, v18);
 }
 
-uint64_t sub_100004064(uint64_t a1)
+uint64_t sub_100004064(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 24);
-  if (!v2)
+  v3 = *(a1 + 24);
+  if (!v3)
   {
     sub_100005E5C();
   }
 
-  v3 = *(*v2 + 48);
+  v4 = *(*v3 + 48);
 
-  return v3();
+  return v4();
 }
 
 uint64_t sub_1000040AC(uint64_t a1)
@@ -2316,20 +2309,20 @@ uint64_t sub_10000414C(uint64_t a1, CFDictionaryRef theDict)
   return a1;
 }
 
-void sub_1000041D0(void *a1, unint64_t a2)
+void sub_1000041D0(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    sub_100004200(a1, a2 - v2);
+    sub_100004200(result, a2 - v2);
   }
 }
 
@@ -2554,16 +2547,16 @@ void *sub_100004874(void *a1, uint64_t a2, uint64_t a3)
   if (v13 == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, &std::ctype<char>::id);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -2673,7 +2666,7 @@ uint64_t sub_100004BA4(uint64_t a1, uint64_t *a2)
   return std::iostream::~basic_iostream();
 }
 
-_BYTE *sub_100004CF4@<X0>(const __CFString *a1@<X0>, UInt8 *a2@<X8>)
+void *sub_100004CF4@<X0>(const __CFString *a1@<X0>, uint64_t a2@<X8>)
 {
   if (!a1 || (TypeID = CFStringGetTypeID(), TypeID != CFGetTypeID(a1)))
   {
@@ -2684,7 +2677,7 @@ _BYTE *sub_100004CF4@<X0>(const __CFString *a1@<X0>, UInt8 *a2@<X8>)
   return sub_100004DAC(a1, a2);
 }
 
-_BYTE *sub_100004DAC@<X0>(const __CFString *a1@<X0>, UInt8 *a2@<X8>)
+void *sub_100004DAC@<X0>(const __CFString *a1@<X0>, uint64_t a2@<X8>)
 {
   CStringPtr = CFStringGetCStringPtr(a1, 0x8000100u);
   if (CStringPtr)
@@ -2701,7 +2694,7 @@ _BYTE *sub_100004DAC@<X0>(const __CFString *a1@<X0>, UInt8 *a2@<X8>)
     v10.length = Length;
     CFStringGetBytes(a1, v10, 0x8000100u, 0, 0, 0, 0, &maxBufLen);
     sub_10000326C(a2, maxBufLen, 0);
-    if ((a2[23] & 0x80u) == 0)
+    if (*(a2 + 23) >= 0)
     {
       v7 = a2;
     }
@@ -2727,7 +2720,7 @@ void sub_100004EA0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *sub_100004EBC(_BYTE *a1, char *__s)
+void *sub_100004EBC(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2741,13 +2734,13 @@ _BYTE *sub_100004EBC(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -2830,7 +2823,7 @@ LABEL_10:
 LABEL_20:
           sub_100005D00(a2, v12, &__b);
           sub_100005DC4(v30, a4);
-          sub_1000037D8(__p, &__b, __len + 2, a3, v30);
+          sub_1000037D8(&__b.__r_.__value_.__l.__data_, __len + 2, a3, v30, __p);
           if (v29 >= 0)
           {
             v19 = __p;
@@ -3108,7 +3101,7 @@ float sub_1000055F0(const __CFNumber *a1)
   return *&v1;
 }
 
-uint64_t sub_100005660(const __CFNumber *a1)
+unint64_t sub_100005660(const __CFNumber *a1)
 {
   if (a1 && (TypeID = CFNumberGetTypeID(), TypeID == CFGetTypeID(a1)))
   {
@@ -3633,15 +3626,16 @@ uint64_t sub_1000061A8(uint64_t a1)
   return v3;
 }
 
-uint64_t start(int a1, uint64_t a2)
+uint64_t start(uint64_t a1, uint64_t a2)
 {
+  v3 = a1;
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "start\n", buf, 2u);
   }
 
-  if (a1 == 3)
+  if (v3 == 3)
   {
     v4 = *(a2 + 8);
     if (!strcmp(v4, "handle"))
@@ -3654,7 +3648,7 @@ uint64_t start(int a1, uint64_t a2)
 
   else
   {
-    if (a1 == 2)
+    if (v3 == 2)
     {
       if (!strcmp(*(a2 + 8), "report"))
       {
@@ -3665,7 +3659,7 @@ uint64_t start(int a1, uint64_t a2)
       goto LABEL_13;
     }
 
-    if ((a1 - 3) > 1)
+    if ((v3 - 3) > 1)
     {
       goto LABEL_13;
     }
@@ -3675,7 +3669,7 @@ uint64_t start(int a1, uint64_t a2)
 
   if (!strcmp(v4, "show"))
   {
-    sub_100006C1C(a2, a1);
+    sub_100006C1C(a2, v3);
   }
 
 LABEL_13:
@@ -3704,37 +3698,42 @@ void sub_100006368(id a1, void *a2)
 uint64_t sub_100006420(uint64_t a1)
 {
   parent = 0;
+  v10 = 0;
   v1 = sub_1000061A8(a1);
   v2 = v1;
   if (v1)
   {
-    v3 = sub_100006B30(v1);
+    v3 = sub_100006B30(v1, &v10);
+    v4 = v3;
     if (v3)
     {
-      v4 = sub_100001860(v3);
-      v5 = sub_1000065FC(v4);
-      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      if ((v10 & 1) == 0 || (v5 = sub_100001E7C(v3), !IORegistryEntrySetCFProperty(v2, @"processed-report", v5)))
       {
-        v6 = "failed";
-        if (v5)
+        v6 = sub_100001860(v4);
+        v7 = sub_1000065FC(v6);
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
         {
-          v6 = "succeeded";
+          v8 = "failed";
+          if (v7)
+          {
+            v8 = "succeeded";
+          }
+
+          *buf = 136315138;
+          v13 = v8;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "writing log for submission %s\n", buf, 0xCu);
         }
 
-        *buf = 136315138;
-        v10 = v6;
-        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "writing log for submission %s\n", buf, 0xCu);
-      }
-
-      if (!IORegistryEntryGetParentEntry(v2, "IOService", &parent))
-      {
-        if (IOObjectConformsTo(parent, "AppleTypeCRetimer"))
+        if (!IORegistryEntryGetParentEntry(v2, "IOService", &parent))
         {
-          operator new();
+          if (IOObjectConformsTo(parent, "AppleTypeCRetimer"))
+          {
+            operator new();
+          }
         }
       }
 
-      sub_100001364(v3);
+      sub_100001364(v4);
       operator delete();
     }
 
@@ -3776,7 +3775,7 @@ uint64_t sub_1000065FC(void *a1)
   return v7;
 }
 
-const __CFArray *sub_100006798(uint64_t a1, const __CFDictionary *a2)
+uint64_t sub_100006798(uint64_t a1, const __CFDictionary *a2)
 {
   TypeID = CFNumberGetTypeID();
   *a1 = sub_100001820(a2, @"assert_id", TypeID);
@@ -3863,7 +3862,7 @@ uint64_t sub_100006A98(uint64_t a1, int a2)
   v4 = v3;
   if (v3)
   {
-    v5 = sub_100006B30(v3);
+    v5 = sub_100006B30(v3, 0);
     if (v5)
     {
       v6 = v5;
@@ -3888,19 +3887,19 @@ uint64_t sub_100006A98(uint64_t a1, int a2)
   return IOObjectRelease(v4);
 }
 
-uint64_t sub_100006B30(io_registry_entry_t a1)
+uint64_t sub_100006B30(io_registry_entry_t a1, void *a2)
 {
   CFProperty = IORegistryEntryCreateCFProperty(a1, @"report", kCFAllocatorDefault, 0);
   if (CFProperty)
   {
-    v2 = CFProperty;
-    v3 = CFGetTypeID(CFProperty);
-    if (v3 == CFDictionaryGetTypeID())
+    v3 = CFProperty;
+    v4 = CFGetTypeID(CFProperty);
+    if (v4 == CFDictionaryGetTypeID())
     {
       sub_10000128C();
     }
 
-    CFRelease(v2);
+    CFRelease(v3);
   }
 
   return 0;

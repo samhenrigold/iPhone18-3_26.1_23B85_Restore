@@ -13,37 +13,35 @@
 {
   v4 = sub_1D9176C2C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D9176B9C();
   selfCopy = self;
-  RSSFeedUpdater.didRestoreFeedUrlTask(_:)(v8);
+  RSSFeedUpdater.didRestoreFeedUrlTask(_:)(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)didDownloadFeedWithError:(id)error data:(id)data task:(id)task requestedUrl:(id)url useBackgroundFetch:(BOOL)fetch
 {
   v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECAB5910, &qword_1D9188C90);
-  v13 = *(*(v12 - 8) + 64);
   MEMORY[0x1EEE9AC00](v12 - 8);
-  v15 = &v29 - v14;
+  v14 = &v28 - v13;
   if (!data)
   {
     taskCopy = task;
     urlCopy = url;
     selfCopy = self;
     errorCopy = error;
-    v22 = 0xF000000000000000;
+    v21 = 0xF000000000000000;
     if (url)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v28 = sub_1D9176C2C();
-    (*(*(v28 - 8) + 56))(v15, 1, 1, v28);
+    v27 = sub_1D9176C2C();
+    (*(*(v27 - 8) + 56))(v14, 1, 1, v27);
     goto LABEL_6;
   }
 
@@ -53,7 +51,7 @@ LABEL_5:
   selfCopy2 = self;
   errorCopy2 = error;
   data = sub_1D9176C8C();
-  v22 = v21;
+  v21 = v20;
 
   if (!url)
   {
@@ -63,13 +61,13 @@ LABEL_5:
 LABEL_3:
   sub_1D9176B9C();
 
-  v23 = sub_1D9176C2C();
-  (*(*(v23 - 8) + 56))(v15, 0, 1, v23);
+  v22 = sub_1D9176C2C();
+  (*(*(v22 - 8) + 56))(v14, 0, 1, v22);
 LABEL_6:
-  _s18PodcastsFoundation14RSSFeedUpdaterC24didDownloadFeedWithError_4data4task12requestedUrl18useBackgroundFetchys0I0_pSg_0B04DataVSgSo16NSURLSessionTaskCSgAK3URLVSgSbtF_0(error, data, v22, task, v15);
-  sub_1D8D75668(data, v22);
+  _s18PodcastsFoundation14RSSFeedUpdaterC24didDownloadFeedWithError_4data4task12requestedUrl18useBackgroundFetchys0I0_pSg_0B04DataVSgSo16NSURLSessionTaskCSgAK3URLVSgSbtF_0(error, data, v21, task, v14);
+  sub_1D8D75668(data, v21);
 
-  sub_1D8D08A50(v15, &unk_1ECAB5910, &qword_1D9188C90);
+  sub_1D8D08A50(v14, &unk_1ECAB5910, &qword_1D9188C90);
 }
 
 - (_TtC18PodcastsFoundation14RSSFeedUpdater)init
@@ -126,7 +124,7 @@ LABEL_6:
 
   selfCopy = self;
   sub_1D8F59D38(v7, v6);
-  sub_1D8D15664(v7);
+  sub_1D8D15664(v7, v6);
 }
 
 @end

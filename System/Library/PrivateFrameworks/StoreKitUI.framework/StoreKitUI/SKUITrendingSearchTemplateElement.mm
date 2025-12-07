@@ -28,10 +28,11 @@
 
 void __44__SKUITrendingSearchTemplateElement_buttons__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (SKUIIKViewElementTypeIsButton([v3 elementType]))
+  v5 = a2;
+  v3 = [v5 elementType];
+  if (SKUIIKViewElementTypeIsButton(v3, v4))
   {
-    [*(a1 + 32) addObject:v3];
+    [*(a1 + 32) addObject:v5];
   }
 }
 

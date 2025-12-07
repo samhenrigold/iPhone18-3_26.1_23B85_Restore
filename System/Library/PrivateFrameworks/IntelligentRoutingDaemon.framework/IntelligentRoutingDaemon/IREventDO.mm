@@ -1,5 +1,6 @@
 @interface IREventDO
 + (IREventDO)eventDOWithAppleTVControlType:(int64_t)type;
++ (IREventDO)eventDOWithEventType:(int64_t)type eventSubType:(int64_t)subType name:(id)name bundleID:(id)d contextIdentifier:(id)identifier isOutsideApp:(BOOL)app isEligibleApp:(BOOL)eligibleApp;
 + (IREventDO)eventDOWithHomeType:(int64_t)type;
 + (IREventDO)eventDOWithMediaType:(int64_t)type bundleID:(id)d;
 + (id)atvUserInteractionEvents;
@@ -18,6 +19,7 @@
 - (id)copyWithReplacementContextIdentifier:(id)identifier;
 - (id)copyWithReplacementEventSubType:(int64_t)type;
 - (id)copyWithReplacementEventType:(int64_t)type;
+- (id)copyWithReplacementIsOutsideApp:(BOOL)app;
 - (id)copyWithReplacementName:(id)name;
 - (id)description;
 - (id)exportAsDictionary;
@@ -169,34 +171,33 @@
 
 - (BOOL)isBannerEvent
 {
-  v17[5] = *MEMORY[0x277D85DE8];
+  v16[5] = *MEMORY[0x277D85DE8];
   v3 = 1;
   v4 = [IREventDO eventDOWithMediaType:1];
-  v17[0] = v4;
+  v16[0] = v4;
   v5 = [IREventDO eventDOWithMediaType:2];
-  v17[1] = v5;
+  v16[1] = v5;
   v6 = [IREventDO eventDOWithMediaType:3];
-  v17[2] = v6;
+  v16[2] = v6;
   v7 = [IREventDO eventDOWithMediaType:4];
-  v17[3] = v7;
+  v16[3] = v7;
   v8 = [IREventDO eventDOWithMediaType:8];
-  v17[4] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:5];
+  v16[4] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:5];
 
   v10 = [IREventDO eventDOWithAppleTVControlType:4];
-  v16[0] = v10;
+  v15[0] = v10;
   v11 = [IREventDO eventDOWithAppleTVControlType:5];
-  v16[1] = v11;
+  v15[1] = v11;
   v12 = [IREventDO eventDOWithAppleTVControlType:2];
-  v16[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v15[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
 
   if (([v9 containsObject:self] & 1) == 0)
   {
     v3 = [v13 containsObject:self];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -221,6 +222,18 @@
   }
 
   return v20;
+}
+
++ (IREventDO)eventDOWithEventType:(int64_t)type eventSubType:(int64_t)subType name:(id)name bundleID:(id)d contextIdentifier:(id)identifier isOutsideApp:(BOOL)app isEligibleApp:(BOOL)eligibleApp
+{
+  appCopy = app;
+  identifierCopy = identifier;
+  dCopy = d;
+  nameCopy = name;
+  LOBYTE(v20) = eligibleApp;
+  v18 = [[self alloc] initWithEventType:type eventSubType:subType name:nameCopy bundleID:dCopy contextIdentifier:identifierCopy isOutsideApp:appCopy isEligibleApp:v20];
+
+  return v18;
 }
 
 - (id)copyWithReplacementEventType:(int64_t)type
@@ -265,6 +278,14 @@
   v6 = [v5 initWithEventType:self->_eventType eventSubType:self->_eventSubType name:self->_name bundleID:self->_bundleID contextIdentifier:identifierCopy isOutsideApp:self->_isOutsideApp isEligibleApp:v8];
 
   return v6;
+}
+
+- (id)copyWithReplacementIsOutsideApp:(BOOL)app
+{
+  appCopy = app;
+  v5 = objc_alloc(objc_opt_class());
+  LOBYTE(v7) = self->_isEligibleApp;
+  return [v5 initWithEventType:self->_eventType eventSubType:self->_eventSubType name:self->_name bundleID:self->_bundleID contextIdentifier:self->_contextIdentifier isOutsideApp:appCopy isEligibleApp:v7];
 }
 
 - (BOOL)isEqualToEventDO:(id)o
@@ -313,7 +334,7 @@
 
 - (IREventDO)initWithCoder:(id)coder
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeInt64ForKey:@"eventType"];
   if (!v5)
@@ -327,11 +348,11 @@
 
     if (([coderCopy containsValueForKey:@"eventType"] & 1) == 0)
     {
-      v52 = *MEMORY[0x277CCA450];
-      v53[0] = @"Missing serialized value for IREventDO.eventType";
+      v51 = *MEMORY[0x277CCA450];
+      v52[0] = @"Missing serialized value for IREventDO.eventType";
       v16 = MEMORY[0x277CBEAC0];
-      v17 = v53;
-      v18 = &v52;
+      v17 = v52;
+      v18 = &v51;
       goto LABEL_18;
     }
   }
@@ -351,9 +372,9 @@ LABEL_3:
         v10 = objc_opt_class();
         v11 = NSStringFromClass(v10);
         v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IREventDO key name (expected %@, decoded %@)", v9, v11, 0];
-        v48 = *MEMORY[0x277CCA450];
-        v49 = v12;
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+        v47 = *MEMORY[0x277CCA450];
+        v48 = v12;
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
         v14 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IREventDOOCNTErrorDomain" code:3 userInfo:v13];
         [coderCopy failWithError:v14];
 LABEL_25:
@@ -391,9 +412,9 @@ LABEL_30:
         v23 = objc_opt_class();
         v12 = NSStringFromClass(v23);
         v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IREventDO key bundleID (expected %@, decoded %@)", v11, v12, 0];
-        v46 = *MEMORY[0x277CCA450];
-        v47 = v13;
-        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+        v45 = *MEMORY[0x277CCA450];
+        v46 = v13;
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
         v24 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IREventDOOCNTErrorDomain" code:3 userInfo:v14];
         [coderCopy failWithError:v24];
 LABEL_24:
@@ -413,9 +434,9 @@ LABEL_21:
           v27 = objc_opt_class();
           v13 = NSStringFromClass(v27);
           v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IREventDO key contextIdentifier (expected %@, decoded %@)", v12, v13, 0];
-          v44 = *MEMORY[0x277CCA450];
-          v45 = v14;
-          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+          v43 = *MEMORY[0x277CCA450];
+          v44 = v14;
+          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
           v28 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IREventDOOCNTErrorDomain" code:3 userInfo:v24];
           [coderCopy failWithError:v28];
 
@@ -433,8 +454,8 @@ LABEL_21:
         }
       }
 
-      v32 = [coderCopy decodeInt64ForKey:@"isOutsideApp"];
-      if (v32)
+      v31 = [coderCopy decodeInt64ForKey:@"isOutsideApp"];
+      if (v31)
       {
         goto LABEL_34;
       }
@@ -449,8 +470,8 @@ LABEL_21:
       if ([coderCopy containsValueForKey:@"isOutsideApp"])
       {
 LABEL_34:
-        v33 = [coderCopy decodeInt64ForKey:@"isEligibleApp"];
-        if (v33)
+        v32 = [coderCopy decodeInt64ForKey:@"isEligibleApp"];
+        if (v32)
         {
           goto LABEL_35;
         }
@@ -465,29 +486,29 @@ LABEL_34:
         if ([coderCopy containsValueForKey:@"isEligibleApp"])
         {
 LABEL_35:
-          LOBYTE(v39) = v33 != 0;
-          self = [(IREventDO *)self initWithEventType:v5 eventSubType:v6 name:v7 bundleID:v9 contextIdentifier:v11 isOutsideApp:v32 != 0 isEligibleApp:v39];
+          LOBYTE(v38) = v32 != 0;
+          self = [(IREventDO *)self initWithEventType:v5 eventSubType:v6 name:v7 bundleID:v9 contextIdentifier:v11 isOutsideApp:v31 != 0 isEligibleApp:v38];
           selfCopy = self;
           goto LABEL_28;
         }
 
-        v40 = *MEMORY[0x277CCA450];
-        v41 = @"Missing serialized value for IREventDO.isEligibleApp";
-        v35 = MEMORY[0x277CBEAC0];
-        v36 = &v41;
-        v37 = &v40;
+        v39 = *MEMORY[0x277CCA450];
+        v40 = @"Missing serialized value for IREventDO.isEligibleApp";
+        v34 = MEMORY[0x277CBEAC0];
+        v35 = &v40;
+        v36 = &v39;
       }
 
       else
       {
-        v42 = *MEMORY[0x277CCA450];
-        v43 = @"Missing serialized value for IREventDO.isOutsideApp";
-        v35 = MEMORY[0x277CBEAC0];
-        v36 = &v43;
-        v37 = &v42;
+        v41 = *MEMORY[0x277CCA450];
+        v42 = @"Missing serialized value for IREventDO.isOutsideApp";
+        v34 = MEMORY[0x277CBEAC0];
+        v35 = &v42;
+        v36 = &v41;
       }
 
-      v12 = [v35 dictionaryWithObjects:v36 forKeys:v37 count:1];
+      v12 = [v34 dictionaryWithObjects:v35 forKeys:v36 count:1];
       v13 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IREventDOOCNTErrorDomain" code:1 userInfo:v12];
       [coderCopy failWithError:v13];
       goto LABEL_26;
@@ -516,11 +537,11 @@ LABEL_29:
       goto LABEL_3;
     }
 
-    v50 = *MEMORY[0x277CCA450];
-    v51 = @"Missing serialized value for IREventDO.eventSubType";
+    v49 = *MEMORY[0x277CCA450];
+    v50 = @"Missing serialized value for IREventDO.eventSubType";
     v16 = MEMORY[0x277CBEAC0];
-    v17 = &v51;
-    v18 = &v50;
+    v17 = &v50;
+    v18 = &v49;
 LABEL_18:
     v7 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:1];
     v9 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IREventDOOCNTErrorDomain" code:1 userInfo:v7];
@@ -532,7 +553,6 @@ LABEL_10:
   selfCopy = 0;
 LABEL_31:
 
-  v29 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (HMSettingsTelemetry)init;
 - (void)_sendSettingsChanges:(id)changes record:(id)record;
+- (void)_submitFeaturesChangeMetrics:(unsigned int)metrics forFeature:(id)feature forDevice:(id)device;
 - (void)sendSettingsChanges:(id)changes record:(id)record;
 @end
 
@@ -21,9 +22,11 @@
 
 uint64_t __37__HMSettingsTelemetry_sharedInstance__block_invoke()
 {
-  sharedInstance_sSelf = objc_alloc_init(HMSettingsTelemetry);
+  v0 = objc_alloc_init(HMSettingsTelemetry);
+  v1 = sharedInstance_sSelf;
+  sharedInstance_sSelf = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (HMSettingsTelemetry)init
@@ -154,12 +157,35 @@ uint64_t __37__HMSettingsTelemetry_sharedInstance__block_invoke()
   }
 }
 
+- (void)_submitFeaturesChangeMetrics:(unsigned int)metrics forFeature:(id)feature forDevice:(id)device
+{
+  v6 = *&metrics;
+  v16[3] = *MEMORY[0x277D85DE8];
+  v16[0] = feature;
+  v15[0] = @"FeatureName";
+  v15[1] = @"FeatureNewValue";
+  v7 = MEMORY[0x277CCABB0];
+  deviceCopy = device;
+  featureCopy = feature;
+  v10 = [v7 numberWithUnsignedInt:v6];
+  v16[1] = v10;
+  v15[2] = @"PID";
+  v11 = MEMORY[0x277CCABB0];
+  aaDevice = [deviceCopy aaDevice];
+
+  v13 = [v11 numberWithUnsignedInt:{objc_msgSend(aaDevice, "productID")}];
+  v16[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+
+  CUMetricsLog();
+}
+
 - (void)_sendSettingsChanges:record:.cold.1()
 {
   if (gLogCategory_HMSettingsTelemetry <= 90 && (gLogCategory_HMSettingsTelemetry != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_HMSettingsTelemetry, "[HMSettingsTelemetry _sendSettingsChanges:record:]", 90, "Invalid data");
   }
 }
 

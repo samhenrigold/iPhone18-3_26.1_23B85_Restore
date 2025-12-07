@@ -13,7 +13,7 @@
 
 + (id)localProductTypeEnumWithError:(id *)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   currentDeviceProductType = [MEMORY[0x277CCDD30] currentDeviceProductType];
   if ([currentDeviceProductType hasPrefix:*MEMORY[0x277CCC8D0]])
   {
@@ -43,18 +43,17 @@ LABEL_9:
   }
 
   _HKInitializeLogging();
-  v9 = *MEMORY[0x277CCC2B0];
+  v8 = *MEMORY[0x277CCC2B0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
   {
-    v10 = 138412290;
-    v11 = currentDeviceProductType;
-    _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Device of type %@ is not supported", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = currentDeviceProductType;
+    _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "Device of type %@ is not supported", &v9, 0xCu);
   }
 
   [MEMORY[0x277CCA9B8] hk_assignError:error code:3 format:@"Device of type is not supported"];
   v6 = 0;
 LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -81,7 +80,7 @@ LABEL_10:
     currentOSName = v9->_currentOSName;
     v9->_currentOSName = currentOSName;
 
-    [MEMORY[0x277CCDD30] currentOSVersionStruct];
+    objc_msgSend_currentOSVersionStruct(MEMORY[0x277CCDD30]);
     *&v9->_currentOSVersion.majorVersion = v17;
     v9->_currentOSVersion.patchVersion = v18;
     objc_storeStrong(&v9->_syncIdentity, identity);
@@ -201,11 +200,9 @@ LABEL_21:
 
       if (v7)
       {
-        [(HDDeviceContext *)v7 currentOSVersion];
+        objc_msgSend_currentOSVersion(v7);
       }
 
-      v25 = *&self->_currentOSVersion.majorVersion;
-      patchVersion = self->_currentOSVersion.patchVersion;
       if (HKNSOperatingSystemVersionsEqual())
       {
         syncIdentity = self->_syncIdentity;

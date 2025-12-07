@@ -36,7 +36,7 @@
 
 + (id)participantDestinationIdentifierWithMessage:(id)message
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   messageSubType = [messageCopy messageSubType];
   type = [messageSubType type];
@@ -121,26 +121,24 @@ LABEL_21:
 LABEL_25:
   if (IMOSLoggingEnabled())
   {
-    v12 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v11 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v13 = 134217984;
-      v14 = type;
-      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "<IMTextMessagePipelineParameter> Unhandled BlastDoorTextMessageMessageType: %ld", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = type;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "<IMTextMessagePipelineParameter> Unhandled BlastDoorTextMessageMessageType: %ld", &v12, 0xCu);
     }
   }
 
   v9 = 0;
 LABEL_22:
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (id)participantDestinationIdentifierWithBasicMessage:(id)message
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   messageSubType = [messageCopy messageSubType];
   type = [messageSubType type];
@@ -197,16 +195,14 @@ LABEL_19:
     v9 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v13 = 134217984;
-      v14 = type;
-      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "<IMTextMessagePipelineParameter> Unable to extract destination identifiers from BlastDoorTextMessageMessageType: %ld", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = type;
+      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "<IMTextMessagePipelineParameter> Unable to extract destination identifiers from BlastDoorTextMessageMessageType: %ld", &v12, 0xCu);
     }
   }
 
   v10 = 0;
 LABEL_20:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -327,7 +323,7 @@ LABEL_21:
 
 - (void)_addTranslatedMessageParts:(id)parts to:(id)to
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   partsCopy = parts;
   toCopy = to;
   Mutable = [MEMORY[0x277CBEB38] dictionary];
@@ -336,28 +332,28 @@ LABEL_21:
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   }
 
-  v22 = Mutable;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  v21 = Mutable;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = partsCopy;
-  v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     v11 = MEMORY[0x277CBEBF8];
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         [v13 messagePartIndex];
         translatedText = [v13 translatedText];
         v15 = [IMTextMessagePipelineParameter convertBlastDoorInstanceTypedAttributesToNativeTypesInAttributedString:translatedText supportingStickerAttributes:1 existingFileTransfersForMessage:v11];
@@ -371,13 +367,11 @@ LABEL_21:
         IMAddTranslatedMessagePartToMessageSummaryInfo();
       }
 
-      v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)messageSummaryInfoDictionaryWithBlastDoorBasicMessage:(id)message
@@ -612,7 +606,7 @@ LABEL_27:
 
 + (id)replicationSourceServiceNameWithBlastDoorMessage:(id)message
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if ([messageCopy has_replicationSourceID])
   {
@@ -626,11 +620,11 @@ LABEL_27:
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v11 = 138412546;
-        v12 = internalName;
-        v13 = 2048;
-        v14 = replicationSourceID;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Resolved replication source service to %@ for ID %llu", &v11, 0x16u);
+        v10 = 138412546;
+        v11 = internalName;
+        v12 = 2048;
+        v13 = replicationSourceID;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Resolved replication source service to %@ for ID %llu", &v10, 0x16u);
       }
     }
   }
@@ -639,15 +633,13 @@ LABEL_27:
   {
     internalName = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return internalName;
 }
 
 + (id)replicationSourceServiceNameWithBlastDoorBasicMessage:(id)message
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if ([messageCopy has_replicationSourceID])
   {
@@ -661,11 +653,11 @@ LABEL_27:
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v11 = 138412546;
-        v12 = internalName;
-        v13 = 2048;
-        v14 = replicationSourceID;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Resolved replication source service to %@ for ID %llu", &v11, 0x16u);
+        v10 = 138412546;
+        v11 = internalName;
+        v12 = 2048;
+        v13 = replicationSourceID;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Resolved replication source service to %@ for ID %llu", &v10, 0x16u);
       }
     }
   }
@@ -674,8 +666,6 @@ LABEL_27:
   {
     internalName = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return internalName;
 }
@@ -943,7 +933,7 @@ LABEL_7:
 + (id)fileTransferForBlastDoorFileTransferAttribute:(id)attribute fileTransferGUIDs:(id)ds supportingStickerAttributes:(BOOL)attributes
 {
   attributesCopy = attributes;
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   attributeCopy = attribute;
   dsCopy = ds;
   name = [attributeCopy name];
@@ -974,8 +964,8 @@ LABEL_7:
         v13 = [MEMORY[0x277D1A9C0] AuxGUIDFromFileTransferGUID:lastObject];
         v14 = +[IMDFileTransferCenter sharedInstance];
         lastPathComponent = [name lastPathComponent];
-        LOWORD(v64) = 0;
-        [v14 makeNewIncomingTransferWithGUID:v13 filename:lastPathComponent isDirectory:0 totalBytes:objc_msgSend(stringValue hfsType:"longLongValue") hfsCreator:0 hfsFlags:{0, v64}];
+        LOWORD(v63) = 0;
+        [v14 makeNewIncomingTransferWithGUID:v13 filename:lastPathComponent isDirectory:0 totalBytes:objc_msgSend(stringValue hfsType:"longLongValue") hfsCreator:0 hfsFlags:{0, v63}];
 
         v16 = v13;
         v17 = +[IMDFileTransferCenter sharedInstance];
@@ -990,7 +980,7 @@ LABEL_7:
             if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v76 = v18;
+              v75 = v18;
               _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Successfully created AuxVideo transfer %@", buf, 0xCu);
             }
           }
@@ -1004,7 +994,7 @@ LABEL_7:
           if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v76 = v16;
+            v75 = v16;
             _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "Was not able to create Aux video transfer for guid %@", buf, 0xCu);
           }
         }
@@ -1018,7 +1008,7 @@ LABEL_7:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v76 = lastObject;
+            v75 = lastObject;
             _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Could not find Aux image transfer with guid %@ while parsing message", buf, 0xCu);
           }
         }
@@ -1031,9 +1021,9 @@ LABEL_7:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v76 = name;
-        v77 = 2112;
-        v78 = dsCopy;
+        v75 = name;
+        v76 = 2112;
+        v77 = dsCopy;
         _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Could not find Aux image transfer with name (%@) because the list of guids was nil or empty: %@", buf, 0x16u);
       }
     }
@@ -1063,17 +1053,17 @@ LABEL_24:
   attachments = [attributeCopy attachments];
   v27 = [attachments sortedArrayUsingComparator:&unk_283F197A8];
 
-  v71[0] = MEMORY[0x277D85DD0];
-  v71[1] = 3221225472;
-  v71[2] = sub_22B51FCBC;
-  v71[3] = &unk_2787034D0;
+  v70[0] = MEMORY[0x277D85DD0];
+  v70[1] = 3221225472;
+  v70[2] = sub_22B51FCBC;
+  v70[3] = &unk_2787034D0;
   v28 = Mutable;
-  v72 = v28;
+  v71 = v28;
   v29 = name;
-  v73 = v29;
+  v72 = v29;
   v30 = attributeCopy;
-  v74 = v30;
-  [v27 enumerateObjectsUsingBlock:v71];
+  v73 = v30;
+  [v27 enumerateObjectsUsingBlock:v70];
   attachmentSubtype2 = [v30 attachmentSubtype];
   audioMessage = [attachmentSubtype2 audioMessage];
 
@@ -1160,8 +1150,6 @@ LABEL_40:
   v18 = v18;
   v53 = v18;
 LABEL_55:
-
-  v62 = *MEMORY[0x277D85DE8];
 
   return v53;
 }
@@ -1384,51 +1372,51 @@ LABEL_55:
 
 + (id)_fileTransferMatchingAttribute:(id)attribute inFileTransfers:(id)transfers
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   attributeCopy = attribute;
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = transfers;
-  v31 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
-  if (v31)
+  v30 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  if (v30)
   {
-    v33 = 0;
-    v30 = *v41;
+    v32 = 0;
+    v29 = *v40;
     do
     {
       v5 = 0;
       do
       {
-        if (*v41 != v30)
+        if (*v40 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = v5;
-        v6 = *(*(&v40 + 1) + 8 * v5);
+        v31 = v5;
+        v6 = *(*(&v39 + 1) + 8 * v5);
         attachments = [attributeCopy attachments];
+        v35 = 0u;
         v36 = 0u;
         v37 = 0u;
         v38 = 0u;
-        v39 = 0u;
-        v34 = attachments;
-        v8 = [v34 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v33 = attachments;
+        v8 = [v33 countByEnumeratingWithState:&v35 objects:v43 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v37;
+          v10 = *v36;
           while (2)
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v37 != v10)
+              if (*v36 != v10)
               {
-                objc_enumerationMutation(v34);
+                objc_enumerationMutation(v33);
               }
 
-              v12 = *(*(&v36 + 1) + 8 * i);
+              v12 = *(*(&v35 + 1) + 8 * i);
               attachmentURL = [v12 attachmentURL];
               absoluteString = [attachmentURL absoluteString];
 
@@ -1445,7 +1433,7 @@ LABEL_55:
                 {
                   v26 = v6;
 
-                  v33 = v26;
+                  v32 = v26;
                   goto LABEL_25;
                 }
               }
@@ -1460,7 +1448,7 @@ LABEL_55:
                 v24 = v6;
 
                 v25 = 0;
-                v33 = v24;
+                v32 = v24;
               }
 
               else
@@ -1474,7 +1462,7 @@ LABEL_55:
               }
             }
 
-            v9 = [v34 countByEnumeratingWithState:&v36 objects:v44 count:16];
+            v9 = [v33 countByEnumeratingWithState:&v35 objects:v43 count:16];
             if (v9)
             {
               continue;
@@ -1486,24 +1474,22 @@ LABEL_55:
 
 LABEL_25:
 
-        v5 = v32 + 1;
+        v5 = v31 + 1;
       }
 
-      while (v32 + 1 != v31);
-      v31 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+      while (v31 + 1 != v30);
+      v30 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v33;
+  return v32;
 }
 
 + (id)convertBlastDoorInstanceTypedAttributesToNativeTypesInAttributedString:(id)string supportingStickerAttributes:(BOOL)attributes existingFileTransfersForMessage:(id)message

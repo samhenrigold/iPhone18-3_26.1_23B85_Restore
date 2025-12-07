@@ -8,7 +8,7 @@
 {
   v66 = *MEMORY[0x1E69E9840];
   v3 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F140]);
-  [(CIImage *)self->inputImage extent];
+  objc_msgSend_extent(self->inputImage);
   v48 = v5;
   v49 = v4;
   v46 = v7;
@@ -55,7 +55,7 @@
 
         v54 = 0u;
         v55 = 0u;
-        [PIApertureRedEyeProcessorKernel ROIForCenterPoint:v18 radius:v20, v23];
+        objc_msgSend_ROIForCenterPoint_radius_(PIApertureRedEyeProcessorKernel, v18, v20, v23);
         v63[0] = @"ROI";
         v27 = MEMORY[0x1E695F688];
         *buf = v54;

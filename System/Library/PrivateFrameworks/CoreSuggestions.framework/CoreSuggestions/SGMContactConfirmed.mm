@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar app:(SGMBannerDisplayApp_)app firstNameAdj:(SGMTypeSafeBool_)adj lastNameAdj:(SGMTypeSafeBool_)nameAdj middleNameAdj:(SGMTypeSafeBool_)middleNameAdj isUpdate:(SGMTypeSafeBool_)update extracted:(SGMBannerExtractionType_)extracted extractionModelVersion:(unint64_t)self0 selfId:(SGMTypeSafeBool_)self1 contactDetail:(SGMContactDetailType_)self2
 {
-  v55[9] = *MEMORY[0x1E69E9840];
+  v54[9] = *MEMORY[0x1E69E9840];
   if (app.var0 >= 3)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -22,7 +22,7 @@
     v19 = off_1E7EFBFB0[app.var0];
   }
 
-  v53 = v19;
+  v52 = v19;
   if (adj.var0)
   {
     if (adj.var0 == 1)
@@ -45,7 +45,7 @@
     v22 = @"0";
   }
 
-  v52 = v22;
+  v51 = v22;
   if (nameAdj.var0)
   {
     if (nameAdj.var0 == 1)
@@ -68,7 +68,7 @@
     v25 = @"0";
   }
 
-  v51 = v25;
+  v50 = v25;
   scalarCopy = scalar;
   selfCopy = self;
   if (middleNameAdj.var0)
@@ -93,7 +93,7 @@
     v29 = @"0";
   }
 
-  v50 = v29;
+  v49 = v29;
   if (update.var0)
   {
     if (update.var0 == 1)
@@ -171,32 +171,30 @@
   }
 
   tracker = selfCopy->_tracker;
-  v55[0] = v53;
-  v55[1] = v52;
-  v55[2] = v51;
-  v55[3] = v50;
-  v55[4] = v32;
-  v55[5] = v35;
+  v54[0] = v52;
+  v54[1] = v51;
+  v54[2] = v50;
+  v54[3] = v49;
+  v54[4] = v32;
+  v54[5] = v35;
   v47 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:version];
-  v55[6] = v47;
-  v55[7] = v38;
-  v55[8] = v42;
-  v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:9];
+  v54[6] = v47;
+  v54[7] = v38;
+  v54[8] = v42;
+  v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:9];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v48 value:scalarCopy];
-
-  v49 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMContactConfirmed)init
 {
-  v20[9] = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = SGMContactConfirmed;
-  v2 = [(SGMContactConfirmed *)&v19 init];
+  v19[9] = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = SGMContactConfirmed;
+  v2 = [(SGMContactConfirmed *)&v18 init];
   if (v2)
   {
-    v18 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"App"];
-    v17 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"FirstNameAdj"];
+    v17 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"App"];
+    v16 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"FirstNameAdj"];
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"LastNameAdj"];
     v4 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"MiddleNameAdj"];
     v5 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"IsUpdate"];
@@ -205,23 +203,22 @@
     v8 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"SelfId"];
     v9 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"ContactDetail"];
     v10 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v20[0] = v18;
-    v20[1] = v17;
-    v20[2] = v3;
-    v20[3] = v4;
-    v20[4] = v5;
-    v20[5] = v6;
+    v19[0] = v17;
+    v19[1] = v16;
+    v19[2] = v3;
+    v19[3] = v4;
+    v19[4] = v5;
+    v19[5] = v6;
     v11 = v6;
-    v20[6] = v7;
-    v20[7] = v8;
-    v20[8] = v9;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:9];
+    v19[6] = v7;
+    v19[7] = v8;
+    v19[8] = v9;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:9];
     v13 = [v10 initWithFeatureId:@"Found" event:@"ContactConfirmed" registerProperties:v12 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

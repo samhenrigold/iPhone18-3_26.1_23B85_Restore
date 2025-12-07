@@ -1,69 +1,3 @@
-void *CMMsl::AccessoryGyroConfig::AccessoryGyroConfig(void *this)
-{
-  *this = &unk_286C1E4E0;
-  this[1] = 0;
-  return this;
-}
-
-{
-  *this = &unk_286C1E4E0;
-  this[1] = 0;
-  return this;
-}
-
-void CMMsl::AccessoryGyroConfig::~AccessoryGyroConfig(CMMsl::AccessoryGyroConfig *this)
-{
-  v2 = *(this + 1);
-  *this = &unk_286C1E4E0;
-  *(this + 1) = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  PB::Base::~Base(this);
-}
-
-{
-  CMMsl::AccessoryGyroConfig::~AccessoryGyroConfig(this);
-
-  JUMPOUT(0x25F8548F0);
-}
-
-void *CMMsl::AccessoryGyroConfig::AccessoryGyroConfig(void *this, const CMMsl::AccessoryGyroConfig *a2)
-{
-  *this = &unk_286C1E4E0;
-  this[1] = 0;
-  if (*(a2 + 1))
-  {
-    operator new();
-  }
-
-  return this;
-}
-
-const CMMsl::AccessoryGyroConfig *CMMsl::AccessoryGyroConfig::operator=(const CMMsl::AccessoryGyroConfig *a1, const CMMsl::AccessoryGyroConfig *a2)
-{
-  if (a1 != a2)
-  {
-    CMMsl::AccessoryGyroConfig::AccessoryGyroConfig(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
-    v6 = v3;
-    CMMsl::AccessoryGyroConfig::~AccessoryGyroConfig(&v5);
-  }
-
-  return a1;
-}
-
-uint64_t CMMsl::swap(uint64_t this, CMMsl::AccessoryGyroConfig *a2, CMMsl::AccessoryGyroConfig *a3)
-{
-  v3 = *(this + 8);
-  *(this + 8) = *(a2 + 1);
-  *(a2 + 1) = v3;
-  return this;
-}
-
 void *CMMsl::AccessoryGyroConfig::AccessoryGyroConfig(void *a1, uint64_t a2)
 {
   *a1 = &unk_286C1E4E0;
@@ -267,9 +201,9 @@ CMMsl::AccessoryConfig *CMMsl::AccessoryGyroConfig::hash_value(CMMsl::AccessoryG
   return result;
 }
 
-uint64_t CMMsl::AccessoryGyroConfig::makeConfig(uint64_t this)
+void *CMMsl::AccessoryGyroConfig::makeConfig(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -309,10 +243,10 @@ void CMMsl::AccessoryGyroGYTT::~AccessoryGyroGYTT(CMMsl::AccessoryGyroGYTT *this
   JUMPOUT(0x25F8548F0);
 }
 
-void *CMMsl::AccessoryGyroGYTT::AccessoryGyroGYTT(void *this, const CMMsl::AccessoryGyroGYTT *a2)
+CMMsl::AccessoryGyroGYTT *CMMsl::AccessoryGyroGYTT::AccessoryGyroGYTT(CMMsl::AccessoryGyroGYTT *this, const CMMsl::AccessoryGyroGYTT *a2)
 {
   *this = &unk_286C1E518;
-  this[1] = 0;
+  *(this + 1) = 0;
   if (*(a2 + 1))
   {
     operator new();
@@ -895,7 +829,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  v6 = *(this + 13);
   PB::TextFormatter::format(a2, "heartRate");
   v5 = *(this + 34);
   if ((v5 & 0x80) == 0)
@@ -910,7 +843,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  v7 = *(this + 14);
   PB::TextFormatter::format(a2, "hrSensorLocation");
   v5 = *(this + 34);
   if ((v5 & 2) == 0)
@@ -939,7 +871,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  v8 = *(this + 15);
   PB::TextFormatter::format(a2, "sequenceNumber");
   v5 = *(this + 34);
   if ((v5 & 4) == 0)
@@ -982,7 +913,6 @@ LABEL_10:
   }
 
 LABEL_23:
-  v9 = *(this + 16);
   PB::TextFormatter::format(a2, "timeSyncStatus");
   if ((*(this + 34) & 0x10) != 0)
   {
@@ -1575,7 +1505,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v5 = *(v3 + 52);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 68);
   if ((v4 & 0x20) == 0)
@@ -1618,7 +1547,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  v6 = *(v3 + 60);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 68);
   if ((v4 & 8) == 0)
@@ -1658,7 +1586,6 @@ LABEL_9:
     }
 
 LABEL_20:
-    v7 = *(v3 + 64);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 68) & 0x80) == 0)
     {
@@ -1683,7 +1610,6 @@ LABEL_10:
   }
 
 LABEL_21:
-  v8 = *(v3 + 56);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -2397,7 +2323,7 @@ float CMMsl::AccessoryInEarDetection::AccessoryInEarDetection(uint64_t a1, uint6
   return result;
 }
 
-CMMsl *CMMsl::AccessoryInEarDetection::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::AccessoryInEarDetection::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -2415,7 +2341,6 @@ uint64_t CMMsl::AccessoryInEarDetection::formatText(CMMsl::AccessoryInEarDetecti
   v5 = *(this + 28);
   if ((v5 & 4) != 0)
   {
-    v7 = *(this + 6);
     PB::TextFormatter::format(a2, "configId");
     v5 = *(this + 28);
     if ((v5 & 8) == 0)
@@ -2435,7 +2360,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v8 = *(this + 7);
   PB::TextFormatter::format(a2, "failure");
   v5 = *(this + 28);
   if ((v5 & 0x10) == 0)
@@ -2450,7 +2374,6 @@ LABEL_4:
   }
 
 LABEL_31:
-  v9 = *(this + 8);
   PB::TextFormatter::format(a2, "frameNum");
   v5 = *(this + 28);
   if ((v5 & 0x20) == 0)
@@ -2465,7 +2388,6 @@ LABEL_5:
   }
 
 LABEL_32:
-  v10 = *(this + 9);
   PB::TextFormatter::format(a2, "reportId");
   v5 = *(this + 28);
   if ((v5 & 0x40) == 0)
@@ -2480,7 +2402,6 @@ LABEL_6:
   }
 
 LABEL_33:
-  v11 = *(this + 10);
   PB::TextFormatter::format(a2, "scanError");
   v5 = *(this + 28);
   if ((v5 & 1) == 0)
@@ -2495,7 +2416,6 @@ LABEL_7:
   }
 
 LABEL_34:
-  v12 = *(this + 1);
   PB::TextFormatter::format(a2, "sensorTime");
   v5 = *(this + 28);
   if ((v5 & 0x80) == 0)
@@ -2510,7 +2430,6 @@ LABEL_8:
   }
 
 LABEL_35:
-  v13 = *(this + 11);
   PB::TextFormatter::format(a2, "temperature");
   v5 = *(this + 28);
   if ((v5 & 2) == 0)
@@ -2539,7 +2458,6 @@ LABEL_10:
   }
 
 LABEL_37:
-  v14 = *(this + 12);
   PB::TextFormatter::format(a2, "ts0CalCount");
   v5 = *(this + 28);
   if ((v5 & 0x200) == 0)
@@ -2568,7 +2486,6 @@ LABEL_12:
   }
 
 LABEL_39:
-  v15 = *(this + 14);
   PB::TextFormatter::format(a2, "ts0Dark0");
   v5 = *(this + 28);
   if ((v5 & 0x800) == 0)
@@ -2583,7 +2500,6 @@ LABEL_13:
   }
 
 LABEL_40:
-  v16 = *(this + 15);
   PB::TextFormatter::format(a2, "ts0Dark1");
   v5 = *(this + 28);
   if ((v5 & 0x1000) == 0)
@@ -2598,7 +2514,6 @@ LABEL_14:
   }
 
 LABEL_41:
-  v17 = *(this + 16);
   PB::TextFormatter::format(a2, "ts0Light");
   v5 = *(this + 28);
   if ((v5 & 0x2000) == 0)
@@ -2613,7 +2528,6 @@ LABEL_15:
   }
 
 LABEL_42:
-  v18 = *(this + 17);
   PB::TextFormatter::format(a2, "ts0PdVf");
   v5 = *(this + 28);
   if ((v5 & 0x4000) == 0)
@@ -2628,7 +2542,6 @@ LABEL_16:
   }
 
 LABEL_43:
-  v19 = *(this + 18);
   PB::TextFormatter::format(a2, "ts0RxGain");
   v5 = *(this + 28);
   if ((v5 & 0x8000) == 0)
@@ -2643,7 +2556,6 @@ LABEL_17:
   }
 
 LABEL_44:
-  v20 = *(this + 19);
   PB::TextFormatter::format(a2, "ts1CalCount");
   v5 = *(this + 28);
   if ((v5 & 0x10000) == 0)
@@ -2672,7 +2584,6 @@ LABEL_19:
   }
 
 LABEL_46:
-  v21 = *(this + 21);
   PB::TextFormatter::format(a2, "ts1Dark0");
   v5 = *(this + 28);
   if ((v5 & 0x40000) == 0)
@@ -2687,7 +2598,6 @@ LABEL_20:
   }
 
 LABEL_47:
-  v22 = *(this + 22);
   PB::TextFormatter::format(a2, "ts1Dark1");
   v5 = *(this + 28);
   if ((v5 & 0x80000) == 0)
@@ -2702,7 +2612,6 @@ LABEL_21:
   }
 
 LABEL_48:
-  v23 = *(this + 23);
   PB::TextFormatter::format(a2, "ts1Light");
   v5 = *(this + 28);
   if ((v5 & 0x100000) == 0)
@@ -2717,7 +2626,6 @@ LABEL_22:
   }
 
 LABEL_49:
-  v24 = *(this + 24);
   PB::TextFormatter::format(a2, "ts1PdVf");
   v5 = *(this + 28);
   if ((v5 & 0x200000) == 0)
@@ -2732,7 +2640,6 @@ LABEL_23:
   }
 
 LABEL_50:
-  v25 = *(this + 25);
   PB::TextFormatter::format(a2, "ts1RxGain");
   v5 = *(this + 28);
   if ((v5 & 0x400000) == 0)
@@ -2747,12 +2654,10 @@ LABEL_24:
   }
 
 LABEL_51:
-  v26 = *(this + 26);
   PB::TextFormatter::format(a2, "tx0CurrentuA");
   if ((*(this + 28) & 0x800000) != 0)
   {
 LABEL_25:
-    v6 = *(this + 27);
     PB::TextFormatter::format(a2, "tx1CurrentuA");
   }
 
@@ -4724,7 +4629,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v5 = *(v3 + 8);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x20) == 0)
@@ -4739,7 +4643,6 @@ LABEL_4:
   }
 
 LABEL_28:
-  v6 = *(v3 + 36);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x10) == 0)
@@ -4754,7 +4657,6 @@ LABEL_5:
   }
 
 LABEL_29:
-  v7 = *(v3 + 32);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x40) == 0)
@@ -4769,7 +4671,6 @@ LABEL_6:
   }
 
 LABEL_30:
-  v8 = *(v3 + 40);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 8) == 0)
@@ -4784,7 +4685,6 @@ LABEL_7:
   }
 
 LABEL_31:
-  v9 = *(v3 + 28);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x400) == 0)
@@ -4799,7 +4699,6 @@ LABEL_8:
   }
 
 LABEL_32:
-  v10 = *(v3 + 56);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x1000) == 0)
@@ -4814,7 +4713,6 @@ LABEL_9:
   }
 
 LABEL_33:
-  v11 = *(v3 + 64);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x800) == 0)
@@ -4829,7 +4727,6 @@ LABEL_10:
   }
 
 LABEL_34:
-  v12 = *(v3 + 60);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x2000) == 0)
@@ -4844,7 +4741,6 @@ LABEL_11:
   }
 
 LABEL_35:
-  v13 = *(v3 + 68);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x20000) == 0)
@@ -4859,7 +4755,6 @@ LABEL_12:
   }
 
 LABEL_36:
-  v14 = *(v3 + 84);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x80000) == 0)
@@ -4874,7 +4769,6 @@ LABEL_13:
   }
 
 LABEL_37:
-  v15 = *(v3 + 92);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x40000) == 0)
@@ -4889,7 +4783,6 @@ LABEL_14:
   }
 
 LABEL_38:
-  v16 = *(v3 + 88);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x100000) == 0)
@@ -4904,7 +4797,6 @@ LABEL_15:
   }
 
 LABEL_39:
-  v17 = *(v3 + 96);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x100) == 0)
@@ -4919,7 +4811,6 @@ LABEL_16:
   }
 
 LABEL_40:
-  v18 = *(v3 + 48);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x200) == 0)
@@ -4948,7 +4839,6 @@ LABEL_18:
   }
 
 LABEL_42:
-  v19 = *(v3 + 76);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x10000) == 0)
@@ -4977,7 +4867,6 @@ LABEL_20:
   }
 
 LABEL_44:
-  v20 = *(v3 + 72);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x200000) == 0)
@@ -4992,7 +4881,6 @@ LABEL_21:
   }
 
 LABEL_45:
-  v21 = *(v3 + 100);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x80) == 0)
@@ -5007,7 +4895,6 @@ LABEL_22:
   }
 
 LABEL_46:
-  v22 = *(v3 + 44);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 4) == 0)
@@ -5019,7 +4906,6 @@ LABEL_23:
     }
 
 LABEL_48:
-    v24 = *(v3 + 104);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 112) & 0x800000) == 0)
     {
@@ -5030,7 +4916,6 @@ LABEL_48:
   }
 
 LABEL_47:
-  v23 = *(v3 + 24);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 112);
   if ((v4 & 0x400000) != 0)
@@ -5045,7 +4930,6 @@ LABEL_24:
   }
 
 LABEL_49:
-  v25 = *(v3 + 108);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -5848,7 +5732,6 @@ uint64_t CMMsl::AccessoryInEarStatus::formatText(CMMsl::AccessoryInEarStatus *th
   v5 = *(this + 16);
   if (v5)
   {
-    v6 = *(this + 2);
     PB::TextFormatter::format(a2, "status");
     v5 = *(this + 16);
   }
@@ -6083,16 +5966,15 @@ uint64_t CMMsl::AccessoryInEarStatus::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 16);
   if (v4)
   {
-    v5 = *(this + 8);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 16);
   }
 
   if ((v4 & 2) != 0)
   {
-    v6 = *(v3 + 12);
+    v5 = *(v3 + 12);
 
-    return PB::Writer::write(a2, v6);
+    return PB::Writer::write(a2, v5);
   }
 
   return this;
@@ -6188,12 +6070,12 @@ void CMMsl::AccessoryMagnetometer::~AccessoryMagnetometer(CMMsl::AccessoryMagnet
   JUMPOUT(0x25F8548F0);
 }
 
-uint64_t CMMsl::AccessoryMagnetometer::AccessoryMagnetometer(uint64_t this, const CMMsl::AccessoryMagnetometer *a2)
+CMMsl::AccessoryMagnetometer *CMMsl::AccessoryMagnetometer::AccessoryMagnetometer(CMMsl::AccessoryMagnetometer *this, const CMMsl::Magnetometer **a2)
 {
   *this = &unk_286C1E5F8;
+  *(this + 1) = 0;
   *(this + 8) = 0;
-  *(this + 32) = 0;
-  if (*(a2 + 1))
+  if (a2[1])
   {
     operator new();
   }
@@ -6203,7 +6085,7 @@ uint64_t CMMsl::AccessoryMagnetometer::AccessoryMagnetometer(uint64_t this, cons
   {
     v4 = *(a2 + 6);
     *(this + 32) |= 2u;
-    *(this + 24) = v4;
+    *(this + 6) = v4;
     v2 = *(a2 + 32);
     if ((v2 & 4) == 0)
     {
@@ -6217,27 +6099,27 @@ LABEL_5:
     }
   }
 
-  else if ((*(a2 + 32) & 4) == 0)
+  else if ((a2[4] & 4) == 0)
   {
     goto LABEL_5;
   }
 
   v5 = *(a2 + 7);
   *(this + 32) |= 4u;
-  *(this + 28) = v5;
-  if ((*(a2 + 32) & 1) == 0)
+  *(this + 7) = v5;
+  if ((a2[4] & 1) == 0)
   {
     return this;
   }
 
 LABEL_6:
-  v3 = *(a2 + 2);
+  v3 = a2[2];
   *(this + 32) |= 1u;
-  *(this + 16) = v3;
+  *(this + 2) = v3;
   return this;
 }
 
-uint64_t CMMsl::AccessoryMagnetometer::operator=(uint64_t a1, const CMMsl::AccessoryMagnetometer *a2)
+uint64_t CMMsl::AccessoryMagnetometer::operator=(uint64_t a1, const CMMsl::Magnetometer **a2)
 {
   if (a1 != a2)
   {
@@ -6332,27 +6214,24 @@ uint64_t CMMsl::AccessoryMagnetometer::formatText(CMMsl::AccessoryMagnetometer *
   PB::TextFormatter::beginObject(a2, a3);
   if ((*(this + 32) & 2) != 0)
   {
-    v5 = *(this + 6);
     PB::TextFormatter::format(a2, "location");
   }
 
-  v6 = *(this + 1);
+  v5 = *(this + 1);
+  if (v5)
+  {
+    (*(*v5 + 32))(v5, a2, "magnetometer");
+  }
+
+  v6 = *(this + 32);
   if (v6)
   {
-    (*(*v6 + 32))(v6, a2, "magnetometer");
-  }
-
-  v7 = *(this + 32);
-  if (v7)
-  {
-    v8 = *(this + 2);
     PB::TextFormatter::format(a2, "sensorTime");
-    v7 = *(this + 32);
+    v6 = *(this + 32);
   }
 
-  if ((v7 & 4) != 0)
+  if ((v6 & 4) != 0)
   {
-    v9 = *(this + 7);
     PB::TextFormatter::format(a2, "sequenceNumber");
   }
 
@@ -6762,7 +6641,6 @@ uint64_t CMMsl::AccessoryMagnetometer::writeTo(uint64_t this, PB::Writer *a2)
     }
 
 LABEL_8:
-    v7 = *(v3 + 28);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 32) & 1) == 0)
     {
@@ -6772,7 +6650,6 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v6 = *(v3 + 24);
   this = PB::Writer::writeVarInt(a2);
   v5 = *(v3 + 32);
   if ((v5 & 4) != 0)
@@ -6787,7 +6664,6 @@ LABEL_5:
   }
 
 LABEL_9:
-  v8 = *(v3 + 16);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -6966,9 +6842,9 @@ LABEL_6:
   return v3 ^ v2 ^ v4 ^ v5;
 }
 
-uint64_t CMMsl::AccessoryMagnetometer::makeMagnetometer(uint64_t this)
+void *CMMsl::AccessoryMagnetometer::makeMagnetometer(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -7008,11 +6884,11 @@ void CMMsl::AccessoryMagnetometerConfig::~AccessoryMagnetometerConfig(CMMsl::Acc
   JUMPOUT(0x25F8548F0);
 }
 
-void *CMMsl::AccessoryMagnetometerConfig::AccessoryMagnetometerConfig(void *this, const CMMsl::AccessoryMagnetometerConfig *a2)
+CMMsl::AccessoryMagnetometerConfig *CMMsl::AccessoryMagnetometerConfig::AccessoryMagnetometerConfig(CMMsl::AccessoryMagnetometerConfig *this, const CMMsl::AccessoryConfig **a2)
 {
   *this = &unk_286C1E630;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -7020,13 +6896,13 @@ void *CMMsl::AccessoryMagnetometerConfig::AccessoryMagnetometerConfig(void *this
   return this;
 }
 
-const CMMsl::AccessoryMagnetometerConfig *CMMsl::AccessoryMagnetometerConfig::operator=(const CMMsl::AccessoryMagnetometerConfig *a1, const CMMsl::AccessoryMagnetometerConfig *a2)
+uint64_t CMMsl::AccessoryMagnetometerConfig::operator=(uint64_t a1, const CMMsl::AccessoryConfig **a2)
 {
   if (a1 != a2)
   {
     CMMsl::AccessoryMagnetometerConfig::AccessoryMagnetometerConfig(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::AccessoryMagnetometerConfig::~AccessoryMagnetometerConfig(&v5);
   }
@@ -7245,9 +7121,9 @@ CMMsl::AccessoryConfig *CMMsl::AccessoryMagnetometerConfig::hash_value(CMMsl::Ac
   return result;
 }
 
-uint64_t CMMsl::AccessoryMagnetometerConfig::makeConfig(uint64_t this)
+void *CMMsl::AccessoryMagnetometerConfig::makeConfig(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -7585,7 +7461,7 @@ uint64_t CMMsl::AccessoryPPG::AccessoryPPG(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::AccessoryPPG::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::AccessoryPPG::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7604,89 +7480,86 @@ uint64_t CMMsl::AccessoryPPG::formatText(CMMsl::AccessoryPPG *this, PB::TextForm
   v6 = *(this + 2);
   while (v5 != v6)
   {
-    v7 = *v5++;
+    v5 += 4;
     PB::TextFormatter::format(a2, "dark0");
   }
 
-  v8 = *(this + 4);
-  v9 = *(this + 5);
-  while (v8 != v9)
+  v7 = *(this + 4);
+  v8 = *(this + 5);
+  while (v7 != v8)
   {
-    v10 = *v8++;
+    v7 += 4;
     PB::TextFormatter::format(a2, "dark1");
   }
 
-  v11 = *(this + 7);
-  v12 = *(this + 8);
-  while (v11 != v12)
+  v9 = *(this + 7);
+  v10 = *(this + 8);
+  while (v9 != v10)
   {
-    v13 = *v11++;
+    v9 += 4;
     PB::TextFormatter::format(a2, "dark2");
   }
 
-  v14 = *(this + 10);
-  v15 = *(this + 11);
-  while (v14 != v15)
+  v11 = *(this + 10);
+  v12 = *(this + 11);
+  while (v11 != v12)
   {
-    v16 = *v14++;
+    v11 += 4;
     PB::TextFormatter::format(a2, "dark3");
   }
 
-  v17 = *(this + 224);
-  if ((v17 & 4) != 0)
+  v13 = *(this + 224);
+  if ((v13 & 4) != 0)
   {
-    v18 = *(this + 54);
     PB::TextFormatter::format(a2, "error");
-    v17 = *(this + 224);
+    v13 = *(this + 224);
   }
 
-  if ((v17 & 8) != 0)
+  if ((v13 & 8) != 0)
   {
-    v19 = *(this + 55);
     PB::TextFormatter::format(a2, "frameNum");
   }
 
-  v20 = *(this + 13);
-  v21 = *(this + 14);
-  while (v20 != v21)
+  v14 = *(this + 13);
+  v15 = *(this + 14);
+  while (v14 != v15)
   {
-    v22 = *v20++;
+    v14 += 4;
     PB::TextFormatter::format(a2, "ledCurrent");
   }
 
-  v23 = *(this + 16);
-  v24 = *(this + 17);
-  while (v23 != v24)
+  v16 = *(this + 16);
+  v17 = *(this + 17);
+  while (v16 != v17)
   {
-    v25 = *v23++;
+    v16 += 4;
     PB::TextFormatter::format(a2, "light0");
   }
 
-  v26 = *(this + 19);
-  v27 = *(this + 20);
-  while (v26 != v27)
+  v18 = *(this + 19);
+  v19 = *(this + 20);
+  while (v18 != v19)
   {
-    v28 = *v26++;
+    v18 += 4;
     PB::TextFormatter::format(a2, "light1");
   }
 
-  v29 = *(this + 22);
-  v30 = *(this + 23);
-  while (v29 != v30)
+  v20 = *(this + 22);
+  v21 = *(this + 23);
+  while (v20 != v21)
   {
-    v31 = *v29++;
+    v20 += 4;
     PB::TextFormatter::format(a2, "rxGain");
   }
 
-  v32 = *(this + 224);
-  if (v32)
+  v22 = *(this + 224);
+  if (v22)
   {
-    v33 = *(this + 25);
     PB::TextFormatter::format(a2, "sensorTime");
-    v32 = *(this + 224);
+    v22 = *(this + 224);
   }
 
-  if ((v32 & 2) != 0)
+  if ((v22 & 2) != 0)
   {
     PB::TextFormatter::format(a2, "timestamp", *(this + 26));
   }

@@ -137,7 +137,7 @@
 
 - (void)_removePendingMessageWithGUID:(id)d
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if ([dCopy length])
   {
@@ -147,26 +147,26 @@
     pendingMessages2 = [(IMPendingReplicatedMessageCache *)self pendingMessages];
     [pendingMessages2 setObject:0 forKeyedSubscript:dCopy];
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     replicatedFallbackGUIDs = [v6 replicatedFallbackGUIDs];
-    v9 = [replicatedFallbackGUIDs countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v9 = [replicatedFallbackGUIDs countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v9)
     {
-      v10 = *v22;
+      v10 = *v21;
       do
       {
         v11 = 0;
         do
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(replicatedFallbackGUIDs);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * v11);
+          v12 = *(*(&v20 + 1) + 8 * v11);
           pendingMessages3 = [(IMPendingReplicatedMessageCache *)self pendingMessages];
           [pendingMessages3 setObject:0 forKeyedSubscript:v12];
 
@@ -174,7 +174,7 @@
         }
 
         while (v9 != v11);
-        v9 = [replicatedFallbackGUIDs countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v9 = [replicatedFallbackGUIDs countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
       while (v9);
@@ -187,9 +187,9 @@
       {
         replicatedFallbackGUIDs2 = [v6 replicatedFallbackGUIDs];
         *buf = 138412546;
-        v26 = dCopy;
-        v27 = 2112;
-        v28 = replicatedFallbackGUIDs2;
+        v25 = dCopy;
+        v26 = 2112;
+        v27 = replicatedFallbackGUIDs2;
         _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Removed pending replicated message %@ (fallback GUIDs: %@) from cache", buf, 0x16u);
       }
     }
@@ -215,8 +215,6 @@
       [(IMPendingReplicatedMessageCache *)self setTimeoutTimer:0];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleTimeout
@@ -243,7 +241,7 @@
 
 - (void)_enforceTimeout
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v3 = OSLogHandleForIMFoundationCategory();
@@ -251,62 +249,62 @@
     {
       pendingMessages = [(IMPendingReplicatedMessageCache *)self pendingMessages];
       *buf = 134218240;
-      v25 = [pendingMessages count];
-      v26 = 2048;
-      v27 = 128;
+      v24 = [pendingMessages count];
+      v25 = 2048;
+      v26 = 128;
       _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Enforcing cache timeout, has %llu messages (limit %llu)", buf, 0x16u);
     }
   }
 
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   pendingMessages2 = [(IMPendingReplicatedMessageCache *)self pendingMessages];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = sub_22B4FD3E0;
-  v21[3] = &unk_278703018;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = sub_22B4FD3E0;
+  v20[3] = &unk_278703018;
   v7 = v5;
-  v22 = v7;
-  [pendingMessages2 enumerateKeysAndObjectsUsingBlock:v21];
+  v21 = v7;
+  [pendingMessages2 enumerateKeysAndObjectsUsingBlock:v20];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v9)
   {
-    v11 = *v18;
+    v11 = *v17;
     *&v10 = 138412290;
-    v16 = v10;
+    v15 = v10;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * v12);
+        v13 = *(*(&v16 + 1) + 8 * v12);
         if (IMOSLoggingEnabled())
         {
           v14 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
-            *buf = v16;
-            v25 = v13;
+            *buf = v15;
+            v24 = v13;
             _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Timing out message %@", buf, 0xCu);
           }
         }
 
-        [(IMPendingReplicatedMessageCache *)self _removePendingMessageWithGUID:v13, v16, v17];
+        [(IMPendingReplicatedMessageCache *)self _removePendingMessageWithGUID:v13, v15, v16];
         ++v12;
       }
 
       while (v9 != v12);
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v9);
@@ -316,13 +314,11 @@
   {
     [(IMPendingReplicatedMessageCache *)self _metricMatchingFailureWithReason:@"Replicated Message Deferral Timeout"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enforceCacheLimit
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   pendingMessages = [(IMPendingReplicatedMessageCache *)self pendingMessages];
   v4 = [pendingMessages count];
 
@@ -335,9 +331,9 @@
       {
         pendingMessages2 = [(IMPendingReplicatedMessageCache *)self pendingMessages];
         *buf = 134218240;
-        v22 = [pendingMessages2 count];
-        v23 = 2048;
-        v24 = 128;
+        v21 = [pendingMessages2 count];
+        v22 = 2048;
+        v23 = 128;
         _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Enforcing cache limit, has %llu messages (limit %llu)", buf, 0x16u);
       }
     }
@@ -345,13 +341,13 @@
     v7 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"date" ascending:1];
     pendingMessages3 = [(IMPendingReplicatedMessageCache *)self pendingMessages];
     allValues = [pendingMessages3 allValues];
-    v20 = v7;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+    v19 = v7;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
     v11 = [allValues sortedArrayUsingDescriptors:v10];
 
     v12 = 0;
     *&v13 = 138412290;
-    v19 = v13;
+    v18 = v13;
     do
     {
       if (v12 >= [v11 count])
@@ -366,8 +362,8 @@
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           messageGUID = [v14 messageGUID];
-          *buf = v19;
-          v22 = messageGUID;
+          *buf = v18;
+          v21 = messageGUID;
           _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Evicting message %@", buf, 0xCu);
         }
       }
@@ -381,8 +377,6 @@
     while (v12 != 25);
     [(IMPendingReplicatedMessageCache *)self _metricMatchingFailureWithReason:@"Replicated Message Cache Overflow"];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_metricMatchingFailureWithReason:(id)reason

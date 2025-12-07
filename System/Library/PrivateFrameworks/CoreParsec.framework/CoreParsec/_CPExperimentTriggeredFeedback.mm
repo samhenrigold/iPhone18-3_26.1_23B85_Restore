@@ -101,13 +101,11 @@ LABEL_15:
   toCopy = to;
   if ([(_CPExperimentTriggeredFeedback *)self queryID])
   {
-    queryID = self->_queryID;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPExperimentTriggeredFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -121,12 +119,11 @@ LABEL_15:
 
   codepathId = [(_CPExperimentTriggeredFeedback *)self codepathId];
 
-  v9 = toCopy;
+  v7 = toCopy;
   if (codepathId)
   {
-    codepathId = self->_codepathId;
     PBDataWriterWriteStringField();
-    v9 = toCopy;
+    v7 = toCopy;
   }
 }
 

@@ -31,7 +31,7 @@
 
 - (CDMClientInterface)client
 {
-  v2 = sub_100003EE4();
+  v2 = sub_100003EE4(self, a2);
 
   return v2;
 }
@@ -45,7 +45,7 @@
 
 - (OS_dispatch_source_timer)idleTimer
 {
-  v2 = sub_100005DBC();
+  v2 = sub_100005DBC(self, a2);
 
   return v2;
 }
@@ -86,20 +86,19 @@
 - (void)areAssetsAvailableWithLocale:(id)locale completionHandler:(id)handler
 {
   v7 = type metadata accessor for Locale();
-  v8 = sub_100003420(v7);
-  v10 = v9;
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v8);
+  sub_100003420();
+  v9 = v8;
+  __chkstk_darwin(v10);
   sub_100003330();
   sub_1000032F8();
-  v13 = _Block_copy(handler);
+  v11 = _Block_copy(handler);
   static Locale._unconditionallyBridgeFromObjectiveC(_:)();
-  _Block_copy(v13);
+  _Block_copy(v11);
   selfCopy = self;
-  sub_100006E40(v4, selfCopy, v13);
-  _Block_release(v13);
+  sub_100006E40(v4, selfCopy, v11);
+  _Block_release(v11);
 
-  (*(v10 + 8))(v4, v7);
+  (*(v9 + 8))(v4, v7);
 }
 
 - (void)waitForDataDispatcherCompletionWithCompletionHandler:(id)handler

@@ -141,7 +141,7 @@
 
 - (void)identifyWithCompletionHandler:(id)handler
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -149,9 +149,9 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@The accessory does not support identify", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@The accessory does not support identify", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -160,13 +160,11 @@
     v9 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     handlerCopy[2](handlerCopy, v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleIdentify:(id)identify
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifyCopy = identify;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -175,30 +173,28 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v15 = v8;
+    v14 = v8;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Identifying", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   objc_initWeak(buf, selfCopy);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __44__HMDUnassociatedAccessory__handleIdentify___block_invoke;
-  v11[3] = &unk_278687540;
-  objc_copyWeak(&v13, buf);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __44__HMDUnassociatedAccessory__handleIdentify___block_invoke;
+  v10[3] = &unk_278687540;
+  objc_copyWeak(&v12, buf);
   v9 = identifyCopy;
-  v12 = v9;
-  [(HMDUnassociatedAccessory *)selfCopy identifyWithCompletionHandler:v11];
+  v11 = v9;
+  [(HMDUnassociatedAccessory *)selfCopy identifyWithCompletionHandler:v10];
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HMDUnassociatedAccessory__handleIdentify___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = objc_autoreleasePoolPush();
@@ -207,11 +203,11 @@ void __44__HMDUnassociatedAccessory__handleIdentify___block_invoke(uint64_t a1, 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Identified with error: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Identified with error: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -222,18 +218,15 @@ void __44__HMDUnassociatedAccessory__handleIdentify___block_invoke(uint64_t a1, 
     v10 = [*(a1 + 32) responseHandler];
     (v10)[2](v10, v3, 0);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMatterDeviceTypeID:(id)d
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (dCopy)
   {
     os_unfair_recursive_lock_lock_with_options();
-    matterDeviceTypeID = self->_matterDeviceTypeID;
     if (HMFEqualObjects())
     {
       os_unfair_recursive_lock_unlock();
@@ -243,19 +236,17 @@ void __44__HMDUnassociatedAccessory__handleIdentify___block_invoke(uint64_t a1, 
     {
       objc_storeStrong(&self->_matterDeviceTypeID, d);
       os_unfair_recursive_lock_unlock();
-      v7 = MEMORY[0x277D0F818];
+      v6 = MEMORY[0x277D0F818];
       messageDestination = [(HMDUnassociatedAccessory *)self messageDestination];
-      v13 = *MEMORY[0x277CCEB78];
-      v14[0] = dCopy;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-      v10 = [v7 messageWithName:*MEMORY[0x277CCEB70] destination:messageDestination payload:v9];
+      v11 = *MEMORY[0x277CCEB78];
+      v12[0] = dCopy;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+      v9 = [v6 messageWithName:*MEMORY[0x277CCEB70] destination:messageDestination payload:v8];
 
       messageDispatcher = [(HMDUnassociatedAccessory *)self messageDispatcher];
-      [messageDispatcher sendMessage:v10 completionHandler:0];
+      [messageDispatcher sendMessage:v9 completionHandler:0];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSNumber)matterDeviceTypeID
@@ -291,12 +282,11 @@ void __44__HMDUnassociatedAccessory__handleIdentify___block_invoke(uint64_t a1, 
 
 - (void)setCategory:(id)category
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   categoryCopy = category;
   if (categoryCopy)
   {
     os_unfair_recursive_lock_lock_with_options();
-    category = self->_category;
     if (HMFEqualObjects())
     {
       os_unfair_recursive_lock_unlock();
@@ -304,25 +294,23 @@ void __44__HMDUnassociatedAccessory__handleIdentify___block_invoke(uint64_t a1, 
 
     else
     {
-      v6 = [MEMORY[0x277CD1A18] cachedInstanceForHMAccessoryCategory:categoryCopy];
-      v7 = self->_category;
-      self->_category = v6;
+      v5 = [MEMORY[0x277CD1A18] cachedInstanceForHMAccessoryCategory:categoryCopy];
+      category = self->_category;
+      self->_category = v5;
 
       os_unfair_recursive_lock_unlock();
-      v8 = encodeRootObjectForIncomingXPCMessage(categoryCopy, 0);
-      v9 = MEMORY[0x277D0F818];
+      v7 = encodeRootObjectForIncomingXPCMessage(categoryCopy, 0);
+      v8 = MEMORY[0x277D0F818];
       messageDestination = [(HMDUnassociatedAccessory *)self messageDestination];
-      v15 = @"kAccessoryCategory";
-      v16[0] = v8;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-      v12 = [v9 messageWithName:@"kAccessoryCategoryChangedNotificationKey" destination:messageDestination payload:v11];
+      v13 = @"kAccessoryCategory";
+      v14[0] = v7;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v11 = [v8 messageWithName:@"kAccessoryCategoryChangedNotificationKey" destination:messageDestination payload:v10];
 
       messageDispatcher = [(HMDUnassociatedAccessory *)self messageDispatcher];
-      [messageDispatcher sendMessage:v12 completionHandler:0];
+      [messageDispatcher sendMessage:v11 completionHandler:0];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HMAccessoryCategory)category
@@ -336,12 +324,11 @@ void __44__HMDUnassociatedAccessory__handleIdentify___block_invoke(uint64_t a1, 
 
 - (void)setName:(id)name
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (nameCopy)
   {
     os_unfair_recursive_lock_lock_with_options();
-    name = self->_name;
     if (HMFEqualObjects())
     {
       os_unfair_recursive_lock_unlock();
@@ -349,24 +336,22 @@ void __44__HMDUnassociatedAccessory__handleIdentify___block_invoke(uint64_t a1, 
 
     else
     {
-      v6 = [nameCopy copy];
-      v7 = self->_name;
-      self->_name = v6;
+      v5 = objc_msgSend_copy(nameCopy);
+      name = self->_name;
+      self->_name = v5;
 
       os_unfair_recursive_lock_unlock();
-      v8 = MEMORY[0x277D0F818];
+      v7 = MEMORY[0x277D0F818];
       messageDestination = [(HMDUnassociatedAccessory *)self messageDestination];
-      v14 = *MEMORY[0x277CD1FC8];
-      v15[0] = nameCopy;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-      v11 = [v8 messageWithName:*MEMORY[0x277CD1FC0] destination:messageDestination payload:v10];
+      v12 = *MEMORY[0x277CD1FC8];
+      v13[0] = nameCopy;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v10 = [v7 messageWithName:*MEMORY[0x277CD1FC0] destination:messageDestination payload:v9];
 
       messageDispatcher = [(HMDUnassociatedAccessory *)self messageDispatcher];
-      [messageDispatcher sendMessage:v11 completionHandler:0];
+      [messageDispatcher sendMessage:v10 completionHandler:0];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)name
@@ -380,14 +365,12 @@ void __44__HMDUnassociatedAccessory__handleIdentify___block_invoke(uint64_t a1, 
 
 - (void)_registerForMessages
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   messageDispatcher = [(HMDUnassociatedAccessory *)self messageDispatcher];
   v4 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v7[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [messageDispatcher registerForMessage:@"kIdentifyAccessoryRequestKey" receiver:self policies:v5 selector:sel__handleIdentify_];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dumpDescription
@@ -546,11 +529,11 @@ void __44__HMDUnassociatedAccessory__handleIdentify___block_invoke(uint64_t a1, 
     uuid = v14->_uuid;
     v14->_uuid = uUID;
 
-    v17 = [identifierCopy copy];
+    v17 = objc_msgSend_copy(identifierCopy);
     identifier = v14->_identifier;
     v14->_identifier = v17;
 
-    v19 = [nameCopy copy];
+    v19 = objc_msgSend_copy(nameCopy);
     name = v14->_name;
     v14->_name = v19;
 
@@ -602,10 +585,9 @@ void __44__HMDUnassociatedAccessory__handleIdentify___block_invoke(uint64_t a1, 
 
 void __39__HMDUnassociatedAccessory_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v13_181759;
-  logCategory__hmf_once_v13_181759 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v13_181759;
+  logCategory__hmf_once_v13_181759 = v0;
 }
 
 + (id)shortDescription

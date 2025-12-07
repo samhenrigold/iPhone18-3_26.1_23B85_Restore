@@ -1,6 +1,5 @@
 @interface RepairWeightsProcessor
 - (RepairWeightsProcessor)init;
-- (uint64_t)init;
 - (void)_temporalFilterMetaContainerAtIndex:(int64_t)index ofQueue:(id)queue lookaheadBufferLen:(int)len;
 - (void)reset;
 - (void)setWeightsForROIAtIndex:(RepairWeightsProcessor *)self ofMetaContainer:(SEL)container ROIMotion:(int64_t)motion ROIMotionLongRange:(id *)range isLowLight:(float)light;
@@ -1016,27 +1015,6 @@ LABEL_108:
 
   ++self->_frameIdx;
   kdebug_trace();
-}
-
-- (uint64_t)init
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_temporalFilterMetaContainerAtIndex:ofQueue:lookaheadBufferLen:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)temporalFilterBlendingWeights:lookaheadMetaBufs:metaBuf_HW:lookaheadMetaBufs_HW:hwMode:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 @end

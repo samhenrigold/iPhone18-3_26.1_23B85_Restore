@@ -49,7 +49,7 @@
         {
           if (dword_1001BF328 <= 30 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BF328, "[SVSWatchSetupInitialViewController applicationsDidInstall:]", 30, "Watch app installed\n");
           }
 
           block[0] = _NSConcreteStackBlock;
@@ -81,14 +81,14 @@ LABEL_15:
   [(SVSWatchSetupInitialViewController *)self showActivityIndicatorWithStatus:v3];
 
   v4 = +[LSApplicationWorkspace defaultWorkspace];
-  [v4 addObserver:self];
-  v5 = [objc_alloc(off_1001BF3A0()) initWithBundleID:@"com.apple.Bridge"];
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_10012C90C;
-  v6[3] = &unk_100195940;
-  v6[4] = self;
-  [v5 startWithErrorHandler:v6];
+  v5 = [v4 addObserver:self];
+  v6 = [objc_alloc(off_1001BF3A0(v5)) initWithBundleID:@"com.apple.Bridge"];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10012C90C;
+  v7[3] = &unk_100195940;
+  v7[4] = self;
+  [v6 startWithErrorHandler:v7];
 }
 
 - (void)_launchWatchAppForPairing
@@ -118,7 +118,7 @@ LABEL_15:
 
   if (!v7 && dword_1001BF328 <= 90 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF328, "[SVSWatchSetupInitialViewController _handleUpdateNow]", 90, "Failed to open settings: %@\n", v6);
   }
 }
 
@@ -162,9 +162,7 @@ LABEL_15:
         v8 = userInfo;
       }
 
-      v15 = name;
-      v16 = v8;
-      LogPrintF();
+      LogPrintF(&dword_1001BF328, "[SVSWatchSetupInitialViewController handleDeviceSetupNotification:]", 30, "DeviceSetup notification '%@', %##@\n", name, v8);
     }
 
     name2 = [notificationCopy name];
@@ -182,7 +180,7 @@ LABEL_15:
       {
         if (dword_1001BF328 <= 30 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001BF328, "[SVSWatchSetupInitialViewController handleDeviceSetupNotification:]", 30, "Auto-dismissing on setup started\n");
         }
 
         mainController = [(SVSWatchSetupInitialViewController *)self mainController];
@@ -203,7 +201,7 @@ LABEL_15:
   [(SVSWatchSetupInitialViewController *)&v5 viewDidDisappear:disappear];
   if (dword_1001BF328 <= 30 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF328, "[SVSWatchSetupInitialViewController viewDidDisappear:]", 30, "Start ViewDidDisappear\n");
   }
 
   v4 = +[NSDistributedNotificationCenter defaultCenter];
@@ -217,7 +215,7 @@ LABEL_15:
   [(SVSWatchSetupInitialViewController *)&v7 viewWillAppear:appear];
   if (dword_1001BF328 <= 30 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF328, "[SVSWatchSetupInitialViewController viewWillAppear:]", 30, "Start ViewWillAppear\n");
   }
 
   mainController = [(SVSWatchSetupInitialViewController *)self mainController];
@@ -230,9 +228,9 @@ LABEL_15:
 
 - (void)viewDidLoad
 {
-  v38.receiver = self;
-  v38.super_class = SVSWatchSetupInitialViewController;
-  [(SVSWatchSetupInitialViewController *)&v38 viewDidLoad];
+  v37.receiver = self;
+  v37.super_class = SVSWatchSetupInitialViewController;
+  [(SVSWatchSetupInitialViewController *)&v37 viewDidLoad];
   [(SVSWatchSetupInitialViewController *)self setDismissalType:3];
   v3 = sub_10012794C(@"Localizable", @"APPLE_WATCH_SETUP_TITLE");
   [(SVSWatchSetupInitialViewController *)self setTitle:v3];
@@ -242,27 +240,26 @@ LABEL_15:
 
   objc_initWeak(&location, self);
   v5 = sub_10012794C(@"Localizable", @"CONTINUE");
-  v35[0] = _NSConcreteStackBlock;
-  v35[1] = 3221225472;
-  v35[2] = sub_10012D858;
-  v35[3] = &unk_1001958D8;
-  objc_copyWeak(&v36, &location);
-  v33 = [PRXAction actionWithTitle:v5 style:0 handler:v35];
+  v34[0] = _NSConcreteStackBlock;
+  v34[1] = 3221225472;
+  v34[2] = sub_10012D858;
+  v34[3] = &unk_1001958D8;
+  objc_copyWeak(&v35, &location);
+  v32 = [PRXAction actionWithTitle:v5 style:0 handler:v34];
 
-  v6 = [(SVSWatchSetupInitialViewController *)self addAction:v33];
+  v6 = [(SVSWatchSetupInitialViewController *)self addAction:v32];
   v7 = [[BPSRemoteWatchView alloc] initWithSize:{CGSizeZero.width, CGSizeZero.height}];
   [v7 setTranslatesAutoresizingMaskIntoConstraints:0];
   CFStringGetTypeID();
-  v34 = CFDictionaryGetTypedValue();
+  v33 = CFDictionaryGetTypedValue();
   if (dword_1001BF328 <= 30 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
   {
-    v18 = v34;
-    LogPrintF();
+    LogPrintF(&dword_1001BF328, "[SVSWatchSetupInitialViewController viewDidLoad]", 30, "Configuring view for advertising name '%@'\n", v33);
   }
 
-  if (v34)
+  if (v33)
   {
-    [v7 setAdvertisingName:v34];
+    [v7 setAdvertisingName:v33];
   }
 
   contentView = [(SVSWatchSetupInitialViewController *)self contentView];
@@ -272,33 +269,33 @@ LABEL_15:
   contentView2 = [(SVSWatchSetupInitialViewController *)self contentView];
   mainContentGuide = [contentView2 mainContentGuide];
   topAnchor2 = [mainContentGuide topAnchor];
-  v28 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v39[0] = v28;
+  v27 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v38[0] = v27;
   bottomAnchor = [v7 bottomAnchor];
   contentView3 = [(SVSWatchSetupInitialViewController *)self contentView];
   mainContentGuide2 = [contentView3 mainContentGuide];
   bottomAnchor2 = [mainContentGuide2 bottomAnchor];
-  v23 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
-  v39[1] = v23;
+  v22 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
+  v38[1] = v22;
   leadingAnchor = [v7 leadingAnchor];
   contentView4 = [(SVSWatchSetupInitialViewController *)self contentView];
   mainContentGuide3 = [contentView4 mainContentGuide];
   leadingAnchor2 = [mainContentGuide3 leadingAnchor];
   v9 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v39[2] = v9;
+  v38[2] = v9;
   trailingAnchor = [v7 trailingAnchor];
   contentView5 = [(SVSWatchSetupInitialViewController *)self contentView];
   mainContentGuide4 = [contentView5 mainContentGuide];
   trailingAnchor2 = [mainContentGuide4 trailingAnchor];
   v14 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v39[3] = v14;
+  v38[3] = v14;
   heightAnchor = [v7 heightAnchor];
   v16 = [heightAnchor constraintEqualToConstant:175.0];
-  v39[4] = v16;
-  v17 = [NSArray arrayWithObjects:v39 count:5];
+  v38[4] = v16;
+  v17 = [NSArray arrayWithObjects:v38 count:5];
   [NSLayoutConstraint activateConstraints:v17];
 
-  objc_destroyWeak(&v36);
+  objc_destroyWeak(&v35);
   objc_destroyWeak(&location);
 }
 

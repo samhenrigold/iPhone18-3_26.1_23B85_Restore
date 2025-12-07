@@ -70,7 +70,7 @@ BOOL __82__NSManagedObjectContext_MediaAnalysis__mad_insertBatch_entityName_inse
   return v5 != 0;
 }
 
-uint64_t __55__NSManagedObjectContext_MediaAnalysis__mad_hasChanges__block_invoke(uint64_t a1)
+void *__55__NSManagedObjectContext_MediaAnalysis__mad_hasChanges__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) hasChanges];
   *(*(*(a1 + 40) + 8) + 24) = result;

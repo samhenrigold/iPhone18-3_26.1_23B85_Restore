@@ -22,7 +22,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   gUID = [inputCopy GUID];
 
@@ -35,9 +35,9 @@
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         gUID2 = [inputCopy GUID];
-        v41 = 138412290;
-        v42 = gUID2;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "<IMRepositionStickerProcessingPipelineComponent> Started processing reposition sticker command for message GUID: %@", &v41, 0xCu);
+        v40 = 138412290;
+        v41 = gUID2;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "<IMRepositionStickerProcessingPipelineComponent> Started processing reposition sticker command for message GUID: %@", &v40, 0xCu);
       }
     }
 
@@ -98,8 +98,8 @@
         v38 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v41) = 0;
-          _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "Ignoring reposition sticker chat command, no file transfer found locally", &v41, 2u);
+          LOWORD(v40) = 0;
+          _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "Ignoring reposition sticker chat command, no file transfer found locally", &v40, 2u);
         }
       }
 
@@ -113,8 +113,8 @@
         v37 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v41) = 0;
-          _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "Ignoring reposition sticker chat command, no valid message for GUID", &v41, 2u);
+          LOWORD(v40) = 0;
+          _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "Ignoring reposition sticker chat command, no valid message for GUID", &v40, 2u);
         }
       }
 
@@ -129,15 +129,13 @@
       v35 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v41) = 0;
-        _os_log_impl(&dword_22B4CC000, v35, OS_LOG_TYPE_INFO, "Ignoring reposition sticker chat command, no message guid received", &v41, 2u);
+        LOWORD(v40) = 0;
+        _os_log_impl(&dword_22B4CC000, v35, OS_LOG_TYPE_INFO, "Ignoring reposition sticker chat command, no message guid received", &v40, 2u);
       }
     }
 
     v36 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v36;
 }

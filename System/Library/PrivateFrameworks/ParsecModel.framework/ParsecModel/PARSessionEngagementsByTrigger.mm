@@ -8,7 +8,7 @@
 {
   entityCopy = entity;
   contextCopy = context;
-  return PARSessionEngagementsByTrigger.init(entity:insertInto:)();
+  return PARSessionEngagementsByTrigger.init(entity:insertInto:)(entityCopy, context);
 }
 
 @end

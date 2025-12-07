@@ -71,7 +71,6 @@
   v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
   MEMORY[0x277D82BD8](whiteColor);
   MEMORY[0x277D82BD8](v5);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -88,7 +87,6 @@
   v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
   MEMORY[0x277D82BD8](_systemInteractionTintColor);
   MEMORY[0x277D82BD8](v5);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }

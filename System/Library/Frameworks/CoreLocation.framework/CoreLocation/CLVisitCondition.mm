@@ -10,12 +10,12 @@
 
 - (CLVisitCondition)initWithPOICategory:(int64_t)category
 {
-  v5.receiver = self;
-  v5.super_class = CLVisitCondition;
-  result = [(CLCondition *)&v5 initCondition];
+  v7.receiver = self;
+  v7.super_class = CLVisitCondition;
+  result = [(CLCondition *)&v7 initCondition];
   if (result)
   {
-    return [(CLVisitCondition *)result _initWithPoiCategory:category latitude:1.79769313e308 longitude:1.79769313e308 radius:0.0];
+    return objc_msgSend__initWithPoiCategory_latitude_longitude_radius_(result, v5, category, v6, 1.79769313e308, 1.79769313e308, 0.0);
   }
 
   return result;
@@ -39,34 +39,35 @@
 
 - (id)description
 {
-  v3 = MEMORY[0x1E696AEC0];
-  poiCategory = [(CLVisitCondition *)self poiCategory];
-  [(CLVisitCondition *)self radius];
-  return [v3 stringWithFormat:@"CLVisitCondition(poiCategory:%d, lat:(private), lon:(private), radius:%f)", poiCategory, v5];
+  v5 = MEMORY[0x1E696AEC0];
+  v6 = objc_msgSend_poiCategory(self, a2, v2, v3);
+  objc_msgSend_radius(self, v7, v8, v9);
+  return objc_msgSend_stringWithFormat_(v5, v10, @"CLVisitCondition(poiCategory:%d, lat:(private), lon:(private), radius:%f)", v11, v6, v12);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeDouble:@"kCLVisitConditionPoi" forKey:{-[CLVisitCondition poiCategory](self, "poiCategory")}];
-  [(CLVisitCondition *)self latitude];
-  [coder encodeDouble:@"kCLVisitConditionLatitude" forKey:?];
-  [(CLVisitCondition *)self longitude];
-  [coder encodeDouble:@"kCLVisitConditionLongitude" forKey:?];
-  [(CLVisitCondition *)self radius];
+  v6 = objc_msgSend_poiCategory(self, a2, coder, v3);
+  objc_msgSend_encodeDouble_forKey_(coder, v7, @"kCLVisitConditionPoi", v8, v6);
+  objc_msgSend_latitude(self, v9, v10, v11);
+  objc_msgSend_encodeDouble_forKey_(coder, v12, @"kCLVisitConditionLatitude", v13);
+  objc_msgSend_longitude(self, v14, v15, v16);
+  objc_msgSend_encodeDouble_forKey_(coder, v17, @"kCLVisitConditionLongitude", v18);
+  objc_msgSend_radius(self, v19, v20, v21);
 
-  [coder encodeDouble:@"kCLVisitConditionRadius" forKey:?];
+  objc_msgSend_encodeDouble_forKey_(coder, v22, @"kCLVisitConditionRadius", v23);
 }
 
 - (CLVisitCondition)initWithCoder:(id)coder
 {
-  v5 = [coder decodeIntForKey:@"kCLVisitConditionPoi"];
-  [coder decodeDoubleForKey:@"kCLVisitConditionLatitude"];
-  v7 = v6;
-  [coder decodeDoubleForKey:@"kCLVisitConditionLongitude"];
-  v9 = v8;
-  [coder decodeDoubleForKey:@"kCLVisitConditionRadius"];
+  v6 = objc_msgSend_decodeIntForKey_(coder, a2, @"kCLVisitConditionPoi", v3);
+  objc_msgSend_decodeDoubleForKey_(coder, v7, @"kCLVisitConditionLatitude", v8);
+  v10 = v9;
+  objc_msgSend_decodeDoubleForKey_(coder, v11, @"kCLVisitConditionLongitude", v12);
+  v14 = v13;
+  objc_msgSend_decodeDoubleForKey_(coder, v15, @"kCLVisitConditionRadius", v16);
 
-  return [(CLVisitCondition *)self _initWithPoiCategory:v5 latitude:v7 longitude:v9 radius:v10];
+  return objc_msgSend__initWithPoiCategory_latitude_longitude_radius_(self, v17, v6, v18, v10, v14, v19);
 }
 
 @end

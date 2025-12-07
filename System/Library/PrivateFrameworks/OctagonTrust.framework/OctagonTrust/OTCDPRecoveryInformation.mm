@@ -209,7 +209,6 @@ LABEL_9:
       goto LABEL_53;
     }
 
-    v10 = *(equalCopy + 27);
     if (self->_useCachedSecret)
     {
       if ((*(equalCopy + 27) & 1) == 0)
@@ -248,7 +247,6 @@ LABEL_9:
       goto LABEL_53;
     }
 
-    v11 = *(equalCopy + 28);
     if (self->_usePreviouslyCachedRecoveryKey)
     {
       if ((*(equalCopy + 28) & 1) == 0)
@@ -275,7 +273,6 @@ LABEL_9:
       goto LABEL_53;
     }
 
-    v12 = *(equalCopy + 26);
     if (self->_silentRecoveryAttempt)
     {
       if ((*(equalCopy + 26) & 1) == 0)
@@ -302,7 +299,6 @@ LABEL_9:
       goto LABEL_53;
     }
 
-    v13 = *(equalCopy + 24);
     if (self->_containsIcdpData)
     {
       if ((*(equalCopy + 24) & 1) == 0)
@@ -339,7 +335,6 @@ LABEL_53:
     goto LABEL_53;
   }
 
-  v14 = *(equalCopy + 29);
   if (self->_usesMultipleIcsc)
   {
     if ((*(equalCopy + 29) & 1) == 0)
@@ -555,32 +550,30 @@ LABEL_13:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v6 = toCopy;
   if (self->_recoverySecret)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    useCachedSecret = self->_useCachedSecret;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_recoveryKey)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    usePreviouslyCachedRecoveryKey = self->_usePreviouslyCachedRecoveryKey;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -599,9 +592,8 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  silentRecoveryAttempt = self->_silentRecoveryAttempt;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -615,9 +607,8 @@ LABEL_10:
   }
 
 LABEL_18:
-  containsIcdpData = self->_containsIcdpData;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -631,15 +622,13 @@ LABEL_11:
   }
 
 LABEL_19:
-  usesMultipleIcsc = self->_usesMultipleIcsc;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_12:
-    nonViableRepair = self->_nonViableRepair;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_13:

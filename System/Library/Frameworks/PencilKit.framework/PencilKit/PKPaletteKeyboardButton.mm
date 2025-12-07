@@ -74,12 +74,12 @@ void __41__PKPaletteKeyboardButton_initWithImage___block_invoke(uint64_t a1, voi
   {
     if (self->_floatingKeyboardType == 1)
     {
-      +[UIImage _pk_emojiButtonImage];
+      +[(UIImage *)MEMORY[0x1E69DCAB8]];
     }
 
     else
     {
-      +[UIImage _pk_keyboardButtonImage];
+      +[(UIImage *)MEMORY[0x1E69DCAB8]];
     }
     v4 = ;
   }
@@ -99,8 +99,7 @@ void __41__PKPaletteKeyboardButton_initWithImage___block_invoke(uint64_t a1, voi
 
 - (void)_updateKeyboardToggleState
 {
-  keyboardSelectionMenu = [(PKPaletteKeyboardButton *)self keyboardSelectionMenu];
-  v7 = keyboardSelectionMenu && (v4 = keyboardSelectionMenu, +[PKTextInputLanguageSelectionController sharedInstance](PKTextInputLanguageSelectionController, "sharedInstance"), v5 = objc_claimAutoreleasedReturnValue(), [v5 languageSelectionMenu], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v6) || -[PKPaletteKeyboardButton enableKeyboardToggle](self, "enableKeyboardToggle");
+  v7 = keyboardSelectionMenu && (v4 = keyboardSelectionMenu, +[PKTextInputLanguageSelectionController sharedInstance](PKTextInputLanguageSelectionController, "sharedInstance"), v5 = keyboardSelectionMenu = [(PKPaletteKeyboardButton *)self keyboardSelectionMenu];
 
   [(PKPaletteButton *)self setEnabled:v7];
 }

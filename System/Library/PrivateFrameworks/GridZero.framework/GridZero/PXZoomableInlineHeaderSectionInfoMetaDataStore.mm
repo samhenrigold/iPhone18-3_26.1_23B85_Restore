@@ -43,85 +43,77 @@
   if ([MEMORY[0x277D3CDD0] changesHaveAnyInsertionsRemovalsOrMoves:detailsCopy])
   {
     dataSource = [(PXZoomableInlineHeaderSectionInfoMetaDataStore *)self dataSource];
-    identifier = [dataSource identifier];
+    [dataSource identifier];
     if ([changesCopy numberOfSections])
     {
-      v9 = [changesCopy numberOfItemsInSection:{objc_msgSend(changesCopy, "numberOfSections") - 1}] - 1;
+      v8 = [changesCopy numberOfItemsInSection:{objc_msgSend(changesCopy, "numberOfSections") - 1}] - 1;
     }
 
     else
     {
-      v9 = -1;
+      v8 = -1;
     }
 
-    v11 = 0;
+    v10 = 0;
     sectionsCountByLevel = self->_sectionsCountByLevel;
     selfCopy = self;
     sectionInfosByLevel = self->_sectionInfosByLevel;
-    v12 = *MEMORY[0x277D3CF78];
-    v10 = 1;
-    v13 = 0uLL;
-    v14 = 1;
+    v11 = *MEMORY[0x277D3CF78];
+    v9 = 1;
+    v12 = 1;
     do
     {
-      v25 = v14;
-      v15 = sectionsCountByLevel[v11];
-      if (v15 >= 1)
+      v23 = v12;
+      v13 = sectionsCountByLevel[v10];
+      if (v13 >= 1)
       {
-        v16 = sectionInfosByLevel[v11];
+        v14 = sectionInfosByLevel[v10];
         do
         {
-          v17 = *v16;
-          v27 = v13;
-          v28 = v13;
-          v26[0] = identifier;
-          v26[1] = 0;
-          v26[2] = v17;
-          v26[3] = 0x7FFFFFFFFFFFFFFFLL;
-          [MEMORY[0x277D3CDD0] indexPathAfterApplyingChanges:detailsCopy toIndexPath:v26 hasIncrementalChanges:0 objectChanged:0];
-          v13 = 0uLL;
-          if (v17 >= v9)
+          v15 = *v14;
+          objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(MEMORY[0x277D3CDD0]);
+          if (v15 >= v8)
           {
-            v18 = v9;
+            v16 = v8;
           }
 
           else
           {
-            v18 = v17;
+            v16 = v15;
           }
 
-          if (v27 != v12)
+          if (v11)
           {
-            v18 = v28;
+            v16 = 0;
           }
 
-          v10 &= v27 != v12;
-          *v16 = v18;
-          v16 = (v16 + 32);
-          --v15;
+          v9 &= v11 != 0;
+          *v14 = v16;
+          v14 = (v14 + 32);
+          --v13;
         }
 
-        while (v15);
+        while (v13);
       }
 
-      v14 = 0;
-      v11 = 1;
+      v12 = 0;
+      v10 = 1;
     }
 
-    while ((v25 & 1) != 0);
+    while ((v23 & 1) != 0);
 
     self = selfCopy;
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
   dataSource = self->_dataSource;
   self->_dataSource = changesCopy;
 
-  return v10 & 1;
+  return v9 & 1;
 }
 
 - (void)addSectionInfo:(id *)info forLevel:(unint64_t)level

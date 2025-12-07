@@ -6,7 +6,6 @@
 
 - (__CFString)redactedDescription
 {
-  v5 = *MEMORY[0x1E69E9840];
   v1 = [self description];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -18,8 +17,6 @@
   {
     redactedDescription = @"<~~~>";
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return redactedDescription;
 }

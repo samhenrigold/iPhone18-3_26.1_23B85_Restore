@@ -1,8 +1,11 @@
 @interface _INPBAlarmSearch
 - (BOOL)isEqual:(id)equal;
 - (_INPBAlarmSearch)initWithCoder:(id)coder;
+- (id)alarmReferenceTypeAsString:(int)string;
+- (id)alarmSearchStatusAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)periodAsString:(int)string;
 - (int)StringAsAlarmReferenceType:(id)type;
 - (int)StringAsAlarmSearchStatus:(id)status;
 - (int)StringAsPeriod:(id)period;
@@ -412,13 +415,11 @@ LABEL_38:
   toCopy = to;
   if ([(_INPBAlarmSearch *)self hasAlarmReferenceType])
   {
-    alarmReferenceType = self->_alarmReferenceType;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBAlarmSearch *)self hasAlarmSearchStatus])
   {
-    alarmSearchStatus = self->_alarmSearchStatus;
     PBDataWriterWriteInt32Field();
   }
 
@@ -426,19 +427,16 @@ LABEL_38:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBAlarmSearch *)self hasIncludeSleepAlarm])
   {
-    includeSleepAlarm = self->_includeSleepAlarm;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBAlarmSearch *)self hasIsMeridianInferred])
   {
-    isMeridianInferred = self->_isMeridianInferred;
     PBDataWriterWriteBOOLField();
   }
 
@@ -452,19 +450,18 @@ LABEL_38:
 
   if ([(_INPBAlarmSearch *)self hasPeriod])
   {
-    period = self->_period;
     PBDataWriterWriteInt32Field();
   }
 
   time = [(_INPBAlarmSearch *)self time];
 
-  v14 = toCopy;
+  v8 = toCopy;
   if (time)
   {
     time2 = [(_INPBAlarmSearch *)self time];
     PBDataWriterWriteSubmessage();
 
-    v14 = toCopy;
+    v8 = toCopy;
   }
 }
 
@@ -519,6 +516,21 @@ LABEL_38:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)periodAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7288038[string];
   }
 
   return v4;
@@ -624,6 +636,21 @@ LABEL_38:
   return v4;
 }
 
+- (id)alarmSearchStatusAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7288018[string - 1];
+  }
+
+  return v4;
+}
+
 - (void)setHasAlarmSearchStatus:(BOOL)status
 {
   if (status)
@@ -680,6 +707,21 @@ LABEL_38:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)alarmReferenceTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7287FF8[string];
   }
 
   return v4;

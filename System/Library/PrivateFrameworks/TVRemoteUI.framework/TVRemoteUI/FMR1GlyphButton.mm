@@ -30,8 +30,9 @@
 
 - (void)setUserInteractionEnabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  FMR1GlyphButton.isUserInteractionEnabled.setter(enabled);
+  FMR1GlyphButton.isUserInteractionEnabled.setter(enabledCopy, selfCopy);
 }
 
 - (_TtC10TVRemoteUI15FMR1GlyphButton)initWithFrame:(CGRect)frame

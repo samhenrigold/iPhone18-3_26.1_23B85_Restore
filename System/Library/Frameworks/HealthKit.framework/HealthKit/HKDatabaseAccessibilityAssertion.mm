@@ -31,11 +31,10 @@
 
 - (void)invalidate
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Attempted to invalidate an invalid assertion %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Attempted to invalidate an invalid assertion %{public}@", &v2, 0xCu);
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -60,26 +59,28 @@
 - (HKDatabaseAccessibilityAssertion)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  if (![coderCopy containsValueForKey:@"OwnerIdentifier"])
+  v5 = [coderCopy containsValueForKey:@"OwnerIdentifier"];
+  if (!v5)
   {
-    _HKInitializeLogging();
-    v5 = HKLogAssertions();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v5, v6);
+    v7 = HKLogAssertions(v14, v15);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [HKDatabaseAccessibilityAssertion initWithCoder:v5];
+      [HKDatabaseAccessibilityAssertion initWithCoder:v7];
     }
 
     goto LABEL_9;
   }
 
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"OwnerIdentifier"];
-  if (([coderCopy containsValueForKey:@"UniqueIdentifier"] & 1) == 0)
+  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"OwnerIdentifier"];
+  v8 = [coderCopy containsValueForKey:@"UniqueIdentifier"];
+  if ((v8 & 1) == 0)
   {
-    _HKInitializeLogging();
-    v10 = HKLogAssertions();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v8, v9);
+    v18 = HKLogAssertions(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [HKDatabaseAccessibilityAssertion initWithCoder:v10];
+      [HKDatabaseAccessibilityAssertion initWithCoder:v18];
     }
 
 LABEL_9:
@@ -87,12 +88,12 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"UniqueIdentifier"];
+  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"UniqueIdentifier"];
   UUID = self->_UUID;
-  self->_UUID = v6;
+  self->_UUID = v10;
 
   uUIDString = [(NSUUID *)self->_UUID UUIDString];
-  self = [(HKDatabaseAccessibilityAssertion *)self initWithOwnerIdentifier:v5 uuidString:uUIDString];
+  self = [(HKDatabaseAccessibilityAssertion *)self initWithOwnerIdentifier:v7 uuidString:uUIDString];
 
   selfCopy = self;
 LABEL_10:

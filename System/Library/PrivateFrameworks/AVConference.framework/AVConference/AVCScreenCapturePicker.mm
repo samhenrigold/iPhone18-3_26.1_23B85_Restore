@@ -307,15 +307,15 @@ LABEL_12:
   }
 }
 
-uint64_t __36__AVCScreenCapturePicker_invalidate__block_invoke(uint64_t result)
+void *__36__AVCScreenCapturePicker_invalidate__block_invoke(void *result)
 {
   v15 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 32) == 1)
   {
     v2 = result;
     *(v1 + 32) = 0;
-    if (objc_opt_class() == *(result + 32))
+    if (objc_opt_class() == result[4])
     {
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
@@ -344,7 +344,7 @@ uint64_t __36__AVCScreenCapturePicker_invalidate__block_invoke(uint64_t result)
     {
       if (objc_opt_respondsToSelector())
       {
-        v3 = [*(v2 + 32) performSelector:sel_logPrefix];
+        v3 = [v2[4] performSelector:sel_logPrefix];
       }
 
       else
@@ -364,7 +364,7 @@ uint64_t __36__AVCScreenCapturePicker_invalidate__block_invoke(uint64_t result)
         goto LABEL_13;
       }
 
-      v11 = *(v2 + 32);
+      v11 = v2[4];
       *v12 = 136316162;
       *&v12[4] = v9;
       *&v12[12] = 2080;
@@ -382,9 +382,9 @@ uint64_t __36__AVCScreenCapturePicker_invalidate__block_invoke(uint64_t result)
 
     _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, v6, v12, v8);
 LABEL_13:
-    [*(v2 + 32) deregisterBlocksForNotifications];
-    objc_storeWeak((*(v2 + 32) + 24), 0);
-    return [*(*(v2 + 32) + 16) sendMessageSync:"vcScreenCapturePickerTerminate"];
+    [v2[4] deregisterBlocksForNotifications];
+    objc_storeWeak((v2[4] + 24), 0);
+    return [*(v2[4] + 16) sendMessageSync:"vcScreenCapturePickerTerminate"];
   }
 
   return result;
@@ -402,24 +402,24 @@ LABEL_13:
   dispatch_async(screenCapturePickerQueue, v3);
 }
 
-uint64_t __30__AVCScreenCapturePicker_show__block_invoke(uint64_t a1)
+_BYTE *__30__AVCScreenCapturePicker_show__block_invoke(uint64_t a1)
 {
   v15 = *MEMORY[0x1E69E9840];
   result = *(a1 + 32);
-  if (*(result + 32) == 1)
+  if (result[32] == 1)
   {
     if (objc_opt_class() == *(a1 + 32))
     {
       if (VRTraceGetErrorLogLevelForModule() < 6)
       {
-        return [*(*(a1 + 32) + 16) sendMessageSync:{"vcScreenCapturePickerShow", *v12, *&v12[16], v13, v14}];
+        return [*(*(a1 + 32) + 16) sendMessageSync:{"vcScreenCapturePickerShow", *v12, *&v12[8], v13, v14}];
       }
 
       v4 = VRTraceErrorLogLevelToCSTR();
       v5 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        return [*(*(a1 + 32) + 16) sendMessageSync:{"vcScreenCapturePickerShow", *v12, *&v12[16], v13, v14}];
+        return [*(*(a1 + 32) + 16) sendMessageSync:{"vcScreenCapturePickerShow", *v12, *&v12[8], v13, v14}];
       }
 
       *v12 = 136315650;
@@ -447,14 +447,14 @@ uint64_t __30__AVCScreenCapturePicker_show__block_invoke(uint64_t a1)
 
       if (VRTraceGetErrorLogLevelForModule() < 6)
       {
-        return [*(*(a1 + 32) + 16) sendMessageSync:{"vcScreenCapturePickerShow", *v12, *&v12[16], v13, v14}];
+        return [*(*(a1 + 32) + 16) sendMessageSync:{"vcScreenCapturePickerShow", *v12, *&v12[8], v13, v14}];
       }
 
       v9 = VRTraceErrorLogLevelToCSTR();
       v10 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        return [*(*(a1 + 32) + 16) sendMessageSync:{"vcScreenCapturePickerShow", *v12, *&v12[16], v13, v14}];
+        return [*(*(a1 + 32) + 16) sendMessageSync:{"vcScreenCapturePickerShow", *v12, *&v12[8], v13, v14}];
       }
 
       v11 = *(a1 + 32);
@@ -474,7 +474,7 @@ uint64_t __30__AVCScreenCapturePicker_show__block_invoke(uint64_t a1)
     }
 
     _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, v6, v12, v8);
-    return [*(*(a1 + 32) + 16) sendMessageSync:{"vcScreenCapturePickerShow", *v12, *&v12[16], v13, v14}];
+    return [*(*(a1 + 32) + 16) sendMessageSync:{"vcScreenCapturePickerShow", *v12, *&v12[8], v13, v14}];
   }
 
   return result;
@@ -493,11 +493,11 @@ uint64_t __30__AVCScreenCapturePicker_show__block_invoke(uint64_t a1)
   dispatch_async(screenCapturePickerQueue, block);
 }
 
-uint64_t __48__AVCScreenCapturePicker_showUsingContentStyle___block_invoke(uint64_t a1)
+_BYTE *__48__AVCScreenCapturePicker_showUsingContentStyle___block_invoke(uint64_t a1)
 {
   v24 = *MEMORY[0x1E69E9840];
   result = *(a1 + 32);
-  if (*(result + 32) == 1)
+  if (result[32] == 1)
   {
     if (objc_opt_class() == *(a1 + 32))
     {
@@ -672,7 +672,7 @@ LABEL_13:
   }
 
 LABEL_14:
-  v16 = [a2 objectForKeyedSubscript:{@"vcScreenCaptureAttributesError", *v20, *&v20[16], v21, v22, v23}];
+  v16 = [a2 objectForKeyedSubscript:{@"vcScreenCaptureAttributesError", *v20, *&v20[8], v21, v22, v23}];
   if (v16)
   {
     v17 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:objc_msgSend(v16 code:"objectForKeyedSubscript:" userInfo:{@"vcScreenCaptureAttributesErrorDomain", objc_msgSend(objc_msgSend(v16, "objectForKeyedSubscript:", @"vcScreenCaptureAttributesErrorCode", "intValue"), objc_msgSend(v16, "objectForKeyedSubscript:", @"vcScreenCaptureAttributesErrorUserInfo"}];
@@ -714,14 +714,14 @@ uint64_t __56__AVCScreenCapturePicker_registerBlocksForNotifications__block_invo
       {
         if (VRTraceGetErrorLogLevelForModule() < 7)
         {
-          return [v5 picker:v4 didCancelForCaptureSourceID:{v6, *v15, *&v15[16], v16, v17, v18}];
+          return [v5 picker:v4 didCancelForCaptureSourceID:{v6, *v15, *&v15[8], v16, v17, v18}];
         }
 
         v8 = VRTraceErrorLogLevelToCSTR();
         v9 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          return [v5 picker:v4 didCancelForCaptureSourceID:{v6, *v15, *&v15[16], v16, v17, v18}];
+          return [v5 picker:v4 didCancelForCaptureSourceID:{v6, *v15, *&v15[8], v16, v17, v18}];
         }
 
         *v15 = 136315906;
@@ -751,14 +751,14 @@ uint64_t __56__AVCScreenCapturePicker_registerBlocksForNotifications__block_invo
 
         if (VRTraceGetErrorLogLevelForModule() < 7)
         {
-          return [v5 picker:v4 didCancelForCaptureSourceID:{v6, *v15, *&v15[16], v16, v17, v18}];
+          return [v5 picker:v4 didCancelForCaptureSourceID:{v6, *v15, *&v15[8], v16, v17, v18}];
         }
 
         v13 = VRTraceErrorLogLevelToCSTR();
         v14 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          return [v5 picker:v4 didCancelForCaptureSourceID:{v6, *v15, *&v15[16], v16, v17, v18}];
+          return [v5 picker:v4 didCancelForCaptureSourceID:{v6, *v15, *&v15[8], v16, v17, v18}];
         }
 
         *v15 = 136316418;
@@ -779,7 +779,7 @@ uint64_t __56__AVCScreenCapturePicker_registerBlocksForNotifications__block_invo
       }
 
       _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, v10, v15, v12);
-      return [v5 picker:v4 didCancelForCaptureSourceID:{v6, *v15, *&v15[16], v16, v17, v18}];
+      return [v5 picker:v4 didCancelForCaptureSourceID:{v6, *v15, *&v15[8], v16, v17, v18}];
     }
   }
 

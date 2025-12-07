@@ -81,37 +81,37 @@
 
 - (id)_editMenuInteraction:(id)interaction menuForConfiguration:(id)configuration suggestedActions:(id)actions
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   interactionCopy = interaction;
   configurationCopy = configuration;
   actionsCopy = actions;
-  v22[0] = 0;
-  v22[1] = v22;
-  v22[2] = 0x3032000000;
-  v22[3] = __Block_byref_object_copy__6;
-  v22[4] = __Block_byref_object_dispose__6;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x3032000000;
+  v23[3] = __Block_byref_object_copy__6;
+  v23[4] = __Block_byref_object_dispose__6;
   WeakRetained = objc_loadWeakRetained(&self->_view);
   attributedText = [WeakRetained attributedText];
   string = [attributedText string];
 
   v13 = MEMORY[0x277D750C8];
-  v14 = NCUserNotificationsUIKitFrameworkBundle();
-  v15 = [v14 localizedStringForKey:@"NOTIFICATION_TEXT_COPY" value:&stru_282FE84F8 table:0];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __84__NCTextMenuInteraction__editMenuInteraction_menuForConfiguration_suggestedActions___block_invoke;
-  v21[3] = &unk_2783716C8;
-  v21[4] = v22;
-  v16 = [v13 actionWithTitle:v15 image:0 identifier:0 handler:v21];
+  v15 = NCUserNotificationsUIKitFrameworkBundle(v14);
+  v16 = [v15 localizedStringForKey:@"NOTIFICATION_TEXT_COPY" value:&stru_282FE84F8 table:0];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __84__NCTextMenuInteraction__editMenuInteraction_menuForConfiguration_suggestedActions___block_invoke;
+  v22[3] = &unk_2783716C8;
+  v22[4] = v23;
+  v17 = [v13 actionWithTitle:v16 image:0 identifier:0 handler:v22];
 
-  v17 = MEMORY[0x277D75710];
-  v24[0] = v16;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
-  v19 = [v17 menuWithTitle:&stru_282FE84F8 image:0 identifier:0 options:1 children:v18];
+  v18 = MEMORY[0x277D75710];
+  v25[0] = v17;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  v20 = [v18 menuWithTitle:&stru_282FE84F8 image:0 identifier:0 options:1 children:v19];
 
-  _Block_object_dispose(v22, 8);
+  _Block_object_dispose(v23, 8);
 
-  return v19;
+  return v20;
 }
 
 void __84__NCTextMenuInteraction__editMenuInteraction_menuForConfiguration_suggestedActions___block_invoke(uint64_t a1)

@@ -463,7 +463,7 @@ LABEL_6:
       navigationItem3 = [controllerCopy navigationItem];
       [(CNContactViewController *)self configureNavigationItem:navigationItem3];
 
-      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewController.m", 993, 4, @"%@ is added to a controller that's not a navigation controller, we'll update the parent navigation item %@ automatically,", v15, v16, v17, v18, self);
+      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewController.m", 993, 4u, @"%@ is added to a controller that's not a navigation controller, we'll update the parent navigation item %@ automatically,", v15, v16, v17, v18, self);
     }
   }
 }
@@ -1280,7 +1280,7 @@ void __47__CNContactViewController__setupViewController__block_invoke_2(uint64_t
 
   if (*(a1 + 48))
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewController.m", 808, 3, @"Error when showing contact view: %@", v6, v7, v8, v9, *(a1 + 48));
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewController.m", 808, 3u, @"Error when showing contact view: %@", v6, v7, v8, v9, *(a1 + 48));
   }
 
   [*(a1 + 40) setHasCompletedSetup:1];
@@ -2048,7 +2048,7 @@ LABEL_7:
 
   if (![(CNContact *)v4 isUnknown])
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewController.m", 135, 3, @"Behavior of CNContactViewController created with viewControllerForUnknownContact: and passing a known contact is undefined. Please use +viewControllerForContact: instead.", v7, v8, v9, v10, v13[0]);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewController.m", 135, 3u, @"Behavior of CNContactViewController created with viewControllerForUnknownContact: and passing a known contact is undefined. Please use +viewControllerForContact: instead.", v7, v8, v9, v10, v13[0]);
   }
 
   v11 = [[self alloc] initWithMode:2];
@@ -2068,7 +2068,7 @@ LABEL_7:
 
   if ([(CNContact *)v4 isUnknown]&& ([(CNContact *)v4 isCoreRecentsAccepted]& 1) == 0)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewController.m", 117, 3, @"Behavior of CNContactViewController created with viewControllerForContact: and passing an unknown contact is undefined. Please use +viewControllerForUnknownContact: instead.", v7, v8, v9, v10, v14[0]);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewController.m", 117, 3u, @"Behavior of CNContactViewController created with viewControllerForContact: and passing an unknown contact is undefined. Please use +viewControllerForUnknownContact: instead.", v7, v8, v9, v10, v14[0]);
   }
 
   if ([(CNContact *)v4 isCoreRecentsAccepted])

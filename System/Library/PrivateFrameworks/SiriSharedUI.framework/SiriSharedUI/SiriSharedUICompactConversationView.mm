@@ -444,11 +444,11 @@ void __68__SiriSharedUICompactConversationView_animateFadeOutWithCompletion___bl
   [(SiriSharedUICompactConversationView *)self animateFadeOutWithCompletion:v2];
 }
 
-uint64_t __56__SiriSharedUICompactConversationView_animateForDrillIn__block_invoke(uint64_t result, int a2)
+id *__56__SiriSharedUICompactConversationView_animateForDrillIn__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) didCompleteAnimatedFadeOut];
+    return [result[4] didCompleteAnimatedFadeOut];
   }
 
   return result;

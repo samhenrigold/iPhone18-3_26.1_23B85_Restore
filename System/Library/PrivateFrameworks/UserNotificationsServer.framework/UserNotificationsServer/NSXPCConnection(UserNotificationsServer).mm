@@ -10,8 +10,6 @@
 - (uint64_t)uns_isAllowedToRequestUserNotificationsForBundleIdentifier:()UserNotificationsServer;
 - (uint64_t)uns_isAllowedToWriteSettings;
 - (uint64_t)uns_isInternalUserNotificationsTool;
-- (void)uns_isAllowedToReadSettings;
-- (void)uns_isAllowedToWriteSettings;
 @end
 
 @implementation NSXPCConnection(UserNotificationsServer)
@@ -21,9 +19,16 @@
   _xpcConnection = [self _xpcConnection];
   HasEntitlement = BSXPCConnectionHasEntitlement();
 
-  if ((HasEntitlement & 1) == 0 && _os_feature_enabled_impl() && os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_ERROR))
+  if ((HasEntitlement & 1) == 0)
   {
-    [NSXPCConnection(UserNotificationsServer) uns_isAllowedFromDaemon];
+    if (_os_feature_enabled_impl())
+    {
+      v3 = *MEMORY[0x277CE2078];
+      if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_ERROR))
+      {
+        [(NSXPCConnection(UserNotificationsServer) *)v3 uns_isAllowedFromDaemon];
+      }
+    }
   }
 
   return HasEntitlement;
@@ -32,17 +37,17 @@
 - (id)uns_clientAuditToken
 {
   uns_getClientConnectionDetails = [self uns_getClientConnectionDetails];
-  auditToken = [uns_getClientConnectionDetails auditToken];
-  v4 = auditToken;
-  if (auditToken)
+  v3 = objc_msgSend_auditToken(uns_getClientConnectionDetails);
+  v4 = v3;
+  if (v3)
   {
-    v5 = auditToken;
+    v5 = v3;
   }
 
   else
   {
     v6 = MEMORY[0x277CF0B98];
-    [self auditToken];
+    objc_msgSend_auditToken(self);
     v5 = [v6 tokenFromAuditToken:&v9];
   }
 
@@ -322,7 +327,7 @@ LABEL_8:
 
 - (uint64_t)_uns_connection:()UserNotificationsServer valueForEntitlementKey:matchesValue:
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = a5;
@@ -332,8 +337,8 @@ LABEL_8:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v15[0] = v10;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+      v14[0] = v10;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
 
       v10 = v11;
     }
@@ -355,56 +360,22 @@ LABEL_8:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
-}
-
-- (void)uns_isAllowedToRequestUserNotificationsForBundleIdentifier:()UserNotificationsServer .cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)uns_isAllowedToRequestUserNotificationsForBundleIdentifier:()UserNotificationsServer .cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)uns_isAllowedToReadSettings
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)uns_isAllowedToWriteSettings
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uns_hasEntitlement:()UserNotificationsServer capability:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_270AA8000, log, OS_LOG_TYPE_ERROR, "Entitlement '%{public}@' for capability '%{public}@' is not valid because it is not an NSArray", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_270AA8000, log, OS_LOG_TYPE_ERROR, "Entitlement '%{public}@' for capability '%{public}@' is not valid because it is not an NSArray", &v3, 0x16u);
 }
 
 - (void)_uns_connection:()UserNotificationsServer isAuthorizedToSendNotificationsForManagementDomainOfBundleIdentifier:.cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 localizedDescription];
   v7 = v6;
@@ -414,13 +385,11 @@ LABEL_8:
     v8 = v6;
   }
 
-  v10 = 138543618;
-  v11 = a1;
-  v12 = 2114;
-  v13 = v8;
-  _os_log_error_impl(&dword_270AA8000, v5, OS_LOG_TYPE_ERROR, "Failed to lookup application record to get management domain for '%{public}@'. Error: '%{public}@'", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138543618;
+  v10 = a1;
+  v11 = 2114;
+  v12 = v8;
+  _os_log_error_impl(&dword_270AA8000, v5, OS_LOG_TYPE_ERROR, "Failed to lookup application record to get management domain for '%{public}@'. Error: '%{public}@'", &v9, 0x16u);
 }
 
 @end

@@ -52,19 +52,20 @@
     v10 = [WeakRetained presentationContextForHook:self];
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v11 = v10;
-      v12 = [[FAAppleCashPresentationHandler alloc] initWithNavigationController:v11];
+      v12 = v10;
+      v13 = [[FAAppleCashPresentationHandler alloc] initWithNavigationController:v12];
 
-      [(FAPeerPaymentHook *)self setAppleCashPresentationHandler:v12];
+      [(FAPeerPaymentHook *)self setAppleCashPresentationHandler:v13];
       appleCashPresentationHandler = [(FAPeerPaymentHook *)self appleCashPresentationHandler];
       [appleCashPresentationHandler presentPeerPaymentControllerWithAttributes:attributesCopy completion:&__block_literal_global_0];
     }
 
     else
     {
-      appleCashPresentationHandler = _FALogSystem();
+      appleCashPresentationHandler = _FALogSystem(isKindOfClass);
       if (os_log_type_enabled(appleCashPresentationHandler, OS_LOG_TYPE_ERROR))
       {
         [FAPeerPaymentHook _handlePeerPaymentActionWithAttributes:v10 completion:appleCashPresentationHandler];
@@ -87,13 +88,11 @@
 
 - (void)_handlePeerPaymentActionWithAttributes:(uint64_t)a1 completion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = 138412290;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "FAPeerPaymentHook - Expected Navigation controller but got %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "FAPeerPaymentHook - Expected Navigation controller but got %@", &v4, 0xCu);
 }
 
 @end

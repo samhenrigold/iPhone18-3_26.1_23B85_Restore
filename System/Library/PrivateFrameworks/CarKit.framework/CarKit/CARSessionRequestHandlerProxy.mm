@@ -16,7 +16,7 @@
   hostCopy = host;
   identifierCopy = identifier;
   replyCopy = reply;
-  v11 = CarGeneralLogging();
+  v11 = CarGeneralLogging(replyCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v17 = 138412546;
@@ -56,7 +56,7 @@ LABEL_8:
   v14 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   replyCopy = reply;
-  v8 = CarGeneralLogging();
+  v8 = CarGeneralLogging(replyCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v12 = 138412290;
@@ -81,7 +81,7 @@ LABEL_8:
   v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
   replyCopy = reply;
-  v8 = CarGeneralLogging();
+  v8 = CarGeneralLogging(replyCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v12 = 138412290;
@@ -104,7 +104,7 @@ LABEL_8:
 - (void)service_startAdvertisingCarPlayControlForUSBWithReply:(id)reply
 {
   replyCopy = reply;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(replyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *v9 = 0;
@@ -128,7 +128,7 @@ LABEL_8:
   v14 = *MEMORY[0x1E69E9840];
   dCopy = d;
   replyCopy = reply;
-  v8 = CarGeneralLogging();
+  v8 = CarGeneralLogging(replyCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v12 = 138412290;
@@ -149,7 +149,7 @@ LABEL_8:
 - (void)service_cancelRequestsWithReply:(id)reply
 {
   replyCopy = reply;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(replyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *v9 = 0;

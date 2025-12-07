@@ -44,7 +44,7 @@
 
   if ([(NSSQLStatementIntermediate *)self governingAlias])
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@" AS %@", -[NSSQLStatementIntermediate governingAlias](self, "governingAlias")];
+    v5 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [(NSSQLStatementIntermediate *)self governingAlias]);
   }
 
   else

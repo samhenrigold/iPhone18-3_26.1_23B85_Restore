@@ -33,7 +33,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_100005804(&unk_100209B50);
+  sub_100005804(&unk_100209B50, &unk_10019E8E0);
   j___s7SwiftUI7BindingV12wrappedValuexvs();
 }
 

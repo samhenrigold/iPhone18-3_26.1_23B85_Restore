@@ -1,16 +1,16 @@
 @interface __NSBundleTables
 + (id)bundleTables;
+- (NSArray)allBundles;
+- (NSArray)allFrameworks;
+- (NSArray)loadedBundles;
 - (__NSBundleTables)init;
 - (id)_addBundleLocked:(uint64_t)locked forPath:(uint64_t)path withType:(uint64_t)type forClass:(int)class isImmortal:;
 - (id)addBundle:(uint64_t)bundle forPath:(uint64_t)path withType:(uint64_t)type forClass:(int)class isImmortal:;
-- (id)addBundleIfNeeded:(uint64_t)needed forPath:(uint64_t)path withType:(int)type isImmortal:;
+- (id)addBundleIfNeeded:(uint64_t)needed forPath:(uint64_t)path withType:(uint64_t)type isImmortal:;
+- (id)addStaticFrameworkBundles:(id *)result;
 - (id)bundleForClass:(id *)result;
 - (id)bundleForPath:(id *)result;
-- (uint64_t)addStaticFrameworkBundles:(uint64_t)result;
-- (uint64_t)allBundles;
-- (uint64_t)allFrameworks;
-- (uint64_t)loadedBundles;
-- (uint64_t)removeBundle:(uint64_t)bundle forPath:(uint64_t)path type:;
+- (id)removeBundle:(uint64_t)bundle forPath:(uint64_t)path type:;
 - (void)dealloc;
 @end
 
@@ -24,9 +24,9 @@
     dispatch_once(&qword_1ED43F9D8, &__block_literal_global_37);
   }
 
-  v0 = _MergedGlobals_112;
+  v1 = _MergedGlobals_112;
 
-  return v0;
+  return v1;
 }
 
 - (__NSBundleTables)init
@@ -45,7 +45,7 @@
   return v2;
 }
 
-- (uint64_t)allBundles
+- (NSArray)allBundles
 {
   if (result)
   {
@@ -57,9 +57,9 @@
       [(NSHashTable *)v2 addObject:v3];
     }
 
-    [*(v1 + 8) lock];
-    [(NSHashTable *)v2 unionHashTable:*(v1 + 24)];
-    [*(v1 + 8) unlock];
+    [(objc_class *)v1[1].super.isa lock];
+    [(NSHashTable *)v2 unionHashTable:v1[3].super.isa];
+    [(objc_class *)v1[1].super.isa unlock];
 
     return [(NSHashTable *)v2 allObjects];
   }
@@ -76,7 +76,7 @@
   [(__NSBundleTables *)&v3 dealloc];
 }
 
-- (uint64_t)removeBundle:(uint64_t)bundle forPath:(uint64_t)path type:
+- (id)removeBundle:(uint64_t)bundle forPath:(uint64_t)path type:
 {
   if (!result)
   {
@@ -84,10 +84,10 @@
   }
 
   v7 = result;
-  [*(result + 8) lock];
-  if (bundle && [*(v7 + 40) objectForKey:bundle])
+  [result[1] lock];
+  if (bundle && [v7[5] objectForKey:bundle])
   {
-    [*(v7 + 40) removeObjectForKey:bundle];
+    [v7[5] removeObjectForKey:bundle];
   }
 
   switch(path)
@@ -95,8 +95,8 @@
     case 0x10000:
       goto LABEL_8;
     case 0x40000:
-      v8 = (v7 + 32);
-      if (![*(v7 + 32) containsObject:a2])
+      v8 = v7 + 4;
+      if (![v7[4] containsObject:a2])
       {
         break;
       }
@@ -104,8 +104,8 @@
       goto LABEL_9;
     case 0x20000:
 LABEL_8:
-      v8 = (v7 + 24);
-      if ([*(v7 + 24) containsObject:a2])
+      v8 = v7 + 3;
+      if ([v7[3] containsObject:a2])
       {
 LABEL_9:
         [*v8 removeObject:a2];
@@ -114,7 +114,7 @@ LABEL_9:
       break;
   }
 
-  v9 = *(v7 + 8);
+  v9 = v7[1];
 
   return [v9 unlock];
 }
@@ -133,10 +133,11 @@ LABEL_9:
   return result;
 }
 
-- (id)addBundleIfNeeded:(uint64_t)needed forPath:(uint64_t)path withType:(int)type isImmortal:
+- (id)addBundleIfNeeded:(uint64_t)needed forPath:(uint64_t)path withType:(uint64_t)type isImmortal:
 {
   if (result)
   {
+    typeCopy = type;
     v9 = result;
     [result[1] lock];
     v10 = [v9[5] objectForKey:needed];
@@ -150,7 +151,7 @@ LABEL_9:
 
     else
     {
-      v12 = [(__NSBundleTables *)v9 _addBundleLocked:a2 forPath:needed withType:path forClass:0 isImmortal:type];
+      v12 = [(__NSBundleTables *)v9 _addBundleLocked:a2 forPath:needed withType:path forClass:0 isImmortal:typeCopy];
       [v9[1] unlock];
       return v12;
     }
@@ -268,7 +269,7 @@ LABEL_21:
   return result;
 }
 
-- (uint64_t)addStaticFrameworkBundles:(uint64_t)result
+- (id)addStaticFrameworkBundles:(id *)result
 {
   v16 = *MEMORY[0x1E69E9840];
   if (result)
@@ -276,10 +277,10 @@ LABEL_21:
     v3 = result;
     v4 = +[NSBundle mainBundle];
     v5 = [NSHashTable hashTableWithOptions:0];
-    [*(v3 + 8) lock];
-    [(NSHashTable *)v5 unionHashTable:*(v3 + 24)];
-    [(NSHashTable *)v5 unionHashTable:*(v3 + 32)];
-    [(NSHashTable *)v5 unionHashTable:*(v3 + 16)];
+    [v3[1] lock];
+    [(NSHashTable *)v5 unionHashTable:v3[3]];
+    [(NSHashTable *)v5 unionHashTable:v3[4]];
+    [(NSHashTable *)v5 unionHashTable:v3[2]];
     v14 = 0u;
     v15 = 0u;
     v12 = 0u;
@@ -302,7 +303,7 @@ LABEL_21:
           if (![(NSHashTable *)v5 containsObject:v10])
           {
             [v10 __static];
-            [*(v3 + 16) addObject:v10];
+            [v3[2] addObject:v10];
           }
         }
 
@@ -314,10 +315,10 @@ LABEL_21:
 
     if (v4)
     {
-      [*(v3 + 24) removeObject:v4];
+      [v3[3] removeObject:v4];
     }
 
-    return [*(v3 + 8) unlock];
+    return [v3[1] unlock];
   }
 
   return result;
@@ -337,17 +338,17 @@ LABEL_21:
   return result;
 }
 
-- (uint64_t)allFrameworks
+- (NSArray)allFrameworks
 {
   if (result)
   {
     v1 = result;
     v2 = [NSHashTable hashTableWithOptions:0];
-    [*(v1 + 8) lock];
-    [(NSHashTable *)v2 unionHashTable:*(v1 + 16)];
-    [(NSHashTable *)v2 unionHashTable:*(v1 + 32)];
-    [(NSHashTable *)v2 minusHashTable:*(v1 + 24)];
-    [*(v1 + 8) unlock];
+    [(objc_class *)v1[1].super.isa lock];
+    [(NSHashTable *)v2 unionHashTable:v1[2].super.isa];
+    [(NSHashTable *)v2 unionHashTable:v1[4].super.isa];
+    [(NSHashTable *)v2 minusHashTable:v1[3].super.isa];
+    [(objc_class *)v1[1].super.isa unlock];
 
     return [(NSHashTable *)v2 allObjects];
   }
@@ -355,7 +356,7 @@ LABEL_21:
   return result;
 }
 
-- (uint64_t)loadedBundles
+- (NSArray)loadedBundles
 {
   if (result)
   {
@@ -367,11 +368,11 @@ LABEL_21:
       [(NSHashTable *)v2 addObject:v3];
     }
 
-    [*(v1 + 8) lock];
-    [(NSHashTable *)v2 unionHashTable:*(v1 + 24)];
-    [(NSHashTable *)v2 unionHashTable:*(v1 + 16)];
-    [(NSHashTable *)v2 unionHashTable:*(v1 + 32)];
-    [*(v1 + 8) unlock];
+    [(objc_class *)v1[1].super.isa lock];
+    [(NSHashTable *)v2 unionHashTable:v1[3].super.isa];
+    [(NSHashTable *)v2 unionHashTable:v1[2].super.isa];
+    [(NSHashTable *)v2 unionHashTable:v1[4].super.isa];
+    [(objc_class *)v1[1].super.isa unlock];
 
     return [(NSHashTable *)v2 allObjects];
   }

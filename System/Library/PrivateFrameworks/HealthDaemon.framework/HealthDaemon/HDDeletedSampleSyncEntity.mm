@@ -7,7 +7,7 @@
 
 + (id)_predicateForSyncSession:(id)session
 {
-  v75[2] = *MEMORY[0x277D85DE8];
+  v74[2] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   v5 = HDDataEntityPredicateForType(2);
   syncPredicate = [sessionCopy syncPredicate];
@@ -18,12 +18,12 @@
   {
     startDate = [dateInterval startDate];
     endDate = [dateInterval endDate];
-    v70 = [(HDDataSyncEntity *)self _predicateForDateIntervalStartDate:startDate endDate:endDate];
+    v69 = [(HDDataSyncEntity *)self _predicateForDateIntervalStartDate:startDate endDate:endDate];
   }
 
   else
   {
-    v70 = 0;
+    v69 = 0;
   }
 
   syncPredicate2 = [sessionCopy syncPredicate];
@@ -33,10 +33,10 @@
   {
     v12 = MEMORY[0x277D10B20];
     v13 = [MEMORY[0x277D10B60] isNullPredicateWithProperty:@"start_date"];
-    v75[0] = v13;
+    v74[0] = v13;
     v14 = [MEMORY[0x277D10B60] isNullPredicateWithProperty:@"end_date"];
-    v75[1] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:2];
+    v74[1] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
     v16 = [v12 predicateMatchingAnyPredicates:v15];
 
     v17 = v16;
@@ -48,31 +48,31 @@
   }
 
   v18 = MEMORY[0x277D10B20];
-  v69 = v17;
-  v19 = [MEMORY[0x277D10B20] disjunctionWithPredicate:v70 otherPredicate:?];
+  v68 = v17;
+  v19 = [MEMORY[0x277D10B20] disjunctionWithPredicate:v69 otherPredicate:?];
   v20 = [v18 compoundPredicateWithPredicate:v5 otherPredicate:v19];
 
   syncPredicate3 = [sessionCopy syncPredicate];
   defaultMaximumTombstoneAge = [syncPredicate3 defaultMaximumTombstoneAge];
 
-  v68 = defaultMaximumTombstoneAge;
+  v67 = defaultMaximumTombstoneAge;
   if (defaultMaximumTombstoneAge)
   {
     v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v24 = MEMORY[0x277CBEAA8];
     [defaultMaximumTombstoneAge doubleValue];
     v26 = [v24 dateWithTimeIntervalSinceNow:-v25];
-    HDDeletedObjectPredicateForDeletionDate(6);
+    HDDeletedObjectPredicateForDeletionDate(6, v26);
     v28 = v27 = v20;
-    v65 = v23;
+    v64 = v23;
     [v23 addObject:v28];
 
     activityGoalScheduleType = [MEMORY[0x277CCD720] activityGoalScheduleType];
-    v74[0] = activityGoalScheduleType;
+    v73[0] = activityGoalScheduleType;
     pauseRingsScheduleType = [MEMORY[0x277CCD720] pauseRingsScheduleType];
-    v74[1] = pauseRingsScheduleType;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
-    v31 = v66 = dateInterval;
+    v73[1] = pauseRingsScheduleType;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:2];
+    v31 = v65 = dateInterval;
     v32 = HDSampleEntityPredicateForDataTypes(v31);
     [v23 addObject:v32];
 
@@ -98,21 +98,21 @@
 
     currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
     heartRateType = [MEMORY[0x277CCD830] heartRateType];
-    v73 = heartRateType;
-    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v73 count:1];
+    v72 = heartRateType;
+    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
     startDate3 = [sessionCopy startDate];
     v50 = [currentCalendar hd_predicateForSamplesWithTypes:v48 endingAfterDate:startDate3 minusDays:*MEMORY[0x277CCCED8]];
     [v34 addObject:v50];
 
     v51 = [MEMORY[0x277D10B20] predicateMatchingAnyPredicates:v34];
     v52 = MEMORY[0x277D10B20];
-    v72[0] = v27;
-    v72[1] = v33;
-    v72[2] = v51;
-    v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:3];
+    v71[0] = v27;
+    v71[1] = v33;
+    v71[2] = v51;
+    v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:3];
     v54 = [v52 predicateMatchingAllPredicates:v53];
 
-    dateInterval = v66;
+    dateInterval = v65;
   }
 
   else
@@ -126,10 +126,10 @@
     [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCBE8]];
     v57 = v56 = v20;
     unprocessedBloodOxygenDataType = [MEMORY[0x277CCD720] unprocessedBloodOxygenDataType];
-    v71[0] = unprocessedBloodOxygenDataType;
-    v71[1] = v57;
-    v71[2] = v55;
-    v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:3];
+    v70[0] = unprocessedBloodOxygenDataType;
+    v70[1] = v57;
+    v70[2] = v55;
+    v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:3];
     v60 = HDSampleEntityPredicateForDataTypes(v59);
 
     v61 = [MEMORY[0x277D10B20] negatedPredicate:v60];
@@ -138,8 +138,6 @@
     v20 = v56;
     v54 = v62;
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 
   return v54;
 }

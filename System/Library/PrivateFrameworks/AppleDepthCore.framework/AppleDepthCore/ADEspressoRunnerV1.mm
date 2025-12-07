@@ -246,7 +246,7 @@ LABEL_45:
           }
 
           *v65 = v34 + 2;
-          v38 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v68, v34 + 2);
+          v38 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v68, v34 + 2, v65);
           v40 = buf[5];
           v39 = buf[6];
           v41 = buf[4];
@@ -324,7 +324,7 @@ LABEL_48:
           v48 = v35 + 2;
           v49 = v35[6].__next_;
           *&buf[0] = v35 + 2;
-          v50 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v68, &v35[2].__next_)[5];
+          v50 = std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v68, &v35[2].__next_, buf)[5];
           v51 = CVPixelBufferGetWidth(v49);
           v52 = CVPixelBufferGetHeight(v49);
           v53 = CVPixelBufferGetPixelFormatType(v49);
@@ -461,14 +461,14 @@ LABEL_61:
     {
       v21 = CVPixelBufferGetPixelFormatType(*buffer);
       v22 = buf;
-      PixelBufferUtils::pixelFormatAsString(v21, buf);
+      PixelBufferUtils::pixelFormatAsString(buf, v21);
       if (v42 < 0)
       {
         v22 = *buf;
       }
 
       v23 = CVPixelBufferGetPixelFormatType(*outputBuffer);
-      PixelBufferUtils::pixelFormatAsString(v23, __p);
+      PixelBufferUtils::pixelFormatAsString(__p, v23);
       if (v34 >= 0)
       {
         v24 = __p;
@@ -640,7 +640,7 @@ LABEL_13:
           v16 = *ptr;
           std::string::basic_string[abi:ne200100]<0>(buf, uTF8String);
           v37 = buf;
-          v17 = std::__hash_table<std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PixelBufferSharedPtr>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&selfCopy->_pixelBuffersToBindDirect.__table_.__bucket_list_.__ptr_, buf);
+          v17 = std::__hash_table<std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PixelBufferSharedPtr>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&selfCopy->_pixelBuffersToBindDirect, buf, &v37);
           CVPixelBufferRelease(v17[6]);
           v18 = CVPixelBufferRetain(v16);
           goto LABEL_18;
@@ -660,7 +660,7 @@ LABEL_13:
             v28 = *ptr;
             std::string::basic_string[abi:ne200100]<0>(buf, uTF8String);
             v37 = buf;
-            v17 = std::__hash_table<std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PixelBufferSharedPtr>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&selfCopy->_pixelBuffersToBindIndirect.__table_.__bucket_list_.__ptr_, buf);
+            v17 = std::__hash_table<std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PixelBufferSharedPtr>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&selfCopy->_pixelBuffersToBindIndirect, buf, &v37);
             CVPixelBufferRelease(v17[6]);
             v18 = CVPixelBufferRetain(v28);
             goto LABEL_18;
@@ -720,7 +720,7 @@ LABEL_13:
           v32 = *ptr;
           std::string::basic_string[abi:ne200100]<0>(buf, uTF8String);
           v37 = buf;
-          v33 = std::__hash_table<std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PixelBufferSharedPtr>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&selfCopy->_pixelBuffersToBindAsVImage.__table_.__bucket_list_.__ptr_, buf);
+          v33 = std::__hash_table<std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PixelBufferSharedPtr>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&selfCopy->_pixelBuffersToBindAsVImage, buf, &v37);
           CVPixelBufferRelease(v33[6]);
           v33[6] = CVPixelBufferRetain(v32);
           if (v41 < 0)
@@ -809,14 +809,14 @@ LABEL_49:
         {
           std::string::basic_string[abi:ne200100]<0>(buf, uTF8String);
           v37 = buf;
-          v17 = std::__hash_table<std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PixelBufferSharedPtr>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&selfCopy->_pixelBuffersToBindAsEspressoBufferInput.__table_.__bucket_list_.__ptr_, buf);
+          v17 = std::__hash_table<std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PixelBufferSharedPtr>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&selfCopy->_pixelBuffersToBindAsEspressoBufferInput, buf, &v37);
         }
 
         else
         {
           std::string::basic_string[abi:ne200100]<0>(buf, uTF8String);
           v37 = buf;
-          v17 = std::__hash_table<std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PixelBufferSharedPtr>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&selfCopy->_pixelBuffersToBindAsEspressoBufferOutput.__table_.__bucket_list_.__ptr_, buf);
+          v17 = std::__hash_table<std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,PixelBufferSharedPtr>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,PixelBufferSharedPtr>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&selfCopy->_pixelBuffersToBindAsEspressoBufferOutput, buf, &v37);
         }
 
         CVPixelBufferRelease(v17[6]);
@@ -1002,7 +1002,7 @@ LABEL_11:
   {
     v8 = v7;
     v9 = MEMORY[0x277CBF3A0];
-    PixelBufferUtils::asVImageBuffer(image, 0, *MEMORY[0x277CBF3A0], &v20);
+    PixelBufferUtils::asVImageBuffer(&v20, image, 0, *MEMORY[0x277CBF3A0]);
     data = v20.data;
     v11 = *&v20.height;
     rowBytes = v20.rowBytes;
@@ -1016,7 +1016,7 @@ LABEL_11:
       while (1)
       {
         memset(&v20, 0, sizeof(v20));
-        PixelBufferUtils::asVImageBuffer(image, v14, *v9, &v20);
+        PixelBufferUtils::asVImageBuffer(&v20, image, v14, *v9);
         if (!v20.data)
         {
           return -6;
@@ -1048,7 +1048,7 @@ LABEL_11:
 
   else
   {
-    PixelBufferUtils::asVImageBuffer(image, *MEMORY[0x277CBF3A0], &v20);
+    PixelBufferUtils::asVImageBuffer(&v20, image, *MEMORY[0x277CBF3A0]);
     data = v20.data;
     v11 = *&v20.height;
     rowBytes = v20.rowBytes;

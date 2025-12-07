@@ -114,51 +114,52 @@ LABEL_9:
 
 - (id)encryptDictionary:(id)dictionary
 {
-  v17 = 0;
-  v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary format:200 options:0 error:&v17];
-  v5 = v17;
+  v21 = 0;
+  v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary format:200 options:0 error:&v21];
+  v5 = v21;
+  v7 = v5;
   if (!v4)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXHistory(v5, v6);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(WBSHistoryCrypto *)v13 encryptDictionary:v5];
+      [(WBSHistoryCrypto *)v17 encryptDictionary:v7];
     }
 
     goto LABEL_8;
   }
 
-  v16 = 0;
+  v20 = 0;
   dataOutAvailable = [v4 length] + 32;
   dataOut = malloc_type_malloc(dataOutAvailable, 0xC313BF5DuLL);
   cryptographicKey = [(WBSHistoryCrypto *)self cryptographicKey];
   bytes = [cryptographicKey bytes];
   cryptographicKey2 = [(WBSHistoryCrypto *)self cryptographicKey];
-  v11 = CCCrypt(0, 0, 1u, bytes, [cryptographicKey2 length], 0, objc_msgSend(v4, "bytes"), objc_msgSend(v4, "length"), dataOut, dataOutAvailable, &v16);
+  v13 = CCCrypt(0, 0, 1u, bytes, [cryptographicKey2 length], 0, objc_msgSend(v4, "bytes"), objc_msgSend(v4, "length"), dataOut, dataOutAvailable, &v20);
 
-  if (v11)
+  if (v13)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = WBS_LOG_CHANNEL_PREFIXHistory(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(WBSHistoryCrypto *)v11 encryptDictionary:v12];
+      [(WBSHistoryCrypto *)v13 encryptDictionary:v16];
     }
 
     free(dataOut);
 LABEL_8:
-    v14 = 0;
+    v18 = 0;
     goto LABEL_10;
   }
 
-  v14 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:dataOut length:v16];
+  v18 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:dataOut length:v20];
 LABEL_10:
 
-  return v14;
+  return v18;
 }
 
 - (id)decryptDictionary:(id)dictionary
 {
-  v22 = 0;
+  v26 = 0;
   dictionaryCopy = dictionary;
   dataOutAvailable = [dictionaryCopy length] + 16;
   dataOut = malloc_type_malloc(dataOutAvailable, 0x9D265BDEuLL);
@@ -169,19 +170,20 @@ LABEL_10:
   bytes2 = [dictionaryCopy bytes];
   v12 = [dictionaryCopy length];
 
-  v13 = CCCrypt(1u, 0, 1u, bytes, v10, 0, bytes2, v12, dataOut, dataOutAvailable, &v22);
+  v13 = CCCrypt(1u, 0, 1u, bytes, v10, 0, bytes2, v12, dataOut, dataOutAvailable, &v26);
   if (!v13)
   {
-    v16 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:dataOut length:v22];
-    v21 = 0;
-    v17 = [MEMORY[0x1E696AE40] propertyListWithData:v16 options:0 format:0 error:&v21];
-    v18 = v21;
-    if (v17)
+    v18 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:dataOut length:v26];
+    v25 = 0;
+    v19 = [MEMORY[0x1E696AE40] propertyListWithData:v18 options:0 format:0 error:&v25];
+    v20 = v25;
+    v22 = v20;
+    if (v19)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v15 = v17;
+        v17 = v19;
 LABEL_11:
 
         goto LABEL_12;
@@ -190,28 +192,28 @@ LABEL_11:
 
     else
     {
-      v19 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v23 = WBS_LOG_CHANNEL_PREFIXHistory(v20, v21);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        [(WBSHistoryCrypto *)v19 decryptDictionary:v18];
+        [(WBSHistoryCrypto *)v23 decryptDictionary:v22];
       }
     }
 
-    v15 = 0;
+    v17 = 0;
     goto LABEL_11;
   }
 
-  v14 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = WBS_LOG_CHANNEL_PREFIXHistory(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    [(WBSHistoryCrypto *)v13 decryptDictionary:v14];
+    [(WBSHistoryCrypto *)v13 decryptDictionary:v16];
   }
 
   free(dataOut);
-  v15 = 0;
+  v17 = 0;
 LABEL_12:
 
-  return v15;
+  return v17;
 }
 
 - (void)encryptDictionary:(int)a1 .cold.1(int a1, NSObject *a2)
@@ -226,7 +228,9 @@ LABEL_12:
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to serialize dictionary: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to serialize dictionary: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)decryptDictionary:(int)a1 .cold.1(int a1, NSObject *a2)
@@ -241,7 +245,9 @@ LABEL_12:
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to deserialize property list: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to deserialize property list: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

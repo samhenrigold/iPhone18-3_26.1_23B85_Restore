@@ -273,19 +273,18 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_task)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    bytesSent = self->_bytesSent;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -304,15 +303,13 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  totalBytesSent = self->_totalBytesSent;
   PBDataWriterWriteUint64Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    totalBytesExpectedToSend = self->_totalBytesExpectedToSend;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:

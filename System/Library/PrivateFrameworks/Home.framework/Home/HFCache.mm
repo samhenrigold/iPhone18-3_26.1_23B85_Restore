@@ -59,7 +59,7 @@
 
 uint64_t __28__HFCache_initWithDelegate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a7];
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{a7, a4, a5, a6}];
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a4];
   v10 = [v8 compare:v9];
 
@@ -244,38 +244,38 @@ uint64_t __27__HFCache_removeAllObjects__block_invoke(uint64_t a1)
 
 void __45__HFCache_enumerateKeysAndObjectsUsingBlock___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [*(a1 + 32) mapTable];
   v3 = [v2 keyEnumerator];
 
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v16 != v6)
+      if (*v15 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      v8 = *(*(&v15 + 1) + 8 * v7);
+      v8 = *(*(&v14 + 1) + 8 * v7);
       v9 = [*(a1 + 32) mapTable];
       v10 = [v9 objectForKey:v8];
 
-      v14 = 0;
+      v13 = 0;
       v11 = *(a1 + 40);
       v12 = [v10 object];
-      (*(v11 + 16))(v11, v8, v12, &v14);
+      (*(v11 + 16))(v11, v8, v12, &v13);
 
-      LOBYTE(v8) = v14;
+      LOBYTE(v8) = v13;
       if (v8)
       {
         break;
@@ -283,7 +283,7 @@ LABEL_3:
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -293,8 +293,6 @@ LABEL_3:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canAccommodateCost:(unint64_t)cost
@@ -321,7 +319,7 @@ LABEL_3:
   return cost;
 }
 
-uint64_t __30__HFCache_canAccommodateCost___block_invoke(uint64_t a1)
+void *__30__HFCache_canAccommodateCost___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _canAccommodateCost:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -360,7 +358,7 @@ uint64_t __30__HFCache_canAccommodateCost___block_invoke(uint64_t a1)
   return cost;
 }
 
-uint64_t __42__HFCache_removeObjectsToAccommodateCost___block_invoke(uint64_t a1)
+void *__42__HFCache_removeObjectsToAccommodateCost___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _removeObjectsToAccommodateCost:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -369,97 +367,93 @@ uint64_t __42__HFCache_removeObjectsToAccommodateCost___block_invoke(uint64_t a1
 
 - (BOOL)_removeObjectsToAccommodateCost:(unint64_t)cost
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   accessQueue = [(HFCache *)self accessQueue];
   dispatch_assert_queue_V2(accessQueue);
 
   if ([(HFCache *)self _canAccommodateCostWithoutRemoval:cost])
   {
+    return 1;
+  }
+
+  _overrideObjectEvictionComparator = [(HFCache *)self _overrideObjectEvictionComparator];
+  v8 = _overrideObjectEvictionComparator;
+  if (_overrideObjectEvictionComparator)
+  {
+    v9 = _Block_copy(_overrideObjectEvictionComparator);
+  }
+
+  else
+  {
+    defaultObjectEvictionComparator = [(HFCache *)self defaultObjectEvictionComparator];
+    v9 = _Block_copy(defaultObjectEvictionComparator);
+  }
+
+  mapTable = [(HFCache *)self mapTable];
+  objectEnumerator = [mapTable objectEnumerator];
+  allObjects = [objectEnumerator allObjects];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __43__HFCache__removeObjectsToAccommodateCost___block_invoke;
+  v28[3] = &unk_277DFD610;
+  v14 = v9;
+  v29 = v14;
+  v15 = [allObjects sortedArrayUsingComparator:v28];
+  v16 = [v15 mutableCopy];
+
+  if ([(HFCache *)self _canAccommodateCostWithoutRemoval:cost])
+  {
+LABEL_9:
     v6 = 1;
   }
 
   else
   {
-    _overrideObjectEvictionComparator = [(HFCache *)self _overrideObjectEvictionComparator];
-    v8 = _overrideObjectEvictionComparator;
-    if (_overrideObjectEvictionComparator)
+    while (1)
     {
-      v9 = _Block_copy(_overrideObjectEvictionComparator);
-    }
-
-    else
-    {
-      defaultObjectEvictionComparator = [(HFCache *)self defaultObjectEvictionComparator];
-      v9 = _Block_copy(defaultObjectEvictionComparator);
-    }
-
-    mapTable = [(HFCache *)self mapTable];
-    objectEnumerator = [mapTable objectEnumerator];
-    allObjects = [objectEnumerator allObjects];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __43__HFCache__removeObjectsToAccommodateCost___block_invoke;
-    v29[3] = &unk_277DFD610;
-    v14 = v9;
-    v30 = v14;
-    v15 = [allObjects sortedArrayUsingComparator:v29];
-    v16 = [v15 mutableCopy];
-
-    if ([(HFCache *)self _canAccommodateCostWithoutRemoval:cost])
-    {
-LABEL_9:
-      v6 = 1;
-    }
-
-    else
-    {
-      while (1)
+      firstObject = [v16 firstObject];
+      if (!firstObject)
       {
-        firstObject = [v16 firstObject];
-        if (!firstObject)
-        {
-          break;
-        }
-
-        v18 = firstObject;
-        mapTable2 = [(HFCache *)self mapTable];
-        v20 = [v18 key];
-        [mapTable2 removeObjectForKey:v20];
-
-        [v16 removeObjectAtIndex:0];
-        -[HFCache _setTotalCost:](self, "_setTotalCost:", -[HFCache _totalCost](self, "_totalCost") - [v18 cost]);
-        object = [v18 object];
-        v22 = [v18 key];
-        -[HFCache _didEvictObject:forKey:cost:](self, "_didEvictObject:forKey:cost:", object, v22, [v18 cost]);
-
-        if ([(HFCache *)self _canAccommodateCostWithoutRemoval:cost])
-        {
-          goto LABEL_9;
-        }
+        break;
       }
 
-      v23 = HFLogForCategory(0xDuLL);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-      {
-        v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:cost];
-        v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HFCache _totalCost](self, "_totalCost")}];
-        v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HFCache _totalCostLimit](self, "_totalCostLimit")}];
-        *buf = 136315906;
-        v32 = "[HFCache _removeObjectsToAccommodateCost:]";
-        v33 = 2112;
-        v34 = v26;
-        v35 = 2112;
-        v36 = v27;
-        v37 = 2112;
-        v38 = v28;
-        _os_log_error_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_ERROR, "%s cannot remove enough cache entries to accommodate cost: %@; totalCost: %@; totalCostLimit: %@", buf, 0x2Au);
-      }
+      v18 = firstObject;
+      mapTable2 = [(HFCache *)self mapTable];
+      v20 = [v18 key];
+      [mapTable2 removeObjectForKey:v20];
 
-      v6 = 0;
+      [v16 removeObjectAtIndex:0];
+      -[HFCache _setTotalCost:](self, "_setTotalCost:", -[HFCache _totalCost](self, "_totalCost") - [v18 cost]);
+      object = [v18 object];
+      v22 = [v18 key];
+      -[HFCache _didEvictObject:forKey:cost:](self, "_didEvictObject:forKey:cost:", object, v22, [v18 cost]);
+
+      if ([(HFCache *)self _canAccommodateCostWithoutRemoval:cost])
+      {
+        goto LABEL_9;
+      }
     }
+
+    v23 = HFLogForCategory(0xDuLL);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:cost];
+      v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HFCache _totalCost](self, "_totalCost")}];
+      v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HFCache _totalCostLimit](self, "_totalCostLimit")}];
+      *buf = 136315906;
+      v31 = "[HFCache _removeObjectsToAccommodateCost:]";
+      v32 = 2112;
+      v33 = v25;
+      v34 = 2112;
+      v35 = v26;
+      v36 = 2112;
+      v37 = v27;
+      _os_log_error_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_ERROR, "%s cannot remove enough cache entries to accommodate cost: %@; totalCost: %@; totalCostLimit: %@", buf, 0x2Au);
+    }
+
+    v6 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -566,7 +560,7 @@ void __16__HFCache_count__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __20__HFCache_totalCost__block_invoke(uint64_t a1)
+void *__20__HFCache_totalCost__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _totalCost];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -627,7 +621,7 @@ uint64_t __20__HFCache_totalCost__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __25__HFCache_totalCostLimit__block_invoke(uint64_t a1)
+void *__25__HFCache_totalCostLimit__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _totalCostLimit];
   *(*(*(a1 + 40) + 8) + 24) = result;

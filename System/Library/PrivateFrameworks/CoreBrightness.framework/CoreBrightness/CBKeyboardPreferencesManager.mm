@@ -38,7 +38,7 @@
   return sharedInstance__sharedObject_2;
 }
 
-uint64_t __46__CBKeyboardPreferencesManager_sharedInstance__block_invoke(uint64_t a1)
+void *__46__CBKeyboardPreferencesManager_sharedInstance__block_invoke(uint64_t a1)
 {
   v4 = a1;
   v3 = a1;
@@ -208,7 +208,6 @@ uint64_t __46__CBKeyboardPreferencesManager_sharedInstance__block_invoke(uint64_
   dispatch_sync(queue, &block);
   v6 = *(v21 + 24);
   _Block_object_dispose(&v20, 8);
-  *MEMORY[0x1E69E9840];
   return v6 & 1;
 }
 
@@ -271,7 +270,6 @@ BOOL __53__CBKeyboardPreferencesManager_setPreference_forKey___block_invoke(void
 
   v5 = v17[5];
   _Block_object_dispose(&v16, 8);
-  *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -311,7 +309,7 @@ uint64_t __53__CBKeyboardPreferencesManager_copyPreferenceForKey___block_invoke(
   return v4;
 }
 
-uint64_t __51__CBKeyboardPreferencesManager_copyAllPrefereneces__block_invoke(uint64_t a1)
+void *__51__CBKeyboardPreferencesManager_copyAllPrefereneces__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;

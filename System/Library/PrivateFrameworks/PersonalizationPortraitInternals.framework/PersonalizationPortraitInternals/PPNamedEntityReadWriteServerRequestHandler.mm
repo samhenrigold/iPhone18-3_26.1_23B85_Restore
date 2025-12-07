@@ -7,6 +7,7 @@
 - (void)deleteAllNamedEntitiesFromSourcesWithBundleId:(id)id groupIds:(id)ids completion:(id)completion;
 - (void)donateLocationNamedEntities:(id)entities bundleId:(id)id groupId:(id)groupId completion:(id)completion;
 - (void)donateMapItem:(id)item forPlaceName:(id)name completion:(id)completion;
+- (void)donateNamedEntities:(id)entities source:(id)source algorithm:(unint64_t)algorithm cloudSync:(BOOL)sync sentimentScore:(double)score completion:(id)completion;
 - (void)flushDonationsWithCompletion:(id)completion;
 - (void)removeMapItemForPlaceName:(id)name completion:(id)completion;
 - (void)removeMapItemsBeforeCutoffDate:(id)date completion:(id)completion;
@@ -16,7 +17,7 @@
 
 - (void)donateLocationNamedEntities:(id)entities bundleId:(id)id groupId:(id)groupId completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   completionCopy = completion;
   groupIdCopy = groupId;
@@ -25,18 +26,16 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v20 = [entitiesCopy count];
+    v19 = [entitiesCopy count];
     _os_log_impl(&dword_23224A000, v13, OS_LOG_TYPE_DEFAULT, "PPNamedEntityReadWriteServer: donateLocationNamedEntities: %tu entities", buf, 0xCu);
   }
 
   v14 = +[PPLocalNamedEntityStore defaultStore];
-  v18 = 0;
-  v15 = [v14 donateLocationNamedEntities:entitiesCopy bundleId:idCopy groupId:groupIdCopy error:&v18];
+  v17 = 0;
+  v15 = [v14 donateLocationNamedEntities:entitiesCopy bundleId:idCopy groupId:groupIdCopy error:&v17];
 
-  v16 = v18;
+  v16 = v17;
   completionCopy[2](completionCopy, v15, v16);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeMapItemsBeforeCutoffDate:(id)date completion:(id)completion
@@ -220,7 +219,7 @@
 
 - (void)flushDonationsWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v4 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -230,9 +229,9 @@
   }
 
   v5 = +[PPLocalNamedEntityStore defaultStore];
-  v10 = 0;
-  v6 = [v5 flushDonationsWithError:&v10];
-  v7 = v10;
+  v9 = 0;
+  v6 = [v5 flushDonationsWithError:&v9];
+  v7 = v9;
 
   if ((v6 & 1) == 0)
   {
@@ -240,14 +239,35 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v7;
+      v11 = v7;
       _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "flushDonationsWithError unexpectedly failed: %@", buf, 0xCu);
     }
   }
 
   completionCopy[2](completionCopy);
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)donateNamedEntities:(id)entities source:(id)source algorithm:(unint64_t)algorithm cloudSync:(BOOL)sync sentimentScore:(double)score completion:(id)completion
+{
+  syncCopy = sync;
+  v23 = *MEMORY[0x277D85DE8];
+  entitiesCopy = entities;
+  completionCopy = completion;
+  sourceCopy = source;
+  v16 = pp_xpc_server_log_handle();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    v22 = [entitiesCopy count];
+    _os_log_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEFAULT, "PPNamedEntityReadWriteServer: donateNamedEntities: %tu entities", buf, 0xCu);
+  }
+
+  v17 = +[PPLocalNamedEntityStore defaultStore];
+  v20 = 0;
+  v18 = [v17 donateNamedEntities:entitiesCopy source:sourceCopy algorithm:algorithm cloudSync:syncCopy sentimentScore:&v20 error:score];
+
+  v19 = v20;
+  completionCopy[2](completionCopy, v18, v19);
 }
 
 @end

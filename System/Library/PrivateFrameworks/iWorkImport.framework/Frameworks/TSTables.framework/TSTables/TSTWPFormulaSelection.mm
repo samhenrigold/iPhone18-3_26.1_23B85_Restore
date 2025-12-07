@@ -11,9 +11,9 @@
 {
   visualRangesCopy = visualRanges;
   rangesCopy = ranges;
-  v22 = objc_msgSend_superRange(rangesCopy, v18, v19, v20, v21);
+  v21 = objc_msgSend_superRange(rangesCopy, v18, v19, v20);
   edgeCopy = edge;
-  IsLeadingEdge_leadingCharIndex_headCharIndex_tailCharIndex_activeTokenCharIndex = objc_msgSend_initWithType_range_validVisualRanges_styleInsertionBehavior_caretAffinity_caretIsLeadingEdge_leadingCharIndex_headCharIndex_tailCharIndex_activeTokenCharIndex_(self, v23, type, v22, v23, visualRangesCopy, behavior, affinity, edgeCopy, index, charIndex, tailCharIndex, 0x7FFFFFFFFFFFFFFFLL);
+  IsLeadingEdge_leadingCharIndex_headCharIndex_tailCharIndex_activeTokenCharIndex = objc_msgSend_initWithType_range_validVisualRanges_styleInsertionBehavior_caretAffinity_caretIsLeadingEdge_leadingCharIndex_headCharIndex_tailCharIndex_activeTokenCharIndex_(self, v22, type, v21, v22, visualRangesCopy, behavior, affinity, edgeCopy, index, charIndex, tailCharIndex, 0x7FFFFFFFFFFFFFFFLL);
 
   return IsLeadingEdge_leadingCharIndex_headCharIndex_tailCharIndex_activeTokenCharIndex;
 }
@@ -21,7 +21,7 @@
 - (TSTWPFormulaSelection)initWithType:(int64_t)type range:(_NSRange)range validVisualRanges:(BOOL)ranges styleInsertionBehavior:(int64_t)behavior caretAffinity:(int64_t)affinity caretIsLeadingEdge:(BOOL)edge leadingCharIndex:(unint64_t)index headCharIndex:(unint64_t)self0 tailCharIndex:(unint64_t)self1 activeTokenCharIndex:(unint64_t)self2
 {
   rangesCopy = ranges;
-  v17 = objc_msgSend_rangeArrayWithRange_(MEMORY[0x277D80EE8], a2, range.location, range.length, range.length);
+  v17 = objc_msgSend_rangeArrayWithRange_(MEMORY[0x277D80EE8], a2, range.location, range.length);
   v20.receiver = self;
   v20.super_class = TSTWPFormulaSelection;
   v18 = [(TSWPSelection *)&v20 initWithType:type ranges:v17 validVisualRanges:rangesCopy styleInsertionBehavior:behavior caretAffinity:affinity caretIsLeadingEdge:edge leadingCharIndex:index headCharIndex:charIndex tailCharIndex:tailCharIndex];

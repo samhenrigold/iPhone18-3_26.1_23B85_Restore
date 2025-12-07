@@ -3,7 +3,7 @@
 
 @implementation AXSVoiceOverSpeakUnderPointerEnabled
 
-uint64_t ___AXSVoiceOverSpeakUnderPointerEnabled_block_invoke()
+void *___AXSVoiceOverSpeakUnderPointerEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

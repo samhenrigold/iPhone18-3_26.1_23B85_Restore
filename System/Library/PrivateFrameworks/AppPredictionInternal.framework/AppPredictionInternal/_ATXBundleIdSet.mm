@@ -34,7 +34,7 @@
 
     else
     {
-      trie = __atxlog_handle_default();
+      trie = __atxlog_handle_default(0);
       if (os_log_type_enabled(trie, OS_LOG_TYPE_ERROR))
       {
         [(_ATXBundleIdSet *)trie init];

@@ -210,22 +210,22 @@
   return v2;
 }
 
-void __33__ATXModeEntityScorerClient_init__block_invoke()
+void __33__ATXModeEntityScorerClient_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __33__ATXModeEntityScorerClient_init__block_invoke_cold_1(v0);
+    __33__ATXModeEntityScorerClient_init__block_invoke_cold_1(v2);
   }
 }
 
-void __33__ATXModeEntityScorerClient_init__block_invoke_69()
+void __33__ATXModeEntityScorerClient_init__block_invoke_69(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_INFO, "ATXModeEntityScorer invalidation handler called", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1BF549000, v2, OS_LOG_TYPE_INFO, "ATXModeEntityScorer invalidation handler called", v3, 2u);
   }
 }
 
@@ -239,69 +239,70 @@ void __33__ATXModeEntityScorerClient_init__block_invoke_69()
 
 - (void)scoreContacts:(id)contacts mode:(unint64_t)mode reply:(id)reply
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   contactsCopy = contacts;
   replyCopy = reply;
   if (replyCopy)
   {
-    if ([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0])
+    v11 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+    if (v11)
     {
       xpcConnection = self->_xpcConnection;
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __54__ATXModeEntityScorerClient_scoreContacts_mode_reply___block_invoke;
-      v26[3] = &unk_1E80C2678;
-      v26[4] = self;
-      v26[5] = a2;
-      v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v26];
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __54__ATXModeEntityScorerClient_scoreContacts_mode_reply___block_invoke_84;
-      v24[3] = &unk_1E80C0908;
-      v25 = replyCopy;
-      [v12 scoreContacts:contactsCopy mode:mode reply:v24];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __54__ATXModeEntityScorerClient_scoreContacts_mode_reply___block_invoke;
+      v27[3] = &unk_1E80C2678;
+      v27[4] = self;
+      v27[5] = a2;
+      v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v27];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __54__ATXModeEntityScorerClient_scoreContacts_mode_reply___block_invoke_84;
+      v25[3] = &unk_1E80C0908;
+      v26 = replyCopy;
+      [v13 scoreContacts:contactsCopy mode:mode reply:v25];
     }
 
     else
     {
-      v19 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = __atxlog_handle_notification_management(v11);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [ATXModeEntityScorerClient scoreContacts:mode:reply:];
       }
 
-      v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v21 = *MEMORY[0x1E696A5A0];
-      v27 = *MEMORY[0x1E696A578];
-      v28[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-      v23 = [v20 initWithDomain:v21 code:1 userInfo:v22];
+      v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v22 = *MEMORY[0x1E696A5A0];
+      v28 = *MEMORY[0x1E696A578];
+      v29[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v24 = [v21 initWithDomain:v22 code:1 userInfo:v23];
 
-      (*(replyCopy + 2))(replyCopy, contactsCopy, v23);
+      (*(replyCopy + 2))(replyCopy, contactsCopy, v24);
     }
   }
 
   else
   {
-    v13 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No reply handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No reply handler provided for %@ in %@", v17, v19}];
   }
 }
 
 void __54__ATXModeEntityScorerClient_scoreContacts_mode_reply___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __54__ATXModeEntityScorerClient_scoreContacts_mode_reply___block_invoke_cold_1();
@@ -310,64 +311,65 @@ void __54__ATXModeEntityScorerClient_scoreContacts_mode_reply___block_invoke(uin
 
 - (void)rankedContactsForMode:(unint64_t)mode reply:(id)reply
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (!replyCopy)
   {
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v12 = MEMORY[0x1E695DF30];
-    v13 = *MEMORY[0x1E695D930];
-    v14 = NSStringFromSelector(a2);
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    [v12 raise:v13 format:{@"No reply handler provided for %@ in %@", v14, v16}];
+    v13 = MEMORY[0x1E695DF30];
+    v14 = *MEMORY[0x1E695D930];
+    v15 = NSStringFromSelector(a2);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    [v13 raise:v14 format:{@"No reply handler provided for %@ in %@", v15, v17}];
 
     goto LABEL_10;
   }
 
-  if (([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0] & 1) == 0)
+  v8 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+  if ((v8 & 1) == 0)
   {
-    v17 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_notification_management(v8);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v19 = *MEMORY[0x1E696A5A0];
-    v27 = *MEMORY[0x1E696A578];
-    v28[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-    v14 = [v18 initWithDomain:v19 code:1 userInfo:v20];
+    v19 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v20 = *MEMORY[0x1E696A5A0];
+    v28 = *MEMORY[0x1E696A578];
+    v29[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v15 = [v19 initWithDomain:v20 code:1 userInfo:v21];
 
-    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v14);
+    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v15);
 LABEL_10:
 
     goto LABEL_11;
   }
 
   xpcConnection = self->_xpcConnection;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __57__ATXModeEntityScorerClient_rankedContactsForMode_reply___block_invoke;
-  v24[3] = &unk_1E80C1100;
-  v26 = a2;
-  v24[4] = self;
-  v9 = replyCopy;
-  v25 = v9;
-  v10 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v24];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __57__ATXModeEntityScorerClient_rankedContactsForMode_reply___block_invoke_86;
-  v21[3] = &unk_1E80C26A0;
-  v23 = a2;
-  v22 = v9;
-  [v10 rankedContactsForMode:mode reply:v21];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __57__ATXModeEntityScorerClient_rankedContactsForMode_reply___block_invoke;
+  v25[3] = &unk_1E80C1100;
+  v27 = a2;
+  v25[4] = self;
+  v10 = replyCopy;
+  v26 = v10;
+  v11 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v25];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __57__ATXModeEntityScorerClient_rankedContactsForMode_reply___block_invoke_86;
+  v22[3] = &unk_1E80C26A0;
+  v24 = a2;
+  v23 = v10;
+  [v11 rankedContactsForMode:mode reply:v22];
 
 LABEL_11:
 }
@@ -375,7 +377,7 @@ LABEL_11:
 void __57__ATXModeEntityScorerClient_rankedContactsForMode_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -389,7 +391,7 @@ void __57__ATXModeEntityScorerClient_rankedContactsForMode_reply___block_invoke_
   v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = __atxlog_handle_notification_management();
+  v7 = __atxlog_handle_notification_management(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(*(a1 + 40));
@@ -405,64 +407,65 @@ void __57__ATXModeEntityScorerClient_rankedContactsForMode_reply___block_invoke_
 
 - (void)rankedContactsForMode:(unint64_t)mode options:(unint64_t)options reply:(id)reply
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (!replyCopy)
   {
-    v13 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No reply handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No reply handler provided for %@ in %@", v17, v19}];
 
     goto LABEL_10;
   }
 
-  if (([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0] & 1) == 0)
+  v10 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+  if ((v10 & 1) == 0)
   {
-    v19 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_notification_management(v10);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v21 = *MEMORY[0x1E696A5A0];
-    v29 = *MEMORY[0x1E696A578];
-    v30[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-    v16 = [v20 initWithDomain:v21 code:1 userInfo:v22];
+    v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v22 = *MEMORY[0x1E696A5A0];
+    v30 = *MEMORY[0x1E696A578];
+    v31[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v17 = [v21 initWithDomain:v22 code:1 userInfo:v23];
 
-    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v16);
+    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v17);
 LABEL_10:
 
     goto LABEL_11;
   }
 
   xpcConnection = self->_xpcConnection;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __65__ATXModeEntityScorerClient_rankedContactsForMode_options_reply___block_invoke;
-  v26[3] = &unk_1E80C1100;
-  v28 = a2;
-  v26[4] = self;
-  v11 = replyCopy;
-  v27 = v11;
-  v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v26];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __65__ATXModeEntityScorerClient_rankedContactsForMode_options_reply___block_invoke_87;
-  v23[3] = &unk_1E80C26A0;
-  v25 = a2;
-  v24 = v11;
-  [v12 rankedContactsForMode:mode options:options reply:v23];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __65__ATXModeEntityScorerClient_rankedContactsForMode_options_reply___block_invoke;
+  v27[3] = &unk_1E80C1100;
+  v29 = a2;
+  v27[4] = self;
+  v12 = replyCopy;
+  v28 = v12;
+  v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v27];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __65__ATXModeEntityScorerClient_rankedContactsForMode_options_reply___block_invoke_87;
+  v24[3] = &unk_1E80C26A0;
+  v26 = a2;
+  v25 = v12;
+  [v13 rankedContactsForMode:mode options:options reply:v24];
 
 LABEL_11:
 }
@@ -470,7 +473,7 @@ LABEL_11:
 void __65__ATXModeEntityScorerClient_rankedContactsForMode_options_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -484,7 +487,7 @@ void __65__ATXModeEntityScorerClient_rankedContactsForMode_options_reply___block
   v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = __atxlog_handle_notification_management();
+  v7 = __atxlog_handle_notification_management(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(*(a1 + 40));
@@ -500,69 +503,70 @@ void __65__ATXModeEntityScorerClient_rankedContactsForMode_options_reply___block
 
 - (void)scoreApps:(id)apps mode:(unint64_t)mode reply:(id)reply
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   appsCopy = apps;
   replyCopy = reply;
   if (replyCopy)
   {
-    if ([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0])
+    v11 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+    if (v11)
     {
       xpcConnection = self->_xpcConnection;
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __50__ATXModeEntityScorerClient_scoreApps_mode_reply___block_invoke;
-      v26[3] = &unk_1E80C2678;
-      v26[4] = self;
-      v26[5] = a2;
-      v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v26];
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __50__ATXModeEntityScorerClient_scoreApps_mode_reply___block_invoke_88;
-      v24[3] = &unk_1E80C0908;
-      v25 = replyCopy;
-      [v12 scoreApps:appsCopy mode:mode reply:v24];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __50__ATXModeEntityScorerClient_scoreApps_mode_reply___block_invoke;
+      v27[3] = &unk_1E80C2678;
+      v27[4] = self;
+      v27[5] = a2;
+      v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v27];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __50__ATXModeEntityScorerClient_scoreApps_mode_reply___block_invoke_88;
+      v25[3] = &unk_1E80C0908;
+      v26 = replyCopy;
+      [v13 scoreApps:appsCopy mode:mode reply:v25];
     }
 
     else
     {
-      v19 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = __atxlog_handle_notification_management(v11);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [ATXModeEntityScorerClient scoreContacts:mode:reply:];
       }
 
-      v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v21 = *MEMORY[0x1E696A5A0];
-      v27 = *MEMORY[0x1E696A578];
-      v28[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-      v23 = [v20 initWithDomain:v21 code:1 userInfo:v22];
+      v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v22 = *MEMORY[0x1E696A5A0];
+      v28 = *MEMORY[0x1E696A578];
+      v29[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v24 = [v21 initWithDomain:v22 code:1 userInfo:v23];
 
-      (*(replyCopy + 2))(replyCopy, appsCopy, v23);
+      (*(replyCopy + 2))(replyCopy, appsCopy, v24);
     }
   }
 
   else
   {
-    v13 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No reply handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No reply handler provided for %@ in %@", v17, v19}];
   }
 }
 
 void __50__ATXModeEntityScorerClient_scoreApps_mode_reply___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __54__ATXModeEntityScorerClient_scoreContacts_mode_reply___block_invoke_cold_1();
@@ -571,64 +575,65 @@ void __50__ATXModeEntityScorerClient_scoreApps_mode_reply___block_invoke(uint64_
 
 - (void)rankedAppsForMode:(unint64_t)mode reply:(id)reply
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (!replyCopy)
   {
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v12 = MEMORY[0x1E695DF30];
-    v13 = *MEMORY[0x1E695D930];
-    v14 = NSStringFromSelector(a2);
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    [v12 raise:v13 format:{@"No reply handler provided for %@ in %@", v14, v16}];
+    v13 = MEMORY[0x1E695DF30];
+    v14 = *MEMORY[0x1E695D930];
+    v15 = NSStringFromSelector(a2);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    [v13 raise:v14 format:{@"No reply handler provided for %@ in %@", v15, v17}];
 
     goto LABEL_10;
   }
 
-  if (([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0] & 1) == 0)
+  v8 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+  if ((v8 & 1) == 0)
   {
-    v17 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_notification_management(v8);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v19 = *MEMORY[0x1E696A5A0];
-    v27 = *MEMORY[0x1E696A578];
-    v28[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-    v14 = [v18 initWithDomain:v19 code:1 userInfo:v20];
+    v19 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v20 = *MEMORY[0x1E696A5A0];
+    v28 = *MEMORY[0x1E696A578];
+    v29[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v15 = [v19 initWithDomain:v20 code:1 userInfo:v21];
 
-    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v14);
+    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v15);
 LABEL_10:
 
     goto LABEL_11;
   }
 
   xpcConnection = self->_xpcConnection;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __53__ATXModeEntityScorerClient_rankedAppsForMode_reply___block_invoke;
-  v24[3] = &unk_1E80C1100;
-  v26 = a2;
-  v24[4] = self;
-  v9 = replyCopy;
-  v25 = v9;
-  v10 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v24];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __53__ATXModeEntityScorerClient_rankedAppsForMode_reply___block_invoke_89;
-  v21[3] = &unk_1E80C26A0;
-  v23 = a2;
-  v22 = v9;
-  [v10 rankedAppsForMode:mode reply:v21];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __53__ATXModeEntityScorerClient_rankedAppsForMode_reply___block_invoke;
+  v25[3] = &unk_1E80C1100;
+  v27 = a2;
+  v25[4] = self;
+  v10 = replyCopy;
+  v26 = v10;
+  v11 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v25];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __53__ATXModeEntityScorerClient_rankedAppsForMode_reply___block_invoke_89;
+  v22[3] = &unk_1E80C26A0;
+  v24 = a2;
+  v23 = v10;
+  [v11 rankedAppsForMode:mode reply:v22];
 
 LABEL_11:
 }
@@ -636,7 +641,7 @@ LABEL_11:
 void __53__ATXModeEntityScorerClient_rankedAppsForMode_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -650,7 +655,7 @@ void __53__ATXModeEntityScorerClient_rankedAppsForMode_reply___block_invoke_89(u
   v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = __atxlog_handle_notification_management();
+  v7 = __atxlog_handle_notification_management(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(*(a1 + 40));
@@ -666,64 +671,65 @@ void __53__ATXModeEntityScorerClient_rankedAppsForMode_reply___block_invoke_89(u
 
 - (void)rankedAppsForMode:(unint64_t)mode options:(unint64_t)options reply:(id)reply
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (!replyCopy)
   {
-    v13 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No reply handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No reply handler provided for %@ in %@", v17, v19}];
 
     goto LABEL_10;
   }
 
-  if (([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0] & 1) == 0)
+  v10 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+  if ((v10 & 1) == 0)
   {
-    v19 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_notification_management(v10);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v21 = *MEMORY[0x1E696A5A0];
-    v29 = *MEMORY[0x1E696A578];
-    v30[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-    v16 = [v20 initWithDomain:v21 code:1 userInfo:v22];
+    v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v22 = *MEMORY[0x1E696A5A0];
+    v30 = *MEMORY[0x1E696A578];
+    v31[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v17 = [v21 initWithDomain:v22 code:1 userInfo:v23];
 
-    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v16);
+    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v17);
 LABEL_10:
 
     goto LABEL_11;
   }
 
   xpcConnection = self->_xpcConnection;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __61__ATXModeEntityScorerClient_rankedAppsForMode_options_reply___block_invoke;
-  v26[3] = &unk_1E80C1100;
-  v28 = a2;
-  v26[4] = self;
-  v11 = replyCopy;
-  v27 = v11;
-  v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v26];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __61__ATXModeEntityScorerClient_rankedAppsForMode_options_reply___block_invoke_90;
-  v23[3] = &unk_1E80C26A0;
-  v25 = a2;
-  v24 = v11;
-  [v12 rankedAppsForMode:mode options:options reply:v23];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __61__ATXModeEntityScorerClient_rankedAppsForMode_options_reply___block_invoke;
+  v27[3] = &unk_1E80C1100;
+  v29 = a2;
+  v27[4] = self;
+  v12 = replyCopy;
+  v28 = v12;
+  v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v27];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __61__ATXModeEntityScorerClient_rankedAppsForMode_options_reply___block_invoke_90;
+  v24[3] = &unk_1E80C26A0;
+  v26 = a2;
+  v25 = v12;
+  [v13 rankedAppsForMode:mode options:options reply:v24];
 
 LABEL_11:
 }
@@ -731,7 +737,7 @@ LABEL_11:
 void __61__ATXModeEntityScorerClient_rankedAppsForMode_options_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -745,7 +751,7 @@ void __61__ATXModeEntityScorerClient_rankedAppsForMode_options_reply___block_inv
   v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = __atxlog_handle_notification_management();
+  v7 = __atxlog_handle_notification_management(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(*(a1 + 40));
@@ -761,64 +767,65 @@ void __61__ATXModeEntityScorerClient_rankedAppsForMode_options_reply___block_inv
 
 - (void)rankedWidgetsForMode:(unint64_t)mode reply:(id)reply
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (!replyCopy)
   {
-    v11 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_modes(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v12 = MEMORY[0x1E695DF30];
-    v13 = *MEMORY[0x1E695D930];
-    v14 = NSStringFromSelector(a2);
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    [v12 raise:v13 format:{@"No reply handler provided for %@ in %@", v14, v16}];
+    v13 = MEMORY[0x1E695DF30];
+    v14 = *MEMORY[0x1E695D930];
+    v15 = NSStringFromSelector(a2);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    [v13 raise:v14 format:{@"No reply handler provided for %@ in %@", v15, v17}];
 
     goto LABEL_10;
   }
 
-  if (([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0] & 1) == 0)
+  v8 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+  if ((v8 & 1) == 0)
   {
-    v17 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_modes(v8);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v19 = *MEMORY[0x1E696A5A0];
-    v27 = *MEMORY[0x1E696A578];
-    v28[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-    v14 = [v18 initWithDomain:v19 code:1 userInfo:v20];
+    v19 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v20 = *MEMORY[0x1E696A5A0];
+    v28 = *MEMORY[0x1E696A578];
+    v29[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v15 = [v19 initWithDomain:v20 code:1 userInfo:v21];
 
-    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v14);
+    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v15);
 LABEL_10:
 
     goto LABEL_11;
   }
 
   xpcConnection = self->_xpcConnection;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __56__ATXModeEntityScorerClient_rankedWidgetsForMode_reply___block_invoke;
-  v24[3] = &unk_1E80C1100;
-  v26 = a2;
-  v24[4] = self;
-  v9 = replyCopy;
-  v25 = v9;
-  v10 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v24];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __56__ATXModeEntityScorerClient_rankedWidgetsForMode_reply___block_invoke_91;
-  v21[3] = &unk_1E80C26A0;
-  v23 = a2;
-  v22 = v9;
-  [v10 rankedWidgetsForMode:mode reply:v21];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __56__ATXModeEntityScorerClient_rankedWidgetsForMode_reply___block_invoke;
+  v25[3] = &unk_1E80C1100;
+  v27 = a2;
+  v25[4] = self;
+  v10 = replyCopy;
+  v26 = v10;
+  v11 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v25];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __56__ATXModeEntityScorerClient_rankedWidgetsForMode_reply___block_invoke_91;
+  v22[3] = &unk_1E80C26A0;
+  v24 = a2;
+  v23 = v10;
+  [v11 rankedWidgetsForMode:mode reply:v22];
 
 LABEL_11:
 }
@@ -826,7 +833,7 @@ LABEL_11:
 void __56__ATXModeEntityScorerClient_rankedWidgetsForMode_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -840,7 +847,7 @@ void __56__ATXModeEntityScorerClient_rankedWidgetsForMode_reply___block_invoke_9
   v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = __atxlog_handle_modes();
+  v7 = __atxlog_handle_modes(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(*(a1 + 40));
@@ -856,69 +863,70 @@ void __56__ATXModeEntityScorerClient_rankedWidgetsForMode_reply___block_invoke_9
 
 - (void)scoreNotifications:(id)notifications mode:(unint64_t)mode reply:(id)reply
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   notificationsCopy = notifications;
   replyCopy = reply;
   if (replyCopy)
   {
-    if ([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0])
+    v11 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+    if (v11)
     {
       xpcConnection = self->_xpcConnection;
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __59__ATXModeEntityScorerClient_scoreNotifications_mode_reply___block_invoke;
-      v26[3] = &unk_1E80C2678;
-      v26[4] = self;
-      v26[5] = a2;
-      v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v26];
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __59__ATXModeEntityScorerClient_scoreNotifications_mode_reply___block_invoke_92;
-      v24[3] = &unk_1E80C0908;
-      v25 = replyCopy;
-      [v12 scoreNotifications:notificationsCopy mode:mode reply:v24];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __59__ATXModeEntityScorerClient_scoreNotifications_mode_reply___block_invoke;
+      v27[3] = &unk_1E80C2678;
+      v27[4] = self;
+      v27[5] = a2;
+      v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v27];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __59__ATXModeEntityScorerClient_scoreNotifications_mode_reply___block_invoke_92;
+      v25[3] = &unk_1E80C0908;
+      v26 = replyCopy;
+      [v13 scoreNotifications:notificationsCopy mode:mode reply:v25];
     }
 
     else
     {
-      v19 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = __atxlog_handle_notification_management(v11);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [ATXModeEntityScorerClient scoreContacts:mode:reply:];
       }
 
-      v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v21 = *MEMORY[0x1E696A5A0];
-      v27 = *MEMORY[0x1E696A578];
-      v28[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-      v23 = [v20 initWithDomain:v21 code:1 userInfo:v22];
+      v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v22 = *MEMORY[0x1E696A5A0];
+      v28 = *MEMORY[0x1E696A578];
+      v29[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v24 = [v21 initWithDomain:v22 code:1 userInfo:v23];
 
-      (*(replyCopy + 2))(replyCopy, notificationsCopy, v23);
+      (*(replyCopy + 2))(replyCopy, notificationsCopy, v24);
     }
   }
 
   else
   {
-    v13 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No reply handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No reply handler provided for %@ in %@", v17, v19}];
   }
 }
 
 void __59__ATXModeEntityScorerClient_scoreNotifications_mode_reply___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __54__ATXModeEntityScorerClient_scoreContacts_mode_reply___block_invoke_cold_1();
@@ -927,70 +935,71 @@ void __59__ATXModeEntityScorerClient_scoreNotifications_mode_reply___block_invok
 
 - (void)rankedNotificationsForMode:(unint64_t)mode reply:(id)reply
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (replyCopy)
   {
-    if ([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0])
+    v8 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+    if (v8)
     {
       xpcConnection = self->_xpcConnection;
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __62__ATXModeEntityScorerClient_rankedNotificationsForMode_reply___block_invoke;
-      v24[3] = &unk_1E80C1100;
-      v26 = a2;
-      v24[4] = self;
-      v9 = replyCopy;
-      v25 = v9;
-      v10 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v24];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __62__ATXModeEntityScorerClient_rankedNotificationsForMode_reply___block_invoke_93;
-      v22[3] = &unk_1E80C0908;
-      v23 = v9;
-      [v10 rankedNotificationsForMode:mode reply:v22];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __62__ATXModeEntityScorerClient_rankedNotificationsForMode_reply___block_invoke;
+      v25[3] = &unk_1E80C1100;
+      v27 = a2;
+      v25[4] = self;
+      v10 = replyCopy;
+      v26 = v10;
+      v11 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v25];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __62__ATXModeEntityScorerClient_rankedNotificationsForMode_reply___block_invoke_93;
+      v23[3] = &unk_1E80C0908;
+      v24 = v10;
+      [v11 rankedNotificationsForMode:mode reply:v23];
     }
 
     else
     {
-      v17 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = __atxlog_handle_notification_management(v8);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [ATXModeEntityScorerClient scoreContacts:mode:reply:];
       }
 
-      v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v19 = *MEMORY[0x1E696A5A0];
-      v27 = *MEMORY[0x1E696A578];
-      v28[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-      v21 = [v18 initWithDomain:v19 code:1 userInfo:v20];
+      v19 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v20 = *MEMORY[0x1E696A5A0];
+      v28 = *MEMORY[0x1E696A578];
+      v29[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v22 = [v19 initWithDomain:v20 code:1 userInfo:v21];
 
-      (*(replyCopy + 2))(replyCopy, MEMORY[0x1E695E0F0], v21);
+      (*(replyCopy + 2))(replyCopy, MEMORY[0x1E695E0F0], v22);
     }
   }
 
   else
   {
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v12 = MEMORY[0x1E695DF30];
-    v13 = *MEMORY[0x1E695D930];
-    v14 = NSStringFromSelector(a2);
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    [v12 raise:v13 format:{@"No reply handler provided for %@ in %@", v14, v16}];
+    v13 = MEMORY[0x1E695DF30];
+    v14 = *MEMORY[0x1E695D930];
+    v15 = NSStringFromSelector(a2);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    [v13 raise:v14 format:{@"No reply handler provided for %@ in %@", v15, v17}];
   }
 }
 
 void __62__ATXModeEntityScorerClient_rankedNotificationsForMode_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -1001,70 +1010,71 @@ void __62__ATXModeEntityScorerClient_rankedNotificationsForMode_reply___block_in
 
 - (void)rankedNotificationsForMode:(unint64_t)mode options:(unint64_t)options reply:(id)reply
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (replyCopy)
   {
-    if ([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0])
+    v10 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+    if (v10)
     {
       xpcConnection = self->_xpcConnection;
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __70__ATXModeEntityScorerClient_rankedNotificationsForMode_options_reply___block_invoke;
-      v26[3] = &unk_1E80C1100;
-      v28 = a2;
-      v26[4] = self;
-      v11 = replyCopy;
-      v27 = v11;
-      v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v26];
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __70__ATXModeEntityScorerClient_rankedNotificationsForMode_options_reply___block_invoke_94;
-      v24[3] = &unk_1E80C0908;
-      v25 = v11;
-      [v12 rankedNotificationsForMode:mode options:options reply:v24];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __70__ATXModeEntityScorerClient_rankedNotificationsForMode_options_reply___block_invoke;
+      v27[3] = &unk_1E80C1100;
+      v29 = a2;
+      v27[4] = self;
+      v12 = replyCopy;
+      v28 = v12;
+      v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v27];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __70__ATXModeEntityScorerClient_rankedNotificationsForMode_options_reply___block_invoke_94;
+      v25[3] = &unk_1E80C0908;
+      v26 = v12;
+      [v13 rankedNotificationsForMode:mode options:options reply:v25];
     }
 
     else
     {
-      v19 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = __atxlog_handle_notification_management(v10);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [ATXModeEntityScorerClient scoreContacts:mode:reply:];
       }
 
-      v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v21 = *MEMORY[0x1E696A5A0];
-      v29 = *MEMORY[0x1E696A578];
-      v30[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-      v23 = [v20 initWithDomain:v21 code:1 userInfo:v22];
+      v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v22 = *MEMORY[0x1E696A5A0];
+      v30 = *MEMORY[0x1E696A578];
+      v31[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+      v24 = [v21 initWithDomain:v22 code:1 userInfo:v23];
 
-      (*(replyCopy + 2))(replyCopy, MEMORY[0x1E695E0F0], v23);
+      (*(replyCopy + 2))(replyCopy, MEMORY[0x1E695E0F0], v24);
     }
   }
 
   else
   {
-    v13 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No reply handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No reply handler provided for %@ in %@", v17, v19}];
   }
 }
 
 void __70__ATXModeEntityScorerClient_rankedNotificationsForMode_options_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -1075,70 +1085,71 @@ void __70__ATXModeEntityScorerClient_rankedNotificationsForMode_options_reply___
 
 - (void)rankedAppsForNotificationsForMode:(unint64_t)mode reply:(id)reply
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (replyCopy)
   {
-    if ([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0])
+    v8 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+    if (v8)
     {
       xpcConnection = self->_xpcConnection;
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __69__ATXModeEntityScorerClient_rankedAppsForNotificationsForMode_reply___block_invoke;
-      v24[3] = &unk_1E80C1100;
-      v26 = a2;
-      v24[4] = self;
-      v9 = replyCopy;
-      v25 = v9;
-      v10 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v24];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __69__ATXModeEntityScorerClient_rankedAppsForNotificationsForMode_reply___block_invoke_95;
-      v22[3] = &unk_1E80C0908;
-      v23 = v9;
-      [v10 rankedAppsForNotificationsForMode:mode reply:v22];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __69__ATXModeEntityScorerClient_rankedAppsForNotificationsForMode_reply___block_invoke;
+      v25[3] = &unk_1E80C1100;
+      v27 = a2;
+      v25[4] = self;
+      v10 = replyCopy;
+      v26 = v10;
+      v11 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v25];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __69__ATXModeEntityScorerClient_rankedAppsForNotificationsForMode_reply___block_invoke_95;
+      v23[3] = &unk_1E80C0908;
+      v24 = v10;
+      [v11 rankedAppsForNotificationsForMode:mode reply:v23];
     }
 
     else
     {
-      v17 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = __atxlog_handle_notification_management(v8);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [ATXModeEntityScorerClient scoreContacts:mode:reply:];
       }
 
-      v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v19 = *MEMORY[0x1E696A5A0];
-      v27 = *MEMORY[0x1E696A578];
-      v28[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-      v21 = [v18 initWithDomain:v19 code:1 userInfo:v20];
+      v19 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v20 = *MEMORY[0x1E696A5A0];
+      v28 = *MEMORY[0x1E696A578];
+      v29[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v22 = [v19 initWithDomain:v20 code:1 userInfo:v21];
 
-      (*(replyCopy + 2))(replyCopy, MEMORY[0x1E695E0F0], v21);
+      (*(replyCopy + 2))(replyCopy, MEMORY[0x1E695E0F0], v22);
     }
   }
 
   else
   {
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v12 = MEMORY[0x1E695DF30];
-    v13 = *MEMORY[0x1E695D930];
-    v14 = NSStringFromSelector(a2);
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    [v12 raise:v13 format:{@"No reply handler provided for %@ in %@", v14, v16}];
+    v13 = MEMORY[0x1E695DF30];
+    v14 = *MEMORY[0x1E695D930];
+    v15 = NSStringFromSelector(a2);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    [v13 raise:v14 format:{@"No reply handler provided for %@ in %@", v15, v17}];
   }
 }
 
 void __69__ATXModeEntityScorerClient_rankedAppsForNotificationsForMode_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -1149,70 +1160,71 @@ void __69__ATXModeEntityScorerClient_rankedAppsForNotificationsForMode_reply___b
 
 - (void)rankedContactsForNotificationsForMode:(unint64_t)mode reply:(id)reply
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (replyCopy)
   {
-    if ([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0])
+    v8 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+    if (v8)
     {
       xpcConnection = self->_xpcConnection;
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __73__ATXModeEntityScorerClient_rankedContactsForNotificationsForMode_reply___block_invoke;
-      v24[3] = &unk_1E80C1100;
-      v26 = a2;
-      v24[4] = self;
-      v9 = replyCopy;
-      v25 = v9;
-      v10 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v24];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __73__ATXModeEntityScorerClient_rankedContactsForNotificationsForMode_reply___block_invoke_96;
-      v22[3] = &unk_1E80C0908;
-      v23 = v9;
-      [v10 rankedContactsForNotificationsForMode:mode reply:v22];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __73__ATXModeEntityScorerClient_rankedContactsForNotificationsForMode_reply___block_invoke;
+      v25[3] = &unk_1E80C1100;
+      v27 = a2;
+      v25[4] = self;
+      v10 = replyCopy;
+      v26 = v10;
+      v11 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v25];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __73__ATXModeEntityScorerClient_rankedContactsForNotificationsForMode_reply___block_invoke_96;
+      v23[3] = &unk_1E80C0908;
+      v24 = v10;
+      [v11 rankedContactsForNotificationsForMode:mode reply:v23];
     }
 
     else
     {
-      v17 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = __atxlog_handle_notification_management(v8);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [ATXModeEntityScorerClient scoreContacts:mode:reply:];
       }
 
-      v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v19 = *MEMORY[0x1E696A5A0];
-      v27 = *MEMORY[0x1E696A578];
-      v28[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-      v21 = [v18 initWithDomain:v19 code:1 userInfo:v20];
+      v19 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v20 = *MEMORY[0x1E696A5A0];
+      v28 = *MEMORY[0x1E696A578];
+      v29[0] = @"Missing entitlement for mode entity scoring.  Not calling XPC service.";
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v22 = [v19 initWithDomain:v20 code:1 userInfo:v21];
 
-      (*(replyCopy + 2))(replyCopy, MEMORY[0x1E695E0F0], v21);
+      (*(replyCopy + 2))(replyCopy, MEMORY[0x1E695E0F0], v22);
     }
   }
 
   else
   {
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v12 = MEMORY[0x1E695DF30];
-    v13 = *MEMORY[0x1E695D930];
-    v14 = NSStringFromSelector(a2);
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    [v12 raise:v13 format:{@"No reply handler provided for %@ in %@", v14, v16}];
+    v13 = MEMORY[0x1E695DF30];
+    v14 = *MEMORY[0x1E695D930];
+    v15 = NSStringFromSelector(a2);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    [v13 raise:v14 format:{@"No reply handler provided for %@ in %@", v15, v17}];
   }
 }
 
 void __73__ATXModeEntityScorerClient_rankedContactsForNotificationsForMode_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -1223,69 +1235,70 @@ void __73__ATXModeEntityScorerClient_rankedContactsForNotificationsForMode_reply
 
 - (void)scoreAppsForDenyList:(id)list mode:(unint64_t)mode reply:(id)reply
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   listCopy = list;
   replyCopy = reply;
   if (replyCopy)
   {
-    if ([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0])
+    v11 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+    if (v11)
     {
       xpcConnection = self->_xpcConnection;
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __61__ATXModeEntityScorerClient_scoreAppsForDenyList_mode_reply___block_invoke;
-      v26[3] = &unk_1E80C2678;
-      v26[4] = self;
-      v26[5] = a2;
-      v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v26];
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __61__ATXModeEntityScorerClient_scoreAppsForDenyList_mode_reply___block_invoke_100;
-      v24[3] = &unk_1E80C0908;
-      v25 = replyCopy;
-      [v12 scoreAppsForDenyList:listCopy mode:mode reply:v24];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __61__ATXModeEntityScorerClient_scoreAppsForDenyList_mode_reply___block_invoke;
+      v27[3] = &unk_1E80C2678;
+      v27[4] = self;
+      v27[5] = a2;
+      v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v27];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __61__ATXModeEntityScorerClient_scoreAppsForDenyList_mode_reply___block_invoke_100;
+      v25[3] = &unk_1E80C0908;
+      v26 = replyCopy;
+      [v13 scoreAppsForDenyList:listCopy mode:mode reply:v25];
     }
 
     else
     {
-      v19 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = __atxlog_handle_notification_management(v11);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [ATXModeEntityScorerClient scoreContacts:mode:reply:];
       }
 
-      v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v21 = *MEMORY[0x1E696A5A0];
-      v27 = *MEMORY[0x1E696A578];
-      v28[0] = @"Missing entitlement for mode entity scoring of apps for the deny list.  Not calling XPC service.";
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-      v23 = [v20 initWithDomain:v21 code:1 userInfo:v22];
+      v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v22 = *MEMORY[0x1E696A5A0];
+      v28 = *MEMORY[0x1E696A578];
+      v29[0] = @"Missing entitlement for mode entity scoring of apps for the deny list.  Not calling XPC service.";
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v24 = [v21 initWithDomain:v22 code:1 userInfo:v23];
 
-      (*(replyCopy + 2))(replyCopy, listCopy, v23);
+      (*(replyCopy + 2))(replyCopy, listCopy, v24);
     }
   }
 
   else
   {
-    v13 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No reply handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No reply handler provided for %@ in %@", v17, v19}];
   }
 }
 
 void __61__ATXModeEntityScorerClient_scoreAppsForDenyList_mode_reply___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __54__ATXModeEntityScorerClient_scoreContacts_mode_reply___block_invoke_cold_1();
@@ -1294,64 +1307,65 @@ void __61__ATXModeEntityScorerClient_scoreAppsForDenyList_mode_reply___block_inv
 
 - (void)rankedAppsForDenyListForMode:(unint64_t)mode reply:(id)reply
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (!replyCopy)
   {
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v12 = MEMORY[0x1E695DF30];
-    v13 = *MEMORY[0x1E695D930];
-    v14 = NSStringFromSelector(a2);
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    [v12 raise:v13 format:{@"No reply handler provided for %@ in %@", v14, v16}];
+    v13 = MEMORY[0x1E695DF30];
+    v14 = *MEMORY[0x1E695D930];
+    v15 = NSStringFromSelector(a2);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    [v13 raise:v14 format:{@"No reply handler provided for %@ in %@", v15, v17}];
 
     goto LABEL_10;
   }
 
-  if (([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0] & 1) == 0)
+  v8 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+  if ((v8 & 1) == 0)
   {
-    v17 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_notification_management(v8);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v19 = *MEMORY[0x1E696A5A0];
-    v27 = *MEMORY[0x1E696A578];
-    v28[0] = @"Missing entitlement for mode entity scoring of apps for the deny list.  Not calling XPC service.";
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-    v14 = [v18 initWithDomain:v19 code:1 userInfo:v20];
+    v19 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v20 = *MEMORY[0x1E696A5A0];
+    v28 = *MEMORY[0x1E696A578];
+    v29[0] = @"Missing entitlement for mode entity scoring of apps for the deny list.  Not calling XPC service.";
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v15 = [v19 initWithDomain:v20 code:1 userInfo:v21];
 
-    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v14);
+    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v15);
 LABEL_10:
 
     goto LABEL_11;
   }
 
   xpcConnection = self->_xpcConnection;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __64__ATXModeEntityScorerClient_rankedAppsForDenyListForMode_reply___block_invoke;
-  v24[3] = &unk_1E80C1100;
-  v26 = a2;
-  v24[4] = self;
-  v9 = replyCopy;
-  v25 = v9;
-  v10 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v24];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __64__ATXModeEntityScorerClient_rankedAppsForDenyListForMode_reply___block_invoke_101;
-  v21[3] = &unk_1E80C26A0;
-  v23 = a2;
-  v22 = v9;
-  [v10 rankedAppsForDenyListForMode:mode reply:v21];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __64__ATXModeEntityScorerClient_rankedAppsForDenyListForMode_reply___block_invoke;
+  v25[3] = &unk_1E80C1100;
+  v27 = a2;
+  v25[4] = self;
+  v10 = replyCopy;
+  v26 = v10;
+  v11 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v25];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __64__ATXModeEntityScorerClient_rankedAppsForDenyListForMode_reply___block_invoke_101;
+  v22[3] = &unk_1E80C26A0;
+  v24 = a2;
+  v23 = v10;
+  [v11 rankedAppsForDenyListForMode:mode reply:v22];
 
 LABEL_11:
 }
@@ -1359,7 +1373,7 @@ LABEL_11:
 void __64__ATXModeEntityScorerClient_rankedAppsForDenyListForMode_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -1373,7 +1387,7 @@ void __64__ATXModeEntityScorerClient_rankedAppsForDenyListForMode_reply___block_
   v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = __atxlog_handle_notification_management();
+  v7 = __atxlog_handle_notification_management(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(*(a1 + 40));
@@ -1389,69 +1403,70 @@ void __64__ATXModeEntityScorerClient_rankedAppsForDenyListForMode_reply___block_
 
 - (void)scoreContactsForDenyList:(id)list mode:(unint64_t)mode reply:(id)reply
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   listCopy = list;
   replyCopy = reply;
   if (replyCopy)
   {
-    if ([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0])
+    v11 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+    if (v11)
     {
       xpcConnection = self->_xpcConnection;
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __65__ATXModeEntityScorerClient_scoreContactsForDenyList_mode_reply___block_invoke;
-      v26[3] = &unk_1E80C2678;
-      v26[4] = self;
-      v26[5] = a2;
-      v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v26];
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __65__ATXModeEntityScorerClient_scoreContactsForDenyList_mode_reply___block_invoke_105;
-      v24[3] = &unk_1E80C0908;
-      v25 = replyCopy;
-      [v12 scoreContactsForDenyList:listCopy mode:mode reply:v24];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __65__ATXModeEntityScorerClient_scoreContactsForDenyList_mode_reply___block_invoke;
+      v27[3] = &unk_1E80C2678;
+      v27[4] = self;
+      v27[5] = a2;
+      v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v27];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __65__ATXModeEntityScorerClient_scoreContactsForDenyList_mode_reply___block_invoke_105;
+      v25[3] = &unk_1E80C0908;
+      v26 = replyCopy;
+      [v13 scoreContactsForDenyList:listCopy mode:mode reply:v25];
     }
 
     else
     {
-      v19 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = __atxlog_handle_notification_management(v11);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [ATXModeEntityScorerClient scoreContacts:mode:reply:];
       }
 
-      v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v21 = *MEMORY[0x1E696A5A0];
-      v27 = *MEMORY[0x1E696A578];
-      v28[0] = @"Missing entitlement for mode entity scoring of contacts for the deny list.  Not calling XPC service.";
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
-      v23 = [v20 initWithDomain:v21 code:1 userInfo:v22];
+      v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v22 = *MEMORY[0x1E696A5A0];
+      v28 = *MEMORY[0x1E696A578];
+      v29[0] = @"Missing entitlement for mode entity scoring of contacts for the deny list.  Not calling XPC service.";
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      v24 = [v21 initWithDomain:v22 code:1 userInfo:v23];
 
-      (*(replyCopy + 2))(replyCopy, listCopy, v23);
+      (*(replyCopy + 2))(replyCopy, listCopy, v24);
     }
   }
 
   else
   {
-    v13 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No reply handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No reply handler provided for %@ in %@", v17, v19}];
   }
 }
 
 void __65__ATXModeEntityScorerClient_scoreContactsForDenyList_mode_reply___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_notification_management();
+  v3 = __atxlog_handle_notification_management(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __54__ATXModeEntityScorerClient_scoreContacts_mode_reply___block_invoke_cold_1();
@@ -1460,64 +1475,65 @@ void __65__ATXModeEntityScorerClient_scoreContactsForDenyList_mode_reply___block
 
 - (void)rankedContactsForDenyListForMode:(unint64_t)mode options:(unint64_t)options reply:(id)reply
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (!replyCopy)
   {
-    v13 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D930];
-    v16 = NSStringFromSelector(a2);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    [v14 raise:v15 format:{@"No reply handler provided for %@ in %@", v16, v18}];
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D930];
+    v17 = NSStringFromSelector(a2);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [v15 raise:v16 format:{@"No reply handler provided for %@ in %@", v17, v19}];
 
     goto LABEL_10;
   }
 
-  if (([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0] & 1) == 0)
+  v10 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.ModeEntityScorer" logHandle:0];
+  if ((v10 & 1) == 0)
   {
-    v19 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_notification_management(v10);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
     }
 
-    v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v21 = *MEMORY[0x1E696A5A0];
-    v29 = *MEMORY[0x1E696A578];
-    v30[0] = @"Missing entitlement for mode entity scoring of contacts for the deny list.  Not calling XPC service.";
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-    v16 = [v20 initWithDomain:v21 code:1 userInfo:v22];
+    v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v22 = *MEMORY[0x1E696A5A0];
+    v30 = *MEMORY[0x1E696A578];
+    v31[0] = @"Missing entitlement for mode entity scoring of contacts for the deny list.  Not calling XPC service.";
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v17 = [v21 initWithDomain:v22 code:1 userInfo:v23];
 
-    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v16);
+    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v17);
 LABEL_10:
 
     goto LABEL_11;
   }
 
   xpcConnection = self->_xpcConnection;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __76__ATXModeEntityScorerClient_rankedContactsForDenyListForMode_options_reply___block_invoke;
-  v26[3] = &unk_1E80C1100;
-  v28 = a2;
-  v26[4] = self;
-  v11 = replyCopy;
-  v27 = v11;
-  v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v26];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __76__ATXModeEntityScorerClient_rankedContactsForDenyListForMode_options_reply___block_invoke_106;
-  v23[3] = &unk_1E80C26A0;
-  v25 = a2;
-  v24 = v11;
-  [v12 rankedContactsForDenyListForMode:mode options:options reply:v23];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __76__ATXModeEntityScorerClient_rankedContactsForDenyListForMode_options_reply___block_invoke;
+  v27[3] = &unk_1E80C1100;
+  v29 = a2;
+  v27[4] = self;
+  v12 = replyCopy;
+  v28 = v12;
+  v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v27];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __76__ATXModeEntityScorerClient_rankedContactsForDenyListForMode_options_reply___block_invoke_106;
+  v24[3] = &unk_1E80C26A0;
+  v26 = a2;
+  v25 = v12;
+  [v13 rankedContactsForDenyListForMode:mode options:options reply:v24];
 
 LABEL_11:
 }
@@ -1525,7 +1541,7 @@ LABEL_11:
 void __76__ATXModeEntityScorerClient_rankedContactsForDenyListForMode_options_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -1539,7 +1555,7 @@ void __76__ATXModeEntityScorerClient_rankedContactsForDenyListForMode_options_re
   v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = __atxlog_handle_notification_management();
+  v7 = __atxlog_handle_notification_management(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromSelector(*(a1 + 40));
@@ -1581,7 +1597,7 @@ void __76__ATXModeEntityScorerClient_rankedContactsForDenyListForMode_options_re
 
   else
   {
-    v18 = __atxlog_handle_notification_management();
+    v18 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
@@ -1599,7 +1615,7 @@ void __76__ATXModeEntityScorerClient_rankedContactsForDenyListForMode_options_re
 void __125__ATXModeEntityScorerClient_modeEntityScoresFromCacheForModeEntityTypeIdentifier_modeIdentifier_modeConfigurationType_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -1636,7 +1652,7 @@ void __125__ATXModeEntityScorerClient_modeEntityScoresFromCacheForModeEntityType
 
   else
   {
-    v22 = __atxlog_handle_notification_management();
+    v22 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [ATXModeEntityScorerClient scoreContacts:mode:reply:];
@@ -1654,7 +1670,7 @@ void __125__ATXModeEntityScorerClient_modeEntityScoresFromCacheForModeEntityType
 void __124__ATXModeEntityScorerClient_assignModeEntityScores_entityTypeIdentifier_entityIdentifier_score_modeConfigurationType_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__ATXNotificationCategorizationClient_collectDynamicBreakthroughFeaturesForNotification_completion___block_invoke_cold_1();
@@ -1667,7 +1683,7 @@ void __124__ATXModeEntityScorerClient_assignModeEntityScores_entityTypeIdentifie
 {
   OUTLINED_FUNCTION_7_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "Not attempting XPC service call on connection %@ without entitlement %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_1_2(&dword_1BF549000, v0, v1, "Not attempting XPC service call on connection %@ without entitlement %@", v2, v3, v4, v5);
 }
 
 - (void)scoreContacts:mode:reply:.cold.2()

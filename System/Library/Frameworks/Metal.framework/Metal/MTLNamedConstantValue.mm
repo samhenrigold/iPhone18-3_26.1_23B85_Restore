@@ -49,15 +49,15 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v14[9] = *MEMORY[0x1E69E9840];
+  v13[9] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = newStringFromConstantValue(self->_data, self->_dataType);
   v6 = MEMORY[0x1E696AEC0];
-  v13.receiver = self;
-  v13.super_class = MTLNamedConstantValue;
-  v7 = [(MTLNamedConstantValue *)&v13 description];
-  v14[0] = v4;
-  v14[1] = @"Name =";
+  v12.receiver = self;
+  v12.super_class = MTLNamedConstantValue;
+  v7 = [(MTLNamedConstantValue *)&v12 description];
+  v13[0] = v4;
+  v13[1] = @"Name =";
   name = @"<none>";
   dataType = self->_dataType;
   if (self->_name)
@@ -65,16 +65,15 @@
     name = self->_name;
   }
 
-  v14[2] = name;
-  v14[3] = v4;
-  v14[4] = @"Type =";
-  v14[5] = MTLDataTypeString(dataType);
-  v14[6] = v4;
-  v14[7] = @"Value =";
-  v14[8] = v5;
-  v10 = [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v14, 9), "componentsJoinedByString:", @" "];
+  v13[2] = name;
+  v13[3] = v4;
+  v13[4] = @"Type =";
+  v13[5] = MTLDataTypeString(dataType);
+  v13[6] = v4;
+  v13[7] = @"Value =";
+  v13[8] = v5;
+  v10 = [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v13, 9), "componentsJoinedByString:", @" "];
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -7,9 +7,9 @@
 - (id)hf_rootAccessoryLikeHomeKitObject
 {
   accessory = [self accessory];
-  home = [accessory home];
+  v3 = objc_msgSend_home(accessory);
   accessory2 = [self accessory];
-  v5 = [home hf_mediaSystemForAccessory:accessory2];
+  v5 = [v3 hf_mediaSystemForAccessory:accessory2];
 
   if (v5)
   {

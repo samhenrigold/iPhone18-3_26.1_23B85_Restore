@@ -192,26 +192,26 @@ void __40__AssistantIntentsController_specifiers__block_invoke_2(uint64_t a1)
 
 void __68__AssistantIntentsController__fetchIntentsSpecifiersWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count])
   {
-    v24 = a1;
+    v23 = a1;
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
     [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"APPS_GROUP"];
-    v19 = v23 = v4;
+    v18 = v22 = v4;
     [v4 addObject:?];
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     obj = v3;
-    v5 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v5)
     {
       v6 = v5;
-      v22 = *v26;
-      v21 = *MEMORY[0x277D40008];
+      v21 = *v25;
+      v20 = *MEMORY[0x277D40008];
       v7 = *MEMORY[0x277CBED28];
       v8 = *MEMORY[0x277D40020];
       v9 = *MEMORY[0x277D401A8];
@@ -219,18 +219,18 @@ void __68__AssistantIntentsController__fetchIntentsSpecifiersWithCompletion___bl
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v26 != v22)
+          if (*v25 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v25 + 1) + 8 * i);
+          v11 = *(*(&v24 + 1) + 8 * i);
           v12 = MEMORY[0x277D3FAD8];
           v13 = [v11 displayName];
-          v14 = [v12 preferenceSpecifierNamed:v13 target:*(v24 + 32) set:sel_setAccess_forSpecifier_ get:sel_accesssForSpecifier_ detail:0 cell:6 edit:0];
+          v14 = [v12 preferenceSpecifierNamed:v13 target:*(v23 + 32) set:sel_setAccess_forSpecifier_ get:sel_accesssForSpecifier_ detail:0 cell:6 edit:0];
 
           v15 = [v11 appID];
-          [v14 setProperty:v15 forKey:v21];
+          [v14 setProperty:v15 forKey:v20];
 
           [v14 setProperty:v7 forKey:v8];
           v16 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v11, "accessGranted")}];
@@ -239,24 +239,22 @@ void __68__AssistantIntentsController__fetchIntentsSpecifiersWithCompletion___bl
           v17 = [v11 appID];
           [v14 setProperty:v17 forKey:@"intentsAppID"];
 
-          [v23 addObject:v14];
+          [v22 addObject:v14];
         }
 
-        v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v6);
     }
 
-    (*(*(v24 + 40) + 16))();
+    (*(*(v23 + 40) + 16))();
   }
 
   else
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAccess:(id)access forSpecifier:(id)specifier

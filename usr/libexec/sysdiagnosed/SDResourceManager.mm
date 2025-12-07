@@ -6,10 +6,12 @@
 - (BOOL)decreaseDiagnosticCount;
 - (BOOL)decreaseDiagnosticCountForDiagnosticID:(id)d;
 - (BOOL)diagnosticIDExists:(id)exists;
+- (BOOL)finishedItemForPhaseAndUpdatePeer:(int)peer;
 - (BOOL)initConnectionWithPeer:(id)peer forDiagnosticID:(id)d;
 - (BOOL)initProgressTrackerWithConnection:(id)connection;
 - (BOOL)registerActivityWithID:(id)d;
 - (BOOL)registerDiagnosticObject:(id)object;
+- (BOOL)setUpCLI:(id)i stdoutfd:(int)stdoutfd stderrfd:(int)stderrfd;
 - (BOOL)setUpDiagnosticID:(id)d;
 - (BOOL)setUpLibClient:(id)client clientPid:(id)pid;
 - (BOOL)setUpSysdiagnoseLog:(id)log withID:(id)d;
@@ -26,6 +28,7 @@
 - (id)getDiagnosticIDForPid:(id)pid;
 - (id)getDiagnosticIDSimple;
 - (id)registerActivity;
+- (id)setUpFH:(int)h;
 - (id)stringForPhaseID:(int)d;
 - (int64_t)numberDiagnosticsInflight;
 - (void)_closeSysdiagnoseSessionHelper:(id)helper;
@@ -153,16 +156,16 @@
   logsCopy = logs;
   dCopy = d;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v8 = objc_sync_enter(selfCopy);
   if (logsCopy)
   {
     if (!dCopy)
     {
-      v9 = sub_100027970();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100027970(v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Rejected request for new diagnostic with local logs - given nil diagnosticID!", &v16, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Rejected request for new diagnostic with local logs - given nil diagnosticID!", &v18, 2u);
       }
 
       goto LABEL_8;
@@ -172,46 +175,45 @@
 
     if (localLogCollectionDiagnosticID)
     {
-      v9 = sub_100027970();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100027970(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         localLogCollectionDiagnosticID2 = [(SDResourceManager *)selfCopy localLogCollectionDiagnosticID];
-        v16 = 138412290;
-        v17 = localLogCollectionDiagnosticID2;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Rejected request for new diagnostic with local logs. Already collecting local logs for %@", &v16, 0xCu);
+        v18 = 138412290;
+        v19 = localLogCollectionDiagnosticID2;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Rejected request for new diagnostic with local logs. Already collecting local logs for %@", &v18, 0xCu);
       }
 
 LABEL_8:
-      v11 = 0;
+      v13 = 0;
       goto LABEL_15;
     }
 
-    [(SDResourceManager *)selfCopy setLocalLogCollectionDiagnosticID:dCopy];
-    v12 = sub_100027970();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100027970([(SDResourceManager *)selfCopy setLocalLogCollectionDiagnosticID:dCopy]);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = dCopy;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Increasing diagnostic count for local log collection for diagnosticID: %@", &v16, 0xCu);
+      v18 = 138412290;
+      v19 = dCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Increasing diagnostic count for local log collection for diagnosticID: %@", &v18, 0xCu);
     }
   }
 
   [(SDResourceManager *)selfCopy setCount:[(SDResourceManager *)selfCopy count]+ 1];
-  v9 = &_os_log_default;
-  v13 = &_os_log_default;
+  v11 = &_os_log_default;
+  v15 = &_os_log_default;
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [(SDResourceManager *)selfCopy count];
-    v16 = 134217984;
-    v17 = v14;
-    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Increased diagnostic atomic count to %ld.", &v16, 0xCu);
+    v16 = [(SDResourceManager *)selfCopy count];
+    v18 = 134217984;
+    v19 = v16;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Increased diagnostic atomic count to %ld.", &v18, 0xCu);
   }
 
-  v11 = 1;
+  v13 = 1;
 LABEL_15:
 
   objc_sync_exit(selfCopy);
-  return v11;
+  return v13;
 }
 
 - (BOOL)decreaseDiagnosticCountForDiagnosticID:(id)d
@@ -565,6 +567,43 @@ LABEL_15:
   return v4;
 }
 
+- (BOOL)setUpCLI:(id)i stdoutfd:(int)stdoutfd stderrfd:(int)stderrfd
+{
+  v5 = *&stderrfd;
+  v6 = *&stdoutfd;
+  iCopy = i;
+  if (iCopy)
+  {
+    if (![(SDResourceManager *)self diagnosticIDExists:iCopy]&& os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      uTF8String = [iCopy UTF8String];
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "ERROR: Trying to set up CLI streaming for a non-existent :D diagnosticID %s", buf, 0xCu);
+    }
+
+    getActivityID = [(SDResourceManager *)self getActivityID];
+    v10 = [(SDResourceManager *)self setUpFH:v6];
+    v11 = [(SDResourceManager *)self setUpFH:v5];
+    v12 = [NSMutableArray arrayWithObjects:v10, v11, 0];
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    [(NSMutableDictionary *)selfCopy->_cliManager setObject:v12 forKey:iCopy];
+    objc_sync_exit(selfCopy);
+
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      longLongValue = [getActivityID longLongValue];
+      *buf = 138412546;
+      uTF8String = iCopy;
+      v18 = 2048;
+      v19 = longLongValue;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Set up CLI with diagnostic: %@, activity %016llX", buf, 0x16u);
+    }
+  }
+
+  return iCopy != 0;
+}
+
 - (void)cliWrite:(int)write logStr:(id)str withParameters:(char *)parameters
 {
   strCopy = str;
@@ -631,6 +670,27 @@ LABEL_15:
 
     objc_sync_exit(selfCopy);
   }
+}
+
+- (id)setUpFH:(int)h
+{
+  v3 = *&h;
+  if (h == -1)
+  {
+    v3 = open("/dev/null", 1);
+    if (v3 == -1)
+    {
+      sub_100061EA0();
+    }
+  }
+
+  v4 = [[NSFileHandle alloc] initWithFileDescriptor:v3 closeOnDealloc:1];
+  if (!v4)
+  {
+    sub_100061E74();
+  }
+
+  return v4;
 }
 
 - (BOOL)setUpSysdiagnoseLog:(id)log withID:(id)d
@@ -1193,6 +1253,64 @@ LABEL_2:
   }
 
 LABEL_18:
+}
+
+- (BOOL)finishedItemForPhaseAndUpdatePeer:(int)peer
+{
+  v3 = *&peer;
+  getDiagnosticID = [(SDResourceManager *)self getDiagnosticID];
+  if (getDiagnosticID)
+  {
+    if (v3 <= 3)
+    {
+      selfCopy = self;
+      objc_sync_enter(selfCopy);
+      v9 = [(NSMutableDictionary *)selfCopy->_progressManager objectForKeyedSubscript:getDiagnosticID];
+      v6 = [(NSMutableDictionary *)selfCopy->_peerManager objectForKeyedSubscript:getDiagnosticID];
+      if (v9)
+      {
+        [v9 increaseCountForPhase:v3];
+        [v9 getProgress];
+        v11 = v10;
+      }
+
+      else
+      {
+        v11 = 0.0;
+      }
+
+      objc_sync_exit(selfCopy);
+      if (!v9)
+      {
+        goto LABEL_11;
+      }
+
+      if (v6)
+      {
+        [(SDResourceManager *)selfCopy sendProgress:2 phase:v6 toPeers:v11];
+        v7 = 1;
+LABEL_12:
+
+        goto LABEL_13;
+      }
+
+      v13 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+      if (v13)
+      {
+        sub_100061F44(v13, v14, v15, v16, v17, v18, v19, v20);
+      }
+    }
+
+    v6 = 0;
+LABEL_11:
+    v7 = 0;
+    goto LABEL_12;
+  }
+
+  v7 = 0;
+LABEL_13:
+
+  return v7;
 }
 
 - (void)initPeerProgressHandler

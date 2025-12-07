@@ -83,8 +83,7 @@
     {
     }
 
-    [(_HKFitnessFriendActivitySnapshot *)v22->_activitySnapshot snapshotIndex];
-    v24 = sub_1000B5308();
+    v24 = sub_1000B5308([(_HKFitnessFriendActivitySnapshot *)v22->_activitySnapshot snapshotIndex]);
     snapshotDateComponents = v22->_snapshotDateComponents;
     v22->_snapshotDateComponents = v24;
 

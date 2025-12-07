@@ -35,9 +35,9 @@
 
 - (void)setValueChangedTarget:(id)target action:(SEL)action specifier:(id)specifier
 {
-  v11.receiver = self;
-  v11.super_class = CNFRegEditablePhoneTableCell;
-  [(CNFRegEditableTableCell *)&v11 setValueChangedTarget:target action:action specifier:?];
+  v10.receiver = self;
+  v10.super_class = CNFRegEditablePhoneTableCell;
+  [(CNFRegEditableTableCell *)&v10 setValueChangedTarget:target action:action specifier:?];
   v7 = [specifier propertyForKey:@"cnf-phoneFieldCountryCodeSelector"];
   if (v7)
   {
@@ -45,7 +45,6 @@
     if (v8)
     {
       v9 = v8;
-      v10 = *(&self->super.super.super.super.super.super.super.isa + *MEMORY[0x277D3FBF0]);
       if (objc_opt_respondsToSelector())
       {
         self->_countryCodeSelector = v9;
@@ -57,36 +56,35 @@
 - (id)countryCode
 {
   v3 = *(&self->super.super.super.super.super.super.super.isa + *MEMORY[0x277D3FBF0]);
-  if (!v3 || (countryCodeSelector = self->_countryCodeSelector) == 0 || (v5 = self->_countryCodeSelector, (v6 = [v3 performSelector:countryCodeSelector]) == 0))
+  if (!v3 || (countryCodeSelector = self->_countryCodeSelector) == 0 || (v5 = [v3 performSelector:countryCodeSelector]) == 0)
   {
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-    v6 = [currentLocale objectForKey:*MEMORY[0x277CBE690]];
+    v5 = [currentLocale objectForKey:*MEMORY[0x277CBE690]];
   }
 
-  return [v6 lowercaseString];
+  return [v5 lowercaseString];
 }
 
 - ($2D6F231FED87FA8D411482BD0BBB798B)suggestionsForString:(id)string inputIndex:(unsigned int)index
 {
   [(CNFRegEditablePhoneTableCell *)self countryCode];
-  previousValue = self->_previousValue;
-  v6 = _PNCopyFormattedNumberSuggestionForDigitsWithCountry();
-  if (v6)
+  v5 = _PNCopyFormattedNumberSuggestionForDigitsWithCountry();
+  if (v5)
   {
-    v7 = [MEMORY[0x277CBEA60] arrayWithObject:v6];
-    v8 = self->_previousValue;
-    self->_previousValue = [v6 copy];
+    v6 = [MEMORY[0x277CBEA60] arrayWithObject:v5];
+    previousValue = self->_previousValue;
+    self->_previousValue = [v5 copy];
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v9 = v7;
-  v10 = 0;
-  result.var1 = v10;
-  result.var0 = v9;
+  v8 = v6;
+  v9 = 0;
+  result.var1 = v9;
+  result.var0 = v8;
   return result;
 }
 

@@ -36,19 +36,17 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uuid = [(HMDAction *)self uuid];
   v5 = [v3 initWithName:@"UUID" value:uuid];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAction *)self type];
   v7 = HMActionTypeAsString();
   v8 = [v6 initWithName:@"Type" value:v7];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -66,7 +64,7 @@
 
 - (HMDAction)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"actionUUID"];
   if (v5)
@@ -86,18 +84,17 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = @"actionUUID";
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode HMDAction missing key: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = @"actionUUID";
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode HMDAction missing key: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -111,7 +108,7 @@
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -137,51 +134,46 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v21 = 138543874;
-      v22 = v17;
-      v23 = 2112;
-      v24 = v11;
-      v25 = 2112;
-      v26 = objc_opt_class();
-      v18 = v26;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectUpdated]", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = v17;
+      v22 = 2112;
+      v23 = v11;
+      v24 = 2112;
+      v25 = objc_opt_class();
+      v18 = v25;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectUpdated]", &v20, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [messageCopy respondWithError:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelBackedObjects
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = self;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = self;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (id)backingStoreObjectsWithChangeType:(unint64_t)type version:(int64_t)version
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v4 = [(HMDAction *)self modelObjectWithChangeType:type version:version];
   v5 = v4;
   if (v4)
   {
-    v9[0] = v4;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
   {
     v6 = MEMORY[0x277CBEBF8];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -294,17 +286,15 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = *MEMORY[0x277CD2060];
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = *MEMORY[0x277CD2060];
   uuid = [(HMDAction *)self uuid];
   uUIDString = [uuid UUIDString];
-  v10[0] = uUIDString;
-  v9[1] = *MEMORY[0x277CD2058];
+  v9[0] = uUIDString;
+  v8[1] = *MEMORY[0x277CD2058];
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDAction type](self, "type")}];
-  v10[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
@@ -387,10 +377,9 @@
 
 void __24__HMDAction_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_185972;
-  logCategory__hmf_once_v3_185972 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_185972;
+  logCategory__hmf_once_v3_185972 = v0;
 }
 
 @end

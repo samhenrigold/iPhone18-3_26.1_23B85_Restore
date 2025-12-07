@@ -55,16 +55,16 @@
 
 - (void)startMotionDataListenerWithOptions:(id)options
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
     v8 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA450];
-    v23[0] = @"Unsupported feature";
+    v21 = *MEMORY[0x277CCA450];
+    v22[0] = @"Unsupported feature";
     v9 = MEMORY[0x277CBEAC0];
-    v10 = v23;
-    v11 = &v22;
+    v10 = v22;
+    v11 = &v21;
 LABEL_14:
     v12 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:1];
     v13 = v8;
@@ -81,11 +81,11 @@ LABEL_15:
   if ((deviceType & 2) != 0)
   {
     v8 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CCA450];
-    v21 = @"Unrelated devices not supported";
+    v19 = *MEMORY[0x277CCA450];
+    v20 = @"Unrelated devices not supported";
     v9 = MEMORY[0x277CBEAC0];
-    v10 = &v21;
-    v11 = &v20;
+    v10 = &v20;
+    v11 = &v19;
     goto LABEL_14;
   }
 
@@ -102,11 +102,11 @@ LABEL_15:
 
   if (![(DSClientMotionDataOptions *)self->_motionDataOptions dataSubType]|| ![(DSClientMotionDataOptions *)self->_motionDataOptions deviceType])
   {
-    v17 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA450];
-    v19 = @"Invalid options";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-    v13 = v17;
+    v16 = MEMORY[0x277CCA9B8];
+    v17 = *MEMORY[0x277CCA450];
+    v18 = @"Invalid options";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v13 = v16;
     v14 = 2;
     goto LABEL_15;
   }
@@ -118,8 +118,6 @@ LABEL_15:
 
   [(DSMotionStateListenerProxy *)self->_sharedListener startMotionStateListenerWithObserver:self];
 LABEL_16:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMotionDataListener

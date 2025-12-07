@@ -247,9 +247,9 @@ LABEL_6:
 - (NSNumber)eastLongitude
 {
   selfCopy = self;
-  v3 = sub_1B6322248();
+  v4 = sub_1B6322248(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setEastLongitude:(id)longitude
@@ -268,9 +268,9 @@ LABEL_6:
 - (NSNumber)length
 {
   selfCopy = self;
-  v3 = sub_1B6322994();
+  v4 = sub_1B6322994(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setLength:(id)length
@@ -283,9 +283,9 @@ LABEL_6:
 - (NSNumber)northLatitude
 {
   selfCopy = self;
-  v3 = sub_1B6322EB0();
+  v4 = sub_1B6322EB0(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setNorthLatitude:(id)latitude
@@ -298,9 +298,9 @@ LABEL_6:
 - (NSNumber)originLatitude
 {
   selfCopy = self;
-  v3 = sub_1B632334C();
+  v4 = sub_1B632334C(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setOriginLatitude:(id)latitude
@@ -313,9 +313,9 @@ LABEL_6:
 - (NSNumber)originLongitude
 {
   selfCopy = self;
-  v3 = sub_1B63237E8();
+  v4 = sub_1B63237E8(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setOriginLongitude:(id)longitude
@@ -334,9 +334,9 @@ LABEL_6:
 - (NSNumber)southLatitude
 {
   selfCopy = self;
-  v3 = sub_1B63247D0();
+  v4 = sub_1B63247D0(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setSouthLatitude:(id)latitude
@@ -349,9 +349,9 @@ LABEL_6:
 - (NSNumber)totalAscent
 {
   selfCopy = self;
-  v3 = sub_1B6324C6C();
+  v4 = sub_1B6324C6C(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setTotalAscent:(id)ascent
@@ -364,9 +364,9 @@ LABEL_6:
 - (NSNumber)totalDescent
 {
   selfCopy = self;
-  v3 = sub_1B6325108();
+  v4 = sub_1B6325108(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setTotalDescent:(id)descent
@@ -385,9 +385,9 @@ LABEL_6:
 - (NSNumber)transportType
 {
   selfCopy = self;
-  v3 = sub_1B63258C4();
+  v4 = sub_1B63258C4(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setTransportType:(id)type
@@ -400,9 +400,9 @@ LABEL_6:
 - (NSNumber)westLongitude
 {
   selfCopy = self;
-  v3 = sub_1B6325D60();
+  v4 = sub_1B6325D60(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setWestLongitude:(id)longitude

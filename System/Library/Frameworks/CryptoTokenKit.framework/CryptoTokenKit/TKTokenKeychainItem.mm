@@ -62,66 +62,62 @@
 
 + (NSDictionary)operationMap
 {
-  v6[4] = *MEMORY[0x1E69E9840];
-  v5[0] = @"ord";
-  v5[1] = @"osgn";
-  v6[0] = &unk_1F5A85150;
-  v6[1] = &unk_1F5A85168;
-  v5[2] = @"od";
-  v5[3] = @"ock";
-  v6[2] = &unk_1F5A85180;
-  v6[3] = &unk_1F5A85198;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:4];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[4] = *MEMORY[0x1E69E9840];
+  v4[0] = @"ord";
+  v4[1] = @"osgn";
+  v5[0] = &unk_1F5A85150;
+  v5[1] = &unk_1F5A85168;
+  v4[2] = @"od";
+  v4[3] = @"ock";
+  v5[2] = &unk_1F5A85180;
+  v5[3] = &unk_1F5A85198;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:4];
 
   return v2;
 }
 
 + (id)accessControlForConstraints:(id)constraints tokenID:(id)d error:(id *)error
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   constraintsCopy = constraints;
   dCopy = d;
-  v9 = *MEMORY[0x1E695E480];
-  v10 = SecAccessControlCreate();
-  if (v10)
+  v9 = SecAccessControlCreate();
+  if (v9)
   {
-    v22 = @"tkid";
+    v20 = @"tkid";
     stringRepresentation = [dCopy stringRepresentation];
-    v23[0] = stringRepresentation;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21[0] = stringRepresentation;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
 
     if (SecAccessControlSetProtection())
     {
       dictionary = [MEMORY[0x1E695DF90] dictionary];
       operationMap = [self operationMap];
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __65__TKTokenKeychainItem_accessControlForConstraints_tokenID_error___block_invoke;
-      v19[3] = &unk_1E86B7DF8;
-      v20 = constraintsCopy;
-      v21 = dictionary;
-      v15 = dictionary;
-      [operationMap enumerateKeysAndObjectsUsingBlock:v19];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __65__TKTokenKeychainItem_accessControlForConstraints_tokenID_error___block_invoke;
+      v17[3] = &unk_1E86B7DF8;
+      v18 = constraintsCopy;
+      v19 = dictionary;
+      v14 = dictionary;
+      [operationMap enumerateKeysAndObjectsUsingBlock:v17];
 
       SecAccessControlSetConstraints();
-      v16 = SecAccessControlCopyData();
+      v15 = SecAccessControlCopyData();
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v15;
 }
 
 void __65__TKTokenKeychainItem_accessControlForConstraints_tokenID_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -137,78 +133,77 @@ void __65__TKTokenKeychainItem_accessControlForConstraints_tokenID_error___block
 
 - (void)setAccessControl:(id)control
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   controlCopy = control;
   objc_storeStrong(&self->_accessControl, control);
   if (controlCopy)
   {
-    v35 = 0;
-    v6 = *MEMORY[0x1E695E480];
-    v7 = SecAccessControlCreateFromData();
-    if (v7)
+    v33 = 0;
+    v6 = SecAccessControlCreateFromData();
+    if (v6)
     {
-      v8 = SecAccessControlGetProtection();
+      v7 = SecAccessControlGetProtection();
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v9 = [v8 objectForKeyedSubscript:@"tkid"];
+        v8 = [v7 objectForKeyedSubscript:@"tkid"];
         tokenID = [(TKTokenKeychainItem *)self tokenID];
         stringRepresentation = [tokenID stringRepresentation];
-        v12 = [v9 isEqual:stringRepresentation];
+        v11 = [v8 isEqual:stringRepresentation];
 
-        if (v12)
+        if (v11)
         {
-          v13 = SecAccessControlGetConstraints();
+          v12 = SecAccessControlGetConstraints();
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v29 = v8;
-            v30 = v7;
-            v14 = [MEMORY[0x1E695E0F8] mutableCopy];
+            v27 = v7;
+            v28 = v6;
+            v13 = [MEMORY[0x1E695E0F8] mutableCopy];
+            v29 = 0u;
+            v30 = 0u;
             v31 = 0u;
             v32 = 0u;
-            v33 = 0u;
-            v34 = 0u;
-            v28 = v13;
-            v15 = v13;
-            v16 = [v15 countByEnumeratingWithState:&v31 objects:v36 count:16];
-            if (v16)
+            v26 = v12;
+            v14 = v12;
+            v15 = [v14 countByEnumeratingWithState:&v29 objects:v34 count:16];
+            if (v15)
             {
-              v17 = v16;
-              v18 = *v32;
+              v16 = v15;
+              v17 = *v30;
               do
               {
-                for (i = 0; i != v17; ++i)
+                for (i = 0; i != v16; ++i)
                 {
-                  if (*v32 != v18)
+                  if (*v30 != v17)
                   {
-                    objc_enumerationMutation(v15);
+                    objc_enumerationMutation(v14);
                   }
 
-                  v20 = *(*(&v31 + 1) + 8 * i);
+                  v19 = *(*(&v29 + 1) + 8 * i);
                   operationMap = [objc_opt_class() operationMap];
-                  v22 = [operationMap objectForKeyedSubscript:v20];
+                  v21 = [operationMap objectForKeyedSubscript:v19];
 
-                  if (v22)
+                  if (v21)
                   {
-                    v23 = [v15 objectForKeyedSubscript:v20];
-                    [v14 setObject:v23 forKeyedSubscript:v22];
+                    v22 = [v14 objectForKeyedSubscript:v19];
+                    [v13 setObject:v22 forKeyedSubscript:v21];
                   }
                 }
 
-                v17 = [v15 countByEnumeratingWithState:&v31 objects:v36 count:16];
+                v16 = [v14 countByEnumeratingWithState:&v29 objects:v34 count:16];
               }
 
-              while (v17);
+              while (v16);
             }
 
-            v24 = [v14 copy];
+            v23 = [v13 copy];
             constraints = self->_constraints;
-            self->_constraints = v24;
+            self->_constraints = v23;
 
-            v8 = v29;
-            v7 = v30;
-            v13 = v28;
+            v7 = v27;
+            v6 = v28;
+            v12 = v26;
           }
         }
       }
@@ -216,23 +211,21 @@ void __65__TKTokenKeychainItem_accessControlForConstraints_tokenID_error___block
 
     else
     {
-      v8 = TK_LOG_token_2();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v7 = TK_LOG_token_2(0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        [(TKTokenKeychainItem *)&v35 setAccessControl:controlCopy, v8];
+        [(TKTokenKeychainItem *)&v33 setAccessControl:controlCopy, v7];
       }
     }
 
-    v26 = v35;
+    v25 = v33;
   }
 
   else
   {
-    v26 = self->_constraints;
+    v25 = self->_constraints;
     self->_constraints = MEMORY[0x1E695E0F8];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (NSData)accessControl
@@ -263,19 +256,19 @@ void __65__TKTokenKeychainItem_accessControlForConstraints_tokenID_error___block
 
 - (NSMutableDictionary)keychainAttributes
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF90];
-  v15[0] = *MEMORY[0x1E697AEC8];
+  v14[0] = *MEMORY[0x1E697AEC8];
   tokenID = [(TKTokenKeychainItem *)self tokenID];
   stringRepresentation = [tokenID stringRepresentation];
-  v16[0] = stringRepresentation;
-  v15[1] = *MEMORY[0x1E697AEE8];
+  v15[0] = stringRepresentation;
+  v14[1] = *MEMORY[0x1E697AEE8];
   encodedObjectID = [(TKTokenKeychainItem *)self encodedObjectID];
-  v15[2] = *MEMORY[0x1E697ABD8];
+  v14[2] = *MEMORY[0x1E697ABD8];
   v7 = *MEMORY[0x1E697ABF8];
-  v16[1] = encodedObjectID;
-  v16[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v15[1] = encodedObjectID;
+  v15[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
   v9 = [v3 dictionaryWithDictionary:v8];
 
   label = [(TKTokenKeychainItem *)self label];
@@ -292,14 +285,12 @@ void __65__TKTokenKeychainItem_accessControlForConstraints_tokenID_error___block
     [v9 setObject:accessControl forKeyedSubscript:*MEMORY[0x1E697ABC8]];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (TKTokenKeychainItem)initWithItemInfo:(id)info
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = [TKTokenID alloc];
   v6 = *MEMORY[0x1E697AEC8];
@@ -308,45 +299,45 @@ void __65__TKTokenKeychainItem_accessControlForConstraints_tokenID_error___block
 
   if (v8)
   {
+    v25 = 0;
+    v10 = *MEMORY[0x1E697AEE8];
+    v11 = [infoCopy objectForKeyedSubscript:*MEMORY[0x1E697AEE8]];
     v24 = 0;
-    v9 = *MEMORY[0x1E697AEE8];
-    v10 = [infoCopy objectForKeyedSubscript:*MEMORY[0x1E697AEE8]];
-    v23 = 0;
-    v11 = [(TKTokenID *)v8 decodedObjectID:v10 isCertificate:&v24 error:&v23];
-    v12 = v23;
+    v12 = [(TKTokenID *)v8 decodedObjectID:v11 isCertificate:&v25 error:&v24];
+    v13 = v24;
 
-    if (v11)
+    if (v12)
     {
-      v22.receiver = self;
-      v22.super_class = TKTokenKeychainItem;
-      v13 = [(TKTokenKeychainItem *)&v22 init];
-      v14 = v13;
-      if (v13)
+      v23.receiver = self;
+      v23.super_class = TKTokenKeychainItem;
+      v15 = [(TKTokenKeychainItem *)&v23 init];
+      v16 = v15;
+      if (v15)
       {
-        objc_storeStrong(&v13->_objectID, v11);
-        [(TKTokenKeychainItem *)v14 setTokenID:v8];
-        v15 = [infoCopy objectForKeyedSubscript:*MEMORY[0x1E697ADC8]];
-        [(TKTokenKeychainItem *)v14 setLabel:v15];
+        objc_storeStrong(&v15->_objectID, v12);
+        [(TKTokenKeychainItem *)v16 setTokenID:v8];
+        v17 = [infoCopy objectForKeyedSubscript:*MEMORY[0x1E697ADC8]];
+        [(TKTokenKeychainItem *)v16 setLabel:v17];
 
-        v16 = [infoCopy objectForKeyedSubscript:*MEMORY[0x1E697ABC8]];
-        [(TKTokenKeychainItem *)v14 setAccessControl:v16];
+        v18 = [infoCopy objectForKeyedSubscript:*MEMORY[0x1E697ABC8]];
+        [(TKTokenKeychainItem *)v16 setAccessControl:v18];
       }
 
-      self = v14;
+      self = v16;
       selfCopy = self;
     }
 
     else
     {
-      v18 = TK_LOG_token_2();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = TK_LOG_token_2(v14);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v21 = [infoCopy objectForKeyedSubscript:v9];
+        v22 = [infoCopy objectForKeyedSubscript:v10];
         *buf = 138543618;
-        v26 = v21;
-        v27 = 2114;
-        v28 = v12;
-        _os_log_error_impl(&dword_1DF413000, v18, OS_LOG_TYPE_ERROR, "Failed to recreate TKTokenKeychainItem from attributes: invalid kSecAttrTokenOID: %{public}@, error:%{public}@", buf, 0x16u);
+        v27 = v22;
+        v28 = 2114;
+        v29 = v13;
+        _os_log_error_impl(&dword_1DF413000, v20, OS_LOG_TYPE_ERROR, "Failed to recreate TKTokenKeychainItem from attributes: invalid kSecAttrTokenOID: %{public}@, error:%{public}@", buf, 0x16u);
       }
 
       selfCopy = 0;
@@ -355,8 +346,8 @@ void __65__TKTokenKeychainItem_accessControlForConstraints_tokenID_error___block
 
   else
   {
-    v12 = TK_LOG_token_2();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = TK_LOG_token_2(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(TKTokenKeychainItem *)infoCopy initWithItemInfo:v6];
     }
@@ -364,7 +355,6 @@ void __65__TKTokenKeychainItem_accessControlForConstraints_tokenID_error___block
     selfCopy = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -394,24 +384,20 @@ LABEL_7:
 
 - (void)setAccessControl:(os_log_t)log .cold.1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1DF413000, log, OS_LOG_TYPE_ERROR, "TKTokenKeychainItem got invalid accessControl, error:%{public}@ data:%{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1DF413000, log, OS_LOG_TYPE_ERROR, "TKTokenKeychainItem got invalid accessControl, error:%{public}@ data:%{public}@", &v4, 0x16u);
 }
 
 - (void)initWithItemInfo:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = [a1 objectForKeyedSubscript:a2];
+  v7 = [a1 objectForKeyedSubscript:a2];
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

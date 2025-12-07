@@ -98,7 +98,7 @@
 
 uint64_t __80__MDMRequestPlayLostModeSoundCommand_Handler__processRequest_completionHandler___block_invoke(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = MEMORY[0x277CCA9B8];
@@ -118,7 +118,7 @@ uint64_t __80__MDMRequestPlayLostModeSoundCommand_Handler__processRequest_comple
       v12 = v10;
       v13 = [v11 DMCVerboseDescription];
       *buf = 138543362;
-      v21 = v13;
+      v19 = v13;
       _os_log_impl(&dword_2561F5000, v12, OS_LOG_TYPE_ERROR, "Could not to enable MDM Lost Mode: %{public}@", buf, 0xCu);
     }
 
@@ -128,10 +128,7 @@ uint64_t __80__MDMRequestPlayLostModeSoundCommand_Handler__processRequest_comple
     *(v15 + 40) = v14;
   }
 
-  v17 = *(*(a1[6] + 8) + 40);
-  result = (*(a1[4] + 16))();
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[4] + 16))();
 }
 
 @end

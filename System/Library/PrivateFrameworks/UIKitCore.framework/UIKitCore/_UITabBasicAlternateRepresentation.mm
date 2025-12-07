@@ -39,13 +39,13 @@
       v5 = equalCopy;
       title = [(_UITabBasicAlternateRepresentation *)v5 title];
       title2 = [(_UITabBasicAlternateRepresentation *)self title];
-      v8 = [title isEqual:title2];
+      isEqual = objc_msgSend_isEqual_(title);
 
-      if (v8)
+      if (isEqual)
       {
         image = [(_UITabBasicAlternateRepresentation *)v5 image];
         image2 = [(_UITabBasicAlternateRepresentation *)self image];
-        v11 = [image isEqual:image2];
+        v11 = objc_msgSend_isEqual_(image);
       }
 
       else

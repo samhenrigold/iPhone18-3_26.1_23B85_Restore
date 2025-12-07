@@ -27,54 +27,56 @@
 - (BOOL)generateBAACertficate:(id)certficate
 {
   certficateCopy = certficate;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
   v4 = dispatch_semaphore_create(0);
   IsSupported = DeviceIdentityIsSupported();
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = IsSupported;
+  v7 = sub_100063A54(IsSupported);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v23 = IsSupported;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Device identity supported on this device: %d", buf, 8u);
+    v25 = v6;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Device identity supported on this device: %d", buf, 8u);
   }
 
-  v7 = [NSMutableArray alloc];
-  v21[0] = kMAOptionsBAAOIDUCRTDeviceIdentifiers;
-  v21[1] = kMAOptionsBAAOIDDeviceIdentifiers;
-  v21[2] = kMAOptionsBAAOIDHardwareProperties;
-  v21[3] = kMAOptionsBAAOIDDeviceOSInformation;
-  v8 = [NSArray arrayWithObjects:v21 count:4];
-  v9 = [v7 initWithArray:v8];
+  v8 = [NSMutableArray alloc];
+  v23[0] = kMAOptionsBAAOIDUCRTDeviceIdentifiers;
+  v23[1] = kMAOptionsBAAOIDDeviceIdentifiers;
+  v23[2] = kMAOptionsBAAOIDHardwareProperties;
+  v23[3] = kMAOptionsBAAOIDDeviceOSInformation;
+  v9 = [NSArray arrayWithObjects:v23 count:4];
+  v10 = [v8 initWithArray:v9];
 
-  if (IsSupported)
+  if (v6)
   {
-    v10 = objc_alloc_init(NSMutableDictionary);
-    [v10 setObject:&off_10017B140 forKey:kMAOptionsBAACACert];
-    [v10 setObject:&off_10017B158 forKey:kMAOptionsBAANetworkTimeoutInterval];
-    [v10 setObject:&off_10017B170 forKey:kMAOptionsBAAValidity];
-    [v10 setObject:v9 forKey:kMAOptionsBAAOIDSToInclude];
-    [v10 setObject:@"DeKOTA-BAA-Cert" forKey:kMAOptionsBAAKeychainLabel];
-    v16 = certficateCopy;
-    v15 = v4;
+    v11 = objc_alloc_init(NSMutableDictionary);
+    [v11 setObject:&off_10017B140 forKey:kMAOptionsBAACACert];
+    [v11 setObject:&off_10017B158 forKey:kMAOptionsBAANetworkTimeoutInterval];
+    [v11 setObject:&off_10017B170 forKey:kMAOptionsBAAValidity];
+    [v11 setObject:v10 forKey:kMAOptionsBAAOIDSToInclude];
+    [v11 setObject:@"DeKOTA-BAA-Cert" forKey:kMAOptionsBAAKeychainLabel];
+    v18 = certficateCopy;
+    v17 = v4;
     DeviceIdentityIssueClientCertificateWithCompletion();
-    v11 = dispatch_time(0, 60000000000);
-    if (dispatch_semaphore_wait(v15, v11))
+    v12 = dispatch_time(0, 60000000000);
+    v13 = dispatch_semaphore_wait(v17, v12);
+    if (v13)
     {
-      v12 = sub_100063A54();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = sub_100063A54(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        sub_1000D9DF4(v12);
+        sub_1000D9DF4(v14);
       }
     }
   }
 
-  v13 = *(v18 + 24);
+  v15 = *(v20 + 24);
 
-  _Block_object_dispose(&v17, 8);
-  return v13 & 1;
+  _Block_object_dispose(&v19, 8);
+  return v15 & 1;
 }
 
 - (BOOL)addBAAAuthenticationHeadersToRequest:(id)request withBody:(id)body error:(id *)error
@@ -88,39 +90,38 @@
 
   if (v10)
   {
-    v13 = v12 == 0;
+    v14 = v12 == 0;
   }
 
   else
   {
-    v13 = 1;
+    v14 = 1;
   }
 
-  v14 = !v13;
-  if (v13)
+  v15 = !v14;
+  if (v14)
   {
-    v15 = sub_100063A54();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100063A54(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_1000D9E88(v15);
+      sub_1000D9E88(v16);
     }
   }
 
   else
   {
     [requestCopy setValue:v10 forHTTPHeaderField:@"X-Apple-RM-Signature-Data"];
-    [requestCopy setValue:v12 forHTTPHeaderField:@"X-Apple-RM-Signature-Certificates"];
-    v15 = sub_100063A54();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100063A54([requestCopy setValue:v12 forHTTPHeaderField:@"X-Apple-RM-Signature-Certificates"]);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       allHTTPHeaderFields = [requestCopy allHTTPHeaderFields];
-      v18 = 138543362;
-      v19 = allHTTPHeaderFields;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Request header with BAA certificate: %{public}@", &v18, 0xCu);
+      v19 = 138543362;
+      v20 = allHTTPHeaderFields;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Request header with BAA certificate: %{public}@", &v19, 0xCu);
     }
   }
 
-  return v14;
+  return v15;
 }
 
 - (id)signDataAndEncodeToBase64:(id)base64 withPrivateKey:(__SecKey *)key status:(id *)status
@@ -213,30 +214,31 @@
 
 - (__SecKey)lockcrypto_extract_public:(id)lockcrypto_extract_public
 {
-  lockcrypto_extract_publicCopy = lockcrypto_extract_public;
+  BasicX509 = lockcrypto_extract_public;
+  v4 = BasicX509;
   trust = 0;
-  if (lockcrypto_extract_publicCopy && (BasicX509 = SecPolicyCreateBasicX509()) != 0 && !SecTrustCreateWithCertificates(lockcrypto_extract_publicCopy, BasicX509, &trust) && (v8 = SecTrustCopyPublicKey(trust)) != 0)
+  if (BasicX509 && (BasicX509 = SecPolicyCreateBasicX509()) != 0 && (BasicX509 = SecTrustCreateWithCertificates(v4, BasicX509, &trust), !BasicX509) && (BasicX509 = SecTrustCopyPublicKey(trust)) != 0)
   {
-    v6 = v8;
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v6 = BasicX509;
+    v8 = sub_100063A54(BasicX509);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000D9ECC(v6, v9);
+      sub_1000D9ECC(v6, v8);
     }
 
-    v13 = 0;
-    v10 = SecKeyCopyExternalRepresentation(v6, &v13);
-    v11 = [[NSString alloc] initWithData:v10 encoding:4];
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v12 = 0;
+    v9 = SecKeyCopyExternalRepresentation(v6, &v12);
+    v10 = [[NSString alloc] initWithData:v9 encoding:4];
+    v11 = sub_100063A54(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000D9F44(v10, v11, v12);
+      sub_1000D9F44(v9, v10, v11);
     }
   }
 
   else
   {
-    v5 = sub_100063A54();
+    v5 = sub_100063A54(BasicX509);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       sub_1000D9FCC(v5);
@@ -251,46 +253,44 @@
 - (void)printAllKeys:(id)keys
 {
   keysCopy = keys;
-  v5 = &IDSSendMessageOptionFireAndForgetKey_ptr;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v32 = 0u;
-    v33 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v24 = keysCopy;
-    v6 = keysCopy;
-    v7 = [v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
-    if (v7)
+    v28 = 0u;
+    v29 = 0u;
+    v22 = keysCopy;
+    v5 = keysCopy;
+    v6 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    if (v6)
     {
-      v8 = v7;
-      v9 = *v31;
-      v10 = kMAOptionsBAAOIDUCRTDeviceIdentifiers;
-      v11 = kMAOptionsBAAOIDDeviceIdentifiers;
-      v25 = kMAOptionsBAAOIDHardwareProperties;
+      v7 = v6;
+      v8 = *v29;
+      v9 = kMAOptionsBAAOIDUCRTDeviceIdentifiers;
+      v10 = kMAOptionsBAAOIDDeviceIdentifiers;
+      v23 = kMAOptionsBAAOIDHardwareProperties;
       do
       {
-        v12 = 0;
+        v11 = 0;
         do
         {
-          if (*v31 != v9)
+          if (*v29 != v8)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v5);
           }
 
-          v13 = *(*(&v30 + 1) + 8 * v12);
-          if (([v13 isEqualToString:v10] & 1) == 0 && (objc_msgSend(v13, "isEqualToString:", v11) & 1) == 0)
+          v12 = *(*(&v28 + 1) + 8 * v11);
+          if (([v12 isEqualToString:v9] & 1) == 0 && (objc_msgSend(v12, "isEqualToString:", v10) & 1) == 0)
           {
-            [v13 isEqualToString:v25];
+            [v12 isEqualToString:v23];
           }
 
-          v14 = [v6 objectForKey:v13];
-          v15 = v5[148];
+          v13 = [v5 objectForKey:v12];
           objc_opt_class();
           if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
           {
-            [(MSDBAAInterface *)self printAllKeys:v14];
+            [(MSDBAAInterface *)self printAllKeys:v13];
           }
 
           else
@@ -298,30 +298,28 @@
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v16 = [[NSString alloc] initWithData:v14 encoding:4];
-              NSLog(@"Key:%@ val:%@", v13, v16);
-
-              v5 = &IDSSendMessageOptionFireAndForgetKey_ptr;
+              v14 = [[NSString alloc] initWithData:v13 encoding:4];
+              NSLog(@"Key:%@ val:%@", v12, v14);
             }
 
             else
             {
-              NSLog(@"Key:%@ val:%@", v13, v14);
+              NSLog(@"Key:%@ val:%@", v12, v13);
             }
           }
 
-          v12 = v12 + 1;
+          v11 = v11 + 1;
         }
 
-        while (v8 != v12);
-        v17 = [v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
-        v8 = v17;
+        while (v7 != v11);
+        v15 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v7 = v15;
       }
 
-      while (v17);
+      while (v15);
     }
 
-    keysCopy = v24;
+    keysCopy = v22;
   }
 
   else
@@ -329,26 +327,26 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v28 = 0u;
-      v29 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v18 = keysCopy;
-      v19 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
-      if (v19)
+      v24 = 0u;
+      v25 = 0u;
+      v16 = keysCopy;
+      v17 = [v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      if (v17)
       {
-        v20 = v19;
-        v21 = *v27;
+        v18 = v17;
+        v19 = *v25;
         do
         {
-          for (i = 0; i != v20; i = i + 1)
+          for (i = 0; i != v18; i = i + 1)
           {
-            if (*v27 != v21)
+            if (*v25 != v19)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v16);
             }
 
-            v23 = *(*(&v26 + 1) + 8 * i);
+            v21 = *(*(&v24 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -359,13 +357,13 @@
               }
             }
 
-            [(MSDBAAInterface *)self printAllKeys:v23];
+            [(MSDBAAInterface *)self printAllKeys:v21];
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
         }
 
-        while (v20);
+        while (v18);
       }
     }
 

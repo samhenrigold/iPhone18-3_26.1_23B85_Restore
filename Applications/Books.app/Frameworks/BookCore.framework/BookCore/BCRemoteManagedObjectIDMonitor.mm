@@ -19,9 +19,9 @@
   propertyCopy = property;
   interestCopy = interest;
   observerCopy = observer;
-  v65.receiver = self;
-  v65.super_class = BCRemoteManagedObjectIDMonitor;
-  v20 = [(BCRemoteManagedObjectIDMonitor *)&v65 init];
+  v66.receiver = self;
+  v66.super_class = BCRemoteManagedObjectIDMonitor;
+  v20 = [(BCRemoteManagedObjectIDMonitor *)&v66 init];
   v21 = v20;
   if (v20)
   {
@@ -65,37 +65,37 @@
       identifier = [firstObject identifier];
     }
 
-    v37 = BCRemoteManagedObjectIDMonitorLog();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v38 = BCRemoteManagedObjectIDMonitorLog(v35);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
       observer = [(BCRemoteManagedObjectIDMonitor *)v21 observer];
       remoteManagerObserverId = [observer remoteManagerObserverId];
       historyToken = [(BCRemoteManagedObjectIDMonitor *)v21 historyToken];
       persistentStores3 = [coordinatorCopy persistentStores];
-      v42 = [persistentStores3 count];
+      v43 = [persistentStores3 count];
       *buf = 138413826;
       *&buf[4] = v21;
       *&buf[12] = 2112;
       *&buf[14] = coordinatorCopy;
       *&buf[22] = 2112;
-      v67 = remoteManagerObserverId;
-      *v68 = 2112;
-      *&v68[2] = historyToken;
-      *&v68[10] = 2048;
-      *&v68[12] = v42;
-      v69 = 2112;
-      v70 = identifier;
-      v71 = 2112;
-      v72 = predicateCopy;
-      _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "BCRemoteManagedObjectIDMonitor %@ initialized %@ with observer:%@ token:%@ storeCount:%lu persistentstoreID:(%@), predicate:%@", buf, 0x48u);
+      v68 = remoteManagerObserverId;
+      *v69 = 2112;
+      *&v69[2] = historyToken;
+      *&v69[10] = 2048;
+      *&v69[12] = v43;
+      v70 = 2112;
+      v71 = identifier;
+      v72 = 2112;
+      v73 = predicateCopy;
+      _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "BCRemoteManagedObjectIDMonitor %@ initialized %@ with observer:%@ token:%@ storeCount:%lu persistentstoreID:(%@), predicate:%@", buf, 0x48u);
     }
 
-    v43 = +[NSNotificationCenter defaultCenter];
-    [v43 addObserver:v21 selector:"_persistentStoreRemoteDidChange:" name:NSPersistentStoreRemoteChangeNotification object:v21->_coordinator];
+    v44 = +[NSNotificationCenter defaultCenter];
+    [v44 addObserver:v21 selector:"_persistentStoreRemoteDidChange:" name:NSPersistentStoreRemoteChangeNotification object:v21->_coordinator];
 
-    v44 = [[NSManagedObjectContext alloc] initWithConcurrencyType:1];
+    v45 = [[NSManagedObjectContext alloc] initWithConcurrencyType:1];
     context = v21->_context;
-    v21->_context = v44;
+    v21->_context = v45;
 
     [(NSManagedObjectContext *)v21->_context setPersistentStoreCoordinator:v21->_coordinator];
     [(NSManagedObjectContext *)v21->_context setUndoManager:0];
@@ -103,31 +103,31 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v67 = sub_3F760;
-    *v68 = sub_3F770;
-    *&v68[8] = 0;
-    v46 = dispatch_semaphore_create(0);
-    v47 = v21->_sync;
+    v68 = sub_3F760;
+    *v69 = sub_3F770;
+    *&v69[8] = 0;
+    v47 = dispatch_semaphore_create(0);
+    v48 = v21->_sync;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_3F778;
     block[3] = &unk_2C8838;
-    v48 = v46;
-    v62 = v48;
-    v49 = v21;
+    v49 = v47;
     v63 = v49;
-    v64 = buf;
-    dispatch_async(v47, block);
-    v50 = v21->_context;
-    v57[0] = _NSConcreteStackBlock;
-    v57[1] = 3221225472;
-    v57[2] = sub_3F7C4;
-    v57[3] = &unk_2C95A0;
-    v58 = v49;
-    v60 = buf;
-    v51 = v48;
-    v59 = v51;
-    [(NSManagedObjectContext *)v50 performBlock:v57];
+    v50 = v21;
+    v64 = v50;
+    v65 = buf;
+    dispatch_async(v48, block);
+    v51 = v21->_context;
+    v58[0] = _NSConcreteStackBlock;
+    v58[1] = 3221225472;
+    v58[2] = sub_3F7C4;
+    v58[3] = &unk_2C95A0;
+    v59 = v50;
+    v61 = buf;
+    v52 = v49;
+    v60 = v52;
+    [(NSManagedObjectContext *)v51 performBlock:v58];
 
     _Block_object_dispose(buf, 8);
   }
@@ -180,20 +180,20 @@
   tokenCopy = token;
   v5 = [NSPersistentHistoryChangeRequest fetchHistoryAfterToken:tokenCopy];
   context = [(BCRemoteManagedObjectIDMonitor *)self context];
-  v15 = 0;
-  v7 = [context executeRequest:v5 error:&v15];
-  v8 = v15;
+  v17 = 0;
+  v7 = [context executeRequest:v5 error:&v17];
+  v8 = v17;
 
-  v9 = BCRemoteManagedObjectIDMonitorLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = BCRemoteManagedObjectIDMonitorLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_1E5D88(tokenCopy, v7);
   }
 
   if (!v7)
   {
-    v10 = BCRemoteManagedObjectIDMonitorLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = BCRemoteManagedObjectIDMonitorLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1E5E2C();
     }
@@ -202,17 +202,17 @@
   result = [v7 result];
   if ([result count])
   {
-    v12 = result;
+    v14 = result;
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
   }
 
-  v13 = v12;
+  v15 = v14;
 
-  return v12;
+  return v14;
 }
 
 - (id)description

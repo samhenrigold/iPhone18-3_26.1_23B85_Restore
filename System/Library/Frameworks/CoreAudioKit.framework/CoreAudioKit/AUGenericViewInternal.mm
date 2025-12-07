@@ -95,14 +95,14 @@
   v9 = sub_23719641C();
   v10 = *(v9 - 8);
   MEMORY[0x28223BE20](v9, v11);
-  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v14 = sub_23719657C();
   v16 = v15;
   sub_2371963BC();
   viewCopy = view;
   supplementaryViewCopy = supplementaryView;
   selfCopy = self;
-  sub_23711B2D8(supplementaryViewCopy, v14, v16);
+  sub_23711B2D8(supplementaryViewCopy, v14, v16, v20);
 
   (*(v10 + 8))(v13, v9);
 }

@@ -25,11 +25,12 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  objc_opt_class();
-  deviceBonjourServiceType = self->_deviceBonjourServiceType;
-  NSAppendPrintF();
+  v7 = 0;
+  v4 = objc_opt_class();
+  NSAppendPrintF(&v7, "%@, BST '%@'", v4, self->_deviceBonjourServiceType);
+  v5 = v7;
 
-  return 0;
+  return v5;
 }
 
 - (void)activate
@@ -74,10 +75,10 @@ uint64_t __35__DASimulatedDeviceClient_activate__block_invoke(uint64_t result)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __37__DASimulatedDeviceClient_invalidate__block_invoke(uint64_t result)
+char *__37__DASimulatedDeviceClient_invalidate__block_invoke(char *result)
 {
-  v2 = (result + 32);
-  v1 = *(result + 32);
+  v2 = result + 32;
+  v1 = *(result + 4);
   if ((*(v1 + 9) & 1) == 0)
   {
     *(v1 + 9) = 1;
@@ -101,7 +102,7 @@ uint64_t __37__DASimulatedDeviceClient_invalidate__block_invoke(uint64_t result)
     self->_invalidateDone = 1;
     if (gLogCategory_DASimulatedDeviceClient <= 30 && (gLogCategory_DASimulatedDeviceClient != -1 || _LogCategory_Initialize()))
     {
-      [DASimulatedDeviceClient _invalidated];
+      [(DASimulatedDeviceClient *)self _invalidated];
     }
   }
 }

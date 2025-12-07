@@ -16,18 +16,18 @@
 
 - (void)updateOutputDevices
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   endpointObject = [(MPAVEndpointRoute *)self->_systemRoute endpointObject];
   outputDevices = [endpointObject outputDevices];
 
-  v5 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = MCLogCategoryDefault(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v56 = objc_opt_class();
-    v57 = 2114;
-    v58 = outputDevices;
-    _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ output devices changed: %{public}@", buf, 0x16u);
+    v57 = objc_opt_class();
+    v58 = 2114;
+    v59 = outputDevices;
+    _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ output devices changed: %{public}@", buf, 0x16u);
   }
 
   if (outputDevices)
@@ -40,39 +40,39 @@
         self->_isSplitRoute = 1;
       }
 
-      v6 = [objc_alloc(MEMORY[0x1E6970470]) initWithOutputDevices:outputDevices];
+      v7 = [objc_alloc(MEMORY[0x1E6970470]) initWithOutputDevices:outputDevices];
       systemOutputDeviceRoute = self->_systemOutputDeviceRoute;
-      self->_systemOutputDeviceRoute = v6;
+      self->_systemOutputDeviceRoute = v7;
 
       [(MPAVOutputDeviceRoute *)self->_primaryOutputDeviceRoute logicalLeaderOutputDevice];
-      v8 = MRAVOutputDeviceCopyUniqueIdentifier();
+      v9 = MRAVOutputDeviceCopyUniqueIdentifier();
       firstObject = [outputDevices firstObject];
-      v10 = MRAVOutputDeviceCopyUniqueIdentifier();
+      v11 = MRAVOutputDeviceCopyUniqueIdentifier();
 
-      v11 = objc_alloc(MEMORY[0x1E6970470]);
+      v12 = objc_alloc(MEMORY[0x1E6970470]);
       firstObject2 = [outputDevices firstObject];
-      v54 = firstObject2;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
-      v14 = [v11 initWithOutputDevices:v13];
+      v55 = firstObject2;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
+      v15 = [v12 initWithOutputDevices:v14];
       primaryOutputDeviceRoute = self->_primaryOutputDeviceRoute;
-      self->_primaryOutputDeviceRoute = v14;
+      self->_primaryOutputDeviceRoute = v15;
 
-      v16 = [v10 isEqualToString:v8];
+      v17 = [v11 isEqualToString:v9];
       [(MPAVOutputDeviceRoute *)self->_secondaryOutputDeviceRoute logicalLeaderOutputDevice];
-      v17 = MRAVOutputDeviceCopyUniqueIdentifier();
+      v18 = MRAVOutputDeviceCopyUniqueIdentifier();
       lastObject = [outputDevices lastObject];
-      v19 = MRAVOutputDeviceCopyUniqueIdentifier();
+      v20 = MRAVOutputDeviceCopyUniqueIdentifier();
 
-      v20 = objc_alloc(MEMORY[0x1E6970470]);
+      v21 = objc_alloc(MEMORY[0x1E6970470]);
       lastObject2 = [outputDevices lastObject];
-      v53 = lastObject2;
-      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
-      v23 = [v20 initWithOutputDevices:v22];
+      v54 = lastObject2;
+      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
+      v24 = [v21 initWithOutputDevices:v23];
       secondaryOutputDeviceRoute = self->_secondaryOutputDeviceRoute;
-      self->_secondaryOutputDeviceRoute = v23;
+      self->_secondaryOutputDeviceRoute = v24;
 
-      LODWORD(v20) = [v19 isEqualToString:v17];
-      if (v20 && v16 && isSplitRoute)
+      LODWORD(v21) = [v20 isEqualToString:v18];
+      if (v21 && v17 && isSplitRoute)
       {
         goto LABEL_23;
       }
@@ -82,85 +82,85 @@
     {
       self->_isSplitRoute = 0;
       outputDevices2 = [(MPAVOutputDeviceRoute *)self->_systemOutputDeviceRoute outputDevices];
-      v26 = [outputDevices2 isEqualToArray:outputDevices];
+      v27 = [outputDevices2 isEqualToArray:outputDevices];
 
-      v27 = [objc_alloc(MEMORY[0x1E6970470]) initWithOutputDevices:outputDevices];
-      v28 = self->_systemOutputDeviceRoute;
-      self->_systemOutputDeviceRoute = v27;
+      v28 = [objc_alloc(MEMORY[0x1E6970470]) initWithOutputDevices:outputDevices];
+      v29 = self->_systemOutputDeviceRoute;
+      self->_systemOutputDeviceRoute = v28;
 
       objc_storeStrong(&self->_primaryOutputDeviceRoute, self->_systemOutputDeviceRoute);
-      v29 = self->_secondaryOutputDeviceRoute;
+      v30 = self->_secondaryOutputDeviceRoute;
       self->_secondaryOutputDeviceRoute = 0;
 
-      if (v26)
+      if (v27)
       {
 LABEL_23:
-        v45 = 0u;
         v46 = 0u;
-        v43 = 0u;
+        v47 = 0u;
         v44 = 0u;
-        v36 = [(NSHashTable *)self->_observers copy];
-        v37 = [v36 countByEnumeratingWithState:&v43 objects:v51 count:16];
-        if (v37)
+        v45 = 0u;
+        v37 = [(NSHashTable *)self->_observers copy];
+        v38 = [v37 countByEnumeratingWithState:&v44 objects:v52 count:16];
+        if (v38)
         {
-          v38 = v37;
-          v39 = *v44;
+          v39 = v38;
+          v40 = *v45;
           do
           {
-            for (i = 0; i != v38; ++i)
+            for (i = 0; i != v39; ++i)
             {
-              if (*v44 != v39)
+              if (*v45 != v40)
               {
-                objc_enumerationMutation(v36);
+                objc_enumerationMutation(v37);
               }
 
-              v41 = *(*(&v43 + 1) + 8 * i);
+              v42 = *(*(&v44 + 1) + 8 * i);
               if (objc_opt_respondsToSelector())
               {
-                [v41 systemOutputDeviceRouteControllerDidUpdateOutputDeviceProperties:self];
+                [v42 systemOutputDeviceRouteControllerDidUpdateOutputDeviceProperties:self];
               }
             }
 
-            v38 = [v36 countByEnumeratingWithState:&v43 objects:v51 count:16];
+            v39 = [v37 countByEnumeratingWithState:&v44 objects:v52 count:16];
           }
 
-          while (v38);
+          while (v39);
         }
 
         goto LABEL_33;
       }
     }
 
-    v49 = 0u;
     v50 = 0u;
-    v47 = 0u;
+    v51 = 0u;
     v48 = 0u;
-    v30 = [(NSHashTable *)self->_observers copy];
-    v31 = [v30 countByEnumeratingWithState:&v47 objects:v52 count:16];
-    if (v31)
+    v49 = 0u;
+    v31 = [(NSHashTable *)self->_observers copy];
+    v32 = [v31 countByEnumeratingWithState:&v48 objects:v53 count:16];
+    if (v32)
     {
-      v32 = v31;
-      v33 = *v48;
+      v33 = v32;
+      v34 = *v49;
       do
       {
-        for (j = 0; j != v32; ++j)
+        for (j = 0; j != v33; ++j)
         {
-          if (*v48 != v33)
+          if (*v49 != v34)
           {
-            objc_enumerationMutation(v30);
+            objc_enumerationMutation(v31);
           }
 
-          v35 = *(*(&v47 + 1) + 8 * j);
+          v36 = *(*(&v48 + 1) + 8 * j);
           if (objc_opt_respondsToSelector())
           {
-            [v35 systemOutputDeviceRouteControllerDidUpdateOutputDevices:self];
+            [v36 systemOutputDeviceRouteControllerDidUpdateOutputDevices:self];
           }
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v48 objects:v53 count:16];
       }
 
-      while (v32);
+      while (v33);
     }
 
     goto LABEL_23;
@@ -265,9 +265,11 @@ LABEL_33:
 
 uint64_t __56__MRUSystemOutputDeviceRouteController_sharedController__block_invoke()
 {
-  sharedController___sharedController = objc_alloc_init(MRUSystemOutputDeviceRouteController);
+  v0 = objc_alloc_init(MRUSystemOutputDeviceRouteController);
+  v1 = sharedController___sharedController;
+  sharedController___sharedController = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (MRUSystemOutputDeviceRouteController)init

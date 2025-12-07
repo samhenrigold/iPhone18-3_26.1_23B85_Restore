@@ -59,15 +59,21 @@
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v4 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -78,15 +84,13 @@
     v15 = objc_opt_class();
     v16 = 2112;
     itemMediaPath = [_libraryItem itemMediaPath];
-    LODWORD(v12) = 22;
-    v11 = &v14;
-    v7 = _os_log_send_and_compose_impl();
-    if (v7)
+    v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Adding media item to iPod library: %@", &v14, 22);
+    if (v8)
     {
-      v8 = v7;
-      v9 = [NSString stringWithCString:v7 encoding:4, &v14, v12];
-      free(v8);
-      v11 = v9;
+      v9 = v8;
+      v10 = [NSString stringWithCString:v8 encoding:4];
+      free(v9);
+      v12 = v10;
       SSFileLog();
     }
   }

@@ -53,7 +53,7 @@ void __51__ATXSpotlightZKWTrialClientWrapper_sharedInstance__block_invoke()
 void __50__ATXSpotlightZKWTrialClientWrapper_updateFactors__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v14 = 0;

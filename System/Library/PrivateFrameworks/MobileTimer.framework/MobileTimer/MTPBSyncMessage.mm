@@ -68,11 +68,8 @@
     PBDataWriterWriteSubmessage();
   }
 
-  syncDate = self->_syncDate;
   PBDataWriterWriteDoubleField();
-  syncID = self->_syncID;
   PBDataWriterWriteStringField();
-  syncVersion = self->_syncVersion;
   PBDataWriterWriteDoubleField();
 }
 

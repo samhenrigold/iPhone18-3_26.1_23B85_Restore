@@ -37,7 +37,7 @@
   swift_unknownObjectRelease();
   sub_1B9FDD47C();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC18HealthExperienceUI12HostViewCell)initWithCoder:(id)coder

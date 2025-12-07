@@ -85,7 +85,7 @@
   v37.receiver = self;
   v37.super_class = SBHLibraryDismissalView;
   [(SBHLibraryDismissalView *)&v37 layoutSubviews];
-  [(SBHLibraryDismissalView *)self bounds];
+  objc_msgSend_bounds(self);
   v4 = v3;
   continuousCornerRadius = self->_iconImageInfo.continuousCornerRadius;
   v6 = [MEMORY[0x1E69DC728] bezierPathWithRoundedRect:? cornerRadius:?];

@@ -76,17 +76,17 @@
 
 - (void)layoutSubviews
 {
-  v3 = sub_100009DCC(&qword_1006F5C30);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v9 - v4;
-  v6 = type metadata accessor for SymbolButton.BadgeView();
-  v9.receiver = self;
-  v9.super_class = v6;
+  sub_100009DCC(&qword_1006F5C30, &qword_100598A70);
+  __chkstk_darwin();
+  v4 = &v8 - v3;
+  v5 = type metadata accessor for SymbolButton.BadgeView();
+  v8.receiver = self;
+  v8.super_class = v5;
   selfCopy = self;
-  [(SymbolButton.BadgeView *)&v9 layoutSubviews];
+  [(SymbolButton.BadgeView *)&v8 layoutSubviews];
   sub_100573988();
-  v8 = sub_100573998();
-  (*(*(v8 - 8) + 56))(v5, 0, 1, v8);
+  v7 = sub_100573998();
+  (*(*(v7 - 8) + 56))(v4, 0, 1, v7);
   sub_1005739A8();
   sub_10046BE00();
 }

@@ -153,10 +153,7 @@ uint64_t __63__SUCoreConnectServerPolicy__getSharedServerAllowlistedClasses__blo
 
 uint64_t __57__SUCoreConnectServerPolicy_getAllowlistedClassesForKey___block_invoke(uint64_t a1)
 {
-  v2 = [SUCoreConnectServerPolicy _getAllowlistedClassesForKey:*(a1 + 32)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [SUCoreConnectServerPolicy _getAllowlistedClassesForKey:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -218,28 +215,28 @@ LABEL_9:
 
 void __59__SUCoreConnectServerPolicy_setAllowlistedClasses_forKeys___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v2 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v18;
+    v4 = *v17;
     do
     {
       v5 = 0;
       do
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v17 + 1) + 8 * v5);
+        v6 = *(*(&v16 + 1) + 8 * v5);
         v7 = objc_autoreleasePoolPush();
         v8 = MEMORY[0x277CBEB98];
         v9 = +[SUCoreConnectConstants defaultClasses];
@@ -263,13 +260,11 @@ void __59__SUCoreConnectServerPolicy_setAllowlistedClasses_forKeys___block_invok
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)clearAllowlistedClasses

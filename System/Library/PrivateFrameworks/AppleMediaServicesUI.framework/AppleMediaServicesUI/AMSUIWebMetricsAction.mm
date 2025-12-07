@@ -7,19 +7,19 @@
 
 - (AMSUIWebMetricsAction)initWithJSObject:(id)object context:(id)context
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v46.receiver = self;
-  v46.super_class = AMSUIWebMetricsAction;
+  v45.receiver = self;
+  v45.super_class = AMSUIWebMetricsAction;
   contextCopy = context;
-  v38 = [(AMSUIWebAction *)&v46 initWithJSObject:objectCopy context:?];
-  if (v38)
+  v37 = [(AMSUIWebAction *)&v45 initWithJSObject:objectCopy context:?];
+  if (v37)
   {
-    v39 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v38 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     v7 = [objectCopy objectForKeyedSubscript:@"events"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -32,23 +32,23 @@
       v8 = 0;
     }
 
-    v9 = [v8 countByEnumeratingWithState:&v42 objects:v53 count:16];
-    v37 = objectCopy;
+    v9 = [v8 countByEnumeratingWithState:&v41 objects:v52 count:16];
+    v36 = objectCopy;
     if (v9)
     {
       v10 = v9;
-      v11 = *v43;
-      v40 = v8;
+      v11 = *v42;
+      v39 = v8;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v43 != v11)
+          if (*v42 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v42 + 1) + 8 * i);
+          v13 = *(*(&v41 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -84,7 +84,7 @@
                 }
               }
 
-              [(NSArray *)v39 addObject:mEMORY[0x1E698C968]2];
+              [(NSArray *)v38 addObject:mEMORY[0x1E698C968]2];
             }
 
             else
@@ -101,17 +101,17 @@
                 v28 = objc_opt_class();
                 v29 = AMSLogKey();
                 *buf = 138543874;
-                v48 = v28;
-                v49 = 2114;
-                v50 = v29;
-                v51 = 2112;
-                v52 = v13;
+                v47 = v28;
+                v48 = 2114;
+                v49 = v29;
+                v50 = 2112;
+                v51 = v13;
                 _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to create metrics event from definition: %@", buf, 0x20u);
 
-                objectCopy = v37;
+                objectCopy = v36;
               }
 
-              v8 = v40;
+              v8 = v39;
             }
           }
 
@@ -129,26 +129,26 @@
               v24 = objc_opt_class();
               v25 = AMSLogKey();
               *buf = 138543874;
-              v48 = v24;
-              v8 = v40;
-              v49 = 2114;
-              v50 = v25;
-              v51 = 2112;
-              v52 = v13;
+              v47 = v24;
+              v8 = v39;
+              v48 = 2114;
+              v49 = v25;
+              v50 = 2112;
+              v51 = v13;
               _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Invalid metrics event: %@", buf, 0x20u);
             }
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v42 objects:v53 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v41 objects:v52 count:16];
       }
 
       while (v10);
     }
 
-    events = v38->_events;
-    v38->_events = v39;
-    v31 = v39;
+    events = v37->_events;
+    v37->_events = v38;
+    v31 = v38;
 
     v32 = [objectCopy objectForKeyedSubscript:@"flush"];
     v33 = objc_opt_respondsToSelector();
@@ -163,42 +163,41 @@
       bOOLValue = 0;
     }
 
-    v38->_shouldFlush = bOOLValue;
+    v37->_shouldFlush = bOOLValue;
 
-    objectCopy = v37;
+    objectCopy = v36;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
-  return v38;
+  return v37;
 }
 
 - (id)runAction
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v22.receiver = self;
-  v22.super_class = AMSUIWebMetricsAction;
-  runAction = [(AMSUIWebAction *)&v22 runAction];
+  v23 = *MEMORY[0x1E69E9840];
+  v21.receiver = self;
+  v21.super_class = AMSUIWebMetricsAction;
+  runAction = [(AMSUIWebAction *)&v21 runAction];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   events = [(AMSUIWebMetricsAction *)self events];
-  v5 = [events countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v5 = [events countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       v8 = 0;
       do
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(events);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * v8);
+        v9 = *(*(&v17 + 1) + 8 * v8);
         context = [(AMSUIWebAction *)self context];
         metrics = [context metrics];
         [metrics enqueueEvent:v9];
@@ -207,7 +206,7 @@
       }
 
       while (v6 != v8);
-      v6 = [events countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v6 = [events countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v6);
@@ -221,7 +220,6 @@
   }
 
   v15 = [MEMORY[0x1E698CAD0] promiseWithResult:MEMORY[0x1E695E118]];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

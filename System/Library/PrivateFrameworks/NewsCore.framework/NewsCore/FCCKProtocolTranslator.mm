@@ -15,33 +15,34 @@
 
 + (id)sharedInstance
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __40__FCCKProtocolTranslator_sharedInstance__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (qword_1EDB278F0 != -1)
   {
     dispatch_once(&qword_1EDB278F0, block);
   }
 
-  v1 = _MergedGlobals_202;
+  v2 = _MergedGlobals_202;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __40__FCCKProtocolTranslator_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  _MergedGlobals_202 = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = _MergedGlobals_202;
+  _MergedGlobals_202 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (uint64_t)fieldValueTypeFromObject:(uint64_t)object
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!object)
   {
@@ -135,18 +136,18 @@ LABEL_18:
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v13 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
-        v16 = [v13 initWithFormat:@"Can't encode array %@ of unknown child class: %@", v5, v15];
+        v12 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
+        v15 = [v12 initWithFormat:@"Can't encode array %@ of unknown child class: %@", v5, v14];
         *buf = 136315906;
-        v18 = "[FCCKProtocolTranslator(RecordFields) fieldValueTypeFromObject:]";
-        v19 = 2080;
-        v20 = "FCCKRecordFieldConversion.m";
-        v21 = 1024;
-        v22 = 92;
-        v23 = 2114;
-        v24 = v16;
+        v17 = "[FCCKProtocolTranslator(RecordFields) fieldValueTypeFromObject:]";
+        v18 = 2080;
+        v19 = "FCCKRecordFieldConversion.m";
+        v20 = 1024;
+        v21 = 92;
+        v22 = 2114;
+        v23 = v15;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
@@ -163,18 +164,18 @@ LABEL_18:
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = [v9 initWithFormat:@"Can't encode object %@ of class %@", v3, v11];
+      v8 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = [v8 initWithFormat:@"Can't encode object %@ of class %@", v3, v10];
       *buf = 136315906;
-      v18 = "[FCCKProtocolTranslator(RecordFields) fieldValueTypeFromObject:]";
-      v19 = 2080;
-      v20 = "FCCKRecordFieldConversion.m";
-      v21 = 1024;
-      v22 = 104;
-      v23 = 2114;
-      v24 = v12;
+      v17 = "[FCCKProtocolTranslator(RecordFields) fieldValueTypeFromObject:]";
+      v18 = 2080;
+      v19 = "FCCKRecordFieldConversion.m";
+      v20 = 1024;
+      v21 = 104;
+      v22 = 2114;
+      v23 = v11;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -193,7 +194,6 @@ LABEL_18:
 
 LABEL_24:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -212,7 +212,7 @@ LABEL_24:
 
 - (id)fieldValueOfType:(void *)type withObject:
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   if (!self)
   {
@@ -228,41 +228,41 @@ LABEL_24:
     {
       if (((1 << a2) & 0x6AE00) != 0)
       {
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
         v27 = 0u;
-        v25 = typeCopy;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
+        v24 = typeCopy;
         v7 = typeCopy;
-        v8 = [v7 countByEnumeratingWithState:&v26 objects:v38 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v25 objects:v37 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v27;
+          v10 = *v26;
           v11 = MEMORY[0x1E69E9C10];
           do
           {
             v12 = 0;
             do
             {
-              if (*v27 != v10)
+              if (*v26 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v13 = *(*(&v26 + 1) + 8 * v12);
+              v13 = *(*(&v25 + 1) + 8 * v12);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) != 0 && os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
               {
                 v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Nesting arrays not supported"];
                 *buf = 136315906;
-                v31 = "[FCCKProtocolTranslator(RecordFields) fieldValueOfType:withObject:]";
-                v32 = 2080;
-                v33 = "FCCKRecordFieldConversion.m";
-                v34 = 1024;
-                v35 = 169;
-                v36 = 2114;
-                v37 = v15;
+                v30 = "[FCCKProtocolTranslator(RecordFields) fieldValueOfType:withObject:]";
+                v31 = 2080;
+                v32 = "FCCKRecordFieldConversion.m";
+                v33 = 1024;
+                v34 = 169;
+                v35 = 2114;
+                v36 = v15;
                 _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
               }
 
@@ -273,13 +273,13 @@ LABEL_24:
             }
 
             while (v9 != v12);
-            v9 = [v7 countByEnumeratingWithState:&v26 objects:v38 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v25 objects:v37 count:16];
           }
 
           while (v9);
         }
 
-        typeCopy = v25;
+        typeCopy = v24;
         goto LABEL_16;
       }
 
@@ -302,13 +302,13 @@ LABEL_24:
       goto LABEL_16;
     }
 
-    v18 = objc_opt_new();
+    v17 = objc_opt_new();
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       recordID = [typeCopy recordID];
-      v20 = [(FCCKProtocolTranslator *)self pRecordIdentifierFromRecordID:recordID];
-      [v18 setRecordIdentifier:v20];
+      v19 = [(FCCKProtocolTranslator *)self pRecordIdentifierFromRecordID:recordID];
+      [v17 setRecordIdentifier:v19];
     }
 
     else
@@ -317,7 +317,7 @@ LABEL_24:
       if (objc_opt_isKindOfClass())
       {
         recordID = [(FCCKProtocolTranslator *)self pRecordIdentifierFromRecordID:typeCopy];
-        [v18 setRecordIdentifier:recordID];
+        [v17 setRecordIdentifier:recordID];
       }
 
       else
@@ -326,13 +326,13 @@ LABEL_24:
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 LABEL_37:
-          [v6 setReferenceValue:v18];
+          [v6 setReferenceValue:v17];
 
           goto LABEL_16;
         }
 
         [FCCKProtocolTranslator pReferenceFromReference:self error:typeCopy];
-        v18 = recordID = v18;
+        v17 = recordID = v17;
       }
     }
 
@@ -345,13 +345,13 @@ LABEL_37:
       [v6 setBytesValue:typeCopy];
       break;
     case 2:
-      v21 = objc_alloc_init(MEMORY[0x1E69B6D38]);
-      [v6 setDateValue:v21];
+      v20 = objc_alloc_init(MEMORY[0x1E69B6D38]);
+      [v6 setDateValue:v20];
 
       [typeCopy timeIntervalSinceReferenceDate];
-      v23 = v22;
+      v22 = v21;
       dateValue = [v6 dateValue];
-      [dateValue setTime:v23];
+      [dateValue setTime:v22];
 
       break;
     case 3:
@@ -361,14 +361,12 @@ LABEL_37:
 
 LABEL_16:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (id)pRecordIdentifierFromRecordID:(uint64_t)d
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (d)
   {
     v2 = a2;
@@ -389,16 +387,16 @@ LABEL_16:
 
     if (([ownerName isEqualToString:*MEMORY[0x1E695B728]] & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unknown owner"];
-      v17 = 136315906;
-      v18 = "[FCCKProtocolTranslator pUserIdentifierFromUserRecordName:]";
-      v19 = 2080;
-      v20 = "FCCKProtocolTranslator.m";
-      v21 = 1024;
-      v22 = 54;
-      v23 = 2114;
-      v24 = v16;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v17, 0x26u);
+      v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unknown owner"];
+      v16 = 136315906;
+      v17 = "[FCCKProtocolTranslator pUserIdentifierFromUserRecordName:]";
+      v18 = 2080;
+      v19 = "FCCKProtocolTranslator.m";
+      v20 = 1024;
+      v21 = 54;
+      v22 = 2114;
+      v23 = v15;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v16, 0x26u);
     }
 
     v12 = [(NSString *)@"_defaultOwner" _NTPBCKIdentifierWithType:?];
@@ -419,14 +417,12 @@ LABEL_16:
     v3 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (id)referenceFromPReference:(void *)reference error:(void *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   referenceCopy = reference;
   recordIdentifier = [referenceCopy recordIdentifier];
   v5 = MEMORY[0x1E695BA80];
@@ -462,15 +458,15 @@ LABEL_16:
 
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected reference type"];
+          v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected reference type"];
           *buf = 136315906;
-          v23 = "[FCCKProtocolTranslator referenceFromPReference:error:]";
-          v24 = 2080;
-          v25 = "FCCKProtocolTranslator.m";
-          v26 = 1024;
-          v27 = 101;
-          v28 = 2114;
-          v29 = v21;
+          v22 = "[FCCKProtocolTranslator referenceFromPReference:error:]";
+          v23 = 2080;
+          v24 = "FCCKProtocolTranslator.m";
+          v25 = 1024;
+          v26 = 101;
+          v27 = 2114;
+          v28 = v20;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
       }
@@ -489,15 +485,15 @@ LABEL_15:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid record identifier from server %@: %@", referenceCopy, 0];
+    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid record identifier from server %@: %@", referenceCopy, 0];
     *buf = 136315906;
-    v23 = "[FCCKProtocolTranslator referenceFromPReference:error:]";
-    v24 = 2080;
-    v25 = "FCCKProtocolTranslator.m";
-    v26 = 1024;
-    v27 = 107;
-    v28 = 2114;
-    v29 = v20;
+    v22 = "[FCCKProtocolTranslator referenceFromPReference:error:]";
+    v23 = 2080;
+    v24 = "FCCKProtocolTranslator.m";
+    v25 = 1024;
+    v26 = 107;
+    v27 = 2114;
+    v28 = v19;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -510,8 +506,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -558,10 +552,10 @@ LABEL_17:
 
 - (id)recordFromPRecord:(uint64_t)record
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
-  v47 = 0;
+  v46 = 0;
   if (record && v3)
   {
     defaultRecordZone = [MEMORY[0x1E695BA80] defaultRecordZone];
@@ -572,17 +566,17 @@ LABEL_17:
     recordIdentifier = [v4 recordIdentifier];
     value = [recordIdentifier value];
     name = [value name];
-    v45 = v7;
+    v44 = v7;
     v12 = [v8 initWithRecordName:name zoneID:v7];
 
     v13 = objc_alloc(MEMORY[0x1E695BA60]);
     type = [v4 type];
     name2 = [type name];
-    v44 = v12;
+    v43 = v12;
     v16 = [v13 _initSkippingValidationWithRecordType:name2 recordID:v12];
 
     etag = [v4 etag];
-    v47 = v16;
+    v46 = v16;
     [v16 setEtag:etag];
 
     if ([v4 hasTimeStatistics])
@@ -621,34 +615,34 @@ LABEL_17:
     }
 
     [v16 setTrackChanges:0];
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
-    v46 = v4;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v45 = v4;
     fields = [v4 fields];
-    v29 = [fields countByEnumeratingWithState:&v48 objects:v52 count:16];
+    v29 = [fields countByEnumeratingWithState:&v47 objects:v51 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v49;
+      v31 = *v48;
       do
       {
         for (i = 0; i != v30; ++i)
         {
-          if (*v49 != v31)
+          if (*v48 != v31)
           {
             objc_enumerationMutation(fields);
           }
 
-          v33 = *(*(&v48 + 1) + 8 * i);
+          v33 = *(*(&v47 + 1) + 8 * i);
           identifier = [v33 identifier];
           name3 = [identifier name];
           v36 = [name3 hasPrefix:@"_"];
 
           if ((v36 & 1) == 0)
           {
-            valueStore = [v47 valueStore];
+            valueStore = [v46 valueStore];
             value2 = [v33 value];
             v39 = [FCCKProtocolTranslator objectRepresentationFromFieldValue:value2];
             identifier2 = [v33 identifier];
@@ -657,26 +651,24 @@ LABEL_17:
           }
         }
 
-        v30 = [fields countByEnumeratingWithState:&v48 objects:v52 count:16];
+        v30 = [fields countByEnumeratingWithState:&v47 objects:v51 count:16];
       }
 
       while (v30);
     }
 
-    [v47 setTrackChanges:1];
-    [v47 setKnownToServer:1];
+    [v46 setTrackChanges:1];
+    [v46 setKnownToServer:1];
 
-    v4 = v46;
+    v4 = v45;
   }
 
-  v42 = *MEMORY[0x1E69E9840];
-
-  return v47;
+  return v46;
 }
 
 - (id)objectRepresentationFromFieldValue:(void *)value
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   listValues = [valueCopy listValues];
   if (listValues || [valueCopy type] == 16)
@@ -692,21 +684,21 @@ LABEL_4:
     v4 = [listValues2 count];
 
     v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v4];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     listValues3 = [valueCopy listValues];
-    v7 = [listValues3 countByEnumeratingWithState:&v23 objects:v35 count:16];
+    v7 = [listValues3 countByEnumeratingWithState:&v22 objects:v34 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v24;
+      v9 = *v23;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(listValues3);
           }
@@ -718,7 +710,7 @@ LABEL_4:
           }
         }
 
-        v8 = [listValues3 countByEnumeratingWithState:&v23 objects:v35 count:16];
+        v8 = [listValues3 countByEnumeratingWithState:&v22 objects:v34 count:16];
       }
 
       while (v8);
@@ -737,21 +729,21 @@ LABEL_13:
     {
       case 5:
         referenceValue = [valueCopy referenceValue];
-        v22 = 0;
-        v5 = [FCCKProtocolTranslator referenceFromPReference:referenceValue error:&v22];
-        listValues3 = v22;
+        v21 = 0;
+        v5 = [FCCKProtocolTranslator referenceFromPReference:referenceValue error:&v21];
+        listValues3 = v21;
 
         if ((listValues3 || !v5) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid field value (record identifier) from server: %@", listValues3];
+          v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid field value (record identifier) from server: %@", listValues3];
           *buf = 136315906;
-          v28 = "[FCCKProtocolTranslator objectRepresentationFromFieldValue:]";
-          v29 = 2080;
-          v30 = "FCCKProtocolTranslator.m";
-          v31 = 1024;
-          v32 = 253;
-          v33 = 2114;
-          v34 = v18;
+          v27 = "[FCCKProtocolTranslator objectRepresentationFromFieldValue:]";
+          v28 = 2080;
+          v29 = "FCCKProtocolTranslator.m";
+          v30 = 1024;
+          v31 = 253;
+          v32 = 2114;
+          v33 = v17;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
 
@@ -760,9 +752,9 @@ LABEL_13:
         bytesValue = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(valueCopy, "signedValue")}];
         break;
       case 8:
-        v16 = MEMORY[0x1E696AD98];
+        v15 = MEMORY[0x1E696AD98];
         [valueCopy doubleValue];
-        bytesValue = [v16 numberWithDouble:?];
+        bytesValue = [v15 numberWithDouble:?];
         break;
       default:
         goto LABEL_14;
@@ -784,16 +776,16 @@ LABEL_13:
 
         dateValue = [valueCopy dateValue];
         [dateValue time];
-        v21 = v20;
+        v20 = v19;
 
-        if (v21 >= *&qword_1EDB278F8)
+        if (v20 >= *&qword_1EDB278F8)
         {
-          [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v21];
+          [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v20];
         }
 
         else
         {
-          [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:v21];
+          [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:v20];
         }
         bytesValue = ;
         break;
@@ -808,22 +800,20 @@ LABEL_13:
   v5 = bytesValue;
 LABEL_14:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)pQueryFromQuery:(void *)query error:
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
     v6 = objc_opt_new();
     predicate = [v5 predicate];
-    v34 = 0;
-    v8 = [predicate fcck_queryFiltersWithTranslator:self error:&v34];
-    v9 = v34;
+    v33 = 0;
+    v8 = [predicate fcck_queryFiltersWithTranslator:self error:&v33];
+    v9 = v33;
 
     if (v8)
     {
@@ -831,28 +821,28 @@ LABEL_14:
 
       if (!v10)
       {
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         v13 = v8;
-        v14 = [v13 countByEnumeratingWithState:&v30 objects:v36 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v29 objects:v35 count:16];
         if (v14)
         {
-          v15 = *v31;
+          v15 = *v30;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v31 != v15)
+              if (*v30 != v15)
               {
                 objc_enumerationMutation(v13);
               }
 
-              [v6 addFilters:*(*(&v30 + 1) + 8 * i)];
+              [v6 addFilters:*(*(&v29 + 1) + 8 * i)];
             }
 
-            v14 = [v13 countByEnumeratingWithState:&v30 objects:v36 count:16];
+            v14 = [v13 countByEnumeratingWithState:&v29 objects:v35 count:16];
           }
 
           while (v14);
@@ -863,29 +853,29 @@ LABEL_14:
         [v17 setName:recordType];
 
         [v6 addTypes:v17];
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
         v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
         sortDescriptors = [v5 sortDescriptors];
-        v20 = [sortDescriptors countByEnumeratingWithState:&v26 objects:v35 count:16];
+        v20 = [sortDescriptors countByEnumeratingWithState:&v25 objects:v34 count:16];
         if (v20)
         {
-          v21 = *v27;
+          v21 = *v26;
           do
           {
             for (j = 0; j != v20; ++j)
             {
-              if (*v27 != v21)
+              if (*v26 != v21)
               {
                 objc_enumerationMutation(sortDescriptors);
               }
 
-              fcck_querySort = [*(*(&v26 + 1) + 8 * j) fcck_querySort];
+              fcck_querySort = [*(*(&v25 + 1) + 8 * j) fcck_querySort];
               [v6 addSorts:fcck_querySort];
             }
 
-            v20 = [sortDescriptors countByEnumeratingWithState:&v26 objects:v35 count:16];
+            v20 = [sortDescriptors countByEnumeratingWithState:&v25 objects:v34 count:16];
           }
 
           while (v20);
@@ -912,8 +902,6 @@ LABEL_23:
 
   v12 = 0;
 LABEL_24:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

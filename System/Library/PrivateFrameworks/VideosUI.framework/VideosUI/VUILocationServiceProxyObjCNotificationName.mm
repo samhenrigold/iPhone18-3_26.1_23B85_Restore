@@ -7,14 +7,14 @@
 
 + (NSString)locationAuthorizationDidChange
 {
-  v2 = static VUILocationServiceProxyObjCNotificationName.locationAuthorizationDidChange.getter();
+  v2 = static VUILocationServiceProxyObjCNotificationName.locationAuthorizationDidChange.getter(self, a2);
 
   return v2;
 }
 
 + (NSString)locationDidChange
 {
-  v2 = static VUILocationServiceProxyObjCNotificationName.locationDidChange.getter();
+  v2 = static VUILocationServiceProxyObjCNotificationName.locationDidChange.getter(self, a2);
 
   return v2;
 }

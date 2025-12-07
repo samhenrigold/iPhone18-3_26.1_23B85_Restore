@@ -36,12 +36,9 @@
   objc_initWeak(&location, self);
   dataSource = [(HMIRemoveFaceprintsOperation *)self dataSource];
   faceprintUUIDs = [(HMIRemoveFaceprintsOperation *)self faceprintUUIDs];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __57__HMIRemoveFaceprintsOperation_mainInsideAutoreleasePool__block_invoke;
-  v5[3] = &unk_2787528E0;
+  v5 = MEMORY[0x277D85DD0];
   objc_copyWeak(&v6, &location);
-  [dataSource removeFaceprintsWithUUIDs:faceprintUUIDs completion:v5];
+  [dataSource removeFaceprintsWithUUIDs:v5 completion:{3221225472, __57__HMIRemoveFaceprintsOperation_mainInsideAutoreleasePool__block_invoke, &unk_2787528E0}];
 
   objc_destroyWeak(&v6);
   objc_destroyWeak(&location);
@@ -74,7 +71,7 @@ void __57__HMIRemoveFaceprintsOperation_mainInsideAutoreleasePool__block_invoke(
       }
 
       objc_autoreleasePoolPop(v5);
-      [v6 cancelWithError:v3];
+      [v6 cancelWithError:?];
     }
 
     else

@@ -5,6 +5,7 @@
 - (void)_handleConnectionInterrupted;
 - (void)activate;
 - (void)invalidate;
+- (void)setAllowsBanners:(BOOL)banners;
 @end
 
 @implementation CRSInCallAssertion
@@ -39,14 +40,14 @@
 
 - (void)_handleConnectionActivated
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = CRSLogForCategory(2uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     connection = self->_connection;
-    v10 = 138412290;
-    v11 = connection;
-    _os_log_impl(&dword_242FB5000, v3, OS_LOG_TYPE_DEFAULT, "Connection activated! %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = connection;
+    _os_log_impl(&dword_242FB5000, v3, OS_LOG_TYPE_DEFAULT, "Connection activated! %@", &v9, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -56,8 +57,8 @@
     v5 = CRSLogForCategory(2uLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_242FB5000, v5, OS_LOG_TYPE_DEFAULT, "Requesting presentation!", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_242FB5000, v5, OS_LOG_TYPE_DEFAULT, "Requesting presentation!", &v9, 2u);
     }
 
     remoteTarget = [(BSServiceConnection *)self->_connection remoteTarget];
@@ -72,12 +73,11 @@
 
   self->_lock_activated = 1;
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_lock_invalidated)
   {
@@ -85,9 +85,9 @@
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       connection = self->_connection;
-      v6 = 138412290;
-      v7 = connection;
-      _os_log_impl(&dword_242FB5000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating connection! %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = connection;
+      _os_log_impl(&dword_242FB5000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating connection! %@", &v5, 0xCu);
     }
 
     [(BSServiceConnection *)self->_connection invalidate];
@@ -95,16 +95,15 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (CRSInCallAssertion)initWithReason:(id)reason
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v26.receiver = self;
-  v26.super_class = CRSInCallAssertion;
-  v5 = [(CRSInCallAssertion *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = CRSInCallAssertion;
+  v5 = [(CRSInCallAssertion *)&v25 init];
   if (v5)
   {
     v6 = [reasonCopy copy];
@@ -129,29 +128,28 @@
 
     objc_initWeak(&location, v5);
     v17 = v5->_connection;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __37__CRSInCallAssertion_initWithReason___block_invoke;
-    v22[3] = &unk_278D8E3F8;
-    v23 = v5;
-    objc_copyWeak(&v24, &location);
-    [(BSServiceConnection *)v17 configureConnection:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __37__CRSInCallAssertion_initWithReason___block_invoke;
+    v21[3] = &unk_278D8E3F8;
+    v22 = v5;
+    objc_copyWeak(&v23, &location);
+    [(BSServiceConnection *)v17 configureConnection:v21];
     v18 = CRSLogForCategory(2uLL);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = v5->_connection;
       *buf = 138412290;
-      v28 = v19;
+      v27 = v19;
       _os_log_impl(&dword_242FB5000, v18, OS_LOG_TYPE_DEFAULT, "Activating connection! %@", buf, 0xCu);
     }
 
     [(BSServiceConnection *)v5->_connection activate];
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
 
     objc_destroyWeak(&location);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -212,23 +210,36 @@ void __37__CRSInCallAssertion_initWithReason___block_invoke_4(uint64_t a1, void 
   return lock_allowsBanners;
 }
 
+- (void)setAllowsBanners:(BOOL)banners
+{
+  bannersCopy = banners;
+  os_unfair_lock_lock(&self->_lock);
+  self->_lock_allowsBanners = bannersCopy;
+  if (self->_lock_activated)
+  {
+    remoteTarget = [(BSServiceConnection *)self->_connection remoteTarget];
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:bannersCopy];
+    [remoteTarget setAllowsBanners:v6];
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
+}
+
 - (void)_handleConnectionInterrupted
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(self + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_242FB5000, a2, OS_LOG_TYPE_ERROR, "Connection interrupted! Reactivating... %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_242FB5000, a2, OS_LOG_TYPE_ERROR, "Connection interrupted! Reactivating... %@", &v3, 0xCu);
 }
 
 void __37__CRSInCallAssertion_initWithReason___block_invoke_4_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_242FB5000, a2, OS_LOG_TYPE_ERROR, "Connection invalidated! %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_242FB5000, a2, OS_LOG_TYPE_ERROR, "Connection invalidated! %@", &v2, 0xCu);
 }
 
 @end

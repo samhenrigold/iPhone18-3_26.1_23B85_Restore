@@ -10,6 +10,7 @@
 - (void)setupContainingMessageClassName:(const char *)name;
 - (void)setupExtraTextInfo:(const char *)info;
 - (void)setupMessageClassNameSuffix:(id)suffix;
+- (void)setupOneofs:(const char *)oneofs count:(unsigned int)count firstHasIndex:(int)index;
 @end
 
 @implementation GPBDescriptor
@@ -86,6 +87,77 @@
   v3.receiver = self;
   v3.super_class = GPBDescriptor;
   [(GPBDescriptor *)&v3 dealloc];
+}
+
+- (void)setupOneofs:(const char *)oneofs count:(unsigned int)count firstHasIndex:(int)index
+{
+  v5 = *&index;
+  oneofsCopy = oneofs;
+  if ((index & 0x80000000) == 0)
+  {
+    sub_10030DCD4();
+  }
+
+  countCopy = count;
+  v8 = [[NSMutableArray alloc] initWithCapacity:count];
+  if (count)
+  {
+    v9 = 0;
+    do
+    {
+      v10 = oneofsCopy[v9];
+      fields = self->fields_;
+      v12 = objc_alloc_init(NSMutableArray);
+      v20 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v23 = 0u;
+      v13 = [(NSArray *)fields countByEnumeratingWithState:&v20 objects:v24 count:16];
+      if (v13)
+      {
+        v14 = v13;
+        v15 = *v21;
+        do
+        {
+          v16 = 0;
+          do
+          {
+            if (*v21 != v15)
+            {
+              objc_enumerationMutation(fields);
+            }
+
+            if (*(*(*(*(&v20 + 1) + 8 * v16) + 8) + 20) == v5)
+            {
+              [v12 addObject:?];
+            }
+
+            v16 = v16 + 1;
+          }
+
+          while (v14 != v16);
+          v14 = [(NSArray *)fields countByEnumeratingWithState:&v20 objects:v24 count:16];
+        }
+
+        while (v14);
+      }
+
+      if (![v12 count])
+      {
+        sub_10030DD40(v10, v5);
+      }
+
+      v17 = [[GPBOneofDescriptor alloc] initWithName:v10 fields:v12];
+      [(NSArray *)v8 addObject:v17];
+
+      ++v9;
+      v5 = (v5 - 1);
+    }
+
+    while (v9 != countCopy);
+  }
+
+  self->oneofs_ = v8;
 }
 
 - (void)setupExtraTextInfo:(const char *)info

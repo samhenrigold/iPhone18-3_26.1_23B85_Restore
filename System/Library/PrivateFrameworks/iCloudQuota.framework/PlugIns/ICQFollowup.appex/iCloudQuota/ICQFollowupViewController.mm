@@ -183,90 +183,89 @@ LABEL_6:
   v32 = _ICQGetLogSystem();
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
-    icqAction = self->_icqAction;
-    v34 = _ICQStringForAction();
+    v33 = _ICQStringForAction();
     *buf = 138412290;
-    v64 = v34;
+    v60 = v33;
     _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "followup: %@", buf, 0xCu);
   }
 
-  v35 = [(NSDictionary *)self->_icqActionParameters objectForKeyedSubscript:ICQActionParameterServerLinkIdentifierKey];
-  if (v35)
+  v34 = [(NSDictionary *)self->_icqActionParameters objectForKeyedSubscript:ICQActionParameterServerLinkIdentifierKey];
+  if (v34)
   {
-    v36 = os_transaction_create();
+    v35 = os_transaction_create();
     userInfo7 = [itemCopy userInfo];
-    v38 = _ICQStringForKey();
+    v37 = _ICQStringForKey();
 
-    v56 = completionCopy;
-    if (v38)
+    v52 = completionCopy;
+    if (v37)
     {
-      v39 = itemCopy;
+      v38 = itemCopy;
       if ([actionCopy eventSource] == 3)
       {
-        v69 = ICQUpdateOfferKeyIsZeroAction;
-        v70 = &off_100008658;
-        v40 = [NSDictionary dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+        v65 = ICQUpdateOfferKeyIsZeroAction;
+        v66 = &off_100008658;
+        v39 = [NSDictionary dictionaryWithObjects:&v66 forKeys:&v65 count:1];
       }
 
       else
       {
-        v40 = 0;
+        v39 = 0;
       }
 
-      v43 = _ICQGetLogSystem();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v42 = _ICQGetLogSystem();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v64 = v38;
-        v65 = 2112;
-        v66 = v35;
-        v67 = 2112;
-        v68 = v40;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "ICQFollowup sending updateOfferId:%@ buttonId:%@ info:%@", buf, 0x20u);
+        v60 = v37;
+        v61 = 2112;
+        v62 = v34;
+        v63 = 2112;
+        v64 = v39;
+        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "ICQFollowup sending updateOfferId:%@ buttonId:%@ info:%@", buf, 0x20u);
       }
 
-      v44 = +[ICQOfferManager sharedOfferManager];
-      v61[0] = _NSConcreteStackBlock;
-      v61[1] = 3221225472;
-      v61[2] = nullsub_2;
-      v61[3] = &unk_100008390;
-      v62 = v36;
-      v42 = v36;
-      [v44 updateOfferId:v38 buttonId:v35 info:v40 completion:v61];
+      v43 = +[ICQOfferManager sharedOfferManager];
+      v57[0] = _NSConcreteStackBlock;
+      v57[1] = 3221225472;
+      v57[2] = nullsub_2;
+      v57[3] = &unk_100008390;
+      v58 = v35;
+      v41 = v35;
+      [v43 updateOfferId:v37 buttonId:v34 info:v39 completion:v57];
     }
 
     else
     {
-      v39 = itemCopy;
+      v38 = itemCopy;
       requestType = [(ICQFollowupViewController *)self requestType];
-      v57[0] = _NSConcreteStackBlock;
-      v57[1] = 3221225472;
-      v57[2] = sub_1000023E8;
-      v57[3] = &unk_100008448;
-      v58 = actionCopy;
-      v59 = v35;
-      v60 = v36;
-      v40 = v36;
-      [(ICQFollowupViewController *)self getOfferWithRequestType:requestType withCompletion:v57];
+      v53[0] = _NSConcreteStackBlock;
+      v53[1] = 3221225472;
+      v53[2] = sub_1000023E8;
+      v53[3] = &unk_100008448;
+      v54 = actionCopy;
+      v55 = v34;
+      v56 = v35;
+      v39 = v35;
+      [(ICQFollowupViewController *)self getOfferWithRequestType:requestType withCompletion:v53];
 
-      v42 = v58;
+      v41 = v54;
     }
 
-    itemCopy = v39;
-    completionCopy = v56;
+    itemCopy = v38;
+    completionCopy = v52;
   }
 
-  v45 = self->_icqAction;
-  v46 = 1;
-  if (v45 <= 101)
+  icqAction = self->_icqAction;
+  v45 = 1;
+  if (icqAction <= 101)
   {
-    if (v45 <= 3)
+    if (icqAction <= 3)
     {
-      if ((v45 - 1) >= 2)
+      if ((icqAction - 1) >= 2)
       {
-        if (v45)
+        if (icqAction)
         {
-          if (v45 != 3)
+          if (icqAction != 3)
           {
             goto LABEL_43;
           }
@@ -274,15 +273,15 @@ LABEL_6:
           goto LABEL_19;
         }
 
-        v55 = _ICQGetLogSystem();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+        v51 = _ICQGetLogSystem();
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "action specified was none; doing nothing", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "action specified was none; doing nothing", buf, 2u);
         }
 
 LABEL_42:
-        v46 = 1;
+        v45 = 1;
         goto LABEL_43;
       }
 
@@ -291,31 +290,29 @@ LABEL_37:
       goto LABEL_42;
     }
 
-    if ((v45 - 4) < 2)
+    if ((icqAction - 4) < 2)
     {
 LABEL_31:
-      v50 = _ICQGetLogSystem();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      v49 = _ICQGetLogSystem();
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
       {
-        v51 = self->_icqAction;
-        v52 = _ICQStringForAction();
+        v50 = _ICQStringForAction();
         *buf = 138412290;
-        v64 = v52;
-        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "action %@ not supported directly in followup context", buf, 0xCu);
+        v60 = v50;
+        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "action %@ not supported directly in followup context", buf, 0xCu);
       }
 
       goto LABEL_42;
     }
 
-    if (v45 != 6)
+    if (icqAction != 6)
     {
-      if (v45 != 100)
+      if (icqAction != 100)
       {
         goto LABEL_43;
       }
 
 LABEL_36:
-      v53 = self->_icqActionParameters;
       [ICQLink performAction:"performAction:parameters:options:" parameters:? options:?];
       goto LABEL_37;
     }
@@ -323,15 +320,15 @@ LABEL_36:
     goto LABEL_38;
   }
 
-  if ((v45 - 104) > 0x11)
+  if ((icqAction - 104) > 0x11)
   {
 LABEL_34:
-    if (v45 == 102)
+    if (icqAction == 102)
     {
       goto LABEL_19;
     }
 
-    if (v45 != 103)
+    if (icqAction != 103)
     {
       goto LABEL_43;
     }
@@ -339,11 +336,11 @@ LABEL_34:
     goto LABEL_36;
   }
 
-  if (((1 << (v45 - 104)) & 0x27D1E) == 0)
+  if (((1 << (icqAction - 104)) & 0x27D1E) == 0)
   {
-    if (v45 != 104)
+    if (icqAction != 104)
     {
-      if (v45 == 109)
+      if (icqAction == 109)
       {
         goto LABEL_31;
       }
@@ -352,20 +349,19 @@ LABEL_34:
     }
 
 LABEL_38:
-    v54 = self->_icqActionParameters;
     [ICQLink performAction:"performAction:parameters:options:" parameters:? options:?];
     goto LABEL_42;
   }
 
 LABEL_19:
-  v47 = [(NSDictionary *)self->_icqActionParameters objectForKeyedSubscript:ICQActionParameterOpenURLKey];
-  v48 = [NSURL URLWithString:v47];
+  v46 = [(NSDictionary *)self->_icqActionParameters objectForKeyedSubscript:ICQActionParameterOpenURLKey];
+  v47 = [NSURL URLWithString:v46];
   openURL = self->_openURL;
-  self->_openURL = v48;
+  self->_openURL = v47;
 
-  v46 = 0;
+  v45 = 0;
 LABEL_43:
-  completionCopy[2](completionCopy, v46);
+  completionCopy[2](completionCopy, v45);
 }
 
 - (void)startShowingServerUI:(id)i

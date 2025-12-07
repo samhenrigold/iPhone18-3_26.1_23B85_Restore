@@ -3,6 +3,7 @@
 + (BOOL)runtimeIsSupported:(id *)supported;
 + (id)appActionFromDictionaryRepresentation:(id)representation;
 - (BOOL)isEqual:(id)equal;
+- (DNDAppAction)initWithAction:(id)action enabled:(BOOL)enabled;
 - (DNDAppAction)initWithCoder:(id)coder;
 - (LNAction)action;
 - (NSData)encodedAction;
@@ -22,7 +23,7 @@
 
 + (BOOL)runtimeIsSupported:(id *)supported
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v4 = NSClassFromString(&cfstr_Lnaction.isa);
   if (!v4)
   {
@@ -31,7 +32,7 @@
       +[DNDAppAction runtimeIsSupported:];
       if (!supported)
       {
-        goto LABEL_5;
+        return v4 != 0;
       }
 
       goto LABEL_4;
@@ -41,53 +42,64 @@
     {
 LABEL_4:
       v5 = MEMORY[0x277CCA9B8];
-      v9 = *MEMORY[0x277CCA450];
-      v10[0] = @"Failed to encode/decode app action: LinkServices framework is not loaded.";
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+      v8 = *MEMORY[0x277CCA450];
+      v9[0] = @"Failed to encode/decode app action: LinkServices framework is not loaded.";
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
       *supported = [v5 errorWithDomain:@"DNDErrorDomain" code:1006 userInfo:v6];
     }
   }
 
-LABEL_5:
-  result = v4 != 0;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return v4 != 0;
 }
 
 + (BOOL)archivingIsSupported:(id *)supported
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  if (!NSClassFromString(&cfstr_Wfappintentarc.isa) || !NSClassFromString(&cfstr_Lnfullyqualifi.isa))
+  v8[1] = *MEMORY[0x277D85DE8];
+  if (NSClassFromString(&cfstr_Wfappintentarc.isa) && NSClassFromString(&cfstr_Lnfullyqualifi.isa))
   {
-    if (os_log_type_enabled(DNDLogAppConfiguration, OS_LOG_TYPE_ERROR))
-    {
-      +[DNDAppAction archivingIsSupported:];
-      if (!supported)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    else if (!supported)
-    {
-LABEL_7:
-      result = 0;
-      goto LABEL_8;
-    }
-
-    v5 = MEMORY[0x277CCA9B8];
-    v8 = *MEMORY[0x277CCA450];
-    v9[0] = @"Failed to (un)archive action: VoiceShortcut or LinkServices framework is not loaded.";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-    *supported = [v5 errorWithDomain:@"DNDErrorDomain" code:1006 userInfo:v6];
-
-    goto LABEL_7;
+    return 1;
   }
 
-  result = 1;
-LABEL_8:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  if (os_log_type_enabled(DNDLogAppConfiguration, OS_LOG_TYPE_ERROR))
+  {
+    +[DNDAppAction archivingIsSupported:];
+    if (!supported)
+    {
+      return 0;
+    }
+
+    goto LABEL_6;
+  }
+
+  if (supported)
+  {
+LABEL_6:
+    v5 = MEMORY[0x277CCA9B8];
+    v7 = *MEMORY[0x277CCA450];
+    v8[0] = @"Failed to (un)archive action: VoiceShortcut or LinkServices framework is not loaded.";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    *supported = [v5 errorWithDomain:@"DNDErrorDomain" code:1006 userInfo:v6];
+  }
+
+  return 0;
+}
+
+- (DNDAppAction)initWithAction:(id)action enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  actionCopy = action;
+  if ([objc_opt_class() runtimeIsSupported:0])
+  {
+    self = [(DNDAppAction *)self _initWithAction:actionCopy bundleIdentifier:0 actionIdentifier:0 encodedAction:0 enabled:enabledCopy];
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 - (id)_initWithAction:(id)action bundleIdentifier:(id)identifier actionIdentifier:(id)actionIdentifier encodedAction:(id)encodedAction enabled:(BOOL)enabled
@@ -156,7 +168,7 @@ LABEL_8:
 
 - (LNAction)action
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   rawAction = self->_rawAction;
   if (!rawAction)
   {
@@ -169,9 +181,9 @@ LABEL_8:
         v6 = [objc_alloc(NSClassFromString(&cfstr_Lnfullyqualifi.isa)) initWithActionIdentifier:self->_identifier bundleIdentifier:effectiveBundleIdentifier];
         v7 = [objc_alloc(NSClassFromString(&cfstr_Wfappintentarc.isa)) initWithIdentifier:v6 actionMetadata:0];
         encodedAction = self->_encodedAction;
-        v23 = 0;
-        v9 = [v7 unarchiveActionFromData:encodedAction error:&v23];
-        v10 = v23;
+        v22 = 0;
+        v9 = [v7 unarchiveActionFromData:encodedAction error:&v22];
+        v10 = v22;
         v11 = v10;
         v12 = DNDLogAppConfiguration;
         if (!v9 || v10)
@@ -184,9 +196,9 @@ LABEL_8:
           v15 = MEMORY[0x277CCAAC8];
           v16 = NSClassFromString(&cfstr_Lnaction.isa);
           v17 = self->_encodedAction;
-          v22 = 0;
-          v14 = [v15 unarchivedObjectOfClass:v16 fromData:v17 error:&v22];
-          v13 = v22;
+          v21 = 0;
+          v14 = [v15 unarchivedObjectOfClass:v16 fromData:v17 error:&v21];
+          v13 = v21;
 
           v18 = DNDLogAppConfiguration;
           if (!v14 || v13)
@@ -202,7 +214,7 @@ LABEL_8:
             if (os_log_type_enabled(DNDLogAppConfiguration, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v25 = v14;
+              v24 = v14;
               _os_log_impl(&dword_22002F000, v18, OS_LOG_TYPE_DEFAULT, "Unarchived settings using fallback. %@", buf, 0xCu);
             }
 
@@ -215,7 +227,7 @@ LABEL_8:
           if (os_log_type_enabled(DNDLogAppConfiguration, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v25 = v9;
+            v24 = v9;
             _os_log_impl(&dword_22002F000, v12, OS_LOG_TYPE_DEFAULT, "Unarchived settings. %@", buf, 0xCu);
           }
 
@@ -230,8 +242,6 @@ LABEL_8:
 
     rawAction = self->_rawAction;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return rawAction;
 }
@@ -639,20 +649,16 @@ LABEL_55:
 
 - (void)action
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodedAction
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -41,40 +41,40 @@ void sub_1DF8(id a1)
   qword_CB38 = v1;
 }
 
-id sub_2238()
+id sub_2238(uint64_t a1)
 {
   if (qword_CB60 != -1)
   {
     sub_3228();
   }
 
-  v1 = qword_CB58;
+  v2 = qword_CB58;
 
-  return v1;
+  return v2;
 }
 
-id sub_227C()
+id sub_227C(uint64_t a1)
 {
   if (qword_CB70 != -1)
   {
     sub_323C();
   }
 
-  v1 = qword_CB68;
+  v2 = qword_CB68;
 
-  return v1;
+  return v2;
 }
 
-id sub_22C0()
+id sub_22C0(uint64_t a1)
 {
   if (qword_CB80 != -1)
   {
     sub_3250();
   }
 
-  v1 = qword_CB78;
+  v2 = qword_CB78;
 
-  return v1;
+  return v2;
 }
 
 void sub_3084(id a1)

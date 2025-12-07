@@ -32,14 +32,12 @@
 
 - (void)connect
 {
-  fLocationdConnection = self->fLocationdConnection;
   CLConnectionClient::setDefaultMessageHandler();
   objc_initWeak(&location, self);
-  v4 = self->fLocationdConnection;
-  objc_copyWeak(&v5, &location);
+  objc_copyWeak(&v3, &location);
   CLConnectionClient::setInterruptionHandler();
   CLConnectionClient::start(self->fLocationdConnection);
-  objc_destroyWeak(&v5);
+  objc_destroyWeak(&v3);
   objc_destroyWeak(&location);
 }
 
@@ -58,7 +56,7 @@
 
 - (void)writeContextConfiguration:(id)configuration withHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (!handler)
   {
     v14 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, configuration);
@@ -67,9 +65,9 @@
 
   if (self->fLocationdConnection)
   {
-    v16 = @"CMContextConfigurationKey";
+    v17 = @"CMContextConfigurationKey";
     configurationCopy = configuration;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, &configurationCopy, &v16, 1);
+    v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, &configurationCopy, &v17, 1);
     sub_19B686E08();
   }
 
@@ -94,17 +92,18 @@
       dispatch_once(&qword_1EAFE2A68, &unk_1F0E28200);
     }
 
-    v10 = _os_log_send_and_compose_impl();
+    LOWORD(v16) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A70, 16, "Error in writeContextConfiguration. Invalid locationd connection", &v16, 2);
+    v11 = v10;
     sub_19B6BB7CC("Generic", 1, 0, 0, "[CMContextConfigurationManager writeContextConfiguration:withHandler:]", "CoreLocation: %s\n", v10);
-    if (v10 != buf)
+    if (v11 != buf)
     {
-      free(v10);
+      free(v11);
     }
   }
 
-  v11 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v9, @"CMErrorDomain", 103, 0);
-  (*(handler + 2))(handler, v11);
-  v12 = *MEMORY[0x1E69E9840];
+  v12 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v9, @"CMErrorDomain", 103, 0);
+  (*(handler + 2))(handler, v12);
 }
 
 @end

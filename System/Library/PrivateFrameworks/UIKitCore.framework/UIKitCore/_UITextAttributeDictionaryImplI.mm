@@ -378,7 +378,7 @@ LABEL_8:
   v5 = dictionaryCopy;
   if (dictionaryCopy == self)
   {
-    v12 = 1;
+    isEqual = 1;
   }
 
   else
@@ -396,15 +396,15 @@ LABEL_8:
         v11 = v10;
         if (_fullDictionary3 == v10)
         {
-          v12 = 1;
+          isEqual = 1;
         }
 
         else
         {
-          v12 = 0;
+          isEqual = 0;
           if (_fullDictionary3 && v10)
           {
-            v12 = [(_UITextAttributeDictionaryImplI *)_fullDictionary3 isEqual:v10];
+            isEqual = objc_msgSend_isEqual_(_fullDictionary3);
           }
         }
 
@@ -418,17 +418,17 @@ LABEL_8:
         v11 = v5;
         if (_fullDictionary3 == v11)
         {
-          v12 = 1;
+          isEqual = 1;
         }
 
         else if (_fullDictionary3)
         {
-          v12 = [(_UITextAttributeDictionaryImplI *)_fullDictionary3 isEqual:v11];
+          isEqual = objc_msgSend_isEqual_(_fullDictionary3);
         }
 
         else
         {
-          v12 = 0;
+          isEqual = 0;
         }
 
         v6 = _fullDictionary3;
@@ -438,12 +438,12 @@ LABEL_19:
       }
     }
 
-    v12 = 0;
+    isEqual = 0;
   }
 
 LABEL_20:
 
-  return v12;
+  return isEqual;
 }
 
 - (id)description

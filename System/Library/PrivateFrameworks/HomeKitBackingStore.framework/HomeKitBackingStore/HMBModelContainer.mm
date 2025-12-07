@@ -44,7 +44,7 @@
 
 - (id)decodePropertyValueFromData:(id)data forProperty:(id)property field:(id)field storageLocation:(unint64_t)location error:(id *)error
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   propertyCopy = property;
   fieldCopy = field;
@@ -58,28 +58,26 @@
     v14 = MEMORY[0x277CCA9B8];
     v15 = *MEMORY[0x277D0F1A0];
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"should conform to HMBModelObjectCoder (but storage class for property %@ does not)", propertyCopy, @"message"];
-    v21[0] = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v20[0] = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     *error = [v14 errorWithDomain:v15 code:3 userInfo:v17];
 
     error = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return error;
 }
 
 - (id)encodePropertyValue:(id)value forProperty:(id)property field:(id)field storageLocation:(unint64_t)location error:(id *)error
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   propertyCopy = property;
   if ([objc_opt_class() conformsToProtocol:&unk_283EBF9D0])
   {
-    v27 = 0;
-    v12 = [valueCopy hmbEncodeForStorageLocation:location error:&v27];
-    v13 = v27;
+    v26 = 0;
+    v12 = [valueCopy hmbEncodeForStorageLocation:location error:&v26];
+    v13 = v26;
     v14 = v13;
     if (v12)
     {
@@ -100,11 +98,11 @@
       {
         v22 = MEMORY[0x277CCA9B8];
         v23 = *MEMORY[0x277D0F1A0];
-        v28[0] = @"message";
-        v28[1] = @"underlyingError";
-        v29[0] = v20;
-        v29[1] = v14;
-        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+        v27[0] = @"message";
+        v27[1] = @"underlyingError";
+        v28[0] = v20;
+        v28[1] = v14;
+        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
         *error = [v22 errorWithDomain:v23 code:3 userInfo:v24];
       }
 
@@ -121,9 +119,9 @@
   {
     v18 = MEMORY[0x277CCA9B8];
     v19 = *MEMORY[0x277D0F1A0];
-    v30 = @"message";
-    v31[0] = propertyCopy;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v29 = @"message";
+    v30[0] = propertyCopy;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     [v18 errorWithDomain:v19 code:3 userInfo:v15];
     *error = v16 = 0;
 LABEL_11:
@@ -134,14 +132,12 @@ LABEL_11:
   v16 = 0;
 LABEL_12:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (Class)_modelClassFromDictionary:(id)dictionary typeName:(id)name error:(id *)error
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   nameCopy = name;
   v10 = [dictionaryCopy hmf_stringForKey:@"_i"];
@@ -161,11 +157,11 @@ LABEL_12:
         v20 = HMFGetLogIdentifier();
         dataVersion2 = [(HMBModelContainer *)selfCopy dataVersion];
         *buf = 138543874;
-        v47 = v20;
-        v48 = 2112;
-        v49 = v11;
-        v50 = 2112;
-        v51 = dataVersion2;
+        v46 = v20;
+        v47 = 2112;
+        v48 = v11;
+        v49 = 2112;
+        v50 = dataVersion2;
         _os_log_impl(&dword_22AD27000, v19, OS_LOG_TYPE_INFO, "%{public}@Using HMBModelUnsupported because model's minimum version %@ is higher than current version: %@", buf, 0x20u);
       }
 
@@ -189,20 +185,20 @@ LABEL_12:
           *error = [MEMORY[0x277CCA9B8] hmfErrorWithCode:8];
         }
 
-        v40 = objc_autoreleasePoolPush();
+        v39 = objc_autoreleasePoolPush();
         selfCopy2 = self;
-        v42 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v41 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
-          v43 = HMFGetLogIdentifier();
+          v42 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v47 = v43;
-          v48 = 2112;
-          v49 = dictionaryCopy;
-          _os_log_impl(&dword_22AD27000, v42, OS_LOG_TYPE_ERROR, "%{public}@Cannot find type information in model dictionary: %@", buf, 0x16u);
+          v46 = v42;
+          v47 = 2112;
+          v48 = dictionaryCopy;
+          _os_log_impl(&dword_22AD27000, v41, OS_LOG_TYPE_ERROR, "%{public}@Cannot find type information in model dictionary: %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v40);
+        objc_autoreleasePoolPop(v39);
         nameCopy = 0;
         goto LABEL_17;
       }
@@ -226,9 +222,9 @@ LABEL_12:
     {
       v31 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v47 = v31;
-      v48 = 2112;
-      v49 = nameCopy;
+      v46 = v31;
+      v47 = 2112;
+      v48 = nameCopy;
       _os_log_impl(&dword_22AD27000, v30, OS_LOG_TYPE_INFO, "%{public}@Unable to find model class named %@", buf, 0x16u);
     }
 
@@ -244,9 +240,9 @@ LABEL_12:
       {
         v37 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v47 = v37;
-        v48 = 2112;
-        v49 = v32;
+        v46 = v37;
+        v47 = 2112;
+        v48 = v32;
         _os_log_impl(&dword_22AD27000, v36, OS_LOG_TYPE_INFO, "%{public}@Unable to resolve type name to class: %@", buf, 0x16u);
       }
 
@@ -270,12 +266,12 @@ LABEL_12:
   {
     v22 = MEMORY[0x277CCA9B8];
     v23 = *MEMORY[0x277D0F1A0];
-    v44 = @"message";
+    v43 = @"message";
     v24 = MEMORY[0x277CCACA8];
     v25 = NSStringFromClass(v16);
     v26 = [v24 stringWithFormat:@"remapped (or explicit map) is not a subclass of HMBModel (%@ is not a sub-class of HMBModel)", v25];
-    v45 = v26;
-    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+    v44 = v26;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
     *error = [v22 errorWithDomain:v23 code:3 userInfo:v27];
 
 LABEL_17:
@@ -283,8 +279,6 @@ LABEL_17:
   }
 
 LABEL_26:
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -329,7 +323,7 @@ LABEL_26:
 
 - (id)schemaHashForModel:(id)model
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   array = [MEMORY[0x277CBEB18] array];
   data = [MEMORY[0x277CBEB28] data];
@@ -338,30 +332,30 @@ LABEL_26:
   v8 = [allObjects sortedArrayUsingSelector:sel_compare_];
   [array addObjectsFromArray:v8];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v9 = array;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v20 + 1) + 8 * i) dataUsingEncoding:{4, v20}];
+        v14 = [*(*(&v19 + 1) + 8 * i) dataUsingEncoding:{4, v19}];
         [data appendData:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
@@ -370,8 +364,6 @@ LABEL_26:
   v15 = MEMORY[0x277CCAD78];
   hmbSchemaHashRoot = [objc_opt_class() hmbSchemaHashRoot];
   v17 = [v15 hmf_UUIDWithNamespace:hmbSchemaHashRoot data:data];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -432,24 +424,23 @@ LABEL_26:
 
 uint64_t __32__HMBModelContainer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v22;
-  logCategory__hmf_once_v22 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v22;
+  logCategory__hmf_once_v22 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)decodeAsNSDictionary:(id)dictionary error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v7 = objc_autoreleasePoolPush();
   v8 = MEMORY[0x277CCAAC8];
   v9 = +[HMBModelContainer internalAllowedTypes];
-  v31 = 0;
-  v10 = [v8 unarchivedObjectOfClasses:v9 fromData:dictionaryCopy error:&v31];
-  v11 = v31;
+  v30 = 0;
+  v10 = [v8 unarchivedObjectOfClasses:v9 fromData:dictionaryCopy error:&v30];
+  v11 = v30;
 
   if (v10)
   {
@@ -481,18 +472,18 @@ uint64_t __32__HMBModelContainer_logCategory__block_invoke()
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v25 = v30 = v22;
+        v25 = v29 = v22;
         v26 = objc_opt_class();
         *buf = 138543874;
-        v33 = v25;
-        v34 = 2112;
-        v35 = v26;
-        v36 = 2112;
-        v37 = v12;
+        v32 = v25;
+        v33 = 2112;
+        v34 = v26;
+        v35 = 2112;
+        v36 = v12;
         v27 = v26;
         _os_log_impl(&dword_22AD27000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unarchived model data was not a dictionary: (%@) %@", buf, 0x20u);
 
-        v22 = v30;
+        v22 = v29;
       }
 
       objc_autoreleasePoolPop(v22);
@@ -518,11 +509,11 @@ uint64_t __32__HMBModelContainer_logCategory__block_invoke()
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v33 = v20;
-      v34 = 2112;
-      v35 = dictionaryCopy;
-      v36 = 2112;
-      v37 = v11;
+      v32 = v20;
+      v33 = 2112;
+      v34 = dictionaryCopy;
+      v35 = 2112;
+      v36 = v11;
       _os_log_impl(&dword_22AD27000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive model data %@: %@", buf, 0x20u);
     }
 
@@ -541,14 +532,13 @@ uint64_t __32__HMBModelContainer_logCategory__block_invoke()
   }
 
   objc_autoreleasePoolPop(v7);
-  v28 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 + (id)decodeAsOPACK:(id)k error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   kCopy = k;
   v7 = OPACKDecodeData();
   v8 = v7;
@@ -582,12 +572,12 @@ uint64_t __32__HMBModelContainer_logCategory__block_invoke()
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v27 = v17;
-      v28 = 2112;
-      v29 = objc_opt_class();
-      v30 = 2112;
-      v31 = v9;
-      v18 = v29;
+      v26 = v17;
+      v27 = 2112;
+      v28 = objc_opt_class();
+      v29 = 2112;
+      v30 = v9;
+      v18 = v28;
       _os_log_impl(&dword_22AD27000, v16, OS_LOG_TYPE_ERROR, "%{public}@OPACK-decoded model data was not a dictionary: (%@) %@", buf, 0x20u);
     }
 
@@ -610,11 +600,11 @@ uint64_t __32__HMBModelContainer_logCategory__block_invoke()
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v27 = v22;
-      v28 = 2112;
-      v29 = kCopy;
-      v30 = 2112;
-      v31 = 0;
+      v26 = v22;
+      v27 = 2112;
+      v28 = kCopy;
+      v29 = 2112;
+      v30 = 0;
       _os_log_impl(&dword_22AD27000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to OPACK decode model data %@: %@", buf, 0x20u);
     }
 
@@ -631,14 +621,12 @@ uint64_t __32__HMBModelContainer_logCategory__block_invoke()
   v13 = 0;
 LABEL_17:
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (id)encodeAsOPACK:(id)k error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   kCopy = k;
   v7 = MEMORY[0x231885660]();
   if (!v7)
@@ -650,11 +638,11 @@ LABEL_17:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v16 = v11;
-      v17 = 2112;
-      v18 = kCopy;
-      v19 = 2112;
-      v20 = 0;
+      v15 = v11;
+      v16 = 2112;
+      v17 = kCopy;
+      v18 = 2112;
+      v19 = 0;
       _os_log_impl(&dword_22AD27000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to OPACK encode dictionary %@: %@", buf, 0x20u);
     }
 
@@ -665,8 +653,6 @@ LABEL_17:
       *error = 0;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -707,27 +693,25 @@ void __41__HMBModelContainer_internalAllowedTypes__block_invoke()
 
 void __33__HMBModelContainer_allowedTypes__block_invoke()
 {
-  v5[8] = *MEMORY[0x277D85DE8];
+  v4[8] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v5[6] = objc_opt_class();
-  v5[7] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v4[7] = objc_opt_class();
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:8];
   v2 = [v0 setWithArray:v1];
   v3 = allowedTypes__allowedTypes;
   allowedTypes__allowedTypes = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelFromData:(id)data encoding:(unint64_t)encoding storageLocation:(unint64_t)location type:(id)type error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   typeCopy = type;
   if (encoding == 2)
@@ -757,11 +741,11 @@ LABEL_5:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     v20 = HMFGetLogIdentifier();
-    v23 = 138543618;
-    v24 = v20;
-    v25 = 2048;
+    v22 = 138543618;
+    v23 = v20;
+    v24 = 2048;
     encodingCopy = encoding;
-    _os_log_impl(&dword_22AD27000, v19, OS_LOG_TYPE_ERROR, "%{public}@Cannot deserialize from unknown encoding: %lu", &v23, 0x16u);
+    _os_log_impl(&dword_22AD27000, v19, OS_LOG_TYPE_ERROR, "%{public}@Cannot deserialize from unknown encoding: %lu", &v22, 0x16u);
   }
 
   objc_autoreleasePoolPop(v17);
@@ -776,14 +760,12 @@ LABEL_11:
   v16 = 0;
 LABEL_12:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)modelFromDictionary:(id)dictionary storageLocation:(unint64_t)location typeName:(id)name error:(id *)error
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   nameCopy = name;
   v12 = [(HMBModelContainer *)self _modelClassFromDictionary:dictionaryCopy typeName:nameCopy error:error];
@@ -798,7 +780,7 @@ LABEL_12:
   v15 = v14;
   if (v14)
   {
-    v40 = v14;
+    v39 = v14;
 LABEL_12:
     v25 = objc_alloc(MEMORY[0x277CCAD78]);
     v26 = [dictionaryCopy valueForKey:@"_u"];
@@ -819,16 +801,16 @@ LABEL_12:
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v35 = v39 = v22;
+        v35 = v38 = v22;
         *buf = 138543874;
-        v42 = v35;
-        v43 = 2112;
-        v44 = dictionaryCopy;
-        v45 = 2112;
-        v46 = v31;
+        v41 = v35;
+        v42 = 2112;
+        v43 = dictionaryCopy;
+        v44 = 2112;
+        v45 = v31;
         _os_log_impl(&dword_22AD27000, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to populate model with dictionary %@: %@", buf, 0x20u);
 
-        v22 = v39;
+        v22 = v38;
       }
 
       objc_autoreleasePoolPop(v32);
@@ -851,7 +833,7 @@ LABEL_12:
       v16 = v30;
     }
 
-    v15 = v40;
+    v15 = v39;
 
     goto LABEL_20;
   }
@@ -871,7 +853,7 @@ LABEL_12:
       versionString = @"0.0.0";
     }
 
-    v40 = 0;
+    v39 = 0;
     v24 = [dictionaryCopy mutableCopy];
     [v24 setObject:versionString forKey:@"_V"];
 
@@ -887,10 +869,10 @@ LABEL_12:
 
   v20 = MEMORY[0x277CCA9B8];
   v21 = *MEMORY[0x277D0F1A0];
-  v47 = @"message";
+  v46 = @"message";
   v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"expecting a versioning key named %@ but one does not exist", @"_v"];
-  v48[0] = v22;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+  v47[0] = v22;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
   [v20 errorWithDomain:v21 code:3 userInfo:v23];
   *error = v16 = 0;
 LABEL_20:
@@ -898,20 +880,18 @@ LABEL_20:
 LABEL_21:
 LABEL_22:
 
-  v37 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)dataFromModel:(id)model encoding:(unint64_t)encoding storageLocation:(unint64_t)location updatedModelIDs:(id)ds error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   dsCopy = ds;
   [modelCopy hmbAssociateWithContainer:self];
-  v29 = 0;
-  v14 = [modelCopy prepareForStorageLocation:location using:self updatedModelIDs:dsCopy error:&v29];
-  v15 = v29;
+  v28 = 0;
+  v14 = [modelCopy prepareForStorageLocation:location using:self updatedModelIDs:dsCopy error:&v28];
+  v15 = v28;
   if (v14)
   {
     if (encoding == 2)
@@ -935,10 +915,10 @@ LABEL_10:
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v31 = v26;
-      v32 = 2112;
-      v33 = modelCopy;
-      v34 = 2048;
+      v30 = v26;
+      v31 = 2112;
+      v32 = modelCopy;
+      v33 = 2048;
       encodingCopy = encoding;
       _os_log_impl(&dword_22AD27000, v25, OS_LOG_TYPE_ERROR, "%{public}@Cannot encode data from model %@ with unknown encoding: %lu", buf, 0x20u);
     }
@@ -961,10 +941,10 @@ LABEL_10:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v31 = v20;
-      v32 = 2112;
-      v33 = modelCopy;
-      v34 = 2112;
+      v30 = v20;
+      v31 = 2112;
+      v32 = modelCopy;
+      v33 = 2112;
       encodingCopy = v15;
       _os_log_impl(&dword_22AD27000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to prepare model %@: %@", buf, 0x20u);
     }
@@ -981,8 +961,6 @@ LABEL_10:
 
   v22 = 0;
 LABEL_16:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

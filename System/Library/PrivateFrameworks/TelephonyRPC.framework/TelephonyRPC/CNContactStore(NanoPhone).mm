@@ -11,9 +11,9 @@
     +[CNContactStore(NanoPhone) nph_shared];
   }
 
-  v1 = nph_shared_sharedContactStore;
+  v2 = nph_shared_sharedContactStore;
 
-  return v1;
+  return v2;
 }
 
 @end

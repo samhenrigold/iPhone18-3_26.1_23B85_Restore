@@ -22,14 +22,14 @@
   {
     if (!activeTask)
     {
-      [(CSFSystemStatusAttributedTask *)self auditToken];
+      objc_msgSend_auditToken(self);
       v19 = [CSUtils auditTokenToString:v22];
       v18 = [v5 stringWithFormat:@"task-name: %@, task-bundle-identifier: %@, audit-token: %@", taskName, v8, v19];
 
       goto LABEL_14;
     }
 
-    [(CSFSystemStatusAttributedTask *)self auditToken];
+    objc_msgSend_auditToken(self);
     activeTask4 = [CSUtils auditTokenToString:v22];
     activeTask = [(CSFSystemStatusMicAttributedTask *)self activeTask];
     taskName2 = [activeTask taskName];
@@ -39,7 +39,7 @@
     v15 = activeTask3;
     if (activeTask3)
     {
-      [activeTask3 auditToken];
+      objc_msgSend_auditToken(activeTask3);
     }
 
     else

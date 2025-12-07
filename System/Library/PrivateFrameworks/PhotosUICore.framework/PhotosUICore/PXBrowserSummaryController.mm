@@ -348,14 +348,14 @@
   {
     self->_needsUpdateFlags.attributedSelectionTitle = 0;
     selectionInfoUpdater = [(PXBrowserSummaryController *)self selectionInfoUpdater];
-    info = [selectionInfoUpdater info];
+    v9 = objc_msgSend_info(selectionInfoUpdater);
 
-    v5 = [info objectForKeyedSubscript:@"count"];
+    v5 = [v9 objectForKeyedSubscript:@"count"];
     integerValue = [v5 integerValue];
 
     if (integerValue >= 2)
     {
-      v7 = [info objectForKeyedSubscript:@"mediaType"];
+      v7 = [v9 objectForKeyedSubscript:@"mediaType"];
       integerValue2 = [v7 integerValue];
 
       PXLocalizedAssetCountForUsage(integerValue, integerValue2, 0, 1);
@@ -371,9 +371,9 @@
   {
     self->_needsUpdateFlags.stackedAssets = 0;
     selectionInfoUpdater = [(PXBrowserSummaryController *)self selectionInfoUpdater];
-    info = [selectionInfoUpdater info];
+    v9 = objc_msgSend_info(selectionInfoUpdater);
 
-    v5 = [info objectForKeyedSubscript:@"count"];
+    v5 = [v9 objectForKeyedSubscript:@"count"];
     integerValue = [v5 integerValue];
 
     if (integerValue < 2)
@@ -383,7 +383,7 @@
 
     else
     {
-      v7 = [info objectForKeyedSubscript:@"stackedAssets"];
+      v7 = [v9 objectForKeyedSubscript:@"stackedAssets"];
     }
 
     v8 = PFFilter();
@@ -619,7 +619,7 @@ void __51__PXBrowserSummaryController_infoUpdaterDidUpdate___block_invoke(uint64
       }
 
       v9 = [*(a1 + 40) titlesInfoUpdater];
-      v10 = [v9 info];
+      v10 = objc_msgSend_info(v9);
 
       v11 = *(a1 + 40);
       v12 = [v10 objectForKeyedSubscript:@"attributedPrimaryTitle"];
@@ -653,7 +653,7 @@ void __51__PXBrowserSummaryController_infoUpdaterDidUpdate___block_invoke(uint64
   defaultAttributes = [(PXBrowserSummaryController *)self defaultAttributes];
   emphasizedAttributes = [(PXBrowserSummaryController *)self emphasizedAttributes];
   visibleMetadataInfoUpdater = [(PXBrowserSummaryController *)self visibleMetadataInfoUpdater];
-  info = [visibleMetadataInfoUpdater info];
+  v50 = objc_msgSend_info(visibleMetadataInfoUpdater);
 
   containerTitle = [(PXBrowserSummaryController *)self containerTitle];
   containerFallbackTitle = [(PXBrowserSummaryController *)self containerFallbackTitle];
@@ -761,7 +761,7 @@ LABEL_12:
   v51[1] = 3221225472;
   v51[2] = __66__PXBrowserSummaryController__requestTitlesInfoWithResultHandler___block_invoke_3;
   v51[3] = &unk_1E772F5C8;
-  v52 = info;
+  v52 = v50;
   v53 = v15;
   v68 = isFilteringContainerContent;
   v54 = v14;
@@ -796,7 +796,7 @@ LABEL_12:
   v22 = dateIntervalFormatter;
   v23 = v16;
   v24 = v15;
-  v25 = info;
+  v25 = v50;
   v26 = [(PXBrowserSummaryController *)self _performRequestBlock:v51];
 
   return v26;

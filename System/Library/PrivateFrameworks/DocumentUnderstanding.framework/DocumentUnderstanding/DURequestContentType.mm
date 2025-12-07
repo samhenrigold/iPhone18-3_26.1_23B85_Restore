@@ -126,8 +126,8 @@
 - (_TtC21DocumentUnderstanding20DURequestContentType)initWithAbilitiesToUnion:(id)union
 {
   swift_getObjectType();
-  sub_232CE9FE0();
-  return DURequestContentType.init(abilitiesToUnion:)();
+  v3 = sub_232CE9FE0();
+  return DURequestContentType.init(abilitiesToUnion:)(v3);
 }
 
 - (BOOL)isEqual:(id)equal
@@ -146,7 +146,7 @@
     selfCopy2 = self;
   }
 
-  v6 = DURequestContentType.isEqual(_:)();
+  v6 = DURequestContentType.isEqual(_:)(v8);
 
   sub_232B267AC(v8, &qword_27DDC68C8, &qword_232CF6210);
   return v6;

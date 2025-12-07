@@ -211,7 +211,7 @@ void __64__PKNFCTagReaderSession_readerSessionDidEndUnexpectedly_reason___block_
 {
   v2 = [*(a1 + 32) domain];
   v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"nfcd"];
-  if ([v2 isEqualToString:v3])
+  if (objc_msgSend_isEqualToString_(v2))
   {
     v4 = [*(a1 + 32) code];
 

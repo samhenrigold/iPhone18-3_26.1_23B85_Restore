@@ -25,9 +25,8 @@
 
 - (void)prepareFavorites:(id)favorites
 {
-  sub_1C6B1ABB8();
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v5 - 8);
+  sub_1C6B1ABB8(0);
+  MEMORY[0x1EEE9AC00](v5 - 8, v6);
   v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = _Block_copy(favorites);
   v10 = swift_allocObject();

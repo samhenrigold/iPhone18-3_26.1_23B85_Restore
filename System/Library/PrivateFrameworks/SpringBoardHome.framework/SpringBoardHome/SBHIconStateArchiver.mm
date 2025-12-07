@@ -192,7 +192,7 @@ LABEL_20:
       break;
     }
 
-    v15 = [v11 objectAtIndex:v12];
+    v15 = objc_msgSend_objectAtIndex_(v11);
 LABEL_15:
     v8 = v15;
 LABEL_16:
@@ -243,7 +243,7 @@ LABEL_14:
 
   if (v22)
   {
-    v8 = [v20 objectAtIndex:v12];
+    v8 = objc_msgSend_objectAtIndex_(v20);
 
     v11 = v20;
     archiveCopy = v27;
@@ -604,7 +604,8 @@ LABEL_6:
 
   if (isKindOfClass)
   {
-    v12 = [nodeCopy objectAtIndex:{objc_msgSend(pathCopy, "indexAtPosition:", 0)}];
+    [pathCopy indexAtPosition:0];
+    v12 = objc_msgSend_objectAtIndex_(nodeCopy);
   }
 
   else
@@ -1418,20 +1419,20 @@ LABEL_27:
 
   if (isKindOfClass)
   {
-    v12 = elementCopy;
-    kind = [v12 kind];
+    v13 = elementCopy;
+    kind = [v13 kind];
     if (kind)
     {
       [representationCopy setObject:kind forKey:@"widgetIdentifier"];
     }
 
-    extensionBundleIdentifier = [v12 extensionBundleIdentifier];
+    extensionBundleIdentifier = [v13 extensionBundleIdentifier];
     if (extensionBundleIdentifier)
     {
       [representationCopy setObject:extensionBundleIdentifier forKey:@"bundleIdentifier"];
     }
 
-    containerBundleIdentifier = [v12 containerBundleIdentifier];
+    containerBundleIdentifier = [v13 containerBundleIdentifier];
     if (containerBundleIdentifier)
     {
       [representationCopy setObject:containerBundleIdentifier forKey:@"containerBundleIdentifier"];
@@ -1440,8 +1441,8 @@ LABEL_27:
 
   else
   {
-    v12 = SBLogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = SBLogCommon(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SBHIconStateArchiver _addValuesForCustomIconElement:toRepresentation:];
     }

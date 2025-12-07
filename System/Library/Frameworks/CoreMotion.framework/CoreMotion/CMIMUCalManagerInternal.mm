@@ -79,23 +79,22 @@
 
 - (void)_insertImpact:(const DeviceImpactEvent *)impact
 {
-  v14 = *MEMORY[0x1E69E9840];
-  *&v13[16] = 0;
-  v12 = 0u;
-  *v13 = 0u;
-  v10 = 0u;
+  v13 = *MEMORY[0x1E69E9840];
+  *&v12[16] = 0;
   v11 = 0u;
+  *v12 = 0u;
   v9 = 0u;
-  *&v13[10] = *&impact->var0;
-  *&v13[15] = *(&impact->var0 + 5);
-  v4[4] = *v13;
-  v5 = *&v13[16];
-  memset(v4, 0, 64);
-  v6 = 3;
+  v10 = 0u;
+  v8 = 0u;
+  *&v12[10] = *&impact->var0;
+  *&v12[15] = *(&impact->var0 + 5);
+  v3[4] = *v12;
+  v4 = *&v12[16];
+  memset(v3, 0, 64);
+  v5 = 3;
+  v6 = 0;
   v7 = 0;
-  v8 = 0;
-  objc_msgSend__sendCommand_(self, a2, v4);
-  v3 = *MEMORY[0x1E69E9840];
+  objc_msgSend__sendCommand_(self, a2, v3);
 }
 
 - (void)_eraseStoreForParam:(int)param

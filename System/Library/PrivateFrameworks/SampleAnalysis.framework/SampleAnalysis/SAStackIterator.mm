@@ -9,44 +9,44 @@
 
 - (void)iterateFramesWithBacktraceStyle:(unint64_t)style block:(id)block
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ((style & 0x1C) != 0)
   {
-    v14 = *__error();
-    v15 = _sa_logt();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v13 = *__error();
+    v14 = _sa_logt();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
       styleCopy = style;
-      _os_log_error_impl(&dword_1E0E2F000, v15, OS_LOG_TYPE_ERROR, "SAStackIterator doesn't support backtrace style 0x%llx", buf, 0xCu);
+      _os_log_error_impl(&dword_1E0E2F000, v14, OS_LOG_TYPE_ERROR, "SAStackIterator doesn't support backtrace style 0x%llx", buf, 0xCu);
     }
 
-    *__error() = v14;
-    _SASetCrashLogMessage(1088, "SAStackIterator doesn't support backtrace style 0x%llx", v16, v17, v18, v19, v20, v21, style);
+    *__error() = v13;
+    _SASetCrashLogMessage(1088, "SAStackIterator doesn't support backtrace style 0x%llx", style);
     _os_crash();
     __break(1u);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = self->_stack;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         if (![v11 isKernel])
         {
           if ((style & 2) != 0)
@@ -71,15 +71,13 @@ LABEL_13:
         }
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
 LABEL_16:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasUserStack

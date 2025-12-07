@@ -15,6 +15,8 @@
 + (id)parseSignatureResponse:(id)response error:(id *)error;
 + (id)prepareWriteRequestForCharacteristic:(id)characteristic value:(id)value authorizationData:(id)data contextData:(id)contextData options:(int64_t)options error:(id *)error;
 + (id)readRequestForCharacteristic:(id)characteristic options:(int64_t)options error:(id *)error;
++ (id)signatureRequestForCharacteristic:(id)characteristic requiresAuthentication:(BOOL)authentication error:(id *)error;
++ (id)signatureRequestForService:(id)service characteristic:(id)characteristic requiresAuthentication:(BOOL)authentication error:(id *)error;
 + (id)writeRequestForCharacteristic:(id)characteristic value:(id)value authorizationData:(id)data contextData:(id)contextData options:(int64_t)options error:(id *)error;
 - (BOOL)_cancelDiscoveryWithError:(id)error;
 - (BOOL)_delegateRespondsToSelector:(SEL)selector;
@@ -79,8 +81,13 @@
 - (void)_discoverCharacteristicsForService:(id)service;
 - (void)_discoverServices;
 - (void)_discoverWithType:(int64_t)type completionHandler:(id)handler;
+- (void)_enableBroadcastEvent:(BOOL)event interval:(unint64_t)interval forCharacteristic:(id)characteristic completionHandler:(id)handler;
+- (void)_enableEvent:(BOOL)event forCharacteristic:(id)characteristic withCompletionHandler:(id)handler queue:(id)queue;
+- (void)_enableEvent:(BOOL)event toCharacteristic:(id)characteristic completionHandler:(id)handler;
+- (void)_enableEvents:(BOOL)events forCharacteristics:(id)characteristics withCompletionHandler:(id)handler queue:(id)queue;
 - (void)_enqueueRequest:(id)request shouldPrioritize:(BOOL)prioritize;
 - (void)_establishSecureSession;
+- (void)_generateBroadcastKey:(unsigned __int8)key queue:(id)queue withCompletionHandler:(id)handler;
 - (void)_getPairingFeaturesWithCompletionHandler:(id)handler;
 - (void)_handleCompletedDiscovery;
 - (void)_handleConnectionIdleTimeout;
@@ -110,6 +117,7 @@
 - (void)_notifyDelegateOfSentPlaintextData:(id)data forCharacteristic:(id)characteristic;
 - (void)_notifyDelegatesPairingStopped:(id)stopped;
 - (void)_pairingCompletedWithError:(id)error;
+- (void)_performEnableEvent:(BOOL)event toCharacteristic:(id)characteristic completionHandler:(id)handler;
 - (void)_performTimedWriteExecuteForCharacteristic:(id)characteristic value:(id)value options:(int64_t)options completionHandler:(id)handler;
 - (void)_performTimedWritePrepareWithValue:(id)value toCharacteristic:(id)characteristic authorizationData:(id)data contextData:(id)contextData options:(int64_t)options completionHandler:(id)handler;
 - (void)_performTimedWriteValue:(id)value toCharacteristic:(id)characteristic authorizationData:(id)data contextData:(id)contextData options:(int64_t)options completionHandler:(id)handler;
@@ -134,6 +142,7 @@
 - (void)_sendData:(id)data toCharacteristic:(id)characteristic completionHandler:(id)handler;
 - (void)_sendPairingRequestData:(id)data completionHandler:(id)handler;
 - (void)_sendProtocolInfoServiceExchangeData:(id)data completion:(id)completion;
+- (void)_sendRequest:(id)request shouldPrioritize:(BOOL)prioritize responseHandler:(id)handler;
 - (void)_suspendAllOperations;
 - (void)_suspendConnectionIdleTimer;
 - (void)_updateConnectionIdleTime:(unsigned __int8)time;
@@ -389,7 +398,7 @@ LABEL_13:
 {
   errorCopy = error;
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -450,7 +459,7 @@ LABEL_13:
         if (v9)
         {
           v21 = selfCopy;
-          v22 = sub_10007FAA0();
+          v22 = sub_10007FAA0(v21);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             v23 = sub_10007FAFC(v21);
@@ -505,7 +514,7 @@ LABEL_13:
         if (v9)
         {
           v34 = selfCopy;
-          v35 = sub_10007FAA0();
+          v35 = sub_10007FAA0(v34);
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             v36 = sub_10007FAFC(v34);
@@ -897,7 +906,7 @@ LABEL_11:
   if ([v4 count])
   {
     selfCopy = self;
-    v17 = sub_10007FAA0();
+    v17 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = sub_10007FAFC(selfCopy);
@@ -976,7 +985,7 @@ LABEL_11:
   if (isDiscovering)
   {
     selfCopy = self;
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = sub_10007FAFC(selfCopy);
@@ -1043,7 +1052,7 @@ LABEL_22:
   v12 = ([(_HAPAccessoryServerBTLE200 *)self discoveryRetries]< 2) | v11;
   v13 = [(_HAPAccessoryServerBTLE200 *)self _shouldIgnoreRetryDiscoveryError:errorCopy];
   selfCopy = self;
-  v15 = sub_10007FAA0();
+  v15 = sub_10007FAA0(selfCopy);
   v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
   if (v13 && (v12 & 1) != 0)
   {
@@ -1109,7 +1118,7 @@ LABEL_19:
   }
 
   v22 = selfCopy;
-  v23 = sub_10007FAA0();
+  v23 = sub_10007FAA0(v22);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
     v24 = sub_10007FAFC(v22);
@@ -1173,7 +1182,7 @@ LABEL_23:
   }
 
   selfCopy = self;
-  v5 = sub_10007FAA0();
+  v5 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = sub_10007FAFC(selfCopy);
@@ -1187,7 +1196,7 @@ LABEL_23:
 
   hasValidCache = [(_HAPAccessoryServerBTLE200 *)selfCopy hasValidCache];
   v9 = selfCopy;
-  v10 = sub_10007FAA0();
+  v10 = sub_10007FAA0(v9);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
   if (hasValidCache)
   {
@@ -1205,7 +1214,7 @@ LABEL_23:
 
     _hapServicesFromCache = [(_HAPAccessoryServerBTLE200 *)v9 _hapServicesFromCache];
     v16 = v9;
-    v17 = sub_10007FAA0();
+    v17 = sub_10007FAA0(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = sub_10007FAFC(v16);
@@ -1247,7 +1256,7 @@ LABEL_23:
 
       [(_HAPAccessoryServerBTLE200 *)v16 setHasValidCache:0];
       v73 = v16;
-      v74 = sub_10007FAA0();
+      v74 = sub_10007FAA0(v73);
       if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
       {
         v75 = sub_10007FAFC(v73);
@@ -1325,7 +1334,7 @@ LABEL_23:
               if ((v38 & 1) == 0)
               {
                 v39 = v9;
-                v40 = sub_10007FAA0();
+                v40 = sub_10007FAA0(v39);
                 if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
                 {
                   v41 = sub_10007FAFC(v39);
@@ -1354,7 +1363,7 @@ LABEL_30:
               else
               {
                 v47 = v9;
-                v48 = sub_10007FAA0();
+                v48 = sub_10007FAA0(v47);
                 if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
                 {
                   v49 = sub_10007FAFC(v47);
@@ -1405,7 +1414,7 @@ LABEL_35:
                 }
 
                 v39 = v9;
-                v40 = sub_10007FAA0();
+                v40 = sub_10007FAA0(v39);
                 if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
                 {
                   v53 = sub_10007FAFC(v39);
@@ -1445,7 +1454,7 @@ LABEL_37:
   primaryAccessory = v86;
   v56 = [(_HAPAccessoryServerBTLE200 *)v86 count];
   v57 = v9;
-  v58 = sub_10007FAA0();
+  v58 = sub_10007FAA0(v57);
   v59 = v58;
   if (!v56)
   {
@@ -1559,7 +1568,7 @@ LABEL_53:
   }
 
   characteristics = selfCopy;
-  v18 = sub_10007FAA0();
+  v18 = sub_10007FAA0(characteristics);
   v19 = idCopy;
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
@@ -1660,7 +1669,7 @@ LABEL_13:
   }
 
   v25 = selfCopy;
-  v26 = sub_10007FAA0();
+  v26 = sub_10007FAA0(v25);
   v24 = serviceCopy;
   if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
@@ -1810,7 +1819,7 @@ LABEL_10:
         if (!v20)
         {
           v20 = selfCopy;
-          v47 = sub_10007FAA0();
+          v47 = sub_10007FAA0(v20);
           if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
           {
             v50 = sub_10007FAFC(v20);
@@ -1869,7 +1878,7 @@ LABEL_32:
               if (!v31)
               {
                 v45 = selfCopy;
-                v46 = sub_10007FAA0();
+                v46 = sub_10007FAA0(v45);
                 v47 = v60;
                 if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
                 {
@@ -2003,7 +2012,7 @@ LABEL_33:
 {
   servicesCopy = services;
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -2061,7 +2070,7 @@ LABEL_33:
 
   [(_HAPAccessoryServerBTLE200 *)selfCopy setHasValidCache:1];
   v21 = selfCopy;
-  v22 = sub_10007FAA0();
+  v22 = sub_10007FAA0(v21);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
     v23 = sub_10007FAFC(v21);
@@ -2203,7 +2212,7 @@ LABEL_28:
 {
   serviceCopy = service;
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -2276,7 +2285,7 @@ LABEL_28:
     else
     {
       selfCopy = self;
-      v8 = sub_10007FAA0();
+      v8 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         v9 = sub_10007FAFC(selfCopy);
@@ -2377,7 +2386,7 @@ LABEL_8:
   [discoveringCharacteristics addObject:characteristicCopy];
 
   selfCopy = self;
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = sub_10007FAFC(selfCopy);
@@ -2397,7 +2406,7 @@ LABEL_8:
   charactersiticCopy = charactersitic;
   errorCopy = error;
   selfCopy = self;
-  v9 = sub_10007FAA0();
+  v9 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v10 = sub_10007FAFC(selfCopy);
@@ -2497,7 +2506,7 @@ LABEL_8:
   else
   {
     selfCopy = self;
-    v9 = sub_10007FAA0();
+    v9 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v10 = sub_10007FAFC(selfCopy);
@@ -2560,7 +2569,7 @@ LABEL_8:
   if (!value)
   {
     selfCopy = self;
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v8 = sub_10007FAFC(selfCopy);
@@ -2593,7 +2602,7 @@ LABEL_8:
   valueCopy = value;
   errorCopy = error;
   selfCopy = self;
-  v9 = sub_10007FAA0();
+  v9 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = sub_10007FAFC(selfCopy);
@@ -2698,7 +2707,7 @@ LABEL_8:
         }
 
         selfCopy = self;
-        v24 = sub_10007FAA0();
+        v24 = sub_10007FAA0(selfCopy);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           v25 = sub_10007FAFC(selfCopy);
@@ -2722,7 +2731,7 @@ LABEL_8:
     {
       pendingRequests2 = [(_HAPAccessoryServerBTLE200 *)self _characteristicForCBCharacteristic:characteristicCopy];
       selfCopy2 = self;
-      v27 = sub_10007FAA0();
+      v27 = sub_10007FAA0(selfCopy2);
       v28 = v27;
       if (pendingRequests2)
       {
@@ -2931,7 +2940,7 @@ LABEL_12:
           if (!v6)
           {
             selfCopy = self;
-            v11 = sub_10007FAA0();
+            v11 = sub_10007FAA0(selfCopy);
             if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
             {
               v12 = sub_10007FAFC(selfCopy);
@@ -3057,7 +3066,7 @@ LABEL_11:
           v83 = v8;
           v85 = v9;
           selfCopy = self;
-          v28 = sub_10007FAA0();
+          v28 = sub_10007FAA0(selfCopy);
           if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
             v29 = sub_10007FAFC(selfCopy);
@@ -3097,7 +3106,7 @@ LABEL_11:
         if (v10 && [0 isAuthenticated])
         {
           selfCopy2 = self;
-          v45 = sub_10007FAA0();
+          v45 = sub_10007FAA0(selfCopy2);
           if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
           {
             v46 = sub_10007FAFC(selfCopy2);
@@ -3115,7 +3124,7 @@ LABEL_11:
         }
 
         selfCopy3 = self;
-        v48 = sub_10007FAA0();
+        v48 = sub_10007FAA0(selfCopy3);
         if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
         {
           v49 = sub_10007FAFC(selfCopy3);
@@ -3187,7 +3196,7 @@ LABEL_46:
           }
 
           v72 = selfCopy3;
-          v73 = sub_10007FAA0();
+          v73 = sub_10007FAA0(v72);
           if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
           {
             v74 = sub_10007FAFC(v72);
@@ -3212,7 +3221,7 @@ LABEL_46:
           v64 = [NSString stringWithFormat:@"Failed to create characteristic with type, %@, characteristic instance ID, %@, properties, %tu", uUIDString3, v8, unsignedLongLongValue];
 
           v66 = selfCopy3;
-          v67 = sub_10007FAA0();
+          v67 = sub_10007FAA0(v66);
           if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
           {
             v68 = sub_10007FAFC(v66);
@@ -3235,7 +3244,7 @@ LABEL_46:
       }
 
       selfCopy4 = self;
-      v22 = sub_10007FAA0();
+      v22 = sub_10007FAA0(selfCopy4);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         v23 = sub_10007FAFC(selfCopy4);
@@ -3259,7 +3268,7 @@ LABEL_46:
       v9 = [NSString stringWithFormat:@"Failed to convert UUID '%@' to HAP UUID", uUID2];
 
       selfCopy5 = self;
-      v16 = sub_10007FAA0();
+      v16 = sub_10007FAA0(selfCopy5);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = sub_10007FAFC(selfCopy5);
@@ -3283,7 +3292,7 @@ LABEL_47:
   }
 
   selfCopy6 = self;
-  v12 = sub_10007FAA0();
+  v12 = sub_10007FAA0(selfCopy6);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     v13 = sub_10007FAFC(selfCopy6);
@@ -3348,7 +3357,7 @@ LABEL_48:
           if (v13 && [0 isAuthenticated])
           {
             selfCopy = self;
-            v46 = sub_10007FAA0();
+            v46 = sub_10007FAA0(selfCopy);
             if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
             {
               sub_10007FAFC(selfCopy);
@@ -3375,7 +3384,7 @@ LABEL_48:
           {
             v97 = service16;
             selfCopy2 = self;
-            v52 = sub_10007FAA0();
+            v52 = sub_10007FAA0(selfCopy2);
             if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
             {
               v53 = sub_10007FAFC(selfCopy2);
@@ -3459,7 +3468,7 @@ LABEL_48:
               {
                 v84 = v70;
                 v85 = selfCopy2;
-                v86 = sub_10007FAA0();
+                v86 = sub_10007FAA0(v85);
                 service14 = v93;
                 if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
                 {
@@ -3492,7 +3501,7 @@ LABEL_48:
               v78 = [NSString stringWithFormat:@"Failed to create service with type, %@, instance ID, %@, properties, %tu", uUIDString4, v98, unsignedLongLongValue];
 
               v79 = selfCopy2;
-              v80 = sub_10007FAA0();
+              v80 = sub_10007FAA0(v79);
               if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
               {
                 v81 = sub_10007FAFC(v79);
@@ -3521,7 +3530,7 @@ LABEL_48:
           v94 = v8;
           v96 = service16;
           selfCopy3 = self;
-          v31 = sub_10007FAA0();
+          v31 = sub_10007FAA0(selfCopy3);
           if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
           {
             v32 = sub_10007FAFC(selfCopy3);
@@ -3556,7 +3565,7 @@ LABEL_48:
       else
       {
         selfCopy4 = self;
-        v23 = sub_10007FAA0();
+        v23 = sub_10007FAA0(selfCopy4);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           v24 = sub_10007FAFC(selfCopy4);
@@ -3584,7 +3593,7 @@ LABEL_48:
       service17 = [NSString stringWithFormat:@"Failed to convert UUID '%@' to HAP UUID", uUID3];
 
       selfCopy5 = self;
-      v20 = sub_10007FAA0();
+      v20 = sub_10007FAA0(selfCopy5);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         v21 = sub_10007FAFC(selfCopy5);
@@ -3604,7 +3613,7 @@ LABEL_48:
   else
   {
     selfCopy6 = self;
-    v15 = sub_10007FAA0();
+    v15 = sub_10007FAA0(selfCopy6);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = sub_10007FAFC(selfCopy6);
@@ -3619,6 +3628,24 @@ LABEL_48:
     service17 = [signatureCopy service];
     [(_HAPAccessoryServerBTLE200 *)selfCopy6 _handleReadServiceSignature:service17 error:v8];
   }
+}
+
++ (id)signatureRequestForCharacteristic:(id)characteristic requiresAuthentication:(BOOL)authentication error:(id *)error
+{
+  authenticationCopy = authentication;
+  characteristicCopy = characteristic;
+  v7 = [[HAPBTLERequest alloc] initWithCharacteristic:characteristicCopy requestType:1 bodyData:0 shouldEncrypt:authenticationCopy timeoutInterval:10.0];
+
+  return v7;
+}
+
++ (id)signatureRequestForService:(id)service characteristic:(id)characteristic requiresAuthentication:(BOOL)authentication error:(id *)error
+{
+  authenticationCopy = authentication;
+  characteristicCopy = characteristic;
+  v8 = [[HAPBTLERequest alloc] initWithCharacteristic:characteristicCopy requestType:6 bodyData:0 shouldEncrypt:authenticationCopy timeoutInterval:10.0];
+
+  return v8;
 }
 
 + (id)parseSignatureResponse:(id)response error:(id *)error
@@ -4241,7 +4268,7 @@ LABEL_6:
   if (([objc_opt_class() isHAPService:serviceCopy] & 1) == 0)
   {
     selfCopy = self;
-    v24 = sub_10007FAA0();
+    v24 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       v25 = sub_10007FAFC(selfCopy);
@@ -4277,7 +4304,7 @@ LABEL_6:
     v13 = [NSString stringWithFormat:@"Failed to convert UUID '%@' to HAP UUID", uUID2];
 
     selfCopy2 = self;
-    v29 = sub_10007FAA0();
+    v29 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       v30 = sub_10007FAFC(selfCopy2);
@@ -4350,7 +4377,7 @@ LABEL_6:
         else
         {
           selfCopy4 = self;
-          v21 = sub_10007FAA0();
+          v21 = sub_10007FAA0(selfCopy4);
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             v22 = sub_10007FAFC(selfCopy4);
@@ -4375,7 +4402,7 @@ LABEL_6:
         if (v16)
         {
           selfCopy5 = self;
-          v59 = sub_10007FAA0();
+          v59 = sub_10007FAA0(selfCopy5);
           serviceCopy = v87;
           if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
           {
@@ -4412,7 +4439,7 @@ LABEL_6:
           }
 
           selfCopy6 = self;
-          v62 = sub_10007FAA0();
+          v62 = sub_10007FAA0(selfCopy6);
           if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
           {
             v64 = sub_10007FAFC(selfCopy6);
@@ -4472,7 +4499,7 @@ LABEL_33:
       {
         v65 = [NSString stringWithFormat:@"Missing characteristic signature for characteristic: %@", v35];
         v66 = selfCopy3;
-        v67 = sub_10007FAA0();
+        v67 = sub_10007FAA0(v66);
         if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
         {
           v68 = sub_10007FAFC(v66);
@@ -4519,7 +4546,7 @@ LABEL_33:
         v90 = [NSString stringWithFormat:@"The authenticated service type, %@, does not match the service type, %@ or %@, for characteristic: %@", uUIDString2, uUIDString3, uUIDString4, v35];
 
         v82 = selfCopy3;
-        v83 = sub_10007FAA0();
+        v83 = sub_10007FAA0(v82);
         if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
         {
           v84 = sub_10007FAFC(v82);
@@ -4545,7 +4572,7 @@ LABEL_42:
         v70 = [NSString stringWithFormat:@"The authenticated service instance ID, %@, does not match the service instance ID, %@, for characteristic: %@", serviceInstanceID2, v13, v35];
 
         v71 = selfCopy3;
-        v72 = sub_10007FAA0();
+        v72 = sub_10007FAA0(v71);
         if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
         {
           v73 = sub_10007FAFC(v71);
@@ -4618,7 +4645,7 @@ LABEL_45:
     v75 = [NSString stringWithFormat:@"Failed to create service with type, %@, service instance ID, %@, characteristics, %@", uUIDString6, v13, v93];
 
     v76 = selfCopy3;
-    v77 = sub_10007FAA0();
+    v77 = sub_10007FAA0(v76);
     if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
     {
       v78 = sub_10007FAFC(v76);
@@ -4711,7 +4738,7 @@ LABEL_80:
             {
               v30 = [NSString stringWithFormat:@"Missing characteristic signature for characteristic: %@", v74];
               selfCopy2 = self;
-              v54 = sub_10007FAA0();
+              v54 = sub_10007FAA0(selfCopy2);
               if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
               {
                 v55 = sub_10007FAFC(selfCopy2);
@@ -4761,7 +4788,7 @@ LABEL_80:
                 if (-[__CFString isEqualToCharacteristic:](v32, "isEqualToCharacteristic:", v30) && (-[__CFString metadata](v32, "metadata"), v33 = objc_claimAutoreleasedReturnValue(), -[NSObject metadata](v30, "metadata"), v34 = objc_claimAutoreleasedReturnValue(), v35 = [v33 isEqualToCharacteristicMetadata:v34], v34, v33, v35))
                 {
                   v36 = selfCopy;
-                  v37 = sub_10007FAA0();
+                  v37 = sub_10007FAA0(v36);
                   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
                   {
                     v38 = sub_10007FAFC(v36);
@@ -4793,7 +4820,7 @@ LABEL_80:
                 v65 = [NSString stringWithFormat:@"Failed to create characteristic with type, %@, characteristic instance ID, %@, properties, %tu, metadata, %@", uUIDString2, v19, characteristicProperties2, characteristicMetadata2];
 
                 v66 = selfCopy;
-                v67 = sub_10007FAA0();
+                v67 = sub_10007FAA0(v66);
                 if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
                 {
                   v68 = sub_10007FAFC(v66);
@@ -4827,7 +4854,7 @@ LABEL_80:
             v30 = [NSString stringWithFormat:@"The authenticated characteristic type, %@, does not match the characteristic type, %@", uUIDString3, uUIDString4];
 
             v59 = selfCopy;
-            v60 = sub_10007FAA0();
+            v60 = sub_10007FAA0(v59);
             if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
             {
               v61 = sub_10007FAFC(v59);
@@ -4852,7 +4879,7 @@ LABEL_57:
           else
           {
             selfCopy3 = self;
-            v30 = sub_10007FAA0();
+            v30 = sub_10007FAA0(selfCopy3);
             if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               v52 = sub_10007FAFC(selfCopy3);
@@ -4868,7 +4895,7 @@ LABEL_57:
       }
 
       selfCopy4 = self;
-      v45 = sub_10007FAA0();
+      v45 = sub_10007FAA0(selfCopy4);
       if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         v46 = sub_10007FAFC(selfCopy4);
@@ -4896,7 +4923,7 @@ LABEL_58:
       obj = [NSString stringWithFormat:@"Failed to convert UUID '%@' to HAP UUID", uUID3];
 
       selfCopy5 = self;
-      v49 = sub_10007FAA0();
+      v49 = sub_10007FAA0(selfCopy5);
       if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
         sub_10007FAFC(selfCopy5);
@@ -4923,7 +4950,7 @@ LABEL_58:
   }
 
   selfCopy6 = self;
-  v41 = sub_10007FAA0();
+  v41 = sub_10007FAA0(selfCopy6);
   if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
   {
     v42 = sub_10007FAFC(selfCopy6);
@@ -5008,7 +5035,7 @@ LABEL_59:
 
         v16 = *(*(&v41 + 1) + 8 * i);
         dispatch_group_enter(v10);
-        v17 = sub_10007FAA0();
+        v17 = sub_10007FAA0(0);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           v18 = sub_10007FAFC(0);
@@ -5118,7 +5145,7 @@ LABEL_59:
     else
     {
       selfCopy = self;
-      v23 = sub_10007FAA0();
+      v23 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         v24 = sub_10007FAFC(selfCopy);
@@ -5138,7 +5165,7 @@ LABEL_59:
   else
   {
     selfCopy2 = self;
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = sub_10007FAFC(selfCopy2);
@@ -5165,7 +5192,7 @@ LABEL_59:
 
   else
   {
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = sub_10007FAFC(0);
@@ -5257,7 +5284,7 @@ LABEL_21:
     v14 = v39;
 
     selfCopy = self;
-    v29 = sub_10007FAA0();
+    v29 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       v30 = sub_10007FAFC(selfCopy);
@@ -5415,7 +5442,7 @@ LABEL_18:
     if ((options & 4) != 0 || ([characteristicCopy properties] & 0x20) != 0)
     {
       selfCopy = self;
-      v31 = sub_10007FAA0();
+      v31 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         v32 = sub_10007FAFC(selfCopy);
@@ -5432,7 +5459,7 @@ LABEL_18:
     else
     {
       selfCopy2 = self;
-      v28 = sub_10007FAA0();
+      v28 = sub_10007FAA0(selfCopy2);
       if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         v29 = sub_10007FAFC(selfCopy2);
@@ -5450,7 +5477,7 @@ LABEL_18:
   else
   {
     selfCopy3 = self;
-    v23 = sub_10007FAA0();
+    v23 = sub_10007FAA0(selfCopy3);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v24 = sub_10007FAFC(selfCopy3);
@@ -5508,7 +5535,7 @@ LABEL_18:
   else
   {
     selfCopy = self;
-    v27 = sub_10007FAA0();
+    v27 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       v28 = sub_10007FAFC(selfCopy);
@@ -5578,7 +5605,7 @@ LABEL_18:
     v36 = v23;
     v37 = handlerCopy;
     v24 = objc_retainBlock(v35);
-    v25 = sub_10007FAA0();
+    v25 = sub_10007FAA0(0);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       v26 = sub_10007FAFC(0);
@@ -5597,7 +5624,7 @@ LABEL_18:
   else
   {
     selfCopy = self;
-    v29 = sub_10007FAA0();
+    v29 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       v30 = sub_10007FAFC(selfCopy);
@@ -5652,7 +5679,7 @@ LABEL_18:
   else
   {
     selfCopy = self;
-    v20 = sub_10007FAA0();
+    v20 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v21 = sub_10007FAFC(selfCopy);
@@ -5706,7 +5733,7 @@ LABEL_18:
   else
   {
     selfCopy = self;
-    v19 = sub_10007FAA0();
+    v19 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = sub_10007FAFC(selfCopy);
@@ -5756,7 +5783,7 @@ LABEL_18:
   else
   {
     selfCopy = self;
-    v19 = sub_10007FAA0();
+    v19 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = sub_10007FAFC(selfCopy);
@@ -5791,7 +5818,7 @@ LABEL_18:
   else
   {
     selfCopy = self;
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = sub_10007FAFC(selfCopy);
@@ -5957,7 +5984,7 @@ LABEL_19:
   else
   {
     selfCopy = self;
-    v21 = sub_10007FAA0();
+    v21 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       v22 = sub_10007FAFC(selfCopy);
@@ -5987,6 +6014,487 @@ LABEL_19:
   }
 }
 
+- (void)_enableEvents:(BOOL)events forCharacteristics:(id)characteristics withCompletionHandler:(id)handler queue:(id)queue
+{
+  eventsCopy = events;
+  characteristicsCopy = characteristics;
+  handlerCopy = handler;
+  queueCopy = queue;
+  selfCopy = self;
+  v10 = sub_10007FAA0(selfCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = sub_10007FAFC(selfCopy);
+    v12 = @"Disabling";
+    *buf = 138543874;
+    *&buf[4] = v11;
+    *&buf[12] = 2112;
+    if (eventsCopy)
+    {
+      v12 = @"Enabling";
+    }
+
+    *&buf[14] = v12;
+    *&buf[22] = 2112;
+    v112 = characteristicsCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@%@ events for characteristics: %@", buf, 0x20u);
+  }
+
+  if ([(_HAPAccessoryServerBTLE200 *)selfCopy connectionState]== 2)
+  {
+    v58 = +[NSMutableArray array];
+    v93 = 0u;
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
+    v13 = characteristicsCopy;
+    v14 = [v13 countByEnumeratingWithState:&v91 objects:v115 count:16];
+    if (v14)
+    {
+      obj = 0;
+      v15 = *v92;
+      do
+      {
+        for (i = 0; i != v14; i = i + 1)
+        {
+          if (*v92 != v15)
+          {
+            objc_enumerationMutation(v13);
+          }
+
+          v17 = *(*(&v91 + 1) + 8 * i);
+          if ([v17 eventNotificationsEnabled] == eventsCopy)
+          {
+            v18 = selfCopy;
+            v19 = sub_10007FAA0(v18);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+            {
+              v20 = sub_10007FAFC(v18);
+              *buf = 138543618;
+              *&buf[4] = v20;
+              *&buf[12] = 2112;
+              *&buf[14] = v17;
+              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "%{public}@Events already enabled for %@", buf, 0x16u);
+            }
+
+            ++obj;
+          }
+
+          else if ([v17 properties])
+          {
+            [v58 addObject:v17];
+          }
+        }
+
+        v14 = [v13 countByEnumeratingWithState:&v91 objects:v115 count:16];
+      }
+
+      while (v14);
+    }
+
+    else
+    {
+      obj = 0;
+    }
+
+    v26 = dispatch_group_create();
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x3032000000;
+    v112 = sub_10005DBD4;
+    v113 = sub_10005DBE4;
+    v114 = 0;
+    v55 = v26;
+    if ([v58 count])
+    {
+      dispatch_group_enter(v26);
+      v27 = +[NSMutableArray array];
+      group = dispatch_group_create();
+      v87 = 0u;
+      v88 = 0u;
+      v89 = 0u;
+      v90 = 0u;
+      obja = v13;
+      v28 = [obja countByEnumeratingWithState:&v87 objects:v110 count:16];
+      if (v28)
+      {
+        v29 = *v88;
+        do
+        {
+          for (j = 0; j != v28; j = j + 1)
+          {
+            if (*v88 != v29)
+            {
+              objc_enumerationMutation(obja);
+            }
+
+            v31 = *(*(&v87 + 1) + 8 * j);
+            dispatch_group_enter(group);
+            v83[0] = _NSConcreteStackBlock;
+            v83[1] = 3221225472;
+            v83[2] = sub_10005DBEC;
+            v83[3] = &unk_100273F38;
+            v86 = eventsCopy;
+            v83[4] = selfCopy;
+            v84 = v27;
+            v85 = group;
+            v32 = objc_retainBlock(v83);
+            [(_HAPAccessoryServerBTLE200 *)selfCopy _enableEvent:eventsCopy forCharacteristic:v31 withCompletionHandler:v32 queue:queueCopy];
+            [v31 setEventNotificationsEnabled:eventsCopy];
+          }
+
+          v28 = [obja countByEnumeratingWithState:&v87 objects:v110 count:16];
+        }
+
+        while (v28);
+      }
+
+      dispatch_group_leave(v55);
+      clientQueue = [(HAPAccessoryServer *)selfCopy clientQueue];
+      v77[0] = _NSConcreteStackBlock;
+      v77[1] = 3221225472;
+      v77[2] = sub_10005DDC4;
+      v77[3] = &unk_100273F88;
+      v77[4] = selfCopy;
+      v78 = v58;
+      v79 = queueCopy;
+      v82 = buf;
+      v80 = v27;
+      v81 = handlerCopy;
+      v34 = v27;
+      dispatch_group_notify(v55, clientQueue, v77);
+    }
+
+    else
+    {
+      group = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v13 count]);
+      v75 = 0u;
+      v76 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      v35 = v13;
+      v36 = [v35 countByEnumeratingWithState:&v73 objects:v109 count:16];
+      if (v36)
+      {
+        v59 = *v74;
+        do
+        {
+          v60 = v36;
+          for (k = 0; k != v60; k = k + 1)
+          {
+            if (*v74 != v59)
+            {
+              objc_enumerationMutation(v35);
+            }
+
+            v38 = *(*(&v73 + 1) + 8 * k);
+            if ([v38 eventNotificationsEnabled] == eventsCopy)
+            {
+              v39 = 0;
+            }
+
+            else
+            {
+              v39 = [NSError errorWithDomain:@"HAPErrorDomain" code:-6711 userInfo:0];
+              v40 = selfCopy;
+              v41 = sub_10007FAA0(v40);
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+              {
+                v42 = sub_10007FAFC(v40);
+                instanceID = [v38 instanceID];
+                type = [v38 type];
+                *v101 = 138544130;
+                v102 = v42;
+                v103 = 2112;
+                v104 = instanceID;
+                v105 = 2112;
+                v106 = type;
+                v107 = 2112;
+                v108 = v39;
+                _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "%{public}@Enable event response for characteristic %@/%@ with error: %@", v101, 0x2Au);
+              }
+            }
+
+            v45 = [HAPCharacteristicResponseTuple responseTupleForCharacteristic:v38 error:v39];
+            if (v45)
+            {
+              [group addObject:v45];
+            }
+          }
+
+          v36 = [v35 countByEnumeratingWithState:&v73 objects:v109 count:16];
+        }
+
+        while (v36);
+      }
+
+      if (obj == [v35 count])
+      {
+        if (!handlerCopy || !queueCopy)
+        {
+          goto LABEL_36;
+        }
+
+        v70[0] = _NSConcreteStackBlock;
+        v70[1] = 3221225472;
+        v70[2] = sub_10005E3C0;
+        v70[3] = &unk_100273720;
+        v72 = handlerCopy;
+        group = group;
+        v71 = group;
+        dispatch_async(queueCopy, v70);
+
+        v34 = v72;
+      }
+
+      else
+      {
+        v99[0] = NSLocalizedDescriptionKey;
+        v46 = [NSString stringWithFormat:@"Failed to enable events for characteristic %@", v35];
+        v100[0] = v46;
+        v99[1] = NSLocalizedFailureReasonErrorKey;
+        v47 = +[NSBundle mainBundle];
+        v48 = [v47 localizedStringForKey:@"No Characteristics support notify property" value:&stru_10027BDA0 table:0];
+        v100[1] = v48;
+        v34 = [NSDictionary dictionaryWithObjects:v100 forKeys:v99 count:2];
+
+        v49 = [NSError errorWithDomain:@"HAPErrorDomain" code:-6735 userInfo:v34];
+        v50 = *(*&buf[8] + 40);
+        *(*&buf[8] + 40) = v49;
+
+        v51 = selfCopy;
+        v52 = sub_10007FAA0(v51);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+        {
+          v53 = sub_10007FAFC(v51);
+          v54 = *(*&buf[8] + 40);
+          *v101 = 138543618;
+          v102 = v53;
+          v103 = 2112;
+          v104 = v54;
+          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "%{public}@Failed to enable events for characteristic with error: %@", v101, 0x16u);
+        }
+
+        if (handlerCopy && queueCopy)
+        {
+          v66[0] = _NSConcreteStackBlock;
+          v66[1] = 3221225472;
+          v66[2] = sub_10005E3D8;
+          v66[3] = &unk_100273FB0;
+          v68 = handlerCopy;
+          group = group;
+          v67 = group;
+          v69 = buf;
+          dispatch_async(queueCopy, v66);
+        }
+      }
+    }
+
+LABEL_36:
+    _Block_object_dispose(buf, 8);
+
+    v25 = v55;
+    goto LABEL_37;
+  }
+
+  v21 = selfCopy;
+  v22 = sub_10007FAA0(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  {
+    v23 = sub_10007FAFC(v21);
+    connectionState = [(_HAPAccessoryServerBTLE200 *)v21 connectionState];
+    *buf = 138543618;
+    *&buf[4] = v23;
+    *&buf[12] = 2048;
+    *&buf[14] = connectionState;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%{public}@Rejecting enabling events on server that is not connected, current state: %tu", buf, 0x16u);
+  }
+
+  v58 = [NSError errorWithDomain:@"HAPErrorDomain" code:2 userInfo:0];
+  if (handlerCopy && queueCopy)
+  {
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10005DBBC;
+    block[3] = &unk_1002736A8;
+    v98 = handlerCopy;
+    v96 = characteristicsCopy;
+    v58 = v58;
+    v97 = v58;
+    dispatch_async(queueCopy, block);
+
+    v25 = v98;
+LABEL_37:
+  }
+}
+
+- (void)_enableEvent:(BOOL)event forCharacteristic:(id)characteristic withCompletionHandler:(id)handler queue:(id)queue
+{
+  eventCopy = event;
+  characteristicCopy = characteristic;
+  handlerCopy = handler;
+  queueCopy = queue;
+  cbCharacteristic = [characteristicCopy cbCharacteristic];
+  selfCopy = self;
+  v15 = sub_10007FAA0(selfCopy);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  {
+    v16 = sub_10007FAFC(selfCopy);
+    *buf = 138543874;
+    v44 = v16;
+    v45 = 1024;
+    v46 = eventCopy;
+    v47 = 2112;
+    v48 = characteristicCopy;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "%{public}@Enable Events :%d for Characteristics: %@", buf, 0x1Cu);
+  }
+
+  if (!cbCharacteristic)
+  {
+    v41[0] = NSLocalizedDescriptionKey;
+    characteristicCopy = [NSString stringWithFormat:@"Failed to enable events for characteristic %@", characteristicCopy];
+    v42[0] = characteristicCopy;
+    v41[1] = NSLocalizedFailureReasonErrorKey;
+    v24 = +[NSBundle mainBundle];
+    v25 = [v24 localizedStringForKey:@"Unable to find matching BTLE characteristic" value:&stru_10027BDA0 table:0];
+    v42[1] = v25;
+    v20 = [NSDictionary dictionaryWithObjects:v42 forKeys:v41 count:2];
+
+    v21 = [NSError errorWithDomain:@"HAPErrorDomain" code:-6727 userInfo:v20];
+    if (!handlerCopy || !queueCopy)
+    {
+      goto LABEL_12;
+    }
+
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_10005E898;
+    v35[3] = &unk_1002736A8;
+    v38 = handlerCopy;
+    v36 = characteristicCopy;
+    v37 = v21;
+    dispatch_async(queueCopy, v35);
+
+    v22 = v38;
+    goto LABEL_11;
+  }
+
+  if (([cbCharacteristic properties] & 0x20) != 0)
+  {
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_10005E8C8;
+    v27[3] = &unk_100273FD8;
+    v30 = eventCopy;
+    v27[4] = selfCopy;
+    v29 = handlerCopy;
+    v28 = queueCopy;
+    v26 = objc_retainBlock(v27);
+    [(_HAPAccessoryServerBTLE200 *)selfCopy _performEnableEvent:eventCopy toCharacteristic:characteristicCopy completionHandler:v26];
+
+    goto LABEL_14;
+  }
+
+  v39[0] = NSLocalizedDescriptionKey;
+  characteristicCopy2 = [NSString stringWithFormat:@"Failed to enable events for characteristic %@", characteristicCopy];
+  v40[0] = characteristicCopy2;
+  v39[1] = NSLocalizedFailureReasonErrorKey;
+  v18 = +[NSBundle mainBundle];
+  v19 = [v18 localizedStringForKey:@"BTLE characteristic does not support indication" value:&stru_10027BDA0 table:0];
+  v40[1] = v19;
+  v20 = [NSDictionary dictionaryWithObjects:v40 forKeys:v39 count:2];
+
+  v21 = [NSError errorWithDomain:@"HAPErrorDomain" code:-6735 userInfo:v20];
+  if (handlerCopy && queueCopy)
+  {
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10005E8B0;
+    block[3] = &unk_1002736A8;
+    v34 = handlerCopy;
+    v32 = characteristicCopy;
+    v33 = v21;
+    dispatch_async(queueCopy, block);
+
+    v22 = v34;
+LABEL_11:
+  }
+
+LABEL_12:
+
+LABEL_14:
+}
+
+- (void)_performEnableEvent:(BOOL)event toCharacteristic:(id)characteristic completionHandler:(id)handler
+{
+  eventCopy = event;
+  v13 = _NSConcreteStackBlock;
+  v14 = 3221225472;
+  v15 = sub_10005EBBC;
+  v16 = &unk_100273A40;
+  characteristicCopy = characteristic;
+  handlerCopy = handler;
+  v8 = characteristicCopy;
+  v9 = handlerCopy;
+  [(_HAPAccessoryServerBTLE200 *)self _enableEvent:eventCopy toCharacteristic:v8 completionHandler:&v13];
+  v10 = [(_HAPAccessoryServerBTLE200 *)self securitySession:v13];
+  if ([v10 isOpen])
+  {
+  }
+
+  else
+  {
+    securitySession = [(_HAPAccessoryServerBTLE200 *)self securitySession];
+    isOpening = [securitySession isOpening];
+
+    if ((isOpening & 1) == 0)
+    {
+      [(_HAPAccessoryServerBTLE200 *)self _suspendAllOperations];
+      [(HAPAccessoryServer *)self setMetric_pairVerifyReason:@"noSession.event"];
+      [(_HAPAccessoryServerBTLE200 *)self _establishSecureSession];
+    }
+  }
+}
+
+- (void)_enableEvent:(BOOL)event toCharacteristic:(id)characteristic completionHandler:(id)handler
+{
+  eventCopy = event;
+  characteristicCopy = characteristic;
+  handlerCopy = handler;
+  cbCharacteristic = [characteristicCopy cbCharacteristic];
+  if (cbCharacteristic)
+  {
+    characteristicEnableEventCompletionHandlers = [(_HAPAccessoryServerBTLE200 *)self characteristicEnableEventCompletionHandlers];
+    v12 = [handlerCopy copy];
+    v13 = objc_retainBlock(v12);
+    [characteristicEnableEventCompletionHandlers setObject:v13 forKey:characteristicCopy];
+
+    peripheral = [(HAPAccessoryServerBTLE *)self peripheral];
+    [peripheral setNotifyValue:eventCopy forCharacteristic:cbCharacteristic];
+  }
+
+  else
+  {
+    selfCopy = self;
+    v16 = sub_10007FAA0(selfCopy);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v17 = sub_10007FAFC(selfCopy);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2112;
+      v22 = characteristicCopy;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}@Missing mapped characteristic for characteristic: %@", &v19, 0x16u);
+    }
+
+    if (handlerCopy)
+    {
+      v18 = [NSError hapErrorWithcode:1 description:@"Missing mapped characteristic" reason:0 suggestion:0 underlyingError:0];
+      (*(handlerCopy + 2))(handlerCopy, v18);
+    }
+  }
+}
+
 - (void)_handleHAPNotificationStateUpdateForCharacteristic:(id)characteristic error:(id)error
 {
   characteristicCopy = characteristic;
@@ -6006,7 +6514,7 @@ LABEL_19:
   else
   {
     selfCopy = self;
-    v12 = sub_10007FAA0();
+    v12 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = sub_10007FAFC(selfCopy);
@@ -6025,7 +6533,7 @@ LABEL_19:
   if ([characteristicCopy properties])
   {
     selfCopy = self;
-    v6 = sub_10007FAA0();
+    v6 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = sub_10007FAFC(selfCopy);
@@ -6218,7 +6726,7 @@ LABEL_27:
   else
   {
     selfCopy = self;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = sub_10007FAFC(selfCopy);
@@ -6357,7 +6865,7 @@ LABEL_27:
         else
         {
           selfCopy = self;
-          v17 = sub_10007FAA0();
+          v17 = sub_10007FAA0(selfCopy);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             v18 = sub_10007FAFC(selfCopy);
@@ -6394,6 +6902,78 @@ LABEL_27:
 
   objc_destroyWeak(&v35);
   objc_destroyWeak(buf);
+}
+
+- (void)_enableBroadcastEvent:(BOOL)event interval:(unint64_t)interval forCharacteristic:(id)characteristic completionHandler:(id)handler
+{
+  eventCopy = event;
+  characteristicCopy = characteristic;
+  handlerCopy = handler;
+  service = [characteristicCopy service];
+  accessory = [service accessory];
+  server = [accessory server];
+
+  if (server == self)
+  {
+    objc_initWeak(&location, self);
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_100060CF8;
+    v28[3] = &unk_100273E20;
+    objc_copyWeak(&v31, &location);
+    v18 = characteristicCopy;
+    v29 = v18;
+    v19 = handlerCopy;
+    v30 = v19;
+    v20 = objc_retainBlock(v28);
+    v27 = 0;
+    v21 = [objc_opt_class() configurationRequestForCharacteristic:v18 isBroadcasted:eventCopy interval:interval error:&v27];
+    v22 = v27;
+    if (v21)
+    {
+      [(_HAPAccessoryServerBTLE200 *)self _sendRequest:v21 shouldPrioritize:0 responseHandler:v20];
+    }
+
+    else
+    {
+      selfCopy = self;
+      v24 = sub_10007FAA0(selfCopy);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      {
+        v25 = sub_10007FAFC(selfCopy);
+        *buf = 138543874;
+        v34 = v25;
+        v35 = 2112;
+        v36 = v18;
+        v37 = 2112;
+        v38 = v22;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to create configuration request for characteristic, %@, with error: %@", buf, 0x20u);
+      }
+
+      v26 = [NSError hapErrorWithcode:9];
+      sub_100059068(v18, v19, 3, v26, @"Failed to create configuration request.");
+    }
+
+    objc_destroyWeak(&v31);
+    objc_destroyWeak(&location);
+  }
+
+  else
+  {
+    selfCopy2 = self;
+    v16 = sub_10007FAA0(selfCopy2);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v17 = sub_10007FAFC(selfCopy2);
+      *buf = 138543618;
+      v34 = v17;
+      v35 = 2112;
+      v36 = characteristicCopy;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}@Configure characteristic failed, characteristic is not part of server: %@", buf, 0x16u);
+    }
+
+    sub_100059068(characteristicCopy, handlerCopy, 3, 0, @"Characteristic is not part of server.");
+  }
 }
 
 - (void)startPairingWithRequest:(id)request
@@ -6470,7 +7050,7 @@ LABEL_27:
   else
   {
     selfCopy = self;
-    v11 = sub_10007FAA0();
+    v11 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = sub_10007FAFC(selfCopy);
@@ -6509,7 +7089,7 @@ LABEL_9:
   else
   {
     selfCopy = self;
-    v11 = sub_10007FAA0();
+    v11 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = sub_10007FAFC(selfCopy);
@@ -6577,7 +7157,7 @@ LABEL_9:
   else
   {
     selfCopy2 = self;
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = sub_10007FAFC(selfCopy2);
@@ -6629,7 +7209,7 @@ LABEL_6:
   }
 
   selfCopy = self;
-  v9 = sub_10007FAA0();
+  v9 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v10 = sub_10007FAFC(selfCopy);
@@ -6664,7 +7244,7 @@ LABEL_10:
 {
   errorCopy = error;
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -6850,7 +7430,7 @@ LABEL_10:
   v14 = v30;
 
   selfCopy = self;
-  v16 = sub_10007FAA0();
+  v16 = sub_10007FAA0(selfCopy);
   v17 = v16;
   if (v13)
   {
@@ -6947,7 +7527,7 @@ LABEL_10:
   else
   {
     selfCopy = self;
-    v11 = sub_10007FAA0();
+    v11 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = sub_10007FAFC(selfCopy);
@@ -7136,6 +7716,63 @@ LABEL_11:
   return v6;
 }
 
+- (void)_sendRequest:(id)request shouldPrioritize:(BOOL)prioritize responseHandler:(id)handler
+{
+  prioritizeCopy = prioritize;
+  requestCopy = request;
+  handlerCopy = handler;
+  connectionState = [(_HAPAccessoryServerBTLE200 *)self connectionState];
+  if (connectionState != 3 && connectionState)
+  {
+    selfCopy = objc_alloc_init(HMFBlockOperation);
+    objc_initWeak(buf, self);
+    objc_initWeak(&location, selfCopy);
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_10006729C;
+    v21[3] = &unk_100274280;
+    objc_copyWeak(&v23, &location);
+    v21[4] = self;
+    v14 = requestCopy;
+    v22 = v14;
+    objc_copyWeak(&v24, buf);
+    [(_HAPAccessoryServerBTLE200 *)selfCopy addExecutionBlock:v21];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100067478;
+    v16[3] = &unk_1002742A8;
+    objc_copyWeak(&v19, buf);
+    objc_copyWeak(&v20, &location);
+    v15 = v14;
+    v17 = v15;
+    v18 = handlerCopy;
+    [(_HAPAccessoryServerBTLE200 *)selfCopy setCompletionBlock:v16];
+    [v15 setOperation:selfCopy];
+    [(_HAPAccessoryServerBTLE200 *)self _enqueueRequest:v15 shouldPrioritize:prioritizeCopy];
+
+    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v24);
+
+    objc_destroyWeak(&v23);
+    objc_destroyWeak(&location);
+    objc_destroyWeak(buf);
+  }
+
+  else
+  {
+    selfCopy = self;
+    v12 = sub_10007FAA0(selfCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      v13 = sub_10007FAFC(selfCopy);
+      *buf = 138543362;
+      v27 = v13;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%{public}@Skipping request, accessory has disconnected or is about to disconnect", buf, 0xCu);
+    }
+  }
+}
+
 - (void)_reallySendRequest:(id)request completionHandler:(id)handler
 {
   requestCopy = request;
@@ -7165,7 +7802,7 @@ LABEL_11:
   if (!v6)
   {
     selfCopy = self;
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v11 = sub_10007FAFC(selfCopy);
@@ -7196,7 +7833,7 @@ LABEL_7:
 
 LABEL_8:
   selfCopy2 = self;
-  v13 = sub_10007FAA0();
+  v13 = sub_10007FAA0(selfCopy2);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     v14 = sub_10007FAFC(selfCopy2);
@@ -7217,7 +7854,7 @@ LABEL_11:
   if (v8 / v16 >= 4)
   {
     selfCopy3 = self;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(selfCopy3);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       v19 = sub_10007FAFC(selfCopy3);
@@ -7241,7 +7878,7 @@ LABEL_11:
     else
     {
       selfCopy4 = self;
-      v21 = sub_10007FAA0();
+      v21 = sub_10007FAA0(selfCopy4);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         v22 = sub_10007FAFC(selfCopy4);
@@ -7293,7 +7930,7 @@ LABEL_11:
   else
   {
     selfCopy = self;
-    v13 = sub_10007FAA0();
+    v13 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = sub_10007FAFC(selfCopy);
@@ -7331,7 +7968,7 @@ LABEL_11:
     serialize = v11;
 LABEL_5:
     selfCopy = self;
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       v15 = sub_10007FAFC(selfCopy);
@@ -7346,7 +7983,7 @@ LABEL_5:
     }
 
     v17 = selfCopy;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       v19 = sub_10007FAFC(v17);
@@ -7366,7 +8003,7 @@ LABEL_5:
   }
 
   selfCopy2 = self;
-  v22 = sub_10007FAA0();
+  v22 = sub_10007FAA0(selfCopy2);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     v23 = sub_10007FAFC(selfCopy2);
@@ -7412,7 +8049,7 @@ LABEL_10:
     else
     {
       selfCopy = self;
-      v22 = sub_10007FAA0();
+      v22 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         v23 = sub_10007FAFC(selfCopy);
@@ -7434,7 +8071,7 @@ LABEL_10:
   }
 
   selfCopy2 = self;
-  v14 = sub_10007FAA0();
+  v14 = sub_10007FAA0(selfCopy2);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     v15 = sub_10007FAFC(selfCopy2);
@@ -7472,7 +8109,7 @@ LABEL_12:
   else
   {
     selfCopy = self;
-    v12 = sub_10007FAA0();
+    v12 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = sub_10007FAFC(selfCopy);
@@ -7503,7 +8140,7 @@ LABEL_12:
   else
   {
     selfCopy = self;
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = sub_10007FAFC(selfCopy);
@@ -7530,7 +8167,7 @@ LABEL_12:
     selfCopy2 = [(_HAPAccessoryServerBTLE200 *)self _decryptData:dataCopy error:&v60];
     v12 = v60;
     selfCopy = self;
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(selfCopy);
     v15 = v14;
     if (selfCopy2)
     {
@@ -7633,7 +8270,7 @@ LABEL_14:
       {
 LABEL_15:
         v27 = selfCopy;
-        v28 = sub_10007FAA0();
+        v28 = sub_10007FAA0(v27);
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           v29 = sub_10007FAFC(v27);
@@ -7660,7 +8297,7 @@ LABEL_15:
       }
 
       selfCopy = selfCopy;
-      v15 = sub_10007FAA0();
+      v15 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         v31 = sub_10007FAFC(selfCopy);
@@ -7691,7 +8328,7 @@ LABEL_21:
   }
 
   selfCopy2 = self;
-  v12 = sub_10007FAA0();
+  v12 = sub_10007FAA0(selfCopy2);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     selfCopy = sub_10007FAFC(selfCopy2);
@@ -7716,7 +8353,7 @@ LABEL_24:
   if (!v11)
   {
     selfCopy = self;
-    v17 = sub_10007FAA0();
+    v17 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = sub_10007FAFC(selfCopy);
@@ -7746,7 +8383,7 @@ LABEL_24:
       if (!v21)
       {
         selfCopy2 = self;
-        v44 = sub_10007FAA0();
+        v44 = sub_10007FAA0(selfCopy2);
         if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           v45 = sub_10007FAFC(selfCopy2);
@@ -7772,7 +8409,7 @@ LABEL_24:
     }
 
     selfCopy3 = self;
-    v23 = sub_10007FAA0();
+    v23 = sub_10007FAA0(selfCopy3);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       v24 = sub_10007FAFC(selfCopy3);
@@ -7789,7 +8426,7 @@ LABEL_24:
     if (!v25)
     {
       v36 = selfCopy3;
-      v37 = sub_10007FAA0();
+      v37 = sub_10007FAA0(v36);
       if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         v38 = sub_10007FAFC(v36);
@@ -7807,7 +8444,7 @@ LABEL_24:
     if ([v25 type] != 1)
     {
       v39 = selfCopy3;
-      v40 = sub_10007FAA0();
+      v40 = sub_10007FAA0(v39);
       if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         v41 = sub_10007FAFC(v39);
@@ -7834,7 +8471,7 @@ LABEL_24:
       if ((v29 & 1) == 0)
       {
         v55 = selfCopy3;
-        v56 = sub_10007FAA0();
+        v56 = sub_10007FAA0(v55);
         if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           v75 = sub_10007FAFC(v55);
@@ -7860,7 +8497,7 @@ LABEL_24:
     {
       v30 = [(_HAPAccessoryServerBTLE200 *)selfCopy3 _pendingResponseForRequest:v12];
       v31 = selfCopy3;
-      v32 = sub_10007FAA0();
+      v32 = sub_10007FAA0(v31);
       v33 = v32;
       v73 = v30;
       if (!v30)
@@ -7919,7 +8556,7 @@ LABEL_24:
       {
         v50 = v35;
         v66 = selfCopy3;
-        v67 = sub_10007FAA0();
+        v67 = sub_10007FAA0(v66);
         if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
         {
           v68 = sub_10007FAFC(v66);
@@ -7950,7 +8587,7 @@ LABEL_64:
 
         v50 = v35;
         v51 = selfCopy3;
-        v52 = sub_10007FAA0();
+        v52 = sub_10007FAA0(v51);
         if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
         {
           v53 = sub_10007FAFC(v51);
@@ -7973,7 +8610,7 @@ LABEL_64:
 
       v50 = v35;
       v70 = selfCopy3;
-      v71 = sub_10007FAA0();
+      v71 = sub_10007FAA0(v70);
       if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
       {
         v72 = sub_10007FAFC(v70);
@@ -7995,7 +8632,7 @@ LABEL_64:
     {
       v50 = v35;
       v60 = selfCopy3;
-      v61 = sub_10007FAA0();
+      v61 = sub_10007FAA0(v60);
       if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
         v62 = sub_10007FAFC(v60);
@@ -8022,7 +8659,7 @@ LABEL_60:
   }
 
   selfCopy4 = self;
-  v14 = sub_10007FAA0();
+  v14 = sub_10007FAA0(selfCopy4);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     v15 = sub_10007FAFC(selfCopy4);
@@ -8051,7 +8688,7 @@ LABEL_65:
   }
 
   selfCopy = self;
-  v10 = sub_10007FAA0();
+  v10 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v11 = sub_10007FAFC(selfCopy);
@@ -8084,7 +8721,7 @@ LABEL_65:
     else
     {
       v20 = selfCopy;
-      v21 = sub_10007FAA0();
+      v21 = sub_10007FAA0(v20);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         v22 = sub_10007FAFC(v20);
@@ -8106,7 +8743,7 @@ LABEL_65:
   else
   {
     v16 = selfCopy;
-    v17 = sub_10007FAA0();
+    v17 = sub_10007FAA0(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = sub_10007FAFC(v16);
@@ -8156,7 +8793,7 @@ LABEL_4:
   prioritizeCopy = prioritize;
   requestCopy = request;
   selfCopy = self;
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = sub_10007FAFC(selfCopy);
@@ -8270,7 +8907,7 @@ LABEL_13:
   if ((isSuspended & 1) == 0)
   {
     selfCopy = self;
-    v6 = sub_10007FAA0();
+    v6 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v7 = sub_10007FAFC(selfCopy);
@@ -8292,7 +8929,7 @@ LABEL_13:
   if (isSuspended)
   {
     selfCopy = self;
-    v6 = sub_10007FAA0();
+    v6 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v7 = sub_10007FAFC(selfCopy);
@@ -8318,7 +8955,7 @@ LABEL_13:
     if (v7)
     {
       selfCopy = self;
-      v9 = sub_10007FAA0();
+      v9 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         v10 = sub_10007FAFC(selfCopy);
@@ -8384,7 +9021,7 @@ LABEL_13:
 
 LABEL_9:
       selfCopy = self;
-      v12 = sub_10007FAA0();
+      v12 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         v13 = sub_10007FAFC(selfCopy);
@@ -8412,7 +9049,7 @@ LABEL_9:
   else
   {
     selfCopy2 = self;
-    v5 = sub_10007FAA0();
+    v5 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = sub_10007FAFC(selfCopy2);
@@ -8454,7 +9091,7 @@ LABEL_9:
   else
   {
     selfCopy = self;
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = sub_10007FAFC(selfCopy);
@@ -8505,7 +9142,7 @@ LABEL_9:
 {
   tagCopy = tag;
   selfCopy = self;
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = sub_10007FAFC(selfCopy);
@@ -8557,7 +9194,7 @@ LABEL_8:
 {
   dataCopy = data;
   selfCopy = self;
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = sub_10007FAFC(selfCopy);
@@ -8626,7 +9263,7 @@ LABEL_8:
   if ([(_HAPAccessoryServerBTLE200 *)self connectionState]== 1)
   {
     selfCopy = self;
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = sub_10007FAFC(selfCopy);
@@ -8734,7 +9371,7 @@ LABEL_8:
 {
   [(_HAPAccessoryServerBTLE200 *)self _suspendConnectionIdleTimer];
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -8780,7 +9417,7 @@ LABEL_8:
 {
   errorCopy = error;
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -8876,7 +9513,7 @@ LABEL_8:
   if ([(_HAPAccessoryServerBTLE200 *)self _shouldResumeConnectionIdletimer])
   {
     selfCopy = self;
-    v4 = sub_10007FAA0();
+    v4 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = sub_10007FAFC(selfCopy);
@@ -8893,7 +9530,7 @@ LABEL_8:
 - (void)_suspendConnectionIdleTimer
 {
   selfCopy = self;
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = sub_10007FAFC(selfCopy);
@@ -8916,7 +9553,7 @@ LABEL_8:
 
   connectionState = [(_HAPAccessoryServerBTLE200 *)self connectionState];
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
   if (connectionState == 1)
   {
@@ -8967,6 +9604,25 @@ LABEL_8:
   dispatch_async(clientQueue, v13);
 }
 
+- (void)_generateBroadcastKey:(unsigned __int8)key queue:(id)queue withCompletionHandler:(id)handler
+{
+  keyCopy = key;
+  queueCopy = queue;
+  handlerCopy = handler;
+  _getProtocolInfoService = [(_HAPAccessoryServerBTLE200 *)self _getProtocolInfoService];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_10006DF40;
+  v13[3] = &unk_100274438;
+  v16 = keyCopy;
+  v13[4] = self;
+  v14 = queueCopy;
+  v15 = handlerCopy;
+  v11 = handlerCopy;
+  v12 = queueCopy;
+  [(_HAPAccessoryServerBTLE200 *)self _configureBroadcastKeyGeneration:keyCopy service:_getProtocolInfoService withCompletion:v13];
+}
+
 - (BOOL)_validateGeneratedBroadcastKey:(id)key
 {
   keyCopy = key;
@@ -8999,7 +9655,7 @@ LABEL_12:
       }
 
       selfCopy = self;
-      v17 = sub_10007FAA0();
+      v17 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = sub_10007FAFC(selfCopy);
@@ -9010,7 +9666,7 @@ LABEL_12:
     }
 
     selfCopy2 = self;
-    v20 = sub_10007FAA0();
+    v20 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       v21 = sub_10007FAFC(selfCopy2);
@@ -9162,7 +9818,7 @@ LABEL_13:
   v9 = [services copy];
 
   selfCopy = self;
-  v11 = sub_10007FAA0();
+  v11 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     v12 = sub_10007FAFC(selfCopy);
@@ -9394,7 +10050,7 @@ LABEL_13:
 - (id)pairSetupSession:(id)session didReceiveLocalPairingIdentityRequestWithError:(id *)error
 {
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -9434,7 +10090,7 @@ LABEL_7:
 {
   peerCopy = peer;
   selfCopy = self;
-  v9 = sub_10007FAA0();
+  v9 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v10 = sub_10007FAFC(selfCopy);
@@ -9469,7 +10125,7 @@ LABEL_7:
       if ((v20 & 1) == 0)
       {
         v22 = selfCopy;
-        v23 = sub_10007FAA0();
+        v23 = sub_10007FAA0(v22);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           v24 = sub_10007FAFC(v22);
@@ -9491,7 +10147,7 @@ LABEL_7:
     else
     {
       v31 = selfCopy;
-      v32 = sub_10007FAA0();
+      v32 = sub_10007FAA0(v31);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         v33 = sub_10007FAFC(v31);
@@ -9519,7 +10175,7 @@ LABEL_7:
   else
   {
     v26 = selfCopy;
-    v27 = sub_10007FAA0();
+    v27 = sub_10007FAA0(v26);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       v28 = sub_10007FAFC(v26);
@@ -9684,7 +10340,7 @@ LABEL_7:
 
 LABEL_8:
   selfCopy = self;
-  v16 = sub_10007FAA0();
+  v16 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     v17 = sub_10007FAFC(selfCopy);
@@ -9727,7 +10383,7 @@ LABEL_11:
 - (void)continueAuthAfterValidation:(BOOL)validation
 {
   selfCopy = self;
-  v5 = sub_10007FAA0();
+  v5 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v6 = sub_10007FAFC(selfCopy);
@@ -9753,7 +10409,7 @@ LABEL_11:
 {
   tokenCopy = token;
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -9928,7 +10584,7 @@ LABEL_11:
 - (id)securitySession:(id)session didReceiveLocalPairingIdentityRequestWithError:(id *)error
 {
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -9962,7 +10618,7 @@ LABEL_11:
       if (!v14)
       {
         selfCopy = self;
-        v16 = sub_10007FAA0();
+        v16 = sub_10007FAA0(selfCopy);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           v17 = sub_10007FAFC(selfCopy);
@@ -9985,7 +10641,7 @@ LABEL_11:
     else
     {
       selfCopy2 = self;
-      v21 = sub_10007FAA0();
+      v21 = sub_10007FAA0(selfCopy2);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         v22 = sub_10007FAFC(selfCopy2);
@@ -10005,7 +10661,7 @@ LABEL_11:
   else
   {
     selfCopy3 = self;
-    v19 = sub_10007FAA0();
+    v19 = sub_10007FAA0(selfCopy3);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       v20 = sub_10007FAFC(selfCopy3);
@@ -10149,7 +10805,7 @@ LABEL_11:
           if (responseTimer == fireCopy)
           {
             selfCopy = self;
-            v15 = sub_10007FAA0();
+            v15 = sub_10007FAA0(selfCopy);
             if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
             {
               v16 = sub_10007FAFC(selfCopy);
@@ -10184,7 +10840,7 @@ LABEL_14:
 - (void)disconnect
 {
   selfCopy = self;
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(selfCopy);
@@ -10319,7 +10975,7 @@ LABEL_14:
       }
 
       selfCopy = self;
-      v22 = sub_10007FAA0();
+      v22 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         v23 = sub_10007FAFC(selfCopy);
@@ -10345,7 +11001,7 @@ LABEL_14:
       }
 
       v24 = selfCopy;
-      v25 = sub_10007FAA0();
+      v25 = sub_10007FAA0(v24);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         v26 = sub_10007FAFC(v24);
@@ -10370,7 +11026,7 @@ LABEL_14:
         if (v16)
         {
           v29 = v24;
-          v30 = sub_10007FAA0();
+          v30 = sub_10007FAA0(v29);
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
           {
             v31 = sub_10007FAFC(v29);
@@ -10459,7 +11115,7 @@ LABEL_37:
     {
       v20 = 0;
       selfCopy = self;
-      v15 = sub_10007FAA0();
+      v15 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         v16 = sub_10007FAFC(selfCopy);

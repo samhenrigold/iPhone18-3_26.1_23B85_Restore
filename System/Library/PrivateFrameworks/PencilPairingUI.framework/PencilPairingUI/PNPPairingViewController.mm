@@ -294,14 +294,12 @@
   width = size.width;
   coordinatorCopy = coordinator;
   v8 = coordinatorCopy;
-  v15 = 0u;
-  v16 = 0u;
-  v14 = 0u;
+  memset(&v13[8], 0, 48);
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
-    v9 = *(&v14 + 1);
-    v10 = *&v14;
+    objc_msgSend_targetTransform(coordinatorCopy);
+    v9 = *&v13[9];
+    v10 = *&v13[8];
   }
 
   else
@@ -380,7 +378,7 @@ uint64_t __86__PNPPairingViewController__wizardViewWillTransitionToSize_withTran
   v13 = 0u;
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
     v9 = *(&v13 + 1);
     v10 = *&v13;
   }
@@ -428,7 +426,7 @@ void __90__PNPPairingViewController__chargingUIViewWillTransitionToSize_withTran
   v13 = 0u;
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
     v9 = *(&v13 + 1);
     v10 = *&v13;
   }
@@ -528,7 +526,7 @@ void __94__PNPPairingViewController__spinningPencilViewWillTransitionToSize_with
   self->_viewDidAppearCalled = 1;
 }
 
-uint64_t __42__PNPPairingViewController_viewDidAppear___block_invoke(uint64_t a1)
+void *__42__PNPPairingViewController_viewDidAppear___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) pairingViewControllerState];
   if (result == 1)
@@ -1481,46 +1479,46 @@ uint64_t __50__PNPPairingViewController_showNeedsInternetAlert__block_invoke(uin
 
 - (void)showPairingPromptAlert
 {
-  v3 = PencilPairingUIBundle();
+  v3 = PencilPairingUIBundle(self);
   v4 = [v3 localizedStringForKey:@"APPLE_PENCIL_NAME" value:&stru_286FDFDB8 table:0];
 
-  v5 = PencilPairingUIBundle();
-  v6 = [v5 localizedStringForKey:@"PAIRING_PROMPT" value:&stru_286FDFDB8 table:0];
+  v6 = PencilPairingUIBundle(v5);
+  v7 = [v6 localizedStringForKey:@"PAIRING_PROMPT" value:&stru_286FDFDB8 table:0];
 
-  v7 = PencilPairingUIBundle();
-  v8 = [v7 localizedStringForKey:@"CONNECT" value:&stru_286FDFDB8 table:0];
+  v9 = PencilPairingUIBundle(v8);
+  v10 = [v9 localizedStringForKey:@"CONNECT" value:&stru_286FDFDB8 table:0];
 
-  v9 = PencilPairingUIBundle();
-  v10 = [v9 localizedStringForKey:@"CANCEL" value:&stru_286FDFDB8 table:0];
+  v12 = PencilPairingUIBundle(v11);
+  v13 = [v12 localizedStringForKey:@"CANCEL" value:&stru_286FDFDB8 table:0];
 
   if (!self->_alertVC)
   {
-    v11 = [MEMORY[0x277D75110] alertControllerWithTitle:v4 message:v6 preferredStyle:1];
+    v14 = [MEMORY[0x277D75110] alertControllerWithTitle:v4 message:v7 preferredStyle:1];
     alertVC = self->_alertVC;
-    self->_alertVC = v11;
+    self->_alertVC = v14;
 
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __50__PNPPairingViewController_showPairingPromptAlert__block_invoke;
-    v18[3] = &unk_279A0A858;
-    v18[4] = self;
-    v13 = [MEMORY[0x277D750F8] actionWithTitle:v8 style:0 handler:v18];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __50__PNPPairingViewController_showPairingPromptAlert__block_invoke_2;
-    v17[3] = &unk_279A0A858;
-    v17[4] = self;
-    v14 = [MEMORY[0x277D750F8] _actionWithTitle:v10 image:0 style:1 handler:v17 shouldDismissHandler:&__block_literal_global_68];
-    [(UIAlertController *)self->_alertVC addAction:v14];
-    [(UIAlertController *)self->_alertVC addAction:v13];
-    [(UIAlertController *)self->_alertVC setPreferredAction:v13];
-    v15 = self->_alertVC;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __50__PNPPairingViewController_showPairingPromptAlert__block_invoke_4;
-    v16[3] = &unk_279A0A060;
-    v16[4] = self;
-    [(PNPPairingViewController *)self presentViewController:v15 animated:1 completion:v16];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __50__PNPPairingViewController_showPairingPromptAlert__block_invoke;
+    v21[3] = &unk_279A0A858;
+    v21[4] = self;
+    v16 = [MEMORY[0x277D750F8] actionWithTitle:v10 style:0 handler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __50__PNPPairingViewController_showPairingPromptAlert__block_invoke_2;
+    v20[3] = &unk_279A0A858;
+    v20[4] = self;
+    v17 = [MEMORY[0x277D750F8] _actionWithTitle:v13 image:0 style:1 handler:v20 shouldDismissHandler:&__block_literal_global_68];
+    [(UIAlertController *)self->_alertVC addAction:v17];
+    [(UIAlertController *)self->_alertVC addAction:v16];
+    [(UIAlertController *)self->_alertVC setPreferredAction:v16];
+    v18 = self->_alertVC;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __50__PNPPairingViewController_showPairingPromptAlert__block_invoke_4;
+    v19[3] = &unk_279A0A060;
+    v19[4] = self;
+    [(PNPPairingViewController *)self presentViewController:v18 animated:1 completion:v19];
   }
 }
 

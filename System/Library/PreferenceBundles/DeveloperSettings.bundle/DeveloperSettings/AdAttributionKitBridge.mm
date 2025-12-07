@@ -8,39 +8,39 @@
 
 + (void)getDeveloperModeEnabledWithCompletion:(id)completion
 {
-  v4 = (*(*(sub_214DC(&qword_49BF8, &qword_2EB50) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_214DC(&qword_49BF8, &qword_2EB50);
   __chkstk_darwin();
-  v6 = &v11 - v5;
-  v7 = _Block_copy(completion);
-  v8 = swift_allocObject();
-  *(v8 + 16) = v7;
-  v9 = sub_26F74();
-  (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = sub_225CC;
-  v10[5] = v8;
-  sub_21964(0, 0, v6, &unk_2EBC0, v10);
+  v5 = &v10 - v4;
+  v6 = _Block_copy(completion);
+  v7 = swift_allocObject();
+  *(v7 + 16) = v6;
+  v8 = sub_26F74();
+  (*(*(v8 - 8) + 56))(v5, 1, 1, v8);
+  v9 = swift_allocObject();
+  v9[2] = 0;
+  v9[3] = 0;
+  v9[4] = sub_225CC;
+  v9[5] = v7;
+  sub_21964(0, 0, v5, &unk_2EBC0, v9);
 }
 
 + (void)setDeveloperModeEnabled:(BOOL)enabled completion:(id)completion
 {
-  v6 = (*(*(sub_214DC(&qword_49BF8, &qword_2EB50) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_214DC(&qword_49BF8, &qword_2EB50);
   __chkstk_darwin();
-  v8 = &v13 - v7;
-  v9 = _Block_copy(completion);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  v11 = sub_26F74();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
-  v12 = swift_allocObject();
-  *(v12 + 16) = 0;
-  *(v12 + 24) = 0;
-  *(v12 + 32) = enabled;
-  *(v12 + 40) = sub_22540;
-  *(v12 + 48) = v10;
-  sub_21964(0, 0, v8, &unk_2EBB8, v12);
+  v7 = &v12 - v6;
+  v8 = _Block_copy(completion);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  v10 = sub_26F74();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  *(v11 + 16) = 0;
+  *(v11 + 24) = 0;
+  *(v11 + 32) = enabled;
+  *(v11 + 40) = sub_22540;
+  *(v11 + 48) = v9;
+  sub_21964(0, 0, v7, &unk_2EBB8, v11);
 }
 
 - (_TtC17DeveloperSettings22AdAttributionKitBridge)init

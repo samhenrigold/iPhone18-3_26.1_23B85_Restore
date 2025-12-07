@@ -126,7 +126,7 @@ Class sub_100001690(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -146,7 +146,6 @@ LABEL_4:
 
 uint64_t sub_1000017D4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000084A8 = result;
   return result;

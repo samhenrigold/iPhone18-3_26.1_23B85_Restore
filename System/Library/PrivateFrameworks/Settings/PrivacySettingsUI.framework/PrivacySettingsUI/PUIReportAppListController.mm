@@ -34,35 +34,35 @@
 
 void __64__PUIReportAppListController_appSpecifiersWithLimit_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v40 = objc_opt_new();
+  v39 = objc_opt_new();
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v33 = v2;
+  v32 = v2;
   obj = [v2 objectForKeyedSubscript:@"result"];
   v3 = 0x277CCA000;
-  v42 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+  v41 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
   v4 = 0;
-  if (v42)
+  if (v41)
   {
-    v39 = *v48;
-    v38 = *MEMORY[0x277D40020];
-    v37 = *MEMORY[0x277D3FE58];
-    v35 = *MEMORY[0x277D40008];
-    v34 = *MEMORY[0x277D3FFD8];
+    v38 = *v47;
+    v37 = *MEMORY[0x277D40020];
+    v36 = *MEMORY[0x277D3FE58];
+    v34 = *MEMORY[0x277D40008];
+    v33 = *MEMORY[0x277D3FFD8];
     do
     {
-      for (i = 0; i != v42; ++i)
+      for (i = 0; i != v41; ++i)
       {
-        if (*v48 != v39)
+        if (*v47 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v47 + 1) + 8 * i);
+        v6 = *(*(&v46 + 1) + 8 * i);
         v7 = [v6 objectForKeyedSubscript:@"bundleName"];
         v8 = [v6 objectForKeyedSubscript:@"count"];
         v9 = [v8 integerValue];
@@ -97,8 +97,8 @@ void __64__PUIReportAppListController_appSpecifiersWithLimit_completion___block_
         v18 = [v16 preferenceSpecifierNamed:v17 target:*(a1 + 40) set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
         [v18 setIdentifier:v7];
         [v18 setObject:v7 forKeyedSubscript:@"PUIReportAppIDKey"];
-        [v18 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v38];
-        [v18 setObject:objc_opt_class() forKeyedSubscript:v37];
+        [v18 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v37];
+        [v18 setObject:objc_opt_class() forKeyedSubscript:v36];
         v3 = 0x277CCA000uLL;
         v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v9];
         [v18 setObject:v19 forKeyedSubscript:@"PUITrackerBarValueKey"];
@@ -106,54 +106,54 @@ void __64__PUIReportAppListController_appSpecifiersWithLimit_completion___block_
         if (v14)
         {
           v20 = v15;
-          v21 = v34;
+          v21 = v33;
         }
 
         else
         {
           v20 = v7;
-          v21 = v35;
+          v21 = v34;
         }
 
         [v18 setObject:v20 forKeyedSubscript:v21];
-        [v40 addObject:v18];
+        [v39 addObject:v18];
         if (v9 > v4)
         {
           v4 = v9;
         }
       }
 
-      v42 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+      v41 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
-    while (v42);
+    while (v41);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
-  v22 = v40;
-  v23 = [v22 countByEnumeratingWithState:&v43 objects:v51 count:16];
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v22 = v39;
+  v23 = [v22 countByEnumeratingWithState:&v42 objects:v50 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v44;
+    v25 = *v43;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v44 != v25)
+        if (*v43 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v43 + 1) + 8 * j);
+        v27 = *(*(&v42 + 1) + 8 * j);
         v28 = [*(v3 + 2992) numberWithUnsignedInteger:v4];
         [v27 setObject:v28 forKeyedSubscript:@"PUITrackerBarCapacityKey"];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v42 objects:v50 count:16];
     }
 
     while (v24);
@@ -168,8 +168,6 @@ void __64__PUIReportAppListController_appSpecifiersWithLimit_completion___block_
   {
     (*(v31 + 16))(v31, v22);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (PUIReportAppListController)init
@@ -332,7 +330,7 @@ uint64_t __40__PUIReportAppListController_specifiers__block_invoke_3(uint64_t a1
   [(PUIReportAppListController *)self presentViewController:v3 animated:1 completion:0];
 }
 
-uint64_t __45__PUIReportAppListController_sortByWasTapped__block_invoke(uint64_t a1)
+void *__45__PUIReportAppListController_sortByWasTapped__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) alphabeticalSort];
   if (result)
@@ -346,7 +344,7 @@ uint64_t __45__PUIReportAppListController_sortByWasTapped__block_invoke(uint64_t
   return result;
 }
 
-uint64_t __45__PUIReportAppListController_sortByWasTapped__block_invoke_2(uint64_t a1)
+void *__45__PUIReportAppListController_sortByWasTapped__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) alphabeticalSort];
   if ((result & 1) == 0)

@@ -100,7 +100,7 @@
   if (a3.__rep_ < 0)
   {
     sub_1000474A4(v8, "");
-    sub_1000D8214("Negative delays are unsupported: ", &v10);
+    sub_1000D8214(&v10, "Negative delays are unsupported: ");
     sub_10023F7EC(&rep, &v11);
     sub_1000E661C(v8, &v10, 2);
     if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
@@ -167,7 +167,7 @@ LABEL_6:
   if (a3.__rep_ < 0)
   {
     sub_1000474A4(v8, "");
-    sub_100232548("Negative intervals are unsupported: ", &v10);
+    sub_100232548(&v10, "Negative intervals are unsupported: ");
     sub_10023F7EC(&rep, &v11);
     sub_1000E661C(v8, &v10, 2);
     if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)

@@ -642,7 +642,7 @@ LABEL_11:
   v54 = *MEMORY[0x1E69E9840];
   if (stats && self->_lastCaptionsEnabledTime != 0.0)
   {
-    v5 = micro();
+    v5 = micro(self, a2);
     self->_captionsEnabledDuration = v5 - self->_lastCaptionsEnabledTime;
     self->_lastCaptionsEnabledTime = v5;
     v31 = llround(self->_captionedAudioDuration / self->_captionsEnabledDuration * 100.0);
@@ -1185,7 +1185,7 @@ LABEL_51:
   captionsFormat = self->_captionsFormat;
   if (captionsFormat)
   {
-    [(ASBDWrapper *)captionsFormat asbd];
+    objc_msgSend_asbd(captionsFormat);
     v8 = *&v43;
   }
 
@@ -1201,7 +1201,7 @@ LABEL_51:
   inputFormat = self->_inputFormat;
   if (inputFormat)
   {
-    [(ASBDWrapper *)inputFormat asbd];
+    objc_msgSend_asbd(inputFormat);
     v12 = *&v40;
   }
 
@@ -1218,7 +1218,7 @@ LABEL_51:
   v14 = self->_captionsFormat;
   if (v14)
   {
-    [(ASBDWrapper *)v14 asbd];
+    objc_msgSend_asbd(v14);
     v15 = v38;
   }
 
@@ -1245,7 +1245,7 @@ LABEL_51:
   v19 = self->_inputFormat;
   if (v19)
   {
-    [(ASBDWrapper *)v19 asbd];
+    objc_msgSend_asbd(v19);
     v20 = v35;
     v19 = self->_inputFormat;
   }
@@ -1265,7 +1265,7 @@ LABEL_51:
   outOutputData.mBuffers[0].mData = v18;
   if (v19)
   {
-    [(ASBDWrapper *)v19 asbd];
+    objc_msgSend_asbd(v19);
   }
 
   else
@@ -2947,7 +2947,7 @@ LABEL_14:
         if (error)
         {
 LABEL_15:
-          v17 = +[VCSessionErrorUtils VCSessionCaptionsErrorEvent:errorPath:returnCode:](VCSessionErrorUtils, "VCSessionCaptionsErrorEvent:errorPath:returnCode:", 10, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/Captions/VCAudioCaptions.m", 958, *buf, *&buf[16], v20, selfCopy, *v22, *&v22[16], v23], 15);
+          v17 = +[VCSessionErrorUtils VCSessionCaptionsErrorEvent:errorPath:returnCode:](VCSessionErrorUtils, "VCSessionCaptionsErrorEvent:errorPath:returnCode:", 10, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/Captions/VCAudioCaptions.m", 958, *buf, *&buf[8], v20, selfCopy, *v22, *&v22[8], v23], 15);
           result = 0;
           *error = v17;
           return result;
@@ -3455,48 +3455,14 @@ void __VCAudioCaptions_ConvertSamplesToPCM_block_invoke(uint64_t a1)
 
 - (BOOL)reallocCopyBufferAllocatorWithFormat:(const AudioStreamBasicDescription *)format
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   _VCAudioCaptions_DestroyCopyBufferAllocator(self);
-  if ((VCMemoryUtil_IsAddressSanitizerEnabled() & 1) != 0 || VCMemoryUtil_IsProbabilisticGuardMallocEnabled())
+  IsAddressSanitizerEnabled = VCMemoryUtil_IsAddressSanitizerEnabled(v5, v6);
+  if ((IsAddressSanitizerEnabled & 1) != 0 || VCMemoryUtil_IsProbabilisticGuardMallocEnabled(IsAddressSanitizerEnabled, v8))
   {
     self->_copyBufferAllocator = *MEMORY[0x1E695E480];
     if (objc_opt_class() == self)
     {
-      if (VRTraceGetErrorLogLevelForModule() < 5)
-      {
-        goto LABEL_18;
-      }
-
-      v7 = VRTraceErrorLogLevelToCSTR();
-      v8 = *MEMORY[0x1E6986650];
-      if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_18;
-      }
-
-      v31 = 136315650;
-      v32 = v7;
-      v33 = 2080;
-      v34 = "[VCAudioCaptions reallocCopyBufferAllocatorWithFormat:]";
-      v35 = 1024;
-      v36 = 1166;
-      v9 = " [%s] %s:%d Disable copy buffer pool allocator. Use default allocator instead.";
-      v10 = v8;
-      v11 = 28;
-    }
-
-    else
-    {
-      if (objc_opt_respondsToSelector())
-      {
-        v6 = [(VCAudioCaptions *)self performSelector:sel_logPrefix];
-      }
-
-      else
-      {
-        v6 = &stru_1F570E008;
-      }
-
       if (VRTraceGetErrorLogLevelForModule() < 5)
       {
         goto LABEL_18;
@@ -3509,66 +3475,15 @@ void __VCAudioCaptions_ConvertSamplesToPCM_block_invoke(uint64_t a1)
         goto LABEL_18;
       }
 
-      v31 = 136316162;
-      v32 = v16;
-      v33 = 2080;
-      v34 = "[VCAudioCaptions reallocCopyBufferAllocatorWithFormat:]";
-      v35 = 1024;
-      v36 = 1166;
-      v37 = 2112;
-      *v38 = v6;
-      *&v38[8] = 2048;
-      *v39 = self;
-      v9 = " [%s] %s:%d %@(%p) Disable copy buffer pool allocator. Use default allocator instead.";
-      v10 = v17;
-      v11 = 48;
-    }
-
-LABEL_17:
-    _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, v9, &v31, v11);
-LABEL_18:
-    LOBYTE(v18) = 1;
-    return v18;
-  }
-
-  LODWORD(v5) = format->mBytesPerPacket;
-  v12 = (format->mSampleRate * v5 * 20.0 / 1000.0);
-  v13 = VCAudioBufferAllocatorCreate(*MEMORY[0x1E695E480], v12, 2u);
-  self->_copyBufferAllocator = v13;
-  v14 = objc_opt_class();
-  if (v13)
-  {
-    if (v14 == self)
-    {
-      if (VRTraceGetErrorLogLevelForModule() < 7)
-      {
-        goto LABEL_18;
-      }
-
-      v20 = VRTraceErrorLogLevelToCSTR();
-      v21 = *MEMORY[0x1E6986650];
-      if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_18;
-      }
-
-      mSampleRate = format->mSampleRate;
-      mBytesPerPacket = format->mBytesPerPacket;
-      v31 = 136316418;
-      v32 = v20;
-      v33 = 2080;
-      v34 = "[VCAudioCaptions reallocCopyBufferAllocatorWithFormat:]";
-      v35 = 1024;
-      v36 = 1174;
-      v37 = 1024;
-      *v38 = mSampleRate;
-      *&v38[4] = 1024;
-      *&v38[6] = mBytesPerPacket;
-      *v39 = 2048;
-      *&v39[2] = v12;
-      v9 = " [%s] %s:%d Create captions copy buffer allocator: sampleRate=%d bytesPerPacket=%d bufferSize=%zu";
-      v10 = v21;
-      v11 = 50;
+      v40 = 136315650;
+      v41 = v16;
+      v42 = 2080;
+      v43 = "[VCAudioCaptions reallocCopyBufferAllocatorWithFormat:]";
+      v44 = 1024;
+      v45 = 1166;
+      v18 = " [%s] %s:%d Disable copy buffer pool allocator. Use default allocator instead.";
+      v19 = v17;
+      v20 = 28;
     }
 
     else
@@ -3583,53 +3498,139 @@ LABEL_18:
         v15 = &stru_1F570E008;
       }
 
-      if (VRTraceGetErrorLogLevelForModule() < 7)
+      if (VRTraceGetErrorLogLevelForModule() < 5)
       {
         goto LABEL_18;
       }
 
-      v24 = VRTraceErrorLogLevelToCSTR();
-      v25 = *MEMORY[0x1E6986650];
+      v25 = VRTraceErrorLogLevelToCSTR();
+      v26 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_18;
       }
 
-      v26 = format->mSampleRate;
-      v27 = format->mBytesPerPacket;
-      v31 = 136316930;
-      v32 = v24;
-      v33 = 2080;
-      v34 = "[VCAudioCaptions reallocCopyBufferAllocatorWithFormat:]";
-      v35 = 1024;
-      v36 = 1174;
-      v37 = 2112;
-      *v38 = v15;
-      *&v38[8] = 2048;
-      *v39 = self;
-      *&v39[8] = 1024;
-      v40 = v26;
-      v41 = 1024;
-      v42 = v27;
-      v43 = 2048;
-      v44 = v12;
-      v9 = " [%s] %s:%d %@(%p) Create captions copy buffer allocator: sampleRate=%d bytesPerPacket=%d bufferSize=%zu";
-      v10 = v25;
-      v11 = 70;
+      v40 = 136316162;
+      v41 = v25;
+      v42 = 2080;
+      v43 = "[VCAudioCaptions reallocCopyBufferAllocatorWithFormat:]";
+      v44 = 1024;
+      v45 = 1166;
+      v46 = 2112;
+      *v47 = v15;
+      *&v47[8] = 2048;
+      *v48 = self;
+      v18 = " [%s] %s:%d %@(%p) Disable copy buffer pool allocator. Use default allocator instead.";
+      v19 = v26;
+      v20 = 48;
+    }
+
+LABEL_17:
+    _os_log_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_DEFAULT, v18, &v40, v20);
+LABEL_18:
+    LOBYTE(v27) = 1;
+    return v27;
+  }
+
+  LODWORD(v14) = format->mBytesPerPacket;
+  v21 = (format->mSampleRate * v14 * 20.0 / 1000.0);
+  v22 = VCAudioBufferAllocatorCreate(*MEMORY[0x1E695E480], v21, 2, v9, v10, v11, v12, v13);
+  self->_copyBufferAllocator = v22;
+  v23 = objc_opt_class();
+  if (v22)
+  {
+    if (v23 == self)
+    {
+      if (VRTraceGetErrorLogLevelForModule() < 7)
+      {
+        goto LABEL_18;
+      }
+
+      v29 = VRTraceErrorLogLevelToCSTR();
+      v30 = *MEMORY[0x1E6986650];
+      if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_18;
+      }
+
+      mSampleRate = format->mSampleRate;
+      mBytesPerPacket = format->mBytesPerPacket;
+      v40 = 136316418;
+      v41 = v29;
+      v42 = 2080;
+      v43 = "[VCAudioCaptions reallocCopyBufferAllocatorWithFormat:]";
+      v44 = 1024;
+      v45 = 1174;
+      v46 = 1024;
+      *v47 = mSampleRate;
+      *&v47[4] = 1024;
+      *&v47[6] = mBytesPerPacket;
+      *v48 = 2048;
+      *&v48[2] = v21;
+      v18 = " [%s] %s:%d Create captions copy buffer allocator: sampleRate=%d bytesPerPacket=%d bufferSize=%zu";
+      v19 = v30;
+      v20 = 50;
+    }
+
+    else
+    {
+      if (objc_opt_respondsToSelector())
+      {
+        v24 = [(VCAudioCaptions *)self performSelector:sel_logPrefix];
+      }
+
+      else
+      {
+        v24 = &stru_1F570E008;
+      }
+
+      if (VRTraceGetErrorLogLevelForModule() < 7)
+      {
+        goto LABEL_18;
+      }
+
+      v33 = VRTraceErrorLogLevelToCSTR();
+      v34 = *MEMORY[0x1E6986650];
+      if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_18;
+      }
+
+      v35 = format->mSampleRate;
+      v36 = format->mBytesPerPacket;
+      v40 = 136316930;
+      v41 = v33;
+      v42 = 2080;
+      v43 = "[VCAudioCaptions reallocCopyBufferAllocatorWithFormat:]";
+      v44 = 1024;
+      v45 = 1174;
+      v46 = 2112;
+      *v47 = v24;
+      *&v47[8] = 2048;
+      *v48 = self;
+      *&v48[8] = 1024;
+      v49 = v35;
+      v50 = 1024;
+      v51 = v36;
+      v52 = 2048;
+      v53 = v21;
+      v18 = " [%s] %s:%d %@(%p) Create captions copy buffer allocator: sampleRate=%d bytesPerPacket=%d bufferSize=%zu";
+      v19 = v34;
+      v20 = 70;
     }
 
     goto LABEL_17;
   }
 
-  if (v14 == self)
+  if (v23 == self)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
       VRTraceErrorLogLevelToCSTR();
-      v18 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
-      if (!v18)
+      v27 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+      if (!v27)
       {
-        return v18;
+        return v27;
       }
 
       [VCAudioCaptions reallocCopyBufferAllocatorWithFormat:];
@@ -3640,40 +3641,40 @@ LABEL_18:
   {
     if (objc_opt_respondsToSelector())
     {
-      v19 = [(VCAudioCaptions *)self performSelector:sel_logPrefix];
+      v28 = [(VCAudioCaptions *)self performSelector:sel_logPrefix];
     }
 
     else
     {
-      v19 = &stru_1F570E008;
+      v28 = &stru_1F570E008;
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v28 = VRTraceErrorLogLevelToCSTR();
-      v29 = *MEMORY[0x1E6986650];
-      v18 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
-      if (!v18)
+      v37 = VRTraceErrorLogLevelToCSTR();
+      v38 = *MEMORY[0x1E6986650];
+      v27 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+      if (!v27)
       {
-        return v18;
+        return v27;
       }
 
-      v31 = 136316162;
-      v32 = v28;
-      v33 = 2080;
-      v34 = "[VCAudioCaptions reallocCopyBufferAllocatorWithFormat:]";
-      v35 = 1024;
-      v36 = 1171;
-      v37 = 2112;
-      *v38 = v19;
-      *&v38[8] = 2048;
-      *v39 = self;
-      _os_log_error_impl(&dword_1DB56E000, v29, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to create the copy buffer allocator for captions", &v31, 0x30u);
+      v40 = 136316162;
+      v41 = v37;
+      v42 = 2080;
+      v43 = "[VCAudioCaptions reallocCopyBufferAllocatorWithFormat:]";
+      v44 = 1024;
+      v45 = 1171;
+      v46 = 2112;
+      *v47 = v28;
+      *&v47[8] = 2048;
+      *v48 = self;
+      _os_log_error_impl(&dword_1DB56E000, v38, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to create the copy buffer allocator for captions", &v40, 0x30u);
     }
   }
 
-  LOBYTE(v18) = 0;
-  return v18;
+  LOBYTE(v27) = 0;
+  return v27;
 }
 
 - (void)start:(const AudioStreamBasicDescription *)start forToken:(int64_t)token withCompletionHandler:(id)handler
@@ -3697,7 +3698,7 @@ LABEL_18:
 
 uint64_t __56__VCAudioCaptions_start_forToken_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 552) = *(a1 + 48);
   v2 = *(*(a1 + 32) + 170);
   v3 = objc_opt_class();
@@ -3713,19 +3714,19 @@ uint64_t __56__VCAudioCaptions_start_forToken_withCompletionHandler___block_invo
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           v9 = *(a1 + 48);
-          *v50 = 136315906;
-          *&v50[4] = v7;
-          *&v50[12] = 2080;
-          *&v50[14] = "[VCAudioCaptions start:forToken:withCompletionHandler:]_block_invoke";
-          *&v50[22] = 1024;
-          *&v50[24] = 1189;
-          *&v50[28] = 2048;
-          *&v50[30] = v9;
+          *v55 = 136315906;
+          *&v55[4] = v7;
+          *&v55[12] = 2080;
+          *&v55[14] = "[VCAudioCaptions start:forToken:withCompletionHandler:]_block_invoke";
+          *&v55[22] = 1024;
+          *&v55[24] = 1189;
+          *&v55[28] = 2048;
+          *&v55[30] = v9;
           v10 = " [%s] %s:%d Starting the speech processing for token=%ld";
           v11 = v8;
           v12 = 38;
 LABEL_23:
-          _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, v10, v50, v12);
+          _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, v10, v55, v12);
         }
       }
     }
@@ -3750,18 +3751,18 @@ LABEL_23:
         {
           v20 = *(a1 + 32);
           v21 = *(a1 + 48);
-          *v50 = 136316418;
-          *&v50[4] = v18;
-          *&v50[12] = 2080;
-          *&v50[14] = "[VCAudioCaptions start:forToken:withCompletionHandler:]_block_invoke";
-          *&v50[22] = 1024;
-          *&v50[24] = 1189;
-          *&v50[28] = 2112;
-          *&v50[30] = v6;
-          *&v50[38] = 2048;
-          v51 = v20;
-          *v52 = 2048;
-          *&v52[2] = v21;
+          *v55 = 136316418;
+          *&v55[4] = v18;
+          *&v55[12] = 2080;
+          *&v55[14] = "[VCAudioCaptions start:forToken:withCompletionHandler:]_block_invoke";
+          *&v55[22] = 1024;
+          *&v55[24] = 1189;
+          *&v55[28] = 2112;
+          *&v55[30] = v6;
+          *&v55[38] = 2048;
+          v56 = v20;
+          *v57 = 2048;
+          *&v57[2] = v21;
           v10 = " [%s] %s:%d %@(%p) Starting the speech processing for token=%ld";
           v11 = v19;
           v12 = 58;
@@ -3795,31 +3796,31 @@ LABEL_23:
         goto LABEL_39;
       }
 
-      v25 = VRTraceErrorLogLevelToCSTR();
-      v26 = *MEMORY[0x1E6986650];
+      v30 = VRTraceErrorLogLevelToCSTR();
+      v31 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_39;
       }
 
-      v27 = *(a1 + 56);
-      v28 = *(a1 + 72);
-      v29 = 274877907 * (v27 * v28 * 20.0);
-      *v50 = 136316418;
-      *&v50[4] = v25;
-      *&v50[12] = 2080;
-      *&v50[14] = "[VCAudioCaptions start:forToken:withCompletionHandler:]_block_invoke";
-      *&v50[22] = 1024;
-      *&v50[24] = 1196;
-      *&v50[28] = 1024;
-      *&v50[30] = v27;
-      *&v50[34] = 1024;
-      *&v50[36] = v28;
-      LOWORD(v51) = 1024;
-      *(&v51 + 2) = (v29 >> 38) + (v29 >> 63);
-      v30 = " [%s] %s:%d Create PCM copy buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
-      v31 = v26;
-      v32 = 46;
+      v32 = *(a1 + 56);
+      v33 = *(a1 + 72);
+      v34 = 274877907 * (v32 * v33 * 20.0);
+      *v55 = 136316418;
+      *&v55[4] = v30;
+      *&v55[12] = 2080;
+      *&v55[14] = "[VCAudioCaptions start:forToken:withCompletionHandler:]_block_invoke";
+      *&v55[22] = 1024;
+      *&v55[24] = 1196;
+      *&v55[28] = 1024;
+      *&v55[30] = v32;
+      *&v55[34] = 1024;
+      *&v55[36] = v33;
+      LOWORD(v56) = 1024;
+      *(&v56 + 2) = (v34 >> 38) + (v34 >> 63);
+      v35 = " [%s] %s:%d Create PCM copy buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
+      v36 = v31;
+      v37 = 46;
     }
 
     else
@@ -3839,64 +3840,64 @@ LABEL_23:
         goto LABEL_39;
       }
 
-      v33 = VRTraceErrorLogLevelToCSTR();
-      v34 = *MEMORY[0x1E6986650];
+      v38 = VRTraceErrorLogLevelToCSTR();
+      v39 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_39;
       }
 
-      v35 = *(a1 + 56);
-      v36 = *(a1 + 72);
-      v37 = *(a1 + 32);
-      v38 = 274877907 * (v35 * v36 * 20.0);
-      *v50 = 136316930;
-      *&v50[4] = v33;
-      *&v50[12] = 2080;
-      *&v50[14] = "[VCAudioCaptions start:forToken:withCompletionHandler:]_block_invoke";
-      *&v50[22] = 1024;
-      *&v50[24] = 1196;
-      *&v50[28] = 2112;
-      *&v50[30] = v23;
-      *&v50[38] = 2048;
-      v51 = v37;
-      *v52 = 1024;
-      *&v52[2] = v35;
-      *&v52[6] = 1024;
-      *&v52[8] = v36;
-      *&v52[12] = 1024;
-      *&v52[14] = (v38 >> 63) + (SHIDWORD(v38) >> 6);
-      v30 = " [%s] %s:%d %@(%p) Create PCM copy buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
-      v31 = v34;
-      v32 = 66;
+      v40 = *(a1 + 56);
+      v41 = *(a1 + 72);
+      v42 = *(a1 + 32);
+      v43 = 274877907 * (v40 * v41 * 20.0);
+      *v55 = 136316930;
+      *&v55[4] = v38;
+      *&v55[12] = 2080;
+      *&v55[14] = "[VCAudioCaptions start:forToken:withCompletionHandler:]_block_invoke";
+      *&v55[22] = 1024;
+      *&v55[24] = 1196;
+      *&v55[28] = 2112;
+      *&v55[30] = v23;
+      *&v55[38] = 2048;
+      v56 = v42;
+      *v57 = 1024;
+      *&v57[2] = v40;
+      *&v57[6] = 1024;
+      *&v57[8] = v41;
+      *&v57[12] = 1024;
+      *&v57[14] = (v43 >> 63) + (SHIDWORD(v43) >> 6);
+      v35 = " [%s] %s:%d %@(%p) Create PCM copy buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
+      v36 = v39;
+      v37 = 66;
     }
 
-    _os_log_impl(&dword_1DB56E000, v31, OS_LOG_TYPE_DEFAULT, v30, v50, v32);
+    _os_log_impl(&dword_1DB56E000, v36, OS_LOG_TYPE_DEFAULT, v35, v55, v37);
 LABEL_39:
-    LODWORD(v24) = *(a1 + 72);
-    *(*(a1 + 32) + 240) = VCAudioBufferAllocatorCreate(*MEMORY[0x1E695E480], (*(a1 + 56) * v24 * 20.0 / 1000.0), 2u);
-    v39 = *(a1 + 32);
-    if (*(v39 + 240))
+    LODWORD(v29) = *(a1 + 72);
+    *(*(a1 + 32) + 240) = VCAudioBufferAllocatorCreate(*MEMORY[0x1E695E480], (*(a1 + 56) * v29 * 20.0 / 1000.0), 2, v24, v25, v26, v27, v28);
+    v44 = *(a1 + 32);
+    if (*(v44 + 240))
     {
-      *(v39 + 536) = 1;
+      *(v44 + 536) = 1;
 LABEL_41:
-      v40 = *(*(a1 + 32) + 488);
-      v41 = *(a1 + 72);
-      *v50 = *(a1 + 56);
-      *&v50[16] = v41;
-      *&v50[32] = *(a1 + 88);
-      [v40 setAsbd:v50];
-      v42 = *(a1 + 32);
-      if (*(v42 + 168) == 1 && (*v50 = 0, v43 = [v42 transitionToState:2 withReason:2 error:v50], v42 = *(a1 + 32), (v43 & 1) == 0))
+      v45 = *(*(a1 + 32) + 488);
+      v46 = *(a1 + 72);
+      *v55 = *(a1 + 56);
+      *&v55[16] = v46;
+      *&v55[32] = *(a1 + 88);
+      [v45 setAsbd:v55];
+      v47 = *(a1 + 32);
+      if (*(v47 + 168) == 1 && (*v55 = 0, v48 = [v47 transitionToState:2 withReason:2 error:v55], v47 = *(a1 + 32), (v48 & 1) == 0))
       {
-        _VCAudioCaptions_DestroyCopyBufferAllocator(v42);
-        v42 = *(a1 + 32);
-        if (*(v42 + 240))
+        _VCAudioCaptions_DestroyCopyBufferAllocator(v47);
+        v47 = *(a1 + 32);
+        if (*(v47 + 240))
         {
-          CFRelease(*(v42 + 240));
+          CFRelease(*(v47 + 240));
           v17 = 0;
           *(*(a1 + 32) + 240) = 0;
-          v42 = *(a1 + 32);
+          v47 = *(a1 + 32);
         }
 
         else
@@ -3910,10 +3911,10 @@ LABEL_41:
         v17 = 1;
       }
 
-      *(v42 + 170) = v17;
+      *(v47 + 170) = v17;
       v15 = *(a1 + 32);
       v16 = *(a1 + 40);
-      return [v15 callCompletionHandler:v16 withResult:{v17, *v50, *&v50[16], *&v50[24], v51, *v52, *&v52[8], v53}];
+      return [v15 callCompletionHandler:v16 withResult:{v17, *v55, *&v55[16], *&v55[24], v56, *v57, *&v57[8], v58}];
     }
 
     if (objc_opt_class() == *(a1 + 32))
@@ -3932,32 +3933,32 @@ LABEL_41:
     {
       if (objc_opt_respondsToSelector())
       {
-        v44 = [*(a1 + 32) performSelector:sel_logPrefix];
+        v49 = [*(a1 + 32) performSelector:sel_logPrefix];
       }
 
       else
       {
-        v44 = &stru_1F570E008;
+        v49 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v45 = VRTraceErrorLogLevelToCSTR();
-        v46 = *MEMORY[0x1E6986650];
+        v50 = VRTraceErrorLogLevelToCSTR();
+        v51 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
-          v49 = *(a1 + 32);
-          *v50 = 136316162;
-          *&v50[4] = v45;
-          *&v50[12] = 2080;
-          *&v50[14] = "[VCAudioCaptions start:forToken:withCompletionHandler:]_block_invoke";
-          *&v50[22] = 1024;
-          *&v50[24] = 1199;
-          *&v50[28] = 2112;
-          *&v50[30] = v44;
-          *&v50[38] = 2048;
-          v51 = v49;
-          _os_log_error_impl(&dword_1DB56E000, v46, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to create the PCM copy buffer allocator for captions", v50, 0x30u);
+          v54 = *(a1 + 32);
+          *v55 = 136316162;
+          *&v55[4] = v50;
+          *&v55[12] = 2080;
+          *&v55[14] = "[VCAudioCaptions start:forToken:withCompletionHandler:]_block_invoke";
+          *&v55[22] = 1024;
+          *&v55[24] = 1199;
+          *&v55[28] = 2112;
+          *&v55[30] = v49;
+          *&v55[38] = 2048;
+          v56 = v54;
+          _os_log_error_impl(&dword_1DB56E000, v51, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Failed to create the PCM copy buffer allocator for captions", v55, 0x30u);
         }
       }
     }
@@ -3972,7 +3973,7 @@ LABEL_41:
 LABEL_60:
     v16 = *(a1 + 40);
     v17 = 0;
-    return [v15 callCompletionHandler:v16 withResult:{v17, *v50, *&v50[16], *&v50[24], v51, *v52, *&v52[8], v53}];
+    return [v15 callCompletionHandler:v16 withResult:{v17, *v55, *&v55[16], *&v55[24], v56, *v57, *&v57[8], v58}];
   }
 
   if (v3 == v4)
@@ -4005,18 +4006,18 @@ LABEL_60:
       v14 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
-        v48 = *(a1 + 32);
-        *v50 = 136316162;
-        *&v50[4] = v13;
-        *&v50[12] = 2080;
-        *&v50[14] = "[VCAudioCaptions start:forToken:withCompletionHandler:]_block_invoke";
-        *&v50[22] = 1024;
-        *&v50[24] = 1185;
-        *&v50[28] = 2112;
-        *&v50[30] = v5;
-        *&v50[38] = 2048;
-        v51 = v48;
-        _os_log_error_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Starting speech processing but it is already started", v50, 0x30u);
+        v53 = *(a1 + 32);
+        *v55 = 136316162;
+        *&v55[4] = v13;
+        *&v55[12] = 2080;
+        *&v55[14] = "[VCAudioCaptions start:forToken:withCompletionHandler:]_block_invoke";
+        *&v55[22] = 1024;
+        *&v55[24] = 1185;
+        *&v55[28] = 2112;
+        *&v55[30] = v5;
+        *&v55[38] = 2048;
+        v56 = v53;
+        _os_log_error_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Starting speech processing but it is already started", v55, 0x30u);
       }
     }
   }
@@ -4024,7 +4025,7 @@ LABEL_60:
   v15 = *(a1 + 32);
   v16 = *(a1 + 40);
   v17 = 1;
-  return [v15 callCompletionHandler:v16 withResult:{v17, *v50, *&v50[16], *&v50[24], v51, *v52, *&v52[8], v53}];
+  return [v15 callCompletionHandler:v16 withResult:{v17, *v55, *&v55[16], *&v55[24], v56, *v57, *&v57[8], v58}];
 }
 
 - (void)stopWithCompletionHandler:(id)handler
@@ -4492,7 +4493,7 @@ LABEL_30:
   inputFormat = self->_inputFormat;
   if (inputFormat)
   {
-    [(ASBDWrapper *)inputFormat asbd];
+    objc_msgSend_asbd(inputFormat, a2);
     v10 = v45;
   }
 
@@ -4526,7 +4527,7 @@ LABEL_30:
       v19 = self->_inputFormat;
       if (v19)
       {
-        [(ASBDWrapper *)v19 asbd];
+        objc_msgSend_asbd(v19);
         v20 = v42;
       }
 
@@ -4582,7 +4583,7 @@ LABEL_30:
       v24 = self->_inputFormat;
       if (v24)
       {
-        [(ASBDWrapper *)v24 asbd];
+        objc_msgSend_asbd(v24);
         v25 = v39;
       }
 
@@ -5170,7 +5171,7 @@ LABEL_15:
         return;
       }
 
-      [VCAudioCaptions sendTranscriptionResult:? taskInfo:?];
+      [VCAudioCaptions sendTranscriptionResult:self taskInfo:?];
     }
 
     else
@@ -5195,7 +5196,7 @@ uint64_t __52__VCAudioCaptions_sendTranscriptionResult_taskInfo___block_invoke(u
 
 - (void)dumpCaptionsIfNeededForCaptionsTranscription:(id)transcription
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (transcription && self->_logCaptionsDump)
   {
     if (objc_opt_class() == self)
@@ -5213,19 +5214,19 @@ uint64_t __52__VCAudioCaptions_sendTranscriptionResult_taskInfo___block_invoke(u
       }
 
       *buf = 136316674;
-      v22 = v6;
-      v23 = 2080;
-      v24 = "[VCAudioCaptions dumpCaptionsIfNeededForCaptionsTranscription:]";
-      v25 = 1024;
-      v26 = 1491;
-      v27 = 1024;
-      *v28 = [transcription isFinal];
-      *&v28[4] = 1024;
-      *&v28[6] = [transcription isLocal];
-      *v29 = 2048;
-      *&v29[2] = [transcription streamToken];
-      *v30 = 2080;
-      *&v30[2] = [objc_msgSend(transcription "formattedText")];
+      v14 = v6;
+      v15 = 2080;
+      v16 = "[VCAudioCaptions dumpCaptionsIfNeededForCaptionsTranscription:]";
+      v17 = 1024;
+      v18 = 1491;
+      v19 = 1024;
+      *v20 = [transcription isFinal];
+      *&v20[4] = 1024;
+      *&v20[6] = [transcription isLocal];
+      *v21 = 2048;
+      *&v21[2] = [transcription streamToken];
+      *v22 = 2080;
+      *&v22[2] = [objc_msgSend(transcription "formattedText")];
       v8 = " [%s] %s:%d isFinal=%d, isLocal=%d, streamToken=%ld, formattedText=%s";
       v9 = v7;
       v10 = 60;
@@ -5256,23 +5257,23 @@ uint64_t __52__VCAudioCaptions_sendTranscriptionResult_taskInfo___block_invoke(u
       }
 
       *buf = 136317186;
-      v22 = v11;
-      v23 = 2080;
-      v24 = "[VCAudioCaptions dumpCaptionsIfNeededForCaptionsTranscription:]";
-      v25 = 1024;
-      v26 = 1491;
-      v27 = 2112;
-      *v28 = v5;
-      *&v28[8] = 2048;
-      *v29 = self;
-      *&v29[8] = 1024;
-      *v30 = [transcription isFinal];
-      *&v30[4] = 1024;
-      *&v30[6] = [transcription isLocal];
-      v31 = 2048;
+      v14 = v11;
+      v15 = 2080;
+      v16 = "[VCAudioCaptions dumpCaptionsIfNeededForCaptionsTranscription:]";
+      v17 = 1024;
+      v18 = 1491;
+      v19 = 2112;
+      *v20 = v5;
+      *&v20[8] = 2048;
+      *v21 = self;
+      *&v21[8] = 1024;
+      *v22 = [transcription isFinal];
+      *&v22[4] = 1024;
+      *&v22[6] = [transcription isLocal];
+      v23 = 2048;
       streamToken = [transcription streamToken];
-      v33 = 2080;
-      v34 = [objc_msgSend(transcription "formattedText")];
+      v25 = 2080;
+      v26 = [objc_msgSend(transcription "formattedText")];
       v8 = " [%s] %s:%d %@(%p) isFinal=%d, isLocal=%d, streamToken=%ld, formattedText=%s";
       v9 = v12;
       v10 = 80;
@@ -5282,9 +5283,7 @@ uint64_t __52__VCAudioCaptions_sendTranscriptionResult_taskInfo___block_invoke(u
 LABEL_14:
     if ([transcription isFinal])
     {
-      logCaptionsDump = self->_logCaptionsDump;
-      v14 = [objc_msgSend(transcription "formattedText")];
-      VRLogfilePrintWithTimestamp(logCaptionsDump, "%s \n", v15, v16, v17, v18, v19, v20, v14);
+      VRLogfilePrintWithTimestamp(self->_logCaptionsDump, "%s \n", [objc_msgSend(transcription "formattedText")]);
     }
   }
 }
@@ -5395,8 +5394,8 @@ __n128 __67__VCAudioCaptions_speechAnalyzer_didStopLanguageDetectorWithError___b
 
 void __34__VCAudioCaptions_enableCaptions___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v31 = 0;
+  v38 = *MEMORY[0x1E69E9840];
+  v34 = 0;
   v2 = *(a1 + 40);
   v3 = objc_opt_class();
   v4 = *(a1 + 32);
@@ -5415,10 +5414,10 @@ void __34__VCAudioCaptions_enableCaptions___block_invoke(uint64_t a1)
         goto LABEL_30;
       }
 
-      v32 = 136315650;
-      v33 = v12;
+      v35 = 136315650;
+      v36 = v12;
       OUTLINED_FUNCTION_36_0();
-      v34 = 596;
+      v37 = 596;
       OUTLINED_FUNCTION_22_0();
     }
 
@@ -5434,14 +5433,14 @@ void __34__VCAudioCaptions_enableCaptions___block_invoke(uint64_t a1)
         goto LABEL_30;
       }
 
-      v26 = VRTraceErrorLogLevelToCSTR();
+      v27 = VRTraceErrorLogLevelToCSTR();
       if (!OUTLINED_FUNCTION_39())
       {
         goto LABEL_30;
       }
 
-      v32 = 136316162;
-      v33 = v26;
+      v35 = 136316162;
+      v36 = v27;
       OUTLINED_FUNCTION_35_1();
       OUTLINED_FUNCTION_17_1();
       OUTLINED_FUNCTION_10_1();
@@ -5449,36 +5448,37 @@ void __34__VCAudioCaptions_enableCaptions___block_invoke(uint64_t a1)
 
     _os_log_impl(v13, v14, v15, v16, v17, v18);
 LABEL_30:
-    v27 = *(a1 + 32);
-    if (*(v27 + 168) != *(a1 + 40))
+    v28 = *(a1 + 32);
+    if (*(v28 + 168) != *(a1 + 40))
     {
-      if ([v27 transitionToState:0 withReason:2 error:&v31])
+      v29 = [v28 transitionToState:0 withReason:2 error:&v34];
+      if (v29)
       {
-        v28 = *(a1 + 40);
-        *(*(a1 + 32) + 168) = v28;
-        *(*(a1 + 32) + 169) = v28;
-        *(*(a1 + 32) + 368) = micro() - *(*(a1 + 32) + 376) + *(*(a1 + 32) + 368);
+        v31 = *(a1 + 40);
+        *(*(a1 + 32) + 168) = v31;
+        *(*(a1 + 32) + 169) = v31;
+        *(*(a1 + 32) + 368) = micro(v29, v30) - *(*(a1 + 32) + 376) + *(*(a1 + 32) + 368);
         *(*(a1 + 32) + 408) = 0;
         *(*(a1 + 32) + 368) = 0;
         *(*(a1 + 32) + 376) = 0;
       }
 
-      v27 = *(a1 + 32);
-      if (*(v27 + 560))
+      v28 = *(a1 + 32);
+      if (*(v28 + 560))
       {
-        VRLogFileLog(*(v27 + 560), "VCAudioCaptions-captionsDump");
-        v27 = *(a1 + 32);
+        VRLogFileLog(*(v28 + 560), "VCAudioCaptions-captionsDump");
+        v28 = *(a1 + 32);
       }
     }
 
-    v24 = *(v27 + 216);
+    v25 = *(v28 + 216);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __34__VCAudioCaptions_enableCaptions___block_invoke_66;
     block[3] = &unk_1E85F37F0;
-    block[4] = v27;
-    block[5] = v31;
-    v25 = block;
+    block[4] = v28;
+    block[5] = v34;
+    v26 = block;
     goto LABEL_36;
   }
 
@@ -5495,10 +5495,10 @@ LABEL_30:
       goto LABEL_18;
     }
 
-    v32 = 136315650;
-    v33 = v5;
+    v35 = 136315650;
+    v36 = v5;
     OUTLINED_FUNCTION_36_0();
-    v34 = 582;
+    v37 = 582;
     OUTLINED_FUNCTION_22_0();
   }
 
@@ -5520,8 +5520,8 @@ LABEL_30:
       goto LABEL_18;
     }
 
-    v32 = 136316162;
-    v33 = v19;
+    v35 = 136316162;
+    v36 = v19;
     OUTLINED_FUNCTION_35_1();
     OUTLINED_FUNCTION_17_1();
     OUTLINED_FUNCTION_10_1();
@@ -5547,28 +5547,28 @@ LABEL_18:
       v21 = 1;
     }
 
-    v22 = [v20 transitionToState:v21 withReason:2 error:&v31];
+    v23 = [v20 transitionToState:v21 withReason:2 error:&v34];
     v20 = *(a1 + 32);
-    if (v22)
+    if (v23)
     {
-      v23 = *(a1 + 40);
-      *(v20 + 168) = v23;
-      *(*(a1 + 32) + 169) = v23;
-      *(*(a1 + 32) + 376) = micro();
+      v24 = *(a1 + 40);
+      *(v20 + 168) = v24;
+      *(*(a1 + 32) + 169) = v24;
+      *(*(a1 + 32) + 376) = micro(v20, v22);
       v20 = *(a1 + 32);
     }
   }
 
-  v24 = *(v20 + 216);
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __34__VCAudioCaptions_enableCaptions___block_invoke_63;
-  v30[3] = &unk_1E85F37F0;
-  v30[4] = v20;
-  v30[5] = v31;
-  v25 = v30;
+  v25 = *(v20 + 216);
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __34__VCAudioCaptions_enableCaptions___block_invoke_63;
+  v33[3] = &unk_1E85F37F0;
+  v33[4] = v20;
+  v33[5] = v34;
+  v26 = v33;
 LABEL_36:
-  dispatch_async(v24, v25);
+  dispatch_async(v25, v26);
 }
 
 - (void)dispatchedSetLocale:(id)locale
@@ -6647,7 +6647,7 @@ LABEL_11:
   }
 }
 
-- (void)sendTranscriptionResult:(char)a1 taskInfo:.cold.1(char a1)
+- (void)sendTranscriptionResult:(char)a1 taskInfo:(uint64_t)a2 .cold.1(char a1, uint64_t a2)
 {
   if (a1)
   {
@@ -6661,7 +6661,7 @@ LABEL_11:
         OUTLINED_FUNCTION_4_0();
         OUTLINED_FUNCTION_22_0();
 LABEL_10:
-        _os_log_impl(v1, v2, v3, v4, v5, v6);
+        _os_log_impl(v2, v3, v4, v5, v6, v7);
       }
     }
   }

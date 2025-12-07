@@ -14,35 +14,35 @@
 
 - (BWMetalColorCubeRenderer)initWithMetalCommandQueue:(id)queue mixInGammaDomain:(BOOL)domain
 {
-  v10.receiver = self;
-  v10.super_class = BWMetalColorCubeRenderer;
-  v6 = [(BWMetalColorCubeRenderer *)&v10 init];
-  v7 = v6;
+  v11.receiver = self;
+  v11.super_class = BWMetalColorCubeRenderer;
+  v6 = [(BWMetalColorCubeRenderer *)&v11 init];
+  v8 = v6;
   if (v6)
   {
     v6->_mtlCommandQueue = queue;
     v6->_previousInterpolationFractionComplete = 1.0;
     if (![(BWMetalColorCubeRenderer *)v6 _loadAndConfigureFilterBundle])
     {
-      v9 = 16;
+      v10 = 16;
       while (1)
       {
-        *([*(&v7->super.isa + v9) filterDescriptor] + 8) = 1;
-        *([*(&v7->super.isa + v9) filterDescriptor] + 4) = 1;
-        *[*(&v7->super.isa + v9) filterDescriptor] = 32;
-        *([*(&v7->super.isa + v9) filterDescriptor] + 12) = 0;
-        *([*(&v7->super.isa + v9) filterDescriptor] + 16) = domain;
-        v7->_mixingColorCubesInGammaDomain = domain;
-        if ([*(&v7->super.isa + v9) prepareToProcess:0])
+        *([*(&v8->super.isa + v10) filterDescriptor] + 8) = 1;
+        *([*(&v8->super.isa + v10) filterDescriptor] + 4) = 1;
+        *[*(&v8->super.isa + v10) filterDescriptor] = 32;
+        *([*(&v8->super.isa + v10) filterDescriptor] + 12) = 0;
+        *([*(&v8->super.isa + v10) filterDescriptor] + 16) = domain;
+        v8->_mixingColorCubesInGammaDomain = domain;
+        if ([*(&v8->super.isa + v10) prepareToProcess:0])
         {
           break;
         }
 
-        v9 += 8;
-        if (v9 == 56)
+        v10 += 8;
+        if (v10 == 56)
         {
-          v7->_colorLookupCache = objc_alloc_init(BWColorLookupCache);
-          return v7;
+          v8->_colorLookupCache = objc_alloc_init(BWColorLookupCache);
+          return v8;
         }
       }
     }
@@ -50,7 +50,7 @@
     return 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)dealloc
@@ -72,11 +72,11 @@
 + (id)bundle
 {
   v2 = [MEMORY[0x1E696AAE8] bundleWithPath:@"/System/Library/VideoProcessors/MetalFilter.bundle"];
-  v3 = v2;
+  v10 = v2;
   if (v2)
   {
-    v5 = 0;
-    if (([v2 loadAndReturnError:&v5] & 1) == 0)
+    v13 = 0;
+    if (([v2 loadAndReturnError:&v13] & 1) == 0)
     {
       +[BWMetalColorCubeRenderer bundle];
     }
@@ -84,10 +84,10 @@
 
   else
   {
-    +[BWMetalColorCubeRenderer bundle];
+    [(BWMetalColorCubeRenderer *)0 bundle:v3];
   }
 
-  return v3;
+  return v10;
 }
 
 - (uint64_t)_loadAndConfigureFilterBundle
@@ -102,32 +102,32 @@
   if (!bundle)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v14, v15, v16, v17, vars0, vars8);
     return 0;
   }
 
-  v3 = 16;
+  v5 = 16;
   while (1)
   {
-    v4 = [objc_alloc(NSClassFromString(&cfstr_Figcolorcubeme.isa)) initWithCommandQueue:*(self + 384)];
-    *(self + v3) = v4;
-    if (!v4)
+    v6 = [objc_alloc(NSClassFromString(&cfstr_Figcolorcubeme.isa)) initWithCommandQueue:*(self + 384)];
+    *(self + v5) = v6;
+    if (!v6)
     {
       break;
     }
 
-    v3 += 8;
-    if (v3 == 56)
+    v5 += 8;
+    if (v5 == 56)
     {
       return 0;
     }
   }
 
   fig_log_get_emitter();
-  FigDebugAssert3();
-  fig_log_get_emitter();
-  v5 = FigSignalErrorAtGM();
-  if (v5)
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v14, v15, v16, v17, vars0, vars8);
+  emitter = fig_log_get_emitter();
+  v7 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE0ELL, "<<<< BWMetalColorCubeRenderer >>>>", 0x18B, v2, v10, v11, v13);
+  if (v7)
   {
 
     *(self + 8) = 0;
@@ -138,7 +138,7 @@
     }
   }
 
-  return v5;
+  return v7;
 }
 
 - (int)prepareForRenderingWithParameters:(id)parameters inputVideoFormat:(id)format inputMediaPropertiesByAttachedMediaKey:(id)key
@@ -419,13 +419,13 @@ LABEL_31:
             {
               v16 = v15;
               v17 = v14[1];
-              v26 = *v14;
-              v27 = v17;
-              [objc_msgSend(objc_msgSend(v9 objectAtIndexedSubscript:{v10), "objectForKeyedSubscript:", 0x1F21AA4B0), "getValue:", &v26}];
-              v18 = *&v27 * *(&v27 + 1);
+              v30 = *v14;
+              v31 = v17;
+              [objc_msgSend(objc_msgSend(v9 objectAtIndexedSubscript:{v10), "objectForKeyedSubscript:", 0x1F21AA4B0), "getValue:", &v30}];
+              v18 = *&v31 * *(&v31 + 1);
               if (v12 < v18)
               {
-                v12 = *&v27 * *(&v27 + 1);
+                v12 = *&v31 * *(&v31 + 1);
                 v11 = v16;
               }
             }
@@ -442,8 +442,8 @@ LABEL_31:
         }
 
         colorFilter = [v11 objectAtIndexedSubscript:0];
-        NSClassFromString(&cfstr_Cicolorcubesmi.isa);
-        if (OUTLINED_FUNCTION_5_62())
+        v22 = NSClassFromString(&cfstr_Cicolorcubesmi.isa);
+        if (OUTLINED_FUNCTION_5_62(v22))
         {
           cube1Data = [colorFilter cube1Data];
         }
@@ -479,8 +479,8 @@ LABEL_31:
         }
       }
 
-      NSClassFromString(&cfstr_Cicolorcubesmi.isa);
-      if (OUTLINED_FUNCTION_5_62())
+      v24 = NSClassFromString(&cfstr_Cicolorcubesmi.isa);
+      if (OUTLINED_FUNCTION_5_62(v24))
       {
         colorCubeWithColorSpaceFilter = [MEMORY[0x1E695F648] colorCubeWithColorSpaceFilter];
         [colorFilter name];
@@ -493,14 +493,14 @@ LABEL_31:
 
       else
       {
-        NSClassFromString(&cfstr_Ciphotoeffect3_1.isa);
-        if ((OUTLINED_FUNCTION_5_62() & 1) == 0)
+        v26 = NSClassFromString(&cfstr_Ciphotoeffect3_1.isa);
+        if ((OUTLINED_FUNCTION_5_62(v26) & 1) == 0)
         {
-          NSClassFromString(&cfstr_Ciphotoeffect.isa);
-          if ((OUTLINED_FUNCTION_5_62() & 1) == 0)
+          v27 = NSClassFromString(&cfstr_Ciphotoeffect.isa);
+          if ((OUTLINED_FUNCTION_5_62(v27) & 1) == 0)
           {
-            v24 = array;
-            v25 = colorFilter;
+            v28 = array;
+            v29 = colorFilter;
             goto LABEL_29;
           }
         }
@@ -512,10 +512,10 @@ LABEL_31:
       }
 
       [colorCubeWithColorSpaceFilter setCubeData:cube1Data];
-      v24 = array;
-      v25 = colorCubeWithColorSpaceFilter;
+      v28 = array;
+      v29 = colorCubeWithColorSpaceFilter;
 LABEL_29:
-      [v24 addObject:v25];
+      [v28 addObject:v29];
 LABEL_30:
       if ([array count])
       {
@@ -529,10 +529,10 @@ LABEL_30:
 {
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v15, v16, v17, v18, v19, vars0, vars8);
+  v10 = OUTLINED_FUNCTION_2();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v10, 0xFFFFCE0ELL, "<<<< BWMetalColorCubeRenderer >>>>", 0x177, v9, v11, v12, a9);
 }
 
 @end

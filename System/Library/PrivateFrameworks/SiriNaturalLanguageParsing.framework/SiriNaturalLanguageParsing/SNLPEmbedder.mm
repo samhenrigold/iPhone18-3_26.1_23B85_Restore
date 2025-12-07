@@ -51,7 +51,7 @@
   *v13 = *v9;
   *&v13[11] = *&v9[11];
   memset(v14, 0, sizeof(v14));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v14, v10, *(&v10 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v10 + 1) - v10) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v14, v10, SDWORD2(v10), 0xAAAAAAAAAAAAAAABLL * ((*(&v10 + 1) - v10) >> 3));
   v15 = *&v11[1];
   v16 = *&v11[3];
   if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
@@ -67,7 +67,7 @@
   *v18 = *v5;
   *&v18[11] = *&v5[11];
   memset(v19, 0, sizeof(v19));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v19, v6, *(&v6 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v6 + 1) - v6) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v19, v6, SDWORD2(v6), 0xAAAAAAAAAAAAAAABLL * ((*(&v6 + 1) - v6) >> 3));
   v20 = *&v7[1];
   v21 = *&v7[3];
   memset(v3, 0, sizeof(v3));
@@ -94,7 +94,7 @@
 
 - (id)getEmbeddingsWithError:(id)error error:(id *)a4
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v4 = SNLPOSLoggerForCategory(7);
   v5 = os_signpost_id_generate(v4);
@@ -114,14 +114,14 @@
     _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_DEFAULT, "BEGIN OWL Embeddings Overall", &buf, 2u);
   }
 
+  v52 = 0;
   v53 = 0;
   v54 = 0;
-  v55 = 0;
   tokenChain = [errorCopy tokenChain];
-  std::vector<nlv4_inference_orchestrator::orchestration::Token>::reserve(&v53, [tokenChain tokensCount]);
+  std::vector<nlv4_inference_orchestrator::orchestration::Token>::reserve(&v52, [tokenChain tokensCount]);
 
-  std::string::basic_string[abi:ne200100]<0>(&v52, "");
   std::string::basic_string[abi:ne200100]<0>(&v51, "");
+  std::string::basic_string[abi:ne200100]<0>(&v50, "");
   text = [errorCopy text];
   v11 = text == 0;
 
@@ -152,64 +152,64 @@
       }
     }
 
-    MEMORY[0x223DC46D0](&v52, uTF8String);
     MEMORY[0x223DC46D0](&v51, uTF8String);
+    MEMORY[0x223DC46D0](&v50, uTF8String);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   tokenChain2 = [errorCopy tokenChain];
   tokens = [tokenChain2 tokens];
 
-  v21 = [tokens countByEnumeratingWithState:&v47 objects:v60 count:16];
+  v21 = [tokens countByEnumeratingWithState:&v46 objects:v59 count:16];
   if (!v21)
   {
 LABEL_29:
 
-    if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v43, v52.__r_.__value_.__l.__data_, v52.__r_.__value_.__l.__size_);
-    }
-
-    else
-    {
-      v43 = v52;
-    }
-
     if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v44, v51.__r_.__value_.__l.__data_, v51.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v42, v51.__r_.__value_.__l.__data_, v51.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v44 = v51;
+      v42 = v51;
     }
 
-    memset(v45, 0, sizeof(v45));
-    std::vector<nlv4_inference_orchestrator::orchestration::Token>::__init_with_size[abi:ne200100]<nlv4_inference_orchestrator::orchestration::Token*,nlv4_inference_orchestrator::orchestration::Token*>(v45, v53, v54, 0x6DB6DB6DB6DB6DB7 * ((v54 - v53) >> 4));
+    if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v43, v50.__r_.__value_.__l.__data_, v50.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v43 = v50;
+    }
+
+    memset(v44, 0, sizeof(v44));
+    std::vector<nlv4_inference_orchestrator::orchestration::Token>::__init_with_size[abi:ne200100]<nlv4_inference_orchestrator::orchestration::Token*,nlv4_inference_orchestrator::orchestration::Token*>(v44, v52, v53, 0x6DB6DB6DB6DB6DB7 * ((v53 - v52) >> 4));
     v37 = *(*(self->_cppOrchestrator.__ptr_ + 23) + 8);
     (*(*v37 + 56))(v37);
-    nlv4_inference_orchestrator::orchestration::EmbedderOrchestrator::getEmbeddings(self->_cppOrchestrator.__ptr_, &v43);
+    nlv4_inference_orchestrator::orchestration::EmbedderOrchestrator::getEmbeddings(self->_cppOrchestrator.__ptr_, &v42);
   }
 
-  v22 = *v48;
+  v22 = *v47;
 LABEL_16:
   v23 = 0;
   while (1)
   {
-    if (*v48 != v22)
+    if (*v47 != v22)
     {
       objc_enumerationMutation(tokens);
     }
 
-    v24 = *(*(&v47 + 1) + 8 * v23);
+    v24 = *(*(&v46 + 1) + 8 * v23);
     v25 = objc_opt_class();
-    v46 = 0;
-    v26 = [v25 getTokenCleanValueString:v24 error:&v46];
-    v27 = v46;
+    v45 = 0;
+    v26 = [v25 getTokenCleanValueString:v24 error:&v45];
+    v27 = v45;
     v28 = v27;
     if (!v26)
     {
@@ -224,44 +224,44 @@ LABEL_16:
       if (!v30)
       {
         std::string::basic_string[abi:ne200100]<0>(&buf, v26);
-        *v58 = 0;
-        *&v58[8] = [v24 begin];
-        *&v58[16] = [v24 end];
-        *&v58[24] = 0;
-        v58[26] = 0;
-        memset(v59, 0, sizeof(v59));
-        v31 = v54;
-        if (v54 >= v55)
+        *v57 = 0;
+        *&v57[8] = [v24 begin];
+        *&v57[16] = [v24 end];
+        *&v57[24] = 0;
+        v57[26] = 0;
+        memset(v58, 0, sizeof(v58));
+        v31 = v53;
+        if (v53 >= v54)
         {
-          v35 = std::vector<nlv4_inference_orchestrator::orchestration::Token>::__emplace_back_slow_path<nlv4_inference_orchestrator::orchestration::Token>(&v53, &buf);
+          v35 = std::vector<nlv4_inference_orchestrator::orchestration::Token>::__emplace_back_slow_path<nlv4_inference_orchestrator::orchestration::Token>(&v52, &buf);
         }
 
         else
         {
           v32 = buf;
-          *(v54 + 16) = v57;
+          *(v53 + 16) = v56;
           *v31 = v32;
-          v57 = 0;
+          v56 = 0;
           buf = 0uLL;
-          v33 = *&v58[11];
-          *(v31 + 24) = *v58;
+          v33 = *&v57[11];
+          *(v31 + 24) = *v57;
           *(v31 + 35) = v33;
           *(v31 + 64) = 0;
           *(v31 + 72) = 0;
           *(v31 + 56) = 0;
-          *(v31 + 56) = *v59;
-          *(v31 + 72) = *&v59[16];
-          memset(v59, 0, 24);
-          v34 = *&v59[40];
-          *(v31 + 80) = *&v59[24];
+          *(v31 + 56) = *v58;
+          *(v31 + 72) = *&v58[16];
+          memset(v58, 0, 24);
+          v34 = *&v58[40];
+          *(v31 + 80) = *&v58[24];
           *(v31 + 96) = v34;
           v35 = v31 + 112;
         }
 
-        v54 = v35;
-        v43.__r_.__value_.__r.__words[0] = v59;
-        std::vector<std::basic_string<char16_t>>::__destroy_vector::operator()[abi:ne200100](&v43);
-        if (SHIBYTE(v57) < 0)
+        v53 = v35;
+        v42.__r_.__value_.__r.__words[0] = v58;
+        std::vector<std::basic_string<char16_t>>::__destroy_vector::operator()[abi:ne200100](&v42);
+        if (SHIBYTE(v56) < 0)
         {
           operator delete(buf);
         }
@@ -270,7 +270,7 @@ LABEL_16:
 
     if (v21 == ++v23)
     {
-      v21 = [tokens countByEnumeratingWithState:&v47 objects:v60 count:16];
+      v21 = [tokens countByEnumeratingWithState:&v46 objects:v59 count:16];
       if (!v21)
       {
         goto LABEL_29;
@@ -286,20 +286,18 @@ LABEL_16:
     *a4 = v28;
   }
 
+  if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v50.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v51.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v52.__r_.__value_.__l.__data_);
-  }
-
-  *&buf = &v53;
+  *&buf = &v52;
   std::vector<nlv4_inference_orchestrator::orchestration::Token>::__destroy_vector::operator()[abi:ne200100](&buf);
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return 0;
 }
@@ -324,16 +322,16 @@ LABEL_16:
 
 - (id)getEmbeddingsBySentenceWithError:(id)error error:(id *)a4
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v47 = 0;
+  v49 = *MEMORY[0x277D85DE8];
   v46 = 0;
-  v48 = 0;
+  v45 = 0;
+  v47 = 0;
   errorCopy = error;
   tokenChain = [errorCopy tokenChain];
-  std::vector<nlv4_inference_orchestrator::orchestration::Token>::reserve(&v46, [tokenChain tokensCount]);
+  std::vector<nlv4_inference_orchestrator::orchestration::Token>::reserve(&v45, [tokenChain tokensCount]);
 
   std::string::basic_string[abi:ne200100]<0>(&__s, "");
-  std::string::basic_string[abi:ne200100]<0>(&v44, "");
+  std::string::basic_string[abi:ne200100]<0>(&v43, "");
   text = [errorCopy text];
   v7 = text == 0;
 
@@ -345,61 +343,61 @@ LABEL_16:
 
     text3 = [errorCopy text];
     v11 = text3;
-    MEMORY[0x223DC46D0](&v44, [text3 UTF8String]);
+    MEMORY[0x223DC46D0](&v43, [text3 UTF8String]);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   tokenChain2 = [errorCopy tokenChain];
   tokens = [tokenChain2 tokens];
 
-  v14 = [tokens countByEnumeratingWithState:&v40 objects:v49 count:16];
+  v14 = [tokens countByEnumeratingWithState:&v39 objects:v48 count:16];
   if (!v14)
   {
 LABEL_16:
 
     if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v36, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v35, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v36 = __s;
+      v35 = __s;
     }
 
-    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v37, v44.__r_.__value_.__l.__data_, v44.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v36, v43.__r_.__value_.__l.__data_, v43.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v37 = v44;
+      v36 = v43;
     }
 
-    memset(v38, 0, sizeof(v38));
-    std::vector<nlv4_inference_orchestrator::orchestration::Token>::__init_with_size[abi:ne200100]<nlv4_inference_orchestrator::orchestration::Token*,nlv4_inference_orchestrator::orchestration::Token*>(v38, v46, v47, 0x6DB6DB6DB6DB6DB7 * ((v47 - v46) >> 4));
-    nlv4_inference_orchestrator::orchestration::EmbedderOrchestrator::getEmbeddingsBySentence(self->_cppOrchestrator.__ptr_, &v36);
+    memset(v37, 0, sizeof(v37));
+    std::vector<nlv4_inference_orchestrator::orchestration::Token>::__init_with_size[abi:ne200100]<nlv4_inference_orchestrator::orchestration::Token*,nlv4_inference_orchestrator::orchestration::Token*>(v37, v45, v46, 0x6DB6DB6DB6DB6DB7 * ((v46 - v45) >> 4));
+    nlv4_inference_orchestrator::orchestration::EmbedderOrchestrator::getEmbeddingsBySentence(self->_cppOrchestrator.__ptr_, &v35);
   }
 
-  v15 = *v41;
+  v15 = *v40;
 LABEL_5:
   v16 = 0;
   while (1)
   {
-    if (*v41 != v15)
+    if (*v40 != v15)
     {
       objc_enumerationMutation(tokens);
     }
 
-    v17 = *(*(&v40 + 1) + 8 * v16);
+    v17 = *(*(&v39 + 1) + 8 * v16);
     v18 = objc_opt_class();
-    v39 = 0;
-    v19 = [v18 getTokenCleanValueString:v17 error:&v39];
-    v20 = v39;
+    v38 = 0;
+    v19 = [v18 getTokenCleanValueString:v17 error:&v38];
+    v20 = v38;
     v21 = v20;
     if (!v19)
     {
@@ -407,52 +405,52 @@ LABEL_5:
     }
 
     std::string::basic_string[abi:ne200100]<0>(__p, v19);
-    *v34 = 0;
-    *&v34[8] = [v17 begin];
-    *&v34[16] = [v17 end];
-    *&v34[24] = 0;
-    v34[26] = 0;
-    memset(v35, 0, 56);
-    v22 = v47;
-    if (v47 >= v48)
+    *v33 = 0;
+    *&v33[8] = [v17 begin];
+    *&v33[16] = [v17 end];
+    *&v33[24] = 0;
+    v33[26] = 0;
+    memset(v34, 0, 56);
+    v22 = v46;
+    if (v46 >= v47)
     {
-      v26 = std::vector<nlv4_inference_orchestrator::orchestration::Token>::__emplace_back_slow_path<nlv4_inference_orchestrator::orchestration::Token>(&v46, __p);
+      v26 = std::vector<nlv4_inference_orchestrator::orchestration::Token>::__emplace_back_slow_path<nlv4_inference_orchestrator::orchestration::Token>(&v45, __p);
     }
 
     else
     {
       v23 = *__p;
-      *(v47 + 16) = v33;
+      *(v46 + 16) = v32;
       *v22 = v23;
       __p[1] = 0;
-      v33 = 0;
+      v32 = 0;
       __p[0] = 0;
-      v24 = *&v34[11];
-      *(v22 + 24) = *v34;
+      v24 = *&v33[11];
+      *(v22 + 24) = *v33;
       *(v22 + 35) = v24;
       *(v22 + 64) = 0;
       *(v22 + 72) = 0;
       *(v22 + 56) = 0;
-      *(v22 + 56) = v35[0];
-      *(v22 + 72) = *&v35[1];
-      memset(v35, 0, 24);
-      v25 = *(&v35[2] + 8);
-      *(v22 + 80) = *(&v35[1] + 8);
+      *(v22 + 56) = v34[0];
+      *(v22 + 72) = *&v34[1];
+      memset(v34, 0, 24);
+      v25 = *(&v34[2] + 8);
+      *(v22 + 80) = *(&v34[1] + 8);
       *(v22 + 96) = v25;
       v26 = v22 + 112;
     }
 
-    v47 = v26;
-    v36.__r_.__value_.__r.__words[0] = v35;
-    std::vector<std::basic_string<char16_t>>::__destroy_vector::operator()[abi:ne200100](&v36);
-    if (SHIBYTE(v33) < 0)
+    v46 = v26;
+    v35.__r_.__value_.__r.__words[0] = v34;
+    std::vector<std::basic_string<char16_t>>::__destroy_vector::operator()[abi:ne200100](&v35);
+    if (SHIBYTE(v32) < 0)
     {
       operator delete(__p[0]);
     }
 
     if (v14 == ++v16)
     {
-      v14 = [tokens countByEnumeratingWithState:&v40 objects:v49 count:16];
+      v14 = [tokens countByEnumeratingWithState:&v39 objects:v48 count:16];
       if (!v14)
       {
         goto LABEL_16;
@@ -468,9 +466,9 @@ LABEL_5:
     *a4 = v21;
   }
 
-  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v44.__r_.__value_.__l.__data_);
+    operator delete(v43.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
@@ -478,10 +476,8 @@ LABEL_5:
     operator delete(__s.__r_.__value_.__l.__data_);
   }
 
-  __p[0] = &v46;
+  __p[0] = &v45;
   std::vector<nlv4_inference_orchestrator::orchestration::Token>::__destroy_vector::operator()[abi:ne200100](__p);
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return 0;
 }
@@ -596,7 +592,7 @@ LABEL_5:
 
 + (const)getTokenCleanValueString:(id)string error:(id *)error
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (![stringCopy hasCleanValue] || (objc_msgSend(stringCopy, "cleanValue"), v6 = objc_claimAutoreleasedReturnValue(), v6, !v6))
   {
@@ -604,11 +600,11 @@ LABEL_5:
     {
       v16 = MEMORY[0x277CCA9B8];
       v17 = *MEMORY[0x277CCA470];
-      v26[0] = *MEMORY[0x277CCA450];
-      v26[1] = v17;
-      v27[0] = @"Encountered a token without a clean value";
-      v27[1] = @"Encountered a token without a clean value";
-      string = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+      v25[0] = *MEMORY[0x277CCA450];
+      v25[1] = v17;
+      v26[0] = @"Encountered a token without a clean value";
+      v26[1] = @"Encountered a token without a clean value";
+      string = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
       *error = [v16 errorWithDomain:@"SNLPNaturalLanguageParserErrorDomain" code:2 userInfo:string];
 LABEL_10:
     }
@@ -643,15 +639,15 @@ LABEL_11:
         [string appendString:v15];
       }
 
-      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Hit invalid token clean value: %s", objc_msgSend(string, "UTF8String")];
-      v21 = MEMORY[0x277CCA9B8];
-      v22 = *MEMORY[0x277CCA470];
-      v24[0] = *MEMORY[0x277CCA450];
-      v24[1] = v22;
-      v25[0] = v20;
-      v25[1] = v20;
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
-      *error = [v21 errorWithDomain:@"SNLPNaturalLanguageParserErrorDomain" code:2 userInfo:v23];
+      v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Hit invalid token clean value: %s", objc_msgSend(string, "UTF8String")];
+      v20 = MEMORY[0x277CCA9B8];
+      v21 = *MEMORY[0x277CCA470];
+      v23[0] = *MEMORY[0x277CCA450];
+      v23[1] = v21;
+      v24[0] = v19;
+      v24[1] = v19;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+      *error = [v20 errorWithDomain:@"SNLPNaturalLanguageParserErrorDomain" code:2 userInfo:v22];
 
       goto LABEL_10;
     }
@@ -661,7 +657,6 @@ LABEL_11:
 
 LABEL_12:
 
-  v18 = *MEMORY[0x277D85DE8];
   return uTF8String;
 }
 

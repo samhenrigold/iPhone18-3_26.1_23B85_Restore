@@ -9,10 +9,12 @@
 {
   selfCopy = self;
   sub_1002398A8();
+  v4 = v3;
 
-  v3 = String._bridgeToObjectiveC()();
+  v5 = String._bridgeToObjectiveC()();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v3;
+  return v5;
 }
 
 - (_TtC7remindd37RDBatchDeleteExpiredRemindersActivity)init

@@ -1,10 +1,28 @@
 @interface MSDNearbyObject
 - (BOOL)isEqual:(id)equal;
+- (MSDNearbyObject)initWithIdentifier:(id)identifier andIsInBubble:(BOOL)bubble;
 - (id)description;
 - (unint64_t)hash;
 @end
 
 @implementation MSDNearbyObject
+
+- (MSDNearbyObject)initWithIdentifier:(id)identifier andIsInBubble:(BOOL)bubble
+{
+  bubbleCopy = bubble;
+  identifierCopy = identifier;
+  v10.receiver = self;
+  v10.super_class = MSDNearbyObject;
+  v7 = [(MSDNearbyObject *)&v10 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(MSDNearbyObject *)v7 setIdentifier:identifierCopy];
+    [(MSDNearbyObject *)v8 setIsInBubble:bubbleCopy];
+  }
+
+  return v8;
+}
 
 - (BOOL)isEqual:(id)equal
 {

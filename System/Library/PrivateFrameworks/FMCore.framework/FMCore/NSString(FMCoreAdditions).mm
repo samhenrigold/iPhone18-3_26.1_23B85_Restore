@@ -137,9 +137,9 @@ LABEL_16:
     [NSString(FMCoreAdditions) legacyAllowedCharacterSet];
   }
 
-  v1 = legacyAllowedCharacterSet_allowedCharSet;
+  v2 = legacyAllowedCharacterSet_allowedCharSet;
 
-  return v1;
+  return v2;
 }
 
 @end

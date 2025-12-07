@@ -1,8 +1,10 @@
 @interface MXMMutableSampleData
 - (id)appendDoubleValue:(double)value tag:(id)tag timestamp:(unint64_t)timestamp;
 - (id)appendFloatValue:(float)value tag:(id)tag timestamp:(unint64_t)timestamp;
+- (id)appendIntValue:(int)value tag:(id)tag timestamp:(unint64_t)timestamp;
 - (id)appendIntegerValue:(int64_t)value tag:(id)tag timestamp:(unint64_t)timestamp;
 - (id)appendSample:(id)sample;
+- (id)appendUnsignedIntValue:(unsigned int)value tag:(id)tag timestamp:(unint64_t)timestamp;
 - (id)appendUnsignedIntegerValue:(unint64_t)value tag:(id)tag timestamp:(unint64_t)timestamp;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)appendAttributes:(id)attributes;
@@ -14,38 +16,36 @@
 
 - (void)appendAttributes:(id)attributes
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [attributesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [attributesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(attributesCopy);
         }
 
-        [(MXMSampleData *)self _appendAttribute:*(*(&v10 + 1) + 8 * v8++)];
+        [(MXMSampleData *)self _appendAttribute:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [attributesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [attributesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appendData:(id)data
@@ -154,6 +154,38 @@ LABEL_11:
   }
 
   [firstObject appendDoubleValue:timestamp timestamp:value];
+
+  return firstObject;
+}
+
+- (id)appendUnsignedIntValue:(unsigned int)value tag:(id)tag timestamp:(unint64_t)timestamp
+{
+  v6 = *&value;
+  v7 = [(MXMSampleData *)self sampleSetsWithTag:tag];
+  firstObject = [v7 firstObject];
+
+  if (!firstObject)
+  {
+    [MXMMutableSampleData appendUnsignedIntValue:tag:timestamp:];
+  }
+
+  [firstObject appendUnsignedIntValue:v6 timestamp:timestamp];
+
+  return firstObject;
+}
+
+- (id)appendIntValue:(int)value tag:(id)tag timestamp:(unint64_t)timestamp
+{
+  v6 = *&value;
+  v7 = [(MXMSampleData *)self sampleSetsWithTag:tag];
+  firstObject = [v7 firstObject];
+
+  if (!firstObject)
+  {
+    [MXMMutableSampleData appendIntValue:tag:timestamp:];
+  }
+
+  [firstObject appendIntValue:v6 timestamp:timestamp];
 
   return firstObject;
 }

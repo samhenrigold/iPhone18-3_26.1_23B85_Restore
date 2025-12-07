@@ -114,25 +114,25 @@ LABEL_12:
   v5 = encodingCopy;
   if (encodingCopy && MEMORY[0x1DA6E0380](encodingCopy) == MEMORY[0x1E69E9E80])
   {
-    v14.receiver = self;
-    v14.super_class = SSDownloadPolicyUserDefaultState;
-    v6 = [(SSDownloadPolicyUserDefaultState *)&v14 init];
+    v17.receiver = self;
+    v17.super_class = SSDownloadPolicyUserDefaultState;
+    v6 = [(SSDownloadPolicyUserDefaultState *)&v17 init];
     if (v6)
     {
-      objc_opt_class();
-      v8 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0");
+      v8 = objc_opt_class();
+      v9 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0", v8);
       domain = v6->_domain;
-      v6->_domain = v8;
+      v6->_domain = v9;
 
-      objc_opt_class();
-      v10 = SSXPCDictionaryCopyCFObjectWithClass(v5, "1");
+      v11 = objc_opt_class();
+      v12 = SSXPCDictionaryCopyCFObjectWithClass(v5, "1", v11);
       fallbackNumberValue = v6->_fallbackNumberValue;
-      v6->_fallbackNumberValue = v10;
+      v6->_fallbackNumberValue = v12;
 
-      objc_opt_class();
-      v12 = SSXPCDictionaryCopyCFObjectWithClass(v5, "2");
+      v14 = objc_opt_class();
+      v15 = SSXPCDictionaryCopyCFObjectWithClass(v5, "2", v14);
       key = v6->_key;
-      v6->_key = v12;
+      v6->_key = v15;
 
       v6->_shouldInvertBoolValue = xpc_dictionary_get_BOOL(v5, "3");
     }

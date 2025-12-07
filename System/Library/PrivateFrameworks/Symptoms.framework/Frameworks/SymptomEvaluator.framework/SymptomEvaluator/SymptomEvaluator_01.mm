@@ -1,50 +1,3 @@
-uint64_t EnvRefresh(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    v2 = a2;
-    do
-    {
-      v4 = *(v2 + 88);
-      v5 = *(v4 + 56);
-      if (*v5)
-      {
-        v6 = 0;
-        do
-        {
-          v7 = *(v5[2] + 8 * v6);
-          if (v7)
-          {
-            do
-            {
-              if (*(v7[2] + 136) && !v7[3])
-              {
-                AddActivation(a1, v2, v7);
-              }
-
-              v7 = v7[5];
-            }
-
-            while (v7);
-            v4 = *(v2 + 88);
-          }
-
-          ++v6;
-          v5 = *(v4 + 56);
-        }
-
-        while (v6 < *v5);
-      }
-
-      v2 = *(v2 + 96);
-    }
-
-    while (v2);
-  }
-
-  return 1;
-}
-
 uint64_t EnvRefreshAgenda(uint64_t a1, uint64_t a2)
 {
   SaveCurrentModule(a1);
@@ -109,15 +62,16 @@ uint64_t EnvSetSalienceEvaluation(uint64_t a1, int a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
-void sub_232590928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232590928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -129,9 +83,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_232591CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_232591CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -255,20 +209,20 @@ LABEL_4:
   return 1;
 }
 
-void *AddGeneric(uint64_t a1, uint64_t a2, _DWORD *a3)
+void *AddGeneric(void *a1, uint64_t a2, _DWORD *a3)
 {
   DefgenericInModule = EnvFindDefgenericInModule(a1, *(a2 + 24));
   if (!DefgenericInModule)
   {
     *a3 = 1;
-    v8 = *(a1 + 48);
+    v8 = a1[6];
     v9 = *(v8 + 472);
     v10 = *(*(v9 + 40) + 576);
     if (v10)
     {
       *(v9 + 32) = v10;
       *(*(*(v8 + 472) + 40) + 576) = **(*(v8 + 472) + 32);
-      v7 = *(*(*(a1 + 48) + 472) + 32);
+      v7 = *(*(a1[6] + 472) + 32);
     }
 
     else
@@ -279,7 +233,7 @@ void *AddGeneric(uint64_t a1, uint64_t a2, _DWORD *a3)
     InitializeConstructHeader(a1, "defgeneric", v7, a2);
     v7[7] = 0;
     *(v7 + 16) = 0x10000;
-    v11 = *(*(*(a1 + 48) + 216) + 128);
+    v11 = *(*(a1[6] + 216) + 128);
     *(v7 + 12) = 0;
     *(v7 + 13) = v11;
     ++*(a2 + 8);
@@ -289,7 +243,7 @@ void *AddGeneric(uint64_t a1, uint64_t a2, _DWORD *a3)
 
   v7 = DefgenericInModule;
   *a3 = 0;
-  if (!*(*(*(a1 + 48) + 336) + 40))
+  if (!*(*(a1[6] + 336) + 40))
   {
     RemoveConstructFromModule(a1, DefgenericInModule);
 LABEL_8:
@@ -355,10 +309,10 @@ uint64_t ParseDefmethod(uint64_t a1, char *a2)
 
     if (ValidGenericName(a1, *(v8 + 24)))
     {
-      v123 = 0;
-      v124 = 0;
-      v11 = AddGeneric(a1, v8, &v124);
-      if (v124 && !*(*(*(a1 + 48) + 336) + 40))
+      v97 = 0;
+      v98 = 0;
+      v11 = AddGeneric(a1, v8, &v98);
+      if (v98 && !*(*(*(a1 + 48) + 336) + 40))
       {
         CurrentModule = EnvGetCurrentModule(a1);
         ConstructNameString = EnvGetConstructNameString(a1, CurrentModule);
@@ -366,95 +320,95 @@ uint64_t ParseDefmethod(uint64_t a1, char *a2)
         v15 = strlen(ConstructNameString);
         v16 = strlen(DefruleName);
         v17 = gm2(a1, v15 + v16 + 17);
-        gensprintf(v17, "(defgeneric %s::%s)\n", v18, v19, v20, v21, v22, v23, ConstructNameString);
+        gensprintf(v17, "(defgeneric %s::%s)\n", ConstructNameString, DefruleName);
         EnvSetDefgenericPPForm(a1, v11, v17);
       }
 
       IncrementIndentDepth(a1, 1);
-      v24 = *(*(a1 + 48) + 216);
-      v26 = *(v24 + 168);
-      v25 = (v24 + 168);
-      if (v26 != 170)
+      v18 = *(*(a1 + 48) + 216);
+      v20 = *(v18 + 168);
+      v19 = (v18 + 168);
+      if (v20 != 170)
       {
         PrintErrorID(a1, "GENRCPSR", 7, 0);
-        v44 = "Expected a '(' to begin method parameter restrictions.\n";
+        v33 = "Expected a '(' to begin method parameter restrictions.\n";
         goto LABEL_28;
       }
 
-      v125 = 0;
-      GetToken(a1, a2, v25);
-      v27 = *(*(a1 + 48) + 216);
-      v28 = (v27 + 168);
-      v29 = *(v27 + 168);
-      if (v29 == 171)
+      v99 = 0;
+      GetToken(a1, a2, v19);
+      v21 = *(*(a1 + 48) + 216);
+      v22 = (v21 + 168);
+      v23 = *(v21 + 168);
+      if (v23 == 171)
       {
-        v30 = 0;
-        v31 = 0;
-        v32 = 0;
+        v24 = 0;
+        v25 = 0;
+        v26 = 0;
         goto LABEL_17;
       }
 
-      v31 = 0;
-      v32 = 0;
-      v30 = 0;
-      v126 = 0;
-      v122 = v11;
-      v121 = v10;
+      v25 = 0;
+      v26 = 0;
+      v24 = 0;
+      v100 = 0;
+      v96 = v11;
+      v95 = v10;
 LABEL_31:
-      if (v31)
+      if (v25)
       {
-        DeleteTempRestricts(a1, v30);
+        DeleteTempRestricts(a1, v24);
         PrintErrorID(a1, "PRCCODE", 8, 0);
-        v44 = "No parameters allowed after wildcard parameter.\n";
+        v33 = "No parameters allowed after wildcard parameter.\n";
       }
 
       else
       {
-        if ((v29 - 35) < 2)
+        if ((v23 - 35) < 2)
         {
-          v45 = *(v27 + 176);
-          if (!DuplicateParameters(a1, v30, &v126, v45))
+          v34 = *(v21 + 176);
+          if (!DuplicateParameters(a1, v24, &v100, v34))
           {
-            v46 = *(a1 + 48);
-            if (*(*(v46 + 216) + 168) == 36)
+            v35 = *(a1 + 48);
+            if (*(*(v35 + 216) + 168) == 36)
             {
-              v31 = v45;
+              v25 = v34;
             }
 
             else
             {
-              v31 = 0;
+              v25 = 0;
             }
 
-            v47 = *(v46 + 472);
-            v48 = *(*(v47 + 40) + 192);
-            if (v48)
+            v36 = *(v35 + 472);
+            v37 = *(*(v36 + 40) + 192);
+            if (v37)
             {
-              *(v47 + 32) = v48;
-              *(*(*(v46 + 472) + 40) + 192) = **(*(v46 + 472) + 32);
-              v49 = *(*(*(a1 + 48) + 472) + 32);
+              *(v36 + 32) = v37;
+              *(*(*(v35 + 472) + 40) + 192) = **(*(v35 + 472) + 32);
+              v38 = *(*(*(a1 + 48) + 472) + 32);
             }
 
             else
             {
-              v49 = genalloc(a1, 0x18uLL);
+              v38 = genalloc(a1, 0x18uLL);
             }
 
-            v49[8] = 0;
-            *v49 = 0;
+            v38[8] = 0;
+            *v38 = 0;
             ReturnExpression(a1, 0);
-            *(v49 + 1) = 0;
-            v60 = v126;
-            v61 = GenConstant(a1, 2, v45);
-            if (v30)
+            *(v38 + 1) = 0;
+            v49 = v100;
+            v50 = GenConstant(a1, 2, v34);
+            if (v24)
             {
 LABEL_107:
-              *(v60 + 24) = v61;
+              *(v49 + 24) = v50;
             }
 
             else
             {
-              v30 = v61;
+              v24 = v50;
             }
 
             goto LABEL_108;
@@ -463,246 +417,246 @@ LABEL_107:
           goto LABEL_148;
         }
 
-        if (v29 == 170)
+        if (v23 == 170)
         {
-          GetToken(a1, a2, v28);
-          v50 = *(*(a1 + 48) + 216);
-          if (*(v50 + 168) - 35 < 2)
+          GetToken(a1, a2, v22);
+          v39 = *(*(a1 + 48) + 216);
+          if (*(v39 + 168) - 35 < 2)
           {
-            v51 = *(v50 + 176);
-            if (DuplicateParameters(a1, v30, &v126, v51))
+            v40 = *(v39 + 176);
+            if (DuplicateParameters(a1, v24, &v100, v40))
             {
               goto LABEL_148;
             }
 
             if (*(*(*(a1 + 48) + 216) + 168) == 36)
             {
-              v31 = v51;
+              v25 = v40;
             }
 
             else
             {
-              v31 = 0;
+              v25 = 0;
             }
 
             SavePPBuffer(a1, " ");
             GetToken(a1, a2, (*(*(a1 + 48) + 216) + 168));
-            v52 = 0;
-            v53 = 0;
-            v54 = *(*(a1 + 48) + 216);
-            v55 = *(v54 + 168);
-            if (v55 == 171)
+            v41 = 0;
+            v42 = 0;
+            v43 = *(*(a1 + 48) + 216);
+            v44 = *(v43 + 168);
+            if (v44 == 171)
             {
               goto LABEL_46;
             }
 
-            v53 = 0;
-            v62 = 0;
-            while (!v53)
+            v42 = 0;
+            v51 = 0;
+            while (!v42)
             {
-              if (v55 == 170)
+              if (v44 == 170)
               {
-                v65 = Function1Parse(a1, a2);
-                if (v65)
+                v54 = Function1Parse(a1, a2);
+                if (v54)
                 {
-                  v53 = v65;
+                  v42 = v54;
                   if (!GetParsedBindNames(a1))
                   {
                     goto LABEL_76;
                   }
 
                   PrintErrorID(a1, "GENRCPSR", 12, 0);
-                  v90 = "Binds are not allowed in query expressions.\n";
+                  v74 = "Binds are not allowed in query expressions.\n";
 LABEL_144:
-                  EnvPrintRouter(a1, "werror", v90);
-                  v100 = a1;
-                  v101 = v53;
+                  EnvPrintRouter(a1, "werror", v74);
+                  v84 = a1;
+                  v85 = v42;
 LABEL_145:
-                  ReturnExpression(v100, v101);
+                  ReturnExpression(v84, v85);
                 }
 
-                v102 = a1;
-                v103 = v62;
+                v86 = a1;
+                v87 = v51;
                 goto LABEL_147;
               }
 
-              if (v55 == 33)
+              if (v44 == 33)
               {
-                v53 = GenConstant(a1, 33, *(v54 + 176));
+                v42 = GenConstant(a1, 33, *(v43 + 176));
 LABEL_76:
-                v52 = v62;
+                v41 = v51;
                 goto LABEL_77;
               }
 
-              if (v55 != 2)
+              if (v44 != 2)
               {
                 PrintErrorID(a1, "GENRCPSR", 13, 0);
                 EnvPrintRouter(a1, "werror", "Expected a valid type name or query.\n");
-                v100 = a1;
-                v101 = 0;
+                v84 = a1;
+                v85 = 0;
                 goto LABEL_145;
               }
 
-              v63 = *(*(v54 + 176) + 24);
-              if (!strcmp(v63, "INTEGER"))
+              v52 = *(*(v43 + 176) + 24);
+              if (!strcmp(v52, "INTEGER"))
               {
-                v64 = 1;
+                v53 = 1;
               }
 
-              else if (!strcmp(v63, "FLOAT"))
+              else if (!strcmp(v52, "FLOAT"))
               {
-                v64 = 0;
+                v53 = 0;
               }
 
-              else if (!strcmp(v63, "SYMBOL"))
+              else if (!strcmp(v52, "SYMBOL"))
               {
-                v64 = 2;
+                v53 = 2;
               }
 
-              else if (!strcmp(v63, "STRING"))
+              else if (!strcmp(v52, "STRING"))
               {
-                v64 = 3;
+                v53 = 3;
               }
 
-              else if (!strcmp(v63, "MULTIFIELD"))
+              else if (!strcmp(v52, "MULTIFIELD"))
               {
-                v64 = 4;
+                v53 = 4;
               }
 
-              else if (!strcmp(v63, "EXTERNAL-ADDRESS"))
+              else if (!strcmp(v52, "EXTERNAL-ADDRESS"))
               {
-                v64 = 5;
+                v53 = 5;
               }
 
-              else if (!strcmp(v63, "FACT-ADDRESS"))
+              else if (!strcmp(v52, "FACT-ADDRESS"))
               {
-                v64 = 6;
+                v53 = 6;
               }
 
-              else if (!strcmp(v63, "NUMBER"))
+              else if (!strcmp(v52, "NUMBER"))
               {
-                v64 = 11;
+                v53 = 11;
               }
 
-              else if (!strcmp(v63, "LEXEME"))
+              else if (!strcmp(v52, "LEXEME"))
               {
-                v64 = 12;
+                v53 = 12;
               }
 
-              else if (!strcmp(v63, "ADDRESS"))
+              else if (!strcmp(v52, "ADDRESS"))
               {
-                v64 = 13;
+                v53 = 13;
               }
 
-              else if (!strcmp(v63, "PRIMITIVE"))
+              else if (!strcmp(v52, "PRIMITIVE"))
               {
-                v64 = 10;
+                v53 = 10;
               }
 
-              else if (!strcmp(v63, "OBJECT"))
+              else if (!strcmp(v52, "OBJECT"))
               {
-                v64 = 9;
+                v53 = 9;
               }
 
-              else if (!strcmp(v63, "INSTANCE"))
+              else if (!strcmp(v52, "INSTANCE"))
               {
-                v64 = 14;
+                v53 = 14;
               }
 
-              else if (!strcmp(v63, "INSTANCE-NAME"))
+              else if (!strcmp(v52, "INSTANCE-NAME"))
               {
-                v64 = 8;
+                v53 = 8;
               }
 
               else
               {
-                if (strcmp(v63, "INSTANCE-ADDRESS"))
+                if (strcmp(v52, "INSTANCE-ADDRESS"))
                 {
                   PrintErrorID(a1, "GENRCPSR", 14, 0);
                   EnvPrintRouter(a1, "werror", "Unknown type in method.\n");
 LABEL_165:
-                  ReturnExpression(a1, v62);
-                  v102 = a1;
-                  v103 = 0;
+                  ReturnExpression(a1, v51);
+                  v86 = a1;
+                  v87 = 0;
 LABEL_147:
-                  ReturnExpression(v102, v103);
+                  ReturnExpression(v86, v87);
 LABEL_148:
-                  DeleteTempRestricts(a1, v30);
+                  DeleteTempRestricts(a1, v24);
 LABEL_149:
                   DecrementIndentDepth(a1, 1);
                   goto LABEL_150;
                 }
 
-                v64 = 7;
+                v53 = 7;
               }
 
-              v66 = EnvAddLong(a1, v64);
-              v67 = GenConstant(a1, 1, v66);
-              if (!v67)
+              v55 = EnvAddLong(a1, v53);
+              v56 = GenConstant(a1, 1, v55);
+              if (!v56)
               {
                 goto LABEL_165;
               }
 
-              v52 = v67;
-              if (!v62)
+              v41 = v56;
+              if (!v51)
               {
-                v53 = 0;
+                v42 = 0;
                 goto LABEL_77;
               }
 
-              v118 = v51;
-              v119 = v62;
-              v68 = v62;
+              v92 = v40;
+              v93 = v51;
+              v57 = v51;
               while (2)
               {
-                v69 = v68;
-                v70 = v52;
+                v58 = v57;
+                v59 = v41;
                 do
                 {
-                  v71 = *(v69 + 8);
-                  v72 = *(v70 + 8);
-                  if (v71 == v72)
+                  v60 = *(v58 + 8);
+                  v61 = *(v59 + 8);
+                  if (v60 == v61)
                   {
                     PrintErrorID(a1, "GENRCPSR", 11, 0);
-                    v87 = "Duplicate types not allowed in parameter restriction.\n";
-                    v88 = a1;
+                    v71 = "Duplicate types not allowed in parameter restriction.\n";
+                    v72 = a1;
                     goto LABEL_122;
                   }
 
-                  v75 = *(v71 + 24);
-                  v74 = (v71 + 24);
-                  v73 = v75;
-                  v77 = *(v72 + 24);
-                  v76 = (v72 + 24);
-                  if (SubsumeType(v73, v77))
+                  v64 = *(v60 + 24);
+                  v63 = (v60 + 24);
+                  v62 = v64;
+                  v66 = *(v61 + 24);
+                  v65 = (v61 + 24);
+                  if (SubsumeType(v62, v66))
                   {
-                    v76 = v74;
+                    v65 = v63;
 LABEL_121:
-                    v89 = TypeName(a1, *v76);
+                    v73 = TypeName(a1, *v65);
                     PrintErrorID(a1, "GENRCPSR", 15, 0);
-                    EnvPrintRouter(a1, "werror", v89);
-                    v87 = " class is redundant.\n";
-                    v88 = a1;
+                    EnvPrintRouter(a1, "werror", v73);
+                    v71 = " class is redundant.\n";
+                    v72 = a1;
 LABEL_122:
-                    EnvPrintRouter(v88, "werror", v87);
+                    EnvPrintRouter(v72, "werror", v71);
                     ReturnExpression(a1, 0);
-                    ReturnExpression(a1, v119);
-                    ReturnExpression(a1, v52);
-                    v11 = v122;
+                    ReturnExpression(a1, v93);
+                    ReturnExpression(a1, v41);
+                    v11 = v96;
                     goto LABEL_148;
                   }
 
-                  if (SubsumeType(*v76, *v74))
+                  if (SubsumeType(*v65, *v63))
                   {
                     goto LABEL_121;
                   }
 
-                  v70 = *(v70 + 24);
+                  v59 = *(v59 + 24);
                 }
 
-                while (v70);
-                v68 = *(v69 + 24);
-                if (v68)
+                while (v59);
+                v57 = *(v58 + 24);
+                if (v57)
                 {
                   continue;
                 }
@@ -710,69 +664,69 @@ LABEL_122:
                 break;
               }
 
-              v53 = 0;
-              *(v69 + 24) = v52;
-              v51 = v118;
-              v52 = v119;
-              v11 = v122;
+              v42 = 0;
+              *(v58 + 24) = v41;
+              v40 = v92;
+              v41 = v93;
+              v11 = v96;
 LABEL_77:
               SavePPBuffer(a1, " ");
               GetToken(a1, a2, (*(*(a1 + 48) + 216) + 168));
-              v54 = *(*(a1 + 48) + 216);
-              v55 = *(v54 + 168);
-              v62 = v52;
-              if (v55 == 171)
+              v43 = *(*(a1 + 48) + 216);
+              v44 = *(v43 + 168);
+              v51 = v41;
+              if (v44 == 171)
               {
 LABEL_46:
                 PPBackup(a1);
                 PPBackup(a1);
                 SavePPBuffer(a1, ")");
-                if (!(v52 | v53))
+                if (!(v41 | v42))
                 {
                   PrintErrorID(a1, "GENRCPSR", 13, 0);
                   EnvPrintRouter(a1, "werror", "Expected a valid type name or query.\n");
                   goto LABEL_148;
                 }
 
-                v56 = v51;
-                v57 = *(a1 + 48);
-                v58 = *(v57 + 472);
-                v59 = *(*(v58 + 40) + 192);
-                if (v59)
+                v45 = v40;
+                v46 = *(a1 + 48);
+                v47 = *(v46 + 472);
+                v48 = *(*(v47 + 40) + 192);
+                if (v48)
                 {
-                  *(v58 + 32) = v59;
-                  *(*(*(v57 + 472) + 40) + 192) = **(*(v57 + 472) + 32);
-                  v49 = *(*(*(a1 + 48) + 472) + 32);
+                  *(v47 + 32) = v48;
+                  *(*(*(v46 + 472) + 40) + 192) = **(*(v46 + 472) + 32);
+                  v38 = *(*(*(a1 + 48) + 472) + 32);
                 }
 
                 else
                 {
-                  v49 = genalloc(a1, 0x18uLL);
+                  v38 = genalloc(a1, 0x18uLL);
                 }
 
-                *(v49 + 1) = v53;
-                PackRestrictionTypes(a1, v49, v52);
-                v60 = v126;
-                v61 = GenConstant(a1, 2, v56);
-                if (v30)
+                *(v38 + 1) = v42;
+                PackRestrictionTypes(a1, v38, v41);
+                v49 = v100;
+                v50 = GenConstant(a1, 2, v45);
+                if (v24)
                 {
-                  v10 = v121;
-                  v11 = v122;
+                  v10 = v95;
+                  v11 = v96;
                   goto LABEL_107;
                 }
 
-                v30 = v61;
-                v10 = v121;
-                v11 = v122;
+                v24 = v50;
+                v10 = v95;
+                v11 = v96;
 LABEL_108:
-                v61[2] = v49;
-                ++v32;
+                v50[2] = v38;
+                ++v26;
                 PPCRAndIndent(a1);
                 GetToken(a1, a2, (*(*(a1 + 48) + 216) + 168));
-                v27 = *(*(a1 + 48) + 216);
-                v28 = (v27 + 168);
-                v29 = *(v27 + 168);
-                if (v29 == 171)
+                v21 = *(*(a1 + 48) + 216);
+                v22 = (v21 + 168);
+                v23 = *(v21 + 168);
+                if (v23 == 171)
                 {
                   PPBackup(a1);
                   PPBackup(a1);
@@ -780,28 +734,28 @@ LABEL_108:
 LABEL_17:
                   DecrementIndentDepth(a1, 1);
                   PPCRAndIndent(a1);
-                  if (v30)
+                  if (v24)
                   {
-                    v33 = v30;
+                    v27 = v24;
                     while (1)
                     {
-                      ReplaceCurrentArgRefs(a1, *(*(v33 + 16) + 8));
-                      if (ReplaceProcVars(a1, "method", *(*(v33 + 16) + 8), v30, v31, 0, 0))
+                      ReplaceCurrentArgRefs(a1, *(*(v27 + 16) + 8));
+                      if (ReplaceProcVars(a1, "method", *(*(v27 + 16) + 8), v24, v25, 0, 0))
                       {
                         break;
                       }
 
-                      v33 = *(v33 + 24);
-                      if (!v33)
+                      v27 = *(v27 + 24);
+                      if (!v27)
                       {
                         goto LABEL_21;
                       }
                     }
 
 LABEL_136:
-                    DeleteTempRestricts(a1, v30);
+                    DeleteTempRestricts(a1, v24);
 LABEL_150:
-                    if (v124)
+                    if (v98)
                     {
                       RemoveConstructFromModule(a1, v11);
                       RemoveDefgeneric(a1, v11);
@@ -811,49 +765,49 @@ LABEL_150:
                   }
 
 LABEL_21:
-                  MethodByRestrictions = FindMethodByRestrictions(v11, v30, v32, v31, &v125);
-                  v35 = MethodByRestrictions;
+                  MethodByRestrictions = FindMethodByRestrictions(v11, v24, v26, v25, &v99);
+                  v29 = MethodByRestrictions;
                   if (MethodByRestrictions)
                   {
                     if ((MethodByRestrictions[8] & 1) == 0)
                     {
                       if (v10 && v10 != *MethodByRestrictions)
                       {
-                        v36 = v11;
+                        v30 = v11;
                         PrintErrorID(a1, "GENRCPSR", 2, 0);
                         EnvPrintRouter(a1, "werror", "New method #");
-                        PrintLongInteger(a1, "werror", v10, v37, v38, v39, v40, v41);
-                        v42 = " would be indistinguishable from method #";
-                        v43 = a1;
+                        PrintLongInteger(a1, "werror", v10);
+                        v31 = " would be indistinguishable from method #";
+                        v32 = a1;
                         goto LABEL_117;
                       }
 
 LABEL_115:
-                      v81 = 1;
+                      v70 = 1;
 LABEL_127:
-                      v91 = *(a1 + 48);
-                      *(*(v91 + 360) + 80) = 1;
-                      v92 = ParseProcActions(a1, "method", a2, (*(v91 + 216) + 168), v30, v31, 0, 0, &v123, 0);
-                      v93 = v92;
-                      v94 = *(a1 + 48);
-                      if (*(*(v94 + 216) + 168) != 171 && v92 != 0)
+                      v75 = *(a1 + 48);
+                      *(*(v75 + 360) + 80) = 1;
+                      v76 = ParseProcActions(a1, "method", a2, (*(v75 + 216) + 168), v24, v25, 0, 0, &v97, 0);
+                      v77 = v76;
+                      v78 = *(a1 + 48);
+                      if (*(*(v78 + 216) + 168) != 171 && v76 != 0)
                       {
                         SyntaxErrorMessage(a1, "defmethod");
-                        DeleteTempRestricts(a1, v30);
-                        ReturnPackedExpression(a1, v93);
+                        DeleteTempRestricts(a1, v24);
+                        ReturnPackedExpression(a1, v77);
                         goto LABEL_150;
                       }
 
-                      if (!v92)
+                      if (!v76)
                       {
                         goto LABEL_136;
                       }
 
-                      if (*(*(v94 + 336) + 40))
+                      if (*(*(v78 + 336) + 40))
                       {
-                        DeleteTempRestricts(a1, v30);
-                        ReturnPackedExpression(a1, v93);
-                        if (v124)
+                        DeleteTempRestricts(a1, v24);
+                        ReturnPackedExpression(a1, v77);
+                        if (v98)
                         {
                           RemoveConstructFromModule(a1, v11);
                           RemoveDefgeneric(a1, v11);
@@ -862,83 +816,83 @@ LABEL_127:
 
                       else
                       {
-                        v120 = v81;
-                        v96 = v11;
+                        v94 = v70;
+                        v80 = v11;
                         PPBackup(a1);
                         PPBackup(a1);
                         SavePPBuffer(a1, *(*(*(a1 + 48) + 216) + 184));
                         SavePPBuffer(a1, "\n");
-                        v97 = v125;
-                        v98 = v123;
+                        v81 = v99;
+                        v82 = v97;
                         if (EnvGetConserveMemory(a1))
                         {
-                          v99 = 0;
+                          v83 = 0;
                         }
 
                         else
                         {
-                          v99 = CopyPPBuffer(a1);
+                          v83 = CopyPPBuffer(a1);
                         }
 
-                        v105 = AddMethod(a1, v96, v35, v97, v10, v30, v32, v98, v31, v93, v99, 0);
-                        DeleteTempRestricts(a1, v30);
+                        v89 = AddMethod(a1, v80, v29, v81, v10, v24, v26, v82, v25, v77, v83, 0);
+                        DeleteTempRestricts(a1, v24);
                         if (GetPrintWhileLoading(a1) && GetCompilationsWatch(a1) && !*(*(*(a1 + 48) + 336) + 40))
                         {
-                          if (v120)
+                          if (v94)
                           {
                             PrintWarningID(a1, "CSTRCPSR", 1, 1);
-                            v106 = "wwarning";
+                            v90 = "wwarning";
                             EnvPrintRouter(a1, "wwarning", "Method #");
-                            PrintLongInteger(a1, "wwarning", *v105, v107, v108, v109, v110, v111);
-                            v112 = " redefined.\n";
+                            PrintLongInteger(a1, "wwarning", *v89);
+                            v91 = " redefined.\n";
                           }
 
                           else
                           {
-                            v106 = "wdialog";
+                            v90 = "wdialog";
                             EnvPrintRouter(a1, "wdialog", "   Method #");
-                            PrintLongInteger(a1, "wdialog", *v105, v113, v114, v115, v116, v117);
-                            v112 = " defined.\n";
+                            PrintLongInteger(a1, "wdialog", *v89);
+                            v91 = " defined.\n";
                           }
 
-                          EnvPrintRouter(a1, v106, v112);
+                          EnvPrintRouter(a1, v90, v91);
                         }
                       }
 
                       return 0;
                     }
 
-                    v36 = v11;
+                    v30 = v11;
                     PrintErrorID(a1, "GENRCPSR", 17, 0);
-                    v42 = "Cannot replace the implicit system method #";
-                    v43 = a1;
+                    v31 = "Cannot replace the implicit system method #";
+                    v32 = a1;
 LABEL_117:
-                    EnvPrintRouter(v43, "werror", v42);
-                    v79 = *v35;
+                    EnvPrintRouter(v32, "werror", v31);
+                    v68 = *v29;
                   }
 
                   else
                   {
                     if (!v10)
                     {
-                      v81 = 0;
+                      v70 = 0;
                       goto LABEL_127;
                     }
 
-                    v78 = v11;
-                    v79 = v10;
-                    MethodByIndex = FindMethodByIndex(v78, v10);
+                    v67 = v11;
+                    v68 = v10;
+                    MethodByIndex = FindMethodByIndex(v67, v10);
                     if (MethodByIndex == -1)
                     {
-                      v81 = 0;
-                      v11 = v78;
+                      v70 = 0;
+                      v11 = v67;
                       goto LABEL_127;
                     }
 
-                    v36 = v78;
-                    if ((*(*(v78 + 56) + 56 * MethodByIndex + 16) & 1) == 0)
+                    v30 = v67;
+                    if ((*(*(v67 + 56) + 56 * MethodByIndex + 16) & 1) == 0)
                     {
-                      v11 = v78;
+                      v11 = v67;
                       goto LABEL_115;
                     }
 
@@ -946,10 +900,10 @@ LABEL_117:
                     EnvPrintRouter(a1, "werror", "Cannot replace the implicit system method #");
                   }
 
-                  PrintLongInteger(a1, "werror", v79, v82, v83, v84, v85, v86);
+                  PrintLongInteger(a1, "werror", v68);
                   EnvPrintRouter(a1, "werror", ".\n");
-                  DeleteTempRestricts(a1, v30);
-                  v11 = v36;
+                  DeleteTempRestricts(a1, v24);
+                  v11 = v30;
                   goto LABEL_150;
                 }
 
@@ -958,25 +912,25 @@ LABEL_117:
             }
 
             PrintErrorID(a1, "GENRCPSR", 10, 0);
-            v90 = "Query must be last in parameter restriction.\n";
+            v74 = "Query must be last in parameter restriction.\n";
             goto LABEL_144;
           }
 
-          DeleteTempRestricts(a1, v30);
+          DeleteTempRestricts(a1, v24);
           PrintErrorID(a1, "GENRCPSR", 8, 0);
-          v44 = "Expected a variable for parameter specification.\n";
+          v33 = "Expected a variable for parameter specification.\n";
         }
 
         else
         {
-          DeleteTempRestricts(a1, v30);
+          DeleteTempRestricts(a1, v24);
           PrintErrorID(a1, "GENRCPSR", 9, 0);
-          v44 = "Expected a variable or '(' for parameter specification.\n";
+          v33 = "Expected a variable or '(' for parameter specification.\n";
         }
       }
 
 LABEL_28:
-      EnvPrintRouter(a1, "werror", v44);
+      EnvPrintRouter(a1, "werror", v33);
       goto LABEL_149;
     }
   }
@@ -1003,9 +957,10 @@ uint64_t ReplaceCurrentArgRefs(uint64_t result, uint64_t a2)
         }
       }
 
-      if (*(v2 + 16))
+      v4 = *(v2 + 16);
+      if (v4)
       {
-        result = ReplaceCurrentArgRefs(v3);
+        result = ReplaceCurrentArgRefs(v3, v4);
       }
 
       v2 = *(v2 + 24);
@@ -1049,9 +1004,9 @@ uint64_t DeleteTempRestricts(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t FindMethodByRestrictions(uint64_t a1, uint64_t a2, int a3, uint64_t a4, _DWORD *a5)
+uint64_t FindMethodByRestrictions(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, _DWORD *a5)
 {
-  v5 = (a3 - 1);
+  v5 = a3 - 1;
   if (a4)
   {
     v6 = a3 - 1;
@@ -1263,9 +1218,9 @@ LABEL_58:
   return result;
 }
 
-uint64_t AddMethod(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t a6, int a7, __int16 a8, uint64_t a9, uint64_t *a10, uint64_t a11, int a12)
+uint64_t AddMethod(void *a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t a6, int a7, __int16 a8, uint64_t a9, void *a10, uint64_t a11, int a12)
 {
-  *(*(*(a1 + 48) + 216) + 160) = *(a2 + 48);
+  *(*(a1[6] + 216) + 160) = *(a2 + 48);
   if (a3)
   {
     v18 = a3;
@@ -1333,7 +1288,7 @@ uint64_t AddMethod(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64
 
     v18 = &v29[7 * v39];
     *(v18 + 4) = 0;
-    v41 = *(v18 + 16) & 0xFC | (2 * (*(*(*(a1 + 48) + 216) + 132) & 1));
+    v41 = *(v18 + 16) & 0xFC | (2 * (*(*(a1[6] + 216) + 132) & 1));
     *(v18 + 8) = 0;
     *(v18 + 16) = v41;
     *(v18 + 40) = 0u;
@@ -1494,7 +1449,7 @@ uint64_t AddMethod(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64
     }
   }
 
-  *(a2 + 48) = *(*(*(a1 + 48) + 216) + 160);
+  *(a2 + 48) = *(*(a1[6] + 216) + 160);
   return v18;
 }
 
@@ -1635,7 +1590,7 @@ uint64_t BsaveDeffunctions(uint64_t a1, FILE *__stream)
   return RestoreBloadCount(a1, (*(*(a1 + 48) + 192) + 8));
 }
 
-size_t BloadStorageDeffunctions(uint64_t a1)
+uint64_t BloadStorageDeffunctions(uint64_t a1)
 {
   __ptr = 0;
   result = GenReadBinary(a1, &__ptr, 8uLL);
@@ -1683,15 +1638,15 @@ uint64_t BloadDeffunctions(uint64_t a1)
   return BloadandRefresh(a1, *(*(*(a1 + 48) + 192) + 8), 56, UpdateDeffunction);
 }
 
-uint64_t ClearDeffunctionBload(uint64_t result)
+void *ClearDeffunctionBload(void *result)
 {
-  v1 = *(*(result + 48) + 192);
+  v1 = *(result[6] + 192);
   v2 = 24 * *(v1 + 16);
   if (v2)
   {
     v3 = result;
     result = genfree(result, *(v1 + 24), v2);
-    v4 = *(v3 + 48);
+    v4 = v3[6];
     *(*(v4 + 192) + 24) = 0;
     v5 = *(v4 + 192);
     *(v5 + 16) = 0;
@@ -1704,7 +1659,7 @@ uint64_t ClearDeffunctionBload(uint64_t result)
       {
         result = UnmarkConstructHeader(v3, (*v5 + v7));
         ++v8;
-        v5 = *(*(v3 + 48) + 192);
+        v5 = *(v3[6] + 192);
         v6 = *(v5 + 8);
         v7 += 88;
       }
@@ -1715,7 +1670,7 @@ uint64_t ClearDeffunctionBload(uint64_t result)
     if (88 * v6)
     {
       result = genfree(v3, *v5, 88 * v6);
-      v9 = *(v3 + 48);
+      v9 = v3[6];
       **(v9 + 192) = 0;
       *(*(v9 + 192) + 8) = 0;
     }
@@ -1786,17 +1741,18 @@ double UpdateDeffunction(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t FactPatternMatch(uint64_t result, uint64_t a2, uint64_t a3, int a4, void *a5, uint64_t a6)
+uint64_t *FactPatternMatch(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a3)
   {
+    v8 = a4;
     v9 = a3;
     v11 = result;
     v31 = 0u;
     v32 = 0u;
     v30 = 0u;
     v12 = *(a3 + 50);
-    v13 = *(result + 48);
+    v13 = result[6];
     *(*(v13 + 24) + 400) = a2;
     *(*(v13 + 24) + 408) = a5;
     while (1)
@@ -1804,7 +1760,7 @@ uint64_t FactPatternMatch(uint64_t result, uint64_t a2, uint64_t a3, int a4, voi
       v14 = *(v9 + 50);
       if (v12 == v14)
       {
-        v15 = a4;
+        v15 = v8;
       }
 
       else
@@ -1851,7 +1807,7 @@ LABEL_35:
       v23 = *(v9 + 56);
       if ((*(v9 + 32) & 0x80) != 0)
       {
-        if (EvaluatePatternExpression(v11, v9, *(v23 + 24)))
+        if (EvaluatePatternExpression(v11, v9, *(v23 + 24), a4, v15))
         {
           EvaluateExpression(v11, *(v9 + 56), &v30);
           HashedPatternNode = FindHashedPatternNode(v11, v9, WORD4(v30), v31);
@@ -1874,7 +1830,7 @@ LABEL_35:
         }
       }
 
-      else if (EvaluatePatternExpression(v11, v9, v23))
+      else if (EvaluatePatternExpression(v11, v9, v23, a4, v15))
       {
         if ((*(v9 + 32) & 4) != 0)
         {
@@ -1940,156 +1896,148 @@ uint64_t GetNextFactPatternNode(uint64_t a1, int a2, uint64_t a3)
   return result;
 }
 
-uint64_t EvaluatePatternExpression(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
+uint64_t EvaluatePatternExpression(uint64_t *a1, uint64_t a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (!a3)
   {
-    goto LABEL_26;
+    return 1;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v29 = 0u;
-  v4 = *a3;
-  switch(v4)
+  v25 = 0u;
+  v26 = 0u;
+  v24 = 0u;
+  v6 = *a3;
+  switch(v6)
   {
     case '5':
-      v9 = *(*(a1 + 48) + 352);
-      v6 = *v9;
-      *v9 = a3;
-      result = FactSlotLength(a1, *(a3 + 1), &v29);
+      v11 = *(a1[6] + 352);
+      v8 = *v11;
+      *v11 = a3;
+      result = FactSlotLength(a1, *(a3 + 1), &v24);
       goto LABEL_8;
     case '=':
-      v8 = *(*(a1 + 48) + 352);
-      v6 = *v8;
-      *v8 = a3;
+      v10 = *(a1[6] + 352);
+      v8 = *v10;
+      *v10 = a3;
       result = FactPNConstant2(a1, *(a3 + 1));
       goto LABEL_8;
     case '<':
-      v5 = *(*(a1 + 48) + 352);
-      v6 = *v5;
-      *v5 = a3;
+      v7 = *(a1[6] + 352);
+      v8 = *v7;
+      *v7 = a3;
       result = FactPNConstant1(a1, *(a3 + 1));
 LABEL_8:
-      **(*(a1 + 48) + 352) = v6;
-      goto LABEL_27;
+      **(a1[6] + 352) = v8;
+      return result;
   }
 
-  v11 = *(a3 + 1);
-  v12 = *(*(a1 + 48) + 360);
-  if (v11 != v12[1])
+  v13 = *(a3 + 1);
+  v14 = *(a1[6] + 360);
+  if (v13 != v14[1])
   {
-    if (v11 != *v12)
+    if (v13 != *v14)
     {
-      if (EvaluateExpression(a1, a3, &v29))
+      if (EvaluateExpression(a1, a3, &v24))
       {
         PrintErrorID(a1, "FACTMCH", 1, 1);
         EnvPrintRouter(a1, "werror", "This error occurred in the fact pattern network\n");
         EnvPrintRouter(a1, "werror", "   Currently active fact: ");
-        PrintFact(a1, "werror", *(*(*(a1 + 48) + 24) + 400), 0, 0);
+        PrintFact(a1, "werror", *(*(a1[6] + 24) + 400), 0, 0);
         EnvPrintRouter(a1, "werror", "\n");
-        v19 = *(*(*(*(a1 + 48) + 24) + 400) + 32);
-        if (*(v19 + 56))
+        v15 = *(*(*(a1[6] + 24) + 400) + 32);
+        if (*(v15 + 56))
         {
-          gensprintf(v32, "   Problem resides in field #%d\n", v13, v14, v15, v16, v17, v18, *(a2 + 48));
+          gensprintf(v27, "   Problem resides in field #%d\n");
         }
 
         else
         {
-          v20 = *(a2 + 50);
-          v21 = *(v19 + 48);
+          v16 = *(a2 + 50);
+          v17 = *(v15 + 48);
           if (*(a2 + 50))
           {
             do
             {
-              v21 = v21[5];
-              --v20;
+              v17 = *(v17 + 40);
+              --v16;
             }
 
-            while (v20);
+            while (v16);
           }
 
-          gensprintf(v32, "   Problem resides in slot %s\n", v13, v14, v15, v16, v17, v18, *(*v21 + 24));
+          gensprintf(v27, "   Problem resides in slot %s\n");
         }
 
-        EnvPrintRouter(a1, "werror", v32);
+        EnvPrintRouter(a1, "werror", v27);
         TraceErrorToJoin(a1, a2, 0);
         EnvPrintRouter(a1, "werror", "\n");
-        goto LABEL_36;
+        return 0;
       }
 
-      v27 = v30;
-      result = v27 != EnvFalseSymbol(a1) || WORD4(v29) != 2;
-      goto LABEL_27;
+      v22 = v25;
+      return v22 != EnvFalseSymbol(a1) || WORD4(v24) != 2;
     }
 
-    v25 = *(a3 + 2);
-    if (v25)
+    v21 = *(a3 + 2);
+    if (v21)
     {
       do
       {
-        result = EvaluatePatternExpression(a1, a2, v25);
+        result = EvaluatePatternExpression(a1, a2, v21, a4, a5);
         if (!result)
         {
           break;
         }
 
-        if (*(*(*(a1 + 48) + 352) + 8))
+        if (*(*(a1[6] + 352) + 8))
         {
-          goto LABEL_36;
+          return 0;
         }
 
-        v25 = *(v25 + 24);
+        v21 = *(v21 + 24);
         result = 1;
       }
 
-      while (v25);
-      goto LABEL_27;
+      while (v21);
+      return result;
     }
 
-LABEL_26:
-    result = 1;
-    goto LABEL_27;
+    return 1;
   }
 
-  v22 = *(a3 + 2);
-  if (!v22)
+  v18 = *(a3 + 2);
+  if (!v18)
   {
-LABEL_36:
-    result = 0;
-    goto LABEL_27;
+    return 0;
   }
 
   while (1)
   {
-    v23 = EvaluatePatternExpression(a1, a2, v22);
-    v24 = *(*(*(a1 + 48) + 352) + 8);
-    if (v23 == 1)
+    v19 = EvaluatePatternExpression(a1, a2, v18, a4, a5);
+    v20 = *(*(a1[6] + 352) + 8);
+    if (v19 == 1)
     {
       break;
     }
 
-    if (v24)
+    if (v20)
     {
-      goto LABEL_36;
+      return 0;
     }
 
     result = 0;
-    v22 = *(v22 + 24);
-    if (!v22)
+    v18 = *(v18 + 24);
+    if (!v18)
     {
-      goto LABEL_27;
+      return result;
     }
   }
 
-  result = v24 == 0;
-LABEL_27:
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  return v20 == 0;
 }
 
-void *ProcessFactAlphaMatch(void *a1, uint64_t a2, void *a3, void *a4)
+void *ProcessFactAlphaMatch(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = ComputeRightHashValue(a1, a4);
   AlphaMatch = CreateAlphaMatch(a1, a2, a3, a4, v8);
@@ -2114,7 +2062,7 @@ void *ProcessFactAlphaMatch(void *a1, uint64_t a2, void *a3, void *a4)
   result[1] = AlphaMatch;
   result[2] = a4;
   *result = v10;
-  for (i = a4[2]; i; i = *(i + 128))
+  for (i = *(a4 + 16); i; i = *(i + 128))
   {
     result = NetworkAssert(a1, AlphaMatch, i);
   }
@@ -2122,8 +2070,9 @@ void *ProcessFactAlphaMatch(void *a1, uint64_t a2, void *a3, void *a4)
   return result;
 }
 
-void *ProcessMultifieldNode(void *result, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t *ProcessMultifieldNode(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
   v8 = a2;
   v9 = result;
   v30 = 0u;
@@ -2150,7 +2099,7 @@ void *ProcessMultifieldNode(void *result, uint64_t a2, uint64_t a3, uint64_t a4,
 
   *v15 = *(v8 + 48) - 1;
   *(v15 + 8) = v11;
-  v16 = a5 + *(v8 + 48) - 1;
+  v16 = v5 + *(v8 + 48) - 1;
   *(v15 + 16) = v16;
   *(v15 + 32) = 0;
   if (a4)
@@ -2183,7 +2132,7 @@ void *ProcessMultifieldNode(void *result, uint64_t a2, uint64_t a3, uint64_t a4,
     v26 = *(v8 + 56);
     if (*(v8 + 32) < 0)
     {
-      result = EvaluatePatternExpression(v9, v8, *(v26 + 24));
+      result = EvaluatePatternExpression(v9, v8, *(v26 + 24), a4, a5);
       if (!result)
       {
         goto LABEL_31;
@@ -2200,7 +2149,7 @@ void *ProcessMultifieldNode(void *result, uint64_t a2, uint64_t a3, uint64_t a4,
 
     else if (v26)
     {
-      result = EvaluatePatternExpression(v9, v8, v26);
+      result = EvaluatePatternExpression(v9, v8, v26, a4, a5);
       if (!result)
       {
         goto LABEL_31;
@@ -2214,7 +2163,7 @@ void *ProcessMultifieldNode(void *result, uint64_t a2, uint64_t a3, uint64_t a4,
       v27 = v9[6];
     }
 
-    result = FactPatternMatch(v9, *(*(v27 + 24) + 400), *(v8 + 64), 0, *(*(v27 + 24) + 408), v15);
+    result = FactPatternMatch(v9, *(*(v27 + 24) + 400), *(v8 + 64), 0, *(*(v27 + 24) + 408));
   }
 
   else
@@ -2228,7 +2177,7 @@ void *ProcessMultifieldNode(void *result, uint64_t a2, uint64_t a3, uint64_t a4,
         v22 = *(v8 + 56);
         if (*(v8 + 32) < 0)
         {
-          result = EvaluatePatternExpression(v9, v8, *(v22 + 24));
+          result = EvaluatePatternExpression(v9, v8, *(v22 + 24), a4, a5);
           if (!result)
           {
             continue;
@@ -2247,7 +2196,7 @@ void *ProcessMultifieldNode(void *result, uint64_t a2, uint64_t a3, uint64_t a4,
           result = v8;
           if (v22)
           {
-            v23 = EvaluatePatternExpression(v9, v8, v22);
+            v23 = EvaluatePatternExpression(v9, v8, v22, a4, a5);
             result = v8;
             if (!v23)
             {
@@ -2256,7 +2205,7 @@ void *ProcessMultifieldNode(void *result, uint64_t a2, uint64_t a3, uint64_t a4,
           }
         }
 
-        result = FactPatternMatch(v9, *(*(v9[6] + 24) + 400), result[8], (a5 + i), *(*(v9[6] + 24) + 408), v15);
+        result = FactPatternMatch(v9, *(*(v9[6] + 24) + 400), result[8], (v5 + i), *(*(v9[6] + 24) + 408));
       }
     }
   }
@@ -2307,7 +2256,7 @@ LABEL_6:
   }
 }
 
-uint64_t FactsIncrementalReset(uint64_t a1)
+uint64_t FactsIncrementalReset(uint64_t *a1)
 {
   result = EnvGetNextFact(a1, 0);
   if (result)
@@ -2315,9 +2264,9 @@ uint64_t FactsIncrementalReset(uint64_t a1)
     v3 = result;
     do
     {
-      *(*(*(a1 + 48) + 144) + 92) = 1;
+      *(*(a1[6] + 144) + 92) = 1;
       FactPatternMatch(a1, v3, *(*(v3 + 32) + 72), 0, 0, 0);
-      *(*(*(a1 + 48) + 144) + 92) = 0;
+      *(*(a1[6] + 144) + 92) = 0;
       result = EnvGetNextFact(a1, v3);
       v3 = result;
     }
@@ -2363,7 +2312,7 @@ uint64_t TraceErrorToJoin(uint64_t result, uint64_t a2, int a3)
   return result;
 }
 
-void sub_232597588(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, id location)
+void sub_232597588(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, id location)
 {
   objc_destroyWeak(&a37);
   _Block_object_dispose(&a38, 8);
@@ -2383,48 +2332,49 @@ uint64_t privacyReset(uint64_t a1, void *a2)
   return [a2 privacyReset];
 }
 
-void sub_232598F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232598F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_232599990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_232599990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23259BAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23259BAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void traceEntry(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void traceEntry(uint64_t a1, uint64_t a2, const char *a3, ...)
 {
-  v12 = +[TraceRecorder sharedInstance];
-  [v12 vTraceTarget:a1 signature:a2 callout:0 item:0 fmt:a3 params:&a9];
+  va_start(va, a3);
+  v6 = +[TraceRecorder sharedInstance];
+  [v6 vTraceTarget:a1 signature:a2 callout:0 item:0 fmt:a3 params:va];
 }
 
 void traceCallout(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v13 = +[TraceRecorder sharedInstance];
+  v13 = [TraceRecorder sharedInstance:a3];
   [v13 vTraceTarget:a1 signature:a2 callout:a3 item:0 fmt:a4 params:&a9];
 }
 
 void traceItem(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v13 = +[TraceRecorder sharedInstance];
+  v13 = [TraceRecorder sharedInstance:a3];
   [v13 vTraceTarget:a1 signature:a2 callout:0 item:a3 fmt:a4 params:&a9];
 }
 
-void sub_23259E53C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23259E53C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3096,7 +3046,7 @@ uint64_t InitializePatternHeader(uint64_t a1, uint64_t a2)
   return result;
 }
 
-char *CreateAlphaMatch(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
+char *CreateAlphaMatch(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t **a4, uint64_t a5)
 {
   v10 = *(a1 + 48);
   v11 = *(v10 + 472);
@@ -3206,7 +3156,7 @@ LABEL_13:
     if (*a4)
     {
       v26 = a4[1];
-      *(v26 + 32) = v21;
+      v26[4] = v21;
       v21[5] = v26;
       a4[1] = v21;
     }
@@ -3236,7 +3186,7 @@ LABEL_13:
   return v13;
 }
 
-void *CopyMultifieldMarkers(uint64_t a1, void *a2)
+uint64_t CopyMultifieldMarkers(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -3262,8 +3212,8 @@ void *CopyMultifieldMarkers(uint64_t a1, void *a2)
 
       v9[4] = 0;
       *v9 = *v2;
-      v9[1] = v2[1];
-      *(v9 + 1) = *(v2 + 1);
+      v9[1] = *(v2 + 8);
+      *(v9 + 1) = *(v2 + 16);
       a2 = v9;
       if (v4)
       {
@@ -3271,7 +3221,7 @@ void *CopyMultifieldMarkers(uint64_t a1, void *a2)
         a2 = v5;
       }
 
-      v2 = v2[4];
+      v2 = *(v2 + 32);
       v4 = v9;
       v5 = a2;
     }
@@ -3464,7 +3414,7 @@ uint64_t TraceErrorToRuleDriver(uint64_t result, int *a2, char *a3, int a4, int 
       DefruleName = EnvGetDefruleName(v8, v11);
       EnvPrintRouter(v8, "werror", a3);
       EnvPrintRouter(v8, "werror", "Of pattern #");
-      PrintLongInteger(v8, "werror", v9 + a4, v13, v14, v15, v16, v17);
+      PrintLongInteger(v8, "werror", v9 + a4);
       EnvPrintRouter(v8, "werror", " in rule ");
       EnvPrintRouter(v8, "werror", DefruleName);
 
@@ -3475,7 +3425,7 @@ uint64_t TraceErrorToRuleDriver(uint64_t result, int *a2, char *a3, int a4, int 
     {
       for (i = *(a2 + 14); i; i = *(i + 2))
       {
-        result = TraceErrorToRuleDriver(v8, *(i + 1), a3, (v9 + a4), *i == 1);
+        result = TraceErrorToRuleDriver(v8, *(i + 1), a3, v9 + a4, *i == 1);
       }
     }
   }
@@ -3707,9 +3657,9 @@ LABEL_8:
     }
   }
 
-  for (i = *(*(*(*(result + 48) + 128) + 24) + 8 * *(a4 + 24)); i; i = i[6])
+  for (i = *(*(*(*(result + 48) + 128) + 24) + 8 * *(a4 + 24)); i; i = *(i + 48))
   {
-    if (i[1] == a2)
+    if (*(i + 8) == a2)
     {
       break;
     }
@@ -3721,7 +3671,7 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  i[2] = v5;
+  *(i + 16) = v5;
 LABEL_10:
   if (v5)
   {
@@ -3730,17 +3680,17 @@ LABEL_10:
 
   else
   {
-    v7 = i + 3;
+    v7 = (i + 24);
   }
 
   *v7 = v4;
   v8 = *(result + 48);
   *(a3 + 40) = *(*(v8 + 144) + 120);
   *(*(v8 + 144) + 120) = a3;
-  if (i && !i[2])
+  if (i && !*(i + 16))
   {
-    v9 = i[6];
-    v10 = i[7];
+    v9 = *(i + 48);
+    v10 = *(i + 56);
     if (v10)
     {
       v11 = (v10 + 48);
@@ -3754,21 +3704,21 @@ LABEL_10:
     *v11 = v9;
     if (v9)
     {
-      *(v9 + 56) = i[7];
+      *(v9 + 56) = *(i + 56);
     }
 
     if (*a2 == i)
     {
-      *a2 = i[4];
+      *a2 = *(i + 32);
     }
 
-    v12 = i[5];
+    v12 = *(i + 40);
     if (a2[1] == i)
     {
       a2[1] = v12;
     }
 
-    v13 = i[4];
+    v13 = *(i + 32);
     if (v12)
     {
       *(v12 + 32) = v13;
@@ -4007,7 +3957,7 @@ LABEL_13:
   return v13;
 }
 
-uint64_t TagRuleNetwork(uint64_t a1, void *a2, uint64_t *a3, void *a4, uint64_t *a5)
+uint64_t TagRuleNetwork(uint64_t a1, void *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
   *a2 = 0;
   *a3 = 0;
@@ -4086,7 +4036,7 @@ uint64_t TagRuleNetwork(uint64_t a1, void *a2, uint64_t *a3, void *a4, uint64_t 
   return result;
 }
 
-uint64_t TagNetworkTraverseJoins(uint64_t result, uint64_t *a2, uint64_t a3)
+uint64_t *TagNetworkTraverseJoins(uint64_t *result, uint64_t *a2, uint64_t a3)
 {
   if (a3)
   {
@@ -4484,7 +4434,7 @@ LABEL_92:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t ProcessConnectedConstraints(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t ProcessConnectedConstraints(unsigned __int32 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = *(a2 + 200);
   if (v7)
@@ -4596,7 +4546,7 @@ uint64_t ProcessConnectedConstraints(uint64_t a1, uint64_t a2, uint64_t a3, uint
     }
 
     EnvPrintRouter(a1, "werror", v29);
-    PrintLongInteger(a1, "werror", v25, v42, v43, v44, v45, v46);
+    PrintLongInteger(a1, "werror", v25);
     if (v28)
     {
       EnvPrintRouter(a1, "werror", " slot ");
@@ -4606,7 +4556,7 @@ uint64_t ProcessConnectedConstraints(uint64_t a1, uint64_t a2, uint64_t a3, uint
     else
     {
       EnvPrintRouter(a1, "werror", " field #");
-      PrintLongInteger(a1, "werror", v27, v47, v48, v49, v50, v51);
+      PrintLongInteger(a1, "werror", v27);
     }
 
     EnvPrintRouter(a1, "werror", "\nhas constraint conflicts which make the pattern unmatchable.\n");
@@ -4644,7 +4594,7 @@ uint64_t ProcessConnectedConstraints(uint64_t a1, uint64_t a2, uint64_t a3, uint
           }
 
           v36 = *(*(v35 + 40) + 8);
-          v37 = *(*(a1 + 48) + 392);
+          v37 = *(*(a1 + 6) + 392);
           if (v36 != *(v37 + 24))
           {
             v33 += *(v36 + 24);
@@ -4685,10 +4635,10 @@ LABEL_42:
       v41 = 1;
     }
 
-    v53 = *(a3 + 32);
-    if (v53)
+    v43 = *(a3 + 32);
+    if (v43)
     {
-      ConstraintRecord = CopyConstraintRecord(a1, v53);
+      ConstraintRecord = CopyConstraintRecord(a1, v43);
     }
 
     else
@@ -4696,40 +4646,40 @@ LABEL_42:
       ConstraintRecord = GetConstraintRecord(a1);
     }
 
-    v55 = ConstraintRecord;
+    v45 = ConstraintRecord;
     ReturnExpression(a1, ConstraintRecord[5]);
-    ReturnExpression(a1, *(v55 + 48));
-    v56 = EnvAddLong(a1, v33);
-    *(v55 + 40) = GenConstant(a1, 1, v56);
+    ReturnExpression(a1, *(v45 + 48));
+    v46 = EnvAddLong(a1, v33);
+    *(v45 + 40) = GenConstant(a1, 1, v46);
     if (v41)
     {
-      v57 = EnvAddLong(a1, v32);
-      v58 = a1;
-      v59 = 1;
+      v47 = EnvAddLong(a1, v32);
+      v48 = a1;
+      v49 = 1;
     }
 
     else
     {
-      v57 = *(*(*(a1 + 48) + 392) + 16);
-      v58 = a1;
-      v59 = 2;
+      v47 = *(*(*(a1 + 6) + 392) + 16);
+      v48 = a1;
+      v49 = 2;
     }
 
-    *(v55 + 48) = GenConstant(v58, v59, v57);
-    v60 = IntersectConstraints(a1, *(a3 + 32), v55);
+    *(v45 + 48) = GenConstant(v48, v49, v47);
+    v50 = IntersectConstraints(a1, *(a3 + 32), v45);
     if ((*(a3 + 16) & 0x40) != 0)
     {
       RemoveConstraint(a1, *(a3 + 32));
     }
 
-    RemoveConstraint(a1, v55);
-    *(a3 + 32) = v60;
+    RemoveConstraint(a1, v45);
+    *(a3 + 32) = v50;
     *(a3 + 16) |= 0x40u;
-    if (EnvGetStaticConstraintChecking(a1) && UnmatchableConstraint(v60))
+    if (EnvGetStaticConstraintChecking(a1) && UnmatchableConstraint(v50))
     {
-      v61 = (*(a4 + 16) >> 8) & 0x7F;
-      v52 = 1;
-      ConstraintViolationErrorMessage(a1, "The group of restrictions", 0, 0, v61, *(a3 + 64), *(a3 + 58), 5, *(a3 + 32), 1);
+      v51 = (*(a4 + 16) >> 8) & 0x7F;
+      v42 = 1;
+      ConstraintViolationErrorMessage(a1, "The group of restrictions", 0, 0, v51, *(a3 + 64), *(a3 + 58), 5, *(a3 + 32), 1);
     }
 
     else
@@ -4738,26 +4688,26 @@ LABEL_42:
     }
   }
 
-  return v52;
+  return v42;
 }
 
-uint64_t ConstraintReferenceErrorMessage(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, int a7)
+uint64_t ConstraintReferenceErrorMessage(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, unsigned int a7)
 {
   PrintErrorID(a1, "RULECSTR", 2, 1);
   EnvPrintRouter(a1, "werror", "Previous variable bindings of ?");
   EnvPrintRouter(a1, "werror", *(a2 + 24));
   EnvPrintRouter(a1, "werror", " caused the type restrictions");
   EnvPrintRouter(a1, "werror", "\nfor argument #");
-  PrintLongInteger(a1, "werror", a4, v13, v14, v15, v16, v17);
+  PrintLongInteger(a1, "werror", a4);
   EnvPrintRouter(a1, "werror", " of the expression ");
-  v18 = LHSParseNodesToExpression(a1, a3);
-  ReturnExpression(a1, v18[3]);
-  v18[3] = 0;
-  PrintExpression(a1, "werror", v18, v24, v19, v20, v21, v22, v23);
+  v13 = LHSParseNodesToExpression(a1, a3);
+  ReturnExpression(a1, v13[3]);
+  v13[3] = 0;
+  PrintExpression(a1, "werror", v13);
   EnvPrintRouter(a1, "werror", "\n");
-  ReturnExpression(a1, v18);
+  ReturnExpression(a1, v13);
   EnvPrintRouter(a1, "werror", "found in CE #");
-  PrintLongInteger(a1, "werror", (*(a3 + 16) >> 8) & 0x7F, v25, v26, v27, v28, v29);
+  PrintLongInteger(a1, "werror", (*(a3 + 16) >> 8) & 0x7F);
   if (a6)
   {
     EnvPrintRouter(a1, "werror", " slot ");
@@ -4767,13 +4717,13 @@ uint64_t ConstraintReferenceErrorMessage(uint64_t a1, uint64_t a2, uint64_t a3, 
   else if (a7 >= 1)
   {
     EnvPrintRouter(a1, "werror", " field #");
-    PrintLongInteger(a1, "werror", a7, v30, v31, v32, v33, v34);
+    PrintLongInteger(a1, "werror", a7);
   }
 
   return EnvPrintRouter(a1, "werror", " to be violated.\n");
 }
 
-void *GetExpressionVarConstraints(uint64_t a1, uint64_t a2)
+void *GetExpressionVarConstraints(void *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -4784,32 +4734,33 @@ void *GetExpressionVarConstraints(uint64_t a1, uint64_t a2)
   v4 = 0;
   do
   {
-    if (*(v2 + 192))
+    v5 = *(v2 + 192);
+    if (v5)
     {
-      ExpressionVarConstraints = GetExpressionVarConstraints(a1);
+      ExpressionVarConstraints = GetExpressionVarConstraints(a1, v5);
       v4 = AddToVariableConstraints(a1, ExpressionVarConstraints, v4);
     }
 
     if (*v2 == 35)
     {
       GetLHSParseNode(a1);
-      v7 = v6;
-      v8 = *(v2 + 40);
-      if (v8)
+      v8 = v7;
+      v9 = *(v2 + 40);
+      if (v9)
       {
-        v9 = *v8;
+        v10 = *v9;
       }
 
       else
       {
-        v9 = 35;
+        v10 = 35;
       }
 
-      *v6 = v9;
-      *(v6 + 8) = *(v2 + 8);
-      *(v6 + 16) |= 0x40u;
-      *(v6 + 32) = CopyConstraintRecord(a1, *(v2 + 32));
-      v4 = AddToVariableConstraints(a1, v7, v4);
+      *v7 = v10;
+      *(v7 + 8) = *(v2 + 8);
+      *(v7 + 16) |= 0x40u;
+      *(v7 + 32) = CopyConstraintRecord(a1, *(v2 + 32));
+      v4 = AddToVariableConstraints(a1, v8, v4);
     }
 
     v2 = *(v2 + 200);
@@ -4819,7 +4770,7 @@ void *GetExpressionVarConstraints(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-void *AddToVariableConstraints(uint64_t a1, void *a2, void *a3)
+void *AddToVariableConstraints(void *a1, void *a2, void *a3)
 {
   if (a3)
   {
@@ -4862,7 +4813,7 @@ LABEL_7:
   return a2;
 }
 
-void *DeriveVariableConstraints(uint64_t a1, uint64_t a2)
+void *DeriveVariableConstraints(unsigned __int32 *a1, uint64_t a2)
 {
   v2 = *(a2 + 200);
   if (!v2)
@@ -4939,18 +4890,18 @@ LABEL_15:
   return v6;
 }
 
-uint64_t CheckRHSForConstraintErrors(uint64_t a1, uint64_t *a2, unsigned __int16 *a3)
+uint64_t CheckRHSForConstraintErrors(unsigned __int32 *a1, uint64_t a2, unsigned __int16 *a3)
 {
   if (a2)
   {
     v4 = a2;
-    v33 = 0;
+    v22 = 0;
     do
     {
       if (*v4 == 30)
       {
-        v6 = v4[1];
-        v33 = v4;
+        v6 = *(v4 + 8);
+        v22 = v4;
       }
 
       else
@@ -4958,7 +4909,7 @@ uint64_t CheckRHSForConstraintErrors(uint64_t a1, uint64_t *a2, unsigned __int16
         v6 = 0;
       }
 
-      v7 = v4[2];
+      v7 = *(v4 + 16);
       if (v7)
       {
         v8 = 1;
@@ -5010,12 +4961,12 @@ uint64_t CheckRHSForConstraintErrors(uint64_t a1, uint64_t *a2, unsigned __int16
               EnvPrintRouter(a1, "werror", *(*(v7 + 8) + 24));
               EnvPrintRouter(a1, "werror", " caused the type restrictions");
               EnvPrintRouter(a1, "werror", "\nfor argument #");
-              PrintLongInteger(a1, "werror", v8, v20, v21, v22, v23, v24);
+              PrintLongInteger(a1, "werror", v8);
               EnvPrintRouter(a1, "werror", " of the expression ");
-              v25 = v33[3];
-              v33[3] = 0;
-              PrintExpression(a1, "werror", v33, v31, v26, v27, v28, v29, v30);
-              v33[3] = v25;
+              v20 = v22[3];
+              v22[3] = 0;
+              PrintExpression(a1, "werror", v22);
+              v22[3] = v20;
               EnvPrintRouter(a1, "werror", "\nfound in the rule's RHS to be violated.\n");
               RemoveConstraint(a1, v10);
               RemoveConstraint(a1, ConstraintRecord);
@@ -5046,7 +4997,7 @@ uint64_t CheckRHSForConstraintErrors(uint64_t a1, uint64_t *a2, unsigned __int16
         while (v18);
       }
 
-      v4 = v4[3];
+      v4 = *(v4 + 24);
     }
 
     while (v4);
@@ -5181,11 +5132,11 @@ char *CopyPPBuffer(uint64_t a1)
 
 char *PPCRAndIndent(char *result)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(*(result + 6) + 416);
   if (*v1 && v1[1])
   {
-    v7[0] = 10;
+    v6[0] = 10;
     v2 = v1[2];
     if (v2 < 1)
     {
@@ -5198,18 +5149,17 @@ char *PPCRAndIndent(char *result)
       do
       {
         v4 = v3;
-        v7[v3++] = 32;
+        v6[v3++] = 32;
       }
 
       while (v4 < v2);
       v5 = v3;
     }
 
-    v7[v5] = 0;
-    result = SavePPBuffer(result, v7);
+    v6[v5] = 0;
+    return SavePPBuffer(result, v6);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5221,16 +5171,16 @@ uint64_t SetPPBufferEnabled(uint64_t a1, int a2)
   return result;
 }
 
-void sub_2325A98B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2325A98B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void _loisChangedNotification(uint64_t a1, void *a2, const __CFString *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = CFStringCompare(a3, @"RTLocationsOfInterestDidChangeNotification", 0);
   v6 = outrankLogHandle;
@@ -5238,9 +5188,9 @@ void _loisChangedNotification(uint64_t a1, void *a2, const __CFString *a3)
   {
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = a3;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Unexpected CR notification name: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = a3;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Unexpected CR notification name: %@", &v7, 0xCu);
     }
   }
 
@@ -5248,19 +5198,17 @@ void _loisChangedNotification(uint64_t a1, void *a2, const __CFString *a3)
   {
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "COSM: Received a CR LOI Changed notification", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "COSM: Received a CR LOI Changed notification", &v7, 2u);
     }
 
     [v4 queryHomeLOIRefresh:1];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2325AAD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2325AAD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5693,7 +5641,7 @@ uint64_t CompareNumbers(uint64_t a1, int a2, uint64_t a3, int a4, uint64_t a5)
   }
 }
 
-_OWORD *ExpressionToConstraintRecord(uint64_t a1, unsigned __int16 *a2)
+int *ExpressionToConstraintRecord(uint64_t a1, unsigned __int16 *a2)
 {
   if (!a2)
   {
@@ -5741,7 +5689,7 @@ LABEL_5:
   return FunctionCallToConstraintRecord(a1, v9);
 }
 
-_OWORD *FunctionCallToConstraintRecord(uint64_t a1, uint64_t a2)
+int *FunctionCallToConstraintRecord(uint64_t a1, uint64_t a2)
 {
   result = GetConstraintRecord(a1);
   v4 = *result;
@@ -5808,7 +5756,7 @@ LABEL_17:
   return result;
 }
 
-_OWORD *ArgumentTypeToConstraintRecord(uint64_t a1, int a2)
+int *ArgumentTypeToConstraintRecord(uint64_t a1, int a2)
 {
   result = GetConstraintRecord(a1);
   v4 = *result;
@@ -5915,7 +5863,7 @@ void *ClearDeftemplates(uint64_t a1)
   return CreateImpliedDeftemplate(a1, v2, 0);
 }
 
-char *DeriveDefaultFromConstraints(char *result, void *a2, uint64_t a3, int a4, int a5)
+uint64_t *DeriveDefaultFromConstraints(uint64_t *result, int *a2, uint64_t a3, int a4, int a5)
 {
   v8 = result;
   if (!a2)
@@ -5950,7 +5898,7 @@ char *DeriveDefaultFromConstraints(char *result, void *a2, uint64_t a3, int a4, 
   {
     result = EnvAddSymbol(result, "nil");
     v11 = result;
-    v12 = a2[2];
+    v12 = *(a2 + 2);
     if (v12)
     {
       while (*v12 != 2)
@@ -5972,7 +5920,7 @@ char *DeriveDefaultFromConstraints(char *result, void *a2, uint64_t a3, int a4, 
   {
     result = EnvAddSymbol(result, "");
     v11 = result;
-    v14 = a2[2];
+    v14 = *(a2 + 2);
     if (v14)
     {
       while (*v14 != 3)
@@ -6010,7 +5958,7 @@ LABEL_27:
 
   else if ((v10 & 0x100) != 0)
   {
-    v11 = (*(*(result + 6) + 24) + 8);
+    v11 = (*(result[6] + 24) + 8);
     v13 = 6;
   }
 
@@ -6033,7 +5981,7 @@ LABEL_18:
 LABEL_28:
   if (a4)
   {
-    v16 = a2[5];
+    v16 = *(a2 + 5);
     if (!v16 || (v17 = *(v16 + 8), v17 == *(*(v8[6] + 392) + 24)))
     {
       v18 = 0;
@@ -6060,12 +6008,12 @@ LABEL_28:
     *(a3 + 16) = result;
     if (v18)
     {
-      v19 = &result[16 * v18 + 16];
+      v19 = &result[2 * v18 + 2];
       do
       {
         *(v19 - 4) = v13;
         *v19 = v11;
-        v19 -= 16;
+        v19 -= 2;
         --v18;
       }
 
@@ -6082,7 +6030,7 @@ LABEL_28:
   return result;
 }
 
-double *FindDefaultValue(uint64_t a1, int a2, void *a3, uint64_t a4)
+uint64_t *FindDefaultValue(uint64_t a1, int a2, void *a3, uint64_t a4)
 {
   v4 = a3[2];
   if (v4)
@@ -6270,7 +6218,7 @@ LABEL_43:
     v22 = *v20;
     if ((v22 - 35) <= 1)
     {
-      v23 = *(v20[1] + 24);
+      v23 = *(*(v20 + 1) + 24);
       v24 = strcmp(v23, "NONE");
       if (v24)
       {
@@ -6773,7 +6721,7 @@ LABEL_12:
 
 uint64_t ScanNumber(uint64_t a1, char *a2, uint64_t a3)
 {
-  v35 = 0;
+  v21 = 0;
   v6 = EnvGetcRouter(a1, a2);
   v7 = 0;
   v8 = 0;
@@ -7006,9 +6954,9 @@ LABEL_67:
 
   if (v10 != 5)
   {
-    v26 = ScanSymbol(a1, a2, &v35);
-    *(a3 + 8) = v26;
-    *a3 = v35;
+    v18 = ScanSymbol(a1, a2, &v21);
+    *(a3 + 8) = v18;
+    *a3 = v21;
     goto LABEL_76;
   }
 
@@ -7021,14 +6969,13 @@ LABEL_67:
       *a3 = 0;
       v16 = EnvAddDouble(a1, v15);
       *(a3 + 8) = v16;
-      v17.n128_f64[0] = v16[3];
-      result = FloatToString(a1, v17, v18, v19, v20, v21, v22, v23, v24);
+      result = FloatToString(a1, v16[3]);
     }
 
     else
     {
       *__error() = 0;
-      v27 = strtoll(**(*(a1 + 48) + 456), 0, 10);
+      v19 = strtoll(**(*(a1 + 48) + 456), 0, 10);
       if (*__error())
       {
         PrintWarningID(a1, "SCANNER", 1, 0);
@@ -7036,19 +6983,19 @@ LABEL_67:
       }
 
       *a3 = 1;
-      v28 = EnvAddLong(a1, v27);
-      *(a3 + 8) = v28;
-      result = LongIntegerToString(a1, v28[3], v29, v30, v31, v32, v33, v34);
+      v20 = EnvAddLong(a1, v19);
+      *(a3 + 8) = v20;
+      result = LongIntegerToString(a1, v20[3]);
     }
   }
 
   else
   {
     *a3 = 2;
-    v26 = EnvAddSymbol(a1, **(*(a1 + 48) + 456));
-    *(a3 + 8) = v26;
+    v18 = EnvAddSymbol(a1, **(*(a1 + 48) + 456));
+    *(a3 + 8) = v18;
 LABEL_76:
-    result = v26[3];
+    result = v18[3];
   }
 
   *(a3 + 16) = result;
@@ -7660,7 +7607,7 @@ uint64_t IntegerFunction(uint64_t a1)
   v4 = 0u;
   v5 = 0u;
   v3 = 0u;
-  if (!EnvArgTypeCheck(a1, "integer", 1, 1, &v3))
+  if (!EnvArgTypeCheck(a1, "integer", 1, 1u, &v3))
   {
     return 0;
   }
@@ -7690,7 +7637,7 @@ double FloatFunction(uint64_t a1)
 
 double AbsFunction(uint64_t a1, uint64_t a2)
 {
-  if (EnvArgCountCheck(a1, "abs", 0, 1) == -1 || !EnvArgTypeCheck(a1, "abs", 1, 180, a2))
+  if (EnvArgCountCheck(a1, "abs", 0, 1) == -1 || !EnvArgTypeCheck(a1, "abs", 1, 0xB4u, a2))
   {
     *(a2 + 8) = 1;
     v8 = a1;
@@ -7728,8 +7675,8 @@ LABEL_8:
 
 uint64_t MinFunction(uint64_t a1, uint64_t a2)
 {
-  v4 = EnvArgCountCheck(a1, "min", 1u, 1);
-  if (v4 == -1 || (v5 = v4, result = EnvArgTypeCheck(a1, "min", 1, 180, a2), !result))
+  v4 = EnvArgCountCheck(a1, "min", 1, 1);
+  if (v4 == -1 || (v5 = v4, result = EnvArgTypeCheck(a1, "min", 1, 0xB4u, a2), !result))
   {
     *(a2 + 8) = 1;
     result = EnvAddLong(a1, 0);
@@ -7742,9 +7689,10 @@ uint64_t MinFunction(uint64_t a1, uint64_t a2)
     v16 = 0u;
     v14 = 0u;
     v7 = v5 - 1;
-    for (i = 2; ; ++i)
+    v8 = 2;
+    while (1)
     {
-      result = EnvArgTypeCheck(a1, "min", i, 180, &v14);
+      result = EnvArgTypeCheck(a1, "min", v8, 0xB4u, &v14);
       if (!result)
       {
         return result;
@@ -7773,6 +7721,7 @@ uint64_t MinFunction(uint64_t a1, uint64_t a2)
       }
 
 LABEL_17:
+      v8 = (v8 + 1);
       if (!--v7)
       {
         return result;
@@ -7812,8 +7761,8 @@ LABEL_16:
 
 uint64_t MaxFunction(uint64_t a1, uint64_t a2)
 {
-  v4 = EnvArgCountCheck(a1, "max", 1u, 1);
-  if (v4 == -1 || (v5 = v4, result = EnvArgTypeCheck(a1, "max", 1, 180, a2), !result))
+  v4 = EnvArgCountCheck(a1, "max", 1, 1);
+  if (v4 == -1 || (v5 = v4, result = EnvArgTypeCheck(a1, "max", 1, 0xB4u, a2), !result))
   {
     *(a2 + 8) = 1;
     result = EnvAddLong(a1, 0);
@@ -7826,9 +7775,10 @@ uint64_t MaxFunction(uint64_t a1, uint64_t a2)
     v16 = 0u;
     v14 = 0u;
     v7 = v5 - 1;
-    for (i = 2; ; ++i)
+    v8 = 2;
+    while (1)
     {
-      result = EnvArgTypeCheck(a1, "max", i, 180, &v14);
+      result = EnvArgTypeCheck(a1, "max", v8, 0xB4u, &v14);
       if (!result)
       {
         return result;
@@ -7857,6 +7807,7 @@ uint64_t MaxFunction(uint64_t a1, uint64_t a2)
       }
 
 LABEL_17:
+      v8 = (v8 + 1);
       if (!--v7)
       {
         return result;
@@ -8020,21 +7971,21 @@ uint64_t BsaveGenerics(uint64_t a1, FILE *__stream)
   return RestoreBloadCount(a1, (*(*(a1 + 48) + 224) + 40));
 }
 
-size_t BloadStorageGenerics(uint64_t a1)
+uint64_t BloadStorageGenerics(uint64_t a1)
 {
-  v15[5] = *MEMORY[0x277D85DE8];
+  v14[5] = *MEMORY[0x277D85DE8];
   __ptr = 0;
   result = GenReadBinary(a1, &__ptr, 8uLL);
   if (__ptr)
   {
-    result = GenReadBinary(a1, v15, __ptr);
-    v3 = v15[0];
+    result = GenReadBinary(a1, v14, __ptr);
+    v3 = v14[0];
     v4 = *(*(a1 + 48) + 224);
-    v4[1] = v15[0];
-    v4[2] = v15[1];
-    v4[3] = v15[2];
-    v4[4] = v15[3];
-    v4[5] = v15[4];
+    v4[1] = v14[0];
+    v4[2] = v14[1];
+    v4[3] = v14[2];
+    v4[4] = v14[3];
+    v4[5] = v14[4];
     if (v3)
     {
       __ptr = 24 * v3;
@@ -8075,7 +8026,6 @@ size_t BloadStorageGenerics(uint64_t a1)
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8100,15 +8050,15 @@ uint64_t BloadGenerics(uint64_t a1)
   return result;
 }
 
-uint64_t ClearBloadGenerics(uint64_t result)
+void *ClearBloadGenerics(void *result)
 {
-  v1 = *(*(result + 48) + 224);
+  v1 = *(result[6] + 224);
   v2 = 24 * *(v1 + 8);
   if (v2)
   {
     v3 = result;
     result = genfree(result, *(v1 + 48), v2);
-    v4 = *(v3 + 48);
+    v4 = v3[6];
     *(*(v4 + 224) + 48) = 0;
     v5 = *(v4 + 224);
     *(v5 + 8) = 0;
@@ -8121,7 +8071,7 @@ uint64_t ClearBloadGenerics(uint64_t result)
       {
         result = UnmarkConstructHeader(v3, (*v5 + v7));
         ++v8;
-        v5 = *(*(v3 + 48) + 224);
+        v5 = *(v3[6] + 224);
         v6 = *(v5 + 16);
         v7 += 72;
       }
@@ -8132,7 +8082,7 @@ uint64_t ClearBloadGenerics(uint64_t result)
     if (72 * v6)
     {
       result = genfree(v3, *v5, 72 * v6);
-      v9 = *(v3 + 48);
+      v9 = v3[6];
       **(v9 + 224) = 0;
       v10 = *(v9 + 224);
       *(v10 + 16) = 0;
@@ -8140,7 +8090,7 @@ uint64_t ClearBloadGenerics(uint64_t result)
       if (v11)
       {
         result = genfree(v3, *(v10 + 56), v11);
-        v12 = *(v3 + 48);
+        v12 = v3[6];
         *(*(v12 + 224) + 56) = 0;
         v13 = *(v12 + 224);
         *(v13 + 24) = 0;
@@ -8148,7 +8098,7 @@ uint64_t ClearBloadGenerics(uint64_t result)
         if (v14)
         {
           result = genfree(v3, *(v13 + 64), v14);
-          v15 = *(v3 + 48);
+          v15 = v3[6];
           *(*(v15 + 224) + 64) = 0;
           v16 = *(v15 + 224);
           *(v16 + 32) = 0;
@@ -8158,7 +8108,7 @@ uint64_t ClearBloadGenerics(uint64_t result)
             for (i = 0; i < v17; ++i)
             {
               result = DecrementIntegerCount(v3, *(*(v16 + 72) + 8 * i));
-              v16 = *(*(v3 + 48) + 224);
+              v16 = *(v3[6] + 224);
               v17 = *(v16 + 40);
             }
           }
@@ -8166,7 +8116,7 @@ uint64_t ClearBloadGenerics(uint64_t result)
           if (8 * v17)
           {
             result = genfree(v3, *(v16 + 72), 8 * v17);
-            v19 = *(v3 + 48);
+            v19 = v3[6];
             *(*(v19 + 224) + 72) = 0;
             *(*(v19 + 224) + 40) = 0;
           }
@@ -8300,7 +8250,7 @@ const void *BsaveDefgenericHeader(uint64_t a1, uint64_t a2, FILE *a3)
   return GenWrite(&v10, 0x28uLL, a3);
 }
 
-void *BsaveMethods(void *result, uint64_t a2, FILE *a3)
+const void *BsaveMethods(const void *result, uint64_t a2, FILE *a3)
 {
   if (*(a2 + 64) >= 1)
   {
@@ -8320,7 +8270,7 @@ void *BsaveMethods(void *result, uint64_t a2, FILE *a3)
       HIDWORD(v14) = *(v10 + v8 + 16) & 1;
       if (*(v10 + v8 + 24))
       {
-        v12 = *(v7[6] + 224);
+        v12 = *(*(v7 + 48) + 224);
         *&v15 = *(v12 + 32);
         *(v12 + 32) = v15 + v11;
       }
@@ -8333,8 +8283,8 @@ void *BsaveMethods(void *result, uint64_t a2, FILE *a3)
       v13 = *(v10 + v8 + 32);
       if (v13)
       {
-        *(&v15 + 1) = *(*(v7[6] + 360) + 64);
-        *(*(v7[6] + 360) + 64) += ExpressionSize(v13);
+        *(&v15 + 1) = *(*(*(v7 + 48) + 360) + 64);
+        *(*(*(v7 + 48) + 360) + 64) += ExpressionSize(v13);
       }
 
       else
@@ -8353,7 +8303,7 @@ void *BsaveMethods(void *result, uint64_t a2, FILE *a3)
   return result;
 }
 
-void *BsaveMethodRestrictions(void *result, uint64_t a2, FILE *a3)
+const void *BsaveMethodRestrictions(const void *result, uint64_t a2, FILE *a3)
 {
   v5 = *(a2 + 64);
   if (v5 >= 1)
@@ -8379,7 +8329,7 @@ void *BsaveMethodRestrictions(void *result, uint64_t a2, FILE *a3)
           LOWORD(v20) = *(v13 + 16);
           if (*v13)
           {
-            v15 = *(v8[6] + 224);
+            v15 = *(*(v8 + 48) + 224);
             v16 = *(v15 + 40);
             *(v15 + 40) = v16 + v14;
           }
@@ -8393,8 +8343,8 @@ void *BsaveMethodRestrictions(void *result, uint64_t a2, FILE *a3)
           v17 = *(v13 + 8);
           if (v17)
           {
-            v19 = *(*(v8[6] + 360) + 64);
-            *(*(v8[6] + 360) + 64) += ExpressionSize(v17);
+            v19 = *(*(*(v8 + 48) + 360) + 64);
+            *(*(*(v8 + 48) + 360) + 64) += ExpressionSize(v17);
           }
 
           else
@@ -8571,7 +8521,7 @@ uint64_t UpdateRestriction(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void *UpdateType(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t *UpdateType(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v5 = *a2;
   if (v5 >= 15)
@@ -8596,9 +8546,9 @@ void sub_2325B5D8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2325B615C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2325B615C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8610,85 +8560,86 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-char *daemonFunctionalGroupingForProcName(char *result)
+char *daemonFunctionalGroupingForProcName(char *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = result;
+  v20 = result;
   if (result)
   {
-    v1 = result;
-    sBsdNameToBundleName();
-    v2 = qword_27DDA0CF8;
+    v4 = result;
+    sBsdNameToBundleName(result, a2, a3, a4);
+    v9 = qword_27DDA0CF8;
     if (!qword_27DDA0CF8)
     {
       goto LABEL_12;
     }
 
-    v3 = &qword_27DDA0CF8;
+    v10 = &qword_27DDA0CF8;
     do
     {
-      if (v4)
+      if (v5)
       {
-        v5 = 8;
+        v11 = 8;
       }
 
       else
       {
-        v5 = 0;
+        v11 = 0;
       }
 
-      if (!v4)
+      if (!v5)
       {
-        v3 = v2;
+        v10 = v9;
       }
 
-      v2 = *(v2 + v5);
+      v9 = *(v9 + v11);
     }
 
-    while (v2);
+    while (v9);
     {
 LABEL_12:
-      sBsdNameToBundleName();
-      if (strlen(v1) < 0x10)
+      sBsdNameToBundleName(v5, v6, v7, v8);
+      v12 = strlen(v4);
+      if (v12 < 0x10)
       {
         return 0;
       }
 
-      sBsdNameToBundleName();
-      v3 = sBsdNameToBundleName(void)::map;
+      sBsdNameToBundleName(v12, v13, v14, v15);
+      v10 = sBsdNameToBundleName(void)::map;
       if (sBsdNameToBundleName(void)::map == &qword_27DDA0CF8)
       {
         return 0;
       }
 
-      v6 = strlen(v1);
-      while (strncmp(v3[4], v1, v6))
+      v16 = strlen(v4);
+      while (strncmp(v10[4], v4, v16))
       {
-        v7 = v3[1];
-        if (v7)
+        v17 = v10[1];
+        if (v17)
         {
           do
           {
-            v8 = v7;
-            v7 = *v7;
+            v18 = v17;
+            v17 = *v17;
           }
 
-          while (v7);
+          while (v17);
         }
 
         else
         {
           do
           {
-            v8 = v3[2];
-            v9 = *v8 == v3;
-            v3 = v8;
+            v18 = v10[2];
+            v19 = *v18 == v10;
+            v10 = v18;
           }
 
-          while (!v9);
+          while (!v19);
         }
 
-        v3 = v8;
-        if (v8 == &qword_27DDA0CF8)
+        v10 = v18;
+        if (v18 == &qword_27DDA0CF8)
         {
           return 0;
         }
@@ -8697,701 +8648,701 @@ LABEL_12:
 
     else
     {
-      sBsdNameToBundleName();
+      sBsdNameToBundleName(v5, v6, v7, v8);
     }
 
-    return v3[5];
+    return v10[5];
   }
 
   return result;
 }
 
-void sBsdNameToBundleName(void)
+void sBsdNameToBundleName(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  MEMORY[0x28223BE20]();
-  v2[676] = *MEMORY[0x277D85DE8];
+  MEMORY[0x28223BE20](a1, a2, a3, a4);
+  v5[676] = *MEMORY[0x277D85DE8];
   {
-    v2[0] = "ABDatabaseDoctor";
-    v2[1] = "contact";
-    v2[2] = "aosnotifyd";
-    v2[3] = "findmyiphone";
-    v2[4] = "findmydeviced";
-    v2[5] = "findmyiphone";
-    v2[6] = "com.apple.icloud.FindMyDevice";
-    v2[7] = "findmyiphone";
-    v2[8] = "fmfd";
-    v2[9] = "findmyiphone";
-    v2[10] = "fmflocatord";
-    v2[11] = "findmyiphone";
-    v2[12] = "searchpartyd";
-    v2[13] = "findmyiphone";
-    v2[14] = "com.apple.icloud.findmydeviced";
-    v2[15] = "findmyiphone";
-    v2[16] = "com.apple.icloud.fmfd";
-    v2[17] = "findmyiphone";
-    v2[18] = "com.apple.icloud.fmflocatord";
-    v2[19] = "findmyiphone";
-    v2[20] = "atwakeup";
-    v2[21] = "wifi";
-    v2[22] = "corecaptured";
-    v2[23] = "wifi";
-    v2[24] = "wifid";
-    v2[25] = "wifi";
-    v2[26] = "hostapd";
-    v2[27] = "wifi";
-    v2[28] = "wapic";
-    v2[29] = "wifi";
-    v2[30] = "wifiFirmwareLoader";
-    v2[31] = "wifi";
-    v2[32] = "BTAvrcp";
-    v2[33] = "bluetooth";
-    v2[34] = "BTLEServer";
-    v2[35] = "bluetooth";
-    v2[36] = "BTMap";
-    v2[37] = "bluetooth";
-    v2[38] = "BTServer";
-    v2[39] = "bluetooth";
-    v2[40] = "BlueTool";
-    v2[41] = "bluetooth";
-    v2[42] = "wirelessproxd";
-    v2[43] = "bluetooth";
-    v2[44] = "com.apple.bluetoothd";
-    v2[45] = "bluetooth";
-    v2[46] = "bluetoothd";
-    v2[47] = "bluetooth";
-    v2[48] = "CommCenter";
-    v2[49] = "telephony";
-    v2[50] = "coretelephony";
-    v2[51] = "telephony";
-    v2[52] = "DMHelper";
-    v2[53] = "telephony";
-    v2[54] = "sosd";
-    v2[55] = "telephony";
-    v2[56] = "callservicesd";
-    v2[57] = "telephony";
-    v2[58] = "CallHistorySyncHelper";
-    v2[59] = "telephony";
-    v2[60] = "locationd";
-    v2[61] = "location";
-    v2[62] = "timed";
-    v2[63] = "location";
-    v2[64] = "tzd";
-    v2[65] = "location";
-    v2[66] = "pipelined";
-    v2[67] = "location";
-    v2[68] = "com.apple.corelocation.CoreLocationRepromptAlwaysAuthPromptPlugin";
-    v2[69] = "location";
-    v2[70] = "com.apple.corelocation.CLWatchOSWhenInUseAuthPromptBundle";
-    v2[71] = "location";
-    v2[72] = "com.apple.corelocation.CLWatchOSTemporaryPreciseAuthPromptBundle";
-    v2[73] = "location";
-    v2[74] = "com.apple.corelocation.CoreLocationVanillaWhenInUseAuthPromptPlugin";
-    v2[75] = "location";
-    v2[76] = "com.apple.corelocation.CoreLocationTemporaryPreciseAuthPromptPlugin";
-    v2[77] = "location";
-    v2[78] = "com.apple.corelocation.CoreLocationAdvisorySubIdentityAuthPromptPlugin";
-    v2[79] = "location";
-    v2[80] = "com.apple.nearbyd";
-    v2[81] = "location";
-    v2[82] = "clouddbd";
-    v2[83] = "icloud";
-    v2[84] = "securebackupd";
-    v2[85] = "icloud";
-    v2[86] = "com.apple.sbd";
-    v2[87] = "icloud";
-    v2[88] = "com.apple.protectedcloudstorage.protectedcloudkeysyncing";
-    v2[89] = "icloud";
-    v2[90] = "familycircled";
-    v2[91] = "icloud";
-    v2[92] = "com.apple.CloudKit.ShareBear";
-    v2[93] = "icloud";
-    v2[94] = "cloudd";
-    v2[95] = "icloud";
-    v2[96] = "cloudpaird";
-    v2[97] = "icloud";
-    v2[98] = "softwareupdated";
-    v2[99] = "softwareupdate";
-    v2[100] = "com.apple.mobile.softwareupdated";
-    v2[101] = "softwareupdate";
-    v2[102] = "softwareupdateservicesd";
-    v2[103] = "softwareupdate";
-    v2[104] = "CommCenterMobile";
-    v2[105] = "softwareupdate";
-    v2[106] = "CommCenterMobileHelper";
-    v2[107] = "softwareupdate";
-    v2[108] = "softwarebehaviorservicesd";
-    v2[109] = "softwareupdate";
-    v2[110] = "softwareupdateservicesd";
-    v2[111] = "softwareupdate";
-    v2[112] = "mobileassetd";
-    v2[113] = "softwareupdate";
-    v2[114] = "softwareupdated";
-    v2[115] = "softwareupdate";
-    v2[116] = "installd";
-    v2[117] = "softwareupdate";
-    v2[118] = "mobile_installation_proxy";
-    v2[119] = "softwareupdate";
-    v2[120] = "deleted";
-    v2[121] = "softwareupdate";
-    v2[122] = "checkpointd";
-    v2[123] = "softwareupdate";
-    v2[124] = "com.apple.MobileSoftwareUpdate.UpdateBrainService";
-    v2[125] = "softwareupdate";
-    v2[126] = "com.apple.NRD.UpdateBrainService";
-    v2[127] = "softwareupdate";
-    v2[128] = "AssetCacheLocatorService";
-    v2[129] = "softwareupdate";
-    v2[130] = "awdd";
-    v2[131] = "diagnostics";
-    v2[132] = "aggregated";
-    v2[133] = "diagnostics";
-    v2[134] = "CrashHousekeeping";
-    v2[135] = "diagnostics";
-    v2[136] = "DumpBasebandCrash";
-    v2[137] = "diagnostics";
-    v2[138] = "DumpPanic";
-    v2[139] = "diagnostics";
-    v2[140] = "ReportCrash";
-    v2[141] = "diagnostics";
-    v2[142] = "OTACrashCopier";
-    v2[143] = "diagnostics";
-    v2[144] = "OTATaskingAgent";
-    v2[145] = "diagnostics";
-    v2[146] = "addaily";
-    v2[147] = "diagnostics";
-    v2[148] = "AirPlayDiagnosticsServer";
-    v2[149] = "diagnostics";
-    v2[150] = "cplogd";
-    v2[151] = "diagnostics";
-    v2[152] = "aslmanager";
-    v2[153] = "diagnostics";
-    v2[154] = "coresymbolicationd";
-    v2[155] = "diagnostics";
-    v2[156] = "crash_mover";
-    v2[157] = "diagnostics";
-    v2[158] = "afcd";
-    v2[159] = "diagnostics";
-    v2[160] = "syslog_relay";
-    v2[161] = "diagnostics";
-    v2[162] = "syslogd";
-    v2[163] = "diagnostics";
-    v2[164] = "powerlog";
-    v2[165] = "diagnostics";
-    v2[166] = "powerd";
-    v2[167] = "diagnostics";
-    v2[168] = "daily";
-    v2[169] = "diagnostics";
-    v2[170] = "prdaily";
-    v2[171] = "diagnostics";
-    v2[172] = "RemoteLager";
-    v2[173] = "diagnostics";
-    v2[174] = "IMLoggingAgent";
-    v2[175] = "diagnostics";
-    v2[176] = "system.diagnostics";
-    v2[177] = "diagnostics";
-    v2[178] = "rtcreportingd";
-    v2[179] = "diagnostics";
-    v2[180] = "com.apple.diagnosticextensionsd";
-    v2[181] = "diagnostics";
-    v2[182] = "com.apple.symptomsd-diag";
-    v2[183] = "diagnostics";
-    v2[184] = "com.apple.dprivacyd";
-    v2[185] = "diagnostics";
-    v2[186] = "UserEventAgent";
-    v2[187] = "diagnostics";
-    v2[188] = "DPSubmissionService";
-    v2[189] = "diagnostics";
-    v2[190] = "AppleCredentialManagerDaemon";
-    v2[191] = "diagnostics";
-    v2[192] = "com.apple.AppleCredentialManagerDaemon";
-    v2[193] = "diagnostics";
-    v2[194] = "com.apple.psid";
-    v2[195] = "diagnostics";
-    v2[196] = "mapspushd";
-    v2[197] = "maps";
-    v2[198] = "geod";
-    v2[199] = "maps";
-    v2[200] = "routined";
-    v2[201] = "maps";
-    v2[202] = "geocorrectiond";
-    v2[203] = "maps";
-    v2[204] = "nanomapscd";
-    v2[205] = "maps";
-    v2[206] = "DuetHeuristic-HIP";
-    v2[207] = "general";
-    v2[208] = "DuetLMT";
-    v2[209] = "general";
-    v2[210] = "DuetLST";
-    v2[211] = "general";
-    v2[212] = "nlcd";
-    v2[213] = "general";
-    v2[214] = "WirelessCoexManagerd";
-    v2[215] = "general";
-    v2[216] = "DeviceOMatic";
-    v2[217] = "general";
-    v2[218] = "MobileGestaltHelper";
-    v2[219] = "general";
-    v2[220] = "notification_proxy";
-    v2[221] = "general";
-    v2[222] = "MobileStorageMounter";
-    v2[223] = "general";
-    v2[224] = "fud";
-    v2[225] = "general";
-    v2[226] = "accessory_device_arbitrator";
-    v2[228] = "mobile_assertion_agent";
-    v2[230] = "librariand";
-    v2[232] = "transitd";
-    v2[234] = "lsd";
-    v2[236] = "dfadaptd";
-    v2[238] = "dictationd";
-    v2[240] = "nsurlsessiond";
-    v2[242] = "languageassetd";
-    v2[244] = "CategoriesServic";
-    v2[246] = "com.apple.nanobuddy";
-    v2[248] = "kbd";
-    v2[250] = "appstored";
-    v2[272] = "nanoregistryd";
-    v2[276] = "fitcored";
-    v2[280] = "nanoweatherprefs";
-    v2[284] = "networkservicepr";
-    v2[288] = "translationd";
-    v2[292] = "ndoagent";
-    v2[296] = "psid";
-    v2[300] = "_personalhotspot_";
-    v2[301] = "personalhotspot";
-    v2[392] = "com.apple.swcd";
-    v2[416] = "watchlistd";
-    v2[420] = "adid";
-    v2[419] = "itunesmedia";
-    v2[227] = "general";
-    v2[418] = "com.apple.watchlistd";
-    v2[415] = "itunesmedia";
-    v2[417] = "itunesmedia";
-    v2[229] = "general";
-    v2[412] = "atc";
-    v2[414] = "atc";
-    v2[413] = "itunesmedia";
-    v2[406] = "medialibraryd";
-    v2[409] = "itunesmedia";
-    v2[410] = "itunescloudd";
-    v2[411] = "itunesmedia";
-    v2[408] = "mediaremoted";
-    v2[407] = "itunesmedia";
-    v2[404] = "storebookkeeperd";
-    v2[405] = "itunesmedia";
-    v2[398] = "itunesstored";
-    v2[401] = "itunesaccount";
-    v2[402] = "StoreKitUIService";
-    v2[403] = "itunesaccount";
-    v2[400] = "touchsetupd";
-    v2[399] = "itunesaccount";
-    v2[231] = "general";
-    v2[396] = "accountsd";
-    v2[395] = "safari";
-    v2[397] = "itunesaccount";
-    v2[394] = "clipserviced";
-    v2[393] = "safari";
-    v2[384] = "vsassetd";
-    v2[389] = "safari";
-    v2[390] = "swcd";
-    v2[391] = "safari";
-    v2[387] = "safari";
-    v2[388] = "webinspectord";
-    v2[386] = "webbookmarksd";
-    v2[385] = "accessibility";
-    v2[376] = "exchangesyncd";
-    v2[381] = "accessibility";
-    v2[382] = "scrod";
-    v2[383] = "accessibility";
-    v2[379] = "accessibility";
-    v2[380] = "assistivetouchd";
-    v2[378] = "vot";
-    v2[377] = "docsandsync";
-    v2[370] = "com.apple.DocumentManagerUICore.RecentsAppPopover";
-    v2[373] = "docsandsync";
-    v2[374] = "dataaccess.activesync";
-    v2[375] = "docsandsync";
-    v2[372] = "com.apple.DocumentManagerUICore.RecentsAvocado";
-    v2[371] = "docsandsync";
-    v2[364] = "com.apple.ContactsSync";
-    v2[367] = "docsandsync";
-    v2[368] = "com.apple.CloudDocsUI.CloudSharing";
-    v2[369] = "docsandsync";
-    v2[366] = "SharedDocs";
-    v2[365] = "docsandsync";
-    v2[358] = "ubd";
-    v2[361] = "docsandsync";
-    v2[362] = "bird";
-    v2[363] = "docsandsync";
-    v2[360] = "dataaccessd";
-    v2[359] = "docsandsync";
-    v2[356] = "syncdefaultsd";
-    v2[357] = "docsandsync";
-    v2[348] = "NEIKEv2Provider";
-    v2[353] = "homescreen";
-    v2[354] = "CMFSyncAgent";
-    v2[355] = "homescreen";
-    v2[351] = "homescreen";
-    v2[352] = "backboardd";
-    v2[350] = "SpringBoard";
-    v2[349] = "vpnservices";
-    v2[342] = "vpnagent";
-    v2[345] = "vpnservices";
-    v2[346] = "sbslauncher";
-    v2[347] = "vpnservices";
-    v2[344] = "pppd";
-    v2[343] = "vpnservices";
-    v2[340] = "racoon";
-    v2[341] = "vpnservices";
-    v2[334] = "certui_relay";
-    v2[337] = "security";
-    v2[338] = "passwordbreachd";
-    v2[339] = "security";
-    v2[336] = "securityuploadd";
-    v2[335] = "security";
-    v2[328] = "com.apple.Safari.SafeBrowsing.Service";
-    v2[331] = "security";
-    v2[332] = "transparencyd";
-    v2[333] = "security";
-    v2[330] = "online-auth-agent";
-    v2[329] = "security";
-    v2[322] = "mobileactivationd";
-    v2[325] = "security";
-    v2[326] = "trustd";
-    v2[327] = "security";
-    v2[324] = "sharingd";
-    v2[323] = "security";
-    v2[316] = "lockbot";
-    v2[319] = "security";
-    v2[320] = "lskdd";
-    v2[321] = "security";
-    v2[318] = "tccd";
-    v2[317] = "security";
-    v2[310] = "securityd";
-    v2[313] = "security";
-    v2[314] = "lockdownd";
-    v2[315] = "security";
-    v2[312] = "keybagd";
-    v2[311] = "security";
-    v2[304] = "absd";
-    v2[307] = "security";
-    v2[308] = "CloudKeychainProxy";
-    v2[309] = "security";
-    v2[306] = "CircleJoinRequested";
-    v2[305] = "security";
-    v2[302] = "OTAPKIAssetTool";
-    v2[303] = "security";
-    v2[233] = "general";
-    v2[298] = "mobilerepaird";
-    v2[297] = "general";
-    v2[299] = "general";
-    v2[235] = "general";
-    v2[294] = "AppStoreService";
-    v2[293] = "general";
-    v2[295] = "general";
-    v2[237] = "general";
-    v2[290] = "proactiveeventtrackerd";
-    v2[289] = "general";
-    v2[291] = "general";
-    v2[239] = "general";
-    v2[286] = "ScreenshotService";
-    v2[285] = "general";
-    v2[287] = "general";
-    v2[241] = "general";
-    v2[282] = "nanoweatherprefsd";
-    v2[281] = "general";
-    v2[283] = "general";
-    v2[243] = "general";
-    v2[278] = "photoanalysisd";
-    v2[277] = "general";
-    v2[279] = "general";
-    v2[245] = "general";
-    v2[274] = "rapportd";
-    v2[273] = "general";
-    v2[275] = "general";
-    v2[247] = "general";
-    v2[270] = "terminusd";
-    v2[269] = "general";
-    v2[271] = "general";
-    v2[249] = "general";
-    v2[266] = "com.apple.WebKit";
-    v2[267] = "general";
-    v2[268] = "newsd";
-    v2[262] = "accessoryd";
-    v2[263] = "general";
-    v2[264] = "cloudphotod";
-    v2[265] = "general";
-    v2[251] = "general";
-    v2[259] = "general";
-    v2[260] = "remindd";
-    v2[261] = "general";
-    v2[257] = "general";
-    v2[258] = "healthd";
-    v2[252] = "bookassetd";
-    v2[254] = "destinationd";
-    v2[255] = "general";
-    v2[256] = "healthappd";
-    v2[253] = "general";
-    v2[421] = "iad";
-    v2[422] = "aitd";
-    v2[423] = "iad";
-    v2[424] = "adtrackingd";
-    v2[425] = "iad";
-    v2[426] = "adservicesd";
-    v2[427] = "iad";
-    v2[428] = "adprivacyd";
-    v2[429] = "iad";
-    v2[430] = "promotedcontentd";
-    v2[431] = "iad";
-    v2[432] = "EnforcementService";
-    v2[433] = "iad";
-    v2[434] = "apsd";
-    v2[435] = "applepushservice";
-    v2[436] = "assistant_analyzer";
-    v2[437] = "siri";
-    v2[438] = "assistant_service";
-    v2[439] = "siri";
-    v2[440] = "assistantd";
-    v2[441] = "siri";
-    v2[442] = "assistant.assistantd";
-    v2[443] = "siri";
-    v2[444] = "parsecd";
-    v2[445] = "siri";
-    v2[446] = "parsec-fbf";
-    v2[447] = "siri";
-    v2[448] = "siriknowledged";
-    v2[449] = "siri";
-    v2[450] = "AssistantServices";
-    v2[451] = "siri";
-    v2[452] = "voiced";
-    v2[453] = "siri";
-    v2[454] = "intents_helper";
-    v2[455] = "siri";
-    v2[456] = "suggestd";
-    v2[457] = "siri";
-    v2[458] = "backupd";
-    v2[459] = "backup";
-    v2[460] = "calaccessd";
-    v2[461] = "ical";
-    v2[462] = "AuthBrokerAgent";
-    v2[463] = "networking";
-    v2[464] = "CFNetworkAgent";
-    v2[465] = "networking";
-    v2[466] = "configd";
-    v2[467] = "networking";
-    v2[468] = "SCHelper";
-    v2[469] = "networking";
-    v2[470] = "networkd";
-    v2[471] = "networking";
-    v2[472] = "networkd_privileged";
-    v2[473] = "networking";
-    v2[474] = "proxy";
-    v2[475] = "networking";
-    v2[476] = "mount_nfs";
-    v2[477] = "networking";
-    v2[478] = "pfd";
-    v2[479] = "networking";
-    v2[480] = "nsnetworkd";
-    v2[481] = "networking";
-    v2[482] = "misd";
-    v2[483] = "networking";
-    v2[484] = "kernel_task";
-    v2[485] = "networking";
-    v2[486] = "neagent";
-    v2[487] = "networking";
-    v2[488] = "nesessionmanager";
-    v2[489] = "networking";
-    v2[490] = "networkserviceproxy";
-    v2[491] = "networking";
-    v2[492] = "AppleIDAuthAgent";
-    v2[493] = "appleid";
-    v2[494] = "identityservicesd";
-    v2[495] = "appleid";
-    v2[496] = "akd";
-    v2[497] = "appleid";
-    v2[498] = "passd";
-    v2[499] = "appleid";
-    v2[500] = "PassbookUIService";
-    v2[501] = "appleid";
-    v2[502] = "seld";
-    v2[503] = "appleid";
-    v2[504] = "com.apple.coreidv.coreidvd";
-    v2[505] = "appleid";
-    v2[506] = "coreidvd";
-    v2[507] = "appleid";
-    v2[508] = "com.apple.AuthKitUI.AKLocationSignInAlert";
-    v2[509] = "appleid";
-    v2[510] = "com.apple.AuthKit";
-    v2[511] = "appleid";
-    v2[512] = "com.apple.progressd";
-    v2[513] = "appleid";
-    v2[514] = "ind";
-    v2[515] = "appleid";
-    v2[516] = "NPKCompanionAgent";
-    v2[517] = "appleid";
-    v2[518] = "com.apple.appleaccountd";
-    v2[519] = "appleid";
-    v2[520] = "gamed";
-    v2[521] = "gamecenter";
-    v2[522] = "iap2d";
-    v2[523] = "accessory";
-    v2[524] = "iapauthd";
-    v2[525] = "accessory";
-    v2[526] = "iapd";
-    v2[527] = "accessory";
-    v2[528] = "iaptransportd";
-    v2[529] = "accessory";
-    v2[530] = "MFAANetwork";
-    v2[531] = "accessory";
-    v2[532] = "mDNSResponder";
-    v2[533] = "dns";
-    v2[534] = "mDNSResponderHelper";
-    v2[535] = "dns";
-    v2[536] = "dmd";
-    v2[537] = "corporateaccounts";
-    v2[538] = "mdmd";
-    v2[539] = "corporateaccounts";
-    v2[540] = "profiled";
-    v2[541] = "corporateaccounts";
-    v2[542] = "teslad";
-    v2[543] = "corporateaccounts";
-    v2[544] = "mstreamd";
-    v2[545] = "com.apple.mobileslideshow";
-    v2[546] = "assetsd";
-    v2[547] = "com.apple.mobileslideshow";
-    v2[548] = "nptocompaniond";
-    v2[549] = "com.apple.mobileslideshow";
-    v2[550] = "mediaserverd";
-    v2[551] = "media";
-    v2[552] = "mediaplaybackd";
-    v2[553] = "media";
-    v2[554] = "audiomxd";
-    v2[555] = "media";
-    v2[556] = "airplayd";
-    v2[557] = "media";
-    v2[558] = "avconferenced";
-    v2[559] = "media";
-    v2[560] = "amsaccountsd";
-    v2[561] = "media";
-    v2[562] = "amsengagementd";
-    v2[563] = "media";
-    v2[564] = "proximitycontrol";
-    v2[565] = "media";
-    v2[566] = "recentsd";
-    v2[567] = "mail";
-    v2[568] = "maild";
-    v2[569] = "mail";
-    v2[570] = "nanomaild";
-    v2[571] = "mail";
-    v2[572] = "printd";
-    v2[573] = "print";
-    v2[574] = "vmd";
-    v2[575] = "voicemail";
-    v2[576] = "IMRemoteURLConne";
-    v2[577] = "messages";
-    v2[578] = "IMRemoteURLConnectionAgent";
-    v2[579] = "messages";
-    v2[580] = "IMTransferAgent";
-    v2[581] = "messages";
-    v2[582] = "HashtagImagesExtension";
-    v2[583] = "messages";
-    v2[584] = "imtransferagent";
-    v2[585] = "messages";
-    v2[586] = "imtranscoderagent";
-    v2[587] = "messages";
-    v2[588] = "imagent";
-    v2[589] = "messages";
-    v2[590] = "com.apple.ids.idsremoteurlconnectionagent";
-    v2[591] = "messages";
-    v2[592] = "IMAutomaticHistoryDeletionAgent";
-    v2[593] = "messages";
-    v2[594] = "com.apple.Safari.SocialHelper";
-    v2[595] = "com.apple.mobilesafari";
-    v2[596] = "MobileSafari";
-    v2[597] = "com.apple.mobilesafari";
-    v2[598] = "MailCompositionService";
-    v2[599] = "com.apple.mobilemail";
-    v2[600] = "com.apple.facebook";
-    v2[601] = "sharing.facebook";
-    v2[602] = "com.apple.twitter";
-    v2[603] = "sharing.twitter";
-    v2[604] = "com.apple.weibo";
-    v2[605] = "sharing.sinaweibo";
-    v2[606] = "com.apple.tencentweibo";
-    v2[607] = "sharing.tencentweibo";
-    v2[608] = "com.apple.vimeo";
-    v2[609] = "sharing.vimeo";
-    v2[610] = "com.apple.flickr";
-    v2[611] = "sharing.flickr";
-    v2[612] = "willowd";
-    v2[613] = "homekit";
-    v2[614] = "homed";
-    v2[615] = "homekit";
-    v2[616] = "mediasetupd";
-    v2[617] = "homekit";
-    v2[618] = "ScreenTimeAgent";
-    v2[619] = "screentime";
-    v2[620] = "AppIndexer";
-    v2[621] = "search";
-    v2[622] = "searchd";
-    v2[623] = "search";
-    v2[624] = "demod";
-    v2[625] = "hidden";
-    v2[626] = "MIDIServer";
-    v2[627] = "hidden";
-    v2[628] = "curl";
-    v2[629] = "hidden";
-    v2[630] = "airplayutil";
-    v2[631] = "hidden";
-    v2[632] = "imtool";
-    v2[633] = "hidden";
-    v2[634] = "com.apple.sandboxd";
-    v2[635] = "hidden";
-    v2[636] = "com.apple.kinsale";
-    v2[637] = "hidden";
-    v2[638] = "sandboxd";
-    v2[639] = "hidden";
-    v2[640] = "dmon";
-    v2[641] = "hidden";
-    v2[642] = "nc";
-    v2[643] = "hidden";
-    v2[644] = "network_test";
-    v2[645] = "hidden";
-    v2[646] = "WirelessRadioManagerd";
-    v2[647] = "hidden";
-    v2[648] = "StreamPerf";
-    v2[649] = "hidden";
-    v2[650] = "iperf3";
-    v2[651] = "hidden";
-    v2[652] = "iperf";
-    v2[653] = "hidden";
-    v2[654] = "itesterd.mobile";
-    v2[655] = "hidden";
-    v2[656] = "ssh";
-    v2[657] = "hidden";
-    v2[658] = "com.apple.proactiveeventtrackerd";
-    v2[659] = "hidden";
-    v2[660] = "coreautomationd";
-    v2[661] = "hidden";
-    v2[662] = "com.apple.livabilityd";
-    v2[663] = "hidden";
-    v2[664] = "activate";
-    v2[665] = "hidden";
-    v2[666] = "WirelessStress";
-    v2[667] = "hidden";
-    v2[668] = "taptoradard";
-    v2[669] = "hidden";
-    v2[670] = "com.apple.TranslationUIServices.TranslationUIService";
-    v2[671] = "translation";
-    v2[672] = "com.apple.tipsd";
-    v2[673] = "usereducation";
-    v2[674] = "tipsd";
-    v2[675] = "usereducation";
-    v1[0] = v2;
-    v1[1] = 338;
+    {
+      v5[0] = "ABDatabaseDoctor";
+      v5[1] = "contact";
+      v5[2] = "aosnotifyd";
+      v5[3] = "findmyiphone";
+      v5[4] = "findmydeviced";
+      v5[5] = "findmyiphone";
+      v5[6] = "com.apple.icloud.FindMyDevice";
+      v5[7] = "findmyiphone";
+      v5[8] = "fmfd";
+      v5[9] = "findmyiphone";
+      v5[10] = "fmflocatord";
+      v5[11] = "findmyiphone";
+      v5[12] = "searchpartyd";
+      v5[13] = "findmyiphone";
+      v5[14] = "com.apple.icloud.findmydeviced";
+      v5[15] = "findmyiphone";
+      v5[16] = "com.apple.icloud.fmfd";
+      v5[17] = "findmyiphone";
+      v5[18] = "com.apple.icloud.fmflocatord";
+      v5[19] = "findmyiphone";
+      v5[20] = "atwakeup";
+      v5[21] = "wifi";
+      v5[22] = "corecaptured";
+      v5[23] = "wifi";
+      v5[24] = "wifid";
+      v5[25] = "wifi";
+      v5[26] = "hostapd";
+      v5[27] = "wifi";
+      v5[28] = "wapic";
+      v5[29] = "wifi";
+      v5[30] = "wifiFirmwareLoader";
+      v5[31] = "wifi";
+      v5[32] = "BTAvrcp";
+      v5[33] = "bluetooth";
+      v5[34] = "BTLEServer";
+      v5[35] = "bluetooth";
+      v5[36] = "BTMap";
+      v5[37] = "bluetooth";
+      v5[38] = "BTServer";
+      v5[39] = "bluetooth";
+      v5[40] = "BlueTool";
+      v5[41] = "bluetooth";
+      v5[42] = "wirelessproxd";
+      v5[43] = "bluetooth";
+      v5[44] = "com.apple.bluetoothd";
+      v5[45] = "bluetooth";
+      v5[46] = "bluetoothd";
+      v5[47] = "bluetooth";
+      v5[48] = "CommCenter";
+      v5[49] = "telephony";
+      v5[50] = "coretelephony";
+      v5[51] = "telephony";
+      v5[52] = "DMHelper";
+      v5[53] = "telephony";
+      v5[54] = "sosd";
+      v5[55] = "telephony";
+      v5[56] = "callservicesd";
+      v5[57] = "telephony";
+      v5[58] = "CallHistorySyncHelper";
+      v5[59] = "telephony";
+      v5[60] = "locationd";
+      v5[61] = "location";
+      v5[62] = "timed";
+      v5[63] = "location";
+      v5[64] = "tzd";
+      v5[65] = "location";
+      v5[66] = "pipelined";
+      v5[67] = "location";
+      v5[68] = "com.apple.corelocation.CoreLocationRepromptAlwaysAuthPromptPlugin";
+      v5[69] = "location";
+      v5[70] = "com.apple.corelocation.CLWatchOSWhenInUseAuthPromptBundle";
+      v5[71] = "location";
+      v5[72] = "com.apple.corelocation.CLWatchOSTemporaryPreciseAuthPromptBundle";
+      v5[73] = "location";
+      v5[74] = "com.apple.corelocation.CoreLocationVanillaWhenInUseAuthPromptPlugin";
+      v5[75] = "location";
+      v5[76] = "com.apple.corelocation.CoreLocationTemporaryPreciseAuthPromptPlugin";
+      v5[77] = "location";
+      v5[78] = "com.apple.corelocation.CoreLocationAdvisorySubIdentityAuthPromptPlugin";
+      v5[79] = "location";
+      v5[80] = "com.apple.nearbyd";
+      v5[81] = "location";
+      v5[82] = "clouddbd";
+      v5[83] = "icloud";
+      v5[84] = "securebackupd";
+      v5[85] = "icloud";
+      v5[86] = "com.apple.sbd";
+      v5[87] = "icloud";
+      v5[88] = "com.apple.protectedcloudstorage.protectedcloudkeysyncing";
+      v5[89] = "icloud";
+      v5[90] = "familycircled";
+      v5[91] = "icloud";
+      v5[92] = "com.apple.CloudKit.ShareBear";
+      v5[93] = "icloud";
+      v5[94] = "cloudd";
+      v5[95] = "icloud";
+      v5[96] = "cloudpaird";
+      v5[97] = "icloud";
+      v5[98] = "softwareupdated";
+      v5[99] = "softwareupdate";
+      v5[100] = "com.apple.mobile.softwareupdated";
+      v5[101] = "softwareupdate";
+      v5[102] = "softwareupdateservicesd";
+      v5[103] = "softwareupdate";
+      v5[104] = "CommCenterMobile";
+      v5[105] = "softwareupdate";
+      v5[106] = "CommCenterMobileHelper";
+      v5[107] = "softwareupdate";
+      v5[108] = "softwarebehaviorservicesd";
+      v5[109] = "softwareupdate";
+      v5[110] = "softwareupdateservicesd";
+      v5[111] = "softwareupdate";
+      v5[112] = "mobileassetd";
+      v5[113] = "softwareupdate";
+      v5[114] = "softwareupdated";
+      v5[115] = "softwareupdate";
+      v5[116] = "installd";
+      v5[117] = "softwareupdate";
+      v5[118] = "mobile_installation_proxy";
+      v5[119] = "softwareupdate";
+      v5[120] = "deleted";
+      v5[121] = "softwareupdate";
+      v5[122] = "checkpointd";
+      v5[123] = "softwareupdate";
+      v5[124] = "com.apple.MobileSoftwareUpdate.UpdateBrainService";
+      v5[125] = "softwareupdate";
+      v5[126] = "com.apple.NRD.UpdateBrainService";
+      v5[127] = "softwareupdate";
+      v5[128] = "AssetCacheLocatorService";
+      v5[129] = "softwareupdate";
+      v5[130] = "awdd";
+      v5[131] = "diagnostics";
+      v5[132] = "aggregated";
+      v5[133] = "diagnostics";
+      v5[134] = "CrashHousekeeping";
+      v5[135] = "diagnostics";
+      v5[136] = "DumpBasebandCrash";
+      v5[137] = "diagnostics";
+      v5[138] = "DumpPanic";
+      v5[139] = "diagnostics";
+      v5[140] = "ReportCrash";
+      v5[141] = "diagnostics";
+      v5[142] = "OTACrashCopier";
+      v5[143] = "diagnostics";
+      v5[144] = "OTATaskingAgent";
+      v5[145] = "diagnostics";
+      v5[146] = "addaily";
+      v5[147] = "diagnostics";
+      v5[148] = "AirPlayDiagnosticsServer";
+      v5[149] = "diagnostics";
+      v5[150] = "cplogd";
+      v5[151] = "diagnostics";
+      v5[152] = "aslmanager";
+      v5[153] = "diagnostics";
+      v5[154] = "coresymbolicationd";
+      v5[155] = "diagnostics";
+      v5[156] = "crash_mover";
+      v5[157] = "diagnostics";
+      v5[158] = "afcd";
+      v5[159] = "diagnostics";
+      v5[160] = "syslog_relay";
+      v5[161] = "diagnostics";
+      v5[162] = "syslogd";
+      v5[163] = "diagnostics";
+      v5[164] = "powerlog";
+      v5[165] = "diagnostics";
+      v5[166] = "powerd";
+      v5[167] = "diagnostics";
+      v5[168] = "daily";
+      v5[169] = "diagnostics";
+      v5[170] = "prdaily";
+      v5[171] = "diagnostics";
+      v5[172] = "RemoteLager";
+      v5[173] = "diagnostics";
+      v5[174] = "IMLoggingAgent";
+      v5[175] = "diagnostics";
+      v5[176] = "system.diagnostics";
+      v5[177] = "diagnostics";
+      v5[178] = "rtcreportingd";
+      v5[179] = "diagnostics";
+      v5[180] = "com.apple.diagnosticextensionsd";
+      v5[181] = "diagnostics";
+      v5[182] = "com.apple.symptomsd-diag";
+      v5[183] = "diagnostics";
+      v5[184] = "com.apple.dprivacyd";
+      v5[185] = "diagnostics";
+      v5[186] = "UserEventAgent";
+      v5[187] = "diagnostics";
+      v5[188] = "DPSubmissionService";
+      v5[189] = "diagnostics";
+      v5[190] = "AppleCredentialManagerDaemon";
+      v5[191] = "diagnostics";
+      v5[192] = "com.apple.AppleCredentialManagerDaemon";
+      v5[193] = "diagnostics";
+      v5[194] = "com.apple.psid";
+      v5[195] = "diagnostics";
+      v5[196] = "mapspushd";
+      v5[197] = "maps";
+      v5[198] = "geod";
+      v5[199] = "maps";
+      v5[200] = "routined";
+      v5[201] = "maps";
+      v5[202] = "geocorrectiond";
+      v5[203] = "maps";
+      v5[204] = "nanomapscd";
+      v5[205] = "maps";
+      v5[206] = "DuetHeuristic-HIP";
+      v5[207] = "general";
+      v5[208] = "DuetLMT";
+      v5[209] = "general";
+      v5[210] = "DuetLST";
+      v5[211] = "general";
+      v5[212] = "nlcd";
+      v5[213] = "general";
+      v5[214] = "WirelessCoexManagerd";
+      v5[215] = "general";
+      v5[216] = "DeviceOMatic";
+      v5[217] = "general";
+      v5[218] = "MobileGestaltHelper";
+      v5[219] = "general";
+      v5[220] = "notification_proxy";
+      v5[221] = "general";
+      v5[222] = "MobileStorageMounter";
+      v5[223] = "general";
+      v5[224] = "fud";
+      v5[225] = "general";
+      v5[226] = "accessory_device_arbitrator";
+      v5[228] = "mobile_assertion_agent";
+      v5[230] = "librariand";
+      v5[232] = "transitd";
+      v5[234] = "lsd";
+      v5[236] = "dfadaptd";
+      v5[238] = "dictationd";
+      v5[240] = "nsurlsessiond";
+      v5[242] = "languageassetd";
+      v5[244] = "CategoriesServic";
+      v5[246] = "com.apple.nanobuddy";
+      v5[248] = "kbd";
+      v5[250] = "appstored";
+      v5[272] = "nanoregistryd";
+      v5[276] = "fitcored";
+      v5[280] = "nanoweatherprefs";
+      v5[284] = "networkservicepr";
+      v5[288] = "translationd";
+      v5[292] = "ndoagent";
+      v5[296] = "psid";
+      v5[300] = "_personalhotspot_";
+      v5[301] = "personalhotspot";
+      v5[392] = "com.apple.swcd";
+      v5[416] = "watchlistd";
+      v5[420] = "adid";
+      v5[419] = "itunesmedia";
+      v5[227] = "general";
+      v5[418] = "com.apple.watchlistd";
+      v5[415] = "itunesmedia";
+      v5[417] = "itunesmedia";
+      v5[229] = "general";
+      v5[412] = "atc";
+      v5[414] = "atc";
+      v5[413] = "itunesmedia";
+      v5[406] = "medialibraryd";
+      v5[409] = "itunesmedia";
+      v5[410] = "itunescloudd";
+      v5[411] = "itunesmedia";
+      v5[408] = "mediaremoted";
+      v5[407] = "itunesmedia";
+      v5[404] = "storebookkeeperd";
+      v5[405] = "itunesmedia";
+      v5[398] = "itunesstored";
+      v5[401] = "itunesaccount";
+      v5[402] = "StoreKitUIService";
+      v5[403] = "itunesaccount";
+      v5[400] = "touchsetupd";
+      v5[399] = "itunesaccount";
+      v5[231] = "general";
+      v5[396] = "accountsd";
+      v5[395] = "safari";
+      v5[397] = "itunesaccount";
+      v5[394] = "clipserviced";
+      v5[393] = "safari";
+      v5[384] = "vsassetd";
+      v5[389] = "safari";
+      v5[390] = "swcd";
+      v5[391] = "safari";
+      v5[387] = "safari";
+      v5[388] = "webinspectord";
+      v5[386] = "webbookmarksd";
+      v5[385] = "accessibility";
+      v5[376] = "exchangesyncd";
+      v5[381] = "accessibility";
+      v5[382] = "scrod";
+      v5[383] = "accessibility";
+      v5[379] = "accessibility";
+      v5[380] = "assistivetouchd";
+      v5[378] = "vot";
+      v5[377] = "docsandsync";
+      v5[370] = "com.apple.DocumentManagerUICore.RecentsAppPopover";
+      v5[373] = "docsandsync";
+      v5[374] = "dataaccess.activesync";
+      v5[375] = "docsandsync";
+      v5[372] = "com.apple.DocumentManagerUICore.RecentsAvocado";
+      v5[371] = "docsandsync";
+      v5[364] = "com.apple.ContactsSync";
+      v5[367] = "docsandsync";
+      v5[368] = "com.apple.CloudDocsUI.CloudSharing";
+      v5[369] = "docsandsync";
+      v5[366] = "SharedDocs";
+      v5[365] = "docsandsync";
+      v5[358] = "ubd";
+      v5[361] = "docsandsync";
+      v5[362] = "bird";
+      v5[363] = "docsandsync";
+      v5[360] = "dataaccessd";
+      v5[359] = "docsandsync";
+      v5[356] = "syncdefaultsd";
+      v5[357] = "docsandsync";
+      v5[348] = "NEIKEv2Provider";
+      v5[353] = "homescreen";
+      v5[354] = "CMFSyncAgent";
+      v5[355] = "homescreen";
+      v5[351] = "homescreen";
+      v5[352] = "backboardd";
+      v5[350] = "SpringBoard";
+      v5[349] = "vpnservices";
+      v5[342] = "vpnagent";
+      v5[345] = "vpnservices";
+      v5[346] = "sbslauncher";
+      v5[347] = "vpnservices";
+      v5[344] = "pppd";
+      v5[343] = "vpnservices";
+      v5[340] = "racoon";
+      v5[341] = "vpnservices";
+      v5[334] = "certui_relay";
+      v5[337] = "security";
+      v5[338] = "passwordbreachd";
+      v5[339] = "security";
+      v5[336] = "securityuploadd";
+      v5[335] = "security";
+      v5[328] = "com.apple.Safari.SafeBrowsing.Service";
+      v5[331] = "security";
+      v5[332] = "transparencyd";
+      v5[333] = "security";
+      v5[330] = "online-auth-agent";
+      v5[329] = "security";
+      v5[322] = "mobileactivationd";
+      v5[325] = "security";
+      v5[326] = "trustd";
+      v5[327] = "security";
+      v5[324] = "sharingd";
+      v5[323] = "security";
+      v5[316] = "lockbot";
+      v5[319] = "security";
+      v5[320] = "lskdd";
+      v5[321] = "security";
+      v5[318] = "tccd";
+      v5[317] = "security";
+      v5[310] = "securityd";
+      v5[313] = "security";
+      v5[314] = "lockdownd";
+      v5[315] = "security";
+      v5[312] = "keybagd";
+      v5[311] = "security";
+      v5[304] = "absd";
+      v5[307] = "security";
+      v5[308] = "CloudKeychainProxy";
+      v5[309] = "security";
+      v5[306] = "CircleJoinRequested";
+      v5[305] = "security";
+      v5[302] = "OTAPKIAssetTool";
+      v5[303] = "security";
+      v5[233] = "general";
+      v5[298] = "mobilerepaird";
+      v5[297] = "general";
+      v5[299] = "general";
+      v5[235] = "general";
+      v5[294] = "AppStoreService";
+      v5[293] = "general";
+      v5[295] = "general";
+      v5[237] = "general";
+      v5[290] = "proactiveeventtrackerd";
+      v5[289] = "general";
+      v5[291] = "general";
+      v5[239] = "general";
+      v5[286] = "ScreenshotService";
+      v5[285] = "general";
+      v5[287] = "general";
+      v5[241] = "general";
+      v5[282] = "nanoweatherprefsd";
+      v5[281] = "general";
+      v5[283] = "general";
+      v5[243] = "general";
+      v5[278] = "photoanalysisd";
+      v5[277] = "general";
+      v5[279] = "general";
+      v5[245] = "general";
+      v5[274] = "rapportd";
+      v5[273] = "general";
+      v5[275] = "general";
+      v5[247] = "general";
+      v5[270] = "terminusd";
+      v5[269] = "general";
+      v5[271] = "general";
+      v5[249] = "general";
+      v5[266] = "com.apple.WebKit";
+      v5[267] = "general";
+      v5[268] = "newsd";
+      v5[262] = "accessoryd";
+      v5[263] = "general";
+      v5[264] = "cloudphotod";
+      v5[265] = "general";
+      v5[251] = "general";
+      v5[259] = "general";
+      v5[260] = "remindd";
+      v5[261] = "general";
+      v5[257] = "general";
+      v5[258] = "healthd";
+      v5[252] = "bookassetd";
+      v5[254] = "destinationd";
+      v5[255] = "general";
+      v5[256] = "healthappd";
+      v5[253] = "general";
+      v5[421] = "iad";
+      v5[422] = "aitd";
+      v5[423] = "iad";
+      v5[424] = "adtrackingd";
+      v5[425] = "iad";
+      v5[426] = "adservicesd";
+      v5[427] = "iad";
+      v5[428] = "adprivacyd";
+      v5[429] = "iad";
+      v5[430] = "promotedcontentd";
+      v5[431] = "iad";
+      v5[432] = "EnforcementService";
+      v5[433] = "iad";
+      v5[434] = "apsd";
+      v5[435] = "applepushservice";
+      v5[436] = "assistant_analyzer";
+      v5[437] = "siri";
+      v5[438] = "assistant_service";
+      v5[439] = "siri";
+      v5[440] = "assistantd";
+      v5[441] = "siri";
+      v5[442] = "assistant.assistantd";
+      v5[443] = "siri";
+      v5[444] = "parsecd";
+      v5[445] = "siri";
+      v5[446] = "parsec-fbf";
+      v5[447] = "siri";
+      v5[448] = "siriknowledged";
+      v5[449] = "siri";
+      v5[450] = "AssistantServices";
+      v5[451] = "siri";
+      v5[452] = "voiced";
+      v5[453] = "siri";
+      v5[454] = "intents_helper";
+      v5[455] = "siri";
+      v5[456] = "suggestd";
+      v5[457] = "siri";
+      v5[458] = "backupd";
+      v5[459] = "backup";
+      v5[460] = "calaccessd";
+      v5[461] = "ical";
+      v5[462] = "AuthBrokerAgent";
+      v5[463] = "networking";
+      v5[464] = "CFNetworkAgent";
+      v5[465] = "networking";
+      v5[466] = "configd";
+      v5[467] = "networking";
+      v5[468] = "SCHelper";
+      v5[469] = "networking";
+      v5[470] = "networkd";
+      v5[471] = "networking";
+      v5[472] = "networkd_privileged";
+      v5[473] = "networking";
+      v5[474] = "proxy";
+      v5[475] = "networking";
+      v5[476] = "mount_nfs";
+      v5[477] = "networking";
+      v5[478] = "pfd";
+      v5[479] = "networking";
+      v5[480] = "nsnetworkd";
+      v5[481] = "networking";
+      v5[482] = "misd";
+      v5[483] = "networking";
+      v5[484] = "kernel_task";
+      v5[485] = "networking";
+      v5[486] = "neagent";
+      v5[487] = "networking";
+      v5[488] = "nesessionmanager";
+      v5[489] = "networking";
+      v5[490] = "networkserviceproxy";
+      v5[491] = "networking";
+      v5[492] = "AppleIDAuthAgent";
+      v5[493] = "appleid";
+      v5[494] = "identityservicesd";
+      v5[495] = "appleid";
+      v5[496] = "akd";
+      v5[497] = "appleid";
+      v5[498] = "passd";
+      v5[499] = "appleid";
+      v5[500] = "PassbookUIService";
+      v5[501] = "appleid";
+      v5[502] = "seld";
+      v5[503] = "appleid";
+      v5[504] = "com.apple.coreidv.coreidvd";
+      v5[505] = "appleid";
+      v5[506] = "coreidvd";
+      v5[507] = "appleid";
+      v5[508] = "com.apple.AuthKitUI.AKLocationSignInAlert";
+      v5[509] = "appleid";
+      v5[510] = "com.apple.AuthKit";
+      v5[511] = "appleid";
+      v5[512] = "com.apple.progressd";
+      v5[513] = "appleid";
+      v5[514] = "ind";
+      v5[515] = "appleid";
+      v5[516] = "NPKCompanionAgent";
+      v5[517] = "appleid";
+      v5[518] = "com.apple.appleaccountd";
+      v5[519] = "appleid";
+      v5[520] = "gamed";
+      v5[521] = "gamecenter";
+      v5[522] = "iap2d";
+      v5[523] = "accessory";
+      v5[524] = "iapauthd";
+      v5[525] = "accessory";
+      v5[526] = "iapd";
+      v5[527] = "accessory";
+      v5[528] = "iaptransportd";
+      v5[529] = "accessory";
+      v5[530] = "MFAANetwork";
+      v5[531] = "accessory";
+      v5[532] = "mDNSResponder";
+      v5[533] = "dns";
+      v5[534] = "mDNSResponderHelper";
+      v5[535] = "dns";
+      v5[536] = "dmd";
+      v5[537] = "corporateaccounts";
+      v5[538] = "mdmd";
+      v5[539] = "corporateaccounts";
+      v5[540] = "profiled";
+      v5[541] = "corporateaccounts";
+      v5[542] = "teslad";
+      v5[543] = "corporateaccounts";
+      v5[544] = "mstreamd";
+      v5[545] = "com.apple.mobileslideshow";
+      v5[546] = "assetsd";
+      v5[547] = "com.apple.mobileslideshow";
+      v5[548] = "nptocompaniond";
+      v5[549] = "com.apple.mobileslideshow";
+      v5[550] = "mediaserverd";
+      v5[551] = "media";
+      v5[552] = "mediaplaybackd";
+      v5[553] = "media";
+      v5[554] = "audiomxd";
+      v5[555] = "media";
+      v5[556] = "airplayd";
+      v5[557] = "media";
+      v5[558] = "avconferenced";
+      v5[559] = "media";
+      v5[560] = "amsaccountsd";
+      v5[561] = "media";
+      v5[562] = "amsengagementd";
+      v5[563] = "media";
+      v5[564] = "proximitycontrol";
+      v5[565] = "media";
+      v5[566] = "recentsd";
+      v5[567] = "mail";
+      v5[568] = "maild";
+      v5[569] = "mail";
+      v5[570] = "nanomaild";
+      v5[571] = "mail";
+      v5[572] = "printd";
+      v5[573] = "print";
+      v5[574] = "vmd";
+      v5[575] = "voicemail";
+      v5[576] = "IMRemoteURLConne";
+      v5[577] = "messages";
+      v5[578] = "IMRemoteURLConnectionAgent";
+      v5[579] = "messages";
+      v5[580] = "IMTransferAgent";
+      v5[581] = "messages";
+      v5[582] = "HashtagImagesExtension";
+      v5[583] = "messages";
+      v5[584] = "imtransferagent";
+      v5[585] = "messages";
+      v5[586] = "imtranscoderagent";
+      v5[587] = "messages";
+      v5[588] = "imagent";
+      v5[589] = "messages";
+      v5[590] = "com.apple.ids.idsremoteurlconnectionagent";
+      v5[591] = "messages";
+      v5[592] = "IMAutomaticHistoryDeletionAgent";
+      v5[593] = "messages";
+      v5[594] = "com.apple.Safari.SocialHelper";
+      v5[595] = "com.apple.mobilesafari";
+      v5[596] = "MobileSafari";
+      v5[597] = "com.apple.mobilesafari";
+      v5[598] = "MailCompositionService";
+      v5[599] = "com.apple.mobilemail";
+      v5[600] = "com.apple.facebook";
+      v5[601] = "sharing.facebook";
+      v5[602] = "com.apple.twitter";
+      v5[603] = "sharing.twitter";
+      v5[604] = "com.apple.weibo";
+      v5[605] = "sharing.sinaweibo";
+      v5[606] = "com.apple.tencentweibo";
+      v5[607] = "sharing.tencentweibo";
+      v5[608] = "com.apple.vimeo";
+      v5[609] = "sharing.vimeo";
+      v5[610] = "com.apple.flickr";
+      v5[611] = "sharing.flickr";
+      v5[612] = "willowd";
+      v5[613] = "homekit";
+      v5[614] = "homed";
+      v5[615] = "homekit";
+      v5[616] = "mediasetupd";
+      v5[617] = "homekit";
+      v5[618] = "ScreenTimeAgent";
+      v5[619] = "screentime";
+      v5[620] = "AppIndexer";
+      v5[621] = "search";
+      v5[622] = "searchd";
+      v5[623] = "search";
+      v5[624] = "demod";
+      v5[625] = "hidden";
+      v5[626] = "MIDIServer";
+      v5[627] = "hidden";
+      v5[628] = "curl";
+      v5[629] = "hidden";
+      v5[630] = "airplayutil";
+      v5[631] = "hidden";
+      v5[632] = "imtool";
+      v5[633] = "hidden";
+      v5[634] = "com.apple.sandboxd";
+      v5[635] = "hidden";
+      v5[636] = "com.apple.kinsale";
+      v5[637] = "hidden";
+      v5[638] = "sandboxd";
+      v5[639] = "hidden";
+      v5[640] = "dmon";
+      v5[641] = "hidden";
+      v5[642] = "nc";
+      v5[643] = "hidden";
+      v5[644] = "network_test";
+      v5[645] = "hidden";
+      v5[646] = "WirelessRadioManagerd";
+      v5[647] = "hidden";
+      v5[648] = "StreamPerf";
+      v5[649] = "hidden";
+      v5[650] = "iperf3";
+      v5[651] = "hidden";
+      v5[652] = "iperf";
+      v5[653] = "hidden";
+      v5[654] = "itesterd.mobile";
+      v5[655] = "hidden";
+      v5[656] = "ssh";
+      v5[657] = "hidden";
+      v5[658] = "com.apple.proactiveeventtrackerd";
+      v5[659] = "hidden";
+      v5[660] = "coreautomationd";
+      v5[661] = "hidden";
+      v5[662] = "com.apple.livabilityd";
+      v5[663] = "hidden";
+      v5[664] = "activate";
+      v5[665] = "hidden";
+      v5[666] = "WirelessStress";
+      v5[667] = "hidden";
+      v5[668] = "taptoradard";
+      v5[669] = "hidden";
+      v5[670] = "com.apple.TranslationUIServices.TranslationUIService";
+      v5[671] = "translation";
+      v5[672] = "com.apple.tipsd";
+      v5[673] = "usereducation";
+      v5[674] = "tipsd";
+      v5[675] = "usereducation";
+      v4[0] = v5;
+      v4[1] = 338;
+    }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ctu::NeverDestroyed<std::map<char const* const,char const* const,anonymous namespace::CmpByContent,std::allocator<std::pair<char const* const,char const* const>>>>::NeverDestroyed<std::initializer_list<std::pair<char const* const,char const* const>>>(uint64_t result)
@@ -9694,7 +9645,7 @@ void sub_2325B9258(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -9708,13 +9659,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -9740,12 +9691,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -9759,22 +9710,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -9808,13 +9759,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 

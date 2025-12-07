@@ -1250,7 +1250,7 @@ double CMMsl::RunningStrideLength::RunningStrideLength(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::RunningStrideLength::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::RunningStrideLength::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -3492,7 +3492,7 @@ double CMMsl::RunningVerticalOscillationGradientBoostedSignals::RunningVerticalO
   return result;
 }
 
-CMMsl *CMMsl::RunningVerticalOscillationGradientBoostedSignals::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::RunningVerticalOscillationGradientBoostedSignals::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -5645,7 +5645,7 @@ double CMMsl::RunningVerticalOscillationSignals::RunningVerticalOscillationSigna
   return result;
 }
 
-CMMsl *CMMsl::RunningVerticalOscillationSignals::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::RunningVerticalOscillationSignals::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9345,11 +9345,11 @@ void CMMsl::SPUPlaybackExampleDeviceMotion::~SPUPlaybackExampleDeviceMotion(CMMs
   operator delete();
 }
 
-void *CMMsl::SPUPlaybackExampleDeviceMotion::SPUPlaybackExampleDeviceMotion(void *this, const CMMsl::SPUPlaybackExampleDeviceMotion *a2)
+CMMsl::SPUPlaybackExampleDeviceMotion *CMMsl::SPUPlaybackExampleDeviceMotion::SPUPlaybackExampleDeviceMotion(CMMsl::SPUPlaybackExampleDeviceMotion *this, const CMMsl::DeviceMotion **a2)
 {
   *this = off_100421AD8;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -9357,13 +9357,13 @@ void *CMMsl::SPUPlaybackExampleDeviceMotion::SPUPlaybackExampleDeviceMotion(void
   return this;
 }
 
-const CMMsl::SPUPlaybackExampleDeviceMotion *CMMsl::SPUPlaybackExampleDeviceMotion::operator=(const CMMsl::SPUPlaybackExampleDeviceMotion *a1, const CMMsl::SPUPlaybackExampleDeviceMotion *a2)
+uint64_t CMMsl::SPUPlaybackExampleDeviceMotion::operator=(uint64_t a1, const CMMsl::DeviceMotion **a2)
 {
   if (a1 != a2)
   {
     CMMsl::SPUPlaybackExampleDeviceMotion::SPUPlaybackExampleDeviceMotion(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::SPUPlaybackExampleDeviceMotion::~SPUPlaybackExampleDeviceMotion(&v5);
   }
@@ -9578,9 +9578,9 @@ CMMsl::DeviceMotion *CMMsl::SPUPlaybackExampleDeviceMotion::hash_value(CMMsl::SP
   return result;
 }
 
-uint64_t CMMsl::SPUPlaybackExampleDeviceMotion::makeSuper(uint64_t this)
+void *CMMsl::SPUPlaybackExampleDeviceMotion::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -9607,11 +9607,11 @@ void CMMsl::SPUPlaybackExampleMotionStateUpdate::~SPUPlaybackExampleMotionStateU
   operator delete();
 }
 
-void *CMMsl::SPUPlaybackExampleMotionStateUpdate::SPUPlaybackExampleMotionStateUpdate(void *this, const CMMsl::SPUPlaybackExampleMotionStateUpdate *a2)
+CMMsl::SPUPlaybackExampleMotionStateUpdate *CMMsl::SPUPlaybackExampleMotionStateUpdate::SPUPlaybackExampleMotionStateUpdate(CMMsl::SPUPlaybackExampleMotionStateUpdate *this, const CMMsl::MotionStateUpdate **a2)
 {
   *this = off_100421B10;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -9619,13 +9619,13 @@ void *CMMsl::SPUPlaybackExampleMotionStateUpdate::SPUPlaybackExampleMotionStateU
   return this;
 }
 
-const CMMsl::SPUPlaybackExampleMotionStateUpdate *CMMsl::SPUPlaybackExampleMotionStateUpdate::operator=(const CMMsl::SPUPlaybackExampleMotionStateUpdate *a1, const CMMsl::SPUPlaybackExampleMotionStateUpdate *a2)
+uint64_t CMMsl::SPUPlaybackExampleMotionStateUpdate::operator=(uint64_t a1, const CMMsl::MotionStateUpdate **a2)
 {
   if (a1 != a2)
   {
     CMMsl::SPUPlaybackExampleMotionStateUpdate::SPUPlaybackExampleMotionStateUpdate(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::SPUPlaybackExampleMotionStateUpdate::~SPUPlaybackExampleMotionStateUpdate(&v5);
   }
@@ -9840,9 +9840,9 @@ CMMsl::MotionStateUpdate *CMMsl::SPUPlaybackExampleMotionStateUpdate::hash_value
   return result;
 }
 
-uint64_t CMMsl::SPUPlaybackExampleMotionStateUpdate::makeSuper(uint64_t this)
+void *CMMsl::SPUPlaybackExampleMotionStateUpdate::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }

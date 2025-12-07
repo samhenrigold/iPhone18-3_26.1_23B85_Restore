@@ -1,10 +1,27 @@
 @interface BPSSessionWindowState
 - (BPSSessionWindowState)initWithCoder:(id)coder;
+- (BPSSessionWindowState)initWithDateInterval:(id)interval identifier:(id)identifier aggregate:(id)aggregate completed:(BOOL)completed;
 - (id)metadata;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation BPSSessionWindowState
+
+- (BPSSessionWindowState)initWithDateInterval:(id)interval identifier:(id)identifier aggregate:(id)aggregate completed:(BOOL)completed
+{
+  completedCopy = completed;
+  intervalCopy = interval;
+  v15.receiver = self;
+  v15.super_class = BPSSessionWindowState;
+  v12 = [(BPSWindowState *)&v15 initWithIdentifier:identifier aggregate:aggregate completed:completedCopy];
+  v13 = v12;
+  if (v12)
+  {
+    objc_storeStrong(&v12->_dateInterval, interval);
+  }
+
+  return v13;
+}
 
 - (id)metadata
 {

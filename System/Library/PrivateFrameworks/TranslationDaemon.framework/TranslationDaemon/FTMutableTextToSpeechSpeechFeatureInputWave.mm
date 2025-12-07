@@ -4,6 +4,7 @@
 - (int)sample_rate;
 - (void)pcm_data:(id)pcm_data;
 - (void)setPcm_data:(id)pcm_data;
+- (void)setSample_rate:(int)sample_rate;
 @end
 
 @implementation FTMutableTextToSpeechSpeechFeatureInputWave
@@ -39,6 +40,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setSample_rate:(int)sample_rate
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&sample_rate];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setPcm_data:(id)pcm_data

@@ -3,9 +3,10 @@
 
 @implementation UIAppearanceSharesAppearance
 
-uint64_t ___UIAppearanceSharesAppearance_block_invoke()
+void *___UIAppearanceSharesAppearance_block_invoke()
 {
-  result = [_UIMainBundleIdentifier() isEqualToString:@"com.apple.gamecenter"];
+  v0 = _UIMainBundleIdentifier();
+  result = objc_msgSend_isEqualToString_(v0);
   byte_1ED49E5DB = result ^ 1;
   return result;
 }

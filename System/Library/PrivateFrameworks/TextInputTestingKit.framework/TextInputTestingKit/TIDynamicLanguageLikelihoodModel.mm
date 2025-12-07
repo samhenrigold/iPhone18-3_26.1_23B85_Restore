@@ -262,7 +262,7 @@ LABEL_3:
   for (i = v35; i != v28; ++i)
   {
     v37.__first_ = i;
-    if (std::__tree<std::__value_type<std::string,long>,std::__map_value_compare<std::string,std::__value_type<std::string,long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(p_m_counts_for_language, i)[7] >= 5)
+    if (std::__tree<std::__value_type<std::string,long>,std::__map_value_compare<std::string,std::__value_type<std::string,long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(p_m_counts_for_language, i, &v37)[7] >= 5)
     {
       v30 = i;
       if (SHIBYTE(i->__r_.__value_.__r.__words[2]) < 0)
@@ -279,6 +279,16 @@ LABEL_3:
   std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v37);
 
   return array;
+}
+
+BOOL __64__TIDynamicLanguageLikelihoodModel_rankedLanguagesForRecipient___block_invoke(uint64_t a1, __int128 *a2, __int128 *a3)
+{
+  v5 = *(a1 + 32);
+  v9 = a2;
+  v6 = std::__tree<std::__value_type<std::string,long>,std::__map_value_compare<std::string,std::__value_type<std::string,long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v5 + 8), a2, &v9)[7];
+  v7 = *(a1 + 32);
+  v9 = a3;
+  return v6 > std::__tree<std::__value_type<std::string,long>,std::__map_value_compare<std::string,std::__value_type<std::string,long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v7 + 8), a3, &v9)[7];
 }
 
 - (void)addEvidence:(id)evidence forRecipient:(id)recipient language:(id)language
@@ -309,7 +319,7 @@ void __70__TIDynamicLanguageLikelihoodModel_addEvidence_forRecipient_language___
       std::string::basic_string[abi:nn200100]<0>(__p, [v4 UTF8String]);
       v5 = *(a1 + 32);
       v9 = __p;
-      v6 = std::__tree<std::__value_type<std::string,long>,std::__map_value_compare<std::string,std::__value_type<std::string,long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v5 + 8, __p);
+      v6 = std::__tree<std::__value_type<std::string,long>,std::__map_value_compare<std::string,std::__value_type<std::string,long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v5 + 8), __p, &v9);
       ++v6[7];
       ++*(*(a1 + 32) + 32);
       if (v8 < 0)
@@ -348,7 +358,7 @@ void __99__TIDynamicLanguageLikelihoodModel_addEvidence_timestamp_adaptationType
       std::string::basic_string[abi:nn200100]<0>(__p, [v4 UTF8String]);
       v5 = *(a1 + 32);
       v9 = __p;
-      v6 = std::__tree<std::__value_type<std::string,long>,std::__map_value_compare<std::string,std::__value_type<std::string,long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v5 + 8, __p);
+      v6 = std::__tree<std::__value_type<std::string,long>,std::__map_value_compare<std::string,std::__value_type<std::string,long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v5 + 8), __p, &v9);
       ++v6[7];
       ++*(*(a1 + 32) + 32);
       if (v8 < 0)

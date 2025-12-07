@@ -95,22 +95,22 @@
   if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109890;
-    v17 = v4;
-    v18 = 2082;
-    v19 = "[TSUBufferedReadChannelHelper readWithHandlerAndWait:]";
-    v20 = 2082;
-    v21 = "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUBufferedReadChannel.m";
-    v22 = 1024;
-    v23 = 397;
+    v9 = v4;
+    v10 = 2082;
+    v11 = "[TSUBufferedReadChannelHelper readWithHandlerAndWait:]";
+    v12 = 2082;
+    v13 = "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUBufferedReadChannel.m";
+    v14 = 1024;
+    v15 = 397;
     _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d TSUBufferedReadChannel should not call readWithHandlerAndWait on TSUBufferedReadChannelHelper", buf, 0x22u);
   }
 
-  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d TSUBufferedReadChannel should not call readWithHandlerAndWait on TSUBufferedReadChannelHelper", v6, v7, v8, v9, v10, v11, v12, "[TSUBufferedReadChannelHelper readWithHandlerAndWait:]");
-  v13 = [NSString stringWithUTF8String:"[TSUBufferedReadChannelHelper readWithHandlerAndWait:]"];
-  v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUBufferedReadChannel.m"];
-  [TSUAssertionHandler handleFailureInFunction:v13 file:v14 lineNumber:397 isFatal:1 description:"TSUBufferedReadChannel should not call readWithHandlerAndWait on TSUBufferedReadChannelHelper"];
+  TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d TSUBufferedReadChannel should not call readWithHandlerAndWait on TSUBufferedReadChannelHelper", "[TSUBufferedReadChannelHelper readWithHandlerAndWait:]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUBufferedReadChannel.m", 397);
+  v6 = [NSString stringWithUTF8String:"[TSUBufferedReadChannelHelper readWithHandlerAndWait:]"];
+  v7 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUBufferedReadChannel.m"];
+  [TSUAssertionHandler handleFailureInFunction:v6 file:v7 lineNumber:397 isFatal:1 description:"TSUBufferedReadChannel should not call readWithHandlerAndWait on TSUBufferedReadChannelHelper"];
 
-  TSUCrashBreakpoint(v15);
+  TSUCrashBreakpoint();
   abort();
 }
 

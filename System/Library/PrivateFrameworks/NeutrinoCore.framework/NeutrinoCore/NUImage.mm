@@ -49,32 +49,32 @@ void __26___NUImage__purgeableCopy__block_invoke(uint64_t a1)
   }
 }
 
-void __28___NUImage_endAccessRegion___block_invoke(uint64_t a1)
+void __28___NUImage_endAccessRegion___block_invoke(uint64_t a1, const char *a2)
 {
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v4 = *(v3 + 24);
-  if (v2)
+  v4 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  v5 = *(v4 + 24);
+  if (v3)
   {
-    [v2 bounds];
-    v5 = *(a1 + 40);
+    objc_msgSend_bounds(v3, a2);
+    v6 = *(a1 + 40);
   }
 
   else
   {
-    v5 = 0;
-    memset(v11, 0, sizeof(v11));
+    v6 = 0;
+    memset(v12, 0, sizeof(v12));
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __28___NUImage_endAccessRegion___block_invoke_2;
-  v8[3] = &unk_1E810B528;
-  v6 = v5;
-  v7 = *(a1 + 32);
-  v9 = v6;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __28___NUImage_endAccessRegion___block_invoke_2;
+  v9[3] = &unk_1E810B528;
+  v7 = v6;
+  v8 = *(a1 + 32);
   v10 = v7;
-  [v4 enumerateTilesForWritingInRect:v11 withBlock:v8];
+  v11 = v8;
+  [v5 enumerateTilesForWritingInRect:v12 withBlock:v9];
 }
 
 void __28___NUImage_endAccessRegion___block_invoke_2(uint64_t a1, void *a2)
@@ -84,7 +84,7 @@ void __28___NUImage_endAccessRegion___block_invoke_2(uint64_t a1, void *a2)
   v5 = *(a1 + 32);
   if (v3)
   {
-    [v3 frameRect];
+    objc_msgSend_frameRect(v3);
   }
 
   else
@@ -109,33 +109,33 @@ void __28___NUImage_endAccessRegion___block_invoke_2(uint64_t a1, void *a2)
   }
 }
 
-void __30___NUImage_beginAccessRegion___block_invoke(void *a1)
+void __30___NUImage_beginAccessRegion___block_invoke(void *a1, const char *a2)
 {
-  v3 = a1[4];
-  v2 = a1[5];
-  v4 = *(v3 + 24);
-  if (v2)
+  v4 = a1[4];
+  v3 = a1[5];
+  v5 = *(v4 + 24);
+  if (v3)
   {
-    [v2 bounds];
-    v5 = a1[5];
+    objc_msgSend_bounds(v3, a2);
+    v6 = a1[5];
   }
 
   else
   {
-    v5 = 0;
-    memset(v12, 0, sizeof(v12));
+    v6 = 0;
+    memset(v13, 0, sizeof(v13));
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __30___NUImage_beginAccessRegion___block_invoke_2;
-  v8[3] = &unk_1E810B4D8;
-  v6 = v5;
-  v7 = a1[4];
-  v9 = v6;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __30___NUImage_beginAccessRegion___block_invoke_2;
+  v9[3] = &unk_1E810B4D8;
+  v7 = v6;
+  v8 = a1[4];
   v10 = v7;
-  v11 = a1[6];
-  [v4 enumerateTilesForWritingInRect:v12 withBlock:v8];
+  v11 = v8;
+  v12 = a1[6];
+  [v5 enumerateTilesForWritingInRect:v13 withBlock:v9];
 }
 
 void __30___NUImage_beginAccessRegion___block_invoke_2(uint64_t a1, void *a2)
@@ -145,7 +145,7 @@ void __30___NUImage_beginAccessRegion___block_invoke_2(uint64_t a1, void *a2)
   v5 = *(a1 + 32);
   if (v3)
   {
-    [v3 frameRect];
+    objc_msgSend_frameRect(v3);
   }
 
   else
@@ -169,7 +169,7 @@ void __30___NUImage_beginAccessRegion___block_invoke_2(uint64_t a1, void *a2)
         v11 = [*(a1 + 40) validRegion];
         if (v4)
         {
-          [v4 frameRect];
+          objc_msgSend_frameRect(v4);
         }
 
         else
@@ -194,7 +194,7 @@ void __34___NUImage_writeRegion_withBlock___block_invoke(uint64_t a1, void *a2, 
   v7 = *(a1 + 32);
   if (v5)
   {
-    [v5 frameRect];
+    objc_msgSend_frameRect(v5);
   }
 
   else
@@ -334,7 +334,7 @@ void __33___NUImage_readRegion_withBlock___block_invoke(uint64_t a1, void *a2, u
   v7 = *(a1 + 32);
   if (v5)
   {
-    [v5 contentRect];
+    objc_msgSend_contentRect(v5);
   }
 
   else
@@ -390,7 +390,7 @@ void __23___NUImage_description__block_invoke(uint64_t a1)
         v5 = v4;
         if (v4)
         {
-          [v4 frameRectForTileAtIndex:v2];
+          objc_msgSend_frameRectForTileAtIndex_(v4);
         }
 
         else

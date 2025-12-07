@@ -701,7 +701,7 @@ LABEL_50:
   return v5;
 }
 
-uint64_t __70__NSFileMultipleAccessClaim_isBlockedByReadingItemAtLocation_options___block_invoke(void *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__70__NSFileMultipleAccessClaim_isBlockedByReadingItemAtLocation_options___block_invoke(void *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [objc_opt_class() canReadingItemAtLocation:a1[5] options:a1[7] safelyOverlapNewWriting:1 ofItemAtLocation:a2 options:*(*(a1[4] + 240) + 8 * a3)];
   if ((result & 1) == 0)
@@ -757,7 +757,7 @@ uint64_t __70__NSFileMultipleAccessClaim_isBlockedByReadingItemAtLocation_option
   return v9 & 1;
 }
 
-uint64_t __70__NSFileMultipleAccessClaim_isBlockedByWritingItemAtLocation_options___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__70__NSFileMultipleAccessClaim_isBlockedByWritingItemAtLocation_options___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) canReadingItemAtLocation:a2 options:*(*(*(a1 + 40) + 216) + 8 * a3) safelyOverlapNewWriting:0 ofItemAtLocation:*(a1 + 48) options:*(a1 + 64)];
   if ((result & 1) == 0)
@@ -769,7 +769,7 @@ uint64_t __70__NSFileMultipleAccessClaim_isBlockedByWritingItemAtLocation_option
   return result;
 }
 
-uint64_t __70__NSFileMultipleAccessClaim_isBlockedByWritingItemAtLocation_options___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__70__NSFileMultipleAccessClaim_isBlockedByWritingItemAtLocation_options___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) canNewWriteOfItemAtLocation:a2 options:*(*(*(a1 + 40) + 240) + 8 * a3) safelyOverlapExistingWriteOfItemAtLocation:*(a1 + 48) options:*(a1 + 64)];
   if ((result & 1) == 0)
@@ -997,7 +997,7 @@ uint64_t __36__NSFileMultipleAccessClaim_granted__block_invoke_8(uint64_t a1)
   return [v2 enumerateObjectsUsingBlock:v4];
 }
 
-uint64_t __36__NSFileMultipleAccessClaim_granted__block_invoke_9(uint64_t a1, void *a2, uint64_t a3)
+void *__36__NSFileMultipleAccessClaim_granted__block_invoke_9(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [*(a1 + 32) shouldInformProvidersAboutEndOfWriteWithOptions:*(*(*(a1 + 32) + 240) + 8 * a3)];
   if (result)
@@ -1100,7 +1100,7 @@ uint64_t __36__NSFileMultipleAccessClaim_granted__block_invoke_2_478(uint64_t a1
   }
 }
 
-uint64_t __73__NSFileMultipleAccessClaim_resolveURLsThenMaybeContinueInvokingClaimer___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__73__NSFileMultipleAccessClaim_resolveURLsThenMaybeContinueInvokingClaimer___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 standardizedURL];
   if (result)
@@ -1112,7 +1112,7 @@ uint64_t __73__NSFileMultipleAccessClaim_resolveURLsThenMaybeContinueInvokingCla
   return result;
 }
 
-uint64_t __73__NSFileMultipleAccessClaim_resolveURLsThenMaybeContinueInvokingClaimer___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void *__73__NSFileMultipleAccessClaim_resolveURLsThenMaybeContinueInvokingClaimer___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 standardizedURL];
   if (result)
@@ -1260,7 +1260,7 @@ void __73__NSFileMultipleAccessClaim_resolveURLsThenMaybeContinueInvokingClaimer
   _Block_object_dispose(&v19, 8);
 }
 
-uint64_t __73__NSFileMultipleAccessClaim_resolveURLsThenMaybeContinueInvokingClaimer___block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __73__NSFileMultipleAccessClaim_resolveURLsThenMaybeContinueInvokingClaimer___block_invoke_7(uint64_t a1, void *a2, uint64_t a3)
 {
   v3 = *(a1 + 40);
   if ((*(*(*(a1 + 32) + 224) + a3) & 1) == 0)
@@ -1271,7 +1271,7 @@ uint64_t __73__NSFileMultipleAccessClaim_resolveURLsThenMaybeContinueInvokingCla
   return [v3 addObject:a2];
 }
 
-uint64_t __73__NSFileMultipleAccessClaim_resolveURLsThenMaybeContinueInvokingClaimer___block_invoke_8(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __73__NSFileMultipleAccessClaim_resolveURLsThenMaybeContinueInvokingClaimer___block_invoke_8(uint64_t a1, void *a2, uint64_t a3)
 {
   v3 = *(a1 + 40);
   if ((*(*(*(a1 + 32) + 248) + a3) & 1) == 0)
@@ -1642,7 +1642,7 @@ uint64_t __72__NSFileMultipleAccessClaim_itemAtLocation_wasReplacedByItemAtLocat
   return v6 & 1;
 }
 
-uint64_t __41__NSFileMultipleAccessClaim_blocksClaim___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__41__NSFileMultipleAccessClaim_blocksClaim___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isBlockedByReadingItemAtLocation:a2 options:*(*(*(a1 + 40) + 216) + 8 * a3)];
   if (result)
@@ -1654,7 +1654,7 @@ uint64_t __41__NSFileMultipleAccessClaim_blocksClaim___block_invoke(uint64_t a1,
   return result;
 }
 
-uint64_t __41__NSFileMultipleAccessClaim_blocksClaim___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__41__NSFileMultipleAccessClaim_blocksClaim___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isBlockedByWritingItemAtLocation:a2 options:*(*(*(a1 + 40) + 240) + 8 * a3)];
   if (result)

@@ -34,15 +34,16 @@
 
 - (SCNProgram)init
 {
-  v4.receiver = self;
-  v4.super_class = SCNProgram;
-  v2 = [(SCNProgram *)&v4 init];
-  if (v2 && (C3DWasLinkedBeforeMajorOSYear2014() & 1) == 0)
+  v6.receiver = self;
+  v6.super_class = SCNProgram;
+  v2 = [(SCNProgram *)&v6 init];
+  v4 = v2;
+  if (v2 && (C3DWasLinkedBeforeMajorOSYear2014(v2, v3) & 1) == 0)
   {
-    v2->_opaque = 1;
+    v4->_opaque = 1;
   }
 
-  return v2;
+  return v4;
 }
 
 - (void)setLibrary:(id)library
@@ -74,7 +75,7 @@
 
 - (void)setName:(id)name
 {
-  if (![(NSString *)self->_name isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_name, a2) & 1) == 0)
   {
 
     self->_name = [name copy];
@@ -118,7 +119,7 @@
 
 - (void)setVertexFunctionName:(NSString *)vertexFunctionName
 {
-  if (![(NSString *)self->_vertexFunctionName isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_vertexFunctionName, a2) & 1) == 0)
   {
 
     self->_vertexFunctionName = [(NSString *)vertexFunctionName copy];
@@ -130,7 +131,7 @@
 
 - (void)setFragmentFunctionName:(NSString *)fragmentFunctionName
 {
-  if (![(NSString *)self->_fragmentFunctionName isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_fragmentFunctionName, a2) & 1) == 0)
   {
 
     self->_fragmentFunctionName = [(NSString *)fragmentFunctionName copy];
@@ -142,7 +143,7 @@
 
 - (void)setVertexShader:(NSString *)vertexShader
 {
-  if (![(NSString *)self->_vertexShader isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_vertexShader, a2) & 1) == 0)
   {
 
     self->_vertexShader = [(NSString *)vertexShader copy];
@@ -154,7 +155,7 @@
 
 - (void)setFragmentShader:(NSString *)fragmentShader
 {
-  if (![(NSString *)self->_fragmentShader isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_fragmentShader, a2) & 1) == 0)
   {
 
     self->_fragmentShader = [(NSString *)fragmentShader copy];
@@ -326,9 +327,9 @@
 
 - (SCNProgram)initWithCoder:(id)coder
 {
-  v8.receiver = self;
-  v8.super_class = SCNProgram;
-  v4 = [(SCNProgram *)&v8 init];
+  v10.receiver = self;
+  v10.super_class = SCNProgram;
+  v4 = [(SCNProgram *)&v10 init];
   if (v4)
   {
     v5 = +[SCNTransaction immediateMode];
@@ -339,9 +340,9 @@
     -[SCNProgram setVertexFunctionName:](v4, "setVertexFunctionName:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"vertexFunctionName"]);
     -[SCNProgram setFragmentFunctionName:](v4, "setFragmentFunctionName:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"fragmentFunctionName"]);
     -[SCNProgram setSourceFile:](v4, "setSourceFile:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"sourceFile"]);
-    -[SCNProgram setName:](v4, "setName:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"name"]);
-    v6 = SCNPlistClasses();
-    -[SCNProgram setSemanticInfos:](v4, "setSemanticInfos:", [coder decodeObjectOfClasses:objc_msgSend(v6 forKey:{"setByAddingObject:", objc_opt_class()), @"semanticInfos"}]);
+    v6 = -[SCNProgram setName:](v4, "setName:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"name"]);
+    v8 = SCNPlistClasses(v6, v7);
+    -[SCNProgram setSemanticInfos:](v4, "setSemanticInfos:", [coder decodeObjectOfClasses:objc_msgSend(v8 forKey:{"setByAddingObject:", objc_opt_class()), @"semanticInfos"}]);
     -[SCNProgram setOpaque:](v4, "setOpaque:", [coder decodeBoolForKey:@"opaque"]);
     [SCNTransaction setImmediateMode:v5];
   }

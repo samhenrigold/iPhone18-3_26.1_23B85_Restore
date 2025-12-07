@@ -88,160 +88,148 @@
 
 - (BOOL)BOOLValue
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   targetContext = [(TPSTargetingValidation *)self targetContext];
   v4 = [targetContext count];
 
-  if (v4 == 1)
+  if (v4 != 1)
   {
-    targetContext2 = [(TPSTargetingValidation *)self targetContext];
-    allValues = [targetContext2 allValues];
-    firstObject = [allValues firstObject];
+    return 0;
+  }
 
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      bOOLValue = [firstObject BOOLValue];
-    }
+  targetContext2 = [(TPSTargetingValidation *)self targetContext];
+  allValues = [targetContext2 allValues];
+  firstObject = [allValues firstObject];
 
-    else
-    {
-      targeting = [MEMORY[0x277D71778] targeting];
-      if (os_log_type_enabled(targeting, OS_LOG_TYPE_INFO))
-      {
-        name = [(TPSTargetingValidation *)self name];
-        v11 = objc_opt_class();
-        v12 = v11;
-        v16 = 138413058;
-        v17 = name;
-        v18 = 2112;
-        v19 = firstObject;
-        v20 = 2112;
-        v21 = v11;
-        v22 = 2112;
-        v23 = objc_opt_class();
-        v13 = v23;
-        _os_log_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_INFO, "[%@] Unexpected value: %@ with class: %@. Expected type: %@.", &v16, 0x2Au);
-      }
-
-      bOOLValue = 0;
-    }
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    bOOLValue = [firstObject BOOLValue];
   }
 
   else
   {
+    targeting = [MEMORY[0x277D71778] targeting];
+    if (os_log_type_enabled(targeting, OS_LOG_TYPE_INFO))
+    {
+      name = [(TPSTargetingValidation *)self name];
+      v11 = objc_opt_class();
+      v12 = v11;
+      v15 = 138413058;
+      v16 = name;
+      v17 = 2112;
+      v18 = firstObject;
+      v19 = 2112;
+      v20 = v11;
+      v21 = 2112;
+      v22 = objc_opt_class();
+      v13 = v22;
+      _os_log_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_INFO, "[%@] Unexpected value: %@ with class: %@. Expected type: %@.", &v15, 0x2Au);
+    }
+
     bOOLValue = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (int64_t)integerValue
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   targetContext = [(TPSTargetingValidation *)self targetContext];
   v4 = [targetContext count];
 
-  if (v4 == 1)
+  if (v4 != 1)
   {
-    targetContext2 = [(TPSTargetingValidation *)self targetContext];
-    allValues = [targetContext2 allValues];
-    firstObject = [allValues firstObject];
+    return 0;
+  }
 
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      intValue = [firstObject intValue];
-    }
+  targetContext2 = [(TPSTargetingValidation *)self targetContext];
+  allValues = [targetContext2 allValues];
+  firstObject = [allValues firstObject];
 
-    else
-    {
-      targeting = [MEMORY[0x277D71778] targeting];
-      if (os_log_type_enabled(targeting, OS_LOG_TYPE_INFO))
-      {
-        name = [(TPSTargetingValidation *)self name];
-        v11 = objc_opt_class();
-        v12 = v11;
-        v16 = 138413058;
-        v17 = name;
-        v18 = 2112;
-        v19 = firstObject;
-        v20 = 2112;
-        v21 = v11;
-        v22 = 2112;
-        v23 = objc_opt_class();
-        v13 = v23;
-        _os_log_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_INFO, "[%@] Unexpected value: %@ with class: %@. Expected type: %@.", &v16, 0x2Au);
-      }
-
-      intValue = 0;
-    }
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    intValue = [firstObject intValue];
   }
 
   else
   {
+    targeting = [MEMORY[0x277D71778] targeting];
+    if (os_log_type_enabled(targeting, OS_LOG_TYPE_INFO))
+    {
+      name = [(TPSTargetingValidation *)self name];
+      v11 = objc_opt_class();
+      v12 = v11;
+      v15 = 138413058;
+      v16 = name;
+      v17 = 2112;
+      v18 = firstObject;
+      v19 = 2112;
+      v20 = v11;
+      v21 = 2112;
+      v22 = objc_opt_class();
+      v13 = v22;
+      _os_log_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_INFO, "[%@] Unexpected value: %@ with class: %@. Expected type: %@.", &v15, 0x2Au);
+    }
+
     intValue = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 
 - (unint64_t)unsignedIntegerValue
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   targetContext = [(TPSTargetingValidation *)self targetContext];
   v4 = [targetContext count];
 
-  if (v4 == 1)
+  if (v4 != 1)
   {
-    targetContext2 = [(TPSTargetingValidation *)self targetContext];
-    allValues = [targetContext2 allValues];
-    firstObject = [allValues firstObject];
+    return 0;
+  }
 
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      unsignedIntegerValue = [firstObject unsignedIntegerValue];
-    }
+  targetContext2 = [(TPSTargetingValidation *)self targetContext];
+  allValues = [targetContext2 allValues];
+  firstObject = [allValues firstObject];
 
-    else
-    {
-      targeting = [MEMORY[0x277D71778] targeting];
-      if (os_log_type_enabled(targeting, OS_LOG_TYPE_INFO))
-      {
-        name = [(TPSTargetingValidation *)self name];
-        v11 = objc_opt_class();
-        v12 = v11;
-        v16 = 138413058;
-        v17 = name;
-        v18 = 2112;
-        v19 = firstObject;
-        v20 = 2112;
-        v21 = v11;
-        v22 = 2112;
-        v23 = objc_opt_class();
-        v13 = v23;
-        _os_log_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_INFO, "[%@] Unexpected value: %@ with class: %@. Expected type: %@.", &v16, 0x2Au);
-      }
-
-      unsignedIntegerValue = 0;
-    }
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    unsignedIntegerValue = [firstObject unsignedIntegerValue];
   }
 
   else
   {
+    targeting = [MEMORY[0x277D71778] targeting];
+    if (os_log_type_enabled(targeting, OS_LOG_TYPE_INFO))
+    {
+      name = [(TPSTargetingValidation *)self name];
+      v11 = objc_opt_class();
+      v12 = v11;
+      v15 = 138413058;
+      v16 = name;
+      v17 = 2112;
+      v18 = firstObject;
+      v19 = 2112;
+      v20 = v11;
+      v21 = 2112;
+      v22 = objc_opt_class();
+      v13 = v22;
+      _os_log_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_INFO, "[%@] Unexpected value: %@ with class: %@. Expected type: %@.", &v15, 0x2Au);
+    }
+
     unsignedIntegerValue = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue;
 }
 
 - (id)stringValue
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   targetContext = [(TPSTargetingValidation *)self targetContext];
   v4 = [targetContext count];
 
@@ -265,16 +253,16 @@
         name = [(TPSTargetingValidation *)self name];
         v11 = objc_opt_class();
         v12 = v11;
-        v16 = 138413058;
-        v17 = name;
-        v18 = 2112;
-        v19 = firstObject;
-        v20 = 2112;
-        v21 = v11;
-        v22 = 2112;
-        v23 = objc_opt_class();
-        v13 = v23;
-        _os_log_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_INFO, "[%@] Unexpected value: %@ with class: %@. Expected type: %@.", &v16, 0x2Au);
+        v15 = 138413058;
+        v16 = name;
+        v17 = 2112;
+        v18 = firstObject;
+        v19 = 2112;
+        v20 = v11;
+        v21 = 2112;
+        v22 = objc_opt_class();
+        v13 = v22;
+        _os_log_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_INFO, "[%@] Unexpected value: %@ with class: %@. Expected type: %@.", &v15, 0x2Au);
       }
 
       stringValue = 0;
@@ -286,14 +274,12 @@
     stringValue = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return stringValue;
 }
 
 - (id)arrayValue
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   targetContext = [(TPSTargetingValidation *)self targetContext];
   v4 = [targetContext count];
 
@@ -311,8 +297,8 @@
 
     else
     {
-      v12[0] = firstObject;
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v11[0] = firstObject;
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     }
 
     v9 = v8;
@@ -322,8 +308,6 @@
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

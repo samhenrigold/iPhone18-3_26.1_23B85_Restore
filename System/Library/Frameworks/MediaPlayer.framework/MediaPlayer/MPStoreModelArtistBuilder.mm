@@ -466,11 +466,11 @@ MPArtworkCatalog *__93__MPStoreModelArtistBuilder_modelObjectWithStoreItemMetada
   return v4;
 }
 
-uint64_t __93__MPStoreModelArtistBuilder_modelObjectWithStoreItemMetadata_sourceModelObject_userIdentity___block_invoke_7(uint64_t result, void *a2)
+void *__93__MPStoreModelArtistBuilder_modelObjectWithStoreItemMetadata_sourceModelObject_userIdentity___block_invoke_7(void *result, void *a2)
 {
-  if ((*(*(result + 32) + 28) & 2) != 0)
+  if ((*(result[4] + 28) & 2) != 0)
   {
-    return [a2 setName:*(result + 40)];
+    return [a2 setName:result[5]];
   }
 
   return result;

@@ -1,43 +1,42 @@
-uint64_t sub_23993B8D0(uint64_t a1, uint64_t *a2)
+uint64_t sub_23993B8D0(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = MPSCreateFunctionConstantValues();
-  v9 = a2[8] != 0;
-  objc_msgSend_setConstantValue_type_atIndex_(v3, v4, &v9, 53, 0, v5);
-  v6 = *a2;
-  v7 = _MPSNewSpecializedFunction();
+  v6 = MPSCreateFunctionConstantValues();
+  v10 = a2[8] != 0;
+  objc_msgSend_setConstantValue_type_atIndex_(v6, v7, &v10, 53, 0);
+  v8 = _MPSNewSpecializedFunction();
 
-  return v7;
+  return v8;
 }
 
-uint64_t sub_23993B970(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *sub_23993B970(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v6 = MEMORY[0x277CD7378];
   if ((*(a1 + *MEMORY[0x277CD7378]) & 8) != 0)
   {
-    v21 = a3;
-    v22 = a4;
-    v23 = a5;
-    v24 = a6;
-    v25 = a1;
-    v26 = *(a1 + *MEMORY[0x277CD7360]);
-    if (!v26)
+    v18 = a3;
+    v19 = a4;
+    v20 = a5;
+    v21 = a6;
+    v22 = a1;
+    v23 = *(a1 + *MEMORY[0x277CD7360]);
+    if (!v23)
     {
-      v27 = a2;
-      v28 = objc_opt_class();
-      v29 = NSStringFromClass(v28);
-      a2 = v27;
-      v26 = v29;
+      v24 = a2;
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
+      a2 = v24;
+      v23 = v26;
     }
 
     v7 = a2;
-    objc_msgSend_pushDebugGroup_(a2, a2, v26, a4, a5, a6);
+    objc_msgSend_pushDebugGroup_(a2, a2, v23);
     a2 = v7;
-    a6 = v24;
-    a5 = v23;
-    a4 = v22;
-    a3 = v21;
-    a1 = v25;
-    v8 = *(v25 + 200);
+    a6 = v21;
+    a5 = v20;
+    a4 = v19;
+    a3 = v18;
+    a1 = v22;
+    v8 = *(v22 + 200);
     if (!v8)
     {
       goto LABEL_10;
@@ -58,73 +57,78 @@ uint64_t sub_23993B970(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   {
     v9 = a2;
     v10 = a3;
-    v30 = 0;
-    v31 = 0;
-    v32 = 0;
+    v27 = 0;
+    v28 = 0;
+    v29 = 0;
     v11 = a1;
     v12 = a4;
     v13 = a5;
     v14 = a6;
-    v8(&v30);
-    if (v30 && v31 && 3 * v30 < 2 * *(v14 + 40) && 3 * v31 < (2 * *(v14 + 48)))
+    v8(&v27);
+    a6 = v14;
+    a3 = v10;
+    a2 = v9;
+    if (v27 && v28 && 3 * v27 < 2 * *(v14 + 40) && 3 * v28 < (2 * *(v14 + 48)))
     {
-      result = MPSSubTileEncode(v11, v9, v10, v12, v13, v14, &v30);
+      result = MPSSubTileEncode(v11, v9, v10, v12, v13, v14, &v27);
       goto LABEL_11;
     }
 
+    a5 = v13;
+    a4 = v12;
     a1 = v11;
   }
 
 LABEL_10:
-  result = (*(a1 + 176))(*(a1 + 192));
+  result = (*(a1 + 176))(*(a1 + 192), a2, a3, a4, a5, a6);
 LABEL_11:
   if (v7)
   {
-    return objc_msgSend_popDebugGroup(v7, v16, v17, v18, v19, v20);
+    return objc_msgSend_popDebugGroup(v7, v16, v17);
   }
 
   return result;
 }
 
-void sub_23993BB2C(_Unwind_Exception *exception_object, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void sub_23993BB2C(_Unwind_Exception *exception_object, const char *a2, uint64_t a3)
 {
-  if (v6)
+  if (v3)
   {
-    objc_msgSend_popDebugGroup(v6, a2, a3, a4, a5, a6);
+    objc_msgSend_popDebugGroup(v3, a2, a3);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_23993BB50(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *sub_23993BB50(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v6 = MEMORY[0x277CD7378];
   if ((*(a1 + *MEMORY[0x277CD7378]) & 8) != 0)
   {
-    v21 = a3;
-    v22 = a4;
-    v23 = a5;
-    v24 = a6;
-    v25 = a1;
-    v26 = *(a1 + *MEMORY[0x277CD7360]);
-    if (!v26)
+    v18 = a3;
+    v19 = a4;
+    v20 = a5;
+    v21 = a6;
+    v22 = a1;
+    v23 = *(a1 + *MEMORY[0x277CD7360]);
+    if (!v23)
     {
-      v27 = a2;
-      v28 = objc_opt_class();
-      v29 = NSStringFromClass(v28);
-      a2 = v27;
-      v26 = v29;
+      v24 = a2;
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
+      a2 = v24;
+      v23 = v26;
     }
 
     v7 = a2;
-    objc_msgSend_pushDebugGroup_(a2, a2, v26, a4, a5, a6);
+    objc_msgSend_pushDebugGroup_(a2, a2, v23);
     a2 = v7;
-    a6 = v24;
-    a5 = v23;
-    a4 = v22;
-    a3 = v21;
-    a1 = v25;
-    v8 = *(v25 + 200);
+    a6 = v21;
+    a5 = v20;
+    a4 = v19;
+    a3 = v18;
+    a1 = v22;
+    v8 = *(v22 + 200);
     if (!v8)
     {
       goto LABEL_10;
@@ -145,39 +149,44 @@ uint64_t sub_23993BB50(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   {
     v9 = a2;
     v10 = a3;
-    v30 = 0;
-    v31 = 0;
-    v32 = 0;
+    v27 = 0;
+    v28 = 0;
+    v29 = 0;
     v11 = a1;
     v12 = a4;
     v13 = a5;
     v14 = a6;
-    v8(&v30);
-    if (v30 && v31 && 3 * v30 < 2 * *(v14 + 40) && 3 * v31 < (2 * *(v14 + 48)))
+    v8(&v27);
+    a6 = v14;
+    a3 = v10;
+    a2 = v9;
+    if (v27 && v28 && 3 * v27 < 2 * *(v14 + 40) && 3 * v28 < (2 * *(v14 + 48)))
     {
-      result = MPSSubTileEncode(v11, v9, v10, v12, v13, v14, &v30);
+      result = MPSSubTileEncode(v11, v9, v10, v12, v13, v14, &v27);
       goto LABEL_11;
     }
 
+    a5 = v13;
+    a4 = v12;
     a1 = v11;
   }
 
 LABEL_10:
-  result = (*(a1 + 176))(*(a1 + 192));
+  result = (*(a1 + 176))(*(a1 + 192), a2, a3, a4, a5, a6);
 LABEL_11:
   if (v7)
   {
-    return objc_msgSend_popDebugGroup(v7, v16, v17, v18, v19, v20);
+    return objc_msgSend_popDebugGroup(v7, v16, v17);
   }
 
   return result;
 }
 
-void sub_23993BD0C(_Unwind_Exception *exception_object, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void sub_23993BD0C(_Unwind_Exception *exception_object, const char *a2, uint64_t a3)
 {
-  if (v6)
+  if (v3)
   {
-    objc_msgSend_popDebugGroup(v6, a2, a3, a4, a5, a6);
+    objc_msgSend_popDebugGroup(v3, a2, a3);
   }
 
   _Unwind_Resume(exception_object);
@@ -188,30 +197,30 @@ uint64_t sub_23993BD30(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   v6 = MEMORY[0x277CD7378];
   if ((*(a1 + *MEMORY[0x277CD7378]) & 8) != 0)
   {
-    v23 = a3;
-    v24 = a4;
-    v25 = a5;
-    v26 = a6;
-    v27 = a1;
-    v28 = *(a1 + *MEMORY[0x277CD7360]);
-    if (!v28)
+    v20 = a3;
+    v21 = a4;
+    v22 = a5;
+    v23 = a6;
+    v24 = a1;
+    v25 = *(a1 + *MEMORY[0x277CD7360]);
+    if (!v25)
     {
-      v29 = a2;
-      v30 = objc_opt_class();
-      v31 = NSStringFromClass(v30);
-      a2 = v29;
-      v28 = v31;
+      v26 = a2;
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
+      a2 = v26;
+      v25 = v28;
     }
 
     v7 = a2;
-    objc_msgSend_pushDebugGroup_(a2, a2, v28, a4, a5, a6);
+    objc_msgSend_pushDebugGroup_(a2, a2, v25);
     a2 = v7;
-    a6 = v26;
-    a5 = v25;
-    a4 = v24;
-    a3 = v23;
-    a1 = v27;
-    v8 = *(v27 + 200);
+    a6 = v23;
+    a5 = v22;
+    a4 = v21;
+    a3 = v20;
+    a1 = v24;
+    v8 = *(v24 + 200);
     if (!v8)
     {
       goto LABEL_10;
@@ -232,40 +241,45 @@ uint64_t sub_23993BD30(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   {
     v9 = a2;
     v10 = a3;
-    v32 = 0;
-    v33 = 0;
-    v34 = 0;
+    v29 = 0;
+    v30 = 0;
+    v31 = 0;
     v11 = a1;
     v12 = a4;
     v13 = a5;
     v14 = a6;
-    v8(&v32);
-    if (v32 && v33 && 3 * v32 < 2 * *(v14 + 40) && 3 * v33 < (2 * *(v14 + 48)))
+    v8(&v29);
+    a6 = v14;
+    a3 = v10;
+    a2 = v9;
+    if (v29 && v30 && 3 * v29 < 2 * *(v14 + 40) && 3 * v30 < (2 * *(v14 + 48)))
     {
-      v15 = MPSSubTileEncode(v11, v9, v10, v12, v13, v14, &v32);
+      v15 = MPSSubTileEncode(v11, v9, v10, v12, v13, v14, &v29);
       goto LABEL_11;
     }
 
+    a5 = v13;
+    a4 = v12;
     a1 = v11;
   }
 
 LABEL_10:
-  v15 = (*(a1 + 176))(*(a1 + 192));
+  v15 = (*(a1 + 176))(*(a1 + 192), a2, a3, a4, a5, a6);
 LABEL_11:
-  v21 = v15;
+  v18 = v15;
   if (v7)
   {
-    objc_msgSend_popDebugGroup(v7, v16, v17, v18, v19, v20);
+    objc_msgSend_popDebugGroup(v7, v16, v17);
   }
 
-  return v21;
+  return v18;
 }
 
-void sub_23993BEF4(_Unwind_Exception *exception_object, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void sub_23993BEF4(_Unwind_Exception *exception_object, const char *a2, uint64_t a3)
 {
-  if (v6)
+  if (v3)
   {
-    objc_msgSend_popDebugGroup(v6, a2, a3, a4, a5, a6);
+    objc_msgSend_popDebugGroup(v3, a2, a3);
   }
 
   _Unwind_Resume(exception_object);
@@ -276,30 +290,30 @@ uint64_t sub_23993BF18(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   v6 = MEMORY[0x277CD7378];
   if ((*(a1 + *MEMORY[0x277CD7378]) & 8) != 0)
   {
-    v23 = a3;
-    v24 = a4;
-    v25 = a5;
-    v26 = a6;
-    v27 = a1;
-    v28 = *(a1 + *MEMORY[0x277CD7360]);
-    if (!v28)
+    v20 = a3;
+    v21 = a4;
+    v22 = a5;
+    v23 = a6;
+    v24 = a1;
+    v25 = *(a1 + *MEMORY[0x277CD7360]);
+    if (!v25)
     {
-      v29 = a2;
-      v30 = objc_opt_class();
-      v31 = NSStringFromClass(v30);
-      a2 = v29;
-      v28 = v31;
+      v26 = a2;
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
+      a2 = v26;
+      v25 = v28;
     }
 
     v7 = a2;
-    objc_msgSend_pushDebugGroup_(a2, a2, v28, a4, a5, a6);
+    objc_msgSend_pushDebugGroup_(a2, a2, v25);
     a2 = v7;
-    a6 = v26;
-    a5 = v25;
-    a4 = v24;
-    a3 = v23;
-    a1 = v27;
-    v8 = *(v27 + 200);
+    a6 = v23;
+    a5 = v22;
+    a4 = v21;
+    a3 = v20;
+    a1 = v24;
+    v8 = *(v24 + 200);
     if (!v8)
     {
       goto LABEL_10;
@@ -320,40 +334,45 @@ uint64_t sub_23993BF18(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   {
     v9 = a2;
     v10 = a3;
-    v32 = 0;
-    v33 = 0;
-    v34 = 0;
+    v29 = 0;
+    v30 = 0;
+    v31 = 0;
     v11 = a1;
     v12 = a4;
     v13 = a5;
     v14 = a6;
-    v8(&v32);
-    if (v32 && v33 && 3 * v32 < 2 * *(v14 + 40) && 3 * v33 < (2 * *(v14 + 48)))
+    v8(&v29);
+    a6 = v14;
+    a3 = v10;
+    a2 = v9;
+    if (v29 && v30 && 3 * v29 < 2 * *(v14 + 40) && 3 * v30 < (2 * *(v14 + 48)))
     {
-      v15 = MPSSubTileEncode(v11, v9, v10, v12, v13, v14, &v32);
+      v15 = MPSSubTileEncode(v11, v9, v10, v12, v13, v14, &v29);
       goto LABEL_11;
     }
 
+    a5 = v13;
+    a4 = v12;
     a1 = v11;
   }
 
 LABEL_10:
-  v15 = (*(a1 + 176))(*(a1 + 192));
+  v15 = (*(a1 + 176))(*(a1 + 192), a2, a3, a4, a5, a6);
 LABEL_11:
-  v21 = v15;
+  v18 = v15;
   if (v7)
   {
-    objc_msgSend_popDebugGroup(v7, v16, v17, v18, v19, v20);
+    objc_msgSend_popDebugGroup(v7, v16, v17);
   }
 
-  return v21;
+  return v18;
 }
 
-void sub_23993C0DC(_Unwind_Exception *exception_object, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void sub_23993C0DC(_Unwind_Exception *exception_object, const char *a2, uint64_t a3)
 {
-  if (v6)
+  if (v3)
   {
-    objc_msgSend_popDebugGroup(v6, a2, a3, a4, a5, a6);
+    objc_msgSend_popDebugGroup(v3, a2, a3);
   }
 
   _Unwind_Resume(exception_object);
@@ -364,30 +383,30 @@ uint64_t sub_23993C100(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   v6 = MEMORY[0x277CD7378];
   if ((*(a1 + *MEMORY[0x277CD7378]) & 8) != 0)
   {
-    v23 = a3;
-    v24 = a4;
-    v25 = a5;
-    v26 = a6;
-    v27 = a1;
-    v28 = *(a1 + *MEMORY[0x277CD7360]);
-    if (!v28)
+    v20 = a3;
+    v21 = a4;
+    v22 = a5;
+    v23 = a6;
+    v24 = a1;
+    v25 = *(a1 + *MEMORY[0x277CD7360]);
+    if (!v25)
     {
-      v29 = a2;
-      v30 = objc_opt_class();
-      v31 = NSStringFromClass(v30);
-      a2 = v29;
-      v28 = v31;
+      v26 = a2;
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
+      a2 = v26;
+      v25 = v28;
     }
 
     v7 = a2;
-    objc_msgSend_pushDebugGroup_(a2, a2, v28, a4, a5, a6);
+    objc_msgSend_pushDebugGroup_(a2, a2, v25);
     a2 = v7;
-    a6 = v26;
-    a5 = v25;
-    a4 = v24;
-    a3 = v23;
-    a1 = v27;
-    v8 = *(v27 + 200);
+    a6 = v23;
+    a5 = v22;
+    a4 = v21;
+    a3 = v20;
+    a1 = v24;
+    v8 = *(v24 + 200);
     if (!v8)
     {
       goto LABEL_10;
@@ -408,52 +427,56 @@ uint64_t sub_23993C100(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   {
     v9 = a2;
     v10 = a3;
-    v32 = 0;
-    v33 = 0;
-    v34 = 0;
+    v29 = 0;
+    v30 = 0;
+    v31 = 0;
     v11 = a1;
     v12 = a4;
     v13 = a5;
     v14 = a6;
-    v8(&v32);
-    if (v32 && v33 && 3 * v32 < 2 * *(v14 + 40) && 3 * v33 < (2 * *(v14 + 48)))
+    v8(&v29);
+    a6 = v14;
+    a3 = v10;
+    a2 = v9;
+    if (v29 && v30 && 3 * v29 < 2 * *(v14 + 40) && 3 * v30 < (2 * *(v14 + 48)))
     {
-      v15 = MPSSubTileEncode(v11, v9, v10, v12, v13, v14, &v32);
+      v15 = MPSSubTileEncode(v11, v9, v10, v12, v13, v14, &v29);
       goto LABEL_11;
     }
 
+    a5 = v13;
+    a4 = v12;
     a1 = v11;
   }
 
 LABEL_10:
-  v15 = (*(a1 + 176))(*(a1 + 192));
+  v15 = (*(a1 + 176))(*(a1 + 192), a2, a3, a4, a5, a6);
 LABEL_11:
-  v21 = v15;
+  v18 = v15;
   if (v7)
   {
-    objc_msgSend_popDebugGroup(v7, v16, v17, v18, v19, v20);
+    objc_msgSend_popDebugGroup(v7, v16, v17);
   }
 
-  return v21;
+  return v18;
 }
 
-void sub_23993C2B4(_Unwind_Exception *exception_object, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void sub_23993C2B4(_Unwind_Exception *exception_object, const char *a2, uint64_t a3)
 {
-  if (v6)
+  if (v3)
   {
-    objc_msgSend_popDebugGroup(v6, a2, a3, a4, a5, a6);
+    objc_msgSend_popDebugGroup(v3, a2, a3);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_23993C2D8(uint64_t a1, char *a2, uint64_t a3, void *a4, uint64_t a5, void **a6)
+uint64_t sub_23993C2D8(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, void **a6)
 {
-  v419 = *MEMORY[0x277D85DE8];
+  v313 = *MEMORY[0x277D85DE8];
   v9 = *(a1 + 208);
-  v380 = *(a1 + *MEMORY[0x277CD7350]);
-  v389 = *(a1 + *MEMORY[0x277CD7370]);
-  v372 = *(a1 + 160);
+  v275 = *(a1 + *MEMORY[0x277CD7350]);
+  v267 = *(a1 + 160);
   if (v9 > 0.14)
   {
     v12 = MEMORY[0x277CD7378];
@@ -461,829 +484,813 @@ uint64_t sub_23993C2D8(uint64_t a1, char *a2, uint64_t a3, void *a4, uint64_t a5
     if (v9 < 1.0)
     {
       v14 = *(a1 + 216);
-      v415 = *(a6 + 4);
-      *&v416 = a6[10];
-      objc_msgSend_setOffset_(v14, a2, &v415, a4, a5, a6);
+      v309 = *(a6 + 4);
+      *&v310 = a6[10];
+      objc_msgSend_setOffset_(v14, a2, &v309);
       v15 = *(a6 + 2);
-      v415 = *(a6 + 1);
-      v416 = v15;
-      v417 = *(a6 + 3);
-      objc_msgSend_setClipRect_(v14, v16, &v415, v17, v18, v19);
-      objc_msgSend_setOptions_(v14, v20, v13, v21, v22, v23);
-      objc_msgSend_setEdgeMode_(v14, v24, v372, v25, v26, v27);
+      v309 = *(a6 + 1);
+      v310 = v15;
+      v311 = *(a6 + 3);
+      objc_msgSend_setClipRect_(v14, v16, &v309);
+      objc_msgSend_setOptions_(v14, v17, v13);
+      objc_msgSend_setEdgeMode_(v14, v18, v267);
       if ((*(v14 + *v12) & 8) != 0)
       {
-        v357 = *(v14 + *MEMORY[0x277CD7360]);
-        if (!v357)
+        v253 = *(v14 + *MEMORY[0x277CD7360]);
+        if (!v253)
         {
-          v358 = objc_opt_class();
-          v357 = NSStringFromClass(v358);
+          v254 = objc_opt_class();
+          v253 = NSStringFromClass(v254);
         }
 
-        objc_msgSend_pushDebugGroup_(a2, v28, v357, v29, v30, v31);
-        v32 = a2;
-        v33 = *(v14 + 200);
-        if (!v33)
+        objc_msgSend_pushDebugGroup_(a2, v19, v253);
+        v20 = a2;
+        v21 = *(v14 + 200);
+        if (!v21)
         {
-          goto LABEL_146;
+          goto LABEL_142;
         }
       }
 
       else
       {
-        v32 = 0;
-        v33 = *(v14 + 200);
-        if (!v33)
+        v20 = 0;
+        v21 = *(v14 + 200);
+        if (!v21)
         {
-          goto LABEL_146;
+          goto LABEL_142;
         }
       }
 
       if ((*(v14 + *v12) & 4) == 0)
       {
-        v415 = 0uLL;
-        *&v416 = 0;
-        v33(&v415, v14, a4, a5, a6);
-        if (v415)
+        v309 = 0uLL;
+        *&v310 = 0;
+        v21(&v309, v14, a4, a5, a6);
+        if (v309)
         {
-          if (*(&v415 + 1) && 3 * v415 < (2 * a6[5]) && 3 * *(&v415 + 1) < (2 * a6[6]))
+          if (*(&v309 + 1) && 3 * v309 < (2 * a6[5]) && 3 * *(&v309 + 1) < (2 * a6[6]))
           {
-            v34 = MPSSubTileEncode(v14, a2, a3, a4, a5, a6, &v415);
-            goto LABEL_147;
+            v22 = MPSSubTileEncode(v14, a2, a3, a4, a5, a6, &v309);
+            goto LABEL_143;
           }
         }
       }
 
-LABEL_146:
-      v34 = (*(v14 + 176))(*(v14 + 192), a2, a3, a4, a5, a6);
-LABEL_147:
-      v40 = v34;
-      if (v32)
+LABEL_142:
+      v22 = (*(v14 + 176))(*(v14 + 192), a2, a3, a4, a5, a6);
+LABEL_143:
+      v25 = v22;
+      if (v20)
       {
-        objc_msgSend_popDebugGroup(v32, v35, v36, v37, v38, v39);
+        objc_msgSend_popDebugGroup(v20, v23, v24);
       }
 
-      goto LABEL_149;
+      return v25;
     }
 
-    v369 = *(a1 + 256);
-    v41 = *(a1 + 276);
-    v373 = *(a1 + 264);
-    MEMORY[0x23EE7BAC0](v412, a3, a5);
-    v362 = a3;
-    v364 = a5;
-    v375 = a2;
-    v47 = objc_msgSend_width(a4, v42, v43, v44, v45, v46);
-    v53 = objc_msgSend_height(a4, v48, v49, v50, v51, v52);
-    v365 = a4;
-    v366 = a1 + 224;
-    if (!v369)
+    v264 = *(a1 + 256);
+    v26 = *(a1 + 276);
+    v268 = *(a1 + 264);
+    MEMORY[0x23EE7BAC0](v306, a3, a5);
+    v257 = a3;
+    v259 = a5;
+    v270 = a2;
+    v29 = objc_msgSend_width(a4, v27, v28);
+    v32 = objc_msgSend_height(a4, v30, v31);
+    v260 = a4;
+    v261 = a1 + 224;
+    if (!v264)
     {
-      goto LABEL_50;
+      goto LABEL_48;
     }
 
-    v70 = 0;
-    v71 = 0;
-    v72.i64[1] = 0;
-    v72.f32[0] = v47;
-    v72.f32[1] = v53;
-    v73 = xmmword_239988FE0;
-    v74 = &v414;
-    v75 = (a1 + 224);
-    v76 = v369;
+    v46 = 0;
+    v47 = 0;
+    v48.i64[1] = 0;
+    v48.f32[0] = v29;
+    v48.f32[1] = v32;
+    v49 = xmmword_239988FE0;
+    v50 = &v308;
+    v51 = (a1 + 224);
+    v52 = v264;
     while (1)
     {
-      v85 = *v75++;
-      v84 = v85;
-      if (v85 > 0x19)
+      v61 = *v51++;
+      v60 = v61;
+      if (v61 > 0x19)
       {
-        v86 = 0;
-        if (v84 >= 24)
+        v62 = 0;
+        if (v60 >= 24)
         {
 LABEL_16:
-          if (v84 == 24)
+          if (v60 == 24)
           {
-            v77 = v41;
+            v53 = v26;
           }
 
           else
           {
-            v77 = 1.0 / v41;
+            v53 = 1.0 / v26;
           }
 
-          LODWORD(v78) = 0;
-          *(&v78 + 1) = v77;
-          v79 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(LODWORD(v77), v72.f32[0]), v78, *v72.f32, 1), xmmword_239988FE0, v72, 2);
-          v80 = vaddq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(LODWORD(v77), v73.f32[0]), v78, *v73.f32, 1), xmmword_239988FE0, v73, 2), 0);
-          v80.i32[3] = v64;
-          v79.i32[3] = v65;
-          v81 = vaddq_f32(v79, v80);
-          v80.i32[3] = 0;
-          v73 = vrndmq_f32(v80);
-          v81.i32[3] = 0;
-          v72 = vsubq_f32(vrndpq_f32(v81), v73);
-          v82 = 2 * v71;
-          *(v74 - 1) = v73;
-          *v74 = v72;
-          v65 = v79.i32[3];
+          LODWORD(v54) = 0;
+          *(&v54 + 1) = v53;
+          v55 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(LODWORD(v53), v48.f32[0]), v54, *v48.f32, 1), xmmword_239988FE0, v48, 2);
+          v56 = vaddq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(LODWORD(v53), v49.f32[0]), v54, *v49.f32, 1), xmmword_239988FE0, v49, 2), 0);
+          v56.i32[3] = v40;
+          v55.i32[3] = v41;
+          v57 = vaddq_f32(v55, v56);
+          v56.i32[3] = 0;
+          v49 = vrndmq_f32(v56);
+          v57.i32[3] = 0;
+          v48 = vsubq_f32(vrndpq_f32(v57), v49);
+          v58 = 2 * v47;
+          *(v50 - 1) = v49;
+          *v50 = v48;
+          v41 = v55.i32[3];
           goto LABEL_20;
         }
       }
 
       else
       {
-        v86 = qword_239989A50[v84];
-        if (v84 >= 24)
+        v62 = qword_239989A50[v60];
+        if (v60 >= 24)
         {
           goto LABEL_16;
         }
       }
 
-      v87 = HIDWORD(v86);
-      if (v84 < 16)
+      v63 = HIDWORD(v62);
+      if (v60 < 16)
       {
-        LODWORD(v101) = 0;
-        *(&v101 + 1) = 1.0 / *(&v86 + 1);
-        v102 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(COERCE_UNSIGNED_INT(1.0), v73.f32[0]), v101, *v73.f32, 1), xmmword_239988FE0, v73, 2);
-        v103 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(COERCE_UNSIGNED_INT(1.0), v72.f32[0]), v101, *v72.f32, 1), xmmword_239988FE0, v72, 2);
-        LODWORD(v101) = 0;
-        *(&v101 + 1) = -v86;
-        v104 = vaddq_f32(v101, v102);
-        v105 = vsubq_f32(v103, vaddq_f32(v101, v101));
-        v104.i32[3] = v67;
-        v105.i32[3] = v69;
-        v106 = vaddq_f32(v104, v105);
-        v104.i32[3] = 0;
-        v107 = vrndmq_f32(v104);
-        v106.i32[3] = 0;
-        v108 = vsubq_f32(vrndpq_f32(v106), v107);
-        *(v74 - 1) = v107;
-        *v74 = v108;
-        v109 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(COERCE_UNSIGNED_INT(1.0 / *(&v86 + 1)), v107.f32[0]), xmmword_239988FD0, *v107.f32, 1), xmmword_239988FE0, v107, 2);
-        *&v110 = -v86;
-        v111 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(COERCE_UNSIGNED_INT(1.0 / *(&v86 + 1)), v108.f32[0]), xmmword_239988FD0, *v108.f32, 1), xmmword_239988FE0, v108, 2);
-        v112 = vaddq_f32(v110, v109);
-        v113 = vsubq_f32(v111, COERCE_UNSIGNED_INT(*&v110 + *&v110));
-        v112.i32[3] = v61;
-        v113.i32[3] = v63;
-        v114 = vaddq_f32(v112, v113);
-        v112.i32[3] = 0;
-        v114.i32[3] = 0;
-        v73 = vrndmq_f32(v112);
-        v72 = vsubq_f32(vrndpq_f32(v114), v73);
-        v82 = v70;
-        v63 = v113.i32[3];
-        v69 = v105.i32[3];
+        LODWORD(v77) = 0;
+        *(&v77 + 1) = 1.0 / *(&v62 + 1);
+        v78 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(COERCE_UNSIGNED_INT(1.0), v49.f32[0]), v77, *v49.f32, 1), xmmword_239988FE0, v49, 2);
+        v79 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(COERCE_UNSIGNED_INT(1.0), v48.f32[0]), v77, *v48.f32, 1), xmmword_239988FE0, v48, 2);
+        LODWORD(v77) = 0;
+        *(&v77 + 1) = -v62;
+        v80 = vaddq_f32(v77, v78);
+        v81 = vsubq_f32(v79, vaddq_f32(v77, v77));
+        v80.i32[3] = v43;
+        v81.i32[3] = v45;
+        v82 = vaddq_f32(v80, v81);
+        v80.i32[3] = 0;
+        v83 = vrndmq_f32(v80);
+        v82.i32[3] = 0;
+        v84 = vsubq_f32(vrndpq_f32(v82), v83);
+        *(v50 - 1) = v83;
+        *v50 = v84;
+        v85 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(COERCE_UNSIGNED_INT(1.0 / *(&v62 + 1)), v83.f32[0]), xmmword_239988FD0, *v83.f32, 1), xmmword_239988FE0, v83, 2);
+        *&v86 = -v62;
+        v87 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(COERCE_UNSIGNED_INT(1.0 / *(&v62 + 1)), v84.f32[0]), xmmword_239988FD0, *v84.f32, 1), xmmword_239988FE0, v84, 2);
+        v88 = vaddq_f32(v86, v85);
+        v89 = vsubq_f32(v87, COERCE_UNSIGNED_INT(*&v86 + *&v86));
+        v88.i32[3] = v37;
+        v89.i32[3] = v39;
+        v90 = vaddq_f32(v88, v89);
+        v88.i32[3] = 0;
+        v90.i32[3] = 0;
+        v49 = vrndmq_f32(v88);
+        v48 = vsubq_f32(vrndpq_f32(v90), v49);
+        v58 = v46;
+        v39 = v89.i32[3];
+        v45 = v81.i32[3];
       }
 
       else
       {
-        v88 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(HIDWORD(v86), v73.f32[0]), xmmword_239988FD0, *v73.f32, 1), xmmword_239988FE0, v73, 2);
-        v89 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(HIDWORD(v86), v72.f32[0]), xmmword_239988FD0, *v72.f32, 1), xmmword_239988FE0, v72, 2);
-        v90 = -v86;
-        v91 = vaddq_f32(LODWORD(v90), v88);
-        v92 = vsubq_f32(v89, COERCE_UNSIGNED_INT(v90 + v90));
-        v91.i32[3] = v66;
-        v92.i32[3] = v68;
-        v93 = vaddq_f32(v91, v92);
-        v91.i32[3] = 0;
-        v94 = vrndmq_f32(v91);
-        v93.i32[3] = 0;
-        v95 = vsubq_f32(vrndpq_f32(v93), v94);
-        v82 = 2 * v71;
-        *(v74 - 1) = v94;
-        *v74 = v95;
-        v91.i32[0] = 0;
-        v91.i32[1] = v87;
-        v96 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(COERCE_UNSIGNED_INT(1.0), v94.f32[0]), v91.u64[0], *v94.f32, 1), xmmword_239988FE0, v94, 2);
-        v97 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(COERCE_UNSIGNED_INT(1.0), v95.f32[0]), v91.u64[0], *v95.f32, 1), xmmword_239988FE0, v95, 2);
-        v95.i32[0] = 0;
-        v95.f32[1] = v90;
-        v98 = vaddq_f32(v95.u64[0], v96);
-        v99 = vsubq_f32(v97, vaddq_f32(v95.u64[0], v95.u64[0]));
-        v98.i32[3] = v60;
-        v99.i32[3] = v62;
-        v100 = vaddq_f32(v98, v99);
-        v98.i32[3] = 0;
-        v73 = vrndmq_f32(v98);
-        v100.i32[3] = 0;
-        v72 = vsubq_f32(vrndpq_f32(v100), v73);
-        v62 = v99.i32[3];
-        v68 = v92.i32[3];
+        v64 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(HIDWORD(v62), v49.f32[0]), xmmword_239988FD0, *v49.f32, 1), xmmword_239988FE0, v49, 2);
+        v65 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(HIDWORD(v62), v48.f32[0]), xmmword_239988FD0, *v48.f32, 1), xmmword_239988FE0, v48, 2);
+        v66 = -v62;
+        v67 = vaddq_f32(LODWORD(v66), v64);
+        v68 = vsubq_f32(v65, COERCE_UNSIGNED_INT(v66 + v66));
+        v67.i32[3] = v42;
+        v68.i32[3] = v44;
+        v69 = vaddq_f32(v67, v68);
+        v67.i32[3] = 0;
+        v70 = vrndmq_f32(v67);
+        v69.i32[3] = 0;
+        v71 = vsubq_f32(vrndpq_f32(v69), v70);
+        v58 = 2 * v47;
+        *(v50 - 1) = v70;
+        *v50 = v71;
+        v67.i32[0] = 0;
+        v67.i32[1] = v63;
+        v72 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(COERCE_UNSIGNED_INT(1.0), v70.f32[0]), v67.u64[0], *v70.f32, 1), xmmword_239988FE0, v70, 2);
+        v73 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(COERCE_UNSIGNED_INT(1.0), v71.f32[0]), v67.u64[0], *v71.f32, 1), xmmword_239988FE0, v71, 2);
+        v71.i32[0] = 0;
+        v71.f32[1] = v66;
+        v74 = vaddq_f32(v71.u64[0], v72);
+        v75 = vsubq_f32(v73, vaddq_f32(v71.u64[0], v71.u64[0]));
+        v74.i32[3] = v36;
+        v75.i32[3] = v38;
+        v76 = vaddq_f32(v74, v75);
+        v74.i32[3] = 0;
+        v49 = vrndmq_f32(v74);
+        v76.i32[3] = 0;
+        v48 = vsubq_f32(vrndpq_f32(v76), v49);
+        v38 = v75.i32[3];
+        v44 = v68.i32[3];
       }
 
 LABEL_20:
-      v83 = &v413[4 * v82];
-      v83[2] = v73;
-      v83[3] = v72;
-      ++v71;
-      v70 += 2;
-      v74 += 8;
-      if (!--v76)
+      v59 = &v307[4 * v58];
+      v59[2] = v49;
+      v59[3] = v48;
+      ++v47;
+      v46 += 2;
+      v50 += 8;
+      if (!--v52)
       {
-        if (v369 >= 1)
+        if (v264 >= 1)
         {
-          *v59.f32 = vcvt_f32_f64(vcvtq_f64_u64(*(a6 + 5)));
-          *v160.f32 = vcvt_f32_f64(vcvtq_f64_s64(*(a6 + 4)));
+          *v35.f32 = vcvt_f32_f64(vcvtq_f64_u64(*(a6 + 5)));
+          *v118.f32 = vcvt_f32_f64(vcvtq_f64_s64(*(a6 + 4)));
           __asm { FMOV            V2.2S, #1.0 }
 
-          v158 = v369 & 0x7FFFFFFF;
-          v159 = v158 + 1;
-          v160.i64[1] = _D2;
-          v161 = (4 * v158 + 224 + a1 - 4);
-          v158 <<= 6;
-          v162 = (&v415 + v158 - 64);
-          v163 = (&v413[-4] + v158);
+          v116 = v264 & 0x7FFFFFFF;
+          v117 = v116 + 1;
+          v118.i64[1] = _D2;
+          v119 = (4 * v116 + 224 + a1 - 4);
+          v116 <<= 6;
+          v120 = (&v309 + v116 - 64);
+          v121 = (&v307[-4] + v116);
           do
           {
-            v166 = *v161--;
-            v165 = v166;
-            v167 = (&unk_284C6CA20 + 56 * v166);
-            v168 = v166 > 0x19;
-            if (v166 <= 25)
+            v124 = *v119--;
+            v123 = v124;
+            v125 = (&unk_284C6CA20 + 56 * v124);
+            if (v124 <= 25)
             {
-              v169 = v167;
+              v126 = v125;
             }
 
             else
             {
-              v169 = 0;
+              v126 = 0;
             }
 
-            if (!v168)
+            v127 = *v121;
+            v128 = vaddq_f32(v35, v118);
+            v129 = vaddq_f32(*v121, v121[1]);
+            v118.i32[3] = 0;
+            v127.i32[3] = 0;
+            v130 = vmaxnmq_f32(v118, v127);
+            v128.i32[3] = 0;
+            v129.i32[3] = 0;
+            v131 = vaddq_f32(v130, vsubq_f32(vminnmq_f32(v128, v129), v130));
+            v130.i32[3] = 0;
+            v131.i32[3] = 0;
+            v132 = vrndmq_f32(v130);
+            v133 = vsubq_f32(vrndpq_f32(v131), v132);
+            v120[2] = v132;
+            v120[3] = v133;
+            if (v123 >= 23)
             {
-              v170 = qword_239989A50[v165];
-            }
-
-            v171 = *v163;
-            v172 = vaddq_f32(v59, v160);
-            v173 = vaddq_f32(*v163, v163[1]);
-            v160.i32[3] = 0;
-            v171.i32[3] = 0;
-            v174 = vmaxnmq_f32(v160, v171);
-            v172.i32[3] = 0;
-            v173.i32[3] = 0;
-            v175 = vaddq_f32(v174, vsubq_f32(vminnmq_f32(v172, v173), v174));
-            v174.i32[3] = 0;
-            v175.i32[3] = 0;
-            v176 = vrndmq_f32(v174);
-            v177 = vsubq_f32(vrndpq_f32(v175), v176);
-            v162[2] = v176;
-            v162[3] = v177;
-            if (v165 >= 23)
-            {
-              *v162 = v176;
-              v162[1] = v177;
-              v164 = (v169 + 5);
-              if (v165 == 24)
+              *v120 = v132;
+              v120[1] = v133;
+              v122 = (v126 + 5);
+              if (v123 == 24)
               {
-                v164 = &off_284C6CF70;
+                v122 = &off_284C6CF70;
               }
 
-              (*v164)(1);
+              (*v122)(1);
             }
 
             else
             {
-              v385 = v163[-1];
-              v387 = v163[-2];
-              if (v165 < 16)
+              v280 = v121[-1];
+              v282 = v121[-2];
+              if (v123 < 16)
               {
-                *v188.i64 = v167[2](1);
-                v190 = vaddq_f32(v189, v188);
-                v191 = v387;
-                v192 = vaddq_f32(v387, v385);
-                v188.i32[3] = 0;
-                v191.i32[3] = 0;
-                v193 = vmaxnmq_f32(v188, v191);
-                v190.i32[3] = 0;
-                v192.i32[3] = 0;
-                v194 = vsubq_f32(vminnmq_f32(v190, v192), v193);
-                v193.i32[3] = v378;
-                v194.i32[3] = v384;
-                v195 = vaddq_f32(v193, v194);
-                v196 = v193;
-                v196.i32[3] = 0;
-                v195.i32[3] = 0;
-                v197 = vrndmq_f32(v196);
-                *v162 = v197;
-                v162[1] = vsubq_f32(vrndpq_f32(v195), v197);
-                v167[5](1);
+                *v144.i64 = v125[2](1);
+                v146 = vaddq_f32(v145, v144);
+                v147 = v282;
+                v148 = vaddq_f32(v282, v280);
+                v144.i32[3] = 0;
+                v147.i32[3] = 0;
+                v149 = vmaxnmq_f32(v144, v147);
+                v146.i32[3] = 0;
+                v148.i32[3] = 0;
+                v150 = vsubq_f32(vminnmq_f32(v146, v148), v149);
+                v149.i32[3] = v273;
+                v150.i32[3] = v279;
+                v151 = vaddq_f32(v149, v150);
+                v152 = v149;
+                v152.i32[3] = 0;
+                v151.i32[3] = 0;
+                v153 = vrndmq_f32(v152);
+                *v120 = v153;
+                v120[1] = vsubq_f32(vrndpq_f32(v151), v153);
+                v125[5](1);
               }
 
               else
               {
-                *v178.i64 = v167[5](0);
-                v180 = vaddq_f32(v179, v178);
-                v181 = v387;
-                v182 = vaddq_f32(v387, v385);
-                v178.i32[3] = 0;
-                v181.i32[3] = 0;
-                v183 = vmaxnmq_f32(v178, v181);
-                v180.i32[3] = 0;
-                v182.i32[3] = 0;
-                v184 = vsubq_f32(vminnmq_f32(v180, v182), v183);
-                v183.i32[3] = v376;
-                v184.i32[3] = v379;
-                v185 = vaddq_f32(v183, v184);
-                v186 = v183;
-                v186.i32[3] = 0;
-                v185.i32[3] = 0;
-                v187 = vrndmq_f32(v186);
-                *v162 = v187;
-                v162[1] = vsubq_f32(vrndpq_f32(v185), v187);
-                v167[2](0);
+                *v134.i64 = v125[5](0);
+                v136 = vaddq_f32(v135, v134);
+                v137 = v282;
+                v138 = vaddq_f32(v282, v280);
+                v134.i32[3] = 0;
+                v137.i32[3] = 0;
+                v139 = vmaxnmq_f32(v134, v137);
+                v136.i32[3] = 0;
+                v138.i32[3] = 0;
+                v140 = vsubq_f32(vminnmq_f32(v136, v138), v139);
+                v139.i32[3] = v271;
+                v140.i32[3] = v274;
+                v141 = vaddq_f32(v139, v140);
+                v142 = v139;
+                v142.i32[3] = 0;
+                v141.i32[3] = 0;
+                v143 = vrndmq_f32(v142);
+                *v120 = v143;
+                v120[1] = vsubq_f32(vrndpq_f32(v141), v143);
+                v125[2](0);
               }
             }
 
-            --v159;
-            v162 -= 4;
-            v163 -= 4;
+            --v117;
+            v120 -= 4;
+            v121 -= 4;
           }
 
-          while (v159 > 1);
+          while (v117 > 1);
         }
 
-LABEL_50:
+LABEL_48:
         PixelInfo = **a6;
         if ((v13 & 2) != 0 || (PixelInfo & 0xFC00000000uLL) >> 34 <= 2)
         {
-          v199 = BYTE3(PixelInfo) & 0xF;
-          if (v199 > 4)
+          v155 = BYTE3(PixelInfo) & 0xF;
+          if (v155 > 4)
           {
-            v200 = MTLPixelFormatRGBA16Float;
+            v156 = MTLPixelFormatRGBA16Float;
           }
 
           else
           {
-            v200 = qword_239989080[v199];
+            v156 = qword_239989080[v155];
           }
 
-          PixelInfo = MPSDevice::GetPixelInfo(v380, v200, MPSImageFeatureChannelFormatNone);
+          PixelInfo = MPSDevice::GetPixelInfo(v275, v156, MPSImageFeatureChannelFormatNone);
         }
 
-        v411 = PixelInfo;
-        if (v369)
+        v305 = PixelInfo;
+        if (v264)
         {
-          v201 = 0;
-          v202 = 0;
-          v203 = 0;
-          v363 = v373 + 24;
-          v381 = 0;
-          v361 = &v393;
-          v370 = v369 - 1;
+          v157 = 0;
+          v158 = 0;
+          v159 = 0;
+          v258 = v268 + 24;
+          v276 = 0;
+          v256 = &v287;
+          v265 = v264 - 1;
           CompressedTempTexture = a4;
           do
           {
             while (1)
             {
-              v205 = *(v366 + 4 * v201);
-              if (v205 > 0x19)
+              v161 = *(v261 + 4 * v157);
+              if (v161 > 0x19)
               {
-                v206 = -1;
+                v162 = -1;
               }
 
               else
               {
-                v206 = dword_2399899E8[v205];
+                v162 = dword_2399899E8[v161];
               }
 
-              v386 = v206;
-              if (v205 <= 25)
+              v281 = v162;
+              if (v161 <= 25)
               {
-                v207 = &unk_284C6CA20 + 56 * v205;
+                v163 = &unk_284C6CA20 + 56 * v161;
               }
 
               else
               {
-                v207 = 0;
+                v163 = 0;
               }
 
-              if ((*(v380 + 1476) & 0x80) == 0)
-              {
-                **a6;
-              }
-
-              v208 = *(v207 + 2);
               ComputeState = MPSLibrary::GetComputeState();
               if (!ComputeState && MTLReportFailureTypeEnabled())
               {
                 MTLReportFailure();
               }
 
-              v210 = *(v207 + 8);
-              v211 = MPSLibrary::GetComputeState();
-              if (!v211 && MTLReportFailureTypeEnabled())
+              v165 = MPSLibrary::GetComputeState();
+              if (!v165 && MTLReportFailureTypeEnabled())
               {
                 MTLReportFailure();
               }
 
-              v377 = v207;
-              v212 = v205 < 16;
-              v213 = 8;
-              if (v205 >= 16)
+              v272 = v163;
+              v166 = v161 < 16;
+              v167 = 8;
+              if (v161 >= 16)
               {
-                v214 = 8;
+                v168 = 8;
               }
 
               else
               {
-                v214 = 32;
+                v168 = 32;
               }
 
-              if (!v212)
+              if (!v166)
               {
-                v213 = 32;
+                v167 = 32;
               }
 
-              v374 = v213;
-              v215 = (v212 ? v211 : ComputeState);
-              v216 = (v212 ? ComputeState : v211);
-              v388 = v216;
-              v217 = (&v415 + 4 * v201);
-              if (v215)
+              v269 = v167;
+              v169 = (v166 ? v165 : ComputeState);
+              v170 = (v166 ? ComputeState : v165);
+              v283 = v170;
+              v171 = (&v309 + 4 * v157);
+              if (v169)
               {
                 break;
               }
 
-              v230 = v375;
-              if (!v216)
+              v184 = v270;
+              if (!v170)
               {
-                goto LABEL_58;
+                goto LABEL_56;
               }
 
-LABEL_117:
-              if (v201 == v370)
+LABEL_113:
+              if (v157 == v265)
               {
-                v295 = vmovn_s64(*(a6 + 1));
+                v220 = vmovn_s64(*(a6 + 1));
               }
 
               else
               {
-                v295 = 0;
+                v220 = 0;
               }
 
-              v297 = v217[2];
-              v296 = v217[3];
-              v391 = vuzp1_s16(vcvt_s32_f32(*v296.f32), v295);
-              v392 = v297.i64[0];
-              v368 = *v297.f32;
-              v395 = v409[0];
-              v396 = v409[1];
-              v298 = xmmword_239989020;
-              HIDWORD(v298) = v381.i32[0];
-              v397 = v409[2];
-              v398 = v409[3];
-              v299 = xmmword_239988FD0;
-              HIDWORD(v299) = v381.i32[1];
-              v393 = v298;
-              v394 = v299;
-              v399 = v41;
-              v300.i64[0] = 0x4F0000004F000000;
-              v300.i64[1] = 0x4F0000004F000000;
-              v301 = vcgtq_f32(v296, v300);
-              *v301.i8 = vadd_s32(vand_s8(*v301.i8, 0x8000000080000000), *&vcvtq_s32_f32(vsubq_f32(v296, vbslq_s8(v301, v300, 0))));
-              *&v302 = v301.u32[0];
-              *(&v302 + 1) = v301.u32[1];
-              v403 = v302;
-              v404 = 1;
-              CompressedTempTexture = v364;
-              if (v201 != v370)
+              v222 = v171[2];
+              v221 = v171[3];
+              v285 = vuzp1_s16(vcvt_s32_f32(*v221.f32), v220);
+              v286 = v222.i64[0];
+              v263 = *v222.f32;
+              v289 = v303[0];
+              v290 = v303[1];
+              v223 = xmmword_239989020;
+              HIDWORD(v223) = v276.i32[0];
+              v291 = v303[2];
+              v292 = v303[3];
+              v224 = xmmword_239988FD0;
+              HIDWORD(v224) = v276.i32[1];
+              v287 = v223;
+              v288 = v224;
+              v293 = v26;
+              v225.i64[0] = 0x4F0000004F000000;
+              v225.i64[1] = 0x4F0000004F000000;
+              v226 = vcgtq_f32(v221, v225);
+              *v226.i8 = vadd_s32(vand_s8(*v226.i8, 0x8000000080000000), *&vcvtq_s32_f32(vsubq_f32(v221, vbslq_s8(v226, v225, 0))));
+              *&v227 = v226.u32[0];
+              *(&v227 + 1) = v226.u32[1];
+              v297 = v227;
+              v298 = 1;
+              CompressedTempTexture = v259;
+              if (v157 != v265)
               {
                 CompressedTempTexture = MPSAutoCache::GetCompressedTempTexture();
               }
 
               Sampler = MPSDevice::GetSampler();
-              v383 = v391;
-              v309 = objc_msgSend_maxTotalThreadsPerThreadgroup(v388, v304, v305, v306, v307, v308);
-              v315 = objc_msgSend_threadExecutionWidth(v388, v310, v311, v312, v313, v314);
-              v320 = (v309 & -v315) / v315;
-              if (v320 <= v315)
+              v278 = v285;
+              v231 = objc_msgSend_maxTotalThreadsPerThreadgroup(v283, v229, v230);
+              v234 = objc_msgSend_threadExecutionWidth(v283, v232, v233);
+              v236 = (v231 & -v234) / v234;
+              if (v236 <= v234)
               {
-                v321 = v315;
+                v237 = v234;
               }
 
               else
               {
-                v321 = (v309 & -v315) / v315;
+                v237 = (v231 & -v234) / v234;
               }
 
-              if (v320 >= v315)
+              if (v236 >= v234)
               {
-                v320 = v315;
+                v236 = v234;
               }
 
-              v322 = *&v377[v374 + 16];
-              if (v322)
+              v238 = *&v272[v269 + 16];
+              if (v238)
               {
-                v323 = v321;
+                v239 = v237;
               }
 
               else
               {
-                v323 = v320;
+                v239 = v236;
               }
 
-              if (v322)
+              if (v238)
               {
-                v324 = v320;
+                v240 = v236;
               }
 
               else
               {
-                v324 = v321;
+                v240 = v237;
               }
 
-              objc_msgSend_setComputePipelineState_(v230, v316, v388, v317, v318, v319, v361);
-              objc_msgSend_setTexture_atIndex_(v230, v325, CompressedTempTexture, 0, v326, v327);
-              objc_msgSend_setTexture_atIndex_(v230, v328, v203, 1, v329, v330);
-              objc_msgSend_setSamplerState_atIndex_(v230, v331, Sampler, 0, v332, v333);
-              objc_msgSend_setBytes_length_atIndex_(v230, v334, &v391, 128, 0, v335);
-              v400 = (v383 + v323 - 1) / v323;
-              v401 = (HIWORD(v383) + v324 - 1) / v324;
-              v402 = 1;
-              v390[0] = v323;
-              v390[1] = v324;
-              v390[2] = 1;
-              objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v230, v336, &v400, v390, v337, v338);
+              objc_msgSend_setComputePipelineState_(v184, v235, v283, v256);
+              objc_msgSend_setTexture_atIndex_(v184, v241, CompressedTempTexture, 0);
+              objc_msgSend_setTexture_atIndex_(v184, v242, v159, 1);
+              objc_msgSend_setSamplerState_atIndex_(v184, v243, Sampler, 0);
+              objc_msgSend_setBytes_length_atIndex_(v184, v244, &v285, 128, 0);
+              v294 = (v278 + v239 - 1) / v239;
+              v295 = (HIWORD(v278) + v240 - 1) / v240;
+              v296 = 1;
+              v284[0] = v239;
+              v284[1] = v240;
+              v284[2] = 1;
+              objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v184, v245, &v294, v284);
               MPSLibrary::ReleaseComputeState();
               MPSAutoCache::ReleaseTempResource();
-              v381 = vneg_f32(v368);
-              v203 = CompressedTempTexture;
-              v202 += v386;
-              if (++v201 == v369)
+              v276 = vneg_f32(v263);
+              v159 = CompressedTempTexture;
+              v158 += v281;
+              if (++v157 == v264)
               {
-                goto LABEL_134;
+                goto LABEL_130;
               }
             }
 
-            v218 = v386 - 1;
-            v219 = (v363 + 8 * v202);
-            v221 = *v217;
-            v220 = v217[1];
-            v222 = vcvt_s32_f32(*v220.f32);
-            v223.f64[1] = 0.0;
-            LOWORD(v223.f64[0]) = v222.i16[0];
-            WORD1(v223.f64[0]) = v222.i16[2];
-            v405 = LODWORD(v223.f64[0]);
-            v406 = v221.i64[0];
-            v367 = *v221.f32;
-            v224 = ((v386 - 1) >> 2);
-            if (v224 < 1)
+            v172 = v281 - 1;
+            v173 = (v258 + 8 * v158);
+            v175 = *v171;
+            v174 = v171[1];
+            v176 = vcvt_s32_f32(*v174.f32);
+            v177.f64[1] = 0.0;
+            LOWORD(v177.f64[0]) = v176.i16[0];
+            WORD1(v177.f64[0]) = v176.i16[2];
+            v299 = LODWORD(v177.f64[0]);
+            v300 = v175.i64[0];
+            v262 = *v175.f32;
+            v178 = ((v281 - 1) >> 2);
+            if (v178 < 1)
             {
-              v224 = 0;
-              v229 = v218 & 3;
-              if (!v229)
+              v178 = 0;
+              v183 = v172 & 3;
+              if (!v183)
               {
-                goto LABEL_99;
+                goto LABEL_95;
               }
             }
 
             else
             {
-              v225 = v409;
-              v226 = (v218 >> 2);
+              v179 = v303;
+              v180 = (v172 >> 2);
               do
               {
-                v228 = *v219;
-                v227 = v219[1];
-                v219 += 2;
-                v223 = vcvt_hight_f32_f64(vcvt_f32_f64(v228), v227);
-                *v225++ = v223;
-                --v226;
+                v182 = *v173;
+                v181 = v173[1];
+                v173 += 2;
+                v177 = vcvt_hight_f32_f64(vcvt_f32_f64(v182), v181);
+                *v179++ = v177;
+                --v180;
               }
 
-              while (v226);
-              v229 = v218 & 3;
-              if (!v229)
+              while (v180);
+              v183 = v172 & 3;
+              if (!v183)
               {
-                goto LABEL_99;
+                goto LABEL_95;
               }
             }
 
-            v231 = &v409[v224];
-            *v231 = 0;
-            v231[1] = 0;
-            v232.f64[0] = v219->f64[0];
-            if (v229 == 2)
+            v185 = &v303[v178];
+            *v185 = 0;
+            v185[1] = 0;
+            v186.f64[0] = v173->f64[0];
+            if (v183 == 2)
             {
-              v232.f64[1] = v219->f64[1];
-              *&v232.f64[0] = vcvt_f32_f64(v232);
+              v186.f64[1] = v173->f64[1];
+              *&v186.f64[0] = vcvt_f32_f64(v186);
             }
 
-            else if (v229 == 1)
+            else if (v183 == 1)
             {
-              *&v233 = v232.f64[0];
-              v232 = v233;
-            }
-
-            else
-            {
-              v223.f64[0] = v219[1].f64[0];
-              v232.f64[1] = v219->f64[1];
-              v232 = vcvt_hight_f32_f64(vcvt_f32_f64(v232), v223);
-              HIDWORD(v232.f64[1]) = 0;
-            }
-
-            v409[v224] = v232;
-LABEL_99:
-            v236 = xmmword_239988FD0;
-            v235 = xmmword_239989020;
-            v236.i32[3] = v381.i32[1];
-            HIDWORD(v235) = v381.i32[0];
-            v407 = v235;
-            v408 = v236;
-            v410 = 1.0 / v41;
-            v236.i64[0] = 0x4F0000004F000000;
-            v236.i64[1] = 0x4F0000004F000000;
-            v237 = vcgtq_f32(v220, v236);
-            v238 = vadd_s32(vand_s8(*v237.i8, 0x8000000080000000), *&vcvtq_s32_f32(vsubq_f32(v220, vbslq_s8(v237, v236, 0))));
-            *&v239 = v238.u32[0];
-            *(&v239 + 1) = v238.u32[1];
-            v403 = v239;
-            v404 = 1;
-            v240 = MPSAutoCache::GetCompressedTempTexture();
-            v241 = MPSDevice::GetSampler();
-            v382 = v405;
-            v247 = objc_msgSend_maxTotalThreadsPerThreadgroup(v215, v242, v243, v244, v245, v246, v361);
-            v253 = objc_msgSend_threadExecutionWidth(v215, v248, v249, v250, v251, v252);
-            v258 = (v247 & -v253) / v253;
-            if (v258 <= v253)
-            {
-              v259 = v253;
+              *&v187 = v186.f64[0];
+              v186 = v187;
             }
 
             else
             {
-              v259 = (v247 & -v253) / v253;
+              v177.f64[0] = v173[1].f64[0];
+              v186.f64[1] = v173->f64[1];
+              v186 = vcvt_hight_f32_f64(vcvt_f32_f64(v186), v177);
+              HIDWORD(v186.f64[1]) = 0;
             }
 
-            if (v258 >= v253)
+            v303[v178] = v186;
+LABEL_95:
+            v190 = xmmword_239988FD0;
+            v189 = xmmword_239989020;
+            v190.i32[3] = v276.i32[1];
+            HIDWORD(v189) = v276.i32[0];
+            v301 = v189;
+            v302 = v190;
+            v304 = 1.0 / v26;
+            v190.i64[0] = 0x4F0000004F000000;
+            v190.i64[1] = 0x4F0000004F000000;
+            v191 = vcgtq_f32(v174, v190);
+            v192 = vadd_s32(vand_s8(*v191.i8, 0x8000000080000000), *&vcvtq_s32_f32(vsubq_f32(v174, vbslq_s8(v191, v190, 0))));
+            *&v193 = v192.u32[0];
+            *(&v193 + 1) = v192.u32[1];
+            v297 = v193;
+            v298 = 1;
+            v194 = MPSAutoCache::GetCompressedTempTexture();
+            v195 = MPSDevice::GetSampler();
+            v277 = v299;
+            v198 = objc_msgSend_maxTotalThreadsPerThreadgroup(v169, v196, v197, v256);
+            v201 = objc_msgSend_threadExecutionWidth(v169, v199, v200);
+            v203 = (v198 & -v201) / v201;
+            if (v203 <= v201)
             {
-              v258 = v253;
-            }
-
-            v260 = *&v377[v214 + 16];
-            if (v260)
-            {
-              v261 = v259;
+              v204 = v201;
             }
 
             else
             {
-              v261 = v258;
+              v204 = (v198 & -v201) / v201;
             }
 
-            if (v260)
+            if (v203 >= v201)
             {
-              v262 = v258;
+              v203 = v201;
+            }
+
+            v205 = *&v272[v168 + 16];
+            if (v205)
+            {
+              v206 = v204;
             }
 
             else
             {
-              v262 = v259;
+              v206 = v203;
             }
 
-            objc_msgSend_setComputePipelineState_(v375, v254, v215, v255, v256, v257);
-            objc_msgSend_setTexture_atIndex_(v375, v263, v240, 0, v264, v265);
-            objc_msgSend_setTexture_atIndex_(v375, v266, CompressedTempTexture, 1, v267, v268);
-            objc_msgSend_setSamplerState_atIndex_(v375, v269, v241, 0, v270, v271);
-            objc_msgSend_setBytes_length_atIndex_(v375, v272, &v405, 128, 0, v273);
-            v391 = (v382 + v261 - 1) / v261;
-            v392 = (HIWORD(v382) + v262 - 1) / v262;
-            *&v393 = 1;
-            v400 = v261;
-            v401 = v262;
-            v402 = 1;
-            objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v375, v274, &v391, &v400, v275, v276);
+            if (v205)
+            {
+              v207 = v203;
+            }
+
+            else
+            {
+              v207 = v204;
+            }
+
+            objc_msgSend_setComputePipelineState_(v270, v202, v169);
+            objc_msgSend_setTexture_atIndex_(v270, v208, v194, 0);
+            objc_msgSend_setTexture_atIndex_(v270, v209, CompressedTempTexture, 1);
+            objc_msgSend_setSamplerState_atIndex_(v270, v210, v195, 0);
+            objc_msgSend_setBytes_length_atIndex_(v270, v211, &v299, 128, 0);
+            v285 = (v277 + v206 - 1) / v206;
+            v286 = (HIWORD(v277) + v207 - 1) / v207;
+            *&v287 = 1;
+            v294 = v206;
+            v295 = v207;
+            v296 = 1;
+            objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v270, v212, &v285, &v294);
             MPSLibrary::ReleaseComputeState();
-            if (CompressedTempTexture == v365)
+            if (CompressedTempTexture == v260)
             {
-              v230 = v375;
-              if (v365)
+              v184 = v270;
+              if (v260)
               {
-                v277 = objc_msgSend_userDictionary(v362, v54, v55, v56, v57, v58);
-                v282 = objc_msgSend_objectForKey_(v277, v278, @"_MPSCommandBufferRetainListKey", v279, v280, v281);
-                if (!v282)
+                v213 = objc_msgSend_userDictionary(v257, v33, v34);
+                v215 = objc_msgSend_objectForKey_(v213, v214, @"_MPSCommandBufferRetainListKey");
+                if (!v215)
                 {
-                  v287 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                  objc_msgSend_setObject_forKey_(v277, v288, v287, @"_MPSCommandBufferRetainListKey", v289, v290);
+                  v217 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                  objc_msgSend_setObject_forKey_(v213, v218, v217, @"_MPSCommandBufferRetainListKey");
 
-                  v391 = MEMORY[0x277D85DD0];
-                  v392 = 3221225472;
-                  *&v393 = sub_23993DA68;
-                  *(&v393 + 1) = &unk_278AC37A8;
-                  *&v394 = @"_MPSCommandBufferRetainListKey";
-                  objc_msgSend_addCompletedHandler_(v362, v291, &v391, v292, v293, v294);
-                  v282 = v287;
+                  v285 = MEMORY[0x277D85DD0];
+                  v286 = 3221225472;
+                  *&v287 = sub_23993DA68;
+                  *(&v287 + 1) = &unk_278AC37A8;
+                  *&v288 = @"_MPSCommandBufferRetainListKey";
+                  objc_msgSend_addCompletedHandler_(v257, v219, &v285);
+                  v215 = v217;
                 }
 
-                objc_msgSend_addObject_(v282, v283, v365, v284, v285, v286);
-                v230 = v375;
+                objc_msgSend_addObject_(v215, v216, v260);
+                v184 = v270;
               }
             }
 
             else
             {
               MPSAutoCache::ReleaseTempResource();
-              v230 = v375;
+              v184 = v270;
             }
 
-            v381 = vneg_f32(v367);
-            v203 = v240;
-            if (v388)
+            v276 = vneg_f32(v262);
+            v159 = v194;
+            if (v283)
             {
-              goto LABEL_117;
+              goto LABEL_113;
             }
 
-LABEL_58:
-            CompressedTempTexture = v203;
-            v202 += v386;
-            ++v201;
+LABEL_56:
+            CompressedTempTexture = v159;
+            v158 += v281;
+            ++v157;
           }
 
-          while (v201 != v369);
+          while (v157 != v264);
         }
 
-LABEL_134:
-        if (v364)
+LABEL_130:
+        if (v259)
         {
-          v339 = objc_msgSend_userDictionary(v362, v54, v55, v56, v57, v58);
-          v344 = objc_msgSend_objectForKey_(v339, v340, @"_MPSCommandBufferRetainListKey", v341, v342, v343);
-          if (!v344)
+          v246 = objc_msgSend_userDictionary(v257, v33, v34);
+          v248 = objc_msgSend_objectForKey_(v246, v247, @"_MPSCommandBufferRetainListKey");
+          if (!v248)
           {
-            v349 = objc_alloc_init(MEMORY[0x277CBEB18]);
-            objc_msgSend_setObject_forKey_(v339, v350, v349, @"_MPSCommandBufferRetainListKey", v351, v352);
+            v250 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            objc_msgSend_setObject_forKey_(v246, v251, v250, @"_MPSCommandBufferRetainListKey");
 
-            v405 = MEMORY[0x277D85DD0];
-            v406 = 3221225472;
-            *&v407 = sub_23993DA68;
-            *(&v407 + 1) = &unk_278AC37A8;
-            v408.i64[0] = @"_MPSCommandBufferRetainListKey";
-            objc_msgSend_addCompletedHandler_(v362, v353, &v405, v354, v355, v356);
-            v344 = v349;
+            v299 = MEMORY[0x277D85DD0];
+            v300 = 3221225472;
+            *&v301 = sub_23993DA68;
+            *(&v301 + 1) = &unk_278AC37A8;
+            v302.i64[0] = @"_MPSCommandBufferRetainListKey";
+            objc_msgSend_addCompletedHandler_(v257, v252, &v299);
+            v248 = v250;
           }
 
-          objc_msgSend_addObject_(v344, v345, v364, v346, v347, v348, v361);
+          objc_msgSend_addObject_(v248, v249, v259, v256);
         }
 
-        MPSAutoCache::~MPSAutoCache(v412);
-LABEL_139:
-        v40 = 0;
-        goto LABEL_149;
+        MPSAutoCache::~MPSAutoCache(v306);
+        return 0;
       }
     }
   }
 
-  if (a4 == a5 || (objc_msgSend_isEqual_(a4, a2, a5, a4, a5, a6) & 1) != 0)
+  if (a4 == a5 || (objc_msgSend_isEqual_(a4, a2, a5) & 1) != 0)
   {
-    v40 = -18;
-    goto LABEL_149;
+    return -18;
   }
 
-  v115 = vcvt_f32_f64(vcvtq_f64_s64(*(a6 + 4)));
-  *&v415 = vmovn_s32(vuzp1q_s32(*(a6 + 5), *(a6 + 1)));
-  *(&v415 + 1) = v115;
-  v418 = 1065353216;
-  v116 = MPSDevice::GetSampler();
-  v117 = MPSLibrary::GetComputeState();
-  if (v117)
+  v91 = vcvt_f32_f64(vcvtq_f64_s64(*(a6 + 4)));
+  *&v309 = vmovn_s32(vuzp1q_s32(*(a6 + 5), *(a6 + 1)));
+  *(&v309 + 1) = v91;
+  v312 = 1065353216;
+  v92 = MPSDevice::GetSampler();
+  v93 = MPSLibrary::GetComputeState();
+  if (v93)
   {
-    v122 = v117;
-    objc_msgSend_setComputePipelineState_(a2, v118, v117, v119, v120, v121);
-    objc_msgSend_setTexture_atIndex_(a2, v123, a5, 0, v124, v125);
-    objc_msgSend_setTexture_atIndex_(a2, v126, a4, 1, v127, v128);
-    objc_msgSend_setSamplerState_atIndex_(a2, v129, v116, 0, v130, v131);
-    objc_msgSend_setBytes_length_atIndex_(a2, v132, &v415, 128, 0, v133);
-    v135 = a6[5];
-    v134 = a6[6];
-    v141 = objc_msgSend_maxTotalThreadsPerThreadgroup(v122, v136, v137, v138, v139, v140);
-    v147 = objc_msgSend_threadExecutionWidth(v122, v142, v143, v144, v145, v146);
-    v151 = (v141 & -v147) / v147;
-    if (v151 <= v147)
+    v95 = v93;
+    objc_msgSend_setComputePipelineState_(a2, v94, v93);
+    objc_msgSend_setTexture_atIndex_(a2, v96, a5, 0);
+    objc_msgSend_setTexture_atIndex_(a2, v97, a4, 1);
+    objc_msgSend_setSamplerState_atIndex_(a2, v98, v92, 0);
+    objc_msgSend_setBytes_length_atIndex_(a2, v99, &v309, 128, 0);
+    v101 = a6[5];
+    v100 = a6[6];
+    v104 = objc_msgSend_maxTotalThreadsPerThreadgroup(v95, v102, v103);
+    v107 = objc_msgSend_threadExecutionWidth(v95, v105, v106);
+    v109 = (v104 & -v107) / v107;
+    if (v109 <= v107)
     {
-      v152 = v147;
+      v110 = v107;
     }
 
     else
     {
-      v152 = (v141 & -v147) / v147;
+      v110 = (v104 & -v107) / v107;
     }
 
-    if (v151 >= v147)
+    if (v109 >= v107)
     {
-      v151 = v147;
+      v109 = v107;
     }
 
-    v413[0] = (v135 + v151 - 1) / v151;
-    v413[1] = (v134 + v152 - 1) / v152;
-    v414 = 1;
-    v405 = v151;
-    v406 = v152;
-    *&v407 = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v148, v413, &v405, v149, v150);
+    v307[0] = (v101 + v109 - 1) / v109;
+    v307[1] = (v100 + v110 - 1) / v110;
+    v308 = 1;
+    v299 = v109;
+    v300 = v110;
+    *&v301 = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v108, v307, &v299);
     MPSLibrary::ReleaseComputeState();
-    goto LABEL_139;
+    return 0;
   }
 
   if (MTLReportFailureTypeEnabled())
@@ -1291,10 +1298,7 @@ LABEL_139:
     MTLReportFailure();
   }
 
-  v40 = -1;
-LABEL_149:
-  v359 = *MEMORY[0x277D85DE8];
-  return v40;
+  return -1;
 }
 
 void sub_23993D520(_Unwind_Exception *a1, int a2)
@@ -1383,68 +1387,110 @@ double sub_23993D878(uint64_t a1, float32x4_t a2, double a3, float a4, float a5)
   return *v7.i64;
 }
 
-uint64_t sub_23993D93C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_23993D93C(uint64_t a1, void *a2, uint64_t a3)
 {
-  v7 = objc_msgSend_userDictionary(a2, a2, a3, a4, a5, a6);
-  v11 = *(a1 + 32);
+  v4 = objc_msgSend_userDictionary(a2, a2, a3);
+  v5 = *(a1 + 32);
 
-  return MEMORY[0x2821F9670](v7, sel_removeObjectForKey_, v11, v8, v9, v10);
+  return MEMORY[0x2821F9670](v4, sel_removeObjectForKey_, v5);
 }
 
-uint64_t sub_23993D978(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_23993D978(uint64_t a1, void *a2, uint64_t a3)
 {
-  v7 = objc_msgSend_userDictionary(a2, a2, a3, a4, a5, a6);
-  v11 = *(a1 + 32);
+  v4 = objc_msgSend_userDictionary(a2, a2, a3);
+  v5 = *(a1 + 32);
 
-  return MEMORY[0x2821F9670](v7, sel_removeObjectForKey_, v11, v8, v9, v10);
+  return MEMORY[0x2821F9670](v4, sel_removeObjectForKey_, v5);
 }
 
-uint64_t sub_23993D9B4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_23993D9B4(uint64_t a1, void *a2, uint64_t a3)
 {
-  v7 = objc_msgSend_userDictionary(a2, a2, a3, a4, a5, a6);
-  v11 = *(a1 + 32);
+  v4 = objc_msgSend_userDictionary(a2, a2, a3);
+  v5 = *(a1 + 32);
 
-  return MEMORY[0x2821F9670](v7, sel_removeObjectForKey_, v11, v8, v9, v10);
+  return MEMORY[0x2821F9670](v4, sel_removeObjectForKey_, v5);
 }
 
-uint64_t sub_23993D9F0(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_23993D9F0(uint64_t a1, void *a2, uint64_t a3)
 {
-  v7 = objc_msgSend_userDictionary(a2, a2, a3, a4, a5, a6);
-  v11 = *(a1 + 32);
+  v4 = objc_msgSend_userDictionary(a2, a2, a3);
+  v5 = *(a1 + 32);
 
-  return MEMORY[0x2821F9670](v7, sel_removeObjectForKey_, v11, v8, v9, v10);
+  return MEMORY[0x2821F9670](v4, sel_removeObjectForKey_, v5);
 }
 
-uint64_t sub_23993DA2C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_23993DA2C(uint64_t a1, void *a2, uint64_t a3)
 {
-  v7 = objc_msgSend_userDictionary(a2, a2, a3, a4, a5, a6);
-  v11 = *(a1 + 32);
+  v4 = objc_msgSend_userDictionary(a2, a2, a3);
+  v5 = *(a1 + 32);
 
-  return MEMORY[0x2821F9670](v7, sel_removeObjectForKey_, v11, v8, v9, v10);
+  return MEMORY[0x2821F9670](v4, sel_removeObjectForKey_, v5);
 }
 
-uint64_t sub_23993DA68(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_23993DA68(uint64_t a1, void *a2, uint64_t a3)
 {
-  v7 = objc_msgSend_userDictionary(a2, a2, a3, a4, a5, a6);
-  v11 = *(a1 + 32);
+  v4 = objc_msgSend_userDictionary(a2, a2, a3);
+  v5 = *(a1 + 32);
 
-  return MEMORY[0x2821F9670](v7, sel_removeObjectForKey_, v11, v8, v9, v10);
+  return MEMORY[0x2821F9670](v4, sel_removeObjectForKey_, v5);
 }
 
-uint64_t sub_23993DAA4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_23993DAA4(uint64_t a1, void *a2, uint64_t a3)
 {
-  v7 = objc_msgSend_userDictionary(a2, a2, a3, a4, a5, a6);
-  v11 = *(a1 + 32);
+  v4 = objc_msgSend_userDictionary(a2, a2, a3);
+  v5 = *(a1 + 32);
 
-  return MEMORY[0x2821F9670](v7, sel_removeObjectForKey_, v11, v8, v9, v10);
+  return MEMORY[0x2821F9670](v4, sel_removeObjectForKey_, v5);
 }
 
-uint64_t sub_23993DAE0(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_23993DAE0(uint64_t a1, void *a2, uint64_t a3)
 {
-  v7 = objc_msgSend_userDictionary(a2, a2, a3, a4, a5, a6);
-  v11 = *(a1 + 32);
+  v4 = objc_msgSend_userDictionary(a2, a2, a3);
+  v5 = *(a1 + 32);
 
-  return MEMORY[0x2821F9670](v7, sel_removeObjectForKey_, v11, v8, v9, v10);
+  return MEMORY[0x2821F9670](v4, sel_removeObjectForKey_, v5);
+}
+
+void sub_23993FF3C(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
+{
+  va_start(va, a39);
+  sub_2399400F0(va, a2, a3);
+  _Unwind_Resume(a1);
+}
+
+void sub_23993FF50(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
+{
+  va_start(va, a39);
+  sub_2399400F0(va, a2, a3);
+  _Unwind_Resume(a1);
+}
+
+void sub_23993FF64(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
+{
+  va_start(va, a39);
+  sub_2399400F0(va, a2, a3);
+  _Unwind_Resume(a1);
+}
+
+void sub_23993FF78(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
+{
+  va_start(va, a39);
+  sub_2399400F0(va, a2, a3);
+  _Unwind_Resume(a1);
+}
+
+void sub_23993FF8C(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
+{
+  va_start(va, a39);
+  sub_2399400F0(va, a2, a3);
+  _Unwind_Resume(a1);
+}
+
+void sub_23993FFA0(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
+{
+  va_start(va, a39);
+  sub_2399400F0(va, a2, a3);
+  _Unwind_Resume(a1);
 }
 
 void sub_23993FFB4(_Unwind_Exception *a1, int a2)
@@ -1457,163 +1503,232 @@ void sub_23993FFB4(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void **sub_2399400F0(void **a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+id *sub_2399400F0(id *a1, const char *a2, uint64_t a3)
 {
-  objc_msgSend_endEncoding(*a1, a2, a3, a4, a5, a6);
+  objc_msgSend_endEncoding(*a1, a2, a3);
 
   return a1;
 }
 
-void sub_239940AB8(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_239940AB8(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a16);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a18);
+  sub_2399400F0(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_239940ACC(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_239940ACC(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a16);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a18);
+  sub_2399400F0(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_239940AE0(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_239940AE0(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a16);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a18);
+  sub_2399400F0(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_239940AF4(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_239940AF4(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a16);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a18);
+  sub_2399400F0(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_239940B08(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_239940B08(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a16);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a18);
+  sub_2399400F0(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_239940B1C(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_239940B1C(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a16);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a18);
+  sub_2399400F0(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_239940B38(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_239940B38(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a16);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a18);
+  sub_2399400F0(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_239940B4C(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_239940B4C(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a16);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a18);
+  sub_2399400F0(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_239940B60(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_239940B60(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a16);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a18);
+  sub_2399400F0(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_239940B74(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_239940B74(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a16);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a18);
+  sub_2399400F0(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_23994192C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_23994117C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a6);
+  va_start(va, a34);
   MPSAutoCache::~MPSAutoCache(va);
   _Unwind_Resume(a1);
 }
 
-void sub_239941940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_239941190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a6);
+  va_start(va, a34);
   MPSAutoCache::~MPSAutoCache(va);
   _Unwind_Resume(a1);
 }
 
-void sub_239941954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2399411A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a6);
+  va_start(va, a34);
   MPSAutoCache::~MPSAutoCache(va);
   _Unwind_Resume(a1);
 }
 
-void sub_239941DD0(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_2399411BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a14);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a34);
+  MPSAutoCache::~MPSAutoCache(va);
   _Unwind_Resume(a1);
 }
 
-void sub_239941DE4(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_2399411D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a14);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a34);
+  MPSAutoCache::~MPSAutoCache(va);
   _Unwind_Resume(a1);
 }
 
-void sub_239941DF8(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_2399411E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a14);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a34);
+  MPSAutoCache::~MPSAutoCache(va);
   _Unwind_Resume(a1);
 }
 
-void sub_239941E10(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_2399411F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a14);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a34);
+  MPSAutoCache::~MPSAutoCache(va);
   _Unwind_Resume(a1);
 }
 
-void sub_239941E24(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_23994120C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a14);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a34);
+  MPSAutoCache::~MPSAutoCache(va);
   _Unwind_Resume(a1);
 }
 
-void sub_239941E38(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_239941220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a14);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a34);
+  MPSAutoCache::~MPSAutoCache(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_239941E5C(uint64_t a1, uint64_t *a2)
+void sub_239941234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  v3 = MPSCreateFunctionConstantValues();
-  v9 = a2[8] != 0;
-  objc_msgSend_setConstantValue_type_atIndex_(v3, v4, &v9, 53, 0, v5);
-  v6 = *a2;
-  v7 = _MPSNewSpecializedFunction();
-
-  return v7;
+  va_start(va, a34);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
 }
 
-void *sub_23994204C(float *a1, float *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void sub_23994192C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  v8 = *(a2 + 24);
+  va_start(va, a11);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239941940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239941954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239941DD0(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  sub_2399400F0(va, a2, a3);
+  _Unwind_Resume(a1);
+}
+
+void sub_239941DE4(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  sub_2399400F0(va, a2, a3);
+  _Unwind_Resume(a1);
+}
+
+void sub_239941DF8(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  sub_2399400F0(va, a2, a3);
+  _Unwind_Resume(a1);
+}
+
+void sub_239941E10(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  sub_2399400F0(va, a2, a3);
+  _Unwind_Resume(a1);
+}
+
+void sub_239941E24(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  sub_2399400F0(va, a2, a3);
+  _Unwind_Resume(a1);
+}
+
+void sub_239941E38(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  sub_2399400F0(va, a2, a3);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_239941E5C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = MPSCreateFunctionConstantValues();
+  v10 = a2[8] != 0;
+  objc_msgSend_setConstantValue_type_atIndex_(v6, v7, &v10, 53, 0);
+  v8 = _MPSNewSpecializedFunction();
+
+  return v8;
+}
+
+void *sub_23994204C(float *a1, float *a2, uint64_t a3)
+{
+  v5 = *(a2 + 24);
   _S0 = a2[7];
   _S1 = a2[8];
-  if (v8 == 1)
+  if (v5 == 1)
   {
     _S0 = -_S0 / _S1;
     _S1 = 1.0 / _S1;
@@ -1629,32 +1744,31 @@ void *sub_23994204C(float *a1, float *a2, uint64_t a3, uint64_t a4, uint64_t a5,
 
   *(a1 + 28) = _H0;
   *(a1 + 29) = _H1;
-  v17 = -a2[8];
-  if (v8)
+  if (v5)
   {
-    v18 = 1.0;
+    v14 = 1.0;
   }
 
   else
   {
-    v18 = -a2[8];
+    v14 = -a2[8];
   }
 
-  v19 = *a1;
-  v20 = *(a1 + 1);
-  v22 = *a2;
-  v21 = *(a2 + 1);
-  if (v20 * *a1)
+  v15 = *a1;
+  v16 = *(a1 + 1);
+  v18 = *a2;
+  v17 = *(a2 + 1);
+  if (v16 * *a1)
   {
-    v23 = 0;
+    v19 = 0;
     do
     {
-      *(objc_msgSend_mutableBytes(*(a1 + 2), a2, a3, a4, a5, a6) + 4 * v23) = 0;
-      *(objc_msgSend_mutableBytes(*(a1 + 3), v24, v25, v26, v27, v28) + 2 * v23++) = 0;
+      *(objc_msgSend_mutableBytes(*(a1 + 2), a2, a3) + 4 * v19) = 0;
+      *(objc_msgSend_mutableBytes(*(a1 + 3), v20, v21) + 2 * v19++) = 0;
     }
 
-    while (v23 < *(a1 + 1) * *a1);
-    v29 = *a2;
+    while (v19 < *(a1 + 1) * *a1);
+    v22 = *a2;
     if (!*a2)
     {
       goto LABEL_19;
@@ -1663,170 +1777,170 @@ void *sub_23994204C(float *a1, float *a2, uint64_t a3, uint64_t a4, uint64_t a5,
 
   else
   {
-    v29 = *a2;
-    if (!v22)
+    v22 = *a2;
+    if (!v18)
     {
       goto LABEL_19;
     }
   }
 
-  v30 = *(a2 + 1);
-  if (v30)
+  v23 = *(a2 + 1);
+  if (v23)
   {
-    v31 = 0;
-    v32 = 0;
-    v33 = (v19 - v22) >> 1;
-    v34 = (v20 - v21) >> 1;
+    v24 = 0;
+    v25 = 0;
+    v26 = (v15 - v18) >> 1;
+    v27 = (v16 - v17) >> 1;
     do
     {
-      if (v30)
+      if (v23)
       {
-        for (i = 0; i < v30; ++i)
+        for (i = 0; i < v23; ++i)
         {
-          v36 = v34 + i + v33 * *(a1 + 1);
-          _S9 = v18 * *(objc_msgSend_bytes(*(a2 + 2), a2, a3, a4, a5, a6) + v31 * v30 + 4 * i);
-          *(objc_msgSend_mutableBytes(*(a1 + 2), v38, v39, v40, v41, v42) + 4 * v36) = _S9;
+          v29 = v27 + i + v26 * *(a1 + 1);
+          _S9 = v14 * *(objc_msgSend_bytes(*(a2 + 2), a2, a3) + v24 * v23 + 4 * i);
+          *(objc_msgSend_mutableBytes(*(a1 + 2), v31, v32) + 4 * v29) = _S9;
           __asm { FCVT            H9, S9 }
 
-          *(objc_msgSend_mutableBytes(*(a1 + 3), v43, v44, v45, v46, v47) + 2 * v36) = LOWORD(_S9);
-          v30 = *(a2 + 1);
+          *(objc_msgSend_mutableBytes(*(a1 + 3), v33, v34) + 2 * v29) = LOWORD(_S9);
+          v23 = *(a2 + 1);
         }
 
-        v29 = *a2;
+        v22 = *a2;
       }
 
-      ++v32;
-      v31 += 4;
-      ++v33;
+      ++v25;
+      v24 += 4;
+      ++v26;
     }
 
-    while (v32 < v29);
+    while (v25 < v22);
   }
 
 LABEL_19:
-  v48 = *(a1 + 2);
-  v49 = objc_msgSend_contents(*(a1 + 4), a2, a3, a4, a5, a6);
-  v55 = objc_msgSend_bytes(v48, v50, v51, v52, v53, v54);
-  v61 = objc_msgSend_length(v48, v56, v57, v58, v59, v60);
-  memcpy(v49, v55, v61);
-  v62 = *(a1 + 5);
-  v63 = *(a1 + 3);
-  v69 = objc_msgSend_contents(v62, v64, v65, v66, v67, v68);
-  v75 = objc_msgSend_bytes(v63, v70, v71, v72, v73, v74);
-  v81 = objc_msgSend_length(v63, v76, v77, v78, v79, v80);
+  v35 = *(a1 + 2);
+  v36 = objc_msgSend_contents(*(a1 + 4), a2, a3);
+  v39 = objc_msgSend_bytes(v35, v37, v38);
+  v42 = objc_msgSend_length(v35, v40, v41);
+  memcpy(v36, v39, v42);
+  v43 = *(a1 + 5);
+  v44 = *(a1 + 3);
+  v47 = objc_msgSend_contents(v43, v45, v46);
+  v50 = objc_msgSend_bytes(v44, v48, v49);
+  v53 = objc_msgSend_length(v44, v51, v52);
 
-  return memcpy(v69, v75, v81);
+  return memcpy(v47, v50, v53);
 }
 
 uint64_t sub_2399425CC(void *a1, void *a2, _BYTE *a3, unint64_t a4, unint64_t a5)
 {
-  v192 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  v176 = a3;
+  v85 = a3;
   *a3 = 0;
-  v178 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v6, v7, v8, v9, v10);
-  v177 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v11, v12, v13, v14, v15);
-  v183 = -1;
-  v21 = &off_284C6CFE0;
-  v22 = 62848;
+  v87 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v6, v7);
+  v86 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v8, v9);
+  v92 = -1;
+  v12 = &off_284C6CFE0;
+  v13 = 62848;
   do
   {
-    v23 = *v21;
-    if (*v21)
+    v14 = *v12;
+    if (*v12)
     {
-      v24 = objc_msgSend_UTF8String(*v21, v16, v17, v18, v19, v20);
-      if (!strncmp(v24, "kUpsample_", 0xAuLL))
+      v15 = objc_msgSend_UTF8String(*v12, v10, v11);
+      if (!strncmp(v15, "kUpsample_", 0xAuLL))
       {
-        v25 = objc_msgSend_UTF8String(v23, v16, v17, v18, v19, v20);
-        memset(v185, 0, sizeof(v185));
-        sscanf(v25, "kUpsample_%u_%i_%u_%u_%u_%u_%s", v185, v185 + 4, v185 + 8, v185 + 12, &v185[1], &v185[1] + 4, v191);
-        sscanf(v191, "%u_%u_%u_%u_%u_%u_%u_%i_%i_%i", &v186, &v186 + 4, &v186 + 8, &v186 + 12, &v187, &v187 + 4, &v187 + 8, &v187 + 12, &v188, &v188 + 4);
-        v26 = v185[1];
-        if (LODWORD(v185[1]) >= a4)
+        v16 = objc_msgSend_UTF8String(v14, v10, v11);
+        memset(v94, 0, sizeof(v94));
+        sscanf(v16, "kUpsample_%u_%i_%u_%u_%u_%u_%s", v94, v94 + 4, v94 + 8, v94 + 12, &v94[1], &v94[1] + 4, v100);
+        sscanf(v100, "%u_%u_%u_%u_%u_%u_%u_%i_%i_%i", &v95, &v95 + 4, &v95 + 8, &v95 + 12, &v96, &v96 + 4, &v96 + 8, &v96 + 12, &v97, &v97 + 4);
+        v17 = v94[1];
+        if (LODWORD(v94[1]) >= a4)
         {
-          v27 = DWORD1(v185[1]);
-          if (DWORD1(v185[1]) >= a5 && v183 >= (DWORD1(v185[1]) * LODWORD(v185[1])))
+          v18 = DWORD1(v94[1]);
+          if (DWORD1(v94[1]) >= a5 && v92 >= (DWORD1(v94[1]) * LODWORD(v94[1])))
           {
-            *a1 = LODWORD(v185[1]);
-            *a2 = v27;
-            v183 = (v27 * v26);
+            *a1 = LODWORD(v94[1]);
+            *a2 = v18;
+            v92 = (v18 * v17);
           }
         }
       }
     }
 
-    v21 += 16;
-    v22 -= 128;
+    v12 += 16;
+    v13 -= 128;
   }
 
-  while (v22);
-  if (v183 == -1)
+  while (v13);
+  if (v92 == -1)
   {
     goto LABEL_49;
   }
 
-  v28 = 0;
+  v19 = 0;
   while (1)
   {
-    v29 = &off_284C6CFE0 + v28;
-    v35 = objc_autoreleasePoolPush();
-    v36 = *(&off_284C6CFE0 + v28);
-    if (!v36 || *(v29 + 8))
+    v20 = &off_284C6CFE0 + v19;
+    v23 = objc_autoreleasePoolPush();
+    v24 = *(&off_284C6CFE0 + v19);
+    if (!v24 || *(v20 + 8))
     {
       goto LABEL_12;
     }
 
-    v37 = objc_msgSend_UTF8String(*v29, v30, v31, v32, v33, v34);
-    if (strncmp(v37, "kCopy2D_", 8uLL))
+    v25 = objc_msgSend_UTF8String(*v20, v21, v22);
+    if (strncmp(v25, "kCopy2D_", 8uLL))
     {
       break;
     }
 
-    v88 = objc_msgSend_UTF8String(v36, v38, v39, v40, v41, v42);
-    memset(v185, 0, 48);
-    sscanf(v88, "kCopy2D_%u_%i_%s", v185, v185 + 4, v191);
-    sscanf(v191, "%u_%u_%u_%u_%u_%u_%u_%i_%i_%i", &v186, &v186 + 4, &v186 + 8, &v186 + 12, &v187, &v187 + 4, &v187 + 8, &v187 + 12, &v188, &v188 + 4);
-    *(&v185[2] + 1) = v188;
-    *(v185 + 8) = v186;
-    *(&v185[1] + 8) = v187;
-    if (((DWORD1(v186) * v186 * DWORD2(v186) * HIDWORD(v186)) & 0x3F) == 0)
+    v47 = objc_msgSend_UTF8String(v24, v26, v27);
+    memset(v94, 0, 48);
+    sscanf(v47, "kCopy2D_%u_%i_%s", v94, v94 + 4, v100);
+    sscanf(v100, "%u_%u_%u_%u_%u_%u_%u_%i_%i_%i", &v95, &v95 + 4, &v95 + 8, &v95 + 12, &v96, &v96 + 4, &v96 + 8, &v96 + 12, &v97, &v97 + 4);
+    *(&v94[2] + 1) = v97;
+    *(v94 + 8) = v95;
+    *(&v94[1] + 8) = v96;
+    if (((DWORD1(v95) * v95 * DWORD2(v95) * HIDWORD(v95)) & 0x3F) == 0)
     {
-      v190[0] = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v89, LODWORD(v185[0]), v90, v91, v92);
-      v190[1] = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v93, DWORD1(v185[0]) != 0, v94, v95, v96);
-      v100 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v97, v190, 2, v98, v99);
-      v105 = objc_msgSend_objectAtIndexedSubscript_(v100, v101, 0, v102, v103, v104);
-      if (objc_msgSend_count(v100, v106, v107, v108, v109, v110) == 1)
+      v99[0] = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v48, LODWORD(v94[0]));
+      v99[1] = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v49, DWORD1(v94[0]) != 0);
+      v51 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v50, v99, 2);
+      v53 = objc_msgSend_objectAtIndexedSubscript_(v51, v52, 0);
+      if (objc_msgSend_count(v51, v54, v55) == 1)
       {
-        v115 = v178;
+        v57 = v87;
       }
 
       else
       {
-        v127 = 1;
-        v128 = v178;
-        for (i = objc_msgSend_objectForKey_(v178, v111, v105, v112, v113, v114); ; i = objc_msgSend_objectForKey_(v115, v111, v105, v112, v113, v114))
+        v63 = 1;
+        v64 = v87;
+        for (i = objc_msgSend_objectForKey_(v87, v56, v53); ; i = objc_msgSend_objectForKey_(v57, v56, v53))
         {
-          v115 = i;
+          v57 = i;
           if (!i)
           {
-            v115 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v130, v131, v132, v133, v134);
-            objc_msgSend_setObject_forKey_(v128, v140, v115, v105, v141, v142);
+            v57 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v66, v67);
+            objc_msgSend_setObject_forKey_(v64, v70, v57, v53);
           }
 
-          v105 = objc_msgSend_objectAtIndexedSubscript_(v100, v130, v127++, v132, v133, v134);
-          v128 = v115;
-          if (v127 == objc_msgSend_count(v100, v135, v136, v137, v138, v139))
+          v53 = objc_msgSend_objectAtIndexedSubscript_(v51, v66, v63++);
+          v64 = v57;
+          if (v63 == objc_msgSend_count(v51, v68, v69))
           {
             break;
           }
         }
       }
 
-      v116 = objc_msgSend_objectForKey_(v115, v111, v105, v112, v113, v114);
-      v122 = v116;
-      if (v116)
+      v58 = objc_msgSend_objectForKey_(v57, v56, v53);
+      v61 = v58;
+      if (v58)
       {
-        if (objc_msgSend_containsObject_(v116, v117, v36, v119, v120, v121))
+        if (objc_msgSend_containsObject_(v58, v59, v24))
         {
           goto LABEL_48;
         }
@@ -1834,83 +1948,83 @@ uint64_t sub_2399425CC(void *a1, void *a2, _BYTE *a3, unint64_t a4, unint64_t a5
 
       else
       {
-        v122 = objc_msgSend_array(MEMORY[0x277CBEB18], v117, v118, v119, v120, v121);
-        objc_msgSend_setObject_forKey_(v115, v143, v122, v105, v144, v145);
-        if (objc_msgSend_containsObject_(v122, v146, v36, v147, v148, v149))
+        v61 = objc_msgSend_array(MEMORY[0x277CBEB18], v59, v60);
+        objc_msgSend_setObject_forKey_(v57, v71, v61, v53);
+        if (objc_msgSend_containsObject_(v61, v72, v24))
         {
           goto LABEL_48;
         }
       }
 
-      objc_msgSend_addObject_(v122, v123, v36, v124, v125, v126);
+      objc_msgSend_addObject_(v61, v62, v24);
     }
 
 LABEL_12:
-    objc_autoreleasePoolPop(v35);
-    v28 += 128;
-    if (v28 == 62848)
+    objc_autoreleasePoolPop(v23);
+    v19 += 128;
+    if (v19 == 62848)
     {
-      *(v176 + 1) = v178;
-      *(v176 + 2) = v177;
-      v173 = 1;
+      *(v85 + 1) = v87;
+      *(v85 + 2) = v86;
+      v83 = 1;
       goto LABEL_50;
     }
   }
 
-  v43 = objc_msgSend_UTF8String(v36, v38, v39, v40, v41, v42);
-  if (strncmp(v43, "kUpsample_", 0xAuLL))
+  v28 = objc_msgSend_UTF8String(v24, v26, v27);
+  if (strncmp(v28, "kUpsample_", 0xAuLL))
   {
     goto LABEL_48;
   }
 
-  v49 = objc_msgSend_UTF8String(v36, v44, v45, v46, v47, v48);
-  memset(v185, 0, sizeof(v185));
-  sscanf(v49, "kUpsample_%u_%i_%u_%u_%u_%u_%s", v185, v185 + 4, v185 + 8, v185 + 12, &v185[1], &v185[1] + 4, v191);
-  sscanf(v191, "%u_%u_%u_%u_%u_%u_%u_%i_%i_%i", &v186, &v186 + 4, &v186 + 8, &v186 + 12, &v187, &v187 + 4, &v187 + 8, &v187 + 12, &v188, &v188 + 4);
-  *(&v185[3] + 1) = v188;
-  *(&v185[2] + 8) = v187;
-  *(&v185[1] + 8) = v186;
-  if (((BYTE4(v186) * v186 * BYTE8(v186) * BYTE12(v186)) & 0x3F) != 0 || *(&v185[0] + 1) != 0x200000002 || *a1 != LODWORD(v185[1]) || *a2 != DWORD1(v185[1]))
+  v31 = objc_msgSend_UTF8String(v24, v29, v30);
+  memset(v94, 0, sizeof(v94));
+  sscanf(v31, "kUpsample_%u_%i_%u_%u_%u_%u_%s", v94, v94 + 4, v94 + 8, v94 + 12, &v94[1], &v94[1] + 4, v100);
+  sscanf(v100, "%u_%u_%u_%u_%u_%u_%u_%i_%i_%i", &v95, &v95 + 4, &v95 + 8, &v95 + 12, &v96, &v96 + 4, &v96 + 8, &v96 + 12, &v97, &v97 + 4);
+  *(&v94[3] + 1) = v97;
+  *(&v94[2] + 8) = v96;
+  *(&v94[1] + 8) = v95;
+  if (((BYTE4(v95) * v95 * BYTE8(v95) * BYTE12(v95)) & 0x3F) != 0 || *(&v94[0] + 1) != 0x200000002 || *a1 != LODWORD(v94[1]) || *a2 != DWORD1(v94[1]))
   {
     goto LABEL_12;
   }
 
-  v189[0] = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v50, LODWORD(v185[0]), v51, v52, v53);
-  v189[1] = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v54, DWORD1(v185[0]) != 0, v55, v56, v57);
-  v61 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v58, v189, 2, v59, v60);
-  v66 = objc_msgSend_objectAtIndexedSubscript_(v61, v62, 0, v63, v64, v65);
-  if (objc_msgSend_count(v61, v67, v68, v69, v70, v71) == 1)
+  v98[0] = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v32, LODWORD(v94[0]));
+  v98[1] = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v33, DWORD1(v94[0]) != 0);
+  v35 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v34, v98, 2);
+  v37 = objc_msgSend_objectAtIndexedSubscript_(v35, v36, 0);
+  if (objc_msgSend_count(v35, v38, v39) == 1)
   {
-    v76 = v177;
+    v41 = v86;
   }
 
   else
   {
-    v150 = 1;
-    v151 = v177;
-    for (j = objc_msgSend_objectForKey_(v177, v72, v66, v73, v74, v75); ; j = objc_msgSend_objectForKey_(v76, v72, v66, v73, v74, v75))
+    v73 = 1;
+    v74 = v86;
+    for (j = objc_msgSend_objectForKey_(v86, v40, v37); ; j = objc_msgSend_objectForKey_(v41, v40, v37))
     {
-      v76 = j;
+      v41 = j;
       if (!j)
       {
-        v76 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v153, v154, v155, v156, v157);
-        objc_msgSend_setObject_forKey_(v151, v163, v76, v66, v164, v165);
+        v41 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v76, v77);
+        objc_msgSend_setObject_forKey_(v74, v80, v41, v37);
       }
 
-      v66 = objc_msgSend_objectAtIndexedSubscript_(v61, v153, v150++, v155, v156, v157);
-      v151 = v76;
-      if (v150 == objc_msgSend_count(v61, v158, v159, v160, v161, v162))
+      v37 = objc_msgSend_objectAtIndexedSubscript_(v35, v76, v73++);
+      v74 = v41;
+      if (v73 == objc_msgSend_count(v35, v78, v79))
       {
         break;
       }
     }
   }
 
-  v77 = objc_msgSend_objectForKey_(v76, v72, v66, v73, v74, v75);
-  v83 = v77;
-  if (v77)
+  v42 = objc_msgSend_objectForKey_(v41, v40, v37);
+  v45 = v42;
+  if (v42)
   {
-    if (objc_msgSend_containsObject_(v77, v78, v36, v80, v81, v82))
+    if (objc_msgSend_containsObject_(v42, v43, v24))
     {
       goto LABEL_48;
     }
@@ -1918,771 +2032,753 @@ LABEL_12:
     goto LABEL_46;
   }
 
-  v83 = objc_msgSend_array(MEMORY[0x277CBEB18], v78, v79, v80, v81, v82);
-  objc_msgSend_setObject_forKey_(v76, v166, v83, v66, v167, v168);
-  if ((objc_msgSend_containsObject_(v83, v169, v36, v170, v171, v172) & 1) == 0)
+  v45 = objc_msgSend_array(MEMORY[0x277CBEB18], v43, v44);
+  objc_msgSend_setObject_forKey_(v41, v81, v45, v37);
+  if ((objc_msgSend_containsObject_(v45, v82, v24) & 1) == 0)
   {
 LABEL_46:
-    objc_msgSend_addObject_(v83, v84, v36, v85, v86, v87);
+    objc_msgSend_addObject_(v45, v46, v24);
     goto LABEL_12;
   }
 
 LABEL_48:
-  objc_autoreleasePoolPop(v35);
+  objc_autoreleasePoolPop(v23);
 LABEL_49:
-  v173 = 0;
+  v83 = 0;
 LABEL_50:
   objc_autoreleasePoolPop(context);
-  v174 = *MEMORY[0x277D85DE8];
-  return v173;
+  return v83;
 }
 
-uint64_t sub_239942D58(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, uint64_t a6)
+uint64_t sub_239942D58(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5)
 {
-  v513 = *MEMORY[0x277D85DE8];
-  v10 = MEMORY[0x277CD7350];
-  v11 = *(a1 + *MEMORY[0x277CD7350]);
-  v12 = objc_msgSend_pixelFormat(a4, a2, a3, a4, a5, a6);
-  PixelInfo = MPSDevice::GetPixelInfo(v11, v12, MPSImageFeatureChannelFormatNone);
-  if ((PixelInfo & 0x800000000000) == 0 || ((PixelInfo & 0xE000000) == 0 ? (v19 = 1) : (v19 = BYTE3(PixelInfo) & 0xF), (BYTE3(PixelInfo) & 0xF) != 3 ? (v20 = v19) : (v20 = 4), v20 != 1 ? (v21 = v20 == 4) : (v21 = 1), !v21))
+  v266 = *MEMORY[0x277D85DE8];
+  v9 = MEMORY[0x277CD7350];
+  v10 = *(a1 + *MEMORY[0x277CD7350]);
+  v11 = objc_msgSend_pixelFormat(a4, a2, a3);
+  PixelInfo = MPSDevice::GetPixelInfo(v10, v11, MPSImageFeatureChannelFormatNone);
+  if ((PixelInfo & 0x800000000000) == 0 || ((PixelInfo & 0xE000000) == 0 ? (v15 = 1) : (v15 = BYTE3(PixelInfo) & 0xF), (BYTE3(PixelInfo) & 0xF) != 3 ? (v16 = v15) : (v16 = 4), v16 != 1 ? (v17 = v16 == 4) : (v17 = 1), !v17))
   {
     if (!MTLReportFailureTypeEnabled())
     {
-LABEL_30:
-      result = -19;
-      goto LABEL_31;
+      return -19;
     }
 
 LABEL_29:
     MTLReportFailure();
-    goto LABEL_30;
+    return -19;
   }
 
-  v22 = PixelInfo;
-  if (objc_msgSend_mipmapLevelCount(a5, v14, v15, v16, v17, v18) != 1 || objc_msgSend_mipmapLevelCount(a4, v23, v24, v25, v26, v27) != 1)
+  v18 = PixelInfo;
+  if (objc_msgSend_mipmapLevelCount(a5, v13, v14) != 1 || objc_msgSend_mipmapLevelCount(a4, v19, v20) != 1)
   {
-    objc_msgSend_mipmapLevelCount(a5, v23, v24, v25, v26, v27);
-    objc_msgSend_mipmapLevelCount(a4, v28, v29, v30, v31, v32);
+    objc_msgSend_mipmapLevelCount(a5, v19, v20);
+    objc_msgSend_mipmapLevelCount(a4, v21, v22);
   }
 
-  if (objc_msgSend_mipmapLevelCount(a5, v23, v24, v25, v26, v27) != 1 || objc_msgSend_mipmapLevelCount(a4, v33, v34, v35, v36, v37) != 1)
+  if (objc_msgSend_mipmapLevelCount(a5, v19, v20) != 1 || objc_msgSend_mipmapLevelCount(a4, v23, v24) != 1)
   {
-    v38 = objc_msgSend_mipmapLevelCount(a5, v33, v34, v35, v36, v37) + 1;
-    if (v38 < objc_msgSend_mipmapLevelCount(a4, v39, v40, v41, v42, v43))
+    v25 = objc_msgSend_mipmapLevelCount(a5, v23, v24) + 1;
+    if (v25 < objc_msgSend_mipmapLevelCount(a4, v26, v27))
     {
       if (MTLReportFailureTypeEnabled())
       {
         MTLReportFailure();
       }
 
-      result = -5;
-      goto LABEL_31;
+      return -5;
     }
   }
 
-  v44 = objc_msgSend_height(a5, v33, v34, v35, v36, v37);
-  if (v44 == objc_msgSend_height(a4, v45, v46, v47, v48, v49))
+  v28 = objc_msgSend_height(a5, v23, v24);
+  if (v28 == objc_msgSend_height(a4, v29, v30))
   {
-    objc_msgSend_width(a5, v50, v51, v52, v53, v54);
-    objc_msgSend_width(a4, v55, v56, v57, v58, v59);
+    objc_msgSend_width(a5, v31, v32);
+    objc_msgSend_width(a4, v33, v34);
   }
 
-  v60 = objc_msgSend_height(a5, v50, v51, v52, v53, v54);
-  if (v60 != objc_msgSend_height(a4, v61, v62, v63, v64, v65) || (v71 = objc_msgSend_width(a5, v66, v67, v68, v69, v70), v71 != objc_msgSend_width(a4, v72, v73, v74, v75, v76)))
+  v35 = objc_msgSend_height(a5, v31, v32);
+  if (v35 != objc_msgSend_height(a4, v36, v37) || (v40 = objc_msgSend_width(a5, v38, v39), v40 != objc_msgSend_width(a4, v41, v42)))
   {
     if (MTLReportFailureTypeEnabled())
     {
       MTLReportFailure();
     }
 
-    result = -6;
-    goto LABEL_31;
+    return -6;
   }
 
-  if (a4 == a5 || (objc_msgSend_isEqual_(a4, v77, a5, v78, v79, v80), objc_msgSend_isEqual_(a4, v81, a5, v82, v83, v84)))
+  if (a4 == a5 || (objc_msgSend_isEqual_(a4, v43, a5), objc_msgSend_isEqual_(a4, v44, a5)))
   {
     if (MTLReportFailureTypeEnabled())
     {
       MTLReportFailure();
     }
 
-    result = -18;
-    goto LABEL_31;
+    return -18;
   }
 
-  v90 = objc_msgSend_pixelFormat(a5, v85, v86, v87, v88, v89);
-  v96 = objc_msgSend_pixelFormat(a4, v91, v92, v93, v94, v95);
-  objc_msgSend_isValidDstPixelFormat_srcPixelFormat_(a1, v97, v90, v96, v98, v99);
-  v105 = objc_msgSend_pixelFormat(a5, v100, v101, v102, v103, v104);
-  v111 = objc_msgSend_pixelFormat(a4, v106, v107, v108, v109, v110);
-  if ((objc_msgSend_isValidDstPixelFormat_srcPixelFormat_(a1, v112, v105, v111, v113, v114) & 1) == 0)
+  v47 = objc_msgSend_pixelFormat(a5, v45, v46);
+  v50 = objc_msgSend_pixelFormat(a4, v48, v49);
+  objc_msgSend_isValidDstPixelFormat_srcPixelFormat_(a1, v51, v47, v50);
+  v54 = objc_msgSend_pixelFormat(a5, v52, v53);
+  v57 = objc_msgSend_pixelFormat(a4, v55, v56);
+  if ((objc_msgSend_isValidDstPixelFormat_srcPixelFormat_(a1, v58, v54, v57) & 1) == 0)
   {
     if (MTLReportFailureTypeEnabled())
     {
       MTLReportFailure();
     }
 
-    result = -7;
-    goto LABEL_31;
+    return -7;
   }
 
-  v120 = objc_msgSend_pixelFormat(a5, v115, v116, v117, v118, v119);
-  v126 = objc_msgSend_pixelFormat(a4, v121, v122, v123, v124, v125);
-  if (objc_msgSend_isReducedPrecisionAllowedForDstPixelFormat_srcPixelFormat_(a1, v127, v120, v126, v128, v129))
+  v61 = objc_msgSend_pixelFormat(a5, v59, v60);
+  v64 = objc_msgSend_pixelFormat(a4, v62, v63);
+  if (objc_msgSend_isReducedPrecisionAllowedForDstPixelFormat_srcPixelFormat_(a1, v65, v61, v64))
   {
-    v130 = (*(a1 + *MEMORY[0x277CD7378]) >> 1) & 1;
+    v66 = (*(a1 + *MEMORY[0x277CD7378]) >> 1) & 1;
   }
 
   else
   {
-    v130 = 0;
+    v66 = 0;
   }
 
-  v133 = sub_239944578(a4);
-  if (!v133)
+  v68 = sub_239944578(a4);
+  if (!v68)
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_124;
+      goto LABEL_123;
     }
 
-    goto LABEL_125;
+    return -1;
   }
 
-  v134 = v133;
-  v135 = sub_239944578(a5);
-  if (!v135)
+  v69 = v68;
+  v70 = sub_239944578(a5);
+  if (!v70)
   {
     if (MTLReportFailureTypeEnabled())
     {
-LABEL_124:
+LABEL_123:
       MTLReportFailure();
-      result = -1;
-      goto LABEL_31;
+      return -1;
     }
 
-LABEL_125:
-    result = -1;
-    goto LABEL_31;
+    return -1;
   }
 
-  if (*(a1 + 264) == 1)
+  if (*(a1 + 264) != 1)
   {
-    if (objc_msgSend_getCopyConfigID(a1, v136, v137, v138, v139, v140) == -1)
+    v81 = MEMORY[0x277CD7370];
+    v82 = *(*(a1 + *MEMORY[0x277CD7370]) + 32);
+    v83 = *(v82 + 16);
+    if (!v83)
     {
-      CopyConfigID = 0;
-      if (objc_msgSend_getUpsampleConfigID(a1, v141, v142, v143, v144, v145) != -1)
+      goto LABEL_60;
+    }
+
+    v84 = 8 * (1 << -__clz((v18 >> 10) - 1));
+    v85 = *(v82 + 8) + 8;
+    while (1)
+    {
+      v86 = *(v85 + 8);
+      v87 = *(a1 + 344) == (v86 & 0xF) && *(a1 + 352) == v86 >> 4;
+      v88 = v87 && ((v86 >> 8) & 7) == v16;
+      if (v88 && v84 == (v86 >> 11) && ((v66 ^ ((v86 & 0x80000) == 0)) & 1) != 0)
       {
-        goto LABEL_41;
+        break;
       }
+
+      v85 += 24;
+      if (!--v83)
+      {
+        goto LABEL_60;
+      }
+    }
+
+    v89 = *(v85 - 8);
+    if (!v89 || (v90 = *v85, *v85 > 0xFFFFFFFEFFFFFFFFLL) || v90 == 0xFFFFFFFFLL)
+    {
+LABEL_60:
+      if (!MTLReportFailureTypeEnabled())
+      {
+        return -19;
+      }
+
+      goto LABEL_29;
+    }
+
+    v91 = v70;
+    IsPyramidAdd = objc_msgSend_getIsPyramidAdd(a1, v71, v72);
+    objc_msgSend_edgeMode(a1, v92, v93);
+    v247 = v89;
+    v248 = v90;
+    v94 = *(a1 + *v9);
+    v240 = *(*(a1 + *v81) + 32);
+    Sampler = MPSDevice::GetSampler();
+    if (objc_msgSend_count(v69, v95, v96) == 1 && objc_msgSend_count(v91, v97, v98) == 1)
+    {
+      v99 = objc_msgSend_objectAtIndexedSubscript_(v91, v97, 0);
+      v239 = objc_msgSend_objectAtIndexedSubscript_(v69, v100, 0);
+      v243[0] = xmmword_239983230;
+      v243[1] = xmmword_239983240;
+      v243[2] = xmmword_239983250;
+      v243[3] = xmmword_239983260;
+      v243[4] = xmmword_239983270;
+      v243[5] = xmmword_239983280;
+      v243[6] = xmmword_239983290;
+      v243[7] = xmmword_2399832A0;
+      v244 = objc_msgSend_width(v99, v101, v102);
+      v245 = objc_msgSend_height(v99, v103, v104);
+      v246 = -1;
+      v107 = objc_msgSend_UTF8String(0, v105, v106);
+      memset(v242, 0, sizeof(v242));
+      sscanf(v107, "kCopy2D_%u_%i_%s", v242, v242 + 4, v254);
+      sscanf(v254, "%u_%u_%u_%u_%u_%u_%u_%i_%i_%i", &v249, &v249 + 4, &v249 + 8, &v249 + 12, &v250, &v250 + 4, &v250 + 8, &v250 + 12, &v251, &v251 + 4);
+      *(v242 + 8) = v249;
+      *(&v242[1] + 8) = v250;
+      *(&v242[2] + 1) = v251;
+      v108 = objc_autoreleasePoolPush();
+      v111 = objc_msgSend_UTF8String(0, v109, v110);
+      v116 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v112, v113);
+      v117 = 62848;
+      v118 = &off_284C6CFE0;
+      do
+      {
+        v144 = *(v118 + 4);
+        if (v144 != -1)
+        {
+          if (*v118)
+          {
+            v145 = objc_msgSend_UTF8String(*v118, v114, v115);
+            if (!strcmp(v145, v111))
+            {
+              v146 = v118[8];
+              v147 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v114, v146 != 0);
+              if (objc_msgSend_objectForKey_(v116, v148, v147))
+              {
+                goto LABEL_102;
+              }
+
+              v150 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v149, v144);
+              v152 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v151, v146 != 0);
+              objc_msgSend_setObject_forKey_(v116, v153, v150, v152);
+            }
+          }
+        }
+
+        v118 += 16;
+        v117 -= 128;
+      }
+
+      while (v117);
+      if (objc_msgSend_count(v116, v114, v115) && v116)
+      {
+        goto LABEL_104;
+      }
+
+LABEL_102:
+      v116 = 0;
+      if (MTLReportFailureTypeEnabled())
+      {
+        MTLReportFailure();
+        v116 = 0;
+      }
+
+LABEL_104:
+      v208 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v207, *(v240 + 24));
+      v210 = objc_msgSend_objectForKeyedSubscript_(v116, v209, v208);
+      if (v210 || (v235 = MTLReportFailureTypeEnabled(), v210 = 0, !v235))
+      {
+        objc_msgSend_unsignedIntegerValue(v210, v211, v212);
+      }
+
+      else
+      {
+        MTLReportFailure();
+        objc_msgSend_unsignedIntegerValue(0, v236, v237);
+      }
+
+      ComputeState = MPSLibrary::GetComputeState();
+      if (!ComputeState && MTLReportFailureTypeEnabled())
+      {
+        MTLReportFailure();
+      }
+
+      objc_autoreleasePoolPop(v108);
+      v214 = (DWORD1(v242[1]) * LODWORD(v242[1]));
+      v215 = (HIDWORD(v242[0]) * DWORD2(v242[0]));
+      v218 = objc_msgSend_width(v99, v216, v217);
+      v219 = (v218 + (DWORD1(v242[1]) * HIDWORD(v242[0]) * LODWORD(v242[2])) - 1) / (DWORD1(v242[1]) * HIDWORD(v242[0]) * LODWORD(v242[2]));
+      v222 = objc_msgSend_height(v99, v220, v221);
+      v223 = (v222 + (LODWORD(v242[1]) * DWORD2(v242[0]) * HIDWORD(v242[1])) - 1) / (LODWORD(v242[1]) * DWORD2(v242[0]) * HIDWORD(v242[1]));
+      v224 = v215 * v214;
+      if ((v224 > objc_msgSend_maxTotalThreadsPerThreadgroup(ComputeState, v225, v226) || v224 % objc_msgSend_threadExecutionWidth(ComputeState, v227, v228)) && MTLReportFailureTypeEnabled())
+      {
+        MTLReportFailure();
+      }
+
+      objc_msgSend_setComputePipelineState_(a2, v229, ComputeState);
+      objc_msgSend_setSamplerState_atIndex_(a2, v230, Sampler, 0);
+      objc_msgSend_setTexture_atIndex_(a2, v231, v99, 0);
+      objc_msgSend_setTexture_atIndex_(a2, v232, v239, 1);
+      objc_msgSend_setBytes_length_atIndex_(a2, v233, v243, 144, 0);
+      *v254 = v219;
+      v255 = v223;
+      v256 = 1;
+      *&v249 = v214;
+      *(&v249 + 1) = v215;
+      *&v250 = 1;
+      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v234, v254, &v249);
     }
 
     else
     {
-      CopyConfigID = objc_msgSend_getCopyConfigID(a1, v141, v142, v143, v144, v145);
-      if (objc_msgSend_getUpsampleConfigID(a1, v147, v148, v149, v150, v151) != -1)
+      v154 = objc_msgSend_UTF8String(v89, v97, v98);
+      memset(v243, 0, 64);
+      sscanf(v154, "kUpsample_%u_%i_%u_%u_%u_%u_%s", v243, v243 + 4, v243 + 8, v243 | 0xC, &v243[1], &v243[1] + 4, v254);
+      sscanf(v254, "%u_%u_%u_%u_%u_%u_%u_%i_%i_%i", v242, v242 + 4, v242 + 8, v242 + 12, &v242[1], &v242[1] + 4, &v242[1] + 8, &v242[1] + 12, &v242[2], &v242[2] + 4);
+      *(&v243[1] + 8) = v242[0];
+      *(&v243[2] + 8) = v242[1];
+      *(&v243[3] + 1) = *&v242[2];
+      v156 = objc_msgSend_objectAtIndexedSubscript_(v69, v155, 0);
+      v159 = objc_msgSend_pixelFormat(v156, v157, v158);
+      MPSDevice::GetPixelInfo(v94, v159, MPSImageFeatureChannelFormatNone);
+      v161 = MPSLibrary::GetComputeState();
+      if (!v161 && MTLReportFailureTypeEnabled())
       {
-LABEL_41:
-        UpsampleConfigID = objc_msgSend_getUpsampleConfigID(a1, v152, v153, v154, v155, v156);
-LABEL_66:
-        CopyConfigs = objc_msgSend_getCopyConfigs(a1, v152, v153, v154, v155, v156);
-        v500[0] = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v227, v20, v228, v229, v230);
-        v500[1] = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v231, v130, v232, v233, v234);
-        v242 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v235, v500, 2, v236, v237);
-        v243 = 0;
-        do
+        MTLReportFailure();
+      }
+
+      objc_msgSend_setComputePipelineState_(a2, v160, v161);
+      v162 = (DWORD1(v243[2]) * LODWORD(v243[2]));
+      v163 = (HIDWORD(v243[1]) * DWORD2(v243[1]));
+      v164 = v163 * v162;
+      if ((v164 > objc_msgSend_maxTotalThreadsPerThreadgroup(v161, v165, v166) || v164 % objc_msgSend_threadExecutionWidth(v161, v167, v168)) && MTLReportFailureTypeEnabled())
+      {
+        MTLReportFailure();
+      }
+
+      v170 = 48;
+      if (v66)
+      {
+        v170 = 56;
+        v171 = 4;
+      }
+
+      else
+      {
+        v171 = 8;
+      }
+
+      if (v66)
+      {
+        v172 = 24;
+      }
+
+      else
+      {
+        v172 = 16;
+      }
+
+      objc_msgSend_setBytes_length_atIndex_(a2, v169, a1 + v170 + 344, v171, 1);
+      v175 = objc_msgSend_bytes(*(a1 + 344 + v172), v173, v174);
+      v178 = objc_msgSend_length(*(a1 + 344 + v172), v176, v177);
+      objc_msgSend_setBytes_length_atIndex_(a2, v179, v175, v178, 2);
+      objc_msgSend_setSamplerState_atIndex_(a2, v180, Sampler, 0);
+      *v254 = MEMORY[0x277D85DD0];
+      v255 = 3221225472;
+      v256 = sub_239944654;
+      v257 = &unk_278AC5088;
+      v262 = v243[0];
+      v263 = v243[1];
+      v264 = v243[2];
+      v265 = v243[3];
+      v258 = a2;
+      v259 = v162;
+      v260 = v163;
+      v261 = 1;
+      v183 = objc_msgSend_count(v69, v181, v182);
+      if (IsPyramidAdd)
+      {
+        if (v183 >= 2)
         {
-          if (!CopyConfigs)
+          v186 = -1;
+          v187 = 1;
+          do
           {
-            break;
+            v188 = objc_msgSend_count(v69, v184, v185) + v186;
+            v190 = objc_msgSend_objectAtIndexedSubscript_(v91, v189, v188 - 1);
+            v192 = objc_msgSend_objectAtIndexedSubscript_(v69, v191, v188 - 1);
+            if (v188 + 1 == objc_msgSend_count(v69, v193, v194))
+            {
+              v196 = objc_msgSend_objectAtIndexedSubscript_(v69, v195, v188);
+            }
+
+            else
+            {
+              v196 = objc_msgSend_objectAtIndexedSubscript_(v91, v195, v188);
+            }
+
+            (v256)(v254, v190, v192, v196);
+            ++v187;
+            --v186;
           }
 
-          v244 = objc_msgSend_objectAtIndexedSubscript_(v242, v238, v243, v239, v240, v241);
-          CopyConfigs = objc_msgSend_objectForKey_(CopyConfigs, v245, v244, v246, v247, v248);
-          ++v243;
+          while (v187 < objc_msgSend_count(v69, v197, v198));
         }
+      }
 
-        while (v243 != objc_msgSend_count(v242, v249, v250, v251, v252, v253));
-        v254 = objc_msgSend_objectAtIndex_(CopyConfigs, v238, CopyConfigID, v239, v240, v241);
-        UpsampleConfigs = objc_msgSend_getUpsampleConfigs(a1, v255, v256, v257, v258, v259);
-        v499[0] = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v261, v20, v262, v263, v264);
-        v499[1] = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v265, v130, v266, v267, v268);
-        v276 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v269, v499, 2, v270, v271);
-        v277 = 0;
+      else if (v183 >= 2)
+      {
+        v199 = 1;
         do
         {
-          if (!UpsampleConfigs)
-          {
-            break;
-          }
-
-          v278 = objc_msgSend_objectAtIndexedSubscript_(v276, v272, v277, v273, v274, v275);
-          UpsampleConfigs = objc_msgSend_objectForKey_(UpsampleConfigs, v279, v278, v280, v281, v282);
-          ++v277;
+          v200 = objc_msgSend_objectAtIndexedSubscript_(v91, v184, v199 - 1);
+          v202 = objc_msgSend_objectAtIndexedSubscript_(v69, v201, v199 - 1);
+          v204 = objc_msgSend_objectAtIndexedSubscript_(v69, v203, v199);
+          (v256)(v254, v200, v202, v204);
+          ++v199;
         }
 
-        while (v277 != objc_msgSend_count(v276, v283, v284, v285, v286, v287));
-        if (v254 | objc_msgSend_objectAtIndex_(UpsampleConfigs, v272, UpsampleConfigID, v273, v274, v275))
-        {
-          result = -20;
-          goto LABEL_31;
-        }
-
-        if (!MTLReportFailureTypeEnabled())
-        {
-          goto LABEL_30;
-        }
-
-        goto LABEL_29;
+        while (v199 < objc_msgSend_count(v69, v205, v206));
       }
     }
 
-    UpsampleConfigID = 0;
-    goto LABEL_66;
+    MPSLibrary::ReleaseComputeState();
+    return 0;
   }
 
-  v158 = MEMORY[0x277CD7370];
-  v159 = *(*(a1 + *MEMORY[0x277CD7370]) + 32);
-  v160 = *(v159 + 16);
-  if (!v160)
+  if (objc_msgSend_getCopyConfigID(a1, v71, v72) == -1)
   {
-    goto LABEL_61;
+    CopyConfigID = 0;
+    if (objc_msgSend_getUpsampleConfigID(a1, v73, v74) != -1)
+    {
+      goto LABEL_40;
+    }
   }
 
-  v161 = 8 * (1 << -__clz((v22 >> 10) - 1));
-  v162 = *(v159 + 8) + 8;
-  while (1)
+  else
   {
-    v163 = *(v162 + 8);
-    v164 = *(a1 + 344) == (v163 & 0xF) && *(a1 + 352) == v163 >> 4;
-    v165 = v164 && ((v163 >> 8) & 7) == v20;
-    if (v165 && v161 == (v163 >> 11) && ((v130 ^ ((v163 & 0x80000) == 0)) & 1) != 0)
+    CopyConfigID = objc_msgSend_getCopyConfigID(a1, v73, v74);
+    if (objc_msgSend_getUpsampleConfigID(a1, v76, v77) != -1)
+    {
+LABEL_40:
+      UpsampleConfigID = objc_msgSend_getUpsampleConfigID(a1, v78, v79);
+      goto LABEL_65;
+    }
+  }
+
+  UpsampleConfigID = 0;
+LABEL_65:
+  CopyConfigs = objc_msgSend_getCopyConfigs(a1, v78, v79);
+  v253[0] = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v120, v16);
+  v253[1] = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v121, v66);
+  v124 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v122, v253, 2);
+  v125 = 0;
+  do
+  {
+    if (!CopyConfigs)
     {
       break;
     }
 
-    v162 += 24;
-    if (!--v160)
-    {
-      goto LABEL_61;
-    }
+    v126 = objc_msgSend_objectAtIndexedSubscript_(v124, v123, v125);
+    CopyConfigs = objc_msgSend_objectForKey_(CopyConfigs, v127, v126);
+    ++v125;
   }
 
-  v166 = *(v162 - 8);
-  if (!v166 || (v167 = *v162, *v162 > 0xFFFFFFFEFFFFFFFFLL) || v167 == 0xFFFFFFFFLL)
+  while (v125 != objc_msgSend_count(v124, v128, v129));
+  v130 = objc_msgSend_objectAtIndex_(CopyConfigs, v123, CopyConfigID);
+  UpsampleConfigs = objc_msgSend_getUpsampleConfigs(a1, v131, v132);
+  v252[0] = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v134, v16);
+  v252[1] = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v135, v66);
+  v138 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v136, v252, 2);
+  v139 = 0;
+  do
   {
-LABEL_61:
+    if (!UpsampleConfigs)
+    {
+      break;
+    }
+
+    v140 = objc_msgSend_objectAtIndexedSubscript_(v138, v137, v139);
+    UpsampleConfigs = objc_msgSend_objectForKey_(UpsampleConfigs, v141, v140);
+    ++v139;
+  }
+
+  while (v139 != objc_msgSend_count(v138, v142, v143));
+  if (!(v130 | objc_msgSend_objectAtIndex_(UpsampleConfigs, v137, UpsampleConfigID)))
+  {
     if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_30;
+      return -19;
     }
 
     goto LABEL_29;
   }
 
-  v168 = v135;
-  IsPyramidAdd = objc_msgSend_getIsPyramidAdd(a1, v136, v137, v138, v139, v140);
-  objc_msgSend_edgeMode(a1, v169, v170, v171, v172, v173);
-  v494 = v166;
-  v495 = v167;
-  v174 = *(a1 + *v10);
-  v487 = *(*(a1 + *v158) + 32);
-  Sampler = MPSDevice::GetSampler();
-  if (objc_msgSend_count(v134, v175, v176, v177, v178, v179) == 1 && objc_msgSend_count(v168, v180, v181, v182, v183, v184) == 1)
-  {
-    v185 = objc_msgSend_objectAtIndexedSubscript_(v168, v180, 0, v182, v183, v184);
-    v486 = objc_msgSend_objectAtIndexedSubscript_(v134, v186, 0, v187, v188, v189);
-    v490[0] = xmmword_239983230;
-    v490[1] = xmmword_239983240;
-    v490[2] = xmmword_239983250;
-    v490[3] = xmmword_239983260;
-    v490[4] = xmmword_239983270;
-    v490[5] = xmmword_239983280;
-    v490[6] = xmmword_239983290;
-    v490[7] = xmmword_2399832A0;
-    v491 = objc_msgSend_width(v185, v190, v191, v192, v193, v194);
-    v492 = objc_msgSend_height(v185, v195, v196, v197, v198, v199);
-    v493 = -1;
-    v205 = objc_msgSend_UTF8String(0, v200, v201, v202, v203, v204);
-    memset(v489, 0, sizeof(v489));
-    sscanf(v205, "kCopy2D_%u_%i_%s", v489, v489 + 4, v501);
-    sscanf(v501, "%u_%u_%u_%u_%u_%u_%u_%i_%i_%i", &v496, &v496 + 4, &v496 + 8, &v496 + 12, &v497, &v497 + 4, &v497 + 8, &v497 + 12, &v498, &v498 + 4);
-    *(v489 + 8) = v496;
-    *(&v489[1] + 8) = v497;
-    *(&v489[2] + 1) = v498;
-    v206 = objc_autoreleasePoolPush();
-    v212 = objc_msgSend_UTF8String(0, v207, v208, v209, v210, v211);
-    v223 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v213, v214, v215, v216, v217);
-    v224 = 62848;
-    v225 = &off_284C6CFE0;
-    do
-    {
-      v288 = *(v225 + 4);
-      if (v288 != -1)
-      {
-        if (*v225)
-        {
-          v289 = objc_msgSend_UTF8String(*v225, v218, v219, v220, v221, v222);
-          if (!strcmp(v289, v212))
-          {
-            v290 = v225[8];
-            v291 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v218, v290 != 0, v220, v221, v222);
-            if (objc_msgSend_objectForKey_(v223, v292, v291, v293, v294, v295))
-            {
-              goto LABEL_103;
-            }
-
-            v300 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v296, v288, v297, v298, v299);
-            v305 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v301, v290 != 0, v302, v303, v304);
-            objc_msgSend_setObject_forKey_(v223, v306, v300, v305, v307, v308);
-          }
-        }
-      }
-
-      v225 += 16;
-      v224 -= 128;
-    }
-
-    while (v224);
-    if (objc_msgSend_count(v223, v218, v219, v220, v221, v222) && v223)
-    {
-      goto LABEL_105;
-    }
-
-LABEL_103:
-    v223 = 0;
-    if (MTLReportFailureTypeEnabled())
-    {
-      MTLReportFailure();
-      v223 = 0;
-    }
-
-LABEL_105:
-    v422 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v418, *(v487 + 24), v419, v420, v421);
-    v427 = objc_msgSend_objectForKeyedSubscript_(v223, v423, v422, v424, v425, v426);
-    if (v427 || (v479 = MTLReportFailureTypeEnabled(), v427 = 0, !v479))
-    {
-      objc_msgSend_unsignedIntegerValue(v427, v428, v429, v430, v431, v432);
-    }
-
-    else
-    {
-      MTLReportFailure();
-      objc_msgSend_unsignedIntegerValue(0, v480, v481, v482, v483, v484);
-    }
-
-    ComputeState = MPSLibrary::GetComputeState();
-    if (!ComputeState && MTLReportFailureTypeEnabled())
-    {
-      MTLReportFailure();
-    }
-
-    objc_autoreleasePoolPop(v206);
-    v434 = (DWORD1(v489[1]) * LODWORD(v489[1]));
-    v435 = (HIDWORD(v489[0]) * DWORD2(v489[0]));
-    v441 = objc_msgSend_width(v185, v436, v437, v438, v439, v440);
-    v442 = (v441 + (DWORD1(v489[1]) * HIDWORD(v489[0]) * LODWORD(v489[2])) - 1) / (DWORD1(v489[1]) * HIDWORD(v489[0]) * LODWORD(v489[2]));
-    v448 = objc_msgSend_height(v185, v443, v444, v445, v446, v447);
-    v449 = (v448 + (LODWORD(v489[1]) * DWORD2(v489[0]) * HIDWORD(v489[1])) - 1) / (LODWORD(v489[1]) * DWORD2(v489[0]) * HIDWORD(v489[1]));
-    v450 = v435 * v434;
-    if ((v450 > objc_msgSend_maxTotalThreadsPerThreadgroup(ComputeState, v451, v452, v453, v454, v455) || v450 % objc_msgSend_threadExecutionWidth(ComputeState, v456, v457, v458, v459, v460)) && MTLReportFailureTypeEnabled())
-    {
-      MTLReportFailure();
-    }
-
-    objc_msgSend_setComputePipelineState_(a2, v461, ComputeState, v462, v463, v464);
-    objc_msgSend_setSamplerState_atIndex_(a2, v465, Sampler, 0, v466, v467);
-    objc_msgSend_setTexture_atIndex_(a2, v468, v185, 0, v469, v470);
-    objc_msgSend_setTexture_atIndex_(a2, v471, v486, 1, v472, v473);
-    objc_msgSend_setBytes_length_atIndex_(a2, v474, v490, 144, 0, v475);
-    *v501 = v442;
-    v502 = v449;
-    v503 = 1;
-    *&v496 = v434;
-    *(&v496 + 1) = v435;
-    *&v497 = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v476, v501, &v496, v477, v478);
-  }
-
-  else
-  {
-    v309 = objc_msgSend_UTF8String(v166, v180, v181, v182, v183, v184);
-    memset(v490, 0, 64);
-    sscanf(v309, "kUpsample_%u_%i_%u_%u_%u_%u_%s", v490, v490 + 4, v490 + 8, v490 | 0xC, &v490[1], &v490[1] + 4, v501);
-    sscanf(v501, "%u_%u_%u_%u_%u_%u_%u_%i_%i_%i", v489, v489 + 4, v489 + 8, v489 + 12, &v489[1], &v489[1] + 4, &v489[1] + 8, &v489[1] + 12, &v489[2], &v489[2] + 4);
-    *(&v490[1] + 8) = v489[0];
-    *(&v490[2] + 8) = v489[1];
-    *(&v490[3] + 1) = *&v489[2];
-    v314 = objc_msgSend_objectAtIndexedSubscript_(v134, v310, 0, v311, v312, v313);
-    v320 = objc_msgSend_pixelFormat(v314, v315, v316, v317, v318, v319);
-    MPSDevice::GetPixelInfo(v174, v320, MPSImageFeatureChannelFormatNone);
-    v321 = *(&v495 + *(v487 + 24));
-    v326 = MPSLibrary::GetComputeState();
-    if (!v326 && MTLReportFailureTypeEnabled())
-    {
-      MTLReportFailure();
-    }
-
-    objc_msgSend_setComputePipelineState_(a2, v322, v326, v323, v324, v325);
-    v327 = (DWORD1(v490[2]) * LODWORD(v490[2]));
-    v328 = (HIDWORD(v490[1]) * DWORD2(v490[1]));
-    v329 = v328 * v327;
-    if ((v329 > objc_msgSend_maxTotalThreadsPerThreadgroup(v326, v330, v331, v332, v333, v334) || v329 % objc_msgSend_threadExecutionWidth(v326, v335, v336, v337, v338, v339)) && MTLReportFailureTypeEnabled())
-    {
-      MTLReportFailure();
-    }
-
-    v342 = 48;
-    if (v130)
-    {
-      v342 = 56;
-      v343 = 4;
-    }
-
-    else
-    {
-      v343 = 8;
-    }
-
-    if (v130)
-    {
-      v344 = 24;
-    }
-
-    else
-    {
-      v344 = 16;
-    }
-
-    objc_msgSend_setBytes_length_atIndex_(a2, v340, a1 + v342 + 344, v343, 1, v341);
-    v350 = objc_msgSend_bytes(*(a1 + 344 + v344), v345, v346, v347, v348, v349);
-    v356 = objc_msgSend_length(*(a1 + 344 + v344), v351, v352, v353, v354, v355);
-    objc_msgSend_setBytes_length_atIndex_(a2, v357, v350, v356, 2, v358);
-    objc_msgSend_setSamplerState_atIndex_(a2, v359, Sampler, 0, v360, v361);
-    *v501 = MEMORY[0x277D85DD0];
-    v502 = 3221225472;
-    v503 = sub_239944654;
-    v504 = &unk_278AC5088;
-    v509 = v490[0];
-    v510 = v490[1];
-    v511 = v490[2];
-    v512 = v490[3];
-    v505 = a2;
-    v506 = v327;
-    v507 = v328;
-    v508 = 1;
-    v367 = objc_msgSend_count(v134, v362, v363, v364, v365, v366);
-    if (IsPyramidAdd)
-    {
-      if (v367 >= 2)
-      {
-        v373 = -1;
-        v374 = 1;
-        do
-        {
-          v375 = objc_msgSend_count(v134, v368, v369, v370, v371, v372) + v373;
-          v380 = objc_msgSend_objectAtIndexedSubscript_(v168, v376, v375 - 1, v377, v378, v379);
-          v385 = objc_msgSend_objectAtIndexedSubscript_(v134, v381, v375 - 1, v382, v383, v384);
-          if (v375 + 1 == objc_msgSend_count(v134, v386, v387, v388, v389, v390))
-          {
-            v395 = objc_msgSend_objectAtIndexedSubscript_(v134, v391, v375, v392, v393, v394);
-          }
-
-          else
-          {
-            v395 = objc_msgSend_objectAtIndexedSubscript_(v168, v391, v375, v392, v393, v394);
-          }
-
-          (v503)(v501, v380, v385, v395);
-          ++v374;
-          --v373;
-        }
-
-        while (v374 < objc_msgSend_count(v134, v396, v397, v398, v399, v400));
-      }
-    }
-
-    else if (v367 >= 2)
-    {
-      v401 = 1;
-      do
-      {
-        v402 = objc_msgSend_objectAtIndexedSubscript_(v168, v368, v401 - 1, v370, v371, v372);
-        v407 = objc_msgSend_objectAtIndexedSubscript_(v134, v403, v401 - 1, v404, v405, v406);
-        v412 = objc_msgSend_objectAtIndexedSubscript_(v134, v408, v401, v409, v410, v411);
-        (v503)(v501, v402, v407, v412);
-        ++v401;
-      }
-
-      while (v401 < objc_msgSend_count(v134, v413, v414, v415, v416, v417));
-    }
-  }
-
-  MPSLibrary::ReleaseComputeState();
-  result = 0;
-LABEL_31:
-  v132 = *MEMORY[0x277D85DE8];
-  return result;
+  return -20;
 }
 
-uint64_t sub_2399444BC(uint64_t a1, uint64_t *a2)
+uint64_t sub_2399444BC(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = objc_autoreleasePoolPush();
-  v4 = MPSCreateFunctionConstantValues();
-  v10 = a2[8] != 0;
-  objc_msgSend_setConstantValue_type_atIndex_(v4, v5, &v10, 53, 0, v6);
-  v7 = *a2;
-  v8 = _MPSNewSpecializedFunction();
+  v6 = objc_autoreleasePoolPush();
+  v7 = MPSCreateFunctionConstantValues();
+  v11 = a2[8] != 0;
+  objc_msgSend_setConstantValue_type_atIndex_(v7, v8, &v11, 53, 0);
+  v9 = _MPSNewSpecializedFunction();
 
-  objc_autoreleasePoolPop(v3);
-  return v8;
+  objc_autoreleasePoolPop(v6);
+  return v9;
 }
 
 id sub_239944578(void *a1)
 {
   v2 = objc_alloc(MEMORY[0x277CBEB18]);
-  v8 = objc_msgSend_mipmapLevelCount(a1, v3, v4, v5, v6, v7);
-  v18 = objc_msgSend_initWithCapacity_(v2, v9, v8, v10, v11, v12);
-  if (!v18 || !objc_msgSend_mipmapLevelCount(a1, v13, v14, v15, v16, v17))
+  v5 = objc_msgSend_mipmapLevelCount(a1, v3, v4);
+  v9 = objc_msgSend_initWithCapacity_(v2, v6, v5);
+  if (!v9 || !objc_msgSend_mipmapLevelCount(a1, v7, v8))
   {
-    return v18;
+    return v9;
   }
 
-  v24 = 0;
+  v12 = 0;
   while (1)
   {
-    v25 = objc_msgSend_pixelFormat(a1, v19, v20, v21, v22, v23);
-    v27 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(a1, v26, v25, 2, v24, 1, 0, 1);
-    if (!v27)
+    v13 = objc_msgSend_pixelFormat(a1, v10, v11);
+    v15 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(a1, v14, v13, 2, v12, 1, 0, 1);
+    if (!v15)
     {
       break;
     }
 
-    v31 = v27;
-    objc_msgSend_setObject_atIndexedSubscript_(v18, v28, v27, v24, v29, v30);
+    v17 = v15;
+    objc_msgSend_setObject_atIndexedSubscript_(v9, v16, v15, v12);
 
-    if (++v24 >= objc_msgSend_mipmapLevelCount(a1, v32, v33, v34, v35, v36))
+    if (++v12 >= objc_msgSend_mipmapLevelCount(a1, v18, v19))
     {
-      return v18;
+      return v9;
     }
   }
 
   return 0;
 }
 
-uint64_t sub_239944654(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_239944654(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v50[0] = xmmword_239983230;
-  v50[1] = xmmword_239983240;
-  v50[2] = xmmword_239983250;
-  v50[3] = xmmword_239983260;
-  v50[4] = xmmword_239983270;
-  v50[5] = xmmword_239983280;
-  v50[6] = xmmword_239983290;
-  v50[7] = xmmword_2399832A0;
-  v51 = objc_msgSend_width(a2, a2, a3, a4, a5, a6);
-  v52 = objc_msgSend_height(a2, v10, v11, v12, v13, v14);
-  v53 = -1;
-  v20 = objc_msgSend_width(a2, v15, v16, v17, v18, v19);
-  v21 = (2 * *(a1 + 92) * *(a1 + 100) * *(a1 + 112));
-  v22 = (v20 + v21 - 1) / v21;
-  v28 = objc_msgSend_height(a2, v23, v24, v25, v26, v27);
-  v29 = (2 * *(a1 + 88) * *(a1 + 96) * *(a1 + 108));
-  v30 = (v28 + v29 - 1) / v29;
-  objc_msgSend_setTexture_atIndex_(*(a1 + 32), v31, a2, 0, v32, v33);
-  objc_msgSend_setTexture_atIndex_(*(a1 + 32), v34, a3, 1, v35, v36);
-  objc_msgSend_setTexture_atIndex_(*(a1 + 32), v37, a4, 2, v38, v39);
-  objc_msgSend_setBytes_length_atIndex_(*(a1 + 32), v40, v50, 144, 0, v41);
-  v42 = *(a1 + 32);
-  v49[0] = v22;
-  v49[1] = v30;
-  v49[2] = 1;
-  v47 = *(a1 + 40);
-  v48 = *(a1 + 56);
-  return objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v42, v43, v49, &v47, v44, v45);
+  v30[0] = xmmword_239983230;
+  v30[1] = xmmword_239983240;
+  v30[2] = xmmword_239983250;
+  v30[3] = xmmword_239983260;
+  v30[4] = xmmword_239983270;
+  v30[5] = xmmword_239983280;
+  v30[6] = xmmword_239983290;
+  v30[7] = xmmword_2399832A0;
+  v31 = objc_msgSend_width(a2, a2, a3);
+  v32 = objc_msgSend_height(a2, v8, v9);
+  v33 = -1;
+  v12 = objc_msgSend_width(a2, v10, v11);
+  v13 = (2 * *(a1 + 92) * *(a1 + 100) * *(a1 + 112));
+  v14 = (v12 + v13 - 1) / v13;
+  v17 = objc_msgSend_height(a2, v15, v16);
+  v18 = (2 * *(a1 + 88) * *(a1 + 96) * *(a1 + 108));
+  v19 = (v17 + v18 - 1) / v18;
+  objc_msgSend_setTexture_atIndex_(*(a1 + 32), v20, a2, 0);
+  objc_msgSend_setTexture_atIndex_(*(a1 + 32), v21, a3, 1);
+  objc_msgSend_setTexture_atIndex_(*(a1 + 32), v22, a4, 2);
+  objc_msgSend_setBytes_length_atIndex_(*(a1 + 32), v23, v30, 144, 0);
+  v24 = *(a1 + 32);
+  v29[0] = v14;
+  v29[1] = v19;
+  v29[2] = 1;
+  v27 = *(a1 + 40);
+  v28 = *(a1 + 56);
+  return objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v24, v25, v29, &v27);
 }
 
-uint64_t sub_239944860(uint64_t a1, char *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
+uint64_t sub_239944860(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, uint64_t **a6)
 {
   v8 = *(a1 + *MEMORY[0x277CD7378]);
   v9 = *(a1 + *MEMORY[0x277CD7350]);
-  v10 = *(a1 + *MEMORY[0x277CD7370]);
-  v11 = *(a1 + 160);
-  v110 = *(a6 + 16);
-  v12 = *(a6 + 40);
-  v14 = *a6;
-  v13 = *(a6 + 8);
-  if (*a6 == v13)
+  v76 = *(a6 + 1);
+  v10 = *(a6 + 5);
+  v12 = *a6;
+  v11 = a6[1];
+  if (*a6 == v11)
   {
     if (a4 == a5)
     {
       return -18;
     }
 
-    v19 = a3;
-    v20 = a5;
-    v104 = *(a6 + 40);
-    isEqual = objc_msgSend_isEqual_(a4, a2, a5, a4, a5, a6);
-    v12 = v104;
-    a3 = v19;
-    a5 = v20;
+    v17 = a3;
+    v18 = a5;
+    v70 = *(a6 + 5);
+    isEqual = objc_msgSend_isEqual_(a4, a2, a5);
+    v10 = v70;
+    a3 = v17;
+    a5 = v18;
     if (isEqual)
     {
       return -18;
     }
   }
 
-  v15 = v12.i64[1];
-  v16 = v12.i64[0];
-  if (v12.i64[1])
+  v13 = v10.i64[1];
+  v14 = v10.i64[0];
+  if (v10.i64[1])
   {
-    v17 = v12.i64[0] == 0;
+    v15 = v10.i64[0] == 0;
   }
 
   else
   {
-    v17 = 1;
+    v15 = 1;
   }
 
-  if (v17)
+  if (v15)
   {
     return 0;
   }
 
-  v22 = *v14;
-  v23 = *v13;
-  if ((*v14 & 0x40000000000) != 0)
+  v20 = *v12;
+  v21 = *v11;
+  if ((*v12 & 0x40000000000) != 0)
   {
-    LODWORD(v22) = ((v23 ^ v22) & 0x10000000000) == 0;
-    if (BYTE4(v22) >= BYTE4(v23))
+    LODWORD(v20) = ((v21 ^ v20) & 0x10000000000) == 0;
+    if (BYTE4(v20) >= BYTE4(v21))
     {
-      LODWORD(v22) = 0;
+      LODWORD(v20) = 0;
     }
 
-    if ((v23 & 0x40000000000) != 0)
+    if ((v21 & 0x40000000000) != 0)
     {
-      v24 = v22;
+      v22 = v20;
     }
 
     else
     {
-      v24 = 0;
+      v22 = 0;
     }
   }
 
-  else if ((v23 & 0x60000000000) != 0 || BYTE4(v23) < BYTE4(v22))
+  else if ((v21 & 0x60000000000) != 0 || BYTE4(v21) < BYTE4(v20))
   {
-    v24 = 0;
+    v22 = 0;
   }
 
   else if (v8)
   {
-    v24 = 1;
+    v22 = 1;
   }
 
   else
   {
-    v24 = 1;
-    if (BYTE4(v23) == 11 && v12.i64[1] * v12.i64[0] >= 0xFFE1uLL)
+    v22 = 1;
+    if (BYTE4(v21) == 11 && v10.i64[1] * v10.i64[0] >= 0xFFE1uLL)
     {
-      v96 = a3;
-      v101 = a5;
-      v106 = v12;
-      v32 = MTLReportFailureTypeEnabled();
-      v12 = v106;
-      a3 = v96;
-      a5 = v101;
-      if (v32)
+      v62 = a3;
+      v67 = a5;
+      v72 = v10;
+      v30 = MTLReportFailureTypeEnabled();
+      v10 = v72;
+      a3 = v62;
+      a5 = v67;
+      if (v30)
       {
-        v24 = 1;
+        v22 = 1;
         MTLReportFailure();
-        v12 = v106;
-        a3 = v96;
-        a5 = v101;
+        v10 = v72;
+        a3 = v62;
+        a5 = v67;
       }
     }
   }
 
   if ((v8 & 1) == 0)
   {
-    if ((v24 & 1) == 0)
+    if ((v22 & 1) == 0)
     {
-      v98 = a3;
-      v102 = a5;
-      v108 = v12;
-      v93 = MTLReportFailureTypeEnabled();
-      v12 = v108;
-      a3 = v98;
-      a5 = v102;
-      if (v93)
+      v64 = a3;
+      v68 = a5;
+      v74 = v10;
+      v59 = MTLReportFailureTypeEnabled();
+      v10 = v74;
+      a3 = v64;
+      a5 = v68;
+      if (v59)
       {
         MTLReportFailure();
-        v12 = v108;
-        a3 = v98;
-        a5 = v102;
+        v10 = v74;
+        a3 = v64;
+        a5 = v68;
       }
     }
 
-    if ((*(v13 + 5) & 2) != 0)
+    if ((*(v11 + 5) & 2) != 0)
     {
-      v99 = a3;
-      v103 = a5;
-      v109 = v12;
-      v94 = MTLReportFailureTypeEnabled();
-      v12 = v109;
-      a3 = v99;
-      a5 = v103;
-      if (v94)
+      v65 = a3;
+      v69 = a5;
+      v75 = v10;
+      v60 = MTLReportFailureTypeEnabled();
+      v10 = v75;
+      a3 = v65;
+      a5 = v69;
+      if (v60)
       {
         MTLReportFailure();
-        v12 = v109;
-        a3 = v99;
-        a5 = v103;
+        v10 = v75;
+        a3 = v65;
+        a5 = v69;
       }
     }
   }
 
-  if (!v24)
+  if (!v22)
   {
     return -7;
   }
 
-  v25 = *v13;
-  if ((*v13 & 0x20000000000) != 0)
+  v23 = *v11;
+  if ((*v11 & 0x20000000000) != 0)
   {
     return -7;
   }
 
-  v26 = *v14;
-  if ((*v14 & 0x40000000000) != 0)
+  v24 = *v12;
+  if ((*v12 & 0x40000000000) != 0)
   {
-    v30 = BYTE3(v25) & 0xF;
-    v28 = v9;
-    switch(v30)
+    v28 = BYTE3(v23) & 0xF;
+    v26 = v9;
+    switch(v28)
     {
       case 4u:
-        v105 = v12;
-        v95 = a3;
-        v100 = a5;
-        v33 = (v26 & 0x10000000000) == 0;
-        v29 = 123;
+        v71 = v10;
+        v61 = a3;
+        v66 = a5;
+        v31 = (v24 & 0x10000000000) == 0;
+        v27 = 123;
         break;
       case 2u:
-        v105 = v12;
-        v95 = a3;
-        v100 = a5;
-        v33 = (v26 & 0x10000000000) == 0;
-        v29 = 103;
+        v71 = v10;
+        v61 = a3;
+        v66 = a5;
+        v31 = (v24 & 0x10000000000) == 0;
+        v27 = 103;
         break;
       case 1u:
-        v105 = v12;
-        v95 = a3;
-        v100 = a5;
-        v17 = (v26 & 0x10000000000) == 0;
-        v29 = 53;
-        if (!v17)
+        v71 = v10;
+        v61 = a3;
+        v66 = a5;
+        v15 = (v24 & 0x10000000000) == 0;
+        v27 = 53;
+        if (!v15)
         {
-          v29 = 54;
+          v27 = 54;
         }
 
         goto LABEL_48;
@@ -2690,132 +2786,101 @@ uint64_t sub_239944860(uint64_t a1, char *a2, uint64_t a3, void *a4, uint64_t a5
         return -7;
     }
 
-    if (!v33)
+    if (!v31)
     {
-      ++v29;
+      ++v27;
     }
 
     goto LABEL_48;
   }
 
-  v27 = BYTE3(v25) & 0xF;
-  if (v27 > 4)
+  v25 = BYTE3(v23) & 0xF;
+  if (v25 > 4)
   {
     return -7;
   }
 
-  v28 = v9;
-  v105 = v12;
-  v95 = a3;
-  v100 = a5;
-  v29 = qword_239983350[v27];
+  v26 = v9;
+  v71 = v10;
+  v61 = a3;
+  v66 = a5;
+  v27 = qword_239983350[v25];
 LABEL_48:
   if ((v8 & 2) != 0)
   {
-    v34 = *v13 & 0x3FF;
+    v32 = *v11 & 0x3FF;
   }
 
   else
   {
-    v34 = v29;
+    v32 = v27;
   }
 
-  PixelInfo = MPSDevice::GetPixelInfo(v28, v34, MPSImageFeatureChannelFormatNone);
-  MEMORY[0x23EE7BAC0](v127, v95, v100);
-  v125 = v105;
-  v126 = 1;
+  PixelInfo = MPSDevice::GetPixelInfo(v26, v32, MPSImageFeatureChannelFormatNone);
+  MEMORY[0x23EE7BAC0](v93, v61, v66);
+  v91 = v71;
+  v92 = 1;
   CompressedTempTexture = MPSAutoCache::GetCompressedTempTexture();
-  v35 = *(v14 + 3) & 0xF;
   ComputeState = MPSLibrary::GetComputeState();
-  if (!ComputeState)
+  if (ComputeState && (objc_msgSend_setComputePipelineState_(a2, v33, ComputeState), v37 = objc_msgSend_threadExecutionWidth(ComputeState, v35, v36), MPSLibrary::ReleaseComputeState(), v38 = vmovn_s64(*(a6 + 4)), v87[1] = v38.i16[2], v87[0] = v38.i16[0], v88 = 0, v39 = vmovn_s64(v71), v90 = v39.i16[2], v73 = v39, v89 = v39.i16[0], objc_msgSend_setTexture_atIndex_(a2, v40, a4, 0), objc_msgSend_setTexture_atIndex_(a2, v41, CompressedTempTexture, 1), v42 = MPSDevice::GetSampler(), objc_msgSend_setSamplerState_atIndex_(a2, v43, v42, 0), objc_msgSend_setBytes_length_atIndex_(a2, v44, v87, 12, 0), v85 = (v14 + v37 - 1) / v37, v86 = vdupq_n_s64(1uLL), v83 = v37, v84 = v86, objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v45, &v85, &v83), (v47 = MPSLibrary::GetComputeState()) != 0))
   {
-    goto LABEL_54;
-  }
-
-  objc_msgSend_setComputePipelineState_(a2, v36, ComputeState, v37, v38, v39);
-  v46 = objc_msgSend_threadExecutionWidth(ComputeState, v41, v42, v43, v44, v45);
-  MPSLibrary::ReleaseComputeState();
-  v47 = vmovn_s64(*(a6 + 64));
-  v121[1] = v47.i16[2];
-  v121[0] = v47.i16[0];
-  v122 = 0;
-  v48 = vmovn_s64(v105);
-  v124 = v48.i16[2];
-  *v107.i8 = v48;
-  v123 = v48.i16[0];
-  objc_msgSend_setTexture_atIndex_(a2, v49, a4, 0, v50, v51);
-  objc_msgSend_setTexture_atIndex_(a2, v52, CompressedTempTexture, 1, v53, v54);
-  Sampler = MPSDevice::GetSampler();
-  objc_msgSend_setSamplerState_atIndex_(a2, v56, Sampler, 0, v57, v58);
-  objc_msgSend_setBytes_length_atIndex_(a2, v59, v121, 12, 0, v60);
-  v119 = (v16 + v46 - 1) / v46;
-  v120 = vdupq_n_s64(1uLL);
-  v117 = v46;
-  v118 = v120;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v61, &v119, &v117, v62, v63);
-  v64 = *(v13 + 3) & 0xF;
-  v69 = MPSLibrary::GetComputeState();
-  if (v69)
-  {
-    objc_msgSend_setComputePipelineState_(a2, v65, v69, v66, v67, v68);
-    v75 = objc_msgSend_threadExecutionWidth(v69, v70, v71, v72, v73, v74);
+    objc_msgSend_setComputePipelineState_(a2, v46, v47);
+    v50 = objc_msgSend_threadExecutionWidth(v47, v48, v49);
     MPSLibrary::ReleaseComputeState();
-    v76 = vmovn_s64(v110);
-    v112 = 0;
-    v114 = v76.i16[2];
-    v113 = v76.i16[0];
-    v116 = v107.i16[2];
-    v115 = v107.i16[0];
-    objc_msgSend_setTexture_atIndex_(a2, v77, CompressedTempTexture, 0, v78, v79);
-    objc_msgSend_setTexture_atIndex_(a2, v80, v100, 1, v81, v82);
-    v83 = MPSDevice::GetSampler();
-    objc_msgSend_setSamplerState_atIndex_(a2, v84, v83, 0, v85, v86);
-    objc_msgSend_setBytes_length_atIndex_(a2, v87, &v112, 12, 0, v88);
-    v119 = (v15 + v75 - 1) / v75;
-    v120 = vdupq_n_s64(1uLL);
-    v117 = v75;
-    v118 = v120;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v89, &v119, &v117, v90, v91);
-    v92 = 0;
+    v51 = vmovn_s64(v76);
+    v78 = 0;
+    v80 = v51.i16[2];
+    v79 = v51.i16[0];
+    v82 = v73.i16[2];
+    v81 = v73.i16[0];
+    objc_msgSend_setTexture_atIndex_(a2, v52, CompressedTempTexture, 0);
+    objc_msgSend_setTexture_atIndex_(a2, v53, v66, 1);
+    Sampler = MPSDevice::GetSampler();
+    objc_msgSend_setSamplerState_atIndex_(a2, v55, Sampler, 0);
+    objc_msgSend_setBytes_length_atIndex_(a2, v56, &v78, 12, 0);
+    v85 = (v13 + v50 - 1) / v50;
+    v86 = vdupq_n_s64(1uLL);
+    v83 = v50;
+    v84 = v86;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v57, &v85, &v83);
+    v58 = 0;
   }
 
   else
   {
-LABEL_54:
-    v92 = -1;
+    v58 = -1;
   }
 
-  MPSAutoCache::~MPSAutoCache(v127);
-  return v92;
+  MPSAutoCache::~MPSAutoCache(v93);
+  return v58;
 }
 
-uint64_t sub_239945034(uint64_t a1, const char *a2, void *a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, float a8, uint64_t a9, __int128 *a10)
+uint64_t sub_239945034(uint64_t a1, const char *a2, void *a3, float a4, uint64_t a5, void *a6, void *a7, int64x2_t *a8, uint64_t a9, __int128 *a10)
 {
-  v11 = a6;
+  v11 = a7;
   v13 = a3;
   v15 = a1;
-  v16 = *(a7 + 24);
-  v52 = *(a7 + 16);
-  v18 = *(a7 + 40);
-  v17 = *(a7 + 48);
-  v19 = *a7;
-  v20 = *(a7 + 8);
-  if (*a7 == v20)
+  v16 = a8[1].i64[1];
+  v38 = a8[1].i64[0];
+  v18 = a8[2].i64[1];
+  v17 = a8[3].i64[0];
+  v19 = a8->i64[1];
+  if (a8->i64[0] == v19)
   {
-    if (a5 == a6)
+    if (a6 == a7)
     {
       return -18;
     }
 
-    v22 = *(a7 + 24);
-    v16 = *(a7 + 48);
-    v23 = *(a7 + 40);
-    isEqual = objc_msgSend_isEqual_(a5, a2, a6, a4, a5, a6);
+    v21 = a8[1].i64[1];
+    v16 = a8[3].i64[0];
+    v22 = a8[2].i64[1];
+    isEqual = objc_msgSend_isEqual_(a6, a2, a7, a5);
     v15 = a1;
-    v11 = a6;
-    v18 = v23;
+    v11 = a7;
+    v18 = v22;
     v17 = v16;
-    LOWORD(v16) = v22;
+    LOWORD(v16) = v21;
     v13 = a3;
     if (isEqual)
     {
@@ -2823,60 +2888,54 @@ uint64_t sub_239945034(uint64_t a1, const char *a2, void *a3, uint64_t a4, void 
     }
   }
 
-  v21 = BYTE3(*v20) & 0xF;
-  if (v21 != 1 && v21 != 2 && (*(v15 + 1477) & 4) != 0)
+  v20 = BYTE3(*v19) & 0xF;
+  if (v20 == 1 || v20 == 2 || (*(v15 + 1477) & 4) == 0 || (*v19 & 0xFC00uLL) <= 0x1000 || *(v15 + 1472) <= 6)
   {
-    if ((*v20 & 0xFC00uLL) > 0x1000 && *(v15 + 1472) > 6)
-    {
-      v28 = 16;
-      goto LABEL_20;
-    }
-
-    if (BYTE4(*v19) <= 8uLL && (*v19 & 0x60000000000) == 0x20000000000)
-    {
-      *(v15 + 1472);
-    }
+    v27 = 32;
   }
 
-  v28 = 32;
-LABEL_20:
+  else
+  {
+    v27 = 16;
+  }
+
   ComputeState = MPSLibrary::GetComputeState();
   if (!ComputeState)
   {
     return -1;
   }
 
-  objc_msgSend_setComputePipelineState_(v13, v31, ComputeState, v32, v33, v34);
+  objc_msgSend_setComputePipelineState_(v13, v29, ComputeState);
   MPSLibrary::ReleaseComputeState();
-  v35 = vmovn_s64(*(a7 + 64));
-  v56[1] = v35.i16[2];
-  v56[0] = v35.i16[0];
-  v56[3] = v16;
-  v56[2] = v52;
-  v56[5] = v17;
-  v56[4] = v18;
-  v57 = a8;
-  v58 = *a10;
-  v59 = *(a10 + 4);
-  objc_msgSend_setTexture_atIndex_(v13, v36, a5, 0, v37, v38);
-  objc_msgSend_setTexture_atIndex_(v13, v39, v11, 1, v40, v41);
-  objc_msgSend_setBytes_length_atIndex_(v13, v42, v56, 36, 0, v43);
+  v30 = vmovn_s64(a8[4]);
+  v42[1] = v30.i16[2];
+  v42[0] = v30.i16[0];
+  v42[3] = v16;
+  v42[2] = v38;
+  v42[5] = v17;
+  v42[4] = v18;
+  v43 = a4;
+  v44 = *a10;
+  v45 = *(a10 + 4);
+  objc_msgSend_setTexture_atIndex_(v13, v31, a6, 0);
+  objc_msgSend_setTexture_atIndex_(v13, v32, v11, 1);
+  objc_msgSend_setBytes_length_atIndex_(v13, v33, v42, 36, 0);
   Sampler = MPSDevice::GetSampler();
-  objc_msgSend_setSamplerState_atIndex_(v13, v45, Sampler, 0, v46, v47);
-  v55[0] = (v18 + v28 - 1) / v28;
-  v55[1] = (v17 + v28 - 1) / v28;
-  v55[2] = 1;
-  v53 = vdupq_n_s64(0x10uLL);
-  v54 = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v13, v48, v55, &v53, v49, v50);
+  objc_msgSend_setSamplerState_atIndex_(v13, v35, Sampler, 0);
+  v41[0] = (v18 + v27 - 1) / v27;
+  v41[1] = (v17 + v27 - 1) / v27;
+  v41[2] = 1;
+  v39 = vdupq_n_s64(0x10uLL);
+  v40 = 1;
+  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v13, v36, v41, &v39);
   return 0;
 }
 
-uint64_t sub_239945368(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
+uint64_t sub_239945368(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5, int64x2_t *a6)
 {
-  if (*(a6 + 48))
+  if (a6[3].i64[0])
   {
-    v6 = *(a6 + 40) == 0;
+    v6 = a6[2].i64[1] == 0;
   }
 
   else
@@ -2891,44 +2950,43 @@ uint64_t sub_239945368(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5
 
   else
   {
-    return sub_239945034(*(a1 + *MEMORY[0x277CD7350]), *(a1 + *MEMORY[0x277CD7370]), a2, a4, a4, a5, a6, *(a1 + 208), *(a1 + 160), &xmmword_2399833C8);
+    return sub_239945034(*(a1 + *MEMORY[0x277CD7350]), *(a1 + *MEMORY[0x277CD7370]), a2, *(a1 + 208), a4, a4, a5, a6, *(a1 + 160), &xmmword_2399833C8);
   }
 }
 
-void sub_239947308(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
+void sub_239947308(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a19);
-  sub_23994744C(va, a2, a3, a4, a5, a6);
+  va_start(va, a21);
+  sub_23994744C(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void **sub_23994744C(void **a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+id *sub_23994744C(id *a1, const char *a2, uint64_t a3)
 {
-  objc_msgSend_endEncoding(*a1, a2, a3, a4, a5, a6);
+  objc_msgSend_endEncoding(*a1, a2, a3);
 
   return a1;
 }
 
-unint64_t sub_239947598@<X0>(uint64_t a1@<X1>, unint64_t a2@<X2>, unint64_t a3@<X3>, uint64_t a4@<X4>, void *a5@<X5>, char a6@<W6>, unint64_t *a7@<X8>)
+unint64_t sub_239947598@<X0>(const char *a1@<X1>, unint64_t a2@<X2>, unint64_t a3@<X3>, int a4@<W4>, void *a5@<X5>, char a6@<W6>, unint64_t *a7@<X8>)
 {
   if ((a6 & 1) == 0)
   {
-    v31 = a4;
     v11 = *a1;
-    v14 = *(a1 + 8);
-    v28 = *(a1 + 16);
-    v32 = objc_msgSend_maxTotalThreadsPerThreadgroup(a5, a1, a2, a3, a4, a5);
-    result = objc_msgSend_threadExecutionWidth(a5, v33, v34, v35, v36, v37);
-    v38 = v14 * v11;
-    if (v14 * v11 <= v32)
+    v14 = *(a1 + 1);
+    v22 = *(a1 + 2);
+    v26 = objc_msgSend_maxTotalThreadsPerThreadgroup(a5, a1, a2, a3);
+    result = objc_msgSend_threadExecutionWidth(a5, v27, v28);
+    v29 = v14 * v11;
+    if (v14 * v11 <= v26)
     {
-      if (!(v38 % result))
+      if (!(v29 % result))
       {
         goto LABEL_44;
       }
 
-      v39 = v32 / result;
-      if (v31)
+      v30 = v26 / result;
+      if (a4)
       {
         goto LABEL_37;
       }
@@ -2936,21 +2994,21 @@ unint64_t sub_239947598@<X0>(uint64_t a1@<X1>, unint64_t a2@<X2>, unint64_t a3@<
 
     else
     {
-      while (v38 > result)
+      while (v29 > result)
       {
-        if (--v38 <= v32 && (v38 & (result - 1)) == 0)
+        if (--v29 <= v26 && (v29 & (result - 1)) == 0)
         {
           break;
         }
       }
 
-      v39 = v38 / result;
-      if (v31)
+      v30 = v29 / result;
+      if (a4)
       {
 LABEL_37:
-        if (result <= v39)
+        if (result <= v30)
         {
-          v11 = v39;
+          v11 = v30;
         }
 
         else
@@ -2958,9 +3016,9 @@ LABEL_37:
           v11 = result;
         }
 
-        if (result >= v39)
+        if (result >= v30)
         {
-          v14 = v39;
+          v14 = v30;
         }
 
         else
@@ -2969,14 +3027,14 @@ LABEL_37:
         }
 
 LABEL_43:
-        v28 = 1;
+        v22 = 1;
         goto LABEL_44;
       }
     }
 
-    if (result >= v39)
+    if (result >= v30)
     {
-      v11 = v39;
+      v11 = v30;
     }
 
     else
@@ -2984,9 +3042,9 @@ LABEL_43:
       v11 = result;
     }
 
-    if (result <= v39)
+    if (result <= v30)
     {
-      v14 = v39;
+      v14 = v30;
     }
 
     else
@@ -3032,136 +3090,135 @@ LABEL_43:
   }
 
   v15 = v14 * v11;
-  if (v15 % objc_msgSend_threadExecutionWidth(a5, a1, a2, a3, a4, a5))
+  if (v15 % objc_msgSend_threadExecutionWidth(a5, a1, a2))
   {
     do
     {
-      v21 = v11 <= v14;
+      v18 = v11 <= v14;
       v14 <<= v11 > v14;
-      v11 <<= v21;
+      v11 <<= v18;
       v15 = v11 * v14;
     }
 
-    while (v11 * v14 % objc_msgSend_threadExecutionWidth(a5, v16, v17, v18, v19, v20));
+    while (v11 * v14 % objc_msgSend_threadExecutionWidth(a5, v16, v17));
   }
 
-  result = objc_msgSend_maxTotalThreadsPerThreadgroup(a5, v16, v17, v18, v19, v20);
-  v28 = 1;
+  result = objc_msgSend_maxTotalThreadsPerThreadgroup(a5, v16, v17);
+  v22 = 1;
   if (v15 > result && v14 >= 2)
   {
-    v28 = 1;
+    v22 = 1;
     do
     {
-      v29 = v14;
+      v23 = v14;
       v14 >>= 1;
-      result = objc_msgSend_maxTotalThreadsPerThreadgroup(a5, v23, v24, v25, v26, v27);
+      result = objc_msgSend_maxTotalThreadsPerThreadgroup(a5, v20, v21);
     }
 
-    while (v14 * v11 > result && v29 > 3);
+    while (v14 * v11 > result && v23 > 3);
   }
 
 LABEL_44:
   *a7 = v11;
   a7[1] = v14;
-  a7[2] = v28;
+  a7[2] = v22;
   return result;
 }
 
-__n128 sub_23994774C@<Q0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, void *a5@<X5>, uint64_t a6@<X8>)
+__n128 sub_23994774C@<Q0>(__n128 *a1@<X1>, int a2@<W4>, void *a3@<X5>, __n128 *a4@<X8>, uint64_t a5@<X2>)
 {
-  v7 = a4;
-  v10 = objc_msgSend_maxTotalThreadsPerThreadgroup(a5, a1, a2, a3, a4, a5);
-  v16 = objc_msgSend_threadExecutionWidth(a5, v11, v12, v13, v14, v15);
-  v17 = *(a1 + 8) * *a1;
-  if (v17 > v10)
+  v9 = objc_msgSend_maxTotalThreadsPerThreadgroup(a3, a1, a5);
+  v12 = objc_msgSend_threadExecutionWidth(a3, v10, v11);
+  v13 = a1->n128_u64[1] * a1->n128_u64[0];
+  if (v13 > v9)
   {
-    while (v17 > v16)
+    while (v13 > v12)
     {
-      if (--v17 <= v10 && (v17 & (v16 - 1)) == 0)
+      if (--v13 <= v9 && (v13 & (v12 - 1)) == 0)
       {
         break;
       }
     }
 
-    v18 = v17 / v16;
-    if (v16 >= v18)
+    v14 = v13 / v12;
+    if (v12 >= v14)
     {
-      v19 = v18;
+      v15 = v14;
     }
 
     else
     {
-      v19 = v16;
+      v15 = v12;
     }
 
-    if (v16 <= v18)
+    if (v12 <= v14)
     {
-      v20 = v18;
-    }
-
-    else
-    {
-      v20 = v16;
-    }
-
-    if (v7)
-    {
-      v21 = v20;
+      v16 = v14;
     }
 
     else
     {
-      v21 = v19;
+      v16 = v12;
     }
 
-    if (!v7)
+    if (a2)
     {
-      v19 = v20;
+      v17 = v16;
+    }
+
+    else
+    {
+      v17 = v15;
+    }
+
+    if (!a2)
+    {
+      v15 = v16;
     }
 
 LABEL_32:
-    *a1 = v21;
-    *(a1 + 8) = v19;
-    *(a1 + 16) = 1;
+    a1->n128_u64[0] = v17;
+    a1->n128_u64[1] = v15;
+    a1[1].n128_u64[0] = 1;
     goto LABEL_33;
   }
 
-  if (v17 % v16)
+  if (v13 % v12)
   {
-    v19 = v10 / v16;
-    if (v7)
+    v15 = v9 / v12;
+    if (a2)
     {
-      if (v16 <= v10 / v16)
+      if (v12 <= v9 / v12)
       {
-        v21 = v10 / v16;
+        v17 = v9 / v12;
       }
 
       else
       {
-        v21 = v16;
+        v17 = v12;
       }
 
-      if (v16 < v10 / v16)
+      if (v12 < v9 / v12)
       {
-        v19 = v16;
+        v15 = v12;
       }
     }
 
     else
     {
-      if (v16 >= v10 / v16)
+      if (v12 >= v9 / v12)
       {
-        v21 = v10 / v16;
+        v17 = v9 / v12;
       }
 
       else
       {
-        v21 = v16;
+        v17 = v12;
       }
 
-      if (v16 > v10 / v16)
+      if (v12 > v9 / v12)
       {
-        v19 = v16;
+        v15 = v12;
       }
     }
 
@@ -3170,8 +3227,8 @@ LABEL_32:
 
 LABEL_33:
   result = *a1;
-  *a6 = *a1;
-  *(a6 + 16) = *(a1 + 16);
+  *a4 = *a1;
+  a4[1].n128_u64[0] = a1[1].n128_u64[0];
   return result;
 }
 
@@ -3307,391 +3364,485 @@ LABEL_18:
   return result;
 }
 
-uint64_t sub_239947F3C(uint64_t a1, char *a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
+uint64_t sub_239947F3C(uint64_t a1, char *a2, void *a3, void *a4, void *a5, uint64_t a6)
 {
-  v261 = *MEMORY[0x277D85DE8];
+  v185 = *MEMORY[0x277D85DE8];
   v11 = *(a1 + *MEMORY[0x277CD7378]);
-  v211 = *(a1 + 256);
-  v212 = *(a1 + 248);
+  v135 = *(a1 + 256);
+  v136 = *(a1 + 248);
   v12 = *(a1 + *MEMORY[0x277CD7350]);
   v13 = MEMORY[0x277CD7370];
-  v202 = *a6;
-  v203 = *(a6 + 8);
-  v208 = *(a1 + *MEMORY[0x277CD7370]);
+  v126 = *a6;
+  v127 = *(a6 + 8);
+  v132 = *(a1 + *MEMORY[0x277CD7370]);
   v14 = *(a1 + 160);
   _S8 = *(a1 + 264);
-  v16 = objc_msgSend_width(a4, a2, a3, a4, a5, a6);
-  v209 = a4;
-  v22 = objc_msgSend_height(a4, v17, v18, v19, v20, v21);
+  v16 = objc_msgSend_width(a4, a2, a3);
+  v133 = a4;
+  v19 = objc_msgSend_height(a4, v17, v18);
   result = 0;
-  v255 = v16;
-  v256 = v22;
-  v257 = 1;
-  v24 = *(a6 + 48);
-  *v254 = *(a6 + 32);
-  *&v254[16] = v24;
-  v253 = *(a6 + 16);
-  if (*&v254[8] && *&v254[16])
+  v179 = v16;
+  v180 = v19;
+  v181 = 1;
+  v21 = *(a6 + 48);
+  *v178 = *(a6 + 32);
+  *&v178[16] = v21;
+  v177 = *(a6 + 16);
+  if (*&v178[8] && *&v178[16])
   {
-    v25 = *(a6 + 64);
-    if (v25 <= (v16 + (v212 >> 1)) && v25 + *&v254[8] >= -(v212 >> 1))
+    v22 = *(a6 + 64);
+    if (v22 <= (v16 + (v136 >> 1)) && v22 + *&v178[8] >= -(v136 >> 1))
     {
-      v26 = *(a6 + 72);
-      if (v26 <= (v22 + (v211 >> 1)) && v26 + *&v254[16] >= -(v211 >> 1))
+      v23 = *(a6 + 72);
+      if (v23 <= (v19 + (v135 >> 1)) && v23 + *&v178[16] >= -(v135 >> 1))
       {
         if (*(a1 + 272) == 1)
         {
-          v28 = *(*(a1 + 280) + *v13);
-          v29 = *(a1 + 232);
-          LODWORD(v30) = *(v29 + 4);
-          DWORD1(v30) = *(v29 + 12);
-          *(&v30 + 1) = *(v29 + 16);
-          v258 = v30;
-          LODWORD(v259) = *(v29 + 28);
-          result = sub_239945034(v12, v28, a2, a3, a4, a5, a6, _S8, v14, &v258);
-          goto LABEL_8;
+          v24 = *(*(a1 + 280) + *v13);
+          v25 = *(a1 + 232);
+          LODWORD(v26) = *(v25 + 4);
+          DWORD1(v26) = *(v25 + 12);
+          *(&v26 + 1) = *(v25 + 16);
+          v182 = v26;
+          LODWORD(v183) = *(v25 + 28);
+          return sub_239945034(v12, v24, a2, _S8, a3, a4, a5, a6, v14, &v182);
         }
 
-        v201 = a5;
+        v125 = a5;
         if ((v11 & 2) != 0)
         {
-          v32 = a4;
-          v31 = ((*v203 >> 34) & 0x3F) <= 2 && ((*v202 >> 34) & 0x3F) < 3;
+          v28 = a4;
+          v27 = ((*v127 >> 34) & 0x3F) <= 2 && ((*v126 >> 34) & 0x3F) < 3;
         }
 
         else
         {
-          v31 = 0;
-          v32 = v209;
+          v27 = 0;
+          v28 = v133;
         }
 
         Sampler = MPSDevice::GetSampler();
-        v200 = a3;
-        v37 = *(v208 + 32);
+        v124 = a3;
+        v30 = *(v132 + 32);
         if (*(a1 + 268) == 1)
         {
-          v235 = sub_239949630(*v203, v12, v31);
+          v159 = sub_239949630(*v127, v12, v27);
           MPSSeparatePassDimensions();
-          MEMORY[0x23EE7BAC0](v234, a3, v201);
-          (*(*v37 + 32))(v37);
+          MEMORY[0x23EE7BAC0](v158, a3, v125);
+          (*(*v30 + 32))(v30);
           CompressedTempTexture = MPSAutoCache::GetCompressedTempTexture();
-          objc_msgSend_usage(CompressedTempTexture, v39, v40, v41, v42, v43, v237, v236);
-          v44 = sub_2399496AC(*v202);
-          v46 = v45;
-          v47 = v235;
-          v48 = sub_2399496AC(*v203);
-          v50 = v49;
-          v233 = 0;
-          v228.i64[0] = v212 | 0x100000000;
-          v228.i64[1] = __PAIR64__(v44, v46);
-          LOBYTE(v46) = MPSIsTextureTwiddled();
-          v51 = sub_2399496AC(v47);
-          LODWORD(v47) = v52;
-          LODWORD(v229) = v46;
-          HIDWORD(v229) = v52;
-          v230 = v51;
-          v231 = MPSIsTextureTwiddled();
-          v232 = v31;
-          v227 = 0;
-          LODWORD(v222) = 1;
-          *(&v222 + 4) = __PAIR64__(v47, v211);
-          HIDWORD(v222) = v51;
-          LODWORD(v223) = MPSIsTextureTwiddled();
-          HIDWORD(v223) = v50;
-          v224 = v48;
-          v225 = MPSIsTextureTwiddled();
-          v226 = v31;
-          v260 = 0;
-          v258 = 0u;
-          v259 = 0u;
-          (*(*v37 + 16))(&v258, v37, &v228);
-          v221 = 0;
-          v219 = 0u;
-          v220 = 0u;
-          (*(*v37 + 16))(&v219, v37, &v222);
-          v53 = v232;
-          v54 = v226;
+          objc_msgSend_usage(CompressedTempTexture, v32, v33, v161, v160);
+          v34 = sub_2399496AC(*v126);
+          v36 = v35;
+          v37 = v159;
+          v38 = sub_2399496AC(*v127);
+          v40 = v39;
+          v157 = 0;
+          v152.i64[0] = v136 | 0x100000000;
+          v152.i64[1] = __PAIR64__(v34, v36);
+          LOBYTE(v36) = MPSIsTextureTwiddled();
+          v41 = sub_2399496AC(v37);
+          LODWORD(v37) = v42;
+          LODWORD(v153) = v36;
+          HIDWORD(v153) = v42;
+          v154 = v41;
+          v155 = MPSIsTextureTwiddled();
+          v156 = v27;
+          v151 = 0;
+          LODWORD(v146) = 1;
+          *(&v146 + 4) = __PAIR64__(v37, v135);
+          HIDWORD(v146) = v41;
+          LODWORD(v147) = MPSIsTextureTwiddled();
+          HIDWORD(v147) = v40;
+          v148 = v38;
+          v149 = MPSIsTextureTwiddled();
+          v150 = v27;
+          v184 = 0;
+          v182 = 0u;
+          v183 = 0u;
+          (*(*v30 + 16))(&v182, v30, &v152);
+          v145 = 0;
+          v143 = 0u;
+          v144 = 0u;
+          (*(*v30 + 16))(&v143, v30, &v146);
+          v43 = v156;
+          v44 = v150;
           ComputeState = MPSLibrary::GetComputeState();
           if (!ComputeState && MTLReportFailureTypeEnabled())
           {
             MTLReportFailure();
           }
 
-          v56 = MPSLibrary::GetComputeState();
-          if (!v56 && MTLReportFailureTypeEnabled())
+          v46 = MPSLibrary::GetComputeState();
+          if (!v46 && MTLReportFailureTypeEnabled())
           {
             MTLReportFailure();
           }
 
-          v57 = v258;
-          v217 = 0uLL;
-          v218 = 0;
-          v215 = v259;
-          v216 = 1;
-          v58 = *(&v258 + 1);
-          (*(*v37 + 24))(&v217, v37, &v215, v258);
-          v59 = v217;
-          v60 = vmovn_s64(v237[0]);
-          v241 = v60.i16[2];
-          v240 = v60.i16[0];
-          v242 = 0;
-          v204 = v238;
-          v61 = vmovn_s64(v238);
-          v244 = v61.i16[2];
-          v243 = v61.i16[0];
-          v246 = 0;
-          v245 = 0.0;
-          v247 = v212;
-          objc_msgSend_setComputePipelineState_(a2, v62, ComputeState, v63, v64, v65);
-          objc_msgSend_setTexture_atIndex_(a2, v66, v209, 0, v67, v68);
-          objc_msgSend_setTexture_atIndex_(a2, v69, CompressedTempTexture, 1, v70, v71);
-          objc_msgSend_setBytes_length_atIndex_(a2, v72, &v240, 20, 0, v73);
-          v76 = *(a1 + 232);
-          if (v76)
+          v47 = v182;
+          v141 = 0uLL;
+          v142 = 0;
+          v139 = v183;
+          v140 = 1;
+          v48 = *(&v182 + 1);
+          (*(*v30 + 24))(&v141, v30, &v139, v182);
+          v49 = v141;
+          v50 = vmovn_s64(v161[0]);
+          v165 = v50.i16[2];
+          v164 = v50.i16[0];
+          v166 = 0;
+          v128 = v162;
+          v51 = vmovn_s64(v162);
+          v168 = v51.i16[2];
+          v167 = v51.i16[0];
+          v170 = 0;
+          v169 = 0.0;
+          v171 = v136;
+          objc_msgSend_setComputePipelineState_(a2, v52, ComputeState);
+          objc_msgSend_setTexture_atIndex_(a2, v53, v133, 0);
+          objc_msgSend_setTexture_atIndex_(a2, v54, CompressedTempTexture, 1);
+          objc_msgSend_setBytes_length_atIndex_(a2, v55, &v164, 20, 0);
+          v57 = *(a1 + 232);
+          if (v57)
           {
-            if (v53)
+            if (v43)
             {
-              objc_msgSend_setBytes_length_atIndex_(a2, v74, *(a1 + 240), 2 * v212, 1, v75);
+              objc_msgSend_setBytes_length_atIndex_(a2, v56, *(a1 + 240), 2 * v136, 1);
             }
 
             else
             {
-              objc_msgSend_setBytes_length_atIndex_(a2, v74, v76, 4 * v212, 1, v75);
+              objc_msgSend_setBytes_length_atIndex_(a2, v56, v57, 4 * v136, 1);
             }
           }
 
           else
           {
-            v80 = 4;
-            if (v53)
+            v59 = 4;
+            if (v43)
             {
-              v80 = 6;
+              v59 = 6;
             }
 
-            v81 = *(a1 + OBJC_IVAR___MPSImageConvolution__fWidth[v80]);
-            objc_msgSend_setBuffer_offset_atIndex_(a2, v74, v81, 0, 1, v75);
-            sub_2399496F0(v200, v81, v82, v83, v84, v85);
+            v60 = *(a1 + OBJC_IVAR___MPSImageConvolution__fWidth[v59]);
+            objc_msgSend_setBuffer_offset_atIndex_(a2, v56, v60, 0, 1);
+            sub_2399496F0(v124, v60, v61);
           }
 
-          objc_msgSend_setSamplerState_atIndex_(a2, v77, Sampler, 0, v78, v79);
-          *&v215 = (v59 * v57 + v204.i64[0] - 1) / (v59 * v57);
-          *(&v215 + 1) = (*(&v59 + 1) * v58 + v204.i64[1] - 1) / (*(&v59 + 1) * v58);
-          v216 = 1;
-          v213 = v217;
-          v214 = v218;
-          objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v108, &v215, &v213, v109, v110);
+          objc_msgSend_setSamplerState_atIndex_(a2, v58, Sampler, 0);
+          *&v139 = (v49 * v47 + v128.i64[0] - 1) / (v49 * v47);
+          *(&v139 + 1) = (*(&v49 + 1) * v48 + v128.i64[1] - 1) / (*(&v49 + 1) * v48);
+          v140 = 1;
+          v137 = v141;
+          v138 = v142;
+          objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v78, &v139, &v137);
           MPSLibrary::ReleaseComputeState();
-          objc_msgSend_usage(v201, v111, v112, v113, v114, v115);
-          v116 = v219;
-          v213 = v220;
-          v214 = 1;
-          v117 = *(&v219 + 1);
-          (*(*v37 + 24))(&v215, v37, &v213, v219);
-          v217 = v215;
-          v218 = v216;
-          v118 = v215;
-          v119 = vmovn_s64(v236[0]);
-          v241 = v119.i16[2];
-          v240 = v119.i16[0];
-          v120 = vmovn_s64(v253);
-          HIWORD(v242) = v120.i16[2];
-          LOWORD(v242) = v120.i16[0];
-          v207 = *&v254[8];
-          _D0 = vmovn_s64(vaddq_s64(v253, *&v254[8]));
-          v244 = _D0.i16[2];
-          v243 = _D0.i16[0];
+          objc_msgSend_usage(v125, v79, v80);
+          v81 = v143;
+          v137 = v144;
+          v138 = 1;
+          v82 = *(&v143 + 1);
+          (*(*v30 + 24))(&v139, v30, &v137, v143);
+          v141 = v139;
+          v142 = v140;
+          v83 = v139;
+          v84 = vmovn_s64(v160[0]);
+          v165 = v84.i16[2];
+          v164 = v84.i16[0];
+          v85 = vmovn_s64(v177);
+          HIWORD(v166) = v85.i16[2];
+          LOWORD(v166) = v85.i16[0];
+          v131 = *&v178[8];
+          _D0 = vmovn_s64(vaddq_s64(v177, *&v178[8]));
+          v168 = _D0.i16[2];
+          v167 = _D0.i16[0];
           __asm { FCVT            H0, S8 }
 
-          v246 = _D0.i16[0];
-          v245 = _S8;
-          v247 = v211;
-          objc_msgSend_setComputePipelineState_(a2, v126, v56, v127, v128, v129);
-          objc_msgSend_setTexture_atIndex_(a2, v130, CompressedTempTexture, 0, v131, v132);
-          objc_msgSend_setTexture_atIndex_(a2, v133, v201, 1, v134, v135);
-          objc_msgSend_setBytes_length_atIndex_(a2, v136, &v240, 20, 0, v137);
-          v140 = *(a1 + 232);
-          if (v140)
+          v170 = _D0.i16[0];
+          v169 = _S8;
+          v171 = v135;
+          objc_msgSend_setComputePipelineState_(a2, v91, v46);
+          objc_msgSend_setTexture_atIndex_(a2, v92, CompressedTempTexture, 0);
+          objc_msgSend_setTexture_atIndex_(a2, v93, v125, 1);
+          objc_msgSend_setBytes_length_atIndex_(a2, v94, &v164, 20, 0);
+          v96 = *(a1 + 232);
+          if (v96)
           {
-            v141 = a2;
-            if (v54)
+            v97 = a2;
+            if (v44)
             {
-              objc_msgSend_setBytes_length_atIndex_(a2, v138, *(a1 + 240) + 2 * v212, 2 * v211, 1, v139);
+              objc_msgSend_setBytes_length_atIndex_(a2, v95, *(a1 + 240) + 2 * v136, 2 * v135, 1);
             }
 
             else
             {
-              objc_msgSend_setBytes_length_atIndex_(a2, v138, v140 + 4 * v212, 4 * v211, 1, v139);
+              objc_msgSend_setBytes_length_atIndex_(a2, v95, v96 + 4 * v136, 4 * v135, 1);
             }
           }
 
           else
           {
-            v145 = 4;
-            if (v54)
+            v99 = 4;
+            if (v44)
             {
-              v145 = 6;
+              v99 = 6;
             }
 
-            v146 = 1;
-            if (!v54)
+            v100 = 1;
+            if (!v44)
             {
-              v146 = 2;
+              v100 = 2;
             }
 
-            v147 = *(a1 + OBJC_IVAR___MPSImageConvolution__fWidth[v145]);
-            v141 = a2;
-            objc_msgSend_setBuffer_offset_atIndex_(a2, v138, v147, v212 << v146, 1, v139);
-            sub_2399496F0(v200, v147, v148, v149, v150, v151);
+            v101 = *(a1 + OBJC_IVAR___MPSImageConvolution__fWidth[v99]);
+            v97 = a2;
+            objc_msgSend_setBuffer_offset_atIndex_(a2, v95, v101, v136 << v100, 1);
+            sub_2399496F0(v124, v101, v102);
           }
 
-          objc_msgSend_setSamplerState_atIndex_(v141, v142, Sampler, 0, v143, v144);
-          *&v215 = (v118 * v116 + v207 - 1) / (v118 * v116);
-          *(&v215 + 1) = (*(&v118 + 1) * v117 + *(&v207 + 1) - 1) / (*(&v118 + 1) * v117);
-          v216 = 1;
-          v213 = v217;
-          v214 = v218;
-          objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v141, v152, &v215, &v213, v153, v154);
+          objc_msgSend_setSamplerState_atIndex_(v97, v98, Sampler, 0);
+          *&v139 = (v83 * v81 + v131.i64[0] - 1) / (v83 * v81);
+          *(&v139 + 1) = (*(&v83 + 1) * v82 + v131.i64[1] - 1) / (*(&v83 + 1) * v82);
+          v140 = 1;
+          v137 = v141;
+          v138 = v142;
+          objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v97, v103, &v139, &v137);
           MPSLibrary::ReleaseComputeState();
-          sub_2399496F0(v200, v209, v155, v156, v157, v158);
-          sub_2399496F0(v200, v201, v159, v160, v161, v162);
-          MPSAutoCache::~MPSAutoCache(v234);
+          sub_2399496F0(v124, v133, v104);
+          sub_2399496F0(v124, v125, v105);
+          MPSAutoCache::~MPSAutoCache(v158);
         }
 
         else
         {
-          if (v32 == v201 || (objc_msgSend_isEqual_(v32, v33, v201, v34, v35, v36) & 1) != 0)
+          if (v28 == v125 || (objc_msgSend_isEqual_(v28, v29, v125) & 1) != 0)
           {
-            result = -18;
-            goto LABEL_8;
+            return -18;
           }
 
-          v86 = sub_2399496AC(*v202);
-          v88 = v87;
-          v205 = sub_2399496AC(*v203);
-          v90 = v89;
-          v220 = 0uLL;
-          *&v219 = __PAIR64__(v211, v212);
-          *(&v219 + 1) = __PAIR64__(v86, v88);
-          LOBYTE(v220) = MPSIsTextureTwiddled();
-          *(&v220 + 4) = __PAIR64__(v205, v90);
-          BYTE12(v220) = MPSIsTextureTwiddled();
-          BYTE13(v220) = v31;
-          v260 = 0;
-          v258 = 0u;
-          v259 = 0u;
-          (*(*v37 + 16))(&v258, v37, &v219);
-          v91 = BYTE13(v220);
-          v92 = v260;
-          v206 = MPSLibrary::GetComputeState();
-          if (!v206 && MTLReportFailureTypeEnabled())
+          v62 = sub_2399496AC(*v126);
+          v64 = v63;
+          v129 = sub_2399496AC(*v127);
+          v66 = v65;
+          v144 = 0uLL;
+          *&v143 = __PAIR64__(v135, v136);
+          *(&v143 + 1) = __PAIR64__(v62, v64);
+          LOBYTE(v144) = MPSIsTextureTwiddled();
+          *(&v144 + 4) = __PAIR64__(v129, v66);
+          BYTE12(v144) = MPSIsTextureTwiddled();
+          BYTE13(v144) = v27;
+          v184 = 0;
+          v182 = 0u;
+          v183 = 0u;
+          (*(*v30 + 16))(&v182, v30, &v143);
+          v67 = BYTE13(v144);
+          v68 = v184;
+          v130 = MPSLibrary::GetComputeState();
+          if (!v130 && MTLReportFailureTypeEnabled())
           {
             MTLReportFailure();
           }
 
-          objc_msgSend_usage(v201, v93, v94, v95, v96, v97);
-          v228 = 0uLL;
-          v229 = 0;
-          v222 = v259;
-          v223 = 1;
-          v98 = v258;
-          (*(*v37 + 24))(&v228);
-          v103 = vmovn_s64(*(a6 + 64));
-          v198 = *&v254[8];
-          if (v92 - 771 > 2)
+          objc_msgSend_usage(v125, v69, v70);
+          v152 = 0uLL;
+          v153 = 0;
+          v146 = v183;
+          v147 = 1;
+          v71 = v182;
+          (*(*v30 + 24))(&v152);
+          v73 = vmovn_s64(*(a6 + 64));
+          v122 = *&v178[8];
+          if (v68 - 771 > 2)
           {
-            v241 = v103.i16[2];
-            v240 = v103.i16[0];
-            v163 = vmovn_s64(v253);
-            HIWORD(v242) = v163.i16[2];
-            _D0 = vmovn_s64(vaddq_s64(v253, *&v254[8]));
-            LOWORD(v242) = v163.i16[0];
-            v244 = _D0.i16[2];
-            v243 = _D0.i16[0];
+            v165 = v73.i16[2];
+            v164 = v73.i16[0];
+            v106 = vmovn_s64(v177);
+            HIWORD(v166) = v106.i16[2];
+            _D0 = vmovn_s64(vaddq_s64(v177, *&v178[8]));
+            LOWORD(v166) = v106.i16[0];
+            v168 = _D0.i16[2];
+            v167 = _D0.i16[0];
             __asm { FCVT            H0, S8 }
 
-            v246 = _D0.i16[0];
-            v245 = _S8;
-            v165 = v212;
-            if (v212 == 1)
+            v170 = _D0.i16[0];
+            v169 = _S8;
+            v108 = v136;
+            if (v136 == 1)
             {
-              v165 = v211;
+              v108 = v135;
             }
 
-            v247 = v165;
-            v106 = &v240;
-            v107 = 20;
+            v171 = v108;
+            v76 = &v164;
+            v77 = 20;
           }
 
           else
           {
-            v248[1] = v103.i16[2];
-            v104 = vmovn_s64(v253);
-            v248[0] = v103.i16[0];
-            v248[3] = v104.i16[2];
-            v248[2] = v104.i16[0];
-            v105 = vmovn_s64(vaddq_s64(v253, *&v254[8]));
-            v248[5] = v105.i16[2];
-            v248[4] = v105.i16[0];
-            v249 = _S8;
-            v250 = v258;
-            v251 = v212;
-            v252 = v211;
-            v106 = v248;
-            v107 = 24;
+            v172[1] = v73.i16[2];
+            v74 = vmovn_s64(v177);
+            v172[0] = v73.i16[0];
+            v172[3] = v74.i16[2];
+            v172[2] = v74.i16[0];
+            v75 = vmovn_s64(vaddq_s64(v177, *&v178[8]));
+            v172[5] = v75.i16[2];
+            v172[4] = v75.i16[0];
+            v173 = _S8;
+            v174 = v182;
+            v175 = v136;
+            v176 = v135;
+            v76 = v172;
+            v77 = 24;
           }
 
-          v166 = v228;
-          objc_msgSend_setComputePipelineState_(a2, v99, v206, v100, v101, v102);
-          objc_msgSend_setTexture_atIndex_(a2, v167, v209, 0, v168, v169);
-          objc_msgSend_setTexture_atIndex_(a2, v170, v201, 1, v171, v172);
-          objc_msgSend_setBytes_length_atIndex_(a2, v173, v106, v107, 0, v174);
-          v177 = *(a1 + 232);
-          if (v177)
+          v109 = v152;
+          objc_msgSend_setComputePipelineState_(a2, v72, v130);
+          objc_msgSend_setTexture_atIndex_(a2, v110, v133, 0);
+          objc_msgSend_setTexture_atIndex_(a2, v111, v125, 1);
+          objc_msgSend_setBytes_length_atIndex_(a2, v112, v76, v77, 0);
+          v114 = *(a1 + 232);
+          if (v114)
           {
-            if (((v92 < 0x303) & v91) != 0)
+            if (((v68 < 0x303) & v67) != 0)
             {
-              objc_msgSend_setBytes_length_atIndex_(a2, v175, *(a1 + 240), 2 * v211 * v212, 1, v176);
+              objc_msgSend_setBytes_length_atIndex_(a2, v113, *(a1 + 240), 2 * v135 * v136, 1);
             }
 
             else
             {
-              objc_msgSend_setBytes_length_atIndex_(a2, v175, v177, 4 * v211 * v212, 1, v176);
+              objc_msgSend_setBytes_length_atIndex_(a2, v113, v114, 4 * v135 * v136, 1);
             }
           }
 
           else
           {
-            v181 = 4;
-            if (((v92 < 0x303) & v91) != 0)
+            v116 = 4;
+            if (((v68 < 0x303) & v67) != 0)
             {
-              v181 = 6;
+              v116 = 6;
             }
 
-            v182 = *(a1 + OBJC_IVAR___MPSImageConvolution__fWidth[v181]);
-            objc_msgSend_setBuffer_offset_atIndex_(a2, v175, v182, 0, 1, v176);
-            sub_2399496F0(a3, v182, v183, v184, v185, v186);
+            v117 = *(a1 + OBJC_IVAR___MPSImageConvolution__fWidth[v116]);
+            objc_msgSend_setBuffer_offset_atIndex_(a2, v113, v117, 0, 1);
+            sub_2399496F0(a3, v117, v118);
           }
 
-          objc_msgSend_setSamplerState_atIndex_(a2, v178, Sampler, 0, v179, v180);
-          *&v222 = (v166.i64[0] * v98 + v198 - 1) / (v166.i64[0] * v98);
-          *(&v222 + 1) = (v166.i64[1] * *(&v98 + 1) + *(&v198 + 1) - 1) / (v166.i64[1] * *(&v98 + 1));
-          v223 = 1;
-          v238 = v228;
-          v239 = v229;
-          objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v187, &v222, &v238, v188, v189);
+          objc_msgSend_setSamplerState_atIndex_(a2, v115, Sampler, 0);
+          *&v146 = (v109.i64[0] * v71 + v122 - 1) / (v109.i64[0] * v71);
+          *(&v146 + 1) = (v109.i64[1] * *(&v71 + 1) + *(&v122 + 1) - 1) / (v109.i64[1] * *(&v71 + 1));
+          v147 = 1;
+          v162 = v152;
+          v163 = v153;
+          objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v119, &v146, &v162);
           MPSLibrary::ReleaseComputeState();
-          sub_2399496F0(a3, v209, v190, v191, v192, v193);
-          sub_2399496F0(a3, v201, v194, v195, v196, v197);
+          sub_2399496F0(a3, v133, v120);
+          sub_2399496F0(a3, v125, v121);
         }
       }
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_8:
-  v27 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+void sub_239948CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239948CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239948CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239948D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239948D18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239948D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239948D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239948D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239948D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239948D7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239948D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239948DA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239948DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239948DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_239949630(uint64_t a1, MPSDevice *this, int a3)
@@ -3783,28 +3934,28 @@ uint64_t sub_2399496AC(uint64_t a1)
   }
 }
 
-void *sub_2399496F0(void *result, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *sub_2399496F0(void *result, const char *a2, uint64_t a3)
 {
   if (a2)
   {
-    v7 = result;
-    v8 = objc_msgSend_userDictionary(result, a2, a3, a4, a5, a6);
-    v13 = objc_msgSend_objectForKey_(v8, v9, @"_MPSCommandBufferRetainListKey", v10, v11, v12);
-    if (!v13)
+    v4 = result;
+    v5 = objc_msgSend_userDictionary(result, a2, a3);
+    v7 = objc_msgSend_objectForKey_(v5, v6, @"_MPSCommandBufferRetainListKey");
+    if (!v7)
     {
-      v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      objc_msgSend_setObject_forKey_(v8, v19, v18, @"_MPSCommandBufferRetainListKey", v20, v21);
+      v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      objc_msgSend_setObject_forKey_(v5, v10, v9, @"_MPSCommandBufferRetainListKey");
 
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = sub_23993D978;
-      v26[3] = &unk_278AC37A8;
-      v26[4] = @"_MPSCommandBufferRetainListKey";
-      objc_msgSend_addCompletedHandler_(v7, v22, v26, v23, v24, v25);
-      v13 = v18;
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = sub_23993D978;
+      v12[3] = &unk_278AC37A8;
+      v12[4] = @"_MPSCommandBufferRetainListKey";
+      objc_msgSend_addCompletedHandler_(v4, v11, v12);
+      v7 = v9;
     }
 
-    return objc_msgSend_addObject_(v13, v14, a2, v15, v16, v17);
+    return objc_msgSend_addObject_(v7, v8, a2);
   }
 
   return result;
@@ -3812,44 +3963,42 @@ void *sub_2399496F0(void *result, const char *a2, uint64_t a3, uint64_t a4, uint
 
 uint64_t sub_2399498C0(uint64_t a1, const char *a2, uint64_t a3, void *a4, void *a5, uint64_t a6)
 {
-  v91 = *(a1 + *MEMORY[0x277CD7350]);
   v10 = *(a1 + *MEMORY[0x277CD7370]);
-  v90 = *(a1 + 160);
-  *&v92.origin.x = *(a1 + 208);
-  *&v92.origin.z = *(a1 + 224);
+  *&v61.origin.x = *(a1 + 208);
+  *&v61.origin.z = *(a1 + 224);
   v11 = *(a1 + 256);
-  *&v92.size.height = *(a1 + 240);
+  *&v61.size.height = *(a1 + 240);
   if ((*(a1 + *MEMORY[0x277CD7378]) & 1) == 0)
   {
-    objc_msgSend_textureType(a4, a2, a3, a4, a5, a6);
-    objc_msgSend_textureType(a5, v12, v13, v14, v15, v16);
-    v22 = objc_msgSend_textureType(a4, v17, v18, v19, v20, v21);
-    if (v22 != objc_msgSend_textureType(a5, v23, v24, v25, v26, v27))
+    objc_msgSend_textureType(a4, a2, a3);
+    objc_msgSend_textureType(a5, v12, v13);
+    v16 = objc_msgSend_textureType(a4, v14, v15);
+    if (v16 != objc_msgSend_textureType(a5, v17, v18))
     {
       if (MTLReportFailureTypeEnabled())
       {
-        v84 = a4;
-        v85 = a5;
+        v55 = a4;
+        v56 = a5;
         MTLReportFailure();
       }
     }
   }
 
-  v28 = *(a6 + 16);
-  v30 = *(a6 + 40);
-  v29 = *(a6 + 48);
-  v31 = *a6;
-  v32 = *(a6 + 8);
-  if (*a6 == v32)
+  v19 = *(a6 + 16);
+  v21 = *(a6 + 40);
+  v20 = *(a6 + 48);
+  v22 = *a6;
+  v23 = *(a6 + 8);
+  if (*a6 == v23)
   {
     if (a4 == a5)
     {
       return -18;
     }
 
-    v89 = *(a6 + 16);
-    isEqual = objc_msgSend_isEqual_(a4, a2, a5, a4, a5, a6);
-    v28 = v89;
+    v60 = *(a6 + 16);
+    isEqual = objc_msgSend_isEqual_(a4, a2, a5);
+    v19 = v60;
     if (isEqual)
     {
       return -18;
@@ -3857,48 +4006,48 @@ uint64_t sub_2399498C0(uint64_t a1, const char *a2, uint64_t a3, void *a4, void 
   }
 
   result = 0;
-  if (v29)
+  if (v20)
   {
-    if (v30)
+    if (v21)
     {
-      v88 = v28;
-      memset(v98, 0, 48);
-      v97.width = objc_msgSend_width(a4, a2, a3, a4, a5, a6);
-      v97.height = objc_msgSend_height(a4, v34, v35, v36, v37, v38);
-      v97.depth = 1;
-      v96 = v92;
-      MPSGetEffectiveClipRegion(v98[0].i64, &v97, &v96);
+      v59 = v19;
+      memset(v67, 0, 48);
+      v66.width = objc_msgSend_width(a4, a2, a3);
+      v66.height = objc_msgSend_height(a4, v25, v26);
+      v66.depth = 1;
+      v65 = v61;
+      MPSGetEffectiveClipRegion(v67[0].i64, &v66, &v65);
       result = -3;
-      if (v98[2].i64[0])
+      if (v67[2].i64[0])
       {
-        if (v98[1].i64[1])
+        if (v67[1].i64[1])
         {
-          v39 = *v31 & 0xF000000;
-          if (v39 == 0x4000000)
+          v27 = *v22 & 0xF000000;
+          if (v27 == 0x4000000)
           {
-            v40 = (*v32 & 0xF000000) == 0x1000000;
-            v87 = a2;
-            v41 = v11 - 1;
+            v28 = (*v23 & 0xF000000) == 0x1000000;
+            v58 = a2;
+            v29 = v11 - 1;
             if ((v11 - 1) > 6)
             {
 LABEL_10:
-              v42 = 0;
+              v30 = 0;
               goto LABEL_16;
             }
           }
 
           else
           {
-            v40 = 0;
-            v87 = a2;
-            v41 = v11 - 1;
+            v28 = 0;
+            v58 = a2;
+            v29 = v11 - 1;
             if ((v11 - 1) > 6)
             {
               goto LABEL_10;
             }
           }
 
-          v42 = dword_2399886E8[v41];
+          v30 = dword_2399886E8[v29];
 LABEL_16:
           ComputeState = MPSLibrary::GetComputeState();
           if (!ComputeState)
@@ -3906,112 +4055,112 @@ LABEL_16:
             return -1;
           }
 
-          v49 = ComputeState;
-          v86 = v40;
-          objc_msgSend_setComputePipelineState_(v87, v45, ComputeState, v46, v47, v48);
-          v55 = objc_msgSend_threadExecutionWidth(v49, v50, v51, v52, v53, v54);
+          v34 = ComputeState;
+          v57 = v28;
+          objc_msgSend_setComputePipelineState_(v58, v33, ComputeState);
+          v37 = objc_msgSend_threadExecutionWidth(v34, v35, v36);
           MPSLibrary::ReleaseComputeState();
-          if ((*v31 & 0xF000000) == 0x1000000)
+          if ((*v22 & 0xF000000) == 0x1000000)
           {
-            v59 = v42;
+            v39 = v30;
           }
 
           else
           {
-            v59 = v42 + 1;
+            v39 = v30 + 1;
           }
 
-          v60 = *(*(*(v10 + 280) + 16 * v59) + 64);
-          if (v60)
+          v40 = *(*(*(v10 + 280) + 16 * v39) + 64);
+          if (v40)
           {
-            v61 = v60;
+            v41 = v40;
           }
 
           else
           {
-            v61 = v55;
+            v41 = v37;
           }
 
-          v62 = 1.0;
-          v63 = 0.0;
+          v42 = 1.0;
+          v43 = 0.0;
           if (v11 > 3)
           {
             if (v11 <= 5)
             {
-              v64 = v87;
+              v44 = v58;
               if (v11 != 4)
               {
-                v62 = 1.0 / v98[2].u64[0];
+                v42 = 1.0 / v67[2].u64[0];
 LABEL_37:
-                v29 = v30;
-                v63 = v62;
+                v20 = v21;
+                v43 = v42;
 LABEL_40:
-                v66 = vmovn_s64(v98[0]);
-                v93[1] = v66.i16[2];
-                v93[0] = v66.i16[0];
-                v67 = vmovn_s64(*(&v98[1] + 8));
-                v93[3] = v67.i16[2];
-                v93[2] = v67.i16[0];
-                v68 = vmovn_s64(v88);
-                v93[5] = v68.i16[2];
-                v93[4] = v68.i16[0];
-                v94 = v63;
-                v95 = v86;
-                objc_msgSend_setTexture_atIndex_(v64, v56, a4, 0, v57, v58, v84, v85);
-                objc_msgSend_setTexture_atIndex_(v64, v69, a5, 1, v70, v71);
-                objc_msgSend_setBytes_length_atIndex_(v64, v72, v93, 20, 0, v73);
+                v46 = vmovn_s64(v67[0]);
+                v62[1] = v46.i16[2];
+                v62[0] = v46.i16[0];
+                v47 = vmovn_s64(*(&v67[1] + 8));
+                v62[3] = v47.i16[2];
+                v62[2] = v47.i16[0];
+                v48 = vmovn_s64(v59);
+                v62[5] = v48.i16[2];
+                v62[4] = v48.i16[0];
+                v63 = v43;
+                v64 = v57;
+                objc_msgSend_setTexture_atIndex_(v44, v38, a4, 0, v55, v56);
+                objc_msgSend_setTexture_atIndex_(v44, v49, a5, 1);
+                objc_msgSend_setBytes_length_atIndex_(v44, v50, v62, 20, 0);
                 Sampler = MPSDevice::GetSampler();
-                objc_msgSend_setSamplerState_atIndex_(v64, v75, Sampler, 0, v76, v77);
-                objc_msgSend_setThreadgroupMemoryLength_atIndex_(v64, v78, 16 * v61, 0, v79, v80);
-                v96.origin.x = 1;
-                v96.origin.y = v29;
-                v96.origin.z = 1;
-                v97.width = v61;
-                *&v97.height = vdupq_n_s64(1uLL);
-                objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v64, v81, &v96, &v97, v82, v83);
+                objc_msgSend_setSamplerState_atIndex_(v44, v52, Sampler, 0);
+                objc_msgSend_setThreadgroupMemoryLength_atIndex_(v44, v53, 16 * v41, 0);
+                v65.origin.x = 1;
+                v65.origin.y = v20;
+                v65.origin.z = 1;
+                v66.width = v41;
+                *&v66.height = vdupq_n_s64(1uLL);
+                objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v44, v54, &v65, &v66);
                 return 0;
               }
 
-              v62 = 1.0 / v98[1].u64[1];
+              v42 = 1.0 / v67[1].u64[1];
               goto LABEL_39;
             }
 
-            v64 = v87;
+            v44 = v58;
             if (v11 == 6)
             {
               goto LABEL_39;
             }
 
-            v65 = v11 == 7;
+            v45 = v11 == 7;
           }
 
           else
           {
             if (v11 <= 1)
             {
-              v64 = v87;
+              v44 = v58;
               if (v11)
               {
-                v65 = v11 == 1;
+                v45 = v11 == 1;
                 goto LABEL_35;
               }
 
 LABEL_39:
-              v63 = v62;
+              v43 = v42;
               goto LABEL_40;
             }
 
-            v64 = v87;
+            v44 = v58;
             if (v11 == 2)
             {
               goto LABEL_39;
             }
 
-            v65 = v11 == 3;
+            v45 = v11 == 3;
           }
 
 LABEL_35:
-          if (!v65)
+          if (!v45)
           {
             goto LABEL_40;
           }
@@ -4025,21 +4174,19 @@ LABEL_35:
   return result;
 }
 
-uint64_t sub_23994A590(uint64_t a1, char *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
+uint64_t sub_23994A590(uint64_t a1, char *a2, void *a3, void *a4, void *a5, uint64_t a6)
 {
   v7 = a4;
-  v291 = *(a6 + 16);
+  v157 = *(a6 + 16);
   v9 = *(a6 + 40);
-  v295 = *(a6 + 56);
-  v297 = *(a6 + 32);
+  v161 = *(a6 + 56);
+  v163 = *(a6 + 32);
   v10 = *(a1 + 232);
   v11 = *(a1 + *MEMORY[0x277CD7350]);
-  v12 = *(a1 + *MEMORY[0x277CD7370]);
-  v300 = *(a1 + 160);
-  v302 = *(a1 + *MEMORY[0x277CD7378]);
-  v293 = *(a1 + 236);
-  v13 = *(a1 + 256);
-  v305 = v9;
+  v167 = *(a1 + *MEMORY[0x277CD7378]);
+  v159 = *(a1 + 236);
+  v12 = *(a1 + 256);
+  v170 = v9;
   if (*a6 == *(a6 + 8))
   {
     if (a4 == a5)
@@ -4047,288 +4194,287 @@ uint64_t sub_23994A590(uint64_t a1, char *a2, uint64_t a3, void *a4, uint64_t a5
       return -18;
     }
 
-    v24 = a3;
-    v25 = *(a1 + *MEMORY[0x277CD7350]);
-    v26 = *(a1 + 256);
-    v27 = *(a1 + *MEMORY[0x277CD7370]);
-    v28 = a5;
-    isEqual = objc_msgSend_isEqual_(a4, a2, a5, a4, a5, a6);
-    v9 = v305;
-    a5 = v28;
-    v13 = v26;
-    v11 = v25;
+    v20 = a3;
+    v21 = *(a1 + *MEMORY[0x277CD7350]);
+    v22 = *(a1 + 256);
+    v23 = a5;
+    isEqual = objc_msgSend_isEqual_(a4, a2, a5);
+    v9 = v170;
+    a5 = v23;
+    v12 = v22;
+    v11 = v21;
     v7 = a4;
-    a3 = v24;
+    a3 = v20;
     if (isEqual)
     {
       return -18;
     }
   }
 
-  v288 = a5;
-  v286 = a3;
-  v333 = v9;
-  v334 = 1;
-  v14 = (a6 + 64);
-  v15 = *(a6 + 64);
-  if (v15 > objc_msgSend_width(v7, a2, a3, a4, a5, a6) + 1)
+  v154 = a5;
+  v152 = a3;
+  v198 = v9;
+  v199 = 1;
+  v13 = (a6 + 64);
+  v14 = *(a6 + 64);
+  if (v14 > objc_msgSend_width(v7, a2, a3) + 1)
   {
     return 0;
   }
 
-  v21 = v305.i64[0];
-  if (*v14 + v305.i64[0] < -1)
+  v17 = v170.i64[0];
+  if (*v13 + v170.i64[0] < -1)
   {
     return 0;
   }
 
-  v22 = *(a6 + 72);
-  if (v22 > objc_msgSend_height(v7, v16, v17, v18, v19, v20) + 1 || *(a6 + 72) + v305.i64[1] < -1)
+  v18 = *(a6 + 72);
+  if (v18 > objc_msgSend_height(v7, v15, v16) + 1 || *(a6 + 72) + v170.i64[1] < -1)
   {
     return 0;
   }
 
-  v284 = **a6 & 0xF000000;
+  v150 = **a6 & 0xF000000;
   ComputeState = MPSLibrary::GetComputeState();
   if (ComputeState)
   {
-    v30 = MPSLibrary::GetComputeState();
-    if (v30)
+    v25 = MPSLibrary::GetComputeState();
+    if (v25)
     {
-      v31 = v30;
-      v283 = v13;
-      v32 = MPSLibrary::GetComputeState();
-      if (v32)
+      v26 = v25;
+      v149 = v12;
+      v27 = MPSLibrary::GetComputeState();
+      if (v27)
       {
-        v33 = v32;
-        v34 = MPSLibrary::GetComputeState();
-        if (v34)
+        v28 = v27;
+        v29 = MPSLibrary::GetComputeState();
+        if (v29)
         {
-          v280 = v34;
-          v281 = MPSLibrary::GetComputeState();
-          if (v281)
+          v146 = v29;
+          v147 = MPSLibrary::GetComputeState();
+          if (v147)
           {
-            v282 = v31;
-            v35 = vmovn_s64(v291);
-            LOWORD(v36) = v35.i16[0];
-            WORD1(v36) = v35.i16[2];
-            HIDWORD(v36) = v297;
-            v323 = 0;
-            v324 = v36;
-            v278 = v36;
-            v37 = vaddq_s64(v305, v291);
-            *v37.i8 = vmovn_s64(v37);
-            LOWORD(v38) = v37.i16[0];
-            WORD1(v38) = v37.i16[2];
-            HIDWORD(v38) = (v295 + v297);
-            v289 = v38;
-            v325 = v38;
-            v37.i64[0] = *(a1 + 208);
-            v37.i32[2] = *(a1 + 216);
-            LODWORD(v38) = *(a1 + 220);
-            v326 = v37;
-            v37.i32[0] = *(a1 + 224);
-            v327 = v38;
-            v328 = v37.i32[0];
-            v329 = v293;
-            v39 = v11;
+            v148 = v26;
+            v30 = vmovn_s64(v157);
+            LOWORD(v31) = v30.i16[0];
+            WORD1(v31) = v30.i16[2];
+            HIDWORD(v31) = v163;
+            v188 = 0;
+            v189 = v31;
+            v144 = v31;
+            v32 = vaddq_s64(v170, v157);
+            *v32.i8 = vmovn_s64(v32);
+            LOWORD(v33) = v32.i16[0];
+            WORD1(v33) = v32.i16[2];
+            HIDWORD(v33) = (v161 + v163);
+            v155 = v33;
+            v190 = v33;
+            v32.i64[0] = *(a1 + 208);
+            v32.i32[2] = *(a1 + 216);
+            LODWORD(v33) = *(a1 + 220);
+            v191 = v32;
+            v32.i32[0] = *(a1 + 224);
+            v192 = v33;
+            v193 = v32.i32[0];
+            v194 = v159;
+            v34 = v11;
             Sampler = MPSDevice::GetSampler();
-            MEMORY[0x23EE7BAC0](v322, v286, 0);
-            v321 = 0;
-            v41 = (v302 >> 1) & 1;
-            v303 = v39;
-            v321 = sub_23994B79C(**a6, v41, v39);
+            MEMORY[0x23EE7BAC0](v187, v152, 0);
+            v186 = 0;
+            v36 = (v167 >> 1) & 1;
+            v168 = v34;
+            v186 = sub_23994B79C(**a6, v36, v34);
             CompressedTempTexture = MPSAutoCache::GetCompressedTempTexture();
-            v305.i64[0] = MPSAutoCache::GetTempBuffer(v322, 12, 0);
-            TempBuffer = MPSAutoCache::GetTempBuffer(v322, 8, 0);
-            v299 = MPSAutoCache::GetTempBuffer(v322, 4, 0);
-            v290 = MPSAutoCache::GetTempBuffer(v322, 0x8000, 0);
-            v48 = objc_msgSend_pixelFormat(CompressedTempTexture, v43, v44, v45, v46, v47);
-            v319 = 0;
-            PixelInfo = MPSDevice::GetPixelInfo(v303, v48, MPSImageFeatureChannelFormatNone);
-            v309 = *a6;
+            v170.i64[0] = MPSAutoCache::GetTempBuffer(v187, 12, 0);
+            TempBuffer = MPSAutoCache::GetTempBuffer(v187, 8, 0);
+            v165 = MPSAutoCache::GetTempBuffer(v187, 4, 0);
+            v156 = MPSAutoCache::GetTempBuffer(v187, 0x8000, 0);
+            v40 = objc_msgSend_pixelFormat(CompressedTempTexture, v38, v39);
+            v184 = 0;
+            PixelInfo = MPSDevice::GetPixelInfo(v168, v40, MPSImageFeatureChannelFormatNone);
+            v174 = *a6;
             p_PixelInfo = &PixelInfo;
-            v311 = 0;
-            v312 = 0;
-            v313 = 0;
-            v314 = v21;
-            v315 = v305.i64[1];
-            v316 = 1;
-            v317 = *v14;
-            v318 = *(a6 + 80);
-            sub_23993BB50(*(a1 + 240), a2, v286, v7, CompressedTempTexture, &v309);
-            objc_msgSend_setComputePipelineState_(a2, v49, ComputeState, v50, v51, v52);
+            v176 = 0;
+            v177 = 0;
+            v178 = 0;
+            v179 = v17;
+            v180 = v170.i64[1];
+            v181 = 1;
+            v182 = *v13;
+            v183 = *(a6 + 80);
+            sub_23993BB50(*(a1 + 240), a2, v152, v7, CompressedTempTexture, &v174);
+            objc_msgSend_setComputePipelineState_(a2, v41, ComputeState);
             MPSLibrary::ReleaseComputeState();
-            objc_msgSend_setTexture_atIndex_(a2, v53, CompressedTempTexture, 0, v54, v55);
-            objc_msgSend_setTexture_atIndex_(a2, v56, v288, 1, v57, v58);
-            objc_msgSend_setSamplerState_atIndex_(a2, v59, Sampler, 0, v60, v61);
-            objc_msgSend_setBytes_length_atIndex_(a2, v62, &v323, 80, 0, v63);
-            v69 = objc_msgSend_maxTotalThreadsPerThreadgroup(ComputeState, v64, v65, v66, v67, v68);
-            v75 = objc_msgSend_threadExecutionWidth(ComputeState, v70, v71, v72, v73, v74);
-            v81 = objc_msgSend_threadExecutionWidth(ComputeState, v76, v77, v78, v79, v80);
-            v82 = (v69 & -v75) / v81;
-            objc_msgSend_setThreadgroupMemoryLength_atIndex_(a2, v83, 16 * v81 * v82, 0, v84, v85);
-            v86 = v284 == 0x1000000;
-            v298 = v305.i64[1] - 1;
-            v296 = v21 - 1;
-            *v308 = ((v81 << v86) - 2 + v21 - 1) / ((v81 << v86) - 2);
-            *&v308[8] = ((v82 << v86) - 2 + v305.i64[1] - 1) / ((v82 << v86) - 2);
-            *&v308[16] = 1;
-            v306 = v81;
-            v307.i64[0] = v82;
-            v307.i64[1] = 1;
-            objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v87, v308, &v306, v88, v89);
-            v95 = objc_msgSend_maxTotalThreadsPerThreadgroup(v282, v90, v91, v92, v93, v94);
-            v101 = objc_msgSend_threadExecutionWidth(v282, v96, v97, v98, v99, v100);
-            v107 = v101;
-            v108 = v95 & -v101;
-            if (v101 > 0x100 || v108 <= 0xFF)
+            objc_msgSend_setTexture_atIndex_(a2, v42, CompressedTempTexture, 0);
+            objc_msgSend_setTexture_atIndex_(a2, v43, v154, 1);
+            objc_msgSend_setSamplerState_atIndex_(a2, v44, Sampler, 0);
+            objc_msgSend_setBytes_length_atIndex_(a2, v45, &v188, 80, 0);
+            v48 = objc_msgSend_maxTotalThreadsPerThreadgroup(ComputeState, v46, v47);
+            v51 = objc_msgSend_threadExecutionWidth(ComputeState, v49, v50);
+            v54 = objc_msgSend_threadExecutionWidth(ComputeState, v52, v53);
+            v55 = (v48 & -v51) / v54;
+            objc_msgSend_setThreadgroupMemoryLength_atIndex_(a2, v56, 16 * v54 * v55, 0);
+            v57 = v150 == 0x1000000;
+            v164 = v170.i64[1] - 1;
+            v162 = v17 - 1;
+            *v173 = ((v54 << v57) - 2 + v17 - 1) / ((v54 << v57) - 2);
+            *&v173[8] = ((v55 << v57) - 2 + v170.i64[1] - 1) / ((v55 << v57) - 2);
+            *&v173[16] = 1;
+            v171 = v54;
+            v172.i64[0] = v55;
+            v172.i64[1] = 1;
+            objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v58, v173, &v171);
+            v61 = objc_msgSend_maxTotalThreadsPerThreadgroup(v148, v59, v60);
+            v64 = objc_msgSend_threadExecutionWidth(v148, v62, v63);
+            v67 = v64;
+            v68 = v61 & -v64;
+            if (v64 > 0x100 || v68 <= 0xFF)
             {
-              v109 = v108 / v101;
+              v69 = v68 / v64;
             }
 
             else
             {
-              v107 = 16;
-              v109 = 16;
+              v67 = 16;
+              v69 = 16;
             }
 
-            v292 = Sampler;
-            v294 = v33;
-            v110 = objc_msgSend_contents(*(a1 + 248), v102, v103, v104, v105, v106, v278);
-            v111 = (2 * v107 + v296) / (2 * v107);
-            v112 = (2 * v109 + v298) / (2 * v109);
-            *v110 = v111;
-            v110[1] = v112;
-            v110[2] = 1;
-            v113 = MPSLibrary::GetComputeState();
-            objc_msgSend_setComputePipelineState_(a2, v114, v113, v115, v116, v117);
+            v158 = Sampler;
+            v160 = v28;
+            v70 = objc_msgSend_contents(*(a1 + 248), v65, v66, v144);
+            v71 = (2 * v67 + v162) / (2 * v67);
+            v72 = (2 * v69 + v164) / (2 * v69);
+            *v70 = v71;
+            v70[1] = v72;
+            v70[2] = 1;
+            v73 = MPSLibrary::GetComputeState();
+            objc_msgSend_setComputePipelineState_(a2, v74, v73);
             MPSLibrary::ReleaseComputeState();
-            objc_msgSend_setBuffer_offset_atIndex_(a2, v118, *(a1 + 248), 0, 0, v119);
-            objc_msgSend_setBuffer_offset_atIndex_(a2, v120, v305.i64[0], 0, 1, v121);
-            objc_msgSend_setBuffer_offset_atIndex_(a2, v122, TempBuffer, 0, 2, v123);
-            objc_msgSend_setBuffer_offset_atIndex_(a2, v124, v299, 0, 3, v125);
-            v131 = objc_msgSend_threadExecutionWidth(v113, v126, v127, v128, v129, v130);
-            v135 = vdupq_n_s64(1uLL);
-            *v308 = v135;
-            if (v131 <= 1)
+            objc_msgSend_setBuffer_offset_atIndex_(a2, v75, *(a1 + 248), 0, 0);
+            objc_msgSend_setBuffer_offset_atIndex_(a2, v76, v170.i64[0], 0, 1);
+            objc_msgSend_setBuffer_offset_atIndex_(a2, v77, TempBuffer, 0, 2);
+            objc_msgSend_setBuffer_offset_atIndex_(a2, v78, v165, 0, 3);
+            v81 = objc_msgSend_threadExecutionWidth(v73, v79, v80);
+            v83 = vdupq_n_s64(1uLL);
+            *v173 = v83;
+            if (v81 <= 1)
             {
-              v136 = 1;
+              v84 = 1;
             }
 
             else
             {
-              v136 = v131;
+              v84 = v81;
             }
 
-            *&v308[16] = 1;
-            v306 = v136;
-            v307 = v135;
-            objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v132, v308, &v306, v133, v134);
-            v141 = vcvtps_u32_f32(v10 * (v112 * v111));
+            *&v173[16] = 1;
+            v171 = v84;
+            v172 = v83;
+            objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v82, v173, &v171);
+            v86 = vcvtps_u32_f32(v10 * (v72 * v71));
             if (*(a1 + 228))
             {
-              v142 = v141;
+              v87 = v86;
             }
 
             else
             {
-              v142 = v112 * v111;
+              v87 = v72 * v71;
             }
 
-            v331 = v142;
-            v323 = v279;
-            v324 = v279;
-            v325 = v289;
-            v332 = 4096;
-            if ((*(v303 + 1477) & 0x80) != 0)
+            v196 = v87;
+            v188 = v145;
+            v189 = v145;
+            v190 = v155;
+            v197 = 4096;
+            if ((*(v168 + 1477) & 0x80) != 0)
             {
-              if (v283)
+              if (v149)
               {
-                v164 = 2;
+                v97 = 2;
               }
 
               else
               {
-                v164 = 1;
+                v97 = 1;
               }
 
-              if (v283)
+              if (v149)
               {
-                v165 = 4096;
+                v98 = 4096;
               }
 
               else
               {
-                v165 = 0;
+                v98 = 0;
               }
 
-              objc_msgSend_encodeStartWhile_offset_comparison_referenceValue_(a2, v137, TempBuffer, 0, v164, v165);
-              objc_msgSend_setComputePipelineState_(a2, v166, v294, v167, v168, v169);
-              objc_msgSend_setBuffer_offset_atIndex_(a2, v170, TempBuffer, 0, 0, v171);
-              objc_msgSend_setBuffer_offset_atIndex_(a2, v172, v299, 0, 1, v173);
-              *v308 = vdupq_n_s64(1uLL);
-              *&v308[16] = 1;
-              v306 = objc_msgSend_threadExecutionWidth(v294, v174, v175, v176, v177, v178);
-              v307 = vdupq_n_s64(1uLL);
-              objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v179, v308, &v306, v180, v181);
-              objc_msgSend_setComputePipelineState_(a2, v182, v282, v183, v184, v185);
-              objc_msgSend_setBuffer_offset_atIndex_(a2, v186, v305.i64[0], 0, 1, v187);
-              objc_msgSend_setBuffer_offset_atIndex_(a2, v188, TempBuffer, 0, 2, v189);
-              objc_msgSend_setBuffer_offset_atIndex_(a2, v190, v299, 0, 3, v191);
-              if (v283)
+              objc_msgSend_encodeStartWhile_offset_comparison_referenceValue_(a2, v85, TempBuffer, 0, v97, v98);
+              objc_msgSend_setComputePipelineState_(a2, v99, v160);
+              objc_msgSend_setBuffer_offset_atIndex_(a2, v100, TempBuffer, 0, 0);
+              objc_msgSend_setBuffer_offset_atIndex_(a2, v101, v165, 0, 1);
+              *v173 = vdupq_n_s64(1uLL);
+              *&v173[16] = 1;
+              v171 = objc_msgSend_threadExecutionWidth(v160, v102, v103);
+              v172 = vdupq_n_s64(1uLL);
+              objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v104, v173, &v171);
+              objc_msgSend_setComputePipelineState_(a2, v105, v148);
+              objc_msgSend_setBuffer_offset_atIndex_(a2, v106, v170.i64[0], 0, 1);
+              objc_msgSend_setBuffer_offset_atIndex_(a2, v107, TempBuffer, 0, 2);
+              objc_msgSend_setBuffer_offset_atIndex_(a2, v108, v165, 0, 3);
+              if (v149)
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v192, v290, 0, 4, v194);
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v109, v156, 0, 4);
               }
 
-              objc_msgSend_setThreadgroupMemoryLength_atIndex_(a2, v192, 4 * v107 * v109 + 16, 0, v193, v194);
-              objc_msgSend_setTexture_atIndex_(a2, v195, v288, 0, v196, v197);
-              objc_msgSend_setTexture_atIndex_(a2, v198, v288, 1, v199, v200);
-              objc_msgSend_setSamplerState_atIndex_(a2, v201, v292, 0, v202, v203);
-              objc_msgSend_setBytes_length_atIndex_(a2, v204, &v323, 80, 0, v205);
-              *v308 = (2 * v107 + v296) / (2 * v107);
-              *&v308[8] = (2 * v109 + v298) / (2 * v109);
-              *&v308[16] = 1;
-              v306 = v107;
-              v307.i64[0] = v109;
-              v307.i64[1] = 1;
-              objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v206, v308, &v306, v207, v208);
-              objc_msgSend_encodeEndWhile(a2, v209, v210, v211, v212, v213);
-              if (v283)
+              objc_msgSend_setThreadgroupMemoryLength_atIndex_(a2, v109, 4 * v67 * v69 + 16, 0);
+              objc_msgSend_setTexture_atIndex_(a2, v110, v154, 0);
+              objc_msgSend_setTexture_atIndex_(a2, v111, v154, 1);
+              objc_msgSend_setSamplerState_atIndex_(a2, v112, v158, 0);
+              objc_msgSend_setBytes_length_atIndex_(a2, v113, &v188, 80, 0);
+              *v173 = (2 * v67 + v162) / (2 * v67);
+              *&v173[8] = (2 * v69 + v164) / (2 * v69);
+              *&v173[16] = 1;
+              v171 = v67;
+              v172.i64[0] = v69;
+              v172.i64[1] = 1;
+              objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v114, v173, &v171);
+              objc_msgSend_encodeEndWhile(a2, v115, v116);
+              if (v149)
               {
-                objc_msgSend_setComputePipelineState_(a2, v214, v280, v215, v216, v217);
-                objc_msgSend_setTexture_atIndex_(a2, v218, v288, 0, v219, v220);
-                objc_msgSend_setBytes_length_atIndex_(a2, v221, &v323, 80, 0, v222);
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v223, v290, 0, 1, v224);
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v225, TempBuffer, 0, 2, v226);
-                v227 = v332;
-                *v308 = v227 / objc_msgSend_threadExecutionWidth(v280, v228, v229, v230, v231, v232);
-                *&v308[8] = vdupq_n_s64(1uLL);
-                v306 = objc_msgSend_threadExecutionWidth(v280, v233, v234, v235, v236, v237);
-                v307 = vdupq_n_s64(1uLL);
-                objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v238, v308, &v306, v239, v240);
+                objc_msgSend_setComputePipelineState_(a2, v117, v146);
+                objc_msgSend_setTexture_atIndex_(a2, v118, v154, 0);
+                objc_msgSend_setBytes_length_atIndex_(a2, v119, &v188, 80, 0);
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v120, v156, 0, 1);
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v121, TempBuffer, 0, 2);
+                v122 = v197;
+                *v173 = v122 / objc_msgSend_threadExecutionWidth(v146, v123, v124);
+                *&v173[8] = vdupq_n_s64(1uLL);
+                v171 = objc_msgSend_threadExecutionWidth(v146, v125, v126);
+                v172 = vdupq_n_s64(1uLL);
+                objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v127, v173, &v171);
               }
             }
 
             else
             {
-              objc_msgSend_setComputePipelineState_(a2, v137, v282, v138, v139, v140);
-              objc_msgSend_setBuffer_offset_atIndex_(a2, v143, v305.i64[0], 0, 1, v144);
-              objc_msgSend_setBuffer_offset_atIndex_(a2, v145, TempBuffer, 0, 2, v146);
-              objc_msgSend_setThreadgroupMemoryLength_atIndex_(a2, v147, 4 * v107 * v109 + 16, 0, v148, v149);
-              objc_msgSend_setTexture_atIndex_(a2, v150, v288, 0, v151, v152);
-              objc_msgSend_setTexture_atIndex_(a2, v153, v288, 1, v154, v155);
-              objc_msgSend_setSamplerState_atIndex_(a2, v156, v292, 0, v157, v158);
-              if (v142)
+              objc_msgSend_setComputePipelineState_(a2, v85, v148);
+              objc_msgSend_setBuffer_offset_atIndex_(a2, v88, v170.i64[0], 0, 1);
+              objc_msgSend_setBuffer_offset_atIndex_(a2, v89, TempBuffer, 0, 2);
+              objc_msgSend_setThreadgroupMemoryLength_atIndex_(a2, v90, 4 * v67 * v69 + 16, 0);
+              objc_msgSend_setTexture_atIndex_(a2, v91, v154, 0);
+              objc_msgSend_setTexture_atIndex_(a2, v92, v154, 1);
+              objc_msgSend_setSamplerState_atIndex_(a2, v93, v158, 0);
+              if (v87)
               {
-                for (i = 0; i != v142; ++i)
+                for (i = 0; i != v87; ++i)
                 {
-                  v330 = i;
-                  objc_msgSend_setBytes_length_atIndex_(a2, v159, &v323, 80, 0, v160);
-                  *v308 = v107;
-                  *&v308[8] = v109;
-                  *&v308[16] = 1;
-                  objc_msgSend_dispatchThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerThreadgroup_(a2, v162, v305.i64[0], 0, v308, v163);
+                  v195 = i;
+                  objc_msgSend_setBytes_length_atIndex_(a2, v94, &v188, 80, 0);
+                  *v173 = v67;
+                  *&v173[8] = v69;
+                  *&v173[16] = 1;
+                  objc_msgSend_dispatchThreadgroupsWithIndirectBuffer_indirectBufferOffset_threadsPerThreadgroup_(a2, v96, v170.i64[0], 0, v173);
                 }
               }
             }
@@ -4336,36 +4482,36 @@ uint64_t sub_23994A590(uint64_t a1, char *a2, uint64_t a3, void *a4, uint64_t a5
             MPSLibrary::ReleaseComputeState();
             MPSLibrary::ReleaseComputeState();
             MPSLibrary::ReleaseComputeState();
-            MPSAutoCache::~MPSAutoCache(v322);
-            v246 = objc_msgSend_maxTotalThreadsPerThreadgroup(v281, v241, v242, v243, v244, v245);
-            v252 = objc_msgSend_threadExecutionWidth(v281, v247, v248, v249, v250, v251);
-            v257 = v252;
-            v258 = v246 & -v252;
-            if (v252 <= 1 && v258)
+            MPSAutoCache::~MPSAutoCache(v187);
+            v130 = objc_msgSend_maxTotalThreadsPerThreadgroup(v147, v128, v129);
+            v133 = objc_msgSend_threadExecutionWidth(v147, v131, v132);
+            v135 = v133;
+            v136 = v130 & -v133;
+            if (v133 <= 1 && v136)
             {
-              v257 = 1;
-              v259 = 1;
+              v135 = 1;
+              v137 = 1;
             }
 
             else
             {
-              v259 = v258 / v252;
+              v137 = v136 / v133;
             }
 
-            objc_msgSend_setComputePipelineState_(a2, v253, v281, v254, v255, v256);
+            objc_msgSend_setComputePipelineState_(a2, v134, v147);
             MPSLibrary::ReleaseComputeState();
-            objc_msgSend_setTexture_atIndex_(a2, v260, v288, 0, v261, v262);
-            objc_msgSend_setTexture_atIndex_(a2, v263, v288, 1, v264, v265);
-            objc_msgSend_setSamplerState_atIndex_(a2, v266, v292, 0, v267, v268);
-            objc_msgSend_setBytes_length_atIndex_(a2, v269, &v323, 80, 0, v270);
-            v309 = (2 * v257 + v296) / (2 * v257);
-            p_PixelInfo = (2 * v259 + v298) / (2 * v259);
-            v311 = 1;
-            v322[0] = v257;
-            v322[1] = v259;
-            v322[2] = 1;
-            objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v271, &v309, v322, v272, v273);
-            sub_23994B820(v286, *(a1 + 248), v274, v275, v276, v277);
+            objc_msgSend_setTexture_atIndex_(a2, v138, v154, 0);
+            objc_msgSend_setTexture_atIndex_(a2, v139, v154, 1);
+            objc_msgSend_setSamplerState_atIndex_(a2, v140, v158, 0);
+            objc_msgSend_setBytes_length_atIndex_(a2, v141, &v188, 80, 0);
+            v174 = (2 * v135 + v162) / (2 * v135);
+            p_PixelInfo = (2 * v137 + v164) / (2 * v137);
+            v176 = 1;
+            v187[0] = v135;
+            v187[1] = v137;
+            v187[2] = 1;
+            objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v142, &v174, v187);
+            sub_23994B820(v152, *(a1 + 248), v143);
             return 0;
           }
         }
@@ -4409,28 +4555,28 @@ uint64_t sub_23994B79C(uint64_t result, int a2, MPSDevice *this)
   return result;
 }
 
-void *sub_23994B820(void *result, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *sub_23994B820(void *result, const char *a2, uint64_t a3)
 {
   if (a2)
   {
-    v7 = result;
-    v8 = objc_msgSend_userDictionary(result, a2, a3, a4, a5, a6);
-    v13 = objc_msgSend_objectForKey_(v8, v9, @"_MPSCommandBufferRetainListKey", v10, v11, v12);
-    if (!v13)
+    v4 = result;
+    v5 = objc_msgSend_userDictionary(result, a2, a3);
+    v7 = objc_msgSend_objectForKey_(v5, v6, @"_MPSCommandBufferRetainListKey");
+    if (!v7)
     {
-      v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      objc_msgSend_setObject_forKey_(v8, v19, v18, @"_MPSCommandBufferRetainListKey", v20, v21);
+      v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      objc_msgSend_setObject_forKey_(v5, v10, v9, @"_MPSCommandBufferRetainListKey");
 
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = sub_23993D9B4;
-      v26[3] = &unk_278AC37A8;
-      v26[4] = @"_MPSCommandBufferRetainListKey";
-      objc_msgSend_addCompletedHandler_(v7, v22, v26, v23, v24, v25);
-      v13 = v18;
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = sub_23993D9B4;
+      v12[3] = &unk_278AC37A8;
+      v12[4] = @"_MPSCommandBufferRetainListKey";
+      objc_msgSend_addCompletedHandler_(v4, v11, v12);
+      v7 = v9;
     }
 
-    return objc_msgSend_addObject_(v13, v14, a2, v15, v16, v17);
+    return objc_msgSend_addObject_(v7, v8, a2);
   }
 
   return result;
@@ -4541,7 +4687,7 @@ LABEL_12:
 
   if (a5)
   {
-    v32 = objc_msgSend_pixelFormat(a5, a2, a3, a4, a5, a6);
+    v32 = objc_msgSend_pixelFormat(a5, a2, a3);
     v33 = -2 - (MPSDevice::GetPixelInfo(a1, v32, MPSImageFeatureChannelFormatNone) >> 32);
   }
 
@@ -4960,81 +5106,81 @@ LABEL_106:
   return v25;
 }
 
-uint64_t sub_23994C3F4@<X0>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
+unint64_t sub_23994C3F4@<X0>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  *a7 = 0;
-  a7[1] = 0;
-  a7[2] = 0;
-  v12 = MEMORY[0x277CD7350];
-  v13 = *(a1 + *MEMORY[0x277CD7350]);
-  v14 = objc_msgSend_pixelFormat(a3, a2, a3, a4, a5, a6);
-  result = MPSDevice::GetPixelInfo(v13, v14, MPSImageFeatureChannelFormatNone);
-  v20 = result >> 10;
-  if ((~result & 0xA00000000000) == 0 && a2 != a3 && v20 != 0)
+  *a5 = 0;
+  a5[1] = 0;
+  a5[2] = 0;
+  v10 = MEMORY[0x277CD7350];
+  v11 = *(a1 + *MEMORY[0x277CD7350]);
+  v12 = objc_msgSend_pixelFormat(a3, a2, a3);
+  result = MPSDevice::GetPixelInfo(v11, v12, MPSImageFeatureChannelFormatNone);
+  v15 = result >> 10;
+  if ((~result & 0xA00000000000) == 0 && a2 != a3 && v15 != 0)
   {
-    v23 = result;
-    result = objc_msgSend_isEqual_(a2, v16, a3, v17, v18, v19);
+    v18 = result;
+    result = objc_msgSend_isEqual_(a2, v14, a3);
     if ((result & 1) == 0)
     {
-      v24 = *(a1 + 208);
-      v25 = *(a1 + *v12);
-      v26 = 24;
-      if (v25)
+      v19 = *(a1 + 208);
+      v20 = *(a1 + *v10);
+      v21 = 24;
+      if (v20)
       {
-        if (*(v25 + 1472) >= 8)
+        if (*(v20 + 1472) >= 8)
         {
-          v26 = 24;
+          v21 = 24;
         }
 
         else
         {
-          v26 = 9;
+          v21 = 9;
         }
       }
 
-      v27 = v24 >> 1;
-      if (v24 <= 9)
+      v22 = v19 >> 1;
+      if (v19 <= 9)
       {
-        v28 = v27;
+        v23 = v22;
       }
 
       else
       {
-        v28 = 5;
+        v23 = 5;
       }
 
-      if (v26 <= v27)
+      if (v21 <= v22)
       {
-        v28 = 6;
+        v23 = 6;
       }
 
-      v29 = *(*(*(*(a1 + *MEMORY[0x277CD7370]) + 280) + 16 * v28 + 112 * byte_2399887B8[(v23 >> 24) & 0xF]) + 64);
-      if (v29)
+      v24 = *(*(*(*(a1 + *MEMORY[0x277CD7370]) + 280) + 16 * v23 + 112 * byte_2399887B8[(v18 >> 24) & 0xF]) + 64);
+      if (v24)
       {
-        v30 = __clz(v20) + v29 - 63;
-        v31 = v30 & ~(v30 >> 63);
-        v32 = (v31 + 1) >> 1;
-        v33 = 1 << (v31 - v32);
-        v34 = 1 << v32;
-        if ((1 << v32) >= *(a4 + 40))
+        v25 = __clz(v15) + v24 - 63;
+        v26 = v25 & ~(v25 >> 63);
+        v27 = (v26 + 1) >> 1;
+        v28 = 1 << (v26 - v27);
+        v29 = 1 << v27;
+        if ((1 << v27) >= *(a4 + 40))
         {
-          v34 = *(a4 + 40);
+          v29 = *(a4 + 40);
         }
 
-        v35 = v30 <= v32;
-        v36 = 2;
-        if (!v35)
+        v30 = v25 <= v27;
+        v31 = 2;
+        if (!v30)
         {
-          v36 = v33;
+          v31 = v28;
         }
 
-        if (v36 >= *(a4 + 48))
+        if (v31 >= *(a4 + 48))
         {
-          v36 = *(a4 + 48);
+          v31 = *(a4 + 48);
         }
 
-        *a7 = v34;
-        a7[1] = v36;
+        *a5 = v29;
+        a5[1] = v31;
       }
     }
   }
@@ -5042,7 +5188,7 @@ uint64_t sub_23994C3F4@<X0>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint
   return result;
 }
 
-uint64_t sub_23994C584(uint64_t a1, const char *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
+uint64_t sub_23994C584(uint64_t a1, const char *a2, uint64_t a3, void *a4, void *a5, int64x2_t *a6)
 {
   v8 = *(a1 + 216);
   v9 = *(a1 + 208);
@@ -5059,18 +5205,18 @@ uint64_t sub_23994C584(uint64_t a1, const char *a2, uint64_t a3, void *a4, uint6
   {
     if ((v8 & v9 & 1) == 0)
     {
-      v150 = a2;
-      v136 = a3;
-      v137 = MTLReportFailureTypeEnabled();
-      a3 = v136;
-      a2 = v150;
-      if (v137)
+      v88 = a2;
+      v74 = a3;
+      v75 = MTLReportFailureTypeEnabled();
+      a3 = v74;
+      a2 = v88;
+      if (v75)
       {
-        v141 = v8;
-        v145 = v9;
+        v79 = v8;
+        v83 = v9;
         MTLReportFailure();
-        a3 = v136;
-        a2 = v150;
+        a3 = v74;
+        a2 = v88;
       }
     }
 
@@ -5079,26 +5225,26 @@ uint64_t sub_23994C584(uint64_t a1, const char *a2, uint64_t a3, void *a4, uint6
   }
 
   result = 0;
-  v16 = *(a6 + 8);
-  v155 = *a6;
-  v17 = *(a6 + 48);
-  *v176 = *(a6 + 32);
-  *&v176[16] = v17;
-  v175 = *(a6 + 16);
-  if (!v17 || !*&v176[8])
+  v16 = a6->i64[1];
+  v93 = a6->i64[0];
+  v17 = a6[3];
+  *v114 = a6[2];
+  *&v114[16] = v17;
+  v113 = a6[1];
+  if (!v17.i64[0] || !*&v114[8])
   {
     return result;
   }
 
-  v152 = v16;
-  v153 = v12;
-  v151 = a5;
-  v149 = a2;
+  v90 = v16;
+  v91 = v12;
+  v89 = a5;
+  v87 = a2;
   v18 = *v16;
   v19 = v10;
   if (((v18 >> 34) & 0x3F) <= 2)
   {
-    if (((*v155 >> 34) & 0x3FuLL) >= 3)
+    if (((*v93 >> 34) & 0x3FuLL) >= 3)
     {
       v19 = v10;
     }
@@ -5129,55 +5275,49 @@ uint64_t sub_23994C584(uint64_t a1, const char *a2, uint64_t a3, void *a4, uint6
     v25 = byte_2399887B8[v22];
     v26 = v14 <= 9u ? v14 >> 1 : 5;
     v27 = v23 <= v14 >> 1 ? 6 : v26;
-    v28 = objc_msgSend_UTF8String(**(*(v13 + 280) + 16 * (v27 + v21 - v25 + 8 * v25)), a2, a3, a4, a5, a6, v141, v145);
+    v28 = objc_msgSend_UTF8String(**(*(v13 + 280) + 16 * (v27 + v21 - v25 + 8 * v25)), a2, a3, v79, v83);
     v29 = strstr(v28, "SinglePass");
     a3 = v24;
     if (v29)
     {
-      if (a4 != v151 && (objc_msgSend_isEqual_(a4, a2, v151, a4, a5, a6) & 1) == 0)
+      if (a4 != v89 && (objc_msgSend_isEqual_(a4, a2, v89) & 1) == 0)
       {
-        if (v12)
-        {
-          *(v12 + 1472);
-        }
-
-        v30 = byte_2399887B8[(*v152 >> 24) & 0xF];
         ComputeState = MPSLibrary::GetComputeState();
-        v32 = vmovn_s64(v175);
-        *&v172 = vcvt_f32_f64(vcvtq_f64_s64(*(a6 + 64)));
-        WORD5(v172) = v32.i16[2];
-        WORD4(v172) = v32.i16[0];
-        HIWORD(v172) = *&v176[16];
-        WORD6(v172) = *&v176[8];
-        objc_msgSend_setComputePipelineState_(v149, v33, ComputeState, v34, v35, v36);
-        objc_msgSend_setTexture_atIndex_(v149, v37, a4, 0, v38, v39);
-        objc_msgSend_setTexture_atIndex_(v149, v40, v151, 1, v41, v42);
-        objc_msgSend_setBytes_length_atIndex_(v149, v43, &v172, 40, 0, v44);
+        v31 = vmovn_s64(v113);
+        *&v110 = vcvt_f32_f64(vcvtq_f64_s64(a6[4]));
+        WORD5(v110) = v31.i16[2];
+        WORD4(v110) = v31.i16[0];
+        HIWORD(v110) = *&v114[16];
+        WORD6(v110) = *&v114[8];
+        objc_msgSend_setComputePipelineState_(v87, v32, ComputeState);
+        objc_msgSend_setTexture_atIndex_(v87, v33, a4, 0);
+        objc_msgSend_setTexture_atIndex_(v87, v34, v89, 1);
+        objc_msgSend_setBytes_length_atIndex_(v87, v35, &v110, 40, 0);
         MPSLibrary::ReleaseComputeState();
-        v50 = (v20 >> 1) - 1;
-        if (v50 < 4)
+        v38 = (v20 >> 1) - 1;
+        if (v38 < 4)
         {
-          v51 = qword_239988818[v50];
-          v55 = objc_msgSend_maxTotalThreadsPerThreadgroup(ComputeState, v45, v46, v47, v48, v49) >> 6;
-          if (v55 >= 8)
+          v39 = qword_239988818[v38];
+          v41 = objc_msgSend_maxTotalThreadsPerThreadgroup(ComputeState, v36, v37) >> 6;
+          if (v41 >= 8)
           {
-            v55 = 8;
+            v41 = 8;
           }
 
-          *v167 = (*&v176[8] + 63) >> 6;
-          *&v167[8] = (*&v176[16] + v55 * v51 - 1) / (v55 * v51);
-          *&v167[16] = 1;
-          *v170 = 64;
-          *&v170[8] = v55;
-          *&v170[16] = 1;
-          objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v149, v52, v167, v170, v53, v54);
+          *v105 = (*&v114[8] + 63) >> 6;
+          *&v105[8] = (*&v114[16] + v41 * v39 - 1) / (v41 * v39);
+          *&v105[16] = 1;
+          *v108 = 64;
+          *&v108[8] = v41;
+          *&v108[16] = 1;
+          objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v87, v40, v105, v108);
           return 0;
         }
 
         if (MTLReportFailureTypeEnabled())
         {
-          v135 = objc_opt_class();
-          NSStringFromClass(v135);
+          v73 = objc_opt_class();
+          NSStringFromClass(v73);
           MTLReportFailure();
         }
 
@@ -5190,280 +5330,292 @@ uint64_t sub_23994C584(uint64_t a1, const char *a2, uint64_t a3, void *a4, uint6
 
   if (v8 != 1)
   {
-    v56 = a3;
-    v160 = objc_msgSend_width(a4, a2, a3, a4, a5, a6);
-    v161 = objc_msgSend_height(a4, v57, v58, v59, v60, v61);
-    v162 = 1;
-    v146 = &v165;
+    v42 = a3;
+    v98 = objc_msgSend_width(a4, a2, a3);
+    v99 = objc_msgSend_height(a4, v43, v44);
+    v100 = 1;
+    v84 = &v103;
     MPSSeparatePassDimensions();
-    MEMORY[0x23EE7BAC0](v159, v56, v151);
-    *v167 = vextq_s8(v163, v163, 8uLL);
-    *&v167[16] = 1;
-    v62 = v152;
-    if ((*(v155 + 5) & 0x20) != 0)
+    MEMORY[0x23EE7BAC0](v97, v42, v89);
+    *v105 = vextq_s8(v101, v101, 8uLL);
+    *&v105[16] = 1;
+    v45 = v90;
+    if ((*(v93 + 5) & 0x20) != 0)
     {
-      v63 = MPSGetLinearTextureSize2D();
-      v62 = v155;
-      if (MPSGetLinearTextureSize2D() >= v63)
+      v46 = MPSGetLinearTextureSize2D();
+      v45 = v93;
+      if (MPSGetLinearTextureSize2D() >= v46)
       {
-        v62 = v152;
+        v45 = v90;
       }
     }
 
     TempTexture = MPSAutoCache::GetTempTexture();
-    v64 = *v62;
-    if (((*v152 >> 34) & 0x3F) > 2)
+    if (((*v90 >> 34) & 0x3FuLL) > 2)
     {
-      v65 = 4;
-      v66 = (v64 >> 24) & 0xF;
-      v67 = v153;
-      if (!v153)
-      {
-        goto LABEL_47;
-      }
+      v47 = 4;
+    }
+
+    else if (((*v93 >> 34) & 0x3FuLL) < 3 && v9 > 0x2E)
+    {
+      v47 = 2;
     }
 
     else
     {
-      if (((*v155 >> 34) & 0x3FuLL) < 3 && v9 > 0x2E)
-      {
-        v65 = 2;
-      }
-
-      else
-      {
-        v65 = 4;
-      }
-
-      v66 = (v64 >> 24) & 0xF;
-      v67 = v153;
-      if (!v153)
-      {
-LABEL_47:
-        v68 = byte_2399887B8[v66];
-        v69 = MPSLibrary::GetComputeState();
-        if (!v69)
-        {
-          goto LABEL_64;
-        }
-
-        v157 = v168;
-        v158 = v169;
-        memset(v167, 0, 24);
-        *&v167[24] = v163;
-        *&v167[40] = v164;
-        sub_23994EE64(v170, v20, &v157, v167, v153, v69, v62, v65, 1);
-        v172 = *v170;
-        v173 = *&v170[16];
-        v174 = v171;
-        if (!*&v170[16] && MTLReportFailureTypeEnabled())
-        {
-          v138 = objc_opt_class();
-          v142 = NSStringFromClass(v138);
-          v146 = v20;
-          MTLReportFailure();
-        }
-
-        objc_msgSend_setComputePipelineState_(v149, v70, v69, v71, v72, v73, v142, v146);
-        MPSLibrary::ReleaseComputeState();
-        objc_msgSend_setTexture_atIndex_(v149, v74, a4, 0, v75, v76);
-        objc_msgSend_setTexture_atIndex_(v149, v77, TempTexture, 1, v78, v79);
-        objc_msgSend_setThreadgroupMemoryLength_atIndex_(v149, v80, ((DWORD2(v173) * v174) + 15) & 0x1FFFFFFF0, 0, v81, v82);
-        objc_msgSend_setBytes_length_atIndex_(v149, v83, &v172, 40, 0, v84);
-        *v167 = v163.i64[1];
-        *&v167[8] = vdupq_n_s64(1uLL);
-        *v170 = HIDWORD(v173);
-        *&v170[8] = *&v167[8];
-        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v149, v85, v167, v170, v86, v87);
-        v88 = *v152;
-        if (((*v152 >> 34) & 0x3F) > 2)
-        {
-          v89 = 4;
-          v90 = (v88 >> 24) & 0xF;
-          v91 = v153;
-          if (!v153)
-          {
-            goto LABEL_61;
-          }
-        }
-
-        else
-        {
-          if (((*v155 >> 34) & 0x3FuLL) < 3 && v9 > 0x2E)
-          {
-            v89 = 2;
-          }
-
-          else
-          {
-            v89 = 4;
-          }
-
-          v90 = (v88 >> 24) & 0xF;
-          v91 = v153;
-          if (!v153)
-          {
-LABEL_61:
-            v93 = byte_2399887B8[v90];
-            v94 = MPSLibrary::GetComputeState();
-            if (v94)
-            {
-              *v167 = v175;
-              v158 = v166;
-              v156 = *&v176[8];
-              v157 = vextq_s8(v165, v165, 8uLL);
-              *&v167[24] = vextq_s8(v156, v156, 8uLL);
-              *&v167[16] = *v176;
-              *&v167[40] = *&v176[24];
-              sub_23994EE64(v170, v8, &v157, v167, v153, v94, v152, v89, 1);
-              v172 = *v170;
-              v173 = *&v170[16];
-              v174 = v171;
-              if (!*&v170[16] && MTLReportFailureTypeEnabled())
-              {
-                v139 = objc_opt_class();
-                v143 = NSStringFromClass(v139);
-                v147 = v20;
-                MTLReportFailure();
-              }
-
-              objc_msgSend_setComputePipelineState_(v149, v95, v94, v96, v97, v98, v143, v147);
-              MPSLibrary::ReleaseComputeState();
-              objc_msgSend_setTexture_atIndex_(v149, v99, TempTexture, 0, v100, v101);
-              objc_msgSend_setTexture_atIndex_(v149, v102, v151, 1, v103, v104);
-              objc_msgSend_setThreadgroupMemoryLength_atIndex_(v149, v105, ((DWORD2(v173) * v174) + 15) & 0x1FFFFFFF0, 0, v106, v107);
-              objc_msgSend_setBytes_length_atIndex_(v149, v108, &v172, 40, 0, v109);
-              *v167 = v156.i64[0];
-              *&v167[8] = vdupq_n_s64(1uLL);
-              *v170 = HIDWORD(v173);
-              *&v170[8] = *&v167[8];
-              objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v149, v110, v167, v170, v111, v112);
-              v113 = 0;
-              goto LABEL_65;
-            }
-
-LABEL_64:
-            v113 = -1;
-LABEL_65:
-            MPSAutoCache::~MPSAutoCache(v159);
-            return v113;
-          }
-        }
-
-        *(v91 + 1472);
-        goto LABEL_61;
-      }
+      v47 = 4;
     }
 
-    *(v67 + 1472);
-    goto LABEL_47;
+    v48 = MPSLibrary::GetComputeState();
+    if (!v48)
+    {
+      goto LABEL_56;
+    }
+
+    v95 = v106;
+    v96 = v107;
+    memset(v105, 0, 24);
+    *&v105[24] = v101;
+    *&v105[40] = v102;
+    sub_23994EE64(v108, v20, &v95, v105, v91, v48, v45, v47, 1);
+    v110 = *v108;
+    v111 = *&v108[16];
+    v112 = v109;
+    if (!*&v108[16] && MTLReportFailureTypeEnabled())
+    {
+      v76 = objc_opt_class();
+      v80 = NSStringFromClass(v76);
+      v84 = v20;
+      MTLReportFailure();
+    }
+
+    objc_msgSend_setComputePipelineState_(v87, v49, v48, v80, v84);
+    MPSLibrary::ReleaseComputeState();
+    objc_msgSend_setTexture_atIndex_(v87, v50, a4, 0);
+    objc_msgSend_setTexture_atIndex_(v87, v51, TempTexture, 1);
+    objc_msgSend_setThreadgroupMemoryLength_atIndex_(v87, v52, ((DWORD2(v111) * v112) + 15) & 0x1FFFFFFF0, 0);
+    objc_msgSend_setBytes_length_atIndex_(v87, v53, &v110, 40, 0);
+    *v105 = v101.i64[1];
+    *&v105[8] = vdupq_n_s64(1uLL);
+    *v108 = HIDWORD(v111);
+    *&v108[8] = *&v105[8];
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v87, v54, v105, v108);
+    if (((*v90 >> 34) & 0x3FuLL) > 2)
+    {
+      v55 = 4;
+    }
+
+    else
+    {
+      v55 = ((*v93 >> 34) & 0x3FuLL) < 3 && v9 > 0x2E ? 2 : 4;
+    }
+
+    v57 = MPSLibrary::GetComputeState();
+    if (v57)
+    {
+      *v105 = v113;
+      v96 = v104;
+      v94 = *&v114[8];
+      v95 = vextq_s8(v103, v103, 8uLL);
+      *&v105[24] = vextq_s8(v94, v94, 8uLL);
+      *&v105[16] = *v114;
+      *&v105[40] = *&v114[24];
+      sub_23994EE64(v108, v8, &v95, v105, v91, v57, v90, v55, 1);
+      v110 = *v108;
+      v111 = *&v108[16];
+      v112 = v109;
+      if (!*&v108[16] && MTLReportFailureTypeEnabled())
+      {
+        v77 = objc_opt_class();
+        v81 = NSStringFromClass(v77);
+        v85 = v20;
+        MTLReportFailure();
+      }
+
+      objc_msgSend_setComputePipelineState_(v87, v58, v57, v81, v85);
+      MPSLibrary::ReleaseComputeState();
+      objc_msgSend_setTexture_atIndex_(v87, v59, TempTexture, 0);
+      objc_msgSend_setTexture_atIndex_(v87, v60, v89, 1);
+      objc_msgSend_setThreadgroupMemoryLength_atIndex_(v87, v61, ((DWORD2(v111) * v112) + 15) & 0x1FFFFFFF0, 0);
+      objc_msgSend_setBytes_length_atIndex_(v87, v62, &v110, 40, 0);
+      *v105 = v94.i64[0];
+      *&v105[8] = vdupq_n_s64(1uLL);
+      *v108 = HIDWORD(v111);
+      *&v108[8] = *&v105[8];
+      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v87, v63, v105, v108);
+      v64 = 0;
+    }
+
+    else
+    {
+LABEL_56:
+      v64 = -1;
+    }
+
+    MPSAutoCache::~MPSAutoCache(v97);
+    return v64;
   }
 
-  if (a4 == v151 || (objc_msgSend_isEqual_(a4, a2, v151, a4, a5, a6) & 1) != 0)
+  if (a4 == v89 || (objc_msgSend_isEqual_(a4, a2, v89) & 1) != 0)
   {
     return -18;
   }
 
-  if (((*v152 >> 34) & 0x3F) > 2)
+  if (((*v90 >> 34) & 0x3FuLL) > 2)
   {
-    v92 = 4;
+    v56 = 4;
   }
 
-  else if (((*v155 >> 34) & 0x3FuLL) < 3 && v9 > 0x2E)
+  else if (((*v93 >> 34) & 0x3FuLL) < 3 && v9 > 0x2E)
   {
-    v92 = 2;
+    v56 = 2;
   }
 
   else
   {
-    v92 = 4;
+    v56 = 4;
   }
 
-  if (v12)
+  v65 = MPSLibrary::GetComputeState();
+  if (v65)
   {
-    *(v12 + 1472);
-  }
-
-  v114 = byte_2399887B8[(*v152 >> 24) & 0xF];
-  v115 = MPSLibrary::GetComputeState();
-  if (v115)
-  {
-    v120 = v115;
-    objc_msgSend_setComputePipelineState_(v149, v116, v115, v117, v118, v119);
-    v168 = *(a6 + 64);
-    v169 = *(a6 + 80);
-    *v167 = v175;
-    *&v167[16] = *v176;
-    *&v167[32] = *&v176[16];
-    sub_23994EE64(v170, v20, &v168, v167, v12, v120, v152, v92, 0);
-    v172 = *v170;
-    v173 = *&v170[16];
-    v174 = v171;
+    v67 = v65;
+    objc_msgSend_setComputePipelineState_(v87, v66, v65);
+    v106 = a6[4];
+    v107 = a6[5].i64[0];
+    *v105 = v113;
+    *&v105[16] = *v114;
+    *&v105[32] = *&v114[16];
+    sub_23994EE64(v108, v20, &v106, v105, v12, v67, v90, v56, 0);
+    v110 = *v108;
+    v111 = *&v108[16];
+    v112 = v109;
     MPSLibrary::ReleaseComputeState();
-    if (!v173 && MTLReportFailureTypeEnabled())
+    if (!v111 && MTLReportFailureTypeEnabled())
     {
-      v140 = objc_opt_class();
-      v144 = NSStringFromClass(v140);
-      v145 = v20;
+      v78 = objc_opt_class();
+      v82 = NSStringFromClass(v78);
+      v83 = v20;
       MTLReportFailure();
     }
 
-    objc_msgSend_setTexture_atIndex_(v149, v121, a4, 0, v122, v123, v144, v145);
-    objc_msgSend_setTexture_atIndex_(v149, v124, v151, 1, v125, v126);
-    objc_msgSend_setThreadgroupMemoryLength_atIndex_(v149, v127, ((DWORD2(v173) * v174) + 15) & 0x1FFFFFFF0, 0, v128, v129);
-    objc_msgSend_setBytes_length_atIndex_(v149, v130, &v172, 40, 0, v131);
-    *v167 = *&v176[16];
-    *&v167[8] = vdupq_n_s64(1uLL);
-    *v170 = HIDWORD(v173);
-    *&v170[8] = *&v167[8];
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v149, v132, v167, v170, v133, v134);
+    objc_msgSend_setTexture_atIndex_(v87, v68, a4, 0, v82, v83);
+    objc_msgSend_setTexture_atIndex_(v87, v69, v89, 1);
+    objc_msgSend_setThreadgroupMemoryLength_atIndex_(v87, v70, ((DWORD2(v111) * v112) + 15) & 0x1FFFFFFF0, 0);
+    objc_msgSend_setBytes_length_atIndex_(v87, v71, &v110, 40, 0);
+    *v105 = *&v114[16];
+    *&v105[8] = vdupq_n_s64(1uLL);
+    *v108 = HIDWORD(v111);
+    *&v108[8] = *&v105[8];
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v87, v72, v105, v108);
     return 0;
   }
 
   return -1;
 }
 
-uint64_t sub_23994DF48(uint64_t a1, char *a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
+void sub_23994D13C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23994D150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23994D164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23994D178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23994D18C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23994D1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23994D1B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23994D1C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_23994D1DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_23994DF48(uint64_t a1, char *a2, void *a3, void *a4, void *a5, uint64_t a6)
 {
   v8 = *(a1 + *MEMORY[0x277CD7350]);
   v9 = *(a1 + 280);
   v10 = *(a1 + 272);
-  v163 = *(a1 + *MEMORY[0x277CD7370]);
   v11 = *(a1 + *MEMORY[0x277CD7378]);
   v12 = *(a1 + 266);
   v13 = *(a1 + 264);
   v14 = *(a1 + 224);
-  v164 = *(a1 + 232);
+  v90 = *(a1 + 232);
   v15 = *(a1 + 256);
   v16 = *(a1 + 260);
-  v162 = *(a1 + 240);
   v17 = *(a1 + 216);
   if ((v11 & 1) == 0)
   {
     v18 = a4;
     if ((v9 & v10 & 1) == 0)
     {
-      v161 = a3;
-      v152 = *(a1 + 216);
-      v147 = *(a1 + 264);
-      v154 = *(a1 + 260);
-      v156 = *(a1 + 256);
-      v148 = MTLReportFailureTypeEnabled();
-      v16 = v154;
-      v15 = v156;
-      v13 = v147;
-      v17 = v152;
-      a3 = v161;
-      if (v148)
+      v89 = a3;
+      v80 = *(a1 + 216);
+      v75 = *(a1 + 264);
+      v82 = *(a1 + 260);
+      v84 = *(a1 + 256);
+      v76 = MTLReportFailureTypeEnabled();
+      v16 = v82;
+      v15 = v84;
+      v13 = v75;
+      v17 = v80;
+      a3 = v89;
+      if (v76)
       {
-        v149 = v9;
-        v150 = v10;
+        v77 = v9;
+        v78 = v10;
         MTLReportFailure();
-        v16 = v154;
-        v15 = v156;
-        v13 = v147;
-        v17 = v152;
-        a3 = v161;
+        v16 = v82;
+        v15 = v84;
+        v13 = v75;
+        v17 = v80;
+        a3 = v89;
       }
     }
 
@@ -5474,21 +5626,21 @@ uint64_t sub_23994DF48(uint64_t a1, char *a2, void *a3, void *a4, uint64_t a5, u
 
   if (*(a6 + 48) && *(a6 + 40))
   {
-    v160 = a3;
+    v88 = a3;
     v19 = *a6;
     if (v9 == v12 && v10 == v13)
     {
-      v173 = *(a6 + 64);
-      *&v174 = *(a6 + 80);
+      v99 = *(a6 + 64);
+      *&v100 = *(a6 + 80);
       v20 = a4;
-      objc_msgSend_setOffset_(v14, a2, &v173, a4, a5, a6);
+      objc_msgSend_setOffset_(v14, a2, &v99);
       v21 = *(a6 + 32);
-      v173 = *(a6 + 16);
-      v174 = v21;
-      v175 = *(a6 + 48);
-      objc_msgSend_setClipRect_(v14, v22, &v173, v23, v24, v25);
-      objc_msgSend_setOptions_(v14, v26, v11, v27, v28, v29);
-      return sub_23993BD30(v14, a2, v160, v20, a5, a6);
+      v99 = *(a6 + 16);
+      v100 = v21;
+      v101 = *(a6 + 48);
+      objc_msgSend_setClipRect_(v14, v22, &v99);
+      objc_msgSend_setOptions_(v14, v23, v11);
+      return sub_23993BD30(v14, a2, v88, v20, a5, a6);
     }
 
     if (a4 == a5)
@@ -5496,305 +5648,303 @@ uint64_t sub_23994DF48(uint64_t a1, char *a2, void *a3, void *a4, uint64_t a5, u
       return -18;
     }
 
-    v157 = v13;
-    v158 = *(a6 + 8);
-    v153 = v16;
-    v155 = v15;
-    v151 = v17;
-    v159 = a4;
-    if (objc_msgSend_isEqual_(a4, a2, a5, a4, a5, a6))
+    v85 = v13;
+    v86 = *(a6 + 8);
+    v81 = v16;
+    v83 = v15;
+    v79 = v17;
+    v87 = a4;
+    if (objc_msgSend_isEqual_(a4, a2, a5))
     {
       return -18;
     }
 
-    MEMORY[0x23EE7BAC0](v179, v160, a5);
+    MEMORY[0x23EE7BAC0](v105, v88, a5);
     if ((*v19 & 0x200000000000) != 0)
     {
-      v32 = v19;
+      v26 = v19;
     }
 
     else
     {
-      v32 = v158;
+      v26 = v86;
     }
 
-    v33 = v32;
-    v34 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], v31, *v32 & 0x3FFLL, *(a6 + 40), *(a6 + 48), 0, v149, v150);
-    v35 = (*(*v8 + 32))(v8);
-    objc_msgSend_setStorageMode_(v34, v36, v35, v37, v38, v39);
-    objc_msgSend_setUsage_(v34, v40, 3, v41, v42, v43);
+    v27 = v26;
+    v28 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], v25, *v26 & 0x3FFLL, *(a6 + 40), *(a6 + 48), 0, v77, v78);
+    v29 = (*(*v8 + 32))(v8);
+    objc_msgSend_setStorageMode_(v28, v30, v29);
+    objc_msgSend_setUsage_(v28, v31, 3);
     TempTexture = MPSAutoCache::GetTempTexture();
-    v173 = *(a6 + 64);
-    *&v174 = *(a6 + 80);
-    objc_msgSend_setOffset_(v14, v45, &v173, v46, v47, v48);
-    v49 = *(MEMORY[0x277CD7200] + 16);
-    v173 = *MEMORY[0x277CD7200];
-    v174 = v49;
-    v175 = *(MEMORY[0x277CD7200] + 32);
-    objc_msgSend_setClipRect_(v14, v50, &v173, v51, v52, v53);
-    objc_msgSend_setOptions_(v14, v54, v11, v55, v56, v57);
-    v177 = 0u;
-    v178 = 0u;
-    v175 = 0u;
-    v176 = 0u;
-    v174 = 0u;
-    *&v173 = *a6;
-    *(&v173 + 1) = v33;
-    *v169 = objc_msgSend_width(TempTexture, v58, v59, v60, v61, v62);
-    *&v169[8] = objc_msgSend_height(TempTexture, v63, v64, v65, v66, v67);
-    *&v169[16] = 1;
+    v99 = *(a6 + 64);
+    *&v100 = *(a6 + 80);
+    objc_msgSend_setOffset_(v14, v33, &v99);
+    v34 = *(MEMORY[0x277CD7200] + 16);
+    v99 = *MEMORY[0x277CD7200];
+    v100 = v34;
+    v101 = *(MEMORY[0x277CD7200] + 32);
+    objc_msgSend_setClipRect_(v14, v35, &v99);
+    objc_msgSend_setOptions_(v14, v36, v11);
+    v103 = 0u;
+    v104 = 0u;
+    v101 = 0u;
+    v102 = 0u;
+    v100 = 0u;
+    *&v99 = *a6;
+    *(&v99 + 1) = v27;
+    *v95 = objc_msgSend_width(TempTexture, v37, v38);
+    *&v95[8] = objc_msgSend_height(TempTexture, v39, v40);
+    *&v95[16] = 1;
     if (v14)
     {
-      objc_msgSend_clipRect(v14, v68, v69, v70, v71, v72);
+      objc_msgSend_clipRect(v14, v41, v42);
     }
 
     else
     {
-      memset(&v171, 0, sizeof(v171));
+      memset(&v97, 0, sizeof(v97));
     }
 
-    MPSGetEffectiveClipRegion(&v174, v169, &v171);
-    v177 = *(a6 + 64);
-    v178 = *(a6 + 80);
-    v73 = sub_23993BD30(v14, a2, v160, v159, TempTexture, &v173);
-    if (v73)
+    MPSGetEffectiveClipRegion(&v100, v95, &v97);
+    v103 = *(a6 + 64);
+    v104 = *(a6 + 80);
+    v43 = sub_23993BD30(v14, a2, v88, v87, TempTexture, &v99);
+    if (v43)
     {
       goto LABEL_29;
     }
 
-    v172 = 0;
-    v171.origin.x = vmovn_s64(*(a6 + 64));
-    v171.origin.y = v171.origin.x;
-    v74 = vmovn_s64(*(a6 + 16));
-    WORD1(v171.origin.z) = v74.i16[2];
-    LOWORD(v171.origin.z) = v74.i16[0];
-    v75 = vmovn_s64(*(a6 + 40));
-    HIWORD(v171.origin.z) = v75.i16[2];
-    WORD2(v171.origin.z) = v75.i16[0];
-    WORD1(v171.size.width) = v9;
-    LOWORD(v171.size.width) = v10;
-    v76 = v159;
-    WORD2(v171.size.width) = byte_239988810[(*v158 >> 24) & 0xFLL];
-    HIWORD(v171.size.width) = 1;
-    LOWORD(v171.size.height) = (v9 - v12) >> 1;
-    WORD1(v171.size.height) = v9 - LOWORD(v171.size.height);
-    WORD2(v171.size.height) = (v10 - v157) >> 1;
-    HIWORD(v171.size.height) = v10 - WORD2(v171.size.height);
-    v171.size.depth = __PAIR64__(v153, v155);
-    LOWORD(v172) = v157;
-    WORD1(v172) = v12;
-    if (v164)
+    v98 = 0;
+    v97.origin.x = vmovn_s64(*(a6 + 64));
+    v97.origin.y = v97.origin.x;
+    v44 = vmovn_s64(*(a6 + 16));
+    WORD1(v97.origin.z) = v44.i16[2];
+    LOWORD(v97.origin.z) = v44.i16[0];
+    v45 = vmovn_s64(*(a6 + 40));
+    HIWORD(v97.origin.z) = v45.i16[2];
+    WORD2(v97.origin.z) = v45.i16[0];
+    WORD1(v97.size.width) = v9;
+    LOWORD(v97.size.width) = v10;
+    v46 = v87;
+    WORD2(v97.size.width) = byte_239988810[(*v86 >> 24) & 0xFLL];
+    HIWORD(v97.size.width) = 1;
+    LOWORD(v97.size.height) = (v9 - v12) >> 1;
+    WORD1(v97.size.height) = v9 - LOWORD(v97.size.height);
+    WORD2(v97.size.height) = (v10 - v85) >> 1;
+    HIWORD(v97.size.height) = v10 - WORD2(v97.size.height);
+    v97.size.depth = __PAIR64__(v81, v83);
+    LOWORD(v98) = v85;
+    WORD1(v98) = v12;
+    if (v90)
     {
-      v76 = MPSAutoCache::GetTempTexture();
-      *v169 = *(a6 + 64);
-      *&v169[16] = *(a6 + 80);
-      objc_msgSend_setOffset_(v164, v77, v169, v78, v79, v80);
-      v81 = *(MEMORY[0x277CD7200] + 16);
-      *v169 = *MEMORY[0x277CD7200];
-      *&v169[16] = v81;
-      v170 = *(MEMORY[0x277CD7200] + 32);
-      objc_msgSend_setClipRect_(v164, v82, v169, v83, v84, v85);
-      objc_msgSend_setOptions_(v164, v86, v11, v87, v88, v89);
-      *&v173 = *a6;
-      *(&v173 + 1) = v33;
-      v177 = *(a6 + 64);
-      *&v178 = *(a6 + 80);
-      v168.width = objc_msgSend_width(v76, v90, v91, v92, v93, v94);
-      v168.height = objc_msgSend_height(v76, v95, v96, v97, v98, v99);
-      v168.depth = 1;
-      objc_msgSend_clipRect(v164, v100, v101, v102, v103, v104);
-      MPSGetEffectiveClipRegion(v169, &v168, &v167);
-      v174 = *v169;
-      v175 = *&v169[16];
-      v176 = v170;
-      v73 = sub_23993BD30(v164, a2, v160, v159, v76, &v173);
-      if (v73)
+      v46 = MPSAutoCache::GetTempTexture();
+      *v95 = *(a6 + 64);
+      *&v95[16] = *(a6 + 80);
+      objc_msgSend_setOffset_(v90, v47, v95);
+      v48 = *(MEMORY[0x277CD7200] + 16);
+      *v95 = *MEMORY[0x277CD7200];
+      *&v95[16] = v48;
+      v96 = *(MEMORY[0x277CD7200] + 32);
+      objc_msgSend_setClipRect_(v90, v49, v95);
+      objc_msgSend_setOptions_(v90, v50, v11);
+      *&v99 = *a6;
+      *(&v99 + 1) = v27;
+      v103 = *(a6 + 64);
+      *&v104 = *(a6 + 80);
+      v94.width = objc_msgSend_width(v46, v51, v52);
+      v94.height = objc_msgSend_height(v46, v53, v54);
+      v94.depth = 1;
+      objc_msgSend_clipRect(v90, v55, v56);
+      MPSGetEffectiveClipRegion(v95, &v94, &v93);
+      v100 = *v95;
+      v101 = *&v95[16];
+      v102 = v96;
+      v43 = sub_23993BD30(v90, a2, v88, v87, v46, &v99);
+      if (v43)
       {
 LABEL_29:
-        v146 = v73;
-        MPSAutoCache::~MPSAutoCache(v179);
-        return v146;
+        v74 = v43;
+        MPSAutoCache::~MPSAutoCache(v105);
+        return v74;
       }
 
-      v171.origin.y = 0;
+      v97.origin.y = 0;
     }
 
     ComputeState = MPSLibrary::GetComputeState();
-    v111 = ComputeState;
+    v60 = ComputeState;
     if (ComputeState)
     {
-      v112 = objc_msgSend_threadExecutionWidth(ComputeState, v106, v107, v108, v109, v110);
-      objc_msgSend_setComputePipelineState_(a2, v113, v111, v114, v115, v116);
+      v61 = objc_msgSend_threadExecutionWidth(ComputeState, v58, v59);
+      objc_msgSend_setComputePipelineState_(a2, v62, v60);
       MPSLibrary::ReleaseComputeState();
-      objc_msgSend_setTexture_atIndex_(a2, v117, v159, 0, v118, v119);
-      objc_msgSend_setTexture_atIndex_(a2, v120, TempTexture, 1, v121, v122);
-      objc_msgSend_setTexture_atIndex_(a2, v123, v76, 2, v124, v125);
-      objc_msgSend_setTexture_atIndex_(a2, v126, a5, 3, v127, v128);
-      if ((objc_msgSend_retainedReferences(v160, v129, v130, v131, v132, v133) & 1) == 0)
+      objc_msgSend_setTexture_atIndex_(a2, v63, v87, 0);
+      objc_msgSend_setTexture_atIndex_(a2, v64, TempTexture, 1);
+      objc_msgSend_setTexture_atIndex_(a2, v65, v46, 2);
+      objc_msgSend_setTexture_atIndex_(a2, v66, a5, 3);
+      if ((objc_msgSend_retainedReferences(v88, v67, v68) & 1) == 0)
       {
-        v136 = v151;
-        v166[0] = MEMORY[0x277D85DD0];
-        v166[1] = 3221225472;
-        v166[2] = sub_23994F090;
-        v166[3] = &unk_278AC37A8;
-        v166[4] = v151;
-        objc_msgSend_addCompletedHandler_(v160, v137, v166, v138, v139, v140);
+        v70 = v79;
+        v92[0] = MEMORY[0x277D85DD0];
+        v92[1] = 3221225472;
+        v92[2] = sub_23994F090;
+        v92[3] = &unk_278AC37A8;
+        v92[4] = v79;
+        objc_msgSend_addCompletedHandler_(v88, v71, v92);
       }
 
-      objc_msgSend_setBuffer_offset_atIndex_(a2, v134, v151, 0, 0, v135);
-      objc_msgSend_setBytes_length_atIndex_(a2, v141, &v171, 56, 1, v142);
-      *v169 = (*(a6 + 48) + 1) >> 1;
-      *&v169[8] = vdupq_n_s64(1uLL);
-      v167.origin.x = v112;
-      *&v167.origin.y = *&v169[8];
-      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v143, v169, &v167, v144, v145);
+      objc_msgSend_setBuffer_offset_atIndex_(a2, v69, v79, 0, 0);
+      objc_msgSend_setBytes_length_atIndex_(a2, v72, &v97, 56, 1);
+      *v95 = (*(a6 + 48) + 1) >> 1;
+      *&v95[8] = vdupq_n_s64(1uLL);
+      v93.origin.x = v61;
+      *&v93.origin.y = *&v95[8];
+      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v73, v95, &v93);
     }
 
-    v73 = 0;
+    v43 = 0;
     goto LABEL_29;
   }
 
   return 0;
 }
 
-unint64_t sub_23994EE64(float32x2_t *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, int a9)
+unint64_t sub_23994EE64(float32x2_t *a1, const char *a2, int64x2_t *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, int a9)
 {
   v14 = a2;
   v16 = *(a5 + 1472);
   if (v16 < 7 || (v16 != 7 ? (v17 = 24) : (v17 = 9), a2 >> 1 == 6 ? (v18 = a2 >= 0xA) : (v18 = 1), v18 && v17 > a2 >> 1))
   {
-    v19 = objc_msgSend_threadExecutionWidth(a6, a2, a3, a4, a5, a6);
+    v19 = objc_msgSend_threadExecutionWidth(a6, a2, a3);
     if ((*(a5 + 1472) & 0xFFFFFFFE) == 0x18)
     {
-      v25 = 8;
+      v22 = 8;
     }
 
     else
     {
-      v25 = v19;
+      v22 = v19;
     }
 
-    v26 = objc_msgSend_maxTotalThreadsPerThreadgroup(a6, v20, v21, v22, v23, v24);
-    if (v26 / v25 >= 4)
+    v23 = objc_msgSend_maxTotalThreadsPerThreadgroup(a6, v20, v21);
+    if (v23 / v22 >= 4)
     {
-      v32 = 4;
+      v26 = 4;
     }
 
     else
     {
-      v32 = v26 / v25;
+      v26 = v23 / v22;
     }
 
-    v33 = objc_msgSend_staticThreadgroupMemoryLength(a6, v27, v28, v29, v30, v31);
-    v39 = objc_msgSend_maxComputeThreadgroupMemory(*(a5 + 16), v34, v35, v36, v37, v38);
-    v40 = 0x1000000;
-    if (v39 < 0x1000000)
+    v27 = objc_msgSend_staticThreadgroupMemoryLength(a6, v24, v25);
+    v30 = objc_msgSend_maxComputeThreadgroupMemory(*(a5 + 16), v28, v29);
+    v31 = 0x1000000;
+    if (v30 < 0x1000000)
     {
-      v40 = v39;
+      v31 = v30;
     }
 
-    v41 = v40 - v33;
+    v32 = v31 - v27;
     if ((*(a7 + 3) & 0xE) != 0)
     {
-      v42 = *(a7 + 3) & 0xF;
+      v33 = *(a7 + 3) & 0xF;
     }
 
     else
     {
-      v42 = 1;
+      v33 = 1;
     }
 
-    v43 = v42 * a8;
-    v44 = v41 / (v43 * v32);
-    v45 = v14 - 1;
-    v46 = -v25;
-    v47 = (v44 - v45) & -v25;
+    v34 = v33 * a8;
+    v35 = v32 / (v34 * v26);
+    v36 = v14 - 1;
+    v37 = -v22;
+    v38 = (v35 - v36) & -v22;
     while (1)
     {
-      v48 = 2 * v44;
-      v49 = (2 * v44 - v45) & v46;
-      result = (v47 + v45) * (v32 >> 1) * v49;
-      v51 = v47 * v32 * (v49 + v45) < result || 4 * v25 > v47;
-      if (!v51)
+      v39 = 2 * v35;
+      v40 = (2 * v35 - v36) & v37;
+      result = (v38 + v36) * (v26 >> 1) * v40;
+      v42 = v38 * v26 * (v40 + v36) < result || 4 * v22 > v38;
+      if (!v42)
       {
         break;
       }
 
-      v47 = (2 * v44 - v45) & v46;
-      v44 *= 2;
-      v51 = v32 > 3;
-      v32 >>= 1;
-      if (!v51)
+      v38 = (2 * v35 - v36) & v37;
+      v35 *= 2;
+      v42 = v26 > 3;
+      v26 >>= 1;
+      if (!v42)
       {
-        LODWORD(v47) = v49;
-        LODWORD(v44) = v48;
+        LODWORD(v38) = v40;
+        LODWORD(v35) = v39;
         break;
       }
     }
 
-    v52 = a3;
+    v43 = a3;
   }
 
   else
   {
-    result = objc_msgSend_threadExecutionWidth(a6, a2, a3, a4, a5, a6);
-    v52 = a3;
+    result = objc_msgSend_threadExecutionWidth(a6, a2, a3);
+    v43 = a3;
     if ((*(a5 + 1472) & 0xFFFFFFFE) == 0x18)
     {
-      v25 = 8;
+      v22 = 8;
     }
 
     else
     {
-      v25 = result;
+      v22 = result;
     }
 
     if ((*(a7 + 3) & 0xE) != 0)
     {
-      v54 = *(a7 + 3) & 0xF;
+      v45 = *(a7 + 3) & 0xF;
     }
 
     else
     {
-      v54 = 1;
+      v45 = 1;
     }
 
-    v43 = v54 * a8;
-    v44 = 0x1000 / v43;
-    v47 = (0x1000 / v43 - v14 + 1) & -v25;
+    v34 = v45 * a8;
+    v35 = 0x1000 / v34;
+    v38 = (0x1000 / v34 - v14 + 1) & -v22;
   }
 
   a1[4] = 0;
-  *a1 = vcvt_f32_f64(vcvtq_f64_s64(*v52));
-  v55 = vmovn_s64(*a4);
-  a1[1].i16[1] = v55.i16[2];
-  v56 = v55.i16[0];
-  v57 = vmovn_s64(*(a4 + 24));
-  a1[1].i16[0] = v56;
-  a1[1].i16[3] = v57.i16[2];
-  a1[1].i16[2] = v57.i16[0];
-  a1[2].i32[0] = v47;
+  *a1 = vcvt_f32_f64(vcvtq_f64_s64(*v43));
+  v46 = vmovn_s64(*a4);
+  a1[1].i16[1] = v46.i16[2];
+  v47 = v46.i16[0];
+  v48 = vmovn_s64(*(a4 + 24));
+  a1[1].i16[0] = v47;
+  a1[1].i16[3] = v48.i16[2];
+  a1[1].i16[2] = v48.i16[0];
+  a1[2].i32[0] = v38;
   a1[2].i16[2] = v14;
   a1[2].i16[3] = a9 != 0;
-  a1[3].i32[0] = v44;
-  a1[3].i32[1] = v25;
-  a1[4].i32[0] = v43;
+  a1[3].i32[0] = v35;
+  a1[3].i32[1] = v22;
+  a1[4].i32[0] = v34;
   return result;
 }
 
-uint64_t sub_23994F288(uint64_t a1, char *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
+uint64_t sub_23994F288(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, uint64_t a6)
 {
-  v92 = *(a6 + 16);
+  v71 = *(a6 + 16);
   v11 = *(a1 + *MEMORY[0x277CD7378]);
   v12 = *(a6 + 32);
-  v94 = *(a1 + *MEMORY[0x277CD7350]);
-  v95 = *(a6 + 40);
+  v72 = *(a6 + 40);
   v13 = *(a1 + *MEMORY[0x277CD7370]);
-  v91 = *(a6 + 56);
-  v93 = *(a1 + 160);
+  v70 = *(a6 + 56);
   v14 = *(a6 + 8);
   v15 = *v14;
-  if (*a6 == v14 && (a4 == a5 || (objc_msgSend_isEqual_(a4, a2, a5, a4, a5, a6) & 1) != 0))
+  if (*a6 == v14 && (a4 == a5 || (objc_msgSend_isEqual_(a4, a2, a5) & 1) != 0))
   {
     return -18;
   }
@@ -5803,7 +5953,7 @@ uint64_t sub_23994F288(uint64_t a1, char *a2, uint64_t a3, void *a4, uint64_t a5
   {
     if ((~v15 & 0xF000000) == 0 && MTLReportFailureTypeEnabled())
     {
-      v88 = a5;
+      v67 = a5;
       MTLReportFailure();
     }
 
@@ -5815,191 +5965,191 @@ uint64_t sub_23994F288(uint64_t a1, char *a2, uint64_t a3, void *a4, uint64_t a5
   }
 
   v17 = *(a6 + 64);
-  if (v17 > objc_msgSend_width(a4, a2, a3, a4, a5, a6, v88) + 1)
+  if (v17 > objc_msgSend_width(a4, a2, a3, v67) + 1)
   {
     return 0;
   }
 
-  if (*(a6 + 64) + v95.i64[0] < -1)
+  if (*(a6 + 64) + v72.i64[0] < -1)
   {
     return 0;
   }
 
-  v23 = *(a6 + 72);
-  if (v23 > objc_msgSend_height(a4, v18, v19, v20, v21, v22) + 1 || *(a6 + 72) + v95.i64[1] < -1)
+  v20 = *(a6 + 72);
+  if (v20 > objc_msgSend_height(a4, v18, v19) + 1 || *(a6 + 72) + v72.i64[1] < -1)
   {
     return 0;
   }
 
-  v24 = *a6;
-  v25 = MPSIsTextureTwiddled();
+  v21 = *a6;
+  v22 = MPSIsTextureTwiddled();
   if ((**(a6 + 8) & 0xF000000) == 0x1000000)
   {
-    v26 = 13;
+    v23 = 13;
     if ((**a6 & 0xF000000) == 0x1000000)
     {
-      v26 = 1;
+      v23 = 1;
     }
   }
 
   else
   {
-    v26 = 1;
+    v23 = 1;
   }
 
-  if ((*v24 & 0xE000000) != 0)
+  if ((*v21 & 0xE000000) != 0)
   {
-    v28 = BYTE3(*v24) & 0xF;
-  }
-
-  else
-  {
-    v28 = 1;
-  }
-
-  if ((BYTE3(*v24) & 0xF) == 3)
-  {
-    v29 = 4;
+    v25 = BYTE3(*v21) & 0xF;
   }
 
   else
   {
-    v29 = v28;
+    v25 = 1;
   }
 
-  if (v29 == 1)
+  if ((BYTE3(*v21) & 0xF) == 3)
   {
-    v30 = 0;
+    v26 = 4;
   }
 
   else
   {
-    v31 = 3 * (v29 >> 1);
-    v32 = v29 == 2;
-    v33 = 1;
-    if (!v32)
+    v26 = v25;
+  }
+
+  if (v26 == 1)
+  {
+    v27 = 0;
+  }
+
+  else
+  {
+    v28 = 3 * (v26 >> 1);
+    v29 = v26 == 2;
+    v30 = 1;
+    if (!v29)
     {
-      v33 = 2;
+      v30 = 2;
     }
 
-    v34 = (*v24 >> 10) >> v33;
-    v35 = 63 - __clz(v34);
-    if (v25)
+    v31 = (*v21 >> 10) >> v30;
+    v32 = 63 - __clz(v31);
+    if (v22)
     {
-      v36 = 3;
+      v33 = 3;
     }
 
     else
     {
-      v36 = -3;
+      v33 = -3;
     }
 
-    v37 = v26 + v36 + v31;
-    if (v34)
+    v34 = v23 + v33 + v28;
+    if (v31)
     {
-      v38 = v35;
+      v35 = v32;
     }
 
     else
     {
-      v38 = 0;
+      v35 = 0;
     }
 
-    v30 = v37 + v38;
-    if (v37 + v38 == -1)
+    v27 = v34 + v35;
+    if (v34 + v35 == -1)
     {
       return -19;
     }
   }
 
-  v90 = *(*(*(v13 + 280) + 16 * v30) + 64);
+  v69 = *(*(*(v13 + 280) + 16 * v27) + 64);
   ComputeState = MPSLibrary::GetComputeState();
   if (ComputeState)
   {
-    v44 = ComputeState;
-    v89 = a1 + 208;
-    objc_msgSend_setComputePipelineState_(a2, v40, ComputeState, v41, v42, v43);
+    v38 = ComputeState;
+    v68 = a1 + 208;
+    objc_msgSend_setComputePipelineState_(a2, v37, ComputeState);
     MPSLibrary::ReleaseComputeState();
-    v50 = objc_msgSend_threadExecutionWidth(v44, v45, v46, v47, v48, v49);
-    v56 = objc_msgSend_maxTotalThreadsPerThreadgroup(v44, v51, v52, v53, v54, v55);
-    v57 = WORD2(v90) * WORD1(v90);
-    v58 = v56 & -v50;
-    if (v58 <= v50)
+    v41 = objc_msgSend_threadExecutionWidth(v38, v39, v40);
+    v44 = objc_msgSend_maxTotalThreadsPerThreadgroup(v38, v42, v43);
+    v45 = WORD2(v69) * WORD1(v69);
+    v46 = v44 & -v41;
+    if (v46 <= v41)
     {
-      v58 = v50;
+      v46 = v41;
     }
 
-    v59 = v58 / v50;
-    if (v57 > v56)
+    v47 = v46 / v41;
+    if (v45 > v44)
     {
-      v60 = v59;
-    }
-
-    else
-    {
-      v60 = WORD2(v90);
-    }
-
-    if (v57 <= v56)
-    {
-      v50 = WORD1(v90);
-    }
-
-    v61 = v50 * v90;
-    v62 = v60 * BYTE1(v90);
-    if (v95.i64[0] % v61)
-    {
-      v63 = v95.i64[0] + v61 - 1;
+      v48 = v47;
     }
 
     else
     {
-      v63 = v95.i64[0];
+      v48 = WORD2(v69);
     }
 
-    v64 = v63 / v61;
-    if (v95.i64[1] % v62)
+    if (v45 <= v44)
     {
-      v65 = v95.i64[1] + v62 - 1;
+      v41 = WORD1(v69);
+    }
+
+    v49 = v41 * v69;
+    v50 = v48 * BYTE1(v69);
+    if (v72.i64[0] % v49)
+    {
+      v51 = v72.i64[0] + v49 - 1;
     }
 
     else
     {
-      v65 = v95.u64[1];
+      v51 = v72.i64[0];
     }
 
-    v66 = vmovn_s64(*(a6 + 64));
-    LOWORD(v67) = v66.i16[0];
-    WORD1(v67) = v66.i16[2];
-    HIDWORD(v67) = *(a6 + 80);
-    v68 = vmovn_s64(v92);
-    LOWORD(v69) = v68.i16[0];
-    WORD1(v69) = v68.i16[2];
-    HIDWORD(v70) = 0;
-    HIDWORD(v69) = v12;
-    v98[0] = v67;
-    v98[1] = v69;
-    v71 = vmovn_s64(vaddq_s64(v95, v92));
-    v68.i16[0] = v71.i16[0];
-    v68.i16[1] = v71.i16[2];
-    v68.i32[1] = (v91 + v12);
-    v98[2] = v68;
-    *&v70 = *v89;
-    DWORD2(v70) = *(v89 + 8);
-    v99 = v70;
-    v72 = v65 / v62;
+    v52 = v51 / v49;
+    if (v72.i64[1] % v50)
+    {
+      v53 = v72.i64[1] + v50 - 1;
+    }
+
+    else
+    {
+      v53 = v72.u64[1];
+    }
+
+    v54 = vmovn_s64(*(a6 + 64));
+    LOWORD(v55) = v54.i16[0];
+    WORD1(v55) = v54.i16[2];
+    HIDWORD(v55) = *(a6 + 80);
+    v56 = vmovn_s64(v71);
+    LOWORD(v57) = v56.i16[0];
+    WORD1(v57) = v56.i16[2];
+    HIDWORD(v58) = 0;
+    HIDWORD(v57) = v12;
+    v75[0] = v55;
+    v75[1] = v57;
+    v59 = vmovn_s64(vaddq_s64(v72, v71));
+    v56.i16[0] = v59.i16[0];
+    v56.i16[1] = v59.i16[2];
+    v56.i32[1] = (v70 + v12);
+    v75[2] = v56;
+    *&v58 = *v68;
+    DWORD2(v58) = *(v68 + 8);
+    v76 = v58;
+    v60 = v53 / v50;
     Sampler = MPSDevice::GetSampler();
-    objc_msgSend_setTexture_atIndex_(a2, v74, a4, 0, v75, v76);
-    objc_msgSend_setTexture_atIndex_(a2, v77, a5, 1, v78, v79);
-    objc_msgSend_setBytes_length_atIndex_(a2, v80, v98, 48, 0, v81);
-    objc_msgSend_setSamplerState_atIndex_(a2, v82, Sampler, 0, v83, v84);
-    v97[0] = v64;
-    v97[1] = v72;
-    v97[2] = 1;
-    v96[0] = v50;
-    v96[1] = v60;
-    v96[2] = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v85, v97, v96, v86, v87);
+    objc_msgSend_setTexture_atIndex_(a2, v62, a4, 0);
+    objc_msgSend_setTexture_atIndex_(a2, v63, a5, 1);
+    objc_msgSend_setBytes_length_atIndex_(a2, v64, v75, 48, 0);
+    objc_msgSend_setSamplerState_atIndex_(a2, v65, Sampler, 0);
+    v74[0] = v52;
+    v74[1] = v60;
+    v74[2] = 1;
+    v73[0] = v41;
+    v73[1] = v48;
+    v73[2] = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v66, v74, v73);
     return 0;
   }
 
@@ -6010,22 +6160,17 @@ uint64_t sub_239950048(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, u
 {
   v11 = *(a1 + 216);
   v12 = *(a1 + 208);
-  v264 = *(a1 + *MEMORY[0x277CD7350]);
-  v260 = *(a1 + *MEMORY[0x277CD7370]);
+  v140 = *(a1 + *MEMORY[0x277CD7350]);
   v13 = *(a1 + 160);
   v14 = *(a1 + 224);
-  v262 = *(a1 + *MEMORY[0x277CD7378]);
-  if ((v262 & 1) == 0)
+  v138 = *(a1 + *MEMORY[0x277CD7378]);
+  if ((v138 & 1) == 0)
   {
-    if ((v11 & v12 & 1) == 0)
+    if ((v11 & v12 & 1) == 0 && MTLReportFailureTypeEnabled())
     {
-      v254 = *(a1 + 228);
-      if (MTLReportFailureTypeEnabled())
-      {
-        v255 = v11;
-        v256 = v12;
-        MTLReportFailure();
-      }
+      v132 = v11;
+      v133 = v12;
+      MTLReportFailure();
     }
 
     v11 |= 1uLL;
@@ -6033,18 +6178,17 @@ uint64_t sub_239950048(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, u
   }
 
   v15 = *(a6 + 32);
-  v287 = *(a6 + 16);
-  *v288 = v15;
-  *&v288[16] = *(a6 + 48);
-  v263 = *(a6 + 8);
-  v16 = *(v264 + 185);
+  v163 = *(a6 + 16);
+  *v164 = v15;
+  *&v164[16] = *(a6 + 48);
+  v139 = *(a6 + 8);
+  v16 = *(v140 + 185);
   if (!v14)
   {
-    v35 = *(v264 + 369);
-    if ((v35 & 0x400) == 0 && *(v264 + 368) < 26)
+    v23 = *(v140 + 369);
+    if ((v23 & 0x400) == 0 && *(v140 + 368) < 26)
     {
-      v259 = 0;
-      *v263;
+      v136 = 0;
       if (v11 == 1)
       {
         goto LABEL_6;
@@ -6053,11 +6197,11 @@ uint64_t sub_239950048(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, u
       goto LABEL_13;
     }
 
-    if ((*v263 & 0xF000000) == 0x1000000)
+    if ((*v139 & 0xF000000) == 0x1000000)
     {
-      if ((v35 & 0x40) == 0)
+      if ((v23 & 0x40) == 0)
       {
-        v259 = 0;
+        v136 = 0;
         if (v11 == 1)
         {
           goto LABEL_6;
@@ -6066,27 +6210,27 @@ uint64_t sub_239950048(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, u
         goto LABEL_13;
       }
 
-      if (MPSIsTextureTwiddled() && (*(v264 + 1477) & 4) != 0 && objc_msgSend_height(a5, v130, v131, v132, v133, v134) >= 6 * v16 * BYTE2(v16))
+      if (MPSIsTextureTwiddled() && (*(v140 + 1477) & 4) != 0 && objc_msgSend_height(a5, v74, v75) >= 6 * v16 * BYTE2(v16))
       {
-        HIDWORD(v259) = 0;
-        if (objc_msgSend_width(a5, v130, v131, v132, v133, v134) < v16 << 9)
+        HIDWORD(v136) = 0;
+        if (objc_msgSend_width(a5, v74, v75) < v16 << 9)
         {
-          goto LABEL_116;
+          goto LABEL_115;
         }
       }
 
       else
       {
-        HIDWORD(v259) = 1;
-        if (objc_msgSend_width(a5, v130, v131, v132, v133, v134, v255, v256) < v16 << 9)
+        HIDWORD(v136) = 1;
+        if (objc_msgSend_width(a5, v74, v75, v132, v133) < v16 << 9)
         {
-          goto LABEL_116;
+          goto LABEL_115;
         }
       }
 
-      if ((*(v264 + 1477) & 4) != 0 && !MPSIsTextureTwiddled())
+      if ((*(v140 + 1477) & 4) != 0 && !MPSIsTextureTwiddled())
       {
-        LODWORD(v259) = 0;
+        LODWORD(v136) = 0;
         if (v11 == 1)
         {
           goto LABEL_6;
@@ -6098,9 +6242,9 @@ uint64_t sub_239950048(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, u
 
     else
     {
-      if ((v35 & 0x40) == 0)
+      if ((v23 & 0x40) == 0)
       {
-        v259 = 0;
+        v136 = 0;
         if (v11 == 1)
         {
           goto LABEL_6;
@@ -6109,9 +6253,9 @@ uint64_t sub_239950048(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, u
         goto LABEL_13;
       }
 
-      if ((!MPSIsTextureTwiddled() || (*v263 & 0xFC00) == 0x4000 || objc_msgSend_height(a5, v135, v136, v137, v138, v139) < 4 * v16 * BYTE2(v16)) && (!MPSIsTextureTwiddled() || (*(v264 + 1477) & 4) != 0 || objc_msgSend_height(a5, a2, a3, a4, a5, a6) < BYTE2(v16) * v16))
+      if ((!MPSIsTextureTwiddled() || (*v139 & 0xFC00) == 0x4000 || objc_msgSend_height(a5, v76, v77) < 4 * v16 * BYTE2(v16)) && (!MPSIsTextureTwiddled() || (*(v140 + 1477) & 4) != 0 || objc_msgSend_height(a5, a2, a3) < BYTE2(v16) * v16))
       {
-        v259 = 0x100000001;
+        v136 = 0x100000001;
         if (v11 == 1)
         {
           goto LABEL_6;
@@ -6120,11 +6264,11 @@ uint64_t sub_239950048(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, u
         goto LABEL_13;
       }
 
-      HIDWORD(v259) = 0;
+      HIDWORD(v136) = 0;
     }
 
-LABEL_116:
-    LODWORD(v259) = 1;
+LABEL_115:
+    LODWORD(v136) = 1;
     if (v11 == 1)
     {
       goto LABEL_6;
@@ -6133,61 +6277,61 @@ LABEL_116:
     goto LABEL_13;
   }
 
-  v259 = 0;
+  v136 = 0;
   if (v11 == 1)
   {
 LABEL_6:
-    if (a4 != a5 && (objc_msgSend_isEqual_(a4, a2, a5, a4, a5, a6) & 1) == 0)
+    if (a4 != a5 && (objc_msgSend_isEqual_(a4, a2, a5) & 1) == 0)
     {
-      v21 = *(a1 + 232);
-      if (v21)
+      v18 = *(a1 + 232);
+      if (v18)
       {
-        objc_msgSend_setOptions_(v21, v17, v262, v18, v19, v20);
-        *v274 = v287;
-        *&v274[16] = *v288;
-        *&v274[32] = *&v288[16];
-        objc_msgSend_setClipRect_(*(a1 + 232), v22, v274, v23, v24, v25);
-        *v274 = *(a6 + 64);
-        *&v274[16] = *(a6 + 80);
-        objc_msgSend_setOffset_(*(a1 + 232), v26, v274, v27, v28, v29);
-        objc_msgSend_setEdgeMode_(*(a1 + 232), v30, v13, v31, v32, v33);
+        objc_msgSend_setOptions_(v18, v17, v138);
+        *v150 = v163;
+        *&v150[16] = *v164;
+        *&v150[32] = *&v164[16];
+        objc_msgSend_setClipRect_(*(a1 + 232), v19, v150);
+        *v150 = *(a6 + 64);
+        *&v150[16] = *(a6 + 80);
+        objc_msgSend_setOffset_(*(a1 + 232), v20, v150);
+        objc_msgSend_setEdgeMode_(*(a1 + 232), v21, v13);
         return sub_23993BF18(*(a1 + 232), a2, a3, a4, a5, a6);
       }
 
       ComputeState = MPSLibrary::GetComputeState();
       if (ComputeState)
       {
-        v108 = vmovn_s64(*(a6 + 64));
-        v284.i16[1] = v108.i16[2];
-        v284.i16[0] = v108.i16[0];
-        v109 = vmovn_s64(v287);
-        v284.i16[3] = v109.i16[2];
-        v284.i16[2] = v109.i16[0];
-        v110 = vmovn_s64(*&v288[8]);
-        v284.i16[5] = v110.i16[2];
-        v284.i16[4] = v110.i16[0];
-        v284.i16[6] = v12 >> 1;
-        v284.i16[7] = v13 == 1;
-        v111 = ComputeState;
-        v112 = objc_msgSend_threadExecutionWidth(ComputeState, v103, v104, v105, v106, v107);
-        objc_msgSend_setComputePipelineState_(a2, v113, v111, v114, v115, v116);
-        objc_msgSend_setTexture_atIndex_(a2, v117, a4, 0, v118, v119);
+        v62 = vmovn_s64(*(a6 + 64));
+        v160.i16[1] = v62.i16[2];
+        v160.i16[0] = v62.i16[0];
+        v63 = vmovn_s64(v163);
+        v160.i16[3] = v63.i16[2];
+        v160.i16[2] = v63.i16[0];
+        v64 = vmovn_s64(*&v164[8]);
+        v160.i16[5] = v64.i16[2];
+        v160.i16[4] = v64.i16[0];
+        v160.i16[6] = v12 >> 1;
+        v160.i16[7] = v13 == 1;
+        v65 = ComputeState;
+        v66 = objc_msgSend_threadExecutionWidth(ComputeState, v60, v61);
+        objc_msgSend_setComputePipelineState_(a2, v67, v65);
+        objc_msgSend_setTexture_atIndex_(a2, v68, a4, 0);
         Sampler = MPSDevice::GetSampler();
-        objc_msgSend_setSamplerState_atIndex_(a2, v121, Sampler, 0, v122, v123);
-        objc_msgSend_setTexture_atIndex_(a2, v124, a5, 1, v125, v126);
-        objc_msgSend_setBytes_length_atIndex_(a2, v127, &v284, 16, 0, v128);
-        v129 = *&v288[16];
-        if (!HIDWORD(v259))
+        objc_msgSend_setSamplerState_atIndex_(a2, v70, Sampler, 0);
+        objc_msgSend_setTexture_atIndex_(a2, v71, a5, 1);
+        objc_msgSend_setBytes_length_atIndex_(a2, v72, &v160, 16, 0);
+        v73 = *&v164[16];
+        if (!HIDWORD(v136))
         {
-          v129 = (v112 + *&v288[16] - 1) / v112;
+          v73 = (v66 + *&v164[16] - 1) / v66;
         }
 
-        *v274 = v129;
-        *&v274[8] = vdupq_n_s64(1uLL);
-        v285 = v112;
-        v286 = *&v274[8];
-LABEL_110:
-        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v97, v274, &v285, v98, v99, v255, v256);
+        *v150 = v73;
+        *&v150[8] = vdupq_n_s64(1uLL);
+        v161 = v66;
+        v162 = *&v150[8];
+LABEL_109:
+        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v57, v150, &v161, v132, v133);
         return 0;
       }
 
@@ -6200,74 +6344,74 @@ LABEL_110:
 LABEL_13:
   if (v12 == 1)
   {
-    if (a4 != a5 && (objc_msgSend_isEqual_(a4, a2, a5, a4, a5, a6) & 1) == 0)
+    if (a4 != a5 && (objc_msgSend_isEqual_(a4, a2, a5) & 1) == 0)
     {
-      v56 = *(a1 + 240);
-      if (v56)
+      v38 = *(a1 + 240);
+      if (v38)
       {
-        objc_msgSend_setOptions_(v56, v36, v262, v37, v38, v39);
-        *v274 = v287;
-        *&v274[16] = *v288;
-        *&v274[32] = *&v288[16];
-        objc_msgSend_setClipRect_(*(a1 + 240), v57, v274, v58, v59, v60);
-        *v274 = *(a6 + 64);
-        *&v274[16] = *(a6 + 80);
-        objc_msgSend_setOffset_(*(a1 + 240), v61, v274, v62, v63, v64);
-        objc_msgSend_setEdgeMode_(*(a1 + 240), v65, v13, v66, v67, v68);
+        objc_msgSend_setOptions_(v38, v24, v138);
+        *v150 = v163;
+        *&v150[16] = *v164;
+        *&v150[32] = *&v164[16];
+        objc_msgSend_setClipRect_(*(a1 + 240), v39, v150);
+        *v150 = *(a6 + 64);
+        *&v150[16] = *(a6 + 80);
+        objc_msgSend_setOffset_(*(a1 + 240), v40, v150);
+        objc_msgSend_setEdgeMode_(*(a1 + 240), v41, v13);
         sub_23993BF18(*(a1 + 240), a2, a3, a4, a5, a6);
       }
 
-      v69 = MPSLibrary::GetComputeState();
-      if (v69)
+      v42 = MPSLibrary::GetComputeState();
+      if (v42)
       {
-        v75 = vmovn_s64(*(a6 + 64));
-        v284.i16[1] = v75.i16[2];
-        v284.i16[0] = v75.i16[0];
-        v76 = vmovn_s64(v287);
-        v284.i16[3] = v76.i16[2];
-        v284.i16[2] = v76.i16[0];
-        v77 = vmovn_s64(*&v288[8]);
-        v284.i16[5] = v77.i16[2];
-        v284.i16[4] = v77.i16[0];
-        v284.i16[6] = v11 >> 1;
-        v284.i16[7] = v13 == 1;
-        v78 = v69;
-        v79 = objc_msgSend_threadExecutionWidth(v69, v70, v71, v72, v73, v74);
-        objc_msgSend_setComputePipelineState_(a2, v80, v78, v81, v82, v83);
-        objc_msgSend_setTexture_atIndex_(a2, v84, a4, 0, v85, v86);
-        v87 = MPSDevice::GetSampler();
-        objc_msgSend_setSamplerState_atIndex_(a2, v88, v87, 0, v89, v90);
-        v91 = 1;
-        objc_msgSend_setTexture_atIndex_(a2, v92, a5, 1, v93, v94);
-        objc_msgSend_setBytes_length_atIndex_(a2, v95, &v284, 16, 0, v96);
-        if (v259)
+        v45 = vmovn_s64(*(a6 + 64));
+        v160.i16[1] = v45.i16[2];
+        v160.i16[0] = v45.i16[0];
+        v46 = vmovn_s64(v163);
+        v160.i16[3] = v46.i16[2];
+        v160.i16[2] = v46.i16[0];
+        v47 = vmovn_s64(*&v164[8]);
+        v160.i16[5] = v47.i16[2];
+        v160.i16[4] = v47.i16[0];
+        v160.i16[6] = v11 >> 1;
+        v160.i16[7] = v13 == 1;
+        v48 = v42;
+        v49 = objc_msgSend_threadExecutionWidth(v42, v43, v44);
+        objc_msgSend_setComputePipelineState_(a2, v50, v48);
+        objc_msgSend_setTexture_atIndex_(a2, v51, a4, 0);
+        v52 = MPSDevice::GetSampler();
+        objc_msgSend_setSamplerState_atIndex_(a2, v53, v52, 0);
+        v54 = 1;
+        objc_msgSend_setTexture_atIndex_(a2, v55, a5, 1);
+        objc_msgSend_setBytes_length_atIndex_(a2, v56, &v160, 16, 0);
+        if (v136)
         {
-          v100 = (*&v288[8] + 15) >> 4;
-          if ((*v263 & 0xF000000) == 0x1000000)
+          v58 = (*&v164[8] + 15) >> 4;
+          if ((*v139 & 0xF000000) == 0x1000000)
           {
-            objc_msgSend_setThreadgroupMemoryLength_atIndex_(a2, v97, 2176, 0, v98, v99, v255, v256);
+            objc_msgSend_setThreadgroupMemoryLength_atIndex_(a2, v57, 2176, 0, v132, v133);
           }
 
           else
           {
-            objc_msgSend_setThreadgroupMemoryLength_atIndex_(a2, v97, 8704, 0, v98, v99, v255, v256);
+            objc_msgSend_setThreadgroupMemoryLength_atIndex_(a2, v57, 8704, 0, v132, v133);
           }
 
-          v91 = 16;
-          v79 = 16;
+          v54 = 16;
+          v49 = 16;
         }
 
         else
         {
-          v100 = (v79 + *&v288[8] - 1) / v79;
+          v58 = (v49 + *&v164[8] - 1) / v49;
         }
 
-        *v274 = v100;
-        *&v274[8] = vdupq_n_s64(1uLL);
-        v285 = v79;
-        *&v286 = v91;
-        *(&v286 + 1) = 1;
-        goto LABEL_110;
+        *v150 = v58;
+        *&v150[8] = vdupq_n_s64(1uLL);
+        v161 = v49;
+        *&v162 = v54;
+        *(&v162 + 1) = 1;
+        goto LABEL_109;
       }
 
       return -1;
@@ -6276,78 +6420,78 @@ LABEL_13:
     return -18;
   }
 
-  v257 = a5;
-  v258 = v13;
-  v285 = objc_msgSend_width(a4, a2, a3, a4, a5, a6);
-  *&v286 = objc_msgSend_height(a4, v40, v41, v42, v43, v44);
-  *(&v286 + 1) = 1;
+  v134 = a5;
+  v135 = v13;
+  v161 = objc_msgSend_width(a4, a2, a3);
+  *&v162 = objc_msgSend_height(a4, v25, v26);
+  *(&v162 + 1) = 1;
   MPSSeparatePassDimensions();
-  v45 = *v263;
-  v46 = BYTE4(*v263);
-  v47 = 115;
-  if (v11 * v12 > 1 << (11 - v46))
+  v27 = *v139;
+  v28 = BYTE4(*v139);
+  v29 = 115;
+  if (v11 * v12 > 1 << (11 - v28))
   {
-    v47 = 125;
+    v29 = 125;
   }
 
-  if (v46 <= 0xB)
+  if (v28 <= 0xB)
   {
-    v48 = v47;
-  }
-
-  else
-  {
-    v48 = 125;
-  }
-
-  v49 = 115;
-  if (((v45 >> 34) & 0x3F) >= 3)
-  {
-    v49 = v48;
-  }
-
-  if ((v262 & 2) != 0)
-  {
-    v48 = v49;
-  }
-
-  v50 = BYTE3(v45) & 0xF;
-  v51 = 105;
-  if (v48 == 115)
-  {
-    v51 = 65;
-  }
-
-  v52 = 55;
-  if (v48 == 115)
-  {
-    v52 = 25;
-  }
-
-  if (v50 == 1)
-  {
-    v48 = v52;
-  }
-
-  if (v50 == 2)
-  {
-    v53 = v51;
+    v30 = v29;
   }
 
   else
   {
-    v53 = v48;
+    v30 = 125;
   }
 
-  if (*(v264 + 368) < 8)
+  v31 = 115;
+  if (((v27 >> 34) & 0x3F) >= 3)
   {
-    v55 = a2;
-    goto LABEL_87;
+    v31 = v30;
+  }
+
+  if ((v138 & 2) != 0)
+  {
+    v30 = v31;
+  }
+
+  v32 = BYTE3(v27) & 0xF;
+  v33 = 105;
+  if (v30 == 115)
+  {
+    v33 = 65;
+  }
+
+  v34 = 55;
+  if (v30 == 115)
+  {
+    v34 = 25;
+  }
+
+  if (v32 == 1)
+  {
+    v30 = v34;
+  }
+
+  if (v32 == 2)
+  {
+    v35 = v33;
+  }
+
+  else
+  {
+    v35 = v30;
+  }
+
+  if (*(v140 + 368) < 8)
+  {
+    v37 = a2;
+    goto LABEL_86;
   }
 
   if (MPSIsTextureTwiddled())
   {
-    v54 = MPSIsTextureTwiddled() ^ 1;
+    v36 = MPSIsTextureTwiddled() ^ 1;
     if (*(a1 + 232))
     {
       goto LABEL_38;
@@ -6356,244 +6500,305 @@ LABEL_13:
 
   else
   {
-    v54 = 1;
+    v36 = 1;
     if (*(a1 + 232))
     {
 LABEL_38:
-      if ((v54 | HIDWORD(v259) ^ 1))
+      if ((v36 | HIDWORD(v136) ^ 1))
       {
-        goto LABEL_61;
+        goto LABEL_60;
       }
 
       goto LABEL_59;
     }
   }
 
-  if ((*(a1 + 240) != 0) & v54) != 0 || ((HIDWORD(v259) ^ 1))
+  if ((*(a1 + 240) != 0) & v36) != 0 || ((HIDWORD(v136) ^ 1))
   {
-LABEL_61:
-    if ((v262 >> 1) & 1 | (v259 ^ 1) & 1)
+LABEL_60:
+    if ((v138 >> 1) & 1 | (v136 ^ 1) & 1)
     {
-      goto LABEL_86;
+      goto LABEL_85;
     }
 
-    goto LABEL_62;
-  }
-
-LABEL_59:
-  if (*&v288[16] * *&v288[8] >= 0x40000uLL)
-  {
-    v101 = (*v263 >> 10) < 9uLL;
     goto LABEL_61;
   }
 
-  if ((v262 >> 1) & 1 | (v259 ^ 1) & 1)
+LABEL_59:
+  if (*&v164[16] * *&v164[8] >= 0x40000uLL)
   {
+    goto LABEL_60;
+  }
+
+  if ((v138 >> 1) & 1 | (v136 ^ 1) & 1)
+  {
+    goto LABEL_85;
+  }
+
+LABEL_61:
+  if ((*v139 & 0xF000000) >= 0x2000001)
+  {
+    v37 = a2;
     goto LABEL_86;
   }
 
-LABEL_62:
-  if ((*v263 & 0xF000000) >= 0x2000001)
-  {
-    v55 = a2;
-    goto LABEL_87;
-  }
-
+LABEL_85:
+  v37 = a2;
 LABEL_86:
-  v55 = a2;
-LABEL_87:
-  PixelInfo = MPSDevice::GetPixelInfo(v264, v53, MPSImageFeatureChannelFormatNone);
-  MEMORY[0x23EE7BAC0](v278, a3, v257);
+  PixelInfo = MPSDevice::GetPixelInfo(v140, v35, MPSImageFeatureChannelFormatNone);
+  MEMORY[0x23EE7BAC0](v154, a3, v134);
   TempTexture = MPSAutoCache::GetTempTexture();
-  v145 = *(a1 + 232);
-  if (v145)
+  v80 = *(a1 + 232);
+  if (v80)
   {
-    objc_msgSend_setOptions_(v145, v140, v262, v141, v142, v143, &v282, &v280);
-    memset(v274, 0, 24);
-    v146 = *(a1 + 232);
-    *&v274[24] = v284;
-    *&v274[40] = 1;
-    objc_msgSend_setClipRect_(v146, v147, v274, v148, v149, v150);
-    *v274 = v282;
-    *&v274[16] = v283;
-    objc_msgSend_setOffset_(*(a1 + 232), v151, v274, v152, v153, v154);
-    objc_msgSend_setEdgeMode_(*(a1 + 232), v155, v258, v156, v157, v158);
-    v276 = 0u;
-    v277 = 0u;
-    v275 = 0u;
-    memset(&v274[16], 0, 32);
-    *v274 = *a6;
-    *&v274[8] = &PixelInfo;
-    v164 = *(a1 + 232);
-    if (v164)
+    objc_msgSend_setOptions_(v80, v78, v138, &v158, &v156);
+    memset(v150, 0, 24);
+    v81 = *(a1 + 232);
+    *&v150[24] = v160;
+    *&v150[40] = 1;
+    objc_msgSend_setClipRect_(v81, v82, v150);
+    *v150 = v158;
+    *&v150[16] = v159;
+    objc_msgSend_setOffset_(*(a1 + 232), v83, v150);
+    objc_msgSend_setEdgeMode_(*(a1 + 232), v84, v135);
+    v152 = 0u;
+    v153 = 0u;
+    v151 = 0u;
+    memset(&v150[16], 0, 32);
+    *v150 = *a6;
+    *&v150[8] = &PixelInfo;
+    v87 = *(a1 + 232);
+    if (v87)
     {
-      objc_msgSend_clipRect(v164, v159, v160, v161, v162, v163);
-      v164 = *(a1 + 232);
+      objc_msgSend_clipRect(v87, v85, v86);
+      v87 = *(a1 + 232);
     }
 
     else
     {
-      v275 = 0uLL;
-      memset(&v274[16], 0, 32);
+      v151 = 0uLL;
+      memset(&v150[16], 0, 32);
     }
 
-    v276 = v282;
-    v277 = v283;
-    v199 = sub_23993BF18(v164, v55, a3, a4, TempTexture, v274);
-    if (v199)
+    v152 = v158;
+    v153 = v159;
+    v104 = sub_23993BF18(v87, v37, a3, a4, TempTexture, v150);
+    if (v104)
     {
-      goto LABEL_113;
+      goto LABEL_112;
     }
   }
 
   else
   {
-    v165 = MPSLibrary::GetComputeState();
-    v171 = v165;
-    if (!v165)
+    v88 = MPSLibrary::GetComputeState();
+    v91 = v88;
+    if (!v88)
     {
-      goto LABEL_105;
+      goto LABEL_104;
     }
 
-    v172 = vmovn_s64(v282);
-    v268 = v172.i16[2];
-    v267 = v172.i16[0];
-    v269 = 0;
-    v173 = vmovn_s64(v284);
-    v271 = v173.u16[2];
-    v270 = v173.i16[0];
-    v272 = v12 >> 1;
-    v273 = v258 == 1;
-    v174 = objc_msgSend_threadExecutionWidth(v165, v166, v167, v168, v169, v170, &v282, &v280);
-    objc_msgSend_setComputePipelineState_(v55, v175, v171, v176, v177, v178);
-    objc_msgSend_setTexture_atIndex_(v55, v179, a4, 0, v180, v181);
-    v182 = MPSDevice::GetSampler();
-    objc_msgSend_setSamplerState_atIndex_(v55, v183, v182, 0, v184, v185);
-    objc_msgSend_setTexture_atIndex_(v55, v186, TempTexture, 1, v187, v188);
-    objc_msgSend_setBytes_length_atIndex_(v55, v189, &v267, 16, 0, v190);
-    v194 = v271;
-    if (!HIDWORD(v259))
+    v92 = vmovn_s64(v158);
+    v144 = v92.i16[2];
+    v143 = v92.i16[0];
+    v145 = 0;
+    v93 = vmovn_s64(v160);
+    v147 = v93.u16[2];
+    v146 = v93.i16[0];
+    v148 = v12 >> 1;
+    v149 = v135 == 1;
+    v94 = objc_msgSend_threadExecutionWidth(v88, v89, v90, &v158, &v156);
+    objc_msgSend_setComputePipelineState_(v37, v95, v91);
+    objc_msgSend_setTexture_atIndex_(v37, v96, a4, 0);
+    v97 = MPSDevice::GetSampler();
+    objc_msgSend_setSamplerState_atIndex_(v37, v98, v97, 0);
+    objc_msgSend_setTexture_atIndex_(v37, v99, TempTexture, 1);
+    objc_msgSend_setBytes_length_atIndex_(v37, v100, &v143, 16, 0);
+    v102 = v147;
+    if (!HIDWORD(v136))
     {
-      v194 = (v174 + v271 - 1) / v174;
+      v102 = (v94 + v147 - 1) / v94;
     }
 
-    *v274 = v194;
-    *&v274[8] = vdupq_n_s64(1uLL);
-    v265 = v174;
-    v266 = *&v274[8];
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v55, v191, v274, &v265, v192, v193);
+    *v150 = v102;
+    *&v150[8] = vdupq_n_s64(1uLL);
+    v141 = v94;
+    v142 = *&v150[8];
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v37, v101, v150, &v141);
   }
 
-  v200 = *(a1 + 240);
-  if (v200)
+  v105 = *(a1 + 240);
+  if (v105)
   {
-    objc_msgSend_setOptions_(v200, v195, v262, v196, v197, v198);
-    *v274 = v287;
-    *&v274[16] = *v288;
-    *&v274[32] = *&v288[16];
-    objc_msgSend_setClipRect_(*(a1 + 240), v201, v274, v202, v203, v204);
-    *v274 = v280;
-    *&v274[16] = v281;
-    objc_msgSend_setOffset_(*(a1 + 240), v205, v274, v206, v207, v208);
-    objc_msgSend_setEdgeMode_(*(a1 + 240), v209, v258, v210, v211, v212);
-    v276 = 0u;
-    v277 = 0u;
-    v275 = 0u;
-    memset(&v274[16], 0, 32);
-    v218 = *(a6 + 8);
-    *v274 = &PixelInfo;
-    *&v274[8] = v218;
-    v219 = *(a1 + 240);
-    if (v219)
+    objc_msgSend_setOptions_(v105, v103, v138);
+    *v150 = v163;
+    *&v150[16] = *v164;
+    *&v150[32] = *&v164[16];
+    objc_msgSend_setClipRect_(*(a1 + 240), v106, v150);
+    *v150 = v156;
+    *&v150[16] = v157;
+    objc_msgSend_setOffset_(*(a1 + 240), v107, v150);
+    objc_msgSend_setEdgeMode_(*(a1 + 240), v108, v135);
+    v152 = 0u;
+    v153 = 0u;
+    v151 = 0u;
+    memset(&v150[16], 0, 32);
+    v111 = *(a6 + 8);
+    *v150 = &PixelInfo;
+    *&v150[8] = v111;
+    v112 = *(a1 + 240);
+    if (v112)
     {
-      objc_msgSend_clipRect(v219, v213, v214, v215, v216, v217);
-      v219 = *(a1 + 240);
+      objc_msgSend_clipRect(v112, v109, v110);
+      v112 = *(a1 + 240);
     }
 
     else
     {
-      v275 = 0uLL;
-      memset(&v274[16], 0, 32);
+      v151 = 0uLL;
+      memset(&v150[16], 0, 32);
     }
 
-    v276 = v280;
-    v277 = v281;
-    v199 = sub_23993BF18(v219, v55, a3, TempTexture, v257, v274);
-    goto LABEL_113;
+    v152 = v156;
+    v153 = v157;
+    v104 = sub_23993BF18(v112, v37, a3, TempTexture, v134, v150);
+    goto LABEL_112;
   }
 
-  v220 = MPSLibrary::GetComputeState();
-  v226 = v220;
-  if (v220)
+  v113 = MPSLibrary::GetComputeState();
+  v116 = v113;
+  if (v113)
   {
-    v227 = vmovn_s64(v280);
-    v268 = v227.i16[2];
-    v267 = v227.i16[0];
-    v228 = vmovn_s64(v287);
-    HIWORD(v269) = v228.i16[2];
-    LOWORD(v269) = v228.i16[0];
-    v229 = vmovn_s64(*&v288[8]);
-    v271 = v229.u16[2];
-    v270 = v229.i16[0];
-    v272 = v11 >> 1;
-    v273 = v258 == 1;
-    v230 = objc_msgSend_threadExecutionWidth(v220, v221, v222, v223, v224, v225);
-    objc_msgSend_setComputePipelineState_(v55, v231, v226, v232, v233, v234);
-    objc_msgSend_setTexture_atIndex_(v55, v235, TempTexture, 0, v236, v237);
-    v238 = MPSDevice::GetSampler();
-    objc_msgSend_setSamplerState_atIndex_(v55, v239, v238, 0, v240, v241);
-    objc_msgSend_setTexture_atIndex_(v55, v242, v257, 1, v243, v244);
-    objc_msgSend_setBytes_length_atIndex_(v55, v245, &v267, 16, 0, v246);
-    v250 = v270;
-    if (v259)
+    v117 = vmovn_s64(v156);
+    v144 = v117.i16[2];
+    v143 = v117.i16[0];
+    v118 = vmovn_s64(v163);
+    HIWORD(v145) = v118.i16[2];
+    LOWORD(v145) = v118.i16[0];
+    v119 = vmovn_s64(*&v164[8]);
+    v147 = v119.u16[2];
+    v146 = v119.i16[0];
+    v148 = v11 >> 1;
+    v149 = v135 == 1;
+    v120 = objc_msgSend_threadExecutionWidth(v113, v114, v115);
+    objc_msgSend_setComputePipelineState_(v37, v121, v116);
+    objc_msgSend_setTexture_atIndex_(v37, v122, TempTexture, 0);
+    v123 = MPSDevice::GetSampler();
+    objc_msgSend_setSamplerState_atIndex_(v37, v124, v123, 0);
+    objc_msgSend_setTexture_atIndex_(v37, v125, v134, 1);
+    objc_msgSend_setBytes_length_atIndex_(v37, v126, &v143, 16, 0);
+    v128 = v146;
+    if (v136)
     {
-      if ((*v263 & 0xF000000) == 0x1000000)
+      if ((*v139 & 0xF000000) == 0x1000000)
       {
-        objc_msgSend_setThreadgroupMemoryLength_atIndex_(v55, v247, 2176, 0, v248, v249);
+        objc_msgSend_setThreadgroupMemoryLength_atIndex_(v37, v127, 2176, 0);
       }
 
       else
       {
-        objc_msgSend_setThreadgroupMemoryLength_atIndex_(v55, v247, 8704, 0, v248, v249);
+        objc_msgSend_setThreadgroupMemoryLength_atIndex_(v37, v127, 8704, 0);
       }
 
-      v251 = (v250 + 15) >> 4;
-      v230 = 16;
-      v252 = 16;
+      v129 = (v128 + 15) >> 4;
+      v120 = 16;
+      v130 = 16;
     }
 
     else
     {
-      v252 = 1;
-      v251 = (v230 + v270 - 1) / v230;
+      v130 = 1;
+      v129 = (v120 + v146 - 1) / v120;
     }
 
-    *v274 = v251;
-    *&v274[8] = vdupq_n_s64(1uLL);
-    v265 = v230;
-    *&v266 = v252;
-    *(&v266 + 1) = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v55, v247, v274, &v265, v248, v249);
-    v199 = 0;
-    goto LABEL_113;
+    *v150 = v129;
+    *&v150[8] = vdupq_n_s64(1uLL);
+    v141 = v120;
+    *&v142 = v130;
+    *(&v142 + 1) = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v37, v127, v150, &v141);
+    v104 = 0;
+    goto LABEL_112;
   }
 
-LABEL_105:
-  v199 = -1;
-LABEL_113:
-  v253 = v199;
-  MPSAutoCache::~MPSAutoCache(v278);
-  return v253;
+LABEL_104:
+  v104 = -1;
+LABEL_112:
+  v131 = v104;
+  MPSAutoCache::~MPSAutoCache(v154);
+  return v131;
 }
 
-int8x16_t sub_239950F68@<Q0>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, int8x16_t *a7@<X8>)
+void sub_239950EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  a7->i64[0] = 0;
-  a7->i64[1] = 0;
-  a7[1].i64[0] = 0;
-  v12 = *(a1 + *MEMORY[0x277CD7350]);
-  v13 = objc_msgSend_pixelFormat(a3, a2, a3, a4, a5, a6);
-  PixelInfo = MPSDevice::GetPixelInfo(v12, v13, MPSImageFeatureChannelFormatNone);
+  va_start(va, a36);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239950EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239950EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239950EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239950F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239950F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239950F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239950F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_239950F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  MPSAutoCache::~MPSAutoCache(va);
+  _Unwind_Resume(a1);
+}
+
+int8x16_t sub_239950F68@<Q0>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, int8x16_t *a5@<X8>)
+{
+  *a5 = 0uLL;
+  a5[1].i64[0] = 0;
+  v10 = *(a1 + *MEMORY[0x277CD7350]);
+  v11 = objc_msgSend_pixelFormat(a3, a2, a3);
+  PixelInfo = MPSDevice::GetPixelInfo(v10, v11, MPSImageFeatureChannelFormatNone);
   if ((~PixelInfo & 0xA00000000000) == 0 && (PixelInfo & 0xFC00) != 0)
   {
     if (*(a1 + 208) > 9uLL)
@@ -6609,29 +6814,29 @@ int8x16_t sub_239950F68@<Q0>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uin
       return result;
     }
 
-    if ((objc_msgSend_isEqual_(a2, v15, a3, v16, v17, v18) & 1) == 0)
+    if ((objc_msgSend_isEqual_(a2, v13, a3) & 1) == 0)
     {
-      v21 = vdupq_n_s64(0x2C0uLL);
-      result = vbslq_s8(vcgtq_u64(v21, *(a4 + 40)), *(a4 + 40), v21);
-      *a7 = result;
+      v16 = vdupq_n_s64(0x2C0uLL);
+      result = vbslq_s8(vcgtq_u64(v16, *(a4 + 40)), *(a4 + 40), v16);
+      *a5 = result;
     }
   }
 
   return result;
 }
 
-uint64_t sub_239951064@<X0>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, unint64_t *a7@<X8>)
+uint64_t sub_239951064@<X0>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, unint64_t *a5@<X8>)
 {
-  *a7 = 0;
-  a7[1] = 0;
-  a7[2] = 0;
-  v12 = MEMORY[0x277CD7350];
-  v13 = *(a1 + *MEMORY[0x277CD7350]);
-  v14 = objc_msgSend_pixelFormat(a3, a2, a3, a4, a5, a6);
-  PixelInfo = MPSDevice::GetPixelInfo(v13, v14, MPSImageFeatureChannelFormatNone);
-  v16 = *(a1 + *v12);
-  v22 = objc_msgSend_pixelFormat(a2, v17, v18, v19, v20, v21);
-  result = MPSDevice::GetPixelInfo(v16, v22, MPSImageFeatureChannelFormatNone);
+  *a5 = 0;
+  a5[1] = 0;
+  a5[2] = 0;
+  v10 = MEMORY[0x277CD7350];
+  v11 = *(a1 + *MEMORY[0x277CD7350]);
+  v12 = objc_msgSend_pixelFormat(a3, a2, a3);
+  PixelInfo = MPSDevice::GetPixelInfo(v11, v12, MPSImageFeatureChannelFormatNone);
+  v14 = *(a1 + *v10);
+  v17 = objc_msgSend_pixelFormat(a2, v15, v16);
+  result = MPSDevice::GetPixelInfo(v14, v17, MPSImageFeatureChannelFormatNone);
   if ((~PixelInfo & 0xA00000000000) == 0 && (PixelInfo & 0xFC00) != 0)
   {
     if (*(a1 + 208) > 9uLL)
@@ -6647,67 +6852,66 @@ uint64_t sub_239951064@<X0>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint
       return result;
     }
 
-    v29 = result;
-    result = objc_msgSend_isEqual_(a2, v24, a3, v25, v26, v27);
+    v21 = result;
+    result = objc_msgSend_isEqual_(a2, v19, a3);
     if ((result & 1) == 0)
     {
-      if ((*(*(a1 + *v12) + 1480) & 0xFEuLL) < 0xE)
+      if ((*(*(a1 + *v10) + 1480) & 0xFEuLL) < 0xE)
       {
-        v32 = v29 >> 10;
-        if (v32 <= 7)
+        v24 = v21 >> 10;
+        if (v24 <= 7)
         {
-          v33 = v32 > 3;
-          v31 = 4096;
-          v30 = 2048;
-          if (!v33)
+          v25 = v24 > 3;
+          v23 = 4096;
+          v22 = 2048;
+          if (!v25)
           {
-            v30 = 4096;
+            v22 = 4096;
           }
         }
 
         else
         {
-          v30 = 2048;
-          v31 = 2048;
+          v22 = 2048;
+          v23 = 2048;
         }
       }
 
       else
       {
-        v30 = 2048;
-        v31 = 4096;
-        if ((v29 & 0xC000) == 0)
+        v22 = 2048;
+        v23 = 4096;
+        if ((v21 & 0xC000) == 0)
         {
-          v30 = 4096;
+          v22 = 4096;
         }
       }
 
-      if (v31 >= *(a4 + 40))
+      if (v23 >= *(a4 + 40))
       {
-        v31 = *(a4 + 40);
+        v23 = *(a4 + 40);
       }
 
-      if (v30 >= *(a4 + 48))
+      if (v22 >= *(a4 + 48))
       {
-        v30 = *(a4 + 48);
+        v22 = *(a4 + 48);
       }
 
-      *a7 = v31;
-      a7[1] = v30;
+      *a5 = v23;
+      a5[1] = v22;
     }
   }
 
   return result;
 }
 
-int8x16_t sub_2399511EC@<Q0>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, int8x16_t *a7@<X8>)
+int8x16_t sub_2399511EC@<Q0>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t a4@<X3>, int8x16_t *a5@<X8>)
 {
-  a7->i64[0] = 0;
-  a7->i64[1] = 0;
-  a7[1].i64[0] = 0;
-  v12 = *(a1 + *MEMORY[0x277CD7350]);
-  v13 = objc_msgSend_pixelFormat(a3, a2, a3, a4, a5, a6);
-  PixelInfo = MPSDevice::GetPixelInfo(v12, v13, MPSImageFeatureChannelFormatNone);
+  *a5 = 0uLL;
+  a5[1].i64[0] = 0;
+  v10 = *(a1 + *MEMORY[0x277CD7350]);
+  v11 = objc_msgSend_pixelFormat(a3, a2, a3);
+  PixelInfo = MPSDevice::GetPixelInfo(v10, v11, MPSImageFeatureChannelFormatNone);
   if ((~PixelInfo & 0xA00000000000) == 0 && (PixelInfo & 0xFC00) != 0)
   {
     if (*(a1 + 208) > 9uLL)
@@ -6723,47 +6927,45 @@ int8x16_t sub_2399511EC@<Q0>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uin
       return result;
     }
 
-    if ((objc_msgSend_isEqual_(a2, v15, a3, v16, v17, v18) & 1) == 0)
+    if ((objc_msgSend_isEqual_(a2, v13, a3) & 1) == 0)
     {
-      v21 = vdupq_n_s64(0x800uLL);
-      result = vbslq_s8(vcgtq_u64(v21, *(a4 + 40)), *(a4 + 40), v21);
-      *a7 = result;
+      v16 = vdupq_n_s64(0x800uLL);
+      result = vbslq_s8(vcgtq_u64(v16, *(a4 + 40)), *(a4 + 40), v16);
+      *a5 = result;
     }
   }
 
   return result;
 }
 
-uint64_t sub_239951C7C(uint64_t a1, const char *a2, uint64_t a3, void *a4, uint64_t a5, int64x2_t *a6)
+uint64_t sub_239951C7C(uint64_t a1, const char *a2, uint64_t a3, void *a4, void *a5, uint64_t a6)
 {
   v7 = a5;
   v8 = a4;
   v9 = a2;
-  v10 = a6[2].i64[1];
-  v11 = a6[3].i64[0];
+  v10 = *(a6 + 40);
+  v11 = *(a6 + 48);
   v12 = *(a1 + *MEMORY[0x277CD7378]);
   v13 = *(a1 + *MEMORY[0x277CD7370]);
-  v14 = *(a1 + 160);
-  v15 = a6->i64[0];
-  v16 = a6->i64[1];
-  if (a6->i64[0] == v16)
+  v14 = *a6;
+  v15 = *(a6 + 8);
+  if (*a6 == v15)
   {
     if (a4 == a5)
     {
       return -18;
     }
 
-    v77 = a6[3].i64[0];
-    v46 = a6[2].i64[1];
-    v50 = *(a1 + *MEMORY[0x277CD7350]);
-    v51 = *(a1 + *MEMORY[0x277CD7370]);
-    isEqual = objc_msgSend_isEqual_(a4, a2, a5, a4, a5, a6);
-    v13 = v51;
+    v55 = *(a6 + 48);
+    v33 = *(a6 + 40);
+    v37 = *(a1 + *MEMORY[0x277CD7370]);
+    isEqual = objc_msgSend_isEqual_(a4, a2, a5);
+    v13 = v37;
     v7 = a5;
     v9 = a2;
     v8 = a4;
-    v10 = v46;
-    v11 = v77;
+    v10 = v33;
+    v11 = v55;
     if (isEqual)
     {
       return -18;
@@ -6773,134 +6975,134 @@ uint64_t sub_239951C7C(uint64_t a1, const char *a2, uint64_t a3, void *a4, uint6
   result = 0;
   if (v11 && v10)
   {
-    if ((*v15 & 0x40000000000) != 0)
+    if ((*v14 & 0x40000000000) != 0)
     {
-      v18 = (*v16 >> 42) & (((*v16 ^ *v15) & 0x10000000000) == 0);
+      v17 = (*v15 >> 42) & (((*v15 ^ *v14) & 0x10000000000) == 0);
     }
 
     else
     {
-      v18 = (*v16 & 0x40000000000) == 0;
+      v17 = (*v15 & 0x40000000000) == 0;
     }
 
     if ((v12 & 1) == 0)
     {
-      if (!v18)
+      if (!v17)
       {
-        v73 = v13;
-        v74 = MTLReportFailureTypeEnabled();
-        v13 = v73;
-        if (v74)
+        v51 = v13;
+        v52 = MTLReportFailureTypeEnabled();
+        v13 = v51;
+        if (v52)
         {
-          v75 = v7;
-          v76 = v8;
+          v53 = v7;
+          v54 = v8;
           MTLReportFailure();
-          v13 = v73;
+          v13 = v51;
         }
       }
 
-      if (a6[4].i64[0] < 0 || a6[4].i64[1] < 0)
+      if ((*(a6 + 64) & 0x8000000000000000) != 0 || (*(a6 + 72) & 0x8000000000000000) != 0)
       {
-        v19 = v13;
-        v20 = MTLReportFailureTypeEnabled();
-        v13 = v19;
-        if (v20)
+        v18 = v13;
+        v19 = MTLReportFailureTypeEnabled();
+        v13 = v18;
+        if (v19)
         {
           MTLReportFailure();
-          v13 = v19;
+          v13 = v18;
         }
       }
     }
 
-    if ((*v15 & 0x10000000000) != 0)
+    if ((*v14 & 0x10000000000) != 0)
     {
-      v21 = 10;
+      v20 = 10;
     }
 
     else
     {
-      v21 = 5;
+      v20 = 5;
     }
 
-    if ((*v15 & 0x40000000000) != 0)
+    if ((*v14 & 0x40000000000) != 0)
     {
-      v22 = v21;
+      v21 = v20;
     }
 
     else
     {
-      v22 = 0;
+      v21 = 0;
     }
 
-    v23 = *(*(*(v13 + 280) + 16 * (v22 + (*(v16 + 3) & 0xFu))) + 64);
+    v22 = *(*(*(v13 + 280) + 16 * (v21 + (*(v15 + 3) & 0xFu))) + 64);
     ComputeState = MPSLibrary::GetComputeState();
-    v29 = ComputeState;
-    if (v23)
+    v25 = ComputeState;
+    if (v22)
     {
       if (ComputeState)
       {
-        objc_msgSend_setComputePipelineState_(v9, v25, ComputeState, v26, v27, v28);
+        objc_msgSend_setComputePipelineState_(v9, v24, ComputeState);
         MPSLibrary::ReleaseComputeState();
-        v30 = vmovn_s64(a6[4]);
-        v84 = v30.i16[2];
-        v83 = v30.i16[0];
-        v85 = 0;
-        v87 = v11;
-        v86 = v10;
-        objc_msgSend_setTexture_atIndex_(v9, v31, v8, 0, v32, v33);
-        objc_msgSend_setTexture_atIndex_(v9, v34, v7, 1, v35, v36);
+        v26 = vmovn_s64(*(a6 + 64));
+        v62 = v26.i16[2];
+        v61 = v26.i16[0];
+        v63 = 0;
+        v65 = v11;
+        v64 = v10;
+        objc_msgSend_setTexture_atIndex_(v9, v27, v8, 0);
+        objc_msgSend_setTexture_atIndex_(v9, v28, v7, 1);
         Sampler = MPSDevice::GetSampler();
-        objc_msgSend_setSamplerState_atIndex_(v9, v38, Sampler, 0, v39, v40);
-        objc_msgSend_setBytes_length_atIndex_(v9, v41, &v83, 12, 0, v42);
-        v80 = (v10 + 15) >> 4;
-        v81 = (v11 + 63) >> 6;
-        v82 = 1;
-        v78 = vdupq_n_s64(0x10uLL);
+        objc_msgSend_setSamplerState_atIndex_(v9, v30, Sampler, 0);
+        objc_msgSend_setBytes_length_atIndex_(v9, v31, &v61, 12, 0);
+        v58 = (v10 + 15) >> 4;
+        v59 = (v11 + 63) >> 6;
+        v60 = 1;
+        v56 = vdupq_n_s64(0x10uLL);
 LABEL_32:
-        v79 = 1;
-        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v9, v43, &v80, &v78, v44, v45, v75, v76);
+        v57 = 1;
+        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v9, v32, &v58, &v56, v53, v54);
         return 0;
       }
     }
 
     else if (ComputeState)
     {
-      objc_msgSend_setComputePipelineState_(v9, v25, ComputeState, v26, v27, v28);
-      v58 = objc_msgSend_maxTotalThreadsPerThreadgroup(v29, v53, v54, v55, v56, v57);
+      objc_msgSend_setComputePipelineState_(v9, v24, ComputeState);
+      v41 = objc_msgSend_maxTotalThreadsPerThreadgroup(v25, v39, v40);
       MPSLibrary::ReleaseComputeState();
-      v62 = v58 > 0x3FF;
-      if (v58 <= 0x3FF)
+      v43 = v41 > 0x3FF;
+      if (v41 <= 0x3FF)
       {
-        v63 = 16;
+        v44 = 16;
       }
 
       else
       {
-        v63 = 32;
+        v44 = 32;
       }
 
-      v64 = 4;
-      if (v62)
+      v45 = 4;
+      if (v43)
       {
-        v64 = 5;
+        v45 = 5;
       }
 
-      v65 = (v10 + v63 - 1) >> v64;
-      v66 = vmovn_s64(a6[4]);
-      v84 = v66.i16[2];
-      v83 = v66.i16[0];
-      v85 = 0;
-      v67 = (v11 + v63 - 1) >> v64;
-      v87 = v11;
-      v86 = v10;
-      objc_msgSend_setTexture_atIndex_(v9, v59, v8, 0, v60, v61, v75, v76);
-      objc_msgSend_setTexture_atIndex_(v9, v68, v7, 1, v69, v70);
-      objc_msgSend_setBytes_length_atIndex_(v9, v71, &v83, 12, 0, v72);
-      v80 = v65;
-      v81 = v67;
-      v82 = 1;
-      v78.i64[0] = v63;
-      v78.i64[1] = v63;
+      v46 = (v10 + v44 - 1) >> v45;
+      v47 = vmovn_s64(*(a6 + 64));
+      v62 = v47.i16[2];
+      v61 = v47.i16[0];
+      v63 = 0;
+      v48 = (v11 + v44 - 1) >> v45;
+      v65 = v11;
+      v64 = v10;
+      objc_msgSend_setTexture_atIndex_(v9, v42, v8, 0, v53, v54);
+      objc_msgSend_setTexture_atIndex_(v9, v49, v7, 1);
+      objc_msgSend_setBytes_length_atIndex_(v9, v50, &v61, 12, 0);
+      v58 = v46;
+      v59 = v48;
+      v60 = 1;
+      v56.i64[0] = v44;
+      v56.i64[1] = v44;
       goto LABEL_32;
     }
 
@@ -6912,74 +7114,71 @@ LABEL_32:
 
 uint64_t sub_2399526E4(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, void *a6, uint64_t a7, __n128 a8)
 {
-  v12 = *(a1 + *MEMORY[0x277CD7378]);
-  v13 = *(a1 + *MEMORY[0x277CD7350]);
-  v160 = *(a1 + *MEMORY[0x277CD7370]);
+  v11 = *(a1 + *MEMORY[0x277CD7378]);
   a8.n128_u32[0] = *(a1 + 232);
-  v165 = a8;
-  v164 = *(a1 + 236);
+  v100 = a8;
+  v99 = *(a1 + 236);
   a8.n128_u32[0] = *(a1 + 240);
-  v162 = a8;
-  v167 = *(a1 + 244);
-  v163 = *(a1 + 248);
-  *(&v169 + 1) = *(a1 + 256);
-  *&v169 = *(a1 + 264);
-  v157 = *(a1 + 272);
-  *&v170 = *(a1 + 288);
-  *(&v170 + 1) = *(a1 + 280);
-  v158 = *(a1 + 296);
-  v159 = *(a1 + 304);
-  v168 = objc_msgSend_arrayLength(a6, a2, a3, a4, a5, a6);
-  v19 = *(a7 + 48);
-  v20 = *(a7 + 64);
-  v22 = *a7;
-  v21 = *(a7 + 8);
-  v23 = *(a7 + 16);
-  if (*a7 == v23 || v21 == v23)
+  v97 = a8;
+  v102 = *(a1 + 244);
+  v98 = *(a1 + 248);
+  *(&v104 + 1) = *(a1 + 256);
+  *&v104 = *(a1 + 264);
+  v94 = *(a1 + 272);
+  *&v105 = *(a1 + 288);
+  *(&v105 + 1) = *(a1 + 280);
+  v95 = *(a1 + 296);
+  v103 = objc_msgSend_arrayLength(a6, a2, a3);
+  v14 = *(a7 + 48);
+  v15 = *(a7 + 64);
+  v17 = *a7;
+  v16 = *(a7 + 8);
+  v18 = *(a7 + 16);
+  if (*a7 == v18 || v16 == v18)
   {
     if (a4 == a6)
     {
       return -18;
     }
 
-    v156 = *(a7 + 48);
-    isEqual = objc_msgSend_isEqual_(a4, v14, a6, v16, v17, v18);
+    v93 = *(a7 + 48);
+    isEqual = objc_msgSend_isEqual_(a4, v12, a6);
     result = -18;
     if (a5 == a6 || (isEqual & 1) != 0)
     {
       return result;
     }
 
-    v35 = objc_msgSend_isEqual_(a5, v30, a6, v31, v32, v33);
-    v19 = v156;
-    if (v35)
+    v27 = objc_msgSend_isEqual_(a5, v25, a6);
+    v14 = v93;
+    if (v27)
     {
       return -18;
     }
   }
 
-  v154 = a5;
+  v91 = a5;
   result = 0;
-  v25 = *(&v19 + 1);
-  if (*(&v19 + 1) && v19 && v20)
+  v20 = *(&v14 + 1);
+  if (*(&v14 + 1) && v14 && v15)
   {
-    v26 = *v22;
-    v27 = *v21;
-    v153 = v19;
-    if ((*v22 & 0x40000000000) != 0)
+    v21 = *v17;
+    v22 = *v16;
+    v90 = v14;
+    if ((*v17 & 0x40000000000) != 0)
     {
-      v36 = (v27 & 0x40000000000) != 0 && ((v27 ^ v26) & 0x10000000000) == 0;
-      v28 = a4;
+      v28 = (v22 & 0x40000000000) != 0 && ((v22 ^ v21) & 0x10000000000) == 0;
+      v23 = a4;
     }
 
     else
     {
-      v28 = a4;
-      if ((v27 & 0x40000000000) == 0)
+      v23 = a4;
+      if ((v22 & 0x40000000000) == 0)
       {
-        v29 = (*(v23 + 5) & 4) == 0;
-        v155 = v19;
-        if (v12)
+        v24 = (*(v18 + 5) & 4) == 0;
+        v92 = v14;
+        if (v11)
         {
           goto LABEL_9;
         }
@@ -6987,17 +7186,17 @@ uint64_t sub_2399526E4(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, v
         goto LABEL_23;
       }
 
-      v36 = 0;
+      v28 = 0;
     }
 
-    v29 = v36 & (*v23 >> 42) & (((*v23 ^ v26) & 0x10000000000) == 0);
-    v155 = v19;
-    if (v12)
+    v24 = v28 & (*v18 >> 42) & (((*v18 ^ v21) & 0x10000000000) == 0);
+    v92 = v14;
+    if (v11)
     {
 LABEL_9:
-      if (v29)
+      if (v24)
       {
-        if (v20 != 1)
+        if (v15 != 1)
         {
           return -16;
         }
@@ -7009,29 +7208,29 @@ LABEL_9:
     }
 
 LABEL_23:
-    if (v29)
+    if (v24)
     {
-      objc_msgSend_textureType(v28, v14, v15, v16, v17, v18);
-      objc_msgSend_textureType(v154, v37, v38, v39, v40, v41);
-      v47 = objc_msgSend_textureType(v28, v42, v43, v44, v45, v46);
-      if (v47 != objc_msgSend_textureType(v154, v48, v49, v50, v51, v52) && MTLReportFailureTypeEnabled())
+      objc_msgSend_textureType(v23, v12, v13);
+      objc_msgSend_textureType(v91, v29, v30);
+      v33 = objc_msgSend_textureType(v23, v31, v32);
+      if (v33 != objc_msgSend_textureType(v91, v34, v35) && MTLReportFailureTypeEnabled())
       {
-        v150 = v28;
-        v151 = v154;
+        v87 = v23;
+        v88 = v91;
         MTLReportFailure();
       }
 
-      objc_msgSend_textureType(v28, v53, v54, v55, v56, v57, v150, v151);
-      objc_msgSend_textureType(a6, v58, v59, v60, v61, v62);
-      v68 = objc_msgSend_textureType(v28, v63, v64, v65, v66, v67);
-      if (v68 != objc_msgSend_textureType(a6, v69, v70, v71, v72, v73) && MTLReportFailureTypeEnabled())
+      objc_msgSend_textureType(v23, v36, v37, v87, v88);
+      objc_msgSend_textureType(a6, v38, v39);
+      v42 = objc_msgSend_textureType(v23, v40, v41);
+      if (v42 != objc_msgSend_textureType(a6, v43, v44) && MTLReportFailureTypeEnabled())
       {
-        v150 = v28;
-        v151 = a6;
+        v87 = v23;
+        v88 = a6;
         MTLReportFailure();
       }
 
-      if (v20 != 1)
+      if (v15 != 1)
       {
         if (MTLReportFailureTypeEnabled())
         {
@@ -7041,172 +7240,169 @@ LABEL_23:
         return -16;
       }
 
-      v26 = *v22;
+      v21 = *v17;
 LABEL_28:
-      v74 = v169 != 0;
-      v152 = v170 == 0;
-      if ((v26 & 0xF000000) != 0x4000000)
+      v45 = v104 != 0;
+      v89 = v105 == 0;
+      if ((v21 & 0xF000000) != 0x4000000)
       {
         goto LABEL_39;
       }
 
-      v75 = 0;
-      if ((v26 & 0xF800000000uLL) >= 0x1700000001)
+      v46 = 0;
+      if ((v21 & 0xF800000000uLL) >= 0x1700000001)
       {
-        if (objc_msgSend_width(v28, v14, v15, v16, v17, v18) >= 2)
+        if (objc_msgSend_width(v23, v12, v13) >= 2)
         {
-          if (objc_msgSend_height(v28, v14, v15, v16, v17, v18) >= 2)
+          if (objc_msgSend_height(v23, v12, v13) >= 2)
           {
-            v75 = 0;
-            if (v153 >= 0x400 && v25 >= 0x400)
+            v46 = 0;
+            if (v90 >= 0x400 && v20 >= 0x400)
             {
-              if (v170 == 0)
+              if (v105 == 0)
               {
-                v75 = v169 != 0;
+                v46 = v104 != 0;
               }
 
               else
               {
-                v75 = !v74 && !v152;
+                v46 = !v45 && !v89;
               }
 
-              if ((*v22 & 0xF000000) != 0x1000000)
+              if ((*v17 & 0xF000000) != 0x1000000)
               {
                 goto LABEL_40;
               }
 
 LABEL_43:
-              v77 = a3;
-              if (objc_msgSend_width(v28, v14, v15, v16, v17, v18, v150, v151) < 2 || objc_msgSend_height(v28, v14, v15, v16, v17, v18) < 2)
+              v48 = a3;
+              if (objc_msgSend_width(v23, v12, v13, v87, v88) < 2 || objc_msgSend_height(v23, v12, v13) < 2)
               {
-                v76 = v75;
+                v47 = v46;
               }
 
-              else if (v170 == 0)
+              else if (v105 == 0)
               {
-                v76 = v74 || v75;
+                v47 = v45 || v46;
               }
 
               else
               {
-                v76 = !v74 && !v152 || v75;
+                v47 = !v45 && !v89 || v46;
               }
 
 LABEL_48:
-              v78 = (*v22 >> 37) & 8;
-              objc_msgSend_textureType(v28, v14, v15, v16, v17, v18, v150);
-              MEMORY[0x23EE7BAC0](v193, v77, a6);
-              v85 = v165;
-              v85.n128_f32[1] = v164;
-              HIDWORD(v84) = v162.n128_u32[3];
-              v85.n128_u32[2] = v162.n128_u32[0];
-              v175 = v165.n128_f32[0] * v164;
-              v176 = v165.n128_f32[0] / v164;
-              v86 = v163 == INFINITY && v167 == -INFINITY;
-              LODWORD(v84) = 0;
-              if (!v86)
+              objc_msgSend_textureType(v23, v12, v13, v87);
+              MEMORY[0x23EE7BAC0](v128, v48, a6);
+              v52 = v100;
+              v52.n128_f32[1] = v99;
+              HIDWORD(v51) = v97.n128_u32[3];
+              v52.n128_u32[2] = v97.n128_u32[0];
+              v110 = v100.n128_f32[0] * v99;
+              v111 = v100.n128_f32[0] / v99;
+              v53 = v98 == INFINITY && v102 == -INFINITY;
+              LODWORD(v51) = 0;
+              if (!v53)
               {
-                *&v84 = 1.0;
+                *&v51 = 1.0;
               }
 
-              *(&v84 + 1) = v167;
-              *(&v84 + 2) = v163;
-              v174[0] = v85;
-              v174[1] = v84;
-              v87 = vmovn_s64(*(a7 + 72));
-              v179 = *(a7 + 88);
-              v178 = vuzp1_s16(v87, v87).u32[0];
-              v88 = vmovn_s64(*(a7 + 96));
-              v181 = *(a7 + 112);
-              v180 = vuzp1_s16(v88, v88).u32[0];
-              v89 = vmovn_s64(*(a7 + 24));
-              v183 = *(a7 + 40);
-              v182 = vuzp1_s16(v89, v89).u32[0];
-              v184 = objc_msgSend_width(a6, v79, v80, v81, v82, v83);
-              v185 = objc_msgSend_height(a6, v90, v91, v92, v93, v94);
-              v186 = objc_msgSend_depth(a6, v95, v96, v97, v98, v99) * v168;
-              v100 = vmovn_s64(v155);
-              v187 = vuzp1_s16(v100, v100).u32[0];
-              *v100.i32 = *(&v169 + 1);
-              v188 = v168;
-              *&v100.i32[1] = v169;
-              v190 = v157;
-              *&v101 = *(&v170 + 1);
-              *(&v101 + 1) = v170;
-              v189 = v100;
-              v192 = v158;
-              v191 = v101;
-              v177 = *(v23 + 3) & 0xF;
+              *(&v51 + 1) = v102;
+              *(&v51 + 2) = v98;
+              v109[0] = v52;
+              v109[1] = v51;
+              v54 = vmovn_s64(*(a7 + 72));
+              v114 = *(a7 + 88);
+              v113 = vuzp1_s16(v54, v54).u32[0];
+              v55 = vmovn_s64(*(a7 + 96));
+              v116 = *(a7 + 112);
+              v115 = vuzp1_s16(v55, v55).u32[0];
+              v56 = vmovn_s64(*(a7 + 24));
+              v118 = *(a7 + 40);
+              v117 = vuzp1_s16(v56, v56).u32[0];
+              v119 = objc_msgSend_width(a6, v49, v50);
+              v120 = objc_msgSend_height(a6, v57, v58);
+              v121 = objc_msgSend_depth(a6, v59, v60) * v103;
+              v61 = vmovn_s64(v92);
+              v122 = vuzp1_s16(v61, v61).u32[0];
+              *v61.i32 = *(&v104 + 1);
+              v123 = v103;
+              *&v61.i32[1] = v104;
+              v125 = v94;
+              *&v62 = *(&v105 + 1);
+              *(&v62 + 1) = v105;
+              v124 = v61;
+              v127 = v95;
+              v126 = v62;
+              v112 = *(v18 + 3) & 0xF;
               ComputeState = MPSLibrary::GetComputeState();
-              objc_msgSend_setComputePipelineState_(a2, v103, ComputeState, v104, v105, v106);
-              v112 = objc_msgSend_threadExecutionWidth(ComputeState, v107, v108, v109, v110, v111);
-              if (v112 <= 1)
+              objc_msgSend_setComputePipelineState_(a2, v64, ComputeState);
+              v67 = objc_msgSend_threadExecutionWidth(ComputeState, v65, v66);
+              if (v67 <= 1)
               {
-                v118 = 1;
+                v70 = 1;
               }
 
               else
               {
-                v118 = v112;
+                v70 = v67;
               }
 
-              if (v118 >= 0x10)
+              if (v70 >= 0x10)
               {
-                v119 = 16;
+                v71 = 16;
               }
 
               else
               {
-                v119 = v118;
+                v71 = v70;
               }
 
-              v120 = objc_msgSend_maxTotalThreadsPerThreadgroup(ComputeState, v113, v114, v115, v116, v117);
-              v121 = *(a7 + 48);
-              if (v76)
+              v72 = objc_msgSend_maxTotalThreadsPerThreadgroup(ComputeState, v68, v69);
+              v73 = *(a7 + 48);
+              if (v47)
               {
-                v121 = (v121 + 1) >> 1;
-                v122 = (*(a7 + 56) + 1) >> 1;
-                v123 = v120 / v119;
-                if (v119 <= v120)
+                v73 = (v73 + 1) >> 1;
+                v74 = (*(a7 + 56) + 1) >> 1;
+                v75 = v72 / v71;
+                if (v71 <= v72)
                 {
 LABEL_61:
-                  v124 = (v123 + v122 - 1) / v123;
+                  v76 = (v75 + v74 - 1) / v75;
 LABEL_64:
-                  v125 = *(a7 + 64);
+                  v77 = *(a7 + 64);
                   MPSLibrary::ReleaseComputeState();
-                  objc_msgSend_setTexture_atIndex_(a2, v126, a4, 0, v127, v128);
-                  objc_msgSend_setTexture_atIndex_(a2, v129, v154, 1, v130, v131);
-                  objc_msgSend_setTexture_atIndex_(a2, v132, a6, 2, v133, v134);
-                  objc_msgSend_setBytes_length_atIndex_(a2, v135, v174, 128, 0, v136);
-                  v137 = *(a1 + 184);
+                  objc_msgSend_setTexture_atIndex_(a2, v78, a4, 0);
+                  objc_msgSend_setTexture_atIndex_(a2, v79, v91, 1);
+                  objc_msgSend_setTexture_atIndex_(a2, v80, a6, 2);
+                  objc_msgSend_setBytes_length_atIndex_(a2, v81, v109, 128, 0);
                   Sampler = MPSDevice::GetSampler();
-                  objc_msgSend_setSamplerState_atIndex_(a2, v139, Sampler, 0, v140, v141);
-                  v142 = *(a1 + 192);
-                  v143 = MPSDevice::GetSampler();
-                  objc_msgSend_setSamplerState_atIndex_(a2, v144, v143, 1, v145, v146);
-                  v173[0] = (v119 + v121 - 1) / v119;
-                  v173[1] = v124;
-                  v173[2] = v125 * v168;
-                  v172[0] = v119;
-                  v172[1] = v123;
-                  v172[2] = 1;
-                  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v147, v173, v172, v148, v149);
-                  MPSAutoCache::~MPSAutoCache(v193);
+                  objc_msgSend_setSamplerState_atIndex_(a2, v83, Sampler, 0);
+                  v84 = MPSDevice::GetSampler();
+                  objc_msgSend_setSamplerState_atIndex_(a2, v85, v84, 1);
+                  v108[0] = (v71 + v73 - 1) / v71;
+                  v108[1] = v76;
+                  v108[2] = v77 * v103;
+                  v107[0] = v71;
+                  v107[1] = v75;
+                  v107[2] = 1;
+                  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v86, v108, v107);
+                  MPSAutoCache::~MPSAutoCache(v128);
                   return 0;
                 }
               }
 
               else
               {
-                v122 = *(a7 + 56);
-                v123 = v120 / v119;
-                if (v119 <= v120)
+                v74 = *(a7 + 56);
+                v75 = v72 / v71;
+                if (v71 <= v72)
                 {
                   goto LABEL_61;
                 }
               }
 
-              v124 = 0;
+              v76 = 0;
               goto LABEL_64;
             }
 
@@ -7214,23 +7410,23 @@ LABEL_64:
           }
 
 LABEL_39:
-          v75 = 0;
-          if ((*v22 & 0xF000000) == 0x1000000)
+          v46 = 0;
+          if ((*v17 & 0xF000000) == 0x1000000)
           {
             goto LABEL_43;
           }
 
 LABEL_40:
-          v76 = v75;
-          v77 = a3;
+          v47 = v46;
+          v48 = a3;
           goto LABEL_48;
         }
 
-        v75 = 0;
+        v46 = 0;
       }
 
 LABEL_42:
-      if ((*v22 & 0xF000000) == 0x1000000)
+      if ((*v17 & 0xF000000) == 0x1000000)
       {
         goto LABEL_43;
       }
@@ -7249,60 +7445,55 @@ LABEL_42:
   return result;
 }
 
-uint64_t sub_2399536B0(uint64_t a1, uint64_t *a2)
+uint64_t sub_2399536B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = MPSCreateFunctionConstantValues();
-  v4 = *(a2 + 64);
-  v17 = v4 & 1;
-  v16 = (v4 & 2) != 0;
-  v5 = (v4 >> 2) & 0xF;
-  v15 = (v4 >> 2) & 0xF;
-  objc_msgSend_setConstantValue_type_atIndex_(v3, v6, &v17, 53, 0, v7);
-  objc_msgSend_setConstantValue_type_atIndex_(v3, v8, &v16, 53, 1, v9);
-  if (v5 <= 3)
+  v6 = MPSCreateFunctionConstantValues();
+  v7 = *(a2 + 64);
+  v16 = v7 & 1;
+  v15 = (v7 & 2) != 0;
+  v8 = (v7 >> 2) & 0xF;
+  v14 = (v7 >> 2) & 0xF;
+  objc_msgSend_setConstantValue_type_atIndex_(v6, v9, &v16, 53, 0);
+  objc_msgSend_setConstantValue_type_atIndex_(v6, v10, &v15, 53, 1);
+  if (v8 <= 3)
   {
-    objc_msgSend_setConstantValue_type_atIndex_(v3, v10, &v15, 41, 2, v11);
+    objc_msgSend_setConstantValue_type_atIndex_(v6, v11, &v14, 41, 2);
   }
 
-  v12 = *a2;
-  v13 = _MPSNewSpecializedFunction();
+  v12 = _MPSNewSpecializedFunction();
 
-  return v13;
+  return v12;
 }
 
-uint64_t sub_2399538E4(uint64_t a1, const char *a2, uint64_t a3, void *a4, void *a5, uint64_t **a6)
+uint64_t sub_2399538E4(uint64_t a1, const char *a2, uint64_t a3, void *a4, void *a5, uint64_t a6)
 {
-  v6 = a6;
-  v9 = a3;
-  v10 = a2;
-  v11 = a1;
-  v12 = *(a1 + *MEMORY[0x277CD7378]);
-  v184 = *(a1 + *MEMORY[0x277CD7350]);
-  v186 = *(a1 + *MEMORY[0x277CD7370]);
-  v185 = *(a1 + 160);
-  v13 = *(a1 + 208);
-  v15 = a6[5];
-  v14 = a6[6];
-  v16 = *a6;
-  v17 = a6[1];
-  if (*a6 == v17)
+  v8 = a3;
+  v9 = a2;
+  v10 = a1;
+  v11 = *(a1 + *MEMORY[0x277CD7378]);
+  v100 = *(a1 + *MEMORY[0x277CD7350]);
+  v12 = *(a1 + 208);
+  v14 = *(a6 + 40);
+  v13 = *(a6 + 48);
+  v15 = *a6;
+  v16 = *(a6 + 8);
+  if (*a6 == v16)
   {
     if (a4 == a5)
     {
       return -18;
     }
 
-    v173 = a6[5];
-    v174 = a6[6];
-    v181 = *(a1 + 208);
-    isEqual = objc_msgSend_isEqual_(a4, a2, a5, a4, a5, a6);
-    v13 = v181;
-    v14 = v174;
-    v15 = v173;
-    v9 = a3;
-    v10 = a2;
-    v11 = a1;
-    v6 = a6;
+    v90 = *(a6 + 40);
+    v91 = *(a6 + 48);
+    v98 = *(a1 + 208);
+    isEqual = objc_msgSend_isEqual_(a4, a2, a5);
+    v12 = v98;
+    v13 = v91;
+    v14 = v90;
+    v8 = a3;
+    v9 = a2;
+    v10 = a1;
     if (isEqual)
     {
       return -18;
@@ -7310,212 +7501,160 @@ uint64_t sub_2399538E4(uint64_t a1, const char *a2, uint64_t a3, void *a4, void 
   }
 
   result = 0;
-  v182 = v14;
-  if (v14 && v15)
+  v99 = v13;
+  if (v13 && v14)
   {
-    v180 = v13;
-    if ((v12 & 1) == 0)
+    v97 = v12;
+    if ((v11 & 1) == 0)
     {
+      if ((*v15 & 0xF000000) != 0x1000000 && MTLReportFailureTypeEnabled())
+      {
+        v93 = a4;
+        MTLReportFailure();
+      }
+
       if ((*v16 & 0xF000000) != 0x1000000 && MTLReportFailureTypeEnabled())
       {
-        v176 = a4;
+        v93 = a5;
         MTLReportFailure();
       }
 
-      if ((*v17 & 0xF000000) != 0x1000000 && MTLReportFailureTypeEnabled())
+      if ((*(v16 + 5) & 4) != 0 && MTLReportFailureTypeEnabled())
       {
-        v176 = a5;
+        v93 = a5;
         MTLReportFailure();
       }
 
-      if ((*(v17 + 5) & 4) != 0 && MTLReportFailureTypeEnabled())
+      v18 = objc_msgSend_width(a4, a2, a3, v93);
+      if (v18 == objc_msgSend_width(a5, v19, v20))
       {
-        v176 = a5;
-        MTLReportFailure();
+        objc_msgSend_height(a4, v21, v22);
+        objc_msgSend_height(a5, v23, v24);
       }
 
-      v19 = objc_msgSend_width(a4, a2, a3, a4, a5, a6, v176);
-      if (v19 == objc_msgSend_width(a5, v20, v21, v22, v23, v24))
-      {
-        objc_msgSend_height(a4, v25, v26, v27, v28, v29);
-        objc_msgSend_height(a5, v30, v31, v32, v33, v34);
-      }
-
-      v35 = objc_msgSend_width(a4, v25, v26, v27, v28, v29);
-      if (v35 != objc_msgSend_width(a5, v36, v37, v38, v39, v40) || (v46 = objc_msgSend_height(a4, v41, v42, v43, v44, v45), v46 != objc_msgSend_height(a5, v47, v48, v49, v50, v51)))
+      v25 = objc_msgSend_width(a4, v21, v22);
+      if (v25 != objc_msgSend_width(a5, v26, v27) || (v30 = objc_msgSend_height(a4, v28, v29), v30 != objc_msgSend_height(a5, v31, v32)))
       {
         if (MTLReportFailureTypeEnabled())
         {
-          v177 = a5;
-          v178 = a4;
+          v94 = a5;
+          v95 = a4;
           MTLReportFailure();
         }
       }
 
-      if (v15 == objc_msgSend_width(a5, v52, v53, v54, v55, v56, v177, v178))
+      if (v14 == objc_msgSend_width(a5, v33, v34, v94, v95))
       {
-        objc_msgSend_height(a5, v57, v58, v59, v60, v61);
+        objc_msgSend_height(a5, v35, v36);
       }
 
-      if ((v15 != objc_msgSend_width(a5, v57, v58, v59, v60, v61) || v182 != objc_msgSend_height(a5, v62, v63, v64, v65, v66)) && MTLReportFailureTypeEnabled())
+      if ((v14 != objc_msgSend_width(a5, v35, v36) || v99 != objc_msgSend_height(a5, v37, v38)) && MTLReportFailureTypeEnabled())
       {
         MTLReportFailure();
       }
     }
 
-    MEMORY[0x23EE7BAC0](v197, v9, a5);
-    v194 = objc_msgSend_width(a5, v67, v68, v69, v70, v71);
-    v195 = objc_msgSend_height(a5, v72, v73, v74, v75, v76);
-    v196 = 1;
-    PixelInfo = MPSDevice::GetPixelInfo(v184, MTLPixelFormatR16Sint, MPSImageFeatureChannelFormatNone);
-    TempBuffer = MPSAutoCache::GetTempBuffer(v197, 8 * v194, 0);
+    MEMORY[0x23EE7BAC0](v111, v8, a5);
+    v108 = objc_msgSend_width(a5, v39, v40);
+    v109 = objc_msgSend_height(a5, v41, v42);
+    v110 = 1;
+    PixelInfo = MPSDevice::GetPixelInfo(v100, MTLPixelFormatR16Sint, MPSImageFeatureChannelFormatNone);
+    TempBuffer = MPSAutoCache::GetTempBuffer(v111, 8 * v108, 0);
     TempTexture = MPSAutoCache::GetTempTexture();
-    v179 = MPSAutoCache::GetTempTexture();
-    v79 = **v6;
+    v96 = MPSAutoCache::GetTempTexture();
     ComputeState = MPSLibrary::GetComputeState();
-    if (!ComputeState)
+    if (ComputeState && (objc_msgSend_setComputePipelineState_(v9, v45, ComputeState), MPSLibrary::ReleaseComputeState(), objc_msgSend_setTexture_atIndex_(v9, v47, a4, 0), objc_msgSend_setTexture_atIndex_(v9, v48, TempTexture, 1), objc_msgSend_setBuffer_offset_atIndex_(v9, v49, TempBuffer, 0, 0), objc_msgSend_setBuffer_offset_atIndex_(v9, v50, TempBuffer, 4 * v108, 1), v51 = MPSDevice::GetSampler(), objc_msgSend_setSamplerState_atIndex_(v9, v52, v51, 0), objc_msgSend_setThreadgroupMemoryLength_atIndex_(v9, v53, 2048, 0), v54 = (v14 + 7) >> 3, v104 = 1, v105 = v54, v106 = 1, v102 = xmmword_239988A20, v103 = 1, objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v9, v55, &v104, &v102), (v57 = MPSLibrary::GetComputeState()) != 0) && (objc_msgSend_setComputePipelineState_(v9, v56, v57), MPSLibrary::ReleaseComputeState(), objc_msgSend_setTexture_atIndex_(v9, v58, TempTexture, 0), objc_msgSend_setTexture_atIndex_(v9, v59, v96, 1), objc_msgSend_setBuffer_offset_atIndex_(v9, v60, TempBuffer, 0, 0), objc_msgSend_setBuffer_offset_atIndex_(v9, v61, TempBuffer, 4 * v108, 1), v62 = MPSDevice::GetSampler(), objc_msgSend_setSamplerState_atIndex_(v9, v63, v62, 0), objc_msgSend_setThreadgroupMemoryLength_atIndex_(v9, v64, 2048, 0), v104 = 1, v105 = v54, v106 = 1, v102 = xmmword_239988A20, v103 = 1, objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v9, v65, &v104, &v102), MPSAutoCache::ReleaseTempResource(), v66 = (v108 + 255) & 0xFFFFFFFFFFFFFF00, v67 = MPSAutoCache::GetTempBuffer(v111, 4 * v66 * (v109 + 16), 0), (v69 = MPSLibrary::GetComputeState()) != 0))
     {
-      goto LABEL_25;
-    }
-
-    objc_msgSend_setComputePipelineState_(v10, v80, ComputeState, v81, v82, v83);
-    MPSLibrary::ReleaseComputeState();
-    objc_msgSend_setTexture_atIndex_(v10, v85, a4, 0, v86, v87);
-    objc_msgSend_setTexture_atIndex_(v10, v88, TempTexture, 1, v89, v90);
-    objc_msgSend_setBuffer_offset_atIndex_(v10, v91, TempBuffer, 0, 0, v92);
-    objc_msgSend_setBuffer_offset_atIndex_(v10, v93, TempBuffer, 4 * v194, 1, v94);
-    Sampler = MPSDevice::GetSampler();
-    objc_msgSend_setSamplerState_atIndex_(v10, v96, Sampler, 0, v97, v98);
-    objc_msgSend_setThreadgroupMemoryLength_atIndex_(v10, v99, 2048, 0, v100, v101);
-    v102 = (v15 + 7) >> 3;
-    v190 = 1;
-    v191 = v102;
-    v192 = 1;
-    v188 = xmmword_239988A20;
-    v189 = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v10, v103, &v190, &v188, v104, v105);
-    v110 = MPSLibrary::GetComputeState();
-    if (!v110)
-    {
-      goto LABEL_25;
-    }
-
-    objc_msgSend_setComputePipelineState_(v10, v106, v110, v107, v108, v109);
-    MPSLibrary::ReleaseComputeState();
-    objc_msgSend_setTexture_atIndex_(v10, v111, TempTexture, 0, v112, v113);
-    objc_msgSend_setTexture_atIndex_(v10, v114, v179, 1, v115, v116);
-    objc_msgSend_setBuffer_offset_atIndex_(v10, v117, TempBuffer, 0, 0, v118);
-    objc_msgSend_setBuffer_offset_atIndex_(v10, v119, TempBuffer, 4 * v194, 1, v120);
-    v121 = MPSDevice::GetSampler();
-    objc_msgSend_setSamplerState_atIndex_(v10, v122, v121, 0, v123, v124);
-    objc_msgSend_setThreadgroupMemoryLength_atIndex_(v10, v125, 2048, 0, v126, v127);
-    v190 = 1;
-    v191 = v102;
-    v192 = 1;
-    v188 = xmmword_239988A20;
-    v189 = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v10, v128, &v190, &v188, v129, v130);
-    MPSAutoCache::ReleaseTempResource();
-    v131 = (v194 + 255) & 0xFFFFFFFFFFFFFF00;
-    v132 = MPSAutoCache::GetTempBuffer(v197, 4 * v131 * (v195 + 16), 0);
-    v137 = MPSLibrary::GetComputeState();
-    if (v137)
-    {
-      objc_msgSend_setComputePipelineState_(v10, v133, v137, v134, v135, v136);
+      objc_msgSend_setComputePipelineState_(v9, v68, v69);
       MPSLibrary::ReleaseComputeState();
-      objc_msgSend_setTexture_atIndex_(v10, v138, v179, 0, v139, v140);
-      objc_msgSend_setTexture_atIndex_(v10, v141, a5, 1, v142, v143);
-      objc_msgSend_setBuffer_offset_atIndex_(v10, v144, v132, 0, 0, v145);
-      objc_msgSend_setBuffer_offset_atIndex_(v10, v146, v132, 2 * v131 * (v195 + 16), 1, v147);
-      objc_msgSend_setBuffer_offset_atIndex_(v10, v148, TempBuffer, 0, 2, v149);
-      objc_msgSend_setBuffer_offset_atIndex_(v10, v150, TempBuffer, 4 * v194, 3, v151);
-      v152 = *(*(v11 + *MEMORY[0x277CD7370]) + 32);
-      v153 = v152[2];
-      (*(*v152 + 16))(v152);
-      v157 = v153 + 64.0;
-      HIDWORD(v158) = 0;
-      LODWORD(v158) = v180;
-      if (v194 >= 0xA01)
+      objc_msgSend_setTexture_atIndex_(v9, v70, v96, 0);
+      objc_msgSend_setTexture_atIndex_(v9, v71, a5, 1);
+      objc_msgSend_setBuffer_offset_atIndex_(v9, v72, v67, 0, 0);
+      objc_msgSend_setBuffer_offset_atIndex_(v9, v73, v67, 2 * v66 * (v109 + 16), 1);
+      objc_msgSend_setBuffer_offset_atIndex_(v9, v74, TempBuffer, 0, 2);
+      objc_msgSend_setBuffer_offset_atIndex_(v9, v75, TempBuffer, 4 * v108, 3);
+      v76 = *(*(v10 + *MEMORY[0x277CD7370]) + 32);
+      v77 = v76[2];
+      (*(*v76 + 16))(v76);
+      v80 = v77 + 64.0;
+      HIDWORD(v81) = 0;
+      LODWORD(v81) = v97;
+      if (v108 >= 0xA01)
       {
-        v157 = v153;
+        v80 = v77;
       }
 
-      *(&v158 + 1) = v157;
-      DWORD2(v158) = v156;
-      v187 = v158;
-      objc_msgSend_setBytes_length_atIndex_(v10, v154, &v187, 16, 4, v155);
-      v159 = MPSDevice::GetSampler();
-      objc_msgSend_setSamplerState_atIndex_(v10, v160, v159, 0, v161, v162);
-      objc_msgSend_setThreadgroupMemoryLength_atIndex_(v10, v163, 0x2000, 0, v164, v165);
-      v190 = 1;
-      v191 = (v182 + 7) >> 3;
-      v192 = 16;
-      v188 = vdupq_n_s64(8uLL);
-      v189 = 1;
-      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v10, v166, &v190, &v188, v167, v168);
-      v169 = 0;
+      *(&v81 + 1) = v80;
+      DWORD2(v81) = v79;
+      v101 = v81;
+      objc_msgSend_setBytes_length_atIndex_(v9, v78, &v101, 16, 4);
+      Sampler = MPSDevice::GetSampler();
+      objc_msgSend_setSamplerState_atIndex_(v9, v83, Sampler, 0);
+      objc_msgSend_setThreadgroupMemoryLength_atIndex_(v9, v84, 0x2000, 0);
+      v104 = 1;
+      v105 = (v99 + 7) >> 3;
+      v106 = 16;
+      v102 = vdupq_n_s64(8uLL);
+      v103 = 1;
+      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v9, v85, &v104, &v102);
+      v86 = 0;
     }
 
     else
     {
-LABEL_25:
-      v169 = -1;
+      v86 = -1;
     }
 
-    MPSAutoCache::~MPSAutoCache(v197);
-    return v169;
+    MPSAutoCache::~MPSAutoCache(v111);
+    return v86;
   }
 
   return result;
 }
 
-uint64_t sub_2399543A8(uint64_t a1, uint64_t *a2)
+uint64_t sub_2399543A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = MPSCreateFunctionConstantValues();
-  v4 = *(a2 + 64);
-  v16 = v4 & 1;
-  v15 = (v4 & 2) != 0;
-  v14 = (v4 & 4) != 0;
-  objc_msgSend_setConstantValue_type_atIndex_(v3, v5, &v16, 53, 0, v6);
-  objc_msgSend_setConstantValue_type_atIndex_(v3, v7, &v15, 53, 1, v8);
-  objc_msgSend_setConstantValue_type_atIndex_(v3, v9, &v14, 53, 2, v10);
-  v11 = *a2;
-  v12 = _MPSNewSpecializedFunction();
+  v6 = MPSCreateFunctionConstantValues();
+  v7 = *(a2 + 64);
+  v15 = v7 & 1;
+  v14 = (v7 & 2) != 0;
+  v13 = (v7 & 4) != 0;
+  objc_msgSend_setConstantValue_type_atIndex_(v6, v8, &v15, 53, 0);
+  objc_msgSend_setConstantValue_type_atIndex_(v6, v9, &v14, 53, 1);
+  objc_msgSend_setConstantValue_type_atIndex_(v6, v10, &v13, 53, 2);
+  v11 = _MPSNewSpecializedFunction();
 
-  return v12;
+  return v11;
 }
 
-uint64_t sub_23995478C(float32x4_t *a1, char *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_23995478C(float32x4_t *a1, char *a2, void *a3, uint64_t a4, NSString *a5, uint64_t *a6)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v14[0] = a4;
-  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v14, 1, a5, a6);
-  result = sub_239954834(a1, a2, a3, v11, a5, a6);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  v13[1] = *MEMORY[0x277D85DE8];
+  v13[0] = a4;
+  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v13, 1);
+  return sub_239954834(a1, a2, a3, v11, a5, a6);
 }
 
-uint64_t sub_239954834(float32x4_t *a1, char *a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
+uint64_t sub_239954834(float32x4_t *a1, char *a2, void *a3, void *a4, NSString *a5, uint64_t *a6)
 {
   v7 = *(a1->i64 + *MEMORY[0x277CD7378]);
   v8 = a1[17].u8[0];
-  v104 = *(a1->i64 + *MEMORY[0x277CD7350]);
-  v113 = *(a1->i64 + *MEMORY[0x277CD7370]);
-  v112 = a1[16].u8[0];
-  v107 = a1[15];
-  v108 = a1[14];
-  v110 = a1[13].u64[0];
-  v105 = a1[16].i64[1];
-  v111 = a1[10].i64[0];
-  v109 = *(a6 + 16);
-  v117 = *(a6 + 40);
+  v81 = *(a1->i64 + *MEMORY[0x277CD7370]);
+  v80 = a1[16].u8[0];
+  v75 = a1[15];
+  v76 = a1[14];
+  v78 = a1[13].u64[0];
+  v73 = a1[16].i64[1];
+  v79 = a1[10].i64[0];
+  v77 = *(a6 + 1);
+  v85 = *(a6 + 5);
   v9 = *a6;
-  v10 = *(a6 + 8);
-  v11 = *(a6 + 88);
-  v114 = a1[13].u8[8];
+  v10 = a6[1];
+  v11 = a6[11];
+  v82 = a1[13].u8[8];
   if (v11)
   {
-    v12 = objc_msgSend_graph(v11, a2, a3, a4, a5, a6);
+    v12 = objc_msgSend_graph(v11, a2, a3);
     v13 = **(***(v12 + 56) + 8);
     if (*(*(***(v12 + 56) + 8) + 8) == v13)
     {
@@ -7542,9 +7681,9 @@ uint64_t sub_239954834(float32x4_t *a1, char *a2, void *a3, void *a4, uint64_t a
 
     v17 = MEMORY[0];
     operator delete(0);
-    v23 = 0;
-    v24 = 0;
-    v25 = v117;
+    v20 = 0;
+    v21 = 0;
+    v22 = v85;
     if (v7)
     {
       goto LABEL_14;
@@ -7553,29 +7692,29 @@ uint64_t sub_239954834(float32x4_t *a1, char *a2, void *a3, void *a4, uint64_t a
     goto LABEL_10;
   }
 
-  v23 = a5;
-  v26 = objc_msgSend_objectAtIndexedSubscript_(a4, a2, 0, a4, a5, a6);
-  v24 = v26;
-  if (v9 == v10 && (v26 == v23 || (objc_msgSend_isEqual_(v26, v18, v23, v20, v21, v22) & 1) != 0))
+  v20 = a5;
+  v23 = objc_msgSend_objectAtIndexedSubscript_(a4, a2, 0);
+  v21 = v23;
+  if (v9 == v10 && (v23 == v20 || (objc_msgSend_isEqual_(v23, v18, v20) & 1) != 0))
   {
     return -18;
   }
 
   v17 = *(v9 + 3) & 0xF;
-  v25 = v117;
+  v22 = v85;
   if ((v7 & 1) == 0)
   {
 LABEL_10:
     if (!v8)
     {
-      v98 = MTLReportFailureTypeEnabled();
-      v25 = v117;
-      if (v98)
+      v67 = MTLReportFailureTypeEnabled();
+      v22 = v85;
+      if (v67)
       {
-        v99 = objc_opt_class();
-        v102 = NSStringFromClass(v99);
+        v68 = objc_opt_class();
+        v71 = NSStringFromClass(v68);
         MTLReportFailure();
-        v25 = v117;
+        v22 = v85;
       }
     }
 
@@ -7583,25 +7722,25 @@ LABEL_10:
     {
       if ((*(v9 + 3) & 0xF) == 0)
       {
-        v100 = MTLReportFailureTypeEnabled();
-        v25 = v117;
-        if (v100)
+        v69 = MTLReportFailureTypeEnabled();
+        v22 = v85;
+        if (v69)
         {
-          v102 = v24;
+          v71 = v21;
           MTLReportFailure();
-          v25 = v117;
+          v22 = v85;
         }
       }
 
       if ((*(v10 + 3) & 0xF) == 0)
       {
-        v101 = MTLReportFailureTypeEnabled();
-        v25 = v117;
-        if (v101)
+        v70 = MTLReportFailureTypeEnabled();
+        v22 = v85;
+        if (v70)
         {
-          v102 = v23;
+          v71 = v20;
           MTLReportFailure();
-          v25 = v117;
+          v22 = v85;
         }
       }
     }
@@ -7614,115 +7753,115 @@ LABEL_14:
   }
 
   result = 0;
-  v28 = v25.i64[1];
-  if (v25.i64[1])
+  v25 = v22.i64[1];
+  if (v22.i64[1])
   {
-    v29 = v25.i64[0];
-    if (v25.i64[0])
+    v26 = v22.i64[0];
+    if (v22.i64[0])
     {
-      *&v30 = -1;
-      *(&v30 + 1) = -1;
-      v134 = v30;
-      v135 = v30;
-      v131 = v30;
-      v132 = -1;
-      v136 = -1;
-      v133 = 0;
-      v103 = v24;
+      *&v27 = -1;
+      *(&v27 + 1) = -1;
+      v102 = v27;
+      v103 = v27;
+      v99 = v27;
+      v100 = -1;
+      v104 = -1;
+      v101 = 0;
+      v72 = v21;
       if (v11)
       {
-        v31 = *(objc_msgSend_graph(v11, v18, v19, v20, v21, v22) + 80) == 1;
-        v136 = *(objc_msgSend_graph(v11, v32, v33, v34, v35, v36, v102) + 72) | (v31 << 16);
-        v42 = ((v111 == 0) << 7) | ((v17 == 4) << 8) | (2 * (*(objc_msgSend_graph(v11, v37, v38, v39, v40, v41) + 76) & 0x3FLL)) | 1;
+        v28 = *(objc_msgSend_graph(v11, v18, v19) + 80) == 1;
+        v104 = *(objc_msgSend_graph(v11, v29, v30, v71) + 72) | (v28 << 16);
+        v33 = ((v79 == 0) << 7) | ((v17 == 4) << 8) | (2 * (*(objc_msgSend_graph(v11, v31, v32) + 76) & 0x3FLL)) | 1;
       }
 
       else
       {
-        v136 = 0;
-        v42 = 256;
+        v104 = 0;
+        v33 = 256;
       }
 
-      v137 = v42;
-      if (v114)
+      v105 = v33;
+      if (v82)
       {
-        v43 = 4;
+        v34 = 4;
       }
 
       else
       {
-        v43 = 3;
+        v34 = 3;
       }
 
       if (v17 != 4)
       {
-        v43 = v17;
+        v34 = v17;
       }
 
-      if (v112)
+      if (v80)
       {
-        v44 = 0;
+        v35 = 0;
       }
 
       else
       {
-        v44 = 5;
+        v35 = 5;
       }
 
-      v45 = (v43 + v44);
-      objc_msgSend_copy(**(*(v113 + 280) + 16 * v45), v18, v19, v20, v21, v22, v102);
+      v36 = (v34 + v35);
+      objc_msgSend_copy(**(*(v81 + 280) + 16 * v36), v18, v19, v71);
       MPSLibrary::CreateUberShaderKey();
       PipelineStateForMPSKey = MPSLibrary::GetPipelineStateForMPSKey();
       if (PipelineStateForMPSKey)
       {
-        v51 = PipelineStateForMPSKey;
-        objc_msgSend_setComputePipelineState_(a2, v47, PipelineStateForMPSKey, v48, v49, v50, v11, 0, 0, 0, 0);
+        v39 = PipelineStateForMPSKey;
+        objc_msgSend_setComputePipelineState_(a2, v38, PipelineStateForMPSKey, v11, 0, 0, 0, 0);
         MPSLibrary::ReleaseMPSKey();
         MPSLibrary::ReleaseComputeState();
-        v57 = objc_msgSend_maxTotalThreadsPerThreadgroup(v51, v52, v53, v54, v55, v56);
-        v64 = (&unk_239988AE0 + 32 * *(*(*(v113 + 280) + 16 * v45) + 64));
-        v65 = *v64;
-        if (v57 >= 16 * *v64)
+        v42 = objc_msgSend_maxTotalThreadsPerThreadgroup(v39, v40, v41);
+        v46 = (&unk_239988AE0 + 32 * *(*(*(v81 + 280) + 16 * v36) + 64));
+        v47 = *v46;
+        if (v42 >= 16 * *v46)
         {
-          v66 = 16;
+          v48 = 16;
         }
 
         else
         {
-          v66 = v57 / v65;
+          v48 = v42 / v47;
         }
 
-        *v63.i32 = v110;
-        v68 = v64[2] * v65;
-        v69 = v64[3] * v66;
-        v70 = v28 + v69 - 1;
-        v129 = 0;
-        v130 = 0;
-        v121[0] = v108;
-        v121[1] = vdivq_f32(vdupq_lane_s32(v63, 0), vsubq_f32(v107, v108));
-        v71 = vmovn_s64(*(a6 + 64));
-        v123 = v71.i16[2];
-        v122 = v71.i16[0];
-        v72 = vmovn_s64(v109);
-        v125 = v72.i16[2];
-        v124 = v72.i16[0];
-        v73 = vmovn_s64(v117);
-        v127 = v73.i16[2];
-        v126 = v73.i16[0];
-        v128 = (v110 - 1);
-        LOWORD(v129) = v110;
-        if ((objc_msgSend_retainedReferences(a3, v58, v59, v60, v61, v62) & 1) == 0)
+        *v45.i32 = v78;
+        v50 = v46[2] * v47;
+        v51 = v46[3] * v48;
+        v52 = v25 + v51 - 1;
+        v97 = 0;
+        v98 = 0;
+        v89[0] = v76;
+        v89[1] = vdivq_f32(vdupq_lane_s32(v45, 0), vsubq_f32(v75, v76));
+        v53 = vmovn_s64(*(a6 + 4));
+        v91 = v53.i16[2];
+        v90 = v53.i16[0];
+        v54 = vmovn_s64(v77);
+        v93 = v54.i16[2];
+        v92 = v54.i16[0];
+        v55 = vmovn_s64(v85);
+        v95 = v55.i16[2];
+        v94 = v55.i16[0];
+        v96 = (v78 - 1);
+        LOWORD(v97) = v78;
+        if ((objc_msgSend_retainedReferences(a3, v43, v44) & 1) == 0)
         {
-          v77 = v105;
-          v120[0] = MEMORY[0x277D85DD0];
-          v120[1] = 3221225472;
-          v120[2] = sub_239955C44;
-          v120[3] = &unk_278AC37A8;
-          v120[4] = v105;
-          objc_msgSend_addCompletedHandler_(a3, v78, v120, v79, v80, v81);
+          v57 = v73;
+          v88[0] = MEMORY[0x277D85DD0];
+          v88[1] = 3221225472;
+          v88[2] = sub_239955C44;
+          v88[3] = &unk_278AC37A8;
+          v88[4] = v73;
+          objc_msgSend_addCompletedHandler_(a3, v58, v88);
         }
 
-        v82 = (v29 + v68 - 1) / v68;
-        v83 = v70 / v69;
+        v59 = (v26 + v50 - 1) / v50;
+        v60 = v52 / v51;
         if (v11)
         {
           MPSSetResourcesOnCommandEncoder();
@@ -7730,21 +7869,21 @@ LABEL_14:
 
         else
         {
-          objc_msgSend_setTexture_atIndex_(a2, v74, v103, 1, v75, v76);
+          objc_msgSend_setTexture_atIndex_(a2, v56, v72, 1);
           Sampler = MPSDevice::GetSampler();
-          objc_msgSend_setSamplerState_atIndex_(a2, v87, Sampler, 0, v88, v89);
-          objc_msgSend_setTexture_atIndex_(a2, v90, a5, 0, v91, v92);
+          objc_msgSend_setSamplerState_atIndex_(a2, v63, Sampler, 0);
+          objc_msgSend_setTexture_atIndex_(a2, v64, a5, 0);
         }
 
-        objc_msgSend_setBytes_length_atIndex_(a2, v84, v121, 64, 29, v85);
-        objc_msgSend_setBuffer_offset_atIndex_(a2, v93, v105, 0, 28, v94);
-        v119[0] = v82;
-        v119[1] = v83;
-        v119[2] = 1;
-        v118[0] = v65;
-        v118[1] = v66;
-        v118[2] = 1;
-        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v95, v119, v118, v96, v97);
+        objc_msgSend_setBytes_length_atIndex_(a2, v61, v89, 64, 29);
+        objc_msgSend_setBuffer_offset_atIndex_(a2, v65, v73, 0, 28);
+        v87[0] = v59;
+        v87[1] = v60;
+        v87[2] = 1;
+        v86[0] = v47;
+        v86[1] = v48;
+        v86[2] = 1;
+        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v66, v87, v86);
         return 0;
       }
 
@@ -7752,8 +7891,8 @@ LABEL_14:
       {
         if (MTLReportFailureTypeEnabled())
         {
-          v67 = objc_opt_class();
-          NSStringFromClass(v67);
+          v49 = objc_opt_class();
+          NSStringFromClass(v49);
           MTLReportFailure();
         }
 
@@ -7807,27 +7946,24 @@ uint64_t sub_239956830(uint64_t result, uint64_t a2, char *a3, ...)
   return result;
 }
 
-uint64_t sub_239956C20(void *a1, char *a2, uint64_t a3, void *a4, void *a5, uint64_t a6)
+uint64_t sub_239956C20(void *a1, char *a2, uint64_t a3, void *a4, void *a5, uint64_t **a6)
 {
-  v11 = objc_msgSend_scaleTransform(a1, a2, a3, a4, a5, a6);
-  v12 = *(a1 + *MEMORY[0x277CD7350]);
-  v13 = *(a1 + *MEMORY[0x277CD7370]);
-  v79 = a1[20];
-  v15 = *(a6 + 64);
-  v14 = *(a6 + 72);
-  v80 = objc_msgSend_width(a4, v16, v17, v18, v19, v20);
-  v26 = objc_msgSend_height(a4, v21, v22, v23, v24, v25);
-  v27.f32[0] = v80;
-  v27.f32[1] = v26;
-  v81 = v27;
-  v33 = objc_msgSend_width(a5, v28, v29, v30, v31, v32);
-  v39 = objc_msgSend_height(a5, v34, v35, v36, v37, v38);
-  if (v11)
+  v10 = objc_msgSend_scaleTransform(a1, a2, a3);
+  v12 = a6[8];
+  v11 = a6[9];
+  v49 = objc_msgSend_width(a4, v13, v14);
+  v17 = objc_msgSend_height(a4, v15, v16);
+  v18.f32[0] = v49;
+  v18.f32[1] = v17;
+  v50 = v18;
+  v21 = objc_msgSend_width(a5, v19, v20);
+  v24 = objc_msgSend_height(a5, v22, v23);
+  if (v10)
   {
     __asm { FMOV            V2.2S, #1.0 }
 
-    v49 = vmaxnm_f32(vcvt_f32_f64(*v11), vdiv_f32(_D2, v81));
-    v50 = vcvt_f32_f64(v11[1]);
+    v31 = vmaxnm_f32(vcvt_f32_f64(*v10), vdiv_f32(_D2, v50));
+    v32 = vcvt_f32_f64(v10[1]);
     if (a4 == a5)
     {
       return -18;
@@ -7836,93 +7972,91 @@ uint64_t sub_239956C20(void *a1, char *a2, uint64_t a3, void *a4, void *a5, uint
 
   else
   {
-    v51.f32[0] = v33;
-    v51.f32[1] = v39;
-    v49 = vdiv_f32(v51, v81);
-    v50 = 0;
+    v33.f32[0] = v21;
+    v33.f32[1] = v24;
+    v31 = vdiv_f32(v33, v50);
+    v32 = 0;
     if (a4 == a5)
     {
       return -18;
     }
   }
 
-  if (objc_msgSend_isEqual_(a4, v40, a5, v41, v42, v43))
+  if (objc_msgSend_isEqual_(a4, v25, a5))
   {
     return -18;
   }
 
-  if (*(a6 + 48) && *(a6 + 40))
+  if (a6[6])
   {
-    if ((**a6 & 0x80000000000) != 0)
+    if (a6[5])
     {
-      _ZF = (*(v12 + 1476) & 0x80) == 0;
+      ComputeState = MPSLibrary::GetComputeState();
+      objc_msgSend_setComputePipelineState_(a2, v36, ComputeState);
+      v59 = 0;
+      __asm { FMOV            V0.2S, #1.0 }
+
+      v54[0] = vdiv_f32(_D0, v31);
+      v54[1] = v32;
+      v38 = vmovn_s64(*(a6 + 1));
+      v56 = v38.i16[2];
+      v55 = v38.i16[0];
+      v39 = a6[6];
+      v40 = vmovn_s64(*(a6 + 5));
+      v41 = (a6[5] + 15) >> 4;
+      v42 = (v39 + 15) >> 4;
+      v58 = v40.i16[2];
+      v57 = v40.i16[0];
+      WORD1(v59) = v11;
+      LOWORD(v59) = v12;
+      objc_msgSend_setTexture_atIndex_(a2, v43, a4, 0);
+      objc_msgSend_setTexture_atIndex_(a2, v44, a5, 1);
+      Sampler = MPSDevice::GetSampler();
+      objc_msgSend_setSamplerState_atIndex_(a2, v46, Sampler, 0);
+      objc_msgSend_setBytes_length_atIndex_(a2, v47, v54, 32, 0);
+      v53[0] = v41;
+      v53[1] = v42;
+      v53[2] = 1;
+      v51 = vdupq_n_s64(0x10uLL);
+      v52 = 1;
+      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v48, v53, &v51);
     }
-
-    ComputeState = MPSLibrary::GetComputeState();
-    objc_msgSend_setComputePipelineState_(a2, v54, ComputeState, v55, v56, v57);
-    v90 = 0;
-    __asm { FMOV            V0.2S, #1.0 }
-
-    v85[0] = vdiv_f32(_D0, v49);
-    v85[1] = v50;
-    v59 = vmovn_s64(*(a6 + 16));
-    v87 = v59.i16[2];
-    v86 = v59.i16[0];
-    v60 = *(a6 + 48);
-    v61 = vmovn_s64(*(a6 + 40));
-    v62 = (*(a6 + 40) + 15) >> 4;
-    v63 = (v60 + 15) >> 4;
-    v89 = v61.i16[2];
-    v88 = v61.i16[0];
-    WORD1(v90) = v14;
-    LOWORD(v90) = v15;
-    objc_msgSend_setTexture_atIndex_(a2, v64, a4, 0, v65, v66);
-    objc_msgSend_setTexture_atIndex_(a2, v67, a5, 1, v68, v69);
-    Sampler = MPSDevice::GetSampler();
-    objc_msgSend_setSamplerState_atIndex_(a2, v71, Sampler, 0, v72, v73);
-    objc_msgSend_setBytes_length_atIndex_(a2, v74, v85, 32, 0, v75);
-    v84[0] = v62;
-    v84[1] = v63;
-    v84[2] = 1;
-    v82 = vdupq_n_s64(0x10uLL);
-    v83 = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v76, v84, &v82, v77, v78);
   }
 
   return 0;
 }
 
-void sub_239957D10(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
+void sub_239957D10(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a19);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a21);
+  sub_2399400F0(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_239957D30(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
+void sub_239957D30(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a19);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a21);
+  sub_2399400F0(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
-void sub_23995818C(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+void sub_23995818C(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a20);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
-  operator delete(v21);
-  if (v20)
+  va_start(va, a22);
+  sub_2399400F0(va, a2, a3);
+  operator delete(v23);
+  if (v22)
   {
-    operator delete(v20);
+    operator delete(v22);
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_239959014(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_239959014(_Unwind_Exception *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a14);
-  sub_2399400F0(va, a2, a3, a4, a5, a6);
+  va_start(va, a16);
+  sub_2399400F0(va, a2, a3);
   _Unwind_Resume(a1);
 }
 
@@ -8133,2267 +8267,2037 @@ uint64_t MPSSubTileEncode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
 
 uint64_t sub_23995A480(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5, int64x2_t *a6)
 {
-  v761 = *MEMORY[0x277D85DE8];
+  v537 = *MEMORY[0x277D85DE8];
   v6 = &a6[2].i64[1];
   v7 = *(a6 + 40);
-  v8 = a6[3].i64[0];
-  v695 = v7;
-  if (v8)
+  v473 = v7;
+  if (a6[3].i64[0])
   {
-    v9 = v7.i64[0] == 0;
+    v8 = v7.i64[0] == 0;
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
-  if (v9)
+  if (v8)
   {
-    goto LABEL_440;
+    return 0;
   }
 
-  v664 = v7.i64[0];
-  v10 = *(a1 + *MEMORY[0x277CD7350]);
-  v626 = a6[1];
-  v669 = a6[4];
-  v11 = a6->i64[1];
-  v12 = *(a1 + 312);
-  v627 = *(a1 + 360);
-  v686 = *(a1 + 368);
-  if (*(a1 + 320) > 1 || v12 < 1)
+  v445 = v7.i64[0];
+  v9 = *(a1 + *MEMORY[0x277CD7350]);
+  v416 = a6[1];
+  v450 = a6[4];
+  v10 = *(a1 + 312);
+  v417 = *(a1 + 360);
+  v465 = *(a1 + 368);
+  if (*(a1 + 320) > 1 || v10 < 1)
   {
-    v15 = a6[3].i64[0];
-    v16 = *(a1 + *MEMORY[0x277CD7350]);
-    v609 = a6->i64[1];
-    v618 = *(a1 + 312);
-    MEMORY[0x23EE7BAC0](v701, a3, a5);
-    MPSDevice::GetPixelInfo(v16, MTLPixelFormatRGBA32Float, MPSImageFeatureChannelFormatNone);
-    v17 = objc_alloc_init(MEMORY[0x277CD7058]);
-    v23 = objc_msgSend_textureType(a5, v18, v19, v20, v21, v22);
-    objc_msgSend_setTextureType_(v17, v24, v23, v25, v26, v27);
-    objc_msgSend_setPixelFormat_(v17, v28, 125, v29, v30, v31);
-    objc_msgSend_setWidth_(v17, v32, *v6, v33, v34, v35);
-    objc_msgSend_setHeight_(v17, v36, a6[3].i64[0], v37, v38, v39);
-    v40 = (*(*v16 + 32))(v16);
-    objc_msgSend_setStorageMode_(v17, v41, v40, v42, v43, v44);
-    objc_msgSend_setUsage_(v17, v45, 3, v46, v47, v48);
-    v699 = *v6;
-    v700 = v6[2];
-    v616 = (v618 - 2);
-    if (v618 < 2)
+    v13 = a6[3].i64[0];
+    v14 = *(a1 + *MEMORY[0x277CD7350]);
+    v408 = *(a1 + 312);
+    MEMORY[0x23EE7BAC0](v477, a3, a5);
+    MPSDevice::GetPixelInfo(v14, MTLPixelFormatRGBA32Float, MPSImageFeatureChannelFormatNone);
+    v15 = objc_alloc_init(MEMORY[0x277CD7058]);
+    v18 = objc_msgSend_textureType(a5, v16, v17);
+    objc_msgSend_setTextureType_(v15, v19, v18);
+    objc_msgSend_setPixelFormat_(v15, v20, 125);
+    objc_msgSend_setWidth_(v15, v21, *v6);
+    objc_msgSend_setHeight_(v15, v22, a6[3].i64[0]);
+    v23 = (*(*v14 + 32))(v14);
+    objc_msgSend_setStorageMode_(v15, v24, v23);
+    objc_msgSend_setUsage_(v15, v25, 3);
+    v406 = (v408 - 2);
+    if (v408 < 2)
     {
-      v614 = 0;
+      v404 = 0;
       CompressedTempTexture = a5;
-      v50 = v626;
+      v27 = v416;
     }
 
     else
     {
       CompressedTempTexture = MPSAutoCache::GetCompressedTempTexture();
-      v614 = MPSAutoCache::GetCompressedTempTexture();
-      v50 = 0uLL;
+      v404 = MPSAutoCache::GetCompressedTempTexture();
+      v27 = 0uLL;
     }
 
-    v694 = v50;
+    v472 = v27;
 
-    if (v618 < 1)
+    if (v408 < 1)
     {
-LABEL_335:
-      MPSAutoCache::~MPSAutoCache(v701);
-      goto LABEL_440;
+LABEL_315:
+      MPSAutoCache::~MPSAutoCache(v477);
+      return 0;
     }
 
-    v74 = 0;
-    v612 = (v15 + 1) >> 1;
-    v613 = v664 - 1;
-    v611 = vmovn_s64(v695);
-    v608 = &v703;
-    v75 = vmovn_s64(v669);
-    v610 = (v15 + 7) >> 3;
+    v44 = 0;
+    v402 = (v13 + 1) >> 1;
+    v403 = v445 - 1;
+    v401 = vmovn_s64(v473);
+    v399 = &v479;
+    v45 = vmovn_s64(v450);
+    v400 = (v13 + 7) >> 3;
     while (1)
     {
-      v691 = a4;
+      v470 = a4;
       a4 = CompressedTempTexture;
-      v79 = &v627[8 * v74];
-      v80 = *(v79 + 2);
-      v688 = v75;
-      if (v80 > 3)
+      v49 = &v417[8 * v44];
+      v50 = *(v49 + 2);
+      v467 = v45;
+      if (v50 > 3)
       {
-        if ((v80 - 4) >= 6)
+        if ((v50 - 4) >= 6)
         {
           goto LABEL_32;
         }
 
-        v696 = v74;
-        v649 = *(v79 + 2);
-        if (v80 == 5)
-        {
-          v81 = 45;
-          v82 = v686;
-        }
-
-        else
-        {
-          v82 = v686;
-          if ((v80 - 6) > 3)
-          {
-            v81 = 44;
-          }
-
-          else
-          {
-            v81 = qword_239988CA0[v80 - 6];
-          }
-        }
-
-        v87 = *(a1 + *MEMORY[0x277CD7370]);
-        v88 = (v82 + 4 * *v79);
-        v646 = *(a1 + *MEMORY[0x277CD7350]);
-        v642 = *(a1 + 160);
-        v679 = *(a1 + 480);
-        v89 = *(a1 + 488);
-        v670 = *(a1 + 288);
-        v656 = *(a1 + 292);
-        v660 = *(a1 + 296);
-        v665 = *(a1 + 300);
-        v90 = *(a1 + 312);
-        v92 = *(a1 + 336);
-        v91 = *(a1 + 340);
-        v637 = *(a1 + 408);
-        v620 = *(a1 + 416);
-        v622 = *(a1 + 376);
-        v674 = *v88;
-        v93 = (&off_278AB4DA0)[16 * v81];
-        *&v94 = -1;
-        *(&v94 + 1) = -1;
-        v712 = v94;
-        v713 = v94;
-        *&v711[8] = v94;
-        *&v94 = *(a1 + 348);
-        v95.i64[0] = v94;
-        v95.i64[1] = DWORD1(v94);
-        *&v710[8] = vextq_s8(v95, v95, 8uLL);
-        v96 = *(a1 + 356);
-        *v710 = v90;
-        *v711 = v96;
+        v474 = v44;
+        v432 = *(v49 + 2);
+        v55 = (v465 + 4 * *v49);
+        v459 = *(a1 + 480);
+        v56 = *(a1 + 488);
+        v451 = *(a1 + 288);
+        v438 = *(a1 + 292);
+        v441 = *(a1 + 296);
+        v446 = *(a1 + 300);
+        v57 = *(a1 + 312);
+        v59 = *(a1 + 336);
+        v58 = *(a1 + 340);
+        v424 = *(a1 + 408);
+        v410 = *(a1 + 416);
+        v412 = *(a1 + 376);
+        v455 = *v55;
+        *&v60 = -1;
+        *(&v60 + 1) = -1;
+        v488 = v60;
+        v489 = v60;
+        *&v487[8] = v60;
+        *&v60 = *(a1 + 348);
+        v61.i64[0] = v60;
+        v61.i64[1] = DWORD1(v60);
+        *&v486[8] = vextq_s8(v61, v61, 8uLL);
+        v62 = *(a1 + 356);
+        *v486 = v57;
+        *v487 = v62;
         MPSLibrary::CreateUberShaderKey();
         PipelineStateForMPSKey = MPSLibrary::GetPipelineStateForMPSKey();
-        v98 = v88[5];
-        v104 = objc_msgSend_threadExecutionWidth(PipelineStateForMPSKey, v99, v100, v101, v102, v103, 0, 0, 0, 0, 0);
-        v105 = v104;
-        if (v104 <= 1)
+        v64 = v55[5];
+        v67 = objc_msgSend_threadExecutionWidth(PipelineStateForMPSKey, v65, v66, 0, 0, 0, 0, 0);
+        v68 = v67;
+        if (v67 <= 1)
         {
-          v106 = 1;
+          v69 = 1;
         }
 
         else
         {
-          v106 = v104;
+          v69 = v67;
         }
 
-        v107 = MPSIsTextureTwiddled();
-        if (v105 <= 1)
+        v70 = MPSIsTextureTwiddled();
+        if (v68 <= 1)
         {
-          v112 = 1;
-        }
-
-        else
-        {
-          v112 = v106 >> 1;
-        }
-
-        if (v105 > 7)
-        {
-          v113 = v107;
+          v72 = 1;
         }
 
         else
         {
-          v113 = 0;
+          v72 = v69 >> 1;
         }
 
-        v114 = (v112 + v613) / v112;
-        if ((v106 & 7) != 0)
+        if (v68 > 7)
         {
-          v629 = 2;
-          v633 = v612;
-          v117 = v106 >> 1;
+          v73 = v70;
         }
 
         else
         {
-          v115 = v113 == 0;
-          if (v113)
+          v73 = 0;
+        }
+
+        v74 = (v72 + v403) / v72;
+        if ((v69 & 7) != 0)
+        {
+          v418 = 2;
+          v421 = v402;
+          v77 = v69 >> 1;
+        }
+
+        else
+        {
+          v75 = v73 == 0;
+          if (v73)
           {
-            v114 = ((v106 >> 3) + v613) / (v106 >> 3);
-            v116 = v610;
+            v74 = ((v69 >> 3) + v403) / (v69 >> 3);
+            v76 = v400;
           }
 
           else
           {
-            v116 = v612;
+            v76 = v402;
           }
 
-          if (v113)
+          if (v73)
           {
-            v117 = v106 >> 3;
+            v77 = v69 >> 3;
           }
 
           else
           {
-            v117 = v106 >> 1;
+            v77 = v69 >> 1;
           }
 
-          v118 = 2;
-          if (!v115)
+          v78 = 2;
+          if (!v75)
           {
-            v118 = 8;
+            v78 = 8;
           }
 
-          v629 = v118;
-          v633 = v116;
+          v418 = v78;
+          v421 = v76;
         }
 
-        v120 = v679 == 1 || v92 > 3;
-        v122 = v89 != 1 && v91 < 4;
-        if (!v696)
+        v80 = v459 == 1 || v59 > 3;
+        v82 = v56 != 1 && v58 < 4;
+        if (!v44)
         {
-          v123 = v98 | 0x10;
-          if (v120)
+          v83 = v64 | 0x10;
+          if (v80)
           {
-            v123 = v98;
+            v83 = v64;
           }
 
-          if (v679 == 2)
+          if (v459 == 2)
           {
-            v98 = v123;
+            v64 = v83;
           }
 
-          if (!v120 && !v122)
+          if (!v80 && !v82)
           {
-            v98 |= 0x20u;
+            v64 |= 0x20u;
           }
         }
 
-        if (v696 == v90 - 1 && v91 <= 3)
+        if (v44 == v57 - 1 && v58 <= 3)
         {
-          v124 = !v120;
-          if (v89 == 1)
+          v84 = !v80;
+          if (v56 == 1)
           {
-            v124 = 0;
+            v84 = 0;
           }
 
-          if (v124)
+          if (v84)
           {
-            if (v89 == 2)
+            if (v56 == 2)
             {
-              v98 |= 0x40u;
+              v64 |= 0x40u;
             }
           }
 
           else
           {
-            v98 |= 0x80u;
+            v64 |= 0x80u;
           }
         }
 
-        objc_msgSend_setComputePipelineState_(a2, v108, PipelineStateForMPSKey, v109, v110, v111);
+        objc_msgSend_setComputePipelineState_(a2, v71, PipelineStateForMPSKey);
         MPSLibrary::ReleaseComputeState();
         MPSLibrary::ReleaseMPSKey();
-        objc_msgSend_setTexture_atIndex_(a2, v125, v691, 0, v126, v127);
-        objc_msgSend_setTexture_atIndex_(a2, v128, CompressedTempTexture, 1, v129, v130);
-        *&v133 = __PAIR64__(v656, v670);
-        *(&v133 + 1) = __PAIR64__(v665, v660);
-        v134 = vmovn_s64(v694);
-        if ((v649 & 0xFFFFFFFD) == 4)
+        objc_msgSend_setTexture_atIndex_(a2, v85, v470, 0);
+        objc_msgSend_setTexture_atIndex_(a2, v86, CompressedTempTexture, 1);
+        *&v88 = __PAIR64__(v438, v451);
+        *(&v88 + 1) = __PAIR64__(v446, v441);
+        v89 = vmovn_s64(v472);
+        if ((v432 & 0xFFFFFFFD) == 4)
         {
-          *v710 = v133;
-          *&v710[18] = v688.i16[2];
-          *&v710[16] = v688.i16[0];
-          *&v710[22] = v134.i16[2];
-          *&v710[20] = v134.i16[0];
-          *&v711[2] = v611.i16[2];
-          *v711 = v611.i16[0];
-          *&v711[4] = v98;
-          *&v711[8] = v620;
-          *&v711[16] = v696;
-          v135 = v622 + 4 * v674;
-          DWORD1(v712) = *v135;
-          LODWORD(v712) = *(v135 + 4);
-          *(&v712 + 1) = *(v135 + 8);
-          *&v713 = *(v135 + 16);
-          objc_msgSend_setBytes_length_atIndex_(a2, v131, v710, 80, 0, v132);
+          *v486 = v88;
+          *&v486[18] = v467.i16[2];
+          *&v486[16] = v467.i16[0];
+          *&v486[22] = v89.i16[2];
+          *&v486[20] = v89.i16[0];
+          *&v487[2] = v401.i16[2];
+          *v487 = v401.i16[0];
+          *&v487[4] = v64;
+          *&v487[8] = v410;
+          *&v487[16] = v44;
+          v90 = v412 + 4 * v455;
+          DWORD1(v488) = *v90;
+          LODWORD(v488) = *(v90 + 4);
+          *(&v488 + 1) = *(v90 + 8);
+          *&v489 = *(v90 + 16);
+          objc_msgSend_setBytes_length_atIndex_(a2, v87, v486, 80, 0);
         }
 
         else
         {
-          switch(v649)
+          switch(v432)
           {
             case 5:
-              *v710 = v133;
-              *&v710[18] = v688.i16[2];
-              *&v710[16] = v688.i16[0];
-              *&v710[22] = v134.i16[2];
-              *&v710[20] = v134.i16[0];
-              *&v711[2] = v611.i16[2];
-              *v711 = v611.i16[0];
-              *&v711[4] = v98;
-              *&v711[8] = v620;
-              *&v711[16] = v696;
-              v712 = *(v622 + 4 * v674);
-              objc_msgSend_setBytes_length_atIndex_(a2, v131, v710, 64, 0, v132);
+              *v486 = v88;
+              *&v486[18] = v467.i16[2];
+              *&v486[16] = v467.i16[0];
+              *&v486[22] = v89.i16[2];
+              *&v486[20] = v89.i16[0];
+              *&v487[2] = v401.i16[2];
+              *v487 = v401.i16[0];
+              *&v487[4] = v64;
+              *&v487[8] = v410;
+              *&v487[16] = v44;
+              v488 = *(v412 + 4 * v455);
+              objc_msgSend_setBytes_length_atIndex_(a2, v87, v486, 64, 0);
               break;
             case 9:
-              *v710 = v133;
-              *&v710[18] = v688.i16[2];
-              *&v710[16] = v688.i16[0];
-              *&v710[22] = v134.i16[2];
-              *&v710[20] = v134.i16[0];
-              *&v711[2] = v611.i16[2];
-              *v711 = v611.i16[0];
-              *&v711[4] = v98;
-              *&v711[8] = v620;
-              *&v711[16] = v696;
-              v249 = (v622 + 4 * v674);
-              v712 = *v249;
-              v713 = v249[1];
-              *&v711[12] = v674 + 8;
-              objc_msgSend_setBytes_length_atIndex_(a2, v131, v710, 80, 0, v132);
+              *v486 = v88;
+              *&v486[18] = v467.i16[2];
+              *&v486[16] = v467.i16[0];
+              *&v486[22] = v89.i16[2];
+              *&v486[20] = v89.i16[0];
+              *&v487[2] = v401.i16[2];
+              *v487 = v401.i16[0];
+              *&v487[4] = v64;
+              *&v487[8] = v410;
+              *&v487[16] = v44;
+              v176 = (v412 + 4 * v455);
+              v488 = *v176;
+              v489 = v176[1];
+              *&v487[12] = v455 + 8;
+              objc_msgSend_setBytes_length_atIndex_(a2, v87, v486, 80, 0);
               break;
             case 8:
-              *v710 = v133;
-              *&v710[18] = v688.i16[2];
-              *&v710[16] = v688.i16[0];
-              *&v710[22] = v134.i16[2];
-              *&v710[20] = v134.i16[0];
-              *&v711[2] = v611.i16[2];
-              *v711 = v611.i16[0];
-              *&v711[4] = v98;
-              *&v711[8] = v620;
-              *&v711[16] = v696;
-              *&v711[12] = v674;
-              v248 = v622 + 4 * v674;
-              LODWORD(v712) = *v248;
-              *(&v712 + 4) = *(v248 + 4);
-              HIDWORD(v712) = *(v248 + 12);
-              v713 = *(v248 + 16);
-              v714 = *(v248 + 32);
-              v715 = *(v248 + 48);
-              LODWORD(v716) = *(v248 + 64);
-              objc_msgSend_setBytes_length_atIndex_(a2, v131, v710, 128, 0, v132);
+              *v486 = v88;
+              *&v486[18] = v467.i16[2];
+              *&v486[16] = v467.i16[0];
+              *&v486[22] = v89.i16[2];
+              *&v486[20] = v89.i16[0];
+              *&v487[2] = v401.i16[2];
+              *v487 = v401.i16[0];
+              *&v487[4] = v64;
+              *&v487[8] = v410;
+              *&v487[16] = v44;
+              *&v487[12] = v455;
+              v175 = v412 + 4 * v455;
+              LODWORD(v488) = *v175;
+              *(&v488 + 4) = *(v175 + 4);
+              HIDWORD(v488) = *(v175 + 12);
+              v489 = *(v175 + 16);
+              v490 = *(v175 + 32);
+              v491 = *(v175 + 48);
+              LODWORD(v492) = *(v175 + 64);
+              objc_msgSend_setBytes_length_atIndex_(a2, v87, v486, 128, 0);
               break;
             case 7:
-              *v710 = v133;
-              *&v710[18] = v688.i16[2];
-              *&v710[16] = v688.i16[0];
-              *&v710[22] = v134.i16[2];
-              *&v710[20] = v134.i16[0];
-              *&v711[2] = v611.i16[2];
-              *v711 = v611.i16[0];
-              *&v711[4] = v98;
-              *&v711[8] = v620;
-              *&v711[16] = v696;
-              *&v711[12] = v674;
-              v136 = v622 + 4 * v674;
-              v712 = *v136;
-              v713 = *(v136 + 16);
-              *&v714 = *(v136 + 32);
-              objc_msgSend_setBytes_length_atIndex_(a2, v131, v710, 96, 0, v132);
+              *v486 = v88;
+              *&v486[18] = v467.i16[2];
+              *&v486[16] = v467.i16[0];
+              *&v486[22] = v89.i16[2];
+              *&v486[20] = v89.i16[0];
+              *&v487[2] = v401.i16[2];
+              *v487 = v401.i16[0];
+              *&v487[4] = v64;
+              *&v487[8] = v410;
+              *&v487[16] = v44;
+              *&v487[12] = v455;
+              v91 = v412 + 4 * v455;
+              v488 = *v91;
+              v489 = *(v91 + 16);
+              *&v490 = *(v91 + 32);
+              objc_msgSend_setBytes_length_atIndex_(a2, v87, v486, 96, 0);
               break;
           }
         }
 
         Sampler = MPSDevice::GetSampler();
-        objc_msgSend_setSamplerState_atIndex_(a2, v251, Sampler, 0, v252, v253);
-        objc_msgSend_setBuffer_offset_atIndex_(a2, v254, v637, 0, 3, v255);
-        *v710 = v114;
-        *&v710[8] = v633;
-        *&v710[16] = 1;
-        *v750 = v117;
-        *&v750[8] = v629;
-        *&v750[16] = 1;
-        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v256, v710, v750, v257, v258);
+        objc_msgSend_setSamplerState_atIndex_(a2, v178, Sampler, 0);
+        objc_msgSend_setBuffer_offset_atIndex_(a2, v179, v424, 0, 3);
+        *v486 = v74;
+        *&v486[8] = v421;
+        *&v486[16] = 1;
+        *v526 = v77;
+        *&v526[8] = v418;
+        *&v526[16] = 1;
+        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v180, v486, v526);
         goto LABEL_31;
       }
 
-      if (v80 == 1)
+      if (v50 == 1)
       {
         break;
       }
 
-      if (v80 == 2)
+      if (v50 == 2)
       {
-        v179 = (v686 + 4 * *v79);
-        v180 = *(a1 + *MEMORY[0x277CD7370]);
-        v680 = *(a1 + *MEMORY[0x277CD7350]);
-        v634 = *(a1 + 160);
-        v648 = *(a1 + 480);
-        v181 = *(a1 + 488);
-        v667 = *(a1 + 288);
-        v651 = *(a1 + 292);
-        v658 = *(a1 + 296);
-        v662 = *(a1 + 300);
-        v644 = *(a1 + 312);
-        v182 = *(a1 + 340);
-        v639 = *(a1 + 336);
-        v183 = *(a1 + 384);
-        v184 = *(a1 + 416);
-        v630 = *(a1 + 408);
-        if ((*v609 & 0xF000000000) != 0)
+        v127 = (v465 + 4 * *v49);
+        v431 = *(a1 + 480);
+        v128 = *(a1 + 488);
+        v448 = *(a1 + 288);
+        v433 = *(a1 + 292);
+        v439 = *(a1 + 296);
+        v443 = *(a1 + 300);
+        v429 = *(a1 + 312);
+        v129 = *(a1 + 340);
+        v426 = *(a1 + 336);
+        v130 = *(a1 + 384);
+        v131 = *(a1 + 416);
+        v419 = *(a1 + 408);
+        v132 = v127[3];
+        *(&v529 + 1) = v132;
+        *&v529 = 1.0 / v132;
+        *(&v529 + 2) = 0.5 / v132;
+        *(&v529 + 3) = (v132 - 1) / v132;
+        v453 = *(v130 + 8 * v127[4]);
+        if (a3 && (objc_msgSend_retainedReferences(a3, v42, v43) & 1) == 0)
         {
-          v185 = 0;
+          v133 = v453;
+          *&v478 = MEMORY[0x277D85DD0];
+          *(&v478 + 1) = 3221225472;
+          v479 = sub_239963ED0;
+          v480 = &unk_278AC37A8;
+          v481 = v453;
+          objc_msgSend_addCompletedHandler_(a3, v134, &v478);
         }
 
-        else
-        {
-          v185 = (*(a1 + *MEMORY[0x277CD7378]) >> 1) & 1;
-        }
-
-        v676 = v185;
-        v186 = v179[3];
-        *(&v753 + 1) = v186;
-        *&v753 = 1.0 / v186;
-        *(&v753 + 2) = 0.5 / v186;
-        *(&v753 + 3) = (v186 - 1) / v186;
-        v672 = *(v183 + 8 * v179[4]);
-        if (a3 && (objc_msgSend_retainedReferences(a3, v69, v70, v71, v72, v73) & 1) == 0)
-        {
-          v187 = v672;
-          *&v702 = MEMORY[0x277D85DD0];
-          *(&v702 + 1) = 3221225472;
-          v703 = sub_239963ED0;
-          v704 = &unk_278AC37A8;
-          v705 = v672;
-          objc_msgSend_addCompletedHandler_(a3, v188, &v702, v189, v190, v191);
-        }
-
-        v192 = v179[1];
-        if (v192 > 2)
-        {
-          if (v192 == 3)
-          {
-            v194 = v676 == 0;
-            v195 = 9;
-            v196 = 5;
-            goto LABEL_257;
-          }
-
-          v193 = 7;
-          if (v192 == 4)
-          {
-            v194 = v676 == 0;
-            v195 = 10;
-            v196 = 6;
-            goto LABEL_257;
-          }
-        }
-
-        else if (v192 == 1)
-        {
-          if (v676)
-          {
-            v193 = 3;
-          }
-
-          else
-          {
-            v193 = 7;
-          }
-        }
-
-        else
-        {
-          v193 = 7;
-          if (v192 == 2)
-          {
-            v194 = v676 == 0;
-            v195 = 8;
-            v196 = 4;
-LABEL_257:
-            if (v194)
-            {
-              v193 = v195;
-            }
-
-            else
-            {
-              v193 = v196;
-            }
-          }
-        }
-
-        v311 = (&off_278AB4DA0)[16 * v193];
-        *&v312 = -1;
-        *(&v312 + 1) = -1;
-        *&v711[8] = v312;
-        v712 = v312;
-        v713 = v312;
-        v313 = *(a1 + 312);
-        *&v312 = *(a1 + 348);
-        v314.i64[0] = v312;
-        v314.i64[1] = DWORD1(v312);
-        *&v710[8] = vextq_s8(v314, v314, 8uLL);
-        v315 = *(a1 + 356);
-        *v710 = v313;
-        *v711 = v315;
+        *&v210 = -1;
+        *(&v210 + 1) = -1;
+        *&v487[8] = v210;
+        v488 = v210;
+        v489 = v210;
+        v211 = *(a1 + 312);
+        *&v210 = *(a1 + 348);
+        v212.i64[0] = v210;
+        v212.i64[1] = DWORD1(v210);
+        *&v486[8] = vextq_s8(v212, v212, 8uLL);
+        v213 = *(a1 + 356);
+        *v486 = v211;
+        *v487 = v213;
         MPSLibrary::CreateUberShaderKey();
-        v316 = MPSLibrary::GetPipelineStateForMPSKey();
-        v317 = v179[5];
-        v323 = objc_msgSend_threadExecutionWidth(v316, v318, v319, v320, v321, v322, 0, 0, 0, 0, 0);
-        v324 = v323;
-        if (v323 <= 1)
+        v214 = MPSLibrary::GetPipelineStateForMPSKey();
+        v215 = v127[5];
+        v218 = objc_msgSend_threadExecutionWidth(v214, v216, v217, 0, 0, 0, 0, 0);
+        v219 = v218;
+        if (v218 <= 1)
         {
-          v325 = 1;
+          v220 = 1;
         }
 
         else
         {
-          v325 = v323;
+          v220 = v218;
         }
 
-        v326 = MPSIsTextureTwiddled();
-        v331 = v184;
-        v332 = v325 >> 1;
-        if (v324 <= 1)
+        v221 = MPSIsTextureTwiddled();
+        v223 = v131;
+        v224 = v220 >> 1;
+        if (v219 <= 1)
         {
-          v333 = 1;
-        }
-
-        else
-        {
-          v333 = v325 >> 1;
-        }
-
-        if (v324 > 7)
-        {
-          v334 = v326;
+          v225 = 1;
         }
 
         else
         {
-          v334 = 0;
+          v225 = v220 >> 1;
         }
 
-        v335 = (v333 + v613) / v333;
-        if ((v325 & 7) != 0)
+        if (v219 > 7)
         {
-          v338 = v612;
-          v339 = 2;
+          v226 = v221;
         }
 
         else
         {
-          v336 = v325 >> 3;
-          v337 = v334 == 0;
-          if (v334)
+          v226 = 0;
+        }
+
+        v227 = (v225 + v403) / v225;
+        if ((v220 & 7) != 0)
+        {
+          v230 = v402;
+          v231 = 2;
+        }
+
+        else
+        {
+          v228 = v220 >> 3;
+          v229 = v226 == 0;
+          if (v226)
           {
-            v335 = ((v325 >> 3) + v613) / (v325 >> 3);
-            v338 = v610;
+            v227 = ((v220 >> 3) + v403) / (v220 >> 3);
+            v230 = v400;
           }
 
           else
           {
-            v338 = v612;
+            v230 = v402;
           }
 
-          if (v334)
+          if (v226)
           {
-            v332 = v336;
+            v224 = v228;
           }
 
-          v339 = 2;
-          if (!v337)
+          v231 = 2;
+          if (!v229)
           {
-            v339 = 8;
-          }
-        }
-
-        v624 = v339;
-        v341 = v648 == 1 || v639 > 3;
-        v343 = v181 != 1 && v182 < 4;
-        if (!v74)
-        {
-          v344 = v317 | 0x10;
-          if (v341)
-          {
-            v344 = v317;
-          }
-
-          if (v648 == 2)
-          {
-            v317 = v344;
-          }
-
-          if (!v341 && !v343)
-          {
-            v317 |= 0x20u;
+            v231 = 8;
           }
         }
 
-        if (v74 == v644 - 1 && v182 <= 3)
+        v414 = v231;
+        v233 = v431 == 1 || v426 > 3;
+        v235 = v128 != 1 && v129 < 4;
+        if (!v44)
         {
-          v345 = !v341;
-          if (v181 == 1)
+          v236 = v215 | 0x10;
+          if (v233)
           {
-            v345 = 0;
+            v236 = v215;
           }
 
-          if (v345)
+          if (v431 == 2)
           {
-            if (v181 == 2)
+            v215 = v236;
+          }
+
+          if (!v233 && !v235)
+          {
+            v215 |= 0x20u;
+          }
+        }
+
+        if (v44 == v429 - 1 && v129 <= 3)
+        {
+          v237 = !v233;
+          if (v128 == 1)
+          {
+            v237 = 0;
+          }
+
+          if (v237)
+          {
+            if (v128 == 2)
             {
-              v317 |= 0x40u;
+              v215 |= 0x40u;
             }
           }
 
           else
           {
-            v317 |= 0x80u;
+            v215 |= 0x80u;
           }
         }
 
-        *&v346 = __PAIR64__(v651, v667);
-        *(&v346 + 1) = __PAIR64__(v662, v658);
-        v347 = vmovn_s64(v694);
-        *v750 = v346;
-        *&v750[18] = v688.i16[2];
-        *&v750[16] = v688.i16[0];
-        *&v750[22] = v347.i16[2];
-        *&v750[20] = v347.i16[0];
-        WORD1(v751) = v611.i16[2];
-        LOWORD(v751) = v611.i16[0];
-        HIDWORD(v751) = v317;
-        *&v752 = v331;
-        DWORD2(v752) = v74;
-        objc_msgSend_setComputePipelineState_(a2, v327, v316, v328, v329, v330);
+        *&v238 = __PAIR64__(v433, v448);
+        *(&v238 + 1) = __PAIR64__(v443, v439);
+        v239 = vmovn_s64(v472);
+        *v526 = v238;
+        *&v526[18] = v467.i16[2];
+        *&v526[16] = v467.i16[0];
+        *&v526[22] = v239.i16[2];
+        *&v526[20] = v239.i16[0];
+        WORD1(v527) = v401.i16[2];
+        LOWORD(v527) = v401.i16[0];
+        HIDWORD(v527) = v215;
+        *&v528 = v223;
+        DWORD2(v528) = v44;
+        objc_msgSend_setComputePipelineState_(a2, v222, v214);
         MPSLibrary::ReleaseComputeState();
         MPSLibrary::ReleaseMPSKey();
-        objc_msgSend_setTexture_atIndex_(a2, v348, v691, 0, v349, v350);
-        objc_msgSend_setTexture_atIndex_(a2, v351, a4, 1, v352, v353);
-        objc_msgSend_setTexture_atIndex_(a2, v354, v672, 2, v355, v356);
-        v357 = MPSDevice::GetSampler();
-        objc_msgSend_setSamplerState_atIndex_(a2, v358, v357, 0, v359, v360);
-        v361 = MPSDevice::GetSampler();
-        objc_msgSend_setSamplerState_atIndex_(a2, v362, v361, 1, v363, v364);
-        objc_msgSend_setBytes_length_atIndex_(a2, v365, v750, 64, 0, v366);
-        objc_msgSend_setBuffer_offset_atIndex_(a2, v367, v630, 0, 3, v368);
-        *v710 = v335;
-        *&v710[8] = v338;
-        *&v710[16] = 1;
-        v759.i64[0] = v332;
-        v759.i64[1] = v624;
-        *&v760 = 1;
-        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v369, v710, &v759, v370, v371);
+        objc_msgSend_setTexture_atIndex_(a2, v240, v470, 0);
+        objc_msgSend_setTexture_atIndex_(a2, v241, a4, 1);
+        objc_msgSend_setTexture_atIndex_(a2, v242, v453, 2);
+        v243 = MPSDevice::GetSampler();
+        objc_msgSend_setSamplerState_atIndex_(a2, v244, v243, 0);
+        v245 = MPSDevice::GetSampler();
+        objc_msgSend_setSamplerState_atIndex_(a2, v246, v245, 1);
+        objc_msgSend_setBytes_length_atIndex_(a2, v247, v526, 64, 0);
+        objc_msgSend_setBuffer_offset_atIndex_(a2, v248, v419, 0, 3);
+        *v486 = v227;
+        *&v486[8] = v230;
+        *&v486[16] = 1;
+        v535.i64[0] = v224;
+        v535.i64[1] = v414;
+        *&v536 = 1;
+        objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v249, v486, &v535);
         goto LABEL_32;
       }
 
-      if (v80 == 3)
+      if (v50 == 3)
       {
-        v696 = v74;
-        v755 = 0;
-        v756 = 0;
-        v757 = 0;
-        v83 = *(v79 + 3);
-        if (v83 <= 0)
+        v474 = v44;
+        v531 = 0;
+        v532 = 0;
+        v533 = 0;
+        v51 = *(v49 + 3);
+        if (v51 <= 0)
         {
-          v84 = 0;
-          v85 = a1;
+          v52 = 0;
+          v53 = a1;
         }
 
         else
         {
-          v84 = v686 + 4 * *v79;
-          v755 = v84;
-          v85 = a1;
-          if (v83 != 1)
+          v52 = v465 + 4 * *v49;
+          v531 = v52;
+          v53 = a1;
+          if (v51 != 1)
           {
-            v756 = v686 + 4 * v79[1];
-            if (v83 > 2)
+            v532 = v465 + 4 * v49[1];
+            if (v51 > 2)
             {
-              v757 = v686 + 4 * v79[2];
-              if (v83 == 3)
+              v533 = v465 + 4 * v49[2];
+              if (v51 == 3)
               {
-                v86 = 0;
+                v54 = 0;
               }
 
               else
               {
-                v86 = v686 + 4 * v79[3];
+                v54 = v465 + 4 * v49[3];
               }
 
-              goto LABEL_174;
+              goto LABEL_161;
             }
 
-LABEL_173:
-            v86 = 0;
-            v757 = 0;
-LABEL_174:
-            v197 = *(v85 + *MEMORY[0x277CD7370]);
-            v198 = *(v85 + *MEMORY[0x277CD7350]);
-            v199 = *(v85 + 160);
-            v200 = *(v85 + 480);
-            v758 = v86;
-            v201 = *(v85 + 488);
-            v202 = v85 + 288;
-            v203 = *(v85 + 288);
-            v204 = *(v85 + 292);
-            v206 = *(v85 + 296);
-            v205 = *(v85 + 300);
-            v207 = *(v85 + 312);
-            v208 = *(v85 + 340);
-            v659 = *(v85 + 336);
-            v209 = (v85 + 360);
-            v210 = v209[2];
-            v211 = v209[4];
-            v640 = v209[6];
-            v681 = v209[7];
-            if (v83 >= 4)
+LABEL_160:
+            v54 = 0;
+            v533 = 0;
+LABEL_161:
+            v135 = *(v53 + 480);
+            v534 = v54;
+            v136 = *(v53 + 488);
+            v137 = v53 + 288;
+            v138 = *(v53 + 288);
+            v139 = *(v53 + 292);
+            v141 = *(v53 + 296);
+            v140 = *(v53 + 300);
+            v142 = *(v53 + 312);
+            v143 = *(v53 + 340);
+            v440 = *(v53 + 336);
+            v144 = (v53 + 360);
+            v145 = v144[2];
+            v146 = v144[4];
+            v427 = v144[6];
+            v460 = v144[7];
+            if (v51 >= 4)
             {
-              v212 = 4;
+              v147 = 4;
             }
 
             else
             {
-              v212 = v83;
+              v147 = v51;
             }
 
-            v759 = 0u;
-            v760 = 0u;
-            LODWORD(v723) = v212;
-            v673 = v205;
-            v677 = v203;
-            v663 = v204;
-            v668 = v206;
-            if (v83 <= 0)
+            v535 = 0u;
+            v536 = 0u;
+            LODWORD(v499) = v147;
+            v454 = v140;
+            v457 = v138;
+            v444 = v139;
+            v449 = v141;
+            if (v51 <= 0)
             {
-              v623 = 0;
-LABEL_191:
-              v652 = 1;
-              v222 = 1;
+              v413 = 0;
+LABEL_178:
+              v434 = 1;
             }
 
             else
             {
-              v213 = 0;
-              v214 = 0;
-              v215 = 0;
-LABEL_179:
-              v216 = &v722 + v213;
-              v217 = &v713 + 8 * v213 + 3;
+              v148 = 0;
+              v149 = 0;
+              v150 = 0;
+LABEL_166:
+              v151 = &v498 + v148;
+              v152 = &v489 + 8 * v148 + 3;
               do
               {
-                v218 = *(&v755 + v213);
-                v219 = *v218;
-                v220 = *(v218 + 2);
-                *(v216 - 8) = v220;
-                *(v216 - 4) = v218[2];
-                if (v220 == 5)
+                v153 = *(&v531 + v148);
+                v154 = *v153;
+                v155 = *(v153 + 2);
+                *(v151 - 8) = v155;
+                *(v151 - 4) = v153[2];
+                if (v155 == 5)
                 {
-                  v214 = *(v211 + 8 * v218[3]);
-                  *v216 = *(v218 + 3);
-                  v759.i64[v213] = v214;
-                  v215 = 1;
-                  v9 = v212 - 1 == v213++;
-                  if (!v9)
+                  v149 = *(v146 + 8 * v153[3]);
+                  *v151 = *(v153 + 3);
+                  v535.i64[v148] = v149;
+                  v150 = 1;
+                  v8 = v147 - 1 == v148++;
+                  if (!v8)
                   {
-                    goto LABEL_179;
+                    goto LABEL_166;
                   }
 
-                  v623 = v214;
-                  goto LABEL_189;
+                  v413 = v149;
+                  goto LABEL_176;
                 }
 
-                v221 = (v210 + 4 * v219);
-                if (v220 > 4)
+                v156 = (v145 + 4 * v154);
+                if (v155 > 4)
                 {
-                  v215 = 1;
+                  v150 = 1;
                 }
 
-                *(v217 - 7) = *v221;
-                *(v217 - 6) = v221[1];
-                *(v217 - 5) = v221[2];
-                *(v217 - 4) = v221[3];
-                *(v217 - 3) = v221[4];
-                *(v217 - 2) = v221[5];
-                *(v217 - 1) = v221[6];
-                *v217 = v221[7];
-                v217 += 8;
-                v759.i64[v213++] = 0;
-                ++v216;
+                *(v152 - 7) = *v156;
+                *(v152 - 6) = v156[1];
+                *(v152 - 5) = v156[2];
+                *(v152 - 4) = v156[3];
+                *(v152 - 3) = v156[4];
+                *(v152 - 2) = v156[5];
+                *(v152 - 1) = v156[6];
+                *v152 = v156[7];
+                v152 += 8;
+                v535.i64[v148++] = 0;
+                ++v151;
               }
 
-              while (v212 != v213);
-              v623 = v214;
-              if (!v215)
+              while (v147 != v148);
+              v413 = v149;
+              if (!v150)
               {
-                goto LABEL_191;
+                goto LABEL_178;
               }
 
-LABEL_189:
-              v652 = 0;
-              v222 = 2;
+LABEL_176:
+              v434 = 0;
             }
 
-            v223 = (&off_278AB4DA0)[16 * v222];
-            *&v224 = -1;
-            *(&v224 + 1) = -1;
-            v753 = v224;
-            v754 = v224;
-            v752 = v224;
-            *v750 = v207;
-            *&v224 = *(v202 + 60);
-            v225.i64[0] = v224;
-            v225.i64[1] = DWORD1(v224);
-            *&v750[8] = vextq_s8(v225, v225, 8uLL);
-            v751 = *(v202 + 68);
+            *&v157 = -1;
+            *(&v157 + 1) = -1;
+            v529 = v157;
+            v530 = v157;
+            v528 = v157;
+            *v526 = v142;
+            *&v157 = *(v137 + 60);
+            v158.i64[0] = v157;
+            v158.i64[1] = DWORD1(v157);
+            *&v526[8] = vextq_s8(v158, v158, 8uLL);
+            v527 = *(v137 + 68);
             MPSLibrary::CreateUberShaderKey();
-            v226 = MPSLibrary::GetPipelineStateForMPSKey();
-            v227 = *(v84 + 8);
-            v233 = objc_msgSend_threadExecutionWidth(v226, v228, v229, v230, v231, v232, 0, 0, 0, 0, 0);
-            v234 = v233;
-            if (v233 <= 1)
+            v159 = MPSLibrary::GetPipelineStateForMPSKey();
+            v160 = *(v52 + 8);
+            v163 = objc_msgSend_threadExecutionWidth(v159, v161, v162, 0, 0, 0, 0, 0);
+            v164 = v163;
+            if (v163 <= 1)
             {
-              v235 = 1;
+              v165 = 1;
             }
 
             else
             {
-              v235 = v233;
+              v165 = v163;
             }
 
-            v236 = MPSIsTextureTwiddled();
-            if (v234 <= 1)
+            v166 = MPSIsTextureTwiddled();
+            if (v164 <= 1)
             {
-              v241 = 1;
-            }
-
-            else
-            {
-              v241 = v235 >> 1;
-            }
-
-            if (v234 > 7)
-            {
-              v242 = v236;
+              v168 = 1;
             }
 
             else
             {
-              v242 = 0;
+              v168 = v165 >> 1;
             }
 
-            v243 = (v241 + v613) / v241;
-            if ((v235 & 7) != 0)
+            if (v164 > 7)
             {
-              v631 = 2;
-              v635 = v612;
-              v246 = v235 >> 1;
+              v169 = v166;
             }
 
             else
             {
-              v244 = v242 == 0;
-              if (v242)
+              v169 = 0;
+            }
+
+            v170 = (v168 + v403) / v168;
+            if ((v165 & 7) != 0)
+            {
+              v420 = 2;
+              v422 = v402;
+              v173 = v165 >> 1;
+            }
+
+            else
+            {
+              v171 = v169 == 0;
+              if (v169)
               {
-                v243 = ((v235 >> 3) + v613) / (v235 >> 3);
-                v245 = v610;
+                v170 = ((v165 >> 3) + v403) / (v165 >> 3);
+                v172 = v400;
               }
 
               else
               {
-                v245 = v612;
+                v172 = v402;
               }
 
-              if (v242)
+              if (v169)
               {
-                v246 = v235 >> 3;
+                v173 = v165 >> 3;
               }
 
               else
               {
-                v246 = v235 >> 1;
+                v173 = v165 >> 1;
               }
 
-              v247 = 2;
-              if (!v244)
+              v174 = 2;
+              if (!v171)
               {
-                v247 = 8;
+                v174 = 8;
               }
 
-              v631 = v247;
-              v635 = v245;
+              v420 = v174;
+              v422 = v172;
             }
 
-            LODWORD(v259) = v677;
-            v261 = v200 == 1 || v659 > 3;
-            v263 = v201 != 1 && v208 < 4;
-            if (!v696)
+            LODWORD(v181) = v457;
+            v183 = v135 == 1 || v440 > 3;
+            v185 = v136 != 1 && v143 < 4;
+            if (!v44)
             {
-              v264 = v227 | 0x10;
-              if (v261)
+              v186 = v160 | 0x10;
+              if (v183)
               {
-                v264 = v227;
+                v186 = v160;
               }
 
-              if (v200 == 2)
+              if (v135 == 2)
               {
-                v227 = v264;
+                v160 = v186;
               }
 
-              if (!v261 && !v263)
+              if (!v183 && !v185)
               {
-                v227 |= 0x20u;
+                v160 |= 0x20u;
               }
             }
 
-            if (v696 == v207 - 1 && v208 <= 3)
+            if (v44 == v142 - 1 && v143 <= 3)
             {
-              v265 = !v261;
-              if (v201 == 1)
+              v187 = !v183;
+              if (v136 == 1)
               {
-                v265 = 0;
+                v187 = 0;
               }
 
-              v266 = v681;
-              if (v265)
+              v188 = v460;
+              if (v187)
               {
-                if (v201 == 2)
+                if (v136 == 2)
                 {
-                  v227 |= 0x40u;
+                  v160 |= 0x40u;
                 }
               }
 
               else
               {
-                v227 |= 0x80u;
+                v160 |= 0x80u;
               }
             }
 
             else
             {
-              v266 = v681;
+              v188 = v460;
             }
 
-            DWORD1(v259) = v663;
-            *(&v259 + 1) = __PAIR64__(v673, v668);
-            v267 = vmovn_s64(v694);
-            *v710 = v259;
-            *&v710[18] = v688.i16[2];
-            *&v710[16] = v688.i16[0];
-            *&v710[22] = v267.i16[2];
-            *&v710[20] = v267.i16[0];
-            *&v711[2] = v611.i16[2];
-            *v711 = v611.i16[0];
-            *&v711[4] = v227;
-            *&v711[8] = v266;
-            *&v711[16] = v696;
-            objc_msgSend_setComputePipelineState_(a2, v237, v226, v238, v239, v240);
+            DWORD1(v181) = v444;
+            *(&v181 + 1) = __PAIR64__(v454, v449);
+            v189 = vmovn_s64(v472);
+            *v486 = v181;
+            *&v486[18] = v467.i16[2];
+            *&v486[16] = v467.i16[0];
+            *&v486[22] = v189.i16[2];
+            *&v486[20] = v189.i16[0];
+            *&v487[2] = v401.i16[2];
+            *v487 = v401.i16[0];
+            *&v487[4] = v160;
+            *&v487[8] = v188;
+            *&v487[16] = v44;
+            objc_msgSend_setComputePipelineState_(a2, v167, v159);
             MPSLibrary::ReleaseComputeState();
             MPSLibrary::ReleaseMPSKey();
-            objc_msgSend_setBytes_length_atIndex_(a2, v268, v710, 240, 0, v269);
-            objc_msgSend_setTexture_atIndex_(a2, v270, v691, 0, v271, v272);
-            objc_msgSend_setTexture_atIndex_(a2, v273, CompressedTempTexture, 1, v274, v275);
-            if (v652)
+            objc_msgSend_setBytes_length_atIndex_(a2, v190, v486, 240, 0);
+            objc_msgSend_setTexture_atIndex_(a2, v191, v470, 0);
+            objc_msgSend_setTexture_atIndex_(a2, v192, CompressedTempTexture, 1);
+            if (v434)
             {
-              v278 = 3;
-              goto LABEL_334;
+              v194 = 3;
+              goto LABEL_314;
             }
 
-            v279 = v759.i64[0];
+            v195 = v535.i64[0];
             if (a3)
             {
-              if (v759.i64[0])
+              if (v535.i64[0])
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v276, v759.i64[0], 0, 1, v277);
-                if ((objc_msgSend_retainedReferences(a3, v280, v281, v282, v283, v284) & 1) == 0)
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v193, v535.i64[0], 0, 1);
+                if ((objc_msgSend_retainedReferences(a3, v196, v197) & 1) == 0)
                 {
-                  v287 = v279;
-                  *&v702 = MEMORY[0x277D85DD0];
-                  *(&v702 + 1) = 3221225472;
-                  v703 = sub_239963EC8;
-                  v704 = &unk_278AC37A8;
-                  v705 = v279;
-                  objc_msgSend_addCompletedHandler_(a3, v288, &v702, v289, v290, v291);
+                  v199 = v195;
+                  *&v478 = MEMORY[0x277D85DD0];
+                  *(&v478 + 1) = 3221225472;
+                  v479 = sub_239963EC8;
+                  v480 = &unk_278AC37A8;
+                  v481 = v195;
+                  objc_msgSend_addCompletedHandler_(a3, v200, &v478);
                 }
               }
 
               else
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v276, v623, 0, 1, v277);
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v193, v413, 0, 1);
               }
 
-              v374 = v759.i64[1];
-              if (v759.i64[1])
+              v251 = v535.i64[1];
+              if (v535.i64[1])
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v285, v759.i64[1], 0, 2, v286);
-                if ((objc_msgSend_retainedReferences(a3, v375, v376, v377, v378, v379) & 1) == 0)
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v198, v535.i64[1], 0, 2);
+                if ((objc_msgSend_retainedReferences(a3, v252, v253) & 1) == 0)
                 {
-                  v382 = v374;
-                  *&v702 = MEMORY[0x277D85DD0];
-                  *(&v702 + 1) = 3221225472;
-                  v703 = sub_239963EC8;
-                  v704 = &unk_278AC37A8;
-                  v705 = v374;
-                  objc_msgSend_addCompletedHandler_(a3, v383, &v702, v384, v385, v386);
+                  v255 = v251;
+                  *&v478 = MEMORY[0x277D85DD0];
+                  *(&v478 + 1) = 3221225472;
+                  v479 = sub_239963EC8;
+                  v480 = &unk_278AC37A8;
+                  v481 = v251;
+                  objc_msgSend_addCompletedHandler_(a3, v256, &v478);
                 }
               }
 
               else
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v285, v623, 0, 2, v286);
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v198, v413, 0, 2);
               }
 
-              v387 = v760;
-              if (v760)
+              v257 = v536;
+              if (v536)
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v380, v760, 0, 3, v381);
-                if ((objc_msgSend_retainedReferences(a3, v388, v389, v390, v391, v392) & 1) == 0)
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v254, v536, 0, 3);
+                if ((objc_msgSend_retainedReferences(a3, v258, v259) & 1) == 0)
                 {
-                  v395 = v387;
-                  *&v702 = MEMORY[0x277D85DD0];
-                  *(&v702 + 1) = 3221225472;
-                  v703 = sub_239963EC8;
-                  v704 = &unk_278AC37A8;
-                  v705 = v387;
-                  objc_msgSend_addCompletedHandler_(a3, v396, &v702, v397, v398, v399);
+                  v261 = v257;
+                  *&v478 = MEMORY[0x277D85DD0];
+                  *(&v478 + 1) = 3221225472;
+                  v479 = sub_239963EC8;
+                  v480 = &unk_278AC37A8;
+                  v481 = v257;
+                  objc_msgSend_addCompletedHandler_(a3, v262, &v478);
                 }
               }
 
               else
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v380, v623, 0, 3, v381);
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v254, v413, 0, 3);
               }
 
-              v400 = *(&v760 + 1);
-              if (*(&v760 + 1))
+              v263 = *(&v536 + 1);
+              if (*(&v536 + 1))
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v393, *(&v760 + 1), 0, 4, v394);
-                if ((objc_msgSend_retainedReferences(a3, v401, v402, v403, v404, v405) & 1) == 0)
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v260, *(&v536 + 1), 0, 4);
+                if ((objc_msgSend_retainedReferences(a3, v264, v265) & 1) == 0)
                 {
-                  v406 = v400;
-                  *&v702 = MEMORY[0x277D85DD0];
-                  *(&v702 + 1) = 3221225472;
-                  v703 = sub_239963EC8;
-                  v704 = &unk_278AC37A8;
-                  v705 = v400;
-                  objc_msgSend_addCompletedHandler_(a3, v407, &v702, v408, v409, v410);
+                  v266 = v263;
+                  *&v478 = MEMORY[0x277D85DD0];
+                  *(&v478 + 1) = 3221225472;
+                  v479 = sub_239963EC8;
+                  v480 = &unk_278AC37A8;
+                  v481 = v263;
+                  objc_msgSend_addCompletedHandler_(a3, v267, &v478);
                 }
 
-                goto LABEL_333;
+                goto LABEL_313;
               }
 
-LABEL_332:
-              objc_msgSend_setBuffer_offset_atIndex_(a2, v393, v623, 0, 4, v394);
+LABEL_312:
+              objc_msgSend_setBuffer_offset_atIndex_(a2, v260, v413, 0, 4);
             }
 
             else
             {
-              if (v759.i64[0])
+              if (v535.i64[0])
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v276, v759.i64[0], 0, 1, v277);
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v193, v535.i64[0], 0, 1);
               }
 
               else
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v276, v623, 0, 1, v277);
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v193, v413, 0, 1);
               }
 
-              if (v759.i64[1])
+              if (v535.i64[1])
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v372, v759.i64[1], 0, 2, v373);
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v250, v535.i64[1], 0, 2);
               }
 
               else
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v372, v623, 0, 2, v373);
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v250, v413, 0, 2);
               }
 
-              if (v760)
+              if (v536)
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v411, v760, 0, 3, v412);
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v268, v536, 0, 3);
               }
 
               else
               {
-                objc_msgSend_setBuffer_offset_atIndex_(a2, v411, v623, 0, 3, v412);
+                objc_msgSend_setBuffer_offset_atIndex_(a2, v268, v413, 0, 3);
               }
 
-              if (!*(&v760 + 1))
+              if (!*(&v536 + 1))
               {
-                goto LABEL_332;
+                goto LABEL_312;
               }
 
-              objc_msgSend_setBuffer_offset_atIndex_(a2, v393, *(&v760 + 1), 0, 4, v394);
+              objc_msgSend_setBuffer_offset_atIndex_(a2, v260, *(&v536 + 1), 0, 4);
             }
 
-LABEL_333:
-            v278 = 5;
-LABEL_334:
-            v413 = MPSDevice::GetSampler();
-            objc_msgSend_setSamplerState_atIndex_(a2, v414, v413, 0, v415, v416);
-            objc_msgSend_setBuffer_offset_atIndex_(a2, v417, v640, 0, v278, v418);
-            *v710 = v243;
-            *&v710[8] = v635;
-            *&v710[16] = 1;
-            *v750 = v246;
-            *&v750[8] = v631;
-            *&v750[16] = 1;
-            objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v419, v710, v750, v420, v421);
+LABEL_313:
+            v194 = 5;
+LABEL_314:
+            v269 = MPSDevice::GetSampler();
+            objc_msgSend_setSamplerState_atIndex_(a2, v270, v269, 0);
+            objc_msgSend_setBuffer_offset_atIndex_(a2, v271, v427, 0, v194);
+            *v486 = v170;
+            *&v486[8] = v422;
+            *&v486[16] = 1;
+            *v526 = v173;
+            *&v526[8] = v420;
+            *&v526[16] = 1;
+            objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v272, v486, v526);
 LABEL_31:
-            v74 = v696;
+            v44 = v474;
             goto LABEL_32;
           }
         }
 
-        v756 = 0;
-        goto LABEL_173;
+        v532 = 0;
+        goto LABEL_160;
       }
 
 LABEL_32:
-      v76 = v614;
-      if (v74)
+      v46 = v404;
+      if (v44)
       {
-        v76 = v691;
+        v46 = v470;
       }
 
-      if (v74 == v616)
+      if (v44 == v406)
       {
         CompressedTempTexture = a5;
       }
 
       else
       {
-        CompressedTempTexture = v76;
+        CompressedTempTexture = v46;
       }
 
-      v77 = vdup_n_s32(v74 == v616);
-      v78.i64[0] = v77.u32[0];
-      v78.i64[1] = v77.u32[1];
-      v694 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v78, 0x3FuLL)), v626, v694);
-      ++v74;
-      v75 = 0;
-      if (v74 == v618)
+      v47 = vdup_n_s32(v44 == v406);
+      v48.i64[0] = v47.u32[0];
+      v48.i64[1] = v47.u32[1];
+      v472 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v48, 0x3FuLL)), v416, v472);
+      ++v44;
+      v45 = 0;
+      if (v44 == v408)
       {
-        goto LABEL_335;
+        goto LABEL_315;
       }
     }
 
-    v696 = v74;
-    v137 = (v686 + 4 * *v79);
-    v138 = *(a1 + *MEMORY[0x277CD7370]);
-    v657 = *(a1 + *MEMORY[0x277CD7350]);
-    v650 = *(a1 + 160);
-    v139 = *(a1 + 480);
-    v140 = *(a1 + 488);
-    v661 = *(a1 + 288);
-    v141 = *(a1 + 312);
-    v143 = *(a1 + 336);
-    v142 = *(a1 + 340);
-    v675 = *(a1 + 376);
-    v647 = *(a1 + 408);
-    v666 = *(a1 + 416);
-    v671 = *v137;
-    *&v144 = -1;
-    *(&v144 + 1) = -1;
-    v712 = v144;
-    v713 = v144;
-    *&v711[8] = v144;
-    *&v144 = *(a1 + 348);
-    v145.i64[0] = v144;
-    v145.i64[1] = DWORD1(v144);
-    *&v710[8] = vextq_s8(v145, v145, 8uLL);
-    v146 = *(a1 + 356);
-    *v710 = v141;
-    *v711 = v146;
+    v474 = v44;
+    v92 = (v465 + 4 * *v49);
+    v93 = *(a1 + 480);
+    v94 = *(a1 + 488);
+    v442 = *(a1 + 288);
+    v95 = *(a1 + 312);
+    v97 = *(a1 + 336);
+    v96 = *(a1 + 340);
+    v456 = *(a1 + 376);
+    v430 = *(a1 + 408);
+    v447 = *(a1 + 416);
+    v452 = *v92;
+    *&v98 = -1;
+    *(&v98 + 1) = -1;
+    v488 = v98;
+    v489 = v98;
+    *&v487[8] = v98;
+    *&v98 = *(a1 + 348);
+    v99.i64[0] = v98;
+    v99.i64[1] = DWORD1(v98);
+    *&v486[8] = vextq_s8(v99, v99, 8uLL);
+    v100 = *(a1 + 356);
+    *v486 = v95;
+    *v487 = v100;
     MPSLibrary::CreateUberShaderKey();
-    v147 = MPSLibrary::GetPipelineStateForMPSKey();
-    v148 = v137[1];
-    v154 = objc_msgSend_threadExecutionWidth(v147, v149, v150, v151, v152, v153, 0, 0, 0, 0, 0, v608);
-    v155 = v154;
-    if (v154 <= 1)
+    v101 = MPSLibrary::GetPipelineStateForMPSKey();
+    v102 = v92[1];
+    v105 = objc_msgSend_threadExecutionWidth(v101, v103, v104, 0, 0, 0, 0, 0, v399);
+    v106 = v105;
+    if (v105 <= 1)
     {
-      v156 = 1;
+      v107 = 1;
     }
 
     else
     {
-      v156 = v154;
+      v107 = v105;
     }
 
-    v157 = MPSIsTextureTwiddled();
-    if (v155 <= 1)
+    v108 = MPSIsTextureTwiddled();
+    if (v106 <= 1)
     {
-      v162 = 1;
-    }
-
-    else
-    {
-      v162 = v156 >> 1;
-    }
-
-    v163 = (v162 + v613) / v162;
-    if (v155 > 7)
-    {
-      v164 = v157;
+      v110 = 1;
     }
 
     else
     {
-      v164 = 0;
+      v110 = v107 >> 1;
     }
 
-    v165 = (v156 & 7) != 0 || v164 == 0;
-    if (v165)
+    v111 = (v110 + v403) / v110;
+    if (v106 > 7)
     {
-      v166 = v163;
-    }
-
-    else
-    {
-      v166 = ((v156 >> 3) + v613) / (v156 >> 3);
-    }
-
-    v167 = v612;
-    if (!v165)
-    {
-      v167 = v610;
-    }
-
-    v638 = v167;
-    if (v165)
-    {
-      v168 = v156 >> 1;
+      v112 = v108;
     }
 
     else
     {
-      v168 = v156 >> 3;
+      v112 = 0;
     }
 
-    v169 = 2;
-    if (!v165)
+    v113 = (v107 & 7) != 0 || v112 == 0;
+    if (v113)
     {
-      v169 = 8;
+      v114 = v111;
     }
 
-    v643 = v169;
-    v171 = v139 == 1 || v143 > 3;
-    v173 = v140 != 1 && v142 < 4;
-    if (!v696)
+    else
     {
-      v174 = v148 | 0x10;
-      if (v171)
+      v114 = ((v107 >> 3) + v403) / (v107 >> 3);
+    }
+
+    v115 = v402;
+    if (!v113)
+    {
+      v115 = v400;
+    }
+
+    v425 = v115;
+    if (v113)
+    {
+      v116 = v107 >> 1;
+    }
+
+    else
+    {
+      v116 = v107 >> 3;
+    }
+
+    v117 = 2;
+    if (!v113)
+    {
+      v117 = 8;
+    }
+
+    v428 = v117;
+    v119 = v93 == 1 || v97 > 3;
+    v121 = v94 != 1 && v96 < 4;
+    if (!v474)
+    {
+      v122 = v102 | 0x10;
+      if (v119)
       {
-        v174 = v148;
+        v122 = v102;
       }
 
-      if (v139 == 2)
+      if (v93 == 2)
       {
-        v148 = v174;
+        v102 = v122;
       }
 
-      if (!v171 && !v173)
+      if (!v119 && !v121)
       {
-        v148 |= 0x20u;
+        v102 |= 0x20u;
       }
     }
 
-    if (v696 == v141 - 1 && v142 <= 3)
+    if (v474 == v95 - 1 && v96 <= 3)
     {
-      v175 = !v171;
-      if (v140 == 1)
+      v123 = !v119;
+      if (v94 == 1)
       {
-        v175 = 0;
+        v123 = 0;
       }
 
-      v176 = v675;
-      v177 = v671;
-      v178 = v666;
-      if (v175)
+      v124 = v456;
+      v125 = v452;
+      v126 = v447;
+      if (v123)
       {
-        if (v140 == 2)
+        if (v94 == 2)
         {
-          v148 |= 0x40u;
+          v102 |= 0x40u;
         }
       }
 
       else
       {
-        v148 |= 0x80u;
+        v102 |= 0x80u;
       }
     }
 
     else
     {
-      v176 = v675;
-      v177 = v671;
-      v178 = v666;
+      v124 = v456;
+      v125 = v452;
+      v126 = v447;
     }
 
-    v292 = vmovn_s64(v694);
-    *v710 = v661;
-    *&v710[18] = v688.i16[2];
-    *&v710[16] = v688.i16[0];
-    *&v710[22] = v292.i16[2];
-    *&v710[20] = v292.i16[0];
-    *&v711[2] = v611.i16[2];
-    *v711 = v611.i16[0];
-    *&v711[4] = v148;
-    *&v711[8] = v178;
-    *&v711[16] = v696;
-    v293 = (v176 + 4 * v177);
-    v712 = *v293;
-    v713 = v293[1];
-    v714 = v293[2];
-    objc_msgSend_setComputePipelineState_(a2, v158, v147, v159, v160, v161);
+    v201 = vmovn_s64(v472);
+    *v486 = v442;
+    *&v486[18] = v467.i16[2];
+    *&v486[16] = v467.i16[0];
+    *&v486[22] = v201.i16[2];
+    *&v486[20] = v201.i16[0];
+    *&v487[2] = v401.i16[2];
+    *v487 = v401.i16[0];
+    *&v487[4] = v102;
+    *&v487[8] = v126;
+    *&v487[16] = v474;
+    v202 = (v124 + 4 * v125);
+    v488 = *v202;
+    v489 = v202[1];
+    v490 = v202[2];
+    objc_msgSend_setComputePipelineState_(a2, v109, v101);
     MPSLibrary::ReleaseComputeState();
     MPSLibrary::ReleaseMPSKey();
-    objc_msgSend_setTexture_atIndex_(a2, v294, v691, 0, v295, v296);
-    objc_msgSend_setTexture_atIndex_(a2, v297, a4, 1, v298, v299);
-    objc_msgSend_setBytes_length_atIndex_(a2, v300, v710, 96, 0, v301);
-    v302 = MPSDevice::GetSampler();
-    objc_msgSend_setSamplerState_atIndex_(a2, v303, v302, 0, v304, v305);
-    objc_msgSend_setBuffer_offset_atIndex_(a2, v306, v647, 0, 3, v307);
-    *v750 = v166;
-    *&v750[8] = v638;
-    *&v750[16] = 1;
-    *&v702 = v168;
-    *(&v702 + 1) = v643;
-    v703 = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v308, v750, &v702, v309, v310);
+    objc_msgSend_setTexture_atIndex_(a2, v203, v470, 0);
+    objc_msgSend_setTexture_atIndex_(a2, v204, a4, 1);
+    objc_msgSend_setBytes_length_atIndex_(a2, v205, v486, 96, 0);
+    v206 = MPSDevice::GetSampler();
+    objc_msgSend_setSamplerState_atIndex_(a2, v207, v206, 0);
+    objc_msgSend_setBuffer_offset_atIndex_(a2, v208, v430, 0, 3);
+    *v526 = v114;
+    *&v526[8] = v425;
+    *&v526[16] = 1;
+    *&v478 = v116;
+    *(&v478 + 1) = v428;
+    v479 = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v209, v526, &v478);
     goto LABEL_31;
   }
 
-  v51 = a6[2].i64[0];
-  v52 = a6[3].i64[1];
-  v53 = a6[5].i64[0];
-  v693 = *(a1 + *MEMORY[0x277CD7370]);
-  v54 = *(v11 + 4);
-  v55 = *(a1 + 160);
-  v56 = *(a1 + 480);
-  v57 = *(a1 + 488);
-  v655 = *(a1 + 288);
-  v58 = *(a1 + 336);
-  v59 = *(a1 + 340);
-  v60 = *(a1 + 344);
-  v61 = *(a1 + 384);
-  v62 = *(a1 + 400);
-  v63 = (v60 | (*(a1 + 352) >> 13)) != 0;
-  v64 = *(a1 + 416);
-  v65 = *(a1 + 312);
-  if (v12 != 2 || v60 | (*(a1 + 352) >> 13))
+  v28 = a6[2].i64[0];
+  v29 = a6[3].i64[1];
+  v30 = a6[5].i64[0];
+  v31 = *(a6->i64[1] + 4);
+  v32 = *(a1 + 480);
+  v33 = *(a1 + 488);
+  v437 = *(a1 + 288);
+  v34 = *(a1 + 336);
+  v35 = *(a1 + 340);
+  v36 = *(a1 + 344);
+  v37 = *(a1 + 384);
+  v38 = *(a1 + 312);
+  if (v10 != 2 || v36 | (*(a1 + 352) >> 13))
   {
-    if (v12 != 3 || (v60 | (*(a1 + 352) >> 13)) != 0)
+    if (v10 != 3 || (v36 | (*(a1 + 352) >> 13)) != 0)
     {
-      v67 = *(a1 + 360);
-      if (v12 == 5 && (v60 | (*(a1 + 352) >> 13)) == 0)
+      v40 = *(a1 + 360);
+      if (v10 == 5 && (v36 | (*(a1 + 352) >> 13)) == 0)
       {
-        v68 = *(v627 + 2);
-        if (v68 == 3)
+        v41 = *(v417 + 2);
+        if (v41 == 3)
         {
-          v67 = *(a1 + 360);
-          if (*(v627 + 6) == 1 && *(v627 + 10) == 3 && *(v627 + 14) == 1 && *(v627 + 18) == 2 && (*(v686 + 4 * v627[32] + 4) - 5) >= 0xFFFFFFFE)
+          v40 = *(a1 + 360);
+          if (*(v417 + 6) == 1 && *(v417 + 10) == 3 && *(v417 + 14) == 1 && *(v417 + 18) == 2 && (*(v465 + 4 * v417[32] + 4) - 5) >= 0xFFFFFFFE)
           {
-            *v710 = v626;
-            *v711 = v7;
-            *&v710[16] = v51;
-            *&v711[16] = v52;
-            v759 = v669;
-            *&v760 = v53;
-            sub_2399632FC(a1, a2, a3, a4, a5, v710, v759.i64, v54, 1u);
-            goto LABEL_440;
+            *v486 = a6[1];
+            *v487 = v7;
+            *&v486[16] = v28;
+            *&v487[16] = v29;
+            v535 = v450;
+            *&v536 = v30;
+            sub_2399632FC(a1, a2, a3, a4, a5, v486, v535.i64, v31, 1u);
+            return 0;
           }
         }
 
         else
         {
-          v67 = *(a1 + 360);
-          if (v68 == 2 && *(v627 + 6) == 1 && *(v627 + 10) == 3 && *(v627 + 14) == 1 && *(v627 + 18) == 3 && (*(v686 + 4 * *v627 + 4) - 5) >= 0xFFFFFFFE)
+          v40 = *(a1 + 360);
+          if (v41 == 2 && *(v417 + 6) == 1 && *(v417 + 10) == 3 && *(v417 + 14) == 1 && *(v417 + 18) == 3 && (*(v465 + 4 * *v417 + 4) - 5) >= 0xFFFFFFFE)
           {
-            *v710 = v626;
-            *v711 = v7;
-            *&v710[16] = v51;
-            *&v711[16] = v52;
-            v759 = v669;
-            *&v760 = v53;
-            sub_2399632FC(a1, a2, a3, a4, a5, v710, v759.i64, v54, 0);
-            goto LABEL_440;
+            *v486 = a6[1];
+            *v487 = v7;
+            *&v486[16] = v28;
+            *&v487[16] = v29;
+            v535 = v450;
+            *&v536 = v30;
+            sub_2399632FC(a1, a2, a3, a4, a5, v486, v535.i64, v31, 0);
+            return 0;
           }
         }
       }
 
-      goto LABEL_351;
+      goto LABEL_331;
     }
 
-    v67 = *(a1 + 360);
-    if (*(v627 + 2) != 3 || *(v627 + 6) != 1 || *(v627 + 10) != 3)
+    v40 = *(a1 + 360);
+    if (*(v417 + 2) != 3 || *(v417 + 6) != 1 || *(v417 + 10) != 3)
     {
-      goto LABEL_351;
+      goto LABEL_331;
     }
 
-    v422 = *(v627 + 3);
-    v423 = v686 + 8;
-    if (v422 < 1)
+    v273 = *(v417 + 3);
+    v274 = v465 + 8;
+    if (v273 < 1)
     {
-      v427 = 1;
+      v278 = 1;
     }
 
     else
     {
-      v424 = 1;
+      v275 = 1;
       do
       {
-        v425 = *v67++;
-        v426 = *(v423 + 4 * v425);
-        v427 = v426 == 3;
-        if (v424 >= v422)
+        v276 = *v40++;
+        v277 = *(v274 + 4 * v276);
+        v278 = v277 == 3;
+        if (v275 >= v273)
         {
           break;
         }
 
-        ++v424;
+        ++v275;
       }
 
-      while (v426 == 3);
+      while (v277 == 3);
     }
 
-    v654 = *(a1 + 416);
-    v519 = *(v627 + 11);
-    if (v519 >= 1 && v427)
+    v436 = *(a1 + 416);
+    v333 = *(v417 + 11);
+    if (v333 >= 1 && v278)
     {
-      v521 = 1;
-      v522 = v627 + 16;
+      v335 = 1;
+      v336 = v417 + 16;
       do
       {
-        v523 = *v522++;
-        v524 = *(v423 + 4 * v523);
-        v427 = v524 == 3;
-        if (v521 >= v519)
+        v337 = *v336++;
+        v338 = *(v274 + 4 * v337);
+        if (v335 >= v333)
         {
           break;
         }
 
-        ++v521;
+        ++v335;
       }
 
-      while (v524 == 3);
+      while (v338 == 3);
     }
 
-    v525 = v8;
-    v683 = *(a1 + 408);
-    v690 = *(a1 + 376);
-    v527 = v56 == 1 || v58 > 3;
-    if (v527)
+    v339 = a6[3].i64[0];
+    v462 = *(a1 + 408);
+    v469 = *(a1 + 376);
+    v341 = v32 == 1 || v34 > 3;
+    if (v341)
     {
-      v528 = 0;
-    }
-
-    else
-    {
-      v528 = 16;
-    }
-
-    if (v56 != 2)
-    {
-      v528 = 0;
-    }
-
-    if (v59 >= 4 || v57 == 1)
-    {
-      v528 |= 0x20u;
-    }
-
-    if (v527)
-    {
-      v530 = 0;
+      v342 = 0;
     }
 
     else
     {
-      v530 = v528;
+      v342 = 16;
     }
 
-    if (v427)
+    if (v32 != 2)
     {
-      v531 = 28;
+      v342 = 0;
+    }
+
+    if (v35 >= 4 || v33 == 1)
+    {
+      v342 |= 0x20u;
+    }
+
+    if (v341)
+    {
+      v344 = 0;
     }
 
     else
     {
-      v531 = 24;
+      v344 = v342;
     }
 
     MPSIsTextureTwiddled();
-    v532 = !v527;
-    if (v57 == 1)
-    {
-      v532 = 0;
-    }
-
-    v533 = v530 | 0x40;
-    v534 = v57;
-    if (v57 != 2)
-    {
-      v533 = v530;
-    }
-
-    if (v532)
-    {
-      v535 = v533;
-    }
-
-    else
-    {
-      v535 = v530 | 0x80;
-    }
-
-    v536 = v59;
-    if (v59 > 3)
-    {
-      v535 = v530;
-    }
-
-    if ((v535 & 0x30) != 0)
-    {
-      v537 = v531 + 1;
-    }
-
-    else
-    {
-      v537 = v531;
-    }
-
-    if ((v535 & 0xC0) != 0)
-    {
-      v538 = v537 | 2;
-    }
-
-    else
-    {
-      v538 = v537;
-    }
-
-    v539 = (&off_278AB4DA0)[16 * v538];
-    *&v540 = -1;
-    *(&v540 + 1) = -1;
-    *&v711[8] = v540;
-    v712 = v540;
-    v713 = v540;
-    v541 = *(a1 + 312);
-    *&v540 = *(a1 + 348);
-    v542.i64[0] = v540;
-    v542.i64[1] = DWORD1(v540);
-    *&v710[8] = vextq_s8(v542, v542, 8uLL);
-    v543 = *(a1 + 356);
-    *v710 = v541;
-    *v711 = v543;
+    v345 = v33;
+    v346 = v35;
+    *&v347 = -1;
+    *(&v347 + 1) = -1;
+    *&v487[8] = v347;
+    v488 = v347;
+    v489 = v347;
+    v348 = *(a1 + 312);
+    *&v347 = *(a1 + 348);
+    v349.i64[0] = v347;
+    v349.i64[1] = DWORD1(v347);
+    *&v486[8] = vextq_s8(v349, v349, 8uLL);
+    v350 = *(a1 + 356);
+    *v486 = v348;
+    *v487 = v350;
     MPSLibrary::CreateUberShaderKey();
-    v544 = MPSLibrary::GetPipelineStateForMPSKey();
-    v550 = objc_msgSend_threadExecutionWidth(v544, v545, v546, v547, v548, v549, 0, 0, 0, 0, 0);
-    v551 = v550;
-    if (v550 <= 1)
+    v351 = MPSLibrary::GetPipelineStateForMPSKey();
+    v354 = objc_msgSend_threadExecutionWidth(v351, v352, v353, 0, 0, 0, 0, 0);
+    v355 = v354;
+    if (v354 <= 1)
     {
-      v552 = 1;
+      v356 = 1;
     }
 
     else
     {
-      v552 = v550;
+      v356 = v354;
     }
 
-    v553 = v552 >> 1;
-    if (v550 <= 1)
+    v357 = v356 >> 1;
+    if (v354 <= 1)
     {
-      v554 = 4;
-    }
-
-    else
-    {
-      v554 = 4 * (v552 >> 1);
-    }
-
-    v555 = MPSIsTextureTwiddled();
-    if (v551 > 7)
-    {
-      v560 = v555;
+      v358 = 4;
     }
 
     else
     {
-      v560 = 0;
+      v358 = 4 * (v356 >> 1);
     }
 
-    v561 = (v552 & 7) != 0 || v560 == 0;
-    v562 = v552 >> 3;
-    if (v561)
+    v359 = MPSIsTextureTwiddled();
+    if (v355 > 7)
     {
-      v563 = (v554 + v664 - 1) / v554;
-    }
-
-    else
-    {
-      v563 = (v553 + v664 - 1) / v553;
-    }
-
-    if (v561)
-    {
-      v564 = (v525 + 1) >> 1;
+      v361 = v359;
     }
 
     else
     {
-      v564 = (v525 + 7) >> 3;
+      v361 = 0;
     }
 
-    if (v561)
+    v362 = (v356 & 7) != 0 || v361 == 0;
+    v363 = v356 >> 3;
+    if (v362)
     {
-      v565 = v553;
-    }
-
-    else
-    {
-      v565 = v562;
-    }
-
-    if (v561)
-    {
-      v566 = 2;
+      v364 = (v358 + v445 - 1) / v358;
     }
 
     else
     {
-      v566 = 8;
+      v364 = (v357 + v445 - 1) / v357;
     }
 
-    if (v536 <= 3)
+    if (v362)
     {
-      v567 = !v527;
-      if (v534 == 1)
+      v365 = (v339 + 1) >> 1;
+    }
+
+    else
+    {
+      v365 = (v339 + 7) >> 3;
+    }
+
+    if (v362)
+    {
+      v366 = v357;
+    }
+
+    else
+    {
+      v366 = v363;
+    }
+
+    if (v362)
+    {
+      v367 = 2;
+    }
+
+    else
+    {
+      v367 = 8;
+    }
+
+    if (v346 <= 3)
+    {
+      v368 = !v341;
+      if (v345 == 1)
       {
-        v567 = 0;
+        v368 = 0;
       }
 
-      if (v567)
+      if (v368)
       {
-        if (v534 == 2)
+        if (v345 == 2)
         {
-          v530 |= 0x40u;
+          v344 |= 0x40u;
         }
       }
 
       else
       {
-        v530 |= 0x80u;
+        v344 |= 0x80u;
       }
     }
 
-    v568 = vmovn_s64(v669);
-    v569 = vmovn_s64(v626);
-    *v710 = v655;
-    v570 = vmovn_s64(v695);
-    *&v710[18] = v568.i16[2];
-    *&v710[16] = v568.i16[0];
-    *&v710[22] = v569.i16[2];
-    *&v710[20] = v569.i16[0];
-    *&v711[2] = v570.i16[2];
-    *v711 = v570.i16[0];
-    *&v711[4] = v530;
-    *&v711[8] = v654;
-    *&v711[12] = 0;
-    objc_msgSend_setComputePipelineState_(a2, v556, v544, v557, v558, v559);
-    v571 = *(v627 + 3);
-    v572 = *(v627 + 11);
-    if (v571 <= 0)
+    v369 = vmovn_s64(v450);
+    v370 = vmovn_s64(v416);
+    *v486 = v437;
+    v371 = vmovn_s64(v473);
+    *&v486[18] = v369.i16[2];
+    *&v486[16] = v369.i16[0];
+    *&v486[22] = v370.i16[2];
+    *&v486[20] = v370.i16[0];
+    *&v487[2] = v371.i16[2];
+    *v487 = v371.i16[0];
+    *&v487[4] = v344;
+    *&v487[8] = v436;
+    *&v487[12] = 0;
+    objc_msgSend_setComputePipelineState_(a2, v360, v351);
+    v372 = *(v417 + 3);
+    v373 = *(v417 + 11);
+    if (v372 <= 0)
     {
-      v573 = 0;
+      v374 = 0;
     }
 
     else
     {
-      v573 = (v686 + 4 * *v627);
+      v374 = (v465 + 4 * *v417);
     }
 
-    if (v572 < 1)
+    if (v373 < 1)
     {
-      v575 = 0;
-      v574 = v686;
-    }
-
-    else
-    {
-      v574 = v686;
-      v575 = (v686 + 4 * v627[16]);
-    }
-
-    if (v571 <= 1)
-    {
-      v576 = 0;
+      v376 = 0;
+      v375 = v465;
     }
 
     else
     {
-      v576 = (v574 + 4 * v627[1]);
+      v375 = v465;
+      v376 = (v465 + 4 * v417[16]);
     }
 
-    if (v572 < 2)
+    if (v372 <= 1)
     {
-      v577 = 0;
-    }
-
-    else
-    {
-      v577 = (v574 + 4 * v627[17]);
-    }
-
-    if (v571 <= 2)
-    {
-      v578 = 0;
+      v377 = 0;
     }
 
     else
     {
-      v578 = (v574 + 4 * v627[2]);
+      v377 = (v375 + 4 * v417[1]);
     }
 
-    if (v572 < 3)
+    if (v373 < 2)
     {
-      v579 = 0;
-    }
-
-    else
-    {
-      v579 = (v574 + 4 * v627[18]);
-    }
-
-    if (v571 <= 3)
-    {
-      v580 = 0;
+      v378 = 0;
     }
 
     else
     {
-      v580 = (v574 + 4 * v627[3]);
+      v378 = (v375 + 4 * v417[17]);
     }
 
-    if (v572 < 4)
+    if (v372 <= 2)
     {
-      v581 = 0;
-    }
-
-    else
-    {
-      v581 = (v574 + 4 * v627[19]);
-    }
-
-    v748 = *(v627 + 3);
-    v749 = v572;
-    if (v571 < 1)
-    {
-      v712 = xmmword_239988C80;
-      v713 = unk_239988C90;
+      v379 = 0;
     }
 
     else
     {
-      v582 = (v690 + 4 * *v573);
-      v728 = v573[2];
-      v712 = *v582;
-      v713 = v582[1];
-      if (v571 >= 2)
+      v379 = (v375 + 4 * v417[2]);
+    }
+
+    if (v373 < 3)
+    {
+      v380 = 0;
+    }
+
+    else
+    {
+      v380 = (v375 + 4 * v417[18]);
+    }
+
+    if (v372 <= 3)
+    {
+      v381 = 0;
+    }
+
+    else
+    {
+      v381 = (v375 + 4 * v417[3]);
+    }
+
+    if (v373 < 4)
+    {
+      v382 = 0;
+    }
+
+    else
+    {
+      v382 = (v375 + 4 * v417[19]);
+    }
+
+    v524 = *(v417 + 3);
+    v525 = v373;
+    if (v372 < 1)
+    {
+      v488 = xmmword_239988C80;
+      v489 = unk_239988C90;
+    }
+
+    else
+    {
+      v383 = (v469 + 4 * *v374);
+      v504 = v374[2];
+      v488 = *v383;
+      v489 = v383[1];
+      if (v372 >= 2)
       {
-        v583 = (v690 + 4 * *v576);
-        v729 = v576[2];
-        v714 = *v583;
-        v715 = v583[1];
-        if (v571 >= 3)
+        v384 = (v469 + 4 * *v377);
+        v505 = v377[2];
+        v490 = *v384;
+        v491 = v384[1];
+        if (v372 >= 3)
         {
-          v584 = (v690 + 4 * *v578);
-          v730 = v578[2];
-          v716 = *v584;
-          v717 = v584[1];
-          if (v571 > 3)
+          v385 = (v469 + 4 * *v379);
+          v506 = v379[2];
+          v492 = *v385;
+          v493 = v385[1];
+          if (v372 > 3)
           {
-            v585 = (v690 + 4 * *v580);
-            v731 = v580[2];
-            v718 = *v585;
-            v719 = v585[1];
-            goto LABEL_551;
+            v386 = (v469 + 4 * *v381);
+            v507 = v381[2];
+            v494 = *v386;
+            v495 = v386[1];
+            goto LABEL_493;
           }
 
-LABEL_550:
-          v718 = xmmword_239988C80;
-          v719 = unk_239988C90;
-LABEL_551:
-          if (v572 < 1)
+LABEL_492:
+          v494 = xmmword_239988C80;
+          v495 = unk_239988C90;
+LABEL_493:
+          if (v373 < 1)
           {
-            v720 = xmmword_239988C80;
-            v721 = unk_239988C90;
+            v496 = xmmword_239988C80;
+            v497 = unk_239988C90;
           }
 
           else
           {
-            v586 = (v690 + 4 * *v575);
-            v732 = v575[2];
-            v720 = *v586;
-            v721 = v586[1];
-            if (v572 >= 2)
+            v387 = (v469 + 4 * *v376);
+            v508 = v376[2];
+            v496 = *v387;
+            v497 = v387[1];
+            if (v373 >= 2)
             {
-              v587 = (v690 + 4 * *v577);
-              v733 = v577[2];
-              v722 = *v587;
-              v723 = v587[1];
-              if (v572 >= 3)
+              v388 = (v469 + 4 * *v378);
+              v509 = v378[2];
+              v498 = *v388;
+              v499 = v388[1];
+              if (v373 >= 3)
               {
-                v588 = (v690 + 4 * *v579);
-                v734 = v579[2];
-                v724 = *v588;
-                v725 = v588[1];
-                if (v572 > 3)
+                v389 = (v469 + 4 * *v380);
+                v510 = v380[2];
+                v500 = *v389;
+                v501 = v389[1];
+                if (v373 > 3)
                 {
-                  v589 = (v690 + 4 * *v581);
-                  v735 = v581[2];
-                  v726 = *v589;
-                  v727 = v589[1];
-LABEL_560:
-                  v590 = (v690 + 4 * *(v574 + 4 * v627[8]));
-                  v736 = *v590;
-                  v737 = v590[1];
-                  v738 = v590[2];
-                  v739 = v590[3];
-                  v740 = v590[4];
-                  v741 = v590[5];
-                  v742 = v590[6];
-                  v743 = v590[7];
-                  v744 = v590[8];
-                  v745 = v590[9];
-                  v746 = v590[10];
-                  v747 = v590[11];
+                  v390 = (v469 + 4 * *v382);
+                  v511 = v382[2];
+                  v502 = *v390;
+                  v503 = v390[1];
+LABEL_502:
+                  v391 = (v469 + 4 * *(v375 + 4 * v417[8]));
+                  v512 = *v391;
+                  v513 = v391[1];
+                  v514 = v391[2];
+                  v515 = v391[3];
+                  v516 = v391[4];
+                  v517 = v391[5];
+                  v518 = v391[6];
+                  v519 = v391[7];
+                  v520 = v391[8];
+                  v521 = v391[9];
+                  v522 = v391[10];
+                  v523 = v391[11];
                   MPSLibrary::ReleaseComputeState();
                   MPSLibrary::ReleaseMPSKey();
-                  objc_msgSend_setTexture_atIndex_(a2, v591, a4, 0, v592, v593);
-                  objc_msgSend_setTexture_atIndex_(a2, v594, a5, 1, v595, v596);
-                  objc_msgSend_setBytes_length_atIndex_(a2, v597, v710, 400, 0, v598);
-                  objc_msgSend_setBuffer_offset_atIndex_(a2, v599, v683, 0, 3, v600);
-                  v601 = MPSDevice::GetSampler();
-                  objc_msgSend_setSamplerState_atIndex_(a2, v602, v601, 0, v603, v604);
-                  v759.i64[0] = v563;
-                  v759.i64[1] = v564;
-                  *&v760 = 1;
-                  v755 = v565;
-                  v756 = v566;
-                  v757 = 1;
-                  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v605, &v759, &v755, v606, v607);
-                  goto LABEL_440;
+                  objc_msgSend_setTexture_atIndex_(a2, v392, a4, 0);
+                  objc_msgSend_setTexture_atIndex_(a2, v393, a5, 1);
+                  objc_msgSend_setBytes_length_atIndex_(a2, v394, v486, 400, 0);
+                  objc_msgSend_setBuffer_offset_atIndex_(a2, v395, v462, 0, 3);
+                  v396 = MPSDevice::GetSampler();
+                  objc_msgSend_setSamplerState_atIndex_(a2, v397, v396, 0);
+                  v535.i64[0] = v364;
+                  v535.i64[1] = v365;
+                  *&v536 = 1;
+                  v531 = v366;
+                  v532 = v367;
+                  v533 = 1;
+                  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v398, &v535, &v531);
+                  return 0;
                 }
 
-LABEL_559:
-                v726 = xmmword_239988C80;
-                v727 = unk_239988C90;
-                goto LABEL_560;
+LABEL_501:
+                v502 = xmmword_239988C80;
+                v503 = unk_239988C90;
+                goto LABEL_502;
               }
 
-LABEL_558:
-              v724 = xmmword_239988C80;
-              v725 = unk_239988C90;
-              goto LABEL_559;
+LABEL_500:
+              v500 = xmmword_239988C80;
+              v501 = unk_239988C90;
+              goto LABEL_501;
             }
           }
 
-          v722 = xmmword_239988C80;
-          v723 = unk_239988C90;
-          goto LABEL_558;
+          v498 = xmmword_239988C80;
+          v499 = unk_239988C90;
+          goto LABEL_500;
         }
 
-LABEL_549:
-        v716 = xmmword_239988C80;
-        v717 = unk_239988C90;
-        goto LABEL_550;
+LABEL_491:
+        v492 = xmmword_239988C80;
+        v493 = unk_239988C90;
+        goto LABEL_492;
       }
     }
 
-    v714 = xmmword_239988C80;
-    v715 = unk_239988C90;
-    goto LABEL_549;
+    v490 = xmmword_239988C80;
+    v491 = unk_239988C90;
+    goto LABEL_491;
   }
 
-  v66 = *(v627 + 2);
-  if (v66 == 1)
+  v39 = *(v417 + 2);
+  if (v39 == 1)
   {
-    v67 = *(a1 + 360);
-    if (*(v627 + 6) == 3)
+    v40 = *(a1 + 360);
+    if (*(v417 + 6) == 3)
     {
-      *v710 = v626;
-      *v711 = v7;
-      *&v710[16] = v51;
-      *&v711[16] = v52;
-      v759 = v669;
-      *&v760 = v53;
-      sub_239962C58(a1, a2, a3, a4, a5, v710, v759.i64, 1u);
-      goto LABEL_440;
+      *v486 = a6[1];
+      *v487 = v7;
+      *&v486[16] = v28;
+      *&v487[16] = v29;
+      v535 = v450;
+      *&v536 = v30;
+      sub_239962C58(a1, a2, a3, a4, a5, v486, v535.i64, 1u);
+      return 0;
     }
   }
 
   else
   {
-    v67 = *(a1 + 360);
-    if (v66 == 3 && *(v627 + 6) == 1)
+    v40 = *(a1 + 360);
+    if (v39 == 3 && *(v417 + 6) == 1)
     {
-      *v710 = v626;
-      *v711 = v7;
-      *&v710[16] = v51;
-      *&v711[16] = v52;
-      v759 = v669;
-      *&v760 = v53;
-      sub_239962C58(a1, a2, a3, a4, a5, v710, v759.i64, 0);
-      goto LABEL_440;
+      *v486 = a6[1];
+      *v487 = v7;
+      *&v486[16] = v28;
+      *&v487[16] = v29;
+      v535 = v450;
+      *&v536 = v30;
+      sub_239962C58(a1, a2, a3, a4, a5, v486, v535.i64, 0);
+      return 0;
     }
   }
 
-LABEL_351:
-  v628 = *(a1 + *MEMORY[0x277CD7378]);
-  v632 = *(a1 + 320);
-  v636 = *(a1 + 400);
-  v641 = *(v11 + 4);
-  v645 = *(a1 + 344);
-  v617 = *(a1 + 480);
-  v621 = *(a1 + 488);
-  v625 = v8;
-  v653 = *(a1 + 416);
-  v689 = 0;
-  v692 = 0;
-  v678 = 0;
-  v428 = 0;
-  v429 = 0;
-  v682 = 0;
-  v619 = *(a1 + 340);
-  v709 = v619;
-  v615 = v58;
-  v708 = v58;
-  v707 = v12;
-  v430 = v67 + 4;
-  v431 = 1;
+LABEL_331:
+  v423 = *(a1 + 400);
+  v407 = *(a1 + 480);
+  v411 = *(a1 + 488);
+  v415 = a6[3].i64[0];
+  v435 = *(a1 + 416);
+  v468 = 0;
+  v471 = 0;
+  v458 = 0;
+  v279 = 0;
+  v280 = 0;
+  v461 = 0;
+  v409 = *(a1 + 340);
+  v485 = v409;
+  v405 = v34;
+  v484 = v34;
+  v483 = v10;
+  v281 = v40 + 4;
+  v282 = 1;
   do
   {
-    if (*v430 == 2)
+    if (*v281 == 2)
     {
-      v432 = v686 + 4 * *(v430 - 4);
-      v433 = *(v432 + 4);
-      v434 = ((1 << v433) & v428) != 0;
-      if (v429)
+      v283 = v465 + 4 * *(v281 - 4);
+      v284 = *(v283 + 4);
+      v285 = ((1 << v284) & v279) != 0;
+      if (v280)
       {
-        v429 = -1;
+        v280 = -1;
       }
 
       else
       {
-        v429 = *(v432 + 4);
+        v280 = *(v283 + 4);
       }
 
-      v428 |= 1 << v433;
-      objc_msgSend_setTexture_atIndex_(a2, v10, *(v61 + 8 * *(v432 + 16)), v433 + 1, v60, v62);
-      if (v433 > 2)
+      v279 |= 1 << v284;
+      objc_msgSend_setTexture_atIndex_(a2, v9, *(v37 + 8 * *(v283 + 16)), v284 + 1);
+      if (v284 > 2)
       {
-        if (v433 == 3)
+        if (v284 == 3)
         {
-          v678 = *(v61 + 8 * *(v432 + 16));
+          v458 = *(v37 + 8 * *(v283 + 16));
         }
 
-        else if (v433 == 4)
+        else if (v284 == 4)
         {
-          v682 = *(v61 + 8 * *(v432 + 16));
+          v461 = *(v37 + 8 * *(v283 + 16));
         }
       }
 
-      else if (v433 == 1)
+      else if (v284 == 1)
       {
-        v689 = *(v61 + 8 * *(v432 + 16));
+        v468 = *(v37 + 8 * *(v283 + 16));
       }
 
-      else if (v433 == 2)
+      else if (v284 == 2)
       {
-        v692 = *(v61 + 8 * *(v432 + 16));
+        v471 = *(v37 + 8 * *(v283 + 16));
       }
     }
 
     else
     {
-      v434 = 0;
+      v285 = 0;
     }
 
-    if (v431 >= v65)
+    if (v282 >= v38)
     {
       break;
     }
 
-    ++v431;
-    v430 += 4;
+    ++v282;
+    v281 += 4;
   }
 
-  while (!v434);
-  v435 = v632 != 0;
-  v437 = (v628 & 2) == 0 || v641 > 0xF;
-  v438 = v435 && v437;
-  if (v435 && v437)
+  while (!v285);
+  if ((v279 & 2) != 0)
   {
-    v439 = 12;
-  }
-
-  else
-  {
-    v439 = 11;
-  }
-
-  if ((v428 & 2) != 0)
-  {
-    v440 = v678;
-    if ((v428 & 4) != 0)
+    v286 = v458;
+    if ((v279 & 4) != 0)
     {
-LABEL_380:
-      if ((v428 & 8) == 0)
+LABEL_351:
+      if ((v279 & 8) == 0)
       {
-        goto LABEL_381;
+        goto LABEL_352;
       }
 
-      goto LABEL_385;
+      goto LABEL_356;
     }
   }
 
   else
   {
-    objc_msgSend_setTexture_atIndex_(a2, v10, *v636, 2, v60, v62);
-    v689 = *v636;
-    v440 = v678;
-    if ((v428 & 4) != 0)
+    objc_msgSend_setTexture_atIndex_(a2, v9, *v423, 2);
+    v468 = *v423;
+    v286 = v458;
+    if ((v279 & 4) != 0)
     {
-      goto LABEL_380;
+      goto LABEL_351;
     }
   }
 
-  objc_msgSend_setTexture_atIndex_(a2, v10, v636[1], 3, v60, v62);
-  v692 = v636[1];
-  if ((v428 & 8) == 0)
+  objc_msgSend_setTexture_atIndex_(a2, v9, v423[1], 3);
+  v471 = v423[1];
+  if ((v279 & 8) == 0)
   {
-LABEL_381:
-    objc_msgSend_setTexture_atIndex_(a2, v10, v636[2], 4, v60, v62);
-    v440 = v636[2];
-    v441 = v439 + 2;
-    if ((v428 & 0x10) != 0)
+LABEL_352:
+    objc_msgSend_setTexture_atIndex_(a2, v9, v423[2], 4);
+    v286 = v423[2];
+    if ((v279 & 0x10) != 0)
     {
-      goto LABEL_387;
+      goto LABEL_358;
     }
 
-    goto LABEL_386;
+    goto LABEL_357;
   }
 
-LABEL_385:
-  v441 = v439 + 2;
-  if ((v428 & 0x10) == 0)
+LABEL_356:
+  if ((v279 & 0x10) == 0)
   {
-LABEL_386:
-    objc_msgSend_setTexture_atIndex_(a2, v10, v636[3], 5, v60, v62);
-    v682 = v636[3];
+LABEL_357:
+    objc_msgSend_setTexture_atIndex_(a2, v9, v423[3], 5);
+    v461 = v423[3];
   }
 
-LABEL_387:
-  if (v438)
-  {
-    v442 = 18;
-  }
-
-  else
-  {
-    v442 = 14;
-  }
-
-  LODWORD(v443) = v429 + v442;
-  if (v429 < 1)
-  {
-    LODWORD(v443) = v439;
-  }
-
-  if (v645)
-  {
-    v443 = v441;
-  }
-
-  else
-  {
-    v443 = v443;
-  }
-
-  if (v434)
-  {
-    v444 = 23;
-  }
-
-  else
-  {
-    v444 = v443;
-  }
-
-  v445 = (&off_278AB4DA0)[16 * v444];
-  *&v446 = -1;
-  *(&v446 + 1) = -1;
-  *&v711[8] = v446;
-  v712 = v446;
-  v713 = v446;
-  v447 = *(a1 + 312);
-  *&v446 = *(a1 + 348);
-  v448.i64[0] = v446;
-  v448.i64[1] = DWORD1(v446);
-  *&v710[8] = vextq_s8(v448, v448, 8uLL);
-  v449 = *(a1 + 356);
-  *v710 = v447;
-  *v711 = v449;
+LABEL_358:
+  *&v287 = -1;
+  *(&v287 + 1) = -1;
+  *&v487[8] = v287;
+  v488 = v287;
+  v489 = v287;
+  v288 = *(a1 + 312);
+  *&v287 = *(a1 + 348);
+  v289.i64[0] = v287;
+  v289.i64[1] = DWORD1(v287);
+  *&v486[8] = vextq_s8(v289, v289, 8uLL);
+  v290 = *(a1 + 356);
+  *v486 = v288;
+  *v487 = v290;
   MPSLibrary::CreateUberShaderKey();
-  v450 = MPSLibrary::GetPipelineStateForMPSKey();
-  objc_msgSend_setComputePipelineState_(a2, v451, v450, v452, v453, v454, 0, 0, 0, 0, 0);
-  v460 = objc_msgSend_threadExecutionWidth(v450, v455, v456, v457, v458, v459);
-  v461 = v460;
-  if (v460 <= 1)
+  v291 = MPSLibrary::GetPipelineStateForMPSKey();
+  objc_msgSend_setComputePipelineState_(a2, v292, v291, 0, 0, 0, 0, 0);
+  v295 = objc_msgSend_threadExecutionWidth(v291, v293, v294);
+  v296 = v295;
+  if (v295 <= 1)
   {
-    v462 = 1;
+    v297 = 1;
   }
 
   else
   {
-    v462 = v460;
+    v297 = v295;
   }
 
-  v463 = v462 >> 1;
-  if (v460 <= 1)
+  v298 = v297 >> 1;
+  if (v295 <= 1)
   {
-    v464 = 4;
-  }
-
-  else
-  {
-    v464 = 4 * (v462 >> 1);
-  }
-
-  v465 = MPSIsTextureTwiddled();
-  v466 = (v625 + 1) >> 1;
-  if (v461 > 7)
-  {
-    v467 = v465;
+    v299 = 4;
   }
 
   else
   {
-    v467 = 0;
+    v299 = 4 * (v297 >> 1);
   }
 
-  v468 = 2;
-  v469 = (v464 + v664 - 1) / v464;
-  if (v462 & 7) == 0 && (v467)
+  v300 = MPSIsTextureTwiddled();
+  v301 = (v415 + 1) >> 1;
+  if (v296 > 7)
   {
-    v469 = (v463 + v664 - 1) / v463;
-    v466 = (v625 + 7) >> 3;
-    v463 = v462 >> 3;
-    v468 = 8;
-  }
-
-  v471 = v617 == 1 || v615 > 3;
-  if (v471)
-  {
-    v472 = 0;
+    v302 = v300;
   }
 
   else
   {
-    v472 = 16;
+    v302 = 0;
   }
 
-  if (v617 != 2)
+  v303 = 2;
+  v304 = (v299 + v445 - 1) / v299;
+  if (v297 & 7) == 0 && (v302)
   {
-    v472 = 0;
+    v304 = (v298 + v445 - 1) / v298;
+    v301 = (v415 + 7) >> 3;
+    v298 = v297 >> 3;
+    v303 = 8;
   }
 
-  if (v619 >= 4 || v621 == 1)
+  v306 = v407 == 1 || v405 > 3;
+  if (v306)
   {
-    v472 |= 0x20u;
+    v307 = 0;
   }
 
-  if (v471)
+  else
   {
-    v472 = 0;
+    v307 = 16;
   }
 
-  if (v619 <= 3)
+  if (v407 != 2)
   {
-    v474 = !v471;
-    if (v621 == 1)
+    v307 = 0;
+  }
+
+  if (v409 >= 4 || v411 == 1)
+  {
+    v307 |= 0x20u;
+  }
+
+  if (v306)
+  {
+    v307 = 0;
+  }
+
+  if (v409 <= 3)
+  {
+    v309 = !v306;
+    if (v411 == 1)
     {
-      v474 = 0;
+      v309 = 0;
     }
 
-    if (v474)
+    if (v309)
     {
-      if (v621 == 2)
+      if (v411 == 2)
       {
-        v472 |= 0x40u;
+        v307 |= 0x40u;
       }
     }
 
     else
     {
-      v472 |= 0x80u;
+      v307 |= 0x80u;
     }
   }
 
-  v475 = vmovn_s64(v669);
-  v476 = vmovn_s64(v626);
-  v702 = v655;
-  v477 = vmovn_s64(v695);
-  WORD1(v703) = v475.i16[2];
-  LOWORD(v703) = v475.i16[0];
-  HIWORD(v703) = v476.i16[2];
-  WORD2(v703) = v476.i16[0];
-  WORD1(v704) = v477.i16[2];
-  LOWORD(v704) = v477.i16[0];
-  HIDWORD(v704) = v472;
-  v705 = v653;
-  v706 = 0;
+  v310 = vmovn_s64(v450);
+  v311 = vmovn_s64(v416);
+  v478 = v437;
+  v312 = vmovn_s64(v473);
+  WORD1(v479) = v310.i16[2];
+  LOWORD(v479) = v310.i16[0];
+  HIWORD(v479) = v311.i16[2];
+  WORD2(v479) = v311.i16[0];
+  WORD1(v480) = v312.i16[2];
+  LOWORD(v480) = v312.i16[0];
+  HIDWORD(v480) = v307;
+  v481 = v435;
+  v482 = 0;
   MPSLibrary::ReleaseComputeState();
   MPSLibrary::ReleaseMPSKey();
-  objc_msgSend_setTexture_atIndex_(a2, v478, a4, 0, v479, v480);
-  objc_msgSend_setTexture_atIndex_(a2, v481, a5, 1, v482, v483);
-  objc_msgSend_setBytes_length_atIndex_(a2, v484, &v702, 64, 0, v485);
-  v486 = MPSDevice::GetSampler();
-  objc_msgSend_setSamplerState_atIndex_(a2, v487, v486, 0, v488, v489);
-  objc_msgSend_setBytes_length_atIndex_(a2, v490, *(a1 + 360), 16 * *(a1 + 312), 1, v491);
-  objc_msgSend_setBytes_length_atIndex_(a2, v492, *(a1 + 368), 4 * *(a1 + 304), 2, v493);
-  objc_msgSend_setBuffer_offset_atIndex_(a2, v494, *(a1 + 408), 0, 3, v495);
-  if (a3 && (objc_msgSend_retainedReferences(a3, v496, v497, v498, v499, v500) & 1) == 0)
+  objc_msgSend_setTexture_atIndex_(a2, v313, a4, 0);
+  objc_msgSend_setTexture_atIndex_(a2, v314, a5, 1);
+  objc_msgSend_setBytes_length_atIndex_(a2, v315, &v478, 64, 0);
+  v316 = MPSDevice::GetSampler();
+  objc_msgSend_setSamplerState_atIndex_(a2, v317, v316, 0);
+  objc_msgSend_setBytes_length_atIndex_(a2, v318, *(a1 + 360), 16 * *(a1 + 312), 1);
+  objc_msgSend_setBytes_length_atIndex_(a2, v319, *(a1 + 368), 4 * *(a1 + 304), 2);
+  objc_msgSend_setBuffer_offset_atIndex_(a2, v320, *(a1 + 408), 0, 3);
+  if (a3 && (objc_msgSend_retainedReferences(a3, v321, v322) & 1) == 0)
   {
-    v501 = *(a1 + 408);
-    v502 = v689;
-    v503 = v692;
-    v504 = v440;
-    v505 = v682;
-    *v750 = MEMORY[0x277D85DD0];
-    *&v750[8] = 3221225472;
-    *&v750[16] = sub_239963E5C;
-    v751 = &unk_278AF68E8;
-    *&v752 = a1;
-    *(&v752 + 1) = v689;
-    *&v753 = v692;
-    *(&v753 + 1) = v440;
-    *&v754 = v682;
-    objc_msgSend_addCompletedHandler_(a3, v506, v750, v507, v508, v509);
+    v323 = *(a1 + 408);
+    v324 = v468;
+    v325 = v471;
+    v326 = v286;
+    v327 = v461;
+    *v526 = MEMORY[0x277D85DD0];
+    *&v526[8] = 3221225472;
+    *&v526[16] = sub_239963E5C;
+    v527 = &unk_278AF68E8;
+    *&v528 = a1;
+    *(&v528 + 1) = v468;
+    *&v529 = v471;
+    *(&v529 + 1) = v286;
+    *&v530 = v461;
+    objc_msgSend_addCompletedHandler_(a3, v328, v526);
   }
 
-  v510 = MPSDevice::GetSampler();
-  objc_msgSend_setSamplerState_atIndex_(a2, v511, v510, 1, v512, v513);
-  *v710 = v469;
-  *&v710[8] = v466;
-  *&v710[16] = 1;
-  v759.i64[0] = v463;
-  v759.i64[1] = v468;
-  *&v760 = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v514, v710, &v759, v515, v516);
-LABEL_440:
-  v517 = *MEMORY[0x277D85DE8];
+  v329 = MPSDevice::GetSampler();
+  objc_msgSend_setSamplerState_atIndex_(a2, v330, v329, 1);
+  *v486 = v304;
+  *&v486[8] = v301;
+  *&v486[16] = 1;
+  v535.i64[0] = v298;
+  v535.i64[1] = v303;
+  *&v536 = 1;
+  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(a2, v331, v486, &v535);
   return 0;
 }

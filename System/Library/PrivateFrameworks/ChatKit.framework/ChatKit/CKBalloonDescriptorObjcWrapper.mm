@@ -33,7 +33,7 @@
   v34 = var14;
   v35 = var15;
   v36 = var16;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD58BA8);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD58BA8, &unk_190DE3950);
   MEMORY[0x1EEE9AC00](v16 - 8);
   v18 = &v22 - v17;
   collectionCopy = collection;

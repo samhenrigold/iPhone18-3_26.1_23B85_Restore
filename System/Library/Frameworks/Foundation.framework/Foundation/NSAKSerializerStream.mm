@@ -145,7 +145,7 @@ LABEL_7:
 - (BOOL)writeToPath:(id)path safely:(BOOL)safely
 {
   safelyCopy = safely;
-  if ([path isEqualToString:&stru_1EEEFDF90])
+  if (objc_msgSend_isEqualToString_(path, a2, &stru_1EEEFDF90))
   {
     return 0;
   }

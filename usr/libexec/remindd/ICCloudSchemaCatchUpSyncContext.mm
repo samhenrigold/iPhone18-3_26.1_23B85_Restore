@@ -33,7 +33,7 @@
     storeController = [contextCopy storeController];
     [(ICCloudSchemaCatchUpSyncContext *)v15 _computeShouldPerformCloudSchemaCatchUpSyncFrom:storageCopy storeController:storeController];
 
-    v19 = +[REMLog cloudkit];
+    v19 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       v20 = [(ICCloudSchemaCatchUpSyncContext *)v15 description];
@@ -62,7 +62,7 @@
   supportsCloudSchemaCatchUpSyncBackgroundScheduling = [controllerCopy supportsCloudSchemaCatchUpSyncBackgroundScheduling];
   debugForceSupportBackgroundScheduling = [fromCopy debugForceSupportBackgroundScheduling];
   schedulingState = [fromCopy schedulingState];
-  v13 = +[REMLog cloudkit];
+  v13 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     syncReason2 = [(ICCloudSchemaCatchUpSyncContext *)self syncReason];
@@ -87,7 +87,7 @@ LABEL_11:
 
   if (schedulingState >= 3)
   {
-    v16 = +[REMLog cloudkit];
+    v16 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       sub_1007668E0(schedulingState, v16);

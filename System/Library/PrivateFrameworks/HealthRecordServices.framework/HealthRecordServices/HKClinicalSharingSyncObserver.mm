@@ -133,7 +133,7 @@ void __54__HKClinicalSharingSyncObserver_resumeWithCompletion___block_invoke_2_3
 
 - (void)client_syncDidFinishWithError:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2C0];
@@ -144,9 +144,9 @@ void __54__HKClinicalSharingSyncObserver_resumeWithCompletion___block_invoke_2_3
     {
       v7 = v5;
       *buf = 138412546;
-      v17 = objc_opt_class();
-      v18 = 2114;
-      v19 = errorCopy;
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = errorCopy;
       v8 = "%@: sync failed: %{public}@";
       v9 = v7;
       v10 = 22;
@@ -159,7 +159,7 @@ LABEL_6:
   {
     v7 = v5;
     *buf = 138412290;
-    v17 = objc_opt_class();
+    v16 = objc_opt_class();
     v8 = "%@: sync finished";
     v9 = v7;
     v10 = 12;
@@ -169,17 +169,15 @@ LABEL_6:
   os_unfair_lock_lock(&self->_lock);
   self->_didSyncStart = 0;
   delegateQueue = self->_delegateQueue;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __63__HKClinicalSharingSyncObserver_client_syncDidFinishWithError___block_invoke;
-  v14[3] = &unk_2796DD068;
-  v14[4] = self;
-  v15 = errorCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __63__HKClinicalSharingSyncObserver_client_syncDidFinishWithError___block_invoke;
+  v13[3] = &unk_2796DD068;
+  v13[4] = self;
+  v14 = errorCopy;
   v12 = errorCopy;
-  dispatch_async(delegateQueue, v14);
+  dispatch_async(delegateQueue, v13);
   os_unfair_lock_unlock(&self->_lock);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HKClinicalSharingSyncObserver_client_syncDidFinishWithError___block_invoke(uint64_t a1)
@@ -190,7 +188,7 @@ void __63__HKClinicalSharingSyncObserver_client_syncDidFinishWithError___block_i
 
 - (void)client_syncDidStartWithInfo:(id)info
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2C0];
@@ -198,26 +196,24 @@ void __63__HKClinicalSharingSyncObserver_client_syncDidFinishWithError___block_i
   {
     v6 = v5;
     *buf = 138412546;
-    v13 = objc_opt_class();
-    v14 = 2114;
-    v15 = infoCopy;
+    v12 = objc_opt_class();
+    v13 = 2114;
+    v14 = infoCopy;
     _os_log_impl(&dword_2519FE000, v6, OS_LOG_TYPE_DEFAULT, "%@: sync did start: %{public}@", buf, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_lock);
   self->_didSyncStart = 1;
   delegateQueue = self->_delegateQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __61__HKClinicalSharingSyncObserver_client_syncDidStartWithInfo___block_invoke;
-  v10[3] = &unk_2796DD068;
-  v10[4] = self;
-  v11 = infoCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __61__HKClinicalSharingSyncObserver_client_syncDidStartWithInfo___block_invoke;
+  v9[3] = &unk_2796DD068;
+  v9[4] = self;
+  v10 = infoCopy;
   v8 = infoCopy;
-  dispatch_async(delegateQueue, v10);
+  dispatch_async(delegateQueue, v9);
   os_unfair_lock_unlock(&self->_lock);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HKClinicalSharingSyncObserver_client_syncDidStartWithInfo___block_invoke(uint64_t a1)
@@ -266,16 +262,16 @@ void __54__HKClinicalSharingSyncObserver_connectionInterrupted__block_invoke(uin
 
 void __54__HKClinicalSharingSyncObserver_resumeWithCompletion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_2519FE000, a2, a3, "Failed to begin observing clinical sharing sync status: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_2519FE000, a2, a3, "Failed to begin observing clinical sharing sync status: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __54__HKClinicalSharingSyncObserver_resumeWithCompletion___block_invoke_2_311_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_2519FE000, a2, a3, "Failed to begin observing clinical sharing sync status after reconnection: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_2519FE000, a2, a3, "Failed to begin observing clinical sharing sync status after reconnection: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

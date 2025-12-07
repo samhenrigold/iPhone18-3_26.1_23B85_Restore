@@ -8,7 +8,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_85DF8();
+  sub_85DF8(selfCopy);
 }
 
 - (void)switchAction

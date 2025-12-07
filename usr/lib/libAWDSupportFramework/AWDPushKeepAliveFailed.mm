@@ -321,7 +321,6 @@ LABEL_13:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -341,7 +340,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  connectionType = self->_connectionType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -356,7 +354,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  linkQuality = self->_linkQuality;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -371,7 +368,6 @@ LABEL_7:
   }
 
 LABEL_17:
-  error = self->_error;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -386,7 +382,6 @@ LABEL_8:
   }
 
 LABEL_18:
-  dualChannelState = self->_dualChannelState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -401,7 +396,6 @@ LABEL_9:
   }
 
 LABEL_19:
-  keepAliveVersion = self->_keepAliveVersion;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -416,7 +410,6 @@ LABEL_10:
   }
 
 LABEL_20:
-  timeSinceLastSuccessfulKeepAlive = self->_timeSinceLastSuccessfulKeepAlive;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -428,7 +421,6 @@ LABEL_11:
     }
 
 LABEL_22:
-    timeSinceConnected = self->_timeSinceConnected;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -439,7 +431,6 @@ LABEL_22:
   }
 
 LABEL_21:
-  lastKeepAliveInterval = self->_lastKeepAliveInterval;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) != 0)
@@ -454,7 +445,6 @@ LABEL_12:
   }
 
 LABEL_23:
-  currentGrowthStage = self->_currentGrowthStage;
 
   PBDataWriterWriteUint32Field();
 }

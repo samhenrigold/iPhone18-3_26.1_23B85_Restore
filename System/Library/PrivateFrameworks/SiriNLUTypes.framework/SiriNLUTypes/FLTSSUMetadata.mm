@@ -44,7 +44,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__30__FLTSSUMetadata_flatbuffData__bl
 
 - (Offset<SSUMetadata>)addObjectToBuffer:(void *)buffer
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   data_version = [(FLTSSUMetadata *)self data_version];
   v4 = data_version;
   if (!data_version)
@@ -69,16 +69,11 @@ apple::aiml::flatbuffers2::DetachedBuffer *__30__FLTSSUMetadata_flatbuffData__bl
     std::vector<std::unique_ptr<siricommon::StringValue>>::__throw_length_error[abi:ne200100]();
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
+  memset(v32, 0, sizeof(v32));
   user_data2 = [(FLTSSUMetadata *)self user_data];
-  if ([user_data2 countByEnumeratingWithState:&v34 objects:v38 count:16])
+  if ([user_data2 countByEnumeratingWithState:v32 objects:v33 count:16])
   {
-    *v35;
-    *v35;
-    uTF8String2 = [**(&v34 + 1) UTF8String];
+    uTF8String2 = [**(&v32[0] + 1) UTF8String];
     v11 = strlen(uTF8String2);
     apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String2, v11);
     std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(1uLL);
@@ -136,9 +131,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__30__FLTSSUMetadata_flatbuffData__bl
   }
 
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(bufferCopy3, 10, v17);
-  v27.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v18 - v19 + v20);
-  v28 = *MEMORY[0x1E69E9840];
-  return v27;
+  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v18 - v19 + v20);
 }
 
 - (NSString)encoder_version

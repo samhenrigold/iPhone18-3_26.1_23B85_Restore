@@ -20,7 +20,7 @@
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   swift_unknownObjectWeakAssign();
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FBAAddAttachmentsController();
+  v7.super_class = type metadata accessor for FBAAddAttachmentsController(0);
   return [(FBAAddAttachmentsController *)&v7 init];
 }
 
@@ -28,18 +28,17 @@
 {
   v8 = type metadata accessor for IndexPath();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   senderCopy = sender;
   selfCopy = self;
-  v16 = sub_10004F504(controllerCopy, v12, sender);
+  v15 = sub_10004F504(controllerCopy, v11, sender);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 
-  return v16;
+  return v15;
 }
 
 - (id)menuForController:(id)controller
@@ -91,31 +90,30 @@
 - (id)tableView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
   v9 = sub_100041AA0(&qword_100109880, &qword_1000C2C98);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v19 - v11;
+  v11 = &v18 - v10;
   if (path)
   {
     static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-    v13 = type metadata accessor for IndexPath();
-    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
+    v12 = type metadata accessor for IndexPath();
+    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
   }
 
   else
   {
-    v14 = type metadata accessor for IndexPath();
-    (*(*(v14 - 8) + 56))(v12, 1, 1, v14);
+    v13 = type metadata accessor for IndexPath();
+    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
   }
 
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v17 = sub_100050A18(viewCopy, update, v12);
+  v16 = sub_100050A18(viewCopy, update, v11);
 
   swift_unknownObjectRelease();
-  sub_1000454C8(v12, &qword_100109880, &qword_1000C2C98);
+  sub_1000454C8(v11, &qword_100109880, &qword_1000C2C98);
 
-  return v17;
+  return v16;
 }
 
 - (void)getFilesFromFileProviderBeforeTheyDisappearWithCoordinator:(id)coordinator

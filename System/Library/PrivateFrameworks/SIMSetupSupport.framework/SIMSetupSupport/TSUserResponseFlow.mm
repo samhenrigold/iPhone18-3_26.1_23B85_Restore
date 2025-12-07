@@ -45,15 +45,15 @@
   {
     if (v6 == 1)
     {
-      v7 = _TSLogDomain();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = _TSLogDomain(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v16 = 136315138;
         v17 = "[TSUserResponseFlow firstViewController]";
-        _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "disable not allowed @%s", &v16, 0xCu);
+        _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "disable not allowed @%s", &v16, 0xCu);
       }
 
-      v8 = 3;
+      v9 = 3;
     }
 
     else
@@ -63,15 +63,15 @@
         goto LABEL_17;
       }
 
-      v7 = _TSLogDomain();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = _TSLogDomain(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v16 = 136315138;
         v17 = "[TSUserResponseFlow firstViewController]";
-        _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "delete not allowed @%s", &v16, 0xCu);
+        _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "delete not allowed @%s", &v16, 0xCu);
       }
 
-      v8 = 2;
+      v9 = 2;
     }
 
     goto LABEL_16;
@@ -82,47 +82,45 @@
     goto LABEL_17;
   }
 
-  v7 = _TSLogDomain();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _TSLogDomain(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 136315138;
     v17 = "[TSUserResponseFlow firstViewController]";
-    _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "Invalid consent - General install @%s", &v16, 0xCu);
+    _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "Invalid consent - General install @%s", &v16, 0xCu);
   }
 
-  v8 = 4;
+  v9 = 4;
 LABEL_16:
 
-  self->_userConsentType = v8;
+  self->_userConsentType = v9;
 LABEL_17:
   if (self->_confirmationCodeRequired)
   {
-    v9 = [[SSConfirmationCodeViewController alloc] initAsMidOperationWithCarrierName:0];
+    v10 = [[SSConfirmationCodeViewController alloc] initAsMidOperationWithCarrierName:0];
   }
 
   else
   {
-    v9 = [[TSUserConsentViewController alloc] initWithConsentType:self->_userConsentType name:0];
+    v10 = [[TSUserConsentViewController alloc] initWithConsentType:self->_userConsentType name:0];
   }
 
-  v10 = v9;
-  [(TSUserConsentViewController *)v9 setDelegate:self];
-  v11 = _TSLogDomain();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v11 = v10;
+  v12 = _TSLogDomain([(TSUserConsentViewController *)v10 setDelegate:self]);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = objc_opt_class();
+    v13 = objc_opt_class();
     v16 = 138412546;
-    v17 = v12;
+    v17 = v13;
     v18 = 2080;
     v19 = "[TSUserResponseFlow firstViewController]";
-    v13 = v12;
-    _os_log_impl(&dword_262AA8000, v11, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", &v16, 0x16u);
+    v14 = v13;
+    _os_log_impl(&dword_262AA8000, v12, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", &v16, 0x16u);
   }
 
-  [(TSSIMSetupFlow *)self setTopViewController:v10];
-  v14 = *MEMORY[0x277D85DE8];
+  [(TSSIMSetupFlow *)self setTopViewController:v11];
 
-  return v10;
+  return v11;
 }
 
 - (void)firstViewController:(id)controller

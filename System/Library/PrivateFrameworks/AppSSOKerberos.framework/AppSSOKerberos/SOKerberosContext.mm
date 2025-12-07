@@ -21,9 +21,9 @@
 {
   requestCopy = request;
   dataCopy = data;
-  v61.receiver = self;
-  v61.super_class = SOKerberosContext;
-  v9 = [(SOKerberosContext *)&v61 init];
+  v65.receiver = self;
+  v65.super_class = SOKerberosContext;
+  v9 = [(SOKerberosContext *)&v65 init];
   v10 = v9;
   if (v9)
   {
@@ -108,8 +108,8 @@
 
       if (userPrincipalName)
       {
-        v46 = SO_LOG_SOKerberosContext();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+        v47 = SO_LOG_SOKerberosContext(v46);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
         {
           [SOKerberosContext initWithRequest:? extensionData:?];
         }
@@ -131,30 +131,31 @@
 
         if (principalName)
         {
-          v52 = SO_LOG_SOKerberosContext();
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+          v54 = SO_LOG_SOKerberosContext(v53);
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
           {
             [SOKerberosContext initWithRequest:dataCopy extensionData:?];
           }
 
           principalName2 = [dataCopy principalName];
-          v54 = v10->_userName;
+          v56 = v10->_userName;
           v10->_userName = principalName2;
         }
 
         else
         {
           httpHeaders = [requestCopy httpHeaders];
-          v56 = [httpHeaders objectForKey:@"user_name"];
-          if (v56)
+          v58 = [httpHeaders objectForKey:@"user_name"];
+          v59 = v58;
+          if (v58)
           {
-            v57 = SO_LOG_SOKerberosContext();
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
+            v60 = SO_LOG_SOKerberosContext(v58);
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
             {
               [SOKerberosContext initWithRequest:extensionData:];
             }
 
-            objc_storeStrong(&v10->_userName, v56);
+            objc_storeStrong(&v10->_userName, v59);
             v10->_userNameIsReadOnly = 1;
           }
         }
@@ -164,10 +165,10 @@
 
       if (principalName3)
       {
-        v59 = SO_LOG_SOKerberosContext();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+        v63 = SO_LOG_SOKerberosContext(v62);
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
         {
-          [SOKerberosContext initWithRequest:v59 extensionData:?];
+          [SOKerberosContext initWithRequest:v63 extensionData:?];
         }
 
         v10->_userNameIsReadOnly = 1;
@@ -261,31 +262,93 @@ LABEL_18:
 
 - (void)startRequest
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "*************** request already started: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = SO_LOG_SOKerberosContext(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [SOKerberosContext startRequest];
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  requestStarted = [(SOKerberosContext *)selfCopy requestStarted];
+  if (requestStarted)
+  {
+    dispatchGroup = SO_LOG_SOKerberosContext(requestStarted);
+    if (os_log_type_enabled(dispatchGroup, OS_LOG_TYPE_DEBUG))
+    {
+      [SOKerberosContext startRequest];
+    }
+  }
+
+  else
+  {
+    [(SOKerberosContext *)selfCopy setRequestStarted:1];
+    dispatchGroup = [(SOKerberosContext *)selfCopy dispatchGroup];
+    dispatch_group_enter(dispatchGroup);
+  }
+
+  objc_sync_exit(selfCopy);
 }
 
 - (void)finishRequest
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "*************** request already finished: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = SO_LOG_SOKerberosContext(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [SOKerberosContext finishRequest];
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  requestStarted = [(SOKerberosContext *)selfCopy requestStarted];
+  if (requestStarted)
+  {
+    [(SOKerberosContext *)selfCopy setRequestStarted:0];
+    dispatchGroup = [(SOKerberosContext *)selfCopy dispatchGroup];
+    dispatch_group_leave(dispatchGroup);
+  }
+
+  else
+  {
+    dispatchGroup = SO_LOG_SOKerberosContext(requestStarted);
+    if (os_log_type_enabled(dispatchGroup, OS_LOG_TYPE_DEBUG))
+    {
+      [SOKerberosContext finishRequest];
+    }
+  }
+
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter postNotificationName:@"com.apple.KerberosExtension.requestFinished" object:selfCopy];
+
+  objc_sync_exit(selfCopy);
 }
 
 - (void)waitForCompletion
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "*************** waitForCompletion Finished: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = SO_LOG_SOKerberosContext(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [SOKerberosContext waitForCompletion];
+  }
+
+  requestStarted = [(SOKerberosContext *)self requestStarted];
+  if (requestStarted)
+  {
+    dispatchGroup = [(SOKerberosContext *)self dispatchGroup];
+    v6 = dispatch_time(0xFFFFFFFFFFFFFFFFLL, 0);
+    dispatch_group_wait(dispatchGroup, v6);
+  }
+
+  v7 = SO_LOG_SOKerberosContext(requestStarted);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    [SOKerberosContext waitForCompletion];
+  }
 }
 
 - (void)cancelRequest:(BOOL)request
 {
-  v4 = SO_LOG_SOKerberosContext();
+  v4 = SO_LOG_SOKerberosContext(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosContext cancelRequest:];
@@ -299,16 +362,21 @@ LABEL_18:
 
 - (void)completeRequest
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "*************** completeRequest: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = SO_LOG_SOKerberosContext(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [SOKerberosContext completeRequest];
+  }
+
+  [(SOKerberosContext *)self finishRequest];
+  authorizationRequest = [(SOKerberosContext *)self authorizationRequest];
+  [authorizationRequest complete];
 }
 
 - (void)completeRequestWithHeaders:(id)headers
 {
   headersCopy = headers;
-  v5 = SO_LOG_SOKerberosContext();
+  v5 = SO_LOG_SOKerberosContext(headersCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosContext completeRequestWithHeaders:];
@@ -322,7 +390,7 @@ LABEL_18:
 - (void)completeRequestWithHTTPResponseHeaders:(id)headers
 {
   headersCopy = headers;
-  v5 = SO_LOG_SOKerberosContext();
+  v5 = SO_LOG_SOKerberosContext(headersCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosContext completeRequestWithHTTPResponseHeaders:];
@@ -341,7 +409,7 @@ LABEL_18:
 {
   bodyCopy = body;
   responseCopy = response;
-  v8 = SO_LOG_SOKerberosContext();
+  v8 = SO_LOG_SOKerberosContext(responseCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosContext completeRequestWithHTTPResponse:httpBody:];
@@ -355,7 +423,7 @@ LABEL_18:
 - (void)completeRequestWithError:(id)error
 {
   errorCopy = error;
-  v5 = SO_LOG_SOKerberosContext();
+  v5 = SO_LOG_SOKerberosContext(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosContext completeRequestWithError:];
@@ -368,17 +436,22 @@ LABEL_18:
 
 - (void)completeRequestWithDoNotHandle
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "completeRequestWithDoNotHandle: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = SO_LOG_SOKerberosContext(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [SOKerberosContext completeRequestWithDoNotHandle];
+  }
+
+  [(SOKerberosContext *)self finishRequest];
+  authorizationRequest = [(SOKerberosContext *)self authorizationRequest];
+  [authorizationRequest doNotHandle];
 }
 
 - (void)presentAuthorizationViewControllerWithCompletion:(id)completion
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = SO_LOG_SOKerberosContext();
+  v5 = SO_LOG_SOKerberosContext(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosContext presentAuthorizationViewControllerWithCompletion:];
@@ -386,88 +459,24 @@ LABEL_18:
 
   authorizationRequest = [(SOKerberosContext *)self authorizationRequest];
   v6AuthorizationRequest = [authorizationRequest authorizationRequest];
-  v10 = &unk_28520B9A0;
-  v11[0] = &unk_28520B9A0;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = &unk_28520B9A0;
+  v10[0] = &unk_28520B9A0;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [v6AuthorizationRequest presentAuthorizationViewControllerWithHints:v8 completion:completionCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithRequest:(id *)a1 extensionData:.cold.1(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*a1 userPrincipalName];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_24006C000, v2, v3, "user principal name is set in saved settings: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_24006C000, v2, v3, "user principal name is set in saved settings: %@", v4, v5, v6, v7);
 }
 
 - (void)initWithRequest:(void *)a1 extensionData:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 principalName];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_24006C000, v2, v3, "user name is set in extensiondata: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithRequest:extensionData:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "user principal name is set in request: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)cancelRequest:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "*************** canceling request: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)completeRequestWithHeaders:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "*************** completeRequestWithHeaders: %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)completeRequestWithHTTPResponseHeaders:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "*************** completeRequesWithHTTPBody: %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)completeRequestWithHTTPResponse:httpBody:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "*************** completeRequesWithHTTPResponse: %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)completeRequestWithError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "*************** completeRequestWithError: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)presentAuthorizationViewControllerWithCompletion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "*************** presentAuthorizationViewControllerWithCompletion: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_24006C000, v2, v3, "user name is set in extensiondata: %@", v4, v5, v6, v7);
 }
 
 @end

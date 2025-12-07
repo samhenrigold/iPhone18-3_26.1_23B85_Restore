@@ -78,7 +78,7 @@
 
 + (id)_hashOfString:(id)string
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = [string cStringUsingEncoding:4];
   v4 = strlen(v3);
   CC_SHA1(v3, v4, md);
@@ -87,8 +87,6 @@
   {
     [v5 appendFormat:@"%02x", md[i]];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -270,11 +268,10 @@ LABEL_34:
 
 - (void)initWithIdentifier:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "BMAccount passed invalid identifier %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "BMAccount passed invalid identifier %@", &v2, 0xCu);
 }
 
 @end

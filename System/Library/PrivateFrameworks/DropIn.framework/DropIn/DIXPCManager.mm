@@ -43,7 +43,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_249DC07E8();
+  sub_249DC07E8(delegate);
 }
 
 - (DIXPCManager)initWithClientContext:(id)context dispatcher:(id)dispatcher clientQueue:(id)queue

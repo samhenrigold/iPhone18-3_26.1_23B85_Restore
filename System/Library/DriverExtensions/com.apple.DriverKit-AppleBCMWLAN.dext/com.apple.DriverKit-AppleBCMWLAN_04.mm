@@ -1,4 +1,4 @@
-uint64_t AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handleNANEventDataPathEnd(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 20);
   if (v3 <= 3)
@@ -9,7 +9,180 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication(uint64_
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication(a1);
+        AppleBCMWLANNANInterface::handleNANEventDataPathEnd();
+      }
+
+      return v4;
+    }
+
+    return 1;
+  }
+
+  v5 = a2 + 48;
+  v6 = v3 - 1 + a2 + 48;
+  v7 = __CFADD__(v3 - 1, a2 + 48);
+  if (*(a2 + 48) == 1282)
+  {
+    v8 = *(a2 + 50);
+    if (v8 < 0x24 || v8 + 4 > v3)
+    {
+      if (!(*(*a1 + 1088))(a1))
+      {
+        return 1;
+      }
+
+      (*(*a1 + 1088))(a1);
+      v4 = 1;
+      if (CCLogStream::shouldLog())
+      {
+        AppleBCMWLANNANInterface::handleNANEventDataPathEnd();
+      }
+    }
+
+    else
+    {
+      if (!v7)
+      {
+        v11 = a2 + 52;
+        if (a2 + 87 >= v5 && (a2 + 52) < 0xFFFFFFFFFFFFFFDDLL && a2 + 87 <= v6 && v5 <= v11 && v6 >= v11)
+        {
+          AppleBCMWLANNANInterface::postEventNANDataPathEnd(a1, a2 + 52, *(a2 + 74));
+          return 0;
+        }
+      }
+
+      if (!(*(*a1 + 1088))(a1))
+      {
+        return 1;
+      }
+
+      (*(*a1 + 1088))(a1);
+      v4 = 1;
+      if (CCLogStream::shouldLog())
+      {
+        AppleBCMWLANNANInterface::handleNANEventDataPathEnd();
+      }
+    }
+  }
+
+  else
+  {
+    if (!(*(*a1 + 1088))(a1))
+    {
+      return 1;
+    }
+
+    (*(*a1 + 1088))(a1);
+    v4 = 1;
+    if (CCLogStream::shouldLog())
+    {
+      AppleBCMWLANNANInterface::handleNANEventDataPathEnd();
+    }
+  }
+
+  return v4;
+}
+
+uint64_t AppleBCMWLANNANInterface::handleNANEventRangeRequestIndication(IO80211SkywalkInterface *a1, uint64_t a2)
+{
+  v3 = *(a2 + 20);
+  if (v3 <= 3)
+  {
+    if ((*(*a1 + 1088))(a1))
+    {
+      (*(*a1 + 1088))(a1);
+      v4 = 1;
+      if (CCLogStream::shouldLog())
+      {
+        AppleBCMWLANNANInterface::handleNANEventRangeRequestIndication();
+      }
+
+      return v4;
+    }
+
+    return 1;
+  }
+
+  v5 = a2 + 48;
+  v6 = v3 - 1 + a2 + 48;
+  v7 = __CFADD__(v3 - 1, a2 + 48);
+  if (*(a2 + 48) == 1793)
+  {
+    v8 = *(a2 + 50);
+    if (v8 < 0x10 || v8 + 4 > v3)
+    {
+      if (!(*(*a1 + 1088))(a1))
+      {
+        return 1;
+      }
+
+      (*(*a1 + 1088))(a1);
+      v4 = 1;
+      if (CCLogStream::shouldLog())
+      {
+        AppleBCMWLANNANInterface::handleNANEventRangeRequestIndication();
+      }
+    }
+
+    else
+    {
+      if (!v7)
+      {
+        v11 = (a2 + 52);
+        if (a2 + 67 >= v5 && (a2 + 52) < 0xFFFFFFFFFFFFFFF1 && a2 + 67 <= v6 && v5 <= v11 && v6 >= v11)
+        {
+          v12 = *(a2 + 58);
+          v13 = *v11;
+          v14 = *(a2 + 56);
+          IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x6Cu, &v12, 7uLL, 1);
+          return 0;
+        }
+      }
+
+      if (!(*(*a1 + 1088))(a1))
+      {
+        return 1;
+      }
+
+      (*(*a1 + 1088))(a1);
+      v4 = 1;
+      if (CCLogStream::shouldLog())
+      {
+        AppleBCMWLANNANInterface::handleNANEventRangeRequestIndication();
+      }
+    }
+  }
+
+  else
+  {
+    if (!(*(*a1 + 1088))(a1))
+    {
+      return 1;
+    }
+
+    (*(*a1 + 1088))(a1);
+    v4 = 1;
+    if (CCLogStream::shouldLog())
+    {
+      AppleBCMWLANNANInterface::handleNANEventRangeRequestIndication();
+    }
+  }
+
+  return v4;
+}
+
+uint64_t AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication(IO80211SkywalkInterface *a1, uint64_t a2)
+{
+  v3 = *(a2 + 20);
+  if (v3 <= 3)
+  {
+    if ((*(*a1 + 1088))(a1))
+    {
+      (*(*a1 + 1088))(a1);
+      v4 = 1;
+      if (CCLogStream::shouldLog())
+      {
+        AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication();
       }
 
       return v4;
@@ -35,7 +208,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication(uint64_
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication(a1);
+        AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication();
       }
     }
 
@@ -50,7 +223,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication(uint64_
           v12[1] = *(a2 + 58);
           v13 = *v11;
           v14 = *(a2 + 56);
-          IO80211Controller::postMessage(*(a1[17] + 64), a1, 0x6Du, v12, 8uLL, 1);
+          IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x6Du, v12, 8uLL, 1);
           return 0;
         }
       }
@@ -64,7 +237,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication(uint64_
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication(a1);
+        AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication();
       }
     }
   }
@@ -80,14 +253,14 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication(uint64_
     v4 = 1;
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication(a1);
+      AppleBCMWLANNANInterface::handleNANEventRangeResponseIndication();
     }
   }
 
   return v4;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleNANEventRangeReportIndication(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handleNANEventRangeReportIndication(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 20);
   if (v3 <= 3)
@@ -98,7 +271,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeReportIndication(uint64_t 
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventRangeReportIndication(a1);
+        AppleBCMWLANNANInterface::handleNANEventRangeReportIndication();
       }
 
       return v4;
@@ -124,7 +297,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeReportIndication(uint64_t 
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventRangeReportIndication(a1);
+        AppleBCMWLANNANInterface::handleNANEventRangeReportIndication();
       }
     }
 
@@ -143,7 +316,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeReportIndication(uint64_t 
           *&v14[7] = v12;
           v15 = 0;
           LOWORD(v15) = *(a2 + 62);
-          IO80211Controller::postMessage(*(a1[17] + 64), a1, 0x6Eu, &v13, 0x10uLL, 1);
+          IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x6Eu, &v13, 0x10uLL, 1);
           return 0;
         }
       }
@@ -157,7 +330,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeReportIndication(uint64_t 
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventRangeReportIndication(a1);
+        AppleBCMWLANNANInterface::handleNANEventRangeReportIndication();
       }
     }
   }
@@ -173,14 +346,14 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeReportIndication(uint64_t 
     v4 = 1;
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::handleNANEventRangeReportIndication(a1);
+      AppleBCMWLANNANInterface::handleNANEventRangeReportIndication();
     }
   }
 
   return v4;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 20);
   if (v3 <= 3)
@@ -191,7 +364,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication(uint64
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication(a1);
+        AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication();
       }
 
       return v4;
@@ -217,7 +390,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication(uint64
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication(a1);
+        AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication();
       }
     }
 
@@ -233,7 +406,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication(uint64
           *v14 = *(a2 + 56);
           v12 = *(a2 + 59);
           v15 = *(a2 + 58);
-          IO80211Controller::postMessage(*(a1[17] + 64), a1, 0x6Fu, &v12, 0xAuLL, 1);
+          IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x6Fu, &v12, 0xAuLL, 1);
           return 0;
         }
       }
@@ -247,7 +420,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication(uint64
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication(a1);
+        AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication();
       }
     }
   }
@@ -263,14 +436,14 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication(uint64
     v4 = 1;
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication(a1);
+      AppleBCMWLANNANInterface::handleNANEventRangeTerminateIndication();
     }
   }
 
   return v4;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleNANEventDWStart(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handleNANEventDWStart(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 20);
   if (v3 <= 3)
@@ -281,7 +454,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventDWStart(uint64_t *a1, uint64_t 
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventDWStart(a1);
+        AppleBCMWLANNANInterface::handleNANEventDWStart();
       }
 
       return v4;
@@ -307,7 +480,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventDWStart(uint64_t *a1, uint64_t 
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventDWStart(a1);
+        AppleBCMWLANNANInterface::handleNANEventDWStart();
       }
     }
 
@@ -322,7 +495,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventDWStart(uint64_t *a1, uint64_t 
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventDWStart(a1);
+        AppleBCMWLANNANInterface::handleNANEventDWStart();
       }
     }
 
@@ -343,7 +516,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventDWStart(uint64_t *a1, uint64_t 
           v4 = 1;
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::handleNANEventDWStart(a1);
+            AppleBCMWLANNANInterface::handleNANEventDWStart();
           }
 
           return v4;
@@ -380,7 +553,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventDWStart(uint64_t *a1, uint64_t 
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventDWStart(a1);
+        AppleBCMWLANNANInterface::handleNANEventDWStart();
       }
     }
 
@@ -401,7 +574,7 @@ LABEL_47:
         WORD2(v24) = *(v18 + 23);
       }
 
-      IO80211Controller::postMessage(*(a1[17] + 64), a1, 0x7Au, v22, 0x48uLL, 1);
+      IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x7Au, v22, 0x48uLL, 1);
       return 0;
     }
   }
@@ -417,14 +590,14 @@ LABEL_47:
     v4 = 1;
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::handleNANEventDWStart(a1);
+      AppleBCMWLANNANInterface::handleNANEventDWStart();
     }
   }
 
   return v4;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleNANEventDWEnd(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handleNANEventDWEnd(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 20);
   if (v3 <= 3)
@@ -435,7 +608,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventDWEnd(uint64_t *a1, uint64_t a2
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventDWEnd(a1);
+        AppleBCMWLANNANInterface::handleNANEventDWEnd();
       }
 
       return v4;
@@ -461,7 +634,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventDWEnd(uint64_t *a1, uint64_t a2
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventDWEnd(a1);
+        AppleBCMWLANNANInterface::handleNANEventDWEnd();
       }
     }
 
@@ -476,7 +649,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventDWEnd(uint64_t *a1, uint64_t a2
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventDWEnd(a1);
+        AppleBCMWLANNANInterface::handleNANEventDWEnd();
       }
     }
 
@@ -497,7 +670,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventDWEnd(uint64_t *a1, uint64_t a2
           v4 = 1;
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::handleNANEventDWEnd(a1);
+            AppleBCMWLANNANInterface::handleNANEventDWEnd();
           }
 
           return v4;
@@ -534,7 +707,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventDWEnd(uint64_t *a1, uint64_t a2
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventDWEnd(a1);
+        AppleBCMWLANNANInterface::handleNANEventDWEnd();
       }
     }
 
@@ -555,7 +728,7 @@ LABEL_47:
         WORD2(v24) = *(v18 + 23);
       }
 
-      IO80211Controller::postMessage(*(a1[17] + 64), a1, 0x7Bu, v22, 0x48uLL, 1);
+      IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x7Bu, v22, 0x48uLL, 1);
       return 0;
     }
   }
@@ -571,14 +744,14 @@ LABEL_47:
     v4 = 1;
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::handleNANEventDWEnd(a1);
+      AppleBCMWLANNANInterface::handleNANEventDWEnd();
     }
   }
 
   return v4;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleNANEventChanBoundary(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handleNANEventChanBoundary(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   bzero(v57, 0x300uLL);
   v4 = *(a2 + 20);
@@ -590,7 +763,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventChanBoundary(uint64_t *a1, uint
       v5 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventChanBoundary(a1);
+        AppleBCMWLANNANInterface::handleNANEventChanBoundary();
       }
 
       return v5;
@@ -610,7 +783,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventChanBoundary(uint64_t *a1, uint
       v5 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventChanBoundary(a1);
+        AppleBCMWLANNANInterface::handleNANEventChanBoundary();
       }
 
       return v5;
@@ -628,7 +801,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventChanBoundary(uint64_t *a1, uint
       v5 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventChanBoundary(a1);
+        AppleBCMWLANNANInterface::handleNANEventChanBoundary();
       }
 
       return v5;
@@ -645,7 +818,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventChanBoundary(uint64_t *a1, uint
       v5 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventChanBoundary(a1);
+        AppleBCMWLANNANInterface::handleNANEventChanBoundary();
       }
 
       return v5;
@@ -661,13 +834,13 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventChanBoundary(uint64_t *a1, uint
     v12 = 0;
     v11 = 0;
 LABEL_88:
-    ChanSpecHandler = AppleBCMWLANCore::getChanSpecHandler(*(a1[17] + 64));
+    ChanSpecHandler = AppleBCMWLANCore::getChanSpecHandler(*(*(a1 + 17) + 64));
     AppleBCMWLANChanSpec::getAppleChannelSpec(ChanSpecHandler, *(a2 + 60));
     ChanSpecConvToApple80211Channel();
     v58 = *(a2 + 52);
     if (v11)
     {
-      v46 = AppleBCMWLANCore::getChanSpecHandler(*(a1[17] + 64));
+      v46 = AppleBCMWLANCore::getChanSpecHandler(*(*(a1 + 17) + 64));
       AppleBCMWLANChanSpec::getAppleChannelSpec(v46, *v11);
       ChanSpecConvToApple80211Channel();
       v59 = *(v11 + 1);
@@ -695,7 +868,7 @@ LABEL_88:
       v67 = *(v12 + 16);
     }
 
-    IO80211Controller::postMessage(*(a1[17] + 64), a1, 0x7Cu, v57, 0x300uLL, 1);
+    IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x7Cu, v57, 0x300uLL, 1);
     return 0;
   }
 
@@ -721,7 +894,7 @@ LABEL_88:
       v5 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventChanBoundary(a1);
+        AppleBCMWLANNANInterface::handleNANEventChanBoundary();
       }
 
       return v5;
@@ -744,7 +917,7 @@ LABEL_88:
           v5 = 1;
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::handleNANEventChanBoundary(a1);
+            AppleBCMWLANNANInterface::handleNANEventChanBoundary();
           }
 
           return v5;
@@ -765,7 +938,7 @@ LABEL_88:
           v5 = 1;
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::handleNANEventChanBoundary(a1);
+            AppleBCMWLANNANInterface::handleNANEventChanBoundary();
           }
 
           return v5;
@@ -794,7 +967,7 @@ LABEL_88:
         v5 = 1;
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::handleNANEventChanBoundary(a1);
+          AppleBCMWLANNANInterface::handleNANEventChanBoundary();
         }
 
         return v5;
@@ -853,7 +1026,7 @@ LABEL_79:
         v5 = 1;
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::handleNANEventChanBoundary(a1);
+          AppleBCMWLANNANInterface::handleNANEventChanBoundary();
         }
 
         return v5;
@@ -927,13 +1100,13 @@ LABEL_85:
   v5 = 1;
   if (CCLogStream::shouldLog())
   {
-    AppleBCMWLANNANInterface::handleNANEventChanBoundary(a1);
+    AppleBCMWLANNANInterface::handleNANEventChanBoundary();
   }
 
   return v5;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleEventNANMasterChanged(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handleEventNANMasterChanged(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 20);
   if (v3 <= 3)
@@ -944,7 +1117,7 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANMasterChanged(uint64_t *a1, uin
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleEventNANMasterChanged(a1);
+        AppleBCMWLANNANInterface::handleEventNANMasterChanged();
       }
 
       return v4;
@@ -970,7 +1143,7 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANMasterChanged(uint64_t *a1, uin
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleEventNANMasterChanged(a1);
+        AppleBCMWLANNANInterface::handleEventNANMasterChanged();
       }
     }
 
@@ -985,7 +1158,7 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANMasterChanged(uint64_t *a1, uin
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleEventNANMasterChanged(a1);
+        AppleBCMWLANNANInterface::handleEventNANMasterChanged();
       }
     }
 
@@ -1046,14 +1219,14 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANMasterChanged(uint64_t *a1, uin
         v4 = 1;
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::handleEventNANMasterChanged(a1);
+          AppleBCMWLANNANInterface::handleEventNANMasterChanged();
         }
       }
 
       else
       {
 LABEL_52:
-        IO80211Controller::postMessage(*(a1[17] + 64), a1, 0x60u, v22, 0x34uLL, 1);
+        IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x60u, v22, 0x34uLL, 1);
         return 0;
       }
     }
@@ -1070,14 +1243,14 @@ LABEL_52:
     v4 = 1;
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::handleEventNANMasterChanged(a1);
+      AppleBCMWLANNANInterface::handleEventNANMasterChanged();
     }
   }
 
   return v4;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleEventNANHostAssistRequest(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handleEventNANHostAssistRequest(AppleBCMWLANNANInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 20);
   if (v3 <= 3)
@@ -1088,7 +1261,7 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANHostAssistRequest(uint64_t *a1,
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleEventNANHostAssistRequest(a1);
+        AppleBCMWLANNANInterface::handleEventNANHostAssistRequest();
       }
 
       return v4;
@@ -1114,7 +1287,7 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANHostAssistRequest(uint64_t *a1,
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleEventNANHostAssistRequest(a1);
+        AppleBCMWLANNANInterface::handleEventNANHostAssistRequest();
       }
     }
 
@@ -1134,7 +1307,7 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANHostAssistRequest(uint64_t *a1,
           LOWORD(v17) = *(a2 + 56);
           AppleBCMWLANNANInterface::convertNANFWFrameType(a1, *(a2 + 65), &v17 + 2, &v17 + 3);
           AppleBCMWLANNANInterface::convertNANFWHostAssistReason(a1, *(a2 + 66), &v17 + 1);
-          IO80211Controller::postMessage(*(a1[17] + 64), a1, 0x81u, v13, 0x14uLL, 1);
+          IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x81u, v13, 0x14uLL, 1);
           return 0;
         }
       }
@@ -1148,7 +1321,7 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANHostAssistRequest(uint64_t *a1,
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleEventNANHostAssistRequest(a1);
+        AppleBCMWLANNANInterface::handleEventNANHostAssistRequest();
       }
     }
   }
@@ -1164,14 +1337,14 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANHostAssistRequest(uint64_t *a1,
     v4 = 1;
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::handleEventNANHostAssistRequest(a1);
+      AppleBCMWLANNANInterface::handleEventNANHostAssistRequest();
     }
   }
 
   return v4;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 20);
   if (v3 <= 3)
@@ -1182,7 +1355,7 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate(uint64_t *a1
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate(a1);
+        AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate();
       }
 
       return v4;
@@ -1208,7 +1381,7 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate(uint64_t *a1
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate(a1);
+        AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate();
       }
     }
 
@@ -1274,7 +1447,7 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate(uint64_t *a1
             v4 = 1;
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate(a1);
+              AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate();
             }
 
             return v4;
@@ -1311,7 +1484,7 @@ LABEL_53:
               v4 = 1;
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate(a1);
+                AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate();
               }
 
               goto LABEL_103;
@@ -1345,7 +1518,7 @@ LABEL_53:
                 v4 = 1;
                 if (CCLogStream::shouldLog())
                 {
-                  AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate(a1);
+                  AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate();
                 }
 
                 goto LABEL_103;
@@ -1361,7 +1534,7 @@ LABEL_53:
               {
                 memcpy(v31, v35, v30);
 LABEL_58:
-                IO80211Controller::postMessage(*(a1[17] + 64), a1, 0x82u, v23, v21, 1);
+                IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x82u, v23, v21, 1);
                 v4 = 0;
 LABEL_103:
                 IOFreeData();
@@ -1374,7 +1547,7 @@ LABEL_103:
                 v4 = 1;
                 if (CCLogStream::shouldLog())
                 {
-                  AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate(a1);
+                  AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate();
                 }
 
                 goto LABEL_103;
@@ -1396,7 +1569,7 @@ LABEL_103:
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate(a1);
+        AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate();
       }
     }
   }
@@ -1412,14 +1585,14 @@ LABEL_103:
     v4 = 1;
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate(a1);
+      AppleBCMWLANNANInterface::handleEventNANPeerScheduleUpdate();
     }
   }
 
   return v4;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 20);
   if (v3 > 3)
@@ -1441,7 +1614,7 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated(uint64_t *
         v4 = 1;
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated(a1);
+          AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated();
           return 1;
         }
       }
@@ -1457,7 +1630,7 @@ uint64_t AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated(uint64_t *
         v4 = 1;
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated(a1);
+          AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated();
           return 1;
         }
       }
@@ -1479,7 +1652,7 @@ LABEL_33:
               (*(*a1 + 1088))(a1);
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated(a1);
+                AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated();
               }
             }
 
@@ -1500,7 +1673,7 @@ LABEL_33:
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated(a1);
+        AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated();
         return 1;
       }
     }
@@ -1517,7 +1690,7 @@ LABEL_33:
     v4 = 1;
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated(a1);
+      AppleBCMWLANNANInterface::handleEventNANFWDataPathTerminated();
       return 1;
     }
   }
@@ -1525,7 +1698,7 @@ LABEL_33:
   return v4;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 20);
   if (v3 <= 3)
@@ -1535,7 +1708,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus(uint64_t
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus(a1);
+        AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus();
       }
     }
 
@@ -1552,7 +1725,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus(uint64_t
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus(a1);
+        AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus();
       }
     }
 
@@ -1567,7 +1740,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus(uint64_t
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus(a1);
+        AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus();
       }
     }
 
@@ -1582,7 +1755,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus(uint64_t
       v9 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus(a1);
+        AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus();
       }
     }
 
@@ -1608,14 +1781,14 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventOobActionFrameTxStatus(uint64_t
 
     v15 = v12;
     v16 = v13;
-    IO80211Controller::postMessage(*(a1[17] + 64), a1, 0x9Eu, &v14, 0xAuLL, 1);
+    IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x9Eu, &v14, 0xAuLL, 1);
     return 0;
   }
 
   return v9;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v4 = (a2 + 20);
   v3 = *(a2 + 20);
@@ -1626,7 +1799,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(uint64_t *a1, 
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(a1);
+        AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx();
       }
     }
 
@@ -1660,7 +1833,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(uint64_t *a1, 
 
   v14 = *(a2 + v13);
   v15 = *(a2 + v12);
-  ChanSpecHandler = AppleBCMWLANCore::getChanSpecHandler(*(a1[17] + 64));
+  ChanSpecHandler = AppleBCMWLANCore::getChanSpecHandler(*(*(a1 + 17) + 64));
   AppleBCMWLANChanSpec::getAppleChannelSpec(ChanSpecHandler, bswap32(v15) >> 16);
   ChanSpecConvToApple80211Channel();
   v10 = (v6 + v11);
@@ -1671,7 +1844,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(uint64_t *a1, 
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(a1);
+        AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx();
       }
     }
 
@@ -1689,7 +1862,7 @@ LABEL_15:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(a1);
+        AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx();
       }
     }
 
@@ -1704,7 +1877,7 @@ LABEL_15:
       v18 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(a1);
+        AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx();
       }
     }
 
@@ -1736,7 +1909,7 @@ LABEL_15:
           v18 = 1;
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(a1);
+            AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx();
           }
 
           goto LABEL_112;
@@ -1751,7 +1924,7 @@ LABEL_15:
           v18 = 1;
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(a1);
+            AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx();
           }
 
           goto LABEL_112;
@@ -1772,7 +1945,7 @@ LABEL_15:
             v18 = 1;
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(a1);
+              AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx();
             }
 
             goto LABEL_112;
@@ -1787,7 +1960,7 @@ LABEL_15:
             v18 = 1;
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(a1);
+              AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx();
             }
 
             goto LABEL_112;
@@ -1808,7 +1981,7 @@ LABEL_15:
               v18 = 1;
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(a1);
+                AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx();
               }
 
               goto LABEL_112;
@@ -1826,7 +1999,7 @@ LABEL_15:
                 v18 = 1;
                 if (CCLogStream::shouldLog())
                 {
-                  AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(a1);
+                  AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx();
                 }
 
                 goto LABEL_112;
@@ -1846,7 +2019,7 @@ LABEL_15:
                   v18 = 1;
                   if (CCLogStream::shouldLog())
                   {
-                    AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(a1);
+                    AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx();
                   }
 
                   goto LABEL_112;
@@ -1862,7 +2035,7 @@ LABEL_15:
                 if (v40 >= v23 && !v41 && v40 <= v24 && v23 <= v38 && v24 >= v38)
                 {
                   memcpy(v38, v34, v26);
-                  IO80211Controller::postMessage(*(a1[17] + 64), a1, 0x9Fu, v23, v21 + 33, 1);
+                  IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x9Fu, v23, v21 + 33, 1);
                   v18 = 0;
 LABEL_112:
                   IOFreeData();
@@ -1875,7 +2048,7 @@ LABEL_112:
                   v18 = 1;
                   if (CCLogStream::shouldLog())
                   {
-                    AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(a1);
+                    AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx();
                   }
 
                   goto LABEL_112;
@@ -1895,7 +2068,7 @@ LABEL_112:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx(a1);
+        AppleBCMWLANNANInterface::handleNANEventOobActionFrameRx();
       }
     }
 
@@ -1905,7 +2078,7 @@ LABEL_112:
   return v18;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 20);
   if (v3 <= 3)
@@ -1915,7 +2088,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(uint64_t *a1, uint6
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(a1);
+        AppleBCMWLANNANInterface::handleNANEventAuthFrameRx();
       }
     }
 
@@ -1932,7 +2105,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(uint64_t *a1, uint6
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(a1);
+        AppleBCMWLANNANInterface::handleNANEventAuthFrameRx();
       }
     }
 
@@ -1947,7 +2120,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(uint64_t *a1, uint6
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(a1);
+        AppleBCMWLANNANInterface::handleNANEventAuthFrameRx();
       }
     }
 
@@ -1962,7 +2135,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(uint64_t *a1, uint6
       v10 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(a1);
+        AppleBCMWLANNANInterface::handleNANEventAuthFrameRx();
       }
     }
 
@@ -1993,7 +2166,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(uint64_t *a1, uint6
           v10 = 1;
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(a1);
+            AppleBCMWLANNANInterface::handleNANEventAuthFrameRx();
           }
 
           goto LABEL_109;
@@ -2008,7 +2181,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(uint64_t *a1, uint6
           v10 = 1;
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(a1);
+            AppleBCMWLANNANInterface::handleNANEventAuthFrameRx();
           }
 
           goto LABEL_109;
@@ -2029,7 +2202,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(uint64_t *a1, uint6
             v10 = 1;
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(a1);
+              AppleBCMWLANNANInterface::handleNANEventAuthFrameRx();
             }
 
             goto LABEL_109;
@@ -2044,7 +2217,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(uint64_t *a1, uint6
             v10 = 1;
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(a1);
+              AppleBCMWLANNANInterface::handleNANEventAuthFrameRx();
             }
 
             goto LABEL_109;
@@ -2065,7 +2238,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(uint64_t *a1, uint6
               v10 = 1;
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(a1);
+                AppleBCMWLANNANInterface::handleNANEventAuthFrameRx();
               }
 
               goto LABEL_109;
@@ -2083,7 +2256,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(uint64_t *a1, uint6
                 v10 = 1;
                 if (CCLogStream::shouldLog())
                 {
-                  AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(a1);
+                  AppleBCMWLANNANInterface::handleNANEventAuthFrameRx();
                 }
 
                 goto LABEL_109;
@@ -2103,7 +2276,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(uint64_t *a1, uint6
                   v10 = 1;
                   if (CCLogStream::shouldLog())
                   {
-                    AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(a1);
+                    AppleBCMWLANNANInterface::handleNANEventAuthFrameRx();
                   }
 
                   goto LABEL_109;
@@ -2119,7 +2292,7 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(uint64_t *a1, uint6
                 if (v32 >= v15 && !v33 && v32 <= v16 && v15 <= v30 && v16 >= v30)
                 {
                   memcpy(v30, v26, v18);
-                  IO80211Controller::postMessage(*(a1[17] + 64), a1, 0xF1u, v15, v13 + 33, 1);
+                  IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0xF1u, v15, v13 + 33, 1);
                   v10 = 0;
 LABEL_109:
                   IOFreeData();
@@ -2132,7 +2305,7 @@ LABEL_109:
                   v10 = 1;
                   if (CCLogStream::shouldLog())
                   {
-                    AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(a1);
+                    AppleBCMWLANNANInterface::handleNANEventAuthFrameRx();
                   }
 
                   goto LABEL_109;
@@ -2152,7 +2325,7 @@ LABEL_109:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANEventAuthFrameRx(a1);
+        AppleBCMWLANNANInterface::handleNANEventAuthFrameRx();
       }
     }
 
@@ -2162,7 +2335,7 @@ LABEL_109:
   return v10;
 }
 
-uint64_t AppleBCMWLANNANInterface::handelNANEventInfraAssociatioStart(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::handelNANEventInfraAssociatioStart(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 20);
   if (v3 <= 0xB)
@@ -2173,7 +2346,7 @@ uint64_t AppleBCMWLANNANInterface::handelNANEventInfraAssociatioStart(uint64_t *
       v4 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handelNANEventInfraAssociatioStart(a1);
+        AppleBCMWLANNANInterface::handelNANEventInfraAssociatioStart();
       }
 
       return v4;
@@ -2197,7 +2370,7 @@ uint64_t AppleBCMWLANNANInterface::handelNANEventInfraAssociatioStart(uint64_t *
     v4 = 1;
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::handelNANEventInfraAssociatioStart(a1);
+      AppleBCMWLANNANInterface::handelNANEventInfraAssociatioStart();
     }
   }
 
@@ -2205,7 +2378,7 @@ uint64_t AppleBCMWLANNANInterface::handelNANEventInfraAssociatioStart(uint64_t *
   {
     v15 = 0;
     v14 = 0;
-    ChanSpecHandler = AppleBCMWLANCore::getChanSpecHandler(*(a1[17] + 64));
+    ChanSpecHandler = AppleBCMWLANCore::getChanSpecHandler(*(*(a1 + 17) + 64));
     AppleBCMWLANChanSpec::getAppleChannelSpec(ChanSpecHandler, *(a2 + 56));
     ChanSpecConvToApple80211Channel();
     if ((*(*a1 + 1088))(a1))
@@ -2213,18 +2386,18 @@ uint64_t AppleBCMWLANNANInterface::handelNANEventInfraAssociatioStart(uint64_t *
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handelNANEventInfraAssociatioStart(a1);
+        AppleBCMWLANNANInterface::handelNANEventInfraAssociatioStart();
       }
     }
 
-    IO80211Controller::postMessage(*(a1[17] + 64), a1, 0x7Fu, &v14, 0xCuLL, 1);
+    IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x7Fu, &v14, 0xCuLL, 1);
     return 0;
   }
 
   return v4;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleNANEventQuiteIE(uint64_t *a1)
+uint64_t AppleBCMWLANNANInterface::handleNANEventQuiteIE(IO80211SkywalkInterface *a1)
 {
   v3 = 0;
   if ((*(*a1 + 1088))(a1))
@@ -2232,19 +2405,12 @@ uint64_t AppleBCMWLANNANInterface::handleNANEventQuiteIE(uint64_t *a1)
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::handleNANEventQuiteIE(a1);
+      AppleBCMWLANNANInterface::handleNANEventQuiteIE();
     }
   }
 
-  IO80211Controller::postMessage(*(a1[17] + 64), a1, 0xBCu, &v3, 1uLL, 1);
+  IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0xBCu, &v3, 1uLL, 1);
   return 0;
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1088))(v1);
-  OUTLINED_FUNCTION_7_1();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:%s:%u Quite IE received\n", v5, v6, v7, v8);
 }
 
 void AppleBCMWLANNANInterface::copyDeviceInfo(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2365,7 +2531,7 @@ LABEL_4:
   return IO80211Controller::postMessage(*(*(a1 + 17) + 64), a1, 0x76u, &v10, 0x1CuLL, 1);
 }
 
-uint64_t AppleBCMWLANNANInterface::getMCS(AppleBCMWLANNANInterface *this, int a2)
+uint64_t AppleBCMWLANNANInterface::getMCS(unint64_t this, int a2)
 {
   v2 = a2 & 0x7000000;
   if ((a2 & 0x7000000) != 0x1000000)
@@ -2382,7 +2548,7 @@ uint64_t AppleBCMWLANNANInterface::getMCS(AppleBCMWLANNANInterface *this, int a2
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::getMCS(this);
+          AppleBCMWLANNANInterface::getMCS();
         }
       }
 
@@ -2393,7 +2559,7 @@ uint64_t AppleBCMWLANNANInterface::getMCS(AppleBCMWLANNANInterface *this, int a2
   return a2;
 }
 
-uint64_t AppleBCMWLANNANInterface::getTransmissionMode(AppleBCMWLANNANInterface *this, unsigned int a2)
+uint64_t AppleBCMWLANNANInterface::getTransmissionMode(unint64_t this, unsigned int a2)
 {
   v2 = HIBYTE(a2) & 7;
   if (v2 < 5)
@@ -2408,7 +2574,7 @@ uint64_t AppleBCMWLANNANInterface::getTransmissionMode(AppleBCMWLANNANInterface 
     result = CCLogStream::shouldLog();
     if (result)
     {
-      AppleBCMWLANNANInterface::getTransmissionMode(this);
+      AppleBCMWLANNANInterface::getTransmissionMode();
       return 0;
     }
   }
@@ -2416,7 +2582,7 @@ uint64_t AppleBCMWLANNANInterface::getTransmissionMode(AppleBCMWLANNANInterface 
   return result;
 }
 
-uint64_t AppleBCMWLANNANInterface::convertNANFWHostAssistReason(uint64_t result, unsigned int a2, int *a3)
+uint64_t AppleBCMWLANNANInterface::convertNANFWHostAssistReason(uint64_t result, uint64_t a2, int *a3)
 {
   v4 = a2;
   if (a2 >= 0xA)
@@ -2429,7 +2595,7 @@ uint64_t AppleBCMWLANNANInterface::convertNANFWHostAssistReason(uint64_t result,
       result = CCLogStream::shouldLog();
       if (result)
       {
-        result = AppleBCMWLANNANInterface::convertNANFWHostAssistReason(v5);
+        result = AppleBCMWLANNANInterface::convertNANFWHostAssistReason();
       }
     }
 
@@ -2835,83 +3001,72 @@ const char *AppleBCMWLANNANInterface::getIOVARString(AppleBCMWLANNANInterface *t
   return result;
 }
 
-void AppleBCMWLANNANInterface::handleNANIovarAsyncCallBack(uint64_t *a1, uint64_t a2, int a3, uint64_t *a4, unsigned __int16 *a5)
+void AppleBCMWLANNANInterface::handleNANIovarAsyncCallBack(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, unsigned __int16 *a5)
 {
+  v6 = a3;
   if (a3)
   {
-    if ((*(*a1 + 1088))(a1))
+    if ((*(*a1 + 1088))(a1, a2, a3, a4))
     {
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANIovarAsyncCallBack(a1, a1 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, a5, a3);
+        AppleBCMWLANNANInterface::handleNANIovarAsyncCallBack(a1, a1 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, a5, v6);
       }
     }
 
-    v8 = *(a1[17] + 80);
-    v9 = *(a5 + 1);
-    v10 = a5[1];
-LABEL_6:
+LABEL_5:
     IO80211Hexdump();
-    goto LABEL_7;
+    goto LABEL_6;
   }
 
-  v13 = *a4;
+  v8 = *a4;
   if (*a4)
   {
-    v14 = (v13 + 8);
-    if (*(v13 + 8) == *a5)
+    v9 = (v8 + 8);
+    if (*(v8 + 8) == *a5)
     {
-      v16 = *(v13 + 12);
-      v15 = (v13 + 12);
-      if (v16)
+      v11 = *(v8 + 12);
+      v10 = (v8 + 12);
+      if (v11)
       {
-        if ((*(*a1 + 1088))(a1))
+        if ((*(*a1 + 1088))(a1, a2))
         {
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::handleNANIovarAsyncCallBack(a1);
+            AppleBCMWLANNANInterface::handleNANIovarAsyncCallBack();
           }
         }
 
-        v17 = *(a1[17] + 80);
-        v18 = *a4;
-        v19 = *(a4 + 4);
         IO80211Hexdump();
-        if (*v14 != 274 || *v15 != -2081)
+        if (*v9 != 274 || *v10 != -2081)
         {
-          FaultReporter = AppleBCMWLANCore::getFaultReporter(*(a1[17] + 64));
-          IOVARString = AppleBCMWLANNANInterface::getIOVARString(FaultReporter, *v14);
-          CCFaultReporter::reportFault(FaultReporter, 5u, "/Library/Caches/com.apple.xbs/Sources/AppleBCMWLANV3_driverkit/AppleBCMWLANNANInterface.cpp", 0xE2Eu, "handleNANIovarAsyncCallBack", 0, -469793490, " %s, cmd status %x", IOVARString, *v15);
+          FaultReporter = AppleBCMWLANCore::getFaultReporter(*(*(a1 + 136) + 64));
+          IOVARString = AppleBCMWLANNANInterface::getIOVARString(FaultReporter, *v9);
+          CCFaultReporter::reportFault(FaultReporter, 5u, "/Library/Caches/com.apple.xbs/Sources/AppleBCMWLANV3_driverkit/AppleBCMWLANNANInterface.cpp", 0xE2Eu, "handleNANIovarAsyncCallBack", 0, -469793490, " %s, cmd status %x", IOVARString, *v10);
         }
       }
 
-      goto LABEL_7;
+      goto LABEL_6;
     }
 
-    if ((*(*a1 + 1088))(a1))
+    if ((*(*a1 + 1088))(a1, a2))
     {
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::handleNANIovarAsyncCallBack(a1);
+        AppleBCMWLANNANInterface::handleNANIovarAsyncCallBack();
       }
     }
 
-    v22 = *(a1[17] + 80);
-    v23 = *a4;
-    v24 = *(a4 + 4);
     IO80211Hexdump();
-    v25 = *(a1[17] + 80);
-    v26 = *(a5 + 1);
-    v27 = a5[1];
-    goto LABEL_6;
+    goto LABEL_5;
   }
 
-  if ((*(*a1 + 1088))(a1) && ((*(*a1 + 1088))(a1), CCLogStream::shouldLog()))
+  if ((*(*a1 + 1088))(a1, a2) && ((*(*a1 + 1088))(a1), CCLogStream::shouldLog()))
   {
-    AppleBCMWLANNANInterface::handleNANIovarAsyncCallBack(a1);
+    AppleBCMWLANNANInterface::handleNANIovarAsyncCallBack();
   }
 
   else if (!a5)
@@ -2919,16 +3074,15 @@ LABEL_6:
     return;
   }
 
-LABEL_7:
+LABEL_6:
   if (*a5 == 2592)
   {
-    v28 = a3 != 0;
-    IO80211Controller::postMessage(*(a1[17] + 64), a1, 0x88u, &v28, 4uLL, 1);
+    v14 = v6 != 0;
+    IO80211Controller::postMessage(*(*(a1 + 136) + 64), a1, 0x88u, &v14, 4uLL, 1);
   }
 
   if (*(a5 + 1))
   {
-    v11 = a5[1];
     IOFreeData();
     *(a5 + 1) = 0;
   }
@@ -2936,10 +3090,11 @@ LABEL_7:
   IOFree(a5, 0x10uLL);
 }
 
-uint64_t AppleBCMWLANNANInterface::handleProxIovarAsyncCallBack(uint64_t result, const char *a2, int a3)
+uint64_t AppleBCMWLANNANInterface::handleProxIovarAsyncCallBack(uint64_t result, const char *a2, uint64_t a3)
 {
   if (a3 != -469794537 && a3 != 0)
   {
+    v4 = a3;
     v6 = result;
     result = (*(*result + 1088))(result);
     if (result)
@@ -2948,7 +3103,7 @@ uint64_t AppleBCMWLANNANInterface::handleProxIovarAsyncCallBack(uint64_t result,
       result = CCLogStream::shouldLog();
       if (result)
       {
-        return AppleBCMWLANNANInterface::handleProxIovarAsyncCallBack(v6, v6 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, a2, a3);
+        return AppleBCMWLANNANInterface::handleProxIovarAsyncCallBack(v6, v6 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, a2, v4);
       }
     }
   }
@@ -2956,10 +3111,11 @@ uint64_t AppleBCMWLANNANInterface::handleProxIovarAsyncCallBack(uint64_t result,
   return result;
 }
 
-uint64_t AppleBCMWLANNANInterface::handleSlotBssIovarAsyncCallBack(uint64_t result, const char *a2, int a3)
+uint64_t AppleBCMWLANNANInterface::handleSlotBssIovarAsyncCallBack(uint64_t result, const char *a2, uint64_t a3)
 {
   if (a3 != -469794537 && a3 != 0)
   {
+    v4 = a3;
     v6 = result;
     result = (*(*result + 1088))(result);
     if (result)
@@ -2968,7 +3124,7 @@ uint64_t AppleBCMWLANNANInterface::handleSlotBssIovarAsyncCallBack(uint64_t resu
       result = CCLogStream::shouldLog();
       if (result)
       {
-        return AppleBCMWLANNANInterface::handleSlotBssIovarAsyncCallBack(v6, v6 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, a2, a3);
+        return AppleBCMWLANNANInterface::handleSlotBssIovarAsyncCallBack(v6, v6 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, a2, v4);
       }
     }
   }
@@ -2976,32 +3132,33 @@ uint64_t AppleBCMWLANNANInterface::handleSlotBssIovarAsyncCallBack(uint64_t resu
   return result;
 }
 
-uint64_t AppleBCMWLANNANInterface::issueSyncSetIOVAR(unint64_t this, int a2, void *a3, unsigned int a4)
+uint64_t AppleBCMWLANNANInterface::issueSyncSetIOVAR(uint64_t this, uint64_t a2, void *a3, uint64_t a4)
 {
-  v8 = a4 + 8;
+  v4 = a4;
+  v6 = a2;
+  v8 = (a4 + 8);
   v9 = IOMallocZeroData();
   if (v9)
   {
     v10 = v9;
     v11 = IOMallocZeroData();
-    *v10 = a2;
-    if (a4 < 0xFFFC)
+    *v10 = v6;
+    if (v4 < 0xFFFC)
     {
-      v10[1] = a4 + 4;
+      v10[1] = v4 + 4;
       *(v10 + 1) = 1;
-      memcpy(v10 + 4, a3, a4);
+      memcpy(v10 + 4, a3, v4);
       if ((*(*this + 1088))(this))
       {
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          v16 = (*(*this + 1088))(this);
-          IOVARString = AppleBCMWLANNANInterface::getIOVARString(v16, a2);
-          CCLogStream::logAlertIf(v16, 0x4000000000uLL, "[dk] %s@%d:NAN cmd set sync %s (%x), len = %x, buflen = %x\n", "issueSyncSetIOVAR", 3715, IOVARString, a2, a4, v8);
+          v14 = (*(*this + 1088))(this);
+          IOVARString = AppleBCMWLANNANInterface::getIOVARString(v14, v6);
+          CCLogStream::logAlertIf(v14, 0x4000000000uLL, "[dk] %s@%d:NAN cmd set sync %s (%x), len = %x, buflen = %x\n", "issueSyncSetIOVAR", 3715, IOVARString, v6, v4, v8);
         }
       }
 
-      v13 = *(*(this + 136) + 80);
       IO80211HexdumpIf();
       v12 = AppleBCMWLANNANInterface::runNANSetIOVAR(this, v10, v8, v11, v8, 1);
       if (!v12)
@@ -3013,11 +3170,10 @@ uint64_t AppleBCMWLANNANInterface::issueSyncSetIOVAR(unint64_t this, int a2, voi
             (*(*this + 1088))(this);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::issueSyncSetIOVAR(this, this & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, a2);
+              AppleBCMWLANNANInterface::issueSyncSetIOVAR(this, this & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, v6);
             }
           }
 
-          v15 = *(*(this + 136) + 80);
           IO80211Hexdump();
           v12 = 22;
         }
@@ -3060,8 +3216,9 @@ LABEL_13:
   return 12;
 }
 
-uint64_t AppleBCMWLANNANInterface::runNANSetIOVAR(AppleBCMWLANNANInterface *this, void *a2, unsigned int a3, void *a4, unsigned int a5, char a6)
+uint64_t AppleBCMWLANNANInterface::runNANSetIOVAR(AppleBCMWLANNANInterface *this, void *a2, uint64_t a3, void *a4, unsigned int a5, char a6)
 {
+  v9 = a3;
   if (IO80211SkywalkInterface::getInterfaceId(this) == -1)
   {
     if ((*(*this + 1088))(this))
@@ -3069,28 +3226,28 @@ uint64_t AppleBCMWLANNANInterface::runNANSetIOVAR(AppleBCMWLANNANInterface *this
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::runNANSetIOVAR(this);
+        AppleBCMWLANNANInterface::runNANSetIOVAR();
       }
     }
 
     return 22;
   }
 
-  if (a3 >= 0x10000)
+  if (v9 >= 0x10000)
   {
     if ((*(*this + 1088))(this))
     {
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::runNANSetIOVAR(this);
+        AppleBCMWLANNANInterface::runNANSetIOVAR();
       }
     }
 
     return 22;
   }
 
-  v13 = (a3 + 3) & 0x1FFFC;
+  v13 = (v9 + 3) & 0x1FFFC;
   v14 = IOMallocZeroData();
   if (!v14)
   {
@@ -3106,9 +3263,9 @@ uint64_t AppleBCMWLANNANInterface::runNANSetIOVAR(AppleBCMWLANNANInterface *this
       v17 = v16;
       *v15 = 0x8000;
       *(v15 + 2) = a6;
-      memcpy((v15 + 4), a2, a3);
+      memcpy((v15 + 4), a2, v9);
       v21[0] = v17;
-      v21[1] = 0x100010001 * ((a3 + 11) & 0xFFFC);
+      v21[1] = 0x100010001 * ((v9 + 11) & 0xFFFC);
       v18 = *(*(this + 17) + 72);
       v20[0] = v15;
       v20[1] = (v13 + 4) & 0xFFFC;
@@ -3120,7 +3277,7 @@ uint64_t AppleBCMWLANNANInterface::runNANSetIOVAR(AppleBCMWLANNANInterface *this
           (*(*this + 1088))(this);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::runNANSetIOVAR(this);
+            AppleBCMWLANNANInterface::runNANSetIOVAR();
           }
         }
       }
@@ -3146,7 +3303,7 @@ uint64_t AppleBCMWLANNANInterface::runNANSetIOVAR(AppleBCMWLANNANInterface *this
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::runNANSetIOVAR(this);
+        AppleBCMWLANNANInterface::runNANSetIOVAR();
       }
     }
 
@@ -3157,9 +3314,11 @@ uint64_t AppleBCMWLANNANInterface::runNANSetIOVAR(AppleBCMWLANNANInterface *this
   return v12;
 }
 
-uint64_t AppleBCMWLANNANInterface::issueSetIOVAR(AppleBCMWLANNANInterface *this, int a2, void *a3, unsigned int a4)
+uint64_t AppleBCMWLANNANInterface::issueSetIOVAR(AppleBCMWLANNANInterface *this, uint64_t a2, void *a3, uint64_t a4)
 {
-  v8 = a4 + 8;
+  v4 = a4;
+  v6 = a2;
+  v8 = (a4 + 8);
   v9 = IOMallocZeroData();
   if (!v9)
   {
@@ -3167,24 +3326,23 @@ uint64_t AppleBCMWLANNANInterface::issueSetIOVAR(AppleBCMWLANNANInterface *this,
   }
 
   v10 = v9;
-  *v9 = a2;
-  if (a4 < 0xFFFC)
+  *v9 = v6;
+  if (v4 < 0xFFFC)
   {
-    *(v9 + 2) = a4 + 4;
+    *(v9 + 2) = v4 + 4;
     *(v9 + 4) = 1;
-    memcpy((v9 + 8), a3, a4);
+    memcpy((v9 + 8), a3, v4);
     if ((*(*this + 1088))(this))
     {
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        v14 = (*(*this + 1088))(this);
-        IOVARString = AppleBCMWLANNANInterface::getIOVARString(v14, a2);
-        CCLogStream::logAlertIf(v14, 0x4000000000uLL, "[dk] %s@%d:NAN cmd set async %s 0x(%x), len = 0x%x, buflen = 0x%x\n", "issueSetIOVAR", 3763, IOVARString, a2, a4, v8);
+        v13 = (*(*this + 1088))(this);
+        IOVARString = AppleBCMWLANNANInterface::getIOVARString(v13, v6);
+        CCLogStream::logAlertIf(v13, 0x4000000000uLL, "[dk] %s@%d:NAN cmd set async %s 0x(%x), len = 0x%x, buflen = 0x%x\n", "issueSetIOVAR", 3763, IOVARString, v6, v4, v8);
       }
     }
 
-    v12 = *(*(this + 17) + 80);
     IO80211HexdumpIf();
     v11 = AppleBCMWLANNANInterface::sendNANSetIOVAR(this, v10, v8, 1);
   }
@@ -3207,8 +3365,9 @@ uint64_t AppleBCMWLANNANInterface::issueSetIOVAR(AppleBCMWLANNANInterface *this,
   return v11;
 }
 
-uint64_t AppleBCMWLANNANInterface::sendNANSetIOVAR(AppleBCMWLANNANInterface *this, _WORD *a2, unsigned int a3, char a4)
+uint64_t AppleBCMWLANNANInterface::sendNANSetIOVAR(AppleBCMWLANNANInterface *this, _WORD *a2, uint64_t a3, char a4)
 {
+  v5 = a3;
   if (IO80211SkywalkInterface::getInterfaceId(this) == -1)
   {
     if ((*(*this + 1088))(this))
@@ -3216,16 +3375,16 @@ uint64_t AppleBCMWLANNANInterface::sendNANSetIOVAR(AppleBCMWLANNANInterface *thi
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::sendNANSetIOVAR(this);
+        AppleBCMWLANNANInterface::sendNANSetIOVAR();
       }
     }
 
     return 22;
   }
 
-  if (a3 < 0x10000)
+  if (v5 < 0x10000)
   {
-    v8 = (a3 + 3) & 0x1FFFC;
+    v8 = (v5 + 3) & 0x1FFFC;
     v9 = v8 + 4;
     if (v8 >= 0xFFFC)
     {
@@ -3234,7 +3393,7 @@ uint64_t AppleBCMWLANNANInterface::sendNANSetIOVAR(AppleBCMWLANNANInterface *thi
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::sendNANSetIOVAR(this);
+          AppleBCMWLANNANInterface::sendNANSetIOVAR();
         }
       }
 
@@ -3257,19 +3416,19 @@ uint64_t AppleBCMWLANNANInterface::sendNANSetIOVAR(AppleBCMWLANNANInterface *thi
       if (v16)
       {
         *v15 = *a2;
-        *(v15 + 1) = a3;
-        memcpy(v16, a2, a3);
+        *(v15 + 1) = v5;
+        memcpy(v16, a2, v5);
         *v13 = 0x8000;
         *(v13 + 2) = a4;
-        memcpy((v13 + 4), a2, a3);
-        v22[0] = this;
-        v22[1] = AppleBCMWLANNANInterface::handleNANIovarAsyncCallBack;
-        v22[2] = v15;
+        memcpy((v13 + 4), a2, v5);
+        *&v20 = this;
+        *(&v20 + 1) = AppleBCMWLANNANInterface::handleNANIovarAsyncCallBack;
+        v21 = v15;
         v17 = *(*(this + 17) + 72);
         InterfaceId = IO80211SkywalkInterface::getInterfaceId(this);
-        v21[0] = v13;
-        v21[1] = v9 & 0xFFFC;
-        v10 = AppleBCMWLANCommander::sendVirtualIOVarSet(v17, InterfaceId, "nan", v21, kNoRxExpected, v22, 0);
+        v19[0] = v13;
+        v19[1] = v9 & 0xFFFC;
+        v10 = AppleBCMWLANCommander::sendVirtualIOVarSet(v17, InterfaceId, "nan", v19, kNoRxExpected, &v20, 0);
         if (v10)
         {
           if ((*(*this + 1088))(this))
@@ -3277,12 +3436,10 @@ uint64_t AppleBCMWLANNANInterface::sendNANSetIOVAR(AppleBCMWLANNANInterface *thi
             (*(*this + 1088))(this);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::sendNANSetIOVAR(this);
+              AppleBCMWLANNANInterface::sendNANSetIOVAR();
             }
           }
 
-          v19 = v15[1];
-          v20 = *(v15 + 1);
           IOFreeData();
           v15[1] = 0;
           IOFree(v15, 0x10uLL);
@@ -3296,7 +3453,7 @@ uint64_t AppleBCMWLANNANInterface::sendNANSetIOVAR(AppleBCMWLANNANInterface *thi
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::sendNANSetIOVAR(this);
+          AppleBCMWLANNANInterface::sendNANSetIOVAR();
         }
       }
 
@@ -3308,7 +3465,7 @@ uint64_t AppleBCMWLANNANInterface::sendNANSetIOVAR(AppleBCMWLANNANInterface *thi
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::sendNANSetIOVAR(this);
+        AppleBCMWLANNANInterface::sendNANSetIOVAR();
       }
     }
 
@@ -3323,81 +3480,80 @@ LABEL_32:
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::sendNANSetIOVAR(this);
+      AppleBCMWLANNANInterface::sendNANSetIOVAR();
     }
   }
 
   return 22;
 }
 
-uint64_t AppleBCMWLANNANInterface::issueGetIOVAR(unint64_t this, int a2, void *a3, unsigned int a4)
+uint64_t AppleBCMWLANNANInterface::issueGetIOVAR(uint64_t this, uint64_t a2, void *a3, uint64_t a4)
 {
-  v8 = a4 + 8;
+  v4 = a4;
+  v6 = a2;
+  v8 = (a4 + 8);
   if (a2 == 2050)
   {
-    v9 = a4 + 12;
+    v9 = (a4 + 12);
   }
 
   else
   {
-    v9 = a4 + 8;
+    v9 = v8;
   }
 
   v10 = IOMallocZeroData();
   if (v10)
   {
     v11 = v10;
-    *v10 = a2;
-    if (a4 < 0xFFFC)
+    *v10 = v6;
+    if (v4 < 0xFFFC)
     {
       *(v10 + 4) = 1;
-      *(v10 + 2) = a4 + 4;
-      memcpy((v10 + 8), a3, a4);
+      *(v10 + 2) = v4 + 4;
+      memcpy((v10 + 8), a3, v4);
       if ((*(*this + 1088))(this))
       {
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          v19 = (*(*this + 1088))(this);
-          IOVARString = AppleBCMWLANNANInterface::getIOVARString(v19, a2);
-          CCLogStream::logAlertIf(v19, 0x4000000000uLL, "[dk] %s@%d:NAN cmd get sync %s (0x%x), len %d, buflen %d rxBufLen:%d\n", "issueGetIOVAR", 3824, IOVARString, a2, a4, v8, v9);
+          v16 = (*(*this + 1088))(this);
+          IOVARString = AppleBCMWLANNANInterface::getIOVARString(v16, v6);
+          CCLogStream::logAlertIf(v16, 0x4000000000uLL, "[dk] %s@%d:NAN cmd get sync %s (0x%x), len %d, buflen %d rxBufLen:%d\n", "issueGetIOVAR", 3824, IOVARString, v6, v4, v8, v9);
         }
       }
 
-      v13 = *(*(this + 136) + 80);
       IO80211HexdumpIf();
       v12 = AppleBCMWLANNANInterface::sendNANGetIOVAR(this, v11, v8, v9);
-      v14 = v11[1];
-      v15 = (*(*this + 1088))(this);
-      if (!v14)
+      v13 = v11[1];
+      v14 = (*(*this + 1088))(this);
+      if (!v13)
       {
-        if (v15)
+        if (v14)
         {
           (*(*this + 1088))(this);
           if (CCLogStream::shouldLog())
           {
-            v21 = (*(*this + 1088))(this);
-            v22 = AppleBCMWLANNANInterface::getIOVARString(v21, a2);
-            CCLogStream::logAlertIf(v21, 0x4000000000uLL, "[dk] %s@%d:Return: NAN cmd get async %s (%x), len %d, buflen %d rxBufLen:%d\n", "issueGetIOVAR", 3834, v22, a2, a4, v8, v9);
+            v18 = (*(*this + 1088))(this);
+            v19 = AppleBCMWLANNANInterface::getIOVARString(v18, v6);
+            CCLogStream::logAlertIf(v18, 0x4000000000uLL, "[dk] %s@%d:Return: NAN cmd get async %s (%x), len %d, buflen %d rxBufLen:%d\n", "issueGetIOVAR", 3834, v19, v6, v4, v8, v9);
           }
         }
 
-        v18 = *(*(this + 136) + 80);
         IO80211HexdumpIf();
-        memcpy(a3, v11 + 2, v9 - 8);
+        memcpy(a3, v11 + 2, (v9 - 8));
         goto LABEL_19;
       }
 
-      if (v15)
+      if (v14)
       {
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::issueGetIOVAR(this, this & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, a2);
+          AppleBCMWLANNANInterface::issueGetIOVAR(this, this & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, v6);
         }
       }
 
-      v16 = *(*(this + 136) + 80);
       IO80211Hexdump();
     }
 
@@ -3419,8 +3575,10 @@ LABEL_19:
   return 12;
 }
 
-uint64_t AppleBCMWLANNANInterface::sendNANGetIOVAR(AppleBCMWLANNANInterface *this, void *a2, unsigned int a3, unsigned int a4)
+uint64_t AppleBCMWLANNANInterface::sendNANGetIOVAR(AppleBCMWLANNANInterface *this, void *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   if (IO80211SkywalkInterface::getInterfaceId(this) == -1)
   {
     if ((*(*this + 1088))(this))
@@ -3428,42 +3586,42 @@ uint64_t AppleBCMWLANNANInterface::sendNANGetIOVAR(AppleBCMWLANNANInterface *thi
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::sendNANGetIOVAR(this);
+        AppleBCMWLANNANInterface::sendNANGetIOVAR();
       }
     }
 
     return 22;
   }
 
-  if (a3 >= 0x10000)
+  if (v5 >= 0x10000)
   {
     if ((*(*this + 1088))(this))
     {
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::sendNANGetIOVAR(this);
+        AppleBCMWLANNANInterface::sendNANGetIOVAR();
       }
     }
 
     return 22;
   }
 
-  if (a4 >= 0x10000)
+  if (v4 >= 0x10000)
   {
     if ((*(*this + 1088))(this))
     {
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::sendNANGetIOVAR(this);
+        AppleBCMWLANNANInterface::sendNANGetIOVAR();
       }
     }
 
     return 22;
   }
 
-  v8 = (a3 + 3) & 0x1FFFC;
+  v8 = (v5 + 3) & 0x1FFFC;
   v9 = v8 + 4;
   if (v8 >= 0xFFFC)
   {
@@ -3472,14 +3630,14 @@ uint64_t AppleBCMWLANNANInterface::sendNANGetIOVAR(AppleBCMWLANNANInterface *thi
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::sendNANGetIOVAR(this);
+        AppleBCMWLANNANInterface::sendNANGetIOVAR();
       }
     }
 
     return 22;
   }
 
-  v10 = (a4 + 3) & 0x1FFFC;
+  v10 = (v4 + 3) & 0x1FFFC;
   v11 = v10 + 4;
   if (v10 >= 0xFFFC)
   {
@@ -3488,7 +3646,7 @@ uint64_t AppleBCMWLANNANInterface::sendNANGetIOVAR(AppleBCMWLANNANInterface *thi
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::sendNANGetIOVAR(this);
+        AppleBCMWLANNANInterface::sendNANGetIOVAR();
       }
     }
 
@@ -3504,7 +3662,7 @@ uint64_t AppleBCMWLANNANInterface::sendNANGetIOVAR(AppleBCMWLANNANInterface *thi
   v15 = v14;
   *v14 = 0x8000;
   *(v14 + 2) = 1;
-  memcpy((v14 + 4), a2, a3);
+  memcpy((v14 + 4), a2, v5);
   v16 = v9 & 0xFFFC;
   v20[0] = v15;
   v20[1] = v11 & 0xFFFC | ((((v16 | (v11 << 16)) >> 2) & 0x3FFFFFFF) << 18);
@@ -3520,23 +3678,23 @@ uint64_t AppleBCMWLANNANInterface::sendNANGetIOVAR(AppleBCMWLANNANInterface *thi
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::sendNANGetIOVAR(this);
+        AppleBCMWLANNANInterface::sendNANGetIOVAR();
       }
     }
   }
 
   else
   {
-    memcpy(a2, (v15 + 4), a4);
+    memcpy(a2, (v15 + 4), v4);
   }
 
   IOFreeData();
   return v12;
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_ControlBits(AppleBCMWLANNANInterface *this, unsigned int *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_ControlBits(uint64_t this, unsigned int *a2)
 {
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(this, 277, a2, 4u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(this, 277, a2, 4);
   if (IOVAR)
   {
     if ((*(*this + 1088))(this))
@@ -3544,7 +3702,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_ControlBits(AppleBCMWLANNANInterface *
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_ControlBits(this);
+        AppleBCMWLANNANInterface::getNAN_ControlBits();
       }
     }
   }
@@ -3554,7 +3712,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_ControlBits(AppleBCMWLANNANInterface *
 
 uint64_t AppleBCMWLANNANInterface::setNAN_ControlBits(AppleBCMWLANNANInterface *this, unsigned int *a2)
 {
-  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 277, a2, 4u);
+  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 277, a2, 4);
   if (v3)
   {
     if ((*(*this + 1088))(this))
@@ -3562,7 +3720,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ControlBits(AppleBCMWLANNANInterface *
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_ControlBits(this);
+        AppleBCMWLANNANInterface::setNAN_ControlBits();
       }
     }
   }
@@ -3570,13 +3728,13 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ControlBits(AppleBCMWLANNANInterface *
   return v3;
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_ControlExtBits(AppleBCMWLANNANInterface *this, unsigned int *a2, unsigned int *a3)
+uint64_t AppleBCMWLANNANInterface::getNAN_ControlExtBits(uint64_t this, unsigned int *a2, unsigned int *a3)
 {
   IOVAR = 22;
   if (a2 && a3)
   {
     v9 = 0;
-    IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(this, 280, &v9, 8u);
+    IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(this, 280, &v9, 8);
     if (IOVAR)
     {
       if ((*(*this + 1088))(this))
@@ -3584,7 +3742,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_ControlExtBits(AppleBCMWLANNANInterfac
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::getNAN_ControlExtBits(this);
+          AppleBCMWLANNANInterface::getNAN_ControlExtBits();
         }
       }
     }
@@ -3610,7 +3768,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ControlExtBits(AppleBCMWLANNANInterfac
       v5 = *a3;
       v7[0] = *a2;
       v7[1] = v5;
-      v3 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 280, v7, 8u);
+      v3 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 280, v7, 8);
       if (v3)
       {
         if ((*(*this + 1088))(this))
@@ -3618,7 +3776,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ControlExtBits(AppleBCMWLANNANInterfac
           (*(*this + 1088))(this);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::setNAN_ControlExtBits(this);
+            AppleBCMWLANNANInterface::setNAN_ControlExtBits();
           }
         }
       }
@@ -3639,7 +3797,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_EventMask(AppleBCMWLANNANInterface *th
   *v4 = 1;
   *(v4 + 1) = 16;
   *(v4 + 4) = *a2;
-  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 276, v4, 0x14u);
+  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 276, v4, 20);
   if (v5)
   {
     if ((*(*this + 1088))(this))
@@ -3647,7 +3805,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_EventMask(AppleBCMWLANNANInterface *th
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_EventMask(this);
+        AppleBCMWLANNANInterface::setNAN_EventMask();
       }
     }
   }
@@ -3656,12 +3814,12 @@ uint64_t AppleBCMWLANNANInterface::setNAN_EventMask(AppleBCMWLANNANInterface *th
   return v5;
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_ENABLED(AppleBCMWLANNANInterface *this, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_ENABLED(void *this, _BYTE *a2)
 {
   v6 = 0;
-  if (*(*(this + 17) + 88))
+  if (*(this[17] + 88))
   {
-    IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(this, 278, &v6, 1u);
+    IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(this, 278, &v6, 1);
     if (IOVAR)
     {
       if ((*(*this + 1088))(this))
@@ -3669,7 +3827,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_ENABLED(AppleBCMWLANNANInterface *this
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::getNAN_ENABLED(this);
+          AppleBCMWLANNANInterface::getNAN_ENABLED();
         }
       }
     }
@@ -3682,12 +3840,12 @@ uint64_t AppleBCMWLANNANInterface::getNAN_ENABLED(AppleBCMWLANNANInterface *this
 
   else
   {
-    if ((*(*this + 1088))(this))
+    if ((*(*this + 1088))(this, a2))
     {
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_ENABLED(this);
+        AppleBCMWLANNANInterface::getNAN_ENABLED();
       }
     }
 
@@ -3706,10 +3864,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_ENABLED(uint64_t a
   return AppleBCMWLANNANInterface::getNAN_ENABLED((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::enableNAN(AppleBCMWLANNANInterface *this)
+uint64_t AppleBCMWLANNANInterface::enableNAN(uint64_t this)
 {
   v4 = 1;
-  v2 = AppleBCMWLANNANInterface::issueSyncSetIOVAR(this, 278, &v4, 1u);
+  v2 = AppleBCMWLANNANInterface::issueSyncSetIOVAR(this, 278, &v4, 1);
   if (v2)
   {
     if ((*(*this + 1088))(this))
@@ -3717,7 +3875,7 @@ uint64_t AppleBCMWLANNANInterface::enableNAN(AppleBCMWLANNANInterface *this)
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::enableNAN(this);
+        AppleBCMWLANNANInterface::enableNAN();
       }
     }
   }
@@ -3725,14 +3883,14 @@ uint64_t AppleBCMWLANNANInterface::enableNAN(AppleBCMWLANNANInterface *this)
   return v2;
 }
 
-uint64_t AppleBCMWLANNANInterface::setNANFwEvents(AppleBCMWLANNANInterface *this)
+uint64_t AppleBCMWLANNANInterface::setNANFwEvents(void *this)
 {
-  AppleBCMWLANCore::addEventBit(*(*(this + 17) + 64));
-  AppleBCMWLANCore::addEventBit(*(*(this + 17) + 64));
-  AppleBCMWLANCore::addEventBit(*(*(this + 17) + 64));
-  AppleBCMWLANCore::addEventBit(*(*(this + 17) + 64));
-  AppleBCMWLANCore::addEventBit(*(*(this + 17) + 64));
-  v2 = AppleBCMWLANCore::writeEventBitField(*(*(this + 17) + 64));
+  AppleBCMWLANCore::addEventBit(*(this[17] + 64));
+  AppleBCMWLANCore::addEventBit(*(this[17] + 64));
+  AppleBCMWLANCore::addEventBit(*(this[17] + 64));
+  AppleBCMWLANCore::addEventBit(*(this[17] + 64));
+  AppleBCMWLANCore::addEventBit(*(this[17] + 64));
+  v2 = AppleBCMWLANCore::writeEventBitField(*(this[17] + 64));
   if (v2)
   {
     if ((*(*this + 1088))(this))
@@ -3740,7 +3898,7 @@ uint64_t AppleBCMWLANNANInterface::setNANFwEvents(AppleBCMWLANNANInterface *this
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNANFwEvents(this);
+        AppleBCMWLANNANInterface::setNANFwEvents();
       }
     }
   }
@@ -3748,14 +3906,14 @@ uint64_t AppleBCMWLANNANInterface::setNANFwEvents(AppleBCMWLANNANInterface *this
   return v2;
 }
 
-uint64_t AppleBCMWLANNANInterface::clearNANFwEvents(AppleBCMWLANNANInterface *this)
+uint64_t AppleBCMWLANNANInterface::clearNANFwEvents(void *this)
 {
-  AppleBCMWLANCore::removeEventBit(*(*(this + 17) + 64), 0x64u);
-  AppleBCMWLANCore::removeEventBit(*(*(this + 17) + 64), 0x9Eu);
-  AppleBCMWLANCore::removeEventBit(*(*(this + 17) + 64), 0x9Fu);
-  AppleBCMWLANCore::removeEventBit(*(*(this + 17) + 64), 0x26u);
-  AppleBCMWLANCore::removeEventBit(*(*(this + 17) + 64), 0xDu);
-  v2 = AppleBCMWLANCore::writeEventBitField(*(*(this + 17) + 64));
+  AppleBCMWLANCore::removeEventBit(*(this[17] + 64), 0x64u);
+  AppleBCMWLANCore::removeEventBit(*(this[17] + 64), 0x9Eu);
+  AppleBCMWLANCore::removeEventBit(*(this[17] + 64), 0x9Fu);
+  AppleBCMWLANCore::removeEventBit(*(this[17] + 64), 0x26u);
+  AppleBCMWLANCore::removeEventBit(*(this[17] + 64), 0xDu);
+  v2 = AppleBCMWLANCore::writeEventBitField(*(this[17] + 64));
   if (v2)
   {
     if ((*(*this + 1088))(this))
@@ -3763,7 +3921,7 @@ uint64_t AppleBCMWLANNANInterface::clearNANFwEvents(AppleBCMWLANNANInterface *th
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::clearNANFwEvents(this);
+        AppleBCMWLANNANInterface::clearNANFwEvents();
       }
     }
   }
@@ -3787,7 +3945,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ENABLED(AppleBCMWLANNANInterface *this
           (*(*this + 1088))(this);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::setNAN_ENABLED(this);
+            AppleBCMWLANNANInterface::setNAN_ENABLED();
           }
         }
 
@@ -3816,7 +3974,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ENABLED(AppleBCMWLANNANInterface *this
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::setNAN_ENABLED(this);
+      AppleBCMWLANNANInterface::setNAN_ENABLED();
     }
   }
 
@@ -3834,7 +3992,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ENABLED(AppleBCMWLANNANInterface *this
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_ENABLED(this);
+        AppleBCMWLANNANInterface::setNAN_ENABLED();
       }
     }
   }
@@ -3842,10 +4000,10 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ENABLED(AppleBCMWLANNANInterface *this
   return v6;
 }
 
-uint64_t AppleBCMWLANNANInterface::setNANStatsSampleDuration(AppleBCMWLANNANInterface *this, int a2)
+uint64_t AppleBCMWLANNANInterface::setNANStatsSampleDuration(uint64_t this, int a2)
 {
   v5 = a2;
-  v3 = AppleBCMWLANNANInterface::issueSyncSetIOVAR(this, 5121, &v5, 4u);
+  v3 = AppleBCMWLANNANInterface::issueSyncSetIOVAR(this, 5121, &v5, 4);
   if (v3)
   {
     if ((*(*this + 1088))(this))
@@ -3853,7 +4011,7 @@ uint64_t AppleBCMWLANNANInterface::setNANStatsSampleDuration(AppleBCMWLANNANInte
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNANStatsSampleDuration(this);
+        AppleBCMWLANNANInterface::setNANStatsSampleDuration();
       }
     }
   }
@@ -3870,9 +4028,9 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_ENABLED(uint64_t a
   return AppleBCMWLANNANInterface::setNAN_ENABLED((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_InterfaceAddr(AppleBCMWLANNANInterface *this, ether_addr *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_InterfaceAddr(uint64_t this, ether_addr *a2)
 {
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(this, 269, a2, 6u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(this, 269, a2, 6);
   if (IOVAR)
   {
     if ((*(*this + 1088))(this))
@@ -3880,7 +4038,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_InterfaceAddr(AppleBCMWLANNANInterface
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_InterfaceAddr(this);
+        AppleBCMWLANNANInterface::getNAN_InterfaceAddr();
       }
     }
   }
@@ -3913,7 +4071,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_HOP_COUNT_TO_ANCHO
 
 uint64_t AppleBCMWLANNANInterface::setNAN_HOP_COUNT_TO_ANCHOR_MASTER(AppleBCMWLANNANInterface *a1, void *a2)
 {
-  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 259, a2, 2u);
+  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 259, a2, 2);
   if (v3)
   {
     if ((*(*a1 + 1088))(a1))
@@ -3921,7 +4079,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_HOP_COUNT_TO_ANCHOR_MASTER(AppleBCMWLA
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_HOP_COUNT_TO_ANCHOR_MASTER(a1);
+        AppleBCMWLANNANInterface::setNAN_HOP_COUNT_TO_ANCHOR_MASTER();
       }
     }
   }
@@ -3938,10 +4096,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_HOP_COUNT_TO_ANCHO
   return AppleBCMWLANNANInterface::setNAN_HOP_COUNT_TO_ANCHOR_MASTER((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_HOP_COUNT_LIMIT(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_HOP_COUNT_LIMIT(uint64_t a1, _BYTE *a2)
 {
   v6 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 260, &v6, 1u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 260, &v6, 1);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -3949,7 +4107,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_HOP_COUNT_LIMIT(uint64_t *a1, _BYTE *a
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_HOP_COUNT_LIMIT(a1);
+        AppleBCMWLANNANInterface::getNAN_HOP_COUNT_LIMIT();
       }
     }
   }
@@ -3964,17 +4122,17 @@ uint64_t AppleBCMWLANNANInterface::getNAN_HOP_COUNT_LIMIT(uint64_t *a1, _BYTE *a
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_HOP_COUNT_LIMIT(uint64_t a1, _BYTE *a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_HOP_COUNT_LIMIT((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_HOP_COUNT_LIMIT(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_HOP_COUNT_LIMIT((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_HOP_COUNT_LIMIT(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_HOP_COUNT_LIMIT(AppleBCMWLANNANInterface *a1, char *a2)
 {
   v5 = *a2;
-  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 260, &v5, 1u);
+  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 260, &v5, 1);
   if (v3)
   {
     if ((*(*a1 + 1088))(a1))
@@ -3982,7 +4140,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_HOP_COUNT_LIMIT(AppleBCMWLANNANInterfa
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_HOP_COUNT_LIMIT(a1);
+        AppleBCMWLANNANInterface::setNAN_HOP_COUNT_LIMIT();
       }
     }
   }
@@ -3999,10 +4157,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_HOP_COUNT_LIMIT(ui
   return AppleBCMWLANNANInterface::setNAN_HOP_COUNT_LIMIT((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_WARMUP_TIME(uint64_t *a1, _WORD *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_WARMUP_TIME(uint64_t a1, _WORD *a2)
 {
   v6 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 261, &v6, 4u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 261, &v6, 4);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4010,7 +4168,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_WARMUP_TIME(uint64_t *a1, _WORD *a2)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_WARMUP_TIME(a1);
+        AppleBCMWLANNANInterface::getNAN_WARMUP_TIME();
       }
     }
   }
@@ -4025,17 +4183,17 @@ uint64_t AppleBCMWLANNANInterface::getNAN_WARMUP_TIME(uint64_t *a1, _WORD *a2)
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_WARMUP_TIME(uint64_t a1, _WORD *a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_WARMUP_TIME((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_WARMUP_TIME(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_WARMUP_TIME((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_WARMUP_TIME(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_WARMUP_TIME(AppleBCMWLANNANInterface *a1, unsigned __int16 *a2)
 {
   v5 = *a2;
-  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 261, &v5, 4u);
+  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 261, &v5, 4);
   if (v3)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4043,7 +4201,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_WARMUP_TIME(AppleBCMWLANNANInterface *
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_WARMUP_TIME(a1);
+        AppleBCMWLANNANInterface::setNAN_WARMUP_TIME();
       }
     }
   }
@@ -4060,10 +4218,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_WARMUP_TIME(uint64
   return AppleBCMWLANNANInterface::setNAN_WARMUP_TIME((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_CLOSE(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_CLOSE(uint64_t a1, _BYTE *a2)
 {
   v6 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 518, &v6, 4u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 518, &v6, 4);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4071,7 +4229,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_CLOSE(uint64_t *a1, _BYTE *a2)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_RSSI_CLOSE(a1);
+        AppleBCMWLANNANInterface::getNAN_RSSI_CLOSE();
       }
     }
   }
@@ -4086,11 +4244,11 @@ uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_CLOSE(uint64_t *a1, _BYTE *a2)
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_RSSI_CLOSE(uint64_t a1, _BYTE *a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_RSSI_CLOSE((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_RSSI_CLOSE(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_RSSI_CLOSE((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_RSSI_CLOSE(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_RSSI_CLOSE(AppleBCMWLANNANInterface *a1, _BYTE *a2)
@@ -4099,7 +4257,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RSSI_CLOSE(AppleBCMWLANNANInterface *a
   v4 = *(a1 + 17);
   v7[1] = *(v4 + 2);
   v8 = *(v4 + 3);
-  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 518, v7, 4u);
+  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 518, v7, 4);
   if (v5)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4107,7 +4265,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RSSI_CLOSE(AppleBCMWLANNANInterface *a
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_RSSI_CLOSE(a1);
+        AppleBCMWLANNANInterface::setNAN_RSSI_CLOSE();
       }
     }
   }
@@ -4129,10 +4287,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_RSSI_CLOSE(uint64_
   return AppleBCMWLANNANInterface::setNAN_RSSI_CLOSE((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_MIDDLE(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_MIDDLE(uint64_t a1, _BYTE *a2)
 {
   v6 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 518, &v6, 4u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 518, &v6, 4);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4140,7 +4298,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_MIDDLE(uint64_t *a1, _BYTE *a2)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_RSSI_MIDDLE(a1);
+        AppleBCMWLANNANInterface::getNAN_RSSI_MIDDLE();
       }
     }
   }
@@ -4155,11 +4313,11 @@ uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_MIDDLE(uint64_t *a1, _BYTE *a2)
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_RSSI_MIDDLE(uint64_t a1, _BYTE *a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_RSSI_MIDDLE((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_RSSI_MIDDLE(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_RSSI_MIDDLE((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_RSSI_MIDDLE(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_RSSI_MIDDLE(AppleBCMWLANNANInterface *a1, _BYTE *a2)
@@ -4168,7 +4326,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RSSI_MIDDLE(AppleBCMWLANNANInterface *
   v7[0] = *(v4 + 1);
   v7[1] = *a2;
   v8 = *(v4 + 3);
-  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 518, v7, 4u);
+  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 518, v7, 4);
   if (v5)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4176,7 +4334,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RSSI_MIDDLE(AppleBCMWLANNANInterface *
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_RSSI_MIDDLE(a1);
+        AppleBCMWLANNANInterface::setNAN_RSSI_MIDDLE();
       }
     }
   }
@@ -4198,10 +4356,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_RSSI_MIDDLE(uint64
   return AppleBCMWLANNANInterface::setNAN_RSSI_MIDDLE((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_5G_CLOSE(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_5G_CLOSE(uint64_t a1, _BYTE *a2)
 {
   v6 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 518, &v6, 4u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 518, &v6, 4);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4209,7 +4367,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_5G_CLOSE(uint64_t *a1, _BYTE *a2)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_RSSI_5G_CLOSE(a1);
+        AppleBCMWLANNANInterface::getNAN_RSSI_5G_CLOSE();
       }
     }
   }
@@ -4224,11 +4382,11 @@ uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_5G_CLOSE(uint64_t *a1, _BYTE *a2)
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_RSSI_5G_CLOSE(uint64_t a1, _BYTE *a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_RSSI_5G_CLOSE((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_RSSI_5G_CLOSE(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_RSSI_5G_CLOSE((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_RSSI_5G_CLOSE(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_RSSI_5G_CLOSE(AppleBCMWLANNANInterface *a1, char *a2)
@@ -4237,7 +4395,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RSSI_5G_CLOSE(AppleBCMWLANNANInterface
   v7 = *(v4 + 1);
   v8 = *a2;
   v9 = *(v4 + 4);
-  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 518, &v7, 4u);
+  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 518, &v7, 4);
   if (v5)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4245,7 +4403,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RSSI_5G_CLOSE(AppleBCMWLANNANInterface
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_RSSI_5G_CLOSE(a1);
+        AppleBCMWLANNANInterface::setNAN_RSSI_5G_CLOSE();
       }
     }
   }
@@ -4267,10 +4425,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_RSSI_5G_CLOSE(uint
   return AppleBCMWLANNANInterface::setNAN_RSSI_5G_CLOSE((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_5G_MIDDLE(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_5G_MIDDLE(uint64_t a1, _BYTE *a2)
 {
   v6 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 518, &v6, 4u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 518, &v6, 4);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4278,7 +4436,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_5G_MIDDLE(uint64_t *a1, _BYTE *a2
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_RSSI_5G_MIDDLE(a1);
+        AppleBCMWLANNANInterface::getNAN_RSSI_5G_MIDDLE();
       }
     }
   }
@@ -4293,11 +4451,11 @@ uint64_t AppleBCMWLANNANInterface::getNAN_RSSI_5G_MIDDLE(uint64_t *a1, _BYTE *a2
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_RSSI_5G_MIDDLE(uint64_t a1, _BYTE *a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_RSSI_5G_MIDDLE((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_RSSI_5G_MIDDLE(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_RSSI_5G_MIDDLE((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_RSSI_5G_MIDDLE(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_RSSI_5G_MIDDLE(AppleBCMWLANNANInterface *a1, char *a2)
@@ -4306,7 +4464,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RSSI_5G_MIDDLE(AppleBCMWLANNANInterfac
   v7 = *(v4 + 1);
   v8 = *(v4 + 2);
   v9 = *a2;
-  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 518, &v7, 4u);
+  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 518, &v7, 4);
   if (v5)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4314,7 +4472,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RSSI_5G_MIDDLE(AppleBCMWLANNANInterfac
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_RSSI_5G_MIDDLE(a1);
+        AppleBCMWLANNANInterface::setNAN_RSSI_5G_MIDDLE();
       }
     }
   }
@@ -4336,10 +4494,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_RSSI_5G_MIDDLE(uin
   return AppleBCMWLANNANInterface::setNAN_RSSI_5G_MIDDLE((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_MAX_PEERS(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_MAX_PEERS(uint64_t a1, _BYTE *a2)
 {
   v6 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 1296, &v6, 1u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 1296, &v6, 1);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4347,7 +4505,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_MAX_PEERS(uint64_t *a1, _BYTE *a2)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_MAX_PEERS(a1);
+        AppleBCMWLANNANInterface::getNAN_MAX_PEERS();
       }
     }
   }
@@ -4362,17 +4520,17 @@ uint64_t AppleBCMWLANNANInterface::getNAN_MAX_PEERS(uint64_t *a1, _BYTE *a2)
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_MAX_PEERS(uint64_t a1, _BYTE *a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_MAX_PEERS((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_MAX_PEERS(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_MAX_PEERS((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_MAX_PEERS(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_MAX_PEERS(AppleBCMWLANNANInterface *a1, unsigned __int8 *a2)
 {
   v5 = *a2;
-  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1296, &v5, 4u);
+  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1296, &v5, 4);
   if (v3)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4380,7 +4538,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_MAX_PEERS(AppleBCMWLANNANInterface *a1
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_MAX_PEERS(a1);
+        AppleBCMWLANNANInterface::setNAN_MAX_PEERS();
       }
     }
   }
@@ -4397,11 +4555,11 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_MAX_PEERS(uint64_t
   return AppleBCMWLANNANInterface::setNAN_MAX_PEERS((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_CLUSTER_ID(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_CLUSTER_ID(void *a1, uint64_t a2)
 {
   v9 = 0;
   v8 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 268, &v8, 6u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 268, &v8, 6);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4409,7 +4567,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_CLUSTER_ID(uint64_t *a1, uint64_t a2)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_CLUSTER_ID(a1);
+        AppleBCMWLANNANInterface::getNAN_CLUSTER_ID();
       }
     }
   }
@@ -4440,7 +4598,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_CLUSTER_ID(AppleBCMWLANNANInterface *a
 {
   v8 = *a2;
   v9 = *(a2 + 2);
-  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 268, &v8, 6u);
+  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 268, &v8, 6);
   if (v4)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4448,7 +4606,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_CLUSTER_ID(AppleBCMWLANNANInterface *a
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_CLUSTER_ID(a1);
+        AppleBCMWLANNANInterface::setNAN_CLUSTER_ID();
       }
     }
   }
@@ -4491,10 +4649,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_TX_RATE()
   return 0;
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_ElectionMetric(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_ElectionMetric(void *a1, uint64_t a2)
 {
   v6 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 515, &v6, 4u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 515, &v6, 4);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4502,7 +4660,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_ElectionMetric(uint64_t *a1, uint64_t 
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_ElectionMetric(a1);
+        AppleBCMWLANNANInterface::getNAN_ElectionMetric();
       }
     }
   }
@@ -4521,7 +4679,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ElectionMetric(AppleBCMWLANNANInterfac
 {
   v6 = 0;
   LOWORD(v6) = *a2;
-  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 514, &v6, 4u);
+  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 514, &v6, 4);
   if (v4)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4529,7 +4687,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ElectionMetric(AppleBCMWLANNANInterfac
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_ElectionMetric(a1);
+        AppleBCMWLANNANInterface::setNAN_ElectionMetric();
       }
     }
   }
@@ -4543,7 +4701,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ElectionMetric(AppleBCMWLANNANInterfac
   return v4;
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_MASTER_PREFERENCE(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_MASTER_PREFERENCE(void *a1, _BYTE *a2)
 {
   v8 = 0;
   v7 = 0;
@@ -4555,7 +4713,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_MASTER_PREFERENCE(uint64_t *a1, _BYTE 
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_MASTER_PREFERENCE(a1);
+        AppleBCMWLANNANInterface::getNAN_MASTER_PREFERENCE();
       }
     }
   }
@@ -4596,7 +4754,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_MASTER_PREFERENCE(AppleBCMWLANNANInter
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_MASTER_PREFERENCE(a1);
+        AppleBCMWLANNANInterface::setNAN_MASTER_PREFERENCE();
       }
     }
   }
@@ -4618,7 +4776,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_MASTER_PREFERENCE(
   return AppleBCMWLANNANInterface::setNAN_MASTER_PREFERENCE((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_RANDOM_FACTOR(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_RANDOM_FACTOR(void *a1, _BYTE *a2)
 {
   v8 = 0;
   v7 = 0;
@@ -4630,7 +4788,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_RANDOM_FACTOR(uint64_t *a1, _BYTE *a2)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_RANDOM_FACTOR(a1);
+        AppleBCMWLANNANInterface::getNAN_RANDOM_FACTOR();
       }
     }
   }
@@ -4671,7 +4829,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RANDOM_FACTOR(AppleBCMWLANNANInterface
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_RANDOM_FACTOR(a1);
+        AppleBCMWLANNANInterface::setNAN_RANDOM_FACTOR();
       }
     }
   }
@@ -4693,7 +4851,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_RANDOM_FACTOR(uint
   return AppleBCMWLANNANInterface::setNAN_RANDOM_FACTOR((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_RANDOM_FACTOR_ROTATION(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_RANDOM_FACTOR_ROTATION(void *a1, _BYTE *a2)
 {
   v8 = 0;
   v7 = 0;
@@ -4705,7 +4863,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_RANDOM_FACTOR_ROTATION(uint64_t *a1, _
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_RANDOM_FACTOR_ROTATION(a1);
+        AppleBCMWLANNANInterface::getNAN_RANDOM_FACTOR_ROTATION();
       }
     }
   }
@@ -4746,7 +4904,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RANDOM_FACTOR_ROTATION(AppleBCMWLANNAN
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_RANDOM_FACTOR_ROTATION(a1);
+        AppleBCMWLANNANInterface::setNAN_RANDOM_FACTOR_ROTATION();
       }
     }
   }
@@ -4768,10 +4926,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_RANDOM_FACTOR_ROTA
   return AppleBCMWLANNANInterface::setNAN_RANDOM_FACTOR_ROTATION((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_HOST_ELECTION(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_HOST_ELECTION(uint64_t a1, _BYTE *a2)
 {
   v6 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 513, &v6, 1u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 513, &v6, 1);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4779,7 +4937,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_HOST_ELECTION(uint64_t *a1, _BYTE *a2)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_HOST_ELECTION(a1);
+        AppleBCMWLANNANInterface::getNAN_HOST_ELECTION();
       }
     }
   }
@@ -4794,17 +4952,17 @@ uint64_t AppleBCMWLANNANInterface::getNAN_HOST_ELECTION(uint64_t *a1, _BYTE *a2)
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_HOST_ELECTION(uint64_t a1, _BYTE *a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_HOST_ELECTION((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_HOST_ELECTION(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_HOST_ELECTION((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_HOST_ELECTION(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_HOST_ELECTION(AppleBCMWLANNANInterface *a1, char *a2)
 {
   v5 = *a2;
-  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 513, &v5, 1u);
+  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 513, &v5, 1);
   if (v3)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4812,7 +4970,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_HOST_ELECTION(AppleBCMWLANNANInterface
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_HOST_ELECTION(a1);
+        AppleBCMWLANNANInterface::setNAN_HOST_ELECTION();
       }
     }
   }
@@ -4847,12 +5005,12 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_CURRENT_ANCHOR_MAS
   return 0;
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_DEVICE_INFO(AppleBCMWLANNANInterface *this, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_DEVICE_INFO(void *this, uint64_t a2)
 {
-  if (*(*(this + 17) + 88))
+  if (*(this[17] + 88))
   {
     memset(v7, 0, 60);
-    IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(this, 262, v7, 0x3Cu);
+    IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(this, 262, v7, 60);
     v5 = IOVAR;
     if (IOVAR)
     {
@@ -4861,7 +5019,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_DEVICE_INFO(AppleBCMWLANNANInterface *
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::getNAN_DEVICE_INFO(this);
+          AppleBCMWLANNANInterface::getNAN_DEVICE_INFO();
         }
       }
     }
@@ -4874,12 +5032,12 @@ uint64_t AppleBCMWLANNANInterface::getNAN_DEVICE_INFO(AppleBCMWLANNANInterface *
 
   else
   {
-    if ((*(*this + 1088))(this))
+    if ((*(*this + 1088))(this, a2))
     {
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_DEVICE_INFO(this);
+        AppleBCMWLANNANInterface::getNAN_DEVICE_INFO();
       }
     }
 
@@ -4898,10 +5056,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_DEVICE_INFO(uint64
   return AppleBCMWLANNANInterface::getNAN_DEVICE_INFO((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_DISC_BCN_PERIOD(uint64_t *a1, _WORD *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_DISC_BCN_PERIOD(uint64_t a1, _WORD *a2)
 {
   v6 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 270, &v6, 2u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 270, &v6, 2);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4909,7 +5067,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_DISC_BCN_PERIOD(uint64_t *a1, _WORD *a
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_DISC_BCN_PERIOD(a1);
+        AppleBCMWLANNANInterface::getNAN_DISC_BCN_PERIOD();
       }
     }
   }
@@ -4924,18 +5082,18 @@ uint64_t AppleBCMWLANNANInterface::getNAN_DISC_BCN_PERIOD(uint64_t *a1, _WORD *a
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_DISC_BCN_PERIOD(uint64_t a1, _WORD *a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_DISC_BCN_PERIOD((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_DISC_BCN_PERIOD(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_DISC_BCN_PERIOD((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_DISC_BCN_PERIOD(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_DISC_BCN_PERIOD(AppleBCMWLANNANInterface *a1, unsigned __int16 *a2)
 {
   v3 = *a2;
   v7 = *a2;
-  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 270, &v7, 2u);
+  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 270, &v7, 2);
   if (v4)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4997,10 +5155,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_BCN_TX_CONTROL()
   return 0;
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_DW_AWAKE_PERIOD(uint64_t *a1, _WORD *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_DW_AWAKE_PERIOD(uint64_t a1, _WORD *a2)
 {
   v6 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 1026, &v6, 4u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 1026, &v6, 4);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -5008,7 +5166,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_DW_AWAKE_PERIOD(uint64_t *a1, _WORD *a
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_DW_AWAKE_PERIOD(a1);
+        AppleBCMWLANNANInterface::getNAN_DW_AWAKE_PERIOD();
       }
     }
   }
@@ -5023,18 +5181,18 @@ uint64_t AppleBCMWLANNANInterface::getNAN_DW_AWAKE_PERIOD(uint64_t *a1, _WORD *a
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_DW_AWAKE_PERIOD(uint64_t a1, _WORD *a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_DW_AWAKE_PERIOD((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_DW_AWAKE_PERIOD(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_DW_AWAKE_PERIOD((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_DW_AWAKE_PERIOD(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_DW_AWAKE_PERIOD(AppleBCMWLANNANInterface *a1, _WORD *a2)
 {
   v5 = 0;
   LOWORD(v5) = *a2;
-  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1026, &v5, 4u);
+  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1026, &v5, 4);
   if (v3)
   {
     if ((*(*a1 + 1088))(a1))
@@ -5042,7 +5200,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_DW_AWAKE_PERIOD(AppleBCMWLANNANInterfa
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_DW_AWAKE_PERIOD(a1);
+        AppleBCMWLANNANInterface::setNAN_DW_AWAKE_PERIOD();
       }
     }
   }
@@ -5059,10 +5217,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_DW_AWAKE_PERIOD(ui
   return AppleBCMWLANNANInterface::setNAN_DW_AWAKE_PERIOD((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_MASTER_CHANNEL(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_MASTER_CHANNEL(uint64_t a1, _BYTE *a2)
 {
   v6 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 1025, &v6, 4u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 1025, &v6, 4);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -5070,7 +5228,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_MASTER_CHANNEL(uint64_t *a1, _BYTE *a2
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_MASTER_CHANNEL(a1);
+        AppleBCMWLANNANInterface::getNAN_MASTER_CHANNEL();
       }
     }
   }
@@ -5085,14 +5243,14 @@ uint64_t AppleBCMWLANNANInterface::getNAN_MASTER_CHANNEL(uint64_t *a1, _BYTE *a2
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_MASTER_CHANNEL(uint64_t a1, _BYTE *a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_MASTER_CHANNEL((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_MASTER_CHANNEL(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_MASTER_CHANNEL((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_MASTER_CHANNEL(a1 - 128, a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_FwCapability(AppleBCMWLANNANInterface *this)
+uint64_t AppleBCMWLANNANInterface::getNAN_FwCapability(void *this)
 {
   v2 = IOMallocZeroData();
   if (!v2)
@@ -5101,7 +5259,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_FwCapability(AppleBCMWLANNANInterface 
   }
 
   v3 = v2;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(this, 2050, v2, 0x28u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(this, 2050, v2, 40);
   v5 = (*(*this + 1088))(this);
   if (IOVAR)
   {
@@ -5110,7 +5268,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_FwCapability(AppleBCMWLANNANInterface 
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_FwCapability(this);
+        AppleBCMWLANNANInterface::getNAN_FwCapability();
       }
     }
   }
@@ -5122,37 +5280,37 @@ uint64_t AppleBCMWLANNANInterface::getNAN_FwCapability(AppleBCMWLANNANInterface 
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_FwCapability(this);
+        AppleBCMWLANNANInterface::getNAN_FwCapability();
       }
     }
 
-    Bus = AppleBCMWLANCore::getBus(*(*(this + 17) + 64));
+    Bus = AppleBCMWLANCore::getBus(*(this[17] + 64));
     if ((*(*Bus + 368))(Bus) == 4378)
     {
-      *(*(this + 17) + 248) = 0;
+      *(this[17] + 248) = 0;
       v7 = v3[1];
     }
 
     else
     {
       v7 = v3[1];
-      *(*(this + 17) + 248) = v7 < 0;
+      *(this[17] + 248) = v7 < 0;
     }
 
-    **(this + 17) = BYTE2(v7) & 1;
-    *(*(this + 17) + 56) = *(v3 + 13);
-    *(*(this + 17) + 57) = *(v3 + 12);
-    *(*(this + 17) + 59) = *(v3 + 18);
-    *(*(this + 17) + 60) = *(v3 + 14);
-    *(*(this + 17) + 58) = *(v3 + 17);
-    *(*(this + 17) + 61) = *(v3 + 16);
+    *this[17] = BYTE2(v7) & 1;
+    *(this[17] + 56) = *(v3 + 13);
+    *(this[17] + 57) = *(v3 + 12);
+    *(this[17] + 59) = *(v3 + 18);
+    *(this[17] + 60) = *(v3 + 14);
+    *(this[17] + 58) = *(v3 + 17);
+    *(this[17] + 61) = *(v3 + 16);
     if ((*(*this + 1088))(this))
     {
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
         v9 = (*(*this + 1088))(this);
-        CCLogStream::logAlert(v9, "[dk] %s@%d:Nan-FwCapability Flag1=0x%0x max_svc_publishes:%0x max_svc_subscribes:%0x max_lcl_sched_maps:%0x\n               max_lcl_ndc_entries:%0x max_lcl_ndi_interfaces:%0x max_peer_entries:%0x max_ndp_sessions:%0x, hostpairing:%d\n ", "getNAN_FwCapability", 5341, v3[1], *(v3 + 12), *(v3 + 13), *(v3 + 14), *(v3 + 15), *(v3 + 16), *(v3 + 17), *(v3 + 18), *(*(this + 17) + 248));
+        CCLogStream::logAlert(v9, "[dk] %s@%d:Nan-FwCapability Flag1=0x%0x max_svc_publishes:%0x max_svc_subscribes:%0x max_lcl_sched_maps:%0x\n               max_lcl_ndc_entries:%0x max_lcl_ndi_interfaces:%0x max_peer_entries:%0x max_ndp_sessions:%0x, hostpairing:%d\n ", "getNAN_FwCapability", 5341, v3[1], *(v3 + 12), *(v3 + 13), *(v3 + 14), *(v3 + 15), *(v3 + 16), *(v3 + 17), *(v3 + 18), *(this[17] + 248));
       }
     }
   }
@@ -5161,7 +5319,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_FwCapability(AppleBCMWLANNANInterface 
   return IOVAR;
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_deviceCapability(uint64_t *a1, BOOL *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_deviceCapability(uint64_t a1, BOOL *a2)
 {
   v4 = IOMallocZeroData();
   if (!v4)
@@ -5170,7 +5328,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_deviceCapability(uint64_t *a1, BOOL *a
   }
 
   v5 = v4;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 2050, v4, 0x28u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 2050, v4, 40);
   v7 = (*(*a1 + 1088))(a1);
   if (IOVAR)
   {
@@ -5179,7 +5337,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_deviceCapability(uint64_t *a1, BOOL *a
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_deviceCapability(a1);
+        AppleBCMWLANNANInterface::getNAN_deviceCapability();
       }
     }
   }
@@ -5191,7 +5349,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_deviceCapability(uint64_t *a1, BOOL *a
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_deviceCapability(a1);
+        AppleBCMWLANNANInterface::getNAN_deviceCapability();
       }
     }
 
@@ -5200,7 +5358,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_deviceCapability(uint64_t *a1, BOOL *a
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_deviceCapability(a1);
+        AppleBCMWLANNANInterface::getNAN_deviceCapability();
       }
     }
 
@@ -5217,7 +5375,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_MASTER_CHANNEL(AppleBCMWLANNANInterfac
   v4 = *a2;
   *(*(a1 + 17) + 5) = *a2;
   LOBYTE(v8) = v4;
-  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1025, &v8, 4u);
+  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1025, &v8, 4);
   if (v5)
   {
     if ((*(*a1 + 1088))(a1))
@@ -5243,10 +5401,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_MASTER_CHANNEL(uin
   return AppleBCMWLANNANInterface::setNAN_MASTER_CHANNEL((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_SECONDARY_MASTER_CHANNEL(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_SECONDARY_MASTER_CHANNEL(uint64_t a1, _BYTE *a2)
 {
   v6 = 0;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 1025, &v6, 4u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 1025, &v6, 4);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -5254,7 +5412,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_SECONDARY_MASTER_CHANNEL(uint64_t *a1,
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_SECONDARY_MASTER_CHANNEL(a1);
+        AppleBCMWLANNANInterface::getNAN_SECONDARY_MASTER_CHANNEL();
       }
     }
   }
@@ -5269,11 +5427,11 @@ uint64_t AppleBCMWLANNANInterface::getNAN_SECONDARY_MASTER_CHANNEL(uint64_t *a1,
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_SECONDARY_MASTER_CHANNEL(uint64_t a1, _BYTE *a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_SECONDARY_MASTER_CHANNEL((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_SECONDARY_MASTER_CHANNEL(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_SECONDARY_MASTER_CHANNEL((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_SECONDARY_MASTER_CHANNEL(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_SECONDARY_MASTER_CHANNEL(AppleBCMWLANNANInterface *a1, unsigned __int8 *a2)
@@ -5283,7 +5441,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_SECONDARY_MASTER_CHANNEL(AppleBCMWLANN
   *(*(a1 + 17) + 6) = *a2;
   LOBYTE(v8) = *(*(a1 + 17) + 5);
   BYTE1(v8) = v4;
-  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1025, &v8, 4u);
+  v5 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1025, &v8, 4);
   if (v5)
   {
     if ((*(*a1 + 1088))(a1))
@@ -5336,7 +5494,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_CHANNEL_SEQUENCE()
   return 0;
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_PUBLISH(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_PUBLISH(AppleBCMWLANNANInterface *a1, uint64_t a2)
 {
   v4 = *(a2 + 3402);
   if (*(a2 + 3402))
@@ -5419,7 +5577,7 @@ LABEL_14:
     v15 = *(a2 + 3438) == 3 ? 64 : 44;
     v8 += v15;
     v16 = v8 + ((v14 >> 7) & 8);
-    if (*(a1[17] + 92) == 1)
+    if (*(*(a1 + 17) + 92) == 1)
     {
       v8 = v16;
     }
@@ -5430,8 +5588,8 @@ LABEL_14:
     v8 += 8;
   }
 
-  v61 = 0;
-  v60[1] = 0;
+  v60 = 0;
+  v59[1] = 0;
   v17 = *(a2 + 5552) | *(a2 + 5556);
   v18 = v17 != 0;
   if (v17)
@@ -5439,17 +5597,17 @@ LABEL_14:
     v8 += 12;
   }
 
-  v62 = 0;
+  v61 = 0;
   v19 = *(a2 + 3493);
   v20 = v19 != 0;
   if (v19)
   {
-    LODWORD(v21) = v8 + 12;
+    v21 = v8 + 12;
   }
 
   else
   {
-    LODWORD(v21) = v8;
+    v21 = v8;
   }
 
   v22 = *(a2 + 5550);
@@ -5516,9 +5674,9 @@ LABEL_14:
     *(v25 + 12) |= 0x40u;
   }
 
-  v58 = v20;
-  v59 = v18;
-  v57 = v19;
+  v57 = v20;
+  v58 = v18;
+  v56 = v19;
   if ((v29 & 0x10) != 0)
   {
     v30 = *(v25 + 12);
@@ -5606,7 +5764,7 @@ LABEL_14:
   {
     *v31 = 65800;
     *(v31 + 4) = *(a2 + 3438);
-    if (*(a1[17] + 92) == 1 && (*(a2 + 3432) & 0x400) != 0)
+    if (*(*(a1 + 17) + 92) == 1 && (*(a2 + 3432) & 0x400) != 0)
     {
       *(v31 + 8) = 65808;
       *(v31 + 12) = 5;
@@ -5616,7 +5774,7 @@ LABEL_14:
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_PUBLISH(a1);
+          AppleBCMWLANNANInterface::setNAN_PUBLISH();
         }
       }
     }
@@ -5630,7 +5788,7 @@ LABEL_14:
         if (CCLogStream::shouldLog())
         {
           v48 = (*(*a1 + 1088))(a1);
-          CCLogStream::logAlert(v48, "[dk] %s@%d:Publish-legacy: fNANGTKenable:%d control:%x, dpReq->cipher_suite_id is %d, not setting SEC_GTK_CSID \n", "setNAN_PUBLISH", 5746, *(a1[17] + 92), *(a2 + 3432), *(a2 + 3438));
+          CCLogStream::logAlert(v48, "[dk] %s@%d:Publish-legacy: fNANGTKenable:%d control:%x, dpReq->cipher_suite_id is %d, not setting SEC_GTK_CSID \n", "setNAN_PUBLISH", 5746, *(*(a1 + 17) + 92), *(a2 + 3432), *(a2 + 3438));
         }
       }
     }
@@ -5659,7 +5817,7 @@ LABEL_14:
     v31 += 8;
   }
 
-  if (v59)
+  if (v58)
   {
     *v31 = 393998;
     v50 = *(a2 + 5552);
@@ -5668,11 +5826,11 @@ LABEL_14:
     v31 += 12;
   }
 
-  if (v58)
+  if (v57)
   {
     *v31 = 784;
     v51 = v31 + 4;
-    if (v57)
+    if (v56)
     {
       *(v31 + 4) = 0;
       *(v31 + 5) = 8;
@@ -5698,15 +5856,14 @@ LABEL_14:
     *(v31 + 2) = v52;
   }
 
-  v60[0] = 0;
-  IOParseBootArgNumber("wlan.enableNANDebug", v60, 4);
-  if (v60[0] && v21)
+  v59[0] = 0;
+  IOParseBootArgNumber("wlan.enableNANDebug", v59, 4);
+  if (v59[0] && v21)
   {
     v54 = 0;
     v55 = v26;
     do
     {
-      v56 = *(a1[17] + 80);
       IO80211Hexdump();
       v54 += 32;
       v55 += 16;
@@ -5723,7 +5880,7 @@ LABEL_14:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_PUBLISH(a1);
+        AppleBCMWLANNANInterface::setNAN_PUBLISH();
       }
     }
   }
@@ -5745,7 +5902,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_CANCEL_PUBLISH(AppleBCMWLANNANInterfac
 {
   v3 = *a2;
   v7 = v3;
-  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 772, &v7, 4u);
+  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 772, &v7, 4);
   if (v4)
   {
     if ((*(*a1 + 1088))(a1))
@@ -5771,7 +5928,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_CANCEL_PUBLISH(uin
   return AppleBCMWLANNANInterface::setNAN_CANCEL_PUBLISH((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_PUBLISHED_SERVICE_LIST(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_PUBLISHED_SERVICE_LIST(uint64_t a1, uint64_t a2)
 {
   v4 = IOMallocZeroData();
   if (!v4)
@@ -5780,7 +5937,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_PUBLISHED_SERVICE_LIST(uint64_t *a1, u
   }
 
   v5 = v4;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 771, v4, 0x100u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 771, v4, 256);
   if (IOVAR)
   {
     v7 = IOVAR;
@@ -5789,7 +5946,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_PUBLISHED_SERVICE_LIST(uint64_t *a1, u
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_PUBLISHED_SERVICE_LIST(a1);
+        AppleBCMWLANNANInterface::getNAN_PUBLISHED_SERVICE_LIST();
       }
     }
   }
@@ -5825,14 +5982,14 @@ uint64_t AppleBCMWLANNANInterface::getNAN_PUBLISHED_SERVICE_LIST(uint64_t *a1, u
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_PUBLISHED_SERVICE_LIST(uint64_t a1, uint64_t a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_PUBLISHED_SERVICE_LIST((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_PUBLISHED_SERVICE_LIST(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_PUBLISHED_SERVICE_LIST((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_PUBLISHED_SERVICE_LIST(a1 - 128, a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_SUBSCRIBE(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_SUBSCRIBE(AppleBCMWLANNANInterface *a1, uint64_t a2)
 {
   v4 = *(a2 + 3499);
   if (*(a2 + 3499))
@@ -5909,7 +6066,7 @@ LABEL_14:
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_SUBSCRIBE(a1);
+          AppleBCMWLANNANInterface::setNAN_SUBSCRIBE();
         }
       }
 
@@ -5945,7 +6102,7 @@ LABEL_14:
 
   if (*(a2 + 3600) || *(a2 + 3598))
   {
-    v16 += 8;
+    v16 = (v16 + 8);
   }
 
   if (v16 > 0xC00)
@@ -6118,7 +6275,7 @@ LABEL_14:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_SUBSCRIBE(a1);
+        AppleBCMWLANNANInterface::setNAN_SUBSCRIBE();
       }
     }
   }
@@ -6140,7 +6297,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_CANCEL_SUBSCRIBE(AppleBCMWLANNANInterf
 {
   v3 = *a2;
   v7 = v3;
-  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 775, &v7, 4u);
+  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 775, &v7, 4);
   if (v4)
   {
     if ((*(*a1 + 1088))(a1))
@@ -6166,7 +6323,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_CANCEL_SUBSCRIBE(u
   return AppleBCMWLANNANInterface::setNAN_CANCEL_SUBSCRIBE((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST(uint64_t a1, uint64_t a2)
 {
   v4 = IOMallocZeroData();
   if (!v4)
@@ -6175,7 +6332,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST(uint64_t *a1, 
   }
 
   v5 = v4;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 774, v4, 0x100u);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 774, v4, 256);
   if (IOVAR)
   {
     v7 = IOVAR;
@@ -6184,7 +6341,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST(uint64_t *a1, 
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST(a1);
+        AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST();
       }
     }
   }
@@ -6221,7 +6378,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST(uint64_t *a1, 
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST(a1);
+        AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST();
       }
     }
 
@@ -6234,11 +6391,11 @@ uint64_t AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST(uint64_t *a1, 
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST(uint64_t a1, uint64_t a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_SUBSCRIBED_SERVICE_LIST(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_FOLLOW_UP_TRANSMIT(AppleBCMWLANNANInterface *a1, uint64_t a2)
@@ -6376,7 +6533,7 @@ LABEL_32:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_FOLLOW_UP_TRANSMIT(a1);
+        AppleBCMWLANNANInterface::setNAN_FOLLOW_UP_TRANSMIT();
       }
     }
   }
@@ -6394,10 +6551,10 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_FOLLOW_UP_TRANSMIT
   return AppleBCMWLANNANInterface::setNAN_FOLLOW_UP_TRANSMIT((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_SERVICE_DISCOVERY_STATS(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_SERVICE_DISCOVERY_STATS(uint64_t a1, uint64_t a2)
 {
   memset(v7, 0, 44);
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 777, v7, 0x2Cu);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 777, v7, 44);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -6405,7 +6562,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_SERVICE_DISCOVERY_STATS(uint64_t *a1, 
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_SERVICE_DISCOVERY_STATS(a1);
+        AppleBCMWLANNANInterface::getNAN_SERVICE_DISCOVERY_STATS();
       }
     }
   }
@@ -6424,11 +6581,11 @@ uint64_t AppleBCMWLANNANInterface::getNAN_SERVICE_DISCOVERY_STATS(uint64_t *a1, 
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_SERVICE_DISCOVERY_STATS(uint64_t a1, uint64_t a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_SERVICE_DISCOVERY_STATS((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_SERVICE_DISCOVERY_STATS(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_SERVICE_DISCOVERY_STATS((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_SERVICE_DISCOVERY_STATS(a1 - 128, a2);
 }
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_AF_TX()
@@ -6449,7 +6606,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_SERVICE_DESCRIPTOR
   return 0;
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_ADVERTISERS(uint64_t *a1, _WORD *a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_ADVERTISERS(uint64_t a1, _WORD *a2)
 {
   v4 = IOMallocZeroData();
   if (!v4)
@@ -6458,7 +6615,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_ADVERTISERS(uint64_t *a1, _WORD *a2)
   }
 
   v5 = v4;
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 517, v4, 0x5DCu);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 517, v4, 1500);
   if (IOVAR)
   {
     v7 = IOVAR;
@@ -6467,7 +6624,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_ADVERTISERS(uint64_t *a1, _WORD *a2)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_ADVERTISERS(a1);
+        AppleBCMWLANNANInterface::getNAN_ADVERTISERS();
       }
     }
   }
@@ -6517,11 +6674,11 @@ uint64_t AppleBCMWLANNANInterface::getNAN_ADVERTISERS(uint64_t *a1, _WORD *a2)
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_ADVERTISERS(uint64_t a1, _WORD *a2)
 {
-  return AppleBCMWLANNANInterface::getNAN_ADVERTISERS((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::getNAN_ADVERTISERS(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::getNAN_ADVERTISERS((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::getNAN_ADVERTISERS(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_INIT(AppleBCMWLANNANInterface *a1)
@@ -6542,14 +6699,14 @@ uint64_t AppleBCMWLANNANInterface::setNAN_INIT(AppleBCMWLANNANInterface *a1)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_INIT(a1);
+        AppleBCMWLANNANInterface::setNAN_INIT();
       }
     }
   }
 
   else
   {
-    v5 = AppleBCMWLANNANInterface::issueSyncSetIOVAR(a1, 257, &v15, 1u);
+    v5 = AppleBCMWLANNANInterface::issueSyncSetIOVAR(a1, 257, &v15, 1);
     if (v5)
     {
       v4 = v5;
@@ -6558,7 +6715,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_INIT(AppleBCMWLANNANInterface *a1)
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_INIT(a1);
+          AppleBCMWLANNANInterface::setNAN_INIT();
         }
       }
     }
@@ -6574,7 +6731,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_INIT(AppleBCMWLANNANInterface *a1)
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::setNAN_INIT(a1);
+            AppleBCMWLANNANInterface::setNAN_INIT();
           }
         }
       }
@@ -6591,7 +6748,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_INIT(AppleBCMWLANNANInterface *a1)
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::setNAN_INIT(a1);
+              AppleBCMWLANNANInterface::setNAN_INIT();
             }
           }
         }
@@ -6607,7 +6764,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_INIT(AppleBCMWLANNANInterface *a1)
               (*(*a1 + 1088))(a1);
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANNANInterface::setNAN_INIT(a1);
+                AppleBCMWLANNANInterface::setNAN_INIT();
               }
             }
           }
@@ -6629,7 +6786,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_INIT(AppleBCMWLANNANInterface *a1)
                 (*(*a1 + 1088))(a1);
                 if (CCLogStream::shouldLog())
                 {
-                  AppleBCMWLANNANInterface::setNAN_INIT(a1);
+                  AppleBCMWLANNANInterface::setNAN_INIT();
                 }
               }
 
@@ -6651,7 +6808,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_INIT(AppleBCMWLANNANInterface *a1)
                 (*(*a1 + 1088))(a1);
                 if (CCLogStream::shouldLog())
                 {
-                  AppleBCMWLANNANInterface::setNAN_INIT(a1);
+                  AppleBCMWLANNANInterface::setNAN_INIT();
                 }
               }
             }
@@ -6716,7 +6873,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_COMMITTED_AVAILABI
   return 3758097095;
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_COMMITTED_AVAILABILITY(uint64_t *a1, int *a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_COMMITTED_AVAILABILITY(AppleBCMWLANNANInterface *a1, int *a2)
 {
   v4 = IOMallocZeroData();
   if (!v4)
@@ -6733,7 +6890,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_COMMITTED_AVAILABILITY(uint64_t *a1, i
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_COMMITTED_AVAILABILITY(a1);
+        AppleBCMWLANNANInterface::setNAN_COMMITTED_AVAILABILITY();
       }
     }
 
@@ -6751,7 +6908,7 @@ LABEL_26:
   v9 = a2 + 2;
   v27 = v4 + 16;
   v28 = a1;
-  v10 = (a2 + 22);
+  v10 = a2 + 22;
   while (1)
   {
     v11 = &v9[321 * v8];
@@ -6759,7 +6916,7 @@ LABEL_26:
     v12 = *(v11 + 1);
     if (!*(v11 + 1))
     {
-      v17 = a1[17] + 94;
+      v17 = *(a1 + 17) + 94;
       if (*(v17 + v8) == 1)
       {
         *(v17 + v8) = 0;
@@ -6776,7 +6933,7 @@ LABEL_26:
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_COMMITTED_AVAILABILITY(a1);
+          AppleBCMWLANNANInterface::setNAN_COMMITTED_AVAILABILITY();
         }
       }
 
@@ -6813,7 +6970,7 @@ LABEL_23:
         (*(*v28 + 1088))(v28);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_COMMITTED_AVAILABILITY(v28);
+          AppleBCMWLANNANInterface::setNAN_COMMITTED_AVAILABILITY();
         }
       }
 
@@ -6825,7 +6982,7 @@ LABEL_23:
     v6 = a2 + 6;
 LABEL_25:
     ++v8;
-    v10 += 642;
+    v10 += 321;
     if (v8 >= *v6)
     {
       goto LABEL_26;
@@ -6864,7 +7021,7 @@ LABEL_20:
     v20 += v24;
     v16 += v24;
     ++v18;
-    v19 += 40;
+    v19 += 20;
     if (v18 >= *(v5 + 14))
     {
       goto LABEL_23;
@@ -6876,7 +7033,7 @@ LABEL_20:
     (*(*v28 + 1088))(v28);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::setNAN_COMMITTED_AVAILABILITY(v28);
+      AppleBCMWLANNANInterface::setNAN_COMMITTED_AVAILABILITY();
     }
   }
 
@@ -6887,8 +7044,9 @@ LABEL_31:
   return v7;
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_RemoveCommittedAvailability(AppleBCMWLANNANInterface *this, int a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_RemoveCommittedAvailability(AppleBCMWLANNANInterface *this, uint64_t a2)
 {
+  v2 = a2;
   v9 = 0;
   v8 = a2;
   v7 = 536936464;
@@ -6897,11 +7055,11 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RemoveCommittedAvailability(AppleBCMWL
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::setNAN_RemoveCommittedAvailability(this);
+      AppleBCMWLANNANInterface::setNAN_RemoveCommittedAvailability();
     }
   }
 
-  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 274, &v7, 0x10u);
+  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 274, &v7, 16);
   if (v4)
   {
     if ((*(*this + 1088))(this))
@@ -6910,7 +7068,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RemoveCommittedAvailability(AppleBCMWL
       if (CCLogStream::shouldLog())
       {
         v6 = (*(*this + 1088))(this);
-        CCLogStream::logAlert(v6, "[dk] %s@%d:ERROR: Unable to remove map %d from NAN availability, ret = %d\n", "setNAN_RemoveCommittedAvailability", 6777, a2, v4);
+        CCLogStream::logAlert(v6, "[dk] %s@%d:ERROR: Unable to remove map %d from NAN availability, ret = %d\n", "setNAN_RemoveCommittedAvailability", 6777, v2, v4);
       }
     }
   }
@@ -6927,7 +7085,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_COMMITTED_AVAILABI
   return AppleBCMWLANNANInterface::setNAN_COMMITTED_AVAILABILITY((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::buildNAN_CommittedAvailability(AppleBCMWLANNANInterface *this, uint64_t a2, uint64_t a3, int a4)
+uint64_t AppleBCMWLANNANInterface::buildNAN_CommittedAvailability(AppleBCMWLANNANInterface *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 < 2)
   {
@@ -7009,7 +7167,7 @@ uint64_t AppleBCMWLANNANInterface::buildNAN_CommittedAvailability(AppleBCMWLANNA
           (*(*this + 1088))(this);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::buildNAN_CommittedAvailability(this);
+            AppleBCMWLANNANInterface::buildNAN_CommittedAvailability();
           }
         }
 
@@ -7035,7 +7193,7 @@ LABEL_22:
         result = CCLogStream::shouldLog();
         if (result)
         {
-          AppleBCMWLANNANInterface::buildNAN_CommittedAvailability(this);
+          AppleBCMWLANNANInterface::buildNAN_CommittedAvailability();
           return 0;
         }
       }
@@ -7044,14 +7202,14 @@ LABEL_22:
 
   else
   {
-    result = (*(*this + 1088))(this);
+    result = (*(*this + 1088))(this, a2, a3);
     if (result)
     {
       (*(*this + 1088))(this);
       result = CCLogStream::shouldLog();
       if (result)
       {
-        AppleBCMWLANNANInterface::buildNAN_CommittedAvailability(this);
+        AppleBCMWLANNANInterface::buildNAN_CommittedAvailability();
         return 0;
       }
     }
@@ -7060,7 +7218,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_POTENTIAL_AVAILABILITYInternal(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_POTENTIAL_AVAILABILITYInternal(AppleBCMWLANNANInterface *a1, _BYTE *a2)
 {
   v4 = IOMallocZeroData();
   if (!v4)
@@ -7144,7 +7302,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_POTENTIAL_AVAILABILITYInternal(uint64_
             (*(*v30 + 1088))(v30);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::setNAN_POTENTIAL_AVAILABILITYInternal(v30);
+              AppleBCMWLANNANInterface::setNAN_POTENTIAL_AVAILABILITYInternal();
             }
           }
 
@@ -7185,7 +7343,7 @@ LABEL_19:
             (*(*v30 + 1088))(v30);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::setNAN_POTENTIAL_AVAILABILITYInternal(v30);
+              AppleBCMWLANNANInterface::setNAN_POTENTIAL_AVAILABILITYInternal();
             }
           }
 
@@ -7219,7 +7377,7 @@ LABEL_23:
         (*(*v30 + 1088))(v30);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_POTENTIAL_AVAILABILITYInternal(v30);
+          AppleBCMWLANNANInterface::setNAN_POTENTIAL_AVAILABILITYInternal();
         }
       }
     }
@@ -7237,7 +7395,7 @@ LABEL_23:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_POTENTIAL_AVAILABILITYInternal(a1);
+        AppleBCMWLANNANInterface::setNAN_POTENTIAL_AVAILABILITYInternal();
       }
     }
 
@@ -7258,7 +7416,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_POTENTIAL_AVAILABI
   return AppleBCMWLANNANInterface::setNAN_POTENTIAL_AVAILABILITYInternal((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_NDC_AVAILABILITY(uint64_t *a1, _BYTE *a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_NDC_AVAILABILITY(AppleBCMWLANNANInterface *a1, _BYTE *a2)
 {
   v4 = IOMallocZeroData();
   if (!v4)
@@ -7274,7 +7432,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_NDC_AVAILABILITY(uint64_t *a1, _BYTE *
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_NDC_AVAILABILITY(a1);
+        AppleBCMWLANNANInterface::setNAN_NDC_AVAILABILITY();
       }
     }
 
@@ -7329,7 +7487,7 @@ LABEL_25:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_NDC_AVAILABILITY(a1);
+        AppleBCMWLANNANInterface::setNAN_NDC_AVAILABILITY();
       }
     }
 
@@ -7357,7 +7515,7 @@ LABEL_23:
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::setNAN_NDC_AVAILABILITY(a1);
+      AppleBCMWLANNANInterface::setNAN_NDC_AVAILABILITY();
     }
   }
 
@@ -7405,7 +7563,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_IMMUTABLE_AVAILABILITY(AppleBCMWLANNAN
         v5[8] = v9 + 18;
         memcpy(v5 + 17, v8, v9);
         *v5 = v9 + 34;
-        v10 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 274, v5, v9 + 34);
+        v10 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 274, v5, (v9 + 34));
         if (v10)
         {
           break;
@@ -7425,7 +7583,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_IMMUTABLE_AVAILABILITY(AppleBCMWLANNAN
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_IMMUTABLE_AVAILABILITY(a1);
+          AppleBCMWLANNANInterface::setNAN_IMMUTABLE_AVAILABILITY();
         }
       }
     }
@@ -7444,7 +7602,7 @@ LABEL_12:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_IMMUTABLE_AVAILABILITY(a1);
+        AppleBCMWLANNANInterface::setNAN_IMMUTABLE_AVAILABILITY();
       }
     }
 
@@ -7494,7 +7652,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RANGING_AVAILABILITY(AppleBCMWLANNANIn
         v5[8] = v9 + 18;
         memcpy(v5 + 17, v8, v9);
         *v5 = v9 + 34;
-        v10 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 274, v5, v9 + 34);
+        v10 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 274, v5, (v9 + 34));
         if (v10)
         {
           break;
@@ -7514,7 +7672,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RANGING_AVAILABILITY(AppleBCMWLANNANIn
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_RANGING_AVAILABILITY(a1);
+          AppleBCMWLANNANInterface::setNAN_RANGING_AVAILABILITY();
         }
       }
     }
@@ -7533,7 +7691,7 @@ LABEL_12:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_RANGING_AVAILABILITY(a1);
+        AppleBCMWLANNANInterface::setNAN_RANGING_AVAILABILITY();
       }
     }
 
@@ -7553,7 +7711,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_RANGING_AVAILABILI
   return AppleBCMWLANNANInterface::setNAN_RANGING_AVAILABILITY((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY(void *a1, uint64_t a2)
 {
   v19 = 0;
   v4 = (*(**(a1[17] + 64) + 88))(*(a1[17] + 64));
@@ -7565,7 +7723,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY(uint64_t *a1, uint64
       v5 = 1;
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY(a1);
+        AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY();
       }
     }
 
@@ -7588,7 +7746,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY(uint64_t *a1, uint64
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY(a1);
+          AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY();
         }
       }
     }
@@ -7605,7 +7763,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY(uint64_t *a1, uint64
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY(a1);
+            AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY();
           }
         }
       }
@@ -7661,7 +7819,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY(uint64_t *a1, uint64
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY(a1);
+              AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY();
             }
           }
 
@@ -7675,7 +7833,7 @@ uint64_t AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY(uint64_t *a1, uint64
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY(a1);
+              AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY();
             }
           }
 
@@ -7699,7 +7857,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY(
   return AppleBCMWLANNANInterface::getNAN_DEVICE_CAPABILITY((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_DP_REQ(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_DP_REQ(void *a1, uint64_t a2)
 {
   if (*a2)
   {
@@ -7729,7 +7887,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_DP_REQ(uint64_t *a1, uint64_t a2)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_DP_REQ(a1);
+        AppleBCMWLANNANInterface::setNAN_DP_REQ();
       }
     }
 
@@ -7750,7 +7908,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_DP_REQ(uint64_t *a1, uint64_t a2)
     }
   }
 
-  v30 = 0;
+  v29 = 0;
   v7 = *(a2 + 2128);
   if (v7)
   {
@@ -7865,7 +8023,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_DP_REQ(uint64_t *a1, uint64_t a2)
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_DP_REQ(a1);
+          AppleBCMWLANNANInterface::setNAN_DP_REQ();
           if (!v8)
           {
             goto LABEL_53;
@@ -7903,8 +8061,8 @@ LABEL_48:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        v28 = (*(*a1 + 1088))(a1);
-        CCLogStream::logAlert(v28, "[dk] %s@%d:DPReq-legacy: fNANGTKenable:%d gtk_required:%d, cipher_suite_id is %d, Not setting SEC_GTK_CSID \n", "setNAN_DP_REQ", 7308, *(a1[17] + 92), *(a2 + 2152), *(a2 + 2074));
+        v27 = (*(*a1 + 1088))(a1);
+        CCLogStream::logAlert(v27, "[dk] %s@%d:DPReq-legacy: fNANGTKenable:%d gtk_required:%d, cipher_suite_id is %d, Not setting SEC_GTK_CSID \n", "setNAN_DP_REQ", 7308, *(a1[17] + 92), *(a2 + 2152), *(a2 + 2074));
         if (!v8)
         {
           goto LABEL_53;
@@ -7921,15 +8079,14 @@ LABEL_48:
   }
 
 LABEL_53:
-  v29 = 0;
-  IOParseBootArgNumber("wlan.enableNANDebug", &v29, 4);
-  if (v29)
+  v28 = 0;
+  IOParseBootArgNumber("wlan.enableNANDebug", &v28, 4);
+  if (v28)
   {
     v24 = 0;
     v25 = v13;
     do
     {
-      v26 = *(a1[17] + 80);
       IO80211Hexdump();
       v24 += 32;
       v25 += 16;
@@ -7946,7 +8103,7 @@ LABEL_53:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_DP_REQ(a1);
+        AppleBCMWLANNANInterface::setNAN_DP_REQ();
       }
     }
   }
@@ -7964,7 +8121,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_DP_REQ(uint64_t a1
   return AppleBCMWLANNANInterface::setNAN_DP_REQ((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_DP_RESP(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_DP_RESP(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 2082))
   {
@@ -7996,8 +8153,8 @@ uint64_t AppleBCMWLANNANInterface::setNAN_DP_RESP(uint64_t *a1, uint64_t a2)
     v4 = 0;
   }
 
-  v5 = v2 + v4;
-  if ((v2 + v4) > 0xC00)
+  v5 = (v2 + v4);
+  if (v5 > 0xC00)
   {
     return 22;
   }
@@ -8084,7 +8241,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_DP_RESP(uint64_t *a1, uint64_t a2)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_DP_RESP(a1);
+        AppleBCMWLANNANInterface::setNAN_DP_RESP();
       }
     }
   }
@@ -8095,11 +8252,11 @@ uint64_t AppleBCMWLANNANInterface::setNAN_DP_RESP(uint64_t *a1, uint64_t a2)
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_DP_RESP(uint64_t a1, uint64_t a2)
 {
-  return AppleBCMWLANNANInterface::setNAN_DP_RESP((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::setNAN_DP_RESP(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::setNAN_DP_RESP((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::setNAN_DP_RESP(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_DP_END(AppleBCMWLANNANInterface *a1, uint64_t a2)
@@ -8109,7 +8266,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_DP_END(AppleBCMWLANNANInterface *a1, u
   v6[1] = *(a2 + 4);
   v7 = v3;
   v8 = *(a2 + 12);
-  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1286, v6, 8u);
+  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1286, v6, 8);
   if (v4)
   {
     if ((*(*a1 + 1088))(a1))
@@ -8117,7 +8274,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_DP_END(AppleBCMWLANNANInterface *a1, u
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_DP_END(a1);
+        AppleBCMWLANNANInterface::setNAN_DP_END();
       }
     }
   }
@@ -8151,7 +8308,7 @@ LABEL_4:
     BYTE1(v6) = v3;
   }
 
-  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 1294, &v6, 4u);
+  v4 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 1294, &v6, 4);
   if (v4)
   {
     if ((*(*this + 1088))(this))
@@ -8159,7 +8316,7 @@ LABEL_4:
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_DP_CONF(this);
+        AppleBCMWLANNANInterface::setNAN_DP_CONF();
       }
     }
   }
@@ -8176,7 +8333,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_DP_CONF(uint64_t a
   return AppleBCMWLANNANInterface::setNAN_DP_CONF((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_RANGING_REQUEST(uint64_t *a1, int *a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_RANGING_REQUEST(uint64_t a1, int *a2)
 {
   v4 = IOMallocZeroData();
   if (!v4)
@@ -8191,7 +8348,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RANGING_REQUEST(uint64_t *a1, int *a2)
   v4[6] = *(a2 + 6);
   *(v4 + 8) = *(a2 + 3);
   v4[7] = a2[2];
-  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 1793, v4, 0x1Cu);
+  IOVAR = AppleBCMWLANNANInterface::issueGetIOVAR(a1, 1793, v4, 28);
   if (IOVAR)
   {
     if ((*(*a1 + 1088))(a1))
@@ -8199,7 +8356,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RANGING_REQUEST(uint64_t *a1, int *a2)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_RANGING_REQUEST(a1);
+        AppleBCMWLANNANInterface::setNAN_RANGING_REQUEST();
       }
     }
   }
@@ -8215,17 +8372,17 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RANGING_REQUEST(uint64_t *a1, int *a2)
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_RANGING_REQUEST(uint64_t a1, int *a2)
 {
-  return AppleBCMWLANNANInterface::setNAN_RANGING_REQUEST((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::setNAN_RANGING_REQUEST(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::setNAN_RANGING_REQUEST((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::setNAN_RANGING_REQUEST(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_RANGING_RESPONSE(AppleBCMWLANNANInterface *a1, char *a2)
 {
   v5 = *a2;
-  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1794, &v5, 1u);
+  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1794, &v5, 1);
   if (v3)
   {
     if ((*(*a1 + 1088))(a1))
@@ -8233,7 +8390,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_RANGING_RESPONSE(AppleBCMWLANNANInterf
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_RANGING_RESPONSE(a1);
+        AppleBCMWLANNANInterface::setNAN_RANGING_RESPONSE();
       }
     }
   }
@@ -8253,7 +8410,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_RANGING_RESPONSE(u
 uint64_t AppleBCMWLANNANInterface::setNAN_RANGING_CANCEL(AppleBCMWLANNANInterface *a1, char *a2)
 {
   v5 = *a2;
-  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1796, &v5, 1u);
+  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 1796, &v5, 1);
   if (v3)
   {
     if ((*(*a1 + 1088))(a1))
@@ -8278,16 +8435,16 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_RANGING_CANCEL(uin
   return AppleBCMWLANNANInterface::setNAN_RANGING_CANCEL((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD(AppleBCMWLANNANInterface *a1, uint64_t a2)
 {
-  if (*(a1[17] + 248) == 1)
+  if (*(*(a1 + 17) + 248) == 1)
   {
-    if ((*(*a1 + 1088))(a1))
+    if ((*(*a1 + 1088))(a1, a2))
     {
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD(a1);
+        AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD();
       }
     }
 
@@ -8313,7 +8470,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD(uint64_t *a1, uint64_t 
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD(a1);
+            AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD();
           }
         }
       }
@@ -8334,7 +8491,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD(uint64_t *a1, uint64_t 
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD(a1);
+        AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD();
       }
     }
 
@@ -8376,7 +8533,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COMPACT(AppleBCMWLANNAN
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COMPACT(a1);
+              AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COMPACT();
             }
           }
         }
@@ -8391,7 +8548,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COMPACT(AppleBCMWLANNAN
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COMPACT(a1);
+            AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COMPACT();
           }
         }
 
@@ -8406,7 +8563,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COMPACT(AppleBCMWLANNAN
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COMPACT(a1);
+          AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COMPACT();
         }
       }
 
@@ -8416,12 +8573,12 @@ uint64_t AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COMPACT(AppleBCMWLANNAN
 
   else
   {
-    if ((*(*a1 + 1088))(a1))
+    if ((*(*a1 + 1088))(a1, a2))
     {
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COMPACT(a1);
+        AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COMPACT();
       }
     }
 
@@ -8440,16 +8597,16 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COM
   return AppleBCMWLANNANInterface::setNAN_VENDOR_PAYLOAD_COMPACT((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR(AppleBCMWLANNANInterface *a1, uint64_t a2)
 {
-  if ((*(a1[17] + 248) & 1) == 0)
+  if ((*(*(a1 + 17) + 248) & 1) == 0)
   {
-    if ((*(*a1 + 1088))(a1))
+    if ((*(*a1 + 1088))(a1, a2))
     {
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR(a1);
+        AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR();
       }
     }
 
@@ -8463,7 +8620,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR(uint64_t *a1, uint64_t
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR(a1);
+        AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR();
       }
     }
 
@@ -8472,7 +8629,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR(uint64_t *a1, uint64_t
 
   if (v4 < 3)
   {
-    v5 = 0;
+    LODWORD(v5) = 0;
     v6 = 0;
 LABEL_6:
     if ((*(*a1 + 1088))(a1))
@@ -8501,7 +8658,7 @@ LABEL_6:
       break;
     }
 
-    v5 += (*(v12 + 1) + 3) + 4;
+    v5 = v5 + (*(v12 + 1) + 3) + 4;
     v12 += (*(v12 + 1) + 3);
     ++v6;
     if (v10 + 3 > v4)
@@ -8521,8 +8678,8 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v22 = (*(*a1 + 1088))(a1);
-  CCLogStream::logAlert(v22, "[dk] %s@%d:%s:%d payloadLen + attrLen %u, exceeds body_len:%u \n", "setNAN_ADDITIONAL_ATTR", 7737, "setNAN_ADDITIONAL_ATTR", 7737, v10, *(a2 + 260));
+  v21 = (*(*a1 + 1088))(a1);
+  CCLogStream::logAlert(v21, "[dk] %s@%d:%s:%d payloadLen + attrLen %u, exceeds body_len:%u \n", "setNAN_ADDITIONAL_ATTR", 7737, "setNAN_ADDITIONAL_ATTR", 7737, v10, *(a2 + 260));
   if (!v6)
   {
     goto LABEL_6;
@@ -8539,8 +8696,8 @@ LABEL_24:
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      v23 = (*(*a1 + 1088))(a1);
-      CCLogStream::logAlert(v23, "[dk] %s@%d:%s:%d estimated_len:%u payload->body_len:%u attr_count:%u\n", "setNAN_ADDITIONAL_ATTR", 7753, "setNAN_ADDITIONAL_ATTR", 7753, v5, *(a2 + 260), v6);
+      v22 = (*(*a1 + 1088))(a1);
+      CCLogStream::logAlert(v22, "[dk] %s@%d:%s:%d estimated_len:%u payload->body_len:%u attr_count:%u\n", "setNAN_ADDITIONAL_ATTR", 7753, "setNAN_ADDITIONAL_ATTR", 7753, v5, *(a2 + 260), v6);
     }
   }
 
@@ -8579,21 +8736,24 @@ LABEL_24:
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR(a1);
+          AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR();
         }
       }
     }
 
 LABEL_41:
-    v25 = 0;
-    IOParseBootArgNumber("wlan.enableNANDebug", &v25, 4);
-    if (v25)
+    v24 = 0;
+    IOParseBootArgNumber("wlan.enableNANDebug", &v24, 4);
+    if (v24)
     {
-      for (i = 0; i < v5; i += 32)
+      v20 = 0;
+      do
       {
-        v21 = *(a1[17] + 80);
         IO80211Hexdump();
+        v20 += 32;
       }
+
+      while (v20 < v5);
     }
 
     if (v15 - v14 == v5)
@@ -8606,7 +8766,7 @@ LABEL_41:
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR(a1);
+            AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR();
           }
         }
       }
@@ -8619,8 +8779,8 @@ LABEL_41:
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          v24 = (*(*a1 + 1088))(a1);
-          CCLogStream::logAlert(v24, "[dk] %s@%d:%s:%d ERROR: Mismatch: filled length %u, estimated length %u\n", "setNAN_ADDITIONAL_ATTR", 7806, "setNAN_ADDITIONAL_ATTR", 7806, v15 - v14, v5);
+          v23 = (*(*a1 + 1088))(a1);
+          CCLogStream::logAlert(v23, "[dk] %s@%d:%s:%d ERROR: Mismatch: filled length %u, estimated length %u\n", "setNAN_ADDITIONAL_ATTR", 7806, "setNAN_ADDITIONAL_ATTR", 7806, v15 - v14, v5);
         }
       }
 
@@ -8637,7 +8797,7 @@ LABEL_41:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR(a1);
+        AppleBCMWLANNANInterface::setNAN_ADDITIONAL_ATTR();
       }
     }
 
@@ -8661,7 +8821,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_SCHEDULE_UPDATE(AppleBCMWLANNANInterfa
   v10 = 0;
   v11 = 0;
   v12 = 0;
-  if (*a2 && (BYTE1(v10) = 1, v4 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 1287, &v10, 0x18u), v4))
+  if (*a2 && (BYTE1(v10) = 1, v4 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 1287, &v10, 24), v4))
   {
     v5 = v4;
     if ((*(*this + 1088))(this))
@@ -8669,7 +8829,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_SCHEDULE_UPDATE(AppleBCMWLANNANInterfa
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_SCHEDULE_UPDATE(this);
+        AppleBCMWLANNANInterface::setNAN_SCHEDULE_UPDATE();
       }
     }
   }
@@ -8684,7 +8844,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_SCHEDULE_UPDATE(AppleBCMWLANNANInterfa
       v12 = 0;
       *(&v10 + 2) = *i;
       HIWORD(v10) = *(i + 2);
-      v8 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 1287, &v10, 0x18u);
+      v8 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 1287, &v10, 24);
       if (v8)
       {
         break;
@@ -8702,7 +8862,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_SCHEDULE_UPDATE(AppleBCMWLANNANInterfa
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_SCHEDULE_UPDATE(this);
+        AppleBCMWLANNANInterface::setNAN_SCHEDULE_UPDATE();
       }
     }
   }
@@ -8731,7 +8891,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ELECTION_ROLE(AppleBCMWLANNANInterface
   *v7 = *(a2 + 20);
   *&v7[12] = *(a2 + 32);
   LOBYTE(v5) = *a2;
-  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 258, &v5, 0x30u);
+  v3 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 258, &v5, 48);
   if (v3)
   {
     if ((*(*a1 + 1088))(a1))
@@ -8739,7 +8899,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_ELECTION_ROLE(AppleBCMWLANNANInterface
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_ELECTION_ROLE(a1);
+        AppleBCMWLANNANInterface::setNAN_ELECTION_ROLE();
       }
     }
   }
@@ -8775,7 +8935,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_FAST_DISCOVERY(AppleBCMWLANNANInterfac
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_FAST_DISCOVERY(a1);
+        AppleBCMWLANNANInterface::setNAN_FAST_DISCOVERY();
       }
     }
   }
@@ -8787,7 +8947,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_FAST_DISCOVERY(AppleBCMWLANNANInterfac
     if (*(a2 + 8))
     {
       v8 = 0;
-      v9 = 0;
+      LODWORD(v9) = 0;
       v10 = (a2 + 17);
       v11 = v5;
       while (1)
@@ -8795,7 +8955,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_FAST_DISCOVERY(AppleBCMWLANNANInterfac
         v12 = *(v10 - 1);
         v13 = v12 + 7;
         v14 = v12 + ((v12 + 7) & 0x1FC) + 8;
-        if (v14 + v9 >= 0x400)
+        if ((v14 + v9) >= 0x400)
         {
           break;
         }
@@ -8808,7 +8968,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_FAST_DISCOVERY(AppleBCMWLANNANInterfac
         memcpy(v11 + 4, v10, v15);
         v16 = (v13 & 0x1FC) + 4;
         v11 = (v11 + v16);
-        v9 += v16;
+        v9 = (v9 + v16);
         ++v8;
         v10 += 72;
         if (v8 >= *(a2 + 8))
@@ -8821,7 +8981,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_FAST_DISCOVERY(AppleBCMWLANNANInterfac
               (*(*a1 + 1088))(a1);
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANNANInterface::setNAN_FAST_DISCOVERY(a1);
+                AppleBCMWLANNANInterface::setNAN_FAST_DISCOVERY();
               }
             }
           }
@@ -8863,14 +9023,14 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_FAST_DISCOVERY(uin
   return AppleBCMWLANNANInterface::setNAN_FAST_DISCOVERY((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(AppleBCMWLANNANInterface *a1, uint64_t a2)
 {
   if ((*(*a1 + 1088))(a1))
   {
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(a1);
+      AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE();
     }
   }
 
@@ -8882,25 +9042,23 @@ uint64_t AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(uint64_t *a1, uint64
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(a1);
+        AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE();
       }
     }
 
-    v5 = *(a1[17] + 80);
-    v6 = a2 + 8;
-    v7 = *(a2 + 4);
+    v5 = a2 + 8;
     IO80211HexdumpIf();
-    v8 = *(a2 + 4);
-    if (v8)
+    v6 = *(a2 + 4);
+    if (v6)
     {
-      v9 = 0;
-      v10 = (a2 + 8);
-      while ((*v10 & 0xFFFE) == 2)
+      v7 = 0;
+      v8 = (a2 + 8);
+      while ((*v8 & 0xFFFE) == 2)
       {
-        v11 = v10[1];
-        v9 += ((v11 + 3) & 0x1FFFC) + 4;
-        v10 = (v10 + v11 + 4);
-        if (v8 <= v10 - v6)
+        v9 = v8[1];
+        v7 += ((v9 + 3) & 0x1FFFC) + 4;
+        v8 = (v8 + v9 + 4);
+        if (v6 <= v8 - v5)
         {
           goto LABEL_17;
         }
@@ -8911,7 +9069,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(uint64_t *a1, uint64
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(a1);
+          AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE();
         }
       }
 
@@ -8926,82 +9084,82 @@ LABEL_17:
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(a1);
+          AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE();
         }
       }
 
-      v13 = IOMallocZeroData();
-      if (v13)
+      v11 = IOMallocZeroData();
+      if (v11)
       {
-        v14 = v13;
+        v12 = v11;
         if (*(a2 + 4))
         {
-          v15 = 0;
-          v16 = v13;
-          v17 = (a2 + 8);
+          LODWORD(v13) = 0;
+          v14 = v11;
+          v15 = (a2 + 8);
           while (1)
           {
-            v18 = *v17;
-            if (v18 == 2)
+            v16 = *v15;
+            if (v16 == 2)
             {
-              v19 = 2593;
+              v17 = 2593;
             }
 
             else
             {
-              if (v18 != 3)
+              if (v16 != 3)
               {
                 if ((*(*a1 + 1088))(a1))
                 {
                   (*(*a1 + 1088))(a1);
                   if (CCLogStream::shouldLog())
                   {
-                    AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(a1);
+                    AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE();
                   }
                 }
 
-                v12 = 22;
+                v10 = 22;
                 goto LABEL_46;
               }
 
-              v19 = 2594;
+              v17 = 2594;
             }
 
-            *v16 = v19;
-            v20 = v17[1];
-            v16[1] = v20;
-            memcpy(v16 + 2, v17 + 2, v20);
-            v17 = (v17 + v17[1] + 4);
-            v21 = (v20 + 7) & 0x1FFFC;
-            v16 = (v16 + v21);
-            v15 += v21;
-            if (*(a2 + 4) <= (v17 - v6))
+            *v14 = v17;
+            v18 = v15[1];
+            v14[1] = v18;
+            memcpy(v14 + 2, v15 + 2, v18);
+            v15 = (v15 + v15[1] + 4);
+            v19 = (v18 + 7) & 0x1FFFC;
+            v14 = (v14 + v19);
+            v13 = (v19 + v13);
+            if (*(a2 + 4) <= (v15 - v5))
             {
               goto LABEL_35;
             }
           }
         }
 
-        v15 = 0;
+        v13 = 0;
 LABEL_35:
         if ((*(*a1 + 1088))(a1))
         {
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(a1);
+            AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE();
           }
         }
 
-        v12 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 2592, v14, v15);
-        if (v12)
+        v10 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 2592, v12, v13);
+        if (v10)
         {
           if ((*(*a1 + 1088))(a1))
           {
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(a1);
+              AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE();
             }
           }
         }
@@ -9024,14 +9182,14 @@ LABEL_46:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(a1);
+        AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE();
       }
     }
 
     return 0;
   }
 
-  return v12;
+  return v10;
 }
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(uint64_t a1, uint64_t a2)
@@ -9043,22 +9201,22 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE(
   return AppleBCMWLANNANInterface::setNAN_DATA_PATH_RESTORE((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE(uint64_t a1, uint64_t a2)
 {
   v3 = *(a2 + 4);
   if (v3)
   {
     if (v3 == 1)
     {
-      v5 = a1 + 17;
-      if (*(a1[17] + 96))
+      v5 = (a1 + 136);
+      if (*(*(a1 + 136) + 96))
       {
         if ((*(*a1 + 1088))(a1))
         {
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE(a1, a1 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, (a1 + 17));
+            AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE();
           }
         }
 
@@ -9087,14 +9245,14 @@ uint64_t AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE(uint64_t *a1, 
         v22 = "llw";
         LODWORD(v25) = 2;
         *v24 = 0x10000000ALL;
-        SkywalkInterface = AppleBCMWLANCore::createSkywalkInterface(*(a1[17] + 64), (a1[17] + 96), &v22, a1);
+        SkywalkInterface = AppleBCMWLANCore::createSkywalkInterface(*(*(a1 + 136) + 64), (*(a1 + 136) + 96), &v22, a1);
         if (SkywalkInterface)
         {
           return SkywalkInterface;
         }
 
-        AppleBCMWLANSkywalkInterface::setInterfaceUnitNumber(*(a1[17] + 96), v24[1]);
-        v19 = *(a1[17] + 96);
+        AppleBCMWLANSkywalkInterface::setInterfaceUnitNumber(*(*(a1 + 136) + 96), v24[1]);
+        v19 = *(*(a1 + 136) + 96);
         InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
         IO80211SkywalkInterface::setCompanionInterfaceId(v19, InterfaceId);
         *(a2 + 8) = 7826540;
@@ -9116,7 +9274,7 @@ uint64_t AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE(uint64_t *a1, 
 
   else
   {
-    v8 = a1[17];
+    v8 = *(a1 + 136);
     v9 = *(v8 + 96);
     if (v9)
     {
@@ -9124,7 +9282,7 @@ uint64_t AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE(uint64_t *a1, 
       v11 = IO80211SkywalkInterface::getInterfaceId(v9);
       AppleBCMWLANCore::destroySkywalkInterface(v10, v11);
       v7 = 0;
-      *(a1[17] + 96) = 0;
+      *(*(a1 + 136) + 96) = 0;
     }
 
     else
@@ -9135,7 +9293,7 @@ uint64_t AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE(uint64_t *a1, 
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE(a1);
+          AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE();
         }
       }
     }
@@ -9146,11 +9304,11 @@ uint64_t AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE(uint64_t *a1, 
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE(uint64_t a1, uint64_t a2)
 {
-  return AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE((a1 - 112), a2);
+  return AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE((a1 - 128), a2);
+  return AppleBCMWLANNANInterface::setCOMPANION_SKYWALK_IF_CREATE(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNANLLW_PARAMSCallback(uint64_t result, uint64_t a2, uint64_t a3)
@@ -9184,7 +9342,7 @@ uint64_t AppleBCMWLANNANInterface::setNANLLW_PARAMSCallback(uint64_t result, uin
   return result;
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_LLW_PARAMS(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_LLW_PARAMS(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v38 = 0x200000000;
   v39 = &_mh_execute_header;
@@ -9193,7 +9351,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_LLW_PARAMS(uint64_t *a1, uint64_t a2)
   v35 = 0;
   memset(v33, 170, sizeof(v33));
   v4 = IOMallocZeroData();
-  Bus = AppleBCMWLANCore::getBus(*(a1[17] + 64));
+  Bus = AppleBCMWLANCore::getBus(*(*(a1 + 17) + 64));
   if (((*(*Bus + 800))(Bus, v6, v7, v8, v9) & 1) == 0)
   {
     AppleBCMWLANNANInterface::setNAN_LLW_PARAMS();
@@ -9215,14 +9373,14 @@ LABEL_35:
 
   if (!v4)
   {
-    AppleBCMWLANNANInterface::setNAN_LLW_PARAMS(a1);
+    AppleBCMWLANNANInterface::setNAN_LLW_PARAMS();
     return v34;
   }
 
   *(v4 + 2) = 1;
   if (*(a2 + 11))
   {
-    v10 = *(a1[17] + 64);
+    v10 = *(*(a1 + 17) + 64);
     if (v10 && AppleBCMWLANCore::isRllwEnabled(v10))
     {
       v11 = *(a2 + 12);
@@ -9351,8 +9509,8 @@ LABEL_25:
   }
 
   while (v16 < *(v4 + 2));
-  v33[0] = a1;
-  v33[1] = AppleBCMWLANNANInterface::setNANLLW_PARAMSCallback;
+  *v33 = a1;
+  *&v33[8] = AppleBCMWLANNANInterface::setNANLLW_PARAMSCallback;
   if (v17)
   {
     v27 = v4;
@@ -9363,12 +9521,12 @@ LABEL_25:
     v27 = 0;
   }
 
-  v33[2] = 0;
-  v33[3] = v27;
-  v33[4] = v17;
-  v28 = *(a1[17] + 72);
+  *&v33[16] = 0;
+  *&v33[24] = v27;
+  *&v33[32] = v17;
+  v28 = *(*(a1 + 17) + 72);
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
-  v30 = AppleBCMWLANCommander::sendVirtualIOVarSet(v28, InterfaceId, "hp2p", &v33[3], kNoRxExpected, v33, 0);
+  v30 = AppleBCMWLANCommander::sendVirtualIOVarSet(v28, InterfaceId, "hp2p", &v33[24], kNoRxExpected, v33, 0);
   v31 = 0;
   if (v30)
   {
@@ -9379,295 +9537,4 @@ LABEL_25:
 LABEL_31:
   IOFreeData();
   return v31;
-}
-
-uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_LLW_PARAMS(uint64_t a1, uint64_t a2)
-{
-  return AppleBCMWLANNANInterface::setNAN_LLW_PARAMS((a1 - 112), a2);
-}
-
-{
-  return AppleBCMWLANNANInterface::setNAN_LLW_PARAMS((a1 - 128), a2);
-}
-
-uint64_t AppleBCMWLANNANInterface::getHP2P_PARAMS(AppleBCMWLANNANInterface *this, char *a2, int a3, int a4)
-{
-  v6 = a2;
-  v44 = 0;
-  v42 = 0u;
-  v43 = 0u;
-  memset(v40, 170, sizeof(v40));
-  if (a3 == 357)
-  {
-    v10 = 0;
-    v8 = 0;
-    LODWORD(v42) = 6;
-    v9 = 1;
-  }
-
-  else
-  {
-    if (a3 == 356)
-    {
-      v10 = 0;
-      LODWORD(v42) = 7;
-      v9 = 1;
-      v8 = a2;
-    }
-
-    else
-    {
-      if (a3 != 355)
-      {
-        return 3758097090;
-      }
-
-      v8 = 0;
-      v42 = xmmword_10033C2F0;
-      LODWORD(v43) = 8;
-      v9 = 5;
-      v10 = a2;
-    }
-
-    v6 = 0;
-  }
-
-  v11 = IOMallocZeroData();
-  v12 = IOMallocZeroData();
-  v13 = *AppleBCMWLANCore::getBus(*(*(this + 17) + 64));
-  if (((*(v13 + 800))() & 1) == 0)
-  {
-    AppleBCMWLANNANInterface::getHP2P_PARAMS();
-    goto LABEL_62;
-  }
-
-  if (!v11)
-  {
-    AppleBCMWLANNANInterface::getHP2P_PARAMS(this);
-    goto LABEL_62;
-  }
-
-  if (!v12)
-  {
-    AppleBCMWLANNANInterface::getHP2P_PARAMS(this);
-    v38 = v41;
-    goto LABEL_50;
-  }
-
-  v14 = 0;
-  *v11 = 0x8000;
-  v15 = v11 + 4;
-  *(v11 + 2) = v9;
-  *(v11 + 3) = 0;
-  v16 = 4;
-  do
-  {
-    *v15 = *(&v42 + v14);
-    *(v15 + 2) = 4;
-    *(v15 + 4) = 1;
-    ++v14;
-    v16 += 8;
-    v15 += 8;
-  }
-
-  while (v14 < *(v11 + 2));
-  if (a3 == 357)
-  {
-    *v15 = 1;
-    *(v15 + 2) = a4;
-    v16 += 4;
-    *(v15 - 6) = 8;
-  }
-
-  if (v16)
-  {
-    v17 = v11;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  v40[2] = v17;
-  v40[3] = v16;
-  v40[0] = v12;
-  v40[1] = 0x40000000400;
-  v18 = *(*(this + 17) + 72);
-  InterfaceId = IO80211SkywalkInterface::getInterfaceId(this);
-  v20 = AppleBCMWLANCommander::runVirtualIOVarGet(v18, InterfaceId, "hp2p", &v40[2], v40, 0);
-  if (v20)
-  {
-    AppleBCMWLANNANInterface::getHP2P_PARAMS(this, v20, &v41);
-LABEL_62:
-    v38 = v41;
-    if (v12)
-    {
-      goto LABEL_48;
-    }
-
-    goto LABEL_49;
-  }
-
-  if (!*(v12 + 2))
-  {
-LABEL_47:
-    v38 = 0;
-    goto LABEL_48;
-  }
-
-  v21 = 0;
-  v22 = &v6[14 * a4];
-  v23 = 4;
-  while (1)
-  {
-    v24 = (v12 + v23);
-    v25 = *v24;
-    if (v25 > 5)
-    {
-      break;
-    }
-
-    if (!*v24)
-    {
-      if (v10)
-      {
-        v10[11] = *(v24 + 2) != 0;
-      }
-
-      goto LABEL_44;
-    }
-
-    if (v25 == 1)
-    {
-      if (v10)
-      {
-        v10[10] = *(v24 + 23);
-        *(v10 + 14) = *(v24 + 7);
-        *(v10 + 21) = v24[12];
-        v33 = *(v10 + 9) & 0xFFFE | v24[9] & 1;
-        *(v10 + 9) = *(v10 + 9) & 0xFFFE | v24[9] & 1;
-        v34 = v33 & 0xFFFFFFFD | (2 * ((v24[9] >> 1) & 1));
-        *(v10 + 9) = v34;
-        v35 = v34 & 0xFFFFFFFB | (4 * ((v24[9] >> 2) & 1));
-        *(v10 + 9) = v35;
-        v36 = *(v24 + 21);
-        v10[20] = v10[20] & 0xF0 | v36 & 0xF;
-        v10[20] = *(v24 + 21) & 0xF0 | v36 & 0xF;
-        LOWORD(v35) = v35 & 0xFF87 | (8 * (v24[10] & 0xF));
-        *(v10 + 9) = v35;
-        *(v10 + 9) = v35 & 0xFF7F | (8 * *(v24 + 20)) & 0x80;
-      }
-
-      goto LABEL_41;
-    }
-
-    if (v25 != 2)
-    {
-      goto LABEL_53;
-    }
-
-    v26 = *(v24 + 2);
-    *(v10 + 4) = v24[6];
-    *(v10 + 1) = v26;
-    v10[10] = *(v24 + 16);
-    *(v10 + 17) = v24[9];
-    v27 = v10[24] & 0xFE | v24[7] & 1;
-    v10[24] = v27;
-    v28 = v27 & 0xFFFFFFFD | (2 * ((*(v24 + 14) >> 1) & 1));
-    v10[24] = v28;
-    v29 = v28 & 0xFFFFFFFB | (4 * ((*(v24 + 14) >> 2) & 1));
-    v10[24] = v29;
-    v10[24] = v29 & 0xF7 | v24[7] & 8;
-    v30 = 16;
-LABEL_45:
-    v37 = v24[1];
-    if (v30 > v37)
-    {
-      AppleBCMWLANNANInterface::getHP2P_PARAMS();
-      v38 = v41;
-      goto LABEL_48;
-    }
-
-    v23 += v37 + 4;
-    if (++v21 >= *(v12 + 2))
-    {
-      goto LABEL_47;
-    }
-  }
-
-  if (*v24 <= 7u)
-  {
-    if (v25 != 6)
-    {
-      if (v25 != 7)
-      {
-        goto LABEL_53;
-      }
-
-      if (v8)
-      {
-        *(v8 + 1) = *(v24 + 2);
-      }
-
-      goto LABEL_44;
-    }
-
-    v31 = *(v24 + 6);
-    v32 = *(v24 + 2);
-    v22[4] = a4;
-    *(v22 + 6) = v32;
-    *(v22 + 14) = v31;
-LABEL_41:
-    v30 = 24;
-    goto LABEL_45;
-  }
-
-  if (v25 == 8)
-  {
-    if (v10)
-    {
-      *(v10 + 7) = *(v24 + 2);
-    }
-
-LABEL_44:
-    v30 = 8;
-    goto LABEL_45;
-  }
-
-  if (v25 == 9)
-  {
-    if (v10)
-    {
-      v10[32] = *(v24 + 8);
-      *(v10 + 18) = v24[8];
-      *(v10 + 38) = *(v24 + 9);
-      v10[42] = *(v24 + 22);
-    }
-
-    v30 = 20;
-    goto LABEL_45;
-  }
-
-LABEL_53:
-  if ((*(*this + 1088))(this))
-  {
-    (*(*this + 1088))(this);
-    if (CCLogStream::shouldLog())
-    {
-      AppleBCMWLANNANInterface::getHP2P_PARAMS(this);
-    }
-  }
-
-  v38 = 3758096385;
-LABEL_48:
-  IOFreeData();
-LABEL_49:
-  if (v11)
-  {
-LABEL_50:
-    IOFreeData();
-  }
-
-  return v38;
 }

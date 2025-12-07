@@ -12,15 +12,16 @@
 - (BOOL)isHighlighted
 {
   selfCopy = self;
-  v3 = sub_C90E4();
+  v3 = sub_C90E4(selfCopy);
 
   return v3 & 1;
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_C916C(highlighted);
+  sub_C916C(highlightedCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -33,7 +34,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_C99CC();
+  sub_C99CC(selfCopy);
 }
 
 - (void)layoutSubviews

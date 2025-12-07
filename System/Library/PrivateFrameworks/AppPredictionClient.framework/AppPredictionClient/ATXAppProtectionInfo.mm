@@ -58,7 +58,7 @@
     while (v6);
   }
 
-  if ([v3 containsObject:@"com.apple.Health"])
+  if (objc_msgSend_containsObject_(v3))
   {
     [v3 addObject:@"com.apple.Health.Sleep"];
   }
@@ -100,7 +100,7 @@
     while (v6);
   }
 
-  if ([v3 containsObject:@"com.apple.Health"])
+  if (objc_msgSend_containsObject_(v3))
   {
     [v3 addObject:@"com.apple.Health.Sleep"];
   }

@@ -1412,20 +1412,20 @@ LABEL_40:
   return v57;
 }
 
-uint64_t __134__ICCloudSyncingObjectCryptoStrategyV1_decryptWithMainKeyOfObject_encryptedDataPreparationBlock_fallbackAttemptSuccessCleanupHandler___block_invoke(uint64_t a1)
+void *__134__ICCloudSyncingObjectCryptoStrategyV1_decryptWithMainKeyOfObject_encryptedDataPreparationBlock_fallbackAttemptSuccessCleanupHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) cryptoStrategy];
-  v3 = ICCheckedDynamicCast();
-  v4 = [v3 unwrappedKey];
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v3 = [*(a1 + 32) cryptoStrategy];
+  v4 = ICCheckedDynamicCast();
+  v5 = [v4 unwrappedKey];
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 
-  v7 = [*(a1 + 32) shortLoggingDescription];
-  v8 = *(*(a1 + 48) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v8 = [*(a1 + 32) shortLoggingDescription];
+  v9 = *(*(a1 + 48) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 
   result = [*(a1 + 32) isUnsupported];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -1488,10 +1488,10 @@ void __59__ICCloudSyncingObjectCryptoStrategyV1_encryptSidecarData___block_invok
   }
 }
 
-uint64_t __59__ICCloudSyncingObjectCryptoStrategyV1_encryptSidecarData___block_invoke_25()
+uint64_t __59__ICCloudSyncingObjectCryptoStrategyV1_encryptSidecarData___block_invoke_25(uint64_t a1)
 {
-  v0 = os_log_create("com.apple.notes", "Crypto");
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = os_log_create("com.apple.notes", "Crypto");
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __59__ICCloudSyncingObjectCryptoStrategyV1_encryptSidecarData___block_invoke_25_cold_1();
   }
@@ -1904,20 +1904,20 @@ LABEL_25:
   _Block_object_dispose(&v45, 8);
 }
 
-uint64_t __118__ICCloudSyncingObjectCryptoStrategyV1_encryptWithMainKeyOfObject_dataPreparationBlock_failureHandler_successHandler___block_invoke(uint64_t a1)
+void *__118__ICCloudSyncingObjectCryptoStrategyV1_encryptWithMainKeyOfObject_dataPreparationBlock_failureHandler_successHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) cryptoStrategy];
-  v3 = ICCheckedDynamicCast();
-  v4 = [v3 unwrappedKey];
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v3 = [*(a1 + 32) cryptoStrategy];
+  v4 = ICCheckedDynamicCast();
+  v5 = [v4 unwrappedKey];
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 
-  v7 = [*(a1 + 32) identifier];
-  v8 = *(*(a1 + 48) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v8 = [*(a1 + 32) identifier];
+  v9 = *(*(a1 + 48) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 
   result = [*(a1 + 32) isUnsupported];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -2208,7 +2208,7 @@ LABEL_9:
   return self;
 }
 
-uint64_t __67__ICCloudSyncingObjectCryptoStrategyV1_mainKeyDecryptsPrimaryData___block_invoke(uint64_t a1, uint64_t a2)
+void *__67__ICCloudSyncingObjectCryptoStrategyV1_mainKeyDecryptsPrimaryData___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) canMainKey:*(a1 + 40) decryptObject:a2];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -3118,6 +3118,30 @@ void __84__ICCloudSyncingObjectCryptoStrategyV1_encryptFileFromURL_toURL_setTagA
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
+}
+
++ (void)decryptWithMainKeyOfObject:encryptedDataPreparationBlock:fallbackAttemptSuccessCleanupHandler:.cold.1()
+{
+  OUTLINED_FUNCTION_1_8(*MEMORY[0x277D85DE8]);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0(&dword_214D51000, v1, v2, "Invalid encryptedData for %@", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
++ (void)decryptWithMainKeyOfObject:encryptedDataPreparationBlock:fallbackAttemptSuccessCleanupHandler:.cold.2()
+{
+  OUTLINED_FUNCTION_1_8(*MEMORY[0x277D85DE8]);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0(&dword_214D51000, v1, v2, "Failed to create encryptedData for %@", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
++ (void)decryptWithMainKeyOfObject:encryptedDataPreparationBlock:fallbackAttemptSuccessCleanupHandler:.cold.4()
+{
+  OUTLINED_FUNCTION_1_8(*MEMORY[0x277D85DE8]);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0(&dword_214D51000, v1, v2, "Trying to access decrypted data with no unwrapped key for %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 + (void)decryptWithMainKeyOfObject:encryptedDataPreparationBlock:fallbackAttemptSuccessCleanupHandler:.cold.5()

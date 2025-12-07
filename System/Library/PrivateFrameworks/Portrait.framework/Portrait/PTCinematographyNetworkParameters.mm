@@ -10,13 +10,14 @@
   lCopy = l;
   v5 = [MEMORY[0x277CBEAE0] inputStreamWithURL:lCopy];
   [v5 open];
-  v23 = 0;
-  v6 = [MEMORY[0x277CCAAA0] JSONObjectWithStream:v5 options:0 error:&v23];
-  v7 = v23;
+  v25 = 0;
+  v6 = [MEMORY[0x277CCAAA0] JSONObjectWithStream:v5 options:0 error:&v25];
+  v7 = v25;
+  v8 = v7;
   if (v7)
   {
-    v8 = _PTLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _PTLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [PTCinematographyNetworkParameters initWithURL:];
     }
@@ -27,53 +28,54 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  v10 = objc_opt_respondsToSelector();
+  if ((v10 & 1) == 0)
   {
-    v8 = _PTLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _PTLogSystem(v10);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(PTCinematographyNetworkParameters *)v6 initWithURL:lCopy, v8];
+      [(PTCinematographyNetworkParameters *)v6 initWithURL:lCopy, v9];
     }
 
     goto LABEL_10;
   }
 
-  v22.receiver = self;
-  v22.super_class = PTCinematographyNetworkParameters;
-  v9 = [(PTCinematographyNetworkParameters *)&v22 init];
-  if (v9)
+  v24.receiver = self;
+  v24.super_class = PTCinematographyNetworkParameters;
+  v11 = [(PTCinematographyNetworkParameters *)&v24 init];
+  if (v11)
   {
-    v10 = [(objc_class *)v6 objectForKeyedSubscript:@"expected_fps"];
-    [v10 floatValue];
-    v9->_expectedFPS = v11;
+    v12 = [(objc_class *)v6 objectForKeyedSubscript:@"expected_fps"];
+    [v12 floatValue];
+    v11->_expectedFPS = v13;
 
-    v12 = [(objc_class *)v6 objectForKeyedSubscript:@"detections"];
-    v13 = [v12 objectForKeyedSubscript:@"forget_after_seconds"];
-    [v13 floatValue];
-    v9->_forgetDetectionsAfterSeconds = v14;
+    v14 = [(objc_class *)v6 objectForKeyedSubscript:@"detections"];
+    v15 = [v14 objectForKeyedSubscript:@"forget_after_seconds"];
+    [v15 floatValue];
+    v11->_forgetDetectionsAfterSeconds = v16;
 
-    v15 = [(objc_class *)v6 objectForKeyedSubscript:@"sync_with_detector"];
-    v9->_runOnlyWhenDetectorDidRun = [v15 BOOLValue];
+    v17 = [(objc_class *)v6 objectForKeyedSubscript:@"sync_with_detector"];
+    v11->_runOnlyWhenDetectorDidRun = [v17 BOOLValue];
 
-    v16 = [(objc_class *)v6 objectForKeyedSubscript:@"supported_detection_types"];
-    if (v16)
+    v18 = [(objc_class *)v6 objectForKeyedSubscript:@"supported_detection_types"];
+    if (v18)
     {
-      [MEMORY[0x277CBEB98] setWithArray:v16];
+      [MEMORY[0x277CBEB98] setWithArray:v18];
     }
 
     else
     {
-      [(PTCinematographyNetworkParameters *)v9 _defaultSupportedDetectionTypes];
+      [(PTCinematographyNetworkParameters *)v11 _defaultSupportedDetectionTypes];
     }
-    v17 = ;
-    supportedDetectionTypes = v9->_supportedDetectionTypes;
-    v9->_supportedDetectionTypes = v17;
+    v19 = ;
+    supportedDetectionTypes = v11->_supportedDetectionTypes;
+    v11->_supportedDetectionTypes = v19;
 
-    v21 = [(objc_class *)v6 objectForKeyedSubscript:@"input_schemas"];
-    [(PTCinematographyNetworkParameters *)v9 _processInputSchemaDicts:v21];
+    v23 = [(objc_class *)v6 objectForKeyedSubscript:@"input_schemas"];
+    [(PTCinematographyNetworkParameters *)v11 _processInputSchemaDicts:v23];
   }
 
-  self = v9;
+  self = v11;
   selfCopy = self;
 LABEL_11:
 

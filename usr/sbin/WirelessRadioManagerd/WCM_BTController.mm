@@ -13,9 +13,13 @@
 - (void)handleLeAdvePaState:(id)state;
 - (void)handleLocalDeviceState:(id)state;
 - (void)handlePowerState:(BOOL)state;
-- (void)printBTConnections;
 - (void)syncAllBTConnections:(id)connections shouldAdd:(BOOL)add;
+- (void)update5GHzHostAP:(BOOL)p;
+- (void)updateAWDLRTGActive:(BOOL)active;
+- (void)updateLowWiFi5GRates:(BOOL)rates;
 - (void)updateThreadRadioStatus:(BOOL)status;
+- (void)updateUWB5GHzActive:(BOOL)active;
+- (void)updateWiFiChannelInfo:(unsigned int)info bandwidth:(unsigned int)bandwidth regBand:(int)band;
 @end
 
 @implementation WCM_BTController
@@ -787,15 +791,6 @@ LABEL_34:
   }
 }
 
-- (void)printBTConnections
-{
-  v3 = *&self->_audioType;
-  v4 = *(&self->numSCODevice + 4);
-  getNum2GHzAclA2DPDevices = [(WCM_BTController *)self getNum2GHzAclA2DPDevices];
-  v6 = *(&self->num2GHzAoSUniAudioDevice + 4);
-  [WCM_Logging logLevel:2 message:@"BT Connections: SCO:%lu eSCO:%lu ACL-A2DP:%lu HID:%lu LE:%lu LEA:%lu 2GAoSUni:%lu 2GAoSBi:%lu 5GAoSUni:%lu 5GAoSBi:%lu", v3, v4, getNum2GHzAclA2DPDevices, *(&self->numA2DPDevice + 4), *(&self->numLEADevice + 4), *(&self->numGameCtrlDev10ms + 4), *(&self->numLLADevice + 4), *(&self->num5GHzAoSUniAudioDevice + 4), v6, *(&self->num2GHzAoSBiAudioDevice + 4)];
-}
-
 - (void)clearAoSDeviceCounts
 {
   *(&self->numLLADevice + 4) = 0;
@@ -822,6 +817,128 @@ LABEL_34:
   [(WCM_Controller *)self sendMessage:1447 withArgs:v4];
 
   xpc_release(v4);
+}
+
+- (void)update5GHzHostAP:(BOOL)p
+{
+  pCopy = p;
+  v5 = xpc_dictionary_create(0, 0, 0);
+  if (v5)
+  {
+    v6 = v5;
+    xpc_dictionary_set_uint64(v5, "kWCMBT5GHzHostAPActive", pCopy);
+    [(WCM_Controller *)self sendMessage:1436 withArgs:v6];
+    [WCM_Logging logLevel:2 message:@"Sent message to BT about current 5GHz Host AP State: %d", pCopy];
+
+    xpc_release(v6);
+  }
+
+  else
+  {
+
+    [WCM_Logging logLevel:2 message:@"Failed to send message to BT about 5GHz Host AP State"];
+  }
+}
+
+- (void)updateLowWiFi5GRates:(BOOL)rates
+{
+  ratesCopy = rates;
+  v5 = xpc_dictionary_create(0, 0, 0);
+  if (v5)
+  {
+    v6 = v5;
+    xpc_dictionary_set_uint64(v5, "kWCMBT5GHzWiFiRatesLow", ratesCopy);
+    [(WCM_Controller *)self sendMessage:1442 withArgs:v6];
+    [WCM_Logging logLevel:2 message:@"Sent message to BT about low 5G Rates: %d", ratesCopy];
+
+    xpc_release(v6);
+  }
+
+  else
+  {
+
+    [WCM_Logging logLevel:2 message:@"Failed to send message to BT about low 5G Rates:"];
+  }
+}
+
+- (void)updateUWB5GHzActive:(BOOL)active
+{
+  activeCopy = active;
+  v5 = xpc_dictionary_create(0, 0, 0);
+  if (v5)
+  {
+    v6 = v5;
+    xpc_dictionary_set_uint64(v5, "kWCMBTUWB5GHzActive", activeCopy);
+    [(WCM_Controller *)self sendMessage:1440 withArgs:v6];
+    [WCM_Logging logLevel:2 message:@"Sent message to BT about current UWB 5GHz State: %d", activeCopy];
+
+    xpc_release(v6);
+  }
+
+  else
+  {
+
+    [WCM_Logging logLevel:2 message:@"Failed to send message to BT about UWB 5GHz State"];
+  }
+}
+
+- (void)updateAWDLRTGActive:(BOOL)active
+{
+  activeCopy = active;
+  v5 = xpc_dictionary_create(0, 0, 0);
+  if (v5)
+  {
+    v6 = v5;
+    xpc_dictionary_set_uint64(v5, "kWCMBTAWDLRTGActive", activeCopy);
+    [(WCM_Controller *)self sendMessage:1439 withArgs:v6];
+    [WCM_Logging logLevel:2 message:@"Sent message to BT about current AWDL RTG Active State: %d", activeCopy];
+
+    xpc_release(v6);
+  }
+
+  else
+  {
+
+    [WCM_Logging logLevel:2 message:@"Failed to send message to BT about AWDL RTG Active State"];
+  }
+}
+
+- (void)updateWiFiChannelInfo:(unsigned int)info bandwidth:(unsigned int)bandwidth regBand:(int)band
+{
+  v6 = *&bandwidth;
+  v7 = *&info;
+  v9 = xpc_dictionary_create(0, 0, 0);
+  if (v9)
+  {
+    v10 = v9;
+    xpc_dictionary_set_uint64(v9, "kWCMBTWiFiChannel", v7);
+    xpc_dictionary_set_uint64(v10, "kWCMBTWiFiChannelBandwidth", v6);
+    xpc_dictionary_set_uint64(v10, "kWCMBTWiFiRegulatoryBand", band);
+    [(WCM_Controller *)self sendMessage:1441 withArgs:v10];
+    if (band >= 0xD)
+    {
+      v11 = "Invalid Freq Band";
+      if (band == 13)
+      {
+        v11 = "UNII-8";
+      }
+    }
+
+    else
+    {
+      v11 = off_100240060[band];
+    }
+
+    [WCM_Logging logLevel:2 message:@"Sent message to BT about current WiFi Channel Info: Channel %d Bandwidth %d FreqBand %s", v7, v6, v11];
+
+    xpc_release(v10);
+  }
+
+  else
+  {
+
+    [WCM_Logging logLevel:2 message:@"Failed to send message to BT about WiFi channel info"];
+  }
 }
 
 @end

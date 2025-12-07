@@ -943,12 +943,12 @@ LABEL_17:
   return dictionary;
 }
 
-uint64_t __45__TSTTableStyleNetwork_dictionaryWithPreset___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+void *__45__TSTTableStyleNetwork_dictionaryWithPreset___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
-    v4 = *(result + 32);
-    v5 = [TSTCellStyle styleIDForPreset:*(result + 40) andTableArea:a3];
+    v4 = result[4];
+    v5 = [TSTCellStyle styleIDForPreset:result[5] andTableArea:a3];
 
     return [v4 setObject:a2 forKey:v5];
   }
@@ -956,12 +956,12 @@ uint64_t __45__TSTTableStyleNetwork_dictionaryWithPreset___block_invoke(uint64_t
   return result;
 }
 
-uint64_t __45__TSTTableStyleNetwork_dictionaryWithPreset___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
+void *__45__TSTTableStyleNetwork_dictionaryWithPreset___block_invoke_2(void *result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
-    v4 = *(result + 32);
-    v5 = [TSTCellStyle textStyleIDForPreset:*(result + 40) andTableArea:a3];
+    v4 = result[4];
+    v5 = [TSTCellStyle textStyleIDForPreset:result[5] andTableArea:a3];
 
     return [v4 setObject:a2 forKey:v5];
   }

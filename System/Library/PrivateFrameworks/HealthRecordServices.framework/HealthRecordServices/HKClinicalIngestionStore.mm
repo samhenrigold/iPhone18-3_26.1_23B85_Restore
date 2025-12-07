@@ -191,12 +191,12 @@ void __48__HKClinicalIngestionStore_initWithHealthStore___block_invoke(uint64_t 
   [(HKClinicalIngestionStore *)self currentIngestionStateWithCompletion:v6];
 }
 
-uint64_t __54__HKClinicalIngestionStore_addIngestionStateListener___block_invoke(uint64_t result, uint64_t a2)
+void *__54__HKClinicalIngestionStore_addIngestionStateListener___block_invoke(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(result + 32);
-    v2 = *(result + 40);
+    v3 = result[4];
+    v2 = result[5];
     v4 = *(v3 + 40);
     v5[0] = MEMORY[0x277D85DD0];
     v5[1] = 3221225472;
@@ -383,32 +383,27 @@ void __53__HKClinicalIngestionStore__establishProxyConnection__block_invoke_2(ui
 
 void __64__HKClinicalIngestionStore_currentIngestionStateWithCompletion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_2519FE000, v1, v2, "%{public}@ failed to get current ingestion state: %{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2519FE000, v1, v2, "%{public}@ failed to get current ingestion state: %{public}@", v3, DWORD2(v3));
 }
 
 void __53__HKClinicalIngestionStore__establishProxyConnection__block_invoke_2_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_2519FE000, v1, v2, "%{public}@: error establishing proxy connection: %{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2519FE000, v1, v2, "%{public}@: error establishing proxy connection: %{public}@", v3, DWORD2(v3));
 }
 
 - (void)_executeCheapCallOnPluginServerProxy:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543618;
-  v4 = a1;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543618;
+  v3 = a1;
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(&dword_2519FE000, v1, OS_LOG_TYPE_DEBUG, "%{public}@: making cheap XCP call to establish connection on %{public}@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2519FE000, v1, OS_LOG_TYPE_DEBUG, "%{public}@: making cheap XCP call to establish connection on %{public}@", &v2, 0x16u);
 }
 
 @end

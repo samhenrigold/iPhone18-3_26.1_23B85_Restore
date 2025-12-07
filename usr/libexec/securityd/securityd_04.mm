@@ -1,297 +1,3 @@
-void sub_100084C7C(id a1)
-{
-  v1 = objc_autoreleasePoolPush();
-  v2 = objc_alloc_init(SecuritydXPCServerListener);
-  v3 = qword_10039DC40;
-  qword_10039DC40 = v2;
-
-  objc_autoreleasePoolPop(v1);
-}
-
-void sub_100084F20(uint64_t a1)
-{
-  v1 = qword_10039DC50;
-  context[0] = _NSConcreteStackBlock;
-  context[1] = 0x40000000;
-  context[2] = sub_100084FC4;
-  context[3] = &unk_1003354E0;
-  context[4] = *(a1 + 32);
-  v3.length = CFArrayGetCount(qword_10039DC50);
-  v3.location = 0;
-  CFArrayApplyFunction(v1, v3, sub_100084F08, context);
-}
-
-void sub_100084FC4(uint64_t a1, CFTypeRef cf)
-{
-  if (cf)
-  {
-    v4 = CFGetTypeID(cf);
-    if (v4 == CFSetGetTypeID())
-    {
-      v5 = sub_10008513C(cf);
-      CFArrayAppendValue(*(a1 + 32), v5);
-      if (v5)
-      {
-
-        CFRelease(v5);
-      }
-
-      return;
-    }
-
-    v6 = CFGetTypeID(cf);
-    if (v6 == CFDictionaryGetTypeID())
-    {
-      Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-      context[0] = _NSConcreteStackBlock;
-      context[1] = 0x40000000;
-      context[2] = sub_1000851EC;
-      context[3] = &unk_1003354C0;
-      context[4] = Mutable;
-      CFDictionaryApplyFunction(cf, sub_10008527C, context);
-      CFArrayAppendValue(*(a1 + 32), Mutable);
-      return;
-    }
-  }
-
-  v8 = *(a1 + 32);
-
-  CFArrayAppendValue(v8, kCFNull);
-}
-
-CFMutableArrayRef sub_10008513C(const __CFSet *a1)
-{
-  Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-  context[0] = _NSConcreteStackBlock;
-  context[1] = 0x40000000;
-  context[2] = sub_100085298;
-  context[3] = &unk_1003355A0;
-  context[4] = Mutable;
-  CFSetApplyFunction(a1, sub_100084F08, context);
-  return Mutable;
-}
-
-void sub_1000851EC(uint64_t a1, const void *a2, CFTypeRef cf)
-{
-  if (cf)
-  {
-    v6 = CFGetTypeID(cf);
-    if (v6 == CFSetGetTypeID())
-    {
-      v7 = sub_10008513C(cf);
-      CFDictionaryAddValue(*(a1 + 32), a2, v7);
-      if (v7)
-      {
-
-        CFRelease(v7);
-      }
-    }
-  }
-}
-
-void sub_1000852A0(const __CFDictionary *a1, int a2)
-{
-  Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  context[0] = _NSConcreteStackBlock;
-  context[1] = 0x40000000;
-  context[2] = sub_100085388;
-  context[3] = &unk_100335520;
-  context[4] = Mutable;
-  CFDictionaryApplyFunction(a1, sub_10008527C, context);
-  if (CFDictionaryGetCount(Mutable) >= 1)
-  {
-    sub_10008557C(a2, Mutable);
-  }
-
-  if (Mutable)
-  {
-    CFRelease(Mutable);
-  }
-}
-
-void sub_100085388(uint64_t a1, const __CFNumber *cf, const __CFString *a3)
-{
-  v4 = cf;
-  if (cf)
-  {
-    v6 = CFGetTypeID(cf);
-    if (v6 == CFStringGetTypeID())
-    {
-      if (CFEqual(v4, @"Emergency"))
-      {
-        v7 = 0;
-LABEL_22:
-        valuePtr = v7;
-        v4 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
-        goto LABEL_23;
-      }
-
-      if (CFEqual(v4, @"Alert"))
-      {
-        v7 = 1;
-        goto LABEL_22;
-      }
-
-      if (CFEqual(v4, @"Critical"))
-      {
-        v7 = 2;
-        goto LABEL_22;
-      }
-
-      if (CFEqual(v4, @"Error"))
-      {
-        v7 = 3;
-        goto LABEL_22;
-      }
-
-      if (CFEqual(v4, @"Warning"))
-      {
-        v7 = 4;
-        goto LABEL_22;
-      }
-
-      if (CFEqual(v4, @"Notice"))
-      {
-        v7 = 5;
-        goto LABEL_22;
-      }
-
-      if (CFEqual(v4, @"Info"))
-      {
-        v7 = 6;
-        goto LABEL_22;
-      }
-
-      if (CFEqual(v4, @"Debug"))
-      {
-        v7 = 7;
-        goto LABEL_22;
-      }
-    }
-
-    else
-    {
-      v8 = CFGetTypeID(v4);
-      if (v8 == CFNumberGetTypeID())
-      {
-        CFRetain(v4);
-        if (a3)
-        {
-          goto LABEL_24;
-        }
-
-        goto LABEL_29;
-      }
-    }
-
-    v4 = 0;
-    if (a3)
-    {
-      goto LABEL_24;
-    }
-
-LABEL_29:
-    if (!v4)
-    {
-      return;
-    }
-
-    goto LABEL_30;
-  }
-
-LABEL_23:
-  if (!a3)
-  {
-    goto LABEL_29;
-  }
-
-LABEL_24:
-  v9 = CFGetTypeID(a3);
-  if (v9 != CFStringGetTypeID())
-  {
-    goto LABEL_29;
-  }
-
-  v10 = sub_100085724(a3);
-  v11 = v10;
-  if (v4 && v10)
-  {
-    CFDictionaryAddValue(*(a1 + 32), v4, v10);
-    CFRelease(v4);
-    v4 = v11;
-LABEL_30:
-    CFRelease(v4);
-    return;
-  }
-
-  if (v4)
-  {
-    CFRelease(v4);
-  }
-
-  v4 = v11;
-  if (v11)
-  {
-    goto LABEL_30;
-  }
-}
-
-void sub_10008557C(int a1, uint64_t a2)
-{
-  v2[0] = _NSConcreteStackBlock;
-  v2[1] = 0x40000000;
-  v2[2] = sub_10008561C;
-  v2[3] = &unk_1003355E0;
-  v3 = a1;
-  v2[4] = a2;
-  if (qword_10039DC70 != -1)
-  {
-    dispatch_once(&qword_10039DC70, &stru_100335580);
-  }
-
-  dispatch_barrier_sync(qword_10039DC68, v2);
-}
-
-void sub_10008561C(uint64_t a1)
-{
-  Mutable = qword_10039DC50;
-  if (qword_10039DC50)
-  {
-    v3 = kCFNull;
-  }
-
-  else
-  {
-    Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 4, &kCFTypeArrayCallBacks);
-    v3 = kCFNull;
-    v4 = 5;
-    do
-    {
-      CFArrayAppendValue(Mutable, kCFNull);
-      --v4;
-    }
-
-    while (v4);
-    qword_10039DC50 = Mutable;
-  }
-
-  CFArraySetValueAtIndex(Mutable, *(a1 + 40), *(a1 + 32));
-  v5 = qword_10039DC50;
-  v9.length = CFArrayGetCount(qword_10039DC50);
-  v9.location = 0;
-  CountOfValue = CFArrayGetCountOfValue(v5, v9, v3);
-  if (CountOfValue == CFArrayGetCount(v5))
-  {
-    v7 = qword_10039DC50;
-    if (qword_10039DC50)
-    {
-      qword_10039DC50 = 0;
-
-      CFRelease(v7);
-    }
-  }
-}
-
 __CFSet *sub_100085724(const __CFString *a1)
 {
   Mutable = CFSetCreateMutable(kCFAllocatorDefault, 0, &kCFTypeSetCallBacks);
@@ -457,7 +163,7 @@ void sub_100085CC8(const __CFSet *a1, uint64_t a2)
     v8.length = CFArrayGetCount(Mutable);
     v8.location = 0;
     CFArraySortValues(Mutable, v8, sub_100085DD4, 0);
-    sub_100085ABC(Mutable, @"{("), CFSTR(")}", a2);
+    sub_100085ABC(Mutable, @"{("), @"}", a2);
     if (Mutable)
     {
 
@@ -797,13 +503,6 @@ uint64_t sub_1000865E8(uint64_t a1)
   return result;
 }
 
-CFStringRef sub_10008661C(uint64_t a1)
-{
-  sub_100017B30();
-  v2 = *(a1 + 16);
-  return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"<SecDb path:%@ connections: %@>", v2, *(a1 + 48));
-}
-
 void sub_1000866B8(uint64_t a1)
 {
   v2 = *(a1 + 16);
@@ -908,7 +607,7 @@ void sub_10008686C(uint64_t a1, const void *a2)
   os_unfair_lock_unlock((a1 + 148));
 }
 
-uint64_t sub_1000868E8(uint64_t a1, uint64_t __errnum, CFTypeRef *a3)
+uint64_t sub_1000868E8(uint64_t a1, uint64_t __errnum, CFErrorRef *a3)
 {
   v3 = *(a1 + 16);
   if (*(v3 + 163) == 1)
@@ -937,11 +636,17 @@ uint64_t sub_1000868E8(uint64_t a1, uint64_t __errnum, CFTypeRef *a3)
   return 0;
 }
 
-uint64_t sub_100086A20(uint64_t a1, sqlite3_stmt *a2)
+BOOL sub_100086A20(uint64_t a1, sqlite3_stmt *a2)
 {
-  v2 = *(*(a1 + 32) + 8);
-  v4 = *(a1 + 40);
-  return sub_100015DAC(*(a1 + 56), a2);
+  v2 = *(a1 + 56);
+  v3 = *(*(a1 + 32) + 8);
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 0x40000000;
+  v5[2] = sub_100086AA8;
+  v5[3] = &unk_100335B78;
+  v7 = a2;
+  v6 = *(a1 + 40);
+  return sub_100015DAC(v2, a2, v3 + 24, v5);
 }
 
 void sub_100086AA8(uint64_t a1)
@@ -1077,9 +782,9 @@ uint64_t sub_100086EF0(uint64_t a1, uint64_t a2, uint64_t a3)
   return v4;
 }
 
-void sub_100086FE8(uint64_t a1, char *filename)
+void sub_100086FE8(void *a1, char *filename)
 {
-  v4 = *(a1 + 40);
+  v4 = a1[5];
   v5 = 4194305;
   if (*(*(v4 + 16) + 162) == 1)
   {
@@ -1094,7 +799,7 @@ void sub_100086FE8(uint64_t a1, char *filename)
     }
   }
 
-  if (*(a1 + 48))
+  if (a1[6])
   {
     v6 = sub_10008722C(v4, filename, v5, 0);
   }
@@ -1104,36 +809,36 @@ void sub_100086FE8(uint64_t a1, char *filename)
     v6 = 0;
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = v6;
-  v7 = *(*(a1 + 32) + 8);
+  *(*(a1[4] + 8) + 24) = v6;
+  v7 = *(a1[4] + 8);
   if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
-    if (*(a1 + 48))
+    if (a1[6])
     {
       v8 = dirname(filename);
       if (v8)
       {
         v9 = v8;
-        v10 = *(*(*(a1 + 40) + 16) + 160);
+        v10 = *(*(a1[5] + 16) + 160);
         v11 = mkpath_np(v8, (v10 >> 2) & 0x49 | v10);
         if (v11 && v11 != 17)
         {
           v13 = v11;
           v14 = v11;
-          v15 = *(a1 + 56);
+          v15 = a1[7];
           v16 = strerror(v11);
           sub_1000111B4(v14, kCFErrorDomainPOSIX, 0, v15, v17, @"mkpath_np %s: [%d] %s", v9, v13, v16);
-          *(*(*(a1 + 32) + 8) + 24) = 0;
+          *(*(a1[4] + 8) + 24) = 0;
         }
       }
     }
 
-    v18 = *(*(a1 + 32) + 8);
+    v18 = *(a1[4] + 8);
     if (*(v18 + 24) == 1)
     {
-      v19 = sub_10008722C(*(a1 + 40), filename, 4194310, *(a1 + 56));
-      v18 = *(*(a1 + 32) + 8);
+      v19 = sub_10008722C(a1[5], filename, 4194310, a1[7]);
+      v18 = *(a1[4] + 8);
     }
 
     else
@@ -1142,10 +847,10 @@ void sub_100086FE8(uint64_t a1, char *filename)
     }
 
     *(v18 + 24) = v19;
-    if (*(*(*(a1 + 32) + 8) + 24) == 1)
+    if (*(*(a1[4] + 8) + 24) == 1)
     {
-      chmod(filename, *(*(*(a1 + 40) + 16) + 160));
-      v20 = *(a1 + 48);
+      chmod(filename, *(*(a1[5] + 16) + 160));
+      v20 = a1[6];
       if (v20)
       {
         *v20 = 1;
@@ -1153,7 +858,7 @@ void sub_100086FE8(uint64_t a1, char *filename)
     }
   }
 
-  if (*(*(*(a1 + 32) + 8) + 24) == 1)
+  if (*(*(a1[4] + 8) + 24) == 1)
   {
     if (qword_10039DCF0 != -1)
     {
@@ -1163,7 +868,7 @@ void sub_100086FE8(uint64_t a1, char *filename)
     v21 = dword_10039DCF8;
     if (dword_10039DCF8)
     {
-      v22 = *(a1 + 40);
+      v22 = a1[5];
       v23 = v22[8];
 
       sqlite3_trace_v2(v23, v21, sub_1000873B4, v22);
@@ -1171,7 +876,7 @@ void sub_100086FE8(uint64_t a1, char *filename)
   }
 }
 
-BOOL sub_10008722C(uint64_t a1, char *filename, uint64_t a3, CFTypeRef *a4)
+BOOL sub_10008722C(uint64_t a1, char *filename, uint64_t a3, CFErrorRef *a4)
 {
   v8 = *(a1 + 16);
   v9 = *(v8 + 164);
@@ -1519,7 +1224,7 @@ void sub_100087C70(id a1)
   }
 }
 
-uint64_t sub_100087D38(uint64_t a1, uint64_t a2)
+uint64_t sub_100087D38(BOOL *a1, uint64_t a2, uint64_t a3)
 {
   if (!a2)
   {
@@ -1535,21 +1240,22 @@ uint64_t sub_100087D38(uint64_t a1, uint64_t a2)
   return result;
 }
 
-BOOL sub_100087DC8(int a1, CFTypeRef *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+BOOL sub_100087DC8(int a1, CFErrorRef *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (a1)
   {
     if (a2)
     {
-      v12 = *__error();
-      v13 = *a2;
+      v11 = *__error();
+      v12 = *a2;
       *a2 = 0;
-      v14 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, 0, a3, &a9);
-      v15 = strerror(v12);
-      sub_1000111B4(v12, kCFErrorDomainPOSIX, v13, a2, v16, @"%@: [%d] %s", v14, v12, v15, &a9);
-      if (v14)
+      v13 = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, 0, a3, va);
+      v14 = strerror(v11);
+      sub_1000111B4(v11, kCFErrorDomainPOSIX, v12, a2, v15, @"%@: [%d] %s", v13, v11, v14, va);
+      if (v13)
       {
-        CFRelease(v14);
+        CFRelease(v13);
       }
     }
   }
@@ -1557,7 +1263,7 @@ BOOL sub_100087DC8(int a1, CFTypeRef *a2, const __CFString *a3, uint64_t a4, uin
   return a1 == 0;
 }
 
-uint64_t sub_100087E9C(uint64_t a1, CFTypeRef *a2, CFStringRef format, ...)
+uint64_t sub_100087E9C(uint64_t a1, CFErrorRef *a2, CFStringRef format, ...)
 {
   va_start(va, format);
   if (a2 && (a1 & 1) == 0)
@@ -1570,7 +1276,7 @@ uint64_t sub_100087E9C(uint64_t a1, CFTypeRef *a2, CFStringRef format, ...)
   return a1;
 }
 
-BOOL sub_100087F00(uint64_t a1, CFTypeRef *a2, CFStringRef format, ...)
+BOOL sub_100087F00(uint64_t a1, CFErrorRef *a2, CFStringRef format, ...)
 {
   va_start(va, format);
   if (!a1 && a2)
@@ -1772,12 +1478,12 @@ NSObject *sub_100088500(const char *a1, uint64_t a2)
 
 __CFData *sub_1000885B0(const __CFData *a1)
 {
-  CFDataGetLength(a1);
-  v2 = CFGetAllocator(a1);
-  CFDataGetBytePtr(a1);
-  v3 = ccsha256_di();
+  Length = CFDataGetLength(a1);
+  v3 = CFGetAllocator(a1);
+  BytePtr = CFDataGetBytePtr(a1);
+  v5 = ccsha256_di();
 
-  return sub_10001B2EC(v2, v3);
+  return sub_10001B2EC(v3, v5, Length, BytePtr);
 }
 
 void sub_1000887B4(uint64_t a1, void *a2)
@@ -1806,9 +1512,9 @@ void sub_1000887B4(uint64_t a1, void *a2)
   [*(a1 + 32) insertObject:v4 atIndex:0];
 }
 
-void sub_100088958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100088958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1849,7 +1555,7 @@ void sub_100088B0C(uint64_t a1, void *a2, void *a3)
   [v9 addObject:v10];
 }
 
-uint64_t sub_100088E38(CFNullRef *a1, CFTypeRef *a2)
+uint64_t sub_100088E38(CFNullRef *a1, CFErrorRef *a2, uint64_t a3, uint64_t a4)
 {
   result = ccder_decode_tl();
   if (result)
@@ -1859,25 +1565,25 @@ uint64_t sub_100088E38(CFNullRef *a1, CFTypeRef *a2)
 
   else
   {
-    sub_1000111B4(-1, @"com.apple.security.cfder.error", 0, a2, v5, @"Unknown null encoding");
+    sub_1000111B4(-1, @"com.apple.security.cfder.error", 0, a2, v7, @"Unknown null encoding");
     return 0;
   }
 
   return result;
 }
 
-uint64_t sub_100088EB8(CFTypeRef *a1)
+uint64_t sub_100088EB8(CFErrorRef *a1, uint64_t a2, uint64_t a3)
 {
-  v3 = ccder_encode_tl();
-  if (!v3)
+  v5 = ccder_encode_tl();
+  if (!v5)
   {
-    sub_1000111B4(-7, @"com.apple.security.cfder.error", 0, a1, v2, @"ccder failed to encode");
+    sub_1000111B4(-7, @"com.apple.security.cfder.error", 0, a1, v4, @"ccder failed to encode");
   }
 
-  return v3;
+  return v5;
 }
 
-uint64_t sub_100088F18(const __CFAllocator *a1, CFTypeRef *a2, CFTypeRef *a3, uint64_t a4, uint64_t a5)
+const UInt8 *sub_100088F18(const __CFAllocator *a1, CFMutableSetRef *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5)
 {
   if (a4)
   {
@@ -1935,11 +1641,11 @@ uint64_t sub_100089094(const __CFSet *a1, uint64_t a2)
   }
 }
 
-uint64_t sub_1000890FC(uint64_t result, uint64_t a2)
+uint64_t sub_1000890FC(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   if (*a2 == 1)
   {
-    result = sub_10000E384(result, *(a2 + 16));
+    result = sub_10000E384(result, *(a2 + 16), a3, a4, a5);
     if (result)
     {
       *(a2 + 8) += result;
@@ -1954,16 +1660,16 @@ uint64_t sub_1000890FC(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_10008914C(const __CFSet *a1, CFTypeRef *a2, char a3)
+uint64_t sub_10008914C(const __CFSet *a1, CFErrorRef *a2, char a3, uint64_t a4, uint64_t a5)
 {
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v12[0] = 0xAAAAAAAAAAAAAA01;
-  v12[1] = a2;
-  BYTE1(v12[0]) = a3;
-  v12[2] = Mutable;
-  v12[3] = 0;
-  CFSetApplyFunction(a1, sub_100089390, v12);
-  if ((v12[0] & 1) == 0)
+  v14[0] = 0xAAAAAAAAAAAAAA01;
+  v14[1] = a2;
+  BYTE1(v14[0]) = a3;
+  v14[2] = Mutable;
+  v14[3] = 0;
+  CFSetApplyFunction(a1, sub_100089390, v14);
+  if ((v14[0] & 1) == 0)
   {
     if (Mutable)
     {
@@ -1973,23 +1679,23 @@ uint64_t sub_10008914C(const __CFSet *a1, CFTypeRef *a2, char a3)
     return 0;
   }
 
-  v13.length = CFArrayGetCount(Mutable);
-  v13.location = 0;
-  CFArraySortValues(Mutable, v13, sub_1000892D4, 0);
+  v15.length = CFArrayGetCount(Mutable);
+  v15.location = 0;
+  CFArraySortValues(Mutable, v15, sub_1000892D4, 0);
   Count = CFArrayGetCount(Mutable);
   if (Count >= 1)
   {
-    v8 = Count + 1;
+    v10 = Count + 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v8 - 2);
+      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v10 - 2);
       CFDataGetLength(ValueAtIndex);
       CFDataGetBytePtr(ValueAtIndex);
       ccder_encode_body();
-      --v8;
+      --v10;
     }
 
-    while (v8 > 1);
+    while (v10 > 1);
   }
 
   if (Mutable)
@@ -2000,7 +1706,7 @@ uint64_t sub_10008914C(const __CFSet *a1, CFTypeRef *a2, char a3)
   result = ccder_encode_constructed_tl();
   if (!result)
   {
-    sub_1000111B4(-7, @"com.apple.security.cfder.error", 0, a2, v11, @"ccder failed to encode");
+    sub_1000111B4(-7, @"com.apple.security.cfder.error", 0, a2, v13, @"ccder failed to encode");
     return 0;
   }
 
@@ -2136,7 +1842,7 @@ dispatch_queue_t sub_100089510(uint64_t a1)
   return result;
 }
 
-BOOL sub_100089548(int a1, CFTypeRef *a2)
+BOOL sub_100089548(int a1, CFErrorRef *a2)
 {
   v9 = 0;
   v10 = &v9;
@@ -2165,13 +1871,11 @@ uint64_t sub_10008961C(uint64_t result)
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(v1 + 40);
-      v6 = 134217984;
-      v7 = v3;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Requesting lock assertion for %lld seconds", &v6, 0xCu);
+      v4 = 134217984;
+      v5 = v3;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Requesting lock assertion for %lld seconds", &v4, 0xCu);
     }
 
-    v4 = *(v1 + 48);
-    v5 = *(v1 + 40);
     result = aks_assert_hold();
     *(*(*(v1 + 32) + 8) + 24) = result;
   }
@@ -2184,7 +1888,7 @@ uint64_t sub_10008961C(uint64_t result)
   return result;
 }
 
-BOOL sub_100089710(int a1, CFTypeRef *a2)
+BOOL sub_100089710(int a1, CFErrorRef *a2)
 {
   v9 = 0;
   v10 = &v9;
@@ -2211,17 +1915,16 @@ uint64_t sub_1000897E0(uint64_t result)
     --dword_10039DD58;
     if (v3 == 1)
     {
-      v8 = v1;
-      v9 = v2;
+      v7 = v1;
+      v8 = v2;
       v4 = result;
       v5 = sub_100006274("lockassertions");
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Dropping lock assertion", v7, 2u);
+        *v6 = 0;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Dropping lock assertion", v6, 2u);
       }
 
-      v6 = *(v4 + 40);
       result = aks_assert_drop();
       *(*(*(v4 + 32) + 8) + 24) = result;
     }
@@ -2230,7 +1933,7 @@ uint64_t sub_1000897E0(uint64_t result)
   return result;
 }
 
-BOOL sub_100089884(int a1, CFTypeRef *a2, uint64_t a3)
+BOOL sub_100089884(int a1, CFErrorRef *a2, uint64_t a3)
 {
   result = sub_100089548(a1, a2);
   if (result)
@@ -2456,7 +2159,7 @@ void sub_100089F24(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_100089FEC(uint64_t a1, int a2)
+uint64_t sub_100089FEC(uint64_t a1, unsigned int a2)
 {
   v4 = sub_100006274("SecError");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -2472,7 +2175,7 @@ uint64_t sub_100089FEC(uint64_t a1, int a2)
   return SimulateCrash();
 }
 
-uint64_t sub_10008A0C0(uint64_t a1, int a2)
+uint64_t sub_10008A0C0(uint64_t a1, unsigned int a2)
 {
   v4 = sub_100006274("SecError");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -2496,30 +2199,30 @@ void sub_10008A280(id a1)
   qword_10039DD98 = v2;
 }
 
-void sub_10008A4C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10008A4C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v16 - 136), 8);
+  _Block_object_dispose((v23 - 136), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10008A4E4(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper performCKServerUnreadableDataRemovalWithSpecificUser:isGuitarfish:accountIsW:internalAccount:demoAccount:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper performCKServerUnreadableDataRemovalWithSpecificUser:isGuitarfish:accountIsW:internalAccount:demoAccount:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -2527,14 +2230,14 @@ void sub_10008A4E4(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper performCKServerUnreadableDataRemovalWithSpecificUser:isGuitarfish:accountIsW:internalAccount:demoAccount:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper performCKServerUnreadableDataRemovalWithSpecificUser:isGuitarfish:accountIsW:internalAccount:demoAccount:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -2543,14 +2246,14 @@ void sub_10008A4E4(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008A81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008A81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2559,19 +2262,19 @@ void sub_10008A81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008A840(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchPCSIdentityByPublicKeyWithSpecificUser:pcsservices:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchPCSIdentityByPublicKeyWithSpecificUser:pcsservices:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -2579,14 +2282,14 @@ void sub_10008A840(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchPCSIdentityByPublicKeyWithSpecificUser:pcsservices:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchPCSIdentityByPublicKeyWithSpecificUser:pcsservices:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -2595,14 +2298,14 @@ void sub_10008A840(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008AB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008AB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2611,19 +2314,19 @@ void sub_10008AB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008ABA4(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchCurrentItemWithSpecificUser:items:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchCurrentItemWithSpecificUser:items:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -2631,14 +2334,14 @@ void sub_10008ABA4(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchCurrentItemWithSpecificUser:items:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchCurrentItemWithSpecificUser:items:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -2647,14 +2350,14 @@ void sub_10008ABA4(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008AEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008AEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2663,19 +2366,19 @@ void sub_10008AEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008AEEC(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper octagonContainsDistrustedRecoveryKeysWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper octagonContainsDistrustedRecoveryKeysWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -2683,14 +2386,14 @@ void sub_10008AEEC(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper octagonContainsDistrustedRecoveryKeysWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper octagonContainsDistrustedRecoveryKeysWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -2699,14 +2402,14 @@ void sub_10008AEEC(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008B20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008B20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2715,19 +2418,19 @@ void sub_10008B20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008B230(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchTrustedFullPeerCountWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchTrustedFullPeerCountWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -2735,14 +2438,14 @@ void sub_10008B230(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchTrustedFullPeerCountWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchTrustedFullPeerCountWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -2751,14 +2454,14 @@ void sub_10008B230(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008B550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008B550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2767,19 +2470,19 @@ void sub_10008B550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008B574(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchTrustedPeerCountWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchTrustedPeerCountWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -2787,14 +2490,14 @@ void sub_10008B574(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchTrustedPeerCountWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchTrustedPeerCountWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -2803,14 +2506,14 @@ void sub_10008B574(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008B8C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008B8C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2819,19 +2522,19 @@ void sub_10008B8C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008B8EC(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper preflightRecoverOctagonUsingRecoveryKey:recoveryKey:salt:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper preflightRecoverOctagonUsingRecoveryKey:recoveryKey:salt:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -2839,14 +2542,14 @@ void sub_10008B8EC(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper preflightRecoverOctagonUsingRecoveryKey:recoveryKey:salt:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper preflightRecoverOctagonUsingRecoveryKey:recoveryKey:salt:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -2855,14 +2558,14 @@ void sub_10008B8EC(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008BCC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008BCC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2871,19 +2574,19 @@ void sub_10008BCC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008BCEC(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper performATOPRVActionsWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper performATOPRVActionsWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -2891,14 +2594,14 @@ void sub_10008BCEC(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper performATOPRVActionsWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper performATOPRVActionsWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -2907,14 +2610,14 @@ void sub_10008BCEC(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008C008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008C008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2923,19 +2626,19 @@ void sub_10008C008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008C02C(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper removeRecoveryKey:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper removeRecoveryKey:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -2943,14 +2646,14 @@ void sub_10008C02C(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper removeRecoveryKey:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper removeRecoveryKey:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -2959,14 +2662,14 @@ void sub_10008C02C(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008C34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008C34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2975,19 +2678,19 @@ void sub_10008C34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008C370(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper isRecoveryKeySet:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper isRecoveryKeySet:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -2995,14 +2698,14 @@ void sub_10008C370(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper isRecoveryKeySet:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper isRecoveryKeySet:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3011,14 +2714,14 @@ void sub_10008C370(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008C6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008C6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3027,19 +2730,19 @@ void sub_10008C6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008C6E8(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper recoverTLKSharesForInheritorWithSpecificUser:crk:tlkShares:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper recoverTLKSharesForInheritorWithSpecificUser:crk:tlkShares:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3047,14 +2750,14 @@ void sub_10008C6E8(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper recoverTLKSharesForInheritorWithSpecificUser:crk:tlkShares:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper recoverTLKSharesForInheritorWithSpecificUser:crk:tlkShares:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3073,19 +2776,19 @@ void sub_10008CB6C(_Unwind_Exception *a1)
 void sub_10008CB90(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
+      v5 = *(*(a1[6] + 8) + 24);
       *buf = 136315650;
-      v9 = "[CuttlefishXPCWrapper prepareInheritancePeerWithSpecificUser:epoch:machineID:bottleSalt:bottleID:modelID:deviceName:serialNumber:osVersion:policyVersion:policySecrets:syncUserControllableViews:secureElementIdentity:signingPrivKeyPersistentRef:encPrivKeyPersistentRef:crk:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", buf, 0x1Cu);
+      v8 = "[CuttlefishXPCWrapper prepareInheritancePeerWithSpecificUser:epoch:machineID:bottleSalt:bottleID:modelID:deviceName:serialNumber:osVersion:policyVersion:policySecrets:syncUserControllableViews:secureElementIdentity:signingPrivKeyPersistentRef:encPrivKeyPersistentRef:crk:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", buf, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3093,14 +2796,14 @@ void sub_10008CB90(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v9 = "[CuttlefishXPCWrapper prepareInheritancePeerWithSpecificUser:epoch:machineID:bottleSalt:bottleID:modelID:deviceName:serialNumber:osVersion:policyVersion:policySecrets:syncUserControllableViews:secureElementIdentity:signingPrivKeyPersistentRef:encPrivKeyPersistentRef:crk:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", buf, 0x16u);
+      v8 = "[CuttlefishXPCWrapper prepareInheritancePeerWithSpecificUser:epoch:machineID:bottleSalt:bottleID:modelID:deviceName:serialNumber:osVersion:policyVersion:policySecrets:syncUserControllableViews:secureElementIdentity:signingPrivKeyPersistentRef:encPrivKeyPersistentRef:crk:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", buf, 0x16u);
     }
 
     (*(a1[5] + 16))(a1[5], 0);
@@ -3109,14 +2812,14 @@ void sub_10008CB90(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008CF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_10008CF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3125,19 +2828,19 @@ void sub_10008CF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008CF48(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchAccountSettingsWithSpecificUser:forceFetch:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchAccountSettingsWithSpecificUser:forceFetch:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3145,14 +2848,14 @@ void sub_10008CF48(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchAccountSettingsWithSpecificUser:forceFetch:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchAccountSettingsWithSpecificUser:forceFetch:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3161,14 +2864,14 @@ void sub_10008CF48(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008D2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_10008D2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3177,19 +2880,19 @@ void sub_10008D2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008D2F4(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchRecoverableTLKSharesWithSpecificUser:peerID:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchRecoverableTLKSharesWithSpecificUser:peerID:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3197,14 +2900,14 @@ void sub_10008D2F4(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchRecoverableTLKSharesWithSpecificUser:peerID:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchRecoverableTLKSharesWithSpecificUser:peerID:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3213,14 +2916,14 @@ void sub_10008D2F4(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008D664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_10008D664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3229,19 +2932,19 @@ void sub_10008D664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008D688(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper resetAccountCDPContentsWithSpecificUser:idmsTargetContext:idmsCuttlefishPassword:notifyIdMS:internalAccount:demoAccount:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper resetAccountCDPContentsWithSpecificUser:idmsTargetContext:idmsCuttlefishPassword:notifyIdMS:internalAccount:demoAccount:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3249,14 +2952,14 @@ void sub_10008D688(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper resetAccountCDPContentsWithSpecificUser:idmsTargetContext:idmsCuttlefishPassword:notifyIdMS:internalAccount:demoAccount:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper resetAccountCDPContentsWithSpecificUser:idmsTargetContext:idmsCuttlefishPassword:notifyIdMS:internalAccount:demoAccount:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3265,14 +2968,14 @@ void sub_10008D688(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008D9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008D9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3281,19 +2984,19 @@ void sub_10008D9A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008D9C8(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper removeEscrowCacheWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper removeEscrowCacheWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3301,14 +3004,14 @@ void sub_10008D9C8(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper removeEscrowCacheWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper removeEscrowCacheWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3317,14 +3020,14 @@ void sub_10008D9C8(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008DCF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008DCF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3333,19 +3036,19 @@ void sub_10008DCF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008DD18(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchViableEscrowRecordsWithSpecificUser:source:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchViableEscrowRecordsWithSpecificUser:source:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3353,14 +3056,14 @@ void sub_10008DD18(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchViableEscrowRecordsWithSpecificUser:source:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchViableEscrowRecordsWithSpecificUser:source:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3369,14 +3072,14 @@ void sub_10008DD18(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008E038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008E038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3385,19 +3088,19 @@ void sub_10008E038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008E05C(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper getSupportAppInfoWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper getSupportAppInfoWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3405,14 +3108,14 @@ void sub_10008E05C(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper getSupportAppInfoWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper getSupportAppInfoWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3421,9 +3124,9 @@ void sub_10008E05C(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008E388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10008E388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3431,32 +3134,32 @@ void sub_10008E388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008E3A0(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper requestEscrowCheckWithSpecificUser:requiresEscrowCheck:passcodeGeneration:knownFederations:isBackgroundCheck:flowID:deviceSessionID:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper requestEscrowCheckWithSpecificUser:requiresEscrowCheck:passcodeGeneration:knownFederations:isBackgroundCheck:flowID:deviceSessionID:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
   }
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper requestEscrowCheckWithSpecificUser:requiresEscrowCheck:passcodeGeneration:knownFederations:isBackgroundCheck:flowID:deviceSessionID:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper requestEscrowCheckWithSpecificUser:requiresEscrowCheck:passcodeGeneration:knownFederations:isBackgroundCheck:flowID:deviceSessionID:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3465,30 +3168,30 @@ void sub_10008E3A0(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008E704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10008E704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v16 - 136), 8);
+  _Block_object_dispose((v23 - 136), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10008E728(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper requestHealthCheckWithSpecificUser:requiresEscrowCheck:repair:danglingPeerCleanup:caesarPeerCleanup:updateIdMS:knownFederations:flowID:deviceSessionID:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper requestHealthCheckWithSpecificUser:requiresEscrowCheck:repair:danglingPeerCleanup:caesarPeerCleanup:updateIdMS:knownFederations:flowID:deviceSessionID:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3496,14 +3199,14 @@ void sub_10008E728(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper requestHealthCheckWithSpecificUser:requiresEscrowCheck:repair:danglingPeerCleanup:caesarPeerCleanup:updateIdMS:knownFederations:flowID:deviceSessionID:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper requestHealthCheckWithSpecificUser:requiresEscrowCheck:repair:danglingPeerCleanup:caesarPeerCleanup:updateIdMS:knownFederations:flowID:deviceSessionID:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3512,14 +3215,14 @@ void sub_10008E728(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008EA64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008EA64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3528,19 +3231,19 @@ void sub_10008EA64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008EA88(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper findCustodianRecoveryKeyWithSpecificUser:uuid:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper findCustodianRecoveryKeyWithSpecificUser:uuid:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3548,14 +3251,14 @@ void sub_10008EA88(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper findCustodianRecoveryKeyWithSpecificUser:uuid:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper findCustodianRecoveryKeyWithSpecificUser:uuid:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3564,14 +3267,14 @@ void sub_10008EA88(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008EDC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008EDC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3580,19 +3283,19 @@ void sub_10008EDC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008EDE8(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper removeCustodianRecoveryKeyWithSpecificUser:uuid:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper removeCustodianRecoveryKeyWithSpecificUser:uuid:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3600,14 +3303,14 @@ void sub_10008EDE8(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper removeCustodianRecoveryKeyWithSpecificUser:uuid:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper removeCustodianRecoveryKeyWithSpecificUser:uuid:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3616,14 +3319,14 @@ void sub_10008EDE8(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008F16C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_10008F16C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3632,19 +3335,19 @@ void sub_10008F16C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008F190(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper createCustodianRecoveryKeyWithSpecificUser:recoveryKey:salt:ckksKeys:uuid:kind:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper createCustodianRecoveryKeyWithSpecificUser:recoveryKey:salt:ckksKeys:uuid:kind:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3652,14 +3355,14 @@ void sub_10008F190(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper createCustodianRecoveryKeyWithSpecificUser:recoveryKey:salt:ckksKeys:uuid:kind:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper createCustodianRecoveryKeyWithSpecificUser:recoveryKey:salt:ckksKeys:uuid:kind:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3668,14 +3371,14 @@ void sub_10008F190(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008F4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008F4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3684,19 +3387,19 @@ void sub_10008F4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008F520(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper setRecoveryKeyWithSpecificUser:recoveryKey:salt:ckksKeys:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper setRecoveryKeyWithSpecificUser:recoveryKey:salt:ckksKeys:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3704,14 +3407,14 @@ void sub_10008F520(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper setRecoveryKeyWithSpecificUser:recoveryKey:salt:ckksKeys:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper setRecoveryKeyWithSpecificUser:recoveryKey:salt:ckksKeys:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3720,14 +3423,14 @@ void sub_10008F520(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008F840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008F840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3736,19 +3439,19 @@ void sub_10008F840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008F864(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchTrustStateWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchTrustStateWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3756,14 +3459,14 @@ void sub_10008F864(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchTrustStateWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchTrustStateWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3772,14 +3475,14 @@ void sub_10008F864(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008FBB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008FBB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3788,19 +3491,19 @@ void sub_10008FBB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008FBD4(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchCurrentPolicyWithSpecificUser:modelIDOverride:isInheritedAccount:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchCurrentPolicyWithSpecificUser:modelIDOverride:isInheritedAccount:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3808,14 +3511,14 @@ void sub_10008FBD4(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchCurrentPolicyWithSpecificUser:modelIDOverride:isInheritedAccount:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchCurrentPolicyWithSpecificUser:modelIDOverride:isInheritedAccount:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3824,14 +3527,14 @@ void sub_10008FBD4(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10008FF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008FF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3840,19 +3543,19 @@ void sub_10008FF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10008FF38(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchPolicyDocumentsWithSpecificUser:versions:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchPolicyDocumentsWithSpecificUser:versions:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3860,14 +3563,14 @@ void sub_10008FF38(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchPolicyDocumentsWithSpecificUser:versions:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchPolicyDocumentsWithSpecificUser:versions:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3876,14 +3579,14 @@ void sub_10008FF38(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100090258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100090258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3892,19 +3595,19 @@ void sub_100090258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10009027C(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchEscrowContentsWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchEscrowContentsWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3912,14 +3615,14 @@ void sub_10009027C(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchEscrowContentsWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchEscrowContentsWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3928,14 +3631,14 @@ void sub_10009027C(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_1000905E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000905E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3944,19 +3647,19 @@ void sub_1000905E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100090604(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchViableBottlesWithSpecificUser:source:flowID:deviceSessionID:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchViableBottlesWithSpecificUser:source:flowID:deviceSessionID:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -3964,14 +3667,14 @@ void sub_100090604(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchViableBottlesWithSpecificUser:source:flowID:deviceSessionID:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchViableBottlesWithSpecificUser:source:flowID:deviceSessionID:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -3980,14 +3683,14 @@ void sub_100090604(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10009095C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009095C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3996,19 +3699,19 @@ void sub_10009095C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100090980(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper updateTLKsWithSpecificUser:ckksKeys:tlkShares:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper updateTLKsWithSpecificUser:ckksKeys:tlkShares:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4016,14 +3719,14 @@ void sub_100090980(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper updateTLKsWithSpecificUser:ckksKeys:tlkShares:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper updateTLKsWithSpecificUser:ckksKeys:tlkShares:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4032,14 +3735,14 @@ void sub_100090980(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100090CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100090CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4048,19 +3751,19 @@ void sub_100090CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100090CE0(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper setPreapprovedKeysWithSpecificUser:preapprovedKeys:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper setPreapprovedKeysWithSpecificUser:preapprovedKeys:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4068,14 +3771,14 @@ void sub_100090CE0(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper setPreapprovedKeysWithSpecificUser:preapprovedKeys:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper setPreapprovedKeysWithSpecificUser:preapprovedKeys:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4094,19 +3797,19 @@ void sub_1000910CC(_Unwind_Exception *a1)
 void sub_1000910F0(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper updateWithSpecificUser:forceRefetch:deviceName:serialNumber:osVersion:policyVersion:policySecrets:syncUserControllableViews:secureElementIdentity:walrusSetting:webAccess:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper updateWithSpecificUser:forceRefetch:deviceName:serialNumber:osVersion:policyVersion:policySecrets:syncUserControllableViews:secureElementIdentity:walrusSetting:webAccess:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4114,14 +3817,14 @@ void sub_1000910F0(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper updateWithSpecificUser:forceRefetch:deviceName:serialNumber:osVersion:policyVersion:policySecrets:syncUserControllableViews:secureElementIdentity:walrusSetting:webAccess:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper updateWithSpecificUser:forceRefetch:deviceName:serialNumber:osVersion:policyVersion:policySecrets:syncUserControllableViews:secureElementIdentity:walrusSetting:webAccess:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4130,30 +3833,30 @@ void sub_1000910F0(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_1000914B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1000914B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v16 - 136), 8);
+  _Block_object_dispose((v23 - 136), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_1000914D4(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper attemptPreapprovedJoinWithSpecificUser:ckksKeys:tlkShares:preapprovedKeys:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper attemptPreapprovedJoinWithSpecificUser:ckksKeys:tlkShares:preapprovedKeys:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4161,14 +3864,14 @@ void sub_1000914D4(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper attemptPreapprovedJoinWithSpecificUser:ckksKeys:tlkShares:preapprovedKeys:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper attemptPreapprovedJoinWithSpecificUser:ckksKeys:tlkShares:preapprovedKeys:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4177,14 +3880,14 @@ void sub_1000914D4(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100091818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100091818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4193,19 +3896,19 @@ void sub_100091818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10009183C(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper preflightPreapprovedJoinWithSpecificUser:preapprovedKeys:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper preflightPreapprovedJoinWithSpecificUser:preapprovedKeys:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4213,14 +3916,14 @@ void sub_10009183C(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper preflightPreapprovedJoinWithSpecificUser:preapprovedKeys:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper preflightPreapprovedJoinWithSpecificUser:preapprovedKeys:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4229,29 +3932,30 @@ void sub_10009183C(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100091C04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_100091C04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 136), 8);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 136), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100091C28(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper joinWithSpecificUser:voucherData:voucherSig:ckksKeys:tlkShares:preapprovedKeys:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper joinWithSpecificUser:voucherData:voucherSig:ckksKeys:tlkShares:preapprovedKeys:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4259,14 +3963,14 @@ void sub_100091C28(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper joinWithSpecificUser:voucherData:voucherSig:ckksKeys:tlkShares:preapprovedKeys:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper joinWithSpecificUser:voucherData:voucherSig:ckksKeys:tlkShares:preapprovedKeys:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4275,14 +3979,14 @@ void sub_100091C28(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100091F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100091F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4291,19 +3995,19 @@ void sub_100091F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100091FA8(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper vouchWithRerollWithSpecificUser:oldPeerID:tlkShares:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper vouchWithRerollWithSpecificUser:oldPeerID:tlkShares:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4311,14 +4015,14 @@ void sub_100091FA8(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper vouchWithRerollWithSpecificUser:oldPeerID:tlkShares:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper vouchWithRerollWithSpecificUser:oldPeerID:tlkShares:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4327,14 +4031,14 @@ void sub_100091FA8(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100092308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100092308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4343,19 +4047,19 @@ void sub_100092308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10009232C(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper vouchWithCustodianRecoveryKeyWithSpecificUser:crk:tlkShares:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper vouchWithCustodianRecoveryKeyWithSpecificUser:crk:tlkShares:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4363,14 +4067,14 @@ void sub_10009232C(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper vouchWithCustodianRecoveryKeyWithSpecificUser:crk:tlkShares:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper vouchWithCustodianRecoveryKeyWithSpecificUser:crk:tlkShares:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4379,14 +4083,14 @@ void sub_10009232C(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_1000926A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000926A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4395,19 +4099,19 @@ void sub_1000926A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_1000926C4(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper vouchWithRecoveryKeyWithSpecificUser:recoveryKey:salt:tlkShares:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper vouchWithRecoveryKeyWithSpecificUser:recoveryKey:salt:tlkShares:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4415,14 +4119,14 @@ void sub_1000926C4(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper vouchWithRecoveryKeyWithSpecificUser:recoveryKey:salt:tlkShares:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper vouchWithRecoveryKeyWithSpecificUser:recoveryKey:salt:tlkShares:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4431,14 +4135,14 @@ void sub_1000926C4(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100092A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100092A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4447,19 +4151,19 @@ void sub_100092A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100092A30(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper preflightVouchWithCustodianRecoveryKeyWithSpecificUser:crk:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper preflightVouchWithCustodianRecoveryKeyWithSpecificUser:crk:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4467,14 +4171,14 @@ void sub_100092A30(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper preflightVouchWithCustodianRecoveryKeyWithSpecificUser:crk:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper preflightVouchWithCustodianRecoveryKeyWithSpecificUser:crk:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4483,14 +4187,14 @@ void sub_100092A30(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100092D88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100092D88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4499,19 +4203,19 @@ void sub_100092D88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100092DAC(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper preflightVouchWithRecoveryKeyWithSpecificUser:recoveryKey:salt:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper preflightVouchWithRecoveryKeyWithSpecificUser:recoveryKey:salt:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4519,14 +4223,14 @@ void sub_100092DAC(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper preflightVouchWithRecoveryKeyWithSpecificUser:recoveryKey:salt:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper preflightVouchWithRecoveryKeyWithSpecificUser:recoveryKey:salt:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4535,29 +4239,30 @@ void sub_100092DAC(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100093178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_100093178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 136), 8);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 136), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10009319C(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper vouchWithBottleWithSpecificUser:bottleID:entropy:bottleSalt:tlkShares:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper vouchWithBottleWithSpecificUser:bottleID:entropy:bottleSalt:tlkShares:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4565,14 +4270,14 @@ void sub_10009319C(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper vouchWithBottleWithSpecificUser:bottleID:entropy:bottleSalt:tlkShares:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper vouchWithBottleWithSpecificUser:bottleID:entropy:bottleSalt:tlkShares:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4581,14 +4286,14 @@ void sub_10009319C(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100093530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_100093530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4597,19 +4302,19 @@ void sub_100093530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100093554(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper preflightVouchWithBottleWithSpecificUser:bottleID:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper preflightVouchWithBottleWithSpecificUser:bottleID:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4617,14 +4322,14 @@ void sub_100093554(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper preflightVouchWithBottleWithSpecificUser:bottleID:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper preflightVouchWithBottleWithSpecificUser:bottleID:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4633,29 +4338,30 @@ void sub_100093554(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100093944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_100093944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose((v30 - 136), 8);
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v29 - 136), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100093968(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper vouchWithSpecificUser:peerID:permanentInfo:permanentInfoSig:stableInfo:stableInfoSig:ckksKeys:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper vouchWithSpecificUser:peerID:permanentInfo:permanentInfoSig:stableInfo:stableInfoSig:ckksKeys:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4663,14 +4369,14 @@ void sub_100093968(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper vouchWithSpecificUser:peerID:permanentInfo:permanentInfoSig:stableInfo:stableInfoSig:ckksKeys:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper vouchWithSpecificUser:peerID:permanentInfo:permanentInfoSig:stableInfo:stableInfoSig:ckksKeys:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4679,30 +4385,30 @@ void sub_100093968(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100093D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_100093D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v16 - 136), 8);
+  _Block_object_dispose((v23 - 136), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100093D4C(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper establishWithSpecificUser:ckksKeys:tlkShares:preapprovedKeys:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper establishWithSpecificUser:ckksKeys:tlkShares:preapprovedKeys:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4710,14 +4416,14 @@ void sub_100093D4C(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper establishWithSpecificUser:ckksKeys:tlkShares:preapprovedKeys:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper establishWithSpecificUser:ckksKeys:tlkShares:preapprovedKeys:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4736,19 +4442,19 @@ void sub_1000941D4(_Unwind_Exception *a1)
 void sub_1000941F8(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper prepareWithSpecificUser:epoch:machineID:bottleSalt:bottleID:modelID:deviceName:serialNumber:osVersion:policyVersion:policySecrets:syncUserControllableViews:secureElementIdentity:setting:signingPrivKeyPersistentRef:encPrivKeyPersistentRef:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper prepareWithSpecificUser:epoch:machineID:bottleSalt:bottleID:modelID:deviceName:serialNumber:osVersion:policyVersion:policySecrets:syncUserControllableViews:secureElementIdentity:setting:signingPrivKeyPersistentRef:encPrivKeyPersistentRef:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4756,14 +4462,14 @@ void sub_1000941F8(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper prepareWithSpecificUser:epoch:machineID:bottleSalt:bottleID:modelID:deviceName:serialNumber:osVersion:policyVersion:policySecrets:syncUserControllableViews:secureElementIdentity:setting:signingPrivKeyPersistentRef:encPrivKeyPersistentRef:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper prepareWithSpecificUser:epoch:machineID:bottleSalt:bottleID:modelID:deviceName:serialNumber:osVersion:policyVersion:policySecrets:syncUserControllableViews:secureElementIdentity:setting:signingPrivKeyPersistentRef:encPrivKeyPersistentRef:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4772,14 +4478,14 @@ void sub_1000941F8(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10009452C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009452C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4788,19 +4494,19 @@ void sub_10009452C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100094550(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchEgoEpochWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchEgoEpochWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4808,14 +4514,14 @@ void sub_100094550(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchEgoEpochWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchEgoEpochWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4824,14 +4530,14 @@ void sub_100094550(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100094870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100094870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4840,19 +4546,19 @@ void sub_100094870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100094894(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper fetchAllowedMachineIDsWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper fetchAllowedMachineIDsWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4860,14 +4566,14 @@ void sub_100094894(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper fetchAllowedMachineIDsWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper fetchAllowedMachineIDsWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4876,14 +4582,14 @@ void sub_100094894(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100094BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100094BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4892,19 +4598,19 @@ void sub_100094BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100094BF4(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper handleRemovedMachineIDsDueToUnknownReasonsWithSpecificUser:machineIDs:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper handleRemovedMachineIDsDueToUnknownReasonsWithSpecificUser:machineIDs:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4912,14 +4618,14 @@ void sub_100094BF4(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper handleRemovedMachineIDsDueToUnknownReasonsWithSpecificUser:machineIDs:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper handleRemovedMachineIDsDueToUnknownReasonsWithSpecificUser:machineIDs:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4928,14 +4634,14 @@ void sub_100094BF4(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100094F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100094F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4944,19 +4650,19 @@ void sub_100094F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100094F50(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper handleEvictedMachineIDsWithSpecificUser:machineIDs:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper handleEvictedMachineIDsWithSpecificUser:machineIDs:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -4964,14 +4670,14 @@ void sub_100094F50(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper handleEvictedMachineIDsWithSpecificUser:machineIDs:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper handleEvictedMachineIDsWithSpecificUser:machineIDs:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -4980,14 +4686,14 @@ void sub_100094F50(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_10009526C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009526C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4996,19 +4702,19 @@ void sub_10009526C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100095290(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper markTrustedDeviceListFetchFailed:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper markTrustedDeviceListFetchFailed:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -5016,14 +4722,14 @@ void sub_100095290(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper markTrustedDeviceListFetchFailed:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper markTrustedDeviceListFetchFailed:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -5042,19 +4748,19 @@ void sub_1000956C8(_Unwind_Exception *a1)
 void sub_1000956EC(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper setAllowedMachineIDsWithSpecificUser:allowedMachineIDs:userInitiatedRemovals:evictedRemovals:unknownReasonRemovals:honorIDMSListChanges:version:flowID:deviceSessionID:canSendMetrics:altDSID:trustedDeviceHash:deletedDeviceHash:trustedDevicesUpdateTimestamp:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper setAllowedMachineIDsWithSpecificUser:allowedMachineIDs:userInitiatedRemovals:evictedRemovals:unknownReasonRemovals:honorIDMSListChanges:version:flowID:deviceSessionID:canSendMetrics:altDSID:trustedDeviceHash:deletedDeviceHash:trustedDevicesUpdateTimestamp:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -5062,14 +4768,14 @@ void sub_1000956EC(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper setAllowedMachineIDsWithSpecificUser:allowedMachineIDs:userInitiatedRemovals:evictedRemovals:unknownReasonRemovals:honorIDMSListChanges:version:flowID:deviceSessionID:canSendMetrics:altDSID:trustedDeviceHash:deletedDeviceHash:trustedDevicesUpdateTimestamp:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper setAllowedMachineIDsWithSpecificUser:allowedMachineIDs:userInitiatedRemovals:evictedRemovals:unknownReasonRemovals:honorIDMSListChanges:version:flowID:deviceSessionID:canSendMetrics:altDSID:trustedDeviceHash:deletedDeviceHash:trustedDevicesUpdateTimestamp:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -5078,14 +4784,14 @@ void sub_1000956EC(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100095A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100095A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5094,19 +4800,19 @@ void sub_100095A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100095A30(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper localResetWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper localResetWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -5114,14 +4820,14 @@ void sub_100095A30(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper localResetWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper localResetWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -5140,19 +4846,19 @@ void sub_100095E04(_Unwind_Exception *a1)
 void sub_100095E28(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper resetWithSpecificUser:resetReason:idmsTargetContext:idmsCuttlefishPassword:notifyIdMS:internalAccount:demoAccount:isGuitarfish:accountIsW:accountType:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper resetWithSpecificUser:resetReason:idmsTargetContext:idmsCuttlefishPassword:notifyIdMS:internalAccount:demoAccount:isGuitarfish:accountIsW:accountType:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -5160,14 +4866,14 @@ void sub_100095E28(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper resetWithSpecificUser:resetReason:idmsTargetContext:idmsCuttlefishPassword:notifyIdMS:internalAccount:demoAccount:isGuitarfish:accountIsW:accountType:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper resetWithSpecificUser:resetReason:idmsTargetContext:idmsCuttlefishPassword:notifyIdMS:internalAccount:demoAccount:isGuitarfish:accountIsW:accountType:altDSID:flowID:deviceSessionID:canSendMetrics:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -5176,14 +4882,14 @@ void sub_100095E28(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100096144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100096144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5192,19 +4898,19 @@ void sub_100096144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100096168(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper trustStatusWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper trustStatusWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -5212,14 +4918,14 @@ void sub_100096168(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper trustStatusWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper trustStatusWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -5228,14 +4934,14 @@ void sub_100096168(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100096560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100096560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5244,19 +4950,19 @@ void sub_100096560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100096584(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper distrustPeerIDsWithSpecificUser:peerIDs:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper distrustPeerIDsWithSpecificUser:peerIDs:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -5264,14 +4970,14 @@ void sub_100096584(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper distrustPeerIDsWithSpecificUser:peerIDs:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper distrustPeerIDsWithSpecificUser:peerIDs:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -5280,14 +4986,14 @@ void sub_100096584(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_1000968A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000968A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5296,19 +5002,19 @@ void sub_1000968A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_1000968C4(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper departByDistrustingSelfWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper departByDistrustingSelfWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -5316,14 +5022,14 @@ void sub_1000968C4(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper departByDistrustingSelfWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper departByDistrustingSelfWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -5332,14 +5038,14 @@ void sub_1000968C4(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100096BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100096BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5348,19 +5054,19 @@ void sub_100096BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100096C04(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper trustedDeviceNamesByPeerIDWithSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper trustedDeviceNamesByPeerIDWithSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -5368,14 +5074,14 @@ void sub_100096C04(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper trustedDeviceNamesByPeerIDWithSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper trustedDeviceNamesByPeerIDWithSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -5384,14 +5090,14 @@ void sub_100096C04(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100096F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100096F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5400,19 +5106,19 @@ void sub_100096F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100096F64(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper octagonPeerIDGivenBottleIDWithSpecificUser:bottleID:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper octagonPeerIDGivenBottleIDWithSpecificUser:bottleID:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -5420,14 +5126,14 @@ void sub_100096F64(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper octagonPeerIDGivenBottleIDWithSpecificUser:bottleID:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper octagonPeerIDGivenBottleIDWithSpecificUser:bottleID:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -5436,14 +5142,14 @@ void sub_100096F64(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_100097284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100097284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5452,19 +5158,19 @@ void sub_100097284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_1000972A8(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper honorIDMSListChangesForSpecificUser:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper honorIDMSListChangesForSpecificUser:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -5472,14 +5178,14 @@ void sub_1000972A8(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper honorIDMSListChangesForSpecificUser:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper honorIDMSListChangesForSpecificUser:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -5488,14 +5194,14 @@ void sub_1000972A8(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_1000975E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000975E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5504,19 +5210,19 @@ void sub_1000975E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100097608(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[6] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[6] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[6] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper dumpWithSpecificUser:fileDescriptor:reply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[6] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper dumpWithSpecificUser:fileDescriptor:reply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[7] + 8) + 24) = 1;
@@ -5524,14 +5230,14 @@ void sub_100097608(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper dumpWithSpecificUser:fileDescriptor:reply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper dumpWithSpecificUser:fileDescriptor:reply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
 
     (*(a1[5] + 16))();
@@ -5540,14 +5246,14 @@ void sub_100097608(void *a1, void *a2)
   ++*(*(a1[6] + 8) + 24);
 }
 
-void sub_1000978F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000978F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5556,19 +5262,19 @@ void sub_1000978F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100097918(void *a1, void *a2)
 {
   v3 = a2;
-  if (*(*(a1[5] + 8) + 24) <= 4 && (v4 = a1[4], [objc_opt_class() retryable:v3]))
+  if (*(*(a1[5] + 8) + 24) <= 4 && [objc_opt_class() retryable:v3])
   {
-    v5 = sub_100006274("octagon");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100006274("octagon");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(*(a1[5] + 8) + 24);
-      v8 = 136315650;
-      v9 = "[CuttlefishXPCWrapper pingWithReply:]_block_invoke";
-      v10 = 1024;
-      LODWORD(v11[0]) = v6;
-      WORD2(v11[0]) = 2112;
-      *(v11 + 6) = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v8, 0x1Cu);
+      v5 = *(*(a1[5] + 8) + 24);
+      v7 = 136315650;
+      v8 = "[CuttlefishXPCWrapper pingWithReply:]_block_invoke";
+      v9 = 1024;
+      LODWORD(v10[0]) = v5;
+      WORD2(v10[0]) = 2112;
+      *(v10 + 6) = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "retrying cuttlefish XPC %s, (%d, %@)", &v7, 0x1Cu);
     }
 
     *(*(a1[6] + 8) + 24) = 1;
@@ -5576,14 +5282,14 @@ void sub_100097918(void *a1, void *a2)
 
   else
   {
-    v7 = sub_100006274("SecError");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100006274("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[CuttlefishXPCWrapper pingWithReply:]_block_invoke";
-      v10 = 2112;
-      v11[0] = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[CuttlefishXPCWrapper pingWithReply:]_block_invoke";
+      v9 = 2112;
+      v10[0] = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "octagon: Can't talk with TrustedPeersHelper %s: %@", &v7, 0x16u);
     }
   }
 
@@ -6253,9 +5959,9 @@ void sub_10009F050(id a1)
   qword_10039DDB8 = v2;
 }
 
-void sub_10009FDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009FDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6275,9 +5981,9 @@ void sub_10009FDEC(uint64_t a1, uint64_t a2)
   [v2 addObject:v3];
 }
 
-void sub_10009FFE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009FFE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6290,9 +5996,9 @@ void sub_10009FFFC(uint64_t a1, uint64_t a2)
   [v2 addObject:v3];
 }
 
-void sub_1000A01D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A01D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6346,9 +6052,9 @@ BOOL sub_1000A0708()
   return v3 == 1;
 }
 
-void sub_1000A0904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000A0904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6436,29 +6142,28 @@ void sub_1000A0BD8(uint64_t a1, sqlite3_stmt *a2)
 
 void sub_1000A0CB8(void *a1)
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x3032000000;
-  v9 = sub_10009FDD4;
-  v10 = sub_10009FDE4;
-  v11 = objc_alloc_init(NSMutableDictionary);
+  v5[0] = 0;
+  v5[1] = v5;
+  v5[2] = 0x3032000000;
+  v5[3] = sub_10009FDD4;
+  v5[4] = sub_10009FDE4;
+  v6 = objc_alloc_init(NSMutableDictionary);
   v2 = a1[4];
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_1000A0DC8;
-  v5[3] = &unk_1003362A0;
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 3221225472;
+  v4[2] = sub_1000A0DC8;
+  v4[3] = &unk_1003362A0;
   v3 = a1[6];
-  v5[4] = &v6;
-  v5[5] = v3;
-  [v2 enumerateObjectsUsingBlock:v5];
-  v4 = v7[5];
+  v4[4] = v5;
+  v4[5] = v3;
+  [v2 enumerateObjectsUsingBlock:v4];
   (*(a1[5] + 16))();
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(v5, 8);
 }
 
-void sub_1000A0DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000A0DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6540,29 +6245,28 @@ void sub_1000A12FC(uint64_t a1, sqlite3_stmt *a2)
 
 void sub_1000A13DC(void *a1)
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x3032000000;
-  v9 = sub_10009FDD4;
-  v10 = sub_10009FDE4;
-  v11 = objc_alloc_init(NSMutableDictionary);
+  v5[0] = 0;
+  v5[1] = v5;
+  v5[2] = 0x3032000000;
+  v5[3] = sub_10009FDD4;
+  v5[4] = sub_10009FDE4;
+  v6 = objc_alloc_init(NSMutableDictionary);
   v2 = a1[4];
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_1000A14EC;
-  v5[3] = &unk_1003362A0;
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 3221225472;
+  v4[2] = sub_1000A14EC;
+  v4[3] = &unk_1003362A0;
   v3 = a1[6];
-  v5[4] = &v6;
-  v5[5] = v3;
-  [v2 enumerateObjectsUsingBlock:v5];
-  v4 = v7[5];
+  v4[4] = v5;
+  v4[5] = v3;
+  [v2 enumerateObjectsUsingBlock:v4];
   (*(a1[5] + 16))();
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(v5, 8);
 }
 
-void sub_1000A14D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000A14D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6592,9 +6296,9 @@ void sub_1000A14EC(uint64_t a1, void *a2, int a3)
   }
 }
 
-void sub_1000A173C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A173C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6628,9 +6332,9 @@ BOOL sub_1000A1860(uint64_t a1, sqlite3_stmt *a2)
   return sub_100015DAC(v4, a2, v5, &stru_100336228);
 }
 
-void sub_1000A19B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A19B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6731,9 +6435,9 @@ LABEL_16:
 LABEL_17:
 }
 
-void sub_1000A1DC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000A1DC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6759,9 +6463,9 @@ void sub_1000A1DE0(uint64_t a1, void *a2)
   *(*(*(a1 + 40) + 8) + 24) = 1;
 }
 
-void sub_1000A1F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000A1F58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6787,9 +6491,9 @@ void sub_1000A1F70(uint64_t a1, void *a2)
   *(*(*(a1 + 40) + 8) + 24) = 1;
 }
 
-void sub_1000A20E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000A20E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6936,9 +6640,9 @@ LABEL_33:
   *(*(*(a1 + 40) + 8) + 24) = 1;
 }
 
-void sub_1000A25E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A25E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7072,12 +6776,12 @@ void sub_1000A547C(id a1)
   qword_10039DDC8 = v1;
 }
 
-void sub_1000A5D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1000A5D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  objc_destroyWeak((v14 + 40));
+  va_start(va, a21);
+  objc_destroyWeak((v21 + 40));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v15 - 56));
+  objc_destroyWeak((v22 - 56));
   _Unwind_Resume(a1);
 }
 
@@ -7100,7 +6804,7 @@ uint64_t sub_1000A5D54(uint64_t a1)
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v5, v7);
 }
 
 void sub_1000A5DEC(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6)
@@ -7134,9 +6838,9 @@ id sub_1000A5EE4(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v13 = 138412290;
-      v14 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "error getting octagon status: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "error getting octagon status: %@", &v12, 0xCu);
     }
 
     v6 = [OTCliqueStatusWrapper alloc];
@@ -7147,22 +6851,21 @@ id sub_1000A5EE4(uint64_t a1)
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 64);
-      v9 = OTCliqueStatusToString();
-      v10 = *(a1 + 48);
-      v13 = 138412546;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Caching octagon status as (%@, %@)", &v13, 0x16u);
+      v8 = OTCliqueStatusToString();
+      v9 = *(a1 + 48);
+      v12 = 138412546;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Caching octagon status as (%@, %@)", &v12, 0x16u);
     }
 
     v6 = [OTCliqueStatusWrapper alloc];
     v7 = *(a1 + 64);
   }
 
-  v11 = [(OTCliqueStatusWrapper *)v6 initWithStatus:v7];
-  [*(a1 + 40) setOctagonStatus:v11];
+  v10 = [(OTCliqueStatusWrapper *)v6 initWithStatus:v7];
+  [*(a1 + 40) setOctagonStatus:v10];
 
   [*(a1 + 40) setOctagonPeerID:*(a1 + 48)];
   return [*(*(*(a1 + 56) + 8) + 40) fulfill];
@@ -7647,17 +7350,18 @@ NSDictionary *__cdecl sub_1000A8E6C(id a1)
   return v1;
 }
 
-void sub_1000AA530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AA530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000AA84C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1000AA84C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7682,11 +7386,11 @@ void sub_1000AA89C(uint64_t a1, void *a2, void *a3)
   *(v9 + 40) = v6;
 }
 
-void sub_1000AAA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AAA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7704,9 +7408,9 @@ void sub_1000AAA94(uint64_t a1, void *a2, void *a3)
   *(v9 + 40) = v6;
 }
 
-void sub_1000AAC78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AAC78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7879,9 +7583,9 @@ void sub_1000AB868(uint64_t a1, void *a2, void *a3, void *a4)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_1000ABFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000ABFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7900,7 +7604,7 @@ uint64_t sub_1000ABFFC(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
 void sub_1000AC10C(uint64_t a1)
@@ -7931,9 +7635,9 @@ void sub_1000AC3E4(uint64_t a1)
   [v2 registerListener:*(a1 + 40)];
 }
 
-void sub_1000AC57C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000AC57C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7973,11 +7677,12 @@ void sub_1000AC594(uint64_t a1)
   _Block_object_dispose(&v9, 8);
 }
 
-void sub_1000AC6E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_1000AC6E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8064,9 +7769,9 @@ void sub_1000AC714(uint64_t a1, uint64_t a2, void *a3, void *a4)
   }
 }
 
-void sub_1000ACB24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000ACB24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8150,9 +7855,9 @@ void sub_1000ACB3C(uint64_t a1)
   }
 }
 
-void sub_1000ACF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000ACF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8897,10 +8602,11 @@ void sub_1000B7EE0(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000B8364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1000B8364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 128), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9484,4 +9190,47 @@ LABEL_79:
   }
 
   return v93;
+}
+
+id sub_1000BA09C(uint64_t a1)
+{
+  v1 = [*(a1 + 32) contextForContainerName:@"com.apple.security.keychain" contextID:@"defaultContext"];
+  v2 = [v1 followupHandler];
+  v3 = [v2 sfaStatus];
+
+  return v3;
+}
+
+void sub_1000BA6FC(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 32);
+  v4 = a2;
+  [v3 stopWithEvent:@"OctagonEventBottledPeerRestore" result:v4];
+  (*(*(a1 + 40) + 16))();
+}
+
+void sub_1000BAF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_1000BAF48(uint64_t a1)
+{
+  if (!qword_10039DE08)
+  {
+    qword_10039DE08 = _sl_dlopen();
+  }
+
+  return qword_10039DE08;
+}
+
+void *sub_1000BB00C(uint64_t a1)
+{
+  v2 = sub_1000BB05C();
+  result = dlsym(v2, "KCPairingIntent_Capability_FullPeer");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  qword_10039DE10 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
 }

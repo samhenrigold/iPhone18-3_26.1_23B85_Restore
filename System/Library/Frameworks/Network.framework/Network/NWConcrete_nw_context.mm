@@ -1,7 +1,7 @@
 @interface NWConcrete_nw_context
 - (NSString)description;
-- (uint64_t)initWithIdentifier:(void *)identifier;
 - (void)dealloc;
+- (void)initWithIdentifier:(void *)identifier;
 @end
 
 @implementation NWConcrete_nw_context
@@ -39,9 +39,9 @@
   return v5;
 }
 
-- (uint64_t)initWithIdentifier:(void *)identifier
+- (void)initWithIdentifier:(void *)identifier
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (!identifier)
   {
     return 0;
@@ -51,12 +51,12 @@
   {
     v7 = __nwlog_obj();
     *buf = 136446210;
-    v29 = "[NWConcrete_nw_context initWithIdentifier:]";
-    v8 = _os_log_send_and_compose_impl();
+    v30 = "[NWConcrete_nw_context initWithIdentifier:]";
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null _identifier", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v26 = 0;
-    if (__nwlog_fault(v8, &type, &v26))
+    v27 = 0;
+    if (__nwlog_fault(v8, &type, &v27))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
@@ -65,54 +65,54 @@
         if (os_log_type_enabled(v9, type))
         {
           *buf = 136446210;
-          v29 = "[NWConcrete_nw_context initWithIdentifier:]";
+          v30 = "[NWConcrete_nw_context initWithIdentifier:]";
           _os_log_impl(&dword_181A37000, v9, v10, "%{public}s called with null _identifier", buf, 0xCu);
         }
       }
 
-      else if (v26 == 1)
+      else if (v27 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
         v9 = __nwlog_obj();
-        v18 = type;
-        v19 = os_log_type_enabled(v9, type);
+        v19 = type;
+        v20 = os_log_type_enabled(v9, type);
         if (backtrace_string)
         {
-          if (v19)
+          if (v20)
           {
             *buf = 136446466;
-            v29 = "[NWConcrete_nw_context initWithIdentifier:]";
-            v30 = 2082;
-            v31 = backtrace_string;
-            _os_log_impl(&dword_181A37000, v9, v18, "%{public}s called with null _identifier, dumping backtrace:%{public}s", buf, 0x16u);
+            v30 = "[NWConcrete_nw_context initWithIdentifier:]";
+            v31 = 2082;
+            v32 = backtrace_string;
+            _os_log_impl(&dword_181A37000, v9, v19, "%{public}s called with null _identifier, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
           free(backtrace_string);
-          goto LABEL_38;
+          goto LABEL_41;
         }
 
-        if (v19)
+        if (v20)
         {
           *buf = 136446210;
-          v29 = "[NWConcrete_nw_context initWithIdentifier:]";
-          _os_log_impl(&dword_181A37000, v9, v18, "%{public}s called with null _identifier, no backtrace", buf, 0xCu);
+          v30 = "[NWConcrete_nw_context initWithIdentifier:]";
+          _os_log_impl(&dword_181A37000, v9, v19, "%{public}s called with null _identifier, no backtrace", buf, 0xCu);
         }
       }
 
       else
       {
         v9 = __nwlog_obj();
-        v23 = type;
+        v24 = type;
         if (os_log_type_enabled(v9, type))
         {
           *buf = 136446210;
-          v29 = "[NWConcrete_nw_context initWithIdentifier:]";
-          _os_log_impl(&dword_181A37000, v9, v23, "%{public}s called with null _identifier, backtrace limit exceeded", buf, 0xCu);
+          v30 = "[NWConcrete_nw_context initWithIdentifier:]";
+          _os_log_impl(&dword_181A37000, v9, v24, "%{public}s called with null _identifier, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
 
-LABEL_38:
+LABEL_41:
     if (v8)
     {
       free(v8);
@@ -121,19 +121,19 @@ LABEL_38:
     return 0;
   }
 
-  v25.receiver = identifier;
-  v25.super_class = NWConcrete_nw_context;
-  v3 = objc_msgSendSuper2(&v25, sel_init);
+  v26.receiver = identifier;
+  v26.super_class = NWConcrete_nw_context;
+  v3 = objc_msgSendSuper2(&v26, sel_init);
   if (!v3)
   {
     v11 = __nwlog_obj();
     *buf = 136446210;
-    v29 = "[NWConcrete_nw_context initWithIdentifier:]";
-    v12 = _os_log_send_and_compose_impl();
+    v30 = "[NWConcrete_nw_context initWithIdentifier:]";
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v26 = 0;
-    if (__nwlog_fault(v12, &type, &v26))
+    v27 = 0;
+    if (__nwlog_fault(v12, &type, &v27))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
@@ -142,54 +142,54 @@ LABEL_38:
         if (os_log_type_enabled(v13, type))
         {
           *buf = 136446210;
-          v29 = "[NWConcrete_nw_context initWithIdentifier:]";
+          v30 = "[NWConcrete_nw_context initWithIdentifier:]";
           _os_log_impl(&dword_181A37000, v13, v14, "%{public}s [super init] failed", buf, 0xCu);
         }
       }
 
-      else if (v26 == 1)
+      else if (v27 == 1)
       {
-        v20 = __nw_create_backtrace_string();
+        v21 = __nw_create_backtrace_string();
         v13 = __nwlog_obj();
-        v21 = type;
-        v22 = os_log_type_enabled(v13, type);
-        if (v20)
+        v22 = type;
+        v23 = os_log_type_enabled(v13, type);
+        if (v21)
         {
-          if (v22)
+          if (v23)
           {
             *buf = 136446466;
-            v29 = "[NWConcrete_nw_context initWithIdentifier:]";
-            v30 = 2082;
-            v31 = v20;
-            _os_log_impl(&dword_181A37000, v13, v21, "%{public}s [super init] failed, dumping backtrace:%{public}s", buf, 0x16u);
+            v30 = "[NWConcrete_nw_context initWithIdentifier:]";
+            v31 = 2082;
+            v32 = v21;
+            _os_log_impl(&dword_181A37000, v13, v22, "%{public}s [super init] failed, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
-          free(v20);
-          goto LABEL_44;
+          free(v21);
+          goto LABEL_47;
         }
 
-        if (v22)
+        if (v23)
         {
           *buf = 136446210;
-          v29 = "[NWConcrete_nw_context initWithIdentifier:]";
-          _os_log_impl(&dword_181A37000, v13, v21, "%{public}s [super init] failed, no backtrace", buf, 0xCu);
+          v30 = "[NWConcrete_nw_context initWithIdentifier:]";
+          _os_log_impl(&dword_181A37000, v13, v22, "%{public}s [super init] failed, no backtrace", buf, 0xCu);
         }
       }
 
       else
       {
         v13 = __nwlog_obj();
-        v24 = type;
+        v25 = type;
         if (os_log_type_enabled(v13, type))
         {
           *buf = 136446210;
-          v29 = "[NWConcrete_nw_context initWithIdentifier:]";
-          _os_log_impl(&dword_181A37000, v13, v24, "%{public}s [super init] failed, backtrace limit exceeded", buf, 0xCu);
+          v30 = "[NWConcrete_nw_context initWithIdentifier:]";
+          _os_log_impl(&dword_181A37000, v13, v25, "%{public}s [super init] failed, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
 
-LABEL_44:
+LABEL_47:
     if (v12)
     {
       free(v12);
@@ -211,15 +211,24 @@ LABEL_5:
   }
 
   v15 = __nwlog_obj();
-  os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-  *buf = 136446210;
-  v29 = "strict_strdup";
-  v16 = _os_log_send_and_compose_impl();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  {
+    v16 = 3;
+  }
 
-  result = __nwlog_should_abort(v16);
+  else
+  {
+    v16 = 2;
+  }
+
+  *buf = 136446210;
+  v30 = "strict_strdup";
+  v17 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s strdup() failed", buf, 12);
+
+  result = __nwlog_should_abort(v17);
   if (!result)
   {
-    free(v16);
+    free(v17);
     v4 = 0;
     goto LABEL_5;
   }

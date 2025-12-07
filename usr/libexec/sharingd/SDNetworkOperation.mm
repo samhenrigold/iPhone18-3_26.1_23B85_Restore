@@ -501,17 +501,18 @@ LABEL_5:
 {
   if (self->_operation && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v5 = [self->_operation description];
-    NSAppendPrintF();
-    v3 = 0;
+    v6 = 0;
+    v3 = [self->_operation description];
+    NSAppendPrintF(&v6, "%@\n", v3);
+    v4 = v6;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (SDNetworkOperationDelegate)delegate

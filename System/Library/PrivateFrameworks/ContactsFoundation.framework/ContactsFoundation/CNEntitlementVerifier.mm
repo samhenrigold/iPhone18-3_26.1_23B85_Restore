@@ -428,16 +428,14 @@ uint64_t __81__CNEntitlementVerifier_secTask_hasArrayWithStringValue_forAnyEntit
 
 void __54__CNEntitlementVerifier_highPriorityBundleIdentifiers__block_invoke()
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"com.apple.telephonyutilities.callservicesd";
-  v5[1] = @"com.apple.TelephonyUtilities";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
+  v4[0] = @"com.apple.telephonyutilities.callservicesd";
+  v4[1] = @"com.apple.TelephonyUtilities";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
   v2 = [v0 setWithArray:v1];
   v3 = highPriorityBundleIdentifiers_cn_once_object_1;
   highPriorityBundleIdentifiers_cn_once_object_1 = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

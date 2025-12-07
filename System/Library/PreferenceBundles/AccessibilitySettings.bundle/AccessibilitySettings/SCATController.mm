@@ -1141,8 +1141,7 @@ id __34__SCATController_switchesSummary___block_invoke(uint64_t a1, void *a2)
 - (id)headMovementSummary:(id)summary
 {
   v3 = +[AXSettings sharedInstance];
-  [v3 assistiveTouchHeadMovementSensitivity];
-  v4 = SCATLocalizedHeadMovementSummary();
+  v4 = SCATLocalizedHeadMovementSummary([v3 assistiveTouchHeadMovementSensitivity]);
 
   return v4;
 }

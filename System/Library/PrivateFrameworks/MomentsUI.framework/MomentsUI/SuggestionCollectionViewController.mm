@@ -40,7 +40,7 @@
   v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
   v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = OBJC_IVAR____TtC9MomentsUI34SuggestionCollectionViewController_sessionUUID;
@@ -72,7 +72,7 @@
   v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
   v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = type metadata accessor for SuggestionCollectionViewController(0);
@@ -103,7 +103,7 @@
   if (v9[3])
   {
     outlined init with copy of DBObject(v9, v6);
-    outlined destroy of UTType?(v9, &_s9MomentsUI42SuggestionCollectionViewControllerDelegate_pSgMd);
+    outlined destroy of UTType?(v9, &_s9MomentsUI42SuggestionCollectionViewControllerDelegate_pSgMd, &_s9MomentsUI42SuggestionCollectionViewControllerDelegate_pSgMR);
     v4 = v7;
     v5 = v8;
     __swift_project_boxed_opaque_existential_1(v6, v7);
@@ -115,7 +115,7 @@
   else
   {
 
-    outlined destroy of UTType?(v9, &_s9MomentsUI42SuggestionCollectionViewControllerDelegate_pSgMd);
+    outlined destroy of UTType?(v9, &_s9MomentsUI42SuggestionCollectionViewControllerDelegate_pSgMd, &_s9MomentsUI42SuggestionCollectionViewControllerDelegate_pSgMR);
   }
 }
 
@@ -163,7 +163,7 @@
   MEMORY[0x28223BE20](v9);
   v12 = &v20 - v11;
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for UIContextMenuConfiguration);
+  type metadata accessor for NSAttributedString(0, &lazy cache variable for type metadata for UIContextMenuConfiguration, 0x277D753B0);
   v13 = swift_allocObject();
   swift_unknownObjectWeakInit();
   (*(v7 + 16))(v10, v12, v6);
@@ -186,10 +186,10 @@
   v4 = type metadata accessor for UIContentUnavailableConfigurationState();
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UIContentUnavailableConfigurationState._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  SuggestionCollectionViewController.updateContentUnavailableConfiguration(using:)();
+  SuggestionCollectionViewController.updateContentUnavailableConfiguration(using:)(v9);
 
   (*(v5 + 8))(v7, v4);
 }

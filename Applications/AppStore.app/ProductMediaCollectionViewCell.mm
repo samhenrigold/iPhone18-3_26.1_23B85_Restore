@@ -46,20 +46,20 @@
   v8 = type metadata accessor for IndexPath();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   layoutCopy = layout;
   selfCopy = self;
-  sub_10057E8B8(viewCopy);
-  v16 = v15;
-  v18 = v17;
+  sub_10057E8B8(viewCopy, v15);
+  v17 = v16;
+  v19 = v18;
 
   (*(v9 + 8))(v11, v8);
-  v19 = v16;
-  v20 = v18;
-  result.height = v20;
-  result.width = v19;
+  v20 = v17;
+  v21 = v19;
+  result.height = v21;
+  result.width = v20;
   return result;
 }
 

@@ -127,57 +127,57 @@ uint64_t __28__SKADatabaseChannel_logger__block_invoke()
 
 - (SKADatabaseChannel)initWithCoreDataChannels:(id)channels
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   channelsCopy = channels;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = channelsCopy;
-  v5 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v5 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v40;
+    v7 = *v39;
     do
     {
       v8 = 0;
       do
       {
-        if (*v40 != v7)
+        if (*v39 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        invitedUsers = [*(*(&v39 + 1) + 8 * v8) invitedUsers];
+        invitedUsers = [*(*(&v38 + 1) + 8 * v8) invitedUsers];
+        v34 = 0u;
         v35 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v38 = 0u;
-        v10 = [invitedUsers countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v10 = [invitedUsers countByEnumeratingWithState:&v34 objects:v42 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v36;
+          v12 = *v35;
           do
           {
             v13 = 0;
             do
             {
-              if (*v36 != v12)
+              if (*v35 != v12)
               {
                 objc_enumerationMutation(invitedUsers);
               }
 
-              v14 = [[SKADatabaseInvitedUser alloc] initWithCoreDataInvitedUser:*(*(&v35 + 1) + 8 * v13)];
+              v14 = [[SKADatabaseInvitedUser alloc] initWithCoreDataInvitedUser:*(*(&v34 + 1) + 8 * v13)];
               [v4 addObject:v14];
 
               ++v13;
             }
 
             while (v11 != v13);
-            v11 = [invitedUsers countByEnumeratingWithState:&v35 objects:v43 count:16];
+            v11 = [invitedUsers countByEnumeratingWithState:&v34 objects:v42 count:16];
           }
 
           while (v11);
@@ -187,7 +187,7 @@ uint64_t __28__SKADatabaseChannel_logger__block_invoke()
       }
 
       while (v8 != v6);
-      v6 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v6 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v6);
@@ -208,10 +208,9 @@ uint64_t __28__SKADatabaseChannel_logger__block_invoke()
   serverKey = [firstObject serverKey];
   peerKey = [firstObject peerKey];
   membershipKey = [firstObject membershipKey];
-  v33 = [(SKADatabaseChannel *)self initWithChannelToken:channelToken channelType:channelType identifier:identifier personal:personal decommissioned:decomissioned currentOutgoingRatchetState:currentOutgoingRatchetState dateCreated:dateChannelCreated statusType:statusType presenceIdentifier:presenceIdentifier serviceIdentifier:serviceIdentifier invitedUsers:v17 presenceServerKey:serverKey presencePeerKey:peerKey presenceMembershipKey:membershipKey];
+  v32 = [(SKADatabaseChannel *)self initWithChannelToken:channelToken channelType:channelType identifier:identifier personal:personal decommissioned:decomissioned currentOutgoingRatchetState:currentOutgoingRatchetState dateCreated:dateChannelCreated statusType:statusType presenceIdentifier:presenceIdentifier serviceIdentifier:serviceIdentifier invitedUsers:v17 presenceServerKey:serverKey presencePeerKey:peerKey presenceMembershipKey:membershipKey];
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v33;
+  return v32;
 }
 
 @end

@@ -114,11 +114,11 @@
     v15 = 1.79769313e308;
   }
 
-  position = [incidentCopy position];
-  [position lat];
+  v16 = objc_msgSend_position(incidentCopy);
+  [v16 lat];
   v18 = v17;
-  position2 = [incidentCopy position];
-  [position2 lng];
+  v19 = objc_msgSend_position(incidentCopy);
+  [v19 lng];
   v21 = v20;
 
   v22 = v12 ? VKTrafficFeatureDirection(&v60, v12) : -1.0;

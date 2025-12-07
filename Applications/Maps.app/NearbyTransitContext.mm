@@ -26,10 +26,10 @@
 - (void)nearbyTransitViewController:(id)controller didSelect:(id)select timeZone:(id)zone scheduledWindowStart:(id)start includeDirections:(BOOL)directions
 {
   directionsCopy = directions;
-  v13 = sub_1000CE6B8(&qword_10190EBD0);
+  v13 = sub_1000CE6B8(&qword_10190EBD0, &unk_1011F0880);
   __chkstk_darwin(v13 - 8);
   v15 = &v25 - v14;
-  v16 = sub_1000CE6B8(&unk_10190A800);
+  v16 = sub_1000CE6B8(&unk_10190A800, &unk_1011EFB40);
   __chkstk_darwin(v16 - 8);
   v18 = &v25 - v17;
   if (zone)
@@ -64,13 +64,13 @@
   sub_1000FAB9C(select, v18, v15, directionsCopy);
 
   swift_unknownObjectRelease();
-  sub_100024F64(v15, &qword_10190EBD0);
-  sub_100024F64(v18, &unk_10190A800);
+  sub_100024F64(v15, &qword_10190EBD0, &unk_1011F0880);
+  sub_100024F64(v18, &unk_10190A800, &unk_1011EFB40);
 }
 
 - (void)nearbyTransitViewController:(id)controller select:(id)select
 {
-  sub_1000CE6B8(&unk_10190A7F0);
+  sub_1000CE6B8(&unk_10190A7F0, &unk_1011E9F00);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
@@ -137,7 +137,7 @@
 
   if (v3)
   {
-    sub_1000CE6B8(&unk_10190B260);
+    sub_1000CE6B8(&unk_10190B260, &unk_1011EB2D0);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

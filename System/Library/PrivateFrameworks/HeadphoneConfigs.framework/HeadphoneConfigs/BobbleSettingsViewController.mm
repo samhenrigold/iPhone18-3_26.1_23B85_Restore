@@ -12,6 +12,7 @@
 - (void)presentBobbleTutorials;
 - (void)setHeadGesturesEnabledWithEnabled:(id)enabled;
 - (void)setHeadphoneDevice:(id)device;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation BobbleSettingsViewController
@@ -74,6 +75,20 @@
   return v4;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for BobbleSettingsViewController();
+  v4 = v6.receiver;
+  [(BobbleSettingsViewController *)&v6 viewWillAppear:appearCopy];
+  sub_2511ECFD0();
+  v5 = sub_2511ECCBC();
+  [v5 play];
+
+  [v4 reloadSpecifiers];
+}
+
 - (id)headGesturesEnabled
 {
   selfCopy = self;
@@ -91,19 +106,17 @@
     enabledCopy = enabled;
     selfCopy = self;
 
-    bOOLValue = [enabledCopy BOOLValue];
-    v7 = *v3 + 144;
-    if (bOOLValue)
+    if ([enabledCopy BOOLValue])
     {
-      v8 = 1;
+      v6 = 1;
     }
 
     else
     {
-      v8 = 2;
+      v6 = 2;
     }
 
-    (*(*v3 + 144))(v8);
+    (*(*v3 + 144))(v6);
   }
 
   else
@@ -114,7 +127,7 @@
 
 - (id)getVoiceEnvironment:(id)environment
 {
-  sub_2511E326C();
+  sub_2511E326C(0xD000000000000011, 0x8000000251221BE0);
   v3 = sub_25121176C();
 
   return v3;
@@ -123,9 +136,9 @@
 + (BOOL)bobbleSupported:(id)supported
 {
   swift_unknownObjectRetain();
-  v3 = _s16HeadphoneConfigs28BobbleSettingsViewControllerC15bobbleSupportedySbyXlFZ_0();
+  v4 = _s16HeadphoneConfigs28BobbleSettingsViewControllerC15bobbleSupportedySbyXlFZ_0(supported);
   swift_unknownObjectRelease();
-  return v3;
+  return v4;
 }
 
 + (NSArray)bobbleMainSepcifier

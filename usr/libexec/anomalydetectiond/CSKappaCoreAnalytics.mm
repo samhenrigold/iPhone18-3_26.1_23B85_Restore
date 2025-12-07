@@ -8,6 +8,7 @@
 - (void)onCompanionMessage:(int)message data:(id)data receivedTimestamp:(double)timestamp;
 - (void)onKappaSessionUpdate:(int)update data:(id)data;
 - (void)processSessionDetails:(KappaSessionDetails *)details;
+- (void)queryCompanion:(int)companion completion:(id)completion;
 - (void)sendLocalKappaSessionInfoToCompanion;
 - (void)sendSessionInfoToCoreAnalytics;
 - (void)startTimer:(double)timer;
@@ -518,6 +519,31 @@ LABEL_8:
   companion = self->_companion;
   v11 = [NSData dataWithBytes:v12 length:12];
   [(CSCompanionServiceProtocol *)companion sendData:v11 type:8];
+}
+
+- (void)queryCompanion:(int)companion completion:(id)completion
+{
+  v4 = *&companion;
+  completionCopy = completion;
+  if (qword_1004568A8 != -1)
+  {
+    sub_10003A44C();
+  }
+
+  v7 = qword_1004568B0;
+  if (os_log_type_enabled(qword_1004568B0, OS_LOG_TYPE_DEBUG))
+  {
+    v10[0] = 67109120;
+    v10[1] = v4;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "queryCompanion type:%d", v10, 8u);
+  }
+
+  queryCompletions = self->_queryCompletions;
+  v9 = objc_retainBlock(completionCopy);
+  [(NSMutableArray *)queryCompletions replaceObjectAtIndex:v4 withObject:v9];
+
+  [(CSCompanionServiceProtocol *)self->_companion queryCompanion:v4];
+  [(CSKappaCoreAnalytics *)self startTimer:5.0];
 }
 
 - (void)sendSessionInfoToCoreAnalytics

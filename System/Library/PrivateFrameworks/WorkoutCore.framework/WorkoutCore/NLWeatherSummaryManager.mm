@@ -20,8 +20,7 @@
 - (void)fetchSummary
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
+  MEMORY[0x28223BE20](v3 - 8, v4);
   v6 = &v10 - v5;
   v7 = type metadata accessor for TaskPriority();
   (*(*(v7 - 8) + 56))(v6, 1, 1, v7);

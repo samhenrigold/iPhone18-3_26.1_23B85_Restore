@@ -64,34 +64,34 @@
     v10 = sub_1001B26E0();
     [connectionCopy setRemoteObjectInterface:v10];
 
-    v11 = sub_1001B243C();
-    [connectionCopy setExportedInterface:v11];
+    v12 = sub_1001B243C(v11);
+    [connectionCopy setExportedInterface:v12];
 
     [connectionCopy setExportedObject:v9];
     [connectionCopy _setQueue:self->_queue];
     objc_initWeak(&location, self);
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_10003D278;
-    v19[3] = &unk_10098B138;
-    v22 = processIdentifier;
-    objc_copyWeak(&v21, &location);
-    v12 = v9;
-    v20 = v12;
-    [connectionCopy setInterruptionHandler:v19];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_10003D358;
-    v15[3] = &unk_10098B138;
-    v18 = processIdentifier;
-    objc_copyWeak(&v17, &location);
-    v13 = v12;
-    v16 = v13;
-    [connectionCopy setInvalidationHandler:v15];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_10003D278;
+    v20[3] = &unk_10098B138;
+    v23 = processIdentifier;
+    objc_copyWeak(&v22, &location);
+    v13 = v9;
+    v21 = v13;
+    [connectionCopy setInterruptionHandler:v20];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10003D358;
+    v16[3] = &unk_10098B138;
+    v19 = processIdentifier;
+    objc_copyWeak(&v18, &location);
+    v14 = v13;
+    v17 = v14;
+    [connectionCopy setInvalidationHandler:v16];
     [connectionCopy resume];
 
-    objc_destroyWeak(&v17);
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&location);
   }
 

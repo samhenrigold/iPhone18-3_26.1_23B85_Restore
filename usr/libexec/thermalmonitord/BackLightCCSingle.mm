@@ -1,6 +1,8 @@
 @interface BackLightCCSingle
 - (BOOL)findBacklightServices;
 - (BackLightCCSingle)initWithParams:(__CFDictionary *)params;
+- (__CFString)copyFieldCurrentValueForIndex:(int)index;
+- (__CFString)copyHeaderForIndex:(int)index;
 - (int)numberOfFields;
 - (void)refreshFunctionalTelemetry;
 - (void)updateSensorExchangeTelemetry;
@@ -10,9 +12,9 @@
 
 - (void)refreshFunctionalTelemetry
 {
-  v25.receiver = self;
-  v25.super_class = BackLightCCSingle;
-  [(BackLightCC *)&v25 refreshFunctionalTelemetry];
+  v22.receiver = self;
+  v22.super_class = BackLightCCSingle;
+  [(BackLightCC *)&v22 refreshFunctionalTelemetry];
   *&self->super.super.allowLIOverride = 0;
   v3 = sub_100005E68(@"IODisplayParameters", *(&self->super._brightnessSystemClient + 6));
   v4 = v3;
@@ -25,14 +27,14 @@
       v7 = CFDictionaryGetValue(v4, @"BrightnessMilliNits");
       if (Value && (v8 = CFGetTypeID(Value), v8 == CFDictionaryGetTypeID()))
       {
-        v23 = 0;
+        v20 = 0;
         *buf = 0;
-        if (sub_100002A20(Value, @"value", kCFNumberIntType, buf) && sub_100002A20(Value, @"max", kCFNumberIntType, &v23))
+        if (sub_100002A20(Value, @"value", kCFNumberIntType, buf) && sub_100002A20(Value, @"max", kCFNumberIntType, &v20))
         {
-          v9 = v23;
-          if (v23)
+          v9 = v20;
+          if (v20)
           {
-            v9 = (100 * *buf + v23 / 2) / v23;
+            v9 = (100 * *buf + v20 / 2) / v20;
           }
 
           *&self->super.super.allowLIOverride = v9;
@@ -152,16 +154,13 @@ LABEL_41:
   }
 
   v16 = +[NSDate date];
-  v17 = *(&self->_brightnessMilliNitsCurrent + 2);
-  v18 = *(&self->_brightnessMilliNitsMaximum + 6);
   Samples = IOReportCreateSamples();
   if (Samples)
   {
-    v20 = Samples;
-    v21 = *(&self->displaySubscription + 6);
+    v18 = Samples;
     SamplesDelta = IOReportCreateSamplesDelta();
     CFRelease(*(&self->displaySubscription + 6));
-    *(&self->displaySubscription + 6) = v20;
+    *(&self->displaySubscription + 6) = v18;
     [(NSDate *)v16 timeIntervalSinceDate:*(&self->displayChannels + 6)];
     *(&self->displayChannels + 6) = v16;
     IOReportIterate();
@@ -261,6 +260,79 @@ LABEL_41:
   }
 
   return v3 != 0;
+}
+
+- (__CFString)copyHeaderForIndex:(int)index
+{
+  v3 = *&index;
+  v10.receiver = self;
+  v10.super_class = BackLightCCSingle;
+  if ([(BackLightCC *)&v10 numberOfFields]<= index)
+  {
+    v8.receiver = self;
+    v8.super_class = BackLightCCSingle;
+    numberOfFields = [(BackLightCC *)&v8 numberOfFields];
+    if (v3 - numberOfFields == 1)
+    {
+      v7 = @"Backlight - nits maximum";
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    if (v3 == numberOfFields)
+    {
+      return @"Backlight - nits current";
+    }
+
+    else
+    {
+      return v7;
+    }
+  }
+
+  else
+  {
+    v9.receiver = self;
+    v9.super_class = BackLightCCSingle;
+    return [(BackLightCC *)&v9 copyHeaderForIndex:v3];
+  }
+}
+
+- (__CFString)copyFieldCurrentValueForIndex:(int)index
+{
+  v3 = *&index;
+  v12.receiver = self;
+  v12.super_class = BackLightCCSingle;
+  if ([(BackLightCC *)&v12 numberOfFields]> index)
+  {
+    v11.receiver = self;
+    v11.super_class = BackLightCCSingle;
+    return [(BackLightCC *)&v11 copyFieldCurrentValueForIndex:v3];
+  }
+
+  v10.receiver = self;
+  v10.super_class = BackLightCCSingle;
+  v6 = v3 - [(BackLightCC *)&v10 numberOfFields];
+  if (v6 == 1)
+  {
+    v7 = kCFAllocatorDefault;
+    v8 = 326;
+    goto LABEL_7;
+  }
+
+  if (!v6)
+  {
+    v7 = kCFAllocatorDefault;
+    v8 = 322;
+LABEL_7:
+    v9 = 274877907 * (*(&self->super.super.super.super.isa + v8) + 500);
+    return CFStringCreateWithFormat(v7, 0, @"%d", (v9 >> 38) + (v9 >> 63));
+  }
+
+  return 0;
 }
 
 @end

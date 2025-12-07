@@ -22,6 +22,8 @@
 - (void)presentAppleSupportGuidedHelpWithPresenter:(id)presenter;
 - (void)sendCancelDialResponseForDialRequestAction;
 - (void)setDialRequestAction:(id)action;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -81,6 +83,33 @@
   v3 = +[UIColor clearColor];
   view = [(BCChatSuggestRemoteViewController *)self view];
   [view setBackgroundColor:v3];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = BCChatSuggestRemoteViewController;
+  [(BCChatSuggestRemoteViewController *)&v3 viewDidDisappear:disappear];
+  byte_10001E928 = 0;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = BCChatSuggestRemoteViewController;
+  [(BCChatSuggestRemoteViewController *)&v7 viewDidAppear:appear];
+  dialRequestAction = [(BCChatSuggestRemoteViewController *)self dialRequestAction];
+
+  if (dialRequestAction)
+  {
+    v5 = dispatch_time(0, 50000000);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100007EEC;
+    block[3] = &unk_1000186B8;
+    block[4] = self;
+    dispatch_after(v5, &_dispatch_main_q, block);
+  }
 }
 
 - (void)addPendingActionItemsToAlert

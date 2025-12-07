@@ -2,6 +2,7 @@
 + (id)sharedManager;
 - (BOOL)_prepareForBluetoothDeviceWithDeviceType:(unint64_t)type;
 - (CSSpeechManager)init;
+- (CSSpeechManager)initWithExclaveHardware:(BOOL)hardware assetHandler:(id)handler;
 - (id)_getAudioRecorderWithError:(id *)error;
 - (id)_myriadSelfTriggerCoordinatorIfNeeded:(BOOL)needed;
 - (id)_preMyriadCoordinatorCreateIfNeeded:(BOOL)needed;
@@ -1204,6 +1205,20 @@ LABEL_6:
   v4.receiver = self;
   v4.super_class = CSSpeechManager;
   [(CSSpeechManager *)&v4 dealloc];
+}
+
+- (CSSpeechManager)initWithExclaveHardware:(BOOL)hardware assetHandler:(id)handler
+{
+  hardwareCopy = hardware;
+  handlerCopy = handler;
+  v7 = [(CSSpeechManager *)self init];
+  [(CSSpeechManager *)v7 setIsExclaveHardware:hardwareCopy];
+  if (handlerCopy)
+  {
+    [(CSSpeechManager *)v7 setAssetHandler:handlerCopy];
+  }
+
+  return v7;
 }
 
 - (CSSpeechManager)init

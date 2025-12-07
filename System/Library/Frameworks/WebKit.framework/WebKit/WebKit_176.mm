@@ -1,4 +1,4 @@
-_DWORD *WebKit::RemoteImageBufferProxy::getPixelBuffer@<X0>(uint64_t *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, WebCore::PixelBuffer **a5@<X8>)
+WebCore::PixelBuffer *WebKit::RemoteImageBufferProxy::getPixelBuffer@<X0>(WebKit::RemoteImageBufferProxy *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, WebCore::PixelBuffer **a5@<X8>)
 {
   result = WebKit::RemoteImageBufferProxy::ensureBackend(a1, a2);
   if (!result)
@@ -14,14 +14,14 @@ _DWORD *WebKit::RemoteImageBufferProxy::getPixelBuffer@<X0>(uint64_t *a1@<X0>, v
     v11 = v16;
     if (v16)
     {
-      v12 = a1[466];
+      v12 = *(a1 + 466);
       if (v12)
       {
         v13 = *(v12 + 8);
         if (v13)
         {
           ++*(v13 + 5);
-          result = WebKit::RemoteRenderingBackendProxy::getPixelBufferForImageBuffer(v13, a1[15], a2, a3, *(v11 + 5), *(v11 + 6));
+          result = WebKit::RemoteRenderingBackendProxy::getPixelBufferForImageBuffer(v13, *(a1 + 15), a2, a3, *(v11 + 5), *(v11 + 6));
           if (result)
           {
             v14 = v16;
@@ -34,14 +34,14 @@ _DWORD *WebKit::RemoteImageBufferProxy::getPixelBuffer@<X0>(uint64_t *a1@<X0>, v
               v16 = 0;
               if (result)
               {
-                if (result[2] == 1)
+                if (*(result + 2) == 1)
                 {
                   return (*(*result + 8))(result);
                 }
 
                 else
                 {
-                  --result[2];
+                  --*(result + 2);
                 }
               }
             }
@@ -97,8 +97,9 @@ void WebKit::RemoteImageBufferProxy::disconnect(WebKit::RemoteImageBufferProxy *
   }
 }
 
-void WebKit::RemoteImageBufferProxy::putPixelBuffer(WebKit::RemoteImageBufferProxy *a1, _DWORD *a2, uint64_t *a3, int *a4, int a5)
+void WebKit::RemoteImageBufferProxy::putPixelBuffer(WebKit::RemoteImageBufferProxy *a1, _DWORD *a2, uint64_t *a3, int *a4, uint64_t a5)
 {
+  v5 = a5;
   v71 = *MEMORY[0x1E69E9840];
   v10 = WebKit::RemoteImageBufferProxy::ensureBackend(a1, a2);
   if (v10)
@@ -107,7 +108,7 @@ void WebKit::RemoteImageBufferProxy::putPixelBuffer(WebKit::RemoteImageBufferPro
     {
       *buf = 0;
       *&buf[8] = 0;
-      (*(*(a1 + 17) + 224))(a1 + 17, buf, 1);
+      (*(*(a1 + 17) + 224))(a1 + 136, buf, 1);
       WebKit::RemoteImageBufferProxy::flushDrawingContext(a1);
       WebCore::ImageBuffer::putPixelBuffer();
       return;
@@ -130,7 +131,7 @@ void WebKit::RemoteImageBufferProxy::putPixelBuffer(WebKit::RemoteImageBufferPro
         v64 = a3[1];
         v65 = v16;
         v17 = *(a1 + 466);
-        if (!v17 || (v18 = *(v17 + 8)) == 0 || ((++*(v18 + 5), v20 = WebKit::RemoteRenderingBackendProxy::connection(v18, v15, &v66), *(v18 + 5) == 1) ? (v19 = (*(*v18 + 24))(v18, v20)) : --*(v18 + 5), (v21 = v66) == 0))
+        if (!v17 || (v18 = *(v17 + 8)) == 0 || ((++*(v18 + 5), v20 = WebKit::RemoteRenderingBackendProxy::connection(&v66, v18, v15), *(v18 + 5) == 1) ? (v19 = (*(*v18 + 24))(v18, v20)) : --*(v18 + 5), (v21 = v66) == 0))
         {
 LABEL_30:
           v37 = a2[4];
@@ -163,7 +164,7 @@ LABEL_30:
           }
 
           ++*(v60 + 5);
-          v61.n128_f64[0] = WebKit::RemoteRenderingBackendProxy::connection(v60, v15, buf);
+          v61.n128_f64[0] = WebKit::RemoteRenderingBackendProxy::connection(buf, v60, v15);
           if (*(v60 + 5) == 1)
           {
             (*(*v60 + 24))(v60, v61.n128_f64[0]);
@@ -311,7 +312,7 @@ LABEL_75:
         v28 = IPC::ArgumentCoder<WebCore::IntPoint,void>::encode(buf, a4);
         if (*&buf[8])
         {
-          **buf = a5;
+          **buf = v5;
           v29 = *&buf[8];
           if (*&buf[8])
           {
@@ -394,8 +395,8 @@ LABEL_27:
             IPC::ArgumentCoder<WebCore::IntPoint,void>::encode(v54, &v65);
             IPC::ArgumentCoder<WebCore::IntPoint,void>::encode(v54, &v64);
             IPC::ArgumentCoder<WebCore::IntPoint,void>::encode(v54, a4);
-            IPC::ArgumentCoder<BOOL,void>::encode<IPC::Encoder>(v54, a5);
-            a5 = IPC::Connection::sendMessageImpl(v53, buf, 1, 0);
+            IPC::ArgumentCoder<BOOL,void>::encode<IPC::Encoder>(v54, v5);
+            v5 = IPC::Connection::sendMessageImpl(v53, buf, 1, 0);
             v28 = *buf;
             *buf = 0;
             if (!v28)
@@ -413,7 +414,7 @@ LABEL_63:
         IPC::Encoder::~Encoder(v28, v15);
         bmalloc::api::tzoneFree(v55, v56);
 LABEL_60:
-        if (!a5)
+        if (!v5)
         {
           goto LABEL_27;
         }
@@ -447,7 +448,7 @@ void WebKit::RemoteImageBufferProxy::convertToLuminanceMask(WebKit::RemoteImageB
     if (v3)
     {
       ++*(v3 + 5);
-      v6 = WebKit::RemoteRenderingBackendProxy::connection(v3, a2, &v28);
+      v6 = WebKit::RemoteRenderingBackendProxy::connection(&v28, v3, a2);
       if (*(v3 + 5) == 1)
       {
         v5 = (*(*v3 + 24))(v3, v6);
@@ -604,7 +605,7 @@ LABEL_43:
   }
 }
 
-void WebKit::RemoteImageBufferProxy::transformToColorSpace(WebKit::RemoteImageBufferProxy *this, const WebCore::DestinationColorSpace *a2)
+void WebKit::RemoteImageBufferProxy::transformToColorSpace(WebKit::RemoteImageBufferProxy *this, CFTypeRef *a2)
 {
   v45 = *MEMORY[0x1E69E9840];
   v2 = *(this + 466);
@@ -614,7 +615,7 @@ void WebKit::RemoteImageBufferProxy::transformToColorSpace(WebKit::RemoteImageBu
     if (v3)
     {
       ++*(v3 + 5);
-      v7 = WebKit::RemoteRenderingBackendProxy::connection(v3, a2, &v40);
+      v7 = WebKit::RemoteRenderingBackendProxy::connection(&v40, v3, a2);
       if (*(v3 + 5) == 1)
       {
         v6 = (*(*v3 + 24))(v3, v7);
@@ -865,7 +866,7 @@ unsigned int *WebKit::RemoteImageBufferProxy::sinkIntoSerializedImageBuffer@<X0>
     result = WebKit::RemoteImageBufferProxy::ensureBackend(this, v8);
     if (result)
     {
-      WebKit::RemoteRenderingBackendProxy::moveToSerializedBuffer(v7, this, &v11);
+      WebKit::RemoteRenderingBackendProxy::moveToSerializedBuffer(&v11, v7, this);
       WebKit::RemoteImageBufferProxy::disconnect(this);
       result = this[466];
       this[466] = 0;
@@ -936,15 +937,15 @@ uint64_t WebKit::RemoteSerializedImageBufferProxy::RemoteSerializedImageBufferPr
 
 atomic_ullong *WebKit::RemoteSerializedImageBufferProxy::sinkIntoImageBuffer@<X0>(WebKit::RemoteSerializedImageBufferProxy **a1@<X0>, WebKit::RemoteRenderingBackendProxy *a2@<X1>, void *a3@<X8>)
 {
-  WebKit::RemoteRenderingBackendProxy::moveToImageBuffer(a2, *a1, &v6);
+  WebKit::RemoteRenderingBackendProxy::moveToImageBuffer(&v7, a2, *a1);
   result = *(*a1 + 14);
   *(*a1 + 14) = 0;
   if (result)
   {
-    result = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(result);
+    result = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(result, v5);
   }
 
-  *a3 = v6;
+  *a3 = v7;
   return result;
 }
 
@@ -982,31 +983,31 @@ LABEL_6:
     *(v7 + 3) = 0;
     *(v7 + 1) = 0;
     IPC::Encoder::encodeHeader(v7);
-    v14 = v7;
+    v15 = v7;
     IPC::ArgumentCoder<unsigned long long,void>::encode<IPC::Encoder>(v7, v6);
-    IPC::Connection::sendMessageImpl(v3, &v14, 0, 0);
-    v9 = v14;
-    v14 = 0;
+    IPC::Connection::sendMessageImpl(v3, &v15, 0, 0);
+    v9 = v15;
+    v15 = 0;
     if (v9)
     {
       IPC::Encoder::~Encoder(v9, v8);
-      bmalloc::api::tzoneFree(v12, v13);
+      bmalloc::api::tzoneFree(v13, v14);
     }
 
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3);
-    v10 = *(this + 14);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v3, v8);
+    v11 = *(this + 14);
     *(this + 14) = 0;
-    if (v10)
+    if (v11)
     {
-      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v10);
+      WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v11, v10);
     }
   }
 
-  v11 = *(this + 4);
+  v12 = *(this + 4);
   *(this + 4) = 0;
-  if (v11)
+  if (v12)
   {
-    CFRelease(v11);
+    CFRelease(v12);
   }
 }
 
@@ -1048,7 +1049,7 @@ WebKit::RemoteImageBufferSetProxy *WebKit::RemoteImageBufferSetProxy::RemoteImag
   return this;
 }
 
-void WebKit::RemoteImageBufferSetProxy::~RemoteImageBufferSetProxy(WebKit::RemoteImageBufferSetProxy *this, void *a2)
+void WebKit::RemoteImageBufferSetProxy::~RemoteImageBufferSetProxy(atomic_uchar *this, void *a2)
 {
   v3 = 0;
   *this = &unk_1F1124F90;
@@ -1057,7 +1058,7 @@ void WebKit::RemoteImageBufferSetProxy::~RemoteImageBufferSetProxy(WebKit::Remot
   atomic_compare_exchange_strong_explicit(this + 3685, &v3, 1u, memory_order_acquire, memory_order_acquire);
   if (v3)
   {
-    MEMORY[0x19EB01E30](this + 3685);
+    MEMORY[0x19EB01E30](this + 3685, a2);
   }
 
   atomic_compare_exchange_strong_explicit(v4, &v5, 0, memory_order_release, memory_order_relaxed);
@@ -1088,7 +1089,7 @@ void WebKit::RemoteImageBufferSetProxy::~RemoteImageBufferSetProxy(WebKit::Remot
     CFRelease(v8);
   }
 
-  if (*(this + 3632) == 1)
+  if (this[3632] == 1)
   {
     WebKit::RemoteDisplayListRecorderProxy::~RemoteDisplayListRecorderProxy(this + 5);
   }
@@ -1255,7 +1256,7 @@ uint64_t WebKit::RemoteImageBufferSetProxyFlushFence::setHandles(uint64_t a1, ui
   return result;
 }
 
-void WebKit::RemoteImageBufferSetProxy::close(WebKit::RemoteImageBufferSetProxy *this)
+void WebKit::RemoteImageBufferSetProxy::close(atomic_uchar *this)
 {
   v2 = 0;
   v3 = this + 3685;
@@ -1265,12 +1266,12 @@ void WebKit::RemoteImageBufferSetProxy::close(WebKit::RemoteImageBufferSetProxy 
     MEMORY[0x19EB01E30](this + 3685);
   }
 
-  *(this + 3705) = 1;
+  this[3705] = 1;
   v4 = *(this + 462);
   if (v4)
   {
     atomic_fetch_add(v4, 1u);
-    if ((*(this + 3704) & 1) == 0)
+    if ((this[3704] & 1) == 0)
     {
       IPC::Connection::removeWorkQueueMessageReceiver(*(v4 + 8), 0x58u, *(this + 2));
       v5 = *(this + 462);
@@ -1321,7 +1322,7 @@ void WebKit::RemoteImageBufferSetProxy::close(WebKit::RemoteImageBufferSetProxy 
   }
 }
 
-void WebKit::RemoteImageBufferSetProxy::flushFrontBufferAsync(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+void WebKit::RemoteImageBufferSetProxy::flushFrontBufferAsync(uint64_t a1@<X0>, void *a2@<X8>, void *a3@<X1>)
 {
   v61 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
@@ -1337,7 +1338,7 @@ void WebKit::RemoteImageBufferSetProxy::flushFrontBufferAsync(uint64_t a1@<X0>, 
   }
 
   ++*(v5 + 5);
-  v8 = WebKit::RemoteRenderingBackendProxy::connection(v5, a2, &v58);
+  v8 = WebKit::RemoteRenderingBackendProxy::connection(&v58, v5, a3);
   if (*(v5 + 5) == 1)
   {
     (*(*v5 + 24))(v5, v8);
@@ -1351,7 +1352,7 @@ void WebKit::RemoteImageBufferSetProxy::flushFrontBufferAsync(uint64_t a1@<X0>, 
   if (!v58)
   {
 LABEL_70:
-    *a3 = 0;
+    *a2 = 0;
     return;
   }
 
@@ -1414,7 +1415,7 @@ LABEL_70:
   v56 = *(v20 + 288);
   v57 = &v56;
   ++*(v20 + 20);
-  v23 = WebKit::RemoteRenderingBackendProxy::connection(v20, v15, &v59);
+  v23 = WebKit::RemoteRenderingBackendProxy::connection(&v59, v20, v15);
   if (*(v20 + 20) == 1)
   {
     v21 = (*(*v20 + 24))(v20, v23);
@@ -1610,12 +1611,12 @@ LABEL_37:
     *NonCompactSlow = &unk_1F11250A8;
     NonCompactSlow[1] = v41;
     NonCompactSlow[2] = v14;
-    *a3 = NonCompactSlow;
+    *a2 = NonCompactSlow;
     goto LABEL_44;
   }
 
 LABEL_69:
-  *a3 = 0;
+  *a2 = 0;
   WTF::ThreadSafeRefCounted<WebKit::RemoteImageBufferSetProxyFlushFence,(WTF::DestructionThread)0>::deref(v14, v22);
 LABEL_44:
   v43 = v58;
@@ -1640,7 +1641,7 @@ void WebKit::RemoteImageBufferSetProxy::willPrepareForDisplay(WebKit::RemoteImag
     if (v3)
     {
       ++*(v3 + 5);
-      v6 = WebKit::RemoteRenderingBackendProxy::connection(v3, a2, &v69);
+      v6 = WebKit::RemoteRenderingBackendProxy::connection(&v69, v3, a2);
       if (*(v3 + 5) == 1)
       {
         (*(*v3 + 24))(v3, v6);
@@ -1771,7 +1772,7 @@ LABEL_91:
 
         v60[0] = this + 3648;
         v9[5] = v10 + 2;
-        v15 = WebKit::RemoteRenderingBackendProxy::connection(v9, v5, &v64);
+        v15 = WebKit::RemoteRenderingBackendProxy::connection(&v64, v9, v5);
         if (v9[5] == 1)
         {
           v14 = (*(*v9 + 24))(v9, v15);
@@ -2029,7 +2030,7 @@ LABEL_76:
   }
 }
 
-void WebKit::RemoteImageBufferSetProxy::disconnect(WebKit::RemoteImageBufferSetProxy *this)
+void WebKit::RemoteImageBufferSetProxy::disconnect(atomic_uchar *this)
 {
   v2 = 0;
   v3 = this + 3685;
@@ -2087,14 +2088,14 @@ void WebKit::RemoteImageBufferSetProxy::disconnect(WebKit::RemoteImageBufferSetP
     }
   }
 
-  *(this + 3704) = 0;
+  this[3704] = 0;
   ++*(this + 920);
   v9 = 1;
-  *(this + 3684) = 1;
-  if (*(this + 3632) == 1)
+  this[3684] = 1;
+  if (this[3632] == 1)
   {
     WebKit::RemoteDisplayListRecorderProxy::~RemoteDisplayListRecorderProxy(this + 5);
-    *(this + 3632) = 0;
+    this[3632] = 0;
   }
 
   atomic_compare_exchange_strong_explicit(v3, &v9, 0, memory_order_release, memory_order_relaxed);
@@ -2104,19 +2105,19 @@ void WebKit::RemoteImageBufferSetProxy::disconnect(WebKit::RemoteImageBufferSetP
   }
 }
 
-uint64_t WebKit::RemoteNativeImageBackendProxy::create@<X0>(void *a1@<X8>)
+uint64_t WebKit::RemoteNativeImageBackendProxy::create@<X0>(void *a3@<X8>)
 {
   WebCore::ShareableBitmap::createFromImagePixels();
-  if (v7)
+  if (v6)
   {
     WebCore::ShareableBitmap::createPlatformImage();
     operator new();
   }
 
-  v5 = WebCore::ShareableBitmap::createFromImageDraw();
-  WebCore::DestinationColorSpace::SRGB(v5);
+  v4 = WebCore::ShareableBitmap::createFromImageDraw();
+  WebCore::DestinationColorSpace::SRGB(v4);
   result = WebCore::ShareableBitmap::createFromImageDraw();
-  *a1 = 0;
+  *a3 = 0;
   return result;
 }
 
@@ -2216,7 +2217,7 @@ WebKit::SharedVideoFrameWriter *std::unique_ptr<WebKit::SharedVideoFrameWriter>:
   return result;
 }
 
-atomic_uchar **WebCore::GraphicsContextState::operator=(atomic_uchar **a1, uint64_t *a2)
+WTF ***WebCore::GraphicsContextState::operator=(WTF ***a1, uint64_t *a2)
 {
   v4 = *a1;
   if (*a1 != *a2)
@@ -2254,7 +2255,7 @@ atomic_uchar **WebCore::GraphicsContextState::operator=(atomic_uchar **a1, uint6
     if (v7 != 255)
     {
 LABEL_7:
-      _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJNSt3__19monostateEN7WebCore26SourceBrushLogicalGradientEN3WTF3RefINS8_7PatternENSA_12RawPtrTraitsISC_EENSA_21DefaultRefDerefTraitsISC_EEEEEEEE14generic_assignIRKNS0_15copy_assignmentISI_LNS0_5TraitE1EEEEEvOT_EUlRSQ_OT0_E_JRSJ_SP_EEEDcmSR_DpOT0_(v7, a1 + 1, a1 + 1, (a2 + 1));
+      _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJNSt3__19monostateEN7WebCore26SourceBrushLogicalGradientEN3WTF3RefINS8_7PatternENSA_12RawPtrTraitsISC_EENSA_21DefaultRefDerefTraitsISC_EEEEEEEE14generic_assignIRKNS0_15copy_assignmentISI_LNS0_5TraitE1EEEEEvOT_EUlRSQ_OT0_E_JRSJ_SP_EEEDcmSR_DpOT0_(v7, a1 + 1, a1 + 1, a2 + 1);
       goto LABEL_8;
     }
 
@@ -2316,7 +2317,7 @@ LABEL_8:
     if (v11 != 255)
     {
 LABEL_14:
-      _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJNSt3__19monostateEN7WebCore26SourceBrushLogicalGradientEN3WTF3RefINS8_7PatternENSA_12RawPtrTraitsISC_EENSA_21DefaultRefDerefTraitsISC_EEEEEEEE14generic_assignIRKNS0_15copy_assignmentISI_LNS0_5TraitE1EEEEEvOT_EUlRSQ_OT0_E_JRSJ_SP_EEEDcmSR_DpOT0_(v11, a1 + 10, a1 + 10, (a2 + 10));
+      _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJNSt3__19monostateEN7WebCore26SourceBrushLogicalGradientEN3WTF3RefINS8_7PatternENSA_12RawPtrTraitsISC_EENSA_21DefaultRefDerefTraitsISC_EEEEEEEE14generic_assignIRKNS0_15copy_assignmentISI_LNS0_5TraitE1EEEEEvOT_EUlRSQ_OT0_E_JRSJ_SP_EEEDcmSR_DpOT0_(v11, a1 + 10, a1 + 10, a2 + 10);
       goto LABEL_15;
     }
 
@@ -2431,7 +2432,7 @@ LABEL_15:
     if (v19 != 255)
     {
 LABEL_40:
-      v31 = (a1 + 25);
+      v31 = a1 + 25;
       _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJN7WebCore18GraphicsDropShadowENS6_20GraphicsGaussianBlurENS6_19GraphicsColorMatrixEEEEE14generic_assignIRKNS0_15copy_assignmentISA_LNS0_5TraitE1EEEEEvOT_EUlRSI_OT0_E_JRSB_SH_EEEDcmSJ_DpOT0_(v19, &v31, (a1 + 25), a2 + 25);
       goto LABEL_19;
     }
@@ -2471,7 +2472,7 @@ LABEL_19:
   return a1;
 }
 
-atomic_uchar **_ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJNSt3__19monostateEN7WebCore26SourceBrushLogicalGradientEN3WTF3RefINS8_7PatternENSA_12RawPtrTraitsISC_EENSA_21DefaultRefDerefTraitsISC_EEEEEEEE14generic_assignIRKNS0_15copy_assignmentISI_LNS0_5TraitE1EEEEEvOT_EUlRSQ_OT0_E_JRSJ_SP_EEEDcmSR_DpOT0_(atomic_uchar **result, atomic_uchar **a2, atomic_uchar ***a3, uint64_t a4)
+atomic_uchar ***_ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJNSt3__19monostateEN7WebCore26SourceBrushLogicalGradientEN3WTF3RefINS8_7PatternENSA_12RawPtrTraitsISC_EENSA_21DefaultRefDerefTraitsISC_EEEEEEEE14generic_assignIRKNS0_15copy_assignmentISI_LNS0_5TraitE1EEEEEvOT_EUlRSQ_OT0_E_JRSJ_SP_EEEDcmSR_DpOT0_(atomic_uchar ***result, WTF **a2, atomic_uchar ***a3, void *a4)
 {
   if (result)
   {
@@ -2485,9 +2486,9 @@ atomic_uchar **_ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentI
         if (v5 == 1)
         {
           result = WTF::Ref<WebCore::Gradient,WTF::RawPtrTraits<WebCore::Gradient>,WTF::DefaultRefDerefTraits<WebCore::Gradient>>::operator=(a3, *a4);
-          v11 = *(v14 + 8);
-          v12 = *(v14 + 24);
-          *(result + 5) = *(v14 + 40);
+          v11 = *(v14 + 1);
+          v12 = *(v14 + 3);
+          *(result + 5) = *(v14 + 5);
           *(result + 3) = v12;
           *(result + 1) = v11;
           return result;
@@ -2530,9 +2531,9 @@ atomic_uchar **_ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentI
       a2 = v18;
 LABEL_9:
       *a2 = v6;
-      v9 = *(a4 + 8);
-      v10 = *(a4 + 24);
-      *(a2 + 5) = *(a4 + 40);
+      v9 = *(a4 + 1);
+      v10 = *(a4 + 3);
+      *(a2 + 5) = *(a4 + 5);
       *(a2 + 3) = v10;
       *(a2 + 1) = v9;
       *(a2 + 56) = 1;
@@ -2578,18 +2579,18 @@ LABEL_9:
   return result;
 }
 
-atomic_uchar ***WTF::Ref<WebCore::Gradient,WTF::RawPtrTraits<WebCore::Gradient>,WTF::DefaultRefDerefTraits<WebCore::Gradient>>::operator=(atomic_uchar ***a1, atomic_ullong *a2)
+atomic_uchar ***WTF::Ref<WebCore::Gradient,WTF::RawPtrTraits<WebCore::Gradient>,WTF::DefaultRefDerefTraits<WebCore::Gradient>>::operator=(atomic_uchar ***a1, uint64_t a2)
 {
   while (1)
   {
-    v3 = a2[1];
+    v3 = *(a2 + 8);
     if ((v3 & 1) == 0)
     {
       break;
     }
 
-    v4 = a2[1];
-    atomic_compare_exchange_strong_explicit(a2 + 1, &v4, v3 + 2, memory_order_relaxed, memory_order_relaxed);
+    v4 = *(a2 + 8);
+    atomic_compare_exchange_strong_explicit((a2 + 8), &v4, v3 + 2, memory_order_relaxed, memory_order_relaxed);
     if (v4 == v3)
     {
       goto LABEL_3;
@@ -2597,7 +2598,7 @@ atomic_uchar ***WTF::Ref<WebCore::Gradient,WTF::RawPtrTraits<WebCore::Gradient>,
   }
 
   v7 = a2;
-  WTF::ThreadSafeWeakPtrControlBlock::strongRef(a2[1]);
+  WTF::ThreadSafeWeakPtrControlBlock::strongRef(*(a2 + 8));
   a2 = v7;
 LABEL_3:
   v5 = *a1;
@@ -2643,7 +2644,7 @@ LABEL_4:
   return result;
 }
 
-atomic_uchar ***_ZN5mpark3lib5cpp176invokeIZNS_6detail10assignmentINS3_6traitsIJNSt3__19monostateEN7WebCore26SourceBrushLogicalGradientEN3WTF3RefINS8_7PatternENSA_12RawPtrTraitsISC_EENSA_21DefaultRefDerefTraitsISC_EEEEEEEE14generic_assignIRKNS3_15copy_assignmentISI_LNS3_5TraitE1EEEEEvOT_EUlRSQ_OT0_E_JRNS3_3altILm2ESH_EERKSX_EEEDTclsr6detailE6invokeclsr3libE7forwardISQ_Efp_Espclsr3libE7forwardIT0_Efp0_EEESR_DpOS11_(atomic_uchar ***result, atomic_uint *volatile *a2, atomic_uint *volatile *a3)
+atomic_uchar ***_ZN5mpark3lib5cpp176invokeIZNS_6detail10assignmentINS3_6traitsIJNSt3__19monostateEN7WebCore26SourceBrushLogicalGradientEN3WTF3RefINS8_7PatternENSA_12RawPtrTraitsISC_EENSA_21DefaultRefDerefTraitsISC_EEEEEEEE14generic_assignIRKNS3_15copy_assignmentISI_LNS3_5TraitE1EEEEEvOT_EUlRSQ_OT0_E_JRNS3_3altILm2ESH_EERKSX_EEEDTclsr6detailE6invokeclsr3libE7forwardISQ_Efp_Espclsr3libE7forwardIT0_Efp0_EEESR_DpOS11_(atomic_uchar ***result, WTF ****a2, atomic_uint *volatile *a3)
 {
   if (*(result + 56) <= 1u)
   {
@@ -2866,7 +2867,7 @@ _BYTE *std::optional<IPC::ConnectionSendSyncResult<Messages::RemoteImageBuffer::
       *a2 = 0;
       *a1 = v4;
       a1[8] = 0;
-      v5 = (a1 + 8);
+      v5 = a1 + 8;
       a1[88] = 0;
       if (a2[88] == 1)
       {
@@ -2882,7 +2883,7 @@ _BYTE *std::optional<IPC::ConnectionSendSyncResult<Messages::RemoteImageBuffer::
   return a1;
 }
 
-uint64_t *IPC::Decoder::operator>><std::tuple<std::optional<WebCore::ShareableBitmapHandle>>>(uint64_t *a1, WTF::MachSendRight *a2)
+unsigned __int8 **IPC::Decoder::operator>><std::tuple<std::optional<WebCore::ShareableBitmapHandle>>>(unsigned __int8 **a1, WTF::MachSendRight *a2)
 {
   IPC::ArgumentCoder<std::tuple<std::optional<WebCore::ShareableBitmapHandle>>,void>::decode<IPC::Decoder>(a1, v10);
   if ((v14 & 1) == 0)
@@ -3007,10 +3008,10 @@ uint64_t IPC::ConnectionSendSyncResult<Messages::RemoteImageBuffer::FilteredNati
   return a1;
 }
 
-IPC::Encoder *IPC::Connection::sendSync<Messages::RemoteImageBuffer::FlushContextSync>(_BYTE *a1, unsigned __int8 *a2, uint64_t a3, double a4)
+IPC::Encoder *IPC::Connection::sendSync<Messages::RemoteImageBuffer::FlushContextSync>(_BYTE *a1, IPC::Connection *a2, uint64_t a3, double a4)
 {
   IPC::Connection::createSyncMessageEncoder(0x1003, a3, v20);
-  v7 = IPC::Connection::sendSyncMessage(a2, v20[1], v20, 0, &v18, a4);
+  v7 = IPC::Connection::sendSyncMessage(&v18, a2, v20[1], v20, 0, a4);
   if (v19)
   {
     if (v19 != 1)
@@ -3255,7 +3256,7 @@ LABEL_17:
 
     if (v51)
     {
-      v17 = WTF::fastMalloc(0xA8);
+      v17 = WTF::fastMalloc(v51, 0xA8);
       *v17 = 0;
       *(v17 + 88) = 0;
       if (v45 == 1)
@@ -3264,14 +3265,14 @@ LABEL_17:
         *(v17 + 88) = 1;
       }
 
-      *(v17 + 96) = v46;
+      *(v17 + 6) = v46;
       v18 = v47;
       v19 = v48;
       v20 = v49;
       *(v17 + 160) = v50;
-      *(v17 + 128) = v19;
-      *(v17 + 144) = v20;
-      *(v17 + 112) = v18;
+      *(v17 + 8) = v19;
+      *(v17 + 9) = v20;
+      *(v17 + 7) = v18;
       v52 = v17;
       v21 = *(v3 + 1);
       if (v21 == -1 || !v21)
@@ -3413,7 +3414,7 @@ uint64_t IPC::Connection::send<Messages::RemoteImageBufferSet::UpdateConfigurati
   return v8;
 }
 
-atomic_uchar *WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>@<X0>(atomic_uchar *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+atomic_uchar *WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>@<X0>(uint64_t *__return_ptr a1@<X8>, atomic_uchar *this@<X0>, uint64_t a3@<X1>)
 {
   v4 = this;
   v6 = 0;
@@ -3430,10 +3431,10 @@ atomic_uchar *WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<
 
   else
   {
-    a2 = 0;
+    a3 = 0;
   }
 
-  *a3 = a2;
+  *a1 = a3;
   v7 = 1;
   atomic_compare_exchange_strong_explicit(v4, &v7, 0, memory_order_release, memory_order_relaxed);
   if (v7 != 1)
@@ -3695,7 +3696,7 @@ uint64_t WTF::Vector<WebCore::FloatSize,0ul,WTF::CrashOnOverflow,16ul,WTF::FastM
 
   if (!(a3 >> 29))
   {
-    v6 = WTF::fastMalloc((8 * a3));
+    v6 = WTF::fastMalloc(0, (8 * a3));
     *(v4 + 8) = a3;
     *v4 = v6;
     v7 = 16 * a3;
@@ -3967,7 +3968,7 @@ uint64_t IPC::StreamClientConnection::trySendStream<Messages::RemoteDisplayListR
   return result;
 }
 
-void *Messages::RemoteDisplayListRecorder::DrawPatternImageBuffer::encode<IPC::StreamConnectionEncoder>(uint64_t a1, void *a2)
+uint64_t *Messages::RemoteDisplayListRecorder::DrawPatternImageBuffer::encode<IPC::StreamConnectionEncoder>(uint64_t a1, uint64_t *a2)
 {
   IPC::StreamConnectionEncoder::operator<<<unsigned long long const&>(a2, *a1);
   IPC::ArgumentCoder<WebCore::PathEllipseInRect,void>::encode(a2, *(a1 + 8));
@@ -4036,7 +4037,7 @@ uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::BeginTranspa
   return v8;
 }
 
-uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::DrawRect>(uint64_t *a1, float *a2, uint64_t a3)
+uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::DrawRect>(uint64_t *a1, float **a2, uint64_t a3)
 {
   v6 = IPC::Encoder::operator new(0x238, a2);
   *v6 = 1077;
@@ -4049,7 +4050,7 @@ uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::DrawRect>(ui
   IPC::Encoder::encodeHeader(v6);
   v13 = v6;
   IPC::ArgumentCoder<WebCore::FloatRect,void>::encode(v6, *a2);
-  IPC::ArgumentCoder<float,void>::encode<IPC::Encoder>(v6, a2[2]);
+  IPC::ArgumentCoder<float,void>::encode<IPC::Encoder>(v6, *(a2 + 2));
   v8 = IPC::Connection::sendMessageImpl(a1, &v13, 1, 0);
   v9 = v13;
   v13 = 0;
@@ -4108,7 +4109,7 @@ uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::DrawLinesFor
   return v13;
 }
 
-uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::DrawFocusRingRects>(uint64_t *a1, float *a2, uint64_t a3)
+uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::DrawFocusRingRects>(uint64_t *a1, WebCore::Color **a2, uint64_t a3)
 {
   v6 = IPC::Encoder::operator new(0x238, a2);
   *v6 = 1068;
@@ -4121,9 +4122,9 @@ uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::DrawFocusRin
   IPC::Encoder::encodeHeader(v6);
   v13 = v6;
   IPC::VectorArgumentCoder<false,WebCore::FloatRect,0ul,WTF::CrashOnOverflow,16ul>::encode<IPC::Encoder,WTF::Vector<WebCore::FloatRect,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> const&>(v6, *a2);
-  IPC::ArgumentCoder<float,void>::encode<IPC::Encoder>(v6, a2[2]);
-  IPC::ArgumentCoder<float,void>::encode<IPC::Encoder>(v6, a2[3]);
-  IPC::ArgumentCoder<WebCore::Color,void>::encode(v6, *(a2 + 2));
+  IPC::ArgumentCoder<float,void>::encode<IPC::Encoder>(v6, *(a2 + 2));
+  IPC::ArgumentCoder<float,void>::encode<IPC::Encoder>(v6, *(a2 + 3));
+  IPC::ArgumentCoder<WebCore::Color,void>::encode(v6, a2[2]);
   v8 = IPC::Connection::sendMessageImpl(a1, &v13, 1, 0);
   v9 = v13;
   v13 = 0;
@@ -4146,7 +4147,7 @@ LABEL_10:
     v4 = *(v2 + 3544);
     if (v4)
     {
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v4, *(v2 + 3536), buf);
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, v4, *(v2 + 3536));
       if (*buf)
       {
         v12 = WebKit::RemoteImageBufferProxy::ensureBackend(*buf, v11);
@@ -4191,7 +4192,7 @@ LABEL_10:
     }
 
     ++*(v8 + 5);
-    v9 = WebKit::RemoteRenderingBackendProxy::connection(v8, a2, buf);
+    v9 = WebKit::RemoteRenderingBackendProxy::connection(buf, v8, a2);
     v3 = *buf;
     if (*(v8 + 5) == 1)
     {
@@ -4250,11 +4251,11 @@ LABEL_5:
   }
 }
 
-void WebKit::RemoteDisplayListRecorderProxy::fillPath(WebCore::Path const&)::$_4::operator()(uint64_t a1, _DWORD *a2)
+void WebKit::RemoteDisplayListRecorderProxy::fillPath(WebCore::Path const&)::$_4::operator()(atomic_uchar *a1, float *a2)
 {
   v3 = a1;
   v54 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 3512);
+  v4 = *(a1 + 439);
   if (!v4)
   {
     goto LABEL_60;
@@ -4263,12 +4264,12 @@ void WebKit::RemoteDisplayListRecorderProxy::fillPath(WebCore::Path const&)::$_4
   atomic_fetch_add(v4, 1u);
   while (1)
   {
-    if ((*(v3 + 3584) & 1) == 0)
+    if ((v3[3584] & 1) == 0)
     {
-      a1 = *(v3 + 3544);
+      a1 = *(v3 + 443);
       if (a1)
       {
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(a1, *(v3 + 3536), buf);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, a1, *(v3 + 442));
         a1 = *buf;
         if (*buf)
         {
@@ -4287,11 +4288,11 @@ void WebKit::RemoteDisplayListRecorderProxy::fillPath(WebCore::Path const&)::$_4
         }
       }
 
-      *(v3 + 3584) = 1;
+      v3[3584] = 1;
     }
 
-    v5 = *(v3 + 3504);
-    v6 = *(v4 + 128);
+    v5 = *(v3 + 438);
+    v6 = *(v4 + 16);
     v7 = INFINITY;
     if (fabs(v6) != INFINITY)
     {
@@ -4299,7 +4300,7 @@ void WebKit::RemoteDisplayListRecorderProxy::fillPath(WebCore::Path const&)::$_4
       v7 = v6 + v8;
     }
 
-    if (*(v4 + 64) != v5)
+    if (*(v4 + 8) != v5)
     {
       IPC::StreamClientConnectionBuffer::tryAcquire(v4 + 72, buf, v7);
       if (buf[16] != 1)
@@ -4332,8 +4333,8 @@ LABEL_80:
       }
 
       v33 = v32 + 10;
-      v34 = (*(v4 + 88) + 1) & 0xFFFFFFFFFFFFFFFELL;
-      v35 = *(v4 + 72);
+      v34 = (*(v4 + 11) + 1) & 0xFFFFFFFFFFFFFFFELL;
+      v35 = *(v4 + 9);
       if (v34 + 16 >= v35)
       {
         v34 = 0;
@@ -4345,31 +4346,31 @@ LABEL_80:
         v36 = 0;
       }
 
-      *(v4 + 88) = v36;
-      v37 = *(v4 + 80);
+      *(v4 + 11) = v36;
+      v37 = *(v4 + 10);
       if (*(v37 + 8) <= 0xFFuLL)
       {
         goto LABEL_59;
       }
 
       v38 = atomic_exchange((*(v37 + 16) + 128), v36);
-      v39 = *(v4 + 124);
+      v39 = *(v4 + 31);
       if (v38 == 0x80000000 || v39 != 0)
       {
         v41 = v39 + 1;
-        *(v4 + 124) = v41;
-        if (v41 >= *(v4 + 120))
+        *(v4 + 31) = v41;
+        if (v41 >= *(v4 + 30))
         {
           if (*(v4 + 112) == 1)
           {
-            MEMORY[0x19EB16320](*(v4 + 100));
+            MEMORY[0x19EB16320](*(v4 + 25));
           }
 
-          *(v4 + 124) = 0;
+          *(v4 + 31) = 0;
         }
       }
 
-      *(v4 + 64) = v5;
+      *(v4 + 8) = v5;
     }
 
     IPC::StreamClientConnectionBuffer::tryAcquire(v4 + 72, &v50, v7);
@@ -4401,8 +4402,8 @@ LABEL_80:
       v11 = 16;
     }
 
-    v12 = (*(v4 + 88) + 1) & 0xFFFFFFFFFFFFFFFELL;
-    v13 = *(v4 + 72);
+    v12 = (*(v4 + 11) + 1) & 0xFFFFFFFFFFFFFFFELL;
+    v13 = *(v4 + 9);
     if (v12 + 16 >= v13)
     {
       v12 = 0;
@@ -4414,18 +4415,18 @@ LABEL_80:
       v14 = 0;
     }
 
-    *(v4 + 88) = v14;
-    v15 = *(v4 + 80);
+    *(v4 + 11) = v14;
+    v15 = *(v4 + 10);
     if (*(v15 + 8) > 0xFFuLL)
     {
-      if (atomic_exchange((*(v15 + 16) + 128), v14) == 0x80000000 || *(v4 + 124))
+      if (atomic_exchange((*(v15 + 16) + 128), v14) == 0x80000000 || *(v4 + 31))
       {
         if (*(v4 + 112) == 1)
         {
-          MEMORY[0x19EB16320](*(v4 + 100));
+          MEMORY[0x19EB16320](*(v4 + 25));
         }
 
-        *(v4 + 124) = 0;
+        *(v4 + 31) = 0;
       }
 
       goto LABEL_56;
@@ -4434,7 +4435,7 @@ LABEL_80:
 LABEL_59:
     __break(1u);
 LABEL_60:
-    v44 = *(v3 + 3520);
+    v44 = *(v3 + 440);
     if (!v44)
     {
       return;
@@ -4447,7 +4448,7 @@ LABEL_60:
     }
 
     ++*(v45 + 5);
-    v46 = WebKit::RemoteRenderingBackendProxy::connection(v45, a2, buf);
+    v46 = WebKit::RemoteRenderingBackendProxy::connection(buf, v45, a2);
     v4 = *buf;
     if (*(v45 + 5) == 1)
     {
@@ -4468,8 +4469,8 @@ LABEL_60:
     }
 
     atomic_fetch_add(v4, 1u);
-    a1 = *(v3 + 3512);
-    *(v3 + 3512) = v4;
+    a1 = *(v3 + 439);
+    *(v3 + 439) = v4;
     if (a1 && atomic_fetch_add(a1, 0xFFFFFFFF) == 1)
     {
       atomic_store(1u, a1);
@@ -4489,8 +4490,8 @@ LABEL_60:
   }
 
   *v50 = 3197;
-  v16 = (*(v4 + 88) + 1) & 0xFFFFFFFFFFFFFFFELL;
-  v17 = *(v4 + 72);
+  v16 = (*(v4 + 11) + 1) & 0xFFFFFFFFFFFFFFFELL;
+  v17 = *(v4 + 9);
   if (v16 + 16 >= v17)
   {
     v16 = 0;
@@ -4498,16 +4499,16 @@ LABEL_60:
 
   v18 = v16 + 16;
   v19 = v17 <= v18 ? 0 : v18;
-  *(v4 + 88) = v19;
-  v20 = *(v4 + 80);
+  *(v4 + 11) = v19;
+  v20 = *(v4 + 10);
   if (*(v20 + 8) <= 0xFFuLL)
   {
     goto LABEL_59;
   }
 
   atomic_exchange((*(v20 + 16) + 128), v19);
-  *(v4 + 124) = 0;
-  v21 = *(v4 + 8);
+  *(v4 + 31) = 0;
+  v21 = *(v4 + 1);
   v22 = IPC::Encoder::operator new(0x238, a2);
   *v22 = 1090;
   *(v22 + 2) = 0;
@@ -4549,7 +4550,7 @@ LABEL_53:
     _os_log_impl(&dword_19D52D000, v42, OS_LOG_TYPE_DEFAULT, "RemoteDisplayListRecorderProxy::send - failed, name:%{public}s, error:%{public}s", buf, 0x16u);
   }
 
-  WebKit::RemoteDisplayListRecorderProxy::didBecomeUnresponsive(*(v3 + 3520));
+  WebKit::RemoteDisplayListRecorderProxy::didBecomeUnresponsive(*(v3 + 440));
 LABEL_56:
   if (atomic_fetch_add(v4, 0xFFFFFFFF) == 1)
   {
@@ -4558,11 +4559,11 @@ LABEL_56:
   }
 }
 
-void WebKit::RemoteDisplayListRecorderProxy::fillPath(WebCore::Path const&)::$_5::operator()(uint64_t a1, _DWORD *a2)
+void WebKit::RemoteDisplayListRecorderProxy::fillPath(WebCore::Path const&)::$_5::operator()(atomic_uchar *a1, float *a2)
 {
   v3 = a1;
   v54 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 3512);
+  v4 = *(a1 + 439);
   if (!v4)
   {
     goto LABEL_60;
@@ -4571,12 +4572,12 @@ void WebKit::RemoteDisplayListRecorderProxy::fillPath(WebCore::Path const&)::$_5
   atomic_fetch_add(v4, 1u);
   while (1)
   {
-    if ((*(v3 + 3584) & 1) == 0)
+    if ((v3[3584] & 1) == 0)
     {
-      a1 = *(v3 + 3544);
+      a1 = *(v3 + 443);
       if (a1)
       {
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(a1, *(v3 + 3536), buf);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, a1, *(v3 + 442));
         a1 = *buf;
         if (*buf)
         {
@@ -4595,11 +4596,11 @@ void WebKit::RemoteDisplayListRecorderProxy::fillPath(WebCore::Path const&)::$_5
         }
       }
 
-      *(v3 + 3584) = 1;
+      v3[3584] = 1;
     }
 
-    v5 = *(v3 + 3504);
-    v6 = *(v4 + 128);
+    v5 = *(v3 + 438);
+    v6 = *(v4 + 16);
     v7 = INFINITY;
     if (fabs(v6) != INFINITY)
     {
@@ -4607,7 +4608,7 @@ void WebKit::RemoteDisplayListRecorderProxy::fillPath(WebCore::Path const&)::$_5
       v7 = v6 + v8;
     }
 
-    if (*(v4 + 64) != v5)
+    if (*(v4 + 8) != v5)
     {
       IPC::StreamClientConnectionBuffer::tryAcquire(v4 + 72, buf, v7);
       if (buf[16] != 1)
@@ -4640,8 +4641,8 @@ LABEL_80:
       }
 
       v33 = v32 + 10;
-      v34 = (*(v4 + 88) + 1) & 0xFFFFFFFFFFFFFFFELL;
-      v35 = *(v4 + 72);
+      v34 = (*(v4 + 11) + 1) & 0xFFFFFFFFFFFFFFFELL;
+      v35 = *(v4 + 9);
       if (v34 + 16 >= v35)
       {
         v34 = 0;
@@ -4653,31 +4654,31 @@ LABEL_80:
         v36 = 0;
       }
 
-      *(v4 + 88) = v36;
-      v37 = *(v4 + 80);
+      *(v4 + 11) = v36;
+      v37 = *(v4 + 10);
       if (*(v37 + 8) <= 0xFFuLL)
       {
         goto LABEL_59;
       }
 
       v38 = atomic_exchange((*(v37 + 16) + 128), v36);
-      v39 = *(v4 + 124);
+      v39 = *(v4 + 31);
       if (v38 == 0x80000000 || v39 != 0)
       {
         v41 = v39 + 1;
-        *(v4 + 124) = v41;
-        if (v41 >= *(v4 + 120))
+        *(v4 + 31) = v41;
+        if (v41 >= *(v4 + 30))
         {
           if (*(v4 + 112) == 1)
           {
-            MEMORY[0x19EB16320](*(v4 + 100));
+            MEMORY[0x19EB16320](*(v4 + 25));
           }
 
-          *(v4 + 124) = 0;
+          *(v4 + 31) = 0;
         }
       }
 
-      *(v4 + 64) = v5;
+      *(v4 + 8) = v5;
     }
 
     IPC::StreamClientConnectionBuffer::tryAcquire(v4 + 72, &v50, v7);
@@ -4709,8 +4710,8 @@ LABEL_80:
       v11 = 16;
     }
 
-    v12 = (*(v4 + 88) + 1) & 0xFFFFFFFFFFFFFFFELL;
-    v13 = *(v4 + 72);
+    v12 = (*(v4 + 11) + 1) & 0xFFFFFFFFFFFFFFFELL;
+    v13 = *(v4 + 9);
     if (v12 + 16 >= v13)
     {
       v12 = 0;
@@ -4722,18 +4723,18 @@ LABEL_80:
       v14 = 0;
     }
 
-    *(v4 + 88) = v14;
-    v15 = *(v4 + 80);
+    *(v4 + 11) = v14;
+    v15 = *(v4 + 10);
     if (*(v15 + 8) > 0xFFuLL)
     {
-      if (atomic_exchange((*(v15 + 16) + 128), v14) == 0x80000000 || *(v4 + 124))
+      if (atomic_exchange((*(v15 + 16) + 128), v14) == 0x80000000 || *(v4 + 31))
       {
         if (*(v4 + 112) == 1)
         {
-          MEMORY[0x19EB16320](*(v4 + 100));
+          MEMORY[0x19EB16320](*(v4 + 25));
         }
 
-        *(v4 + 124) = 0;
+        *(v4 + 31) = 0;
       }
 
       goto LABEL_56;
@@ -4742,7 +4743,7 @@ LABEL_80:
 LABEL_59:
     __break(1u);
 LABEL_60:
-    v44 = *(v3 + 3520);
+    v44 = *(v3 + 440);
     if (!v44)
     {
       return;
@@ -4755,7 +4756,7 @@ LABEL_60:
     }
 
     ++*(v45 + 5);
-    v46 = WebKit::RemoteRenderingBackendProxy::connection(v45, a2, buf);
+    v46 = WebKit::RemoteRenderingBackendProxy::connection(buf, v45, a2);
     v4 = *buf;
     if (*(v45 + 5) == 1)
     {
@@ -4776,8 +4777,8 @@ LABEL_60:
     }
 
     atomic_fetch_add(v4, 1u);
-    a1 = *(v3 + 3512);
-    *(v3 + 3512) = v4;
+    a1 = *(v3 + 439);
+    *(v3 + 439) = v4;
     if (a1 && atomic_fetch_add(a1, 0xFFFFFFFF) == 1)
     {
       atomic_store(1u, a1);
@@ -4797,8 +4798,8 @@ LABEL_60:
   }
 
   *v50 = 3197;
-  v16 = (*(v4 + 88) + 1) & 0xFFFFFFFFFFFFFFFELL;
-  v17 = *(v4 + 72);
+  v16 = (*(v4 + 11) + 1) & 0xFFFFFFFFFFFFFFFELL;
+  v17 = *(v4 + 9);
   if (v16 + 16 >= v17)
   {
     v16 = 0;
@@ -4806,16 +4807,16 @@ LABEL_60:
 
   v18 = v16 + 16;
   v19 = v17 <= v18 ? 0 : v18;
-  *(v4 + 88) = v19;
-  v20 = *(v4 + 80);
+  *(v4 + 11) = v19;
+  v20 = *(v4 + 10);
   if (*(v20 + 8) <= 0xFFuLL)
   {
     goto LABEL_59;
   }
 
   atomic_exchange((*(v20 + 16) + 128), v19);
-  *(v4 + 124) = 0;
-  v21 = *(v4 + 8);
+  *(v4 + 31) = 0;
+  v21 = *(v4 + 1);
   v22 = IPC::Encoder::operator new(0x238, a2);
   *v22 = 1083;
   *(v22 + 2) = 0;
@@ -4857,7 +4858,7 @@ LABEL_53:
     _os_log_impl(&dword_19D52D000, v42, OS_LOG_TYPE_DEFAULT, "RemoteDisplayListRecorderProxy::send - failed, name:%{public}s, error:%{public}s", buf, 0x16u);
   }
 
-  WebKit::RemoteDisplayListRecorderProxy::didBecomeUnresponsive(*(v3 + 3520));
+  WebKit::RemoteDisplayListRecorderProxy::didBecomeUnresponsive(*(v3 + 440));
 LABEL_56:
   if (atomic_fetch_add(v4, 0xFFFFFFFF) == 1)
   {
@@ -5160,7 +5161,7 @@ uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::FillRectWith
   return v8;
 }
 
-uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::FillRectWithGradient>(uint64_t *a1, uint64_t **a2, uint64_t a3)
+uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::FillRectWithGradient>(uint64_t *a1, float **a2, uint64_t a3)
 {
   v6 = IPC::Encoder::operator new(0x238, a2);
   *v6 = 1093;
@@ -5273,11 +5274,11 @@ uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::FillEllipse>
   return v8;
 }
 
-void WTF::Detail::CallableWrapper<WebKit::RemoteDisplayListRecorderProxy::drawVideoFrame(WebCore::VideoFrame &,WebCore::FloatRect const&,WebCore::ImageOrientation,BOOL)::$_0,void,IPC::Semaphore &>::call(uint64_t a1, void *a2)
+void WTF::Detail::CallableWrapper<WebKit::RemoteDisplayListRecorderProxy::drawVideoFrame(WebCore::VideoFrame &,WebCore::FloatRect const&,WebCore::ImageOrientation,BOOL)::$_0,void,IPC::Semaphore &>::call(atomic_uchar *a1, IPC::Semaphore *a2)
 {
   v44 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 8);
-  v4 = *(v3 + 3512);
+  v3 = *(a1 + 1);
+  v4 = *(v3 + 439);
   if (!v4)
   {
     goto LABEL_44;
@@ -5288,10 +5289,10 @@ void WTF::Detail::CallableWrapper<WebKit::RemoteDisplayListRecorderProxy::drawVi
   {
     if ((*(v3 + 3584) & 1) == 0)
     {
-      a1 = *(v3 + 3544);
+      a1 = *(v3 + 443);
       if (a1)
       {
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(a1, *(v3 + 3536), buf);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, a1, *(v3 + 442));
         a1 = *buf;
         if (*buf)
         {
@@ -5313,7 +5314,7 @@ void WTF::Detail::CallableWrapper<WebKit::RemoteDisplayListRecorderProxy::drawVi
       *(v3 + 3584) = 1;
     }
 
-    v5 = *(v3 + 3504);
+    v5 = *(v3 + 438);
     v6 = *(v4 + 128);
     v7 = INFINITY;
     if (fabs(v6) != INFINITY)
@@ -5399,7 +5400,7 @@ LABEL_62:
 LABEL_43:
     __break(1u);
 LABEL_44:
-    v36 = *(v3 + 3520);
+    v36 = *(v3 + 440);
     if (!v36)
     {
       return;
@@ -5412,7 +5413,7 @@ LABEL_44:
     }
 
     ++*(v37 + 5);
-    v38 = WebKit::RemoteRenderingBackendProxy::connection(v37, a2, buf);
+    v38 = WebKit::RemoteRenderingBackendProxy::connection(buf, v37, a2);
     v4 = *buf;
     if (*(v37 + 5) == 1)
     {
@@ -5433,8 +5434,8 @@ LABEL_44:
     }
 
     atomic_fetch_add(v4, 1u);
-    a1 = *(v3 + 3512);
-    *(v3 + 3512) = v4;
+    a1 = *(v3 + 439);
+    *(v3 + 439) = v4;
     if (a1 && atomic_fetch_add(a1, 0xFFFFFFFF) == 1)
     {
       atomic_store(1u, a1);
@@ -5509,7 +5510,7 @@ LABEL_37:
         _os_log_impl(&dword_19D52D000, v34, OS_LOG_TYPE_DEFAULT, "RemoteDisplayListRecorderProxy::send - failed, name:%{public}s, error:%{public}s", buf, 0x16u);
       }
 
-      WebKit::RemoteDisplayListRecorderProxy::didBecomeUnresponsive(*(v3 + 3520));
+      WebKit::RemoteDisplayListRecorderProxy::didBecomeUnresponsive(*(v3 + 440));
     }
   }
 
@@ -5525,11 +5526,11 @@ LABEL_37:
   }
 }
 
-void WTF::Detail::CallableWrapper<WebKit::RemoteDisplayListRecorderProxy::drawVideoFrame(WebCore::VideoFrame &,WebCore::FloatRect const&,WebCore::ImageOrientation,BOOL)::$_1,void,WebCore::SharedMemoryHandle &&>::call(uint64_t a1, void *a2)
+void WTF::Detail::CallableWrapper<WebKit::RemoteDisplayListRecorderProxy::drawVideoFrame(WebCore::VideoFrame &,WebCore::FloatRect const&,WebCore::ImageOrientation,BOOL)::$_1,void,WebCore::SharedMemoryHandle &&>::call(atomic_uchar *a1, void *a2)
 {
   v44 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 8);
-  v4 = *(v3 + 3512);
+  v3 = *(a1 + 1);
+  v4 = *(v3 + 439);
   if (!v4)
   {
     goto LABEL_44;
@@ -5540,10 +5541,10 @@ void WTF::Detail::CallableWrapper<WebKit::RemoteDisplayListRecorderProxy::drawVi
   {
     if ((*(v3 + 3584) & 1) == 0)
     {
-      a1 = *(v3 + 3544);
+      a1 = *(v3 + 443);
       if (a1)
       {
-        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(a1, *(v3 + 3536), buf);
+        WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, a1, *(v3 + 442));
         a1 = *buf;
         if (*buf)
         {
@@ -5565,7 +5566,7 @@ void WTF::Detail::CallableWrapper<WebKit::RemoteDisplayListRecorderProxy::drawVi
       *(v3 + 3584) = 1;
     }
 
-    v5 = *(v3 + 3504);
+    v5 = *(v3 + 438);
     v6 = *(v4 + 128);
     v7 = INFINITY;
     if (fabs(v6) != INFINITY)
@@ -5651,7 +5652,7 @@ LABEL_62:
 LABEL_43:
     __break(1u);
 LABEL_44:
-    v36 = *(v3 + 3520);
+    v36 = *(v3 + 440);
     if (!v36)
     {
       return;
@@ -5664,7 +5665,7 @@ LABEL_44:
     }
 
     ++*(v37 + 5);
-    v38 = WebKit::RemoteRenderingBackendProxy::connection(v37, a2, buf);
+    v38 = WebKit::RemoteRenderingBackendProxy::connection(buf, v37, a2);
     v4 = *buf;
     if (*(v37 + 5) == 1)
     {
@@ -5685,8 +5686,8 @@ LABEL_44:
     }
 
     atomic_fetch_add(v4, 1u);
-    a1 = *(v3 + 3512);
-    *(v3 + 3512) = v4;
+    a1 = *(v3 + 439);
+    *(v3 + 439) = v4;
     if (a1 && atomic_fetch_add(a1, 0xFFFFFFFF) == 1)
     {
       atomic_store(1u, a1);
@@ -5761,7 +5762,7 @@ LABEL_37:
         _os_log_impl(&dword_19D52D000, v34, OS_LOG_TYPE_DEFAULT, "RemoteDisplayListRecorderProxy::send - failed, name:%{public}s, error:%{public}s", buf, 0x16u);
       }
 
-      WebKit::RemoteDisplayListRecorderProxy::didBecomeUnresponsive(*(v3 + 3520));
+      WebKit::RemoteDisplayListRecorderProxy::didBecomeUnresponsive(*(v3 + 440));
     }
   }
 
@@ -5986,7 +5987,7 @@ void WebKit::RemoteDisplayListRecorderProxy::strokePath(WebCore::Path const&)::$
     }
 
     ++*(v8 + 5);
-    v9 = WebKit::RemoteRenderingBackendProxy::connection(v8, a2, buf);
+    v9 = WebKit::RemoteRenderingBackendProxy::connection(buf, v8, a2);
     v3 = *buf;
     if (*(v8 + 5) == 1)
     {
@@ -6021,7 +6022,7 @@ void WebKit::RemoteDisplayListRecorderProxy::strokePath(WebCore::Path const&)::$
     v4 = *(a1 + 3544);
     if (v4)
     {
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v4, *(a1 + 3536), buf);
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, v4, *(a1 + 3536));
       if (*buf)
       {
         v12 = WebKit::RemoteImageBufferProxy::ensureBackend(*buf, v11);
@@ -6090,7 +6091,7 @@ void WebKit::RemoteDisplayListRecorderProxy::strokePath(WebCore::Path const&)::$
     }
 
     ++*(v5 + 5);
-    v6 = WebKit::RemoteRenderingBackendProxy::connection(v5, a2, buf);
+    v6 = WebKit::RemoteRenderingBackendProxy::connection(buf, v5, a2);
     v3 = *buf;
     if (*(v5 + 5) == 1)
     {
@@ -6125,7 +6126,7 @@ void WebKit::RemoteDisplayListRecorderProxy::strokePath(WebCore::Path const&)::$
     v8 = *(a1 + 3544);
     if (v8)
     {
-      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(v8, *(a1 + 3536), buf);
+      WTF::ThreadSafeWeakPtrControlBlock::makeStrongReferenceIfPossible<WebKit::RemoteImageBufferProxy>(buf, v8, *(a1 + 3536));
       if (*buf)
       {
         v12 = WebKit::RemoteImageBufferProxy::ensureBackend(*buf, v11);
@@ -6430,7 +6431,7 @@ uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::StrokeBezier
   return v8;
 }
 
-uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::StrokeRect>(uint64_t *a1, float *a2, uint64_t a3)
+uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::StrokeRect>(uint64_t *a1, float **a2, uint64_t a3)
 {
   v6 = IPC::Encoder::operator new(0x238, a2);
   *v6 = 1144;
@@ -6443,7 +6444,7 @@ uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::StrokeRect>(
   IPC::Encoder::encodeHeader(v6);
   v13 = v6;
   IPC::ArgumentCoder<WebCore::FloatRect,void>::encode(v6, *a2);
-  IPC::ArgumentCoder<float,void>::encode<IPC::Encoder>(v6, a2[2]);
+  IPC::ArgumentCoder<float,void>::encode<IPC::Encoder>(v6, *(a2 + 2));
   v8 = IPC::Connection::sendMessageImpl(a1, &v13, 1, 0);
   v9 = v13;
   v13 = 0;
@@ -7572,16 +7573,16 @@ uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::SetDropShado
   *(v6 + 70) = 0;
   *(v6 + 69) = 0;
   IPC::Encoder::encodeHeader(v6);
-  v15 = v6;
+  v17 = v6;
   v7 = *a2;
   if (*(*a2 + 32))
   {
-    v16 = 1;
-    IPC::Encoder::operator<<<BOOL>(v6, &v16);
+    v18 = 1;
+    IPC::Encoder::operator<<<BOOL>(v6, &v18);
     if ((*(v7 + 32) & 1) == 0)
     {
       v14 = std::__throw_bad_optional_access[abi:sn200100]();
-      return IPC::StreamClientConnection::send<Messages::RemoteDisplayListRecorder::SetStyle,WebKit::RemoteDisplayListRecorderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(v14);
+      return IPC::StreamClientConnection::send<Messages::RemoteDisplayListRecorder::SetStyle,WebKit::RemoteDisplayListRecorderIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(v14, v15, v16);
     }
 
     IPC::ArgumentCoder<WebCore::GraphicsDropShadow,void>::encode(v6, v7);
@@ -7589,13 +7590,13 @@ uint64_t IPC::Connection::send<Messages::RemoteDisplayListRecorder::SetDropShado
 
   else
   {
-    v17 = 0;
-    IPC::Encoder::operator<<<BOOL>(v6, &v17);
+    v19 = 0;
+    IPC::Encoder::operator<<<BOOL>(v6, &v19);
   }
 
-  v9 = IPC::Connection::sendMessageImpl(a1, &v15, 1, 0);
-  v10 = v15;
-  v15 = 0;
+  v9 = IPC::Connection::sendMessageImpl(a1, &v17, 1, 0);
+  v10 = v17;
+  v17 = 0;
   if (v10)
   {
     IPC::Encoder::~Encoder(v10, v8);
@@ -8661,7 +8662,7 @@ LABEL_56:
   return v20;
 }
 
-atomic_uchar **WTF::Detail::CallableWrapper<WebKit::RemoteGraphicsContextGLProxy::initializeIPC(WTF::Ref<IPC::StreamClientConnection,WTF::RawPtrTraits<IPC::StreamClientConnection>,WTF::DefaultRefDerefTraits<IPC::StreamClientConnection>> &&,WTF::ObjectIdentifierGeneric<WebKit::RenderingBackendIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,IPC::StreamServerConnectionHandle &&,WTF::SerialFunctionDispatcher &)::$_0,void>::call(uint64_t a1, void *a2)
+atomic_ullong *WTF::Detail::CallableWrapper<WebKit::RemoteGraphicsContextGLProxy::initializeIPC(WTF::Ref<IPC::StreamClientConnection,WTF::RawPtrTraits<IPC::StreamClientConnection>,WTF::DefaultRefDerefTraits<IPC::StreamClientConnection>> &&,WTF::ObjectIdentifierGeneric<WebKit::RenderingBackendIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,IPC::StreamServerConnectionHandle &&,WTF::SerialFunctionDispatcher &)::$_0,void>::call(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 8);
   {
@@ -8710,23 +8711,27 @@ LABEL_8:
   v24[2] = &v25;
   IPC::Connection::send<Messages::GPUConnectionToWebProcess::CreateGraphicsContextGL>(v13, v24, 0, 1, 0);
   WTF::WeakPtrFactory<IPC::MessageReceiver,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(v5 + 2, v5);
-  v15 = v5[1];
-  atomic_fetch_add(v15, 1u);
+  add = v5[1];
+  atomic_fetch_add(add, 1u);
   v16 = *(v3 + 80);
-  *(v3 + 80) = v15;
-  if (v16 && atomic_fetch_add(v16, 0xFFFFFFFF) == 1)
+  *(v3 + 80) = add;
+  if (v16)
   {
-    atomic_store(1u, v16);
-    WTF::fastFree(v16, v14);
+    add = atomic_fetch_add(v16, 0xFFFFFFFF);
+    if (add == 1)
+    {
+      atomic_store(1u, v16);
+      WTF::fastFree(v16, v14);
+    }
   }
 
-  v18 = WebKit::GPUProcessConnection::videoFrameObjectHeapProxy(v5);
+  v18 = WebKit::GPUProcessConnection::videoFrameObjectHeapProxy(v5, add);
   atomic_fetch_add(v18, 1u);
   v19 = *(v3 + 160);
   *(v3 + 160) = v18;
   if (v19)
   {
-    WTF::ThreadSafeRefCounted<WebKit::RemoteVideoFrameObjectHeapProxy,(WTF::DestructionThread)2>::deref(v19);
+    WTF::ThreadSafeRefCounted<WebKit::RemoteVideoFrameObjectHeapProxy,(WTF::DestructionThread)2>::deref(v19, v17);
   }
 
   return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::GPUProcessConnection,(WTF::DestructionThread)0>::deref(v6, v17);
@@ -9435,7 +9440,7 @@ LABEL_86:
   LOBYTE(v78) = *a2;
   IPC::Encoder::operator<<<BOOL>(v80, &v78);
   IPC::ArgumentCoder<unsigned long long,void>::encode<IPC::Encoder>(v64, **(a2 + 8));
-  result = IPC::Connection::sendSyncMessage(v63, v81, &v80, 0, &v78, v9);
+  result = IPC::Connection::sendSyncMessage(&v78, v63, v81, &v80, 0, v9);
   if (v79)
   {
     if (v79 != 1)
@@ -9820,7 +9825,7 @@ LABEL_92:
   IPC::Connection::createSyncMessageEncoder(0x1001, a3, v86);
   LOBYTE(v79) = *a2;
   IPC::Encoder::operator<<<BOOL>(v86[0], &v79);
-  result = IPC::Connection::sendSyncMessage(v62, v86[1], v86, 0, &v84, v9);
+  result = IPC::Connection::sendSyncMessage(&v84, v62, v86[1], v86, 0, v9);
   if (v85)
   {
     if (v85 != 1)

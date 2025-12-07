@@ -60,15 +60,16 @@ LABEL_11:
     typeCopy = *MEMORY[0x1E6963800];
   }
 
-  v9 = 0;
-  v5 = [self symbolForTypeIdentifier:typeCopy withResolutionStrategy:0 variantOptions:1 error:&v9];
-  v6 = v9;
+  v10 = 0;
+  v5 = [self symbolForTypeIdentifier:typeCopy withResolutionStrategy:0 variantOptions:1 error:&v10];
+  v6 = v10;
+  v7 = v6;
   if (!v5)
   {
-    v7 = _ISDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ISDefaultLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(ISSymbol *)typeCopy symbolForType:v6, v7];
+      [(ISSymbol *)typeCopy symbolForType:v7, v8];
     }
 
     v5 = [(IFSymbol *)[ISSymbol alloc] initWithSymbolName:@"questionmark.square" bundleURL:0];
@@ -79,7 +80,7 @@ LABEL_11:
 
 + (id)symbolForTypeIdentifier:(id)identifier withResolutionStrategy:(int64_t)strategy variantOptions:(unint64_t)options error:(id *)error
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
@@ -127,8 +128,8 @@ LABEL_26:
         }
 
         v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to find symbol using type id: %@. Options: %lu, strategy: %ld", identifierCopy, options, strategy, *MEMORY[0x1E696A578]];
-        v28 = v24;
-        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+        v27 = v24;
+        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
 
         [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.iconServices.symbol-error" code:-1 userInfo:v21];
         *error = v17 = 0;
@@ -196,24 +197,23 @@ LABEL_24:
     goto LABEL_33;
   }
 
-  v29 = *MEMORY[0x1E696A578];
+  v28 = *MEMORY[0x1E696A578];
   v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid type id"];
-  v30[0] = v16;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+  v29[0] = v16;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
 
   [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.iconServices.symbol-error" code:-2 userInfo:v11];
   *error = v17 = 0;
 LABEL_32:
 
 LABEL_33:
-  v25 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 + (id)_generateVariantKeyFromOptions:(unint64_t)options
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (options)
   {
     v12 = 0;
@@ -227,26 +227,26 @@ LABEL_33:
     }
 
     v4 = objc_opt_new();
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v5 = _generateVariantKeyFromOptions__orderedOptions;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           if (([v10 unsignedIntegerValue] & options) != 0)
           {
             v11 = [_generateVariantKeyFromOptions__optionsToKeyPieces objectForKeyedSubscript:v10];
@@ -254,7 +254,7 @@ LABEL_33:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -267,7 +267,7 @@ LABEL_33:
 
     else
     {
-      v13 = _ISDefaultLog();
+      v13 = _ISDefaultLog(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [ISSymbol _generateVariantKeyFromOptions:v13];
@@ -277,81 +277,79 @@ LABEL_33:
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 void __43__ISSymbol__generateVariantKeyFromOptions___block_invoke()
 {
-  v7[33] = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F1A65340;
-  v6[1] = &unk_1F1A65358;
-  v7[0] = @"fill";
-  v7[1] = @"landscape";
-  v6[2] = &unk_1F1A65370;
-  v6[3] = &unk_1F1A65388;
-  v7[2] = @"slash";
-  v7[3] = @"radio_leftright";
-  v6[4] = &unk_1F1A653A0;
-  v6[5] = &unk_1F1A653B8;
-  v7[4] = @"apps";
-  v7[5] = @"righttoleft";
-  v6[6] = &unk_1F1A653D0;
-  v6[7] = &unk_1F1A653E8;
-  v7[6] = @"badge_play";
-  v7[7] = @"badge_plus";
-  v6[8] = &unk_1F1A65400;
-  v6[9] = &unk_1F1A65418;
-  v7[8] = @"badge_minus";
-  v7[9] = @"badge_checkmark";
-  v6[10] = &unk_1F1A65430;
-  v6[11] = &unk_1F1A65448;
-  v7[10] = @"badge_xmark";
-  v7[11] = @"badge_questionmark";
-  v6[12] = &unk_1F1A65460;
-  v6[13] = &unk_1F1A65478;
-  v7[12] = @"badge_exclamationmark";
-  v7[13] = @"arrow_forward";
-  v6[14] = &unk_1F1A65490;
-  v6[15] = &unk_1F1A654A8;
-  v7[14] = @"arrow_turnupforward";
-  v7[15] = @"lock_locked";
-  v6[16] = &unk_1F1A654C0;
-  v6[17] = &unk_1F1A654D8;
-  v7[16] = @"lock_unlocked";
-  v7[17] = @"camerarear";
-  v6[18] = &unk_1F1A654F0;
-  v6[19] = &unk_1F1A65508;
-  v7[18] = @"sideright";
-  v7[19] = @"exclamationmark";
-  v6[20] = &unk_1F1A65520;
-  v6[21] = &unk_1F1A65538;
-  v7[20] = @"figurerun";
-  v7[21] = @"watchface";
-  v6[22] = &unk_1F1A65550;
-  v6[23] = &unk_1F1A65568;
-  v7[22] = @"left";
-  v7[23] = @"right";
-  v6[24] = &unk_1F1A65580;
-  v6[25] = &unk_1F1A65598;
-  v7[24] = @"chargingcase";
-  v7[25] = @"radio_forward";
-  v6[26] = &unk_1F1A655B0;
-  v6[27] = &unk_1F1A655C8;
-  v7[26] = @"homepod";
-  v7[27] = @"homepodmini";
-  v6[28] = &unk_1F1A655E0;
-  v6[29] = &unk_1F1A655F8;
-  v7[28] = @"appletv";
-  v7[29] = @"imac";
-  v6[30] = &unk_1F1A65610;
-  v6[31] = &unk_1F1A65628;
-  v7[30] = @"laptop";
-  v7[31] = @"speaker";
-  v6[32] = &unk_1F1A65640;
-  v7[32] = @"tv";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:33];
+  v6[33] = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F1A65340;
+  v5[1] = &unk_1F1A65358;
+  v6[0] = @"fill";
+  v6[1] = @"landscape";
+  v5[2] = &unk_1F1A65370;
+  v5[3] = &unk_1F1A65388;
+  v6[2] = @"slash";
+  v6[3] = @"radio_leftright";
+  v5[4] = &unk_1F1A653A0;
+  v5[5] = &unk_1F1A653B8;
+  v6[4] = @"apps";
+  v6[5] = @"righttoleft";
+  v5[6] = &unk_1F1A653D0;
+  v5[7] = &unk_1F1A653E8;
+  v6[6] = @"badge_play";
+  v6[7] = @"badge_plus";
+  v5[8] = &unk_1F1A65400;
+  v5[9] = &unk_1F1A65418;
+  v6[8] = @"badge_minus";
+  v6[9] = @"badge_checkmark";
+  v5[10] = &unk_1F1A65430;
+  v5[11] = &unk_1F1A65448;
+  v6[10] = @"badge_xmark";
+  v6[11] = @"badge_questionmark";
+  v5[12] = &unk_1F1A65460;
+  v5[13] = &unk_1F1A65478;
+  v6[12] = @"badge_exclamationmark";
+  v6[13] = @"arrow_forward";
+  v5[14] = &unk_1F1A65490;
+  v5[15] = &unk_1F1A654A8;
+  v6[14] = @"arrow_turnupforward";
+  v6[15] = @"lock_locked";
+  v5[16] = &unk_1F1A654C0;
+  v5[17] = &unk_1F1A654D8;
+  v6[16] = @"lock_unlocked";
+  v6[17] = @"camerarear";
+  v5[18] = &unk_1F1A654F0;
+  v5[19] = &unk_1F1A65508;
+  v6[18] = @"sideright";
+  v6[19] = @"exclamationmark";
+  v5[20] = &unk_1F1A65520;
+  v5[21] = &unk_1F1A65538;
+  v6[20] = @"figurerun";
+  v6[21] = @"watchface";
+  v5[22] = &unk_1F1A65550;
+  v5[23] = &unk_1F1A65568;
+  v6[22] = @"left";
+  v6[23] = @"right";
+  v5[24] = &unk_1F1A65580;
+  v5[25] = &unk_1F1A65598;
+  v6[24] = @"chargingcase";
+  v6[25] = @"radio_forward";
+  v5[26] = &unk_1F1A655B0;
+  v5[27] = &unk_1F1A655C8;
+  v6[26] = @"homepod";
+  v6[27] = @"homepodmini";
+  v5[28] = &unk_1F1A655E0;
+  v5[29] = &unk_1F1A655F8;
+  v6[28] = @"appletv";
+  v6[29] = @"imac";
+  v5[30] = &unk_1F1A65610;
+  v5[31] = &unk_1F1A65628;
+  v6[30] = @"laptop";
+  v6[31] = @"speaker";
+  v5[32] = &unk_1F1A65640;
+  v6[32] = @"tv";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:33];
   v1 = _generateVariantKeyFromOptions__optionsToKeyPieces;
   _generateVariantKeyFromOptions__optionsToKeyPieces = v0;
 
@@ -359,21 +357,17 @@ void __43__ISSymbol__generateVariantKeyFromOptions___block_invoke()
   v3 = [v2 sortedArrayUsingSelector:sel_compare_];
   v4 = _generateVariantKeyFromOptions__orderedOptions;
   _generateVariantKeyFromOptions__orderedOptions = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)symbolForType:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a2 localizedDescription];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_1A77B8000, a3, OS_LOG_TYPE_ERROR, "Failed to find symbol with type %@. Error: %@.", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_1A77B8000, a3, OS_LOG_TYPE_ERROR, "Failed to find symbol with type %@. Error: %@.", &v6, 0x16u);
 }
 
 @end

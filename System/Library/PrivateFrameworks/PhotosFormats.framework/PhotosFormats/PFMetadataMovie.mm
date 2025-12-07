@@ -253,7 +253,7 @@ LABEL_9:
   v10.receiver = self;
   v10.super_class = PFMetadataMovie;
   plistForEncoding = [(PFMetadata *)&v10 plistForEncoding];
-  v4 = [plistForEncoding mutableCopy];
+  v4 = objc_msgSend_mutableCopy(plistForEncoding);
 
   asset = self->_asset;
   if (asset)
@@ -843,9 +843,11 @@ LABEL_21:
 
 uint64_t __69__PFMetadataMovie__exifTimezoneOffsetFromDateString_offsetInSeconds___block_invoke()
 {
-  _exifTimezoneOffsetFromDateString_offsetInSeconds__timeZoneSuffixRegex = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"(-|\\+)(\\d\\d)(\\d\\d)$" options:0 error:0];
+  v0 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"(-|\\+)(\\d\\d)(\\d\\d)$" options:0 error:0];
+  v1 = _exifTimezoneOffsetFromDateString_offsetInSeconds__timeZoneSuffixRegex;
+  _exifTimezoneOffsetFromDateString_offsetInSeconds__timeZoneSuffixRegex = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (AudioStreamBasicDescription)_audioStreamBasicDescription
@@ -864,14 +866,12 @@ uint64_t __69__PFMetadataMovie__exifTimezoneOffsetFromDateString_offsetInSeconds
   return result;
 }
 
-id __47__PFMetadataMovie__audioStreamBasicDescription__block_invoke(uint64_t a1)
+id __47__PFMetadataMovie__audioStreamBasicDescription__block_invoke(uint64_t a1, const char *a2)
 {
-  v4 = 0;
-  memset(v3, 0, sizeof(v3));
-  [PFMetadataMovie audioStreamBasicDescriptionForAsset:*(*(a1 + 32) + 176), 0, 0, 0, 0, 0];
-  v1 = [MEMORY[0x1E696B098] valueWithBytes:v3 objCType:"{AudioStreamBasicDescription=dIIIIIIII}"];
+  objc_msgSend_audioStreamBasicDescriptionForAsset_(PFMetadataMovie, a2, *(*(a1 + 32) + 176), 0, 0, 0, 0, 0);
+  v2 = [MEMORY[0x1E696B098] valueWithBytes:&v4 objCType:"{AudioStreamBasicDescription=dIIIIIIII}"];
 
-  return v1;
+  return v2;
 }
 
 - (opaqueCMFormatDescription)_firstVideoTrackFormatDescription
@@ -1068,7 +1068,7 @@ id __42__PFMetadataMovie__makeGeometryProperties__block_invoke(uint64_t a1)
   v5 = v4;
   if (v1)
   {
-    [v1 preferredTransform];
+    objc_msgSend_preferredTransform(v1);
     v7 = v15;
     v6 = v16;
     v9 = v17;
@@ -2398,7 +2398,7 @@ uint64_t __54__PFMetadataMovie__computeFirstVideoTrackCodecAndName__block_invoke
   return [v2 numberWithUnsignedInt:v3];
 }
 
-id __54__PFMetadataMovie__computeFirstVideoTrackCodecAndName__block_invoke_2()
+id __54__PFMetadataMovie__computeFirstVideoTrackCodecAndName__block_invoke_2(uint64_t a1)
 {
   MTCopyStringsForMediaTypeAndSubType();
 
@@ -2572,7 +2572,7 @@ id __36__PFMetadataMovie_playbackVariation__block_invoke(uint64_t a1)
 - (id)audioBitsPerChannel
 {
   v2 = MEMORY[0x1E696AD98];
-  [(PFMetadataMovie *)self _audioStreamBasicDescription];
+  objc_msgSend__audioStreamBasicDescription(self, a2);
   v3 = [v2 numberWithUnsignedInt:v5];
 
   return v3;
@@ -2581,7 +2581,7 @@ id __36__PFMetadataMovie_playbackVariation__block_invoke(uint64_t a1)
 - (id)audioChannelsPerFrame
 {
   v2 = MEMORY[0x1E696AD98];
-  [(PFMetadataMovie *)self _audioStreamBasicDescription];
+  objc_msgSend__audioStreamBasicDescription(self, a2);
   v3 = [v2 numberWithUnsignedInt:v5];
 
   return v3;
@@ -2590,7 +2590,7 @@ id __36__PFMetadataMovie_playbackVariation__block_invoke(uint64_t a1)
 - (id)audioBytesPerFrame
 {
   v2 = MEMORY[0x1E696AD98];
-  [(PFMetadataMovie *)self _audioStreamBasicDescription];
+  objc_msgSend__audioStreamBasicDescription(self, a2);
   v3 = [v2 numberWithUnsignedInt:v5];
 
   return v3;
@@ -2599,7 +2599,7 @@ id __36__PFMetadataMovie_playbackVariation__block_invoke(uint64_t a1)
 - (id)audioFramesPerPacket
 {
   v2 = MEMORY[0x1E696AD98];
-  [(PFMetadataMovie *)self _audioStreamBasicDescription];
+  objc_msgSend__audioStreamBasicDescription(self, a2);
   v3 = [v2 numberWithUnsignedInt:v5];
 
   return v3;
@@ -2608,7 +2608,7 @@ id __36__PFMetadataMovie_playbackVariation__block_invoke(uint64_t a1)
 - (id)audioBytesPerPacket
 {
   v2 = MEMORY[0x1E696AD98];
-  [(PFMetadataMovie *)self _audioStreamBasicDescription];
+  objc_msgSend__audioStreamBasicDescription(self, a2);
   v3 = [v2 numberWithUnsignedInt:v5];
 
   return v3;
@@ -2617,7 +2617,7 @@ id __36__PFMetadataMovie_playbackVariation__block_invoke(uint64_t a1)
 - (id)audioTrackFormatFlags
 {
   v2 = MEMORY[0x1E696AD98];
-  [(PFMetadataMovie *)self _audioStreamBasicDescription];
+  objc_msgSend__audioStreamBasicDescription(self, a2);
   v3 = [v2 numberWithUnsignedInt:v5];
 
   return v3;
@@ -2626,7 +2626,7 @@ id __36__PFMetadataMovie_playbackVariation__block_invoke(uint64_t a1)
 - (id)audioTrackFormat
 {
   v2 = MEMORY[0x1E696AD98];
-  [(PFMetadataMovie *)self _audioStreamBasicDescription];
+  objc_msgSend__audioStreamBasicDescription(self, a2);
   v3 = [v2 numberWithUnsignedInt:v5];
 
   return v3;
@@ -2635,8 +2635,8 @@ id __36__PFMetadataMovie_playbackVariation__block_invoke(uint64_t a1)
 - (id)audioSampleRate
 {
   v2 = MEMORY[0x1E696AD98];
-  [(PFMetadataMovie *)self _audioStreamBasicDescription];
-  v3 = [v2 numberWithDouble:v5];
+  objc_msgSend__audioStreamBasicDescription(self, a2);
+  v3 = [v2 numberWithDouble:v5[0]];
 
   return v3;
 }
@@ -2740,12 +2740,12 @@ id __35__PFMetadataMovie_nominalFrameRate__block_invoke(uint64_t a1)
   return result;
 }
 
-CFDictionaryRef __27__PFMetadataMovie_duration__block_invoke(uint64_t a1)
+CFDictionaryRef __27__PFMetadataMovie_duration__block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(*(a1 + 32) + 176);
-  if (v1)
+  v2 = *(*(a1 + 32) + 176);
+  if (v2)
   {
-    [v1 duration];
+    objc_msgSend_duration(v2, a2);
   }
 
   else
@@ -2753,9 +2753,9 @@ CFDictionaryRef __27__PFMetadataMovie_duration__block_invoke(uint64_t a1)
     memset(&time, 0, sizeof(time));
   }
 
-  v2 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
+  v3 = CMTimeCopyAsDictionary(&time, *MEMORY[0x1E695E480]);
 
-  return v2;
+  return v3;
 }
 
 - (id)imageDirection
@@ -3238,7 +3238,7 @@ id __45__PFMetadataMovie_livePhotoPairingIdentifier__block_invoke(uint64_t a1)
   _firstAudioTrack = [(PFMetadataMovie *)self _firstAudioTrack];
   [(PFMetadataMovie *)self stillImageDisplayTimeDictionary];
 
-  [(PFMetadataMovie *)self _audioStreamBasicDescription];
+  objc_msgSend__audioStreamBasicDescription(self);
   [(PFMetadataMovie *)self _computeFirstVideoTrackCodecAndName];
   [(PFMetadataMovie *)self isCinematicVideo];
   [(PFMetadataMovie *)self hasSpatialAudio];
@@ -3279,7 +3279,7 @@ id __45__PFMetadataMovie_livePhotoPairingIdentifier__block_invoke(uint64_t a1)
   [(PFMetadataMovie *)self gpsHPositioningError];
 
   [(PFMetadataMovie *)self imageDirection];
-  [(PFMetadataMovie *)self duration];
+  objc_msgSend_duration(self);
   [(PFMetadataMovie *)self playbackVariation];
 
   [(PFMetadataMovie *)self isAutoLivePhoto];
@@ -3763,9 +3763,11 @@ uint64_t __55__PFMetadataMovie_firstVideoTrackForAsset_resultBlock___block_invok
 
 uint64_t __68__PFMetadataMovie_exifTimezoneOffsetFromDateString_offsetInSeconds___block_invoke()
 {
-  exifTimezoneOffsetFromDateString_offsetInSeconds__timeZoneSuffixRegex = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"(-|\\+)(\\d\\d)(\\d\\d)$" options:0 error:0];
+  v0 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"(-|\\+)(\\d\\d)(\\d\\d)$" options:0 error:0];
+  v1 = exifTimezoneOffsetFromDateString_offsetInSeconds__timeZoneSuffixRegex;
+  exifTimezoneOffsetFromDateString_offsetInSeconds__timeZoneSuffixRegex = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)parseISO6709String:(id)string outLatitude:(double *)latitude outLongitude:(double *)longitude

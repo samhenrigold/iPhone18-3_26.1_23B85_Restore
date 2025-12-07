@@ -8,11 +8,11 @@
 
 - (MTURLDeresAction)initWithField:(id)field configDictionary:(id)dictionary
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v25.receiver = self;
-  v25.super_class = MTURLDeresAction;
-  v7 = [(MTTreatmentAction *)&v25 initWithField:field configDictionary:dictionaryCopy];
+  v24.receiver = self;
+  v24.super_class = MTURLDeresAction;
+  v7 = [(MTTreatmentAction *)&v24 initWithField:field configDictionary:dictionaryCopy];
   if (v7)
   {
     v8 = [dictionaryCopy objectForKeyedSubscript:@"scope"];
@@ -24,32 +24,32 @@
     {
       v10 = v9;
       v11 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v10, "count")}];
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       v12 = v10;
-      v13 = [v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v22;
+        v15 = *v21;
         v16 = MEMORY[0x277CBEC10];
         do
         {
           v17 = 0;
           do
           {
-            if (*v22 != v15)
+            if (*v21 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            [v11 setObject:v16 forKeyedSubscript:{*(*(&v21 + 1) + 8 * v17++), v21}];
+            [v11 setObject:v16 forKeyedSubscript:{*(*(&v20 + 1) + 8 * v17++), v20}];
           }
 
           while (v14 != v17);
-          v14 = [v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
         }
 
         while (v14);
@@ -69,7 +69,6 @@
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

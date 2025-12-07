@@ -23,9 +23,11 @@
 
 uint64_t __34__AXBannerServices_sharedInstance__block_invoke()
 {
-  sharedInstance__SharedInstance = [[AXBannerServices alloc] _init];
+  v0 = [[AXBannerServices alloc] _init];
+  v1 = sharedInstance__SharedInstance;
+  sharedInstance__SharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)_init

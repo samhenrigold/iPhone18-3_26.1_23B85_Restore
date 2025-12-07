@@ -10,7 +10,7 @@
   sub_27463B6AC();
   actionCopy = action;
   selfCopy = self;
-  sub_274585008();
+  sub_274585008(v8);
 }
 
 - (int64_t)hash

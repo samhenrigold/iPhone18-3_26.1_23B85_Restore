@@ -98,18 +98,10 @@ LABEL_10:
   {
     if (self->_text && v6->_text)
     {
-      if (BSEqualObjects())
+      if (BSEqualObjects() && BSEqualObjects() && self->_alignment == v6->_alignment && self->_lineBreakMode == v6->_lineBreakMode)
       {
-        font = self->_font;
-        v10 = v6->_font;
-        if (BSEqualObjects())
-        {
-          if (self->_alignment == v6->_alignment && self->_lineBreakMode == v6->_lineBreakMode)
-          {
-            v7 = self->_lineBreakStrategy == v6->_lineBreakStrategy;
-            goto LABEL_8;
-          }
-        }
+        v7 = self->_lineBreakStrategy == v6->_lineBreakStrategy;
+        goto LABEL_8;
       }
     }
 
@@ -133,10 +125,10 @@ LABEL_11:
   if (result == 0x7FFFFFFFFFFFFFFFLL)
   {
     builder = [MEMORY[0x277CF0C40] builder];
-    v5 = [builder appendCGRect:{self->_labelBounds.origin.x, self->_labelBounds.origin.y, self->_labelBounds.size.width, self->_labelBounds.size.height}];
-    v6 = [builder appendBool:self->_adjustsFontSizeToFitWidth];
-    v7 = [builder appendUnsignedInteger:self->_numberOfLines];
-    v8 = [builder appendCGFloat:self->_minimumScaleFactor];
+    v5 = [builder appendCGRect:?];
+    v6 = [builder appendBool:?];
+    v7 = [builder appendUnsignedInteger:?];
+    v8 = [builder appendCGFloat:?];
     if (self->_attrString)
     {
       v9 = [builder appendObject:?];
@@ -145,10 +137,10 @@ LABEL_11:
     else if (self->_text)
     {
       v10 = [builder appendObject:?];
-      v11 = [builder appendObject:self->_font];
-      v12 = [builder appendUnsignedInteger:self->_alignment];
-      v13 = [builder appendUnsignedInteger:self->_lineBreakMode];
-      v14 = [builder appendUnsignedInteger:self->_lineBreakStrategy];
+      v11 = [builder appendObject:?];
+      v12 = [builder appendUnsignedInteger:?];
+      v13 = [builder appendUnsignedInteger:?];
+      v14 = [builder appendUnsignedInteger:?];
     }
 
     self->_hash = [builder hash];
@@ -161,39 +153,39 @@ LABEL_11:
 
 - (id)stringKey
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   stringKey = self->_stringKey;
   if (!stringKey)
   {
     v4 = objc_autoreleasePoolPush();
     string = [MEMORY[0x277CCAB68] string];
     v6 = NSStringFromCGRect(self->_labelBounds);
-    [string appendFormat:@"bounds:%@, ", v6];
+    [string appendFormat:v6];
 
-    [string appendFormat:@"lines:%lu, ", self->_numberOfLines];
-    [string appendFormat:@"adjustsFontSize:%d, ", self->_adjustsFontSizeToFitWidth];
-    [string appendFormat:@"minimumScaleFactor:%f, ", *&self->_minimumScaleFactor];
+    [string appendFormat:self->_numberOfLines];
+    [string appendFormat:self->_adjustsFontSizeToFitWidth];
+    [string appendFormat:*&self->_minimumScaleFactor];
     if (self->_attrString)
     {
-      [string appendFormat:@"attrString:%@, ", self->_attrString];
+      [string appendFormat:self->_attrString];
     }
 
     else if (self->_text)
     {
-      [string appendFormat:@"text:%@, ", self->_text];
-      [string appendFormat:@"font:%@, ", self->_font];
-      [string appendFormat:@"alignment:%lu, ", self->_alignment];
-      [string appendFormat:@"lineBreakMode:%lu, ", self->_lineBreakMode];
-      [string appendFormat:@"lineBreakStrategy:%lu, ", self->_lineBreakStrategy];
+      [string appendFormat:self->_text];
+      [string appendFormat:self->_font];
+      [string appendFormat:self->_alignment];
+      [string appendFormat:self->_lineBreakMode];
+      [string appendFormat:self->_lineBreakStrategy];
     }
 
     uTF8String = [string UTF8String];
     v8 = strlen(uTF8String);
     CC_SHA256(uTF8String, v8, md);
-    v9 = [MEMORY[0x277CCAB68] stringWithCapacity:64];
+    v9 = [MEMORY[0x277CCAB68] stringWithCapacity:?];
     for (i = 0; i != 32; ++i)
     {
-      [v9 appendFormat:@"%02x", md[i]];
+      [v9 appendFormat:md[i]];
     }
 
     v11 = [v9 copy];
@@ -203,8 +195,6 @@ LABEL_11:
     objc_autoreleasePoolPop(v4);
     stringKey = self->_stringKey;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return stringKey;
 }
@@ -216,7 +206,7 @@ LABEL_11:
   if (label)
   {
     [v3 bounds];
-    if (!CGRectEqualToRect(v16, *(label + 8)))
+    if (!CGRectEqualToRect(v13, *(label + 8)))
     {
       goto LABEL_6;
     }
@@ -242,26 +232,15 @@ LABEL_11:
     if (!text)
     {
       attributedText = [v4 attributedText];
-      v15 = *(label + 64);
       label = BSEqualObjects();
 
       goto LABEL_7;
     }
 
     text2 = [v4 text];
-    v9 = *(label + 72);
-    v10 = BSEqualObjects();
+    v9 = BSEqualObjects();
 
-    if (!v10)
-    {
-      goto LABEL_6;
-    }
-
-    font = [v4 font];
-    v12 = *(label + 80);
-    v13 = BSEqualObjects();
-
-    if (v13 && [v4 textAlignment] == *(label + 88) && objc_msgSend(v4, "lineBreakMode") == *(label + 96))
+    if (v9 && ([v4 font], v10 = objc_claimAutoreleasedReturnValue(), v11 = BSEqualObjects(), v10, v11) && objc_msgSend(v4, "textAlignment") == *(label + 88) && objc_msgSend(v4, "lineBreakMode") == *(label + 96))
     {
       label = [v4 lineBreakStrategy] == *(label + 104);
     }

@@ -15,7 +15,7 @@
 
 - (CTStewieEmergencyTextMessage)initWithConversationIDInternal:(int64_t)internal sequenceNum:(int64_t)num emergencyText:(id)text maxTextLength:(unint64_t)length error:(id *)p_isa
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   textCopy = text;
   v14 = textCopy;
   if (internal >= 0x100)
@@ -26,9 +26,9 @@
     }
 
     v16 = MEMORY[0x1E696ABC0];
-    v33 = *MEMORY[0x1E696A578];
-    v34[0] = @"Invalid conversationID";
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v32 = *MEMORY[0x1E696A578];
+    v33[0] = @"Invalid conversationID";
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     *p_isa = [v16 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v17];
 
 LABEL_15:
@@ -44,9 +44,9 @@ LABEL_15:
     }
 
     v18 = MEMORY[0x1E696ABC0];
-    v31 = *MEMORY[0x1E696A578];
-    v32 = @"Invalid sequenceNum";
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v30 = *MEMORY[0x1E696A578];
+    v31 = @"Invalid sequenceNum";
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
     *p_isa = [v18 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v19];
 
     goto LABEL_15;
@@ -60,9 +60,9 @@ LABEL_15:
     }
 
     v20 = MEMORY[0x1E696ABC0];
-    v29 = *MEMORY[0x1E696A578];
-    v30 = @"Text is missing";
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x1E696A578];
+    v29 = @"Text is missing";
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     *p_isa = [v20 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v21];
 
     goto LABEL_15;
@@ -76,17 +76,17 @@ LABEL_15:
     }
 
     v22 = MEMORY[0x1E696ABC0];
-    v27 = *MEMORY[0x1E696A578];
-    v28 = @"Invalid text length";
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x1E696A578];
+    v27 = @"Invalid text length";
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     *p_isa = [v22 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v23];
 
     goto LABEL_15;
   }
 
-  v26.receiver = self;
-  v26.super_class = CTStewieEmergencyTextMessage;
-  v15 = [(CTStewieEmergencyTextMessage *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = CTStewieEmergencyTextMessage;
+  v15 = [(CTStewieEmergencyTextMessage *)&v25 init];
   p_isa = &v15->super.isa;
   if (v15)
   {
@@ -105,7 +105,6 @@ LABEL_15:
 
 LABEL_16:
 
-  v24 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 

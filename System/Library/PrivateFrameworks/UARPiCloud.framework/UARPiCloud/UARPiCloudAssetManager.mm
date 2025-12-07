@@ -63,26 +63,25 @@
 
 - (void)cleanupAssetCache
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
-  v4 = InternalStorageDirectoryPath();
+  v4 = InternalStorageDirectoryPath(v3);
   v5 = UARPArrayOfExpiredFiles(v4, 0, 2592000.0);
 
   v6 = MEMORY[0x277CCACA8];
   v7 = MEMORY[0x277CCAC68];
-  v8 = InternalStorageDirectoryPath();
-  v9 = [v7 escapedPatternForString:v8];
-  v10 = *MEMORY[0x277D02638];
-  v11 = [v6 stringWithFormat:@"^%@\\S+\\/\\S+\\/(%@|%@)\\/.+$", v9, *MEMORY[0x277D02638], *MEMORY[0x277D02640]];
+  v9 = InternalStorageDirectoryPath(v8);
+  v10 = [v7 escapedPatternForString:v9];
+  v11 = [v6 stringWithFormat:@"^%@\\S+\\/\\S+\\/(%@|%@)\\/.+$", v10, *MEMORY[0x277D02638], *MEMORY[0x277D02640]];
 
-  v39 = v11;
-  v40 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v11 options:1 error:0];
-  v49 = 0u;
+  v40 = v11;
+  v41 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v11 options:1 error:0];
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
   v12 = v5;
-  v13 = [v12 countByEnumeratingWithState:&v49 objects:v56 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v50 objects:v57 count:16];
   obj = v12;
   if (!v13)
   {
@@ -93,17 +92,17 @@ LABEL_14:
 
   v14 = v13;
   v15 = 0;
-  v16 = *v50;
+  v16 = *v51;
   do
   {
     for (i = 0; i != v14; ++i)
     {
-      if (*v50 != v16)
+      if (*v51 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v49 + 1) + 8 * i);
+      v18 = *(*(&v50 + 1) + 8 * i);
       pathExtension = [v18 pathExtension];
       v20 = [@"urlasset" isEqualToString:pathExtension];
 
@@ -115,7 +114,7 @@ LABEL_14:
       else
       {
         v21 = 1;
-        if ([v40 rangeOfFirstMatchInString:v18 options:1 range:{0, objc_msgSend(v18, "length")}] == 0x7FFFFFFFFFFFFFFFLL)
+        if ([v41 rangeOfFirstMatchInString:v18 options:1 range:{0, objc_msgSend(v18, "length")}] == 0x7FFFFFFFFFFFFFFFLL)
         {
           continue;
         }
@@ -125,103 +124,101 @@ LABEL_14:
       v15 = v21;
     }
 
-    v14 = [obj countByEnumeratingWithState:&v49 objects:v56 count:16];
+    v14 = [obj countByEnumeratingWithState:&v50 objects:v57 count:16];
   }
 
   while (v14);
 
   if (v15)
   {
-    v22 = MEMORY[0x277CCACA8];
-    v23 = InternalStorageDirectoryPath();
-    v12 = [v22 stringWithFormat:@"%@%@", v23, @"icloudTokens.plist"];
+    v23 = MEMORY[0x277CCACA8];
+    v24 = InternalStorageDirectoryPath(v22);
+    v12 = [v23 stringWithFormat:@"%@%@", v24, @"icloudTokens.plist"];
 
     [v3 addObject:v12];
     goto LABEL_14;
   }
 
 LABEL_15:
-  v47 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v41 = v3;
-  v44 = [v41 countByEnumeratingWithState:&v45 objects:v55 count:16];
-  if (v44)
+  v47 = 0u;
+  v42 = v3;
+  v45 = [v42 countByEnumeratingWithState:&v46 objects:v56 count:16];
+  if (v45)
   {
-    v43 = *v46;
+    v44 = *v47;
     do
     {
-      for (j = 0; j != v44; ++j)
+      for (j = 0; j != v45; ++j)
       {
-        if (*v46 != v43)
+        if (*v47 != v44)
         {
-          objc_enumerationMutation(v41);
+          objc_enumerationMutation(v42);
         }
 
-        v25 = *(*(&v45 + 1) + 8 * j);
+        v26 = *(*(&v46 + 1) + 8 * j);
         log = self->_log;
         if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v54 = v25;
+          v55 = v26;
           _os_log_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEFAULT, "Deleting iCloud Cache file:%@", buf, 0xCu);
         }
 
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-        [defaultManager removeItemAtPath:v25 error:0];
+        [defaultManager removeItemAtPath:v26 error:0];
 
-        stringByDeletingLastPathComponent = [v25 stringByDeletingLastPathComponent];
-        v29 = InternalStorageDirectoryPath();
-        v30 = [stringByDeletingLastPathComponent isEqualToString:v29];
+        stringByDeletingLastPathComponent = [v26 stringByDeletingLastPathComponent];
+        v30 = InternalStorageDirectoryPath(stringByDeletingLastPathComponent);
+        v31 = [stringByDeletingLastPathComponent isEqualToString:v30];
 
-        if ((v30 & 1) == 0)
+        if ((v31 & 1) == 0)
         {
           while (1)
           {
             defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-            v32 = [defaultManager2 contentsOfDirectoryAtPath:stringByDeletingLastPathComponent error:0];
+            v33 = [defaultManager2 contentsOfDirectoryAtPath:stringByDeletingLastPathComponent error:0];
 
-            if ([v32 count])
+            if ([v33 count])
             {
               break;
             }
 
-            v33 = self->_log;
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+            v34 = self->_log;
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v54 = stringByDeletingLastPathComponent;
-              _os_log_impl(&dword_2701F5000, v33, OS_LOG_TYPE_DEFAULT, "Deleting iCloud Cache directory:%@", buf, 0xCu);
+              v55 = stringByDeletingLastPathComponent;
+              _os_log_impl(&dword_2701F5000, v34, OS_LOG_TYPE_DEFAULT, "Deleting iCloud Cache directory:%@", buf, 0xCu);
             }
 
             defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
             [defaultManager3 removeItemAtPath:stringByDeletingLastPathComponent error:0];
 
-            v28StringByDeletingLastPathComponent = [stringByDeletingLastPathComponent stringByDeletingLastPathComponent];
+            v29StringByDeletingLastPathComponent = [stringByDeletingLastPathComponent stringByDeletingLastPathComponent];
 
-            v36 = InternalStorageDirectoryPath();
-            v37 = [v28StringByDeletingLastPathComponent isEqualToString:v36];
+            v38 = InternalStorageDirectoryPath(v37);
+            v39 = [v29StringByDeletingLastPathComponent isEqualToString:v38];
 
-            stringByDeletingLastPathComponent = v28StringByDeletingLastPathComponent;
-            if (v37)
+            stringByDeletingLastPathComponent = v29StringByDeletingLastPathComponent;
+            if (v39)
             {
               goto LABEL_30;
             }
           }
         }
 
-        v28StringByDeletingLastPathComponent = stringByDeletingLastPathComponent;
+        v29StringByDeletingLastPathComponent = stringByDeletingLastPathComponent;
 LABEL_30:
       }
 
-      v44 = [v41 countByEnumeratingWithState:&v45 objects:v55 count:16];
+      v45 = [v42 countByEnumeratingWithState:&v46 objects:v56 count:16];
     }
 
-    while (v44);
+    while (v45);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)performRemoteUpdateCheckForAccessories:(id)accessories inContainer:(id)container
@@ -250,7 +247,7 @@ LABEL_30:
   return v11;
 }
 
-uint64_t __77__UARPiCloudAssetManager_performRemoteUpdateCheckForAccessories_inContainer___block_invoke(uint64_t a1)
+void *__77__UARPiCloudAssetManager_performRemoteUpdateCheckForAccessories_inContainer___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) handleRemoteQueryRequestForAccessories:*(a1 + 40) inContainer:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -280,7 +277,7 @@ uint64_t __77__UARPiCloudAssetManager_performRemoteUpdateCheckForAccessories_inC
   return v7;
 }
 
-uint64_t __55__UARPiCloudAssetManager_downloadFirmwareForAccessory___block_invoke(uint64_t a1)
+void *__55__UARPiCloudAssetManager_downloadFirmwareForAccessory___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) handleRemoteFirmwareDownloadRequestForAccessory:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -310,7 +307,7 @@ uint64_t __55__UARPiCloudAssetManager_downloadFirmwareForAccessory___block_invok
   return v7;
 }
 
-uint64_t __59__UARPiCloudAssetManager_downloadReleaseNotesForAccessory___block_invoke(uint64_t a1)
+void *__59__UARPiCloudAssetManager_downloadReleaseNotesForAccessory___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) handleReleaseNotesDownloadRequestForAccessory:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -339,7 +336,7 @@ uint64_t __59__UARPiCloudAssetManager_downloadReleaseNotesForAccessory___block_i
 
 - (int64_t)handleRemoteQueryRequestForAccessories:(id)accessories inContainer:(id)container
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   containerCopy = container;
   array = [MEMORY[0x277CBEB18] array];
@@ -366,7 +363,7 @@ uint64_t __59__UARPiCloudAssetManager_downloadReleaseNotesForAccessory___block_i
       self->_accessories = v12;
     }
 
-    v41 = containerCopy;
+    v40 = containerCopy;
     v14 = self->_log;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
@@ -378,27 +375,27 @@ uint64_t __59__UARPiCloudAssetManager_downloadReleaseNotesForAccessory___block_i
       _os_log_impl(&dword_2701F5000, v14, OS_LOG_TYPE_DEFAULT, "%s: Current _accessories %@", buf, 0x16u);
     }
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
-    v42 = accessoriesCopy;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v41 = accessoriesCopy;
     obj = accessoriesCopy;
-    v46 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
-    if (v46)
+    v45 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+    if (v45)
     {
-      v44 = *v49;
-      v45 = array;
+      v43 = *v48;
+      v44 = array;
       do
       {
-        for (i = 0; i != v46; ++i)
+        for (i = 0; i != v45; ++i)
         {
-          if (*v49 != v44)
+          if (*v48 != v43)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v48 + 1) + 8 * i);
+          v17 = *(*(&v47 + 1) + 8 * i);
           accessoryID = [v17 accessoryID];
           firmwareVersion = [accessoryID firmwareVersion];
 
@@ -435,10 +432,10 @@ LABEL_16:
 
           if (stagedFirmwareVersion)
           {
-            v47[0] = 0;
-            v47[1] = 0;
-            [MEMORY[0x277D02628] versionFromString:stagedFirmwareVersion version:v47];
-            if (uarpVersionCompare(buf, v47) == 1)
+            v46[0] = 0;
+            v46[1] = 0;
+            [MEMORY[0x277D02628] versionFromString:stagedFirmwareVersion version:v46];
+            if (uarpVersionCompare(buf, v46) == 1)
             {
 LABEL_21:
               v28 = stagedFirmwareVersion;
@@ -458,8 +455,8 @@ LABEL_22:
           assetID3 = [v17 assetID];
           -[UARPiCloudAccessory setSignatureValidationNeeded:](v34, "setSignatureValidationNeeded:", [assetID3 signatureValidationNeeded]);
 
-          array = v45;
-          [v45 addObject:v34];
+          array = v44;
+          [v44 addObject:v34];
           [(NSMutableDictionary *)self->_accessories setObject:v17 forKey:v34];
           v36 = self->_log;
           if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
@@ -469,22 +466,22 @@ LABEL_22:
             *&buf[4] = "[UARPiCloudAssetManager handleRemoteQueryRequestForAccessories:inContainer:]";
             *&buf[12] = 2112;
             *&buf[14] = v17;
-            v53 = 2112;
-            v54 = v37;
+            v52 = 2112;
+            v53 = v37;
             _os_log_impl(&dword_2701F5000, v36, OS_LOG_TYPE_DEFAULT, "%s: Added internalAccessory %@ to _accessories %@", buf, 0x20u);
           }
         }
 
-        v46 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
+        v45 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
       }
 
-      while (v46);
+      while (v45);
     }
 
     [self->_cloudManager performRemoteFetchForAccessories:array];
     v38 = 0;
-    containerCopy = v41;
-    accessoriesCopy = v42;
+    containerCopy = v40;
+    accessoriesCopy = v41;
   }
 
   else
@@ -492,7 +489,6 @@ LABEL_22:
     v38 = 2;
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
@@ -534,82 +530,76 @@ LABEL_22:
 
 void __60__UARPiCloudAssetManager_handleRemoteFetchCompletion_error___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_DEFAULT, "Updated internalAccessory.assetID state, notifying client for accessory %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_DEFAULT, "Updated internalAccessory.assetID state, notifying client for accessory %@", &v7, 0xCu);
   }
 
   v4 = *(*(a1 + 32) + 16);
   v5 = [*(a1 + 40) accessoryID];
   v6 = [*(a1 + 40) assetID];
   [v4 assetAvailabilityUpdateForAccessory:v5 assetID:v6 downstreamAppleModelNumber:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __60__UARPiCloudAssetManager_handleRemoteFetchCompletion_error___block_invoke_311(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_DEFAULT, "Updated internalAccessory.assetID state, notifying client for accessory %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_DEFAULT, "Updated internalAccessory.assetID state, notifying client for accessory %@", &v7, 0xCu);
   }
 
   v4 = *(*(a1 + 32) + 16);
   v5 = [*(a1 + 40) accessoryID];
   v6 = [*(a1 + 40) assetID];
   [v4 assetAvailabilityUpdateForAccessory:v5 assetID:v6 downstreamAppleModelNumber:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __60__UARPiCloudAssetManager_handleRemoteFetchCompletion_error___block_invoke_312(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_DEFAULT, "Updated internalAccessory.assetID state, notifying client for accessory %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_DEFAULT, "Updated internalAccessory.assetID state, notifying client for accessory %@", &v7, 0xCu);
   }
 
   v4 = *(*(a1 + 32) + 16);
   v5 = [*(a1 + 40) accessoryID];
   v6 = [*(a1 + 40) assetID];
   [v4 assetAvailabilityUpdateForAccessory:v5 assetID:v6 downstreamAppleModelNumber:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)moveFileAtURL:(id)l toTempURL:(id)rL
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   v8 = 0;
   if ([rLCopy checkResourceIsReachableAndReturnError:0])
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v17 = 0;
-    [defaultManager removeItemAtURL:rLCopy error:&v17];
-    v8 = v17;
+    v16 = 0;
+    [defaultManager removeItemAtURL:rLCopy error:&v16];
+    v8 = v16;
   }
 
   defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-  v16 = v8;
-  v11 = [defaultManager2 moveItemAtURL:lCopy toURL:rLCopy error:&v16];
-  v12 = v16;
+  v15 = v8;
+  v11 = [defaultManager2 moveItemAtURL:lCopy toURL:rLCopy error:&v15];
+  v12 = v15;
 
   if ((v11 & 1) == 0)
   {
@@ -617,22 +607,21 @@ void __60__UARPiCloudAssetManager_handleRemoteFetchCompletion_error___block_invo
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v19 = lCopy;
-      v20 = 2112;
-      v21 = rLCopy;
-      v22 = 2112;
-      v23 = v12;
+      v18 = lCopy;
+      v19 = 2112;
+      v20 = rLCopy;
+      v21 = 2112;
+      v22 = v12;
       _os_log_error_impl(&dword_2701F5000, log, OS_LOG_TYPE_ERROR, "Failed to moved file from %@ to temporary location %@ for validation: %@", buf, 0x20u);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (int64_t)handleRemoteFirmwareDownloadRequestForAccessory:(id)accessory
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
@@ -642,9 +631,9 @@ void __60__UARPiCloudAssetManager_handleRemoteFetchCompletion_error___block_invo
     remoteURL = [assetID remoteURL];
     accessoryID = [accessoryCopy accessoryID];
     *buf = 138412546;
-    v22 = remoteURL;
-    v23 = 2112;
-    v24 = accessoryID;
+    v21 = remoteURL;
+    v22 = 2112;
+    v23 = accessoryID;
     _os_log_impl(&dword_2701F5000, v6, OS_LOG_TYPE_INFO, "Downloading asset from remote url %@ for accessory %@", buf, 0x16u);
   }
 
@@ -652,19 +641,18 @@ void __60__UARPiCloudAssetManager_handleRemoteFetchCompletion_error___block_invo
   remoteURL2 = [assetID2 remoteURL];
 
   mEMORY[0x277CCAD30] = [MEMORY[0x277CCAD30] sharedSession];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __74__UARPiCloudAssetManager_handleRemoteFirmwareDownloadRequestForAccessory___block_invoke;
-  v18[3] = &unk_279DFD038;
-  v18[4] = self;
-  v19 = accessoryCopy;
-  v20 = remoteURL2;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __74__UARPiCloudAssetManager_handleRemoteFirmwareDownloadRequestForAccessory___block_invoke;
+  v17[3] = &unk_279DFD038;
+  v17[4] = self;
+  v18 = accessoryCopy;
+  v19 = remoteURL2;
   v13 = remoteURL2;
   v14 = accessoryCopy;
-  v15 = [mEMORY[0x277CCAD30] downloadTaskWithURL:v13 completionHandler:v18];
+  v15 = [mEMORY[0x277CCAD30] downloadTaskWithURL:v13 completionHandler:v17];
 
   [v15 resume];
-  v16 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -675,82 +663,81 @@ void __74__UARPiCloudAssetManager_handleRemoteFirmwareDownloadRequestForAccessor
   v8 = a3;
   v9 = a4;
   v10 = *(a1[4] + 1);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+  if (v11)
   {
-    v11 = a1[5];
-    v12 = v10;
-    v13 = [v11 assetID];
-    v14 = [v13 remoteURL];
-    v15 = [a1[5] accessoryID];
+    v12 = a1[5];
+    v13 = v10;
+    v14 = [v12 assetID];
+    v15 = [v14 remoteURL];
+    v16 = [a1[5] accessoryID];
     *buf = 138413314;
     v38 = v8;
     v39 = 2112;
     v40 = v9;
     v41 = 2112;
-    v42 = v14;
+    v42 = v15;
     v43 = 2112;
-    v44 = v15;
+    v44 = v16;
     v45 = 2112;
     v46 = v7;
-    _os_log_impl(&dword_2701F5000, v12, OS_LOG_TYPE_INFO, "Download result: %@ error:%@ from remote url %@ for accessory %@ %@", buf, 0x34u);
+    _os_log_impl(&dword_2701F5000, v13, OS_LOG_TYPE_INFO, "Download result: %@ error:%@ from remote url %@ for accessory %@ %@", buf, 0x34u);
   }
 
   if (!v7 || v9)
   {
     [a1[4] setFirmwareDownloadFailureStatusForAccessory:a1[5]];
-    v26 = [a1[4] delegateQueue];
+    v27 = [a1[4] delegateQueue];
     v35[0] = MEMORY[0x277D85DD0];
     v35[1] = 3221225472;
     v35[2] = __74__UARPiCloudAssetManager_handleRemoteFirmwareDownloadRequestForAccessory___block_invoke_314;
     v35[3] = &unk_279DFD010;
-    v27 = a1[5];
+    v28 = a1[5];
     v35[4] = a1[4];
-    v36 = v27;
-    dispatch_async(v26, v35);
+    v36 = v28;
+    dispatch_async(v27, v35);
   }
 
   else
   {
-    v16 = MEMORY[0x277CCACA8];
-    v17 = InternalStorageDirectoryPath();
-    v18 = [a1[6] lastPathComponent];
-    v19 = [v16 stringWithFormat:@"%@/%@.%@", v17, v18, @"urlasset"];
+    v17 = MEMORY[0x277CCACA8];
+    v18 = InternalStorageDirectoryPath(v11);
+    v19 = [a1[6] lastPathComponent];
+    v20 = [v17 stringWithFormat:@"%@/%@.%@", v18, v19, @"urlasset"];
 
-    v20 = [MEMORY[0x277CBEBC0] fileURLWithFileSystemRepresentation:objc_msgSend(v19 isDirectory:"UTF8String") relativeToURL:{0, 0}];
-    v21 = [a1[4] moveFileAtURL:v7 toTempURL:v20];
-    v22 = a1[4];
-    if (v21)
+    v21 = [MEMORY[0x277CBEBC0] fileURLWithFileSystemRepresentation:objc_msgSend(v20 isDirectory:"UTF8String") relativeToURL:{0, 0}];
+    v22 = [a1[4] moveFileAtURL:v7 toTempURL:v21];
+    v23 = a1[4];
+    if (v22)
     {
-      v23 = v22[5];
+      v24 = v23[5];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __74__UARPiCloudAssetManager_handleRemoteFirmwareDownloadRequestForAccessory___block_invoke_3;
       block[3] = &unk_279DFCFE8;
-      block[4] = v22;
-      v24 = &v31;
-      v31 = v20;
+      block[4] = v23;
+      v25 = &v31;
+      v31 = v21;
       v32 = a1[5];
-      dispatch_sync(v23, block);
-      v25 = v32;
+      dispatch_sync(v24, block);
+      v26 = v32;
     }
 
     else
     {
-      [v22 setFirmwareDownloadFailureStatusForAccessory:a1[5]];
-      v25 = [a1[4] delegateQueue];
+      [v23 setFirmwareDownloadFailureStatusForAccessory:a1[5]];
+      v26 = [a1[4] delegateQueue];
       v33[0] = MEMORY[0x277D85DD0];
       v33[1] = 3221225472;
       v33[2] = __74__UARPiCloudAssetManager_handleRemoteFirmwareDownloadRequestForAccessory___block_invoke_2;
       v33[3] = &unk_279DFD010;
-      v28 = a1[5];
+      v29 = a1[5];
       v33[4] = a1[4];
-      v24 = &v34;
-      v34 = v28;
-      dispatch_async(v25, v33);
+      v25 = &v34;
+      v34 = v29;
+      dispatch_async(v26, v33);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __74__UARPiCloudAssetManager_handleRemoteFirmwareDownloadRequestForAccessory___block_invoke_314(uint64_t a1)
@@ -785,7 +772,7 @@ void __74__UARPiCloudAssetManager_handleRemoteFirmwareDownloadRequestForAccessor
 
 - (void)handleFirmwareDownloadResponseFromLocation:(id)location forAccessory:(id)accessory
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   accessoryCopy = accessory;
   assetID = [accessoryCopy assetID];
@@ -820,11 +807,11 @@ void __74__UARPiCloudAssetManager_handleRemoteFirmwareDownloadRequestForAccessor
         v21 = log;
         record4 = [accessoryCopy record];
         *buf = 136315650;
-        v46 = "[UARPiCloudAssetManager handleFirmwareDownloadResponseFromLocation:forAccessory:]";
-        v47 = 2112;
-        v48 = accessoryCopy;
-        v49 = 2112;
-        v50 = record4;
+        v45 = "[UARPiCloudAssetManager handleFirmwareDownloadResponseFromLocation:forAccessory:]";
+        v46 = 2112;
+        v47 = accessoryCopy;
+        v48 = 2112;
+        v49 = record4;
         _os_log_impl(&dword_2701F5000, v21, OS_LOG_TYPE_DEFAULT, "%s: UARPAccessoryInternal %@, record %@", buf, 0x20u);
       }
 
@@ -832,61 +819,36 @@ void __74__UARPiCloudAssetManager_handleRemoteFirmwareDownloadRequestForAccessor
       record5 = [accessoryCopy record];
       firmwareBinaryHash = [record5 firmwareBinaryHash];
 
-      v44 = 0;
-      v26 = generateHashForDataAtLocation(locationCopy, v23, &v44);
-      v27 = v44;
+      v43 = 0;
+      v26 = generateHashForDataAtLocation(locationCopy, v23, &v43);
+      v27 = v43;
       v28 = self->_log;
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543874;
-        v46 = v26;
-        v47 = 2114;
-        v48 = firmwareBinaryHash;
-        v49 = 2114;
-        v50 = v27;
+        v45 = v26;
+        v46 = 2114;
+        v47 = firmwareBinaryHash;
+        v48 = 2114;
+        v49 = v27;
         _os_log_impl(&dword_2701F5000, v28, OS_LOG_TYPE_DEFAULT, "calculatedHash: %{public}@, expectedHash:%{public}@, error:%{public}@", buf, 0x20u);
       }
 
       assetID2 = [accessoryCopy assetID];
       [assetID2 setFirmwareHash:v26];
 
-      if ([(UARPiCloudAssetManager *)self isFirmwareHash:firmwareBinaryHash equalToHash:v26])
+      if (-[UARPiCloudAssetManager isFirmwareHash:equalToHash:](self, "isFirmwareHash:equalToHash:", firmwareBinaryHash, v26) || ([accessoryCopy record], v31 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v32 = objc_opt_isKindOfClass(), v31, (v32 & 1) != 0) && (v42 = v27, generateBase64HashForDataAtLocation(locationCopy, v23, &v42), v33 = objc_claimAutoreleasedReturnValue(), v34 = v42, v27, v26, objc_msgSend(accessoryCopy, "assetID"), v35 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v35, "setFirmwareHash:", v33), v35, v26 = v33, v27 = v34, -[UARPiCloudAssetManager isFirmwareHash:equalToHash:](self, "isFirmwareHash:equalToHash:", firmwareBinaryHash, v33)))
       {
-        goto LABEL_15;
-      }
-
-      record6 = [accessoryCopy record];
-      objc_opt_class();
-      v32 = objc_opt_isKindOfClass();
-
-      if ((v32 & 1) == 0)
-      {
-        goto LABEL_18;
-      }
-
-      v43 = v27;
-      v33 = generateBase64HashForDataAtLocation(locationCopy, v23, &v43);
-      v34 = v43;
-
-      assetID3 = [accessoryCopy assetID];
-      [assetID3 setFirmwareHash:v33];
-
-      v26 = v33;
-      v27 = v34;
-      if ([(UARPiCloudAssetManager *)self isFirmwareHash:firmwareBinaryHash equalToHash:v33])
-      {
-LABEL_15:
-        assetID4 = [accessoryCopy assetID];
-        [assetID4 setValidationStatus:1];
+        assetID3 = [accessoryCopy assetID];
+        [assetID3 setValidationStatus:1];
 
         v18 = [(UARPiCloudAssetManager *)self moveToUARPCacheFromRemoteURL:locationCopy assetType:0 forAcessory:accessoryCopy];
       }
 
       else
       {
-LABEL_18:
-        assetID5 = [accessoryCopy assetID];
-        [assetID5 setValidationStatus:2];
+        assetID4 = [accessoryCopy assetID];
+        [assetID4 setValidationStatus:2];
 
         v18 = 0;
       }
@@ -911,8 +873,8 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  assetID6 = [accessoryCopy assetID];
-  [assetID6 setValidationStatus:0];
+  assetID5 = [accessoryCopy assetID];
+  [assetID5 setValidationStatus:0];
 
   v18 = [(UARPiCloudAssetManager *)self moveToUARPCacheFromRemoteURL:locationCopy assetType:0 forAcessory:accessoryCopy];
   if (!v18)
@@ -921,49 +883,45 @@ LABEL_21:
   }
 
 LABEL_20:
-  assetID7 = [accessoryCopy assetID];
-  [assetID7 setLocalURL:v18];
+  assetID6 = [accessoryCopy assetID];
+  [assetID6 setLocalURL:v18];
 
   [(UARPiCloudAssetManager *)self setFirmwareDownloadSuccessStatusForAccessory:accessoryCopy];
 LABEL_22:
   delegateQueue = [(UARPiCloudAssetManager *)self delegateQueue];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __82__UARPiCloudAssetManager_handleFirmwareDownloadResponseFromLocation_forAccessory___block_invoke;
-  v41[3] = &unk_279DFD010;
-  v41[4] = self;
-  v42 = accessoryCopy;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __82__UARPiCloudAssetManager_handleFirmwareDownloadResponseFromLocation_forAccessory___block_invoke;
+  v40[3] = &unk_279DFD010;
+  v40[4] = self;
+  v41 = accessoryCopy;
   v39 = accessoryCopy;
-  dispatch_async(delegateQueue, v41);
-
-  v40 = *MEMORY[0x277D85DE8];
+  dispatch_async(delegateQueue, v40);
 }
 
 void __82__UARPiCloudAssetManager_handleFirmwareDownloadResponseFromLocation_forAccessory___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 8);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v8 = 136315394;
-    v9 = "[UARPiCloudAssetManager handleFirmwareDownloadResponseFromLocation:forAccessory:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_DEFAULT, "%s: Updated assetID state %@, notifying client", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[UARPiCloudAssetManager handleFirmwareDownloadResponseFromLocation:forAccessory:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_2701F5000, v2, OS_LOG_TYPE_DEFAULT, "%s: Updated assetID state %@, notifying client", &v7, 0x16u);
   }
 
   v4 = *(*(a1 + 32) + 16);
   v5 = [*(a1 + 40) accessoryID];
   v6 = [*(a1 + 40) assetID];
   [v4 assetAvailabilityUpdateForAccessory:v5 assetID:v6 downstreamAppleModelNumber:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFirmwareDownloadFailureStatusForAccessory:(id)accessory
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   assetID = [accessoryCopy assetID];
   [assetID setLocalURL:0];
@@ -980,19 +938,17 @@ void __82__UARPiCloudAssetManager_handleFirmwareDownloadResponseFromLocation_for
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "[UARPiCloudAssetManager setFirmwareDownloadFailureStatusForAccessory:]";
-    v13 = 2112;
-    v14 = accessoryCopy;
-    _os_log_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEFAULT, "%s: Set Download Failure Status for accessory %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[UARPiCloudAssetManager setFirmwareDownloadFailureStatusForAccessory:]";
+    v12 = 2112;
+    v13 = accessoryCopy;
+    _os_log_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEFAULT, "%s: Set Download Failure Status for accessory %@", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFirmwareDownloadSuccessStatusForAccessory:(id)accessory
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   assetID = [accessoryCopy assetID];
   [assetID setDownloadStatus:1];
@@ -1006,19 +962,17 @@ void __82__UARPiCloudAssetManager_handleFirmwareDownloadResponseFromLocation_for
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[UARPiCloudAssetManager setFirmwareDownloadSuccessStatusForAccessory:]";
-    v12 = 2112;
-    v13 = accessoryCopy;
-    _os_log_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEFAULT, "%s: Set Download Success Status for accessory %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[UARPiCloudAssetManager setFirmwareDownloadSuccessStatusForAccessory:]";
+    v11 = 2112;
+    v12 = accessoryCopy;
+    _os_log_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEFAULT, "%s: Set Download Success Status for accessory %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)handleReleaseNotesDownloadRequestForAccessory:(id)accessory
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
@@ -1028,9 +982,9 @@ void __82__UARPiCloudAssetManager_handleFirmwareDownloadResponseFromLocation_for
     releaseNotesRemoteURL = [assetID releaseNotesRemoteURL];
     accessoryID = [accessoryCopy accessoryID];
     *buf = 138412546;
-    v22 = releaseNotesRemoteURL;
-    v23 = 2112;
-    v24 = accessoryID;
+    v21 = releaseNotesRemoteURL;
+    v22 = 2112;
+    v23 = accessoryID;
     _os_log_impl(&dword_2701F5000, v6, OS_LOG_TYPE_INFO, "Downloading Release Notes from remote url %@ for accessory %@", buf, 0x16u);
   }
 
@@ -1038,19 +992,18 @@ void __82__UARPiCloudAssetManager_handleFirmwareDownloadResponseFromLocation_for
   releaseNotesRemoteURL2 = [assetID2 releaseNotesRemoteURL];
 
   mEMORY[0x277CCAD30] = [MEMORY[0x277CCAD30] sharedSession];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __72__UARPiCloudAssetManager_handleReleaseNotesDownloadRequestForAccessory___block_invoke;
-  v18[3] = &unk_279DFD038;
-  v18[4] = self;
-  v19 = accessoryCopy;
-  v20 = releaseNotesRemoteURL2;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __72__UARPiCloudAssetManager_handleReleaseNotesDownloadRequestForAccessory___block_invoke;
+  v17[3] = &unk_279DFD038;
+  v17[4] = self;
+  v18 = accessoryCopy;
+  v19 = releaseNotesRemoteURL2;
   v13 = releaseNotesRemoteURL2;
   v14 = accessoryCopy;
-  v15 = [mEMORY[0x277CCAD30] downloadTaskWithURL:v13 completionHandler:v18];
+  v15 = [mEMORY[0x277CCAD30] downloadTaskWithURL:v13 completionHandler:v17];
 
   [v15 resume];
-  v16 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1061,80 +1014,79 @@ void __72__UARPiCloudAssetManager_handleReleaseNotesDownloadRequestForAccessory_
   v8 = a3;
   v9 = a4;
   v10 = *(a1[4] + 1);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+  if (v11)
   {
-    v11 = a1[5];
-    v12 = v10;
-    v13 = [v11 assetID];
-    v14 = [v13 remoteURL];
-    v15 = [a1[5] accessoryID];
+    v12 = a1[5];
+    v13 = v10;
+    v14 = [v12 assetID];
+    v15 = [v14 remoteURL];
+    v16 = [a1[5] accessoryID];
     *buf = 138413058;
     v38 = v8;
     v39 = 2112;
     v40 = v9;
     v41 = 2112;
-    v42 = v14;
+    v42 = v15;
     v43 = 2112;
-    v44 = v15;
-    _os_log_impl(&dword_2701F5000, v12, OS_LOG_TYPE_INFO, "Download result: %@ error:%@ from remote url %@ for accessory %@", buf, 0x2Au);
+    v44 = v16;
+    _os_log_impl(&dword_2701F5000, v13, OS_LOG_TYPE_INFO, "Download result: %@ error:%@ from remote url %@ for accessory %@", buf, 0x2Au);
   }
 
   if (!v7 || v9)
   {
     [a1[4] setReleaseNotesDownloadFailureStatusForAccessory:a1[5]];
-    v26 = [a1[4] delegateQueue];
+    v27 = [a1[4] delegateQueue];
     v35[0] = MEMORY[0x277D85DD0];
     v35[1] = 3221225472;
     v35[2] = __72__UARPiCloudAssetManager_handleReleaseNotesDownloadRequestForAccessory___block_invoke_322;
     v35[3] = &unk_279DFD010;
-    v27 = a1[5];
+    v28 = a1[5];
     v35[4] = a1[4];
-    v36 = v27;
-    dispatch_async(v26, v35);
+    v36 = v28;
+    dispatch_async(v27, v35);
   }
 
   else
   {
-    v16 = MEMORY[0x277CCACA8];
-    v17 = InternalStorageDirectoryPath();
-    v18 = [a1[6] lastPathComponent];
-    v19 = [v16 stringWithFormat:@"%@/%@.%@", v17, v18, @"urlasset"];
+    v17 = MEMORY[0x277CCACA8];
+    v18 = InternalStorageDirectoryPath(v11);
+    v19 = [a1[6] lastPathComponent];
+    v20 = [v17 stringWithFormat:@"%@/%@.%@", v18, v19, @"urlasset"];
 
-    v20 = [MEMORY[0x277CBEBC0] fileURLWithFileSystemRepresentation:objc_msgSend(v19 isDirectory:"UTF8String") relativeToURL:{0, 0}];
-    v21 = [a1[4] moveFileAtURL:v7 toTempURL:v20];
-    v22 = a1[4];
-    if (v21)
+    v21 = [MEMORY[0x277CBEBC0] fileURLWithFileSystemRepresentation:objc_msgSend(v20 isDirectory:"UTF8String") relativeToURL:{0, 0}];
+    v22 = [a1[4] moveFileAtURL:v7 toTempURL:v21];
+    v23 = a1[4];
+    if (v22)
     {
-      v23 = v22[5];
+      v24 = v23[5];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __72__UARPiCloudAssetManager_handleReleaseNotesDownloadRequestForAccessory___block_invoke_3;
       block[3] = &unk_279DFCFE8;
-      block[4] = v22;
-      v24 = &v31;
-      v31 = v20;
+      block[4] = v23;
+      v25 = &v31;
+      v31 = v21;
       v32 = a1[5];
-      dispatch_sync(v23, block);
-      v25 = v32;
+      dispatch_sync(v24, block);
+      v26 = v32;
     }
 
     else
     {
-      [v22 setReleaseNotesDownloadFailureStatusForAccessory:a1[5]];
-      v25 = [a1[4] delegateQueue];
+      [v23 setReleaseNotesDownloadFailureStatusForAccessory:a1[5]];
+      v26 = [a1[4] delegateQueue];
       v33[0] = MEMORY[0x277D85DD0];
       v33[1] = 3221225472;
       v33[2] = __72__UARPiCloudAssetManager_handleReleaseNotesDownloadRequestForAccessory___block_invoke_2;
       v33[3] = &unk_279DFD010;
-      v28 = a1[5];
+      v29 = a1[5];
       v33[4] = a1[4];
-      v24 = &v34;
-      v34 = v28;
-      dispatch_async(v25, v33);
+      v25 = &v34;
+      v34 = v29;
+      dispatch_async(v26, v33);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __72__UARPiCloudAssetManager_handleReleaseNotesDownloadRequestForAccessory___block_invoke_322(uint64_t a1)
@@ -1184,7 +1136,7 @@ void __72__UARPiCloudAssetManager_handleReleaseNotesDownloadRequestForAccessory_
 
 - (void)handleReleaseNotesDownloadResponseFromLocation:(id)location forAccessory:(id)accessory
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   accessoryCopy = accessory;
   assetID = [accessoryCopy assetID];
@@ -1217,18 +1169,18 @@ void __72__UARPiCloudAssetManager_handleReleaseNotesDownloadRequestForAccessory_
       record4 = [accessoryCopy record];
       releaseNotesHash = [record4 releaseNotesHash];
 
-      v34 = 0;
-      v23 = generateHashForDataAtLocation(locationCopy, v20, &v34);
-      v24 = v34;
+      v33 = 0;
+      v23 = generateHashForDataAtLocation(locationCopy, v20, &v33);
+      v24 = v33;
       log = self->_log;
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543874;
-        v36 = v23;
-        v37 = 2114;
-        v38 = releaseNotesHash;
-        v39 = 2114;
-        v40 = v24;
+        v35 = v23;
+        v36 = 2114;
+        v37 = releaseNotesHash;
+        v38 = 2114;
+        v39 = v24;
         _os_log_impl(&dword_2701F5000, log, OS_LOG_TYPE_DEFAULT, "calculatedHash: %{public}@, expectedHash:%{public}@, error:%{public}@", buf, 0x20u);
       }
 
@@ -1289,11 +1241,9 @@ LABEL_19:
   block[2] = __86__UARPiCloudAssetManager_handleReleaseNotesDownloadResponseFromLocation_forAccessory___block_invoke;
   block[3] = &unk_279DFD010;
   block[4] = self;
-  v33 = accessoryCopy;
+  v32 = accessoryCopy;
   v30 = accessoryCopy;
   dispatch_async(delegateQueue, block);
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __86__UARPiCloudAssetManager_handleReleaseNotesDownloadResponseFromLocation_forAccessory___block_invoke(uint64_t a1)
@@ -1318,90 +1268,90 @@ void __86__UARPiCloudAssetManager_handleReleaseNotesDownloadResponseFromLocation
       goto LABEL_4;
     }
 
-    v16 = MEMORY[0x277CCAB68];
-    v17 = InternalStorageDirectoryPath();
+    v17 = MEMORY[0x277CCAB68];
+    v18 = InternalStorageDirectoryPath(v14);
     identifier = [accessoryCopy identifier];
-    v19 = [v16 stringWithFormat:@"%@/%@", v17, identifier];
+    v20 = [v17 stringWithFormat:@"%@/%@", v18, identifier];
 
-    v20 = [MEMORY[0x277CBEBC0] fileURLWithPath:v19];
+    v21 = [MEMORY[0x277CBEBC0] fileURLWithPath:v20];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v22 = [defaultManager contentsOfDirectoryAtURL:v20 includingPropertiesForKeys:0 options:4 error:0];
-    v23 = [v22 mutableCopy];
+    v23 = [defaultManager contentsOfDirectoryAtURL:v21 includingPropertiesForKeys:0 options:4 error:0];
+    v24 = [v23 mutableCopy];
 
-    if ([v23 count])
+    if ([v24 count])
     {
-      if ([v23 count] == 1)
+      if ([v24 count] == 1)
       {
         goto LABEL_11;
       }
 
-      if ([v23 count] >= 2)
+      if ([v24 count] >= 2)
       {
-        v54[0] = MEMORY[0x277D85DD0];
-        v54[1] = 3221225472;
-        v54[2] = __105__UARPiCloudAssetManager_checkLocalUARPCacheForAccessory_versionAvailable_firmwarePath_releaseNotesPath___block_invoke;
-        v54[3] = &unk_279DFD060;
-        v54[4] = self;
-        [v23 sortUsingComparator:v54];
+        v55[0] = MEMORY[0x277D85DD0];
+        v55[1] = 3221225472;
+        v55[2] = __105__UARPiCloudAssetManager_checkLocalUARPCacheForAccessory_versionAvailable_firmwarePath_releaseNotesPath___block_invoke;
+        v55[3] = &unk_279DFD060;
+        v55[4] = self;
+        [v24 sortUsingComparator:v55];
 LABEL_11:
-        firstObject = [v23 firstObject];
-        v25 = firstObject;
+        firstObject = [v24 firstObject];
+        v26 = firstObject;
         if (firstObject)
         {
-          v52 = v19;
-          v26 = [firstObject URLByAppendingPathComponent:*MEMORY[0x277D02638]];
+          v53 = v20;
+          v27 = [firstObject URLByAppendingPathComponent:*MEMORY[0x277D02638]];
           defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-          v53 = v26;
-          v28 = [defaultManager2 contentsOfDirectoryAtURL:v26 includingPropertiesForKeys:0 options:4 error:0];
+          v54 = v27;
+          v29 = [defaultManager2 contentsOfDirectoryAtURL:v27 includingPropertiesForKeys:0 options:4 error:0];
 
-          v29 = v28;
-          if ([v28 count] == 1)
+          v30 = v29;
+          if ([v29 count] == 1)
           {
-            v48 = v20;
-            v49 = v28;
-            firstObject2 = [v28 firstObject];
+            v49 = v21;
+            v50 = v29;
+            firstObject2 = [v29 firstObject];
             path = [firstObject2 path];
-            v31 = getSuperBinaryVersionForAsset(path);
+            v32 = getSuperBinaryVersionForAsset(path);
 
-            lastPathComponent = [v25 lastPathComponent];
-            v51 = v31;
-            v33 = [v31 isEqualToString:lastPathComponent];
+            lastPathComponent = [v26 lastPathComponent];
+            v52 = v32;
+            v34 = [v32 isEqualToString:lastPathComponent];
 
-            v19 = v52;
-            v47 = v33;
-            if (v33)
+            v20 = v53;
+            v48 = v34;
+            if (v34)
             {
               accessoryID = [accessoryCopy accessoryID];
               firmwareVersion = [accessoryID firmwareVersion];
-              v45 = uarpVersionCompareStrings();
+              v46 = uarpVersionCompareStrings();
 
-              v15 = v45 == 1;
-              if (v45 == 1)
+              v16 = v46 == 1;
+              if (v46 == 1)
               {
-                *available = [v51 copy];
+                *available = [v52 copy];
                 *path = [firstObject2 copy];
               }
 
-              v36 = [v25 URLByAppendingPathComponent:*MEMORY[0x277D02640]];
+              v37 = [v26 URLByAppendingPathComponent:*MEMORY[0x277D02640]];
               defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-              v46 = v36;
-              v38 = [defaultManager3 contentsOfDirectoryAtURL:v36 includingPropertiesForKeys:0 options:4 error:0];
+              v47 = v37;
+              v39 = [defaultManager3 contentsOfDirectoryAtURL:v37 includingPropertiesForKeys:0 options:4 error:0];
 
-              if ([v38 count] == 1)
+              if ([v39 count] == 1)
               {
-                firstObject3 = [v38 firstObject];
+                firstObject3 = [v39 firstObject];
                 *notesPath = [firstObject3 copy];
 
-                v40 = v51;
-                v41 = v46;
+                v41 = v52;
+                v42 = v47;
               }
 
               else
               {
-                v43 = os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR);
-                v40 = v51;
-                v41 = v46;
-                if (v43)
+                v44 = os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR);
+                v41 = v52;
+                v42 = v47;
+                if (v44)
                 {
                   [UARPiCloudAssetManager checkLocalUARPCacheForAccessory:versionAvailable:firmwarePath:releaseNotesPath:];
                 }
@@ -1410,31 +1360,31 @@ LABEL_11:
 
             else
             {
-              v40 = v51;
+              v41 = v52;
               if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
               {
-                v44 = v53;
+                v45 = v54;
                 [UARPiCloudAssetManager checkLocalUARPCacheForAccessory:versionAvailable:firmwarePath:releaseNotesPath:];
-                v15 = 0;
+                v16 = 0;
                 goto LABEL_31;
               }
 
-              v15 = 0;
+              v16 = 0;
             }
 
-            v44 = v53;
+            v45 = v54;
 LABEL_31:
 
-            if (!v47)
+            if (!v48)
             {
-              v15 = 0;
+              v16 = 0;
             }
 
-            v20 = v48;
+            v21 = v49;
             goto LABEL_23;
           }
 
-          v19 = v52;
+          v20 = v53;
           if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
           {
             [UARPiCloudAssetManager checkLocalUARPCacheForAccessory:versionAvailable:firmwarePath:releaseNotesPath:];
@@ -1442,14 +1392,14 @@ LABEL_31:
         }
 
 LABEL_22:
-        v15 = 0;
+        v16 = 0;
 LABEL_23:
 
         goto LABEL_24;
       }
     }
 
-    v25 = 0;
+    v26 = 0;
     goto LABEL_22;
   }
 
@@ -1460,10 +1410,10 @@ LABEL_4:
     [UARPiCloudAssetManager checkLocalUARPCacheForAccessory:accessoryCopy versionAvailable:? firmwarePath:? releaseNotesPath:?];
   }
 
-  v15 = 0;
+  v16 = 0;
 LABEL_24:
 
-  return v15;
+  return v16;
 }
 
 uint64_t __105__UARPiCloudAssetManager_checkLocalUARPCacheForAccessory_versionAvailable_firmwarePath_releaseNotesPath___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1493,32 +1443,32 @@ uint64_t __105__UARPiCloudAssetManager_checkLocalUARPCacheForAccessory_versionAv
 
 - (id)pathToSuperBinaryInAccessoryVersionDirectory:(id)directory uarpVersion:(id *)version
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v7 = [directoryCopy URLByAppendingPathComponent:*MEMORY[0x277D02638]];
   v8 = [defaultManager contentsOfDirectoryAtURL:v7 includingPropertiesForKeys:0 options:4 error:0];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         path = [v14 path];
         v16 = getSuperBinaryVersionForAsset(path);
 
@@ -1531,7 +1481,7 @@ uint64_t __105__UARPiCloudAssetManager_checkLocalUARPCacheForAccessory_versionAv
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v11)
       {
         continue;
@@ -1544,8 +1494,6 @@ uint64_t __105__UARPiCloudAssetManager_checkLocalUARPCacheForAccessory_versionAv
   v17 = 0;
 LABEL_11:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
@@ -1554,6 +1502,7 @@ LABEL_11:
   v53 = *MEMORY[0x277D85DE8];
   lCopy = l;
   acessoryCopy = acessory;
+  v10 = acessoryCopy;
   if (type)
   {
     if (type != 1)
@@ -1566,70 +1515,70 @@ LABEL_11:
       goto LABEL_32;
     }
 
-    v10 = MEMORY[0x277D02640];
+    v11 = MEMORY[0x277D02640];
   }
 
   else
   {
-    v10 = MEMORY[0x277D02638];
+    v11 = MEMORY[0x277D02638];
   }
 
-  v11 = MEMORY[0x277CCAB68];
-  v12 = InternalStorageDirectoryPath();
-  identifier = [acessoryCopy identifier];
-  assetID = [acessoryCopy assetID];
+  v12 = MEMORY[0x277CCAB68];
+  v13 = InternalStorageDirectoryPath(acessoryCopy);
+  identifier = [v10 identifier];
+  assetID = [v10 assetID];
   assetVersion = [assetID assetVersion];
-  v16 = [v11 stringWithFormat:@"%@/%@/%@/%@", v12, identifier, assetVersion, *v10];
+  v17 = [v12 stringWithFormat:@"%@/%@/%@/%@", v13, identifier, assetVersion, *v11];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  LOBYTE(identifier) = [defaultManager fileExistsAtPath:v16];
+  LOBYTE(identifier) = [defaultManager fileExistsAtPath:v17];
 
   if (identifier)
   {
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
     v46 = 0;
-    v20 = [defaultManager2 createDirectoryAtPath:v16 withIntermediateDirectories:1 attributes:0 error:&v46];
-    v21 = v46;
+    v21 = [defaultManager2 createDirectoryAtPath:v17 withIntermediateDirectories:1 attributes:0 error:&v46];
+    v22 = v46;
 
     log = self->_log;
-    v23 = os_log_type_enabled(log, OS_LOG_TYPE_INFO);
-    if ((v20 & 1) == 0)
+    v24 = os_log_type_enabled(log, OS_LOG_TYPE_INFO);
+    if ((v21 & 1) == 0)
     {
-      if (v23)
+      if (v24)
       {
         *buf = 138412290;
-        v52 = v21;
+        v52 = v22;
         _os_log_impl(&dword_2701F5000, log, OS_LOG_TYPE_INFO, "Failed to create UARP Firmware directory error: %@", buf, 0xCu);
       }
 
 LABEL_31:
 
 LABEL_32:
-      v38 = 0;
+      v39 = 0;
       goto LABEL_33;
     }
 
-    if (v23)
+    if (v24)
     {
       *buf = 138412290;
-      v52 = v16;
+      v52 = v17;
       _os_log_impl(&dword_2701F5000, log, OS_LOG_TYPE_INFO, "UARP Firmware directory created %@", buf, 0xCu);
     }
 
     v49 = *MEMORY[0x277CCA180];
     v50 = &unk_288030CB8;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
     defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-    v45 = v21;
-    v26 = [defaultManager3 setAttributes:v24 ofItemAtPath:v16 error:&v45];
-    v18 = v45;
+    v45 = v22;
+    v27 = [defaultManager3 setAttributes:v25 ofItemAtPath:v17 error:&v45];
+    v19 = v45;
 
-    if ((v26 & 1) == 0 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+    if ((v27 & 1) == 0 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
       [UARPiCloudAssetManager moveToUARPCacheFromRemoteURL:assetType:forAcessory:];
     }
@@ -1637,50 +1586,50 @@ LABEL_32:
 
   uRLByDeletingPathExtension = [lCopy URLByDeletingPathExtension];
   lastPathComponent = [uRLByDeletingPathExtension lastPathComponent];
-  [v16 appendFormat:@"/%@", lastPathComponent];
+  [v17 appendFormat:@"/%@", lastPathComponent];
 
-  v21 = [MEMORY[0x277CBEBC0] fileURLWithPath:v16];
-  if (([v21 checkResourceIsReachableAndReturnError:0] & 1) == 0)
+  v22 = [MEMORY[0x277CBEBC0] fileURLWithPath:v17];
+  if (([v22 checkResourceIsReachableAndReturnError:0] & 1) == 0)
   {
     defaultManager4 = [MEMORY[0x277CCAA00] defaultManager];
-    v44 = v18;
-    v31 = [defaultManager4 copyItemAtURL:lCopy toURL:v21 error:&v44];
-    v32 = v44;
+    v44 = v19;
+    v32 = [defaultManager4 copyItemAtURL:lCopy toURL:v22 error:&v44];
+    v33 = v44;
 
-    if (v31)
+    if (v32)
     {
-      v42 = acessoryCopy;
-      v29 = lCopy;
-      v18 = v32;
+      v42 = v10;
+      v30 = lCopy;
+      v19 = v33;
       goto LABEL_20;
     }
 
-    v39 = self->_log;
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+    v40 = self->_log;
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v52 = v21;
-      _os_log_impl(&dword_2701F5000, v39, OS_LOG_TYPE_INFO, "Failed to write to path %@", buf, 0xCu);
+      v52 = v22;
+      _os_log_impl(&dword_2701F5000, v40, OS_LOG_TYPE_INFO, "Failed to write to path %@", buf, 0xCu);
     }
 
     goto LABEL_31;
   }
 
-  v42 = acessoryCopy;
-  v29 = lCopy;
+  v42 = v10;
+  v30 = lCopy;
 LABEL_20:
   v47 = *MEMORY[0x277CCA180];
   v48 = &unk_288030CD0;
-  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
   defaultManager5 = [MEMORY[0x277CCAA00] defaultManager];
-  path = [v21 path];
-  v43 = v18;
-  v36 = [defaultManager5 setAttributes:v33 ofItemAtPath:path error:&v43];
-  v37 = v43;
+  path = [v22 path];
+  v43 = v19;
+  v37 = [defaultManager5 setAttributes:v34 ofItemAtPath:path error:&v43];
+  v38 = v43;
 
-  if (v36)
+  if (v37)
   {
-    v38 = v21;
+    v39 = v22;
   }
 
   else
@@ -1690,17 +1639,15 @@ LABEL_20:
       [UARPiCloudAssetManager moveToUARPCacheFromRemoteURL:assetType:forAcessory:];
     }
 
-    v38 = 0;
+    v39 = 0;
   }
 
-  lCopy = v29;
+  lCopy = v30;
 
-  acessoryCopy = v42;
+  v10 = v42;
 LABEL_33:
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v38;
+  return v39;
 }
 
 - (void)handleRemoteDownloadRequestForSupportedAccessoriesForProductGroup:(id)group batchRequest:(BOOL)request inContainer:(id)container
@@ -1798,7 +1745,7 @@ LABEL_33:
 
 - (void)handleRemoteFetchCompletion:(id)completion error:(id)error
 {
-  v133 = *MEMORY[0x277D85DE8];
+  v132 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v9 = objc_alloc_init(MEMORY[0x277CCABB8]);
   [v9 setNumberStyle:1];
@@ -1806,12 +1753,12 @@ LABEL_33:
   if (OUTLINED_FUNCTION_12())
   {
     accessories = self->_accessories;
-    v127 = 136315650;
-    v128 = "[UARPiCloudAssetManager handleRemoteFetchCompletion:error:]";
-    v129 = 2112;
-    v130 = v10;
-    v131 = 2112;
-    v132 = accessories;
+    v126 = 136315650;
+    v127 = "[UARPiCloudAssetManager handleRemoteFetchCompletion:error:]";
+    v128 = 2112;
+    v129 = v10;
+    v130 = 2112;
+    v131 = accessories;
     OUTLINED_FUNCTION_5();
     _os_log_impl(v12, v13, v14, v15, v16, 0x20u);
   }
@@ -1924,10 +1871,10 @@ LABEL_33:
       block[2] = __60__UARPiCloudAssetManager_handleRemoteFetchCompletion_error___block_invoke;
       block[3] = &unk_279DFD010;
       block[4] = self;
-      v126 = v10;
+      v125 = v10;
       dispatch_async(delegateQueue, block);
 
-      v41 = v126;
+      v41 = v125;
 LABEL_16:
 
       goto LABEL_17;
@@ -2060,46 +2007,46 @@ LABEL_16:
       [OUTLINED_FUNCTION_2_1() analyticsSetDownloadConsentRequestedForAssetID:?];
 
       delegateQueue2 = [(UARPiCloudAssetManager *)self delegateQueue];
-      v123[0] = MEMORY[0x277D85DD0];
-      v123[1] = 3221225472;
-      v123[2] = __60__UARPiCloudAssetManager_handleRemoteFetchCompletion_error___block_invoke_311;
-      v123[3] = &unk_279DFD010;
-      v123[4] = self;
-      v124 = v10;
-      dispatch_async(delegateQueue2, v123);
+      v122[0] = MEMORY[0x277D85DD0];
+      v122[1] = 3221225472;
+      v122[2] = __60__UARPiCloudAssetManager_handleRemoteFetchCompletion_error___block_invoke_311;
+      v122[3] = &unk_279DFD010;
+      v122[4] = self;
+      v123 = v10;
+      dispatch_async(delegateQueue2, v122);
 
-      v41 = v124;
+      v41 = v123;
       goto LABEL_16;
     }
 
     if (v43)
     {
-      v127 = 138412290;
-      v128 = v10;
+      v126 = 138412290;
+      v127 = v10;
       OUTLINED_FUNCTION_5();
-      _os_log_impl(v81, v82, v83, v84, v85, 0xCu);
+      _os_log_impl(v80, v81, v82, v83, v84, 0xCu);
     }
 
-    v121 = 0;
-    v122 = 0;
     v120 = 0;
-    v86 = [(UARPiCloudAssetManager *)self checkLocalUARPCacheForAccessory:v10 versionAvailable:&v122 firmwarePath:&v121 releaseNotesPath:&v120];
-    v87 = v122;
-    v88 = v121;
-    v89 = v120;
-    v90 = os_log_type_enabled(self->_log, OS_LOG_TYPE_DEFAULT);
-    if (v86 && v87 && v88)
+    v121 = 0;
+    v119 = 0;
+    v85 = [(UARPiCloudAssetManager *)self checkLocalUARPCacheForAccessory:v10 versionAvailable:&v121 firmwarePath:&v120 releaseNotesPath:&v119];
+    v86 = v121;
+    v87 = v120;
+    v88 = v119;
+    v89 = os_log_type_enabled(self->_log, OS_LOG_TYPE_DEFAULT);
+    if (v85 && v86 && v87)
     {
-      if (v90)
+      if (v89)
       {
-        v127 = 138412802;
-        v128 = v87;
-        v129 = 2112;
-        v130 = v88;
-        v131 = 2112;
-        v132 = v10;
+        v126 = 138412802;
+        v127 = v86;
+        v128 = 2112;
+        v129 = v87;
+        v130 = 2112;
+        v131 = v10;
         OUTLINED_FUNCTION_9();
-        _os_log_impl(v91, v92, v93, v94, v95, 0x20u);
+        _os_log_impl(v90, v91, v92, v93, v94, 0x20u);
       }
 
       assetID5 = [(NSMutableDictionary *)v10 assetID];
@@ -2108,13 +2055,13 @@ LABEL_16:
       [(NSMutableDictionary *)v10 assetID];
       objc_claimAutoreleasedReturnValue();
       OUTLINED_FUNCTION_10();
-      [v97 setAssetVersion:?];
+      [v96 setAssetVersion:?];
 
       assetID6 = [(NSMutableDictionary *)v10 assetID];
-      [assetID6 setRemoteURL:v88];
+      [assetID6 setRemoteURL:v87];
 
       assetID7 = [(NSMutableDictionary *)v10 assetID];
-      [assetID7 setLocalURL:v88];
+      [assetID7 setLocalURL:v87];
 
       assetID8 = [(NSMutableDictionary *)v10 assetID];
       [assetID8 setDownloadStatus:1];
@@ -2122,25 +2069,25 @@ LABEL_16:
       assetID9 = [(NSMutableDictionary *)v10 assetID];
       [assetID9 setUpdateAvailabilityStatus:3];
 
-      if (v89)
+      if (v88)
       {
         log = self->_log;
         if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
         {
           log = log;
           accessoryID = [(NSMutableDictionary *)v10 accessoryID];
-          v127 = 138412546;
-          v128 = v89;
-          v129 = 2112;
-          v130 = accessoryID;
+          v126 = 138412546;
+          v127 = v88;
+          v128 = 2112;
+          v129 = accessoryID;
           OUTLINED_FUNCTION_9();
-          _os_log_impl(v104, v105, v106, v107, v108, 0x16u);
+          _os_log_impl(v103, v104, v105, v106, v107, 0x16u);
         }
 
         [(NSMutableDictionary *)v10 assetID];
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_17();
-        [v109 setReleaseNotesLocalURL:?];
+        [v108 setReleaseNotesLocalURL:?];
 
         assetID10 = [(NSMutableDictionary *)v10 assetID];
         [assetID10 setReleaseNotesDownloadStatus:1];
@@ -2150,92 +2097,56 @@ LABEL_16:
       }
 
       delegateQueue3 = [(UARPiCloudAssetManager *)self delegateQueue];
-      v118[0] = MEMORY[0x277D85DD0];
-      v118[1] = 3221225472;
-      v118[2] = __60__UARPiCloudAssetManager_handleRemoteFetchCompletion_error___block_invoke_312;
-      v118[3] = &unk_279DFD010;
-      v118[4] = self;
-      v119 = v10;
-      dispatch_async(delegateQueue3, v118);
+      v117[0] = MEMORY[0x277D85DD0];
+      v117[1] = 3221225472;
+      v117[2] = __60__UARPiCloudAssetManager_handleRemoteFetchCompletion_error___block_invoke_312;
+      v117[3] = &unk_279DFD010;
+      v117[4] = self;
+      v118 = v10;
+      dispatch_async(delegateQueue3, v117);
     }
 
-    else if (v90)
+    else if (v89)
     {
-      v127 = 138412290;
-      v128 = v10;
+      v126 = 138412290;
+      v127 = v10;
       OUTLINED_FUNCTION_9();
-      _os_log_impl(v113, v114, v115, v116, v117, 0xCu);
+      _os_log_impl(v112, v113, v114, v115, v116, 0xCu);
     }
   }
 
 LABEL_17:
-
-  v80 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFirmwareDownloadResponseFromLocation:(void *)a1 forAccessory:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 record];
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_7(&dword_2701F5000, v5, v6, "Downloaded firmware record %@ missing 'firmwareBinaryHash' property", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_2701F5000, v5, v6, "Downloaded firmware record %@ missing 'firmwareBinaryHash' property", v7, v8, v9, v10);
 }
 
 - (void)handleReleaseNotesDownloadResponseFromLocation:(void *)a1 forAccessory:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 record];
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_7(&dword_2701F5000, v5, v6, "Downloaded firmware record %@ missing 'releaseNotesHash' property", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)checkLocalUARPCacheForAccessory:versionAvailable:firmwarePath:releaseNotesPath:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_2701F5000, v0, v1, "Invalid contents in directory %@, contents %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)checkLocalUARPCacheForAccessory:versionAvailable:firmwarePath:releaseNotesPath:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_2701F5000, v0, v1, "Mismatch firmware version %@ found in directory %@, discarding");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_2701F5000, v5, v6, "Downloaded firmware record %@ missing 'releaseNotesHash' property", v7, v8, v9, v10);
 }
 
 - (void)checkLocalUARPCacheForAccessory:(void *)a1 versionAvailable:(void *)a2 firmwarePath:releaseNotesPath:.cold.4(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 assetID];
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_7(&dword_2701F5000, v5, v6, "Asset with CHIP iCloud asset type not supported for cache %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)moveToUARPCacheFromRemoteURL:assetType:forAcessory:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_2701F5000, v0, v1, "Failed to set permission for location %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_2701F5000, v5, v6, "Asset with CHIP iCloud asset type not supported for cache %@", v7, v8, v9, v10);
 }
 
 - (void)moveToUARPCacheFromRemoteURL:assetType:forAcessory:.cold.3()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(&dword_2701F5000, v0, OS_LOG_TYPE_ERROR, "Invalid assetType %ld", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2701F5000, v0, OS_LOG_TYPE_ERROR, "Invalid assetType %ld", v1, 0xCu);
 }
 
 @end

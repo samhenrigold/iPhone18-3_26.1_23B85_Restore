@@ -30,9 +30,11 @@
 
 uint64_t __46__WBWebFilterSettings_sharedWebFilterSettings__block_invoke(uint64_t a1)
 {
-  sharedWebFilterSettings_settings = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedWebFilterSettings_settings;
+  sharedWebFilterSettings_settings = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (WBWebFilterSettings)init
@@ -72,7 +74,7 @@ uint64_t __46__WBWebFilterSettings_sharedWebFilterSettings__block_invoke(uint64_
   userSettings = self->_userSettings;
   if (!userSettings)
   {
-    if (WebContentAnalysisLibraryCore())
+    if (WebContentAnalysisLibraryCore(0))
     {
       v13 = 0;
       v14 = &v13;
@@ -145,7 +147,7 @@ uint64_t __46__WBWebFilterSettings_sharedWebFilterSettings__block_invoke(uint64_
 {
   userSettings = self->_userSettings;
   self->_userSettings = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, userSettings);
 }
 
 - (int64_t)webFilterStatusForURL:(id)l

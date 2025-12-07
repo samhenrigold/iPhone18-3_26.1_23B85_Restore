@@ -1,6 +1,7 @@
 @interface SFAnalytics
 + (BOOL)parseEventFilter:(id)filter format:(id)format error:(id *)error;
 + (BOOL)parseRules:(id)rules format:(id)format error:(id *)error;
++ (BOOL)requiredVersion:(int)version rules:(id)rules reason:(id)reason error:(id *)error;
 + (BOOL)validateSFACollection:(id)collection error:(id *)error;
 + (id)defaultAnalyticsDatabasePath:(id)path;
 + (id)defaultProtectedAnalyticsDatabasePath:(id)path;
@@ -92,7 +93,7 @@
 
 - (id)database
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   database = self->_database;
   if (!database)
   {
@@ -109,16 +110,14 @@
       {
         v8 = objc_opt_class();
         v9 = NSStringFromClass(v8);
-        v12 = 138412290;
-        v13 = v9;
-        _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, "Did not get a database! (Client %@)", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v9;
+        _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, "Did not get a database! (Client %@)", &v11, 0xCu);
       }
 
       database = self->_database;
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return database;
 }
@@ -358,35 +357,35 @@ void __60__SFAnalytics_SFACollection__parseEventFilter_format_error___block_invo
 
 + (id)parseVersions:(id)versions error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   versionsCopy = versions;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     errorCopy = error;
     v7 = objc_alloc_init(SECSFAVersionMatch);
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v8 = versionsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v31;
+      v11 = *v30;
       selfCopy = self;
-      v28 = versionsCopy;
+      v27 = versionsCopy;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v31 != v11)
+          if (*v30 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v30 + 1) + 8 * i);
+          v13 = *(*(&v29 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -424,7 +423,7 @@ void __60__SFAnalytics_SFACollection__parseEventFilter_format_error___block_invo
             }
 
 LABEL_24:
-            versionsCopy = v28;
+            versionsCopy = v27;
 
             v18 = 0;
             goto LABEL_25;
@@ -434,8 +433,8 @@ LABEL_24:
           [(SECSFAVersionMatch *)v7 addVersions:v16];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
-        versionsCopy = v28;
+        v10 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        versionsCopy = v27;
         if (v10)
         {
           continue;
@@ -460,95 +459,89 @@ LABEL_25:
     v18 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 + (BOOL)parseRules:(id)rules format:(id)format error:(id *)error
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   rulesCopy = rules;
   formatCopy = format;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
-    v69 = 0u;
+    v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     obj = rulesCopy;
-    v57 = [obj countByEnumeratingWithState:&v68 objects:v72 count:16];
-    if (!v57)
+    v50 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
+    if (!v50)
     {
-      v41 = 1;
+      v35 = 1;
       goto LABEL_84;
     }
 
-    v60 = formatCopy;
+    v53 = formatCopy;
     errorCopy = error;
-    v10 = 0x1E695D000uLL;
-    v58 = *v69;
-    v11 = 0x1E696A000uLL;
+    v51 = *v62;
+    v10 = 0x1E696A000uLL;
     selfCopy = self;
-    v56 = rulesCopy;
+    v49 = rulesCopy;
     while (1)
     {
-      v12 = 0;
+      v11 = 0;
       do
       {
-        if (*v69 != v58)
+        if (*v62 != v51)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v68 + 1) + 8 * v12);
-        v14 = *(v10 + 3872);
+        v12 = *(*(&v61 + 1) + 8 * v11);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v43 = [self errorWithCode:3 description:@"rules type invalid"];
-          v15 = v43;
-          rulesCopy = v56;
+          v37 = [self errorWithCode:3 description:@"rules type invalid"];
+          v13 = v37;
+          rulesCopy = v49;
           if (errorCopy)
           {
-            v44 = v43;
-            *errorCopy = v15;
+            v38 = v37;
+            *errorCopy = v13;
           }
 
           goto LABEL_74;
         }
 
-        v15 = [v13 objectForKeyedSubscript:@"eventType"];
-        v16 = *(v11 + 3776);
+        v13 = [v12 objectForKeyedSubscript:@"eventType"];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           if (errorCopy)
           {
-            v45 = [self errorWithCode:2 description:@"eventType missing"];
-            *errorCopy = v45;
+            v39 = [self errorWithCode:2 description:@"eventType missing"];
+            *errorCopy = v39;
           }
 
           goto LABEL_73;
         }
 
-        v17 = [v13 objectForKeyedSubscript:@"eventClass"];
-        if (!v17)
+        v14 = [v12 objectForKeyedSubscript:@"eventClass"];
+        if (!v14)
         {
           goto LABEL_14;
         }
 
-        v18 = *(v11 + 3776);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          rulesCopy = v56;
-          formatCopy = v60;
-          v47 = errorCopy;
+          rulesCopy = v49;
+          formatCopy = v53;
+          v41 = errorCopy;
           if (errorCopy)
           {
-            v48 = [selfCopy errorWithCode:2 description:@"eventType not a string"];
+            v42 = [selfCopy errorWithCode:2 description:@"eventType not a string"];
             goto LABEL_64;
           }
 
@@ -557,247 +550,244 @@ LABEL_65:
           goto LABEL_83;
         }
 
-        if ([v17 isEqual:@"all"])
+        if ([v14 isEqual:@"all"])
         {
-          v19 = 0;
-          v20 = 1;
+          v15 = 0;
+          v16 = 1;
           goto LABEL_15;
         }
 
-        if (([v17 isEqual:@"errors"] & 1) == 0)
+        if (([v14 isEqual:@"errors"] & 1) == 0)
         {
-          if ([v17 isEqual:@"success"])
+          if ([v14 isEqual:@"success"])
           {
-            v19 = 0;
-            v20 = 10;
+            v15 = 0;
+            v16 = 10;
           }
 
-          else if ([v17 isEqual:@"hardfail"])
+          else if ([v14 isEqual:@"hardfail"])
           {
-            v19 = 0;
-            v20 = 11;
+            v15 = 0;
+            v16 = 11;
           }
 
-          else if ([v17 isEqual:@"softfail"])
+          else if ([v14 isEqual:@"softfail"])
           {
-            v19 = 0;
-            v20 = 12;
+            v15 = 0;
+            v16 = 12;
           }
 
-          else if ([v17 isEqual:@"note"])
+          else if ([v14 isEqual:@"note"])
           {
-            v19 = 0;
-            v20 = 13;
+            v15 = 0;
+            v16 = 13;
           }
 
           else
           {
-            if (([v17 isEqual:@"rockwell"] & 1) == 0)
+            if (([v14 isEqual:@"rockwell"] & 1) == 0)
             {
-              rulesCopy = v56;
-              formatCopy = v60;
-              v47 = errorCopy;
+              rulesCopy = v49;
+              formatCopy = v53;
+              v41 = errorCopy;
               if (errorCopy)
               {
-                v55 = [*(v11 + 3776) stringWithFormat:@"unknown eventclass: %@", v17];
-                v48 = [selfCopy errorWithCode:2 description:v55];
+                v48 = [*(v10 + 3776) stringWithFormat:@"unknown eventclass: %@", v14];
+                v42 = [selfCopy errorWithCode:2 description:v48];
 
 LABEL_64:
-                v49 = v48;
-                *v47 = v48;
+                v43 = v42;
+                *v41 = v42;
               }
 
               goto LABEL_65;
             }
 
-            v19 = 0;
-            v20 = 14;
+            v15 = 0;
+            v16 = 14;
           }
         }
 
         else
         {
 LABEL_14:
-          v20 = 0;
-          v19 = 1;
+          v16 = 0;
+          v15 = 1;
         }
 
 LABEL_15:
-        v21 = [v13 objectForKeyedSubscript:@"match"];
-        v22 = *(v10 + 3872);
+        v17 = [v12 objectForKeyedSubscript:@"match"];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v46 = [self errorWithCode:4 description:@"match missing"];
+          v40 = [self errorWithCode:4 description:@"match missing"];
           if (errorCopy)
           {
-            v46 = v46;
-            *errorCopy = v46;
+            v40 = v40;
+            *errorCopy = v40;
           }
 
           goto LABEL_72;
         }
 
-        v23 = [v13 objectForKeyedSubscript:@"repeatAfterSeconds"];
-        if (v23)
+        v18 = [v12 objectForKeyedSubscript:@"repeatAfterSeconds"];
+        if (v18)
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if (errorCopy)
             {
-              v50 = [self errorWithCode:5 description:@"repeatAfterSeconds not number"];
-              *errorCopy = v50;
+              v44 = [self errorWithCode:5 description:@"repeatAfterSeconds not number"];
+              *errorCopy = v44;
             }
 
             goto LABEL_72;
           }
         }
 
-        v65 = v23;
-        v24 = [v13 objectForKeyedSubscript:@"processName"];
-        if (v24)
+        v58 = v18;
+        v19 = [v12 objectForKeyedSubscript:@"processName"];
+        if (v19)
         {
-          v25 = *(v11 + 3776);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if (errorCopy)
             {
-              v51 = [self errorWithCode:5 description:@"processName not string"];
-              *errorCopy = v51;
+              v45 = [self errorWithCode:5 description:@"processName not string"];
+              *errorCopy = v45;
             }
 
 LABEL_72:
 LABEL_73:
-            rulesCopy = v56;
+            rulesCopy = v49;
 LABEL_74:
-            formatCopy = v60;
+            formatCopy = v53;
             goto LABEL_83;
           }
         }
 
-        v64 = v15;
-        v26 = v24;
-        v27 = [v13 objectForKeyedSubscript:@"matchOnFirstFailure"];
-        if (v27)
+        v57 = v13;
+        v20 = v19;
+        v21 = [v12 objectForKeyedSubscript:@"matchOnFirstFailure"];
+        if (v21)
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if (errorCopy)
             {
-              v52 = [self errorWithCode:5 description:@"matchOnFirstFailure not number"];
-              *errorCopy = v52;
+              v46 = [self errorWithCode:5 description:@"matchOnFirstFailure not number"];
+              *errorCopy = v46;
             }
 
             goto LABEL_81;
           }
         }
 
-        v28 = [v13 objectForKeyedSubscript:@"versions"];
+        v22 = [v12 objectForKeyedSubscript:@"versions"];
         objc_opt_class();
-        v62 = v17;
+        v55 = v14;
         if (objc_opt_isKindOfClass())
         {
-          if (![self requiredVersion:2 rules:v60 reason:@"versions on rule" error:errorCopy])
+          if (![self requiredVersion:2 rules:v53 reason:@"versions on rule" error:errorCopy])
           {
             goto LABEL_80;
           }
 
-          v29 = objc_opt_class();
-          v67 = 0;
-          v30 = [v29 parseVersions:v28 error:&v67];
-          v31 = v67;
-          if (!v30)
+          v23 = objc_opt_class();
+          v60 = 0;
+          v24 = [v23 parseVersions:v22 error:&v60];
+          v25 = v60;
+          if (!v24)
           {
             if (errorCopy)
             {
-              v31 = v31;
-              *errorCopy = v31;
+              v25 = v25;
+              *errorCopy = v25;
             }
 
-            v17 = v62;
+            v14 = v55;
 LABEL_80:
 
 LABEL_81:
 LABEL_82:
-            rulesCopy = v56;
-            formatCopy = v60;
-            v15 = v64;
+            rulesCopy = v49;
+            formatCopy = v53;
+            v13 = v57;
 LABEL_83:
 
-            v41 = 0;
+            v35 = 0;
             goto LABEL_84;
           }
         }
 
         else
         {
-          v30 = 0;
+          v24 = 0;
         }
 
-        v32 = objc_alloc_init(SECSFAEventRule);
-        [(SECSFAEventRule *)v32 setEventType:v64];
-        if ((v19 & 1) == 0)
+        v26 = objc_alloc_init(SECSFAEventRule);
+        [(SECSFAEventRule *)v26 setEventType:v57];
+        if ((v15 & 1) == 0)
         {
-          [(SECSFAEventRule *)v32 setEventClass:v20];
+          [(SECSFAEventRule *)v26 setEventClass:v16];
         }
 
-        v33 = v26;
-        [(SECSFAEventRule *)v32 setProcessName:v26];
-        -[SECSFAEventRule setRepeatAfterSeconds:](v32, "setRepeatAfterSeconds:", [v65 intValue]);
-        -[SECSFAEventRule setMatchOnFirstFailure:](v32, "setMatchOnFirstFailure:", [v27 intValue] != 0);
-        [(SECSFAEventRule *)v32 setVersions:v30];
-        v66 = 0;
-        v34 = [MEMORY[0x1E696AE40] dataWithPropertyList:v21 format:200 options:0 error:&v66];
-        v35 = v66;
-        [(SECSFAEventRule *)v32 setMatch:v34];
+        v27 = v20;
+        [(SECSFAEventRule *)v26 setProcessName:v20];
+        -[SECSFAEventRule setRepeatAfterSeconds:](v26, "setRepeatAfterSeconds:", [v58 intValue]);
+        -[SECSFAEventRule setMatchOnFirstFailure:](v26, "setMatchOnFirstFailure:", [v21 intValue] != 0);
+        [(SECSFAEventRule *)v26 setVersions:v24];
+        v59 = 0;
+        v28 = [MEMORY[0x1E696AE40] dataWithPropertyList:v17 format:200 options:0 error:&v59];
+        v29 = v59;
+        [(SECSFAEventRule *)v26 setMatch:v28];
 
-        match = [(SECSFAEventRule *)v32 match];
+        match = [(SECSFAEventRule *)v26 match];
 
         if (!match)
         {
           if (errorCopy)
           {
-            *errorCopy = [selfCopy errorWithCode:12 description:@"plist encode failed" underlying:v35];
+            *errorCopy = [selfCopy errorWithCode:12 description:@"plist encode failed" underlying:v29];
           }
 
           goto LABEL_82;
         }
 
-        v37 = [v13 objectForKeyedSubscript:@"action"];
-        v38 = [selfCopy parseAction:v37 error:errorCopy];
-        [(SECSFAEventRule *)v32 setAction:v38];
+        v31 = [v12 objectForKeyedSubscript:@"action"];
+        v32 = [selfCopy parseAction:v31 error:errorCopy];
+        [(SECSFAEventRule *)v26 setAction:v32];
 
-        action = [(SECSFAEventRule *)v32 action];
+        action = [(SECSFAEventRule *)v26 action];
 
         if (action)
         {
-          [v60 addEventRules:v32];
+          [v53 addEventRules:v26];
         }
 
         if (!action)
         {
-          v41 = 0;
-          rulesCopy = v56;
-          formatCopy = v60;
+          v35 = 0;
+          rulesCopy = v49;
+          formatCopy = v53;
           goto LABEL_84;
         }
 
-        ++v12;
+        ++v11;
         self = selfCopy;
-        v10 = 0x1E695D000;
-        v11 = 0x1E696A000;
+        v10 = 0x1E696A000;
       }
 
-      while (v57 != v12);
-      v40 = [obj countByEnumeratingWithState:&v68 objects:v72 count:16];
-      v41 = 1;
-      rulesCopy = v56;
-      formatCopy = v60;
-      v57 = v40;
-      if (!v40)
+      while (v50 != v11);
+      v34 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
+      v35 = 1;
+      rulesCopy = v49;
+      formatCopy = v53;
+      v50 = v34;
+      if (!v34)
       {
 LABEL_84:
 
@@ -808,15 +798,32 @@ LABEL_84:
 
   if (error)
   {
-    v42 = [self errorWithCode:1 description:@"rules key missing"];
-    *error = v42;
+    v36 = [self errorWithCode:1 description:@"rules key missing"];
+    *error = v36;
   }
 
-  v41 = 0;
+  v35 = 0;
 LABEL_85:
 
-  v53 = *MEMORY[0x1E69E9840];
-  return v41;
+  return v35;
+}
+
++ (BOOL)requiredVersion:(int)version rules:(id)rules reason:(id)reason error:(id *)error
+{
+  v8 = *&version;
+  reasonCopy = reason;
+  configVersion = [rules configVersion];
+  v12 = configVersion;
+  if (error && configVersion < v8)
+  {
+    reasonCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"rules config format version %d because %@", v8, reasonCopy];
+    v14 = [self errorWithCode:5 description:reasonCopy];
+
+    v15 = v14;
+    *error = v14;
+  }
+
+  return v12 >= v8;
 }
 
 + (id)parseAction:(id)action error:(id *)error
@@ -1009,17 +1016,15 @@ LABEL_40:
 
 + (id)errorWithCode:(int64_t)code description:(id)description
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
   v6 = kSecSFAErrorDomain;
-  v13 = *MEMORY[0x1E696A578];
-  v14[0] = description;
+  v12 = *MEMORY[0x1E696A578];
+  v13[0] = description;
   v7 = MEMORY[0x1E695DF20];
   descriptionCopy = description;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [v5 errorWithDomain:v6 code:code userInfo:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -1320,7 +1325,7 @@ void __44__SFAnalytics_existingMetricSamplerForName___block_invoke(uint64_t a1)
 
 - (id)AddMultiSamplerForName:(id)name withTimeInterval:(double)interval block:(id)block
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   blockCopy = block;
   v10 = blockCopy;
@@ -1346,26 +1351,26 @@ void __44__SFAnalytics_existingMetricSamplerForName___block_invoke(uint64_t a1)
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v29 = 0x3032000000;
-      v30 = __Block_byref_object_copy__2486;
-      v31 = __Block_byref_object_dispose__2487;
-      v32 = 0;
+      v28 = 0x3032000000;
+      v29 = __Block_byref_object_copy__2486;
+      v30 = __Block_byref_object_dispose__2487;
+      v31 = 0;
       objc_initWeak(&location, self);
       queue = self->_queue;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __61__SFAnalytics_AddMultiSamplerForName_withTimeInterval_block___block_invoke;
       block[3] = &unk_1E70D4EF0;
-      objc_copyWeak(v26, &location);
-      v22 = nameCopy;
+      objc_copyWeak(v25, &location);
+      v21 = nameCopy;
       p_buf = &buf;
-      v26[1] = *&interval;
+      v25[1] = *&interval;
       selfCopy = self;
-      v24 = v10;
+      v23 = v10;
       dispatch_sync(queue, block);
       v13 = *(*(&buf + 1) + 40);
 
-      objc_destroyWeak(v26);
+      objc_destroyWeak(v25);
       objc_destroyWeak(&location);
       _Block_object_dispose(&buf, 8);
 
@@ -1401,14 +1406,12 @@ LABEL_17:
   v13 = 0;
 LABEL_18:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 void __61__SFAnalytics_AddMultiSamplerForName_withTimeInterval_block___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = [WeakRetained[4] objectForKeyedSubscript:*(a1 + 32)];
 
@@ -1418,30 +1421,26 @@ void __61__SFAnalytics_AddMultiSamplerForName_withTimeInterval_block___block_inv
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "SFAnalytics: multisampler %@ already exists", &v12, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "SFAnalytics: multisampler %@ already exists", &v9, 0xCu);
     }
   }
 
   else
   {
-    v6 = [SFAnalyticsMultiSampler alloc];
-    v7 = *(a1 + 40);
-    v8 = [(SFAnalyticsMultiSampler *)v6 initWithName:*(a1 + 32) interval:*(a1 + 48) block:objc_opt_class() clientClass:*(a1 + 72)];
-    v9 = *(*(a1 + 56) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    v6 = [[SFAnalyticsMultiSampler alloc] initWithName:*(a1 + 32) interval:*(a1 + 48) block:objc_opt_class() clientClass:*(a1 + 72)];
+    v7 = *(*(a1 + 56) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
     [WeakRetained[4] setObject:*(*(*(a1 + 56) + 8) + 40) forKeyedSubscript:*(a1 + 32)];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)addMetricSamplerForName:(id)name withTimeInterval:(double)interval block:(id)block
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   blockCopy = block;
   v10 = blockCopy;
@@ -1467,26 +1466,26 @@ void __61__SFAnalytics_AddMultiSamplerForName_withTimeInterval_block___block_inv
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v29 = 0x3032000000;
-      v30 = __Block_byref_object_copy__2486;
-      v31 = __Block_byref_object_dispose__2487;
-      v32 = 0;
+      v28 = 0x3032000000;
+      v29 = __Block_byref_object_copy__2486;
+      v30 = __Block_byref_object_dispose__2487;
+      v31 = 0;
       objc_initWeak(&location, self);
       queue = self->_queue;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __62__SFAnalytics_addMetricSamplerForName_withTimeInterval_block___block_invoke;
       block[3] = &unk_1E70D4EF0;
-      objc_copyWeak(v26, &location);
-      v22 = nameCopy;
+      objc_copyWeak(v25, &location);
+      v21 = nameCopy;
       p_buf = &buf;
-      v26[1] = *&interval;
+      v25[1] = *&interval;
       selfCopy = self;
-      v24 = v10;
+      v23 = v10;
       dispatch_sync(queue, block);
       v13 = *(*(&buf + 1) + 40);
 
-      objc_destroyWeak(v26);
+      objc_destroyWeak(v25);
       objc_destroyWeak(&location);
       _Block_object_dispose(&buf, 8);
 
@@ -1522,14 +1521,12 @@ LABEL_17:
   v13 = 0;
 LABEL_18:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 void __62__SFAnalytics_addMetricSamplerForName_withTimeInterval_block___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = [WeakRetained[3] objectForKeyedSubscript:*(a1 + 32)];
 
@@ -1539,25 +1536,21 @@ void __62__SFAnalytics_addMetricSamplerForName_withTimeInterval_block___block_in
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v5;
-      _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "SFAnalytics: sampler %@ already exists", &v12, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "SFAnalytics: sampler %@ already exists", &v9, 0xCu);
     }
   }
 
   else
   {
-    v6 = [SFAnalyticsSampler alloc];
-    v7 = *(a1 + 40);
-    v8 = [(SFAnalyticsSampler *)v6 initWithName:*(a1 + 32) interval:*(a1 + 48) block:objc_opt_class() clientClass:*(a1 + 72)];
-    v9 = *(*(a1 + 56) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    v6 = [[SFAnalyticsSampler alloc] initWithName:*(a1 + 32) interval:*(a1 + 48) block:objc_opt_class() clientClass:*(a1 + 72)];
+    v7 = *(*(a1 + 56) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
     [WeakRetained[3] setObject:*(*(*(a1 + 56) + 8) + 40) forKeyedSubscript:*(a1 + 32)];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)eventDictForEventName:(id)name withAttributes:(id)attributes eventClass:(int64_t)class timestampBucket:(double)bucket
@@ -1595,17 +1588,17 @@ void __62__SFAnalytics_addMetricSamplerForName_withTimeInterval_block___block_in
 
 - (void)logEventNamed:(id)named class:(int64_t)class attributes:(id)attributes timestampBucket:(unsigned int)bucket
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   attributesCopy = attributes;
   if (namedCopy)
   {
     *buf = 0;
-    v34 = buf;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy__2486;
-    v37 = __Block_byref_object_dispose__2487;
-    v38 = 0;
+    v33 = buf;
+    v34 = 0x3032000000;
+    v35 = __Block_byref_object_copy__2486;
+    v36 = __Block_byref_object_dispose__2487;
+    v37 = 0;
     queue = self->_queue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -1614,31 +1607,31 @@ void __62__SFAnalytics_addMetricSamplerForName_withTimeInterval_block___block_in
     block[4] = self;
     block[5] = buf;
     dispatch_sync(queue, block);
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v13 = *(v34 + 5);
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v13 = *(v33 + 5);
     v14 = 0;
-    v15 = [v13 countByEnumeratingWithState:&v28 objects:v39 count:16];
+    v15 = [v13 countByEnumeratingWithState:&v27 objects:v38 count:16];
     if (v15)
     {
-      v16 = *v29;
+      v16 = *v28;
       do
       {
         v17 = 0;
         do
         {
-          if (*v29 != v16)
+          if (*v28 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v14 |= (*(*(*(&v28 + 1) + 8 * v17++) + 16))();
+          v14 |= (*(*(*(&v27 + 1) + 8 * v17++) + 16))();
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v28 objects:v39 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v27 objects:v38 count:16];
       }
 
       while (v15);
@@ -1646,20 +1639,20 @@ void __62__SFAnalytics_addMetricSamplerForName_withTimeInterval_block___block_in
 
     objc_initWeak(&location, self);
     v18 = self->_queue;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __62__SFAnalytics_logEventNamed_class_attributes_timestampBucket___block_invoke_2;
-    v21[3] = &unk_1E70D4EC8;
-    objc_copyWeak(v24, &location);
-    v21[4] = self;
-    v22 = namedCopy;
-    v23 = attributesCopy;
-    v24[1] = class;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __62__SFAnalytics_logEventNamed_class_attributes_timestampBucket___block_invoke_2;
+    v20[3] = &unk_1E70D4EC8;
+    objc_copyWeak(v23, &location);
+    v20[4] = self;
+    v21 = namedCopy;
+    v22 = attributesCopy;
+    v23[1] = class;
     bucketCopy = bucket;
-    v26 = v14;
-    dispatch_sync(v18, v21);
+    v25 = v14;
+    dispatch_sync(v18, v20);
 
-    objc_destroyWeak(v24);
+    objc_destroyWeak(v23);
     objc_destroyWeak(&location);
     _Block_object_dispose(buf, 8);
   }
@@ -1673,8 +1666,6 @@ void __62__SFAnalytics_addMetricSamplerForName_withTimeInterval_block___block_in
       _os_log_impl(&dword_1887D2000, v19, OS_LOG_TYPE_DEFAULT, "SFAnalytics: attempt to log an event with no name", buf, 2u);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __62__SFAnalytics_logEventNamed_class_attributes_timestampBucket___block_invoke(uint64_t a1)
@@ -1943,10 +1934,7 @@ uint64_t __27__SFAnalytics_dailyMetrics__block_invoke(void *a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = [*(a1[4] + 24) copy];
-  v6 = *(a1[6] + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 24) copy];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -2453,16 +2441,16 @@ void __30__SFAnalytics_addMetricsHook___block_invoke(uint64_t a1)
 
 + (id)underlyingErrors:(id)errors
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   v4 = [objc_opt_class() treeOfUnderlyingErrors:errorsCopy depth:0];
   if (v4)
   {
     if ([MEMORY[0x1E696ACB0] isValidJSONObject:v4])
     {
-      v11 = 0;
-      v5 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v4 options:2 error:&v11];
-      v6 = v11;
+      v10 = 0;
+      v5 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v4 options:2 error:&v10];
+      v6 = v10;
       if (v5)
       {
         v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v5 encoding:4];
@@ -2474,9 +2462,9 @@ void __30__SFAnalytics_addMetricsHook___block_invoke(uint64_t a1)
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v13 = errorsCopy;
-          v14 = 2114;
-          v15 = v6;
+          v12 = errorsCopy;
+          v13 = 2114;
+          v14 = v6;
           _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "SFA: underlyingErrors failed to encode %{public}@ with failure: %{public}@", buf, 0x16u);
         }
 
@@ -2490,7 +2478,7 @@ void __30__SFAnalytics_addMetricsHook___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v13 = errorsCopy;
+        v12 = errorsCopy;
         _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, "SFA: underlyingErrors encoded to not json %{public}@", buf, 0xCu);
       }
 
@@ -2503,14 +2491,12 @@ void __30__SFAnalytics_addMetricsHook___block_invoke(uint64_t a1)
     v7 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (id)treeOfUnderlyingErrors:(id)errors depth:(int64_t)depth
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   if (depth > 5)
   {
@@ -2564,30 +2550,30 @@ LABEL_2:
 
     v18 = errorsCopy;
     array = [MEMORY[0x1E695DF70] array];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v20 = v18;
-    v21 = [v20 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v30;
+      v23 = *v29;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v30 != v23)
+          if (*v29 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v29 + 1) + 8 * i);
+          v25 = *(*(&v28 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v26 = [self treeOfUnderlyingErrors:v25 depth:{depth + 1, v29}];
+            v26 = [self treeOfUnderlyingErrors:v25 depth:{depth + 1, v28}];
             if (v26)
             {
               [array addObject:v26];
@@ -2595,7 +2581,7 @@ LABEL_2:
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v22);
@@ -2613,8 +2599,6 @@ LABEL_2:
   }
 
 LABEL_26:
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -2699,14 +2683,12 @@ void __35__SFAnalytics_addOSVersionToEvent___block_invoke(uint64_t a1)
 
 void __24__SFAnalytics_hwModelID__block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   memset(&__b, 170, sizeof(__b));
   uname(&__b);
   v0 = [MEMORY[0x1E696AEC0] stringWithCString:__b.machine encoding:4];
   v1 = hwModelID_hwModel;
   hwModelID_hwModel = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)fuzzyNumber:(id)number
@@ -2893,7 +2875,7 @@ void __37__SFAnalytics_logConsumerProcessInfo__block_invoke_2(uint64_t a1)
 
 uint64_t __58__SFAnalytics_defaultProtectedAnalyticsDatabasePath_uuid___block_invoke_147(int a1, char *path)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = mkpath_np(path, 0x1FFu);
   if (v3)
   {
@@ -2903,23 +2885,21 @@ uint64_t __58__SFAnalytics_defaultProtectedAnalyticsDatabasePath_uuid___block_in
       v5 = secLogObjForScope("SecError");
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 136315394;
-        v9 = path;
-        v10 = 2080;
-        v11 = strerror(v4);
-        _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "could not create path: %s (%s)", &v8, 0x16u);
+        v7 = 136315394;
+        v8 = path;
+        v9 = 2080;
+        v10 = strerror(v4);
+        _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "could not create path: %s (%s)", &v7, 0x16u);
       }
     }
   }
 
-  result = chmod(path, 0x1FFu);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return chmod(path, 0x1FFu);
 }
 
 uint64_t __58__SFAnalytics_defaultProtectedAnalyticsDatabasePath_uuid___block_invoke(int a1, char *path)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = mkpath_np(path, 0x1FFu);
   if (v3)
   {
@@ -2929,18 +2909,16 @@ uint64_t __58__SFAnalytics_defaultProtectedAnalyticsDatabasePath_uuid___block_in
       v5 = secLogObjForScope("SecError");
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 136315394;
-        v9 = path;
-        v10 = 2080;
-        v11 = strerror(v4);
-        _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "could not create path: %s (%s)", &v8, 0x16u);
+        v7 = 136315394;
+        v8 = path;
+        v9 = 2080;
+        v10 = strerror(v4);
+        _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "could not create path: %s (%s)", &v7, 0x16u);
       }
     }
   }
 
-  result = chmod(path, 0x1FFu);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return chmod(path, 0x1FFu);
 }
 
 + (void)removeLegacyDefaultAnalyticsDatabasePath:(id)path usingDispatchToken:(int64_t *)token
@@ -2988,7 +2966,7 @@ void __75__SFAnalytics_removeLegacyDefaultAnalyticsDatabasePath_usingDispatchTok
 
 uint64_t __44__SFAnalytics_defaultAnalyticsDatabasePath___block_invoke(int a1, char *path)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = mkpath_np(path, 0x1FFu);
   if (v3)
   {
@@ -2998,18 +2976,16 @@ uint64_t __44__SFAnalytics_defaultAnalyticsDatabasePath___block_invoke(int a1, c
       v5 = secLogObjForScope("SecError");
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 136315394;
-        v9 = path;
-        v10 = 2080;
-        v11 = strerror(v4);
-        _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "could not create path: %s (%s)", &v8, 0x16u);
+        v7 = 136315394;
+        v8 = path;
+        v9 = 2080;
+        v10 = strerror(v4);
+        _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "could not create path: %s (%s)", &v7, 0x16u);
       }
     }
   }
 
-  result = chmod(path, 0x1FFu);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return chmod(path, 0x1FFu);
 }
 
 @end

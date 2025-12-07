@@ -54,7 +54,7 @@
     taskQueue = v2->_taskQueue;
     v2->_taskQueue = v6;
 
-    v8 = sub_1003C27BC();
+    v8 = sub_1003C27BC(AppInstallsDatabaseStore);
     databaseStore = v2->_databaseStore;
     v2->_databaseStore = v8;
   }

@@ -9,14 +9,14 @@
 
 + (id)orderedItemsForTraitCollection:(id)collection conversation:(id)conversation
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   conversationCopy = conversation;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
   sendingService = [conversationCopy sendingService];
   iMessageLiteService = [MEMORY[0x1E69A5CA0] iMessageLiteService];
   v11 = iMessageLiteService;
-  v53 = conversationCopy;
+  v56 = conversationCopy;
   if (sendingService == iMessageLiteService)
   {
   }
@@ -37,101 +37,103 @@
 
   if (v15)
   {
-    v16 = CKFrameworkBundle();
-    v17 = [v16 localizedStringForKey:@"EFFECT_MENU_ITEM_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v18 = [CKAppMenuItem imageForIdentifier:@"kAppMenuEffectsItemIdentifier" traitCollection:collectionCopy];
-    v19 = [CKAppMenuItem itemWithDisplayName:v17 identifier:@"kAppMenuEffectsItemIdentifier" accessibilityIdentifier:@"Effects" image:v18];
-    [v8 addObject:v19];
+    v17 = CKFrameworkBundle(v16);
+    v18 = [v17 localizedStringForKey:@"EFFECT_MENU_ITEM_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v19 = [CKAppMenuItem imageForIdentifier:@"kAppMenuEffectsItemIdentifier" traitCollection:collectionCopy];
+    v20 = [CKAppMenuItem itemWithDisplayName:v18 identifier:@"kAppMenuEffectsItemIdentifier" accessibilityIdentifier:@"Effects" image:v19];
+    [v8 addObject:v20];
 
-    v20 = v8;
+    v21 = v8;
     goto LABEL_21;
   }
 
 LABEL_7:
-  v54 = v8;
-  if ([conversationCopy supportsPolls])
+  supportsPolls = [conversationCopy supportsPolls];
+  v57 = v8;
+  if (supportsPolls)
   {
-    v21 = CKFrameworkBundle();
-    v22 = [v21 localizedStringForKey:@"POLLS_MENU_ITEM_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v23 = IMBalloonExtensionIDWithSuffix();
-    selfCopy = self;
+    v23 = CKFrameworkBundle(supportsPolls);
+    v24 = [v23 localizedStringForKey:@"POLLS_MENU_ITEM_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
     v25 = IMBalloonExtensionIDWithSuffix();
-    v26 = [CKAppMenuItem imageForIdentifier:v25 traitCollection:collectionCopy];
-    v27 = [CKAppMenuItem itemWithDisplayName:v22 identifier:v23 accessibilityIdentifier:@"Polls" image:v26];
-    [v54 addObject:v27];
+    selfCopy = self;
+    v27 = IMBalloonExtensionIDWithSuffix();
+    v28 = [CKAppMenuItem imageForIdentifier:v27 traitCollection:collectionCopy];
+    v29 = [CKAppMenuItem itemWithDisplayName:v24 identifier:v25 accessibilityIdentifier:@"Polls" image:v28];
+    [v57 addObject:v29];
 
     self = selfCopy;
-    v8 = v54;
+    v8 = v57;
   }
 
-  v55 = collectionCopy;
-  v59 = 0u;
+  v58 = collectionCopy;
+  v62 = 0u;
+  v63 = 0u;
   v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v28 = +[CKBalloonPluginManager sharedInstance];
-  visibleSwitcherPlugins = [v28 visibleSwitcherPlugins];
+  v61 = 0u;
+  v30 = +[CKBalloonPluginManager sharedInstance];
+  visibleSwitcherPlugins = [v30 visibleSwitcherPlugins];
 
   obj = visibleSwitcherPlugins;
-  v30 = [visibleSwitcherPlugins countByEnumeratingWithState:&v57 objects:v61 count:16];
-  if (v30)
+  v32 = [visibleSwitcherPlugins countByEnumeratingWithState:&v60 objects:v64 count:16];
+  if (v32)
   {
-    v31 = v30;
-    v32 = *v58;
+    v33 = v32;
+    v34 = *v61;
     do
     {
-      for (i = 0; i != v31; ++i)
+      for (i = 0; i != v33; ++i)
       {
-        if (*v58 != v32)
+        if (*v61 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = *(*(&v57 + 1) + 8 * i);
-        if ([self _shouldDisplayPluginInMenu:v34])
+        v36 = *(*(&v60 + 1) + 8 * i);
+        if ([self _shouldDisplayPluginInMenu:v36])
         {
-          browserDisplayName = [v34 browserDisplayName];
-          [v34 identifier];
-          v37 = v36 = self;
-          identifier = [v34 identifier];
-          identifier2 = [v34 identifier];
-          v40 = [CKAppMenuItem imageForIdentifier:identifier2 traitCollection:v55];
-          v41 = [CKAppMenuItem itemWithDisplayName:browserDisplayName identifier:v37 accessibilityIdentifier:identifier image:v40];
+          browserDisplayName = [v36 browserDisplayName];
+          [v36 identifier];
+          v39 = v38 = self;
+          identifier = [v36 identifier];
+          identifier2 = [v36 identifier];
+          v42 = [CKAppMenuItem imageForIdentifier:identifier2 traitCollection:v58];
+          v43 = [CKAppMenuItem itemWithDisplayName:browserDisplayName identifier:v39 accessibilityIdentifier:identifier image:v42];
 
-          self = v36;
-          v8 = v54;
-          [v54 addObject:v41];
+          self = v38;
+          v8 = v57;
+          [v57 addObject:v43];
         }
       }
 
-      v31 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v33 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
     }
 
-    while (v31);
+    while (v33);
   }
 
-  collectionCopy = v55;
-  if ([v53 supportsSendLater])
+  supportsSendLater = [v56 supportsSendLater];
+  collectionCopy = v58;
+  if (supportsSendLater)
   {
-    v42 = CKFrameworkBundle();
-    v43 = [v42 localizedStringForKey:@"SEND_MENU_ITEM_TITLE_SEND_LATER" value:&stru_1F04268F8 table:@"ChatKit"];
-    v44 = *MEMORY[0x1E69A6A28];
-    v45 = [CKAppMenuItem imageForIdentifier:*MEMORY[0x1E69A6A28] traitCollection:v55];
-    v46 = [CKAppMenuItem itemWithDisplayName:v43 identifier:v44 accessibilityIdentifier:@"SendLater" image:v45];
-    [v8 addObject:v46];
+    v45 = CKFrameworkBundle(supportsSendLater);
+    v46 = [v45 localizedStringForKey:@"SEND_MENU_ITEM_TITLE_SEND_LATER" value:&stru_1F04268F8 table:@"ChatKit"];
+    v47 = *MEMORY[0x1E69A6A28];
+    v48 = [CKAppMenuItem imageForIdentifier:*MEMORY[0x1E69A6A28] traitCollection:v58];
+    v49 = [CKAppMenuItem itemWithDisplayName:v46 identifier:v47 accessibilityIdentifier:@"SendLater" image:v48];
+    [v8 addObject:v49];
   }
 
-  v47 = CKFrameworkBundle();
-  v48 = [v47 localizedStringForKey:@"EFFECT_MENU_ITEM_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v49 = [CKAppMenuItem imageForIdentifier:@"kAppMenuEffectsItemIdentifier" traitCollection:v55];
-  v50 = [CKAppMenuItem itemWithDisplayName:v48 identifier:@"kAppMenuEffectsItemIdentifier" accessibilityIdentifier:@"Effects" image:v49];
-  [v8 addObject:v50];
+  v50 = CKFrameworkBundle(supportsSendLater);
+  v51 = [v50 localizedStringForKey:@"EFFECT_MENU_ITEM_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v52 = [CKAppMenuItem imageForIdentifier:@"kAppMenuEffectsItemIdentifier" traitCollection:v58];
+  v53 = [CKAppMenuItem itemWithDisplayName:v51 identifier:@"kAppMenuEffectsItemIdentifier" accessibilityIdentifier:@"Effects" image:v52];
+  [v8 addObject:v53];
 
-  v20 = [self _sortedMenuItemsFromItems:v8];
+  v21 = [self _sortedMenuItemsFromItems:v8];
 LABEL_21:
-  v51 = v20;
+  v54 = v21;
 
-  return v51;
+  return v54;
 }
 
 + (id)_sortedMenuItemsFromItems:(id)items

@@ -1,11 +1,14 @@
 @interface WAAQIView
++ (id)createWeatherLabelWithLightColor:(BOOL)color;
 - (BOOL)shouldInsertGlyphImage:(id)image;
 - (CGRect)adjustedFrame:(CGRect)frame basedOnFont:(id)font desiredBaseline:(double)baseline;
 - (CGRect)rtlAdjustFrame:(CGRect)frame inBounds:(CGRect)bounds;
 - (CGSize)sizeForAQIAvailableThatFits:(CGSize)fits;
 - (CGSize)sizeForAQITemporarilyUnavailableThatFits:(CGSize)fits;
+- (CGSize)sizeForCompactOneLineLayoutWithScaleViewThatFits:(CGSize)fits platterView:(BOOL)view;
 - (CGSize)sizeForExtendedLayoutWithScaleViewThatFits:(CGSize)fits;
 - (CGSize)sizeForLayoutWithoutScaleViewThatFits:(CGSize)fits;
+- (CGSize)sizeForTwoLineLayoutWithScaleViewTheFits:(CGSize)fits platterView:(BOOL)view;
 - (CGSize)sizeThatFits:(CGSize)fits;
 - (WAAQIViewDelegate)delegate;
 - (double)contentMarginFromTop;
@@ -18,12 +21,15 @@
 - (void)handleTapGesture:(id)gesture;
 - (void)hideEverything;
 - (void)initialize;
+- (void)layoutForCompactModeWithScaleInPlatterView:(BOOL)view;
 - (void)layoutForExtendedModeWithScale;
 - (void)layoutForModeAQITemporarilyUnavailable;
 - (void)layoutForModeWithoutScale;
+- (void)layoutForTwoLinesLayoutWithScaleInPlatterView:(BOOL)view;
 - (void)layoutSubviews;
 - (void)prepareForReuse;
 - (void)setupForLayoutCompactScaleViewOneLinePlatterView:(BOOL)view;
+- (void)setupForLayoutCompactScaleViewTwoLinesPlatterView:(BOOL)view;
 - (void)setupForLayoutExtendedNoScaleView;
 - (void)setupForLayoutExtendedScaleView;
 - (void)setupForLayoutTemporarilyUnavailable;
@@ -217,9 +223,30 @@ LABEL_16:
   return v12;
 }
 
++ (id)createWeatherLabelWithLightColor:(BOOL)color
+{
+  colorCopy = color;
+  v4 = objc_alloc(MEMORY[0x277D756B8]);
+  v5 = [v4 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
+  clearColor = [MEMORY[0x277D75348] clearColor];
+  [v5 setBackgroundColor:clearColor];
+
+  v7 = [WAAQIViewStyler textColorWithLightLabel:colorCopy];
+  [v5 setTextColor:v7];
+
+  v8 = +[WAAQIViewStyler shadowColor];
+  [v5 setShadowColor:v8];
+
+  [v5 setShadowOffset:{0.0, 2.0}];
+  [v5 setAllowsDefaultTighteningForTruncation:1];
+  [v5 setShadowBlur:3.0];
+
+  return v5;
+}
+
 - (id)scaleDisplayNameForCity:(id)city
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   cityCopy = city;
   v5 = WALogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -227,17 +254,15 @@ LABEL_16:
     airQualityScale = [cityCopy airQualityScale];
     displayName = [airQualityScale displayName];
     city = [(WAAQIView *)self city];
-    v13 = 138412546;
-    v14 = displayName;
-    v15 = 2112;
-    v16 = city;
-    _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "Using displayName: %@ for city: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = displayName;
+    v14 = 2112;
+    v15 = city;
+    _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "Using displayName: %@ for city: %@", &v12, 0x16u);
   }
 
   airQualityScale2 = [cityCopy airQualityScale];
   displayName2 = [airQualityScale2 displayName];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return displayName2;
 }
@@ -253,22 +278,20 @@ LABEL_16:
 
 - (id)drawableScaleForCity:(id)city
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   airQualityScale = [city airQualityScale];
   v5 = WALogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     city = [(WAAQIView *)self city];
-    v10 = 138412546;
-    v11 = airQualityScale;
-    v12 = 2112;
-    v13 = city;
-    _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "Using scale: %@ for gradient for city: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = airQualityScale;
+    v11 = 2112;
+    v12 = city;
+    _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "Using scale: %@ for gradient for city: %@", &v9, 0x16u);
   }
 
   v7 = [WAAQIScale scaleFromFoundationScale:airQualityScale];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -340,7 +363,7 @@ LABEL_10:
   v9 = frame.size.width;
   MinY = frame.origin.y;
   v11 = frame.origin.x;
-  if (IsUIRTL())
+  if (IsUIRTL(self, a2))
   {
     v18.origin.x = x;
     v18.origin.y = y;
@@ -502,37 +525,114 @@ LABEL_10:
     aqiLabel2 = [(WAAQIView *)self aqiLabel];
     [aqiLabel2 setNumberOfLines:1];
 
-    v15 = WANumberFormatterForDisplayingAQI();
+    v16 = WANumberFormatterForDisplayingAQI(v15);
     airQualityIdx = [city airQualityIdx];
-    v17 = [v15 stringFromNumber:airQualityIdx];
+    v18 = [v16 stringFromNumber:airQualityIdx];
 
     if (([city airQualityScaleIsNumerical] & 1) == 0)
     {
 
-      v17 = &stru_2882270E8;
+      v18 = &stru_2882270E8;
     }
 
-    v18 = [(WAAQIView *)self currentScaleCategoryLabelForCity:city];
+    v19 = [(WAAQIView *)self currentScaleCategoryLabelForCity:city];
     airQualityIdx2 = [city airQualityIdx];
     unsignedIntegerValue = [airQualityIdx2 unsignedIntegerValue];
     aqiScaleView2 = [(WAAQIView *)self aqiScaleView];
     [aqiScaleView2 setAQI:unsignedIntegerValue];
 
     styler2 = [(WAAQIView *)self styler];
-    v23 = [styler2 styledAQILocalizedIndexText:v17 mode:{v8, v7}];
+    v24 = [styler2 styledAQILocalizedIndexText:v18 mode:{v8, v7}];
     aqiIndexLabel = [(WAAQIView *)self aqiIndexLabel];
-    [aqiIndexLabel setAttributedText:v23];
+    [aqiIndexLabel setAttributedText:v24];
 
     aqiIndexLabel2 = [(WAAQIView *)self aqiIndexLabel];
     [aqiIndexLabel2 setNumberOfLines:1];
 
     styler3 = [(WAAQIView *)self styler];
-    v27 = [styler3 styledAQICategoryText:v18 mode:{v8, v7}];
+    v28 = [styler3 styledAQICategoryText:v19 mode:{v8, v7}];
     aqiCategoryLabel = [(WAAQIView *)self aqiCategoryLabel];
-    [aqiCategoryLabel setAttributedText:v27];
+    [aqiCategoryLabel setAttributedText:v28];
 
     aqiCategoryLabel2 = [(WAAQIView *)self aqiCategoryLabel];
     [aqiCategoryLabel2 setNumberOfLines:1];
+  }
+
+  else
+  {
+    [(WAAQIView *)self setForceHideThisEntireView:1];
+  }
+}
+
+- (void)setupForLayoutCompactScaleViewTwoLinesPlatterView:(BOOL)view
+{
+  viewCopy = view;
+  [(WAAQIView *)self prepareForReuse];
+  city = [(WAAQIView *)self city];
+  v5 = [(WAAQIView *)self drawableScaleForCity:?];
+  if (v5)
+  {
+    aqiScaleView = [(WAAQIView *)self aqiScaleView];
+    v32 = v5;
+    [aqiScaleView setScale:v5];
+
+    v7 = !WAIsShortDevice();
+    if (viewCopy)
+    {
+      v8 = 4;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
+    styler = [(WAAQIView *)self styler];
+    v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v11 = [v10 localizedStringForKey:@"AQI_SHORT_STRING" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
+    v12 = [styler styledAQIText:v11 mode:{v8, v7}];
+
+    v14 = WANumberFormatterForDisplayingAQI(v13);
+    airQualityIdx = [city airQualityIdx];
+    v16 = [v14 stringFromNumber:airQualityIdx];
+
+    v17 = [(WAAQIView *)self currentScaleCategoryLabelForCity:city];
+    airQualityIdx2 = [city airQualityIdx];
+    unsignedIntegerValue = [airQualityIdx2 unsignedIntegerValue];
+    aqiScaleView2 = [(WAAQIView *)self aqiScaleView];
+    [aqiScaleView2 setAQI:unsignedIntegerValue];
+
+    styler2 = [(WAAQIView *)self styler];
+    v22 = [styler2 styledAQILocalizedIndexText:v16 mode:{v8, v7}];
+
+    styler3 = [(WAAQIView *)self styler];
+    v24 = [styler3 styledAQICategoryText:v17 mode:{v8, v7}];
+
+    styler4 = [(WAAQIView *)self styler];
+    v26 = [styler4 styledAQICategoryText:@" " mode:{v8, v7}];
+
+    styler5 = [(WAAQIView *)self styler];
+    v28 = [styler5 styledDashWithLabelColor:viewCopy];
+
+    v29 = objc_alloc_init(MEMORY[0x277CCAB48]);
+    [v29 appendAttributedString:v12];
+    [v29 appendAttributedString:v26];
+    if ([city airQualityScaleIsNumerical])
+    {
+      [v29 appendAttributedString:v22];
+      [v29 appendAttributedString:v26];
+    }
+
+    [v29 appendAttributedString:v28];
+    [v29 appendAttributedString:v26];
+    [v29 appendAttributedString:v24];
+    aqiIndexLabel = [(WAAQIView *)self aqiIndexLabel];
+    [aqiIndexLabel setAttributedText:v29];
+
+    aqiIndexLabel2 = [(WAAQIView *)self aqiIndexLabel];
+    [aqiIndexLabel2 setNumberOfLines:0];
+
+    v5 = v32;
   }
 
   else
@@ -571,27 +671,28 @@ LABEL_10:
     [aqiScaleView2 setAQI:unsignedIntegerValue];
 
     v16 = [(WAAQIView *)self currentScaleCategoryLabelForCity:city];
-    if ([city airQualityScaleIsNumerical])
+    airQualityScaleIsNumerical = [city airQualityScaleIsNumerical];
+    if (airQualityScaleIsNumerical)
     {
-      v17 = WANumberFormatterForDisplayingAQI();
+      v18 = WANumberFormatterForDisplayingAQI(airQualityScaleIsNumerical);
       airQualityIdx2 = [city airQualityIdx];
-      v19 = [v17 stringFromNumber:airQualityIdx2];
+      v20 = [v18 stringFromNumber:airQualityIdx2];
 
-      v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v21 = [v20 localizedStringForKey:@"AQI_INDEX_STRING" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
+      v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v22 = [v21 localizedStringForKey:@"AQI_INDEX_STRING" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
 
-      v22 = [MEMORY[0x277CCACA8] stringWithFormat:v21, v19, v16];
+      v23 = [MEMORY[0x277CCACA8] stringWithFormat:v22, v20, v16];
     }
 
     else
     {
-      v22 = v16;
+      v23 = v16;
     }
 
     styler3 = [(WAAQIView *)self styler];
-    v24 = [styler3 styledAQIMetadataGradeText:v22];
+    v25 = [styler3 styledAQIMetadataGradeText:v23];
     airQualityMetadataGradeLabel = [(WAAQIView *)self airQualityMetadataGradeLabel];
-    [airQualityMetadataGradeLabel setAttributedText:v24];
+    [airQualityMetadataGradeLabel setAttributedText:v25];
 
     city2 = [(WAAQIView *)self city];
     airQualityAttribution = [city2 airQualityAttribution];
@@ -601,17 +702,17 @@ LABEL_10:
     {
       attributionStringBuilder = [(WAAQIView *)self attributionStringBuilder];
       city3 = [(WAAQIView *)self city];
-      v30 = [attributionStringBuilder buildAttributionStringFromCity:city3];
+      v31 = [attributionStringBuilder buildAttributionStringFromCity:city3];
 
       city4 = [(WAAQIView *)self city];
-      v32 = [(WAAQIView *)self shouldInsertGlyphImage:city4];
+      v33 = [(WAAQIView *)self shouldInsertGlyphImage:city4];
 
       styler4 = [(WAAQIView *)self styler];
       city5 = [(WAAQIView *)self city];
       airQualityAttribution2 = [city5 airQualityAttribution];
-      v36 = [styler4 styledAQIMetadataCitationText:v30 attribution:airQualityAttribution2 shouldInsertGlyph:v32];
+      v37 = [styler4 styledAQIMetadataCitationText:v31 attribution:airQualityAttribution2 shouldInsertGlyph:v33];
       aqiCitationLabel = [(WAAQIView *)self aqiCitationLabel];
-      [aqiCitationLabel setAttributedText:v36];
+      [aqiCitationLabel setAttributedText:v37];
     }
 
     else
@@ -648,35 +749,36 @@ LABEL_10:
     [aqiAgencyLabel setAttributedText:v10];
 
     v12 = [(WAAQIView *)self currentScaleCategoryLabelForCity:city];
-    if ([city airQualityScaleIsNumerical])
+    airQualityScaleIsNumerical = [city airQualityScaleIsNumerical];
+    if (airQualityScaleIsNumerical)
     {
-      v13 = WANumberFormatterForDisplayingAQI();
+      v14 = WANumberFormatterForDisplayingAQI(airQualityScaleIsNumerical);
       airQualityIdx = [city airQualityIdx];
-      v15 = [v13 stringFromNumber:airQualityIdx];
+      v16 = [v14 stringFromNumber:airQualityIdx];
 
-      v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v17 = [v16 localizedStringForKey:@"AQI_INDEX_STRING" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
+      v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v18 = [v17 localizedStringForKey:@"AQI_INDEX_STRING" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
 
-      v18 = [MEMORY[0x277CCACA8] stringWithFormat:v17, v15, v12];
+      v19 = [MEMORY[0x277CCACA8] stringWithFormat:v18, v16, v12];
     }
 
     else
     {
-      v18 = v12;
+      v19 = v12;
     }
 
     styler3 = [(WAAQIView *)self styler];
-    v20 = [styler3 styledAQIMetadataGradeText:v18];
+    v21 = [styler3 styledAQIMetadataGradeText:v19];
     airQualityMetadataGradeLabel = [(WAAQIView *)self airQualityMetadataGradeLabel];
-    [airQualityMetadataGradeLabel setAttributedText:v20];
+    [airQualityMetadataGradeLabel setAttributedText:v21];
 
     airQualityRecommendation = [city airQualityRecommendation];
     if (airQualityRecommendation && ![city airQualityForceHideRecommendation])
     {
       styler4 = [(WAAQIView *)self styler];
-      v24 = [styler4 styledAQIMetadataRecommendationText:airQualityRecommendation];
+      v25 = [styler4 styledAQIMetadataRecommendationText:airQualityRecommendation];
       airQualityRecommendationLabel = [(WAAQIView *)self airQualityRecommendationLabel];
-      [airQualityRecommendationLabel setAttributedText:v24];
+      [airQualityRecommendationLabel setAttributedText:v25];
     }
 
     else
@@ -692,17 +794,17 @@ LABEL_10:
     {
       attributionStringBuilder = [(WAAQIView *)self attributionStringBuilder];
       city3 = [(WAAQIView *)self city];
-      v31 = [attributionStringBuilder buildAttributionStringFromCity:city3];
+      v32 = [attributionStringBuilder buildAttributionStringFromCity:city3];
 
       city4 = [(WAAQIView *)self city];
-      v33 = [(WAAQIView *)self shouldInsertGlyphImage:city4];
+      v34 = [(WAAQIView *)self shouldInsertGlyphImage:city4];
 
       styler5 = [(WAAQIView *)self styler];
       city5 = [(WAAQIView *)self city];
       airQualityAttribution2 = [city5 airQualityAttribution];
-      v37 = [styler5 styledAQIMetadataCitationText:v31 attribution:airQualityAttribution2 shouldInsertGlyph:v33];
+      v38 = [styler5 styledAQIMetadataCitationText:v32 attribution:airQualityAttribution2 shouldInsertGlyph:v34];
       aqiCitationLabel = [(WAAQIView *)self aqiCitationLabel];
-      [aqiCitationLabel setAttributedText:v37];
+      [aqiCitationLabel setAttributedText:v38];
     }
 
     else
@@ -796,6 +898,163 @@ LABEL_11:
   v16 = v7;
   result.height = v16;
   result.width = v15;
+  return result;
+}
+
+- (CGSize)sizeForCompactOneLineLayoutWithScaleViewThatFits:(CGSize)fits platterView:(BOOL)view
+{
+  viewCopy = view;
+  height = fits.height;
+  width = fits.width;
+  forceHideThisEntireView = [(WAAQIView *)self forceHideThisEntireView];
+  v9 = 0.0;
+  v10 = 0.0;
+  if (!forceHideThisEntireView)
+  {
+    v11 = [(WAAQIView *)self aqiLabel:0.0];
+    [v11 sizeThatFits:{width, height}];
+    v13 = v12;
+
+    aqiIndexLabel = [(WAAQIView *)self aqiIndexLabel];
+    [aqiIndexLabel sizeThatFits:{width, height}];
+    v16 = v15;
+
+    aqiCategoryLabel = [(WAAQIView *)self aqiCategoryLabel];
+    [aqiCategoryLabel sizeThatFits:{width, height}];
+    v19 = v18;
+
+    if (floor(width - v13 - v16 - v19 + -24.0) <= 130.0)
+    {
+
+      [(WAAQIView *)self sizeForTwoLineLayoutWithScaleViewTheFits:viewCopy platterView:width, height];
+    }
+
+    else
+    {
+      v20 = WAIsShortDevice();
+      if (v20)
+      {
+        v21 = 9.0;
+      }
+
+      else
+      {
+        v21 = 16.0;
+      }
+
+      if (v20)
+      {
+        v22 = 10.0;
+      }
+
+      else
+      {
+        v22 = 19.0;
+      }
+
+      aqiLabel = [(WAAQIView *)self aqiLabel];
+      attributedText = [aqiLabel attributedText];
+      wa_font = [attributedText wa_font];
+      [wa_font capHeight];
+      v27 = v26;
+
+      aqiCategoryLabel2 = [(WAAQIView *)self aqiCategoryLabel];
+      attributedText2 = [aqiCategoryLabel2 attributedText];
+      wa_font2 = [attributedText2 wa_font];
+      [wa_font2 capHeight];
+      v32 = v31;
+
+      if (v27 >= v32)
+      {
+        v33 = v32;
+      }
+
+      else
+      {
+        v33 = v27;
+      }
+
+      v10 = v21 + v22 + v33;
+      v9 = width;
+    }
+  }
+
+  result.height = v10;
+  result.width = v9;
+  return result;
+}
+
+- (CGSize)sizeForTwoLineLayoutWithScaleViewTheFits:(CGSize)fits platterView:(BOOL)view
+{
+  viewCopy = view;
+  width = fits.width;
+  v7 = [(WAAQIView *)self forceHideThisEntireView:fits.width];
+  v8 = 0.0;
+  v9 = 0.0;
+  if (!v7)
+  {
+    [(WAAQIView *)self setupForLayoutCompactScaleViewTwoLinesPlatterView:viewCopy, 0.0, 0.0];
+    [(WAAQIView *)self bounds];
+    v11 = v10;
+    v13 = v12;
+    v15 = v14;
+    v17 = v16;
+    aqiIndexLabel = [(WAAQIView *)self aqiIndexLabel];
+    [aqiIndexLabel setFrame:{v11, v13, v15, v17}];
+
+    aqiIndexLabel2 = [(WAAQIView *)self aqiIndexLabel];
+    [aqiIndexLabel2 sizeToFit];
+
+    v20 = WAIsShortDevice();
+    if (v20)
+    {
+      v21 = 8.0;
+    }
+
+    else
+    {
+      v21 = 11.0;
+    }
+
+    if (v20)
+    {
+      v22 = 11.0;
+    }
+
+    else
+    {
+      v22 = 12.0;
+    }
+
+    if (v20)
+    {
+      v23 = 11.0;
+    }
+
+    else
+    {
+      v23 = 10.0;
+    }
+
+    aqiIndexLabel3 = [(WAAQIView *)self aqiIndexLabel];
+    [aqiIndexLabel3 frame];
+    Height = CGRectGetHeight(v35);
+    aqiIndexLabel4 = [(WAAQIView *)self aqiIndexLabel];
+    attributedText = [aqiIndexLabel4 attributedText];
+    wa_font = [attributedText wa_font];
+    [wa_font descender];
+    v30 = Height + v29;
+
+    aqiScaleView = [(WAAQIView *)self aqiScaleView];
+    [aqiScaleView intrinsicContentSize];
+    v33 = v32;
+
+    v9 = v22 + v21 + v23 + v30 + v33;
+    v8 = width;
+  }
+
+  result.height = v9;
+  result.width = v8;
   return result;
 }
 
@@ -1256,6 +1515,300 @@ LABEL_13:
 
       [(WAAQIView *)self layoutForModeWithoutScale];
     }
+  }
+}
+
+- (void)layoutForCompactModeWithScaleInPlatterView:(BOOL)view
+{
+  viewCopy = view;
+  if (![(WAAQIView *)self forceHideThisEntireView])
+  {
+    aqiLabel = [(WAAQIView *)self aqiLabel];
+    [(WAAQIView *)self bounds];
+    [aqiLabel sizeThatFits:{v6, v7}];
+    v9 = v8;
+
+    aqiIndexLabel = [(WAAQIView *)self aqiIndexLabel];
+    [(WAAQIView *)self bounds];
+    [aqiIndexLabel sizeThatFits:{v11, v12}];
+    v14 = v13;
+
+    aqiCategoryLabel = [(WAAQIView *)self aqiCategoryLabel];
+    [(WAAQIView *)self bounds];
+    [aqiCategoryLabel sizeThatFits:{v16, v17}];
+    v19 = v18;
+
+    aqiScaleView = [(WAAQIView *)self aqiScaleView];
+    [aqiScaleView intrinsicContentSize];
+    v22 = v21;
+
+    if (v14 <= 0.0)
+    {
+      v23 = 16.0;
+    }
+
+    else
+    {
+      v23 = 24.0;
+    }
+
+    [(WAAQIView *)self bounds];
+    v25 = floor(v24 - v9 - v14 - v19 - v23);
+    if (v25 <= 130.0)
+    {
+
+      [(WAAQIView *)self layoutForTwoLinesLayoutWithScaleInPlatterView:viewCopy];
+    }
+
+    else
+    {
+      v155 = v25;
+      v156 = v22;
+      if (WAIsShortDevice())
+      {
+        v26 = 9.0;
+      }
+
+      else
+      {
+        v26 = 16.0;
+      }
+
+      aqiLabel2 = [(WAAQIView *)self aqiLabel];
+      [aqiLabel2 sizeToFit];
+
+      aqiIndexLabel2 = [(WAAQIView *)self aqiIndexLabel];
+      [aqiIndexLabel2 sizeToFit];
+
+      aqiCategoryLabel2 = [(WAAQIView *)self aqiCategoryLabel];
+      [aqiCategoryLabel2 sizeToFit];
+
+      aqiLabel3 = [(WAAQIView *)self aqiLabel];
+      [aqiLabel3 setHidden:0];
+
+      aqiIndexLabel3 = [(WAAQIView *)self aqiIndexLabel];
+      [aqiIndexLabel3 setHidden:0];
+
+      aqiCategoryLabel3 = [(WAAQIView *)self aqiCategoryLabel];
+      [aqiCategoryLabel3 setHidden:0];
+
+      aqiScaleView2 = [(WAAQIView *)self aqiScaleView];
+      [aqiScaleView2 setHidden:0];
+
+      [(WAAQIView *)self bounds];
+      v34 = CGRectGetMaxY(v160) - v26;
+      aqiLabel4 = [(WAAQIView *)self aqiLabel];
+      [aqiLabel4 frame];
+      v37 = v36;
+      v39 = v38;
+
+      v40 = *MEMORY[0x277CBF348];
+      [(WAAQIView *)self frame];
+      v42 = v41 * 0.5 - v39 * 0.5;
+      aqiLabel5 = [(WAAQIView *)self aqiLabel];
+      attributedText = [aqiLabel5 attributedText];
+      wa_font = [attributedText wa_font];
+      v157 = v34;
+      [(WAAQIView *)self adjustedFrame:wa_font basedOnFont:v40 desiredBaseline:v42, v37, v39, v34];
+      v47 = v46;
+      v49 = v48;
+      v51 = v50;
+      v53 = v52;
+
+      [(WAAQIView *)self bounds];
+      rect = v51;
+      [(WAAQIView *)self rtlAdjustFrame:v47 inBounds:v49, v51, v53, v54, v55, v56, v57];
+      v59 = v58;
+      v61 = v60;
+      v63 = v62;
+      v65 = v64;
+      aqiLabel6 = [(WAAQIView *)self aqiLabel];
+      [aqiLabel6 setFrame:{v59, v61, v63, v65}];
+
+      aqiLabel7 = [(WAAQIView *)self aqiLabel];
+      [aqiLabel7 frame];
+      v69 = v68;
+      v71 = v70;
+      v73 = v72;
+      v75 = v74;
+
+      aqiIndexLabel4 = [(WAAQIView *)self aqiIndexLabel];
+      [aqiIndexLabel4 frame];
+      v78 = v77;
+
+      if (v78 > 0.0)
+      {
+        aqiIndexLabel5 = [(WAAQIView *)self aqiIndexLabel];
+        [aqiIndexLabel5 frame];
+        v81 = v80;
+        v83 = v82;
+
+        v161.origin.x = v47;
+        v161.origin.y = v49;
+        v161.size.width = rect;
+        v161.size.height = v53;
+        v84 = CGRectGetMaxX(v161) + 8.0;
+        [(WAAQIView *)self frame];
+        v86 = v85 * 0.5 - v83 * 0.5;
+        aqiIndexLabel6 = [(WAAQIView *)self aqiIndexLabel];
+        attributedText2 = [aqiIndexLabel6 attributedText];
+        wa_font2 = [attributedText2 wa_font];
+        [(WAAQIView *)self adjustedFrame:wa_font2 basedOnFont:v84 desiredBaseline:v86, v81, v83, v157];
+        v69 = v90;
+        v71 = v91;
+        v73 = v92;
+        v75 = v93;
+
+        [(WAAQIView *)self bounds];
+        [(WAAQIView *)self rtlAdjustFrame:v69 inBounds:v71, v73, v75, v94, v95, v96, v97];
+        v99 = v98;
+        v101 = v100;
+        v103 = v102;
+        v105 = v104;
+        aqiIndexLabel7 = [(WAAQIView *)self aqiIndexLabel];
+        [aqiIndexLabel7 setFrame:{v99, v101, v103, v105}];
+      }
+
+      aqiScaleView3 = [(WAAQIView *)self aqiScaleView];
+      [aqiScaleView3 frame];
+
+      v162.origin.x = v69;
+      v162.origin.y = v71;
+      v162.size.width = v73;
+      v162.size.height = v75;
+      v108 = CGRectGetMaxX(v162) + 8.0;
+      v163.origin.x = v69;
+      v163.origin.y = v71;
+      v163.size.width = v73;
+      v163.size.height = v75;
+      v109 = CGRectGetMaxY(v163) - v75 * 0.5 - v156 * 0.5;
+      [(WAAQIView *)self bounds];
+      [(WAAQIView *)self rtlAdjustFrame:v108 inBounds:v109, v155, v156, v110, v111, v112, v113];
+      v115 = v114;
+      v117 = v116;
+      v119 = v118;
+      v121 = v120;
+      aqiScaleView4 = [(WAAQIView *)self aqiScaleView];
+      [aqiScaleView4 setFrame:{v115, v117, v119, v121}];
+
+      aqiCategoryLabel4 = [(WAAQIView *)self aqiCategoryLabel];
+      [aqiCategoryLabel4 frame];
+      v125 = v124;
+      v127 = v126;
+
+      v164.origin.x = v108;
+      v164.origin.y = v109;
+      v164.size.width = v155;
+      v164.size.height = v156;
+      v128 = CGRectGetMaxX(v164) + 8.0;
+      [(WAAQIView *)self frame];
+      v130 = v129 * 0.5 - v127 * 0.5;
+      aqiCategoryLabel5 = [(WAAQIView *)self aqiCategoryLabel];
+      attributedText3 = [aqiCategoryLabel5 attributedText];
+      wa_font3 = [attributedText3 wa_font];
+      [(WAAQIView *)self adjustedFrame:wa_font3 basedOnFont:v128 desiredBaseline:v130, v125, v127, v157];
+      v135 = v134;
+      v137 = v136;
+      v139 = v138;
+      v141 = v140;
+
+      [(WAAQIView *)self bounds];
+      [(WAAQIView *)self rtlAdjustFrame:v135 inBounds:v137, v139, v141, v142, v143, v144, v145];
+      v147 = v146;
+      v149 = v148;
+      v151 = v150;
+      v153 = v152;
+      aqiCategoryLabel6 = [(WAAQIView *)self aqiCategoryLabel];
+      [aqiCategoryLabel6 setFrame:{v147, v149, v151, v153}];
+    }
+  }
+}
+
+- (void)layoutForTwoLinesLayoutWithScaleInPlatterView:(BOOL)view
+{
+  viewCopy = view;
+  if (![(WAAQIView *)self forceHideThisEntireView])
+  {
+    [(WAAQIView *)self setupForLayoutCompactScaleViewTwoLinesPlatterView:viewCopy];
+    [(WAAQIView *)self hideEverything];
+    [(WAAQIView *)self bounds];
+    v6 = v5;
+    v8 = v7;
+    v10 = v9;
+    v12 = v11;
+    aqiIndexLabel = [(WAAQIView *)self aqiIndexLabel];
+    [aqiIndexLabel setFrame:{v6, v8, v10, v12}];
+
+    aqiIndexLabel2 = [(WAAQIView *)self aqiIndexLabel];
+    [aqiIndexLabel2 sizeToFit];
+
+    aqiIndexLabel3 = [(WAAQIView *)self aqiIndexLabel];
+    [aqiIndexLabel3 setHidden:0];
+
+    aqiScaleView = [(WAAQIView *)self aqiScaleView];
+    [aqiScaleView setHidden:0];
+
+    v17 = WAIsShortDevice();
+    v18 = 8.0;
+    if (!v17)
+    {
+      v18 = 11.0;
+    }
+
+    v62 = v18;
+    if (v17)
+    {
+      v19 = 11.0;
+    }
+
+    else
+    {
+      v19 = 10.0;
+    }
+
+    aqiScaleView2 = [(WAAQIView *)self aqiScaleView];
+    [aqiScaleView2 intrinsicContentSize];
+    v63 = v21;
+
+    [(WAAQIView *)self frame];
+    v61 = v22;
+    aqiIndexLabel4 = [(WAAQIView *)self aqiIndexLabel];
+    [aqiIndexLabel4 frame];
+    v25 = v24;
+    v27 = v26;
+
+    v28 = *MEMORY[0x277CBF348];
+    [(WAAQIView *)self bounds];
+    [(WAAQIView *)self rtlAdjustFrame:v28 inBounds:v19, v25, v27, v29, v30, v31, v32];
+    v34 = v33;
+    v36 = v35;
+    v38 = v37;
+    v40 = v39;
+    aqiIndexLabel5 = [(WAAQIView *)self aqiIndexLabel];
+    [aqiIndexLabel5 setFrame:{v34, v36, v38, v40}];
+
+    aqiIndexLabel6 = [(WAAQIView *)self aqiIndexLabel];
+    attributedText = [aqiIndexLabel6 attributedText];
+    wa_font = [attributedText wa_font];
+    [wa_font descender];
+    v46 = v45;
+    v66.origin.x = v28;
+    v66.origin.y = v19;
+    v66.size.width = v25;
+    v66.size.height = v27;
+    v47 = v46 + CGRectGetMaxY(v66);
+
+    aqiScaleView3 = [(WAAQIView *)self aqiScaleView];
+    [aqiScaleView3 frame];
+
+    [(WAAQIView *)self bounds];
+    [(WAAQIView *)self rtlAdjustFrame:v28 inBounds:v62 + v47, v61, *&v63, v49, v50, v51, v52];
+    v54 = v53;
+    v56 = v55;
+    v58 = v57;
+    v60 = v59;
+    aqiScaleView4 = [(WAAQIView *)self aqiScaleView];
+    [aqiScaleView4 setFrame:{v54, v56, v58, v60}];
   }
 }
 

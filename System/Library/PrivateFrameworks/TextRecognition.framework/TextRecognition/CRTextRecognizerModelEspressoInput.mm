@@ -29,7 +29,7 @@
 {
   if (self->_img_input.data)
   {
-    [(CRTextRecognizerModelEspressoInput *)self img_input];
+    objc_msgSend_img_input(self, a2);
     free(v4);
     self->_img_input.data = 0;
   }

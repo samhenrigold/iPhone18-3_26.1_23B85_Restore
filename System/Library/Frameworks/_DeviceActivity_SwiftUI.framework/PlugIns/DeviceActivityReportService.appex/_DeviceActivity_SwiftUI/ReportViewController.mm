@@ -8,15 +8,64 @@
 - (void)hostViewControllerWillDeactivate:(id)deactivate error:(id)error;
 - (void)queryControllerDidUpdate:(id)update resultDifference:(id)difference;
 - (void)updateClientConfiguration:(id)configuration :(id)a4;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ReportViewController
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for ReportViewController(0);
+  v4 = v5.receiver;
+  [(ReportViewController *)&v5 viewWillAppear:appearCopy];
+  if (v4[OBJC_IVAR____TtC27DeviceActivityReportService20ReportViewController_isAuthorizedForLocalData] == 1)
+  {
+    if (qword_1000291B0 != -1)
+    {
+      swift_once();
+    }
+
+    sub_10000CC2C(&v4[OBJC_IVAR____TtC27DeviceActivityReportService20ReportViewController_dataRefresherObserverID]);
+  }
+
+  sub_100010CC8();
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if (*(&self->super.super.super.isa + OBJC_IVAR____TtC27DeviceActivityReportService20ReportViewController_isAuthorizedForLocalData) == 1)
+  {
+    v5 = qword_1000291B0;
+    selfCopy = self;
+    if (v5 != -1)
+    {
+      v8 = selfCopy;
+      swift_once();
+      selfCopy = v8;
+    }
+
+    sub_10000E348(selfCopy + OBJC_IVAR____TtC27DeviceActivityReportService20ReportViewController_dataRefresherObserverID);
+  }
+
+  else
+  {
+    selfCopy2 = self;
+  }
+
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for ReportViewController(0);
+  [(ReportViewController *)&v9 viewDidDisappear:disappearCopy];
+}
+
 - (void)viewDidLoad
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for ReportViewController();
+  v5.super_class = type metadata accessor for ReportViewController(0);
   v2 = v5.receiver;
   [(ReportViewController *)&v5 viewDidLoad];
   v3 = sub_100010580();
@@ -35,9 +84,8 @@
 {
   v4 = sub_10001A644();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10001A634();
   selfCopy = self;
   viewIfLoaded = [(ReportViewController *)selfCopy viewIfLoaded];
@@ -52,7 +100,7 @@
     }
   }
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (_TtC27DeviceActivityReportService20ReportViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -156,17 +204,16 @@
 {
   v6 = sub_100001DFC(&qword_100029928, &unk_10001C198);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v14 - v9;
+  v9 = &v13 - v8;
   sub_10000FBC4(0, &qword_100029930, _EXExtensionIdentity_ptr);
   sub_10001AF14();
   updateCopy = update;
   selfCopy = self;
-  v13 = sub_100010580();
-  sub_100013D60(updateCopy, v13);
+  v12 = sub_100010580();
+  sub_100013D60(updateCopy, v12);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)hostViewControllerDidActivate:(id)activate

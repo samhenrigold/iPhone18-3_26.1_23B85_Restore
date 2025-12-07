@@ -264,23 +264,21 @@ id __78__PPNotificationManager_addCalendarVisibilityChangeBlock_forLifetimeOfObj
 
 - (void)_registerForEventKitChangeTrackingWithGuardedData:(id)data
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *(data + 13);
-  v8 = 0;
-  v4 = [v3 registerForDetailedChangeTracking:&v8];
-  v5 = v8;
+  v7 = 0;
+  v4 = [v3 registerForDetailedChangeTracking:&v7];
+  v5 = v7;
   if (v4 == -1)
   {
     v6 = pp_default_log_handle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v10 = v5;
+      v9 = v5;
       _os_log_error_impl(&dword_1A7FD3000, v6, OS_LOG_TYPE_ERROR, "PPNotificationManager failed to register for detailed EK change tracking: %@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addEventKitChangeBlock:(id)block forLifetimeOfObject:(id)object
@@ -302,7 +300,7 @@ id __78__PPNotificationManager_addCalendarVisibilityChangeBlock_forLifetimeOfObj
 
 void __68__PPNotificationManager_addEventKitChangeBlock_forLifetimeOfObject___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!*(v3 + 11))
   {
@@ -333,47 +331,47 @@ void __68__PPNotificationManager_addEventKitChangeBlock_forLifetimeOfObject___bl
     }
 
     v10 = *(*(a1 + 32) + 24);
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2020000000;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
     v11 = getEKEventStoreChangedNotificationSymbolLoc_ptr;
-    v29 = getEKEventStoreChangedNotificationSymbolLoc_ptr;
+    v28 = getEKEventStoreChangedNotificationSymbolLoc_ptr;
     if (!getEKEventStoreChangedNotificationSymbolLoc_ptr)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v31 = __getEKEventStoreChangedNotificationSymbolLoc_block_invoke;
-      v32 = &unk_1E77F78F0;
-      v33 = &v26;
+      v30 = __getEKEventStoreChangedNotificationSymbolLoc_block_invoke;
+      v31 = &unk_1E77F78F0;
+      v32 = &v25;
       v12 = EventKitLibrary();
       v13 = dlsym(v12, "EKEventStoreChangedNotification");
-      *(v33[1] + 24) = v13;
-      getEKEventStoreChangedNotificationSymbolLoc_ptr = *(v33[1] + 24);
-      v11 = v27[3];
+      *(v32[1] + 24) = v13;
+      getEKEventStoreChangedNotificationSymbolLoc_ptr = *(v32[1] + 24);
+      v11 = v26[3];
     }
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v25, 8);
     if (!v11)
     {
-      v21 = [MEMORY[0x1E696AAA8] currentHandler];
-      v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getEKEventStoreChangedNotification(void)"];
-      [v21 handleFailureInFunction:v22 file:@"PPNotificationManager.m" lineNumber:38 description:{@"%s", dlerror()}];
+      v20 = [MEMORY[0x1E696AAA8] currentHandler];
+      v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getEKEventStoreChangedNotification(void)"];
+      [v20 handleFailureInFunction:v21 file:@"PPNotificationManager.m" lineNumber:38 description:{@"%s", dlerror()}];
 
       __break(1u);
     }
 
     v14 = *v11;
     v15 = *(v3 + 13);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __68__PPNotificationManager_addEventKitChangeBlock_forLifetimeOfObject___block_invoke_187;
-    v23[3] = &unk_1E77F76B0;
-    objc_copyWeak(&v24, &location);
-    v16 = [v10 addObserverForName:v14 object:v15 queue:0 usingBlock:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __68__PPNotificationManager_addEventKitChangeBlock_forLifetimeOfObject___block_invoke_187;
+    v22[3] = &unk_1E77F76B0;
+    objc_copyWeak(&v23, &location);
+    v16 = [v10 addObserverForName:v14 object:v15 queue:0 usingBlock:v22];
     v17 = *(v3 + 12);
     *(v3 + 12) = v16;
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
   }
 
   v18 = *(v3 + 11);
@@ -381,7 +379,6 @@ void __68__PPNotificationManager_addEventKitChangeBlock_forLifetimeOfObject___bl
   [v18 addObserverBlock:v19 forLifetimeOfObject:*(a1 + 40)];
 
   objc_destroyWeak(&location);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __68__PPNotificationManager_addEventKitChangeBlock_forLifetimeOfObject___block_invoke_187(uint64_t a1, void *a2)
@@ -525,28 +522,28 @@ LABEL_19:
 
 void __68__PPNotificationManager_addEventKitChangeBlock_forLifetimeOfObject___block_invoke_189(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), v3[11]);
   if (v3[13])
   {
-    *&v18 = 0;
-    *(&v18 + 1) = &v18;
-    v19 = 0x3032000000;
-    v20 = __Block_byref_object_copy__6340;
-    v21 = __Block_byref_object_dispose__6341;
-    v22 = 0;
+    *&v17 = 0;
+    *(&v17 + 1) = &v17;
+    v18 = 0x3032000000;
+    v19 = __Block_byref_object_copy__6340;
+    v20 = __Block_byref_object_dispose__6341;
+    v21 = 0;
     WeakRetained = objc_loadWeakRetained((a1 + 64));
     v5 = v3[13];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __68__PPNotificationManager_addEventKitChangeBlock_forLifetimeOfObject___block_invoke_190;
-    v15[3] = &unk_1E77F7778;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __68__PPNotificationManager_addEventKitChangeBlock_forLifetimeOfObject___block_invoke_190;
+    v14[3] = &unk_1E77F7778;
     v6 = *(a1 + 56);
-    v15[4] = *(a1 + 48);
-    v15[5] = &v18;
-    v15[6] = v6;
-    v7 = MEMORY[0x1AC568040](v15);
+    v14[4] = *(a1 + 48);
+    v14[5] = &v17;
+    v14[6] = v6;
+    v7 = MEMORY[0x1AC568040](v14);
     [WeakRetained fetchObjectChangesFromStore:v5 usingBlock:v7];
 
     LODWORD(v5) = *(*(*(a1 + 48) + 8) + 24);
@@ -572,14 +569,14 @@ void __68__PPNotificationManager_addEventKitChangeBlock_forLifetimeOfObject___bl
         v13 = [v11 _pas_leftFoldWithInitialObject:v12 accumulate:&__block_literal_global_196];
 
         *buf = 138543362;
-        v17 = v13;
+        v16 = v13;
         _os_log_impl(&dword_1A7FD3000, v8, OS_LOG_TYPE_DEFAULT, "PPNotificationManager received EK changes: %{public}@", buf, 0xCu);
       }
 
-      [v3[13] consumeAllChangesUpToToken:*(*(&v18 + 1) + 40)];
+      [v3[13] consumeAllChangesUpToToken:*(*(&v17 + 1) + 40)];
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
   }
 
   else
@@ -587,13 +584,11 @@ void __68__PPNotificationManager_addEventKitChangeBlock_forLifetimeOfObject___bl
     v10 = pp_default_log_handle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      LODWORD(v18) = 138412290;
-      *(&v18 + 4) = v3;
-      _os_log_fault_impl(&dword_1A7FD3000, v10, OS_LOG_TYPE_FAULT, "PPNotificationManager: EK store is nil when handling EK change: %@", &v18, 0xCu);
+      LODWORD(v17) = 138412290;
+      *(&v17 + 4) = v3;
+      _os_log_fault_impl(&dword_1A7FD3000, v10, OS_LOG_TYPE_FAULT, "PPNotificationManager: EK store is nil when handling EK change: %@", &v17, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __68__PPNotificationManager_addEventKitChangeBlock_forLifetimeOfObject___block_invoke_190(void *a1, char a2, void *a3, void *a4)

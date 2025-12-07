@@ -3,7 +3,7 @@
 
 @implementation SUICInitializeStaticVariables
 
-uint64_t ___SUICInitializeStaticVariables_block_invoke()
+void *___SUICInitializeStaticVariables_block_invoke()
 {
   v0 = objc_alloc_init(_SUICCheckGlyphSpringAnimationFactory);
   v1 = _SUICDefaultSpringAnimationFactory;

@@ -498,236 +498,166 @@
   }
 
   v6 = v5;
-  if (!v6)
+  v42 = 0;
+  if (v6)
   {
-    goto LABEL_40;
-  }
-
-  supportsCameraRecording = [(HMResidentCapabilities *)self supportsCameraRecording];
-  if (supportsCameraRecording != [v6 supportsCameraRecording])
-  {
-    goto LABEL_40;
-  }
-
-  supportsRouterManagement = [(HMResidentCapabilities *)self supportsRouterManagement];
-  if (supportsRouterManagement != [v6 supportsRouterManagement])
-  {
-    goto LABEL_40;
-  }
-
-  supportsShortcutActions = [(HMResidentCapabilities *)self supportsShortcutActions];
-  if (supportsShortcutActions != [v6 supportsShortcutActions])
-  {
-    goto LABEL_40;
-  }
-
-  supportsMediaActions = [(HMResidentCapabilities *)self supportsMediaActions];
-  if (supportsMediaActions != [v6 supportsMediaActions])
-  {
-    goto LABEL_40;
-  }
-
-  supportsCameraSignificantEventNotifications = [(HMResidentCapabilities *)self supportsCameraSignificantEventNotifications];
-  if (supportsCameraSignificantEventNotifications != [v6 supportsCameraSignificantEventNotifications])
-  {
-    goto LABEL_40;
-  }
-
-  supportsFirmwareUpdate = [(HMResidentCapabilities *)self supportsFirmwareUpdate];
-  if (supportsFirmwareUpdate != [v6 supportsFirmwareUpdate])
-  {
-    goto LABEL_40;
-  }
-
-  supportsResidentFirmwareUpdate = [(HMResidentCapabilities *)self supportsResidentFirmwareUpdate];
-  if (supportsResidentFirmwareUpdate != [v6 supportsResidentFirmwareUpdate])
-  {
-    goto LABEL_40;
-  }
-
-  supportsCameraActivityZones = [(HMResidentCapabilities *)self supportsCameraActivityZones];
-  if (supportsCameraActivityZones != [v6 supportsCameraActivityZones])
-  {
-    goto LABEL_40;
-  }
-
-  supportsFaceClassification = [(HMResidentCapabilities *)self supportsFaceClassification];
-  if (supportsFaceClassification != [v6 supportsFaceClassification])
-  {
-    goto LABEL_40;
-  }
-
-  supportsNaturalLighting = [(HMResidentCapabilities *)self supportsNaturalLighting];
-  if (supportsNaturalLighting != [v6 supportsNaturalLighting])
-  {
-    goto LABEL_40;
-  }
-
-  supportsCameraRecordingReachabilityNotifications = [(HMResidentCapabilities *)self supportsCameraRecordingReachabilityNotifications];
-  if (supportsCameraRecordingReachabilityNotifications != [v6 supportsCameraRecordingReachabilityNotifications])
-  {
-    goto LABEL_40;
-  }
-
-  supportsAnnounce = [(HMResidentCapabilities *)self supportsAnnounce];
-  if (supportsAnnounce != [v6 supportsAnnounce])
-  {
-    goto LABEL_40;
-  }
-
-  supportsWakeOnLAN = [(HMResidentCapabilities *)self supportsWakeOnLAN];
-  if (supportsWakeOnLAN != [v6 supportsWakeOnLAN])
-  {
-    goto LABEL_40;
-  }
-
-  supportsLockNotificationContext = [(HMResidentCapabilities *)self supportsLockNotificationContext];
-  if (supportsLockNotificationContext != [v6 supportsLockNotificationContext])
-  {
-    goto LABEL_40;
-  }
-
-  supportsWalletKey = [(HMResidentCapabilities *)self supportsWalletKey];
-  if (supportsWalletKey != [v6 supportsWalletKey])
-  {
-    goto LABEL_40;
-  }
-
-  supportsCameraPackageDetection = [(HMResidentCapabilities *)self supportsCameraPackageDetection];
-  if (supportsCameraPackageDetection != [v6 supportsCameraPackageDetection])
-  {
-    goto LABEL_40;
-  }
-
-  supportsAccessCodes = [(HMResidentCapabilities *)self supportsAccessCodes];
-  if (supportsAccessCodes != [v6 supportsAccessCodes])
-  {
-    goto LABEL_40;
-  }
-
-  supportsCHIP = [(HMResidentCapabilities *)self supportsCHIP];
-  if (supportsCHIP != [v6 supportsCHIP])
-  {
-    goto LABEL_40;
-  }
-
-  supportsThreadBorderRouter = [(HMResidentCapabilities *)self supportsThreadBorderRouter];
-  if (supportsThreadBorderRouter != [v6 supportsThreadBorderRouter])
-  {
-    goto LABEL_40;
-  }
-
-  supportsSiriEndpointSetup = [(HMResidentCapabilities *)self supportsSiriEndpointSetup];
-  if (supportsSiriEndpointSetup != [v6 supportsSiriEndpointSetup])
-  {
-    goto LABEL_40;
-  }
-
-  supportsCustomMediaApplicationDestination = [(HMResidentCapabilities *)self supportsCustomMediaApplicationDestination];
-  if (supportsCustomMediaApplicationDestination != [v6 supportsCustomMediaApplicationDestination])
-  {
-    goto LABEL_40;
-  }
-
-  supportsUnifiedMediaNotifications = [(HMResidentCapabilities *)self supportsUnifiedMediaNotifications];
-  if (supportsUnifiedMediaNotifications != [v6 supportsUnifiedMediaNotifications])
-  {
-    goto LABEL_40;
-  }
-
-  supportsHomeHub = [(HMResidentCapabilities *)self supportsHomeHub];
-  if (supportsHomeHub != [v6 supportsHomeHub])
-  {
-    goto LABEL_40;
-  }
-
-  supportsResidentFirstAccessoryCommunication = [(HMResidentCapabilities *)self supportsResidentFirstAccessoryCommunication];
-  if (supportsResidentFirstAccessoryCommunication != [v6 supportsResidentFirstAccessoryCommunication])
-  {
-    goto LABEL_40;
-  }
-
-  supportsThreadNetworkCredentialSharing = [(HMResidentCapabilities *)self supportsThreadNetworkCredentialSharing];
-  if (supportsThreadNetworkCredentialSharing != [v6 supportsThreadNetworkCredentialSharing])
-  {
-    goto LABEL_40;
-  }
-
-  supportsMatterSharedAdminPairing = [(HMResidentCapabilities *)self supportsMatterSharedAdminPairing];
-  if (supportsMatterSharedAdminPairing != [v6 supportsMatterSharedAdminPairing])
-  {
-    goto LABEL_40;
-  }
-
-  supportsEventLog = [(HMResidentCapabilities *)self supportsEventLog];
-  if (supportsEventLog != [v6 supportsEventLog])
-  {
-    goto LABEL_40;
-  }
-
-  supportsMatterTTU = [(HMResidentCapabilities *)self supportsMatterTTU];
-  if (supportsMatterTTU != [v6 supportsMatterTTU])
-  {
-    goto LABEL_40;
-  }
-
-  supportsDistributedExecutionOnPrimary = [(HMResidentCapabilities *)self supportsDistributedExecutionOnPrimary];
-  if (supportsDistributedExecutionOnPrimary != [v6 supportsDistributedExecutionOnPrimary])
-  {
-    goto LABEL_40;
-  }
-
-  supportsResidentActionSetStateEvaluation = [(HMResidentCapabilities *)self supportsResidentActionSetStateEvaluation];
-  if (supportsResidentActionSetStateEvaluation != [v6 supportsResidentActionSetStateEvaluation])
-  {
-    goto LABEL_40;
-  }
-
-  supportsUWB = [(HMResidentCapabilities *)self supportsUWB];
-  if (supportsUWB != [v6 supportsUWB])
-  {
-    goto LABEL_40;
-  }
-
-  supportsRestrictedGuest = [(HMResidentCapabilities *)self supportsRestrictedGuest];
-  if (supportsRestrictedGuest != [v6 supportsRestrictedGuest])
-  {
-    goto LABEL_40;
-  }
-
-  supportsMatterOwnerCertFetch = [(HMResidentCapabilities *)self supportsMatterOwnerCertFetch];
-  if (supportsMatterOwnerCertFetch != [v6 supportsMatterOwnerCertFetch])
-  {
-    goto LABEL_40;
-  }
-
-  supportsDistributedExecutionOnAppleMediaAccessories = [(HMResidentCapabilities *)self supportsDistributedExecutionOnAppleMediaAccessories];
-  if (supportsDistributedExecutionOnAppleMediaAccessories != [v6 supportsDistributedExecutionOnAppleMediaAccessories])
-  {
-    goto LABEL_40;
-  }
-
-  supportsResidentSelection = [(HMResidentCapabilities *)self supportsResidentSelection];
-  if (supportsResidentSelection != [v6 supportsResidentSelection])
-  {
-    goto LABEL_40;
-  }
-
-  supportsNativeMatter = [(HMResidentCapabilities *)self supportsNativeMatter];
-  if (supportsNativeMatter != [v6 supportsNativeMatter] && ((_os_feature_enabled_impl() & 1) != 0 || HM_FEATURE_RVC_DEFAULTS_ENABLED()))
-  {
-    goto LABEL_40;
-  }
-
-  if (((v45 = -[HMResidentCapabilities supportsHomeActivityState](self, "supportsHomeActivityState"), v45 == [v6 supportsHomeActivityState]) || (_os_feature_enabled_impl() & 1) == 0) && ((v46 = -[HMResidentCapabilities supportsUWBUnlock](self, "supportsUWBUnlock"), v46 == objc_msgSend(v6, "supportsUWBUnlock")) || (_os_feature_enabled_impl() & 1) == 0) && ((v47 = -[HMResidentCapabilities supportsNativeMatterPlugin](self, "supportsNativeMatterPlugin"), v47 == objc_msgSend(v6, "supportsNativeMatterPlugin")) || (_os_feature_enabled_impl() & 1) == 0 && !HM_FEATURE_RVC_DEFAULTS_ENABLED()))
-  {
-    v42 = 1;
-  }
-
-  else
-  {
-LABEL_40:
-    v42 = 0;
+    supportsCameraRecording = [(HMResidentCapabilities *)self supportsCameraRecording];
+    if (supportsCameraRecording == [v6 supportsCameraRecording])
+    {
+      supportsRouterManagement = [(HMResidentCapabilities *)self supportsRouterManagement];
+      if (supportsRouterManagement == [v6 supportsRouterManagement])
+      {
+        supportsShortcutActions = [(HMResidentCapabilities *)self supportsShortcutActions];
+        if (supportsShortcutActions == [v6 supportsShortcutActions])
+        {
+          supportsMediaActions = [(HMResidentCapabilities *)self supportsMediaActions];
+          if (supportsMediaActions == [v6 supportsMediaActions])
+          {
+            supportsCameraSignificantEventNotifications = [(HMResidentCapabilities *)self supportsCameraSignificantEventNotifications];
+            if (supportsCameraSignificantEventNotifications == [v6 supportsCameraSignificantEventNotifications])
+            {
+              supportsFirmwareUpdate = [(HMResidentCapabilities *)self supportsFirmwareUpdate];
+              if (supportsFirmwareUpdate == [v6 supportsFirmwareUpdate])
+              {
+                supportsResidentFirmwareUpdate = [(HMResidentCapabilities *)self supportsResidentFirmwareUpdate];
+                if (supportsResidentFirmwareUpdate == [v6 supportsResidentFirmwareUpdate])
+                {
+                  supportsCameraActivityZones = [(HMResidentCapabilities *)self supportsCameraActivityZones];
+                  if (supportsCameraActivityZones == [v6 supportsCameraActivityZones])
+                  {
+                    supportsFaceClassification = [(HMResidentCapabilities *)self supportsFaceClassification];
+                    if (supportsFaceClassification == [v6 supportsFaceClassification])
+                    {
+                      supportsNaturalLighting = [(HMResidentCapabilities *)self supportsNaturalLighting];
+                      if (supportsNaturalLighting == [v6 supportsNaturalLighting])
+                      {
+                        supportsCameraRecordingReachabilityNotifications = [(HMResidentCapabilities *)self supportsCameraRecordingReachabilityNotifications];
+                        if (supportsCameraRecordingReachabilityNotifications == [v6 supportsCameraRecordingReachabilityNotifications])
+                        {
+                          supportsAnnounce = [(HMResidentCapabilities *)self supportsAnnounce];
+                          if (supportsAnnounce == [v6 supportsAnnounce])
+                          {
+                            supportsWakeOnLAN = [(HMResidentCapabilities *)self supportsWakeOnLAN];
+                            if (supportsWakeOnLAN == [v6 supportsWakeOnLAN])
+                            {
+                              supportsLockNotificationContext = [(HMResidentCapabilities *)self supportsLockNotificationContext];
+                              if (supportsLockNotificationContext == [v6 supportsLockNotificationContext])
+                              {
+                                supportsWalletKey = [(HMResidentCapabilities *)self supportsWalletKey];
+                                if (supportsWalletKey == [v6 supportsWalletKey])
+                                {
+                                  supportsCameraPackageDetection = [(HMResidentCapabilities *)self supportsCameraPackageDetection];
+                                  if (supportsCameraPackageDetection == [v6 supportsCameraPackageDetection])
+                                  {
+                                    supportsAccessCodes = [(HMResidentCapabilities *)self supportsAccessCodes];
+                                    if (supportsAccessCodes == [v6 supportsAccessCodes])
+                                    {
+                                      supportsCHIP = [(HMResidentCapabilities *)self supportsCHIP];
+                                      if (supportsCHIP == [v6 supportsCHIP])
+                                      {
+                                        supportsThreadBorderRouter = [(HMResidentCapabilities *)self supportsThreadBorderRouter];
+                                        if (supportsThreadBorderRouter == [v6 supportsThreadBorderRouter])
+                                        {
+                                          supportsSiriEndpointSetup = [(HMResidentCapabilities *)self supportsSiriEndpointSetup];
+                                          if (supportsSiriEndpointSetup == [v6 supportsSiriEndpointSetup])
+                                          {
+                                            supportsCustomMediaApplicationDestination = [(HMResidentCapabilities *)self supportsCustomMediaApplicationDestination];
+                                            if (supportsCustomMediaApplicationDestination == [v6 supportsCustomMediaApplicationDestination])
+                                            {
+                                              supportsUnifiedMediaNotifications = [(HMResidentCapabilities *)self supportsUnifiedMediaNotifications];
+                                              if (supportsUnifiedMediaNotifications == [v6 supportsUnifiedMediaNotifications])
+                                              {
+                                                supportsHomeHub = [(HMResidentCapabilities *)self supportsHomeHub];
+                                                if (supportsHomeHub == [v6 supportsHomeHub])
+                                                {
+                                                  supportsResidentFirstAccessoryCommunication = [(HMResidentCapabilities *)self supportsResidentFirstAccessoryCommunication];
+                                                  if (supportsResidentFirstAccessoryCommunication == [v6 supportsResidentFirstAccessoryCommunication])
+                                                  {
+                                                    supportsThreadNetworkCredentialSharing = [(HMResidentCapabilities *)self supportsThreadNetworkCredentialSharing];
+                                                    if (supportsThreadNetworkCredentialSharing == [v6 supportsThreadNetworkCredentialSharing])
+                                                    {
+                                                      supportsMatterSharedAdminPairing = [(HMResidentCapabilities *)self supportsMatterSharedAdminPairing];
+                                                      if (supportsMatterSharedAdminPairing == [v6 supportsMatterSharedAdminPairing])
+                                                      {
+                                                        supportsEventLog = [(HMResidentCapabilities *)self supportsEventLog];
+                                                        if (supportsEventLog == [v6 supportsEventLog])
+                                                        {
+                                                          supportsMatterTTU = [(HMResidentCapabilities *)self supportsMatterTTU];
+                                                          if (supportsMatterTTU == [v6 supportsMatterTTU])
+                                                          {
+                                                            supportsDistributedExecutionOnPrimary = [(HMResidentCapabilities *)self supportsDistributedExecutionOnPrimary];
+                                                            if (supportsDistributedExecutionOnPrimary == [v6 supportsDistributedExecutionOnPrimary])
+                                                            {
+                                                              supportsResidentActionSetStateEvaluation = [(HMResidentCapabilities *)self supportsResidentActionSetStateEvaluation];
+                                                              if (supportsResidentActionSetStateEvaluation == [v6 supportsResidentActionSetStateEvaluation])
+                                                              {
+                                                                supportsUWB = [(HMResidentCapabilities *)self supportsUWB];
+                                                                if (supportsUWB == [v6 supportsUWB])
+                                                                {
+                                                                  supportsRestrictedGuest = [(HMResidentCapabilities *)self supportsRestrictedGuest];
+                                                                  if (supportsRestrictedGuest == [v6 supportsRestrictedGuest])
+                                                                  {
+                                                                    supportsMatterOwnerCertFetch = [(HMResidentCapabilities *)self supportsMatterOwnerCertFetch];
+                                                                    if (supportsMatterOwnerCertFetch == [v6 supportsMatterOwnerCertFetch])
+                                                                    {
+                                                                      supportsDistributedExecutionOnAppleMediaAccessories = [(HMResidentCapabilities *)self supportsDistributedExecutionOnAppleMediaAccessories];
+                                                                      if (supportsDistributedExecutionOnAppleMediaAccessories == [v6 supportsDistributedExecutionOnAppleMediaAccessories])
+                                                                      {
+                                                                        supportsResidentSelection = [(HMResidentCapabilities *)self supportsResidentSelection];
+                                                                        if (supportsResidentSelection == [v6 supportsResidentSelection])
+                                                                        {
+                                                                          supportsNativeMatter = [(HMResidentCapabilities *)self supportsNativeMatter];
+                                                                          if (supportsNativeMatter == [v6 supportsNativeMatter] || (_os_feature_enabled_impl() & 1) == 0 && !HM_FEATURE_RVC_DEFAULTS_ENABLED())
+                                                                          {
+                                                                            supportsHomeActivityState = [(HMResidentCapabilities *)self supportsHomeActivityState];
+                                                                            if (supportsHomeActivityState == [v6 supportsHomeActivityState] || (_os_feature_enabled_impl() & 1) == 0)
+                                                                            {
+                                                                              supportsUWBUnlock = [(HMResidentCapabilities *)self supportsUWBUnlock];
+                                                                              if (supportsUWBUnlock == [v6 supportsUWBUnlock] || (_os_feature_enabled_impl() & 1) == 0)
+                                                                              {
+                                                                                supportsNativeMatterPlugin = [(HMResidentCapabilities *)self supportsNativeMatterPlugin];
+                                                                                if (supportsNativeMatterPlugin == [v6 supportsNativeMatterPlugin] || (_os_feature_enabled_impl() & 1) == 0 && !HM_FEATURE_RVC_DEFAULTS_ENABLED())
+                                                                                {
+                                                                                  v42 = 1;
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   return v42;

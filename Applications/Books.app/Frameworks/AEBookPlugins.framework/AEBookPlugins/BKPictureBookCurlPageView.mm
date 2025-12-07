@@ -157,7 +157,7 @@ LABEL_3:
   v5 = layer;
   if (layer)
   {
-    [layer sublayerTransform];
+    objc_msgSend_sublayerTransform(layer);
   }
 
   else

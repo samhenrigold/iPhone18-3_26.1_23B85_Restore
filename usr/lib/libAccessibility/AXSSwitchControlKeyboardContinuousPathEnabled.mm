@@ -3,7 +3,7 @@
 
 @implementation AXSSwitchControlKeyboardContinuousPathEnabled
 
-uint64_t ___AXSSwitchControlKeyboardContinuousPathEnabled_block_invoke()
+void *___AXSSwitchControlKeyboardContinuousPathEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

@@ -49,39 +49,40 @@ LABEL_8:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [(ATXAppDirectoryEventMetadata *)self initWithProto:v7];
+      [(ATXAppDirectoryEventMetadata *)self initWithProto:v8];
     }
 
     goto LABEL_8;
   }
 
-  v5 = protoCopy;
-  if ([(ATXPBAppDirectoryEventMetadata *)v5 hasBundleIdInTopAppsVisible])
+  v6 = protoCopy;
+  if ([(ATXPBAppDirectoryEventMetadata *)v6 hasBundleIdInTopAppsVisible])
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:-[ATXPBAppDirectoryEventMetadata bundleIdInTopAppsVisible](v5)];
+    v7 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:-[ATXPBAppDirectoryEventMetadata bundleIdInTopAppsVisible](v6)];
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  if ([(ATXPBAppDirectoryEventMetadata *)v5 hasUserLaunchedAppBeforeLeaving])
+  if ([(ATXPBAppDirectoryEventMetadata *)v6 hasUserLaunchedAppBeforeLeaving])
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:-[ATXPBAppDirectoryEventMetadata userLaunchedAppBeforeLeaving](v5)];
+    v10 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:-[ATXPBAppDirectoryEventMetadata userLaunchedAppBeforeLeaving](v6)];
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  self = [(ATXAppDirectoryEventMetadata *)self initWithBundleIdInTopAppsVisible:v6 userLaunchedAppBeforeLeaving:v9];
+  self = [(ATXAppDirectoryEventMetadata *)self initWithBundleIdInTopAppsVisible:v7 userLaunchedAppBeforeLeaving:v10];
 
   selfCopy = self;
 LABEL_14:

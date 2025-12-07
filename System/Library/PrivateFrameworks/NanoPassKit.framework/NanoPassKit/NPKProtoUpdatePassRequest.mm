@@ -117,7 +117,7 @@
     [NPKProtoUpdatePassRequest writeTo:];
   }
 
-  v10 = toCopy;
+  v7 = toCopy;
   PBDataWriterWriteSubmessage();
   if (self->_libraryHash)
   {
@@ -129,34 +129,31 @@
     PBDataWriterWriteDataField();
   }
 
-  v5 = v10;
+  v5 = v7;
   if ((*&self->_has & 2) != 0)
   {
-    resyncID = self->_resyncID;
     PBDataWriterWriteUint32Field();
-    v5 = v10;
+    v5 = v7;
   }
 
   if (self->_catalog)
   {
     PBDataWriterWriteSubmessage();
-    v5 = v10;
+    v5 = v7;
   }
 
   has = self->_has;
   if (has)
   {
-    lastKnownResyncID = self->_lastKnownResyncID;
     PBDataWriterWriteUint32Field();
-    v5 = v10;
+    v5 = v7;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    syncID = self->_syncID;
     PBDataWriterWriteUint32Field();
-    v5 = v10;
+    v5 = v7;
   }
 }
 
@@ -280,7 +277,6 @@
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 56);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_resyncID != *(equalCopy + 12))
@@ -300,7 +296,7 @@
     if (![(NPKProtoCatalog *)catalog isEqual:?])
     {
 LABEL_25:
-      v11 = 0;
+      v10 = 0;
       goto LABEL_26;
     }
 
@@ -320,7 +316,7 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  v11 = (*(equalCopy + 56) & 4) == 0;
+  v10 = (*(equalCopy + 56) & 4) == 0;
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 56) & 4) == 0 || self->_syncID != *(equalCopy + 13))
@@ -328,12 +324,12 @@ LABEL_25:
       goto LABEL_25;
     }
 
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_26:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash

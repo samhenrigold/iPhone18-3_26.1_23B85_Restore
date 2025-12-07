@@ -92,21 +92,7 @@
         {
           systemVersion = [(SPSimpleBeacon *)self systemVersion];
           systemVersion2 = [(SPSimpleBeacon *)v5 systemVersion];
-          if (![systemVersion isEqualToString:systemVersion2])
-          {
-            goto LABEL_40;
-          }
-
-          [(SPSimpleBeacon *)self txPower];
-          v41 = v40;
-          [(SPSimpleBeacon *)v5 txPower];
-          if (v41 != v42)
-          {
-            goto LABEL_40;
-          }
-
-          vendorId = [(SPSimpleBeacon *)self vendorId];
-          if (vendorId == [(SPSimpleBeacon *)v5 vendorId]&& (v44 = [(SPSimpleBeacon *)self productId], v44 == [(SPSimpleBeacon *)v5 productId]) && (v45 = [(SPSimpleBeacon *)self batteryLevel], v45 == [(SPSimpleBeacon *)v5 batteryLevel]) && (v46 = [(SPSimpleBeacon *)self connectableDeviceCount], v46 == [(SPSimpleBeacon *)v5 connectableDeviceCount]) && (v47 = [(SPSimpleBeacon *)self partIdentifier], v47 == [(SPSimpleBeacon *)v5 partIdentifier]))
+          if ([systemVersion isEqualToString:systemVersion2] && (-[SPSimpleBeacon txPower](self, "txPower"), v41 = v40, -[SPSimpleBeacon txPower](v5, "txPower"), v41 == v42) && (v43 = -[SPSimpleBeacon vendorId](self, "vendorId"), v43 == -[SPSimpleBeacon vendorId](v5, "vendorId")) && (v44 = -[SPSimpleBeacon productId](self, "productId"), v44 == -[SPSimpleBeacon productId](v5, "productId")) && (v45 = -[SPSimpleBeacon batteryLevel](self, "batteryLevel"), v45 == -[SPSimpleBeacon batteryLevel](v5, "batteryLevel")) && (v46 = -[SPSimpleBeacon connectableDeviceCount](self, "connectableDeviceCount"), v46 == -[SPSimpleBeacon connectableDeviceCount](v5, "connectableDeviceCount")) && (v47 = -[SPSimpleBeacon partIdentifier](self, "partIdentifier"), v47 == -[SPSimpleBeacon partIdentifier](v5, "partIdentifier")))
           {
             productUUID = [(SPSimpleBeacon *)self productUUID];
             productUUID2 = [(SPSimpleBeacon *)v5 productUUID];
@@ -115,7 +101,6 @@
 
           else
           {
-LABEL_40:
             v12 = 0;
           }
         }

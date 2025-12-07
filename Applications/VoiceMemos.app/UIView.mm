@@ -794,12 +794,12 @@ LABEL_9:
 - (void)rc_setGlassBackground
 {
   v3 = type metadata accessor for _Glass._GlassVariant();
-  __chkstk_darwin(v3 - 8, v4);
+  __chkstk_darwin(v3 - 8);
   selfCopy = self;
   static _Glass._GlassVariant.regular.getter();
-  v6[3] = type metadata accessor for _Glass();
-  v6[4] = &protocol witness table for _Glass;
-  sub_100015800(v6);
+  v5[3] = type metadata accessor for _Glass();
+  v5[4] = &protocol witness table for _Glass;
+  sub_100015800(v5);
   _Glass.init(_:smoothness:)();
   UIView._background.setter();
 }

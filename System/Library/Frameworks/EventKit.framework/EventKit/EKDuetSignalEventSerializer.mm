@@ -7,7 +7,7 @@
 
 + (id)serializedEventWithEvent:(id)event
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   title = [eventCopy title];
@@ -58,42 +58,42 @@
     v21 = [v19 arrayWithCapacity:{objc_msgSend(attendees2, "count")}];
 
     attendees3 = [eventCopy attendees];
-    v78[0] = MEMORY[0x1E69E9820];
-    v78[1] = 3221225472;
-    v78[2] = __56__EKDuetSignalEventSerializer_serializedEventWithEvent___block_invoke;
-    v78[3] = &unk_1E77FFD90;
-    v79 = v21;
+    v77[0] = MEMORY[0x1E69E9820];
+    v77[1] = 3221225472;
+    v77[2] = __56__EKDuetSignalEventSerializer_serializedEventWithEvent___block_invoke;
+    v77[3] = &unk_1E77FFD90;
+    v78 = v21;
     v23 = v21;
-    [attendees3 enumerateObjectsUsingBlock:v78];
+    [attendees3 enumerateObjectsUsingBlock:v77];
 
     [dictionary setObject:v23 forKey:@"attendees"];
   }
 
   recurrenceRules = [eventCopy recurrenceRules];
 
-  v60 = eventCopy;
+  v59 = eventCopy;
   if (recurrenceRules)
   {
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
     v75 = 0u;
+    v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     obj = [eventCopy recurrenceRules];
-    v68 = [obj countByEnumeratingWithState:&v74 objects:v81 count:16];
-    if (v68)
+    v67 = [obj countByEnumeratingWithState:&v73 objects:v80 count:16];
+    if (v67)
     {
       v25 = 0;
-      v65 = *v75;
+      v64 = *v74;
       do
       {
-        for (i = 0; i != v68; ++i)
+        for (i = 0; i != v67; ++i)
         {
-          if (*v75 != v65)
+          if (*v74 != v64)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v74 + 1) + 8 * i);
+          v27 = *(*(&v73 + 1) + 8 * i);
           v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"rrule_%d_frequency", v25];
           v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"rrule_%d_interval", v25];
           v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"rrule_%d_end", v25];
@@ -111,41 +111,41 @@
           v25 = (v25 + 1);
         }
 
-        v68 = [obj countByEnumeratingWithState:&v74 objects:v81 count:16];
+        v67 = [obj countByEnumeratingWithState:&v73 objects:v80 count:16];
       }
 
-      while (v68);
+      while (v67);
     }
 
-    eventCopy = v60;
+    eventCopy = v59;
   }
 
   alarms = [eventCopy alarms];
 
   if (alarms)
   {
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
     v71 = 0u;
+    v72 = 0u;
+    v69 = 0u;
+    v70 = 0u;
     alarms2 = [eventCopy alarms];
-    v66 = [alarms2 countByEnumeratingWithState:&v70 objects:v80 count:16];
-    if (v66)
+    v65 = [alarms2 countByEnumeratingWithState:&v69 objects:v79 count:16];
+    if (v65)
     {
       v37 = 0;
-      obja = *v71;
+      obja = *v70;
       do
       {
-        for (j = 0; j != v66; ++j)
+        for (j = 0; j != v65; ++j)
         {
-          if (*v71 != obja)
+          if (*v70 != obja)
           {
             objc_enumerationMutation(alarms2);
           }
 
-          v39 = *(*(&v70 + 1) + 8 * j);
-          v69 = [MEMORY[0x1E696AEC0] stringWithFormat:@"alarm_%d_absoluteDate", v37];
-          v67 = [MEMORY[0x1E696AEC0] stringWithFormat:@"alarm_%d_relativeOffset", v37];
+          v39 = *(*(&v69 + 1) + 8 * j);
+          v68 = [MEMORY[0x1E696AEC0] stringWithFormat:@"alarm_%d_absoluteDate", v37];
+          v66 = [MEMORY[0x1E696AEC0] stringWithFormat:@"alarm_%d_relativeOffset", v37];
           v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"alarm_%d_locationTitle", v37];
           v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"alarm_%d_proximity", v37];
           absoluteDate = [v39 absoluteDate];
@@ -163,11 +163,11 @@
           systemTimeZone = [MEMORY[0x1E695DFE8] systemTimeZone];
           v45 = [self componentsForDate:v43 inTimeZone:systemTimeZone];
 
-          [dictionary setObject:v45 forKey:v69];
+          [dictionary setObject:v45 forKey:v68];
           v46 = MEMORY[0x1E696AD98];
           [v39 relativeOffset];
           v47 = [v46 numberWithDouble:?];
-          [dictionary setObject:v47 forKey:v67];
+          [dictionary setObject:v47 forKey:v66];
 
           structuredLocation = [v39 structuredLocation];
           if (structuredLocation)
@@ -202,13 +202,13 @@
           dictionary = v51;
         }
 
-        v66 = [alarms2 countByEnumeratingWithState:&v70 objects:v80 count:16];
+        v65 = [alarms2 countByEnumeratingWithState:&v69 objects:v79 count:16];
       }
 
-      while (v66);
+      while (v65);
     }
 
-    eventCopy = v60;
+    eventCopy = v59;
   }
 
   calendar = [eventCopy calendar];
@@ -219,8 +219,6 @@
     calendarIdentifier = [calendar2 calendarIdentifier];
     [dictionary setObject:calendarIdentifier forKey:@"calendar"];
   }
-
-  v58 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

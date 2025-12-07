@@ -46,43 +46,43 @@ LABEL_8:
 
 + (double)fc_durationOfDateIntervalsIgnoringOverlap:()FCAdditions
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a3;
   if ([v3 count])
   {
     v4 = [v3 sortedArrayUsingSelector:sel_compare_];
     v5 = MEMORY[0x1E695DEC8];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __73__NSDateInterval_FCAdditions__fc_durationOfDateIntervalsIgnoringOverlap___block_invoke_2;
-    v20[3] = &unk_1E7C36D40;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __73__NSDateInterval_FCAdditions__fc_durationOfDateIntervalsIgnoringOverlap___block_invoke_2;
+    v19[3] = &unk_1E7C36D40;
     v6 = v4;
-    v21 = v6;
-    v7 = [v5 fc_array:v20];
+    v20 = v6;
+    v7 = [v5 fc_array:v19];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       v11 = 0.0;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v16 + 1) + 8 * i) duration];
+          [*(*(&v15 + 1) + 8 * i) duration];
           v11 = v11 + v13;
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
       }
 
       while (v9);
@@ -99,7 +99,6 @@ LABEL_8:
     v11 = 0.0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

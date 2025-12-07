@@ -19,6 +19,7 @@
 - (void)sendEventForProtocol:(id)protocol topic:(id)topic payload:(id)payload completion:(id)completion;
 - (void)sendRequestForProtocol:(id)protocol topic:(id)topic identifier:(unint64_t)identifier payload:(id)payload completion:(id)completion;
 - (void)sendRequestForProtocol:(id)protocol topic:(id)topic payload:(id)payload completion:(id)completion;
+- (void)sendResponseForRequestHeader:(id)header payload:(id)payload status:(unsigned __int16)status completion:(id)completion;
 - (void)setActive:(BOOL)active;
 - (void)setTrafficClass:(unint64_t)class;
 - (void)startConnectionTimer;
@@ -39,9 +40,9 @@
     sub_1001F7A98();
   }
 
-  v1 = qword_1002ACBA0;
+  v2 = qword_1002ACBA0;
 
-  return v1;
+  return v2;
 }
 
 - (DataStream)initWithTransport:(id)transport sessionEncryption:(id)encryption workQueue:(id)queue logIdentifier:(id)identifier
@@ -110,17 +111,16 @@
   {
     self->_active = activeCopy;
     selfCopy = self;
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = sub_10007FAFC(selfCopy);
-      active = self->_active;
-      v10 = HMFBooleanToString();
-      v12 = 138543618;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v10;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%{public}@DataStream changes active to %@", &v12, 0x16u);
+      v9 = HMFBooleanToString();
+      v11 = 138543618;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%{public}@DataStream changes active to %@", &v11, 0x16u);
     }
 
     delegate = [(DataStream *)selfCopy delegate];
@@ -131,7 +131,7 @@
 - (void)connect
 {
   selfCopy = self;
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(selfCopy);
@@ -148,7 +148,7 @@
 - (void)invalidate
 {
   selfCopy = self;
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(selfCopy);
@@ -197,7 +197,7 @@
 - (void)close
 {
   selfCopy = self;
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(selfCopy);
@@ -296,7 +296,7 @@
   }
 
   selfCopy = self;
-  v16 = sub_10007FAA0();
+  v16 = sub_10007FAA0(selfCopy);
   v17 = v16;
   if (v14)
   {
@@ -363,6 +363,15 @@
     pendingEvents = [(DataStream *)self pendingEvents];
     [pendingEvents addObject:v15];
   }
+}
+
+- (void)sendResponseForRequestHeader:(id)header payload:(id)payload status:(unsigned __int16)status completion:(id)completion
+{
+  statusCopy = status;
+  completionCopy = completion;
+  payloadCopy = payload;
+  v12 = [DataStreamMessageCoder responseHeaderForRequestHeader:header status:statusCopy];
+  [(DataStream *)self _sendMessageWithHeader:v12 payload:payloadCopy completion:completionCopy];
 }
 
 - (void)sendRequestForProtocol:(id)protocol topic:(id)topic identifier:(unint64_t)identifier payload:(id)payload completion:(id)completion
@@ -474,7 +483,7 @@ LABEL_11:
 - (void)setTrafficClass:(unint64_t)class
 {
   selfCopy = self;
-  v5 = sub_10007FAA0();
+  v5 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = sub_10007FAFC(selfCopy);
@@ -570,7 +579,7 @@ LABEL_11:
   errorCopy = error;
   delegate = [(DataStream *)self delegate];
   selfCopy = self;
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(selfCopy);
   v9 = v8;
   if (delegate)
   {
@@ -645,7 +654,7 @@ LABEL_11:
 {
   delegate = [(DataStream *)self delegate];
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
   if (delegate)
   {
@@ -713,7 +722,7 @@ LABEL_11:
   [(DataStream *)self setConnectionTimer:0];
   delegate = [(DataStream *)self delegate];
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
   if (delegate)
   {
@@ -802,7 +811,7 @@ LABEL_11:
   if (([(DataStream *)v10 isEqualToString:@"control"]& 1) == 0)
   {
     selfCopy = self;
-    v13 = sub_10007FAA0();
+    v13 = sub_10007FAA0(selfCopy);
     if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
 LABEL_16:
@@ -839,7 +848,7 @@ LABEL_15:
   if (!v13)
   {
     selfCopy2 = self;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = sub_10007FAFC(selfCopy2);
@@ -871,7 +880,7 @@ LABEL_17:
   v4 = [pendingRequests copy];
 
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -926,7 +935,7 @@ LABEL_17:
   v4 = [pendingEvents copy];
 
   selfCopy = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -980,7 +989,7 @@ LABEL_17:
   frameCopy = frame;
   delegate = [(DataStream *)self delegate];
   selfCopy = self;
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(selfCopy);
   v9 = v8;
   if (delegate)
   {
@@ -1009,7 +1018,7 @@ LABEL_17:
   if (![frameCopy length])
   {
     v12 = selfCopy;
-    v17 = sub_10007FAA0();
+    v17 = sub_10007FAA0(v12);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v19 = sub_10007FAFC(v12);
@@ -1036,7 +1045,7 @@ LABEL_17:
         if (sessionEncryption)
         {
           v21 = selfCopy;
-          v22 = sub_10007FAA0();
+          v22 = sub_10007FAA0(v21);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             v23 = sub_10007FAFC(v21);
@@ -1072,7 +1081,7 @@ LABEL_27:
 
 LABEL_28:
       v29 = selfCopy;
-      v30 = sub_10007FAA0();
+      v30 = sub_10007FAA0(v29);
       if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         v31 = sub_10007FAFC(v29);
@@ -1088,7 +1097,7 @@ LABEL_28:
 
 LABEL_21:
     v25 = selfCopy;
-    v22 = sub_10007FAA0();
+    v22 = sub_10007FAA0(v25);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       v23 = sub_10007FAFC(v25);
@@ -1118,7 +1127,7 @@ LABEL_26:
   if (!sessionEncryption2)
   {
     v28 = selfCopy;
-    v22 = sub_10007FAA0();
+    v22 = sub_10007FAA0(v28);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       v23 = sub_10007FAFC(v28);
@@ -1250,7 +1259,7 @@ LABEL_81:
         if (!v45)
         {
           v46 = selfCopy;
-          v47 = sub_10007FAA0();
+          v47 = sub_10007FAA0(v46);
           if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
           {
             v54 = sub_10007FAFC(v46);
@@ -1306,7 +1315,7 @@ LABEL_81:
       }
 
       v45 = selfCopy;
-      v46 = sub_10007FAA0();
+      v46 = sub_10007FAA0(v45);
       if (!os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
       {
         goto LABEL_73;
@@ -1321,7 +1330,7 @@ LABEL_81:
     else
     {
       v45 = selfCopy;
-      v46 = sub_10007FAA0();
+      v46 = sub_10007FAA0(v45);
       if (!os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
       {
 LABEL_73:
@@ -1345,7 +1354,7 @@ LABEL_72:
   if (![(DataStream *)selfCopy handleFirstMessageReceivedOnDataStream:v12 payload:v17])
   {
     v35 = selfCopy;
-    v36 = sub_10007FAA0();
+    v36 = sub_10007FAA0(v35);
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       v37 = sub_10007FAFC(v35);
@@ -1428,7 +1437,7 @@ LABEL_9:
 
 LABEL_12:
     selfCopy = self;
-    pendingRequests2 = sub_10007FAA0();
+    pendingRequests2 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(pendingRequests2, OS_LOG_TYPE_INFO))
     {
       v17 = sub_10007FAFC(selfCopy);
@@ -1481,7 +1490,7 @@ LABEL_12:
   if (connectionTimer == fireCopy)
   {
     selfCopy = self;
-    v9 = sub_10007FAA0();
+    v9 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = sub_10007FAFC(selfCopy);
@@ -1502,7 +1511,7 @@ LABEL_8:
   if (helloMessageResponseTimer == fireCopy)
   {
     selfCopy2 = self;
-    v9 = sub_10007FAA0();
+    v9 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = sub_10007FAFC(selfCopy2);

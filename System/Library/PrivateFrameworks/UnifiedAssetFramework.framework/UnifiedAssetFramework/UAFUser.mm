@@ -9,10 +9,15 @@
 + (id)nodeForUser:(id)user error:(id *)error;
 + (id)pwdNameForUser:(id)user error:(id *)error;
 + (id)pwdNodeForUser:(id)user error:(id *)error;
++ (id)pwdUIDToUserID:(unsigned int)d;
++ (id)pwdUserWithNodeForUID:(id *)d uid:(unsigned int)uid error:(id *)error;
 + (id)systemUserWithNode:(id *)node error:(id *)error;
 + (id)umCurrentUMUserWithNode:(id *)node error:(id *)error;
 + (id)umNameForUser:(id)user error:(id *)error;
 + (id)umNodeForUser:(id)user error:(id *)error;
++ (id)umUserWithDSID:(id)d withUid:(unsigned int)uid withError:(id *)error;
++ (id)umUserWithNodeForUID:(id *)d uid:(unsigned int)uid error:(id *)error;
++ (id)userWithNodeForUID:(id *)d uid:(unsigned int)uid error:(id *)error;
 + (id)validLocalNode;
 + (id)validLocalUsers:(id)users error:(id *)error;
 + (id)validNodesWithError:(id *)error;
@@ -52,9 +57,153 @@
   return isSharedIPad;
 }
 
++ (id)umUserWithDSID:(id)d withUid:(unsigned int)uid withError:(id *)error
+{
+  v6 = *&uid;
+  v47 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
+  if (dCopy)
+  {
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot find user with dsid %@", dCopy];
+  }
+
+  else
+  {
+    [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot find user with uid %u", v6];
+  }
+  v9 = ;
+  if ([objc_opt_class() umEntitlementPresent])
+  {
+    errorCopy = error;
+    loginUser = [mEMORY[0x1E69DF068] loginUser];
+    v11 = loginUser;
+    if (dCopy)
+    {
+      alternateDSID = [loginUser alternateDSID];
+      v13 = [dCopy isEqualToString:alternateDSID];
+
+      if (v13)
+      {
+LABEL_7:
+        loginUser2 = [mEMORY[0x1E69DF068] loginUser];
+        v15 = 0;
+        goto LABEL_28;
+      }
+    }
+
+    else
+    {
+      v21 = [loginUser uid];
+
+      if (v21 == v6)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    v32 = v9;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    allUsers = [mEMORY[0x1E69DF068] allUsers];
+    v23 = [allUsers countByEnumeratingWithState:&v34 objects:v40 count:16];
+    if (v23)
+    {
+      v24 = v23;
+      v25 = *v35;
+      while (2)
+      {
+        for (i = 0; i != v24; ++i)
+        {
+          if (*v35 != v25)
+          {
+            objc_enumerationMutation(allUsers);
+          }
+
+          v27 = *(*(&v34 + 1) + 8 * i);
+          if (dCopy)
+          {
+            alternateDSID2 = [v27 alternateDSID];
+            v29 = [dCopy isEqualToString:alternateDSID2];
+
+            if (v29)
+            {
+              goto LABEL_27;
+            }
+          }
+
+          else if ([v27 uid] == v6)
+          {
+LABEL_27:
+            loginUser2 = v27;
+
+            v15 = 0;
+            v9 = v32;
+            goto LABEL_28;
+          }
+        }
+
+        v24 = [allUsers countByEnumeratingWithState:&v34 objects:v40 count:16];
+        if (v24)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    v30 = MEMORY[0x1E696ABC0];
+    v9 = v32;
+    v38 = *MEMORY[0x1E696A578];
+    v39 = v32;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    v15 = [v30 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:7001 userInfo:v18];
+    error = errorCopy;
+  }
+
+  else
+  {
+    v16 = UAFGetLogCategory(&UAFLogContextClient);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v44 = "+[UAFUser umUserWithDSID:withUid:withError:]";
+      v45 = 2112;
+      v46 = v9;
+      _os_log_error_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_ERROR, "%s Process is not entitled to UMUserManager framework. %@", buf, 0x16u);
+    }
+
+    v17 = MEMORY[0x1E696ABC0];
+    v41 = *MEMORY[0x1E696A578];
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Process is not entitled to UMUserManager framework. %@", v9];
+    v42 = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v15 = [v17 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:7000 userInfo:v19];
+  }
+
+  if (error)
+  {
+    v20 = v15;
+    loginUser2 = 0;
+    *error = v15;
+  }
+
+  else
+  {
+    loginUser2 = 0;
+  }
+
+LABEL_28:
+
+  return loginUser2;
+}
+
 + (id)umCurrentUMUserWithNode:(id *)node error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentUser = [mEMORY[0x1E69DF068] currentUser];
 
@@ -73,34 +222,34 @@
 
   if ([objc_opt_class() umEntitlementPresent])
   {
-    v13 = MEMORY[0x1E696ABC0];
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Current user ID is nil in UMUserManager framework", *MEMORY[0x1E696A578]];
-    v21 = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-    v16 = v13;
-    v17 = 7001;
+    v12 = MEMORY[0x1E696ABC0];
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Current user ID is nil in UMUserManager framework", *MEMORY[0x1E696A578]];
+    v20 = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v15 = v12;
+    v16 = 7001;
   }
 
   else
   {
-    v18 = UAFGetLogCategory(&UAFLogContextClient);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = UAFGetLogCategory(&UAFLogContextClient);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v25 = "+[UAFUser umCurrentUMUserWithNode:error:]";
-      _os_log_error_impl(&dword_1BCF2C000, v18, OS_LOG_TYPE_ERROR, "%s Process is not entitled to UMUserManager framework. Cannot determine current user", buf, 0xCu);
+      v24 = "+[UAFUser umCurrentUMUserWithNode:error:]";
+      _os_log_error_impl(&dword_1BCF2C000, v17, OS_LOG_TYPE_ERROR, "%s Process is not entitled to UMUserManager framework. Cannot determine current user", buf, 0xCu);
     }
 
-    v19 = MEMORY[0x1E696ABC0];
-    v22 = *MEMORY[0x1E696A578];
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Process is not entitled to UMUserManager framework"];
-    v23 = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-    v16 = v19;
-    v17 = 7000;
+    v18 = MEMORY[0x1E696ABC0];
+    v21 = *MEMORY[0x1E696A578];
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Process is not entitled to UMUserManager framework"];
+    v22 = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v15 = v18;
+    v16 = 7000;
   }
 
-  v9 = [v16 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:v17 userInfo:v15];
+  v9 = [v15 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:v16 userInfo:v14];
 
   if (node)
   {
@@ -115,9 +264,29 @@ LABEL_4:
     *error = v9;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return currentUser;
+}
+
++ (id)umUserWithNodeForUID:(id *)d uid:(unsigned int)uid error:(id *)error
+{
+  v6 = [objc_opt_class() umUserWithDSID:0 withUid:*&uid withError:error];
+  v7 = v6;
+  if (v6)
+  {
+    if (d)
+    {
+      *d = @"UMMultiUserNode";
+    }
+
+    alternateDSID = [v6 alternateDSID];
+  }
+
+  else
+  {
+    alternateDSID = 0;
+  }
+
+  return alternateDSID;
 }
 
 + (id)umNodeForUser:(id)user error:(id *)error
@@ -140,7 +309,7 @@ LABEL_4:
 
 + (id)umNameForUser:(id)user error:(id *)error
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   userCopy = user;
   v6 = [objc_opt_class() umUserWithDSID:userCopy withUid:0 withError:error];
   v7 = v6;
@@ -161,8 +330,8 @@ LABEL_4:
   {
     v9 = MEMORY[0x1E696ABC0];
     v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No username for %@", userCopy, *MEMORY[0x1E696A578]];
-    v15[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     *error = [v9 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:7001 userInfo:v11];
 
 LABEL_6:
@@ -171,39 +340,116 @@ LABEL_6:
 
 LABEL_7:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return error;
 }
 
 + (unsigned)pwdUserIDToUID:(id)d withError:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   v6 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:dCopy];
   v7 = v6;
   if (v6)
   {
+    v12 = 0;
     v13 = 0;
-    v14 = 0;
-    [v6 getUUIDBytes:&v13];
-    LODWORD(error) = bswap32(HIDWORD(v14));
+    [v6 getUUIDBytes:&v12];
+    LODWORD(error) = bswap32(HIDWORD(v13));
   }
 
   else if (error)
   {
     v8 = MEMORY[0x1E696ABC0];
-    v15 = *MEMORY[0x1E696A578];
+    v14 = *MEMORY[0x1E696A578];
     dCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to parse UID from string %@", dCopy];
-    v16[0] = dCopy;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v15[0] = dCopy;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     *error = [v8 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:7003 userInfo:v10];
 
     LODWORD(error) = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return error;
+}
+
++ (id)pwdUIDToUserID:(unsigned int)d
+{
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%08X", *&d];
+  v4 = [@"FFFFEEEE-DDDD-CCCC-BBBB-AAAA" stringByAppendingString:v3];
+
+  return v4;
+}
+
++ (id)pwdUserWithNodeForUID:(id *)d uid:(unsigned int)uid error:(id *)error
+{
+  v6 = *&uid;
+  *&v26[13] = *MEMORY[0x1E69E9840];
+  v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&uid];
+  v20 = 0;
+  v9 = [UAFCommonUtilities getPWUID:v8 error:&v20];
+  v10 = v20;
+
+  if (v10)
+  {
+    v11 = UAFGetLogCategory(&UAFLogContextClient);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315650;
+      v24 = "+[UAFUser pwdUserWithNodeForUID:uid:error:]";
+      v25 = 1024;
+      *v26 = v6;
+      v26[2] = 2114;
+      *&v26[3] = v10;
+      _os_log_impl(&dword_1BCF2C000, v11, OS_LOG_TYPE_DEFAULT, "%s Error finding uid: %d: %{public}@", buf, 0x1Cu);
+    }
+
+    if (error)
+    {
+      v12 = v10;
+      v13 = 0;
+      *error = v10;
+      goto LABEL_16;
+    }
+
+    goto LABEL_15;
+  }
+
+  if (!v9 || ([v9 objectForKeyedSubscript:@"Username"], v14 = objc_claimAutoreleasedReturnValue(), v14, !v14))
+  {
+    v15 = UAFGetLogCategory(&UAFLogContextClient);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      v24 = "+[UAFUser pwdUserWithNodeForUID:uid:error:]";
+      v25 = 2114;
+      *v26 = 0;
+      _os_log_impl(&dword_1BCF2C000, v15, OS_LOG_TYPE_DEFAULT, "%s Could not find user: %{public}@", buf, 0x16u);
+    }
+
+    if (error)
+    {
+      v16 = MEMORY[0x1E696ABC0];
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No user found for uid %d", v6];
+      v22 = v17;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      *error = [v16 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:7001 userInfo:v18];
+    }
+
+LABEL_15:
+    v13 = 0;
+    goto LABEL_16;
+  }
+
+  if (d)
+  {
+    *d = @"SystemNode";
+  }
+
+  v13 = [objc_opt_class() pwdUIDToUserID:v6];
+LABEL_16:
+
+  return v13;
 }
 
 + (id)pwdNodeForUser:(id)user error:(id *)error
@@ -221,7 +467,7 @@ LABEL_7:
 
 + (id)pwdNameForUser:(id)user error:(id *)error
 {
-  *&v29[13] = *MEMORY[0x1E69E9840];
+  *&v28[13] = *MEMORY[0x1E69E9840];
   userCopy = user;
   if (![userCopy hasPrefix:@"FFFFEEEE-DDDD-CCCC-BBBB-AAAA"])
   {
@@ -229,9 +475,9 @@ LABEL_7:
     goto LABEL_22;
   }
 
-  v23 = 0;
-  v6 = [objc_opt_class() pwdUserIDToUID:userCopy withError:&v23];
-  v7 = v23;
+  v22 = 0;
+  v6 = [objc_opt_class() pwdUserIDToUID:userCopy withError:&v22];
+  v7 = v22;
   if (v7)
   {
     v8 = v7;
@@ -251,9 +497,9 @@ LABEL_7:
   }
 
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
-  v22 = 0;
-  v12 = [UAFCommonUtilities getPWUID:v11 error:&v22];
-  v8 = v22;
+  v21 = 0;
+  v12 = [UAFCommonUtilities getPWUID:v11 error:&v21];
+  v8 = v21;
 
   if (!v8)
   {
@@ -272,19 +518,19 @@ LABEL_7:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v27 = "+[UAFUser pwdNameForUser:error:]";
-      v28 = 2114;
-      *v29 = 0;
+      v26 = "+[UAFUser pwdNameForUser:error:]";
+      v27 = 2114;
+      *v28 = 0;
       _os_log_impl(&dword_1BCF2C000, v16, OS_LOG_TYPE_DEFAULT, "%s Could not find user: %{public}@", buf, 0x16u);
     }
 
     if (error)
     {
       v17 = MEMORY[0x1E696ABC0];
-      v24 = *MEMORY[0x1E696A578];
+      v23 = *MEMORY[0x1E696A578];
       v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No user found for uid %d", v6];
-      v25 = v18;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v24 = v18;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       *error = [v17 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:7001 userInfo:v19];
     }
 
@@ -297,11 +543,11 @@ LABEL_19:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v27 = "+[UAFUser pwdNameForUser:error:]";
-    v28 = 1024;
-    *v29 = v6;
-    v29[2] = 2114;
-    *&v29[3] = v8;
+    v26 = "+[UAFUser pwdNameForUser:error:]";
+    v27 = 1024;
+    *v28 = v6;
+    v28[2] = 2114;
+    *&v28[3] = v8;
     _os_log_impl(&dword_1BCF2C000, v13, OS_LOG_TYPE_DEFAULT, "%s Error finding uid: %d: %{public}@", buf, 0x1Cu);
   }
 
@@ -317,8 +563,6 @@ LABEL_20:
 
 LABEL_21:
 LABEL_22:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -342,6 +586,67 @@ LABEL_22:
   }
 
   return alternateDSID;
+}
+
++ (id)userWithNodeForUID:(id *)d uid:(unsigned int)uid error:(id *)error
+{
+  v6 = *&uid;
+  if ([objc_opt_class() isMultiUser])
+  {
+    v17 = 0;
+    v8 = [objc_opt_class() umUserWithNodeForUID:d uid:v6 error:&v17];
+    v9 = v17;
+    v10 = v9;
+    if (v8)
+    {
+      v11 = v8;
+LABEL_4:
+      v12 = v11;
+LABEL_5:
+
+      goto LABEL_9;
+    }
+
+    domain = [v9 domain];
+    if ([domain isEqualToString:@"com.apple.UnifiedAssetFramework"])
+    {
+      code = [v10 code];
+
+      if (code == 7001)
+      {
+        v11 = [objc_opt_class() pwdUserWithNodeForUID:d uid:v6 error:error];
+        goto LABEL_4;
+      }
+    }
+
+    else
+    {
+    }
+
+    if (error)
+    {
+      v16 = v10;
+      v12 = 0;
+      *error = v10;
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    goto LABEL_5;
+  }
+
+  if (d)
+  {
+    *d = @"system";
+  }
+
+  v12 = @"mobile";
+LABEL_9:
+
+  return v12;
 }
 
 + (id)nodeForUser:(id)user error:(id *)error
@@ -494,7 +799,7 @@ LABEL_22:
 
 + (id)validLocalUsers:(id)users error:(id *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   usersCopy = users;
   if ([objc_opt_class() isMultiUser])
   {
@@ -512,26 +817,26 @@ LABEL_22:
         [v7 addObject:alternateDSID2];
       }
 
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       allUsers = [mEMORY[0x1E69DF068] allUsers];
-      v13 = [allUsers countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v13 = [allUsers countByEnumeratingWithState:&v35 objects:v40 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v37;
+        v15 = *v36;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v37 != v15)
+            if (*v36 != v15)
             {
               objc_enumerationMutation(allUsers);
             }
 
-            v17 = *(*(&v36 + 1) + 8 * i);
+            v17 = *(*(&v35 + 1) + 8 * i);
             alternateDSID3 = [v17 alternateDSID];
 
             if (alternateDSID3)
@@ -541,40 +846,40 @@ LABEL_22:
             }
           }
 
-          v14 = [allUsers countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v14 = [allUsers countByEnumeratingWithState:&v35 objects:v40 count:16];
         }
 
         while (v14);
       }
 
       v20 = objc_opt_new();
+      v31 = 0u;
       v32 = 0u;
       v33 = 0u;
       v34 = 0u;
-      v35 = 0u;
       v21 = usersCopy;
-      v22 = [v21 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v31 objects:v39 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v33;
+        v24 = *v32;
         do
         {
           for (j = 0; j != v23; ++j)
           {
-            if (*v33 != v24)
+            if (*v32 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            v26 = *(*(&v32 + 1) + 8 * j);
-            if (([v7 containsObject:{v26, v32}] & 1) != 0 || objc_msgSend(v26, "hasPrefix:", @"FFFFEEEE-DDDD-CCCC-BBBB-AAAA"))
+            v26 = *(*(&v31 + 1) + 8 * j);
+            if (([v7 containsObject:{v26, v31}] & 1) != 0 || objc_msgSend(v26, "hasPrefix:", @"FFFFEEEE-DDDD-CCCC-BBBB-AAAA"))
             {
               [v20 addObject:v26];
             }
           }
 
-          v23 = [v21 countByEnumeratingWithState:&v32 objects:v40 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v31 objects:v39 count:16];
         }
 
         while (v23);
@@ -587,16 +892,16 @@ LABEL_22:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v45 = "+[UAFUser validLocalUsers:error:]";
+        v44 = "+[UAFUser validLocalUsers:error:]";
         _os_log_error_impl(&dword_1BCF2C000, v27, OS_LOG_TYPE_ERROR, "%s Process is not entitled to UMUserManager framework.", buf, 0xCu);
       }
 
       if (error)
       {
         v28 = MEMORY[0x1E696ABC0];
-        v42 = *MEMORY[0x1E696A578];
-        v43 = @"Process is not entitled to UMUserManager framework";
-        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+        v41 = *MEMORY[0x1E696A578];
+        v42 = @"Process is not entitled to UMUserManager framework";
+        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
         *error = [v28 errorWithDomain:@"com.apple.UnifiedAssetFramework" code:7000 userInfo:v29];
       }
 
@@ -609,33 +914,30 @@ LABEL_22:
     v20 = usersCopy;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 + (id)validNodesWithError:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ([objc_opt_class() isMultiUser])
   {
-    v10 = @"UMMultiUserNode";
-    v11 = @"SystemNode";
+    v9 = @"UMMultiUserNode";
+    v10 = @"SystemNode";
     v3 = MEMORY[0x1E695DEC8];
-    v4 = &v10;
+    v4 = &v9;
     v5 = 2;
   }
 
   else
   {
-    v9 = @"system";
+    v8 = @"system";
     v3 = MEMORY[0x1E695DEC8];
-    v4 = &v9;
+    v4 = &v8;
     v5 = 1;
   }
 
-  v6 = [v3 arrayWithObjects:v4 count:{v5, v9, v10, v11, v12}];
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = [v3 arrayWithObjects:v4 count:{v5, v8, v9, v10, v11}];
 
   return v6;
 }
@@ -657,12 +959,12 @@ LABEL_22:
 
 + (id)currentConsoleUserWithUID:(unsigned int *)d
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ([objc_opt_class() isMultiUser])
   {
-    v11 = 0;
-    v4 = [objc_opt_class() umCurrentUMUserWithNode:0 error:&v11];
-    v5 = v11;
+    v10 = 0;
+    v4 = [objc_opt_class() umCurrentUMUserWithNode:0 error:&v10];
+    v5 = v10;
     if (v4 && ([v4 alternateDSID], v6 = objc_claimAutoreleasedReturnValue(), v6, v6))
     {
       if (d)
@@ -679,9 +981,9 @@ LABEL_22:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v13 = "+[UAFUser currentConsoleUserWithUID:]";
-        v14 = 2112;
-        v15 = v5;
+        v12 = "+[UAFUser currentConsoleUserWithUID:]";
+        v13 = 2112;
+        v14 = v5;
         _os_log_error_impl(&dword_1BCF2C000, v8, OS_LOG_TYPE_ERROR, "%s Error retrieving current console user: %@", buf, 0x16u);
       }
 
@@ -698,8 +1000,6 @@ LABEL_22:
 
     alternateDSID = @"mobile";
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return alternateDSID;
 }

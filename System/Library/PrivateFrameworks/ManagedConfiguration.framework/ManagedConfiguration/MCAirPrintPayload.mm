@@ -12,33 +12,32 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.airprint";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.airprint";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (MCAirPrintPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v64.receiver = self;
-  v64.super_class = MCAirPrintPayload;
-  v10 = [(MCPayload *)&v64 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v61.receiver = self;
+  v61.super_class = MCAirPrintPayload;
+  v10 = [(MCPayload *)&v61 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10)
   {
     goto LABEL_56;
   }
 
-  v55 = profileCopy;
+  v52 = profileCopy;
   if ([profileCopy isStub])
   {
-    v58 = 0;
-    v11 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"AirPrintCount" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v58];
-    v12 = v58;
+    v55 = 0;
+    v11 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"AirPrintCount" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v55];
+    v12 = v55;
     if (v12)
     {
       v13 = v12;
@@ -47,12 +46,12 @@
     else
     {
       v10->_airPrintCount = [v11 unsignedIntegerValue];
-      v57 = 0;
-      v32 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"IPPAddresses" isRequired:0 outError:&v57];
-      v13 = v57;
-      v33 = [v32 mutableCopy];
+      v54 = 0;
+      v30 = [dictionaryCopy MCValidateAndRemoveArrayOfClass:objc_opt_class() withKey:@"IPPAddresses" isRequired:0 outError:&v54];
+      v13 = v54;
+      v31 = [v30 mutableCopy];
       ippAddresses = v10->_ippAddresses;
-      v10->_ippAddresses = v33;
+      v10->_ippAddresses = v31;
     }
 
     goto LABEL_46;
@@ -62,35 +61,35 @@
   v15 = v10->_ippAddresses;
   v10->_ippAddresses = array;
 
-  v63 = 0;
-  v16 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"AirPrint" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v63];
-  v13 = v63;
+  v60 = 0;
+  v16 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"AirPrint" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v60];
+  v13 = v60;
+  v56 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v62 = 0u;
   v11 = v16;
-  v53 = [v11 countByEnumeratingWithState:&v59 objects:v69 count:16];
-  if (!v53)
+  v50 = [v11 countByEnumeratingWithState:&v56 objects:v66 count:16];
+  if (!v50)
   {
     goto LABEL_35;
   }
 
   v17 = 0x1E696A000uLL;
-  v54 = *v60;
+  v51 = *v57;
   errorCopy = error;
-  v51 = dictionaryCopy;
+  v48 = dictionaryCopy;
   obj = v11;
   while (2)
   {
-    for (i = 0; i != v53; ++i)
+    for (i = 0; i != v50; ++i)
     {
-      if (*v60 != v54)
+      if (*v57 != v51)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v59 + 1) + 8 * i);
+      v19 = *(*(&v56 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -102,79 +101,79 @@ LABEL_44:
       }
 
       v20 = [v19 objectForKeyedSubscript:@"IPAddress"];
-      if (!v20 || (v21 = *(v17 + 3776), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      if (!v20 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        v35 = [MCPayload badFieldTypeErrorWithField:@"IPAddress"];
+        v33 = [MCPayload badFieldTypeErrorWithField:@"IPAddress"];
 
 LABEL_43:
-        v13 = v35;
+        v13 = v33;
         goto LABEL_44;
       }
 
-      v22 = [v19 objectForKeyedSubscript:@"ResourcePath"];
-      if (!v22 || (v23 = *(v17 + 3776), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      v21 = [v19 objectForKeyedSubscript:@"ResourcePath"];
+      if (!v21 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        v35 = [MCPayload badFieldTypeErrorWithField:@"ResourcePath"];
+        v33 = [MCPayload badFieldTypeErrorWithField:@"ResourcePath"];
 
 LABEL_42:
         goto LABEL_43;
       }
 
-      v24 = [v19 objectForKeyedSubscript:@"Port"];
-      if (v24)
+      v22 = [v19 objectForKeyedSubscript:@"Port"];
+      if (v22)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v35 = [MCPayload badFieldTypeErrorWithField:@"Port"];
+          v33 = [MCPayload badFieldTypeErrorWithField:@"Port"];
 
           goto LABEL_42;
         }
       }
 
-      v25 = [v19 objectForKeyedSubscript:@"ForceTLS"];
-      if (v25 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      v23 = [v19 objectForKeyedSubscript:@"ForceTLS"];
+      if (v23 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         [MCPayload badFieldTypeErrorWithField:@"ForceTLS"];
-        v56 = v30 = 0;
+        v53 = v28 = 0;
       }
 
       else
       {
-        v56 = v13;
+        v53 = v13;
         v13 = objc_alloc_init(MEMORY[0x1E696AF20]);
         [v13 setHost:v20];
-        if ([v24 integerValue] >= 1)
+        if ([v22 integerValue] >= 1)
         {
-          [v13 setPort:v24];
+          [v13 setPort:v22];
         }
 
-        if ([v25 BOOLValue])
+        if ([v23 BOOLValue])
         {
-          v26 = @"ipps";
-        }
-
-        else
-        {
-          v26 = @"ipp";
-        }
-
-        [v13 setScheme:v26];
-        if ([v22 rangeOfString:@"/" options:8] == 0x7FFFFFFFFFFFFFFFLL)
-        {
-          v27 = [*(v17 + 3776) stringWithFormat:@"/%@", v22];
-          [v13 setPath:v27];
+          v24 = @"ipps";
         }
 
         else
         {
-          [v13 setPath:v22];
+          v24 = @"ipp";
         }
 
-        v28 = [v13 URL];
-        absoluteString = [v28 absoluteString];
+        [v13 setScheme:v24];
+        if ([v21 rangeOfString:@"/" options:8] == 0x7FFFFFFFFFFFFFFFLL)
+        {
+          v25 = [*(v17 + 3776) stringWithFormat:@"/%@", v21];
+          [v13 setPath:v25];
+        }
 
-        v30 = absoluteString != 0;
+        else
+        {
+          [v13 setPath:v21];
+        }
+
+        v26 = [v13 URL];
+        absoluteString = [v26 absoluteString];
+
+        v28 = absoluteString != 0;
         if (absoluteString)
         {
           [(NSMutableArray *)v10->_ippAddresses addObject:absoluteString];
@@ -182,31 +181,31 @@ LABEL_42:
 
         else
         {
-          v31 = [MCPayload badFieldTypeErrorWithField:@"AirPrint"];
+          v29 = [MCPayload badFieldTypeErrorWithField:@"AirPrint"];
 
-          v56 = v31;
+          v53 = v29;
         }
 
         error = errorCopy;
-        dictionaryCopy = v51;
+        dictionaryCopy = v48;
       }
 
-      if (!v30)
+      if (!v28)
       {
-        v13 = v56;
+        v13 = v53;
 LABEL_45:
         v11 = obj;
 
         goto LABEL_46;
       }
 
-      v13 = v56;
+      v13 = v53;
       v17 = 0x1E696A000;
     }
 
     v11 = obj;
-    v53 = [obj countByEnumeratingWithState:&v59 objects:v69 count:16];
-    if (v53)
+    v50 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
+    if (v50)
     {
       continue;
     }
@@ -221,28 +220,28 @@ LABEL_46:
 
   if (v13)
   {
-    v36 = [(MCPayload *)v10 malformedPayloadErrorWithError:v13];
-    v37 = v36;
+    v34 = [(MCPayload *)v10 malformedPayloadErrorWithError:v13];
+    v35 = v34;
     if (error)
     {
-      v38 = v36;
-      *error = v37;
+      v36 = v34;
+      *error = v35;
     }
 
-    v39 = _MCLogObjects;
+    v37 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
     {
-      v40 = v39;
-      v41 = dictionaryCopy;
-      v42 = objc_opt_class();
-      v43 = v42;
-      mCVerboseDescription = [v37 MCVerboseDescription];
+      v38 = v37;
+      v39 = dictionaryCopy;
+      v40 = objc_opt_class();
+      v41 = v40;
+      mCVerboseDescription = [v35 MCVerboseDescription];
       *buf = 138543618;
-      v66 = v42;
-      dictionaryCopy = v41;
-      v67 = 2114;
-      v68 = mCVerboseDescription;
-      _os_log_impl(&dword_1A795B000, v40, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
+      v63 = v40;
+      dictionaryCopy = v39;
+      v64 = 2114;
+      v65 = mCVerboseDescription;
+      _os_log_impl(&dword_1A795B000, v38, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
     v10 = 0;
@@ -250,23 +249,22 @@ LABEL_46:
 
   if ([dictionaryCopy count])
   {
-    v45 = _MCLogObjects;
+    v43 = _MCLogObjects;
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
     {
-      v46 = v45;
+      v44 = v43;
       friendlyName = [(MCPayload *)v10 friendlyName];
       *buf = 138543618;
-      v66 = friendlyName;
-      v67 = 2114;
-      v68 = dictionaryCopy;
-      _os_log_impl(&dword_1A795B000, v46, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
+      v63 = friendlyName;
+      v64 = 2114;
+      v65 = dictionaryCopy;
+      _os_log_impl(&dword_1A795B000, v44, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
 
-  profileCopy = v55;
+  profileCopy = v52;
 LABEL_56:
 
-  v48 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -307,10 +305,10 @@ LABEL_56:
 
 - (id)verboseDescription
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = MCAirPrintPayload;
-  verboseDescription = [(MCPayload *)&v17 verboseDescription];
+  v18 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = MCAirPrintPayload;
+  verboseDescription = [(MCPayload *)&v16 verboseDescription];
   v4 = [verboseDescription mutableCopy];
 
   ippAddresses = [(MCAirPrintPayload *)self ippAddresses];
@@ -318,29 +316,29 @@ LABEL_56:
   if (ippAddresses)
   {
     [v4 appendString:@"AirPrint paths:\n"];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     ippAddresses2 = [(MCAirPrintPayload *)self ippAddresses];
-    v7 = [ippAddresses2 countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v7 = [ippAddresses2 countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(ippAddresses2);
           }
 
-          [v4 appendFormat:@"  %@\n", *(*(&v13 + 1) + 8 * i)];
+          [v4 appendFormat:@"  %@\n", *(*(&v12 + 1) + 8 * i)];
         }
 
-        v8 = [ippAddresses2 countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v8 = [ippAddresses2 countByEnumeratingWithState:&v12 objects:v17 count:16];
       }
 
       while (v8);
@@ -353,47 +351,45 @@ LABEL_56:
     [v4 appendFormat:@"AirPrint devices: %@\n", ippAddresses2];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   ippAddresses = [(MCAirPrintPayload *)self ippAddresses];
   v5 = [ippAddresses count];
 
   if (v5)
   {
-    v32 = v3;
+    v31 = v3;
     v6 = MEMORY[0x1E695DF70];
     ippAddresses2 = [(MCAirPrintPayload *)self ippAddresses];
     v8 = [v6 arrayWithCapacity:{objc_msgSend(ippAddresses2, "count")}];
 
     v9 = v8;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = [(MCAirPrintPayload *)self ippAddresses];
-    v10 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
-    v34 = v8;
+    v10 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v33 = v8;
     if (v10)
     {
       v11 = v10;
-      v12 = *v36;
+      v12 = *v35;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v36 != v12)
+          if (*v35 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = [MEMORY[0x1E695DFF8] URLWithString:*(*(&v35 + 1) + 8 * i)];
+          v14 = [MEMORY[0x1E695DFF8] URLWithString:*(*(&v34 + 1) + 8 * i)];
           scheme = [v14 scheme];
           port = [v14 port];
           host = [v14 host];
@@ -405,7 +401,7 @@ LABEL_56:
             v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@":%@", port];
             v22 = [v20 stringWithFormat:@"%@://%@%@%@", scheme, host, v21, v19];
 
-            v9 = v34;
+            v9 = v33;
           }
 
           else
@@ -416,7 +412,7 @@ LABEL_56:
           [v9 addObject:v22];
         }
 
-        v11 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v11 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v11);
@@ -425,13 +421,13 @@ LABEL_56:
     v23 = MCLocalizedString(@"AIRPRINT_PATHS");
     v24 = [MCKeyValueSection sectionWithLocalizedArray:v9 title:v23 footer:0];
 
-    v3 = v32;
+    v3 = v31;
     if (v24)
     {
-      [v32 addObject:v24];
+      [v31 addObject:v24];
     }
 
-    v25 = v34;
+    v25 = v33;
   }
 
   else
@@ -441,8 +437,8 @@ LABEL_56:
     v27 = MCLocalizedString(@"AIRPRINT_DEVICES");
     v24 = [(MCKeyValue *)v26 initWithLocalizedString:v25 localizedKey:v27];
 
-    v39 = v24;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+    v38 = v24;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
     v29 = [MCKeyValueSection sectionWithKeyValues:v28];
     [v3 addObject:v29];
   }
@@ -452,8 +448,6 @@ LABEL_56:
 
     v3 = 0;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

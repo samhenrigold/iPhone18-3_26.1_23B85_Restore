@@ -204,7 +204,7 @@
     v44 = self->_sceneHostContainerView;
     if (v44)
     {
-      [(UIView *)v44 transform];
+      objc_msgSend_transform(v44);
     }
 
     else

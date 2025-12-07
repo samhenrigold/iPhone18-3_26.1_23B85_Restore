@@ -45,7 +45,7 @@
 - (void)element:(id)element registeredWithAssertion:(id)assertion
 {
   elementCopy = element;
-  if ([(NSMutableArray *)self->_registeredElements containsObject:?])
+  if (objc_msgSend_containsObject_(self->_registeredElements))
   {
     [SBSystemApertureSecureElementCoordinator element:registeredWithAssertion:];
   }
@@ -118,7 +118,7 @@
 
     if (!v7)
     {
-      [SBSystemApertureSecureElementCoordinator elementAssertionInvalidated:];
+      [SBSystemApertureSecureElementCoordinator elementAssertionInvalidated:v5];
     }
   }
 
@@ -459,7 +459,7 @@ void __110__SBSystemApertureSecureElementCoordinator__continueRecordableElementR
   v16 = v9;
   v17 = v9;
   v10 = MEMORY[0x223D6F7F0](v15);
-  v11 = SBLogSystemApertureSecureFlipBookElements();
+  v11 = SBLogSystemApertureSecureFlipBookElements(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     clientIdentifier = [v9 clientIdentifier];
@@ -493,7 +493,7 @@ void __60__SBSystemApertureSecureElementCoordinator__captureElement___block_invo
 {
   v21 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 104);
-  v3 = SBLogSystemApertureSecureFlipBookElements();
+  v3 = SBLogSystemApertureSecureFlipBookElements(a1);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2)
   {
@@ -771,7 +771,7 @@ _SBSAComponentCaptureReference *__147__SBSystemApertureSecureElementCoordinator_
 
 - (void)_captureComponents:(id)components forElement:(id)element withConfiguration:(id)configuration layoutDirection:(int64_t)direction orientation:(int64_t)orientation layoutMode:(int64_t)mode express:(BOOL)express completion:(id)self0
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   componentsCopy = components;
   elementCopy = element;
   configurationCopy = configuration;
@@ -783,48 +783,54 @@ _SBSAComponentCaptureReference *__147__SBSystemApertureSecureElementCoordinator_
     component = [firstObject component];
     v20 = [componentsCopy mutableCopy];
     [v20 removeObjectAtIndex:0];
-    v65[0] = MEMORY[0x277D85DD0];
-    v65[1] = 3221225472;
-    v65[2] = __150__SBSystemApertureSecureElementCoordinator__captureComponents_forElement_withConfiguration_layoutDirection_orientation_layoutMode_express_completion___block_invoke;
-    v65[3] = &unk_2783BC430;
-    v65[4] = self;
-    v32 = v20;
-    v66 = v32;
-    v40 = elementCopy;
-    v67 = v40;
-    v37 = configurationCopy;
-    v68 = v37;
+    v67[0] = MEMORY[0x277D85DD0];
+    v67[1] = 3221225472;
+    v67[2] = __150__SBSystemApertureSecureElementCoordinator__captureComponents_forElement_withConfiguration_layoutDirection_orientation_layoutMode_express_completion___block_invoke;
+    v67[3] = &unk_2783BC430;
+    v67[4] = self;
+    v34 = v20;
+    v68 = v34;
+    v42 = elementCopy;
+    v69 = v42;
+    v39 = configurationCopy;
+    v70 = v39;
     directionCopy2 = direction;
     orientationCopy = orientation;
     modeCopy = mode;
     expressCopy = express;
-    v69 = completionCopy;
-    v33 = MEMORY[0x223D6F7F0](v65);
+    v71 = completionCopy;
+    v35 = MEMORY[0x223D6F7F0](v67);
     index = [firstObject index];
-    configurationName = [v37 configurationName];
-    v22 = SBScreenMaximumFramesPerSecond();
-    v35 = [SBSystemApertureSecureElementUtilities flipBookNameForElement:v40 configurationName:configurationName componentIndex:index layoutDirection:direction orientation:orientation layoutMode:mode deviceMaxFPS:v22 artworkSubtype:SBFEffectiveArtworkSubtype()];
+    configurationName = [v39 configurationName];
+    v23 = SBScreenMaximumFramesPerSecond(configurationName, v22);
+    v37 = [SBSystemApertureSecureElementUtilities flipBookNameForElement:v42 configurationName:configurationName componentIndex:index layoutDirection:direction orientation:orientation layoutMode:mode deviceMaxFPS:v23 artworkSubtype:SBFEffectiveArtworkSubtype()];
 
-    v23 = SBLogSystemApertureSecureFlipBookElements();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v25 = SBLogSystemApertureSecureFlipBookElements(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      clientIdentifier = [v40 clientIdentifier];
-      elementIdentifier = [v40 elementIdentifier];
+      clientIdentifier = [v42 clientIdentifier];
+      elementIdentifier = [v42 elementIdentifier];
       *buf = 138412802;
-      *&buf[4] = v35;
+      *&buf[4] = v37;
       *&buf[12] = 2112;
       *&buf[14] = clientIdentifier;
       *&buf[22] = 2112;
-      v75 = elementIdentifier;
-      _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "Coordinator Began capture of FlipBook: '%@' for element:'%@-%@' ", buf, 0x20u);
+      v77 = elementIdentifier;
+      _os_log_impl(&dword_21ED4E000, v25, OS_LOG_TYPE_DEFAULT, "Coordinator Began capture of FlipBook: '%@' for element:'%@-%@' ", buf, 0x20u);
     }
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v75 = __Block_byref_object_copy__91;
-    v76 = __Block_byref_object_dispose__91;
-    v77 = 0;
+    v77 = __Block_byref_object_copy__91;
+    v78 = __Block_byref_object_dispose__91;
+    v79 = 0;
+    v65[0] = 0;
+    v65[1] = v65;
+    v65[2] = 0x3032000000;
+    v65[3] = __Block_byref_object_copy__91;
+    v65[4] = __Block_byref_object_dispose__91;
+    v66 = 0;
     v63[0] = 0;
     v63[1] = v63;
     v63[2] = 0x3032000000;
@@ -837,61 +843,55 @@ _SBSAComponentCaptureReference *__147__SBSystemApertureSecureElementCoordinator_
     v61[3] = __Block_byref_object_copy__91;
     v61[4] = __Block_byref_object_dispose__91;
     v62 = 0;
-    v59[0] = 0;
-    v59[1] = v59;
-    v59[2] = 0x3032000000;
-    v59[3] = __Block_byref_object_copy__91;
-    v59[4] = __Block_byref_object_dispose__91;
-    v60 = 0;
-    v26 = v40;
+    v28 = v42;
     if ((objc_opt_respondsToSelector() & 1) == 0)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
 
-      v26 = v40;
+      v28 = v42;
     }
 
-    platformElementHost = [v26 platformElementHost];
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __150__SBSystemApertureSecureElementCoordinator__captureComponents_forElement_withConfiguration_layoutDirection_orientation_layoutMode_express_completion___block_invoke_100;
-    v58[3] = &unk_2783BC458;
-    v58[4] = self;
-    v58[5] = buf;
-    v58[6] = v63;
-    v58[7] = v61;
-    v58[9] = directionCopy;
-    v58[10] = orientation;
-    v58[8] = v59;
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __150__SBSystemApertureSecureElementCoordinator__captureComponents_forElement_withConfiguration_layoutDirection_orientation_layoutMode_express_completion___block_invoke_2;
-    v43[3] = &unk_2783BC4F8;
-    v43[4] = self;
+    platformElementHost = [v28 platformElementHost];
+    v60[0] = MEMORY[0x277D85DD0];
+    v60[1] = 3221225472;
+    v60[2] = __150__SBSystemApertureSecureElementCoordinator__captureComponents_forElement_withConfiguration_layoutDirection_orientation_layoutMode_express_completion___block_invoke_100;
+    v60[3] = &unk_2783BC458;
+    v60[4] = self;
+    v60[5] = buf;
+    v60[6] = v65;
+    v60[7] = v63;
+    v60[9] = directionCopy;
+    v60[10] = orientation;
+    v60[8] = v61;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __150__SBSystemApertureSecureElementCoordinator__captureComponents_forElement_withConfiguration_layoutDirection_orientation_layoutMode_express_completion___block_invoke_2;
+    v45[3] = &unk_2783BC4F8;
+    v45[4] = self;
     modeCopy2 = mode;
-    v44 = v26;
-    v45 = v37;
-    v42 = component;
-    v46 = v42;
-    v55 = directionCopy;
+    v46 = v28;
+    v47 = v39;
+    v44 = component;
+    v48 = v44;
+    v57 = directionCopy;
     orientationCopy2 = orientation;
-    v28 = v35;
-    v47 = v28;
-    v57 = index;
-    v29 = firstObject;
-    v48 = v29;
-    v50 = buf;
-    v51 = v63;
-    v52 = v61;
-    v53 = v59;
-    v30 = v33;
+    v30 = v37;
     v49 = v30;
-    [platformElementHost performAction:v58 withCompletionUponAnimationSettling:v43];
+    v59 = index;
+    v31 = firstObject;
+    v50 = v31;
+    v52 = buf;
+    v53 = v65;
+    v54 = v63;
+    v55 = v61;
+    v32 = v35;
+    v51 = v32;
+    [platformElementHost performAction:v60 withCompletionUponAnimationSettling:v45];
 
-    _Block_object_dispose(v59, 8);
     _Block_object_dispose(v61, 8);
-
     _Block_object_dispose(v63, 8);
+
+    _Block_object_dispose(v65, 8);
     _Block_object_dispose(buf, 8);
   }
 
@@ -1147,7 +1147,7 @@ void __150__SBSystemApertureSecureElementCoordinator__captureComponents_forEleme
       v43 = 0;
       v11 = [v5 writeFlipBookToDirectory:v7 error:&v43];
       v12 = v43;
-      v13 = SBLogSystemApertureSecureFlipBookElements();
+      v13 = SBLogSystemApertureSecureFlipBookElements(v12);
       v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
       if (v11)
       {
@@ -1342,39 +1342,38 @@ void __180__SBSystemApertureSecureElementCoordinator__captureBoundsForElement_co
 
   v29 = [WeakRetained view];
   v30 = [v29 traitCollection];
-  [v30 displayScale];
-  v46 = v31;
-  v32 = SBCaptureRectForContentRectAndSensorRect(a2, a3, a4, a5, v22, v24, v26, v28);
-  v34 = v33;
-  v36 = v35;
-  v38 = v37;
-
-  v39 = [*(a1 + 48) referenceView];
-  v40 = [v39 traitCollection];
-  [v40 displayScale];
+  v31 = [v30 displayScale];
+  v40 = SBCaptureRectForContentRectAndSensorRect(a2, a3, a4, a5, v22, v24, v26, v28, v31, v32, v33, v34, v35, v36, v37, v38, v39);
   v42 = v41;
+  v44 = v43;
+  v46 = v45;
 
-  v43 = 256.0 / v42;
-  if (v36 > v43 || v38 > v43)
+  v47 = [*(a1 + 48) referenceView];
+  v48 = [v47 traitCollection];
+  [v48 displayScale];
+  v50 = v49;
+
+  v52 = 256.0 / v50;
+  if (v44 > v52 || v46 > v52)
   {
-    v45 = SBLogSystemApertureSecureFlipBookElements();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v54 = SBLogSystemApertureSecureFlipBookElements(v51);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
-      __180__SBSystemApertureSecureElementCoordinator__captureBoundsForElement_configuration_component_layoutDirection_orientation_layoutMode_containerDescription_coordinateSpace_completion___block_invoke_cold_1(v45);
+      __180__SBSystemApertureSecureElementCoordinator__captureBoundsForElement_configuration_component_layoutDirection_orientation_layoutMode_containerDescription_coordinateSpace_completion___block_invoke_cold_1(v54);
     }
 
-    if (v36 >= v43)
+    if (v44 >= v52)
     {
-      v36 = v43;
+      v44 = v52;
     }
 
-    if (v38 >= v43)
+    if (v46 >= v52)
     {
-      v38 = v43;
+      v46 = v52;
     }
   }
 
-  (*(*(a1 + 56) + 16))(v32, v34, v36, v38);
+  (*(*(a1 + 56) + 16))(v40, v42, v44, v46);
 }
 
 void __180__SBSystemApertureSecureElementCoordinator__captureBoundsForElement_configuration_component_layoutDirection_orientation_layoutMode_containerDescription_coordinateSpace_completion___block_invoke_129(uint64_t a1)
@@ -1525,14 +1524,14 @@ uint64_t __86__SBSystemApertureSecureElementCoordinator__changeOverrideToNewLayo
   [v0 handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 }
 
-- (void)elementAssertionInvalidated:.cold.1()
+- (void)elementAssertionInvalidated:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v4 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = NSClassFromString(&cfstr_Sauielementass.isa);
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
+  v5 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = NSClassFromString(&cfstr_Sauielementass.isa);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_0_3();
-  [v3 handleFailureInMethod:v0 object:v2 file:? lineNumber:? description:?];
+  [v4 handleFailureInMethod:v1 object:v3 file:? lineNumber:? description:?];
 }
 
 - (void)captureElementsWithRegistrationBlocks:elementCapturingDelegate:.cold.1()

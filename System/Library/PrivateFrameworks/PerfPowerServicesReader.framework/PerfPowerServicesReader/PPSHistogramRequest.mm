@@ -37,61 +37,60 @@
 
 - (PPSHistogramRequest)initWithDimensions:(id)dimensions predicate:(id)predicate timeFilter:(id)filter
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dimensionsCopy = dimensions;
   predicateCopy = predicate;
   filterCopy = filter;
   v12 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(dimensionsCopy, "count")}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v13 = dimensionsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v25;
+    v16 = *v24;
     do
     {
       v17 = 0;
       do
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        metricName = [*(*(&v24 + 1) + 8 * v17) metricName];
+        metricName = [*(*(&v23 + 1) + 8 * v17) metricName];
         [v12 addObject:metricName];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v15);
   }
 
   v19 = [v12 copy];
-  v23.receiver = self;
-  v23.super_class = PPSHistogramRequest;
-  v20 = [(PPSDataRequest *)&v23 initWithRequestType:1 metrics:v19 predicate:predicateCopy timeFilter:filterCopy];
+  v22.receiver = self;
+  v22.super_class = PPSHistogramRequest;
+  v20 = [(PPSDataRequest *)&v22 initWithRequestType:1 metrics:v19 predicate:predicateCopy timeFilter:filterCopy];
 
   if (v20)
   {
     objc_storeStrong(&v20->_dimensions, dimensions);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (id)description
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAB68];
   v4 = objc_opt_class();
   requestType = [(PPSDataRequest *)self requestType];
@@ -103,56 +102,56 @@
   dimensions = self->_dimensions;
   if (dimensions)
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     obj = dimensions;
-    v33 = [(NSArray *)obj countByEnumeratingWithState:&v40 objects:v45 count:16];
-    if (v33)
+    v32 = [(NSArray *)obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+    if (v32)
     {
-      v32 = *v41;
+      v31 = *v40;
       do
       {
-        for (i = 0; i != v33; ++i)
+        for (i = 0; i != v32; ++i)
         {
-          if (*v41 != v32)
+          if (*v40 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v40 + 1) + 8 * i);
+          v12 = *(*(&v39 + 1) + 8 * i);
           edges = [v12 edges];
           v14 = [edges count];
 
           if (v14)
           {
-            v34 = i;
+            v33 = i;
             [v9 appendString:@"edges:["];
-            v38 = 0u;
-            v39 = 0u;
-            v36 = 0u;
             v37 = 0u;
+            v38 = 0u;
+            v35 = 0u;
+            v36 = 0u;
             edges2 = [v12 edges];
-            v16 = [edges2 countByEnumeratingWithState:&v36 objects:v44 count:16];
+            v16 = [edges2 countByEnumeratingWithState:&v35 objects:v43 count:16];
             if (v16)
             {
               v17 = v16;
               v18 = 0;
-              v19 = *v37;
+              v19 = *v36;
               do
               {
                 v20 = 0;
-                v35 = v18;
+                v34 = v18;
                 v21 = v18 + 1;
                 do
                 {
-                  if (*v37 != v19)
+                  if (*v36 != v19)
                   {
                     objc_enumerationMutation(edges2);
                   }
 
-                  [*(*(&v36 + 1) + 8 * v20) doubleValue];
+                  [*(*(&v35 + 1) + 8 * v20) doubleValue];
                   [v9 appendFormat:@"%f", v22];
                   edges3 = [v12 edges];
                   v24 = [edges3 count];
@@ -167,15 +166,15 @@
                 }
 
                 while (v17 != v20);
-                v18 = v35 + v17;
-                v17 = [edges2 countByEnumeratingWithState:&v36 objects:v44 count:16];
+                v18 = v34 + v17;
+                v17 = [edges2 countByEnumeratingWithState:&v35 objects:v43 count:16];
               }
 
               while (v17);
             }
 
             [v9 appendString:@"]"];
-            i = v34;
+            i = v33;
           }
 
           else
@@ -188,15 +187,14 @@
           }
         }
 
-        v33 = [(NSArray *)obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v32 = [(NSArray *)obj countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
-      while (v33);
+      while (v32);
     }
   }
 
   [v9 appendString:@" }>"];
-  v29 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

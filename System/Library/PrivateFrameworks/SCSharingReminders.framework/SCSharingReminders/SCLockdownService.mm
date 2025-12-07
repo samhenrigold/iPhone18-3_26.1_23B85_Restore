@@ -49,53 +49,53 @@ void __60__SCLockdownService_fetchWifiSyncIdentifiersWithCompletion___block_invo
   v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = SCLogger();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SCLogger(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __60__SCLockdownService_fetchWifiSyncIdentifiersWithCompletion___block_invoke_cold_1(v5, v7, v8, v9, v10, v11, v12, v13);
+      __60__SCLockdownService_fetchWifiSyncIdentifiersWithCompletion___block_invoke_cold_1(v5, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 
-  v14 = [MEMORY[0x277CBEB18] array];
+  v15 = [MEMORY[0x277CBEB18] array];
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v15 = v6;
-  v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v16)
+  v16 = v7;
+  v17 = [v16 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v17)
   {
-    v17 = v16;
-    v18 = *v25;
+    v18 = v17;
+    v19 = *v25;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v25 != v18)
+        if (*v25 != v19)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v16);
         }
 
-        v20 = *(*(&v24 + 1) + 8 * i);
-        v21 = [v20 lockdownFrameworkKey];
+        v21 = *(*(&v24 + 1) + 8 * i);
+        v22 = [v21 lockdownFrameworkKey];
 
-        if (v21)
+        if (v22)
         {
-          v22 = [v20 lockdownFrameworkKey];
-          [v14 addObject:v22];
+          v23 = [v21 lockdownFrameworkKey];
+          [v15 addObject:v23];
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
-    while (v17);
+    while (v18);
   }
 
   (*(*(a1 + 32) + 16))();
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hostForIdentifier:(id)identifier completion:(id)completion
@@ -135,66 +135,67 @@ LABEL_7:
 
 void __50__SCLockdownService_hostForIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = SCLogger();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SCLogger(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __60__SCLockdownService_fetchWifiSyncIdentifiersWithCompletion___block_invoke_cold_1(v5, v7, v8, v9, v10, v11, v12, v13);
+      __60__SCLockdownService_fetchWifiSyncIdentifiersWithCompletion___block_invoke_cold_1(v5, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 
-  v14 = [*(a1 + 32) interestedNotifications];
-  v15 = [v14 containsObject:*(a1 + 40)];
+  v15 = [*(a1 + 32) interestedNotifications];
+  v16 = [v15 containsObject:*(a1 + 40)];
 
-  if (v15)
+  if (v16)
   {
-    v16 = lockdown_copy_wireless_connections_list();
-    if (v16)
+    v18 = lockdown_copy_wireless_connections_list();
+    if (v18)
     {
-      v17 = v16;
-      v18 = CFArrayGetValueAtIndex(v16, 0);
-      CFRelease(v17);
+      v19 = v18;
+      v20 = CFArrayGetValueAtIndex(v18, 0);
+      CFRelease(v19);
+      v41 = 0u;
+      v42 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v37 = 0u;
-      v38 = 0u;
-      v35 = v6;
-      v19 = v6;
-      v20 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
-      if (v20)
+      v37 = v7;
+      v21 = v7;
+      v22 = [v21 countByEnumeratingWithState:&v39 objects:v43 count:16];
+      if (v22)
       {
-        v21 = v20;
-        v22 = *v38;
+        v23 = v22;
+        v24 = *v40;
         while (2)
         {
-          v23 = 0;
+          v25 = 0;
           do
           {
-            if (*v38 != v22)
+            if (*v40 != v24)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v21);
             }
 
-            v24 = [*(*(&v37 + 1) + 8 * v23) lockdownFrameworkKey];
-            v25 = [v18 isEqualToString:v24];
+            v26 = [*(*(&v39 + 1) + 8 * v25) lockdownFrameworkKey];
+            v27 = [v20 isEqualToString:v26];
 
-            if (v25)
+            if (v27)
             {
               (*(*(a1 + 48) + 16))();
 
               goto LABEL_22;
             }
 
-            ++v23;
+            ++v25;
           }
 
-          while (v21 != v23);
-          v21 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
-          if (v21)
+          while (v23 != v25);
+          v23 = [v21 countByEnumeratingWithState:&v39 objects:v43 count:16];
+          if (v23)
           {
             continue;
           }
@@ -203,47 +204,44 @@ void __50__SCLockdownService_hostForIdentifier_completion___block_invoke(uint64_
         }
       }
 
-      v26 = SCLogger();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v29 = SCLogger(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_262556000, v26, OS_LOG_TYPE_DEFAULT, "Found no wirelessly connected hosts", buf, 2u);
+        _os_log_impl(&dword_262556000, v29, OS_LOG_TYPE_DEFAULT, "Found no wirelessly connected hosts", buf, 2u);
       }
 
       (*(*(a1 + 48) + 16))();
 LABEL_22:
 
-      v6 = v35;
+      v7 = v37;
     }
   }
 
   else
   {
-    v27 = SCLogger();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v30 = SCLogger(v17);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      __50__SCLockdownService_hostForIdentifier_completion___block_invoke_cold_2((a1 + 40), v27, v28, v29, v30, v31, v32, v33);
+      __50__SCLockdownService_hostForIdentifier_completion___block_invoke_cold_2((a1 + 40), v30, v31, v32, v33, v34, v35, v36);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __60__SCLockdownService_fetchWifiSyncIdentifiersWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_262556000, a2, a3, "Failed to fetch paired devices. Error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3(&dword_262556000, a2, a3, "Failed to fetch paired devices. Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __50__SCLockdownService_hostForIdentifier_completion___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_3(&dword_262556000, a2, a3, "Returning null because notification: %@ was not recognized", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_3(&dword_262556000, a2, a3, "Returning null because notification: %@ was not recognized", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

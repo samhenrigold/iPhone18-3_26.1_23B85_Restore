@@ -13,6 +13,7 @@
 + (void)removeKey:(id)key;
 + (void)reset;
 + (void)setDefaultWithKey:(id)key value:(id)value;
++ (void)setFlagWithKey:(id)key value:(BOOL)value;
 + (void)setIndexWithKey:(id)key value:(unint64_t)value;
 + (void)setTimeWithKey:(id)key value:(double)value;
 + (void)updateDefaultWithKey:(id)key value:(id)value;
@@ -277,7 +278,7 @@
 
 - (void)logErrorItemForBundleID:(id)d counts:(id)counts
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   countsCopy = counts;
   bundleID = [(CSEventFeedback *)self bundleID];
@@ -289,26 +290,26 @@
   }
 
   [(CSEventFeedback *)self flush];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v10 = countsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v11)
   {
     v12 = v11;
-    v28 = *v30;
+    v27 = *v29;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v30 != v28)
+        if (*v29 != v27)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * i);
+        v14 = *(*(&v28 + 1) + 8 * i);
         v15 = [v10 objectForKeyedSubscript:v14];
         v16 = [(NSMutableDictionary *)self->_stats objectForKeyedSubscript:v14];
 
@@ -336,18 +337,16 @@
         [v25 setObject:v24 forKeyedSubscript:@"count"];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v12);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logCachedItemForBundleID:(id)d counts:(id)counts
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   countsCopy = counts;
   bundleID = [(CSEventFeedback *)self bundleID];
@@ -358,28 +357,28 @@
     [CSEventFeedback logErrorItemForBundleID:dCopy counts:self];
   }
 
-  v27 = dCopy;
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
+  v26 = dCopy;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v10 = countsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v11)
   {
     v12 = v11;
-    v28 = *v30;
+    v27 = *v29;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v30 != v28)
+        if (*v29 != v27)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * i);
-        v15 = [v10 objectForKeyedSubscript:{v14, v27}];
+        v14 = *(*(&v28 + 1) + 8 * i);
+        v15 = [v10 objectForKeyedSubscript:{v14, v26}];
         v16 = [(NSMutableDictionary *)self->_stats objectForKeyedSubscript:v14];
 
         if (!v16)
@@ -406,18 +405,16 @@
         [v25 setObject:v24 forKeyedSubscript:@"cachedCount"];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v12);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logProcessedItemForBundleID:(id)d language:(id)language textSize:(unint64_t)size counts:(id)counts
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   dCopy = d;
   languageCopy = language;
   countsCopy = counts;
@@ -429,28 +426,28 @@
     [CSEventFeedback logProcessedItemForBundleID:dCopy language:self textSize:? counts:?];
   }
 
-  v48 = dCopy;
+  v47 = dCopy;
   [(CSEventFeedback *)self flush];
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v13 = countsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v50 objects:v54 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v49 objects:v53 count:16];
   if (v14)
   {
     v15 = v14;
-    v49 = *v51;
+    v48 = *v50;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v51 != v49)
+        if (*v50 != v48)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v50 + 1) + 8 * i);
+        v17 = *(*(&v49 + 1) + 8 * i);
         v18 = [v13 objectForKeyedSubscript:v17];
         v19 = [(NSMutableDictionary *)self->_stats objectForKeyedSubscript:v17];
 
@@ -509,7 +506,7 @@
         [v37 updateDefaultWithKey:stringValue value:&unk_2846E7680];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v50 objects:v54 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v49 objects:v53 count:16];
     }
 
     while (v15);
@@ -530,40 +527,39 @@
   [(NSMutableSet *)languages addObject:v41];
 
   textSizes = self->_textSizes;
-  v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v46];
+  v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v45];
   [(NSMutableSet *)textSizes addObject:v43];
 
   ++self->_numProcessedItemsInBatch;
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logReceivedItemForBundleID:(id)d counts:(id)counts onBattery:(BOOL)battery
 {
   batteryCopy = battery;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dCopy = d;
   countsCopy = counts;
   [(CSEventFeedback *)self flush];
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v8 = countsCopy;
-  v34 = [v8 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v33 = [v8 countByEnumeratingWithState:&v34 objects:v38 count:16];
   v9 = 0;
-  if (v34)
+  if (v33)
   {
-    v32 = *v36;
+    v31 = *v35;
     do
     {
-      for (i = 0; i != v34; ++i)
+      for (i = 0; i != v33; ++i)
       {
-        if (*v36 != v32)
+        if (*v35 != v31)
         {
           objc_enumerationMutation(v8);
         }
 
-        v11 = *(*(&v35 + 1) + 8 * i);
+        v11 = *(*(&v34 + 1) + 8 * i);
         v12 = [v8 objectForKeyedSubscript:v11];
         v13 = [(NSMutableDictionary *)self->_receiverStats objectForKeyedSubscript:v11];
 
@@ -617,14 +613,13 @@
         [objc_opt_class() updateDefaultWithKey:v11 value:&unk_2846E7680];
       }
 
-      v34 = [v8 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v33 = [v8 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
-    while (v34);
+    while (v33);
   }
 
   ++self->_numProcessedItemsInBatch;
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)bucketedSizeForValue:(id)value numBuckets:(unint64_t)buckets
@@ -649,7 +644,7 @@
 
 - (id)feedback
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = MEMORY[0x277CCABB0];
   [(CSEventFeedback *)self elapsedTime];
@@ -688,26 +683,26 @@
     [v3 setObject:v15 forKey:@"language"];
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v16 = self->_stats;
-  v17 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v49 objects:v54 count:16];
+  v17 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v48 objects:v53 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v50;
+    v19 = *v49;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v50 != v19)
+        if (*v49 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v49 + 1) + 8 * i);
+        v21 = *(*(&v48 + 1) + 8 * i);
         v22 = [(NSMutableDictionary *)self->_stats objectForKeyedSubscript:v21];
         v23 = [v22 objectForKeyedSubscript:@"count"];
 
@@ -826,7 +821,7 @@ LABEL_38:
 LABEL_39:
       }
 
-      v18 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v18 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
     while (v18);
@@ -838,41 +833,40 @@ LABEL_39:
   v34 = [MEMORY[0x277CCABB0] numberWithBool:self->_ignoredBatch];
   [v3 setObject:v34 forKey:@"IgnoredBatch"];
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v35 = self->_errors;
-  v36 = [(NSMutableSet *)v35 countByEnumeratingWithState:&v45 objects:v53 count:16];
+  v36 = [(NSMutableSet *)v35 countByEnumeratingWithState:&v44 objects:v52 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v46;
+    v38 = *v45;
     v39 = MEMORY[0x277CBEC38];
     do
     {
       for (j = 0; j != v37; ++j)
       {
-        if (*v46 != v38)
+        if (*v45 != v38)
         {
           objc_enumerationMutation(v35);
         }
 
-        v41 = [*(*(&v45 + 1) + 8 * j) intValue] - 14;
+        v41 = [*(*(&v44 + 1) + 8 * j) intValue] - 14;
         if (v41 <= 4)
         {
           [v3 setObject:v39 forKey:off_27893CD10[v41]];
         }
       }
 
-      v37 = [(NSMutableSet *)v35 countByEnumeratingWithState:&v45 objects:v53 count:16];
+      v37 = [(NSMutableSet *)v35 countByEnumeratingWithState:&v44 objects:v52 count:16];
     }
 
     while (v37);
   }
 
   v42 = [v3 copy];
-  v43 = *MEMORY[0x277D85DE8];
 
   return v42;
 }
@@ -895,15 +889,15 @@ LABEL_39:
 
 - (void)updateProcessedItemsDefaults
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_numProcessedItemsInBatch)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       numProcessedItemsInBatch = self->_numProcessedItemsInBatch;
-      v13 = 134217984;
-      v14 = numProcessedItemsInBatch;
-      _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "### %lu journal items processed", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = numProcessedItemsInBatch;
+      _os_log_impl(&dword_231B25000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "### %lu journal items processed", &v12, 0xCu);
     }
 
     v4 = [objc_opt_class() defaultValueWithKey:@"processedCount"];
@@ -923,8 +917,6 @@ LABEL_39:
     v11 = [v8 numberWithUnsignedInteger:numProcessedOnBudget + unsignedIntValue];
     [objc_opt_class() updateDefaultWithKey:@"processedCount" value:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)end
@@ -1303,6 +1295,15 @@ LABEL_17:
   os_unfair_lock_unlock(&gFeedbackLock);
 }
 
++ (void)setFlagWithKey:(id)key value:(BOOL)value
+{
+  valueCopy = value;
+  keyCopy = key;
+  v6 = objc_opt_class();
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:valueCopy];
+  [v6 setDefaultWithKey:keyCopy value:v7];
+}
+
 + (BOOL)flagWithKey:(id)key
 {
   keyCopy = key;
@@ -1376,29 +1377,25 @@ LABEL_17:
 
 - (void)logErrorItemForBundleID:(uint64_t)a1 counts:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [a2 bundleID];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_3(&dword_231B25000, MEMORY[0x277D86220], v3, "SKG: cached item bundle %@ does not match donation bundle %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_231B25000, MEMORY[0x277D86220], v3, "SKG: cached item bundle %@ does not match donation bundle %@", v4, v5, v6, v7);
 }
 
 - (void)logProcessedItemForBundleID:(uint64_t)a1 language:(void *)a2 textSize:counts:.cold.1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [a2 bundleID];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_3(&dword_231B25000, MEMORY[0x277D86220], v3, "SKG: processed item bundle %@ does not match donation bundle %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_3(&dword_231B25000, MEMORY[0x277D86220], v3, "SKG: processed item bundle %@ does not match donation bundle %@", v4, v5, v6, v7);
 }
 
 - (void)logError:(uint64_t)a3 message:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3(&dword_231B25000, MEMORY[0x277D86220], a3, "SKG: error (%lu) %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  *v8 = 134218242;
+  *&v8[4] = a2;
+  *&v8[12] = 2112;
+  *&v8[14] = a1;
+  OUTLINED_FUNCTION_1_3(&dword_231B25000, MEMORY[0x277D86220], a3, "SKG: error (%lu) %@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

@@ -28,7 +28,7 @@
 
   v53 = optionsCopy;
   v51 = conversionClientCopy;
-  if ([v22 count] != 1 && (objc_msgSend(v22, "count") != 2 || (objc_msgSend(v22, "containsObject:", &unk_1F0FBEC38) & 1) == 0))
+  if (objc_msgSend_count(v22) != 1 && (objc_msgSend_count(v22) != 2 || ([v22 containsObject:&unk_1F0FBEC38] & 1) == 0))
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"PLResourceGenerator.m" lineNumber:293 description:@"Generating adjusted & unadjusted at the same time is not currently supported."];
@@ -42,13 +42,13 @@
   v26 = [self locallyUnavailableRecipesFromRecipes:v24 versions:v25 asset:assetCopy];
   v27 = [v26 mutableCopy];
 
-  v28 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:{objc_msgSend(v27, "count")}];
-  v29 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v27, "count")}];
-  v30 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v27, "count")}];
-  v31 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v27, "count")}];
+  v28 = [MEMORY[0x1E696AE38] discreteProgressWithTotalUnitCount:objc_msgSend_count(v27)];
+  v29 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(v27)];
+  v30 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(v27)];
+  v31 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v27)];
   v47 = assetCopy;
   v48 = v28;
-  if ([v27 count])
+  if (objc_msgSend_count(v27))
   {
     v46 = completionCopy;
     v32 = completionCopy;
@@ -100,7 +100,7 @@
   v12 = [v10 predicateWithBlock:v27];
   v13 = [v9 filteredArrayUsingPredicate:v12];
 
-  v14 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithCapacity:{objc_msgSend(v13, "count")}];
+  v14 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithCapacity:objc_msgSend_count(v13)];
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
@@ -208,7 +208,7 @@ uint64_t __75__PLResourceGenerator_locallyUnavailableRecipesFromRecipes_versions
   dCopy = d;
   versionsCopy = versions;
   v19 = [MEMORY[0x1E695DFD8] setWithArray:versionsCopy];
-  if ([v19 count] != 1 && (objc_msgSend(v19, "count") != 2 || (objc_msgSend(v19, "containsObject:", &unk_1F0FBEC38) & 1) == 0))
+  if (objc_msgSend_count(v19) != 1 && (objc_msgSend_count(v19) != 2 || ([v19 containsObject:&unk_1F0FBEC38] & 1) == 0))
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLResourceGenerator.m" lineNumber:179 description:{@"Valid versions include: ([(empty)], [current], [current, original], [current, adjusted])"}];
@@ -279,7 +279,7 @@ LABEL_23:
   v31 = *MEMORY[0x1E69E9840];
   v3 = PLDataStoreForClassIDAndLibraryID(1, d);
   thumbnailFormats = [v3 thumbnailFormats];
-  v5 = [MEMORY[0x1E695DFA0] orderedSetWithCapacity:{objc_msgSend(thumbnailFormats, "count")}];
+  v5 = [MEMORY[0x1E695DFA0] orderedSetWithCapacity:objc_msgSend_count(thumbnailFormats)];
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
@@ -407,7 +407,7 @@ LABEL_5:
   [v33 intersectSet:v37];
 
   v48 = v33;
-  if ([v33 count] == 1)
+  if (objc_msgSend_count(v33) == 1)
   {
     v38 = [PLResourceRecipeGenerationOptions alloc];
     anyObject = [v33 anyObject];
@@ -482,15 +482,15 @@ void __231__PLResourceGenerator__continueGeneratingResourcesForAsset_versions_im
   v10 = a4;
   [v8 unionSet:v10];
   [*(a1 + 40) unionSet:v10];
-  v11 = [*(a1 + 48) count];
+  v11 = objc_msgSend_count(*(a1 + 48));
   [*(a1 + 48) minusSet:v10];
 
-  v12 = v11 - [*(a1 + 48) count];
+  v12 = v11 - objc_msgSend_count(*(a1 + 48));
   v13 = [v9 mutableCopy];
 
   [v13 minusSet:*(a1 + 40)];
   [*(a1 + 48) unionOrderedSet:v13];
-  [*(a1 + 56) setTotalUnitCount:{objc_msgSend(*(a1 + 56), "totalUnitCount") + objc_msgSend(v13, "count")}];
+  [*(a1 + 56) setTotalUnitCount:{objc_msgSend(*(a1 + 56), "totalUnitCount") + objc_msgSend_count(v13)}];
   [*(a1 + 56) setCompletedUnitCount:{objc_msgSend(*(a1 + 56), "completedUnitCount") + 1}];
   [*(a1 + 56) setCompletedUnitCount:{v12 + objc_msgSend(*(a1 + 56), "completedUnitCount")}];
   if (v14)

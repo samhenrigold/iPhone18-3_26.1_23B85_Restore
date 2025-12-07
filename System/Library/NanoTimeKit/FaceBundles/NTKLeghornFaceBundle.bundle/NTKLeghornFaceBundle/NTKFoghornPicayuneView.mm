@@ -12,19 +12,19 @@
 {
   deviceCopy = device;
   timerCopy = timer;
-  v21.receiver = self;
-  v21.super_class = NTKFoghornPicayuneView;
-  v8 = [(CLKUITimeView *)&v21 initWithDevice:deviceCopy clockTimer:timerCopy];
+  v18.receiver = self;
+  v18.super_class = NTKFoghornPicayuneView;
+  v8 = [(CLKUITimeView *)&v18 initWithDevice:deviceCopy clockTimer:timerCopy];
   if (v8)
   {
     v9 = [NTKFoghornTimeView alloc];
     objc_msgSend_screenBounds(deviceCopy, v10, v11);
-    v14 = objc_msgSend_initWithFrame_forDevice_clockTimer_(v9, v12, v13, deviceCopy, timerCopy);
+    v13 = objc_msgSend_initWithFrame_forDevice_clockTimer_(v9, v12, deviceCopy, timerCopy);
     timeView = v8->_timeView;
-    v8->_timeView = v14;
+    v8->_timeView = v13;
 
-    objc_msgSend_setInset_(v8->_timeView, v16, v17, 0);
-    objc_msgSend_addSubview_(v8, v18, v19, v8->_timeView);
+    objc_msgSend_setInset_(v8->_timeView, v15, 0);
+    objc_msgSend_addSubview_(v8, v16, v8->_timeView);
   }
 
   return v8;
@@ -43,52 +43,52 @@
 - (void)setConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  v27.receiver = self;
-  v27.super_class = NTKFoghornPicayuneView;
-  [(CLKUITimeView *)&v27 setConfiguration:configurationCopy];
+  v24.receiver = self;
+  v24.super_class = NTKFoghornPicayuneView;
+  [(CLKUITimeView *)&v24 setConfiguration:configurationCopy];
   v7 = objc_msgSend_layoutStyle(configurationCopy, v5, v6);
-  objc_msgSend_setLayoutStyle_(self->_timeView, v8, v9, v7);
-  v12 = objc_msgSend_minutesColor(configurationCopy, v10, v11);
-  objc_msgSend_setMinutesColor_(self->_timeView, v13, v14, v12);
+  objc_msgSend_setLayoutStyle_(self->_timeView, v8, v7);
+  v11 = objc_msgSend_minutesColor(configurationCopy, v9, v10);
+  objc_msgSend_setMinutesColor_(self->_timeView, v12, v11);
 
-  v17 = objc_msgSend_secondsColor(configurationCopy, v15, v16);
-  objc_msgSend_setSecondsColor_(self->_timeView, v18, v19, v17);
+  v15 = objc_msgSend_secondsColor(configurationCopy, v13, v14);
+  objc_msgSend_setSecondsColor_(self->_timeView, v16, v15);
 
   if (configurationCopy)
   {
-    objc_msgSend_transform(configurationCopy, v20, v21);
+    objc_msgSend_transform(configurationCopy, v17, v18);
   }
 
   else
   {
-    v25 = 0u;
-    v26 = 0u;
-    v24 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = 0u;
   }
 
   timeView = self->_timeView;
-  v23[0] = v24;
-  v23[1] = v25;
-  v23[2] = v26;
-  objc_msgSend_setTransform_(timeView, v20, *&v26, v23);
+  v20[0] = v21;
+  v20[1] = v22;
+  v20[2] = v23;
+  objc_msgSend_setTransform_(timeView, v17, v20);
 }
 
 - (void)setState:(unint64_t)state
 {
-  v7.receiver = self;
-  v7.super_class = NTKFoghornPicayuneView;
-  [(CLKUITimeView *)&v7 setState:?];
+  v6.receiver = self;
+  v6.super_class = NTKFoghornPicayuneView;
+  [(CLKUITimeView *)&v6 setState:?];
   if (state)
   {
     if (state == 1)
     {
-      objc_msgSend_setFrozen_(self->_timeView, v5, v6, 1);
+      objc_msgSend_setFrozen_(self->_timeView, v5, 1);
     }
   }
 
   else
   {
-    objc_msgSend_setFrozen_(self->_timeView, v5, v6, 0);
+    objc_msgSend_setFrozen_(self->_timeView, v5, 0);
   }
 }
 
@@ -98,7 +98,7 @@
   v6.super_class = NTKFoghornPicayuneView;
   dateCopy = date;
   [(CLKUITimeView *)&v6 setOverrideDate:dateCopy];
-  objc_msgSend_setOverrideDate_duration_(self->_timeView, v5, 0.0, dateCopy, v6.receiver, v6.super_class);
+  objc_msgSend_setOverrideDate_duration_(self->_timeView, v5, dateCopy, 0.0, v6.receiver, v6.super_class);
 }
 
 @end

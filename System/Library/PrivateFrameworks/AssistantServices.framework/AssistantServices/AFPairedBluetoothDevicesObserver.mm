@@ -18,8 +18,8 @@
 
 - (void)updatePairedDevices:(id)devices
 {
-  sharedInstance = [getBluetoothManagerClass() sharedInstance];
-  pairedDevices = [sharedInstance pairedDevices];
+  v4 = [getBluetoothManagerClass(self a2];
+  pairedDevices = [v4 pairedDevices];
 
   os_unfair_lock_lock(&self->_pairedDevicesLock);
   pairedDevices = self->_pairedDevices;

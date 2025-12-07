@@ -44,19 +44,19 @@
 {
   [value floatValue];
   v7 = v6;
-  if ([key isEqualToString:@"Hint"])
+  if (objc_msgSend_isEqualToString_(key))
   {
     v8 = &OBJC_IVAR____UILinearForceLevelClassifier__revealThreshold;
   }
 
-  else if ([key isEqualToString:@"Standard"])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     v8 = &OBJC_IVAR____UILinearForceLevelClassifier__standardThreshold;
   }
 
   else
   {
-    if (![key isEqualToString:@"Strong"])
+    if (!objc_msgSend_isEqualToString_(key))
     {
       return;
     }

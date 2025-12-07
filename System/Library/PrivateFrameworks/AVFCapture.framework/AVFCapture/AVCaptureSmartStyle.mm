@@ -22,9 +22,9 @@
 
 - (id)_initWithCast:(id)cast intensity:(float)intensity toneBias:(float)bias colorBias:(float)colorBias
 {
-  v15.receiver = self;
-  v15.super_class = AVCaptureSmartStyle;
-  v10 = [(AVCaptureSmartStyle *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = AVCaptureSmartStyle;
+  v10 = [(AVCaptureSmartStyle *)&v16 init];
   if (v10)
   {
     if (fabsf(bias) <= 1.0)
@@ -60,7 +60,7 @@
     }
 
     v13 = [v11 exceptionWithName:v12 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v13, v14))
     {
       objc_exception_throw(v13);
     }

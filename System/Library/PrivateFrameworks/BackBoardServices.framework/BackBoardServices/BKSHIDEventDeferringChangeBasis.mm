@@ -13,95 +13,93 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  identifier = self->_identifier;
   coderCopy = coder;
-  [coderCopy encodeObject:identifier forKey:@"identifier"];
-  [coderCopy encodeObject:self->_eventProvenance forKey:@"provenance"];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (BKSHIDEventDeferringChangeBasis)initWithCoder:(id)coder
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v6 = objc_opt_class();
   if (v6 != objc_opt_class())
   {
-    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot subclass BKSHIDEventDeferringChangeBasis"];
+    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v26 = NSStringFromSelector(a2);
-      v27 = objc_opt_class();
-      v28 = NSStringFromClass(v27);
+      v22 = NSStringFromSelector(a2);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
       *buf = 138544642;
-      v33 = v26;
-      v34 = 2114;
-      v35 = v28;
-      v36 = 2048;
+      v29 = v22;
+      v30 = 2114;
+      v31 = v24;
+      v32 = 2048;
       selfCopy = self;
+      v34 = 2114;
+      v35 = @"BKSHIDEventDeferringChangeBasis.m";
+      v36 = 1024;
+      v37 = 85;
       v38 = 2114;
-      v39 = @"BKSHIDEventDeferringChangeBasis.m";
-      v40 = 1024;
-      v41 = 85;
-      v42 = 2114;
-      v43 = v25;
+      v39 = v21;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v25 UTF8String];
+    [v21 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186381998);
   }
 
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
-  if ([v7 isEqualToString:@"hostOverride"])
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
+  if ([v7 isEqualToString:?])
   {
     v8 = +[BKSHIDEventDeferringChangeBasis ruleOriginatorBasis];
   }
 
   else
   {
-    if (![v7 isEqualToString:@"event"])
+    if (![v7 isEqualToString:?])
     {
-      v18 = MEMORY[0x1E696ABC0];
-      v19 = *MEMORY[0x1E696A250];
-      v30 = *MEMORY[0x1E696A588];
-      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unrecognized serializable basis identifier : %@", v7];
-      v31 = v20;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-      v22 = [v18 errorWithDomain:v19 code:4866 userInfo:v21];
-      [coderCopy failWithError:v22];
+      v17 = MEMORY[0x1E696ABC0];
+      v26 = *MEMORY[0x1E696A588];
+      v27 = [MEMORY[0x1E696AEC0] stringWithFormat:v7];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+      v19 = [v17 errorWithDomain:? code:? userInfo:?];
+      [coderCopy failWithError:?];
 
-      v17 = 0;
+      v16 = 0;
       goto LABEL_10;
     }
 
-    v29.receiver = self;
-    v29.super_class = BKSHIDEventDeferringChangeBasis;
-    v9 = [(BKSHIDEventDeferringChangeBasis *)&v29 init];
+    v25.receiver = self;
+    v25.super_class = BKSHIDEventDeferringChangeBasis;
+    v9 = [(BKSHIDEventDeferringChangeBasis *)&v25 init];
     if (v9)
     {
-      v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
+      objc_opt_class();
+      v10 = [coderCopy decodeObjectOfClass:? forKey:?];
       identifier = v9->_identifier;
       v9->_identifier = v10;
 
       v12 = MEMORY[0x1E695DFD8];
-      v13 = objc_opt_class();
-      v14 = [v12 setWithObjects:{v13, objc_opt_class(), 0}];
-      v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"provenance"];
+      objc_opt_class();
+      v13 = [v12 setWithObjects:{objc_opt_class(), 0}];
+      v14 = [coderCopy decodeObjectOfClasses:? forKey:?];
       eventProvenance = v9->_eventProvenance;
-      v9->_eventProvenance = v15;
+      v9->_eventProvenance = v14;
     }
 
     v8 = v9;
     self = v8;
   }
 
-  v17 = v8;
+  v16 = v8;
 LABEL_10:
 
-  v23 = *MEMORY[0x1E69E9840];
-  return v17;
+  return v16;
 }
 
 - (BKSHIDEventDeferringChangeBasis)initWithEventProvenance:(id)provenance
@@ -125,7 +123,7 @@ LABEL_10:
 
 - (id)_initWithIdentifier:(void *)identifier provenance:
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v6 = a2;
   identifierCopy = identifier;
   if (self)
@@ -136,30 +134,30 @@ LABEL_10:
     v10 = objc_opt_class();
     if (!v8)
     {
-      v15 = NSStringFromClass(v10);
-      v16 = [v9 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"identifier", v15];
+      v14 = NSStringFromClass(v10);
+      v15 = [v9 stringWithFormat:@"identifier", v14];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v17 = NSStringFromSelector(sel__initWithIdentifier_provenance_);
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
+        v16 = NSStringFromSelector(sel__initWithIdentifier_provenance_);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
         *buf = 138544642;
-        v35 = v17;
-        v36 = 2114;
-        v37 = v19;
-        v38 = 2048;
+        v34 = v16;
+        v35 = 2114;
+        v36 = v18;
+        v37 = 2048;
         selfCopy3 = self;
-        v40 = 2114;
-        v41 = @"BKSHIDEventDeferringChangeBasis.m";
-        v42 = 1024;
-        v43 = 58;
-        v44 = 2114;
-        v45 = v16;
+        v39 = 2114;
+        v40 = @"BKSHIDEventDeferringChangeBasis.m";
+        v41 = 1024;
+        v42 = 58;
+        v43 = 2114;
+        v44 = v15;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v16 UTF8String];
+      [v15 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186381C34);
@@ -167,40 +165,40 @@ LABEL_10:
 
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v20 = MEMORY[0x1E696AEC0];
+      v19 = MEMORY[0x1E696AEC0];
       classForCoder = [v8 classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v22 = NSStringFromClass(classForCoder);
+      v21 = NSStringFromClass(classForCoder);
       objc_opt_class();
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
-      v25 = [v20 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"identifier", v22, v24];
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
+      v24 = [v19 stringWithFormat:@"identifier", v21, v23];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v26 = NSStringFromSelector(sel__initWithIdentifier_provenance_);
-        v27 = objc_opt_class();
-        v28 = NSStringFromClass(v27);
+        v25 = NSStringFromSelector(sel__initWithIdentifier_provenance_);
+        v26 = objc_opt_class();
+        v27 = NSStringFromClass(v26);
         *buf = 138544642;
-        v35 = v26;
-        v36 = 2114;
-        v37 = v28;
-        v38 = 2048;
+        v34 = v25;
+        v35 = 2114;
+        v36 = v27;
+        v37 = 2048;
         selfCopy3 = self;
-        v40 = 2114;
-        v41 = @"BKSHIDEventDeferringChangeBasis.m";
-        v42 = 1024;
-        v43 = 58;
-        v44 = 2114;
-        v45 = v25;
+        v39 = 2114;
+        v40 = @"BKSHIDEventDeferringChangeBasis.m";
+        v41 = 1024;
+        v42 = 58;
+        v43 = 2114;
+        v44 = v24;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v25 UTF8String];
+      [v24 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186381D70);
@@ -209,36 +207,36 @@ LABEL_10:
     v11 = objc_opt_class();
     if (v11 != objc_opt_class())
     {
-      v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot subclass BKSHIDEventDeferringChangeBasis"];
+      v28 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v30 = NSStringFromSelector(sel__initWithIdentifier_provenance_);
-        v31 = objc_opt_class();
-        v32 = NSStringFromClass(v31);
+        v29 = NSStringFromSelector(sel__initWithIdentifier_provenance_);
+        v30 = objc_opt_class();
+        v31 = NSStringFromClass(v30);
         *buf = 138544642;
-        v35 = v30;
-        v36 = 2114;
-        v37 = v32;
-        v38 = 2048;
+        v34 = v29;
+        v35 = 2114;
+        v36 = v31;
+        v37 = 2048;
         selfCopy3 = self;
-        v40 = 2114;
-        v41 = @"BKSHIDEventDeferringChangeBasis.m";
-        v42 = 1024;
-        v43 = 61;
-        v44 = 2114;
-        v45 = v29;
+        v39 = 2114;
+        v40 = @"BKSHIDEventDeferringChangeBasis.m";
+        v41 = 1024;
+        v42 = 61;
+        v43 = 2114;
+        v44 = v28;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v29 UTF8String];
+      [v28 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186381E58);
     }
 
-    v33.receiver = self;
-    v33.super_class = BKSHIDEventDeferringChangeBasis;
-    v12 = objc_msgSendSuper2(&v33, sel_init);
+    v32.receiver = self;
+    v32.super_class = BKSHIDEventDeferringChangeBasis;
+    v12 = objc_msgSendSuper2(&v32, sel_init);
     self = v12;
     if (v12)
     {
@@ -247,13 +245,12 @@ LABEL_10:
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (BKSHIDEventDeferringChangeBasis)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot -init"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -282,7 +279,7 @@ LABEL_10:
 
 + (BKSHIDEventDeferringChangeBasis)new
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot +new"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -323,9 +320,11 @@ LABEL_10:
 
 uint64_t __50__BKSHIDEventDeferringChangeBasis_constraintBasis__block_invoke()
 {
-  constraintBasis_basis = [[BKSHIDEventDeferringChangeBasis alloc] _initWithIdentifier:0 provenance:?];
+  v0 = [[BKSHIDEventDeferringChangeBasis alloc] _initWithIdentifier:0 provenance:?];
+  v1 = constraintBasis_basis;
+  constraintBasis_basis = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)ruleOriginatorBasis
@@ -342,9 +341,11 @@ uint64_t __50__BKSHIDEventDeferringChangeBasis_constraintBasis__block_invoke()
 
 uint64_t __54__BKSHIDEventDeferringChangeBasis_ruleOriginatorBasis__block_invoke()
 {
-  ruleOriginatorBasis_basis = [[BKSHIDEventDeferringChangeBasis alloc] _initWithIdentifier:0 provenance:?];
+  v0 = [[BKSHIDEventDeferringChangeBasis alloc] _initWithIdentifier:0 provenance:?];
+  v1 = ruleOriginatorBasis_basis;
+  ruleOriginatorBasis_basis = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

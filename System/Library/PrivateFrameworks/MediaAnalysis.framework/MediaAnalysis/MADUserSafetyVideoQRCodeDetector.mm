@@ -140,7 +140,7 @@
 
 - (id)sensitivityFromQRCodeForVideoURL:(id)l request:(id)request signpostPayload:(id)payload progressHandler:(id)handler
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   lCopy = l;
   requestCopy = request;
   payloadCopy = payload;
@@ -148,8 +148,8 @@
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v64 = objc_opt_class();
-    v14 = v64;
+    v67 = objc_opt_class();
+    v14 = v67;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] running...", buf, 0xCu);
   }
 
@@ -171,7 +171,7 @@
         {
           v31 = objc_opt_class();
           *buf = 138412290;
-          v64 = v31;
+          v67 = v31;
           v32 = v31;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Invalid configuration, sensitiveFrameCountThreshold must be > 0", buf, 0xCu);
         }
@@ -213,7 +213,7 @@ LABEL_9:
         }
 
         dictionary = [MEMORY[0x1E695DF90] dictionary];
-        v56 = dictionary;
+        v59 = dictionary;
         dictionary2 = [MEMORY[0x1E695DF90] dictionary];
         if ([objc_opt_class() generateDecoderSettings:dictionary decoderConfig:dictionary2 withRequest:requestCopy videoDuration:v21])
         {
@@ -221,7 +221,7 @@ LABEL_9:
           {
             v23 = objc_opt_class();
             *buf = 138412290;
-            v64 = v23;
+            v67 = v23;
             v24 = v23;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to generate settings and config for videoProcessor", buf, 0xCu);
           }
@@ -237,18 +237,18 @@ LABEL_9:
           requiresBlastdoor = [requestCopy requiresBlastdoor];
           v35 = @"NO";
           *buf = 138413058;
-          v64 = v33;
-          v65 = 2112;
+          v67 = v33;
+          v68 = 2112;
           if (requiresBlastdoor)
           {
             v35 = @"YES";
           }
 
-          v66 = v35;
-          v67 = 2112;
-          v68 = dictionary;
-          v69 = 2112;
-          v70 = dictionary2;
+          v69 = v35;
+          v70 = 2112;
+          v71 = dictionary;
+          v72 = 2112;
+          v73 = dictionary2;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[%@] requiresBlastdoor: %@, decoder settings: %@, decoder configuration: %@", buf, 0x2Au);
         }
 
@@ -259,40 +259,41 @@ LABEL_9:
         aBlock[3] = &unk_1E834E6F0;
         aBlock[4] = self;
         sensitivity2 = payloadCopy;
-        v62 = sensitivity2;
-        v55 = _Block_copy(aBlock);
-        v60 = 0;
-        v36 = [(VCPBlastdoorVideoProcessor *)v20 addFrameProcessingRequest:v55 withConfiguration:dictionary2 error:&v60];
-        v37 = v60;
+        v65 = sensitivity2;
+        v58 = _Block_copy(aBlock);
+        v63 = 0;
+        v36 = [(VCPBlastdoorVideoProcessor *)v20 addFrameProcessingRequest:v58 withConfiguration:dictionary2 error:&v63];
+        v37 = v63;
+        v38 = v37;
         if (v36)
         {
-          v38 = VCPSignPostLog();
-          spid = os_signpost_id_generate(v38);
+          v39 = VCPSignPostLog(v37);
+          spid = os_signpost_id_generate(v39);
 
-          v39 = VCPSignPostLog();
-          v40 = v39;
-          if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
+          v41 = VCPSignPostLog(v40);
+          v42 = v41;
+          if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
           {
             *buf = 138412290;
-            v64 = sensitivity2;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v40, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPVideoProcessor_Analyze", "%@", buf, 0xCu);
+            v67 = sensitivity2;
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v42, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPVideoProcessor_Analyze", "%@", buf, 0xCu);
           }
 
-          v59 = v37;
-          v41 = [(VCPBlastdoorVideoProcessor *)v20 analyzeWithError:&v59];
-          v42 = v59;
-          v43 = v37;
-          v37 = v42;
+          v62 = v38;
+          v43 = [(VCPBlastdoorVideoProcessor *)v20 analyzeWithError:&v62];
+          v44 = v62;
+          v45 = v38;
+          v38 = v44;
 
-          if (v41)
+          if (v43)
           {
-            v44 = VCPSignPostLog();
-            v45 = v44;
-            if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
+            v47 = VCPSignPostLog(v46);
+            v48 = v47;
+            if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
             {
               *buf = 138412290;
-              v64 = sensitivity2;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v45, OS_SIGNPOST_INTERVAL_END, spid, "VCPVideoProcessor_Analyze", "%@", buf, 0xCu);
+              v67 = sensitivity2;
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v48, OS_SIGNPOST_INTERVAL_END, spid, "VCPVideoProcessor_Analyze", "%@", buf, 0xCu);
             }
 
             v26 = 1;
@@ -301,12 +302,12 @@ LABEL_9:
 
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v49 = objc_opt_class();
-            v50 = [v37 description];
+            v52 = objc_opt_class();
+            v53 = [v38 description];
             *buf = 138412546;
-            v64 = v49;
-            v65 = 2112;
-            v66 = v50;
+            v67 = v52;
+            v68 = 2112;
+            v69 = v53;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to process video (%@)", buf, 0x16u);
           }
 
@@ -317,12 +318,12 @@ LABEL_9:
         {
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v46 = objc_opt_class();
-            v47 = [v37 description];
+            v49 = objc_opt_class();
+            v50 = [v38 description];
             *buf = 138412546;
-            v64 = v46;
-            v65 = 2112;
-            v66 = v47;
+            v67 = v49;
+            v68 = 2112;
+            v69 = v50;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to add request to video processor (%@)", buf, 0x16u);
           }
 
@@ -351,9 +352,9 @@ LABEL_52:
       }
 
       *buf = 138412546;
-      v64 = v28;
-      v65 = 2112;
-      v66 = v30;
+      v67 = v28;
+      v68 = 2112;
+      v69 = v30;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to create video processor (requiresBlastdoor: %@)", buf, 0x16u);
     }
 
@@ -365,10 +366,10 @@ LABEL_52:
 LABEL_54:
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
-    v51 = objc_opt_class();
+    v54 = objc_opt_class();
     *buf = 138412290;
-    v64 = v51;
-    v52 = v51;
+    v67 = v54;
+    v55 = v54;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] complete", buf, 0xCu);
   }
 

@@ -199,12 +199,12 @@
   v8 = [v6 orderedSetWithObject:v7];
 
   v9 = objc_alloc(MEMORY[0x1E696AFB0]);
-  [(_PKStrokeConcrete *)self _sortID];
+  objc_msgSend__sortID(self);
   v10 = [v9 initWithUUIDBytes:v20 + 4];
   [orderedSet addObject:v10];
 
   v11 = objc_alloc(MEMORY[0x1E696AFB0]);
-  [(_PKStrokeConcrete *)self _version];
+  objc_msgSend__version(self);
   v12 = [v11 initWithUUIDBytes:v20 + 4];
   [orderedSet addObject:v12];
 
@@ -262,10 +262,10 @@
     goto LABEL_8;
   }
 
-  [(_PKStrokeConcrete *)self _version];
+  objc_msgSend__version(self);
   if (toCopy)
   {
-    [toCopy _version];
+    objc_msgSend__version(toCopy);
   }
 
   else
@@ -432,7 +432,7 @@ LABEL_9:
   v26 = behavior;
   if (behavior)
   {
-    [behavior inkTransform];
+    objc_msgSend_inkTransform(behavior);
   }
 
   else
@@ -460,7 +460,7 @@ LABEL_9:
   _strokeUUID = [strokeCopy _strokeUUID];
   if (strokeCopy)
   {
-    [strokeCopy _sortID];
+    objc_msgSend__sortID(strokeCopy);
   }
 
   else
@@ -477,7 +477,7 @@ LABEL_9:
   _substrokes = [strokeCopy _substrokes];
   if (strokeCopy)
   {
-    [strokeCopy _substrokesVersion];
+    objc_msgSend__substrokesVersion(strokeCopy);
   }
 
   else
@@ -505,7 +505,7 @@ LABEL_9:
   -[_PKStrokeConcrete _setShapeType:](v19, "_setShapeType:", [strokeCopy _shapeType]);
   if (strokeCopy)
   {
-    [strokeCopy _inkTransform];
+    objc_msgSend__inkTransform(strokeCopy);
   }
 
   else
@@ -574,7 +574,7 @@ LABEL_9:
   v24 = behavior;
   if (behavior)
   {
-    [behavior inkTransform];
+    objc_msgSend_inkTransform(behavior);
   }
 
   else
@@ -612,9 +612,9 @@ LABEL_9:
   v11 = *MEMORY[0x1E69E9840];
   v4 = [PKMutableStroke alloc];
   _isHidden = [(PKStroke *)self _isHidden];
-  [(_PKStrokeConcrete *)self _version];
+  objc_msgSend__version(self);
   v6 = [(_PKStrokeConcrete *)self ink];
-  [(PKStroke *)self transform];
+  objc_msgSend_transform(self);
   v7 = [(_PKStrokeConcrete *)v4 initWithStroke:self hidden:_isHidden version:v10 ink:v6 transform:&v9];
 
   return v7;
@@ -625,9 +625,9 @@ LABEL_9:
   v10 = *MEMORY[0x1E69E9840];
   v3 = [_PKStrokeConcrete alloc];
   _isHidden = [(PKStroke *)self _isHidden];
-  [(_PKStrokeConcrete *)self _version];
+  objc_msgSend__version(self);
   v5 = [(_PKStrokeConcrete *)self ink];
-  [(PKStroke *)self transform];
+  objc_msgSend_transform(self);
   v6 = [(_PKStrokeConcrete *)v3 initWithStroke:self hidden:_isHidden version:v9 ink:v5 transform:&v8];
 
   return v6;
@@ -654,7 +654,7 @@ LABEL_9:
   v6 = [_PKStrokeConcrete alloc];
   _strokeData = [(PKStroke *)self _strokeData];
   uUID = [MEMORY[0x1E696AFB0] UUID];
-  [(_PKStrokeConcrete *)self _sortID];
+  objc_msgSend__sortID(self);
   v17 = 0;
   v18 = v21;
   v19 = 0;
@@ -676,7 +676,7 @@ LABEL_9:
   v11[3] = *MEMORY[0x1E69E9840];
   v7 = [PKStrokeProviderSliceIdentifierConcrete alloc];
   _strokeUUID = [(_PKStrokeConcrete *)self _strokeUUID];
-  [(_PKStrokeConcrete *)self _version];
+  objc_msgSend__version(self);
   v9 = [(PKStrokeProviderSliceIdentifierConcrete *)v7 initWithUUID:_strokeUUID version:v11 tStart:start tEnd:end];
 
   return v9;
@@ -690,7 +690,7 @@ LABEL_9:
   v7 = behavior;
   if (behavior)
   {
-    [behavior inkTransform];
+    objc_msgSend_inkTransform(behavior);
   }
 
   else
@@ -765,7 +765,7 @@ LABEL_9:
   else
   {
     copyForMutation = [(_PKStrokeConcrete *)self copyForMutation];
-    [(_PKStrokeConcrete *)self _transform];
+    objc_msgSend__transform(self);
     v7 = *&transform->c;
     *&v25.a = *&transform->a;
     *&v25.c = v7;
@@ -979,7 +979,7 @@ LABEL_9:
         t1.c = *&self->_version.replicaUUID[4];
         if (equalCopy)
         {
-          [(_PKStrokeConcrete *)equalCopy _version];
+          objc_msgSend__version(equalCopy);
           a_low = LODWORD(v17.a);
         }
 
@@ -1011,10 +1011,10 @@ LABEL_9:
                 goto LABEL_12;
               }
 
-              [(_PKStrokeConcrete *)self _transform];
+              objc_msgSend__transform(self);
               if (equalCopy)
               {
-                [(_PKStrokeConcrete *)equalCopy _transform];
+                objc_msgSend__transform(equalCopy);
               }
 
               else
@@ -1063,9 +1063,9 @@ LABEL_13:
 {
   v10 = *MEMORY[0x1E69E9840];
   drawingCopy = drawing;
-  [(_PKStrokeConcrete *)self _version];
+  objc_msgSend__version(self);
   replicaUUID = [drawingCopy replicaUUID];
-  [PKDrawingConcrete newStrokeIDGreaterThan:&v6 forUUID:replicaUUID];
+  objc_msgSend_newStrokeIDGreaterThan_forUUID_(PKDrawingConcrete);
   v6 = v8;
   v7 = v9;
   [(_PKStrokeConcrete *)self set_version:&v6];
@@ -1075,9 +1075,9 @@ LABEL_13:
 {
   v10 = *MEMORY[0x1E69E9840];
   drawingCopy = drawing;
-  [(_PKStrokeConcrete *)self _substrokesVersion];
+  objc_msgSend__substrokesVersion(self);
   replicaUUID = [drawingCopy replicaUUID];
-  [PKDrawingConcrete newStrokeIDGreaterThan:&v6 forUUID:replicaUUID];
+  objc_msgSend_newStrokeIDGreaterThan_forUUID_(PKDrawingConcrete);
   v6 = v8;
   v7 = v9;
   [(_PKStrokeConcrete *)self set_substrokesVersion:&v6];
@@ -1168,10 +1168,10 @@ LABEL_13:
 {
   v9 = *MEMORY[0x1E69E9840];
   strokeCopy = stroke;
-  [(_PKStrokeConcrete *)self _sortID];
+  objc_msgSend__sortID(self);
   if (strokeCopy)
   {
-    [strokeCopy _sortID];
+    objc_msgSend__sortID(strokeCopy);
   }
 
   else
@@ -1366,7 +1366,7 @@ LABEL_19:
     {
       if (v9)
       {
-        [v9 _transform];
+        objc_msgSend__transform(v9);
       }
 
       else
@@ -1374,7 +1374,7 @@ LABEL_19:
         memset(&t1, 0, sizeof(t1));
       }
 
-      [parentCopy _transform];
+      objc_msgSend__transform(parentCopy);
       if (!CGAffineTransformEqualToTransform(&t1, &t2))
       {
         if (([v9 _isNewCopy] & 1) == 0)
@@ -1385,7 +1385,7 @@ LABEL_19:
           [copyForMutation _setIsNewCopy:1];
         }
 
-        [parentCopy _transform];
+        objc_msgSend__transform(parentCopy);
         t1 = v30;
         [v9 _setTransform:&t1];
       }
@@ -1508,10 +1508,10 @@ LABEL_31:
     [copyForMutation _setStrokeUUID:_strokeUUID3];
   }
 
-  [(_PKStrokeConcrete *)selfCopy _version];
+  objc_msgSend__version(selfCopy);
   if (strokeCopy)
   {
-    [(_PKStrokeConcrete *)strokeCopy _version];
+    objc_msgSend__version(strokeCopy);
   }
 
   else
@@ -1520,10 +1520,10 @@ LABEL_31:
   }
 
   v14 = _PKStrokeIDCompare(&v36, &v35);
-  [(_PKStrokeConcrete *)selfCopy _substrokesVersion];
+  objc_msgSend__substrokesVersion(selfCopy);
   if (strokeCopy)
   {
-    [(_PKStrokeConcrete *)strokeCopy _substrokesVersion];
+    objc_msgSend__substrokesVersion(strokeCopy);
   }
 
   else
@@ -1579,7 +1579,7 @@ LABEL_31:
         _substrokes4 = [(_PKStrokeConcrete *)selfCopy _substrokes];
         [copyForMutation3 set_substrokes:_substrokes4];
 
-        [(_PKStrokeConcrete *)selfCopy _substrokesVersion];
+        objc_msgSend__substrokesVersion(selfCopy);
         v36 = v34[1];
         [copyForMutation3 set_substrokesVersion:&v36];
         copyForMutation = copyForMutation3;
@@ -1625,7 +1625,7 @@ LABEL_29:
 
   if (strokeCopy)
   {
-    [(_PKStrokeConcrete *)strokeCopy _substrokesVersion];
+    objc_msgSend__substrokesVersion(strokeCopy);
   }
 
   else
@@ -1698,7 +1698,7 @@ LABEL_30:
 
 - (_PKStrokeConcrete)initWithArchive:(const void *)archive sortedUUIDs:(id)ds inks:(id)inks parent:(id)parent isHidden:(BOOL)hidden transientArchiveDictionary:(id)dictionary
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   inksCopy = inks;
   parentCopy = parent;
@@ -1728,21 +1728,19 @@ LABEL_30:
 
   [(_PKStrokeConcrete *)v20 _setStrokeUUID:uUID];
 
-  v22 = *(archive + 13);
-  if (v22)
+  if (*(archive + 13))
   {
-    [(_PKStrokeConcrete *)v20 readStrokeIDFromArchive:v22 withSortedUUIDs:dsCopy];
-    *buf = v83;
-    v79.i64[0] = v84;
+    objc_msgSend_readStrokeIDFromArchive_withSortedUUIDs_(v20);
+    *buf = v80;
+    v76.i64[0] = v81;
     [(_PKStrokeConcrete *)v20 set_sortID:buf];
   }
 
-  v23 = *(archive + 22);
-  if (v23)
+  if (*(archive + 22))
   {
-    [(_PKStrokeConcrete *)v20 readStrokeIDFromArchive:v23 withSortedUUIDs:dsCopy];
-    *buf = v81;
-    v79.i64[0] = v82;
+    objc_msgSend_readStrokeIDFromArchive_withSortedUUIDs_(v20);
+    *buf = v78;
+    v76.i64[0] = v79;
     [(_PKStrokeConcrete *)v20 set_version:buf];
   }
 
@@ -1751,133 +1749,133 @@ LABEL_30:
     [(_PKStrokeConcrete *)v20 _setShapeType:*(archive + 12)];
   }
 
-  v24 = *(archive + 5);
+  v22 = *(archive + 5);
+  if (v22)
+  {
+    v23 = [_PKStrokeConcrete decodeRenameableUUIDFromData:*v22 transientArchiveDictionary:dictionaryCopy];
+    [(_PKStrokeConcrete *)v20 _setGroupID:v23];
+  }
+
+  v24 = *(archive + 11);
   if (v24)
   {
     v25 = [_PKStrokeConcrete decodeRenameableUUIDFromData:*v24 transientArchiveDictionary:dictionaryCopy];
-    [(_PKStrokeConcrete *)v20 _setGroupID:v25];
-  }
-
-  v26 = *(archive + 11);
-  if (v26)
-  {
-    v27 = [_PKStrokeConcrete decodeRenameableUUIDFromData:*v26 transientArchiveDictionary:dictionaryCopy];
-    [(_PKStrokeConcrete *)v20 _setRenderGroupID:v27];
+    [(_PKStrokeConcrete *)v20 _setRenderGroupID:v25];
   }
 
   if (*(archive + 184))
   {
-    v29 = *(archive + 6);
-    if (v29 == 0x7FFFFFFFFFFFFFFFLL || v29 >= [inksCopy count])
+    v27 = *(archive + 6);
+    if (v27 == 0x7FFFFFFFFFFFFFFFLL || v27 >= [inksCopy count])
     {
-      v30 = os_log_create("com.apple.pencilkit", "");
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+      v28 = os_log_create("com.apple.pencilkit", "");
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
       {
         *buf = 134217984;
-        *&buf[4] = v29;
-        _os_log_fault_impl(&dword_1C7CCA000, v30, OS_LOG_TYPE_FAULT, "Archive had invalid ink index: %lu", buf, 0xCu);
+        *&buf[4] = v27;
+        _os_log_fault_impl(&dword_1C7CCA000, v28, OS_LOG_TYPE_FAULT, "Archive had invalid ink index: %lu", buf, 0xCu);
       }
 
-      v28 = 1;
+      v26 = 1;
     }
 
     else
     {
-      v28 = 0;
+      v26 = 0;
     }
   }
 
   else
   {
-    v28 = 0;
-    v29 = 0x7FFFFFFFFFFFFFFFLL;
+    v26 = 0;
+    v27 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  if (v29 < [inksCopy count])
+  if (v27 < [inksCopy count])
   {
-    v31 = [inksCopy objectAtIndexedSubscript:v29];
-    [(PKStroke *)v20 _setInk:v31];
+    v29 = [inksCopy objectAtIndexedSubscript:v27];
+    [(PKStroke *)v20 _setInk:v29];
     goto LABEL_30;
   }
 
   if (parentCopy)
   {
-    v31 = [parentCopy ink];
-    [(PKStroke *)v20 _setInk:v31];
+    v29 = [parentCopy ink];
+    [(PKStroke *)v20 _setInk:v29];
 LABEL_30:
 
-    v32 = *(archive + 4);
-    if (v32)
+    v30 = *(archive + 4);
+    if (v30)
     {
-      drawing::Rectangle::Rectangle(buf, v32);
-      [(_PKStrokeConcrete *)v20 _setBounds:*&buf[12], *v79.i32, *&v79.i32[1], *&buf[8]];
+      drawing::Rectangle::Rectangle(buf, v30);
+      [(_PKStrokeConcrete *)v20 _setBounds:*&buf[12], *v76.i32, *&v76.i32[1], *&buf[8]];
       PB::Base::~Base(buf);
     }
 
-    v33 = MEMORY[0x1E695EFD0];
-    v34 = *(MEMORY[0x1E695EFD0] + 16);
+    v31 = MEMORY[0x1E695EFD0];
+    v32 = *(MEMORY[0x1E695EFD0] + 16);
     *buf = *MEMORY[0x1E695EFD0];
-    v79 = v34;
-    v80 = *(MEMORY[0x1E695EFD0] + 32);
+    v76 = v32;
+    v77 = *(MEMORY[0x1E695EFD0] + 32);
     [(_PKStrokeConcrete *)v20 _setTransform:buf];
-    v35 = *(archive + 21);
-    if (v35)
+    v33 = *(archive + 21);
+    if (v33)
     {
-      v36 = *(v35 + 8);
-      v37 = vcvtq_f64_f32(*v36.f32);
-      v38 = vcvtq_f64_f32(*(v35 + 16));
-      v39 = vcvtq_f64_f32(*(v35 + 24));
-      v40 = v33[2];
-      if (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_f32(v36, v36)))))
+      v34 = *(v33 + 8);
+      v35 = vcvtq_f64_f32(*v34.f32);
+      v36 = vcvtq_f64_f32(*(v33 + 16));
+      v37 = vcvtq_f64_f32(*(v33 + 24));
+      v38 = v31[2];
+      if (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_f32(v34, v34)))))
       {
-        v41 = -1;
+        v39 = -1;
       }
 
       else
       {
-        v41 = 0;
+        v39 = 0;
       }
 
-      v42 = vdupq_n_s64(v41);
-      v43 = vbslq_s8(v42, v33[1], v38);
-      *buf = vbslq_s8(v42, *v33, v37);
-      v79 = v43;
-      v80 = vbslq_s8(v42, v40, v39);
+      v40 = vdupq_n_s64(v39);
+      v41 = vbslq_s8(v40, v31[1], v36);
+      *buf = vbslq_s8(v40, *v31, v35);
+      v76 = v41;
+      v77 = vbslq_s8(v40, v38, v37);
       [(_PKStrokeConcrete *)v20 _setTransform:buf];
     }
 
     else if (parentCopy)
     {
-      [parentCopy _transform];
-      *buf = v73;
-      v79 = v74;
-      v80 = v75;
+      objc_msgSend__transform(parentCopy);
+      *buf = v70;
+      v76 = v71;
+      v77 = v72;
       [(_PKStrokeConcrete *)v20 _setTransform:buf];
     }
 
-    v44 = *(archive + 7);
-    if (v44)
+    v42 = *(archive + 7);
+    if (v42)
     {
-      v45 = *(v44 + 8);
-      v46 = vcvtq_f64_f32(*v45.f32);
-      v47 = vcvtq_f64_f32(*(v44 + 16));
-      v48 = vcvtq_f64_f32(*(v44 + 24));
-      v49 = v33[2];
-      if (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_f32(v45, v45)))))
+      v43 = *(v42 + 8);
+      v44 = vcvtq_f64_f32(*v43.f32);
+      v45 = vcvtq_f64_f32(*(v42 + 16));
+      v46 = vcvtq_f64_f32(*(v42 + 24));
+      v47 = v31[2];
+      if (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_f32(v43, v43)))))
       {
-        v50 = -1;
+        v48 = -1;
       }
 
       else
       {
-        v50 = 0;
+        v48 = 0;
       }
 
-      v51 = vdupq_n_s64(v50);
-      v52 = vbslq_s8(v51, v33[1], v47);
-      *buf = vbslq_s8(v51, *v33, v46);
-      v79 = v52;
-      v80 = vbslq_s8(v51, v49, v48);
+      v49 = vdupq_n_s64(v48);
+      v50 = vbslq_s8(v49, v31[1], v45);
+      *buf = vbslq_s8(v49, *v31, v44);
+      v76 = v50;
+      v77 = vbslq_s8(v49, v47, v46);
       [(_PKStrokeConcrete *)v20 _setInkTransform:buf];
     }
 
@@ -1893,96 +1891,95 @@ LABEL_30:
       if (!parentCopy)
       {
 LABEL_49:
-        v55 = *(archive + 17);
-        v54 = *(archive + 18);
-        v56 = v54 - v55;
-        if (v54 != v55)
+        v53 = *(archive + 17);
+        v52 = *(archive + 18);
+        v54 = v52 - v53;
+        if (v52 != v53)
         {
-          v57 = *(archive + 20);
-          if (v57)
+          if (*(archive + 20))
           {
-            [(_PKStrokeConcrete *)v20 readStrokeIDFromArchive:v57 withSortedUUIDs:dsCopy];
-            *buf = v76;
-            v79.i64[0] = v77;
+            objc_msgSend_readStrokeIDFromArchive_withSortedUUIDs_(v20);
+            *buf = v73;
+            v76.i64[0] = v74;
             [(_PKStrokeConcrete *)v20 set_substrokesVersion:buf];
           }
 
-          v58 = [MEMORY[0x1E695DF70] arrayWithCapacity:v56 >> 3];
-          [(_PKStrokeConcrete *)v20 set_substrokes:v58];
+          v55 = [MEMORY[0x1E695DF70] arrayWithCapacity:v54 >> 3];
+          [(_PKStrokeConcrete *)v20 set_substrokes:v55];
 
-          v59 = 0;
-          if ((v56 >> 3) <= 1)
+          v56 = 0;
+          if ((v54 >> 3) <= 1)
           {
-            v60 = 1;
+            v57 = 1;
           }
 
           else
           {
-            v60 = v56 >> 3;
+            v57 = v54 >> 3;
           }
 
           do
           {
-            if (*(*(*(archive + 17) + 8 * v59) + 72) == *(*(*(archive + 17) + 8 * v59) + 64))
+            if (*(*(*(archive + 17) + 8 * v56) + 72) == *(*(*(archive + 17) + 8 * v56) + 64))
             {
-              v61 = [_PKStrokeConcrete alloc];
-              v62 = *(*(archive + 17) + 8 * v59);
+              v58 = [_PKStrokeConcrete alloc];
+              v59 = *(*(archive + 17) + 8 * v56);
               if (!hidden)
               {
 LABEL_60:
-                v63 = [(_PKStrokeConcrete *)v20 _flags]& 1;
+                v60 = [(_PKStrokeConcrete *)v20 _flags]& 1;
                 goto LABEL_61;
               }
 
-              v63 = 1;
+              v60 = 1;
             }
 
             else
             {
-              v61 = [_PKStrokeConcrete alloc];
-              v62 = *(*(archive + 17) + 8 * v59);
+              v58 = [_PKStrokeConcrete alloc];
+              v59 = *(*(archive + 17) + 8 * v56);
               if (!hidden)
               {
                 goto LABEL_60;
               }
 
-              v63 = 1;
+              v60 = 1;
             }
 
 LABEL_61:
-            v64 = [(_PKStrokeConcrete *)v61 initWithArchive:v62 sortedUUIDs:dsCopy inks:inksCopy parent:v20 isHidden:v63 transientArchiveDictionary:dictionaryCopy];
-            if (!v64)
+            v61 = [(_PKStrokeConcrete *)v58 initWithArchive:v59 sortedUUIDs:dsCopy inks:inksCopy parent:v20 isHidden:v60 transientArchiveDictionary:dictionaryCopy];
+            if (!v61)
             {
               goto LABEL_75;
             }
 
             _substrokes = [(_PKStrokeConcrete *)v20 _substrokes];
-            [_substrokes addObject:v64];
+            [_substrokes addObject:v61];
 
-            ++v59;
+            ++v56;
           }
 
-          while (v60 != v59);
+          while (v57 != v56);
         }
 
         if (*(archive + 9) != *(archive + 8))
         {
-          v66 = [[PKStrokeMask alloc] initWithArchive:archive];
-          [(_PKStrokeConcrete *)v20 _setStrokeMask:v66];
+          v63 = [[PKStrokeMask alloc] initWithArchive:archive];
+          [(_PKStrokeConcrete *)v20 _setStrokeMask:v63];
         }
 
-        v67 = *(archive + 24);
-        if (v67)
+        v64 = *(archive + 24);
+        if (v64)
         {
-          v68 = *(archive + 25);
-          if (v68)
+          v65 = *(archive + 25);
+          if (v65)
           {
-            atomic_fetch_add_explicit((v68 + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v65 + 8), 1uLL, memory_order_relaxed);
           }
 
           cntrl = v20->_unknownFields.__cntrl_;
-          v20->_unknownFields.__ptr_ = v67;
-          v20->_unknownFields.__cntrl_ = v68;
+          v20->_unknownFields.__ptr_ = v64;
+          v20->_unknownFields.__cntrl_ = v65;
           if (cntrl)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](cntrl);
@@ -2002,13 +1999,13 @@ LABEL_70:
     goto LABEL_49;
   }
 
-  if ((v28 & 1) == 0)
+  if ((v26 & 1) == 0)
   {
-    v70 = os_log_create("com.apple.pencilkit", "");
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_FAULT))
+    v67 = os_log_create("com.apple.pencilkit", "");
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_fault_impl(&dword_1C7CCA000, v70, OS_LOG_TYPE_FAULT, "Unable to find ink from saved inkIndex or parent", buf, 2u);
+      _os_log_fault_impl(&dword_1C7CCA000, v67, OS_LOG_TYPE_FAULT, "Unable to find ink from saved inkIndex or parent", buf, 2u);
     }
   }
 
@@ -2055,17 +2052,17 @@ LABEL_76:
   *&v20[20] = *MEMORY[0x1E69E9840];
   toCopy = to;
   v5 = objc_alloc(MEMORY[0x1E696AFB0]);
-  [(_PKStrokeConcrete *)self _sortID];
+  objc_msgSend__sortID(self);
   v6 = [v5 initWithUUIDBytes:v20];
   [toCopy addObject:v6];
 
   v7 = objc_alloc(MEMORY[0x1E696AFB0]);
-  [(_PKStrokeConcrete *)self _version];
+  objc_msgSend__version(self);
   v8 = [v7 initWithUUIDBytes:v20];
   [toCopy addObject:v8];
 
   v9 = objc_alloc(MEMORY[0x1E696AFB0]);
-  [(_PKStrokeConcrete *)self _substrokesVersion];
+  objc_msgSend__substrokesVersion(self);
   v10 = [v9 initWithUUIDBytes:v20];
   [toCopy addObject:v10];
 
@@ -2203,11 +2200,11 @@ LABEL_76:
 
   drawing::Stroke::makeSortID(archive);
   v21 = *(archive + 13);
-  [(_PKStrokeConcrete *)self _sortID];
+  objc_msgSend__sortID(self);
   [(_PKStrokeConcrete *)self saveStrokeID:&buf toArchive:v21 withSortedUUIDs:dsCopy];
   drawing::Stroke::makeVersion(archive);
   v22 = *(archive + 22);
-  [(_PKStrokeConcrete *)self _version];
+  objc_msgSend__version(self);
   [(_PKStrokeConcrete *)self saveStrokeID:&buf toArchive:v22 withSortedUUIDs:dsCopy];
   v23 = [(_PKStrokeConcrete *)self ink];
   if (v23)
@@ -2269,7 +2266,7 @@ LABEL_76:
     }
 
     memset(&buf, 0, sizeof(buf));
-    [(_PKStrokeConcrete *)self _transform];
+    objc_msgSend__transform(self);
     _flags = [(_PKStrokeConcrete *)self _flags];
     v41 = MEMORY[0x1E695EFD0];
     if (!parent || (_flags & 8) == 0)
@@ -2310,7 +2307,7 @@ LABEL_76:
     }
 
     memset(&t1, 0, sizeof(t1));
-    [(_PKStrokeConcrete *)self _inkTransform];
+    objc_msgSend__inkTransform(self);
     t2 = t1;
     v55 = v41[1];
     *&v83.a = *v41;
@@ -2356,7 +2353,7 @@ LABEL_76:
   {
     drawing::Stroke::makeSubstrokesVersion(archive);
     v71 = *(archive + 20);
-    [(_PKStrokeConcrete *)self _substrokesVersion];
+    objc_msgSend__substrokesVersion(self);
     [(_PKStrokeConcrete *)self saveStrokeID:&buf toArchive:v71 withSortedUUIDs:dsCopy];
     _substrokes2 = [(_PKStrokeConcrete *)self _substrokes];
     std::vector<std::unique_ptr<drawing::Stroke>>::reserve(archive + 17, [_substrokes2 count]);
@@ -2365,7 +2362,7 @@ LABEL_76:
     _substrokes3 = [(_PKStrokeConcrete *)self _substrokes];
     if ([_substrokes3 countByEnumeratingWithState:v82 objects:v86 count:16])
     {
-      PB::PtrVector<drawing::Stroke>::emplace_back<>();
+      PB::PtrVector<drawing::Stroke>::emplace_back<>(archive + 17);
     }
   }
 
@@ -2398,7 +2395,7 @@ LABEL_76:
 
 - (_PKStrokeConcrete)initWithV1Archive:(const void *)archive sortedUUIDs:(id)ds inks:(id)inks
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   inksCopy = inks;
   v10 = *(archive + 10);
@@ -2408,13 +2405,12 @@ LABEL_76:
     v14 = v13;
     if (v13)
     {
-      v15 = *(archive + 6);
-      if (v15)
+      if (*(archive + 6))
       {
-        [(_PKStrokeConcrete *)v13 readV1StrokeIDFromArchive:v15 withSortedUUIDs:dsCopy];
-        v46 = v51;
-        v47.i64[0] = v52;
-        [(_PKStrokeConcrete *)v14 set_sortID:&v46];
+        objc_msgSend_readV1StrokeIDFromArchive_withSortedUUIDs_(v13);
+        v44 = v49;
+        v45.i64[0] = v50;
+        [(_PKStrokeConcrete *)v14 set_sortID:&v44];
       }
 
       if (*(archive + 7))
@@ -2429,96 +2425,95 @@ LABEL_76:
 
       [(_PKStrokeConcrete *)v14 _setStrokeUUID:uUID];
 
-      v17 = *(archive + 10);
-      if (v17)
+      if (*(archive + 10))
       {
-        [(_PKStrokeConcrete *)v14 readV1StrokeIDFromArchive:v17 withSortedUUIDs:dsCopy];
-        v46 = v49;
-        v47.i64[0] = v50;
-        [(_PKStrokeConcrete *)v14 set_version:&v46];
+        objc_msgSend_readV1StrokeIDFromArchive_withSortedUUIDs_(v14);
+        v44 = v47;
+        v45.i64[0] = v48;
+        [(_PKStrokeConcrete *)v14 set_version:&v44];
       }
 
-      v18 = [inksCopy objectAtIndexedSubscript:*(archive + 2)];
-      [(PKStroke *)v14 _setInk:v18];
+      v16 = [inksCopy objectAtIndexedSubscript:*(archive + 2)];
+      [(PKStroke *)v14 _setInk:v16];
 
       [(_PKStrokeConcrete *)v14 _setBounds:*MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24)];
       if (*(archive + 8) == 0.0)
       {
-        v19 = 0.0;
+        v17 = 0.0;
       }
 
       else
       {
-        v19 = *(archive + 8);
+        v17 = *(archive + 8);
       }
 
       [(PKStroke *)v14 _setHidden:*(archive + 89)];
-      v20 = MEMORY[0x1E695EFD0];
-      v21 = *(MEMORY[0x1E695EFD0] + 16);
-      v46 = *MEMORY[0x1E695EFD0];
-      v47 = v21;
-      v48 = *(MEMORY[0x1E695EFD0] + 32);
-      [(_PKStrokeConcrete *)v14 _setTransform:&v46];
-      v22 = *(archive + 9);
-      if (v22)
+      v18 = MEMORY[0x1E695EFD0];
+      v19 = *(MEMORY[0x1E695EFD0] + 16);
+      v44 = *MEMORY[0x1E695EFD0];
+      v45 = v19;
+      v46 = *(MEMORY[0x1E695EFD0] + 32);
+      [(_PKStrokeConcrete *)v14 _setTransform:&v44];
+      v20 = *(archive + 9);
+      if (v20)
       {
-        v23 = *(v22 + 8);
-        v24 = vcvtq_f64_f32(*v23.f32);
-        v25 = vcvtq_f64_f32(*(v22 + 16));
-        v26 = vcvtq_f64_f32(*(v22 + 24));
-        v27 = v20[2];
-        if (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_f32(v23, v23)))))
+        v21 = *(v20 + 8);
+        v22 = vcvtq_f64_f32(*v21.f32);
+        v23 = vcvtq_f64_f32(*(v20 + 16));
+        v24 = vcvtq_f64_f32(*(v20 + 24));
+        v25 = v18[2];
+        if (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_f32(v21, v21)))))
         {
-          v28 = -1;
+          v26 = -1;
         }
 
         else
         {
-          v28 = 0;
+          v26 = 0;
         }
 
-        v29 = vdupq_n_s64(v28);
-        v30 = vbslq_s8(v29, v20[1], v25);
-        v46 = vbslq_s8(v29, *v20, v24);
-        v47 = v30;
-        v48 = vbslq_s8(v29, v27, v26);
-        [(_PKStrokeConcrete *)v14 _setTransform:&v46];
+        v27 = vdupq_n_s64(v26);
+        v28 = vbslq_s8(v27, v18[1], v23);
+        v44 = vbslq_s8(v27, *v18, v22);
+        v45 = v28;
+        v46 = vbslq_s8(v27, v25, v24);
+        [(_PKStrokeConcrete *)v14 _setTransform:&v44];
       }
 
-      v31 = *(archive + 3);
-      if (v31)
+      v29 = *(archive + 3);
+      if (v29)
       {
         if ((*(archive + 92) & 8) != 0)
         {
-          v32 = *(archive + 88) ^ 1;
+          v30 = *(archive + 88) ^ 1;
         }
 
         else
         {
-          v32 = 1;
+          v30 = 1;
         }
 
-        v33 = *(archive + 4);
-        v34 = *v31;
-        std::vector<PKCompressedStrokePoint>::vector[abi:ne200100](__p, v33);
-        if (v33)
+        v31 = *(archive + 4);
+        v32 = *v29;
+        std::vector<PKCompressedStrokePoint>::vector[abi:ne200100](__p, v31);
+        if (v31)
         {
-          v37 = 0;
-          v38 = v33;
+          v35 = 0;
+          v36 = v31;
           do
           {
-            PKConvertToCompressedStrokePoint(v34, &v46, v35, v36);
-            v39 = (__p[0] + v37);
-            *v39 = v46;
-            v35 = v47.i64[0];
-            v39[1] = v47;
-            v39[2].i32[0] = v48.i32[0];
-            v37 += 36;
-            v34 += 24;
-            --v38;
+            PKConvertToCompressedStrokePoint(v32, &v44, v33, v34);
+            v37 = (__p[0] + v35);
+            *v37 = v44;
+            v33 = v45.i64[0];
+            v37[1] = v45;
+            v37[2].i32[0] = v46.i32[0];
+            v35 += 36;
+            v32 += 24;
+            --v36;
           }
 
-          while (v38);
+          while (v36);
         }
 
         if (*(archive + 5))
@@ -2531,10 +2526,10 @@ LABEL_76:
           uUID2 = [MEMORY[0x1E696AFB0] UUID];
         }
 
-        v41 = uUID2;
-        v42 = [PKStrokePath alloc];
-        v43 = [(PKStrokePath *)v42 initWithPoints:__p[0] count:v33 immutableCount:v33 inputType:v32 timestamp:v41 UUID:v19];
-        [(PKStroke *)v14 set_strokeData:v43];
+        v39 = uUID2;
+        v40 = [PKStrokePath alloc];
+        v41 = [(PKStrokePath *)v40 initWithPoints:__p[0] count:v31 immutableCount:v31 inputType:v30 timestamp:v39 UUID:v17];
+        [(PKStroke *)v14 set_strokeData:v41];
 
         if (__p[0])
         {
@@ -2558,7 +2553,7 @@ LABEL_76:
 
 - (_PKStrokeConcrete)initWithLegacyArchive:(const void *)archive sortedUUIDs:(id)ds
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v7 = dsCopy;
   v8 = *(archive + 11);
@@ -2568,15 +2563,15 @@ LABEL_76:
     if (v11)
     {
       v12 = [v7 objectAtIndexedSubscript:*(*(archive + 11) + 12)];
-      [v12 getUUIDBytes:&v56 + 4];
+      [v12 getUUIDBytes:&v54 + 4];
 
       v13 = *(archive + 11);
       v14 = *(v13 + 8);
       LODWORD(v13) = *(v13 + 16);
-      LODWORD(v56) = v14;
-      HIDWORD(v57) = v13;
-      *&components.timestamp = v56;
-      components.location.y = v57;
+      LODWORD(v54) = v14;
+      HIDWORD(v55) = v13;
+      *&components.timestamp = v54;
+      components.location.y = v55;
       [(_PKStrokeConcrete *)v11 set_version:&components];
       v15 = *(archive + 6);
       if (v15)
@@ -2589,9 +2584,9 @@ LABEL_76:
         LODWORD(v17) = *(v17 + 16);
         LODWORD(components.timestamp) = v18;
         HIDWORD(components.location.y) = v17;
-        *&v54.timestamp = *&components.timestamp;
-        v54.location.y = components.location.y;
-        [(_PKStrokeConcrete *)v11 set_sortID:&v54];
+        *&v52.timestamp = *&components.timestamp;
+        v52.location.y = components.location.y;
+        [(_PKStrokeConcrete *)v11 set_sortID:&v52];
       }
 
       uUID = [MEMORY[0x1E696AFB0] UUID];
@@ -2601,20 +2596,20 @@ LABEL_76:
       if (v20)
       {
         v21 = *(v20 + 8);
-        v48 = vcvt_hight_f64_f32(v21);
-        v49 = vcvtq_f64_f32(*v21.f32);
+        v46 = vcvt_hight_f64_f32(v21);
+        v47 = vcvtq_f64_f32(*v21.f32);
       }
 
       else
       {
-        v48 = 0u;
-        v49 = xmmword_1C801F600;
+        v46 = 0u;
+        v47 = xmmword_1C801F600;
       }
 
       v22 = *(archive + 24);
       DeviceRGB = CGColorSpaceCreateDeviceRGB();
-      *&components.timestamp = vextq_s8(v48, v48, 8uLL);
-      *&components.location.y = vextq_s8(v49, v49, 8uLL);
+      *&components.timestamp = vextq_s8(v46, v46, 8uLL);
+      *&components.location.y = vextq_s8(v47, v47, 8uLL);
       v24 = CGColorCreate(DeviceRGB, &components.timestamp);
       CGColorSpaceRelease(DeviceRGB);
       CFAutorelease(v24);
@@ -2644,69 +2639,67 @@ LABEL_76:
       [(PKStroke *)v11 _setInk:v30];
 
       memset(&components, 0, sizeof(components));
-      v31 = *(archive + 1);
-      if (v31)
+      if (*(archive + 1))
       {
-        [(_PKStrokeConcrete *)v11 readPointFromLegacyArchive:v31 deltaFrom:&PKStrokePointDefault];
-        components = v54;
+        objc_msgSend_readPointFromLegacyArchive_deltaFrom_(v11);
+        components = v52;
       }
 
       if (*(archive + 4) && *(archive + 3))
       {
-        memset(&v54, 0, sizeof(v54));
-        [_PKStrokeConcrete readPointFromLegacyArchive:v11 deltaFrom:"readPointFromLegacyArchive:deltaFrom:"];
-        memset(&v53, 0, sizeof(v53));
-        [(_PKStrokeConcrete *)v11 readPointFromLegacyArchive:*(archive + 3) deltaFrom:&components];
-        v32 = [_PKStrokeClipPlane alloc];
-        v33 = [(_PKStrokeClipPlane *)v32 initWithOrigin:v54.location.x normal:v54.location.y, -0.0, -0.0];
-        [(_PKStrokeConcrete *)v11 _setClipPlane:v33];
+        memset(&v52, 0, sizeof(v52));
+        objc_msgSend_readPointFromLegacyArchive_deltaFrom_(v11);
+        memset(&v51, 0, sizeof(v51));
+        objc_msgSend_readPointFromLegacyArchive_deltaFrom_(v11);
+        v31 = [_PKStrokeClipPlane alloc];
+        v32 = [(_PKStrokeClipPlane *)v31 initWithOrigin:v52.location.x normal:v52.location.y, -0.0, -0.0];
+        [(_PKStrokeConcrete *)v11 _setClipPlane:v32];
       }
 
-      v34 = *(archive + 9) - *(archive + 8);
-      if (v34)
+      v33 = *(archive + 9) - *(archive + 8);
+      if (v33)
       {
-        v35 = v34 >> 3;
-        std::vector<PKCompressedStrokePoint>::vector[abi:ne200100](__p, v34 >> 3);
+        v34 = v33 >> 3;
+        std::vector<PKCompressedStrokePoint>::vector[abi:ne200100](__p, v33 >> 3);
+        v35 = 0;
         v36 = 0;
-        v37 = 0;
-        if (v35 <= 1)
+        if (v34 <= 1)
         {
-          v38 = 1;
+          v37 = 1;
         }
 
         else
         {
-          v38 = v35;
+          v37 = v34;
         }
 
         timestamp = 0.0;
         do
         {
-          v40 = *(*(archive + 8) + 8 * v37);
-          memset(&v54, 0, sizeof(v54));
-          [(_PKStrokeConcrete *)v11 readPointFromLegacyArchive:v40 deltaFrom:&components, *&v48, *&v49];
-          if (!v37)
+          memset(&v52, 0, sizeof(v52));
+          objc_msgSend_readPointFromLegacyArchive_deltaFrom_(v11, *&v46, *&v47);
+          if (!v36)
           {
-            timestamp = v54.timestamp;
+            timestamp = v52.timestamp;
           }
 
-          v53 = v54;
-          PKCompressStrokePoint(&v53, timestamp, v50);
-          v41 = (__p[0] + v36);
-          v42 = v50[1];
-          *v41 = v50[0];
-          v41[1] = v42;
-          v41[2].i32[0] = v51;
-          ++v37;
-          v36 += 36;
+          v51 = v52;
+          PKCompressStrokePoint(v48, &v51, timestamp);
+          v39 = __p[0] + v35;
+          v40 = v48[1];
+          *v39 = v48[0];
+          *(v39 + 1) = v40;
+          *(v39 + 8) = v49;
+          ++v36;
+          v35 += 36;
         }
 
-        while (v38 != v37);
-        v43 = [PKStrokePath alloc];
-        v44 = __p[0];
+        while (v37 != v36);
+        v41 = [PKStrokePath alloc];
+        v42 = __p[0];
         uUID2 = [MEMORY[0x1E696AFB0] UUID];
-        v46 = [(PKStrokePath *)v43 initWithPoints:v44 count:v35 immutableCount:v35 inputType:1 timestamp:uUID2 UUID:0.0];
-        [(PKStroke *)v11 set_strokeData:v46];
+        v44 = [(PKStrokePath *)v41 initWithPoints:v42 count:v34 immutableCount:v34 inputType:1 timestamp:uUID2 UUID:0.0];
+        [(PKStroke *)v11 set_strokeData:v44];
 
         if (__p[0])
         {
@@ -2858,7 +2851,7 @@ LABEL_76:
   inksCopy = inks;
   drawingV1::Stroke::makeStrokeID(archive);
   v14 = *(archive + 6);
-  [(_PKStrokeConcrete *)self _sortID];
+  objc_msgSend__sortID(self);
   [(_PKStrokeConcrete *)self saveV1StrokeID:&v59 toArchive:v14 withSortedUUIDs:dsCopy];
   if (!transient)
   {
@@ -2877,7 +2870,7 @@ LABEL_76:
 
   drawingV1::Stroke::makeVersion(archive);
   v17 = *(archive + 10);
-  [(_PKStrokeConcrete *)self _version];
+  objc_msgSend__version(self);
   [(_PKStrokeConcrete *)self saveV1StrokeID:&v59 toArchive:v17 withSortedUUIDs:dsCopy];
   v18 = [(_PKStrokeConcrete *)self ink];
   v19 = [inksCopy indexOfObject:v18];
@@ -2909,7 +2902,7 @@ LABEL_76:
           v28 = _strokeData;
           if (_strokeData)
           {
-            [_strokeData _compressedPointAt:v25];
+            objc_msgSend__compressedPointAt_(_strokeData);
           }
 
           else
@@ -2974,7 +2967,7 @@ LABEL_76:
     }
 
     memset(&v59, 0, sizeof(v59));
-    [(_PKStrokeConcrete *)self _transform];
+    objc_msgSend__transform(self);
     t1 = v59;
     v43 = *(MEMORY[0x1E695EFD0] + 16);
     *&v57.a = *MEMORY[0x1E695EFD0];

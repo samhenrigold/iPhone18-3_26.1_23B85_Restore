@@ -26,52 +26,45 @@
 
 - (SRAcousticSettingsMusicEQ)initWithBinarySampleRepresentation:(id)representation metadata:(id)metadata timestamp:(double)timestamp
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (![representation length])
+  v15 = *MEMORY[0x1E69E9840];
+  if ([representation length])
   {
-    goto LABEL_7;
-  }
+    v12.receiver = self;
+    v12.super_class = SRAcousticSettingsMusicEQ;
+    result = [(SRAcousticSettingsMusicEQ *)&v12 init];
+    if (!result)
+    {
+      return result;
+    }
 
-  v13.receiver = self;
-  v13.super_class = SRAcousticSettingsMusicEQ;
-  result = [(SRAcousticSettingsMusicEQ *)&v13 init];
-  if (result)
-  {
     self = result;
-    v12 = 0;
-    v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:representation error:&v12];
+    v11 = 0;
+    v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:representation error:&v11];
     if (v8)
     {
       v9 = v8;
 
-      result = v9;
-      goto LABEL_8;
+      return v9;
     }
 
     v10 = SRLogAcousticSettings;
     if (os_log_type_enabled(SRLogAcousticSettings, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v12;
+      v14 = v11;
       _os_log_error_impl(&dword_1C914D000, v10, OS_LOG_TYPE_ERROR, "Failed to unarchive data because %{public}@", buf, 0xCu);
     }
-
-LABEL_7:
-
-    result = 0;
   }
 
-LABEL_8:
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (id)binarySampleRepresentation
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v8];
-  v3 = v8;
+  v10 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v7];
+  v3 = v7;
   if (v2)
   {
     v4 = 1;
@@ -79,7 +72,7 @@ LABEL_8:
 
   else
   {
-    v4 = v8 == 0;
+    v4 = v7 == 0;
   }
 
   if (!v4)
@@ -88,12 +81,11 @@ LABEL_8:
     if (os_log_type_enabled(SRLogAcousticSettings, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v10 = v3;
+      v9 = v3;
       _os_log_error_impl(&dword_1C914D000, v5, OS_LOG_TYPE_ERROR, "Failed to archive data because %{public}@", buf, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

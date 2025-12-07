@@ -32,7 +32,7 @@
   swift_beginAccess();
   if (*(self + v3))
   {
-    sub_1000054A4(0, &qword_1006BFEC0);
+    sub_1000054A4(0, &qword_1006BFEC0, NSManagedObjectID_ptr);
     sub_1001C607C();
 
     v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
@@ -51,7 +51,7 @@
   dCopy = d;
   if (d)
   {
-    sub_1000054A4(0, &qword_1006BFEC0);
+    sub_1000054A4(0, &qword_1006BFEC0, NSManagedObjectID_ptr);
     sub_1001C607C();
     dCopy = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
@@ -114,7 +114,7 @@
 
 - (void)setSelectedNoteObjectID:(id)d
 {
-  v5 = sub_10015DA04(&unk_1006BFEA0);
+  v5 = sub_10015DA04(&unk_1006BFEA0, &unk_100539BC0);
   __chkstk_darwin(v5 - 8);
   v7 = (&selfCopy - v6);
   dCopy = d;
@@ -129,7 +129,7 @@
     v10 = OBJC_IVAR____TtC11MobileNotes21ICSelectionStateModel_objectSelection;
     swift_beginAccess();
     v11 = dCopy;
-    sub_10000A49C(v7, selfCopy + v10, &unk_1006BFEA0);
+    sub_10000A49C(v7, selfCopy + v10, &unk_1006BFEA0, &unk_100539BC0);
     swift_endAccess();
   }
 
@@ -147,7 +147,7 @@
   swift_allocObject();
   selfCopy = self;
   JSONEncoder.init()();
-  sub_1001C275C(&qword_1006BF0E8, type metadata accessor for ICSelectionStateModel);
+  sub_1001C275C(&qword_1006BF0E8, type metadata accessor for ICSelectionStateModel, &unk_100537210);
   v4 = dispatch thunk of JSONEncoder.encode<A>(_:)();
   v6 = v5;
 
@@ -164,7 +164,7 @@
   v6 = v5;
 
   swift_getObjCClassMetadata();
-  v7 = sub_1001BAEF8();
+  v7 = sub_1001BAEF8(v4, v6);
   sub_10019671C(v4, v6);
 
   return v7;
@@ -177,7 +177,7 @@
   type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
-  sub_10015DA04(&unk_1006C42C0);
+  sub_10015DA04(&unk_1006C42C0, &qword_100537380);
   sub_1001C61AC();
   v3 = dispatch thunk of JSONEncoder.encode<A>(_:)();
   v5 = v4;
@@ -245,10 +245,10 @@
     selfCopy2 = self;
   }
 
-  sub_100006038(v12, v10, &qword_1006BE7A0);
+  sub_100006038(v12, v10, &qword_1006BE7A0, &unk_100535E20);
   if (!v11)
   {
-    sub_1000073B4(v10, &qword_1006BE7A0);
+    sub_1000073B4(v10, &qword_1006BE7A0, &unk_100535E20);
     goto LABEL_8;
   }
 
@@ -263,7 +263,7 @@ LABEL_8:
   v7 = sub_1001C57E8(self, v9);
 
 LABEL_9:
-  sub_1000073B4(v12, &qword_1006BE7A0);
+  sub_1000073B4(v12, &qword_1006BE7A0, &unk_100535E20);
   return v7 & 1;
 }
 

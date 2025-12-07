@@ -89,90 +89,7 @@
 {
   configCopy = config;
   v5 = configCopy;
-  if (!configCopy)
-  {
-    goto LABEL_28;
-  }
-
-  sub_2956FD874(configCopy, "epErrorLimitWidePix_FirstPass", &self->_adaptiveCorrectionConfig.epErrorLimitWidePix_FirstPass);
-  if (!v6)
-  {
-    goto LABEL_28;
-  }
-
-  sub_2956FD874(v5, "epErrorLimitWidePix_SecondPass", &self->_adaptiveCorrectionConfig.epErrorLimitWidePix_SecondPass);
-  if (!v7)
-  {
-    goto LABEL_28;
-  }
-
-  sub_2956FD874(v5, "rangePFL_T", &self->_adaptiveCorrectionConfig.rangePFL_T);
-  if (!v8)
-  {
-    goto LABEL_28;
-  }
-
-  sub_2956FD874(v5, "rangePFL_W", &self->_adaptiveCorrectionConfig.rangePFL_W);
-  if (!v9)
-  {
-    goto LABEL_28;
-  }
-
-  sub_2956FD874(v5, "rangeOCxT", &self->_adaptiveCorrectionConfig.rangeOCxT);
-  if (!v10)
-  {
-    goto LABEL_28;
-  }
-
-  sub_2956FD874(v5, "rangeOCxW", &self->_adaptiveCorrectionConfig.rangeOCxW);
-  if (!v11)
-  {
-    goto LABEL_28;
-  }
-
-  sub_2956FD874(v5, "rangeOCyT", &self->_adaptiveCorrectionConfig.rangeOCyT);
-  if (!v12)
-  {
-    goto LABEL_28;
-  }
-
-  sub_2956FD874(v5, "rangeOCyW", &self->_adaptiveCorrectionConfig.rangeOCyW);
-  if (!v13)
-  {
-    goto LABEL_28;
-  }
-
-  sub_2956FD874(v5, "intermediateMacroDistMM", &self->_adaptiveCorrectionConfig.intermediateMacroDistMM);
-  if (!v14)
-  {
-    goto LABEL_28;
-  }
-
-  sub_2956FD874(v5, "extremeMacroDistMM", &self->_adaptiveCorrectionConfig.extremeMacroDistMM);
-  if (!v15)
-  {
-    goto LABEL_28;
-  }
-
-  v16 = MEMORY[0x29EDBA0F8];
-  v17 = v5;
-  objc_msgSend_stringWithUTF8String_(v16, v18, "minPointsForAdjustment", v19, v20, v21);
-  LODWORD(v16) = FigCFDictionaryGetInt32IfPresent();
-
-  if (!v16)
-  {
-    goto LABEL_28;
-  }
-
-  self->_adaptiveCorrectionConfig.minPointsForAdjustment = 0;
-  sub_2956FD874(v17, "errorVal_GreaterThanInf", &self->_adaptiveCorrectionConfig.errorVal_GreaterThanInf);
-  if (!v22)
-  {
-    goto LABEL_28;
-  }
-
-  sub_2956FD874(v17, "errorVal_LessThanExtremeMacro", &self->_adaptiveCorrectionConfig.errorVal_LessThanExtremeMacro);
-  if (v23 && (sub_2956FD874(v17, "errorVal_BetweenIntermediate_ExtremeMacro", &self->_adaptiveCorrectionConfig.errorVal_BetweenIntermediate_ExtremeMacro), v24) && (sub_2956FD874(v17, "spgEpsilon", &self->_adaptiveCorrectionConfig.spgEpsilon), v25) && (sub_2956FD910(v17, "keypointOutliersPercentile", &self->_adaptiveCorrectionConfig.keypointOutliersPercentile), v26) && (sub_2956FD910(v17, "temporalFilteringStrength", &self->_adaptiveCorrectionConfig.temporalFilteringStrength), v27) && (*&v32 = sub_2956FD910(v17, "temporalFilteringStrengthParallel", &self->_adaptiveCorrectionConfig.temporalFilteringStrengthParallel), v33))
+  if (configCopy && (sub_2956FD874(configCopy, "epErrorLimitWidePix_FirstPass", &self->_adaptiveCorrectionConfig.epErrorLimitWidePix_FirstPass), v6) && (sub_2956FD874(v5, "epErrorLimitWidePix_SecondPass", &self->_adaptiveCorrectionConfig.epErrorLimitWidePix_SecondPass), v7) && (sub_2956FD874(v5, "rangePFL_T", &self->_adaptiveCorrectionConfig.rangePFL_T), v8) && (sub_2956FD874(v5, "rangePFL_W", &self->_adaptiveCorrectionConfig.rangePFL_W), v9) && (sub_2956FD874(v5, "rangeOCxT", &self->_adaptiveCorrectionConfig.rangeOCxT), v10) && (sub_2956FD874(v5, "rangeOCxW", &self->_adaptiveCorrectionConfig.rangeOCxW), v11) && (sub_2956FD874(v5, "rangeOCyT", &self->_adaptiveCorrectionConfig.rangeOCyT), v12) && (sub_2956FD874(v5, "rangeOCyW", &self->_adaptiveCorrectionConfig.rangeOCyW), v13) && (sub_2956FD874(v5, "intermediateMacroDistMM", &self->_adaptiveCorrectionConfig.intermediateMacroDistMM), v14) && (sub_2956FD874(v5, "extremeMacroDistMM", &self->_adaptiveCorrectionConfig.extremeMacroDistMM), v15) && (v16 = MEMORY[0x29EDBA0F8], v17 = v5, objc_msgSend_stringWithUTF8String_(v16, v18, "minPointsForAdjustment", v19, v20, v21), LODWORD(v16) = FigCFDictionaryGetInt32IfPresent(), v17, v16) && (self->_adaptiveCorrectionConfig.minPointsForAdjustment = 0, sub_2956FD874(v17, "errorVal_GreaterThanInf", &self->_adaptiveCorrectionConfig.errorVal_GreaterThanInf), v22) && (sub_2956FD874(v17, "errorVal_LessThanExtremeMacro", &self->_adaptiveCorrectionConfig.errorVal_LessThanExtremeMacro), v23) && (sub_2956FD874(v17, "errorVal_BetweenIntermediate_ExtremeMacro", &self->_adaptiveCorrectionConfig.errorVal_BetweenIntermediate_ExtremeMacro), v24) && (sub_2956FD874(v17, "spgEpsilon", &self->_adaptiveCorrectionConfig.spgEpsilon), v25) && (sub_2956FD910(v17, "keypointOutliersPercentile", &self->_adaptiveCorrectionConfig.keypointOutliersPercentile), v26) && (sub_2956FD910(v17, "temporalFilteringStrength", &self->_adaptiveCorrectionConfig.temporalFilteringStrength), v27) && (*&v32 = sub_2956FD910(v17, "temporalFilteringStrengthParallel", &self->_adaptiveCorrectionConfig.temporalFilteringStrengthParallel), v33))
   {
     v34 = objc_msgSend_objectForKeyedSubscript_(v17, v28, @"runAnalyticalPreconditioning", v29, v30, v31, v32);
     v40 = v34;
@@ -209,7 +126,6 @@
 
   else
   {
-LABEL_28:
     v45 = 0;
     v40 = 0;
   }

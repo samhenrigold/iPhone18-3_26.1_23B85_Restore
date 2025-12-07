@@ -28,7 +28,7 @@
   {
     v8 = *&type;
     *name = @"apple:dissolve";
-    v13 = KNBundle();
+    v13 = KNBundle(self);
     v11 = [v13 localizedStringForKey:@"%@ builds were exported as Dissolve." value:&stru_471858 table:@"Keynote"];
     v12 = [self localizedMenuString:v8];
     *warning = [NSString stringWithFormat:v11, v12];
@@ -37,20 +37,21 @@
 
 - (KNBuildCrumble)initWithAnimationContext:(id)context
 {
-  v9.receiver = self;
-  v9.super_class = KNBuildCrumble;
-  v3 = [(KNAnimationEffect *)&v9 initWithAnimationContext:context];
+  v10.receiver = self;
+  v10.super_class = KNBuildCrumble;
+  v3 = [(KNAnimationEffect *)&v10 initWithAnimationContext:context];
+  v4 = v3;
   if (v3)
   {
-    v4 = KNBundle();
-    v5 = [v4 pathForResource:@"Crumble" ofType:@"parameterGroup"];
+    v5 = KNBundle(v3);
+    v6 = [v5 pathForResource:@"Crumble" ofType:@"parameterGroup"];
 
-    v6 = [KNAnimParameterGroup parameterGroupForFile:v5];
-    parameterGroup = v3->_parameterGroup;
-    v3->_parameterGroup = v6;
+    v7 = [KNAnimParameterGroup parameterGroupForFile:v6];
+    parameterGroup = v4->_parameterGroup;
+    v4->_parameterGroup = v7;
   }
 
-  return v3;
+  return v4;
 }
 
 - (CGRect)frameOfEffectWithContext:(id)context
@@ -200,7 +201,7 @@
 
   v129 = textures;
   lastObject = [textures lastObject];
-  v10 = KNBundle();
+  v10 = KNBundle(lastObject);
   v11 = [v10 pathForResource:@"KNBuildAnvil-Smoke" ofType:@"png"];
 
   v127 = v11;
@@ -266,7 +267,7 @@
   [(KNAnimationContext *)self->super.mAnimationContext slideRect];
   v41 = v40;
   v43 = v42;
-  [contextCopy duration];
+  objc_msgSend_duration(contextCopy);
   v120 = v44;
   direction = [contextCopy direction];
   if ([animatedBuild isBuildIn])
@@ -490,7 +491,7 @@ LABEL_4:
   [(KNAnimParameterGroup *)self->_parameterGroup valueForConstant:@"Smoke Speed Max"];
   [(KNBuildSmokeSystem *)self->_smokeSystem setSpeedMax:v124 * v90];
   [(KNBuildSmokeSystem *)self->_smokeSystem setupWithTexture:0 particleTextureSize:0 reverseDrawOrder:CGSizeZero.width, height];
-  [(KNAnimationEffect *)self perspectiveMVPMatrixWithContext:v46];
+  objc_msgSend_perspectiveMVPMatrixWithContext_(self);
   v123 = vcvt_hight_f32_f64(vcvt_f32_f64(v135), v136);
   v122 = vcvt_hight_f32_f64(vcvt_f32_f64(v137), v138);
   v121 = vcvt_hight_f32_f64(vcvt_f32_f64(v139), v140);

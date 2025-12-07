@@ -46,72 +46,72 @@
 {
   strokeCopy = stroke;
   v9 = objc_msgSend_array(MEMORY[0x1E695DF70], v4, v5, v6, v7, v8);
-  v167 = 0;
-  v168 = &v167;
-  v169 = 0x5012000000;
-  v170 = sub_18389AA68;
-  v171 = nullsub_58;
-  v172 = &unk_183A5AC72;
+  v168 = 0;
+  v169 = &v168;
+  v170 = 0x5012000000;
+  v171 = sub_18389AA68;
+  v172 = nullsub_58;
+  v173 = &unk_183A5AC72;
   v10 = *(MEMORY[0x1E695F050] + 16);
-  v173 = *MEMORY[0x1E695F050];
-  v174 = v10;
-  v165[0] = 0;
-  v165[1] = v165;
-  v165[2] = 0x4012000000;
-  v165[3] = sub_18389AA78;
-  v165[4] = nullsub_59;
-  v165[5] = &unk_183A5AC72;
-  v166 = vdupq_n_s64(0xFFEFFFFFFFFFFFFFLL);
-  v161[0] = 0;
-  v161[1] = v161;
-  v161[2] = 0x4812000000;
-  v161[3] = sub_18389AA88;
-  v161[4] = sub_18389AAD0;
-  v161[5] = 0;
-  v162 = &v162;
-  v163 = &v162;
-  v164 = 0;
+  v174 = *MEMORY[0x1E695F050];
+  v175 = v10;
+  v166[0] = 0;
+  v166[1] = v166;
+  v166[2] = 0x4012000000;
+  v166[3] = sub_18389AA78;
+  v166[4] = nullsub_59;
+  v166[5] = &unk_183A5AC72;
+  v167 = vdupq_n_s64(0xFFEFFFFFFFFFFFFFLL);
+  v162[0] = 0;
+  v162[1] = v162;
+  v162[2] = 0x4812000000;
+  v162[3] = sub_18389AA88;
+  v162[4] = sub_18389AAD0;
+  v162[5] = 0;
+  v163 = &v163;
+  v164 = &v163;
+  v165 = 0;
+  v158 = 0;
+  v159 = &v158;
+  v160 = 0x2020000000;
+  v161 = 0;
+  v154 = 0;
+  v155 = &v154;
+  v156 = 0x2020000000;
   v157 = 0;
-  v158 = &v157;
-  v159 = 0x2020000000;
-  v160 = 0;
+  v150 = 0;
+  v151 = &v150;
+  v152 = 0x2020000000;
   v153 = 0;
-  v154 = &v153;
-  v155 = 0x2020000000;
-  v156 = 0;
-  v149 = 0;
-  v150 = &v149;
-  v151 = 0x2020000000;
-  v152 = 0;
-  v140 = 0;
-  v141 = &v140;
-  v142 = 0x4812000000;
-  v143 = sub_18389AB38;
-  v144 = sub_18389AB5C;
-  v145 = &unk_183A5AC72;
-  v147 = 0;
+  v141 = 0;
+  v142 = &v141;
+  v143 = 0x4812000000;
+  v144 = sub_18389AB38;
+  v145 = sub_18389AB5C;
+  v146 = &unk_183A5AC72;
   v148 = 0;
-  v146 = 0;
+  v149 = 0;
+  v147 = 0;
   v16 = objc_msgSend_encodedStrokeIdentifier(strokeCopy, v11, v12, v13, v14, v15);
   v17 = objc_opt_class();
-  v130[0] = MEMORY[0x1E69E9820];
-  v130[1] = 3221225472;
-  v130[2] = sub_18389AB74;
-  v130[3] = &unk_1E6DDF590;
-  v133 = &v140;
-  v134 = &v167;
-  v135 = &v153;
-  v136 = &v149;
-  v137 = v165;
-  v138 = v161;
-  v139 = &v157;
+  v131[0] = MEMORY[0x1E69E9820];
+  v131[1] = 3221225472;
+  v131[2] = sub_18389AB74;
+  v131[3] = &unk_1E6DDF590;
+  v134 = &v141;
+  v135 = &v168;
+  v136 = &v154;
+  v137 = &v150;
+  v138 = v166;
+  v139 = v162;
+  v140 = &v158;
   v18 = v16;
-  v131 = v18;
+  v132 = v18;
   v19 = v9;
-  v132 = v19;
-  objc_msgSend_enumeratePointsForStroke_interpolationType_resolution_usingBlock_(v17, v20, strokeCopy, 0, 1, v130);
-  v27 = v141[6];
-  v26 = v141[7];
+  v133 = v19;
+  objc_msgSend_enumeratePointsForStroke_interpolationType_resolution_usingBlock_(v17, v20, strokeCopy, 0, 1, v131);
+  v27 = v142[6];
+  v26 = v142[7];
   v28 = (v26 - v27) >> 4;
   if (v28 < 2)
   {
@@ -133,7 +133,7 @@
       v29 = v32;
     }
 
-    if (v30 >= 10.0 && v158[3] != 0.0)
+    if (v30 >= 10.0 && v159[3] != 0.0)
     {
       if (v26 == v27)
       {
@@ -146,32 +146,32 @@
 
   if (!objc_msgSend_count(v19, v21, v22, v23, v24, v25))
   {
-    if (v141[7] == v141[6])
+    if (v142[7] == v142[6])
     {
       goto LABEL_25;
     }
 
 LABEL_16:
-    v74 = objc_opt_class();
-    if (v74)
+    v75 = objc_opt_class();
+    if (v75)
     {
-      objc_msgSend_convexHullForPoints_(v74, v75, (v141 + 6), v76, v77, v78);
+      objc_msgSend_convexHullForPoints_(v75, v76, (v142 + 6), v77, v78, v79);
     }
 
     else
     {
       __p = 0;
-      v128 = 0;
       v129 = 0;
+      v130 = 0;
     }
 
-    v112 = [CHSubstroke alloc];
-    started = objc_msgSend_initWithStrokeIdentifier_bounds_startTimestamp_endTimestamp_convexHull_curvature_(v112, v113, v18, &__p, v114, v115, v168[6], v168[7], v168[8], v168[9], v154[3], v150[3], v158[3]);
-    objc_msgSend_addObject_(v19, v117, started, v118, v119, v120);
+    v113 = [CHSubstroke alloc];
+    started = objc_msgSend_initWithStrokeIdentifier_bounds_startTimestamp_endTimestamp_convexHull_curvature_(v113, v114, v18, &__p, v115, v116, v169[6], v169[7], v169[8], v169[9], v155[3], v151[3], v159[3]);
+    objc_msgSend_addObject_(v19, v118, started, v119, v120, v121);
 
     if (__p)
     {
-      v128 = __p;
+      v129 = __p;
       operator delete(__p);
     }
 
@@ -179,22 +179,22 @@ LABEL_16:
   }
 
   v39 = objc_msgSend_lastObject(v19, v34, v35, v36, v37, v38, v9);
-  v40 = v168[6];
-  v41 = v168[7];
-  v42 = v168[8];
-  v43 = v168[9];
+  v40 = v169[6];
+  v41 = v169[7];
+  v42 = v169[8];
+  v43 = v169[9];
   objc_msgSend_bounds(v39, v44, v45, v46, v47, v48);
-  v177.origin.x = v49;
-  v177.origin.y = v50;
-  v177.size.width = v51;
-  v177.size.height = v52;
-  v176.origin.x = v40;
-  v176.origin.y = v41;
-  v176.size.width = v42;
-  v176.size.height = v43;
+  v178.origin.x = v49;
+  v178.origin.y = v50;
+  v178.size.width = v51;
+  v178.size.height = v52;
+  v177.origin.x = v40;
+  v177.origin.y = v41;
+  v177.size.width = v42;
+  v177.size.height = v43;
   v53 = 0;
   v54 = 0;
-  *(v168 + 6) = CGRectUnion(v176, v177);
+  *(v169 + 6) = CGRectUnion(v177, v178);
   while (1)
   {
     v60 = objc_msgSend_convexHull(v39, v55, v56, v57, v58, v59);
@@ -203,86 +203,86 @@ LABEL_16:
       break;
     }
 
-    v66 = v141;
+    v66 = v142;
     v67 = objc_msgSend_convexHull(v39, v61, v62, v63, v64, v65);
-    sub_1836973A4((v66 + 6), (*v67 + v53));
+    sub_1836973A4((v66 + 6), (*v67 + v53), v68);
     ++v54;
     v53 += 16;
   }
 
-  v68 = objc_opt_class();
-  if (v68)
+  v69 = objc_opt_class();
+  if (v69)
   {
-    objc_msgSend_convexHullForPoints_(v68, v69, (v141 + 6), v71, v72, v73);
+    objc_msgSend_convexHullForPoints_(v69, v70, (v142 + 6), v72, v73, v74);
   }
 
   else
   {
     __p = 0;
-    v128 = 0;
     v129 = 0;
+    v130 = 0;
   }
 
-  v79 = v158[3];
-  objc_msgSend_curvature(v39, v69, v70, v71, v72, v73);
-  v81 = v80;
-  v82 = [CHSubstroke alloc];
-  v88 = objc_msgSend_strokeIdentifier(v39, v83, v84, v85, v86, v87);
-  v89 = v168[6];
-  v90 = v168[7];
-  v91 = v168[8];
-  v92 = v168[9];
-  objc_msgSend_startTimestamp(v39, v93, v94, v95, v96, v97);
-  v102 = objc_msgSend_initWithStrokeIdentifier_bounds_startTimestamp_endTimestamp_convexHull_curvature_(v82, v98, v88, &__p, v99, v100, v89, v90, v91, v92, v101, v150[3], v79 + v81);
+  v80 = v159[3];
+  objc_msgSend_curvature(v39, v70, v71, v72, v73, v74);
+  v82 = v81;
+  v83 = [CHSubstroke alloc];
+  v89 = objc_msgSend_strokeIdentifier(v39, v84, v85, v86, v87, v88);
+  v90 = v169[6];
+  v91 = v169[7];
+  v92 = v169[8];
+  v93 = v169[9];
+  objc_msgSend_startTimestamp(v39, v94, v95, v96, v97, v98);
+  v103 = objc_msgSend_initWithStrokeIdentifier_bounds_startTimestamp_endTimestamp_convexHull_curvature_(v83, v99, v89, &__p, v100, v101, v90, v91, v92, v93, v102, v151[3], v80 + v82);
 
-  v108 = objc_msgSend_count(v19, v103, v104, v105, v106, v107);
-  objc_msgSend_setObject_atIndexedSubscript_(v19, v109, v102, v108 - 1, v110, v111);
+  v109 = objc_msgSend_count(v19, v104, v105, v106, v107, v108);
+  objc_msgSend_setObject_atIndexedSubscript_(v19, v110, v103, v109 - 1, v111, v112);
 
   if (__p)
   {
-    v128 = __p;
+    v129 = __p;
     operator delete(__p);
   }
 
 LABEL_25:
-  v121 = v19;
+  v122 = v19;
 
-  _Block_object_dispose(&v140, 8);
-  if (v146)
+  _Block_object_dispose(&v141, 8);
+  if (v147)
   {
-    v147 = v146;
-    operator delete(v146);
+    v148 = v147;
+    operator delete(v147);
   }
 
-  _Block_object_dispose(&v149, 8);
-  _Block_object_dispose(&v153, 8);
-  _Block_object_dispose(&v157, 8);
-  _Block_object_dispose(v161, 8);
-  if (v164)
+  _Block_object_dispose(&v150, 8);
+  _Block_object_dispose(&v154, 8);
+  _Block_object_dispose(&v158, 8);
+  _Block_object_dispose(v162, 8);
+  if (v165)
   {
-    v122 = v163;
-    v123 = *(v162 + 8);
-    v124 = *v163;
-    *(v124 + 8) = v123;
-    *v123 = v124;
-    v164 = 0;
-    if (v122 != &v162)
+    v123 = v164;
+    v124 = *(v163 + 8);
+    v125 = *v164;
+    *(v125 + 8) = v124;
+    *v124 = v125;
+    v165 = 0;
+    if (v123 != &v163)
     {
       do
       {
-        v125 = v122[1];
-        operator delete(v122);
-        v122 = v125;
+        v126 = v123[1];
+        operator delete(v123);
+        v123 = v126;
       }
 
-      while (v125 != &v162);
+      while (v126 != &v163);
     }
   }
 
-  _Block_object_dispose(v165, 8);
-  _Block_object_dispose(&v167, 8);
+  _Block_object_dispose(v166, 8);
+  _Block_object_dispose(&v168, 8);
 
-  return v121;
+  return v122;
 }
 
 - (void)encodeWithCoder:(id)coder

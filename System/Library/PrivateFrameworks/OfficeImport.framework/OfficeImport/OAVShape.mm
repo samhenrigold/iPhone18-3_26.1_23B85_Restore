@@ -153,7 +153,7 @@
     v35.origin.x = TSUMultiplyRectScalar(x, y, width, height, v8);
     points = v30;
     shapeCopy = v31;
-    OCChRectI4WithCGRect(v35, v32);
+    OCChRectI4WithCGRect(v32, v35);
     [(OADCustomShapeGeometry *)v16 setGeometryCoordSpace:v32];
     drawableProperties = [v31 drawableProperties];
     orientedBounds = [drawableProperties orientedBounds];

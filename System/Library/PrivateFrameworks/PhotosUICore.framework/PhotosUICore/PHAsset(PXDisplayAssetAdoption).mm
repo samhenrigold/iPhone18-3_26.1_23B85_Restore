@@ -1,4 +1,5 @@
 @interface PHAsset(PXDisplayAssetAdoption)
+- (BOOL)isEligibleForAutoPlayback;
 - (__CFString)localizedDetailedGeoDescriptionForRTL:()PXDisplayAssetAdoption;
 - (double)bestCropRectForAspectRatio:()PXDisplayAssetAdoption verticalContentMode:cropMode:;
 - (double)bestCropRectForAspectRatioV2:()PXDisplayAssetAdoption verticalContentMode:cropMode:;
@@ -10,7 +11,6 @@
 - (id)localizedGeoDescription;
 - (uint64_t)isContentAnalyzedAsPreviewable;
 - (uint64_t)isContentEqualTo:()PXDisplayAssetAdoption;
-- (uint64_t)isEligibleForAutoPlayback;
 - (uint64_t)originalFileSize;
 - (uint64_t)thumbnailVersion;
 - (void)livePhotoStillDisplayTime;
@@ -79,7 +79,7 @@
   if (photoIrisProperties)
   {
     v5 = photoIrisProperties;
-    [photoIrisProperties photoIrisStillDisplayTime];
+    objc_msgSend_photoIrisStillDisplayTime(photoIrisProperties);
     photoIrisProperties = v5;
   }
 }
@@ -109,7 +109,7 @@
   return v4;
 }
 
-- (uint64_t)isEligibleForAutoPlayback
+- (BOOL)isEligibleForAutoPlayback
 {
   if (![self isAutoPlaybackEligibilityEstimated])
   {
@@ -126,7 +126,7 @@
 
   if (playbackStyle == 4)
   {
-    [self duration];
+    objc_msgSend_duration(self);
     v5 = 2.0;
     return v4 >= v5;
   }

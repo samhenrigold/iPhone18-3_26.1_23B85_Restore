@@ -178,9 +178,9 @@ LABEL_18:
   CVPixelBufferLockBaseAddress(buffer, 0);
   memset(&src, 0, sizeof(src));
   v11 = MEMORY[0x277CBF3A0];
-  PixelBufferUtils::asVImageBuffer(input, 0, *MEMORY[0x277CBF3A0], &src);
+  PixelBufferUtils::asVImageBuffer(&src, input, 0, *MEMORY[0x277CBF3A0]);
   memset(&v18, 0, sizeof(v18));
-  PixelBufferUtils::asVImageBuffer(buffer, *v11, &v18);
+  PixelBufferUtils::asVImageBuffer(&v18, buffer, *v11);
   if (PixelFormatType == 1278226534)
   {
     v12 = vImageConvert_Planar8toPlanarF(&src, &v18, 1.0, 0.0, 0);

@@ -15,19 +15,17 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[7] = *MEMORY[0x277D85DE8];
+  v6[7] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"Notifications";
-  v7[1] = @"Deferrals";
-  v7[2] = @"RecommendedCadence";
-  v7[3] = @"AutomaticActions";
-  v7[4] = @"RapidSecurityResponse";
-  v7[5] = @"AllowStandardUserOSUpdates";
-  v7[6] = @"Beta";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:7];
+  v6[0] = @"Notifications";
+  v6[1] = @"Deferrals";
+  v6[2] = @"RecommendedCadence";
+  v6[3] = @"AutomaticActions";
+  v6[4] = @"RapidSecurityResponse";
+  v6[5] = @"AllowStandardUserOSUpdates";
+  v6[6] = @"Beta";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:7];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -124,83 +122,79 @@
 
 + (id)combineConfigurations:(id)configurations
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   v4 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = configurationsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v4 combineWithOther:{*(*(&v12 + 1) + 8 * i), v12}];
+        [v4 combineWithOther:{*(*(&v11 + 1) + 8 * i), v11}];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)supportedOS
 {
-  v26[5] = *MEMORY[0x277D85DE8];
-  v25[0] = &unk_28746BC60;
-  v19 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467EE0];
-  v24[0] = v19;
-  v18 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467EF8];
-  v24[1] = v18;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
-  v26[0] = v17;
-  v25[1] = &unk_28746BC78;
-  v16 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467F10];
-  v23[0] = v16;
-  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467F28];
-  v23[1] = v15;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
-  v26[1] = v14;
-  v25[2] = &unk_28746BCA8;
+  v25[5] = *MEMORY[0x277D85DE8];
+  v24[0] = &unk_28746BC60;
+  v18 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467EE0];
+  v23[0] = v18;
+  v17 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467EF8];
+  v23[1] = v17;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v25[0] = v16;
+  v24[1] = &unk_28746BC78;
+  v15 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467F10];
+  v22[0] = v15;
+  v14 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467F28];
+  v22[1] = v14;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v25[1] = v13;
+  v24[2] = &unk_28746BCA8;
   v2 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467F40];
-  v22[0] = v2;
+  v21[0] = v2;
   v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467F58];
-  v22[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
-  v26[2] = v4;
-  v25[3] = &unk_28746BC90;
+  v21[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v25[2] = v4;
+  v24[3] = &unk_28746BC90;
   v5 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467F70];
-  v21[0] = v5;
+  v20[0] = v5;
   v6 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467F88];
-  v21[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
-  v26[3] = v7;
-  v25[4] = &unk_28746BCC0;
+  v20[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v25[3] = v7;
+  v24[4] = &unk_28746BCC0;
   v8 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467FA0];
-  v20[0] = v8;
+  v19[0] = v8;
   v9 = [MEMORY[0x277CBEB98] setWithArray:&unk_287467FB8];
-  v20[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
-  v26[4] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:5];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v19[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v25[4] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:5];
 
   return v11;
 }
@@ -284,7 +278,7 @@
 
 - (void)combineWithOther:(id)other
 {
-  v28[3] = *MEMORY[0x277D85DE8];
+  v27[3] = *MEMORY[0x277D85DE8];
   otherCopy = other;
   payloadNotifications = [(RMModelSoftwareUpdateSettingsDeclaration *)self payloadNotifications];
   payloadNotifications2 = [otherCopy payloadNotifications];
@@ -298,10 +292,10 @@
 
   payloadRecommendedCadence = [(RMModelSoftwareUpdateSettingsDeclaration *)self payloadRecommendedCadence];
   payloadRecommendedCadence2 = [otherCopy payloadRecommendedCadence];
-  v28[0] = @"All";
-  v28[1] = @"Oldest";
-  v28[2] = @"Newest";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
+  v27[0] = @"All";
+  v27[1] = @"Oldest";
+  v27[2] = @"Newest";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
   v14 = [RMModelConfigurationBase combineEnumLast:payloadRecommendedCadence other:payloadRecommendedCadence2 enums:v13];
   [(RMModelSoftwareUpdateSettingsDeclaration *)self setPayloadRecommendedCadence:v14];
 
@@ -325,8 +319,6 @@
 
   v26 = [RMModelConfigurationBase combineDictionary:payloadBeta other:payloadBeta2];
   [(RMModelSoftwareUpdateSettingsDeclaration *)self setPayloadBeta:v26];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

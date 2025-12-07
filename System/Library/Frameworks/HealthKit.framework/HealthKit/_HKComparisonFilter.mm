@@ -6,6 +6,7 @@
 + (id)_filterForKeyPath:(id)path operatorType:(unint64_t)type value:(id)value dataTypes:(id)types applicationSDKVersionToken:(unint64_t)token isSubpredicate:(BOOL)subpredicate;
 + (id)allowedDataTypeClassesForKeyPath:(id)path;
 + (id)allowedValueClassesForKeyPath:(id)path;
++ (id)filterForKeyPath:(id)path operatorType:(unint64_t)type value:(id)value dataTypes:(id)types isSubpredicate:(BOOL)subpredicate;
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
 - (_HKComparisonFilter)initWithCoder:(id)coder;
@@ -65,6 +66,17 @@
   v10 = [v3 stringWithFormat:@"<%@: %@ '%@' %@ for [%@], sdk_token=%llu>", v4, keyPath, v6, value, v9, self->_applicationSDKVersionToken];
 
   return v10;
+}
+
++ (id)filterForKeyPath:(id)path operatorType:(unint64_t)type value:(id)value dataTypes:(id)types isSubpredicate:(BOOL)subpredicate
+{
+  subpredicateCopy = subpredicate;
+  typesCopy = types;
+  valueCopy = value;
+  pathCopy = path;
+  v16 = [self _filterForKeyPath:pathCopy operatorType:type value:valueCopy dataTypes:typesCopy applicationSDKVersionToken:HKApplicationSDKVersionToken(pathCopy isSubpredicate:{v15), subpredicateCopy}];
+
+  return v16;
 }
 
 + (id)_filterForKeyPath:(id)path operatorType:(unint64_t)type value:(id)value dataTypes:(id)types applicationSDKVersionToken:(unint64_t)token isSubpredicate:(BOOL)subpredicate
@@ -143,40 +155,40 @@ LABEL_15:
 
 + (BOOL)areValidTypes:(id)types forKeyPath:(id)path error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   pathCopy = path;
   v10 = [self allowedDataTypeClassesForKeyPath:pathCopy];
   if ([typesCopy count] || (objc_msgSend(self, "allowsEmptyDataTypesSetForKeyPath:", pathCopy) & 1) != 0)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v11 = typesCopy;
-    v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v12)
     {
       v13 = v12;
       errorCopy = error;
-      v24 = pathCopy;
-      v14 = *v27;
+      v23 = pathCopy;
+      v14 = *v26;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v27 != v14)
+          if (*v26 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v26 + 1) + 8 * i);
-          v25[0] = MEMORY[0x1E69E9820];
-          v25[1] = 3221225472;
-          v25[2] = __54___HKComparisonFilter_areValidTypes_forKeyPath_error___block_invoke;
-          v25[3] = &unk_1E7382D18;
-          v25[4] = v16;
-          if (([v10 hk_containsObjectPassingTest:v25] & 1) == 0)
+          v16 = *(*(&v25 + 1) + 8 * i);
+          v24[0] = MEMORY[0x1E69E9820];
+          v24[1] = 3221225472;
+          v24[2] = __54___HKComparisonFilter_areValidTypes_forKeyPath_error___block_invoke;
+          v24[3] = &unk_1E7382D18;
+          v24[4] = v16;
+          if (([v10 hk_containsObjectPassingTest:v24] & 1) == 0)
           {
             v18 = MEMORY[0x1E696ABC0];
             allObjects = [v10 allObjects];
@@ -188,7 +200,7 @@ LABEL_15:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
         if (v13)
         {
           continue;
@@ -199,7 +211,7 @@ LABEL_15:
 
       v17 = 1;
 LABEL_13:
-      pathCopy = v24;
+      pathCopy = v23;
     }
 
     else
@@ -214,7 +226,6 @@ LABEL_13:
     v17 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -245,25 +256,25 @@ LABEL_13:
 
 + (BOOL)_isValidValue:(id)value forKeyPath:(id)path allowedClases:(id)clases error:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   pathCopy = path;
   clasesCopy = clases;
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __68___HKComparisonFilter__isValidValue_forKeyPath_allowedClases_error___block_invoke;
-  v36[3] = &unk_1E7382D18;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __68___HKComparisonFilter__isValidValue_forKeyPath_allowedClases_error___block_invoke;
+  v35[3] = &unk_1E7382D18;
   v13 = valueCopy;
-  v37 = v13;
-  if (([clasesCopy hk_containsObjectPassingTest:v36] & 1) == 0)
+  v36 = v13;
+  if (([clasesCopy hk_containsObjectPassingTest:v35] & 1) == 0)
   {
     v16 = MEMORY[0x1E696ABC0];
-    v28 = objc_opt_class();
-    v29 = clasesCopy;
+    v27 = objc_opt_class();
+    v28 = clasesCopy;
     v17 = @"%@ is not in the set of valid clases %@";
     v18 = v16;
 LABEL_5:
-    [v18 hk_assignError:error code:3 format:{v17, v28, v29}];
+    [v18 hk_assignError:error code:3 format:{v17, v27, v28}];
     v19 = 0;
     goto LABEL_24;
   }
@@ -299,33 +310,33 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v30 = pathCopy;
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
+  v29 = pathCopy;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v20 = v13;
-  v21 = [v20 countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v31 objects:v37 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v33;
+    v23 = *v32;
     while (2)
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v33 != v23)
+        if (*v32 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v32 + 1) + 8 * i);
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __68___HKComparisonFilter__isValidValue_forKeyPath_allowedClases_error___block_invoke_2;
-        v31[3] = &unk_1E7382D18;
-        v31[4] = v25;
-        if (([clasesCopy hk_containsObjectPassingTest:v31] & 1) == 0)
+        v25 = *(*(&v31 + 1) + 8 * i);
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __68___HKComparisonFilter__isValidValue_forKeyPath_allowedClases_error___block_invoke_2;
+        v30[3] = &unk_1E7382D18;
+        v30[4] = v25;
+        if (([clasesCopy hk_containsObjectPassingTest:v30] & 1) == 0)
         {
           [MEMORY[0x1E696ABC0] hk_assignError:error code:3 format:{@"%@ is not in the set of valid clases %@", objc_opt_class(), clasesCopy}];
 
@@ -334,7 +345,7 @@ LABEL_5:
         }
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v31 objects:v37 count:16];
       if (v22)
       {
         continue;
@@ -346,10 +357,9 @@ LABEL_5:
 
   v19 = 1;
 LABEL_22:
-  pathCopy = v30;
+  pathCopy = v29;
 LABEL_24:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -397,11 +407,11 @@ LABEL_24:
   v9 = [MEMORY[0x1E695DFD8] hk_typesForSetOf:objc_opt_class()];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"dataTypes"];
 
-  v11 = [coderCopy decodeInt64ForKey:@"sdkVersionToken"];
-  v12 = HKBitPatternCastSignedToUnsignedInt64(v11);
-  v13 = [objc_opt_class() _filterForKeyPath:v5 operatorType:v6 value:v8 dataTypes:v10 applicationSDKVersionToken:v12 isSubpredicate:0];
+  [coderCopy decodeInt64ForKey:@"sdkVersionToken"];
+  HKBitPatternCastSignedToUnsignedInt64();
+  v12 = [objc_opt_class() _filterForKeyPath:v5 operatorType:v6 value:v8 dataTypes:v10 applicationSDKVersionToken:v11 isSubpredicate:0];
 
-  return v13;
+  return v12;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -419,27 +429,27 @@ LABEL_24:
 
 + (BOOL)isSupportedKeyPath:(id)path
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_4();
+  v3 = objc_opt_class();
+  OUTLINED_FUNCTION_0_4(v3);
   return 0;
 }
 
 + (id)allowedDataTypeClassesForKeyPath:(id)path
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_4();
-  v3 = MEMORY[0x1E695DFD8];
+  v3 = objc_opt_class();
+  OUTLINED_FUNCTION_0_4(v3);
+  v4 = MEMORY[0x1E695DFD8];
 
-  return [v3 set];
+  return [v4 set];
 }
 
 + (id)allowedValueClassesForKeyPath:(id)path
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_4();
-  v3 = MEMORY[0x1E695DFD8];
+  v3 = objc_opt_class();
+  OUTLINED_FUNCTION_0_4(v3);
+  v4 = MEMORY[0x1E695DFD8];
 
-  return [v3 set];
+  return [v4 set];
 }
 
 @end

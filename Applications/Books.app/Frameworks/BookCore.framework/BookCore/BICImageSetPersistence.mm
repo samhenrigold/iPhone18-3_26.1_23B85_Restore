@@ -87,7 +87,7 @@
 - (void)incrementVersionForIdentifiers:(id)identifiers
 {
   identifiersCopy = identifiers;
-  v5 = BCImageCacheLog();
+  v5 = BCImageCacheLog(identifiersCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -169,67 +169,67 @@
   imagesCopy = images;
   setCopy = set;
   entriesCopy = entries;
-  v77 = setCopy;
+  v78 = setCopy;
   imageEntries = [setCopy imageEntries];
-  v66 = [imageEntries count];
+  v67 = [imageEntries count];
 
-  v78 = [imagesCopy mutableCopy];
-  v100 = 0u;
+  v79 = [imagesCopy mutableCopy];
   v101 = 0u;
   v102 = 0u;
   v103 = 0u;
+  v104 = 0u;
   v12 = imagesCopy;
-  v13 = [v12 countByEnumeratingWithState:&v100 objects:v111 count:16];
-  v69 = v12;
-  v75 = dCopy;
+  v13 = [v12 countByEnumeratingWithState:&v101 objects:v112 count:16];
+  v70 = v12;
+  v76 = dCopy;
   if (v13)
   {
     v14 = v13;
-    v15 = *v101;
-    v68 = *v101;
+    v15 = *v102;
+    v69 = *v102;
     do
     {
       v16 = 0;
-      v71 = v14;
+      v72 = v14;
       do
       {
-        if (*v101 != v15)
+        if (*v102 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v100 + 1) + 8 * v16);
+        v17 = *(*(&v101 + 1) + 8 * v16);
         switch(dCopy)
         {
           case 3:
-            v86 = 0u;
             v87 = 0u;
-            v84 = 0u;
+            v88 = 0u;
             v85 = 0u;
-            imageEntries2 = [v77 imageEntries];
-            v43 = [imageEntries2 countByEnumeratingWithState:&v84 objects:v105 count:16];
-            if (v43)
+            v86 = 0u;
+            imageEntries2 = [v78 imageEntries];
+            v44 = [imageEntries2 countByEnumeratingWithState:&v85 objects:v106 count:16];
+            if (v44)
             {
-              v44 = v43;
-              v45 = *v85;
+              v45 = v44;
+              v46 = *v86;
               while (2)
               {
-                for (i = 0; i != v44; i = i + 1)
+                for (i = 0; i != v45; i = i + 1)
                 {
-                  if (*v85 != v45)
+                  if (*v86 != v46)
                   {
                     objc_enumerationMutation(imageEntries2);
                   }
 
-                  if ([*(*(&v84 + 1) + 8 * i) level] == 3)
+                  if ([*(*(&v85 + 1) + 8 * i) level] == 3)
                   {
-                    [v78 removeObjectIdenticalTo:v17];
+                    [v79 removeObjectIdenticalTo:v17];
                     goto LABEL_65;
                   }
                 }
 
-                v44 = [imageEntries2 countByEnumeratingWithState:&v84 objects:v105 count:16];
-                if (v44)
+                v45 = [imageEntries2 countByEnumeratingWithState:&v85 objects:v106 count:16];
+                if (v45)
                 {
                   continue;
                 }
@@ -240,56 +240,56 @@
 
             break;
           case 2:
-            v67 = v16;
+            v68 = v16;
             obj = +[NSMutableArray array];
-            v31 = [v17 entryLocationForLevelID:2];
-            v92 = 0u;
+            v32 = [v17 entryLocationForLevelID:2];
             v93 = 0u;
             v94 = 0u;
             v95 = 0u;
-            imageEntries3 = [v77 imageEntries];
-            v33 = [imageEntries3 countByEnumeratingWithState:&v92 objects:v107 count:16];
-            if (v33)
+            v96 = 0u;
+            imageEntries3 = [v78 imageEntries];
+            v34 = [imageEntries3 countByEnumeratingWithState:&v93 objects:v108 count:16];
+            if (v34)
             {
-              v34 = v33;
-              v35 = *v93;
+              v35 = v34;
+              v36 = *v94;
               while (2)
               {
-                for (j = 0; j != v34; j = j + 1)
+                for (j = 0; j != v35; j = j + 1)
                 {
-                  if (*v93 != v35)
+                  if (*v94 != v36)
                   {
                     objc_enumerationMutation(imageEntries3);
                   }
 
-                  v37 = *(*(&v92 + 1) + 8 * j);
-                  if ([v37 state] == 1)
+                  v38 = *(*(&v93 + 1) + 8 * j);
+                  if ([v38 state] == 1)
                   {
-                    entryLocation = [v37 entryLocation];
-                    v39 = [v31 isEqualToString:entryLocation];
+                    entryLocation = [v38 entryLocation];
+                    v40 = [v32 isEqualToString:entryLocation];
 
-                    if (v39)
+                    if (v40)
                     {
-                      [v78 removeObjectIdenticalTo:v17];
+                      [v79 removeObjectIdenticalTo:v17];
                     }
                   }
 
-                  else if ([v37 level] == 2)
+                  else if ([v38 level] == 2)
                   {
-                    dataStoreInformation = [v37 dataStoreInformation];
+                    dataStoreInformation = [v38 dataStoreInformation];
                     urlString = [v17 urlString];
-                    v42 = [dataStoreInformation isEqualToString:urlString];
+                    v43 = [dataStoreInformation isEqualToString:urlString];
 
-                    if (v42)
+                    if (v43)
                     {
-                      if (([v37 isExpired] & 1) != 0 || objc_msgSend(v37, "quality") == 3)
+                      if (([v38 isExpired] & 1) != 0 || objc_msgSend(v38, "quality") == 3)
                       {
-                        [obj addObject:v37];
+                        [obj addObject:v38];
                       }
 
                       else
                       {
-                        [v78 removeObjectIdenticalTo:v17];
+                        [v79 removeObjectIdenticalTo:v17];
                       }
 
                       goto LABEL_57;
@@ -297,8 +297,8 @@
                   }
                 }
 
-                v34 = [imageEntries3 countByEnumeratingWithState:&v92 objects:v107 count:16];
-                if (v34)
+                v35 = [imageEntries3 countByEnumeratingWithState:&v93 objects:v108 count:16];
+                if (v35)
                 {
                   continue;
                 }
@@ -309,88 +309,89 @@
 
 LABEL_57:
 
-            v90 = 0u;
             v91 = 0u;
-            v88 = 0u;
+            v92 = 0u;
             v89 = 0u;
+            v90 = 0u;
             imageEntries2 = obj;
-            v47 = [imageEntries2 countByEnumeratingWithState:&v88 objects:v106 count:16];
-            v15 = v68;
-            v12 = v69;
-            if (v47)
+            v48 = [imageEntries2 countByEnumeratingWithState:&v89 objects:v107 count:16];
+            v15 = v69;
+            v12 = v70;
+            if (v48)
             {
-              v48 = v47;
-              v49 = *v89;
+              v49 = v48;
+              v50 = *v90;
               do
               {
-                for (k = 0; k != v48; k = k + 1)
+                for (k = 0; k != v49; k = k + 1)
                 {
-                  if (*v89 != v49)
+                  if (*v90 != v50)
                   {
                     objc_enumerationMutation(imageEntries2);
                   }
 
-                  [*(*(&v88 + 1) + 8 * k) deleteEntry];
+                  [*(*(&v89 + 1) + 8 * k) deleteEntry];
                 }
 
-                v48 = [imageEntries2 countByEnumeratingWithState:&v88 objects:v106 count:16];
+                v49 = [imageEntries2 countByEnumeratingWithState:&v89 objects:v107 count:16];
               }
 
-              while (v48);
+              while (v49);
             }
 
-            dCopy = v75;
-            v14 = v71;
-            v16 = v67;
+            dCopy = v76;
+            v14 = v72;
+            v16 = v68;
             break;
           case 1:
-            imageEntries2 = [*(*(&v100 + 1) + 8 * v16) entryLocationForLevelID:1];
-            v96 = 0u;
+            imageEntries2 = [*(*(&v101 + 1) + 8 * v16) entryLocationForLevelID:1];
             v97 = 0u;
             v98 = 0u;
             v99 = 0u;
-            imageEntries4 = [v77 imageEntries];
-            v20 = [imageEntries4 countByEnumeratingWithState:&v96 objects:v110 count:16];
+            v100 = 0u;
+            imageEntries4 = [v78 imageEntries];
+            v20 = [imageEntries4 countByEnumeratingWithState:&v97 objects:v111 count:16];
             if (v20)
             {
               v21 = v20;
-              v22 = *v97;
+              v22 = *v98;
               while (2)
               {
                 for (m = 0; m != v21; m = m + 1)
                 {
-                  if (*v97 != v22)
+                  if (*v98 != v22)
                   {
                     objc_enumerationMutation(imageEntries4);
                   }
 
-                  v24 = *(*(&v96 + 1) + 8 * m);
+                  v24 = *(*(&v97 + 1) + 8 * m);
                   entryLocation2 = [v24 entryLocation];
                   v26 = [entryLocation2 isEqualToString:imageEntries2];
 
                   if (v26)
                   {
-                    if ([v24 state] == 3)
+                    state = [v24 state];
+                    if (state == 3)
                     {
-                      v27 = BCImageCacheLog();
-                      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                      v28 = BCImageCacheLog(state);
+                      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                       {
-                        sub_1EA44C(v108, v24, &v109, v27);
+                        sub_1EA44C(v109, v24, &v110, v28);
                       }
                     }
 
                     image = [v17 image];
-                    if (![image CGImage] || (v29 = objc_msgSend(v17, "quality"), v29 <= objc_msgSend(v24, "quality")) && objc_msgSend(v24, "quality") != 3)
+                    if (![image CGImage] || (v30 = objc_msgSend(v17, "quality"), v30 <= objc_msgSend(v24, "quality")) && objc_msgSend(v24, "quality") != 3)
                     {
 
 LABEL_54:
-                      [v78 removeObjectIdenticalTo:v17];
+                      [v79 removeObjectIdenticalTo:v17];
                       goto LABEL_55;
                     }
 
-                    state = [v24 state];
+                    state2 = [v24 state];
 
-                    if (state != 2)
+                    if (state2 != 2)
                     {
                       goto LABEL_54;
                     }
@@ -399,7 +400,7 @@ LABEL_54:
                   }
                 }
 
-                v21 = [imageEntries4 countByEnumeratingWithState:&v96 objects:v110 count:16];
+                v21 = [imageEntries4 countByEnumeratingWithState:&v97 objects:v111 count:16];
                 if (v21)
                 {
                   continue;
@@ -411,10 +412,10 @@ LABEL_54:
 
 LABEL_55:
 
-            dCopy = v75;
-            v15 = v68;
-            v12 = v69;
-            v14 = v71;
+            dCopy = v76;
+            v15 = v69;
+            v12 = v70;
+            v14 = v72;
             break;
           default:
             goto LABEL_66;
@@ -427,98 +428,98 @@ LABEL_66:
       }
 
       while (v16 != v14);
-      v14 = [v12 countByEnumeratingWithState:&v100 objects:v111 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v101 objects:v112 count:16];
     }
 
     while (v14);
   }
 
-  v51 = +[NSMutableSet set];
-  v80 = 0u;
+  v52 = +[NSMutableSet set];
   v81 = 0u;
   v82 = 0u;
   v83 = 0u;
-  obja = v78;
-  v52 = [obja countByEnumeratingWithState:&v80 objects:v104 count:16];
-  if (v52)
+  v84 = 0u;
+  obja = v79;
+  v53 = [obja countByEnumeratingWithState:&v81 objects:v105 count:16];
+  if (v53)
   {
-    v53 = v52;
-    v72 = 0;
+    v54 = v53;
+    v73 = 0;
     primaryEntry = 0;
-    v54 = *v81;
+    v55 = *v82;
     do
     {
-      for (n = 0; n != v53; n = n + 1)
+      for (n = 0; n != v54; n = n + 1)
       {
-        if (*v81 != v54)
+        if (*v82 != v55)
         {
           objc_enumerationMutation(obja);
         }
 
-        v56 = *(*(&v80 + 1) + 8 * n);
-        v57 = [v56 entryLocationForLevelID:dCopy];
-        if (([v51 containsObject:v57] & 1) == 0)
+        v57 = *(*(&v81 + 1) + 8 * n);
+        v58 = [v57 entryLocationForLevelID:dCopy];
+        if (([v52 containsObject:v58] & 1) == 0)
         {
-          [v51 addObject:v57];
-          if ([(BICImageSetPersistence *)self _isImagePotentialPrimary:v56])
+          [v52 addObject:v58];
+          if ([(BICImageSetPersistence *)self _isImagePotentialPrimary:v57])
           {
-            v58 = primaryEntry == 0;
+            v59 = primaryEntry == 0;
           }
 
           else
           {
-            v58 = 0;
+            v59 = 0;
           }
 
-          if (v58)
+          if (v59)
           {
-            if (v72 & 1 | (v66 == 0))
+            if (v73 & 1 | (v67 == 0))
             {
               primaryEntry = 0;
             }
 
             else
             {
-              primaryEntry = [v77 primaryEntry];
-              v72 = 1;
+              primaryEntry = [v78 primaryEntry];
+              v73 = 1;
             }
           }
 
           persistentStore = [(BICImageSetPersistence *)self persistentStore];
-          v60 = [persistentStore addNewImageEntryToSet:v77];
+          v61 = [persistentStore addNewImageEntryToSet:v78];
 
-          [v60 setLevel:v75];
-          [v60 setState:1];
-          [(BICImageSetPersistence *)self _populateEntry:v60 fromImage:v56];
-          dCopy = v75;
-          [v77 errorCheck];
-          v61 = [[BICImageSetPersistingAddedEntry alloc] initWithDescribedImage:v56 imageEntry:v60];
-          [entriesCopy addObject:v61];
+          [v61 setLevel:v76];
+          [v61 setState:1];
+          [(BICImageSetPersistence *)self _populateEntry:v61 fromImage:v57];
+          dCopy = v76;
+          [v78 errorCheck];
+          v62 = [[BICImageSetPersistingAddedEntry alloc] initWithDescribedImage:v57 imageEntry:v61];
+          [entriesCopy addObject:v62];
         }
       }
 
-      v53 = [obja countByEnumeratingWithState:&v80 objects:v104 count:16];
+      v54 = [obja countByEnumeratingWithState:&v81 objects:v105 count:16];
     }
 
-    while (v53);
+    while (v54);
   }
 
   else
   {
-    v72 = 0;
+    v73 = 0;
     primaryEntry = 0;
   }
 
   persistentStore2 = [(BICImageSetPersistence *)self persistentStore];
   [persistentStore2 processPendingChanges];
 
-  if (v72)
+  if (v73)
   {
-    primaryEntry2 = [v77 primaryEntry];
-    v64 = primaryEntry2;
-    if (primaryEntry2 && primaryEntry2 != primaryEntry && v66 >= 1)
+    primaryEntry2 = [v78 primaryEntry];
+    v65 = primaryEntry2;
+    if (primaryEntry2 && primaryEntry2 != primaryEntry && v67 >= 1)
     {
-      identifier = [v77 identifier];
+      identifier = [v78 identifier];
       [(BICImageSetPersistence *)self incrementVersionForIdentifier:identifier];
     }
   }
@@ -582,8 +583,7 @@ LABEL_66:
 
                 if (v23)
                 {
-                  [v14 setState:3];
-                  v24 = BCImageCacheLog();
+                  v24 = BCImageCacheLog([v14 setState:3]);
                   if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
                   {
                     entryLocation = [v14 entryLocation];

@@ -29,7 +29,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   if (self)
   {
@@ -50,7 +50,7 @@
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v15 = v10;
+      v14 = v10;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Timer fired, pushing last sync to shared users", buf, 0xCu);
     }
 
@@ -72,20 +72,18 @@
     block[4] = selfCopy;
     dispatch_async(workQueue, block);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pushAllUserSyncData
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(self->_workQueue);
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     homeToUserMap = self->_homeToUserMap;
   }
 
@@ -93,32 +91,32 @@
   {
     dispatch_assert_queue_V2(0);
     homeToUserMap = 0;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
   }
 
   obj = homeToUserMap;
-  v20 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v30 objects:v39 count:16];
-  if (v20)
+  v19 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v29 objects:v38 count:16];
+  if (v19)
   {
-    v19 = *v31;
+    v18 = *v30;
     do
     {
-      v21 = 0;
+      v20 = 0;
       do
       {
-        if (*v31 != v19)
+        if (*v30 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v30 + 1) + 8 * v21);
+        v4 = *(*(&v29 + 1) + 8 * v20);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         if (self)
         {
           v5 = self->_homeToUserMap;
@@ -129,22 +127,22 @@
           v5 = 0;
         }
 
-        v22 = [(NSMutableDictionary *)v5 objectForKeyedSubscript:v4];
-        v6 = [v22 countByEnumeratingWithState:&v26 objects:v38 count:16];
+        v21 = [(NSMutableDictionary *)v5 objectForKeyedSubscript:v4];
+        v6 = [v21 countByEnumeratingWithState:&v25 objects:v37 count:16];
         if (v6)
         {
-          v23 = *v27;
+          v22 = *v26;
           do
           {
             v7 = 0;
             do
             {
-              if (*v27 != v23)
+              if (*v26 != v22)
               {
-                objc_enumerationMutation(v22);
+                objc_enumerationMutation(v21);
               }
 
-              v8 = *(*(&v26 + 1) + 8 * v7);
+              v8 = *(*(&v25 + 1) + 8 * v7);
               v9 = objc_autoreleasePoolPush();
               selfCopy = self;
               v11 = HMFGetOSLogHandle();
@@ -153,9 +151,9 @@
                 v12 = HMFGetLogIdentifier();
                 user = [v8 user];
                 *buf = 138543618;
-                v35 = v12;
-                v36 = 2112;
-                v37 = user;
+                v34 = v12;
+                v35 = 2112;
+                v36 = user;
                 _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Pushing last sync for %@", buf, 0x16u);
               }
 
@@ -171,39 +169,37 @@
                 WeakRetained = 0;
               }
 
-              v24[0] = MEMORY[0x277D85DD0];
-              v24[1] = 3221225472;
-              v24[2] = __66__HMDHomeManagerHH2SharedUserLastSyncManager__pushAllUserSyncData__block_invoke;
-              v24[3] = &unk_278681C30;
-              objc_copyWeak(&v25, buf);
-              v24[4] = v8;
-              [WeakRetained pushChangesForHH2SharedUserLastSync:v8 completion:v24];
+              v23[0] = MEMORY[0x277D85DD0];
+              v23[1] = 3221225472;
+              v23[2] = __66__HMDHomeManagerHH2SharedUserLastSyncManager__pushAllUserSyncData__block_invoke;
+              v23[3] = &unk_278681C30;
+              objc_copyWeak(&v24, buf);
+              v23[4] = v8;
+              [WeakRetained pushChangesForHH2SharedUserLastSync:v8 completion:v23];
 
-              objc_destroyWeak(&v25);
+              objc_destroyWeak(&v24);
               objc_destroyWeak(buf);
               ++v7;
             }
 
             while (v6 != v7);
-            v15 = [v22 countByEnumeratingWithState:&v26 objects:v38 count:16];
+            v15 = [v21 countByEnumeratingWithState:&v25 objects:v37 count:16];
             v6 = v15;
           }
 
           while (v15);
         }
 
-        ++v21;
+        ++v20;
       }
 
-      while (v21 != v20);
-      v16 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v30 objects:v39 count:16];
-      v20 = v16;
+      while (v20 != v19);
+      v16 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v19 = v16;
     }
 
     while (v16);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HMDHomeManagerHH2SharedUserLastSyncManager__pushAllUserSyncData__block_invoke(uint64_t a1, int a2)
@@ -246,7 +242,7 @@ void __66__HMDHomeManagerHH2SharedUserLastSyncManager__pushAllUserSyncData__bloc
 
 void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -255,11 +251,11 @@ void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___b
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 40) user];
     v7 = [v6 uuid];
-    v25 = 138543618;
-    v26 = v5;
-    v27 = 2112;
-    v28 = v7;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Removing user after sync %@", &v25, 0x16u);
+    v24 = 138543618;
+    v25 = v5;
+    v26 = 2112;
+    v27 = v7;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Removing user after sync %@", &v24, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -309,9 +305,9 @@ void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___b
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       v22 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v22;
-      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Last user archive removed", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v22;
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Last user archive removed", &v24, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
@@ -323,20 +319,18 @@ void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___b
   }
 
   [*(a1 + 32) _scheduleNextPush];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeAllUserLastSyncData
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(self->_workQueue);
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     homeToUserMap = self->_homeToUserMap;
   }
 
@@ -344,33 +338,33 @@ void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___b
   {
     dispatch_assert_queue_V2(0);
     homeToUserMap = 0;
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
   }
 
   obj = homeToUserMap;
-  v21 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v28 objects:v37 count:16];
-  if (v21)
+  v20 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v27 objects:v36 count:16];
+  if (v20)
   {
-    v20 = *v29;
+    v19 = *v28;
     do
     {
       v4 = 0;
       do
       {
-        if (*v29 != v20)
+        if (*v28 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v28 + 1) + 8 * v4);
+        v5 = *(*(&v27 + 1) + 8 * v4);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
-        v22 = v4;
+        v21 = v4;
         if (self)
         {
           v6 = self->_homeToUserMap;
@@ -381,22 +375,22 @@ void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___b
           v6 = 0;
         }
 
-        v23 = [(NSMutableDictionary *)v6 objectForKeyedSubscript:v5];
-        v7 = [v23 countByEnumeratingWithState:&v24 objects:v36 count:16];
+        v22 = [(NSMutableDictionary *)v6 objectForKeyedSubscript:v5];
+        v7 = [v22 countByEnumeratingWithState:&v23 objects:v35 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v25;
+          v9 = *v24;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v25 != v9)
+              if (*v24 != v9)
               {
-                objc_enumerationMutation(v23);
+                objc_enumerationMutation(v22);
               }
 
-              v11 = *(*(&v24 + 1) + 8 * i);
+              v11 = *(*(&v23 + 1) + 8 * i);
               v12 = objc_autoreleasePoolPush();
               selfCopy = self;
               v14 = HMFGetOSLogHandle();
@@ -405,9 +399,9 @@ void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___b
                 v15 = HMFGetLogIdentifier();
                 user = [v11 user];
                 *buf = 138543618;
-                v33 = v15;
-                v34 = 2112;
-                v35 = user;
+                v32 = v15;
+                v33 = 2112;
+                v34 = user;
                 _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Removing last sync for %@", buf, 0x16u);
               }
 
@@ -415,18 +409,18 @@ void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___b
               [v11 removeArchiveFromLocalDisk];
             }
 
-            v8 = [v23 countByEnumeratingWithState:&v24 objects:v36 count:16];
+            v8 = [v22 countByEnumeratingWithState:&v23 objects:v35 count:16];
           }
 
           while (v8);
         }
 
-        v4 = v22 + 1;
+        v4 = v21 + 1;
       }
 
-      while (v22 + 1 != v21);
-      v17 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v28 objects:v37 count:16];
-      v21 = v17;
+      while (v21 + 1 != v20);
+      v17 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v27 objects:v36 count:16];
+      v20 = v17;
     }
 
     while (v17);
@@ -437,14 +431,12 @@ void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___b
     objc_storeStrong(&self->_homeToUserMap, 0);
     self->_valid = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleNextPush
 {
   selfCopy = self;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (self)
   {
     self = self->_workQueue;
@@ -457,9 +449,9 @@ void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___b
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v24 = 138543362;
-    v25 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Scheduling last push to shared users after migration.", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Scheduling last push to shared users after migration.", &v23, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -471,9 +463,9 @@ void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___b
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Pushes have expired, removing last user sync data.", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Pushes have expired, removing last user sync data.", &v23, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -512,9 +504,9 @@ void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___b
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       v21 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v21;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@No longer valid, not scheduling another push", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v21;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@No longer valid, not scheduling another push", &v23, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -523,8 +515,6 @@ void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___b
       objc_setProperty_atomic(v19, v22, 0, 64);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleNextPush
@@ -549,7 +539,7 @@ void __69__HMDHomeManagerHH2SharedUserLastSyncManager_removeUserLastSyncData___b
 
 - (double)_nextInterval
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (!self)
   {
     dispatch_assert_queue_V2(0);
@@ -573,21 +563,20 @@ LABEL_7:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v12;
-    v17 = 2048;
-    v18 = v8;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Determined next interval to be %f from now", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v12;
+    v16 = 2048;
+    v17 = v8;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Determined next interval to be %f from now", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)_shouldExpire
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(self->_workQueue);
@@ -596,8 +585,7 @@ LABEL_7:
       [(HMDHomeManagerHH2SharedUserLastSyncManager *)self _expireInterval];
       v5 = v4;
       [objc_getProperty(self v6];
-      result = v7 >= v5;
-      goto LABEL_8;
+      return v7 >= v5;
     }
   }
 
@@ -612,21 +600,18 @@ LABEL_7:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v12;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@No creationDate determined, cannot determine pushes have expired", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v12;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@No creationDate determined, cannot determine pushes have expired", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v9);
-  result = 1;
-LABEL_8:
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (BOOL)_shouldPushNow
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(self->_workQueue);
@@ -650,13 +635,13 @@ LABEL_8:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           v22 = HMFGetLogIdentifier();
-          v29 = 138543874;
-          v30 = v22;
-          v31 = 2112;
-          v32 = v12;
-          v33 = 2112;
-          v34 = v14;
-          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Pushing now because current time falls between start of interval, %@, and end of push interval, %@", &v29, 0x20u);
+          v28 = 138543874;
+          v29 = v22;
+          v30 = 2112;
+          v31 = v12;
+          v32 = 2112;
+          v33 = v14;
+          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Pushing now because current time falls between start of interval, %@, and end of push interval, %@", &v28, 0x20u);
         }
       }
 
@@ -668,20 +653,20 @@ LABEL_8:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           v19 = HMFGetLogIdentifier();
-          v29 = 138543874;
-          v30 = v19;
-          v31 = 2112;
-          v32 = v12;
-          v33 = 2112;
-          v34 = v14;
-          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Not pushing now because does not fall between start of interval, %@, and end of push interval, %@", &v29, 0x20u);
+          v28 = 138543874;
+          v29 = v19;
+          v30 = 2112;
+          v31 = v12;
+          v32 = 2112;
+          v33 = v14;
+          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Not pushing now because does not fall between start of interval, %@, and end of push interval, %@", &v28, 0x20u);
         }
 
         v20 = 0;
       }
 
       objc_autoreleasePoolPop(v16);
-      goto LABEL_15;
+      return v20;
     }
   }
 
@@ -696,16 +681,13 @@ LABEL_8:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     v26 = HMFGetLogIdentifier();
-    v29 = 138543362;
-    v30 = v26;
-    _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@No creationDate determined, cannot determine if push can start now", &v29, 0xCu);
+    v28 = 138543362;
+    v29 = v26;
+    _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@No creationDate determined, cannot determine if push can start now", &v28, 0xCu);
   }
 
   objc_autoreleasePoolPop(v23);
-  v20 = 0;
-LABEL_15:
-  v27 = *MEMORY[0x277D85DE8];
-  return v20;
+  return 0;
 }
 
 - (double)_pushInterval
@@ -753,7 +735,7 @@ LABEL_15:
 
 - (void)configure
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -761,15 +743,15 @@ LABEL_15:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v57 = v6;
+    v56 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Determining pre-migration last users sync data", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   if (selfCopy)
   {
     userLastSyncs = selfCopy->_userLastSyncs;
@@ -781,28 +763,28 @@ LABEL_15:
   }
 
   v8 = userLastSyncs;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v52 objects:v60 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v51 objects:v59 count:16];
   v11 = &OBJC_IVAR___HMDHomeActivityStateManagerDataSource__queue;
   if (v9)
   {
     v12 = v9;
-    v13 = *v53;
+    v13 = *v52;
     *&v10 = 138543618;
-    v47 = v10;
-    v49 = *v53;
-    v48 = v8;
+    v46 = v10;
+    v48 = *v52;
+    v47 = v8;
     do
     {
       v14 = 0;
-      v50 = v12;
+      v49 = v12;
       do
       {
-        if (*v53 != v13)
+        if (*v52 != v13)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v52 + 1) + 8 * v14);
+        v15 = *(*(&v51 + 1) + 8 * v14);
         [v15 configure];
         if ([v15 isValid])
         {
@@ -867,14 +849,14 @@ LABEL_15:
             {
               v31 = HMFGetLogIdentifier();
               creationDate = [v15 creationDate];
-              *buf = v47;
-              v57 = v31;
-              v58 = 2112;
-              v59 = creationDate;
+              *buf = v46;
+              v56 = v31;
+              v57 = 2112;
+              v58 = creationDate;
               _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Using creationDate from %@", buf, 0x16u);
 
-              v13 = v49;
-              v8 = v48;
+              v13 = v48;
+              v8 = v47;
             }
 
             objc_autoreleasePoolPop(v28);
@@ -887,7 +869,7 @@ LABEL_15:
             v11 = &OBJC_IVAR___HMDHomeActivityStateManagerDataSource__queue;
           }
 
-          v12 = v50;
+          v12 = v49;
         }
 
         else
@@ -899,10 +881,10 @@ LABEL_15:
           {
             v38 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v57 = v38;
+            v56 = v38;
             _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Problem unarchiving last user sync data, removing archive", buf, 0xCu);
 
-            v13 = v49;
+            v13 = v48;
           }
 
           objc_autoreleasePoolPop(v35);
@@ -913,7 +895,7 @@ LABEL_15:
       }
 
       while (v12 != v14);
-      v39 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v52 objects:v60 count:16];
+      v39 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v51 objects:v59 count:16];
       v12 = v39;
     }
 
@@ -961,19 +943,17 @@ LABEL_15:
     {
       v45 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v57 = v45;
+      v56 = v45;
       _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@No pre-migration last users sync data found", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v42);
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__HMDHomeManagerHH2SharedUserLastSyncManager_configure__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _shouldPushNow];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -984,13 +964,13 @@ uint64_t __55__HMDHomeManagerHH2SharedUserLastSyncManager_configure__block_invok
     if (v6)
     {
       v7 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Determined within push window, start pushing to shared users now", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v7;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Determined within push window, start pushing to shared users now", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
-    result = [*(a1 + 32) _pushAllUserSyncData];
+    return [*(a1 + 32) _pushAllUserSyncData];
   }
 
   else
@@ -998,27 +978,24 @@ uint64_t __55__HMDHomeManagerHH2SharedUserLastSyncManager_configure__block_invok
     if (v6)
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Not within push window, scheduling pushing to shared users", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Not within push window, scheduling pushing to shared users", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
-    result = [*(a1 + 32) _scheduleNextPush];
+    return [*(a1 + 32) _scheduleNextPush];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (HMDHomeManagerHH2SharedUserLastSyncManager)initWithHomeManager:(id)manager archivePaths:(id)paths
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   pathsCopy = paths;
-  v34.receiver = self;
-  v34.super_class = HMDHomeManagerHH2SharedUserLastSyncManager;
-  v8 = [(HMDHomeManagerHH2SharedUserLastSyncManager *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = HMDHomeManagerHH2SharedUserLastSyncManager;
+  v8 = [(HMDHomeManagerHH2SharedUserLastSyncManager *)&v33 init];
   if (v8)
   {
     v9 = HMDispatchQueueNameString();
@@ -1041,43 +1018,42 @@ uint64_t __55__HMDHomeManagerHH2SharedUserLastSyncManager_configure__block_invok
     managedMergeIDs = v8->_managedMergeIDs;
     v8->_managedMergeIDs = v18;
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v20 = pathsCopy;
-    v21 = [v20 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v31;
+      v23 = *v30;
       do
       {
         v24 = 0;
         do
         {
-          if (*v31 != v23)
+          if (*v30 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v30 + 1) + 8 * v24);
+          v25 = *(*(&v29 + 1) + 8 * v24);
           v26 = [HMDHomeManagerHH2SharedUserLastSync alloc];
-          v27 = [(HMDHomeManagerHH2SharedUserLastSync *)v26 initWithArchivePath:v25, v30];
+          v27 = [(HMDHomeManagerHH2SharedUserLastSync *)v26 initWithArchivePath:v25, v29];
           [(NSMutableArray *)v8->_userLastSyncs addObject:v27];
 
           ++v24;
         }
 
         while (v22 != v24);
-        v22 = [v20 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v22);
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

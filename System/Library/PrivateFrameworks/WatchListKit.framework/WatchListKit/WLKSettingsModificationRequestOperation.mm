@@ -55,27 +55,25 @@
 
 - (id)_postBody
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = WLKNetworkingLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     modifications = self->_modifications;
     *buf = 138412290;
-    v13 = modifications;
+    v12 = modifications;
     _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKSettingsModificationRequestOperation - posting: %@", buf, 0xCu);
   }
 
   v5 = self->_modifications;
-  v11 = 0;
-  v6 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v5 options:0 error:&v11];
+  v10 = 0;
+  v6 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v5 options:0 error:&v10];
   v7 = v6;
   v8 = 0;
-  if (!v11)
+  if (!v10)
   {
     v8 = v6;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

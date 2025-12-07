@@ -103,7 +103,7 @@
 
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
   memset(&v32, 0, sizeof(v32));
-  [(_PUIFBSSceneSnapshot *)self _baseTransformForSnapshotContext:contextCopy rootContext:rootContextCopy];
+  objc_msgSend__baseTransformForSnapshotContext_rootContext_(self);
   memset(&v31, 0, sizeof(v31));
   v21 = v32;
   CATransform3DMakeAffineTransform(&v31, &v21);

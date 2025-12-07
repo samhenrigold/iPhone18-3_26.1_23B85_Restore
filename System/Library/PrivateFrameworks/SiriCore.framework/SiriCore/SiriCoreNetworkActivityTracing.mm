@@ -66,7 +66,7 @@
 
 - (void)_networkActivityStop:(int64_t)stop withReason:(int64_t)reason andError:(id)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   activities = self->_activities;
   v10 = stop - 1;
@@ -86,14 +86,14 @@
   if (stop == 1)
   {
     v14 = self->_activities;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __75__SiriCoreNetworkActivityTracing__networkActivityStop_withReason_andError___block_invoke;
-    v21[3] = &unk_279BD5868;
-    v23 = 1;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __75__SiriCoreNetworkActivityTracing__networkActivityStop_withReason_andError___block_invoke;
+    v20[3] = &unk_279BD5868;
+    v22 = 1;
     reasonCopy = reason;
-    v22 = errorCopy;
-    [(NSMutableDictionary *)v14 enumerateKeysAndObjectsUsingBlock:v21];
+    v21 = errorCopy;
+    [(NSMutableDictionary *)v14 enumerateKeysAndObjectsUsingBlock:v20];
   }
 
   if ([v13 hasStarted])
@@ -124,26 +124,24 @@
       }
 
       *buf = 136315906;
-      v26 = "[SiriCoreNetworkActivityTracing _networkActivityStop:withReason:andError:]";
-      v27 = 2112;
-      v28 = v17;
-      v29 = 2112;
-      v30 = v19;
-      v31 = 2112;
-      v32 = errorCopy;
+      v25 = "[SiriCoreNetworkActivityTracing _networkActivityStop:withReason:andError:]";
+      v26 = 2112;
+      v27 = v17;
+      v28 = 2112;
+      v29 = v19;
+      v30 = 2112;
+      v31 = errorCopy;
       _os_log_impl(&dword_2669D1000, v15, OS_LOG_TYPE_INFO, "%s Stopping network activity %@ with reason %@ and error: %@", buf, 0x2Au);
     }
 
     [v13 setHasStarted:0];
     [v13 stopWithCompletionReason:reason andError:errorCopy];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __75__SiriCoreNetworkActivityTracing__networkActivityStop_withReason_andError___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([v4 parentLabel] == a1[5] && objc_msgSend(v4, "hasStarted"))
   {
@@ -175,22 +173,20 @@ void __75__SiriCoreNetworkActivityTracing__networkActivityStop_withReason_andErr
       }
 
       v12 = a1[4];
-      v14 = 136315906;
-      v15 = "[SiriCoreNetworkActivityTracing _networkActivityStop:withReason:andError:]_block_invoke";
-      v16 = 2112;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v12;
-      _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s Stopping network sub-activity %@ with reason %@ and error: %@", &v14, 0x2Au);
+      v13 = 136315906;
+      v14 = "[SiriCoreNetworkActivityTracing _networkActivityStop:withReason:andError:]_block_invoke";
+      v15 = 2112;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s Stopping network sub-activity %@ with reason %@ and error: %@", &v13, 0x2Au);
     }
 
     [v4 setHasStarted:0];
     [v4 stopWithCompletionReason:a1[6] andError:a1[4]];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_networkActivityActivate:(int64_t)activate
@@ -215,7 +211,7 @@ void __75__SiriCoreNetworkActivityTracing__networkActivityStop_withReason_andErr
 - (void)_networkActivityStart:(int64_t)start activate:(BOOL)activate
 {
   activateCopy = activate;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if ((start - 1) > 8)
   {
     v7 = @"invalid";
@@ -244,29 +240,29 @@ LABEL_7:
 
         if ([(NSMutableSet *)self->_connections count])
         {
-          v23 = 0u;
-          v24 = 0u;
-          v21 = 0u;
           v22 = 0u;
+          v23 = 0u;
+          v20 = 0u;
+          v21 = 0u;
           v11 = self->_connections;
-          v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v22;
+            v14 = *v21;
             do
             {
               for (i = 0; i != v13; ++i)
               {
-                if (*v22 != v14)
+                if (*v21 != v14)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                [(SiriCoreNetworkActivity *)v10 addConnection:*(*(&v21 + 1) + 8 * i), v21];
+                [(SiriCoreNetworkActivity *)v10 addConnection:*(*(&v20 + 1) + 8 * i), v20];
               }
 
-              v13 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+              v13 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
             }
 
             while (v13);
@@ -308,13 +304,11 @@ LABEL_26:
 
     v16 = 0;
 LABEL_25:
-    [(SiriCoreNetworkActivity *)v16 setHasStarted:1, v21];
+    [(SiriCoreNetworkActivity *)v16 setHasStarted:1, v20];
     goto LABEL_26;
   }
 
 LABEL_27:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)currentNetworkActivityTokenWithCompletion:(id)completion
@@ -471,9 +465,11 @@ void __76__SiriCoreNetworkActivityTracing_currentNetworkActivityTokenWithComplet
 
 uint64_t __62__SiriCoreNetworkActivityTracing_sharedNetworkActivityTracing__block_invoke()
 {
-  sharedNetworkActivityTracing_sActivityTracer = objc_alloc_init(SiriCoreNetworkActivityTracing);
+  v0 = objc_alloc_init(SiriCoreNetworkActivityTracing);
+  v1 = sharedNetworkActivityTracing_sActivityTracer;
+  sharedNetworkActivityTracing_sActivityTracer = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

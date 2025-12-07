@@ -23,7 +23,7 @@
     v16 = 2112;
     v17 = v7;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "=iCloudDrive= restoreDirectoryURL:%@, userURL:%@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "=iCloudDrive= restoreDirectoryURL:%@, userURL:%@", v6, v7);
   }
 
   v9 = [objc_opt_class() _restoreManagerForRestoreDirURL:v7];
@@ -53,7 +53,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "=iCloudDrive= FPFS is enabled for iCloud Drive, no need to do legacy backup.", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=iCloudDrive= FPFS is enabled for iCloud Drive, no need to do legacy backup.");
     }
 
 LABEL_18:
@@ -68,7 +68,7 @@ LABEL_18:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_FAULT, "=iCloudDrive= Missing userVolumeMountPoint for iCloud Drive Database", buf, 2u);
-      _MBLog();
+      _MBLog(@"F ", "=iCloudDrive= Missing userVolumeMountPoint for iCloud Drive Database");
     }
 
     goto LABEL_18;
@@ -81,7 +81,7 @@ LABEL_18:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_FAULT, "=iCloudDrive= Missing snapshotMountPoint for iCloud Drive Database", buf, 2u);
-      _MBLog();
+      _MBLog(@"F ", "=iCloudDrive= Missing snapshotMountPoint for iCloud Drive Database");
     }
 
     goto LABEL_18;
@@ -97,34 +97,34 @@ LABEL_18:
     *&buf[12] = 2112;
     *&buf[14] = v9;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=iCloudDrive= userFolderURLInSnapshot:%@, userFolderURLInLiveFS:%@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "=iCloudDrive= userFolderURLInSnapshot:%@, userFolderURLInLiveFS:%@", v8, v9);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v28 = sub_1000840B0;
-  v29 = sub_1000840C0;
-  v30 = 0;
-  v23[0] = 0;
-  v23[1] = v23;
-  v23[2] = 0x3032000000;
-  v23[3] = sub_1000840B0;
-  v23[4] = sub_1000840C0;
-  v24 = 0;
+  v27 = sub_1000840B0;
+  v28 = sub_1000840C0;
+  v29 = 0;
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x3032000000;
+  v22[3] = sub_1000840B0;
+  v22[4] = sub_1000840C0;
+  v23 = 0;
   v11 = dispatch_semaphore_create(0);
   v12 = [self _backupManagerForSnapshotURL:v8 liveFSURL:v9];
   if (v12)
   {
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000840C8;
-    v19[3] = &unk_1000FE620;
-    v21 = v23;
-    v22 = buf;
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_1000840C8;
+    v18[3] = &unk_1000FE620;
+    v20 = v22;
+    v21 = buf;
     v13 = v11;
-    v20 = v13;
-    [v12 backUpWithCompletionBlock:v19];
+    v19 = v13;
+    [v12 backUpWithCompletionBlock:v18];
     dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
   }
 
@@ -134,11 +134,10 @@ LABEL_18:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = *(*&buf[8] + 40);
-      *v25 = 138412290;
-      v26 = v15;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=iCloudDrive= BRCDatabaseBackupManager failed: %@", v25, 0xCu);
-      v18 = *(*&buf[8] + 40);
-      _MBLog();
+      *v24 = 138412290;
+      v25 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=iCloudDrive= BRCDatabaseBackupManager failed: %@", v24, 0xCu);
+      _MBLog(@"E ", "=iCloudDrive= BRCDatabaseBackupManager failed: %@", *(*&buf[8] + 40));
     }
 
     v16 = *(*&buf[8] + 40);
@@ -149,7 +148,7 @@ LABEL_18:
     v16 = 0;
   }
 
-  _Block_object_dispose(v23, 8);
+  _Block_object_dispose(v22, 8);
   _Block_object_dispose(buf, 8);
 
 LABEL_19:
@@ -161,51 +160,50 @@ LABEL_19:
 {
   volumeCopy = volume;
   pointCopy = point;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_1000840B0;
-  v25 = sub_1000840C0;
-  v26 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1000840B0;
+  v24 = sub_1000840C0;
+  v25 = 0;
   v7 = [NSURL fileURLWithPath:pointCopy isDirectory:1];
   v8 = [NSURL fileURLWithPath:volumeCopy isDirectory:1];
   v9 = MBGetDefaultLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v28 = v7;
-    v29 = 2112;
-    v30 = v8;
+    v27 = v7;
+    v28 = 2112;
+    v29 = v8;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=iCloudDrive= FPFS: userFolderURLInSnapshot:%@, userFolderURLInLiveFS:%@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "=iCloudDrive= FPFS: userFolderURLInSnapshot:%@, userFolderURLInLiveFS:%@", v7, v8);
   }
 
   v10 = dispatch_semaphore_create(0);
   v11 = +[FPDaemonConnection sharedConnection];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100084470;
-  v18[3] = &unk_1000FE648;
-  v20 = &v21;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100084470;
+  v17[3] = &unk_1000FE648;
+  v19 = &v20;
   v12 = v10;
-  v19 = v12;
-  [v11 backUpUserURL:v7 outputUserURL:v8 completionHandler:v18];
+  v18 = v12;
+  [v11 backUpUserURL:v7 outputUserURL:v8 completionHandler:v17];
 
   dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
-  if (v22[5])
+  if (v21[5])
   {
     v13 = MBGetDefaultLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v14 = v22[5];
+      v14 = v21[5];
       *buf = 138412290;
-      v28 = v14;
+      v27 = v14;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=iCloudDrive= FPFSSQLBackupManager failed: %@", buf, 0xCu);
-      v17 = v22[5];
-      _MBLog();
+      _MBLog(@"E ", "=iCloudDrive= FPFSSQLBackupManager failed: %@", v21[5]);
     }
 
-    v15 = v22[5];
+    v15 = v21[5];
   }
 
   else
@@ -213,7 +211,7 @@ LABEL_19:
     v15 = 0;
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
 
   return v15;
 }
@@ -243,7 +241,7 @@ LABEL_5:
   {
     *v13 = 0;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "=iCloudDrive= Failed to create CloudDocs database backup manager", v13, 2u);
-    _MBLog();
+    _MBLog(@"E ", "=iCloudDrive= Failed to create CloudDocs database backup manager");
   }
 
   v10 = 0;
@@ -276,7 +274,7 @@ LABEL_5:
   {
     *v10 = 0;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "=iCloudDrive= Failed to create CloudDocs database restore manager", v10, 2u);
-    _MBLog();
+    _MBLog(@"E ", "=iCloudDrive= Failed to create CloudDocs database restore manager");
   }
 
   v7 = 0;

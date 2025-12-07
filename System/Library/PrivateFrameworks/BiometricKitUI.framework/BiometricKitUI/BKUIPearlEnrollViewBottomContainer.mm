@@ -3,7 +3,9 @@
 - (BKUIPearlEnrollViewBottomContainer)initWithFrame:(CGRect)frame inBuddy:(BOOL)buddy scrollView:(id)view overlapScrollView:(id)scrollView delegate:(id)delegate squareNeedsPositionLayout:(BOOL)layout;
 - (BKUIPearlInstructionView)instructionView;
 - (double)_topPaddingForButtonTray:(id)tray;
+- (id)_detailTextForState:(int)state substate:(int)substate;
 - (id)_horizontalConstraintsForTagAlongTransitionView:(id)view state:(int)state position:(int64_t)position;
+- (id)_instructionTextForState:(int)state substate:(int)substate;
 - (id)_locStateDetailedLabelNameForState:(int)state;
 - (id)_locStateNameForState:(int)state;
 - (id)_targetScrollViewForState:(int)state;
@@ -12,16 +14,22 @@
 - (id)buttonTray;
 - (id)buttonTrayTopAnchor;
 - (id)nextStateButton;
+- (void)_configureInstructionView:(id)view forState:(int)state substate:(int)substate;
 - (void)_updateButtonLayoutForScrollView:(id)view;
 - (void)_updateButtonVisibilityForScrollView:(id)view;
+- (void)_updateButtonVisibilityForScrollView:(id)view state:(int)state subState:(int)subState;
 - (void)escapeHatchButtonWasPressed:(id)pressed;
 - (void)finalizeInstructionAnimation;
 - (void)layoutSubviews;
 - (void)nextStateButtonWasPressed:(id)pressed;
+- (void)prepareForAnimationToState:(int)state fromState:(int)fromState subState:(int)subState advancing:(BOOL)advancing tagAlong:(id)along parentView:(id)view;
 - (void)retryWasPressed:(id)pressed;
+- (void)setCustomDetailString:(id)string forState:(int)state;
+- (void)setCustomInstructionString:(id)string forState:(int)state;
 - (void)setupInitialUI;
 - (void)updateButtonLayout;
 - (void)updateButtonVisibility;
+- (void)updateInstructionViewContentForState:(int)state substate:(int)substate;
 @end
 
 @implementation BKUIPearlEnrollViewBottomContainer
@@ -113,7 +121,7 @@
 
 - (void)setupInitialUI
 {
-  v50[8] = *MEMORY[0x277D85DE8];
+  v49[8] = *MEMORY[0x277D85DE8];
   scrollview = [(BKUIPearlEnrollViewBottomContainer *)self scrollview];
   [(BKUIPearlEnrollViewBottomContainer *)self addSubview:scrollview];
 
@@ -134,45 +142,45 @@
   overlappingScrollview3 = [(BKUIPearlEnrollViewBottomContainer *)self overlappingScrollview];
   [overlappingScrollview3 setTopToSuperViewConstraint:v13];
 
-  v37 = MEMORY[0x277CCAAD0];
+  v36 = MEMORY[0x277CCAAD0];
   overlappingScrollview4 = [(BKUIPearlEnrollViewBottomContainer *)self overlappingScrollview];
   topToSuperViewConstraint = [overlappingScrollview4 topToSuperViewConstraint];
-  v50[0] = topToSuperViewConstraint;
+  v49[0] = topToSuperViewConstraint;
   overlappingScrollview5 = [(BKUIPearlEnrollViewBottomContainer *)self overlappingScrollview];
   bottomAnchor = [overlappingScrollview5 bottomAnchor];
   bottomAnchor2 = [(BKUIPearlEnrollViewBottomContainer *)self bottomAnchor];
-  v44 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v50[1] = v44;
+  v43 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v49[1] = v43;
   overlappingScrollview6 = [(BKUIPearlEnrollViewBottomContainer *)self overlappingScrollview];
   leadingAnchor = [overlappingScrollview6 leadingAnchor];
   leadingAnchor2 = [(BKUIPearlEnrollViewBottomContainer *)self leadingAnchor];
-  v40 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v50[2] = v40;
+  v39 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v49[2] = v39;
   overlappingScrollview7 = [(BKUIPearlEnrollViewBottomContainer *)self overlappingScrollview];
   trailingAnchor = [overlappingScrollview7 trailingAnchor];
   trailingAnchor2 = [(BKUIPearlEnrollViewBottomContainer *)self trailingAnchor];
-  v35 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v50[3] = v35;
+  v34 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v49[3] = v34;
   scrollview4 = [(BKUIPearlEnrollViewBottomContainer *)self scrollview];
   topToSuperViewConstraint2 = [scrollview4 topToSuperViewConstraint];
-  v50[4] = topToSuperViewConstraint2;
+  v49[4] = topToSuperViewConstraint2;
   scrollview5 = [(BKUIPearlEnrollViewBottomContainer *)self scrollview];
   bottomAnchor3 = [scrollview5 bottomAnchor];
   bottomAnchor4 = [(BKUIPearlEnrollViewBottomContainer *)self bottomAnchor];
-  v29 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v50[5] = v29;
+  v28 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
+  v49[5] = v28;
   scrollview6 = [(BKUIPearlEnrollViewBottomContainer *)self scrollview];
   leadingAnchor3 = [scrollview6 leadingAnchor];
   leadingAnchor4 = [(BKUIPearlEnrollViewBottomContainer *)self leadingAnchor];
   v18 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v50[6] = v18;
+  v49[6] = v18;
   scrollview7 = [(BKUIPearlEnrollViewBottomContainer *)self scrollview];
   trailingAnchor3 = [scrollview7 trailingAnchor];
   trailingAnchor4 = [(BKUIPearlEnrollViewBottomContainer *)self trailingAnchor];
   v22 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v50[7] = v22;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:8];
-  [v37 activateConstraints:v23];
+  v49[7] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:8];
+  [v36 activateConstraints:v23];
 
   overlappingScrollview8 = [(BKUIPearlEnrollViewBottomContainer *)self overlappingScrollview];
   [(BKUIPearlEnrollViewBottomContainer *)self setOnScreenScrollview:overlappingScrollview8];
@@ -183,8 +191,127 @@
   overlappingScrollview9 = [(BKUIPearlEnrollViewBottomContainer *)self overlappingScrollview];
   instructionView = [overlappingScrollview9 instructionView];
   [(BKUIPearlEnrollViewBottomContainer *)self _configureInstructionView:instructionView forState:2 substate:0];
+}
 
-  v28 = *MEMORY[0x277D85DE8];
+- (void)prepareForAnimationToState:(int)state fromState:(int)fromState subState:(int)subState advancing:(BOOL)advancing tagAlong:(id)along parentView:(id)view
+{
+  advancingCopy = advancing;
+  v10 = *&subState;
+  v11 = *&state;
+  alongCopy = along;
+  viewCopy = view;
+  v13 = [(BKUIPearlEnrollViewBottomContainer *)self _targetScrollViewForState:v11];
+  instructionView = [(BKUIPearlEnrollViewBottomContainer *)self instructionView];
+  instruction = [instructionView instruction];
+
+  instructionView2 = [(BKUIPearlEnrollViewBottomContainer *)self instructionView];
+  detail = [instructionView2 detail];
+
+  instructionView3 = [(BKUIScrollableContainer *)v13 instructionView];
+  instructionView4 = [(BKUIPearlEnrollViewBottomContainer *)self instructionView];
+  [instructionView3 setDarkMode:{objc_msgSend(instructionView4, "darkMode")}];
+
+  [(BKUIPearlEnrollViewBottomContainer *)self _configureInstructionView:instructionView3 forState:v11 substate:v10];
+  instruction2 = [instructionView3 instruction];
+  v45 = instruction;
+  v44 = detail;
+  if ([instruction2 isEqualToString:instruction])
+  {
+    [instructionView3 detail];
+    v22 = v21 = v10;
+    v23 = [v22 isEqualToString:detail];
+
+    v10 = v21;
+    if (v23)
+    {
+      [(BKUIScrollableContainer *)v13 layoutIfNeeded];
+      instructionView5 = [(BKUIScrollableContainer *)v13 instructionView];
+      [instructionView5 layoutIfNeeded];
+
+      [viewCopy setNeedsLayout];
+      [viewCopy layoutIfNeeded];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  if (advancingCopy)
+  {
+    v25 = 2;
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  if (advancingCopy)
+  {
+    v26 = 0;
+  }
+
+  else
+  {
+    v26 = 2;
+  }
+
+  v27 = [(BKUIPearlEnrollViewBottomContainer *)self _updateTopPaddingAndReturnHorizontalConstraintsForScrollView:v13 state:v11 position:v25];
+  horizontalConstraint = [(BKUIScrollableContainer *)v13 horizontalConstraint];
+  [horizontalConstraint setActive:0];
+
+  [MEMORY[0x277CCAAD0] activateConstraints:v27];
+  [(BKUIScrollableContainer *)v13 setContentOffset:0 animated:*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)];
+  [(BKUIScrollableContainer *)v13 layoutIfNeeded];
+  instructionView6 = [(BKUIScrollableContainer *)v13 instructionView];
+  [instructionView6 layoutIfNeeded];
+
+  [(BKUIPearlEnrollViewBottomContainer *)self _updateButtonVisibilityForScrollView:v13 state:v11 subState:v10];
+  buttonTray = [(BKUIScrollableContainer *)v13 buttonTray];
+  [(BKUIPearlEnrollViewBottomContainer *)self _topPaddingForButtonTray:buttonTray];
+  v32 = v31;
+  buttonTrayTopAnchor = [(BKUIScrollableContainer *)v13 buttonTrayTopAnchor];
+  [buttonTrayTopAnchor setConstant:v32];
+
+  [viewCopy setNeedsLayout];
+  [viewCopy layoutIfNeeded];
+  [MEMORY[0x277CCAAD0] deactivateConstraints:v27];
+  [MEMORY[0x277CCAAD0] deactivateConstraints:self->_onscreenScrollViewConstraints];
+  v34 = MEMORY[0x277CCAAD0];
+  onScreenScrollview = [(BKUIPearlEnrollViewBottomContainer *)self onScreenScrollview];
+  v36 = v26;
+  v37 = [(BKUIPearlEnrollViewBottomContainer *)self _updateTopPaddingAndReturnHorizontalConstraintsForScrollView:onScreenScrollview state:fromState position:v26];
+  [v34 activateConstraints:v37];
+
+  v38 = [(BKUIPearlEnrollViewBottomContainer *)self _updateTopPaddingAndReturnHorizontalConstraintsForScrollView:v13 state:v11 position:1];
+  onscreenScrollViewConstraints = self->_onscreenScrollViewConstraints;
+  self->_onscreenScrollViewConstraints = v38;
+
+  [MEMORY[0x277CCAAD0] activateConstraints:self->_onscreenScrollViewConstraints];
+  if (alongCopy)
+  {
+    v40 = [(BKUIPearlEnrollViewBottomContainer *)self _horizontalConstraintsForTagAlongTransitionView:alongCopy state:fromState position:v36];
+    [v40 setActive:1];
+  }
+
+  onScreenScrollview = self->_onScreenScrollview;
+  if (v13 != onScreenScrollview)
+  {
+    objc_storeStrong(&self->_offScreenScrollview, onScreenScrollview);
+    objc_storeStrong(&self->_onScreenScrollview, v13);
+  }
+
+  horizontalConstraint2 = [(BKUIScrollableContainer *)v13 horizontalConstraint];
+  [horizontalConstraint2 setActive:1];
+
+LABEL_16:
+  if (v11 == 10)
+  {
+    [(BKUIScrollableContainer *)self->_overlappingScrollview setIndicatorStyle:1];
+    [(BKUIScrollableContainer *)self->_scrollview setIndicatorStyle:1];
+  }
 }
 
 - (id)_horizontalConstraintsForTagAlongTransitionView:(id)view state:(int)state position:(int64_t)position
@@ -220,7 +347,7 @@ LABEL_10:
 
 - (id)_updateTopPaddingAndReturnHorizontalConstraintsForScrollView:(id)view state:(int)state position:(int64_t)position
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   horizontalConstraint = [viewCopy horizontalConstraint];
   [horizontalConstraint setActive:0];
@@ -271,12 +398,39 @@ LABEL_7:
     [topToSuperViewConstraint2 setConstant:0.0];
   }
 
-  v25[0] = v16;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v24[0] = v16;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
 
   return v22;
+}
+
+- (void)updateInstructionViewContentForState:(int)state substate:(int)substate
+{
+  v4 = *&substate;
+  v5 = *&state;
+  instructionView = [(BKUIPearlEnrollViewBottomContainer *)self instructionView];
+  onScreenScrollview = [(BKUIPearlEnrollViewBottomContainer *)self onScreenScrollview];
+  [(BKUIPearlEnrollViewBottomContainer *)self _configureInstructionView:instructionView forState:v5 substate:v4];
+  [MEMORY[0x277CCAAD0] deactivateConstraints:self->_onscreenScrollViewConstraints];
+  v9 = [(BKUIPearlEnrollViewBottomContainer *)self _updateTopPaddingAndReturnHorizontalConstraintsForScrollView:onScreenScrollview state:v5 position:1];
+  onscreenScrollViewConstraints = self->_onscreenScrollViewConstraints;
+  self->_onscreenScrollViewConstraints = v9;
+
+  [MEMORY[0x277CD9FF0] begin];
+  v11 = MEMORY[0x277CD9FF0];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __84__BKUIPearlEnrollViewBottomContainer_updateInstructionViewContentForState_substate___block_invoke;
+  v14[3] = &unk_278D09A60;
+  v15 = instructionView;
+  v16 = onScreenScrollview;
+  selfCopy = self;
+  v12 = onScreenScrollview;
+  v13 = instructionView;
+  [v11 setCompletionBlock:v14];
+  [MEMORY[0x277CCAAD0] activateConstraints:self->_onscreenScrollViewConstraints];
+  [MEMORY[0x277CD9FF0] commit];
+  [(BKUIPearlEnrollViewBottomContainer *)self setNeedsLayout];
 }
 
 void __84__BKUIPearlEnrollViewBottomContainer_updateInstructionViewContentForState_substate___block_invoke(id *a1)
@@ -292,6 +446,230 @@ void __84__BKUIPearlEnrollViewBottomContainer_updateInstructionViewContentForSta
   v5 = [a1[6] delegate];
   v4 = [v5 view];
   [v4 layoutIfNeeded];
+}
+
+- (void)_configureInstructionView:(id)view forState:(int)state substate:(int)substate
+{
+  v5 = *&substate;
+  v6 = *&state;
+  customInstructionStrings = self->_customInstructionStrings;
+  v9 = MEMORY[0x277CCABB0];
+  viewCopy = view;
+  v11 = [v9 numberWithUnsignedInt:v6];
+  v15 = [(NSMutableDictionary *)customInstructionStrings objectForKeyedSubscript:v11];
+
+  if (!v15)
+  {
+    v15 = [(BKUIPearlEnrollViewBottomContainer *)self _instructionTextForState:v6 substate:v5];
+  }
+
+  customDetailStrings = self->_customDetailStrings;
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+  v14 = [(NSMutableDictionary *)customDetailStrings objectForKeyedSubscript:v13];
+
+  if (!v14)
+  {
+    v14 = [(BKUIPearlEnrollViewBottomContainer *)self _detailTextForState:v6 substate:v5];
+  }
+
+  [viewCopy setInstruction:v15];
+  [viewCopy setDetail:v14];
+}
+
+- (id)_instructionTextForState:(int)state substate:(int)substate
+{
+  if (!substate)
+  {
+    v11 = *&state;
+    customInstructionStrings = self->_customInstructionStrings;
+    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+    v14 = [(NSMutableDictionary *)customInstructionStrings objectForKeyedSubscript:v13];
+
+    if (v14)
+    {
+      goto LABEL_18;
+    }
+
+    v6 = [(BKUIPearlEnrollViewBottomContainer *)self _locStateNameForState:v11];
+    if (!v6)
+    {
+      v14 = 0;
+      goto LABEL_17;
+    }
+
+    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSTRUCTION_STATE_%@", v6];
+    v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v17 = [v16 localizedStringForKey:v15 value:&stru_2853BB280 table:@"Pearl-periocular"];
+
+    currentDevice = [MEMORY[0x277D75418] currentDevice];
+    userInterfaceIdiom = [currentDevice userInterfaceIdiom];
+
+    if (userInterfaceIdiom != 1)
+    {
+      goto LABEL_16;
+    }
+
+    v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v20 = [v14 localizedStringForKey:v15 value:&stru_2853BB280 table:@"Pearl-j3xx"];
+
+    v17 = v20;
+LABEL_15:
+
+LABEL_16:
+    v14 = v17;
+    goto LABEL_17;
+  }
+
+  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSTRUCTION_SUBSTATE_%i", *&substate];
+  if (substate == 11)
+  {
+    delegate = [(BKUIPearlEnrollViewBottomContainer *)self delegate];
+    currentOperationHandler = [delegate currentOperationHandler];
+    bkIdentities = [currentOperationHandler bkIdentities];
+
+    if ([bkIdentities count] >= 2)
+    {
+      v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSTRUCTION_TWO_ENROLLMENTS_SUBSTATE_%i", 11];
+
+      v6 = v23;
+    }
+
+    goto LABEL_12;
+  }
+
+  if (substate == 15)
+  {
+    delegate2 = [(BKUIPearlEnrollViewBottomContainer *)self delegate];
+    currentOperationHandler2 = [delegate2 currentOperationHandler];
+    isEnrollmentAugmentationOnly = [currentOperationHandler2 isEnrollmentAugmentationOnly];
+
+    if (isEnrollmentAugmentationOnly)
+    {
+      [MEMORY[0x277CCACA8] stringWithFormat:@"INSTRUCTION_SUBSTATE_AUGMENTATION_%i", 15];
+      v6 = bkIdentities = v6;
+LABEL_12:
+    }
+  }
+
+  v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v14 = [v24 localizedStringForKey:v6 value:&stru_2853BB280 table:@"Pearl-periocular"];
+
+  currentDevice2 = [MEMORY[0x277D75418] currentDevice];
+  userInterfaceIdiom2 = [currentDevice2 userInterfaceIdiom];
+
+  if (userInterfaceIdiom2 == 1)
+  {
+    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v17 = [v15 localizedStringForKey:v6 value:&stru_2853BB280 table:@"Pearl-j3xx"];
+    goto LABEL_15;
+  }
+
+LABEL_17:
+
+LABEL_18:
+
+  return v14;
+}
+
+- (id)_detailTextForState:(int)state substate:(int)substate
+{
+  if (substate)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSTRUCTION_DETAIL_SUBSTATE_%i", *&substate];
+    v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v6 = [v5 localizedStringForKey:v4 value:&stru_2853BB280 table:@"Pearl-periocular"];
+
+    currentDevice = [MEMORY[0x277D75418] currentDevice];
+    userInterfaceIdiom = [currentDevice userInterfaceIdiom];
+
+    if (userInterfaceIdiom != 1)
+    {
+LABEL_6:
+
+      goto LABEL_8;
+    }
+
+    v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v10 = [v9 localizedStringForKey:v4 value:&stru_2853BB280 table:@"Pearl-j3xx"];
+    goto LABEL_4;
+  }
+
+  v11 = *&state;
+  customDetailStrings = self->_customDetailStrings;
+  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+  v6 = [(NSMutableDictionary *)customDetailStrings objectForKeyedSubscript:v14];
+
+  if (!v6)
+  {
+    v4 = [(BKUIPearlEnrollViewBottomContainer *)self _locStateDetailedLabelNameForState:v11];
+    if (!v4)
+    {
+      v6 = 0;
+      goto LABEL_6;
+    }
+
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSTRUCTION_DETAIL_STATE_%@", v4];
+    v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v10 = [v16 localizedStringForKey:v9 value:&stru_2853BB280 table:@"Pearl-periocular"];
+
+    currentDevice2 = [MEMORY[0x277D75418] currentDevice];
+    userInterfaceIdiom2 = [currentDevice2 userInterfaceIdiom];
+
+    if (userInterfaceIdiom2 != 1)
+    {
+      goto LABEL_5;
+    }
+
+    v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v19 = [v6 localizedStringForKey:v9 value:&stru_2853BB280 table:@"Pearl-j3xx"];
+
+    v10 = v19;
+LABEL_4:
+
+LABEL_5:
+    v6 = v10;
+    goto LABEL_6;
+  }
+
+LABEL_8:
+
+  return v6;
+}
+
+- (void)setCustomInstructionString:(id)string forState:(int)state
+{
+  v4 = *&state;
+  stringCopy = string;
+  customInstructionStrings = self->_customInstructionStrings;
+  if (!customInstructionStrings)
+  {
+    v7 = objc_opt_new();
+    v8 = self->_customInstructionStrings;
+    self->_customInstructionStrings = v7;
+
+    customInstructionStrings = self->_customInstructionStrings;
+  }
+
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+  [(NSMutableDictionary *)customInstructionStrings setObject:stringCopy forKeyedSubscript:v9];
+}
+
+- (void)setCustomDetailString:(id)string forState:(int)state
+{
+  v4 = *&state;
+  stringCopy = string;
+  customDetailStrings = self->_customDetailStrings;
+  if (!customDetailStrings)
+  {
+    v7 = objc_opt_new();
+    v8 = self->_customDetailStrings;
+    self->_customDetailStrings = v7;
+
+    customDetailStrings = self->_customDetailStrings;
+  }
+
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+  [(NSMutableDictionary *)customDetailStrings setObject:stringCopy forKeyedSubscript:v9];
 }
 
 - (id)_locStateDetailedLabelNameForState:(int)state
@@ -822,6 +1200,117 @@ LABEL_12:
   state = [delegate state];
   delegate2 = [(BKUIPearlEnrollViewBottomContainer *)self delegate];
   -[BKUIPearlEnrollViewBottomContainer _updateButtonVisibilityForScrollView:state:subState:](self, "_updateButtonVisibilityForScrollView:state:subState:", viewCopy, state, [delegate2 substate]);
+}
+
+- (void)_updateButtonVisibilityForScrollView:(id)view state:(int)state subState:(int)subState
+{
+  v5 = *&subState;
+  v6 = *&state;
+  viewCopy = view;
+  delegate = [(BKUIPearlEnrollViewBottomContainer *)self delegate];
+  v9 = [delegate _nextStateButtonTitleForState:v6 subState:v5];
+
+  delegate2 = [(BKUIPearlEnrollViewBottomContainer *)self delegate];
+  state = [delegate2 state];
+
+  if (v9)
+  {
+    canStartEnrollmentOperation = state != 2;
+  }
+
+  else
+  {
+    canStartEnrollmentOperation = 0;
+  }
+
+  if (state == 2 && v9)
+  {
+    delegate3 = [(BKUIPearlEnrollViewBottomContainer *)self delegate];
+    currentOperationHandler = [delegate3 currentOperationHandler];
+    canStartEnrollmentOperation = [currentOperationHandler canStartEnrollmentOperation];
+  }
+
+  buttonTray = [viewCopy buttonTray];
+  nextStateButton = [buttonTray nextStateButton];
+  v17 = nextStateButton;
+  if (v9)
+  {
+    v18 = 1.0;
+  }
+
+  else
+  {
+    v18 = 0.0;
+  }
+
+  [nextStateButton setAlpha:v18];
+
+  buttonTray2 = [viewCopy buttonTray];
+  nextStateButton2 = [buttonTray2 nextStateButton];
+  [nextStateButton2 setEnabled:canStartEnrollmentOperation];
+
+  delegate4 = [(BKUIPearlEnrollViewBottomContainer *)self delegate];
+  v22 = [delegate4 _escapeHatchTitleForState:v6];
+
+  buttonTray3 = [viewCopy buttonTray];
+  bottomLinkButton = [buttonTray3 bottomLinkButton];
+  if ([v22 length])
+  {
+    v25 = 1.0;
+  }
+
+  else
+  {
+    v25 = 0.0;
+  }
+
+  [bottomLinkButton setAlpha:v25];
+
+  delegate5 = [(BKUIPearlEnrollViewBottomContainer *)self delegate];
+  if ([delegate5 state] == 3)
+  {
+    delegate6 = [(BKUIPearlEnrollViewBottomContainer *)self delegate];
+    currentOperationHandler2 = [delegate6 currentOperationHandler];
+    shouldShowRetryUI = [currentOperationHandler2 shouldShowRetryUI];
+  }
+
+  else
+  {
+    shouldShowRetryUI = 0;
+  }
+
+  buttonTray4 = [viewCopy buttonTray];
+  topLinkButton = [buttonTray4 topLinkButton];
+  v32 = topLinkButton;
+  if (shouldShowRetryUI)
+  {
+    v33 = 1.0;
+  }
+
+  else
+  {
+    v33 = 0.0;
+  }
+
+  [topLinkButton setAlpha:v33];
+
+  if (_os_feature_enabled_impl() && _os_feature_enabled_impl())
+  {
+    buttonTray5 = [viewCopy buttonTray];
+    topLinkButton2 = [buttonTray5 topLinkButton];
+    [topLinkButton2 setEnabled:shouldShowRetryUI & 1];
+  }
+
+  if (shouldShowRetryUI)
+  {
+    [(BKUIPearlEnrollViewBottomContainer *)self _updateButtonLayoutForScrollView:viewCopy];
+  }
+
+  else
+  {
+    buttonTray6 = [viewCopy buttonTray];
+    [buttonTray6 updateButtonLayout];
+  }
 }
 
 - (void)_updateButtonLayoutForScrollView:(id)view

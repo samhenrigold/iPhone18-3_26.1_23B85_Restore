@@ -125,17 +125,17 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   [@"\n" stringByPaddingToLength:description + 8 withString:@" " startingAtIndex:0];
-  v31 = 0;
+  v30 = 0;
   selfCopy = self;
   p_private = &self->_private;
   requiredThreadsPerThreadgroup = self->_private.requiredThreadsPerThreadgroup;
-  MTLSizeToNSArray(&requiredThreadsPerThreadgroup, &v31);
+  MTLSizeToNSArray(&requiredThreadsPerThreadgroup, &v30);
   v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:128];
-  v40[0] = v5;
-  v40[1] = @"label =";
+  v39[0] = v5;
+  v39[1] = @"label =";
   name = @"<none>";
   sampleCount = self->_private.var0.sampleCount;
   label = self->_private.label;
@@ -144,20 +144,20 @@
     label = @"<none>";
   }
 
-  v40[2] = label;
-  v40[3] = v5;
+  v39[2] = label;
+  v39[3] = v5;
   if (self->_private.name)
   {
     name = self->_private.name;
   }
 
-  v40[4] = @"name =";
-  v40[5] = name;
-  v40[6] = v5;
-  v40[7] = @"Raster Sample Count =";
-  v40[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:sampleCount];
-  v40[9] = v5;
-  v40[10] = @"Tile Function =";
+  v39[4] = @"name =";
+  v39[5] = name;
+  v39[6] = v5;
+  v39[7] = @"Raster Sample Count =";
+  v39[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:sampleCount];
+  v39[9] = v5;
+  v39[10] = @"Tile Function =";
   tileFunction = self->_private.tileFunction;
   if (tileFunction)
   {
@@ -169,44 +169,44 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40[11] = null;
-  v40[12] = v5;
+  v39[11] = null;
+  v39[12] = v5;
   v13 = @"false";
   if (self->_private.threadgroupSizeMatchesTileSize)
   {
     v13 = @"true";
   }
 
-  v40[13] = @"threadgroupSizeMatchesTileSize =";
-  v40[14] = v13;
-  v40[15] = v5;
-  v40[16] = @"colorSampleCount =";
-  v40[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.colorSampleCount];
-  v40[18] = v5;
-  v40[19] = @"maxTotalThreadsPerThreadgroup =";
-  v40[20] = [MEMORY[0x1E696AD98] numberWithUnsignedShort:self->_private.maxTotalThreadsPerThreadgroup];
-  v40[21] = v5;
-  v40[22] = @"textureWriteRoundingMode =";
-  v40[23] = MTLRoundingModeString(self->_private.textureWriteRoundingMode);
-  v40[24] = v5;
-  v40[25] = @"requiredThreadsPerThreadgroup =";
-  v40[26] = v31;
+  v39[13] = @"threadgroupSizeMatchesTileSize =";
+  v39[14] = v13;
+  v39[15] = v5;
+  v39[16] = @"colorSampleCount =";
+  v39[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.colorSampleCount];
+  v39[18] = v5;
+  v39[19] = @"maxTotalThreadsPerThreadgroup =";
+  v39[20] = [MEMORY[0x1E696AD98] numberWithUnsignedShort:self->_private.maxTotalThreadsPerThreadgroup];
+  v39[21] = v5;
+  v39[22] = @"textureWriteRoundingMode =";
+  v39[23] = MTLRoundingModeString(self->_private.textureWriteRoundingMode);
+  v39[24] = v5;
+  v39[25] = @"requiredThreadsPerThreadgroup =";
+  v39[26] = v30;
   v14 = 0x1E695D000uLL;
-  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v40, 27)}];
+  [v7 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v39, 27)}];
   for (i = 0; i != 8; ++i)
   {
     if (p_private->attachments->_descriptors[i])
     {
-      v39[0] = v5;
-      v39[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Color Attachment %u:", i];
-      v39[2] = tileColorAttachmentFormattedDescription(description + 8, &p_private->attachments->_descriptors[i]->super);
-      v20 = v39;
+      v38[0] = v5;
+      v38[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Color Attachment %u:", i];
+      v38[2] = tileColorAttachmentFormattedDescription(description + 8, &p_private->attachments->_descriptors[i]->super);
+      v20 = v38;
     }
 
     else
     {
-      v38[0] = v5;
-      v38[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Color Attachment %u:", i];
+      v37[0] = v5;
+      v37[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Color Attachment %u:", i];
       requiredThreadsPerThreadgroup.width = [@"\n" stringByPaddingToLength:description + 12 withString:@" " startingAtIndex:0];
       requiredThreadsPerThreadgroup.height = @"pixelFormat =";
       v16 = v14;
@@ -215,8 +215,8 @@
       v19 = v17;
       v14 = v16;
       requiredThreadsPerThreadgroup.depth = [v19 stringWithUTF8String:v18];
-      v38[2] = [objc_msgSend(*(v16 + 3784) arrayWithObjects:&requiredThreadsPerThreadgroup count:{3), "componentsJoinedByString:", @" "}];
-      v20 = v38;
+      v37[2] = [objc_msgSend(*(v16 + 3784) arrayWithObjects:&requiredThreadsPerThreadgroup count:{3), "componentsJoinedByString:", @" "}];
+      v20 = v37;
     }
 
     [v7 addObjectsFromArray:{objc_msgSend(*(v14 + 3784), "arrayWithObjects:count:", v20, 3)}];
@@ -240,8 +240,8 @@
     [v7 addObject:v23];
   }
 
-  v37[0] = v5;
-  v37[1] = @"linkedFunction =:";
+  v36[0] = v5;
+  v36[1] = @"linkedFunction =:";
   linkedFunctions = p_private->linkedFunctions;
   if (linkedFunctions)
   {
@@ -253,10 +253,10 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37[2] = null2;
-  [v7 addObjectsFromArray:{objc_msgSend(*(v14 + 3784), "arrayWithObjects:count:", v37, 3)}];
-  v36[0] = v5;
-  v36[1] = @"supportAddingBinaryFunctions =";
+  v36[2] = null2;
+  [v7 addObjectsFromArray:{objc_msgSend(*(v14 + 3784), "arrayWithObjects:count:", v36, 3)}];
+  v35[0] = v5;
+  v35[1] = @"supportAddingBinaryFunctions =";
   if (p_private->supportAddingBinaryFunctions)
   {
     v26 = @"YES";
@@ -267,29 +267,27 @@
     v26 = @"NO";
   }
 
-  v36[2] = v26;
-  [v7 addObjectsFromArray:{objc_msgSend(*(v14 + 3784), "arrayWithObjects:count:", v36, 3)}];
-  v35[0] = v5;
-  v35[1] = @"maxCallStackDepth =";
-  v35[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->maxStackCallDepth];
+  v35[2] = v26;
   [v7 addObjectsFromArray:{objc_msgSend(*(v14 + 3784), "arrayWithObjects:count:", v35, 3)}];
   v34[0] = v5;
-  v34[1] = @"maxAccelerationStructureTraversalDepth =";
-  v34[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->maxAccelerationStructureTraversalDepth];
+  v34[1] = @"maxCallStackDepth =";
+  v34[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->maxStackCallDepth];
   [v7 addObjectsFromArray:{objc_msgSend(*(v14 + 3784), "arrayWithObjects:count:", v34, 3)}];
   v33[0] = v5;
-  v33[1] = @"shaderValidation =";
-  v33[2] = [MEMORY[0x1E696AD98] numberWithInteger:p_private->shaderValidation];
+  v33[1] = @"maxAccelerationStructureTraversalDepth =";
+  v33[2] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:p_private->maxAccelerationStructureTraversalDepth];
   [v7 addObjectsFromArray:{objc_msgSend(*(v14 + 3784), "arrayWithObjects:count:", v33, 3)}];
   v32[0] = v5;
-  v32[1] = @"shaderValidationState =";
-  v32[2] = [MEMORY[0x1E696AD98] numberWithInteger:p_private->shaderValidationState];
+  v32[1] = @"shaderValidation =";
+  v32[2] = [MEMORY[0x1E696AD98] numberWithInteger:p_private->shaderValidation];
   [v7 addObjectsFromArray:{objc_msgSend(*(v14 + 3784), "arrayWithObjects:count:", v32, 3)}];
-  v30.receiver = selfCopy;
-  v30.super_class = MTLTileRenderPipelineDescriptorInternal;
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLTileRenderPipelineDescriptorInternal description](&v30, sel_description), objc_msgSend(v7, "componentsJoinedByString:", @" "];
-  v28 = *MEMORY[0x1E69E9840];
-  return result;
+  v31[0] = v5;
+  v31[1] = @"shaderValidationState =";
+  v31[2] = [MEMORY[0x1E696AD98] numberWithInteger:p_private->shaderValidationState];
+  [v7 addObjectsFromArray:{objc_msgSend(*(v14 + 3784), "arrayWithObjects:count:", v31, 3)}];
+  v29.receiver = selfCopy;
+  v29.super_class = MTLTileRenderPipelineDescriptorInternal;
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLTileRenderPipelineDescriptorInternal description](&v29, sel_description), objc_msgSend(v7, "componentsJoinedByString:", @" "];
 }
 
 - (void)setPluginData:(id)data
@@ -925,10 +923,10 @@ LABEL_3:
 
 - (void)setTileFunction:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF4F4B58] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF4F4B58, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[MTLTileRenderPipelineDescriptorInternal setTileFunction:]", 732, @"tileFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[MTLTileRenderPipelineDescriptorInternal setTileFunction:]", 732, @"tileFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
   }
 }
 

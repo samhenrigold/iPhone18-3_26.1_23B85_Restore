@@ -51,16 +51,16 @@
 
 - (id)hdhr_atrialFibrillationOnboardingCountryCodeWithError:()HKHeartRhythm
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if ([self category] != 105 || (objc_msgSend(self, "domainName"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isEqualToString:", *MEMORY[0x277CCE460]), v5, (v6 & 1) == 0))
   {
     [HDKeyValueDomain(HKHeartRhythm) hdhr_atrialFibrillationOnboardingCountryCodeWithError:];
   }
 
   v7 = *MEMORY[0x277CCB838];
-  v22 = 0;
-  v8 = [self stringForKey:v7 error:&v22];
-  v9 = v22;
+  v21 = 0;
+  v8 = [self stringForKey:v7 error:&v21];
+  v9 = v21;
   v10 = v9;
   if (v8)
   {
@@ -90,7 +90,7 @@
         v16 = v14;
         v17 = objc_opt_class();
         *buf = 138543362;
-        v24 = v17;
+        v23 = v17;
         v18 = v17;
         _os_log_impl(&dword_229486000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Database is inaccessible; can't determine onboarding country code", buf, 0xCu);
       }
@@ -98,7 +98,7 @@
 
     else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [HDKeyValueDomain(HKHeartRhythm) hdhr_atrialFibrillationOnboardingCountryCodeWithError:v14];
+      [(HDKeyValueDomain(HKHeartRhythm) *)v14 hdhr_atrialFibrillationOnboardingCountryCodeWithError:self];
     }
 
     if (a3)
@@ -114,8 +114,6 @@
       hk_copyNonEmptyString = 0;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return hk_copyNonEmptyString;
 }
@@ -216,18 +214,18 @@ LABEL_19:
 
 - (id)hdhr_atrialFibrillationOnboardingCompletedDateWithError:()HKHeartRhythm
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   if ([self category] != 105 || (objc_msgSend(self, "domainName"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isEqualToString:", *MEMORY[0x277CCE460]), v5, (v6 & 1) == 0))
   {
     [HDKeyValueDomain(HKHeartRhythm) hdhr_atrialFibrillationOnboardingCompletedDateWithError:];
   }
 
-  v30[0] = *MEMORY[0x277CCB840];
-  v7 = v30[0];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
-  v27 = 0;
-  v9 = [self modificationDatesForKeys:v8 error:&v27];
-  v10 = v27;
+  v29[0] = *MEMORY[0x277CCB840];
+  v7 = v29[0];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v26 = 0;
+  v9 = [self modificationDatesForKeys:v8 error:&v26];
+  v10 = v26;
   v11 = [v9 objectForKeyedSubscript:v7];
 
   if (v11)
@@ -244,9 +242,9 @@ LABEL_19:
   {
     if (v11)
     {
-      v26 = v10;
-      v13 = [self hdhr_atrialFibrillationOnboardingCompletionVersionWithError:&v26];
-      v14 = v26;
+      v25 = v10;
+      v13 = [self hdhr_atrialFibrillationOnboardingCompletionVersionWithError:&v25];
+      v14 = v25;
 
       integerValue = [v13 integerValue];
       if (!integerValue)
@@ -274,7 +272,7 @@ LABEL_19:
       v20 = v18;
       v21 = objc_opt_class();
       *buf = 138543362;
-      v29 = v21;
+      v28 = v21;
       v22 = v21;
       _os_log_impl(&dword_229486000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Database is inaccessible; can't determine onboarding completion date", buf, 0xCu);
     }
@@ -282,7 +280,7 @@ LABEL_19:
 
   else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    [HDKeyValueDomain(HKHeartRhythm) hdhr_atrialFibrillationOnboardingCompletedDateWithError:v18];
+    [(HDKeyValueDomain(HKHeartRhythm) *)v18 hdhr_atrialFibrillationOnboardingCompletedDateWithError:self];
   }
 
   if (a3)
@@ -300,14 +298,12 @@ LABEL_19:
 
 LABEL_21:
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (uint64_t)hdhr_setAtrialFibrillationDetectionCurrentOnboardingVersionCompletedInCountryCode:()HKHeartRhythm error:
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v6 = a3;
   if ([self category] != 105 || (objc_msgSend(self, "domainName"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqualToString:", *MEMORY[0x277CCE460]), v7, (v8 & 1) == 0))
   {
@@ -315,34 +311,32 @@ LABEL_21:
   }
 
   v9 = *MEMORY[0x277CCB840];
-  v14[0] = *MEMORY[0x277CCB838];
-  v14[1] = v9;
-  v15[0] = v6;
-  v15[1] = &unk_283CD2650;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v13[0] = *MEMORY[0x277CCB838];
+  v13[1] = v9;
+  v14[0] = v6;
+  v14[1] = &unk_283CD2650;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
   v11 = [self setValuesWithDictionary:v10 error:a4];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (uint64_t)hdhr_resetAtrialFibrillationDetectionOnboardingWithError:()HKHeartRhythm
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   if ([self category] != 105 || (objc_msgSend(self, "domainName"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isEqualToString:", *MEMORY[0x277CCE460]), v5, (v6 & 1) == 0))
   {
     [HDKeyValueDomain(HKHeartRhythm) hdhr_resetAtrialFibrillationDetectionOnboardingWithError:];
   }
 
   v7 = *MEMORY[0x277CCB840];
-  v12[0] = *MEMORY[0x277CCB838];
-  v12[1] = v7;
-  v13[0] = &stru_283CC4740;
-  v13[1] = &unk_283CD2668;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = *MEMORY[0x277CCB838];
+  v11[1] = v7;
+  v12[0] = &stru_283CC4740;
+  v12[1] = &unk_283CD2668;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v9 = [self setValuesWithDictionary:v8 error:a3];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -354,15 +348,12 @@ LABEL_21:
   [v0 handleFailureInMethod:@"self.category == HDKeyValueEntityCategoryProtectedNanoUserDefaults && [self.domainName isEqualToString:kHKHeartRhythmDefaultsDomain]" object:? file:? lineNumber:? description:?];
 }
 
-- (void)hdhr_atrialFibrillationOnboardingCountryCodeWithError:()HKHeartRhythm .cold.2(void *a1)
+- (void)hdhr_atrialFibrillationOnboardingCountryCodeWithError:()HKHeartRhythm .cold.2(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_2(v2);
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Error reading onboarding country code: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_2(v3);
+  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Error reading onboarding country code: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)hdhr_atrialFibrillationOnboardingCompletionVersionWithError:()HKHeartRhythm .cold.1()
@@ -381,15 +372,12 @@ LABEL_21:
   [v0 handleFailureInMethod:@"self.category == HDKeyValueEntityCategoryProtectedNanoUserDefaults && [self.domainName isEqualToString:kHKHeartRhythmDefaultsDomain]" object:? file:? lineNumber:? description:?];
 }
 
-- (void)hdhr_atrialFibrillationOnboardingCompletedDateWithError:()HKHeartRhythm .cold.2(void *a1)
+- (void)hdhr_atrialFibrillationOnboardingCompletedDateWithError:()HKHeartRhythm .cold.2(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_2(v2);
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Error reading onboarding completion date: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_2(v3);
+  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Error reading onboarding completion date: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)hdhr_setAtrialFibrillationDetectionCurrentOnboardingVersionCompletedInCountryCode:()HKHeartRhythm error:.cold.1()

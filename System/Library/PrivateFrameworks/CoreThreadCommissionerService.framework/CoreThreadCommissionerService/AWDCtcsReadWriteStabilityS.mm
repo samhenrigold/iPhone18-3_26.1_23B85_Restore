@@ -1,6 +1,7 @@
 @interface AWDCtcsReadWriteStabilityS
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)ctcsReadWriteFailTypeAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (int)StringAsCtcsReadWriteFailType:(id)type;
@@ -24,6 +25,21 @@
   {
     return 1;
   }
+}
+
+- (id)ctcsReadWriteFailTypeAsString:(int)string
+{
+  if ((string - 1) >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100078860 + (string - 1));
+  }
+
+  return v4;
 }
 
 - (int)StringAsCtcsReadWriteFailType:(id)type

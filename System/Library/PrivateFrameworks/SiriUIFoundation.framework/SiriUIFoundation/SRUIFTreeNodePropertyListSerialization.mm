@@ -9,7 +9,7 @@
 
 - (id)_propertyListWithTreeNode:(id)node itemPropertyListCreation:(id)creation
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   creationCopy = creation;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -29,28 +29,26 @@
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v22 = "[SRUIFTreeNodePropertyListSerialization _propertyListWithTreeNode:itemPropertyListCreation:]";
-        v23 = 2112;
-        v24 = v10;
+        v21 = "[SRUIFTreeNodePropertyListSerialization _propertyListWithTreeNode:itemPropertyListCreation:]";
+        v22 = 2112;
+        v23 = v10;
         _os_log_impl(&dword_26951F000, v12, OS_LOG_TYPE_DEFAULT, "%s item property list creation block returned nil for item %@", buf, 0x16u);
       }
     }
   }
 
   v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(nodeCopy, "numberOfChildNodes")}];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __93__SRUIFTreeNodePropertyListSerialization__propertyListWithTreeNode_itemPropertyListCreation___block_invoke;
-  v18[3] = &unk_279C626E0;
-  v19 = v13;
-  v20 = creationCopy;
-  v18[4] = self;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __93__SRUIFTreeNodePropertyListSerialization__propertyListWithTreeNode_itemPropertyListCreation___block_invoke;
+  v17[3] = &unk_279C626E0;
+  v18 = v13;
+  v19 = creationCopy;
+  v17[4] = self;
   v14 = v13;
   v15 = creationCopy;
-  [nodeCopy enumerateChildNodesUsingBlock:v18];
+  [nodeCopy enumerateChildNodesUsingBlock:v17];
   [dictionary setObject:v14 forKey:@"ChildNodes"];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -71,18 +69,18 @@ void __93__SRUIFTreeNodePropertyListSerialization__propertyListWithTreeNode_item
 
 - (id)_treeNodeWithPropertyList:(id)list error:(id *)error itemCreation:(id)creation
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   listCopy = list;
   creationCopy = creation;
   v10 = objc_alloc_init(SRUIFDictionarySchema);
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __87__SRUIFTreeNodePropertyListSerialization__treeNodeWithPropertyList_error_itemCreation___block_invoke;
-  v36[3] = &unk_279C62730;
-  v36[4] = self;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __87__SRUIFTreeNodePropertyListSerialization__treeNodeWithPropertyList_error_itemCreation___block_invoke;
+  v35[3] = &unk_279C62730;
+  v35[4] = self;
   v11 = creationCopy;
-  v37 = v11;
-  v12 = [SRUIFCoercion coercionWithBlock:v36];
+  v36 = v11;
+  v12 = [SRUIFCoercion coercionWithBlock:v35];
   [(SRUIFDictionarySchema *)v10 setObjectCoercion:v12 forKey:@"ChildNodes"];
 
   v13 = objc_alloc_init(SRUIFTreeNode);
@@ -92,8 +90,8 @@ void __93__SRUIFTreeNodePropertyListSerialization__propertyListWithTreeNode_item
   {
     v16 = [v14 objectForKey:@"Item"];
     v17 = 0;
-    v30 = v16;
-    v31 = listCopy;
+    v29 = v16;
+    v30 = listCopy;
     if (v11)
     {
       v18 = v16;
@@ -116,29 +114,29 @@ void __93__SRUIFTreeNodePropertyListSerialization__propertyListWithTreeNode_item
       }
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v22 = [v15 objectForKey:@"ChildNodes"];
-    v23 = [v22 countByEnumeratingWithState:&v32 objects:v38 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v31 objects:v37 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v33;
+      v25 = *v32;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v33 != v25)
+          if (*v32 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          [(SRUIFTreeNode *)v13 addChildNode:*(*(&v32 + 1) + 8 * i)];
+          [(SRUIFTreeNode *)v13 addChildNode:*(*(&v31 + 1) + 8 * i)];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v32 objects:v38 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v31 objects:v37 count:16];
       }
 
       while (v24);
@@ -153,15 +151,13 @@ void __93__SRUIFTreeNodePropertyListSerialization__propertyListWithTreeNode_item
     v13 = v13;
 
     v20 = v13;
-    listCopy = v31;
+    listCopy = v30;
   }
 
   else
   {
     v20 = 0;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

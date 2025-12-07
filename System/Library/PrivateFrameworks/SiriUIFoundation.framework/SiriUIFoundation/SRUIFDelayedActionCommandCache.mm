@@ -46,7 +46,7 @@
 
 - (void)enqueueDelayedActionCommand:(id)command completion:(id)completion
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   completionCopy = completion;
   v8 = MEMORY[0x277CEF098];
@@ -54,7 +54,7 @@
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v35 = "[SRUIFDelayedActionCommandCache enqueueDelayedActionCommand:completion:]";
+    v34 = "[SRUIFDelayedActionCommandCache enqueueDelayedActionCommand:completion:]";
     _os_log_impl(&dword_26951F000, v9, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -73,13 +73,13 @@
       v16 = v15;
       commands = [commandCopy commands];
       *buf = 136315906;
-      v35 = "[SRUIFDelayedActionCommandCache enqueueDelayedActionCommand:completion:]";
-      v36 = 2112;
-      v37 = commandCopy;
-      v38 = 2048;
-      v39 = v14;
-      v40 = 2112;
-      v41 = commands;
+      v34 = "[SRUIFDelayedActionCommandCache enqueueDelayedActionCommand:completion:]";
+      v35 = 2112;
+      v36 = commandCopy;
+      v37 = 2048;
+      v38 = v14;
+      v39 = 2112;
+      v40 = commands;
       _os_log_impl(&dword_26951F000, v16, OS_LOG_TYPE_DEFAULT, "%s Enqueue delayed action command: %@, delay: %f, commands: %@", buf, 0x2Au);
     }
 
@@ -106,11 +106,11 @@
       v29 = v28;
       commands2 = [commandCopy commands];
       *buf = 136315650;
-      v35 = "[SRUIFDelayedActionCommandCache enqueueDelayedActionCommand:completion:]";
-      v36 = 2112;
-      v37 = commandCopy;
-      v38 = 2112;
-      v39 = *&commands2;
+      v34 = "[SRUIFDelayedActionCommandCache enqueueDelayedActionCommand:completion:]";
+      v35 = 2112;
+      v36 = commandCopy;
+      v37 = 2112;
+      v38 = *&commands2;
       _os_log_impl(&dword_26951F000, v29, OS_LOG_TYPE_DEFAULT, "%s Enqueue dismissal action command: %@, commands: %@", buf, 0x20u);
     }
 
@@ -125,21 +125,19 @@
   {
     completionCopy[2](completionCopy, v31);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelDelayedActionWithDelayedActionCancelCommand:(id)command completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315138;
-    v17 = "[SRUIFDelayedActionCommandCache cancelDelayedActionWithDelayedActionCancelCommand:completion:]";
-    _os_log_impl(&dword_26951F000, v8, OS_LOG_TYPE_DEFAULT, "%s ", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[SRUIFDelayedActionCommandCache cancelDelayedActionWithDelayedActionCancelCommand:completion:]";
+    _os_log_impl(&dword_26951F000, v8, OS_LOG_TYPE_DEFAULT, "%s ", &v15, 0xCu);
   }
 
   delayedActionAceId = [commandCopy delayedActionAceId];
@@ -174,21 +172,19 @@
   {
     completionCopy[2](completionCopy, v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performDelayedActionCommandTimerAction:(id)action
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   v5 = MEMORY[0x277CEF098];
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315138;
-    v16 = "[SRUIFDelayedActionCommandCache _performDelayedActionCommandTimerAction:]";
-    _os_log_impl(&dword_26951F000, v6, OS_LOG_TYPE_DEFAULT, "%s ", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "[SRUIFDelayedActionCommandCache _performDelayedActionCommandTimerAction:]";
+    _os_log_impl(&dword_26951F000, v6, OS_LOG_TYPE_DEFAULT, "%s ", &v14, 0xCu);
   }
 
   userInfo = [actionCopy userInfo];
@@ -206,54 +202,52 @@
     v13 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315650;
-      v16 = "[SRUIFDelayedActionCommandCache _performDelayedActionCommandTimerAction:]";
-      v17 = 2112;
-      v18 = assertion;
-      v19 = 2112;
-      v20 = command;
-      _os_log_impl(&dword_26951F000, v13, OS_LOG_TYPE_DEFAULT, "%s Invalidating assertion: %@ for delayed action command: %@", &v15, 0x20u);
+      v14 = 136315650;
+      v15 = "[SRUIFDelayedActionCommandCache _performDelayedActionCommandTimerAction:]";
+      v16 = 2112;
+      v17 = assertion;
+      v18 = 2112;
+      v19 = command;
+      _os_log_impl(&dword_26951F000, v13, OS_LOG_TYPE_DEFAULT, "%s Invalidating assertion: %@ for delayed action command: %@", &v14, 0x20u);
     }
 
     [assertion invalidate];
   }
 
   [actionCopy invalidate];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidatePendingCommands
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SRUIFDelayedActionCommandCache invalidatePendingCommands]";
+    v17 = "[SRUIFDelayedActionCommandCache invalidatePendingCommands]";
     _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
   allKeys = [(NSMutableDictionary *)self->_delayedActionTimersByIdentifier allKeys];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         v10 = [(NSMutableDictionary *)self->_delayedActionTimersByIdentifier objectForKey:v9];
         if (v10)
         {
@@ -261,18 +255,16 @@
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateDelayedActionTimer:(id)timer withKey:(id)key
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   keyCopy = key;
   v8 = MEMORY[0x277CEF098];
@@ -281,11 +273,11 @@
   {
     v10 = v9;
     userInfo = [timerCopy userInfo];
-    v19 = 136315394;
-    v20 = "[SRUIFDelayedActionCommandCache _invalidateDelayedActionTimer:withKey:]";
-    v21 = 2112;
-    v22 = userInfo;
-    _os_log_impl(&dword_26951F000, v10, OS_LOG_TYPE_DEFAULT, "%s Invalidating delayed action timer with userInfo: %@", &v19, 0x16u);
+    v18 = 136315394;
+    v19 = "[SRUIFDelayedActionCommandCache _invalidateDelayedActionTimer:withKey:]";
+    v20 = 2112;
+    v21 = userInfo;
+    _os_log_impl(&dword_26951F000, v10, OS_LOG_TYPE_DEFAULT, "%s Invalidating delayed action timer with userInfo: %@", &v18, 0x16u);
   }
 
   userInfo2 = [timerCopy userInfo];
@@ -299,13 +291,13 @@
     {
       v16 = v15;
       command = [v13 command];
-      v19 = 136315650;
-      v20 = "[SRUIFDelayedActionCommandCache _invalidateDelayedActionTimer:withKey:]";
-      v21 = 2112;
-      v22 = assertion;
-      v23 = 2112;
-      v24 = command;
-      _os_log_impl(&dword_26951F000, v16, OS_LOG_TYPE_DEFAULT, "%s Invalidating assertion: %@ for delayed action command: %@", &v19, 0x20u);
+      v18 = 136315650;
+      v19 = "[SRUIFDelayedActionCommandCache _invalidateDelayedActionTimer:withKey:]";
+      v20 = 2112;
+      v21 = assertion;
+      v22 = 2112;
+      v23 = command;
+      _os_log_impl(&dword_26951F000, v16, OS_LOG_TYPE_DEFAULT, "%s Invalidating assertion: %@ for delayed action command: %@", &v18, 0x20u);
     }
 
     [assertion invalidate];
@@ -314,40 +306,39 @@
   [timerCopy invalidate];
 
   [(NSMutableDictionary *)self->_delayedActionTimersByIdentifier removeObjectForKey:keyCopy];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performDismissalCommands
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[SRUIFDelayedActionCommandCache performDismissalCommands]";
+    v17 = "[SRUIFDelayedActionCommandCache performDismissalCommands]";
     _os_log_impl(&dword_26951F000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
   allKeys = [(NSMutableDictionary *)self->_dismissalDelayedActionCommandsByIdentifier allKeys];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         v10 = [(NSMutableDictionary *)self->_dismissalDelayedActionCommandsByIdentifier objectForKey:v9];
         if (v10)
         {
@@ -356,13 +347,11 @@
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_commandHandler
@@ -374,7 +363,7 @@
 
 - (void)_performCommandsWithDelayedActionCommand:(id)command
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
@@ -382,11 +371,11 @@
     v6 = v5;
     commands = [commandCopy commands];
     *buf = 136315650;
-    v21 = "[SRUIFDelayedActionCommandCache _performCommandsWithDelayedActionCommand:]";
-    v22 = 2112;
-    v23 = commandCopy;
-    v24 = 2112;
-    v25 = commands;
+    v20 = "[SRUIFDelayedActionCommandCache _performCommandsWithDelayedActionCommand:]";
+    v21 = 2112;
+    v22 = commandCopy;
+    v23 = 2112;
+    v24 = commands;
     _os_log_impl(&dword_26951F000, v6, OS_LOG_TYPE_DEFAULT, "%s Performing delayed action command: %@ with commands: %@", buf, 0x20u);
   }
 
@@ -394,23 +383,21 @@
   v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
   objc_initWeak(buf, self);
   commands2 = [commandCopy commands];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionCommand___block_invoke;
-  v15[3] = &unk_279C61C48;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionCommand___block_invoke;
+  v14[3] = &unk_279C61C48;
   v11 = _commandHandler;
-  v16 = v11;
+  v15 = v11;
   v12 = v9;
-  v17 = v12;
+  v16 = v12;
   v13 = commandCopy;
-  v18 = v13;
-  objc_copyWeak(&v19, buf);
-  [commands2 enumerateObjectsUsingBlock:v15];
+  v17 = v13;
+  objc_copyWeak(&v18, buf);
+  [commands2 enumerateObjectsUsingBlock:v14];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionCommand___block_invoke(uint64_t a1, void *a2)
@@ -442,27 +429,25 @@ void __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionComma
 
 void __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionCommand___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[SRUIFDelayedActionCommandCache _performCommandsWithDelayedActionCommand:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_INFO, "%s Received response for delayed command: %@, response: %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[SRUIFDelayedActionCommandCache _performCommandsWithDelayedActionCommand:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_26951F000, v4, OS_LOG_TYPE_INFO, "%s Received response for delayed command: %@, response: %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionCommand___block_invoke_32(id *a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *MEMORY[0x277CEF098];
   v7 = *MEMORY[0x277CEF098];
@@ -472,35 +457,33 @@ void __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionComma
     {
       v8 = a1[4];
       *buf = 136315394;
-      v16 = "[SRUIFDelayedActionCommandCache _performCommandsWithDelayedActionCommand:]_block_invoke";
-      v17 = 2112;
-      v18 = v8;
+      v15 = "[SRUIFDelayedActionCommandCache _performCommandsWithDelayedActionCommand:]_block_invoke";
+      v16 = 2112;
+      v17 = v8;
       _os_log_impl(&dword_26951F000, v6, OS_LOG_TYPE_INFO, "%s Delayed command succeeded: %@", buf, 0x16u);
     }
 
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionCommand___block_invoke_33;
-    v10[3] = &unk_279C61BF8;
-    v11 = a1[5];
-    v12 = a1[4];
-    v13 = a1[6];
-    objc_copyWeak(&v14, a1 + 7);
-    dispatch_async(MEMORY[0x277D85CD0], v10);
-    objc_destroyWeak(&v14);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionCommand___block_invoke_33;
+    v9[3] = &unk_279C61BF8;
+    v10 = a1[5];
+    v11 = a1[4];
+    v12 = a1[6];
+    objc_copyWeak(&v13, a1 + 7);
+    dispatch_async(MEMORY[0x277D85CD0], v9);
+    objc_destroyWeak(&v13);
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionCommand___block_invoke_32_cold_1(a1, v5, v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionCommand___block_invoke_33(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) addObject:*(a1 + 40)];
   v2 = [*(a1 + 32) count];
   v3 = [*(a1 + 48) commands];
@@ -515,19 +498,17 @@ void __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionComma
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
       {
         v7 = *(a1 + 48);
-        v10 = 136315394;
-        v11 = "[SRUIFDelayedActionCommandCache _performCommandsWithDelayedActionCommand:]_block_invoke";
-        v12 = 2112;
-        v13 = v7;
-        _os_log_impl(&dword_26951F000, v6, OS_LOG_TYPE_INFO, "%s Successfully handled all commands for %@", &v10, 0x16u);
+        v9 = 136315394;
+        v10 = "[SRUIFDelayedActionCommandCache _performCommandsWithDelayedActionCommand:]_block_invoke";
+        v11 = 2112;
+        v12 = v7;
+        _os_log_impl(&dword_26951F000, v6, OS_LOG_TYPE_INFO, "%s Successfully handled all commands for %@", &v9, 0x16u);
       }
 
       v8 = [WeakRetained delegate];
       [v8 commandCache:WeakRetained didSuccessfullyHandleCommandsInDelayedActionCommand:*(a1 + 48)];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (SRUIFDelayedActionCommandCacheDelegate)delegate
@@ -539,16 +520,15 @@ void __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionComma
 
 void __75__SRUIFDelayedActionCommandCache__performCommandsWithDelayedActionCommand___block_invoke_32_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 136315650;
-  v6 = "[SRUIFDelayedActionCommandCache _performCommandsWithDelayedActionCommand:]_block_invoke";
-  v7 = 2112;
-  v8 = v3;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s Delayed command failed: %@ with error: %@", &v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315650;
+  v5 = "[SRUIFDelayedActionCommandCache _performCommandsWithDelayedActionCommand:]_block_invoke";
+  v6 = 2112;
+  v7 = v3;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s Delayed command failed: %@ with error: %@", &v4, 0x20u);
 }
 
 @end

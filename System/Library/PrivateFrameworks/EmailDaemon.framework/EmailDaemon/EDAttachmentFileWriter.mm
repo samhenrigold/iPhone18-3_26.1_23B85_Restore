@@ -54,7 +54,7 @@
   {
     if (CC_SHA256_Init(&v18->_digestContext) != 1 || (objc_storeStrong(&p_super[15].isa, l), objc_storeStrong(&p_super[16].isa, rL), objc_storeStrong(&p_super[19].isa, queue), objc_storeStrong(&p_super[20].isa, compressionQueue), [(EDAttachmentFileWriter *)p_super makeTemporaryFileIOForFile:lCopy protection:protection callbackQueue:queueCopy], (v20 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      v26 = 0;
+      v27 = 0;
       goto LABEL_9;
     }
 
@@ -63,29 +63,28 @@
     isa = p_super[21].isa;
     p_super[21].isa = v21;
 
-    v23 = EDAttachmentsLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = EDAttachmentsLog(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = p_super[15].isa;
-      path = [(objc_class *)v24 path];
+      v25 = p_super[15].isa;
+      path = [(objc_class *)v25 path];
       *buf = 134218242;
       v33 = p_super;
       v34 = 2114;
       v35 = path;
-      _os_log_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_DEFAULT, "Did create EDAttachmentFileWriter %p for MIME part file %{public}@.", buf, 0x16u);
+      _os_log_impl(&dword_1C61EF000, v24, OS_LOG_TYPE_DEFAULT, "Did create EDAttachmentFileWriter %p for MIME part file %{public}@.", buf, 0x16u);
     }
   }
 
-  v26 = p_super;
+  v27 = p_super;
 LABEL_9:
 
-  v27 = *MEMORY[0x1E69E9840];
-  return v26;
+  return v27;
 }
 
 - (dispatch_io_t)makeTemporaryFileIOForFile:(int)file protection:(void *)protection callbackQueue:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v7 = a2;
   protectionCopy = protection;
   if (self)
@@ -116,17 +115,17 @@ LABEL_9:
       v9 = 1;
     }
 
-    v11 = EDAttachmentsLog();
+    v11 = EDAttachmentsLog(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       path = [v7 path];
-      v15 = *__error();
+      v14 = *__error();
       *buf = 134218498;
       selfCopy = self;
-      v19 = 2114;
-      v20 = path;
-      v21 = 1024;
-      v22 = v15;
+      v18 = 2114;
+      v19 = path;
+      v20 = 1024;
+      v21 = v14;
       _os_log_error_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_ERROR, "<%p> Failed to create temporary MIME part file %{public}@: %{errno}d", buf, 0x1Cu);
     }
 
@@ -134,8 +133,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -156,8 +153,8 @@ LABEL_10:
 
         if ((v6 & 1) == 0)
         {
-          v7 = EDAttachmentsLog();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          v8 = EDAttachmentsLog(v7);
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             v9 = self->_tempURL;
             path = [(NSURL *)v9 path];
@@ -165,7 +162,7 @@ LABEL_10:
             selfCopy = self;
             v14 = 2114;
             v15 = path;
-            _os_log_error_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_ERROR, "Deallocating EDAttachmentFileWriter %p while temporary MIME part file %{public}@ is still open.", buf, 0x16u);
+            _os_log_error_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_ERROR, "Deallocating EDAttachmentFileWriter %p while temporary MIME part file %{public}@ is still open.", buf, 0x16u);
           }
 
           dispatch_io_close(self->_io, 1uLL);
@@ -181,14 +178,13 @@ LABEL_10:
   v11.receiver = self;
   v11.super_class = EDAttachmentFileWriter;
   [(EDAttachmentFileWriter *)&v11 dealloc];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void __36__EDAttachmentFileWriter_writeData___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void __36__EDAttachmentFileWriter_writeData___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    v5 = EDAttachmentsLog();
+    v5 = EDAttachmentsLog(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __36__EDAttachmentFileWriter_writeData___block_invoke_cold_1(a1);
@@ -198,21 +194,20 @@ void __36__EDAttachmentFileWriter_writeData___block_invoke(uint64_t a1, uint64_t
 
 - (void)close
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "<%p> Attempted to close temporary MIME part file multiple times.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "<%p> Attempted to close temporary MIME part file multiple times.", &v2, 0xCu);
 }
 
 - (void)failAndClose
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = EDAttachmentsLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = EDAttachmentsLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_2_1();
-    OUTLINED_FUNCTION_3(&dword_1C61EF000, v3, v4, "<%p> Fail and close temporary MIME part file.", v7);
+    OUTLINED_FUNCTION_3(&dword_1C61EF000, v3, v4, "<%p> Fail and close temporary MIME part file.", v6);
   }
 
   if (self)
@@ -226,7 +221,6 @@ void __36__EDAttachmentFileWriter_writeData___block_invoke(uint64_t a1, uint64_t
   }
 
   dispatch_io_close(v5, 1uLL);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)closeTemporaryFile
@@ -241,13 +235,12 @@ void __36__EDAttachmentFileWriter_writeData___block_invoke(uint64_t a1, uint64_t
 
 - (void)moveTemporaryFileIntoPlace
 {
-  v6 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 134218240;
-  *(&v4 + 4) = self;
+  v5 = *MEMORY[0x1E69E9840];
+  LODWORD(v3) = 134218240;
+  *(&v3 + 4) = self;
   OUTLINED_FUNCTION_4();
-  *v5 = v1;
-  OUTLINED_FUNCTION_1_0(&dword_1C61EF000, v1, v2, "<%p> Failed to move temporary MIME part file into place: %{errno}d", v4, DWORD2(v4), *&v5[2], v6);
-  v3 = *MEMORY[0x1E69E9840];
+  *v4 = v1;
+  OUTLINED_FUNCTION_1_0(&dword_1C61EF000, v1, v2, "<%p> Failed to move temporary MIME part file into place: %{errno}d", v3, DWORD2(v3), *&v4[2], v5);
 }
 
 - (char)finalizedDigest
@@ -320,92 +313,81 @@ void __36__EDAttachmentFileWriter_writeData___block_invoke(uint64_t a1, uint64_t
 
 - (void)ioDidRelinquishControlWithError:(uint64_t)error
 {
-  v9 = *MEMORY[0x1E69E9840];
-  if (!error)
+  v8 = *MEMORY[0x1E69E9840];
+  if (error)
   {
-    goto LABEL_12;
+    dispatch_assert_queue_V2(*(error + 152));
+    if (a2)
+    {
+      v5 = EDAttachmentsLog(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        OUTLINED_FUNCTION_2_1();
+        _os_log_error_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_ERROR, "<%p> Failed to create dispatch IO for temporary MIME part file.", v7, 0xCu);
+      }
+
+      [(EDAttachmentFileWriter *)error closeTemporaryFile];
+      if (*(error + 168))
+      {
+        (*(*(error + 168) + 16))();
+      }
+    }
+
+    else if (atomic_exchange((error + 9), 1u))
+    {
+      v6 = EDAttachmentsLog(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        OUTLINED_FUNCTION_2_1();
+        _os_log_error_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_ERROR, "<%p> Failing download because -failAndClose was previously called.", v7, 0xCu);
+      }
+
+      [(EDAttachmentFileWriter *)error closeTemporaryFile];
+      if (*(error + 168))
+      {
+        (*(*(error + 168) + 16))();
+      }
+    }
+
+    else
+    {
+
+      [(EDAttachmentFileWriter *)error makePurgeable];
+    }
   }
-
-  dispatch_assert_queue_V2(*(error + 152));
-  if (a2)
-  {
-    v4 = EDAttachmentsLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      OUTLINED_FUNCTION_2_1();
-      _os_log_error_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_ERROR, "<%p> Failed to create dispatch IO for temporary MIME part file.", v8, 0xCu);
-    }
-
-    [(EDAttachmentFileWriter *)error closeTemporaryFile];
-    if (!*(error + 168))
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_11;
-  }
-
-  if (atomic_exchange((error + 9), 1u))
-  {
-    v5 = EDAttachmentsLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      OUTLINED_FUNCTION_2_1();
-      _os_log_error_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_ERROR, "<%p> Failing download because -failAndClose was previously called.", v8, 0xCu);
-    }
-
-    [(EDAttachmentFileWriter *)error closeTemporaryFile];
-    if (!*(error + 168))
-    {
-      goto LABEL_12;
-    }
-
-LABEL_11:
-    (*(*(error + 168) + 16))();
-LABEL_12:
-    v6 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  [(EDAttachmentFileWriter *)error makePurgeable];
 }
 
 - (void)makePurgeable
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v2 = *(self + 116);
     if (EFMarkFileAsPurgeableFD())
     {
-      v3 = *__error();
-      v4 = EDAttachmentsLog();
+      v2 = __error();
+      v3 = *v2;
+      v4 = EDAttachmentsLog(v2);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_2_1();
         OUTLINED_FUNCTION_4();
-        v7 = v3;
-        _os_log_error_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_ERROR, "<%p> Failed to mark file as purgeable: %{errno}d.", v6, 0x12u);
+        v6 = v3;
+        _os_log_error_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_ERROR, "<%p> Failed to mark file as purgeable: %{errno}d.", v5, 0x12u);
       }
     }
 
     [(EDAttachmentFileWriter *)self moveTemporaryFileIntoPlace];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __36__EDAttachmentFileWriter_writeData___block_invoke_cold_1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 134218240;
-  *(&v4 + 4) = *(a1 + 32);
+  v5 = *MEMORY[0x1E69E9840];
+  LODWORD(v3) = 134218240;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_4();
-  *v5 = v1;
-  OUTLINED_FUNCTION_1_0(&dword_1C61EF000, v1, v2, "<%p> Failed to write data to temporary MIME part file.: %{errno}d", v4, DWORD2(v4), *&v5[2], v6);
-  v3 = *MEMORY[0x1E69E9840];
+  *v4 = v1;
+  OUTLINED_FUNCTION_1_0(&dword_1C61EF000, v1, v2, "<%p> Failed to write data to temporary MIME part file.: %{errno}d", v3, DWORD2(v3), *&v4[2], v5);
 }
 
 @end

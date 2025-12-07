@@ -26,31 +26,27 @@
 - (void)isDonationsEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   log_t = [(_CNDonationPreferencesLogger *)self log_t];
   if (os_log_type_enabled(log_t, OS_LOG_TYPE_INFO))
   {
-    v6[0] = 67109120;
-    v6[1] = enabledCopy;
-    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_INFO, "-isDonationsEnabled: %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = enabledCopy;
+    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_INFO, "-isDonationsEnabled: %d", v5, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDonationsEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   log_t = [(_CNDonationPreferencesLogger *)self log_t];
   if (os_log_type_enabled(log_t, OS_LOG_TYPE_INFO))
   {
-    v6[0] = 67109120;
-    v6[1] = enabledCopy;
-    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_INFO, "-setDonationsEnabled: %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = enabledCopy;
+    _os_log_impl(&dword_2258E5000, log_t, OS_LOG_TYPE_INFO, "-setDonationsEnabled: %d", v5, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

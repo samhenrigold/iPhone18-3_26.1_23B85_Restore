@@ -292,9 +292,9 @@
   dispatch_async(_metricsQueue, v10);
 }
 
-uint64_t __30__IMMetrics_recordEvent_with___block_invoke(id *a1)
+void *__30__IMMetrics_recordEvent_with___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (([a1[6] canRecordEvent] & 1) != 0 || (result = objc_msgSend(a1[4], "shouldIgnoreDNU"), result))
   {
     [a1[5] im_setToken:_token];
@@ -306,24 +306,23 @@ uint64_t __30__IMMetrics_recordEvent_with___block_invoke(id *a1)
       if (v5)
       {
         v6 = a1[5];
-        v9 = 138412290;
-        v10 = v6;
-        _os_log_impl(&dword_1D8CEC000, v4, OS_LOG_TYPE_DEFAULT, "Record event - %@", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = v6;
+        _os_log_impl(&dword_1D8CEC000, v4, OS_LOG_TYPE_DEFAULT, "Record event - %@", &v8, 0xCu);
       }
     }
 
     else if (v5)
     {
       v7 = [a1[5] shortDescription];
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_1D8CEC000, v4, OS_LOG_TYPE_DEFAULT, "Record event - %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_1D8CEC000, v4, OS_LOG_TYPE_DEFAULT, "Record event - %@", &v8, 0xCu);
     }
 
-    result = [a1[4] recordEvent:a1[5]];
+    return [a1[4] recordEvent:a1[5]];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 

@@ -76,7 +76,7 @@ void __102__CLKComplicationTemplateGraphicCornerMeteredGaugeText__enumerateFullC
   qword_27DE91A50 = v3;
   [v5 setNewestAllowedSizeClass:&unk_284A34128];
   [v5 scaledValue:20.0];
-  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1229 = v4;
+  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1229[0] = v4;
 }
 
 @end

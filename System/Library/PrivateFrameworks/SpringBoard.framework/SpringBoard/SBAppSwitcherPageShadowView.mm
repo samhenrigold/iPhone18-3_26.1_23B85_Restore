@@ -75,7 +75,7 @@
     medusaSettings = self->_medusaSettings;
     if (medusaSettings)
     {
-      [(SBMedusaSettings *)medusaSettings coronaVibrantColorMatrixInput];
+      objc_msgSend_coronaVibrantColorMatrixInput(medusaSettings);
     }
 
     else

@@ -1,4 +1,5 @@
 @interface FPMemoryRegion
++ (id)categoryNameForTag:(unsigned int)tag;
 + (id)vmLedgerNameForTag:(unint64_t)tag;
 - (BOOL)eligibleForSubrangesUsingPageSize:(unint64_t)size;
 - (BOOL)privateSharedCacheRegion;
@@ -131,6 +132,67 @@
   }
 
   sub_297E25A38(subrangeList, location, length, total);
+}
+
++ (id)categoryNameForTag:(unsigned int)tag
+{
+  v3 = *&tag;
+  if ((tag & 0xFFFFFFF0) == 0xF0)
+  {
+    if (qword_2A18A6038 != -1)
+    {
+      dispatch_once(&qword_2A18A6038, &unk_2A1E8FA30);
+    }
+
+    v4 = *(&unk_2A18A6030 + (v3 - 240) + 4);
+LABEL_5:
+    if (v4)
+    {
+      goto LABEL_17;
+    }
+
+    goto LABEL_14;
+  }
+
+  if (tag > 0xFF)
+  {
+    if (tag == -1)
+    {
+      v4 = @"Owned physical footprint (unmapped)";
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+    v5 = off_29EE84BC8[tag];
+    if (v5)
+    {
+      v4 = v5;
+      goto LABEL_17;
+    }
+
+    v4 = VMURegionTypeDescriptionForTagShareProtAndPager();
+    if (![(__CFString *)v4 hasPrefix:@"Memory Tag"])
+    {
+      goto LABEL_5;
+    }
+  }
+
+LABEL_14:
+  v6 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"tag %d", v3];
+  v7 = v6;
+  v8 = @"unknown";
+  if (v6)
+  {
+    v8 = v6;
+  }
+
+  v4 = v8;
+
+LABEL_17:
+
+  return v4;
 }
 
 + (id)vmLedgerNameForTag:(unint64_t)tag

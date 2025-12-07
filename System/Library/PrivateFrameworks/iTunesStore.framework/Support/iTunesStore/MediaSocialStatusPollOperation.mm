@@ -63,33 +63,33 @@
   selfCopy = self;
   _requestURL = [(MediaSocialStatusPollOperation *)self _requestURL];
   v3 = objc_opt_new();
+  v69 = 0u;
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v73 = 0u;
   v4 = selfCopy->_statusPollRequests;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v70 objects:v79 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v69 objects:v78 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v71;
+    v7 = *v70;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v71 != v7)
+        if (*v70 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        activityIdentifier = [*(*(&v70 + 1) + 8 * i) activityIdentifier];
+        activityIdentifier = [*(*(&v69 + 1) + 8 * i) activityIdentifier];
         if (activityIdentifier)
         {
           [v3 addObject:activityIdentifier];
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v70 objects:v79 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v69 objects:v78 count:16];
     }
 
     while (v6);
@@ -100,10 +100,10 @@
   {
     v30 = SSError();
     v31 = 0;
-    goto LABEL_41;
+    goto LABEL_42;
   }
 
-  v61 = selfCopy;
+  v60 = selfCopy;
   firstObject = [(NSArray *)selfCopy->_statusPollRequests firstObject];
   v12 = objc_alloc_init(ISStoreURLOperation);
   v13 = +[DaemonProtocolDataProvider provider];
@@ -135,62 +135,65 @@
     v21 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog = [v21 shouldLog];
+  LODWORD(v22) = [v21 shouldLog];
   if ([v21 shouldLogToDisk])
   {
-    shouldLog |= 2u;
+    LODWORD(v22) = v22 | 2;
   }
 
   oSLogObject = [v21 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
-    shouldLog &= 2u;
+    v22 = v22;
   }
 
-  if (!shouldLog)
+  else
+  {
+    v22 &= 2u;
+  }
+
+  if (!v22)
   {
     v29 = firstObject;
-    selfCopy = v61;
-    goto LABEL_24;
+    selfCopy = v60;
+    goto LABEL_25;
   }
 
-  v56 = v17;
+  v55 = v17;
   v24 = v16;
   v25 = v10;
   v26 = objc_opt_class();
-  v63 = v26;
+  v62 = v26;
   [firstObject activityIdentifier];
-  v27 = v59 = firstObject;
-  v75 = 138412546;
-  v76 = v26;
+  v27 = v58 = firstObject;
+  v74 = 138412546;
+  v75 = v26;
   v10 = v25;
   v16 = v24;
-  v17 = v56;
-  v77 = 2112;
-  v78 = v27;
-  LODWORD(v51) = 22;
-  v50 = &v75;
-  v28 = _os_log_send_and_compose_impl();
+  v17 = v55;
+  v76 = 2112;
+  v77 = v27;
+  v28 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Polling status for activity: %@", &v74, 22);
 
-  selfCopy = v61;
-  v29 = v59;
+  selfCopy = v60;
+  v29 = v58;
 
   if (v28)
   {
-    oSLogObject = [NSString stringWithCString:v28 encoding:4, &v75, v51];
+    oSLogObject = [NSString stringWithCString:v28 encoding:4];
     free(v28);
     v50 = oSLogObject;
     SSFileLog();
-LABEL_24:
+LABEL_25:
   }
 
-  v69 = 0;
-  v32 = [(MediaSocialStatusPollOperation *)selfCopy runSubOperation:v12 returningError:&v69];
-  v33 = v69;
+  v68 = 0;
+  v32 = [(MediaSocialStatusPollOperation *)selfCopy runSubOperation:v12 returningError:&v68];
+  v33 = v68;
   v31 = 0;
   if (v32)
   {
-    v55 = v10;
+    v54 = v10;
     v34 = v29;
     v31 = objc_alloc_init(NSMutableDictionary);
     dataProvider = [v12 dataProvider];
@@ -200,37 +203,37 @@ LABEL_24:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v54 = v33;
+      v53 = v33;
       v38 = [output objectForKey:@"activities"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v52 = output;
-        v53 = v16;
-        v64 = v31;
-        v57 = v17;
-        v58 = v12;
-        v60 = v34;
-        v67 = 0u;
-        v68 = 0u;
-        v65 = 0u;
+        v51 = output;
+        v52 = v16;
+        v63 = v31;
+        v56 = v17;
+        v57 = v12;
+        v59 = v34;
         v66 = 0u;
+        v67 = 0u;
+        v64 = 0u;
+        v65 = 0u;
         v39 = selfCopy->_statusPollRequests;
-        v40 = [(NSArray *)v39 countByEnumeratingWithState:&v65 objects:v74 count:16];
+        v40 = [(NSArray *)v39 countByEnumeratingWithState:&v64 objects:v73 count:16];
         if (v40)
         {
           v41 = v40;
-          v42 = *v66;
+          v42 = *v65;
           do
           {
             for (j = 0; j != v41; j = j + 1)
             {
-              if (*v66 != v42)
+              if (*v65 != v42)
               {
                 objc_enumerationMutation(v39);
               }
 
-              v44 = *(*(&v65 + 1) + 8 * j);
+              v44 = *(*(&v64 + 1) + 8 * j);
               activityIdentifier2 = [v44 activityIdentifier];
               v46 = [v38 objectForKey:activityIdentifier2];
               objc_opt_class();
@@ -244,34 +247,34 @@ LABEL_24:
                 [(MediaSocialPostResponse *)v47 setPollDuration:?];
                 -[MediaSocialPostResponse setPostIdentifier:](v47, "setPostIdentifier:", [v44 postIdentifier]);
                 [(MediaSocialPostResponse *)v47 setValuesWithResponseDictionary:v46];
-                [v64 setObject:v47 forKey:activityIdentifier2];
+                [v63 setObject:v47 forKey:activityIdentifier2];
               }
             }
 
-            v41 = [(NSArray *)v39 countByEnumeratingWithState:&v65 objects:v74 count:16];
+            v41 = [(NSArray *)v39 countByEnumeratingWithState:&v64 objects:v73 count:16];
           }
 
           while (v41);
         }
 
-        v34 = v60;
-        selfCopy = v61;
-        v17 = v57;
-        v12 = v58;
-        v37 = v52;
-        v16 = v53;
-        v31 = v64;
+        v34 = v59;
+        selfCopy = v60;
+        v17 = v56;
+        v12 = v57;
+        v37 = v51;
+        v16 = v52;
+        v31 = v63;
       }
 
-      v33 = v54;
+      v33 = v53;
     }
 
     v29 = v34;
-    v10 = v55;
+    v10 = v54;
   }
 
   v30 = 0;
-LABEL_41:
+LABEL_42:
   responseBlock = [(MediaSocialStatusPollOperation *)selfCopy responseBlock];
   v49 = responseBlock;
   if (responseBlock)

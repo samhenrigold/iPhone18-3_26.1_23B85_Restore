@@ -52,27 +52,27 @@
 
 - (void)_populateFakeUnitTestLookupInfos:(id)infos
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   objc_msgSend_lookupInfosWithEmails_(MEMORY[0x277CBC7C8], a2, infos);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  obj = v32 = 0u;
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v29, v33, 16);
+  obj = v31 = 0u;
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v28, v32, 16);
   if (v5)
   {
     v8 = v5;
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         v12 = MEMORY[0x277CBEB58];
         v13 = MEMORY[0x277CCACA8];
         v14 = objc_msgSend_emailAddress(v11, v6, v7);
@@ -82,7 +82,7 @@
         objc_msgSend_setObject_forKeyedSubscript_(v21, v22, v18, v11);
       }
 
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v29, v33, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v28, v32, 16);
     }
 
     while (v8);
@@ -91,33 +91,31 @@
   objc_msgSend_setUserIdentityLookupInfos_(self, v6, obj);
   v25 = objc_msgSend_userIdentityLookupInfos(self, v23, v24);
   objc_msgSend__discoverIdentitiesBatched_(self, v26, v25);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_populateRealUserIdentityLookupInfos
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = objc_opt_new();
   v5 = objc_alloc(MEMORY[0x277CBDA70]);
   v6 = *MEMORY[0x277CBD098];
-  v32[0] = *MEMORY[0x277CBCFC0];
-  v32[1] = v6;
-  v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v32, 2);
+  v31[0] = *MEMORY[0x277CBCFC0];
+  v31[1] = v6;
+  v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v31, 2);
   v10 = objc_msgSend_initWithKeysToFetch_(v5, v9, v8);
 
   objc_msgSend_setUnifyResults_(v10, v11, 0);
-  v29 = 0;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = sub_225261B44;
-  v26[3] = &unk_27854B440;
+  v28 = 0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = sub_225261B44;
+  v25[3] = &unk_27854B440;
   v12 = v3;
-  v27 = v12;
+  v26 = v12;
   selfCopy = self;
-  Request_error_usingBlock = objc_msgSend_enumerateContactsWithFetchRequest_error_usingBlock_(v4, v13, v10, &v29, v26);
-  v15 = v29;
+  Request_error_usingBlock = objc_msgSend_enumerateContactsWithFetchRequest_error_usingBlock_(v4, v13, v10, &v28, v25);
+  v15 = v28;
   if ((Request_error_usingBlock & 1) == 0)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -129,7 +127,7 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v31 = v15;
+      v30 = v15;
       _os_log_error_impl(&dword_22506F000, v16, OS_LOG_TYPE_ERROR, "Error fetching contacts: %@", buf, 0xCu);
     }
   }
@@ -139,8 +137,6 @@
 
   v23 = objc_msgSend_userIdentityLookupInfos(self, v21, v22);
   objc_msgSend__discoverIdentitiesBatched_(self, v24, v23);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_populateUserIdentityLookupInfos
@@ -184,7 +180,7 @@
 
 - (void)_handleDiscoveredIdentity:(id)identity lookupInfo:(id)info responseCode:(id)code
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   infoCopy = info;
   codeCopy = code;
@@ -197,7 +193,7 @@
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v46 = identityCopy;
+    v45 = identityCopy;
     _os_log_impl(&dword_22506F000, v11, OS_LOG_TYPE_INFO, "Found user identity %@", buf, 0xCu);
   }
 
@@ -212,13 +208,13 @@
       objc_msgSend_setContactIdentifiers_(identityCopy, v23, v22);
 
       v26 = objc_msgSend_callbackQueue(self, v24, v25);
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = sub_2252621D8;
-      v43[3] = &unk_278545898;
-      v43[4] = self;
-      v44 = identityCopy;
-      dispatch_async(v26, v43);
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = sub_2252621D8;
+      v42[3] = &unk_278545898;
+      v42[4] = self;
+      v43 = identityCopy;
+      dispatch_async(v26, v42);
     }
   }
 
@@ -235,8 +231,6 @@
     v39 = objc_msgSend_request(self, v37, v38);
     objc_msgSend_cancel(v39, v40, v41);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -13,7 +13,7 @@
 
 - (double)bestAvailableProbability
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   calibratedProbability = [(UPResultCandidate *)self calibratedProbability];
 
   v4 = SNLPOSLoggerForCategory(3);
@@ -25,11 +25,11 @@
       [(UPResultCandidate *)self uncalibratedProbability];
       v7 = v6;
       calibratedProbability2 = [(UPResultCandidate *)self calibratedProbability];
-      v16 = 134218242;
-      v17 = v7;
-      v18 = 2112;
-      v19 = calibratedProbability2;
-      _os_log_impl(&dword_22284A000, v4, OS_LOG_TYPE_DEBUG, "Result candidate has uncalibrated probability %f and calibrated probability %@. Using calibrated value.", &v16, 0x16u);
+      v15 = 134218242;
+      v16 = v7;
+      v17 = 2112;
+      v18 = calibratedProbability2;
+      _os_log_impl(&dword_22284A000, v4, OS_LOG_TYPE_DEBUG, "Result candidate has uncalibrated probability %f and calibrated probability %@. Using calibrated value.", &v15, 0x16u);
     }
 
     calibratedProbability3 = [(UPResultCandidate *)self calibratedProbability];
@@ -42,16 +42,15 @@
     if (v5)
     {
       [(UPResultCandidate *)self uncalibratedProbability];
-      v16 = 134217984;
-      v17 = v12;
-      _os_log_impl(&dword_22284A000, v4, OS_LOG_TYPE_DEBUG, "Result candidate has uncalibrated probability %f and no calibrated probability. Using uncalibrated value.", &v16, 0xCu);
+      v15 = 134217984;
+      v16 = v12;
+      _os_log_impl(&dword_22284A000, v4, OS_LOG_TYPE_DEBUG, "Result candidate has uncalibrated probability %f and no calibrated probability. Using uncalibrated value.", &v15, 0xCu);
     }
 
     [(UPResultCandidate *)self uncalibratedProbability];
-    v11 = v13;
+    return v13;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -93,29 +92,29 @@
 
 - (id)_intermediateNodeRepresentations:(id)representations
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   representationsCopy = representations;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   obj = representationsCopy;
-  v5 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+  v5 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v49;
+    v7 = *v48;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v49 != v7)
+        if (*v48 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v48 + 1) + 8 * i);
+        v9 = *(*(&v47 + 1) + 8 * i);
         higherLevelParentLabel = [v9 higherLevelParentLabel];
         higherLevelChildLabel = [v9 higherLevelChildLabel];
         v12 = [UPResultLeafNode alloc];
@@ -156,70 +155,68 @@
         [v23 addObject:v15];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+      v6 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
     }
 
     while (v6);
   }
 
   v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v39 = dictionary;
-  v38 = [v39 countByEnumeratingWithState:&v44 objects:v53 count:16];
-  if (v38)
+  v38 = dictionary;
+  v37 = [v38 countByEnumeratingWithState:&v43 objects:v52 count:16];
+  if (v37)
   {
-    v37 = *v45;
+    v36 = *v44;
     do
     {
-      for (j = 0; j != v38; ++j)
+      for (j = 0; j != v37; ++j)
       {
-        if (*v45 != v37)
+        if (*v44 != v36)
         {
-          objc_enumerationMutation(v39);
+          objc_enumerationMutation(v38);
         }
 
-        v26 = *(*(&v44 + 1) + 8 * j);
-        v27 = [v39 objectForKey:v26];
+        v26 = *(*(&v43 + 1) + 8 * j);
+        v27 = [v38 objectForKey:v26];
+        v39 = 0u;
         v40 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v43 = 0u;
-        v28 = [v27 countByEnumeratingWithState:&v40 objects:v52 count:16];
+        v28 = [v27 countByEnumeratingWithState:&v39 objects:v51 count:16];
         if (v28)
         {
           v29 = v28;
-          v30 = *v41;
+          v30 = *v40;
           do
           {
             for (k = 0; k != v29; ++k)
             {
-              if (*v41 != v30)
+              if (*v40 != v30)
               {
                 objc_enumerationMutation(v27);
               }
 
-              v32 = [v27 objectForKey:*(*(&v40 + 1) + 8 * k)];
+              v32 = [v27 objectForKey:*(*(&v39 + 1) + 8 * k)];
               v33 = [[UPResultIntermediateNode alloc] initWithLabel:v26 andLeafNodes:v32];
               [v24 addObject:v33];
             }
 
-            v29 = [v27 countByEnumeratingWithState:&v40 objects:v52 count:16];
+            v29 = [v27 countByEnumeratingWithState:&v39 objects:v51 count:16];
           }
 
           while (v29);
         }
       }
 
-      v38 = [v39 countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v37 = [v38 countByEnumeratingWithState:&v43 objects:v52 count:16];
     }
 
-    while (v38);
+    while (v37);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -314,40 +311,38 @@
 
 + (id)_buildCandidateEntitiesByStartIndex:(id)index
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   indexCopy = index;
   v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(indexCopy, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = indexCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "range", v14)}];
+        v10 = *(*(&v13 + 1) + 8 * i);
+        v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "range", v13)}];
         [v4 setObject:v10 forKey:v11];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

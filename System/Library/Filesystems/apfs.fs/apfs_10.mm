@@ -1,4 +1,1104 @@
-unint64_t parse_size(const char *a1)
+uint64_t omap_create(pthread_mutex_t **a1, unsigned int a2, int a3, int a4, uint64_t a5, void *a6)
+{
+  if (sub_100038178(a1) == 13)
+  {
+    v12 = a1;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v13 = a1;
+  if (v12)
+  {
+    v13 = v12[49];
+  }
+
+  v21 = 0xAAAAAAAAAAAAAAAALL;
+  v22 = 0xAAAAAAAAAAAAAAAALL;
+  *a6 = 0;
+  extended = 22;
+  if (a2 >> 30 && (a2 & 0x8000000) == 0 && (a4 == 1073741826 || a4 == -2147483646))
+  {
+    v20[0] = a3;
+    v20[1] = a4;
+    v20[2] = 1073741826;
+    extended = sub_10003A7B8(v13[49], a2 & 0xFFFF0000, 0, &om_desc, v20, v12, a5, &v22);
+    if (!extended)
+    {
+      v23[1] = 0;
+      v24 = 0u;
+      v28 = 0;
+      v26 = 0u;
+      v27 = 0u;
+      v25 = 0u;
+      v23[0] = omap_key_cmp;
+      v23[2] = 0x20000000BLL;
+      v15 = 0x80000000;
+      if (a4 >= 0)
+      {
+        v15 = 0x40000000;
+      }
+
+      extended = btree_create_extended(a1, v15 | a4 & 0xFFFF0000, 0, 0x10u, 16, v23, a5, &v21);
+      if (extended)
+      {
+        sub_10003BB58(v22, a5);
+        sub_100038BA0(v22);
+      }
+
+      else
+      {
+        v16 = v21;
+        *(v22[47] + 40) = a4;
+        v17 = sub_100039CE0(v16);
+        v18 = v22;
+        *(v22[47] + 48) = v17;
+        sub_10003EE48(v18, a5, 0);
+        sub_100038BA0(v21);
+        extended = 0;
+        if (v22)
+        {
+          *a6 = v22;
+        }
+      }
+    }
+  }
+
+  return extended;
+}
+
+uint64_t omap_destroy(uint64_t a1, unint64_t a2, unint64_t a3, void *a4)
+{
+  if (sub_100038178(a1) == 13)
+  {
+    v8 = a1;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = a1;
+  if (v8)
+  {
+    v9 = v8[49];
+  }
+
+  v20 = 0xAAAAAAAAAAAAAAAALL;
+  if (!xid_is_current_tx(v9, a3))
+  {
+    return 22;
+  }
+
+  v10 = sub_10003BEB0(*(v9 + 392), 0x40000000uLL, a2, &om_desc, 0, v8, 0, a3, &v20);
+  if (!v10)
+  {
+    if (v8)
+    {
+      v11 = sub_100039CE0(v8);
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    v12 = sub_100038170(v20);
+    v13 = sub_10003A024(v20);
+    v14 = sub_100039CE0(v20);
+    if (a4)
+    {
+      v15 = nx_reaper_add(v9, v12, v13, v11, v14, a3, 0, a4);
+    }
+
+    else
+    {
+      v15 = nx_reaper_add_sub_object(v9, v12, v13, v11, v14, a3, 0);
+    }
+
+    v10 = v15;
+    if (v15)
+    {
+      if (sub_100038178(a1) == 13)
+      {
+        v16 = (a1 + 4040);
+      }
+
+      else
+      {
+        v16 = (*(a1 + 384) + 212);
+      }
+
+      v17 = sub_100039CE0(v20);
+      v18 = sub_100038170(v20);
+      log_err("%s:%d: %s error adding omap 0x%llx type 0x%x to reap list: %d\n", "omap_destroy", 522, v16, v17, v18, v10);
+    }
+
+    sub_100038BA0(v20);
+  }
+
+  return v10;
+}
+
+uint64_t omap_obj_get(uint64_t a1, int a2, unint64_t a3, uint64_t *a4)
+{
+  v8 = sub_100038178(a1);
+  v9 = 0;
+  v10 = a1;
+  if (a1 && v8 == 13)
+  {
+    v10 = *(a1 + 392);
+    if (*(a1 + 504))
+    {
+      v9 = *(a1 + 504);
+    }
+
+    else
+    {
+      v9 = a1;
+    }
+  }
+
+  if ((a2 & 1) == 0)
+  {
+LABEL_9:
+    if (v9)
+    {
+      pthread_mutex_lock((v9 + 1152));
+      v12 = (v9 + 3632);
+      v13 = 128;
+      v14 = v9;
+    }
+
+    else
+    {
+      pthread_mutex_lock((v10 + 672));
+      v12 = (v10 + 736);
+      v13 = 160;
+      v14 = v10;
+    }
+
+    v15 = *v12;
+    *a4 = *v12;
+    v16 = *(*(v14 + 376) + v13);
+    if (v15)
+    {
+      sub_10003E55C(v15);
+      if ((a2 & 1) == 0)
+      {
+        goto LABEL_25;
+      }
+
+      v17 = sub_10003D934(*a4, a2, a3);
+      if (v17)
+      {
+        v11 = v17;
+        sub_100038BA0(*a4);
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      v18 = sub_10003BEB0(*(v10 + 392), a2 | 0x40000000u, v16, &om_desc, 0, v9, 0, a3, a4);
+      if (v18)
+      {
+        v11 = v18;
+LABEL_18:
+        if (v9)
+        {
+          v19 = (v9 + 1152);
+        }
+
+        else
+        {
+          v19 = (v10 + 672);
+        }
+
+        goto LABEL_31;
+      }
+
+      v20 = *a4;
+      v21 = (v9 + 3632);
+      if (!v9)
+      {
+        v21 = (v10 + 736);
+      }
+
+      *v21 = v20;
+      sub_10003E55C(v20);
+      if ((a2 & 1) == 0)
+      {
+        goto LABEL_25;
+      }
+    }
+
+    if (sub_100039CE0(*a4) != v16)
+    {
+      v22 = sub_100039CE0(*a4);
+      if (v9)
+      {
+        *(*(v9 + 376) + 128) = v22;
+        sub_100026584(v9, a3);
+        goto LABEL_26;
+      }
+
+      *(*(v10 + 376) + 160) = v22;
+      sub_10003EE48(a1, a3, 0);
+LABEL_30:
+      v11 = 0;
+      v19 = (v10 + 672);
+      goto LABEL_31;
+    }
+
+LABEL_25:
+    if (v9)
+    {
+LABEL_26:
+      v11 = 0;
+      v19 = (v9 + 1152);
+LABEL_31:
+      pthread_mutex_unlock(v19);
+      return v11;
+    }
+
+    goto LABEL_30;
+  }
+
+  v11 = sub_10003D934(a1, 0, a3);
+  if (!v11)
+  {
+    a2 |= 2u;
+    goto LABEL_9;
+  }
+
+  return v11;
+}
+
+uint64_t omap_checkpoint_traverse(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v8 = sub_100038178(a1);
+  v21 = 0uLL;
+  if (a4 == 2)
+  {
+    if (v8 == 13)
+    {
+      v9 = a1;
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    *(a3 + 8) = v9;
+  }
+
+  if ((*(a3 + 20) & 0x40) != 0)
+  {
+    return 0;
+  }
+
+  sub_10003D8A4(a3, 1);
+  v10 = sub_10003A02C(*(*(a3 + 376) + 40));
+  v11 = *(a3 + 376);
+  if (!v10 || !*(v11 + 48))
+  {
+LABEL_12:
+    if (sub_10003A02C(*(v11 + 44)) && (v14 = *(a3 + 376), (v15 = *(v14 + 56)) != 0))
+    {
+      v16 = *(v14 + 44);
+      v23 = 0u;
+      v24 = 0u;
+      v28 = 0;
+      v26 = 0u;
+      v27 = 0u;
+      v25 = 0u;
+      v22 = omap_snapshot_key_cmp;
+      DWORD2(v23) = 19;
+      if (v16 != 2)
+      {
+        sub_10003DE58(a3, 1);
+        v18 = *(&v21 + 1);
+        if (!*(&v21 + 1))
+        {
+          v17 = v21;
+          extended = 22;
+          if (!v21)
+          {
+            return extended;
+          }
+
+          goto LABEL_39;
+        }
+
+        extended = 22;
+        goto LABEL_35;
+      }
+
+      extended = btree_get_extended(a1, v16 & 0xFFFF0000, v15, 0, 0, &v22, 0, &v21);
+      sub_10003DE58(a3, 1);
+      if (extended)
+      {
+        goto LABEL_32;
+      }
+    }
+
+    else
+    {
+      sub_10003DE58(a3, 1);
+    }
+
+    if ((sub_100038170(a3) & 0x80000000) == 0)
+    {
+      v18 = *(&v21 + 1);
+      v17 = v21;
+      if (v21 != 0)
+      {
+        if (!*(&v21 + 1))
+        {
+          if (!v21)
+          {
+            return 0;
+          }
+
+          goto LABEL_38;
+        }
+
+        goto LABEL_34;
+      }
+
+      sub_10003EA2C(a3, 1);
+      goto LABEL_27;
+    }
+
+    if (a4 == 2)
+    {
+      v19 = sub_10003EFD0(a3);
+    }
+
+    else
+    {
+      if (a4 != 1)
+      {
+LABEL_27:
+        extended = 0;
+        goto LABEL_32;
+      }
+
+      v19 = sub_10003EF5C(a3);
+    }
+
+    extended = v19;
+LABEL_32:
+    v18 = *(&v21 + 1);
+    if (!*(&v21 + 1))
+    {
+      goto LABEL_36;
+    }
+
+    if (extended)
+    {
+LABEL_35:
+      sub_100038BA0(v18);
+LABEL_36:
+      v17 = v21;
+      if (!v21)
+      {
+        return extended;
+      }
+
+      if (extended)
+      {
+LABEL_39:
+        sub_100038BA0(v17);
+        return extended;
+      }
+
+LABEL_38:
+      extended = btree_checkpoint_traverse(a1, a2, v17, a4);
+      v17 = v21;
+      goto LABEL_39;
+    }
+
+LABEL_34:
+    extended = btree_checkpoint_traverse(a1, a2, v18, a4);
+    v18 = *(&v21 + 1);
+    goto LABEL_35;
+  }
+
+  v12 = omap_map_tree_get(a1, a3, 0, 0, &v21 + 1);
+  if (!v12)
+  {
+    v11 = *(a3 + 376);
+    goto LABEL_12;
+  }
+
+  extended = v12;
+  sub_10003DE58(a3, 1);
+  return extended;
+}
+
+uint64_t omap_set(uint64_t *a1, unint64_t a2, unint64_t a3, uint64_t a4, int a5, int a6, unint64_t a7)
+{
+  v14 = sub_100038178(a1);
+  v15 = a1;
+  if (a1)
+  {
+    v15 = a1;
+    if (v14 == 13)
+    {
+      v15 = a1[49];
+    }
+  }
+
+  v23[0] = a2;
+  v23[1] = a3;
+  v21[0] = a6;
+  v21[1] = a5;
+  v22 = a4;
+  v19 = 0xAAAAAAAAAAAAAAAALL;
+  v20 = 0xAAAAAAAAAAAAAAAALL;
+  v16 = 22;
+  if (xid_is_current_tx(v15, a7) && a2 && a3 && a5)
+  {
+    v17 = nx_superblock_sanity_check_extent(v15[47], 0, a4, (a5 + *(v15[47] + 36) - 1) / *(v15[47] + 36), 0);
+    if (v17)
+    {
+      return v17;
+    }
+
+    v17 = omap_obj_get(a1, 1, a7, &v20);
+    if (v17)
+    {
+      return v17;
+    }
+
+    else
+    {
+      sub_10003D8A4(v20, 2);
+      v16 = omap_map_tree_get(a1, v20, 1, a7, &v19);
+      if (!v16)
+      {
+        if ((a6 & 4) != 0)
+        {
+          v21[0] = *(*(v20 + 376) + 32) & 0x10 | a6;
+        }
+
+        v16 = bt_insert(v19, 0, v23, 16, v21, 0x10u, a7);
+        sub_100038BA0(v19);
+      }
+
+      sub_10003DE58(v20, 2);
+      sub_100038BA0(v20);
+    }
+  }
+
+  return v16;
+}
+
+uint64_t omap_delete(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, int a5, int a6, unint64_t a7)
+{
+  v14 = sub_100038178(a1);
+  v15 = a1;
+  if (a1)
+  {
+    v15 = a1;
+    if (v14 == 13)
+    {
+      v15 = a1[49];
+    }
+  }
+
+  *&v33 = a2;
+  *(&v33 + 1) = a3;
+  v31[0] = a6;
+  v31[1] = a5;
+  v32 = a4;
+  memset(v30, 170, sizeof(v30));
+  v16 = 22;
+  if (xid_is_current_tx(v15, a7))
+  {
+    if (a2)
+    {
+      if (a3)
+      {
+        v16 = omap_obj_get(a1, 1, a7, &v30[2]);
+        if (!v16)
+        {
+          sub_10003D8A4(v30[2], 2);
+          v16 = omap_map_tree_get(a1, v30[2], 1, a7, &v30[1]);
+          v17 = v30[2];
+          if (v16)
+          {
+LABEL_42:
+            sub_10003DE58(v17, 2);
+            sub_100038BA0(v30[2]);
+            return v16;
+          }
+
+          v18 = *(v30[2] + 376);
+          v19 = *(v18 + 64);
+          if ((*(v30[2] + 384) & 2) != 0 && *(v30[2] + 488) == v19)
+          {
+            v19 = *(v30[2] + 480);
+          }
+
+          if (*(v18 + 32))
+          {
+            if (a6)
+            {
+              goto LABEL_21;
+            }
+
+            v29 = v33;
+            v27 = 0xAAAAAAAAAAAAAAAALL;
+            v28 = 0xAAAAAAAAAAAAAAAALL;
+            v30[0] = 0x1000000010;
+            v21 = bt_lookup_variant(v30[1], 0, &v29, v30 + 1, 16, &v27, v30, 0, 0, 0);
+            if (v21)
+            {
+              goto LABEL_40;
+            }
+
+            if ((v27 & 2) == 0)
+            {
+              goto LABEL_21;
+            }
+          }
+
+          else
+          {
+            v20 = v19 < a3;
+            if (v19 < a3)
+            {
+              if (a6)
+              {
+                v29 = v33;
+                v27 = 0xAAAAAAAAAAAAAAAALL;
+                v28 = 0xAAAAAAAAAAAAAAAALL;
+                v30[0] = 0x1000000010;
+                if (!bt_lookup_variant(v30[1], 0, &v29, v30 + 1, 16, &v27, v30, 2, 0, 0) && v29 == v33)
+                {
+                  goto LABEL_24;
+                }
+              }
+
+LABEL_21:
+              v22 = 0;
+              v16 = 0;
+              v20 = 1;
+              goto LABEL_25;
+            }
+
+            if (a6)
+            {
+LABEL_24:
+              *(&v33 + 1) = a7;
+              v16 = bt_insert(v30[1], 0, &v33, 16, v31, 0x10u, a7);
+              v22 = 1;
+LABEL_25:
+              if (v20 && !v16)
+              {
+                if (a3 == a7)
+                {
+                  v23 = v22;
+                }
+
+                else
+                {
+                  v23 = 0;
+                }
+
+                if (v23)
+                {
+                  v16 = 0;
+                }
+
+                else
+                {
+                  *(&v33 + 1) = a3;
+                  v16 = bt_remove(v30[1], 0, &v33, 0x10u, a7);
+                  v24 = v22 ^ 1;
+                  if (!v16)
+                  {
+                    v24 = 1;
+                  }
+
+                  if ((v24 & 1) == 0)
+                  {
+                    *(&v33 + 1) = a7;
+                    bt_remove(v30[1], 0, &v33, 0x10u, a7);
+LABEL_41:
+                    sub_100038BA0(v30[1]);
+                    v17 = v30[2];
+                    goto LABEL_42;
+                  }
+                }
+              }
+
+              v25 = !v20;
+              if (v16)
+              {
+                v25 = 1;
+              }
+
+              if (v25)
+              {
+                goto LABEL_41;
+              }
+
+              v21 = sub_100018614(a1, 64, a4, (a5 + *(v15[47] + 36) - 1) / *(v15[47] + 36), a7);
+LABEL_40:
+              v16 = v21;
+              goto LABEL_41;
+            }
+          }
+
+          sub_100038BA0(v30[1]);
+          sub_10003DE58(v30[2], 2);
+          sub_100038BA0(v30[2]);
+          return 0;
+        }
+      }
+    }
+  }
+
+  return v16;
+}
+
+uint64_t omap_get(uint64_t *a1, unint64_t a2, unint64_t a3, unint64_t *a4, _DWORD *a5, _DWORD *a6, unint64_t *a7)
+{
+  v11 = a3;
+  v31 = 0xAAAAAAAAAAAAAAAALL;
+  v32 = 0xAAAAAAAAAAAAAAAALL;
+  v29 = a2;
+  v30 = a3;
+  v27 = 0xAAAAAAAAAAAAAAAALL;
+  v28 = 0xAAAAAAAAAAAAAAAALL;
+  v25 = 16;
+  v26 = 16;
+  v24 = 0;
+  v14 = omap_obj_get(a1, 0, 0, &v32);
+  if (!v14)
+  {
+    sub_10003D8A4(v32, 1);
+    if (*(*(v32 + 376) + 88) > a2)
+    {
+      sub_10003DE58(v32, 1);
+      v14 = 2;
+LABEL_33:
+      sub_100038BA0(v32);
+      return v14;
+    }
+
+    v15 = omap_map_tree_get(a1, v32, 0, 0, &v31);
+    if (v15)
+    {
+      v14 = v15;
+      sub_10003DE58(v32, 1);
+      goto LABEL_33;
+    }
+
+    if (!v11)
+    {
+      v11 = -1;
+      v30 = -1;
+    }
+
+    v16 = bt_lookup_variant(v31, 0, &v29, &v26, 16, &v27, &v25, 1, 0, 0);
+    if (v16)
+    {
+      goto LABEL_9;
+    }
+
+    v18 = *(v32 + 376);
+    v19 = *(v18 + 72);
+    v20 = v29;
+    if (v19)
+    {
+      v21 = v29 == a2;
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+
+    if (v21)
+    {
+      if (v30 < v19 || v30 > *(v18 + 80))
+      {
+        goto LABEL_18;
+      }
+
+      v29 = a2;
+      v30 = v19 - 1;
+      v16 = bt_lookup_variant(v31, 0, &v29, &v26, 16, &v27, &v25, 1, 0, 0);
+      if (v16)
+      {
+LABEL_9:
+        v14 = v16;
+        v17 = 0;
+        goto LABEL_31;
+      }
+
+      v20 = v29;
+    }
+
+    if (v20 != a2)
+    {
+LABEL_30:
+      v17 = 0;
+      v14 = 2;
+LABEL_31:
+      sub_100038BA0(v31);
+      sub_10003DE58(v32, 1);
+      if (v17)
+      {
+        sub_10008BD44(a1, v32);
+      }
+
+      goto LABEL_33;
+    }
+
+LABEL_18:
+    v22 = v27;
+    if ((v27 & 1) == 0)
+    {
+      if (a4)
+      {
+        *a4 = v28;
+      }
+
+      if (a5)
+      {
+        *a5 = HIDWORD(v27);
+      }
+
+      if (a6)
+      {
+        *a6 = v22 & 0xFFFFFFEE;
+        if (((*(*(v32 + 376) + 32) ^ v22) & 0x10) != 0)
+        {
+          *a6 = v22 | 0x10;
+        }
+      }
+
+      if (a7)
+      {
+        *a7 = v30;
+      }
+
+      if (*(v32 + 424))
+      {
+        sub_10008BBF8(v32, a2, v11, &v24);
+        v14 = 0;
+        v17 = v24;
+      }
+
+      else
+      {
+        v17 = 0;
+        v14 = 0;
+      }
+
+      goto LABEL_31;
+    }
+
+    goto LABEL_30;
+  }
+
+  return v14;
+}
+
+uint64_t sub_10008BBF8(uint64_t result, unint64_t a2, unint64_t a3, _BYTE *a4)
+{
+  v13 = 1;
+  v14 = a2;
+  if (*(result + 424))
+  {
+    v4 = result;
+    if (!*(result + 440))
+    {
+      v11 = 0xAAAAAAAAAAAAAAAALL;
+      v12 = -86;
+      __tp.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+      __tp.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+      clock_gettime(_CLOCK_UPTIME_RAW_APPROX, &__tp);
+      if (__tp.tv_sec - *(v4 + 432) >= 601)
+      {
+        *a4 = 1;
+      }
+
+      btree_node_count(*(v4 + 424), &v13);
+      v7 = v13;
+      result = sub_10003A024(*(v4 + 424));
+      if (v7 <= 0x200000 / result)
+      {
+        LODWORD(__tp.tv_sec) = 8;
+        v10 = 9;
+        result = bt_lookup_variant(*(v4 + 424), 0, &v14, &__tp, 8, &v11, &v10, 0, 0, 0);
+        if (result == 2)
+        {
+          LOBYTE(v8) = *(v4 + 464);
+        }
+
+        else
+        {
+          if (result)
+          {
+            return result;
+          }
+
+          if (!v11)
+          {
+            return result;
+          }
+
+          v8 = *(v4 + 464);
+          if (v12 == v8)
+          {
+            return result;
+          }
+        }
+
+        if (a3 == -1)
+        {
+          v9 = 0;
+        }
+
+        else
+        {
+          v9 = a3;
+        }
+
+        v11 = v9;
+        v12 = v8;
+        return bt_insert(*(v4 + 424), 0, &v14, 8, &v11, 9u, 0);
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_10008BD44(uint64_t a1, uint64_t a2)
+{
+  v3 = a1;
+  if (sub_100038178(a1) != 13)
+  {
+    v3 = 0;
+  }
+
+  sub_10003D8A4(a2, 2);
+  if (*(a2 + 424))
+  {
+    v6.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+    v6.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+    clock_gettime(_CLOCK_UPTIME_RAW_APPROX, &v6);
+    if (v6.tv_sec - *(a2 + 432) >= 601)
+    {
+      btree_delete(*(a2 + 424), 0, 0);
+      sub_100038BA0(*(a2 + 424));
+      *(a2 + 424) = 0;
+    }
+  }
+
+  if (v3)
+  {
+    if (*(v3 + 504))
+    {
+      v3 = *(v3 + 504);
+    }
+
+    v4 = *(v3 + 3640);
+    if (v4)
+    {
+      sub_100038BA0(v4);
+      *(v3 + 3640) = 0;
+    }
+  }
+
+  return sub_10003DE58(a2, 2);
+}
+
+uint64_t omap_find_next_snapshot_xid(uint64_t a1, unint64_t a2, unint64_t *a3)
+{
+  v16 = 0;
+  v17 = 0;
+  memset(v15, 170, sizeof(v15));
+  v14 = 0xAAAAAAAAAAAAAAAALL;
+  v6 = omap_obj_get(a1, 0, 0, &v17);
+  if (v6)
+  {
+    extended = v6;
+    if (sub_100038178(a1) == 13)
+    {
+      log_err("%s:%d: %s unable to get omap: %d\n", "omap_find_next_snapshot_xid", 1138, (a1 + 4040), extended);
+    }
+
+    else
+    {
+      log_err("%s:%d: %s unable to get omap: %d\n", "omap_find_next_snapshot_xid", 1138, (*(a1 + 384) + 212), extended);
+    }
+
+    return extended;
+  }
+
+  v8 = v17[47];
+  sub_10003D8A4(v17, 1);
+  if ((*(v8 + 32) & 1) == 0)
+  {
+    v9 = *(v8 + 56);
+    if (v9)
+    {
+      v10 = *(v8 + 44);
+      v19 = 0u;
+      v20 = 0u;
+      v24 = 0;
+      v22 = 0u;
+      v23 = 0u;
+      v21 = 0u;
+      v18 = omap_snapshot_key_cmp;
+      DWORD2(v19) = 19;
+      if (v10 == 2)
+      {
+        extended = btree_get_extended(a1, v10 & 0xFFFF0000, v9, 0, 0, &v18, 0, &v16);
+        if (!extended)
+        {
+          v14 = a2;
+          do
+          {
+            v15[0] = 0x800000010;
+            v11 = bt_lookup_variant(v16, 0, &v14, v15 + 1, 8, &v15[1], v15, 4, 0, 0);
+            if (v11)
+            {
+              v12 = 1;
+            }
+
+            else
+            {
+              v12 = (v15[1] & 1) == 0;
+            }
+          }
+
+          while (!v12);
+          extended = v11;
+          if (!v11)
+          {
+            *a3 = v14;
+            goto LABEL_20;
+          }
+
+          if (v11 != 2)
+          {
+            sub_100038178(a1);
+            log_err("%s:%d: %s error searching snapshot tree: %d\n");
+            goto LABEL_20;
+          }
+
+          goto LABEL_16;
+        }
+      }
+
+      else
+      {
+        extended = 22;
+      }
+
+      sub_100038178(a1);
+      log_err("%s:%d: %s unable to get snapshot tree: %d\n");
+      goto LABEL_20;
+    }
+  }
+
+LABEL_16:
+  extended = 2;
+LABEL_20:
+  if (v16)
+  {
+    sub_100038BA0(v16);
+  }
+
+  sub_10003DE58(v17, 1);
+  sub_100038BA0(v17);
+  return extended;
+}
+
+uint64_t sub_10008C094(void *a1, void *a2, unint64_t a3)
+{
+  if (sub_100038178(a1) == 13)
+  {
+    v6 = a1;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v6)
+  {
+    v7 = *v6[6].__opaque;
+    result = sub_10003D934(a1, 0, a3);
+    if (result)
+    {
+      return result;
+    }
+
+    v9 = v6 + 18;
+  }
+
+  else
+  {
+    result = sub_10003D934(a1, 0, a3);
+    if (result)
+    {
+      return result;
+    }
+
+    v9 = (a1 + 84);
+    v7 = a1;
+  }
+
+  pthread_mutex_lock(v9);
+  v10 = sub_100039CE0(a2);
+  v11 = sub_100038170(a2);
+  if (!sub_10003D934(a2, (v11 >> 29) & 2, a3) && sub_100039CE0(a2) != v10)
+  {
+    v13 = sub_100039CE0(a2);
+    if (v6)
+    {
+      *(*&v6[5].__opaque[48] + 128) = v13;
+      sub_100026584(v6, a3);
+      goto LABEL_12;
+    }
+
+    *(v7[47] + 160) = v13;
+    sub_10003EE48(a1, a3, 0);
+LABEL_16:
+    v12 = (v7 + 84);
+    goto LABEL_17;
+  }
+
+  if (!v6)
+  {
+    goto LABEL_16;
+  }
+
+LABEL_12:
+  v12 = v6 + 18;
+LABEL_17:
+  pthread_mutex_unlock(v12);
+  return 0;
+}
+
+unint64_t parse_size(char *a1)
 {
   __endptr = 0xAAAAAAAAAAAAAAAALL;
   result = strtoull(a1, &__endptr, 10);
@@ -1294,7 +2394,7 @@ LABEL_17:
   if (v18)
   {
     pthread_mutex_unlock(v18 + 6);
-    sub_100038BA0(&v18->__sig);
+    sub_100038BA0(v18);
   }
 
   return v16;
@@ -1549,7 +2649,7 @@ uint64_t spaceman_initialize_allocation_zone_from_disk(void *a1, unsigned int a2
         if (v16 == v10)
         {
           v19 = (v9 + 1088 * a2 + 136 * v15);
-          *(v7 + 16) = v19;
+          v7[2] = v19;
           v20 = sub_10008DF10(a1, a2, v6, *v19 / *(v8 + 36));
           v3 = v20;
           if (v20)
@@ -1589,7 +2689,7 @@ uint64_t spaceman_initialize_allocation_zone_from_disk(void *a1, unsigned int a2
       }
 
       v3 = 0;
-      *(v7 + 16) = v9 + 1088 * a2 + 136 * v11;
+      v7[2] = v9 + 1088 * a2 + 136 * v11;
       *(v7 + 25) = 1;
     }
 
@@ -1877,9 +2977,9 @@ uint64_t spaceman_get_new_chunk_for_allocation_zone(uint64_t a1, uint64_t a2, un
       if (a3 <= 1 && a4 <= 3)
       {
         v8 = *(a2 + 376);
-        memset(v76, 170, 32);
-        v74 = 0;
-        v75 = 0;
+        memset(v74, 170, 32);
+        v72 = 0;
+        v73 = 0;
         v9 = a3;
         v10 = a2 + 136 * a3 + 32 * a4;
         v11 = *(v10 + 1224);
@@ -1929,7 +3029,6 @@ LABEL_55:
           if (v57)
           {
             v4 = v57;
-            v63 = *(a1 + 384) + 212;
             log_err("%s:%d: %s failed to update allocate zone %llu: error %d\n");
           }
 
@@ -1979,37 +3078,37 @@ LABEL_14:
           LODWORD(v14) = v31[4];
           if (v14 > v30)
           {
-            v72 = 0;
+            v70 = 0;
             v32 = 0;
-            v69 = v31;
-            v70 = (v26 / v27);
-            v66 = v26;
-            v67 = v5 + 896;
-            v65 = v5;
+            v67 = v31;
+            v68 = (v26 / v27);
+            v64 = v26;
+            v65 = v5 + 896;
+            v63 = v5;
             v33 = v5 + 1496;
-            v71 = -1;
+            v69 = -1;
             v21 = -1;
             do
             {
-              v34 = (v70 + v30) % v14;
+              v34 = (v68 + v30) % v14;
               if (v31[5])
               {
                 v35 = v8[11];
                 v36 = v34 / v35;
-                v37 = v71;
-                v38 = v72;
-                if (v34 / v35 != v71 || v72 == 0)
+                v37 = v69;
+                v38 = v70;
+                if (v34 / v35 != v69 || v70 == 0)
                 {
-                  v40 = *(*(v67 + 8 * v9) + 8 * v36);
-                  if (v75)
+                  v40 = *(*(v65 + 8 * v9) + 8 * v36);
+                  if (v73)
                   {
-                    sub_100038BA0(v75);
-                    v75 = 0;
+                    sub_100038BA0(v73);
+                    v73 = 0;
                   }
 
-                  v76[2] = v8;
-                  v76[3] = __PAIR64__(v36, a3);
-                  v41 = sub_10003BEB0(*(a1 + 392), 0x40000000, v40, &xmmword_100096000, &v76[2], 0, 0, 0, &v75);
+                  v74[2] = v8;
+                  v74[3] = __PAIR64__(v36, a3);
+                  v41 = sub_10003BEB0(*(a1 + 392), 0x40000000, v40, &xmmword_100096000, &v74[2], 0, 0, 0, &v73);
                   if (v41)
                   {
                     v4 = v41;
@@ -2017,30 +3116,29 @@ LABEL_14:
                     goto LABEL_58;
                   }
 
-                  v38 = *(v75 + 56);
+                  v38 = *(v73 + 56);
                   v35 = v8[11];
                   v37 = v36;
                 }
 
-                v71 = v37;
-                v72 = v38;
+                v69 = v37;
+                v70 = v38;
                 v42 = (v38 + 8 * (v34 - v35 * v37) + 40);
                 v6 = a3;
               }
 
               else
               {
-                v42 = (*(v67 + 8 * v9) + 8 * v34);
+                v42 = (*(v65 + 8 * v9) + 8 * v34);
               }
 
               v43 = *v42;
-              v76[0] = v8;
-              v76[1] = __PAIR64__(v34, v6);
-              v44 = sub_10003BEB0(*(a1 + 392), 0x40000000, v43, &xmmword_100096010, v76, 0, 0, 0, &v74);
+              v74[0] = v8;
+              v74[1] = __PAIR64__(v34, v6);
+              v44 = sub_10003BEB0(*(a1 + 392), 0x40000000, v43, &xmmword_100096010, v74, 0, 0, 0, &v72);
               if (v44)
               {
                 v4 = v44;
-                v64 = *(a1 + 384) + 212;
                 log_err("%s:%d: %s error getting cib %d: %d\n");
                 goto LABEL_58;
               }
@@ -2052,11 +3150,11 @@ LABEL_14:
 
               else
               {
-                LODWORD(v45) = v66 % v8[10] + 1;
+                LODWORD(v45) = v64 % v8[10] + 1;
               }
 
-              v31 = v69;
-              v46 = *(v74 + 56);
+              v31 = v67;
+              v46 = *(v72 + 56);
               v47 = *(v46 + 36);
               v48 = v47 >= v45;
               v49 = v47 - v45;
@@ -2099,14 +3197,14 @@ LABEL_14:
                 break;
               }
 
-              sub_100038BA0(v74);
-              v74 = 0;
+              sub_100038BA0(v72);
+              v72 = 0;
               ++v30;
-              v14 = v69[4];
+              v14 = v67[4];
             }
 
             while (v30 < v14);
-            v5 = v65;
+            v5 = v63;
             if (v21 != -1)
             {
               goto LABEL_55;
@@ -2117,14 +3215,14 @@ LABEL_14:
         }
 
 LABEL_58:
-        if (v75)
+        if (v73)
         {
-          sub_100038BA0(v75);
+          sub_100038BA0(v73);
         }
 
-        if (v74)
+        if (v72)
         {
-          sub_100038BA0(v74);
+          sub_100038BA0(v72);
         }
       }
     }
@@ -2467,7 +3565,7 @@ uint64_t (*tree_key_compare_function_for_type(unsigned __int16 a1))()
   }
 }
 
-uint64_t tx_mgr_init(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t tx_mgr_init(uint64_t a1, uint64_t a2, pthread_mutex_t **a3)
 {
   v6 = *(*(a1 + 376) + 36);
   v7 = _apfs_calloc_typed(1uLL, 0x130uLL, 0x10A0040BC325467uLL);
@@ -2863,72 +3961,67 @@ uint64_t tx_checkpoint_write_prepare(uint64_t a1, uint64_t a2, uint64_t a3)
   return v7;
 }
 
-uint64_t tx_checkpoint_write(void *a1, uint64_t a2, uint64_t a3, int8x16_t a4, int8x16_t a5)
+uint64_t tx_checkpoint_write(uint64_t *a1, uint64_t a2, uint64_t a3, int8x16_t a4, int8x16_t a5)
 {
   v8 = a1[50];
-  v46 = 0xAAAAAAAAAAAAAAAALL;
-  v44 = 0xAAAAAAAAAAAAAAAALL;
+  v40 = 0xAAAAAAAAAAAAAAAALL;
+  v38 = 0xAAAAAAAAAAAAAAAALL;
   v9 = *(a1[47] + 36);
   v10 = *(a3 + 48);
   v11 = *(a2 + 64);
   if (*(v11 + 36) == v8[21])
   {
     sub_10003F19C(a1, v11, *(a1[47] + 36), a4, a5);
-    v12 = *(*(a2 + 64) + 8);
-    v13 = sub_1000069D8(a1[48]);
-    if (v13)
+    v12 = sub_1000069D8(a1[48]);
+    if (v12)
     {
-      v14 = v13;
+      v13 = v12;
       if (!v8[19])
       {
-        v41 = *(*(a2 + 64) + 8);
-        v37 = a1[48] + 212;
         log_err("%s:%d: %s failed to write checkpoint map block %lld: %d\n");
       }
 
-      return v14;
+      return v13;
     }
 
-    v15 = (*(a2 + 40) + v8[24]) % v8[22];
-    v46 = -1;
-    v16 = nx_checkpoint_desc_block_address(a1, v15, &v46);
-    if (v16)
+    v14 = (*(a2 + 40) + v8[24]) % v8[22];
+    v40 = -1;
+    v15 = nx_checkpoint_desc_block_address(a1, v14, &v40);
+    if (v15)
     {
-      v14 = v16;
+      v13 = v15;
       if (!v8[19])
       {
-        v38 = a1[48] + 212;
         log_err("%s:%d: %s error getting next checkpoint map block address %d: %d\n");
       }
 
-      return v14;
+      return v13;
     }
 
     bzero(*(a2 + 64), v9);
-    v17 = *(a2 + 64);
-    *(v17 + 24) = 1073741836;
-    v18 = *(a2 + 16);
-    *(v17 + 8) = v46;
-    *(v17 + 16) = v18;
+    v16 = *(a2 + 64);
+    *(v16 + 24) = 1073741836;
+    v17 = *(a2 + 16);
+    *(v16 + 8) = v40;
+    *(v16 + 16) = v17;
     ++*(a2 + 40);
   }
 
-  v19 = (*(a2 + 48) + v8[25]) % v8[23];
-  v45 = -1;
-  v20 = nx_checkpoint_data_block_address(a1, v19, &v45, &v44);
-  if (v20)
+  v18 = (*(a2 + 48) + v8[25]) % v8[23];
+  v39 = -1;
+  v19 = nx_checkpoint_data_block_address(a1, v18, &v39, &v38);
+  if (v19)
   {
-    v14 = v20;
+    v13 = v19;
     if (!v8[19])
     {
-      v39 = a1[48] + 212;
       log_err("%s:%d: %s error getting next checkpoint data block address %d: %d\n");
     }
   }
 
   else
   {
-    v21 = (v9 + v10 - 1) / v9;
+    v20 = (v9 + v10 - 1) / v9;
     pthread_mutex_lock((a1[49] + 328));
     for (i = (a3 + 32); (atomic_fetch_or_explicit(i, 8u, memory_order_relaxed) & 8) != 0; i = (a3 + 32))
     {
@@ -2936,57 +4029,57 @@ uint64_t tx_checkpoint_write(void *a1, uint64_t a2, uint64_t a3, int8x16_t a4, i
       pthread_mutex_lock((a1[49] + 328));
     }
 
-    v42 = *(a3 + 64);
-    *(a3 + 128) = v45;
-    v43 = v21;
-    if (v21 < 1)
+    v36 = *(a3 + 64);
+    *(a3 + 128) = v39;
+    v37 = v20;
+    if (v20 < 1)
     {
 LABEL_27:
-      if (v42 == *(a3 + 56))
+      if (v36 == *(a3 + 56))
       {
-        v27 = 0;
+        v26 = 0;
       }
 
       else
       {
-        v27 = v42;
+        v26 = v36;
       }
 
       *(a3 + 64) = 0;
-      v28 = a1[49];
-      v29 = *(*(v28 + 872) + 104);
-      *(v28 + 872) = v29;
-      if (!v29)
+      v27 = a1[49];
+      v28 = *(*(v27 + 872) + 104);
+      *(v27 + 872) = v28;
+      if (!v28)
       {
-        *(v28 + 880) = v28 + 872;
+        *(v27 + 880) = v27 + 872;
       }
 
       *(a3 + 104) = 3735928559;
       atomic_fetch_and_explicit((a3 + 32), 0xFFFFFFF7, memory_order_relaxed);
       pthread_mutex_unlock((a1[49] + 328));
-      v30 = *(a2 + 64);
-      v31 = *(v30 + 36);
-      v32 = v30 + 40 * v31;
-      *(v32 + 40) = *(a3 + 36);
-      *(v32 + 48) = *(a3 + 48);
-      v33 = *(a3 + 8);
-      if (v33)
+      v29 = *(a2 + 64);
+      v30 = *(v29 + 36);
+      v31 = v29 + 40 * v30;
+      *(v31 + 40) = *(a3 + 36);
+      *(v31 + 48) = *(a3 + 48);
+      v32 = *(a3 + 8);
+      if (v32)
       {
-        v33 = sub_100039CE0(v33);
-        v30 = *(a2 + 64);
-        v31 = *(v30 + 36);
+        v32 = sub_100039CE0(v32);
+        v29 = *(a2 + 64);
+        v30 = *(v29 + 36);
       }
 
-      v34 = (v30 + 40 * v31);
-      v35 = *(a3 + 112);
-      v34[7] = v33;
-      v34[8] = v35;
-      v34[9] = *(a3 + 128);
-      *(v30 + 36) = v31 + 1;
-      *(a2 + 48) += v43;
-      if (v27)
+      v33 = (v29 + 40 * v30);
+      v34 = *(a3 + 112);
+      v33[7] = v32;
+      v33[8] = v34;
+      v33[9] = *(a3 + 128);
+      *(v29 + 36) = v30 + 1;
+      *(a2 + 48) += v37;
+      if (v26)
       {
-        sub_100036CD4(v27, *(a3 + 48), *(a3 + 16), a1[49]);
+        sub_100036CD4(v26, *(a3 + 48), *(a3 + 16), a1[49]);
       }
 
       return 0;
@@ -2994,49 +4087,48 @@ LABEL_27:
 
     else
     {
-      v23 = v42;
-      v24 = v43;
+      v22 = v36;
+      v23 = v37;
       while (1)
       {
-        v25 = v44 >= v24 ? v24 : v44;
-        v26 = sub_1000069D8(a1[48]);
-        if (v26)
+        v24 = v38 >= v23 ? v23 : v38;
+        v25 = sub_1000069D8(a1[48]);
+        if (v25)
         {
           break;
         }
 
-        v24 -= v25;
-        if (!v24)
+        v23 -= v24;
+        if (!v23)
         {
           goto LABEL_27;
         }
 
-        v19 = v19 + v25 >= (*(a1[47] + 108) & 0x7FFFFFFFu) ? 0 : (v19 + v25);
-        v26 = nx_checkpoint_data_block_address(a1, v19, &v45, &v44);
-        if (v26)
+        v18 = v18 + v24 >= (*(a1[47] + 108) & 0x7FFFFFFFu) ? 0 : (v18 + v24);
+        v25 = nx_checkpoint_data_block_address(a1, v18, &v39, &v38);
+        if (v25)
         {
           break;
         }
 
-        v23 += v25 * v9;
-        if (v24 <= 0)
+        v22 += v24 * v9;
+        if (v23 <= 0)
         {
           goto LABEL_27;
         }
       }
 
-      v14 = v26;
+      v13 = v25;
       atomic_fetch_and_explicit((a3 + 32), 0xFFFFFFF7, memory_order_relaxed);
       pthread_mutex_unlock((a1[49] + 328));
       if (!v8[19])
       {
-        v40 = a1[48] + 212;
         log_err("%s:%d: %s failed to write checkpoint data block %lld: %d\n");
       }
     }
   }
 
-  return v14;
+  return v13;
 }
 
 uint64_t tx_barrier(uint64_t a1, char a2)
@@ -3082,7 +4174,7 @@ LABEL_11:
   return v8;
 }
 
-uint64_t tx_unmount(uint64_t a1)
+const char *tx_unmount(uint64_t a1)
 {
   v2 = *(a1 + 400);
   pthread_mutex_lock(v2);
@@ -3140,17 +4232,16 @@ uint64_t tx_unmount(uint64_t a1)
       }
 
       sub_10003F168(a1, v5, v6);
-      v8 = *(a1 + 376);
-      v9 = sub_1000069D8(*(a1 + 384));
-      if (v9)
+      v8 = sub_1000069D8(*(a1 + 384));
+      if (v8)
       {
-        log_err("%s:%d: %s failed to write superblock to block 0: %d\n", "tx_unmount", 1903, (*(a1 + 384) + 212), v9);
+        log_err("%s:%d: %s failed to write superblock to block 0: %d\n", "tx_unmount", 1903, (*(a1 + 384) + 212), v8);
       }
 
-      v10 = sub_10008F330(a1, 16, 0);
-      if (v10)
+      v9 = sub_10008F330(a1, 16, 0);
+      if (v9)
       {
-        log_err("%s:%d: %s Final sync/barrier failed: %d\n", "tx_unmount", 1909, (*(a1 + 384) + 212), v10);
+        log_err("%s:%d: %s Final sync/barrier failed: %d\n", "tx_unmount", 1909, (*(a1 + 384) + 212), v9);
       }
     }
   }
@@ -3426,7 +4517,7 @@ LABEL_15:
     clock_gettime(_CLOCK_UPTIME_RAW_APPROX, &__tp);
     v15 = 0;
     tv_sec = __tp.tv_sec;
-    v33 = SLODWORD(__tp.tv_nsec) / 1000;
+    v35 = SLODWORD(__tp.tv_nsec) / 1000;
     while (1)
     {
       v9 = *(v7 + 144);
@@ -3474,7 +4565,7 @@ LABEL_20:
         if ((a3 & 2) != 0 || (*(v7 + 72) & 8) == 0)
         {
           v3 = 0;
-          v35 = 0;
+          v37 = 0;
           if (!v9)
           {
             goto LABEL_42;
@@ -3489,19 +4580,19 @@ LABEL_40:
               *a2 = *(v9 + 16);
               if (v15)
               {
-                v10 = v35;
-                if (v35)
+                v10 = v37;
+                if (v37)
                 {
                   if (strcmp(v15, "nx_tx_wait_frozen"))
                   {
                     __tp.tv_sec = 0xAAAAAAAAAAAAAAAALL;
                     __tp.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
                     clock_gettime(_CLOCK_UPTIME_RAW_APPROX, &__tp);
-                    v27 = 1000000 * (__tp.tv_sec - tv_sec) - v33 + SLODWORD(__tp.tv_nsec) / 1000;
-                    *(v7 + 168) += v27;
-                    if (v27 > 0xF4240 && nx_ratelimit_log_allowed(a1))
+                    v29 = 1000000 * (__tp.tv_sec - tv_sec) - v35 + SLODWORD(__tp.tv_nsec) / 1000;
+                    *(v7 + 168) += v29;
+                    if (v29 > 0xF4240 && nx_ratelimit_log_allowed(a1, v26, v27, v28))
                     {
-                      log_warn("%s:%d: %s waited %lld us to open tx xid %lld (%s)\n", "tx_enter_internal", 2385, (*(a1 + 384) + 212), v27, *(v9 + 16), v15);
+                      log_warn("%s:%d: %s waited %lld us to open tx xid %lld (%s)\n", "tx_enter_internal", 2385, (*(a1 + 384) + 212), v29, *(v9 + 16), v15);
                     }
 
                     ++*(v7 + 160);
@@ -3513,7 +4604,7 @@ LABEL_40:
 
               else
               {
-                v10 = v35;
+                v10 = v37;
               }
 
 LABEL_84:
@@ -3579,12 +4670,11 @@ LABEL_42:
           if (*(a1 + 626) == 1)
           {
             sub_10003F168(a1, v13, v14);
-            v25 = *(a1 + 376);
-            v26 = sub_1000069D8(*(a1 + 384));
-            if (v26)
+            v25 = sub_1000069D8(*(a1 + 384));
+            if (v25)
             {
-              v3 = v26;
-              log_err("%s:%d: %s Error: tx[%lld] failed to unclean superblock: %d\n", "tx_enter_internal", 2348, (*(a1 + 384) + 212), *(*(v7 + 144) + 16), v26);
+              v3 = v25;
+              log_err("%s:%d: %s Error: tx[%lld] failed to unclean superblock: %d\n", "tx_enter_internal", 2348, (*(a1 + 384) + 212), *(*(v7 + 144) + 16), v25);
               v9 = *(v7 + 144);
 LABEL_52:
               log_err("%s:%d: %s Error: tx[%lld] failed to start: %d\n", "tx_enter_internal", 2352, (*(a1 + 384) + 212), *(v9 + 16), v3);
@@ -3617,30 +4707,30 @@ LABEL_52:
 
           cv_wakeup((v7 + 256));
           v3 = 0;
-          v35 = 1;
+          v37 = 1;
           goto LABEL_58;
         }
 
         if (*(v7 + 80) >= 0xAu)
         {
 LABEL_69:
-          v28 = **(*(v7 + 136) + 8);
-          if (v28)
+          v30 = **(*(v7 + 136) + 8);
+          if (v30)
           {
-            if (*(v28 + 24) & 0x30)
+            if (*(v30 + 24) & 0x30)
             {
-              v30 = 0;
+              v32 = 0;
             }
 
             else
             {
-              v28 = *(v7 + 144);
-              v30 = v9 == 0;
+              v30 = *(v7 + 144);
+              v32 = v9 == 0;
             }
 
-            if (!v30)
+            if (!v32)
             {
-              v9 = v28;
+              v9 = v30;
               goto LABEL_78;
             }
           }
@@ -3648,10 +4738,10 @@ LABEL_69:
           else if (v9)
           {
 LABEL_78:
-            v31 = *(v9 + 52);
-            if (v31)
+            v33 = *(v9 + 52);
+            if (v33)
             {
-              v3 = v31;
+              v3 = v33;
             }
 
             else
@@ -3809,7 +4899,7 @@ uint64_t tx_leave(uint64_t a1, uint64_t a2, int a3)
 
     else
     {
-      v9 = *(v8 + 32) <= 0x186A0u && !sub_100039430(*(a1 + 392)) && sub_100012180(a1) == 0;
+      v9 = *(v8 + 32) <= 0x186A0u && !sub_100039430(*(a1 + 392)) && !sub_100012180(a1);
     }
 
     if ((*(v7 + 72) & 0x40) != 0)
@@ -3959,7 +5049,7 @@ uint64_t sub_100090AB0(uint64_t a1, uint64_t a2)
 {
   v5 = *(a1 + 392);
   v4 = *(a1 + 400);
-  v97 = 0xAAAAAAAAAAAAAAAALL;
+  v94 = 0xAAAAAAAAAAAAAAAALL;
   *(a1 + 660) = -1;
   v6 = **(*(v4 + 136) + 8);
   if (v6 && (*(v6 + 24) & 0x10) != 0)
@@ -4063,14 +5153,14 @@ uint64_t sub_100090AB0(uint64_t a1, uint64_t a2)
       *(a2 + 44) = *(v4 + 100);
       *(a2 + 48) = 0;
       *(a2 + 40) = 0;
-      v97 = -1;
-      v36 = nx_checkpoint_desc_block_address(a1, *(*(a1 + 376) + 128), &v97);
-      if (v36)
+      v94 = -1;
+      v35 = nx_checkpoint_desc_block_address(a1, *(*(a1 + 376) + 128), &v94);
+      if (v35)
       {
-        v12 = v36;
+        v12 = v35;
         if (!*(v4 + 76))
         {
-          log_err("%s:%d: %s xid %lld error getting first checkpoint map block address %d: %d\n", "tx_flush", 888, (*(a1 + 384) + 212), *(a2 + 16), *(*(a1 + 376) + 128), v36);
+          log_err("%s:%d: %s xid %lld error getting first checkpoint map block address %d: %d\n", "tx_flush", 888, (*(a1 + 384) + 212), *(a2 + 16), *(*(a1 + 376) + 128), v35);
         }
 
         v13 = 890;
@@ -4078,10 +5168,10 @@ uint64_t sub_100090AB0(uint64_t a1, uint64_t a2)
       }
 
       bzero(*(a2 + 64), *(*(a1 + 376) + 36));
-      v51 = *(a2 + 64);
-      *(v51 + 24) = 1073741836;
-      *(v51 + 8) = v97;
-      *(v51 + 16) = *(a2 + 16);
+      v50 = *(a2 + 64);
+      *(v50 + 24) = 1073741836;
+      *(v50 + 8) = v94;
+      *(v50 + 16) = *(a2 + 16);
       ++*(a2 + 40);
       v12 = nx_checkpoint_traverse(a1, a2, 1);
       if (v12)
@@ -4093,13 +5183,13 @@ uint64_t sub_100090AB0(uint64_t a1, uint64_t a2)
       {
         if (i != a1)
         {
-          v53 = tx_checkpoint_write_prepare(a1, a2, i);
-          if (v53)
+          v52 = tx_checkpoint_write_prepare(a1, a2, i);
+          if (v52)
           {
-            v12 = v53;
+            v12 = v52;
             if (!*(v4 + 76))
             {
-              log_err("%s:%d: %s xid %lld error preparing ephemeral object (oid 0x%llx type 0x%x/0x%x): %d\n", "tx_flush", 916, (*(a1 + 384) + 212), *(a2 + 16), *(i + 112), *(i + 36), *(i + 40), v53);
+              log_err("%s:%d: %s xid %lld error preparing ephemeral object (oid 0x%llx type 0x%x/0x%x): %d\n", "tx_flush", 916, (*(a1 + 384) + 212), *(a2 + 16), *(i + 112), *(i + 36), *(i + 40), v52);
             }
 
             v13 = 918;
@@ -4177,16 +5267,16 @@ LABEL_24:
         }
       }
 
-      v54 = *(v4 + 96);
+      v53 = *(v4 + 96);
       *(a2 + 112) = -1;
-      v55 = (*(a2 + 40) + v54) % *(v4 + 88);
-      v56 = nx_checkpoint_desc_block_address(a1, v55, (a2 + 112));
-      if (v56)
+      v54 = (*(a2 + 40) + v53) % *(v4 + 88);
+      v55 = nx_checkpoint_desc_block_address(a1, v54, (a2 + 112));
+      if (v55)
       {
-        v12 = v56;
+        v12 = v55;
         if (!*(v4 + 76))
         {
-          log_err("%s:%d: %s xid %lld error getting next checkpoint superblock address %d: %d\n", "tx_flush", 937, (*(a1 + 384) + 212), *(a2 + 16), v55, v56);
+          log_err("%s:%d: %s xid %lld error getting next checkpoint superblock address %d: %d\n", "tx_flush", 937, (*(a1 + 384) + 212), *(a2 + 16), v54, v55);
         }
 
         v13 = 939;
@@ -4194,79 +5284,79 @@ LABEL_24:
       }
 
       ++*(a2 + 40);
-      v69 = *(v5 + 928) - 1;
-      if (*(a2 + 48) != v69)
+      v68 = *(v5 + 928) - 1;
+      if (*(a2 + 48) != v68)
       {
-        log_err("%s:%d: %s xid %lld checkpoint data block count is not value tracked by cache: %d != %d\n", "tx_flush", 989, (*(a1 + 384) + 212), *(a2 + 16), *(a2 + 48), v69);
+        log_err("%s:%d: %s xid %lld checkpoint data block count is not value tracked by cache: %d != %d\n", "tx_flush", 989, (*(a1 + 384) + 212), *(a2 + 16), *(a2 + 48), v68);
       }
 
-      v70 = *(a1 + 376);
-      *(v70 + 88) = *(v5 + 400);
-      *(v70 + 96) = *(v4 + 64);
-      memcpy(*(a2 + 56), v70, *(v70 + 36));
-      v73 = *(a2 + 16);
-      v74 = *(a2 + 56);
-      *(v74 + 16) = v73;
-      v75 = *(v4 + 96);
-      *(v74 + 136) = v75;
-      v76 = *(v4 + 100);
-      *(v74 + 144) = v76;
-      v77 = *(a2 + 40);
-      *(v74 + 140) = v77;
-      v78 = *(a2 + 48);
-      *(v74 + 148) = v78;
-      v79 = v77 + v75;
-      v81 = *(v4 + 88);
-      v80 = *(v4 + 92);
-      v82 = v79 % v81;
-      v83 = (v78 + v76) % v80;
+      v69 = *(a1 + 376);
+      *(v69 + 88) = *(v5 + 400);
+      *(v69 + 96) = *(v4 + 64);
+      memcpy(*(a2 + 56), v69, *(v69 + 36));
+      v72 = *(a2 + 16);
+      v73 = *(a2 + 56);
+      *(v73 + 16) = v72;
+      v74 = *(v4 + 96);
+      *(v73 + 136) = v74;
+      v75 = *(v4 + 100);
+      *(v73 + 144) = v75;
+      v76 = *(a2 + 40);
+      *(v73 + 140) = v76;
+      v77 = *(a2 + 48);
+      *(v73 + 148) = v77;
+      v78 = v76 + v74;
+      v80 = *(v4 + 88);
+      v79 = *(v4 + 92);
+      v81 = v78 % v80;
+      v82 = (v77 + v75) % v79;
       if (!*(v4 + 76))
       {
-        if (v77 > v81 >> 2)
+        if (v76 > v80 >> 2)
         {
-          log_err("%s:%d: %s xid %lld checkpoint descriptor count is larger than expected: %d > %d\n", "tx_flush", 1014, (*(a1 + 384) + 212), v73, v77, v81 >> 2);
-          v78 = *(a2 + 48);
-          v80 = *(v4 + 92);
+          log_err("%s:%d: %s xid %lld checkpoint descriptor count is larger than expected: %d > %d\n", "tx_flush", 1014, (*(a1 + 384) + 212), v72, v76, v80 >> 2);
+          v77 = *(a2 + 48);
+          v79 = *(v4 + 92);
         }
 
-        if (v78 > v80 >> 2)
+        if (v77 > v79 >> 2)
         {
-          log_err("%s:%d: %s xid %lld checkpoint data block count is larger than expected: %d > %d\n", "tx_flush", 1018, (*(a1 + 384) + 212), *(a2 + 16), v78, v80 >> 2);
-          v78 = *(a2 + 48);
+          log_err("%s:%d: %s xid %lld checkpoint data block count is larger than expected: %d > %d\n", "tx_flush", 1018, (*(a1 + 384) + 212), *(a2 + 16), v77, v79 >> 2);
+          v77 = *(a2 + 48);
         }
 
-        v84 = *(v5 + 928) - 1;
-        if (v78 != v84)
+        v83 = *(v5 + 928) - 1;
+        if (v77 != v83)
         {
-          log_err("%s:%d: %s xid %lld checkpoint data block count is not value tracked by cache: %d != %d\n", "tx_flush", 1022, (*(a1 + 384) + 212), *(a2 + 16), v78, v84);
+          log_err("%s:%d: %s xid %lld checkpoint data block count is not value tracked by cache: %d != %d\n", "tx_flush", 1022, (*(a1 + 384) + 212), *(a2 + 16), v77, v83);
         }
       }
 
-      v85 = *(a2 + 56);
-      *(v85 + 128) = v82;
-      *(v85 + 132) = v83;
-      sub_10003F19C(a1, v85, *(*(a1 + 376) + 36), v71, v72);
+      v84 = *(a2 + 56);
+      *(v84 + 128) = v81;
+      *(v84 + 132) = v82;
+      sub_10003F19C(a1, v84, *(*(a1 + 376) + 36), v70, v71);
       *(a2 + 48) = 0;
       *(a2 + 40) = 1;
       *(*(a2 + 64) + 36) = 0;
-      v86 = *(a2 + 24);
-      if ((v86 & 8) == 0)
+      v85 = *(a2 + 24);
+      if ((v85 & 8) == 0)
       {
-        panic("can't transition from tx flags 0x%x to 0x%x (expected 0x%x)\n", v86, 16, 8);
+        panic("can't transition from tx flags 0x%x to 0x%x (expected 0x%x)\n", v85, 16, 8);
       }
 
-      if ((v86 & 0x10) != 0)
+      if ((v85 & 0x10) != 0)
       {
-        panic("bad transition tx flags 0x%x to 0x%x (expected 0x%x)\n", v86, 16, 8);
+        panic("bad transition tx flags 0x%x to 0x%x (expected 0x%x)\n", v85, 16, 8);
       }
 
-      *(a2 + 24) = v86 & 0xFFFFFFE7 | 0x10;
+      *(a2 + 24) = v85 & 0xFFFFFFE7 | 0x10;
       __tp.tv_sec = 0xAAAAAAAAAAAAAAAALL;
       __tp.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
       clock_gettime(_CLOCK_UPTIME_RAW_APPROX, &__tp);
-      v87 = 1000000 * __tp.tv_sec + SLODWORD(__tp.tv_nsec) / 1000;
-      v22 = v87 - *(a2 + 72);
-      *(a2 + 72) = v87;
+      v86 = 1000000 * __tp.tv_sec + SLODWORD(__tp.tv_nsec) / 1000;
+      v22 = v86 - *(a2 + 72);
+      *(a2 + 72) = v86;
       if (v22 > 0xF4240)
       {
         log_warn("%s:%d: %s tx xid %lld took %lld us to prepare to flush\n", "tx_flush", 1045, (*(a1 + 384) + 212), *(a2 + 16), v22);
@@ -4355,11 +5445,10 @@ LABEL_24:
       {
         *(v33 + 32) |= 1u;
         sub_10003F19C(a1, v33, *(*(a1 + 376) + 36), v27, v28);
-        v34 = *(*(a2 + 64) + 8);
-        v35 = sub_1000069D8(*(a1 + 384));
-        if (v35)
+        v34 = sub_1000069D8(*(a1 + 384));
+        if (v34)
         {
-          v12 = v35;
+          v12 = v34;
           pthread_mutex_lock(v4);
           if (!*(v4 + 76))
           {
@@ -4373,77 +5462,77 @@ LABEL_24:
 
       ++*(a2 + 40);
       pthread_mutex_lock(v4);
-      v37 = *(a2 + 40);
-      v38 = *(a2 + 56);
-      v39 = *(a2 + 48);
-      v40 = v38[37];
-      if (v37 != v38[35] || v39 != v40)
+      v36 = *(a2 + 40);
+      v37 = *(a2 + 56);
+      v38 = *(a2 + 48);
+      v39 = v37[37];
+      if (v36 != v37[35] || v38 != v39)
       {
-        panic("flush phase checkpoint lengths (%d %d) don't match prepare phase (%d %d)\n", v37, v39, v38[35], v40);
+        panic("flush phase checkpoint lengths (%d %d) don't match prepare phase (%d %d)\n", v36, v38, v37[35], v39);
       }
 
-      v42 = *(a1 + 376);
-      v42[34] = v38[34];
-      v42[35] = v37;
-      v42[36] = v38[36];
-      v42[37] = v39;
-      v43 = *(a2 + 24);
-      if ((v43 & 0x10) == 0)
+      v41 = *(a1 + 376);
+      v41[34] = v37[34];
+      v41[35] = v36;
+      v41[36] = v37[36];
+      v41[37] = v38;
+      v42 = *(a2 + 24);
+      if ((v42 & 0x10) == 0)
       {
-        panic("can't transition from tx flags 0x%x to 0x%x (expected 0x%x)\n", v43, 32, 16);
+        panic("can't transition from tx flags 0x%x to 0x%x (expected 0x%x)\n", v42, 32, 16);
       }
 
-      if ((v43 & 0x20) != 0)
+      if ((v42 & 0x20) != 0)
       {
-        panic("bad transition tx flags 0x%x to 0x%x (expected 0x%x)\n", v43, 32, 16);
+        panic("bad transition tx flags 0x%x to 0x%x (expected 0x%x)\n", v42, 32, 16);
       }
 
-      *(a2 + 24) = v43 & 0xFFFFFFCF | 0x20;
+      *(a2 + 24) = v42 & 0xFFFFFFCF | 0x20;
       __tp.tv_sec = 0xAAAAAAAAAAAAAAAALL;
       __tp.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
       clock_gettime(_CLOCK_UPTIME_RAW_APPROX, &__tp);
-      v44 = 1000000 * __tp.tv_sec + SLODWORD(__tp.tv_nsec) / 1000;
-      v45 = v44 - *(a2 + 72);
-      *(a2 + 72) = v44;
-      if (v45 > 0xF4240)
+      v43 = 1000000 * __tp.tv_sec + SLODWORD(__tp.tv_nsec) / 1000;
+      v44 = v43 - *(a2 + 72);
+      *(a2 + 72) = v43;
+      if (v44 > 0xF4240)
       {
-        log_warn("%s:%d: %s tx xid %lld took %lld us to flush\n", "tx_flush", 1185, (*(a1 + 384) + 212), *(a2 + 16), v45);
+        log_warn("%s:%d: %s tx xid %lld took %lld us to flush\n", "tx_flush", 1185, (*(a1 + 384) + 212), *(a2 + 16), v44);
       }
 
-      *(a2 + 104) = v45;
+      *(a2 + 104) = v44;
       cv_wakeup((v4 + 256));
-      v46 = sub_10008F330(a1, 0, 1);
-      if (v46)
+      v45 = sub_10008F330(a1, 0, 1);
+      if (v45)
       {
-        v12 = v46;
+        v12 = v45;
         if (!*(v4 + 76))
         {
-          log_err("%s:%d: %s xid %lld sync/barrier failed: %d\n", "tx_flush", 1194, (*(a1 + 384) + 212), *(a2 + 16), v46);
+          log_err("%s:%d: %s xid %lld sync/barrier failed: %d\n", "tx_flush", 1194, (*(a1 + 384) + 212), *(a2 + 16), v45);
         }
 
         *(v4 + 76) = 1196;
         ++*(v4 + 80);
         --*(a2 + 40);
-        v47 = *(a2 + 24);
-        if ((v47 & 0x20) == 0)
+        v46 = *(a2 + 24);
+        if ((v46 & 0x20) == 0)
         {
-          panic("can't transition from tx flags 0x%x to 0x%x (expected 0x%x)\n", v47, 16, 32);
+          panic("can't transition from tx flags 0x%x to 0x%x (expected 0x%x)\n", v46, 16, 32);
         }
 
-        if ((v47 & 0x10) != 0)
+        if ((v46 & 0x10) != 0)
         {
-          panic("bad transition tx flags 0x%x to 0x%x (expected 0x%x)\n", v47, 16, 32);
+          panic("bad transition tx flags 0x%x to 0x%x (expected 0x%x)\n", v46, 16, 32);
         }
 
-        *(a2 + 24) = v47 & 0xFFFFFFCF | 0x10;
+        *(a2 + 24) = v46 & 0xFFFFFFCF | 0x10;
         __tp.tv_sec = 0xAAAAAAAAAAAAAAAALL;
         __tp.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
         clock_gettime(_CLOCK_UPTIME_RAW_APPROX, &__tp);
-        v48 = 1000000 * __tp.tv_sec + SLODWORD(__tp.tv_nsec) / 1000;
-        v49 = v48 - *(a2 + 72);
-        *(a2 + 72) = v48;
-        v50 = v49 + *(a2 + 104);
-        goto LABEL_124;
+        v47 = 1000000 * __tp.tv_sec + SLODWORD(__tp.tv_nsec) / 1000;
+        v48 = v47 - *(a2 + 72);
+        *(a2 + 72) = v47;
+        v49 = v48 + *(a2 + 104);
+        goto LABEL_123;
       }
 
       pthread_mutex_unlock(v4);
@@ -4453,28 +5542,22 @@ LABEL_24:
         bzero(*(a2 + 64), *(*(a1 + 376) + 36));
       }
 
-      else
+      v56 = sub_1000069D8(*(a1 + 384));
+      if (v56)
       {
-        v57 = *(a2 + 56);
-      }
-
-      v58 = *(a2 + 112);
-      v59 = sub_1000069D8(*(a1 + 384));
-      if (v59)
-      {
-        v12 = v59;
+        v12 = v56;
         pthread_mutex_lock(v4);
         if (!*(v4 + 76))
         {
           log_err("%s:%d: %s xid %lld failed to write checkpoint superblock %lld: %d\n", "tx_flush", 1223, (*(a1 + 384) + 212), *(a2 + 16), *(a2 + 112), v12);
         }
 
-        v60 = 1225;
+        v57 = 1225;
       }
 
       else
       {
-        if ((*(a2 + 26) & 8) == 0 || (v63 = *(a2 + 56), v64 = sub_1000069D8(*(a1 + 384)), !v64))
+        if ((*(a2 + 26) & 8) == 0 || (v60 = sub_1000069D8(*(a1 + 384)), !v60))
         {
           if (*(a1 + 628) == 1 && (*(a1 + 632) & 1) == 0)
           {
@@ -4482,66 +5565,64 @@ LABEL_24:
           }
 
           pthread_mutex_lock(v4);
-          v65 = sub_100090594(a2, 32, 64);
-          v66 = v65;
-          if (v65 > 0xF4240)
+          v61 = sub_100090594(a2, 32, 64);
+          v65 = v61;
+          if (v61 > 0xF4240)
           {
-            log_warn("%s:%d: %s tx xid %lld took %lld us to sync and write superblock\n", "tx_flush", 1280, (*(a1 + 384) + 212), *(a2 + 16), v65);
+            log_warn("%s:%d: %s tx xid %lld took %lld us to sync and write superblock\n", "tx_flush", 1280, (*(a1 + 384) + 212), *(a2 + 16), v61);
           }
 
-          *(a2 + 104) += v66;
-          v67 = *(a2 + 24);
-          if ((v67 & 0x20000) == 0)
+          *(a2 + 104) += v65;
+          v66 = *(a2 + 24);
+          if ((v66 & 0x20000) == 0)
           {
-            goto LABEL_160;
+            goto LABEL_159;
           }
 
           ++*(v4 + 184);
-          if ((v67 & 0x40000) != 0)
+          if ((v66 & 0x40000) != 0)
           {
             ++*(v4 + 192);
           }
 
-          v68 = sub_10008F330(a1, (v67 >> 14) & 0x10, 0);
-          if (!v68)
+          v67 = sub_10008F330(a1, (v66 >> 14) & 0x10, 0);
+          if (!v67)
           {
-LABEL_160:
+LABEL_159:
             *(a2 + 52) = 0;
             *(v4 + 72) |= 2u;
             *(v4 + 76) = 0;
-            v88 = *(a2 + 56);
-            v89 = *(v88 + 128);
-            v90 = *(a1 + 376);
-            *(v90 + 128) = v89;
-            *(v4 + 96) = v89;
-            v91 = *(v88 + 132);
-            *(v90 + 132) = v91;
-            *(v4 + 100) = v91;
-            *(v90 + 16) = *(v88 + 16);
-            v92 = *(v4 + 152);
-            *(v4 + 152) = v92 + 1;
-            if (v92)
+            v87 = *(a2 + 56);
+            v88 = *(v87 + 128);
+            v89 = *(a1 + 376);
+            *(v89 + 128) = v88;
+            *(v4 + 96) = v88;
+            v90 = *(v87 + 132);
+            *(v89 + 132) = v90;
+            *(v4 + 100) = v90;
+            *(v89 + 16) = *(v87 + 16);
+            v91 = *(v4 + 152);
+            *(v4 + 152) = v91 + 1;
+            if (v91)
             {
               *(v4 + 200) = (*(v4 + 200) + *(a2 + 32)) >> 1;
               *(v4 + 208) = vshrq_n_u64(vaddq_s64(*(a2 + 80), *(v4 + 208)), 1uLL);
               *(v4 + 224) = (*(a2 + 96) + *(v4 + 224)) >> 1;
               *(v4 + 240) = (*(a2 + 104) + *(v4 + 240)) >> 1;
-              if (__ROR8__(0xCCCCCCCCCCCCCCCDLL * (v92 + 1), 2) <= 0xCCCCCCCCCCCCCCCuLL && nx_ratelimit_log_allowed(a1))
+              if (__ROR8__(0xCCCCCCCCCCCCCCCDLL * (v91 + 1), 2) <= 0xCCCCCCCCCCCCCCCuLL && nx_ratelimit_log_allowed(a1, v62, v63, v64))
               {
-                v93 = *(v4 + 160);
-                if (v93 <= 1)
+                v92 = *(v4 + 160);
+                if (v92 <= 1)
                 {
-                  v94 = 1;
+                  v93 = 1;
                 }
 
                 else
                 {
-                  v94 = *(v4 + 160);
+                  v93 = *(v4 + 160);
                 }
 
-                v95 = *(v4 + 168) / v94;
-                v96 = *(v4 + 232);
-                log_debug("%s:%d: %s xid %llu tx stats: # %llu owait %llu %lluus finish %llu bar2 %lld f %lld enter %llu fq %llu %llu %lluus close %lluus prep %lluus flush %lluus\n", "tx_flush", 1344, (*(a1 + 384) + 212), *(a2 + 16), *(v4 + 152), v93, v95, *(v4 + 176), *(v4 + 184), *(v4 + 192), *(v4 + 200), *(v4 + 216), *(v4 + 224), *(v4 + 208), *(v4 + 248), v96, *(v4 + 240));
+                log_debug("%s:%d: %s xid %llu tx stats: # %llu owait %llu %lluus finish %llu bar2 %lld f %lld enter %llu fq %llu %llu %lluus close %lluus prep %lluus flush %lluus\n", "tx_flush", 1344, (*(a1 + 384) + 212), *(a2 + 16), *(v4 + 152), v92, *(v4 + 168) / v93, *(v4 + 176), *(v4 + 184), *(v4 + 192), *(v4 + 200), *(v4 + 216), *(v4 + 224), *(v4 + 208), *(v4 + 248), *(v4 + 232), *(v4 + 240));
               }
             }
 
@@ -4557,39 +5638,39 @@ LABEL_160:
             return 0;
           }
 
-          v12 = v68;
+          v12 = v67;
           if (!*(v4 + 76))
           {
-            log_err("%s:%d: %s xid %lld second sync/barrier failed: %d\n", "tx_flush", 1292, (*(a1 + 384) + 212), *(a2 + 16), v68);
+            log_err("%s:%d: %s xid %lld second sync/barrier failed: %d\n", "tx_flush", 1292, (*(a1 + 384) + 212), *(a2 + 16), v67);
           }
 
           *(v4 + 76) = 1294;
           ++*(v4 + 80);
           --*(a2 + 40);
-          v61 = a2;
-          v62 = 64;
-          goto LABEL_123;
+          v58 = a2;
+          v59 = 64;
+          goto LABEL_122;
         }
 
-        v12 = v64;
+        v12 = v60;
         if (!*(v4 + 76))
         {
-          log_err("%s:%d: %s xid %lld failed to write block 0 superblock: %d\n", "tx_flush", 1245, (*(a1 + 384) + 212), *(a2 + 16), v64);
+          log_err("%s:%d: %s xid %lld failed to write block 0 superblock: %d\n", "tx_flush", 1245, (*(a1 + 384) + 212), *(a2 + 16), v60);
         }
 
         pthread_mutex_lock(v4);
-        v60 = 1249;
+        v57 = 1249;
       }
 
-      *(v4 + 76) = v60;
+      *(v4 + 76) = v57;
       ++*(v4 + 80);
       --*(a2 + 40);
-      v61 = a2;
-      v62 = 32;
+      v58 = a2;
+      v59 = 32;
+LABEL_122:
+      v49 = *(a2 + 104) + sub_100090594(v58, v59, 16);
 LABEL_123:
-      v50 = *(a2 + 104) + sub_100090594(v61, v62, 16);
-LABEL_124:
-      *(a2 + 104) = v50;
+      *(a2 + 104) = v49;
       goto LABEL_66;
     }
 
@@ -4720,7 +5801,7 @@ uint64_t file_type_to_dirent_type(unsigned int a1)
   }
 }
 
-void *apfs_hashinit(int a1, unsigned int *a2)
+void *apfs_hashinit(unsigned int a1, unsigned int *a2)
 {
   if (a1 < 1)
   {
@@ -5019,7 +6100,7 @@ LABEL_11:
     return result;
   }
 
-  v13 = 4 * v6;
+  v13 = 2 * v6;
   *(a1 + 1) = _apfs_malloc_typed(4 * v6, 0x100004052888210uLL);
   v14 = _apfs_malloc_typed(a1[3], 0x8CB4D706uLL);
   *(a1 + 2) = v14;
@@ -5033,7 +6114,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v17 = (a2 + 2);
+  v17 = a2 + 2;
   memcpy(v15, v17, 4 * v16);
   memcpy(*(a1 + 2), &v17[v13], a1[2]);
   bzero((*(a1 + 2) + a1[2]), a1[3] - a1[2]);
@@ -5186,7 +6267,7 @@ uint64_t xf_serialize(unsigned __int16 *a1, _WORD *a2, unint64_t a3)
   return 0;
 }
 
-uint64_t xf_set(unsigned __int16 *a1, int a2, char a3, void *__src, uint64_t __n)
+uint64_t xf_set(unsigned __int16 *a1, int a2, char a3, void *__src, size_t __n)
 {
   v8 = a2;
   v10 = *a1;

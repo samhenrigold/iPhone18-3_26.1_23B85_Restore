@@ -66,7 +66,7 @@ uint64_t ___AXSAccessibilityEnablers_block_invoke_5()
   return _kAXSCacheSwitchControlEnabled;
 }
 
-uint64_t ___AXSAccessibilityEnablers_block_invoke_7()
+uint64_t ___AXSAccessibilityEnablers_block_invoke_7(uint64_t a1, uint64_t a2)
 {
   if (_AXSSiriSemanticContextEnabled_onceToken != -1)
   {
@@ -106,7 +106,7 @@ uint64_t ___AXSAccessibilityEnablers_block_invoke_14()
   return _kAXSCacheAuditInspectionModeModeEnabled;
 }
 
-uint64_t ___AXSAccessibilityEnablers_block_invoke_16()
+uint64_t ___AXSAccessibilityEnablers_block_invoke_16(uint64_t a1, uint64_t a2)
 {
   if (_AXSHoverTextTypingEnabled_onceToken != -1)
   {
@@ -156,7 +156,7 @@ uint64_t ___AXSAccessibilityEnablers_block_invoke_19()
   return _kAXSCacheCommandAndControlCarPlayEnabled;
 }
 
-uint64_t ___AXSAccessibilityEnablers_block_invoke_21()
+uint64_t ___AXSAccessibilityEnablers_block_invoke_21(uint64_t a1, uint64_t a2)
 {
   if (_AXSWatchControlEnabled_onceToken != -1)
   {

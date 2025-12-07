@@ -1,6 +1,6 @@
 @interface HDContributorEntity
 + (BOOL)deleteContributorWithUUID:(id)d profile:(id)profile error:(id *)error;
-+ (id)_insertWithUUID:(double)d appleID:(uint64_t)iD callerID:(void *)callerID deleted:(void *)deleted modificationDate:(void *)date syncAnchor:(uint64_t)anchor syncProvenance:(uint64_t)provenance syncIdentity:(uint64_t)identity primaryUser:(char)user database:(void *)d0 error:(uint64_t)d1;
++ (id)_insertWithUUID:(uint64_t)d appleID:(void *)iD callerID:(void *)callerID deleted:(void *)deleted modificationDate:(uint64_t)date syncAnchor:(uint64_t)anchor syncProvenance:(uint64_t)provenance syncIdentity:(char)identity primaryUser:(double)user database:(void *)d0 error:(uint64_t)d1;
 + (id)_nextSyncAnchorInDatabase:(void *)database error:;
 + (id)_predicateForContributorReference:(uint64_t)reference;
 + (id)_predicateForContributorWithUUID:(uint64_t)d;
@@ -28,13 +28,13 @@
 
 + (id)insertOrLookupContributorEntityForNoContributorWithTransaction:(id)transaction syncIdentity:(int64_t)identity error:(id *)error
 {
-  v24[9] = *MEMORY[0x277D85DE8];
+  v23[9] = *MEMORY[0x277D85DE8];
   v8 = [transaction databaseForEntityClass:self];
   noneContributorUUID = [self noneContributorUUID];
   v10 = [(HDContributorEntity *)self _predicateForContributorWithUUID:noneContributorUUID];
-  v23 = 0;
-  v11 = [self anyInDatabase:v8 predicate:v10 error:&v23];
-  v12 = v23;
+  v22 = 0;
+  v11 = [self anyInDatabase:v8 predicate:v10 error:&v22];
+  v12 = v22;
   v13 = v12;
   if (v11)
   {
@@ -45,7 +45,7 @@
   {
     if (error)
     {
-      v17 = v12;
+      v16 = v12;
       v14 = 0;
       *error = v13;
     }
@@ -59,28 +59,26 @@
 
   else
   {
-    v24[0] = @"uuid";
-    v24[1] = @"apple_id";
-    v24[2] = @"caller_id";
-    v24[3] = @"deleted";
-    v24[4] = @"mod_date";
-    v24[5] = @"sync_anchor";
-    v24[6] = @"sync_provenance";
-    v24[7] = @"sync_identity";
-    v24[8] = @"primary_user";
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:9];
-    v22 = 0;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __105__HDContributorEntity_insertOrLookupContributorEntityForNoContributorWithTransaction_syncIdentity_error___block_invoke;
-    v19[3] = &unk_278616B10;
-    v20 = noneContributorUUID;
+    v23[0] = @"uuid";
+    v23[1] = @"apple_id";
+    v23[2] = @"caller_id";
+    v23[3] = @"deleted";
+    v23[4] = @"mod_date";
+    v23[5] = @"sync_anchor";
+    v23[6] = @"sync_provenance";
+    v23[7] = @"sync_identity";
+    v23[8] = @"primary_user";
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:9];
+    v21 = 0;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __105__HDContributorEntity_insertOrLookupContributorEntityForNoContributorWithTransaction_syncIdentity_error___block_invoke;
+    v18[3] = &unk_278616B10;
+    v19 = noneContributorUUID;
     identityCopy = identity;
-    v14 = [self insertOrReplaceEntity:0 database:v8 properties:v18 error:&v22 bindingHandler:v19];
-    v13 = v22;
+    v14 = [self insertOrReplaceEntity:0 database:v8 properties:v17 error:&v21 bindingHandler:v18];
+    v13 = v21;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -195,7 +193,7 @@ LABEL_6:
   v19 = *(a1 + 80);
   v30 = v5;
   v31 = v9;
-  v20 = [HDContributorEntity _insertWithUUID:v10 appleID:v11 callerID:v12 deleted:v28 modificationDate:v14 syncAnchor:0 syncProvenance:v18 syncIdentity:v19 primaryUser:v5 database:&v31 error:?];
+  v20 = [HDContributorEntity _insertWithUUID:v10 appleID:v11 callerID:v12 deleted:v28 modificationDate:v14 syncAnchor:0 syncProvenance:v18 syncIdentity:v19 primaryUser:Current database:v5 error:&v31];
   v21 = v31;
 
   v22 = *(*(a1 + 64) + 8);
@@ -258,43 +256,41 @@ LABEL_11:
   return v9;
 }
 
-+ (id)_insertWithUUID:(double)d appleID:(uint64_t)iD callerID:(void *)callerID deleted:(void *)deleted modificationDate:(void *)date syncAnchor:(uint64_t)anchor syncProvenance:(uint64_t)provenance syncIdentity:(uint64_t)identity primaryUser:(char)user database:(void *)d0 error:(uint64_t)d1
++ (id)_insertWithUUID:(uint64_t)d appleID:(void *)iD callerID:(void *)callerID deleted:(void *)deleted modificationDate:(uint64_t)date syncAnchor:(uint64_t)anchor syncProvenance:(uint64_t)provenance syncIdentity:(char)identity primaryUser:(double)user database:(void *)d0 error:(uint64_t)d1
 {
-  v40[9] = *MEMORY[0x277D85DE8];
+  v39[9] = *MEMORY[0x277D85DE8];
+  iDCopy = iD;
   callerIDCopy = callerID;
   deletedCopy = deleted;
-  dateCopy = date;
   databaseCopy = database;
   v22 = objc_opt_self();
-  v40[0] = @"uuid";
-  v40[1] = @"apple_id";
-  v40[2] = @"caller_id";
-  v40[3] = @"deleted";
-  v40[4] = @"mod_date";
-  v40[5] = @"sync_anchor";
-  v40[6] = @"sync_provenance";
-  v40[7] = @"sync_identity";
-  v40[8] = @"primary_user";
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:9];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __147__HDContributorEntity__insertWithUUID_appleID_callerID_deleted_modificationDate_syncAnchor_syncProvenance_syncIdentity_primaryUser_database_error___block_invoke;
-  v30[3] = &unk_278619320;
+  v39[0] = @"uuid";
+  v39[1] = @"apple_id";
+  v39[2] = @"caller_id";
+  v39[3] = @"deleted";
+  v39[4] = @"mod_date";
+  v39[5] = @"sync_anchor";
+  v39[6] = @"sync_provenance";
+  v39[7] = @"sync_identity";
+  v39[8] = @"primary_user";
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:9];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __147__HDContributorEntity__insertWithUUID_appleID_callerID_deleted_modificationDate_syncAnchor_syncProvenance_syncIdentity_primaryUser_database_error___block_invoke;
+  v29[3] = &unk_278619320;
+  v30 = iDCopy;
   v31 = callerIDCopy;
   v32 = deletedCopy;
-  v33 = dateCopy;
-  v38 = 0;
-  dCopy = d;
+  v37 = 0;
+  userCopy = user;
+  dateCopy = date;
   anchorCopy = anchor;
   provenanceCopy = provenance;
   identityCopy = identity;
-  userCopy = user;
-  v24 = dateCopy;
-  v25 = deletedCopy;
-  v26 = callerIDCopy;
-  v27 = [v22 insertOrReplaceEntity:0 database:databaseCopy properties:v23 error:error bindingHandler:v30];
-
-  v28 = *MEMORY[0x277D85DE8];
+  v24 = deletedCopy;
+  v25 = callerIDCopy;
+  v26 = iDCopy;
+  v27 = [v22 insertOrReplaceEntity:0 database:databaseCopy properties:v23 error:error bindingHandler:v29];
 
   return v27;
 }
@@ -309,7 +305,7 @@ LABEL_11:
   if (v20)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    v22 = +[HDContributorEntity _insertWithUUID:appleID:callerID:deleted:modificationDate:syncAnchor:syncProvenance:syncIdentity:primaryUser:database:error:](Current, self, dCopy, iDCopy, callerIDCopy, [v20 longLongValue], provenance, identity, user, v19, error);
+    v22 = +[HDContributorEntity _insertWithUUID:appleID:callerID:deleted:modificationDate:syncAnchor:syncProvenance:syncIdentity:primaryUser:database:error:](self, dCopy, iDCopy, callerIDCopy, [v20 longLongValue], provenance, identity, user, Current, v19, error);
   }
 
   else
@@ -330,7 +326,7 @@ LABEL_11:
   {
     uUID = [MEMORY[0x277CCAD78] UUID];
     Current = CFAbsoluteTimeGetCurrent();
-    v18 = +[HDContributorEntity _insertWithUUID:appleID:callerID:deleted:modificationDate:syncAnchor:syncProvenance:syncIdentity:primaryUser:database:error:](Current, self, uUID, dCopy, iDCopy, [v15 longLongValue], 0, identity, 1, databaseCopy, error);
+    v18 = +[HDContributorEntity _insertWithUUID:appleID:callerID:deleted:modificationDate:syncAnchor:syncProvenance:syncIdentity:primaryUser:database:error:](self, uUID, dCopy, iDCopy, [v15 longLongValue], 0, identity, 1, Current, databaseCopy, error);
   }
 
   else
@@ -369,7 +365,6 @@ void __147__HDContributorEntity__insertWithUUID_appleID_callerID_deleted_modific
   MEMORY[0x22AAC6B90](a2, @"sync_anchor", *(a1 + 64));
   MEMORY[0x22AAC6B90](a2, @"sync_provenance", *(a1 + 72));
   MEMORY[0x22AAC6B90](a2, @"sync_identity", *(a1 + 80));
-  v4 = *(a1 + 89);
 
   JUMPOUT(0x22AAC6B30);
 }
@@ -392,39 +387,38 @@ void __147__HDContributorEntity__insertWithUUID_appleID_callerID_deleted_modific
 
 uint64_t __63__HDContributorEntity_deleteContributorWithUUID_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27[5] = *MEMORY[0x277D85DE8];
+  v25[5] = *MEMORY[0x277D85DE8];
   v5 = [a2 databaseForEntityClass:*(a1 + 40)];
   v6 = *(a1 + 40);
-  v25 = 0;
-  v7 = [(HDContributorEntity *)v6 _nextSyncAnchorInDatabase:v5 error:&v25];
-  v8 = v25;
+  v23 = 0;
+  v7 = [(HDContributorEntity *)v6 _nextSyncAnchorInDatabase:v5 error:&v23];
+  v8 = v23;
   v9 = v8;
   if (v7)
   {
-    v27[0] = @"apple_id";
-    v27[1] = @"caller_id";
-    v27[2] = @"deleted";
-    v27[3] = @"mod_date";
-    v27[4] = @"sync_anchor";
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:5];
+    v25[0] = @"apple_id";
+    v25[1] = @"caller_id";
+    v25[2] = @"deleted";
+    v25[3] = @"mod_date";
+    v25[4] = @"sync_anchor";
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:5];
     v11 = [(HDContributorEntity *)*(a1 + 40) _predicateForContributorWithUUID:?];
-    v26[0] = v11;
-    v12 = *(a1 + 40);
+    v24[0] = v11;
     objc_opt_self();
-    v13 = [MEMORY[0x277D10B18] predicateWithProperty:@"deleted" equalToValue:MEMORY[0x277CBEC28]];
-    v26[1] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v12 = [MEMORY[0x277D10B18] predicateWithProperty:@"deleted" equalToValue:MEMORY[0x277CBEC28]];
+    v24[1] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
 
-    v15 = [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v14];
-    v16 = *(a1 + 40);
-    v24 = v9;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __63__HDContributorEntity_deleteContributorWithUUID_profile_error___block_invoke_2;
-    v22[3] = &unk_278614508;
-    v23 = v7;
-    v17 = [v16 updateProperties:v10 predicate:v15 database:v5 error:&v24 bindingHandler:v22];
-    v18 = v24;
+    v14 = [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v13];
+    v15 = *(a1 + 40);
+    v22 = v9;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __63__HDContributorEntity_deleteContributorWithUUID_profile_error___block_invoke_2;
+    v20[3] = &unk_278614508;
+    v21 = v7;
+    v16 = [v15 updateProperties:v10 predicate:v14 database:v5 error:&v22 bindingHandler:v20];
+    v17 = v22;
   }
 
   else
@@ -434,29 +428,28 @@ uint64_t __63__HDContributorEntity_deleteContributorWithUUID_profile_error___blo
     {
       if (a3)
       {
-        v19 = v10;
-        v17 = 0;
+        v18 = v10;
+        v16 = 0;
         *a3 = v10;
       }
 
       else
       {
         _HKLogDroppedError();
-        v17 = 0;
+        v16 = 0;
       }
 
-      v18 = v10;
+      v17 = v10;
     }
 
     else
     {
-      v18 = 0;
       v17 = 0;
+      v16 = 0;
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v16;
 }
 
 void __63__HDContributorEntity_deleteContributorWithUUID_profile_error___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -473,7 +466,7 @@ void __63__HDContributorEntity_deleteContributorWithUUID_profile_error___block_i
 
 + (id)contributorEntityWithUUID:(id)d profile:(id)profile includeDeleted:(BOOL)deleted error:(id *)error
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   v11 = [(HDContributorEntity *)self _predicateForContributorWithUUID:d];
   if (!deleted)
@@ -481,9 +474,9 @@ void __63__HDContributorEntity_deleteContributorWithUUID_profile_error___block_i
     objc_opt_self();
     v12 = [MEMORY[0x277D10B18] predicateWithProperty:@"deleted" equalToValue:MEMORY[0x277CBEC28]];
     v13 = MEMORY[0x277D10B20];
-    v20[0] = v11;
-    v20[1] = v12;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = v11;
+    v19[1] = v12;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     v15 = [v13 predicateMatchingAllPredicates:v14];
 
     v11 = v15;
@@ -491,8 +484,6 @@ void __63__HDContributorEntity_deleteContributorWithUUID_profile_error___block_i
 
   database = [profileCopy database];
   v17 = [self anyWithPredicate:v11 healthDatabase:database error:error];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -533,7 +524,7 @@ void __63__HDContributorEntity_deleteContributorWithUUID_profile_error___block_i
 
 + (id)contributorForReference:(id)reference profile:(id)profile error:(id *)error
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   referenceCopy = reference;
   profileCopy = profile;
   if ([referenceCopy contributorType] == 2)
@@ -547,31 +538,31 @@ void __63__HDContributorEntity_deleteContributorWithUUID_profile_error___block_i
     objc_opt_self();
     v12 = [MEMORY[0x277D10B18] predicateWithProperty:@"deleted" equalToValue:MEMORY[0x277CBEC28]];
     v13 = MEMORY[0x277D10B20];
-    v32[0] = v11;
-    v32[1] = v12;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+    v31[0] = v11;
+    v31[1] = v12;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
     v15 = [v13 predicateMatchingAllPredicates:v14];
 
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__39;
-    v30 = __Block_byref_object_dispose__39;
-    v31 = 0;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy__39;
+    v29 = __Block_byref_object_dispose__39;
+    v30 = 0;
     database = [profileCopy database];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __61__HDContributorEntity_contributorForReference_profile_error___block_invoke;
-    v22[3] = &unk_278616AA0;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __61__HDContributorEntity_contributorForReference_profile_error___block_invoke;
+    v21[3] = &unk_278616AA0;
     selfCopy = self;
     v17 = v15;
-    v23 = v17;
-    v24 = &v26;
-    v18 = [self performReadTransactionWithHealthDatabase:database error:error block:v22];
+    v22 = v17;
+    v23 = &v25;
+    v18 = [self performReadTransactionWithHealthDatabase:database error:error block:v21];
 
     if (v18)
     {
-      v19 = v27[5];
+      v19 = v26[5];
     }
 
     else
@@ -581,10 +572,8 @@ void __63__HDContributorEntity_deleteContributorWithUUID_profile_error___block_i
 
     v10 = v19;
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v25, 8);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -642,40 +631,39 @@ LABEL_13:
 
 uint64_t __61__HDContributorEntity_contributorForReference_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 48);
   v6 = [a2 databaseForEntityClass:v5];
   v7 = [v5 queryWithDatabase:v6 predicate:*(a1 + 32)];
 
-  v14[0] = @"uuid";
-  v14[1] = @"apple_id";
-  v14[2] = @"caller_id";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __61__HDContributorEntity_contributorForReference_profile_error___block_invoke_2;
-  v12[3] = &unk_278619370;
-  v13 = *(a1 + 40);
-  v9 = [v7 enumerateProperties:v8 error:a3 enumerationHandler:v12];
+  v13[0] = @"uuid";
+  v13[1] = @"apple_id";
+  v13[2] = @"caller_id";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __61__HDContributorEntity_contributorForReference_profile_error___block_invoke_2;
+  v11[3] = &unk_278619370;
+  v12 = *(a1 + 40);
+  v9 = [v7 enumerateProperties:v8 error:a3 enumerationHandler:v11];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-uint64_t __61__HDContributorEntity_contributorForReference_profile_error___block_invoke_2(uint64_t a1)
+uint64_t __61__HDContributorEntity_contributorForReference_profile_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsUUID();
-  v3 = [*(a1 + 40) noneContributorUUID];
-  v4 = [v2 isEqual:v3];
+  v4 = HDSQLiteColumnWithNameAsUUID();
+  v5 = [*(a1 + 40) noneContributorUUID];
+  v6 = [v4 isEqual:v5];
 
-  if ((v4 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
-    v5 = HDSQLiteColumnWithNameAsString();
-    v6 = HDSQLiteColumnWithNameAsString();
-    v7 = [objc_alloc(MEMORY[0x277CCD228]) _initWithUUID:v2 appleID:v5 callerID:v6];
-    v8 = *(*(a1 + 32) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v7 = HDSQLiteColumnWithNameAsString();
+    v8 = HDSQLiteColumnWithNameAsString();
+    v9 = [objc_alloc(MEMORY[0x277CCD228]) _initWithUUID:v4 appleID:v7 callerID:v8];
+    v10 = *(*(a1 + 32) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
   }
 
   return 0;
@@ -683,7 +671,7 @@ uint64_t __61__HDContributorEntity_contributorForReference_profile_error___block
 
 + (id)externalReferenceForContributorReference:(id)reference profile:(id)profile error:(id *)error
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   referenceCopy = reference;
   profileCopy = profile;
   contributorType = [referenceCopy contributorType];
@@ -702,36 +690,36 @@ uint64_t __61__HDContributorEntity_contributorForReference_profile_error___block
 LABEL_8:
     v11 = [(HDContributorEntity *)self _predicateForContributorReference:referenceCopy];
     objc_opt_self();
-    v24 = [MEMORY[0x277D10B18] predicateWithProperty:@"deleted" equalToValue:MEMORY[0x277CBEC28]];
+    v23 = [MEMORY[0x277D10B18] predicateWithProperty:@"deleted" equalToValue:MEMORY[0x277CBEC28]];
     v12 = MEMORY[0x277D10B20];
-    v35[0] = v11;
-    v35[1] = v24;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+    v34[0] = v11;
+    v34[1] = v23;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
     v14 = [v12 predicateMatchingAllPredicates:v13];
 
     v15 = v14;
     v16 = profileCopy;
     v17 = objc_opt_self();
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__39;
-    v33 = __Block_byref_object_dispose__39;
-    v34 = 0;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__39;
+    v32 = __Block_byref_object_dispose__39;
+    v33 = 0;
     database = [v16 database];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __85__HDContributorEntity__contributorReferenceForEntityMatchingPredicate_profile_error___block_invoke;
-    v25[3] = &unk_278616AA0;
-    v28 = v17;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __85__HDContributorEntity__contributorReferenceForEntityMatchingPredicate_profile_error___block_invoke;
+    v24[3] = &unk_278616AA0;
+    v27 = v17;
     v19 = v15;
-    v26 = v19;
-    v27 = &v29;
-    v20 = [v17 performReadTransactionWithHealthDatabase:database error:error block:v25];
+    v25 = v19;
+    v26 = &v28;
+    v20 = [v17 performReadTransactionWithHealthDatabase:database error:error block:v24];
 
     if (v20)
     {
-      v21 = v30[5];
+      v21 = v29[5];
     }
 
     else
@@ -741,7 +729,7 @@ LABEL_8:
 
     error = v21;
 
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v28, 8);
     goto LABEL_12;
   }
 
@@ -757,8 +745,6 @@ LABEL_7:
   }
 
 LABEL_12:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -792,28 +778,28 @@ LABEL_12:
 
 uint64_t __51__HDContributorEntity_updateAppleID_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   v5 = [a2 databaseForEntity:*(a1 + 32)];
-  v20 = 0;
-  v6 = [HDContributorEntity _nextSyncAnchorInDatabase:v5 error:&v20];
-  v7 = v20;
+  v19 = 0;
+  v6 = [HDContributorEntity _nextSyncAnchorInDatabase:v5 error:&v19];
+  v7 = v19;
   v8 = v7;
   if (v6)
   {
-    v21[0] = @"apple_id";
-    v21[1] = @"mod_date";
-    v21[2] = @"sync_anchor";
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
-    v19 = v8;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __51__HDContributorEntity_updateAppleID_profile_error___block_invoke_2;
-    v16[3] = &unk_278613DE8;
+    v20[0] = @"apple_id";
+    v20[1] = @"mod_date";
+    v20[2] = @"sync_anchor";
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+    v18 = v8;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __51__HDContributorEntity_updateAppleID_profile_error___block_invoke_2;
+    v15[3] = &unk_278613DE8;
     v10 = *(a1 + 32);
-    v17 = *(a1 + 40);
-    v18 = v6;
-    v11 = [v10 updateProperties:v9 database:v5 error:&v19 bindingHandler:v16];
-    v12 = v19;
+    v16 = *(a1 + 40);
+    v17 = v6;
+    v11 = [v10 updateProperties:v9 database:v5 error:&v18 bindingHandler:v15];
+    v12 = v18;
   }
 
   else
@@ -844,7 +830,6 @@ uint64_t __51__HDContributorEntity_updateAppleID_profile_error___block_invoke(ui
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -896,28 +881,28 @@ void __51__HDContributorEntity_updateAppleID_profile_error___block_invoke_2(uint
 
 uint64_t __52__HDContributorEntity_updateCallerID_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   v5 = [a2 databaseForEntity:*(a1 + 32)];
-  v20 = 0;
-  v6 = [HDContributorEntity _nextSyncAnchorInDatabase:v5 error:&v20];
-  v7 = v20;
+  v19 = 0;
+  v6 = [HDContributorEntity _nextSyncAnchorInDatabase:v5 error:&v19];
+  v7 = v19;
   v8 = v7;
   if (v6)
   {
-    v21[0] = @"caller_id";
-    v21[1] = @"mod_date";
-    v21[2] = @"sync_anchor";
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
-    v19 = v8;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __52__HDContributorEntity_updateCallerID_profile_error___block_invoke_2;
-    v16[3] = &unk_278613DE8;
+    v20[0] = @"caller_id";
+    v20[1] = @"mod_date";
+    v20[2] = @"sync_anchor";
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+    v18 = v8;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __52__HDContributorEntity_updateCallerID_profile_error___block_invoke_2;
+    v15[3] = &unk_278613DE8;
     v10 = *(a1 + 32);
-    v17 = *(a1 + 40);
-    v18 = v6;
-    v11 = [v10 updateProperties:v9 database:v5 error:&v19 bindingHandler:v16];
-    v12 = v19;
+    v16 = *(a1 + 40);
+    v17 = v6;
+    v11 = [v10 updateProperties:v9 database:v5 error:&v18 bindingHandler:v15];
+    v12 = v18;
   }
 
   else
@@ -948,7 +933,6 @@ uint64_t __52__HDContributorEntity_updateCallerID_profile_error___block_invoke(u
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1017,43 +1001,42 @@ void __52__HDContributorEntity_updateCallerID_profile_error___block_invoke_2(uin
 
 uint64_t __85__HDContributorEntity__contributorReferenceForEntityMatchingPredicate_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 48);
   v6 = [a2 databaseForEntityClass:v5];
   v7 = [v5 queryWithDatabase:v6 predicate:*(a1 + 32)];
 
-  v14[0] = @"uuid";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __85__HDContributorEntity__contributorReferenceForEntityMatchingPredicate_profile_error___block_invoke_2;
-  v12[3] = &unk_278619370;
-  v13 = *(a1 + 40);
-  v9 = [v7 enumerateProperties:v8 error:a3 enumerationHandler:v12];
+  v13[0] = @"uuid";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __85__HDContributorEntity__contributorReferenceForEntityMatchingPredicate_profile_error___block_invoke_2;
+  v11[3] = &unk_278619370;
+  v12 = *(a1 + 40);
+  v9 = [v7 enumerateProperties:v8 error:a3 enumerationHandler:v11];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-uint64_t __85__HDContributorEntity__contributorReferenceForEntityMatchingPredicate_profile_error___block_invoke_2(uint64_t a1)
+uint64_t __85__HDContributorEntity__contributorReferenceForEntityMatchingPredicate_profile_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsUUID();
-  v3 = [*(a1 + 40) noneContributorUUID];
-  v4 = [v2 isEqual:v3];
+  v4 = HDSQLiteColumnWithNameAsUUID();
+  v5 = [*(a1 + 40) noneContributorUUID];
+  v6 = [v4 isEqual:v5];
 
-  if (v4)
+  if (v6)
   {
     +[HDContributorReference contributorReferenceForNoContributor];
   }
 
   else
   {
-    [HDContributorReference contributorReferenceForOtherUserWithUUID:v2];
+    [HDContributorReference contributorReferenceForOtherUserWithUUID:v4];
   }
-  v5 = ;
-  v6 = *(*(a1 + 32) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v7 = ;
+  v8 = *(*(a1 + 32) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 
   return 0;
 }

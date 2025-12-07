@@ -9,6 +9,7 @@
 - (void)connectedToDevice:(id)device;
 - (void)dealloc;
 - (void)deviceEncounteredAuthenticationChallenge:(id)challenge;
+- (void)deviceSupportsFindMyRemote:(BOOL)remote;
 - (void)deviceUpdateSiriRemoteFindingState;
 - (void)deviceUpdatedAttentionState;
 - (void)deviceUpdatedNowPlayingInfo:(id)info;
@@ -17,6 +18,7 @@
 - (void)didUpdateDevice:(id)device;
 - (void)disconnect;
 - (void)disconnectedFromDevice:(id)device error:(id)error;
+- (void)enableFindingSession:(BOOL)session;
 - (void)sendButtonEvent:(id)event;
 @end
 
@@ -105,8 +107,7 @@
 
 - (void)disconnect
 {
-  [(TVRCRPCompanionLinkClientWrapper *)self->_deviceWrapper disconnect];
-  v3 = _TVRCRemoteTextInputLog();
+  v3 = _TVRCRemoteTextInputLog([(TVRCRPCompanionLinkClientWrapper *)self->_deviceWrapper disconnect]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -138,6 +139,13 @@
   }
 
   [(TVRCRPCompanionLinkClientWrapper *)self->_deviceWrapper sendButtonEvent:eventCopy];
+}
+
+- (void)enableFindingSession:(BOOL)session
+{
+  sessionCopy = session;
+  deviceWrapper = [(TVRCRapportDeviceImpl *)self deviceWrapper];
+  [deviceWrapper enableFindingSession:sessionCopy];
 }
 
 - (void)connectedToDevice:(id)device
@@ -203,6 +211,13 @@
   [WeakRetained didUpdateSiriRemoteFindingStateWithDevice:self];
 }
 
+- (void)deviceSupportsFindMyRemote:(BOOL)remote
+{
+  remoteCopy = remote;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained device:self didUpdateFindMyRemoteSupported:remoteCopy];
+}
+
 - (void)didUpdateDevice:(id)device
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -211,15 +226,15 @@
 
 - (void)_setupKeyboardController
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = _TVRCRemoteTextInputLog();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = _TVRCRemoteTextInputLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[TVRCRapportDeviceImpl _setupKeyboardController]";
-    v9 = 2112;
+    v6 = 136315394;
+    v7 = "[TVRCRapportDeviceImpl _setupKeyboardController]";
+    v8 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", &v7, 0x16u);
+    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", &v6, 0x16u);
   }
 
   v4 = objc_alloc_init(TVRCRapportRemoteTextInputKeyboardImpl);
@@ -228,26 +243,24 @@
 
   [(TVRCRapportRemoteTextInputKeyboardImpl *)self->_keyboardImpl setCompanionLinkWrapper:self->_deviceWrapper];
   [(TVRXKeyboardController *)self->_keyboardController _setKeyboardImpl:self->_keyboardImpl];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = _TVRCRapportLog();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = _TVRCRapportLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v7 = "[TVRCRapportDeviceImpl dealloc]";
-    v8 = 2112;
+    v6 = "[TVRCRapportDeviceImpl dealloc]";
+    v7 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
   }
 
-  v5.receiver = self;
-  v5.super_class = TVRCRapportDeviceImpl;
-  [(TVRCRapportDeviceImpl *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = TVRCRapportDeviceImpl;
+  [(TVRCRapportDeviceImpl *)&v4 dealloc];
 }
 
 - (_TVRCDeviceImplDelegate)delegate

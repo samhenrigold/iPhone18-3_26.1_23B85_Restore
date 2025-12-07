@@ -71,7 +71,7 @@ uint64_t __38__CNChildDelegateAccountsStore_os_log__block_invoke()
 
 - (BOOL)updateAccounts:(id)accounts error:(id *)error
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   accountsCopy = accounts;
   if (accountsCopy)
   {
@@ -81,33 +81,33 @@ uint64_t __38__CNChildDelegateAccountsStore_os_log__block_invoke()
     v10 = [childAccounts _cn_indexBy:&__block_literal_global_11_0];
     v11 = [v10 mutableCopy];
 
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
-    v47 = accountsCopy;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    v46 = accountsCopy;
     obj = accountsCopy;
-    v12 = [obj countByEnumeratingWithState:&v59 objects:v69 count:16];
+    v12 = [obj countByEnumeratingWithState:&v58 objects:v68 count:16];
     if (!v12)
     {
       goto LABEL_18;
     }
 
     v13 = v12;
-    v14 = *v60;
-    v48 = v7;
+    v14 = *v59;
+    v47 = v7;
     while (1)
     {
       v15 = 0;
-      v49 = v13;
+      v48 = v13;
       do
       {
-        if (*v60 != v14)
+        if (*v59 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v59 + 1) + 8 * v15);
+        v16 = *(*(&v58 + 1) + 8 * v15);
         principalPath = [v16 principalPath];
         if (principalPath)
         {
@@ -123,7 +123,7 @@ uint64_t __38__CNChildDelegateAccountsStore_os_log__block_invoke()
             v24 = objc_opt_class();
             parentAccount2 = [(CNChildDelegateAccountsStore *)self parentAccount];
             v26 = v24;
-            v7 = v48;
+            v7 = v47;
             [v26 configureChildAccount:os_log withSettingsFromDelegateInfo:v16 parent:parentAccount2];
 
             accountProperties2 = [os_log accountProperties];
@@ -131,7 +131,7 @@ uint64_t __38__CNChildDelegateAccountsStore_os_log__block_invoke()
 
             v11 = v22;
             v14 = v21;
-            v13 = v49;
+            v13 = v48;
             if (parentAccount2)
             {
               goto LABEL_15;
@@ -156,12 +156,12 @@ LABEL_15:
         {
           dsid = [v16 dsid];
           *buf = 138543618;
-          v66 = dsid;
-          v67 = 2112;
-          v68 = v16;
+          v65 = dsid;
+          v66 = 2112;
+          v67 = v16;
           _os_log_error_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_ERROR, "Unexpected condition updating accounts - no principal path for delegateInfo: %{public}@ %@", buf, 0x16u);
 
-          v7 = v48;
+          v7 = v47;
         }
 
 LABEL_16:
@@ -170,69 +170,69 @@ LABEL_16:
       }
 
       while (v13 != v15);
-      v13 = [obj countByEnumeratingWithState:&v59 objects:v69 count:16];
+      v13 = [obj countByEnumeratingWithState:&v58 objects:v68 count:16];
       if (!v13)
       {
 LABEL_18:
 
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
         v56 = 0u;
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
         allValues = [v11 allValues];
-        v31 = [allValues countByEnumeratingWithState:&v55 objects:v64 count:16];
+        v31 = [allValues countByEnumeratingWithState:&v54 objects:v63 count:16];
         if (v31)
         {
           v32 = v31;
-          v33 = *v56;
+          v33 = *v55;
           do
           {
             for (i = 0; i != v32; ++i)
             {
-              if (*v56 != v33)
+              if (*v55 != v33)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              v35 = [(CNChildDelegateAccountsStore *)self removeAccount:*(*(&v55 + 1) + 8 * i)];
+              v35 = [(CNChildDelegateAccountsStore *)self removeAccount:*(*(&v54 + 1) + 8 * i)];
               [v7 addObject:v35];
             }
 
-            v32 = [allValues countByEnumeratingWithState:&v55 objects:v64 count:16];
+            v32 = [allValues countByEnumeratingWithState:&v54 objects:v63 count:16];
           }
 
           while (v32);
         }
 
-        v53 = 0u;
-        v54 = 0u;
-        v51 = 0u;
         v52 = 0u;
+        v53 = 0u;
+        v50 = 0u;
+        v51 = 0u;
         v36 = v7;
-        v37 = [v36 countByEnumeratingWithState:&v51 objects:v63 count:16];
+        v37 = [v36 countByEnumeratingWithState:&v50 objects:v62 count:16];
         if (v37)
         {
           v38 = v37;
-          v39 = *v52;
+          v39 = *v51;
           do
           {
             for (j = 0; j != v38; ++j)
             {
-              if (*v52 != v39)
+              if (*v51 != v39)
               {
                 objc_enumerationMutation(v36);
               }
 
-              v41 = [*(*(&v51 + 1) + 8 * j) result:0];
+              v41 = [*(*(&v50 + 1) + 8 * j) result:0];
             }
 
-            v38 = [v36 countByEnumeratingWithState:&v51 objects:v63 count:16];
+            v38 = [v36 countByEnumeratingWithState:&v50 objects:v62 count:16];
           }
 
           while (v38);
         }
 
-        accountsCopy = v47;
+        accountsCopy = v46;
         goto LABEL_37;
       }
     }
@@ -254,7 +254,6 @@ LABEL_18:
 
 LABEL_37:
 
-  v45 = *MEMORY[0x1E69E9840];
   return accountsCopy != 0;
 }
 
@@ -282,29 +281,29 @@ LABEL_37:
 
 + (void)configureChildAccount:(id)account withSettingsFromDelegateInfo:(id)info parent:(id)parent
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   parentCopy = parent;
   [accountCopy setPropertiesFromDelegateInfo:info];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
-  v9 = [&unk_1EF464228 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v9 = [&unk_1EF464228 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(&unk_1EF464228);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         v14 = [accountCopy objectForKeyedSubscript:v13];
 
         if (!v14)
@@ -314,13 +313,11 @@ LABEL_37:
         }
       }
 
-      v10 = [&unk_1EF464228 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [&unk_1EF464228 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)updateAccount:(id)account
@@ -360,9 +357,8 @@ LABEL_37:
 void __46__CNChildDelegateAccountsStore_updateAccount___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_cold_1(a1);
   }
@@ -370,9 +366,8 @@ void __46__CNChildDelegateAccountsStore_updateAccount___block_invoke(uint64_t a1
 
 void __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_26(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v2 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_26_cold_1(a1);
   }
@@ -406,9 +401,8 @@ id __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_28(uint64_t a
 void __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_2_cold_1(a1);
   }
@@ -416,9 +410,8 @@ void __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_2(uint64_t 
 
 void __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_29(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v2 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_29_cold_1(a1);
   }
@@ -453,9 +446,8 @@ void __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_29(uint64_t
 void __46__CNChildDelegateAccountsStore_removeAccount___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __46__CNChildDelegateAccountsStore_removeAccount___block_invoke_cold_1(a1);
   }
@@ -463,9 +455,8 @@ void __46__CNChildDelegateAccountsStore_removeAccount___block_invoke(uint64_t a1
 
 void __46__CNChildDelegateAccountsStore_removeAccount___block_invoke_31(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v2 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __46__CNChildDelegateAccountsStore_removeAccount___block_invoke_31_cold_1(a1);
   }
@@ -473,59 +464,47 @@ void __46__CNChildDelegateAccountsStore_removeAccount___block_invoke_31(uint64_t
 
 void __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_3_3(a1) identifier];
+  v1 = [OUTLINED_FUNCTION_3_3(a1) identifier];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1(&dword_1859F0000, v3, v4, "Delegate with account ID %@ cannot be saved, error %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1859F0000, v2, v3, "Delegate with account ID %@ cannot be saved, error %{public}@", v4, v5, v6, v7);
 }
 
 void __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_26_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_3_3(a1) identifier];
-  OUTLINED_FUNCTION_2_3(&dword_1859F0000, v3, v4, "Delegate with account ID %@ can be saved", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v1 = [OUTLINED_FUNCTION_3_3(a1) identifier];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_2_3(&dword_1859F0000, v2, v3, "Delegate with account ID %@ can be saved", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_2_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_3_3(a1) identifier];
+  v1 = [OUTLINED_FUNCTION_3_3(a1) identifier];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1(&dword_1859F0000, v3, v4, "Delegate with account ID %@ save failed, error %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1859F0000, v2, v3, "Delegate with account ID %@ save failed, error %{public}@", v4, v5, v6, v7);
 }
 
 void __46__CNChildDelegateAccountsStore_updateAccount___block_invoke_29_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_3_3(a1) identifier];
-  OUTLINED_FUNCTION_2_3(&dword_1859F0000, v3, v4, "Delegate with account ID %@ saved", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v1 = [OUTLINED_FUNCTION_3_3(a1) identifier];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_2_3(&dword_1859F0000, v2, v3, "Delegate with account ID %@ saved", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __46__CNChildDelegateAccountsStore_removeAccount___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_3_3(a1) identifier];
+  v1 = [OUTLINED_FUNCTION_3_3(a1) identifier];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1(&dword_1859F0000, v3, v4, "Delegate with account ID %@ failed to be removed, error %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1859F0000, v2, v3, "Delegate with account ID %@ failed to be removed, error %{public}@", v4, v5, v6, v7);
 }
 
 void __46__CNChildDelegateAccountsStore_removeAccount___block_invoke_31_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_3_3(a1) identifier];
-  OUTLINED_FUNCTION_2_3(&dword_1859F0000, v3, v4, "Delegate with account ID %@ was successfully removed", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v1 = [OUTLINED_FUNCTION_3_3(a1) identifier];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_2_3(&dword_1859F0000, v2, v3, "Delegate with account ID %@ was successfully removed", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

@@ -41,16 +41,16 @@
   variantsCopy = variants;
   if ([variantsCopy displayType] == 37 || objc_msgSend(variantsCopy, "displayType") == 55)
   {
-    v4 = 1;
+    isEqual = 1;
   }
 
   else
   {
     name = [variantsCopy name];
-    v4 = [name isEqual:@"EmojiPopupKey"];
+    isEqual = objc_msgSend_isEqual_(name);
   }
 
-  return v4;
+  return isEqual;
 }
 
 - (id)traitsHashStringForKey:(id)key withGeometry:(id)geometry withSymbolStyle:(id)style controlOpacities:(BOOL)opacities blendForm:(int64_t)form blurBlending:(BOOL)blending renderConfig:(id)config
@@ -95,14 +95,14 @@ LABEL_8:
     goto LABEL_21;
   }
 
-  geometry = [v8 geometry];
-  [geometry paddedFrame];
+  v9 = objc_msgSend_geometry(v8);
+  [v9 paddedFrame];
   v11 = v10;
   v13 = v12;
   v15 = v14;
   v17 = v16;
-  geometry2 = [v8 geometry];
-  [geometry2 setDisplayFrame:{v11, v13, v15, v17}];
+  v18 = objc_msgSend_geometry(v8);
+  [v18 setDisplayFrame:{v11, v13, v15, v17}];
 
   [(UIKBRenderFactory *)self translucentGapWidth];
   v20 = v19;
@@ -229,8 +229,8 @@ LABEL_8:
 
     if ([keyCopy displayType] == 37)
     {
-      geometry3 = [v8 geometry];
-      [geometry3 setPopupBias:2];
+      v65 = objc_msgSend_geometry(v8);
+      [v65 setPopupBias:2];
 
       lightKeycapsFontName4 = [(UIKBRenderFactory *)self lightKeycapsFontName];
       [(UIKBRenderFactoryEmoji_iPhone *)self emojiCategoryControlIconSize];
@@ -266,8 +266,8 @@ LABEL_8:
       v76 = [v75 count];
 
       array = [MEMORY[0x1E695DF70] array];
-      geometry4 = [v8 geometry];
-      [geometry4 paddedFrame];
+      v78 = objc_msgSend_geometry(v8);
+      [v78 paddedFrame];
       v80 = v79;
 
       if (v76)
@@ -276,14 +276,14 @@ LABEL_8:
         v82 = v80 / v76;
         do
         {
-          geometry5 = [v8 geometry];
-          [geometry5 paddedFrame];
+          v83 = objc_msgSend_geometry(v8);
+          [v83 paddedFrame];
           v85 = v82 * v81 + v84;
-          geometry6 = [v8 geometry];
-          [geometry6 paddedFrame];
+          v86 = objc_msgSend_geometry(v8);
+          [v86 paddedFrame];
           v88 = v87;
-          geometry7 = [v8 geometry];
-          [geometry7 paddedFrame];
+          v89 = objc_msgSend_geometry(v8);
+          [v89 paddedFrame];
           v91 = v90;
 
           v92 = [UIKBRenderGeometry geometryWithFrame:v85 paddedFrame:v88, v82, v91, v85, v88, v82, v91];
@@ -360,19 +360,19 @@ LABEL_8:
         v117 = [UIKBEdgeEffect effectWithColor:_emojiBorderColor edges:1 inset:v20 weight:v20];
         [v8 addRenderEffect:v117];
 
-        geometry8 = [v8 geometry];
-        [geometry8 paddedFrame];
+        v118 = objc_msgSend_geometry(v8);
+        [v118 paddedFrame];
         v199 = CGRectInset(v198, -15.0, 0.0);
         x = v199.origin.x;
         y = v199.origin.y;
         width = v199.size.width;
         height = v199.size.height;
 
-        geometry9 = [v8 geometry];
-        [geometry9 setPaddedFrame:{x, y, width, height}];
+        v123 = objc_msgSend_geometry(v8);
+        [v123 setPaddedFrame:{x, y, width, height}];
 
-        geometry10 = [v8 geometry];
-        [geometry10 setDisplayFrame:{x, y, width, height}];
+        v124 = objc_msgSend_geometry(v8);
+        [v124 setDisplayFrame:{x, y, width, height}];
       }
     }
 
@@ -414,9 +414,9 @@ LABEL_8:
     else
     {
       name = [keyCopy name];
-      v126 = [name isEqualToString:@"EmojiPopupKey"];
+      isEqualToString = objc_msgSend_isEqualToString_(name);
 
-      if (v126)
+      if (isEqualToString)
       {
         visualStyling = [keyplaneCopy visualStyling];
         lightweightFactory = [(UIKBRenderFactory *)self lightweightFactory];

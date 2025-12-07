@@ -106,7 +106,7 @@
 
 void __77__CAFTestAccRequestWithReqAndResParamsControl__didRequestWithValue_response___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = v8;
@@ -120,17 +120,15 @@ void __77__CAFTestAccRequestWithReqAndResParamsControl__didRequestWithValue_resp
 
     else
     {
-      v14[0] = @"testOutput7";
+      v13[0] = @"testOutput7";
       v11 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:a2];
-      v14[1] = @"testOutput8";
-      v15[0] = v11;
-      v15[1] = v7;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+      v13[1] = @"testOutput8";
+      v14[0] = v11;
+      v14[1] = v7;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
       (*(v10 + 16))(v10, v12, 0);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

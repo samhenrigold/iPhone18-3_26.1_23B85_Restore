@@ -46,22 +46,22 @@
 
 - (void)captureOutput:(id)output didOutputSampleBuffer:(opaqueCMSampleBuffer *)buffer fromConnection:(id)connection
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F8F5D70);
-  MEMORY[0x28223BE20](v7 - 8);
-  v9 = &v15 - v8;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F8F5D70, &unk_257ED9DB0);
+  MEMORY[0x28223BE20](v7 - 8, v8, v9, v10, v11);
+  v13 = &v19 - v12;
   type metadata accessor for MAGCMSampleBufferWrapper();
-  v10 = swift_allocObject();
-  *(v10 + 16) = buffer;
-  v11 = sub_257ECF930();
-  (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = v10;
-  v12[5] = self;
+  v14 = swift_allocObject();
+  *(v14 + 16) = buffer;
+  v15 = sub_257ECF930();
+  (*(*(v15 - 8) + 56))(v13, 1, 1, v15);
+  v16 = swift_allocObject();
+  v16[2] = 0;
+  v16[3] = 0;
+  v16[4] = v14;
+  v16[5] = self;
   bufferCopy = buffer;
   selfCopy = self;
-  sub_257E81524(0, 0, v9, &unk_257EE9428, v12);
+  sub_257E81524(0, 0, v13, &unk_257EE9428, v16);
 }
 
 - (void)captureOutput:(id)output didFinishProcessingPhoto:(id)photo error:(id)error

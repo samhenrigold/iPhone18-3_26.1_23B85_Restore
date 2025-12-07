@@ -5,8 +5,8 @@
 - (double)effectiveFooterFrameWithSectionMarginsApplied;
 - (double)effectiveHeaderFrameWithSectionMarginsApplied;
 - (double)frameForItemAtIndexPath:(uint64_t)path;
+- (id)computeLayout;
 - (uint64_t)addInvalidatedIndexPath:(uint64_t)path;
-- (uint64_t)computeLayout;
 - (void)computeLayoutInRect:(unsigned int)rect forSection:(void *)section invalidating:(CGFloat)invalidating invalidationContext:(CGFloat)context;
 - (void)logInvalidSizes;
 - (void)logInvalidSizesForHorizontalDirection:(int)direction warnAboutDelegateValues:;
@@ -41,7 +41,7 @@
   return v2;
 }
 
-- (uint64_t)computeLayout
+- (id)computeLayout
 {
   v141 = *MEMORY[0x1E69E9840];
   if (!result)
@@ -50,7 +50,7 @@
   }
 
   v1 = result;
-  WeakRetained = objc_loadWeakRetained((result + 144));
+  WeakRetained = objc_loadWeakRetained(result + 18);
   if (WeakRetained)
   {
     v3 = WeakRetained[97];
@@ -61,7 +61,7 @@
     v3 = 0;
   }
 
-  v4 = objc_loadWeakRetained((v1 + 144));
+  v4 = objc_loadWeakRetained(v1 + 18);
   if (v4)
   {
     v5 = v4[14];
@@ -72,7 +72,7 @@
     v5 = 0.0;
   }
 
-  v6 = objc_loadWeakRetained((v1 + 144));
+  v6 = objc_loadWeakRetained(v1 + 18);
   v7 = v6;
   if (v6)
   {
@@ -87,7 +87,7 @@
   collectionView = [v8 collectionView];
   if ([collectionView _shouldReverseLayoutDirection])
   {
-    v10 = objc_loadWeakRetained((v1 + 144));
+    v10 = objc_loadWeakRetained(v1 + 18);
     v11 = v10;
     if (v10)
     {
@@ -109,21 +109,21 @@
 
   if (*(v1 + 88) == 1)
   {
-    v14 = *(v1 + 112);
-    v15 = *(v1 + 120);
-    v16 = (v1 + 344);
-    v17 = *(v1 + 128);
+    v14 = *(v1 + 14);
+    v15 = *(v1 + 15);
+    v16 = v1 + 43;
+    v17 = *(v1 + 16);
     if (v3)
     {
-      v18 = *(v1 + 296);
-      v19 = *(v1 + 280);
+      v18 = *(v1 + 37);
+      v19 = *(v1 + 35);
       v20 = v19 + v18;
-      *(v1 + 152) = v17 + *(v1 + 288);
-      v21 = *(v1 + 256);
-      v134 = *(v1 + 248);
+      *(v1 + 19) = v17 + *(v1 + 36);
+      v21 = *(v1 + 32);
+      v134 = *(v1 + 31);
       if (v17 > 0.0)
       {
-        v22 = objc_loadWeakRetained((v1 + 144));
+        v22 = objc_loadWeakRetained(v1 + 18);
         if (v22)
         {
           v23 = v22[14];
@@ -135,9 +135,9 @@
         }
 
         *v16 = 0;
-        *(v1 + 352) = 0;
-        *(v1 + 360) = v17;
-        *(v1 + 368) = v23;
+        v1[44] = 0;
+        *(v1 + 45) = v17;
+        v1[46] = v23;
 LABEL_25:
 
         goto LABEL_27;
@@ -146,15 +146,15 @@ LABEL_25:
 
     else
     {
-      v18 = *(v1 + 304);
-      v19 = *(v1 + 288);
+      v18 = *(v1 + 38);
+      v19 = *(v1 + 36);
       v20 = v19 + v18;
-      *(v1 + 152) = v17 + *(v1 + 280);
-      v21 = *(v1 + 248);
-      v134 = *(v1 + 256);
+      *(v1 + 19) = v17 + *(v1 + 35);
+      v21 = *(v1 + 31);
+      v134 = *(v1 + 32);
       if (v17 > 0.0)
       {
-        v22 = objc_loadWeakRetained((v1 + 144));
+        v22 = objc_loadWeakRetained(v1 + 18);
         if (v22)
         {
           v26 = v22[14];
@@ -165,40 +165,40 @@ LABEL_25:
           v26 = 0;
         }
 
-        v27 = *(v1 + 128);
+        v27 = v1[16];
         *v16 = 0;
-        *(v1 + 352) = 0;
-        *(v1 + 360) = v26;
-        *(v1 + 368) = v27;
+        v1[44] = 0;
+        v1[45] = v26;
+        v1[46] = v27;
         goto LABEL_25;
       }
     }
 
     v28 = *(MEMORY[0x1E695F058] + 16);
     *v16 = *MEMORY[0x1E695F058];
-    *(v1 + 360) = v28;
+    *(v1 + 45) = v28;
 LABEL_27:
     v5 = v5 - v20;
-    v29 = *(v1 + 152);
-    v30 = *(v1 + 208);
+    v29 = *(v1 + 19);
+    v30 = v1[26];
     if (v30 < 1)
     {
 LABEL_81:
-      v56 = *(v1 + 136);
-      v57 = (v1 + 376);
+      v56 = *(v1 + 17);
+      v57 = v1 + 47;
       if (v3)
       {
-        v25 = v29 + *(v1 + 304);
+        v25 = v29 + *(v1 + 38);
         if (v56 <= 0.0)
         {
           v63 = *(MEMORY[0x1E695F058] + 16);
           *v57 = *MEMORY[0x1E695F058];
-          *(v1 + 392) = v63;
+          *(v1 + 49) = v63;
         }
 
         else
         {
-          v58 = objc_loadWeakRetained((v1 + 144));
+          v58 = objc_loadWeakRetained(v1 + 18);
           if (v58)
           {
             v59 = v58[14];
@@ -209,15 +209,15 @@ LABEL_81:
             v59 = 0;
           }
 
-          *(v1 + 376) = v25;
-          *(v1 + 384) = 0;
-          *(v1 + 392) = v56;
-          *(v1 + 400) = v59;
+          *(v1 + 47) = v25;
+          v1[48] = 0;
+          *(v1 + 49) = v56;
+          v1[50] = v59;
 
-          v25 = v25 + *(v1 + 136);
+          v25 = v25 + *(v1 + 17);
         }
 
-        v64 = objc_loadWeakRetained((v1 + 144));
+        v64 = objc_loadWeakRetained(v1 + 18);
         if (v64)
         {
           v65 = v64[14];
@@ -228,12 +228,12 @@ LABEL_81:
           v65 = 0;
         }
 
-        *(v1 + 312) = 0;
-        *(v1 + 320) = 0;
-        *(v1 + 328) = v25;
-        *(v1 + 336) = v65;
+        v1[39] = 0;
+        v1[40] = 0;
+        *(v1 + 41) = v25;
+        v1[42] = v65;
 
-        if (*(v1 + 88))
+        if (v1[11])
         {
           goto LABEL_171;
         }
@@ -241,17 +241,17 @@ LABEL_81:
         goto LABEL_94;
       }
 
-      v24 = v29 + *(v1 + 296);
+      v24 = v29 + *(v1 + 37);
       if (v56 <= 0.0)
       {
         v75 = *(MEMORY[0x1E695F058] + 16);
         *v57 = *MEMORY[0x1E695F058];
-        *(v1 + 392) = v75;
+        *(v1 + 49) = v75;
       }
 
       else
       {
-        v60 = objc_loadWeakRetained((v1 + 144));
+        v60 = objc_loadWeakRetained(v1 + 18);
         if (v60)
         {
           v61 = v60[14];
@@ -262,16 +262,16 @@ LABEL_81:
           v61 = 0;
         }
 
-        v62 = *(v1 + 136);
-        *(v1 + 376) = 0;
-        *(v1 + 384) = v24;
-        *(v1 + 392) = v61;
-        *(v1 + 400) = v62;
+        v62 = v1[17];
+        v1[47] = 0;
+        *(v1 + 48) = v24;
+        v1[49] = v61;
+        v1[50] = v62;
 
-        v24 = v24 + *(v1 + 136);
+        v24 = v24 + *(v1 + 17);
       }
 
-      v76 = objc_loadWeakRetained((v1 + 144));
+      v76 = objc_loadWeakRetained(v1 + 18);
       if (v76)
       {
         v77 = v76[14];
@@ -282,33 +282,33 @@ LABEL_81:
         v77 = 0;
       }
 
-      *(v1 + 312) = 0;
-      *(v1 + 320) = 0;
-      *(v1 + 328) = v77;
-      *(v1 + 336) = v24;
+      v1[39] = 0;
+      v1[40] = 0;
+      v1[41] = v77;
+      *(v1 + 42) = v24;
 
-      if (*(v1 + 88))
+      if (v1[11])
       {
         goto LABEL_173;
       }
 
 LABEL_104:
-      v25 = v5 - (*(v1 + 288) + *(v1 + 304));
-      v69 = *(v1 + 120);
-      v78 = *(v1 + 128);
-      v68 = *(v1 + 280) + v78;
-      v67 = *(v1 + 112);
-      v79 = (v1 + 344);
+      v25 = v5 - (*(v1 + 36) + *(v1 + 38));
+      v69 = *(v1 + 15);
+      v78 = *(v1 + 16);
+      v68 = *(v1 + 35) + v78;
+      v67 = *(v1 + 14);
+      v79 = v1 + 43;
       if (v78 <= 0.0)
       {
         v83 = *(MEMORY[0x1E695F058] + 16);
         *v79 = *MEMORY[0x1E695F058];
-        *(v1 + 360) = v83;
+        *(v1 + 45) = v83;
       }
 
       else
       {
-        v80 = objc_loadWeakRetained((v1 + 144));
+        v80 = objc_loadWeakRetained(v1 + 18);
         if (v80)
         {
           v81 = v80[14];
@@ -319,11 +319,11 @@ LABEL_104:
           v81 = 0;
         }
 
-        v82 = *(v1 + 128);
+        v82 = v1[16];
         *v79 = 0;
-        *(v1 + 352) = 0;
-        *(v1 + 360) = v81;
-        *(v1 + 368) = v82;
+        v1[44] = 0;
+        v1[45] = v81;
+        v1[46] = v82;
       }
 
       v74 = v25;
@@ -333,7 +333,7 @@ LABEL_104:
     if (v21 > v5)
     {
       [(_UIFlowLayoutSection *)v1 logInvalidSizesForHorizontalDirection:0 warnAboutDelegateValues:?];
-      v30 = *(v1 + 208);
+      v30 = v1[26];
     }
 
     v31 = v15 + v21;
@@ -344,24 +344,24 @@ LABEL_104:
     }
 
     v33 = v30 / v32;
-    *(v1 + 216) = v32;
-    *(v1 + 224) = -1;
+    v1[27] = v32;
+    v1[28] = -1;
     v34 = v30 % v32;
     *(v1 + 89) = v30 % v32 != 0;
     if (v30 % v32)
     {
-      *(v1 + 224) = v33++;
+      v1[28] = v33++;
     }
 
-    v35 = *(v1 + 232);
+    v35 = *(v1 + 58);
     if (v35 <= 1)
     {
       if (v35)
       {
         if (v35 == 1)
         {
-          *(v1 + 176) = v15;
-          v36 = objc_loadWeakRetained((v1 + 144));
+          *(v1 + 22) = v15;
+          v36 = objc_loadWeakRetained(v1 + 18);
           if (v36)
           {
             v37 = v36[14];
@@ -372,21 +372,21 @@ LABEL_104:
             v37 = 0.0;
           }
 
-          *(v1 + 160) = v19 + (v37 - (v18 + v19 + v31 * *(v1 + 216) - v15)) * 0.5;
+          *(v1 + 20) = v19 + (v37 - (v18 + v19 + v31 * v1[27] - v15)) * 0.5;
 
-          *(v1 + 168) = *(v1 + 160);
+          v1[21] = v1[20];
           goto LABEL_59;
         }
 
 LABEL_48:
-        *(v1 + 176) = v15;
-        *(v1 + 160) = v19;
+        *(v1 + 22) = v15;
+        *(v1 + 20) = v19;
         goto LABEL_59;
       }
 
-      *(v1 + 176) = v15;
-      *(v1 + 160) = v19;
-      v40 = objc_loadWeakRetained((v1 + 144));
+      *(v1 + 22) = v15;
+      *(v1 + 20) = v19;
+      v40 = objc_loadWeakRetained(v1 + 18);
       if (v40)
       {
         v43 = v40[14];
@@ -397,17 +397,17 @@ LABEL_48:
         v43 = 0.0;
       }
 
-      v42 = v43 - v19 - (v31 * *(v1 + 216) - v15);
+      v42 = v43 - v19 - (v31 * v1[27] - v15);
 LABEL_52:
-      *(v1 + 168) = v42;
+      *(v1 + 21) = v42;
 
       goto LABEL_59;
     }
 
     if (v35 == 2)
     {
-      *(v1 + 176) = v15;
-      v44 = objc_loadWeakRetained((v1 + 144));
+      *(v1 + 22) = v15;
+      v44 = objc_loadWeakRetained(v1 + 18);
       if (v44)
       {
         v45 = v44[14];
@@ -418,9 +418,9 @@ LABEL_52:
         v45 = 0.0;
       }
 
-      *(v1 + 160) = v45 - v18 - (v31 * *(v1 + 216) - v15);
+      *(v1 + 20) = v45 - v18 - (v31 * v1[27] - v15);
 
-      *(v1 + 168) = v18;
+      *(v1 + 21) = v18;
     }
 
     else
@@ -432,17 +432,17 @@ LABEL_52:
 
       if (v32 <= 1)
       {
-        *(v1 + 176) = v15;
-        v38 = objc_loadWeakRetained((v1 + 144));
+        *(v1 + 22) = v15;
+        v38 = objc_loadWeakRetained(v1 + 18);
         v39 = 0.0;
         if (v38)
         {
           v39 = v38[14];
         }
 
-        *(v1 + 160) = v19 + (v39 - v21 - v19 - v18) * 0.5;
+        *(v1 + 20) = v19 + (v39 - v21 - v19 - v18) * 0.5;
 
-        v40 = objc_loadWeakRetained((v1 + 144));
+        v40 = objc_loadWeakRetained(v1 + 18);
         v41 = 0.0;
         if (v40)
         {
@@ -453,7 +453,7 @@ LABEL_52:
         goto LABEL_52;
       }
 
-      v46 = objc_loadWeakRetained((v1 + 144));
+      v46 = objc_loadWeakRetained(v1 + 18);
       if (v46)
       {
         v47 = v46[14];
@@ -464,10 +464,10 @@ LABEL_52:
         v47 = 0.0;
       }
 
-      *(v1 + 176) = (v47 - v19 - v18 - v21 * *(v1 + 216)) / (*(v1 + 216) - 1);
+      *(v1 + 22) = (v47 - v19 - v18 - v21 * v1[27]) / (v1[27] - 1);
 
-      *(v1 + 160) = v19;
-      *(v1 + 168) = v18;
+      *(v1 + 20) = v19;
+      *(v1 + 21) = v18;
     }
 
 LABEL_59:
@@ -478,13 +478,13 @@ LABEL_80:
       goto LABEL_81;
     }
 
-    v48 = *(v1 + 236);
+    v48 = *(v1 + 59);
     if (v48 > 1)
     {
       if (v48 == 2)
       {
-        *(v1 + 200) = v15;
-        v49 = objc_loadWeakRetained((v1 + 144));
+        *(v1 + 25) = v15;
+        v49 = objc_loadWeakRetained(v1 + 18);
         if (v49)
         {
           v55 = v49[14];
@@ -503,8 +503,8 @@ LABEL_80:
       {
         if (v34 <= 1)
         {
-          *(v1 + 200) = v15;
-          v52 = objc_loadWeakRetained((v1 + 144));
+          *(v1 + 25) = v15;
+          v52 = objc_loadWeakRetained(v1 + 18);
           v53 = 0.0;
           v54 = 0.0;
           if (v52)
@@ -512,19 +512,19 @@ LABEL_80:
             v54 = v52[14];
           }
 
-          *(v1 + 184) = v19 + (v54 - v21 - v19 - v18) * 0.5;
+          *(v1 + 23) = v19 + (v54 - v21 - v19 - v18) * 0.5;
 
-          v49 = objc_loadWeakRetained((v1 + 144));
+          v49 = objc_loadWeakRetained(v1 + 18);
           if (v49)
           {
             v53 = v49[14];
           }
 
-          *(v1 + 168) = v18 + (v53 - v21 - v19 - v18) * 0.5;
+          *(v1 + 21) = v18 + (v53 - v21 - v19 - v18) * 0.5;
           goto LABEL_79;
         }
 
-        v131 = objc_loadWeakRetained((v1 + 144));
+        v131 = objc_loadWeakRetained(v1 + 18);
         if (v131)
         {
           v132 = v131[14];
@@ -535,7 +535,7 @@ LABEL_80:
           v132 = 0.0;
         }
 
-        *(v1 + 200) = (v132 - (v31 * v34 - v15) - v19 - v18) / (v34 - 1);
+        *(v1 + 25) = (v132 - (v31 * v34 - v15) - v19 - v18) / (v34 - 1);
 
         goto LABEL_74;
       }
@@ -543,8 +543,8 @@ LABEL_80:
 
     else if (v48 == 1)
     {
-      *(v1 + 200) = v15;
-      v49 = objc_loadWeakRetained((v1 + 144));
+      *(v1 + 25) = v15;
+      v49 = objc_loadWeakRetained(v1 + 18);
       if (v49)
       {
         v50 = v49[14];
@@ -557,15 +557,15 @@ LABEL_80:
 
       v51 = v19 + (v50 - (v18 + v19 + v31 * v34 - v15)) * 0.5;
 LABEL_78:
-      *(v1 + 184) = v51;
+      *(v1 + 23) = v51;
 LABEL_79:
 
       goto LABEL_80;
     }
 
-    *(v1 + 200) = v15;
+    *(v1 + 25) = v15;
 LABEL_74:
-    *(v1 + 184) = v19;
+    *(v1 + 23) = v19;
     goto LABEL_80;
   }
 
@@ -577,22 +577,22 @@ LABEL_74:
   }
 
 LABEL_94:
-  v24 = v5 - (*(v1 + 280) + *(v1 + 296));
-  v67 = *(v1 + 120);
-  v66 = *(v1 + 128);
-  v68 = *(v1 + 288) + v66;
-  v69 = *(v1 + 112);
-  v70 = (v1 + 344);
+  v24 = v5 - (*(v1 + 35) + *(v1 + 37));
+  v67 = *(v1 + 15);
+  v66 = *(v1 + 16);
+  v68 = *(v1 + 36) + v66;
+  v69 = *(v1 + 14);
+  v70 = v1 + 43;
   if (v66 <= 0.0)
   {
     v73 = *(MEMORY[0x1E695F058] + 16);
     *v70 = *MEMORY[0x1E695F058];
-    *(v1 + 360) = v73;
+    *(v1 + 45) = v73;
   }
 
   else
   {
-    v71 = objc_loadWeakRetained((v1 + 144));
+    v71 = objc_loadWeakRetained(v1 + 18);
     if (v71)
     {
       v72 = v71[14];
@@ -604,15 +604,15 @@ LABEL_94:
     }
 
     *v70 = 0;
-    *(v1 + 352) = 0;
-    *(v1 + 360) = v66;
-    *(v1 + 368) = v72;
+    v1[44] = 0;
+    *(v1 + 45) = v66;
+    v1[46] = v72;
   }
 
   v74 = v24;
 LABEL_110:
-  [*(v1 + 104) removeAllObjects];
-  v84 = [*(v1 + 96) count];
+  [v1[13] removeAllObjects];
+  v84 = [v1[12] count];
   v85 = 1;
   if (v84 < 1)
   {
@@ -642,7 +642,7 @@ LABEL_110:
   v92 = 1;
   do
   {
-    v93 = [*(v1 + 96) objectAtIndexedSubscript:{v88, *&v133}];
+    v93 = [v1[12] objectAtIndexedSubscript:{v88, *&v133}];
     v94 = v93;
     if (v93)
     {
@@ -759,7 +759,7 @@ LABEL_137:
 
   v127 = 0;
 LABEL_177:
-  v128 = [*(v1 + 104) count];
+  v128 = [v1[13] count];
   v130 = v100 != v91 || v128 < 2;
   if (v127)
   {
@@ -777,7 +777,7 @@ LABEL_140:
   v139 = 0u;
   v136 = 0u;
   v137 = 0u;
-  v103 = *(v1 + 104);
+  v103 = v1[13];
   v104 = [v103 countByEnumeratingWithState:&v136 objects:v140 count:16];
   if (v104)
   {
@@ -852,13 +852,13 @@ LABEL_140:
   }
 
   v115 = v68 - v67;
-  v116 = *(v1 + 136);
+  v116 = *(v1 + 17);
   if (v3)
   {
-    v25 = v115 + *(v1 + 304);
+    v25 = v115 + *(v1 + 38);
     if (v116 > 0.0)
     {
-      v117 = objc_loadWeakRetained((v1 + 144));
+      v117 = objc_loadWeakRetained(v1 + 18);
       if (v117)
       {
         v118 = v117[14];
@@ -869,29 +869,29 @@ LABEL_140:
         v118 = 0;
       }
 
-      *(v1 + 376) = v25;
-      *(v1 + 384) = 0;
-      *(v1 + 392) = v116;
-      *(v1 + 400) = v118;
+      *(v1 + 47) = v25;
+      v1[48] = 0;
+      *(v1 + 49) = v116;
+      v1[50] = v118;
 
-      v25 = v25 + *(v1 + 136);
+      v25 = v25 + *(v1 + 17);
       goto LABEL_170;
     }
 
 LABEL_169:
     v122 = *(MEMORY[0x1E695F058] + 16);
-    *(v1 + 376) = *MEMORY[0x1E695F058];
-    *(v1 + 392) = v122;
+    *(v1 + 47) = *MEMORY[0x1E695F058];
+    *(v1 + 49) = v122;
     goto LABEL_170;
   }
 
-  v24 = v115 + *(v1 + 296);
+  v24 = v115 + *(v1 + 37);
   if (v116 <= 0.0)
   {
     goto LABEL_169;
   }
 
-  v119 = objc_loadWeakRetained((v1 + 144));
+  v119 = objc_loadWeakRetained(v1 + 18);
   if (v119)
   {
     v120 = v119[14];
@@ -902,34 +902,34 @@ LABEL_169:
     v120 = 0;
   }
 
-  v121 = *(v1 + 136);
-  *(v1 + 376) = 0;
-  *(v1 + 384) = v24;
-  *(v1 + 392) = v120;
-  *(v1 + 400) = v121;
+  v121 = v1[17];
+  v1[47] = 0;
+  *(v1 + 48) = v24;
+  v1[49] = v120;
+  v1[50] = v121;
 
-  v24 = v24 + *(v1 + 136);
+  v24 = v24 + *(v1 + 17);
 LABEL_170:
-  *(v1 + 312) = 0;
-  *(v1 + 320) = 0;
-  *(v1 + 328) = v25;
-  *(v1 + 336) = v24;
+  v1[39] = 0;
+  v1[40] = 0;
+  *(v1 + 41) = v25;
+  *(v1 + 42) = v24;
 
 LABEL_171:
   if (!(_wantsRightToLeftHorizontalMirroringIfNeeded & 1 | ((v3 & 1) == 0)))
   {
-    MaxX = CGRectGetMaxX(*(v1 + 312));
-    v124 = MaxX - CGRectGetWidth(*(v1 + 344));
-    *(v1 + 344) = v124 - CGRectGetMinX(*(v1 + 344));
-    v125 = CGRectGetMaxX(*(v1 + 312));
-    v126 = v125 - CGRectGetWidth(*(v1 + 376));
-    *(v1 + 376) = v126 - CGRectGetMinX(*(v1 + 376));
+    MaxX = CGRectGetMaxX(*(v1 + 39));
+    v124 = MaxX - CGRectGetWidth(*(v1 + 43));
+    *(v1 + 43) = v124 - CGRectGetMinX(*(v1 + 43));
+    v125 = CGRectGetMaxX(*(v1 + 39));
+    v126 = v125 - CGRectGetWidth(*(v1 + 47));
+    *(v1 + 47) = v126 - CGRectGetMinX(*(v1 + 47));
   }
 
 LABEL_173:
-  result = [*(v1 + 96) count];
-  *(v1 + 264) = 0;
-  *(v1 + 272) = result;
+  result = [v1[12] count];
+  v1[33] = 0;
+  v1[34] = result;
   return result;
 }
 
@@ -1328,15 +1328,15 @@ LABEL_45:
 
 - (void)setHeaderDimension:(double)dimension forSection:
 {
-  if (self)
+  if (result)
   {
-    v4 = dimension - *(self + 128);
-    *(self + 128) = dimension;
+    v4 = dimension - *(result + 128);
+    *(result + 128) = dimension;
     if (v4 != 0.0)
     {
-      v6 = *(self + 328);
-      v7 = *(self + 336);
-      WeakRetained = objc_loadWeakRetained((self + 144));
+      v6 = *(result + 328);
+      v7 = *(result + 336);
+      WeakRetained = objc_loadWeakRetained((result + 144));
       if (WeakRetained)
       {
         v9 = WeakRetained[97];
@@ -1354,7 +1354,7 @@ LABEL_45:
         v10 = v4 + v7;
       }
 
-      [(_UIFlowLayoutSection *)self setEstimatedSize:a2 forSection:v6, v10];
+      [(_UIFlowLayoutSection *)result setEstimatedSize:a2 forSection:v6, v10];
     }
   }
 }
@@ -1966,7 +1966,7 @@ LABEL_89:
   v95 = 1;
 LABEL_91:
   v343 = *(MEMORY[0x1E695F058] + 16);
-  *v347 = *MEMORY[0x1E695F058];
+  v347 = *MEMORY[0x1E695F058];
   v367.origin = *MEMORY[0x1E695F058];
   v367.size = v343;
   v390.origin.x = invalidating;
@@ -2176,7 +2176,7 @@ LABEL_113:
     }
   }
 
-  v367.origin = *v347;
+  v367.origin = v347;
   v367.size = v343;
   y = *(selfCopy + 24);
   x = *(selfCopy + 16);

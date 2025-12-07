@@ -48,15 +48,15 @@
 
 - (id)_initWithCommand:(id)command gestures:(id)gestures keyboardShortcuts:(id)shortcuts quickNavShortcuts:(id)navShortcuts secondaryCommands:(id)commands
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   gesturesCopy = gestures;
   shortcutsCopy = shortcuts;
   navShortcutsCopy = navShortcuts;
   commandsCopy = commands;
-  v69.receiver = self;
-  v69.super_class = _VOSProfileCommand;
-  v18 = [(_VOSProfileCommand *)&v69 init];
+  v68.receiver = self;
+  v68.super_class = _VOSProfileCommand;
+  v18 = [(_VOSProfileCommand *)&v68 init];
   p_isa = &v18->super.isa;
   if (v18)
   {
@@ -73,7 +73,7 @@
 
     v21 = p_isa[2];
     p_isa[2] = v20;
-    v52 = commandCopy;
+    v51 = commandCopy;
 
     if (shortcutsCopy)
     {
@@ -101,7 +101,7 @@
     v25 = p_isa[4];
     p_isa[4] = v24;
 
-    v51 = gesturesCopy;
+    v50 = gesturesCopy;
     v26 = shortcutsCopy;
     if (commandsCopy)
     {
@@ -116,124 +116,123 @@
     v28 = p_isa[5];
     p_isa[5] = v27;
 
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
     v66 = 0u;
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     v29 = p_isa[2];
-    v30 = [v29 countByEnumeratingWithState:&v65 objects:v73 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v64 objects:v72 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v66;
+      v32 = *v65;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v66 != v32)
+          if (*v65 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          [*(*(&v65 + 1) + 8 * i) setCommand:p_isa];
+          [*(*(&v64 + 1) + 8 * i) setCommand:p_isa];
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v65 objects:v73 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v64 objects:v72 count:16];
       }
 
       while (v31);
     }
 
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     v34 = p_isa[3];
-    v35 = [v34 countByEnumeratingWithState:&v61 objects:v72 count:16];
+    v35 = [v34 countByEnumeratingWithState:&v60 objects:v71 count:16];
     shortcutsCopy = v26;
     if (v35)
     {
       v36 = v35;
-      v37 = *v62;
+      v37 = *v61;
       do
       {
         for (j = 0; j != v36; ++j)
         {
-          if (*v62 != v37)
+          if (*v61 != v37)
           {
             objc_enumerationMutation(v34);
           }
 
-          [*(*(&v61 + 1) + 8 * j) setCommand:p_isa];
+          [*(*(&v60 + 1) + 8 * j) setCommand:p_isa];
         }
 
-        v36 = [v34 countByEnumeratingWithState:&v61 objects:v72 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v60 objects:v71 count:16];
       }
 
       while (v36);
     }
 
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     v39 = p_isa[4];
-    v40 = [v39 countByEnumeratingWithState:&v57 objects:v71 count:16];
+    v40 = [v39 countByEnumeratingWithState:&v56 objects:v70 count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v58;
+      v42 = *v57;
       do
       {
         for (k = 0; k != v41; ++k)
         {
-          if (*v58 != v42)
+          if (*v57 != v42)
           {
             objc_enumerationMutation(v39);
           }
 
-          [*(*(&v57 + 1) + 8 * k) setCommand:p_isa];
+          [*(*(&v56 + 1) + 8 * k) setCommand:p_isa];
         }
 
-        v41 = [v39 countByEnumeratingWithState:&v57 objects:v71 count:16];
+        v41 = [v39 countByEnumeratingWithState:&v56 objects:v70 count:16];
       }
 
       while (v41);
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     v44 = p_isa[5];
-    v45 = [v44 countByEnumeratingWithState:&v53 objects:v70 count:16];
+    v45 = [v44 countByEnumeratingWithState:&v52 objects:v69 count:16];
     if (v45)
     {
       v46 = v45;
-      v47 = *v54;
+      v47 = *v53;
       do
       {
         for (m = 0; m != v46; ++m)
         {
-          if (*v54 != v47)
+          if (*v53 != v47)
           {
             objc_enumerationMutation(v44);
           }
 
-          [*(*(&v53 + 1) + 8 * m) setPrimaryProfileCommand:p_isa];
+          [*(*(&v52 + 1) + 8 * m) setPrimaryProfileCommand:p_isa];
         }
 
-        v46 = [v44 countByEnumeratingWithState:&v53 objects:v70 count:16];
+        v46 = [v44 countByEnumeratingWithState:&v52 objects:v69 count:16];
       }
 
       while (v46);
     }
 
-    gesturesCopy = v51;
-    commandCopy = v52;
+    gesturesCopy = v50;
+    commandCopy = v51;
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   return p_isa;
 }
 
@@ -351,27 +350,27 @@ LABEL_6:
 
 - (id)profileGestureForGesture:(id)gesture
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_gestures;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         gesture = [v9 gesture];
         v11 = [gesture isEqual:gestureCopy];
 
@@ -382,7 +381,7 @@ LABEL_6:
         }
       }
 
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -393,8 +392,6 @@ LABEL_6:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -416,27 +413,27 @@ LABEL_11:
 
 - (id)profileKeyboardShortcutForKeyChord:(id)chord
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   chordCopy = chord;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_keyboardShortcuts;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         keyChord = [v9 keyChord];
         v11 = [keyChord isEqual:chordCopy];
 
@@ -447,7 +444,7 @@ LABEL_11:
         }
       }
 
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -458,8 +455,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -481,27 +476,27 @@ LABEL_11:
 
 - (id)profileQuickNavShortcutForKeyChord:(id)chord
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   chordCopy = chord;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_quickNavShortcuts;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         keyChord = [v9 keyChord];
         v11 = [keyChord isEqual:chordCopy];
 
@@ -512,7 +507,7 @@ LABEL_11:
         }
       }
 
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -523,8 +518,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

@@ -528,7 +528,7 @@ LABEL_25:
     return;
   }
 
-  if ((RTPGetReceiveStatus(&self->_rtpHandle, &v27, 1, callback->var0) & 0x80000000) != 0)
+  if ((RTPGetReceiveStatus(&self->_rtpHandle, &v27, 1u, callback->var0) & 0x80000000) != 0)
   {
     goto LABEL_25;
   }
@@ -645,9 +645,10 @@ LABEL_41:
 
 - (void)processRTPPacket
 {
-  v5[101] = *MEMORY[0x1E69E9840];
+  v7[101] = *MEMORY[0x1E69E9840];
   allocTextPacket = [(VCTextJitterBuffer *)self->_jitterBuffer allocTextPacket];
-  if ([(VCTextReceiver *)self retrieveRTPPacket:allocTextPacket]< 0)
+  v4 = [(VCTextReceiver *)self retrieveRTPPacket:allocTextPacket];
+  if ((v4 & 0x80000000) != 0)
   {
     jitterBuffer = self->_jitterBuffer;
 
@@ -656,10 +657,10 @@ LABEL_41:
 
   else
   {
-    self->_lastReceivedRTPPacketTime = micro();
-    bzero(v5, 0x328uLL);
-    [(VCTextReceiver *)self splitPacket:allocTextPacket packetArray:v5];
-    [(VCTextReceiver *)self validateAndEnqueuePackets:v5];
+    self->_lastReceivedRTPPacketTime = micro(v4, v5);
+    bzero(v7, 0x328uLL);
+    [(VCTextReceiver *)self splitPacket:allocTextPacket packetArray:v7];
+    [(VCTextReceiver *)self validateAndEnqueuePackets:v7];
   }
 }
 
@@ -1215,11 +1216,13 @@ LABEL_37:
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, "VCTextReceiver [%s] %s:%d Failed to initialize the text receiver thread", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v1, v2, "VCTextReceiver [%s] %s:%d Failed to initialize the text receiver thread", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }
@@ -1228,11 +1231,13 @@ LABEL_37:
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, "VCTextReceiver [%s] %s:%d Failed to create the jitter buffer", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v1, v2, "VCTextReceiver [%s] %s:%d Failed to create the jitter buffer", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }

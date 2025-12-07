@@ -17,7 +17,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1006762E0();
+  sub_1006762E0(selfCopy);
 }
 
 - (void)dismissQRCode

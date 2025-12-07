@@ -31,31 +31,31 @@
 
 - (HGRef<HGNode>)internalHGNodeForTime:(id *)time trackInputs:(const void *)inputs renderer:(const void *)renderer igContext:(HGRef<PVInstructionGraphContext>)context
 {
-  v11 = v6;
-  HGTraceGuard::HGTraceGuard(v48, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphGeneratorNode hgNodeForTime:...]");
+  v10 = v6;
+  HGTraceGuard::HGTraceGuard(v47, "kPVInstructionGraphToHeliumGraphLogContext", 1, "[PVInstructionGraphGeneratorNode hgNodeForTime:...]");
   if (*&self->super._transform.ty)
   {
-    v47 = *context.m_Obj;
-    if (v47)
+    v46 = *context.m_Obj;
+    if (v46)
     {
-      (*(*v47 + 16))(v47);
+      (*(*v46 + 16))(v46);
     }
 
-    [(PVInstructionGraphNode *)self loadIGNode:&v47];
-    if (v47)
+    [(PVInstructionGraphNode *)self loadIGNode:&v46];
+    if (v46)
     {
-      (*(*v47 + 24))(v47);
+      (*(*v46 + 24))(v46);
     }
 
-    v15 = atomic_load(HGLogger::_enabled);
-    if (v15)
+    v14 = atomic_load(HGLogger::_enabled);
+    if (v14)
     {
       effectID = [*&self->super._transform.ty effectID];
       uTF8String = [effectID UTF8String];
-      HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Getting output node from generator effect (%s)\n", v18, v19, uTF8String);
+      HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Getting output node from generator effect (%s)\n", v17, v18, uTF8String);
     }
 
-    if (HGLogger::getLevel("kPVInstructionGraphToHeliumGraphLogContext", v14) >= 1)
+    if (HGLogger::getLevel("kPVInstructionGraphToHeliumGraphLogContext", v13) >= 1)
     {
       ty = self->super._transform.ty;
       if (ty == 0.0)
@@ -65,100 +65,100 @@
 
       else
       {
-        [*&ty effectRange];
+        objc_msgSend_effectRange(*&ty);
       }
 
-      v23 = CMTimeRangeCopyDescription(0, &range);
-      v24 = v23;
-      v25 = atomic_load(HGLogger::_enabled);
-      if (v25)
+      v22 = CMTimeRangeCopyDescription(0, &range);
+      v23 = v22;
+      v24 = atomic_load(HGLogger::_enabled);
+      if (v24)
       {
-        uTF8String2 = [v23 UTF8String];
-        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Effect Time Range: %s\n", v27, v28, uTF8String2);
+        uTF8String2 = [v22 UTF8String];
+        HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Effect Time Range: %s\n", v26, v27, uTF8String2);
       }
 
-      CFRelease(v24);
+      CFRelease(v23);
     }
 
-    *v11 = 0;
+    *v10 = 0;
     range.start.value = &range.start.timescale;
     *&range.start.timescale = 0;
     *&range.duration.timescale = 0;
     range.duration.epoch = 0;
     range.start.epoch = 0;
     range.duration.value = &range.duration.timescale;
-    v42 = v43;
+    v41 = v42;
+    v42[0] = 0;
     v43[0] = 0;
-    v44[0] = 0;
-    v44[1] = 0;
     v43[1] = 0;
+    v42[1] = 0;
+    v42[2] = v43;
     v43[2] = v44;
-    v44[2] = v45;
+    v44[0] = 0;
     v45[0] = 0;
-    v46[0] = 0;
-    v46[1] = 0;
     v45[1] = 0;
-    v45[2] = v46;
-    v29 = self->super._transform.ty;
-    v39 = *&time->var0;
+    v44[1] = 0;
+    v44[2] = v45;
+    v28 = self->super._transform.ty;
+    v38 = *&time->var0;
     var3 = time->var3;
-    v30 = *context.m_Obj;
-    v38 = v30;
-    if (v30)
+    v29 = *context.m_Obj;
+    v37 = v29;
+    if (v29)
     {
-      (*(*v30 + 16))(v30);
+      (*(*v29 + 16))(v29);
     }
 
-    if (v29 == 0.0)
+    if (v28 == 0.0)
     {
-      v31 = 0;
+      v30 = 0;
     }
 
     else
     {
-      [*&v29 hgNodeForTime:&v39 inputs:&range renderer:renderer igContext:&v38];
-      v31 = *&v35[0];
-      if (!*&v35[0])
+      objc_msgSend_hgNodeForTime_inputs_renderer_igContext_(*&v28);
+      v30 = *&v34[0];
+      if (!*&v34[0])
       {
 LABEL_25:
-        if (v38)
+        if (v37)
         {
-          (*(*v38 + 24))(v38);
+          (*(*v37 + 24))(v37);
         }
 
-        v36 = v31;
-        if (v31)
+        v35 = v30;
+        if (v30)
         {
-          (*(*v31 + 16))(v31);
+          (*(*v30 + 16))(v30);
         }
 
-        [(PVInstructionGraphSourceNode *)self transform];
-        v32 = (*(**context.m_Obj + 64))();
-        HGXFormForCGAffineTransform(&v36, v35, v32, &v37);
-        v33 = v37;
-        if (v31 == v37)
+        objc_msgSend_transform(self);
+        v31 = (*(**context.m_Obj + 64))();
+        HGXFormForCGAffineTransform(&v35, v34, v31, &v36);
+        v32 = v36;
+        if (v30 == v36)
         {
-          if (v31)
+          if (v30)
           {
-            (*(*v37 + 24))();
+            (*(*v36 + 24))();
           }
         }
 
         else
         {
-          if (v31)
+          if (v30)
           {
-            (*(*v31 + 24))(v31);
-            v33 = v37;
+            (*(*v30 + 24))(v30);
+            v32 = v36;
           }
 
-          *v11 = v33;
-          v37 = 0;
+          *v10 = v32;
+          v36 = 0;
         }
 
-        if (v36)
+        if (v35)
         {
-          (*(*v36 + 24))(v36);
+          (*(*v35 + 24))(v35);
         }
 
         [(PVInstructionGraphGeneratorNode *)self unloadIGNode];
@@ -166,25 +166,25 @@ LABEL_25:
         goto LABEL_38;
       }
 
-      *v11 = *&v35[0];
+      *v10 = *&v34[0];
     }
 
-    *&v35[0] = 0;
+    *&v34[0] = 0;
     goto LABEL_25;
   }
 
-  v21 = atomic_load(HGLogger::_enabled);
-  if (v21)
+  v20 = atomic_load(HGLogger::_enabled);
+  if (v20)
   {
-    HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Generator effect is Nil. Returning empty HGNode\n", v12, v13);
+    HGLogger::log("kPVInstructionGraphToHeliumGraphLogContext", 1, "Generator effect is Nil. Returning empty HGNode\n", v11, v12);
   }
 
-  v22 = HGObject::operator new(0x1A0uLL);
-  HGNode::HGNode(v22);
-  *v11 = v22;
+  v21 = HGObject::operator new(0x1A0uLL);
+  HGNode::HGNode(v21);
+  *v10 = v21;
 LABEL_38:
-  HGTraceGuard::~HGTraceGuard(v48);
-  return v34;
+  HGTraceGuard::~HGTraceGuard(v47);
+  return v33;
 }
 
 - (PCRect<double>)inputSizeForPVEffect:(id)effect igContext:(HGRef<PVInstructionGraphContext>)context
@@ -280,7 +280,7 @@ LABEL_38:
 
     else
     {
-      [*&ty effectRange];
+      objc_msgSend_effectRange(*&ty);
       receiver = v22[0].receiver;
       super_class_low = LODWORD(v22[0].super_class);
     }
@@ -298,7 +298,7 @@ LABEL_38:
 
     else
     {
-      [*&v17 effectRange];
+      objc_msgSend_effectRange(*&v17);
     }
 
     CMTimeRangeGetEnd(&v21, &time);

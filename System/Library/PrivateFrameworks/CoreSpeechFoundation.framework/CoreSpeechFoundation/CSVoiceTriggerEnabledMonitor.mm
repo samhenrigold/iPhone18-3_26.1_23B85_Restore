@@ -4,6 +4,7 @@
 - (CSVoiceTriggerEnabledMonitor)init;
 - (void)_didReceiveVoiceTriggerSettingChanged:(BOOL)changed;
 - (void)_didReceiveVoiceTriggerSettingChangedInQueue:(BOOL)queue;
+- (void)_notifyObserver:(id)observer withEnabled:(BOOL)enabled;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
 @end
@@ -24,9 +25,11 @@
 
 uint64_t __46__CSVoiceTriggerEnabledMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance__sharedInstance_7251 = objc_alloc_init(CSVoiceTriggerEnabledMonitor);
+  v0 = objc_alloc_init(CSVoiceTriggerEnabledMonitor);
+  v1 = sharedInstance__sharedInstance_7251;
+  sharedInstance__sharedInstance_7251 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CSVoiceTriggerEnabledMonitor)init
@@ -45,7 +48,7 @@ uint64_t __46__CSVoiceTriggerEnabledMonitor_sharedInstance__block_invoke()
 
 - (BOOL)_checkVoiceTriggerEnabled
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = +[CSFPreferences sharedPreferences];
   voiceTriggerEnabled = [v2 voiceTriggerEnabled];
 
@@ -58,15 +61,25 @@ uint64_t __46__CSVoiceTriggerEnabledMonitor_sharedInstance__block_invoke()
       v5 = @"YES";
     }
 
-    v8 = 136315394;
-    v9 = "[CSVoiceTriggerEnabledMonitor _checkVoiceTriggerEnabled]";
-    v10 = 2114;
-    v11 = v5;
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s VoiceTrigger enabled = %{public}@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CSVoiceTriggerEnabledMonitor _checkVoiceTriggerEnabled]";
+    v9 = 2114;
+    v10 = v5;
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s VoiceTrigger enabled = %{public}@", &v7, 0x16u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return voiceTriggerEnabled;
+}
+
+- (void)_notifyObserver:(id)observer withEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  observerCopy = observer;
+  [(CSEventMonitor *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy CSVoiceTriggerEnabledMonitor:self didReceiveEnabled:enabledCopy];
+  }
 }
 
 - (void)_didReceiveVoiceTriggerSettingChanged:(BOOL)changed
@@ -93,29 +106,27 @@ uint64_t __46__CSVoiceTriggerEnabledMonitor_sharedInstance__block_invoke()
 
 - (void)_stopMonitoring
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   notifyToken = self->_notifyToken;
   if (notifyToken != -1)
   {
     v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "[CSVoiceTriggerEnabledMonitor _stopMonitoring]";
-      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitring : VoiceTrigger setting switch", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[CSVoiceTriggerEnabledMonitor _stopMonitoring]";
+      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitring : VoiceTrigger setting switch", &v5, 0xCu);
       notifyToken = self->_notifyToken;
     }
 
     notify_cancel(notifyToken);
     self->_notifyToken = -1;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (self->_notifyToken == -1)
   {
@@ -129,7 +140,7 @@ uint64_t __46__CSVoiceTriggerEnabledMonitor_sharedInstance__block_invoke()
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "[CSVoiceTriggerEnabledMonitor _startMonitoringWithQueue:]";
+      v9 = "[CSVoiceTriggerEnabledMonitor _startMonitoringWithQueue:]";
       v6 = "%s Start monitring : VoiceTrigger setting switch";
       goto LABEL_6;
     }
@@ -141,7 +152,7 @@ uint64_t __46__CSVoiceTriggerEnabledMonitor_sharedInstance__block_invoke()
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "[CSVoiceTriggerEnabledMonitor _startMonitoringWithQueue:]";
+      v9 = "[CSVoiceTriggerEnabledMonitor _startMonitoringWithQueue:]";
       v6 = "%s Cannot start monitoring VoiceTrigger setting switch because it was already started";
 LABEL_6:
       _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
@@ -149,13 +160,11 @@ LABEL_6:
   }
 
   self->_isVoiceTriggerEnabled = [(CSVoiceTriggerEnabledMonitor *)self _checkVoiceTriggerEnabled];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CSVoiceTriggerEnabledMonitor__startMonitoringWithQueue___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = v2[28];
   if (v3 == [v2 _checkVoiceTriggerEnabled])
@@ -165,32 +174,29 @@ void __58__CSVoiceTriggerEnabledMonitor__startMonitoringWithQueue___block_invoke
     {
       if (*(*(a1 + 32) + 28))
       {
-        v9 = @"ON";
+        v7 = @"ON";
       }
 
       else
       {
-        v9 = @"OFF";
+        v7 = @"OFF";
       }
 
-      v10 = 136315394;
-      v11 = "[CSVoiceTriggerEnabledMonitor _startMonitoringWithQueue:]_block_invoke";
-      v12 = 2114;
-      v13 = v9;
-      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s VoiceTrigger is already %{public}@, received duplicated notification!", &v10, 0x16u);
+      v8 = 136315394;
+      v9 = "[CSVoiceTriggerEnabledMonitor _startMonitoringWithQueue:]_block_invoke";
+      v10 = 2114;
+      v11 = v7;
+      _os_log_error_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_ERROR, "%s VoiceTrigger is already %{public}@, received duplicated notification!", &v8, 0x16u);
     }
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     *(*(a1 + 32) + 28) = [*(a1 + 32) _checkVoiceTriggerEnabled];
-    v6 = *(a1 + 32);
-    v7 = v6[28];
-    v8 = *MEMORY[0x1E69E9840];
+    v5 = *(a1 + 32);
+    v6 = v5[28];
 
-    [v6 _didReceiveVoiceTriggerSettingChanged:v7];
+    [v5 _didReceiveVoiceTriggerSettingChanged:v6];
   }
 }
 

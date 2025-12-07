@@ -122,7 +122,7 @@
   else
   {
     title2 = [control title];
-    v13 = [title2 isEqualToString:titleCopy];
+    v13 = objc_msgSend_isEqualToString_(title2);
 
     if ((v13 & 1) == 0)
     {

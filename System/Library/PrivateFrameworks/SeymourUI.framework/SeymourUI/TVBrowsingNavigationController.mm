@@ -20,7 +20,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20BD5255C();
+  sub_20BD5255C(v2);
 }
 
 - (_TtC9SeymourUI30TVBrowsingNavigationController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass

@@ -109,24 +109,13 @@
   messageCopy = message;
   loadDirectionsMessage = [(IPCStartNavigationMessage *)self loadDirectionsMessage];
   routeContextData = [loadDirectionsMessage routeContextData];
-  if (!routeContextData)
-  {
-    goto LABEL_4;
-  }
-
-  v7 = routeContextData;
-  routeContextData2 = [loadDirectionsMessage routeContextData];
-  routeContextData3 = [messageCopy routeContextData];
-  v10 = [routeContextData2 isEqualToData:routeContextData3];
-
-  if (v10)
+  if (routeContextData && (v7 = routeContextData, [loadDirectionsMessage routeContextData], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(messageCopy, "routeContextData"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqualToData:", v9), v9, v8, v7, (v10 & 1) != 0))
   {
     v11 = 1;
   }
 
   else
   {
-LABEL_4:
     v11 = [loadDirectionsMessage isEqual:messageCopy];
   }
 

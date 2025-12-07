@@ -69,10 +69,10 @@
 
 - (MPSRegion)sourceRegionForDestinationSize:(SEL)size
 {
-  v22.receiver = self;
-  v22.super_class = MPSImageBilinearScale;
-  result = [(MPSRegion *)&v22 scaleTransform];
-  v13 = result;
+  v19.receiver = self;
+  v19.super_class = MPSImageBilinearScale;
+  result = [(MPSRegion *)&v19 scaleTransform];
+  v10 = result;
   if ((*(&self->super.super.super.super.isa + *MEMORY[0x277CD7378]) & 1) == 0)
   {
     if (!result)
@@ -80,8 +80,8 @@
       result = MTLReportFailureTypeEnabled();
       if (result)
       {
-        v14 = objc_opt_class();
-        NSStringFromClass(v14);
+        v11 = objc_opt_class();
+        NSStringFromClass(v11);
         result = MTLReportFailure();
       }
 
@@ -89,17 +89,17 @@
     }
 
 LABEL_6:
-    memset(v21, 0, sizeof(v21));
-    v20 = *a4;
-    objc_msgSend_clipRect(self, v8, v9, v10, v11, v12);
-    result = MPSGetEffectiveClipRegion(v21[0].i64, &v20, &v19);
-    v15 = vcvt_f32_f64(*v13);
-    v16 = vcvt_f32_f64(v13[1]);
-    v17 = vdiv_f32(vsub_f32(vadd_f32(vcvt_f32_f64(vcvtq_f64_u64(*(&v21[1] + 8))), 0xBF000000BF000000), v16), v15);
-    v18 = vrndm_f32(vdiv_f32(vsub_f32(0x3F0000003F000000, v16), v15));
-    *&retstr->origin.x = vcvtq_f64_f32(v18);
+    memset(v18, 0, sizeof(v18));
+    v17 = *a4;
+    objc_msgSend_clipRect(self, v8, v9);
+    result = MPSGetEffectiveClipRegion(v18[0].i64, &v17, &v16);
+    v12 = vcvt_f32_f64(*v10);
+    v13 = vcvt_f32_f64(v10[1]);
+    v14 = vdiv_f32(vsub_f32(vadd_f32(vcvt_f32_f64(vcvtq_f64_u64(*(&v18[1] + 8))), 0xBF000000BF000000), v13), v12);
+    v15 = vrndm_f32(vdiv_f32(vsub_f32(0x3F0000003F000000, v13), v12));
+    *&retstr->origin.x = vcvtq_f64_f32(v15);
     retstr->origin.z = 0.0;
-    *&retstr->size.width = vcvtq_f64_f32(vsub_f32(vrndp_f32(v17), v18));
+    *&retstr->size.width = vcvtq_f64_f32(vsub_f32(vrndp_f32(v14), v15));
     retstr->size.depth = 1.0;
     return result;
   }

@@ -96,38 +96,38 @@ void __38__EDSearchableIndexAttachmentItem_log__block_invoke(uint64_t a1)
 
 - (id)searchableItem
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (!self->_searchableItem && [(EDSearchableIndexAttachmentItem *)self requiresPreprocessing])
   {
     [(EDSearchableIndexAttachmentItem *)self setRequiresPreprocessing:0];
     metadatum = [(EDSearchableIndexAttachmentItem *)self metadatum];
     v4 = objc_alloc(MEMORY[0x1E6964E90]);
     contentType = [metadatum contentType];
-    v36 = [v4 initWithContentType:contentType];
+    v35 = [v4 initWithContentType:contentType];
 
     mailboxIdentifiers = [metadatum mailboxIdentifiers];
     v6.tv_sec = 0xAAAAAAAAAAAAAAAALL;
     v6.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-    *&v37.st_blksize = v6;
-    *v37.st_qspare = v6;
-    v37.st_birthtimespec = v6;
-    *&v37.st_size = v6;
-    v37.st_mtimespec = v6;
-    v37.st_ctimespec = v6;
-    *&v37.st_uid = v6;
-    v37.st_atimespec = v6;
-    *&v37.st_dev = v6;
+    *&v36.st_blksize = v6;
+    *v36.st_qspare = v6;
+    v36.st_birthtimespec = v6;
+    *&v36.st_size = v6;
+    v36.st_mtimespec = v6;
+    v36.st_ctimespec = v6;
+    *&v36.st_uid = v6;
+    v36.st_atimespec = v6;
+    *&v36.st_dev = v6;
     attachmentFileURL = [metadatum attachmentFileURL];
-    LODWORD(v4) = stat([attachmentFileURL fileSystemRepresentation], &v37);
+    LODWORD(v4) = stat([attachmentFileURL fileSystemRepresentation], &v36);
 
-    if (v4 || !v37.st_birthtimespec.tv_sec)
+    if (v4 || !v36.st_birthtimespec.tv_sec)
     {
-      v31 = 0;
+      v30 = 0;
     }
 
     else
     {
-      v31 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v37.st_birthtimespec.tv_sec];
+      v30 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v36.st_birthtimespec.tv_sec];
     }
 
     v8 = [EDSearchableAttachment alloc];
@@ -141,9 +141,9 @@ void __38__EDSearchableIndexAttachmentItem_log__block_invoke(uint64_t a1)
     dateReceived = [metadatum dateReceived];
     senderAddress = [metadatum senderAddress];
     recipientAddresses = [metadatum recipientAddresses];
-    v16 = [(EDSearchableAttachment *)v8 initWithContentURL:attachmentFileURL2 contentType:contentType2 name:name accountIdentifier:accountIdentifier mailboxIdentifiers:mailboxIdentifiers messageID:messagePersistentID messageIDHeader:messageIDHeader dateSent:dateSent dateReceived:dateReceived sender:senderAddress recipients:recipientAddresses downloadDate:v31];
+    v16 = [(EDSearchableAttachment *)v8 initWithContentURL:attachmentFileURL2 contentType:contentType2 name:name accountIdentifier:accountIdentifier mailboxIdentifiers:mailboxIdentifiers messageID:messagePersistentID messageIDHeader:messageIDHeader dateSent:dateSent dateReceived:dateReceived sender:senderAddress recipients:recipientAddresses downloadDate:v30];
 
-    [(EDSearchableAttachment *)v16 addToAttributes:v36];
+    [(EDSearchableAttachment *)v16 addToAttributes:v35];
     v17 = +[EDSearchableIndexAttachmentItem log];
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
@@ -152,20 +152,20 @@ void __38__EDSearchableIndexAttachmentItem_log__block_invoke(uint64_t a1)
       identifier = [(EDSearchableIndexAttachmentItem *)self identifier];
       messagePersistentID2 = [(EDSearchableIndexAttachmentItem *)self messagePersistentID];
       *buf = 138413058;
-      v39 = displayName;
-      v40 = 2112;
-      v41 = contentURL;
-      v42 = 2114;
-      v43 = identifier;
-      v44 = 2114;
-      v45 = messagePersistentID2;
+      v38 = displayName;
+      v39 = 2112;
+      v40 = contentURL;
+      v41 = 2114;
+      v42 = identifier;
+      v43 = 2114;
+      v44 = messagePersistentID2;
       _os_log_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEFAULT, "Creating attachment attribute set with displayName %@ contentURL %@ uniqueIdentifier %{public}@ relatedUniqueIdentifier %{public}@", buf, 0x2Au);
     }
 
     v22 = objc_alloc(MEMORY[0x1E6964E80]);
     identifier2 = [(EDSearchableIndexAttachmentItem *)self identifier];
     domainIdentifier = [(EDSearchableIndexAttachmentItem *)self domainIdentifier];
-    v25 = [v22 initWithUniqueIdentifier:identifier2 domainIdentifier:domainIdentifier attributeSet:v36];
+    v25 = [v22 initWithUniqueIdentifier:identifier2 domainIdentifier:domainIdentifier attributeSet:v35];
     searchableItem = self->_searchableItem;
     self->_searchableItem = v25;
 
@@ -174,7 +174,6 @@ void __38__EDSearchableIndexAttachmentItem_log__block_invoke(uint64_t a1)
   }
 
   v28 = self->_searchableItem;
-  v29 = *MEMORY[0x1E69E9840];
 
   return v28;
 }

@@ -18,35 +18,33 @@
   return v3;
 }
 
-void __45__GKUpdateInviteInfo_secureCodedPropertyKeys__block_invoke()
+void __45__GKUpdateInviteInfo_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11[7] = *MEMORY[0x277D85DE8];
-  v10[0] = @"gameParticipants";
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = [v0 setWithObjects:{v1, objc_opt_class(), 0}];
-  v11[0] = v2;
-  v10[1] = @"lobbyParticipants";
-  v3 = MEMORY[0x277CBEB98];
-  v4 = objc_opt_class();
-  v5 = [v3 setWithObjects:{v4, objc_opt_class(), 0}];
-  v11[1] = v5;
-  v10[2] = @"playerTokenMap";
-  v6 = +[GKServiceInterface plistClasses];
-  v11[2] = v6;
-  v10[3] = @"sessionID";
-  v11[3] = objc_opt_class();
-  v10[4] = @"sessionToken";
-  v11[4] = objc_opt_class();
-  v10[5] = @"matchID";
-  v11[5] = objc_opt_class();
-  v10[6] = @"transportVersionToUse";
-  v11[6] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:7];
-  v8 = secureCodedPropertyKeys_sSecureCodedKeys_203;
-  secureCodedPropertyKeys_sSecureCodedKeys_203 = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
+  v12[7] = *MEMORY[0x277D85DE8];
+  v11[0] = @"gameParticipants";
+  v2 = MEMORY[0x277CBEB98];
+  v3 = objc_opt_class();
+  v4 = [v2 setWithObjects:{v3, objc_opt_class(), 0}];
+  v12[0] = v4;
+  v11[1] = @"lobbyParticipants";
+  v5 = MEMORY[0x277CBEB98];
+  v6 = objc_opt_class();
+  v7 = [v5 setWithObjects:{v6, objc_opt_class(), 0}];
+  v12[1] = v7;
+  v11[2] = @"playerTokenMap";
+  v8 = +[GKServiceInterface plistClasses];
+  v12[2] = v8;
+  v11[3] = @"sessionID";
+  v12[3] = objc_opt_class();
+  v11[4] = @"sessionToken";
+  v12[4] = objc_opt_class();
+  v11[5] = @"matchID";
+  v12[5] = objc_opt_class();
+  v11[6] = @"transportVersionToUse";
+  v12[6] = objc_opt_class();
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:7];
+  v10 = secureCodedPropertyKeys_sSecureCodedKeys_203;
+  secureCodedPropertyKeys_sSecureCodedKeys_203 = v9;
 }
 
 - (id)description
@@ -131,13 +129,12 @@ void __45__GKUpdateInviteInfo_secureCodedPropertyKeys__block_invoke()
 
 - (void)mergeWithUpdate:(os_log_t)log .cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_227904000, log, OS_LOG_TYPE_DEBUG, "Merging invite updates for %@ with %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_227904000, log, OS_LOG_TYPE_DEBUG, "Merging invite updates for %@ with %@", &v3, 0x16u);
 }
 
 @end

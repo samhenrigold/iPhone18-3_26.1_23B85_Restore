@@ -16,6 +16,7 @@
 - (id)soundEffects:(id)effects;
 - (id)specifiers;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
+- (id)updateSilentModeGroupFooterWithNewValue:(BOOL)value;
 - (id)volume:(id)volume;
 - (int)_deviceType;
 - (int64_t)getSelectedHapticsOption;
@@ -39,16 +40,23 @@
 - (void)setPlayLockSound:(id)sound specifier:(id)specifier;
 - (void)setShowInStatusBarEnabled:(id)enabled specifier:(id)specifier;
 - (void)setSilentModeEnabled:(id)enabled specifier:(id)specifier;
+- (void)setSilentModeOff:(BOOL)off;
+- (void)setSilentModeOn:(BOOL)on;
 - (void)setSoundEffects:(id)effects specifier:(id)specifier;
 - (void)setSystemHapticsEnabled:(id)enabled specifier:(id)specifier;
 - (void)setUpSilentModeNotifications;
 - (void)setVolume:(id)volume specifier:(id)specifier;
+- (void)setVolumeHUDsuppression:(BOOL)dsuppression;
+- (void)showController:(id)controller animate:(BOOL)animate;
 - (void)startRingtonePreview;
 - (void)tableView:(id)view didEndDisplayingCell:(id)cell forRowAtIndexPath:(id)path;
 - (void)unregisterSilentModeNotifications;
 - (void)updateVoiceMailVisibility;
 - (void)updateVolume;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willBecomeActive;
 - (void)willHideSlider;
 - (void)willResignActive;
@@ -59,14 +67,13 @@
 
 + (id)BOOLeanCapabilitiesToTest
 {
-  v5[5] = *MEMORY[0x277D85DE8];
-  v5[0] = @"any-telephony";
-  v5[1] = @"ipad";
-  v5[2] = @"ringer-switch";
-  v5[3] = @"gqDnklGQnpv5ilgh5uHckw";
-  v5[4] = @"AirDropCapability";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:5];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
+  v4[0] = @"any-telephony";
+  v4[1] = @"ipad";
+  v4[2] = @"ringer-switch";
+  v4[3] = @"gqDnklGQnpv5ilgh5uHckw";
+  v4[4] = @"AirDropCapability";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:5];
 
   return v2;
 }
@@ -159,37 +166,75 @@
 
 - (void)willShowSlider
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = SHSLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SHSSoundsPrefController willShowSlider]";
-    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SHSSoundsPrefController willShowSlider]";
+    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
   }
 
   _ringerControl = [(SHSSoundsPrefController *)self _ringerControl];
   -[SHSSoundsPrefController setVolumeHUDsuppression:](self, "setVolumeHUDsuppression:", [_ringerControl canChangeRingtoneWithButtons]);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willHideSlider
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = SHSLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SHSSoundsPrefController willHideSlider]";
-    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SHSSoundsPrefController willHideSlider]";
+    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
   }
 
   [(SHSSoundsPrefController *)self setVolumeHUDsuppression:0];
   _ringerControl = [(SHSSoundsPrefController *)self _ringerControl];
   [_ringerControl setAppWantsVolumeChangeEvents:0];
+}
 
-  v5 = *MEMORY[0x277D85DE8];
+- (void)setVolumeHUDsuppression:(BOOL)dsuppression
+{
+  dsuppressionCopy = dsuppression;
+  v19 = *MEMORY[0x277D85DE8];
+  v5 = SHSLogForCategory(0);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:self->_volumeHUDsuppressed];
+    v7 = [MEMORY[0x277CCABB0] numberWithBool:dsuppressionCopy];
+    v13 = 136315650;
+    v14 = "[SHSSoundsPrefController setVolumeHUDsuppression:]";
+    v15 = 2114;
+    v16 = v6;
+    v17 = 2114;
+    v18 = v7;
+    _os_log_impl(&dword_265896000, v5, OS_LOG_TYPE_DEFAULT, "%s: current: '%{public}@', proposed: '%{public}@'.", &v13, 0x20u);
+  }
+
+  if (self->_volumeHUDsuppressed != dsuppressionCopy)
+  {
+    self->_volumeHUDsuppressed = dsuppressionCopy;
+    mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
+    windows = [mEMORY[0x277D75128] windows];
+    firstObject = [windows firstObject];
+    windowScene = [firstObject windowScene];
+
+    [windowScene _setSystemVolumeHUDEnabled:dsuppressionCopy ^ 1];
+    if (PSGetCapabilityBoolAnswer())
+    {
+      [windowScene _setSystemVolumeHUDEnabled:dsuppressionCopy ^ 1 forAudioCategory:@"RingtonePreview"];
+      v12 = @"Ringtone";
+    }
+
+    else
+    {
+      v12 = @"Audio/Video";
+    }
+
+    [windowScene _setSystemVolumeHUDEnabled:dsuppressionCopy ^ 1 forAudioCategory:v12];
+  }
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
@@ -264,11 +309,10 @@ LABEL_6:
 
 - (void)refreshShouldHideAllVoicemailUI
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_265896000, v0, OS_LOG_TYPE_ERROR, "%s: Error retrieving subscription info: %{public}@.", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_265896000, v0, OS_LOG_TYPE_ERROR, "%s: Error retrieving subscription info: %{public}@.", v1, 0x16u);
 }
 
 - (void)updateVoiceMailVisibility
@@ -564,32 +608,30 @@ LABEL_59:
 
 - (void)setUpSilentModeNotifications
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_265896000, a2, OS_LOG_TYPE_ERROR, "Failed to subscribe for notifications from AVSystemController with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_265896000, a2, OS_LOG_TYPE_ERROR, "Failed to subscribe for notifications from AVSystemController with error: %@", &v2, 0xCu);
 }
 
 - (void)serverDiedNotificationHandler:(id)handler
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = SHSLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SHSSoundsPrefController serverDiedNotificationHandler:]";
-    _os_log_impl(&dword_265896000, v4, OS_LOG_TYPE_DEFAULT, "%s: audiomxd died. Re-subscribing notifications.", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SHSSoundsPrefController serverDiedNotificationHandler:]";
+    _os_log_impl(&dword_265896000, v4, OS_LOG_TYPE_DEFAULT, "%s: audiomxd died. Re-subscribing notifications.", &v5, 0xCu);
   }
 
   [(SHSSoundsPrefController *)self unregisterSilentModeNotifications];
   [(SHSSoundsPrefController *)self setUpSilentModeNotifications];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSilentModeNotification:(id)notification
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   userInfo = [notification userInfo];
   v5 = [userInfo objectForKey:*MEMORY[0x277D26D60]];
 
@@ -604,25 +646,24 @@ LABEL_59:
     }
 
     *buf = 136315394;
-    v15 = "[SHSSoundsPrefController handleSilentModeNotification:]";
-    v16 = 2112;
-    v17 = v8;
+    v14 = "[SHSSoundsPrefController handleSilentModeNotification:]";
+    v15 = 2112;
+    v16 = v8;
     _os_log_impl(&dword_265896000, v6, OS_LOG_TYPE_DEFAULT, "%s: Silent mode is %@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __56__SHSSoundsPrefController_handleSilentModeNotification___block_invoke;
-  v11[3] = &unk_279BA6798;
-  objc_copyWeak(&v13, buf);
-  v12 = v5;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __56__SHSSoundsPrefController_handleSilentModeNotification___block_invoke;
+  v10[3] = &unk_279BA6798;
+  objc_copyWeak(&v12, buf);
+  v11 = v5;
   v9 = v5;
-  dispatch_async(MEMORY[0x277D85CD0], v11);
+  dispatch_async(MEMORY[0x277D85CD0], v10);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SHSSoundsPrefController_handleSilentModeNotification___block_invoke(uint64_t a1)
@@ -636,6 +677,17 @@ void __56__SHSSoundsPrefController_handleSilentModeNotification___block_invoke(u
 
   [WeakRetained reloadSpecifierID:@"SILENT_MODE" animated:1];
   [WeakRetained endUpdates];
+}
+
+- (id)updateSilentModeGroupFooterWithNewValue:(BOOL)value
+{
+  valueCopy = value;
+  v5 = [(SHSSoundsPrefController *)self specifierForID:@"SILENT_MODE_GROUP"];
+  v6 = [(SHSSoundsPrefController *)self indexPathForSpecifier:v5];
+  v7 = [(SHSSoundsPrefController *)self getSilentModeFooterWithSwitch:valueCopy];
+  [v5 setProperty:v7 forKey:*MEMORY[0x277D3FF88]];
+
+  return v6;
 }
 
 - (void)unregisterSilentModeNotifications
@@ -702,12 +754,12 @@ void __58__SHSSoundsPrefController_setSilentModeEnabled_specifier___block_invoke
 
 - (void)handleInputNotification:(id)notification
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = SHSLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[SHSSoundsPrefController handleInputNotification:]";
+    v7 = "[SHSSoundsPrefController handleInputNotification:]";
     _os_log_impl(&dword_265896000, v4, OS_LOG_TYPE_DEFAULT, "%s: AVInputContextInputDeviceDidChangeNotification received", buf, 0xCu);
   }
 
@@ -717,18 +769,17 @@ void __58__SHSSoundsPrefController_setSilentModeEnabled_specifier___block_invoke
   block[3] = &unk_279BA66D0;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getMicrophoneLabel:(id)label
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   auxiliarySession = [MEMORY[0x277CB83F8] auxiliarySession];
   v4 = *MEMORY[0x277CB8038];
   v5 = *MEMORY[0x277CB80A8];
-  v44 = 0;
-  [auxiliarySession setCategory:v4 mode:v5 options:5 error:&v44];
-  v6 = v44;
+  v43 = 0;
+  [auxiliarySession setCategory:v4 mode:v5 options:5 error:&v43];
+  v6 = v43;
   if (v6)
   {
     v7 = SHSLogForCategory(0);
@@ -754,9 +805,9 @@ void __58__SHSSoundsPrefController_setSilentModeEnabled_specifier___block_invoke
   {
     v16 = [v13 description];
     *buf = 136315394;
-    v47 = "[SHSSoundsPrefController getMicrophoneLabel:]";
-    v48 = 2112;
-    v49 = v16;
+    v46 = "[SHSSoundsPrefController getMicrophoneLabel:]";
+    v47 = 2112;
+    v48 = v16;
     _os_log_impl(&dword_265896000, v15, OS_LOG_TYPE_DEFAULT, "%s: Default Input: %@", buf, 0x16u);
   }
 
@@ -764,38 +815,38 @@ void __58__SHSSoundsPrefController_setSilentModeEnabled_specifier___block_invoke
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v47 = "[SHSSoundsPrefController getMicrophoneLabel:]";
-    v48 = 2112;
-    v49 = availableInputDevices;
+    v46 = "[SHSSoundsPrefController getMicrophoneLabel:]";
+    v47 = 2112;
+    v48 = availableInputDevices;
     _os_log_impl(&dword_265896000, v17, OS_LOG_TYPE_DEFAULT, "%s: Inputs: %@", buf, 0x16u);
   }
 
   if (v13)
   {
-    v38 = fallbackInputDevice;
-    v39 = v6;
+    v37 = fallbackInputDevice;
+    v38 = v6;
     v18 = auxiliarySession;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
-    v37 = availableInputDevices;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v36 = availableInputDevices;
     deviceName7 = availableInputDevices;
-    v20 = [(__CFString *)deviceName7 countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v20 = [(__CFString *)deviceName7 countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v41;
+      v22 = *v40;
       while (2)
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v41 != v22)
+          if (*v40 != v22)
           {
             objc_enumerationMutation(deviceName7);
           }
 
-          deviceID = [*(*(&v40 + 1) + 8 * i) deviceID];
+          deviceID = [*(*(&v39 + 1) + 8 * i) deviceID];
           deviceID2 = [v13 deviceID];
           v26 = [deviceID isEqualToString:deviceID2];
 
@@ -803,9 +854,9 @@ void __58__SHSSoundsPrefController_setSilentModeEnabled_specifier___block_invoke
           {
             v30 = SHSLogForCategory(0);
             auxiliarySession = v18;
-            fallbackInputDevice = v38;
-            v6 = v39;
-            availableInputDevices = v37;
+            fallbackInputDevice = v37;
+            v6 = v38;
+            availableInputDevices = v36;
             if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
               deviceName = [v13 deviceName];
@@ -820,9 +871,9 @@ void __58__SHSSoundsPrefController_setSilentModeEnabled_specifier___block_invoke
               }
 
               *buf = 136315394;
-              v47 = "[SHSSoundsPrefController getMicrophoneLabel:]";
-              v48 = 2112;
-              v49 = deviceName2;
+              v46 = "[SHSSoundsPrefController getMicrophoneLabel:]";
+              v47 = 2112;
+              v48 = deviceName2;
               _os_log_impl(&dword_265896000, v30, OS_LOG_TYPE_DEFAULT, "%s: returning default: %@", buf, 0x16u);
               if (deviceName)
               {
@@ -844,7 +895,7 @@ void __58__SHSSoundsPrefController_setSilentModeEnabled_specifier___block_invoke
           }
         }
 
-        v21 = [(__CFString *)deviceName7 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v21 = [(__CFString *)deviceName7 countByEnumeratingWithState:&v39 objects:v44 count:16];
         if (v21)
         {
           continue;
@@ -855,9 +906,9 @@ void __58__SHSSoundsPrefController_setSilentModeEnabled_specifier___block_invoke
     }
 
     auxiliarySession = v18;
-    fallbackInputDevice = v38;
-    v6 = v39;
-    availableInputDevices = v37;
+    fallbackInputDevice = v37;
+    v6 = v38;
+    availableInputDevices = v36;
   }
 
   v27 = SHSLogForCategory(0);
@@ -875,9 +926,9 @@ void __58__SHSSoundsPrefController_setSilentModeEnabled_specifier___block_invoke
     }
 
     *buf = 136315394;
-    v47 = "[SHSSoundsPrefController getMicrophoneLabel:]";
-    v48 = 2112;
-    v49 = deviceName6;
+    v46 = "[SHSSoundsPrefController getMicrophoneLabel:]";
+    v47 = 2112;
+    v48 = deviceName6;
     _os_log_impl(&dword_265896000, v27, OS_LOG_TYPE_DEFAULT, "%s: returning fallback: %@", buf, 0x16u);
     if (deviceName5)
     {
@@ -896,8 +947,6 @@ void __58__SHSSoundsPrefController_setSilentModeEnabled_specifier___block_invoke
   }
 
 LABEL_40:
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return deviceName4;
 }
@@ -976,19 +1025,17 @@ LABEL_40:
 
 - (void)didLock
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = SHSLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SHSSoundsPrefController didLock]";
-    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s: Requesting ringtone playback to end.", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SHSSoundsPrefController didLock]";
+    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s: Requesting ringtone playback to end.", &v5, 0xCu);
   }
 
   _audioPlayback = [(SHSSoundsPrefController *)self _audioPlayback];
   [_audioPlayback playRingtoneWithIdentifier:0 loop:0];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateVolume
@@ -999,19 +1046,17 @@ LABEL_40:
 
 - (void)endInterruption
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = SHSLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SHSSoundsPrefController endInterruption]";
-    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s: Requesting ringtone playback to end.", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SHSSoundsPrefController endInterruption]";
+    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s: Requesting ringtone playback to end.", &v5, 0xCu);
   }
 
   _audioPlayback = [(SHSSoundsPrefController *)self _audioPlayback];
   [_audioPlayback playRingtoneWithIdentifier:0 loop:0];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad
@@ -1025,15 +1070,66 @@ LABEL_40:
   [table registerClass:v4 forCellReuseIdentifier:v5];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = SHSSoundsPrefController;
+  [(SHSSoundsPrefController *)&v5 viewWillAppear:appear];
+  _ringerControl = [(SHSSoundsPrefController *)self _ringerControl];
+  [_ringerControl canChangeRingtoneWithButtons];
+
+  if ([(SHSSoundsPrefController *)self _isVolumeSliderVisible])
+  {
+    [(SHSSoundsPrefController *)self willShowSlider];
+  }
+
+  [(SHSSoundsPrefController *)self updateVolume];
+  if (!_os_feature_enabled_impl() || PSGetCapabilityBoolAnswer() && (_os_feature_enabled_impl() & 1) == 0)
+  {
+    [(SHSSoundsPrefController *)self reloadSpecifierID:@"HEADPHONE_LEVEL_LIMIT_SETTING" animated:1];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = SHSSoundsPrefController;
+  [(SHSSoundsPrefController *)&v6 viewDidAppear:appear];
+  shs_rootPaneComponent = [MEMORY[0x277CCAEB8] shs_rootPaneComponent];
+  v5 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Sounds"];
+  [(SHSSoundsPrefController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.sound" title:shs_rootPaneComponent localizedNavigationComponents:MEMORY[0x277CBEBF8] deepLink:v5];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v10 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = SHSSoundsPrefController;
+  [(SHSSoundsPrefController *)&v7 viewWillDisappear:disappear];
+  v4 = SHSLogForCategory(0);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v9 = "[SHSSoundsPrefController viewWillDisappear:]";
+    _os_log_impl(&dword_265896000, v4, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+
+  _audioPlayback = [(SHSSoundsPrefController *)self _audioPlayback];
+  LODWORD(v6) = 0.5;
+  [_audioPlayback stopRingtoneWithFadeOut:v6];
+
+  [(SHSSoundsPrefController *)self willHideSlider];
+}
+
 - (void)willResignActive
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = SHSLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[SHSSoundsPrefController willResignActive]";
-    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SHSSoundsPrefController willResignActive]";
+    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
   }
 
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
@@ -1045,18 +1141,17 @@ LABEL_40:
   }
 
   [(SHSSoundsPrefController *)self willHideSlider];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willBecomeActive
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = SHSLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SHSSoundsPrefController willBecomeActive]";
-    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SHSSoundsPrefController willBecomeActive]";
+    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
   }
 
   _ringerControl = [(SHSSoundsPrefController *)self _ringerControl];
@@ -1067,8 +1162,27 @@ LABEL_40:
   {
     [(SHSSoundsPrefController *)self willShowSlider];
   }
+}
 
-  v5 = *MEMORY[0x277D85DE8];
+- (void)showController:(id)controller animate:(BOOL)animate
+{
+  animateCopy = animate;
+  v12 = *MEMORY[0x277D85DE8];
+  controllerCopy = controller;
+  v7 = SHSLogForCategory(0);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v11 = "[SHSSoundsPrefController showController:animate:]";
+    _os_log_impl(&dword_265896000, v7, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+
+  _audioPlayback = [(SHSSoundsPrefController *)self _audioPlayback];
+  [_audioPlayback playRingtoneWithIdentifier:0 loop:0];
+
+  v9.receiver = self;
+  v9.super_class = SHSSoundsPrefController;
+  [(SHSSoundsPrefController *)&v9 showController:controllerCopy animate:animateCopy];
 }
 
 - (void)dealloc
@@ -1199,13 +1313,13 @@ LABEL_40:
 
 - (void)startRingtonePreview
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = SHSLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315138;
-    v16 = "[SHSSoundsPrefController startRingtonePreview]";
-    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "[SHSSoundsPrefController startRingtonePreview]";
+    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v14, 0xCu);
   }
 
   v4 = MEMORY[0x277D82BB8];
@@ -1223,11 +1337,11 @@ LABEL_40:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v9 = NSStringFromTLAlertType();
-        v15 = 136315394;
-        v16 = "[SHSSoundsPrefController startRingtonePreview]";
-        v17 = 2114;
-        v18 = v9;
-        _os_log_impl(&dword_265896000, v8, OS_LOG_TYPE_DEFAULT, "%s: Requesting playback of current ringtone for alert type '%{public}@'.", &v15, 0x16u);
+        v14 = 136315394;
+        v15 = "[SHSSoundsPrefController startRingtonePreview]";
+        v16 = 2114;
+        v17 = v9;
+        _os_log_impl(&dword_265896000, v8, OS_LOG_TYPE_DEFAULT, "%s: Requesting playback of current ringtone for alert type '%{public}@'.", &v14, 0x16u);
       }
 
       mEMORY[0x277D71F78] = [MEMORY[0x277D71F78] sharedToneManager];
@@ -1240,8 +1354,6 @@ LABEL_40:
 
   _audioPlayback4 = [(SHSSoundsPrefController *)self _audioPlayback];
   [_audioPlayback4 performSelector:sel_stopPlayback withObject:0 afterDelay:2.0];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)volume:(id)volume
@@ -1439,13 +1551,13 @@ LABEL_12:
 
 - (void)ringerControlDidObserveEffectiveSystemVolumeChange:(id)change
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = SHSLogForCategory(1uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[SHSSoundsPrefController ringerControlDidObserveEffectiveSystemVolumeChange:]";
+    v16 = "[SHSSoundsPrefController ringerControlDidObserveEffectiveSystemVolumeChange:]";
     _os_log_impl(&dword_265896000, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -1475,7 +1587,7 @@ LABEL_12:
         }
 
         *buf = 136315138;
-        v17 = "[SHSSoundsPrefController ringerControlDidObserveEffectiveSystemVolumeChange:]";
+        v16 = "[SHSSoundsPrefController ringerControlDidObserveEffectiveSystemVolumeChange:]";
         v12 = "%s: Volume slider is active and in use, ignoring.";
         goto LABEL_14;
       }
@@ -1484,7 +1596,7 @@ LABEL_12:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v17 = "[SHSSoundsPrefController ringerControlDidObserveEffectiveSystemVolumeChange:]";
+        v16 = "[SHSSoundsPrefController ringerControlDidObserveEffectiveSystemVolumeChange:]";
         v12 = "%s: Volume slider not on screen, ignoring.";
         goto LABEL_14;
       }
@@ -1496,7 +1608,7 @@ LABEL_12:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v17 = "[SHSSoundsPrefController ringerControlDidObserveEffectiveSystemVolumeChange:]";
+        v16 = "[SHSSoundsPrefController ringerControlDidObserveEffectiveSystemVolumeChange:]";
         v12 = "%s: View is not on screen, ignoring.";
 LABEL_14:
         _os_log_impl(&dword_265896000, v11, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
@@ -1508,21 +1620,20 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __78__SHSSoundsPrefController_ringerControlDidObserveEffectiveSystemVolumeChange___block_invoke;
-  v14[3] = &unk_279BA67C0;
-  v14[4] = self;
-  v15 = changeCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v14);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __78__SHSSoundsPrefController_ringerControlDidObserveEffectiveSystemVolumeChange___block_invoke;
+  v13[3] = &unk_279BA67C0;
+  v13[4] = self;
+  v14 = changeCopy;
+  dispatch_async(MEMORY[0x277D85CD0], v13);
 
 LABEL_16:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ringerControl:(id)control volumeValueDidChange:(float)change
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   controlCopy = control;
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
@@ -1530,7 +1641,7 @@ LABEL_16:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v16 = "[SHSSoundsPrefController ringerControl:volumeValueDidChange:]";
+      v15 = "[SHSSoundsPrefController ringerControl:volumeValueDidChange:]";
       _os_log_impl(&dword_265896000, v7, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
@@ -1552,12 +1663,10 @@ LABEL_16:
     block[2] = __62__SHSSoundsPrefController_ringerControl_volumeValueDidChange___block_invoke;
     block[3] = &unk_279BA67E8;
     block[4] = self;
-    v13 = controlCopy;
+    v12 = controlCopy;
     changeCopy = change;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)carrierBundleChange:(id)change
@@ -1589,6 +1698,46 @@ LABEL_16:
   [(SHSSoundsPrefController *)self setSilentModeOff:v4 & v5];
 
   [(SHSSoundsPrefController *)self reloadSpecifierID:@"HAPTICS" animated:1];
+}
+
+- (void)setSilentModeOff:(BOOL)off
+{
+  offCopy = off;
+  v5 = MEMORY[0x277CBED28];
+  if (!off)
+  {
+    v5 = MEMORY[0x277CBED10];
+  }
+
+  v6 = *MEMORY[0x277CBF040];
+  v7 = *MEMORY[0x277CBF010];
+  CFPreferencesSetValue(@"ring-vibrate", *v5, @"com.apple.springboard", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+  CFPreferencesSynchronize(@"com.apple.springboard", v6, v7);
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.springboard.ring-vibrate.changed", 0, 0, 1u);
+  v9 = [(SHSSoundsPrefController *)self ageOfToggleForSilentModeOn:0];
+
+  [SHSAnalytics trackingVibrateOnRingValueChanged:offCopy age:v9];
+}
+
+- (void)setSilentModeOn:(BOOL)on
+{
+  onCopy = on;
+  v5 = MEMORY[0x277CBED28];
+  if (!on)
+  {
+    v5 = MEMORY[0x277CBED10];
+  }
+
+  v6 = *MEMORY[0x277CBF040];
+  v7 = *MEMORY[0x277CBF010];
+  CFPreferencesSetValue(@"silent-vibrate", *v5, @"com.apple.springboard", *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+  CFPreferencesSynchronize(@"com.apple.springboard", v6, v7);
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.springboard.silent-vibrate.changed", 0, 0, 1u);
+  v9 = [(SHSSoundsPrefController *)self ageOfToggleForSilentModeOn:1];
+
+  [SHSAnalytics trackingVibrateOnSilentValueChanged:onCopy age:v9];
 }
 
 - (id)getSelectedHapticsOptionTitleWithSpecifier:(id)specifier
@@ -1733,11 +1882,10 @@ LABEL_12:
 
 - (void)getMicrophoneLabel:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_265896000, v0, OS_LOG_TYPE_ERROR, "%s: Failed to set the audio session category with error '%{public}@'.", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_265896000, v0, OS_LOG_TYPE_ERROR, "%s: Failed to set the audio session category with error '%{public}@'.", v1, 0x16u);
 }
 
 @end

@@ -40,45 +40,43 @@
 
 - (void)enumerateObservers:(id)observers
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   observersCopy = observers;
   dispatch_assert_queue_V2(self->_queue);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_observers;
-  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
         if (observersCopy)
         {
-          observersCopy[2](observersCopy, *(*(&v11 + 1) + 8 * v9));
+          observersCopy[2](observersCopy, *(*(&v10 + 1) + 8 * v9));
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateObserversInQueue:(id)queue
@@ -109,16 +107,16 @@
   dispatch_sync(queue, v7);
 }
 
-uint64_t __33__CSEventMonitor_removeObserver___block_invoke(uint64_t result)
+void *__33__CSEventMonitor_removeObserver___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    [*(*(result + 40) + 8) removeObject:?];
-    result = [*(*(v1 + 40) + 8) count];
+    [*(result[5] + 8) removeObject:?];
+    result = [*(v1[5] + 8) count];
     if (!result)
     {
-      v2 = *(v1 + 40);
+      v2 = v1[5];
 
       return [v2 _stopMonitoring];
     }
@@ -141,16 +139,16 @@ uint64_t __33__CSEventMonitor_removeObserver___block_invoke(uint64_t result)
   dispatch_sync(queue, v7);
 }
 
-uint64_t __30__CSEventMonitor_addObserver___block_invoke(uint64_t result)
+void *__30__CSEventMonitor_addObserver___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    [*(*(result + 40) + 8) addObject:?];
-    result = [*(*(v1 + 40) + 8) count];
+    [*(result[5] + 8) addObject:?];
+    result = [*(v1[5] + 8) count];
     if (result == 1)
     {
-      v2 = *(v1 + 40);
+      v2 = v1[5];
       v3 = v2[2];
 
       return [v2 _startMonitoringWithQueue:v3];

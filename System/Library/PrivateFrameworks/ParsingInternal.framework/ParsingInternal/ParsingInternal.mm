@@ -1,9 +1,8 @@
-void sub_140AEE(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
+void sub_140AEE(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
   *(2 * a4 + 0x2968600) += v4;
   *(a2 + 4 * a3 + 1447915522) += a4;
   *(a3 + 7537302) += a3;
-  v5 = *(2 * a2);
   __halt();
 }
 

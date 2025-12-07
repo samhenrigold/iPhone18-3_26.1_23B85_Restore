@@ -64,31 +64,31 @@
   v6 = sub_100936038();
   v7 = *(v6 - 8);
   v8 = *(v7 + 64);
-  v9 = __chkstk_darwin(v6);
-  v10 = &afterDateCopy - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __chkstk_darwin(v9);
-  v13 = &afterDateCopy - v12;
-  v14 = __chkstk_darwin(v11);
-  v16 = &afterDateCopy - v15;
-  __chkstk_darwin(v14);
+  __chkstk_darwin(v6);
+  v9 = &afterDateCopy - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10);
+  v12 = &afterDateCopy - v11;
+  __chkstk_darwin(v13);
+  v15 = &afterDateCopy - v14;
+  __chkstk_darwin(v16);
   v18 = &afterDateCopy - v17;
   v19 = _Block_copy(completion);
   v33 = v18;
   sub_100935FE8();
-  v32 = v16;
+  v32 = v15;
   sub_100935FE8();
   v20 = swift_allocObject();
   *(v20 + 16) = v19;
   v21 = *(v7 + 16);
-  v21(v13, v18, v6);
-  v21(v10, v16, v6);
+  v21(v12, v18, v6);
+  v21(v9, v15, v6);
   v22 = *(v7 + 80);
   v23 = (v22 + 16) & ~v22;
   v24 = (v8 + v22 + v23) & ~v22;
   v25 = swift_allocObject();
   v26 = *(v7 + 32);
-  v26(v25 + v23, v13, v6);
-  v26(v25 + v24, v10, v6);
+  v26(v25 + v23, v12, v6);
+  v26(v25 + v24, v9, v6);
   v27 = swift_allocObject();
   *(v27 + 16) = sub_1008F4E80;
   *(v27 + 24) = v20;
@@ -118,7 +118,7 @@
   v13 = selfCopy;
   v10(0, sub_1008F4FA8, &v16);
 
-  sub_100014170(0, &qword_100CB4AD0);
+  sub_100014170(0, &qword_100CB4AD0, IDSEndpoint_ptr);
   v14.super.isa = sub_100936CD8().super.isa;
 
   return v14.super.isa;
@@ -151,7 +151,7 @@
   v13 = *(v12 - 8);
   __chkstk_darwin(v12);
   v15 = &v27 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = sub_100706B30(&qword_100CB4AC0);
+  v16 = sub_100706B30(&qword_100CB4AC0, &qword_1009AC370);
   __chkstk_darwin(v16 - 8);
   v18 = (&v27 - v17);
   v28 = sub_100936B38();
@@ -197,14 +197,14 @@ LABEL_9:
   sub_10002180C(v28, v20, v18, v15, codeCopy, interfaceCopy, v22, hint, digestCopy, v25);
 
   (*(v13 + 8))(v15, v12);
-  sub_100013814(v18, &qword_100CB4AC0);
+  sub_100013814(v18, &qword_100CB4AC0, &qword_1009AC370);
 }
 
 - (void)deleteEndpointsWithServices:(id)services toURIs:(id)is completion:(id)completion
 {
   v6 = _Block_copy(completion);
   v7 = sub_100936CE8();
-  sub_100014170(0, &qword_100CBA2E0);
+  sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
   v8 = sub_100936CE8();
   v9 = swift_allocObject();
   *(v9 + 16) = v6;
@@ -238,10 +238,10 @@ LABEL_9:
   v11[4] = v9;
   v12 = *((swift_isaMask & self->super.isa) + 0x110);
   selfCopy = self;
-  sub_1000254AC(v6);
+  sub_1000254AC(v6, v9);
   v12(sub_1008F4C98, v10, sub_1008F4DF8, v11);
 
-  sub_1000254C0(v6);
+  sub_1000254C0(v6, v9);
 }
 
 - (IDSQuerySDPersistenceManager)initWithFilePath:(id)path serviceController:(id)controller
@@ -265,7 +265,7 @@ LABEL_9:
 - (void)cleanupTimerFired
 {
   selfCopy = self;
-  sub_10001D6D8();
+  sub_10001D6D8(selfCopy);
 }
 
 - (IDSQuerySDPersistenceManager)init
@@ -416,7 +416,7 @@ LABEL_9:
 - (void)saveEndpoints:(id)endpoints ktContext:(id)context service:(id)service fromURI:(id)i toURI:(id)rI completion:(id)completion
 {
   v12 = _Block_copy(completion);
-  sub_100014170(0, &qword_100CB4AD0);
+  sub_100014170(0, &qword_100CB4AD0, IDSEndpoint_ptr);
   v13 = sub_100936CE8();
   v14 = sub_100936B38();
   v16 = v15;
@@ -447,7 +447,7 @@ LABEL_9:
 
 - (void)updateKeyTransparencyForEndpoints:(id)endpoints withKTContext:(id)context
 {
-  sub_100014170(0, &qword_100CB4AD0);
+  sub_100014170(0, &qword_100CB4AD0, IDSEndpoint_ptr);
   v6 = sub_100936CE8();
   contextCopy = context;
   selfCopy = self;
@@ -532,7 +532,7 @@ LABEL_9:
   sub_1008B84C8(v8, v9, v11);
 
   (*(v6 + 8))(v8, v5);
-  sub_100014170(0, &qword_100CBA2E0);
+  sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
   v13.super.isa = sub_100936CD8().super.isa;
 
   return v13.super.isa;
@@ -540,7 +540,7 @@ LABEL_9:
 
 - (BOOL)senderKeyMessageSupportedFor:(id)for
 {
-  sub_100014170(0, &qword_100CB4AD0);
+  sub_100014170(0, &qword_100CB4AD0, IDSEndpoint_ptr);
   v4 = sub_100936CE8();
   selfCopy = self;
   v6 = sub_1008ECDB0(v4);
@@ -572,7 +572,7 @@ LABEL_9:
 
 - (BOOL)hasUsableSenderKeyFor:(id)for fromAny:(id)any
 {
-  sub_100014170(0, &qword_100CBA2E0);
+  sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
   v6 = sub_100936CE8();
   forCopy = for;
   selfCopy = self;
@@ -626,10 +626,10 @@ LABEL_9:
   v16[4] = v9;
   v17 = *((swift_isaMask & selfCopy->super.isa) + 0x110);
   v18 = selfCopy;
-  sub_1000254AC(v8);
+  sub_1000254AC(v8, v9);
   v17(sub_1008F4DDC, v15, sub_1008F4E10, v16);
 
-  sub_1000254C0(v8);
+  sub_1000254C0(v8, v9);
 }
 
 - (void)performDBCleanupTasksWithCompletion:(id)completion
@@ -651,7 +651,7 @@ LABEL_9:
 
   selfCopy = self;
   sub_1008D0158(v7, v6);
-  sub_1000254C0(v7);
+  sub_1000254C0(v7, v6);
 }
 
 - (void)cleanupExpiredSessionsIfNeededWithCompletion:(id)completion
@@ -675,10 +675,10 @@ LABEL_9:
   v6[4] = v5;
   v7 = *((swift_isaMask & self->super.isa) + 0x110);
   selfCopy = self;
-  sub_1000254AC(v4);
+  sub_1000254AC(v4, v5);
   v7(sub_1008D07CC, 0, sub_1008F4E0C, v6);
 
-  sub_1000254C0(v4);
+  sub_1000254C0(v4, v5);
 }
 
 - (void)cleanupShortHandlesWithExpireDuration:(double)duration completion:(id)completion
@@ -705,10 +705,10 @@ LABEL_9:
   v9[4] = v7;
   v10 = *((swift_isaMask & self->super.isa) + 0x110);
   selfCopy = self;
-  sub_1000254AC(v6);
+  sub_1000254AC(v6, v7);
   v10(sub_1008F4D10, v8, sub_1008F4E08, v9);
 
-  sub_1000254C0(v6);
+  sub_1000254C0(v6, v7);
 }
 
 - (void)cleanupInvalidSenderKeyEntriesWithCompletion:(id)completion
@@ -773,7 +773,7 @@ LABEL_9:
 
   sub_1008E438C(v18, &qword_100CB34A0, IDSPushToken_ptr, &qword_100CBA5A0);
 
-  sub_100014170(0, &qword_100CB34A0);
+  sub_100014170(0, &qword_100CB34A0, IDSPushToken_ptr);
   v10.super.isa = sub_100936CD8().super.isa;
 
   return v10.super.isa;
@@ -863,7 +863,7 @@ LABEL_9:
 
   sub_1008E438C(v11, &qword_100CBA2E0, IDSURI_ptr, &unk_100CB4A40);
 
-  sub_100014170(0, &qword_100CBA2E0);
+  sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
   v12.super.isa = sub_100936CD8().super.isa;
 
   return v12.super.isa;
@@ -943,7 +943,7 @@ LABEL_9:
 
 - (id)earliestExpirationDateForService:(id)service fromURI:(id)i toURI:(id)rI
 {
-  v8 = sub_100706B30(&qword_100CB4AC0);
+  v8 = sub_100706B30(&qword_100CB4AC0, &qword_1009AC370);
   __chkstk_darwin(v8 - 8);
   v10 = v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v11);
@@ -967,7 +967,7 @@ LABEL_9:
   selfCopy2 = self;
   v20(0, sub_1008F4ED0, v29);
 
-  sub_100021E3C(v10, v13, &qword_100CB4AC0);
+  sub_100021E3C(v10, v13, &qword_100CB4AC0, &qword_1009AC370);
   v24 = (*(v18 + 48))(v13, 1, v17);
   v25 = 0;
   if (v24 != 1)
@@ -1016,7 +1016,7 @@ LABEL_9:
 
   sub_1008E438C(v13, &qword_100CBA400, off_100BD2EF8, &qword_100CBA410);
 
-  sub_100014170(0, &qword_100CBA400);
+  sub_100014170(0, &qword_100CBA400, off_100BD2EF8);
   v6.super.isa = sub_100936CD8().super.isa;
 
   return v6.super.isa;
@@ -1032,7 +1032,7 @@ LABEL_9:
   v2(0, sub_1008F4CE0, v6);
   sub_1008E438C(v7, &qword_100CBA400, off_100BD2EF8, &qword_100CBA410);
 
-  sub_100014170(0, &qword_100CBA400);
+  sub_100014170(0, &qword_100CBA400, off_100BD2EF8);
   v4.super.isa = sub_100936CD8().super.isa;
 
   return v4.super.isa;
@@ -1046,9 +1046,9 @@ LABEL_9:
   v5[3] = &v6;
   (*((swift_isaMask & selfCopy->super.isa) + 0x118))(0, sub_1008F4CC8, v5);
 
-  sub_100014170(0, &qword_100CBA400);
-  sub_100014170(0, &qword_100CBA408);
-  sub_100746FD4(&qword_100CBA410, &qword_100CBA400);
+  sub_100014170(0, &qword_100CBA400, off_100BD2EF8);
+  sub_100014170(0, &qword_100CBA408, off_100BD2F00);
+  sub_100746FD4(&qword_100CBA410, &qword_100CBA400, off_100BD2EF8);
   v3.super.isa = sub_100936A58().super.isa;
 
   return v3.super.isa;
@@ -1091,7 +1091,7 @@ LABEL_9:
   selfCopy = self;
   sub_1008DFBBC(v4, v6);
 
-  sub_100014170(0, &qword_100CBA3F8);
+  sub_100014170(0, &qword_100CBA3F8, off_100BD2EE8);
   v8.super.isa = sub_100936CD8().super.isa;
 
   return v8.super.isa;
@@ -1135,10 +1135,10 @@ LABEL_9:
   selfCopy = self;
   v14 = statusCopy;
   v13 = selfCopy;
-  sub_1000254AC(v6);
+  sub_1000254AC(v6, v7);
   v10(sub_1008F4D90, v8, sub_1008F4E04, v9);
 
-  sub_1000254C0(v6);
+  sub_1000254C0(v6, v7);
 }
 
 - (void)deleteStatus:(id)status completion:(id)completion
@@ -1159,7 +1159,7 @@ LABEL_9:
   statusCopy = status;
   selfCopy = self;
   sub_1008E14EC(statusCopy, v6, v7);
-  sub_1000254C0(v6);
+  sub_1000254C0(v6, v7);
 }
 
 - (void)deleteStatusForService:(id)service URI:(id)i completion:(id)completion
@@ -1192,10 +1192,10 @@ LABEL_9:
   v15[4] = v13;
   v16 = *((swift_isaMask & self->super.isa) + 0x110);
   selfCopy = self;
-  sub_1000254AC(v6);
+  sub_1000254AC(v6, v13);
   v16(sub_1008F4C50, v14, sub_1008F4E00, v15);
 
-  sub_1000254C0(v6);
+  sub_1000254C0(v6, v13);
 }
 
 - (void)deleteAllStatusesForService:(id)service completion:(id)completion
@@ -1224,10 +1224,10 @@ LABEL_9:
   v11[4] = v9;
   v12 = *((swift_isaMask & self->super.isa) + 0x110);
   selfCopy = self;
-  sub_1000254AC(v5);
+  sub_1000254AC(v5, v9);
   v12(sub_1008F4CB0, v10, sub_1008F4DFC, v11);
 
-  sub_1000254C0(v5);
+  sub_1000254C0(v5, v9);
 }
 
 - (void)deleteAllStatusesWithCompletion:(id)completion
@@ -1251,10 +1251,10 @@ LABEL_9:
   v6[4] = v5;
   v7 = *((swift_isaMask & self->super.isa) + 0x110);
   selfCopy = self;
-  sub_1000254AC(v4);
+  sub_1000254AC(v4, v5);
   v7(sub_1008E27F4, 0, sub_1008F4DF4, v6);
 
-  sub_1000254C0(v4);
+  sub_1000254C0(v4, v5);
 }
 
 + (double)dbCleanupTimeInterval
@@ -1279,7 +1279,7 @@ LABEL_9:
   v8[1] = v7;
   if (*(&v7 + 1))
   {
-    sub_100014170(0, &unk_100CBA300);
+    sub_100014170(0, &unk_100CBA300, NSNumber_ptr);
     if (swift_dynamicCast())
     {
       integerValue = [v5 integerValue];
@@ -1290,7 +1290,7 @@ LABEL_9:
 
   else
   {
-    sub_100013814(v8, &qword_100CB4A90);
+    sub_100013814(v8, &qword_100CB4A90, &unk_1009AC8F0);
   }
 
   return 86400.0;

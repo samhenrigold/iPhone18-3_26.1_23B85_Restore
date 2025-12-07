@@ -43,17 +43,17 @@ void sub_24BC94BF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *sub_24BC94D00(void *result, unint64_t a2)
+uint64_t *sub_24BC94D00(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BC94D78(result, a2);
+    sub_24BC94D78(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BC94D5C(_Unwind_Exception *exception_object)
@@ -68,7 +68,7 @@ void sub_24BC94D5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_24BC94D78(uint64_t a1, unint64_t a2)
+void sub_24BC94D78(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -149,17 +149,17 @@ LABEL_9:
   return 0;
 }
 
-void *sub_24BC94EB0(void *result, uint64_t a2)
+uint64_t *sub_24BC94EB0(uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BC94F24(result, a2);
+    sub_24BC94F24(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BC94F08(_Unwind_Exception *exception_object)
@@ -174,7 +174,7 @@ void sub_24BC94F08(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_24BC94F24(uint64_t a1, uint64_t a2)
+void sub_24BC94F24(uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -184,17 +184,17 @@ void sub_24BC94F24(uint64_t a1, uint64_t a2)
   sub_24BC8E01C();
 }
 
-void *sub_24BC94F74(void *result, unint64_t a2)
+uint64_t *sub_24BC94F74(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BC94FEC(result, a2);
+    sub_24BC94FEC(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BC94FD0(_Unwind_Exception *exception_object)
@@ -209,7 +209,7 @@ void sub_24BC94FD0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_24BC94FEC(uint64_t a1, unint64_t a2)
+void sub_24BC94FEC(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -219,17 +219,17 @@ void sub_24BC94FEC(uint64_t a1, unint64_t a2)
   sub_24BC8E01C();
 }
 
-void *sub_24BC95028(void *result, unint64_t a2)
+uint64_t *sub_24BC95028(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BC91F24(result, a2);
+    sub_24BC91F24(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BC95084(_Unwind_Exception *exception_object)
@@ -345,16 +345,16 @@ void *sub_24BC95264(void *a1, uint64_t a2, uint64_t a3)
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -377,9 +377,9 @@ void *sub_24BC95264(void *a1, uint64_t a2, uint64_t a3)
   return a1;
 }
 
-void sub_24BC953A4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_24BC953A4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x24C254370](&a10);
+  MEMORY[0x24C254370](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -505,17 +505,17 @@ void sub_24BC9569C(void ***a1)
   }
 }
 
-void *sub_24BC956F0(void *result, uint64_t a2)
+uint64_t *sub_24BC956F0(uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BC94F24(result, a2);
+    sub_24BC94F24(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BC95748(_Unwind_Exception *exception_object)
@@ -530,17 +530,17 @@ void sub_24BC95748(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *sub_24BC95764(void *result, unint64_t a2)
+uint64_t *sub_24BC95764(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BC94FEC(result, a2);
+    sub_24BC94FEC(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BC957C0(_Unwind_Exception *exception_object)
@@ -567,14 +567,14 @@ void sub_24BC957DC(void ***a1)
   }
 }
 
-void sub_24BC95830(uint64_t a1, uint64_t a2)
+void sub_24BC95830(uint64_t result, uint64_t a2)
 {
-  for (i = *(a1 + 8); i != a2; sub_24BC95884(a1, i))
+  for (i = *(result + 8); i != a2; sub_24BC95884(result, i))
   {
     i -= 184;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void sub_24BC95884(uint64_t a1, uint64_t a2)
@@ -600,7 +600,7 @@ void sub_24BC95884(uint64_t a1, uint64_t a2)
   sub_24BC9569C(&v4);
 }
 
-uint64_t sub_24BC958E8(uint64_t *a1, uint64_t a2)
+uint64_t sub_24BC958E8(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xD37A6F4DE9BD37A7 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -650,9 +650,9 @@ uint64_t sub_24BC958E8(uint64_t *a1, uint64_t a2)
   return v12;
 }
 
-void sub_24BC95A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_24BC95A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_24BC96014(va);
   _Unwind_Resume(a1);
 }
@@ -666,7 +666,7 @@ uint64_t sub_24BC95A30(uint64_t a1, uint64_t a2)
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  sub_24BC95D1C(a1 + 24, *(a2 + 24), *(a2 + 32), 0xF83E0F83E0F83E1 * ((*(a2 + 32) - *(a2 + 24)) >> 4));
+  sub_24BC95D1C((a1 + 24), *(a2 + 24), *(a2 + 32), 0xF83E0F83E0F83E1 * ((*(a2 + 32) - *(a2 + 24)) >> 4));
   v4 = *(a2 + 64);
   *(a1 + 48) = *(a2 + 48);
   *(a1 + 64) = v4;
@@ -723,7 +723,7 @@ void sub_24BC95B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_24BC95B7C(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_24BC95B7C(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -740,7 +740,7 @@ void sub_24BC95BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_24BC95C04(uint64_t a1, unint64_t a2)
+void sub_24BC95C04(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x666666666666667)
   {
@@ -792,7 +792,7 @@ char *sub_24BC95C50(uint64_t a1, __int128 *a2, __int128 *a3, char *__dst)
   return v4;
 }
 
-uint64_t sub_24BC95D1C(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_24BC95D1C(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -814,7 +814,7 @@ void sub_24BC95D7C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_24BC95D98(uint64_t a1, unint64_t a2)
+void sub_24BC95D98(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x7C1F07C1F07C20)
   {
@@ -963,7 +963,7 @@ void sub_24BC9604C(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_24BC96094(uint64_t a1, void **a2, void **a3, void *a4)
+uint64_t sub_24BC96094(uint64_t a1, void ***a2, void **a3, void *a4)
 {
   v11 = a4;
   v10 = a4;
@@ -1119,9 +1119,9 @@ void sub_24BC96260(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_24BC96374(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC96374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24BC961D8(va);
   _Unwind_Resume(a1);
 }
@@ -1152,62 +1152,47 @@ _DWORD *sub_24BC9644C(uint64_t a1, unsigned int *a2, _DWORD *a3, _DWORD *a4, _DW
   return result;
 }
 
-void sub_24BC964DC(uint64_t a1)
+void sub_24BC964DC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = (*(a1 + 8) + 16 * *(a1 + 176));
-  v4 = *v2;
-  v3 = v2[1];
+  v3 = *(*(a1 + 8) + 16 * *(a1 + 176) + 8);
   if (v3)
   {
     atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
     sub_24BC9EC78(v3);
   }
 
-  v5 = ((*(a1 + 112) - *(a1 + 104)) >> 2);
   operator new();
 }
 
-void sub_24BC965C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC965C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24BC9EF8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_24BC965D8(uint64_t a1)
+void sub_24BC965D8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = (*(a1 + 8) + 16 * *(a1 + 176));
-  v4 = *v2;
-  v3 = v2[1];
+  v3 = *(*(a1 + 8) + 16 * *(a1 + 176) + 8);
   if (v3)
   {
     atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
     sub_24BC9EC78(v3);
   }
 
-  v5 = ((*(a1 + 112) - *(a1 + 104)) >> 2);
   operator new();
 }
 
-void sub_24BC966C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC966C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24BC9EF8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_24BC966D4(uint64_t a1)
+void sub_24BC96798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1 = ((*(a1 + 160) - *(a1 + 152)) >> 2);
-  operator new();
-}
-
-void sub_24BC96798(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24BC9EF8C(va);
   _Unwind_Resume(a1);
 }
@@ -1216,7 +1201,7 @@ double sub_24BC967AC(uint64_t a1, void *a2)
 {
   v4 = -858993459 * ((*(a1 + 136) - *(a1 + 128)) >> 2);
   LOBYTE(v20) = 0;
-  sub_24BC9FEFC(&__p, v4);
+  sub_24BC9FEFC(&__p, v4, &v20);
   if (!v4)
   {
     goto LABEL_10;
@@ -1284,16 +1269,9 @@ void sub_24BC96954(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_24BC96978(uint64_t a1)
+void sub_24BC96A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1 = ((*(a1 + 160) - *(a1 + 152)) >> 2);
-  operator new();
-}
-
-void sub_24BC96A40(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24BC9EF8C(va);
   _Unwind_Resume(a1);
 }
@@ -1390,21 +1368,21 @@ float sub_24BC96B00(uint64_t a1, unsigned int *a2)
   return sqrtf(vaddv_f32(*&vpaddq_f32(v31, v31))) * 0.5;
 }
 
-void sub_24BC96CEC(void *a1, uint64_t a2)
+void sub_24BC96CEC(void *a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *(a2 + 8) * 3.0;
-  v2 = a1[20] - a1[19];
-  v6 = (a1[14] - a1[13]) >> 2;
-  v7 = v2 >> 2;
-  v3 = v7;
-  sub_24BCA0430(v5, v7);
-  sub_24BCA0430(v4, v3);
-  v9 = 0;
+  v13 = *MEMORY[0x277D85DE8];
+  v11 = *(a2 + 8) * 3.0;
+  v5 = a1[20] - a1[19];
+  v9 = (a1[14] - a1[13]) >> 2;
+  v10 = v5 >> 2;
+  v6 = v10;
+  sub_24BCA0430(v8, v10);
+  sub_24BCA0430(v7, v6);
+  v12 = 0;
   operator new();
 }
 
-void sub_24BC97074(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, char **a12, char **a13, uint64_t a14, char *a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_24BC97074(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, char **a12, char **a13, uint64_t a14, char *a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
 {
   sub_24BC9EF8C(&a23);
   if (__p)
@@ -1447,13 +1425,13 @@ double sub_24BC97110(uint64_t a1)
   return result;
 }
 
-void sub_24BC97148(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_24BC97148(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
   v17 = *MEMORY[0x277D85DE8];
   sub_24BCA1524(v16, a4);
   v7 = ((*(a1 + 160) - *(a1 + 152)) >> 2);
   LOBYTE(v11) = 0;
-  sub_24BC9FEFC(v14, v7);
+  sub_24BC9FEFC(v14, v7, &v11);
   if (*(a2 + 32) == 1)
   {
     v15[0] = &unk_285F92A20;
@@ -1464,12 +1442,12 @@ void sub_24BC97148(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     sub_24BC9EF8C(v15);
   }
 
-  v8 = *(a3 + 8);
-  v9 = *(a3 + 16);
+  v8 = a3[1];
+  v9 = a3[2];
   v11 = 0;
   v12 = 0;
   v13 = 0;
-  sub_24BCA17B8(&v11, v8, v9, (v9 - v8) >> 4);
+  sub_24BCA17B8(&v11, v8, v9, v9 - v8);
   memset(&v10[3], 0, 24);
   sub_24BCA18B0(v10, (v12 - v11) >> 4);
   v14[14] = 0;
@@ -1498,13 +1476,6 @@ uint64_t sub_24BC976F4(uint64_t a1, uint64_t a2, float a3)
   }
 
   return (*(*v3 + 48))(v3, &v5, a2);
-}
-
-void sub_24BC9774C(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = *(a3 + 36);
-  sub_24BC96978(a2);
 }
 
 void sub_24BC97C40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, char ***a21, char ***a22, uint64_t a23, char **a24, uint64_t a25, uint64_t a26, char *a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34)
@@ -1543,24 +1514,24 @@ void sub_24BC97C40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_24BC97D30(void *a1, unint64_t a2)
+void sub_24BC97D30(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    sub_24BCA1F88(a1, a2 - v2);
+    sub_24BCA1F88(result, a2 - v2);
   }
 }
 
-void sub_24BC97D60(const void **a1, _DWORD *a2)
+void sub_24BC97D60(const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -1609,20 +1580,20 @@ void sub_24BC97D60(const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-void sub_24BC97E40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_24BC97E40(void *a1, uint64_t a2, double *a3, unsigned int *a4, uint64_t a5)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  sub_24BCA1524(v11, a5);
-  sub_24BCA2D38(v10, a5 + 32);
-  sub_24BCA2DD0(v9, a5 + 64);
-  memset(v8, 0, sizeof(v8));
-  sub_24BC9774C(v8, a1, a2);
+  v13 = *MEMORY[0x277D85DE8];
+  sub_24BCA1524(v12, a5);
+  sub_24BCA2D38(v11, a5 + 32);
+  sub_24BCA2DD0(v10, a5 + 64);
+  memset(v9, 0, sizeof(v9));
+  sub_24BC9774C(v9, a1, a2, a4);
 }
 
 void sub_24BC984EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
@@ -1666,7 +1637,7 @@ uint64_t sub_24BC98654(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return (*(*v4 + 48))(v4, v6, a4);
 }
 
-void sub_24BC986AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_24BC986AC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v26[4] = *MEMORY[0x277D85DE8];
   sub_24BCA1524(v24, a4);
@@ -1679,7 +1650,7 @@ void sub_24BC986AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v9 = *(a2 + 16);
   v12[0] = *a2;
   v12[1] = v9;
-  v10 = ((*(a1 + 160) - *(a1 + 152)) >> 2);
+  v10 = ((a1[20] - a1[19]) >> 2);
   v11 = 0x3FF0000000000000;
   sub_24BC97D30((a3 + 8), v10);
   sub_24BC92930((a3 + 32), v10);
@@ -1703,17 +1674,18 @@ void sub_24BC986AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   sub_24BC97E40(a1, v12, &v11, a3, v14);
 }
 
-void sub_24BC98A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
+void sub_24BC98A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, ...)
 {
-  if (*(v52 - 81) < 0)
+  va_start(va, a51);
+  if (*(v51 - 81) < 0)
   {
-    operator delete(*(v52 - 104));
+    operator delete(*(v51 - 104));
   }
 
-  sub_24BC98BA0(&a52);
-  sub_24BC9F08C(v52 - 200);
-  sub_24BC9F10C(v52 - 168);
-  sub_24BC9F00C(v52 - 136);
+  sub_24BC98BA0(va);
+  sub_24BC9F08C(v51 - 200);
+  sub_24BC9F10C(v51 - 168);
+  sub_24BC9F00C(v51 - 136);
   _Unwind_Resume(a1);
 }
 
@@ -1726,49 +1698,47 @@ uint64_t sub_24BC98BA0(uint64_t a1)
   return sub_24BC9F00C(a1);
 }
 
-void sub_24BC98BEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void sub_24BC98BEC(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   *(a5 + 32) = 0;
   *(a5 + 40) = 0;
-  v23 = 1;
-  sub_24BCA1524(v28, a6);
-  sub_24BCA2D38(v27, a6 + 32);
-  sub_24BCA2DD0(v26, a6 + 64);
+  v21 = 1;
+  sub_24BCA1524(v26, a6);
+  sub_24BCA2D38(v25, a6 + 32);
+  sub_24BCA2DD0(v24, a6 + 64);
   std::chrono::system_clock::now();
   v8 = (*(a1 + 160) - *(a1 + 152)) >> 2;
   v9 = (*(a1 + 112) - *(a1 + 104)) >> 2;
-  v22 = *(a2 + 40) * v8 / v9;
-  v21 = v8;
-  v20 = v9;
+  v20 = *(a2 + 40) * v8 / v9;
+  v19 = v8;
+  v18 = v9;
   v11 = *(a1 + 128);
   v10 = *(a1 + 136);
-  sub_24BCA35BC(&v19, v8);
+  sub_24BCA35BC(&v17, v8);
   LOBYTE(__p[0]) = 0;
-  sub_24BC9FEFC(&v18, v21);
+  sub_24BC9FEFC(&v16, v19, __p);
   LOBYTE(__p[0]) = 0;
-  sub_24BC9FEFC(v17, v20);
+  sub_24BC9FEFC(v15, v18, __p);
   if (*(a2 + 32) == 1)
   {
-    v25[0] = &unk_285F92D08;
-    v25[1] = a1;
-    v25[2] = v17;
-    v25[3] = v25;
-    sub_24BD4BB84(-858993459 * ((v10 - v11) >> 2), v25, 4uLL);
-    sub_24BC9EF8C(v25);
+    v23[0] = &unk_285F92D08;
+    v23[1] = a1;
+    v23[2] = v15;
+    v23[3] = v23;
+    sub_24BD4BB84(-858993459 * ((v10 - v11) >> 2), v23, 4uLL);
+    sub_24BC9EF8C(v23);
   }
 
-  v12 = (*(a1 + 8) + 16 * *(a1 + 176));
-  v14 = *v12;
-  v13 = v12[1];
-  if (v13)
+  v12 = *(*(a1 + 8) + 16 * *(a1 + 176) + 8);
+  if (v12)
   {
-    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-    sub_24BC9EC78(v13);
+    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+    sub_24BC9EC78(v12);
   }
 
-  sub_24BCA1A48(__p, v20);
-  sub_24BCA3844(v16, 3uLL);
+  sub_24BCA1A48(__p, v18);
+  sub_24BCA3844(v14, 3uLL);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -1779,7 +1749,7 @@ void sub_24BC98BEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   operator new();
 }
 
-void sub_24BC99C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60, uint64_t a61, uint64_t a62, void *a63)
+void sub_24BC99C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, void *a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60, uint64_t a61, uint64_t a62, void *a63)
 {
   if (SLOBYTE(STACK[0x257]) < 0)
   {
@@ -1811,24 +1781,24 @@ void sub_24BC99C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a63);
   }
 
+  if (a65)
+  {
+    operator delete(a65);
+  }
+
   if (a66)
   {
+    a67 = a66;
     operator delete(a66);
   }
 
-  if (a69)
-  {
-    a70 = a69;
-    operator delete(a69);
-  }
-
-  sub_24BC9F10C(v70 - 232);
-  sub_24BC9F08C(v70 - 200);
-  sub_24BC9F00C(v70 - 168);
+  sub_24BC9F10C(v67 - 232);
+  sub_24BC9F08C(v67 - 200);
+  sub_24BC9F00C(v67 - 168);
   _Unwind_Resume(a1);
 }
 
-void sub_24BC99E8C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_24BC99E8C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v23 = *MEMORY[0x277D85DE8];
   sub_24BCA1524(v22, a4);
@@ -1845,172 +1815,171 @@ void sub_24BC99E8C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v11 = 0u;
   *__p = 0u;
   v9 = 0u;
-  v6 = *(a1 + 160) - *(a1 + 152);
+  v6 = a1[20] - a1[19];
   sub_24BC9A554(v18, 3 * (v6 >> 2));
   v19[0] = &unk_285F92E70;
   v19[1] = a1;
   v7 = (v6 >> 2);
-  v19[2] = &v8;
+  v19[2] = v8;
   v19[3] = v19;
   sub_24BD4BB84(v7, v19, 4uLL);
   sub_24BC9EF8C(v19);
   sub_24BC97D30(&v18[1] + 1, v7);
-  sub_24BC966D4(a1);
+  sub_24BC966D4(a1, v18, &v18[1] + 8);
 }
 
-void sub_24BC9A3F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_24BC9A3F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  if (*(v11 - 113) < 0)
+  va_start(va, a18);
+  if (*(v18 - 113) < 0)
   {
-    operator delete(*(v11 - 136));
+    operator delete(*(v18 - 136));
   }
 
   sub_24BC98BA0(&STACK[0x238]);
   sub_24BC9EEE8(va);
-  sub_24BC9F08C(v11 - 232);
-  sub_24BC9F10C(v11 - 200);
-  sub_24BC9F00C(v11 - 168);
+  sub_24BC9F08C(v18 - 232);
+  sub_24BC9F10C(v18 - 200);
+  sub_24BC9F00C(v18 - 168);
   _Unwind_Resume(a1);
 }
 
-void sub_24BC9A554(void *a1, unint64_t a2)
+void sub_24BC9A554(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    sub_24BCA4828(a1, a2 - v2);
+    sub_24BCA4828(result, a2 - v2);
   }
 }
 
-double sub_24BC9A584(uint64_t a1, float32x4_t *a2, double *a3, double a4, double a5, float32x4_t a6)
+double sub_24BC9A584(uint64_t a1, float32x4_t *a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7, double a8, float32x4_t a9)
 {
-  v9 = (*(a1 + 8) + 16 * *(a1 + 176));
-  v11 = *v9;
-  v10 = v9[1];
-  if (v10)
+  v12 = (*(a1 + 8) + 16 * *(a1 + 176));
+  v14 = *v12;
+  v13 = v12[1];
+  if (v13)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-    sub_24BC9EC78(v10);
+    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+    sub_24BC9EC78(v13);
   }
 
-  v12 = *(a1 + 112) - *(a1 + 104);
-  v13 = v12 >> 2;
-  if ((v12 >> 2))
+  v15 = *(a1 + 112) - *(a1 + 104);
+  v16 = v15 >> 2;
+  if ((v15 >> 2))
   {
-    v14 = 0;
-    v15 = *(v11 + 40);
-    v16 = 16 * (v12 >> 2);
-    v17 = 0uLL;
-    a6 = 0uLL;
-    v18 = 0uLL;
+    v17 = 0;
+    v18 = *(v14 + 40);
+    v19 = 16 * (v15 >> 2);
+    v20 = 0uLL;
+    a9 = 0uLL;
+    v21 = 0uLL;
     do
     {
-      v19 = v15[v14 / 0x10];
-      if (v14)
+      v22 = v18[v17 / 0x10];
+      if (v17)
       {
-        a6 = vmaxq_f32(a6, v19);
-        v18 = vminq_f32(v18, v19);
+        a9 = vmaxq_f32(a9, v22);
+        v21 = vminq_f32(v21, v22);
       }
 
       else
       {
-        v18 = *v15;
-        a6 = *v15;
+        v21 = *v18;
+        a9 = *v18;
       }
 
-      v17 = vaddq_f32(v17, v19);
-      v14 += 16;
+      v20 = vaddq_f32(v20, v22);
+      v17 += 16;
     }
 
-    while (v16 != v14);
-    v20 = vsubq_f32(a6, v18);
+    while (v19 != v17);
+    v23 = vsubq_f32(a9, v21);
   }
 
   else
   {
-    v17 = 0uLL;
     v20 = 0uLL;
+    v23 = 0uLL;
   }
 
-  a6.f32[0] = v13;
-  v21 = vmulq_f32(v20, v20);
-  v21.i32[3] = 0;
-  *a2 = vdivq_f32(v17, vdupq_lane_s32(*a6.f32, 0));
-  result = sqrtf(vaddv_f32(*&vpaddq_f32(v21, v21)));
+  a9.f32[0] = v16;
+  v24 = vmulq_f32(v23, v23);
+  v24.i32[3] = 0;
+  *a2 = vdivq_f32(v20, vdupq_lane_s32(*a9.f32, 0));
+  result = sqrtf(vaddv_f32(*&vpaddq_f32(v24, v24)));
   *a3 = result;
   return result;
 }
 
-uint64_t sub_24BC9A66C(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_24BC9A66C(void *a1, uint64_t a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-  sub_24BD6B968(v24, a3);
-  LODWORD(v19) = 0;
-  v20 = std::system_category();
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0;
-  v8 = (*(a1 + 160) - *(a1 + 152)) >> 2;
-  if (v8 == 1)
+  sub_24BD6B968(&v27, a3);
+  LODWORD(v22) = 0;
+  v23 = std::system_category();
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0;
+  v12 = (a1[20] - a1[19]) >> 2;
+  if (v12 == 1)
   {
-    v13 = 1;
+    v17 = 1;
   }
 
   else
   {
-    if (v8)
+    if (v12)
     {
-      v18 = 0uLL;
-      v17 = 0;
-      sub_24BC9A584(a1, &v18, &v17, 0.0, v6, v7);
-      sub_24BC964DC(a1);
+      v21 = 0uLL;
+      v20 = 0;
+      sub_24BC9A584(a1, &v21, &v20, v7, v8, v9, 0.0, v10, v11);
+      sub_24BC964DC(a1, &v21, &v20);
     }
 
-    v19 = sub_24BD6A604(9u);
-    v20 = v9;
-    if (*(a3 + 56))
+    v22 = sub_24BD6A604(9, v6);
+    v23 = v13;
+    if (a3[7])
     {
-      v10 = sub_24BD6A604(9u);
-      v12 = v11;
-      sub_24BC836D4(v25, "Input mesh is empty");
-      sub_24BC98654(a3 + 32, v10, v12, v25);
-      if (v26 < 0)
+      v14 = sub_24BD6A604(9, v13);
+      v16 = v15;
+      sub_24BC836D4(v28, "Input mesh is empty");
+      sub_24BC98654((a3 + 4), v14, v16, v28);
+      if (v29 < 0)
       {
-        operator delete(v25[0]);
+        operator delete(v28[0]);
       }
     }
 
-    v13 = 0;
+    v17 = 0;
   }
 
-  *&v21 = (std::chrono::system_clock::now().__d_.__rep_ - v5.__d_.__rep_) / 1000000.0;
-  v14 = *(a3 + 120);
-  if (v14)
+  *&v24 = (std::chrono::system_clock::now().__d_.__rep_ - v5.__d_.__rep_) / 1000000.0;
+  v18 = a3[15];
+  if (v18)
   {
-    (*(*v14 + 48))(v14, &v19);
+    (*(*v18 + 48))(v18, &v22);
   }
 
-  sub_24BD6B9D8(v24);
-  v15 = *MEMORY[0x277D85DE8];
-  return v13;
+  sub_24BD6B9D8(&v27);
+  return v17;
 }
 
-void sub_24BC9A9DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_24BC9A9DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
-  if (*(v12 - 193) < 0)
+  va_start(va, a19);
+  if (*(v19 - 193) < 0)
   {
-    operator delete(*(v12 - 216));
+    operator delete(*(v19 - 216));
   }
 
   sub_24BD6B9D8(va);
@@ -2019,70 +1988,68 @@ void sub_24BC9A9DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void *sub_24BC9AAC4(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  sub_24BCA2D38(v5, a2);
-  sub_24BCA4ECC(v5, a1);
-  sub_24BC9F08C(v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  sub_24BCA2D38(v4, a2);
+  sub_24BCA4ECC(v4, a1);
+  sub_24BC9F08C(v4);
   return a1;
 }
 
-uint64_t sub_24BC9AB38(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_24BC9AB38(void *a1, uint64_t a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-  sub_24BD6B968(v24, a3);
-  LODWORD(v19) = 0;
-  v20 = std::system_category();
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0;
-  v8 = (*(a1 + 160) - *(a1 + 152)) >> 2;
-  if (v8 == 1)
+  sub_24BD6B968(v27, a3);
+  LODWORD(v22) = 0;
+  v23 = std::system_category();
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0;
+  v12 = (a1[20] - a1[19]) >> 2;
+  if (v12 == 1)
   {
-    v13 = 1;
+    v17 = 1;
   }
 
   else
   {
-    if (v8)
+    if (v12)
     {
-      v18 = 0uLL;
-      v17 = 0;
-      sub_24BC9A584(a1, &v18, &v17, 0.0, v6, v7);
-      sub_24BC964DC(a1);
+      v21 = 0uLL;
+      v20 = 0;
+      sub_24BC9A584(a1, &v21, &v20, v7, v8, v9, 0.0, v10, v11);
+      sub_24BC964DC(a1, &v21, &v20);
     }
 
-    v19 = sub_24BD6A604(9u);
-    v20 = v9;
-    if (*(a3 + 56))
+    v22 = sub_24BD6A604(9, v6);
+    v23 = v13;
+    if (a3[7])
     {
-      v10 = sub_24BD6A604(9u);
-      v12 = v11;
+      v14 = sub_24BD6A604(9, v13);
+      v16 = v15;
       sub_24BC836D4(__p, "Input mesh is empty");
-      sub_24BC98654(a3 + 32, v10, v12, __p);
-      if (v26 < 0)
+      sub_24BC98654((a3 + 4), v14, v16, __p);
+      if (v29 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    v13 = 0;
+    v17 = 0;
   }
 
-  *&v21 = (std::chrono::system_clock::now().__d_.__rep_ - v5.__d_.__rep_) / 1000000.0;
-  v14 = *(a3 + 120);
-  if (v14)
+  *&v24 = (std::chrono::system_clock::now().__d_.__rep_ - v5.__d_.__rep_) / 1000000.0;
+  v18 = a3[15];
+  if (v18)
   {
-    (*(*v14 + 48))(v14, &v19);
+    (*(*v18 + 48))(v18, &v22);
   }
 
-  sub_24BD6B9D8(v24);
-  v15 = *MEMORY[0x277D85DE8];
-  return v13;
+  sub_24BD6B9D8(v27);
+  return v17;
 }
 
-void sub_24BC9AFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, void *__p, uint64_t a61, int a62, __int16 a63)
+void sub_24BC9AFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, void *__p, uint64_t a61, int a62, __int16 a63)
 {
   if (a65 < 0)
   {
@@ -2095,38 +2062,56 @@ void sub_24BC9AFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void *sub_24BC9B08C(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  sub_24BCA1524(v5, a2);
-  sub_24BCA3290(v5, a1);
-  sub_24BC9F00C(v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  sub_24BCA1524(v4, a2);
+  sub_24BCA3290(v4, a1);
+  sub_24BC9F00C(v4);
   return a1;
 }
 
 void *sub_24BC9B100(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  sub_24BCA2DD0(v5, a2);
-  sub_24BCA5130(v5, a1);
-  sub_24BC9F10C(v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  sub_24BCA2DD0(v4, a2);
+  sub_24BCA5130(v4, a1);
+  sub_24BC9F10C(v4);
   return a1;
 }
 
-void sub_24BC9B174()
+void sub_24BC9B174(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  v1 = 0;
-  v2 = 3;
-  sub_24BCA5970();
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 0;
+  v3 = 0;
+  v4[0] = 3;
+  sub_24BCA5970("lambda_weight");
 }
 
-void sub_24BC9B764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned __int8 a10, uint64_t a11, unsigned __int8 a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_24BC9B764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  sub_24BC9F18C((v70 + 8), a10);
-  v73 = &STACK[0x310];
-  v74 = -256;
+  sub_24BC9F18C((v66 + 8), a10);
+  v69 = &STACK[0x310];
+  v70 = -256;
+  do
+  {
+    sub_24BC9F18C(v69, *(v69 - 8));
+    v69 -= 4;
+    v70 += 32;
+  }
+
+  while (v70);
+  v71 = &a19;
+  v72 = -64;
+  do
+  {
+    sub_24BC9F18C(v71, *(v71 - 8));
+    v71 -= 4;
+    v72 += 32;
+  }
+
+  while (v72);
+  v73 = &a27;
+  v74 = -64;
   do
   {
     sub_24BC9F18C(v73, *(v73 - 8));
@@ -2135,7 +2120,7 @@ void sub_24BC9B764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   while (v74);
-  v75 = &a19;
+  v75 = &a35;
   v76 = -64;
   do
   {
@@ -2145,7 +2130,7 @@ void sub_24BC9B764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   while (v76);
-  v77 = &a27;
+  v77 = &a43;
   v78 = -64;
   do
   {
@@ -2155,7 +2140,7 @@ void sub_24BC9B764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   while (v78);
-  v79 = &a35;
+  v79 = &a51;
   v80 = -64;
   do
   {
@@ -2165,7 +2150,7 @@ void sub_24BC9B764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   while (v80);
-  v81 = &a43;
+  v81 = &a59;
   v82 = -64;
   do
   {
@@ -2175,7 +2160,7 @@ void sub_24BC9B764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   while (v82);
-  v83 = &a51;
+  v83 = &a65;
   v84 = -64;
   do
   {
@@ -2185,36 +2170,16 @@ void sub_24BC9B764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   while (v84);
-  v85 = &a59;
-  v86 = -64;
-  do
-  {
-    sub_24BC9F18C(v85, *(v85 - 8));
-    v85 -= 4;
-    v86 += 32;
-  }
-
-  while (v86);
-  v87 = &a67;
-  v88 = -64;
-  do
-  {
-    sub_24BC9F18C(v87, *(v87 - 8));
-    v87 -= 4;
-    v88 += 32;
-  }
-
-  while (v88);
   for (i = 0; i != -64; i -= 32)
   {
-    sub_24BC9F18C((&a70 + i + 40), *(&a70 + i + 32));
+    sub_24BC9F18C((&a66 + i + 40), *(&a66 + i + 32));
   }
 
-  sub_24BC9F18C((v71 + 8), a12);
+  sub_24BC9F18C((v67 + 8), a12);
   _Unwind_Resume(a1);
 }
 
-BOOL sub_24BC9B9A0(uint64_t a1, unint64_t a2)
+BOOL sub_24BC9B9A0(unsigned __int8 *a1, unint64_t a2)
 {
   if (!*a1)
   {
@@ -2285,14 +2250,14 @@ BOOL sub_24BC9B9A0(uint64_t a1, unint64_t a2)
 
     v6 = sub_24BCA7288(&v23);
     sub_24BCA6218(v19, v6);
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 1);
     v21.__r_.__value_.__r.__words[0] = sub_24BCA6E3C(&v23);
-    v8 = sub_24BCA73D4(v7, v21.__r_.__value_.__l.__data_);
+    v8 = sub_24BCA73D4(v7, v21.__r_.__value_.__l.__data_, &unk_24BFEDD60, &v21, &v25);
     v9 = *(v8 + 56);
     *(v8 + 56) = v19[0];
     v19[0] = v9;
-    v10 = *(v8 + 64);
-    *(v8 + 64) = v20;
+    v10 = v8[8];
+    v8[8] = v20;
     v20 = v10;
     sub_24BC9F18C(&v20, v9);
     sub_24BCA6F10(&v23);
@@ -2301,12 +2266,10 @@ BOOL sub_24BC9B9A0(uint64_t a1, unint64_t a2)
   return result;
 }
 
-void sub_24BC9BD14(void *a1)
+void sub_24BC9BD14(void *a1, uint64_t a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = a1 + *(*a1 - 24);
-  v2 = *(v1 + 3);
-  *(v1 + 3) = 0;
+  v2 = *MEMORY[0x277D85DE8];
+  *(a1 + *(*a1 - 24) + 24) = 0;
   operator new();
 }
 
@@ -2533,7 +2496,7 @@ void sub_24BC9BF2C(uint64_t a1, void *a2)
 
   sub_24BC848F0(&__p);
   *(v43 + 8 * *(v42 - 24) + 272) = 2;
-  sub_24BC9BD14(&v42);
+  sub_24BC9BD14(&v42, v43);
 }
 
 void sub_24BC9C724(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -2556,40 +2519,39 @@ void sub_24BC9C724(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void *sub_24BC9C7E0(void *a1, unsigned __int8 *a2)
 {
-  v10[19] = *MEMORY[0x277D85DE8];
-  v6[0] = a1;
-  v6[1] = *(a1 + *(*a1 - 24) + 40);
-  v8 = 0;
-  sub_24BCA9984(v6, v7, 1, 0, v9);
-  sub_24BCA9A28(v9, 0, a2);
-  sub_24BCAACC8(v10);
-  sub_24BCAFFAC(v9);
-  sub_24BCAFFAC(v7);
-  sub_24BCB002C(v6);
-  v4 = *MEMORY[0x277D85DE8];
+  v9[19] = *MEMORY[0x277D85DE8];
+  v5[0] = a1;
+  v5[1] = *(a1 + *(*a1 - 24) + 40);
+  v7 = 0;
+  sub_24BCA9984(v5, 1, 0, v8, v6);
+  sub_24BCA9A28(v8, 0, a2);
+  sub_24BCAACC8(v9);
+  sub_24BCAFFAC(v8);
+  sub_24BCAFFAC(v6);
+  sub_24BCB002C(v5);
   return a1;
 }
 
-void sub_24BC9C8B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC9C8B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, void);
-  v9 = va_arg(va2, void);
+  v8 = va_arg(va2, void);
   v10 = va_arg(va2, void);
   v11 = va_arg(va2, void);
-  sub_24BCAACC8(v2 + 40);
+  v12 = va_arg(va2, void);
+  sub_24BCAACC8(v3 + 40);
   sub_24BCAFFAC(va2);
   sub_24BCAFFAC(va1);
   sub_24BCB002C(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_24BC9C8EC(uint64_t a1, char *__s)
+uint64_t sub_24BC9C8EC(unsigned __int8 *a1, char *__s)
 {
   if (!*a1)
   {
@@ -2613,10 +2575,10 @@ uint64_t sub_24BC9C8EC(uint64_t a1, char *__s)
     __cxa_throw(exception, &unk_285F930E0, sub_24BCA5F88);
   }
 
-  v3 = *(a1 + 8);
+  v3 = *(a1 + 1);
   sub_24BC836D4(__p, __s);
   v10.__r_.__value_.__r.__words[0] = __p;
-  v4 = sub_24BCB0100(v3, __p);
+  v4 = sub_24BCB0100(v3, __p, &unk_24BFEDD60, &v10);
   if (SHIBYTE(v12) < 0)
   {
     operator delete(__p[0]);
@@ -2684,16 +2646,16 @@ LABEL_8:
   goto LABEL_8;
 }
 
-void sub_24BC9CBEC()
+void sub_24BC9CBEC(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  v1 = 0;
-  sub_24BC848F0(&v2);
-  sub_24BC9B174();
+  v6[33] = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
+  v4 = 0;
+  sub_24BC848F0(&v5);
+  sub_24BC9B174(a1, v6);
 }
 
-void sub_24BC9CF38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, unsigned __int8 a9, uint64_t a10, unsigned __int8 a11, uint64_t a12, unsigned __int8 a13, uint64_t a14, uint64_t a15, uint64_t a16, std::locale a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_24BC9CF38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, std::locale a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   sub_24BC9F18C((v22 + 8), a9);
   sub_24BC9F18C(&a14, a13);
@@ -2744,7 +2706,7 @@ void sub_24BC9CFD0(uint64_t a1, void *a2)
 
   sub_24BC848F0(&__p);
   *(v10 + 8 * *(v9 - 24) + 272) = 2;
-  sub_24BC9BD14(&v9);
+  sub_24BC9BD14(&v9, v10);
 }
 
 void sub_24BC9D2DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -2765,74 +2727,74 @@ void sub_24BC9D2DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_24BC9D360(const std::error_code *a1)
+void sub_24BC9D360(const std::error_code *a1, void *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = 0;
-  v3 = 0;
-  sub_24BC848F0(&v4);
-  sub_24BD6A950(a1);
+  v6[33] = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
+  v4 = 0;
+  sub_24BC848F0(&v5);
+  sub_24BD6A950(a1, v6);
 }
 
-void sub_24BC9D900(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, unsigned __int8 a9, uint64_t a10, unsigned __int8 a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, std::locale a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_24BC9D900(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, std::locale a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  sub_24BC9F18C((v70 + 8), a9);
-  v73 = &a70;
-  v74 = -160;
+  sub_24BC9F18C((v65 + 8), a9);
+  v68 = &a65;
+  v69 = -160;
   do
   {
-    sub_24BC9F18C(v73, *(v73 - 8));
-    v73 -= 4;
-    v74 += 32;
+    sub_24BC9F18C(v68, *(v68 - 8));
+    v68 -= 4;
+    v69 += 32;
   }
 
-  while (v74);
-  v75 = &a18;
-  v76 = -64;
+  while (v69);
+  v70 = &a18;
+  v71 = -64;
   do
   {
-    sub_24BC9F18C(v75, *(v75 - 8));
-    v75 -= 4;
-    v76 += 32;
+    sub_24BC9F18C(v70, *(v70 - 8));
+    v70 -= 4;
+    v71 += 32;
   }
 
-  while (v76);
-  v77 = &a26;
-  v78 = -64;
+  while (v71);
+  v72 = &a26;
+  v73 = -64;
   do
   {
-    sub_24BC9F18C(v77, *(v77 - 8));
-    v77 -= 4;
-    v78 += 32;
+    sub_24BC9F18C(v72, *(v72 - 8));
+    v72 -= 4;
+    v73 += 32;
   }
 
-  while (v78);
-  v79 = &a34;
-  v80 = -64;
+  while (v73);
+  v74 = &a34;
+  v75 = -64;
   do
   {
-    sub_24BC9F18C(v79, *(v79 - 8));
-    v79 -= 4;
-    v80 += 32;
+    sub_24BC9F18C(v74, *(v74 - 8));
+    v74 -= 4;
+    v75 += 32;
   }
 
-  while (v80);
-  v81 = &a42;
-  v82 = -64;
+  while (v75);
+  v76 = &a42;
+  v77 = -64;
   do
   {
-    sub_24BC9F18C(v81, *(v81 - 8));
-    v81 -= 4;
-    v82 += 32;
+    sub_24BC9F18C(v76, *(v76 - 8));
+    v76 -= 4;
+    v77 += 32;
   }
 
-  while (v82);
+  while (v77);
   for (i = 0; i != -64; i -= 32)
   {
     sub_24BC9F18C((&a50 + i), *(&a49 + i));
   }
 
-  sub_24BC9F18C((v71 + 8), a11);
+  sub_24BC9F18C((v66 + 8), a11);
   _Unwind_Resume(a1);
 }
 
@@ -2973,7 +2935,7 @@ void sub_24BC9DAB4(uint64_t a1, void *a2)
 
   sub_24BC848F0(&__p);
   *(v26 + 8 * *(v25 - 24) + 272) = 2;
-  sub_24BC9BD14(&v25);
+  sub_24BC9BD14(&v25, v26);
 }
 
 void sub_24BC9E090(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -2994,16 +2956,16 @@ void sub_24BC9E090(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_24BC9E134(uint64_t a1, uint64_t *a2)
+void sub_24BC9E134(uint64_t a1, uint64_t **a2)
 {
   v3[71] = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
-    v2 = *a2;
+    a2 = *a2;
   }
 
-  sub_24BCB0D30(v3);
-  sub_24BC9B174();
+  sub_24BCB0D30(v3, a2, 16);
+  sub_24BC9B174(a1, v3);
 }
 
 void *sub_24BC9E284(void *a1)
@@ -3018,32 +2980,31 @@ void *sub_24BC9E284(void *a1)
   return a1;
 }
 
-uint64_t sub_24BC9E350(uint64_t a1, uint64_t *a2)
+uint64_t sub_24BC9E350(uint64_t a1, uint64_t **a2)
 {
-  v8[19] = *MEMORY[0x277D85DE8];
+  v6[19] = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
-    v3 = *a2;
+    a2 = *a2;
   }
 
-  sub_24BCB0EF0(v6);
-  if ((v7[*(v6[0] - 24) + 16] & 5) == 0)
+  sub_24BCB0EF0(v4, a2, 8);
+  if ((v5[*(v4[0] - 24) + 16] & 5) == 0)
   {
-    sub_24BC9BF2C(a1, v6);
+    sub_24BC9BF2C(a1, v4);
   }
 
-  v6[0] = *MEMORY[0x277D82808];
-  *(v6 + *(v6[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-  MEMORY[0x24C2542E0](v7);
+  v4[0] = *MEMORY[0x277D82808];
+  *(v4 + *(v4[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+  MEMORY[0x24C2542E0](v5);
   std::istream::~istream();
-  MEMORY[0x24C2547D0](v8);
-  v4 = *MEMORY[0x277D85DE8];
+  MEMORY[0x24C2547D0](v6);
   return 0;
 }
 
-void sub_24BC9E4BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC9E4BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24BC9E4D8(va);
   _Unwind_Resume(a1);
 }
@@ -3060,86 +3021,84 @@ void *sub_24BC9E4D8(void *a1)
   return a1;
 }
 
-void sub_24BC9E5A4(uint64_t a1, uint64_t *a2)
+void sub_24BC9E5A4(uint64_t a1, uint64_t **a2)
 {
   v3[71] = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
-    v2 = *a2;
+    a2 = *a2;
   }
 
-  sub_24BCB0D30(v3);
-  sub_24BC9CBEC();
+  sub_24BCB0D30(v3, a2, 16);
+  sub_24BC9CBEC(a1, v3);
 }
 
-uint64_t sub_24BC9E6F4(uint64_t a1, uint64_t *a2)
+uint64_t sub_24BC9E6F4(uint64_t a1, uint64_t **a2)
 {
-  v8[19] = *MEMORY[0x277D85DE8];
+  v6[19] = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
-    v3 = *a2;
+    a2 = *a2;
   }
 
-  sub_24BCB0EF0(v6);
-  if ((v7[*(v6[0] - 24) + 16] & 5) == 0)
+  sub_24BCB0EF0(v4, a2, 8);
+  if ((v5[*(v4[0] - 24) + 16] & 5) == 0)
   {
-    sub_24BC9CFD0(a1, v6);
+    sub_24BC9CFD0(a1, v4);
   }
 
-  v6[0] = *MEMORY[0x277D82808];
-  *(v6 + *(v6[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-  MEMORY[0x24C2542E0](v7);
+  v4[0] = *MEMORY[0x277D82808];
+  *(v4 + *(v4[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+  MEMORY[0x24C2542E0](v5);
   std::istream::~istream();
-  MEMORY[0x24C2547D0](v8);
-  v4 = *MEMORY[0x277D85DE8];
+  MEMORY[0x24C2547D0](v6);
   return 0;
 }
 
-void sub_24BC9E860(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC9E860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24BC9E4D8(va);
   _Unwind_Resume(a1);
 }
 
-void sub_24BC9E87C(const std::error_code *a1, uint64_t *a2)
+void sub_24BC9E87C(const std::error_code *a1, uint64_t **a2)
 {
-  v4[71] = *MEMORY[0x277D85DE8];
+  v3[71] = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
-    v3 = *a2;
+    a2 = *a2;
   }
 
-  sub_24BCB0D30(v4);
-  sub_24BC9D360(a1);
+  sub_24BCB0D30(v3, a2, 16);
+  sub_24BC9D360(a1, v3);
 }
 
-uint64_t sub_24BC9E9D0(uint64_t a1, uint64_t *a2)
+uint64_t sub_24BC9E9D0(uint64_t a1, uint64_t **a2)
 {
-  v8[19] = *MEMORY[0x277D85DE8];
+  v6[19] = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
-    v3 = *a2;
+    a2 = *a2;
   }
 
-  sub_24BCB0EF0(v6);
-  if ((v7[*(v6[0] - 24) + 16] & 5) == 0)
+  sub_24BCB0EF0(v4, a2, 8);
+  if ((v5[*(v4[0] - 24) + 16] & 5) == 0)
   {
-    sub_24BC9DAB4(a1, v6);
+    sub_24BC9DAB4(a1, v4);
   }
 
-  v6[0] = *MEMORY[0x277D82808];
-  *(v6 + *(v6[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-  MEMORY[0x24C2542E0](v7);
+  v4[0] = *MEMORY[0x277D82808];
+  *(v4 + *(v4[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+  MEMORY[0x24C2542E0](v5);
   std::istream::~istream();
-  MEMORY[0x24C2547D0](v8);
-  v4 = *MEMORY[0x277D85DE8];
+  MEMORY[0x24C2547D0](v6);
   return 0;
 }
 
-void sub_24BC9EB3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC9EB3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24BC9E4D8(va);
   _Unwind_Resume(a1);
 }
@@ -3368,15 +3327,15 @@ uint64_t sub_24BC9F10C(uint64_t a1)
   return a1;
 }
 
-void sub_24BC9F18C(uint64_t *a1, int a2)
+void sub_24BC9F18C(void ****a1, int a2)
 {
   v29 = 0;
   v30 = 0;
   v31 = 0;
   if (a2 == 1)
   {
-    sub_24BC9F4D4(&v29, *(*a1 + 16));
-    v6 = *a1 + 8;
+    sub_24BC9F4D4(&v29, (*a1)[2]);
+    v6 = (*a1 + 1);
     v7 = **a1;
     if (v7 != v6)
     {
@@ -3431,9 +3390,9 @@ void sub_24BC9F18C(uint64_t *a1, int a2)
 
   else if (a2 == 2)
   {
-    sub_24BC9F4D4(&v29, (*(*a1 + 8) - **a1) >> 4);
+    sub_24BC9F4D4(&v29, ((*a1)[1] - **a1) >> 4);
     v4 = **a1;
-    v5 = *(*a1 + 8);
+    v5 = (*a1)[1];
     while (v4 != v5)
     {
       sub_24BC9F590(&v29, v4);
@@ -3444,11 +3403,11 @@ void sub_24BC9F18C(uint64_t *a1, int a2)
   for (i = v30; v29 != v30; i = v30)
   {
     LOBYTE(v27) = *(i - 16);
-    v28 = *(i - 8);
+    v28 = *(i - 1);
     *(i - 16) = 0;
-    *(i - 8) = 0;
-    v13 = v30 - 16;
-    sub_24BC9F18C(v30 - 8, *(v30 - 16));
+    *(i - 1) = 0;
+    v13 = (v30 - 2);
+    sub_24BC9F18C(v30 - 1, *(v30 - 16));
     v30 = v13;
     if (v27 == 1)
     {
@@ -3505,10 +3464,10 @@ void sub_24BC9F18C(uint64_t *a1, int a2)
         v19 = v28;
       }
 
-      sub_24BC9F968(v19, *(v19 + 8));
-      *v19 = v19 + 8;
-      *(v19 + 16) = 0;
-      *(v19 + 8) = 0;
+      sub_24BC9F968(v19, v19[1]);
+      *v19 = v19 + 1;
+      v19[2] = 0;
+      v19[1] = 0;
     }
 
     else if (v27 == 2)
@@ -3532,12 +3491,12 @@ void sub_24BC9F18C(uint64_t *a1, int a2)
 
       if (v16 != v15)
       {
-        v17 = v16 - 8;
+        v17 = (v16 - 8);
         do
         {
-          v18 = v17 - 8;
+          v18 = v17 - 1;
           sub_24BC9F18C(v17, *(v17 - 8));
-          v17 -= 16;
+          v17 -= 2;
         }
 
         while (v18 != v15);
@@ -3587,7 +3546,7 @@ LABEL_53:
 
   if (a2 == 1)
   {
-    sub_24BC9F968(*a1, *(*a1 + 8));
+    sub_24BC9F968(*a1, (*a1)[1]);
     goto LABEL_52;
   }
 
@@ -3605,14 +3564,12 @@ LABEL_54:
   sub_24BC9FA2C(&v27);
 }
 
-void *sub_24BC9F4D4(void *result, unint64_t a2)
+uint64_t *sub_24BC9F4D4(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       sub_24BC9F6D4(result, a2);
     }
 
@@ -3622,18 +3579,18 @@ void *sub_24BC9F4D4(void *result, unint64_t a2)
   return result;
 }
 
-void sub_24BC9F57C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC9F57C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_24BC9F7FC(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_24BC9F590(uint64_t result, uint64_t a2)
+void ****sub_24BC9F590(void ****result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = (v4 - *result) >> 4;
@@ -3674,14 +3631,14 @@ uint64_t sub_24BC9F590(uint64_t result, uint64_t a2)
     *a2 = 0;
     *(a2 + 8) = 0;
     *&v19 = 16 * v7 + 16;
-    v12 = *(result + 8);
+    v12 = result[1];
     v13 = 16 * v7 + *result - v12;
     sub_24BC9F71C(result, *result, v12, v13);
     v14 = *v3;
     *v3 = v13;
-    v15 = *(v3 + 16);
+    v15 = v3[2];
     v16 = v19;
-    *(v3 + 8) = v19;
+    *(v3 + 1) = v19;
     *&v19 = v14;
     *(&v19 + 1) = v15;
     v17 = v14;
@@ -3696,16 +3653,16 @@ uint64_t sub_24BC9F590(uint64_t result, uint64_t a2)
     *(v4 + 8) = *(a2 + 8);
     *a2 = 0;
     *(a2 + 8) = 0;
-    v6 = v4 + 16;
+    v6 = (v4 + 16);
   }
 
-  *(v3 + 8) = v6;
+  v3[1] = v6;
   return result;
 }
 
-void sub_24BC9F6C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_24BC9F6C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_24BC9F7FC(va);
   _Unwind_Resume(a1);
 }
@@ -3720,7 +3677,7 @@ void sub_24BC9F6D4(uint64_t a1, unint64_t a2)
   sub_24BC8DFE8();
 }
 
-uint64_t sub_24BC9F71C(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4)
+uint64_t sub_24BC9F71C(uint64_t a1, void ***a2, unsigned __int8 *a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -3741,7 +3698,7 @@ uint64_t sub_24BC9F71C(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, ui
     {
       v7 = *v6;
       v6 += 16;
-      result = sub_24BC9F18C(a2 + 8, v7);
+      result = sub_24BC9F18C(a2 + 1, v7);
       a2 = v6;
     }
 
@@ -3782,7 +3739,7 @@ uint64_t sub_24BC9F7FC(uint64_t a1)
     v5 = *(i - 16);
     v4 = i - 16;
     *(a1 + 16) = v4;
-    sub_24BC9F18C(v4 + 8, v5);
+    sub_24BC9F18C((v4 + 8), v5);
   }
 
   if (*a1)
@@ -3849,20 +3806,20 @@ uint64_t sub_24BC9F850(uint64_t a1, uint64_t a2)
   return v14;
 }
 
-void sub_24BC9F954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_24BC9F954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_24BC9F7FC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_24BC9F968(uint64_t a1, char *a2)
+void sub_24BC9F968(uint64_t a1, unsigned __int8 *a2)
 {
   if (a2)
   {
     sub_24BC9F968(a1, *a2);
     sub_24BC9F968(a1, *(a2 + 1));
-    sub_24BC9F18C(a2 + 64, a2[56]);
+    sub_24BC9F18C(a2 + 8, a2[56]);
     if (a2[55] < 0)
     {
       operator delete(*(a2 + 4));
@@ -3883,7 +3840,7 @@ void sub_24BC9F9D8(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_24BC9FA2C(void ***a1)
+void sub_24BC9FA2C(void *****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -3893,12 +3850,12 @@ void sub_24BC9FA2C(void ***a1)
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 8;
+      v6 = v4 - 1;
       do
       {
-        v7 = (v6 - 8);
+        v7 = v6 - 1;
         sub_24BC9F18C(v6, *(v6 - 8));
-        v6 -= 16;
+        v6 -= 2;
       }
 
       while (v7 != v2);
@@ -4058,20 +4015,20 @@ LABEL_11:
   return result;
 }
 
-void *sub_24BC9FEFC(void *result, uint64_t a2)
+uint64_t *sub_24BC9FEFC(uint64_t *a1, uint64_t a2, unsigned __int8 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BC9FFD0(result, a2);
+    sub_24BC9FFD0(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void sub_24BC9FFD0(uint64_t a1, uint64_t a2)
+void sub_24BC9FFD0(uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -4270,20 +4227,20 @@ LABEL_11:
   }
 }
 
-void *sub_24BCA0430(void *result, unint64_t a2)
+uint64_t *sub_24BCA0430(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BCA04D4(result, a2);
+    sub_24BCA04D4(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void sub_24BCA04D4(uint64_t a1, unint64_t a2)
+void sub_24BCA04D4(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -4308,145 +4265,130 @@ __n128 sub_24BCA05AC(uint64_t a1, uint64_t a2)
 
 uint64_t sub_24BCA05F4(uint64_t result, unsigned int *a2, unsigned int *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = *a3;
-  v39 = *a2;
-  if (v39 < v3)
+  v31 = *a2;
+  if (v31 < v3)
   {
     v4 = result;
     do
     {
-      v38 = 0u;
-      memset(v37, 0, sizeof(v37));
+      v30 = 0u;
+      memset(v29, 0, sizeof(v29));
       v5 = **(v4 + 8);
-      LOBYTE(__p) = 0;
-      sub_24BC9FEFC(&v36, v5);
+      LOBYTE(__p[0]) = 0;
+      sub_24BC9FEFC(&v28, v5, __p);
       v6 = **(v4 + 16);
-      LOBYTE(v34[0]) = 0;
-      sub_24BC9FEFC(&__p, v6);
-      *(v36 + ((v39 >> 3) & 0x1FFFFFF8)) |= 1 << v39;
-      sub_24BCA09A8(v37, &v39);
-      v7 = v39;
-      v31 = *(**(v4 + 24) + 16 * v39);
-      v41 = -1;
-      v40 = -1;
-      v8 = *(&v38 + 1);
-      if (*(&v38 + 1))
+      LOBYTE(v26[0]) = 0;
+      sub_24BC9FEFC(__p, v6, v26);
+      *(v28 + ((v31 >> 3) & 0x1FFFFFF8)) |= 1 << v31;
+      sub_24BCA09A8(v29, &v31);
+      v23 = *(**(v4 + 24) + 16 * v31);
+      v33 = -1;
+      v32 = -1;
+      for (i = *(&v30 + 1); *(&v30 + 1); i = *(&v30 + 1))
       {
+        v8 = *(*(*(&v29[0] + 1) + ((v30 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v30 & 0x3FF));
+        *&v30 = v30 + 1;
+        *(&v30 + 1) = i - 1;
+        if (v30 >= 0x800)
+        {
+          operator delete(**(&v29[0] + 1));
+          *(&v29[0] + 1) += 8;
+          *&v30 = v30 - 1024;
+        }
+
+        v9 = 0;
+        v10 = *(v4 + 32);
+        LODWORD(v32) = *(*v10 + 4 * (3 * v8));
+        HIDWORD(v32) = *(*v10 + 4 * (3 * v8 + 1));
+        v33 = *(*v10 + 4 * (3 * v8 + 2));
         do
         {
-          v9 = *(*(*(&v37[0] + 1) + ((v38 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v38 & 0x3FF));
-          *&v38 = v38 + 1;
-          *(&v38 + 1) = v8 - 1;
-          if (v38 >= 0x800)
+          v11 = &v32 + v9;
+          v12 = *v11;
+          v13 = v12 >> 6;
+          v14 = 1 << v12;
+          v15 = *(__p[0] + v13);
+          if ((v14 & v15) == 0)
           {
-            operator delete(**(&v37[0] + 1));
-            *(&v37[0] + 1) += 8;
-            *&v38 = v38 - 1024;
-          }
-
-          v10 = 0;
-          v11 = *(v4 + 32);
-          LODWORD(v40) = *(*v11 + 4 * (3 * v9));
-          HIDWORD(v40) = *(*v11 + 4 * (3 * v9 + 1));
-          v41 = *(*v11 + 4 * (3 * v9 + 2));
-          do
-          {
-            v12 = &v40 + v10;
-            v13 = *v12;
-            v14 = v13 >> 6;
-            v15 = 1 << v13;
-            v16 = *(__p + v14);
-            if ((v15 & v16) == 0)
+            *(__p[0] + v13) = v14 | v15;
+            sub_24BCB9454(v26, (*(v4 + 40) + 104), v11);
+            for (j = sub_24BCB947C(v26); ; j = sub_24BCB947C(v26))
             {
-              *(__p + v14) = v15 | v16;
-              sub_24BCB9454(v34, (*(v4 + 40) + 104), v12);
-              for (i = sub_24BCB947C(v34); ; i = sub_24BCB947C(v34))
+              v25 = j;
+              if (j == -1)
               {
-                v33 = i;
-                if (i == -1)
-                {
-                  break;
-                }
+                break;
+              }
 
-                v18 = *(sub_24BCB9024(*(v4 + 40) + 104, &v33) + 16);
-                if (v18 != -1)
+              v17 = *(sub_24BCB9024(*(v4 + 40) + 104, &v25) + 16);
+              if (v17 != -1)
+              {
+                v18 = *(v28 + (v17 >> 6));
+                if ((v18 & (1 << v17)) == 0)
                 {
-                  v19 = *(v36 + (v18 >> 6));
-                  if ((v19 & (1 << v18)) == 0)
+                  *(v28 + (v17 >> 6)) = v18 | (1 << v17);
+                  v19 = vsubq_f32(*(**(v4 + 24) + 16 * v17), v23);
+                  v20 = vmulq_f32(v19, v19);
+                  v20.i32[3] = 0;
+                  if (**(v4 + 48) > sqrtf(vaddv_f32(*&vpaddq_f32(v20, v20))))
                   {
-                    *(v36 + (v18 >> 6)) = v19 | (1 << v18);
-                    v20 = vsubq_f32(*(**(v4 + 24) + 16 * v18), v31);
-                    v21 = vmulq_f32(v20, v20);
-                    v21.i32[3] = 0;
-                    if (**(v4 + 48) > sqrtf(vaddv_f32(*&vpaddq_f32(v21, v21))))
+                    v24 = v17;
+                    sub_24BCA09A8(v29, &v24);
+                    if (v17 >= v31)
                     {
-                      v32 = v18;
-                      sub_24BCA09A8(v37, &v32);
-                      if (v18 >= v39)
+                      if (v17 > v31)
                       {
-                        if (v18 > v39)
-                        {
-                          v23 = (**(v4 + 64) + 24 * v39);
-                          v32 = v18;
-                          sub_24BC97D60(v23, &v32);
-                        }
+                        v22 = (**(v4 + 64) + 24 * v31);
+                        v24 = v17;
+                        sub_24BC97D60(v22, &v24);
                       }
+                    }
 
-                      else
-                      {
-                        v22 = (**(v4 + 56) + 24 * v39);
-                        v32 = v18;
-                        sub_24BC97D60(v22, &v32);
-                      }
+                    else
+                    {
+                      v21 = (**(v4 + 56) + 24 * v31);
+                      v24 = v17;
+                      sub_24BC97D60(v21, &v24);
                     }
                   }
                 }
               }
             }
-
-            ++v10;
           }
 
-          while (v10 != 3);
-          v8 = *(&v38 + 1);
+          ++v9;
         }
 
-        while (*(&v38 + 1));
-        v7 = v39;
+        while (v9 != 3);
       }
 
-      v24 = (**(v4 + 64) + 24 * v7);
-      v25 = *v24;
-      v26 = v24[1];
       std::__sort<std::__less<unsigned int,unsigned int> &,unsigned int *>();
-      v27 = (**(v4 + 56) + 24 * v39);
-      v28 = *v27;
-      v29 = v27[1];
       std::__sort<std::__less<unsigned int,unsigned int> &,unsigned int *>();
-      if (__p)
+      if (__p[0])
       {
-        operator delete(__p);
+        operator delete(__p[0]);
       }
 
-      if (v36)
+      if (v28)
       {
-        operator delete(v36);
+        operator delete(v28);
       }
 
-      result = sub_24BCA102C(v37);
-      ++v39;
+      result = sub_24BCA102C(v29);
+      ++v31;
     }
 
-    while (v39 < v3);
+    while (v31 < v3);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_24BCA094C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21)
+void sub_24BCA094C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, ...)
 {
+  va_start(va, a20);
   if (__p)
   {
     operator delete(__p);
@@ -4457,54 +4399,51 @@ void sub_24BCA094C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a18);
   }
 
-  sub_24BCA102C(&a21);
+  sub_24BCA102C(va);
   _Unwind_Resume(a1);
 }
 
-void *sub_24BCA09A8(void *result, _DWORD *a2)
+void sub_24BCA09A8(unint64_t *result, _DWORD *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 7) - 1;
+    v6 = ((v4 - v5) << 7) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = sub_24BCA0A30(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    sub_24BCA0A30(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v9 & 0x3FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *sub_24BCA0A30(void *a1)
+void sub_24BCA0A30(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x400;
   v3 = v1 - 1024;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -4512,25 +4451,25 @@ void *sub_24BCA0A30(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    sub_24BC925A0(a1, v9);
+    v10 = a1;
+    sub_24BC925A0(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return sub_24BCA0C04(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  sub_24BCA0C04(a1, &v9);
 }
 
 void sub_24BCA0BB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -4544,27 +4483,26 @@ void sub_24BCA0BB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *sub_24BCA0C04(void *result, void *a2)
+void sub_24BCA0C04(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      sub_24BC925A0(result, v11);
+      sub_24BC925A0(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -4573,28 +4511,26 @@ void *sub_24BCA0C04(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **sub_24BCA0D0C(const void **result, void *a2)
+void sub_24BCA0D0C(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -4607,52 +4543,50 @@ const void **sub_24BCA0D0C(const void **result, void *a2)
         v9 = (v7 - v4) >> 2;
       }
 
-      sub_24BC925A0(result, v9);
+      sub_24BC925A0(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *sub_24BCA0E18(void *result, void *a2)
+void sub_24BCA0E18(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      sub_24BC925A0(result[4], v11);
+      sub_24BC925A0(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -4661,28 +4595,26 @@ void *sub_24BCA0E18(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **sub_24BCA0F20(const void **result, void *a2)
+void sub_24BCA0F20(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -4695,29 +4627,28 @@ const void **sub_24BCA0F20(const void **result, void *a2)
         v9 = (v7 - v4) >> 2;
       }
 
-      sub_24BC925A0(result[4], v9);
+      sub_24BC925A0(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 uint64_t sub_24BCA102C(void *a1)
@@ -4784,17 +4715,17 @@ uint64_t sub_24BCA10D8(uint64_t a1)
   return a1;
 }
 
-void *sub_24BCA1128(void *result, unint64_t a2)
+uint64_t *sub_24BCA1128(uint64_t *a1, unint64_t a2, int *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BC94FEC(result, a2);
+    sub_24BC94FEC(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BCA1220(_Unwind_Exception *exception_object)
@@ -4809,17 +4740,17 @@ void sub_24BCA1220(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *sub_24BCA123C(void *result, unint64_t a2)
+uint64_t *sub_24BCA123C(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BC94FEC(result, a2);
+    sub_24BC94FEC(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BCA1298(_Unwind_Exception *exception_object)
@@ -4962,7 +4893,7 @@ __n128 sub_24BCA1630(uint64_t a1, uint64_t a2)
 
 void *sub_24BCA1660(void *result, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (*a2 < *a3)
   {
     v3 = result;
@@ -4970,17 +4901,17 @@ void *sub_24BCA1660(void *result, void *a2, void *a3)
     v5 = *a3;
     do
     {
-      v17 = v4;
-      v19 = -1;
+      v16 = v4;
       v18 = -1;
-      sub_24BC9644C(v3[1], &v17, &v18, &v18 + 1, &v19);
+      v17 = -1;
+      sub_24BC9644C(v3[1], &v16, &v17, &v17 + 1, &v18);
       v6 = 0;
       v7 = 0;
       do
       {
         v8 = v3[1];
-        result = sub_24BC9ECE4(v8, *(v8 + 180), *(&v18 + v6));
-        if ((v9 & *result) != 0 || (v10 = sub_24BCB9024(v8 + 104, (&v18 + v6)), result = sub_24BC9ECE4(v8, *(v8 + 180), *v10), (v11 & *result) != 0))
+        result = sub_24BC9ECE4(v8, *(v8 + 180), *(&v17 + v6));
+        if ((v9 & *result) != 0 || (v10 = sub_24BCB9024(v8 + 104, (&v17 + v6)), result = sub_24BC9ECE4(v8, *(v8 + 180), *v10), (v11 & *result) != 0))
         {
           ++v7;
         }
@@ -5009,11 +4940,10 @@ void *sub_24BCA1660(void *result, void *a2, void *a3)
     while (v4 != v5);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t sub_24BCA17B8(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_24BCA17B8(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5035,7 +4965,7 @@ void sub_24BCA1810(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_24BCA182C(uint64_t a1, unint64_t a2)
+void sub_24BCA182C(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -5055,17 +4985,17 @@ void sub_24BCA1868(uint64_t a1, unint64_t a2)
   sub_24BC8DFE8();
 }
 
-void *sub_24BCA18B0(void *result, unint64_t a2)
+uint64_t *sub_24BCA18B0(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BCA182C(result, a2);
+    sub_24BCA182C(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BCA190C(_Unwind_Exception *exception_object)
@@ -5110,17 +5040,17 @@ float32x4_t sub_24BCA19DC(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return result;
 }
 
-void *sub_24BCA1A48(void *result, unint64_t a2)
+uint64_t *sub_24BCA1A48(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BC91F24(result, a2);
+    sub_24BC91F24(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BCA1AA4(_Unwind_Exception *exception_object)
@@ -5135,7 +5065,7 @@ void sub_24BCA1AA4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *sub_24BCA1AC0(char **a1, __int128 *a2, __int128 *a3, unint64_t a4)
+char *sub_24BCA1AC0(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -5215,8 +5145,7 @@ char *sub_24BCA1AC0(char **a1, __int128 *a2, __int128 *a3, unint64_t a4)
       do
       {
         v17 = *v13++;
-        *v16 = v17;
-        v16 += 16;
+        *v16++ = v17;
         v15 += 16;
       }
 
@@ -5449,17 +5378,17 @@ __int128 **sub_24BCA20D0(__int128 **result, void *a2)
   return result;
 }
 
-void *sub_24BCA2138(void *result, unint64_t a2)
+uint64_t *sub_24BCA2138(uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BC91F24(result, a2);
+    sub_24BC91F24(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BCA21F4(_Unwind_Exception *exception_object)
@@ -5743,7 +5672,7 @@ void sub_24BCA2718(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *sub_24BCA2788(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *sub_24BCA2788(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -5752,8 +5681,8 @@ char *sub_24BCA2788(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 2)
   {
     v11 = *a1;
@@ -5791,23 +5720,24 @@ char *sub_24BCA2788(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
 
     while (v34);
-    memcpy((v33 + 4 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 4 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 4 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 4 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -5822,14 +5752,14 @@ char *sub_24BCA2788(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5
   {
     v29 = &__dst[4 * a5];
     v30 = (v10 - 4 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[4 * a5], __dst, v10 - v29);
@@ -5844,11 +5774,11 @@ char *sub_24BCA2788(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[4 * a5];
@@ -5868,7 +5798,7 @@ char *sub_24BCA2788(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[4 * a5], v5, v21 - v22);
@@ -5936,7 +5866,7 @@ LABEL_7:
   return result;
 }
 
-void *sub_24BCA2A30(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *sub_24BCA2A30(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6270,7 +6200,7 @@ uint64_t sub_24BCA323C(uint64_t result, void *a2)
 
 void *sub_24BCA3290(void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -6280,15 +6210,15 @@ void *sub_24BCA3290(void *result, void *a2)
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -6316,7 +6246,6 @@ void *sub_24BCA3290(void *result, void *a2)
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6338,17 +6267,17 @@ uint64_t sub_24BCA3564(uint64_t result, void *a2)
   return result;
 }
 
-void *sub_24BCA35BC(void *result, unint64_t a2)
+uint64_t *sub_24BCA35BC(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BCA3634(result, a2);
+    sub_24BCA3634(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BCA3618(_Unwind_Exception *exception_object)
@@ -6363,7 +6292,7 @@ void sub_24BCA3618(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_24BCA3634(uint64_t a1, unint64_t a2)
+void sub_24BCA3634(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -6423,20 +6352,20 @@ uint64_t sub_24BCA375C(uint64_t result, void *a2, int *a3)
   return result;
 }
 
-void *sub_24BCA3844(void *result, unint64_t a2)
+uint64_t *sub_24BCA3844(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BCA3900(result, a2);
+    sub_24BCA3900(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void sub_24BCA3900(uint64_t a1, unint64_t a2)
+void sub_24BCA3900(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -6456,7 +6385,7 @@ void sub_24BCA394C(uint64_t a1, unint64_t a2)
   sub_24BC8DFE8();
 }
 
-uint64_t sub_24BCA39A4(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_24BCA39A4(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6583,77 +6512,69 @@ void *sub_24BCA3BD0(void *a1, unint64_t *a2)
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *sub_24BCA3C84(void *a1, unint64_t *a2)
+void *sub_24BCA3C84(float *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -6661,47 +6582,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_24BCA3EB4(uint64_t a1, size_t __n)
+void sub_24BCA3EB4(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -6717,7 +6638,7 @@ void sub_24BCA3EB4(uint64_t a1, size_t __n)
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -6725,7 +6646,7 @@ void sub_24BCA3EB4(uint64_t a1, size_t __n)
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -6749,7 +6670,7 @@ void sub_24BCA3EB4(uint64_t a1, size_t __n)
     {
 LABEL_6:
 
-      sub_24BCA3FA4(a1, prime);
+      sub_24BCA3FA4(result, prime);
     }
   }
 }
@@ -6776,17 +6697,17 @@ void sub_24BCA3FA4(uint64_t a1, unint64_t a2)
   *(a1 + 8) = 0;
 }
 
-void *sub_24BCA4108(void *result, unint64_t a2)
+uint64_t *sub_24BCA4108(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BCA182C(result, a2);
+    sub_24BCA182C(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BCA4164(_Unwind_Exception *exception_object)
@@ -6801,17 +6722,17 @@ void sub_24BCA4164(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *sub_24BCA4180(void *result, unint64_t a2)
+uint64_t *sub_24BCA4180(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_24BCA421C(result, a2);
+    sub_24BCA421C(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24BCA4200(_Unwind_Exception *exception_object)
@@ -6826,7 +6747,7 @@ void sub_24BCA4200(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_24BCA421C(uint64_t a1, unint64_t a2)
+void sub_24BCA421C(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -6947,34 +6868,27 @@ uint64_t sub_24BCA45EC(uint64_t result, void *a2, void *a3)
     {
       result = sub_24BDCC2E0(*(v3 + 8), *(**(v3 + 16) + 24 * v4), **(v3 + 24), *(v6 + 24 * v4), **(v3 + 24));
       v6 = **(v3 + 32);
-      v7 = *(v6 + 24 * v4);
-      v8 = *(v6 + 24 * v4 + 8) - v7;
-      if (v8)
+      v7 = *(v6 + 24 * v4 + 8) - *(v6 + 24 * v4);
+      if (v7)
       {
-        v9 = 0;
-        v10 = v8 >> 3;
-        v11 = 1;
-        do
-        {
-          v12 = *(v7 + 8 * v9);
-          v9 = v11;
+        v8 = v7 >> 3;
+        v9 = 1;
+          ;
         }
-
-        while (v10 > v11++);
       }
 
-      v14 = *(v3 + 48);
-      if (*v14 == 1)
+      v11 = *(v3 + 48);
+      if (*v11 == 1)
       {
-        v15 = **(v3 + 40) ^ 1;
+        v12 = **(v3 + 40) ^ 1;
       }
 
       else
       {
-        v15 = 0;
+        v12 = 0;
       }
 
-      *v14 = v15 & 1;
+      *v11 = v12 & 1;
       ++v4;
     }
 
@@ -7214,7 +7128,7 @@ uint64_t sub_24BCA4E9C(uint64_t result, uint64_t *a2, uint64_t a3)
 
 void *sub_24BCA4ECC(void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -7224,15 +7138,15 @@ void *sub_24BCA4ECC(void *result, void *a2)
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -7260,7 +7174,6 @@ void *sub_24BCA4ECC(void *result, void *a2)
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7276,7 +7189,7 @@ void sub_24BCA5124(_Unwind_Exception *a1, int a2)
 
 void *sub_24BCA5130(void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -7286,15 +7199,15 @@ void *sub_24BCA5130(void *result, void *a2)
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -7322,7 +7235,6 @@ void *sub_24BCA5130(void *result, void *a2)
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7369,7 +7281,7 @@ __n128 sub_24BCA54E4(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void *sub_24BCA5554(void *result, int a2)
+_BYTE *sub_24BCA5554(_BYTE *a1, int a2)
 {
   if (a2 <= 3)
   {
@@ -7377,7 +7289,7 @@ void *sub_24BCA5554(void *result, int a2)
     {
       if (a2 != 2)
       {
-        sub_24BCA5668();
+        sub_24BCA5668(&unk_24C0435AF);
       }
 
       operator new();
@@ -7404,25 +7316,25 @@ void *sub_24BCA5554(void *result, int a2)
   if (a2 != 4)
   {
 LABEL_11:
-    *result = 0;
-    return result;
+    *a1 = 0;
+    return a1;
   }
 
-  *result = 0;
-  return result;
+  *a1 = 0;
+  return a1;
 }
 
-void sub_24BCA56C4(int a1@<W1>, std::string *a2@<X8>)
+void sub_24BCA56C4(int a2@<W1>, std::string *a3@<X8>)
 {
   std::operator+<char>();
-  v4 = std::string::append(&v12, ".");
-  v5 = *&v4->__r_.__value_.__l.__data_;
-  v13.__r_.__value_.__r.__words[2] = v4->__r_.__value_.__r.__words[2];
-  *&v13.__r_.__value_.__l.__data_ = v5;
-  v4->__r_.__value_.__l.__size_ = 0;
-  v4->__r_.__value_.__r.__words[2] = 0;
-  v4->__r_.__value_.__r.__words[0] = 0;
-  std::to_string(&__p, a1);
+  v5 = std::string::append(&v13, ".");
+  v6 = *&v5->__r_.__value_.__l.__data_;
+  v14.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+  *&v14.__r_.__value_.__l.__data_ = v6;
+  v5->__r_.__value_.__l.__size_ = 0;
+  v5->__r_.__value_.__r.__words[2] = 0;
+  v5->__r_.__value_.__r.__words[0] = 0;
+  std::to_string(&__p, a2);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -7443,21 +7355,21 @@ void sub_24BCA56C4(int a1@<W1>, std::string *a2@<X8>)
     size = __p.__r_.__value_.__l.__size_;
   }
 
-  v8 = std::string::append(&v13, p_p, size);
-  v9 = *&v8->__r_.__value_.__l.__data_;
-  v14.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-  *&v14.__r_.__value_.__l.__data_ = v9;
-  v8->__r_.__value_.__l.__size_ = 0;
-  v8->__r_.__value_.__r.__words[2] = 0;
-  v8->__r_.__value_.__r.__words[0] = 0;
-  v10 = std::string::append(&v14, "] ");
-  *a2 = *v10;
-  v10->__r_.__value_.__l.__size_ = 0;
-  v10->__r_.__value_.__r.__words[2] = 0;
-  v10->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+  v9 = std::string::append(&v14, p_p, size);
+  v10 = *&v9->__r_.__value_.__l.__data_;
+  v15.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
+  *&v15.__r_.__value_.__l.__data_ = v10;
+  v9->__r_.__value_.__l.__size_ = 0;
+  v9->__r_.__value_.__r.__words[2] = 0;
+  v9->__r_.__value_.__r.__words[0] = 0;
+  v11 = std::string::append(&v15, "] ");
+  *a3 = *v11;
+  v11->__r_.__value_.__l.__size_ = 0;
+  v11->__r_.__value_.__r.__words[2] = 0;
+  v11->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v14.__r_.__value_.__l.__data_);
+    operator delete(v15.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7465,14 +7377,14 @@ void sub_24BCA56C4(int a1@<W1>, std::string *a2@<X8>)
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v14.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v13.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v12.__r_.__value_.__l.__data_);
   }
 }
 
@@ -7768,13 +7680,11 @@ uint64_t sub_24BCA6218(uint64_t a1, unsigned __int8 *a2)
     {
       if (v3 == 1)
       {
-        v7 = *(a2 + 1);
-        sub_24BCA62E4();
+        sub_24BCA62E4(*(a2 + 1));
       }
 
       if (v3 == 2)
       {
-        v4 = *(a2 + 1);
         sub_24BCA68BC();
       }
 
@@ -7783,26 +7693,24 @@ uint64_t sub_24BCA6218(uint64_t a1, unsigned __int8 *a2)
 
     if (v3 == 3)
     {
-      v8 = *(a2 + 1);
-      sub_24BCA6A78();
+      sub_24BCA6A78(*(a2 + 1));
     }
 
-    v6 = a2[8];
+    v4 = a2[8];
 LABEL_14:
-    *(a1 + 8) = v6;
+    *(a1 + 8) = v4;
     return a1;
   }
 
   if (v3 < 8)
   {
-    v6 = *(a2 + 1);
+    v4 = *(a2 + 1);
     goto LABEL_14;
   }
 
   if (v3 == 8)
   {
-    v5 = *(a2 + 1);
-    sub_24BCA6AF4();
+    sub_24BCA6AF4(*(a2 + 1));
   }
 
   return a1;
@@ -7817,7 +7725,7 @@ void *sub_24BCA6340(void *a1, const void ***a2)
   return a1;
 }
 
-uint64_t sub_24BCA6398(uint64_t result, const void **a2, const void ***a3)
+void *sub_24BCA6398(void *result, const void **a2, const void ***a3)
 {
   if (a2 != a3)
   {
@@ -7825,7 +7733,7 @@ uint64_t sub_24BCA6398(uint64_t result, const void **a2, const void ***a3)
     v5 = result;
     do
     {
-      result = sub_24BCA6420(v5, (v5 + 1), v4 + 4);
+      result = sub_24BCA6420(v5, (v5 + 8), v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -7859,9 +7767,9 @@ uint64_t sub_24BCA6398(uint64_t result, const void **a2, const void ***a3)
   return result;
 }
 
-uint64_t sub_24BCA6420(void *a1, uint64_t a2, const void **a3)
+void *sub_24BCA6420(uint64_t **a1, void *a2, const void **a3, uint64_t a4)
 {
-  result = *sub_24BCA64A4(a1, a2, &v5, &v4, a3);
+  result = *sub_24BCA64A4(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     sub_24BCA6648();
@@ -7870,23 +7778,23 @@ uint64_t sub_24BCA6420(void *a1, uint64_t a2, const void **a3)
   return result;
 }
 
-uint64_t sub_24BCA64A4(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, const void **a5)
+uint64_t *sub_24BCA64A4(void *a1, void *a2, uint64_t *a3, uint64_t *a4, const void **a5)
 {
-  v9 = (a1 + 1);
-  if (a1 + 1 != a2 && !sub_24BCA66DC(a1, a5, (a2 + 32)))
+  v9 = a1 + 1;
+  if (a1 + 1 != a2 && !sub_24BCA66DC(a1, a5, a2 + 4))
   {
-    if (!sub_24BCA66DC(a1, (a2 + 32), a5))
+    if (!sub_24BCA66DC(a1, a2 + 4, a5))
     {
       *a3 = a2;
       *a4 = a2;
       return a4;
     }
 
-    a4 = (a2 + 8);
-    v13 = *(a2 + 8);
+    a4 = a2 + 1;
+    v13 = a2[1];
     if (v13)
     {
-      v14 = *(a2 + 8);
+      v14 = a2[1];
       do
       {
         v15 = v14;
@@ -7940,7 +7848,7 @@ LABEL_16:
     if (*a2)
     {
       *a3 = v12;
-      return v12 + 8;
+      return v12 + 1;
     }
 
     else
@@ -7956,7 +7864,7 @@ LABEL_16:
     do
     {
       v12 = v11;
-      v11 = *(v11 + 8);
+      v11 = v11[1];
     }
 
     while (v11);
@@ -7967,7 +7875,7 @@ LABEL_16:
     v16 = a2;
     do
     {
-      v12 = *(v16 + 16);
+      v12 = v16[2];
       v17 = *v12 == v16;
       v16 = v12;
     }
@@ -7975,7 +7883,7 @@ LABEL_16:
     while (v17);
   }
 
-  if (sub_24BCA66DC(a1, (v12 + 32), a5))
+  if (sub_24BCA66DC(a1, v12 + 4, a5))
   {
     goto LABEL_16;
   }
@@ -8104,7 +8012,7 @@ LABEL_9:
   return v5;
 }
 
-char *sub_24BCA67E4(char *__dst, __int128 *a2)
+void *sub_24BCA67E4(void *__dst, __int128 *a2)
 {
   if (*(a2 + 23) < 0)
   {
@@ -8114,11 +8022,11 @@ char *sub_24BCA67E4(char *__dst, __int128 *a2)
   else
   {
     v4 = *a2;
-    *(__dst + 2) = *(a2 + 2);
+    __dst[2] = *(a2 + 2);
     *__dst = v4;
   }
 
-  sub_24BCA6218(__dst + 24, a2 + 24);
+  sub_24BCA6218((__dst + 3), a2 + 24);
   return __dst;
 }
 
@@ -8146,7 +8054,7 @@ void sub_24BCA685C(uint64_t a1, void *__p)
   }
 }
 
-uint64_t sub_24BCA6928(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_24BCA6928(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8163,7 +8071,7 @@ void sub_24BCA6990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_24BCA69B0(uint64_t a1, unint64_t a2)
+void sub_24BCA69B0(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -8173,7 +8081,7 @@ void sub_24BCA69B0(uint64_t a1, unint64_t a2)
   sub_24BC8E01C();
 }
 
-uint64_t sub_24BCA69EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_24BCA69EC(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4)
 {
   v7 = a4;
   if (a2 != a3)
@@ -8193,7 +8101,7 @@ uint64_t sub_24BCA69EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return a4;
 }
 
-uint64_t sub_24BCA6B64(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *sub_24BCA6B64(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -8215,18 +8123,18 @@ void sub_24BCA6BC4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_24BCA6BE0(uint64_t a1, const void **a2)
+uint64_t sub_24BCA6BE0(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *sub_24BCA6748(a1, &v4, a2);
-  if (!v2)
+  v4 = *sub_24BCA6748(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t sub_24BCA6CA8(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_24BCA6CA8(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8558,9 +8466,9 @@ void sub_24BCA739C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_24BCA73D4(uint64_t a1, const void **a2)
+void *sub_24BCA73D4(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *sub_24BCA6748(a1, &v3, a2);
+  result = *sub_24BCA6748(a1, &v6, a2);
   if (!result)
   {
     sub_24BCA746C();
@@ -8576,452 +8484,435 @@ void sub_24BCA750C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void (****sub_24BCA7528(void (****result)(void), unsigned __int8 *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6))(void)
+void (****sub_24BCA7528(void (****result)(__n128), uint64_t ***a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7))(__n128)
 {
-  v9 = result;
-  v10 = *a2;
-  if (v10 > 4)
+  v10 = result;
+  v11 = *a2;
+  if (v11 <= 4)
   {
-    if (*a2 <= 6u)
+    if (*a2 > 1u)
     {
-      if (v10 == 5)
+      if (v11 != 2)
       {
-        v23 = *(a2 + 1);
-
-        return sub_24BCA8E48(result, v23);
-      }
-
-      else if (v10 == 6)
-      {
-        v21 = *(a2 + 1);
-
-        return sub_24BCA9030(result, v21);
-      }
-
-      return result;
-    }
-
-    if (v10 == 7)
-    {
-      v30 = *(a2 + 1);
-
-      return sub_24BCA9180(result, v30);
-    }
-
-    if (v10 != 8)
-    {
-      if (v10 != 9)
-      {
-        return result;
-      }
-
-      v14 = *result;
-      v13 = (**v9)[1];
-      goto LABEL_61;
-    }
-
-    v32 = *result;
-    v33 = (**v9)[1];
-    if (!a3)
-    {
-      v33();
-      v39 = **(a2 + 1);
-      v40 = *(*(a2 + 1) + 8);
-      v41 = **(a2 + 1);
-      if (v41 != v40)
-      {
-        while (v41 != v40 - 1)
+        if (v11 != 3)
         {
-          v42 = *v41++;
-          sub_24BCA8D70(v9, v42);
-          (***v9)(*v9, 44);
-          v40 = *(*(a2 + 1) + 8);
-        }
-
-        sub_24BCA8D70(v9, *(v40 - 1));
-      }
-
-      ((**v9)[1])(*v9, "],subtype:", 12);
-      v50 = *(a2 + 1);
-      if (*(v50 + 25) == 1)
-      {
-        sub_24BCA8D70(v9, *(v50 + 24));
-        v51 = ***v9;
-
-        return v51();
-      }
-
-      v13 = (**v9)[1];
-      goto LABEL_61;
-    }
-
-    v33();
-    v34 = (a6 + a5);
-    v35 = v9 + 76;
-    v36 = *(v9 + 631);
-    if ((v36 & 0x80000000) != 0)
-    {
-      v52 = v9[77];
-      if (v52 >= v34)
-      {
-        v37 = *v9;
-LABEL_66:
-        v38 = *v35;
-        goto LABEL_67;
-      }
-    }
-
-    else
-    {
-      if (v34 <= v36)
-      {
-        v37 = *v9;
-        v38 = v9 + 76;
-LABEL_67:
-        ((*v37)[1])(v37, v38, v34);
-        ((**v9)[1])(*v9, "bytes: [", 10);
-        v53 = **(a2 + 1);
-        v54 = *(*(a2 + 1) + 8);
-        v55 = **(a2 + 1);
-        if (v55 != v54)
-        {
-          for (; v55 != v54 - 1; v54 = *(*(a2 + 1) + 8))
+          if (v11 != 4)
           {
-            v56 = *v55++;
-            sub_24BCA8D70(v9, v56);
-            ((**v9)[1])(*v9, ", ", 2);
+            return result;
           }
 
-          sub_24BCA8D70(v9, *(v54 - 1));
+          v13 = (**result)[1];
+          goto LABEL_61;
         }
 
-        ((**v9)[1])(*v9, "],\n", 3);
-        v57 = v9 + 76;
-        if (*(v9 + 631) < 0)
-        {
-          v57 = *v35;
-        }
-
-        ((**v9)[1])(*v9, v57, v34);
-        ((**v9)[1])(*v9, "subtype: ", 11);
-        v58 = *(a2 + 1);
-        if (*(v58 + 25) == 1)
-        {
-          sub_24BCA8D70(v9, *(v58 + 24));
-        }
-
-        else
-        {
-          ((**v9)[1])(*v9, "null", 4);
-        }
-
-        (***v9)(*v9, 10);
-        if (*(v9 + 631) < 0)
-        {
-          v59 = *v35;
-        }
-
-        v60 = (**v9)[1];
-        goto LABEL_104;
+        (***result)(a7);
+        sub_24BCA8724(v10, a2[1], a4);
+        v27 = ***v10;
+        goto LABEL_113;
       }
 
-      v52 = *(v9 + 631);
+      v21 = **result;
+      if (*a2[1] != a2[1][1])
+      {
+        if (!a3)
+        {
+          (*v21)(a7);
+          v42 = a2[1];
+          for (i = *v42; ; i += 16)
+          {
+            v44 = v42[1];
+            if (i == (v44 - 2))
+            {
+              break;
+            }
+
+            sub_24BCA7528(v10, i, 0, a4, a5, a6, v41);
+            (***v10)();
+            v42 = a2[1];
+          }
+
+          sub_24BCA7528(v10, v44 - 16, 0, a4, a5, a6, v41);
+LABEL_112:
+          v27 = ***v10;
+          goto LABEL_113;
+        }
+
+        v21[1](a7);
+        v22 = a6 + a5;
+        v23 = v10 + 76;
+        v24 = *(v10 + 631);
+        if ((v24 & 0x80000000) != 0)
+        {
+          v25 = v10[77];
+          if (v25 < v22)
+          {
+            goto LABEL_117;
+          }
+        }
+
+        else if (v22 > v24)
+        {
+          v25 = *(v10 + 631);
+LABEL_117:
+          std::string::resize((v10 + 76), 2 * v25, 32);
+        }
+
+        v68 = a2[1];
+        v69 = *v68;
+        if (*v68 != v68[1] - 2)
+        {
+          do
+          {
+            v70 = v10 + 76;
+            if (*(v10 + 631) < 0)
+            {
+              v70 = *v23;
+            }
+
+            v71.n128_f64[0] = ((**v10)[1])(*v10, v70, (a6 + a5));
+            sub_24BCA7528(v10, v69, 1, a4, a5, (a6 + a5), v71);
+            ((**v10)[1])(*v10, ",\n", 2);
+            v69 += 16;
+          }
+
+          while (v69 != (a2[1][1] - 2));
+        }
+
+        v72 = v10 + 76;
+        if (*(v10 + 631) < 0)
+        {
+          v72 = *v23;
+        }
+
+        v73.n128_f64[0] = ((**v10)[1])(*v10, v72, (a6 + a5));
+        sub_24BCA7528(v10, a2[1][1] - 16, 1, a4, a5, (a6 + a5), v73);
+        (***v10)();
+        if (*(v10 + 631) < 0)
+        {
+          v23 = *v23;
+        }
+
+        ((**v10)[1])(*v10, v23, a6);
+        goto LABEL_112;
+      }
+
+      v37 = v21[1];
+      goto LABEL_46;
     }
 
-    std::string::resize((v9 + 76), 2 * v52, 32);
-    v37 = *v9;
-    v38 = v9 + 76;
-    if ((*(v9 + 631) & 0x80000000) == 0)
-    {
-      goto LABEL_67;
-    }
-
-    goto LABEL_66;
-  }
-
-  if (*a2 <= 1u)
-  {
     if (*a2)
     {
-      v15 = *result;
-      v16 = **v9;
-      if (!*(*(a2 + 1) + 16))
+      v14 = **result;
+      if (!a2[1][2])
       {
-        v43 = v16[1];
-        goto LABEL_46;
+        v37 = v14[1];
+LABEL_46:
+
+        return v37(a7);
       }
 
       if (!a3)
       {
-        (*v16)();
-        v44 = *(a2 + 1);
-        v45 = *v44;
-        if (v44[2] == 1)
+        (*v14)(a7);
+        v38 = a2[1];
+        v39 = *v38;
+        if (v38[2] == 1)
         {
-          v46 = *v44;
+          v40 = *v38;
         }
 
         else
         {
-          v61 = 0;
+          v54 = 0;
           do
           {
-            (***v9)(*v9, 34);
-            sub_24BCA8724(v9, v45 + 4, a4);
-            ((**v9)[1])(*v9, ":", 2);
-            sub_24BCA7528(v9, v45 + 7, 0, a4, a5, a6);
-            (***v9)();
-            v62 = v45[1];
-            if (v62)
+            (***v10)(*v10, 34);
+            sub_24BCA8724(v10, v39 + 4, a4);
+            v55.n128_f64[0] = ((**v10)[1])(*v10, ":", 2);
+            sub_24BCA7528(v10, v39 + 56, 0, a4, a5, a6, v55);
+            (***v10)();
+            v56 = v39[1];
+            if (v56)
             {
               do
               {
-                v46 = v62;
-                v62 = *v62;
+                v40 = v56;
+                v56 = *v56;
               }
 
-              while (v62);
+              while (v56);
             }
 
             else
             {
               do
               {
-                v46 = v45[2];
-                v63 = *v46 == v45;
-                v45 = v46;
+                v40 = v39[2];
+                v57 = *v40 == v39;
+                v39 = v40;
               }
 
-              while (!v63);
+              while (!v57);
             }
 
-            ++v61;
-            v45 = v46;
+            ++v54;
+            v39 = v40;
           }
 
-          while (v61 < *(*(a2 + 1) + 16) - 1);
+          while (v54 < a2[1][2] - 1);
         }
 
-        (***v9)(*v9, 34);
-        sub_24BCA8724(v9, v46 + 4, a4);
-        ((**v9)[1])(*v9, ":", 2);
-        sub_24BCA7528(v9, v46 + 7, 0, a4, a5, a6);
-        goto LABEL_105;
+        (***v10)(*v10, 34);
+        sub_24BCA8724(v10, v40 + 4, a4);
+        v58.n128_f64[0] = ((**v10)[1])(*v10, ":", 2);
+        sub_24BCA7528(v10, v40 + 56, 0, a4, a5, a6, v58);
+        goto LABEL_101;
       }
 
-      v16[1]();
-      v17 = a6 + a5;
-      v18 = v9 + 76;
-      v19 = *(v9 + 631);
-      if ((v19 & 0x80000000) != 0)
+      v14[1](a7);
+      v15 = a6 + a5;
+      v16 = (v10 + 76);
+      v17 = *(v10 + 631);
+      if ((v17 & 0x80000000) != 0)
       {
-        v20 = v9[77];
-        if (v20 < v17)
+        v18 = v10[77];
+        if (v18 < v15)
         {
-          goto LABEL_120;
+          goto LABEL_116;
         }
       }
 
-      else if (v17 > v19)
+      else if (v15 > v17)
       {
-        v20 = *(v9 + 631);
-LABEL_120:
-        std::string::resize((v9 + 76), 2 * v20, 32);
+        v18 = *(v10 + 631);
+LABEL_116:
+        std::string::resize((v10 + 76), 2 * v18, 32);
       }
 
-      v64 = *(a2 + 1);
-      v65 = *v64;
-      if (v64[2] == 1)
+      v59 = a2[1];
+      v60 = *v59;
+      if (v59[2] == 1)
       {
-        v66 = *v64;
+        v61 = *v59;
       }
 
       else
       {
-        v67 = 0;
+        v62 = 0;
         do
         {
-          v68 = v9 + 76;
-          if (*(v9 + 631) < 0)
+          v63 = v10 + 76;
+          if (*(v10 + 631) < 0)
           {
-            v68 = *v18;
+            v63 = *v16;
           }
 
-          ((**v9)[1])(*v9, v68, (a6 + a5));
-          (***v9)();
-          sub_24BCA8724(v9, v65 + 4, a4);
-          ((**v9)[1])(*v9, ": ", 3);
-          sub_24BCA7528(v9, v65 + 7, 1, a4, a5, (a6 + a5));
-          ((**v9)[1])(*v9, ",\n", 2);
-          v69 = v65[1];
-          if (v69)
+          ((**v10)[1])(*v10, v63, (a6 + a5));
+          (***v10)();
+          sub_24BCA8724(v10, v60 + 4, a4);
+          v64.n128_f64[0] = ((**v10)[1])(*v10, ": ", 3);
+          sub_24BCA7528(v10, v60 + 56, 1, a4, a5, (a6 + a5), v64);
+          ((**v10)[1])(*v10, ",\n", 2);
+          v65 = v60[1];
+          if (v65)
           {
             do
             {
-              v66 = v69;
-              v69 = *v69;
+              v61 = v65;
+              v65 = *v65;
             }
 
-            while (v69);
+            while (v65);
           }
 
           else
           {
             do
             {
-              v66 = v65[2];
-              v63 = *v66 == v65;
-              v65 = v66;
+              v61 = v60[2];
+              v57 = *v61 == v60;
+              v60 = v61;
             }
 
-            while (!v63);
+            while (!v57);
           }
 
-          ++v67;
-          v65 = v66;
+          ++v62;
+          v60 = v61;
         }
 
-        while (v67 < *(*(a2 + 1) + 16) - 1);
+        while (v62 < a2[1][2] - 1);
       }
 
-      v70 = v9 + 76;
-      if (*(v9 + 631) < 0)
+      v66 = v10 + 76;
+      if (*(v10 + 631) < 0)
       {
-        v70 = *v18;
+        v66 = *v16;
       }
 
-      ((**v9)[1])(*v9, v70, (a6 + a5));
-      (***v9)();
-      sub_24BCA8724(v9, v66 + 4, a4);
-      ((**v9)[1])(*v9, ": ", 3);
-      sub_24BCA7528(v9, v66 + 7, 1, a4, a5, (a6 + a5));
-      (***v9)();
-      if (*(v9 + 631) < 0)
-      {
-        v71 = *v18;
-      }
+      ((**v10)[1])(*v10, v66, (a6 + a5));
+      (***v10)();
+      sub_24BCA8724(v10, v61 + 4, a4);
+      v67.n128_f64[0] = ((**v10)[1])(*v10, ": ", 3);
+      sub_24BCA7528(v10, v61 + 56, 1, a4, a5, (a6 + a5), v67);
+      (***v10)();
+      v53 = (**v10)[1];
+LABEL_100:
+      v53();
+LABEL_101:
+      v27 = ***v10;
+LABEL_113:
 
-      v60 = (**v9)[1];
-LABEL_104:
-      v60();
-LABEL_105:
-      v13 = ***v9;
-      goto LABEL_117;
+      return v27();
     }
 
-    v22 = *result;
-    v13 = (**v9)[1];
+    v13 = (**result)[1];
 LABEL_61:
 
-    return v13();
+    return v13(a7);
   }
 
-  switch(v10)
+  if (*a2 <= 6u)
   {
-    case 2u:
-      v24 = *result;
-      v25 = **v9;
-      if (**(a2 + 1) != *(*(a2 + 1) + 8))
-      {
-        if (!a3)
+    if (v11 == 5)
+    {
+      v20 = a2[1];
+
+      return sub_24BCA8E48(result, v20);
+    }
+
+    else if (v11 == 6)
+    {
+      v19 = a2[1];
+
+      return sub_24BCA9030(result, v19);
+    }
+  }
+
+  else
+  {
+    switch(v11)
+    {
+      case 7u:
+        v26 = *(a2 + 1);
+
+        return sub_24BCA9180(result, v26);
+      case 8u:
+        v28 = (**result)[1];
+        if (a3)
         {
-          (*v25)();
-          v47 = *(a2 + 1);
-          for (i = *v47; ; i += 16)
+          v28(a7);
+          v29 = (a6 + a5);
+          v30 = (v10 + 76);
+          v31 = *(v10 + 631);
+          if ((v31 & 0x80000000) != 0)
           {
-            v49 = v47[1];
-            if (i == v49 - 16)
+            v47 = v10[77];
+            if (v47 >= v29)
             {
-              break;
+              v32 = *v10;
+LABEL_66:
+              v33 = *v30;
+              goto LABEL_67;
+            }
+          }
+
+          else
+          {
+            if (v29 <= v31)
+            {
+              v32 = *v10;
+              v33 = v10 + 76;
+LABEL_67:
+              ((*v32)[1])(v32, v33, v29);
+              ((**v10)[1])(*v10, "bytes: [", 10);
+              v48 = a2[1][1];
+              v49 = *a2[1];
+              if (v49 != v48)
+              {
+                for (; v49 != v48 - 1; v48 = a2[1][1])
+                {
+                  v50 = *v49++;
+                  sub_24BCA8D70(v10, v50);
+                  ((**v10)[1])(*v10, ", ", 2);
+                }
+
+                sub_24BCA8D70(v10, *(v48 - 1));
+              }
+
+              ((**v10)[1])(*v10, "],\n", 3);
+              v51 = v10 + 76;
+              if (*(v10 + 631) < 0)
+              {
+                v51 = *v30;
+              }
+
+              ((**v10)[1])(*v10, v51, v29);
+              ((**v10)[1])(*v10, "subtype: ", 11);
+              v52 = a2[1];
+              if (*(v52 + 25) == 1)
+              {
+                sub_24BCA8D70(v10, *(v52 + 24));
+              }
+
+              else
+              {
+                ((**v10)[1])(*v10, "null", 4);
+              }
+
+              (***v10)(*v10, 10);
+              v53 = (**v10)[1];
+              goto LABEL_100;
             }
 
-            sub_24BCA7528(v9, i, 0, a4, a5, a6);
-            (***v9)();
-            v47 = *(a2 + 1);
+            v47 = *(v10 + 631);
           }
 
-          sub_24BCA7528(v9, v49 - 16, 0, a4, a5, a6);
-LABEL_116:
-          v13 = ***v9;
-LABEL_117:
-
-          return v13();
-        }
-
-        v25[1]();
-        v26 = a6 + a5;
-        v27 = v9 + 76;
-        v28 = *(v9 + 631);
-        if ((v28 & 0x80000000) != 0)
-        {
-          v29 = v9[77];
-          if (v29 < v26)
+          std::string::resize((v10 + 76), 2 * v47, 32);
+          v32 = *v10;
+          v33 = v10 + 76;
+          if ((*(v10 + 631) & 0x80000000) == 0)
           {
-            goto LABEL_121;
+            goto LABEL_67;
           }
+
+          goto LABEL_66;
         }
 
-        else if (v26 > v28)
+        v28(a7);
+        v34 = a2[1][1];
+        v35 = *a2[1];
+        if (v35 != v34)
         {
-          v29 = *(v9 + 631);
-LABEL_121:
-          std::string::resize((v9 + 76), 2 * v29, 32);
-        }
-
-        v72 = *(a2 + 1);
-        v73 = *v72;
-        if (*v72 != v72[1] - 16)
-        {
-          do
+          while (v35 != v34 - 1)
           {
-            v74 = v9 + 76;
-            if (*(v9 + 631) < 0)
-            {
-              v74 = *v27;
-            }
-
-            ((**v9)[1])(*v9, v74, (a6 + a5));
-            sub_24BCA7528(v9, v73, 1, a4, a5, (a6 + a5));
-            ((**v9)[1])(*v9, ",\n", 2);
-            v73 += 16;
+            v36 = *v35++;
+            sub_24BCA8D70(v10, v36);
+            (***v10)(*v10, 44);
+            v34 = a2[1][1];
           }
 
-          while (v73 != *(*(a2 + 1) + 8) - 16);
+          sub_24BCA8D70(v10, *(v34 - 1));
         }
 
-        v75 = v9 + 76;
-        if (*(v9 + 631) < 0)
+        ((**v10)[1])(*v10, "],subtype:", 12);
+        v45 = a2[1];
+        if (*(v45 + 25) != 1)
         {
-          v75 = *v27;
+          v13 = (**v10)[1];
+          goto LABEL_61;
         }
 
-        ((**v9)[1])(*v9, v75, (a6 + a5));
-        sub_24BCA7528(v9, *(*(a2 + 1) + 8) - 16, 1, a4, a5, (a6 + a5));
-        (***v9)();
-        if (*(v9 + 631) < 0)
-        {
-          v27 = *v27;
-        }
+        sub_24BCA8D70(v10, *(v45 + 24));
+        v46 = ***v10;
 
-        ((**v9)[1])(*v9, v27, a6);
-        goto LABEL_116;
-      }
-
-      v43 = v25[1];
-LABEL_46:
-
-      return v43();
-    case 3u:
-      v31 = *result;
-      (***v9)();
-      sub_24BCA8724(v9, *(a2 + 1), a4);
-      v13 = ***v9;
-      goto LABEL_117;
-    case 4u:
-      v12 = *result;
-      v13 = (**v9)[1];
-      a2[8];
-      goto LABEL_61;
+        return v46();
+      case 9u:
+        v13 = (**result)[1];
+        goto LABEL_61;
+      default:
+        return result;
+    }
   }
 
   return result;
@@ -9035,7 +8926,7 @@ void sub_24BCA8528(std::__shared_weak_count *a1)
   JUMPOUT(0x24C2548B0);
 }
 
-void sub_24BCA85CC(uint64_t a1, uint64_t a2, char a3)
+void sub_24BCA85CC(uint64_t a1, uint64_t a2, char a3, int a4)
 {
   *a1 = *a2;
   *a2 = 0;
@@ -9044,17 +8935,17 @@ void sub_24BCA85CC(uint64_t a1, uint64_t a2, char a3)
   *(a1 + 64) = 0u;
   *(a1 + 16) = 0u;
   *(a1 + 32) = 0u;
-  v5 = localeconv();
-  *(a1 + 80) = v5;
-  thousands_sep = v5->thousands_sep;
+  v6 = localeconv();
+  *(a1 + 80) = v6;
+  thousands_sep = v6->thousands_sep;
   if (thousands_sep)
   {
     LOBYTE(thousands_sep) = *thousands_sep;
   }
 
   *(a1 + 88) = thousands_sep;
-  decimal_point = v5->decimal_point;
-  if (v5->decimal_point)
+  decimal_point = v6->decimal_point;
+  if (v6->decimal_point)
   {
     LOBYTE(decimal_point) = *decimal_point;
   }
@@ -9107,7 +8998,7 @@ void sub_24BCA870C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_24BCA8724(uint64_t result, uint64_t *a2, int a3)
+uint64_t sub_24BCA8724(uint64_t result, uint64_t **a2, int a3)
 {
   v3 = *(a2 + 23);
   v4 = a2[1];
@@ -9651,7 +9542,7 @@ LABEL_13:
     do
     {
       v8 = v2 / 0x64;
-      *(v3 - 2) = *&a00010203040506_0[2 * (v2 % 0x64) + 400];
+      *(v3 - 1) = *&a00010203040506_0[2 * (v2 % 0x64) + 400];
       v3 -= 2;
       v9 = v2 >> 4;
       v2 /= 0x64uLL;
@@ -9666,7 +9557,7 @@ LABEL_13:
     goto LABEL_20;
   }
 
-  *(v3 - 2) = *&a00010203040506_0[2 * v8 + 400];
+  *(v3 - 1) = *&a00010203040506_0[2 * v8 + 400];
   return (*(**a1 + 8))();
 }
 
@@ -9677,17 +9568,12 @@ uint64_t sub_24BCA9180(_BYTE *a1, double a2)
     sub_24BCA9230(a1 + 16, a2);
   }
 
-  else
-  {
-    v3 = *a1;
-  }
+  v3 = *(**a1 + 8);
 
-  v4 = *(**a1 + 8);
-
-  return v4();
+  return v3();
 }
 
-uint64_t sub_24BCA9230(_BYTE *a1, double a2)
+_BYTE *sub_24BCA9230(_BYTE *a1, double a2)
 {
   v2 = a1;
   if ((*&a2 & 0x8000000000000000) != 0)
@@ -9700,7 +9586,7 @@ uint64_t sub_24BCA9230(_BYTE *a1, double a2)
   if (a2 == 0.0)
   {
     *v2 = 11824;
-    result = (v2 + 3);
+    result = v2 + 3;
     v2[2] = 48;
     return result;
   }
@@ -9870,4 +9756,267 @@ LABEL_8:
   *(a1 + 24) = v6;
   *(a1 + 32) = v4;
   *(a1 + 40) = v6;
+}
+
+unint64_t sub_24BCA9620(void *a1, void *a2)
+{
+  v2 = HIDWORD(*a1);
+  v3 = HIDWORD(*a2);
+  v4 = v3 * *a1;
+  v5 = *a2 * v2;
+  return HIDWORD(v5) + v3 * v2 + HIDWORD(v4) + ((((*a2 * *a1) >> 32) + v4 + v5 + 0x80000000) >> 32);
+}
+
+uint64_t sub_24BCA9680(uint64_t result, int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, int a10)
+{
+  v10 = a9 - a4;
+  v11 = a9 - a6;
+  v12 = -a10;
+  v13 = 1 << -a10;
+  v14 = a9 >> -a10;
+  v15 = (v13 - 1) & a9;
+  if (v14 <= 0x3B9AC9FF)
+  {
+    if (v14 <= 0x5F5E0FF)
+    {
+      if (v14 <= 0x98967F)
+      {
+        if (v14 <= 0xF423F)
+        {
+          v18 = v14 >> 5;
+          v19 = v14 >> 4;
+          if (v14 <= 9)
+          {
+            v20 = 1;
+          }
+
+          else
+          {
+            v20 = 10;
+          }
+
+          if (v14 <= 9)
+          {
+            v21 = 1;
+          }
+
+          else
+          {
+            v21 = 2;
+          }
+
+          if (v14 <= 0x63)
+          {
+            v22 = v20;
+          }
+
+          else
+          {
+            v22 = 100;
+          }
+
+          if (v14 <= 0x63)
+          {
+            v23 = v21;
+          }
+
+          else
+          {
+            v23 = 3;
+          }
+
+          if (v14 <= 0x3E7)
+          {
+            v24 = v22;
+          }
+
+          else
+          {
+            v24 = 1000;
+          }
+
+          if (v14 <= 0x3E7)
+          {
+            v25 = v23;
+          }
+
+          else
+          {
+            v25 = 4;
+          }
+
+          if (v19 <= 0x270)
+          {
+            v26 = v24;
+          }
+
+          else
+          {
+            v26 = 10000;
+          }
+
+          if (v19 <= 0x270)
+          {
+            v27 = v25;
+          }
+
+          else
+          {
+            v27 = 5;
+          }
+
+          v28 = v18 > 0xC34;
+          if (v18 > 0xC34)
+          {
+            v16 = 100000;
+          }
+
+          else
+          {
+            v16 = v26;
+          }
+
+          if (v28)
+          {
+            v17 = 6;
+          }
+
+          else
+          {
+            v17 = v27;
+          }
+        }
+
+        else
+        {
+          v16 = 1000000;
+          v17 = 7;
+        }
+      }
+
+      else
+      {
+        v16 = 10000000;
+        v17 = 8;
+      }
+    }
+
+    else
+    {
+      v16 = 100000000;
+      v17 = 9;
+    }
+  }
+
+  else
+  {
+    v16 = 1000000000;
+    v17 = 10;
+  }
+
+  v29 = result - 1;
+  v30 = a6 - a9;
+  while (v17 > 0)
+  {
+    v31 = v14 / v16;
+    v14 = v14 % v16;
+    v32 = *a2;
+    *a2 = v32 + 1;
+    *(result + v32) = v31 + 48;
+    --v17;
+    v33 = (v14 << v12) + v15;
+    if (v10 >= v33)
+    {
+      *a3 += v17;
+      v34 = v16 << v12;
+      v35 = v33 < v11 && v10 - v33 >= v34;
+      if (!v35)
+      {
+        return result;
+      }
+
+      v36 = *a2;
+      v37 = v11 - v33;
+      v38 = v15 + (v14 << v12) + v34;
+      v39 = v10 - v38;
+      do
+      {
+        if (v38 >= v11 && v37 <= v30 + v38)
+        {
+          break;
+        }
+
+        --*(v29 + v36);
+        if (v38 >= v11)
+        {
+          break;
+        }
+
+        v37 -= v34;
+        v38 += v34;
+        v35 = v39 >= v34;
+        v39 -= v34;
+      }
+
+      while (v35);
+    }
+
+    else
+    {
+      v16 /= 0xAu;
+    }
+
+    if (v10 >= v33)
+    {
+      return result;
+    }
+  }
+
+  v40 = 0;
+  do
+  {
+    v41 = v10;
+    v42 = v11;
+    v43 = 5 * v15;
+    v44 = *a2;
+    *a2 = v44 + 1;
+    *(result + v44) = ((2 * v43) >> v12) + 48;
+    v10 = 10 * v41;
+    v11 *= 10;
+    --v40;
+    v15 = (v13 - 1) & (2 * v43);
+  }
+
+  while (10 * v41 < v15);
+  *a3 += v40;
+  if (v15 < v11 && 10 * v41 - v15 >= v13)
+  {
+    v45 = *a2;
+    v46 = 10 * v42 - v15;
+    v47 = v13 + v15;
+    v48 = 10 * v41 - v47;
+    v49 = -10 * v42;
+    do
+    {
+      if (v47 >= v11 && v46 <= v49 + v47)
+      {
+        break;
+      }
+
+      --*(v29 + v45);
+      if (v47 >= v11)
+      {
+        break;
+      }
+
+      v46 -= v13;
+      v47 += v13;
+      v35 = v48 >= v13;
+      v48 -= v13;
+    }
+
+    while (v35);
+  }
+
+  return result;
 }

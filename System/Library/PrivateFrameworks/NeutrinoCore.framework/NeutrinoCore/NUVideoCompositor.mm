@@ -25,12 +25,12 @@
   v5 = hintCopy;
   if (hintCopy)
   {
-    [hintCopy startCompositionTime];
-    [v5 endCompositionTime];
+    objc_msgSend_startCompositionTime(hintCopy);
+    objc_msgSend_endCompositionTime(v5);
     if ((CMTimeCompare(&time1, &v7) & 0x80000000) == 0)
     {
-      [v5 startCompositionTime];
-      [v5 endCompositionTime];
+      objc_msgSend_startCompositionTime(v5);
+      objc_msgSend_endCompositionTime(v5);
       goto LABEL_6;
     }
 
@@ -70,7 +70,7 @@ LABEL_10:
   errorCopy = error;
   if (requestCopy)
   {
-    [requestCopy compositionTime];
+    objc_msgSend_compositionTime(requestCopy);
   }
 
   else
@@ -264,7 +264,7 @@ LABEL_10:
           v13 = [NURenderPipelineVideoMetadataSample alloc];
           if (requestCopy)
           {
-            [requestCopy compositionTime];
+            objc_msgSend_compositionTime(requestCopy);
           }
 
           else
@@ -299,7 +299,7 @@ LABEL_10:
           {
             if (requestCopy)
             {
-              [requestCopy compositionTime];
+              objc_msgSend_compositionTime(requestCopy);
             }
 
             else
@@ -424,7 +424,7 @@ LABEL_10:
             v18 = [NURenderPipelineVideoFrame alloc];
             if (requestCopy)
             {
-              [requestCopy compositionTime];
+              objc_msgSend_compositionTime(requestCopy);
             }
 
             else
@@ -626,7 +626,7 @@ LABEL_19:
     v28 = lastObject;
     if (lastObject)
     {
-      [lastObject frameTime];
+      objc_msgSend_frameTime(lastObject);
     }
 
     else
@@ -649,11 +649,11 @@ LABEL_19:
     memset(&start, 0, sizeof(start));
     if (lastObject2)
     {
-      [lastObject2 frameTime];
+      objc_msgSend_frameTime(lastObject2);
       if (firstObject2)
       {
 LABEL_21:
-        [firstObject2 frameTime];
+        objc_msgSend_frameTime(firstObject2);
 LABEL_24:
         CMTimeSubtract(&start, &duration, &rhs);
         v34 = [v63 count];
@@ -663,7 +663,7 @@ LABEL_24:
         *(v82 + 4) = v77;
         if (v33)
         {
-          [v33 frameTime];
+          objc_msgSend_frameTime(v33);
           v35 = v82;
         }
 
@@ -734,7 +734,7 @@ LABEL_30:
   return v29;
 }
 
-void __50__NUVideoCompositor_videoSampleSlicesFromRequest___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __50__NUVideoCompositor_videoSampleSlicesFromRequest___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = a2;
   v32 = 0;
@@ -744,12 +744,12 @@ void __50__NUVideoCompositor_videoSampleSlicesFromRequest___block_invoke(uint64_
   v36 = __Block_byref_object_dispose__19745;
   v37 = objc_alloc_init(MEMORY[0x1E695DF90]);
   [v33[5] setObject:v5 forKeyedSubscript:*(a1 + 32)];
-  if ([*(a1 + 40) count] - 1 != a3)
+  if (([*(a1 + 40) count] - 1) != a3)
   {
     v6 = *(*(a1 + 80) + 8);
     if (v5)
     {
-      [v5 frameTime];
+      objc_msgSend_frameTime(v5);
     }
 
     else
@@ -762,7 +762,7 @@ void __50__NUVideoCompositor_videoSampleSlicesFromRequest___block_invoke(uint64_
     *(*(*(a1 + 72) + 8) + 32) = v31;
     if (v5)
     {
-      [v5 frameTime];
+      objc_msgSend_frameTime(v5);
     }
 
     else
@@ -830,7 +830,7 @@ BOOL __50__NUVideoCompositor_videoSampleSlicesFromRequest___block_invoke_2(uint6
   {
     if (v6)
     {
-      [v6 frameTime];
+      objc_msgSend_frameTime(v6);
     }
 
     else
@@ -850,7 +850,7 @@ BOOL __50__NUVideoCompositor_videoSampleSlicesFromRequest___block_invoke_2(uint6
       v8 = *(*(a1 + 40) + 8);
       if (v6)
       {
-        [v6 frameTime];
+        objc_msgSend_frameTime(v6);
       }
 
       else

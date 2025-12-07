@@ -10,26 +10,25 @@
 - (_TtCC25FitnessIntelligencePlugin30InferenceRecordContainerEntityP33_B585107B97BC3D4BB109E3030F1DB06531InferenceRecordContainerWrapper)initWithData:(id)data
 {
   v5 = sub_38F8(&unk_8FA00, &qword_7A740);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v17 - v7;
+  v7 = &v16 - v6;
   dataCopy = data;
-  v10 = sub_748C8();
-  v12 = v11;
+  v9 = sub_748C8();
+  v11 = v10;
 
-  v13 = sub_74D78();
-  sub_398C(v10, v12);
-  sub_479D0(&qword_8F178, &type metadata accessor for InferenceRecord);
+  v12 = sub_74D78();
+  sub_398C(v9, v11);
+  sub_479D0(&qword_8F178, &type metadata accessor for InferenceRecord, &protocol conformance descriptor for InferenceRecord);
   sub_74F88();
-  (*(*(v13 - 8) + 56))(v8, 0, 1, v13);
-  sub_477F8(v8, self + OBJC_IVAR____TtCC25FitnessIntelligencePlugin30InferenceRecordContainerEntityP33_B585107B97BC3D4BB109E3030F1DB06531InferenceRecordContainerWrapper_inferenceRecord);
-  v14 = (self + OBJC_IVAR____TtCC25FitnessIntelligencePlugin30InferenceRecordContainerEntityP33_B585107B97BC3D4BB109E3030F1DB06531InferenceRecordContainerWrapper_inferenceRecordData);
-  *v14 = v10;
-  v14[1] = v12;
-  v15 = _s31InferenceRecordContainerWrapperCMa();
-  v18.receiver = self;
-  v18.super_class = v15;
-  return [(InferenceRecordContainerEntity.InferenceRecordContainerWrapper *)&v18 init];
+  (*(*(v12 - 8) + 56))(v7, 0, 1, v12);
+  sub_477F8(v7, self + OBJC_IVAR____TtCC25FitnessIntelligencePlugin30InferenceRecordContainerEntityP33_B585107B97BC3D4BB109E3030F1DB06531InferenceRecordContainerWrapper_inferenceRecord);
+  v13 = (self + OBJC_IVAR____TtCC25FitnessIntelligencePlugin30InferenceRecordContainerEntityP33_B585107B97BC3D4BB109E3030F1DB06531InferenceRecordContainerWrapper_inferenceRecordData);
+  *v13 = v9;
+  v13[1] = v11;
+  v14 = _s31InferenceRecordContainerWrapperCMa(0);
+  v17.receiver = self;
+  v17.super_class = v14;
+  return [(InferenceRecordContainerEntity.InferenceRecordContainerWrapper *)&v17 init];
 }
 
 - (id)data

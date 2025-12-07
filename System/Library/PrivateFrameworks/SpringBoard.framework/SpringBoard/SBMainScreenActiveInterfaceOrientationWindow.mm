@@ -226,7 +226,7 @@
   _debugName = [(SBMainScreenActiveInterfaceOrientationWindow *)self _debugName];
   v6 = [succinctDescriptionBuilder appendObject:_debugName withName:0];
 
-  [(SBMainScreenActiveInterfaceOrientationWindow *)self frame];
+  objc_msgSend_frame(self);
   v11 = _SBWindowFrameDescription(v7, v8, v9, v10);
   v12 = [succinctDescriptionBuilder appendObject:v11 withName:@"frame"];
 

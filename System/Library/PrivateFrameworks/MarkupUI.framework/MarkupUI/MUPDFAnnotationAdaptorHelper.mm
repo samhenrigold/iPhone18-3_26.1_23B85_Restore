@@ -1145,7 +1145,7 @@ LABEL_20:
   CGColorSpaceRelease(v5);
   if (v9)
   {
-    v10 = [MEMORY[0x277D75348] colorWithCGColor:{v9, v12, *v13}];
+    v10 = [MEMORY[0x277D75348] colorWithCGColor:{v9, v12, *&v13[0], *&v13[1]}];
     CFRelease(v9);
     goto LABEL_10;
   }

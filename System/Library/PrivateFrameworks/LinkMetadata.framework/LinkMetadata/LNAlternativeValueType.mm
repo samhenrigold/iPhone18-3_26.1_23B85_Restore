@@ -22,7 +22,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   if (self == equalCopy)
   {
@@ -31,9 +31,9 @@
 
   else
   {
-    v24.receiver = self;
-    v24.super_class = LNAlternativeValueType;
-    if ([(LNValueType *)&v24 isEqual:equalCopy])
+    v23.receiver = self;
+    v23.super_class = LNAlternativeValueType;
+    if ([(LNValueType *)&v23 isEqual:equalCopy])
     {
       v5 = equalCopy;
       if (v5)
@@ -52,26 +52,26 @@
             goto LABEL_20;
           }
 
-          v22 = 0u;
-          v23 = 0u;
-          v20 = 0u;
           v21 = 0u;
+          v22 = 0u;
+          v19 = 0u;
+          v20 = 0u;
           memberValueTypes3 = [(LNAlternativeValueType *)v5 memberValueTypes];
-          v11 = [memberValueTypes3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          v11 = [memberValueTypes3 countByEnumeratingWithState:&v19 objects:v24 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v21;
+            v13 = *v20;
 LABEL_8:
             v14 = 0;
             while (1)
             {
-              if (*v21 != v13)
+              if (*v20 != v13)
               {
                 objc_enumerationMutation(memberValueTypes3);
               }
 
-              v15 = *(*(&v20 + 1) + 8 * v14);
+              v15 = *(*(&v19 + 1) + 8 * v14);
               memberValueTypes4 = [(LNAlternativeValueType *)self memberValueTypes];
               v17 = [memberValueTypes4 containsObject:v15];
 
@@ -82,7 +82,7 @@ LABEL_8:
 
               if (v12 == ++v14)
               {
-                v12 = [memberValueTypes3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+                v12 = [memberValueTypes3 countByEnumeratingWithState:&v19 objects:v24 count:16];
                 LOBYTE(v17) = 1;
                 if (v12)
                 {
@@ -123,7 +123,6 @@ LABEL_20:
 
 LABEL_21:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -212,34 +211,34 @@ LABEL_21:
 
 - (BOOL)objectIsMemberOfType:(id)type
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   typeCopy = type;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   memberValueTypes = [(LNAlternativeValueType *)self memberValueTypes];
-  v6 = [memberValueTypes countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [memberValueTypes countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(memberValueTypes);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) objectIsMemberOfType:typeCopy])
+        if ([*(*(&v10 + 1) + 8 * i) objectIsMemberOfType:typeCopy])
         {
           LOBYTE(v6) = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [memberValueTypes countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [memberValueTypes countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -251,7 +250,6 @@ LABEL_21:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

@@ -869,9 +869,9 @@ LABEL_46:
 - (__n128)calculateCenterlineSlices:(uint64_t)slices
 {
 LABEL_1:
-  v9 = (a2 - 2);
-  v10 = a2 - 4;
-  v11 = a2 - 6;
+  v9 = a2 - 1;
+  v10 = a2 - 2;
+  v11 = a2 - 3;
   selfCopy = self;
   while (1)
   {
@@ -886,8 +886,8 @@ LABEL_1:
 
       if (v13 == 2)
       {
-        v55 = *(a2 - 2);
-        v54 = (a2 - 2);
+        v55 = a2[-1].n128_f64[0];
+        v54 = a2 - 1;
         result.n128_f64[0] = v55;
         if (v55 >= *selfCopy)
         {
@@ -956,8 +956,8 @@ LABEL_176:
         }
       }
 
-      result.n128_u64[0] = *v9;
-      if (*v9 >= v60->n128_f64[0])
+      result.n128_u64[0] = v9->n128_u64[0];
+      if (v9->n128_f64[0] >= v60->n128_f64[0])
       {
         return result;
       }
@@ -990,7 +990,7 @@ LABEL_180:
     if (v13 == 5)
     {
 
-      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,-[PKStrokeMask calculateCenterlineSlices:]::$_0 &,_PKFloatRange *,0>(selfCopy, (selfCopy + 16), (selfCopy + 32), (selfCopy + 48), a2 - 2, result).n128_u64[0];
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,-[PKStrokeMask calculateCenterlineSlices:]::$_0 &,_PKFloatRange *,0>(selfCopy, (selfCopy + 16), (selfCopy + 32), (selfCopy + 48), a2[-1].n128_u64, result).n128_u64[0];
       return result;
     }
 
@@ -1036,12 +1036,12 @@ LABEL_127:
               v71[1] = v68;
             }
 
-            v62 = v67 + 2;
+            v62 = v67 + 1;
             v65 += 16;
             v66 = v67;
           }
 
-          while (v67 + 2 != a2);
+          while (&v67[1] != a2);
         }
       }
 
@@ -1057,21 +1057,21 @@ LABEL_127:
             v99 = v62;
             do
             {
-              *v99 = *(v99 - 1);
-              v100 = *(v99 - 4);
-              v99 -= 2;
+              *v99 = v99[-1];
+              v100 = v99[-2].n128_f64[0];
+              --v99;
             }
 
             while (result.n128_f64[0] < v100);
-            *v99 = result.n128_f64[0];
-            *(v99 + 1) = v98;
+            v99->n128_u64[0] = result.n128_u64[0];
+            v99->n128_u64[1] = v98;
           }
 
-          v62 += 2;
+          ++v62;
           self = v97;
         }
 
-        while ((v97 + 16) != a2);
+        while (&v97[1] != a2);
       }
 
       return result;
@@ -1139,16 +1139,16 @@ LABEL_127:
           do
           {
             v84 = v83;
-            v85 = &v83[2 * v82];
-            v83 = v85 + 2;
+            v85 = &v83[v82];
+            v83 = v85 + 1;
             v86 = 2 * v82;
             v82 = (2 * v82) | 1;
             v87 = v86 + 2;
             if (v87 < v13)
             {
-              v89 = v85[4];
-              v88 = v85 + 4;
-              if (*(v88 - 2) < v89)
+              v89 = v85[2].n128_f64[0];
+              v88 = v85 + 2;
+              if (v88[-1].n128_f64[0] < v89)
               {
                 v83 = v88;
                 v82 = v87;
@@ -1159,8 +1159,7 @@ LABEL_127:
           }
 
           while (v82 <= ((v13 - 2) >> 1));
-          a2 -= 2;
-          if (v83 == a2)
+          if (v83 == --a2)
           {
             result = v122;
             *v83 = v122;
@@ -1171,17 +1170,17 @@ LABEL_127:
             *v83 = *a2;
             result = v122;
             *a2 = v122;
-            v90 = (v83 - selfCopy + 16) >> 4;
+            v90 = (&v83[1] - selfCopy) >> 4;
             v91 = v90 < 2;
             v92 = v90 - 2;
             if (!v91)
             {
               v93 = v92 >> 1;
               v94 = (selfCopy + 16 * v93);
-              result.n128_f64[0] = *v83;
-              if (*v94 < *v83)
+              result.n128_u64[0] = v83->n128_u64[0];
+              if (v94->n128_f64[0] < v83->n128_f64[0])
               {
-                v95 = *(v83 + 1);
+                v95 = v83->n128_u64[1];
                 do
                 {
                   v96 = v94;
@@ -1196,9 +1195,9 @@ LABEL_127:
                   v83 = v96;
                 }
 
-                while (*v94 < result.n128_f64[0]);
-                *v96 = result.n128_f64[0];
-                *(v96 + 1) = v95;
+                while (v94->n128_f64[0] < result.n128_f64[0]);
+                v96->n128_u64[0] = result.n128_u64[0];
+                v96->n128_u64[1] = v95;
               }
             }
           }
@@ -1214,7 +1213,7 @@ LABEL_127:
 
     v14 = (selfCopy + 16 * (v13 >> 1));
     v15 = v14;
-    v16 = *v9;
+    v16 = v9->n128_f64[0];
     if (v13 >= 0x81)
     {
       v17 = *v14;
@@ -1246,7 +1245,7 @@ LABEL_127:
         v107 = *selfCopy;
         *selfCopy = *v14;
         *v14 = v107;
-        if (*v9 < *v14)
+        if (v9->n128_f64[0] < *v14)
         {
           v101 = *v14;
           *v14 = *v9;
@@ -1256,9 +1255,9 @@ LABEL_26:
       }
 
       v19 = (selfCopy + 16);
-      v20 = v14 - 2;
+      v20 = (v14 - 2);
       v21 = *(v14 - 2);
-      v22 = *v10;
+      v22 = v10->n128_f64[0];
       if (v21 >= *(selfCopy + 16))
       {
         if (v22 < v21)
@@ -1266,7 +1265,7 @@ LABEL_26:
           v108 = *v20;
           *v20 = *v10;
           *v10 = v108;
-          if (*v20 < *v19)
+          if (v20->n128_f64[0] < v19->n128_f64[0])
           {
             v24 = *v19;
             *v19 = *v20;
@@ -1287,7 +1286,7 @@ LABEL_26:
         v25 = *v19;
         *v19 = *v20;
         *v20 = v25;
-        if (*v10 < *v20)
+        if (v10->n128_f64[0] < v20->n128_f64[0])
         {
           v110 = *v20;
           *v20 = *v10;
@@ -1301,7 +1300,7 @@ LABEL_38:
       v28 = v14[2];
       v27 = (v14 + 2);
       v29 = v28;
-      v30 = *v11;
+      v30 = v11->n128_f64[0];
       if (v28 >= *(selfCopy + 32))
       {
         if (v30 < v29)
@@ -1309,7 +1308,7 @@ LABEL_38:
           v111 = *v27;
           *v27 = *v11;
           *v11 = v111;
-          if (*v27 < *v26)
+          if (v27->n128_f64[0] < v26->n128_f64[0])
           {
             v32 = *v26;
             *v26 = *v27;
@@ -1330,7 +1329,7 @@ LABEL_38:
         v33 = *v26;
         *v26 = *v27;
         *v27 = v33;
-        if (*v11 < *v27)
+        if (v11->n128_f64[0] < v27->n128_f64[0])
         {
           v112 = *v27;
           *v27 = *v11;
@@ -1341,15 +1340,15 @@ LABEL_47:
       }
 
       v34 = *v15;
-      v35 = *v27;
-      if (*v15 >= *v20)
+      v35 = v27->n128_f64[0];
+      if (*v15 >= v20->n128_f64[0])
       {
         if (v35 < v34)
         {
           v114 = *v15;
           *v15 = *v27;
           *v27 = v114;
-          if (*v15 < *v20)
+          if (*v15 < v20->n128_f64[0])
           {
             v115 = *v20;
             *v20 = *v15;
@@ -1370,7 +1369,7 @@ LABEL_47:
         v116 = *v20;
         *v20 = *v15;
         *v15 = v116;
-        if (*v27 < *v15)
+        if (v27->n128_f64[0] < *v15)
         {
           v113 = *v15;
           *v15 = *v27;
@@ -1421,7 +1420,7 @@ LABEL_35:
     *v14 = *selfCopy;
     result.n128_u64[1] = v109.n128_u64[1];
     *selfCopy = v109;
-    if (*v9 < *selfCopy)
+    if (v9->n128_f64[0] < *selfCopy)
     {
       v102 = *selfCopy;
       *selfCopy = *v9;
@@ -1455,8 +1454,8 @@ LABEL_61:
             break;
           }
 
-          v42 = *(v40 - 2);
-          v40 -= 2;
+          v42 = v40[-1].n128_f64[0];
+          --v40;
         }
 
         while (v42 >= result.n128_f64[0]);
@@ -1466,8 +1465,8 @@ LABEL_61:
       {
         do
         {
-          v41 = *(v40 - 2);
-          v40 -= 2;
+          v41 = v40[-1].n128_f64[0];
+          --v40;
         }
 
         while (v41 >= result.n128_f64[0]);
@@ -1514,7 +1513,7 @@ LABEL_61:
       }
 
       v46 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[PKStrokeMask calculateCenterlineSlices:]::$_0 &,_PKFloatRange *>(self, (selfCopy - 16), result);
-      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[PKStrokeMask calculateCenterlineSlices:]::$_0 &,_PKFloatRange *>(selfCopy, a2, v47))
+      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[PKStrokeMask calculateCenterlineSlices:]::$_0 &,_PKFloatRange *>(selfCopy, a2->n128_f64, v47))
       {
         a2 = (selfCopy - 16);
         if (!v46)
@@ -1528,7 +1527,7 @@ LABEL_61:
       if (!v46)
       {
 LABEL_80:
-        std::__introsort<std::_ClassicAlgPolicy,[PKStrokeMask calculateCenterlineSlices:]::$_0 &,_PKFloatRange *,false>(self, selfCopy - 16, slices, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,[PKStrokeMask calculateCenterlineSlices:]::$_0 &,_PKFloatRange *,false>(self, (selfCopy - 16), slices, a4 & 1, result);
         a4 = 0;
       }
     }
@@ -1541,7 +1540,7 @@ LABEL_80:
         goto LABEL_61;
       }
 
-      if (result.n128_f64[0] >= *v9)
+      if (result.n128_f64[0] >= v9->n128_f64[0])
       {
         v49 = selfCopy + 16;
         do
@@ -1616,9 +1615,9 @@ LABEL_80:
 
   v56 = (selfCopy + 16);
   result.n128_u64[0] = *(selfCopy + 16);
-  v57 = *(a2 - 2);
-  v54 = (a2 - 2);
-  v58 = v57;
+  v57 = a2[-1].n128_u64[0];
+  v54 = a2 - 1;
+  v58 = *&v57;
   if (result.n128_f64[0] >= *selfCopy)
   {
     if (v58 >= result.n128_f64[0])

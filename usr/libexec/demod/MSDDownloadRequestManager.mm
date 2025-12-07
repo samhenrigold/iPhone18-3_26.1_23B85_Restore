@@ -1,5 +1,6 @@
 @interface MSDDownloadRequestManager
 - (BOOL)_coalesceDownloadRequestForFileWithSameHash:(id)hash;
+- (MSDDownloadRequestManager)initWithCellularAccess:(BOOL)access andFDCUpdateDelegate:(id)delegate;
 - (void)_dispatchRequest:(id)request;
 - (void)_finishDownloadRequest:(id)request withReponse:(id)reponse;
 - (void)_handleCompletionForDownloadRequest:(id)request withResponse:(id)response;
@@ -8,6 +9,38 @@
 @end
 
 @implementation MSDDownloadRequestManager
+
+- (MSDDownloadRequestManager)initWithCellularAccess:(BOOL)access andFDCUpdateDelegate:(id)delegate
+{
+  accessCopy = access;
+  delegateCopy = delegate;
+  v16.receiver = self;
+  v16.super_class = MSDDownloadRequestManager;
+  v7 = [(MSDDownloadRequestManager *)&v16 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(MSDDownloadRequestManager *)v7 setDownloadRequestsLock:0];
+    v9 = dispatch_queue_create("com.apple.downloadManagerUpdateQueue", 0);
+    [(MSDDownloadRequestManager *)v8 setUpdateQueue:v9];
+
+    v10 = sub_100063BEC([(MSDDownloadRequestManager *)v8 setFdcDelegate:delegateCopy]);
+    [(MSDDownloadRequestManager *)v8 setSignpostId:os_signpost_id_generate(v10)];
+
+    v11 = objc_alloc_init(NSMutableDictionary);
+    [(MSDDownloadRequestManager *)v8 setDownloadRequestCompletions:v11];
+
+    v12 = [[MSDContentServer alloc] initWithCellularAccess:accessCopy];
+    [(MSDDownloadRequestManager *)v8 setServer:v12];
+
+    server = [(MSDDownloadRequestManager *)v8 server];
+    [server setObserver:v8];
+
+    v14 = v8;
+  }
+
+  return v8;
+}
 
 - (void)downloadFileForRequest:(id)request
 {
@@ -21,30 +54,31 @@
 
     if (!v8)
     {
-      if (![(MSDDownloadRequestManager *)self _coalesceDownloadRequestForFileWithSameHash:requestCopy])
+      v14 = [(MSDDownloadRequestManager *)self _coalesceDownloadRequestForFileWithSameHash:requestCopy];
+      if (!v14)
       {
         [(MSDDownloadRequestManager *)self _dispatchRequest:requestCopy];
         goto LABEL_13;
       }
 
-      completion2 = sub_100063A54();
+      completion2 = sub_100063A54(v14);
       if (os_log_type_enabled(completion2, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138543362;
-        v14 = requestCopy;
-        _os_log_impl(&_mh_execute_header, completion2, OS_LOG_TYPE_DEFAULT, "%{public}@: Coalesce current download file request with existing one.", &v13, 0xCu);
+        v15 = 138543362;
+        v16 = requestCopy;
+        _os_log_impl(&_mh_execute_header, completion2, OS_LOG_TYPE_DEFAULT, "%{public}@: Coalesce current download file request with existing one.", &v15, 0xCu);
       }
 
       goto LABEL_11;
     }
 
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100063A54(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       savePath2 = [requestCopy savePath];
-      v13 = 138543362;
-      v14 = savePath2;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "File already exists at save path: %{public}@", &v13, 0xCu);
+      v15 = 138543362;
+      v16 = savePath2;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "File already exists at save path: %{public}@", &v15, 0xCu);
     }
 
     [(MSDServerResponse *)v5 setError:0];
@@ -86,20 +120,20 @@ LABEL_13:
 
   else
   {
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100063A54(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_1000D644C(requestCopy, v11);
+      sub_1000D644C(requestCopy, v12);
     }
 
     updateQueue = [(MSDDownloadRequestManager *)self updateQueue];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000608D8;
-    v13[3] = &unk_10016A258;
-    v13[4] = self;
-    v14 = requestCopy;
-    dispatch_async(updateQueue, v13);
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000608D8;
+    v14[3] = &unk_10016A258;
+    v14[4] = self;
+    v15 = requestCopy;
+    dispatch_async(updateQueue, v14);
   }
 }
 
@@ -248,7 +282,7 @@ LABEL_13:
   block[2] = sub_100061148;
   block[3] = &unk_100169B70;
   v9 = reponseCopy;
-  v35 = v9;
+  v36 = v9;
   dispatch_async(updateQueue, block);
 
   savePath = [requestCopy savePath];
@@ -273,7 +307,7 @@ LABEL_13:
       {
         v20 = __error();
         v21 = [NSString stringWithUTF8String:strerror(*v20)];
-        v22 = sub_100063A54();
+        v22 = sub_100063A54(v21);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           sub_1000D6510(stringByDeletingPathExtension, v21, v22);
@@ -294,18 +328,19 @@ LABEL_13:
     goto LABEL_15;
   }
 
-  if ([requestCopy retryCount] < 1)
+  retryCount = [requestCopy retryCount];
+  if (retryCount < 1)
   {
-    v27 = sub_100063A54();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = sub_100063A54(retryCount);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       savePath4 = [requestCopy savePath];
       error3 = [v9 error];
       *location = 138543618;
       *&location[4] = savePath4;
-      v37 = 2114;
-      v38 = error3;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Download Failed for file: %{public}@ with error: %{public}@", location, 0x16u);
+      v38 = 2114;
+      v39 = error3;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Download Failed for file: %{public}@ with error: %{public}@", location, 0x16u);
     }
 
 LABEL_15:
@@ -314,18 +349,18 @@ LABEL_15:
   }
 
   objc_initWeak(location, self);
-  v25 = dispatch_time(0, 3000000000);
-  v26 = dispatch_get_global_queue(25, 0);
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_100061248;
-  v30[3] = &unk_10016B0F8;
-  v31 = requestCopy;
-  objc_copyWeak(&v33, location);
+  v26 = dispatch_time(0, 3000000000);
+  v27 = dispatch_get_global_queue(25, 0);
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_100061248;
+  v31[3] = &unk_10016B0F8;
+  v32 = requestCopy;
+  objc_copyWeak(&v34, location);
   selfCopy = self;
-  dispatch_after(v25, v26, v30);
+  dispatch_after(v26, v27, v31);
 
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v34);
   objc_destroyWeak(location);
 LABEL_16:
 }

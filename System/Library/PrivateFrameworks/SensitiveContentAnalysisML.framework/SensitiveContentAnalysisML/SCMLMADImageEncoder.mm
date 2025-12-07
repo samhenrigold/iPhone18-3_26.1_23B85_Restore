@@ -114,36 +114,34 @@ LABEL_14:
 
 - (void)embedPixelBufferAsynchronously:(__CVBuffer *)asynchronously requestType:(unint64_t)type version:(unint64_t)version completionHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v19 = 0;
-  v11 = [SCMLMADImageEncoder newRequestWithType:type withVersion:version error:&v19];
-  v12 = v19;
+  v18 = 0;
+  v11 = [SCMLMADImageEncoder newRequestWithType:type withVersion:version error:&v18];
+  v12 = v18;
   if (v11)
   {
-    v20[0] = v11;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    v19[0] = v11;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
     service = self->_service;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __92__SCMLMADImageEncoder_embedPixelBufferAsynchronously_requestType_version_completionHandler___block_invoke;
-    v16[3] = &unk_1E7EB3BD0;
-    v17 = v11;
-    v18 = handlerCopy;
-    [(MADService *)service performRequests:v13 onPixelBuffer:asynchronously withOrientation:1 andIdentifier:0 completionHandler:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __92__SCMLMADImageEncoder_embedPixelBufferAsynchronously_requestType_version_completionHandler___block_invoke;
+    v15[3] = &unk_1E7EB3BD0;
+    v16 = v11;
+    v17 = handlerCopy;
+    [(MADService *)service performRequests:v13 onPixelBuffer:asynchronously withOrientation:1 andIdentifier:0 completionHandler:v15];
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, 0, v12);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __92__SCMLMADImageEncoder_embedPixelBufferAsynchronously_requestType_version_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [*(a1 + 32) embeddingResults];
   v6 = [v5 objectAtIndexedSubscript:0];
@@ -154,17 +152,17 @@ void __92__SCMLMADImageEncoder_embedPixelBufferAsynchronously_requestType_versio
     v8 = +[SCMLLog textAnalyzer];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v18 = [v7 type];
-      v19 = [v7 count];
-      v20 = [v7 shape];
-      v21 = [v20 componentsJoinedByString:{@", "}];
-      v22[0] = 67109634;
-      v22[1] = v18;
-      v23 = 1024;
-      v24 = v19;
-      v25 = 2112;
-      v26 = v21;
-      _os_log_debug_impl(&dword_1B8A3C000, v8, OS_LOG_TYPE_DEBUG, "Unified image embedding type=%d count=%d shape=[%@]", v22, 0x18u);
+      v17 = [v7 type];
+      v18 = [v7 count];
+      v19 = [v7 shape];
+      v20 = [v19 componentsJoinedByString:{@", "}];
+      v21[0] = 67109634;
+      v21[1] = v17;
+      v22 = 1024;
+      v23 = v18;
+      v24 = 2112;
+      v25 = v20;
+      _os_log_debug_impl(&dword_1B8A3C000, v8, OS_LOG_TYPE_DEBUG, "Unified image embedding type=%d count=%d shape=[%@]", v21, 0x18u);
     }
 
     v9 = toSCMLMADEmbeddingType([v7 type]);
@@ -200,8 +198,6 @@ void __92__SCMLMADImageEncoder_embedPixelBufferAsynchronously_requestType_versio
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -14,7 +14,7 @@
 
 + (id)searchStringForCallsMatchingHandles:(id)handles orContactIdentifier:(id)identifier
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   identifierCopy = identifier;
   if ([identifierCopy length])
@@ -33,29 +33,29 @@
 
   if ([handlesCopy count])
   {
-    v23 = identifierCopy;
-    v24 = handlesCopy;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
+    v22 = identifierCopy;
+    v23 = handlesCopy;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v11 = handlesCopy;
-    v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v26;
+      v14 = *v25;
       v15 = *MEMORY[0x1E69646B0];
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v26 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v25 + 1) + 8 * i);
+          v17 = *(*(&v24 + 1) + 8 * i);
           if ([(__CFString *)v10 length])
           {
             v18 = [(__CFString *)v10 stringByAppendingString:@" || "];
@@ -68,37 +68,34 @@
           v10 = [(__CFString *)v10 stringByAppendingString:v20];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v13);
     }
 
-    identifierCopy = v23;
-    handlesCopy = v24;
+    identifierCopy = v22;
+    handlesCopy = v23;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)searchQueryWithSearchString:(id)string
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = objc_opt_new();
-  v12[0] = @"com.apple.mobilephone";
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = @"com.apple.mobilephone";
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   [v4 setBundleIDs:v5];
 
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ == %@", *MEMORY[0x1E6963EA0], @"kSpotlightItemTypeCall"];
-  v11 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
+  v10 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1];
   [v4 setFilterQueries:v7];
 
   v8 = [objc_alloc(MEMORY[0x1E6964E68]) initWithQueryString:stringCopy queryContext:v4];
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -127,17 +124,16 @@
   v11 = *MEMORY[0x1E69E9840];
   userDefaults = [self userDefaults];
   v3 = [userDefaults integerForKey:@"kCHSpotlightIndexVersion"];
-  v4 = ch_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = ch_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 134218240;
     v8 = v3;
     v9 = 2048;
     v10 = 9;
-    _os_log_impl(&dword_1C3E90000, v4, OS_LOG_TYPE_DEFAULT, "Current spotlight index version for calls: %ld, expected index version: %ld", &v7, 0x16u);
+    _os_log_impl(&dword_1C3E90000, v5, OS_LOG_TYPE_DEFAULT, "Current spotlight index version for calls: %ld, expected index version: %ld", &v7, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v3 != 9;
 }
 
@@ -146,49 +142,46 @@
   v9 = *MEMORY[0x1E69E9840];
   userDefaults = [self userDefaults];
   v3 = [userDefaults integerForKey:@"CHSpotlightReindexingReasonKey"];
-  v4 = ch_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = ch_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 134217984;
     v8 = v3;
-    _os_log_impl(&dword_1C3E90000, v4, OS_LOG_TYPE_DEFAULT, "CHSpotlightSearchQueryUtilities: callsDeferredReindexingReason: %ld", &v7, 0xCu);
+    _os_log_impl(&dword_1C3E90000, v5, OS_LOG_TYPE_DEFAULT, "CHSpotlightSearchQueryUtilities: callsDeferredReindexingReason: %ld", &v7, 0xCu);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 + (void)setCallsNeedsDeferredReindexingForReason:(unint64_t)reason
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   userDefaults = [self userDefaults];
   v6 = [userDefaults integerForKey:@"CHSpotlightReindexingReasonKey"];
   if ((v6 & reason) == 0)
   {
     [userDefaults setInteger:v6 | reason forKey:@"CHSpotlightReindexingReasonKey"];
-    [self logEventReindexingRequestedForReason:reason];
-    v7 = ch_framework_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = [self logEventReindexingRequestedForReason:reason];
+    v9 = ch_framework_log(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:reason];
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_1C3E90000, v7, OS_LOG_TYPE_DEFAULT, "CHSpotlightSearchQueryUtilities: setNeedsDeferredReindexingForReason:%@", &v10, 0xCu);
+      v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:reason];
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_1C3E90000, v9, OS_LOG_TYPE_DEFAULT, "CHSpotlightSearchQueryUtilities: setNeedsDeferredReindexingForReason:%@", &v11, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)logEventReindexingRequestedForReason:(unint64_t)reason
 {
-  v18[2] = *MEMORY[0x1E69E9840];
-  v17[0] = @"spotlightReindexingDataSource";
-  v17[1] = @"spotlightReindexingReason";
-  v18[0] = &unk_1F43A2D58;
+  v17[2] = *MEMORY[0x1E69E9840];
+  v16[0] = @"spotlightReindexingDataSource";
+  v16[1] = @"spotlightReindexingReason";
+  v17[0] = &unk_1F43A2D58;
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:reason];
-  v18[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v6 = [v5 mutableCopy];
 
   userDefaults = [self userDefaults];
@@ -209,25 +202,23 @@
     }
   }
 
-  v16 = v6;
+  v15 = v6;
   v14 = v6;
   AnalyticsSendEventLazy();
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (void)logEventReindexingFinishedForReason:(unint64_t)reason timeTaken:(double)taken
 {
-  v21[3] = *MEMORY[0x1E69E9840];
-  v21[0] = &unk_1F43A2D58;
-  v20[0] = @"spotlightReindexingDataSource";
-  v20[1] = @"spotlightReindexingReason";
+  v20[3] = *MEMORY[0x1E69E9840];
+  v20[0] = &unk_1F43A2D58;
+  v19[0] = @"spotlightReindexingDataSource";
+  v19[1] = @"spotlightReindexingReason";
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:reason];
-  v21[1] = v6;
-  v20[2] = @"spotlightReindexingLatency";
+  v20[1] = v6;
+  v19[2] = @"spotlightReindexingLatency";
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:taken];
-  v21[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v20[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
   v9 = [v8 mutableCopy];
 
   userDefaults = [self userDefaults];
@@ -248,11 +239,9 @@
     }
   }
 
-  v19 = v9;
+  v18 = v9;
   v17 = v9;
   AnalyticsSendEventLazy();
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (NSUserDefaults)userDefaults

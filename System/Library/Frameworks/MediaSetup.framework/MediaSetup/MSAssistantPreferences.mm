@@ -29,7 +29,6 @@
 
 uint64_t __43__MSAssistantPreferences_sharedPreferences__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedPreferences_sharedInstance = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -129,30 +128,30 @@ uint64_t __64__MSAssistantPreferences_getSharedUserIDForHomeUser_completion___bl
 
 + (id)intentExamples
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   preferredLocalizations = [mainBundle preferredLocalizations];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v4 = preferredLocalizations;
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
         v11 = [mainBundle2 pathForResource:@"AppIntentVocabulary" ofType:@"plist" inDirectory:&stru_284C4B358 forLocalization:v9];
 
@@ -168,7 +167,7 @@ uint64_t __64__MSAssistantPreferences_getSharedUserIDForHomeUser_completion___bl
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v6)
       {
         continue;
@@ -180,8 +179,6 @@ uint64_t __64__MSAssistantPreferences_getSharedUserIDForHomeUser_completion___bl
 
   firstObject = 0;
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

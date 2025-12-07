@@ -26,23 +26,23 @@
     entries2 = [v5 entries];
     if (entries == entries2)
     {
-      v10 = 1;
+      isEqual = 1;
     }
 
     else
     {
       entries3 = [(UILexicon *)self entries];
       entries4 = [v5 entries];
-      v10 = [entries3 isEqual:entries4];
+      isEqual = objc_msgSend_isEqual_(entries3);
     }
   }
 
   else
   {
-    v10 = 0;
+    isEqual = 0;
   }
 
-  return v10;
+  return isEqual;
 }
 
 + (id)_lexiconWithTILexicon:(id)lexicon

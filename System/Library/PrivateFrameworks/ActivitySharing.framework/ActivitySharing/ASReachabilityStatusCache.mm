@@ -95,33 +95,33 @@ void __50__ASReachabilityStatusCache_statusForDestination___block_invoke(void *a
 
 void __53__ASReachabilityStatusCache_statusesForDestinations___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB38] dictionary];
   v3 = *(*(a1 + 48) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        v11 = [*(*(a1 + 40) + 16) objectForKey:{v10, v14}];
+        v10 = *(*(&v13 + 1) + 8 * i);
+        v11 = [*(*(a1 + 40) + 16) objectForKey:{v10, v13}];
         v12 = v11;
         if (v11 && [v11 integerValue])
         {
@@ -129,13 +129,11 @@ void __53__ASReachabilityStatusCache_statusesForDestinations___block_invoke(uint
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setStatus:(id)status forDestination:(id)destination

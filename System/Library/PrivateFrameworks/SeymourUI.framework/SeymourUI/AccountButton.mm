@@ -73,10 +73,11 @@
   selfCopy = self;
   if ([gestureCopy state] == 3 && (v5 = *(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtC9SeymourUI13AccountButton_onLongPressed)) != 0)
   {
+    v6 = *(&selfCopy->super.super.super._responderFlags + OBJC_IVAR____TtC9SeymourUI13AccountButton_onLongPressed);
 
-    v5(v6);
+    v5(v7);
 
-    sub_20B583ECC(v5);
+    sub_20B583ECC(v5, v6);
   }
 
   else

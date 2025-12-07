@@ -67,10 +67,10 @@
     swift_getKeyPath();
     selfCopy = self;
 
-    static Published.subscript.getter();
+    static Published.subscript.getter(&v6);
   }
 
-  type metadata accessor for WorkoutChartDataElement();
+  type metadata accessor for WorkoutChartDataElement(0);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
@@ -106,7 +106,7 @@
   [defaultCenter removeObserver:v7 name:didUpdateBTSensorSeenStatus object:0];
 
   v9.receiver = v7;
-  v9.super_class = type metadata accessor for PowerAccumulator();
+  v9.super_class = type metadata accessor for PowerAccumulator(0);
   [(NLSessionActivityPowerAccumulator *)&v9 dealloc];
 }
 
@@ -120,9 +120,8 @@
 - (void)accumulatorDidStartWithStartDate:(id)date handler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v15 - v9;
+  MEMORY[0x28223BE20](v7 - 8, v8);
+  v10 = &v16 - v9;
   v11 = _Block_copy(handler);
   if (date)
   {
@@ -139,13 +138,19 @@
 
   if (v11)
   {
-    *(swift_allocObject() + 16) = v11;
+    v14 = swift_allocObject();
+    *(v14 + 16) = v11;
     v11 = _sIeyB_Ieg_TRTA_6;
+  }
+
+  else
+  {
+    v14 = 0;
   }
 
   selfCopy = self;
   specialized PowerAccumulator.accumulatorDidStart(withStart:handler:)(v10);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v11);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v11, v14);
 
   _sSo8NSObjectCSgWOhTm_11(v10, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
 }
@@ -160,8 +165,7 @@
 {
   v6 = type metadata accessor for Date();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
+  MEMORY[0x28223BE20](v6, v8);
   v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;

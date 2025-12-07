@@ -49,14 +49,14 @@
   if ((objc_opt_isKindOfClass() & 1) == 0 && MTLReportFailureTypeEnabled())
   {
     v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
-    v12 = filter;
-    MTLReportFailure();
+    v15 = NSStringFromClass(v10);
+    v16 = filter;
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSNNArithmeticNodes.mm", 0x14A, @"[%@ initWithGradientImage:forwardFilter:] filter <%p> must be a member of class MPSNNBinaryArithmeticNode", v11, v12, v13, v14);
   }
 
-  v13.receiver = self;
-  v13.super_class = MPSNNArithmeticGradientNode;
-  result = [(MPSNNGradientFilterNode *)&v13 initWithGradientImages:gradientImages forwardFilter:filter, v11, v12];
+  v17.receiver = self;
+  v17.super_class = MPSNNArithmeticGradientNode;
+  result = [(MPSNNGradientFilterNode *)&v17 initWithGradientImages:gradientImages forwardFilter:filter, v15, v16];
   if (result)
   {
     result->_primaryScale = *&filter[1].super.isa;

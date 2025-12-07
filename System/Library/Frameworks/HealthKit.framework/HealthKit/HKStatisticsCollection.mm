@@ -28,34 +28,34 @@
 
 - (id)asJSONObject
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
   [v3 setObject:v4 forKeyedSubscript:@"sources"];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   sources = [(HKStatisticsCollection *)self sources];
-  v6 = [sources countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v6 = [sources countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(sources);
         }
 
-        asJSONObject = [*(*(&v24 + 1) + 8 * i) asJSONObject];
+        asJSONObject = [*(*(&v23 + 1) + 8 * i) asJSONObject];
         [v4 addObject:asJSONObject];
       }
 
-      v7 = [sources countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [sources countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v7);
@@ -63,36 +63,34 @@
 
   v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
   [v3 setObject:v11 forKeyedSubscript:@"statistics"];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   statistics = [(HKStatisticsCollection *)self statistics];
-  v13 = [statistics countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v13 = [statistics countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(statistics);
         }
 
-        asJSONObject2 = [*(*(&v20 + 1) + 8 * j) asJSONObject];
+        asJSONObject2 = [*(*(&v19 + 1) + 8 * j) asJSONObject];
         [v11 addObject:asJSONObject2];
       }
 
-      v14 = [statistics countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v14 = [statistics countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v14);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -273,7 +271,7 @@ uint64_t __71__HKStatisticsCollection_enumerateStatisticsFromDate_toDate_withBlo
 
 - (NSArray)statistics
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   v3 = [(NSMutableDictionary *)self->_statisticsByIndex copy];
   os_unfair_lock_unlock(&self->_lock);
@@ -281,26 +279,26 @@ uint64_t __71__HKStatisticsCollection_enumerateStatisticsFromDate_toDate_withBlo
   v5 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
   array = [MEMORY[0x1E695DF70] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [v3 objectForKeyedSubscript:{*(*(&v17 + 1) + 8 * i), v17}];
+        v12 = [v3 objectForKeyedSubscript:{*(*(&v16 + 1) + 8 * i), v16}];
         v13 = v12;
         if (v12)
         {
@@ -309,46 +307,44 @@ uint64_t __71__HKStatisticsCollection_enumerateStatisticsFromDate_toDate_withBlo
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (NSSet)sources
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_cachedSources)
   {
     v3 = [MEMORY[0x1E695DFA8] set];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     allValues = [(NSMutableDictionary *)self->_statisticsByIndex allValues];
-    v5 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       do
       {
         v8 = 0;
         do
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(allValues);
           }
 
           v9 = MEMORY[0x1E695DFD8];
-          sources = [*(*(&v17 + 1) + 8 * v8) sources];
+          sources = [*(*(&v16 + 1) + 8 * v8) sources];
           v11 = [v9 setWithArray:sources];
           [v3 unionSet:v11];
 
@@ -356,7 +352,7 @@ uint64_t __71__HKStatisticsCollection_enumerateStatisticsFromDate_toDate_withBlo
         }
 
         while (v6 != v8);
-        v6 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v6);
@@ -369,7 +365,6 @@ uint64_t __71__HKStatisticsCollection_enumerateStatisticsFromDate_toDate_withBlo
 
   os_unfair_lock_unlock(&self->_lock);
   v14 = self->_cachedSources;
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -384,31 +379,31 @@ uint64_t __71__HKStatisticsCollection_enumerateStatisticsFromDate_toDate_withBlo
 
 - (id)_maxSumQuantityStatistics
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   allValues = [(NSMutableDictionary *)self->_statisticsByIndex allValues];
   os_unfair_lock_unlock(&self->_lock);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v4 = allValues;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         sumQuantity = [v10 sumQuantity];
         v12 = [v7 compare:sumQuantity];
 
@@ -420,7 +415,7 @@ uint64_t __71__HKStatisticsCollection_enumerateStatisticsFromDate_toDate_withBlo
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -431,38 +426,36 @@ uint64_t __71__HKStatisticsCollection_enumerateStatisticsFromDate_toDate_withBlo
     v7 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)_minSumQuantityStatistics
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   allValues = [(NSMutableDictionary *)self->_statisticsByIndex allValues];
   os_unfair_lock_unlock(&self->_lock);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v4 = allValues;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         sumQuantity = [v10 sumQuantity];
         v12 = [v7 compare:sumQuantity];
 
@@ -474,7 +467,7 @@ uint64_t __71__HKStatisticsCollection_enumerateStatisticsFromDate_toDate_withBlo
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -484,8 +477,6 @@ uint64_t __71__HKStatisticsCollection_enumerateStatisticsFromDate_toDate_withBlo
   {
     v7 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -553,7 +544,7 @@ uint64_t __71__HKStatisticsCollection_enumerateStatisticsFromDate_toDate_withBlo
 
 - (void)_resetStatistics:(id)statistics
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   statisticsCopy = statistics;
   os_unfair_lock_lock(&self->_lock);
   cachedSources = self->_cachedSources;
@@ -564,37 +555,35 @@ uint64_t __71__HKStatisticsCollection_enumerateStatisticsFromDate_toDate_withBlo
   self->_statisticsByIndex = dictionary;
 
   os_unfair_lock_unlock(&self->_lock);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = statisticsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(HKStatisticsCollection *)self _insertStatistics:*(*(&v14 + 1) + 8 * v12++), v14];
+        [(HKStatisticsCollection *)self _insertStatistics:*(*(&v13 + 1) + 8 * v12++), v13];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enumerateTimePeriodsFromDate:(id)date toDate:(id)toDate withBlock:(id)block
@@ -659,63 +648,60 @@ uint64_t __73__HKStatisticsCollection__enumerateTimePeriodsFromDate_toDate_withB
     objc_storeStrong(v5, v8);
     v11 = *(a1[4] + 56);
     ++*(*(a1[9] + 8) + 24);
-    v12 = *(*(a1[8] + 8) + 40);
-    v13 = [v11 hk_dateByAddingInterval:? toDate:?];
-    v14 = *(a1[7] + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
+    v12 = [v11 hk_dateByAddingInterval:? toDate:?];
+    v13 = *(a1[7] + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = v12;
   }
 
   else
   {
-    v16 = a1[4];
-    v20 = v8;
+    v15 = a1[4];
+    v17 = v8;
     obj = v4;
-    [v16 _timePeriodForStatisticsAtIndex:a2 startDate:&obj endDate:&v20];
+    [v15 _timePeriodForStatisticsAtIndex:a2 startDate:&obj endDate:&v17];
     objc_storeStrong(v5, obj);
-    objc_storeStrong(v9, v20);
+    objc_storeStrong(v9, v17);
     objc_storeStrong((*(a1[8] + 8) + 40), *(*(a1[6] + 8) + 40));
   }
 
-  v17 = *(*(a1[6] + 8) + 40);
-  v18 = *(*(a1[7] + 8) + 40);
   return (*(a1[5] + 16))();
 }
 
 - (void)enumeratePopulatedStatisticsWithBlock:(id)block
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   os_unfair_lock_lock(&self->_lock);
   v5 = [(NSMutableDictionary *)self->_statisticsByIndex copy];
   os_unfair_lock_unlock(&self->_lock);
-  v18 = 0;
+  v17 = 0;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allKeys = [v5 allKeys];
   v7 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [v5 objectForKeyedSubscript:*(*(&v14 + 1) + 8 * i)];
+        v12 = [v5 objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i)];
         if (v12)
         {
-          blockCopy[2](blockCopy, v12, &v18);
-          if (v18 == 1)
+          blockCopy[2](blockCopy, v12, &v17);
+          if (v17 == 1)
           {
 
             goto LABEL_12;
@@ -723,7 +709,7 @@ uint64_t __73__HKStatisticsCollection__enumerateTimePeriodsFromDate_toDate_withB
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
       if (v9)
       {
         continue;
@@ -734,13 +720,11 @@ uint64_t __73__HKStatisticsCollection__enumerateTimePeriodsFromDate_toDate_withB
   }
 
 LABEL_12:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_statisticsForLastIndex
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   v3 = [(NSMutableDictionary *)self->_statisticsByIndex copy];
   os_unfair_lock_unlock(&self->_lock);
@@ -748,33 +732,33 @@ LABEL_12:
   firstObject = [allKeys firstObject];
   integerValue = [firstObject integerValue];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v7 = allKeys;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         if ([v12 integerValue] > integerValue)
         {
           integerValue = [v12 integerValue];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
@@ -785,15 +769,13 @@ LABEL_12:
 
   if (!v14)
   {
+    v18 = 0;
     v19 = 0;
-    v20 = 0;
-    [(HKStatisticsCollection *)self _timePeriodForStatisticsAtIndex:integerValue startDate:&v20 endDate:&v19];
-    v15 = v20;
-    v16 = v19;
+    [(HKStatisticsCollection *)self _timePeriodForStatisticsAtIndex:integerValue startDate:&v19 endDate:&v18];
+    v15 = v19;
+    v16 = v18;
     v14 = (*(self->_emptyStatisticsConstructor + 2))();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -879,7 +861,7 @@ LABEL_12:
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(self, a2);
     v5 = HKLogQuery;
     if (os_log_type_enabled(HKLogQuery, OS_LOG_TYPE_ERROR))
     {

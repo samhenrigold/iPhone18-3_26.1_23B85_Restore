@@ -89,7 +89,7 @@
       while (v14 != 4);
       if (_shouldCutoutShadow)
       {
-        v23 = +[UIColor blackColor];
+        v23 = objc_msgSend_blackColor(UIColor);
         CGContextSetFillColorWithColor(v13, [v23 CGColor]);
 
         CGContextSetBlendMode(v13, kCGBlendModeClear);

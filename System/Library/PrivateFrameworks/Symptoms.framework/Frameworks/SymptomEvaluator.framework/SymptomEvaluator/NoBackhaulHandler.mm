@@ -402,45 +402,45 @@ void __25__NoBackhaulHandler_init__block_invoke_4(uint64_t a1, void *a2)
 
 void __44__NoBackhaulHandler__completeInitialization__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
   {
     value = xpc_int64_get_value(v5);
-    v12 = value;
-    v13 = *(a1 + 32);
+    v11 = value;
+    v12 = *(a1 + 32);
     if (value < 0)
     {
-      *(v13 + 224) = 10;
-      v15 = bbhLogHandle;
-      if (!os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_6;
-      }
-
-      v16 = 134218240;
-      v17 = v12;
-      v18 = 1024;
-      v19 = 10;
-      v7 = "got a negative backhaul blacklist period (%lld). Resetting to default value (%d)";
-      v8 = v15;
-      v9 = 18;
-    }
-
-    else
-    {
-      *(v13 + 224) = value;
+      *(v12 + 224) = 10;
       v14 = bbhLogHandle;
       if (!os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_6;
       }
 
-      v16 = 134217984;
-      v17 = v12;
-      v7 = "set to new backhaul blacklist period (%lld)";
+      v15 = 134218240;
+      v16 = v11;
+      v17 = 1024;
+      v18 = 10;
+      v7 = "got a negative backhaul blacklist period (%lld). Resetting to default value (%d)";
       v8 = v14;
+      v9 = 18;
+    }
+
+    else
+    {
+      *(v12 + 224) = value;
+      v13 = bbhLogHandle;
+      if (!os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_6;
+      }
+
+      v15 = 134217984;
+      v16 = v11;
+      v7 = "set to new backhaul blacklist period (%lld)";
+      v8 = v13;
       v9 = 12;
     }
 
@@ -451,23 +451,21 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke(uint64_t a1, 
   v6 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 67109120;
-    LODWORD(v17) = 10;
+    v15 = 67109120;
+    LODWORD(v16) = 10;
     v7 = "got a nil backhaul blacklist period. Setting to default value (%d)";
     v8 = v6;
     v9 = 8;
 LABEL_5:
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v16, v9);
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, v7, &v15, v9);
   }
 
 LABEL_6:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NoBackhaulHandler__completeInitialization__block_invoke_112(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86448])
@@ -477,11 +475,11 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_112(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(*(a1 + 32) + 372);
-      v12 = 67109376;
-      v13 = v10;
-      v14 = 1024;
-      v15 = value;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_verify_default_gateway behavior (was/is): %d/%d", &v12, 0xEu);
+      v11 = 67109376;
+      v12 = v10;
+      v13 = 1024;
+      v14 = value;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_verify_default_gateway behavior (was/is): %d/%d", &v11, 0xEu);
     }
 
     *(*(a1 + 32) + 372) = value;
@@ -494,18 +492,16 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_112(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(a1 + 32) + 372);
-      v12 = 67109120;
-      v13 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_verify_default_gateway to a default behavior: %d", &v12, 8u);
+      v11 = 67109120;
+      v12 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_verify_default_gateway to a default behavior: %d", &v11, 8u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NoBackhaulHandler__completeInitialization__block_invoke_114(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
@@ -515,11 +511,11 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_114(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(*(a1 + 32) + 280);
-      v12 = 134218240;
-      v13 = v10;
-      v14 = 2048;
-      v15 = value;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_ping_count (was/is): %ld/%lld", &v12, 0x16u);
+      v11 = 134218240;
+      v12 = v10;
+      v13 = 2048;
+      v14 = value;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_ping_count (was/is): %ld/%lld", &v11, 0x16u);
     }
 
     *(*(a1 + 32) + 280) = value;
@@ -532,18 +528,16 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_114(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(a1 + 32) + 280);
-      v12 = 134217984;
-      v13 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_ping_count to a default value: %ld", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_ping_count to a default value: %ld", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NoBackhaulHandler__completeInitialization__block_invoke_116(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
@@ -553,11 +547,11 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_116(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(*(a1 + 32) + 288);
-      v12 = 134218240;
-      v13 = v10;
-      v14 = 2048;
-      v15 = value;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_gateway_ping_success_count (was/is): %ld/%lld", &v12, 0x16u);
+      v11 = 134218240;
+      v12 = v10;
+      v13 = 2048;
+      v14 = value;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_gateway_ping_success_count (was/is): %ld/%lld", &v11, 0x16u);
     }
 
     *(*(a1 + 32) + 288) = value;
@@ -570,18 +564,16 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_116(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(a1 + 32) + 288);
-      v12 = 134217984;
-      v13 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_gateway_ping_success_count to a default value: %ld", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_gateway_ping_success_count to a default value: %ld", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NoBackhaulHandler__completeInitialization__block_invoke_118(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86470])
@@ -591,11 +583,11 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_118(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(*(a1 + 32) + 296);
-      v12 = 134218240;
-      v13 = v10;
-      v14 = 2048;
-      v15 = value;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_ping_interval (was/is): %.4f/%.4f", &v12, 0x16u);
+      v11 = 134218240;
+      v12 = v10;
+      v13 = 2048;
+      v14 = value;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_ping_interval (was/is): %.4f/%.4f", &v11, 0x16u);
     }
 
     *(*(a1 + 32) + 296) = value;
@@ -608,18 +600,16 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_118(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(a1 + 32) + 296);
-      v12 = 134217984;
-      v13 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_ping_interval to a default value: %.4f", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_ping_interval to a default value: %.4f", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NoBackhaulHandler__completeInitialization__block_invoke_120(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
@@ -629,11 +619,11 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_120(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(*(a1 + 32) + 304);
-      v12 = 134218240;
-      v13 = v10;
-      v14 = 2048;
-      v15 = value;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_ping_burst_count (was/is): %ld/%lld", &v12, 0x16u);
+      v11 = 134218240;
+      v12 = v10;
+      v13 = 2048;
+      v14 = value;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_ping_burst_count (was/is): %ld/%lld", &v11, 0x16u);
     }
 
     *(*(a1 + 32) + 304) = value;
@@ -646,18 +636,16 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_120(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(a1 + 32) + 304);
-      v12 = 134217984;
-      v13 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_ping_burst_count to a default value: %ld", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_ping_burst_count to a default value: %ld", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NoBackhaulHandler__completeInitialization__block_invoke_122(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86470])
@@ -667,11 +655,11 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_122(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(*(a1 + 32) + 312);
-      v12 = 134218240;
-      v13 = v10;
-      v14 = 2048;
-      v15 = value;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_ping_burst_interval (was/is): %.4f/%.4f", &v12, 0x16u);
+      v11 = 134218240;
+      v12 = v10;
+      v13 = 2048;
+      v14 = value;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_ping_burst_interval (was/is): %.4f/%.4f", &v11, 0x16u);
     }
 
     *(*(a1 + 32) + 312) = value;
@@ -684,18 +672,16 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_122(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(a1 + 32) + 312);
-      v12 = 134217984;
-      v13 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_ping_burst_interval to a default value: %.4f", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_ping_burst_interval to a default value: %.4f", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NoBackhaulHandler__completeInitialization__block_invoke_124(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86470])
@@ -705,11 +691,11 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_124(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(*(a1 + 32) + 320);
-      v12 = 134218240;
-      v13 = v10;
-      v14 = 2048;
-      v15 = value;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_ping_timeout (was/is): %.4f/%.4f", &v12, 0x16u);
+      v11 = 134218240;
+      v12 = v10;
+      v13 = 2048;
+      v14 = value;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_ping_timeout (was/is): %.4f/%.4f", &v11, 0x16u);
     }
 
     *(*(a1 + 32) + 320) = value;
@@ -722,18 +708,16 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_124(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(a1 + 32) + 320);
-      v12 = 134217984;
-      v13 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_ping_timeout to a default value: %.4f", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_ping_timeout to a default value: %.4f", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NoBackhaulHandler__completeInitialization__block_invoke_126(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86498])
@@ -743,11 +727,11 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_126(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(*(a1 + 32) + 328);
-      v12 = 134218240;
-      v13 = v10;
-      v14 = 2048;
-      v15 = value;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_ping_payload_size (was/is): %lu/%llu", &v12, 0x16u);
+      v11 = 134218240;
+      v12 = v10;
+      v13 = 2048;
+      v14 = value;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_ping_payload_size (was/is): %lu/%llu", &v11, 0x16u);
     }
 
     *(*(a1 + 32) + 328) = value;
@@ -760,18 +744,16 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_126(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(a1 + 32) + 328);
-      v12 = 134217984;
-      v13 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_ping_payload_size to a default value: %lu", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_ping_payload_size to a default value: %lu", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NoBackhaulHandler__completeInitialization__block_invoke_128(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86470])
@@ -781,11 +763,11 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_128(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(*(a1 + 32) + 336);
-      v12 = 134218240;
-      v13 = v10;
-      v14 = 2048;
-      v15 = value;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_tcp_probe_evaluation_window_idle (was/is): %.4f/%.4f", &v12, 0x16u);
+      v11 = 134218240;
+      v12 = v10;
+      v13 = 2048;
+      v14 = value;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_tcp_probe_evaluation_window_idle (was/is): %.4f/%.4f", &v11, 0x16u);
     }
 
     *(*(a1 + 32) + 336) = value;
@@ -798,18 +780,16 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_128(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(a1 + 32) + 336);
-      v12 = 134217984;
-      v13 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_tcp_probe_evaluation_window_idle to a default value: %.4f", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_tcp_probe_evaluation_window_idle to a default value: %.4f", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NoBackhaulHandler__completeInitialization__block_invoke_130(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86470])
@@ -819,11 +799,11 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_130(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(*(a1 + 32) + 344);
-      v12 = 134218240;
-      v13 = v10;
-      v14 = 2048;
-      v15 = value;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_tcp_probe_evaluation_window_active (was/is): %.4f/%.4f", &v12, 0x16u);
+      v11 = 134218240;
+      v12 = v10;
+      v13 = 2048;
+      v14 = value;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_tcp_probe_evaluation_window_active (was/is): %.4f/%.4f", &v11, 0x16u);
     }
 
     *(*(a1 + 32) + 344) = value;
@@ -836,18 +816,16 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_130(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(a1 + 32) + 344);
-      v12 = 134217984;
-      v13 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_tcp_probe_evaluation_window_active to a default value: %.4f", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "re-setting no_backhaul_tcp_probe_evaluation_window_active to a default value: %.4f", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NoBackhaulHandler__completeInitialization__block_invoke_132(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86470])
@@ -863,14 +841,14 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_132(uint64_t 
       }
 
       v15 = *(*(a1 + 32) + 352);
-      v18 = 134218752;
-      v19 = value;
-      v20 = 2048;
-      v21 = v15;
-      v22 = 2048;
-      v23 = 0;
-      v24 = 2048;
-      v25 = 0x3FF0000000000000;
+      v17 = 134218752;
+      v18 = value;
+      v19 = 2048;
+      v20 = v15;
+      v21 = 2048;
+      v22 = 0;
+      v23 = 2048;
+      v24 = 0x3FF0000000000000;
       v8 = "invalid value '%.2f', keeping current %.2f, allowed values for no_backhaul_problem_ratio_denominator_exponent are between (%.1f, %.1f]";
       v9 = v12;
       v10 = 42;
@@ -880,11 +858,11 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_132(uint64_t 
     if (v13)
     {
       v16 = *(*(a1 + 32) + 352);
-      v18 = 134218240;
-      v19 = v16;
-      v20 = 2048;
-      v21 = value;
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_problem_ratio_denominator_exponent (was/is): %.2f/%.2f", &v18, 0x16u);
+      v17 = 134218240;
+      v18 = v16;
+      v19 = 2048;
+      v20 = value;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "set to a new value for no_backhaul_problem_ratio_denominator_exponent (was/is): %.2f/%.2f", &v17, 0x16u);
     }
 
     *(*(a1 + 32) + 352) = value;
@@ -897,19 +875,17 @@ void __44__NoBackhaulHandler__completeInitialization__block_invoke_132(uint64_t 
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(*(a1 + 32) + 352);
-      v18 = 134217984;
-      v19 = v7;
+      v17 = 134217984;
+      v18 = v7;
       v8 = "re-setting no_backhaul_problem_ratio_denominator_exponent to a default value: %.4f";
       v9 = v6;
       v10 = 12;
 LABEL_5:
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, v8, &v18, v10);
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, v8, &v17, v10);
     }
   }
 
 LABEL_16:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_idempotentInitializationFromIdleWithCellRelay:(id)relay wifiRelay:(id)wifiRelay rnfRelay:(id)rnfRelay powerRelay:(id)powerRelay outrankRelay:(id)outrankRelay
@@ -943,7 +919,7 @@ LABEL_16:
 
 - (void)_idempotentInitializationFromIdle
 {
-  v83[1] = *MEMORY[0x277D85DE8];
+  v82[1] = *MEMORY[0x277D85DE8];
   self->_activationIdentifier = 0;
   if (self->_cellRelay && self->_wifiRelay && self->_rnfRelay && self->_powerRelay && self->_outrankRelay)
   {
@@ -972,148 +948,148 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    v82 = @"active";
-    v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == NO)"];
-    v83[0] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:&v82 count:1];
-    v80 = @"active";
-    v16 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == NO) OR (primary == NO) OR (rxSignalFullBars == NO) OR ((dnsOut == NO) AND (tcpProgressHintsScore <= 10))"];
-    v81 = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
-    val = [NoBackhaulHandlerState createStateWithLabel:@"idle" rank:0 entryCellPreds:v15 entryWiFiPreds:v17];
+    v81 = @"active";
+    v13 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == NO)"];
+    v82[0] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:&v81 count:1];
+    v79 = @"active";
+    v15 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == NO) OR (primary == NO) OR (rxSignalFullBars == NO) OR ((dnsOut == NO) AND (tcpProgressHintsScore <= 10))"];
+    v80 = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+    val = [NoBackhaulHandlerState createStateWithLabel:@"idle" rank:0 entryCellPreds:v14 entryWiFiPreds:v16];
 
     [val setNoPreconditions:0];
     objc_initWeak(buf, val);
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke;
-    v57[3] = &unk_27898BDA0;
-    objc_copyWeak(&v58, buf);
-    v57[4] = self;
-    [val setEntryAction:v57];
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_2;
-    v55[3] = &unk_27898BDA0;
-    objc_copyWeak(&v56, buf);
-    v55[4] = self;
-    [val setExitAction:v55];
-    v78[0] = @"idle";
-    v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == YES)"];
-    v78[1] = @"positive";
-    v79[0] = v18;
-    v19 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == NO)"];
-    v79[1] = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:2];
-    v76[0] = @"idle";
-    v21 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == YES) AND (primary == YES) AND (rxSignalFullBars == YES) AND ((dnsOut == YES) OR (tcpProgressHintsScore > 10))"];
-    v76[1] = @"positive";
-    v77[0] = v21;
-    v22 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == NO) OR (primary == NO)"];
-    v77[1] = v22;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:2];
-    v38 = [NoBackhaulHandlerState createStateWithLabel:@"active" rank:10 entryCellPreds:v20 entryWiFiPreds:v23];
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke;
+    v56[3] = &unk_27898BDA0;
+    objc_copyWeak(&v57, buf);
+    v56[4] = self;
+    [val setEntryAction:v56];
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_2;
+    v54[3] = &unk_27898BDA0;
+    objc_copyWeak(&v55, buf);
+    v54[4] = self;
+    [val setExitAction:v54];
+    v77[0] = @"idle";
+    v17 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == YES)"];
+    v77[1] = @"positive";
+    v78[0] = v17;
+    v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == NO)"];
+    v78[1] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:2];
+    v75[0] = @"idle";
+    v20 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == YES) AND (primary == YES) AND (rxSignalFullBars == YES) AND ((dnsOut == YES) OR (tcpProgressHintsScore > 10))"];
+    v75[1] = @"positive";
+    v76[0] = v20;
+    v21 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == NO) OR (primary == NO)"];
+    v76[1] = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:2];
+    v37 = [NoBackhaulHandlerState createStateWithLabel:@"active" rank:10 entryCellPreds:v19 entryWiFiPreds:v22];
 
-    [v38 setNoPreconditions:0];
-    objc_initWeak(&location, v38);
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_3;
-    v52[3] = &unk_27898BDA0;
-    objc_copyWeak(&v53, &location);
-    v52[4] = self;
-    [v38 setEntryAction:v52];
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_4;
-    v50[3] = &unk_27898BDA0;
-    objc_copyWeak(&v51, &location);
-    v50[4] = self;
-    [v38 setExitAction:v50];
-    v74[0] = @"active";
-    v24 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == YES)"];
-    v74[1] = @"broken";
-    v75[0] = v24;
-    v25 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == NO)"];
-    v75[1] = v25;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:2];
-    v72[0] = @"active";
-    v27 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == YES) AND (primary == YES) AND (rxSignalFullBars == YES) AND ((internetDnsOut == YES) OR (tcpProgressHintsScore > 50))"];
-    v73[0] = v27;
-    v72[1] = @"broken";
-    v28 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == NO)"];
-    v73[1] = v28;
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:2];
-    v30 = [NoBackhaulHandlerState createStateWithLabel:@"positive" rank:50 entryCellPreds:v26 entryWiFiPreds:v29];
+    [v37 setNoPreconditions:0];
+    objc_initWeak(&location, v37);
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_3;
+    v51[3] = &unk_27898BDA0;
+    objc_copyWeak(&v52, &location);
+    v51[4] = self;
+    [v37 setEntryAction:v51];
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_4;
+    v49[3] = &unk_27898BDA0;
+    objc_copyWeak(&v50, &location);
+    v49[4] = self;
+    [v37 setExitAction:v49];
+    v73[0] = @"active";
+    v23 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == YES)"];
+    v73[1] = @"broken";
+    v74[0] = v23;
+    v24 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == NO)"];
+    v74[1] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:2];
+    v71[0] = @"active";
+    v26 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == YES) AND (primary == YES) AND (rxSignalFullBars == YES) AND ((internetDnsOut == YES) OR (tcpProgressHintsScore > 50))"];
+    v72[0] = v26;
+    v71[1] = @"broken";
+    v27 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(active == NO)"];
+    v72[1] = v27;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
+    v29 = [NoBackhaulHandlerState createStateWithLabel:@"positive" rank:50 entryCellPreds:v25 entryWiFiPreds:v28];
 
-    [v30 setNoPreconditions:0];
-    objc_initWeak(&from, v30);
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_5;
-    v47[3] = &unk_27898BDA0;
-    objc_copyWeak(&v48, &from);
-    v47[4] = self;
-    [v30 setEntryAction:v47];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_6;
-    v45[3] = &unk_27898BDA0;
-    objc_copyWeak(&v46, &from);
-    v45[4] = self;
-    [v30 setExitAction:v45];
-    v70 = @"positive";
-    v31 = [MEMORY[0x277CCAC30] predicateWithFormat:@"FALSEPREDICATE"];
-    v71 = v31;
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
-    v68 = @"positive";
-    v33 = [MEMORY[0x277CCAC30] predicateWithFormat:@"FALSEPREDICATE"];
-    v69 = v33;
-    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
-    v35 = [NoBackhaulHandlerState createStateWithLabel:@"broken" rank:100 entryCellPreds:v32 entryWiFiPreds:v34];
+    [v29 setNoPreconditions:0];
+    objc_initWeak(&from, v29);
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_5;
+    v46[3] = &unk_27898BDA0;
+    objc_copyWeak(&v47, &from);
+    v46[4] = self;
+    [v29 setEntryAction:v46];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_6;
+    v44[3] = &unk_27898BDA0;
+    objc_copyWeak(&v45, &from);
+    v44[4] = self;
+    [v29 setExitAction:v44];
+    v69 = @"positive";
+    v30 = [MEMORY[0x277CCAC30] predicateWithFormat:@"FALSEPREDICATE"];
+    v70 = v30;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+    v67 = @"positive";
+    v32 = [MEMORY[0x277CCAC30] predicateWithFormat:@"FALSEPREDICATE"];
+    v68 = v32;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+    v34 = [NoBackhaulHandlerState createStateWithLabel:@"broken" rank:100 entryCellPreds:v31 entryWiFiPreds:v33];
 
-    [v35 setNoPreconditions:1];
-    objc_initWeak(&v44, v35);
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_7;
-    v42[3] = &unk_27898BDA0;
-    objc_copyWeak(&v43, &v44);
-    v42[4] = self;
-    [v35 setEntryAction:v42];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_8;
-    v40[3] = &unk_27898BDA0;
-    objc_copyWeak(&v41, &v44);
-    v40[4] = self;
-    [v35 setExitAction:v40];
-    v67[0] = val;
-    v67[1] = v38;
-    v67[2] = v30;
-    v67[3] = v35;
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:4];
+    [v34 setNoPreconditions:1];
+    objc_initWeak(&v43, v34);
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_7;
+    v41[3] = &unk_27898BDA0;
+    objc_copyWeak(&v42, &v43);
+    v41[4] = self;
+    [v34 setEntryAction:v41];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke_8;
+    v39[3] = &unk_27898BDA0;
+    objc_copyWeak(&v40, &v43);
+    v39[4] = self;
+    [v34 setExitAction:v39];
+    v66[0] = val;
+    v66[1] = v37;
+    v66[2] = v29;
+    v66[3] = v34;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:4];
     states = self->_states;
-    self->_states = v36;
+    self->_states = v35;
 
     [(NoBackhaulHandler *)self _bringStateToIdle];
-    objc_destroyWeak(&v41);
+    objc_destroyWeak(&v40);
+    objc_destroyWeak(&v42);
     objc_destroyWeak(&v43);
-    objc_destroyWeak(&v44);
 
-    objc_destroyWeak(&v46);
-    objc_destroyWeak(&v48);
+    objc_destroyWeak(&v45);
+    objc_destroyWeak(&v47);
     objc_destroyWeak(&from);
 
-    objc_destroyWeak(&v51);
-    objc_destroyWeak(&v53);
+    objc_destroyWeak(&v50);
+    objc_destroyWeak(&v52);
     objc_destroyWeak(&location);
 
-    objc_destroyWeak(&v56);
-    objc_destroyWeak(&v58);
+    objc_destroyWeak(&v55);
+    objc_destroyWeak(&v57);
     objc_destroyWeak(buf);
 
-    goto LABEL_11;
+    return;
   }
 
   v8 = bbhLogHandle;
@@ -1124,18 +1100,15 @@ LABEL_14:
     rnfRelay = self->_rnfRelay;
     powerRelay = self->_powerRelay;
     *buf = 134218752;
-    v60 = cellRelay;
-    v61 = 2048;
-    v62 = wifiRelay;
-    v63 = 2048;
-    v64 = rnfRelay;
-    v65 = 2048;
-    v66 = powerRelay;
+    v59 = cellRelay;
+    v60 = 2048;
+    v61 = wifiRelay;
+    v62 = 2048;
+    v63 = rnfRelay;
+    v64 = 2048;
+    v65 = powerRelay;
     _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "init failed, at least one of the relays missing (cell/wifi/rnf/power): %p,%p,%p,%p", buf, 0x2Au);
   }
-
-LABEL_11:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke(uint64_t a1)
@@ -1204,7 +1177,7 @@ uint64_t __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke
 
 - (BOOL)idleEntryAction:(id)action
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   v5 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -1214,9 +1187,9 @@ uint64_t __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke
     previousState = [actionCopy previousState];
     label2 = [previousState label];
     *buf = 138412546;
-    v28 = label;
-    v29 = 2112;
-    v30 = label2;
+    v27 = label;
+    v28 = 2112;
+    v29 = label2;
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\tentry action for: %@, coming from: %@", buf, 0x16u);
   }
 
@@ -1243,7 +1216,7 @@ uint64_t __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v28 = v14;
+      v27 = v14;
       _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_INFO, "Adding a TCPProgressProbe %@ to list of TCPProgressProbes", buf, 0xCu);
     }
 
@@ -1275,22 +1248,21 @@ uint64_t __54__NoBackhaulHandler__idempotentInitializationFromIdle__block_invoke
       v19 = v15;
       interfaceName2 = [(NetworkStateRelay *)wifiRelay interfaceName];
       *buf = 138412290;
-      v28 = interfaceName2;
+      v27 = interfaceName2;
       _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "\tno progress probe for: %@, retrying", buf, 0xCu);
     }
 
     v21 = dispatch_time(0, 10000000000);
     queue = [(ExpertSystemHandlerCore *)self queue];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __37__NoBackhaulHandler_idleEntryAction___block_invoke;
-    v25[3] = &unk_27898A7D0;
-    v25[4] = self;
-    v26 = actionCopy;
-    dispatch_after(v21, queue, v25);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __37__NoBackhaulHandler_idleEntryAction___block_invoke;
+    v24[3] = &unk_27898A7D0;
+    v24[4] = self;
+    v25 = actionCopy;
+    dispatch_after(v21, queue, v24);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1309,15 +1281,15 @@ void __37__NoBackhaulHandler_idleEntryAction___block_invoke(uint64_t a1)
 
 - (BOOL)idleExitAction:(id)action
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   if (!self->_history)
   {
     v16 = bbhLogHandle;
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v28) = 0;
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "\texit action denied, no history available", &v28, 2u);
+      LOWORD(v27) = 0;
+      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "\texit action denied, no history available", &v27, 2u);
     }
 
     goto LABEL_13;
@@ -1332,15 +1304,15 @@ void __37__NoBackhaulHandler_idleEntryAction___block_invoke(uint64_t a1)
       label = [actionCopy label];
       clearSSID = self->_clearSSID;
       obscuredSSID = self->_obscuredSSID;
-      v28 = 138412803;
-      v29 = label;
-      v30 = 2113;
-      v31 = clearSSID;
-      v32 = 2112;
-      v33 = obscuredSSID;
+      v27 = 138412803;
+      v28 = label;
+      v29 = 2113;
+      v30 = clearSSID;
+      v31 = 2112;
+      v32 = obscuredSSID;
       v15 = "\texit action denied for: %@, clear ssid: %{private}@, obscured ssid: %@";
 LABEL_10:
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, v15, &v28, 0x20u);
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, v15, &v27, 0x20u);
     }
 
 LABEL_13:
@@ -1351,40 +1323,40 @@ LABEL_13:
   if (![(NoBackhaulHandler *)self dampeningCheck])
   {
     apsdFailure = [(NetworkStateRelay *)self->_wifiRelay apsdFailure];
-    v20 = bbhLogHandle;
-    v21 = os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT);
+    v19 = bbhLogHandle;
+    v20 = os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT);
     if (apsdFailure)
     {
-      if (v21)
+      if (v20)
       {
-        v22 = v20;
+        v21 = v19;
         label2 = [actionCopy label];
-        v24 = self->_clearSSID;
-        v25 = self->_obscuredSSID;
-        v28 = 138412803;
-        v29 = label2;
-        v30 = 2113;
-        v31 = v24;
-        v32 = 2112;
-        v33 = v25;
-        _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_DEFAULT, "\texit action overrides dampening for: %@, clear ssid: %{private}@, obscured ssid: %@", &v28, 0x20u);
+        v23 = self->_clearSSID;
+        v24 = self->_obscuredSSID;
+        v27 = 138412803;
+        v28 = label2;
+        v29 = 2113;
+        v30 = v23;
+        v31 = 2112;
+        v32 = v24;
+        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "\texit action overrides dampening for: %@, clear ssid: %{private}@, obscured ssid: %@", &v27, 0x20u);
       }
 
       goto LABEL_5;
     }
 
-    if (v21)
+    if (v20)
     {
-      v11 = v20;
+      v11 = v19;
       label = [actionCopy label];
-      v26 = self->_clearSSID;
-      v27 = self->_obscuredSSID;
-      v28 = 138412803;
-      v29 = label;
-      v30 = 2113;
-      v31 = v26;
-      v32 = 2112;
-      v33 = v27;
+      v25 = self->_clearSSID;
+      v26 = self->_obscuredSSID;
+      v27 = 138412803;
+      v28 = label;
+      v29 = 2113;
+      v30 = v25;
+      v31 = 2112;
+      v32 = v26;
       v15 = "\texit action dampened out for: %@, clear ssid: %{private}@, obscured ssid: %@";
       goto LABEL_10;
     }
@@ -1400,11 +1372,11 @@ LABEL_5:
     v6 = v5;
     label3 = [actionCopy label];
     activationIdentifier = self->_activationIdentifier;
-    v28 = 138412546;
-    v29 = label3;
-    v30 = 1024;
-    LODWORD(v31) = activationIdentifier;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\texit action for: %@, activation ID: %d", &v28, 0x12u);
+    v27 = 138412546;
+    v28 = label3;
+    v29 = 1024;
+    LODWORD(v30) = activationIdentifier;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\texit action for: %@, activation ID: %d", &v27, 0x12u);
   }
 
   [(NSMutableArray *)self->_tcpProgressProbes enumerateObjectsUsingBlock:&__block_literal_global_20];
@@ -1413,13 +1385,12 @@ LABEL_5:
   [(NoBackhaulHandler *)self setNoBackhaulActivated:1];
 LABEL_14:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)activeEntryAction:(id)action
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   v5 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -1428,11 +1399,11 @@ LABEL_14:
     label = [actionCopy label];
     previousState = [actionCopy previousState];
     label2 = [previousState label];
-    v16 = 138412546;
-    v17 = label;
-    v18 = 2112;
-    v19 = label2;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\t\tentry action for: %@, coming from: %@", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = label;
+    v17 = 2112;
+    v18 = label2;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\t\tentry action for: %@, coming from: %@", &v15, 0x16u);
   }
 
   previousState2 = [(ExpertSystemStateCore *)self->_currentState previousState];
@@ -1452,22 +1423,21 @@ LABEL_14:
     [(NoBackhaulHandler *)self _startMaintenanceTimerFor:self->_tcpProgressProbes delay:0 interval:self->_activeProgressTimeout capWindowTo:-1];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)activeExitAction:(id)action
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   v5 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     label = [actionCopy label];
-    v16 = 138412290;
-    v17 = label;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\t\texit action for: %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = label;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\t\texit action for: %@", &v15, 0xCu);
   }
 
   metric = [actionCopy metric];
@@ -1488,13 +1458,12 @@ LABEL_14:
 
   [(NoBackhaulHandler *)self _stopMaintenanceTimer];
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)positiveEntryAction:(id)action
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   v5 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -1503,11 +1472,11 @@ LABEL_14:
     label = [actionCopy label];
     previousState = [actionCopy previousState];
     label2 = [previousState label];
-    v23 = 138412546;
-    v24 = label;
-    v25 = 2112;
-    v26 = label2;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\t\tentry action for: %@, coming from: %@", &v23, 0x16u);
+    v22 = 138412546;
+    v23 = label;
+    v24 = 2112;
+    v25 = label2;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\t\tentry action for: %@, coming from: %@", &v22, 0x16u);
   }
 
   previousState2 = [(ExpertSystemStateCore *)self->_currentState previousState];
@@ -1538,9 +1507,9 @@ LABEL_14:
         {
           v19 = v18;
           defaultGateways3 = [v14 defaultGateways];
-          v23 = 138477827;
-          v24 = defaultGateways3;
-          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "Wi-Fi gateways = %{private}@, posting upward immediately", &v23, 0xCu);
+          v22 = 138477827;
+          v23 = defaultGateways3;
+          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "Wi-Fi gateways = %{private}@, posting upward immediately", &v22, 0xCu);
         }
 
         [(NoBackhaulHandler *)self _postUpwards:1];
@@ -1555,13 +1524,12 @@ LABEL_14:
     [(NSMutableArray *)self->_tcpProgressProbes enumerateObjectsUsingBlock:&__block_literal_global_143];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)positiveExitAction:(id)action
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   v5 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -1569,7 +1537,7 @@ LABEL_14:
     v6 = v5;
     label = [actionCopy label];
     *buf = 138412290;
-    v31 = label;
+    v30 = label;
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\t\texit action for: %@", buf, 0xCu);
   }
 
@@ -1599,9 +1567,9 @@ LABEL_14:
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v31 = v10;
-      v32 = 1024;
-      v33 = 60;
+      v30 = v10;
+      v31 = 1024;
+      v32 = 60;
       _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "stayed in Positive for %llu seconds (> %d seconds).", buf, 0x12u);
     }
 
@@ -1616,18 +1584,17 @@ LABEL_14:
 
     v24 = *MEMORY[0x277D6B020];
     v25 = *MEMORY[0x277D6B228];
-    v29 = v23;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+    v28 = v23;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
     [(NoBackhaulHandler *)self reportAutoBugCaptureCaseWithDomain:v24 type:v25 subtype:@"SYMPTOM_NOBACKHAUL_EXCEEDED_POSITIVE_STAY" subtypeContext:0 events:v26];
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)brokenEntryAction:(id)action
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   self->_cellUsageAtBrokenEntry = [TrackedFlow cellUsageGrandTallyAfterAdding:0];
   v5 = bbhLogHandle;
@@ -1638,13 +1605,13 @@ LABEL_14:
     previousState = [actionCopy previousState];
     label2 = [previousState label];
     cellUsageAtBrokenEntry = self->_cellUsageAtBrokenEntry;
-    v24 = 138412802;
-    v25 = label;
-    v26 = 2112;
-    v27 = label2;
-    v28 = 2048;
-    v29 = cellUsageAtBrokenEntry;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\t\t\tentry action for: %@, coming from: %@, grand tally cellular usage is %llu", &v24, 0x20u);
+    v23 = 138412802;
+    v24 = label;
+    v25 = 2112;
+    v26 = label2;
+    v27 = 2048;
+    v28 = cellUsageAtBrokenEntry;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "\t\t\tentry action for: %@, coming from: %@, grand tally cellular usage is %llu", &v23, 0x20u);
   }
 
   previousState2 = [(ExpertSystemStateCore *)self->_currentState previousState];
@@ -1681,21 +1648,20 @@ LABEL_14:
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       clearSSID = self->_clearSSID;
-      v24 = 138477827;
-      v25 = clearSSID;
-      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "unexpectedly detected broken backhaul on : %{private}@", &v24, 0xCu);
+      v23 = 138477827;
+      v24 = clearSSID;
+      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "unexpectedly detected broken backhaul on : %{private}@", &v23, 0xCu);
     }
 
     [(NoBackhaulHandler *)self reportAutoBugCaptureCaseWithDomain:*MEMORY[0x277D6B020] type:*MEMORY[0x277D6B228] subtype:@"SYMPTOM_UNEXPECTEDLY_DETECTED_NOBACKHAUL" subtypeContext:0 events:0];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)brokenExitAction:(id)action
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   v5 = [TrackedFlow cellUsageGrandTallyAfterAdding:0];
   v6 = bbhLogHandle;
@@ -1703,11 +1669,11 @@ LABEL_14:
   {
     v7 = v6;
     label = [actionCopy label];
-    v28 = 138412546;
-    v29 = label;
-    v30 = 2048;
-    v31 = v5;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "\t\t\texit action for: %@, grand tally cellular usage is %llu", &v28, 0x16u);
+    v27 = 138412546;
+    v28 = label;
+    v29 = 2048;
+    v30 = v5;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "\t\t\texit action for: %@, grand tally cellular usage is %llu", &v27, 0x16u);
   }
 
   cellUsageAtBrokenEntry = self->_cellUsageAtBrokenEntry;
@@ -1719,11 +1685,11 @@ LABEL_14:
     {
       v16 = v15;
       label2 = [actionCopy label];
-      v28 = 138412546;
-      v29 = label2;
-      v30 = 2048;
-      v31 = v10;
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "Cellular usage in %@ is %llu", &v28, 0x16u);
+      v27 = 138412546;
+      v28 = label2;
+      v29 = 2048;
+      v30 = v10;
+      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "Cellular usage in %@ is %llu", &v27, 0x16u);
     }
   }
 
@@ -1735,13 +1701,13 @@ LABEL_14:
       v12 = self->_cellUsageAtBrokenEntry;
       v13 = v11;
       label3 = [actionCopy label];
-      v28 = 134218498;
-      v29 = v5;
-      v30 = 2048;
-      v31 = v12;
-      v32 = 2112;
-      v33 = label3;
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Cellular usage at exit (%llu) is less than at entry (%llu) to %@", &v28, 0x20u);
+      v27 = 134218498;
+      v28 = v5;
+      v29 = 2048;
+      v30 = v12;
+      v31 = 2112;
+      v32 = label3;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Cellular usage at exit (%llu) is less than at entry (%llu) to %@", &v27, 0x20u);
     }
 
     v10 = 0;
@@ -1774,7 +1740,6 @@ LABEL_14:
   v25 = +[NDFCoreShim sharedInstance];
   [v25 noteBackhaulIsBroken:0];
 
-  v26 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1938,16 +1903,16 @@ LABEL_14:
 
 void __42__NoBackhaulHandler__administrativeEnable__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [a2 userInfo];
   v4 = bbhLogHandle;
   if (v3)
   {
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "Received flow stuck notification from FlowScrutinizer (userInfo: %@)", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "Received flow stuck notification from FlowScrutinizer (userInfo: %@)", &v5, 0xCu);
     }
 
     [*(a1 + 32) handleFlowStuckNotification:v3];
@@ -1955,16 +1920,14 @@ void __42__NoBackhaulHandler__administrativeEnable__block_invoke(uint64_t a1, vo
 
   else if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v6) = 0;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "Ignoring nil payload for stuck flow notification", &v6, 2u);
+    LOWORD(v5) = 0;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "Ignoring nil payload for stuck flow notification", &v5, 2u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __42__NoBackhaulHandler__administrativeEnable__block_invoke_193(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [a2 userInfo];
   v4 = v3;
   if (v3)
@@ -2016,7 +1979,7 @@ LABEL_13:
       }
 
       *buf = 138412290;
-      v17 = v4;
+      v16 = v4;
       v10 = "kNotificationOfCompletedInitialization has no engine in userInfo payload %@";
       v11 = v9;
       v12 = 12;
@@ -2034,8 +1997,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42__NoBackhaulHandler__administrativeEnable__block_invoke_2(uint64_t a1)
@@ -2137,7 +2098,7 @@ uint64_t __43__NoBackhaulHandler__administrativeDisable__block_invoke(uint64_t a
 
 - (void)_bringStateToIdle
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [(NSArray *)self->_states objectAtIndexedSubscript:0];
   if (self->_currentState)
   {
@@ -2159,17 +2120,17 @@ uint64_t __43__NoBackhaulHandler__administrativeDisable__block_invoke(uint64_t a
         v10 = v8;
         label3 = [(ExpertSystemStateCore *)currentState label];
         *buf = 138412290;
-        v19 = label3;
+        v18 = label3;
         _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Idling from %@ state", buf, 0xCu);
       }
 
       states = self->_states;
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __38__NoBackhaulHandler__bringStateToIdle__block_invoke;
-      v17[3] = &unk_27898CF78;
-      v17[4] = self;
-      [(NSArray *)states enumerateObjectsWithOptions:2 usingBlock:v17];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __38__NoBackhaulHandler__bringStateToIdle__block_invoke;
+      v16[3] = &unk_27898CF78;
+      v16[4] = self;
+      [(NSArray *)states enumerateObjectsWithOptions:2 usingBlock:v16];
     }
   }
 
@@ -2184,8 +2145,6 @@ uint64_t __43__NoBackhaulHandler__administrativeDisable__block_invoke(uint64_t a
   }
 
   [(ExpertSystemStateCore *)self->_currentState setPreviousState:0];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __38__NoBackhaulHandler__bringStateToIdle__block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -2217,7 +2176,7 @@ void __38__NoBackhaulHandler__bringStateToIdle__block_invoke(uint64_t a1, void *
 
 - (BOOL)_nudgeState
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = self->_currentState;
   exitAction = [(ExpertSystemStateCore *)self->_currentState exitAction];
   v5 = exitAction[2]();
@@ -2260,15 +2219,15 @@ void __38__NoBackhaulHandler__bringStateToIdle__block_invoke(uint64_t a1, void *
       v16 = v15;
       label = [(ExpertSystemStateCore *)v3 label];
       label2 = [(ExpertSystemStateCore *)self->_currentState label];
-      v25 = 138412546;
-      v26 = label;
-      v27 = 2112;
-      v28 = label2;
+      v24 = 138412546;
+      v25 = label;
+      v26 = 2112;
+      v27 = label2;
       v19 = "forced state nudge, from: %@ to: %@";
       v20 = v16;
       v21 = OS_LOG_TYPE_DEFAULT;
 LABEL_9:
-      _os_log_impl(&dword_23255B000, v20, v21, v19, &v25, 0x16u);
+      _os_log_impl(&dword_23255B000, v20, v21, v19, &v24, 0x16u);
     }
   }
 
@@ -2280,10 +2239,10 @@ LABEL_9:
       v16 = v22;
       label = [(ExpertSystemStateCore *)v3 label];
       label2 = [(ExpertSystemStateCore *)self->_currentState label];
-      v25 = 138412546;
-      v26 = label;
-      v27 = 2112;
-      v28 = label2;
+      v24 = 138412546;
+      v25 = label;
+      v26 = 2112;
+      v27 = label2;
       v19 = "withheld state nudge, from: %@ to: %@";
       v20 = v16;
       v21 = OS_LOG_TYPE_ERROR;
@@ -2291,13 +2250,12 @@ LABEL_9:
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)_dumpState
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v3 = &bbhLogHandle;
   v4 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -2313,7 +2271,7 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    *v56 = v5;
+    *v55 = v5;
     _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Administrative state: %s", buf, 0xCu);
   }
 
@@ -2324,34 +2282,34 @@ LABEL_9:
     v8 = v6;
     label = [(ExpertSystemStateCore *)currentState label];
     *buf = 138412290;
-    *v56 = label;
+    *v55 = label;
     _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Current state: %@", buf, 0xCu);
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v10 = self->_states;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v51 objects:v69 count:16];
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v50 objects:v68 count:16];
   if (v11)
   {
     v13 = v11;
-    v14 = *v52;
+    v14 = *v51;
     *&v12 = 138412546;
-    v50 = v12;
+    v49 = v12;
     do
     {
       v15 = 0;
       do
       {
-        if (*v52 != v14)
+        if (*v51 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v51 + 1) + 8 * v15);
-        v17 = [(NSArray *)self->_states objectAtIndexedSubscript:0, v50, v51];
+        v16 = *(*(&v50 + 1) + 8 * v15);
+        v17 = [(NSArray *)self->_states objectAtIndexedSubscript:0, v49, v50];
 
         if (v16 != v17)
         {
@@ -2363,10 +2321,10 @@ LABEL_9:
             v21 = v20 = v3;
             sojournTime = [v16 sojournTime];
             [sojournTime total];
-            *buf = v50;
-            *v56 = v21;
-            *&v56[8] = 2048;
-            v57 = v23;
+            *buf = v49;
+            *v55 = v21;
+            *&v55[8] = 2048;
+            v56 = v23;
             _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "Cumulative time on state %@: %f", buf, 0x16u);
 
             v3 = v20;
@@ -2377,7 +2335,7 @@ LABEL_9:
       }
 
       while (v13 != v15);
-      v13 = [(NSArray *)v10 countByEnumeratingWithState:&v51 objects:v69 count:16];
+      v13 = [(NSArray *)v10 countByEnumeratingWithState:&v50 objects:v68 count:16];
     }
 
     while (v13);
@@ -2388,7 +2346,7 @@ LABEL_9:
   {
     clearSSID = self->_clearSSID;
     *buf = 138477827;
-    *v56 = clearSSID;
+    *v55 = clearSSID;
     _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "current SSID: %{private}@", buf, 0xCu);
   }
 
@@ -2397,7 +2355,7 @@ LABEL_9:
   {
     cellRelay = self->_cellRelay;
     *buf = 138412290;
-    *v56 = cellRelay;
+    *v55 = cellRelay;
     _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "Cell state: %@", buf, 0xCu);
   }
 
@@ -2406,7 +2364,7 @@ LABEL_9:
   {
     wifiRelay = self->_wifiRelay;
     *buf = 138412290;
-    *v56 = wifiRelay;
+    *v55 = wifiRelay;
     _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEFAULT, "WiFi state: %@", buf, 0xCu);
   }
 
@@ -2436,9 +2394,9 @@ LABEL_9:
     }
 
     *buf = 136315394;
-    *v56 = v32;
-    *&v56[8] = 2080;
-    v57 = v33;
+    *v55 = v32;
+    *&v55[8] = 2080;
+    v56 = v33;
     _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_DEFAULT, "System foreground: %s (orig: %s)", buf, 0x16u);
   }
 
@@ -2455,23 +2413,23 @@ LABEL_9:
     ignoreBaseband = self->_ignoreBaseband;
     verifyDefaultGateway = self->_verifyDefaultGateway;
     *buf = 67111168;
-    *v56 = observeApsdFailure;
-    *&v56[4] = 1024;
-    *&v56[6] = observeSiriTimeout;
-    LOWORD(v57) = 1024;
-    *(&v57 + 2) = pollFlowsPeriodically;
-    HIWORD(v57) = 1024;
-    v58 = observeWiFiRxSignalFullBars;
-    v59 = 1024;
-    v60 = observeWiFiRxSignalThresholded;
-    v61 = 1024;
-    v62 = observeForegroundActivity;
-    v63 = 1024;
-    v64 = observeDefaultRouteSignal;
-    v65 = 1024;
-    v66 = ignoreBaseband;
-    v67 = 1024;
-    v68 = verifyDefaultGateway;
+    *v55 = observeApsdFailure;
+    *&v55[4] = 1024;
+    *&v55[6] = observeSiriTimeout;
+    LOWORD(v56) = 1024;
+    *(&v56 + 2) = pollFlowsPeriodically;
+    HIWORD(v56) = 1024;
+    v57 = observeWiFiRxSignalFullBars;
+    v58 = 1024;
+    v59 = observeWiFiRxSignalThresholded;
+    v60 = 1024;
+    v61 = observeForegroundActivity;
+    v62 = 1024;
+    v63 = observeDefaultRouteSignal;
+    v64 = 1024;
+    v65 = ignoreBaseband;
+    v66 = 1024;
+    v67 = verifyDefaultGateway;
     _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEFAULT, "Policy - ApsdFailure:%{BOOL}d SiriTimeout:%{BOOL}d PeriodicFlowsPolling:%{BOOL}d WiFiRxSignalFullBars:%{BOOL}d WiFiRxSignalThresholded:%{BOOL}d ForegroundActivity:%{BOOL}d DefaultRouteSignal:%{BOOL}d IgnoreBaseband:%{BOOL}d VerifyDefaultGateway:%{BOOL}d", buf, 0x38u);
   }
 
@@ -2480,7 +2438,7 @@ LABEL_9:
   {
     history = self->_history;
     *buf = 138412290;
-    *v56 = history;
+    *v55 = history;
     _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_DEFAULT, "History: %@", buf, 0xCu);
   }
 
@@ -2490,30 +2448,26 @@ LABEL_9:
     v47 = v46;
     stepper = [(NoBackhaulHandler *)self stepper];
     *buf = 134217984;
-    *v56 = stepper;
+    *v55 = stepper;
     _os_log_impl(&dword_23255B000, v47, OS_LOG_TYPE_DEFAULT, "External stepper count: %lu", buf, 0xCu);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __31__NoBackhaulHandler__dumpState__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v5 = 0;
-  [v2 manage:2 outValue:&v5];
+  v4 = 0;
+  [v2 manage:2 outValue:&v4];
   v3 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v7 = v5;
-    v8 = 2112;
-    v9 = v2;
+    v6 = v4;
+    v7 = 2112;
+    v8 = v2;
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Kernel probing state: %d (%@)", buf, 0x12u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startMaintenanceTimerFor:(id)for delay:(unint64_t)delay interval:(unint64_t)interval capWindowTo:(unint64_t)to
@@ -2588,16 +2542,16 @@ uint64_t __74__NoBackhaulHandler__startMaintenanceTimerFor_delay_interval_capWin
 
 - (void)_captureProgressFor:(id)for since:(id)since interval:(unint64_t)interval capWindowTo:(unint64_t)to iteration:(unint64_t)iteration renewTest:(id)test
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   forCopy = for;
   sinceCopy = since;
   testCopy = test;
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   [sinceCopy timeIntervalSinceNow];
   v18 = -v17;
   if (v18 >= to)
@@ -2612,14 +2566,14 @@ uint64_t __74__NoBackhaulHandler__startMaintenanceTimerFor_delay_interval_capWin
 
   if (!forCopy)
   {
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __88__NoBackhaulHandler__captureProgressFor_since_interval_capWindowTo_iteration_renewTest___block_invoke_233;
-    v38[3] = &unk_27898CFF0;
-    *&v38[6] = toCopy;
-    v38[4] = self;
-    v38[5] = iteration;
-    [NetworkAnalyticsEngine performNetAttachmentQueryOn:3 reply:v38];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __88__NoBackhaulHandler__captureProgressFor_since_interval_capWindowTo_iteration_renewTest___block_invoke_233;
+    v37[3] = &unk_27898CFF0;
+    *&v37[6] = toCopy;
+    v37[4] = self;
+    v37[5] = iteration;
+    [NetworkAnalyticsEngine performNetAttachmentQueryOn:3 reply:v37];
     if (!testCopy)
     {
       goto LABEL_19;
@@ -2629,57 +2583,57 @@ uint64_t __74__NoBackhaulHandler__startMaintenanceTimerFor_delay_interval_capWin
   }
 
   intervalCopy = interval;
-  v30 = testCopy;
+  v29 = testCopy;
   if ([forCopy count] >= 2)
   {
     [NoBackhaulHandler _captureProgressFor:forCopy since:? interval:? capWindowTo:? iteration:? renewTest:?];
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v20 = forCopy;
-  v21 = [v20 countByEnumeratingWithState:&v40 objects:v50 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v39 objects:v49 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v41;
+    v23 = *v40;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v41 != v23)
+        if (*v40 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v40 + 1) + 8 * i);
+        v25 = *(*(&v39 + 1) + 8 * i);
+        v43 = 0u;
         v44 = 0u;
         v45 = 0u;
         v46 = 0u;
         v47 = 0u;
         v48 = 0u;
-        v49 = 0u;
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __88__NoBackhaulHandler__captureProgressFor_since_interval_capWindowTo_iteration_renewTest___block_invoke;
-        v39[3] = &unk_27898CFC8;
-        *&v39[6] = toCopy;
-        v39[4] = self;
-        v39[5] = iteration;
-        [v25 fetchMetricsForFlowsAged:&v44 metrics:0 includeQUICFlows:v39 resultBlock:toCopy];
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __88__NoBackhaulHandler__captureProgressFor_since_interval_capWindowTo_iteration_renewTest___block_invoke;
+        v38[3] = &unk_27898CFC8;
+        *&v38[6] = toCopy;
+        v38[4] = self;
+        v38[5] = iteration;
+        [v25 fetchMetricsForFlowsAged:&v43 metrics:0 includeQUICFlows:v38 resultBlock:toCopy];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v40 objects:v50 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v39 objects:v49 count:16];
     }
 
     while (v22);
   }
 
-  testCopy = v30;
+  testCopy = v29;
   interval = intervalCopy;
-  if (v30)
+  if (v29)
   {
 LABEL_17:
     if (testCopy[2](testCopy))
@@ -2692,23 +2646,21 @@ LABEL_17:
       block[3] = &unk_27898D018;
       iterationCopy = iteration;
       block[4] = self;
-      v32 = forCopy;
-      v33 = sinceCopy;
+      v31 = forCopy;
+      v32 = sinceCopy;
       intervalCopy2 = interval;
       toCopy2 = to;
-      v34 = testCopy;
+      v33 = testCopy;
       dispatch_after(v26, queue, block);
     }
   }
 
 LABEL_19:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __88__NoBackhaulHandler__captureProgressFor_since_interval_capWindowTo_iteration_renewTest___block_invoke(uint64_t a1, int a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = bbhLogHandle;
   if (a2)
   {
@@ -2718,13 +2670,13 @@ void __88__NoBackhaulHandler__captureProgressFor_since_interval_capWindowTo_iter
       v7 = *(a1 + 48);
       v8 = v3;
       v9 = [TCPProgressProbe progressPrettyPrintUtility:a3];
-      v12 = 134218498;
-      v13 = v6;
-      v14 = 2048;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "TCP metrics iteration:%lu since %.2f secs: %@", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = v6;
+      v13 = 2048;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "TCP metrics iteration:%lu since %.2f secs: %@", &v11, 0x20u);
     }
 
     if (*(a1 + 40))
@@ -2742,27 +2694,25 @@ void __88__NoBackhaulHandler__captureProgressFor_since_interval_capWindowTo_iter
 
   else if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "Failed to fetch TCP metrics for flows", &v12, 2u);
+    LOWORD(v11) = 0;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "Failed to fetch TCP metrics for flows", &v11, 2u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __88__NoBackhaulHandler__captureProgressFor_since_interval_capWindowTo_iteration_renewTest___block_invoke_233(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[5];
     v6 = a1[6];
-    v18 = 134218240;
-    v19 = v5;
-    v20 = 2048;
-    v21 = v6;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Default route metrics iteration:%lu since %.2f secs", &v18, 0x16u);
+    v17 = 134218240;
+    v18 = v5;
+    v19 = 2048;
+    v20 = v6;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Default route metrics iteration:%lu since %.2f secs", &v17, 0x16u);
   }
 
   v7 = [v3 firstObject];
@@ -2780,11 +2730,11 @@ void __88__NoBackhaulHandler__captureProgressFor_since_interval_capWindowTo_iter
         if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           v13 = *(a1[4] + 232);
-          v18 = 134218240;
-          v19 = v13;
-          v20 = 2048;
-          v21 = v11;
-          _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Default route inbound packets counters, was: %llu, is: %llu", &v18, 0x16u);
+          v17 = 134218240;
+          v18 = v13;
+          v19 = 2048;
+          v20 = v11;
+          _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Default route inbound packets counters, was: %llu, is: %llu", &v17, 0x16u);
         }
 
         v14 = a1[4];
@@ -2805,8 +2755,8 @@ void __88__NoBackhaulHandler__captureProgressFor_since_interval_capWindowTo_iter
       v15 = bbhLogHandle;
       if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Default route w/o inbound packets count", &v18, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Default route w/o inbound packets count", &v17, 2u);
       }
     }
   }
@@ -2816,12 +2766,10 @@ void __88__NoBackhaulHandler__captureProgressFor_since_interval_capWindowTo_iter
     v16 = bbhLogHandle;
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Default route w/o metrics dict", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Default route w/o metrics dict", &v17, 2u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchDampeningHistory
@@ -2839,7 +2787,7 @@ void __88__NoBackhaulHandler__captureProgressFor_since_interval_capWindowTo_iter
 
 void __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D6B500];
   v3 = +[SystemSettingsRelay defaultRelay];
   v4 = [v3 symptomEvaluatorDatabaseContainerPath];
@@ -2861,9 +2809,9 @@ void __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke(uint64_t a1)
     *(v13 + 152) = v12;
 
     v15 = *(*(a1 + 32) + 152);
-    v29 = 0;
-    v16 = [v15 exportAndUnarchiveItemUnderName:@"NO_BACKHAUL_HISTORY" lastUpdated:&v29 verificationBlock:&__block_literal_global_243];
-    v17 = v29;
+    v28 = 0;
+    v16 = [v15 exportAndUnarchiveItemUnderName:@"NO_BACKHAUL_HISTORY" lastUpdated:&v28 verificationBlock:&__block_literal_global_243];
+    v17 = v28;
     v18 = *(a1 + 32);
     v19 = *(v18 + 120);
     *(v18 + 120) = v16;
@@ -2877,7 +2825,7 @@ void __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke(uint64_t a1)
       {
         v23 = *(*(a1 + 32) + 120);
         *buf = 138412290;
-        v31 = v23;
+        v30 = v23;
         _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_INFO, "Retrieved persisted history: %@", buf, 0xCu);
       }
     }
@@ -2906,13 +2854,11 @@ void __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke(uint64_t a1)
       _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_ERROR, "Unable to provide persistence, fatal initialization failure", buf, 2u);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke_2(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -2925,28 +2871,28 @@ uint64_t __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke_2(uint64_t
       if (objc_opt_isKindOfClass())
       {
         v5 = v4;
-        *&v25 = 0;
-        *(&v25 + 1) = &v25;
-        v26 = 0x2020000000;
-        v27 = 0;
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke_244;
-        v18[3] = &unk_27898B070;
-        v18[4] = &v25;
-        v6 = [v5 indexOfObjectPassingTest:v18];
-        if (v6 == 0x7FFFFFFFFFFFFFFFLL || *(*(&v25 + 1) + 24) == 1)
+        *&v24 = 0;
+        *(&v24 + 1) = &v24;
+        v25 = 0x2020000000;
+        v26 = 0;
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke_244;
+        v17[3] = &unk_27898B070;
+        v17[4] = &v24;
+        v6 = [v5 indexOfObjectPassingTest:v17];
+        if (v6 == 0x7FFFFFFFFFFFFFFFLL || *(*(&v24 + 1) + 24) == 1)
         {
           v7 = bbhLogHandle;
           if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_INFO))
           {
-            v8 = *(*(&v25 + 1) + 24);
+            v8 = *(*(&v24 + 1) + 24);
             *buf = 67109634;
-            v20 = v6 == 0x7FFFFFFFFFFFFFFFLL;
-            v21 = 1024;
-            v22 = v8;
-            v23 = 2112;
-            v24 = v3;
+            v19 = v6 == 0x7FFFFFFFFFFFFFFFLL;
+            v20 = 1024;
+            v21 = v8;
+            v22 = 2112;
+            v23 = v3;
             _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_INFO, "Got persisted history but it's old/corrupted: %d/%d, zapping it %@", buf, 0x18u);
           }
 
@@ -2958,7 +2904,7 @@ uint64_t __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke_2(uint64_t
           v9 = 1;
         }
 
-        _Block_object_dispose(&v25, 8);
+        _Block_object_dispose(&v24, 8);
       }
 
       else
@@ -2966,8 +2912,8 @@ uint64_t __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke_2(uint64_t
         v15 = bbhLogHandle;
         if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v25) = 0;
-          _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Cannot get keys from dict?!, removed", &v25, 2u);
+          LOWORD(v24) = 0;
+          _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Cannot get keys from dict?!, removed", &v24, 2u);
         }
 
         v9 = 0;
@@ -2979,8 +2925,8 @@ uint64_t __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke_2(uint64_t
       v14 = bbhLogHandle;
       if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v25) = 0;
-        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Empty persistent state?!, removed", &v25, 2u);
+        LOWORD(v24) = 0;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Empty persistent state?!, removed", &v24, 2u);
       }
 
       v9 = 0;
@@ -2995,15 +2941,14 @@ uint64_t __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke_2(uint64_t
       v11 = v10;
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
-      LODWORD(v25) = 138412290;
-      *(&v25 + 4) = v13;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Corrupted persistent state??, removed (%@)", &v25, 0xCu);
+      LODWORD(v24) = 138412290;
+      *(&v24 + 4) = v13;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Corrupted persistent state??, removed (%@)", &v24, 0xCu);
     }
 
     v9 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -3025,18 +2970,18 @@ BOOL __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke_244(uint64_t a
 
 - (void)_updateSSID:(id)d
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [dCopy objectForKeyedSubscript:@"State"];
   bOOLValue = [v5 BOOLValue];
 
   if (bOOLValue)
   {
-    v25 = 0;
+    v24 = 0;
     v7 = [dCopy objectForKeyedSubscript:@"Detail"];
+    v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    memset(v28, 0, sizeof(v28));
+    memset(v27, 0, sizeof(v27));
     uTF8String = [v7 UTF8String];
     if (!uTF8String)
     {
@@ -3047,7 +2992,7 @@ BOOL __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke_244(uint64_t a
     while (1)
     {
       v10 = *(uTF8String + v9);
-      v28[v9] = v10;
+      v27[v9] = v10;
       if (!v10)
       {
         break;
@@ -3055,15 +3000,15 @@ BOOL __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke_244(uint64_t a
 
       if (++v9 == 63)
       {
-        HIBYTE(v30) = 0;
+        HIBYTE(v29) = 0;
         break;
       }
     }
 
-    if ([NetworkEpoch parsePrimaryKeyStr:v28 majorIDLengthInBytes:&v25 + 4 minorIDLengthInBytes:&v25]&& SHIDWORD(v25) <= 63)
+    if ([NetworkEpoch parsePrimaryKeyStr:v27 majorIDLengthInBytes:&v24 + 4 minorIDLengthInBytes:&v24]&& SHIDWORD(v24) <= 63)
     {
-      v28[SHIDWORD(v25)] = 0;
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v28];
+      v27[SHIDWORD(v24)] = 0;
+      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v27];
     }
 
     else
@@ -3072,7 +3017,7 @@ BOOL __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke_244(uint64_t a
       if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138477827;
-        v27 = v7;
+        v26 = v7;
         _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "WiFi epoch, failed to parse: %{private}@", buf, 0xCu);
       }
 
@@ -3103,28 +3048,26 @@ BOOL __43__NoBackhaulHandler__fetchDampeningHistory__block_invoke_244(uint64_t a
   v17 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    *v28 = 67109635;
-    *&v28[4] = bOOLValue;
-    *&v28[8] = 2113;
-    *&v28[10] = v11;
-    *&v28[18] = 2112;
-    *&v28[20] = v12;
-    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "WiFi epoch, state: %d, clear SSID: %{private}@, obscured SSID: %@)", v28, 0x1Cu);
+    *v27 = 67109635;
+    *&v27[4] = bOOLValue;
+    *&v27[8] = 2113;
+    *&v27[10] = v11;
+    *&v27[18] = 2112;
+    *&v27[20] = v12;
+    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "WiFi epoch, state: %d, clear SSID: %{private}@, obscured SSID: %@)", v27, 0x1Cu);
   }
 
   queue = [(ExpertSystemHandlerCore *)self queue];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __33__NoBackhaulHandler__updateSSID___block_invoke;
-  v22[3] = &unk_27898A328;
-  v22[4] = self;
-  v23 = v11;
-  v24 = v12;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __33__NoBackhaulHandler__updateSSID___block_invoke;
+  v21[3] = &unk_27898A328;
+  v21[4] = self;
+  v22 = v11;
+  v23 = v12;
   v19 = v12;
   v20 = v11;
-  dispatch_async(queue, v22);
-
-  v21 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v21);
 }
 
 void __33__NoBackhaulHandler__updateSSID___block_invoke(uint64_t a1)
@@ -3170,7 +3113,7 @@ void __33__NoBackhaulHandler__updateSSID___block_invoke(uint64_t a1)
 
 - (void)dampeningSetPrecedent
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableDictionary *)self->_multiplier objectForKeyedSubscript:self->_obscuredSSID];
   integerValue = [v3 integerValue];
 
@@ -3196,15 +3139,15 @@ void __33__NoBackhaulHandler__updateSSID___block_invoke(uint64_t a1)
   {
     clearSSID = self->_clearSSID;
     obscuredSSID = self->_obscuredSSID;
-    v15 = 138478595;
-    v16 = clearSSID;
-    v17 = 2112;
-    v18 = obscuredSSID;
-    v19 = 2048;
-    v20 = v5;
-    v21 = 2112;
-    v22 = v7;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Updating persist history for %{private}@, obscured SSID: %@, multiplier: %lu, good again at: %@", &v15, 0x2Au);
+    v14 = 138478595;
+    v15 = clearSSID;
+    v16 = 2112;
+    v17 = obscuredSSID;
+    v18 = 2048;
+    v19 = v5;
+    v20 = 2112;
+    v21 = v7;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Updating persist history for %{private}@, obscured SSID: %@, multiplier: %lu, good again at: %@", &v14, 0x2Au);
   }
 
   if (![(ImpoExpoService *)self->_ieService archiveAndImportItemUnderName:@"NO_BACKHAUL_HISTORY" item:self->_history])
@@ -3213,18 +3156,16 @@ void __33__NoBackhaulHandler__updateSSID___block_invoke(uint64_t a1)
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
     {
       history = self->_history;
-      v15 = 138412290;
-      v16 = history;
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Failed to persist history: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = history;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_ERROR, "Failed to persist history: %@", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dampeningReset
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [(NSMutableDictionary *)self->_history removeObjectForKey:self->_obscuredSSID];
   [(NSMutableDictionary *)self->_multiplier removeObjectForKey:self->_obscuredSSID];
   v3 = bbhLogHandle;
@@ -3232,11 +3173,11 @@ void __33__NoBackhaulHandler__updateSSID___block_invoke(uint64_t a1)
   {
     clearSSID = self->_clearSSID;
     obscuredSSID = self->_obscuredSSID;
-    v9 = 138478083;
-    v10 = clearSSID;
-    v11 = 2112;
-    v12 = obscuredSSID;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Nuking persist history for %{private}@, obscured SSID: %@", &v9, 0x16u);
+    v8 = 138478083;
+    v9 = clearSSID;
+    v10 = 2112;
+    v11 = obscuredSSID;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Nuking persist history for %{private}@, obscured SSID: %@", &v8, 0x16u);
   }
 
   if (![(ImpoExpoService *)self->_ieService archiveAndImportItemUnderName:@"NO_BACKHAUL_HISTORY" item:self->_history])
@@ -3245,13 +3186,11 @@ void __33__NoBackhaulHandler__updateSSID___block_invoke(uint64_t a1)
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
     {
       history = self->_history;
-      v9 = 138412290;
-      v10 = history;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Failed to nuke history: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = history;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Failed to nuke history: %@", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performConnectivityTestToDefaultGateways:(id)gateways
@@ -3280,7 +3219,7 @@ void __33__NoBackhaulHandler__updateSSID___block_invoke(uint64_t a1)
 
 void __63__NoBackhaulHandler__performConnectivityTestToDefaultGateways___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [ICMPPingProbe alloc];
   v5 = [*(a1 + 32) queue];
@@ -3299,19 +3238,17 @@ void __63__NoBackhaulHandler__performConnectivityTestToDefaultGateways___block_i
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138477827;
-    v15 = v3;
+    v14 = v3;
     _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "About to start the ICMP Ping to %{private}@", buf, 0xCu);
   }
 
   v12 = [NetworkStateRelay getStateRelayFor:3];
   -[ICMPPingProbe startICMPPingTestTo:hostName:interface:pingCount:interPingInterval:burstCount:interBurstInterval:timeout:stopTestOnFirstSuccess:](v6, "startICMPPingTestTo:hostName:interface:pingCount:interPingInterval:burstCount:interBurstInterval:timeout:stopTestOnFirstSuccess:", v3, 0, [v12 interfaceIndex], *(*(a1 + 32) + 280), *(*(a1 + 32) + 304), 0, *(*(a1 + 32) + 296), *(*(a1 + 32) + 312), *(*(a1 + 32) + 320));
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postUpwards:(unint64_t)upwards
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -3326,7 +3263,6 @@ void __63__NoBackhaulHandler__performConnectivityTestToDefaultGateways___block_i
   block[3] = &__block_descriptor_40_e5_v8__0l;
   block[4] = upwards;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __34__NoBackhaulHandler__postUpwards___block_invoke(uint64_t a1)
@@ -3365,7 +3301,7 @@ void __34__NoBackhaulHandler__postUpwards___block_invoke(uint64_t a1)
 - (void)apsdFailing:(BOOL)failing onInterface:(int64_t)interface
 {
   failingCopy = failing;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -3383,11 +3319,11 @@ void __34__NoBackhaulHandler__postUpwards___block_invoke(uint64_t a1)
     v10 = [InterfaceUtils stringForInterfaceType:interface];
     label = [(ExpertSystemStateCore *)self->_currentState label];
     *buf = 136315650;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v10;
-    v20 = 2112;
-    v21 = label;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v10;
+    v19 = 2112;
+    v20 = label;
     _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "received symptom that apsd is%s failing on %@ in state: %@", buf, 0x20u);
   }
 
@@ -3398,10 +3334,8 @@ void __34__NoBackhaulHandler__postUpwards___block_invoke(uint64_t a1)
   block[3] = &unk_27898A6B8;
   block[4] = self;
   block[5] = interface;
-  v15 = failingCopy;
+  v14 = failingCopy;
   dispatch_async(queue, block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __45__NoBackhaulHandler_apsdFailing_onInterface___block_invoke(uint64_t a1)
@@ -3475,7 +3409,7 @@ void __45__NoBackhaulHandler_apsdFailing_onInterface___block_invoke(uint64_t a1)
 
 - (void)handleFlowStuckNotification:(id)notification
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = [notificationCopy objectForKeyedSubscript:@"kNotificationFlowScrutinizerAttributedEntity"];
   v6 = [notificationCopy objectForKeyedSubscript:@"kNotificationFlowScrutinizerFlowDuration"];
@@ -3489,33 +3423,33 @@ void __45__NoBackhaulHandler_apsdFailing_onInterface___block_invoke(uint64_t a1)
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_INFO))
   {
     v12 = "non ";
-    *v17 = 136315650;
+    *v16 = 136315650;
     if (bOOLValue)
     {
       v12 = "";
     }
 
-    *&v17[4] = v12;
-    v18 = 2112;
-    v19 = v5;
-    v20 = 2048;
-    v21 = v8;
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_INFO, "received notification that a %sWi-Fi flow for %@ is stuck in pre-establishment state for %.2fs", v17, 0x20u);
+    *&v16[4] = v12;
+    v17 = 2112;
+    v18 = v5;
+    v19 = 2048;
+    v20 = v8;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_INFO, "received notification that a %sWi-Fi flow for %@ is stuck in pre-establishment state for %.2fs", v16, 0x20u);
   }
 
-  if (([(NSSet *)self->_highAvailabilityServicesOfInterest containsObject:v5, *v17]& bOOLValue) == 1)
+  if (([(NSSet *)self->_highAvailabilityServicesOfInterest containsObject:v5, *v16]& bOOLValue) == 1)
   {
     v13 = bbhLogHandle;
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       highAvailabilityServicesOfInterest = self->_highAvailabilityServicesOfInterest;
-      *v17 = 138412802;
-      *&v17[4] = v5;
-      v18 = 2048;
-      v19 = v8;
-      v20 = 2112;
-      v21 = highAvailabilityServicesOfInterest;
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "found flow for %@ stuck in pre-establishment state for %.2fs [servicesOfInterest=%@]", v17, 0x20u);
+      *v16 = 138412802;
+      *&v16[4] = v5;
+      v17 = 2048;
+      v18 = v8;
+      v19 = 2112;
+      v20 = highAvailabilityServicesOfInterest;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "found flow for %@ stuck in pre-establishment state for %.2fs [servicesOfInterest=%@]", v16, 0x20u);
     }
 
     v15 = self->_wifiRelay;
@@ -3523,8 +3457,6 @@ void __45__NoBackhaulHandler_apsdFailing_onInterface___block_invoke(uint64_t a1)
     [(NetworkStateRelay *)self->_wifiRelay setAppleServicesConnectionFriction:1];
     objc_sync_exit(v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startPollingKernelForFlowStatistics
@@ -3586,7 +3518,7 @@ LABEL_12:
   }
 }
 
-uint64_t __56__NoBackhaulHandler_startPollingKernelForFlowStatistics__block_invoke(uint64_t a1)
+void *__56__NoBackhaulHandler_startPollingKernelForFlowStatistics__block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 168) addDelegate:?];
   result = [*(*(a1 + 32) + 168) periodicRefreshDataUsageWithInterval:@"BBH" maxStale:2.0 maxDelay:1.5 logAs:0.0];
@@ -3597,7 +3529,7 @@ uint64_t __56__NoBackhaulHandler_startPollingKernelForFlowStatistics__block_invo
 - (void)clientFeedback:(BOOL)feedback
 {
   feedbackCopy = feedback;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
   {
@@ -3615,22 +3547,20 @@ uint64_t __56__NoBackhaulHandler_startPollingKernelForFlowStatistics__block_invo
     v8 = v5;
     label = [(ExpertSystemStateCore *)currentState label];
     *buf = 136315394;
-    v15 = v6;
-    v16 = 2112;
-    v17 = label;
+    v14 = v6;
+    v15 = 2112;
+    v16 = label;
     _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "received client feedback that it is%s broken in state: %@", buf, 0x16u);
   }
 
   queue = [(ExpertSystemHandlerCore *)self queue];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __36__NoBackhaulHandler_clientFeedback___block_invoke;
-  v12[3] = &unk_27898A3A0;
-  v13 = feedbackCopy;
-  v12[4] = self;
-  dispatch_async(queue, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __36__NoBackhaulHandler_clientFeedback___block_invoke;
+  v11[3] = &unk_27898A3A0;
+  v12 = feedbackCopy;
+  v11[4] = self;
+  dispatch_async(queue, v11);
 }
 
 void __36__NoBackhaulHandler_clientFeedback___block_invoke(uint64_t a1)
@@ -3708,7 +3638,7 @@ LABEL_14:
 
 - (void)resumedDefRouteProgress
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_observeDefaultRouteSignal)
   {
     v3 = bbhLogHandle;
@@ -3718,7 +3648,7 @@ LABEL_14:
       v5 = v3;
       label = [(ExpertSystemStateCore *)currentState label];
       *buf = 138412290;
-      v11 = label;
+      v10 = label;
       _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "received input that default route progress has resumed in state: %@", buf, 0xCu);
     }
 
@@ -3730,8 +3660,6 @@ LABEL_14:
     block[4] = self;
     dispatch_async(queue, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __44__NoBackhaulHandler_resumedDefRouteProgress__block_invoke(uint64_t a1)
@@ -3759,7 +3687,7 @@ void __44__NoBackhaulHandler_resumedDefRouteProgress__block_invoke(uint64_t a1)
 
 - (void)changedSSIDto:(id)dto
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dtoCopy = dto;
   v5 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -3767,11 +3695,11 @@ void __44__NoBackhaulHandler_resumedDefRouteProgress__block_invoke(uint64_t a1)
     currentState = self->_currentState;
     v7 = v5;
     label = [(ExpertSystemStateCore *)currentState label];
-    v16 = 138478083;
-    v17 = dtoCopy;
-    v18 = 2112;
-    v19 = label;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "received SSID change to %{private}@ in state: %@", &v16, 0x16u);
+    v15 = 138478083;
+    v16 = dtoCopy;
+    v17 = 2112;
+    v18 = label;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "received SSID change to %{private}@ in state: %@", &v15, 0x16u);
   }
 
   label2 = [(ExpertSystemStateCore *)self->_currentState label];
@@ -3806,7 +3734,6 @@ void __44__NoBackhaulHandler_resumedDefRouteProgress__block_invoke(uint64_t a1)
   objc_sync_exit(v14);
 
 LABEL_9:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)subscribeCarKitNotifications
@@ -3910,9 +3837,9 @@ void __49__NoBackhaulHandler_subscribeCarKitNotifications__block_invoke(uint64_t
   }
 }
 
-uint64_t __49__NoBackhaulHandler_subscribeCarKitNotifications__block_invoke_2(uint64_t a1)
+void *__49__NoBackhaulHandler_subscribeCarKitNotifications__block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) dndWhileDriving];
   if (*(a1 + 40) != result)
   {
@@ -3938,17 +3865,16 @@ uint64_t __49__NoBackhaulHandler_subscribeCarKitNotifications__block_invoke_2(ui
         v7 = "ON";
       }
 
-      v10 = 136315394;
-      v11 = v8;
-      v12 = 2080;
-      v13 = v7;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "DND while driving status changed from %s to %s", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = v8;
+      v11 = 2080;
+      v12 = v7;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "DND while driving status changed from %s to %s", &v9, 0x16u);
     }
 
-    result = [*(a1 + 32) setDndWhileDriving:*(a1 + 40)];
+    return [*(a1 + 32) setDndWhileDriving:*(a1 + 40)];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3970,22 +3896,23 @@ void __49__NoBackhaulHandler_subscribeCarKitNotifications__block_invoke_285(uint
 
 void __49__NoBackhaulHandler_subscribeCarKitNotifications__block_invoke_2_286(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = bbhLogHandle;
-    if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v3;
-      v4 = "Error retrieving DND Assertion: %@";
-LABEL_10:
-      _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, v4, &v7, 0xCu);
+      return;
     }
+
+    v3 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v3;
+    v4 = "Error retrieving DND Assertion: %@";
+    goto LABEL_10;
   }
 
-  else if (*(a1 + 48) != [*(a1 + 40) dndWhileDriving])
+  if (*(a1 + 48) != [*(a1 + 40) dndWhileDriving])
   {
     [*(a1 + 40) setDndWhileDriving:?];
     v2 = bbhLogHandle;
@@ -4001,19 +3928,18 @@ LABEL_10:
         v5 = "OFF";
       }
 
-      v7 = 136315138;
-      v8 = v5;
+      v6 = 136315138;
+      v7 = v5;
       v4 = "DND while driving is %s";
-      goto LABEL_10;
+LABEL_10:
+      _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, v4, &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_assessProgressFromBaseline:(nstat_progress_indicators *)baseline toMetrics:(nstat_progress_indicators *)metrics
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (baseline)
   {
     v6 = bbhLogHandle;
@@ -4022,11 +3948,11 @@ LABEL_10:
       v7 = v6;
       v8 = [TCPProgressProbe progressPrettyPrintUtility:baseline];
       tcpProgressHintsScore = [(NetworkStateRelay *)self->_wifiRelay tcpProgressHintsScore];
-      v31 = 138412546;
-      *v32 = v8;
-      *&v32[8] = 1024;
-      *&v32[10] = tcpProgressHintsScore;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "TCP establish new baseline: %@, score: %d", &v31, 0x12u);
+      v30 = 138412546;
+      *v31 = v8;
+      *&v31[8] = 1024;
+      *&v31[10] = tcpProgressHintsScore;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "TCP establish new baseline: %@, score: %d", &v30, 0x12u);
     }
 
     v10 = *&baseline->var4;
@@ -4105,13 +4031,13 @@ LABEL_10:
     v28 = bbhLogHandle;
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 67109632;
-      *v32 = v27;
-      *&v32[4] = 2048;
-      *&v32[6] = v20;
-      v33 = 2048;
-      v34 = v24;
-      _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEFAULT, "TCP progress metrics score: %u, problem ratio: %.2f (baseline: %.2f)", &v31, 0x1Cu);
+      v30 = 67109632;
+      *v31 = v27;
+      *&v31[4] = 2048;
+      *&v31[6] = v20;
+      v32 = 2048;
+      v33 = v24;
+      _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEFAULT, "TCP progress metrics score: %u, problem ratio: %.2f (baseline: %.2f)", &v30, 0x1Cu);
     }
 
     v29 = self->_wifiRelay;
@@ -4125,12 +4051,10 @@ LABEL_10:
     v21 = bbhLogHandle;
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v31) = 0;
-      _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "Assessing progress requires a non-NULL metric!", &v31, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "Assessing progress requires a non-NULL metric!", &v30, 2u);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -4200,283 +4124,282 @@ LABEL_10:
 
 void __68__NoBackhaulHandler_observeValueForKeyPath_ofObject_change_context___block_invoke_4(uint64_t a1)
 {
-  v138 = *MEMORY[0x277D85DE8];
+  v136 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 64);
-  v2 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v116 = [*(a1 + 32) functionalInterfaceType];
+    v114 = [*(a1 + 32) functionalInterfaceType];
   }
 
   else
   {
-    v116 = 0;
+    v114 = 0;
   }
 
-  v3 = bbhLogHandle;
-  v4 = os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT);
-  v5 = &OBJC_IVAR___AWDSymptomsCellularSDMTimeStatistics__has;
-  v6 = MEMORY[0x277CCA2F0];
-  if (v4)
+  v2 = bbhLogHandle;
+  v3 = os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT);
+  v4 = &OBJC_IVAR___AWDSymptomsCellularSDMTimeStatistics__has;
+  v5 = MEMORY[0x277CCA2F0];
+  if (v3)
   {
-    v7 = *(*(a1 + 40) + 40);
-    v8 = v3;
-    v9 = [v7 label];
-    v10 = *(a1 + 48);
-    v115 = *v6;
-    v11 = [*(a1 + 56) objectForKeyedSubscript:?];
+    v6 = *(*(a1 + 40) + 40);
+    v7 = v2;
+    v8 = [v6 label];
+    v9 = *(a1 + 48);
+    v113 = *v5;
+    v10 = [*(a1 + 56) objectForKeyedSubscript:?];
     *buf = 138413058;
+    v127 = v8;
+    v128 = 2112;
     v129 = v9;
     v130 = 2112;
     v131 = v10;
-    v132 = 2112;
-    v133 = v11;
-    v134 = 1024;
-    *v135 = v116;
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "Current state: %@, changed: %@ to %@ for net type %d", buf, 0x26u);
+    v132 = 1024;
+    *v133 = v114;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Current state: %@, changed: %@ to %@ for net type %d", buf, 0x26u);
   }
 
   else
   {
-    v115 = *MEMORY[0x277CCA2F0];
+    v113 = *MEMORY[0x277CCA2F0];
   }
 
+  v122 = 0u;
+  v123 = 0u;
   v124 = 0u;
   v125 = 0u;
-  v126 = 0u;
-  v127 = 0u;
   obj = *(*(a1 + 40) + 48);
-  v12 = [obj countByEnumeratingWithState:&v124 objects:v137 count:16];
-  if (!v12)
+  v11 = [obj countByEnumeratingWithState:&v122 objects:v135 count:16];
+  if (!v11)
   {
-    v16 = 0;
+    v15 = 0;
     goto LABEL_95;
   }
 
-  v14 = v12;
+  v13 = v11;
+  v14 = 0;
   v15 = 0;
-  v16 = 0;
-  *&v13 = 138413314;
-  v111 = v13;
-  v114 = v1;
+  *&v12 = 138413314;
+  v109 = v12;
+  v112 = v1;
   while (2)
   {
-    v112 = v15;
-    v113 = v16;
-    v122 = *v125;
+    v110 = v14;
+    v111 = v15;
+    v120 = *v123;
 LABEL_10:
-    v17 = 0;
-    v117 = v14;
+    v16 = 0;
+    v115 = v13;
     while (1)
     {
-      if (*v125 != v122)
+      if (*v123 != v120)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v124 + 1) + 8 * v17);
-      v19 = v5[922];
-      if (v18 == *(*(a1 + 40) + v19))
+      v17 = *(*(&v122 + 1) + 8 * v16);
+      v18 = v4[922];
+      if (v17 == *(*(a1 + 40) + v18))
       {
         goto LABEL_77;
       }
 
-      v20 = [*(*(&v124 + 1) + 8 * v17) entryWiFiPreds];
-      v21 = [*(*(a1 + 40) + v19) label];
-      v22 = [v20 objectForKeyedSubscript:v21];
+      v19 = [*(*(&v122 + 1) + 8 * v16) entryWiFiPreds];
+      v20 = [*(*(a1 + 40) + v18) label];
+      v21 = [v19 objectForKeyedSubscript:v20];
 
-      v23 = [v18 entryCellPreds];
-      v24 = [*(*(a1 + 40) + v19) label];
-      v25 = [v23 objectForKeyedSubscript:v24];
+      v22 = [v17 entryCellPreds];
+      v23 = [*(*(a1 + 40) + v18) label];
+      v24 = [v22 objectForKeyedSubscript:v23];
 
-      if (v22)
+      if (v21)
       {
-        v26 = v25 == 0;
+        v25 = v24 == 0;
       }
 
       else
       {
-        v26 = 1;
+        v25 = 1;
       }
 
-      if (v26)
+      if (v25)
       {
-        v27 = bbhLogHandle;
+        v26 = bbhLogHandle;
         if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = *(*(a1 + 40) + v19);
-          v29 = v27;
-          v30 = [v28 label];
-          v31 = *(a1 + 48);
-          [*(a1 + 56) objectForKeyedSubscript:v115];
-          v33 = v32 = v25;
-          v34 = [v18 label];
+          v27 = *(*(a1 + 40) + v18);
+          v28 = v26;
+          v29 = [v27 label];
+          v30 = *(a1 + 48);
+          [*(a1 + 56) objectForKeyedSubscript:v113];
+          v32 = v31 = v24;
+          v33 = [v17 label];
           *buf = 138413826;
+          v127 = v29;
+          v128 = 2112;
           v129 = v30;
+          v4 = &OBJC_IVAR___AWDSymptomsCellularSDMTimeStatistics__has;
           v130 = 2112;
-          v131 = v31;
-          v5 = &OBJC_IVAR___AWDSymptomsCellularSDMTimeStatistics__has;
-          v132 = 2112;
-          v133 = v33;
-          v134 = 1024;
-          *v135 = v116;
-          *&v135[4] = 2112;
-          *&v135[6] = v34;
-          *&v135[14] = 2048;
-          *&v135[16] = v22;
-          *&v135[24] = 2048;
-          v136 = v32;
-          _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEFAULT, "Current state: %@, changed: %@ to %@ for net type %d, ineligible for %@ as nil pred, wifi (%p) cell (%p)", buf, 0x44u);
+          v131 = v32;
+          v132 = 1024;
+          *v133 = v114;
+          *&v133[4] = 2112;
+          *&v133[6] = v33;
+          *&v133[14] = 2048;
+          *&v133[16] = v21;
+          *&v133[24] = 2048;
+          v134 = v31;
+          _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEFAULT, "Current state: %@, changed: %@ to %@ for net type %d, ineligible for %@ as nil pred, wifi (%p) cell (%p)", buf, 0x44u);
 
-          v25 = v32;
+          v24 = v31;
         }
 
         goto LABEL_76;
       }
 
-      log = v18;
-      v35 = [v18 rank];
-      v119 = [*(*(a1 + 40) + v19) rank];
-      v36 = [MEMORY[0x277CCAC30] predicateWithFormat:@"TRUEPREDICATE"];
-      v37 = v36;
-      if (v22 == v36)
+      log = v17;
+      v34 = [v17 rank];
+      v117 = [*(*(a1 + 40) + v18) rank];
+      v35 = [MEMORY[0x277CCAC30] predicateWithFormat:@"TRUEPREDICATE"];
+      v36 = v35;
+      if (v21 == v35)
       {
       }
 
       else
       {
-        v38 = [MEMORY[0x277CCAC30] predicateWithFormat:@"FALSEPREDICATE"];
+        v37 = [MEMORY[0x277CCAC30] predicateWithFormat:@"FALSEPREDICATE"];
 
-        if (v22 != v38)
+        if (v21 != v37)
         {
-          v39 = bbhLogHandle;
+          v38 = bbhLogHandle;
           if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEBUG))
           {
-            v40 = *(*(a1 + 40) + 64);
+            v39 = *(*(a1 + 40) + 64);
             *buf = 138412290;
-            v129 = v40;
-            _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+            v127 = v39;
+            _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
       }
 
-      v41 = [MEMORY[0x277CCAC30] predicateWithFormat:@"TRUEPREDICATE", v111];
-      v42 = v41;
-      if (v25 == v41)
+      v40 = [MEMORY[0x277CCAC30] predicateWithFormat:@"TRUEPREDICATE", v109];
+      v41 = v40;
+      if (v24 == v40)
       {
 
-        v44 = log;
+        v43 = log;
       }
 
       else
       {
-        v43 = [MEMORY[0x277CCAC30] predicateWithFormat:@"FALSEPREDICATE"];
+        v42 = [MEMORY[0x277CCAC30] predicateWithFormat:@"FALSEPREDICATE"];
 
-        v26 = v25 == v43;
-        v44 = log;
-        if (!v26)
+        v25 = v24 == v42;
+        v43 = log;
+        if (!v25)
         {
-          v45 = bbhLogHandle;
+          v44 = bbhLogHandle;
           if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEBUG))
           {
-            v46 = *(*(a1 + 40) + 56);
+            v45 = *(*(a1 + 40) + 56);
             *buf = 138412290;
-            v129 = v46;
-            _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+            v127 = v45;
+            _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
+      }
+
+      v46 = bbhLogHandle;
+      if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v127 = v21;
+        _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_DEBUG, "current wpred = '%@'", buf, 0xCu);
       }
 
       v47 = bbhLogHandle;
       if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v129 = v22;
-        _os_log_impl(&dword_23255B000, v47, OS_LOG_TYPE_DEBUG, "current wpred = '%@'", buf, 0xCu);
+        v127 = v24;
+        _os_log_impl(&dword_23255B000, v47, OS_LOG_TYPE_DEBUG, "current cpred = '%@'", buf, 0xCu);
       }
 
       v48 = bbhLogHandle;
-      if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 138412290;
-        v129 = v25;
-        _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_DEBUG, "current cpred = '%@'", buf, 0xCu);
-      }
-
-      v49 = bbhLogHandle;
       if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v50 = *(*(a1 + 40) + 64);
-        v51 = v49;
-        if ([v22 evaluateWithObject:v50])
+        v49 = *(*(a1 + 40) + 64);
+        v50 = v48;
+        if ([v21 evaluateWithObject:v49])
         {
-          v52 = "true";
+          v51 = "true";
         }
 
         else
         {
-          v52 = "false";
+          v51 = "false";
         }
 
-        if (v35 <= v119)
+        if (v34 <= v117)
         {
-          v53 = "de-";
+          v52 = "de-";
         }
 
         else
         {
-          v53 = "";
+          v52 = "";
         }
 
-        if (v35 <= v119)
+        if (v34 <= v117)
         {
-          v54 = "||";
+          v53 = "||";
         }
 
         else
         {
-          v54 = "&&";
+          v53 = "&&";
         }
 
-        v14 = v117;
-        v55 = [v25 evaluateWithObject:*(*(a1 + 40) + 56)];
+        v13 = v115;
+        v54 = [v24 evaluateWithObject:*(*(a1 + 40) + 56)];
         *buf = 136315906;
-        v56 = "true";
-        if (!v55)
+        v55 = "true";
+        if (!v54)
         {
-          v56 = "false";
+          v55 = "false";
         }
 
-        v129 = v53;
+        v127 = v52;
+        v128 = 2080;
+        v129 = v51;
+        v43 = log;
         v130 = 2080;
-        v131 = v52;
-        v44 = log;
+        v131 = v53;
         v132 = 2080;
-        v133 = v54;
-        v134 = 2080;
-        *v135 = v56;
-        _os_log_impl(&dword_23255B000, v51, OS_LOG_TYPE_DEFAULT, "Evaluating possible %sescalation, truthValue(wpred) = '%s' %s truthValue(cpred) = '%s'", buf, 0x2Au);
+        *v133 = v55;
+        _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_DEFAULT, "Evaluating possible %sescalation, truthValue(wpred) = '%s' %s truthValue(cpred) = '%s'", buf, 0x2Au);
       }
 
-      v57 = [*(*(a1 + 40) + v19) noPreconditions];
-      v58 = *(a1 + 40);
-      if (!v57)
+      v56 = [*(*(a1 + 40) + v18) noPreconditions];
+      v57 = *(a1 + 40);
+      if (!v56)
       {
         break;
       }
 
-      v59 = [v25 evaluateWithObject:v58[7]];
-      v5 = &OBJC_IVAR___AWDSymptomsCellularSDMTimeStatistics__has;
-      if (v35 <= v119)
+      v58 = [v24 evaluateWithObject:v57[7]];
+      v4 = &OBJC_IVAR___AWDSymptomsCellularSDMTimeStatistics__has;
+      if (v34 <= v117)
       {
-        if (v59)
+        if (v58)
         {
           goto LABEL_80;
         }
 
 LABEL_63:
-        if ([v22 evaluateWithObject:*(*(a1 + 40) + 64)])
+        if ([v21 evaluateWithObject:*(*(a1 + 40) + 64)])
         {
           goto LABEL_80;
         }
@@ -4484,55 +4407,55 @@ LABEL_63:
         goto LABEL_74;
       }
 
-      if (v59)
+      if (v58)
       {
         goto LABEL_63;
       }
 
 LABEL_74:
-      v61 = bbhLogHandle;
+      v60 = bbhLogHandle;
       if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v62 = *(*(a1 + 40) + v19);
-        loga = v61;
-        v63 = [v62 label];
-        v64 = v22;
-        v65 = *(a1 + 48);
-        v66 = [*(a1 + 56) objectForKeyedSubscript:v115];
-        v67 = [v44 label];
-        v68 = [*(a1 + 40) systemForeground];
-        v69 = [v64 evaluateWithObject:*(*(a1 + 40) + 64)];
-        v70 = [v25 evaluateWithObject:*(*(a1 + 40) + 56)];
+        v61 = *(*(a1 + 40) + v18);
+        loga = v60;
+        v62 = [v61 label];
+        v63 = v21;
+        v64 = *(a1 + 48);
+        v65 = [*(a1 + 56) objectForKeyedSubscript:v113];
+        v66 = [v43 label];
+        v67 = [*(a1 + 40) systemForeground];
+        v68 = [v63 evaluateWithObject:*(*(a1 + 40) + 64)];
+        v69 = [v24 evaluateWithObject:*(*(a1 + 40) + 56)];
         *buf = 138414082;
-        v129 = v63;
+        v127 = v62;
+        v128 = 2112;
+        v129 = v64;
+        v21 = v63;
         v130 = 2112;
         v131 = v65;
-        v22 = v64;
-        v132 = 2112;
-        v133 = v66;
-        v134 = 1024;
-        *v135 = v116;
-        *&v135[4] = 2112;
-        *&v135[6] = v67;
-        *&v135[14] = 1024;
-        *&v135[16] = v68;
-        *&v135[20] = 1024;
-        *&v135[22] = v69;
-        v14 = v117;
-        LOWORD(v136) = 1024;
-        *(&v136 + 2) = v70;
+        v132 = 1024;
+        *v133 = v114;
+        *&v133[4] = 2112;
+        *&v133[6] = v66;
+        *&v133[14] = 1024;
+        *&v133[16] = v67;
+        *&v133[20] = 1024;
+        *&v133[22] = v68;
+        v13 = v115;
+        LOWORD(v134) = 1024;
+        *(&v134 + 2) = v69;
         _os_log_impl(&dword_23255B000, loga, OS_LOG_TYPE_DEFAULT, "Current state: %@, changed: %@ to %@ for net type %d, eligible for %@ but constraints unsatisfied (%d,%d,%d)", buf, 0x42u);
 
-        v5 = &OBJC_IVAR___AWDSymptomsCellularSDMTimeStatistics__has;
+        v4 = &OBJC_IVAR___AWDSymptomsCellularSDMTimeStatistics__has;
       }
 
 LABEL_76:
 
 LABEL_77:
-      if (v14 == ++v17)
+      if (v13 == ++v16)
       {
-        v14 = [obj countByEnumeratingWithState:&v124 objects:v137 count:16];
-        if (v14)
+        v13 = [obj countByEnumeratingWithState:&v122 objects:v135 count:16];
+        if (v13)
         {
           goto LABEL_10;
         }
@@ -4541,11 +4464,11 @@ LABEL_77:
       }
     }
 
-    v60 = [v58 systemForeground];
-    v5 = &OBJC_IVAR___AWDSymptomsCellularSDMTimeStatistics__has;
-    if (v35 > v119)
+    v59 = [v57 systemForeground];
+    v4 = &OBJC_IVAR___AWDSymptomsCellularSDMTimeStatistics__has;
+    if (v34 > v117)
     {
-      if (v60 && ([*(a1 + 40) callInForeground] & 1) == 0 && (objc_msgSend(*(a1 + 40), "dndWhileDriving") & 1) == 0 && objc_msgSend(*(*(a1 + 40) + 88), "screenNotDark") && (objc_msgSend(*(*(a1 + 40) + 72), "rnfActivated") & 1) == 0 && (objc_msgSend(*(*(a1 + 40) + 72), "wifiCallUnderway") & 1) == 0 && (objc_msgSend(*(*(a1 + 40) + 80), "cellOutranksWiFi") & 1) == 0 && objc_msgSend(v25, "evaluateWithObject:", *(*(a1 + 40) + 56)))
+      if (v59 && ([*(a1 + 40) callInForeground] & 1) == 0 && (objc_msgSend(*(a1 + 40), "dndWhileDriving") & 1) == 0 && objc_msgSend(*(*(a1 + 40) + 88), "screenNotDark") && (objc_msgSend(*(*(a1 + 40) + 72), "rnfActivated") & 1) == 0 && (objc_msgSend(*(*(a1 + 40) + 72), "wifiCallUnderway") & 1) == 0 && (objc_msgSend(*(*(a1 + 40) + 80), "cellOutranksWiFi") & 1) == 0 && objc_msgSend(v24, "evaluateWithObject:", *(*(a1 + 40) + 56)))
       {
         goto LABEL_63;
       }
@@ -4553,147 +4476,147 @@ LABEL_77:
       goto LABEL_74;
     }
 
-    if (v60 && ([*(a1 + 40) callInForeground] & 1) == 0 && (objc_msgSend(*(a1 + 40), "dndWhileDriving") & 1) == 0 && objc_msgSend(*(*(a1 + 40) + 88), "screenNotDark") && (objc_msgSend(*(*(a1 + 40) + 72), "rnfActivated") & 1) == 0 && (objc_msgSend(*(*(a1 + 40) + 72), "wifiCallUnderway") & 1) == 0 && (objc_msgSend(*(*(a1 + 40) + 80), "cellOutranksWiFi") & 1) == 0 && (objc_msgSend(v25, "evaluateWithObject:", *(*(a1 + 40) + 56)) & 1) == 0 && !objc_msgSend(v22, "evaluateWithObject:", *(*(a1 + 40) + 64)))
+    if (v59 && ([*(a1 + 40) callInForeground] & 1) == 0 && (objc_msgSend(*(a1 + 40), "dndWhileDriving") & 1) == 0 && objc_msgSend(*(*(a1 + 40) + 88), "screenNotDark") && (objc_msgSend(*(*(a1 + 40) + 72), "rnfActivated") & 1) == 0 && (objc_msgSend(*(*(a1 + 40) + 72), "wifiCallUnderway") & 1) == 0 && (objc_msgSend(*(*(a1 + 40) + 80), "cellOutranksWiFi") & 1) == 0 && (objc_msgSend(v24, "evaluateWithObject:", *(*(a1 + 40) + 56)) & 1) == 0 && !objc_msgSend(v21, "evaluateWithObject:", *(*(a1 + 40) + 64)))
     {
       goto LABEL_74;
     }
 
 LABEL_80:
-    if (v114)
+    if (v112)
     {
-      v71 = [*(*(a1 + 40) + v19) metric];
-      [v71 setEgressTrigger:v114];
+      v70 = [*(*(a1 + 40) + v18) metric];
+      [v70 setEgressTrigger:v112];
 
-      v72 = [*(*(a1 + 40) + v19) metric];
-      [v72 setEgressTriggerInterfaceType:v116];
+      v71 = [*(*(a1 + 40) + v18) metric];
+      [v71 setEgressTriggerInterfaceType:v114];
 
-      v73 = [*(*(a1 + 40) + v19) metric];
-      [v73 populateNetworkPropertiesOnWiFiRelay:*(*(a1 + 40) + 64) cellRelay:*(*(a1 + 40) + 56) isIngress:0];
+      v72 = [*(*(a1 + 40) + v18) metric];
+      [v72 populateNetworkPropertiesOnWiFiRelay:*(*(a1 + 40) + 64) cellRelay:*(*(a1 + 40) + 56) isIngress:0];
     }
 
-    v74 = [*(*(a1 + 40) + v19) exitAction];
-    v75 = v74[2]();
+    v73 = [*(*(a1 + 40) + v18) exitAction];
+    v74 = v73[2]();
 
-    v76 = bbhLogHandle;
-    v77 = os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT);
-    if ((v75 & 1) == 0)
+    v75 = bbhLogHandle;
+    v76 = os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT);
+    if ((v74 & 1) == 0)
     {
-      if (v77)
+      if (v76)
       {
-        v98 = *(*(a1 + 40) + v19);
-        v99 = v76;
-        v100 = [v98 label];
+        v97 = *(*(a1 + 40) + v18);
+        v98 = v75;
+        v99 = [v97 label];
         *buf = 138412290;
-        v129 = v100;
-        _os_log_impl(&dword_23255B000, v99, OS_LOG_TYPE_DEFAULT, "Current state: %@, exit denied", buf, 0xCu);
+        v127 = v99;
+        _os_log_impl(&dword_23255B000, v98, OS_LOG_TYPE_DEFAULT, "Current state: %@, exit denied", buf, 0xCu);
       }
 
 LABEL_99:
-      v16 = v113;
+      v15 = v111;
       break;
     }
 
-    if (v77)
+    if (v76)
     {
-      v78 = *(*(a1 + 40) + v19);
-      v79 = v76;
-      v80 = [v78 label];
-      v81 = *(a1 + 48);
-      v82 = [*(a1 + 56) objectForKeyedSubscript:v115];
-      v83 = [v44 label];
-      *buf = v111;
+      v77 = *(*(a1 + 40) + v18);
+      v78 = v75;
+      v79 = [v77 label];
+      v80 = *(a1 + 48);
+      v81 = [*(a1 + 56) objectForKeyedSubscript:v113];
+      v82 = [v43 label];
+      *buf = v109;
+      v127 = v79;
+      v128 = 2112;
       v129 = v80;
+      v4 = &OBJC_IVAR___AWDSymptomsCellularSDMTimeStatistics__has;
       v130 = 2112;
       v131 = v81;
-      v5 = &OBJC_IVAR___AWDSymptomsCellularSDMTimeStatistics__has;
-      v132 = 2112;
-      v133 = v82;
-      v134 = 1024;
-      *v135 = v116;
-      *&v135[4] = 2112;
-      *&v135[6] = v83;
-      _os_log_impl(&dword_23255B000, v79, OS_LOG_TYPE_DEFAULT, "Current state: %@, changed: %@ to %@ for net type %d, eligible for %@ and constraints satisfied", buf, 0x30u);
+      v132 = 1024;
+      *v133 = v114;
+      *&v133[4] = 2112;
+      *&v133[6] = v82;
+      _os_log_impl(&dword_23255B000, v78, OS_LOG_TYPE_DEFAULT, "Current state: %@, changed: %@ to %@ for net type %d, eligible for %@ and constraints satisfied", buf, 0x30u);
 
-      v44 = log;
+      v43 = log;
     }
 
-    [*(*(a1 + 40) + v19) setPreviousState:0];
-    v84 = *(a1 + 40);
-    v85 = *(v84 + v19);
-    v86 = [*(v84 + 48) objectAtIndexedSubscript:0];
+    [*(*(a1 + 40) + v18) setPreviousState:0];
+    v83 = *(a1 + 40);
+    v84 = *(v83 + v18);
+    v85 = [*(v83 + 48) objectAtIndexedSubscript:0];
 
-    if (v85 != v86)
+    if (v84 != v85)
     {
-      v87 = [*(*(a1 + 40) + v19) sojournTime];
-      [v87 stop];
+      v86 = [*(*(a1 + 40) + v18) sojournTime];
+      [v86 stop];
     }
 
-    v16 = *(*(a1 + 40) + v19);
+    v15 = *(*(a1 + 40) + v18);
 
-    objc_storeStrong((*(a1 + 40) + v19), v44);
-    [*(*(a1 + 40) + v19) setPreviousState:v16];
-    v88 = *(a1 + 40);
-    v89 = *(v88 + v19);
-    v90 = [*(v88 + 48) objectAtIndexedSubscript:0];
+    objc_storeStrong((*(a1 + 40) + v18), v43);
+    [*(*(a1 + 40) + v18) setPreviousState:v15];
+    v87 = *(a1 + 40);
+    v88 = *(v87 + v18);
+    v89 = [*(v87 + 48) objectAtIndexedSubscript:0];
 
-    if (v89 != v90)
+    if (v88 != v89)
     {
-      v91 = [*(*(a1 + 40) + v19) sojournTime];
-      [v91 start];
+      v90 = [*(*(a1 + 40) + v18) sojournTime];
+      [v90 start];
     }
 
-    v92 = [*(*(a1 + 40) + v19) entryAction];
-    v92[2]();
+    v91 = [*(*(a1 + 40) + v18) entryAction];
+    v91[2]();
 
-    if (v114)
+    if (v112)
     {
-      v93 = [*(*(a1 + 40) + 48) indexOfObject:v16];
-      v94 = [*(*(a1 + 40) + v19) metric];
-      [v94 setPreviousState:v93];
+      v92 = [*(*(a1 + 40) + 48) indexOfObject:v15];
+      v93 = [*(*(a1 + 40) + v18) metric];
+      [v93 setPreviousState:v92];
 
-      v95 = [*(*(a1 + 40) + v19) metric];
-      [v95 setIngressTrigger:v114];
+      v94 = [*(*(a1 + 40) + v18) metric];
+      [v94 setIngressTrigger:v112];
 
-      v96 = [*(*(a1 + 40) + v19) metric];
-      [v96 setIngressTriggerInterfaceType:v116];
+      v95 = [*(*(a1 + 40) + v18) metric];
+      [v95 setIngressTriggerInterfaceType:v114];
 
-      v97 = [*(*(a1 + 40) + v19) metric];
-      [v97 populateNetworkPropertiesOnWiFiRelay:*(*(a1 + 40) + 64) cellRelay:*(*(a1 + 40) + 56) isIngress:1];
+      v96 = [*(*(a1 + 40) + v18) metric];
+      [v96 populateNetworkPropertiesOnWiFiRelay:*(*(a1 + 40) + 64) cellRelay:*(*(a1 + 40) + 56) isIngress:1];
     }
 
-    if (v112 == 10)
+    if (v110 == 10)
     {
-      v101 = bbhLogHandle;
+      v100 = bbhLogHandle;
       if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v102 = v101;
-        v103 = [v16 label];
-        v104 = [*(*(a1 + 40) + v19) label];
-        v105 = *(a1 + 48);
-        v106 = [*(a1 + 56) objectForKeyedSubscript:*MEMORY[0x277CCA300]];
-        v107 = [*(a1 + 56) objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
+        v101 = v100;
+        v102 = [v15 label];
+        v103 = [*(*(a1 + 40) + v18) label];
+        v104 = *(a1 + 48);
+        v105 = [*(a1 + 56) objectForKeyedSubscript:*MEMORY[0x277CCA300]];
+        v106 = [*(a1 + 56) objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
         *buf = 138413570;
+        v127 = v102;
+        v128 = 2112;
         v129 = v103;
         v130 = 2112;
         v131 = v104;
         v132 = 2112;
-        v133 = v105;
-        v134 = 2112;
-        *v135 = v106;
-        *&v135[8] = 2112;
-        *&v135[10] = v107;
-        *&v135[18] = 1024;
-        *&v135[20] = v116;
-        _os_log_impl(&dword_23255B000, v102, OS_LOG_TYPE_ERROR, "Pingponging from %@ to %@ upon change %@ from %@ to %@ for net type %d", buf, 0x3Au);
+        *v133 = v105;
+        *&v133[8] = 2112;
+        *&v133[10] = v106;
+        *&v133[18] = 1024;
+        *&v133[20] = v114;
+        _os_log_impl(&dword_23255B000, v101, OS_LOG_TYPE_ERROR, "Pingponging from %@ to %@ upon change %@ from %@ to %@ for net type %d", buf, 0x3Au);
       }
 
-      v108 = bbhLogHandle;
+      v107 = bbhLogHandle;
       if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v109 = *(*(a1 + 40) + 64);
+        v108 = *(*(a1 + 40) + 64);
         *buf = 138412290;
-        v129 = v109;
-        _os_log_impl(&dword_23255B000, v108, OS_LOG_TYPE_ERROR, "WiFi state: %@", buf, 0xCu);
+        v127 = v108;
+        _os_log_impl(&dword_23255B000, v107, OS_LOG_TYPE_ERROR, "WiFi state: %@", buf, 0xCu);
       }
 
       [*(a1 + 40) _bringStateToIdle];
@@ -4701,14 +4624,14 @@ LABEL_99:
 
     else
     {
-      v15 = v112 + 1;
-      v126 = 0u;
-      v127 = 0u;
+      v14 = v110 + 1;
       v124 = 0u;
       v125 = 0u;
+      v122 = 0u;
+      v123 = 0u;
       obj = *(*(a1 + 40) + 48);
-      v14 = [obj countByEnumeratingWithState:&v124 objects:v137 count:16];
-      if (v14)
+      v13 = [obj countByEnumeratingWithState:&v122 objects:v135 count:16];
+      if (v13)
       {
         continue;
       }
@@ -4718,8 +4641,6 @@ LABEL_95:
 
     break;
   }
-
-  v110 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportAutoBugCaptureCaseWithDomain:(id)domain type:(id)type subtype:(id)subtype subtypeContext:(id)context events:(id)events
@@ -4750,17 +4671,15 @@ LABEL_95:
 
 void __91__NoBackhaulHandler_reportAutoBugCaptureCaseWithDomain_type_subtype_subtypeContext_events___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "ABC response: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "ABC response: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willPollFlows
@@ -4776,18 +4695,16 @@ void __91__NoBackhaulHandler_reportAutoBugCaptureCaseWithDomain_type_subtype_sub
 - (void)didPollFlowsAt:(double)at periodic:(BOOL)periodic
 {
   periodicCopy = periodic;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 134218240;
+    v7 = 134218240;
     atCopy = at;
-    v10 = 1024;
-    v11 = periodicCopy;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "BBH didPollFlowsAt: %.2f, Periodic? %d", &v8, 0x12u);
+    v9 = 1024;
+    v10 = periodicCopy;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "BBH didPollFlowsAt: %.2f, Periodic? %d", &v7, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)icmpPingProbe:(id)probe completedIterations:(unint64_t)iterations successfulCount:(unint64_t)count withError:(id)error
@@ -4811,121 +4728,119 @@ void __91__NoBackhaulHandler_reportAutoBugCaptureCaseWithDomain_type_subtype_sub
 
 void __81__NoBackhaulHandler_icmpPingProbe_completedIterations_successfulCount_withError___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 32);
-  v3 = [*(a1 + 32) ipAddress];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = *v2;
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v4 stringWithFormat:@"%@.%@", v7, v3];
+  v44 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) ipAddress];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"%@.%@", v5, v2];
 
-  v9 = [*(*(a1 + 40) + 264) objectForKeyedSubscript:v8];
-  if (v9)
+  v7 = [*(*(a1 + 40) + 264) objectForKeyedSubscript:v6];
+  if (v7)
   {
-    v10 = [*(*(a1 + 40) + 40) label];
-    v11 = [v10 isEqualToString:@"positive"];
+    v8 = [*(*(a1 + 40) + 40) label];
+    v9 = [v8 isEqualToString:@"positive"];
 
-    if (v11)
+    if (v9)
     {
       if (*(a1 + 48))
       {
-        v12 = 0;
+        v10 = 0;
       }
 
       else
       {
-        v12 = *(a1 + 56) >= *(*(a1 + 40) + 288);
+        v10 = *(a1 + 56) >= *(*(a1 + 40) + 288);
       }
 
-      v15 = bbhLogHandle;
+      v13 = bbhLogHandle;
       if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = "failed";
-        v17 = *(a1 + 48);
-        v18 = *(*(a1 + 40) + 288);
-        if (v12)
+        v14 = "failed";
+        v15 = *(a1 + 48);
+        v16 = *(*(a1 + 40) + 288);
+        if (v10)
         {
-          v16 = "success";
+          v14 = "success";
         }
 
-        v19 = *(a1 + 56);
-        v20 = *(a1 + 64);
+        v17 = *(a1 + 56);
+        v18 = *(a1 + 64);
         *buf = 138479107;
-        *&buf[4] = v3;
+        *&buf[4] = v2;
         *&buf[12] = 2080;
-        *&buf[14] = v16;
+        *&buf[14] = v14;
         *&buf[22] = 2048;
-        v40 = v19;
-        v41 = 2048;
-        v42 = v20;
-        v43 = 2048;
-        v44 = v18;
-        v45 = 2112;
-        v46 = v17;
-        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "Ping to %{private}@ completed %s (%lu out of %lu, required %lu), error = %@", buf, 0x3Eu);
+        v37 = v17;
+        v38 = 2048;
+        v39 = v18;
+        v40 = 2048;
+        v41 = v16;
+        v42 = 2112;
+        v43 = v15;
+        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "Ping to %{private}@ completed %s (%lu out of %lu, required %lu), error = %@", buf, 0x3Eu);
       }
 
-      if (v12)
+      if (v10)
       {
-        v21 = &unk_2847EF8A8;
+        v19 = &unk_2847EF8A8;
       }
 
       else
       {
-        v21 = &unk_2847EF8C0;
+        v19 = &unk_2847EF8C0;
       }
 
-      [*(*(a1 + 40) + 272) setObject:v21 forKeyedSubscript:v8];
+      [*(*(a1 + 40) + 272) setObject:v19 forKeyedSubscript:v6];
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v40 = 0;
+      v37 = 0;
+      v30 = 0;
+      v31 = &v30;
+      v32 = 0x2020000000;
       v33 = 0;
-      v34 = &v33;
-      v35 = 0x2020000000;
-      v36 = 0;
-      v22 = *(*(a1 + 40) + 272);
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __81__NoBackhaulHandler_icmpPingProbe_completedIterations_successfulCount_withError___block_invoke_309;
-      v32[3] = &unk_27898D0B8;
-      v32[4] = buf;
-      v32[5] = &v33;
-      [v22 enumerateKeysAndObjectsUsingBlock:v32];
+      v20 = *(*(a1 + 40) + 272);
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __81__NoBackhaulHandler_icmpPingProbe_completedIterations_successfulCount_withError___block_invoke_309;
+      v29[3] = &unk_27898D0B8;
+      v29[4] = buf;
+      v29[5] = &v30;
+      [v20 enumerateKeysAndObjectsUsingBlock:v29];
       if (*(*&buf[8] + 24))
       {
-        v23 = bbhLogHandle;
+        v21 = bbhLogHandle;
         if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = *(*&buf[8] + 24);
-          *v37 = 134217984;
-          v38 = v24;
-          _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "Waiting for %lu ICMP probes to finish", v37, 0xCu);
+          v22 = *(*&buf[8] + 24);
+          *v34 = 134217984;
+          v35 = v22;
+          _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "Waiting for %lu ICMP probes to finish", v34, 0xCu);
         }
       }
 
       else
       {
-        v25 = v34[3];
-        v26 = bbhLogHandle;
-        v27 = os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT);
-        if (v25)
+        v23 = v31[3];
+        v24 = bbhLogHandle;
+        v25 = os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT);
+        if (v23)
         {
-          if (v27)
+          if (v25)
           {
-            v28 = v34[3];
-            *v37 = 134217984;
-            v38 = v28;
-            _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "Bringing state to Idle after connectivity tests to %lu default gateways failed ", v37, 0xCu);
+            v26 = v31[3];
+            *v34 = 134217984;
+            v35 = v26;
+            _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "Bringing state to Idle after connectivity tests to %lu default gateways failed ", v34, 0xCu);
           }
 
-          v29 = [*(*(a1 + 40) + 40) metric];
-          v30 = v29;
-          if (v29)
+          v27 = [*(*(a1 + 40) + 40) metric];
+          v28 = v27;
+          if (v27)
           {
-            [v29 setEgressTrigger:19];
-            [v30 setEgressTriggerInterfaceType:3];
+            [v27 setEgressTrigger:19];
+            [v28 setEgressTriggerInterfaceType:3];
           }
 
           [*(a1 + 40) _bringStateToIdle];
@@ -4934,10 +4849,10 @@ void __81__NoBackhaulHandler_icmpPingProbe_completedIterations_successfulCount_w
 
         else
         {
-          if (v27)
+          if (v25)
           {
-            *v37 = 0;
-            _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEFAULT, "Posting upward after connectivities to all default gateways were successfully tested", v37, 2u);
+            *v34 = 0;
+            _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "Posting upward after connectivities to all default gateways were successfully tested", v34, 2u);
           }
 
           [*(a1 + 40) _postUpwards:1];
@@ -4946,38 +4861,36 @@ void __81__NoBackhaulHandler_icmpPingProbe_completedIterations_successfulCount_w
         [*(*(a1 + 40) + 272) removeAllObjects];
       }
 
-      _Block_object_dispose(&v33, 8);
+      _Block_object_dispose(&v30, 8);
       _Block_object_dispose(buf, 8);
     }
 
     else
     {
-      v14 = bbhLogHandle;
+      v12 = bbhLogHandle;
       if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138477827;
-        *&buf[4] = v3;
-        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Ping to %{private}@ completed outside positive state, resetting probeStates", buf, 0xCu);
+        *&buf[4] = v2;
+        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Ping to %{private}@ completed outside positive state, resetting probeStates", buf, 0xCu);
       }
 
       [*(*(a1 + 40) + 272) removeAllObjects];
     }
 
-    [*(*(a1 + 40) + 264) setObject:0 forKeyedSubscript:v8];
+    [*(*(a1 + 40) + 264) setObject:0 forKeyedSubscript:v6];
   }
 
   else
   {
-    v13 = bbhLogHandle;
+    v11 = bbhLogHandle;
     if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138477827;
-      *&buf[4] = v3;
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "Received a ping result to %{private}@, which is no longer in an active probes list", buf, 0xCu);
+      *&buf[4] = v2;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "Received a ping result to %{private}@, which is no longer in an active probes list", buf, 0xCu);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __81__NoBackhaulHandler_icmpPingProbe_completedIterations_successfulCount_withError___block_invoke_309(uint64_t a1, uint64_t a2, void *a3)
@@ -5000,7 +4913,7 @@ void __81__NoBackhaulHandler_icmpPingProbe_completedIterations_successfulCount_w
 
 - (void)addPendingEventDescription:(id)description
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   if (!self->_pendingEventDescriptions)
   {
@@ -5025,15 +4938,15 @@ void __81__NoBackhaulHandler_icmpPingProbe_completedIterations_successfulCount_w
 
     v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v11 = self->_pendingEventDescriptions;
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __48__NoBackhaulHandler_addPendingEventDescription___block_invoke;
-    v19 = &unk_27898D108;
-    v20 = v10;
-    v21 = v9;
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
+    v17 = __48__NoBackhaulHandler_addPendingEventDescription___block_invoke;
+    v18 = &unk_27898D108;
+    v19 = v10;
+    v20 = v9;
     v12 = v10;
-    [(NSMutableArray *)v11 enumerateObjectsUsingBlock:&v16];
-    [(NSMutableArray *)self->_pendingEventDescriptions removeObjectsInArray:v12, v16, v17, v18, v19];
+    [(NSMutableArray *)v11 enumerateObjectsUsingBlock:&v15];
+    [(NSMutableArray *)self->_pendingEventDescriptions removeObjectsInArray:v12, v15, v16, v17, v18];
   }
 
   if ([(NSMutableArray *)self->_pendingEventDescriptions count]>= 5)
@@ -5057,18 +4970,16 @@ void __81__NoBackhaulHandler_icmpPingProbe_completedIterations_successfulCount_w
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = eventKey;
+    v22 = eventKey;
     _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Appending symptom with key %@ to pending event queue", buf, 0xCu);
   }
 
   [(NSMutableArray *)self->_pendingEventDescriptions addObject:descriptionCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __48__NoBackhaulHandler_addPendingEventDescription___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 eventKey];
   if ([v4 hasPrefix:@"com.apple.apsd.connection-"])
@@ -5089,21 +5000,19 @@ void __48__NoBackhaulHandler_addPendingEventDescription___block_invoke(uint64_t 
       v7 = bbhLogHandle;
       if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_INFO))
       {
-        v9 = 134217984;
-        v10 = v6;
-        _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_INFO, "De-duping APSD symptom on interface %ld", &v9, 0xCu);
+        v8 = 134217984;
+        v9 = v6;
+        _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_INFO, "De-duping APSD symptom on interface %ld", &v8, 0xCu);
       }
 
       [*(a1 + 32) addObject:v3];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)drainPendingEventDescriptions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableArray *)self->_pendingEventDescriptions copy];
   pendingEventDescriptions = self->_pendingEventDescriptions;
   self->_pendingEventDescriptions = 0;
@@ -5113,46 +5022,44 @@ void __48__NoBackhaulHandler_addPendingEventDescription___block_invoke(uint64_t 
   {
     v6 = v5;
     *buf = 134217984;
-    v19 = [v3 count];
+    v18 = [v3 count];
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Draining %lu pending event descriptions", buf, 0xCu);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = v3;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(NoBackhaulHandler *)self processSymptom:*(*(&v13 + 1) + 8 * v11++), v13];
+        [(NoBackhaulHandler *)self processSymptom:*(*(&v12 + 1) + 8 * v11++), v12];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)processSymptom:(id)symptom
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   symptomCopy = symptom;
   eventKey = [symptomCopy eventKey];
   v6 = [SymptomStore keyFromSymptomName:@"com.apple.apsd.connection-failure"];
@@ -5180,8 +5087,8 @@ void __48__NoBackhaulHandler_addPendingEventDescription___block_invoke(uint64_t 
         goto LABEL_25;
       }
 
-      v24 = 134217984;
-      v25 = v19;
+      v23 = 134217984;
+      v24 = v19;
       v15 = "Received an APSN connection symptom with unsupported interface: %llu";
     }
 
@@ -5193,8 +5100,8 @@ void __48__NoBackhaulHandler_addPendingEventDescription___block_invoke(uint64_t 
         goto LABEL_25;
       }
 
-      v24 = 138412290;
-      v25 = eventKey;
+      v23 = 138412290;
+      v24 = eventKey;
       v15 = "Missing qualifier for symptom: %@";
     }
 
@@ -5221,8 +5128,8 @@ LABEL_23:
       goto LABEL_25;
     }
 
-    v24 = 138412290;
-    v25 = eventKey;
+    v23 = 138412290;
+    v24 = eventKey;
     v15 = "Unable to process symptom: %@";
     goto LABEL_23;
   }
@@ -5238,25 +5145,24 @@ LABEL_23:
       goto LABEL_25;
     }
 
-    v24 = 138412290;
-    v25 = eventKey;
+    v23 = 138412290;
+    v24 = eventKey;
     v15 = "Unable to process symptom: %@";
     v21 = v18;
 LABEL_24:
-    _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, v15, &v24, 0xCu);
+    _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, v15, &v23, 0xCu);
     goto LABEL_25;
   }
 
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v24) = 0;
-    _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "received com.apple.nbsm.stepper symptom", &v24, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "received com.apple.nbsm.stepper symptom", &v23, 2u);
   }
 
   [(NoBackhaulHandler *)self setStepper:[(NoBackhaulHandler *)self stepper]+ 1];
 LABEL_25:
 
-  v22 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -5375,7 +5281,7 @@ BOOL __35__NoBackhaulHandler_sharedInstance__block_invoke(uint64_t a1)
 
 void __68__NoBackhaulHandler_generateInfoForId_context_uuid_completionBlock___block_invoke(void *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 40) label];
   v3 = [v2 isEqualToString:@"positive"];
 
@@ -5408,27 +5314,25 @@ void __68__NoBackhaulHandler_generateInfoForId_context_uuid_completionBlock___bl
     v10 = *(a1[4] + 40);
     v11 = v7;
     v12 = [v10 label];
-    v16 = 134218754;
-    v17 = v8;
-    v18 = 2080;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v12;
-    v22 = 2048;
-    v23 = v4;
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "received query (id/context): %lld/%s, current state: %@, code: %llu", &v16, 0x2Au);
+    v15 = 134218754;
+    v16 = v8;
+    v17 = 2080;
+    v18 = v9;
+    v19 = 2112;
+    v20 = v12;
+    v21 = 2048;
+    v22 = v4;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "received query (id/context): %lld/%s, current state: %@, code: %llu", &v15, 0x2Au);
   }
 
   v13 = a1[5];
   v14 = [MEMORY[0x277CBEAA8] date];
   (*(v13 + 16))(v13, 0, 0, v14, 0, v4, 0);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)noteSymptom:(id)symptom
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   symptomCopy = symptom;
   administrativeState = self->_administrativeState;
   if (administrativeState == 3)
@@ -5439,7 +5343,7 @@ void __68__NoBackhaulHandler_generateInfoForId_context_uuid_completionBlock___bl
       goto LABEL_15;
     }
 
-    LOWORD(v16[0]) = 0;
+    LOWORD(v15[0]) = 0;
     v7 = "symptom received when state machine is in TimedWait!, dropping";
     v8 = v10;
     v9 = OS_LOG_TYPE_ERROR;
@@ -5456,7 +5360,7 @@ LABEL_11:
       goto LABEL_15;
     }
 
-    LOWORD(v16[0]) = 0;
+    LOWORD(v15[0]) = 0;
     v7 = "symptom received before state machine is ready, dropping";
     v8 = v6;
     v9 = OS_LOG_TYPE_DEFAULT;
@@ -5472,14 +5376,14 @@ LABEL_11:
     }
 
     v13 = self->_administrativeState;
-    v16[0] = 67109120;
-    v16[1] = v13;
+    v15[0] = 67109120;
+    v15[1] = v13;
     v7 = "symptom received when state machine is in unknown state %d!, dropping";
     v8 = v12;
     v9 = OS_LOG_TYPE_ERROR;
     v11 = 8;
 LABEL_14:
-    _os_log_impl(&dword_23255B000, v8, v9, v7, v16, v11);
+    _os_log_impl(&dword_23255B000, v8, v9, v7, v15, v11);
     goto LABEL_15;
   }
 
@@ -5491,23 +5395,20 @@ LABEL_14:
   [(NoBackhaulHandler *)self processSymptom:symptomCopy];
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)_captureProgressFor:(void *)a1 since:interval:capWindowTo:iteration:renewTest:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = bbhLogHandle;
   if (os_log_type_enabled(bbhLogHandle, OS_LOG_TYPE_ERROR))
   {
     v3 = v2;
-    v5 = 134217984;
-    v6 = [a1 count];
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "Expected one progress probe, found %ld", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = [a1 count];
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "Expected one progress probe, found %ld", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(void *)a1 ofObject:(void *)a2 change:context:.cold.1(void *a1, void *a2)

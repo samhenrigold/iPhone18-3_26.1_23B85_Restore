@@ -135,7 +135,7 @@ uint64_t _AXIPCSimpleSendData(int a1, int a2, mach_msg_timeout_t timeout, uint64
   return v6;
 }
 
-id sub_18B1617CC(void *a1, uint64_t a2, void (*a3)(void), void (*a4)(void))
+id sub_18B1617CC(void *a1, uint64_t a2, uint64_t (*a3)(void), uint64_t (*a4)(void))
 {
   v6 = a1;
   a3();
@@ -158,7 +158,7 @@ uint64_t AXSettings.VoiceOver._$activities.getter()
   return v2;
 }
 
-uint64_t type metadata accessor for AXSettings.VoiceOver.Activity()
+uint64_t type metadata accessor for AXSettings.VoiceOver.Activity(uint64_t a1)
 {
   result = qword_1EA9B5560;
   if (!qword_1EA9B5560)
@@ -173,257 +173,257 @@ void __swiftcall AXSettings.VoiceOver.Activity._bridgeToObjectiveC()(AXVoiceOver
 {
   v2 = v1;
   v3 = sub_18B2C9424();
-  v4 = *(v3 - 8);
-  (MEMORY[0x1EEE9AC00])();
-  v132 = &v130 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B63D8);
-  v6 = (MEMORY[0x1EEE9AC00])();
-  v134 = &v130 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x1EEE9AC00](v6);
-  v133 = &v130 - v9;
-  v10 = MEMORY[0x1EEE9AC00](v8);
-  v135 = &v130 - v11;
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = &v130 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B74F0);
-  MEMORY[0x1EEE9AC00](v14 - 8);
-  v16 = &v130 - v15;
-  v136 = [objc_allocWithZone(AXVoiceOverActivity) init];
-  v17 = type metadata accessor for AXSettings.VoiceOver.Activity();
-  v18 = *(v1 + v17[7]);
-  if (v18)
+  v4 = *(v3 - 1);
+  MEMORY[0x1EEE9AC00](v3);
+  v133 = &v131 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B63D8, &unk_18B2FAD90);
+  v7 = MEMORY[0x1EEE9AC00](v6 - 8);
+  v135 = &v131 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x1EEE9AC00](v7);
+  v134 = &v131 - v10;
+  v11 = MEMORY[0x1EEE9AC00](v9);
+  v136 = &v131 - v12;
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v131 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B74F0, &unk_18B2FA470);
+  MEMORY[0x1EEE9AC00](v15 - 8);
+  v17 = &v131 - v16;
+  v137 = [objc_allocWithZone(AXVoiceOverActivity) init];
+  v18 = type metadata accessor for AXSettings.VoiceOver.Activity(0);
+  v19 = *(v1 + v18[7]);
+  if (v19)
   {
-    v19 = sub_18B2C9B04();
+    v20 = sub_18B2C9B04();
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  v20 = v136;
-  [v136 setAppIdentifiers_];
+  v21 = v137;
+  [v137 setAppIdentifiers_];
 
-  v21 = sub_18B2C8F94();
-  [v20 setUuid_];
+  v22 = sub_18B2C8F94();
+  [v21 setUuid_];
 
-  v22 = sub_18B2C9864();
-  [v20 setName_];
+  v23 = sub_18B2C9864();
+  [v21 setName_];
 
-  v23 = *(v2 + v17[6]);
-  if (v23)
+  v24 = *(v2 + v18[6]);
+  if (v24)
   {
-    v24 = sub_18B163114(v23);
-    sub_18B163348(v24);
+    v25 = sub_18B163114(v24);
+    sub_18B163348(v25);
 
-    v25 = sub_18B2C9B04();
-
-    [v136 setTextualContexts_];
-  }
-
-  if (v18)
-  {
     v26 = sub_18B2C9B04();
+
+    [v137 setTextualContexts_];
+  }
+
+  if (v19)
+  {
+    v27 = sub_18B2C9B04();
   }
 
   else
   {
-    v26 = 0;
+    v27 = 0;
   }
 
-  [v136 setAppIdentifiers_];
+  [v137 setAppIdentifiers_];
 
-  sub_18B163044(v2 + v17[8], v16, &unk_1EA9B74F0);
-  v27 = sub_18B2C8FD4();
-  v28 = *(v27 - 8);
-  v29 = 0;
-  if ((*(v28 + 48))(v16, 1, v27) != 1)
+  sub_18B163044(v2 + v18[8], v17, &unk_1EA9B74F0, &unk_18B2FA470);
+  v28 = sub_18B2C8FD4();
+  v29 = *(v28 - 8);
+  v30 = 0;
+  if ((*(v29 + 48))(v17, 1, v28) != 1)
   {
-    v29 = sub_18B2C8F94();
-    (*(v28 + 8))(v16, v27);
+    v30 = sub_18B2C8F94();
+    (*(v29 + 8))(v17, v28);
   }
 
-  [v136 setPunctuationGroup_];
+  [v137 setPunctuationGroup_];
 
-  v30 = *(v2 + v17[9]);
-  if (v30 != 2)
+  v31 = *(v2 + v18[9]);
+  if (v31 != 2)
   {
-    v31 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithBool_];
-    [v136 setTableHeaders_];
+    v32 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithBool_];
+    [v137 setTableHeaders_];
   }
 
-  v32 = *(v2 + v17[10]);
-  if (v32 != 2)
+  v33 = *(v2 + v18[10]);
+  if (v33 != 2)
   {
-    v33 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithBool_];
-    [v136 setTableRowAndColumn_];
+    v34 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithBool_];
+    [v137 setTableRowAndColumn_];
   }
 
-  v34 = *(v2 + v17[11]);
-  if (v34 != 2)
+  v35 = *(v2 + v18[11]);
+  if (v35 != 2)
   {
-    v35 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithBool_];
-    [v136 setSpeakEmojis_];
+    v36 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithBool_];
+    [v137 setSpeakEmojis_];
   }
 
-  v36 = *(v2 + v17[12]);
-  if (v36 != 2)
+  v37 = *(v2 + v18[12]);
+  if (v37 != 2)
   {
-    v37 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithBool_];
-    [v136 setImageDescriptions_];
+    v38 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithBool_];
+    [v137 setImageDescriptions_];
   }
 
-  v38 = *(v2 + v17[13]);
-  if (v38 != 2)
+  v39 = *(v2 + v18[13]);
+  if (v39 != 2)
   {
-    v39 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithBool_];
-    [v136 setHints_];
+    v40 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithBool_];
+    [v137 setHints_];
   }
 
-  v40 = v2 + v17[14];
-  if ((*(v40 + 8) & 1) == 0)
+  v41 = v2 + v18[14];
+  if ((*(v41 + 8) & 1) == 0)
   {
-    v41 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithInteger_];
-    [v136 setContainerFeedback_];
+    v42 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithInteger_];
+    [v137 setContainerFeedback_];
   }
 
-  v42 = v2 + v17[15];
-  if ((*(v42 + 8) & 1) == 0)
+  v43 = v2 + v18[15];
+  if ((*(v43 + 8) & 1) == 0)
   {
-    v43 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithInteger_];
-    [v136 setNumberFeedback_];
+    v44 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithInteger_];
+    [v137 setNumberFeedback_];
   }
 
-  v44 = v2 + v17[16];
-  if ((*(v44 + 8) & 1) == 0)
+  v45 = v2 + v18[16];
+  if ((*(v45 + 8) & 1) == 0)
   {
-    v45 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithInteger_];
-    [v136 setTypingStyle_];
+    v46 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithInteger_];
+    [v137 setTypingStyle_];
   }
 
-  v46 = v2 + v17[17];
-  if ((*(v46 + 8) & 1) == 0)
+  v47 = v2 + v18[17];
+  if ((*(v47 + 8) & 1) == 0)
   {
-    v47 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithInteger_];
-    [v136 setNavigationStyle_];
+    v48 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithInteger_];
+    [v137 setNavigationStyle_];
   }
 
-  v48 = v17[18];
-  sub_18B163044(v2 + v48, v13, &qword_1EA9B63D8);
-  v49 = *(v4 + 48);
-  if (v49(v13, 1, v3) == 1)
+  v49 = v18[18];
+  sub_18B163044(v2 + v49, v14, &qword_1EA9B63D8, &unk_18B2FAD90);
+  v50 = *(v4 + 48);
+  if (v50(v14, 1, v3) == 1)
   {
-    sub_18B1630AC(v13, &qword_1EA9B63D8);
-    v50 = 0;
+    sub_18B1630AC(v14, &qword_1EA9B63D8, &unk_18B2FAD90);
+    v51 = 0;
   }
 
   else
   {
-    v131 = v17;
+    v132 = v18;
     sub_18B2C9404();
-    v52 = v51;
-    (*(v4 + 8))(v13, v3);
-    if (v52)
+    v53 = v52;
+    (*(v4 + 8))(v14, v3);
+    if (v53)
     {
-      v50 = sub_18B2C9864();
+      v51 = sub_18B2C9864();
     }
 
     else
     {
-      v50 = 0;
+      v51 = 0;
     }
 
-    v17 = v131;
+    v18 = v132;
   }
 
-  [v136 setVoiceIdentifier_];
+  [v137 setVoiceIdentifier_];
 
-  v53 = v135;
-  sub_18B163044(v2 + v48, v135, &qword_1EA9B63D8);
-  v54 = v3;
-  if (v49(v53, 1, v3) == 1)
+  v54 = v136;
+  sub_18B163044(v2 + v49, v136, &qword_1EA9B63D8, &unk_18B2FAD90);
+  v55 = v3;
+  if (v50(v54, 1, v3) == 1)
   {
-    v55 = v4;
-    sub_18B1630AC(v53, &qword_1EA9B63D8);
+    v56 = v4;
+    sub_18B1630AC(v54, &qword_1EA9B63D8, &unk_18B2FAD90);
   }
 
   else
   {
-    v56 = sub_18B2C9374();
-    v57 = v4;
-    v58 = v56;
-    v59 = v3;
-    v55 = v57;
-    (*(v57 + 8))(v53, v59);
-    if ((v58 & 0x100000000) == 0)
+    v57 = sub_18B2C9374();
+    v58 = v4;
+    v59 = v57;
+    v60 = v3;
+    v56 = v58;
+    (*(v58 + 8))(v54, v60);
+    if ((v59 & 0x100000000) == 0)
     {
-      v60 = objc_allocWithZone(MEMORY[0x1E696AD98]);
-      LODWORD(v61) = v58;
-      v62 = [v60 initWithFloat_];
-      [v136 setSpeechRate_];
+      v61 = objc_allocWithZone(MEMORY[0x1E696AD98]);
+      LODWORD(v62) = v59;
+      v63 = [v61 initWithFloat_];
+      [v137 setSpeechRate_];
     }
   }
 
-  v135 = v55;
-  v63 = v133;
-  sub_18B163044(v2 + v48, v133, &qword_1EA9B63D8);
-  if (v49(v63, 1, v54) == 1)
+  v136 = v56;
+  v64 = v134;
+  sub_18B163044(v2 + v49, v134, &qword_1EA9B63D8, &unk_18B2FAD90);
+  if (v50(v64, 1, v55) == 1)
   {
-    sub_18B1630AC(v63, &qword_1EA9B63D8);
+    sub_18B1630AC(v64, &qword_1EA9B63D8, &unk_18B2FAD90);
   }
 
   else
   {
-    v64 = sub_18B2C93B4();
-    (*(v135 + 8))(v63, v54);
-    if ((v64 & 0x100000000) == 0)
+    v65 = sub_18B2C93B4();
+    (*(v136 + 8))(v64, v55);
+    if ((v65 & 0x100000000) == 0)
     {
-      v65 = objc_allocWithZone(MEMORY[0x1E696AD98]);
-      LODWORD(v66) = v64;
-      v67 = [v65 initWithFloat_];
-      [v136 setVolume_];
+      v66 = objc_allocWithZone(MEMORY[0x1E696AD98]);
+      LODWORD(v67) = v65;
+      v68 = [v66 initWithFloat_];
+      [v137 setVolume_];
     }
   }
 
-  v68 = v2 + v48;
-  v69 = v134;
-  sub_18B163044(v68, v134, &qword_1EA9B63D8);
-  if (v49(v69, 1, v54) != 1)
+  v69 = v2 + v49;
+  v70 = v135;
+  sub_18B163044(v69, v135, &qword_1EA9B63D8, &unk_18B2FAD90);
+  if (v50(v70, 1, v55) != 1)
   {
-    (*(v135 + 32))(v132, v69, v54);
+    (*(v136 + 32))(v133, v70, v55);
     sub_18B2C9404();
-    v73 = v72;
+    v74 = v73;
     if ((sub_18B2C9374() & 0x100000000) != 0)
     {
-      v134 = 0;
+      v135 = 0;
     }
 
     else
     {
-      v74 = sub_18B2C9374();
-      if ((v74 & 0x100000000) != 0)
+      v75 = sub_18B2C9374();
+      if ((v75 & 0x100000000) != 0)
       {
         __break(1u);
         goto LABEL_101;
       }
 
-      v75 = v74;
-      v76 = objc_allocWithZone(MEMORY[0x1E696AD98]);
-      LODWORD(v77) = v75;
-      v134 = [v76 initWithFloat_];
+      v76 = v75;
+      v77 = objc_allocWithZone(MEMORY[0x1E696AD98]);
+      LODWORD(v78) = v76;
+      v135 = [v77 initWithFloat_];
     }
 
-    v78 = sub_18B2C9394();
-    v130 = v54;
-    if ((v78 & 0x100000000) != 0)
+    v79 = sub_18B2C9394();
+    v131 = v55;
+    if ((v79 & 0x100000000) != 0)
     {
-      v83 = 0;
+      v84 = 0;
       if ((sub_18B2C93B4() & 0x100000000) != 0)
       {
 LABEL_52:
-        v84 = 0;
-        v85 = sub_18B2C9344();
-        if (v85)
+        v85 = 0;
+        v86 = sub_18B2C9344();
+        if (v86)
         {
           goto LABEL_53;
         }
@@ -434,37 +434,37 @@ LABEL_52:
       goto LABEL_59;
     }
 
-    v79 = sub_18B2C9394();
-    if ((v79 & 0x100000000) == 0)
+    v80 = sub_18B2C9394();
+    if ((v80 & 0x100000000) == 0)
     {
-      v80 = v79;
-      v81 = objc_allocWithZone(MEMORY[0x1E696AD98]);
-      LODWORD(v82) = v80;
-      v83 = [v81 initWithFloat_];
+      v81 = v80;
+      v82 = objc_allocWithZone(MEMORY[0x1E696AD98]);
+      LODWORD(v83) = v81;
+      v84 = [v82 initWithFloat_];
       if ((sub_18B2C93B4() & 0x100000000) != 0)
       {
         goto LABEL_52;
       }
 
 LABEL_59:
-      v92 = sub_18B2C93B4();
-      if ((v92 & 0x100000000) == 0)
+      v93 = sub_18B2C93B4();
+      if ((v93 & 0x100000000) == 0)
       {
-        v93 = v92;
-        v94 = objc_allocWithZone(MEMORY[0x1E696AD98]);
-        LODWORD(v95) = v93;
-        v84 = [v94 initWithFloat_];
-        v85 = sub_18B2C9344();
-        if (v85)
+        v94 = v93;
+        v95 = objc_allocWithZone(MEMORY[0x1E696AD98]);
+        LODWORD(v96) = v94;
+        v85 = [v95 initWithFloat_];
+        v86 = sub_18B2C9344();
+        if (v86)
         {
 LABEL_53:
-          v138 = v85;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B7510);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B66B8);
+          v139 = v86;
+          __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B7510, &qword_18B2FAA00);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B66B8, &qword_18B2F96D0);
           swift_dynamicCast();
-          v86 = v137;
-          v87 = sub_18B2C93D4();
-          if (v87)
+          v87 = v138;
+          v88 = sub_18B2C93D4();
+          if (v88)
           {
             goto LABEL_54;
           }
@@ -473,17 +473,17 @@ LABEL_53:
         }
 
 LABEL_61:
-        v86 = 0;
-        v87 = sub_18B2C93D4();
-        if (v87)
+        v87 = 0;
+        v88 = sub_18B2C93D4();
+        if (v88)
         {
 LABEL_54:
-          v138 = v87;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B7500);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B7040);
+          v139 = v88;
+          __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B7500, &qword_18B2FA9F0);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B7040, &qword_18B2FA9F8);
           swift_dynamicCast();
-          v88 = v137;
-          if (v73)
+          v89 = v138;
+          if (v74)
           {
             goto LABEL_55;
           }
@@ -492,13 +492,13 @@ LABEL_54:
         }
 
 LABEL_62:
-        v88 = 0;
-        if (v73)
+        v89 = 0;
+        if (v74)
         {
 LABEL_55:
-          v89 = sub_18B2C9864();
+          v90 = sub_18B2C9864();
 
-          if (v86)
+          if (v87)
           {
             goto LABEL_56;
           }
@@ -507,39 +507,39 @@ LABEL_55:
         }
 
 LABEL_63:
-        v89 = 0;
-        if (v86)
+        v90 = 0;
+        if (v87)
         {
 LABEL_56:
-          sub_18B2862C0(0, &qword_1ED653B98);
-          v90 = sub_18B2C9804();
+          sub_18B2862C0(0, &qword_1ED653B98, 0x1E696AD98);
+          v91 = sub_18B2C9804();
 
-          if (v88)
+          if (v89)
           {
 LABEL_57:
             sub_18B2C9BC4();
-            v91 = sub_18B2C99D4();
+            v92 = sub_18B2C99D4();
 
 LABEL_66:
-            v96 = objc_allocWithZone(MEMORY[0x1E6988768]);
-            v97 = v134;
-            v98 = [v96 initWithVoiceId:v89 rate:v134 pitch:v83 volume:v84 voiceSettings:v90 effects:v91 boundLanguage:0];
+            v97 = objc_allocWithZone(MEMORY[0x1E6988768]);
+            v98 = v135;
+            v99 = [v97 initWithVoiceId:v90 rate:v135 pitch:v84 volume:v85 voiceSettings:v91 effects:v92 boundLanguage:0];
 
-            [v136 setVoiceSelection_];
-            (*(v135 + 8))(v132, v130);
+            [v137 setVoiceSelection_];
+            (*(v136 + 8))(v133, v131);
+            v72 = &selRef_setSelection_;
             v71 = &selRef_setSelection_;
-            v70 = &selRef_setSelection_;
             goto LABEL_67;
           }
 
 LABEL_65:
-          v91 = 0;
+          v92 = 0;
           goto LABEL_66;
         }
 
 LABEL_64:
-        v90 = 0;
-        if (v88)
+        v91 = 0;
+        if (v89)
         {
           goto LABEL_57;
         }
@@ -557,75 +557,63 @@ LABEL_101:
     goto LABEL_102;
   }
 
-  sub_18B1630AC(v69, &qword_1EA9B63D8);
-  v70 = &selRef_setSelection_;
+  sub_18B1630AC(v70, &qword_1EA9B63D8, &unk_18B2FAD90);
   v71 = &selRef_setSelection_;
+  v72 = &selRef_setSelection_;
 LABEL_67:
-  v99 = *(v2 + v17[19]);
-  if (v99 != 2)
+  v100 = *(v2 + v18[19]);
+  if (v100 != 2)
   {
-    v100 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v71[26]];
-    [v136 setSpeechMuted_];
+    v101 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v72[26]];
+    [v137 setSpeechMuted_];
   }
 
-  v101 = *(v2 + v17[20]);
-  if (v101 != 2)
+  v102 = *(v2 + v18[20]);
+  if (v102 != 2)
   {
-    v102 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v71[26]];
-    [v136 setSoundMuted_];
+    v103 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v72[26]];
+    [v137 setSoundMuted_];
   }
 
-  v103 = v2 + v17[21];
-  if ((*(v103 + 8) & 1) == 0)
+  v104 = v2 + v18[21];
+  if ((*(v104 + 8) & 1) == 0)
   {
-    v104 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v70[21]];
-    [v136 setAudioDucking_];
+    v105 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v71[21]];
+    [v137 setAudioDucking_];
   }
 
-  v105 = (v2 + v17[22]);
-  if ((v105[1] & 1) == 0)
+  v106 = (v2 + v18[22]);
+  if ((v106[1] & 1) == 0)
   {
-    v106 = *v105;
-    v107 = objc_allocWithZone(MEMORY[0x1E696AD98]);
-    LODWORD(v108) = v106;
-    v109 = [v107 initWithFloat_];
-    [v136 setAudioDuckingAmount_];
+    v107 = *v106;
+    v108 = objc_allocWithZone(MEMORY[0x1E696AD98]);
+    LODWORD(v109) = v107;
+    v110 = [v108 initWithFloat_];
+    [v137 setAudioDuckingAmount_];
   }
 
-  v110 = v2 + v17[23];
-  if ((*(v110 + 8) & 1) == 0)
+  v111 = v2 + v18[23];
+  if ((*(v111 + 8) & 1) == 0)
   {
-    v111 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v70[21]];
-    [v136 setModifierKeys_];
+    v112 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v71[21]];
+    [v137 setModifierKeys_];
   }
 
-  v112 = *(v2 + v17[24]);
-  if (v112 != 2)
+  v113 = *(v2 + v18[24]);
+  if (v113 != 2)
   {
-    v113 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v71[26]];
-    [v136 setBrailleStatusCellGeneral_];
+    v114 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v72[26]];
+    [v137 setBrailleStatusCellGeneral_];
   }
 
-  v114 = *(v2 + v17[25]);
-  if (v114 != 2)
+  v115 = *(v2 + v18[25]);
+  if (v115 != 2)
   {
-    v115 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v71[26]];
-    [v136 setBrailleStatusCellText_];
+    v116 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v72[26]];
+    [v137 setBrailleStatusCellText_];
   }
 
-  if (*(v2 + v17[26] + 8))
-  {
-    v116 = sub_18B2C9864();
-  }
-
-  else
-  {
-    v116 = 0;
-  }
-
-  [v136 setBrailleTable_];
-
-  if (*(v2 + v17[27] + 8))
+  if (*(v2 + v18[26] + 8))
   {
     v117 = sub_18B2C9864();
   }
@@ -635,48 +623,60 @@ LABEL_67:
     v117 = 0;
   }
 
-  [v136 setBrailleInputTable_];
+  [v137 setBrailleTable_];
 
-  v118 = v2 + v17[28];
-  if ((*(v118 + 8) & 1) == 0)
+  if (*(v2 + v18[27] + 8))
   {
-    v119 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v70[21]];
-    [v136 setBrailleOutput_];
+    v118 = sub_18B2C9864();
   }
 
-  v120 = v2 + v17[29];
-  if ((*(v120 + 8) & 1) == 0)
+  else
   {
-    v121 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v70[21]];
-    [v136 setBrailleInput_];
+    v118 = 0;
   }
 
-  v122 = v2 + v17[30];
-  if ((*(v122 + 8) & 1) == 0)
+  [v137 setBrailleInputTable_];
+
+  v119 = v2 + v18[28];
+  if ((*(v119 + 8) & 1) == 0)
   {
-    v123 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithDouble_];
-    [v136 setBrailleAutoAdvanceDuration_];
+    v120 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v71[21]];
+    [v137 setBrailleOutput_];
   }
 
-  v124 = *(v2 + v17[31]);
-  if (v124 != 2)
+  v121 = v2 + v18[29];
+  if ((*(v121 + 8) & 1) == 0)
   {
-    v125 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v71[26]];
-    [v136 setBrailleAlerts_];
+    v122 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v71[21]];
+    [v137 setBrailleInput_];
   }
 
-  v126 = *(v2 + v17[32]);
-  if (v126 != 2)
+  v123 = v2 + v18[30];
+  if ((*(v123 + 8) & 1) == 0)
   {
-    v127 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v71[26]];
-    [v136 setBrailleFormatting_];
+    v124 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithDouble_];
+    [v137 setBrailleAutoAdvanceDuration_];
   }
 
-  v128 = *(v2 + v17[33]);
-  if (v128 != 2)
+  v125 = *(v2 + v18[31]);
+  if (v125 != 2)
   {
-    v129 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v71[26]];
-    [v136 setBrailleStartAutoActivateOnTextFields_];
+    v126 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v72[26]];
+    [v137 setBrailleAlerts_];
+  }
+
+  v127 = *(v2 + v18[32]);
+  if (v127 != 2)
+  {
+    v128 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v72[26]];
+    [v137 setBrailleFormatting_];
+  }
+
+  v129 = *(v2 + v18[33]);
+  if (v129 != 2)
+  {
+    v130 = [objc_allocWithZone(MEMORY[0x1E696AD98]) v72[26]];
+    [v137 setBrailleStartAutoActivateOnTextFields_];
   }
 }
 
@@ -722,9 +722,11 @@ id AXPreBoardQueue()
 
 uint64_t __AXPreBoardQueue_block_invoke()
 {
-  AXPreBoardQueue_PreBoardQueue = dispatch_queue_create("AXPreBoardQueue", 0);
+  v0 = dispatch_queue_create("AXPreBoardQueue", 0);
+  v1 = AXPreBoardQueue_PreBoardQueue;
+  AXPreBoardQueue_PreBoardQueue = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __AXInPreboardScenario_block_invoke_2()
@@ -774,7 +776,7 @@ char *sub_18B162C48(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B7100);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B7100, &unk_18B2FACE0);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -819,7 +821,7 @@ char *sub_18B162D54(char *a1, int64_t a2, char a3)
   return result;
 }
 
-uint64_t sub_18B162D74(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_18B162D74(void *a1, uint64_t a2, uint64_t a3)
 {
   v7 = *v3;
   sub_18B2C9F64();
@@ -880,7 +882,7 @@ uint64_t sub_18B162EC4(uint64_t result, uint64_t a2, unint64_t a3, char a4)
 
   if (a4)
   {
-    sub_18B233E14();
+    sub_18B233E14(v8 + 1);
   }
 
   else
@@ -891,7 +893,7 @@ uint64_t sub_18B162EC4(uint64_t result, uint64_t a2, unint64_t a3, char a4)
       goto LABEL_16;
     }
 
-    sub_18B235970();
+    sub_18B235970(v8 + 1);
   }
 
   v10 = *v4;
@@ -945,17 +947,17 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_18B163044(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_18B163044(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t sub_18B1630AC(uint64_t a1, uint64_t *a2)
+uint64_t sub_18B1630AC(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -1069,13 +1071,13 @@ LABEL_24:
   return result;
 }
 
-uint64_t sub_18B16333C(uint64_t a1, uint64_t a2, char a3)
+uint64_t sub_18B16333C(uint64_t result, uint64_t a2, char a3)
 {
   if (a3)
   {
   }
 
-  return result;
+  return v3;
 }
 
 uint64_t sub_18B163348(uint64_t a1)
@@ -1104,29 +1106,29 @@ uint64_t sub_18B163348(uint64_t a1)
   return result;
 }
 
-double AXDeviceGetMainScreenBounds()
+double AXDeviceGetMainScreenBounds(uint64_t a1)
 {
-  v0 = _AXSharedDisplayManager();
-  if ([v0 isInitialized])
+  v1 = _AXSharedDisplayManager(a1);
+  if ([v1 isInitialized])
   {
-    v1 = [v0 coreAnimationMainDisplay];
-    [v1 referenceBounds];
-    v3 = v2;
+    v2 = [v1 coreAnimationMainDisplay];
+    [v2 referenceBounds];
+    v4 = v3;
   }
 
   else
   {
-    v3 = *MEMORY[0x1E695F058];
+    v4 = *MEMORY[0x1E695F058];
   }
 
-  return v3;
+  return v4;
 }
 
-id _AXSharedDisplayManager()
+id _AXSharedDisplayManager(uint64_t a1)
 {
   if (_AXSharedDisplayManager_CanAccessDisplayManager)
   {
-    v1 = 0;
+    v2 = 0;
   }
 
   else
@@ -1136,10 +1138,10 @@ id _AXSharedDisplayManager()
       _AXSharedDisplayManager_cold_1();
     }
 
-    v1 = _AXSharedDisplayManager__Shared;
+    v2 = _AXSharedDisplayManager__Shared;
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t AXSettingsReturnBoolValue(void *a1, uint64_t a2)
@@ -1193,7 +1195,7 @@ uint64_t sub_18B16427C()
 
 uint64_t sub_18B1642F8@<X0>(uint64_t *a1@<X8>)
 {
-  type metadata accessor for UserVoiceConfiguration();
+  type metadata accessor for UserVoiceConfiguration(0);
   result = sub_18B2C9404();
   *a1 = result;
   a1[1] = v3;
@@ -1216,7 +1218,7 @@ uint64_t sub_18B164350(uint64_t a1, uint64_t a2, uint64_t a3)
   else
   {
     v8 = sub_18B2C9424();
-    v9 = *(*(v8 - 8) + 48);
+    v9 = *(*(v8 - 1) + 48);
     v10 = a1 + *(a3 + 20);
 
     return v9(v10, a2, v8);
@@ -1234,7 +1236,7 @@ uint64_t sub_18B1643FC(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   else
   {
     v7 = sub_18B2C9424();
-    v8 = *(*(v7 - 8) + 56);
+    v8 = *(*(v7 - 1) + 56);
     v9 = v5 + *(a4 + 20);
 
     return v8(v9, a2, a2, v7);
@@ -1271,7 +1273,7 @@ uint64_t sub_18B164630()
 
 uint64_t sub_18B164668()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B6A70);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B6A70, &qword_18B2F9BC0);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;
@@ -1289,7 +1291,7 @@ uint64_t sub_18B164738@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_18B164764(void *a1, void *a2)
+uint64_t sub_18B164764(uint64_t *a1, void *a2)
 {
   *(*a2 + OBJC_IVAR____TtCE22AccessibilityUtilitiesCSo10AXSettings9VoiceOver____lazy_storage___resolver) = *a1;
 }
@@ -1761,7 +1763,7 @@ uint64_t sub_18B165E3C@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_18B165E68(void *a1, void *a2)
+uint64_t sub_18B165E68(uint64_t *a1, void *a2)
 {
   *(*a2 + OBJC_IVAR____TtCE22AccessibilityUtilitiesCSo10AXSettings10LiveSpeech____lazy_storage___resolver) = *a1;
 }
@@ -1821,7 +1823,7 @@ LABEL_3:
 
   else
   {
-    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B74F0);
+    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B74F0, &unk_18B2FA470);
     v14 = *(v13 - 8);
     if (*(v14 + 84) == a2)
     {
@@ -1831,7 +1833,7 @@ LABEL_3:
       goto LABEL_3;
     }
 
-    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B63D8);
+    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B63D8, &unk_18B2FAD90);
     v16 = *(*(v15 - 8) + 48);
     v17 = a1 + a3[18];
 
@@ -1859,7 +1861,7 @@ LABEL_3:
     return result;
   }
 
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B74F0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9B74F0, &unk_18B2FA470);
   v14 = *(v13 - 8);
   if (*(v14 + 84) == a3)
   {
@@ -1869,7 +1871,7 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B63D8);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B63D8, &unk_18B2FAD90);
   v16 = *(*(v15 - 8) + 56);
   v17 = a1 + a4[18];
 
@@ -1925,7 +1927,7 @@ id sub_18B1665F8@<X0>(id *a1@<X0>, _DWORD *a2@<X8>)
 
 uint64_t sub_18B166678()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B6A70);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B6A70, &qword_18B2F9BC0);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;
@@ -1938,12 +1940,12 @@ uint64_t sub_18B166678()
 
 uint64_t sub_18B16674C()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B6A70);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B6A70, &qword_18B2F9BC0);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 40) & ~v3;
   v5 = *(v2 + 64);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B7118);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9B7118, &qword_18B2FAC10);
   v7 = *(v6 - 8);
   v8 = *(v7 + 80);
   v9 = (v4 + v5 + v8) & ~v8;
@@ -2072,17 +2074,17 @@ uint64_t sub_18B166E60@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_18B166EB4@<X0>(uint64_t *a1@<X8>)
+void *sub_18B166EB4@<X0>(uint64_t *a1@<X8>)
 {
   result = _sSo10AXSettingsC22AccessibilityUtilitiesE13SwitchControlC8switchesSaySo8AXSwitchCGvg_0();
   *a1 = result;
   return result;
 }
 
-void sub_18B166EDC()
+void sub_18B166EDC(void *a1)
 {
 
-  _sSo10AXSettingsC22AccessibilityUtilitiesE13SwitchControlC8switchesSaySo8AXSwitchCGvs_0();
+  _sSo10AXSettingsC22AccessibilityUtilitiesE13SwitchControlC8switchesSaySo8AXSwitchCGvs_0(v1);
 }
 
 uint64_t sub_18B166F08@<X0>(_BYTE *a1@<X8>)
@@ -2331,7 +2333,7 @@ void _handleInPreBoardModeUpdate()
   dispatch_async(v0, &__block_literal_global_56);
 }
 
-uint64_t AXInCheckerBoardScenario()
+uint64_t AXInCheckerBoardScenario(uint64_t a1, uint64_t a2)
 {
   if (AXInCheckerBoardScenario_onceToken != -1)
   {
@@ -2500,16 +2502,16 @@ id AXZoomLensDefault()
   return v2;
 }
 
-id AXZoomAllLensEffects()
+id AXZoomAllLensEffects(uint64_t a1)
 {
   if (AXZoomAllLensEffects_onceToken != -1)
   {
     AXZoomAllLensEffects_cold_1();
   }
 
-  v1 = AXZoomAllLensEffects_Result;
+  v2 = AXZoomAllLensEffects_Result;
 
-  return v1;
+  return v2;
 }
 
 void __AXZoomAllLensEffects_block_invoke()
@@ -2529,16 +2531,16 @@ void __AXZoomAllLensEffects_block_invoke()
   AXZoomAllLensEffects_Result = v4;
 }
 
-id AXZoomAllLensModes()
+id AXZoomAllLensModes(uint64_t a1)
 {
   if (AXZoomAllLensModes_onceToken != -1)
   {
     AXZoomAllLensModes_cold_1();
   }
 
-  v1 = AXZoomAllLensModes_Result;
+  v2 = AXZoomAllLensModes_Result;
 
-  return v1;
+  return v2;
 }
 
 void __AXZoomAllLensModes_block_invoke()
@@ -2561,16 +2563,16 @@ void __AXZoomAllLensModes_block_invoke()
   [v5 sortUsingDescriptors:v7];
 }
 
-id AXZoomUserSelectableLensModes()
+id AXZoomUserSelectableLensModes(uint64_t a1)
 {
   if (AXZoomUserSelectableLensModes_onceToken != -1)
   {
     AXZoomUserSelectableLensModes_cold_1();
   }
 
-  v1 = AXZoomUserSelectableLensModes_Result;
+  v2 = AXZoomUserSelectableLensModes_Result;
 
-  return v1;
+  return v2;
 }
 
 void __AXZoomUserSelectableLensModes_block_invoke()
@@ -2611,16 +2613,16 @@ void __AXZoomUserSelectableLensModes_block_invoke()
   [v10 sortUsingDescriptors:v12];
 }
 
-id AXZoomDockPositions()
+id AXZoomDockPositions(uint64_t a1)
 {
   if (AXZoomDockPositions_onceToken != -1)
   {
     AXZoomDockPositions_cold_1();
   }
 
-  v1 = AXZoomDockPositions_Result;
+  v2 = AXZoomDockPositions_Result;
 
-  return v1;
+  return v2;
 }
 
 void __AXZoomDockPositions_block_invoke()
@@ -2685,9 +2687,9 @@ id getVTPreferencesClass()
   return v1;
 }
 
-void sub_18B168A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B168A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2837,16 +2839,16 @@ Class __getVTPreferencesClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __VoiceTriggerLibraryCore_block_invoke()
+uint64_t __VoiceTriggerLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   VoiceTriggerLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_18B1693B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1693B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2878,47 +2880,47 @@ id soft_AXUIAssistiveTouchStringForName(void *a1)
   return v4;
 }
 
-void sub_18B169648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B169648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B169C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B169C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t soft_paCurrentRouteSupportsTransparencyAccommodations()
+uint64_t soft_paCurrentRouteSupportsTransparencyAccommodations(uint64_t a1, uint64_t a2)
 {
-  v3 = 0;
-  v4 = &v3;
-  v5 = 0x2020000000;
-  v0 = getpaCurrentRouteSupportsTransparencyAccommodationsSymbolLoc_ptr;
-  v6 = getpaCurrentRouteSupportsTransparencyAccommodationsSymbolLoc_ptr;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v2 = getpaCurrentRouteSupportsTransparencyAccommodationsSymbolLoc_ptr;
+  v8 = getpaCurrentRouteSupportsTransparencyAccommodationsSymbolLoc_ptr;
   if (!getpaCurrentRouteSupportsTransparencyAccommodationsSymbolLoc_ptr)
   {
-    v1 = PersonalAudioLibrary();
-    v4[3] = dlsym(v1, "paCurrentRouteSupportsTransparencyAccommodations");
-    getpaCurrentRouteSupportsTransparencyAccommodationsSymbolLoc_ptr = v4[3];
-    v0 = v4[3];
+    v3 = PersonalAudioLibrary();
+    v6[3] = dlsym(v3, "paCurrentRouteSupportsTransparencyAccommodations");
+    getpaCurrentRouteSupportsTransparencyAccommodationsSymbolLoc_ptr = v6[3];
+    v2 = v6[3];
   }
 
-  _Block_object_dispose(&v3, 8);
-  if (!v0)
+  _Block_object_dispose(&v5, 8);
+  if (!v2)
   {
     soft_paCurrentRouteSupportsTransparencyAccommodations_cold_1();
   }
 
-  return v0();
+  return v2();
 }
 
-void sub_18B169D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B169D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2950,9 +2952,9 @@ uint64_t soft_paBluetoothDeviceSupportsSSL(void *a1)
   return v4;
 }
 
-void sub_18B169E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B169E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2981,9 +2983,9 @@ id getPASettingsClass()
   return v1;
 }
 
-void sub_18B169F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B169F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3012,16 +3014,16 @@ id getWatchControlSettingsClass()
   return v1;
 }
 
-void sub_18B16A22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B16A22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B16A530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B16A530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3050,23 +3052,23 @@ id getAXUIClientClass()
   return v1;
 }
 
-void sub_18B16A6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B16A6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B16AF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B16AF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B16B464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B16B464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3095,9 +3097,9 @@ id getAXPISystemActionHelperClass()
   return v1;
 }
 
-void sub_18B16C050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B16C050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3131,9 +3133,9 @@ id AXGuestPassManager_Soft()
   return v1;
 }
 
-void sub_18B16C134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B16C134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3153,10 +3155,10 @@ void _handleTripleClickPrefNotificationChanged(uint64_t a1, uint64_t a2, uint64_
   [v5 reloadControlsForExtension:@"com.apple.AccessibilityUIServer.AccessibilityControlsExtension" kind:0 reason:@"AX shortcut preference changed"];
 }
 
-void *__getAXUILocalizedStringForKeyWithTableSymbolLoc_block_invoke(uint64_t a1)
+void *__getAXUILocalizedStringForKeyWithTableSymbolLoc_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = AccessibilityUIUtilitiesLibrary();
-  result = dlsym(v2, "AXUILocalizedStringForKeyWithTable");
+  v3 = AccessibilityUIUtilitiesLibrary();
+  result = dlsym(v3, "AXUILocalizedStringForKeyWithTable");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAXUILocalizedStringForKeyWithTableSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -3192,7 +3194,7 @@ uint64_t AccessibilityUIUtilitiesLibrary()
   return v0;
 }
 
-uint64_t __AccessibilityUIUtilitiesLibraryCore_block_invoke()
+uint64_t __AccessibilityUIUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityUIUtilitiesLibraryCore_frameworkLibrary = result;
@@ -3245,17 +3247,17 @@ Class __getHUComfortSoundsSettingsClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __HearingUtilitiesLibraryCore_block_invoke()
+uint64_t __HearingUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   HearingUtilitiesLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void *__getpaCurrentBluetoothDeviceSupportingTransparencyAccommodationsSymbolLoc_block_invoke(uint64_t a1)
+void *__getpaCurrentBluetoothDeviceSupportingTransparencyAccommodationsSymbolLoc_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PersonalAudioLibrary();
-  result = dlsym(v2, "paCurrentBluetoothDeviceSupportingTransparencyAccommodations");
+  v3 = PersonalAudioLibrary();
+  result = dlsym(v3, "paCurrentBluetoothDeviceSupportingTransparencyAccommodations");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getpaCurrentBluetoothDeviceSupportingTransparencyAccommodationsSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -3291,7 +3293,7 @@ uint64_t PersonalAudioLibrary()
   return v0;
 }
 
-uint64_t __PersonalAudioLibraryCore_block_invoke()
+uint64_t __PersonalAudioLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PersonalAudioLibraryCore_frameworkLibrary = result;
@@ -3330,7 +3332,7 @@ Class __getPASettingsClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t WatchControlSettingsLibraryCore()
+uint64_t WatchControlSettingsLibraryCore(uint64_t a1)
 {
   if (!WatchControlSettingsLibraryCore_frameworkLibrary)
   {
@@ -3340,7 +3342,7 @@ uint64_t WatchControlSettingsLibraryCore()
   return WatchControlSettingsLibraryCore_frameworkLibrary;
 }
 
-uint64_t __WatchControlSettingsLibraryCore_block_invoke()
+uint64_t __WatchControlSettingsLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   WatchControlSettingsLibraryCore_frameworkLibrary = result;
@@ -3350,9 +3352,14 @@ uint64_t __WatchControlSettingsLibraryCore_block_invoke()
 Class __getWatchControlSettingsClass_block_invoke(uint64_t a1)
 {
   v3 = 0;
-  if (!WatchControlSettingsLibraryCore())
+  if (!WatchControlSettingsLibraryCore(&v3))
   {
     __getWatchControlSettingsClass_block_invoke_cold_2(&v3);
+  }
+
+  if (v3)
+  {
+    free(v3);
   }
 
   result = objc_getClass("WatchControlSettings");
@@ -3403,7 +3410,7 @@ Class __getAXUIClientClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __AccessibilityUILibraryCore_block_invoke()
+uint64_t __AccessibilityUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityUILibraryCore_frameworkLibrary = result;
@@ -3447,7 +3454,7 @@ Class __getSpeakThisServicesClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __SpeakThisServicesLibraryCore_block_invoke()
+uint64_t __SpeakThisServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SpeakThisServicesLibraryCore_frameworkLibrary = result;
@@ -3491,7 +3498,7 @@ Class __getAXPISystemActionHelperClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __AccessibilityPhysicalInteractionLibraryCore_block_invoke()
+uint64_t __AccessibilityPhysicalInteractionLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityPhysicalInteractionLibraryCore_frameworkLibrary = result;
@@ -3531,7 +3538,7 @@ void *__getAXGuestPassManagerSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __AXGuestPassServicesLibraryCore_block_invoke()
+uint64_t __AXGuestPassServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AXGuestPassServicesLibraryCore_frameworkLibrary = result;
@@ -4016,29 +4023,29 @@ uint64_t AXVoiceActivelyUsed(void *a1)
   return v9 & 1;
 }
 
-id AXSiriDisplayNameForIdentifier()
+id AXSiriDisplayNameForIdentifier(uint64_t a1)
 {
   TTSGetComponentsInNamedSiriVoiceIdentifier();
-  v0 = 0;
   v1 = 0;
-  v2 = [MEMORY[0x1E698D178] sharedInstance];
-  v3 = [v2 outputVoiceDescriptorForOutputLanguageCode:v1 voiceName:v0];
-  v4 = v3;
-  if (v3)
+  v2 = 0;
+  v3 = [MEMORY[0x1E698D178] sharedInstance];
+  v4 = [v3 outputVoiceDescriptorForOutputLanguageCode:v2 voiceName:v1];
+  v5 = v4;
+  if (v4)
   {
-    v5 = v3;
+    v6 = v4;
   }
 
   else
   {
-    v6 = [MEMORY[0x1E698D178] sharedInstance];
-    v7 = [v0 lowercaseString];
-    v5 = [v6 outputVoiceDescriptorForOutputLanguageCode:v1 voiceName:v7];
+    v7 = [MEMORY[0x1E698D178] sharedInstance];
+    v8 = [v1 lowercaseString];
+    v6 = [v7 outputVoiceDescriptorForOutputLanguageCode:v2 voiceName:v8];
   }
 
-  v8 = [v5 localizedDisplay];
+  v9 = [v6 localizedDisplay];
 
-  return v8;
+  return v9;
 }
 
 uint64_t AXForceTouchAvailableAndEnabled()
@@ -4113,14 +4120,14 @@ float _calculateThresholds()
   return result;
 }
 
-void sub_18B1722B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B1722B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4140,9 +4147,9 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_18B1743C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1743C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4361,9 +4368,9 @@ LABEL_22:
   return v14;
 }
 
-void sub_18B177D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B177D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4375,23 +4382,23 @@ void *__Block_byref_object_copy__2(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_18B178F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B178F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B1791A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B1791A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B1792D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1792D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4458,9 +4465,11 @@ uint64_t AXBTRouteIsAirpods(void *a1)
 
 uint64_t __AXBTRouteIsAirpods_block_invoke()
 {
-  AXBTRouteIsAirpods_ValidAirPodRoutes = [MEMORY[0x1E695DFD8] setWithArray:&unk_1EFE97138];
+  v0 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1EFE97138];
+  v1 = AXBTRouteIsAirpods_ValidAirPodRoutes;
+  AXBTRouteIsAirpods_ValidAirPodRoutes = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
@@ -4486,24 +4495,24 @@ BOOL AXIsBeatsProductId(void *a1)
   return v2;
 }
 
-void sub_18B1827C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1827C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B182BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B182BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B182F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B182F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4550,16 +4559,18 @@ void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_18B1886FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -4569,20 +4580,20 @@ void sub_18B1886FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id AXUIAddressForBTDevice()
+id AXUIAddressForBTDevice(uint64_t a1)
 {
-  v2[31] = *MEMORY[0x1E69E9840];
+  v3[31] = *MEMORY[0x1E69E9840];
   if (BTDeviceGetAddressString())
   {
-    v0 = 0;
+    v1 = 0;
   }
 
   else
   {
-    v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v2];
+    v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v3];
   }
 
-  return v0;
+  return v1;
 }
 
 void sub_18B18A400(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -4599,9 +4610,9 @@ void sub_18B18D1DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_18B18D778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B18D778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4622,9 +4633,9 @@ void sub_18B18DAB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_18B18E348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B18E348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4896,22 +4907,22 @@ id AXAssistiveTouchIcons()
   v1 = AXAssistiveTouchAccessibilityIcons();
   v2 = [v0 arrayByAddingObjectsFromArray:v1];
 
-  v3 = AXAssistiveTouchScrollIcons();
-  v4 = [v2 arrayByAddingObjectsFromArray:v3];
+  v4 = AXAssistiveTouchScrollIcons(v3);
+  v5 = [v2 arrayByAddingObjectsFromArray:v4];
 
-  v5 = AXAssistiveTouchCustomGesturesIcons();
-  v6 = [v4 arrayByAddingObjectsFromArray:v5];
+  v6 = AXAssistiveTouchCustomGesturesIcons();
+  v7 = [v5 arrayByAddingObjectsFromArray:v6];
 
-  v7 = AXAssistiveTouchSpecificActionIcons();
-  v8 = [v6 arrayByAddingObjectsFromArray:v7];
+  v9 = AXAssistiveTouchSpecificActionIcons(v8);
+  v10 = [v7 arrayByAddingObjectsFromArray:v9];
 
-  v9 = AXAssistiveTouchSiriShortcutsIcons();
-  v10 = [v8 arrayByAddingObjectsFromArray:v9];
-
-  v11 = AXAssistiveTouchDwellIcons();
+  v11 = AXAssistiveTouchSiriShortcutsIcons();
   v12 = [v10 arrayByAddingObjectsFromArray:v11];
 
-  return v12;
+  v14 = AXAssistiveTouchDwellIcons(v13);
+  v15 = [v12 arrayByAddingObjectsFromArray:v14];
+
+  return v15;
 }
 
 id AXAssistiveTouchSystemIcons()
@@ -4985,61 +4996,62 @@ id AXAssistiveTouchAccessibilityIcons()
 
   v5 = [v0 arrayByAddingObject:@"AXAssistiveTouchIconTypeLiveSpeech"];
 
-  if (AXDeviceSupportsPhotosensitiveMitigation())
+  v8 = AXDeviceSupportsPhotosensitiveMitigation(v6, v7);
+  if (v8)
   {
-    v6 = [v5 arrayByAddingObject:@"AXAssistiveTouchIconTypeDimFlashingLights"];
-
-    v5 = v6;
-  }
-
-  if (AXDeviceSupportsMotionCues())
-  {
-    v7 = [v5 arrayByAddingObject:@"AXAssistiveTouchIconTypeMotionCues"];
-
-    v5 = v7;
-  }
-
-  if (AXDeviceSupportsHapticMusic())
-  {
-    v8 = [v5 arrayByAddingObject:@"AXAssistiveTouchIconTypeHapticMusic"];
-
-    v5 = v8;
-  }
-
-  if (AXHasCapability(@"AXClarityUI"))
-  {
-    v9 = [v5 arrayByAddingObject:@"AXAssistiveTouchIconTypeAssistiveAccess"];
-
-    v5 = v9;
-  }
-
-  if (AXHasCapability(@"AXReader"))
-  {
-    v10 = [v5 arrayByAddingObject:@"AXAssistiveTouchIconTypeAccessibilityReader"];
+    v10 = [v5 arrayByAddingObject:@"AXAssistiveTouchIconTypeDimFlashingLights"];
 
     v5 = v10;
   }
 
-  if (AXDeviceSupportsOnDeviceEyeTracking())
+  if (AXDeviceSupportsMotionCues(v8, v9))
   {
-    v11 = [v5 arrayByAddingObject:@"AXAssistiveTouchIconTypeOnDeviceEyeTracking"];
+    v11 = [v5 arrayByAddingObject:@"AXAssistiveTouchIconTypeMotionCues"];
 
     v5 = v11;
+  }
+
+  if (AXDeviceSupportsHapticMusic())
+  {
+    v12 = [v5 arrayByAddingObject:@"AXAssistiveTouchIconTypeHapticMusic"];
+
+    v5 = v12;
+  }
+
+  if (AXHasCapability(@"AXClarityUI"))
+  {
+    v13 = [v5 arrayByAddingObject:@"AXAssistiveTouchIconTypeAssistiveAccess"];
+
+    v5 = v13;
+  }
+
+  if (AXHasCapability(@"AXReader"))
+  {
+    v14 = [v5 arrayByAddingObject:@"AXAssistiveTouchIconTypeAccessibilityReader"];
+
+    v5 = v14;
+  }
+
+  if (AXDeviceSupportsOnDeviceEyeTracking())
+  {
+    v15 = [v5 arrayByAddingObject:@"AXAssistiveTouchIconTypeOnDeviceEyeTracking"];
+
+    v5 = v15;
   }
 
   return v5;
 }
 
-id AXAssistiveTouchScrollIcons()
+id AXAssistiveTouchScrollIcons(uint64_t a1)
 {
   if (AXAssistiveTouchScrollIcons_onceToken != -1)
   {
     AXAssistiveTouchScrollIcons_cold_1();
   }
 
-  v1 = AXAssistiveTouchScrollIcons_Array;
+  v2 = AXAssistiveTouchScrollIcons_Array;
 
-  return v1;
+  return v2;
 }
 
 id AXAssistiveTouchCustomGesturesIcons()
@@ -5091,16 +5103,16 @@ id AXAssistiveTouchCustomGesturesIcons()
   return v2;
 }
 
-id AXAssistiveTouchSpecificActionIcons()
+id AXAssistiveTouchSpecificActionIcons(uint64_t a1)
 {
   if (AXAssistiveTouchSpecificActionIcons_onceToken != -1)
   {
     AXAssistiveTouchSpecificActionIcons_cold_1();
   }
 
-  v1 = AXAssistiveTouchSpecificActionIcons_Array;
+  v2 = AXAssistiveTouchSpecificActionIcons_Array;
 
-  return v1;
+  return v2;
 }
 
 id AXAssistiveTouchSiriShortcutsIcons()
@@ -5155,69 +5167,69 @@ id AXAssistiveTouchSiriShortcutsIcons()
   return v2;
 }
 
-id AXAssistiveTouchDwellIcons()
+id AXAssistiveTouchDwellIcons(uint64_t a1)
 {
   if (AXAssistiveTouchDwellIcons_onceToken != -1)
   {
     AXAssistiveTouchDwellIcons_cold_1();
   }
 
-  v1 = AXAssistiveTouchDwellIcons_Array;
+  v2 = AXAssistiveTouchDwellIcons_Array;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AXAssistiveTouchSystemIcons_block_invoke()
 {
-  v4[47] = *MEMORY[0x1E69E9840];
-  v4[0] = @"AXAssistiveTouchIconTypeHome";
-  v4[1] = @"AXAssistiveTouchIconTypeNotificationCenter";
-  v4[2] = @"AXAssistiveTouchIconTypeCustom";
-  v4[3] = @"AXAssistiveTouchIconTypeDevice";
-  v4[4] = @"AXAssistiveTouchIconTypeSiri";
-  v4[5] = @"AXAssistiveTouchIconTypeTypeToSiri";
-  v4[6] = @"AXAssistiveTouchIconTypeControlCenter";
-  v4[7] = @"AXAssistiveTouchIconTypeLockScreen";
-  v4[8] = @"AXAssistiveTouchIconTypeRotateScreen";
-  v4[9] = @"AXAssistiveTouchIconTypeVolumeUp";
-  v4[10] = @"AXAssistiveTouchIconTypeVolumeDown";
-  v4[11] = @"AXAssistiveTouchIconTypeMute";
-  v4[12] = @"AXAssistiveTouchIconTypeGestures";
-  v4[13] = @"AXAssistiveTouchIconTypeShake";
-  v4[14] = @"AXAssistiveTouchIconTypeMultitasking";
-  v4[15] = @"AXAssistiveTouchIconTypeScreenshot";
-  v4[16] = @"AXAssistiveTouchIconTypeOrientation";
-  v4[17] = @"AXAssistiveTouchIconTypeVoiceControl";
-  v4[18] = @"AXAssistiveTouchIconTypePinch";
-  v4[19] = @"AXAssistiveTouchIconTypeRotate";
-  v4[20] = @"AXAssistiveTouchIconTypePinchAndRotate";
-  v4[21] = @"AXAssistiveTouchIconTypeForceTap";
-  v4[22] = @"AXAssistiveTouchIconTypeTap";
-  v4[23] = @"AXAssistiveTouchIconTypeDoubleTap";
-  v4[24] = @"AXAssistiveTouchIconTypeLongPress";
-  v4[25] = @"AXAssistiveTouchIconTypeDragAndDrop";
-  v4[26] = @"AXAssistiveTouchIconTypeMoveMenu";
-  v4[27] = @"AXAssistiveTouchIconTypeSpotlight";
-  v4[28] = @"AXAssistiveTouchIconTypeSOS";
-  v4[29] = @"AXAssistiveTouchIconTypeSysdiagnose";
-  v4[30] = @"AXAssistiveTouchIconTypeToggleDock";
-  v4[31] = @"AXAssistiveTouchIconTypeReachability";
-  v4[32] = @"AXAssistiveTouchIconTypeRebootDevice";
-  v4[33] = @"AXAssistiveTouchIcontTypeArmApplePay";
-  v4[34] = @"AXAssistiveTouchIconTypeTorch";
-  v4[35] = @"AXAssistiveTouchIcontTypeConfirmApplePay";
-  v4[36] = @"AXAssistiveTouchIconTypeScroll";
-  v4[37] = @"AXAssistiveTouchIconTypeDwell";
-  v4[38] = @"AXAssistiveTouchIconTypeCamera";
-  v4[39] = @"AXAssistiveTouchIconTypeFrontFacingCamera";
-  v4[40] = @"AXAssistiveTouchIconTypeSiriShortcutsMenu";
-  v4[41] = @"AXAssistiveTouchIconTypeActionButton";
-  v4[42] = @"AXAssistiveTouchIconTypeCameraButton";
-  v4[43] = @"AXAssistiveTouchIconTypeCameraButtonLightPress";
-  v4[44] = @"AXAssistiveTouchIconTypeCameraButtonDoubleLightPress";
-  v4[45] = @"AXAssistiveTouchIconTypeVisualIntelligence";
-  v4[46] = @"AXAssistiveTouchIconTypeMenuBar";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:47];
+  v7[47] = *MEMORY[0x1E69E9840];
+  v7[0] = @"AXAssistiveTouchIconTypeHome";
+  v7[1] = @"AXAssistiveTouchIconTypeNotificationCenter";
+  v7[2] = @"AXAssistiveTouchIconTypeCustom";
+  v7[3] = @"AXAssistiveTouchIconTypeDevice";
+  v7[4] = @"AXAssistiveTouchIconTypeSiri";
+  v7[5] = @"AXAssistiveTouchIconTypeTypeToSiri";
+  v7[6] = @"AXAssistiveTouchIconTypeControlCenter";
+  v7[7] = @"AXAssistiveTouchIconTypeLockScreen";
+  v7[8] = @"AXAssistiveTouchIconTypeRotateScreen";
+  v7[9] = @"AXAssistiveTouchIconTypeVolumeUp";
+  v7[10] = @"AXAssistiveTouchIconTypeVolumeDown";
+  v7[11] = @"AXAssistiveTouchIconTypeMute";
+  v7[12] = @"AXAssistiveTouchIconTypeGestures";
+  v7[13] = @"AXAssistiveTouchIconTypeShake";
+  v7[14] = @"AXAssistiveTouchIconTypeMultitasking";
+  v7[15] = @"AXAssistiveTouchIconTypeScreenshot";
+  v7[16] = @"AXAssistiveTouchIconTypeOrientation";
+  v7[17] = @"AXAssistiveTouchIconTypeVoiceControl";
+  v7[18] = @"AXAssistiveTouchIconTypePinch";
+  v7[19] = @"AXAssistiveTouchIconTypeRotate";
+  v7[20] = @"AXAssistiveTouchIconTypePinchAndRotate";
+  v7[21] = @"AXAssistiveTouchIconTypeForceTap";
+  v7[22] = @"AXAssistiveTouchIconTypeTap";
+  v7[23] = @"AXAssistiveTouchIconTypeDoubleTap";
+  v7[24] = @"AXAssistiveTouchIconTypeLongPress";
+  v7[25] = @"AXAssistiveTouchIconTypeDragAndDrop";
+  v7[26] = @"AXAssistiveTouchIconTypeMoveMenu";
+  v7[27] = @"AXAssistiveTouchIconTypeSpotlight";
+  v7[28] = @"AXAssistiveTouchIconTypeSOS";
+  v7[29] = @"AXAssistiveTouchIconTypeSysdiagnose";
+  v7[30] = @"AXAssistiveTouchIconTypeToggleDock";
+  v7[31] = @"AXAssistiveTouchIconTypeReachability";
+  v7[32] = @"AXAssistiveTouchIconTypeRebootDevice";
+  v7[33] = @"AXAssistiveTouchIcontTypeArmApplePay";
+  v7[34] = @"AXAssistiveTouchIconTypeTorch";
+  v7[35] = @"AXAssistiveTouchIcontTypeConfirmApplePay";
+  v7[36] = @"AXAssistiveTouchIconTypeScroll";
+  v7[37] = @"AXAssistiveTouchIconTypeDwell";
+  v7[38] = @"AXAssistiveTouchIconTypeCamera";
+  v7[39] = @"AXAssistiveTouchIconTypeFrontFacingCamera";
+  v7[40] = @"AXAssistiveTouchIconTypeSiriShortcutsMenu";
+  v7[41] = @"AXAssistiveTouchIconTypeActionButton";
+  v7[42] = @"AXAssistiveTouchIconTypeCameraButton";
+  v7[43] = @"AXAssistiveTouchIconTypeCameraButtonLightPress";
+  v7[44] = @"AXAssistiveTouchIconTypeCameraButtonDoubleLightPress";
+  v7[45] = @"AXAssistiveTouchIconTypeVisualIntelligence";
+  v7[46] = @"AXAssistiveTouchIconTypeMenuBar";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:47];
   v1 = [v0 mutableCopy];
   v2 = AXAssistiveTouchSystemIcons_Array;
   AXAssistiveTouchSystemIcons_Array = v1;
@@ -5243,12 +5255,13 @@ LABEL_5:
     [AXAssistiveTouchSystemIcons_Array removeObject:@"AXAssistiveTouchIconTypeSOS"];
   }
 
-  if ((MGGetBoolAnswer() & 1) == 0)
+  v3 = MGGetBoolAnswer();
+  if ((v3 & 1) == 0)
   {
-    [AXAssistiveTouchSystemIcons_Array removeObject:@"AXAssistiveTouchIconTypeReachability"];
+    v3 = [AXAssistiveTouchSystemIcons_Array removeObject:@"AXAssistiveTouchIconTypeReachability"];
   }
 
-  if ((AXDeviceSupportsSideApp() & 1) == 0)
+  if ((AXDeviceSupportsSideApp(v3, v4) & 1) == 0)
   {
     [AXAssistiveTouchSystemIcons_Array removeObject:@"AXAssistiveTouchIconTypeToggleDock"];
   }
@@ -5260,12 +5273,12 @@ LABEL_5:
     [AXAssistiveTouchSystemIcons_Array removeObject:@"AXAssistiveTouchIconTypeCameraButtonDoubleLightPress"];
   }
 
-  if (!AXDeviceIsPhone() || (AXDeviceHasGreyMatterEnabled() & 1) == 0)
+  if (!AXDeviceIsPhone() || (HasGreyMatterEnabled = AXDeviceHasGreyMatterEnabled(), (HasGreyMatterEnabled & 1) == 0))
   {
-    [AXAssistiveTouchSystemIcons_Array removeObject:@"AXAssistiveTouchIconTypeVisualIntelligence"];
+    HasGreyMatterEnabled = [AXAssistiveTouchSystemIcons_Array removeObject:@"AXAssistiveTouchIconTypeVisualIntelligence"];
   }
 
-  result = AXDeviceSupportsMultitasking();
+  result = AXDeviceSupportsMultitasking(HasGreyMatterEnabled);
   if ((result & 1) == 0)
   {
     return [AXAssistiveTouchSystemIcons_Array removeObject:@"AXAssistiveTouchIconTypeMenuBar"];
@@ -5360,16 +5373,16 @@ uint64_t __AXAssistiveTouchSpecificActionIcons_block_invoke()
   return result;
 }
 
-id AXAssistiveTouchEyeTrackingIcons()
+id AXAssistiveTouchEyeTrackingIcons(uint64_t a1)
 {
   if (AXAssistiveTouchEyeTrackingIcons_onceToken != -1)
   {
     AXAssistiveTouchEyeTrackingIcons_cold_1();
   }
 
-  v1 = AXAssistiveTouchEyeTrackingIcons_Array;
+  v2 = AXAssistiveTouchEyeTrackingIcons_Array;
 
-  return v1;
+  return v2;
 }
 
 void __AXAssistiveTouchEyeTrackingIcons_block_invoke()
@@ -5382,16 +5395,16 @@ void __AXAssistiveTouchEyeTrackingIcons_block_invoke()
   AXAssistiveTouchEyeTrackingIcons_Array = v0;
 }
 
-id AXAssistiveTouchHeadTrackingIcons()
+id AXAssistiveTouchHeadTrackingIcons(uint64_t a1)
 {
   if (AXAssistiveTouchHeadTrackingIcons_onceToken != -1)
   {
     AXAssistiveTouchHeadTrackingIcons_cold_1();
   }
 
-  v1 = AXAssistiveTouchHeadTrackingIcons_Array;
+  v2 = AXAssistiveTouchHeadTrackingIcons_Array;
 
-  return v1;
+  return v2;
 }
 
 void __AXAssistiveTouchHeadTrackingIcons_block_invoke()
@@ -5742,23 +5755,25 @@ __CFString *AXAssistiveTouchDefaultLaserIconTypeForMouseButton(uint64_t a1)
   }
 }
 
-id AXAssistiveTouchDisallowedBaseActions()
+id AXAssistiveTouchDisallowedBaseActions(uint64_t a1)
 {
   if (AXAssistiveTouchDisallowedBaseActions_onceToken != -1)
   {
     AXAssistiveTouchDisallowedBaseActions_cold_1();
   }
 
-  v1 = AXAssistiveTouchDisallowedBaseActions_DisallowedIcons;
+  v2 = AXAssistiveTouchDisallowedBaseActions_DisallowedIcons;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __AXAssistiveTouchDisallowedBaseActions_block_invoke()
 {
-  AXAssistiveTouchDisallowedBaseActions_DisallowedIcons = [MEMORY[0x1E695DFD8] setWithObjects:{@"AXAssistiveTouchIconTypeTap", @"AXAssistiveTouchIconTypeCustom", @"AXAssistiveTouchIconTypeDevice", @"AXAssistiveTouchIconTypeRotateScreen", @"AXAssistiveTouchIconTypeGestures", @"AXAssistiveTouchIconTypeDwell", @"AXAssistiveTouchIconTypeScroll", @"AXAssistiveTouchIconTypeAssistiveTouch", @"AXAssistiveTouchIconTypeClassicInvert", @"AXAssistiveTouchIconTypeColorFilters", @"AXAssistiveTouchIconTypeMagnifier", @"AXAssistiveTouchIconTypeVoiceOver", @"AXAssistiveTouchIconTypeSmartInvert", @"AXAssistiveTouchIconTypeZoom", @"AXAssistiveTouchIconTypeZoomController", @"AXAssistiveTouchIconTypeSwitchControl", @"AXAssistiveTouchIconTypeFullKeyboardAccess", @"AXAssistiveTouchIconTypeTorch", @"AXAssistiveTouchIcontTypeConfirmApplePay", @"AXAssistiveTouchIconTypeSiriShortcutsMenu", 0}];
+  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{@"AXAssistiveTouchIconTypeTap", @"AXAssistiveTouchIconTypeCustom", @"AXAssistiveTouchIconTypeDevice", @"AXAssistiveTouchIconTypeRotateScreen", @"AXAssistiveTouchIconTypeGestures", @"AXAssistiveTouchIconTypeDwell", @"AXAssistiveTouchIconTypeScroll", @"AXAssistiveTouchIconTypeAssistiveTouch", @"AXAssistiveTouchIconTypeClassicInvert", @"AXAssistiveTouchIconTypeColorFilters", @"AXAssistiveTouchIconTypeMagnifier", @"AXAssistiveTouchIconTypeVoiceOver", @"AXAssistiveTouchIconTypeSmartInvert", @"AXAssistiveTouchIconTypeZoom", @"AXAssistiveTouchIconTypeZoomController", @"AXAssistiveTouchIconTypeSwitchControl", @"AXAssistiveTouchIconTypeFullKeyboardAccess", @"AXAssistiveTouchIconTypeTorch", @"AXAssistiveTouchIcontTypeConfirmApplePay", @"AXAssistiveTouchIconTypeSiriShortcutsMenu", 0}];
+  v1 = AXAssistiveTouchDisallowedBaseActions_DisallowedIcons;
+  AXAssistiveTouchDisallowedBaseActions_DisallowedIcons = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id AXAssistiveTouchHeadTrackingExpressionForAXSSFacialExpression(uint64_t a1)
@@ -5846,16 +5861,16 @@ void __AXAssistiveTouchAXSSFacialExpressionForHeadTrackingExpression_block_invok
   AXAssistiveTouchAXSSFacialExpressionForHeadTrackingExpression_sASTExpressionToAXSSExpression = v0;
 }
 
-id AXAssistiveTouchSupportedHeadTrackingExpressions()
+id AXAssistiveTouchSupportedHeadTrackingExpressions(uint64_t a1)
 {
   if (AXAssistiveTouchSupportedHeadTrackingExpressions_onceToken != -1)
   {
     AXAssistiveTouchSupportedHeadTrackingExpressions_cold_1();
   }
 
-  v1 = AXAssistiveTouchSupportedHeadTrackingExpressions_supportedExpressionsForAST;
+  v2 = AXAssistiveTouchSupportedHeadTrackingExpressions_supportedExpressionsForAST;
 
-  return v1;
+  return v2;
 }
 
 void __AXAssistiveTouchSupportedHeadTrackingExpressions_block_invoke()
@@ -5877,9 +5892,9 @@ void __AXAssistiveTouchSupportedHeadTrackingExpressions_block_invoke()
   AXAssistiveTouchSupportedHeadTrackingExpressions_supportedExpressionsForAST = v2;
 }
 
-void sub_18B1947C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B1947C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5899,16 +5914,18 @@ void __AXIsASVAssetViewer_block_invoke()
   AXIsASVAssetViewer_sIsASVAssetViewer = [v1 isEqualToString:@"com.apple.AssetViewer.ASVAssetViewer"];
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t AXHasCapability(void *a1)
@@ -5920,9 +5937,9 @@ uint64_t AXHasCapability(void *a1)
   return v3;
 }
 
-void sub_18B198B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B198B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5951,16 +5968,16 @@ id getRTTTelephonyUtilitiesClass()
   return v1;
 }
 
-void sub_18B198DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B198DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B1993E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1993E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6002,7 +6019,7 @@ Class __getAVCCaptionsClientClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __AVConferenceLibraryCore_block_invoke()
+uint64_t __AVConferenceLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AVConferenceLibraryCore_frameworkLibrary = result;
@@ -6046,7 +6063,7 @@ Class __getUITextInputModeClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __UIKitLibraryCore_block_invoke()
+uint64_t __UIKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary = result;
@@ -6090,7 +6107,7 @@ Class __getRTTTelephonyUtilitiesClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __RTTUtilitiesLibraryCore_block_invoke()
+uint64_t __RTTUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   RTTUtilitiesLibraryCore_frameworkLibrary = result;
@@ -6134,7 +6151,7 @@ Class __getCSPreferencesClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __CoreSpeechLibraryCore_block_invoke()
+uint64_t __CoreSpeechLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreSpeechLibraryCore_frameworkLibrary = result;
@@ -6360,9 +6377,9 @@ void AXIPCServerSetServerPort(uint64_t a1, void *a2)
   [ServerPortLock unlock];
 }
 
-void sub_18B19F434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_18B19F434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6421,9 +6438,9 @@ uint64_t __AXXIPCSendData(uint64_t a1, int a2, uint64_t a3, uint64_t a4, unsigne
   return v18;
 }
 
-void sub_18B1A1C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_18B1A1C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6481,16 +6498,16 @@ uint64_t __AXXIPCSimpleSendDataWithFencePort(uint64_t a1, uint64_t a2, mach_port
   return v17;
 }
 
-void sub_18B1A1FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_18B1A1FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B1A219C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1A219C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6558,9 +6575,9 @@ uint64_t __AXXIPCSendDataWithAsyncReply(uint64_t a1, uint64_t a2, int a3, uint64
   return v17;
 }
 
-void sub_18B1A2410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_18B1A2410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6571,9 +6588,11 @@ uint64_t __AXIPCServerSetServerPort_block_invoke()
   v1 = ServerPortMapping;
   ServerPortMapping = v0;
 
-  ServerPortLock = objc_alloc_init(MEMORY[0x1E696AD10]);
+  v2 = objc_alloc_init(MEMORY[0x1E696AD10]);
+  v3 = ServerPortLock;
+  ServerPortLock = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 Class __getUIWindowClass_block_invoke(uint64_t a1)
@@ -6613,22 +6632,23 @@ Class __getUIWindowClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __UIKitLibraryCore_block_invoke_0()
+uint64_t __UIKitLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary_0 = result;
   return result;
 }
 
-void OUTLINED_FUNCTION_0_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_18B1A2970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B1A2970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6670,7 +6690,7 @@ Class __getAXUIClientClass_block_invoke_0(uint64_t a1)
   return result;
 }
 
-uint64_t __AccessibilityUILibraryCore_block_invoke_0()
+uint64_t __AccessibilityUILibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   AccessibilityUILibraryCore_frameworkLibrary_0 = result;
@@ -6683,9 +6703,16 @@ void _sendOnceRightDestroyedCallback(uint64_t a1, void *a2)
   [v2 sendOnceRightDestroyed];
 }
 
-void sub_18B1A4FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18B1A4D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  va_start(va, a11);
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_18B1A4FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6697,113 +6724,113 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_18B1A514C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1A514C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B1A5420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1A5420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B1A552C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1A552C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B1A5920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_18B1A5920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void AXIPCClient_handlePortInvalidCallback()
+void AXIPCClient_handlePortInvalidCallback(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v0 = +[AXIPCClient allClients];
-  v9 = 0u;
+  v15 = *MEMORY[0x1E69E9840];
+  v1 = +[AXIPCClient allClients];
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v1 = [v0 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v1)
+  v13 = 0u;
+  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v2)
   {
-    v2 = v1;
-    v3 = *v10;
+    v3 = v2;
+    v4 = *v11;
     do
     {
-      for (i = 0; i != v2; ++i)
+      for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v3)
+        if (*v11 != v4)
         {
-          objc_enumerationMutation(v0);
+          objc_enumerationMutation(v1);
         }
 
-        v5 = *(*(&v9 + 1) + 8 * i);
-        [v5 serverPort];
+        v6 = *(*(&v10 + 1) + 8 * i);
+        [v6 serverPort];
         if (AXSafeEqual())
         {
-          v6 = [v5 portDeathHandler];
+          v7 = [v6 portDeathHandler];
 
-          if (v6)
+          if (v7)
           {
-            [v5 _serverDied];
+            [v6 _serverDied];
           }
         }
       }
 
-      v2 = [v0 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v2);
+    while (v3);
   }
 
-  v7 = AXLogIPC();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = AXLogIPC();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_18B15E000, v7, OS_LOG_TYPE_INFO, "Client went invalid", v8, 2u);
+    v9[0] = 0;
+    _os_log_impl(&dword_18B15E000, v8, OS_LOG_TYPE_INFO, "Client went invalid", v9, 2u);
   }
 }
 
-void sub_18B1A62B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1A62B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B1A6514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_18B1A6514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B1A68C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B1A68C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18B1A70A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1A70A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6833,7 +6860,7 @@ void OUTLINED_FUNCTION_0_6(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t AXHomeClickHapticsSupported()
+uint64_t AXHomeClickHapticsSupported(uint64_t a1, uint64_t a2)
 {
   if (AXHomeClickHapticsSupported_onceToken != -1)
   {
@@ -6869,9 +6896,11 @@ id AXDateFromStringWithFormat(void *a1, void *a2)
 
 uint64_t __AXDateFromStringWithFormat_block_invoke()
 {
-  AXDateFromStringWithFormat_formatter = objc_alloc_init(MEMORY[0x1E696AB78]);
+  v0 = objc_alloc_init(MEMORY[0x1E696AB78]);
+  v1 = AXDateFromStringWithFormat_formatter;
+  AXDateFromStringWithFormat_formatter = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id AXDateStringForFormat(void *a1, void *a2)
@@ -7267,7 +7296,7 @@ id AXStringForTimeSince(void *a1)
   v1 = a1;
   if (!v1)
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Incoming date is nil");
     v17 = 0;
     goto LABEL_12;
   }
@@ -7392,7 +7421,7 @@ uint64_t __Block_byref_object_copy__8(uint64_t result, uint64_t a2)
   return result;
 }
 
-id AXTemperatureFromIntegerInUnits(uint64_t a1, int a2, int a3)
+id AXTemperatureFromIntegerInUnits(unint64_t a1, int a2, int a3)
 {
   if (AXTemperatureFromIntegerInUnits_predicate != -1)
   {
@@ -7465,7 +7494,7 @@ double AX_CGRectGetCenter(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
   return MidX;
 }
 
-double AX_CGRectBySubtractingRect(int a1, int a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10)
+CGFloat AX_CGRectBySubtractingRect(int a1, int a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10)
 {
   if (CGRectIsEmpty(*&a3))
   {
@@ -7573,73 +7602,73 @@ LABEL_23:
 
 BOOL AX_CGRectAlmostEqualToRect(double a1, double a2, double a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9)
 {
-  v35 = CGRectStandardize(*&a1);
-  x = v35.origin.x;
-  y = v35.origin.y;
-  width = v35.size.width;
-  height = v35.size.height;
-  v35.origin.x = a5;
-  v35.origin.y = a6;
-  v35.size.width = a7;
-  v35.size.height = a8;
-  v36 = CGRectStandardize(v35);
-  v25 = v36.origin.x;
-  v26 = v36.origin.y;
-  v27 = v36.size.width;
-  v28 = v36.size.height;
-  v34 = x;
-  v36.origin.x = x;
-  v36.origin.y = y;
-  v36.size.width = width;
-  v36.size.height = height;
-  MinX = CGRectGetMinX(v36);
-  v37.origin.x = v25;
-  v37.origin.y = v26;
-  v37.size.width = v27;
-  v37.size.height = v28;
-  if (vabdd_f64(MinX, CGRectGetMinX(v37)) >= a9)
+  v27 = CGRectStandardize(*&a1);
+  x = v27.origin.x;
+  y = v27.origin.y;
+  width = v27.size.width;
+  height = v27.size.height;
+  v27.origin.x = a5;
+  v27.origin.y = a6;
+  v27.size.width = a7;
+  v27.size.height = a8;
+  v28 = CGRectStandardize(v27);
+  v17 = v28.origin.x;
+  v18 = v28.origin.y;
+  v19 = v28.size.width;
+  v20 = v28.size.height;
+  v26 = x;
+  v28.origin.x = x;
+  v28.origin.y = y;
+  v28.size.width = width;
+  v28.size.height = height;
+  MinX = CGRectGetMinX(v28);
+  v29.origin.x = v17;
+  v29.origin.y = v18;
+  v29.size.width = v19;
+  v29.size.height = v20;
+  if (vabdd_f64(MinX, CGRectGetMinX(v29)) >= a9)
   {
     return 0;
   }
 
-  v38.origin.y = y;
-  v38.origin.x = v34;
-  v38.size.width = width;
-  v38.size.height = height;
-  MinY = CGRectGetMinY(v38);
-  v39.origin.x = v25;
-  v39.origin.y = v26;
-  v39.size.width = v27;
-  v39.size.height = v28;
-  if (vabdd_f64(MinY, CGRectGetMinY(v39)) >= a9)
+  v30.origin.y = y;
+  v30.origin.x = v26;
+  v30.size.width = width;
+  v30.size.height = height;
+  MinY = CGRectGetMinY(v30);
+  v31.origin.x = v17;
+  v31.origin.y = v18;
+  v31.size.width = v19;
+  v31.size.height = v20;
+  if (vabdd_f64(MinY, CGRectGetMinY(v31)) >= a9)
   {
     return 0;
   }
 
-  v40.origin.x = v34;
-  v40.origin.y = y;
-  v40.size.width = width;
-  v40.size.height = height;
-  MaxX = CGRectGetMaxX(v40);
-  v41.origin.x = v25;
-  v41.origin.y = v26;
-  v41.size.width = v27;
-  v41.size.height = v28;
-  if (vabdd_f64(MaxX, CGRectGetMaxX(v41)) >= a9)
+  v32.origin.x = v26;
+  v32.origin.y = y;
+  v32.size.width = width;
+  v32.size.height = height;
+  MaxX = CGRectGetMaxX(v32);
+  v33.origin.x = v17;
+  v33.origin.y = v18;
+  v33.size.width = v19;
+  v33.size.height = v20;
+  if (vabdd_f64(MaxX, CGRectGetMaxX(v33)) >= a9)
   {
     return 0;
   }
 
-  v42.origin.x = v34;
-  v42.origin.y = y;
-  v42.size.width = width;
-  v42.size.height = height;
-  MaxY = CGRectGetMaxY(v42);
-  v43.origin.x = v25;
-  v43.origin.y = v26;
-  v43.size.width = v27;
-  v43.size.height = v28;
-  return vabdd_f64(MaxY, CGRectGetMaxY(v43)) < a9;
+  v34.origin.x = v26;
+  v34.origin.y = y;
+  v34.size.width = width;
+  v34.size.height = height;
+  MaxY = CGRectGetMaxY(v34);
+  v35.origin.x = v17;
+  v35.origin.y = v18;
+  v35.size.width = v19;
+  v35.size.height = v20;
+  return vabdd_f64(MaxY, CGRectGetMaxY(v35)) < a9;
 }
 
 double AX_CGPointGetMidpointOfAllPoints(void *a1)
@@ -7841,7 +7870,7 @@ double AX_CGPointGetOffsetAlongVectorWithDistance(double a1, double a2, double a
 
 CGFloat AX_CGRectToOrientation(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
 {
-  MainScreenBounds = AXDeviceGetMainScreenBounds();
+  MainScreenBounds = AXDeviceGetMainScreenBounds(a1);
 
   return AX_CGRectToOrientationWithScreenBounds(a1, a2, a3, a4, a5, MainScreenBounds, v10, v11, v12);
 }
@@ -7951,11 +7980,11 @@ void AX_CGPathEnumerateElementsUsingBlock(const CGPath *a1, void *a2)
   _Block_object_dispose(v11, 8);
 }
 
-void sub_18B1B32B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B1B32B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8098,12 +8127,13 @@ double AX_CGPathGetIntersectionPointWithOtherPath(const CGPath *a1, const CGPath
   return Center;
 }
 
-void sub_18B1B36A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_18B1B36A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
+  va_start(va, a29);
   _Block_object_dispose(&a18, 8);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose((v30 - 96), 8);
-  _Block_object_dispose(&a30, 8);
+  _Block_object_dispose((v29 - 96), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8211,9 +8241,9 @@ double AX_CGPathGetIntersectionPointWithRect(const CGPath *a1, CGFloat a2, CGFlo
   return v28;
 }
 
-void sub_18B1B39B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_18B1B39B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8235,9 +8265,9 @@ uint64_t AX_CGPathGetNumberOfElements(const CGPath *a1)
   return v1;
 }
 
-void sub_18B1B3A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1B3A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8275,11 +8305,11 @@ void AX_CGPathGetStartingAndEndingPoints(const CGPath *a1, _OWORD *a2, _OWORD *a
   _Block_object_dispose(&v11, 8);
 }
 
-void sub_18B1B3BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1B3BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8302,9 +8332,9 @@ double AX_CGPathGetPointForElementAtIndex(const CGPath *a1, uint64_t a2)
   return v2;
 }
 
-void sub_18B1B3CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1B3CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8381,9 +8411,9 @@ uint64_t AX_CGPathCreateWithDataRepresentation(uint64_t result)
   return result;
 }
 
-void sub_18B1B4378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18B1B4378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8518,9 +8548,9 @@ void sub_18B1B6278(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_18B1B86B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18B1B86B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8595,7 +8625,7 @@ uint64_t AXDeviceHasTopTouchIDButton()
   }
 }
 
-uint64_t AXDeviceHasLongPress3dTouch()
+uint64_t AXDeviceHasLongPress3dTouch(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceHasLongPress3dTouch_onceToken != -1)
   {
@@ -8625,7 +8655,7 @@ void __AXDeviceHasLongPress3dTouch_block_invoke()
   AXDeviceHasLongPress3dTouch_HasLongPress3dTouch = v0 & 1;
 }
 
-uint64_t AXDeviceHasHomeButton()
+uint64_t AXDeviceHasHomeButton(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceHasHomeButton_onceToken != -1)
   {
@@ -8635,7 +8665,7 @@ uint64_t AXDeviceHasHomeButton()
   return AXDeviceHasHomeButton_hasHomeButton;
 }
 
-uint64_t AXDeviceHasForcePress3dTouch()
+uint64_t AXDeviceHasForcePress3dTouch(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceHasForcePress3dTouch_onceToken != -1)
   {
@@ -8652,7 +8682,7 @@ uint64_t __AXDeviceHasForcePress3dTouch_block_invoke()
   return result;
 }
 
-uint64_t AXDeviceHas3DTouch()
+uint64_t AXDeviceHas3DTouch(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceHas3DTouch_onceToken != -1)
   {
@@ -8687,7 +8717,7 @@ void __AXDeviceHas3DTouch_block_invoke()
   AXDeviceHas3DTouch_Has3DTouch = v0 & 1;
 }
 
-uint64_t AXDeviceHasTopButton()
+uint64_t AXDeviceHasTopButton(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceHasHomeButton_onceToken != -1)
   {
@@ -8702,14 +8732,14 @@ uint64_t AXDeviceHasTopButton()
   return AXDeviceIsPad();
 }
 
-uint64_t AXDeviceHasSideButton()
+uint64_t AXDeviceHasSideButton(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceHasHomeButton_onceToken != -1)
   {
     __AXDeviceHasLongPress3dTouch_block_invoke_cold_1();
   }
 
-  if (AXDeviceHasHomeButton_hasHomeButton & 1) != 0 || (AXDeviceHasTopButton())
+  if (AXDeviceHasHomeButton_hasHomeButton & 1) != 0 || (AXDeviceHasTopButton(a1, a2))
   {
     return 0;
   }
@@ -8777,14 +8807,14 @@ uint64_t AXDeviceCanArmApplePay()
   return [v0 contactlessInterfaceCanBePresentedFromSource:0];
 }
 
-void sub_18B1BBEE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1BBEE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t AXDeviceSupportsSecureDoubleClick()
+uint64_t AXDeviceSupportsSecureDoubleClick(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceSupportsSecureDoubleClick_onceToken != -1)
   {
@@ -8899,14 +8929,14 @@ uint64_t AXDeviceIsSOSAvailable()
   return [v0 deviceSupportsSOS];
 }
 
-void sub_18B1BC1B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18B1BC1B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t AXDeviceSupportsPhotosensitiveMitigation()
+uint64_t AXDeviceSupportsPhotosensitiveMitigation(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceSupportsPhotosensitiveMitigation_onceToken != -1)
   {
@@ -8966,28 +8996,28 @@ uint64_t AXDeviceSupportsBootSound()
   }
 }
 
-void AXDeviceSizeMM()
+void AXDeviceSizeMM(__n128 a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (*&AXDeviceSizeMM__ResolvedValue_0 == 0.0 || *&AXDeviceSizeMM__ResolvedValue_1 == 0.0)
   {
-    v0 = MGCopyAnswer();
-    v1 = [v0 objectForKeyedSubscript:@"main-screen-pitch"];
-    [v1 doubleValue];
-    v3 = v2;
+    v1 = MGCopyAnswer();
+    v2 = [v1 objectForKeyedSubscript:@"main-screen-pitch"];
+    [v2 doubleValue];
+    v4 = v3;
 
-    v4 = [v0 objectForKeyedSubscript:@"main-screen-width"];
-    [v4 doubleValue];
-    v6 = v5;
+    v5 = [v1 objectForKeyedSubscript:@"main-screen-width"];
+    [v5 doubleValue];
+    v7 = v6;
 
-    v7 = [v0 objectForKeyedSubscript:@"main-screen-height"];
-    [v7 doubleValue];
-    v9 = v8;
+    v8 = [v1 objectForKeyedSubscript:@"main-screen-height"];
+    [v8 doubleValue];
+    v10 = v9;
 
-    if (v3 <= 0.0 || v6 <= 0.0 || v9 <= 0.0)
+    if (v4 <= 0.0 || v7 <= 0.0 || v10 <= 0.0)
     {
-      v14 = AXLogDisplay();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = AXLogDisplay();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         AXDeviceSizeMM_cold_1();
       }
@@ -8997,79 +9027,79 @@ void AXDeviceSizeMM()
         AXDeviceSizeMM_cold_2();
       }
 
-      v10 = *&AXFallbackDeviceSizeMM_DeviceDimensions_0;
-      v11 = *&AXFallbackDeviceSizeMM_DeviceDimensions_1;
-      v12 = AXLogDisplay();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v11 = *&AXFallbackDeviceSizeMM_DeviceDimensions_0;
+      v12 = *&AXFallbackDeviceSizeMM_DeviceDimensions_1;
+      v13 = AXLogDisplay();
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_15;
       }
 
-      v15 = 134218240;
-      v16 = v10;
-      v17 = 2048;
-      v18 = v11;
-      v13 = "Using (fallback!) physical device dimensions: [%.2fmm x %.2fmm]";
+      v16 = 134218240;
+      v17 = v11;
+      v18 = 2048;
+      v19 = v12;
+      v14 = "Using (fallback!) physical device dimensions: [%.2fmm x %.2fmm]";
     }
 
     else
     {
-      v10 = v6 / v3 * 25.4;
-      v11 = v9 / v3 * 25.4;
-      v12 = AXLogDisplay();
-      if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v11 = v7 / v4 * 25.4;
+      v12 = v10 / v4 * 25.4;
+      v13 = AXLogDisplay();
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_15:
 
-        AXDeviceSizeMM__ResolvedValue_0 = *&v10;
-        AXDeviceSizeMM__ResolvedValue_1 = *&v11;
+        AXDeviceSizeMM__ResolvedValue_0 = *&v11;
+        AXDeviceSizeMM__ResolvedValue_1 = *&v12;
 
         return;
       }
 
-      v15 = 134218240;
-      v16 = v10;
-      v17 = 2048;
-      v18 = v11;
-      v13 = "Using physical device dimensions: [%.2fmm x %.2fmm]";
+      v16 = 134218240;
+      v17 = v11;
+      v18 = 2048;
+      v19 = v12;
+      v14 = "Using physical device dimensions: [%.2fmm x %.2fmm]";
     }
 
-    _os_log_impl(&dword_18B15E000, v12, OS_LOG_TYPE_DEFAULT, v13, &v15, 0x16u);
+    _os_log_impl(&dword_18B15E000, v13, OS_LOG_TYPE_DEFAULT, v14, &v16, 0x16u);
     goto LABEL_15;
   }
 }
 
-id AXDeviceGetLocalizedShortModelName()
+id AXDeviceGetLocalizedShortModelName(uint64_t a1)
 {
   if (AXDeviceGetLocalizedShortModelName__AXDeviceGetLocalizedShortModelNameOnceToken != -1)
   {
     AXDeviceGetLocalizedShortModelName_cold_1();
   }
 
-  v1 = AXDeviceGetLocalizedShortModelName__AXDeviceGetLocalizedShortModelName;
+  v2 = AXDeviceGetLocalizedShortModelName__AXDeviceGetLocalizedShortModelName;
 
-  return v1;
+  return v2;
 }
 
-void __AXDeviceGetLocalizedShortModelName_block_invoke()
+void __AXDeviceGetLocalizedShortModelName_block_invoke(__n128 a1)
 {
-  v0 = MGCopyAnswer();
-  if (v0)
+  v1 = MGCopyAnswer();
+  if (v1)
   {
-    v1 = v0;
-    v2 = CFGetTypeID(v0);
-    if (v2 == CFStringGetTypeID())
+    v2 = v1;
+    v3 = CFGetTypeID(v1);
+    if (v3 == CFStringGetTypeID())
     {
-      v3 = [v1 copy];
-      v4 = AXDeviceGetLocalizedShortModelName__AXDeviceGetLocalizedShortModelName;
-      AXDeviceGetLocalizedShortModelName__AXDeviceGetLocalizedShortModelName = v3;
+      v4 = [v2 copy];
+      v5 = AXDeviceGetLocalizedShortModelName__AXDeviceGetLocalizedShortModelName;
+      AXDeviceGetLocalizedShortModelName__AXDeviceGetLocalizedShortModelName = v4;
     }
 
-    CFRelease(v1);
+    CFRelease(v2);
   }
 }
 
-uint64_t AXDeviceSupportsSideApp()
+uint64_t AXDeviceSupportsSideApp(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceSupportsSideApp_onceToken != -1)
   {
@@ -9093,7 +9123,7 @@ void __AXDeviceSupportsSideApp_block_invoke()
   }
 }
 
-uint64_t AXDeviceSupportsMultitasking()
+uint64_t AXDeviceSupportsMultitasking(uint64_t a1)
 {
   if (AXDeviceSupportsMultitasking_onceToken[0] != -1)
   {
@@ -9117,7 +9147,7 @@ uint64_t __AXDeviceSupportsMultitasking_block_invoke()
 
 void AXDeviceRegisterForDisplayUpdates(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if ([v1 conformsToProtocol:&unk_1EFECA930] && !_AXSMossdeepEnabled())
   {
@@ -9126,15 +9156,15 @@ void AXDeviceRegisterForDisplayUpdates(void *a1)
     {
       v4 = objc_opt_class();
       v5 = NSStringFromClass(v4);
-      v7 = 138412546;
-      v8 = v5;
-      v9 = 2048;
-      v10 = v1;
-      _os_log_impl(&dword_18B15E000, v3, OS_LOG_TYPE_DEFAULT, "Did register for display updates: %@<%p>", &v7, 0x16u);
+      v8 = 138412546;
+      v9 = v5;
+      v10 = 2048;
+      v11 = v1;
+      _os_log_impl(&dword_18B15E000, v3, OS_LOG_TYPE_DEFAULT, "Did register for display updates: %@<%p>", &v8, 0x16u);
     }
 
-    v6 = _AXSharedDisplayManager();
-    v2 = [v6 displayMonitor];
+    v7 = _AXSharedDisplayManager(v6);
+    v2 = [v7 displayMonitor];
 
     [v2 addObserver:v1];
     goto LABEL_9;
@@ -9154,13 +9184,13 @@ LABEL_9:
 
 void AXDeviceUnregisterForDisplayUpdates(void *a1)
 {
-  v3 = a1;
-  if ([v3 conformsToProtocol:&unk_1EFECA930] && !_AXSMossdeepEnabled())
+  v4 = a1;
+  if ([v4 conformsToProtocol:&unk_1EFECA930] && (v1 = _AXSMossdeepEnabled(), !v1))
   {
-    v1 = _AXSharedDisplayManager();
-    v2 = [v1 displayMonitor];
+    v2 = _AXSharedDisplayManager(v1);
+    v3 = [v2 displayMonitor];
 
-    [v2 removeObserver:v3];
+    [v3 removeObserver:v4];
   }
 
   else
@@ -9169,49 +9199,49 @@ void AXDeviceUnregisterForDisplayUpdates(void *a1)
   }
 }
 
-double AXDeviceGetMainScreenPixelBounds()
+double AXDeviceGetMainScreenPixelBounds(uint64_t a1)
 {
-  v0 = _AXSharedDisplayManager();
-  if ([v0 isInitialized])
+  v1 = _AXSharedDisplayManager(a1);
+  if ([v1 isInitialized])
   {
-    v1 = [v0 coreAnimationMainDisplay];
-    [v1 size];
+    v2 = [v1 coreAnimationMainDisplay];
+    [v2 size];
 
-    v2 = MEMORY[0x1E695EFF8];
+    v3 = MEMORY[0x1E695EFF8];
   }
 
   else
   {
-    v2 = MEMORY[0x1E695F058];
+    v3 = MEMORY[0x1E695F058];
   }
 
-  v3 = *v2;
+  v4 = *v3;
 
-  return v3;
+  return v4;
 }
 
-double AXDeviceGetMainScreenScaleFactor()
+double AXDeviceGetMainScreenScaleFactor(uint64_t a1)
 {
-  v0 = _AXSharedDisplayManager();
-  v1 = 1.0;
-  if ([v0 isInitialized])
+  v1 = _AXSharedDisplayManager(a1);
+  v2 = 1.0;
+  if ([v1 isInitialized])
   {
-    v2 = [v0 coreAnimationMainDisplay];
-    [v2 scale];
-    v1 = v3;
+    v3 = [v1 coreAnimationMainDisplay];
+    [v3 scale];
+    v2 = v4;
 
-    v4 = [v0 coreAnimationMainDisplay];
-    [v4 size];
-    v6 = v5;
-    v8 = v7;
+    v5 = [v1 coreAnimationMainDisplay];
+    [v5 size];
+    v7 = v6;
+    v9 = v8;
 
-    if (v1 == 3.0 && v6 == 1280.0 && v8 == 2272.0)
+    if (v2 == 3.0 && v7 == 1280.0 && v9 == 2272.0)
     {
-      v1 = 4.0;
+      v2 = 4.0;
     }
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t AXDeviceSupportsBackTap()
@@ -9269,7 +9299,7 @@ uint64_t __AXDeviceSupportsDetectionMode_block_invoke()
   return result;
 }
 
-uint64_t AXDeviceSupportsHuman()
+uint64_t AXDeviceSupportsHuman(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceSupportsHuman_onceToken != -1)
   {
@@ -9408,50 +9438,6 @@ uint64_t AXDeviceSupportsWatchRemoteScreen()
     }
 
     return v3();
-  }
-
-  return result;
-}
-
-void sub_18B1BD288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t AXDeviceSupportsConcurrentHPLPMics()
-{
-  if (AXDeviceSupportsConcurrentHPLPMics_onceToken != -1)
-  {
-    AXDeviceSupportsConcurrentHPLPMics_cold_1();
-  }
-
-  return AXDeviceSupportsConcurrentHPLPMics__AXDeviceSupportsConcurrentHPLPMics;
-}
-
-uint64_t __AXDeviceSupportsConcurrentHPLPMics_block_invoke()
-{
-  result = MGGetBoolAnswer();
-  AXDeviceSupportsConcurrentHPLPMics__AXDeviceSupportsConcurrentHPLPMics = result;
-  return result;
-}
-
-uint64_t AXDeviceSupportsHoverText()
-{
-  result = _os_feature_enabled_impl();
-  if (result)
-  {
-    if (AXDeviceIsPhone() & 1) != 0 || (AXDeviceIsPad())
-    {
-      return 1;
-    }
-
-    else
-    {
-
-      return MEMORY[0x1EEDE9D90]();
-    }
   }
 
   return result;

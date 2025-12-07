@@ -13,23 +13,22 @@
 {
   v5 = type metadata accessor for UUID();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   coordinatorCopy = coordinator;
   selfCopy = self;
-  PlaybackSyncer.AVCoordinatorDelegateBridge.localParticipantUUID(for:)(v9);
+  PlaybackSyncer.AVCoordinatorDelegateBridge.localParticipantUUID(for:)(v8);
 
-  v12.super.isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v6 + 8))(v9, v5);
+  v11.super.isa = UUID._bridgeToObjectiveC()().super.isa;
+  (*(v6 + 8))(v8, v5);
 
-  return v12.super.isa;
+  return v11.super.isa;
 }
 
 - (void)playbackCoordinator:(id)coordinator broadcastLocalParticipantStateDictionary:(id)dictionary
 {
   type metadata accessor for AVPlaybackCoordinationParticipantStateKey(0);
-  _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type AVPlaybackCoordinationParticipantStateKey and conformance AVPlaybackCoordinationParticipantStateKey, type metadata accessor for AVPlaybackCoordinationParticipantStateKey);
+  _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type AVPlaybackCoordinationParticipantStateKey and conformance AVPlaybackCoordinationParticipantStateKey, type metadata accessor for AVPlaybackCoordinationParticipantStateKey, &protocol conformance descriptor for AVPlaybackCoordinationParticipantStateKey);
   static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x60);
   selfCopy = self;
@@ -52,7 +51,7 @@
 - (void)playbackCoordinator:(id)coordinator broadcastTransportControlStateDictionary:(id)dictionary forItemWithIdentifier:(id)identifier
 {
   type metadata accessor for AVPlaybackCoordinationTransportControlStateKey(0);
-  _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type AVPlaybackCoordinationTransportControlStateKey and conformance AVPlaybackCoordinationTransportControlStateKey, type metadata accessor for AVPlaybackCoordinationTransportControlStateKey);
+  _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type AVPlaybackCoordinationTransportControlStateKey and conformance AVPlaybackCoordinationTransportControlStateKey, type metadata accessor for AVPlaybackCoordinationTransportControlStateKey, &protocol conformance descriptor for AVPlaybackCoordinationTransportControlStateKey);
   static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v8 = v7;

@@ -20,7 +20,7 @@
 
 - (void)start
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dispatch_resume(self->_source);
   if ([(WFDispatchSourceTimer *)self preventSuspension])
   {
@@ -36,70 +36,70 @@
         _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_INFO, "%s Client wants to prevent suspension, so we're taking out a RunningBoard assertion...", buf, 0xCu);
       }
 
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x2050000000;
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x2050000000;
       v5 = getRBSAssertionClass_softClass;
-      v24 = getRBSAssertionClass_softClass;
+      v23 = getRBSAssertionClass_softClass;
       if (!getRBSAssertionClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getRBSAssertionClass_block_invoke;
-        v27 = &unk_1E7B02C60;
-        v28 = &v21;
+        v26 = &unk_1E7B02C60;
+        v27 = &v20;
         __getRBSAssertionClass_block_invoke(buf);
-        v5 = v22[3];
+        v5 = v21[3];
       }
 
       v6 = v5;
-      _Block_object_dispose(&v21, 8);
+      _Block_object_dispose(&v20, 8);
       v7 = [v5 alloc];
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x2050000000;
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x2050000000;
       v8 = getRBSTargetClass_softClass;
-      v24 = getRBSTargetClass_softClass;
+      v23 = getRBSTargetClass_softClass;
       if (!getRBSTargetClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getRBSTargetClass_block_invoke;
-        v27 = &unk_1E7B02C60;
-        v28 = &v21;
+        v26 = &unk_1E7B02C60;
+        v27 = &v20;
         __getRBSTargetClass_block_invoke(buf);
-        v8 = v22[3];
+        v8 = v21[3];
       }
 
       v9 = v8;
-      _Block_object_dispose(&v21, 8);
+      _Block_object_dispose(&v20, 8);
       currentProcess = [v8 currentProcess];
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x2050000000;
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x2050000000;
       v11 = getRBSDomainAttributeClass_softClass;
-      v24 = getRBSDomainAttributeClass_softClass;
+      v23 = getRBSDomainAttributeClass_softClass;
       if (!getRBSDomainAttributeClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getRBSDomainAttributeClass_block_invoke;
-        v27 = &unk_1E7B02C60;
-        v28 = &v21;
+        v26 = &unk_1E7B02C60;
+        v27 = &v20;
         __getRBSDomainAttributeClass_block_invoke(buf);
-        v11 = v22[3];
+        v11 = v21[3];
       }
 
       v12 = v11;
-      _Block_object_dispose(&v21, 8);
+      _Block_object_dispose(&v20, 8);
       v13 = [v11 attributeWithDomain:@"com.apple.shortcuts" name:@"RunningBackground"];
-      v25 = v13;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+      v24 = v13;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
       v15 = [v7 initWithExplanation:@"An assertion-requiring timer is ticking" target:currentProcess attributes:v14];
 
-      v20 = 0;
-      LOBYTE(v13) = [v15 acquireWithError:&v20];
-      v16 = v20;
+      v19 = 0;
+      LOBYTE(v13) = [v15 acquireWithError:&v19];
+      v16 = v19;
       if (v13)
       {
         v17 = v15;
@@ -121,8 +121,6 @@
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isCancelled

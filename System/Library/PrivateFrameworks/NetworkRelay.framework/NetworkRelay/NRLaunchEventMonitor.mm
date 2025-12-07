@@ -31,17 +31,17 @@
   dispatch_async(queue, block);
 }
 
-void __30__NRLaunchEventMonitor_cancel__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __30__NRLaunchEventMonitor_cancel__block_invoke(uint64_t a1)
 {
-  v8 = *(a1 + 32);
-  if (v8)
+  v1 = *(a1 + 32);
+  if (v1)
   {
-    if (*(v8 + 9))
+    if (*(v1 + 9))
     {
       return;
     }
 
-    *(v8 + 9) = 1;
+    *(v1 + 9) = 1;
   }
 
   if (nrCopyLogObj_onceToken_7 != -1)
@@ -51,7 +51,7 @@ void __30__NRLaunchEventMonitor_cancel__block_invoke(uint64_t a1, uint64_t a2, u
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_8, OS_LOG_TYPE_DEFAULT))
   {
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_8, 0, "%s%.30s:%-4d cancelled launch event monitor", a4, a5, a6, a7, a8, "");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_8, 0, "%s%.30s:%-4d cancelled launch event monitor", ", "[NRLaunchEventMonitor cancel]_block_invoke"", 282);
   }
 }
 
@@ -75,11 +75,11 @@ void __30__NRLaunchEventMonitor_cancel__block_invoke(uint64_t a1, uint64_t a2, u
   dispatch_async(queue, block);
 }
 
-void __29__NRLaunchEventMonitor_start__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __29__NRLaunchEventMonitor_start__block_invoke(uint64_t a1)
 {
-  v60[1] = *MEMORY[0x277D85DE8];
-  v8 = *(a1 + 32);
-  if (v8 && (*(v8 + 8) & 1) == 0)
+  v37[1] = *MEMORY[0x277D85DE8];
+  v1 = *(a1 + 32);
+  if (v1 && (*(v1 + 8) & 1) == 0)
   {
     if (nrSupportsPHSProxyClient_onceToken != -1)
     {
@@ -89,144 +89,38 @@ void __29__NRLaunchEventMonitor_start__block_invoke(uint64_t a1, uint64_t a2, ui
     if (nrSupportsPHSProxyClient_supported)
     {
       out_token = -1;
-      objc_initWeak(&location, v8);
-      v10 = *(v8 + 24);
+      objc_initWeak(&location, v1);
+      v3 = *(v1 + 24);
       handler[0] = MEMORY[0x277D85DD0];
       handler[1] = 3221225472;
       handler[2] = __34__NRLaunchEventMonitor_startInner__block_invoke;
       handler[3] = &unk_27996ADE0;
-      objc_copyWeak(&v57, &location);
-      v11 = notify_register_dispatch("com.apple.private.restrict-post.networkrelay.launch", &out_token, v10, handler);
+      objc_copyWeak(&v34, &location);
+      v4 = notify_register_dispatch("com.apple.private.restrict-post.networkrelay.launch", &out_token, v3, handler);
 
-      if (v11)
+      if (v4)
       {
         if (nrCopyLogObj_onceToken_7 != -1)
         {
           dispatch_once(&nrCopyLogObj_onceToken_7, &__block_literal_global_48);
         }
 
-        v12 = nrCopyLogObj_sNRLogObj_8;
+        v5 = nrCopyLogObj_sNRLogObj_8;
         if (sNRCopyLogToStdErr == 1)
         {
-
-LABEL_22:
-          if (nrCopyLogObj_onceToken_7 != -1)
-          {
-            dispatch_once(&nrCopyLogObj_onceToken_7, &__block_literal_global_48);
-          }
-
-          v17 = nrCopyLogObj_sNRLogObj_8;
-          _NRLogWithArgs(v17, 17, "notify_register_dispatch(%u) failed", v21, v22, v23, v24, v25, v11);
-          goto LABEL_37;
         }
 
-        v19 = v12;
-        v20 = os_log_type_enabled(v12, OS_LOG_TYPE_FAULT);
-
-        if (v20)
+        else
         {
-          goto LABEL_22;
-        }
+          v12 = v5;
+          v13 = os_log_type_enabled(v5, OS_LOG_TYPE_FAULT);
 
-        objc_destroyWeak(&v57);
-        objc_destroyWeak(&location);
-      }
-
-      else
-      {
-        *(v8 + 12) = out_token;
-        v13 = objc_alloc_init(MEMORY[0x277D02B18]);
-        v14 = *(v8 + 32);
-        *(v8 + 32) = v13;
-
-        v15 = *(v8 + 32);
-        [v15 activate];
-
-        v16 = *(v8 + 32);
-        v55 = 0;
-        [v16 startMonitoringEventType:30 error:&v55];
-        v17 = v55;
-
-        if (v17)
-        {
-          if (nrCopyLogObj_onceToken_7 != -1)
+          if (!v13)
           {
-            dispatch_once(&nrCopyLogObj_onceToken_7, &__block_literal_global_48);
+            objc_destroyWeak(&v34);
+            objc_destroyWeak(&location);
+            return;
           }
-
-          v18 = nrCopyLogObj_sNRLogObj_8;
-          if (sNRCopyLogToStdErr == 1)
-          {
-          }
-
-          else
-          {
-            v41 = v18;
-            v42 = os_log_type_enabled(v18, OS_LOG_TYPE_FAULT);
-
-            if (!v42)
-            {
-LABEL_37:
-
-              objc_destroyWeak(&v57);
-              objc_destroyWeak(&location);
-              goto LABEL_38;
-            }
-          }
-
-          if (nrCopyLogObj_onceToken_7 != -1)
-          {
-            dispatch_once(&nrCopyLogObj_onceToken_7, &__block_literal_global_48);
-          }
-
-          v43 = nrCopyLogObj_sNRLogObj_8;
-          _NRLogWithArgs(v43, 17, "startMonitoringEventType(%@) failed", v44, v45, v46, v47, v48, v17);
-
-          goto LABEL_37;
-        }
-
-        v53[0] = MEMORY[0x277D85DD0];
-        v53[1] = 3221225472;
-        v53[2] = __34__NRLaunchEventMonitor_startInner__block_invoke_2;
-        v53[3] = &unk_27996AE08;
-        objc_copyWeak(&v54, &location);
-        v26 = *(v8 + 32);
-        [v26 setEventHandler:v53];
-
-        context.version = 0;
-        memset(&context.retain, 0, 24);
-        context.info = v8;
-        *(v8 + 48) = SCDynamicStoreCreate(0, @"NRLaunchEventMonitor", scDynamicStoreCallout, &context);
-        NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(*MEMORY[0x277CBECE8], *MEMORY[0x277CE1648], @"ir0", *MEMORY[0x277CE16A0]);
-        v28 = *(v8 + 56);
-        *(v8 + 56) = NetworkInterfaceEntity;
-
-        v29 = *(v8 + 56);
-        v60[0] = v29;
-        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:1];
-
-        SCDynamicStoreSetNotificationKeys(*(v8 + 48), v30, 0);
-        v31 = *(v8 + 48);
-        v32 = *(v8 + 24);
-        SCDynamicStoreSetDispatchQueue(v31, v32);
-
-        v33 = *(v8 + 24);
-        block[0] = MEMORY[0x277D85DD0];
-        block[1] = 3221225472;
-        block[2] = __34__NRLaunchEventMonitor_startInner__block_invoke_3;
-        block[3] = &unk_27996B248;
-        block[4] = v8;
-        v51 = v30;
-        v34 = v30;
-        dispatch_async(v33, block);
-
-        objc_destroyWeak(&v54);
-        objc_destroyWeak(&v57);
-        objc_destroyWeak(&location);
-        v40 = *(a1 + 32);
-        if (v40)
-        {
-          *(v40 + 8) = 1;
         }
 
         if (nrCopyLogObj_onceToken_7 != -1)
@@ -234,10 +128,114 @@ LABEL_37:
           dispatch_once(&nrCopyLogObj_onceToken_7, &__block_literal_global_48);
         }
 
-        if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_8, OS_LOG_TYPE_DEFAULT))
+        v10 = nrCopyLogObj_sNRLogObj_8;
+        _NRLogWithArgs(v10, 17, "notify_register_dispatch(%u) failed", v4);
+        goto LABEL_37;
+      }
+
+      *(v1 + 12) = out_token;
+      v6 = objc_alloc_init(MEMORY[0x277D02B18]);
+      v7 = *(v1 + 32);
+      *(v1 + 32) = v6;
+
+      v8 = *(v1 + 32);
+      [v8 activate];
+
+      v9 = *(v1 + 32);
+      v32 = 0;
+      [v9 startMonitoringEventType:30 error:&v32];
+      v10 = v32;
+
+      if (v10)
+      {
+        if (nrCopyLogObj_onceToken_7 != -1)
         {
-          _NRLogWithArgs(nrCopyLogObj_sNRLogObj_8, 0, "%s%.30s:%-4d started launch event monitor", v35, v36, v37, v38, v39, "");
+          dispatch_once(&nrCopyLogObj_onceToken_7, &__block_literal_global_48);
         }
+
+        v11 = nrCopyLogObj_sNRLogObj_8;
+        if (sNRCopyLogToStdErr == 1)
+        {
+        }
+
+        else
+        {
+          v24 = v11;
+          v25 = os_log_type_enabled(v11, OS_LOG_TYPE_FAULT);
+
+          if (!v25)
+          {
+LABEL_37:
+
+            objc_destroyWeak(&v34);
+            objc_destroyWeak(&location);
+            return;
+          }
+        }
+
+        if (nrCopyLogObj_onceToken_7 != -1)
+        {
+          dispatch_once(&nrCopyLogObj_onceToken_7, &__block_literal_global_48);
+        }
+
+        v26 = nrCopyLogObj_sNRLogObj_8;
+        _NRLogWithArgs(v26, 17, "startMonitoringEventType(%@) failed", v10);
+
+        goto LABEL_37;
+      }
+
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __34__NRLaunchEventMonitor_startInner__block_invoke_2;
+      v30[3] = &unk_27996AE08;
+      objc_copyWeak(&v31, &location);
+      v14 = *(v1 + 32);
+      [v14 setEventHandler:v30];
+
+      context.version = 0;
+      memset(&context.retain, 0, 24);
+      context.info = v1;
+      *(v1 + 48) = SCDynamicStoreCreate(0, @"NRLaunchEventMonitor", scDynamicStoreCallout, &context);
+      NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(*MEMORY[0x277CBECE8], *MEMORY[0x277CE1648], @"ir0", *MEMORY[0x277CE16A0]);
+      v16 = *(v1 + 56);
+      *(v1 + 56) = NetworkInterfaceEntity;
+
+      v17 = *(v1 + 56);
+      v37[0] = v17;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+
+      SCDynamicStoreSetNotificationKeys(*(v1 + 48), v18, 0);
+      v19 = *(v1 + 48);
+      v20 = *(v1 + 24);
+      SCDynamicStoreSetDispatchQueue(v19, v20);
+
+      v21 = *(v1 + 24);
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __34__NRLaunchEventMonitor_startInner__block_invoke_3;
+      block[3] = &unk_27996B248;
+      block[4] = v1;
+      v28 = v18;
+      v22 = v18;
+      dispatch_async(v21, block);
+
+      objc_destroyWeak(&v31);
+      objc_destroyWeak(&v34);
+      objc_destroyWeak(&location);
+      v23 = *(a1 + 32);
+      if (v23)
+      {
+        *(v23 + 8) = 1;
+      }
+
+      if (nrCopyLogObj_onceToken_7 != -1)
+      {
+        dispatch_once(&nrCopyLogObj_onceToken_7, &__block_literal_global_48);
+      }
+
+      if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_8, OS_LOG_TYPE_DEFAULT))
+      {
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_8, 0, "%s%.30s:%-4d started launch event monitor");
       }
     }
 
@@ -250,13 +248,10 @@ LABEL_37:
 
       if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_8, OS_LOG_TYPE_DEFAULT))
       {
-        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_8, 0, "%s%.30s:%-4d PHS proxy client not supported", a4, a5, a6, a7, a8, "");
+        _NRLogWithArgs(nrCopyLogObj_sNRLogObj_8, 0, "%s%.30s:%-4d PHS proxy client not supported");
       }
     }
   }
-
-LABEL_38:
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __34__NRLaunchEventMonitor_startInner__block_invoke(uint64_t a1, int a2)
@@ -324,7 +319,7 @@ uint64_t __34__NRLaunchEventMonitor_startInner__block_invoke_3(uint64_t a1)
   {
     v11 = v3;
     v5 = SCDynamicStoreCopyMultiple(*(update + 48), v3, 0);
-    if ([(__CFArray *)v11 containsObject:*(update + 56)])
+    if ([v11 containsObject:*(update + 56)])
     {
       v6 = [(__CFDictionary *)v5 objectForKeyedSubscript:*(update + 56)];
       v7 = v6;
@@ -396,9 +391,9 @@ uint64_t __34__NRLaunchEventMonitor_startInner__block_invoke_3(uint64_t a1)
         v9 = &stru_286D23DB8;
       }
 
-      v16 = v9;
+      v11 = v9;
 
-      _NRLogWithArgs(v6, 0, "%s%.30s:%-4d updated launch flags: [%@]", v10, v11, v12, v13, v14, "");
+      _NRLogWithArgs(v6, 0, "%s%.30s:%-4d updated launch flags: [%@]", ", "[NRLaunchEventMonitor setLaunchFlags:]"", 112, v11);
     }
   }
 }
@@ -439,7 +434,7 @@ uint64_t __34__NRLaunchEventMonitor_startInner__block_invoke_3(uint64_t a1)
         v7 = &stru_286D23DB8;
       }
 
-      _NRLogWithArgs(v4, 0, "%s%.30s:%-4d issuing launch notify w/ flags: %@", v8, v9, v10, v11, v12, "");
+      _NRLogWithArgs(v4, 0, "%s%.30s:%-4d issuing launch notify w/ flags: %@", ", "[NRLaunchEventMonitor triggerLaunchIfNeeded]"", 91, v7);
     }
 
     if ((*(self + 40) & 3) != 0)
@@ -450,36 +445,36 @@ uint64_t __34__NRLaunchEventMonitor_startInner__block_invoke_3(uint64_t a1)
   }
 }
 
-void __47__NRLaunchEventMonitor_processCWFEvent_forced___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __47__NRLaunchEventMonitor_processCWFEvent_forced___block_invoke(uint64_t a1)
 {
-  v9 = *(a1 + 32);
-  if (v9)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    if (*(v9 + 9))
+    if (*(v2 + 9))
     {
       return;
     }
 
-    if (*(a1 + 40) == *(v9 + 16))
+    if (*(a1 + 40) == *(v2 + 16))
     {
-      v10 = *(v9 + 32);
+      v3 = *(v2 + 32);
       goto LABEL_5;
     }
   }
 
   else if (!*(a1 + 40))
   {
-    v10 = 0;
+    v3 = 0;
 LABEL_5:
-    v11 = [v10 currentKnownNetworkProfile];
-    v12 = *(a1 + 32);
-    v27 = v11;
-    if (v12)
+    v4 = [v3 currentKnownNetworkProfile];
+    v5 = *(a1 + 32);
+    v10 = v4;
+    if (v5)
     {
-      v13 = *(v12 + 40);
-      if (![v11 isPersonalHotspot] || (v13 & 2) != 0)
+      v6 = *(v5 + 40);
+      if (![v4 isPersonalHotspot] || (v6 & 2) != 0)
       {
-        if ((v13 & 2) != 0 && ([v27 isPersonalHotspot] & 1) == 0)
+        if ((v6 & 2) != 0 && ([v10 isPersonalHotspot] & 1) == 0)
         {
           if (nrCopyLogObj_onceToken_7 != -1)
           {
@@ -488,14 +483,14 @@ LABEL_5:
 
           if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_8, OS_LOG_TYPE_DEFAULT))
           {
-            v20 = nrCopyLogObj_22();
-            _NRLogWithArgs(v20, 0, "%s%.30s:%-4d Left PHS network", v21, v22, v23, v24, v25, "");
+            v8 = nrCopyLogObj_22();
+            _NRLogWithArgs(v8, 0, "%s%.30s:%-4d Left PHS network", ", "[NRLaunchEventMonitor processCWFEvent:forced:]_block_invoke"", 218);
           }
 
-          v26 = *(a1 + 32);
-          if (v26)
+          v9 = *(a1 + 32);
+          if (v9)
           {
-            [(NRLaunchEventMonitor *)v26 setLaunchFlags:?];
+            [(NRLaunchEventMonitor *)v9 setLaunchFlags:?];
           }
         }
 
@@ -503,7 +498,7 @@ LABEL_5:
       }
     }
 
-    else if (![v11 isPersonalHotspot])
+    else if (![v4 isPersonalHotspot])
     {
 LABEL_25:
 
@@ -517,17 +512,17 @@ LABEL_25:
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_8, OS_LOG_TYPE_DEFAULT))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_8, 0, "%s%.30s:%-4d Joined PHS network", v14, v15, v16, v17, v18, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_8, 0, "%s%.30s:%-4d Joined PHS network", ", "[NRLaunchEventMonitor processCWFEvent:forced:]_block_invoke"", 214);
     }
 
-    v19 = *(a1 + 32);
-    if (v19)
+    v7 = *(a1 + 32);
+    if (v7)
     {
-      [(NRLaunchEventMonitor *)v19 setLaunchFlags:?];
-      v19 = *(a1 + 32);
+      [(NRLaunchEventMonitor *)v7 setLaunchFlags:?];
+      v7 = *(a1 + 32);
     }
 
-    [(NRLaunchEventMonitor *)v19 triggerLaunchIfNeeded];
+    [(NRLaunchEventMonitor *)v7 triggerLaunchIfNeeded];
     goto LABEL_25;
   }
 
@@ -538,46 +533,46 @@ LABEL_25:
 
   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_8, OS_LOG_TYPE_DEBUG))
   {
-    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_8, 2, "%s%.30s:%-4d Ignoring stale profile changed event", a4, a5, a6, a7, a8, "");
+    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_8, 2, "%s%.30s:%-4d Ignoring stale profile changed event", ", "[NRLaunchEventMonitor processCWFEvent:forced:]_block_invoke"", 208);
   }
 }
 
 - (NRLaunchEventMonitor)init
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = NRLaunchEventMonitor;
-  v2 = [(NRLaunchEventMonitor *)&v18 init];
+  v17 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = NRLaunchEventMonitor;
+  v2 = [(NRLaunchEventMonitor *)&v16 init];
   if (!v2)
   {
-    v6 = nrCopyLogObj_22();
+    v5 = nrCopyLogObj_22();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v7 = v6;
-      v8 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+      v6 = v5;
+      v7 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
 
-      if (!v8)
+      if (!v7)
       {
         goto LABEL_9;
       }
     }
 
-    v9 = nrCopyLogObj_22();
-    _NRLogWithArgs(v9, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v10, v11, v12, v13, v14, "");
+    v8 = nrCopyLogObj_22();
+    _NRLogWithArgs(v8, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRLaunchEventMonitor init]"", 101);
 
 LABEL_9:
-    _os_log_pack_size();
-    MEMORY[0x28223BE20]();
-    v15 = *__error();
-    v16 = _os_log_pack_fill();
-    *v16 = 136446210;
-    *(v16 + 4) = "[NRLaunchEventMonitor init]";
-    v17 = nrCopyLogObj_22();
-    _NRLogAbortWithPack(v17);
+    v9 = _os_log_pack_size();
+    v11 = &v15 - ((MEMORY[0x28223BE20](v9, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v12 = __error();
+    v13 = _os_log_pack_fill(v11, v9, *v12, &dword_25B98C000, "%{public}s [super init] failed");
+    *v13 = 136446210;
+    *(v13 + 4) = "[NRLaunchEventMonitor init]";
+    v14 = nrCopyLogObj_22();
+    _NRLogAbortWithPack(v14, v11);
   }
 
   v3 = v2;
@@ -587,7 +582,6 @@ LABEL_9:
   }
 
   objc_storeStrong(&v3->_queue, NRLaunchEventMonitorCopyQueue_queue);
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

@@ -53,33 +53,33 @@
 
 + (BOOL)isValidPayload:(id)payload
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v4 = [payloadCopy objectForKeyedSubscript:@"WIRDriverIsActiveKey"];
   v5 = objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 && (v5, v4, [payloadCopy objectForKeyedSubscript:@"WIRDriverSessionListKey"], v4 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v5 = objc_claimAutoreleasedReturnValue(), (objc_opt_isKindOfClass()))
   {
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v6 = [payloadCopy objectForKeyedSubscript:{@"WIRDriverIdentifierKey", 0}];
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v19;
+      v9 = *v18;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
+          v11 = *(*(&v17 + 1) + 8 * i);
           v12 = objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -91,7 +91,7 @@
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v8)
         {
           continue;
@@ -113,38 +113,37 @@ LABEL_14:
     v13 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 + (id)decodeFromPayload:(id)payload
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v4 = [payloadCopy objectForKeyedSubscript:@"WIRDriverIsActiveKey"];
   bOOLValue = [v4 BOOLValue];
 
   v6 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = [payloadCopy objectForKeyedSubscript:{@"WIRDriverSessionListKey", 0}];
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -158,7 +157,7 @@ LABEL_14:
         [v6 addObject:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         continue;
@@ -172,8 +171,6 @@ LABEL_14:
   [v14 setActive:bOOLValue];
   [v14 setSessionIdentifiers:v6];
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

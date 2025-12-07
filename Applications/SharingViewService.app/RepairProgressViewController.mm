@@ -51,7 +51,7 @@
   buttonCopy = button;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairProgressViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [self->super._mainController dismiss:5];
@@ -62,7 +62,7 @@
   disappearCopy = disappear;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairProgressViewController viewDidDisappear:]", 30, "Progress ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -75,7 +75,7 @@
   appearCopy = appear;
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairProgressViewController viewWillAppear:]", 30, "Progress ViewWillAppear\n");
   }
 
   v6.receiver = self;

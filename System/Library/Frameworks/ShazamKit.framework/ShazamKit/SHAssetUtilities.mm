@@ -44,9 +44,9 @@ void __78__SHAssetUtilities_mixedTracksFromAsset_format_accumulator_completionHa
   v3 = a2;
   if (![v3 count])
   {
-    v17 = *(a1 + 48);
-    v18 = [SHError errorWithCode:100 underlyingError:0];
-    (*(v17 + 16))(v17, v18);
+    v18 = *(a1 + 48);
+    v19 = [SHError errorWithCode:100 underlyingError:0];
+    (*(v18 + 16))(v18, v19);
 
     goto LABEL_22;
   }
@@ -93,31 +93,31 @@ LABEL_15:
       break;
     }
 
-    v11 = objc_alloc(MEMORY[0x277CB83C8]);
-    v12 = [v11 initWithPCMFormat:*(a1 + 32) frameCapacity:bufferListOut.mBuffers[0].mDataByteSize / *(objc_msgSend(*(a1 + 32), "streamDescription") + 24)];
-    [v12 setFrameLength:{objc_msgSend(v12, "frameCapacity")}];
+    v12 = objc_alloc(MEMORY[0x277CB83C8]);
+    v13 = [v12 initWithPCMFormat:*(a1 + 32) frameCapacity:bufferListOut.mBuffers[0].mDataByteSize / *(objc_msgSend(*(a1 + 32), "streamDescription") + 24)];
+    [v13 setFrameLength:{objc_msgSend(v13, "frameCapacity")}];
     if (bufferListOut.mNumberBuffers)
     {
-      v13 = 0;
       v14 = 0;
+      v15 = 0;
       do
       {
-        memcpy(*([v12 audioBufferList] + v13 * 16 + 16), bufferListOut.mBuffers[v13].mData, bufferListOut.mBuffers[v13].mDataByteSize);
+        memcpy(*([v13 audioBufferList] + v14 * 16 + 16), bufferListOut.mBuffers[v14].mData, bufferListOut.mBuffers[v14].mDataByteSize);
+        ++v15;
         ++v14;
-        ++v13;
       }
 
-      while (v14 < bufferListOut.mNumberBuffers);
+      while (v15 < bufferListOut.mNumberBuffers);
     }
 
     CFRelease(blockBufferOut);
-    v15 = *(a1 + 56);
-    if (v15)
+    v16 = *(a1 + 56);
+    if (v16)
     {
-      v16 = (*(v15 + 16))(v15, v12);
-      if (v16)
+      v17 = (*(v16 + 16))(v16, v13);
+      if (v17)
       {
-        v22 = v16;
+        v23 = v17;
         (*(*(a1 + 48) + 16))();
 
         goto LABEL_21;
@@ -131,17 +131,17 @@ LABEL_14:
     }
   }
 
-  v19 = sh_log_object();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v20 = sh_log_object(v11);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    *v23 = 0;
-    _os_log_impl(&dword_230F52000, v19, OS_LOG_TYPE_ERROR, "Failed to get audio from URL passed to buffersFromAssetURL", v23, 2u);
+    *v24 = 0;
+    _os_log_impl(&dword_230F52000, v20, OS_LOG_TYPE_ERROR, "Failed to get audio from URL passed to buffersFromAssetURL", v24, 2u);
   }
 
 LABEL_20:
-  v20 = *(a1 + 48);
-  v21 = [SHError errorWithCode:100 underlyingError:0];
-  (*(v20 + 16))(v20, v21);
+  v21 = *(a1 + 48);
+  v22 = [SHError errorWithCode:100 underlyingError:0];
+  (*(v21 + 16))(v21, v22);
 
 LABEL_21:
 LABEL_22:

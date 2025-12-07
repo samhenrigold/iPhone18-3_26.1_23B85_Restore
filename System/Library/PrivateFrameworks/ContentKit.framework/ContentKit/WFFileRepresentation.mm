@@ -921,7 +921,7 @@ uint64_t __60__WFFileRepresentation_writeToFileURL_copy_overwrite_error___block_
       v4 = processInfo;
       if (processInfo)
       {
-        [processInfo if_auditToken];
+        objc_msgSend_if_auditToken(processInfo);
       }
 
       else

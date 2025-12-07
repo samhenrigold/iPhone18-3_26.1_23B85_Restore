@@ -7,38 +7,37 @@
 
 - (NSArray)allObjects
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = +[(NSArray *)NSMutableArray];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [(NSEnumerator *)self countByEnumeratingWithState:&v11 objects:v10 count:16];
+  v4 = [(NSEnumerator *)self countByEnumeratingWithState:&v10 objects:v9 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(self);
         }
 
-        [(NSArray *)v3 addObject:*(*(&v11 + 1) + 8 * v7++)];
+        [(NSArray *)v3 addObject:*(*(&v10 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [(NSEnumerator *)self countByEnumeratingWithState:&v11 objects:v10 count:16];
+      v5 = [(NSEnumerator *)self countByEnumeratingWithState:&v10 objects:v9 count:16];
     }
 
     while (v5);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

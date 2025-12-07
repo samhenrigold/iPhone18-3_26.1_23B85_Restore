@@ -5,9 +5,11 @@
 - (id)attributedFormattedStringForSpeed:(float)speed direction:(float)direction;
 - (id)fallbackStringForWindSpeed:(float)speed;
 - (id)fallbackUnitString;
+- (id)formattedStringForSpeed:(float)speed direction:(float)direction shortDescription:(BOOL)description;
 - (id)stringForObjectValue:(id)value;
 - (id)stringForWindDirection:(float)direction shortDescription:(BOOL)description;
 - (id)stringForWindSpeed:(float)speed;
+- (id)templateStringForSpeed:(float)speed direction:(float)direction;
 - (int)windSpeedUnit;
 @end
 
@@ -69,6 +71,30 @@ uint64_t __49__WeatherWindSpeedFormatter_convenienceFormatter__block_invoke()
   return v5;
 }
 
+- (id)formattedStringForSpeed:(float)speed direction:(float)direction shortDescription:(BOOL)description
+{
+  directionCopy = direction;
+  direction = 1.1755e-38;
+  if (speed == 1.1755e-38)
+  {
+    v6 = @"--";
+  }
+
+  else
+  {
+    descriptionCopy = description;
+    [(WeatherWindSpeedFormatter *)self speedByConvertingToUserUnit:speed, *&direction];
+    *&v9 = v9;
+    *&v10 = directionCopy;
+    v11 = [(WeatherWindSpeedFormatter *)self templateStringForSpeed:v9 direction:v10];
+    *&v12 = directionCopy;
+    v13 = [(WeatherWindSpeedFormatter *)self stringForWindDirection:descriptionCopy shortDescription:v12];
+    v6 = [MEMORY[0x277CCACA8] stringWithFormat:v11, v13];
+  }
+
+  return v6;
+}
+
 - (id)attributedFormattedStringForSpeed:(float)speed direction:(float)direction
 {
   directionSubstringAttributes = [(WeatherWindSpeedFormatter *)self directionSubstringAttributes];
@@ -113,9 +139,34 @@ uint64_t __49__WeatherWindSpeedFormatter_convenienceFormatter__block_invoke()
   return v16;
 }
 
+- (id)templateStringForSpeed:(float)speed direction:(float)direction
+{
+  *&v6 = direction;
+  v7 = [(WeatherWindSpeedFormatter *)self stringForWindDirection:1 shortDescription:v6];
+  *&v8 = speed;
+  v9 = [(WeatherWindSpeedFormatter *)self stringForWindSpeed:v8];
+  v10 = MEMORY[0x277CCACA8];
+  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v12 = v11;
+  if (v7)
+  {
+    v13 = [v11 localizedStringForKey:@"WIND_DETAIL_FORMAT_WITH_DIRECTION" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
+    [v10 stringWithFormat:v13, @"%@", v9];
+  }
+
+  else
+  {
+    v13 = [v11 localizedStringForKey:@"WIND_DETAIL_FORMAT_WITHOUT_DIRECTION" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
+    [v10 stringWithFormat:v13, v9, v16];
+  }
+  v14 = ;
+
+  return v14;
+}
+
 - (id)stringForWindSpeed:(float)speed
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   pErrorCode = U_ZERO_ERROR;
   locale = [(WeatherWindSpeedFormatter *)self locale];
   localeIdentifier = [locale localeIdentifier];
@@ -150,8 +201,6 @@ uint64_t __49__WeatherWindSpeedFormatter_convenienceFormatter__block_invoke()
     *&v7 = speed;
     v12 = [(WeatherWindSpeedFormatter *)self fallbackStringForWindSpeed:v7];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

@@ -26,7 +26,7 @@
 
 - (id)clockElementListForReplicaUUID:(id)d
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   [(CRDocument *)self realizeLocalChanges];
   version = [(CRDocument *)self version];
@@ -35,8 +35,8 @@
   if (v6)
   {
     v7 = [REMClockElementList alloc];
-    v12[0] = v6;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = v6;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     v9 = [(REMClockElementList *)v7 initWithCRVectorTimestampElements:v8];
   }
 
@@ -44,8 +44,6 @@
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -180,27 +178,16 @@
 {
   documentCopy = document;
   startVersion = [documentCopy startVersion];
-  if (!startVersion)
-  {
-    goto LABEL_3;
-  }
-
-  v6 = startVersion;
-  startVersion2 = [documentCopy startVersion];
-  version = [(CRDocument *)self version];
-  v9 = [startVersion2 compare:version];
-
-  if ((v9 & 4) != 0)
+  if (startVersion && (v6 = startVersion, [documentCopy startVersion], v7 = objc_claimAutoreleasedReturnValue(), -[CRDocument version](self, "version"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "compare:", v8), v8, v7, v6, (v9 & 4) != 0))
   {
     v13 = 0;
   }
 
   else
   {
-LABEL_3:
-    version2 = [(CRDocument *)self version];
-    version3 = [documentCopy version];
-    v12 = [version2 compare:version3];
+    version = [(CRDocument *)self version];
+    version2 = [documentCopy version];
+    v12 = [version compare:version2];
 
     if (v12)
     {
@@ -227,7 +214,7 @@ LABEL_3:
 
 - (unint64_t)mergeWithData:(id)data
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   replica = [(CRDocument *)self replica];
   v6 = [CRDocument unarchiveFromData:dataCopy replica:replica];
@@ -236,31 +223,31 @@ LABEL_3:
   v7 = [(CRDocument *)self mergeResultForMergingWithDocument:v6];
   if (v7 == 2)
   {
-    v28 = dataCopy;
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
+    v27 = dataCopy;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     objects = [(CRDocument *)self objects];
     v9 = [objects copy];
     objectEnumerator = [v9 objectEnumerator];
 
-    v11 = [objectEnumerator countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v11 = [objectEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v30;
+      v13 = *v29;
       do
       {
         v14 = 0;
         do
         {
-          if (*v30 != v13)
+          if (*v29 != v13)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
-          v15 = *(*(&v29 + 1) + 8 * v14);
+          v15 = *(*(&v28 + 1) + 8 * v14);
           objects2 = [v6 objects];
           identity = [v15 identity];
           v18 = [objects2 objectForKeyedSubscript:identity];
@@ -270,7 +257,7 @@ LABEL_3:
         }
 
         while (v12 != v14);
-        v12 = [objectEnumerator countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v12 = [objectEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v12);
@@ -286,7 +273,7 @@ LABEL_3:
     v23 = [version clockForUUID:replica2];
     replicaClock = [(CRDocument *)self replicaClock];
 
-    dataCopy = v28;
+    dataCopy = v27;
     if (v23 != replicaClock)
     {
       v25 = +[REMLog crdt];
@@ -301,7 +288,6 @@ LABEL_3:
     v7 = 2;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -354,14 +340,14 @@ uint64_t __29__CRDocument_walkGraph_root___block_invoke(uint64_t a1, void *a2)
 
 - (void)realizeLocalChanges
 {
-  v11 = *MEMORY[0x1E69E9840];
-  [self replicaClock];
+  replicaClock = [self replicaClock];
   version = [self version];
   replica = [self replica];
-  [version clockForUUID:replica];
-  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v4, v5, "Version clock should equal cached replica clock: %ld => %ld", v6, v7, v8, v9, 0);
-
-  v10 = *MEMORY[0x1E69E9840];
+  *v11 = 134218240;
+  *&v11[4] = replicaClock;
+  *&v11[12] = 2048;
+  *&v11[14] = [version clockForUUID:replica];
+  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v5, v6, "Version clock should equal cached replica clock: %ld => %ld", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
 - (void)updateGraphDocumentPointers
@@ -463,14 +449,13 @@ void __30__CRDocument_updateObjectsSet__block_invoke(uint64_t a1, void *a2)
 
 - (void)mergeWithData:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = [a1 version];
   v3 = [a1 replica];
-  [v2 clockForUUID:v3];
-  [a1 replicaClock];
-  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v4, v5, "Merging should not modify local replica clock: %ld => %ld", v6, v7, v8, v9, 0);
-
-  v10 = *MEMORY[0x1E69E9840];
+  *v10 = 134218240;
+  *&v10[4] = [v2 clockForUUID:v3];
+  *&v10[12] = 2048;
+  *&v10[14] = [a1 replicaClock];
+  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v4, v5, "Merging should not modify local replica clock: %ld => %ld", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

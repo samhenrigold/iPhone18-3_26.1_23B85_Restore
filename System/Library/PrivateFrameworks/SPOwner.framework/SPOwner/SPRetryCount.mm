@@ -45,7 +45,7 @@
   return v4;
 }
 
-uint64_t __33__SPRetryCount_decayWaitInterval__block_invoke(uint64_t a1)
+void *__33__SPRetryCount_decayWaitInterval__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _decayedWaitIntervalForRetryCount:{objc_msgSend(*(a1 + 32), "retryCount")}];
   *(*(*(a1 + 40) + 8) + 24) = v3;

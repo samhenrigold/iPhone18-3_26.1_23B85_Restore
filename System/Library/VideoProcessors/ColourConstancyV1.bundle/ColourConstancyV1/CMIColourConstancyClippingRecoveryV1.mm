@@ -1,9 +1,6 @@
 @interface CMIColourConstancyClippingRecoveryV1
 - (CMIColourConstancyClippingRecoveryV1)initWithMetalContext:(id)context;
-- (id)_encodeColourAccuracyClippedRegionRecovery:(double)recovery inputAmbientLumaTexture:(double)texture inputAmbientChromaTexture:(uint64_t)chromaTexture inoutFlashLumaTexture:(void *)lumaTexture inoutFlashChromaTexture:(void *)flashChromaTexture ambientToFlashRegistrationHomography:(void *)homography;
-- (id)_encodeImagePyramidGeneration:(double)generation inputAmbientLumaTexture:(double)texture inputAmbientChromaTexture:(uint64_t)chromaTexture inoutFlashLumaTexture:(void *)lumaTexture inoutFlashChromaTexture:(void *)flashChromaTexture ambientToFlashRegistrationHomography:(void *)homography;
-- (id)_encodeImageReconstruction:(double)reconstruction inputAmbientLumaTexture:(double)texture inputAmbientChromaTexture:(uint64_t)chromaTexture inoutFlashLumaTexture:(void *)lumaTexture inoutFlashChromaTexture:(void *)flashChromaTexture ambientToFlashRegistrationHomography:(void *)homography;
-- (id)applyClippedRegionRecovery:(void *)recovery inputAmbientLumaTexture:inputAmbientChromaTexture:inoutFlashLumaTexture:inoutFlashChromaTexture:ambientToFlashRegistrationHomography:;
+- (int)_encodeGradientExtraction:(id)extraction frame:(int)frame;
 - (int)_encodeGradientExtraction:(id)extraction frame:(int)frame channel:(int)channel;
 - (int)_encodeGradientImageFusion:(id)fusion;
 - (int)_encodeGradientImageFusion:(id)fusion channel:(int)channel;
@@ -13,8 +10,12 @@
 - (int)_fusionMapExtraction:(id)extraction;
 - (int)prepareToProcessWithConfig:(id)config;
 - (int)purgeResources;
+- (uint64_t)_encodeColourAccuracyClippedRegionRecovery:(double)recovery inputAmbientLumaTexture:(double)texture inputAmbientChromaTexture:(uint64_t)chromaTexture inoutFlashLumaTexture:(void *)lumaTexture inoutFlashChromaTexture:(void *)flashChromaTexture ambientToFlashRegistrationHomography:(void *)homography;
 - (uint64_t)_encodeFirstLevelPyramidGeneration:(__n128)generation inputAmbientLumaTexture:(__n128)texture inputAmbientChromaTexture:(float)chromaTexture inoutFlashLumaTexture:(float)lumaTexture inoutFlashChromaTexture:(float)flashChromaTexture ambientToFlashRegistrationHomography:(uint64_t)homography scalar:(void *)scalar exponent:(void *)self0 gamma:(void *)self1;
 - (uint64_t)_encodeImageAccumulationOfFirstPyramidLevel:(__n128)level inputAmbientLumaTexture:(__n128)texture inputAmbientChromaTexture:(float)chromaTexture inoutFlashLumaTexture:(uint64_t)lumaTexture inoutFlashChromaTexture:(void *)flashChromaTexture ambientToFlashRegistrationHomography:(void *)homography gamma:(void *)gamma;
+- (void)_encodeImagePyramidGeneration:(double)generation inputAmbientLumaTexture:(double)texture inputAmbientChromaTexture:(uint64_t)chromaTexture inoutFlashLumaTexture:(void *)lumaTexture inoutFlashChromaTexture:(void *)flashChromaTexture ambientToFlashRegistrationHomography:(void *)homography;
+- (void)_encodeImageReconstruction:(double)reconstruction inputAmbientLumaTexture:(double)texture inputAmbientChromaTexture:(uint64_t)chromaTexture inoutFlashLumaTexture:(void *)lumaTexture inoutFlashChromaTexture:(void *)flashChromaTexture ambientToFlashRegistrationHomography:(void *)homography;
+- (void)applyClippedRegionRecovery:(void *)recovery inputAmbientLumaTexture:inputAmbientChromaTexture:inoutFlashLumaTexture:inoutFlashChromaTexture:ambientToFlashRegistrationHomography:;
 @end
 
 @implementation CMIColourConstancyClippingRecoveryV1
@@ -514,7 +515,7 @@ LABEL_35:
   return v93;
 }
 
-- (id)_encodeImagePyramidGeneration:(double)generation inputAmbientLumaTexture:(double)texture inputAmbientChromaTexture:(uint64_t)chromaTexture inoutFlashLumaTexture:(void *)lumaTexture inoutFlashChromaTexture:(void *)flashChromaTexture ambientToFlashRegistrationHomography:(void *)homography
+- (void)_encodeImagePyramidGeneration:(double)generation inputAmbientLumaTexture:(double)texture inputAmbientChromaTexture:(uint64_t)chromaTexture inoutFlashLumaTexture:(void *)lumaTexture inoutFlashChromaTexture:(void *)flashChromaTexture ambientToFlashRegistrationHomography:(void *)homography
 {
   lumaTextureCopy = lumaTexture;
   v16 = self[2];
@@ -534,17 +535,18 @@ LABEL_35:
 
   if (v29)
   {
-    sub_1AC74();
+    sub_1AC74(v29);
   }
 
   else
   {
     pyramidGaussianKernelRadius = [self[2] pyramidGaussianKernelRadius];
     [self[2] pyramidGaussianSigma];
-    v29 = [self _encodeSecondToLastLevelsPyramidGeneration:lumaTextureCopy kernelRadius:pyramidGaussianKernelRadius sigma:?];
-    if (v29)
+    v31 = [self _encodeSecondToLastLevelsPyramidGeneration:lumaTextureCopy kernelRadius:pyramidGaussianKernelRadius sigma:?];
+    v29 = v31;
+    if (v31)
     {
-      sub_1ACF0();
+      sub_1ACF0(v31);
     }
   }
 
@@ -653,6 +655,40 @@ LABEL_35:
   return v17;
 }
 
+- (int)_encodeGradientExtraction:(id)extraction frame:(int)frame
+{
+  v4 = *&frame;
+  extractionCopy = extraction;
+  v7 = [(CMIColourConstancyClippingRecoveryV1 *)self _encodeGradientExtraction:extractionCopy frame:v4 channel:0];
+  if (v7)
+  {
+    v10 = v7;
+    sub_1AE54();
+  }
+
+  else
+  {
+    v8 = [(CMIColourConstancyClippingRecoveryV1 *)self _encodeGradientExtraction:extractionCopy frame:v4 channel:1];
+    if (v8)
+    {
+      v10 = v8;
+      sub_1AED0();
+    }
+
+    else
+    {
+      v9 = [(CMIColourConstancyClippingRecoveryV1 *)self _encodeGradientExtraction:extractionCopy frame:v4 channel:2];
+      v10 = v9;
+      if (v9)
+      {
+        sub_1AF4C(v9);
+      }
+    }
+  }
+
+  return v10;
+}
+
 - (int)_encodeGradientExtraction:(id)extraction frame:(int)frame channel:(int)channel
 {
   extractionCopy = extraction;
@@ -662,7 +698,7 @@ LABEL_35:
   {
     sub_1B24C();
 LABEL_16:
-    LODWORD(v30) = 10;
+    v30 = 10;
     goto LABEL_8;
   }
 
@@ -691,7 +727,7 @@ LABEL_16:
   {
     sub_1AFC8(v17, v10, &v45);
 LABEL_13:
-    LODWORD(v30) = v45;
+    v30 = v45;
     goto LABEL_8;
   }
 
@@ -783,7 +819,7 @@ LABEL_8:
   v5 = [(CMIColourConstancyClippingRecoveryV1 *)self _encodeGradientImageFusion:fusionCopy channel:0];
   if (v5)
   {
-    v7 = v5;
+    v8 = v5;
     sub_1B2C0();
   }
 
@@ -792,21 +828,22 @@ LABEL_8:
     v6 = [(CMIColourConstancyClippingRecoveryV1 *)self _encodeGradientImageFusion:fusionCopy channel:1];
     if (v6)
     {
-      v7 = v6;
+      v8 = v6;
       sub_1B33C();
     }
 
     else
     {
       v7 = [(CMIColourConstancyClippingRecoveryV1 *)self _encodeGradientImageFusion:fusionCopy channel:2];
+      v8 = v7;
       if (v7)
       {
-        sub_1B3B8();
+        sub_1B3B8(v7);
       }
     }
   }
 
-  return v7;
+  return v8;
 }
 
 - (int)_encodeGradientImageFusion:(id)fusion channel:(int)channel
@@ -817,7 +854,7 @@ LABEL_8:
   {
     sub_1B6B8();
 LABEL_16:
-    LODWORD(v29) = 10;
+    v29 = 10;
     goto LABEL_8;
   }
 
@@ -849,7 +886,7 @@ LABEL_16:
   {
     sub_1B434(v16, v8, &v44);
 LABEL_12:
-    LODWORD(v29) = v44;
+    v29 = v44;
     goto LABEL_8;
   }
 
@@ -934,7 +971,7 @@ LABEL_8:
   return v29;
 }
 
-- (id)_encodeImageReconstruction:(double)reconstruction inputAmbientLumaTexture:(double)texture inputAmbientChromaTexture:(uint64_t)chromaTexture inoutFlashLumaTexture:(void *)lumaTexture inoutFlashChromaTexture:(void *)flashChromaTexture ambientToFlashRegistrationHomography:(void *)homography
+- (void)_encodeImageReconstruction:(double)reconstruction inputAmbientLumaTexture:(double)texture inputAmbientChromaTexture:(uint64_t)chromaTexture inoutFlashLumaTexture:(void *)lumaTexture inoutFlashChromaTexture:(void *)flashChromaTexture ambientToFlashRegistrationHomography:(void *)homography
 {
   lumaTextureCopy = lumaTexture;
   v16 = a9;
@@ -949,7 +986,7 @@ LABEL_8:
 
   if (v24)
   {
-    sub_1B72C();
+    sub_1B72C(v24);
   }
 
   else
@@ -965,10 +1002,11 @@ LABEL_8:
     else
     {
       LODWORD(v27) = v22;
-      v24 = [self _encodeImageAccumulationOfFusedThumbnail:lumaTextureCopy inoutFlashLumaTexture:v16 inoutFlashChromaTexture:v17 gamma:v27];
-      if (v24)
+      v28 = [self _encodeImageAccumulationOfFusedThumbnail:lumaTextureCopy inoutFlashLumaTexture:v16 inoutFlashChromaTexture:v17 gamma:v27];
+      v24 = v28;
+      if (v28)
       {
-        sub_1B824();
+        sub_1B824(v28);
       }
     }
   }
@@ -1160,15 +1198,16 @@ LABEL_8:
 - (int)_fusionMapExtraction:(id)extraction
 {
   v3 = [(CMIColourConstancyMicroHazeDetectionV1 *)self->_microHazeDetection microHazeFusionMapExtraction:extraction inputAmbientTexture:self->_rgbPyramidTextures[0][0] inputFlashTexture:self->_rgbPyramidTextures[1][0] outputFusionMapTexture:self->_fusionMapTexture];
+  v4 = v3;
   if (v3)
   {
-    sub_1B9FC();
+    sub_1B9FC(v3);
   }
 
-  return v3;
+  return v4;
 }
 
-- (id)_encodeColourAccuracyClippedRegionRecovery:(double)recovery inputAmbientLumaTexture:(double)texture inputAmbientChromaTexture:(uint64_t)chromaTexture inoutFlashLumaTexture:(void *)lumaTexture inoutFlashChromaTexture:(void *)flashChromaTexture ambientToFlashRegistrationHomography:(void *)homography
+- (uint64_t)_encodeColourAccuracyClippedRegionRecovery:(double)recovery inputAmbientLumaTexture:(double)texture inputAmbientChromaTexture:(uint64_t)chromaTexture inoutFlashLumaTexture:(void *)lumaTexture inoutFlashChromaTexture:(void *)flashChromaTexture ambientToFlashRegistrationHomography:(void *)homography
 {
   lumaTextureCopy = lumaTexture;
   flashChromaTextureCopy = flashChromaTexture;
@@ -1180,7 +1219,7 @@ LABEL_8:
     v20 = [self _encodeImagePyramidGeneration:lumaTextureCopy inputAmbientLumaTexture:flashChromaTextureCopy inputAmbientChromaTexture:homographyCopy inoutFlashLumaTexture:v18 inoutFlashChromaTexture:v19 ambientToFlashRegistrationHomography:{a2, recovery, texture}];
     if (v20)
     {
-      v25 = v20;
+      v26 = v20;
       sub_1BA78();
     }
 
@@ -1189,7 +1228,7 @@ LABEL_8:
       v21 = [self _fusionMapExtraction:lumaTextureCopy];
       if (v21)
       {
-        v25 = v21;
+        v26 = v21;
         sub_1BAF0();
       }
 
@@ -1198,7 +1237,7 @@ LABEL_8:
         v22 = [self _encodeGradientExtraction:lumaTextureCopy frame:0];
         if (v22)
         {
-          v25 = v22;
+          v26 = v22;
           sub_1BB6C();
         }
 
@@ -1207,7 +1246,7 @@ LABEL_8:
           v23 = [self _encodeGradientExtraction:lumaTextureCopy frame:1];
           if (v23)
           {
-            v25 = v23;
+            v26 = v23;
             sub_1BBE4();
           }
 
@@ -1216,16 +1255,17 @@ LABEL_8:
             v24 = [self _encodeGradientImageFusion:lumaTextureCopy];
             if (v24)
             {
-              v25 = v24;
+              v26 = v24;
               sub_1BC5C();
             }
 
             else
             {
               v25 = [self _encodeImageReconstruction:lumaTextureCopy inputAmbientLumaTexture:flashChromaTextureCopy inputAmbientChromaTexture:homographyCopy inoutFlashLumaTexture:v18 inoutFlashChromaTexture:v19 ambientToFlashRegistrationHomography:{a2, recovery, texture}];
+              v26 = v25;
               if (v25)
               {
-                sub_1BCD4();
+                sub_1BCD4(v25);
               }
             }
           }
@@ -1237,13 +1277,13 @@ LABEL_8:
   else
   {
     sub_1BD4C();
-    v25 = &dword_8 + 2;
+    v26 = 10;
   }
 
-  return v25;
+  return v26;
 }
 
-- (id)applyClippedRegionRecovery:(void *)recovery inputAmbientLumaTexture:inputAmbientChromaTexture:inoutFlashLumaTexture:inoutFlashChromaTexture:ambientToFlashRegistrationHomography:
+- (void)applyClippedRegionRecovery:(void *)recovery inputAmbientLumaTexture:inputAmbientChromaTexture:inoutFlashLumaTexture:inoutFlashChromaTexture:ambientToFlashRegistrationHomography:
 {
   v1 = [recovery _encodeColourAccuracyClippedRegionRecovery:? inputAmbientLumaTexture:? inputAmbientChromaTexture:? inoutFlashLumaTexture:? inoutFlashChromaTexture:? ambientToFlashRegistrationHomography:?];
   if (v1)

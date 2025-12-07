@@ -3,10 +3,10 @@
 - (_UITableViewCellBadge)initWithFrame:(CGRect)frame;
 - (id)color;
 - (id)font;
+- (id)setFont:(id *)result;
 - (id)text;
-- (uint64_t)setAccessoryUsesMonochromaticTreatment:(uint64_t)result;
-- (uint64_t)setFont:(uint64_t)result;
 - (void)layoutSubviews;
+- (void)setAccessoryUsesMonochromaticTreatment:(void *)result;
 - (void)setBackgroundColor:(id)color;
 - (void)setColor:(uint64_t)color;
 @end
@@ -137,13 +137,13 @@
   return result;
 }
 
-- (uint64_t)setFont:(uint64_t)result
+- (id)setFont:(id *)result
 {
   if (result && a2)
   {
     v2 = result;
-    [*(result + 416) setFont:a2];
-    v3 = *(v2 + 416);
+    [result[52] setFont:a2];
+    v3 = v2[52];
 
     return [v3 setAdjustsFontForContentSizeCategory:1];
   }
@@ -162,16 +162,16 @@
   return self;
 }
 
-- (uint64_t)setAccessoryUsesMonochromaticTreatment:(uint64_t)result
+- (void)setAccessoryUsesMonochromaticTreatment:(void *)result
 {
   if (result)
   {
     v2 = result;
-    v3 = *(result + 416);
+    v3 = result[52];
     if (a2)
     {
       [v3 _setMonochromaticTreatment:1];
-      v3 = *(v2 + 416);
+      v3 = v2[52];
       v4 = 1;
     }
 

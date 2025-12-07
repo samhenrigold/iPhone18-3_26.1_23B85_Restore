@@ -65,7 +65,7 @@ LABEL_11:
 
 + (void)configurationFromURL:(id)l forSession:(id)session usingAuth:(id)auth authProvider:(id)provider parentNetworkActivity:(id)activity keyID:(id)d publicKey:(id)key URLSessionConfiguration:(id)self0 languageCode:(id)self1 completion:(id)self2
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   lCopy = l;
   sessionCopy = session;
   authCopy = auth;
@@ -87,71 +87,70 @@ LABEL_11:
   }
   v23 = ;
   v24 = sessionCopy;
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x3032000000;
-  v69 = __Block_byref_object_copy_;
-  v70 = __Block_byref_object_dispose_;
-  v71 = [[CMSNetworkActivity alloc] initWithLabel:3 parentActivity:activityCopy];
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x3032000000;
+  v68 = __Block_byref_object_copy_;
+  v69 = __Block_byref_object_dispose_;
+  v70 = [[CMSNetworkActivity alloc] initWithLabel:3 parentActivity:activityCopy];
   v25 = CMSCreateCloudExtensionHTTPRequest(lCopy, authCopy, 0, sessionCopy);
   [v25 setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
   [v25 setValue:@"application/jose" forHTTPHeaderField:@"Accept"];
   [v25 setCachePolicy:3];
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke;
-  v56[3] = &unk_278DDC978;
-  v41 = completionCopy;
-  v64 = v41;
-  v65 = &v66;
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke;
+  v55[3] = &unk_278DDC978;
+  v40 = completionCopy;
+  v63 = v40;
+  v64 = &v65;
   v26 = lCopy;
-  v57 = v26;
-  v39 = activityCopy;
+  v56 = v26;
+  v38 = activityCopy;
+  v57 = v38;
+  v39 = dCopy;
   v58 = v39;
-  v40 = dCopy;
-  v59 = v40;
-  v44 = keyCopy;
-  v60 = v44;
+  v43 = keyCopy;
+  v59 = v43;
   v27 = codeCopy;
-  v61 = v27;
-  v47 = configurationCopy;
-  v62 = v47;
+  v60 = v27;
+  v46 = configurationCopy;
+  v61 = v46;
   v28 = v23;
-  v63 = v28;
-  v29 = MEMORY[0x245D43EE0](v56);
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_75;
-  v48[3] = &unk_278DDCA18;
+  v62 = v28;
+  v29 = MEMORY[0x245D43EE0](v55);
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_75;
+  v47[3] = &unk_278DDCA18;
   v30 = v26;
-  v49 = v30;
+  v48 = v30;
   v31 = v29;
-  v54 = v31;
+  v53 = v31;
   v32 = v25;
-  v50 = v32;
+  v49 = v32;
   v33 = v28;
-  v51 = v33;
+  v50 = v33;
   v34 = providerCopy;
-  v52 = v34;
+  v51 = v34;
   v35 = v24;
-  v53 = v35;
-  v55 = &v66;
-  v36 = [v33 dataTaskWithRequest:v32 completionHandler:v48];
-  v37 = _CMSILogingFacility();
+  v52 = v35;
+  v54 = &v65;
+  v36 = [v33 dataTaskWithRequest:v32 completionHandler:v47];
+  v37 = _CMSILogingFacility(v36);
   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v73 = "+[CMSCloudExtensionConfiguration configurationFromURL:forSession:usingAuth:authProvider:parentNetworkActivity:keyID:publicKey:URLSessionConfiguration:languageCode:completion:]";
-    v74 = 2112;
-    v75 = v30;
+    v72 = "+[CMSCloudExtensionConfiguration configurationFromURL:forSession:usingAuth:authProvider:parentNetworkActivity:keyID:publicKey:URLSessionConfiguration:languageCode:completion:]";
+    v73 = 2112;
+    v74 = v30;
     _os_log_impl(&dword_2439AD000, v37, OS_LOG_TYPE_DEFAULT, "%s loading configuration from URL %@", buf, 0x16u);
   }
 
-  [v67[5] associateWithTask:v36];
+  [v66[5] associateWithTask:v36];
   [v36 resume];
 
-  _Block_object_dispose(&v66, 8);
-  v38 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v65, 8);
 }
 
 void __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -180,47 +179,47 @@ LABEL_17:
     v14 = *(a1 + 48);
     v15 = *(a1 + 56);
     v16 = *(a1 + 64);
-    v31 = v10;
-    v17 = [CMSCloudExtensionConfiguration _configurationFromJWS:v11 URL:v12 parentNetworkActivity:v13 keyID:v14 publicKey:v15 languageCode:v16 error:&v31];
-    v18 = v31;
+    v32 = v10;
+    v17 = [CMSCloudExtensionConfiguration _configurationFromJWS:v11 URL:v12 parentNetworkActivity:v13 keyID:v14 publicKey:v15 languageCode:v16 error:&v32];
+    v18 = v32;
 
-    v19 = _CMSILogingFacility();
-    v20 = v19;
+    v20 = _CMSILogingFacility(v19);
+    v21 = v20;
     if (v17)
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v21 = 2;
-        _os_log_impl(&dword_2439AD000, v20, OS_LOG_TYPE_DEFAULT, "Successfully created configuration from JWS encryption", buf, 2u);
+        v22 = 2;
+        _os_log_impl(&dword_2439AD000, v21, OS_LOG_TYPE_DEFAULT, "Successfully created configuration from JWS encryption", buf, 2u);
       }
 
       else
       {
-        v21 = 2;
+        v22 = 2;
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_cold_1();
       }
 
-      v21 = 3;
+      v22 = 3;
     }
 
-    [*(*(*(a1 + 96) + 8) + 40) completeActivity:v21];
+    [*(*(*(a1 + 96) + 8) + 40) completeActivity:v22];
     (*(*(a1 + 88) + 16))();
 
     goto LABEL_17;
   }
 
-  v22 = _CMSILogingFacility();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v23 = _CMSILogingFacility(0);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_cold_2(v22, v23, v24, v25, v26, v27, v28, v29);
+    __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_cold_2(v23, v24, v25, v26, v27, v28, v29, v30);
   }
 
   if (!v10)
@@ -243,36 +242,35 @@ void __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_using
   if (a4 || v9 != 200)
   {
 LABEL_28:
-    [*(a1 + 40) setCachePolicy:0];
-    v38 = _CMSILogingFacility();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v39 = _CMSILogingFacility([*(a1 + 40) setCachePolicy:0]);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
-      v39 = *(a1 + 32);
+      v40 = *(a1 + 32);
       *buf = 136315394;
       v64 = "+[CMSCloudExtensionConfiguration configurationFromURL:forSession:usingAuth:authProvider:parentNetworkActivity:keyID:publicKey:URLSessionConfiguration:languageCode:completion:]_block_invoke";
       v65 = 2112;
-      v66 = v39;
-      _os_log_impl(&dword_2439AD000, v38, OS_LOG_TYPE_DEFAULT, "%s configuration from URL %@ no usable cached response - trying network", buf, 0x16u);
+      v66 = v40;
+      _os_log_impl(&dword_2439AD000, v39, OS_LOG_TYPE_DEFAULT, "%s configuration from URL %@ no usable cached response - trying network", buf, 0x16u);
     }
 
-    v41 = *(a1 + 40);
-    v40 = *(a1 + 48);
+    v42 = *(a1 + 40);
+    v41 = *(a1 + 48);
     v55[0] = MEMORY[0x277D85DD0];
     v55[1] = 3221225472;
     v55[2] = __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_77;
     v55[3] = &unk_278DDC9F0;
     v56 = *(a1 + 56);
     v57 = *(a1 + 32);
-    v42 = *(a1 + 64);
-    v43 = *(a1 + 80);
-    v58 = v42;
-    v62 = v43;
+    v43 = *(a1 + 64);
+    v44 = *(a1 + 80);
+    v58 = v43;
+    v62 = v44;
     v59 = *(a1 + 40);
     v60 = *(a1 + 48);
     v61 = *(a1 + 72);
-    v44 = [v40 dataTaskWithRequest:v41 completionHandler:v55];
-    [*(*(*(a1 + 80) + 8) + 40) associateWithTask:v44];
-    [v44 resume];
+    v45 = [v41 dataTaskWithRequest:v42 completionHandler:v55];
+    [*(*(*(a1 + 80) + 8) + 40) associateWithTask:v45];
+    [v45 resume];
 
     v16 = v56;
     goto LABEL_31;
@@ -285,17 +283,17 @@ LABEL_28:
 
     v16 = 0;
 LABEL_25:
-    v36 = _CMSILogingFacility();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v37 = _CMSILogingFacility(v34);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = *(a1 + 32);
+      v38 = *(a1 + 32);
       *buf = 136315650;
       v64 = "+[CMSCloudExtensionConfiguration configurationFromURL:forSession:usingAuth:authProvider:parentNetworkActivity:keyID:publicKey:URLSessionConfiguration:languageCode:completion:]_block_invoke";
       v65 = 2112;
-      v66 = v37;
+      v66 = v38;
       v67 = 2112;
       v68 = v16;
-      _os_log_impl(&dword_2439AD000, v36, OS_LOG_TYPE_DEFAULT, "%s cached configuration for URL %@ has expired -  expiration %@", buf, 0x20u);
+      _os_log_impl(&dword_2439AD000, v37, OS_LOG_TYPE_DEFAULT, "%s cached configuration for URL %@ has expired -  expiration %@", buf, 0x20u);
     }
 
     goto LABEL_28;
@@ -417,15 +415,15 @@ LABEL_23:
     goto LABEL_25;
   }
 
-  v34 = [MEMORY[0x277CBEAA8] now];
-  v35 = [v16 laterDate:v34];
+  v35 = [MEMORY[0x277CBEAA8] now];
+  v36 = [v16 laterDate:v35];
 
-  if (v35 != v16)
+  if (v36 != v16)
   {
     goto LABEL_25;
   }
 
-  v46 = _CMSILogingFacility();
+  v46 = _CMSILogingFacility(v34);
   if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
   {
     v47 = *(a1 + 32);
@@ -440,13 +438,11 @@ LABEL_23:
 
   (*(*(a1 + 72) + 16))();
 LABEL_31:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_77(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -454,67 +450,65 @@ void __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_using
   v11 = [v10 statusCode];
   if (!v9 && (v11 & 0xFFFFFFFFFFFFFFFDLL) == 0x191 && *(a1 + 32))
   {
-    v12 = _CMSILogingFacility();
+    v12 = _CMSILogingFacility(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = *(a1 + 40);
       *buf = 136315394;
-      v30 = "+[CMSCloudExtensionConfiguration configurationFromURL:forSession:usingAuth:authProvider:parentNetworkActivity:keyID:publicKey:URLSessionConfiguration:languageCode:completion:]_block_invoke";
-      v31 = 2112;
-      v32 = v13;
+      v29 = "+[CMSCloudExtensionConfiguration configurationFromURL:forSession:usingAuth:authProvider:parentNetworkActivity:keyID:publicKey:URLSessionConfiguration:languageCode:completion:]_block_invoke";
+      v30 = 2112;
+      v31 = v13;
       _os_log_impl(&dword_2439AD000, v12, OS_LOG_TYPE_DEFAULT, "%s configuration from URL %@ auth challenge - trying to renew credentials", buf, 0x16u);
     }
 
     v14 = *(a1 + 32);
     v15 = *(a1 + 48);
     v16 = *(*(*(a1 + 80) + 8) + 40);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_78;
-    v20[3] = &unk_278DDC9C8;
-    v21 = v15;
-    v22 = *(a1 + 56);
-    v23 = *(a1 + 64);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_78;
+    v19[3] = &unk_278DDC9C8;
+    v20 = v15;
+    v21 = *(a1 + 56);
+    v22 = *(a1 + 64);
     v17 = *(a1 + 72);
     v18 = *(a1 + 80);
-    v27 = v17;
-    v28 = v18;
-    v24 = 0;
-    v25 = v7;
-    v26 = v10;
-    [v14 authRenewalForSessionIdentifier:v21 parentNetworkActivity:v16 completion:v20];
+    v26 = v17;
+    v27 = v18;
+    v23 = 0;
+    v24 = v7;
+    v25 = v10;
+    [v14 authRenewalForSessionIdentifier:v20 parentNetworkActivity:v16 completion:v19];
   }
 
   else
   {
     (*(*(a1 + 72) + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_78(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = v9;
-  if (!v8 || v9 || [*(a1 + 32) compare:v7])
+  if (!v8 || v9 || (v9 = [*(a1 + 32) compare:v7]) != 0)
   {
-    v11 = _CMSILogingFacility();
+    v11 = _CMSILogingFacility(v9);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v20 = v10;
+      v19 = v10;
       if (!v10)
       {
-        v20 = *(a1 + 56);
+        v19 = *(a1 + 56);
       }
 
       *buf = 136315394;
-      v24 = "+[CMSCloudExtensionConfiguration configurationFromURL:forSession:usingAuth:authProvider:parentNetworkActivity:keyID:publicKey:URLSessionConfiguration:languageCode:completion:]_block_invoke";
-      v25 = 2112;
-      v26 = v20;
+      v23 = "+[CMSCloudExtensionConfiguration configurationFromURL:forSession:usingAuth:authProvider:parentNetworkActivity:keyID:publicKey:URLSessionConfiguration:languageCode:completion:]_block_invoke";
+      v24 = 2112;
+      v25 = v19;
       _os_log_error_impl(&dword_2439AD000, v11, OS_LOG_TYPE_ERROR, "%s failed to get new tokens: %@", buf, 0x16u);
     }
 
@@ -530,25 +524,23 @@ void __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_using
   else
   {
     [*(a1 + 40) setValue:v8 forHTTPHeaderField:@"Authorization"];
-    v15 = *(a1 + 40);
-    v14 = *(a1 + 48);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_2;
-    v21[3] = &unk_278DDC9A0;
-    v22 = *(a1 + 80);
-    v16 = [v14 dataTaskWithRequest:v15 completionHandler:v21];
-    v17 = [[CMSNetworkActivity alloc] initWithRetry:*(*(*(a1 + 88) + 8) + 40)];
-    [(CMSNetworkActivity *)v17 associateWithTask:v16];
+    v14 = *(a1 + 40);
+    v13 = *(a1 + 48);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_2;
+    v20[3] = &unk_278DDC9A0;
+    v21 = *(a1 + 80);
+    v15 = [v13 dataTaskWithRequest:v14 completionHandler:v20];
+    v16 = [[CMSNetworkActivity alloc] initWithRetry:*(*(*(a1 + 88) + 8) + 40)];
+    [(CMSNetworkActivity *)v16 associateWithTask:v15];
     [*(*(*(a1 + 88) + 8) + 40) completeActivity:3];
-    v18 = *(*(a1 + 88) + 8);
-    v19 = *(v18 + 40);
-    *(v18 + 40) = v17;
+    v17 = *(*(a1 + 88) + 8);
+    v18 = *(v17 + 40);
+    *(v17 + 40) = v16;
 
-    [v16 resume];
+    [v15 resume];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureEndpoint:(id)endpoint withDictionary:(id)dictionary headers:(id)headers
@@ -563,42 +555,43 @@ void __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_using
   if (v13)
   {
     v14 = [v13 objectForKeyedSubscript:@"url"];
+    v15 = v14;
     if (!v14)
     {
-      v15 = [v13 mutableCopy];
-      [v15 setObject:endpointCopy forKeyedSubscript:@"url"];
-      v16 = [v15 copy];
+      v16 = [v13 mutableCopy];
+      [v16 setObject:endpointCopy forKeyedSubscript:@"url"];
+      v17 = [v16 copy];
 
-      v13 = v16;
+      v13 = v17;
     }
 
-    v17 = _CMSILogingFacility();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = _CMSILogingFacility(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [CMSCloudExtensionConfiguration _configureEndpoint:withDictionary:headers:];
     }
 
-    v18 = objc_opt_class();
-    v19 = [v11 objectAtIndexedSubscript:0];
-    v20 = [v19 isEqualToString:@"intent"];
+    v19 = objc_opt_class();
+    v20 = [v11 objectAtIndexedSubscript:0];
+    v21 = [v20 isEqualToString:@"intent"];
 
-    if (v20)
+    if (v21)
     {
-      v18 = objc_opt_class();
+      v19 = objc_opt_class();
     }
 
     if ([endpointCopy isEqualToString:@"queues/contentProtectionKey"])
     {
-      v18 = objc_opt_class();
+      v19 = objc_opt_class();
     }
 
-    v21 = [v18 alloc];
+    v22 = [v19 alloc];
     baseURL = [(CMSCloudExtensionConfiguration *)self baseURL];
-    v23 = [v21 initWithDictionary:v13 endpoint:endpointCopy baseURL:baseURL groupHeaders:headersCopy];
+    v24 = [v22 initWithDictionary:v13 endpoint:endpointCopy baseURL:baseURL groupHeaders:headersCopy];
 
-    if (v23)
+    if (v24)
     {
-      [(NSMutableDictionary *)self->_endpointConfigs setObject:v23 forKey:endpointCopy];
+      [(NSMutableDictionary *)self->_endpointConfigs setObject:v24 forKey:endpointCopy];
     }
   }
 }
@@ -699,7 +692,7 @@ LABEL_19:
     v16->_globalHeaders = v35;
 
     v37 = [dictionaryCopy cmsOptionalDictionaryForKey:@"intent"];
-    v38 = _CMSILogingFacility();
+    v38 = _CMSILogingFacility(v37);
     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       [CMSCloudExtensionConfiguration initWithDictionary:fromURL:parentNetworkActivity:languageCode:];
@@ -711,7 +704,7 @@ LABEL_19:
     [(CMSCloudExtensionConfiguration *)v16 _configureEndpoint:@"intent/updateMediaAffinity" withDictionary:v37 headers:v39];
     v40 = [dictionaryCopy cmsOptionalDictionaryForKey:@"media"];
     v41 = [v40 cmsOptionalDictionaryForKey:@"queues"];
-    v42 = _CMSILogingFacility();
+    v42 = _CMSILogingFacility(v41);
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
     {
       [CMSCloudExtensionConfiguration initWithDictionary:fromURL:parentNetworkActivity:languageCode:];
@@ -756,7 +749,7 @@ LABEL_20:
       languageCode = [(CMSCloudExtensionConfiguration *)self languageCode];
       if (!languageCode)
       {
-        languageCode = CMSCloudExtensionLanguageCode();
+        languageCode = CMSCloudExtensionLanguageCode(0);
       }
 
       [v9 setValue:languageCode forHTTPHeaderField:@"Accept-Language"];
@@ -804,43 +797,11 @@ LABEL_9:
   return configExpiry;
 }
 
-void __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2439AD000, v0, v1, "Failed to create configuration from JWS encryption: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __175__CMSCloudExtensionConfiguration_configurationFromURL_forSession_usingAuth_authProvider_parentNetworkActivity_keyID_publicKey_URLSessionConfiguration_languageCode_completion___block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2439AD000, a1, a3, "%s no configuration data returned", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_configureEndpoint:withDictionary:headers:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_2439AD000, v0, v1, "endpointDict: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDictionary:fromURL:parentNetworkActivity:languageCode:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_2439AD000, v0, v1, "intentDict: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDictionary:fromURL:parentNetworkActivity:languageCode:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_2439AD000, v0, v1, "queuesDict: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[CMSCloudExtensionConfiguration configurationFromURL:forSession:usingAuth:authProvider:parentNetworkActivity:keyID:publicKey:URLSessionConfiguration:languageCode:completion:]_block_invoke";
+  OUTLINED_FUNCTION_0(&dword_2439AD000, a1, a3, "%s no configuration data returned", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

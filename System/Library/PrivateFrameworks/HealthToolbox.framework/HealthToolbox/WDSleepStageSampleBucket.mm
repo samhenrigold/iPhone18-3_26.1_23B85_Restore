@@ -36,15 +36,13 @@
 
 - (void)addSample:(id)sample
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   sortedSamples = self->_sortedSamples;
   sampleCopy = sample;
   v4 = MEMORY[0x277CBEA60];
   sampleCopy2 = sample;
   v6 = [v4 arrayWithObjects:&sampleCopy count:1];
-  [(HKSortedSampleArray *)sortedSamples insertSamples:v6, sampleCopy, v9];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(HKSortedSampleArray *)sortedSamples insertSamples:v6, sampleCopy, v8];
 }
 
 - (double)totalDuration
@@ -83,7 +81,7 @@ double __41__WDSleepStageSampleBucket_totalDuration__block_invoke(uint64_t a1, v
 
 - (NSPredicate)predicate
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCD838] predicateForCategorySamplesWithOperatorType:4 value:self->_sleepStage];
   v4 = MEMORY[0x277CCD838];
   startDate = [(WDTimePeriod *)self->_timePeriod startDate];
@@ -98,13 +96,11 @@ double __41__WDSleepStageSampleBucket_totalDuration__block_invoke(uint64_t a1, v
   v13 = [v8 predicateForObjectsFromSources:v12];
 
   v14 = MEMORY[0x277CCA920];
-  v19[0] = v7;
-  v19[1] = v3;
-  v19[2] = v13;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+  v18[0] = v7;
+  v18[1] = v3;
+  v18[2] = v13;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
   v16 = [v14 andPredicateWithSubpredicates:v15];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

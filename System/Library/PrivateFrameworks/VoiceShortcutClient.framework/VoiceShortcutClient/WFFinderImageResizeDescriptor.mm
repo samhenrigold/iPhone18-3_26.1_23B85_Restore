@@ -1,6 +1,7 @@
 @interface WFFinderImageResizeDescriptor
 - (BOOL)isEqual:(id)equal;
 - (WFFinderImageResizeDescriptor)initWithCoder:(id)coder;
+- (WFFinderImageResizeDescriptor)initWithFormat:(unint64_t)format size:(unint64_t)size preserveMetadata:(BOOL)metadata;
 - (id)description;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -92,6 +93,27 @@ LABEL_11:
   v7 = [v3 finalize];
 
   return v7;
+}
+
+- (WFFinderImageResizeDescriptor)initWithFormat:(unint64_t)format size:(unint64_t)size preserveMetadata:(BOOL)metadata
+{
+  metadataCopy = metadata;
+  v13.receiver = self;
+  v13.super_class = WFFinderImageResizeDescriptor;
+  v8 = [(WFFinderImageResizeDescriptor *)&v13 init];
+  if (v8)
+  {
+    metadataCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu-%lu-%d", format, size, metadataCopy];
+    identifier = v8->_identifier;
+    v8->_identifier = metadataCopy;
+
+    v8->_format = format;
+    v8->_size = size;
+    v8->_preserveMetadata = metadataCopy;
+    v11 = v8;
+  }
+
+  return v8;
 }
 
 @end

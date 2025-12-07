@@ -77,7 +77,7 @@ LABEL_9:
   attachmentAttributesForAttributedString = [(ICBaseTextAttachment *)self attachmentAttributesForAttributedString];
   [stringCopy addAttributes:attachmentAttributesForAttributedString range:{location, length}];
   v10 = *MEMORY[0x1E69DB5F8];
-  v11 = [attachmentAttributesForAttributedString objectForKeyedSubscript:*MEMORY[0x1E69DB5F8]];
+  v11 = objc_msgSend_objectForKeyedSubscript_(attachmentAttributesForAttributedString);
 
   if (!v11)
   {

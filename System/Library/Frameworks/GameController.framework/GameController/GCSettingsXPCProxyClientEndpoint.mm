@@ -19,27 +19,27 @@
   v14.receiver = self;
   v14.super_class = GCSettingsXPCProxyClientEndpoint;
   v8 = [(GCSettingsXPCProxyClientEndpoint *)&v14 init];
+  v9 = v8;
   if (v8)
   {
-    v9 = getGCSettingsLogger();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = getGCSettingsLogger(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
       v16 = identifierCopy;
       v17 = 2112;
       v18 = profileCopy;
-      _os_log_impl(&dword_1D2CD5000, v9, OS_LOG_TYPE_INFO, "GCSettingsXPCProxyClientEndpoint initWithIdentifier: %@ initialProfile: %@", buf, 0x16u);
+      _os_log_impl(&dword_1D2CD5000, v10, OS_LOG_TYPE_INFO, "GCSettingsXPCProxyClientEndpoint initWithIdentifier: %@ initialProfile: %@", buf, 0x16u);
     }
 
-    v10 = [identifierCopy copyWithZone:0];
-    identifier = v8->_identifier;
-    v8->_identifier = v10;
+    v11 = [identifierCopy copyWithZone:0];
+    identifier = v9->_identifier;
+    v9->_identifier = v11;
 
-    objc_storeStrong(&v8->_settingsProfile, profile);
+    objc_storeStrong(&v9->_settingsProfile, profile);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 - (GCSettingsXPCProxyClientEndpoint)init
@@ -54,13 +54,13 @@
   endpointCopy = endpoint;
   connectionCopy = connection;
   objc_initWeak(&location, self);
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __65__GCSettingsXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke;
-  v18 = &unk_1E8418D18;
-  objc_copyWeak(&v19, &location);
-  v9 = _Block_copy(&v15);
-  v10 = [connectionCopy addInterruptionHandler:{v9, v15, v16, v17, v18}];
+  v16 = MEMORY[0x1E69E9820];
+  v17 = 3221225472;
+  v18 = __65__GCSettingsXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke;
+  v19 = &unk_1E8418D18;
+  objc_copyWeak(&v20, &location);
+  v9 = _Block_copy(&v16);
+  v10 = [connectionCopy addInterruptionHandler:{v9, v16, v17, v18, v19}];
   connectionInterruptionRegistration = self->_connectionInterruptionRegistration;
   self->_connectionInterruptionRegistration = v10;
 
@@ -69,36 +69,37 @@
   self->_connectionInvalidationRegistration = v12;
 
   objc_storeStrong(&self->_serverEndpoint, endpoint);
-  v14 = getGCSettingsLogger();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = getGCSettingsLogger(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [GCSettingsXPCProxyClientEndpoint setRemoteEndpoint:connection:];
   }
 
   [(GCSettingsXPCProxyClientEndpoint *)self refreshProfile];
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
 }
 
 void __65__GCSettingsXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = getGCSettingsLogger();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = getGCSettingsLogger(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __65__GCSettingsXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke_cold_1();
     }
 
-    v3 = WeakRetained[4];
-    WeakRetained[4] = 0;
+    v4 = v2[4];
+    v2[4] = 0;
 
-    v4 = WeakRetained[3];
-    WeakRetained[3] = 0;
+    v5 = v2[3];
+    v2[3] = 0;
 
-    v5 = WeakRetained[2];
-    WeakRetained[2] = 0;
+    v6 = v2[2];
+    v2[2] = 0;
   }
 }
 
@@ -150,7 +151,7 @@ uint64_t __65__GCSettingsXPCProxyClientEndpoint__remoteEndpointHasSetProfile___b
 
 uint64_t __47__GCSettingsXPCProxyClientEndpoint_newProfile___block_invoke(uint64_t a1)
 {
-  v2 = getGCSettingsLogger();
+  v2 = getGCSettingsLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -172,7 +173,7 @@ uint64_t __47__GCSettingsXPCProxyClientEndpoint_newProfile___block_invoke(uint64
 
 uint64_t __50__GCSettingsXPCProxyClientEndpoint_refreshProfile__block_invoke(uint64_t a1)
 {
-  v2 = getGCSettingsLogger();
+  v2 = getGCSettingsLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -219,22 +220,6 @@ void __56__GCSettingsXPCProxyClientEndpoint_invalidateConnection__block_invoke(u
   replyCopy = reply;
   identifier = [(GCSettingsXPCProxyClientEndpoint *)self identifier];
   (*(reply + 2))(replyCopy, identifier);
-}
-
-- (void)setRemoteEndpoint:connection:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_13();
-  OUTLINED_FUNCTION_0_4(&dword_1D2CD5000, v0, v1, "Server connection established for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__GCSettingsXPCProxyClientEndpoint_setRemoteEndpoint_connection___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_13();
-  OUTLINED_FUNCTION_0_4(&dword_1D2CD5000, v0, v1, "%@ has lost its connection to the remote endpoint.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

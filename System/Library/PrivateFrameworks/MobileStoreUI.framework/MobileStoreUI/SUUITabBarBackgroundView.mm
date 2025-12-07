@@ -40,7 +40,7 @@
 {
   nameCopy = name;
   backdropGroupName = [(SUUITabBarBackgroundView *)self backdropGroupName];
-  if (backdropGroupName != nameCopy && ([backdropGroupName isEqualToString:nameCopy] & 1) == 0)
+  if (backdropGroupName != nameCopy && (objc_msgSend_isEqualToString_(backdropGroupName) & 1) == 0)
   {
     [(_UIBackdropView *)self->_backdropView setGroupName:nameCopy];
   }

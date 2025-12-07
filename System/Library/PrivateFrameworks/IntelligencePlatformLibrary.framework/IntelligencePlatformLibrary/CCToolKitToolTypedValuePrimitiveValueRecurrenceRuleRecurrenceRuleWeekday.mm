@@ -327,7 +327,6 @@ LABEL_63:
           NSStringFromClass(v49);
           errorCopy = error;
           v52 = v51 = dataCopy;
-          v53 = *&v7[*v10];
           v11 = CCSkipFieldErrorForMessage();
 
           dataCopy = v51;
@@ -355,22 +354,21 @@ LABEL_65:
 LABEL_68:
   if (!*&v7[*v10])
   {
-    v57 = 1;
+    v55 = 1;
     goto LABEL_72;
   }
 
 LABEL_69:
-  v54 = objc_opt_class();
-  v11 = NSStringFromClass(v54);
-  v55 = *&v7[*v10];
-  v56 = CCInvalidBufferErrorForMessage();
+  v53 = objc_opt_class();
+  v11 = NSStringFromClass(v53);
+  v54 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_70:
-  v57 = 0;
+  v55 = 0;
 LABEL_72:
 
-  return v57;
+  return v55;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValueRecurrenceRuleRecurrenceRuleWeekday)initWithRecurrenceRuleWeekdayWeekday:(unsigned int)weekday RecurrenceRuleWeekdayEvery:(id)every RecurrenceRuleWeekdayNth:(id)nth error:(id *)error

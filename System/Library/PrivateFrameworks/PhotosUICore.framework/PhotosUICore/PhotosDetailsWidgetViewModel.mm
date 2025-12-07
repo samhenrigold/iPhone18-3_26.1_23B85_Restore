@@ -19,7 +19,7 @@
   changeCopy = change;
   selfCopy = self;
   v6 = v4();
-  sub_1A3C52C70(0, &qword_1EB126660);
+  sub_1A3C52C70(0, &qword_1EB126660, 0x1E6978630);
   v7 = sub_1A524DC34();
 
   if (v7)

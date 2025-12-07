@@ -30,7 +30,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [v5 defaultTooltipViewParameters];
+  objc_msgSend_defaultTooltipViewParameters(v5);
   if (!self)
   {
     goto LABEL_5;
@@ -174,11 +174,11 @@ LABEL_6:
   v11.receiver = self;
   v11.super_class = SBHTooltipView;
   [(SBHTooltipView *)&v11 layoutSubviews];
-  [(SBHTooltipView *)self tooltipViewParameters];
+  objc_msgSend_tooltipViewParameters(self);
 
   if (v9 >= 0.0)
   {
-    [(SBHTooltipView *)self tooltipViewParameters];
+    objc_msgSend_tooltipViewParameters(self);
     backgroundView = [(SBHTooltipView *)self backgroundView];
     [backgroundView _setContinuousCornerRadius:v7];
 
@@ -187,7 +187,7 @@ LABEL_6:
 
   else
   {
-    [(SBHTooltipView *)self bounds];
+    objc_msgSend_bounds(self);
     v4 = v3 * 0.5;
     backgroundView2 = [(SBHTooltipView *)self backgroundView];
     [backgroundView2 _setContinuousCornerRadius:v4];

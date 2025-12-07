@@ -44,7 +44,7 @@
 
 id __39__HMDCameraClipAddModelsOperation_main__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 mirrorOutputResult];
 
@@ -61,9 +61,9 @@ id __39__HMDCameraClipAddModelsOperation_main__block_invoke(uint64_t a1, void *a
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@No mirrorOutputResult future provided", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@No mirrorOutputResult future provided", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -72,14 +72,12 @@ id __39__HMDCameraClipAddModelsOperation_main__block_invoke(uint64_t a1, void *a
     v5 = [v10 futureWithError:v11];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 void __39__HMDCameraClipAddModelsOperation_main__block_invoke_5(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -87,20 +85,18 @@ void __39__HMDCameraClipAddModelsOperation_main__block_invoke_5(uint64_t a1, voi
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully added models", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully added models", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) finish];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __39__HMDCameraClipAddModelsOperation_main__block_invoke_7(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -108,17 +104,15 @@ void __39__HMDCameraClipAddModelsOperation_main__block_invoke_7(uint64_t a1, voi
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to add models: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to add models: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) cancelWithError:v3];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -135,10 +129,9 @@ void __39__HMDCameraClipAddModelsOperation_main__block_invoke_7(uint64_t a1, voi
 
 void __46__HMDCameraClipAddModelsOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_258553;
-  logCategory__hmf_once_v4_258553 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_258553;
+  logCategory__hmf_once_v4_258553 = v0;
 }
 
 @end

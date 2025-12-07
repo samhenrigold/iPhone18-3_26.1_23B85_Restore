@@ -44,30 +44,29 @@
   length = range.length;
   location = range.location;
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC72BCD8, &qword_1D2BFD980);
-  v12 = *(*(v11 - 8) + 64);
   MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v20 - v13;
-  v15 = _Block_copy(handler);
+  v13 = &v19 - v12;
+  v14 = _Block_copy(handler);
   if (options)
   {
     options = sub_1D2BF3FE8();
   }
 
-  v16 = swift_allocObject();
-  *(v16 + 16) = v15;
-  v17 = sub_1D2BF4048();
-  (*(*(v17 - 8) + 56))(v14, 1, 1, v17);
-  v18 = swift_allocObject();
-  v18[2] = 0;
-  v18[3] = 0;
-  v18[4] = string;
-  v18[5] = location;
-  v18[6] = length;
-  v18[7] = options;
-  v18[8] = sub_1D2BF3470;
-  v18[9] = v16;
+  v15 = swift_allocObject();
+  *(v15 + 16) = v14;
+  v16 = sub_1D2BF4048();
+  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  v17 = swift_allocObject();
+  v17[2] = 0;
+  v17[3] = 0;
+  v17[4] = string;
+  v17[5] = location;
+  v17[6] = length;
+  v17[7] = options;
+  v17[8] = sub_1D2BF3470;
+  v17[9] = v15;
   stringCopy = string;
-  sub_1D2BF13E0(0, 0, v14, &unk_1D2BFDA40, v18);
+  sub_1D2BF13E0(0, 0, v13, &unk_1D2BFDA40, v17);
 }
 
 - (void)requestRewritingWithAttributedString:(id)string range:(_NSRange)range rewritingType:(id)type options:(id)options completionHandler:(id)handler

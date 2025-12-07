@@ -760,7 +760,7 @@ LABEL_10:
   alertsOnlyButton = self->_alertsOnlyButton;
   if (alertsOnlyButton)
   {
-    [(CarCardRoundedButton *)alertsOnlyButton buttonMetrics];
+    objc_msgSend_buttonMetrics(alertsOnlyButton);
     v26 = v118;
   }
 
@@ -781,7 +781,7 @@ LABEL_10:
   v52 = heightAnchor2;
   if (goButton)
   {
-    [(CarCardRoundedButton *)goButton buttonMetrics];
+    objc_msgSend_buttonMetrics(goButton);
     v30 = v117;
   }
 

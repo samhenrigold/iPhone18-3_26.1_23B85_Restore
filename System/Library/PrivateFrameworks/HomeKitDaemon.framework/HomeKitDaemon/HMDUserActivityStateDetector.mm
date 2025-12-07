@@ -22,8 +22,8 @@
 
 - (id)dumpStateWithPrivacyLevel:(unint64_t)level
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10 = @"report";
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9 = @"report";
   latestReport = [(HMDUserActivityStateDetector *)self latestReport];
   v4 = [latestReport description];
   v5 = v4;
@@ -33,10 +33,8 @@
     v6 = v4;
   }
 
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   return v7;
 }
@@ -51,7 +49,7 @@
 
 - (void)handleLocationAuthorizationChange:(int64_t)change
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -63,21 +61,20 @@
   {
     v10 = HMFGetLogIdentifier();
     v11 = HMLocationAuthorizationAsString();
-    v13 = 138543618;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v11;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Base Implementation. Not handling location auth change: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Base Implementation. Not handling location auth change: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   [(HMDUserActivityStateDetector *)selfCopy setLocationAuthorization:change];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDetectorStateChangedWithReason:(unint64_t)reason
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -93,11 +90,11 @@
     {
       v12 = HMFGetLogIdentifier();
       v13 = HMDUserActivityStateDetectorUpdateReasonAsString(reason);
-      v16 = 138543618;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate with update reason: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v13;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying delegate with update reason: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -109,15 +106,13 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v14;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly asked to notify stateChangeDelegate before it was assigned", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly asked to notify stateChangeDelegate before it was assigned", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithCompletion:(id)completion
@@ -164,10 +159,9 @@
 
 void __43__HMDUserActivityStateDetector_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_158258;
-  logCategory__hmf_once_v4_158258 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_158258;
+  logCategory__hmf_once_v4_158258 = v0;
 }
 
 + (BOOL)supportsDataSource:(id)source

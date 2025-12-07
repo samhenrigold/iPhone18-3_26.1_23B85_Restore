@@ -17,6 +17,8 @@
 - (void)setDataSyncState:(unint64_t)state;
 - (void)startCDPRepair;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HODataSyncingViewController
@@ -47,6 +49,45 @@
 
   textViewConstraints = [(HODataSyncingViewController *)self textViewConstraints];
   [NSLayoutConstraint activateConstraints:textViewConstraints];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = HODataSyncingViewController;
+  [(HODataSyncingViewController *)&v7 viewWillAppear:appear];
+  v4 = HFLogForCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v6.version) = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[HODataSyncingViewController-viewWillAppear:]", &v6, 2u);
+  }
+
+  if (![(HODataSyncingViewController *)self reachability])
+  {
+    Default = CFAllocatorGetDefault();
+    self->_reachability = SCNetworkReachabilityCreateWithName(Default, "www.icloud.com");
+    SCNetworkReachabilitySetCallback([(HODataSyncingViewController *)self reachability:0], sub_10003F394, &v6);
+    SCNetworkReachabilitySetDispatchQueue([(HODataSyncingViewController *)self reachability], &_dispatch_main_q);
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = HODataSyncingViewController;
+  [(HODataSyncingViewController *)&v6 viewWillDisappear:disappear];
+  v4 = HFLogForCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[HODataSyncingViewController-viewWillDisappear:]", v5, 2u);
+  }
+
+  if ([(HODataSyncingViewController *)self reachability])
+  {
+    CFRelease([(HODataSyncingViewController *)self reachability]);
+  }
 }
 
 - (double)insetSize

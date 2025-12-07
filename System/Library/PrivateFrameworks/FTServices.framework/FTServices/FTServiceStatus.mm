@@ -54,7 +54,7 @@
 
 - (void)_reload
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   supportedServicesFlags = [(FTServiceStatus *)self supportedServicesFlags];
   _noCache_supportedServicesFlags = [(FTServiceStatus *)self _noCache_supportedServicesFlags];
   [(FTServiceStatus *)self setSupportedServicesFlags:_noCache_supportedServicesFlags];
@@ -91,15 +91,15 @@
       v8 = @"NO";
     }
 
-    v11 = 138413058;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    v17 = 2048;
+    v10 = 138413058;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    v16 = 2048;
     supportedServicesFlags2 = [(FTServiceStatus *)self supportedServicesFlags];
-    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Updating supported service status { iMessageSupported: %@, faceTimeAudioSupported: %@, faceTimeMultiwaySupported: %@, supportedServicesFlags: %llu }", &v11, 0x2Au);
+    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Updating supported service status { iMessageSupported: %@, faceTimeAudioSupported: %@, faceTimeMultiwaySupported: %@, supportedServicesFlags: %llu }", &v10, 0x2Au);
   }
 
   if ((((supportedServicesFlags ^ _noCache_supportedServicesFlags) & 1) != 0 || ((supportedServicesFlags >> 1) & 1) != ((_noCache_supportedServicesFlags >> 1) & 1) || ((supportedServicesFlags >> 2) & 1) != ((_noCache_supportedServicesFlags >> 2) & 1)) && ![(FTServiceStatus *)self blockPost])
@@ -107,8 +107,6 @@
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter __mainThreadPostNotificationName:@"FTServiceStatusDidChangeNotification" object:0];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)_noCache_supportedServicesFlags

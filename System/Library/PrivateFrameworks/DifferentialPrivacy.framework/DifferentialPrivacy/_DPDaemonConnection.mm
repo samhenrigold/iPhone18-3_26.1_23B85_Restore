@@ -175,7 +175,7 @@
 
 - (void)recordBitVectors:(id)vectors metadata:(id)metadata forKey:(id)key withReply:(id)reply
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   replyCopy = reply;
   metadataCopy = metadata;
@@ -184,25 +184,23 @@
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = keyCopy;
+    v25 = keyCopy;
     _os_log_impl(&dword_22622D000, v14, OS_LOG_TYPE_DEFAULT, "Begin: recordBitVectors:metadata: for key %@", buf, 0xCu);
   }
 
   remoteObjectProxy = [(NSXPCConnection *)self->_daemonConnection remoteObjectProxy];
   v16 = os_transaction_create();
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __66___DPDaemonConnection_recordBitVectors_metadata_forKey_withReply___block_invoke;
-  v21[3] = &unk_27858A980;
-  v23 = v16;
-  v24 = replyCopy;
-  v22 = keyCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __66___DPDaemonConnection_recordBitVectors_metadata_forKey_withReply___block_invoke;
+  v20[3] = &unk_27858A980;
+  v22 = v16;
+  v23 = replyCopy;
+  v21 = keyCopy;
   v17 = v16;
   v18 = keyCopy;
   v19 = replyCopy;
-  [remoteObjectProxy recordBitVectors:vectorsCopy metadata:metadataCopy forKey:v18 withReply:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [remoteObjectProxy recordBitVectors:vectorsCopy metadata:metadataCopy forKey:v18 withReply:v20];
 }
 
 - (void)recordFloatVectors:(id)vectors forKey:(id)key withReply:(id)reply

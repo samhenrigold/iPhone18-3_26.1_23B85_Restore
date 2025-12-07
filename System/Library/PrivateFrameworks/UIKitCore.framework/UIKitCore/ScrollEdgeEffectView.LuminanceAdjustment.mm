@@ -14,13 +14,13 @@
 - (void)didMoveToWindow
 {
   selfCopy = self;
-  v4 = sub_188FF8F2C();
+  v4 = sub_188FF8F2C(v5);
   if (*(v3 + 16))
   {
     sub_188FFF5D4(v3);
   }
 
-  (v4)(&v5, 0);
+  (v4)(v5, 0);
 }
 
 @end

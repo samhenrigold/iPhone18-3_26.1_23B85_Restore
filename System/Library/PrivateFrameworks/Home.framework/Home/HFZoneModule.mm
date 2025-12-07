@@ -26,14 +26,14 @@
   {
     objc_storeStrong(&v8->_room, room);
     v10 = [HFZoneItemProvider alloc];
-    home = [roomCopy home];
-    v12 = [(HFZoneItemProvider *)v10 initWithHome:home];
+    v11 = objc_msgSend_home(roomCopy);
+    v12 = [(HFZoneItemProvider *)v10 initWithHome:v11];
     zoneItemProvider = v9->_zoneItemProvider;
     v9->_zoneItemProvider = v12;
 
     v14 = [HFZoneSuggestionItemProvider alloc];
-    home2 = [roomCopy home];
-    v16 = [(HFZoneSuggestionItemProvider *)v14 initWithHome:home2];
+    v15 = objc_msgSend_home(roomCopy);
+    v16 = [(HFZoneSuggestionItemProvider *)v14 initWithHome:v15];
     zoneSuggestionItemProvider = v9->_zoneSuggestionItemProvider;
     v9->_zoneSuggestionItemProvider = v16;
 
@@ -122,30 +122,28 @@
 
 id __29__HFZoneModule_itemProviders__block_invoke(uint64_t a1)
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = MEMORY[0x277D2C900];
-  v14[0] = @"title";
+  v13[0] = @"title";
   v4 = 1;
   v5 = _HFLocalizedStringWithDefaultValue(@"HFZoneModuleCreateNew", @"HFZoneModuleCreateNew", 1);
-  v15[0] = v5;
-  v14[1] = @"titlePlaceholder";
+  v14[0] = v5;
+  v13[1] = @"titlePlaceholder";
   v6 = _HFLocalizedStringWithDefaultValue(@"HFZoneModuleCreateNewPlaceholder", @"HFZoneModuleCreateNewPlaceholder", 1);
-  v15[1] = v6;
-  v14[2] = @"hidden";
+  v14[1] = v6;
+  v13[2] = @"hidden";
   v7 = MEMORY[0x277CCABB0];
-  v8 = [*(a1 + 32) home];
+  v8 = objc_msgSend_home(*(a1 + 32));
   if ([v8 hf_currentUserIsAdministrator])
   {
     v4 = [WeakRetained isExpanded] ^ 1;
   }
 
   v9 = [v7 numberWithInt:v4];
-  v15[2] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
   v11 = [v3 futureWithResult:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -175,25 +173,21 @@ id __29__HFZoneModule_itemProviders__block_invoke_3(id *a1, void *a2)
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v5 = [v3 mutableCopy];
 
-  v6 = a1[4];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(WeakRetained, "isExpanded")}];
-    [v5 setObject:v7 forKeyedSubscript:@"hidden"];
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(WeakRetained, "isExpanded")}];
+    [v5 setObject:v6 forKeyedSubscript:@"hidden"];
     goto LABEL_10;
   }
 
-  v8 = a1[4];
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v10 = a1[4];
-  if (isKindOfClass)
+  if (objc_opt_isKindOfClass())
   {
-    v11 = [a1[4] zone];
-    v12 = MEMORY[0x277CBEB98];
-    v13 = [v11 rooms];
-    v7 = [v12 setWithArray:v13];
+    v7 = [a1[4] zone];
+    v8 = MEMORY[0x277CBEB98];
+    v9 = [v7 rooms];
+    v6 = [v8 setWithArray:v9];
   }
 
   else
@@ -201,38 +195,37 @@ id __29__HFZoneModule_itemProviders__block_invoke_3(id *a1, void *a2)
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v7 = 0;
+      v6 = 0;
       goto LABEL_9;
     }
 
-    v11 = [a1[4] zoneBuilder];
-    v7 = [v11 rooms];
+    v7 = [a1[4] zoneBuilder];
+    v6 = [v7 rooms];
   }
 
 LABEL_9:
-  v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v7, "containsObject:", a1[5])}];
-  [v5 setObject:v14 forKeyedSubscript:@"selected"];
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v6, "containsObject:", a1[5])}];
+  [v5 setObject:v10 forKeyedSubscript:@"selected"];
 
-  v15 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(WeakRetained, "isExpanded") ^ 1}];
-  [v5 setObject:v15 forKeyedSubscript:@"hidden"];
+  v11 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(WeakRetained, "isExpanded") ^ 1}];
+  [v5 setObject:v11 forKeyedSubscript:@"hidden"];
 
 LABEL_10:
-  v16 = [a1[5] home];
-  v17 = [v16 hf_currentUserIsAdministrator];
+  v12 = objc_msgSend_home(a1[5]);
+  v13 = [v12 hf_currentUserIsAdministrator];
 
-  if ((v17 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    v18 = a1[4];
-    v19 = [WeakRetained currentZoneItem];
+    v14 = a1[4];
+    v15 = [WeakRetained currentZoneItem];
 
-    if (v18 != v19)
+    if (v14 != v15)
     {
       [v5 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"isDisabled"];
     }
 
-    v20 = a1[4];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 || (v21 = a1[4], [WeakRetained createNewZoneItem], v22 = objc_claimAutoreleasedReturnValue(), v22, v21 == v22))
+    if ((objc_opt_isKindOfClass() & 1) != 0 || (v16 = a1[4], [WeakRetained createNewZoneItem], v17 = objc_claimAutoreleasedReturnValue(), v17, v16 == v17))
     {
       [v5 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"hidden"];
     }
@@ -245,7 +238,7 @@ LABEL_10:
 
 - (id)buildSectionsWithDisplayedItems:(id)items
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   if ([itemsCopy count])
   {
@@ -258,12 +251,12 @@ LABEL_10:
     allObjects2 = [v9 allObjects];
     v11 = [allObjects2 sortedArrayUsingComparator:&__block_literal_global_219];
 
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __48__HFZoneModule_buildSectionsWithDisplayedItems___block_invoke_6;
-    v22[3] = &unk_277DFA930;
-    v22[4] = self;
-    v12 = [v5 na_firstObjectPassingTest:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __48__HFZoneModule_buildSectionsWithDisplayedItems___block_invoke_6;
+    v21[3] = &unk_277DFA930;
+    v21[4] = self;
+    v12 = [v5 na_firstObjectPassingTest:v21];
     v13 = objc_opt_new();
     [v13 na_safeAddObject:v12];
     [v13 addObjectsFromArray:v8];
@@ -284,8 +277,8 @@ LABEL_10:
       v18 = _HFLocalizedStringWithDefaultValue(@"HF_SERVICE_DETAILS_ZONE_FOOTER", @"HF_SERVICE_DETAILS_ZONE_FOOTER", 1);
       [(HFItemSection *)v17 setFooterTitle:v18];
 
-      v23[0] = v17;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+      v22[0] = v17;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
     }
 
     else
@@ -298,8 +291,6 @@ LABEL_10:
   {
     v19 = MEMORY[0x277CBEBF8];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -376,8 +367,8 @@ BOOL __48__HFZoneModule_buildSectionsWithDisplayedItems___block_invoke_6(uint64_
 - (BOOL)canExpand
 {
   zoneItemProvider = [(HFZoneModule *)self zoneItemProvider];
-  home = [zoneItemProvider home];
-  hf_currentUserIsAdministrator = [home hf_currentUserIsAdministrator];
+  v4 = objc_msgSend_home(zoneItemProvider);
+  hf_currentUserIsAdministrator = [v4 hf_currentUserIsAdministrator];
 
   if (hf_currentUserIsAdministrator)
   {

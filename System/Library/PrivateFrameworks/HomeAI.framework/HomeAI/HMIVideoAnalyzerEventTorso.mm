@@ -50,20 +50,20 @@
 
 - (id)attributeDescriptions
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v13.receiver = self;
   v13.super_class = HMIVideoAnalyzerEventTorso;
   attributeDescriptions = [(HMIVideoAnalyzerEvent *)&v13 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   roll = [(HMIVideoAnalyzerEventTorso *)self roll];
-  v6 = [v4 initWithName:@"Torso Roll" value:roll];
-  v14[0] = v6;
+  v6 = [v4 initWithName:? value:?];
+  v14 = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   torsoRecognition = [(HMIVideoAnalyzerEventTorso *)self torsoRecognition];
-  v9 = [v7 initWithName:@"Torso Recognition" value:torsoRecognition];
-  v14[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-  v11 = [attributeDescriptions arrayByAddingObjectsFromArray:v10];
+  v9 = [v7 initWithName:? value:?];
+  v15 = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v11 = [attributeDescriptions arrayByAddingObjectsFromArray:?];
 
   return v11;
 }
@@ -112,23 +112,25 @@
   coderCopy = coder;
   [(HMIVideoAnalyzerEvent *)&v7 encodeWithCoder:coderCopy];
   v5 = [(HMIVideoAnalyzerEventTorso *)self roll:v7.receiver];
-  [coderCopy encodeObject:v5 forKey:@"HMIVAET.ro"];
+  [coderCopy encodeObject:? forKey:?];
 
   torsoRecognition = [(HMIVideoAnalyzerEventTorso *)self torsoRecognition];
-  [coderCopy encodeObject:torsoRecognition forKey:@"HMIVAET.tr"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (HMIVideoAnalyzerEventTorso)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [[HMIVideoAnalyzerEvent alloc] initWithCoder:coderCopy];
+  v5 = [[HMIVideoAnalyzerEvent alloc] initWithCoder:?];
   if (v5)
   {
-    v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIVAET.ro"];
-    v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIVAET.tr"];
+    objc_opt_class();
+    v6 = [coderCopy decodeObjectOfClass:? forKey:?];
+    objc_opt_class();
+    v7 = [coderCopy decodeObjectOfClass:? forKey:?];
     confidence = [(HMIVideoAnalyzerEvent *)v5 confidence];
     [(HMIVideoAnalyzerEvent *)v5 boundingBox];
-    self = [(HMIVideoAnalyzerEventTorso *)self initWithConfidence:confidence boundingBox:v6 roll:v7 torsoRecognition:?];
+    self = [HMIVideoAnalyzerEventTorso initWithConfidence:"initWithConfidence:boundingBox:roll:torsoRecognition:" boundingBox:? roll:? torsoRecognition:?];
 
     selfCopy = self;
   }

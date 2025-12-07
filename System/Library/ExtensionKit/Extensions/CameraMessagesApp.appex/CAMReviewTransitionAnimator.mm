@@ -37,119 +37,120 @@
     v19 = v18;
 
     window2 = [containerView window];
-    _windowInterfaceOrientation = [window2 _windowInterfaceOrientation];
+    [window2 _windowInterfaceOrientation];
 
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
     v74 = 0u;
-    [(CAMReviewTransitionAnimator *)self _shutterGeometryForReferenceBounds:_windowInterfaceOrientation orientation:v9 screenScale:v11, v13, v15, v19];
-    v71 = 0u;
+    v75 = 0u;
     v72 = 0u;
-    v69 = 0u;
+    v73 = 0u;
     v70 = 0u;
-    v67 = 0u;
+    v71 = 0u;
+    objc_msgSend__shutterGeometryForReferenceBounds_orientation_screenScale_(self, v9, v11, v13, v15, v19);
     v68 = 0u;
-    [(CAMReviewTransitionAnimator *)self _sendGeometryForReferenceBounds:_windowInterfaceOrientation orientation:v9 screenScale:v11, v13, v15, v19];
-    transitionDirection = [(CAMReviewTransitionAnimator *)self transitionDirection];
-    v66 = 0;
+    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
     v64 = 0u;
     v65 = 0u;
-    [(CAMReviewTransitionAnimator *)self _cameraButtonShutterSpecForLayoutStyle:[(CAMReviewTransitionAnimator *)self _layoutStyle]];
+    objc_msgSend__sendGeometryForReferenceBounds_orientation_screenScale_(self, v9, v11, v13, v15, v19);
+    transitionDirection = [(CAMReviewTransitionAnimator *)self transitionDirection];
+    [(CAMReviewTransitionAnimator *)self _layoutStyle];
     v63 = 0;
     v61 = 0u;
     v62 = 0u;
-    [(CAMReviewTransitionAnimator *)self _sendButtonShutterSpecForSendBounds:0, 0];
+    objc_msgSend__cameraButtonShutterSpecForLayoutStyle_(self);
+    v60 = 0;
+    v58 = 0u;
+    v59 = 0u;
+    objc_msgSend__sendButtonShutterSpecForSendBounds_(self, 0, 0);
     if (transitionDirection)
     {
-      v58 = v61;
-      v59 = v62;
-      v60 = v63;
-      v23 = &v64;
+      v55 = v58;
+      v56 = v59;
+      v57 = v60;
+      v22 = &v61;
     }
 
     else
     {
-      v58 = v64;
-      v59 = v65;
-      v60 = v66;
-      v23 = &v61;
+      v55 = v61;
+      v56 = v62;
+      v57 = v63;
+      v22 = &v58;
     }
 
-    v24 = v23[1];
-    v55 = *v23;
-    v56 = v24;
-    v57 = *(v23 + 4);
+    v23 = v22[1];
+    v52 = *v22;
+    v53 = v23;
+    v54 = *(v22 + 4);
     if (transitionDirection)
     {
-      v25 = 1.0;
+      v24 = 1.0;
     }
 
     else
+    {
+      v24 = 0.0;
+    }
+
+    if (transitionDirection)
     {
       v25 = 0.0;
     }
 
-    if (transitionDirection)
-    {
-      v26 = 0.0;
-    }
-
     else
     {
-      v26 = 1.0;
+      v25 = 1.0;
     }
 
-    v27 = objc_alloc_init(CAMReviewTransitionButton);
-    v49 = v58;
-    v50 = v59;
-    *&v51 = v60;
-    [(CAMReviewTransitionButton *)v27 configureWithShutterButtonSpec:&v49];
-    [(CAMReviewTransitionButton *)v27 setCenter:0.0, 0.0];
-    v28 = [(CAMReviewTransitionAnimator *)self _buttonColorForMode:[(CAMReviewTransitionAnimator *)self _captureMode]];
-    innerCircle = [(CAMReviewTransitionButton *)v27 innerCircle];
-    [innerCircle setBackgroundColor:v28];
+    v26 = objc_alloc_init(CAMReviewTransitionButton);
+    v48 = v55;
+    v49 = v56;
+    *&v50 = v57;
+    [(CAMReviewTransitionButton *)v26 configureWithShutterButtonSpec:&v48];
+    [(CAMReviewTransitionButton *)v26 setCenter:0.0, 0.0];
+    v27 = [(CAMReviewTransitionAnimator *)self _buttonColorForMode:[(CAMReviewTransitionAnimator *)self _captureMode]];
+    innerCircle = [(CAMReviewTransitionButton *)v26 innerCircle];
+    [innerCircle setBackgroundColor:v27];
 
-    imageView = [(CAMReviewTransitionButton *)v27 imageView];
-    [imageView setAlpha:v25];
+    imageView = [(CAMReviewTransitionButton *)v26 imageView];
+    [imageView setAlpha:v24];
 
-    v31 = [NSBundle bundleForClass:objc_opt_class()];
-    v32 = [UIImage imageNamed:@"CAMMessagesSendButton" inBundle:v31];
-    imageView2 = [(CAMReviewTransitionButton *)v27 imageView];
-    [imageView2 setImage:v32];
+    v30 = [NSBundle bundleForClass:objc_opt_class()];
+    v31 = [UIImage imageNamed:@"CAMMessagesSendButton" inBundle:v30];
+    imageView2 = [(CAMReviewTransitionButton *)v26 imageView];
+    [imageView2 setImage:v31];
 
-    [(CAMReviewTransitionAnimator *)self _sendImageTransformOrientation:_windowInterfaceOrientation];
-    imageView3 = [(CAMReviewTransitionButton *)v27 imageView];
-    v49 = v52;
-    v50 = v53;
-    v51 = v54;
-    [imageView3 setTransform:&v49];
+    objc_msgSend__sendImageTransformOrientation_(self);
+    imageView3 = [(CAMReviewTransitionButton *)v26 imageView];
+    v48 = v51[0];
+    v49 = v51[1];
+    v50 = v51[2];
+    [imageView3 setTransform:&v48];
 
-    [containerView addSubview:v27];
+    [containerView addSubview:v26];
     [v5 setAlpha:0.0];
-    v40[0] = _NSConcreteStackBlock;
-    v40[1] = 3221225472;
-    v40[2] = sub_100006C20;
-    v40[3] = &unk_100010688;
-    v41 = v27;
-    v43 = v55;
-    v44 = v56;
-    v45 = v57;
-    v46 = v26;
+    v39[0] = _NSConcreteStackBlock;
+    v39[1] = 3221225472;
+    v39[2] = sub_100006C20;
+    v39[3] = &unk_100010688;
+    v40 = v26;
+    v42 = v52;
+    v43 = v53;
+    v44 = v54;
+    v45 = v25;
+    v46 = 0;
     v47 = 0;
-    v48 = 0;
-    v42 = v5;
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_100006CA4;
-    v36[3] = &unk_1000106B0;
-    v37 = v41;
-    v38 = transitionCopy;
+    v41 = v5;
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_100006CA4;
+    v35[3] = &unk_1000106B0;
+    v36 = v40;
+    v37 = transitionCopy;
     selfCopy = self;
-    v35 = v41;
-    [UIView animateWithDuration:0 delay:v40 usingSpringWithDamping:v36 initialSpringVelocity:0.5 options:0.0 animations:1.0 completion:1.0];
+    v34 = v40;
+    [UIView animateWithDuration:0 delay:v39 usingSpringWithDamping:v35 initialSpringVelocity:0.5 options:0.0 animations:1.0 completion:1.0];
   }
 }
 
@@ -250,7 +251,7 @@ LABEL_6:
   *&retstr->var2.c = 0u;
   *&retstr->var2.tx = 0u;
 
-  return [PUReviewScreenUtilities orientedGeometryForFrame:"orientedGeometryForFrame:inBounds:orientation:" inBounds:scale orientation:?];
+  return objc_msgSend_orientedGeometryForFrame_inBounds_orientation_(PUReviewScreenUtilities);
 }
 
 - ($E927905399350D4C972495EAC2D81E51)_sendGeometryForReferenceBounds:(SEL)bounds orientation:(CGRect)orientation screenScale:(int64_t)scale
@@ -260,25 +261,25 @@ LABEL_6:
   y = orientation.origin.y;
   x = orientation.origin.x;
   [PUReviewScreenUtilities reviewScreenControlBarFrameForReferenceBounds:?];
+  v26 = v13;
   v27 = v14;
-  v28 = v15;
-  v17 = v16;
-  v19 = v18;
+  v16 = v15;
+  v18 = v17;
   [CMAMessagesExtensionUtilities shutterButtonAlignmentRectForReferenceBounds:[(CAMReviewTransitionAnimator *)self _layoutStyle] layoutStyle:x screenScale:y, width, height, a6];
   UIRectGetCenter();
+  v21 = v19;
   v22 = v20;
-  v23 = v21;
-  if (v19 <= v17)
+  if (v18 <= v16)
   {
-    [PUReviewScreenControlBar sendButtonAlignmentRectInHorizontalBounds:v27 relativeCenterAlignmentPoint:v28, v17, v19, v20, v21];
+    [PUReviewScreenControlBar sendButtonAlignmentRectInHorizontalBounds:v26 relativeCenterAlignmentPoint:v27, v16, v18, v19, v20];
   }
 
   else
   {
     delegate = [(CAMReviewTransitionAnimator *)self delegate];
-    v25 = [delegate availableControlsCountForReviewTransition:self];
+    v24 = [delegate availableControlsCountForReviewTransition:self];
 
-    [PUReviewScreenControlBar sendButtonAlignmentRectInVerticalBounds:v25 relativeCenterAlignmentPoint:v27 controlsCount:v28, v17, v19, v22, v23];
+    [PUReviewScreenControlBar sendButtonAlignmentRectInVerticalBounds:v24 relativeCenterAlignmentPoint:v26 controlsCount:v27, v16, v18, v21, v22];
   }
 
   *&retstr->var2.c = 0u;
@@ -288,7 +289,7 @@ LABEL_6:
   retstr->var0.origin = 0u;
   retstr->var0.size = 0u;
 
-  return [PUReviewScreenUtilities orientedGeometryForFrame:"orientedGeometryForFrame:inBounds:orientation:" inBounds:scale orientation:?];
+  return objc_msgSend_orientedGeometryForFrame_inBounds_orientation_(PUReviewScreenUtilities);
 }
 
 - (CGAffineTransform)_sendImageTransformOrientation:(SEL)orientation
@@ -342,7 +343,7 @@ LABEL_6:
   if (wantsFullscreenViewfinder)
   {
 
-    return [CAMDynamicShutterControl shutterButtonSpecForLayoutStyle:a4];
+    return objc_msgSend_shutterButtonSpecForLayoutStyle_(CAMDynamicShutterControl);
   }
 
   else

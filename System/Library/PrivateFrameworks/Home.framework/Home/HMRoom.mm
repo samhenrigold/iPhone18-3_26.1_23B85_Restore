@@ -31,7 +31,7 @@ BOOL __77__HMRoom_HFAdditions__hf_allUniqueMediaProfileContainersExcludingMediaG
 {
   v2 = a2;
   v3 = [v2 hf_backingAccessory];
-  v4 = [v3 home];
+  v4 = objc_msgSend_home(v3);
   v5 = [v2 hf_backingAccessory];
 
   v6 = [v4 hf_mediaSystemForAccessory:v5];
@@ -44,7 +44,7 @@ id __40__HMRoom_HFAdditions__hf_pairedHomePods__block_invoke(uint64_t a1, void *
   v2 = a2;
   if ([v2 hf_isHomePod])
   {
-    v3 = [v2 home];
+    v3 = objc_msgSend_home(v2);
     v4 = [v3 hf_mediaSystemForAccessory:v2];
   }
 
@@ -59,7 +59,7 @@ id __40__HMRoom_HFAdditions__hf_pairedHomePods__block_invoke(uint64_t a1, void *
 BOOL __59__HMRoom_HFAdditions__hf_homePodPairsNotInHomeTheaterGroup__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = [v2 home];
+  v3 = objc_msgSend_home(v2);
   v4 = [v2 audioDestinationIdentifier];
 
   v5 = [v3 hf_appleTVUsingAudioDestination:v4];
@@ -71,9 +71,9 @@ BOOL __59__HMRoom_HFAdditions__hf_homePodPairsNotInHomeTheaterGroup__block_invok
 BOOL __55__HMRoom_HFAdditions__hf_homePodsNotInHomeTheaterGroup__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if ([v2 hf_isHomePod] && (objc_msgSend(v2, "home"), v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "hf_mediaSystemForAccessory:", v2), v4 = objc_claimAutoreleasedReturnValue(), v4, v3, !v4))
+  if ([v2 hf_isHomePod] && (objc_msgSend_home(v2), v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "hf_mediaSystemForAccessory:", v2), v4 = objc_claimAutoreleasedReturnValue(), v4, v3, !v4))
   {
-    v7 = [v2 home];
+    v7 = objc_msgSend_home(v2);
     v8 = [v2 audioDestinationIdentifier];
     v9 = [v7 hf_appleTVUsingAudioDestination:v8];
     v5 = v9 == 0;
@@ -124,7 +124,7 @@ BOOL __59__HMRoom_HFAdditions__availableHomeTheaterMediaPartnerFor___block_invok
 
 BOOL __72__HMRoom_HFAdditions__availableHomePodsSupportingStereoPairingVersions___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = [v3 hf_isHomePod] && (objc_msgSend(v3, "home"), v4 = v3 = a2;
+  v6 = [v3 hf_isHomePod] && (objc_msgSend_home(v3), v4 = v3 = a2;
 
   return v6;
 }
@@ -311,7 +311,7 @@ void __55__HMRoom_HFApplicationData___hf_updateApplicationData___block_invoke(ui
   v4 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     [v4 home:v3 didUpdateApplicationDataForRoom:*(a1 + 32)];
   }
 }
@@ -323,7 +323,7 @@ void __84__HMRoom_HFApplicationData__hf_updateApplicationData_handleError_comple
   v4 = [v3 homeManager];
   if ([v4 hasOptedToHH2])
   {
-    v5 = [*(a1 + 32) home];
+    v5 = objc_msgSend_home(*(a1 + 32));
     v6 = [v5 residentDevices];
     v7 = [v6 count];
 

@@ -406,7 +406,7 @@ double __46__OKWidgetContentKenburnsEffect_applySettings__block_invoke(uint64_t 
   if (self->_animationIsUnderway)
   {
     v4 = layer;
-    [(CAAnimation *)[(OKWidgetContentEffect *)self animation] duration];
+    objc_msgSend_duration([(OKWidgetContentEffect *)self animation]);
     v6 = v5;
     [v4 convertTime:0 fromLayer:CACurrentMediaTime()];
     v8 = v6 - (v7 - self->_animationResumeTime);
@@ -422,7 +422,7 @@ double __46__OKWidgetContentKenburnsEffect_applySettings__block_invoke(uint64_t 
     presentationLayer = [v4 presentationLayer];
     if (presentationLayer)
     {
-      [presentationLayer transform];
+      objc_msgSend_transform(presentationLayer);
     }
 
     else
@@ -468,7 +468,7 @@ double __46__OKWidgetContentKenburnsEffect_applySettings__block_invoke(uint64_t 
         v6 = MEMORY[0x277CCABB0];
         if (layer)
         {
-          [layer transform];
+          objc_msgSend_transform(layer);
           v7 = *&v41;
         }
 
@@ -494,7 +494,7 @@ double __46__OKWidgetContentKenburnsEffect_applySettings__block_invoke(uint64_t 
         v8 = MEMORY[0x277CCABB0];
         if (layer)
         {
-          [layer transform];
+          objc_msgSend_transform(layer);
           v9 = *(&v33 + 1);
         }
 
@@ -520,7 +520,7 @@ double __46__OKWidgetContentKenburnsEffect_applySettings__block_invoke(uint64_t 
         v10 = MEMORY[0x277CCABB0];
         if (layer)
         {
-          [layer transform];
+          objc_msgSend_transform(layer);
           v11 = *&v19;
         }
 

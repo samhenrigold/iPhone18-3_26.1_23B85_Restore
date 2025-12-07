@@ -49,7 +49,7 @@
   static Published.subscript.getter();
 
   type metadata accessor for CRLCollaborationParticipant(0);
-  sub_1007E03E8(&qword_101A00E38, type metadata accessor for CRLCollaborationParticipant);
+  sub_1007E03E8(&qword_101A00E38, type metadata accessor for CRLCollaborationParticipant, &protocol conformance descriptor for NSObject);
   v4.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
@@ -58,7 +58,7 @@
 - (void)setIsFollowedBy:(id)by
 {
   type metadata accessor for CRLCollaborationParticipant(0);
-  sub_1007E03E8(&qword_101A00E38, type metadata accessor for CRLCollaborationParticipant);
+  sub_1007E03E8(&qword_101A00E38, type metadata accessor for CRLCollaborationParticipant, &protocol conformance descriptor for NSObject);
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getKeyPath();
   swift_getKeyPath();
@@ -86,7 +86,7 @@
   selfCopy = self;
   static Published.subscript.getter();
 
-  type metadata accessor for CRLCollaboratorPresence();
+  type metadata accessor for CRLCollaboratorPresence(0);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
@@ -94,7 +94,7 @@
 
 - (void)setPresences:(id)presences
 {
-  type metadata accessor for CRLCollaboratorPresence();
+  type metadata accessor for CRLCollaboratorPresence(0);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getKeyPath();
   swift_getKeyPath();
@@ -121,7 +121,7 @@
 
   v6 = sub_1007D4BE0(v8);
 
-  sub_10000CAAC(v8, &unk_1019F4D00);
+  sub_10000CAAC(v8, &unk_1019F4D00, &unk_10146E7F0);
   return v6;
 }
 
@@ -181,9 +181,10 @@
 - (_TtC8Freeform23CRLCollaboratorPresence)latestPresence
 {
   selfCopy = self;
-  v3 = sub_1007D608C();
+  sub_1007D608C();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (_TtC8Freeform23CRLCollaboratorPresence)oldestPresence
@@ -204,7 +205,7 @@
 
 - (void)populateContactInBackgroundWithCompletionHandler:(id)handler
 {
-  v5 = sub_1005B981C(&qword_1019FB750);
+  v5 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v5 - 8);
   v7 = &v15 - v6;
   v8 = _Block_copy(handler);
@@ -226,7 +227,7 @@
   (*(*(v11 - 8) + 56))(v7, 0, 1, v11);
   type metadata accessor for MainActor();
   v12 = selfCopy;
-  sub_10067F2EC(v8);
+  sub_10067F2EC(v8, v9);
   v13 = static MainActor.shared.getter();
   v14 = swift_allocObject();
   v14[2] = v13;
@@ -236,7 +237,7 @@
   v14[6] = v9;
   sub_10064191C(0, 0, v7, &unk_10147CF30, v14);
 
-  sub_1000C1014(v8);
+  sub_1000C1014(v8, v9);
 }
 
 - (void)populateContactIfNeeded
@@ -265,7 +266,7 @@
 
 - (NSPersonNameComponents)nameComponents
 {
-  v3 = sub_1005B981C(&qword_101A0DE80);
+  v3 = sub_1005B981C(&qword_101A0DE80, qword_101487000);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;

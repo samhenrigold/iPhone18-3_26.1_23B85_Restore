@@ -882,9 +882,9 @@ LABEL_21:
             case 1:
               v66 = [CCAppIntentsExtractedEntityFlightReservation alloc];
               v67 = CCPBReaderReadDataNoCopy();
-              v169 = 0;
-              v68 = [(CCItemMessage *)v66 initWithData:v67 error:&v169];
-              v10 = v169;
+              v167 = 0;
+              v68 = [(CCItemMessage *)v66 initWithData:v67 error:&v167];
+              v10 = v167;
               flightReservation = self->_flightReservation;
               self->_flightReservation = v68;
 
@@ -901,9 +901,9 @@ LABEL_21:
             case 2:
               v101 = [CCAppIntentsExtractedEntityHotelReservation alloc];
               v102 = CCPBReaderReadDataNoCopy();
-              v168 = 0;
-              v103 = [(CCItemMessage *)v101 initWithData:v102 error:&v168];
-              v10 = v168;
+              v166 = 0;
+              v103 = [(CCItemMessage *)v101 initWithData:v102 error:&v166];
+              v10 = v166;
               v104 = self->_hotelReservation;
               self->_hotelReservation = v103;
 
@@ -920,9 +920,9 @@ LABEL_21:
             case 3:
               v24 = [CCAppIntentsExtractedEntityRestaurantReservation alloc];
               v25 = CCPBReaderReadDataNoCopy();
-              v167 = 0;
-              v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v167];
-              v10 = v167;
+              v165 = 0;
+              v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v165];
+              v10 = v165;
               restaurantReservation = self->_restaurantReservation;
               self->_restaurantReservation = v26;
 
@@ -989,9 +989,9 @@ LABEL_63:
         {
           v81 = [CCAppIntentsExtractedEntityRentalCarReservation alloc];
           v82 = CCPBReaderReadDataNoCopy();
-          v166 = 0;
-          v83 = [(CCItemMessage *)v81 initWithData:v82 error:&v166];
-          v10 = v166;
+          v164 = 0;
+          v83 = [(CCItemMessage *)v81 initWithData:v82 error:&v164];
+          v10 = v164;
           v84 = self->_rentalCarReservation;
           self->_rentalCarReservation = v83;
 
@@ -1019,9 +1019,9 @@ LABEL_63:
           {
             v42 = [CCAppIntentsExtractedEntityTicketedShow alloc];
             v43 = CCPBReaderReadDataNoCopy();
-            v164 = 0;
-            v44 = [(CCItemMessage *)v42 initWithData:v43 error:&v164];
-            v10 = v164;
+            v162 = 0;
+            v44 = [(CCItemMessage *)v42 initWithData:v43 error:&v162];
+            v10 = v162;
             v45 = self->_ticketedShow;
             self->_ticketedShow = v44;
 
@@ -1054,9 +1054,9 @@ LABEL_63:
 
         v127 = [CCAppIntentsExtractedEntityTicketedTransportation alloc];
         v128 = CCPBReaderReadDataNoCopy();
-        v165 = 0;
-        v129 = [(CCItemMessage *)v127 initWithData:v128 error:&v165];
-        v10 = v165;
+        v163 = 0;
+        v129 = [(CCItemMessage *)v127 initWithData:v128 error:&v163];
+        v10 = v163;
         v130 = self->_ticketedTransportation;
         self->_ticketedTransportation = v129;
 
@@ -1094,9 +1094,9 @@ LABEL_64:
           case 0xA:
             v88 = [CCAppIntentsExtractedEntityMedicalInsuranceCard alloc];
             v89 = CCPBReaderReadDataNoCopy();
-            v160 = 0;
-            v90 = [(CCItemMessage *)v88 initWithData:v89 error:&v160];
-            v10 = v160;
+            v158 = 0;
+            v90 = [(CCItemMessage *)v88 initWithData:v89 error:&v158];
+            v10 = v158;
             v91 = self->_medicalInsuranceCard;
             self->_medicalInsuranceCard = v90;
 
@@ -1137,9 +1137,9 @@ LABEL_64:
           case 0xB:
             v135 = [CCAppIntentsExtractedEntityBusinessMembershipCard alloc];
             v136 = CCPBReaderReadDataNoCopy();
-            v159 = 0;
-            v137 = [(CCItemMessage *)v135 initWithData:v136 error:&v159];
-            v10 = v159;
+            v157 = 0;
+            v137 = [(CCItemMessage *)v135 initWithData:v136 error:&v157];
+            v10 = v157;
             v138 = self->_businessMembershipCard;
             self->_businessMembershipCard = v137;
 
@@ -1183,9 +1183,9 @@ LABEL_64:
           case 0xC:
             v51 = [CCAppIntentsExtractedEntityTransitCard alloc];
             v52 = CCPBReaderReadDataNoCopy();
-            v158 = 0;
-            v53 = [(CCItemMessage *)v51 initWithData:v52 error:&v158];
-            v10 = v158;
+            v156 = 0;
+            v53 = [(CCItemMessage *)v51 initWithData:v52 error:&v156];
+            v10 = v156;
             v54 = self->_transitCard;
             self->_transitCard = v53;
 
@@ -1238,9 +1238,9 @@ LABEL_64:
           case 7:
             v71 = [CCAppIntentsExtractedEntityAppointment alloc];
             v72 = CCPBReaderReadDataNoCopy();
-            v163 = 0;
-            v73 = [(CCItemMessage *)v71 initWithData:v72 error:&v163];
-            v10 = v163;
+            v161 = 0;
+            v73 = [(CCItemMessage *)v71 initWithData:v72 error:&v161];
+            v10 = v161;
             v74 = self->_appointment;
             self->_appointment = v73;
 
@@ -1272,9 +1272,9 @@ LABEL_64:
           case 8:
             v116 = [CCAppIntentsExtractedEntityParty alloc];
             v117 = CCPBReaderReadDataNoCopy();
-            v162 = 0;
-            v118 = [(CCItemMessage *)v116 initWithData:v117 error:&v162];
-            v10 = v162;
+            v160 = 0;
+            v118 = [(CCItemMessage *)v116 initWithData:v117 error:&v160];
+            v10 = v160;
             v119 = self->_party;
             self->_party = v118;
 
@@ -1309,9 +1309,9 @@ LABEL_64:
           case 9:
             v30 = [CCAppIntentsExtractedEntityPersonalId alloc];
             v31 = CCPBReaderReadDataNoCopy();
-            v161 = 0;
-            v32 = [(CCItemMessage *)v30 initWithData:v31 error:&v161];
-            v10 = v161;
+            v159 = 0;
+            v32 = [(CCItemMessage *)v30 initWithData:v31 error:&v159];
+            v10 = v159;
             v33 = self->_personalId;
             self->_personalId = v32;
 
@@ -1359,7 +1359,6 @@ LABEL_72:
       {
         v149 = objc_opt_class();
         v150 = NSStringFromClass(v149);
-        v151 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
       }
 
@@ -1379,23 +1378,22 @@ LABEL_77:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v156 = 1;
+    v154 = 1;
     goto LABEL_81;
   }
 
 LABEL_78:
-  v152 = objc_opt_class();
-  v153 = NSStringFromClass(v152);
-  v154 = *&v6[*v9];
-  v155 = CCInvalidBufferErrorForMessage();
+  v151 = objc_opt_class();
+  v152 = NSStringFromClass(v151);
+  v153 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_79:
-  v156 = 0;
+  v154 = 0;
 LABEL_81:
 
-  return v156;
+  return v154;
 }
 
 - (CCAppIntentsExtractedEntityContent)initWithEntity:(id)entity entityType:(unsigned int)type error:(id *)error

@@ -48,20 +48,19 @@
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
-  v7.receiver = self;
-  v7.super_class = _CollectingInvocationTrampoline;
-  if ([(_CollectingInvocationTrampoline *)&v7 respondsToSelector:?])
+  v5.receiver = self;
+  v5.super_class = _CollectingInvocationTrampoline;
+  if ([(_CollectingInvocationTrampoline *)&v5 respondsToSelector:?])
   {
-    v4 = 1;
+    v3 = 1;
   }
 
   else
   {
-    first = self->_first;
-    v4 = objc_opt_respondsToSelector();
+    v3 = objc_opt_respondsToSelector();
   }
 
-  return v4 & 1;
+  return v3 & 1;
 }
 
 - (void)forwardInvocation:(id)invocation

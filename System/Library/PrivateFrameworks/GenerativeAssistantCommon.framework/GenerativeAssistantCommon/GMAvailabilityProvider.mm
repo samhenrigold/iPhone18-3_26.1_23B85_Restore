@@ -8,7 +8,7 @@
 {
   sub_221C56DB0();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for GMAvailabilityProvider();
+  v4.super_class = type metadata accessor for GMAvailabilityProvider(0);
   return [(GMAvailabilityProvider *)&v4 init];
 }
 

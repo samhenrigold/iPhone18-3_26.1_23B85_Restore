@@ -16,7 +16,7 @@
   tileLongitudeE7 = [entriesCopy tileLongitudeE7];
   if (fabs(v7) > 90.0 || (v10 = (v8 + tileLongitudeE7) / 10000000.0, fabs(v10) > 180.0))
   {
-    v18 = __atxlog_handle_hero();
+    v18 = __atxlog_handle_hero(tileLongitudeE7);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [ATXHeroEntriesReader appAndClipEntryFromPbEntries:position position:v18];
@@ -92,10 +92,11 @@
 + (BOOL)validateReader:(id)reader pbEntries:(id)entries
 {
   entriesCopy = entries;
-  if ((ATXHeroEntriesPbReadFrom(entriesCopy, reader) & 1) == 0)
+  v6 = ATXHeroEntriesPbReadFrom(entriesCopy, reader);
+  if ((v6 & 1) == 0)
   {
-    v9 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_hero(v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       +[ATXHeroEntriesReader validateReader:pbEntries:];
     }
@@ -104,10 +105,10 @@
   }
 
   deltaLatitudesCount = [entriesCopy deltaLatitudesCount];
-  if ((deltaLatitudesCount - 100001) < 0xFFFFFFFFFFFE7960 || (v7 = deltaLatitudesCount, [entriesCopy deltaLongitudesCount] != deltaLatitudesCount))
+  if ((deltaLatitudesCount - 100001) < 0xFFFFFFFFFFFE7960 || (v8 = deltaLatitudesCount, deltaLatitudesCount = [entriesCopy deltaLongitudesCount], deltaLatitudesCount != v8))
   {
-    v9 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_hero(deltaLatitudesCount);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       +[ATXHeroEntriesReader validateReader:pbEntries:];
     }
@@ -115,10 +116,11 @@
     goto LABEL_22;
   }
 
-  if ([entriesCopy adamIdsCount] != v7)
+  adamIdsCount = [entriesCopy adamIdsCount];
+  if (adamIdsCount != v8)
   {
-    v9 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_hero(adamIdsCount);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       +[ATXHeroEntriesReader validateReader:pbEntries:];
     }
@@ -126,57 +128,73 @@
     goto LABEL_22;
   }
 
-  if ([entriesCopy radiusCount] && (objc_msgSend(entriesCopy, "radiusCount") > 0x186A0 || v7 != objc_msgSend(entriesCopy, "radiusCount")))
+  if ([entriesCopy radiusCount])
   {
-    v9 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    radiusCount = [entriesCopy radiusCount];
+    if (radiusCount > 0x186A0 || (radiusCount = [entriesCopy radiusCount], v8 != radiusCount))
     {
-      +[ATXHeroEntriesReader validateReader:pbEntries:];
-    }
+      v15 = __atxlog_handle_hero(radiusCount);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        +[ATXHeroEntriesReader validateReader:pbEntries:];
+      }
 
-    goto LABEL_22;
+      goto LABEL_22;
+    }
   }
 
-  if ([entriesCopy ranksCount] && (objc_msgSend(entriesCopy, "ranksCount") > 0x186A0 || v7 != objc_msgSend(entriesCopy, "ranksCount")))
+  if ([entriesCopy ranksCount])
   {
-    v9 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    ranksCount = [entriesCopy ranksCount];
+    if (ranksCount > 0x186A0 || (ranksCount = [entriesCopy ranksCount], v8 != ranksCount))
     {
-      +[ATXHeroEntriesReader validateReader:pbEntries:];
-    }
+      v15 = __atxlog_handle_hero(ranksCount);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        +[ATXHeroEntriesReader validateReader:pbEntries:];
+      }
 
-    goto LABEL_22;
+      goto LABEL_22;
+    }
   }
 
-  if ([entriesCopy urlHashsCount] && (objc_msgSend(entriesCopy, "urlHashsCount") > 0x186A0 || v7 != objc_msgSend(entriesCopy, "urlHashsCount")))
+  if ([entriesCopy urlHashsCount])
   {
-    v9 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    urlHashsCount = [entriesCopy urlHashsCount];
+    if (urlHashsCount > 0x186A0 || (urlHashsCount = [entriesCopy urlHashsCount], v8 != urlHashsCount))
     {
-      +[ATXHeroEntriesReader validateReader:pbEntries:];
-    }
+      v15 = __atxlog_handle_hero(urlHashsCount);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        +[ATXHeroEntriesReader validateReader:pbEntries:];
+      }
 
-    goto LABEL_22;
+      goto LABEL_22;
+    }
   }
 
-  if ([entriesCopy poiCategorysCount] && (objc_msgSend(entriesCopy, "poiCategorysCount") > 0x186A0 || v7 != objc_msgSend(entriesCopy, "poiCategorysCount")))
+  if ([entriesCopy poiCategorysCount])
   {
-    v9 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    poiCategorysCount = [entriesCopy poiCategorysCount];
+    if (poiCategorysCount > 0x186A0 || (poiCategorysCount = [entriesCopy poiCategorysCount], v8 != poiCategorysCount))
     {
-      +[ATXHeroEntriesReader validateReader:pbEntries:];
-    }
+      v15 = __atxlog_handle_hero(poiCategorysCount);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        +[ATXHeroEntriesReader validateReader:pbEntries:];
+      }
 
 LABEL_22:
 
-    v8 = 0;
-    goto LABEL_23;
+      v14 = 0;
+      goto LABEL_23;
+    }
   }
 
-  v8 = 1;
+  v14 = 1;
 LABEL_23:
 
-  return v8;
+  return v14;
 }
 
 + (id)loadAppAndClipEntriesFromFileURL:(id)l
@@ -186,29 +204,28 @@ LABEL_23:
   v10 = 0;
   v4 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:lCopy options:1 error:&v10];
   v5 = v10;
-  if (v4 && [v4 length])
+  v6 = v5;
+  if (v4 && (v5 = [v4 length]) != 0)
   {
-    v6 = [objc_opt_class() loadAppAndClipEntriesFromData:v4];
+    v7 = [objc_opt_class() loadAppAndClipEntriesFromData:v4];
   }
 
   else
   {
-    v7 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_hero(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v12 = lCopy;
       v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_260C92000, v7, OS_LOG_TYPE_DEFAULT, "ATXCDN: Ignore reading nil or 0-byte file %@: %@", buf, 0x16u);
+      v14 = v6;
+      _os_log_impl(&dword_260C92000, v8, OS_LOG_TYPE_DEFAULT, "ATXCDN: Ignore reading nil or 0-byte file %@: %@", buf, 0x16u);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
-  return v6;
+  return v7;
 }
 
 + (id)loadAppAndClipEntriesFromData:(id)data
@@ -259,11 +276,10 @@ LABEL_23:
 
 + (void)appAndClipEntryFromPbEntries:(uint64_t)a1 position:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_260C92000, a2, OS_LOG_TYPE_DEBUG, "ATXCDN: Skipping malformed entry at position: %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_260C92000, a2, OS_LOG_TYPE_DEBUG, "ATXCDN: Skipping malformed entry at position: %lu", &v2, 0xCu);
 }
 
 @end

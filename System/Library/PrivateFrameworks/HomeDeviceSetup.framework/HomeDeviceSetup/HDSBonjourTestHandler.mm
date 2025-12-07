@@ -86,7 +86,7 @@ void __35__HDSBonjourTestHandler_invalidate__block_invoke(uint64_t a1)
 
 - (void)_handleStart:(id)start responseHandler:(id)handler
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   startCopy = start;
   handlerCopy = handler;
   if (gLogCategory_HDSBonjourTest <= 30 && (gLogCategory_HDSBonjourTest != -1 || _LogCategory_Initialize()))
@@ -103,9 +103,9 @@ void __35__HDSBonjourTestHandler_invalidate__block_invoke(uint64_t a1)
     self->_advertiser = v9;
 
     [(CUBonjourAdvertiser *)self->_advertiser setDispatchQueue:self->_dispatchQueue];
-    v14 = @"rpBA";
-    v15[0] = v8;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = @"rpBA";
+    v14[0] = v8;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     [(CUBonjourAdvertiser *)self->_advertiser setTxtDictionary:v11];
 
     [(CUBonjourAdvertiser *)self->_advertiser setServiceType:@"_bonjourtest._tcp"];
@@ -119,7 +119,7 @@ void __35__HDSBonjourTestHandler_invalidate__block_invoke(uint64_t a1)
 
   else
   {
-    v12 = NSErrorWithOSStatusF();
+    v12 = NSErrorWithOSStatusF(4294960591, "No test ID");
     if (gLogCategory_HDSBonjourTest <= 90 && (gLogCategory_HDSBonjourTest != -1 || _LogCategory_Initialize()))
     {
       [HDSBonjourTestHandler _handleStart:responseHandler:];
@@ -127,8 +127,6 @@ void __35__HDSBonjourTestHandler_invalidate__block_invoke(uint64_t a1)
 
     (*(handlerCopy + 2))(handlerCopy, v12, 0, 0);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleStop:(id)stop responseHandler:(id)handler

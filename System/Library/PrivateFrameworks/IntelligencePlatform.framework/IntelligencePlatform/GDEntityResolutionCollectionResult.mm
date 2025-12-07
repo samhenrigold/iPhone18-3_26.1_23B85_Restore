@@ -18,7 +18,7 @@
 
 - (GDEntityResolutionCollectionResult)initWithCoder:(id)coder
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E695DFD8];
   v6 = objc_opt_class();
@@ -39,9 +39,9 @@
     if (!error)
     {
       v12 = MEMORY[0x1E696ABC0];
-      v17 = *MEMORY[0x1E696A578];
-      v18[0] = @"GDEntityResolutionCollectionResult candidates is nil";
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v16 = *MEMORY[0x1E696A578];
+      v17[0] = @"GDEntityResolutionCollectionResult candidates is nil";
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
       v14 = [v12 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v13];
       [coderCopy failWithError:v14];
     }
@@ -49,7 +49,6 @@
     selfCopy = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

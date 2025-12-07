@@ -66,10 +66,10 @@ LABEL_5:
     goto LABEL_106;
   }
 
-  v92 = selfCopy;
+  v91 = selfCopy;
   if (*(ref + 5))
   {
-    v95 = NO_OUTPUT;
+    v94 = NO_OUTPUT;
     v7 = *(ref + 4);
     v8 = JavaLangMath_minWithInt_withInt_([(OrgApacheLuceneUtilIntsRefBuilder *)selfCopy->lastInput_ length], *(ref + 5));
     p_frontier = &selfCopy->frontier_;
@@ -139,8 +139,8 @@ LABEL_106:
       JreThrowNullPointerException();
     }
 
-    v91 = v33;
-    v34 = v33 + 1;
+    v90 = v33;
+    v34 = (v33 + 1);
     v35 = *(ref + 5) + 1;
     if (*(*p_frontier + 2) < v35)
     {
@@ -163,7 +163,7 @@ LABEL_106:
         do
         {
           v39 = [OrgApacheLuceneUtilFstBuilder_UnCompiledNode alloc];
-          OrgApacheLuceneUtilFstBuilder_UnCompiledNode_initWithOrgApacheLuceneUtilFstBuilder_withInt_(v39, &selfCopy->super.isa, v38);
+          OrgApacheLuceneUtilFstBuilder_UnCompiledNode_initWithOrgApacheLuceneUtilFstBuilder_withInt_(v39, selfCopy, v38);
           IOSObjectArray_SetAndConsume(v37, v38++, v39);
         }
 
@@ -177,8 +177,8 @@ LABEL_106:
     v40 = *(ref + 5);
     if (v34 <= v40)
     {
-      v94 = v34;
-      v41 = v91;
+      v93 = v34;
+      v41 = v90;
       do
       {
         v42 = v41;
@@ -233,7 +233,7 @@ LABEL_106:
       }
 
       while (v42 + 2 <= v40);
-      v34 = v94;
+      LODWORD(v34) = v93;
     }
 
     v52 = *(*p_frontier + 2);
@@ -245,8 +245,8 @@ LABEL_106:
     v53 = *(*p_frontier + v40 + 3);
     v54 = [(OrgApacheLuceneUtilIntsRefBuilder *)selfCopy->lastInput_ length];
     v55 = *(ref + 5);
-    v56 = v91;
-    if (v54 != v55 || v91 != v55)
+    v56 = v90;
+    if (v54 != v55 || v90 != v55)
     {
       if (!v53)
       {
@@ -255,14 +255,14 @@ LABEL_106:
 
       *(v53 + 40) = 1;
       JreStrongAssign((v53 + 32), selfCopy->NO_OUTPUT_);
-      v56 = v91;
+      v56 = v90;
     }
 
-    v89 = v53;
+    v88 = v53;
     if (v34 >= 2)
     {
       v58 = 0;
-      v93 = v56;
+      v92 = v56;
       do
       {
         v59 = *p_frontier;
@@ -272,35 +272,34 @@ LABEL_106:
           IOSArray_throwOutOfBoundsWithMsg(v60, (v58 + 1));
         }
 
-        v61 = *p_frontier;
-        v62 = v59[v58 + 4];
+        v61 = v59[v58 + 4];
         if (v58 + 1 > v60)
         {
           IOSArray_throwOutOfBoundsWithMsg(v60, v58);
         }
 
-        v63 = v59[v58 + 3];
+        v62 = v59[v58 + 3];
+        if (!v62)
+        {
+          goto LABEL_106;
+        }
+
+        v63 = *(ref + 1);
         if (!v63)
         {
           goto LABEL_106;
         }
 
-        v64 = *(ref + 1);
-        if (!v64)
+        v64 = v58 + *(ref + 4);
+        v65 = *(v63 + 8);
+        if (v64 < 0 || v64 >= v65)
         {
-          goto LABEL_106;
+          IOSArray_throwOutOfBoundsWithMsg(v65, v58 + *(ref + 4));
         }
 
-        v65 = v58 + *(ref + 4);
-        v66 = *(v64 + 8);
-        if (v65 < 0 || v65 >= v66)
-        {
-          IOSArray_throwOutOfBoundsWithMsg(v66, v58 + *(ref + 4));
-        }
-
-        v67 = [v63 getLastOutputWithInt:*(v64 + 12 + 4 * v65)];
-        v68 = selfCopy->NO_OUTPUT_;
-        if (v67 != v68)
+        v66 = [v62 getLastOutputWithInt:*(v63 + 12 + 4 * v64)];
+        v67 = selfCopy->NO_OUTPUT_;
+        if (v66 != v67)
         {
           fst = selfCopy->fst_;
           if (!fst)
@@ -308,104 +307,104 @@ LABEL_106:
             goto LABEL_106;
           }
 
-          v70 = v67;
+          v69 = v66;
           outputs = fst->outputs_;
           if (!outputs)
           {
             goto LABEL_106;
           }
 
-          v68 = [(OrgApacheLuceneUtilFstOutputs *)outputs commonWithId:v95 withId:v70];
-          v72 = [(OrgApacheLuceneUtilFstOutputs *)selfCopy->fst_->outputs_ subtractWithId:v70 withId:v68];
-          v73 = *(ref + 1);
-          v74 = v58 + *(ref + 4);
-          v75 = *(v73 + 8);
-          if (v74 < 0 || v74 >= v75)
+          v67 = [(OrgApacheLuceneUtilFstOutputs *)outputs commonWithId:v94 withId:v69];
+          v71 = [(OrgApacheLuceneUtilFstOutputs *)selfCopy->fst_->outputs_ subtractWithId:v69 withId:v67];
+          v72 = *(ref + 1);
+          v73 = v58 + *(ref + 4);
+          v74 = *(v72 + 8);
+          if (v73 < 0 || v73 >= v74)
           {
-            IOSArray_throwOutOfBoundsWithMsg(v75, v58 + *(ref + 4));
+            IOSArray_throwOutOfBoundsWithMsg(v74, v58 + *(ref + 4));
           }
 
-          [v63 setLastOutputWithInt:*(v73 + 12 + 4 * v74) withId:v68];
-          if (!v62)
+          [v62 setLastOutputWithInt:*(v72 + 12 + 4 * v73) withId:v67];
+          if (!v61)
           {
             goto LABEL_106;
           }
 
-          [v62 prependOutputWithId:v72];
-          selfCopy = v92;
+          [v61 prependOutputWithId:v71];
+          selfCopy = v91;
         }
 
-        v76 = selfCopy->fst_;
+        v75 = selfCopy->fst_;
+        if (!v75)
+        {
+          goto LABEL_106;
+        }
+
+        v76 = v75->outputs_;
         if (!v76)
         {
           goto LABEL_106;
         }
 
-        v77 = v76->outputs_;
-        if (!v77)
-        {
-          goto LABEL_106;
-        }
-
-        v95 = [(OrgApacheLuceneUtilFstOutputs *)v77 subtractWithId:v95 withId:v68];
+        v94 = [(OrgApacheLuceneUtilFstOutputs *)v76 subtractWithId:v94 withId:v67];
       }
 
-      while (v93 != ++v58);
+      while (v92 != ++v58);
     }
 
-    v78 = [(OrgApacheLuceneUtilIntsRefBuilder *)selfCopy->lastInput_ length];
-    v79 = *(ref + 5);
-    if (v78 == v79 && v91 == v79)
+    v77 = [(OrgApacheLuceneUtilIntsRefBuilder *)selfCopy->lastInput_ length];
+    v78 = *(ref + 5);
+    if (v77 == v78 && v90 == v78)
     {
-      if (!v90)
+      if (!v89)
       {
         goto LABEL_106;
       }
 
-      v86 = selfCopy->fst_;
+      v85 = selfCopy->fst_;
+      if (!v85)
+      {
+        goto LABEL_106;
+      }
+
+      v86 = v85->outputs_;
       if (!v86)
       {
         goto LABEL_106;
       }
 
-      v87 = v86->outputs_;
-      if (!v87)
-      {
-        goto LABEL_106;
-      }
-
-      JreStrongAssign((v90 + 32), [(OrgApacheLuceneUtilFstOutputs *)v87 mergeWithId:*(v90 + 32) withId:v95]);
+      JreStrongAssign((v89 + 32), [(OrgApacheLuceneUtilFstOutputs *)v86 mergeWithId:*(v89 + 32) withId:v94]);
     }
 
     else
     {
-      v81 = *(*p_frontier + 2);
-      if (v91 >= v81)
+      v80 = *(*p_frontier + 2);
+      if (v90 >= v80)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v81, v91);
+        IOSArray_throwOutOfBoundsWithMsg(v80, v90);
       }
 
-      v82 = *(*p_frontier + v17 + 3);
+      v81 = *(*p_frontier + v17 + 3);
+      if (!v81)
+      {
+        goto LABEL_106;
+      }
+
+      v82 = *(ref + 1);
       if (!v82)
       {
         goto LABEL_106;
       }
 
-      v83 = *(ref + 1);
-      if (!v83)
+      v83 = *(v82 + 8);
+      v84 = *(ref + 4) + v90;
+      if (v84 < 0 || v84 >= v83)
       {
-        goto LABEL_106;
+        IOSArray_throwOutOfBoundsWithMsg(v83, v84);
       }
 
-      v84 = *(v83 + 8);
-      v85 = *(ref + 4) + v91;
-      if (v85 < 0 || v85 >= v84)
-      {
-        IOSArray_throwOutOfBoundsWithMsg(v84, v85);
-      }
-
-      [v82 setLastOutputWithInt:*(v83 + 12 + 4 * v85) withId:v95];
-      selfCopy = v92;
+      [v81 setLastOutputWithInt:*(v82 + 12 + 4 * v84) withId:v94];
+      selfCopy = v91;
     }
 
     lastInput = selfCopy->lastInput_;
@@ -434,7 +433,7 @@ LABEL_106:
     }
 
     ++elementType[6].super.isa;
-    v29 = v92->frontier_;
+    v29 = v91->frontier_;
     v30 = v29->super.size_;
     if (v30 <= 0)
     {
@@ -448,7 +447,7 @@ LABEL_106:
     }
 
     LOBYTE(v31[5].super.isa) = 1;
-    v32 = v92->fst_;
+    v32 = v91->fst_;
     if (!v32)
     {
       goto LABEL_106;

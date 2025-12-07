@@ -109,7 +109,6 @@
   v3.receiver = selfCopy;
   v3.super_class = AKAppleIDAuthenticationController;
   [(AKAppleIDAuthenticationController *)&v3 dealloc];
-  *MEMORY[0x1E69E9840];
 }
 
 + (NSSet)sensitiveAuthenticationKeys
@@ -495,7 +494,6 @@ uint64_t __56__AKAppleIDAuthenticationController_tokenDictionaryKeys__block_invo
   objc_storeStrong(&v74, 0);
   objc_storeStrong(&v75, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __72__AKAppleIDAuthenticationController_authenticateWithContext_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -583,7 +581,6 @@ void __72__AKAppleIDAuthenticationController_authenticateWithContext_completion_
   objc_storeStrong(v22, 0);
   objc_storeStrong(&v23, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __72__AKAppleIDAuthenticationController_authenticateWithContext_completion___block_invoke_256(uint64_t a1, void *a2, void *a3)
@@ -674,7 +671,6 @@ void __73__AKAppleIDAuthenticationController__authenticateWithContext_completion
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDAuthenticationController__authenticateWithContext_completion___block_invoke_258(void *a1, void *a2, void *a3)
@@ -725,7 +721,6 @@ void __73__AKAppleIDAuthenticationController__authenticateWithContext_completion
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)endProximityAuthenticationForContext:(id)context completion:(id)completion
@@ -813,7 +808,6 @@ void __73__AKAppleIDAuthenticationController__authenticateWithContext_completion
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&v46, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __85__AKAppleIDAuthenticationController_endProximityAuthenticationForContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -852,7 +846,6 @@ void __85__AKAppleIDAuthenticationController_endProximityAuthenticationForContex
 
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __85__AKAppleIDAuthenticationController_endProximityAuthenticationForContext_completion___block_invoke_262(NSObject *a1, void *a2)
@@ -872,7 +865,6 @@ void __85__AKAppleIDAuthenticationController_endProximityAuthenticationForContex
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __85__AKAppleIDAuthenticationController_endProximityAuthenticationForContext_completion___block_invoke_263(void *a1, void *a2, void *a3)
@@ -919,7 +911,6 @@ void __85__AKAppleIDAuthenticationController_endProximityAuthenticationForContex
   (*(a1[4] + 16))();
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setAppleIDWithAltDSID:(id)d inUse:(BOOL)use forService:(int64_t)service
@@ -966,7 +957,6 @@ void __85__AKAppleIDAuthenticationController_endProximityAuthenticationForContex
   os_activity_scope_leave(&state);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __76__AKAppleIDAuthenticationController_setAppleIDWithAltDSID_inUse_forService___block_invoke(NSObject *a1, void *a2)
@@ -985,7 +975,6 @@ void __76__AKAppleIDAuthenticationController_setAppleIDWithAltDSID_inUse_forServ
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __76__AKAppleIDAuthenticationController_setAppleIDWithAltDSID_inUse_forService___block_invoke_272(NSObject *a1, char a2, id obj)
@@ -1015,7 +1004,6 @@ void __76__AKAppleIDAuthenticationController_setAppleIDWithAltDSID_inUse_forServ
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setAppleIDWithDSID:(id)d inUse:(BOOL)use forService:(int64_t)service
@@ -1062,7 +1050,6 @@ void __76__AKAppleIDAuthenticationController_setAppleIDWithAltDSID_inUse_forServ
   os_activity_scope_leave(&state);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDAuthenticationController_setAppleIDWithDSID_inUse_forService___block_invoke(NSObject *a1, void *a2)
@@ -1081,7 +1068,6 @@ void __73__AKAppleIDAuthenticationController_setAppleIDWithDSID_inUse_forService
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDAuthenticationController_setAppleIDWithDSID_inUse_forService___block_invoke_278(NSObject *a1, char a2, id obj)
@@ -1111,7 +1097,6 @@ void __73__AKAppleIDAuthenticationController_setAppleIDWithDSID_inUse_forService
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchUserInformationForAltDSID:(id)d completion:(id)completion
@@ -1181,7 +1166,6 @@ void __73__AKAppleIDAuthenticationController_setAppleIDWithDSID_inUse_forService
   objc_storeStrong(&v38, 0);
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __79__AKAppleIDAuthenticationController_fetchUserInformationForAltDSID_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -1218,7 +1202,6 @@ void __79__AKAppleIDAuthenticationController_fetchUserInformationForAltDSID_comp
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __79__AKAppleIDAuthenticationController_fetchUserInformationForAltDSID_completion___block_invoke_281(void *a1, void *a2, void *a3)
@@ -1248,7 +1231,6 @@ void __79__AKAppleIDAuthenticationController_fetchUserInformationForAltDSID_comp
   (*(a1[4] + 16))();
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)getUserInformationWithContext:(id)context completion:(id)completion
@@ -1312,7 +1294,6 @@ void __79__AKAppleIDAuthenticationController_fetchUserInformationForAltDSID_comp
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __78__AKAppleIDAuthenticationController_getUserInformationWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -1348,7 +1329,6 @@ void __78__AKAppleIDAuthenticationController_getUserInformationWithContext_compl
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __78__AKAppleIDAuthenticationController_getUserInformationWithContext_completion___block_invoke_283(NSObject *a1, void *a2, void *a3)
@@ -1371,7 +1351,6 @@ void __78__AKAppleIDAuthenticationController_getUserInformationWithContext_compl
   (*(a1[4].isa + 2))();
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)getUserInformationForAltDSID:(id)d completion:(id)completion
@@ -1441,7 +1420,6 @@ void __78__AKAppleIDAuthenticationController_getUserInformationWithContext_compl
   objc_storeStrong(&v38, 0);
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __77__AKAppleIDAuthenticationController_getUserInformationForAltDSID_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -1478,7 +1456,6 @@ void __77__AKAppleIDAuthenticationController_getUserInformationForAltDSID_comple
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __77__AKAppleIDAuthenticationController_getUserInformationForAltDSID_completion___block_invoke_284(NSObject *a1, void *a2, void *a3)
@@ -1501,7 +1478,6 @@ void __77__AKAppleIDAuthenticationController_getUserInformationForAltDSID_comple
   (*(a1[4].isa + 2))();
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateUserInformationWithContext:(id)context userInformation:(id)information isServerOperation:(BOOL)operation completion:(id)completion
@@ -1669,7 +1645,6 @@ void __77__AKAppleIDAuthenticationController_getUserInformationForAltDSID_comple
   objc_storeStrong(&v68, 0);
   objc_storeStrong(&v70, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __116__AKAppleIDAuthenticationController__updateUserInformationWithContext_userInformation_isServerOperation_completion___block_invoke(uint64_t a1, char a2, id obj)
@@ -1704,7 +1679,6 @@ void __116__AKAppleIDAuthenticationController__updateUserInformationWithContext_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __116__AKAppleIDAuthenticationController__updateUserInformationWithContext_userInformation_isServerOperation_completion___block_invoke_293(NSObject *a1, char a2, id obj)
@@ -1735,7 +1709,6 @@ void __116__AKAppleIDAuthenticationController__updateUserInformationWithContext_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __116__AKAppleIDAuthenticationController__updateUserInformationWithContext_userInformation_isServerOperation_completion___block_invoke_294(NSObject *a1, char a2, id obj)
@@ -1766,7 +1739,6 @@ void __116__AKAppleIDAuthenticationController__updateUserInformationWithContext_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateUserInformationForAltDSID:(id)d userInformation:(id)information completion:(id)completion
@@ -1873,7 +1845,6 @@ void __116__AKAppleIDAuthenticationController__updateUserInformationWithContext_
   objc_storeStrong(&v39, 0);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDAuthenticationController_fetchAuthModeWithContext_completion___block_invoke(void *a1, void *a2, id obj)
@@ -1908,7 +1879,6 @@ void __73__AKAppleIDAuthenticationController_fetchAuthModeWithContext_completion
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDAuthenticationController_fetchAuthModeWithContext_completion___block_invoke_297(NSObject *a1, uint64_t a2, id obj)
@@ -1929,7 +1899,6 @@ void __73__AKAppleIDAuthenticationController_fetchAuthModeWithContext_completion
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchDeviceListWithContext:(id)context completion:(id)completion
@@ -2033,7 +2002,6 @@ void __75__AKAppleIDAuthenticationController_fetchDeviceListWithContext_completi
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&v36, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __71__AKAppleIDAuthenticationController__deviceListWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -2070,7 +2038,6 @@ void __71__AKAppleIDAuthenticationController__deviceListWithContext_completion__
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __71__AKAppleIDAuthenticationController__deviceListWithContext_completion___block_invoke_299(NSObject *a1, void *a2, void *a3)
@@ -2093,7 +2060,6 @@ void __71__AKAppleIDAuthenticationController__deviceListWithContext_completion__
   (*(a1[4].isa + 2))();
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)deviceListWithContext:(id)context completion:(id)completion
@@ -2244,7 +2210,6 @@ void __70__AKAppleIDAuthenticationController_deviceListWithContext_completion___
   os_activity_scope_leave(&state);
   objc_storeStrong(&v50, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -2279,7 +2244,6 @@ void __65__AKAppleIDAuthenticationController_deviceListWithContext_error___block
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __65__AKAppleIDAuthenticationController_deviceListWithContext_error___block_invoke_300(NSObject *a1, void *a2, void *a3)
@@ -2302,7 +2266,6 @@ void __65__AKAppleIDAuthenticationController_deviceListWithContext_error___block
   (*(a1[4].isa + 2))();
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)fetchAuthorizedAppListWithContext:(id)context error:(id *)error
@@ -2366,7 +2329,6 @@ void __65__AKAppleIDAuthenticationController_deviceListWithContext_error___block
   os_activity_scope_leave(&state);
   objc_storeStrong(&v33, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -2388,7 +2350,6 @@ void __77__AKAppleIDAuthenticationController_fetchAuthorizedAppListWithContext_e
   objc_storeStrong(oslog, 0);
   objc_storeStrong((*(a1[4].isa + 1) + 40), location[0]);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __77__AKAppleIDAuthenticationController_fetchAuthorizedAppListWithContext_error___block_invoke_301(NSObject *a1, void *a2, void *a3)
@@ -2412,7 +2373,6 @@ void __77__AKAppleIDAuthenticationController_fetchAuthorizedAppListWithContext_e
   objc_storeStrong((*(a1[5].isa + 1) + 40), v6);
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)deleteAuthorizationDatabaseWithAltDSID:(id)d error:(id *)error
@@ -2495,7 +2455,6 @@ void __82__AKAppleIDAuthenticationController_deleteAuthorizationDatabaseWithAltD
   objc_storeStrong(oslog, 0);
   objc_storeStrong((*(a1[4].isa + 1) + 40), location[0]);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __82__AKAppleIDAuthenticationController_deleteAuthorizationDatabaseWithAltDSID_error___block_invoke_303(uint64_t a1, char a2, id obj)
@@ -2595,7 +2554,6 @@ void __82__AKAppleIDAuthenticationController_deleteAuthorizationDatabaseWithAltD
   _Block_object_dispose(v45, 8);
   objc_storeStrong(&v50, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __68__AKAppleIDAuthenticationController_performSilentTTRFor_completion___block_invoke(uint64_t a1, char a2, id obj)
@@ -2653,7 +2611,6 @@ void __68__AKAppleIDAuthenticationController_performSilentTTRFor_completion___bl
   objc_storeStrong(&v6, 0);
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __68__AKAppleIDAuthenticationController_performSilentTTRFor_completion___block_invoke_305(void *a1, char a2, id obj)
@@ -2724,7 +2681,6 @@ void __68__AKAppleIDAuthenticationController_performSilentTTRFor_completion___bl
 
   (*(a1[4] + 16))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)revokeAuthorizationForApplicationWithClientID:(id)d error:(id *)error
@@ -2785,7 +2741,6 @@ void __68__AKAppleIDAuthenticationController_performSilentTTRFor_completion___bl
   os_activity_scope_leave(&state);
   objc_storeStrong(&v31, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v6 & 1;
 }
 
@@ -2806,7 +2761,6 @@ void __89__AKAppleIDAuthenticationController_revokeAuthorizationForApplicationWi
   objc_storeStrong(oslog, 0);
   objc_storeStrong((*(a1[4].isa + 1) + 40), location[0]);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __89__AKAppleIDAuthenticationController_revokeAuthorizationForApplicationWithClientID_error___block_invoke_306(uint64_t a1, char a2, id obj)
@@ -2917,7 +2871,6 @@ void __77__AKAppleIDAuthenticationController_warmUpVerificationSessionWithComple
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __77__AKAppleIDAuthenticationController_warmUpVerificationSessionWithCompletion___block_invoke_307(void *a1, char a2, id obj)
@@ -3027,7 +2980,6 @@ void __77__AKAppleIDAuthenticationController_warmUpVerificationSessionWithComple
   objc_storeStrong(&v47, 0);
   objc_storeStrong(&v48, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __94__AKAppleIDAuthenticationController_setConfigurationInfo_forIdentifier_forAltDSID_completion___block_invoke(uint64_t a1, char a2, id obj)
@@ -3062,7 +3014,6 @@ void __94__AKAppleIDAuthenticationController_setConfigurationInfo_forIdentifier_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __94__AKAppleIDAuthenticationController_setConfigurationInfo_forIdentifier_forAltDSID_completion___block_invoke_311(NSObject *a1, char a2, id obj)
@@ -3093,7 +3044,6 @@ void __94__AKAppleIDAuthenticationController_setConfigurationInfo_forIdentifier_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)configurationInfoWithIdentifiers:(id)identifiers forAltDSID:(id)d completion:(id)completion
@@ -3167,7 +3117,6 @@ void __94__AKAppleIDAuthenticationController_setConfigurationInfo_forIdentifier_
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __92__AKAppleIDAuthenticationController_configurationInfoWithIdentifiers_forAltDSID_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -3204,7 +3153,6 @@ void __92__AKAppleIDAuthenticationController_configurationInfoWithIdentifiers_fo
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __92__AKAppleIDAuthenticationController_configurationInfoWithIdentifiers_forAltDSID_completion___block_invoke_312(NSObject *a1, void *a2, void *a3)
@@ -3227,7 +3175,6 @@ void __92__AKAppleIDAuthenticationController_configurationInfoWithIdentifiers_fo
   (*(a1[4].isa + 2))();
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)checkSecurityUpgradeEligibilityForContext:(id)context completion:(id)completion
@@ -3320,7 +3267,6 @@ void __90__AKAppleIDAuthenticationController_checkSecurityUpgradeEligibilityForC
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __90__AKAppleIDAuthenticationController_checkSecurityUpgradeEligibilityForContext_completion___block_invoke_313(NSObject *a1, char a2, id obj)
@@ -3351,7 +3297,6 @@ void __90__AKAppleIDAuthenticationController_checkSecurityUpgradeEligibilityForC
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)generateLoginCodeWithCompletion:(id)completion
@@ -3442,7 +3387,6 @@ void __69__AKAppleIDAuthenticationController_generateLoginCodeWithCompletion___b
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __69__AKAppleIDAuthenticationController_generateLoginCodeWithCompletion___block_invoke_315(NSObject *a1, void *a2, void *a3)
@@ -3465,7 +3409,6 @@ void __69__AKAppleIDAuthenticationController_generateLoginCodeWithCompletion___b
   (*(a1[4].isa + 2))();
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)validateLoginCode:(unint64_t)code forAppleID:(id)d completion:(id)completion
@@ -3560,7 +3503,6 @@ void __77__AKAppleIDAuthenticationController_validateLoginCode_forAppleID_comple
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __77__AKAppleIDAuthenticationController_validateLoginCode_forAppleID_completion___block_invoke_316(uint64_t a1, char a2, id obj)
@@ -3665,7 +3607,6 @@ void __80__AKAppleIDAuthenticationController_performCircleRequestWithContext_com
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __80__AKAppleIDAuthenticationController_performCircleRequestWithContext_completion___block_invoke_318(void *a1, void *a2, void *a3)
@@ -3768,7 +3709,6 @@ void __80__AKAppleIDAuthenticationController_performCircleRequestWithContext_com
   objc_storeStrong(&v46, 0);
   objc_storeStrong(&v48, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __97__AKAppleIDAuthenticationController_performCheckInForAccountWithAltDSID_event_reason_completion___block_invoke(void *a1, void *a2)
@@ -3802,7 +3742,6 @@ void __97__AKAppleIDAuthenticationController_performCheckInForAccountWithAltDSID
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __97__AKAppleIDAuthenticationController_performCheckInForAccountWithAltDSID_event_reason_completion___block_invoke_319(uint64_t *a1, void *a2)
@@ -3835,7 +3774,6 @@ void __97__AKAppleIDAuthenticationController_performCheckInForAccountWithAltDSID
 
   (*(a1[5] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)performCheckInForAccountWithAltDSID:(id)d event:(id)event completion:(id)completion
@@ -3911,7 +3849,6 @@ void __97__AKAppleIDAuthenticationController_performCheckInForAccountWithAltDSID
   objc_storeStrong(&v43, 0);
   objc_storeStrong(&v44, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __90__AKAppleIDAuthenticationController_performCheckInForAccountWithAltDSID_event_completion___block_invoke(void *a1, void *a2)
@@ -3945,7 +3882,6 @@ void __90__AKAppleIDAuthenticationController_performCheckInForAccountWithAltDSID
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __90__AKAppleIDAuthenticationController_performCheckInForAccountWithAltDSID_event_completion___block_invoke_320(uint64_t *a1, void *a2)
@@ -3978,7 +3914,6 @@ void __90__AKAppleIDAuthenticationController_performCheckInForAccountWithAltDSID
 
   (*(a1[5] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)reportSignOutForAppleID:(id)d service:(int64_t)service completion:(id)completion
@@ -4073,7 +4008,6 @@ void __80__AKAppleIDAuthenticationController_reportSignOutForAppleID_service_com
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __80__AKAppleIDAuthenticationController_reportSignOutForAppleID_service_completion___block_invoke_321(uint64_t a1, char a2, id obj)
@@ -4174,7 +4108,6 @@ void __79__AKAppleIDAuthenticationController_reportSignOutForAllAppleIDsWithComp
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __79__AKAppleIDAuthenticationController_reportSignOutForAllAppleIDsWithCompletion___block_invoke_322(uint64_t a1, char a2, id obj)
@@ -4258,7 +4191,6 @@ void __79__AKAppleIDAuthenticationController_reportSignOutForAllAppleIDsWithComp
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __105__AKAppleIDAuthenticationController_updateStateWithExternalAuthenticationResponse_forContext_completion___block_invoke(uint64_t a1, char a2, id obj)
@@ -4293,7 +4225,6 @@ void __105__AKAppleIDAuthenticationController_updateStateWithExternalAuthenticat
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __105__AKAppleIDAuthenticationController_updateStateWithExternalAuthenticationResponse_forContext_completion___block_invoke_323(NSObject *a1, char a2, id obj)
@@ -4324,7 +4255,6 @@ void __105__AKAppleIDAuthenticationController_updateStateWithExternalAuthenticat
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateStateWithExternalAuthenticationResponse:(id)response forAppleID:(id)d completion:(id)completion
@@ -4398,7 +4328,6 @@ void __105__AKAppleIDAuthenticationController_updateStateWithExternalAuthenticat
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __105__AKAppleIDAuthenticationController_updateStateWithExternalAuthenticationResponse_forAppleID_completion___block_invoke(uint64_t a1, char a2, id obj)
@@ -4433,7 +4362,6 @@ void __105__AKAppleIDAuthenticationController_updateStateWithExternalAuthenticat
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __105__AKAppleIDAuthenticationController_updateStateWithExternalAuthenticationResponse_forAppleID_completion___block_invoke_324(NSObject *a1, char a2, id obj)
@@ -4464,7 +4392,6 @@ void __105__AKAppleIDAuthenticationController_updateStateWithExternalAuthenticat
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isDevicePasscodeProtected:(id *)protected
@@ -4526,7 +4453,6 @@ void __105__AKAppleIDAuthenticationController_updateStateWithExternalAuthenticat
   _Block_object_dispose(&v22, 8);
   objc_storeStrong(&v28, 0);
   _Block_object_dispose(&v29, 8);
-  *MEMORY[0x1E69E9840];
   return v5 & 1;
 }
 
@@ -4612,7 +4538,6 @@ void __63__AKAppleIDAuthenticationController_isDevicePasscodeProtected___block_i
   objc_storeStrong(&v28, 0);
   _Block_object_dispose(&v29, 8);
   objc_storeStrong(&v35, 0);
-  *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -4736,7 +4661,6 @@ void __53__AKAppleIDAuthenticationController_activeLoginCode___block_invoke_2(vo
   objc_storeStrong(&v53, 0);
   objc_storeStrong(&v54, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __82__AKAppleIDAuthenticationController_getServerUILoadDelegateForAltDSID_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -4778,7 +4702,6 @@ void __82__AKAppleIDAuthenticationController_getServerUILoadDelegateForAltDSID_c
 
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __82__AKAppleIDAuthenticationController_getServerUILoadDelegateForAltDSID_completion___block_invoke_327(NSObject *a1, void *a2)
@@ -4798,7 +4721,6 @@ void __82__AKAppleIDAuthenticationController_getServerUILoadDelegateForAltDSID_c
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __82__AKAppleIDAuthenticationController_getServerUILoadDelegateForAltDSID_completion___block_invoke_328(NSObject *a1, void *a2, void *a3)
@@ -4821,7 +4743,6 @@ void __82__AKAppleIDAuthenticationController_getServerUILoadDelegateForAltDSID_c
   (*(a1[4].isa + 2))();
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)getServerUILoadDelegateWithContext:(id)context completion:(id)completion
@@ -4921,7 +4842,6 @@ void __82__AKAppleIDAuthenticationController_getServerUILoadDelegateForAltDSID_c
   objc_storeStrong(&v53, 0);
   objc_storeStrong(&v54, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __83__AKAppleIDAuthenticationController_getServerUILoadDelegateWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -4963,7 +4883,6 @@ void __83__AKAppleIDAuthenticationController_getServerUILoadDelegateWithContext_
 
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __83__AKAppleIDAuthenticationController_getServerUILoadDelegateWithContext_completion___block_invoke_329(NSObject *a1, void *a2)
@@ -4983,7 +4902,6 @@ void __83__AKAppleIDAuthenticationController_getServerUILoadDelegateWithContext_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __83__AKAppleIDAuthenticationController_getServerUILoadDelegateWithContext_completion___block_invoke_330(NSObject *a1, void *a2, void *a3)
@@ -5006,7 +4924,6 @@ void __83__AKAppleIDAuthenticationController_getServerUILoadDelegateWithContext_
   (*(a1[4].isa + 2))();
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)synchronizeFollowUpItemsForContext:(id)context error:(id *)error
@@ -5095,7 +5012,6 @@ void __83__AKAppleIDAuthenticationController_getServerUILoadDelegateWithContext_
   os_activity_scope_leave(&state);
   objc_storeStrong(&v42, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v7 & 1;
 }
 
@@ -5209,7 +5125,6 @@ void __83__AKAppleIDAuthenticationController_synchronizeFollowUpItemsForContext_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __83__AKAppleIDAuthenticationController_synchronizeFollowUpItemsForContext_completion___block_invoke_331(NSObject *a1, char a2, id obj)
@@ -5240,7 +5155,6 @@ void __83__AKAppleIDAuthenticationController_synchronizeFollowUpItemsForContext_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)teardownFollowUpWithContext:(id)context completion:(id)completion
@@ -5310,7 +5224,6 @@ void __83__AKAppleIDAuthenticationController_synchronizeFollowUpItemsForContext_
   objc_storeStrong(&v38, 0);
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __76__AKAppleIDAuthenticationController_teardownFollowUpWithContext_completion___block_invoke(uint64_t a1, char a2, id obj)
@@ -5345,7 +5258,6 @@ void __76__AKAppleIDAuthenticationController_teardownFollowUpWithContext_complet
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __76__AKAppleIDAuthenticationController_teardownFollowUpWithContext_completion___block_invoke_332(NSObject *a1, char a2, id obj)
@@ -5366,7 +5278,6 @@ void __76__AKAppleIDAuthenticationController_teardownFollowUpWithContext_complet
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)renewRecoveryTokenWithContext:(id)context completion:(id)completion
@@ -5436,7 +5347,6 @@ void __76__AKAppleIDAuthenticationController_teardownFollowUpWithContext_complet
   objc_storeStrong(&v38, 0);
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __78__AKAppleIDAuthenticationController_renewRecoveryTokenWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -5473,7 +5383,6 @@ void __78__AKAppleIDAuthenticationController_renewRecoveryTokenWithContext_compl
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __78__AKAppleIDAuthenticationController_renewRecoveryTokenWithContext_completion___block_invoke_333(NSObject *a1, void *a2, void *a3)
@@ -5500,7 +5409,6 @@ void __78__AKAppleIDAuthenticationController_renewRecoveryTokenWithContext_compl
   (*(a1[4].isa + 2))();
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)verifyMasterKey:(id)key context:(id)context completion:(id)completion
@@ -5574,7 +5482,6 @@ void __78__AKAppleIDAuthenticationController_renewRecoveryTokenWithContext_compl
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __72__AKAppleIDAuthenticationController_verifyMasterKey_context_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -5611,7 +5518,6 @@ void __72__AKAppleIDAuthenticationController_verifyMasterKey_context_completion_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __72__AKAppleIDAuthenticationController_verifyMasterKey_context_completion___block_invoke_334(NSObject *a1, void *a2, void *a3)
@@ -5638,7 +5544,6 @@ void __72__AKAppleIDAuthenticationController_verifyMasterKey_context_completion_
   (*(a1[4].isa + 2))();
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)persistMasterKeyVerifier:(id)verifier context:(id)context completion:(id)completion
@@ -5732,7 +5637,6 @@ void __72__AKAppleIDAuthenticationController_verifyMasterKey_context_completion_
   objc_storeStrong(&v42, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __90__AKAppleIDAuthenticationController_persistRecoveryKeyWithContext_authContext_completion___block_invoke(uint64_t a1, char a2, id obj)
@@ -5767,7 +5671,6 @@ void __90__AKAppleIDAuthenticationController_persistRecoveryKeyWithContext_authC
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __90__AKAppleIDAuthenticationController_persistRecoveryKeyWithContext_authContext_completion___block_invoke_336(NSObject *a1, char a2, id obj)
@@ -5792,7 +5695,6 @@ void __90__AKAppleIDAuthenticationController_persistRecoveryKeyWithContext_authC
 
   (*(a1[4].isa + 2))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)validateVettingToken:(id)token forAltDSID:(id)d completion:(id)completion
@@ -5874,7 +5776,6 @@ void __90__AKAppleIDAuthenticationController_persistRecoveryKeyWithContext_authC
   objc_storeStrong(&v46, 0);
   objc_storeStrong(&v47, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __80__AKAppleIDAuthenticationController_validateVettingToken_forAltDSID_completion___block_invoke(uint64_t a1, char a2, id obj)
@@ -5909,7 +5810,6 @@ void __80__AKAppleIDAuthenticationController_validateVettingToken_forAltDSID_com
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __80__AKAppleIDAuthenticationController_validateVettingToken_forAltDSID_completion___block_invoke_337(void *a1, char a2, id obj)
@@ -6004,7 +5904,6 @@ void __80__AKAppleIDAuthenticationController_validateVettingToken_forAltDSID_com
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __80__AKAppleIDAuthenticationController_validateVettingToken_forAltDSID_completion___block_invoke_338(void *a1, void *a2, void *a3)
@@ -6089,7 +5988,6 @@ void __80__AKAppleIDAuthenticationController_validateVettingToken_forAltDSID_com
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)isCreateAppleIDAllowedWithCompletion:(id)completion
@@ -6188,7 +6086,6 @@ void __74__AKAppleIDAuthenticationController_isCreateAppleIDAllowedWithCompletio
   objc_storeStrong(&oslog, 0);
   (*(a1[4] + 16))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __74__AKAppleIDAuthenticationController_isCreateAppleIDAllowedWithCompletion___block_invoke_340(NSObject *a1, void *a2)
@@ -6212,7 +6109,6 @@ void __74__AKAppleIDAuthenticationController_isCreateAppleIDAllowedWithCompletio
 
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __74__AKAppleIDAuthenticationController_isCreateAppleIDAllowedWithCompletion___block_invoke_341(uint64_t a1, char a2, id obj)
@@ -6267,7 +6163,6 @@ void __60__AKAppleIDAuthenticationController_accountNamesForAltDSID___block_invo
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __60__AKAppleIDAuthenticationController_accountNamesForAltDSID___block_invoke_344(void *a1, void *a2, void *a3)
@@ -6307,7 +6202,6 @@ void __60__AKAppleIDAuthenticationController_accountNamesForAltDSID___block_invo
 
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchURLBagForAltDSID:(id)d completion:(id)completion
@@ -6413,7 +6307,6 @@ void __70__AKAppleIDAuthenticationController_fetchURLBagForAltDSID_completion___
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __70__AKAppleIDAuthenticationController_fetchURLBagForAltDSID_completion___block_invoke_346(NSObject *a1, void *a2, void *a3)
@@ -6436,7 +6329,6 @@ void __70__AKAppleIDAuthenticationController_fetchURLBagForAltDSID_completion___
   (*(a1[4].isa + 2))();
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)_urlBagFromCache:(BOOL)cache altDSID:(id)d withError:(id *)error
@@ -6517,7 +6409,6 @@ void __72__AKAppleIDAuthenticationController__urlBagFromCache_altDSID_withError_
   objc_storeStrong(oslog, 0);
   objc_storeStrong((*(a1[4].isa + 1) + 40), location[0]);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __72__AKAppleIDAuthenticationController__urlBagFromCache_altDSID_withError___block_invoke_347(NSObject *a1, void *a2, void *a3)
@@ -6541,7 +6432,6 @@ void __72__AKAppleIDAuthenticationController__urlBagFromCache_altDSID_withError_
   objc_storeStrong((*(a1[5].isa + 1) + 40), v6);
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)forceURLBagUpdateForAltDSID:(id)d urlSwitchData:(id)data completion:(id)completion
@@ -6617,7 +6507,6 @@ void __72__AKAppleIDAuthenticationController__urlBagFromCache_altDSID_withError_
   objc_storeStrong(&v43, 0);
   objc_storeStrong(&v44, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __90__AKAppleIDAuthenticationController_forceURLBagUpdateForAltDSID_urlSwitchData_completion___block_invoke(uint64_t a1, char a2, id obj)
@@ -6652,10 +6541,9 @@ void __90__AKAppleIDAuthenticationController_forceURLBagUpdateForAltDSID_urlSwit
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
-void __90__AKAppleIDAuthenticationController_forceURLBagUpdateForAltDSID_urlSwitchData_completion___block_invoke_348(uint64_t a1, char a2, id obj)
+void __90__AKAppleIDAuthenticationController_forceURLBagUpdateForAltDSID_urlSwitchData_completion___block_invoke_348(NSObject *a1, char a2, id obj)
 {
   v9 = *MEMORY[0x1E69E9840];
   v7 = a1;
@@ -6666,14 +6554,13 @@ void __90__AKAppleIDAuthenticationController_forceURLBagUpdateForAltDSID_urlSwit
   oslog[0] = _AKLogSystem();
   if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_DEFAULT))
   {
-    __os_log_helper_16_2_3_8_64_4_0_8_64(v8, *(a1 + 32), v6 & 1, location);
+    __os_log_helper_16_2_3_8_64_4_0_8_64(v8, a1[4].isa, v6 & 1, location);
     _os_log_impl(&dword_193225000, oslog[0], OS_LOG_TYPE_DEFAULT, "Finished updating urlbag update for AltDSID: %@ with result: %d error:%@", v8, 0x1Cu);
   }
 
   objc_storeStrong(oslog, 0);
-  (*(*(a1 + 40) + 16))();
+  (*(a1[5].isa + 2))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)clearSessionCacheWithCompletion:(id)completion
@@ -6753,7 +6640,6 @@ void __69__AKAppleIDAuthenticationController_clearSessionCacheWithCompletion___b
   objc_storeStrong(v4, 0);
   (*(a1[4] + 16))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchGlobalConfigurationUsingPolicy:(unint64_t)policy completion:(id)completion
@@ -6857,7 +6743,6 @@ void __84__AKAppleIDAuthenticationController_fetchGlobalConfigurationUsingPolicy
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __84__AKAppleIDAuthenticationController_fetchGlobalConfigurationUsingPolicy_completion___block_invoke_349(NSObject *a1, void *a2, void *a3)
@@ -6880,7 +6765,6 @@ void __84__AKAppleIDAuthenticationController_fetchGlobalConfigurationUsingPolicy
   (*(a1[4].isa + 2))();
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)performPasswordResetWithContext:(id)context completion:(id)completion
@@ -6938,7 +6822,6 @@ void __84__AKAppleIDAuthenticationController_fetchGlobalConfigurationUsingPolicy
   objc_storeStrong(&v28, 0);
   objc_storeStrong(&v30, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __80__AKAppleIDAuthenticationController_performPasswordResetWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -6978,7 +6861,6 @@ void __80__AKAppleIDAuthenticationController_performPasswordResetWithContext_com
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __80__AKAppleIDAuthenticationController_performPasswordResetWithContext_completion___block_invoke_351(void *a1, void *a2, void *a3)
@@ -7029,7 +6911,6 @@ void __80__AKAppleIDAuthenticationController_performPasswordResetWithContext_com
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteDeviceListCacheWithContext:(id)context completion:(id)completion
@@ -7072,7 +6953,6 @@ void __80__AKAppleIDAuthenticationController_performPasswordResetWithContext_com
   objc_storeStrong(&v17, 0);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __81__AKAppleIDAuthenticationController_deleteDeviceListCacheWithContext_completion___block_invoke(NSObject *a1, void *a2)
@@ -7096,7 +6976,6 @@ void __81__AKAppleIDAuthenticationController_deleteDeviceListCacheWithContext_co
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __81__AKAppleIDAuthenticationController_deleteDeviceListCacheWithContext_completion___block_invoke_352(NSObject *a1, char a2, id obj)
@@ -7121,7 +7000,6 @@ void __81__AKAppleIDAuthenticationController_deleteDeviceListCacheWithContext_co
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteDeviceListCacheWithCompletion:(id)completion
@@ -7184,7 +7062,6 @@ void __73__AKAppleIDAuthenticationController_deleteDeviceListCacheWithCompletion
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDAuthenticationController_deleteDeviceListCacheWithCompletion___block_invoke_353(NSObject *a1, char a2, id obj)
@@ -7209,7 +7086,6 @@ void __73__AKAppleIDAuthenticationController_deleteDeviceListCacheWithCompletion
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchTokensWithAltDSID:(id)d tokenIdentifiers:(id)identifiers completion:(id)completion
@@ -7280,7 +7156,6 @@ void __88__AKAppleIDAuthenticationController_fetchTokensWithAltDSID_tokenIdentif
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __88__AKAppleIDAuthenticationController_fetchTokensWithAltDSID_tokenIdentifiers_completion___block_invoke_354(NSObject *a1, void *a2, void *a3)
@@ -7307,7 +7182,6 @@ void __88__AKAppleIDAuthenticationController_fetchTokensWithAltDSID_tokenIdentif
 
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteTokensFromCacheWithAltDSID:(id)d tokenIdentifiers:(id)identifiers completion:(id)completion
@@ -7378,7 +7252,6 @@ void __98__AKAppleIDAuthenticationController_deleteTokensFromCacheWithAltDSID_to
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __98__AKAppleIDAuthenticationController_deleteTokensFromCacheWithAltDSID_tokenIdentifiers_completion___block_invoke_355(NSObject *a1, char a2, id obj)
@@ -7403,7 +7276,6 @@ void __98__AKAppleIDAuthenticationController_deleteTokensFromCacheWithAltDSID_to
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshBAADeviceTokenWithCompletion:(id)completion
@@ -7466,7 +7338,6 @@ void __73__AKAppleIDAuthenticationController_refreshBAADeviceTokenWithCompletion
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDAuthenticationController_refreshBAADeviceTokenWithCompletion___block_invoke_356(NSObject *a1, char a2, id obj)
@@ -7491,7 +7362,6 @@ void __73__AKAppleIDAuthenticationController_refreshBAADeviceTokenWithCompletion
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchBAADeviceTokenWithCompletion:(id)completion
@@ -7554,7 +7424,6 @@ void __71__AKAppleIDAuthenticationController_fetchBAADeviceTokenWithCompletion__
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __71__AKAppleIDAuthenticationController_fetchBAADeviceTokenWithCompletion___block_invoke_357(NSObject *a1, void *a2, void *a3)
@@ -7581,7 +7450,6 @@ void __71__AKAppleIDAuthenticationController_fetchBAADeviceTokenWithCompletion__
 
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shieldSignInOrCreateFlowsWithError:(id *)error
@@ -7654,7 +7522,6 @@ void __72__AKAppleIDAuthenticationController_shieldSignInOrCreateFlowsWithError_
   objc_storeStrong(oslog, 0);
   objc_storeStrong((*(a1[4].isa + 1) + 40), location[0]);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)_serverFriendlyUsername:(id)username
@@ -7785,7 +7652,6 @@ void __72__AKAppleIDAuthenticationController_fetchBirthdayForAltDSID_completion_
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __72__AKAppleIDAuthenticationController_fetchBirthdayForAltDSID_completion___block_invoke_364(NSObject *a1, void *a2, void *a3, void *a4)
@@ -7811,7 +7677,6 @@ void __72__AKAppleIDAuthenticationController_fetchBirthdayForAltDSID_completion_
   objc_storeStrong(&v8, 0);
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

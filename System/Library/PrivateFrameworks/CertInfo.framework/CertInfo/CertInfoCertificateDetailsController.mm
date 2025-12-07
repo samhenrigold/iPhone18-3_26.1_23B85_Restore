@@ -78,44 +78,44 @@ LABEL_3:
 
 - (id)_sectionsForProperties:(id)properties currentSectionDictionary:(id)dictionary
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   dictionaryCopy = dictionary;
   array = [MEMORY[0x277CBEB18] array];
   v7 = [dictionaryCopy objectForKey:@"CertInfoCertificateDetailsSectionPropertiesKey"];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = propertiesCopy;
-  v8 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v8 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v35;
+    v10 = *v34;
     v11 = *MEMORY[0x277CDC500];
-    v33 = *MEMORY[0x277CDC508];
-    v32 = *MEMORY[0x277CDC528];
-    v29 = *MEMORY[0x277CDC510];
+    v32 = *MEMORY[0x277CDC508];
+    v31 = *MEMORY[0x277CDC528];
+    v28 = *MEMORY[0x277CDC510];
     do
     {
       v12 = 0;
-      v28 = v9;
+      v27 = v9;
       do
       {
-        if (*v35 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v34 + 1) + 8 * v12);
+        v13 = *(*(&v33 + 1) + 8 * v12);
         v14 = [v13 objectForKey:v11];
-        v15 = [v13 objectForKey:v33];
-        v16 = [v15 isEqualToString:v32];
+        v15 = [v13 objectForKey:v32];
+        v16 = [v15 isEqualToString:v31];
 
         if (v16)
         {
-          v17 = [v13 objectForKey:v29];
+          v17 = [v13 objectForKey:v28];
           if ([v17 count])
           {
             v18 = v11;
@@ -143,7 +143,7 @@ LABEL_3:
             v7 = v20;
             v10 = v19;
             v11 = v18;
-            v9 = v28;
+            v9 = v27;
           }
         }
 
@@ -165,13 +165,11 @@ LABEL_3:
       }
 
       while (v9 != v12);
-      v9 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v9 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v9);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return array;
 }

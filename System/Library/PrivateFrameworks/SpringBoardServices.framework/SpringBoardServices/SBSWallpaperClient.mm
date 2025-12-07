@@ -606,16 +606,16 @@ void __56__SBSWallpaperClient_setWallpaperColorName_forVariants___block_invoke_2
   return v12 & 1;
 }
 
-void __62__SBSWallpaperClient_setWallpaperColor_darkColor_forVariants___block_invoke(uint64_t a1, void *a2)
+void __62__SBSWallpaperClient_setWallpaperColor_darkColor_forVariants___block_invoke(void *a1, void *a2)
 {
   v4 = a2;
   BSSerializeNSSecureEncodableObjectToXPCDictionaryWithKey();
-  if (*(a1 + 40))
+  if (a1[5])
   {
     BSSerializeNSSecureEncodableObjectToXPCDictionaryWithKey();
   }
 
-  v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 48)];
+  v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1[6]];
   BSSerializeNSSecureEncodableObjectToXPCDictionaryWithKey();
 }
 

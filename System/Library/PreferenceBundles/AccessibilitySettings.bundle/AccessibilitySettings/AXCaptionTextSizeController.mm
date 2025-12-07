@@ -25,70 +25,70 @@
   v3 = *&self->super.AXUISettingsBaseListController_opaque[OBJC_IVAR___PSListController__specifiers];
   if (!v3)
   {
-    v21 = OBJC_IVAR___PSListController__specifiers;
+    v22 = OBJC_IVAR___PSListController__specifiers;
     v4 = objc_alloc_init(NSMutableArray);
     selfCopy = self;
     captionPreviewSpecifiers = [(AXCaptionStyleChooserController *)self captionPreviewSpecifiers];
-    v23 = v4;
+    v24 = v4;
     [v4 addObjectsFromArray:captionPreviewSpecifiers];
 
-    v27 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
-    obj = AXCaptionTextSizes();
-    v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
-    if (v6)
+    v27 = 0u;
+    obj = AXCaptionTextSizes(v6);
+    v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v8 = *v26;
-      v9 = PSCellClassKey;
+      v8 = v7;
+      v9 = *v27;
+      v10 = PSCellClassKey;
       do
       {
-        for (i = 0; i != v7; i = i + 1)
+        for (i = 0; i != v8; i = i + 1)
         {
-          if (*v26 != v8)
+          if (*v27 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v25 + 1) + 8 * i);
-          v12 = [v11 objectForKeyedSubscript:@"name"];
-          v13 = settingsLocString(v12, @"CaptioningStyle");
-          v14 = [PSSpecifier preferenceSpecifierNamed:v13 target:selfCopy set:0 get:0 detail:0 cell:3 edit:0];
+          v12 = *(*(&v26 + 1) + 8 * i);
+          v13 = [v12 objectForKeyedSubscript:@"name"];
+          v14 = settingsLocString(v13, @"CaptioningStyle");
+          v15 = [PSSpecifier preferenceSpecifierNamed:v14 target:selfCopy set:0 get:0 detail:0 cell:3 edit:0];
 
-          [v14 setProperty:objc_opt_class() forKey:v9];
-          v15 = [v11 objectForKeyedSubscript:@"value"];
-          [v14 setProperty:v15 forKey:@"value"];
+          [v15 setProperty:objc_opt_class() forKey:v10];
+          v16 = [v12 objectForKeyedSubscript:@"value"];
+          [v15 setProperty:v16 forKey:@"value"];
 
-          v16 = [v11 objectForKeyedSubscript:@"fontSize"];
-          [v14 setProperty:v16 forKey:@"fontSize"];
+          v17 = [v12 objectForKeyedSubscript:@"fontSize"];
+          [v15 setProperty:v17 forKey:@"fontSize"];
 
-          [v14 setCellType:3];
-          v17 = [v11 objectForKeyedSubscript:@"default"];
-          LODWORD(v16) = [v17 BOOLValue];
+          [v15 setCellType:3];
+          v18 = [v12 objectForKeyedSubscript:@"default"];
+          LODWORD(v17) = [v18 BOOLValue];
 
-          if (v16)
+          if (v17)
           {
-            [v14 setProperty:&__kCFBooleanTrue forKey:@"isDefault"];
+            [v15 setProperty:&__kCFBooleanTrue forKey:@"isDefault"];
           }
 
-          [v23 addObject:v14];
+          [v24 addObject:v15];
         }
 
-        v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
 
     videoOverrideSpecifiers = [(AXCaptionStyleChooserController *)selfCopy videoOverrideSpecifiers];
-    [v23 addObjectsFromArray:videoOverrideSpecifiers];
+    [v24 addObjectsFromArray:videoOverrideSpecifiers];
 
-    v19 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v21];
-    *&selfCopy->super.AXUISettingsBaseListController_opaque[v21] = v23;
+    v20 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v22];
+    *&selfCopy->super.AXUISettingsBaseListController_opaque[v22] = v24;
 
-    v3 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v21];
+    v3 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v22];
   }
 
   return v3;
@@ -105,7 +105,7 @@
   v10 = AXCaptionTextSizeForRelativeSize(RelativeCharSize);
   if (!v10)
   {
-    v10 = AXCaptionDefaultTextSize();
+    v10 = AXCaptionDefaultTextSize(0);
   }
 
   v11 = cellCopy;

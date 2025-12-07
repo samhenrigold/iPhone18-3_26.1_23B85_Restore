@@ -62,7 +62,7 @@
 
 - (void)_enqueuePageEventIfNeeded
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   engagementMetrics = [(AMSUICommonErrorViewController *)self engagementMetrics];
 
   if (engagementMetrics)
@@ -79,23 +79,21 @@
       v6 = objc_opt_class();
       v7 = AMSLogKey();
       *buf = 138543618;
-      v18 = v6;
-      v19 = 2114;
-      v20 = v7;
+      v17 = v6;
+      v18 = 2114;
+      v19 = v7;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Enqueueing engagement display event.", buf, 0x16u);
     }
 
     v8 = [(AMSUICommonErrorViewController *)self engagementMetrics:@"eventType"];
-    v16[2] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:3];
+    v15[2] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:3];
 
     v10 = objc_alloc(MEMORY[0x1E698C8D8]);
     v11 = [(AMSUICommonErrorViewController *)self bag];
     v12 = [v10 initWithBag:v11];
     v13 = [v12 enqueueData:v9];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)viewWillLayoutSubviews
@@ -148,7 +146,7 @@
 
 - (void)_setupNavigationItem
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   navigationItem = [(AMSUICommonErrorViewController *)self navigationItem];
   if (objc_opt_respondsToSelector())
   {
@@ -168,27 +166,25 @@
     {
       v5 = objc_opt_class();
       v6 = AMSLogKey();
-      v8 = 138543874;
-      v9 = v5;
-      v10 = 2114;
-      v11 = v6;
-      v12 = 2114;
-      v13 = objc_opt_class();
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@ [%{public}@]: Unexpected navigation item of %{public}@ class", &v8, 0x20u);
+      v7 = 138543874;
+      v8 = v5;
+      v9 = 2114;
+      v10 = v6;
+      v11 = 2114;
+      v12 = objc_opt_class();
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@ [%{public}@]: Unexpected navigation item of %{public}@ class", &v7, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_showCancelButton
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   if (_os_feature_enabled_impl() && _os_feature_enabled_impl())
   {
     v3 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:1 target:self action:sel__cancelButtonAction];
-    v18[0] = v3;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v17[0] = v3;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
 
     navigationController = [(AMSUICommonErrorViewController *)self navigationController];
     navigationBar = [navigationController navigationBar];
@@ -221,15 +217,13 @@
     navigationItem = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.AppleMediaServicesUI"];
     v10 = AMSUILocalizedStringFromBundle(@"CANCEL", v4, navigationItem);
     v11 = [v8 initWithTitle:v10 style:0 target:self action:sel__cancelButtonAction];
-    v17 = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
+    v16 = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
     navigationItem2 = [(AMSUICommonErrorViewController *)self navigationItem];
     [navigationItem2 setLeftBarButtonItems:v12];
   }
 
 LABEL_8:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelButtonAction
@@ -240,7 +234,7 @@ LABEL_8:
 
 - (void)_setup
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v3 = [AMSUIErrorView alloc];
   v4 = [(AMSUIErrorView *)v3 initWithFrame:&stru_1F3921360 title:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   [(AMSUICommonErrorViewController *)self setErrorView:v4];
@@ -249,8 +243,8 @@ LABEL_8:
   errorView = [(AMSUICommonErrorViewController *)self errorView];
   [errorView ams_setBackgroundColor:ams_defaultPlatformBackgroundColor];
 
-  v39 = objc_alloc_init(AMSUIAirplaneModeInquiry);
-  isEnabled = [(AMSUIAirplaneModeInquiry *)v39 isEnabled];
+  v38 = objc_alloc_init(AMSUIAirplaneModeInquiry);
+  isEnabled = [(AMSUIAirplaneModeInquiry *)v38 isEnabled];
   error = [(AMSUICommonErrorViewController *)self error];
   userInfo = [error userInfo];
   v10 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
@@ -337,13 +331,13 @@ LABEL_8:
     title = [(AMSUIErrorView *)self->_errorView title];
     message = [(AMSUIErrorView *)self->_errorView message];
     *buf = 138544130;
-    v41 = v33;
-    v42 = 2114;
-    v43 = v35;
-    v44 = 2114;
-    v45 = title;
-    v46 = 2114;
-    v47 = message;
+    v40 = v33;
+    v41 = 2114;
+    v42 = v35;
+    v43 = 2114;
+    v44 = title;
+    v45 = 2114;
+    v46 = message;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Error page displayed. Title: %{public}@, Message: %{public}@", buf, 0x2Au);
 
     if (!logKey)
@@ -353,8 +347,6 @@ LABEL_8:
 
   [(AMSUICommonErrorViewController *)self _setupNavigationItem];
   [(AMSUICommonErrorViewController *)self _showCancelButton];
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 @end

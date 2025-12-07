@@ -147,7 +147,7 @@
 
   v6 = self->_touchesReceivedWithObjectInProximity + 1;
   self->_touchesReceivedWithObjectInProximity = v6;
-  v7 = SBLogProximitySensor();
+  v7 = SBLogProximitySensor(self);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6 > 2)
   {
@@ -183,6 +183,7 @@
 {
   changeCopy = change;
   conditionCopy = condition;
+  v7 = conditionCopy;
   if (self->_objectInProximity)
   {
     if (!changeCopy)
@@ -200,25 +201,25 @@
     }
   }
 
-  v7 = self->_timesEnabledWithObjectInProximity + 1;
-  self->_timesEnabledWithObjectInProximity = v7;
-  v8 = SBLogProximitySensor();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-  if (v7 > 2)
+  v8 = self->_timesEnabledWithObjectInProximity + 1;
+  self->_timesEnabledWithObjectInProximity = v8;
+  v9 = SBLogProximitySensor(conditionCopy);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v8 > 2)
   {
-    if (v9)
+    if (v10)
     {
-      *v10 = 0;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Condition changed to allow prox touch handling, but NOT allowed to reschedule backlight debounce timer because max enablements reached.", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Condition changed to allow prox touch handling, but NOT allowed to reschedule backlight debounce timer because max enablements reached.", v11, 2u);
     }
   }
 
   else
   {
-    if (v9)
+    if (v10)
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Condition changed to allow prox touch handling, and allowed to reschedule backlight debounce timer.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Condition changed to allow prox touch handling, and allowed to reschedule backlight debounce timer.", buf, 2u);
     }
 
     [(SBNotchedStatusBarProximityBacklightPolicy *)self _debounceDurationForNumberOfTouchesReceivedWithObjectInProximity:0];

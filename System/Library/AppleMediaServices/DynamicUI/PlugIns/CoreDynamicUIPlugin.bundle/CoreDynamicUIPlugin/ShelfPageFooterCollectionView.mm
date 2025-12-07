@@ -9,7 +9,7 @@
 - (CGSize)contentSize
 {
   selfCopy = self;
-  sub_73C90();
+  sub_73C90(selfCopy);
   v4 = v3;
   v6 = v5;
 
@@ -25,7 +25,7 @@
   height = size.height;
   width = size.width;
   selfCopy = self;
-  sub_73D24(width, height);
+  sub_73D24(selfCopy, width, height);
 }
 
 - (CGSize)intrinsicContentSize

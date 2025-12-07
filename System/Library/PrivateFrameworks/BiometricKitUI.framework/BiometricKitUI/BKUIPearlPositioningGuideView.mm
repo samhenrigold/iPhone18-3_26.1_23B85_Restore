@@ -24,6 +24,7 @@
 - (void)prepareMaskLayerForReducedMotionOpenTransition;
 - (void)prepareMaskLayerForStartToOpenTransition;
 - (void)resetValuesToStart;
+- (void)setHidden:(BOOL)hidden;
 @end
 
 @implementation BKUIPearlPositioningGuideView
@@ -46,6 +47,26 @@
   return v4;
 }
 
+- (void)setHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  if ([(BKUIPearlPositioningGuideView *)self isHidden]!= hidden)
+  {
+    v5.receiver = self;
+    v5.super_class = BKUIPearlPositioningGuideView;
+    [(BKUIPearlPositioningGuideView *)&v5 setHidden:hiddenCopy];
+    if (hiddenCopy)
+    {
+      [(BKUIPearlPositioningGuideView *)self _stopDisplay];
+    }
+
+    else
+    {
+      [(BKUIPearlPositioningGuideView *)self _startDisplay];
+    }
+  }
+}
+
 - (void)_startDisplay
 {
   if (self->_displayLink)
@@ -59,9 +80,9 @@
   self->_displayLink = v3;
 
   [(CADisplayLink *)self->_displayLink bkui_enableHighFrameRate];
-  v5 = self->_displayLink;
+  v6 = self->_displayLink;
   mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
-  [(CADisplayLink *)v5 addToRunLoop:mainRunLoop forMode:*MEMORY[0x277CBE738]];
+  [(CADisplayLink *)v6 addToRunLoop:mainRunLoop forMode:*MEMORY[0x277CBE738]];
 }
 
 - (void)_stopDisplay
@@ -397,11 +418,11 @@ uint64_t __82__BKUIPearlPositioningGuideView_animateToOpenValuesOverDuration_cur
   [(BKUIPearlPositioningGuideView *)self animateToBreatheOutValuesOverDuration:v2 completion:1.5];
 }
 
-uint64_t __40__BKUIPearlPositioningGuideView_breathe__block_invoke(uint64_t result, int a2)
+void *__40__BKUIPearlPositioningGuideView_breathe__block_invoke(void *result, int a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     v3[0] = MEMORY[0x277D85DD0];
     v3[1] = 3221225472;
     v3[2] = __40__BKUIPearlPositioningGuideView_breathe__block_invoke_2;
@@ -413,11 +434,11 @@ uint64_t __40__BKUIPearlPositioningGuideView_breathe__block_invoke(uint64_t resu
   return result;
 }
 
-uint64_t __40__BKUIPearlPositioningGuideView_breathe__block_invoke_2(uint64_t result, int a2)
+id *__40__BKUIPearlPositioningGuideView_breathe__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) breathe];
+    return [result[4] breathe];
   }
 
   return result;
@@ -549,9 +570,8 @@ LABEL_7:
     v23 = v22;
     y = self->_targetPortalCenter.y;
     [(BKUIPearlPositioningGuideView *)self portalCenter];
-    v25 = self->_startPortalCenter.y;
     [BKUIPearlPositioningGuideView _updatedFloatWithTarget:"_updatedFloatWithTarget:current:start:progress:" current:y start:? progress:?];
-    [(BKUIPearlPositioningGuideView *)self setPortalCenter:v23, v26];
+    [(BKUIPearlPositioningGuideView *)self setPortalCenter:v23, v25];
     if ([(BKUIPearlPositioningGuideView *)self needsMaskedNeedsPositionStyleEnrollment])
     {
       roundedRectMaskLayer = [(BKUIPearlPositioningGuideView *)self roundedRectMaskLayer];
@@ -568,17 +588,17 @@ LABEL_7:
           [(BKUIPearlPositioningGuideView *)self edgeDistance];
         }
 
-        v29 = v28;
+        v28 = v27;
         [(BKUIPearlPositioningGuideView *)self lineWidth];
-        v31 = v29 + v30 * 0.5;
+        v30 = v28 + v29 * 0.5;
         [(BKUIPearlPositioningGuideView *)self cornerRadius];
-        v33 = v32;
+        v32 = v31;
         [(BKUIPearlPositioningGuideView *)self lineWidth];
-        v35 = v33 + v34 * 0.5;
+        v34 = v32 + v33 * 0.5;
         [(BKUIPearlPositioningGuideView *)self portalCenter];
-        v38 = [(BKUIPearlPositioningGuideView *)self _roundedRectMaskForMaskDistance:v31 portalCenter:v36 cornerRadius:v37, v35];
+        v37 = [(BKUIPearlPositioningGuideView *)self _roundedRectMaskForMaskDistance:v30 portalCenter:v35 cornerRadius:v36, v34];
         roundedRectMaskLayer2 = [(BKUIPearlPositioningGuideView *)self roundedRectMaskLayer];
-        [roundedRectMaskLayer2 setPath:{objc_msgSend(v38, "CGPath")}];
+        [roundedRectMaskLayer2 setPath:{objc_msgSend(v37, "CGPath")}];
       }
     }
 

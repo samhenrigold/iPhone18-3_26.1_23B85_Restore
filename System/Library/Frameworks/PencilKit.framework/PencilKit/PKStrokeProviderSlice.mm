@@ -564,7 +564,7 @@ LABEL_7:
     v8 = stroke2;
     if (stroke2)
     {
-      [stroke2 transform];
+      objc_msgSend_transform(stroke2);
     }
 
     else
@@ -614,7 +614,7 @@ LABEL_7:
     v13 = stroke3;
     if (stroke3)
     {
-      [stroke3 transform];
+      objc_msgSend_transform(stroke3);
     }
 
     else
@@ -740,7 +740,7 @@ LABEL_20:
     v16 = stroke3;
     if (stroke3)
     {
-      [stroke3 transform];
+      objc_msgSend_transform(stroke3);
     }
 
     else
@@ -852,7 +852,7 @@ LABEL_18:
     v14 = stroke3;
     if (stroke3)
     {
-      [stroke3 transform];
+      objc_msgSend_transform(stroke3);
     }
 
     else

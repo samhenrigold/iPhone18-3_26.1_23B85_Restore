@@ -10,7 +10,7 @@ void __227___EARSpeechRecognizer_initWithConfig_overrides_overrideConfigFiles_la
   v5 = *(*(a1 + 32) + 8);
   if (v3)
   {
-    [v3 ear_toString];
+    objc_msgSend_ear_toString(v3);
   }
 
   else
@@ -41,11 +41,11 @@ void __227___EARSpeechRecognizer_initWithConfig_overrides_overrideConfigFiles_la
   v8 = *(*(a1 + 32) + 64);
   if (v5)
   {
-    [v5 ear_toString];
+    objc_msgSend_ear_toString(v5);
     if (v7)
     {
 LABEL_3:
-      [v7 ear_toString];
+      objc_msgSend_ear_toString(v7);
       goto LABEL_6;
     }
   }
@@ -165,7 +165,7 @@ void __227___EARSpeechRecognizer_initWithConfig_overrides_overrideConfigFiles_la
         operator delete(v33[0]);
       }
 
-      [*(*(a1 + 32) + 16) formatWords:v36 unrepairedWordsOut:v35 task:@"Dictation"];
+      objc_msgSend_formatWords_unrepairedWordsOut_task_(*(*(a1 + 32) + 16));
       buf[0].__r_.__value_.__r.__words[0] = &v25;
       std::vector<quasar::Token>::__destroy_vector::operator()[abi:ne200100](buf);
       buf[0].__r_.__value_.__r.__words[0] = v35;
@@ -178,13 +178,13 @@ void __227___EARSpeechRecognizer_initWithConfig_overrides_overrideConfigFiles_la
     if (v13 && (v14 = *(*(a1 + 32) + 16)) != 0)
     {
       std::string::basic_string[abi:ne200100]<0>(v36, [v13 UTF8String]);
-      [v14 endsOfSentencePunctuationsForLanguage:v36];
+      objc_msgSend_endsOfSentencePunctuationsForLanguage_(v14);
       v15 = EARHelpers::ContainerToNSSet<std::unordered_set<std::string>>(buf);
       v16 = *(a1 + 32);
       v17 = *(v16 + 56);
       *(v16 + 56) = v15;
 
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(buf);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&buf[0].__r_.__value_.__l.__data_);
       if (SHIBYTE(v37) < 0)
       {
         operator delete(v36[0]);
@@ -229,19 +229,24 @@ void __85___EARSpeechRecognizer_initWithConfiguration_useQuasarFormatter_activeC
   }
 }
 
-void __116___EARSpeechRecognizer_runRecognitionWithResultStream_language_task_samplingRate_userProfileData_speakerCodeWriter___block_invoke(uint64_t a1)
+void __116___EARSpeechRecognizer_runRecognitionWithResultStream_language_task_samplingRate_userProfileData_speakerCodeWriter___block_invoke(void *a1)
 {
-  v2 = *(a1 + 32);
-  if (*(v2 + 48) == 1 && *(a1 + 40))
+  v2 = a1[4];
+  if (*(v2 + 48) == 1 && a1[5])
   {
     SysConfig = quasar::SpeechRecognizer::getSysConfig(*(v2 + 64));
-    v4 = *(a1 + 40);
+    v4 = a1[5];
     if (v4)
     {
-      [v4 ear_toString];
+      objc_msgSend_ear_toString(v4);
     }
 
-    quasar::localeSupportsVoiceCommands(SysConfig);
+    else
+    {
+      memset(__p, 0, sizeof(__p));
+    }
+
+    quasar::localeSupportsVoiceCommands(SysConfig, __p);
   }
 
   *(v2 + 49) = 0;
@@ -286,10 +291,10 @@ LABEL_4:
     goto LABEL_10;
   }
 
-  v5 = [(EARLogger *)v3 domain];
+  v5 = [v3 domain];
   if ([v5 isEqualToString:@"com.apple.siri.quasar.espressoV2compilation"])
   {
-    v6 = [(EARLogger *)v4 code];
+    v6 = [v4 code];
 
     if (v6 == 2)
     {
@@ -327,7 +332,7 @@ void __47___EARSpeechRecognizer_setActiveConfiguration___block_invoke(uint64_t a
   v3 = *(*(a1 + 32) + 64);
   if (v2)
   {
-    [v2 speechRecognizerActiveConfiguration];
+    objc_msgSend_speechRecognizerActiveConfiguration(v2);
   }
 
   else
@@ -340,10 +345,12 @@ void __47___EARSpeechRecognizer_setActiveConfiguration___block_invoke(uint64_t a
 
 void __43___EARSpeechRecognizer_activeConfiguration__block_invoke(uint64_t a1)
 {
-  v2 = [[_EARSpeechRecognitionActiveConfiguration alloc] _initWithActiveConfiguration:quasar::SpeechRecognizer::getActiveConfiguration(*(*(a1 + 32) + 64))];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v2 = [_EARSpeechRecognitionActiveConfiguration alloc];
+  quasar::SpeechRecognizer::getActiveConfiguration(*(*(a1 + 32) + 64));
+  v4 = [(_EARSpeechRecognitionActiveConfiguration *)v2 _initWithActiveConfiguration:v3];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 void __83___EARSpeechRecognizer_resumeRecognitionWithLeftContext_rightContext_selectedText___block_invoke(uint64_t a1)

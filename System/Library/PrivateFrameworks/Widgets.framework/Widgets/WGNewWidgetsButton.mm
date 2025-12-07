@@ -270,13 +270,13 @@
     v17 = [objc_alloc(MEMORY[0x277D74270]) initWithData:0 ofType:0];
     [v17 setImage:v16];
     _numberFont = [(WGNewWidgetsButton *)self _numberFont];
-    [_numberFont descender];
-    _WGMainScreenScale();
+    descender = [_numberFont descender];
+    _WGMainScreenScale(descender, v20);
     BSFloatFloorForScale();
-    v20 = v19;
+    v22 = v21;
 
     [v16 size];
-    [v17 setBounds:{0.0, v20, v21, v22}];
+    [v17 setBounds:{0.0, v22, v23, v24}];
     v15 = [MEMORY[0x277CCA898] attributedStringWithAttachment:v17];
     [(NSCache *)self->_numberAttributedStringCache setObject:v15 forKey:v8];
   }
@@ -288,9 +288,9 @@
 {
   attributesCopy = attributes;
   [(WGNewWidgetsButton *)self _numberLabelSizeForText:text withAttributes:attributesCopy];
-  width = v21.width;
-  height = v21.height;
-  UIGraphicsBeginImageContextWithOptions(v21, 0, 0.0);
+  width = v23.width;
+  height = v23.height;
+  UIGraphicsBeginImageContextWithOptions(v23, 0, 0.0);
   primaryColor = [(_UILegibilitySettings *)self->_legibilitySettings primaryColor];
   [primaryColor set];
 
@@ -300,25 +300,25 @@
   [v12 fill];
   if (self->_badgeNumber == 1)
   {
-    v22.origin.x = v10;
-    v22.origin.y = v11;
-    v22.size.width = width;
-    v22.size.height = height;
-    v23 = CGRectOffset(v22, -0.5, 0.0);
-    WGRectRoundForMainScreenScale(v23.origin.x, v23.origin.y, v23.size.width, v23.size.height);
-    v10 = v13;
-    v11 = v14;
-    width = v15;
-    height = v16;
+    v24.origin.x = v10;
+    v24.origin.y = v11;
+    v24.size.width = width;
+    v24.size.height = height;
+    v25 = CGRectOffset(v24, -0.5, 0.0);
+    WGRectRoundForMainScreenScale(v13, v14, v25.origin.x, v25.origin.y, v25.size.width, v25.size.height);
+    v10 = v15;
+    v11 = v16;
+    width = v17;
+    height = v18;
   }
 
   numberText = [(WGNewWidgetsButton *)self numberText];
   [numberText drawInRect:attributesCopy withAttributes:{v10, v11, width, height}];
 
-  v18 = UIGraphicsGetImageFromCurrentImageContext();
+  v20 = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
 
-  return v18;
+  return v20;
 }
 
 - (CGSize)_numberLabelSizeForText:(id)text withAttributes:(id)attributes
@@ -329,26 +329,26 @@
 
   if (v7 == 1)
   {
-    _WGMainScreenScale();
-    BSFloatCeilForScale();
-    v9 = v8;
+    _WGMainScreenScale(v8, v9);
+    v10 = BSFloatCeilForScale();
+    v13 = v12;
   }
 
   else
   {
     _numberFont = [(WGNewWidgetsButton *)self _numberFont];
-    [_numberFont capHeight];
-    _WGMainScreenScale();
+    capHeight = [_numberFont capHeight];
+    _WGMainScreenScale(capHeight, v16);
     BSFloatCeilForScale();
-    v9 = v11;
+    v13 = v17;
   }
 
-  _WGMainScreenScale();
+  _WGMainScreenScale(v10, v11);
   BSFloatCeilForScale();
-  v13 = v12;
-  v14 = v9;
-  result.height = v13;
-  result.width = v14;
+  v19 = v18;
+  v20 = v13;
+  result.height = v19;
+  result.width = v20;
   return result;
 }
 

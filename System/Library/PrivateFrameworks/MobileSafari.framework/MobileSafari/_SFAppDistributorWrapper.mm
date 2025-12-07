@@ -7,7 +7,7 @@
 
 + (void)handlePunchoutWithBundleID:(NSString *)d adamID:(NSNumber *)iD externalVersionID:(NSNumber *)versionID completionHandler:(id)handler
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10, &qword_18BC426D0);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);

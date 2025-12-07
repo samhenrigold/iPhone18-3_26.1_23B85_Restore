@@ -18,7 +18,7 @@
 - (_TFTextFormattingContentViewController)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TFTextFormattingContentViewController_viewState;
-  type metadata accessor for TextFormattingState();
+  type metadata accessor for TextFormattingState(0);
   swift_allocObject();
   *(&self->super.super.super.isa + v4) = sub_26D34EA6C();
   v5 = OBJC_IVAR____TFTextFormattingContentViewController_configuration;
@@ -58,13 +58,13 @@
 {
   descriptorCopy = descriptor;
   selfCopy = self;
-  _TFTextFormattingContentViewController._setFormattingDescriptor(_:)();
+  _TFTextFormattingContentViewController._setFormattingDescriptor(_:)(descriptorCopy);
 }
 
 - (void)_setDisabledComponents:(id)components
 {
   type metadata accessor for ComponentKey(0);
-  sub_26D34C534(&qword_2804FADD0, type metadata accessor for ComponentKey);
+  sub_26D34C534(&qword_2804FADD0, type metadata accessor for ComponentKey, &unk_26D3A2570);
   sub_26D3A1118();
   swift_getKeyPath();
   swift_getKeyPath();

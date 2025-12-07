@@ -31,12 +31,12 @@ uint64_t __37__REMUserDefaults_daemonUserDefaults__block_invoke()
 
 - (REMUserDefaults)initWithSuiteName:(id)name containerURL:(id)l
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   lCopy = l;
-  v30.receiver = self;
-  v30.super_class = REMUserDefaults;
-  v8 = [(REMUserDefaults *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = REMUserDefaults;
+  v8 = [(REMUserDefaults *)&v29 init];
   if (v8)
   {
     v9 = [nameCopy copy];
@@ -54,9 +54,9 @@ uint64_t __37__REMUserDefaults_daemonUserDefaults__block_invoke()
       {
         v14 = v8->_suiteName;
         *buf = 138412546;
-        v32 = v14;
-        v33 = 2112;
-        v34 = lCopy;
+        v31 = v14;
+        v32 = 2112;
+        v33 = lCopy;
         v15 = "REMUserDefaults created {suiteName: %@, container: %@}";
         v16 = v13;
         v17 = 22;
@@ -99,7 +99,7 @@ LABEL_10:
         {
           v25 = v8->_suiteName;
           *buf = 138412290;
-          v32 = v25;
+          v31 = v25;
           v15 = "REMUserDefaults created {suiteName: %@}";
           v16 = v13;
           v17 = 12;
@@ -113,7 +113,6 @@ LABEL_10:
     v8->_observers = v26;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -181,7 +180,7 @@ LABEL_10:
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   objectCopy = object;
   v10 = +[REMLog utility];
@@ -199,51 +198,48 @@ LABEL_10:
 
     if ([v13 count])
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v14 = v13;
-      v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v22;
+        v17 = *v21;
         do
         {
           v18 = 0;
           do
           {
-            if (*v22 != v17)
+            if (*v21 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            block = [*(*(&v21 + 1) + 8 * v18) block];
+            block = [*(*(&v20 + 1) + 8 * v18) block];
             block[2]();
 
             ++v18;
           }
 
           while (v16 != v18);
-          v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v16);
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observeValueForKeyPath:(uint64_t)a1 ofObject:(NSObject *)a2 change:context:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_DEBUG, "REMUserDefaults KVO change observed {userDefaultsKey: %@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_DEBUG, "REMUserDefaults KVO change observed {userDefaultsKey: %@}", &v2, 0xCu);
 }
 
 @end

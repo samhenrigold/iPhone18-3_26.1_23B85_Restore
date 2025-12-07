@@ -161,7 +161,7 @@
 
 - (void)_loadAttributesFromLocalNoteObject:(id)object forAccount:(id)account
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v6 = objectCopy;
   if (objectCopy)
@@ -182,9 +182,9 @@
     {
       v13 = MEMORY[0x277CCAAC8];
       v14 = +[ASNote externalRepClasses];
-      v29 = 0;
-      v15 = [v13 unarchivedObjectOfClasses:v14 fromData:externalRepresentation error:&v29];
-      v16 = v29;
+      v28 = 0;
+      v15 = [v13 unarchivedObjectOfClasses:v14 fromData:externalRepresentation error:&v28];
+      v16 = v28;
 
       if (!v15)
       {
@@ -193,7 +193,7 @@
         if (os_log_type_enabled(v17, v18))
         {
           *buf = 138412290;
-          v31 = v16;
+          v30 = v16;
           _os_log_impl(&dword_24A0AC000, v17, v18, "Unable to decode note properties: %@", buf, 0xCu);
         }
       }
@@ -235,8 +235,6 @@
       [(ASNote *)self setBody:v27];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (ASNote)initWithLocalNoteObject:(id)object serverID:(id)d account:(id)account
@@ -281,7 +279,7 @@
 - (BOOL)saveToNoteDBWithExistingRecord:(id)record intoNoteStore:(id)store shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account
 {
   propertiesCopy = properties;
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   storeCopy = store;
   v13 = +[ASLocalDBHelper sharedInstance];
@@ -316,22 +314,7 @@
   }
 
   modificationDate = [recordCopy modificationDate];
-  if (!propertiesCopy)
-  {
-    goto LABEL_17;
-  }
-
-  lastModifiedDate = [(ASNote *)self lastModifiedDate];
-  if (!lastModifiedDate)
-  {
-    goto LABEL_17;
-  }
-
-  v22 = lastModifiedDate;
-  lastModifiedDate2 = [(ASNote *)self lastModifiedDate];
-  v24 = [modificationDate compare:lastModifiedDate2];
-
-  if (v24 == 1)
+  if (propertiesCopy && (-[ASNote lastModifiedDate](self, "lastModifiedDate"), (v21 = objc_claimAutoreleasedReturnValue()) != 0) && (v22 = v21, -[ASNote lastModifiedDate](self, "lastModifiedDate"), v23 = objc_claimAutoreleasedReturnValue(), v24 = [modificationDate compare:v23], v23, v22, v24 == 1))
   {
     if (localProperties)
     {
@@ -341,13 +324,12 @@
 
   else
   {
-LABEL_17:
-    lastModifiedDate3 = [(ASNote *)self lastModifiedDate];
+    lastModifiedDate = [(ASNote *)self lastModifiedDate];
 
-    if (lastModifiedDate3 || !propertiesCopy)
+    if (lastModifiedDate || !propertiesCopy)
     {
-      lastModifiedDate4 = [(ASNote *)self lastModifiedDate];
-      [recordCopy setModificationDate:lastModifiedDate4];
+      lastModifiedDate2 = [(ASNote *)self lastModifiedDate];
+      [recordCopy setModificationDate:lastModifiedDate2];
     }
   }
 
@@ -376,9 +358,9 @@ LABEL_17:
 
   v32 = MEMORY[0x277CCAAC8];
   v33 = +[ASNote externalRepClasses];
-  v55 = 0;
-  v34 = [v32 unarchivedObjectOfClasses:v33 fromData:externalRepresentation error:&v55];
-  v35 = v55;
+  v54 = 0;
+  v34 = [v32 unarchivedObjectOfClasses:v33 fromData:externalRepresentation error:&v54];
+  v35 = v54;
   v36 = [v34 mutableCopy];
 
   if (!v36)
@@ -388,7 +370,7 @@ LABEL_17:
     if (os_log_type_enabled(v37, v38))
     {
       *buf = 138412290;
-      v57 = v35;
+      v56 = v35;
       _os_log_impl(&dword_24A0AC000, v37, v38, "Unable to decode note properties: %@", buf, 0xCu);
     }
   }
@@ -474,7 +456,6 @@ LABEL_31:
     [recordCopy setCreationDate:modificationDate3];
   }
 
-  v52 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -588,7 +569,7 @@ LABEL_31:
 
 - (void)appendActiveSyncDataForTask:(id)task toWBXMLData:(id)data
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   body = [(ASNote *)self body];
   [dataCopy switchToCodePage:17];
@@ -639,29 +620,29 @@ LABEL_31:
   if ([(NSArray *)self->_categories count])
   {
     [dataCopy openTag:8];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v13 = self->_categories;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v20;
+      v16 = *v19;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v20 != v16)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [dataCopy appendTag:9 withStringContent:{*(*(&v19 + 1) + 8 * i), v19}];
+          [dataCopy appendTag:9 withStringContent:{*(*(&v18 + 1) + 8 * i), v18}];
         }
 
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v15);
@@ -669,8 +650,6 @@ LABEL_31:
 
     [dataCopy closeTag:8];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)loadNoteObjectForAccount:(id)account

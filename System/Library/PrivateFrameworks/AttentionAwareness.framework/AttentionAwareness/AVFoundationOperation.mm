@@ -3,6 +3,7 @@
 - (BOOL)createAVFoundationOperation;
 - (BOOL)isOperationActive;
 - (id)cancelActiveOperation:(id)operation;
+- (id)createPresenceDetectOperationWithTimeout:(double)timeout options:(id)options;
 - (void)SessionDidStartRunningNotification:(id)notification;
 - (void)SessionRuntimeErrorNotification:(id)notification;
 - (void)SessionWasInterruptedNotification:(id)notification;
@@ -124,7 +125,7 @@
 
 - (void)SessionRuntimeErrorNotification:(id)notification
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   dispatch_assert_queue_V2(self->_queue);
   if (currentLogLevel == 5)
@@ -144,15 +145,15 @@
       }
 
       userInfo = [notificationCopy userInfo];
-      *v18 = 134218242;
-      *&v18[4] = v7;
-      *&v18[12] = 2112;
-      *&v18[14] = userInfo;
+      *v17 = 134218242;
+      *&v17[4] = v7;
+      *&v17[12] = 2112;
+      *&v17[14] = userInfo;
       v13 = "%13.5f: Runtime error received: %@";
       v14 = v5;
       v15 = 22;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, v18, v15);
+      _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, v17, v15);
     }
 
 LABEL_20:
@@ -187,14 +188,14 @@ LABEL_20:
           }
 
           userInfo = [notificationCopy userInfo];
-          *v18 = 136315906;
-          *&v18[4] = v8;
-          *&v18[12] = 1024;
-          *&v18[14] = 338;
-          *&v18[18] = 2048;
-          *&v18[20] = v11;
-          *&v18[28] = 2112;
-          *&v18[30] = userInfo;
+          *v17 = 136315906;
+          *&v17[4] = v8;
+          *&v17[12] = 1024;
+          *&v17[14] = 338;
+          *&v17[18] = 2048;
+          *&v17[20] = v11;
+          *&v17[28] = 2112;
+          *&v17[30] = userInfo;
           v13 = "%30s:%-4d: %13.5f: Runtime error received: %@";
           v14 = v5;
           v15 = 38;
@@ -207,10 +208,8 @@ LABEL_20:
   }
 
 LABEL_21:
-  [(AVFoundationOperation *)self sendDeviceState:5, *v18, *&v18[16], *&v18[24], v19];
+  [(AVFoundationOperation *)self sendDeviceState:5, *v17, *&v17[8], *&v17[24], v18];
   v16 = [(AVFoundationOperation *)self cancelActiveOperation:@"Runtime error"];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)createAVFoundationOperation
@@ -234,7 +233,7 @@ LABEL_21:
 
 - (void)receiveNotificationOfName:(id)name notification:(id)notification
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   notificationCopy = notification;
   if (currentLogLevel == 5)
@@ -253,15 +252,15 @@ LABEL_21:
         v10 = v9 / 1000000000.0;
       }
 
-      *v19 = 134218242;
-      *&v19[4] = v10;
-      *&v19[12] = 2112;
-      *&v19[14] = nameCopy;
+      *v18 = 134218242;
+      *&v18[4] = v10;
+      *&v18[12] = 2112;
+      *&v18[14] = nameCopy;
       v15 = "%13.5f: Notification %@ received";
       v16 = v8;
       v17 = 22;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v16, OS_LOG_TYPE_DEFAULT, v15, v19, v17);
+      _os_log_impl(&dword_1BB2EF000, v16, OS_LOG_TYPE_DEFAULT, v15, v18, v17);
     }
   }
 
@@ -296,14 +295,14 @@ LABEL_19:
             v14 = v13 / 1000000000.0;
           }
 
-          *v19 = 136315906;
-          *&v19[4] = v11;
-          *&v19[12] = 1024;
-          *&v19[14] = 281;
-          *&v19[18] = 2048;
-          *&v19[20] = v14;
-          *&v19[28] = 2112;
-          *&v19[30] = nameCopy;
+          *v18 = 136315906;
+          *&v18[4] = v11;
+          *&v18[12] = 1024;
+          *&v18[14] = 281;
+          *&v18[18] = 2048;
+          *&v18[20] = v14;
+          *&v18[28] = 2112;
+          *&v18[30] = nameCopy;
           v15 = "%30s:%-4d: %13.5f: Notification %@ received";
           v16 = v8;
           v17 = 38;
@@ -314,7 +313,7 @@ LABEL_19:
   }
 
 LABEL_21:
-  if ([nameCopy isEqualToString:{*MEMORY[0x1E6986B20], *v19, *&v19[16], *&v19[24], v20}])
+  if ([nameCopy isEqualToString:{*MEMORY[0x1E6986B20], *v18, *&v18[8], *&v18[24], v19}])
   {
     [(AVFoundationOperation *)self SessionRuntimeErrorNotification:notificationCopy];
   }
@@ -338,28 +337,26 @@ LABEL_21:
   {
     [(AVFoundationOperation *)self SessionInterruptionEndedNotification:notificationCopy];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)receiveMetadata:(id)metadata type:(id)type
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   typeCopy = type;
   dispatch_assert_queue_V2(self->_queue);
-  LODWORD(v40) = 0;
-  *(&v40 + 3) = 0;
+  LODWORD(v39) = 0;
+  *(&v39 + 3) = 0;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v39 = 0;
+  v38 = 0;
   if (*MEMORY[0x1E6986FE8] == typeCopy)
   {
     v8 = metadataCopy;
     v9 = v8;
-    if (v8 && [v8 hasPayingAttention] && (!objc_msgSend(v9, "hasPayingAttention") || objc_msgSend(v9, "payingAttention")) && objc_msgSend(v9, "hasPayingAttention", 0, 0, 0, 0, 0, 0, 0, 0, 0, v40) && objc_msgSend(v9, "payingAttention"))
+    if (v8 && [v8 hasPayingAttention] && (!objc_msgSend(v9, "hasPayingAttention") || objc_msgSend(v9, "payingAttention")) && objc_msgSend(v9, "hasPayingAttention", 0, 0, 0, 0, 0, 0, 0, 0, 0, v39) && objc_msgSend(v9, "payingAttention"))
     {
       v10 = 0;
       v11 = 0;
@@ -408,32 +405,32 @@ LABEL_21:
         v19 = 0;
       }
 
-      v21 = 0.0;
+      v20 = 0.0;
       if ([v9 hasConfidence])
       {
         [v9 confidence];
-        v21 = v22 * 100.0;
+        v20 = v21 * 100.0;
       }
 
       if (currentLogLevel == 5)
       {
-        v23 = _AALog();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v22 = _AALog();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = absTimeNS();
-          if (v24 == -1)
+          v23 = absTimeNS();
+          if (v23 == -1)
           {
-            v25 = INFINITY;
+            v24 = INFINITY;
           }
 
           else
           {
-            v25 = v24 / 1000000000.0;
+            v24 = v23 / 1000000000.0;
           }
 
-          v30 = getFaceDetectOrientationDescription(v19);
+          v29 = getFaceDetectOrientationDescription(v19);
           *buf = 134219778;
-          *&buf[4] = v25;
+          *&buf[4] = v24;
           *&buf[12] = 2112;
           *&buf[14] = self;
           *&buf[22] = 2080;
@@ -445,14 +442,14 @@ LABEL_21:
           *&buf[52] = 2048;
           *&buf[54] = v15;
           *&buf[62] = 2112;
-          *&buf[64] = v30;
+          *&buf[64] = v29;
           *&buf[72] = 2048;
-          *&buf[74] = v21;
-          v31 = "%13.5f: Received metadata in %@ faceDetectStateChanged %s pitch: %f yaw: %f roll: %f orientation: %@ faceDetectionScore: %f";
-          v32 = v23;
-          v33 = 82;
+          *&buf[74] = v20;
+          v30 = "%13.5f: Received metadata in %@ faceDetectStateChanged %s pitch: %f yaw: %f roll: %f orientation: %@ faceDetectionScore: %f";
+          v31 = v22;
+          v32 = 82;
 LABEL_44:
-          _os_log_impl(&dword_1BB2EF000, v32, OS_LOG_TYPE_DEFAULT, v31, buf, v33);
+          _os_log_impl(&dword_1BB2EF000, v31, OS_LOG_TYPE_DEFAULT, v30, buf, v32);
         }
       }
 
@@ -463,60 +460,60 @@ LABEL_44:
 LABEL_46:
 
           buf[0] = 1;
-          *&buf[1] = v40;
-          *&buf[4] = *(&v40 + 3);
+          *&buf[1] = v39;
+          *&buf[4] = *(&v39 + 3);
           *&buf[8] = v11;
           *&buf[16] = v10;
           *&buf[24] = v15;
           *&buf[32] = v19;
           *&buf[40] = v14;
-          *&buf[80] = v36;
-          *&buf[96] = v37;
+          *&buf[80] = v35;
+          *&buf[96] = v36;
+          v41 = v37;
           v42 = v38;
-          v43 = v39;
           *&buf[48] = xmmword_1BB32B2A0;
-          *&buf[64] = v35;
-          v44 = v21;
-          v45 = 0u;
-          memset(v46, 0, sizeof(v46));
+          *&buf[64] = v34;
+          v43 = v20;
+          v44 = 0u;
+          memset(v45, 0, sizeof(v45));
           [(AVFoundationOperation *)self sendFaceDetectStateChangeMetadata:buf];
           [(AVFoundationOperation *)self sendDeviceEvent:3];
           [(AVFoundationOperation *)self sendOperationEndReason:1];
-          v34 = [(AVFoundationOperation *)self cancelActiveOperation:@"Face found"];
+          v33 = [(AVFoundationOperation *)self cancelActiveOperation:@"Face found"];
           goto LABEL_22;
         }
 
-        v23 = _AALog();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v22 = _AALog();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Sampling/PearlAVFoundationInterface.m";
+          v25 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Sampling/PearlAVFoundationInterface.m";
           for (i = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Sampling/PearlAVFoundationInterface.m"; ; ++i)
           {
             if (*(i - 1) == 47)
             {
-              v26 = i;
+              v25 = i;
             }
 
             else if (!*(i - 1))
             {
-              v28 = absTimeNS();
-              if (v28 == -1)
+              v27 = absTimeNS();
+              if (v27 == -1)
               {
-                v29 = INFINITY;
+                v28 = INFINITY;
               }
 
               else
               {
-                v29 = v28 / 1000000000.0;
+                v28 = v27 / 1000000000.0;
               }
 
-              v30 = getFaceDetectOrientationDescription(v19);
+              v29 = getFaceDetectOrientationDescription(v19);
               *buf = 136317442;
-              *&buf[4] = v26;
+              *&buf[4] = v25;
               *&buf[12] = 1024;
               *&buf[14] = 234;
               *&buf[18] = 2048;
-              *&buf[20] = v29;
+              *&buf[20] = v28;
               *&buf[28] = 2112;
               *&buf[38] = 2080;
               *&buf[30] = self;
@@ -528,12 +525,12 @@ LABEL_46:
               *&buf[68] = 2048;
               *&buf[70] = v15;
               *&buf[78] = 2112;
-              *&buf[80] = v30;
+              *&buf[80] = v29;
               *&buf[88] = 2048;
-              *&buf[90] = v21;
-              v31 = "%30s:%-4d: %13.5f: Received metadata in %@ faceDetectStateChanged %s pitch: %f yaw: %f roll: %f orientation: %@ faceDetectionScore: %f";
-              v32 = v23;
-              v33 = 98;
+              *&buf[90] = v20;
+              v30 = "%30s:%-4d: %13.5f: Received metadata in %@ faceDetectStateChanged %s pitch: %f yaw: %f roll: %f orientation: %@ faceDetectionScore: %f";
+              v31 = v22;
+              v32 = 98;
               goto LABEL_44;
             }
           }
@@ -544,15 +541,13 @@ LABEL_46:
     }
   }
 
-  [(AVFoundationOperation *)self sendDeviceEvent:2, v35, v36, v37, v38, v39, v40];
+  [(AVFoundationOperation *)self sendDeviceEvent:2, v34, v35, v36, v37, v38, v39];
 LABEL_22:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)cancelActiveOperation:(id)operation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   dispatch_assert_queue_V2(self->_queue);
   if (currentLogLevel == 5)
@@ -571,15 +566,15 @@ LABEL_22:
         v7 = v6 / 1000000000.0;
       }
 
-      *v17 = 134218242;
-      *&v17[4] = v7;
-      *&v17[12] = 2112;
-      *&v17[14] = operationCopy;
+      *v16 = 134218242;
+      *&v16[4] = v7;
+      *&v16[12] = 2112;
+      *&v16[14] = operationCopy;
       v12 = "%13.5f: cancelActiveOperation called with info %@";
       v13 = v5;
       v14 = 22;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v13, OS_LOG_TYPE_DEFAULT, v12, v17, v14);
+      _os_log_impl(&dword_1BB2EF000, v13, OS_LOG_TYPE_DEFAULT, v12, v16, v14);
     }
   }
 
@@ -614,14 +609,14 @@ LABEL_19:
             v11 = v10 / 1000000000.0;
           }
 
-          *v17 = 136315906;
-          *&v17[4] = v8;
-          *&v17[12] = 1024;
-          *&v17[14] = 150;
-          *&v17[18] = 2048;
-          *&v17[20] = v11;
-          *&v17[28] = 2112;
-          *&v17[30] = operationCopy;
+          *v16 = 136315906;
+          *&v16[4] = v8;
+          *&v16[12] = 1024;
+          *&v16[14] = 150;
+          *&v16[18] = 2048;
+          *&v16[20] = v11;
+          *&v16[28] = 2112;
+          *&v16[30] = operationCopy;
           v12 = "%30s:%-4d: %13.5f: cancelActiveOperation called with info %@";
           v13 = v5;
           v14 = 38;
@@ -632,12 +627,11 @@ LABEL_19:
   }
 
 LABEL_21:
-  if ([(AVFoundationOperation *)self isOperationActive:*v17])
+  if ([(AVFoundationOperation *)self isOperationActive:*v16])
   {
     [self->_AVFoundationEngine unregisterForOperation:self->_identifier];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -683,6 +677,149 @@ void __54__AVFoundationOperation_startPresenceDetectOperation___block_invoke_2(u
   [WeakRetained timeoutOccurred];
 }
 
+- (id)createPresenceDetectOperationWithTimeout:(double)timeout options:(id)options
+{
+  v4 = *&options.var0;
+  v36 = *MEMORY[0x1E69E9840];
+  dispatch_assert_queue_V2(self->_queue);
+  v7 = [(AVFoundationOperation *)self checkIfTimeoutHasChanged:timeout];
+  v8 = v7 | [(AVFoundationOperation *)self checkIfOptionsHaveChanged:*&v4 & 0xFFFFFFLL];
+  if (currentLogLevel == 5)
+  {
+    v9 = _AALog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = absTimeNS();
+      if (v10 == -1)
+      {
+        v11 = INFINITY;
+      }
+
+      else
+      {
+        v11 = v10 / 1000000000.0;
+      }
+
+      v16 = "false";
+      if (v4)
+      {
+        v17 = "true";
+      }
+
+      else
+      {
+        v17 = "false";
+      }
+
+      *buf = 134218754;
+      v32 = 2048;
+      v31 = v11;
+      *v33 = timeout;
+      *&v33[8] = 2080;
+      if ((v4 & 0x10000) != 0)
+      {
+        v16 = "true";
+      }
+
+      *&v33[10] = v17;
+      *&v33[18] = 2080;
+      *&v33[20] = v16;
+      v18 = "%13.5f: Timeout: %f AWAttentionSamplerActivateAttentionDetection: %s AWAttentionSamplerActivatePersonDetection: %s";
+      v19 = v9;
+      v20 = 42;
+      goto LABEL_29;
+    }
+
+    goto LABEL_30;
+  }
+
+  if (currentLogLevel >= 6)
+  {
+    v9 = _AALog();
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_30;
+    }
+
+    v12 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Sampling/PearlAVFoundationInterface.m";
+    for (i = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/Sampling/PearlAVFoundationInterface.m"; ; ++i)
+    {
+      if (*(i - 1) == 47)
+      {
+        v12 = i;
+      }
+
+      else if (!*(i - 1))
+      {
+        v14 = absTimeNS();
+        if (v14 == -1)
+        {
+          v15 = INFINITY;
+        }
+
+        else
+        {
+          v15 = v14 / 1000000000.0;
+        }
+
+        v21 = "false";
+        *buf = 136316418;
+        v31 = *&v12;
+        v32 = 1024;
+        if (v4)
+        {
+          v22 = "true";
+        }
+
+        else
+        {
+          v22 = "false";
+        }
+
+        *v33 = 108;
+        *&v33[4] = 2048;
+        *&v33[6] = v15;
+        if ((v4 & 0x10000) != 0)
+        {
+          v21 = "true";
+        }
+
+        *&v33[14] = 2048;
+        *&v33[16] = timeout;
+        *&v33[24] = 2080;
+        *&v33[26] = v22;
+        v34 = 2080;
+        v35 = v21;
+        v18 = "%30s:%-4d: %13.5f: Timeout: %f AWAttentionSamplerActivateAttentionDetection: %s AWAttentionSamplerActivatePersonDetection: %s";
+        v19 = v9;
+        v20 = 58;
+LABEL_29:
+        _os_log_impl(&dword_1BB2EF000, v19, OS_LOG_TYPE_DEFAULT, v18, buf, v20);
+LABEL_30:
+
+        break;
+      }
+    }
+  }
+
+  if (v8 && (self->_timeout = timeout, self->_currentOptions.AWAttentionSamplerActivateAttentionDetection = v4 & 1, ![(AVFoundationOperation *)self createAVFoundationOperation]))
+  {
+    v25 = MEMORY[0x1E696ABC0];
+    v26 = *MEMORY[0x1E696A798];
+    v28 = *MEMORY[0x1E696A578];
+    v29 = @" Unable to create Presence detect operation through AVFoundation";
+    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v23 = [v25 errorWithDomain:v26 code:19 userInfo:v27];
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  return v23;
+}
+
 - (BOOL)isOperationActive
 {
   dispatch_assert_queue_V2(self->_queue);
@@ -702,11 +839,11 @@ void __54__AVFoundationOperation_startPresenceDetectOperation___block_invoke_2(u
 
 - (AVFoundationOperation)initWithQueue:(id)queue forUnitTest:(BOOL)test
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
-  v26.receiver = self;
-  v26.super_class = AVFoundationOperation;
-  v8 = [(AVFoundationOperation *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = AVFoundationOperation;
+  v8 = [(AVFoundationOperation *)&v25 init];
   if (v8)
   {
     if (currentLogLevel == 5)
@@ -726,9 +863,9 @@ void __54__AVFoundationOperation_startPresenceDetectOperation___block_invoke_2(u
         }
 
         *buf = 134218242;
-        v28 = v11;
-        v29 = 2112;
-        *v30 = v8;
+        v27 = v11;
+        v28 = 2112;
+        *v29 = v8;
         v16 = "%13.5f: AVFoundationOperation %@ initialized";
         v17 = v9;
         v18 = 22;
@@ -788,13 +925,13 @@ LABEL_22:
             }
 
             *buf = 136315906;
-            v28 = *&v12;
-            v29 = 1024;
-            *v30 = 59;
-            *&v30[4] = 2048;
-            *&v30[6] = v15;
-            v31 = 2112;
-            v32 = v8;
+            v27 = *&v12;
+            v28 = 1024;
+            *v29 = 59;
+            *&v29[4] = 2048;
+            *&v29[6] = v15;
+            v30 = 2112;
+            v31 = v8;
             v16 = "%30s:%-4d: %13.5f: AVFoundationOperation %@ initialized";
             v17 = v9;
             v18 = 38;
@@ -809,7 +946,6 @@ LABEL_22:
 
 LABEL_23:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

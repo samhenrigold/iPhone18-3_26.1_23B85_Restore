@@ -87,7 +87,7 @@
   LODWORD(v21) = -2113732579;
   v22 = &v24;
   v23 = 0;
-  sub_10032DC34(__p, &v21, rho, theta);
+  sub_10032DC34(__p, &v21, 30, rho, theta, 10.0, 15.0);
   v21 = 0;
   v22 = 0;
   v23 = 0;
@@ -99,7 +99,7 @@
     {
       __src = vcvtq_s32_f32(*(v24 + v11));
       memset(__p, 0, 24);
-      sub_1000090DC(__p, &__src, &v29, 2uLL);
+      sub_1000090DC(__p, __src.i64, &v29, 2uLL);
       sub_1000073EC(&v21, __p);
       if (*__p)
       {
@@ -258,16 +258,16 @@
   image = [imageCopy image];
   v7 = *image;
   v8 = image[1];
-  v43 = *image;
-  v44 = v8;
-  v45 = image[2];
+  v44 = *image;
+  v45 = v8;
+  v46 = image[2];
   v9 = *(image + 7);
-  v46 = *(image + 6);
-  v47 = v9;
-  v48 = &v43 + 8;
-  v49 = v50;
-  v50[0] = 0;
-  v50[1] = 0;
+  v47 = *(image + 6);
+  v48 = v9;
+  v49 = &v44 + 8;
+  v50 = v51;
+  v51[0] = 0;
+  v51[1] = 0;
   if (v9)
   {
     atomic_fetch_add((v9 + 20), 1u);
@@ -281,27 +281,29 @@
 
   if (v10 > 2)
   {
-    DWORD1(v43) = 0;
-    sub_100269B58(&v43, image);
+    DWORD1(v44) = 0;
+    sub_100269B58(&v44, image);
   }
 
   else
   {
     v11 = *(image + 9);
-    v12 = v49;
-    *v49 = *v11;
+    v12 = v50;
+    *v50 = *v11;
     v12[1] = v11[1];
   }
 
-  v40 = 0;
-  memset(&v36[2], 0, 60);
-  v37 = &v36[3];
-  v38 = v39;
-  v39[0] = 0;
-  v39[1] = 0;
-  *v36 = 0x42FF000000000100;
-  v41 = &v42;
-  v42 = 0x4380000000000000;
+  v41 = 0;
+  memset(v37 + 4, 0, 48);
+  v37[3] = 0u;
+  v38 = v37 + 8;
+  v39 = v40;
+  v40[0] = 0;
+  v40[1] = 0;
+  v36 = 256;
+  LODWORD(v37[0]) = 1124007936;
+  v42 = &v43;
+  v43 = 0x4380000000000000;
   LODWORD(v32[0]) = 1124007936;
   memset(v32 + 4, 0, 48);
   v32[3] = 0u;
@@ -309,14 +311,14 @@
   v34 = v35;
   v35[0] = 0;
   v35[1] = 0;
-  v30 = &v36[1];
+  v30 = v37;
   v31 = 0;
   v29 = 16842752;
   v26 = 33619968;
   v27 = v32;
   v28 = 0;
-  sub_1003290C4(&v43, 1, &v40, &v29, &v26, 1u, v36, &v41, 1u, 0);
-  if (v36[0] < 1)
+  sub_1003290C4(&v44, 1, &v41, &v29, &v26, 1, &v36, &v42, 1u, 0);
+  if (v36 < 1)
   {
     v16 = -1;
   }
@@ -354,7 +356,7 @@
         v16 = v13;
       }
 
-      if (++v13 >= v36[0])
+      if (++v13 >= v36)
       {
         break;
       }
@@ -389,53 +391,53 @@
     j__free(v34);
   }
 
-  if (*&v36[15] && atomic_fetch_add((*&v36[15] + 20), 0xFFFFFFFF) == 1)
+  if (*(&v37[3] + 1) && atomic_fetch_add((*(&v37[3] + 1) + 20), 0xFFFFFFFF) == 1)
   {
-    sub_100269BC8(&v36[1]);
+    sub_100269BC8(v37);
   }
 
-  *&v36[15] = 0;
-  memset(&v36[5], 0, 32);
-  if (v36[2] >= 1)
+  *(&v37[3] + 1) = 0;
+  memset(&v37[1], 0, 32);
+  if (SDWORD1(v37[0]) >= 1)
   {
     v21 = 0;
-    v22 = v37;
+    v22 = v38;
     do
     {
-      v22[v21++] = 0;
+      *&v22[4 * v21++] = 0;
     }
 
-    while (v21 < v36[2]);
+    while (v21 < SDWORD1(v37[0]));
   }
 
-  if (v38 != v39)
+  if (v39 != v40)
   {
-    j__free(v38);
+    j__free(v39);
   }
 
-  if (v47 && atomic_fetch_add((v47 + 20), 0xFFFFFFFF) == 1)
+  if (v48 && atomic_fetch_add((v48 + 20), 0xFFFFFFFF) == 1)
   {
-    sub_100269BC8(&v43);
+    sub_100269BC8(&v44);
   }
 
-  v47 = 0;
-  v44 = 0u;
+  v48 = 0;
   v45 = 0u;
-  if (SDWORD1(v43) >= 1)
+  v46 = 0u;
+  if (SDWORD1(v44) >= 1)
   {
     v23 = 0;
-    v24 = v48;
+    v24 = v49;
     do
     {
       *&v24[4 * v23++] = 0;
     }
 
-    while (v23 < SDWORD1(v43));
+    while (v23 < SDWORD1(v44));
   }
 
-  if (v49 != v50)
+  if (v50 != v51)
   {
-    j__free(v49);
+    j__free(v50);
   }
 
   return v16;
@@ -460,7 +462,7 @@
   v8 = v11;
   v9 = 0;
   v6 = 0;
-  sub_1002EF464(v10, &v7, 0, 1, &v6);
+  sub_1002EF464(v10, &v7, 0, 1u, &v6);
   v4 = -[OpenCVWrapperContours initWithContours:originalImageSize:]([OpenCVWrapperContours alloc], "initWithContours:originalImageSize:", v11, [imageCopy image] + 64);
   v10[0] = v11;
   sub_100009030(v10);
@@ -471,7 +473,8 @@
 + (void)filterContours:(id)contours forMinEdgeLength:(int)length
 {
   contoursCopy = contours;
-  sub_100007D24([contoursCopy contours], length);
+  contours = [contoursCopy contours];
+  sub_100007D24(contours, length, v6, v7);
 }
 
 + (id)makeCVImageFromContours:(id)contours lineThickness:(int)thickness color:(id)color
@@ -611,57 +614,57 @@
   contours = [contoursCopy contours];
   v9 = objc_alloc_init(OpenCVWrapperCorners);
   __p = 0;
-  v16 = 0;
-  v17 = 0;
+  v18 = 0;
+  v19 = 0;
   if (turns < 0)
   {
     __assert_rtn("safeUnsignedCast", "OpenCVWrapperInternal.h", 73, "value >= 0 && int outside of valid range to cast to size_t");
   }
 
-  v10 = *contours;
-  v11 = contours[1];
-  if (*contours != v11)
+  v12 = *contours;
+  v13 = contours[1];
+  if (*contours != v13)
   {
     turnsCopy = turns;
     while (1)
     {
-      v16 = __p;
-      sub_10000897C(&__p, v10, [contoursCopy originalImageSize], margin);
-      if (0xAAAAAAAAAAAAAAABLL * ((v16 - __p) >> 3) > turns)
+      v18 = __p;
+      sub_10000897C(&__p, v12, [contoursCopy originalImageSize], margin);
+      if (0xAAAAAAAAAAAAAAABLL * ((v18 - __p) >> 3) > turns)
       {
         break;
       }
 
-      sub_100009720(&v18, __p, v16, [(OpenCVWrapperCorners *)v9 corners]);
-      v10 = (v10 + 24);
-      if (v10 == v11)
+      sub_100009720(&v20, __p, v18, [(OpenCVWrapperCorners *)v9 corners]);
+      v12 = (v12 + 24);
+      if (v12 == v13)
       {
-        v10 = v11;
+        v12 = v13;
         goto LABEL_12;
       }
     }
 
-    if (v10 != v11)
+    if (v12 != v13)
     {
-      for (i = (v10 + 24); i != v11; i = (i + 24))
+      for (i = (v12 + 24); i != v13; i = (i + 24))
       {
-        v16 = __p;
+        v18 = __p;
         sub_10000897C(&__p, i, [contoursCopy originalImageSize], margin);
-        if (0xAAAAAAAAAAAAAAABLL * ((v16 - __p) >> 3) <= turnsCopy)
+        if (0xAAAAAAAAAAAAAAABLL * ((v18 - __p) >> 3) <= turnsCopy)
         {
-          sub_100009720(&v18, __p, v16, [(OpenCVWrapperCorners *)v9 corners]);
-          sub_100009864(v10, i);
-          v10 = (v10 + 24);
+          sub_100009720(&v20, __p, v18, [(OpenCVWrapperCorners *)v9 corners]);
+          v10 = sub_100009864(v12, i);
+          v12 = (v12 + 24);
         }
       }
     }
   }
 
 LABEL_12:
-  sub_1000085A8(contours, v10, contours[1]);
+  sub_1000085A8(contours, v12, contours[1], v10, v11);
   if (__p)
   {
-    v16 = __p;
+    v18 = __p;
     operator delete(__p);
   }
 

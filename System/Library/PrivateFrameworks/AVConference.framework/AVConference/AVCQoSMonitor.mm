@@ -221,7 +221,7 @@ LABEL_14:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d NOT YET IMPLEMENTED", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d NOT YET IMPLEMENTED", v2, v3, v4, v5);
 }
 
 - (id)registerStreamToken:(int64_t)token
@@ -594,14 +594,14 @@ void __47__AVCQoSMonitor_registerBlocksForNotifications__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCQoSMonitor: serverd died, notifying client", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCQoSMonitor: serverd died, notifying client", v2, v3, v4, v5);
 }
 
 void __47__AVCQoSMonitor_registerBlocksForNotifications__block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCQoSMonitor: server died", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCQoSMonitor: server died", v2, v3, v4, v5);
 }
 
 void __47__AVCQoSMonitor_registerBlocksForNotifications__block_invoke_54_cold_1()

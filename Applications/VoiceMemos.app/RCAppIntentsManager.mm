@@ -14,11 +14,11 @@
   AppDependencyManager.add<A>(key:dependency:)();
   sub_100003FC4(v1);
   AnyHashable.init<A>(_:)();
-  sub_1000C773C(&qword_1002D1E60);
+  sub_1000C773C(&qword_1002D1E60, &qword_100246EB0);
   AppDependencyManager.add<A>(key:dependency:)();
   sub_100003FC4(v1);
   AnyHashable.init<A>(_:)();
-  sub_1000C773C(&qword_1002D1E68);
+  sub_1000C773C(&qword_1002D1E68, &unk_100246EC0);
   AppDependencyManager.add<A>(key:dependency:)();
 
   return sub_100003FC4(v1);

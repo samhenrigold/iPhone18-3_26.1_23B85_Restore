@@ -55,34 +55,36 @@
 {
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"weight"];
-  if (v5 && ([coderCopy error], v6 = objc_claimAutoreleasedReturnValue(), v6, !v6))
+  v6 = v5;
+  if (v5 && ([coderCopy error], v7 = objc_claimAutoreleasedReturnValue(), v7, !v7))
   {
-    v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"value"];
-    if (v7)
+    v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"value"];
+    v8 = v18;
+    if (v18)
     {
       error = [coderCopy error];
 
       if (!error)
       {
-        self = [(ATXNotificationRankingFeature *)self initWithWeight:v5 value:v7];
+        self = [(ATXNotificationRankingFeature *)self initWithWeight:v6 value:v8];
         selfCopy = self;
         goto LABEL_6;
       }
     }
 
-    v18 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_notification_categorization(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(ATXNotificationRankingFeature *)v18 initWithCoder:v19, v20, v21, v22, v23, v24, v25];
+      [(ATXNotificationRankingFeature *)v20 initWithCoder:v21, v22, v23, v24, v25, v26, v27];
     }
   }
 
   else
   {
-    v7 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_notification_categorization(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(ATXNotificationRankingFeature *)v7 initWithCoder:v8, v9, v10, v11, v12, v13, v14];
+      [(ATXNotificationRankingFeature *)v8 initWithCoder:v9, v10, v11, v12, v13, v14, v15];
     }
   }
 
@@ -90,6 +92,20 @@
 LABEL_6:
 
   return selfCopy;
+}
+
+- (void)initWithCoder:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXNotificationRankingFeature initWithCoder:]";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "%s: Failed to decode value", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithCoder:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXNotificationRankingFeature initWithCoder:]";
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a1, a3, "%s: Failed to decode weight", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -126,7 +126,7 @@ LABEL_9:
   return supportsSceneReconstruction___supportsSceneReconstruction;
 }
 
-uint64_t __41__ARQLDevice_supportsSceneReconstruction__block_invoke()
+void *__41__ARQLDevice_supportsSceneReconstruction__block_invoke()
 {
   result = [MEMORY[0x277CE53B0] supportsSceneReconstruction:1];
   supportsSceneReconstruction___supportsSceneReconstruction = result;

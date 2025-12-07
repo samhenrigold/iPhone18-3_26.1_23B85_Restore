@@ -199,7 +199,7 @@ LABEL_20:
 
       v28 = [[ASDSystemAppMetadata alloc] initWithBundleID:@"com.apple.AppStore"];
       [v28 setUserInitiated:1];
-      v30 = sub_1001F6394();
+      v30 = sub_1001F6394(InstallationService);
       v40 = v28;
       v31 = [NSArray arrayWithObjects:&v40 count:1];
       *&buf = _NSConcreteStackBlock;

@@ -55,7 +55,7 @@
 
 - (BOOL)writeStoreUnit:(id)unit
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   unitCopy = unit;
   data = [unitCopy data];
   uUID = [unitCopy UUID];
@@ -65,115 +65,114 @@
     path = [(NSURL *)self->_storeURL path];
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     v9 = *MEMORY[0x1E696A370];
-    v43 = *MEMORY[0x1E696A370];
-    v44[0] = &unk_1F1A652C8;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
-    v34 = 0;
-    v11 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:v10 error:&v34];
-    v12 = v34;
+    v46 = *MEMORY[0x1E696A370];
+    v47[0] = &unk_1F1A652C8;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+    v37 = 0;
+    v11 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:v10 error:&v37];
+    v12 = v37;
 
     if ((v11 & 1) == 0)
     {
-      v16 = _ISDefaultLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+      v17 = _ISDefaultLog(v13);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         [ISStore writeStoreUnit:];
       }
 
-      v26 = 0;
+      v30 = 0;
       goto LABEL_23;
     }
 
-    v13 = MEMORY[0x1E696AEC0];
+    v14 = MEMORY[0x1E696AEC0];
     uUIDString = [uUID UUIDString];
-    v15 = [v13 stringWithFormat:@"%@.%s", uUIDString, "isdata"];
-    v16 = [path stringByAppendingPathComponent:v15];
+    v16 = [v14 stringWithFormat:@"%@.%s", uUIDString, "isdata"];
+    v17 = [path stringByAppendingPathComponent:v16];
 
-    v17 = [v16 stringByAppendingPathExtension:@"tmp"];
-    v33 = v12;
-    v18 = [data writeToFile:v17 options:0x10000000 error:&v33];
-    v19 = v33;
+    v18 = [v17 stringByAppendingPathExtension:@"tmp"];
+    v36 = v12;
+    v19 = [data writeToFile:v18 options:0x10000000 error:&v36];
+    v20 = v36;
 
-    if (v18)
+    if (v19)
     {
       defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-      v41 = v9;
-      v42 = &unk_1F1A652E0;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-      v32 = v19;
-      v22 = [defaultManager2 setAttributes:v21 ofItemAtPath:v17 error:&v32];
-      v23 = v32;
+      v44 = v9;
+      v45 = &unk_1F1A652E0;
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+      v35 = v20;
+      v24 = [defaultManager2 setAttributes:v23 ofItemAtPath:v18 error:&v35];
+      v25 = v35;
 
-      if (v22)
+      if (v24)
       {
         defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-        v31 = v23;
-        v25 = [defaultManager3 moveItemAtPath:v17 toPath:v16 error:&v31];
-        v19 = v31;
+        v34 = v25;
+        v28 = [defaultManager3 moveItemAtPath:v18 toPath:v17 error:&v34];
+        v20 = v34;
 
-        if (v25)
+        if (v28)
         {
-          v26 = 1;
+          v30 = 1;
 LABEL_22:
 
-          v12 = v19;
+          v12 = v20;
 LABEL_23:
 
           goto LABEL_24;
         }
 
-        v28 = _ISDefaultLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+        v32 = _ISDefaultLog(v29);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412802;
-          v36 = v17;
-          v37 = 2112;
-          v38 = v16;
-          v39 = 2112;
-          v40 = v19;
-          _os_log_fault_impl(&dword_1A77B8000, v28, OS_LOG_TYPE_FAULT, "Failed to move temp file %@ to %@ with error: %@", buf, 0x20u);
+          v39 = v18;
+          v40 = 2112;
+          v41 = v17;
+          v42 = 2112;
+          v43 = v20;
+          _os_log_fault_impl(&dword_1A77B8000, v32, OS_LOG_TYPE_FAULT, "Failed to move temp file %@ to %@ with error: %@", buf, 0x20u);
         }
 
         defaultManager4 = [MEMORY[0x1E696AC08] defaultManager];
-        [defaultManager4 removeItemAtPath:v17 error:0];
+        [defaultManager4 removeItemAtPath:v18 error:0];
       }
 
       else
       {
-        defaultManager4 = _ISDefaultLog();
+        defaultManager4 = _ISDefaultLog(v26);
         if (os_log_type_enabled(defaultManager4, OS_LOG_TYPE_FAULT))
         {
           [ISStore writeStoreUnit:];
         }
 
-        v19 = v23;
+        v20 = v25;
       }
     }
 
     else
     {
-      defaultManager4 = _ISDefaultLog();
+      defaultManager4 = _ISDefaultLog(v21);
       if (os_log_type_enabled(defaultManager4, OS_LOG_TYPE_FAULT))
       {
         [ISStore writeStoreUnit:];
       }
     }
 
-    v26 = 0;
+    v30 = 0;
     goto LABEL_22;
   }
 
-  path = _ISDefaultLog();
+  path = _ISDefaultLog(0);
   if (os_log_type_enabled(path, OS_LOG_TYPE_FAULT))
   {
     [ISStore writeStoreUnit:path];
   }
 
-  v26 = 0;
+  v30 = 0;
 LABEL_24:
 
-  v29 = *MEMORY[0x1E69E9840];
-  return v26;
+  return v30;
 }
 
 - (id)addUnitWithData:(id)data
@@ -185,14 +184,15 @@ LABEL_24:
     uUID = [v4 UUID];
     v6 = [(ISStore *)self unitForUUID:uUID];
 
-    if ([v6 isValid])
+    isValid = [v6 isValid];
+    if (isValid)
     {
-      v7 = v6;
+      v8 = v6;
     }
 
     else
     {
-      v10 = _ISDefaultLog();
+      v10 = _ISDefaultLog(isValid);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         uUID2 = [v4 UUID];
@@ -202,23 +202,21 @@ LABEL_24:
         _os_log_impl(&dword_1A77B8000, v10, OS_LOG_TYPE_INFO, "ADDING_NEW_STORE_ENTRY with UUID: %@", &v14, 0xCu);
       }
 
-      v7 = v4;
-      if ([(ISStore *)self writeStoreUnit:v7])
+      v8 = v4;
+      if ([(ISStore *)self writeStoreUnit:v8])
       {
         storeURL = [(ISStore *)self storeURL];
-        [v7 remapWithStoreURL:storeURL];
+        [v8 remapWithStoreURL:storeURL];
       }
     }
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v8;
 }
 
 - (BOOL)removeUnitForUUID:(id)d
@@ -231,55 +229,33 @@ LABEL_24:
   v9 = [path stringByAppendingPathComponent:v8];
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v15 = 0;
-  v11 = [defaultManager removeItemAtPath:v9 error:&v15];
-  v12 = v15;
+  v16 = 0;
+  v11 = [defaultManager removeItemAtPath:v9 error:&v16];
+  v12 = v16;
 
-  if ((v11 & 1) == 0 && [v12 code] != 4)
+  if ((v11 & 1) == 0)
   {
-    v13 = _ISDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    code = [v12 code];
+    if (code != 4)
     {
-      [(ISStore *)dCopy removeUnitForUUID:v12, v13];
+      v14 = _ISDefaultLog(code);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        [(ISStore *)dCopy removeUnitForUUID:v12, v14];
+      }
     }
   }
 
   return v11;
 }
 
-- (void)writeStoreUnit:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_4(&dword_1A77B8000, v0, v1, "Error creating cache folder at path: %@. Error: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)writeStoreUnit:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_4(&dword_1A77B8000, v0, v1, "Error writing to data to file at path: %@. Error: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)writeStoreUnit:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_4(&dword_1A77B8000, v0, v1, "Error setting permissions on file at path: %@. Error: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)removeUnitForUUID:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v5 = [a1 UUIDString];
   OUTLINED_FUNCTION_0_4();
-  v8 = a2;
-  _os_log_error_impl(&dword_1A77B8000, a3, OS_LOG_TYPE_ERROR, "Failed to remove store entry for UUID: %@ with error: %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = a2;
+  _os_log_error_impl(&dword_1A77B8000, a3, OS_LOG_TYPE_ERROR, "Failed to remove store entry for UUID: %@ with error: %@", v6, 0x16u);
 }
 
 @end

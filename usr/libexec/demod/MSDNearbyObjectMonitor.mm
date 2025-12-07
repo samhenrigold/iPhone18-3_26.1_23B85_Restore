@@ -69,11 +69,11 @@
   queue = [(MSDNearbyObjectMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100063A54(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf) = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MSDNearbyObjectMonitor: Starting monitor!", &buf, 2u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDNearbyObjectMonitor: Starting monitor!", &buf, 2u);
   }
 
   niSession = [(MSDNearbyObjectMonitor *)self niSession];
@@ -83,17 +83,18 @@
     goto LABEL_9;
   }
 
-  v6 = [[NIRegionPredicate alloc] initWithName:@"Immediate" devicePresencePreset:1];
-  v7 = [[NIRegionPredicate alloc] initWithName:@"SensorMax" devicePresencePreset:5];
-  v8 = [NIDevicePresenceConfiguration alloc];
-  v33 = 0;
-  v9 = [v8 initWithInnerBoundary:v6 outerBoundary:v7 error:&v33];
-  v10 = v33;
-  if (v9)
+  v7 = [[NIRegionPredicate alloc] initWithName:@"Immediate" devicePresencePreset:1];
+  v8 = [[NIRegionPredicate alloc] initWithName:@"SensorMax" devicePresencePreset:5];
+  v9 = [NIDevicePresenceConfiguration alloc];
+  v35 = 0;
+  v10 = [v9 initWithInnerBoundary:v7 outerBoundary:v8 error:&v35];
+  v11 = v35;
+  v12 = v11;
+  if (v10)
   {
-    [v9 setAllowedDevices:4];
-    v11 = objc_alloc_init(NISession);
-    [(MSDNearbyObjectMonitor *)self setNiSession:v11];
+    [v10 setAllowedDevices:4];
+    v13 = objc_alloc_init(NISession);
+    [(MSDNearbyObjectMonitor *)self setNiSession:v13];
 
     niSession2 = [(MSDNearbyObjectMonitor *)self niSession];
     [niSession2 setDelegate:self];
@@ -103,19 +104,19 @@
     [niSession3 setDelegateQueue:queue2];
 
     niSession4 = [(MSDNearbyObjectMonitor *)self niSession];
-    [niSession4 runWithConfiguration:v9];
+    [niSession4 runWithConfiguration:v10];
   }
 
   else
   {
-    niSession4 = sub_100063A54();
+    niSession4 = sub_100063A54(v11);
     if (os_log_type_enabled(niSession4, OS_LOG_TYPE_ERROR))
     {
-      sub_1000E6574(v10);
+      sub_1000E6574(v12);
     }
   }
 
-  if (v9)
+  if (v10)
   {
 LABEL_9:
     deviceScanner = [(MSDNearbyObjectMonitor *)self deviceScanner];
@@ -123,8 +124,8 @@ LABEL_9:
     if (!deviceScanner)
     {
       objc_initWeak(&buf, self);
-      v17 = objc_alloc_init(SFDeviceDiscovery);
-      [(MSDNearbyObjectMonitor *)self setDeviceScanner:v17];
+      v19 = objc_alloc_init(SFDeviceDiscovery);
+      [(MSDNearbyObjectMonitor *)self setDeviceScanner:v19];
 
       queue3 = [(MSDNearbyObjectMonitor *)self queue];
       deviceScanner2 = [(MSDNearbyObjectMonitor *)self deviceScanner];
@@ -136,36 +137,36 @@ LABEL_9:
       deviceScanner4 = [(MSDNearbyObjectMonitor *)self deviceScanner];
       [deviceScanner4 setScanRate:20];
 
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = sub_1000A2F90;
+      v32[3] = &unk_10016BF78;
+      objc_copyWeak(&v33, &buf);
+      deviceScanner5 = [(MSDNearbyObjectMonitor *)self deviceScanner];
+      [deviceScanner5 setDeviceFoundHandler:v32];
+
       v30[0] = _NSConcreteStackBlock;
       v30[1] = 3221225472;
-      v30[2] = sub_1000A2F90;
+      v30[2] = sub_1000A2FEC;
       v30[3] = &unk_10016BF78;
       objc_copyWeak(&v31, &buf);
-      deviceScanner5 = [(MSDNearbyObjectMonitor *)self deviceScanner];
-      [deviceScanner5 setDeviceFoundHandler:v30];
+      deviceScanner6 = [(MSDNearbyObjectMonitor *)self deviceScanner];
+      [deviceScanner6 setDeviceLostHandler:v30];
 
       v28[0] = _NSConcreteStackBlock;
       v28[1] = 3221225472;
-      v28[2] = sub_1000A2FEC;
-      v28[3] = &unk_10016BF78;
+      v28[2] = sub_1000A3048;
+      v28[3] = &unk_10016BFA0;
       objc_copyWeak(&v29, &buf);
-      deviceScanner6 = [(MSDNearbyObjectMonitor *)self deviceScanner];
-      [deviceScanner6 setDeviceLostHandler:v28];
-
-      v26[0] = _NSConcreteStackBlock;
-      v26[1] = 3221225472;
-      v26[2] = sub_1000A3048;
-      v26[3] = &unk_10016BFA0;
-      objc_copyWeak(&v27, &buf);
       deviceScanner7 = [(MSDNearbyObjectMonitor *)self deviceScanner];
-      [deviceScanner7 setDeviceChangedHandler:v26];
+      [deviceScanner7 setDeviceChangedHandler:v28];
 
       deviceScanner8 = [(MSDNearbyObjectMonitor *)self deviceScanner];
       [deviceScanner8 activateWithCompletion:&stru_10016BFC0];
 
-      objc_destroyWeak(&v27);
       objc_destroyWeak(&v29);
       objc_destroyWeak(&v31);
+      objc_destroyWeak(&v33);
       objc_destroyWeak(&buf);
     }
   }
@@ -176,11 +177,11 @@ LABEL_9:
   queue = [(MSDNearbyObjectMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100063A54(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MSDNearbyObjectMonitor: Stopping monitor!", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDNearbyObjectMonitor: Stopping monitor!", v8, 2u);
   }
 
   niSession = [(MSDNearbyObjectMonitor *)self niSession];
@@ -223,7 +224,7 @@ LABEL_9:
 
 - (void)sessionDidStartRunning:(id)running
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -233,7 +234,7 @@ LABEL_9:
 
 - (void)sessionWasSuspended:(id)suspended
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -243,7 +244,7 @@ LABEL_9:
 
 - (void)sessionSuspensionEnded:(id)ended
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -259,7 +260,7 @@ LABEL_9:
 - (void)session:(id)session didInvalidateWithError:(id)error
 {
   errorCopy = error;
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_1000E6680(errorCopy);
@@ -287,7 +288,7 @@ LABEL_9:
 {
   objectCopy = object;
   regionCopy = region;
-  v10 = sub_100063A54();
+  v10 = sub_100063A54(regionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_1000E6704();

@@ -24,7 +24,7 @@
   v9 = [(HMDAggregateXPCMessageCountersLogEvent *)self count];
   [dictionary setObject:v9 forKeyedSubscript:@"counter"];
 
-  v10 = [dictionary copy];
+  v10 = objc_msgSend_copy(dictionary);
 
   return v10;
 }
@@ -42,11 +42,11 @@
   if (v17)
   {
     objc_storeStrong(&v17->_coreAnalyticsEventName, name);
-    v19 = [informationCopy copy];
+    v19 = objc_msgSend_copy(informationCopy);
     peerInformation = v18->_peerInformation;
     v18->_peerInformation = v19;
 
-    v21 = [messageNameCopy copy];
+    v21 = objc_msgSend_copy(messageNameCopy);
     messageName = v18->_messageName;
     v18->_messageName = v21;
 

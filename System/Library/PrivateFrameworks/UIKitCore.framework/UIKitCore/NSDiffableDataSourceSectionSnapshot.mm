@@ -801,16 +801,24 @@ LABEL_3:
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v5 = 1;
+    isEqual = 1;
   }
 
   else
   {
     objc_opt_class();
-    v5 = (objc_opt_isKindOfClass() & 1) != 0 && [(_NSDiffableDataSourceSectionSnapshotState *)self->_state isEqual:equalCopy->_state];
+    if (objc_opt_isKindOfClass())
+    {
+      isEqual = objc_msgSend_isEqual_(self->_state);
+    }
+
+    else
+    {
+      isEqual = 0;
+    }
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (void)_replaceItem:(id)item withItem:(id)withItem

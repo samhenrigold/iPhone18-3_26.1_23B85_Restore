@@ -2,11 +2,11 @@
 - (BOOL)isCoolDownError;
 - (BOOL)isICSCInvalidError;
 - (BOOL)isICSCRecoveryHardLimitError;
+- (BOOL)isMissingCachedPassphraseError;
 - (BOOL)isRecoveryPETHardLimitError;
 - (BOOL)isRecoveryPETSoftLimitError;
 - (id)errorByExtendingUserInfoWithDictionary:()SecureBackup;
 - (uint64_t)indicatesRecoveryCanBeRetried;
-- (uint64_t)isMissingCachedPassphraseError;
 - (uint64_t)isRecordNotViableError;
 @end
 
@@ -143,7 +143,7 @@
   return v3;
 }
 
-- (uint64_t)isMissingCachedPassphraseError
+- (BOOL)isMissingCachedPassphraseError
 {
   if ([self cdp_isCDPErrorWithCode:-5501])
   {

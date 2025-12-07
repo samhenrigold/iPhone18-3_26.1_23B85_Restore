@@ -138,7 +138,7 @@ LABEL_10:
       dispatch_once(&qword_1002294A8, &stru_1001FD210);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002294A0, 1, "%s%.30s:%-4d Ignoring link received data event as manager is cancelled: %@", ", "[NRLinkManagerWiFi linkDidReceiveData:data:]"", 520, self);
   }
 
 LABEL_11:
@@ -179,7 +179,7 @@ LABEL_11:
             dispatch_once(&qword_1002294A8, &stru_1001FD210);
           }
 
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_1002294A0, 1, "%s%.30s:%-4d Ignoring link unavailability event as manager is cancelled: %@", ", "[NRLinkManagerWiFi linkIsUnavailable:]"", 493, self);
         }
 
         goto LABEL_14;
@@ -213,7 +213,7 @@ LABEL_11:
   if (IsLevelEnabled)
   {
     v11 = sub_1001762F4();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v11, 17, "%s called with null link", "[NRLinkManagerWiFi linkIsUnavailable:]");
   }
 
 LABEL_14:
@@ -254,7 +254,7 @@ LABEL_14:
             dispatch_once(&qword_1002294A8, &stru_1001FD210);
           }
 
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_1002294A0, 1, "%s%.30s:%-4d Ignoring link suspended event as manager is cancelled: %@", ", "[NRLinkManagerWiFi linkIsSuspended:]"", 471, self);
         }
 
         goto LABEL_14;
@@ -286,7 +286,7 @@ LABEL_14:
   if (IsLevelEnabled)
   {
     v11 = sub_1001762F4();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v11, 17, "%s called with null link", "[NRLinkManagerWiFi linkIsSuspended:]");
   }
 
 LABEL_14:
@@ -327,7 +327,7 @@ LABEL_14:
             dispatch_once(&qword_1002294A8, &stru_1001FD210);
           }
 
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_1002294A0, 1, "%s%.30s:%-4d Ignoring link ready event as manager is cancelled: %@", ", "[NRLinkManagerWiFi linkIsReady:]"", 442, self);
         }
 
         goto LABEL_14;
@@ -359,7 +359,7 @@ LABEL_14:
   if (IsLevelEnabled)
   {
     v11 = sub_1001762F4();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v11, 17, "%s called with null link", "[NRLinkManagerWiFi linkIsReady:]");
   }
 
 LABEL_14:
@@ -400,7 +400,7 @@ LABEL_14:
             dispatch_once(&qword_1002294A8, &stru_1001FD210);
           }
 
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_1002294A0, 1, "%s%.30s:%-4d Ignoring link availability event as manager is cancelled: %@", ", "[NRLinkManagerWiFi linkIsAvailable:]"", 418, self);
         }
 
         goto LABEL_14;
@@ -434,7 +434,7 @@ LABEL_14:
   if (IsLevelEnabled)
   {
     v11 = sub_1001762F4();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v11, 17, "%s called with null link", "[NRLinkManagerWiFi linkIsAvailable:]");
   }
 
 LABEL_14:
@@ -461,26 +461,25 @@ LABEL_14:
 
   if (self)
   {
-    type = self->super._type;
     StringFromNRLinkType = createStringFromNRLinkType();
     [v5 appendFormat:@"\nLinkManager type: %@", StringFromNRLinkType];
 
     state = self->super._state;
-    v10 = [NSString alloc];
+    v9 = [NSString alloc];
     if (state > 1001)
     {
       switch(state)
       {
         case 0x3EA:
-          state = [v10 initWithUTF8String:"Start"];
+          state = [v9 initWithUTF8String:"Start"];
           goto LABEL_15;
         case 0x3EB:
-          state = [v10 initWithUTF8String:"Ready"];
+          state = [v9 initWithUTF8String:"Ready"];
           goto LABEL_15;
         case 0x3EC:
-          state = [v10 initWithUTF8String:"Cancelled"];
+          state = [v9 initWithUTF8String:"Cancelled"];
 LABEL_15:
-          v12 = state;
+          v11 = state;
           [v5 appendFormat:@"\nState: %@", state];
 
           goto LABEL_16;
@@ -493,26 +492,26 @@ LABEL_15:
     {
       if (state == 1001)
       {
-        state = [v10 initWithUTF8String:"Initial"];
+        state = [v9 initWithUTF8String:"Initial"];
         goto LABEL_15;
       }
 
 LABEL_14:
-      state = [v10 initWithFormat:@"Unknown(%u)", state];
+      state = [v9 initWithFormat:@"Unknown(%u)", state];
       goto LABEL_15;
     }
   }
 
   else
   {
-    v24 = createStringFromNRLinkType();
-    [v5 appendFormat:@"\nLinkManager type: %@", v24];
+    v23 = createStringFromNRLinkType();
+    [v5 appendFormat:@"\nLinkManager type: %@", v23];
 
-    v10 = [NSString alloc];
+    v9 = [NSString alloc];
   }
 
-  v25 = [v10 initWithUTF8String:"Invalid"];
-  [v5 appendFormat:@"\nState: %@", v25];
+  v24 = [v9 initWithUTF8String:"Invalid"];
+  [v5 appendFormat:@"\nState: %@", v24];
 
   if (!self)
   {
@@ -539,15 +538,15 @@ LABEL_16:
   [v5 appendFormat:@"\nIR Interface config: %@", self->_irInterfaceConfig];
   if (self->_wowActivity)
   {
-    v13 = "YES";
+    v12 = "YES";
   }
 
   else
   {
-    v13 = "NO";
+    v12 = "NO";
   }
 
-  [v5 appendFormat:@"\nWiFi WoW Enabled: %s", v13];
+  [v5 appendFormat:@"\nWiFi WoW Enabled: %s", v12];
   [v5 appendFormat:@"\nWiFi Client Type: %zd", self->_currentWiFiClientType];
   [v5 appendFormat:@"\nLocal WiFi Endpoint: %@", self->_localWiFiEndpoint];
   [v5 appendFormat:@"\nLocal WiFi Signature: %@", self->_localWiFiSignature];
@@ -558,8 +557,8 @@ LABEL_16:
     wifiInterfaceConfig = wifiInterfaceConfig->_peerEndpointDictionary;
   }
 
-  v15 = wifiInterfaceConfig;
-  [v5 appendFormat:@"\nRemote WiFi Endpoints: %@", v15];
+  v14 = wifiInterfaceConfig;
+  [v5 appendFormat:@"\nRemote WiFi Endpoints: %@", v14];
 
   awdlInterfaceConfig = self->_awdlInterfaceConfig;
   if (awdlInterfaceConfig)
@@ -568,8 +567,8 @@ LABEL_16:
   }
 
 LABEL_23:
-  v17 = awdlInterfaceConfig;
-  [v5 appendFormat:@"\nRemote AWDL EndpointDict: %@", v17];
+  v16 = awdlInterfaceConfig;
+  [v5 appendFormat:@"\nRemote AWDL EndpointDict: %@", v16];
 
   if (self)
   {
@@ -579,8 +578,8 @@ LABEL_23:
       nanInterfaceConfig = nanInterfaceConfig->_peerEndpointDictionary;
     }
 
-    v19 = nanInterfaceConfig;
-    [v5 appendFormat:@"\nRemote NAN EndpointDict: %@", v19];
+    v18 = nanInterfaceConfig;
+    [v5 appendFormat:@"\nRemote NAN EndpointDict: %@", v18];
 
     irInterfaceConfig = self->_irInterfaceConfig;
     if (irInterfaceConfig)
@@ -595,8 +594,8 @@ LABEL_23:
     irInterfaceConfig = 0;
   }
 
-  v21 = irInterfaceConfig;
-  [v5 appendFormat:@"\nRemote IR EndpointDict: %@", v21];
+  v20 = irInterfaceConfig;
+  [v5 appendFormat:@"\nRemote IR EndpointDict: %@", v20];
 
   if (self)
   {
@@ -629,17 +628,14 @@ LABEL_23:
     }
 
     v3 = qword_1002294A0;
-    v6 = 297;
     copyName = [(NRLinkManagerWiFi *)self copyName];
-    v4 = "";
-    v5 = "[NRLinkManagerWiFi dealloc]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(v3, 1, "%s%.30s:%-4d %@", ", "[NRLinkManagerWiFi dealloc]"", 297, copyName);
   }
 
-  [(NRLinkManagerWiFi *)self invalidateManager:v4];
-  v8.receiver = self;
-  v8.super_class = NRLinkManagerWiFi;
-  [(NRLinkManagerWiFi *)&v8 dealloc];
+  [(NRLinkManagerWiFi *)self invalidateManager];
+  v5.receiver = self;
+  v5.super_class = NRLinkManagerWiFi;
+  [(NRLinkManagerWiFi *)&v5 dealloc];
 }
 
 - (void)invalidateManager
@@ -737,7 +733,7 @@ LABEL_23:
           dispatch_once(&qword_1002294A8, &stru_1001FD210);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002294A0, 1, "%s%.30s:%-4d Already cancelled", ", "[NRLinkManagerWiFi cancel]"", 248);
       }
 
       return;

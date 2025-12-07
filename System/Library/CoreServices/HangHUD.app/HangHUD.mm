@@ -48,10 +48,10 @@ void sub_100001584(uint64_t a1)
   v3 = (a1 + 32);
   [v4 setString:v2];
 
-  v5 = sub_100002F0C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = sub_100002F0C(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    sub_100018384(v3, v5);
+    sub_100018384(v3, v6);
   }
 }
 
@@ -74,22 +74,23 @@ void sub_10000167C(uint64_t a1)
   *(v1 + 16) = 0;
 }
 
-void sub_10000174C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000174C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-id sub_100001768()
+id sub_100001768(uint64_t a1)
 {
   if (qword_10003E6A8 != -1)
   {
     sub_100018420();
   }
 
-  v1 = qword_10003E6B0;
+  v2 = qword_10003E6B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000017AC(id a1)
@@ -214,6 +215,33 @@ id sub_10000201C(uint64_t a1, void *a2)
   return v4;
 }
 
+void sub_1000020D4(uint64_t a1)
+{
+  if ([*(*(a1 + 32) + 8) count])
+  {
+    if (!*(*(a1 + 32) + 24))
+    {
+      v2 = [CADisplayLink displayLinkWithTarget:"displayLinkWithTarget:selector:" selector:?];
+      v3 = *(a1 + 32);
+      v4 = *(v3 + 24);
+      *(v3 + 24) = v2;
+
+      v5 = [NSThread alloc];
+      v7[0] = _NSConcreteStackBlock;
+      v7[1] = 3221225472;
+      v7[2] = sub_1000021E8;
+      v7[3] = &unk_100030668;
+      v7[4] = *(a1 + 32);
+      v6 = [v5 initWithBlock:v7];
+      v8 = CAFrameRateRangeMake(30.0, 30.0, 30.0);
+      [*(*(a1 + 32) + 24) setPreferredFrameRateRange:{*&v8.minimum, *&v8.maximum, *&v8.preferred}];
+      [v6 setQualityOfService:33];
+      [v6 setName:@"com.apple.hangtracerd.HUDAnimator"];
+      [v6 start];
+    }
+  }
+}
+
 void sub_1000021E8(uint64_t a1)
 {
   v1 = *(*(a1 + 32) + 24);
@@ -224,11 +252,12 @@ void sub_1000021E8(uint64_t a1)
   [v3 run];
 }
 
-void sub_10000248C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_10000248C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 160), 8);
-  _Block_object_dispose((v31 - 112), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 160), 8);
+  _Block_object_dispose((v30 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -369,10 +398,10 @@ void sub_10000289C(uint64_t a1)
 id sub_100002A70(uint64_t a1, void *a2, unint64_t a3)
 {
   [a2 timeIntervalSinceReferenceDate];
-  v6 = sub_100017B08((v5 * 1000.0));
-  v7 = sub_100017AB4((v6 - a3) + a1);
+  v7 = sub_100017B08((v5 * 1000.0), v6);
+  v9 = sub_100017AB4((v7 - a3) + a1, v8);
 
-  return [NSDate dateWithTimeIntervalSinceReferenceDate:v7];
+  return [NSDate dateWithTimeIntervalSinceReferenceDate:v9];
 }
 
 uint64_t sub_100002BFC(uint64_t a1)
@@ -382,16 +411,16 @@ uint64_t sub_100002BFC(uint64_t a1)
   return _objc_release_x1();
 }
 
-id sub_100002F0C()
+id sub_100002F0C(uint64_t a1)
 {
   if (qword_10003E6E0 != -1)
   {
     sub_100018538();
   }
 
-  v1 = qword_10003E6D8;
+  v2 = qword_10003E6D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100002F50(id a1)
@@ -401,18 +430,18 @@ void sub_100002F50(id a1)
   _objc_release_x1();
 }
 
-void sub_100003078()
+void sub_100003078(uint64_t a1)
 {
-  v0 = sub_100002F0C();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = sub_100002F0C(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "marking hangreporter as clean to exit", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "marking hangreporter as clean to exit", v3, 2u);
   }
 
-  v1 = [qword_10003E6F0 transaction];
+  v2 = [qword_10003E6F0 transaction];
 
-  if (v1)
+  if (v2)
   {
     [qword_10003E6F0 setTransaction:0];
   }
@@ -426,10 +455,10 @@ void sub_100003A1C(id a1)
 
   if (!qword_10003E6F0)
   {
-    v3 = sub_100002F0C();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100002F0C(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_1000185B8(v3);
+      sub_1000185B8(v4);
     }
 
     exit(12);
@@ -446,7 +475,7 @@ void sub_100004354(id a1)
 void sub_10000460C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_10000A9AC();
+  v4 = sub_10000A9AC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_100018610(v3);
@@ -466,8 +495,7 @@ void sub_10000460C(uint64_t a1, void *a2)
         [v6 removeAllObjects];
       }
 
-      [v6 enumerateKeysAndObjectsUsingBlock:&stru_1000308E0];
-      v8 = sub_100004800();
+      v8 = sub_100004800([v6 enumerateKeysAndObjectsUsingBlock:&stru_1000308E0]);
       v10[0] = _NSConcreteStackBlock;
       v10[1] = 3221225472;
       v10[2] = sub_100004844;
@@ -496,16 +524,16 @@ void sub_10000477C(id a1, NSString *a2, HUDContentProtocol *a3, BOOL *a4)
   _objc_release_x1();
 }
 
-id sub_100004800()
+id sub_100004800(uint64_t a1)
 {
   if (qword_10003E728 != -1)
   {
     sub_100018690();
   }
 
-  v1 = qword_10003E720;
+  v2 = qword_10003E720;
 
-  return v1;
+  return v2;
 }
 
 void sub_100004844(uint64_t a1)
@@ -536,38 +564,38 @@ void sub_10000491C(id a1, NSArray *a2)
 {
   v2 = a2;
   v3 = objc_alloc_init(NSMutableDictionary);
-  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v4 = v2;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v25;
+    v8 = *v26;
     *&v6 = 138412546;
-    v23 = v6;
+    v24 = v6;
     do
     {
       v9 = 0;
       do
       {
-        if (*v25 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * v9);
-        v11 = sub_10000A9AC();
+        v10 = *(*(&v25 + 1) + 8 * v9);
+        v11 = sub_10000A9AC(v5);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          v20 = [v10 processName];
-          v21 = [v10 exitTimestamp];
-          *buf = v23;
-          v29 = v20;
-          v30 = 2048;
-          v31 = v21;
+          v21 = [v10 processName];
+          v22 = [v10 exitTimestamp];
+          *buf = v24;
+          v30 = v21;
+          v31 = 2048;
+          v32 = v22;
           _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Adding proc exit record to the HUD update list: processName: %@, exitTimestamp:%llu", buf, 0x16u);
         }
 
@@ -579,36 +607,37 @@ void sub_10000491C(id a1, NSArray *a2)
           v14 = [v10 processName];
           v15 = [v3 objectForKeyedSubscript:v14];
 
-          v16 = sub_10000A9AC();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v17 = sub_10000A9AC(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            v17 = [v15 processName];
-            v18 = [v15 exitTimestamp];
-            *buf = v23;
-            v29 = v17;
-            v30 = 2048;
-            v31 = v18;
-            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, " Overwriting the exiting proc exit item sharing the same process name %@ with exitTimestamp: %llu", buf, 0x16u);
+            v18 = [v15 processName];
+            v19 = [v15 exitTimestamp];
+            *buf = v24;
+            v30 = v18;
+            v31 = 2048;
+            v32 = v19;
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, " Overwriting the exiting proc exit item sharing the same process name %@ with exitTimestamp: %llu", buf, 0x16u);
           }
         }
 
-        v19 = [v10 processName];
-        [v3 setObject:v10 forKeyedSubscript:v19];
+        v20 = [v10 processName];
+        [v3 setObject:v10 forKeyedSubscript:v20];
 
         v9 = v9 + 1;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v4 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v7 = v5;
     }
 
-    while (v7);
+    while (v5);
   }
 
   if ([v3 count])
   {
-    v22 = +[HUDContextUpdater sharedInstance];
-    [v22 addHUDContents:v3];
+    v23 = +[HUDContextUpdater sharedInstance];
+    [v23 addHUDContents:v3];
   }
 }
 
@@ -626,14 +655,14 @@ void sub_100004BD8(uint64_t a1, void *a2)
 
 id sub_100004D28(uint64_t a1)
 {
-  v2 = sub_10000A9AC();
+  v2 = sub_10000A9AC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_1000186A4();
   }
 
   v3 = [HUDContext alloc];
-  v4 = sub_100004800();
+  v4 = sub_100004800(v3);
   v5 = [(HUDContext *)v3 initWithQueue:v4];
   v6 = *(a1 + 32);
   v7 = *(v6 + 16);
@@ -668,7 +697,7 @@ void sub_100004FB4(uint64_t a1, void *a2)
 
 void sub_1000050A8(uint64_t a1)
 {
-  v2 = sub_100004800();
+  v2 = sub_100004800(a1);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100005134;
@@ -686,7 +715,7 @@ void sub_100005EDC(id a1)
 
 id sub_100005FF8(uint64_t a1)
 {
-  v2 = sub_10000A9AC();
+  v2 = sub_10000A9AC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_100018C3C(a1);
@@ -757,7 +786,7 @@ void sub_100007114(uint64_t a1)
 
 id sub_100007508(uint64_t a1)
 {
-  v2 = sub_100002F0C();
+  v2 = sub_100002F0C(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) objectForKeyedSubscript:NSKeyValueChangeOldKey];
@@ -790,7 +819,7 @@ void sub_100007658(uint64_t a1)
 
 id sub_100007700(uint64_t a1)
 {
-  v2 = sub_100002F0C();
+  v2 = sub_100002F0C(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) objectForKeyedSubscript:NSKeyValueChangeOldKey];
@@ -820,44 +849,44 @@ void sub_100007858(uint64_t a1)
   v2 = [*(a1 + 32) hudLines];
   v3 = [v2 allKeys];
 
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v15 + 1) + 8 * v8);
         v10 = [*(a1 + 32) hudLines];
         v11 = [v10 objectForKeyedSubscript:v9];
-        sub_100016E74();
-        [v11 setFontSize:?];
+        sub_100016E74(v11, v12);
+        [(HUDLine *)v11 setFontSize:?];
 
         v8 = v8 + 1;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
 
   [*(a1 + 32) layoutHUDLines:objc_msgSend(v4 ids:{"count"), v4}];
-  [*(a1 + 32) determineNewFrameForRootLayer:objc_msgSend(v4 numberOfLines:{"count"), v12, v13}];
+  [*(a1 + 32) determineNewFrameForRootLayer:objc_msgSend(v4 numberOfLines:{"count"), v13, v14}];
 }
 
 void sub_100007C48(uint64_t a1)
@@ -875,11 +904,11 @@ void sub_100007C48(uint64_t a1)
   [v5 setShadowRadius:25.0 / v2];
 }
 
-void sub_100008090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100008090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v7 + 40));
+  objc_destroyWeak((v13 + 40));
   _Unwind_Resume(a1);
 }
 
@@ -915,31 +944,31 @@ void sub_1000081B0(uint64_t a1)
   if (v2)
   {
     os_unfair_lock_lock((*(a1 + 40) + 16));
-    v3 = [*(a1 + 32) hudLines];
-    [v3 enumerateKeysAndObjectsUsingBlock:&stru_100030B18];
-
     v4 = [*(a1 + 32) hudLines];
-    [v4 removeAllObjects];
+    [v4 enumerateKeysAndObjectsUsingBlock:&stru_100030B18];
+
+    v5 = [*(a1 + 32) hudLines];
+    [v5 removeAllObjects];
 
     y = CGRectZero.origin.y;
     width = CGRectZero.size.width;
     height = CGRectZero.size.height;
-    v8 = [*(a1 + 32) containerLayer];
-    [v8 setFrame:{CGRectZero.origin.x, y, width, height}];
+    v9 = [*(a1 + 32) containerLayer];
+    [v9 setFrame:{CGRectZero.origin.x, y, width, height}];
 
-    v9 = [*(a1 + 32) rootLayer];
-    [v9 setHidden:1];
+    v10 = [*(a1 + 32) rootLayer];
+    [v10 setHidden:1];
 
     [*(a1 + 32) invalidate];
-    v10 = (*(a1 + 32) + 16);
+    v11 = (*(a1 + 32) + 16);
 
-    os_unfair_lock_unlock(v10);
+    os_unfair_lock_unlock(v11);
   }
 
   else
   {
-    v11 = sub_100002F0C();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = sub_100002F0C(v3);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       sub_100018FB4();
     }
@@ -957,36 +986,36 @@ void sub_100008520(uint64_t a1)
 {
   v2 = +[NSMutableArray array];
   v3 = [*(a1 + 32) hudLines];
-  v35[0] = _NSConcreteStackBlock;
-  v35[1] = 3221225472;
-  v35[2] = sub_1000088B8;
-  v35[3] = &unk_100030B68;
-  v36 = *(a1 + 40);
-  v37 = *(a1 + 48);
+  v36[0] = _NSConcreteStackBlock;
+  v36[1] = 3221225472;
+  v36[2] = sub_1000088B8;
+  v36[3] = &unk_100030B68;
+  v37 = *(a1 + 40);
+  v38 = *(a1 + 48);
   v4 = v2;
-  v38 = v4;
-  [v3 enumerateKeysAndObjectsUsingBlock:v35];
+  v39 = v4;
+  [v3 enumerateKeysAndObjectsUsingBlock:v36];
 
-  v33 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
+  v33 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v33;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v32 != v8)
+        if (*v33 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
+        v10 = *(*(&v32 + 1) + 8 * i);
         v11 = [*(a1 + 32) hudLines];
         v12 = [v11 objectForKeyedSubscript:v10];
         [v12 removeFromSuperlayer];
@@ -998,71 +1027,71 @@ void sub_100008520(uint64_t a1)
         [v14 removeObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v7);
   }
 
-  v15 = sub_100002F0C();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v16 = sub_100002F0C(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001906C(a1);
+    sub_10001906C();
   }
 
-  v16 = [*(a1 + 32) containerLayer];
-  [v16 removeAllAnimations];
+  v17 = [*(a1 + 32) containerLayer];
+  [v17 removeAllAnimations];
 
   if (*(a1 + 56))
   {
-    v17 = 0;
+    v18 = 0;
     do
     {
-      v18 = [*(a1 + 48) objectAtIndexedSubscript:{v17, v31}];
-      v19 = [*(a1 + 40) objectForKeyedSubscript:v18];
+      v19 = [*(a1 + 48) objectAtIndexedSubscript:{v18, v32}];
+      v20 = [*(a1 + 40) objectForKeyedSubscript:v19];
       [*(a1 + 32) HangHUD_updater_latency_in_ms];
-      v21 = sub_100017474(v19, *(a1 + 64), v20 + 50.0);
-      if ([v19 timedOut])
+      v22 = sub_100017474(v20, *(a1 + 64), v21 + 50.0);
+      if ([v20 timedOut])
       {
-        v22 = v21 | 2;
+        v23 = v22 | 2;
       }
 
       else
       {
-        v22 = v21;
+        v23 = v22;
       }
 
-      [*(a1 + 32) updateHUDLineWithId:v18 content:v19 options:v22];
+      [*(a1 + 32) updateHUDLineWithId:v19 content:v20 options:v23];
 
-      ++v17;
-      v23 = *(a1 + 56);
+      ++v18;
+      v24 = *(a1 + 56);
     }
 
-    while (v17 < v23);
+    while (v18 < v24);
   }
 
   else
   {
-    v23 = 0;
+    v24 = 0;
   }
 
-  [*(a1 + 32) layoutHUDLines:v23 ids:{*(a1 + 48), v31}];
+  [*(a1 + 32) layoutHUDLines:v24 ids:{*(a1 + 48), v32}];
   [*(a1 + 32) determineNewFrameForRootLayer:*(a1 + 56) numberOfLines:?];
-  v24 = [*(a1 + 32) containerLayer];
-  v25 = [v24 sublayers];
-  v26 = [v25 count];
+  v25 = [*(a1 + 32) containerLayer];
+  v26 = [v25 sublayers];
+  v27 = [v26 count];
 
-  if (v26)
+  if (v27)
   {
-    v27 = [*(a1 + 32) rootLayer];
-    [v27 setHidden:0];
-
-    v28 = [*(a1 + 32) containerLayer];
+    v28 = [*(a1 + 32) rootLayer];
     [v28 setHidden:0];
 
     v29 = [*(a1 + 32) containerLayer];
-    LODWORD(v30) = 1.0;
-    [v29 setOpacity:v30];
+    [v29 setHidden:0];
+
+    v30 = [*(a1 + 32) containerLayer];
+    LODWORD(v31) = 1.0;
+    [v30 setOpacity:v31];
   }
 }
 
@@ -1080,38 +1109,38 @@ void sub_100008B30(uint64_t a1)
 {
   v2 = +[NSMutableArray array];
   v3 = [*(a1 + 32) hudLines];
-  v42[0] = _NSConcreteStackBlock;
-  v42[1] = 3221225472;
-  v42[2] = sub_100008F60;
-  v42[3] = &unk_100030B68;
-  v43 = *(a1 + 40);
-  v44 = *(a1 + 48);
+  v44[0] = _NSConcreteStackBlock;
+  v44[1] = 3221225472;
+  v44[2] = sub_100008F60;
+  v44[3] = &unk_100030B68;
+  v45 = *(a1 + 40);
+  v46 = *(a1 + 48);
   v4 = v2;
-  v45 = v4;
-  [v3 enumerateKeysAndObjectsUsingBlock:v42];
+  v47 = v4;
+  [v3 enumerateKeysAndObjectsUsingBlock:v44];
 
+  v42 = 0u;
+  v43 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v38 objects:v48 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v40 objects:v50 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v39;
+    v9 = *v41;
     *&v7 = 138412290;
-    v37 = v7;
+    v39 = v7;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v39 != v9)
+        if (*v41 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v38 + 1) + 8 * i);
+        v11 = *(*(&v40 + 1) + 8 * i);
         v12 = [*(a1 + 32) hudLines];
         v13 = [v12 objectForKeyedSubscript:v11];
         [v13 removeFromSuperlayer];
@@ -1123,85 +1152,85 @@ void sub_100008B30(uint64_t a1)
         v16 = [*(a1 + 32) hudLines];
         [v16 removeObjectForKey:v11];
 
-        v17 = sub_100002F0C();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_100002F0C(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v37;
-          v47 = v11;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Removed hudLines item %@", buf, 0xCu);
+          *buf = v39;
+          v49 = v11;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Removed hudLines item %@", buf, 0xCu);
         }
 
-        v18 = [*(a1 + 32) hudContentWithPendingAnimations];
-        [v18 removeObject:v11];
+        v19 = [*(a1 + 32) hudContentWithPendingAnimations];
+        [v19 removeObject:v11];
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v38 objects:v48 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v40 objects:v50 count:16];
     }
 
     while (v8);
   }
 
-  v19 = sub_100002F0C();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v21 = sub_100002F0C(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000190E4(a1);
+    sub_1000190E4();
   }
 
-  v20 = [*(a1 + 32) containerLayer];
-  [v20 removeAllAnimations];
+  v22 = [*(a1 + 32) containerLayer];
+  [v22 removeAllAnimations];
 
   if (*(a1 + 56))
   {
-    v21 = 0;
+    v23 = 0;
     do
     {
-      v22 = [*(a1 + 48) objectAtIndexedSubscript:v21];
-      v23 = [*(a1 + 40) objectForKeyedSubscript:v22];
+      v24 = [*(a1 + 48) objectAtIndexedSubscript:v23];
+      v25 = [*(a1 + 40) objectForKeyedSubscript:v24];
       [*(a1 + 32) HangHUD_updater_latency_in_ms];
-      v25 = [v23 isCurrent:*(a1 + 64) withHUDUpdateInterval:v24 + 50.0];
-      if ([v23 isTimedOut])
+      v27 = [v25 isCurrent:*(a1 + 64) withHUDUpdateInterval:v26 + 50.0];
+      if ([v25 isTimedOut])
       {
-        v26 = v25 | 2;
+        v28 = v27 | 2;
       }
 
       else
       {
-        v26 = v25;
+        v28 = v27;
       }
 
-      [*(a1 + 32) updateHUDLineWithId:v22 content:v23 options:v26];
+      [*(a1 + 32) updateHUDLineWithId:v24 content:v25 options:v28];
 
-      ++v21;
-      v27 = *(a1 + 56);
+      ++v23;
+      v29 = *(a1 + 56);
     }
 
-    while (v21 < v27);
+    while (v23 < v29);
   }
 
   else
   {
-    v27 = 0;
+    v29 = 0;
   }
 
-  [*(a1 + 32) layoutHUDLines:v27 ids:*(a1 + 48)];
+  [*(a1 + 32) layoutHUDLines:v29 ids:*(a1 + 48)];
   [*(a1 + 32) determineNewFrameForRootLayer:*(a1 + 56) numberOfLines:?];
-  v28 = [*(a1 + 32) containerLayer];
-  v29 = [v28 sublayers];
-  v30 = [v29 count];
+  v30 = [*(a1 + 32) containerLayer];
+  v31 = [v30 sublayers];
+  v32 = [v31 count];
 
-  if (v30)
+  if (v32)
   {
-    v31 = [*(a1 + 32) rootLayer];
-    [v31 setHidden:0];
+    v33 = [*(a1 + 32) rootLayer];
+    [v33 setHidden:0];
 
-    v32 = [*(a1 + 32) containerLayer];
-    [v32 setHidden:0];
+    v34 = [*(a1 + 32) containerLayer];
+    [v34 setHidden:0];
 
     [*(a1 + 32) HUD_background_opacity];
-    v34 = v33;
-    v35 = [*(a1 + 32) containerLayer];
-    *&v36 = v34;
-    [v35 setOpacity:v36];
+    v36 = v35;
+    v37 = [*(a1 + 32) containerLayer];
+    *&v38 = v36;
+    [v37 setOpacity:v38];
   }
 }
 
@@ -1215,14 +1244,14 @@ void sub_100008F60(id *a1, void *a2)
   }
 }
 
-void sub_100009838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100009838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1305,39 +1334,42 @@ void sub_100009CD0(uint64_t a1, uint64_t a2, void *a3)
 void sub_100009F8C(uint64_t a1)
 {
   v2 = [*(a1 + 32) getKeyForLine:*(a1 + 40)];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100002F0C();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_100002F0C(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       sub_10001915C();
     }
 
-    v4 = [*(a1 + 32) hudContentWithPendingAnimations];
-    [v4 removeObject:v2];
+    v5 = [*(a1 + 32) hudContentWithPendingAnimations];
+    [v5 removeObject:v3];
   }
 }
 
 void sub_10000A0B0(uint64_t a1)
 {
   v2 = [*(a1 + 32) getKeyForLine:*(a1 + 40)];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100002F0C();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_100002F0C(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       sub_1000191CC();
     }
 
-    v4 = [*(a1 + 32) hudContentWithPendingAnimations];
-    [v4 addObject:v2];
+    v5 = [*(a1 + 32) hudContentWithPendingAnimations];
+    [v5 addObject:v3];
   }
 }
 
-void sub_10000A344(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000A344(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_10000A3A8(id a1)
@@ -1347,16 +1379,16 @@ void sub_10000A3A8(id a1)
   _objc_release_x1();
 }
 
-id sub_10000A9AC()
+id sub_10000A9AC(uint64_t a1)
 {
   if (qword_10003E758 != -1)
   {
     sub_100019800();
   }
 
-  v1 = qword_10003E750;
+  v2 = qword_10003E750;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000A9F0(id a1)
@@ -1368,43 +1400,43 @@ void sub_10000A9F0(id a1)
 
 void sub_10000B070(id a1)
 {
-  sub_100016E74();
-  UIFontForLanguage = CTFontCreateUIFontForLanguage(0x6Au, v1, 0);
-  v3 = CTFontCopyFontDescriptor(UIFontForLanguage);
-  v7 = kCTFontOpticalSizeAttribute;
-  v4 = [NSNumber numberWithDouble:sub_100016C10()];
-  v8 = v4;
-  v5 = [NSDictionary dictionaryWithObjects:&v8 forKeys:&v7 count:1];
-  CopyWithAttributes = CTFontDescriptorCreateCopyWithAttributes(v3, v5);
+  sub_100016E74(a1, v1);
+  UIFontForLanguage = CTFontCreateUIFontForLanguage(0x6Au, v2, 0);
+  v4 = CTFontCopyFontDescriptor(UIFontForLanguage);
+  v9 = kCTFontOpticalSizeAttribute;
+  v6 = [NSNumber numberWithDouble:sub_100016C10(v4, v5)];
+  v10 = v6;
+  v7 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  CopyWithAttributes = CTFontDescriptorCreateCopyWithAttributes(v4, v7);
 
   qword_10003E768 = CTFontCreateWithFontDescriptor(CopyWithAttributes, 0.0, 0);
   CFRelease(UIFontForLanguage);
-  CFRelease(v3);
+  CFRelease(v4);
   CFRelease(CopyWithAttributes);
 }
 
 void sub_10000B184(id a1)
 {
-  sub_100016E74();
-  UIFontForLanguage = CTFontCreateUIFontForLanguage(0x6Au, v1, 0);
-  v3 = CTFontCopyFontDescriptor(UIFontForLanguage);
-  CopyWithFeature = CTFontDescriptorCreateCopyWithFeature(v3, &off_100035CC0, &off_100035CD8);
-  v8 = kCTFontOpticalSizeAttribute;
-  v5 = [NSNumber numberWithDouble:sub_100016C10()];
-  v9 = v5;
-  v6 = [NSDictionary dictionaryWithObjects:&v9 forKeys:&v8 count:1];
-  CopyWithAttributes = CTFontDescriptorCreateCopyWithAttributes(CopyWithFeature, v6);
+  sub_100016E74(a1, v1);
+  UIFontForLanguage = CTFontCreateUIFontForLanguage(0x6Au, v2, 0);
+  v4 = CTFontCopyFontDescriptor(UIFontForLanguage);
+  CopyWithFeature = CTFontDescriptorCreateCopyWithFeature(v4, &off_100035CC0, &off_100035CD8);
+  v10 = kCTFontOpticalSizeAttribute;
+  v7 = [NSNumber numberWithDouble:sub_100016C10(CopyWithFeature, v6)];
+  v11 = v7;
+  v8 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  CopyWithAttributes = CTFontDescriptorCreateCopyWithAttributes(CopyWithFeature, v8);
 
   qword_10003E778 = CTFontCreateWithFontDescriptor(CopyWithAttributes, 0.0, 0);
   CFRelease(UIFontForLanguage);
-  CFRelease(v3);
+  CFRelease(v4);
   CFRelease(CopyWithFeature);
   CFRelease(CopyWithAttributes);
 }
 
-void sub_10000BFAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000BFAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1498,10 +1530,11 @@ void sub_10000CFB0(uint64_t a1)
   [WeakRetained serverRunningDidChange:*(a1 + 32)];
 }
 
-void sub_10000D864(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000D864(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id sub_10000D880(uint64_t a1)
@@ -3068,24 +3101,24 @@ LABEL_66:
   return v1;
 }
 
-uint64_t start()
+uint64_t start(uint64_t a1)
 {
-  v0 = sub_10000A9AC();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = sub_10000A9AC(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    sub_100019E18(v0);
+    sub_100019E18(v1);
   }
 
-  v1 = objc_autoreleasePoolPush();
-  v2 = +[HUDRenderServer sharedInstance];
-  [v2 start];
+  v2 = objc_autoreleasePoolPush();
+  v3 = +[HUDRenderServer sharedInstance];
+  [v3 start];
 
-  v3 = +[HangHUDServiceSpecification domainName];
-  v4 = [BSServicesConfiguration activateManualDomain:v3];
+  v4 = +[HangHUDServiceSpecification domainName];
+  v5 = [BSServicesConfiguration activateManualDomain:v4];
 
-  objc_autoreleasePoolPop(v1);
-  v5 = +[NSRunLoop mainRunLoop];
-  [v5 run];
+  objc_autoreleasePoolPop(v2);
+  v6 = +[NSRunLoop mainRunLoop];
+  [v6 run];
 
   return 0;
 }
@@ -3141,16 +3174,17 @@ void sub_100013460(id a1)
   _objc_release_x1();
 }
 
-void sub_100015A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_100015A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  objc_destroyWeak((v33 + 80));
+  va_start(va, a32);
+  objc_destroyWeak((v32 + 80));
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v34 - 208), 8);
-  _Block_object_dispose((v34 - 176), 8);
-  _Block_object_dispose((v34 - 144), 8);
-  objc_destroyWeak((v34 - 104));
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 208), 8);
+  _Block_object_dispose((v33 - 176), 8);
+  _Block_object_dispose((v33 - 144), 8);
+  objc_destroyWeak((v33 - 104));
   _Unwind_Resume(a1);
 }
 
@@ -3158,7 +3192,7 @@ void sub_100015AE4(uint64_t a1, int a2)
 {
   if (*(*(*(a1 + 40) + 8) + 24) == a2)
   {
-    v3 = sub_100002F0C();
+    v3 = sub_100002F0C(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -3170,7 +3204,7 @@ LABEL_16:
 
   else if (*(*(*(a1 + 48) + 8) + 24) == a2)
   {
-    v3 = sub_100002F0C();
+    v3 = sub_100002F0C(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -3181,7 +3215,7 @@ LABEL_16:
 
   else if (*(*(*(a1 + 56) + 8) + 24) == a2)
   {
-    v3 = sub_100002F0C();
+    v3 = sub_100002F0C(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -3192,7 +3226,7 @@ LABEL_16:
 
   else if (*(*(*(a1 + 64) + 8) + 24) == a2)
   {
-    v3 = sub_100002F0C();
+    v3 = sub_100002F0C(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -3208,7 +3242,7 @@ LABEL_16:
       goto LABEL_18;
     }
 
-    v3 = sub_100002F0C();
+    v3 = sub_100002F0C(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -3227,45 +3261,45 @@ LABEL_18:
 
   if (v6 != v8)
   {
-    v9 = sub_100002F0C();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = sub_100002F0C(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       if (v6)
       {
-        v10 = @"ON";
+        v11 = @"ON";
       }
 
       else
       {
-        v10 = @"OFF";
+        v11 = @"OFF";
       }
 
-      v11 = objc_loadWeakRetained((a1 + 80));
-      if ([v11 hangtracerDaemonEnabled])
+      v12 = objc_loadWeakRetained((a1 + 80));
+      if ([v12 hangtracerDaemonEnabled])
       {
-        v12 = @"ON";
+        v13 = @"ON";
       }
 
       else
       {
-        v12 = @"OFF";
+        v13 = @"OFF";
       }
 
       *buf = 138412546;
-      v21 = v10;
-      v22 = 2112;
-      v23 = v12;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "HTPrefs: HangTracer Enabled State Changed: %@ -> %@", buf, 0x16u);
+      v22 = v11;
+      v23 = 2112;
+      v24 = v13;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "HTPrefs: HangTracer Enabled State Changed: %@ -> %@", buf, 0x16u);
     }
 
-    v13 = objc_loadWeakRetained((a1 + 80));
-    v14 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v13 hangtracerDaemonEnabled]);
-    v19 = v14;
-    v15 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v14 = objc_loadWeakRetained((a1 + 80));
+    v15 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v14 hangtracerDaemonEnabled]);
+    v20 = v15;
+    v16 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
 
-    v16 = +[NSNotificationCenter defaultCenter];
-    v17 = objc_loadWeakRetained((a1 + 80));
-    [v16 postNotificationName:@"com.apple.hangtracer.daemonstate" object:v17 userInfo:v15];
+    v17 = +[NSNotificationCenter defaultCenter];
+    v18 = objc_loadWeakRetained((a1 + 80));
+    [v17 postNotificationName:@"com.apple.hangtracer.daemonstate" object:v18 userInfo:v16];
   }
 }
 
@@ -3275,7 +3309,7 @@ void sub_100015E34(uint64_t a1, int a2)
   {
     v6 = v2;
     v7 = v3;
-    v4 = sub_100002F0C();
+    v4 = sub_100002F0C(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *v5 = 0;
@@ -3284,7 +3318,7 @@ void sub_100015E34(uint64_t a1, int a2)
   }
 }
 
-double sub_100016C10()
+double sub_100016C10(HUDLine *a1, const char *a2)
 {
   if (qword_10003E840 != -1)
   {
@@ -3293,16 +3327,16 @@ double sub_100016C10()
 
   if (byte_10003E848 == 1)
   {
-    v0 = +[CADisplay mainDisplay];
-    [v0 bounds];
-    if (v1 <= 1920.0)
+    v2 = +[CADisplay mainDisplay];
+    [v2 bounds];
+    if (v3 <= 1920.0)
     {
-      v2 = 28.0;
+      v4 = 28.0;
     }
 
     else
     {
-      v2 = 42.0;
+      v4 = 42.0;
     }
   }
 
@@ -3315,8 +3349,8 @@ double sub_100016C10()
 
     if (byte_10003E838 == 1)
     {
-      v3 = sub_100016D30();
-      if (v3 > 170.0 || v3 < 1.0)
+      v5 = sub_100016D30();
+      if (v5 > 170.0 || v5 < 1.0)
       {
         return 24.0;
       }
@@ -3334,7 +3368,7 @@ double sub_100016C10()
         sub_10001A520();
       }
 
-      v2 = 22.0;
+      v4 = 22.0;
       if ((byte_10003E858 & 1) == 0)
       {
         if ([HUDLine contentScaleForTexts]_0() == 3.0)
@@ -3350,7 +3384,7 @@ double sub_100016C10()
     }
   }
 
-  return v2;
+  return v4;
 }
 
 double sub_100016D30()
@@ -3381,12 +3415,12 @@ double sub_100016D30()
   return result;
 }
 
-void sub_100016E74()
+void sub_100016E74(HUDLine *a1, const char *a2)
 {
   if (*&qword_10003E860 <= 0.0)
   {
-    v0 = sub_100016C10();
-    qword_10003E860 = round(v0 / [HUDLine contentScaleForTexts]_0());
+    v2 = sub_100016C10(a1, a2);
+    qword_10003E860 = round(v2 / [HUDLine contentScaleForTexts]_0());
   }
 }
 
@@ -3461,16 +3495,16 @@ LABEL_19:
           sub_10001A4F8();
         }
 
-        v7 = byte_10003E848;
-        v8 = [HUDLine contentScaleForTexts]_0();
-        if (v7 == 1)
+        v8 = byte_10003E848;
+        v9 = [HUDLine contentScaleForTexts]_0();
+        if (v8 == 1)
         {
-          v3 = dbl_1000202C0[v8 > 1.0];
+          v3 = dbl_1000202C0[v9 > 1.0];
         }
 
         else
         {
-          v3 = v8 * 25.0;
+          v3 = v9 * 25.0;
         }
       }
     }
@@ -3479,17 +3513,17 @@ LABEL_19:
 LABEL_20:
   qword_10003E868 = *&v3;
   *&qword_10003E868 = v3 / [HUDLine contentScaleForTexts]_0();
-  v5 = sub_100002F0C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = sub_100002F0C(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001A570(v2, v5);
+    sub_10001A570(v2, v6);
   }
 
   v0 = *&qword_10003E868;
   return v0;
 }
 
-void sub_1000170E4()
+void sub_1000170E4(uint64_t a1)
 {
   if (*&qword_10003E870 <= 0.0)
   {
@@ -3498,17 +3532,17 @@ void sub_1000170E4()
       sub_10001A55C();
     }
 
-    v0 = 25.0;
+    v1 = 25.0;
     if ((byte_10003E818 & 1) == 0)
     {
-      v0 = sub_100016EC0();
+      v1 = sub_100016EC0();
     }
 
-    qword_10003E870 = *&v0;
+    qword_10003E870 = *&v1;
   }
 }
 
-double sub_100017140()
+double sub_100017140(uint64_t a1)
 {
   result = *&qword_10003E878;
   if (*&qword_10003E878 <= 0.0)
@@ -3518,28 +3552,28 @@ double sub_100017140()
       sub_10001A50C();
     }
 
-    v1 = 5.0;
+    v2 = 5.0;
     if ((byte_10003E838 & 1) == 0)
     {
-      v2 = [HUDLine contentScaleForTexts]_0();
+      v3 = [HUDLine contentScaleForTexts]_0();
       if (qword_10003E820 != -1)
       {
-        v4 = v2;
+        v5 = v3;
         sub_10001A534();
-        v2 = v4;
+        v3 = v5;
       }
 
-      v3 = 8.0;
+      v4 = 8.0;
       if (byte_10003E828)
       {
-        v3 = 10.0;
+        v4 = 10.0;
       }
 
-      v1 = v2 * v3;
+      v2 = v3 * v4;
     }
 
-    qword_10003E878 = *&v1;
-    result = v1 / [HUDLine contentScaleForTexts]_0();
+    qword_10003E878 = *&v2;
+    result = v2 / [HUDLine contentScaleForTexts]_0();
     qword_10003E878 = *&result;
   }
 
@@ -3580,12 +3614,12 @@ void sub_100017288()
   {
     v0 = sub_100016D30();
     v1 = fmin(v0, sub_1000171F0());
-    sub_1000170E4();
-    *&qword_10003E898 = v1 + v2 * -2.0;
+    sub_1000170E4(v2);
+    *&qword_10003E898 = v1 + v3 * -2.0;
   }
 }
 
-double sub_1000172DC()
+double sub_1000172DC(uint64_t a1, uint64_t a2)
 {
   if (qword_10003E8A0 != -1)
   {
@@ -3612,7 +3646,7 @@ void sub_100017314(id a1)
   *&qword_10003E8A8 = v1 / [HUDLine contentScaleForTexts]_0();
 }
 
-double sub_100017378()
+double sub_100017378(uint64_t a1, uint64_t a2)
 {
   if (qword_10003E8B0 != -1)
   {
@@ -3661,36 +3695,38 @@ void sub_100017430()
 uint64_t sub_100017474(void *a1, uint64_t a2, double a3)
 {
   v5 = a1;
-  v6 = sub_100017A6C(a2 - [v5 receivedTimestamp]);
-  v7 = sub_100002F0C();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v6 = [v5 receivedTimestamp];
+  v8 = sub_100017A6C(a2 - v6, v7);
+  v10 = sub_100002F0C(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001A650(v7, v6);
+    sub_10001A650(v10, v8);
   }
 
   if ([v5 hangEndTime] == 0x7FFFFFFFFFFFFFFFLL)
   {
-    if (v6 <= a3)
+    if (v8 <= a3)
     {
-      v8 = 1;
+      v11 = 1;
       goto LABEL_9;
     }
 
 LABEL_8:
-    v8 = 0;
+    v11 = 0;
     goto LABEL_9;
   }
 
-  v9 = sub_100017A6C(a2 - [v5 hangEndTime]);
-  v8 = 1;
-  if (v9 >= 200.0 && v6 > a3)
+  v12 = [v5 hangEndTime];
+  v14 = sub_100017A6C(a2 - v12, v13);
+  v11 = 1;
+  if (v14 >= 200.0 && v8 > a3)
   {
     goto LABEL_8;
   }
 
 LABEL_9:
 
-  return v8;
+  return v11;
 }
 
 id sub_100017548(void *a1, unsigned int a2)
@@ -3870,17 +3906,18 @@ uint64_t sub_1000178F8()
 
 void sub_100017934(id a1)
 {
-  byte_10003E8D8 = SBSIsSystemApertureAvailable();
-  v1 = sub_100002F0C();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+  v1 = SBSIsSystemApertureAvailable();
+  byte_10003E8D8 = v1;
+  v2 = sub_100002F0C(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v2[0] = 67109120;
-    v2[1] = byte_10003E8D8;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_INFO, "New API was available, retrieved aperture available %{BOOL}i", v2, 8u);
+    v3[0] = 67109120;
+    v3[1] = byte_10003E8D8;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "New API was available, retrieved aperture available %{BOOL}i", v3, 8u);
   }
 }
 
-double sub_1000179E4()
+double sub_1000179E4(uint64_t a1, uint64_t a2)
 {
   if (qword_10003E8E8 != -1)
   {
@@ -3897,7 +3934,7 @@ void sub_100017A1C(id a1)
   *&qword_10003E8E0 = ((info.numer * 0.000001) / info.denom);
 }
 
-double sub_100017A6C(unint64_t a1)
+double sub_100017A6C(unint64_t a1, uint64_t a2)
 {
   if (qword_10003E8E8 != -1)
   {
@@ -3907,7 +3944,7 @@ double sub_100017A6C(unint64_t a1)
   return *&qword_10003E8E0 * a1;
 }
 
-double sub_100017AB4(unint64_t a1)
+double sub_100017AB4(unint64_t a1, uint64_t a2)
 {
   if (qword_10003E8E8 != -1)
   {
@@ -3917,7 +3954,7 @@ double sub_100017AB4(unint64_t a1)
   return *&qword_10003E8E0 * a1 / 1000.0;
 }
 
-double sub_100017B08(unint64_t a1)
+double sub_100017B08(unint64_t a1, uint64_t a2)
 {
   if (qword_10003E8E8 != -1)
   {
@@ -3981,6 +4018,13 @@ void sub_100017F24(id a1)
   CFRelease(v9);
 }
 
+void sub_100018184(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  sub_10000174C(&_mh_execute_header, a1, a3, "TextAnimation: animation ended with duration %f", a5, a6, a7, a8, v9, DWORD2(v9));
+}
+
 void sub_1000181F4(void *a1, NSObject *a2, double a3)
 {
   v5 = [a1 string];
@@ -3989,6 +4033,20 @@ void sub_1000181F4(void *a1, NSObject *a2, double a3)
   v8 = 2048;
   v9 = a3;
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "TextAnimation: duration layer's animation object initialized: text set as %@ for a given duration %f", &v6, 0x16u);
+}
+
+void sub_1000182A4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  sub_10000174C(&_mh_execute_header, a1, a3, "TextAnimation: duration layer's animation object updated with toValue = %f", a5, a6, a7, a8, v9, DWORD2(v9));
+}
+
+void sub_100018314(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  sub_10000174C(&_mh_execute_header, a1, a3, "TextAnimation: no need to update duraton since _hangDuration is equal to the input %f.", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 void sub_100018384(id *a1, NSObject *a2)
@@ -4079,25 +4137,19 @@ void sub_100018E4C(void *a1, uint64_t a2, NSObject *a3)
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "Unable to create an LS application record from bundle id %@: %@", v6, 0x16u);
 }
 
+void sub_100018EF8(void *a1)
+{
+  [a1 HUD_background_opacity];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = v1;
+  sub_10000A344(&_mh_execute_header, v2, v3, "HUD_background_opacity set to %f", v4, v5, v6, v7, v8, DWORD2(v8));
+}
+
 void sub_100018FF4(void *a1)
 {
   [a1 count];
   sub_1000066D8();
-  sub_10000A344(&_mh_execute_header, v1, v2, "Updating HUD with %lu hangs", v3, v4, v5, v6, v7);
-}
-
-void sub_10001906C(uint64_t a1)
-{
-  v6 = *(a1 + 56);
-  sub_1000066CC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_1000190E4(uint64_t a1)
-{
-  v6 = *(a1 + 56);
-  sub_1000066CC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  sub_10000A344(&_mh_execute_header, v1, v2, "Updating HUD with %lu hangs", v3, v4, v5, v6);
 }
 
 void sub_10001915C()
@@ -4156,6 +4208,21 @@ void sub_100019778(uint64_t a1, void *a2)
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
+void sub_10001988C(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 exitTimestamp];
+  sub_10000A344(&_mh_execute_header, v1, v2, " * ProcExitHUDLine finishedUpdates! - exitTimestamp:%llu", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void sub_100019908(void *a1)
+{
+  [a1 hangDurationMS];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = v1;
+  sub_10000A344(&_mh_execute_header, v2, v3, " * HangHUDLine finishedUpdates! hangDurationMS: %f", v4, v5, v6, v7, v8, DWORD2(v8));
+}
+
 void sub_100019984(uint64_t a1, NSObject *a2)
 {
   v2 = 138412290;
@@ -4174,6 +4241,48 @@ void sub_1000199FC(NSObject *a1)
   _os_log_error_impl(&_mh_execute_header, a1, OS_LOG_TYPE_ERROR, "failed to lookup endpoint with machName=%@ service=%@", &v4, 0x16u);
 }
 
+void sub_100019AC4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HangHUDClient sendHangHUDInfo:completion:]";
+  sub_10000174C(&_mh_execute_header, a1, a3, "%s called at Angel client", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100019B3C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"launchingTarget is nil. connection is not active or remote interface is empty.";
+  sub_10000D864(&_mh_execute_header, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100019BB4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HangHUDClient sendProcExitRecord:completion:]";
+  sub_10000174C(&_mh_execute_header, a1, a3, "%s called at Angel client", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100019C2C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HangHUDClient sendHudConfiguration:completion:]";
+  sub_10000174C(&_mh_execute_header, a1, a3, "%s called at Angel client", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100019CA4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HangHUDClient sendMonitoredStates:completion:]";
+  sub_10000174C(&_mh_execute_header, a1, a3, "%s called at Angel client", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100019D1C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HangHUDClient clearHUDWithCompletion:]";
+  sub_10000174C(&_mh_execute_header, a1, a3, "%s called at Angel client", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100019D94(uint64_t a1, NSObject *a2, double a3)
 {
   v3 = 138412546;
@@ -4181,20 +4290,6 @@ void sub_100019D94(uint64_t a1, NSObject *a2, double a3)
   v5 = 2048;
   v6 = a3;
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "Checking if hang is current with hangID %@: durationSinceLastUpdateMs:%f", &v3, 0x16u);
-}
-
-void sub_100019EC4(int *a1)
-{
-  v6 = *a1;
-  sub_1000066CC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_10001A150(uint64_t a1, uint64_t *a2)
-{
-  v7 = *a2;
-  sub_100016AEC();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void sub_10001A1E4()

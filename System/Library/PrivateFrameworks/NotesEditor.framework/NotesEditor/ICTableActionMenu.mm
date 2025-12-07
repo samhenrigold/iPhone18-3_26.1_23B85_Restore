@@ -32,7 +32,7 @@
   viewControllerCopy = viewController;
   itemCopy = item;
   v14 = sub_2153A6A9C(controller, viewControllerCopy, item, v9, v10);
-  sub_2151AF750(v9);
+  sub_2151AF750(v9, v10);
 
   return v14;
 }
@@ -57,7 +57,7 @@
   viewControllerCopy = viewController;
   itemCopy = item;
   v16 = _s11NotesEditor15TableActionMenuC4menu29tableAttachmentViewController010presentingiJ00K13BarButtonItem16deferredChildren10completionSo6UIMenuCSo07ICTablehiJ0CSg_So06UIViewJ0CSo05UIBarmN0CSgSbySb_SStcSgtFZ_0(controller, viewControllerCopy, item, childrenCopy, v11, v12);
-  sub_2151AF750(v11);
+  sub_2151AF750(v11, v12);
 
   return v16;
 }
@@ -81,7 +81,7 @@
   viewControllerCopy = viewController;
   itemCopy = item;
   v14 = _s11NotesEditor15TableActionMenuC4menu29tableAttachmentViewController010presentingiJ00K13BarButtonItem10completionSo6UIMenuCSo07ICTablehiJ0CSg_So06UIViewJ0CSo05UIBarmN0CSgySb_SStcSgtFZ_0(controller, viewControllerCopy, item, v9, v10);
-  sub_2151AF750(v9);
+  sub_2151AF750(v9, v10);
 
   return v14;
 }
@@ -128,10 +128,11 @@
   v6 = (self + OBJC_IVAR___ICTableActionMenu_completion);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_2151AF750(v7);
+  sub_2151AF750(v7, v8);
 }
 
 - (UIBarButtonItem)presentingBarButtonItem
@@ -152,7 +153,7 @@
 
 - (id)menuSections
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5AA00);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5AA00, &unk_2154BEF60);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_2154BDB20;
   selfCopy = self;

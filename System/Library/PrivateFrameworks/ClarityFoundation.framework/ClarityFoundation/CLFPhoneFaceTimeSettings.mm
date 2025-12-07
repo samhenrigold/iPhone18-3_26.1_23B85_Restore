@@ -2,6 +2,7 @@
 - (BOOL)dialerKeypadEnabled;
 - (id)legacyOutgoingCommunicationLimit;
 - (void)migrateCommunicationLimitsIfNecessary;
+- (void)setLegacyDialerKeypadEnabled:(BOOL)enabled;
 @end
 
 @implementation CLFPhoneFaceTimeSettings
@@ -19,6 +20,12 @@ uint64_t __56__CLFPhoneFaceTimeSettings_GeneratedCode_sharedInstance__block_invo
   v3 = [outgoingCommunicationLimit isEqualToString:@"everyone"];
 
   return v3;
+}
+
+- (void)setLegacyDialerKeypadEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"DialerKeypadEnabled"];
 }
 
 - (id)legacyOutgoingCommunicationLimit

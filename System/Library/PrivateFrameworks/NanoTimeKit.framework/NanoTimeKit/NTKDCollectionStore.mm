@@ -67,148 +67,150 @@
 + (void)enumerateStoreIdentifiersWithBlock:(id)block
 {
   blockCopy = block;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = sub_100015E0C;
-  v51 = sub_100015E1C;
-  v52 = 0;
-  v4 = sub_100015E24();
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = sub_100015E0C;
+  v53 = sub_100015E1C;
+  v54 = 0;
+  v4 = sub_100015E24(blockCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100015E68;
   block[3] = &unk_10005D6A0;
-  block[4] = &v47;
+  block[4] = &v49;
   dispatch_sync(v4, block);
 
+  v46 = 0u;
+  v47 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v5 = v48[5];
-  v6 = [v5 countByEnumeratingWithState:&v42 objects:v55 count:16];
+  v5 = v50[5];
+  v6 = [v5 countByEnumeratingWithState:&v44 objects:v57 count:16];
   if (v6)
   {
-    v7 = *v43;
+    v7 = *v45;
     do
     {
       v8 = 0;
       do
       {
-        if (*v43 != v7)
+        if (*v45 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(blockCopy + 2))(blockCopy, *(*(&v42 + 1) + 8 * v8), 0);
+        (*(blockCopy + 2))(blockCopy, *(*(&v44 + 1) + 8 * v8), 0);
         v8 = v8 + 1;
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v42 objects:v55 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v44 objects:v57 count:16];
     }
 
     while (v6);
   }
 
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = sub_100015E0C;
-  v40 = sub_100015E1C;
-  v41 = 0;
-  v9 = sub_100015E24();
-  v35[0] = _NSConcreteStackBlock;
-  v35[1] = 3221225472;
-  v35[2] = sub_100015F28;
-  v35[3] = &unk_10005D6A0;
-  v35[4] = &v36;
-  dispatch_sync(v9, v35);
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = sub_100015E0C;
+  v42 = sub_100015E1C;
+  v43 = 0;
+  v10 = sub_100015E24(v9);
+  v37[0] = _NSConcreteStackBlock;
+  v37[1] = 3221225472;
+  v37[2] = sub_100015F28;
+  v37[3] = &unk_10005D6A0;
+  v37[4] = &v38;
+  dispatch_sync(v10, v37);
 
+  v35 = 0u;
+  v36 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  obj = v37[5];
-  v10 = [obj countByEnumeratingWithState:&v31 objects:v54 count:16];
-  if (v10)
+  obj = v39[5];
+  v11 = [obj countByEnumeratingWithState:&v33 objects:v56 count:16];
+  v12 = v11;
+  if (v11)
   {
-    v19 = *v32;
+    v21 = *v34;
     do
     {
-      v11 = 0;
+      v13 = 0;
       do
       {
-        if (*v32 != v19)
+        if (*v34 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * v11);
-        v25 = 0;
-        v26 = &v25;
-        v27 = 0x3032000000;
-        v28 = sub_100015E0C;
-        v29 = sub_100015E1C;
-        v30 = 0;
-        v13 = sub_100015E24();
-        v24[0] = _NSConcreteStackBlock;
-        v24[1] = 3221225472;
-        v24[2] = sub_1000160E8;
-        v24[3] = &unk_10005D6C8;
-        v24[4] = v12;
-        v24[5] = &v25;
-        dispatch_sync(v13, v24);
+        v14 = *(*(&v33 + 1) + 8 * v13);
+        v27 = 0;
+        v28 = &v27;
+        v29 = 0x3032000000;
+        v30 = sub_100015E0C;
+        v31 = sub_100015E1C;
+        v32 = 0;
+        v15 = sub_100015E24(v11);
+        v26[0] = _NSConcreteStackBlock;
+        v26[1] = 3221225472;
+        v26[2] = sub_1000160E8;
+        v26[3] = &unk_10005D6C8;
+        v26[4] = v14;
+        v26[5] = &v27;
+        dispatch_sync(v15, v26);
 
+        v24 = 0u;
+        v25 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v20 = 0u;
-        v21 = 0u;
-        v14 = v26[5];
-        v15 = [v14 countByEnumeratingWithState:&v20 objects:v53 count:16];
-        if (v15)
+        v16 = v28[5];
+        v17 = [v16 countByEnumeratingWithState:&v22 objects:v55 count:16];
+        if (v17)
         {
-          v16 = *v21;
+          v18 = *v23;
           do
           {
-            v17 = 0;
+            v19 = 0;
             do
             {
-              if (*v21 != v16)
+              if (*v23 != v18)
               {
-                objc_enumerationMutation(v14);
+                objc_enumerationMutation(v16);
               }
 
-              (*(blockCopy + 2))(blockCopy, *(*(&v20 + 1) + 8 * v17), v12);
-              v17 = v17 + 1;
+              (*(blockCopy + 2))(blockCopy, *(*(&v22 + 1) + 8 * v19), v14);
+              v19 = v19 + 1;
             }
 
-            while (v15 != v17);
-            v15 = [v14 countByEnumeratingWithState:&v20 objects:v53 count:16];
+            while (v17 != v19);
+            v17 = [v16 countByEnumeratingWithState:&v22 objects:v55 count:16];
           }
 
-          while (v15);
+          while (v17);
         }
 
-        _Block_object_dispose(&v25, 8);
-        v11 = v11 + 1;
+        _Block_object_dispose(&v27, 8);
+        v13 = v13 + 1;
       }
 
-      while (v11 != v10);
-      v10 = [obj countByEnumeratingWithState:&v31 objects:v54 count:16];
+      while (v13 != v12);
+      v11 = [obj countByEnumeratingWithState:&v33 objects:v56 count:16];
+      v12 = v11;
     }
 
-    while (v10);
+    while (v11);
   }
 
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v49, 8);
 }
 
 + (void)cleanupOrphanedStoresWithCurrentDeviceUUIDs:(id)ds
 {
   dsCopy = ds;
-  v4 = sub_100015E24();
+  v4 = sub_100015E24(dsCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100016250;
@@ -246,37 +248,37 @@
 {
   identifierCopy = identifier;
   dCopy = d;
-  v67.receiver = self;
-  v67.super_class = NTKDCollectionStore;
-  v64 = [(NTKDCollectionStore *)&v67 init];
-  if (!v64)
+  v68.receiver = self;
+  v68.super_class = NTKDCollectionStore;
+  v65 = [(NTKDCollectionStore *)&v68 init];
+  if (!v65)
   {
     goto LABEL_30;
   }
 
   v6 = [identifierCopy copy];
-  collectionIdentifier = v64->_collectionIdentifier;
-  v64->_collectionIdentifier = v6;
+  collectionIdentifier = v65->_collectionIdentifier;
+  v65->_collectionIdentifier = v6;
 
-  objc_storeStrong(&v64->_deviceUUID, d);
+  objc_storeStrong(&v65->_deviceUUID, d);
   v8 = +[NTKDCollectionStore _sharedCollectionStoreQueue];
-  queue = v64->_queue;
-  v64->_queue = v8;
+  queue = v65->_queue;
+  v65->_queue = v8;
 
   v10 = +[NTKDCollectionStore _sharedCollectionStoreObserverQueue];
-  observerCallbackQueue = v64->_observerCallbackQueue;
-  v64->_observerCallbackQueue = v10;
+  observerCallbackQueue = v65->_observerCallbackQueue;
+  v65->_observerCallbackQueue = v10;
 
   v12 = +[NSHashTable weakObjectsHashTable];
-  observers = v64->_observers;
-  v64->_observers = v12;
+  observers = v65->_observers;
+  v65->_observers = v12;
 
   v14 = objc_alloc_init(NSMutableDictionary);
-  facesByUUID = v64->_facesByUUID;
-  v64->_facesByUUID = v14;
+  facesByUUID = v65->_facesByUUID;
+  v65->_facesByUUID = v14;
 
-  deviceUUID = v64->_deviceUUID;
-  v17 = v64->_collectionIdentifier;
+  deviceUUID = v65->_deviceUUID;
+  v17 = v65->_collectionIdentifier;
   if (deviceUUID)
   {
     sub_1000164F4(deviceUUID);
@@ -289,157 +291,157 @@
   v18 = ;
   v19 = [v18 stringByAppendingPathComponent:v17];
 
-  storeDirectory = v64->_storeDirectory;
-  v64->_storeDirectory = v19;
+  storeDirectory = v65->_storeDirectory;
+  v65->_storeDirectory = v19;
 
-  v21 = v64->_storeDirectory;
+  v21 = v65->_storeDirectory;
   v22 = +[NSFileManager defaultManager];
   v23 = [(NSString *)v21 stringByAppendingPathComponent:@"setup-complete"];
 
   LOBYTE(v21) = [v22 fileExistsAtPath:v23];
-  v64->_initialSetupComplete = v21;
-  v24 = sub_100015E24();
+  v65->_initialSetupComplete = v21;
+  v25 = sub_100015E24(v24);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100016EA4;
   block[3] = &unk_10005CA70;
-  v63 = v64;
-  v66 = v63;
-  dispatch_sync(v24, block);
+  v64 = v65;
+  v67 = v64;
+  dispatch_sync(v25, block);
 
-  v25 = [(NSString *)v64->_storeDirectory stringByAppendingPathComponent:@"sequence-id.string"];
-  v26 = sub_100016FD0(v25);
-  seqId = v63->_seqId;
-  v63->_seqId = v26;
+  v26 = [(NSString *)v65->_storeDirectory stringByAppendingPathComponent:@"sequence-id.string"];
+  v27 = sub_100016FD0(v26);
+  seqId = v64->_seqId;
+  v64->_seqId = v27;
 
-  v28 = v64->_storeDirectory;
-  v29 = [_NTKDCollectionManifest alloc];
-  v30 = [(NSString *)v28 stringByAppendingPathComponent:@"manifest.plist"];
+  v29 = v65->_storeDirectory;
+  v30 = [_NTKDCollectionManifest alloc];
+  v31 = [(NSString *)v29 stringByAppendingPathComponent:@"manifest.plist"];
 
-  v31 = [(_NTKDCollectionManifest *)v29 initWithContentsOfFile:v30];
-  if (v31)
+  v32 = [(_NTKDCollectionManifest *)v30 initWithContentsOfFile:v31];
+  if (v32)
   {
-    v32 = v31;
+    v33 = v32;
   }
 
   else
   {
-    v32 = +[_NTKDCollectionManifest emptyManifest];
+    v33 = +[_NTKDCollectionManifest emptyManifest];
   }
 
-  v33 = v32;
+  v34 = v33;
 
-  manifest = v63->_manifest;
-  v63->_manifest = v33;
+  manifest = v64->_manifest;
+  v64->_manifest = v34;
 
-  v35 = v64->_storeDirectory;
-  v36 = [(NSString *)v35 stringByAppendingPathComponent:@"selected-uuid.string"];
-  v37 = [NSString stringWithContentsOfFile:v36 encoding:4 error:0];
+  v36 = v65->_storeDirectory;
+  v37 = [(NSString *)v36 stringByAppendingPathComponent:@"selected-uuid.string"];
+  v38 = [NSString stringWithContentsOfFile:v37 encoding:4 error:0];
 
-  if (!v37)
+  if (!v38)
   {
     goto LABEL_13;
   }
 
-  v38 = [[NSUUID alloc] initWithUUIDString:v37];
-  if (!v38)
+  v39 = [[NSUUID alloc] initWithUUIDString:v38];
+  if (!v39)
   {
-    v39 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v40 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = [(NSString *)v35 stringByAppendingPathComponent:@"selected-uuid.string"];
+      v41 = [(NSString *)v36 stringByAppendingPathComponent:@"selected-uuid.string"];
       *buf = 138412546;
-      v73 = v40;
-      v74 = 2112;
-      v75 = v37;
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Error reading selected UUID at path %@: string could not be converted to UUID: %@", buf, 0x16u);
+      v74 = v41;
+      v75 = 2112;
+      v76 = v38;
+      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Error reading selected UUID at path %@: string could not be converted to UUID: %@", buf, 0x16u);
     }
 
 LABEL_13:
-    v38 = 0;
+    v39 = 0;
   }
 
-  selectedUUID = v63->_selectedUUID;
-  v63->_selectedUUID = v38;
+  selectedUUID = v64->_selectedUUID;
+  v64->_selectedUUID = v39;
 
-  v59 = v64->_storeDirectory;
-  v42 = +[NSMutableDictionary dictionary];
-  v43 = [(NSString *)v59 stringByAppendingPathComponent:@"deleted.plist"];
-  v62 = [NSDictionary dictionaryWithContentsOfFile:v43];
+  v60 = v65->_storeDirectory;
+  v43 = +[NSMutableDictionary dictionary];
+  v44 = [(NSString *)v60 stringByAppendingPathComponent:@"deleted.plist"];
+  v63 = [NSDictionary dictionaryWithContentsOfFile:v44];
 
-  if (v62)
+  if (v63)
   {
     objc_opt_class();
     objc_opt_class();
     NTKValidateDictionary();
   }
 
-  v70 = 0u;
   v71 = 0u;
-  v68 = 0u;
+  v72 = 0u;
   v69 = 0u;
-  v44 = v62;
-  v45 = [v44 countByEnumeratingWithState:&v68 objects:buf count:16];
-  if (v45)
+  v70 = 0u;
+  v45 = v63;
+  v46 = [v45 countByEnumeratingWithState:&v69 objects:buf count:16];
+  if (v46)
   {
-    v46 = *v69;
+    v47 = *v70;
     do
     {
-      for (i = 0; i != v45; i = i + 1)
+      for (i = 0; i != v46; i = i + 1)
       {
-        if (*v69 != v46)
+        if (*v70 != v47)
         {
-          objc_enumerationMutation(v44);
+          objc_enumerationMutation(v45);
         }
 
-        v48 = *(*(&v68 + 1) + 8 * i);
-        v49 = [[NSUUID alloc] initWithUUIDString:v48];
-        if (!v49)
+        v49 = *(*(&v69 + 1) + 8 * i);
+        v50 = [[NSUUID alloc] initWithUUIDString:v49];
+        if (!v50)
         {
-          [NSException raise:NSInvalidUnarchiveOperationException format:@"string could not be converted to UUID: %@", v48];
+          [NSException raise:NSInvalidUnarchiveOperationException format:@"string could not be converted to UUID: %@", v49];
         }
 
-        v50 = [v44 objectForKey:v48];
-        [(NSMutableDictionary *)v42 setObject:v50 forKey:v49];
+        v51 = [v45 objectForKey:v49];
+        [(NSMutableDictionary *)v43 setObject:v51 forKey:v50];
       }
 
-      v45 = [v44 countByEnumeratingWithState:&v68 objects:buf count:16];
+      v46 = [v45 countByEnumeratingWithState:&v69 objects:buf count:16];
     }
 
-    while (v45);
+    while (v46);
   }
 
-  removals = v63->_removals;
-  v63->_removals = v42;
+  removals = v64->_removals;
+  v64->_removals = v43;
 
-  v52 = _NTKLoggingObjectForDomain();
-  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+  v53 = _NTKLoggingObjectForDomain();
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
   {
-    v53 = v64->_collectionIdentifier;
-    v54 = v64->_deviceUUID;
-    v55 = @"no";
-    if (v64->_initialSetupComplete)
+    v54 = v65->_collectionIdentifier;
+    v55 = v65->_deviceUUID;
+    v56 = @"no";
+    if (v65->_initialSetupComplete)
     {
-      v55 = @"yes";
+      v56 = @"yes";
     }
 
-    v56 = v63->_seqId;
-    v57 = v63->_manifest;
+    v57 = v64->_seqId;
+    v58 = v64->_manifest;
     *buf = 138413314;
-    v73 = v53;
-    v74 = 2112;
-    v75 = v54;
-    v76 = 2112;
-    v77 = v55;
-    v78 = 2112;
-    v79 = v56;
-    v80 = 2112;
-    v81 = v57;
-    _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "store<%@,%@> created with setupComplete: %@, seqId: %@, manifest: %@", buf, 0x34u);
+    v74 = v54;
+    v75 = 2112;
+    v76 = v55;
+    v77 = 2112;
+    v78 = v56;
+    v79 = 2112;
+    v80 = v57;
+    v81 = 2112;
+    v82 = v58;
+    _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "store<%@,%@> created with setupComplete: %@, seqId: %@, manifest: %@", buf, 0x34u);
   }
 
 LABEL_30:
-  return v64;
+  return v65;
 }
 
 - (void)addObserver:(id)observer withSeqId:(id)id
@@ -1240,77 +1242,76 @@ LABEL_12:
 - (BOOL)_queue_setSelectedUUID:(id)d
 {
   dCopy = d;
-  selectedUUID = self->_selectedUUID;
-  v7 = NTKEqualObjects();
-  if (v7)
+  v6 = NTKEqualObjects();
+  if (v6)
   {
-    v8 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       collectionIdentifier = self->_collectionIdentifier;
       deviceUUID = self->_deviceUUID;
-      v24 = 138412802;
-      v25 = collectionIdentifier;
-      v26 = 2112;
-      v27 = deviceUUID;
-      v28 = 2112;
-      v29 = dCopy;
-      v11 = "<%@,%@> ignoring attempt to select already-selected UUID %@";
-      v12 = v8;
-      v13 = 32;
+      v23 = 138412802;
+      v24 = collectionIdentifier;
+      v25 = 2112;
+      v26 = deviceUUID;
+      v27 = 2112;
+      v28 = dCopy;
+      v10 = "<%@,%@> ignoring attempt to select already-selected UUID %@";
+      v11 = v7;
+      v12 = 32;
 LABEL_9:
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v11, &v24, v13);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v10, &v23, v12);
     }
   }
 
   else
   {
     objc_storeStrong(&self->_selectedUUID, d);
-    v14 = self->_selectedUUID;
-    v15 = self->_storeDirectory;
-    if (v14)
+    selectedUUID = self->_selectedUUID;
+    v14 = self->_storeDirectory;
+    if (selectedUUID)
     {
-      uUIDString = [(NSUUID *)v14 UUIDString];
-      v17 = [(NSString *)v15 stringByAppendingPathComponent:@"selected-uuid.string"];
+      uUIDString = [(NSUUID *)selectedUUID UUIDString];
+      v16 = [(NSString *)v14 stringByAppendingPathComponent:@"selected-uuid.string"];
 
-      [uUIDString writeToFile:v17 atomically:1 encoding:4 error:0];
+      [uUIDString writeToFile:v16 atomically:1 encoding:4 error:0];
     }
 
     else
     {
       uUIDString = +[NSFileManager defaultManager];
-      v17 = [(NSString *)v15 stringByAppendingPathComponent:@"selected-uuid.string"];
+      v16 = [(NSString *)v14 stringByAppendingPathComponent:@"selected-uuid.string"];
 
-      [uUIDString removeItemAtPath:v17 error:0];
+      [uUIDString removeItemAtPath:v16 error:0];
     }
 
     [(NTKDCollectionStore *)self _queue_incrementSeqId];
     seqId = self->_seqId;
-    v19 = [(NSString *)self->_storeDirectory stringByAppendingPathComponent:@"selected-uuid-sequence-id.string"];
-    sub_100019988(seqId, v19);
+    v18 = [(NSString *)self->_storeDirectory stringByAppendingPathComponent:@"selected-uuid-sequence-id.string"];
+    sub_100019988(seqId, v18);
 
-    v8 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = self->_collectionIdentifier;
-      v21 = self->_deviceUUID;
-      v22 = self->_seqId;
-      v24 = 138413058;
-      v25 = v20;
-      v26 = 2112;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v22;
-      v30 = 2112;
-      v31 = dCopy;
-      v11 = "<%@,%@,%@> set selected UUID: %@";
-      v12 = v8;
-      v13 = 42;
+      v19 = self->_collectionIdentifier;
+      v20 = self->_deviceUUID;
+      v21 = self->_seqId;
+      v23 = 138413058;
+      v24 = v19;
+      v25 = 2112;
+      v26 = v20;
+      v27 = 2112;
+      v28 = v21;
+      v29 = 2112;
+      v30 = dCopy;
+      v10 = "<%@,%@,%@> set selected UUID: %@";
+      v11 = v7;
+      v12 = 42;
       goto LABEL_9;
     }
   }
 
-  return v7 ^ 1;
+  return v6 ^ 1;
 }
 
 - (BOOL)_queue_setOrderedUUIDs:(id)ds

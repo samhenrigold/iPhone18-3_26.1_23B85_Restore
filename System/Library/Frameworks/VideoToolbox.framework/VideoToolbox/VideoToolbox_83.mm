@@ -192,7 +192,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v45 = FigSignalErrorAtGM();
+  v45 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v54, v55, v56);
   v44 = v59;
   v31 = v60;
   v26 = v41;
@@ -760,7 +760,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v45 = FigSignalErrorAtGM();
+  v45 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v54, v55, v56);
   v44 = v59;
   v31 = v60;
   v26 = v41;
@@ -1059,7 +1059,7 @@ LABEL_13:
   v23.i64[0] = v25.i64[0];
   v23.i64[1] = -1;
   v26 = vaddq_s64(v39, v23);
-  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM(), v25 = v36, v27))
+  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35.i64[0], v35.i32[2], v36.i32[0]), v25 = v36, v27))
   {
     v20 = v27;
   }
@@ -1427,7 +1427,7 @@ LABEL_13:
   v23.i64[0] = v25.i64[0];
   v23.i64[1] = -1;
   v26 = vaddq_s64(v39, v23);
-  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM(), v25 = v36, v27))
+  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35.i64[0], v35.i32[2], v36.i32[0]), v25 = v36, v27))
   {
     v20 = v27;
   }
@@ -1752,7 +1752,7 @@ LABEL_13:
   v23.i64[0] = v25.i64[0];
   v23.i64[1] = -1;
   v26 = vaddq_s64(v39, v23);
-  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM(), v25 = v36, v27))
+  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35.i64[0], v35.i32[2], v36.i32[0]), v25 = v36, v27))
   {
     v20 = v27;
   }
@@ -2015,7 +2015,7 @@ LABEL_13:
   v23.i64[0] = v25.i64[0];
   v23.i64[1] = -1;
   v26 = vaddq_s64(v39, v23);
-  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM(), v25 = v36, v27))
+  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35.i64[0], v35.i32[2], v36.i32[0]), v25 = v36, v27))
   {
     v20 = v27;
   }
@@ -2380,7 +2380,7 @@ LABEL_13:
   v23.i64[0] = v25.i64[0];
   v23.i64[1] = -1;
   v26 = vaddq_s64(v39, v23);
-  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM(), v25 = v36, v27))
+  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35.i64[0], v35.i32[2], v36.i32[0]), v25 = v36, v27))
   {
     v20 = v27;
   }
@@ -2713,7 +2713,7 @@ LABEL_13:
   v23.i64[0] = v25.i64[0];
   v23.i64[1] = -1;
   v26 = vaddq_s64(v39, v23);
-  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM(), v25 = v36, v27))
+  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35.i64[0], v35.i32[2], v36.i32[0]), v25 = v36, v27))
   {
     v20 = v27;
   }
@@ -3138,7 +3138,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v55, v56, v57);
   v45 = v60;
   v31 = v61;
   v26 = v42;
@@ -3404,7 +3404,7 @@ __int16 *vt_Copy_RGfA_TRC_Tone_Mat_TRC_xf422_neon_fp16_GCD(unsigned __int8 *a1, 
     }
 
     v76 = v22 + v180 * v27 + 2 * v10;
-    v77 = &result[8 * v207] + v29;
+    v77 = (&result[8 * v207] + v29);
     v78 = v70;
     v79 = vdupq_n_s16(v70);
     v206 = a5.f32[0];
@@ -3540,23 +3540,23 @@ __int16 *vt_Copy_RGfA_TRC_Tone_Mat_TRC_xf422_neon_fp16_GCD(unsigned __int8 *a1, 
         }
 
         while (v82 < v7 - 7);
-        v115 = (v87 + 32);
+        v115 = v87 + 32;
         v116 = v7 & 0xFFFFFFF8;
       }
 
       if (v116 < v63)
       {
-        v117 = v115 + 16;
+        v117 = v115 + 4;
         do
         {
-          v118 = (v117 + 4 * v220);
+          v118 = &v117[v220];
           v119.i32[0] = *(v118 - 4);
-          v120 = (v117 + 4 * BYTE1(v220));
+          v120 = &v117[BYTE1(v220)];
           v119.i32[1] = *(v120 - 4);
           v121 = vdup_n_s32(0x45FFF800u);
           _D0 = vcvt_s32_f32(vrnda_f32(vminnm_f32(vmaxnm_f32(vmul_f32(v119, v121), 0), v121)));
           _D0.i16[0] = *(v67 + 2 * _D0.u32[0]);
-          v123 = (v117 + 4 * BYTE2(v220));
+          v123 = &v117[BYTE2(v220)];
           _D1.i32[0] = *(v123 - 4);
           __asm { FCVT            S8, H0 }
 
@@ -3605,7 +3605,7 @@ __int16 *vt_Copy_RGfA_TRC_Tone_Mat_TRC_xf422_neon_fp16_GCD(unsigned __int8 *a1, 
 
           if (v83)
           {
-            v140 = (v117 + 4 * HIBYTE(v220));
+            v140 = &v117[HIBYTE(v220)];
             v141 = llroundf(*(v140 - 4) * 65535.0);
             v142 = llroundf(*v140 * 65535.0);
           }
@@ -3728,7 +3728,7 @@ __int16 *vt_Copy_RGfA_TRC_Tone_Mat_TRC_xf422_neon_fp16_GCD(unsigned __int8 *a1, 
           }
 
           v116 += 2;
-          v117 += 32;
+          v117 += 8;
           v85 = (v85 + 4);
           v84 = (v84 + 4);
         }
@@ -3736,7 +3736,7 @@ __int16 *vt_Copy_RGfA_TRC_Tone_Mat_TRC_xf422_neon_fp16_GCD(unsigned __int8 *a1, 
         while (v116 < v63);
       }
 
-      v77 += v179;
+      v77 = (v77 + v179);
       v76 += v180;
       v75 += v19;
       v74 += v20;
@@ -3944,7 +3944,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v55, v56, v57);
   v45 = v60;
   v31 = v61;
   v26 = v42;
@@ -4512,7 +4512,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v55, v56, v57);
   v45 = v60;
   v31 = v61;
   v26 = v42;
@@ -4584,7 +4584,7 @@ LABEL_58:
   return v23;
 }
 
-_WORD *vt_Copy_RGfA_TRC_Mat_TRC_xf422_neon_fp16_GCD(unsigned __int8 *a1, uint64_t a2, double a3, float32x4_t a4, float32x4_t a5, float32x4_t a6)
+const float *vt_Copy_RGfA_TRC_Mat_TRC_xf422_neon_fp16_GCD(unsigned __int8 *a1, uint64_t a2, double a3, float32x4_t a4, float32x4_t a5, float32x4_t a6)
 {
   v6 = 0;
   v7 = *(a1 + 36);
@@ -4758,7 +4758,7 @@ _WORD *vt_Copy_RGfA_TRC_Mat_TRC_xf422_neon_fp16_GCD(unsigned __int8 *a1, uint64_
     }
 
     v72 = v176 + v154 * v24 + 2 * v12;
-    v73 = &result[8 * v7] + v25;
+    v73 = (&result[4 * v7] + v25);
     v74 = v68;
     v75 = vdupq_n_s16(v68);
     v175 = a4.f32[0];
@@ -4884,18 +4884,18 @@ _WORD *vt_Copy_RGfA_TRC_Mat_TRC_xf422_neon_fp16_GCD(unsigned __int8 *a1, uint64_
         }
 
         while (v80 < v8 - 7);
-        v111 = (v85 + 32);
+        v111 = v85 + 32;
         v112 = v8 & 0xFFFFFFF8;
       }
 
       if (v112 < v63)
       {
-        v113 = v111 + 16;
+        v113 = v111 + 4;
         do
         {
           if (v81)
           {
-            v114 = (v113 + 4 * HIBYTE(v181));
+            v114 = &v113[HIBYTE(v181)];
             v115 = llroundf(*(v114 - 4) * 65535.0);
             v116 = llroundf(*v114 * 65535.0);
           }
@@ -4906,11 +4906,11 @@ _WORD *vt_Copy_RGfA_TRC_Mat_TRC_xf422_neon_fp16_GCD(unsigned __int8 *a1, uint64_
             v116 = 0;
           }
 
-          v117 = (v113 + 4 * v181);
+          v117 = &v113[v181];
           v118.i32[0] = *(v117 - 4);
-          v119 = (v113 + 4 * BYTE1(v181));
-          result = (v113 + 4 * BYTE2(v181));
-          v120.i32[0] = *(result - 4);
+          v119 = &v113[BYTE1(v181)];
+          result = &v113[BYTE2(v181)];
+          v120.f32[0] = *(result - 4);
           v121.i32[0] = *v119;
           v118.i32[1] = *(v119 - 4);
           _D3 = vdup_n_s32(0x45FFF800u);
@@ -4929,7 +4929,7 @@ _WORD *vt_Copy_RGfA_TRC_Mat_TRC_xf422_neon_fp16_GCD(unsigned __int8 *a1, uint64_
           }
 
           _H26 = *(v56 + 2 * _D1.u32[1]);
-          v121.i32[1] = *result;
+          v121.f32[1] = *result;
           __asm { FCVT            S26, H26 }
 
           _D2 = vcvt_s32_f32(vrnda_f32(vminnm_f32(vmaxnm_f32(vmul_f32(v121, _D3), 0), _D3)));
@@ -5039,7 +5039,7 @@ _WORD *vt_Copy_RGfA_TRC_Mat_TRC_xf422_neon_fp16_GCD(unsigned __int8 *a1, uint64_
           }
 
           v112 += 2;
-          v113 += 32;
+          v113 += 8;
           v83 = (v83 + 4);
           v82 = (v82 + 4);
         }
@@ -5047,7 +5047,7 @@ _WORD *vt_Copy_RGfA_TRC_Mat_TRC_xf422_neon_fp16_GCD(unsigned __int8 *a1, uint64_
         while (v112 < v63);
       }
 
-      v73 += v153;
+      v73 = (v73 + v153);
       v72 += v154;
       v71 += v152;
       v70 += v20;
@@ -5255,7 +5255,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v55, v56, v57);
   v45 = v60;
   v31 = v61;
   v26 = v42;
@@ -5776,7 +5776,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v55, v56, v57);
   v45 = v60;
   v31 = v61;
   v26 = v42;
@@ -6342,7 +6342,7 @@ LABEL_59:
   }
 
   fig_log_get_emitter();
-  v46 = FigSignalErrorAtGM();
+  v46 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v55, v56, v57);
   v45 = v60;
   v31 = v61;
   v26 = v42;
@@ -6639,7 +6639,7 @@ LABEL_13:
   v23.i64[0] = v25.i64[0];
   v23.i64[1] = -1;
   v26 = vaddq_s64(v39, v23);
-  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM(), v25 = v36, v27))
+  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35.i64[0], v35.i32[2], v36.i32[0]), v25 = v36, v27))
   {
     v20 = v27;
   }
@@ -7007,7 +7007,7 @@ LABEL_13:
   v23.i64[0] = v25.i64[0];
   v23.i64[1] = -1;
   v26 = vaddq_s64(v39, v23);
-  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM(), v25 = v36, v27))
+  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35.i64[0], v35.i32[2], v36.i32[0]), v25 = v36, v27))
   {
     v20 = v27;
   }
@@ -7332,7 +7332,7 @@ LABEL_13:
   v23.i64[0] = v25.i64[0];
   v23.i64[1] = -1;
   v26 = vaddq_s64(v39, v23);
-  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM(), v25 = v36, v27))
+  if ((*a4 * (v26.i64[1] + v25.i64[1]) + 16 * v26.i64[0]) > *a5 && (v36 = v25, fig_log_get_emitter(), v27 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35.i64[0], v35.i32[2], v36.i32[0]), v25 = v36, v27))
   {
     v20 = v27;
   }
@@ -7646,7 +7646,7 @@ LABEL_22:
   }
 
   fig_log_get_emitter();
-  v33 = FigSignalErrorAtGM();
+  v33 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v40.i64[0], v40.i32[2], v41.i32[0]);
   v13 = v31;
   a7 = v30;
   a5 = v29;
@@ -7903,7 +7903,7 @@ __int16 *vt_Copy_RGfA_TRC_Tone_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, 
     _S3 = v180;
     __asm { FCVT            H10, S3 }
 
-    v88 = &result[8 * v149] + v16 * v8;
+    v88 = (&result[8 * v149] + v16 * v8);
     v89.i64[0] = 0x7000700070007000;
     v89.i64[1] = 0x7000700070007000;
     v90.i64[0] = 0x9000900090009000;
@@ -8034,7 +8034,7 @@ __int16 *vt_Copy_RGfA_TRC_Tone_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, 
         }
 
         while (v91 < v12 - 7);
-        v118 = (v96 + 32);
+        v118 = v96 + 32;
         v119 = v12 & 0xFFFFFFF8;
         _S13 = v152;
         _S29 = v153;
@@ -8048,8 +8048,8 @@ __int16 *vt_Copy_RGfA_TRC_Tone_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, 
         do
         {
           result = BYTE2(v191);
-          _D4.i32[0] = *(v118 + 4 * v191);
-          _D4.i32[1] = *(v118 + 4 * BYTE1(v191));
+          _D4.f32[0] = v118[v191];
+          _D4.f32[1] = v118[BYTE1(v191)];
           _D5 = vdup_n_s32(0x45FFF800u);
           _D3 = vcvt_s32_f32(vrnda_f32(vminnm_f32(vmaxnm_f32(vmul_f32(_D4, _D5), 0), _D5)));
           _D3.i16[0] = *(v56 + 2 * _D3.u32[0]);
@@ -8058,7 +8058,7 @@ __int16 *vt_Copy_RGfA_TRC_Tone_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, 
           _D4.i16[0] = *(v56 + 2 * _D3.u32[1]);
           __asm { FCVT            S4, H4 }
 
-          _D5.i16[0] = *(v56 + 2 * llroundf(fminf(fmaxf(*(v118 + 4 * BYTE2(v191)) * 8191.0, 0.0), 8191.0)));
+          _D5.i16[0] = *(v56 + 2 * llroundf(fminf(fmaxf(v118[BYTE2(v191)] * 8191.0, 0.0), 8191.0)));
           __asm { FCVT            S5, H5 }
 
           v127 = (((v178 * _S4) + (v179 * _S3)) + (v177 * _S5)) + (v176 * fmaxf(_S3, fmaxf(_S4, _S5)));
@@ -8101,7 +8101,7 @@ __int16 *vt_Copy_RGfA_TRC_Tone_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, 
             }
           }
 
-          v142 = *(v118 + 4 * HIBYTE(v191));
+          v142 = v118[HIBYTE(v191)];
           v94->i8[0] = llroundf(v141);
           v94 = (v94 + 1);
           if (v93)
@@ -8139,14 +8139,14 @@ __int16 *vt_Copy_RGfA_TRC_Tone_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, 
             v92 = (v92 + 1);
           }
 
-          v118 += 16;
+          v118 += 4;
           --v120;
         }
 
         while (v120);
       }
 
-      v88 += v16;
+      v88 = (v88 + v16);
       v85 = (v85 + v154);
       v83 += v18;
       v81 = (v81 + v19);
@@ -8250,7 +8250,7 @@ LABEL_22:
   }
 
   fig_log_get_emitter();
-  v33 = FigSignalErrorAtGM();
+  v33 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v40.i64[0], v40.i32[2], v41.i32[0]);
   v13 = v31;
   a7 = v30;
   a5 = v29;
@@ -8605,7 +8605,7 @@ LABEL_22:
   }
 
   fig_log_get_emitter();
-  v33 = FigSignalErrorAtGM();
+  v33 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v40.i64[0], v40.i32[2], v41.i32[0]);
   v13 = v31;
   a7 = v30;
   a5 = v29;
@@ -8668,7 +8668,7 @@ LABEL_21:
   return v20;
 }
 
-__int16 *vt_Copy_RGfA_TRC_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, uint64_t a2)
+unint64_t vt_Copy_RGfA_TRC_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, uint64_t a2)
 {
   v2 = 0;
   v106 = *(a1 + 36);
@@ -8843,7 +8843,7 @@ __int16 *vt_Copy_RGfA_TRC_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, uint6
     _S1 = v125;
     __asm { FCVT            H1, S1 }
 
-    v60 = &result[8 * v106] + v12 * v4;
+    v60 = (result + v12 * v4 + 16 * v106);
     v61.i64[0] = 0x7000700070007000;
     v61.i64[1] = 0x7000700070007000;
     v62.i64[0] = 0x9000900090009000;
@@ -8929,7 +8929,7 @@ __int16 *vt_Copy_RGfA_TRC_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, uint6
           v80.i16[7] = *(v37 + 2 * v79.u16[7]);
           v81 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(vmlaq_n_f16(vmlaq_n_f16(vmulq_n_f16(v76, _H1), v74, _H14), v72, _H13), 0), v62));
           v82.i16[0] = *(v37 + 2 * v81.u16[0]);
-          result = (v37 + 2 * v81.u16[2]);
+          result = v37 + 2 * v81.u16[2];
           v82.i16[1] = *(v37 + 2 * v81.u16[1]);
           v82.i16[2] = *result;
           v82.i16[3] = *(v37 + 2 * v81.u16[3]);
@@ -8956,7 +8956,7 @@ __int16 *vt_Copy_RGfA_TRC_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, uint6
         }
 
         while (v63 < v8 - 7);
-        v83 = (v68 + 32);
+        v83 = v68 + 32;
         v84 = v8 & 0xFFFFFFF8;
       }
 
@@ -8965,8 +8965,8 @@ __int16 *vt_Copy_RGfA_TRC_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, uint6
       {
         do
         {
-          v86.i32[0] = *(v83 + 4 * v139);
-          v86.i32[1] = *(v83 + 4 * BYTE1(v139));
+          v86.f32[0] = v83[v139];
+          v86.f32[1] = v83[BYTE1(v139)];
           _D7 = vdup_n_s32(0x45FFF800u);
           _D6 = vcvt_s32_f32(vrnda_f32(vminnm_f32(vmaxnm_f32(vmul_f32(v86, _D7), 0), _D7)));
           result = _D6.u32[0];
@@ -8976,7 +8976,7 @@ __int16 *vt_Copy_RGfA_TRC_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, uint6
           _D7.i16[0] = *(v36 + 2 * _D6.u32[1]);
           __asm { FCVT            S7, H7 }
 
-          _H4 = *(v36 + 2 * llroundf(fminf(fmaxf(*(v83 + 4 * BYTE2(v139)) * 8191.0, 0.0), 8191.0)));
+          _H4 = *(v36 + 2 * llroundf(fminf(fmaxf(v83[BYTE2(v139)] * 8191.0, 0.0), 8191.0)));
           __asm { FCVT            S4, H4 }
 
           v91 = ((v132 * _D7.f32[0]) + (*_D6.i32 * v133)) + (_S4 * v131);
@@ -9002,7 +9002,7 @@ __int16 *vt_Copy_RGfA_TRC_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, uint6
             }
           }
 
-          v99 = *(v83 + 4 * HIBYTE(v139));
+          v99 = v83[HIBYTE(v139)];
           v66->i8[0] = llroundf(v98);
           v66 = (v66 + 1);
           if (v65)
@@ -9040,14 +9040,14 @@ __int16 *vt_Copy_RGfA_TRC_Mat_TRC_444vf_neon_fp16_GCD(unsigned __int8 *a1, uint6
             v64 = (v64 + 1);
           }
 
-          v83 += 16;
+          v83 += 4;
           --v85;
         }
 
         while (v85);
       }
 
-      v60 += v12;
+      v60 = (v60 + v12);
       v57 = (v57 + v107);
       v55 += v14;
       v53 = (v53 + v15);
@@ -9151,7 +9151,7 @@ LABEL_22:
   }
 
   fig_log_get_emitter();
-  v33 = FigSignalErrorAtGM();
+  v33 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v40.i64[0], v40.i32[2], v41.i32[0]);
   v13 = v31;
   a7 = v30;
   a5 = v29;
@@ -9483,7 +9483,7 @@ LABEL_22:
   }
 
   fig_log_get_emitter();
-  v33 = FigSignalErrorAtGM();
+  v33 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v40.i64[0], v40.i32[2], v41.i32[0]);
   v13 = v31;
   a7 = v30;
   a5 = v29;
@@ -9908,7 +9908,7 @@ LABEL_22:
   }
 
   fig_log_get_emitter();
-  v33 = FigSignalErrorAtGM();
+  v33 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v40.i64[0], v40.i32[2], v41.i32[0]);
   v13 = v31;
   a7 = v30;
   a5 = v29;

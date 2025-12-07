@@ -6,7 +6,7 @@
 - (double)initWithTileIdentifier:(uint64_t)identifier center:(uint64_t)center size:(uint64_t)size alpha:(uint64_t)alpha cornerRadius:(_OWORD *)radius cornerCurve:(uint64_t)curve cornerMask:(double)mask borderWidth:(double)self0 borderColor:(double)self1 transform:(double)self2 zPosition:(double)self3 parallaxOffset:(double)self4 contentsRect:(double)self5 coordinateSystem:(double)self6 cropInsets:(uint64_t)self7 normalizedLegibilityInsets:(double)self8;
 - (id)clone;
 - (id)description;
-- (uint64_t)initWithTileIdentifier:(double)identifier center:(double)center size:(double)size alpha:(double)alpha transform:(double)transform zPosition:(double)position parallaxOffset:(double)offset contentsRect:(uint64_t)self0 coordinateSystem:(uint64_t)self1;
+- (void)initWithTileIdentifier:(double)identifier center:(double)center size:(double)size alpha:(double)alpha transform:(double)transform zPosition:(double)position parallaxOffset:(double)offset contentsRect:(uint64_t)self0 coordinateSystem:(uint64_t)self1;
 @end
 
 @implementation PUParallaxedTileLayoutInfo
@@ -39,7 +39,7 @@
   [(PUTileLayoutInfo *)self borderWidth];
   v9 = v8;
   borderColor = [(PUTileLayoutInfo *)self borderColor];
-  [(PUTileLayoutInfo *)self transform];
+  objc_msgSend_transform(self);
   v20 = NSStringFromCGAffineTransform(&transform);
   [(PUTileLayoutInfo *)self zPosition];
   v11 = v10;
@@ -78,7 +78,7 @@
   [(PUTileLayoutInfo *)self borderWidth];
   v44 = v13;
   borderColor = [(PUTileLayoutInfo *)self borderColor];
-  [(PUTileLayoutInfo *)self transform];
+  objc_msgSend_transform(self);
   [(PUTileLayoutInfo *)self zPosition];
   v43 = v15;
   [(PUParallaxedTileLayoutInfo *)self parallaxOffset];
@@ -123,24 +123,24 @@
 
 - (double)initWithTileIdentifier:(uint64_t)identifier center:(uint64_t)center size:(uint64_t)size alpha:(uint64_t)alpha cornerRadius:(_OWORD *)radius cornerCurve:(uint64_t)curve cornerMask:(double)mask borderWidth:(double)self0 borderColor:(double)self1 transform:(double)self2 zPosition:(double)self3 parallaxOffset:(double)self4 contentsRect:(double)self5 coordinateSystem:(double)self6 cropInsets:(uint64_t)self7 normalizedLegibilityInsets:(double)self8
 {
-  v23.receiver = self;
-  v23.super_class = PUParallaxedTileLayoutInfo;
-  v19 = radius[1];
-  v22[0] = *radius;
-  v22[1] = v19;
-  v22[2] = radius[2];
-  v20 = objc_msgSendSuper2(&v23, sel_initWithTileIdentifier_center_size_alpha_cornerRadius_cornerCurve_cornerMask_borderWidth_borderColor_transform_zPosition_contentsRect_hitTestOutset_coordinateSystem_cropInsets_normalizedLegibilityInsets_, identifier, center, size, alpha, v22, a19, a20, a21, *MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24), a22, a23, a24, a25, a26, a27);
-  if (v20)
+  v31.receiver = self;
+  v31.super_class = PUParallaxedTileLayoutInfo;
+  v27 = radius[1];
+  v30[0] = *radius;
+  v30[1] = v27;
+  v30[2] = radius[2];
+  v28 = objc_msgSendSuper2(&v31, sel_initWithTileIdentifier_center_size_alpha_cornerRadius_cornerCurve_cornerMask_borderWidth_borderColor_transform_zPosition_contentsRect_hitTestOutset_coordinateSystem_cropInsets_normalizedLegibilityInsets_, identifier, center, size, alpha, v30, curve, mask, width, color, transform, position, offset, rect, system, a19, a20, a21, *MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24), a22, a23, a24, a25, a26, a27);
+  if (v28)
   {
     result = legibilityInsets;
-    *(v20 + 40) = insets;
-    v20[41] = legibilityInsets;
+    *(v28 + 40) = insets;
+    v28[41] = legibilityInsets;
   }
 
   return result;
 }
 
-- (uint64_t)initWithTileIdentifier:(double)identifier center:(double)center size:(double)size alpha:(double)alpha transform:(double)transform zPosition:(double)position parallaxOffset:(double)offset contentsRect:(uint64_t)self0 coordinateSystem:(uint64_t)self1
+- (void)initWithTileIdentifier:(double)identifier center:(double)center size:(double)size alpha:(double)alpha transform:(double)transform zPosition:(double)position parallaxOffset:(double)offset contentsRect:(uint64_t)self0 coordinateSystem:(uint64_t)self1
 {
   v20 = a12[1];
   v22[0] = *a12;

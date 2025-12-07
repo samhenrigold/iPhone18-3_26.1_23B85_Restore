@@ -85,7 +85,7 @@
 
 - (void)_querySWOLFSummaryWithSessionID:(id)d handler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2978 != -1)
   {
     dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
@@ -95,7 +95,7 @@
   if (os_log_type_enabled(qword_1EAFE2980, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = objc_msgSend_UUIDString(d, v8, v9);
+    v21 = objc_msgSend_UUIDString(d, v8, v9);
     _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_DEFAULT, "SWOLF query for session: %@", buf, 0xCu);
   }
 
@@ -108,13 +108,15 @@
       dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
     }
 
-    v17 = 138412290;
-    v18 = objc_msgSend_UUIDString(d, v11, v12);
-    v13 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSwimTrackerInternal _querySWOLFSummaryWithSessionID:handler:]", "CoreLocation: %s\n", v13);
-    if (v13 != buf)
+    v13 = qword_1EAFE2980;
+    v18 = 138412290;
+    v19 = objc_msgSend_UUIDString(d, v11, v12);
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v13, 0, "SWOLF query for session: %@", &v18, 12);
+    v15 = v14;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSwimTrackerInternal _querySWOLFSummaryWithSessionID:handler:]", "CoreLocation: %s\n", v14);
+    if (v15 != buf)
     {
-      free(v13);
+      free(v15);
     }
   }
 
@@ -127,12 +129,11 @@
   block[6] = handler;
   block[4] = d;
   dispatch_async(fInternalQueue, block);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleUpdates:(id)updates
 {
-  v161[202] = *MEMORY[0x1E69E9840];
+  v169[202] = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_copy(self->fHandler, a2, updates);
   v7 = objc_msgSend_objectForKeyedSubscript_(updates, v6, @"CMErrorMessage");
   v9 = objc_msgSend_objectForKeyedSubscript_(updates, v8, @"CMSwimKeyDataArray");
@@ -149,10 +150,10 @@
     v13 = block;
 LABEL_3:
     dispatch_async(v12, v13);
-    goto LABEL_4;
+    return;
   }
 
-  v15 = v9;
+  v14 = v9;
   if (!v9)
   {
     if (qword_1EAFE2978 != -1)
@@ -160,16 +161,16 @@ LABEL_3:
       dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
     }
 
-    v128 = qword_1EAFE2980;
+    v133 = qword_1EAFE2980;
     if (os_log_type_enabled(qword_1EAFE2980, OS_LOG_TYPE_FAULT))
     {
       *buf = 134217984;
       selfCopy3 = self;
-      _os_log_impl(&dword_19B41C000, v128, OS_LOG_TYPE_FAULT, "Unable to parse update message, %p", buf, 0xCu);
+      _os_log_impl(&dword_19B41C000, v133, OS_LOG_TYPE_FAULT, "Unable to parse update message, %p", buf, 0xCu);
     }
 
-    v129 = sub_19B420058();
-    if ((*(v129 + 160) & 0x80000000) == 0 || (*(v129 + 164) & 0x80000000) == 0 || (*(v129 + 168) & 0x80000000) == 0 || *(v129 + 152))
+    v134 = sub_19B420058();
+    if ((*(v134 + 160) & 0x80000000) == 0 || (*(v134 + 164) & 0x80000000) == 0 || (*(v134 + 168) & 0x80000000) == 0 || *(v134 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2978 != -1)
@@ -177,23 +178,24 @@ LABEL_3:
         dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
       }
 
-      v150 = 134217984;
+      v158 = 134217984;
       selfCopy4 = self;
-      v130 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSwimTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v130);
-      if (v130 != buf)
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2980, 17, "Unable to parse update message, %p", &v158);
+      v136 = v135;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSwimTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v135);
+      if (v136 != buf)
       {
-        free(v130);
+        free(v136);
       }
     }
 
-    v147[0] = MEMORY[0x1E69E9820];
-    v147[1] = 3221225472;
-    v147[2] = sub_19B7796F4;
-    v147[3] = &unk_1E7532B40;
-    v147[4] = v5;
+    v155[0] = MEMORY[0x1E69E9820];
+    v155[1] = 3221225472;
+    v155[2] = sub_19B7796F4;
+    v155[3] = &unk_1E7532B40;
+    v155[4] = v5;
     v12 = MEMORY[0x1E69E96A0];
-    v13 = v147;
+    v13 = v155;
     goto LABEL_3;
   }
 
@@ -201,34 +203,34 @@ LABEL_3:
   {
     if (self->fDistanceOffset == 1.79769313e308)
     {
-      Object = objc_msgSend_firstObject(v15, v16, v17);
-      objc_msgSend_distance(Object, v19, v20);
-      self->fDistanceOffset = v21;
-      self->fStrokeCountOffset = objc_msgSend_strokeCount(Object, v22, v23);
-      self->fLapCountOffset = objc_msgSend_lapCount(Object, v24, v25);
-      self->fSegmentCountOffset = objc_msgSend_segment(Object, v26, v27);
+      Object = objc_msgSend_firstObject(v14, v15, v16);
+      objc_msgSend_distance(Object, v18, v19);
+      self->fDistanceOffset = v20;
+      self->fStrokeCountOffset = objc_msgSend_strokeCount(Object, v21, v22);
+      self->fLapCountOffset = objc_msgSend_lapCount(Object, v23, v24);
+      self->fSegmentCountOffset = objc_msgSend_segment(Object, v25, v26);
       if (qword_1EAFE2978 != -1)
       {
         dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
       }
 
-      v28 = qword_1EAFE2980;
+      v27 = qword_1EAFE2980;
       if (os_log_type_enabled(qword_1EAFE2980, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = getpid();
+        v28 = getpid();
         *buf = 138413058;
         selfCopy3 = Object;
-        v158 = 2112;
-        ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v30, v29);
-        v160 = 1024;
-        LODWORD(v161[0]) = getpid();
-        WORD2(v161[0]) = 2048;
-        *(v161 + 6) = self;
-        _os_log_impl(&dword_19B41C000, v28, OS_LOG_TYPE_DEFAULT, "Setting offset record for live updates, %@, %@, %d, %p", buf, 0x26u);
+        v166 = 2112;
+        ExecutablePathFromPid = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v29, v28);
+        v168 = 1024;
+        LODWORD(v169[0]) = getpid();
+        WORD2(v169[0]) = 2048;
+        *(v169 + 6) = self;
+        _os_log_impl(&dword_19B41C000, v27, OS_LOG_TYPE_DEFAULT, "Setting offset record for live updates, %@, %@, %d, %p", buf, 0x26u);
       }
 
-      v31 = sub_19B420058();
-      if (*(v31 + 160) > 1 || *(v31 + 164) > 1 || *(v31 + 168) > 1 || *(v31 + 152))
+      v30 = sub_19B420058();
+      if (*(v30 + 160) > 1 || *(v30 + 164) > 1 || *(v30 + 168) > 1 || *(v30 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2978 != -1)
@@ -236,90 +238,92 @@ LABEL_3:
           dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
         }
 
+        v31 = qword_1EAFE2980;
         v32 = getpid();
-        v150 = 138413058;
+        v158 = 138413058;
         selfCopy4 = Object;
-        v152 = 2112;
-        v153 = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v33, v32);
-        v154 = 1024;
-        LODWORD(v155[0]) = getpid();
-        WORD2(v155[0]) = 2048;
-        *(v155 + 6) = self;
-        v34 = _os_log_send_and_compose_impl();
+        v160 = 2112;
+        v161 = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v33, v32);
+        v162 = 1024;
+        LODWORD(v163[0]) = getpid();
+        WORD2(v163[0]) = 2048;
+        *(v163 + 6) = self;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v31, 0, "Setting offset record for live updates, %@, %@, %d, %p", &v158, 38);
+        v35 = v34;
         sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSwimTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v34);
-        if (v34 != buf)
+        if (v35 != buf)
         {
-          free(v34);
+          free(v35);
         }
       }
     }
 
-    v134 = v5;
-    v136 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v143 = 0u;
-    v144 = 0u;
-    v145 = 0u;
-    v146 = 0u;
-    v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v35, &v143, v149, 16);
-    if (v36)
+    v142 = v5;
+    v144 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v151 = 0u;
+    v152 = 0u;
+    v153 = 0u;
+    v154 = 0u;
+    v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v36, &v151, v157, 16);
+    if (v37)
     {
-      v39 = v36;
-      v141 = *v144;
-      v135 = v15;
+      v40 = v37;
+      v149 = *v152;
+      v143 = v14;
       do
       {
-        v40 = 0;
-        v137 = v39;
+        v41 = 0;
+        v145 = v40;
         do
         {
-          if (*v144 != v141)
+          if (*v152 != v149)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v14);
           }
 
-          v41 = *(*(&v143 + 1) + 8 * v40);
-          objc_msgSend_distance(v41, v37, v38);
-          v45 = v44 - self->fDistanceOffset;
-          if (v45 >= -2.22044605e-16)
+          v42 = *(*(&v151 + 1) + 8 * v41);
+          objc_msgSend_distance(v42, v38, v39);
+          v46 = v45 - self->fDistanceOffset;
+          if (v46 >= -2.22044605e-16)
           {
-            if (v45 >= 2.22044605e-16)
+            if (v46 >= 2.22044605e-16)
             {
-              v55 = objc_msgSend_endDate(v41, v42, v43);
-              objc_msgSend_timeIntervalSinceReferenceDate(v55, v56, v57);
-              v59 = v58;
-              started = objc_msgSend_startDate(v41, v60, v61);
-              objc_msgSend_timeIntervalSinceReferenceDate(started, v63, v64);
-              self->fActiveTime = self->fActiveTime + v59 - v65;
-              v140 = [CMSwimData alloc];
-              v139 = objc_msgSend_recordId(v41, v66, v67);
-              v138 = objc_msgSend_sourceId(v41, v68, v69);
-              v72 = objc_msgSend_sessionId(v41, v70, v71);
-              v75 = objc_msgSend_startDate(v41, v73, v74);
-              v78 = objc_msgSend_endDate(v41, v76, v77);
-              v81 = objc_msgSend_strokeCount(v41, v79, v80);
+              v58 = objc_msgSend_endDate(v42, v43, v44);
+              objc_msgSend_timeIntervalSinceReferenceDate(v58, v59, v60);
+              v62 = v61;
+              started = objc_msgSend_startDate(v42, v63, v64);
+              objc_msgSend_timeIntervalSinceReferenceDate(started, v66, v67);
+              self->fActiveTime = self->fActiveTime + v62 - v68;
+              v148 = [CMSwimData alloc];
+              v147 = objc_msgSend_recordId(v42, v69, v70);
+              v146 = objc_msgSend_sourceId(v42, v71, v72);
+              v75 = objc_msgSend_sessionId(v42, v73, v74);
+              v78 = objc_msgSend_startDate(v42, v76, v77);
+              v81 = objc_msgSend_endDate(v42, v79, v80);
+              v84 = objc_msgSend_strokeCount(v42, v82, v83);
               fStrokeCountOffset = self->fStrokeCountOffset;
-              objc_msgSend_distance(v41, v83, v84);
-              v86 = v85;
+              objc_msgSend_distance(v42, v86, v87);
+              v89 = v88;
               fDistanceOffset = self->fDistanceOffset;
-              v90 = objc_msgSend_distanceTimestamp(v41, v88, v89);
-              objc_msgSend_distance(v41, v91, v92);
-              v95 = 0.0;
-              if (v96 > self->fDistanceOffset)
+              v93 = objc_msgSend_distanceTimestamp(v42, v91, v92);
+              objc_msgSend_distance(v42, v94, v95);
+              v98 = 0.0;
+              if (v99 > self->fDistanceOffset)
               {
                 fActiveTime = self->fActiveTime;
-                objc_msgSend_distance(v41, v93, v94);
-                v95 = fActiveTime / (v98 - self->fDistanceOffset);
+                objc_msgSend_distance(v42, v96, v97);
+                v98 = fActiveTime / (v101 - self->fDistanceOffset);
               }
 
-              v99 = v81 - fStrokeCountOffset;
-              v100 = objc_msgSend_lapCount(v41, v93, v94) - self->fLapCountOffset;
-              v103 = objc_msgSend_strokeType(v41, v101, v102);
-              v106 = objc_msgSend_segment(v41, v104, v105);
-              v108 = objc_msgSend_initWithRecordId_sourceId_sessionId_startDate_endDate_strokeCount_distance_distanceTimestamp_avgPace_lapCount_strokeType_segment_SWOLF_segmentSWOLF_(v140, v107, v139, v138, v72, v75, v78, v99, v86 - fDistanceOffset, v95, 0.0, 0.0, v90, v100, v103, v106 - self->fSegmentCountOffset);
-              objc_msgSend_addObject_(v136, v109, v108);
+              v102 = v84 - fStrokeCountOffset;
+              v103 = objc_msgSend_lapCount(v42, v96, v97) - self->fLapCountOffset;
+              v106 = objc_msgSend_strokeType(v42, v104, v105);
+              v109 = objc_msgSend_segment(v42, v107, v108);
+              v111 = objc_msgSend_initWithRecordId_sourceId_sessionId_startDate_endDate_strokeCount_distance_distanceTimestamp_avgPace_lapCount_strokeType_segment_SWOLF_segmentSWOLF_(v148, v110, v147, v146, v75, v78, v81, v102, v89 - fDistanceOffset, v98, 0.0, 0.0, v93, v103, v106, v109 - self->fSegmentCountOffset);
+              objc_msgSend_addObject_(v144, v112, v111);
 
-              v15 = v135;
-              v39 = v137;
+              v14 = v143;
+              v40 = v145;
             }
 
             else
@@ -329,21 +333,21 @@ LABEL_3:
                 dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
               }
 
-              v51 = qword_1EAFE2980;
+              v53 = qword_1EAFE2980;
               if (os_log_type_enabled(qword_1EAFE2980, OS_LOG_TYPE_DEFAULT))
               {
-                v52 = self->fDistanceOffset;
+                v54 = self->fDistanceOffset;
                 *buf = 134218498;
-                selfCopy3 = *&v52;
-                v158 = 2112;
-                ExecutablePathFromPid = v41;
-                v160 = 2048;
-                v161[0] = self;
-                _os_log_impl(&dword_19B41C000, v51, OS_LOG_TYPE_DEFAULT, "(Approximately) Zero distance from offset, %f, %@, %p", buf, 0x20u);
+                selfCopy3 = *&v54;
+                v166 = 2112;
+                ExecutablePathFromPid = v42;
+                v168 = 2048;
+                v169[0] = self;
+                _os_log_impl(&dword_19B41C000, v53, OS_LOG_TYPE_DEFAULT, "(Approximately) Zero distance from offset, %f, %@, %p", buf, 0x20u);
               }
 
-              v53 = sub_19B420058();
-              if (*(v53 + 160) > 1 || *(v53 + 164) > 1 || *(v53 + 168) > 1 || *(v53 + 152))
+              v55 = sub_19B420058();
+              if (*(v55 + 160) > 1 || *(v55 + 164) > 1 || *(v55 + 168) > 1 || *(v55 + 152))
               {
                 bzero(buf, 0x65CuLL);
                 if (qword_1EAFE2978 != -1)
@@ -351,15 +355,17 @@ LABEL_3:
                   dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
                 }
 
-                v54 = self->fDistanceOffset;
-                v150 = 134218498;
-                selfCopy4 = *&v54;
-                v152 = 2112;
-                v153 = v41;
-                v154 = 2048;
-                v155[0] = self;
-                v50 = _os_log_send_and_compose_impl();
-                sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSwimTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v50);
+                v56 = self->fDistanceOffset;
+                v158 = 134218498;
+                selfCopy4 = *&v56;
+                v160 = 2112;
+                v161 = v42;
+                v162 = 2048;
+                v163[0] = self;
+                LODWORD(v141) = 32;
+                _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2980, 0, "(Approximately) Zero distance from offset, %f, %@, %p", &v158, v141);
+                v52 = v57;
+                sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSwimTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v57);
                 goto LABEL_48;
               }
             }
@@ -372,21 +378,21 @@ LABEL_3:
               dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
             }
 
-            v46 = qword_1EAFE2980;
+            v47 = qword_1EAFE2980;
             if (os_log_type_enabled(qword_1EAFE2980, OS_LOG_TYPE_ERROR))
             {
-              v47 = self->fDistanceOffset;
+              v48 = self->fDistanceOffset;
               *buf = 134218498;
-              selfCopy3 = *&v47;
-              v158 = 2112;
-              ExecutablePathFromPid = v41;
-              v160 = 2048;
-              v161[0] = self;
-              _os_log_impl(&dword_19B41C000, v46, OS_LOG_TYPE_ERROR, "Negative distance from offset, %f, %@, %p", buf, 0x20u);
+              selfCopy3 = *&v48;
+              v166 = 2112;
+              ExecutablePathFromPid = v42;
+              v168 = 2048;
+              v169[0] = self;
+              _os_log_impl(&dword_19B41C000, v47, OS_LOG_TYPE_ERROR, "Negative distance from offset, %f, %@, %p", buf, 0x20u);
             }
 
-            v48 = sub_19B420058();
-            if ((*(v48 + 160) & 0x80000000) == 0 || (*(v48 + 164) & 0x80000000) == 0 || (*(v48 + 168) & 0x80000000) == 0 || *(v48 + 152))
+            v49 = sub_19B420058();
+            if ((*(v49 + 160) & 0x80000000) == 0 || (*(v49 + 164) & 0x80000000) == 0 || (*(v49 + 168) & 0x80000000) == 0 || *(v49 + 152))
             {
               bzero(buf, 0x65CuLL);
               if (qword_1EAFE2978 != -1)
@@ -394,68 +400,70 @@ LABEL_3:
                 dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
               }
 
-              v49 = self->fDistanceOffset;
-              v150 = 134218498;
-              selfCopy4 = *&v49;
-              v152 = 2112;
-              v153 = v41;
-              v154 = 2048;
-              v155[0] = self;
-              v50 = _os_log_send_and_compose_impl();
-              sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSwimTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v50);
+              v50 = self->fDistanceOffset;
+              v158 = 134218498;
+              selfCopy4 = *&v50;
+              v160 = 2112;
+              v161 = v42;
+              v162 = 2048;
+              v163[0] = self;
+              LODWORD(v141) = 32;
+              _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2980, 16, "Negative distance from offset, %f, %@, %p", &v158, v141);
+              v52 = v51;
+              sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSwimTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v51);
 LABEL_48:
-              if (v50 != buf)
+              if (v52 != buf)
               {
-                free(v50);
+                free(v52);
               }
             }
           }
 
-          ++v40;
+          ++v41;
         }
 
-        while (v39 != v40);
-        v110 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v37, &v143, v149, 16);
-        v39 = v110;
+        while (v40 != v41);
+        v113 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v38, &v151, v157, 16);
+        v40 = v113;
       }
 
-      while (v110);
+      while (v113);
     }
 
-    if (objc_msgSend_count(v136, v37, v38))
+    if (objc_msgSend_count(v144, v38, v39))
     {
-      v142[0] = MEMORY[0x1E69E9820];
-      v142[1] = 3221225472;
-      v142[2] = sub_19B779758;
-      v142[3] = &unk_1E7532B90;
-      v142[4] = v136;
-      v142[5] = v134;
-      dispatch_async(MEMORY[0x1E69E96A0], v142);
+      v150[0] = MEMORY[0x1E69E9820];
+      v150[1] = 3221225472;
+      v150[2] = sub_19B779758;
+      v150[3] = &unk_1E7532B90;
+      v150[4] = v144;
+      v150[5] = v142;
+      dispatch_async(MEMORY[0x1E69E96A0], v150);
       if (qword_1EAFE2978 != -1)
       {
         dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
       }
 
-      v111 = qword_1EAFE2980;
+      v114 = qword_1EAFE2980;
       if (os_log_type_enabled(qword_1EAFE2980, OS_LOG_TYPE_DEFAULT))
       {
-        v114 = objc_msgSend_lastObject(v136, v112, v113);
-        v115 = getpid();
-        v117 = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v116, v115);
+        v117 = objc_msgSend_lastObject(v144, v115, v116);
         v118 = getpid();
+        v120 = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v119, v118);
+        v121 = getpid();
         *buf = 138413058;
-        selfCopy3 = v114;
-        v158 = 2112;
-        ExecutablePathFromPid = v117;
-        v160 = 1024;
-        LODWORD(v161[0]) = v118;
-        WORD2(v161[0]) = 2048;
-        *(v161 + 6) = self;
-        _os_log_impl(&dword_19B41C000, v111, OS_LOG_TYPE_DEFAULT, "%@, %@, %d, %p", buf, 0x26u);
+        selfCopy3 = v117;
+        v166 = 2112;
+        ExecutablePathFromPid = v120;
+        v168 = 1024;
+        LODWORD(v169[0]) = v121;
+        WORD2(v169[0]) = 2048;
+        *(v169 + 6) = self;
+        _os_log_impl(&dword_19B41C000, v114, OS_LOG_TYPE_DEFAULT, "%@, %@, %d, %p", buf, 0x26u);
       }
 
-      v119 = sub_19B420058();
-      if (*(v119 + 160) > 1 || *(v119 + 164) > 1 || *(v119 + 168) > 1 || *(v119 + 152))
+      v122 = sub_19B420058();
+      if (*(v122 + 160) > 1 || *(v122 + 164) > 1 || *(v122 + 168) > 1 || *(v122 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2978 != -1)
@@ -463,23 +471,26 @@ LABEL_48:
           dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
         }
 
-        v122 = objc_msgSend_lastObject(v136, v120, v121);
-        v123 = getpid();
-        v125 = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v124, v123);
-        v126 = getpid();
-        v150 = 138413058;
-        selfCopy4 = v122;
-        v152 = 2112;
-        v153 = v125;
-        v154 = 1024;
-        LODWORD(v155[0]) = v126;
-        WORD2(v155[0]) = 2048;
-        *(v155 + 6) = self;
-        v127 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSwimTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v127);
-        if (v127 != buf)
+        v125 = qword_1EAFE2980;
+        v126 = objc_msgSend_lastObject(v144, v123, v124);
+        v127 = getpid();
+        v129 = objc_msgSend_getExecutablePathFromPid_(CMMotionUtils, v128, v127);
+        v130 = getpid();
+        v158 = 138413058;
+        selfCopy4 = v126;
+        v160 = 2112;
+        v161 = v129;
+        v162 = 1024;
+        LODWORD(v163[0]) = v130;
+        WORD2(v163[0]) = 2048;
+        *(v163 + 6) = self;
+        LODWORD(v141) = 38;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v125, 0, "%@, %@, %d, %p", &v158, v141);
+        v132 = v131;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSwimTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v131);
+        if (v132 != buf)
         {
-          free(v127);
+          free(v132);
         }
       }
     }
@@ -492,16 +503,16 @@ LABEL_48:
       dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
     }
 
-    v131 = qword_1EAFE2980;
+    v137 = qword_1EAFE2980;
     if (os_log_type_enabled(qword_1EAFE2980, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       selfCopy3 = self;
-      _os_log_impl(&dword_19B41C000, v131, OS_LOG_TYPE_DEFAULT, "#Warning Empty swim update, %p", buf, 0xCu);
+      _os_log_impl(&dword_19B41C000, v137, OS_LOG_TYPE_DEFAULT, "#Warning Empty swim update, %p", buf, 0xCu);
     }
 
-    v132 = sub_19B420058();
-    if (*(v132 + 160) > 1 || *(v132 + 164) > 1 || *(v132 + 168) > 1 || *(v132 + 152))
+    v138 = sub_19B420058();
+    if (*(v138 + 160) > 1 || *(v138 + 164) > 1 || *(v138 + 168) > 1 || *(v138 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2978 != -1)
@@ -509,19 +520,17 @@ LABEL_48:
         dispatch_once(&qword_1EAFE2978, &unk_1F0E3B728);
       }
 
-      v150 = 134217984;
+      v158 = 134217984;
       selfCopy4 = self;
-      v133 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSwimTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v133);
-      if (v133 != buf)
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2980, 0, "#Warning Empty swim update, %p", &v158);
+      v140 = v139;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSwimTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v139);
+      if (v140 != buf)
       {
-        free(v133);
+        free(v140);
       }
     }
   }
-
-LABEL_4:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_resetOffsets

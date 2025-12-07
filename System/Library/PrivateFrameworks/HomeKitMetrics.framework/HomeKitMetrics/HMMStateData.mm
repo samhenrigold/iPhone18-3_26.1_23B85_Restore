@@ -7,7 +7,7 @@
 
 - (void)_exitTime:(unint64_t)time exitData:(id)data
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([(HMMStateData *)self isOpen])
   {
@@ -26,11 +26,11 @@
       {
         v11 = HMFGetLogIdentifier();
         name = [(HMMStateData *)selfCopy name];
-        v19 = 138543618;
-        v20 = v11;
-        v21 = 2114;
-        v22 = name;
-        _os_log_impl(&dword_22B074000, v10, OS_LOG_TYPE_ERROR, "%{public}@Metrics state %{public}@ exit time less than enter time", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v11;
+        v20 = 2114;
+        v21 = name;
+        _os_log_impl(&dword_22B074000, v10, OS_LOG_TYPE_ERROR, "%{public}@Metrics state %{public}@ exit time less than enter time", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -48,17 +48,15 @@
     {
       v16 = HMFGetLogIdentifier();
       name2 = [(HMMStateData *)selfCopy2 name];
-      v19 = 138543618;
-      v20 = v16;
-      v21 = 2114;
-      v22 = name2;
-      _os_log_impl(&dword_22B074000, v15, OS_LOG_TYPE_ERROR, "%{public}@Metrics state %{public}@ was already exited", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v16;
+      v20 = 2114;
+      v21 = name2;
+      _os_log_impl(&dword_22B074000, v15, OS_LOG_TYPE_ERROR, "%{public}@Metrics state %{public}@ was already exited", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (HMMStateData)initWithName:(id)name enterTime:(unint64_t)time enterData:(id)data

@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)extractedAsString:(int)string;
 - (int)StringAsExtracted:(id)extracted;
 - (int)extracted;
 - (unint64_t)hash;
@@ -167,27 +168,25 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    extracted = self->_extracted;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    extractionModelVersion = self->_extractionModelVersion;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -282,6 +281,21 @@ LABEL_14:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)extractedAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFB150[string];
   }
 
   return v4;

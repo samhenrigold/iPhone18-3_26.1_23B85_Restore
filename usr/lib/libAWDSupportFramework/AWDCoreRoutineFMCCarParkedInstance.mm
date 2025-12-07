@@ -185,7 +185,6 @@ LABEL_10:
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -197,7 +196,6 @@ LABEL_10:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    triggerTypes = self->_triggerTypes;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -217,7 +215,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  userAssistanceRequired = self->_userAssistanceRequired;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -229,7 +226,6 @@ LABEL_8:
     }
 
 LABEL_14:
-    qualityIndicator = self->_qualityIndicator;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -240,7 +236,6 @@ LABEL_14:
   }
 
 LABEL_13:
-  horizontalAccuracy = self->_horizontalAccuracy;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -255,7 +250,6 @@ LABEL_9:
   }
 
 LABEL_15:
-  locationType = self->_locationType;
 
   PBDataWriterWriteInt32Field();
 }
@@ -423,7 +417,6 @@ LABEL_8:
   }
 
   has = self->_has;
-  v7 = *(equal + 44);
   if (has)
   {
     if ((*(equal + 44) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -466,7 +459,6 @@ LABEL_8:
   {
     if ((*(equal + 44) & 0x20) != 0)
     {
-      v9 = *(equal + 40);
       if (self->_userAssistanceRequired)
       {
         if ((*(equal + 40) & 1) == 0)

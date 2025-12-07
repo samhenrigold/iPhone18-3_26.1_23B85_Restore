@@ -44,32 +44,31 @@
 
 - (FCCoreConfigurationFetchedValueDescriptor)initWithConfigurationManager:(id)manager
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   if (!managerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configurationManager"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configurationManager"];
     *buf = 136315906;
-    v13 = "[FCCoreConfigurationFetchedValueDescriptor initWithConfigurationManager:]";
-    v14 = 2080;
-    v15 = "FCCoreConfigurationFetchedValueDescriptor.m";
-    v16 = 1024;
-    v17 = 30;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "[FCCoreConfigurationFetchedValueDescriptor initWithConfigurationManager:]";
+    v13 = 2080;
+    v14 = "FCCoreConfigurationFetchedValueDescriptor.m";
+    v15 = 1024;
+    v16 = 30;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v11.receiver = self;
-  v11.super_class = FCCoreConfigurationFetchedValueDescriptor;
-  v6 = [(FCFetchedValueDescriptor *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = FCCoreConfigurationFetchedValueDescriptor;
+  v6 = [(FCFetchedValueDescriptor *)&v10 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_configurationManager, manager);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -88,20 +87,20 @@
 
 - (BOOL)isValue:(id)value equalToValue:(id)toValue
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   toValueCopy = toValue;
   if (!valueCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "left"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "left"];
     *buf = 136315906;
-    v12 = "[FCCoreConfigurationFetchedValueDescriptor isValue:equalToValue:]";
-    v13 = 2080;
-    v14 = "FCCoreConfigurationFetchedValueDescriptor.m";
-    v15 = 1024;
-    v16 = 65;
-    v17 = 2114;
-    v18 = v9;
+    v11 = "[FCCoreConfigurationFetchedValueDescriptor isValue:equalToValue:]";
+    v12 = 2080;
+    v13 = "FCCoreConfigurationFetchedValueDescriptor.m";
+    v14 = 1024;
+    v15 = 65;
+    v16 = 2114;
+    v17 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (toValueCopy)
@@ -117,21 +116,20 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "right"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "right"];
     *buf = 136315906;
-    v12 = "[FCCoreConfigurationFetchedValueDescriptor isValue:equalToValue:]";
-    v13 = 2080;
-    v14 = "FCCoreConfigurationFetchedValueDescriptor.m";
-    v15 = 1024;
-    v16 = 66;
-    v17 = 2114;
-    v18 = v10;
+    v11 = "[FCCoreConfigurationFetchedValueDescriptor isValue:equalToValue:]";
+    v12 = 2080;
+    v13 = "FCCoreConfigurationFetchedValueDescriptor.m";
+    v14 = 1024;
+    v15 = 66;
+    v16 = 2114;
+    v17 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
 
-  v7 = *MEMORY[0x1E69E9840];
   return valueCopy == toValueCopy;
 }
 

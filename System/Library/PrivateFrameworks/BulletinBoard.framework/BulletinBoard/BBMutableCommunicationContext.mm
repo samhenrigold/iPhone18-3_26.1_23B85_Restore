@@ -13,63 +13,49 @@
 
 - (void)setIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  identifier = self->super._identifier;
-  self->super._identifier = v4;
+  self->super._identifier = [identifier copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setAssociatedObjectUri:(id)uri
 {
-  v4 = [uri copy];
-  associatedObjectUri = self->super._associatedObjectUri;
-  self->super._associatedObjectUri = v4;
+  self->super._associatedObjectUri = [uri copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setDisplayName:(id)name
 {
-  v4 = [name copy];
-  displayName = self->super._displayName;
-  self->super._displayName = v4;
+  self->super._displayName = [name copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setSender:(id)sender
 {
-  v4 = [sender copy];
-  sender = self->super._sender;
-  self->super._sender = v4;
+  self->super._sender = [sender copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setRecipients:(id)recipients
 {
-  v4 = [recipients copy];
-  recipients = self->super._recipients;
-  self->super._recipients = v4;
+  self->super._recipients = [recipients copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setContentURL:(id)l
 {
-  v4 = [l copy];
-  contentURL = self->super._contentURL;
-  self->super._contentURL = v4;
+  self->super._contentURL = [l copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setImageName:(id)name
 {
-  v4 = [name copy];
-  imageName = self->super._imageName;
-  self->super._imageName = v4;
+  self->super._imageName = [name copy];
 
   MEMORY[0x2821F96F8]();
 }

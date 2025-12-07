@@ -173,7 +173,7 @@ void __39__SSVURLBagInterpreter_initWithURLBag___block_invoke(uint64_t a1, void 
 
 - (id)cachedValueFromBag:(id)bag key:(id)key withType:(unint64_t)type updateCache:(BOOL)cache
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   bagCopy = bag;
   keyCopy = key;
   v11 = 0;
@@ -183,9 +183,9 @@ void __39__SSVURLBagInterpreter_initWithURLBag___block_invoke(uint64_t a1, void 
     {
       if (type == 1)
       {
-        v36 = 0;
-        v12 = &v36;
-        v13 = [bagCopy BOOLForKey:keyCopy error:&v36];
+        v35 = 0;
+        v12 = &v35;
+        v13 = [bagCopy BOOLForKey:keyCopy error:&v35];
       }
 
       else
@@ -196,17 +196,17 @@ void __39__SSVURLBagInterpreter_initWithURLBag___block_invoke(uint64_t a1, void 
           goto LABEL_19;
         }
 
-        v31 = 0;
-        v12 = &v31;
-        v13 = [bagCopy dictionaryForKey:keyCopy error:&v31];
+        v30 = 0;
+        v12 = &v30;
+        v13 = [bagCopy dictionaryForKey:keyCopy error:&v30];
       }
     }
 
     else
     {
-      v37 = 0;
-      v12 = &v37;
-      v13 = [bagCopy arrayForKey:keyCopy error:&v37];
+      v36 = 0;
+      v12 = &v36;
+      v13 = [bagCopy arrayForKey:keyCopy error:&v36];
     }
   }
 
@@ -214,9 +214,9 @@ void __39__SSVURLBagInterpreter_initWithURLBag___block_invoke(uint64_t a1, void 
   {
     if (type == 5)
     {
-      v33 = 0;
-      v12 = &v33;
-      v13 = [bagCopy stringForKey:keyCopy error:&v33];
+      v32 = 0;
+      v12 = &v32;
+      v13 = [bagCopy stringForKey:keyCopy error:&v32];
     }
 
     else
@@ -227,24 +227,24 @@ void __39__SSVURLBagInterpreter_initWithURLBag___block_invoke(uint64_t a1, void 
         goto LABEL_19;
       }
 
-      v32 = 0;
-      v12 = &v32;
-      v13 = [bagCopy URLForKey:keyCopy error:&v32];
+      v31 = 0;
+      v12 = &v31;
+      v13 = [bagCopy URLForKey:keyCopy error:&v31];
     }
   }
 
   else if (type == 3)
   {
-    v35 = 0;
-    v12 = &v35;
-    v13 = [bagCopy doubleForKey:keyCopy error:&v35];
+    v34 = 0;
+    v12 = &v34;
+    v13 = [bagCopy doubleForKey:keyCopy error:&v34];
   }
 
   else
   {
-    v34 = 0;
-    v12 = &v34;
-    v13 = [bagCopy integerForKey:keyCopy error:&v34];
+    v33 = 0;
+    v12 = &v33;
+    v13 = [bagCopy integerForKey:keyCopy error:&v33];
   }
 
   v14 = v13;
@@ -253,7 +253,7 @@ void __39__SSVURLBagInterpreter_initWithURLBag___block_invoke(uint64_t a1, void 
   if (v14 && !v15)
   {
     [(NSMutableDictionary *)self->_cachedBagValues setObject:v14 forKeyedSubscript:keyCopy];
-    goto LABEL_31;
+    goto LABEL_32;
   }
 
 LABEL_19:
@@ -266,45 +266,49 @@ LABEL_19:
   shouldLog = [v16 shouldLog];
   if ([v16 shouldLogToDisk])
   {
-    v18 = shouldLog | 2;
+    LODWORD(v18) = shouldLog | 2;
   }
 
   else
   {
-    v18 = shouldLog;
+    LODWORD(v18) = shouldLog;
   }
 
   oSLogObject = [v16 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v18 = v18;
+  }
+
+  else
   {
     v18 &= 2u;
   }
 
   if (!v18)
   {
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
   v20 = objc_opt_class();
-  v38 = 138412802;
-  v39 = v20;
-  v40 = 2112;
-  v41 = keyCopy;
-  v42 = 2112;
-  v43 = v11;
+  v37 = 138412802;
+  v38 = v20;
+  v39 = 2112;
+  v40 = keyCopy;
+  v41 = 2112;
+  v42 = v11;
   v21 = v20;
-  LODWORD(v30) = 32;
-  v22 = _os_log_send_and_compose_impl();
+  v22 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "[%@] Failed to get bag value for key: %@. Error: %@", &v37, 32);
 
   if (v22)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, &v38, v30}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
     free(v22);
     SSFileLog(v16, @"%@", v23, v24, v25, v26, v27, v28, oSLogObject);
-LABEL_29:
+LABEL_30:
   }
 
-LABEL_31:
+LABEL_32:
 
   return v14;
 }

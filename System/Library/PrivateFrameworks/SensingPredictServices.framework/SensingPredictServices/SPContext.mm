@@ -34,28 +34,35 @@
 - (id)descriptionWithLevel:(int)level
 {
   levelCopy = level;
-  NSAppendPrintF_safe();
-  v5 = 0;
+  v14 = 0;
+  NSAppendPrintF_safe(&v14, "SPContext:");
+  v5 = v14;
   v6 = v5;
   locationCategory = self->_locationCategory;
   if (self->_locationCategory)
   {
-    v12 = v5;
-    if (locationCategory <= 9)
+    v13 = v5;
+    if (locationCategory > 9)
+    {
+      v8 = @"?";
+    }
+
+    else
     {
       v8 = off_279B97220[locationCategory - 1];
     }
 
-    NSAppendPrintF_safe();
-    v9 = v12;
+    NSAppendPrintF_safe(&v13, " location category %@", v8);
+    v9 = v13;
 
     v6 = v9;
   }
 
   if (levelCopy < 0x15)
   {
-    NSAppendPrintF_safe();
-    v10 = v6;
+    v12 = v6;
+    NSAppendPrintF_safe(&v12, "\n");
+    v10 = v12;
 
     v6 = v10;
   }

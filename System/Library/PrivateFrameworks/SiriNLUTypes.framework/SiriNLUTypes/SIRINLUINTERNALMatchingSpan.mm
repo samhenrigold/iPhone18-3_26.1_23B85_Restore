@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)matcherNamesAsString:(int)string;
 - (int)StringAsMatcherNames:(id)names;
 - (int)matcherNamesAtIndex:(unint64_t)index;
 - (unint64_t)hash;
@@ -170,7 +171,6 @@ LABEL_6:
     }
   }
 
-  v7 = *(equalCopy + 88);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 88) & 2) == 0 || self->_startTokenIndex != *(equalCopy + 18))
@@ -182,7 +182,7 @@ LABEL_6:
   else if ((*(equalCopy + 88) & 2) != 0)
   {
 LABEL_23:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_24;
   }
 
@@ -222,17 +222,17 @@ LABEL_23:
   semanticValue = self->_semanticValue;
   if (semanticValue | *(equalCopy + 8))
   {
-    v11 = [(NSString *)semanticValue isEqual:?];
+    v10 = [(NSString *)semanticValue isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_24:
 
-  return v11;
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -341,65 +341,62 @@ LABEL_24:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v7 = toCopy;
   if (self->_label)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v7;
   }
 
   if (self->_input)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    startTokenIndex = self->_startTokenIndex;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v7;
     has = self->_has;
   }
 
   if (has)
   {
-    endTokenIndex = self->_endTokenIndex;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v7;
   }
 
   if (self->_usoGraph)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v7;
   }
 
   if (self->_matcherNames.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_matcherNames.list[v8];
       PBDataWriterWriteInt32Field();
-      toCopy = v10;
-      ++v8;
+      toCopy = v7;
+      ++v6;
     }
 
-    while (v8 < self->_matcherNames.count);
+    while (v6 < self->_matcherNames.count);
   }
 
   if (self->_internalSpanData)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v7;
   }
 
   if (self->_semanticValue)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v7;
   }
 }
 
@@ -551,6 +548,21 @@ LABEL_24:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)matcherNamesAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8328220[string];
   }
 
   return v4;

@@ -46,7 +46,7 @@
 
 - (void)valueChangedForMapsFeature:(id)feature enabled:(BOOL)enabled
 {
-  v5 = feature.var0.var0 == MapsFeaturesConfig_EnableEVRouting && feature.var0.var1 == *(&MapsFeaturesConfig_EnableEVRouting + 1);
+  v5 = feature.var0.var0 == LODWORD(MapsFeaturesConfig_EnableEVRouting[0]) && feature.var0.var1 == MapsFeaturesConfig_EnableEVRouting[1];
   if (v5 || (feature.var0.var0 == LODWORD(MapsFeaturesConfig_EnableAlberta[0]) ? (v6 = feature.var0.var1 == MapsFeaturesConfig_EnableAlberta[1]) : (v6 = 0), v6))
   {
     if (MapsFeature_IsEnabled_EVRouting())

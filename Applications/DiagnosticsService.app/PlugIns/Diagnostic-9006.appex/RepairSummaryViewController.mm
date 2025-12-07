@@ -13,6 +13,7 @@
 - (void)start;
 - (void)teardown;
 - (void)updateViewWithRepairSummary;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -53,7 +54,7 @@
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Register physical button events", buf, 2u);
   }
 
-  if (!sub_100004E58())
+  if (!sub_100004E58(0))
   {
     v13 = handleForCategory();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -213,6 +214,20 @@
   {
     *buf = 136315138;
     v6 = "[RepairSummaryViewController viewDidLoad]";
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = RepairSummaryViewController;
+  [(RepairSummaryViewController *)&v4 viewDidAppear:appear];
+  v3 = handleForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v6 = "[RepairSummaryViewController viewDidAppear:]";
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 }

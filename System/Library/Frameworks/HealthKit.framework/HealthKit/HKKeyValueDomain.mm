@@ -61,10 +61,10 @@
 
 - (id)hkhr_electrocardiogramRecordingFirstOnboardingCompletedDateWithError:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  v5 = [(HKKeyValueDomain *)self dateForKey:@"HKElectrocardiogramFirstOnboardingCompleted" error:&v18];
-  v6 = v18;
+  v22 = *MEMORY[0x1E69E9840];
+  v19 = 0;
+  v5 = [(HKKeyValueDomain *)self dateForKey:@"HKElectrocardiogramFirstOnboardingCompleted" error:&v19];
+  v6 = v19;
   v7 = v6;
   if (v5)
   {
@@ -84,29 +84,30 @@
   else
   {
     hk_isDatabaseAccessibilityError = [v6 hk_isDatabaseAccessibilityError];
-    _HKInitializeLogging();
-    v11 = HKLogHeartRhythm;
-    if (hk_isDatabaseAccessibilityError)
+    v11 = hk_isDatabaseAccessibilityError;
+    _HKInitializeLogging(hk_isDatabaseAccessibilityError, v12);
+    v13 = HKLogHeartRhythm;
+    if (v11)
     {
       if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = v11;
-        v13 = objc_opt_class();
-        *buf = 138543362;
-        v20 = v13;
         v14 = v13;
-        _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Database is inaccessible; can't determine first ECG onboarding completion date", buf, 0xCu);
+        v15 = objc_opt_class();
+        *buf = 138543362;
+        v21 = v15;
+        v16 = v15;
+        _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Database is inaccessible; can't determine first ECG onboarding completion date", buf, 0xCu);
       }
     }
 
     else if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
     {
-      [(HKKeyValueDomain(HKHeartRhythmAdditions) *)v11 hkhr_electrocardiogramRecordingFirstOnboardingCompletedDateWithError:v7];
+      [(HKKeyValueDomain(HKHeartRhythmAdditions) *)v13 hkhr_electrocardiogramRecordingFirstOnboardingCompletedDateWithError:v7];
     }
 
     if (error)
     {
-      v15 = v7;
+      v17 = v7;
       v9 = 0;
       *error = v7;
     }
@@ -117,8 +118,6 @@
       v9 = 0;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -1599,13 +1598,14 @@ void __39__HKKeyValueDomain_allValuesWithError___block_invoke_2(uint64_t a1, voi
 void __57__HKKeyValueDomain__registerFirstObserverWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
-    v6 = HKLogDefault;
+    _HKInitializeLogging(v5, v6);
+    v8 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
-      __57__HKKeyValueDomain__registerFirstObserverWithCompletion___block_invoke_cold_1(a1, v5, v6);
+      __57__HKKeyValueDomain__registerFirstObserverWithCompletion___block_invoke_cold_1(a1, v7, v8);
     }
   }
 
@@ -1624,24 +1624,23 @@ void __57__HKKeyValueDomain__registerFirstObserverWithCompletion___block_invoke(
 
 void __43__HKKeyValueDomain__unregisterLastObserver__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
-    v6 = HKLogDefault;
+    _HKInitializeLogging(v5, v6);
+    v8 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_INFO, "%{public}@: unable to unregister observing changes: %{public}@", &v9, 0x16u);
+      v9 = *(a1 + 32);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v7;
+      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_INFO, "%{public}@: unable to unregister observing changes: %{public}@", &v10, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_observeKeyValueDomainChanges:(BOOL)changes completion:(id)completion
@@ -1665,12 +1664,11 @@ void __43__HKKeyValueDomain__unregisterLastObserver__block_invoke(uint64_t a1, c
 
 - (void)_handleAutomaticProxyReconnection
 {
-  *v4 = 138543618;
-  *&v4[4] = self;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_19197B000, a2, a3, "[%{public}@] Failed to resume observation on server reconnection: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = self;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_19197B000, a2, a3, "[%{public}@] Failed to resume observation on server reconnection: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (BOOL)_synchronouslyRegisterToObserveKeyValueDomainChanges:(id *)changes
@@ -1862,12 +1860,11 @@ uint64_t __73__HKKeyValueDomain__synchronouslyRegisterToObserveKeyValueDomainCha
 
 void __57__HKKeyValueDomain__registerFirstObserverWithCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_19197B000, a2, a3, "%{public}@: unable to register to observe changes: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_19197B000, a2, a3, "%{public}@: unable to register to observe changes: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

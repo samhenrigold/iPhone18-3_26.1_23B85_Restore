@@ -19,7 +19,6 @@
 - (id)relatedApplicationsForStoreIdentifier:(id)identifier;
 - (id)valueForEntitlement:(id)entitlement storeConfiguration:(id)configuration;
 - (void)allStoreIdentifiersWithCompletionHandler:(id)handler;
-- (void)applicationIdentifier;
 - (void)changeDictionarySinceChangeToken:(id)token inStoreWithConfiguration:(id)configuration reply:(id)reply;
 - (void)changeTokenForStoreWithConfiguration:(id)configuration reply:(id)reply;
 - (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply;
@@ -44,6 +43,7 @@
 - (void)removeUnitTestSyncManagersWithReply:(id)reply;
 - (void)resume;
 - (void)saveChangeToken:(id)token forStoreWithConfiguration:(id)configuration reply:(id)reply;
+- (void)setCloudSyncUserDefaultEnabled:(BOOL)enabled storeIdentifier:(id)identifier;
 - (void)setFakeError:(id)error forNextCloudKitRequestOfClassName:(id)name inStoreWithConfiguration:(id)configuration;
 - (void)setObject:(id)object forKey:(id)key inStoreWithConfiguration:(id)configuration reply:(id)reply;
 - (void)syncManagerDidChangeNotification:(id)notification;
@@ -55,13 +55,10 @@
 
 - (void)resume
 {
-  v7 = *MEMORY[0x277D85DE8];
   xpcConnection = [self xpcConnection];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -107,7 +104,7 @@
   v5 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
   else
@@ -122,23 +119,22 @@
 
 - (void)incrementManualSyncCount
 {
-  v5[3] = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   [(SYDDaemonToClientConnection *)selfCopy setManualSyncCount:[(SYDDaemonToClientConnection *)selfCopy manualSyncCount]+ 1];
   v3 = SYDGetConnectionLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    [(SYDDaemonToClientConnection *)selfCopy incrementManualSyncCount];
+    [(SYDDaemonToClientConnection *)selfCopy incrementManualSyncCount:v4];
   }
 
   objc_sync_exit(selfCopy);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)decrementManualSyncCount
 {
-  v5[3] = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   [(SYDDaemonToClientConnection *)selfCopy setManualSyncCount:[(SYDDaemonToClientConnection *)selfCopy manualSyncCount]- 1];
@@ -149,12 +145,11 @@
   }
 
   objc_sync_exit(selfCopy);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __37__SYDDaemonToClientConnection_resume__block_invoke_42(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -162,16 +157,14 @@ void __37__SYDDaemonToClientConnection_resume__block_invoke_42(uint64_t a1)
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       v3 = [WeakRetained xpcConnection];
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_26C384000, v2, OS_LOG_TYPE_INFO, "Connection invalidated %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_26C384000, v2, OS_LOG_TYPE_INFO, "Connection invalidated %@", &v5, 0xCu);
     }
 
     v4 = [WeakRetained delegate];
     [v4 connectionDidInvalidate:WeakRetained];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -239,7 +232,7 @@ void __37__SYDDaemonToClientConnection_resume__block_invoke_42(uint64_t a1)
 
 - (NSString)applicationIdentifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (!self->_applicationIdentifier)
   {
     xpcConnection = [(SYDDaemonToClientConnection *)self xpcConnection];
@@ -265,7 +258,7 @@ void __37__SYDDaemonToClientConnection_resume__block_invoke_42(uint64_t a1)
     v7 = xpcConnection2;
     if (xpcConnection2)
     {
-      [xpcConnection2 auditToken];
+      objc_msgSend_auditToken(xpcConnection2);
     }
 
     else
@@ -327,7 +320,6 @@ LABEL_23:
 
 LABEL_24:
   v16 = self->_applicationIdentifier;
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -354,7 +346,7 @@ LABEL_24:
 
 void __37__SYDDaemonToClientConnection_resume__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -362,19 +354,17 @@ void __37__SYDDaemonToClientConnection_resume__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       v3 = [WeakRetained xpcConnection];
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&dword_26C384000, v2, OS_LOG_TYPE_INFO, "Connection interrupted %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_impl(&dword_26C384000, v2, OS_LOG_TYPE_INFO, "Connection interrupted %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply
 {
   replyCopy = reply;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   invocationCopy = invocation;
   v10 = SYDGetConnectionLog();
@@ -386,13 +376,13 @@ void __37__SYDDaemonToClientConnection_resume__block_invoke(uint64_t a1)
       v12 = NSStringFromSelector([invocationCopy selector]);
       currentPersona = [MEMORY[0x277D77C08] currentPersona];
       v14 = SYDUserPersonaDescription(currentPersona);
-      *v19 = 138412546;
-      *&v19[4] = v12;
-      *&v19[12] = 2112;
-      *&v19[14] = v14;
+      *v18 = 138412546;
+      *&v18[4] = v12;
+      *&v18[12] = 2112;
+      *&v18[14] = v14;
       v15 = "Handling invocation -%@ reply with persona: %@";
 LABEL_6:
-      _os_log_impl(&dword_26C384000, v10, OS_LOG_TYPE_INFO, v15, v19, 0x16u);
+      _os_log_impl(&dword_26C384000, v10, OS_LOG_TYPE_INFO, v15, v18, 0x16u);
     }
   }
 
@@ -401,10 +391,10 @@ LABEL_6:
     v12 = NSStringFromSelector([invocationCopy selector]);
     currentPersona = [MEMORY[0x277D77C08] currentPersona];
     v14 = SYDUserPersonaDescription(currentPersona);
-    *v19 = 138412546;
-    *&v19[4] = v12;
-    *&v19[12] = 2112;
-    *&v19[14] = v14;
+    *v18 = 138412546;
+    *&v18[4] = v12;
+    *&v18[12] = 2112;
+    *&v18[14] = v14;
     v15 = "Handling invocation -%@ with persona: %@";
     goto LABEL_6;
   }
@@ -422,8 +412,6 @@ LABEL_6:
   }
 
   [invocationCopy invoke];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)valueForEntitlement:(id)entitlement storeConfiguration:(id)configuration
@@ -479,7 +467,7 @@ void __63__SYDDaemonToClientConnection_isEntitledForStoreConfiguration___block_i
       v6 = SYDGetConnectionLog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        __63__SYDDaemonToClientConnection_isEntitledForStoreConfiguration___block_invoke_cold_2(v4);
+        __63__SYDDaemonToClientConnection_isEntitledForStoreConfiguration___block_invoke_cold_2();
       }
 
       v7 = [*v2 entitledStoreIDs];
@@ -651,19 +639,17 @@ LABEL_43:
 
 + (id)errorNotEntitledForStoreConfiguration:(id)configuration
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   storeID = [configuration storeID];
   identifier = [storeID identifier];
   v6 = [v3 stringWithFormat:@"Not entitled to access store %@", identifier];
 
   v7 = MEMORY[0x277CCA9B8];
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = v6;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = v6;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v7 errorWithDomain:@"SyncedDefaults" code:3333 userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -687,7 +673,7 @@ LABEL_43:
 
 - (void)setObject:(id)object forKey:(id)key inStoreWithConfiguration:(id)configuration reply:(id)reply
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   configurationCopy = configuration;
@@ -714,34 +700,34 @@ LABEL_14:
     [SYDDaemonToClientConnection setObject:forKey:inStoreWithConfiguration:reply:];
   }
 
-  v32 = 0;
+  v31 = 0;
   delegate = [(SYDDaemonToClientConnection *)self delegate];
   storeID = [configurationCopy storeID];
-  v31 = 0;
-  v17 = [delegate connection:self syncManagerForStoreID:storeID error:&v31];
-  v18 = v31;
+  v30 = 0;
+  v17 = [delegate connection:self syncManagerForStoreID:storeID error:&v30];
+  v18 = v30;
 
   if (v17 && !v18)
   {
     v19 = [(SYDDaemonToClientConnection *)self shouldEnforceQuotaForStoreConfiguration:configurationCopy];
     storeID2 = [configurationCopy storeID];
     identifier = [storeID2 identifier];
-    v30 = 0;
-    [v17 setObject:objectCopy forKey:keyCopy inStoreWithIdentifier:identifier excludeFromChangeTracking:1 enforceQuota:v19 didChangeValue:&v32 error:&v30];
-    v18 = v30;
+    v29 = 0;
+    [v17 setObject:objectCopy forKey:keyCopy inStoreWithIdentifier:identifier excludeFromChangeTracking:1 enforceQuota:v19 didChangeValue:&v31 error:&v29];
+    v18 = v29;
   }
 
-  if (!v18 && v32 == 1)
+  if (!v18 && v31 == 1)
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v33 = keyCopy;
-    v34[0] = @"changedKeys";
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
-    v34[1] = @"storeID";
-    v35[0] = v29;
+    v32 = keyCopy;
+    v33[0] = @"changedKeys";
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+    v33[1] = @"storeID";
+    v34[0] = v28;
     storeID3 = [configurationCopy storeID];
-    v35[1] = storeID3;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+    v34[1] = storeID3;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
     [defaultCenter postNotificationName:@"SYDDaemonToClientConnectionNotificationChangedValues" object:self userInfo:v24];
   }
 
@@ -749,7 +735,6 @@ LABEL_14:
   replyCopy[2](replyCopy, v25);
 
 LABEL_15:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)objectForKey:(id)key inStoreWithConfiguration:(id)configuration reply:(id)reply
@@ -851,7 +836,7 @@ LABEL_12:
 
 - (void)synchronizeStoreWithConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   handlerCopy = handler;
   if (![(SYDDaemonToClientConnection *)self isEntitledForStoreConfiguration:configurationCopy])
@@ -878,23 +863,23 @@ LABEL_9:
 
   delegate = [(SYDDaemonToClientConnection *)self delegate];
   storeID = [configurationCopy storeID];
-  v29 = 0;
-  v11 = [delegate connection:self syncManagerForStoreID:storeID error:&v29];
-  v12 = v29;
+  v28 = 0;
+  v11 = [delegate connection:self syncManagerForStoreID:storeID error:&v28];
+  v12 = v28;
 
   if (v11)
   {
     [(SYDDaemonToClientConnection *)self incrementManualSyncCount];
     storeID2 = [configurationCopy storeID];
     identifier = [storeID2 identifier];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __83__SYDDaemonToClientConnection_synchronizeStoreWithConfiguration_completionHandler___block_invoke;
-    v26[3] = &unk_279D2F8E0;
-    v26[4] = self;
-    v27 = configurationCopy;
-    v28 = handlerCopy;
-    [v11 synchronizeStoreWithIdentifier:identifier completionHandler:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __83__SYDDaemonToClientConnection_synchronizeStoreWithConfiguration_completionHandler___block_invoke;
+    v25[3] = &unk_279D2F8E0;
+    v25[4] = self;
+    v26 = configurationCopy;
+    v27 = handlerCopy;
+    [v11 synchronizeStoreWithIdentifier:identifier completionHandler:v25];
   }
 
   else
@@ -913,9 +898,9 @@ LABEL_9:
     if (!v12)
     {
       v22 = MEMORY[0x277CCA9B8];
-      v30 = *MEMORY[0x277CCA450];
-      v31[0] = v21;
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+      v29 = *MEMORY[0x277CCA450];
+      v30[0] = v21;
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
       v12 = [v22 errorWithDomain:@"SyncedDefaults" code:1234 userInfo:v23];
     }
 
@@ -924,7 +909,6 @@ LABEL_9:
   }
 
 LABEL_16:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __83__SYDDaemonToClientConnection_synchronizeStoreWithConfiguration_completionHandler___block_invoke(id *a1, void *a2)
@@ -949,7 +933,7 @@ void __83__SYDDaemonToClientConnection_synchronizeStoreWithConfiguration_complet
   v3 = SYDGetConnectionLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __83__SYDDaemonToClientConnection_synchronizeStoreWithConfiguration_completionHandler___block_invoke_2_cold_1(a1);
+    __83__SYDDaemonToClientConnection_synchronizeStoreWithConfiguration_completionHandler___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -957,31 +941,31 @@ void __83__SYDDaemonToClientConnection_synchronizeStoreWithConfiguration_complet
 
 - (void)synchronizeStoresWithIdentifiers:(id)identifiers type:(int64_t)type testConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   configurationCopy = configuration;
   handlerCopy = handler;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   v11 = identifiersCopy;
-  v12 = [v11 countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v44;
+    v14 = *v43;
     while (2)
     {
       v15 = 0;
       do
       {
-        if (*v44 != v14)
+        if (*v43 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [objc_alloc(MEMORY[0x277D6B888]) initWithIdentifier:*(*(&v43 + 1) + 8 * v15) type:type];
+        v16 = [objc_alloc(MEMORY[0x277D6B888]) initWithIdentifier:*(*(&v42 + 1) + 8 * v15) type:type];
         [v16 setTestConfiguration:configurationCopy];
         v17 = [objc_alloc(MEMORY[0x277D6B880]) initWithStoreID:v16];
         if (![(SYDDaemonToClientConnection *)self isEntitledForStoreConfiguration:v17])
@@ -997,7 +981,7 @@ void __83__SYDDaemonToClientConnection_synchronizeStoreWithConfiguration_complet
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v42 objects:v48 count:16];
       if (v13)
       {
         continue;
@@ -1023,20 +1007,20 @@ void __83__SYDDaemonToClientConnection_synchronizeStoreWithConfiguration_complet
 
     [v23 setTestConfiguration:configurationCopy];
     delegate = [(SYDDaemonToClientConnection *)self delegate];
-    v41 = 0;
-    v25 = [delegate connection:self syncManagerForStoreID:v23 error:&v41];
-    v26 = v41;
+    v40 = 0;
+    v25 = [delegate connection:self syncManagerForStoreID:v23 error:&v40];
+    v26 = v40;
 
     if (v25)
     {
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __105__SYDDaemonToClientConnection_synchronizeStoresWithIdentifiers_type_testConfiguration_completionHandler___block_invoke;
-      v39[3] = &unk_279D2F930;
-      v39[4] = self;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __105__SYDDaemonToClientConnection_synchronizeStoresWithIdentifiers_type_testConfiguration_completionHandler___block_invoke;
+      v38[3] = &unk_279D2F930;
+      v38[4] = self;
       v27 = handlerCopy;
-      v40 = handlerCopy;
-      [v25 synchronizeStoresWithIdentifiers:v11 completionHandler:v39];
+      v39 = handlerCopy;
+      [v25 synchronizeStoresWithIdentifiers:v11 completionHandler:v38];
     }
 
     else
@@ -1054,9 +1038,9 @@ void __83__SYDDaemonToClientConnection_synchronizeStoreWithConfiguration_complet
       if (!v26)
       {
         v33 = MEMORY[0x277CCA9B8];
-        v47 = *MEMORY[0x277CCA450];
-        v48 = v32;
-        v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+        v46 = *MEMORY[0x277CCA450];
+        v47 = v32;
+        v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
         v26 = [v33 errorWithDomain:@"SyncedDefaults" code:1234 userInfo:v34];
       }
 
@@ -1079,8 +1063,6 @@ void __83__SYDDaemonToClientConnection_synchronizeStoreWithConfiguration_complet
   }
 
 LABEL_24:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __105__SYDDaemonToClientConnection_synchronizeStoresWithIdentifiers_type_testConfiguration_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1196,10 +1178,10 @@ LABEL_9:
 LABEL_10:
 }
 
-void __72__SYDDaemonToClientConnection_allStoreIdentifiersWithCompletionHandler___block_invoke()
+void __72__SYDDaemonToClientConnection_allStoreIdentifiersWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = SYDGetConnectionLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v2 = SYDGetConnectionLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     __72__SYDDaemonToClientConnection_allStoreIdentifiersWithCompletionHandler___block_invoke_cold_1();
   }
@@ -1249,6 +1231,17 @@ void __72__SYDDaemonToClientConnection_allStoreIdentifiersWithCompletionHandler_
   handlerCopy[2](handlerCopy, v8);
 }
 
+- (void)setCloudSyncUserDefaultEnabled:(BOOL)enabled storeIdentifier:(id)identifier
+{
+  enabledCopy = enabled;
+  identifierCopy = identifier;
+  if ([(SYDDaemonToClientConnection *)self isCloudSyncEnablementEntitledForStoreIdentifier:?])
+  {
+    v6 = +[SYDStoreBundleMap sharedInstance];
+    [v6 setCloudSyncUserDefaultEnabled:enabledCopy storeIdentifier:identifierCopy];
+  }
+}
+
 - (void)registerForChangeNotificationsForStoreWithConfiguration:(id)configuration reply:(id)reply
 {
   configurationCopy = configuration;
@@ -1274,38 +1267,38 @@ void __72__SYDDaemonToClientConnection_allStoreIdentifiersWithCompletionHandler_
   }
 }
 
-void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWithConfiguration_reply___block_invoke(uint64_t a1)
+void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWithConfiguration_reply___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = SYDGetConnectionLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = SYDGetConnectionLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWithConfiguration_reply___block_invoke_cold_1(a1);
+    __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWithConfiguration_reply___block_invoke_cold_1();
   }
 
-  v3 = [*(a1 + 40) registeredStoreIDs];
-  v4 = [*(a1 + 32) storeID];
-  v5 = [v3 containsObject:v4];
+  v4 = [*(a1 + 40) registeredStoreIDs];
+  v5 = [*(a1 + 32) storeID];
+  v6 = [v4 containsObject:v5];
 
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
-    v6 = SYDGetConnectionLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = SYDGetConnectionLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWithConfiguration_reply___block_invoke_cold_2((a1 + 32));
+      __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWithConfiguration_reply___block_invoke_cold_2();
     }
 
-    v7 = [*(a1 + 40) registeredStoreIDs];
-    v8 = [*(a1 + 32) storeID];
-    [v7 addObject:v8];
+    v8 = [*(a1 + 40) registeredStoreIDs];
+    v9 = [*(a1 + 32) storeID];
+    [v8 addObject:v9];
   }
 
-  v9 = dispatch_get_global_queue(0, 0);
+  v10 = dispatch_get_global_queue(0, 0);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWithConfiguration_reply___block_invoke_119;
   block[3] = &unk_279D2F628;
   block[4] = *(a1 + 40);
-  dispatch_async(v9, block);
+  dispatch_async(v10, block);
 }
 
 void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWithConfiguration_reply___block_invoke_119(uint64_t a1)
@@ -1315,7 +1308,7 @@ void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWit
   v4 = v3;
   if (v3)
   {
-    [v3 auditToken];
+    objc_msgSend_auditToken(v3);
   }
 
   else
@@ -1328,7 +1321,7 @@ void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWit
 
 - (void)changeDictionarySinceChangeToken:(id)token inStoreWithConfiguration:(id)configuration reply:(id)reply
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   configurationCopy = configuration;
   replyCopy = reply;
@@ -1338,19 +1331,19 @@ void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWit
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v32 = tokenCopy;
-      v33 = 2112;
-      v34 = configurationCopy;
-      v35 = 2112;
+      v31 = tokenCopy;
+      v32 = 2112;
+      v33 = configurationCopy;
+      v34 = 2112;
       selfCopy = self;
       _os_log_debug_impl(&dword_26C384000, v11, OS_LOG_TYPE_DEBUG, "Generating change dictionary for token %@ in store (%@) for %@", buf, 0x20u);
     }
 
     delegate = [(SYDDaemonToClientConnection *)self delegate];
     storeID = [configurationCopy storeID];
-    v30 = 0;
-    v14 = [delegate connection:self syncManagerForStoreID:storeID error:&v30];
-    v15 = v30;
+    v29 = 0;
+    v14 = [delegate connection:self syncManagerForStoreID:storeID error:&v29];
+    v15 = v29;
 
     v16 = 0;
     if (v14 && !v15)
@@ -1359,9 +1352,9 @@ void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWit
       identifier = [storeID2 identifier];
 
       coreDataStore = [v14 coreDataStore];
-      v29 = 0;
-      v20 = [coreDataStore currentChangeTokenForStoreIdentifier:identifier error:&v29];
-      v15 = v29;
+      v28 = 0;
+      v20 = [coreDataStore currentChangeTokenForStoreIdentifier:identifier error:&v28];
+      v15 = v28;
 
       if (v15)
       {
@@ -1378,9 +1371,9 @@ void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWit
       {
         v23 = objc_opt_class();
         coreDataStore2 = [v14 coreDataStore];
-        v28 = 0;
-        v21 = [v23 changedKeysForStoreIdentifier:identifier sinceChangeTokenIfValid:tokenCopy inCoreDataStore:coreDataStore2 error:&v28];
-        v15 = v28;
+        v27 = 0;
+        v21 = [v23 changedKeysForStoreIdentifier:identifier sinceChangeTokenIfValid:tokenCopy inCoreDataStore:coreDataStore2 error:&v27];
+        v15 = v27;
 
         if (v15)
         {
@@ -1414,30 +1407,28 @@ void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWit
     v22 = [objc_opt_class() errorNotEntitledForStoreConfiguration:configurationCopy];
     replyCopy[2](replyCopy, 0, v22);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)changeTokenForStoreWithConfiguration:(id)configuration reply:(id)reply
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   replyCopy = reply;
   if ([(SYDDaemonToClientConnection *)self isEntitledForStoreConfiguration:configurationCopy])
   {
     xpcConnection = [(SYDDaemonToClientConnection *)self xpcConnection];
-    v33 = 0;
-    v9 = [(SYDDaemonToClientConnection *)self changeTokenURLForStoreConfiguration:configurationCopy xpcConnection:xpcConnection error:&v33];
-    v10 = v33;
+    v32 = 0;
+    v9 = [(SYDDaemonToClientConnection *)self changeTokenURLForStoreConfiguration:configurationCopy xpcConnection:xpcConnection error:&v32];
+    v10 = v32;
 
     if (v9)
     {
-      v32 = 0;
-      v11 = *MEMORY[0x277CBE818];
       v31 = 0;
-      v12 = [v9 getResourceValue:&v32 forKey:v11 error:&v31];
-      v13 = v32;
-      v14 = v31;
+      v11 = *MEMORY[0x277CBE818];
+      v30 = 0;
+      v12 = [v9 getResourceValue:&v31 forKey:v11 error:&v30];
+      v13 = v31;
+      v14 = v30;
 
       if (v12)
       {
@@ -1450,9 +1441,9 @@ void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWit
           }
 
           v16 = MEMORY[0x277CCA9B8];
-          v34 = *MEMORY[0x277CCA450];
-          v35[0] = @"Change token should not be a symbolic link";
-          v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+          v33 = *MEMORY[0x277CCA450];
+          v34[0] = @"Change token should not be a symbolic link";
+          v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
           v18 = [v16 errorWithDomain:@"SyncedDefaults" code:1040 userInfo:v17];
 
           v19 = 0;
@@ -1460,9 +1451,9 @@ void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWit
           goto LABEL_32;
         }
 
-        v30 = v14;
-        v19 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v9 options:0 error:&v30];
-        v10 = v30;
+        v29 = v14;
+        v19 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v9 options:0 error:&v29];
+        v10 = v29;
 
         if (!v10)
         {
@@ -1553,7 +1544,6 @@ LABEL_32:
   replyCopy[2](replyCopy, 0, v20);
 
 LABEL_33:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveChangeToken:(id)token forStoreWithConfiguration:(id)configuration reply:(id)reply
@@ -1763,21 +1753,21 @@ LABEL_45:
 LABEL_48:
 }
 
-void __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration_reply___block_invoke(uint64_t a1)
+void __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration_reply___block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = SYDGetConnectionLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration_reply___block_invoke_cold_1(a1);
+    __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration_reply___block_invoke_cold_1();
   }
 }
 
-void __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration_reply___block_invoke_128(uint64_t a1)
+void __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration_reply___block_invoke_128(uint64_t a1, uint64_t a2)
 {
   v2 = SYDGetConnectionLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration_reply___block_invoke_128_cold_1(a1);
+    __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration_reply___block_invoke_128_cold_1();
   }
 }
 
@@ -1815,18 +1805,18 @@ void __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration
 
 + (id)changeDictionaryWithChangedKeys:(id)keys reason:(int64_t)reason changeToken:(id)token
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   tokenCopy = token;
   v9 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
   if ([keysCopy count])
   {
-    v14[0] = *MEMORY[0x277CCA7B0];
+    v13[0] = *MEMORY[0x277CCA7B0];
     v10 = [MEMORY[0x277CCABB0] numberWithInteger:reason];
-    v14[1] = *MEMORY[0x277CCA7B8];
-    v15[0] = v10;
-    v15[1] = keysCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v13[1] = *MEMORY[0x277CCA7B8];
+    v14[0] = v10;
+    v14[1] = keysCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
     [v9 setObject:v11 forKeyedSubscript:@"NSUbiquitousKeyValueStoreDidChangeExternallyNotificationUserInfo"];
   }
@@ -1835,8 +1825,6 @@ void __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration
   {
     [v9 setObject:tokenCopy forKeyedSubscript:@"ChangeToken"];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1855,26 +1843,26 @@ void __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration
   dispatch_sync(queue, v7);
 }
 
-void __74__SYDDaemonToClientConnection_processAccountChangesWithCompletionHandler___block_invoke(uint64_t a1)
+void __74__SYDDaemonToClientConnection_processAccountChangesWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = SYDGetConnectionLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = SYDGetConnectionLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __74__SYDDaemonToClientConnection_processAccountChangesWithCompletionHandler___block_invoke_cold_1();
   }
 
-  v3 = [*(a1 + 32) delegate];
-  [v3 processAccountChanges];
+  v4 = [*(a1 + 32) delegate];
+  [v4 processAccountChanges];
 
   if (*(a1 + 40))
   {
-    v4 = [*(a1 + 32) callbackQueue];
+    v5 = [*(a1 + 32) callbackQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __74__SYDDaemonToClientConnection_processAccountChangesWithCompletionHandler___block_invoke_137;
     block[3] = &unk_279D2F958;
-    v6 = *(a1 + 40);
-    dispatch_async(v4, block);
+    v7 = *(a1 + 40);
+    dispatch_async(v5, block);
   }
 }
 
@@ -1896,7 +1884,7 @@ void __74__SYDDaemonToClientConnection_processAccountChangesWithCompletionHandle
 
 void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) object];
   v4 = [*v2 userInfo];
@@ -1907,7 +1895,7 @@ void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_
     v10 = SYDGetConnectionLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_cold_4(v2);
+      __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_cold_4();
     }
 
     goto LABEL_21;
@@ -1918,7 +1906,7 @@ void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_
     v10 = SYDGetConnectionLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_cold_3(v2);
+      __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_cold_3();
     }
 
     goto LABEL_21;
@@ -1938,7 +1926,7 @@ void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_
     v11 = SYDGetConnectionLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_cold_1(v5, v6);
+      __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_cold_1();
     }
 
     v12 = [*v2 userInfo];
@@ -1953,9 +1941,9 @@ void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_
       v16 = [*v2 object];
       v17 = [v16 coreDataStore];
       v18 = [v5 identifier];
-      v37 = 0;
-      v19 = [v17 currentChangeTokenForStoreIdentifier:v18 error:&v37];
-      v20 = v37;
+      v35 = 0;
+      v19 = [v17 currentChangeTokenForStoreIdentifier:v18 error:&v35];
+      v20 = v35;
 
       if (v20)
       {
@@ -1968,36 +1956,35 @@ void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_
 
       else
       {
-        v25 = *v6;
-        v26 = [objc_opt_class() changeDictionaryWithChangedKeys:v13 reason:0 changeToken:v19];
-        v27 = SYDGetConnectionLog();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        v25 = [objc_opt_class() changeDictionaryWithChangedKeys:v13 reason:0 changeToken:v19];
+        v26 = SYDGetConnectionLog();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          v33 = v26;
-          v32 = [v13 count];
-          v28 = [v5 identifier];
-          v29 = [v13 componentsJoinedByString:{@", "}];
+          v31 = v25;
+          v30 = [v13 count];
+          v27 = [v5 identifier];
+          v28 = [v13 componentsJoinedByString:{@", "}];
           *buf = 67109634;
-          *v40 = v32;
-          *&v40[4] = 2112;
-          *&v40[6] = v28;
-          v41 = 2112;
-          v42 = v29;
-          _os_log_impl(&dword_26C384000, v27, OS_LOG_TYPE_INFO, "Sending notification about %d changed keys for store <(%@)>:(%@)", buf, 0x1Cu);
+          *v38 = v30;
+          *&v38[4] = 2112;
+          *&v38[6] = v27;
+          v39 = 2112;
+          v40 = v28;
+          _os_log_impl(&dword_26C384000, v26, OS_LOG_TYPE_INFO, "Sending notification about %d changed keys for store <(%@)>:(%@)", buf, 0x1Cu);
 
-          v26 = v33;
+          v25 = v31;
         }
 
-        v30 = [v5 personaUniqueString];
-        v34[0] = MEMORY[0x277D85DD0];
-        v34[1] = 3221225472;
-        v34[2] = __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_139;
-        v34[3] = &unk_279D2F768;
-        v34[4] = *v6;
-        v35 = v5;
-        v21 = v26;
-        v36 = v21;
-        SYDPerformWithPersona(v30, v34);
+        v29 = [v5 personaUniqueString];
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_139;
+        v32[3] = &unk_279D2F768;
+        v32[4] = *v6;
+        v33 = v5;
+        v21 = v25;
+        v34 = v21;
+        SYDPerformWithPersona(v29, v32);
       }
     }
 
@@ -2010,7 +1997,7 @@ void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_
         v23 = objc_opt_class();
         v24 = NSStringFromClass(v23);
         *buf = 138412290;
-        *v40 = v24;
+        *v38 = v24;
         _os_log_impl(&dword_26C384000, v19, OS_LOG_TYPE_INFO, "Received a notification about a changed sync manager, but the notification object is a %@", buf, 0xCu);
       }
     }
@@ -2018,8 +2005,6 @@ void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_
     os_activity_scope_leave(&state);
 LABEL_21:
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_139(uint64_t a1)
@@ -2054,104 +2039,102 @@ void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_
   os_activity_scope_leave(&state);
 }
 
-void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke(uint64_t a1)
+void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   v31 = *MEMORY[0x277D85DE8];
-  v2 = SYDGetConnectionLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = SYDGetConnectionLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke_cold_1(a1);
+    __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke_cold_1();
   }
 
-  v3 = dispatch_group_create();
+  v4 = dispatch_group_create();
   v19 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [v19 setObject:&unk_287CF2418 forKeyedSubscript:*MEMORY[0x277CCA7B0]];
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  if (v4)
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 48);
+  if (v5)
   {
-    if (v5)
+    if (v6)
     {
-      if ([v4 isEqual:?])
+      if ([v5 isEqual:?])
       {
         goto LABEL_11;
       }
 
-      v6 = &unk_287CF2460;
+      v7 = &unk_287CF2460;
     }
 
     else
     {
-      v6 = &unk_287CF2448;
+      v7 = &unk_287CF2448;
     }
   }
 
   else
   {
-    if (!v5)
+    if (!v6)
     {
       goto LABEL_11;
     }
 
-    v6 = &unk_287CF2430;
+    v7 = &unk_287CF2430;
   }
 
-  [v19 setObject:v6 forKeyedSubscript:@"accountChangeTypeKey"];
+  [v19 setObject:v7 forKeyedSubscript:@"accountChangeTypeKey"];
 LABEL_11:
   v28 = 0u;
   v29 = 0u;
   v26 = 0u;
   v27 = 0u;
   obj = [*(a1 + 32) registeredStoreIDs];
-  v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
-  if (v7)
+  v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v27;
+    v9 = v8;
+    v10 = *v27;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        v11 = v3;
-        if (*v27 != v9)
+        v12 = v4;
+        if (*v27 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
-        v13 = [v12 personaUniqueString];
+        v13 = *(*(&v26 + 1) + 8 * i);
+        v14 = [v13 personaUniqueString];
         v22[0] = MEMORY[0x277D85DD0];
         v22[1] = 3221225472;
         v22[2] = __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke_151;
         v22[3] = &unk_279D2F980;
-        v22[4] = v12;
-        v3 = v11;
-        v14 = v11;
-        v15 = *(a1 + 32);
-        v23 = v14;
-        v24 = v15;
+        v22[4] = v13;
+        v4 = v12;
+        v15 = v12;
+        v16 = *(a1 + 32);
+        v23 = v15;
+        v24 = v16;
         v25 = v19;
-        SYDPerformWithPersona(v13, v22);
+        SYDPerformWithPersona(v14, v22);
       }
 
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v9 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
   if (*(a1 + 56))
   {
-    v16 = [*(a1 + 32) callbackQueue];
+    v17 = [*(a1 + 32) callbackQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke_152;
     block[3] = &unk_279D2F958;
     v21 = *(a1 + 56);
-    dispatch_group_notify(v3, v16, block);
+    dispatch_group_notify(v4, v17, block);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke_151(uint64_t a1)
@@ -2161,7 +2144,7 @@ void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAcc
     v2 = SYDGetConnectionLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke_151_cold_2(a1);
+      __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke_151_cold_2();
     }
   }
 
@@ -2237,7 +2220,7 @@ void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAcc
 
 - (void)daemonToClientConnectionDidChangeValues:(id)values
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   object = [valuesCopy object];
 
@@ -2251,27 +2234,27 @@ void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAcc
 
     if (v7 && [v9 count])
     {
-      v35 = 0;
-      v36 = &v35;
-      v37 = 0x2020000000;
-      v38 = 0;
+      v34 = 0;
+      v35 = &v34;
+      v36 = 0x2020000000;
+      v37 = 0;
       queue = [(SYDDaemonToClientConnection *)self queue];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __71__SYDDaemonToClientConnection_daemonToClientConnectionDidChangeValues___block_invoke;
       block[3] = &unk_279D2F890;
-      v34 = &v35;
+      v33 = &v34;
       block[4] = self;
       v11 = v7;
-      v33 = v11;
+      v32 = v11;
       dispatch_sync(queue, block);
 
-      if (v36[3])
+      if (v35[3])
       {
         delegate = [(SYDDaemonToClientConnection *)self delegate];
-        v31 = 0;
-        v13 = [delegate connection:self syncManagerForStoreID:v11 error:&v31];
-        v14 = v31;
+        v30 = 0;
+        v13 = [delegate connection:self syncManagerForStoreID:v11 error:&v30];
+        v14 = v30;
 
         if (!v13 || v14)
         {
@@ -2286,9 +2269,9 @@ void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAcc
         {
           coreDataStore = [v13 coreDataStore];
           identifier = [v11 identifier];
-          v30 = 0;
-          v17 = [coreDataStore currentChangeTokenForStoreIdentifier:identifier error:&v30];
-          v14 = v30;
+          v29 = 0;
+          v17 = [coreDataStore currentChangeTokenForStoreIdentifier:identifier error:&v29];
+          v14 = v29;
 
           if (v14)
           {
@@ -2305,33 +2288,33 @@ void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAcc
             v21 = SYDGetConnectionLog();
             if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
             {
-              v26 = v20;
-              v25 = [v9 count];
+              v25 = v20;
+              v24 = [v9 count];
               identifier2 = [v11 identifier];
               *buf = 67109378;
-              v40 = v25;
-              v41 = 2112;
-              v42 = identifier2;
+              v39 = v24;
+              v40 = 2112;
+              v41 = identifier2;
               _os_log_impl(&dword_26C384000, v21, OS_LOG_TYPE_INFO, "Sending notification about %d changed keys for store <(%@)>", buf, 0x12u);
 
-              v20 = v26;
+              v20 = v25;
             }
 
             personaUniqueString = [v11 personaUniqueString];
-            v27[0] = MEMORY[0x277D85DD0];
-            v27[1] = 3221225472;
-            v27[2] = __71__SYDDaemonToClientConnection_daemonToClientConnectionDidChangeValues___block_invoke_153;
-            v27[3] = &unk_279D2F768;
-            v27[4] = self;
-            v28 = v11;
+            v26[0] = MEMORY[0x277D85DD0];
+            v26[1] = 3221225472;
+            v26[2] = __71__SYDDaemonToClientConnection_daemonToClientConnectionDidChangeValues___block_invoke_153;
+            v26[3] = &unk_279D2F768;
+            v26[4] = self;
+            v27 = v11;
             v18 = v20;
-            v29 = v18;
-            SYDPerformWithPersona(personaUniqueString, v27);
+            v28 = v18;
+            SYDPerformWithPersona(personaUniqueString, v26);
           }
         }
       }
 
-      _Block_object_dispose(&v35, 8);
+      _Block_object_dispose(&v34, 8);
     }
 
     else
@@ -2343,8 +2326,6 @@ void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAcc
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __71__SYDDaemonToClientConnection_daemonToClientConnectionDidChangeValues___block_invoke(uint64_t a1)
@@ -2435,7 +2416,7 @@ uint64_t __107__SYDDaemonToClientConnection_postFakeAccountChangeNotificationWit
 
 - (void)postFakeSyncManagerChangeNotificationForStoreWithConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   handlerCopy = handler;
   v8 = SYDGetConnectionLog();
@@ -2446,26 +2427,24 @@ uint64_t __107__SYDDaemonToClientConnection_postFakeAccountChangeNotificationWit
 
   delegate = [(SYDDaemonToClientConnection *)self delegate];
   storeID = [configurationCopy storeID];
-  v17 = 0;
-  v11 = [delegate connection:self syncManagerForStoreID:storeID error:&v17];
-  v12 = v17;
+  v16 = 0;
+  v11 = [delegate connection:self syncManagerForStoreID:storeID error:&v16];
+  v12 = v16;
 
   if (v11)
   {
-    v19[0] = &unk_287CF24C0;
-    v18[0] = @"changedKeys";
-    v18[1] = @"storeID";
+    v18[0] = &unk_287CF24C0;
+    v17[0] = @"changedKeys";
+    v17[1] = @"storeID";
     storeID2 = [configurationCopy storeID];
-    v19[1] = storeID2;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v18[1] = storeID2;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:@"SYDSyncManagerNotificationValuesDidChange" object:v11 userInfo:v14];
   }
 
   handlerCopy[2](handlerCopy);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFakeError:(id)error forNextCloudKitRequestOfClassName:(id)name inStoreWithConfiguration:(id)configuration
@@ -2534,38 +2513,17 @@ uint64_t __107__SYDDaemonToClientConnection_postFakeAccountChangeNotificationWit
 
 - (id)changeTokenURLForStoreConfiguration:(id)configuration xpcConnection:(id)connection error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   connectionCopy = connection;
   v9 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
-  if (!sandbox_container_path_for_audit_token())
+  if (!sandbox_container_path_for_audit_token() && v17[0] && ([MEMORY[0x277CCACA8] stringWithUTF8String:v17], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CBEBC0], "fileURLWithPath:isDirectory:", v10, 1), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "URLByAppendingPathComponent:isDirectory:", @"Library", 1), v12 = objc_claimAutoreleasedReturnValue(), v11, objc_msgSend(v12, "URLByAppendingPathComponent:isDirectory:", @"SyncedPreferences", 1), v13 = objc_claimAutoreleasedReturnValue(), v12, objc_msgSend(v13, "URLByAppendingPathComponent:isDirectory:", @"com.apple.kvs", 1), v14 = objc_claimAutoreleasedReturnValue(), v13, v10, v14) || (SYDKVSDirectory(error), (v14 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    if (v18[0])
-    {
-      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:v18];
-      v11 = [MEMORY[0x277CBEBC0] fileURLWithPath:v10 isDirectory:1];
-      v12 = [v11 URLByAppendingPathComponent:@"Library" isDirectory:1];
-
-      v13 = [v12 URLByAppendingPathComponent:@"SyncedPreferences" isDirectory:1];
-
-      v14 = [v13 URLByAppendingPathComponent:@"com.apple.kvs" isDirectory:1];
-
-      if (v14)
-      {
-        goto LABEL_7;
-      }
-    }
-  }
-
-  v14 = SYDKVSDirectory(error);
-  if (v14)
-  {
-LABEL_7:
     v15 = SYDChangeTokenURL(configurationCopy, v14);
   }
 
@@ -2573,8 +2531,6 @@ LABEL_7:
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -2624,19 +2580,17 @@ LABEL_7:
 
 + (id)errorForUnknownStore:(id)store
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   storeID = [store storeID];
   identifier = [storeID identifier];
   v6 = [v3 stringWithFormat:@"Tried to access unknown store %@", identifier];
 
   v7 = MEMORY[0x277CCA9B8];
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = v6;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = v6;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v7 errorWithDomain:@"SyncedDefaults" code:101010 userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -2651,444 +2605,214 @@ LABEL_7:
   return v3;
 }
 
-- (void)applicationIdentifier
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error getting application identifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)connection:handleInvocation:isReply:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_8(&dword_26C384000, v0, v1, "Not entitled for test invocation: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __63__SYDDaemonToClientConnection_isEntitledForStoreConfiguration___block_invoke_cold_1(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [*a1 processName];
-  v8 = [*a1 storeID];
+  v7 = [*a1 storeID];
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __63__SYDDaemonToClientConnection_isEntitledForStoreConfiguration___block_invoke_cold_2(uint64_t *a1)
+void __63__SYDDaemonToClientConnection_isEntitledForStoreConfiguration___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x277D85DE8]);
-  v2 = *v1;
+  OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)_isEntitledForStoreConfiguration:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isEntitledForStoreConfiguration:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isEntitledForStoreConfiguration:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isEntitledForStoreConfiguration:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isEntitledForStoreConfiguration:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isEntitledForStoreConfiguration:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isEntitledForStoreConfiguration:.cold.7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isEntitledForStoreConfiguration:.cold.8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObject:forKey:inStoreWithConfiguration:reply:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)objectForKey:inStoreWithConfiguration:reply:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObjectForKey:inStoreWithConfiguration:reply:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)synchronizeStoreWithConfiguration:completionHandler:.cold.1()
+void __83__SYDDaemonToClientConnection_synchronizeStoreWithConfiguration_completionHandler___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Handling sync for store=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)synchronizeStoreWithConfiguration:completionHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "No sync manager for store=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __83__SYDDaemonToClientConnection_synchronizeStoreWithConfiguration_completionHandler___block_invoke_2_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)synchronizeStoresWithIdentifiers:(unint64_t)a1 type:testConfiguration:completionHandler:.cold.1(unint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = SYDStringForStoreType(a1);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronizeStoresWithIdentifiers:(unint64_t)a1 type:testConfiguration:completionHandler:.cold.2(unint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = SYDStringForStoreType(a1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-- (void)dictionaryRepresentationForStoreWithConfiguration:reply:.cold.1()
+void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWithConfiguration_reply___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Handling dictionaryRepresentation for store=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isCloudSyncEnablementEntitledForStoreIdentifier:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_8(&dword_26C384000, v0, v1, "BUG IN CLIENT OF KVS: Connection is trying to use an a sync status operation without the correct entitlement for store %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWithConfiguration_reply___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v1, v2, "Asked to register for store %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Asked to register for store %@", v2, v3, v4, v5);
 }
 
-void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWithConfiguration_reply___block_invoke_cold_2(uint64_t *a1)
+void __93__SYDDaemonToClientConnection_registerForChangeNotificationsForStoreWithConfiguration_reply___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v1, v2, "Registering for store %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)changeDictionarySinceChangeToken:inStoreWithConfiguration:reply:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Unable to get current change token: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)changeDictionarySinceChangeToken:inStoreWithConfiguration:reply:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Unable to get changed keys: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Registering for store %@", v2, v3, v4, v5);
 }
 
 - (void)changeDictionarySinceChangeToken:(void *)a1 inStoreWithConfiguration:reply:.cold.3(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)changeTokenForStoreWithConfiguration:reply:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Unable to determine if change token URL is a symbolic link: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)changeTokenForStoreWithConfiguration:reply:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error loading change token from disk: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)changeTokenForStoreWithConfiguration:(void *)a1 reply:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 storeID];
   v2 = [v1 identifier];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   _os_log_fault_impl(v3, v4, OS_LOG_TYPE_FAULT, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-- (void)saveChangeToken:forStoreWithConfiguration:reply:.cold.1()
+void __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration_reply___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Saving change token to disk for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveChangeToken:forStoreWithConfiguration:reply:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error saving change token to disk: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveChangeToken:forStoreWithConfiguration:reply:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Removing change token from disk for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveChangeToken:forStoreWithConfiguration:reply:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error removing change token when setting nil change token: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveChangeToken:forStoreWithConfiguration:reply:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Could not find change token URL to save change token: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration_reply___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_8(&dword_26C384000, v1, v2, "Error creating change token directory: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_26C384000, v0, v1, "Error creating change token directory: %@", v2, v3, v4, v5);
 }
 
-void __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration_reply___block_invoke_128_cold_1(uint64_t a1)
+void __79__SYDDaemonToClientConnection_saveChangeToken_forStoreWithConfiguration_reply___block_invoke_128_cold_1()
 {
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_8(&dword_26C384000, v1, v2, "Error saving change token to disk: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_26C384000, v0, v1, "Error saving change token to disk: %@", v2, v3, v4, v5);
 }
 
-void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_cold_2()
+void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error getting change token to send change dictionary: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_cold_3(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v1, v2, "No sync manager for sync manager change notification %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "No sync manager for sync manager change notification %@", v2, v3, v4, v5);
 }
 
-void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_cold_4(uint64_t *a1)
+void __64__SYDDaemonToClientConnection_syncManagerDidChangeNotification___block_invoke_cold_4()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v1, v2, "No store ID for sync manager change notification %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "No store ID for sync manager change notification %@", v2, v3, v4, v5);
 }
 
-void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v1, v2, "Notifying client that account did change %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Notifying client that account did change %@", v2, v3, v4, v5);
 }
 
-void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke_151_cold_1()
+void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke_151_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error getting change token to notify about account change: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __97__SYDDaemonToClientConnection_notifyAccountDidChangeFromAccountID_toAccountID_completionHandler___block_invoke_151_cold_2(uint64_t a1)
-{
-  OUTLINED_FUNCTION_8_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v1, v2, "Not notifying data-separated client about account change: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)daemonToClientConnectionDidChangeValues:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error getting change token to send change dictionary for local change: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)daemonToClientConnectionDidChangeValues:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_26C384000, v0, v1, "Error getting sync manager to notify client of changes: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Not notifying data-separated client about account change: %@", v2, v3, v4, v5);
 }
 
 - (void)daemonToClientConnectionDidChangeValues:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)deleteDataFromDiskForStoreWithConfiguration:reply:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Handling deleteData for store=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)postFakeSyncManagerChangeNotificationForStoreWithConfiguration:completionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_26C384000, v0, v1, "Posting fake notification for store %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isKnownStore:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_8(&dword_26C384000, v0, v1, "BUG IN CLIENT OF KVS: Tried to access unknown store %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

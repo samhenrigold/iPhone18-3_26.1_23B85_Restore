@@ -10,27 +10,25 @@
 {
   v3 = OBJC_IVAR____TtC17proximitycontrold8IDSProxy_devices;
   KeyPath = swift_getKeyPath();
-  v5 = sub_100035D04(&unk_100348F80, &qword_1002833E0);
-  v6 = *(v5 + 48);
-  v7 = *(v5 + 52);
+  sub_100035D04(&unk_100348F80, &qword_1002833E0);
   swift_allocObject();
-  v8 = sub_10006D7D4(KeyPath, 0);
+  v5 = sub_10006D7D4(KeyPath, 0);
 
-  *(&self->super.isa + v3) = v8;
-  v9 = OBJC_IVAR____TtC17proximitycontrold8IDSProxy_dispatchQueue;
+  *(&self->super.isa + v3) = v5;
+  v6 = OBJC_IVAR____TtC17proximitycontrold8IDSProxy_dispatchQueue;
   if (qword_1003391E8 != -1)
   {
     swift_once();
   }
 
-  v10 = qword_10038B5B8;
-  *(&self->super.isa + v9) = qword_10038B5B8;
+  v7 = qword_10038B5B8;
+  *(&self->super.isa + v6) = qword_10038B5B8;
   *(&self->super.isa + OBJC_IVAR____TtC17proximitycontrold8IDSProxy_service) = 0;
   *(&self->super.isa + OBJC_IVAR____TtC17proximitycontrold8IDSProxy_tasks) = &_swiftEmptySetSingleton;
-  v13.receiver = self;
-  v13.super_class = type metadata accessor for IDSProxy();
-  v11 = v10;
-  return [(IDSProxy *)&v13 init];
+  v10.receiver = self;
+  v10.super_class = type metadata accessor for IDSProxy();
+  v8 = v7;
+  return [(IDSProxy *)&v10 init];
 }
 
 - (void)service:(id)service activeAccountsChanged:(id)changed

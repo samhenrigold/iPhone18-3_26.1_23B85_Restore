@@ -341,8 +341,7 @@ void __48__SXEmbedVideoComponentView_sharedConfiguration__block_invoke()
   [(SXEmbedVideoComponentView *)self bounds];
   v6 = [v4 initWithFrame:{10.0, 10.0, v5, CGRectGetHeight(v15) + -20.0}];
   [v6 setNumberOfLines:0];
-  [v6 setTextAlignment:1];
-  v7 = SXBundle();
+  v7 = SXBundle([v6 setTextAlignment:1]);
   v8 = [v7 localizedStringForKey:@"Couldn’t Load Content" value:&stru_1F532F6C0 table:0];
   [v6 setText:v8];
 

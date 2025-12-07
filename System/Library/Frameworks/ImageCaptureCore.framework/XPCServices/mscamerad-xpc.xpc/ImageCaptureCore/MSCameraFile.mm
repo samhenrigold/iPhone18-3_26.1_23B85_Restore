@@ -7,14 +7,19 @@
 - (BOOL)openStream;
 - (BOOL)processMetadata:(id)metadata;
 - (BOOL)rawImageSupported;
+- (MSCameraFile)initWithFSURL:(id)l name:(id)name parent:(id)parent device:(id)device fullMetadata:(BOOL)metadata;
 - (NSMutableDictionary)metadataDict;
+- (id)createImageDataForMaxPixelSize:(unsigned int)size;
 - (id)createThumbnailUsingOffsets:(id)offsets;
 - (id)exifThumbOffsets;
 - (id)fingerprintWithError:(id *)error;
+- (id)imageThumbnailDataForMaxPixelSize:(unsigned int)size rotated:(BOOL *)rotated;
 - (id)initForReadingOnlyWithName:(id)name parent:(id)parent device:(id)device;
 - (id)movieThumbnailDataForMaxPixelSize:(unsigned int)size;
 - (id)rawImageValidateSubImage:(id)image error:(id *)error;
+- (id)scaleData:(id)data maxPixelSize:(unsigned int)size;
 - (id)subImageDictForPixelWidth:(id)width;
+- (id)thumbnailDataForMaxPixelSize:(unsigned int)size rotated:(BOOL *)rotated;
 - (id)thumbnailDataUsingSidecarFiles;
 - (int)imageHeight;
 - (int)imageOrientation;
@@ -29,6 +34,10 @@
 - (void)rawImageMinimumProperties;
 - (void)readDataWithOptions:(id)options reply:(id)reply;
 - (void)readMap:(unint64_t)map offset:(unint64_t)offset;
+- (void)setHasThumbnail:(BOOL)thumbnail;
+- (void)setImageHeight:(int)height;
+- (void)setImageOrientation:(int)orientation;
+- (void)setImageWidth:(int)width;
 - (void)setSizeAndOrientationFromImageProperties:(id)properties;
 - (void)thumbnailDataUsingSidecarFiles;
 - (void)thumbnailDataWithOptions:(id)options reply:(id)reply;
@@ -37,11 +46,142 @@
 
 @implementation MSCameraFile
 
+- (MSCameraFile)initWithFSURL:(id)l name:(id)name parent:(id)parent device:(id)device fullMetadata:(BOOL)metadata
+{
+  metadataCopy = metadata;
+  deviceCopy = device;
+  v31.receiver = self;
+  v31.super_class = MSCameraFile;
+  v13 = [(MSCameraItem *)&v31 initWithFSURL:l name:name parent:parent device:deviceCopy];
+  v14 = v13;
+  if (!v13)
+  {
+    goto LABEL_18;
+  }
+
+  v13->_fileOpenLock._os_unfair_lock_opaque = 0;
+  atomic_store(0, &v13->_fileOpenCount);
+  v13->_fullMetadata = 1;
+  name = [(MSCameraItem *)v13 name];
+  pathExtension = [name pathExtension];
+  lowercaseString = [pathExtension lowercaseString];
+
+  if (lowercaseString)
+  {
+    v18 = [UTType typeWithFilenameExtension:lowercaseString];
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  if (![(MSCameraFile *)v14 rawImageSupported]&& ![(MSCameraFile *)v14 imageIOSupported])
+  {
+    if (v18)
+    {
+      if ([v18 conformsToType:UTTypeMovie])
+      {
+        identifier = [UTTypeMovie identifier];
+        [(MSCameraFile *)v14 setUTI:identifier];
+
+        [(MSCameraFile *)v14 setHasThumbnail:1];
+        [(MSCameraFile *)v14 setHasMetadata:1];
+        [(MSCameraFile *)v14 setFullMetadata:metadataCopy];
+        v20 = 1836019574;
+        goto LABEL_8;
+      }
+
+      if ([v18 conformsToType:UTTypeAudio])
+      {
+        identifier2 = [UTTypeAudio identifier];
+        [(MSCameraFile *)v14 setUTI:identifier2];
+
+        v20 = 1635083375;
+        goto LABEL_8;
+      }
+    }
+
+    identifier3 = [UTTypeData identifier];
+    [(MSCameraFile *)v14 setUTI:identifier3];
+
+    v20 = 1869899877;
+    goto LABEL_8;
+  }
+
+  identifier4 = [UTTypeImage identifier];
+  [(MSCameraFile *)v14 setUTI:identifier4];
+
+  [(MSCameraFile *)v14 setHasMetadata:1];
+  [(MSCameraFile *)v14 setHasThumbnail:1];
+  v20 = 1768776039;
+LABEL_8:
+  [(MSCameraItem *)v14 setType:v20];
+  v21 = +[NSMutableDictionary dictionary];
+  [(MSCameraFile *)v14 setSubImages:v21];
+
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = __62__MSCameraFile_initWithFSURL_name_parent_device_fullMetadata___block_invoke;
+  v29[3] = &unk_100024778;
+  v22 = v14;
+  v30 = v22;
+  v23 = objc_retainBlock(v29);
+  if ([(MSCameraFile *)v22 hasMetadata])
+  {
+    if ([(MSCameraFile *)v22 rawImageSupported])
+    {
+      if ([deviceCopy prioritizeSpeed])
+      {
+        v24 = [NSBlockOperation blockOperationWithBlock:v23];
+        [deviceCopy addInitiatedOperation:v24];
+      }
+
+      else
+      {
+        (v23[2])(v23);
+      }
+    }
+
+    else
+    {
+      [(MSCameraFile *)v22 updateBasicMetadata];
+    }
+  }
+
+LABEL_18:
+  return v14;
+}
+
 - (id)initForReadingOnlyWithName:(id)name parent:(id)parent device:(id)device
 {
   v6.receiver = self;
   v6.super_class = MSCameraFile;
   return [(MSCameraItem *)&v6 initWithName:name parent:parent device:device];
+}
+
+- (void)setHasThumbnail:(BOOL)thumbnail
+{
+  thumbnailCopy = thumbnail;
+  cameraItemProxy = [(MSCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setHasThumbnail:thumbnailCopy];
+
+  if (thumbnailCopy)
+  {
+    if ([(MSCameraFile *)self thumbSize])
+    {
+      return;
+    }
+
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  [(MSCameraFile *)self setThumbSize:v6];
 }
 
 - (BOOL)hasThumbnail
@@ -50,6 +190,27 @@
   hasThumbnail = [cameraItemProxy hasThumbnail];
 
   return hasThumbnail;
+}
+
+- (void)setImageHeight:(int)height
+{
+  v3 = *&height;
+  cameraItemProxy = [(MSCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setHeight:v3];
+}
+
+- (void)setImageWidth:(int)width
+{
+  v3 = *&width;
+  cameraItemProxy = [(MSCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setWidth:v3];
+}
+
+- (void)setImageOrientation:(int)orientation
+{
+  v3 = *&orientation;
+  cameraItemProxy = [(MSCameraItem *)self cameraItemProxy];
+  [cameraItemProxy setOrientation:v3];
 }
 
 - (int)imageHeight
@@ -1765,7 +1926,7 @@ void __28__MSCameraFile_metadataDict__block_invoke(id *a1)
       v5 = a1[5];
       if (v5)
       {
-        [v5 duration];
+        objc_msgSend_duration(v5);
       }
 
       time = buf;
@@ -2007,6 +2168,66 @@ LABEL_47:
   return v9;
 }
 
+- (id)thumbnailDataForMaxPixelSize:(unsigned int)size rotated:(BOOL *)rotated
+{
+  v5 = *&size;
+  info = 0;
+  mach_timebase_info(&info);
+  _gBenchmarkStartMachTime = 0;
+  *&_gBenchmarkStartMachTime = mach_absolute_time();
+  if ([(MSCameraItem *)self type]== 1768776039)
+  {
+    v7 = [(MSCameraFile *)self imageThumbnailDataForMaxPixelSize:v5 rotated:rotated];
+  }
+
+  else
+  {
+    v7 = [(MSCameraFile *)self movieThumbnailDataForMaxPixelSize:v5];
+    *rotated = 1;
+  }
+
+  v8 = (((mach_absolute_time() - *&_gBenchmarkStartMachTime) * info.numer) / info.denom) / 1000000.0;
+  __ICOSLogCreate();
+  name = [(MSCameraItem *)self name];
+  if ([name length] >= 0x15)
+  {
+    v10 = [name substringWithRange:{0, 18}];
+    v11 = [v10 stringByAppendingString:@".."];
+
+    name = v11;
+  }
+
+  if (v8 <= 300.0)
+  {
+    v12 = @"𝚫";
+  }
+
+  else
+  {
+    v12 = @"⊗";
+  }
+
+  v13 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"[subImage] %10s: [%7lu]", "response", [v7 length]);
+  v14 = [NSString stringWithFormat:@"%@[%4.0f ms] %@", v12, v8, v13];
+
+  v15 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = name;
+    v17 = v15;
+    uTF8String = [name UTF8String];
+    *buf = 136446466;
+    v22 = uTF8String;
+    v23 = 2114;
+    v24 = v14;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+  }
+
+  _gLastBenchmarkElapsedMilliseconds = LODWORD(v8);
+
+  return v7;
+}
+
 - (id)exifThumbOffsets
 {
   if ([(MSCameraFile *)self thumbSize]&& [(MSCameraFile *)self thumbHeight]&& [(MSCameraFile *)self thumbOffset]&& [(MSCameraFile *)self thumbWidth])
@@ -2026,6 +2247,217 @@ LABEL_47:
   }
 
   return 0;
+}
+
+- (id)imageThumbnailDataForMaxPixelSize:(unsigned int)size rotated:(BOOL *)rotated
+{
+  v5 = *&size;
+  __ICOSLogCreate();
+  name = [(MSCameraItem *)self name];
+  if ([name length] >= 0x15)
+  {
+    v8 = [name substringWithRange:{0, 18}];
+    v9 = [v8 stringByAppendingString:@".."];
+
+    name = v9;
+  }
+
+  v10 = [NSString stringWithFormat:@"[subImage] %10s: [%7d]", "request", v5];
+  v11 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = name;
+    v13 = v11;
+    *buf = 136446466;
+    uTF8String = [name UTF8String];
+    v43 = 2114;
+    v44 = v10;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+  }
+
+  v14 = [NSNumber numberWithUnsignedInt:v5];
+  v15 = [(MSCameraFile *)self subImageDictForPixelWidth:v14];
+
+  if (v15)
+  {
+    v16 = [(MSCameraFile *)self createThumbnailUsingOffsets:v15];
+    v17 = [v15 objectForKeyedSubscript:@"Width"];
+    if ([v17 intValue] != v5)
+    {
+      v18 = [v15 objectForKeyedSubscript:@"Height"];
+      intValue = [v18 intValue];
+
+      if (intValue == v5)
+      {
+        goto LABEL_14;
+      }
+
+      __ICOSLogCreate();
+      name2 = [(MSCameraItem *)self name];
+      rotatedCopy = rotated;
+      if ([name2 length] >= 0x15)
+      {
+        v21 = [name2 substringWithRange:{0, 18}];
+        v22 = [v21 stringByAppendingString:@".."];
+
+        name2 = v22;
+      }
+
+      v23 = [v15 objectForKeyedSubscript:@"Width"];
+      intValue2 = [v23 intValue];
+      v25 = [v15 objectForKeyedSubscript:@"Height"];
+      v26 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"[subImage] %10s: [%7d x %7d] -> [%7d]", "scale", intValue2, [v25 intValue], v5);
+
+      v27 = _gICOSLog;
+      if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+      {
+        v28 = name2;
+        v29 = v27;
+        uTF8String2 = [name2 UTF8String];
+        *buf = 136446466;
+        uTF8String = uTF8String2;
+        v43 = 2114;
+        v44 = v26;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      }
+
+      [(MSCameraFile *)self scaleData:v16 maxPixelSize:v5];
+      v16 = v17 = v16;
+      rotated = rotatedCopy;
+    }
+
+LABEL_14:
+    if (v16)
+    {
+      goto LABEL_20;
+    }
+  }
+
+  __ICOSLogCreate();
+  name3 = [(MSCameraItem *)self name];
+  if ([name3 length] >= 0x15)
+  {
+    v32 = [name3 substringWithRange:{0, 18}];
+    v33 = [v32 stringByAppendingString:@".."];
+
+    name3 = v33;
+  }
+
+  v34 = [NSString stringWithFormat:@"[subImage] %10s: [%7d]", "decode full", v5];
+  v35 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v36 = name3;
+    v37 = v35;
+    uTF8String3 = [name3 UTF8String];
+    *buf = 136446466;
+    uTF8String = uTF8String3;
+    v43 = 2114;
+    v44 = v34;
+    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+  }
+
+  v16 = [(MSCameraFile *)self createImageDataForMaxPixelSize:v5];
+  *rotated = 1;
+LABEL_20:
+
+  return v16;
+}
+
+- (id)scaleData:(id)data maxPixelSize:(unsigned int)size
+{
+  v4 = *&size;
+  v5 = CGImageSourceCreateWithData(data, 0);
+  if (v5)
+  {
+    v6 = v5;
+    Mutable = CFDataCreateMutable(kCFAllocatorDefault, 0);
+    identifier = [UTTypeJPEG identifier];
+    v9 = CGImageDestinationCreateWithData(Mutable, identifier, 1uLL, 0);
+
+    if (v9)
+    {
+      v10 = +[NSMutableDictionary dictionary];
+      v11 = [NSNumber numberWithUnsignedInt:v4];
+      [v10 setObject:v11 forKeyedSubscript:kCGImageDestinationImageMaxPixelSize];
+
+      [v10 setObject:&__kCFBooleanTrue forKeyedSubscript:kCGImageSourceCreateThumbnailWithTransform];
+      CGImageDestinationAddImageFromSource(v9, v6, 0, v10);
+      if (!CGImageDestinationFinalize(v9))
+      {
+
+        Mutable = 0;
+      }
+
+      CFRelease(v9);
+    }
+
+    CFRelease(v6);
+  }
+
+  else
+  {
+    Mutable = 0;
+  }
+
+  return Mutable;
+}
+
+- (id)createImageDataForMaxPixelSize:(unsigned int)size
+{
+  v3 = *&size;
+  name = [(MSCameraItem *)self name];
+  pathExtension = [name pathExtension];
+  lowercaseString = [pathExtension lowercaseString];
+
+  if (-[MSCameraFile imageWidth](self, "imageWidth") < v3 && -[MSCameraFile imageHeight](self, "imageHeight") < v3 && (([lowercaseString isEqualToString:@"jpg"] & 1) != 0 || objc_msgSend(lowercaseString, "isEqualToString:", @"jpeg")))
+  {
+    path = [(MSCameraItem *)self path];
+    v9 = [NSURL fileURLWithPath:path];
+
+    Mutable = [[NSData alloc] initWithContentsOfURL:v9];
+  }
+
+  else
+  {
+    path2 = [(MSCameraItem *)self path];
+    v9 = [NSURL fileURLWithPath:path2];
+
+    v12 = CGImageSourceCreateWithURL(v9, 0);
+    if (v12)
+    {
+      v13 = v12;
+      Mutable = CFDataCreateMutable(kCFAllocatorDefault, 0);
+      identifier = [UTTypeJPEG identifier];
+      v15 = CGImageDestinationCreateWithData(Mutable, identifier, 1uLL, 0);
+
+      if (v15)
+      {
+        v16 = +[NSMutableDictionary dictionary];
+        v17 = [NSNumber numberWithUnsignedInt:v3];
+        [v16 setObject:v17 forKeyedSubscript:kCGImageDestinationImageMaxPixelSize];
+
+        [v16 setObject:&__kCFBooleanTrue forKeyedSubscript:kCGImageSourceCreateThumbnailWithTransform];
+        CGImageDestinationAddImageFromSource(v15, v13, 0, v16);
+        if (!CGImageDestinationFinalize(v15))
+        {
+
+          Mutable = 0;
+        }
+
+        CFRelease(v15);
+      }
+
+      CFRelease(v13);
+    }
+
+    else
+    {
+      Mutable = 0;
+    }
+  }
+
+  return Mutable;
 }
 
 - (id)movieThumbnailDataForMaxPixelSize:(unsigned int)size

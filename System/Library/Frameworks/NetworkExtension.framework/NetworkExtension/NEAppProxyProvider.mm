@@ -33,10 +33,8 @@
 - (unint64_t)maxWriteSize
 {
   context = [(NEProvider *)self context];
-  v3 = context;
   if (context)
   {
-    v4 = *(context + 120);
     MaxSendSize = NEFlowDirectorGetMaxSendSize();
   }
 
@@ -53,10 +51,9 @@
   context = [(NEProvider *)self context];
   if (context)
   {
-    v5 = context;
-    v4 = context[15];
+    v4 = context;
     NEFlowDirectorSetMaxSendSize();
-    context = v5;
+    context = v4;
   }
 }
 
@@ -88,17 +85,15 @@
 
 - (void)startProxyWithOptions:(NSDictionary *)options completionHandler:(void *)completionHandler
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
-  v11 = *MEMORY[0x1E696A578];
-  v12[0] = @"startProxyWithOptions:completionHandler: not implemented";
+  v10 = *MEMORY[0x1E696A578];
+  v11[0] = @"startProxyWithOptions:completionHandler: not implemented";
   v6 = MEMORY[0x1E695DF20];
   v7 = completionHandler;
-  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v8 = [v6 dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v9 = [v5 errorWithDomain:@"NEAppProxyProviderDefaultErrorDomain" code:1 userInfo:v8];
   (*(completionHandler + 2))(v7, v9);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -32,7 +32,7 @@
         executable_path = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:executable_path];
       }
 
-      if (v11 && ([(RBXPCBundleProperties *)&v5->_executablePath initWithPID:v5, executable_path]& 1) == 0)
+      if (v11 && ([(RBXPCBundleProperties *)&v5->_executablePath initWithPID:v5, executable_path, v11]& 1) == 0)
       {
         goto LABEL_10;
       }
@@ -58,7 +58,7 @@ LABEL_10:
 
 - (id)bundleInfoValuesForKeys:(id)keys
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   if ([keysCopy count])
   {
@@ -75,28 +75,28 @@ LABEL_10:
         [(NSCache *)selfCopy->_plistValues setCountLimit:20];
       }
 
-      v37 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v35 = objc_alloc_init(MEMORY[0x277CBEB38]);
       v7 = [MEMORY[0x277CBEB98] setWithArray:keysCopy];
-      v36 = [v7 mutableCopy];
-      v44 = 0u;
-      v45 = 0u;
+      v34 = [v7 mutableCopy];
       v42 = 0u;
       v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
       obj = v7;
-      v8 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v8 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
       if (v8)
       {
-        v9 = *v43;
+        v9 = *v41;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v43 != v9)
+            if (*v41 != v9)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = *(*(&v42 + 1) + 8 * i);
+            v11 = *(*(&v40 + 1) + 8 * i);
             v12 = [(NSCache *)selfCopy->_plistValues objectForKey:v11];
             if (v12)
             {
@@ -105,83 +105,82 @@ LABEL_10:
 
               if (!v14)
               {
-                [v37 setObject:v12 forKey:v11];
+                [v35 setObject:v12 forKey:v11];
               }
 
-              [v36 removeObject:v11];
+              [v34 removeObject:v11];
             }
           }
 
-          v8 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+          v8 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
         }
 
         while (v8);
       }
 
-      if ([v36 count])
+      if ([v34 count])
       {
-        pid = selfCopy->_pid;
-        v16 = RBSExecutablePathForPID();
-        v33 = v16;
-        if (v16 && (v17 = v16, [v33 UTF8String], (v18 = xpc_bundle_create()) != 0))
+        v15 = RBSExecutablePathForPID();
+        v31 = v15;
+        if (v15 && (v16 = v15, [v31 UTF8String], (v17 = xpc_bundle_create()) != 0))
         {
-          v32 = v18;
-          v19 = xpc_bundle_get_info_dictionary();
-          if (v19)
+          v30 = v17;
+          v18 = xpc_bundle_get_info_dictionary();
+          if (v18)
           {
-            v20 = _CFXPCCreateCFObjectFromXPCObject();
+            v19 = _CFXPCCreateCFObjectFromXPCObject();
           }
 
           else
           {
-            v20 = 0;
+            v19 = 0;
           }
         }
 
         else
         {
-          v32 = 0;
-          v20 = 0;
+          v30 = 0;
+          v19 = 0;
         }
 
-        v40 = 0u;
-        v41 = 0u;
         v38 = 0u;
         v39 = 0u;
-        v22 = v36;
-        v23 = [v22 countByEnumeratingWithState:&v38 objects:v46 count:16];
-        if (v23)
+        v36 = 0u;
+        v37 = 0u;
+        v21 = v34;
+        v22 = [v21 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        if (v22)
         {
-          v24 = *v39;
+          v23 = *v37;
           do
           {
-            for (j = 0; j != v23; ++j)
+            for (j = 0; j != v22; ++j)
             {
-              if (*v39 != v24)
+              if (*v37 != v23)
               {
-                objc_enumerationMutation(v22);
+                objc_enumerationMutation(v21);
               }
 
-              v26 = *(*(&v38 + 1) + 8 * j);
-              v27 = [v20 objectForKey:{v26, v32}];
-              v28 = selfCopy->_plistValues;
-              if (v27)
+              v25 = *(*(&v36 + 1) + 8 * j);
+              v26 = [v19 objectForKey:{v25, v30}];
+              v27 = selfCopy->_plistValues;
+              if (v26)
               {
-                [(NSCache *)selfCopy->_plistValues setObject:v27 forKey:v26];
-                [v37 setObject:v27 forKey:v26];
+                [(NSCache *)selfCopy->_plistValues setObject:v26 forKey:v25];
+                [v35 setObject:v26 forKey:v25];
               }
 
               else
               {
                 null2 = [MEMORY[0x277CBEB68] null];
-                [(NSCache *)v28 setObject:null2 forKey:v26];
+                [(NSCache *)v27 setObject:null2 forKey:v25];
               }
             }
 
-            v23 = [v22 countByEnumeratingWithState:&v38 objects:v46 count:16];
+            v22 = [v21 countByEnumeratingWithState:&v36 objects:v44 count:16];
           }
 
-          while (v23);
+          while (v22);
         }
       }
 
@@ -193,165 +192,159 @@ LABEL_10:
       selfCopy = rbs_general_log();
       if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_INFO))
       {
-        v21 = self->_pid;
+        pid = self->_pid;
         *buf = 67109120;
-        v49 = v21;
+        v47 = pid;
         _os_log_impl(&dword_262485000, &selfCopy->super, OS_LOG_TYPE_INFO, "Bundle info cannot be fetched for process %d", buf, 8u);
       }
 
-      v37 = 0;
+      v35 = 0;
     }
   }
 
   else
   {
-    v37 = 0;
+    v35 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v37;
+  return v35;
 }
 
 - (uint64_t)_bundleMatchesProcessWithExecutablePath:(void *)path bundleExecutablePath:
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (self)
+  v15 = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    pathCopy = path;
-    stringByStandardizingPath = [a2 stringByStandardizingPath];
-    stringByStandardizingPath2 = [pathCopy stringByStandardizingPath];
+    return 0;
+  }
 
-    if ([stringByStandardizingPath isEqual:stringByStandardizingPath2])
-    {
-      v7 = 1;
-    }
+  pathCopy = path;
+  stringByStandardizingPath = [a2 stringByStandardizingPath];
+  stringByStandardizingPath2 = [pathCopy stringByStandardizingPath];
 
-    else
-    {
-      v7 = realpath_DARWIN_EXTSN([stringByStandardizingPath2 UTF8String], 0);
-      if (v7)
-      {
-        v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
-        free(v7);
-        v9 = rbs_general_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-        {
-          v12 = 138543618;
-          v13 = stringByStandardizingPath;
-          v14 = 2114;
-          v15 = v8;
-          _os_log_impl(&dword_262485000, v9, OS_LOG_TYPE_DEFAULT, "_bundleMatchesProcessWithExecutablePath using realpath and comparing %{public}@ and %{public}@", &v12, 0x16u);
-        }
-
-        if (stringByStandardizingPath == v8)
-        {
-          v7 = 1;
-        }
-
-        else
-        {
-          v7 = 0;
-          if (stringByStandardizingPath && v8)
-          {
-            v7 = [stringByStandardizingPath isEqualToString:v8];
-          }
-        }
-      }
-    }
+  if ([stringByStandardizingPath isEqual:stringByStandardizingPath2])
+  {
+    v7 = 1;
   }
 
   else
   {
-    v7 = 0;
+    v7 = realpath_DARWIN_EXTSN([stringByStandardizingPath2 UTF8String], 0);
+    if (v7)
+    {
+      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
+      free(v7);
+      v9 = rbs_general_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = 138543618;
+        v12 = stringByStandardizingPath;
+        v13 = 2114;
+        v14 = v8;
+        _os_log_impl(&dword_262485000, v9, OS_LOG_TYPE_DEFAULT, "_bundleMatchesProcessWithExecutablePath using realpath and comparing %{public}@ and %{public}@", &v11, 0x16u);
+      }
+
+      if (stringByStandardizingPath == v8)
+      {
+        v7 = 1;
+      }
+
+      else
+      {
+        v7 = 0;
+        if (stringByStandardizingPath && v8)
+        {
+          v7 = [stringByStandardizingPath isEqualToString:v8];
+        }
+      }
+    }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-- (uint64_t)initWithPID:(void *)a3 .cold.1(void **a1, uint64_t a2, void *a3)
+- (uint64_t)initWithPID:(void *)a3 .cold.1(void **a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v4 = [(RBXPCBundleProperties *)a2 _bundleMatchesProcessWithExecutablePath:a3 bundleExecutablePath:?];
+  v5 = [(RBXPCBundleProperties *)a2 _bundleMatchesProcessWithExecutablePath:a3 bundleExecutablePath:?];
   result = 1;
-  if (v4)
+  if (v5)
   {
     *(a2 + 24) = 1;
-    v6 = xpc_bundle_get_info_dictionary();
-    if (v6)
+    v7 = xpc_bundle_get_info_dictionary();
+    if (v7)
     {
-      v7 = _CFXPCCreateCFObjectFromXPCObject();
-      string = xpc_dictionary_get_string(v6, [*MEMORY[0x277CBED38] UTF8String]);
+      v8 = _CFXPCCreateCFObjectFromXPCObject();
+      string = xpc_dictionary_get_string(v7, [*MEMORY[0x277CBED38] UTF8String]);
       if (string)
       {
-        v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:string];
-        v10 = *(a2 + 48);
-        *(a2 + 48) = v9;
+        v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:string];
+        v11 = *(a2 + 48);
+        *(a2 + 48) = v10;
       }
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
     property = xpc_bundle_get_property();
     if (property)
     {
-      v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:property];
-      v13 = *(a2 + 56);
-      *(a2 + 56) = v12;
+      v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:property];
+      v14 = *(a2 + 56);
+      *(a2 + 56) = v13;
     }
 
-    v14 = RBSExtensionPointFromBundleDict();
-    v15 = *(a2 + 72);
-    *(a2 + 72) = v14;
+    v15 = RBSExtensionPointFromBundleDict();
+    v16 = *(a2 + 72);
+    *(a2 + 72) = v15;
 
     *(a2 + 32) = *(a2 + 72) != 0;
-    v16 = [v7 objectForKeyedSubscript:@"UIBackgroundModes"];
+    v17 = [v8 objectForKeyedSubscript:@"UIBackgroundModes"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v17 = v16;
-      if ([v17 containsObject:@"fetch"])
-      {
-        v18 = 1;
-      }
-
-      else
-      {
-        v18 = [v17 containsObject:@"remote-notification"];
-      }
-
-      *(a2 + 26) = v18;
-      if ([v17 containsObject:@"voip"])
+      v18 = v17;
+      if ([v18 containsObject:@"fetch"])
       {
         v19 = 1;
       }
 
       else
       {
-        v19 = [v17 containsObject:@"push-to-talk"];
+        v19 = [v18 containsObject:@"remote-notification"];
       }
 
-      *(a2 + 30) = v19;
-      *(a2 + 29) = [v17 containsObject:@"unboundedTaskCompletion"];
-      *(a2 + 27) = [v17 containsObject:@"network-authentication"];
-      *(a2 + 28) = [v17 containsObject:@"audio"];
-      *(a2 + 31) = [v17 containsObject:@"continuous"];
+      *(a2 + 26) = v19;
+      if ([v18 containsObject:@"voip"])
+      {
+        v20 = 1;
+      }
+
+      else
+      {
+        v20 = [v18 containsObject:@"push-to-talk"];
+      }
+
+      *(a2 + 30) = v20;
+      *(a2 + 29) = [v18 containsObject:@"unboundedTaskCompletion"];
+      *(a2 + 27) = [v18 containsObject:@"network-authentication"];
+      *(a2 + 28) = [v18 containsObject:@"audio"];
+      *(a2 + 31) = [v18 containsObject:@"continuous"];
     }
 
-    v20 = [v7 objectForKeyedSubscript:@"SBPreferredPriorityBand"];
-    if ([v20 isEqualToString:@"PriorityBandSuspended"])
+    v21 = [v8 objectForKeyedSubscript:@"SBPreferredPriorityBand"];
+    if ([v21 isEqualToString:@"PriorityBandSuspended"])
     {
       *(a2 + 36) = 0;
     }
 
     else
     {
-      if (![v20 isEqualToString:@"PriorityBandMail"])
+      if (![v21 isEqualToString:@"PriorityBandMail"])
       {
-        v21 = 0;
+        v22 = 0;
         *(a2 + 36) = -1;
         goto LABEL_22;
       }
@@ -359,9 +352,9 @@ LABEL_10:
       *(a2 + 36) = 40;
     }
 
-    v21 = 1;
+    v22 = 1;
 LABEL_22:
-    *(a2 + 25) = v21;
+    *(a2 + 25) = v22;
 
     return 0;
   }

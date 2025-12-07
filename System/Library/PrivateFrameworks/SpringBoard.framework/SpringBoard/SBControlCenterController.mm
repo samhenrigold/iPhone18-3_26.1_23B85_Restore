@@ -761,7 +761,7 @@ uint64_t __56__SBControlCenterController_dismissAnimated_completion___block_invo
 
 - (BOOL)gestureRecognizerShouldBegin:(id)begin
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   beginCopy = begin;
   multiDisplayUserInteractionCoordinator = [SBApp multiDisplayUserInteractionCoordinator];
   activeTouchDownOriginatedWindowScene = [multiDisplayUserInteractionCoordinator activeTouchDownOriginatedWindowScene];
@@ -776,17 +776,17 @@ uint64_t __56__SBControlCenterController_dismissAnimated_completion___block_invo
 
       if ((v8 & 1) == 0)
       {
-        edgePullGestureRecognizer = SBLogSystemGestureControlCenter();
+        edgePullGestureRecognizer = SBLogSystemGestureControlCenter(v9);
         if (os_log_type_enabled(edgePullGestureRecognizer, OS_LOG_TYPE_DEFAULT))
         {
           name = [(SBIndirectPanGestureRecognizer *)beginCopy name];
           *buf = 138412290;
-          v34 = name;
+          v39 = name;
           _os_log_impl(&dword_21ED4E000, edgePullGestureRecognizer, OS_LOG_TYPE_DEFAULT, "Not allowing %@ to begin because it was started from another display", buf, 0xCu);
         }
 
-        _shouldAllowControlCenterGesture = 0;
-        v9 = @"NotForCurrentDisplay";
+        v11 = 0;
+        v10 = @"NotForCurrentDisplay";
         goto LABEL_36;
       }
     }
@@ -795,48 +795,51 @@ uint64_t __56__SBControlCenterController_dismissAnimated_completion___block_invo
   if (self->_statusBarPullGestureRecognizer == beginCopy || self->_indirectStatusBarPullGestureRecognizer == beginCopy)
   {
     _shouldAllowControlCenterGesture = [(SBControlCenterController *)self _shouldAllowControlCenterGesture];
+    v11 = _shouldAllowControlCenterGesture;
     if (_shouldAllowControlCenterGesture)
     {
-      v9 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v13 = SBLogSystemGestureControlCenter();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Not allowing the status bar pull down gesture to begin because the Control Center gesture isn't allowed at all.", buf, 2u);
-      }
-
-      v9 = @"ControlCenterNotAllowed";
-    }
-
-    if ([(SBControlCenterController *)self _shouldShowGrabberOnFirstSwipe]&& self->_indirectStatusBarPullGestureRecognizer != beginCopy)
-    {
-      v14 = SBLogSystemGestureControlCenter();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Not allowing the status bar pull down gesture to begin because we require a grabber on first swipe.", buf, 2u);
-      }
-
-      _shouldAllowControlCenterGesture = 0;
-      v9 = @"StatusBarGestureNotAllowedBecauseGrabberRequired";
-    }
-
-    edgePullGestureRecognizer = [(SBGrabberTongue *)self->_grabberTongue edgePullGestureRecognizer];
-    if ([edgePullGestureRecognizer state]== 1 || [edgePullGestureRecognizer state]== 2 || [edgePullGestureRecognizer state]== 3)
-    {
-      v15 = SBLogSystemGestureControlCenter();
+      v15 = SBLogSystemGestureControlCenter(_shouldAllowControlCenterGesture);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Not allowing the status bar pull down gesture to begin because the screen edge gesture's state is active.", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Not allowing the status bar pull down gesture to begin because the Control Center gesture isn't allowed at all.", buf, 2u);
       }
 
-      _shouldAllowControlCenterGesture = 0;
-      v9 = @"StatusBarGestureNotAllowedBecauseEdgeGestureIsActive";
+      v10 = @"ControlCenterNotAllowed";
+    }
+
+    _shouldShowGrabberOnFirstSwipe = [(SBControlCenterController *)self _shouldShowGrabberOnFirstSwipe];
+    if (_shouldShowGrabberOnFirstSwipe && self->_indirectStatusBarPullGestureRecognizer != beginCopy)
+    {
+      v17 = SBLogSystemGestureControlCenter(_shouldShowGrabberOnFirstSwipe);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Not allowing the status bar pull down gesture to begin because we require a grabber on first swipe.", buf, 2u);
+      }
+
+      v11 = 0;
+      v10 = @"StatusBarGestureNotAllowedBecauseGrabberRequired";
+    }
+
+    edgePullGestureRecognizer = [(SBGrabberTongue *)self->_grabberTongue edgePullGestureRecognizer];
+    state = [edgePullGestureRecognizer state];
+    if (state == 1 || (state = [edgePullGestureRecognizer state], state == 2) || (state = [edgePullGestureRecognizer state], state == 3))
+    {
+      v19 = SBLogSystemGestureControlCenter(state);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Not allowing the status bar pull down gesture to begin because the screen edge gesture's state is active.", buf, 2u);
+      }
+
+      v11 = 0;
+      v10 = @"StatusBarGestureNotAllowedBecauseEdgeGestureIsActive";
     }
 
     statusBarPullGestureRecognizer = self->_statusBarPullGestureRecognizer;
@@ -845,34 +848,34 @@ uint64_t __56__SBControlCenterController_dismissAnimated_completion___block_invo
       viewController = [(SBControlCenterController *)self viewController];
       view = [viewController view];
       [(UIPanGestureRecognizer *)statusBarPullGestureRecognizer velocityInView:view];
-      v20 = v19;
-      v22 = v21;
+      v24 = v23;
+      v26 = v25;
 
-      if (v22 < 0.0 || fabs(v20) > fabs(v22))
+      if (v26 < 0.0 || fabs(v24) > fabs(v26))
       {
-        v23 = SBLogSystemGestureControlCenter();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v28 = SBLogSystemGestureControlCenter(v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "Preventing the status bar pull down gesture because we're moving up or horizontally.", buf, 2u);
+          _os_log_impl(&dword_21ED4E000, v28, OS_LOG_TYPE_DEFAULT, "Preventing the status bar pull down gesture because we're moving up or horizontally.", buf, 2u);
         }
 
-        _shouldAllowControlCenterGesture = 0;
-        v9 = @"StatusBarGestureNotAllowedBecauseMovingUpOrHorizontally";
+        v11 = 0;
+        v10 = @"StatusBarGestureNotAllowedBecauseMovingUpOrHorizontally";
       }
     }
 
     if (self->_indirectStatusBarPullGestureRecognizer == beginCopy)
     {
-      v24 = [(SBControlCenterController *)self viewForSystemGestureRecognizer:beginCopy];
-      [(SBIndirectPanGestureRecognizer *)beginCopy locationInView:v24];
-      v25 = [(SBControlCenterController *)self _isLocationXWithinExtendedTrailingStatusBarRegion:?];
-      if (!v25)
+      v29 = [(SBControlCenterController *)self viewForSystemGestureRecognizer:beginCopy];
+      [(SBIndirectPanGestureRecognizer *)beginCopy locationInView:v29];
+      v30 = [(SBControlCenterController *)self _isLocationXWithinExtendedTrailingStatusBarRegion:?];
+      if (!v30)
       {
-        v9 = @"StatusBarGestureNotAllowedBecausePointerIsNotInTheTrailingStatusBarRegion";
+        v10 = @"StatusBarGestureNotAllowedBecausePointerIsNotInTheTrailingStatusBarRegion";
       }
 
-      _shouldAllowControlCenterGesture &= v25;
+      v11 &= v30;
     }
 
 LABEL_36:
@@ -880,21 +883,21 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  v9 = 0;
-  _shouldAllowControlCenterGesture = 1;
+  v10 = 0;
+  v11 = 1;
 LABEL_37:
   mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __58__SBControlCenterController_gestureRecognizerShouldBegin___block_invoke;
-  v29[3] = &unk_2783B77A8;
-  v32 = _shouldAllowControlCenterGesture;
-  v30 = beginCopy;
-  v31 = v9;
-  v27 = beginCopy;
-  [mEMORY[0x277D6A798] logBlock:v29];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __58__SBControlCenterController_gestureRecognizerShouldBegin___block_invoke;
+  v34[3] = &unk_2783B77A8;
+  v37 = v11;
+  v35 = beginCopy;
+  v36 = v10;
+  v32 = beginCopy;
+  [mEMORY[0x277D6A798] logBlock:v34];
 
-  return _shouldAllowControlCenterGesture;
+  return v11;
 }
 
 id __58__SBControlCenterController_gestureRecognizerShouldBegin___block_invoke(uint64_t a1)
@@ -1195,11 +1198,11 @@ id __66__SBControlCenterController_gestureRecognizer_shouldReceiveTouch___block_
     {
       if (state == 1)
       {
-        v39 = SBLogTelemetrySignposts();
-        if (os_signpost_enabled(v39))
+        v40 = SBLogTelemetrySignposts(1);
+        if (os_signpost_enabled(v40))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_21ED4E000, v39, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_CONTROL_CENTER_GESTURE", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_21ED4E000, v40, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_CONTROL_CENTER_GESTURE", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
         }
 
         kdebug_trace();
@@ -1229,32 +1232,33 @@ LABEL_25:
           viewController9 = [(SBControlCenterController *)self viewController];
           [viewController9 endPresentationWithLocation:v8 translation:v10 velocity:{v14, v16, v20, v22}];
 
-          if ([(SBControlCenterController *)self isPresented])
+          isPresented = [(SBControlCenterController *)self isPresented];
+          if (isPresented)
           {
-            [(SBControlCenterController *)self _disableReachability];
+            isPresented = [(SBControlCenterController *)self _disableReachability];
           }
 
-          v36 = SBLogTelemetrySignposts();
-          if (os_signpost_enabled(v36))
+          v37 = SBLogTelemetrySignposts(isPresented);
+          if (os_signpost_enabled(v37))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_21ED4E000, v36, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_CONTROL_CENTER_GESTURE", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_21ED4E000, v37, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_CONTROL_CENTER_GESTURE", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
           }
 
           kdebug_trace();
           mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
-          v42[0] = MEMORY[0x277D85DD0];
-          v42[1] = 3221225472;
-          v42[2] = __61__SBControlCenterController__handleStatusBarPullDownGesture___block_invoke;
-          v42[3] = &unk_2783B77F8;
-          *&v42[5] = v8;
-          *&v42[6] = v10;
-          *&v42[7] = v14;
-          *&v42[8] = v16;
-          *&v42[9] = v20;
-          *&v42[10] = v22;
-          v42[4] = self;
-          [mEMORY[0x277D6A798] logBlock:v42];
+          v44[0] = MEMORY[0x277D85DD0];
+          v44[1] = 3221225472;
+          v44[2] = __61__SBControlCenterController__handleStatusBarPullDownGesture___block_invoke;
+          v44[3] = &unk_2783B77F8;
+          *&v44[5] = v8;
+          *&v44[6] = v10;
+          *&v44[7] = v14;
+          *&v44[8] = v16;
+          *&v44[9] = v20;
+          *&v44[10] = v22;
+          v44[4] = self;
+          [mEMORY[0x277D6A798] logBlock:v44];
 
           break;
         case 5:
@@ -1270,16 +1274,17 @@ LABEL_25:
           viewController10 = [(SBControlCenterController *)self viewController];
           [viewController10 cancelPresentationWithLocation:v8 translation:v10 velocity:{v14, v16, v20, v22}];
 
-          if ([(SBControlCenterController *)self isPresented])
+          isPresented2 = [(SBControlCenterController *)self isPresented];
+          if (isPresented2)
           {
-            [(SBControlCenterController *)self _disableReachability];
+            isPresented2 = [(SBControlCenterController *)self _disableReachability];
           }
 
-          v41 = SBLogTelemetrySignposts();
-          if (os_signpost_enabled(v41))
+          v43 = SBLogTelemetrySignposts(isPresented2);
+          if (os_signpost_enabled(v43))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_21ED4E000, v41, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_CONTROL_CENTER_GESTURE", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_21ED4E000, v43, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_CONTROL_CENTER_GESTURE", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
           }
 
           kdebug_trace();
@@ -1470,7 +1475,7 @@ id __62__SBControlCenterController_grabberTongue_shouldReceiveTouch___block_invo
 {
   gestureCopy = gesture;
   pullingCopy = pulling;
-  v10 = SBLogTelemetrySignposts();
+  v10 = SBLogTelemetrySignposts(pullingCopy);
   if (os_signpost_enabled(v10))
   {
     *v25 = 0;
@@ -1536,8 +1541,7 @@ id __62__SBControlCenterController_grabberTongue_shouldReceiveTouch___block_invo
     [(SBControlCenterController *)self restrictSystemApertureToType:0 withReason:@"Control Center Presented"];
   }
 
-  [(SBControlCenterController *)self invalidateSystemApertureAssertionForType:1 withReason:@"Control Center Presentation Ended"];
-  v20 = SBLogTelemetrySignposts();
+  v20 = SBLogTelemetrySignposts([(SBControlCenterController *)self invalidateSystemApertureAssertionForType:1 withReason:@"Control Center Presentation Ended"]);
   if (os_signpost_enabled(v20))
   {
     *buf = 0;
@@ -1627,8 +1631,7 @@ id __91__SBControlCenterController_grabberTongueEndedPulling_withDistance_andVel
       [(SBControlCenterController *)self restrictSystemApertureToType:0 withReason:@"Control Center Presented"];
     }
 
-    [(SBControlCenterController *)self invalidateSystemApertureAssertionForType:1 withReason:@"Control Center Presentation Ended"];
-    v18 = SBLogTelemetrySignposts();
+    v18 = SBLogTelemetrySignposts([(SBControlCenterController *)self invalidateSystemApertureAssertionForType:1 withReason:@"Control Center Presentation Ended"]);
     if (os_signpost_enabled(v18))
     {
       *v19 = 0;
@@ -1848,7 +1851,7 @@ LABEL_18:
 
 - (void)controlCenterViewControllerWillContinuePresentationIntoPaging:(id)paging
 {
-  v4 = SBLogSystemGestureControlCenter();
+  v4 = SBLogSystemGestureControlCenter(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1998,7 +2001,7 @@ LABEL_18:
   }
 }
 
-uint64_t __52__SBControlCenterController__updateWindowVisibility__block_invoke(uint64_t a1)
+void *__52__SBControlCenterController__updateWindowVisibility__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 48);
@@ -2464,13 +2467,13 @@ double __74__SBControlCenterController__setupGestureRecognizersForUpdatedWindowS
 
   v6 = MEMORY[0x277D65F10];
   processHandle = [MEMORY[0x277CF0CD0] processHandle];
-  auditToken = [processHandle auditToken];
-  v9 = [v6 targetWithPhysicalButton:1 generation:2 auditToken:auditToken identifier:2];
+  v8 = objc_msgSend_auditToken(processHandle);
+  v9 = [v6 targetWithPhysicalButton:1 generation:2 auditToken:v8 identifier:2];
 
   v10 = MEMORY[0x277D65F10];
   processHandle2 = [MEMORY[0x277CF0CD0] processHandle];
-  auditToken2 = [processHandle2 auditToken];
-  v13 = [v10 targetWithPhysicalButton:2 generation:2 auditToken:auditToken2 identifier:2];
+  v12 = objc_msgSend_auditToken(processHandle2);
+  v13 = [v10 targetWithPhysicalButton:2 generation:2 auditToken:v12 identifier:2];
 
   v14 = [MEMORY[0x277D65F00] targetWithSceneIdentity:identity];
   [v14 addButtonTarget:v9];
@@ -2485,7 +2488,7 @@ double __74__SBControlCenterController__setupGestureRecognizersForUpdatedWindowS
 - (BOOL)canBePresented
 {
   selfCopy = self;
-  v71 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_windowScene);
   sceneManager = [WeakRetained sceneManager];
   policyAggregator = [sceneManager policyAggregator];
@@ -2505,129 +2508,131 @@ double __74__SBControlCenterController__setupGestureRecognizersForUpdatedWindowS
   v9 = v7 != 0;
   if (!v7)
   {
-    v10 = SBLogSystemGestureControlCenter();
+    v10 = SBLogSystemGestureControlCenter(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v70 = @"Display does not support capability querying";
+      v76 = @"Display does not support capability querying";
       _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Not allowing transition because: %{public}@", buf, 0xCu);
     }
 
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"ControlCenterNotAllowedByPolicyAggregator (%@)", @"Display does not support capability querying"];
   }
 
-  v67 = 0;
-  v11 = [v7 allowsCapability:15 explanation:&v67];
-  v12 = v67;
+  v73 = 0;
+  v11 = [v7 allowsCapability:15 explanation:&v73];
+  v12 = v73;
+  v13 = v12;
   if ((v11 & 1) == 0)
   {
-    v13 = SBLogSystemGestureControlCenter();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = SBLogSystemGestureControlCenter(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = @"(unknown reason)";
-      if (v12)
+      v15 = @"(unknown reason)";
+      if (v13)
       {
-        v14 = v12;
+        v15 = v13;
       }
 
       *buf = 138543362;
-      v70 = v14;
-      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Not allowing transition because: %{public}@", buf, 0xCu);
+      v76 = v15;
+      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Not allowing transition because: %{public}@", buf, 0xCu);
     }
 
-    v15 = @"unknown reason";
-    if (v12)
+    v16 = @"unknown reason";
+    if (v13)
     {
-      v15 = v12;
+      v16 = v13;
     }
 
-    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"ControlCenterNotAllowedByPolicyAggregator (%@)", v15];
+    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"ControlCenterNotAllowedByPolicyAggregator (%@)", v16];
 
     v9 = 0;
-    v8 = v16;
+    v8 = v17;
   }
 
-  v17 = +[SBLockStateAggregator sharedInstance];
-  if ([v17 hasAnyLockState])
+  v18 = +[SBLockStateAggregator sharedInstance];
+  if ([v18 hasAnyLockState])
   {
-    v66 = v12;
-    v18 = [v7 allowsCapability:21 explanation:&v66];
-    v19 = v66;
+    v72 = v13;
+    v19 = [v7 allowsCapability:21 explanation:&v72];
+    v20 = v72;
 
-    if (v18)
+    if (v19)
     {
       goto LABEL_27;
     }
 
-    v20 = SBLogSystemGestureControlCenter();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = SBLogSystemGestureControlCenter(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = @"(unknown reason)";
-      if (v19)
+      v23 = @"(unknown reason)";
+      if (v20)
       {
-        v21 = v19;
+        v23 = v20;
       }
 
       *buf = 138543362;
-      v70 = v21;
-      _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "Not allowing transition while locked because: %{public}@", buf, 0xCu);
+      v76 = v23;
+      _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "Not allowing transition while locked because: %{public}@", buf, 0xCu);
     }
 
-    v22 = @"unknown reason";
-    if (v19)
+    v24 = @"unknown reason";
+    if (v20)
     {
-      v22 = v19;
+      v24 = v20;
     }
 
-    [MEMORY[0x277CCACA8] stringWithFormat:@"LockScreenControlCenterNotAllowedByPolicyAggregator (%@)", v22];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"LockScreenControlCenterNotAllowedByPolicyAggregator (%@)", v24];
     v9 = 0;
-    v8 = v17 = v8;
+    v8 = v18 = v8;
   }
 
   else
   {
-    v19 = v12;
+    v20 = v13;
   }
 
 LABEL_27:
   lockScreenManager = [WeakRetained lockScreenManager];
   isUILocked = [lockScreenManager isUILocked];
-  v25 = isUILocked;
-  v58 = lockScreenManager;
+  v27 = isUILocked;
+  v64 = lockScreenManager;
   if (isUILocked)
   {
-    v54 = WeakRetained;
-    v26 = policyAggregator;
-    v27 = v19;
-    v28 = selfCopy;
+    v60 = WeakRetained;
+    v28 = policyAggregator;
+    v29 = v20;
+    v30 = selfCopy;
     lockScreenEnvironment = [lockScreenManager lockScreenEnvironment];
     behaviorSuppressor = [lockScreenEnvironment behaviorSuppressor];
     suppressesControlCenter = [behaviorSuppressor suppressesControlCenter];
 
     if (suppressesControlCenter)
     {
-      v32 = SBLogSystemGestureControlCenter();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v35 = SBLogSystemGestureControlCenter(v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v32, OS_LOG_TYPE_DEFAULT, "Not allowing gesture because lockscreen suppresses CC.", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v35, OS_LOG_TYPE_DEFAULT, "Not allowing gesture because lockscreen suppresses CC.", buf, 2u);
       }
 
       v9 = 0;
       v8 = @"ControlCenterNotAllowedBecauseLockScreenSuppressesCC";
     }
 
-    selfCopy = v28;
-    v19 = v27;
-    policyAggregator = v26;
-    WeakRetained = v54;
+    selfCopy = v30;
+    v20 = v29;
+    policyAggregator = v28;
+    WeakRetained = v60;
   }
 
   transientOverlayPresenter = [WeakRetained transientOverlayPresenter];
-  if ([transientOverlayPresenter shouldDisableControlCenter])
+  shouldDisableControlCenter = [transientOverlayPresenter shouldDisableControlCenter];
+  if (shouldDisableControlCenter)
   {
-    v56 = v19;
-    layoutStateApplicationSceneHandles = SBLogSystemGestureControlCenter();
+    v62 = v20;
+    layoutStateApplicationSceneHandles = SBLogSystemGestureControlCenter(shouldDisableControlCenter);
     if (os_log_type_enabled(layoutStateApplicationSceneHandles, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -2635,71 +2640,72 @@ LABEL_27:
     }
 
     v9 = 0;
-    v34 = v8;
+    v38 = v8;
     v8 = @"ControlCenterNotAllowedBecauseTransientOverlaySuppressesCC";
 LABEL_37:
 
-    v19 = v56;
+    v20 = v62;
     goto LABEL_40;
   }
 
   switcherController = [WeakRetained switcherController];
-  v34 = switcherController;
-  if ((v25 & 1) == 0 && ([(__CFString *)switcherController isAnySwitcherVisible]& 1) == 0)
+  v38 = switcherController;
+  if ((v27 & 1) == 0 && ([(__CFString *)switcherController isAnySwitcherVisible]& 1) == 0)
   {
-    v56 = v19;
-    v53 = v7;
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
-    v63 = 0u;
-    layoutStateApplicationSceneHandles = [(__CFString *)v34 layoutStateApplicationSceneHandles];
-    v41 = [layoutStateApplicationSceneHandles countByEnumeratingWithState:&v62 objects:v68 count:16];
-    if (v41)
+    v62 = v20;
+    v59 = v7;
+    v70 = 0u;
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    layoutStateApplicationSceneHandles = [(__CFString *)v38 layoutStateApplicationSceneHandles];
+    v46 = [layoutStateApplicationSceneHandles countByEnumeratingWithState:&v68 objects:v74 count:16];
+    if (v46)
     {
-      v42 = v41;
-      v51 = v34;
-      v52 = policyAggregator;
-      v55 = WeakRetained;
-      v43 = *v63;
+      v47 = v46;
+      v57 = v38;
+      v58 = policyAggregator;
+      v61 = WeakRetained;
+      v48 = *v69;
       do
       {
-        for (i = 0; i != v42; ++i)
+        for (i = 0; i != v47; ++i)
         {
-          if (*v63 != v43)
+          if (*v69 != v48)
           {
             objc_enumerationMutation(layoutStateApplicationSceneHandles);
           }
 
-          application = [*(*(&v62 + 1) + 8 * i) application];
-          if ([application suppressesControlCenter])
+          application = [*(*(&v68 + 1) + 8 * i) application];
+          suppressesControlCenter2 = [application suppressesControlCenter];
+          if (suppressesControlCenter2)
           {
-            v46 = SBLogSystemGestureControlCenter();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+            v52 = SBLogSystemGestureControlCenter(suppressesControlCenter2);
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
             {
               bundleIdentifier = [application bundleIdentifier];
               *buf = 138543362;
-              v70 = bundleIdentifier;
-              _os_log_impl(&dword_21ED4E000, v46, OS_LOG_TYPE_DEFAULT, "Not allowing transition because the top app (%{public}@) suppresses CC.", buf, 0xCu);
+              v76 = bundleIdentifier;
+              _os_log_impl(&dword_21ED4E000, v52, OS_LOG_TYPE_DEFAULT, "Not allowing transition because the top app (%{public}@) suppresses CC.", buf, 0xCu);
             }
 
-            v48 = MEMORY[0x277CCACA8];
+            v54 = MEMORY[0x277CCACA8];
             bundleIdentifier2 = [application bundleIdentifier];
-            v50 = [v48 stringWithFormat:@"ControlCenterNotAllowedBecauseTopAppSuppressesCC (%@)", bundleIdentifier2];
+            v56 = [v54 stringWithFormat:@"ControlCenterNotAllowedBecauseTopAppSuppressesCC (%@)", bundleIdentifier2];
 
             v9 = 0;
-            v8 = v50;
+            v8 = v56;
           }
         }
 
-        v42 = [layoutStateApplicationSceneHandles countByEnumeratingWithState:&v62 objects:v68 count:16];
+        v47 = [layoutStateApplicationSceneHandles countByEnumeratingWithState:&v68 objects:v74 count:16];
       }
 
-      while (v42);
-      v7 = v53;
-      WeakRetained = v55;
-      policyAggregator = v52;
-      v34 = v51;
+      while (v47);
+      v7 = v59;
+      WeakRetained = v61;
+      policyAggregator = v58;
+      v38 = v57;
     }
 
     goto LABEL_37;
@@ -2709,14 +2715,15 @@ LABEL_40:
 
   if ([(SBControlCenterController *)selfCopy presentingEdge]== 4)
   {
-    v36 = v58;
-    if ([SBApp isTypingActive])
+    isTypingActive = [SBApp isTypingActive];
+    v41 = v64;
+    if (isTypingActive)
     {
-      v37 = SBLogSystemGestureControlCenter();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v42 = SBLogSystemGestureControlCenter(isTypingActive);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v37, OS_LOG_TYPE_DEFAULT, "Not allowing transition because kbd says typing is active.", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v42, OS_LOG_TYPE_DEFAULT, "Not allowing transition because kbd says typing is active.", buf, 2u);
       }
 
       v9 = 0;
@@ -2726,18 +2733,18 @@ LABEL_40:
 
   else
   {
-    v36 = v58;
+    v41 = v64;
   }
 
   mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __43__SBControlCenterController_canBePresented__block_invoke;
-  v59[3] = &unk_2783B1200;
-  v61 = v9;
-  v60 = v8;
-  v39 = v8;
-  [mEMORY[0x277D6A798] logBlock:v59];
+  v65[0] = MEMORY[0x277D85DD0];
+  v65[1] = 3221225472;
+  v65[2] = __43__SBControlCenterController_canBePresented__block_invoke;
+  v65[3] = &unk_2783B1200;
+  v67 = v9;
+  v66 = v8;
+  v44 = v8;
+  [mEMORY[0x277D6A798] logBlock:v65];
 
   return v9;
 }
@@ -2784,74 +2791,79 @@ id __43__SBControlCenterController_canBePresented__block_invoke(uint64_t a1)
 
   if (v5)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = SBLogSystemGestureControlCenter();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Not allowing the present gesture to begin because system gestures aren't allowed.", buf, 2u);
-    }
-
-    v6 = @"GestureNotAllowedBySystemGestureManager";
-  }
-
-  if (![(SBControlCenterController *)self allowShowTransitionSystemGesture])
-  {
-    v8 = SBLogSystemGestureControlCenter();
+    v8 = SBLogSystemGestureControlCenter(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Not allowing the present gesture to begin because Control Center isn't allowed at this time.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Not allowing the present gesture to begin because system gestures aren't allowed.", buf, 2u);
     }
 
-    v5 = 0;
-    v6 = @"GestureNotAllowedAtThisTime";
+    v7 = @"GestureNotAllowedBySystemGestureManager";
   }
 
-  v9 = +[SBReachabilityManager sharedInstance];
-  reachabilityModeActive = [v9 reachabilityModeActive];
-
-  if ((reachabilityModeActive & 1) == 0 && ([(UIPanGestureRecognizer *)self->_statusBarPullGestureRecognizer state]== 1 || [(UIPanGestureRecognizer *)self->_statusBarPullGestureRecognizer state]== 2 || [(UIPanGestureRecognizer *)self->_statusBarPullGestureRecognizer state]== 3))
+  allowShowTransitionSystemGesture = [(SBControlCenterController *)self allowShowTransitionSystemGesture];
+  if ((allowShowTransitionSystemGesture & 1) == 0)
   {
-    v11 = SBLogSystemGestureControlCenter();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogSystemGestureControlCenter(allowShowTransitionSystemGesture);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Not allowing the present gesture to begin because the status bar pull down gesture's state is active.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Not allowing the present gesture to begin because Control Center isn't allowed at this time.", buf, 2u);
     }
 
     v5 = 0;
-    v6 = @"GestureNotAllowedBecauseStatusBarGestureIsActive";
+    v7 = @"GestureNotAllowedAtThisTime";
+  }
+
+  v11 = +[SBReachabilityManager sharedInstance];
+  reachabilityModeActive = [v11 reachabilityModeActive];
+
+  if ((reachabilityModeActive & 1) == 0)
+  {
+    state = [(UIPanGestureRecognizer *)self->_statusBarPullGestureRecognizer state];
+    if (state == 1 || (state = [(UIPanGestureRecognizer *)self->_statusBarPullGestureRecognizer state], state == 2) || (state = [(UIPanGestureRecognizer *)self->_statusBarPullGestureRecognizer state], state == 3))
+    {
+      v14 = SBLogSystemGestureControlCenter(state);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Not allowing the present gesture to begin because the status bar pull down gesture's state is active.", buf, 2u);
+      }
+
+      v5 = 0;
+      v7 = @"GestureNotAllowedBecauseStatusBarGestureIsActive";
+    }
   }
 
   bannerManager = [SBApp bannerManager];
-  v13 = [bannerManager isDisplayingFullScreenBannerInWindowScene:WeakRetained];
+  v16 = [bannerManager isDisplayingFullScreenBannerInWindowScene:WeakRetained];
 
-  if (v13)
+  if (v16)
   {
-    v14 = SBLogSystemGestureControlCenter();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v18 = SBLogSystemGestureControlCenter(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Not allowing the present gesture to begin because full screen banner is active.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Not allowing the present gesture to begin because full screen banner is active.", buf, 2u);
     }
 
     v5 = 0;
-    v6 = @"GestureNotAllowedBecauseFullScreenBannerIsActive";
+    v7 = @"GestureNotAllowedBecauseFullScreenBannerIsActive";
   }
 
   mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __61__SBControlCenterController__shouldAllowControlCenterGesture__block_invoke;
-  v17[3] = &unk_2783B1200;
-  v19 = v5;
-  v18 = v6;
-  [mEMORY[0x277D6A798] logBlock:v17];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __61__SBControlCenterController__shouldAllowControlCenterGesture__block_invoke;
+  v21[3] = &unk_2783B1200;
+  v23 = v5;
+  v22 = v7;
+  [mEMORY[0x277D6A798] logBlock:v21];
 
   return v5;
 }
@@ -3131,14 +3143,14 @@ uint64_t __54__SBControlCenterController_launchControl_completion___block_invoke
 {
   zStackParticipant = [(SBBarSwipeAffordanceViewController *)self->_homeAffordanceViewController zStackParticipant];
   v5 = zStackParticipant;
-  if (zStackParticipant && [zStackParticipant ownsHomeGesture])
+  if (zStackParticipant && (zStackParticipant = [zStackParticipant ownsHomeGesture], zStackParticipant))
   {
     [(SBControlCenterController *)self dismissAnimated:1];
   }
 
   else
   {
-    v6 = SBLogSystemGestureControlCenter();
+    v6 = SBLogSystemGestureControlCenter(zStackParticipant);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v7 = 0;

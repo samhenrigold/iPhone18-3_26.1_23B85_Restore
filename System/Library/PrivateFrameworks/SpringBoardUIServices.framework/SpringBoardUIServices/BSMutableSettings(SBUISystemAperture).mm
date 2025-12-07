@@ -36,31 +36,31 @@
 
 - (void)SBUISA_setContextId:()SBUISystemAperture forSetting:
 {
-  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a3];
   [self setObject:v6 forSetting:a4];
 }
 
 - (void)SBUISA_setRenderingid:()SBUISystemAperture forSetting:
 {
-  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a3];
   [self setObject:v6 forSetting:a4];
 }
 
 - (void)SBUISA_setLayoutMode:()SBUISystemAperture forSetting:
 {
-  v6 = [MEMORY[0x1E696AD98] numberWithInteger:?];
+  v6 = [MEMORY[0x1E696AD98] numberWithInteger:a3];
   [self setObject:v6 forSetting:a4];
 }
 
 - (void)SBUISA_setContentRole:()SBUISystemAperture forSetting:
 {
-  v6 = [MEMORY[0x1E696AD98] numberWithInteger:?];
+  v6 = [MEMORY[0x1E696AD98] numberWithInteger:a3];
   [self setObject:v6 forSetting:a4];
 }
 
 - (void)SBUISA_setPresentationBehaviors:()SBUISystemAperture forSetting:
 {
-  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3];
   [self setObject:v6 forSetting:a4];
 }
 
@@ -91,7 +91,7 @@
 
 - (void)SBUISA_setCustomLayout:()SBUISystemAperture forSetting:
 {
-  v6 = [MEMORY[0x1E696AD98] numberWithInteger:?];
+  v6 = [MEMORY[0x1E696AD98] numberWithInteger:a3];
   [self setObject:v6 forSetting:a4];
 }
 

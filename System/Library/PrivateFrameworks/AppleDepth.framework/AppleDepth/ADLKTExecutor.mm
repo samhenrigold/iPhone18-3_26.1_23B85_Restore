@@ -577,16 +577,16 @@ LABEL_17:
   if (!colorConvertingSession)
   {
 LABEL_12:
-    CVPixelBufferGetWidth(session);
-    CVPixelBufferGetHeight(session);
-    CVPixelBufferGetPixelFormatType(session);
-    CVPixelBufferGetWidth(self->_greyscaleInput);
-    CVPixelBufferGetHeight(self->_greyscaleInput);
-    CVPixelBufferGetPixelFormatType(self->_greyscaleInput);
-    PixelBufferUtilsSession::createCropScaleConvertRotateSession();
+    Width = CVPixelBufferGetWidth(session);
+    Height = CVPixelBufferGetHeight(session);
+    PixelFormatType = CVPixelBufferGetPixelFormatType(session);
+    v18 = CVPixelBufferGetWidth(self->_greyscaleInput);
+    v19 = CVPixelBufferGetHeight(self->_greyscaleInput);
+    v20 = CVPixelBufferGetPixelFormatType(self->_greyscaleInput);
+    PixelBufferUtilsSession::createCropScaleConvertRotateSession(PixelFormatType, v20, 0, Width, Height, v18, v19, *MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24), *MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24));
   }
 
-  if (!session || (var4 = colorConvertingSession->var4, width = colorConvertingSession->var3.width, height = colorConvertingSession->var3.height, width != CVPixelBufferGetWidth(session)) || height != CVPixelBufferGetHeight(session) || CVPixelBufferGetPixelFormatType(session) != var4 || (greyscaleInput = self->_greyscaleInput) == 0 || (v10 = self->_colorConvertingSession, var6 = v10->var6, v13 = v10->var5.width, v12 = v10->var5.height, v13 != CVPixelBufferGetWidth(greyscaleInput)) || v12 != CVPixelBufferGetHeight(greyscaleInput) || CVPixelBufferGetPixelFormatType(greyscaleInput) != var6)
+  if (!session || (var4 = colorConvertingSession->var4, v8 = colorConvertingSession->var3.width, v7 = colorConvertingSession->var3.height, v8 != CVPixelBufferGetWidth(session)) || v7 != CVPixelBufferGetHeight(session) || CVPixelBufferGetPixelFormatType(session) != var4 || (greyscaleInput = self->_greyscaleInput) == 0 || (v10 = self->_colorConvertingSession, var6 = v10->var6, v13 = v10->var5.width, v12 = v10->var5.height, v13 != CVPixelBufferGetWidth(greyscaleInput)) || v12 != CVPixelBufferGetHeight(greyscaleInput) || CVPixelBufferGetPixelFormatType(greyscaleInput) != var6)
   {
     v14 = self->_colorConvertingSession;
     if (v14)
@@ -680,7 +680,7 @@ LABEL_12:
     height = v8->_downscaledInputSize.height;
     if (descriptorCopy)
     {
-      [descriptorCopy opticalFlowConfig];
+      objc_msgSend_opticalFlowConfig(descriptorCopy);
     }
 
     else
@@ -709,7 +709,7 @@ LABEL_12:
 
     if (v27)
     {
-      [descriptorCopy opticalFlowConfig];
+      objc_msgSend_opticalFlowConfig(descriptorCopy);
       v31 = v109;
     }
 
@@ -859,7 +859,7 @@ LABEL_12:
         pyramidsDescriptors2 = [descriptorCopy pyramidsDescriptors];
         v81 = [pyramidsDescriptors2 objectAtIndex:v78];
 
-        if (descriptorCopy && ([descriptorCopy opticalFlowConfig], v82 = v107, pixelBufferOut[1], (v82 & 1) != 0))
+        if (descriptorCopy && (objc_msgSend_opticalFlowConfig(descriptorCopy), v82 = v107, pixelBufferOut[1], (v82 & 1) != 0))
         {
           v83 = pyramids[v43];
           [v81 sizeForLayout:layout];
@@ -914,7 +914,7 @@ LABEL_12:
   v5 = [ADLKTTexturesDescriptor alloc];
   v12[0] = v4;
   v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-  +[ADLKTOpticalFlow defaultConfig];
+  objc_msgSend_defaultConfig(ADLKTOpticalFlow);
   if (v5)
   {
     v7 = [(ADLKTTexturesDescriptor *)v5 initForSupportedSizes:v6 config:v10];

@@ -286,7 +286,7 @@ LABEL_12:
       bytes = [v7 bytes];
       v14 = 0uLL;
       v15 = 0;
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v14, bytes, bytes + 16 * (v8 >> 4), (v8 >> 4));
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v14, bytes, &bytes[(v8 >> 4)], (v8 >> 4));
       v10 = *(v5 + 1);
       if (v10)
       {

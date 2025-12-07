@@ -36,7 +36,7 @@
   }
 
   v5.receiver = self;
-  v5.super_class = type metadata accessor for EMGenerativeModelsAvailability();
+  v5.super_class = type metadata accessor for EMGenerativeModelsAvailability(0);
   [(EMGenerativeModelsAvailability *)&v5 dealloc];
 }
 

@@ -44,7 +44,7 @@
 
   else
   {
-    v13 = __atxlog_handle_metrics();
+    v13 = __atxlog_handle_metrics(reason);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(ATXStackRotationSession *)self initWithStartingStackChangeEvent:eventCopy, v13];
@@ -150,70 +150,70 @@
 - (NSString)widgetUniqueId
 {
   widgetUniqueId = [(ATXHomeScreenEvent *)self->_startingStackChangeEvent widgetUniqueId];
-  v3 = widgetUniqueId;
+  v4 = widgetUniqueId;
   if (widgetUniqueId)
   {
-    v4 = widgetUniqueId;
+    v5 = widgetUniqueId;
   }
 
   else
   {
-    v5 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_metrics(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      [ATXStackRotationSession widgetUniqueId];
+      [(ATXStackRotationSession *)self widgetUniqueId];
     }
 
-    v4 = &stru_2839A6058;
+    v5 = &stru_2839A6058;
   }
 
-  return v4;
+  return v5;
 }
 
 - (NSString)widgetBundleId
 {
   widgetBundleId = [(ATXHomeScreenEvent *)self->_startingStackChangeEvent widgetBundleId];
-  v3 = widgetBundleId;
+  v4 = widgetBundleId;
   if (widgetBundleId)
   {
-    v4 = widgetBundleId;
+    v5 = widgetBundleId;
   }
 
   else
   {
-    v5 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_metrics(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      [ATXStackRotationSession widgetBundleId];
+      [(ATXStackRotationSession *)self widgetBundleId];
     }
 
-    v4 = &stru_2839A6058;
+    v5 = &stru_2839A6058;
   }
 
-  return v4;
+  return v5;
 }
 
 - (NSString)widgetKind
 {
   widgetKind = [(ATXHomeScreenEvent *)self->_startingStackChangeEvent widgetKind];
-  v3 = widgetKind;
+  v4 = widgetKind;
   if (widgetKind)
   {
-    v4 = widgetKind;
+    v5 = widgetKind;
   }
 
   else
   {
-    v5 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_metrics(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      [ATXStackRotationSession widgetKind];
+      [(ATXStackRotationSession *)self widgetKind];
     }
 
-    v4 = &stru_2839A6058;
+    v5 = &stru_2839A6058;
   }
 
-  return v4;
+  return v5;
 }
 
 - (int)stackLocation
@@ -226,24 +226,24 @@
 - (NSString)blendingCacheId
 {
   blendingCacheId = [(ATXHomeScreenEvent *)self->_startingStackChangeEvent blendingCacheId];
-  v3 = blendingCacheId;
+  v4 = blendingCacheId;
   if (blendingCacheId)
   {
-    v4 = blendingCacheId;
+    v5 = blendingCacheId;
   }
 
   else
   {
-    v5 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_metrics(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      [ATXStackRotationSession blendingCacheId];
+      [(ATXStackRotationSession *)self blendingCacheId];
     }
 
-    v4 = &stru_2839A6058;
+    v5 = &stru_2839A6058;
   }
 
-  return v4;
+  return v5;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -428,14 +428,14 @@ LABEL_27:
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_metrics();
+  v7 = __atxlog_handle_metrics(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForStartingStackChangeEvent" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v7];
 
   if (v8 && ([coderCopy error], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
   {
     v11 = MEMORY[0x277D42620];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_metrics();
+    v13 = __atxlog_handle_metrics(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"codingKeyForEndingStackChangeEvent" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v13];
 
     error = [coderCopy error];
@@ -453,15 +453,15 @@ LABEL_27:
       v22 = objc_opt_class();
       v23 = [v21 initWithObjects:{v22, objc_opt_class(), 0}];
       objc_autoreleasePoolPop(v20);
-      v24 = __atxlog_handle_metrics();
-      v25 = [v19 robustDecodeObjectOfClasses:v23 forKey:@"codingKeyForEngagementStatusHistory" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v24];
+      v25 = __atxlog_handle_metrics(v24);
+      v26 = [v19 robustDecodeObjectOfClasses:v23 forKey:@"codingKeyForEngagementStatusHistory" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v25];
 
-      if (v25 && ([coderCopy error], v26 = objc_claimAutoreleasedReturnValue(), v26, !v26))
+      if (v26 && ([coderCopy error], v27 = objc_claimAutoreleasedReturnValue(), v27, !v27))
       {
-        v27 = MEMORY[0x277D42620];
-        v28 = objc_opt_class();
-        v29 = __atxlog_handle_metrics();
-        v30 = [v27 robustDecodeObjectOfClass:v28 forKey:@"codingKeyForSystemSuggestSuggestionLayout" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v29];
+        v28 = MEMORY[0x277D42620];
+        v29 = objc_opt_class();
+        v30 = __atxlog_handle_metrics(v29);
+        v31 = [v28 robustDecodeObjectOfClass:v29 forKey:@"codingKeyForSystemSuggestSuggestionLayout" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v30];
 
         error2 = [coderCopy error];
 
@@ -472,50 +472,24 @@ LABEL_27:
 
         else
         {
-          v32 = MEMORY[0x277D42620];
-          v33 = objc_opt_class();
-          v34 = __atxlog_handle_metrics();
-          v35 = [v32 robustDecodeObjectOfClass:v33 forKey:@"codingKeyForDwellStartDate" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v34];
+          v33 = MEMORY[0x277D42620];
+          v34 = objc_opt_class();
+          v35 = __atxlog_handle_metrics(v34);
+          v36 = [v33 robustDecodeObjectOfClass:v34 forKey:@"codingKeyForDwellStartDate" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.StackRotationStatus" errorCode:-1 logHandle:v35];
 
           error3 = [coderCopy error];
 
-          if (error3)
+          if (error3 || ([coderCopy decodeDoubleForKey:@"codingKeyForLongestDwell"], v39 = v38, objc_msgSend(coderCopy, "error"), v40 = objc_claimAutoreleasedReturnValue(), v40, v40) || (v41 = objc_msgSend(coderCopy, "decodeBoolForKey:", @"codingKeyForNPlusOneRotation"), objc_msgSend(coderCopy, "error"), v42 = objc_claimAutoreleasedReturnValue(), v42, v42) || (v47 = objc_msgSend(coderCopy, "decodeBoolForKey:", @"codingKeyForFirstNPlusOneRotation"), objc_msgSend(coderCopy, "error"), v43 = objc_claimAutoreleasedReturnValue(), v43, v43) || (v46 = objc_msgSend(coderCopy, "decodeBoolForKey:", @"codingKeyForCompleted"), objc_msgSend(coderCopy, "error"), v44 = objc_claimAutoreleasedReturnValue(), v44, v44))
           {
-            goto LABEL_19;
-          }
-
-          [coderCopy decodeDoubleForKey:@"codingKeyForLongestDwell"];
-          v38 = v37;
-          error4 = [coderCopy error];
-
-          if (error4)
-          {
-            goto LABEL_19;
-          }
-
-          v40 = [coderCopy decodeBoolForKey:@"codingKeyForNPlusOneRotation"];
-          error5 = [coderCopy error];
-
-          if (error5)
-          {
-            goto LABEL_19;
-          }
-
-          v46 = [coderCopy decodeBoolForKey:@"codingKeyForFirstNPlusOneRotation"];
-          error6 = [coderCopy error];
-
-          if (error6 || (v45 = [coderCopy decodeBoolForKey:@"codingKeyForCompleted"], objc_msgSend(coderCopy, "error"), v43 = objc_claimAutoreleasedReturnValue(), v43, v43))
-          {
-LABEL_19:
             selfCopy = 0;
           }
 
           else
           {
-            BYTE2(v44) = v45;
-            BYTE1(v44) = v46;
-            LOBYTE(v44) = v40;
-            self = [ATXStackRotationSession initWithStartingStackChangeEvent:"initWithStartingStackChangeEvent:endingStackChangeEvent:engagementStatus:engagementStatusHistory:systemSuggestSuggestionLayout:dwellStartDate:longestDwell:isNPlusOneRotation:isFirstNPlusOneRotation:completed:" endingStackChangeEvent:v8 engagementStatus:v14 engagementStatusHistory:v16 systemSuggestSuggestionLayout:v25 dwellStartDate:v30 longestDwell:v35 isNPlusOneRotation:v38 isFirstNPlusOneRotation:v44 completed:?];
+            BYTE2(v45) = v46;
+            BYTE1(v45) = v47;
+            LOBYTE(v45) = v41;
+            self = [ATXStackRotationSession initWithStartingStackChangeEvent:"initWithStartingStackChangeEvent:endingStackChangeEvent:engagementStatus:engagementStatusHistory:systemSuggestSuggestionLayout:dwellStartDate:longestDwell:isNPlusOneRotation:isFirstNPlusOneRotation:completed:" endingStackChangeEvent:v8 engagementStatus:v14 engagementStatusHistory:v16 systemSuggestSuggestionLayout:v26 dwellStartDate:v31 longestDwell:v36 isNPlusOneRotation:v39 isFirstNPlusOneRotation:v45 completed:?];
             selfCopy = self;
           }
         }
@@ -538,59 +512,45 @@ LABEL_19:
 
 - (void)initWithStartingStackChangeEvent:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   OUTLINED_FUNCTION_2();
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%@ - could not create new session from homescreen event: %@", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%@ - could not create new session from homescreen event: %@", v7, 0x16u);
 }
 
 - (void)widgetUniqueId
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "%@ - could not find widgetUniqueId", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v3, v4, "%@ - could not find widgetUniqueId", v5, v6, v7, v8);
 }
 
 - (void)widgetBundleId
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "%@ - could not find widgetBundleId", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v3, v4, "%@ - could not find widgetBundleId", v5, v6, v7, v8);
 }
 
 - (void)widgetKind
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "%@ - could not find widgetKind", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v3, v4, "%@ - could not find widgetKind", v5, v6, v7, v8);
 }
 
 - (void)blendingCacheId
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v2, v3, "%@ - could not find blendingCacheId", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_10(&dword_2263AA000, v3, v4, "%@ - could not find blendingCacheId", v5, v6, v7, v8);
 }
 
 @end

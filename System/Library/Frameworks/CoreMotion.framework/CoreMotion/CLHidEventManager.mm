@@ -7,10 +7,10 @@
 
 - (CLHidEventManager)initWithDelegate:(id)delegate queue:(id)queue matching:(id)matching type:(int64_t)type
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v38.receiver = self;
-  v38.super_class = CLHidEventManager;
-  v10 = [(CLHidEventManager *)&v38 init];
+  v44 = *MEMORY[0x1E69E9840];
+  v39.receiver = self;
+  v39.super_class = CLHidEventManager;
+  v10 = [(CLHidEventManager *)&v39 init];
   if (v10)
   {
     v11 = objc_alloc(MEMORY[0x1E69A2950]);
@@ -26,12 +26,12 @@
     v20 = objc_msgSend_delegateQueue(v10, v18, v19);
     objc_msgSend_setDispatchQueue_(v17, v21, v20);
     v22 = *(v10 + 3);
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = sub_19B6F7A90;
-    v37[3] = &unk_1E7535160;
-    v37[4] = v10;
-    objc_msgSend_setEventHandler_(v22, v23, v37);
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = sub_19B6F7A90;
+    v38[3] = &unk_1E7535160;
+    v38[4] = v10;
+    objc_msgSend_setEventHandler_(v22, v23, v38);
     objc_msgSend_activate(*(v10 + 3), v24, v25);
     if (qword_1ED71C830 != -1)
     {
@@ -43,7 +43,7 @@
     {
       v29 = objc_msgSend_services(*(v10 + 3), v27, v28);
       *buf = 138412290;
-      v42 = v29;
+      v43 = v29;
       _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_DEBUG, "[CLHidManager] enumerated these devices: %@", buf, 0xCu);
     }
 
@@ -56,19 +56,20 @@
         dispatch_once(&qword_1ED71C830, &unk_1F0E29D20);
       }
 
-      v33 = objc_msgSend_services(*(v10 + 3), v31, v32);
-      v39 = 138412290;
-      v40 = v33;
-      v34 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CLHidEventManager initWithDelegate:queue:matching:type:]", "CoreLocation: %s\n", v34);
-      if (v34 != buf)
+      v33 = off_1ED71C838;
+      v34 = objc_msgSend_services(*(v10 + 3), v31, v32);
+      v40 = 138412290;
+      v41 = v34;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v33, 2, "[CLHidManager] enumerated these devices: %@", &v40, 12);
+      v36 = v35;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CLHidEventManager initWithDelegate:queue:matching:type:]", "CoreLocation: %s\n", v35);
+      if (v36 != buf)
       {
-        free(v34);
+        free(v36);
       }
     }
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

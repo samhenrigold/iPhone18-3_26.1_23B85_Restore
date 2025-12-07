@@ -1584,9 +1584,9 @@ LABEL_27:
           }
 
           name2 = [keyCopy name];
-          v69 = [name2 isEqualToString:@"Zhuyin-Letter-FIRST_TONE"];
+          isEqualToString = objc_msgSend_isEqualToString_(name2);
 
-          if (v69)
+          if (isEqualToString)
           {
             renderingContext6 = [(UIKBRenderFactory *)self renderingContext];
             if ([renderingContext6 isColorAdaptiveNonLinearCarplayKeyboard])
@@ -1606,7 +1606,7 @@ LABEL_27:
           }
 
           representedString = [keyCopy representedString];
-          v72 = [representedString isEqualToString:@"‌"];
+          v72 = objc_msgSend_isEqualToString_(representedString);
 
           if (v72)
           {
@@ -1615,7 +1615,7 @@ LABEL_27:
           }
 
           representedString2 = [keyCopy representedString];
-          v74 = [representedString2 isEqualToString:@"ੴ"];
+          v74 = objc_msgSend_isEqualToString_(representedString2);
 
           if (v74)
           {
@@ -2316,7 +2316,7 @@ void __62__UIKBRenderFactoryiPhone__customizeLetterSymbolStyle_forKey___block_in
 - (double)dualStringBottomAdditionalOffsetForDisplayContents:(id)contents
 {
   displayString = [contents displayString];
-  if ([displayString isEqualToString:@"।"])
+  if (objc_msgSend_isEqualToString_(displayString))
   {
     v4 = 1.5;
   }
@@ -2527,8 +2527,8 @@ LABEL_33:
 
     if (isFloating)
     {
-      geometry = [traitsCopy geometry];
-      [geometry setLayoutMargins:{0.0, 800.0, 0.0, 0.0}];
+      v73 = objc_msgSend_geometry(traitsCopy);
+      [v73 setLayoutMargins:{0.0, 800.0, 0.0, 0.0}];
     }
 
     lightKeycapsFontName = [(UIKBRenderFactoryiPhone *)self lightKeycapsFontName];
@@ -2794,8 +2794,8 @@ LABEL_20:
     secondaryDisplayStrings2 = [keyCopy secondaryDisplayStrings];
     firstObject2 = [secondaryDisplayStrings2 firstObject];
 
-    geometry = [traitsCopy geometry];
-    [geometry paddedFrame];
+    v30 = objc_msgSend_geometry(traitsCopy);
+    [v30 paddedFrame];
     v65 = v31;
     v33 = v32;
     v35 = v34;
@@ -3303,8 +3303,8 @@ LABEL_14:
       v43 = v42;
       v147 = v44;
       v145 = v45;
-      geometry = [styleCopy geometry];
-      [geometry paddedFrame];
+      v46 = objc_msgSend_geometry(styleCopy);
+      [v46 paddedFrame];
       v141 = v48;
       v142 = v47;
       v143 = v49;
@@ -3314,7 +3314,7 @@ LABEL_14:
       v54 = v53;
       v140 = v55;
       v57 = v56;
-      geometry2 = [styleCopy geometry];
+      v58 = objc_msgSend_geometry(styleCopy);
       v153 = v153 + v37;
       v154 = v154 + v35;
       v156 = v156 - (v37 + v146);
@@ -3323,14 +3323,14 @@ LABEL_14:
       v149 = v149 + v41;
       v150 = v150 - (v43 + v145);
       v151 = v151 - (v41 + v147);
-      [geometry2 setPaddedFrame:{v142 + v54, v141 + v52, v143 - (v54 + v57), v144 - (v52 + v140)}];
+      [v58 setPaddedFrame:{v142 + v54, v141 + v52, v143 - (v54 + v57), v144 - (v52 + v140)}];
     }
 
-    geometry3 = [styleCopy geometry];
-    [geometry3 setDisplayFrame:{v153, v154, v156, v158}];
+    v59 = objc_msgSend_geometry(styleCopy);
+    [v59 setDisplayFrame:{v153, v154, v156, v158}];
 
-    geometry4 = [styleCopy geometry];
-    [geometry4 setSymbolFrame:{v32, v149, v150, v151}];
+    v60 = objc_msgSend_geometry(styleCopy);
+    [v60 setSymbolFrame:{v32, v149, v150, v151}];
 
     free(v29);
     if (v31 <= 0)
@@ -3343,12 +3343,12 @@ LABEL_14:
       v61 = v31;
     }
 
-    geometry5 = [styleCopy geometry];
-    [geometry5 setPopupBias:v61];
+    v62 = objc_msgSend_geometry(styleCopy);
+    [v62 setPopupBias:v61];
 
     isTallPopup = [(UIKBRenderFactoryiPhone *)self isTallPopup];
-    geometry6 = [styleCopy geometry];
-    [geometry6 setTallPopup:isTallPopup];
+    v64 = objc_msgSend_geometry(styleCopy);
+    [v64 setTallPopup:isTallPopup];
 
     v159 = [(UIKBRenderFactory *)self displayContentsForKey:keyCopy];
     variantDisplayContents = [v159 variantDisplayContents];
@@ -3371,9 +3371,9 @@ LABEL_14:
     v163[4] = &v164;
     [variantDisplayContents2 enumerateObjectsUsingBlock:v163];
 
-    geometry7 = [styleCopy geometry];
+    v68 = objc_msgSend_geometry(styleCopy);
     v69 = [(UIKBRenderFactoryiPhone *)self rowLimitForKey:keyCopy];
-    v70 = [(UIKBRenderFactoryiPhone *)self variantGeometriesForGeometry:geometry7 variantCount:v66 rowLimit:v69 annotationIndex:v165[3]];
+    v70 = [(UIKBRenderFactoryiPhone *)self variantGeometriesForGeometry:v68 variantCount:v66 rowLimit:v69 annotationIndex:v165[3]];
     [styleCopy setVariantGeometries:v70];
 
     variantPopupBias = [keyCopy variantPopupBias];
@@ -3431,8 +3431,8 @@ LABEL_36:
   [(objc_class *)v11 preferredContentViewSizeForKey:keyCopy withTraits:styleCopy];
   v13 = v12;
   v15 = v14;
-  geometry8 = [styleCopy geometry];
-  detachedVariants = [geometry8 detachedVariants];
+  v16 = objc_msgSend_geometry(styleCopy);
+  detachedVariants = [v16 detachedVariants];
 
   [keyCopy paddedFrame];
   v20 = round(v19 + (v18 - v13) * 0.5);
@@ -3443,9 +3443,9 @@ LABEL_36:
     [keyCopy paddedFrame];
     v24 = v23;
     v26 = v25;
-    geometry9 = [styleCopy geometry];
+    v27 = objc_msgSend_geometry(styleCopy);
     v28 = v24 + v26;
-    [geometry9 setPopupDirection:2];
+    [v27 setPopupDirection:2];
   }
 
   else
@@ -3470,13 +3470,13 @@ LABEL_36:
     v78 = v77;
     [keyplaneCopy frame];
     v80 = v79;
-    geometry10 = [styleCopy geometry];
-    [geometry10 setPopupDirection:3];
+    v81 = objc_msgSend_geometry(styleCopy);
+    [v81 setPopupDirection:3];
 
-    geometry9 = [styleCopy geometry];
+    v27 = objc_msgSend_geometry(styleCopy);
     v20 = round((v78 - v13) * 0.5 + 0.0);
     v28 = round((v80 - v15) * 0.5 + 0.0);
-    [geometry9 setRoundRectRadius:15.0];
+    [v27 setRoundRectRadius:15.0];
   }
 
 LABEL_38:
@@ -3491,8 +3491,8 @@ LABEL_38:
     v91 = v90;
   }
 
-  geometry11 = [styleCopy geometry];
-  [geometry11 setPopupBias:v91];
+  v92 = objc_msgSend_geometry(styleCopy);
+  [v92 setPopupBias:v91];
 
   [(UIKBRenderFactoryiPhone *)self wideShadowPaddleInsets];
   v94 = v93;
@@ -3501,8 +3501,8 @@ LABEL_38:
   v100 = v99;
   if ([keyCopy popupDirection] == 3)
   {
-    geometry12 = [styleCopy geometry];
-    [geometry12 setPaddedFrame:{v20, v28, v13, v15}];
+    v101 = objc_msgSend_geometry(styleCopy);
+    [v101 setPaddedFrame:{v20, v28, v13, v15}];
 
     v94 = 12.0;
     v96 = 12.0;
@@ -3546,16 +3546,16 @@ LABEL_38:
     y = v108;
   }
 
-  [styleCopy geometry];
+  objc_msgSend_geometry(styleCopy);
   v112 = v111 = v160;
   x = v104;
   detachedVariants2 = [v112 detachedVariants];
 
   if (detachedVariants2)
   {
-    geometry13 = [styleCopy geometry];
+    v115 = objc_msgSend_geometry(styleCopy);
     v155 = v94;
-    [geometry13 roundRectRadius];
+    [v115 roundRectRadius];
     v117 = (width - v160) * 0.5 + v104 + v116;
     v118 = v160 - v116 - v116;
     v119 = y + (height - v15) * 0.5 + v116;
@@ -3596,8 +3596,8 @@ LABEL_38:
     height = v174.size.height;
   }
 
-  geometry14 = [styleCopy geometry];
-  [geometry14 setDisplayFrame:{x, y, width, height}];
+  v132 = objc_msgSend_geometry(styleCopy);
+  [v132 setDisplayFrame:{x, y, width, height}];
 
   v133 = [UIKBRenderGeometry geometryWithFrame:*MEMORY[0x1E695EFF8] paddedFrame:*(MEMORY[0x1E695EFF8] + 8), v111, v15, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v111, v15];
   if ([keyCopy popupDirection] == 2)
@@ -3679,12 +3679,12 @@ LABEL_12:
   return v10;
 }
 
-uint64_t __75__UIKBRenderFactoryiPhone__shouldConfigureSecondarySymbolStyleForSpaceKey___block_invoke()
+uint64_t __75__UIKBRenderFactoryiPhone__shouldConfigureSecondarySymbolStyleForSpaceKey___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = TIInputModeGetNormalizedIdentifier();
-  v1 = [v0 isEqualToString:@"emoji"];
+  v2 = TIInputModeGetNormalizedIdentifier();
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v1;
+  return isEqualToString;
 }
 
 - (id)_traitsForKey:(id)key onKeyplane:(id)keyplane
@@ -3696,8 +3696,8 @@ uint64_t __75__UIKBRenderFactoryiPhone__shouldConfigureSecondarySymbolStyleForSp
   v322.super_class = UIKBRenderFactoryiPhone;
   v8 = [(UIKBRenderFactory *)&v322 _traitsForKey:keyCopy onKeyplane:keyplaneCopy];
   [v8 setBlendForm:{-[UIKBRenderFactory enabledBlendForm](self, "enabledBlendForm")}];
-  geometry = [v8 geometry];
-  [geometry setRoundRectCorners:-1];
+  v9 = objc_msgSend_geometry(v8);
+  [v9 setRoundRectCorners:-1];
 
   renderConfig = [(UIKBRenderFactory *)self renderConfig];
   [v8 setUsesDarkAppearance:{objc_msgSend(renderConfig, "lightKeyboard") ^ 1}];
@@ -3735,8 +3735,8 @@ uint64_t __75__UIKBRenderFactoryiPhone__shouldConfigureSecondarySymbolStyleForSp
   symbolStyle3 = [v8 symbolStyle];
   [(UIKBRenderFactoryiPhone *)self _customizeSymbolStyle:symbolStyle3 forKey:keyCopy contents:renderingContext5];
 
-  geometry2 = [v8 geometry];
-  [(UIKBRenderFactoryiPhone *)self _customizeGeometry:geometry2 forKey:keyCopy contents:renderingContext5];
+  v23 = objc_msgSend_geometry(v8);
+  [(UIKBRenderFactoryiPhone *)self _customizeGeometry:v23 forKey:keyCopy contents:renderingContext5];
 
   if ([(UIKBRenderFactoryiPhone *)self _shouldConfigureSecondarySymbolStyleForSpaceKey:keyCopy])
   {
@@ -3767,11 +3767,11 @@ uint64_t __75__UIKBRenderFactoryiPhone__shouldConfigureSecondarySymbolStyleForSp
   if ([(UIKBRenderFactoryiPhone *)self _popupMenuStyleForKey:keyCopy])
   {
     displayType = [keyCopy displayType];
-    geometry3 = [v8 geometry];
-    [geometry3 setPopupBias:40];
+    v30 = objc_msgSend_geometry(v8);
+    [v30 setPopupBias:40];
 
-    geometry4 = [v8 geometry];
-    [geometry4 setTallPopup:0];
+    v31 = objc_msgSend_geometry(v8);
+    [v31 setTallPopup:0];
 
     renderingContext = [(UIKBRenderFactory *)self renderingContext];
     v33 = renderingContext;
@@ -3823,8 +3823,8 @@ uint64_t __75__UIKBRenderFactoryiPhone__shouldConfigureSecondarySymbolStyleForSp
 
     else
     {
-      geometry5 = [v11 geometry];
-      [geometry5 setPopupBias:0];
+      v65 = objc_msgSend_geometry(v11);
+      [v65 setPopupBias:0];
     }
 
     v332.origin.x = x;
@@ -3836,8 +3836,8 @@ uint64_t __75__UIKBRenderFactoryiPhone__shouldConfigureSecondarySymbolStyleForSp
     v67 = v333.size.width;
     v68 = v333.size.height;
     v69 = v333.origin.y + -2.0;
-    geometry6 = [v11 geometry];
-    [geometry6 setDisplayFrame:{v66, v69, v67, v68}];
+    v70 = objc_msgSend_geometry(v11);
+    [v70 setDisplayFrame:{v66, v69, v67, v68}];
 
     [(UIKBRenderFactoryiPhone *)self _customizePopupTraits:v11 forKey:keyCopy onKeyplane:keyplaneCopy];
     if (+[UIKBRenderFactory _graphicsQuality]== 10)
@@ -3894,8 +3894,8 @@ uint64_t __75__UIKBRenderFactoryiPhone__shouldConfigureSecondarySymbolStyleForSp
     symbolStyle6 = [v8 symbolStyle];
     lastObject = [symbolStyle6 copy];
 
-    geometry7 = [v8 geometry];
-    [geometry7 symbolFrame];
+    v76 = objc_msgSend_geometry(v8);
+    [v76 symbolFrame];
     v78 = v77;
     v80 = v79;
     v82 = v81;
@@ -3947,12 +3947,12 @@ uint64_t __75__UIKBRenderFactoryiPhone__shouldConfigureSecondarySymbolStyleForSp
     v339.size.width = v94;
     v339.size.height = v95;
     MidY = CGRectGetMidY(v339);
-    geometry8 = [v8 geometry];
-    [geometry8 symbolFrame];
+    v100 = objc_msgSend_geometry(v8);
+    [v100 symbolFrame];
     v101 = MidY - CGRectGetMidY(v340);
 
-    geometry9 = [v8 geometry];
-    [geometry9 symbolFrame];
+    v102 = objc_msgSend_geometry(v8);
+    [v102 symbolFrame];
     CGRectGetMinX(v341);
     v342.origin.x = v92;
     v342.origin.y = v93;
@@ -3960,8 +3960,8 @@ uint64_t __75__UIKBRenderFactoryiPhone__shouldConfigureSecondarySymbolStyleForSp
     v342.size.height = v95;
     CGRectGetMinX(v342);
 
-    geometry10 = [v8 geometry];
-    [geometry10 symbolFrame];
+    v103 = objc_msgSend_geometry(v8);
+    [v103 symbolFrame];
     CGRectGetMaxX(v343);
     v344.origin.x = rect;
     v344.origin.y = v96;
@@ -3974,8 +3974,8 @@ uint64_t __75__UIKBRenderFactoryiPhone__shouldConfigureSecondarySymbolStyleForSp
     v345.size.width = v97;
     v345.size.height = v98;
     v104 = CGRectGetMidY(v345);
-    geometry11 = [v8 geometry];
-    [geometry11 symbolFrame];
+    v105 = objc_msgSend_geometry(v8);
+    [v105 symbolFrame];
     v106 = CGRectGetMidY(v346);
 
     [(UIKBRenderFactoryiPhone *)self dualStringBottomAdditionalOffsetForDisplayContents:renderingContext5];
@@ -4147,8 +4147,8 @@ LABEL_86:
       v128 = v127;
       v130 = v129;
 
-      geometry12 = [v11 geometry];
-      [geometry12 displayFrame];
+      v131 = objc_msgSend_geometry(v11);
+      [v131 displayFrame];
       v133 = v123 * v132;
 
       v134 = [keyCopy BOOLForProperty:@"slide-down"];
@@ -4164,8 +4164,8 @@ LABEL_86:
 
       if (v112 == 2)
       {
-        geometry13 = [v11 geometry];
-        [geometry13 displayFrame];
+        v158 = objc_msgSend_geometry(v11);
+        [v158 displayFrame];
         v160 = v125 * v159;
 
         secondarySymbolStyles = [v11 secondarySymbolStyles];
@@ -4177,8 +4177,8 @@ LABEL_86:
         [firstObject textOffset];
         v165 = v164;
         v167 = v166 - v160;
-        geometry14 = [v11 geometry];
-        [geometry14 displayFrame];
+        v168 = objc_msgSend_geometry(v11);
+        [v168 displayFrame];
         v170 = v165 - v169 * 0.24;
 
         [firstObject setTextOffset:{v170, v167}];
@@ -4191,8 +4191,8 @@ LABEL_86:
         [lastObject textOffset];
         v174 = v173;
         v176 = v175 - v160;
-        geometry15 = [v11 geometry];
-        [geometry15 displayFrame];
+        v177 = objc_msgSend_geometry(v11);
+        [v177 displayFrame];
         v179 = v174 + v178 * 0.24;
 
         v180 = lastObject;
@@ -4217,8 +4217,8 @@ LABEL_85:
         [lastObject textOffset];
         v140 = v139;
         v142 = v141;
-        geometry16 = [v11 geometry];
-        [geometry16 displayFrame];
+        v143 = objc_msgSend_geometry(v11);
+        [v143 displayFrame];
         v145 = v144;
 
         [lastObject fontSize];
@@ -4226,13 +4226,13 @@ LABEL_85:
         [lastObject setFontSize:v124 * v146];
         secondaryDisplayStrings3 = [keyCopy secondaryDisplayStrings];
         firstObject2 = [secondaryDisplayStrings3 firstObject];
-        v150 = [firstObject2 isEqualToString:@"٬"];
+        isEqualToString = objc_msgSend_isEqualToString_(firstObject2);
 
-        if (v150)
+        if (isEqualToString)
         {
           [lastObject setFontSize:v147 * 1.1];
-          geometry17 = [v11 geometry];
-          [geometry17 displayFrame];
+          v151 = objc_msgSend_geometry(v11);
+          [v151 displayFrame];
           v153 = v152 * 0.27;
         }
 
@@ -4394,12 +4394,12 @@ LABEL_102:
       if (displayType3 == 48)
       {
         name = [keyCopy name];
-        v224 = [name isEqualToString:@"DividerLine"];
+        v224 = objc_msgSend_isEqualToString_(name);
 
         if (!v224)
         {
           name2 = [keyCopy name];
-          v261 = [name2 isEqualToString:@"SelectionBackground"];
+          v261 = objc_msgSend_isEqualToString_(name2);
 
           if (v261)
           {
@@ -4775,11 +4775,11 @@ LABEL_181:
   if ([keyCopy displayType] == 7)
   {
     displayString3 = [keyCopy displayString];
-    if ([displayString3 isEqualToString:@"ㄢ"])
+    if (objc_msgSend_isEqualToString_(displayString3))
     {
       secondaryDisplayStrings6 = [keyCopy secondaryDisplayStrings];
       firstObject4 = [secondaryDisplayStrings6 firstObject];
-      v272 = [firstObject4 isEqualToString:@"ㄦ"];
+      v272 = objc_msgSend_isEqualToString_(firstObject4);
 
       if (v272)
       {
@@ -4839,7 +4839,7 @@ void __52__UIKBRenderFactoryiPhone__traitsForKey_onKeyplane___block_invoke(uint6
   currentInputMode = [v2 currentInputMode];
   softwareLayout = [currentInputMode softwareLayout];
 
-  if ([softwareLayout containsString:@"Thai"] & 1) != 0 || (objc_msgSend(softwareLayout, "isEqualToString:", @"Korean-With-QWERTY"))
+  if ([softwareLayout containsString:@"Thai"] & 1) != 0 || (objc_msgSend_isEqualToString_(softwareLayout))
   {
     v5 = 1;
   }
@@ -4872,7 +4872,7 @@ void __52__UIKBRenderFactoryiPhone__traitsForKey_onKeyplane___block_invoke(uint6
       v6 = @"TUI-Thai-TextOffsets.plist";
     }
 
-    else if ([softwareLayout isEqualToString:@"Korean-With-QWERTY"])
+    else if (objc_msgSend_isEqualToString_(softwareLayout))
     {
       v6 = @"TUI-Korean-With-QWERTY-TextOffsets.plist";
     }

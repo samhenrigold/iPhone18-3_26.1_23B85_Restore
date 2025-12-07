@@ -68,11 +68,11 @@
 
 - (id)jsonDictionary
 {
-  v16[5] = *MEMORY[0x1E69E9840];
-  v15[0] = @"eventType";
+  v15[5] = *MEMORY[0x1E69E9840];
+  v14[0] = @"eventType";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:{-[ATXSpotlightUIEvent eventType](self, "eventType")}];
-  v16[0] = v3;
-  v15[1] = @"suggestionUniqueId";
+  v15[0] = v3;
+  v14[1] = @"suggestionUniqueId";
   suggestionUniqueId = [(ATXSpotlightUIEvent *)self suggestionUniqueId];
   null = suggestionUniqueId;
   if (!suggestionUniqueId)
@@ -80,8 +80,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null;
-  v15[2] = @"suggestionType";
+  v15[1] = null;
+  v14[2] = @"suggestionType";
   suggestionType = [(ATXSpotlightUIEvent *)self suggestionType];
   null2 = suggestionType;
   if (!suggestionType)
@@ -89,8 +89,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[2] = null2;
-  v15[3] = @"suggestionSubtype";
+  v15[2] = null2;
+  v14[3] = @"suggestionSubtype";
   suggestionSubtype = [(ATXSpotlightUIEvent *)self suggestionSubtype];
   null3 = suggestionSubtype;
   if (!suggestionSubtype)
@@ -98,8 +98,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[3] = null3;
-  v15[4] = @"suggestionContext";
+  v15[3] = null3;
+  v14[4] = @"suggestionContext";
   suggestionContext = [(ATXSpotlightUIEvent *)self suggestionContext];
   null4 = suggestionContext;
   if (!suggestionContext)
@@ -107,8 +107,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[4] = null4;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:5];
+  v15[4] = null4;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
   if (!suggestionContext)
   {
   }
@@ -124,8 +124,6 @@
   if (!suggestionUniqueId)
   {
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

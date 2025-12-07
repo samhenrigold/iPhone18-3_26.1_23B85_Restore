@@ -992,15 +992,15 @@ uint64_t __45__NSConcreteTask_launchWithDictionary_error___block_invoke_3(uint64
   return [v2 _setTerminationHandler:0];
 }
 
-uint64_t __45__NSConcreteTask_launchWithDictionary_error___block_invoke_4(uint64_t result)
+void *__45__NSConcreteTask_launchWithDictionary_error___block_invoke_4(void *result)
 {
-  v2 = atomic_load((*(result + 32) + 56));
+  v2 = atomic_load((result[4] + 56));
   if ((v2 & 0xC00000000) == 0)
   {
     v3 = result;
-    atomic_fetch_or((*(result + 32) + 56), 0x400000000uLL);
+    atomic_fetch_or((result[4] + 56), 0x400000000uLL);
     v4 = +[NSNotificationCenter defaultCenter];
-    v5 = *(v3 + 32);
+    v5 = v3[4];
 
     return [(NSNotificationCenter *)v4 postNotificationName:@"NSTaskDidTerminateNotification" object:v5 userInfo:0];
   }

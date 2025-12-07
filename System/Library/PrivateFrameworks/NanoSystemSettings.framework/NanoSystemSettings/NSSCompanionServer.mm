@@ -1,6 +1,7 @@
 @interface NSSCompanionServer
 + (void)associateProtobufHandlers:(id)handlers;
 - (BOOL)handleDarwinNotification:(id)notification;
+- (BOOL)messageIdentifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (BOOL)messageIdentifier:(id)identifier hasBeenDeliveredWithContext:(id)context;
 - (BOOL)shouldFetchBuiltinAppsNotice;
 - (NPSDomainAccessor)nssDomainAccessor;
@@ -58,6 +59,7 @@
 - (void)setAirplaneModeSettings:(id)settings withCompletionHandler:(id)handler;
 - (void)setDeviceName:(id)name;
 - (void)setWatchFaceIdentifier:(id)identifier forFocusModeIdentifier:(id)modeIdentifier completionHandler:(id)handler;
+- (void)updateBetaEnrollmentStatus:(id)status requiresUnenroll:(BOOL)unenroll withCompletion:(id)completion;
 - (void)updateCompanionGenerativeModelsEligibilityState:(id)state;
 @end
 
@@ -2344,6 +2346,264 @@ LABEL_19:
   dispatch_async(idsQueue, v16);
 }
 
+- (BOOL)messageIdentifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  identifierCopy = identifier;
+  errorCopy = error;
+  v103.receiver = self;
+  v103.super_class = NSSCompanionServer;
+  if (![(NSSServer *)&v103 messageIdentifier:identifierCopy didSendWithSuccess:successCopy error:errorCopy])
+  {
+    if (successCopy)
+    {
+      v11 = [NSError errorWithDomain:@"NSSErrorDomain" code:0 userInfo:0];
+
+      errorCopy = v11;
+    }
+
+    v101[0] = _NSConcreteStackBlock;
+    v101[1] = 3221225472;
+    v101[2] = sub_10000AD44;
+    v101[3] = &unk_100034D00;
+    v12 = errorCopy;
+    v102 = v12;
+    v13 = objc_retainBlock(v101);
+    v99[0] = _NSConcreteStackBlock;
+    v99[1] = 3221225472;
+    v99[2] = sub_10000AD5C;
+    v99[3] = &unk_100034D28;
+    v14 = v12;
+    v100 = v14;
+    v56 = objc_retainBlock(v99);
+    v97[0] = _NSConcreteStackBlock;
+    v97[1] = 3221225472;
+    v97[2] = sub_10000AD74;
+    v97[3] = &unk_100034D50;
+    v15 = v14;
+    v98 = v15;
+    v66 = objc_retainBlock(v97);
+    v95[0] = _NSConcreteStackBlock;
+    v95[1] = 3221225472;
+    v95[2] = sub_10000AD8C;
+    v95[3] = &unk_100034D78;
+    v16 = v15;
+    v96 = v16;
+    v65 = objc_retainBlock(v95);
+    v93[0] = _NSConcreteStackBlock;
+    v93[1] = 3221225472;
+    v93[2] = sub_10000ADA8;
+    v93[3] = &unk_100034D28;
+    v17 = v16;
+    v94 = v17;
+    v64 = objc_retainBlock(v93);
+    v91[0] = _NSConcreteStackBlock;
+    v91[1] = 3221225472;
+    v91[2] = sub_10000ADC0;
+    v91[3] = &unk_100034D00;
+    v18 = v17;
+    v92 = v18;
+    v62 = objc_retainBlock(v91);
+    v89[0] = _NSConcreteStackBlock;
+    v89[1] = 3221225472;
+    v89[2] = sub_10000ADD8;
+    v89[3] = &unk_100034D28;
+    v19 = v18;
+    v90 = v19;
+    v63 = objc_retainBlock(v89);
+    v87[0] = _NSConcreteStackBlock;
+    v87[1] = 3221225472;
+    v87[2] = sub_10000ADF0;
+    v87[3] = &unk_100034D00;
+    v20 = v19;
+    v88 = v20;
+    v61 = objc_retainBlock(v87);
+    v85[0] = _NSConcreteStackBlock;
+    v85[1] = 3221225472;
+    v85[2] = sub_10000AE08;
+    v85[3] = &unk_100034D28;
+    v21 = v20;
+    v86 = v21;
+    v60 = objc_retainBlock(v85);
+    v83[0] = _NSConcreteStackBlock;
+    v83[1] = 3221225472;
+    v83[2] = sub_10000AE20;
+    v83[3] = &unk_100034D00;
+    v22 = v21;
+    v84 = v22;
+    v59 = objc_retainBlock(v83);
+    v81[0] = _NSConcreteStackBlock;
+    v81[1] = 3221225472;
+    v81[2] = sub_10000AE38;
+    v81[3] = &unk_100034D00;
+    v23 = v22;
+    v82 = v23;
+    v58 = objc_retainBlock(v81);
+    v79[0] = _NSConcreteStackBlock;
+    v79[1] = 3221225472;
+    v79[2] = sub_10000AE50;
+    v79[3] = &unk_100034D00;
+    v24 = v23;
+    v80 = v24;
+    v57 = objc_retainBlock(v79);
+    v77[0] = _NSConcreteStackBlock;
+    v77[1] = 3221225472;
+    v77[2] = sub_10000AE68;
+    v77[3] = &unk_100034D28;
+    v25 = v24;
+    v78 = v25;
+    v55 = objc_retainBlock(v77);
+    v75[0] = _NSConcreteStackBlock;
+    v75[1] = 3221225472;
+    v75[2] = sub_10000AE80;
+    v75[3] = &unk_100034D28;
+    v26 = v25;
+    v76 = v26;
+    v27 = objc_retainBlock(v75);
+    v73[0] = _NSConcreteStackBlock;
+    v73[1] = 3221225472;
+    v73[2] = sub_10000AE98;
+    v73[3] = &unk_100034D00;
+    v28 = v26;
+    v74 = v28;
+    v29 = objc_retainBlock(v73);
+    v71[0] = _NSConcreteStackBlock;
+    v71[1] = 3221225472;
+    v71[2] = sub_10000AEB0;
+    v71[3] = &unk_100034D00;
+    v30 = v28;
+    v72 = v30;
+    v31 = objc_retainBlock(v71);
+    v69[0] = _NSConcreteStackBlock;
+    v69[1] = 3221225472;
+    v69[2] = sub_10000AEC8;
+    v69[3] = &unk_100034DA0;
+    v32 = v30;
+    v70 = v32;
+    v33 = objc_retainBlock(v69);
+    v67[0] = _NSConcreteStackBlock;
+    v67[1] = 3221225472;
+    v67[2] = sub_10000AEE0;
+    v67[3] = &unk_100034DC8;
+    errorCopy = v32;
+    v68 = errorCopy;
+    v34 = objc_retainBlock(v67);
+    v35 = v34;
+    if (successCopy)
+    {
+      if ([(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_usageRequests timeout:v13 timeoutHandler:self->_usageReplyTimers timers:@"usage" utilityName:130.0])
+      {
+        goto LABEL_26;
+      }
+
+      v36 = v56;
+      if (![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_purgeUsageBundleRequests timeout:v56 timeoutHandler:self->_purgeUsageBundleReplyTimers timers:@"purgeBundle" utilityName:30.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_diagnosticLogFileRequests timeout:v66 timeoutHandler:self->_diagnosticLogFileReplyTimers timers:@"diagnosticLogFile" utilityName:1800.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_diagnosticLogsInfoRequests timeout:v65 timeoutHandler:self->_diagnosticLogsInfoReplyTimers timers:@"diagnosticLogs" utilityName:30.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_cancelLogTransferRequests timeout:v64 timeoutHandler:self->_cancelLogTransferReplyTimers timers:@"cancelLogTransfer" utilityName:30.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_airplaneModeSettingsRequests timeout:v62 timeoutHandler:self->_airplaneModeSettingsReplyTimers timers:@"airplaneModeSettings" utilityName:30.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_logDeleteRequests timeout:v63 timeoutHandler:self->_logDeleteReplyTimers timers:@"logDelete" utilityName:30.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_aboutInfoRequests timeout:v61 timeoutHandler:self->_aboutInfoReplyTimers timers:@"about" utilityName:30.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_obliterationRequests timeout:v60 timeoutHandler:self->_obliterationDeliveryTimers timers:@"obliteration" utilityName:30.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_accountsInfoRequests timeout:v59 timeoutHandler:self->_accountsInfoReplyTimers timers:@"accounts" utilityName:30.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_profilesInfoRequests timeout:v58 timeoutHandler:self->_profilesInfoReplyTimers timers:@"profilesInfo" utilityName:30.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_profileDataRequests timeout:v57 timeoutHandler:self->_profileDataReplyTimers timers:@"profileData" utilityName:30.0])
+      {
+        if (![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_installProfileRequests timeout:v55 timeoutHandler:self->_installProfileReplyTimers timers:@"installProfile" utilityName:60.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_removeProfileRequests timeout:v27 timeoutHandler:self->_removeProfileReplyTimers timers:@"removeProfile" utilityName:30.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_legalDocumentsRequests timeout:v29 timeoutHandler:self->_legalDocumentsReplyTimers timers:@"legal" utilityName:30.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_localesInfoRequests timeout:v31 timeoutHandler:self->_localesInfoReplyTimers timers:@"locales" utilityName:30.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_betaEnrollmentStatusRequests timeout:v33 timeoutHandler:self->_betaEnrollmentStatusReplyTimers timers:@"betaEnrollmentStatus" utilityName:30.0]&& ![(NSSServer *)self scheduleTimerForIdentifier:identifierCopy requests:self->_updateBetaEnrollmentStatusRequests timeout:v35 timeoutHandler:self->_updateBetaEnrollmentStatusReplyTimers timers:@"updateBetaEnrollmentStatus" utilityName:30.0])
+        {
+LABEL_48:
+          v10 = 0;
+          goto LABEL_27;
+        }
+
+LABEL_26:
+        v10 = 1;
+LABEL_27:
+        v36 = v56;
+LABEL_40:
+
+        goto LABEL_41;
+      }
+    }
+
+    else
+    {
+      v37 = sub_10000AEF8(v34, identifierCopy, self->_usageRequests, v13, @"usage");
+      if (v37)
+      {
+        goto LABEL_26;
+      }
+
+      v36 = v56;
+      v38 = sub_10000AEF8(v37, identifierCopy, self->_purgeUsageBundleRequests, v56, @"purgeBundle");
+      if (!v38)
+      {
+        v39 = sub_10000AEF8(v38, identifierCopy, self->_diagnosticLogFileRequests, v66, @"diagnosticLogFile");
+        if (!v39)
+        {
+          v40 = sub_10000AEF8(v39, identifierCopy, self->_diagnosticLogsInfoRequests, v65, @"diagnosticLogs");
+          if (!v40)
+          {
+            v41 = sub_10000AEF8(v40, identifierCopy, self->_cancelLogTransferRequests, v64, @"cancelLogTransfer");
+            if (!v41)
+            {
+              v42 = sub_10000AEF8(v41, identifierCopy, self->_logDeleteRequests, v63, @"logDelete");
+              if (!v42)
+              {
+                v43 = sub_10000AEF8(v42, identifierCopy, self->_aboutInfoRequests, v61, @"about");
+                if (!v43)
+                {
+                  v44 = sub_10000AEF8(v43, identifierCopy, self->_obliterationRequests, v60, @"obliteration");
+                  if (!v44)
+                  {
+                    v45 = sub_10000AEF8(v44, identifierCopy, self->_airplaneModeSettingsRequests, v62, @"airplaneModeSettings");
+                    if (!v45)
+                    {
+                      v46 = sub_10000AEF8(v45, identifierCopy, self->_accountsInfoRequests, v59, @"accounts");
+                      if (!v46)
+                      {
+                        v47 = sub_10000AEF8(v46, identifierCopy, self->_profilesInfoRequests, v58, @"profilesInfo");
+                        if (!v47)
+                        {
+                          v48 = sub_10000AEF8(v47, identifierCopy, self->_profileDataRequests, v57, @"profileData");
+                          if (!v48)
+                          {
+                            v50 = sub_10000AEF8(v48, identifierCopy, self->_installProfileRequests, v55, @"installProfile");
+                            if (!v50)
+                            {
+                              v51 = sub_10000AEF8(v50, identifierCopy, self->_removeProfileRequests, v27, @"removeProfile");
+                              if (!v51)
+                              {
+                                v52 = sub_10000AEF8(v51, identifierCopy, self->_legalDocumentsRequests, v29, @"legal");
+                                if (!v52)
+                                {
+                                  v53 = sub_10000AEF8(v52, identifierCopy, self->_localesInfoRequests, v31, @"locales");
+                                  if (!v53)
+                                  {
+                                    v54 = sub_10000AEF8(v53, identifierCopy, self->_betaEnrollmentStatusRequests, v33, @"betaEnrollmentStatus");
+                                    if (!v54 && !sub_10000AEF8(v54, identifierCopy, self->_updateBetaEnrollmentStatusRequests, v35, @"updateBetaEnrollmentStatus"))
+                                    {
+                                      goto LABEL_48;
+                                    }
+                                  }
+                                }
+                              }
+                            }
+
+                            goto LABEL_26;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    v10 = 1;
+    goto LABEL_40;
+  }
+
+  v10 = 1;
+LABEL_41:
+
+  return v10;
+}
+
 - (BOOL)messageIdentifier:(id)identifier hasBeenDeliveredWithContext:(id)context
 {
   identifierCopy = identifier;
@@ -2750,16 +3010,8 @@ LABEL_22:
 
               filesType = [v28 filesType];
               v33 = v26;
-              if (filesType == 1)
+              if (filesType == 1 || (v34 = [v28 filesType], v33 = v25, v34 == 3) || (v35 = objc_msgSend(v28, "filesType"), v33 = v47, v35 == 2) || (v36 = objc_msgSend(v28, "filesType"), v33 = v46, v36 == 4) || (v37 = objc_msgSend(v28, "filesType"), v33 = v45, v37 == 5))
               {
-                goto LABEL_22;
-              }
-
-              filesType2 = [v28 filesType];
-              v33 = v25;
-              if (filesType2 == 3 || (v35 = [v28 filesType], v33 = v47, v35 == 2) || (v36 = objc_msgSend(v28, "filesType"), v33 = v46, v36 == 4) || (v37 = objc_msgSend(v28, "filesType"), v33 = v45, v37 == 5))
-              {
-LABEL_22:
                 [v20 setObject:v31 forKeyedSubscript:v33];
               }
             }
@@ -4466,6 +4718,42 @@ LABEL_22:
     v17 = 136315138;
     v18 = "[NSSCompanionServer handleBetaEnrollmentRespMsg:]";
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s: Could not find reply block", &v17, 0xCu);
+  }
+}
+
+- (void)updateBetaEnrollmentStatus:(id)status requiresUnenroll:(BOOL)unenroll withCompletion:(id)completion
+{
+  unenrollCopy = unenroll;
+  statusCopy = status;
+  completionCopy = completion;
+  v10 = NSSLogForType();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v19 = "[NSSCompanionServer updateBetaEnrollmentStatus:requiresUnenroll:withCompletion:]";
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+
+  if (completionCopy)
+  {
+    v11 = objc_alloc_init(NSSUpdateBetaEnrollmentStatusReqMsg);
+    v12 = v11;
+    if (statusCopy)
+    {
+      [v11 setBetaProgramInfo:statusCopy];
+    }
+
+    [v12 setUnenroll:unenrollCopy];
+    idsQueue = [(NSSServer *)self idsQueue];
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100010B48;
+    block[3] = &unk_100034BE8;
+    block[4] = self;
+    v16 = v12;
+    v17 = completionCopy;
+    v14 = v12;
+    dispatch_async(idsQueue, block);
   }
 }
 

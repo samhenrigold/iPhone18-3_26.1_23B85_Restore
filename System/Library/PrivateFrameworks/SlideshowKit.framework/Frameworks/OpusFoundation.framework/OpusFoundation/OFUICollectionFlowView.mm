@@ -693,26 +693,26 @@ LABEL_19:
   return 0;
 }
 
-uint64_t __47__OFUICollectionFlowView_performDragOperation___block_invoke(uint64_t result)
+void *__47__OFUICollectionFlowView_performDragOperation___block_invoke(void *result)
 {
-  v2 = *(result + 40);
-  *(*(result + 32) + 3409) = 1;
+  v2 = result[5];
+  *(result[4] + 3409) = 1;
   if (v2 >= 2)
   {
     v3 = result;
     v4 = [MEMORY[0x277CBEB18] array];
-    if (*(v3 + 40) != 1)
+    if (v3[5] != 1)
     {
       v5 = 0;
       do
       {
-        [v4 addObject:{objc_msgSend(MEMORY[0x277CCAA70], "indexPathForItem:inSection:", ++v5 + objc_msgSend(*(*(v3 + 32) + 3424), "item"), objc_msgSend(*(*(v3 + 32) + 3424), "section"))}];
+        [v4 addObject:{objc_msgSend(MEMORY[0x277CCAA70], "indexPathForItem:inSection:", ++v5 + objc_msgSend(*(v3[4] + 3424), "item"), objc_msgSend(*(v3[4] + 3424), "section"))}];
       }
 
-      while (v5 < *(v3 + 40) - 1);
+      while (v5 < v3[5] - 1);
     }
 
-    v6 = *(v3 + 32);
+    v6 = v3[4];
 
     return [v6 insertItemsAtIndexPaths:v4];
   }

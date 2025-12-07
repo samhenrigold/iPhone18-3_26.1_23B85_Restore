@@ -69,7 +69,7 @@
 
 - (void)userContentController:(id)controller didReceiveScriptMessage:(id)message replyHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   body = [message body];
   objc_opt_class();
@@ -131,23 +131,21 @@
       {
         v18 = objc_opt_class();
         logKey = [(AMSUIWebSafariWebView *)self logKey];
-        v21 = 138543874;
-        v22 = v18;
-        v23 = 2114;
-        v24 = logKey;
-        v25 = 2114;
-        v26 = v11;
-        _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Safari VC not responding to action delegate: %{public}@", &v21, 0x20u);
+        v20 = 138543874;
+        v21 = v18;
+        v22 = 2114;
+        v23 = logKey;
+        v24 = 2114;
+        v25 = v11;
+        _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Safari VC not responding to action delegate: %{public}@", &v20, 0x20u);
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)webView:(id)view startURLSchemeTask:(id)task
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   request = [taskCopy request];
   v7 = [request URL];
@@ -165,15 +163,15 @@
     logKey = [(AMSUIWebSafariWebView *)self logKey];
     scheme = [v7 scheme];
     scheme2 = [(AMSUIWebSafariWebView *)self scheme];
-    v28 = 138544130;
-    v29 = v10;
-    v30 = 2114;
-    v31 = logKey;
-    v32 = 2114;
-    v33 = scheme;
-    v34 = 2114;
-    v35 = scheme2;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Handling scheme: %{public}@ expected: %{public}@", &v28, 0x2Au);
+    v27 = 138544130;
+    v28 = v10;
+    v29 = 2114;
+    v30 = logKey;
+    v31 = 2114;
+    v32 = scheme;
+    v33 = 2114;
+    v34 = scheme2;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Handling scheme: %{public}@ expected: %{public}@", &v27, 0x2Au);
   }
 
   scheme3 = [v7 scheme];
@@ -206,11 +204,11 @@
       {
         v25 = objc_opt_class();
         logKey2 = [(AMSUIWebSafariWebView *)self logKey];
-        v28 = 138543618;
-        v29 = v25;
-        v30 = 2114;
-        v31 = logKey2;
-        _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Safari VC not responding to scheme delegate", &v28, 0x16u);
+        v27 = 138543618;
+        v28 = v25;
+        v29 = 2114;
+        v30 = logKey2;
+        _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Safari VC not responding to scheme delegate", &v27, 0x16u);
       }
     }
 
@@ -230,13 +228,11 @@ LABEL_16:
   safariDelegate3 = [(AMSUIWebSafariWebView *)self safariDelegate];
   [safariDelegate3 webView:self startURLSchemeTask:taskCopy];
 LABEL_17:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)webView:(id)view stopURLSchemeTask:(id)task
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
@@ -252,21 +248,19 @@ LABEL_17:
     request = [taskCopy request];
     v11 = [request URL];
     scheme = [v11 scheme];
-    v14 = 138543874;
-    v15 = v8;
-    v16 = 2114;
-    v17 = logKey;
-    v18 = 2114;
-    v19 = scheme;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Stopping scheme handling: %{public}@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v8;
+    v15 = 2114;
+    v16 = logKey;
+    v17 = 2114;
+    v18 = scheme;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Stopping scheme handling: %{public}@", &v13, 0x20u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_createContentControllerWithScheme:(id)scheme data:(id)data messageHandler:(id)handler
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   schemeCopy = scheme;
   dataCopy = data;
   v9 = MEMORY[0x1E6985350];
@@ -278,9 +272,9 @@ LABEL_17:
   v13 = [MEMORY[0x1E696AAE8] bundleWithPath:@"/System/Library/PrivateFrameworks/AppleMediaServicesUI.framework"];
   v14 = [v13 URLForResource:@"JSSafariSandbox" withExtension:@"js"];
 
-  v36 = 0;
-  v15 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v14 encoding:4 error:&v36];
-  v16 = v36;
+  v35 = 0;
+  v15 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v14 encoding:4 error:&v35];
+  v16 = v35;
   if (v16 || !v15)
   {
     mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
@@ -296,14 +290,14 @@ LABEL_17:
       v20 = objc_opt_class();
       v21 = AMSLogKey();
       *buf = 138544130;
-      v38 = v20;
+      v37 = v20;
       v14 = v19;
-      v39 = 2114;
-      v40 = v21;
-      v41 = 2114;
-      v42 = @"JSSafariSandbox";
-      v43 = 2114;
-      v44 = v16;
+      v38 = 2114;
+      v39 = v21;
+      v40 = 2114;
+      v41 = @"JSSafariSandbox";
+      v42 = 2114;
+      v43 = v16;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to load resource: %{public}@. %{public}@", buf, 0x2Au);
     }
   }
@@ -323,10 +317,10 @@ LABEL_17:
 
   if ([MEMORY[0x1E696ACB0] isValidJSONObject:dataCopy])
   {
-    v34 = v14;
-    v35 = 0;
-    v24 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dataCopy options:0 error:&v35];
-    v25 = v35;
+    v33 = v14;
+    v34 = 0;
+    v24 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dataCopy options:0 error:&v34];
+    v25 = v34;
     if (v25 || !v24)
     {
       mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedWebUIConfig];
@@ -344,14 +338,14 @@ LABEL_17:
       v30 = objc_opt_class();
       v31 = AMSLogKey();
       *buf = 138544130;
-      v38 = v30;
-      v39 = 2114;
-      v40 = v31;
+      v37 = v30;
+      v38 = 2114;
+      v39 = v31;
       v29 = v31;
-      v41 = 2114;
-      v42 = @"JSSafariSandbox";
-      v43 = 2114;
-      v44 = v25;
+      v40 = 2114;
+      v41 = @"JSSafariSandbox";
+      v42 = 2114;
+      v43 = v25;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to load resource: %{public}@. %{public}@", buf, 0x2Au);
     }
 
@@ -362,7 +356,7 @@ LABEL_17:
       {
 LABEL_22:
 
-        v14 = v34;
+        v14 = v33;
         goto LABEL_23;
       }
 
@@ -377,8 +371,6 @@ LABEL_21:
   }
 
 LABEL_23:
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

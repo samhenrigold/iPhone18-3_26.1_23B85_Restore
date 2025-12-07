@@ -146,53 +146,55 @@ void sub_100001BF8(void *a1)
   [v2 assetPersonalizationComplete:a1[5] endpointUUID:a1[6] tssOptions:a1[7]];
 }
 
-void sub_100001CBC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001CBC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-uint64_t sub_100001CD8(void *a1)
+uint64_t sub_100001CD8(void *a1, const char *a2)
 {
-  v1 = a1;
-  if (!v1)
+  v2 = a1;
+  if (!v2)
   {
-    v1 = &_os_log_default;
     v2 = &_os_log_default;
+    v3 = &_os_log_default;
   }
 
-  v3 = v1;
-  bzero(v7, 0x400uLL);
-  v4 = v3;
+  v4 = v2;
+  bzero(v8, 0x400uLL);
+  v5 = v4;
   if (_set_user_dir_suffix())
   {
-    if (confstr(65537, v7, 0x400uLL))
+    if (confstr(65537, v8, 0x400uLL))
     {
-      v5 = 0;
+      v6 = 0;
       goto LABEL_11;
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100004908();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_100004888();
   }
 
-  v5 = 1;
+  v6 = 1;
 LABEL_11:
 
-  return v5;
+  return v6;
 }
 
-void sub_100001DFC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001DFC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void sub_1000021AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location)
@@ -264,83 +266,85 @@ id sub_1000027A4(void *a1, void *a2)
   v3 = a1;
   v4 = a2;
   v5 = v4;
+  v6 = v4;
   if (!v4)
   {
-    v6 = sub_1000029A8();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = sub_1000029A8(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "UARP: TSS Request to default server", &v16, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "UARP: TSS Request to default server", &v17, 2u);
     }
 
-    v5 = [NSURL URLWithString:@"https://gs.apple.com:443"];
+    v4 = [NSURL URLWithString:@"https://gs.apple.com:443"];
+    v6 = v4;
   }
 
-  v7 = sub_1000029A8();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = sub_1000029A8(v4);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v16 = 138543618;
-    v17 = v5;
-    v18 = 2114;
-    v19 = v3;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "UARP: TSS Request to server %{public}@ with options %{public}@", &v16, 0x16u);
+    v17 = 138543618;
+    v18 = v6;
+    v19 = 2114;
+    v20 = v3;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "UARP: TSS Request to server %{public}@ with options %{public}@", &v17, 0x16u);
   }
 
-  v8 = sub_1000029EC(v3, v5, 0);
-  v9 = sub_1000029A8();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-  if (v8)
+  v9 = sub_1000029EC(v3, v6, 0);
+  v10 = sub_1000029A8(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+  if (v9)
   {
-    if (v10)
+    if (v11)
     {
       sub_100004988();
     }
 
-    v11 = v8;
+    v12 = v9;
   }
 
   else
   {
-    if (v10)
+    if (v11)
     {
       sub_1000049BC();
     }
 
-    v12 = MGCopyAnswer();
-    v13 = [v12 BOOLValue];
-    v14 = 0;
-    if (v13)
+    v13 = MGCopyAnswer();
+    v14 = [v13 BOOLValue];
+    v15 = 0;
+    if (v14)
     {
-      v14 = sub_100002DF4(v3, v5);
+      v15 = sub_100002DF4(v3, v6);
     }
 
-    v11 = v14;
+    v12 = v15;
   }
 
-  return v11;
+  return v12;
 }
 
-id sub_1000029A8()
+id sub_1000029A8(uint64_t a1)
 {
   if (qword_1000108E8 != -1)
   {
     sub_1000049F0();
   }
 
-  v1 = qword_1000108F0;
+  v2 = qword_1000108F0;
 
-  return v1;
+  return v2;
 }
 
 id sub_1000029EC(void *a1, void *a2, int a3)
 {
   v5 = a1;
   v6 = a2;
-  v7 = sub_1000029A8();
+  v7 = sub_1000029A8(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v23 = v6;
+    v29 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "UARP: TSS request to signing server %{public}@", buf, 0xCu);
   }
 
@@ -349,10 +353,11 @@ id sub_1000029EC(void *a1, void *a2, int a3)
   if (v8)
   {
     v9 = v8;
-    if (AMAuthInstallSetSigningServerURL())
+    v10 = AMAuthInstallSetSigningServerURL();
+    if (v10)
     {
-      v10 = sub_1000029A8();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sub_1000029A8(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_100004A04();
       }
@@ -365,17 +370,18 @@ LABEL_7:
 
     if (a3)
     {
-      v13 = sub_1000029A8();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v14 = sub_1000029A8(v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "UARP: TSS request is using SSO", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "UARP: TSS request is using SSO", buf, 2u);
       }
 
-      if (AMAuthInstallSsoInitialize())
+      v15 = AMAuthInstallSsoInitialize();
+      if (v15)
       {
-        v10 = sub_1000029A8();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = sub_1000029A8(v15);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_100004A38();
         }
@@ -383,10 +389,11 @@ LABEL_7:
         goto LABEL_7;
       }
 
-      if (AMAuthInstallSsoEnable())
+      v10 = AMAuthInstallSsoEnable();
+      if (v10)
       {
-        v10 = sub_1000029A8();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = sub_1000029A8(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_100004A6C();
         }
@@ -395,69 +402,70 @@ LABEL_7:
       }
     }
 
-    v14 = sub_1000029A8();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v16 = sub_1000029A8(v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       if (a3)
       {
-        v15 = @" <AppleConnect>";
+        v17 = @" <AppleConnect>";
       }
 
       else
       {
-        v15 = @" ";
+        v17 = @" ";
       }
 
       *buf = 138543618;
-      v23 = v6;
-      v24 = 2114;
-      v25 = v15;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "UARP: TSS Request %{public}@%{public}@ is ", buf, 0x16u);
+      v29 = v6;
+      v30 = 2114;
+      v31 = v17;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "UARP: TSS Request %{public}@%{public}@ is ", buf, 0x16u);
     }
 
-    v16 = sub_1000029A8();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v19 = sub_1000029A8(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v23 = v6;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "UARP: %{public}@", buf, 0xCu);
+      v29 = v6;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "UARP: %{public}@", buf, 0xCu);
     }
 
     PersonalizedResponse = AMAuthInstallApCreatePersonalizedResponse();
-    v18 = sub_1000029A8();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v21 = PersonalizedResponse;
+    v22 = sub_1000029A8(PersonalizedResponse);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       if (a3)
       {
-        v19 = @" <AppleConnect>";
+        v23 = @" <AppleConnect>";
       }
 
       else
       {
-        v19 = @" ";
+        v23 = @" ";
       }
 
       *buf = 138543618;
-      v23 = v6;
-      v24 = 2114;
-      v25 = v19;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "UARP: TSS Response %{public}@%{public}@ is ", buf, 0x16u);
+      v29 = v6;
+      v30 = 2114;
+      v31 = v23;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "UARP: TSS Response %{public}@%{public}@ is ", buf, 0x16u);
     }
 
-    v20 = sub_1000029A8();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v25 = sub_1000029A8(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v23 = 0;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "UARP: %{public}@", buf, 0xCu);
+      v29 = 0;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "UARP: %{public}@", buf, 0xCu);
     }
 
-    if (PersonalizedResponse)
+    if (v21)
     {
-      v21 = sub_1000029A8();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v27 = sub_1000029A8(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        sub_100004AA0(PersonalizedResponse, v21);
+        sub_100004AA0(v21, v27);
       }
     }
 
@@ -466,8 +474,8 @@ LABEL_7:
 
   else
   {
-    v11 = sub_1000029A8();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_1000029A8(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_100004B18();
     }
@@ -483,53 +491,55 @@ id sub_100002DF4(void *a1, void *a2)
   v3 = a1;
   v4 = a2;
   v5 = v4;
+  v6 = v4;
   if (!v4)
   {
-    v6 = sub_1000029A8();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = sub_1000029A8(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "UARP: TSS Request to default server", &v11, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "UARP: TSS Request to default server", &v12, 2u);
     }
 
-    v5 = [NSURL URLWithString:@"https://gs.apple.com:443"];
+    v4 = [NSURL URLWithString:@"https://gs.apple.com:443"];
+    v6 = v4;
   }
 
-  v7 = sub_1000029A8();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = sub_1000029A8(v4);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2114;
-    v14 = v3;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "UARP: TSS Request to server %{public}@ with SSO and options %{public}@", &v11, 0x16u);
+    v12 = 138543618;
+    v13 = v6;
+    v14 = 2114;
+    v15 = v3;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "UARP: TSS Request to server %{public}@ with SSO and options %{public}@", &v12, 0x16u);
   }
 
-  v8 = sub_1000029EC(v3, v5, 1);
-  if (!v8)
+  v9 = sub_1000029EC(v3, v6, 1);
+  if (!v9)
   {
-    v9 = sub_1000029A8();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_1000029A8(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100004B4C();
     }
   }
 
-  return v8;
+  return v9;
 }
 
 id sub_100002F94(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v5 = sub_1000029A8();
+  v5 = sub_1000029A8(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_100004B80(v4, v3, v5);
   }
 
   v6 = sub_1000029EC(v3, v4, 0);
-  v7 = sub_1000029A8();
+  v7 = sub_1000029A8(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
   if (v6)
   {
@@ -573,9 +583,9 @@ id sub_10000307C(void *a1)
   return v2;
 }
 
-void sub_100003170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100003170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -610,7 +620,7 @@ void sub_100003248(id a1)
 
 void sub_10000328C(uint64_t a1, uint64_t a2)
 {
-  v3 = sub_1000029A8();
+  v3 = sub_1000029A8(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 136446210;
@@ -625,42 +635,42 @@ uint64_t start()
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v16 = "main";
+    v17 = "main";
     _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_INFO, "%s: Launched uarppersonalizationd", buf, 0xCu);
   }
 
   v1 = kUARPDaemonPersonalization;
-  [kUARPDaemonPersonalization UTF8String];
+  v2 = [kUARPDaemonPersonalization UTF8String];
   [v1 UTF8String];
-  v2 = sub_100001DF8(v0);
-  if (!v2)
+  v3 = sub_100001DF8(v0, v2);
+  if (!v3)
   {
-    v5 = dispatch_queue_create([kUARPServicePersonalizationNeededQueue UTF8String], 0);
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100003554;
-    v14[3] = &unk_10000C4D8;
-    v6 = v0;
-    v14[4] = v6;
-    v7 = objc_retainBlock(v14);
-    v9 = _NSConcreteStackBlock;
-    v10 = 3221225472;
-    v11 = sub_100003A9C;
-    v12 = &unk_10000C4D8;
-    v13 = v6;
-    v8 = objc_retainBlock(&v9);
-    xpc_set_event_stream_handler([kUARPDaemonNotificationMatching UTF8String], v5, v7);
-    xpc_set_event_stream_handler([@"com.apple.uarp.personalization" UTF8String], v5, v8);
+    v6 = dispatch_queue_create([kUARPServicePersonalizationNeededQueue UTF8String], 0);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100003554;
+    v15[3] = &unk_10000C4D8;
+    v7 = v0;
+    v15[4] = v7;
+    v8 = objc_retainBlock(v15);
+    v10 = _NSConcreteStackBlock;
+    v11 = 3221225472;
+    v12 = sub_100003A9C;
+    v13 = &unk_10000C4D8;
+    v14 = v7;
+    v9 = objc_retainBlock(&v10);
+    xpc_set_event_stream_handler([kUARPDaemonNotificationMatching UTF8String], v6, v8);
+    xpc_set_event_stream_handler([@"com.apple.uarp.personalization" UTF8String], v6, v9);
     dispatch_main();
   }
 
-  v3 = v2;
+  v4 = v3;
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
     sub_100004C08(v0);
   }
 
-  return v3;
+  return v4;
 }
 
 void sub_100003554(uint64_t a1, void *a2)
@@ -951,7 +961,7 @@ const __CFString *UARPLayer3UARPLayer3AssetTypeDescription(unint64_t a1)
   }
 }
 
-NSObject *UARPLayer3UtilsCleanFileHandleForWriting(void *a1, void *a2, uint64_t *a3)
+NSObject *UARPLayer3UtilsCleanFileHandleForWriting(void *a1, void *a2, uint64_t a3)
 {
   v5 = a1;
   v6 = a2;
@@ -984,7 +994,7 @@ NSObject *UARPLayer3UtilsCleanFileHandleForWriting(void *a1, void *a2, uint64_t 
           v20 = v6;
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            sub_1000051A8(v5, a3);
+            sub_1000051A8(v5);
           }
 
           v18 = 0;
@@ -1005,7 +1015,7 @@ NSObject *UARPLayer3UtilsCleanFileHandleForWriting(void *a1, void *a2, uint64_t 
       v17 = v6;
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        sub_10000504C(v5, a3);
+        sub_10000504C(v5);
       }
     }
 
@@ -1018,7 +1028,7 @@ LABEL_15:
   v13 = v6;
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    sub_100004F94(v5, a3);
+    sub_100004F94(v5);
   }
 
   v18 = 0;
@@ -1032,6 +1042,20 @@ void sub_1000046E4(os_log_t log)
   v1 = 136315138;
   v2 = "[UARPHostPersonalizationManager personalizeAssetWithXPCEvent:]_block_invoke";
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s: TSS Request is NULL", &v1, 0xCu);
+}
+
+void sub_100004888()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100001DFC(&_mh_execute_header, v0, v1, "failed to set temporary directory suffix: %d", v2, v3, v4, v5, v6);
+}
+
+void sub_100004908()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100001DFC(&_mh_execute_header, v0, v1, "failed to initialize temporary directory: %d", v2, v3, v4, v5, v6);
 }
 
 void sub_100004AA0(int a1, NSObject *a2)
@@ -1078,30 +1102,20 @@ void sub_100004DD0()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100004F94(void *a1, uint64_t *a2)
+void sub_100004F94(void *a1)
 {
-  v3 = [a1 path];
-  if (a2)
-  {
-    v4 = *a2;
-  }
-
+  v1 = [a1 path];
   sub_1000046B8();
   sub_1000046D4();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
-void sub_10000504C(void *a1, uint64_t *a2)
+void sub_10000504C(void *a1)
 {
-  v3 = [a1 path];
-  if (a2)
-  {
-    v4 = *a2;
-  }
-
+  v1 = [a1 path];
   sub_1000046B8();
   sub_1000046D4();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void sub_100005104(void *a1)
@@ -1111,15 +1125,10 @@ void sub_100005104(void *a1)
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-void sub_1000051A8(void *a1, uint64_t *a2)
+void sub_1000051A8(void *a1)
 {
-  v3 = [a1 path];
-  if (a2)
-  {
-    v4 = *a2;
-  }
-
+  v1 = [a1 path];
   sub_1000046B8();
   sub_1000046D4();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }

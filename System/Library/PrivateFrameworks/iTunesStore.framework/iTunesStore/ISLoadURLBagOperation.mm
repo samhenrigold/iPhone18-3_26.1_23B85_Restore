@@ -157,7 +157,7 @@ void __62__ISLoadURLBagOperation_incrementNetworkCounterForBagContext___block_in
 
 - (void)run
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   +[ISURLOperation sharedCFURLCache];
   v3 = +[ISURLBagCache sharedCache];
   context = [(ISLoadURLBagOperation *)self context];
@@ -196,17 +196,17 @@ void __62__ISLoadURLBagOperation_incrementNetworkCounterForBagContext___block_in
     {
       v11 = objc_opt_class();
       v12 = v11;
-      [context cacheKey];
-      *v85 = 138412546;
-      *&v85[4] = v11;
-      *&v85[14] = *&v85[12] = 2112;
-      LODWORD(v68) = 22;
-      v13 = _os_log_send_and_compose_impl();
+      cacheKey = [context cacheKey];
+      *v86 = 138412546;
+      *&v86[4] = v11;
+      *&v86[12] = 2112;
+      *&v86[14] = cacheKey;
+      v14 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_275BC3000, oSLogObject, 2, "%@: Found an in-memory bag for %@.", v86, 22);
 
-      if (v13)
+      if (v14)
       {
-        v14 = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:{4, v85, v68}];
-        free(v13);
+        v15 = [MEMORY[0x277CCACA8] stringWithCString:v14 encoding:4];
+        free(v14);
         SSFileLog();
       }
     }
@@ -217,103 +217,103 @@ void __62__ISLoadURLBagOperation_incrementNetworkCounterForBagContext___block_in
 
     [(ISLoadURLBagOperation *)self _setOutputURLBag:v5];
     [(ISOperation *)self setSuccess:1];
-    goto LABEL_77;
+    goto LABEL_79;
   }
 
   if (![context usesCachedBagsOnly])
   {
-    *v85 = 0;
-    *&v85[8] = v85;
-    *&v85[16] = 0x2020000000;
-    v86 = 0;
+    *v86 = 0;
+    *&v86[8] = v86;
+    *&v86[16] = 0x2020000000;
+    v87 = 0;
     _networkSynchronyQueue = [objc_opt_class() _networkSynchronyQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __28__ISLoadURLBagOperation_run__block_invoke;
     block[3] = &unk_27A670AC8;
-    v24 = context;
-    v78 = v24;
+    v26 = context;
+    v79 = v26;
     selfCopy = self;
-    v80 = v85;
+    v81 = v86;
     dispatch_sync(_networkSynchronyQueue, block);
 
-    if ((*(*&v85[8] + 24) & 1) == 0)
+    if ((*(*&v86[8] + 24) & 1) == 0)
     {
 
-LABEL_76:
-      _Block_object_dispose(v85, 8);
-      goto LABEL_77;
+LABEL_78:
+      _Block_object_dispose(v86, 8);
+      goto LABEL_79;
     }
 
-    v25 = objc_alloc_init(ISStoreURLOperation);
-    [(ISOperation *)v25 setDelegate:self];
-    [(ISStoreURLOperation *)v25 setNeedsURLBag:0];
-    [(ISStoreURLOperation *)v25 setShouldAppendAuthKitHeaders:0];
-    [(ISURLOperation *)v25 setTracksPerformanceMetrics:SSDebugShouldTrackPerformance()];
-    [(ISStoreURLOperation *)v25 setURLBagRequest:1];
-    [(ISStoreURLOperation *)v25 setUrlKnownToBeTrusted:1];
+    v27 = objc_alloc_init(ISStoreURLOperation);
+    [(ISOperation *)v27 setDelegate:self];
+    [(ISStoreURLOperation *)v27 setNeedsURLBag:0];
+    [(ISStoreURLOperation *)v27 setShouldAppendAuthKitHeaders:0];
+    [(ISURLOperation *)v27 setTracksPerformanceMetrics:SSDebugShouldTrackPerformance()];
+    [(ISStoreURLOperation *)v27 setURLBagRequest:1];
+    [(ISStoreURLOperation *)v27 setUrlKnownToBeTrusted:1];
     accountDSID = [(ISLoadURLBagOperation *)self accountDSID];
-    [(ISURLOperation *)v25 _setAccountDSIDOverride:accountDSID];
+    [(ISURLOperation *)v27 _setAccountDSIDOverride:accountDSID];
 
-    v27 = +[(ISDataProvider *)ISProtocolDataProvider];
-    [v27 setShouldProcessProtocol:0];
-    [(ISURLOperation *)v25 setDataProvider:v27];
-    v72 = v27;
-    v28 = objc_alloc(MEMORY[0x277D69BD0]);
-    v29 = [ISURLBagCache URLWithBagContext:v24];
-    v74 = [v28 initWithURL:v29];
+    v29 = +[(ISDataProvider *)ISProtocolDataProvider];
+    [v29 setShouldProcessProtocol:0];
+    [(ISURLOperation *)v27 setDataProvider:v29];
+    v73 = v29;
+    v30 = objc_alloc(MEMORY[0x277D69BD0]);
+    v31 = [ISURLBagCache URLWithBagContext:v26];
+    v75 = [v30 initWithURL:v31];
 
-    [v74 setAllowedRetryCount:0];
-    if ([v24 allowsBootstrapCellularData])
+    [v75 setAllowedRetryCount:0];
+    if ([v26 allowsBootstrapCellularData])
     {
-      [v74 setAllowsBootstrapCellularData:1];
+      [v75 setAllowsBootstrapCellularData:1];
     }
 
-    clientAuditTokenData = [v24 clientAuditTokenData];
-    v31 = clientAuditTokenData == 0;
+    clientAuditTokenData = [v26 clientAuditTokenData];
+    v33 = clientAuditTokenData == 0;
 
-    if (!v31)
+    if (!v33)
     {
-      clientAuditTokenData2 = [v24 clientAuditTokenData];
-      [v74 setClientAuditTokenData:clientAuditTokenData2];
+      clientAuditTokenData2 = [v26 clientAuditTokenData];
+      [v75 setClientAuditTokenData:clientAuditTokenData2];
     }
 
-    if ([v24 ignoresCaches])
+    if ([v26 ignoresCaches])
     {
-      [v74 setCachePolicy:1];
+      [v75 setCachePolicy:1];
     }
 
-    [v74 setITunesStoreRequest:1];
-    [(ISLoadURLBagOperation *)self _addHeadersToRequestProperties:v74];
-    [(ISURLOperation *)v25 setRequestProperties:v74];
-    v76 = 0;
-    v33 = [(ISOperation *)self runSubOperation:v25 returningError:&v76];
-    v34 = v76;
-    v35 = v34;
-    if (v33)
+    [v75 setITunesStoreRequest:1];
+    [(ISLoadURLBagOperation *)self _addHeadersToRequestProperties:v75];
+    [(ISURLOperation *)v27 setRequestProperties:v75];
+    v77 = 0;
+    v35 = [(ISOperation *)self runSubOperation:v27 returningError:&v77];
+    v36 = v77;
+    v37 = v36;
+    if (v35)
     {
-      output = [v72 output];
-      response = [(ISURLOperation *)v25 response];
-      v75 = v35;
-      v38 = [(ISLoadURLBagOperation *)self _setURLBagWithDictionary:output response:response error:&v75];
-      v73 = v75;
+      output = [v73 output];
+      response = [(ISURLOperation *)v27 response];
+      v76 = v37;
+      v40 = [(ISLoadURLBagOperation *)self _setURLBagWithDictionary:output response:response error:&v76];
+      v74 = v76;
 
-      if (v38)
+      if (v40)
       {
-        v39 = 1;
-        goto LABEL_55;
+        v41 = 1;
+        goto LABEL_57;
       }
     }
 
     else
     {
-      v73 = v34;
+      v74 = v36;
     }
 
-    if ([v24 bagType] != 2)
+    if ([v26 bagType] != 2)
     {
-      v39 = 0;
-      goto LABEL_55;
+      v41 = 0;
+      goto LABEL_57;
     }
 
     mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -322,54 +322,57 @@ LABEL_76:
       mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharedConfig];
     }
 
-    shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
+    LODWORD(v43) = [mEMORY[0x277D69B38]2 shouldLog];
     shouldLogToDisk = [mEMORY[0x277D69B38]2 shouldLogToDisk];
     oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-    v44 = oSLogObject2;
+    v46 = oSLogObject2;
     if (shouldLogToDisk)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v43) = v43 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      shouldLog2 &= 2u;
+      v43 = v43;
     }
 
-    if (shouldLog2)
+    else
     {
-      v45 = objc_opt_class();
-      v81 = 138412290;
-      v82 = v45;
-      v71 = v45;
-      LODWORD(v68) = 12;
-      v67 = &v81;
-      v46 = _os_log_send_and_compose_impl();
+      v43 &= 2u;
+    }
 
-      if (!v46)
+    if (v43)
+    {
+      v47 = objc_opt_class();
+      v82 = 138412290;
+      v83 = v47;
+      v72 = v47;
+      v48 = _os_log_send_and_compose_impl(v43, 0, 0, 0, &dword_275BC3000, v46, 1, "%@: Created default URL bag for external requests", &v82, 12);
+
+      if (!v48)
       {
-LABEL_51:
+LABEL_53:
 
-        v47 = [[ISURLBag alloc] initWithURLBagContext:v24];
-        v39 = v47 != 0;
-        if (v47)
+        v49 = [[ISURLBag alloc] initWithURLBagContext:v26];
+        v41 = v49 != 0;
+        if (v49)
         {
-          [v3 addURLBag:v47];
+          [v3 addURLBag:v49];
         }
 
-LABEL_55:
-        [(ISOperation *)self setError:v73, v67];
-        [(ISOperation *)self setSuccess:v39];
-        [(ISOperation *)v25 setDelegate:0];
+LABEL_57:
+        [(ISOperation *)self setError:v74, v68];
+        [(ISOperation *)self setSuccess:v41];
+        [(ISOperation *)v27 setDelegate:0];
         if (!self->_outputBag)
         {
-LABEL_75:
+LABEL_77:
 
-          goto LABEL_76;
+          goto LABEL_78;
         }
 
-        clientBundleIdentifier = [v24 clientBundleIdentifier];
-        v49 = clientBundleIdentifier;
+        clientBundleIdentifier = [v26 clientBundleIdentifier];
+        v51 = clientBundleIdentifier;
         if (clientBundleIdentifier)
         {
           bundleIdentifier = clientBundleIdentifier;
@@ -381,14 +384,14 @@ LABEL_75:
           bundleIdentifier = [mainBundle bundleIdentifier];
         }
 
-        if (![bundleIdentifier isEqualToString:@"com.apple.itunesstored"] || (objc_msgSend(v24, "cacheKey"), v52 = objc_claimAutoreleasedReturnValue(), v53 = objc_msgSend(v52, "containsString:", @"itunesstored"), v52, (v53 & 1) != 0))
+        if (![bundleIdentifier isEqualToString:@"com.apple.itunesstored"] || (objc_msgSend(v26, "cacheKey"), v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v54, "containsString:", @"itunesstored"), v54, (v55 & 1) != 0))
         {
-LABEL_74:
-          v64 = objc_opt_class();
-          v65 = [(ISURLBag *)self->_outputBag valueForKey:@"storefront-header-suffix"];
-          [v64 _addStoreFrontHeaderSuffix:v65 forBundleIdentifier:bundleIdentifier];
+LABEL_76:
+          v66 = objc_opt_class();
+          v67 = [(ISURLBag *)self->_outputBag valueForKey:@"storefront-header-suffix"];
+          [v66 _addStoreFrontHeaderSuffix:v67 forBundleIdentifier:bundleIdentifier];
 
-          goto LABEL_75;
+          goto LABEL_77;
         }
 
         mEMORY[0x277D69B38]3 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -397,67 +400,67 @@ LABEL_74:
           mEMORY[0x277D69B38]3 = [MEMORY[0x277D69B38] sharedConfig];
         }
 
-        v55 = mEMORY[0x277D69B38]3;
-        shouldLog3 = [mEMORY[0x277D69B38]3 shouldLog];
-        shouldLogToDisk2 = [v55 shouldLogToDisk];
-        v70 = v55;
-        oSLogObject3 = [v55 OSLogObject];
-        v59 = oSLogObject3;
+        v57 = mEMORY[0x277D69B38]3;
+        shouldLog2 = [mEMORY[0x277D69B38]3 shouldLog];
+        shouldLogToDisk2 = [v57 shouldLogToDisk];
+        v71 = v57;
+        oSLogObject3 = [v57 OSLogObject];
+        v61 = oSLogObject3;
         if (shouldLogToDisk2)
         {
-          shouldLog3 |= 2u;
+          shouldLog2 |= 2u;
         }
 
         if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
         {
-          v60 = shouldLog3;
+          v62 = shouldLog2;
         }
 
         else
         {
-          v60 = shouldLog3 & 2;
+          v62 = shouldLog2 & 2;
         }
 
-        if (v60)
+        if (v62)
         {
-          v61 = v70;
-          v69 = objc_opt_class();
-          cacheKey = [v24 cacheKey];
-          v81 = 138412546;
-          v82 = v69;
-          v83 = 2112;
-          v84 = cacheKey;
-          LODWORD(v68) = 22;
-          v63 = _os_log_send_and_compose_impl();
+          v63 = v71;
+          v70 = objc_opt_class();
+          cacheKey2 = [v26 cacheKey];
+          v82 = 138412546;
+          v83 = v70;
+          v84 = 2112;
+          v85 = cacheKey2;
+          LODWORD(v69) = 22;
+          v65 = _os_log_send_and_compose_impl(v62, 0, 0, 0, &dword_275BC3000, v61, 0, "%@: Unable to set the store front header suffix because we don't have the correct bundle ID. bagContext.cacheKey = %@", &v82, v69);
 
-          if (!v63)
+          if (!v65)
           {
-LABEL_73:
+LABEL_75:
 
             bundleIdentifier = 0;
-            goto LABEL_74;
+            goto LABEL_76;
           }
 
-          v59 = [MEMORY[0x277CCACA8] stringWithCString:v63 encoding:{4, &v81, v68}];
-          free(v63);
+          v61 = [MEMORY[0x277CCACA8] stringWithCString:v65 encoding:4];
+          free(v65);
           SSFileLog();
         }
 
         else
         {
-          v61 = v70;
+          v63 = v71;
         }
 
-        goto LABEL_73;
+        goto LABEL_75;
       }
 
-      v44 = [MEMORY[0x277CCACA8] stringWithCString:v46 encoding:{4, &v81, v68}];
-      free(v46);
-      v67 = v44;
+      v46 = [MEMORY[0x277CCACA8] stringWithCString:v48 encoding:4];
+      free(v48);
+      v68 = v46;
       SSFileLog();
     }
 
-    goto LABEL_51;
+    goto LABEL_53;
   }
 
   mEMORY[0x277D69B38]4 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -466,38 +469,43 @@ LABEL_73:
     mEMORY[0x277D69B38]4 = [MEMORY[0x277D69B38] sharedConfig];
   }
 
-  shouldLog4 = [mEMORY[0x277D69B38]4 shouldLog];
+  shouldLog3 = [mEMORY[0x277D69B38]4 shouldLog];
   if ([mEMORY[0x277D69B38]4 shouldLogToDisk])
   {
-    v17 = shouldLog4 | 2;
+    LODWORD(v18) = shouldLog3 | 2;
   }
 
   else
   {
-    v17 = shouldLog4;
+    LODWORD(v18) = shouldLog3;
   }
 
   oSLogObject4 = [mEMORY[0x277D69B38]4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
   {
-    v17 &= 2u;
+    v18 = v18;
   }
 
-  if (v17)
+  else
   {
-    v19 = objc_opt_class();
-    v20 = v19;
-    [context cacheKey];
-    *v85 = 138412546;
-    *&v85[4] = v19;
-    *&v85[14] = *&v85[12] = 2112;
-    LODWORD(v68) = 22;
-    v21 = _os_log_send_and_compose_impl();
+    v18 &= 2u;
+  }
 
-    if (v21)
+  if (v18)
+  {
+    v20 = objc_opt_class();
+    v21 = v20;
+    cacheKey3 = [context cacheKey];
+    *v86 = 138412546;
+    *&v86[4] = v20;
+    *&v86[12] = 2112;
+    *&v86[14] = cacheKey3;
+    v23 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_275BC3000, oSLogObject4, 0, "%@: Skipping bag load for cached-only context: %@", v86, 22);
+
+    if (v23)
     {
-      v22 = [MEMORY[0x277CCACA8] stringWithCString:v21 encoding:{4, v85, v68}];
-      free(v21);
+      v24 = [MEMORY[0x277CCACA8] stringWithCString:v23 encoding:4];
+      free(v23);
       SSFileLog();
     }
   }
@@ -506,90 +514,87 @@ LABEL_73:
   {
   }
 
-LABEL_77:
-  v66 = *MEMORY[0x277D85DE8];
+LABEL_79:
 }
 
 void __28__ISLoadURLBagOperation_run__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) cacheKey];
   if ([v2 length])
   {
-    v3 = *(a1 + 40);
-    v4 = [objc_opt_class() _networkCounters];
-    v5 = [v4 objectForKeyedSubscript:v2];
+    v3 = [objc_opt_class() _networkCounters];
+    v4 = [v3 objectForKeyedSubscript:v2];
 
-    if (v5 && ![v5 isEqualToNumber:&unk_2884CA8D8])
+    if (v4 && ![v4 isEqualToNumber:&unk_2884CA8D8])
     {
-      v6 = *(a1 + 40);
-      v7 = [objc_opt_class() _executedNetworkRequests];
-      v8 = [v7 containsObject:v2];
+      v5 = [objc_opt_class() _executedNetworkRequests];
+      v6 = [v5 containsObject:v2];
 
-      if (v8)
+      if (v6)
       {
-        v9 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
-        if (!v9)
+        v7 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
+        if (!v7)
         {
-          v9 = [MEMORY[0x277D69B38] sharedConfig];
+          v7 = [MEMORY[0x277D69B38] sharedConfig];
         }
 
-        v10 = [v9 shouldLog];
-        if ([v9 shouldLogToDisk])
+        v8 = [v7 shouldLog];
+        if ([v7 shouldLogToDisk])
         {
-          v11 = v10 | 2;
+          LODWORD(v9) = v8 | 2;
         }
 
         else
         {
-          v11 = v10;
+          LODWORD(v9) = v8;
         }
 
-        v12 = [v9 OSLogObject];
-        if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v10 = [v7 OSLogObject];
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v11 &= 2u;
+          v9 = v9;
         }
 
-        if (v11)
+        else
         {
-          v13 = *(a1 + 40);
-          *v20 = 138543618;
-          *&v20[4] = objc_opt_class();
-          *&v20[12] = 2112;
-          *&v20[14] = v2;
-          v14 = *&v20[4];
-          LODWORD(v19) = 22;
-          v15 = _os_log_send_and_compose_impl();
+          v9 &= 2u;
+        }
 
-          if (!v15)
+        if (v9)
+        {
+          v14 = 138543618;
+          v15 = objc_opt_class();
+          v16 = 2112;
+          v17 = v2;
+          v11 = v15;
+          v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_275BC3000, v10, 1, "%{public}@: Refusing to load the bag again because someone incremented the counter. %@", &v14, 22);
+
+          if (!v12)
           {
-LABEL_16:
+LABEL_17:
 
-LABEL_19:
-            goto LABEL_20;
+LABEL_20:
+            goto LABEL_21;
           }
 
-          v12 = [MEMORY[0x277CCACA8] stringWithCString:v15 encoding:{4, v20, v19, *v20, *&v20[16]}];
-          free(v15);
+          v10 = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:4];
+          free(v12);
           SSFileLog();
         }
 
-        goto LABEL_16;
+        goto LABEL_17;
       }
 
-      v16 = *(a1 + 40);
-      v17 = [objc_opt_class() _executedNetworkRequests];
-      [v17 addObject:v2];
+      v13 = [objc_opt_class() _executedNetworkRequests];
+      [v13 addObject:v2];
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-LABEL_20:
-
-  v18 = *MEMORY[0x277D85DE8];
+LABEL_21:
 }
 
 - (id)uniqueKey
@@ -612,7 +617,7 @@ LABEL_20:
 
 - (void)operation:(id)operation willSendRequest:(id)request
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = [requestCopy valueForHTTPHeaderField:@"X-Apple-Synched-Store-Front"];
   if (v5)
@@ -627,32 +632,32 @@ LABEL_20:
     }
   }
 
-  v22 = v5;
+  v21 = v5;
   allHTTPHeaderFields = [requestCopy allHTTPHeaderFields];
   v9 = ISDictionaryValueForCaseInsensitiveString(allHTTPHeaderFields, @"Cookie");
 
   v10 = [v9 componentsSeparatedByString:@""];;
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v12 = v10;
-  v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v24;
+    v15 = *v23;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v24 != v15)
+        if (*v23 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v23 + 1) + 8 * i);
+        v17 = *(*(&v22 + 1) + 8 * i);
         whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
         v19 = [v17 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
@@ -662,7 +667,7 @@ LABEL_20:
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v14);
@@ -670,8 +675,6 @@ LABEL_20:
 
   v20 = [v11 componentsJoinedByString:@" "];;
   [requestCopy setValue:v20 forHTTPHeaderField:@"Cookie"];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addHeadersToRequestProperties:(id)properties
@@ -797,7 +800,7 @@ uint64_t __47__ISLoadURLBagOperation__networkSynchronyQueue__block_invoke()
 
 - (void)_sendPingsForURLBag:(id)bag
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = [bag valueForKey:@"pingUrls"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -807,38 +810,37 @@ uint64_t __47__ISLoadURLBagOperation__networkSynchronyQueue__block_invoke()
       [ISLoadURLBagOperation _sendPingsForURLBag:];
     }
 
-    v33 = 0u;
-    v34 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v29 = v3;
+    v29 = 0u;
+    v30 = 0u;
+    v27 = v3;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v32;
+      v7 = *v30;
       v8 = 0x277CCA000uLL;
       v9 = 0x277CBE000uLL;
       v10 = 0x277D69000uLL;
       do
       {
         v11 = 0;
-        v30 = v6;
+        v28 = v6;
         do
         {
-          if (*v32 != v7)
+          if (*v30 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v12 = *(*(&v31 + 1) + 8 * v11);
-          v13 = *(v8 + 3240);
+          v12 = *(*(&v29 + 1) + 8 * v11);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v14 = [objc_alloc(*(v9 + 3008)) initWithString:v12];
-            if (v14)
+            v13 = [objc_alloc(*(v9 + 3008)) initWithString:v12];
+            if (v13)
             {
               sharediTunesStoreConfig = [*(v10 + 2872) sharediTunesStoreConfig];
               if (!sharediTunesStoreConfig)
@@ -846,60 +848,64 @@ uint64_t __47__ISLoadURLBagOperation__networkSynchronyQueue__block_invoke()
                 sharediTunesStoreConfig = [*(v10 + 2872) sharedConfig];
               }
 
-              shouldLog = [sharediTunesStoreConfig shouldLog];
+              LODWORD(v15) = [sharediTunesStoreConfig shouldLog];
               if ([sharediTunesStoreConfig shouldLogToDisk])
               {
-                shouldLog |= 2u;
+                LODWORD(v15) = v15 | 2;
               }
 
               oSLogObject = [sharediTunesStoreConfig OSLogObject];
-              if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+              if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
               {
-                shouldLog &= 2u;
+                v15 = v15;
               }
 
-              if (shouldLog)
+              else
               {
-                v18 = objc_opt_class();
-                v35 = 138412546;
-                v36 = v18;
-                v37 = 2112;
-                v38 = v14;
-                v19 = v7;
-                v20 = v8;
-                v21 = v4;
-                v22 = v9;
-                v23 = v18;
-                LODWORD(v28) = 22;
-                v27 = &v35;
-                v24 = _os_log_send_and_compose_impl();
+                v15 &= 2u;
+              }
 
-                v9 = v22;
-                v4 = v21;
-                v8 = v20;
-                v7 = v19;
+              if (v15)
+              {
+                v17 = objc_opt_class();
+                v33 = 138412546;
+                v34 = v17;
+                v35 = 2112;
+                v36 = v13;
+                v18 = v7;
+                v19 = v8;
+                v20 = v4;
+                v21 = v9;
+                v22 = v17;
+                LODWORD(v26) = 22;
+                v23 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_275BC3000, oSLogObject, 2, "%@: Pinging URL: %@", &v33, v26);
+
+                v9 = v21;
+                v4 = v20;
+                v8 = v19;
+                v7 = v18;
                 v10 = 0x277D69000;
 
-                if (v24)
+                if (v23)
                 {
-                  oSLogObject = [*(v8 + 3240) stringWithCString:v24 encoding:{4, &v35, v28}];
-                  free(v24);
-                  v27 = oSLogObject;
+                  oSLogObject = [*(v8 + 3240) stringWithCString:v23 encoding:4];
+                  free(v23);
+                  v25 = oSLogObject;
                   SSFileLog();
-                  goto LABEL_20;
+                  goto LABEL_21;
                 }
               }
 
               else
               {
-LABEL_20:
+LABEL_21:
               }
 
-              v25 = [ISStoreURLOperation pingOperationWithUrl:v14];
-              [v25 setNeedsURLBag:0];
-              [_sendPingsForURLBag__sPingQueue addOperation:v25];
+              v24 = [ISStoreURLOperation pingOperationWithUrl:v13];
+              [v24 setNeedsURLBag:0];
+              [_sendPingsForURLBag__sPingQueue addOperation:v24];
 
-              v6 = v30;
+              v6 = v28;
             }
           }
 
@@ -907,16 +913,14 @@ LABEL_20:
         }
 
         while (v6 != v11);
-        v6 = [v4 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v6);
     }
 
-    v3 = v29;
+    v3 = v27;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__ISLoadURLBagOperation__sendPingsForURLBag___block_invoke()
@@ -944,16 +948,16 @@ uint64_t __45__ISLoadURLBagOperation__sendPingsForURLBag___block_invoke()
 
 - (BOOL)_setURLBagWithDictionary:(id)dictionary response:(id)response error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   dictionaryCopy = dictionary;
   v10 = objc_alloc_init(ISURLBag);
   context = [(ISLoadURLBagOperation *)self context];
   [(ISURLBag *)v10 setURLBagContext:context];
-  v36 = 0;
-  v12 = [(ISURLBag *)v10 loadFromDictionary:dictionaryCopy returningError:&v36];
+  v34 = 0;
+  v12 = [(ISURLBag *)v10 loadFromDictionary:dictionaryCopy returningError:&v34];
 
-  v13 = v36;
+  v13 = v34;
   if (v12)
   {
     [responseCopy itunes_expirationInterval];
@@ -997,7 +1001,7 @@ uint64_t __45__ISLoadURLBagOperation__sendPingsForURLBag___block_invoke()
   }
 
   errorCopy = error;
-  v35 = v12;
+  v33 = v12;
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
   if (!mEMORY[0x277D69B38])
   {
@@ -1031,14 +1035,13 @@ uint64_t __45__ISLoadURLBagOperation__sendPingsForURLBag___block_invoke()
     v25 = objc_opt_class();
     v26 = v25;
     v27 = [responseCopy URL];
-    v37 = 138412802;
-    v38 = v25;
+    v35 = 138412802;
+    v36 = v25;
+    v37 = 2112;
+    v38 = v27;
     v39 = 2112;
-    v40 = v27;
-    v41 = 2112;
-    v42 = v13;
-    LODWORD(v33) = 32;
-    v28 = _os_log_send_and_compose_impl();
+    v40 = v13;
+    v28 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%@: Could not create bag from URL response: %@, error: %@", &v35, 32);
 
     errorCopy2 = errorCopy;
     if (!v28)
@@ -1046,7 +1049,7 @@ uint64_t __45__ISLoadURLBagOperation__sendPingsForURLBag___block_invoke()
       goto LABEL_23;
     }
 
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v28 encoding:{4, &v37, v33}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v28 encoding:4];
     free(v28);
     SSFileLog();
   }
@@ -1057,7 +1060,7 @@ uint64_t __45__ISLoadURLBagOperation__sendPingsForURLBag___block_invoke()
   }
 
 LABEL_23:
-  v12 = v35;
+  v12 = v33;
   if (errorCopy2)
   {
     v30 = v13;
@@ -1066,7 +1069,6 @@ LABEL_23:
 
 LABEL_25:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

@@ -7,17 +7,17 @@
 
 - (void)setPreferenceSpecifier:(id)specifier
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = TPSPhoneNumberEditingPane;
-  [(PSTextEditingPane *)&v8 setPreferenceSpecifier:specifier];
+  v9[1] = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = TPSPhoneNumberEditingPane;
+  [(PSTextEditingPane *)&v7 setPreferenceSpecifier:specifier];
   v4 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FCF0]);
   [v4 setAutocorrectionType:1];
   [v4 setAutoresizesTextToFit:1];
   [v4 setClearButtonMode:0];
-  v9 = *MEMORY[0x277D74200];
-  v10[0] = &unk_282D5D690;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x277D74200];
+  v9[0] = &unk_282D5D690;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [v4 setDefaultTextAttributes:v5];
 
   [v4 setEnabled:1];
@@ -27,7 +27,6 @@
   [textInputTraits setContentsIsSingleValue:1];
 
   [v4 setTextSuggestionDelegate:self];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - ($1CC25822903029FAFB04A26BED58AE91)suggestionsForString:(id)string inputIndex:(unsigned int)index

@@ -31,13 +31,13 @@
 - (id)initByMergingPointClouds:(id)clouds;
 - (id)mutableCopy;
 - (id)pointCloudByApplyingFilter:(id)filter;
-- (id)pointCloudByChangingPointOfViewByTransform:(void *)transform to:;
 - (id)pointCloudByChangingPointOfViewFrom:(id)from to:(id)to;
 - (int)length;
 - (int)size;
 - (int64_t)projectJasperPointsFilteredBy:(id)by croppedBy:(CGRect)croppedBy rotatedBy:(int64_t)rotatedBy andScaledInto:(__CVBuffer *)into;
 - (int64_t)projectJasperPointsFilteredBy:(id)by croppedBy:(CGRect)croppedBy rotatedBy:(int64_t)rotatedBy andScaledMergingWith:(__CVBuffer *)with;
 - (void)dealloc;
+- (void)pointCloudByChangingPointOfViewByTransform:(__n128)transform to:(__n128)to;
 @end
 
 @implementation ADJasperPointCloud
@@ -200,7 +200,7 @@ LABEL_18:
     [filterCopy shortRangeDepthThreshold];
     v14 = v13;
     [filterCopy shortRangeConfidenceThreshold];
-    appledepth::JasperPointCloud::initByApplyingFilters(&v5->super._pc, &self->_pc, echoMode, [filterCopy bankIDMask], v8, v10, v12, v14, v15);
+    appledepth::JasperPointCloud::initByApplyingFilters(&v5->super._pc, &self->_pc, v8, v10, v12, v14, v15, echoMode, [filterCopy bankIDMask]);
     v16 = v5;
   }
 
@@ -745,13 +745,13 @@ LABEL_13:
   return v6 + size;
 }
 
-- (id)pointCloudByChangingPointOfViewByTransform:(void *)transform to:
+- (void)pointCloudByChangingPointOfViewByTransform:(__n128)transform to:(__n128)to
 {
-  transformCopy = transform;
-  v5 = objc_alloc(objc_opt_class());
-  if (v5)
+  v8 = a7;
+  v9 = objc_alloc(objc_opt_class());
+  if (v9)
   {
-    appledepth::JasperPointCloud::initByCloning((v5 + 8), (self + 8));
+    appledepth::JasperPointCloud::initByCloning((v9 + 8), (self + 8));
   }
 
   return 0;
@@ -1190,7 +1190,7 @@ LABEL_7:
   v4 = [(ADJasperPointCloud *)&v7 init];
   if (v4)
   {
-    appledepth::JasperPointCloud::initWithLength(&v4->_pc, length);
+    appledepth::JasperPointCloud::initWithLength(&v4->_pc, length, 0);
   }
 
   v5 = 0;

@@ -14,18 +14,20 @@
 {
   v2 = self + OBJC_IVAR____TtC9PassKitUI28PKPassTileForeignViewAdaptor_viewIdentifier;
   swift_beginAccess();
-  if (*(v2 + 1))
+  v3 = *(v2 + 1);
+  if (v3)
   {
     sub_1BE048C84();
-    v3 = sub_1BE052404();
+    v4 = sub_1BE052404();
+    v3, v5, v6, v7, v8, v9, v10, v11;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)setViewIdentifier:(id)identifier
@@ -44,8 +46,10 @@
 
   v7 = (self + OBJC_IVAR____TtC9PassKitUI28PKPassTileForeignViewAdaptor_viewIdentifier);
   swift_beginAccess();
+  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
+  v8, v9, v10, v11, v12, v13, v14, v15;
 }
 
 - (int64_t)viewPreferredSizing

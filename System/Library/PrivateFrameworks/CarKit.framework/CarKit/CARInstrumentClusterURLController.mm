@@ -35,8 +35,7 @@
     v19 = v2;
     v11 = SerialWithQoS;
     v20 = v11;
-    [(BSServiceConnection *)v10 configureConnection:&v15];
-    v12 = CarGeneralLogging();
+    v12 = CarGeneralLogging([(BSServiceConnection *)v10 configureConnection:&v15]);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = v2->_connection;
@@ -71,7 +70,7 @@ void __41__CARInstrumentClusterURLController_init__block_invoke_2(uint64_t a1, v
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -84,7 +83,7 @@ void __41__CARInstrumentClusterURLController_init__block_invoke_70(uint64_t a1, 
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -99,7 +98,7 @@ void __41__CARInstrumentClusterURLController_init__block_invoke_73(uint64_t a1, 
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -111,7 +110,7 @@ void __41__CARInstrumentClusterURLController_init__block_invoke_73(uint64_t a1, 
 - (void)fetchInstrumentClusterURLs:(id)ls
 {
   lsCopy = ls;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(lsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -126,20 +125,20 @@ void __41__CARInstrumentClusterURLController_init__block_invoke_73(uint64_t a1, 
     {
       connection2 = [(CARInstrumentClusterURLController *)self connection];
       remoteTarget = [connection2 remoteTarget];
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __64__CARInstrumentClusterURLController_fetchInstrumentClusterURLs___block_invoke;
-      v11[3] = &unk_1E82FC148;
-      v12 = lsCopy;
-      [remoteTarget serviceFetchInstrumentClusterURLs:v11];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __64__CARInstrumentClusterURLController_fetchInstrumentClusterURLs___block_invoke;
+      v13[3] = &unk_1E82FC148;
+      v14 = lsCopy;
+      [remoteTarget serviceFetchInstrumentClusterURLs:v13];
     }
 
     else
     {
-      v10 = CarGeneralLogging();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = CarGeneralLogging(v8);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [CARInstrumentClusterURLController fetchInstrumentClusterURLs:v10];
+        [CARInstrumentClusterURLController fetchInstrumentClusterURLs:v12];
       }
 
       (*(lsCopy + 2))(lsCopy, MEMORY[0x1E695E0F0], 0);
@@ -148,10 +147,10 @@ void __41__CARInstrumentClusterURLController_init__block_invoke_73(uint64_t a1, 
 
   else
   {
-    v9 = CarGeneralLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = CarGeneralLogging(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [CARInstrumentClusterURLController fetchInstrumentClusterURLs:v9];
+      [CARInstrumentClusterURLController fetchInstrumentClusterURLs:v11];
     }
   }
 }
@@ -161,7 +160,7 @@ void __64__CARInstrumentClusterURLController_fetchInstrumentClusterURLs___block_
   v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = CarGeneralLogging();
+  v7 = CarGeneralLogging(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412546;
@@ -181,7 +180,7 @@ id __64__CARInstrumentClusterURLController_fetchInstrumentClusterURLs___block_in
   v3 = [MEMORY[0x1E695DFF8] URLWithString:v2];
   if (!v3)
   {
-    v4 = CarGeneralLogging();
+    v4 = CarGeneralLogging(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __64__CARInstrumentClusterURLController_fetchInstrumentClusterURLs___block_invoke_77_cold_1(v2, v4);
@@ -193,7 +192,7 @@ id __64__CARInstrumentClusterURLController_fetchInstrumentClusterURLs___block_in
 
 - (void)invalidate
 {
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

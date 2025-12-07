@@ -11,7 +11,7 @@
 
 - (BOOL)application:(id)application didFinishLaunchingWithOptions:(id)options
 {
-  v5 = sub_100001CBC();
+  v5 = sub_100001CBC(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315394;
@@ -26,7 +26,7 @@
 
 - (void)applicationWillResignActive:(id)active
 {
-  v4 = sub_100001CBC();
+  v4 = sub_100001CBC(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315394;
@@ -39,7 +39,7 @@
 
 - (void)applicationDidEnterBackground:(id)background
 {
-  v4 = sub_100001CBC();
+  v4 = sub_100001CBC(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315394;
@@ -52,7 +52,7 @@
 
 - (void)applicationWillEnterForeground:(id)foreground
 {
-  v4 = sub_100001CBC();
+  v4 = sub_100001CBC(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315394;
@@ -65,7 +65,7 @@
 
 - (void)applicationDidBecomeActive:(id)active
 {
-  v4 = sub_100001CBC();
+  v4 = sub_100001CBC(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315394;
@@ -78,7 +78,7 @@
 
 - (void)applicationWillTerminate:(id)terminate
 {
-  v4 = sub_100001CBC();
+  v4 = sub_100001CBC(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315394;

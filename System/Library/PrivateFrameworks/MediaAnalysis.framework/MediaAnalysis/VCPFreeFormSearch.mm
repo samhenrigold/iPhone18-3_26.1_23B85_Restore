@@ -376,7 +376,7 @@ LABEL_56:
   if (self->_embeddingDim == [queryCopy length] >> 2)
   {
     v19 = 1065353216;
-    v20[0] = 0;
+    v20 = 0;
     v18 = 0;
     if (self->_textEmbeddingThreshold)
     {
@@ -389,7 +389,7 @@ LABEL_56:
       v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
       v11 = [v7 initWithVersion:v8 data:v6 type:1 shape:v10];
 
-      v12 = [(MADTextEmbeddingThreshold *)selfCopy->_textEmbeddingThreshold processEmbedding:v11 bias:v20 scale:&v19 threshold:&v18];
+      v12 = [(MADTextEmbeddingThreshold *)selfCopy->_textEmbeddingThreshold processEmbedding:v11 bias:&v20 scale:&v19 threshold:&v18];
       if (v12)
       {
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))

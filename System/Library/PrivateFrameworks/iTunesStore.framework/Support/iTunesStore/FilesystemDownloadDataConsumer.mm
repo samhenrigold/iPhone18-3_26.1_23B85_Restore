@@ -176,16 +176,21 @@
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
     oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -194,31 +199,30 @@
     {
       v19 = objc_opt_class();
       v20 = *(&self->_md5Context.num + 1);
-      *v25 = 138413058;
-      *&v25[4] = v19;
-      *&v25[12] = 2048;
-      *&v25[14] = v7;
-      *&v25[22] = 2048;
+      v24 = 138413058;
+      v25 = v19;
+      v26 = 2048;
+      v27 = v7;
+      v28 = 2048;
       countCopy2 = count;
-      *v27 = 2048;
-      *&v27[2] = v20;
+      v30 = 2048;
+      v31 = v20;
       v21 = v19;
-      LODWORD(v24) = 42;
-      v22 = _os_log_send_and_compose_impl();
+      v22 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Invalid chunk index: %ld, for bytes written: %lld, bytes to hash: %ld", &v24, 42);
 
       if (!v22)
       {
         LOBYTE(v9) = 0;
-        goto LABEL_25;
+        goto LABEL_27;
       }
 
-      oSLogObject = [NSString stringWithCString:v22 encoding:4, v25, v24, *v25, *&v25[8], countCopy2, *v27, *&v27[8]];
+      oSLogObject = [NSString stringWithCString:v22 encoding:4];
       free(v22);
       SSFileLog();
       LOBYTE(v9) = 0;
     }
 
-    goto LABEL_24;
+    goto LABEL_26;
   }
 
   v8 = [*(&self->_fd + 1) objectAtIndex:v7];
@@ -234,16 +238,21 @@
     shouldLog2 = [oSLogObject shouldLog];
     if ([oSLogObject shouldLogToDisk])
     {
-      v12 = shouldLog2 | 2;
+      LODWORD(v12) = shouldLog2 | 2;
     }
 
     else
     {
-      v12 = shouldLog2;
+      LODWORD(v12) = shouldLog2;
     }
 
     v10OSLogObject = [oSLogObject OSLogObject];
-    if (!os_log_type_enabled(v10OSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10OSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
@@ -252,36 +261,35 @@
     {
       v14 = objc_opt_class();
       v15 = *(&self->_md5Context.num + 1) * v7;
-      *v25 = 138413314;
-      *&v25[4] = v14;
-      *&v25[12] = 2048;
-      *&v25[14] = v15;
-      *&v25[22] = 2048;
+      v24 = 138413314;
+      v25 = v14;
+      v26 = 2048;
+      v27 = v15;
+      v28 = 2048;
       countCopy2 = count;
-      *v27 = 2112;
-      *&v27[2] = v5;
-      *&v27[10] = 2112;
-      *&v27[12] = v8;
+      v30 = 2112;
+      v31 = v5;
+      v32 = 2112;
+      v33 = v8;
       v16 = v14;
-      LODWORD(v24) = 52;
-      v17 = _os_log_send_and_compose_impl();
+      v17 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, v10OSLogObject, 0, "%@: Hash mismatch for chunk: (%lld:%lld), %@ should be %@", &v24, 52);
 
       if (!v17)
       {
-LABEL_24:
+LABEL_26:
 
-        goto LABEL_25;
+        goto LABEL_27;
       }
 
-      v10OSLogObject = [NSString stringWithCString:v17 encoding:4, v25, v24, *v25, *&v25[16], countCopy2, *v27, *&v27[16]];
+      v10OSLogObject = [NSString stringWithCString:v17 encoding:4];
       free(v17);
       SSFileLog();
     }
 
-    goto LABEL_24;
+    goto LABEL_26;
   }
 
-LABEL_25:
+LABEL_27:
 
   return v9;
 }

@@ -1,3 +1,24 @@
+void sub_1DE20B248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  AMCP::Thing::~Thing(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t AMCP::Implementation::get_type_marker<std::vector<unsigned int>>()
+{
+  v0 = &unk_1ECDAE000;
+  {
+    v0 = &unk_1ECDAE000;
+    if (v2)
+    {
+      v0 = &unk_1ECDAE000;
+    }
+  }
+
+  return v0[417];
+}
+
 uint64_t AMCP::Implementation::get_type_marker<std::function<std::vector<unsigned int> ()(void)>>()
 {
   v0 = &unk_1ECDAE000;
@@ -50,7 +71,7 @@ LABEL_12:
     while (1)
     {
       AMCP::Stream::Stream(&v16, v21, *v11);
-      AMCP::Stream::get_current_format(&v16, v14);
+      AMCP::Stream::get_current_format(v14, &v16);
       v10 += v15;
       if (v10 >= a3)
       {
@@ -86,7 +107,7 @@ LABEL_12:
   return v12;
 }
 
-uint64_t AMCP::Device::count_channels(AMCP::Device *this, unsigned int a2)
+uint64_t AMCP::Device::count_channels(AMCP::System_Context **this, uint64_t a2)
 {
   AMCP::Device::get_stream_list(this, a2, &v13);
   v3 = v13;
@@ -106,8 +127,8 @@ uint64_t AMCP::Device::count_channels(AMCP::Device *this, unsigned int a2)
   v6 = v13;
   do
   {
-    AMCP::Stream::Stream(v11, *(this + 4), *v6);
-    AMCP::Stream::get_current_format(v11, v9);
+    AMCP::Stream::Stream(v11, this[4], *v6);
+    AMCP::Stream::get_current_format(v9, v11);
     v7 = v10;
     v11[0] = &unk_1F5964268;
     if (v12)
@@ -161,50 +182,50 @@ uint64_t AMCP::Device::can_be_default_input_device(AMCP::Device *this)
 
 uint64_t AMCP::Core::Core::get_simple_required_property<1684434036u>(AMCP::Core::Core *a1, unsigned int a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   *buf = 1684434036;
-  v13 = a2;
+  v12 = a2;
   v3 = AMCP::Core::Core::get_typed_property_value<BOOL,std::enable_if<true,void>>(a1, buf);
   if (v3 <= 0xFFu)
   {
-    v6 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v6 & 1) == 0)
+    v5 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v5 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(v3);
     }
 
-    v8 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v7 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v7)
+    v7 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v6 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v6)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-      v9 = *v8;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+      v8 = *v7;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     }
 
     else
     {
-      v9 = *v8;
+      v8 = *v7;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 4;
+      v10 = 4;
       strcpy(__p, "dflt");
       *buf = 136316418;
-      v13 = "Core.h";
-      v14 = 1024;
-      v15 = 391;
-      v16 = 2080;
-      v17 = "optional_value.operator BOOL() == true";
-      v18 = 2080;
-      v19 = __p;
-      v20 = 1024;
-      v21 = a2;
-      v22 = 1024;
-      v23 = 0;
-      _os_log_error_impl(&dword_1DE1F9000, v9, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s a required property is missing '%s':%u:%u", buf, 0x32u);
-      if (v11 < 0)
+      v12 = "Core.h";
+      v13 = 1024;
+      v14 = 391;
+      v15 = 2080;
+      v16 = "optional_value.operator BOOL() == true";
+      v17 = 2080;
+      v18 = __p;
+      v19 = 1024;
+      v20 = a2;
+      v21 = 1024;
+      v22 = 0;
+      _os_log_error_impl(&dword_1DE1F9000, v8, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s a required property is missing '%s':%u:%u", buf, 0x32u);
+      if (v10 < 0)
       {
         operator delete(__p[0]);
       }
@@ -213,7 +234,6 @@ uint64_t AMCP::Core::Core::get_simple_required_property<1684434036u>(AMCP::Core:
     abort();
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v3 & 1;
 }
 
@@ -282,106 +302,106 @@ LABEL_13:
 
 uint64_t AMCP::Core::Operation::call_function<BOOL>(void *a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = AMCP::Implementation::get_type_marker<std::function<BOOL ()(void)>>();
   v3 = std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(a1, v2);
   if (!v3)
   {
-    v12 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v12 & 1) == 0)
+    v11 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v11 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(0);
     }
 
-    v14 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v13 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v13)
+    v13 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v12 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v12)
     {
-      atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-      v15 = *v14;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+      v14 = *v13;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
     }
 
     else
     {
-      v15 = *v14;
+      v14 = *v13;
     }
 
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v27 = 1024;
-      v28 = 154;
-      _os_log_error_impl(&dword_1DE1F9000, v15, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      v28 = 1024;
+      v29 = 154;
+      _os_log_error_impl(&dword_1DE1F9000, v14, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v25);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v26);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v17);
-    std::runtime_error::runtime_error(&v18, &v17);
+    caulk::make_string(&v18, "Operation does not have requested function", v16);
     std::runtime_error::runtime_error(&v19, &v18);
-    v21 = 0;
+    std::runtime_error::runtime_error(&v20, &v19);
     v22 = 0;
     v23 = 0;
-    v24 = -1;
-    v19.__vftable = &unk_1F5992170;
-    v20 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v19);
-    v29 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = BOOL, Argument_Types = <>]";
-    v30 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v31 = 154;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v16);
+    v24 = 0;
+    v25 = -1;
+    v20.__vftable = &unk_1F5992170;
+    v21 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v20);
+    v30 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = BOOL, Argument_Types = <>]";
+    v31 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v32 = 154;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v17);
   }
 
   v4 = v3;
   if (!*(v3 + 7) || (*buf = AMCP::Implementation::get_type_marker<std::function<BOOL ()(void)>>(), (v3 = (*(v4 + 7))(4, v4 + 24, 0, buf)) == 0))
   {
-    v8 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v8 & 1) == 0)
+    v7 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v7 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(v3);
     }
 
-    v10 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v9 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v9)
+    v9 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v8 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-      v11 = *v10;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+      v10 = *v9;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
 
     else
     {
-      v11 = *v10;
+      v10 = *v9;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v27 = 1024;
-      v28 = 161;
-      _os_log_error_impl(&dword_1DE1F9000, v11, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
+      v28 = 1024;
+      v29 = 161;
+      _os_log_error_impl(&dword_1DE1F9000, v10, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v25);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v26);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Invalid cast", &v17);
-    std::runtime_error::runtime_error(&v18, &v17);
+    caulk::make_string(&v18, "Invalid cast", v15);
     std::runtime_error::runtime_error(&v19, &v18);
-    v21 = 0;
+    std::runtime_error::runtime_error(&v20, &v19);
     v22 = 0;
     v23 = 0;
-    v24 = -1;
-    v19.__vftable = &unk_1F5992170;
-    v20 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v19);
-    v29 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = BOOL, Argument_Types = <>]";
-    v30 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v31 = 161;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v16);
+    v24 = 0;
+    v25 = -1;
+    v20.__vftable = &unk_1F5992170;
+    v21 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v20);
+    v30 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = BOOL, Argument_Types = <>]";
+    v31 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v32 = 161;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v17);
   }
 
   v5 = *(v3 + 3);
@@ -390,9 +410,7 @@ uint64_t AMCP::Core::Operation::call_function<BOOL>(void *a1)
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  result = (*(*v5 + 48))(v5);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*v5 + 48))(v5);
 }
 
 void sub_1DE20BCC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, std::runtime_error a22, char a23)
@@ -485,9 +503,9 @@ LABEL_12:
   return v5 & 1;
 }
 
-void sub_1DE20BEF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE20BEF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -553,7 +571,7 @@ uint64_t AMCP::Device::can_be_default_output_device(AMCP::Device *this)
 
 uint64_t AMCP::Device::can_be_default_system_output_device(AMCP::Device *this)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = *(this + 3);
   if (v2 && (v3 = std::__shared_weak_count::lock(v2)) != 0)
   {
@@ -567,44 +585,44 @@ uint64_t AMCP::Device::can_be_default_system_output_device(AMCP::Device *this)
       v6 = AMCP::Core::Core::get_typed_property_value<BOOL,std::enable_if<true,void>>(v5, buf);
       if (v6 <= 0xFFu)
       {
-        v10 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-        if ((v10 & 1) == 0)
+        v9 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+        if ((v9 & 1) == 0)
         {
           AMCP::Log::AMCP_Scope_Registry::initialize(v6);
         }
 
-        v12 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-        v11 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-        if (v11)
+        v11 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+        v10 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+        if (v10)
         {
-          atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-          v13 = *v12;
-          std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+          atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+          v12 = *v11;
+          std::__shared_weak_count::__release_shared[abi:ne200100](v10);
         }
 
         else
         {
-          v13 = *v12;
+          v12 = *v11;
         }
 
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          v15 = 4;
+          v14 = 4;
           strcpy(__p, "sflt");
           *buf = 136316418;
           *&buf[4] = "Core.h";
-          v17 = 1024;
-          v18 = 391;
-          v19 = 2080;
-          v20 = "optional_value.operator BOOL() == true";
-          v21 = 2080;
-          v22 = __p;
-          v23 = 1024;
-          v24 = 1869968496;
-          v25 = 1024;
-          v26 = 0;
-          _os_log_error_impl(&dword_1DE1F9000, v13, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s a required property is missing '%s':%u:%u", buf, 0x32u);
-          if (v15 < 0)
+          v16 = 1024;
+          v17 = 391;
+          v18 = 2080;
+          v19 = "optional_value.operator BOOL() == true";
+          v20 = 2080;
+          v21 = __p;
+          v22 = 1024;
+          v23 = 1869968496;
+          v24 = 1024;
+          v25 = 0;
+          _os_log_error_impl(&dword_1DE1F9000, v12, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s a required property is missing '%s':%u:%u", buf, 0x32u);
+          if (v14 < 0)
           {
             operator delete(__p[0]);
           }
@@ -629,7 +647,6 @@ uint64_t AMCP::Device::can_be_default_system_output_device(AMCP::Device *this)
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7 & 1;
 }
 
@@ -831,106 +848,106 @@ LABEL_18:
 
 uint64_t AMCP::Core::Operation::call_function<CA::ChannelLayout>(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = AMCP::Implementation::get_type_marker<std::function<CA::ChannelLayout ()(void)>>();
   v4 = std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(a2, v3);
   if (!v4)
   {
-    v13 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v13 & 1) == 0)
+    v12 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v12 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(0);
     }
 
-    v15 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v14 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v14)
+    v14 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v13 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v13)
     {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-      v16 = *v15;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+      atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+      v15 = *v14;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
     }
 
     else
     {
-      v16 = *v15;
+      v15 = *v14;
     }
 
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v28 = 1024;
-      v29 = 154;
-      _os_log_error_impl(&dword_1DE1F9000, v16, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      v29 = 1024;
+      v30 = 154;
+      _os_log_error_impl(&dword_1DE1F9000, v15, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v26);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v27);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v18);
-    std::runtime_error::runtime_error(&v19, &v18);
+    caulk::make_string(&v19, "Operation does not have requested function", v17);
     std::runtime_error::runtime_error(&v20, &v19);
-    v22 = 0;
+    std::runtime_error::runtime_error(&v21, &v20);
     v23 = 0;
     v24 = 0;
-    v25 = -1;
-    v20.__vftable = &unk_1F5992170;
-    v21 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v20);
-    v30 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = CA::ChannelLayout, Argument_Types = <>]";
-    v31 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v32 = 154;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v17);
+    v25 = 0;
+    v26 = -1;
+    v21.__vftable = &unk_1F5992170;
+    v22 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v21);
+    v31 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = CA::ChannelLayout, Argument_Types = <>]";
+    v32 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v33 = 154;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v18);
   }
 
   v5 = v4;
   if (!*(v4 + 7) || (*buf = AMCP::Implementation::get_type_marker<std::function<CA::ChannelLayout ()(void)>>(), (v4 = (*(v5 + 7))(4, v5 + 24, 0, buf)) == 0))
   {
-    v9 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v9 & 1) == 0)
+    v8 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v8 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(v4);
     }
 
-    v11 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v10 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v10)
+    v10 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v9 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v9)
     {
-      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-      v12 = *v11;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      v11 = *v10;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
     }
 
     else
     {
-      v12 = *v11;
+      v11 = *v10;
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v28 = 1024;
-      v29 = 161;
-      _os_log_error_impl(&dword_1DE1F9000, v12, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
+      v29 = 1024;
+      v30 = 161;
+      _os_log_error_impl(&dword_1DE1F9000, v11, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v26);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v27);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Invalid cast", &v18);
-    std::runtime_error::runtime_error(&v19, &v18);
+    caulk::make_string(&v19, "Invalid cast", v16);
     std::runtime_error::runtime_error(&v20, &v19);
-    v22 = 0;
+    std::runtime_error::runtime_error(&v21, &v20);
     v23 = 0;
     v24 = 0;
-    v25 = -1;
-    v20.__vftable = &unk_1F5992170;
-    v21 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v20);
-    v30 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = CA::ChannelLayout, Argument_Types = <>]";
-    v31 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v32 = 161;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v17);
+    v25 = 0;
+    v26 = -1;
+    v21.__vftable = &unk_1F5992170;
+    v22 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v21);
+    v31 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = CA::ChannelLayout, Argument_Types = <>]";
+    v32 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v33 = 161;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v18);
   }
 
   v6 = *(v4 + 3);
@@ -939,9 +956,7 @@ uint64_t AMCP::Core::Operation::call_function<CA::ChannelLayout>(uint64_t a1, vo
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  result = (*(*v6 + 48))(v6);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*v6 + 48))(v6);
 }
 
 void sub_1DE20C9DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, std::runtime_error a22, char a23)
@@ -973,7 +988,7 @@ void sub_1DE20C9DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t AMCP::Thing::convert_to<CA::ChannelLayout>(void *a1, uint64_t a2)
+uint64_t *AMCP::Thing::convert_to<CA::ChannelLayout>(uint64_t *a1, uint64_t a2)
 {
   if (!*(a2 + 32))
   {
@@ -998,7 +1013,7 @@ uint64_t AMCP::Thing::convert_to<CA::ChannelLayout>(void *a1, uint64_t a2)
       *a1 = 0;
       a1[1] = 0;
       a1[2] = 0;
-      return std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(a1, *v6, v6[1], v6[1] - *v6);
+      return std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(a1, *v6, *(v6 + 8), *(v6 + 8) - *v6);
     }
 
 LABEL_12:
@@ -1030,7 +1045,7 @@ LABEL_12:
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  result = std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(a1, *v8, v8[1], v8[1] - *v8);
+  result = std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(a1, *v8, *(v8 + 8), *(v8 + 8) - *v8);
   if (v17)
   {
     return v17(0, v16, 0, 0);
@@ -1039,9 +1054,9 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE20CC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE20CC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -1060,7 +1075,7 @@ uint64_t AMCP::Implementation::get_type_marker<CA::ChannelLayout>()
   return v0[457];
 }
 
-uint64_t std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<char>::__init_with_size[abi:ne200100]<char *,char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -1082,7 +1097,7 @@ void sub_1DE20CD24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -1094,19 +1109,19 @@ void std::vector<char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
 
 uint64_t AMCP::Implementation::get_type_marker<std::function<CA::ChannelLayout ()(void)>>()
 {
-  v0 = &HALB_MlockFailHandling::hasReportingCooledDown(void)::sLazyMarshall;
+  v0 = HALB_MlockFailHandling::hasReportingCooledDown(void)::sLazyMarshall;
   {
-    v0 = &HALB_MlockFailHandling::hasReportingCooledDown(void)::sLazyMarshall;
+    v0 = HALB_MlockFailHandling::hasReportingCooledDown(void)::sLazyMarshall;
     if (v2)
     {
-      v0 = &HALB_MlockFailHandling::hasReportingCooledDown(void)::sLazyMarshall;
+      v0 = HALB_MlockFailHandling::hasReportingCooledDown(void)::sLazyMarshall;
     }
   }
 
-  return v0[53];
+  return *(v0 + 53);
 }
 
-void AMCP::Device::get_channel_layout(AMCP::Device *this@<X0>, const CA::ChannelLayout *a2@<X2>, unsigned int a3@<W1>, void *a4@<X8>)
+void AMCP::Device::get_channel_layout(AMCP::Device *this@<X0>, const CA::ChannelLayout *a2@<X2>, unsigned int a3@<W1>, uint64_t *a4@<X8>)
 {
   v7 = *(this + 3);
   if (v7)
@@ -1190,7 +1205,7 @@ LABEL_20:
   }
 }
 
-void LogVolumeChangeForServerSideControl(uint64_t a1, unsigned int a2, unint64_t a3, unsigned int a4, int a5, unsigned int *a6, HALS_ObjectMap *a7, unsigned int a8, unsigned int a9, uint64_t a10)
+void LogVolumeChangeForServerSideControl(uint64_t a1, unsigned int a2, unint64_t a3, unsigned int a4, int a5, float *a6, HALS_ObjectMap *a7, unsigned int a8, unsigned int a9, uint64_t a10)
 {
   if (a5 == 4 && a6)
   {
@@ -1410,7 +1425,7 @@ void sub_1DE20D308(_Unwind_Exception *a1, HALS_Object *a2, int a3, int a4, int a
 
 void ___Z35LogVolumeChangeForServerSideControlNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEEj26AudioObjectPropertyAddressjPKvjjjS5__block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v2 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
   if ((v2 & 1) == 0)
   {
@@ -1484,36 +1499,34 @@ void ___Z35LogVolumeChangeForServerSideControlNSt3__112basic_stringIcNS_11char_t
       v16 = *v16;
     }
 
-    v18 = 136318210;
-    v19 = "HALB_Logging.cpp";
-    v20 = 1024;
-    v21 = 100;
-    v22 = 2082;
-    v23 = v6;
-    v24 = 2048;
-    v25 = v12;
-    v26 = 2082;
-    v27 = v7;
-    v28 = 2082;
-    v29 = v8;
-    v30 = 2048;
-    v31 = v13;
-    v32 = 2082;
-    v33 = v9;
-    v34 = 2082;
-    v35 = v10;
-    v36 = 2082;
-    v37 = v11;
-    v38 = 2048;
-    v39 = v14;
-    v40 = 2082;
-    v41 = v15;
-    v42 = 2082;
-    v43 = v16;
-    _os_log_impl(&dword_1DE1F9000, v5, OS_LOG_TYPE_DEFAULT, "%32s:%-5d LogVolumeChangeForServerSideControl from %{public}s: control id %lu, property address ['%{public}s', '%{public}s', %lu], owning device UID %{public}s, control type %{public}s, control scope '%{public}s', control element %lu, %{public}s: %{public}s", &v18, 0x80u);
+    v17 = 136318210;
+    v18 = "HALB_Logging.cpp";
+    v19 = 1024;
+    v20 = 100;
+    v21 = 2082;
+    v22 = v6;
+    v23 = 2048;
+    v24 = v12;
+    v25 = 2082;
+    v26 = v7;
+    v27 = 2082;
+    v28 = v8;
+    v29 = 2048;
+    v30 = v13;
+    v31 = 2082;
+    v32 = v9;
+    v33 = 2082;
+    v34 = v10;
+    v35 = 2082;
+    v36 = v11;
+    v37 = 2048;
+    v38 = v14;
+    v39 = 2082;
+    v40 = v15;
+    v41 = 2082;
+    v42 = v16;
+    _os_log_impl(&dword_1DE1F9000, v5, OS_LOG_TYPE_DEFAULT, "%32s:%-5d LogVolumeChangeForServerSideControl from %{public}s: control id %lu, property address ['%{public}s', '%{public}s', %lu], owning device UID %{public}s, control type %{public}s, control scope '%{public}s', control element %lu, %{public}s: %{public}s", &v17, 0x80u);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __destroy_helper_block_e8_32c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE64c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE88c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE120c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE144c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE168c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE200c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE(uint64_t a1)
@@ -1723,7 +1736,7 @@ double AMCP::Graph::Meta_Timebase::get_max_io_buffer_frame_size(AMCP::Graph::Met
 
 AMCP::Log::AMCP_Scope_Registry *AMCP::Graph::Meta_Timebase::wait_for_time_to_start(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = (*(**(a1 + 40) + 200))(*(a1 + 40));
   v3 = v2;
   if (v2 == 1)
@@ -1751,31 +1764,30 @@ AMCP::Log::AMCP_Scope_Registry *AMCP::Graph::Meta_Timebase::wait_for_time_to_sta
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       (*(**(a1 + 40) + 24))(__p);
-      if (v12 >= 0)
+      if (v11 >= 0)
       {
-        v10 = __p;
+        v9 = __p;
       }
 
       else
       {
-        v10 = __p[0];
+        v9 = __p[0];
       }
 
       *buf = 136315650;
-      v14 = "Meta_Timebase.cpp";
-      v15 = 1024;
-      v16 = 143;
-      v17 = 2080;
-      v18 = v10;
+      v13 = "Meta_Timebase.cpp";
+      v14 = 1024;
+      v15 = 143;
+      v16 = 2080;
+      v17 = v9;
       _os_log_error_impl(&dword_1DE1F9000, v7, OS_LOG_TYPE_ERROR, "%32s:%-5d Failure to start underlying hardware for Meta_Timebase: %s", buf, 0x1Cu);
-      if (v12 < 0)
+      if (v11 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -1904,7 +1916,7 @@ void AMCP::Graph::Meta_Timebase::~Meta_Timebase(AMCP::Graph::Meta_Timebase *this
   }
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1916,11 +1928,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 uint64_t std::pair<std::pair<double,std::string> const,std::shared_ptr<AMCP::Graph::Timebase>>::~pair(uint64_t a1)
@@ -1954,7 +1966,7 @@ unint64_t std::hash<std::pair<double,std::string>>::operator()(double *a1)
   return 3864292196u - 0x395B586CA42E166BLL * (v4 ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v5) ^ ((0xC6A4A7935BD1E995 * v5) >> 47))));
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::pair<double,std::string>,std::shared_ptr<AMCP::Graph::Timebase>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::pair<double,std::string>,std::shared_ptr<AMCP::Graph::Timebase>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::pair<double,std::string>,std::shared_ptr<AMCP::Graph::Timebase>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::pair<double,std::string>,std::shared_ptr<AMCP::Graph::Timebase>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -2146,9 +2158,9 @@ uint64_t __copy_helper_block_ea8_48c47_ZTSNSt3__110shared_ptrI19HALS_UCRemotePlu
   return result;
 }
 
-void sub_1DE20EFA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE20EFA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mcp_applesauce::CF::PropertyListRef::~PropertyListRef(va);
   _Unwind_Resume(a1);
 }
@@ -2218,9 +2230,9 @@ void sub_1DE20F34C(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_1DE20F3E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE20F3E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<-[Remote_Driver_Host_Delegate request_config_change:change_action:change_token:]::$_8>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2268,9 +2280,9 @@ void sub_1DE20FA48(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1DE20FB08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE20FB08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<-[Remote_Driver_Host_Delegate object_properties_changed:data:]::$_7>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2311,54 +2323,54 @@ void sub_1DE20FD9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t HALS_UCRemotePlugIn::ObjectSetPropertyData(HALS_UCRemotePlugIn *this, int a2, int a3, const AudioObjectPropertyAddress *a4, uint64_t a5, const void *a6, uint64_t a7, const void *a8)
+void *HALS_UCRemotePlugIn::ObjectSetPropertyData(HALS_UCRemotePlugIn *this, int a2, int a3, const AudioObjectPropertyAddress *a4, uint64_t a5, const void *a6, uint64_t a7, const void *a8)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v10 = *(this + 93);
   *buf = a2;
-  LODWORD(v27) = a3;
-  *(&v27 + 4) = *a4;
+  LODWORD(v26) = a3;
+  *(&v26 + 4) = *a4;
   result = [v10 set_property_data:buf qualifier_data_size:a5 qualifier_data:a6 data_size:a7 data:a8];
   v13 = result;
   if (result)
   {
     if (result == 1768911973)
     {
-      v15 = [*(this + 93) connection_to_driver];
-      [v15 invalidate];
+      v14 = [*(this + 93) connection_to_driver];
+      [v14 invalidate];
     }
 
     v12.i32[0] = a4->mSelector;
-    v16 = vrev64_s16(*&vmovl_u8(v12));
-    v17 = vuzp1_s8(v16, v16);
-    v24 = v17.i32[0];
-    v25 = 0;
-    v17.i32[0] = a4->mScope;
-    v18 = vrev64_s16(*&vmovl_u8(v17));
-    v22 = vuzp1_s8(v18, v18).u32[0];
-    v23 = 0;
-    v21[0] = HIBYTE(v13);
-    v21[1] = BYTE2(v13);
-    v21[2] = BYTE1(v13);
-    v21[3] = v13;
-    v21[4] = 0;
+    v15 = vrev64_s16(*&vmovl_u8(v12));
+    v16 = vuzp1_s8(v15, v15);
+    v23 = v16.i32[0];
+    v24 = 0;
+    v16.i32[0] = a4->mScope;
+    v17 = vrev64_s16(*&vmovl_u8(v16));
+    v21 = vuzp1_s8(v17, v17).u32[0];
+    v22 = 0;
+    v20[0] = HIBYTE(v13);
+    v20[1] = BYTE2(v13);
+    v20[2] = BYTE1(v13);
+    v20[3] = v13;
+    v20[4] = 0;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       mElement = a4->mElement;
       *buf = 136316674;
-      *&v27 = "HALS_UCRemotePlugIn.mm";
-      WORD4(v27) = 1024;
-      *(&v27 + 10) = 1362;
-      HIWORD(v27) = 2080;
-      v28 = &v24;
-      v29 = 2080;
-      v30 = &v22;
-      v31 = 2048;
-      v32 = mElement;
-      v33 = 1024;
-      v34 = v13;
-      v35 = 2080;
-      v36 = v21;
+      *&v26 = "HALS_UCRemotePlugIn.mm";
+      WORD4(v26) = 1024;
+      *(&v26 + 10) = 1362;
+      HIWORD(v26) = 2080;
+      v27 = &v23;
+      v28 = 2080;
+      v29 = &v21;
+      v30 = 2048;
+      v31 = mElement;
+      v32 = 1024;
+      v33 = v13;
+      v34 = 2080;
+      v35 = v20;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  HALS_UCRemotePlugIn::ObjectSetPropertyData: failed:  [%s/%s/%lu], Error: %d (%s)", buf, 0x40u);
     }
 
@@ -2367,58 +2379,57 @@ uint64_t HALS_UCRemotePlugIn::ObjectSetPropertyData(HALS_UCRemotePlugIn *this, i
     exception[2] = v13;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t HALS_UCRemotePlugIn::ObjectGetPropertyData(HALS_UCRemotePlugIn *this, int a2, int a3, const AudioObjectPropertyAddress *a4, uint64_t a5, const void *a6, uint64_t a7, unsigned int *a8, void *a9)
+void *HALS_UCRemotePlugIn::ObjectGetPropertyData(HALS_UCRemotePlugIn *this, int a2, int a3, const AudioObjectPropertyAddress *a4, uint64_t a5, const void *a6, uint64_t a7, unsigned int *a8, void *a9)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v11 = *(this + 93);
   *buf = a2;
-  LODWORD(v28) = a3;
-  *(&v28 + 4) = *a4;
+  LODWORD(v27) = a3;
+  *(&v27 + 4) = *a4;
   result = [v11 get_property_data:buf qualifier_data_size:a5 qualifier_data:a6 data_size:a7 out_data_size:a8 out_data:a9];
   v14 = result;
   if (result)
   {
     if (result == 1768911973)
     {
-      v16 = [*(this + 93) connection_to_driver];
-      [v16 invalidate];
+      v15 = [*(this + 93) connection_to_driver];
+      [v15 invalidate];
     }
 
     v13.i32[0] = a4->mSelector;
-    v17 = vrev64_s16(*&vmovl_u8(v13));
-    v18 = vuzp1_s8(v17, v17);
-    v25 = v18.i32[0];
-    v26 = 0;
-    v18.i32[0] = a4->mScope;
-    v19 = vrev64_s16(*&vmovl_u8(v18));
-    v23 = vuzp1_s8(v19, v19).u32[0];
-    v24 = 0;
-    v22[0] = HIBYTE(v14);
-    v22[1] = BYTE2(v14);
-    v22[2] = BYTE1(v14);
-    v22[3] = v14;
-    v22[4] = 0;
+    v16 = vrev64_s16(*&vmovl_u8(v13));
+    v17 = vuzp1_s8(v16, v16);
+    v24 = v17.i32[0];
+    v25 = 0;
+    v17.i32[0] = a4->mScope;
+    v18 = vrev64_s16(*&vmovl_u8(v17));
+    v22 = vuzp1_s8(v18, v18).u32[0];
+    v23 = 0;
+    v21[0] = HIBYTE(v14);
+    v21[1] = BYTE2(v14);
+    v21[2] = BYTE1(v14);
+    v21[3] = v14;
+    v21[4] = 0;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       mElement = a4->mElement;
       *buf = 136316674;
-      *&v28 = "HALS_UCRemotePlugIn.mm";
-      WORD4(v28) = 1024;
-      *(&v28 + 10) = 1352;
-      HIWORD(v28) = 2080;
-      v29 = &v25;
-      v30 = 2080;
-      v31 = &v23;
-      v32 = 2048;
-      v33 = mElement;
-      v34 = 1024;
-      v35 = v14;
-      v36 = 2080;
-      v37 = v22;
+      *&v27 = "HALS_UCRemotePlugIn.mm";
+      WORD4(v27) = 1024;
+      *(&v27 + 10) = 1352;
+      HIWORD(v27) = 2080;
+      v28 = &v24;
+      v29 = 2080;
+      v30 = &v22;
+      v31 = 2048;
+      v32 = mElement;
+      v33 = 1024;
+      v34 = v14;
+      v35 = 2080;
+      v36 = v21;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  HALS_UCRemotePlugIn::ObjectGetPropertyData: failed:  [%s/%s/%lu], Error: %d (%s)", buf, 0x40u);
     }
 
@@ -2427,59 +2438,58 @@ uint64_t HALS_UCRemotePlugIn::ObjectGetPropertyData(HALS_UCRemotePlugIn *this, i
     exception[2] = v14;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t HALS_UCRemotePlugIn::ObjectGetPropertyDataSize(HALS_UCRemotePlugIn *this, int a2, int a3, const AudioObjectPropertyAddress *a4, uint64_t a5, const void *a6)
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v25 = 0;
+  v36 = *MEMORY[0x1E69E9840];
+  v24 = 0;
   *buf = a2;
   v8 = *(this + 93);
-  LODWORD(v27) = a3;
-  *(&v27 + 4) = *a4;
-  v9 = [v8 get_property_data_size:buf qualifier_data_size:a5 qualifier_data:a6 out_size:&v25];
+  LODWORD(v26) = a3;
+  *(&v26 + 4) = *a4;
+  v9 = [v8 get_property_data_size:buf qualifier_data_size:a5 qualifier_data:a6 out_size:&v24];
   v11 = v9;
   if (v9)
   {
     if (v9 == 1768911973)
     {
-      v14 = [*(this + 93) connection_to_driver];
-      [v14 invalidate];
+      v13 = [*(this + 93) connection_to_driver];
+      [v13 invalidate];
     }
 
     v10.i32[0] = a4->mSelector;
-    v15 = vrev64_s16(*&vmovl_u8(v10));
-    v16 = vuzp1_s8(v15, v15);
-    v23 = v16.i32[0];
-    v24 = 0;
-    v16.i32[0] = a4->mScope;
-    v17 = vrev64_s16(*&vmovl_u8(v16));
-    v21 = vuzp1_s8(v17, v17).u32[0];
-    v22 = 0;
-    v20[0] = HIBYTE(v11);
-    v20[1] = BYTE2(v11);
-    v20[2] = BYTE1(v11);
-    v20[3] = v11;
-    v20[4] = 0;
+    v14 = vrev64_s16(*&vmovl_u8(v10));
+    v15 = vuzp1_s8(v14, v14);
+    v22 = v15.i32[0];
+    v23 = 0;
+    v15.i32[0] = a4->mScope;
+    v16 = vrev64_s16(*&vmovl_u8(v15));
+    v20 = vuzp1_s8(v16, v16).u32[0];
+    v21 = 0;
+    v19[0] = HIBYTE(v11);
+    v19[1] = BYTE2(v11);
+    v19[2] = BYTE1(v11);
+    v19[3] = v11;
+    v19[4] = 0;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       mElement = a4->mElement;
       *buf = 136316674;
-      *&v27 = "HALS_UCRemotePlugIn.mm";
-      WORD4(v27) = 1024;
-      *(&v27 + 10) = 1341;
-      HIWORD(v27) = 2080;
-      v28 = &v23;
-      v29 = 2080;
-      v30 = &v21;
-      v31 = 2048;
-      v32 = mElement;
-      v33 = 1024;
-      v34 = v11;
-      v35 = 2080;
-      v36 = v20;
+      *&v26 = "HALS_UCRemotePlugIn.mm";
+      WORD4(v26) = 1024;
+      *(&v26 + 10) = 1341;
+      HIWORD(v26) = 2080;
+      v27 = &v22;
+      v28 = 2080;
+      v29 = &v20;
+      v30 = 2048;
+      v31 = mElement;
+      v32 = 1024;
+      v33 = v11;
+      v34 = 2080;
+      v35 = v19;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  HALS_UCRemotePlugIn::ObjectGetPropertyDataSize: failed:  [%s/%s/%lu], Error: %d (%s)", buf, 0x40u);
     }
 
@@ -2488,60 +2498,58 @@ uint64_t HALS_UCRemotePlugIn::ObjectGetPropertyDataSize(HALS_UCRemotePlugIn *thi
     exception[2] = v11;
   }
 
-  result = v25;
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return v24;
 }
 
 BOOL HALS_UCRemotePlugIn::ObjectIsPropertySettable(HALS_UCRemotePlugIn *this, int a2, int a3, const AudioObjectPropertyAddress *a4)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v23 = 0;
+  v34 = *MEMORY[0x1E69E9840];
+  v22 = 0;
   v6 = *(this + 93);
   *buf = a2;
-  LODWORD(v25) = a3;
-  *(&v25 + 4) = *a4;
-  v7 = [v6 is_property_settable:buf out_settable:&v23];
+  LODWORD(v24) = a3;
+  *(&v24 + 4) = *a4;
+  v7 = [v6 is_property_settable:buf out_settable:&v22];
   v9 = v7;
   if (v7)
   {
     if (v7 == 1768911973)
     {
-      v12 = [*(this + 93) connection_to_driver];
-      [v12 invalidate];
+      v11 = [*(this + 93) connection_to_driver];
+      [v11 invalidate];
     }
 
     v8.i32[0] = a4->mSelector;
-    v13 = vrev64_s16(*&vmovl_u8(v8));
-    v14 = vuzp1_s8(v13, v13);
-    v21 = v14.i32[0];
-    v22 = 0;
-    v14.i32[0] = a4->mScope;
-    v15 = vrev64_s16(*&vmovl_u8(v14));
-    v19 = vuzp1_s8(v15, v15).u32[0];
-    v20 = 0;
-    v18[0] = HIBYTE(v9);
-    v18[1] = BYTE2(v9);
-    v18[2] = BYTE1(v9);
-    v18[3] = v9;
-    v18[4] = 0;
+    v12 = vrev64_s16(*&vmovl_u8(v8));
+    v13 = vuzp1_s8(v12, v12);
+    v20 = v13.i32[0];
+    v21 = 0;
+    v13.i32[0] = a4->mScope;
+    v14 = vrev64_s16(*&vmovl_u8(v13));
+    v18 = vuzp1_s8(v14, v14).u32[0];
+    v19 = 0;
+    v17[0] = HIBYTE(v9);
+    v17[1] = BYTE2(v9);
+    v17[2] = BYTE1(v9);
+    v17[3] = v9;
+    v17[4] = 0;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       mElement = a4->mElement;
       *buf = 136316674;
-      *&v25 = "HALS_UCRemotePlugIn.mm";
-      WORD4(v25) = 1024;
-      *(&v25 + 10) = 1329;
-      HIWORD(v25) = 2080;
-      v26 = &v21;
-      v27 = 2080;
-      v28 = &v19;
-      v29 = 2048;
-      v30 = mElement;
-      v31 = 1024;
-      v32 = v9;
-      v33 = 2080;
-      v34 = v18;
+      *&v24 = "HALS_UCRemotePlugIn.mm";
+      WORD4(v24) = 1024;
+      *(&v24 + 10) = 1329;
+      HIWORD(v24) = 2080;
+      v25 = &v20;
+      v26 = 2080;
+      v27 = &v18;
+      v28 = 2048;
+      v29 = mElement;
+      v30 = 1024;
+      v31 = v9;
+      v32 = 2080;
+      v33 = v17;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  HALS_UCRemotePlugIn::ObjectIsPropertySettable: failed:  [%s/%s/%lu], Error: %d (%s)", buf, 0x40u);
     }
 
@@ -2550,9 +2558,7 @@ BOOL HALS_UCRemotePlugIn::ObjectIsPropertySettable(HALS_UCRemotePlugIn *this, in
     exception[2] = v9;
   }
 
-  result = v23 != 0;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return v22 != 0;
 }
 
 BOOL HALS_UCRemotePlugIn::ObjectHasProperty(HALS_UCRemotePlugIn *this, int a2, int a3, const AudioObjectPropertyAddress *a4)
@@ -2566,18 +2572,21 @@ BOOL HALS_UCRemotePlugIn::ObjectHasProperty(HALS_UCRemotePlugIn *this, int a2, i
   return v10 && v5 == 0;
 }
 
-uint64_t HALS_UCRemotePlugIn::Do_WriteMix(uint64_t a1, unsigned int a2, int a3, unsigned int a4, unsigned int a5, AMCP::Portal::IPC::IO_Sender *a6, uint64_t a7)
+uint64_t HALS_UCRemotePlugIn::Do_WriteMix(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, AMCP::Portal::IPC::IO_Sender *a6, uint64_t a7)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v10 = a4;
+  v11 = a3;
+  v12 = a2;
+  v23 = *MEMORY[0x1E69E9840];
   v14 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>((a1 + 832), a2, a4);
   if (!v14)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "HALS_UCRemotePlugIn.mm";
-      v22 = 1024;
-      v23 = 1289;
+      v20 = "HALS_UCRemotePlugIn.mm";
+      v21 = 1024;
+      v22 = 1289;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", buf, 0x12u);
     }
 
@@ -2587,10 +2596,33 @@ uint64_t HALS_UCRemotePlugIn::Do_WriteMix(uint64_t a1, unsigned int a2, int a3, 
   }
 
   v15 = v14;
-  buffer_type = HALS_UCRemotePlugIn::get_buffer_type(a1, a2, a3, a4, *a7);
-  result = AMCP::Portal::IPC::IO_Sender::do_io_operation(v15[3], a3, 0x72697465, a6, a5, buffer_type, *(a7 + 8), 0, 0);
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  buffer_type = HALS_UCRemotePlugIn::get_buffer_type(a1, v12, v11, v10, *a7);
+  return AMCP::Portal::IPC::IO_Sender::do_io_operation(v15[3], v11, 0x72697465, a6, a5, buffer_type, *(a7 + 8), 0, 0);
+}
+
+void sub_1DE210864(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, __int16 a12, __int16 a13, int a14, uint64_t a15)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315906;
+      *(&buf + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 1296;
+      a13 = 1024;
+      a14 = v16;
+      LOWORD(a15) = 1024;
+      *(&a15 + 2) = v15;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send Do_WriteMix message for device id %u, client id %u", &buf, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE21078CLL);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(void *a1, unsigned int a2, unsigned int a3)
@@ -2663,24 +2695,24 @@ uint64_t *std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messeng
 uint64_t HALS_UCRemotePlugIn::get_buffer_type(uint64_t a1, int a2, int a3, int a4, uint64_t a5)
 {
   v7 = 0;
-  v17 = *MEMORY[0x1E69E9840];
-  v11[0] = a2;
-  v11[1] = a4;
-  v11[2] = a3;
-  v11[3] = 1;
-  v11[4] = a2;
-  v11[5] = 0;
-  v11[6] = a3;
-  v11[7] = 2;
-  v11[8] = a2;
-  v12 = 0;
-  v13 = 3;
-  v14 = a2;
-  v15 = 0;
-  v16 = 4;
+  v16 = *MEMORY[0x1E69E9840];
+  v10[0] = a2;
+  v10[1] = a4;
+  v10[2] = a3;
+  v10[3] = 1;
+  v10[4] = a2;
+  v10[5] = 0;
+  v10[6] = a3;
+  v10[7] = 2;
+  v10[8] = a2;
+  v11 = 0;
+  v12 = 3;
+  v13 = a2;
+  v14 = 0;
+  v15 = 4;
   while (1)
   {
-    v8 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::__unordered_map_hasher<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>>>::find<AMCP::Portal::IPC::shared_buffer_info_t>((a1 + 872), &v11[v7]);
+    v8 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::__unordered_map_hasher<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>>>::find<AMCP::Portal::IPC::shared_buffer_info_t>((a1 + 872), &v10[v7]);
     if (v8)
     {
       if (v8[7] == a5)
@@ -2692,15 +2724,11 @@ uint64_t HALS_UCRemotePlugIn::get_buffer_type(uint64_t a1, int a2, int a3, int a
     v7 += 4;
     if (v7 == 16)
     {
-      result = 0;
-      goto LABEL_7;
+      return 0;
     }
   }
 
-  result = v11[v7 + 3];
-LABEL_7:
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return v10[v7 + 3];
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::__unordered_map_hasher<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>>>::find<AMCP::Portal::IPC::shared_buffer_info_t>(void *a1, unsigned int *a2)
@@ -2770,17 +2798,17 @@ uint64_t *std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::shared_buf
 
 uint64_t HALS_UCRemotePlugIn::WillDo_WriteMix(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, BOOL *a4)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
   if (!v5)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "HALS_UCRemotePlugIn.mm";
-      v11 = 1024;
-      v12 = 1264;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "HALS_UCRemotePlugIn.mm";
+      v10 = 1024;
+      v11 = 1264;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v8, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -2788,23 +2816,46 @@ uint64_t HALS_UCRemotePlugIn::WillDo_WriteMix(HALS_UCRemotePlugIn *this, unsigne
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  result = AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v5[3], kAudioServerPlugInIOOperationWriteMix, a4, &v9);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v5[3], kAudioServerPlugInIOOperationWriteMix, a4, &v8);
+}
+
+void sub_1DE210DB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 1270;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send WillDo_WriteMix message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE210CE4);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t HALS_UCRemotePlugIn::Do_ConvertMix(uint64_t a1, unsigned int a2, int a3, unsigned int a4, unsigned int a5, AMCP::Portal::IPC::IO_Sender *a6, uint64_t a7, uint64_t a8)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v16 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>((a1 + 832), a2, a4);
   if (!v16)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "HALS_UCRemotePlugIn.mm";
-      v25 = 1024;
-      v26 = 1237;
+      v23 = "HALS_UCRemotePlugIn.mm";
+      v24 = 1024;
+      v25 = 1237;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", buf, 0x12u);
     }
 
@@ -2816,24 +2867,47 @@ uint64_t HALS_UCRemotePlugIn::Do_ConvertMix(uint64_t a1, unsigned int a2, int a3
   v17 = v16;
   buffer_type = HALS_UCRemotePlugIn::get_buffer_type(a1, a2, a3, a4, *a7);
   v19 = HALS_UCRemotePlugIn::get_buffer_type(a1, a2, a3, a4, *a8);
-  result = AMCP::Portal::IPC::IO_Sender::do_io_operation(v17[3], a3, 0x636D6978, a6, a5, buffer_type, *(a7 + 8), v19, *(a8 + 8));
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::do_io_operation(v17[3], a3, 0x636D6978, a6, a5, buffer_type, *(a7 + 8), v19, *(a8 + 8));
+}
+
+void sub_1DE211018(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, __int16 a12, __int16 a13, int a14, uint64_t a15)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315906;
+      *(&buf + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 1245;
+      a13 = 1024;
+      a14 = v16;
+      LOWORD(a15) = 1024;
+      *(&a15 + 2) = v15;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send Do_ConvertMix message for device id %u, client id %u", &buf, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE210F3CLL);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t HALS_UCRemotePlugIn::WillDo_ConvertMix(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, BOOL *a4, BOOL *a5)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v7 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
   if (!v7)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "HALS_UCRemotePlugIn.mm";
-      v13 = 1024;
-      v14 = 1213;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v11, 0x12u);
+      v10 = 136315394;
+      v11 = "HALS_UCRemotePlugIn.mm";
+      v12 = 1024;
+      v13 = 1213;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v10, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -2841,23 +2915,47 @@ uint64_t HALS_UCRemotePlugIn::WillDo_ConvertMix(HALS_UCRemotePlugIn *this, unsig
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  result = AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v7[3], kAudioServerPlugInIOOperationConvertMix, a4, a5);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v7[3], kAudioServerPlugInIOOperationConvertMix, a4, a5);
+}
+
+void sub_1DE211200(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
+{
+  if (a2)
+  {
+    __cxa_free_exception(v15);
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 1218;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send WillDo_ConvertMix message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE211130);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t HALS_UCRemotePlugIn::Do_ProcessMix(uint64_t a1, unsigned int a2, int a3, unsigned int a4, unsigned int a5, AMCP::Portal::IPC::IO_Sender *a6, uint64_t a7, uint64_t a8)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v16 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>((a1 + 832), a2, a4);
   if (!v16)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "HALS_UCRemotePlugIn.mm";
-      v25 = 1024;
-      v26 = 1186;
+      v23 = "HALS_UCRemotePlugIn.mm";
+      v24 = 1024;
+      v25 = 1186;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", buf, 0x12u);
     }
 
@@ -2869,24 +2967,47 @@ uint64_t HALS_UCRemotePlugIn::Do_ProcessMix(uint64_t a1, unsigned int a2, int a3
   v17 = v16;
   buffer_type = HALS_UCRemotePlugIn::get_buffer_type(a1, a2, a3, a4, *a7);
   v19 = HALS_UCRemotePlugIn::get_buffer_type(a1, a2, a3, a4, *a8);
-  result = AMCP::Portal::IPC::IO_Sender::do_io_operation(v17[3], a3, 0x706D6978, a6, a5, buffer_type, *(a7 + 8), v19, *(a8 + 8));
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::do_io_operation(v17[3], a3, 0x706D6978, a6, a5, buffer_type, *(a7 + 8), v19, *(a8 + 8));
+}
+
+void sub_1DE211460(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, __int16 a12, __int16 a13, int a14, uint64_t a15)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315906;
+      *(&buf + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 1194;
+      a13 = 1024;
+      a14 = v16;
+      LOWORD(a15) = 1024;
+      *(&a15 + 2) = v15;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send Do_ProcessMix message for device id %u, client id %u", &buf, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE211384);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t HALS_UCRemotePlugIn::WillDo_ProcessMix(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, BOOL *a4, BOOL *a5)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v7 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
   if (!v7)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "HALS_UCRemotePlugIn.mm";
-      v13 = 1024;
-      v14 = 1162;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v11, 0x12u);
+      v10 = 136315394;
+      v11 = "HALS_UCRemotePlugIn.mm";
+      v12 = 1024;
+      v13 = 1162;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v10, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -2894,23 +3015,47 @@ uint64_t HALS_UCRemotePlugIn::WillDo_ProcessMix(HALS_UCRemotePlugIn *this, unsig
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  result = AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v7[3], kAudioServerPlugInIOOperationProcessMix, a4, a5);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v7[3], kAudioServerPlugInIOOperationProcessMix, a4, a5);
+}
+
+void sub_1DE211648(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
+{
+  if (a2)
+  {
+    __cxa_free_exception(v15);
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 1167;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send WillDo_ProcessMix message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE211578);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t HALS_UCRemotePlugIn::Do_MixOutput(uint64_t a1, unsigned int a2, int a3, unsigned int a4, unsigned int a5, AMCP::Portal::IPC::IO_Sender *a6, uint64_t a7)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v14 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>((a1 + 832), a2, a4);
   if (!v14)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "HALS_UCRemotePlugIn.mm";
-      v22 = 1024;
-      v23 = 1136;
+      v20 = "HALS_UCRemotePlugIn.mm";
+      v21 = 1024;
+      v22 = 1136;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", buf, 0x12u);
     }
 
@@ -2921,24 +3066,47 @@ uint64_t HALS_UCRemotePlugIn::Do_MixOutput(uint64_t a1, unsigned int a2, int a3,
 
   v15 = v14;
   buffer_type = HALS_UCRemotePlugIn::get_buffer_type(a1, a2, a3, a4, *a7);
-  result = AMCP::Portal::IPC::IO_Sender::do_io_operation(v15[3], a3, 0x6D69786F, a6, a5, buffer_type, *(a7 + 8), 0, 0);
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::do_io_operation(v15[3], a3, 0x6D69786F, a6, a5, buffer_type, *(a7 + 8), 0, 0);
+}
+
+void sub_1DE21187C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, __int16 a12, __int16 a13, int a14, uint64_t a15)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315906;
+      *(&buf + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 1143;
+      a13 = 1024;
+      a14 = v16;
+      LOWORD(a15) = 1024;
+      *(&a15 + 2) = v15;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send Do_MixOutput message for device id %u, client id %u", &buf, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE2117A4);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t HALS_UCRemotePlugIn::WillDo_MixOutput(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, BOOL *a4)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
   if (!v5)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "HALS_UCRemotePlugIn.mm";
-      v11 = 1024;
-      v12 = 1111;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "HALS_UCRemotePlugIn.mm";
+      v10 = 1024;
+      v11 = 1111;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v8, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -2946,23 +3114,46 @@ uint64_t HALS_UCRemotePlugIn::WillDo_MixOutput(HALS_UCRemotePlugIn *this, unsign
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  result = AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v5[3], kAudioServerPlugInIOOperationMixOutput, a4, &v9);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v5[3], kAudioServerPlugInIOOperationMixOutput, a4, &v8);
+}
+
+void sub_1DE211A60(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 1117;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send WillDo_MixOutput message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE211990);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t HALS_UCRemotePlugIn::Do_ProcessOutput(uint64_t a1, unsigned int a2, int a3, unsigned int a4, unsigned int a5, AMCP::Portal::IPC::IO_Sender *a6, uint64_t a7, uint64_t a8)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v16 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>((a1 + 832), a2, a4);
   if (!v16)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "HALS_UCRemotePlugIn.mm";
-      v25 = 1024;
-      v26 = 1084;
+      v23 = "HALS_UCRemotePlugIn.mm";
+      v24 = 1024;
+      v25 = 1084;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", buf, 0x12u);
     }
 
@@ -2974,24 +3165,47 @@ uint64_t HALS_UCRemotePlugIn::Do_ProcessOutput(uint64_t a1, unsigned int a2, int
   v17 = v16;
   buffer_type = HALS_UCRemotePlugIn::get_buffer_type(a1, a2, a3, a4, *a7);
   v19 = HALS_UCRemotePlugIn::get_buffer_type(a1, a2, a3, a4, *a8);
-  result = AMCP::Portal::IPC::IO_Sender::do_io_operation(v17[3], a3, 0x706F7574, a6, a5, buffer_type, *(a7 + 8), v19, *(a8 + 8));
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::do_io_operation(v17[3], a3, 0x706F7574, a6, a5, buffer_type, *(a7 + 8), v19, *(a8 + 8));
+}
+
+void sub_1DE211CC4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, __int16 a12, __int16 a13, int a14, uint64_t a15)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315906;
+      *(&buf + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 1092;
+      a13 = 1024;
+      a14 = v16;
+      LOWORD(a15) = 1024;
+      *(&a15 + 2) = v15;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send Do_ProcessOutput message for device id %u, client id %u", &buf, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE211BE8);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t HALS_UCRemotePlugIn::WillDo_ProcessOutput(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, BOOL *a4, BOOL *a5)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v7 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
   if (!v7)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "HALS_UCRemotePlugIn.mm";
-      v13 = 1024;
-      v14 = 1060;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v11, 0x12u);
+      v10 = 136315394;
+      v11 = "HALS_UCRemotePlugIn.mm";
+      v12 = 1024;
+      v13 = 1060;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v10, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -2999,23 +3213,47 @@ uint64_t HALS_UCRemotePlugIn::WillDo_ProcessOutput(HALS_UCRemotePlugIn *this, un
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  result = AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v7[3], kAudioServerPlugInIOOperationProcessOutput, a4, a5);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v7[3], kAudioServerPlugInIOOperationProcessOutput, a4, a5);
+}
+
+void sub_1DE211EAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
+{
+  if (a2)
+  {
+    __cxa_free_exception(v15);
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 1065;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send WillDo_ProcessOutput message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE211DDCLL);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t HALS_UCRemotePlugIn::Do_ProcessInput(uint64_t a1, unsigned int a2, int a3, unsigned int a4, unsigned int a5, AMCP::Portal::IPC::IO_Sender *a6, uint64_t a7, uint64_t a8)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v16 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>((a1 + 832), a2, a4);
   if (!v16)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "HALS_UCRemotePlugIn.mm";
-      v25 = 1024;
-      v26 = 1033;
+      v23 = "HALS_UCRemotePlugIn.mm";
+      v24 = 1024;
+      v25 = 1033;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", buf, 0x12u);
     }
 
@@ -3027,24 +3265,47 @@ uint64_t HALS_UCRemotePlugIn::Do_ProcessInput(uint64_t a1, unsigned int a2, int 
   v17 = v16;
   buffer_type = HALS_UCRemotePlugIn::get_buffer_type(a1, a2, a3, a4, *a7);
   v19 = HALS_UCRemotePlugIn::get_buffer_type(a1, a2, a3, a4, *a8);
-  result = AMCP::Portal::IPC::IO_Sender::do_io_operation(v17[3], a3, 0x70696E70, a6, a5, buffer_type, *(a7 + 8), v19, *(a8 + 8));
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::do_io_operation(v17[3], a3, 0x70696E70, a6, a5, buffer_type, *(a7 + 8), v19, *(a8 + 8));
+}
+
+void sub_1DE21210C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, __int16 a12, __int16 a13, int a14, uint64_t a15)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315906;
+      *(&buf + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 1041;
+      a13 = 1024;
+      a14 = v16;
+      LOWORD(a15) = 1024;
+      *(&a15 + 2) = v15;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send Do_ProcessOutput message for device id %u, client id %u", &buf, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE212030);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t HALS_UCRemotePlugIn::WillDo_ProcessInput(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, BOOL *a4, BOOL *a5)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v7 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
   if (!v7)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "HALS_UCRemotePlugIn.mm";
-      v13 = 1024;
-      v14 = 1009;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v11, 0x12u);
+      v10 = 136315394;
+      v11 = "HALS_UCRemotePlugIn.mm";
+      v12 = 1024;
+      v13 = 1009;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v10, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -3052,23 +3313,47 @@ uint64_t HALS_UCRemotePlugIn::WillDo_ProcessInput(HALS_UCRemotePlugIn *this, uns
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  result = AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v7[3], kAudioServerPlugInIOOperationProcessInput, a4, a5);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v7[3], kAudioServerPlugInIOOperationProcessInput, a4, a5);
+}
+
+void sub_1DE2122F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
+{
+  if (a2)
+  {
+    __cxa_free_exception(v15);
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 1014;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send WillDo_ProcessInput message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE212224);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t HALS_UCRemotePlugIn::Do_ConvertInput(uint64_t a1, unsigned int a2, int a3, unsigned int a4, unsigned int a5, AMCP::Portal::IPC::IO_Sender *a6, uint64_t a7, uint64_t a8)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v16 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>((a1 + 832), a2, a4);
   if (!v16)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "HALS_UCRemotePlugIn.mm";
-      v25 = 1024;
-      v26 = 982;
+      v23 = "HALS_UCRemotePlugIn.mm";
+      v24 = 1024;
+      v25 = 982;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", buf, 0x12u);
     }
 
@@ -3080,24 +3365,47 @@ uint64_t HALS_UCRemotePlugIn::Do_ConvertInput(uint64_t a1, unsigned int a2, int 
   v17 = v16;
   buffer_type = HALS_UCRemotePlugIn::get_buffer_type(a1, a2, a3, a4, *a7);
   v19 = HALS_UCRemotePlugIn::get_buffer_type(a1, a2, a3, a4, *a8);
-  result = AMCP::Portal::IPC::IO_Sender::do_io_operation(v17[3], a3, 0x63696E70, a6, a5, buffer_type, *(a7 + 8), v19, *(a8 + 8));
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::do_io_operation(v17[3], a3, 0x63696E70, a6, a5, buffer_type, *(a7 + 8), v19, *(a8 + 8));
+}
+
+void sub_1DE212554(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, __int16 a12, __int16 a13, int a14, uint64_t a15)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315906;
+      *(&buf + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 990;
+      a13 = 1024;
+      a14 = v16;
+      LOWORD(a15) = 1024;
+      *(&a15 + 2) = v15;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send Do_ProcessOutput message for device id %u, client id %u", &buf, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE212478);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t HALS_UCRemotePlugIn::WillDo_ConvertInput(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, BOOL *a4, BOOL *a5)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v7 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
   if (!v7)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315394;
-      v12 = "HALS_UCRemotePlugIn.mm";
-      v13 = 1024;
-      v14 = 958;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v11, 0x12u);
+      v10 = 136315394;
+      v11 = "HALS_UCRemotePlugIn.mm";
+      v12 = 1024;
+      v13 = 958;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v10, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -3105,23 +3413,47 @@ uint64_t HALS_UCRemotePlugIn::WillDo_ConvertInput(HALS_UCRemotePlugIn *this, uns
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  result = AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v7[3], kAudioServerPlugInIOOperationConvertInput, a4, a5);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v7[3], kAudioServerPlugInIOOperationConvertInput, a4, a5);
+}
+
+void sub_1DE21273C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
+{
+  if (a2)
+  {
+    __cxa_free_exception(v15);
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 963;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send WillDo_ConvertInput message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE21266CLL);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t HALS_UCRemotePlugIn::Do_ReadInput(uint64_t a1, unsigned int a2, int a3, unsigned int a4, unsigned int a5, AMCP::Portal::IPC::IO_Sender *a6, uint64_t a7)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v14 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>((a1 + 832), a2, a4);
   if (!v14)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "HALS_UCRemotePlugIn.mm";
-      v22 = 1024;
-      v23 = 911;
+      v20 = "HALS_UCRemotePlugIn.mm";
+      v21 = 1024;
+      v22 = 911;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", buf, 0x12u);
     }
 
@@ -3132,24 +3464,47 @@ uint64_t HALS_UCRemotePlugIn::Do_ReadInput(uint64_t a1, unsigned int a2, int a3,
 
   v15 = v14;
   buffer_type = HALS_UCRemotePlugIn::get_buffer_type(a1, a2, a3, a4, *a7);
-  result = AMCP::Portal::IPC::IO_Sender::do_io_operation(v15[3], a3, 0x72656164, a6, a5, buffer_type, *(a7 + 8), 0, 0);
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::do_io_operation(v15[3], a3, 0x72656164, a6, a5, buffer_type, *(a7 + 8), 0, 0);
+}
+
+void sub_1DE212998(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, __int16 a12, __int16 a13, int a14, uint64_t a15)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 136315906;
+      *(&buf + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 918;
+      a13 = 1024;
+      a14 = v16;
+      LOWORD(a15) = 1024;
+      *(&a15 + 2) = v15;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send Do_ReadInput message for device id %u, client id %u", &buf, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE2128C0);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t HALS_UCRemotePlugIn::WillDo_ReadInput(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, BOOL *a4)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
   if (!v5)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "HALS_UCRemotePlugIn.mm";
-      v11 = 1024;
-      v12 = 886;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "HALS_UCRemotePlugIn.mm";
+      v10 = 1024;
+      v11 = 886;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v8, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -3157,24 +3512,47 @@ uint64_t HALS_UCRemotePlugIn::WillDo_ReadInput(HALS_UCRemotePlugIn *this, unsign
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  result = AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v5[3], kAudioServerPlugInIOOperationReadInput, a4, &v9);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v5[3], kAudioServerPlugInIOOperationReadInput, a4, &v8);
+}
+
+void sub_1DE212B7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 892;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send WillDo_ReadInput message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE212AACLL);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t HALS_UCRemotePlugIn::End_IOCycle(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, AudioServerPlugInIOCycleInfo *a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
   if (!v5)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "HALS_UCRemotePlugIn.mm";
-      v12 = 1024;
-      v13 = 868;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "HALS_UCRemotePlugIn.mm";
+      v11 = 1024;
+      v12 = 868;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v9, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -3182,24 +3560,48 @@ uint64_t HALS_UCRemotePlugIn::End_IOCycle(HALS_UCRemotePlugIn *this, unsigned in
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  result = AMCP::Portal::IPC::IO_Sender::end_io_operation(v5[3], 1668899692, a4, v6);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::end_io_operation(v5[3], 1668899692, a4, v6);
+}
+
+void sub_1DE212D54(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
+{
+  if (a2)
+  {
+    __cxa_free_exception(v15);
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 873;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send End_IOCycle message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE212C84);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t HALS_UCRemotePlugIn::Begin_IOCycle(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, AudioServerPlugInIOCycleInfo *a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
   if (!v5)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "HALS_UCRemotePlugIn.mm";
-      v12 = 1024;
-      v13 = 850;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "HALS_UCRemotePlugIn.mm";
+      v11 = 1024;
+      v12 = 850;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v9, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -3207,24 +3609,48 @@ uint64_t HALS_UCRemotePlugIn::Begin_IOCycle(HALS_UCRemotePlugIn *this, unsigned 
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  result = AMCP::Portal::IPC::IO_Sender::begin_io_operation(v5[3], 1668899692, a4, v6);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::begin_io_operation(v5[3], 1668899692, a4, v6);
+}
+
+void sub_1DE212F28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
+{
+  if (a2)
+  {
+    __cxa_free_exception(v15);
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 855;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send Begin_IOCycle message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE212E58);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t HALS_UCRemotePlugIn::WillDo_IOCycle(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, BOOL *a4)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
   if (!v5)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "HALS_UCRemotePlugIn.mm";
-      v11 = 1024;
-      v12 = 831;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "HALS_UCRemotePlugIn.mm";
+      v10 = 1024;
+      v11 = 831;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v8, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -3232,24 +3658,47 @@ uint64_t HALS_UCRemotePlugIn::WillDo_IOCycle(HALS_UCRemotePlugIn *this, unsigned
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  result = AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v5[3], kAudioServerPlugInIOOperationCycle, a4, &v9);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v5[3], kAudioServerPlugInIOOperationCycle, a4, &v8);
+}
+
+void sub_1DE213100(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 837;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send WillDo_IOCycle message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE213030);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t HALS_UCRemotePlugIn::End_IOThread(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, AudioServerPlugInIOCycleInfo *a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
   if (!v5)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "HALS_UCRemotePlugIn.mm";
-      v12 = 1024;
-      v13 = 813;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "HALS_UCRemotePlugIn.mm";
+      v11 = 1024;
+      v12 = 813;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v9, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -3257,37 +3706,36 @@ uint64_t HALS_UCRemotePlugIn::End_IOThread(HALS_UCRemotePlugIn *this, unsigned i
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  result = AMCP::Portal::IPC::IO_Sender::end_io_operation(v5[3], 1953002084, a4, v6);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::end_io_operation(v5[3], 1953002084, a4, v6);
+}
+
+void sub_1DE2132D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
+{
+  if (a2)
+  {
+    __cxa_free_exception(v15);
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 818;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send End_IOThread message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE213208);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t HALS_UCRemotePlugIn::Begin_IOThread(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, AudioServerPlugInIOCycleInfo *a4)
-{
-  v14 = *MEMORY[0x1E69E9840];
-  v5 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
-  if (!v5)
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      v10 = 136315394;
-      v11 = "HALS_UCRemotePlugIn.mm";
-      v12 = 1024;
-      v13 = 795;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v10, 0x12u);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "could not find io sender");
-    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  result = AMCP::Portal::IPC::IO_Sender::begin_io_operation(v5[3], 1953002084, a4, v6);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t HALS_UCRemotePlugIn::WillDo_IOThread(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, BOOL *a4)
 {
   v13 = *MEMORY[0x1E69E9840];
   v5 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
@@ -3298,7 +3746,7 @@ uint64_t HALS_UCRemotePlugIn::WillDo_IOThread(HALS_UCRemotePlugIn *this, unsigne
       v9 = 136315394;
       v10 = "HALS_UCRemotePlugIn.mm";
       v11 = 1024;
-      v12 = 776;
+      v12 = 795;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v9, 0x12u);
     }
 
@@ -3307,24 +3755,96 @@ uint64_t HALS_UCRemotePlugIn::WillDo_IOThread(HALS_UCRemotePlugIn *this, unsigne
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  result = AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v5[3], kAudioServerPlugInIOOperationThread, a4, &v9);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return AMCP::Portal::IPC::IO_Sender::begin_io_operation(v5[3], 1953002084, a4, v6);
 }
 
-uint64_t HALS_UCRemotePlugIn::GetZeroTimeStamp(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, double *a4, unint64_t *a5, unint64_t *a6)
+void sub_1DE2134AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
 {
-  v64 = *MEMORY[0x1E69E9840];
+  if (a2)
+  {
+    __cxa_free_exception(v15);
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 800;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send Begin_IOThread message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE2133DCLL);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t HALS_UCRemotePlugIn::WillDo_IOThread(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, BOOL *a4)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  v5 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
+  if (!v5)
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v8 = 136315394;
+      v9 = "HALS_UCRemotePlugIn.mm";
+      v10 = 1024;
+      v11 = 776;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender", &v8, 0x12u);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "could not find io sender");
+    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  return AMCP::Portal::IPC::IO_Sender::will_do_io_operation(v5[3], kAudioServerPlugInIOOperationThread, a4, &v8);
+}
+
+void sub_1DE213684(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(exception_object);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 782;
+      a11 = 1024;
+      a12 = v14;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to send WillDo_IOThread message for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE2135B4);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+AMCP::Log::AMCP_Scope_Registry *HALS_UCRemotePlugIn::GetZeroTimeStamp(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, double *a4, unint64_t *a5, unint64_t *a6)
+{
+  v63 = *MEMORY[0x1E69E9840];
   v9 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
   if (!v9)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      *v45 = 136315394;
-      *&v45[4] = "HALS_UCRemotePlugIn.mm";
-      v46 = 1024;
-      *v47 = 758;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender for device id", v45, 0x12u);
+      *v44 = 136315394;
+      *&v44[4] = "HALS_UCRemotePlugIn.mm";
+      v45 = 1024;
+      *v46 = 758;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Could not find io sender for device id", v44, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -3337,9 +3857,10 @@ uint64_t HALS_UCRemotePlugIn::GetZeroTimeStamp(HALS_UCRemotePlugIn *this, unsign
   v12 = atomic_load((v11 + 65));
   if ((v12 & 1) == 0)
   {
-    *&v45[8] = 0;
-    *&v47[2] = 0;
-    v48 = 0;
+    *&v44[8] = 0;
+    *&v46[2] = 0;
+    v47 = 0;
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
@@ -3354,74 +3875,72 @@ uint64_t HALS_UCRemotePlugIn::GetZeroTimeStamp(HALS_UCRemotePlugIn *this, unsign
     v60 = 0u;
     v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
-    *v45 = 3;
-    *(&v62 + 4) = *(v11 + 48);
-    LODWORD(v31) = 0;
-    v35 = 0;
-    v32 = 0;
-    v33 = 0;
-    *(&v31 + 1) = 0;
+    *v44 = 3;
+    *(&v61 + 4) = *(v11 + 48);
+    LODWORD(v30) = 0;
     v34 = 0;
-    v13 = AMCP::Portal::IPC::IO_Sender::send_and_receive_io_message(v11, v45, &v31, &AMCP::Portal::IPC::k_default_timeout);
+    v31 = 0;
+    v32 = 0;
+    *(&v30 + 1) = 0;
+    v33 = 0;
+    v13 = AMCP::Portal::IPC::IO_Sender::send_and_receive_io_message(v11, v44, &v30, &AMCP::Portal::IPC::k_default_timeout);
     if (v13 == 1768911973)
     {
-      v17 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-      if ((v17 & 1) == 0)
+      v16 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+      if ((v16 & 1) == 0)
       {
         AMCP::Log::AMCP_Scope_Registry::initialize(v13);
       }
 
-      v19 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-      v18 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-      if (v18)
+      v18 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+      v17 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+      if (v17)
       {
-        atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
-        v20 = *v19;
-        std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+        atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+        v19 = *v18;
+        std::__shared_weak_count::__release_shared[abi:ne200100](v17);
       }
 
       else
       {
-        v20 = *v19;
+        v19 = *v18;
       }
 
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v37 = "IO_Sender.cpp";
-        v38 = 1024;
-        v39 = 335;
-        v40 = 2080;
-        v41 = "status == k_io_message_terminate_error";
-        _os_log_error_impl(&dword_1DE1F9000, v20, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: %s IO Sender timed out sending message", buf, 0x1Cu);
+        v36 = "IO_Sender.cpp";
+        v37 = 1024;
+        v38 = 335;
+        v39 = 2080;
+        v40 = "status == k_io_message_terminate_error";
+        _os_log_error_impl(&dword_1DE1F9000, v19, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: %s IO Sender timed out sending message", buf, 0x1Cu);
       }
 
-      AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v30);
+      AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v29);
       __cxa_allocate_exception(0x40uLL);
-      std::runtime_error::runtime_error(&v23, "IO Sender timed out sending message");
-      std::runtime_error::runtime_error(&v24, &v23);
+      std::runtime_error::runtime_error(&v22, "IO Sender timed out sending message");
+      std::runtime_error::runtime_error(&v23, &v22);
+      v25 = 0;
       v26 = 0;
       v27 = 0;
-      v28 = 0;
-      v29 = -1;
-      v24.__vftable = &unk_1F5992170;
-      v25 = &unk_1F5992198;
-      boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v24);
-      v42 = "OSStatus AMCP::Portal::IPC::IO_Sender::get_zero_time_stamp(Float64 &, UInt64 &, UInt64 &)";
-      v43 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/ASP/Portal/Server/IO_Sender.cpp";
-      v44 = 335;
-      applesauce::backtrace::snapshot_N<64>::snapshot_N(&v22);
+      v28 = -1;
+      v23.__vftable = &unk_1F5992170;
+      v24 = &unk_1F5992198;
+      boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v23);
+      v41 = "OSStatus AMCP::Portal::IPC::IO_Sender::get_zero_time_stamp(Float64 &, UInt64 &, UInt64 &)";
+      v42 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/ASP/Portal/Server/IO_Sender.cpp";
+      v43 = 335;
+      applesauce::backtrace::snapshot_N<64>::snapshot_N(&v21);
     }
 
-    *a4 = *(&v31 + 1);
-    v14 = v33;
-    *a5 = v32;
+    *a4 = *(&v30 + 1);
+    v14 = v32;
+    *a5 = v31;
     *a6 = v14;
-    v10 = v13;
+    return v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -3440,26 +3959,41 @@ void sub_1DE213AF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t HALS_UCRemotePlugIn::Stop(HALS_UCRemotePlugIn *this, uint64_t a2, uint64_t a3)
+void sub_1DE213CC0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __int16 a10, __int16 a11, int a12)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  result = [*(this + 93) stop_io:a2 client_info:a3];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315650;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 745;
+      a11 = 1024;
+      a12 = v12;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to stop IO sender for device id %u", &a9, 0x18u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE213C94);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t HALS_UCRemotePlugIn::Start(HALS_UCRemotePlugIn *this, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([*(this + 93) start_io:a2 client_info:a3])
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "HALS_UCRemotePlugIn.mm";
-      v9 = 1024;
-      v10 = 722;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed calling start_io on remote driver", &v7, 0x12u);
+      v6 = 136315394;
+      v7 = "HALS_UCRemotePlugIn.mm";
+      v8 = 1024;
+      v9 = 722;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed calling start_io on remote driver", &v6, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -3468,9 +4002,7 @@ uint64_t HALS_UCRemotePlugIn::Start(HALS_UCRemotePlugIn *this, uint64_t a2, uint
   }
 
   [*(this + 93) retain_reply_for_process_boost];
-  result = 0;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 void sub_1DE213E58(_Unwind_Exception *exception_object, int a2)
@@ -3488,7 +4020,7 @@ void sub_1DE213E58(_Unwind_Exception *exception_object, int a2)
 
 uint64_t HALS_UCRemotePlugIn::Unregister_IOThread(HALS_UCRemotePlugIn *this, uint64_t a2, uint64_t a3)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(this + 196);
   v6 = (this + 832);
   v7 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
@@ -3514,39 +4046,28 @@ uint64_t HALS_UCRemotePlugIn::Unregister_IOThread(HALS_UCRemotePlugIn *this, uin
         v17 = *(v10 + 40);
         if (*v17)
         {
-          v18 = atomic_load(v17 + 8);
+          v18 = atomic_load((v17 + 8));
           if ((v18 & 1) == 0)
           {
-            v32 = atomic_load(v17 + 2);
+            v31 = atomic_load((v17 + 16));
             if (MEMORY[0x1EEE98798])
             {
               if (MEMORY[0x1EEE98788])
               {
-                if (v32 <= 0x1000)
+                if (v31 <= 0x1000)
                 {
-                  if (atomic_load(v17 + 2))
+                  if (atomic_load((v17 + 16)))
                   {
-                    v34 = 0;
-                    v35 = *MEMORY[0x1E69E48A0];
-                    v36 = v17 + 4099;
-                    do
+                    for (i = 0; i < v34; ++i)
                     {
-                      v37 = *v17;
-                      v38 = v36[v34 - 4096];
                       pdwriter_new_value();
-                      v39 = *v17;
-                      v40 = *(v36 + v34);
                       pdwriter_record_variable_dbl();
-                      v41 = atomic_load(v17 + 2);
-                      if (v34 > 0xFFE)
+                      v34 = atomic_load((v17 + 16));
+                      if (i > 0xFFE)
                       {
                         break;
                       }
-
-                      ++v34;
                     }
-
-                    while (v34 < v41);
                   }
                 }
               }
@@ -3702,15 +4223,15 @@ LABEL_41:
 
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v42 = 136315906;
-      v43 = "HALS_UCRemotePlugIn.mm";
-      v44 = 1024;
-      v45 = 699;
-      v46 = 1024;
-      v47 = a2;
-      v48 = 1024;
-      v49 = a3;
-      _os_log_impl(&dword_1DE1F9000, v16, OS_LOG_TYPE_INFO, "%32s:%-5d Could not find io sender for device id %u, clientID %u", &v42, 0x1Eu);
+      v35 = 136315906;
+      v36 = "HALS_UCRemotePlugIn.mm";
+      v37 = 1024;
+      v38 = 699;
+      v39 = 1024;
+      v40 = a2;
+      v41 = 1024;
+      v42 = a3;
+      _os_log_impl(&dword_1DE1F9000, v16, OS_LOG_TYPE_INFO, "%32s:%-5d Could not find io sender for device id %u, clientID %u", &v35, 0x1Eu);
     }
 
     else
@@ -3718,10 +4239,9 @@ LABEL_41:
     }
 
     os_unfair_lock_unlock(this + 196);
-    v20 = 0;
+    return 0;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -3756,51 +4276,52 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t HALS_UCRemotePlugIn::Register_IOThread(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, double a4)
+uint64_t HALS_UCRemotePlugIn::Register_IOThread(HALS_UCRemotePlugIn *this, uint64_t a2, unsigned int a3, double a4, unsigned int a5, unsigned int a6)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v7 = a2;
+  v20 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(this + 196);
-  v7 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, a2, a3);
-  if (!v7)
+  v9 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::__unordered_map_hasher<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::io_messenger_id_t,std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>,std::equal_to<AMCP::Portal::IPC::io_messenger_id_t>,std::hash<AMCP::Portal::IPC::io_messenger_id_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::io_messenger_id_t,std::shared_ptr<AMCP::Portal::IPC::IO_Sender>>>>::find<AMCP::Portal::IPC::io_messenger_id_t>(this + 104, v7, a3);
+  if (!v9)
   {
     operator new();
   }
 
-  v8 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-  if ((v8 & 1) == 0)
+  v10 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+  if ((v10 & 1) == 0)
   {
-    AMCP::Log::AMCP_Scope_Registry::initialize(v7);
+    AMCP::Log::AMCP_Scope_Registry::initialize(v9);
   }
 
-  v9 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-  v10 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-  if (v10)
+  v11 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+  v12 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+  if (v12)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-    v11 = *v9;
-    AMCP::Log::Scope::get_os_log_t(*v9);
+    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+    v13 = *v11;
+    AMCP::Log::Scope::get_os_log_t(*v11);
     objc_claimAutoreleasedReturnValue();
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 
   else
   {
-    v11 = *v9;
-    AMCP::Log::Scope::get_os_log_t(*v9);
+    v13 = *v11;
+    AMCP::Log::Scope::get_os_log_t(*v11);
     objc_claimAutoreleasedReturnValue();
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
     *&buf[4] = "HALS_UCRemotePlugIn.mm";
     *&buf[12] = 1024;
     *&buf[14] = 665;
-    v15 = 1024;
-    v16 = a2;
-    v17 = 1024;
-    v18 = a3;
-    _os_log_impl(&dword_1DE1F9000, v11, OS_LOG_TYPE_INFO, "%32s:%-5d io sender already exists for deviceID %u, clientID %u", buf, 0x1Eu);
+    v16 = 1024;
+    v17 = v7;
+    v18 = 1024;
+    v19 = a3;
+    _os_log_impl(&dword_1DE1F9000, v13, OS_LOG_TYPE_INFO, "%32s:%-5d io sender already exists for deviceID %u, clientID %u", buf, 0x1Eu);
   }
 
   else
@@ -3808,7 +4329,6 @@ uint64_t HALS_UCRemotePlugIn::Register_IOThread(HALS_UCRemotePlugIn *this, unsig
   }
 
   os_unfair_lock_unlock(this + 196);
-  v12 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -3837,21 +4357,44 @@ void std::__shared_ptr_emplace<AMCP::Portal::IPC::IO_Sender>::~__shared_ptr_empl
   JUMPOUT(0x1E12C1730);
 }
 
-void HALS_UCRemotePlugIn::UnregisterIOBuffer(HALS_UCRemotePlugIn *this, unsigned int a2, unsigned int a3, unsigned int a4, BOOL a5, unsigned int a6, void *a7)
+void sub_1DE215C40(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13, int a14, int a15, __int16 a16, __int16 a17)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  HALS_UCRemotePlugIn::unregister_shared_buffer(this, a2, a4, a3, 1u);
-  v7 = *MEMORY[0x1E69E9840];
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136316674;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 574;
+      a11 = 1024;
+      a12 = v20;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v19;
+      HIWORD(a13) = 1024;
+      a14 = v18;
+      LOWORD(a15) = 1024;
+      *(&a15 + 2) = v17;
+      a17 = 2048;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to unregister IO buffer, device ID:%u, stream ID:%u, client ID %u, is input:%d, ioBuffer %p", &a9, 0x34u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE215C0CLL);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 void HALS_UCRemotePlugIn::unregister_shared_buffer(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v20 = __PAIR64__(a3, a2);
-  v21 = __PAIR64__(a5, a4);
+  v22 = *MEMORY[0x1E69E9840];
+  v19 = __PAIR64__(a3, a2);
+  v20 = __PAIR64__(a5, a4);
   os_unfair_lock_lock((a1 + 784));
   v6 = (a1 + 872);
-  v7 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::__unordered_map_hasher<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>>>::find<AMCP::Portal::IPC::shared_buffer_info_t>((a1 + 872), &v20);
+  v7 = std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::__unordered_map_hasher<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>>>::find<AMCP::Portal::IPC::shared_buffer_info_t>((a1 + 872), &v19);
   if (!v7)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -3869,7 +4412,7 @@ void HALS_UCRemotePlugIn::unregister_shared_buffer(uint64_t a1, unsigned int a2,
   }
 
   v8 = v7;
-  [*(a1 + 744) unregister_buffer:{v7[4], v20, v21}];
+  [*(a1 + 744) unregister_buffer:{v7[4], v19, v20}];
   v9 = *(a1 + 880);
   v10 = v8[1];
   v11 = vcnt_s8(v9);
@@ -3977,10 +4520,9 @@ LABEL_20:
   *&buf[20] = 0;
   std::unique_ptr<std::__hash_node<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,void *>>>>::~unique_ptr[abi:ne200100](buf);
   os_unfair_lock_unlock((a1 + 784));
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -4010,7 +4552,7 @@ void std::__destroy_at[abi:ne200100]<std::pair<AMCP::Portal::IPC::shared_buffer_
 
 void HALS_UCRemotePlugIn::register_shared_buffer(os_unfair_lock_s *a1, int64_t a2, int64_t a3, int64_t a4, unsigned int a5, void *region, size_t length)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v12 = xpc_shmem_create(region, length);
   caulk::mach::details::release_os_object(0, v13);
   v14 = xpc_dictionary_create(0, 0, 0);
@@ -4028,83 +4570,83 @@ void HALS_UCRemotePlugIn::register_shared_buffer(os_unfair_lock_s *a1, int64_t a
     v33 = xpc_null_create();
   }
 
-  applesauce::xpc::object::object(&v47, a2);
+  applesauce::xpc::object::object(&v48, a2);
   *buf = &v33;
   *&buf[8] = "buffer device id";
-  applesauce::xpc::dict::object_proxy::operator=(&v32, buf, &v47);
+  applesauce::xpc::dict::object_proxy::operator=(&v32, buf, &v48);
   v18 = v32;
   *&v32 = 0;
 
-  v19 = v47;
-  v47 = 0;
+  v19 = v48;
+  v48 = 0;
 
-  applesauce::xpc::object::object(&v45, a3);
+  applesauce::xpc::object::object(&v46, a3);
   *buf = &v33;
   *&buf[8] = "buffer client id";
-  applesauce::xpc::dict::object_proxy::operator=(&v46, buf, &v45);
-  v20 = v46;
+  applesauce::xpc::dict::object_proxy::operator=(&v47, buf, &v46);
+  v20 = v47;
+  v47 = 0;
+
+  v21 = v46;
   v46 = 0;
 
-  v21 = v45;
-  v45 = 0;
-
-  applesauce::xpc::object::object(&v43, a4);
+  applesauce::xpc::object::object(&v44, a4);
   *buf = &v33;
   *&buf[8] = "buffer stream id";
-  applesauce::xpc::dict::object_proxy::operator=(&v44, buf, &v43);
-  v22 = v44;
+  applesauce::xpc::dict::object_proxy::operator=(&v45, buf, &v44);
+  v22 = v45;
+  v45 = 0;
+
+  v23 = v44;
   v44 = 0;
 
-  v23 = v43;
-  v43 = 0;
-
   v24 = xpc_int64_create(a5);
-  v41 = v24;
+  v42 = v24;
   if (!v24)
   {
-    v41 = xpc_null_create();
+    v42 = xpc_null_create();
   }
 
   *buf = &v33;
   *&buf[8] = "buffer type";
-  applesauce::xpc::dict::object_proxy::operator=(&v42, buf, &v41);
-  v25 = v42;
+  applesauce::xpc::dict::object_proxy::operator=(&v43, buf, &v42);
+  v25 = v43;
+  v43 = 0;
+
+  v26 = v42;
   v42 = 0;
 
-  v26 = v41;
-  v41 = 0;
-
   v27 = v12;
-  v39 = v27;
+  v40 = v27;
   if (!v27)
   {
-    v39 = xpc_null_create();
+    v40 = xpc_null_create();
   }
 
   *buf = &v33;
   *&buf[8] = "buffer shared memory";
-  applesauce::xpc::dict::object_proxy::operator=(&v40, buf, &v39);
+  applesauce::xpc::dict::object_proxy::operator=(&v41, buf, &v40);
 
-  applesauce::xpc::object::object(v34, v33);
-  v34[1] = caulk::mach::details::retain_os_object(v27, v28);
-  v35 = a2;
-  v36 = a3;
-  v37 = a4;
-  v38 = a5;
+  applesauce::xpc::object::object(&v34, v33);
+  v35 = caulk::mach::details::retain_os_object(v27, v28);
+  v36 = a2;
+  v37 = a3;
+  v38 = a4;
+  v39 = a5;
   v29 = v33;
   v33 = 0;
 
   caulk::mach::details::release_os_object(v27, v30);
   os_unfair_lock_lock(a1 + 196);
-  v31 = v34[0];
-  std::allocate_shared[abi:ne200100]<caulk::ipc::mapped_memory,std::allocator<caulk::ipc::mapped_memory>,caulk::mach::xpc_object const&,0>();
+  v31 = v34;
+  std::allocate_shared[abi:ne200100]<caulk::ipc::mapped_memory,std::allocator<caulk::ipc::mapped_memory>,caulk::mach::xpc_object const&,0>(&v32, &v35);
 }
 
-void sub_1DE216530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1DE216530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  os_unfair_lock_unlock(v8 + 196);
-  std::tuple<applesauce::xpc::dict,caulk::mach::xpc_object,AMCP::Portal::IPC::shared_buffer_info_t>::~tuple(va, v10);
+  va_start(va, a15);
+  os_unfair_lock_unlock(v15 + 196);
+  std::tuple<applesauce::xpc::dict,caulk::mach::xpc_object,AMCP::Portal::IPC::shared_buffer_info_t>::~tuple(va, v17);
   _Unwind_Resume(a1);
 }
 
@@ -4158,33 +4700,33 @@ void sub_1DE216790(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::__unordered_map_hasher<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>>>::__emplace_unique_key_args<AMCP::Portal::IPC::shared_buffer_info_t,std::pair<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>>(void *a1, unsigned int *a2)
+unint64_t std::__hash_table<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::__unordered_map_hasher<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::__unordered_map_equal<AMCP::Portal::IPC::shared_buffer_info_t,std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,std::equal_to<AMCP::Portal::IPC::shared_buffer_info_t>,std::hash<AMCP::Portal::IPC::shared_buffer_info_t>,true>,std::allocator<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>>>::__emplace_unique_key_args<AMCP::Portal::IPC::shared_buffer_info_t,std::pair<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>>(uint64_t *a1, unsigned int *a2, __int128 *a3)
 {
   result = std::hash<AMCP::Portal::IPC::shared_buffer_info_t>::operator()(a2);
-  v5 = a1[1];
-  if (!*&v5)
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_21;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = result;
-    if (result >= *&v5)
+    v8 = result;
+    if (result >= *&v6)
     {
-      v7 = result % *&v5;
+      v8 = result % *&v6;
     }
   }
 
   else
   {
-    v7 = (*&v5 - 1) & result;
+    v8 = (*&v6 - 1) & result;
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_21:
     operator new();
@@ -4192,39 +4734,39 @@ LABEL_21:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == result)
+    v11 = v10[1];
+    if (v11 == result)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_21;
     }
 
 LABEL_20:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_21;
     }
   }
 
-  if (*(v9 + 4) != *a2 || *(v9 + 5) != a2[1] || *(v9 + 6) != a2[2] || *(v9 + 7) != a2[3])
+  if (*(v10 + 4) != *a2 || *(v10 + 5) != a2[1] || *(v10 + 6) != a2[2] || *(v10 + 7) != a2[3])
   {
     goto LABEL_20;
   }
@@ -4232,9 +4774,9 @@ LABEL_20:
   return result;
 }
 
-void sub_1DE216C04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE216C04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<AMCP::Portal::IPC::shared_buffer_info_t,std::tuple<NSObject  {objcproto13OS_xpc_object}* {__strong},std::shared_ptr<caulk::ipc::mapped_memory>,void *>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4278,33 +4820,37 @@ void std::__shared_ptr_emplace<caulk::ipc::mapped_memory>::~__shared_ptr_emplace
   JUMPOUT(0x1E12C1730);
 }
 
-void HALS_UCRemotePlugIn::create_mcp_engine(HALS_UCRemotePlugIn *this, HALS_PlugIn *a2, const HALS_IODevice *a3, const unsigned int *a4)
+void HALS_UCRemotePlugIn::create_mcp_engine(HALS_UCRemotePlugIn *this, HALS_PlugIn *a2, const HALS_IODevice *a3, unsigned int *a4)
 {
   obj[42] = *MEMORY[0x1E69E9840];
-  v7 = (*(*a3 + 216))(a3);
-  cf = v7;
-  if (!v7 || (v8 = CFGetTypeID(v7), v8 == CFStringGetTypeID()))
+  v9 = (*(*a3 + 216))(a3);
+  cf = v9;
+  if (!v9 || (v10 = CFGetTypeID(v9), v10 == CFStringGetTypeID()))
   {
-    v19 = (*(*a3 + 272))(a3);
-    v18 = (*(*a3 + 304))(a3);
-    v17 = (*(*a3 + 328))(a3);
-    v16 = (*(*a3 + 320))(a3, 1);
-    v15 = (*(*a3 + 320))(a3, 0);
-    v14 = (*(*a3 + 312))(a3, 1);
-    v13 = (*(*a3 + 312))(a3, 0);
-    AMCP::Utility::Dispatch_Queue::create_serial_with_workloop(obj, "ASP::Engine Queue");
-    objc_storeStrong(this + 6, obj[0]);
+    v25 = (*(*a3 + 272))(a3);
+    v24 = (*(*a3 + 304))(a3);
+    v23 = (*(*a3 + 328))(a3);
+    v22 = (*(*a3 + 320))(a3, 1);
+    v21 = (*(*a3 + 320))(a3, 0);
+    v20 = (*(*a3 + 312))(a3, 1);
+    v19 = (*(*a3 + 312))(a3, 0);
+    AMCP::Utility::Dispatch_Queue::create_serial_with_workloop(obj, "ASP::Engine Queue", 61);
+    v11 = (this + 48);
+    objc_storeStrong(v11, obj[0]);
     AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(obj);
     make_stream_list(obj, a3, 1);
-    make_stream_list(&__p, a3, 0);
-    v9 = *(a2 + 53);
-    v11 = *(a2 + 52);
-    if (v9)
+    make_stream_list(__p, a3, 0);
+    v16 = 0uLL;
+    v15 = 1;
+    v12 = *(a2 + 53);
+    *&v14 = *(a2 + 52);
+    *(&v14 + 1) = v12;
+    if (v12)
     {
-      atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
     }
 
-    std::allocate_shared[abi:ne200100]<AMCP::ASP::Engine,std::allocator<AMCP::ASP::Engine>,std::shared_ptr<AMCP::ASP::PlugIn>,BOOL,std::shared_ptr<HALS_UCPlugInBase>,unsigned int const&,applesauce::CF::StringRef &,double &,unsigned int &,unsigned int &,unsigned int &,unsigned int &,unsigned int &,unsigned int &,std::vector<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info> &,std::vector<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info> &,AMCP::Utility::Dispatch_Queue &,0>();
+    std::allocate_shared[abi:ne200100]<AMCP::ASP::Engine,std::allocator<AMCP::ASP::Engine>,std::shared_ptr<AMCP::ASP::PlugIn>,BOOL,std::shared_ptr<HALS_UCPlugInBase>,unsigned int const&,applesauce::CF::StringRef &,double &,unsigned int &,unsigned int &,unsigned int &,unsigned int &,unsigned int &,unsigned int &,std::vector<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info> &,std::vector<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info> &,AMCP::Utility::Dispatch_Queue &,0>(&v17, &v16, &v15, &v14, a4, &cf, &v25, &v24, &v23, &v22, &v21, &v20, &v19, obj, __p, v11);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -4312,7 +4858,7 @@ void HALS_UCRemotePlugIn::create_mcp_engine(HALS_UCRemotePlugIn *this, HALS_Plug
   __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
 }
 
-void sub_1DE2170C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, const void *a33, void *a34)
+void sub_1DE2170C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34)
 {
   __cxa_free_exception(v34);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(&a33);
@@ -4551,20 +5097,17 @@ void std::__shared_ptr_emplace<AMCP::ASP::Engine>::~__shared_ptr_emplace(std::__
   JUMPOUT(0x1E12C1730);
 }
 
-void *std::vector<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info>::reserve(void *result, unint64_t a2)
+void std::vector<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info>::reserve(void *a1, unint64_t a2)
 {
-  if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 3) < a2)
+  if (0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0x492492492492493)
     {
-      v2 = result[1] - *result;
       std::allocator<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info>::allocate_at_least[abi:ne200100](a2);
     }
 
     std::vector<void *>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::allocator<AMCP::Core::Implementation::Simple_Engine_Data::Stream_Info>::allocate_at_least[abi:ne200100](unint64_t a1)
@@ -4741,28 +5284,74 @@ LABEL_36:
   }
 }
 
-uint64_t HALS_UCRemotePlugIn::ObjectWasDestroyed(HALS_UCRemotePlugIn *this, uint64_t a2)
+void sub_1DE217FF8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __int16 a10, __int16 a11, int a12)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  result = [*(this + 93) object_was_destroyed:a2];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315650;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 412;
+      a11 = 1024;
+      a12 = v12;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to tell remote driver that ObjectWasDestroyed for object id %u", &a9, 0x18u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE217FCCLL);
+  }
+
+  _Unwind_Resume(a1);
 }
 
-uint64_t HALS_UCRemotePlugIn::DestroyDevice(HALS_UCRemotePlugIn *this, uint64_t a2)
+void sub_1DE2180DC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __int16 a10, __int16 a11, int a12)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  result = [*(this + 93) destroy_device:a2];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(a9) = 136315650;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 397;
+      a11 = 1024;
+      a12 = v12;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to DestroyDevice for device id %u", &a9, 0x18u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE2180B0);
+  }
+
+  _Unwind_Resume(a1);
 }
 
-uint64_t HALS_UCRemotePlugIn::CreateDevice(HALS_UCRemotePlugIn *this, const __CFDictionary *a2, const AudioServerPlugInClientInfo *a3, unsigned int *a4)
+void sub_1DE2181C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __int16 a10, __int16 a11, int a12)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  result = [*(this + 93) create_device:a2 client_info:a3 out_object_id:a4];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v13 = *v12;
+      LODWORD(a9) = 136315650;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 382;
+      a11 = 1024;
+      a12 = v13;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to CreateDevice for device id %u", &a9, 0x18u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE21819CLL);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t HALS_UCRemotePlugIn::AbortDeviceConfigChange(HALS_UCRemotePlugIn *this, uint64_t a2, uint64_t a3, void *a4)
@@ -4895,20 +5484,56 @@ uint64_t HALS_UCRemotePlugIn::PerformDeviceConfigChange(HALS_UCRemotePlugIn *thi
   return v6;
 }
 
-uint64_t HALS_UCRemotePlugIn::RemoveDeviceClient(HALS_UCRemotePlugIn *this, uint64_t a2, const AudioServerPlugInClientInfo *a3)
+void sub_1DE21848C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  result = [*(this + 93) remove_device_client:a2 client_info:a3];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v15 = *v14;
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 333;
+      a11 = 1024;
+      a12 = v13;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v15;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to RemoveDeviceClient for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE218460);
+  }
+
+  _Unwind_Resume(a1);
 }
 
-uint64_t HALS_UCRemotePlugIn::AddDeviceClient(HALS_UCRemotePlugIn *this, uint64_t a2, const AudioServerPlugInClientInfo *a3)
+void sub_1DE218584(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __int16 a10, __int16 a11, int a12, uint64_t a13)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  result = [*(this + 93) add_device_client:a2 client_info:a3];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  if (a2)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v15 = *v14;
+      LODWORD(a9) = 136315906;
+      *(&a9 + 4) = "HALS_UCRemotePlugIn.mm";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 318;
+      a11 = 1024;
+      a12 = v13;
+      LOWORD(a13) = 1024;
+      *(&a13 + 2) = v15;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Failed to AddDeviceClient for device id %u, client id %u", &a9, 0x1Eu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x1DE218558);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 void HALS_UCRemotePlugIn::Teardown(HALS_UCRemotePlugIn *this)
@@ -5183,13 +5808,12 @@ const void **applesauce::CF::ObjectRef<__CFURL const*>::~ObjectRef(const void **
   return a1;
 }
 
-AMCP::Utility::Dispatch_Queue *AMCP::Utility::Dispatch_Queue::Dispatch_Queue(AMCP::Utility::Dispatch_Queue *a1, char *a2)
+AMCP::Utility::Dispatch_Queue *AMCP::Utility::Dispatch_Queue::Dispatch_Queue(AMCP::Utility::Dispatch_Queue *a1, char *a2, uint64_t a3)
 {
   v5[42] = *MEMORY[0x1E69E9840];
-  AMCP::Utility::Dispatch_Queue::create_serial_with_workloop(v5, a2);
+  AMCP::Utility::Dispatch_Queue::create_serial_with_workloop(v5, a2, a3);
   AMCP::Utility::Dispatch_Queue::Dispatch_Queue(a1, v5);
   AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(v5);
-  v3 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -5321,213 +5945,58 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-void ADS::Simulator::SetPropertyData(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, int a5, const __CFString **a6, int a7, const __CFString **a8, _DWORD *a9, uint64_t a10)
+void ADS::Simulator::SetPropertyData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, const __CFString **a6, uint64_t a7, CFTypeRef *a8, _DWORD *a9, uint64_t a10, unsigned __int8 a11)
 {
-  v54 = *MEMORY[0x1E69E9840];
-  if (*a4 == 1684371021)
+  v12 = a7;
+  v53 = *MEMORY[0x1E69E9840];
+  if (*a4 != 1684371021)
   {
-    if (a5 != 8)
+
+    ADS::BaseObject::SetPropertyData(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
+    return;
+  }
+
+  if (a5 != 8)
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-        LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
-        *(buf.__r_.__value_.__r.__words + 4) = "ADS_Simulator.cpp";
-        WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
-        *(&buf.__r_.__value_.__r.__words[1] + 6) = 572;
-        _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::SetPropertyData: the qualifier is the wrong size for kAudioFakeDevicePropertyManageDevices", &buf, 0x12u);
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      *exception = off_1F5991DD8;
-      exception[2] = 561211770;
-    }
-
-    if (!a6)
-    {
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-        LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
-        *(buf.__r_.__value_.__r.__words + 4) = "ADS_Simulator.cpp";
-        WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
-        *(&buf.__r_.__value_.__r.__words[1] + 6) = 573;
-        _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::SetPropertyData: no qualifier for kAudioFakeDevicePropertyManageDevices", &buf, 0x12u);
-      }
-
-      v38 = __cxa_allocate_exception(0x10uLL);
-      *v38 = off_1F5991DD8;
-      v38[2] = 561211770;
-    }
-
-    v14 = *(a1 + 120);
-    v13 = a1 + 120;
-    v45[2] = a1 + 120;
-    v15 = (*(v14 + 16))(a1 + 120);
-    v46 = v15;
-    v16 = *a6;
-    if (CFStringCompare(v16, @"create", 1uLL))
-    {
-      if (CFStringCompare(v16, @"destroy", 1uLL))
-      {
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-        {
-          LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
-          *(buf.__r_.__value_.__r.__words + 4) = "ADS_Simulator.cpp";
-          WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
-          *(&buf.__r_.__value_.__r.__words[1] + 6) = 595;
-          _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  ADS::Simulator::SetPropertyData: Unsupported operation", &buf, 0x12u);
-          if (!v15)
-          {
-            goto LABEL_31;
-          }
-        }
-
-        else if (!v15)
-        {
-LABEL_31:
-          v28 = *MEMORY[0x1E69E9840];
-          return;
-        }
-
-LABEL_30:
-        (*(*v13 + 24))(v13);
-        goto LABEL_31;
-      }
-
-      if (a7 == 8)
-      {
-        v20 = PropertyListDeepImmutableCopy(*a8);
-        v45[0] = &unk_1F5991188;
-        v45[1] = v20;
-        OS::CF::UntypedObject::UntypedObject(v44, v20);
-        v44[0] = &unk_1F5991188;
-        v21 = ADS::ObjectManager::CopyObjectByObjectID(1);
-        if (!v21)
-        {
-          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-          {
-            LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
-            *(buf.__r_.__value_.__r.__words + 4) = "ADS_Simulator.cpp";
-            WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
-            *(&buf.__r_.__value_.__r.__words[1] + 6) = 787;
-            _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  SA_PlugIn::IOServiceInterestHandler: no plug-in object", &buf, 0x12u);
-          }
-
-          v42 = __cxa_allocate_exception(0x10uLL);
-          *v42 = off_1F5991DD8;
-          v42[2] = 1852797029;
-        }
-
-        OS::CF::UntypedObject::UntypedObject(&v47, v44[1]);
-        v47 = &unk_1F5991188;
-        pthread_once(&ADS::ObjectManager::sStaticInitializer, ADS::ObjectManager::StaticInitializer);
-        v22 = v48;
-        if (v48)
-        {
-          v23 = ADS::ObjectManager::sMutex;
-          *v50 = ADS::ObjectManager::sMutex;
-          if (ADS::ObjectManager::sMutex)
-          {
-            v24 = (*(*ADS::ObjectManager::sMutex + 16))(ADS::ObjectManager::sMutex);
-            v22 = v48;
-          }
-
-          else
-          {
-            v24 = 0;
-          }
-
-          v50[8] = v24;
-          v32 = ADS::ObjectManager::sInstance;
-          OS::CF::UntypedObject::UntypedObject(&v49, v22);
-          v49 = &unk_1F5991188;
-          OS::CF::String::AsStdString(&buf, &v49);
-          v30 = std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned int>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned int>>>>::find<std::string>((v32 + 40), &buf);
-          if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(buf.__r_.__value_.__l.__data_);
-          }
-
-          if (v30)
-          {
-            v33 = *(v30 + 40);
-            if (*(v30 + 48) == v33)
-            {
-              std::vector<std::tuple<unsigned int,void *,unsigned int>>::__throw_out_of_range[abi:ne200100]();
-            }
-
-            v30 = ADS::ObjectManager::CopyObjectByObjectID(*v33);
-          }
-
-          OS::CF::UntypedObject::~UntypedObject(&v49);
-          if (v24)
-          {
-            (*(*v23 + 24))(v23);
-          }
-
-          OS::CF::UntypedObject::~UntypedObject(&v47);
-          if (v30)
-          {
-            if (*(v30 + 12) == 1633905771)
-            {
-              v34 = 1668049699;
-            }
-
-            else
-            {
-              v34 = 1684370979;
-            }
-
-            ADS::Simulator::RemoveDevice(v21, v30);
-            (*(*v30 + 8))(v30);
-            ADS::ObjectManager::ReleaseObject(v30, v35);
-            *a9 = 2;
-            strcpy(&buf, "dnwobolg");
-            buf.__r_.__value_.__s.__data_[9] = 0;
-            WORD1(buf.__r_.__value_.__r.__words[1]) = 0;
-            std::vector<AudioObjectPropertyAddress>::push_back[abi:ne200100](a10, &buf);
-            LODWORD(buf.__r_.__value_.__l.__data_) = v34;
-            *(buf.__r_.__value_.__r.__words + 4) = 1735159650;
-            std::vector<AudioObjectPropertyAddress>::push_back[abi:ne200100](a10, &buf);
-          }
-        }
-
-        else
-        {
-          OS::CF::UntypedObject::~UntypedObject(&v47);
-          v30 = 0;
-        }
-
-        ADS::ObjectManager::ReleaseObject(v30, v29);
-        ADS::ObjectManager::ReleaseObject(v21, v36);
-        OS::CF::UntypedObject::~UntypedObject(v44);
-        OS::CF::UntypedObject::~UntypedObject(v45);
-        if (!v15)
-        {
-          goto LABEL_31;
-        }
-
-        goto LABEL_30;
-      }
-
-      if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-LABEL_64:
-        v41 = __cxa_allocate_exception(0x10uLL);
-        *v41 = off_1F5991DD8;
-        v41[2] = 561211770;
-      }
-
       LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
       *(buf.__r_.__value_.__r.__words + 4) = "ADS_Simulator.cpp";
       WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
-      *(&buf.__r_.__value_.__r.__words[1] + 6) = 587;
-      v39 = MEMORY[0x1E69E9C10];
-LABEL_63:
-      _os_log_impl(&dword_1DE1F9000, v39, OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::SetPropertyData: not enough space for the return value of kAudioFakeDevicePropertyManageDevices", &buf, 0x12u);
-      goto LABEL_64;
+      *(&buf.__r_.__value_.__r.__words[1] + 6) = 572;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::SetPropertyData: the qualifier is the wrong size for kAudioFakeDevicePropertyManageDevices", &buf, 0x12u);
     }
 
-    if (a7 != 8)
+    exception = __cxa_allocate_exception(0x10uLL);
+    *exception = off_1F5991DD8;
+    exception[2] = 561211770;
+  }
+
+  if (!a6)
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
+      *(buf.__r_.__value_.__r.__words + 4) = "ADS_Simulator.cpp";
+      WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
+      *(&buf.__r_.__value_.__r.__words[1] + 6) = 573;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::SetPropertyData: no qualifier for kAudioFakeDevicePropertyManageDevices", &buf, 0x12u);
+    }
+
+    v37 = __cxa_allocate_exception(0x10uLL);
+    *v37 = off_1F5991DD8;
+    v37[2] = 561211770;
+  }
+
+  v15 = *(a1 + 120);
+  v14 = a1 + 120;
+  v44[2] = a1 + 120;
+  v16 = (*(v15 + 16))(a1 + 120, a2, a3);
+  v45 = v16;
+  v17 = *a6;
+  if (CFStringCompare(v17, @"create", 1uLL) == kCFCompareEqualTo)
+  {
+    if (v12 != 8)
     {
       if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
@@ -5538,13 +6007,13 @@ LABEL_63:
       *(buf.__r_.__value_.__r.__words + 4) = "ADS_Simulator.cpp";
       WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
       *(&buf.__r_.__value_.__r.__words[1] + 6) = 580;
-      v39 = MEMORY[0x1E69E9C10];
+      v38 = MEMORY[0x1E69E9C10];
       goto LABEL_63;
     }
 
     v18 = PropertyListDeepImmutableCopy(*a8);
-    v47 = &unk_1F5991008;
-    v48 = v18;
+    v46 = &unk_1F5991008;
+    v47 = v18;
     if (!v18)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -5556,14 +6025,14 @@ LABEL_63:
         _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::AddDeviceWithProperties: no properties dictionary for device creation", &buf, 0x12u);
       }
 
-      v40 = __cxa_allocate_exception(0x10uLL);
-      *v40 = off_1F5991DD8;
-      v40[2] = 1852797029;
+      v39 = __cxa_allocate_exception(0x10uLL);
+      *v39 = off_1F5991DD8;
+      v39[2] = 1852797029;
     }
 
-    OS::CF::DictionaryBase<__CFDictionary const*>::GetValueForKey<OS::CF::String>(v50, v18, @"type");
-    OS::CF::String::AsStdString(&buf, v50);
-    OS::CF::UntypedObject::~UntypedObject(v50);
+    OS::CF::DictionaryBase<__CFDictionary const*>::GetValueForKey<OS::CF::String>(v49, v18, @"type");
+    OS::CF::String::AsStdString(&buf, v49);
+    OS::CF::UntypedObject::~UntypedObject(v49);
     if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
     {
       if (buf.__r_.__value_.__l.__size_ != 3)
@@ -5588,34 +6057,185 @@ LABEL_63:
     v26 = p_buf->__r_.__value_.__s.__data_[2];
     if (data_low == 28514 && v26 == 120)
     {
-      v31 = ADS::ObjectManager::CopyObjectByObjectID(1);
-      if (v31)
+      v30 = ADS::ObjectManager::CopyObjectByObjectID(1);
+      if (v30)
       {
-        ADS::ObjectManager::GetNextObjectID(v31);
+        ADS::ObjectManager::GetNextObjectID(v30);
         operator new();
       }
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        *v50 = 136315394;
-        *&v50[4] = "ADS_Simulator.cpp";
-        v51 = 1024;
-        v52 = 700;
-        _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::AddBox: no plug-in object", v50, 0x12u);
+        *v49 = 136315394;
+        *&v49[4] = "ADS_Simulator.cpp";
+        v50 = 1024;
+        v51 = 700;
+        _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::AddBox: no plug-in object", v49, 0x12u);
       }
 
-      v43 = __cxa_allocate_exception(0x10uLL);
-      *v43 = off_1F5991DD8;
-      v43[2] = 1852797029;
+      v42 = __cxa_allocate_exception(0x10uLL);
+      *v42 = off_1F5991DD8;
+      v42[2] = 1852797029;
     }
 
 LABEL_28:
-    ADS::Simulator::AddDeviceWithProperties(&v47);
+    ADS::Simulator::AddDeviceWithProperties(&v46, a9, a10);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
+  if (CFStringCompare(v17, @"destroy", 1uLL))
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
+      *(buf.__r_.__value_.__r.__words + 4) = "ADS_Simulator.cpp";
+      WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
+      *(&buf.__r_.__value_.__r.__words[1] + 6) = 595;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  ADS::Simulator::SetPropertyData: Unsupported operation", &buf, 0x12u);
+      if (!v16)
+      {
+        return;
+      }
+    }
 
-  ADS::BaseObject::SetPropertyData(a1, a2);
+    else if (!v16)
+    {
+      return;
+    }
+
+    goto LABEL_30;
+  }
+
+  if (v12 != 8)
+  {
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_64;
+    }
+
+    LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
+    *(buf.__r_.__value_.__r.__words + 4) = "ADS_Simulator.cpp";
+    WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
+    *(&buf.__r_.__value_.__r.__words[1] + 6) = 587;
+    v38 = MEMORY[0x1E69E9C10];
+LABEL_63:
+    _os_log_impl(&dword_1DE1F9000, v38, OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::SetPropertyData: not enough space for the return value of kAudioFakeDevicePropertyManageDevices", &buf, 0x12u);
+LABEL_64:
+    v40 = __cxa_allocate_exception(0x10uLL);
+    *v40 = off_1F5991DD8;
+    v40[2] = 561211770;
+  }
+
+  v20 = PropertyListDeepImmutableCopy(*a8);
+  v44[0] = &unk_1F5991188;
+  v44[1] = v20;
+  OS::CF::UntypedObject::UntypedObject(v43, v20);
+  v43[0] = &unk_1F5991188;
+  v21 = ADS::ObjectManager::CopyObjectByObjectID(1);
+  if (!v21)
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
+      *(buf.__r_.__value_.__r.__words + 4) = "ADS_Simulator.cpp";
+      WORD2(buf.__r_.__value_.__r.__words[1]) = 1024;
+      *(&buf.__r_.__value_.__r.__words[1] + 6) = 787;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  SA_PlugIn::IOServiceInterestHandler: no plug-in object", &buf, 0x12u);
+    }
+
+    v41 = __cxa_allocate_exception(0x10uLL);
+    *v41 = off_1F5991DD8;
+    v41[2] = 1852797029;
+  }
+
+  OS::CF::UntypedObject::UntypedObject(&v46, v43[1]);
+  v46 = &unk_1F5991188;
+  pthread_once(&ADS::ObjectManager::sStaticInitializer, ADS::ObjectManager::StaticInitializer);
+  v22 = v47;
+  if (v47)
+  {
+    v23 = ADS::ObjectManager::sMutex;
+    *v49 = ADS::ObjectManager::sMutex;
+    if (ADS::ObjectManager::sMutex)
+    {
+      v24 = (*(*ADS::ObjectManager::sMutex + 16))(ADS::ObjectManager::sMutex);
+      v22 = v47;
+    }
+
+    else
+    {
+      v24 = 0;
+    }
+
+    v49[8] = v24;
+    v31 = ADS::ObjectManager::sInstance;
+    OS::CF::UntypedObject::UntypedObject(&v48, v22);
+    v48 = &unk_1F5991188;
+    OS::CF::String::AsStdString(&buf, &v48);
+    v29 = std::__hash_table<std::__hash_value_type<std::string,std::vector<unsigned int>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<unsigned int>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<unsigned int>>>>::find<std::string>((v31 + 40), &buf);
+    if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(buf.__r_.__value_.__l.__data_);
+    }
+
+    if (v29)
+    {
+      v32 = *(v29 + 40);
+      if (*(v29 + 48) == v32)
+      {
+        std::vector<std::tuple<unsigned int,void *,unsigned int>>::__throw_out_of_range[abi:ne200100]();
+      }
+
+      v29 = ADS::ObjectManager::CopyObjectByObjectID(*v32);
+    }
+
+    OS::CF::UntypedObject::~UntypedObject(&v48);
+    if (v24)
+    {
+      (*(*v23 + 24))(v23);
+    }
+
+    OS::CF::UntypedObject::~UntypedObject(&v46);
+    if (v29)
+    {
+      if (*(v29 + 12) == 1633905771)
+      {
+        v33 = 1668049699;
+      }
+
+      else
+      {
+        v33 = 1684370979;
+      }
+
+      ADS::Simulator::RemoveDevice(v21, v29);
+      (*(*v29 + 8))(v29);
+      ADS::ObjectManager::ReleaseObject(v29, v34);
+      *a9 = 2;
+      strcpy(&buf, "dnwobolg");
+      buf.__r_.__value_.__s.__data_[9] = 0;
+      WORD1(buf.__r_.__value_.__r.__words[1]) = 0;
+      std::vector<AudioObjectPropertyAddress>::push_back[abi:ne200100](a10, &buf);
+      LODWORD(buf.__r_.__value_.__l.__data_) = v33;
+      *(buf.__r_.__value_.__r.__words + 4) = 1735159650;
+      std::vector<AudioObjectPropertyAddress>::push_back[abi:ne200100](a10, &buf);
+    }
+  }
+
+  else
+  {
+    OS::CF::UntypedObject::~UntypedObject(&v46);
+    v29 = 0;
+  }
+
+  ADS::ObjectManager::ReleaseObject(v29, v28);
+  ADS::ObjectManager::ReleaseObject(v21, v35);
+  OS::CF::UntypedObject::~UntypedObject(v43);
+  OS::CF::UntypedObject::~UntypedObject(v44);
+  if (v16)
+  {
+LABEL_30:
+    (*(*v14 + 24))(v14);
+  }
 }
 
 void sub_1DE219B34(_Unwind_Exception *a1, int a2)
@@ -5644,14 +6264,13 @@ void CADeprecated::CAMutex::Locker::~Locker(CADeprecated::CAMutex::Locker *this)
 {
   if (*(this + 8) == 1)
   {
-    v2 = *this;
     (*(**this + 24))();
   }
 }
 
 void ADS::Simulator::RemoveDevice(ADS::Simulator *this, ADS::Device *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = this + 120;
   v5 = (*(*(this + 15) + 16))(this + 120);
   if (a2)
@@ -5663,9 +6282,9 @@ void ADS::Simulator::RemoveDevice(ADS::Simulator *this, ADS::Device *a2)
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v19 = "ADS_Simulator.cpp";
-        v20 = 1024;
-        v21 = 866;
+        v18 = "ADS_Simulator.cpp";
+        v19 = 1024;
+        v20 = 866;
         _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::_RemoveDevice: Trying to remove a device that is neither a 'device' nor a 'clockdevice'", buf, 0x12u);
       }
 
@@ -5702,9 +6321,9 @@ LABEL_17:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v19 = "ADS_Simulator.cpp";
-        v20 = 1024;
-        v21 = 883;
+        v18 = "ADS_Simulator.cpp";
+        v19 = 1024;
+        v20 = 883;
         _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  Device not found on ADS remove", buf, 0x12u);
       }
     }
@@ -5729,8 +6348,6 @@ LABEL_17:
   {
     (*(*v4 + 24))(v4);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE21A074(_Unwind_Exception *exception_object, int a2)
@@ -5862,8 +6479,7 @@ uint64_t OS::CF::DictionaryBase<__CFDictionary const*>::GetValueForKey<OS::CF::S
 
 void OS::CF::String::AsStdString(std::string *this, uint64_t a2)
 {
-  this->__r_.__value_.__r.__words[0] = 0;
-  this->__r_.__value_.__l.__size_ = 0;
+  *&this->__r_.__value_.__l.__data_ = 0uLL;
   this->__r_.__value_.__r.__words[2] = 0;
   v3 = *(a2 + 8);
   if (v3)
@@ -5897,15 +6513,15 @@ void OS::CF::String::AsStdString(std::string *this, uint64_t a2)
   }
 }
 
-void ADS::Simulator::AddDeviceWithProperties(uint64_t a1)
+void ADS::Simulator::AddDeviceWithProperties(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = ADS::ObjectManager::CopyObjectByObjectID(1);
-  if (v2)
+  v12 = *MEMORY[0x1E69E9840];
+  v4 = ADS::ObjectManager::CopyObjectByObjectID(1);
+  if (v4)
   {
     if (*(a1 + 8))
     {
-      ADS::ObjectManager::GetNextObjectID(v2);
+      ADS::ObjectManager::GetNextObjectID(v4);
       operator new();
     }
 
@@ -5919,10 +6535,10 @@ LABEL_9:
 
     buf = 136315394;
     buf_4 = "ADS_Simulator.cpp";
-    v8 = 1024;
-    v9 = 737;
-    v3 = MEMORY[0x1E69E9C10];
-    v4 = "%25s:%-5d  ADS::Simulator::AddDeviceWithProperties: no properties dictionary for device creation";
+    v10 = 1024;
+    v11 = 737;
+    v5 = MEMORY[0x1E69E9C10];
+    v6 = "%25s:%-5d  ADS::Simulator::AddDeviceWithProperties: no properties dictionary for device creation";
   }
 
   else
@@ -5934,13 +6550,13 @@ LABEL_9:
 
     buf = 136315394;
     buf_4 = "ADS_Simulator.cpp";
-    v8 = 1024;
-    v9 = 736;
-    v3 = MEMORY[0x1E69E9C10];
-    v4 = "%25s:%-5d  ADS::Simulator::AddDeviceWithProperties: no plug-in object";
+    v10 = 1024;
+    v11 = 736;
+    v5 = MEMORY[0x1E69E9C10];
+    v6 = "%25s:%-5d  ADS::Simulator::AddDeviceWithProperties: no plug-in object";
   }
 
-  _os_log_impl(&dword_1DE1F9000, v3, OS_LOG_TYPE_ERROR, v4, &buf, 0x12u);
+  _os_log_impl(&dword_1DE1F9000, v5, OS_LOG_TYPE_ERROR, v6, &buf, 0x12u);
   goto LABEL_9;
 }
 
@@ -5966,7 +6582,7 @@ void sub_1DE21A8C4(uint64_t a1, int a2)
 
 void ADS::Simulator::_RemoveBox(ADS::Simulator *this, int a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = (this + 120);
   v5 = (*(*(this + 15) + 16))(this + 120);
   v7 = v4[17];
@@ -5988,11 +6604,11 @@ void ADS::Simulator::_RemoveBox(ADS::Simulator *this, int a2)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315394;
-      v11 = "ADS_Simulator.cpp";
-      v12 = 1024;
-      v13 = 911;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  Device not found on ADS remove", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "ADS_Simulator.cpp";
+      v11 = 1024;
+      v12 = 911;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  Device not found on ADS remove", &v9, 0x12u);
     }
   }
 
@@ -6011,8 +6627,6 @@ void ADS::Simulator::_RemoveBox(ADS::Simulator *this, int a2)
   {
     (*(*v4 + 24))(v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE21AAE8(_Unwind_Exception *a1, int a2)
@@ -6032,29 +6646,17 @@ std::string *__cdecl std::string::__assign_external(std::string *this, const std
   return std::string::__assign_external(this, __s, v4);
 }
 
-void *std::vector<char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<char>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_1DE21AB94(_Unwind_Exception *exception_object)
@@ -6125,142 +6727,137 @@ void OS::CF::Dictionary::~Dictionary(OS::CF::Dictionary *this)
   JUMPOUT(0x1E12C1730);
 }
 
-void ADS::Simulator::GetPropertyData(ADS::Simulator *this, unsigned int a2, int a3, const AudioObjectPropertyAddress *a4, unsigned int a5, uint64_t *a6, unsigned int a7, unsigned int *a8, char *a9)
+void ADS::Simulator::GetPropertyData(ADS::Simulator *this, uint64_t a2, uint64_t a3, const AudioObjectPropertyAddress *a4, unsigned int a5, uint64_t *a6, unsigned int a7, unsigned int *a8, char *a9)
 {
   v9 = a8;
   v13 = a9;
-  v95 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   mSelector = a4->mSelector;
   if (a4->mSelector > 1819173228)
   {
     if (mSelector <= 1920168546)
     {
-      if (mSelector == 1819173229)
+      switch(mSelector)
       {
-        if (a7 <= 7)
-        {
-          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        case 1819173229:
+          if (a7 <= 7)
           {
-            *buf = 136315394;
-            *&buf[4] = "ADS_Simulator.cpp";
-            *&buf[12] = 1024;
-            *&buf[14] = 361;
-            _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: not enough space for the return value of kAudioObjectPropertyName", buf, 0x12u);
-          }
-
-          exception = __cxa_allocate_exception(0x10uLL);
-          *exception = off_1F5991DD8;
-          exception[2] = 561211770;
-        }
-
-        v15 = @"PluginSimulator";
-        goto LABEL_78;
-      }
-
-      if (mSelector != 1819569763)
-      {
-        if (mSelector != 1870098020)
-        {
-          goto LABEL_87;
-        }
-
-        v17 = (this + 120);
-        v18 = (*(*(this + 15) + 16))(this + 120);
-        v19 = *(this + 26);
-        v20 = *(this + 27) - v19;
-        v21 = *(this + 32);
-        if (((*(this + 30) - *(this + 29)) >> 2) + (v20 >> 2) + ((*(this + 33) - v21) >> 2) >= (a7 >> 2))
-        {
-          v22 = a7 >> 2;
-        }
-
-        else
-        {
-          v22 = ((v17[15] - v17[14]) >> 2) + (v20 >> 2) + ((v17[18] - v21) >> 2);
-        }
-
-        if (v22)
-        {
-          v23 = v20 >> 2;
-          v24 = (v22 - 1);
-          if (v23 < v24)
-          {
-            LODWORD(v24) = v23;
-          }
-
-          v25 = v22;
-          v26 = a9;
-          while (v23)
-          {
-            v27 = *v19++;
-            *v26++ = v27;
-            --v23;
-            if (!--v25)
+            if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              LODWORD(v24) = v24 + 1;
-              break;
+              *buf = 136315394;
+              *&buf[4] = "ADS_Simulator.cpp";
+              *&buf[12] = 1024;
+              *&buf[14] = 361;
+              _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: not enough space for the return value of kAudioObjectPropertyName", buf, 0x12u);
+            }
+
+            exception = __cxa_allocate_exception(0x10uLL);
+            *exception = off_1F5991DD8;
+            exception[2] = 561211770;
+          }
+
+          v15 = @"PluginSimulator";
+          goto LABEL_78;
+        case 1819569763:
+          if (a7 <= 3)
+          {
+            if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+            {
+              *buf = 136315394;
+              *&buf[4] = "ADS_Simulator.cpp";
+              *&buf[12] = 1024;
+              *&buf[14] = 355;
+              _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  HALS_ClockDevice::GetPropertyData: bad property data size for kAudioDevicePropertyLatency", buf, 0x12u);
+            }
+
+            v80 = __cxa_allocate_exception(0x10uLL);
+            *v80 = off_1F5991DD8;
+            v80[2] = 561211770;
+          }
+
+          *a9 = 0;
+          goto LABEL_121;
+        case 1870098020:
+          v17 = (this + 120);
+          v18 = (*(*(this + 15) + 16))(this + 120, a2, a3);
+          v19 = *(this + 26);
+          v20 = *(this + 27) - v19;
+          v21 = *(this + 32);
+          if (((*(this + 30) - *(this + 29)) >> 2) + (v20 >> 2) + ((*(this + 33) - v21) >> 2) >= (a7 >> 2))
+          {
+            v22 = a7 >> 2;
+          }
+
+          else
+          {
+            v22 = ((v17[15] - v17[14]) >> 2) + (v20 >> 2) + ((v17[18] - v21) >> 2);
+          }
+
+          if (v22)
+          {
+            v23 = v20 >> 2;
+            v24 = (v22 - 1);
+            if (v23 < v24)
+            {
+              LODWORD(v24) = v23;
+            }
+
+            v25 = v22;
+            v26 = a9;
+            while (v23)
+            {
+              v27 = *v19++;
+              *v26 = v27;
+              v26 += 4;
+              --v23;
+              if (!--v25)
+              {
+                LODWORD(v24) = v24 + 1;
+                break;
+              }
             }
           }
-        }
 
-        else
-        {
-          v66 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
-          LODWORD(v24) = 0;
-          if (v66)
+          else
           {
-            *buf = 136315394;
-            *&buf[4] = "ADS_Simulator.cpp";
-            *&buf[12] = 1024;
-            *&buf[14] = 378;
-            _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  ADS::Simulator::GetPropertyData: inDataSize too small for any of kAudioObjectPropertyOwnedObjects to be returned", buf, 0x12u);
+            v65 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
             LODWORD(v24) = 0;
+            if (v65)
+            {
+              *buf = 136315394;
+              *&buf[4] = "ADS_Simulator.cpp";
+              *&buf[12] = 1024;
+              *&buf[14] = 378;
+              _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  ADS::Simulator::GetPropertyData: inDataSize too small for any of kAudioObjectPropertyOwnedObjects to be returned", buf, 0x12u);
+              LODWORD(v24) = 0;
+            }
           }
-        }
 
-        v67 = (v22 - v24);
-        if (v22 > v24)
-        {
-          v68 = *(this + 29);
-          v69 = &a9[4 * v24];
-          do
+          v66 = (v22 - v24);
+          if (v22 > v24)
           {
-            v70 = *v68++;
-            *v69 = v70;
-            v69 += 4;
-            --v67;
+            v67 = *(this + 29);
+            v68 = &a9[4 * v24];
+            do
+            {
+              v69 = *v67++;
+              *v68 = v69;
+              v68 += 4;
+              --v66;
+            }
+
+            while (v66);
+            LODWORD(v24) = v22;
           }
 
-          while (v67);
-          LODWORD(v24) = v22;
-        }
+          *v9 = 4 * v24;
+          if (v18)
+          {
+            goto LABEL_54;
+          }
 
-        *v9 = 4 * v24;
-        if (!v18)
-        {
-          goto LABEL_123;
-        }
-
-        goto LABEL_54;
+          return;
       }
-
-      if (a7 <= 3)
-      {
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315394;
-          *&buf[4] = "ADS_Simulator.cpp";
-          *&buf[12] = 1024;
-          *&buf[14] = 355;
-          _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  HALS_ClockDevice::GetPropertyData: bad property data size for kAudioDevicePropertyLatency", buf, 0x12u);
-        }
-
-        v82 = __cxa_allocate_exception(0x10uLL);
-        *v82 = off_1F5991DD8;
-        v82[2] = 561211770;
-      }
-
-      *a9 = 0;
     }
 
     else
@@ -6280,9 +6877,9 @@ void ADS::Simulator::GetPropertyData(ADS::Simulator *this, unsigned int a2, int 
               _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  SA_GetPlugInPropertyData: not enough space for the return value of kAudioPlugInPropertyResourceBundle", buf, 0x12u);
             }
 
-            v78 = __cxa_allocate_exception(0x10uLL);
-            *v78 = off_1F5991DD8;
-            v78[2] = 561211770;
+            v76 = __cxa_allocate_exception(0x10uLL);
+            *v76 = off_1F5991DD8;
+            v76[2] = 561211770;
           }
 
           v15 = &stru_1F5992518;
@@ -6302,9 +6899,9 @@ void ADS::Simulator::GetPropertyData(ADS::Simulator *this, unsigned int a2, int 
               _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: not enough space for the return value of kAudioObjectPropertySerialNumber", buf, 0x12u);
             }
 
-            v75 = __cxa_allocate_exception(0x10uLL);
-            *v75 = off_1F5991DD8;
-            v75[2] = 561211770;
+            v73 = __cxa_allocate_exception(0x10uLL);
+            *v73 = off_1F5991DD8;
+            v73[2] = 561211770;
           }
 
           v15 = @"001";
@@ -6327,9 +6924,9 @@ void ADS::Simulator::GetPropertyData(ADS::Simulator *this, unsigned int a2, int 
             _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: the qualifier size is too small for kAudioPlugInPropertyTranslateUIDToClockDevice", buf, 0x12u);
           }
 
-          v80 = __cxa_allocate_exception(0x10uLL);
-          *v80 = off_1F5991DD8;
-          v80[2] = 561211770;
+          v78 = __cxa_allocate_exception(0x10uLL);
+          *v78 = off_1F5991DD8;
+          v78[2] = 561211770;
         }
 
         if (a7 <= 3)
@@ -6343,9 +6940,9 @@ void ADS::Simulator::GetPropertyData(ADS::Simulator *this, unsigned int a2, int 
             _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: not enough space for the return value of kAudioPlugInPropertyTranslateUIDToClockDevice", buf, 0x12u);
           }
 
-          v86 = __cxa_allocate_exception(0x10uLL);
-          *v86 = off_1F5991DD8;
-          v86[2] = 561211770;
+          v84 = __cxa_allocate_exception(0x10uLL);
+          *v84 = off_1F5991DD8;
+          v84[2] = 561211770;
         }
 
         if (!a6)
@@ -6359,19 +6956,19 @@ void ADS::Simulator::GetPropertyData(ADS::Simulator *this, unsigned int a2, int 
             _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: no qualifier specified for kAudioPlugInPropertyTranslateUIDToClockDevice", buf, 0x12u);
           }
 
-          v87 = __cxa_allocate_exception(0x10uLL);
-          *v87 = off_1F5991DD8;
-          v87[2] = 2003332927;
+          v85 = __cxa_allocate_exception(0x10uLL);
+          *v85 = off_1F5991DD8;
+          v85[2] = 2003332927;
         }
 
         v28 = this + 120;
-        v39 = (*(*(this + 15) + 16))(this + 120);
+        v39 = (*(*(this + 15) + 16))(this + 120, a2, a3);
         v40 = *(this + 29);
         v41 = *(this + 30);
         if (v40 != v41)
         {
-          v91 = v39;
-          v93 = v9;
+          v89 = v39;
+          v91 = v9;
           while (1)
           {
             v42 = ADS::ObjectManager::CopyObjectByObjectID(*v40);
@@ -6394,8 +6991,8 @@ void ADS::Simulator::GetPropertyData(ADS::Simulator *this, unsigned int a2, int 
           }
 
           v41 = *(this + 30);
-          v9 = v93;
-          v39 = v91;
+          v9 = v91;
+          v39 = v89;
         }
 
         if (v40 == v41)
@@ -6414,252 +7011,174 @@ void ADS::Simulator::GetPropertyData(ADS::Simulator *this, unsigned int a2, int 
           goto LABEL_121;
         }
 
-        goto LABEL_120;
-      }
-
-      if (mSelector != 1969841252)
-      {
-        goto LABEL_87;
-      }
-
-      if (a5 <= 7)
-      {
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315394;
-          *&buf[4] = "ADS_Simulator.cpp";
-          *&buf[12] = 1024;
-          *&buf[14] = 435;
-          _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: the qualifier size is too small for kAudioPlugInPropertyTranslateUIDToDevice", buf, 0x12u);
-        }
-
-        v77 = __cxa_allocate_exception(0x10uLL);
-        *v77 = off_1F5991DD8;
-        v77[2] = 561211770;
-      }
-
-      if (a7 <= 3)
-      {
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315394;
-          *&buf[4] = "ADS_Simulator.cpp";
-          *&buf[12] = 1024;
-          *&buf[14] = 436;
-          _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: not enough space for the return value of kAudioPlugInPropertyTranslateUIDToDevice", buf, 0x12u);
-        }
-
-        v85 = __cxa_allocate_exception(0x10uLL);
-        *v85 = off_1F5991DD8;
-        v85[2] = 561211770;
-      }
-
-      if (!a6)
-      {
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315394;
-          *&buf[4] = "ADS_Simulator.cpp";
-          *&buf[12] = 1024;
-          *&buf[14] = 437;
-          _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: no qualifier specified for kAudioPlugInPropertyTranslateUIDToDevice", buf, 0x12u);
-        }
-
-        v89 = __cxa_allocate_exception(0x10uLL);
-        *v89 = off_1F5991DD8;
-        v89[2] = 2003332927;
-      }
-
-      v28 = this + 120;
-      v29 = (*(*(this + 15) + 16))(this + 120);
-      v30 = *(this + 26);
-      v31 = *(this + 27);
-      if (v30 != v31)
-      {
-        v90 = v29;
-        v92 = v9;
-        while (1)
-        {
-          v32 = ADS::ObjectManager::CopyObjectByObjectID(*v30);
-          OS::CF::UntypedObject::UntypedObject(buf, v32[20]);
-          *buf = &unk_1F5991188;
-          v33 = *&buf[8];
-          v34 = *a6;
-          OS::CF::UntypedObject::~UntypedObject(buf);
-          ADS::ObjectManager::ReleaseObject(v32, v35);
-          if (v33 == v34)
-          {
-            break;
-          }
-
-          if (++v30 == v31)
-          {
-            v30 = v31;
-            break;
-          }
-        }
-
-        v31 = *(this + 27);
-        v9 = v92;
-        v29 = v90;
-      }
-
-      if (v30 == v31)
-      {
-        v36 = 0;
-      }
-
-      else
-      {
-        v36 = *v30;
-      }
-
-      *a9 = v36;
-      if (v29)
-      {
 LABEL_120:
         (*(*v28 + 24))(this + 120);
-      }
-    }
-
 LABEL_121:
-    v16 = 4;
-    goto LABEL_122;
-  }
+        v16 = 4;
+        goto LABEL_122;
+      }
 
-  if (mSelector <= 1684370978)
-  {
-    if (mSelector != 1651472419)
-    {
-      if (mSelector != 1668049699)
+      if (mSelector == 1969841252)
       {
-        if (mSelector == 1668641652)
+        if (a5 <= 7)
         {
-          if (a7 <= 0xB)
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-            {
-              *buf = 136315394;
-              *&buf[4] = "ADS_Simulator.cpp";
-              *&buf[12] = 1024;
-              *&buf[14] = 539;
-              _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: not enough space for the return value of kAudioObjectPropertyCustomPropertyInfoList", buf, 0x12u);
-            }
-
-            v83 = __cxa_allocate_exception(0x10uLL);
-            *v83 = off_1F5991DD8;
-            v83[2] = 561211770;
+            *buf = 136315394;
+            *&buf[4] = "ADS_Simulator.cpp";
+            *&buf[12] = 1024;
+            *&buf[14] = 435;
+            _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: the qualifier size is too small for kAudioPlugInPropertyTranslateUIDToDevice", buf, 0x12u);
           }
 
-          qmemcpy(a9, "Mvedtslptsfc", 12);
-          *buf = *a8 - 12;
-          ADS::BaseObject::GetPropertyData(this, a2, a3, a4, a5, a6, a7, buf, a9 + 24);
-          v16 = *buf + 12;
-          goto LABEL_122;
+          v75 = __cxa_allocate_exception(0x10uLL);
+          *v75 = off_1F5991DD8;
+          v75[2] = 561211770;
         }
 
-        goto LABEL_87;
-      }
-
-      v47 = (this + 120);
-      v52 = (*(*(this + 15) + 16))(this + 120);
-      v53 = a7 >> 2;
-      v54 = v47[14];
-      if ((v47[15] - v54) >> 2 < v53)
-      {
-        v53 = (v47[15] - v54) >> 2;
-      }
-
-      if (v53)
-      {
-        v55 = v53;
-        do
+        if (a7 <= 3)
         {
-          v56 = *v54++;
-          *v13++ = v56;
-          --v55;
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136315394;
+            *&buf[4] = "ADS_Simulator.cpp";
+            *&buf[12] = 1024;
+            *&buf[14] = 436;
+            _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: not enough space for the return value of kAudioPlugInPropertyTranslateUIDToDevice", buf, 0x12u);
+          }
+
+          v83 = __cxa_allocate_exception(0x10uLL);
+          *v83 = off_1F5991DD8;
+          v83[2] = 561211770;
         }
 
-        while (v55);
-        v57 = 4 * v53;
-      }
-
-      else
-      {
-        v65 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
-        v57 = 0;
-        if (v65)
+        if (!a6)
         {
-          *buf = 136315394;
-          *&buf[4] = "ADS_Simulator.cpp";
-          *&buf[12] = 1024;
-          *&buf[14] = 488;
-          _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  ADS::Simulator::GetPropertyData: inDataSize too small for any of kAudioPlugInPropertyClockDeviceList to be returned", buf, 0x12u);
-          v57 = 0;
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136315394;
+            *&buf[4] = "ADS_Simulator.cpp";
+            *&buf[12] = 1024;
+            *&buf[14] = 437;
+            _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: no qualifier specified for kAudioPlugInPropertyTranslateUIDToDevice", buf, 0x12u);
+          }
+
+          v87 = __cxa_allocate_exception(0x10uLL);
+          *v87 = off_1F5991DD8;
+          v87[2] = 2003332927;
         }
-      }
 
-      *v9 = v57;
-      if (!v52)
-      {
-        goto LABEL_123;
-      }
-
-      goto LABEL_102;
-    }
-
-    v47 = (this + 120);
-    v48 = (*(*(this + 15) + 16))(this + 120);
-    v49 = a7 >> 2;
-    v50 = v47[17];
-    v51 = v47[18];
-    if (v51 - v50 < v49)
-    {
-      v49 = v51 - v50;
-    }
-
-    if (v51 == v50 || v49)
-    {
-      if (v49)
-      {
-        v62 = v49;
-        do
+        v28 = this + 120;
+        v29 = (*(*(this + 15) + 16))(this + 120, a2, a3);
+        v30 = *(this + 26);
+        v31 = *(this + 27);
+        if (v30 != v31)
         {
-          v63 = *v50++;
-          *v13++ = v63;
-          --v62;
+          v88 = v29;
+          v90 = v9;
+          while (1)
+          {
+            v32 = ADS::ObjectManager::CopyObjectByObjectID(*v30);
+            OS::CF::UntypedObject::UntypedObject(buf, v32[20]);
+            *buf = &unk_1F5991188;
+            v33 = *&buf[8];
+            v34 = *a6;
+            OS::CF::UntypedObject::~UntypedObject(buf);
+            ADS::ObjectManager::ReleaseObject(v32, v35);
+            if (v33 == v34)
+            {
+              break;
+            }
+
+            if (++v30 == v31)
+            {
+              v30 = v31;
+              break;
+            }
+          }
+
+          v31 = *(this + 27);
+          v9 = v90;
+          v29 = v88;
         }
 
-        while (v62);
-        v64 = 4 * v49;
-LABEL_101:
-        *v9 = v64;
-        if (!v48)
+        if (v30 == v31)
         {
-          goto LABEL_123;
+          v36 = 0;
         }
 
-LABEL_102:
-        (*(*v47 + 24))(v47);
-        goto LABEL_123;
+        else
+        {
+          v36 = *v30;
+        }
+
+        *a9 = v36;
+        if (!v29)
+        {
+          goto LABEL_121;
+        }
+
+        goto LABEL_120;
       }
     }
 
-    else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315394;
-      *&buf[4] = "ADS_Simulator.cpp";
-      *&buf[12] = 1024;
-      *&buf[14] = 465;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  ADS::Simulator::GetPropertyData: inDataSize too small for any of kAudioPlugInPropertyBoxList to be returned", buf, 0x12u);
-    }
+LABEL_87:
 
-    v64 = 0;
-    goto LABEL_101;
+    ADS::BaseObject::GetPropertyData(this, a2, a3, a4, a5, a6, a7, a8, a9);
+    return;
   }
 
-  if (mSelector <= 1719105133)
+  if (mSelector > 1684370978)
   {
+    if (mSelector > 1719105133)
+    {
+      if (mSelector == 1719105134)
+      {
+        if (a7 <= 7)
+        {
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136315394;
+            *&buf[4] = "ADS_Simulator.cpp";
+            *&buf[12] = 1024;
+            *&buf[14] = 348;
+            _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: not enough space for the return value of kAudioObjectPropertyFirmwareVersion", buf, 0x12u);
+          }
+
+          v77 = __cxa_allocate_exception(0x10uLL);
+          *v77 = off_1F5991DD8;
+          v77[2] = 561211770;
+        }
+
+        v15 = @"1.0";
+        goto LABEL_78;
+      }
+
+      if (mSelector == 1819107691)
+      {
+        if (a7 <= 7)
+        {
+          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136315394;
+            *&buf[4] = "ADS_Simulator.cpp";
+            *&buf[12] = 1024;
+            *&buf[14] = 333;
+            _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: not enough space for the return value of kAudioObjectPropertyManufacturer", buf, 0x12u);
+          }
+
+          v74 = __cxa_allocate_exception(0x10uLL);
+          *v74 = off_1F5991DD8;
+          v74[2] = 561211770;
+        }
+
+        v15 = @"Apple Inc.";
+        goto LABEL_78;
+      }
+
+      goto LABEL_87;
+    }
+
     if (mSelector != 1684370979)
     {
       if (mSelector == 1684371021)
@@ -6675,9 +7194,9 @@ LABEL_102:
             _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: not enough space for the return value of kAudioFakeDevicePropertyManageDevices", buf, 0x12u);
           }
 
-          v74 = __cxa_allocate_exception(0x10uLL);
-          *v74 = off_1F5991DD8;
-          v74[2] = 561211770;
+          v72 = __cxa_allocate_exception(0x10uLL);
+          *v72 = off_1F5991DD8;
+          v72[2] = 561211770;
         }
 
         if (a5 != 8)
@@ -6691,9 +7210,9 @@ LABEL_102:
             _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: the qualifier is the wrong size for kAudioFakeDevicePropertyManageDevices", buf, 0x12u);
           }
 
-          v84 = __cxa_allocate_exception(0x10uLL);
-          *v84 = off_1F5991DD8;
-          v84[2] = 561211770;
+          v82 = __cxa_allocate_exception(0x10uLL);
+          *v82 = off_1F5991DD8;
+          v82[2] = 561211770;
         }
 
         if (!a6)
@@ -6707,9 +7226,9 @@ LABEL_102:
             _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: no qualifier for kAudioFakeDevicePropertyManageDevices", buf, 0x12u);
           }
 
-          v88 = __cxa_allocate_exception(0x10uLL);
-          *v88 = off_1F5991DD8;
-          v88[2] = 561211770;
+          v86 = __cxa_allocate_exception(0x10uLL);
+          *v86 = off_1F5991DD8;
+          v86[2] = 561211770;
         }
 
         v15 = @"PlugIn Custom Property";
@@ -6718,50 +7237,49 @@ LABEL_78:
         v16 = 8;
 LABEL_122:
         *v9 = v16;
-        goto LABEL_123;
+        return;
       }
 
       goto LABEL_87;
     }
 
     v17 = (this + 120);
-    v37 = (*(*(this + 15) + 16))(this + 120);
+    v37 = (*(*(this + 15) + 16))(this + 120, a2, a3);
     if ((*(this + 280) & 1) == 0)
     {
-      v59 = a7 >> 2;
-      v60 = *(this + 26);
-      v61 = *(this + 27);
-      if (v61 - v60 < v59)
+      v58 = a7 >> 2;
+      v59 = *(this + 26);
+      v60 = *(this + 27);
+      if (v60 - v59 < v58)
       {
-        v59 = v61 - v60;
+        v58 = v60 - v59;
       }
 
-      if (v61 == v60 || v59)
+      if (v60 == v59 || v58)
       {
-        if (v59)
+        if (v58)
         {
-          v72 = v59;
+          v70 = v58;
           do
           {
-            v73 = *v60++;
-            *v13++ = v73;
-            --v72;
+            v71 = *v59++;
+            *v13 = v71;
+            v13 += 4;
+            --v70;
           }
 
-          while (v72);
-          v38 = 4 * v59;
+          while (v70);
+          v38 = 4 * v58;
 LABEL_53:
           *v9 = v38;
           if (!v37)
           {
-LABEL_123:
-            v71 = *MEMORY[0x1E69E9840];
             return;
           }
 
 LABEL_54:
           (*(*v17 + 24))(this + 120);
-          goto LABEL_123;
+          return;
         }
       }
 
@@ -6779,54 +7297,132 @@ LABEL_54:
     goto LABEL_53;
   }
 
-  if (mSelector == 1719105134)
+  if (mSelector == 1651472419)
   {
-    if (a7 <= 7)
+    v47 = (this + 120);
+    v48 = (*(*(this + 15) + 16))(this + 120, a2, a3);
+    v49 = a7 >> 2;
+    v50 = v47[17];
+    v51 = v47[18];
+    if (v51 - v50 < v49)
     {
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136315394;
-        *&buf[4] = "ADS_Simulator.cpp";
-        *&buf[12] = 1024;
-        *&buf[14] = 348;
-        _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: not enough space for the return value of kAudioObjectPropertyFirmwareVersion", buf, 0x12u);
-      }
-
-      v79 = __cxa_allocate_exception(0x10uLL);
-      *v79 = off_1F5991DD8;
-      v79[2] = 561211770;
+      v49 = v51 - v50;
     }
 
-    v15 = @"1.0";
-    goto LABEL_78;
-  }
-
-  if (mSelector == 1819107691)
-  {
-    if (a7 <= 7)
+    if (v51 == v50 || v49)
     {
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      if (v49)
       {
-        *buf = 136315394;
-        *&buf[4] = "ADS_Simulator.cpp";
-        *&buf[12] = 1024;
-        *&buf[14] = 333;
-        _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: not enough space for the return value of kAudioObjectPropertyManufacturer", buf, 0x12u);
-      }
+        v61 = v49;
+        do
+        {
+          v62 = *v50++;
+          *v13 = v62;
+          v13 += 4;
+          --v61;
+        }
 
-      v76 = __cxa_allocate_exception(0x10uLL);
-      *v76 = off_1F5991DD8;
-      v76[2] = 561211770;
+        while (v61);
+        v63 = 4 * v49;
+LABEL_101:
+        *v9 = v63;
+        if (!v48)
+        {
+          return;
+        }
+
+        goto LABEL_102;
+      }
     }
 
-    v15 = @"Apple Inc.";
-    goto LABEL_78;
+    else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315394;
+      *&buf[4] = "ADS_Simulator.cpp";
+      *&buf[12] = 1024;
+      *&buf[14] = 465;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  ADS::Simulator::GetPropertyData: inDataSize too small for any of kAudioPlugInPropertyBoxList to be returned", buf, 0x12u);
+    }
+
+    v63 = 0;
+    goto LABEL_101;
   }
 
-LABEL_87:
-  v58 = *MEMORY[0x1E69E9840];
+  if (mSelector != 1668049699)
+  {
+    if (mSelector == 1668641652)
+    {
+      if (a7 <= 0xB)
+      {
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          *&buf[4] = "ADS_Simulator.cpp";
+          *&buf[12] = 1024;
+          *&buf[14] = 539;
+          _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyData: not enough space for the return value of kAudioObjectPropertyCustomPropertyInfoList", buf, 0x12u);
+        }
 
-  ADS::BaseObject::GetPropertyData(this, a2, a3, a4, a5, a6, a7, a8, a9);
+        v81 = __cxa_allocate_exception(0x10uLL);
+        *v81 = off_1F5991DD8;
+        v81[2] = 561211770;
+      }
+
+      qmemcpy(a9, "Mvedtslptsfc", 12);
+      *buf = *a8 - 12;
+      ADS::BaseObject::GetPropertyData(this, a2, a3, a4, a5, a6, a7, buf, a9 + 24);
+      v16 = *buf + 12;
+      goto LABEL_122;
+    }
+
+    goto LABEL_87;
+  }
+
+  v47 = (this + 120);
+  v52 = (*(*(this + 15) + 16))(this + 120, a2, a3);
+  v53 = a7 >> 2;
+  v54 = v47[14];
+  if ((v47[15] - v54) >> 2 < v53)
+  {
+    v53 = (v47[15] - v54) >> 2;
+  }
+
+  if (v53)
+  {
+    v55 = v53;
+    do
+    {
+      v56 = *v54++;
+      *v13 = v56;
+      v13 += 4;
+      --v55;
+    }
+
+    while (v55);
+    v57 = 4 * v53;
+  }
+
+  else
+  {
+    v64 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+    v57 = 0;
+    if (v64)
+    {
+      *buf = 136315394;
+      *&buf[4] = "ADS_Simulator.cpp";
+      *&buf[12] = 1024;
+      *&buf[14] = 488;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  ADS::Simulator::GetPropertyData: inDataSize too small for any of kAudioPlugInPropertyClockDeviceList to be returned", buf, 0x12u);
+      v57 = 0;
+    }
+  }
+
+  *v9 = v57;
+  if (v52)
+  {
+LABEL_102:
+    (*(*v47 + 24))(v47);
+  }
 }
 
 void sub_1DE21C1CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
@@ -6839,10 +7435,10 @@ void sub_1DE21C1CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ADS::Simulator::GetPropertyDataSize(ADS::Simulator *this, unsigned int a2, int a3, const AudioObjectPropertyAddress *a4, unsigned int a5, int *a6)
+uint64_t ADS::Simulator::GetPropertyDataSize(ADS::Simulator *this, uint64_t a2, uint64_t a3, const AudioObjectPropertyAddress *a4, unsigned int a5, int *a6)
 {
   v6 = a6;
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   mSelector = a4->mSelector;
   v10 = 8;
   if (a4->mSelector > 1819173228)
@@ -6853,7 +7449,7 @@ uint64_t ADS::Simulator::GetPropertyDataSize(ADS::Simulator *this, unsigned int 
       {
         if (mSelector == 1920168547)
         {
-          goto LABEL_31;
+          return v10;
         }
 
         v12 = 1936618861;
@@ -6865,19 +7461,17 @@ uint64_t ADS::Simulator::GetPropertyDataSize(ADS::Simulator *this, unsigned int 
         goto LABEL_38;
       }
 
-LABEL_30:
-      v10 = 4;
-      goto LABEL_31;
+      return 4;
     }
 
     if (mSelector == 1819173229)
     {
-      goto LABEL_31;
+      return v10;
     }
 
     if (mSelector == 1819569763)
     {
-      goto LABEL_30;
+      return 4;
     }
 
     if (mSelector != 1870098020)
@@ -6886,7 +7480,7 @@ LABEL_30:
     }
 
     v13 = this + 120;
-    v14 = (*(*(this + 15) + 16))(this + 120);
+    v14 = (*(*(this + 15) + 16))(this + 120, a2, a3);
     if (*(this + 280))
     {
       goto LABEL_23;
@@ -6901,7 +7495,7 @@ LABEL_57:
         (*(*v13 + 24))(this + 120);
       }
 
-      goto LABEL_31;
+      return v10;
     }
 
     if (a5 < 4)
@@ -6912,35 +7506,35 @@ LABEL_23:
     }
 
     v10 = 0;
-    v23 = a5 >> 2;
+    v21 = a5 >> 2;
     while (1)
     {
-      v25 = *v6++;
-      v24 = v25;
-      if (v25 == 1633841016)
+      v23 = *v6++;
+      v22 = v23;
+      if (v23 == 1633841016)
       {
-        v26 = this + 264;
-        v27 = this + 256;
+        v24 = this + 264;
+        v25 = this + 256;
       }
 
       else
       {
-        v26 = this + 216;
-        v27 = this + 208;
-        if (v24 != 1633969526)
+        v24 = this + 216;
+        v25 = this + 208;
+        if (v22 != 1633969526)
         {
-          v26 = this + 240;
-          v27 = this + 232;
-          if (v24 != 1633905771)
+          v24 = this + 240;
+          v25 = this + 232;
+          if (v22 != 1633905771)
           {
             goto LABEL_54;
           }
         }
       }
 
-      v10 = v10 + ((*v26 - *v27) >> 2);
+      v10 = v10 + ((*v24 - *v25) >> 2);
 LABEL_54:
-      if (!--v23)
+      if (!--v21)
       {
         goto LABEL_57;
       }
@@ -6952,43 +7546,40 @@ LABEL_54:
     switch(mSelector)
     {
       case 1651472419:
-        v19 = (this + 120);
-        v20 = (*(*(this + 15) + 16))(this + 120);
-        v10 = (v19[36] - v19[34]) & 0xFFFFFFFC;
-        if (!v20)
+        v18 = (this + 120);
+        v19 = (*(*(this + 15) + 16))(this + 120, a2, a3);
+        v10 = (v18[36] - v18[34]) & 0xFFFFFFFC;
+        if (!v19)
         {
-          goto LABEL_31;
+          return v10;
         }
 
         break;
       case 1668049699:
-        v19 = (this + 120);
-        v21 = (*(*(this + 15) + 16))(this + 120);
-        v10 = (v19[30] - v19[28]) & 0xFFFFFFFC;
-        if (!v21)
+        v18 = (this + 120);
+        v20 = (*(*(this + 15) + 16))(this + 120, a2, a3);
+        v10 = (v18[30] - v18[28]) & 0xFFFFFFFC;
+        if (!v20)
         {
-          goto LABEL_31;
+          return v10;
         }
 
         break;
       case 1668641652:
-        v10 = 12 * ADS::PropertyManager::Size((this + 24)) + 12;
-LABEL_31:
-        v15 = *MEMORY[0x1E69E9840];
-        return v10;
+        return 12 * ADS::PropertyManager::Size((this + 24)) + 12;
       default:
         goto LABEL_38;
     }
 
-    (*(*v19 + 24))(v19);
-    goto LABEL_31;
+    (*(*v18 + 24))(v18);
+    return v10;
   }
 
   if (mSelector > 1719105133)
   {
     if (mSelector == 1719105134)
     {
-      goto LABEL_31;
+      return v10;
     }
 
     v12 = 1819107691;
@@ -6998,13 +7589,13 @@ LABEL_26:
       goto LABEL_38;
     }
 
-    goto LABEL_31;
+    return v10;
   }
 
   if (mSelector == 1684370979)
   {
-    v17 = this + 120;
-    v18 = (*(*(this + 15) + 16))(this + 120);
+    v16 = this + 120;
+    v17 = (*(*(this + 15) + 16))(this + 120, a2, a3);
     if (*(this + 280))
     {
       v10 = 0;
@@ -7015,12 +7606,12 @@ LABEL_26:
       v10 = (*(this + 54) - *(this + 52)) & 0xFFFFFFFC;
     }
 
-    if (v18)
+    if (v17)
     {
-      (*(*v17 + 24))(this + 120);
+      (*(*v16 + 24))(this + 120);
     }
 
-    goto LABEL_31;
+    return v10;
   }
 
   if (mSelector == 1684371021)
@@ -7029,11 +7620,11 @@ LABEL_26:
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v29 = 136315394;
-        v30 = "ADS_Simulator.cpp";
-        v31 = 1024;
-        v32 = 315;
-        _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyDataSize: the qualifier is the wrong size for kAudioFakeDevicePropertyManageDevices", &v29, 0x12u);
+        v27 = 136315394;
+        v28 = "ADS_Simulator.cpp";
+        v29 = 1024;
+        v30 = 315;
+        _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyDataSize: the qualifier is the wrong size for kAudioFakeDevicePropertyManageDevices", &v27, 0x12u);
       }
 
       exception = __cxa_allocate_exception(0x10uLL);
@@ -7045,11 +7636,11 @@ LABEL_26:
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v29 = 136315394;
-        v30 = "ADS_Simulator.cpp";
-        v31 = 1024;
-        v32 = 316;
-        _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyDataSize: no qualifier for kAudioFakeDevicePropertyManageDevices", &v29, 0x12u);
+        v27 = 136315394;
+        v28 = "ADS_Simulator.cpp";
+        v29 = 1024;
+        v30 = 316;
+        _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Simulator::GetPropertyDataSize: no qualifier for kAudioFakeDevicePropertyManageDevices", &v27, 0x12u);
       }
 
       v11 = __cxa_allocate_exception(0x10uLL);
@@ -7057,11 +7648,10 @@ LABEL_26:
       v11[2] = 561211770;
     }
 
-    goto LABEL_31;
+    return v10;
   }
 
 LABEL_38:
-  v22 = *MEMORY[0x1E69E9840];
 
   return ADS::BaseObject::GetPropertyDataSize(this, a2, a3, a4, a5, a6);
 }
@@ -7133,7 +7723,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t ADS::Simulator::HasProperty(ADS::Simulator *this, unsigned int a2, int a3, const AudioObjectPropertyAddress *a4)
+BOOL ADS::Simulator::HasProperty(ADS::Simulator *this, unsigned int a2, int a3, const AudioObjectPropertyAddress *a4)
 {
   mSelector = a4->mSelector;
   v5 = 1;
@@ -7229,37 +7819,37 @@ void ADS::Simulator::~Simulator(ADS::Simulator *this)
 
 uint64_t Simulator_EndIOOperation(_UNKNOWN **a1, ADS::ObjectManager *this, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a1 != &gAudioServerPlugInDriverInterfacePtr)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "ADS_Simulator.cpp";
-      v15 = 1024;
-      v16 = 1877;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_EndIOOperation: bad driver reference", &v13, 0x12u);
+      v12 = 136315394;
+      v13 = "ADS_Simulator.cpp";
+      v14 = 1024;
+      v15 = 1877;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_EndIOOperation: bad driver reference", &v12, 0x12u);
     }
 
-    v10 = 560947818;
+    v9 = 560947818;
 LABEL_11:
     exception = __cxa_allocate_exception(0x10uLL);
     *exception = off_1F5991DD8;
-    exception[2] = v10;
+    exception[2] = v9;
   }
 
   if (!a6)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "ADS_Simulator.cpp";
-      v15 = 1024;
-      v16 = 1878;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_EndIOOperation: no cycle info", &v13, 0x12u);
+      v12 = 136315394;
+      v13 = "ADS_Simulator.cpp";
+      v14 = 1024;
+      v15 = 1878;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_EndIOOperation: no cycle info", &v12, 0x12u);
     }
 
-    v10 = 1852797029;
+    v9 = 1852797029;
     goto LABEL_11;
   }
 
@@ -7268,20 +7858,19 @@ LABEL_11:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "ADS_Simulator.cpp";
-      v15 = 1024;
-      v16 = 1882;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_EndIOOperation: unknown device", &v13, 0x12u);
+      v12 = 136315394;
+      v13 = "ADS_Simulator.cpp";
+      v14 = 1024;
+      v15 = 1882;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_EndIOOperation: unknown device", &v12, 0x12u);
     }
 
-    v12 = __cxa_allocate_exception(0x10uLL);
-    *v12 = off_1F5991DD8;
-    v12[2] = 560947818;
+    v11 = __cxa_allocate_exception(0x10uLL);
+    *v11 = off_1F5991DD8;
+    v11[2] = 560947818;
   }
 
   ADS::ObjectManager::ReleaseObject(v6, v7);
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -7299,14 +7888,8 @@ void sub_1DE21CDAC(void *a1, ADS::BaseObject *a2)
 {
   if (a2)
   {
-    v3 = a2;
     ADS::ObjectManager::ReleaseObject(0, a2);
-    v4 = __cxa_begin_catch(a1);
-    if (v3 == 2)
-    {
-      v5 = v4[2];
-    }
-
+    __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x1DE21CB8CLL);
   }
@@ -7316,8 +7899,8 @@ void sub_1DE21CDAC(void *a1, ADS::BaseObject *a2)
 
 caulk::rt_safe_memory_resource *Simulator_DoIOOperation(_UNKNOWN **a1, ADS::ObjectManager *this, int a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7, __int16 *a8, uint64_t a9)
 {
-  v163[0] = a3;
-  v174 = *MEMORY[0x1E69E9840];
+  v162[0] = a3;
+  v173 = *MEMORY[0x1E69E9840];
   if (a1 != &gAudioServerPlugInDriverInterfacePtr)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -7329,11 +7912,11 @@ caulk::rt_safe_memory_resource *Simulator_DoIOOperation(_UNKNOWN **a1, ADS::Obje
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_DoIOOperation: bad driver reference", outPropertyData, 0x12u);
     }
 
-    v138 = 560947818;
+    v137 = 560947818;
 LABEL_189:
     exception = __cxa_allocate_exception(0x10uLL);
     *exception = off_1F5991DD8;
-    exception[2] = v138;
+    exception[2] = v137;
   }
 
   v9 = a7;
@@ -7348,7 +7931,7 @@ LABEL_189:
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_DoIOOperation: no cycle info", outPropertyData, 0x12u);
     }
 
-    v138 = 1852797029;
+    v137 = 1852797029;
     goto LABEL_189;
   }
 
@@ -7365,12 +7948,12 @@ LABEL_189:
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_EndIOOperation: unknown device", outPropertyData, 0x12u);
     }
 
-    v140 = __cxa_allocate_exception(0x10uLL);
-    *v140 = off_1F5991DD8;
-    v140[2] = 560947818;
+    v139 = __cxa_allocate_exception(0x10uLL);
+    *v139 = off_1F5991DD8;
+    v139[2] = 560947818;
   }
 
-  v162 = a4;
+  v161 = a4;
   if (a5 == 1919513701)
   {
     v29 = atomic_load((*&v14 + 856));
@@ -7426,15 +8009,15 @@ LABEL_189:
 
       if (*(*&v17 + 616) == 1)
       {
-        v172 = *&v17 + 272;
-        v157 = (*(*(*&v17 + 272) + 16))(*&v17 + 272, v16);
-        v173 = v157;
+        v171 = *&v17 + 272;
+        v156 = (*(*(*&v17 + 272) + 16))(*&v17 + 272, v16);
+        v172 = v156;
         v36 = *(*&v17 + 576);
         for (i = *(*&v17 + 584); v36 != i; ++v36)
         {
           v38 = *v36;
-          v163[1] = 40;
-          Property = ExtAudioFileGetProperty(v38, 0x66666D74u, &v163[1], outPropertyData);
+          v162[1] = 40;
+          Property = ExtAudioFileGetProperty(v38, 0x66666D74u, &v162[1], outPropertyData);
           if (Property)
           {
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -7446,13 +8029,13 @@ LABEL_189:
               _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Device::WriteOutputData: could not get the file format for the given audio file", &ioData, 0x12u);
             }
 
-            v137 = __cxa_allocate_exception(0x10uLL);
-            *v137 = off_1F5991DD8;
-            v137[2] = Property;
+            v136 = __cxa_allocate_exception(0x10uLL);
+            *v136 = off_1F5991DD8;
+            v136[2] = Property;
           }
 
           ioData.mNumberBuffers = 1;
-          ioData.mBuffers[0].mNumberChannels = v171[0];
+          ioData.mBuffers[0].mNumberChannels = v170[0];
           ioData.mBuffers[0].mDataByteSize = *&outPropertyData[24] * a6;
           ioData.mBuffers[0].mData = a8;
           v40 = ExtAudioFileWriteAsync(v38, a6, &ioData);
@@ -7462,18 +8045,18 @@ LABEL_189:
             {
               *__p = 136315394;
               *&__p[4] = "ADS_Device.cpp";
-              v166 = 1024;
-              v167 = 1832;
+              v165 = 1024;
+              v166 = 1832;
               _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Device::WriteOutputData: could not write audio buffer to file", __p, 0x12u);
             }
 
-            v136 = __cxa_allocate_exception(0x10uLL);
-            *v136 = off_1F5991DD8;
-            v136[2] = v40;
+            v135 = __cxa_allocate_exception(0x10uLL);
+            *v135 = off_1F5991DD8;
+            v135[2] = v40;
           }
         }
 
-        if (v157)
+        if (v156)
         {
           (*(*(*&v17 + 272) + 24))(*&v17 + 272);
         }
@@ -7598,35 +8181,35 @@ LABEL_17:
             if (*(*&v17 + 504))
             {
               v47 = *&v17 + 272;
-              *&v163[1] = *&v17 + 272;
+              *&v162[1] = *&v17 + 272;
               v59 = (*(*(*&v17 + 272) + 16))(*&v17 + 272);
-              v164 = v59;
-              v60 = ADS::ObjectManager::CopyObjectByObjectID(v163[0]);
+              v163 = v59;
+              v60 = ADS::ObjectManager::CopyObjectByObjectID(v162[0]);
               ioData = *(v60 + 120);
               v61 = *(v60 + 144);
-              v159 = *(v60 + 148);
-              v156 = v60;
+              v158 = *(v60 + 148);
+              v155 = v60;
               v62 = *(v60 + 152);
-              v154 = v61 * a6;
+              v153 = v61 * a6;
               bzero(a8, (v61 * a6));
               v63 = *&v17 + 688;
               v64 = (*&v17 + 696);
               if (!*(*&v17 + 696))
               {
-                v152 = v62;
+                v151 = v62;
                 v65 = *(*&v17 + 680);
                 if (!v65)
                 {
-                  v145 = __cxa_allocate_exception(0x10uLL);
-                  std::runtime_error::runtime_error(v145, "Could not construct");
-                  __cxa_throw(v145, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                  v144 = __cxa_allocate_exception(0x10uLL);
+                  std::runtime_error::runtime_error(v144, "Could not construct");
+                  __cxa_throw(v144, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
                 }
 
                 outExtAudioFile = (*&v17 + 696);
-                v151 = v59;
-                v161 = v9;
+                v150 = v59;
+                v160 = v9;
                 applesauce::CF::convert_to<std::string,0>(__p, v65);
-                v66 = v168;
+                v66 = v167;
                 v67 = *__p;
                 CAExtAudioFile::Close((*&v17 + 688));
                 if (v66 >= 0)
@@ -7646,37 +8229,37 @@ LABEL_17:
                 {
                   if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
                   {
-                    CAX4CCString::CAX4CCString(&v172);
+                    CAX4CCString::CAX4CCString(&v171);
                     *outPropertyData = 136315906;
                     *&outPropertyData[4] = "CAExtAudioFile.h";
                     *&outPropertyData[12] = 1024;
                     *&outPropertyData[14] = 37;
                     *&outPropertyData[18] = 2080;
-                    *&outPropertyData[20] = &v172;
-                    LOWORD(v171[0]) = 2080;
-                    *(v171 + 2) = "couldn't convert path to CFURLRef";
+                    *&outPropertyData[20] = &v171;
+                    LOWORD(v170[0]) = 2080;
+                    *(v170 + 2) = "couldn't convert path to CFURLRef";
                     _os_log_impl(&dword_1DE1F9000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", outPropertyData, 0x26u);
                   }
 
-                  v146 = __cxa_allocate_exception(0x110uLL);
-                  CAXException::CAXException(v146, "couldn't convert path to CFURLRef", -1);
+                  v145 = __cxa_allocate_exception(0x110uLL);
+                  CAXException::CAXException(v145, "couldn't convert path to CFURLRef", -1);
                 }
 
                 v72 = ExtAudioFileOpenURL(v70, outExtAudioFile);
                 CFRelease(v71);
                 (*(*v63 + 16))(*&v17 + 688, v72, "ExtAudioFileOpenURL");
-                v9 = v161;
-                v59 = v151;
-                if (v168 < 0)
+                v9 = v160;
+                v59 = v150;
+                if (v167 < 0)
                 {
                   operator delete(*__p);
                 }
 
                 *outPropertyData = ioData;
                 *&outPropertyData[24] = v61;
-                v171[0] = v159;
+                v170[0] = v158;
                 v64 = (*&v17 + 696);
-                *&v171[1] = v152;
+                *&v170[1] = v151;
                 v73 = ExtAudioFileSetProperty(*outExtAudioFile, 0x63666D74u, 0x28u, outPropertyData);
                 (*(*v63 + 24))(*&v17 + 688, v73, "ExtAudioFileSetProperty", 1667657076);
               }
@@ -7695,15 +8278,15 @@ LABEL_17:
                   _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Device::inputFileBasedHardwareIOProc: couldn't allocate AudioBufferList", outPropertyData, 0x12u);
                 }
 
-                v142 = __cxa_allocate_exception(0x10uLL);
-                *v142 = off_1F5991DD8;
-                v142[2] = 1852797029;
+                v141 = __cxa_allocate_exception(0x10uLL);
+                *v141 = off_1F5991DD8;
+                v141[2] = 1852797029;
               }
 
               *v74 = 1;
               v74[2] = a8;
-              *(v74 + 2) = v159;
-              *(v74 + 3) = v154;
+              *(v74 + 2) = v158;
+              *(v74 + 3) = v153;
               *outPropertyData = a6;
               v76 = ExtAudioFileRead(*v64, outPropertyData, v74);
               (*(*v63 + 16))(*&v17 + 688, v76, "ExtAudioFileRead");
@@ -7714,7 +8297,7 @@ LABEL_17:
               }
 
               MEMORY[0x1E12C1730](v75, 0x1080C404ACF7207);
-              ADS::ObjectManager::ReleaseObject(v156, v78);
+              ADS::ObjectManager::ReleaseObject(v155, v78);
               if (v59)
               {
 LABEL_120:
@@ -7766,7 +8349,7 @@ LABEL_121:
             *&ioData.mNumberBuffers = *&v17 + 272;
             v105 = (*(*(*&v17 + 272) + 16))(*&v17 + 272);
             LOBYTE(ioData.mBuffers[0].mNumberChannels) = v105;
-            v106 = ADS::ObjectManager::CopyObjectByObjectID(v163[0]);
+            v106 = ADS::ObjectManager::CopyObjectByObjectID(v162[0]);
             if (!v106)
             {
 LABEL_153:
@@ -7829,10 +8412,10 @@ LABEL_153:
                 *&outPropertyData[4] = "ADS_Device.cpp";
                 *&outPropertyData[12] = 1024;
                 *&outPropertyData[14] = 1874;
-                v143 = MEMORY[0x1E69E9C10];
-                v144 = "%25s:%-5d  Applying gain currently only supports 32- and 64-bit floats";
+                v142 = MEMORY[0x1E69E9C10];
+                v143 = "%25s:%-5d  Applying gain currently only supports 32- and 64-bit floats";
 LABEL_207:
-                _os_log_impl(&dword_1DE1F9000, v143, OS_LOG_TYPE_ERROR, v144, outPropertyData, 0x12u);
+                _os_log_impl(&dword_1DE1F9000, v142, OS_LOG_TYPE_ERROR, v143, outPropertyData, 0x12u);
               }
             }
 
@@ -7847,7 +8430,7 @@ LABEL_207:
                   do
                   {
                     *v124 = (v109 * *v124);
-                    ++v124;
+                    v124 = (v124 + 1);
                     --v123;
                   }
 
@@ -7882,8 +8465,8 @@ LABEL_207:
                 *&outPropertyData[4] = "ADS_Device.cpp";
                 *&outPropertyData[12] = 1024;
                 *&outPropertyData[14] = 1889;
-                v143 = MEMORY[0x1E69E9C10];
-                v144 = "%25s:%-5d  Applying gain currently only supports 16- and 8-bit SInts";
+                v142 = MEMORY[0x1E69E9C10];
+                v143 = "%25s:%-5d  Applying gain currently only supports 16- and 8-bit SInts";
                 goto LABEL_207;
               }
             }
@@ -7900,7 +8483,8 @@ LABEL_207:
                   {
                     LOBYTE(v108) = *v122;
                     v108 = v109 * LODWORD(v108);
-                    *v122++ = v108;
+                    *v122 = v108;
+                    v122 = (v122 + 1);
                     --v121;
                   }
 
@@ -7936,21 +8520,21 @@ LABEL_207:
                 *&outPropertyData[4] = "ADS_Device.cpp";
                 *&outPropertyData[12] = 1024;
                 *&outPropertyData[14] = 1904;
-                v143 = MEMORY[0x1E69E9C10];
-                v144 = "%25s:%-5d  Applying gain currently only supports 16- and 8-bit UInts";
+                v142 = MEMORY[0x1E69E9C10];
+                v143 = "%25s:%-5d  Applying gain currently only supports 16- and 8-bit UInts";
                 goto LABEL_207;
               }
             }
 
-            v147 = __cxa_allocate_exception(0x10uLL);
-            *v147 = off_1F5991DD8;
-            v147[2] = 560226676;
+            v146 = __cxa_allocate_exception(0x10uLL);
+            *v146 = off_1F5991DD8;
+            v146[2] = 560226676;
           }
 
 LABEL_193:
-          v141 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v141, "Could not construct");
-          __cxa_throw(v141, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          v140 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v140, "Could not construct");
+          __cxa_throw(v140, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
       }
 
@@ -7962,11 +8546,11 @@ LABEL_193:
       v46 = *(v9 + 80);
       v47 = *&v17 + 272;
       *__p = *&v17 + 272;
-      v160 = v9;
-      v155 = (*(*(*&v17 + 272) + 16))(*&v17 + 272);
-      __p[8] = v155;
-      v48 = ADS::ObjectManager::CopyObjectByObjectID(v163[0]);
-      v158 = v48;
+      v159 = v9;
+      v154 = (*(*(*&v17 + 272) + 16))(*&v17 + 272);
+      __p[8] = v154;
+      v48 = ADS::ObjectManager::CopyObjectByObjectID(v162[0]);
+      v157 = v48;
       if (v48)
       {
         if (*(*&v17 + 504))
@@ -8022,8 +8606,8 @@ LABEL_193:
                 *&outPropertyData[4] = "ADS_Device.cpp";
                 *&outPropertyData[12] = 1024;
                 *&outPropertyData[14] = 1698;
-                v148 = MEMORY[0x1E69E9C10];
-                v149 = "%25s:%-5d  Reading input currently only supports 32- and 64-bit floats";
+                v147 = MEMORY[0x1E69E9C10];
+                v148 = "%25s:%-5d  Reading input currently only supports 32- and 64-bit floats";
                 goto LABEL_215;
               }
 
@@ -8063,28 +8647,28 @@ LABEL_193:
             {
               if (a6)
               {
+                v130 = 0;
                 v131 = 0;
-                v132 = 0;
                 do
                 {
                   if (v52)
                   {
-                    v133 = v131;
-                    v134 = v52;
+                    v132 = v130;
+                    v133 = v52;
                     do
                     {
-                      *(a8 + v133++) = sin((v132 + v46) * 2764.60154 / *(*&v17 + 720));
-                      --v134;
+                      *(a8 + v132++) = sin((v131 + v46) * 2764.60154 / *(*&v17 + 720));
+                      --v133;
                     }
 
-                    while (v134);
+                    while (v133);
                   }
 
-                  ++v132;
-                  v131 += v52;
+                  ++v131;
+                  v130 += v52;
                 }
 
-                while (v132 != a6);
+                while (v131 != a6);
               }
             }
 
@@ -8101,8 +8685,8 @@ LABEL_193:
                 *&outPropertyData[4] = "ADS_Device.cpp";
                 *&outPropertyData[12] = 1024;
                 *&outPropertyData[14] = 1713;
-                v148 = MEMORY[0x1E69E9C10];
-                v149 = "%25s:%-5d  Reading input currently only supports 16- and 8-bit SInts";
+                v147 = MEMORY[0x1E69E9C10];
+                v148 = "%25s:%-5d  Reading input currently only supports 16- and 8-bit SInts";
                 goto LABEL_215;
               }
 
@@ -8174,46 +8758,46 @@ LABEL_193:
               if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
               {
 LABEL_216:
-                v150 = __cxa_allocate_exception(0x10uLL);
-                *v150 = off_1F5991DD8;
-                v150[2] = 560226676;
+                v149 = __cxa_allocate_exception(0x10uLL);
+                *v149 = off_1F5991DD8;
+                v149[2] = 560226676;
               }
 
               *outPropertyData = 136315394;
               *&outPropertyData[4] = "ADS_Device.cpp";
               *&outPropertyData[12] = 1024;
               *&outPropertyData[14] = 1728;
-              v148 = MEMORY[0x1E69E9C10];
-              v149 = "%25s:%-5d  Reading input currently only supports 16- and 8-bit UInts";
+              v147 = MEMORY[0x1E69E9C10];
+              v148 = "%25s:%-5d  Reading input currently only supports 16- and 8-bit UInts";
 LABEL_215:
-              _os_log_impl(&dword_1DE1F9000, v148, OS_LOG_TYPE_ERROR, v149, outPropertyData, 0x12u);
+              _os_log_impl(&dword_1DE1F9000, v147, OS_LOG_TYPE_ERROR, v148, outPropertyData, 0x12u);
               goto LABEL_216;
             }
 
             if (a6)
             {
+              v126 = 0;
               v127 = 0;
-              v128 = 0;
               do
               {
                 if (v52)
                 {
-                  v129 = v127;
-                  v130 = v52;
+                  v128 = v126;
+                  v129 = v52;
                   do
                   {
-                    *(a8 + v129++) = sin((v128 + v46) * 2764.60154 / *(*&v17 + 720));
-                    --v130;
+                    *(a8 + v128++) = sin((v127 + v46) * 2764.60154 / *(*&v17 + 720));
+                    --v129;
                   }
 
-                  while (v130);
+                  while (v129);
                 }
 
-                ++v128;
-                v127 += v52;
+                ++v127;
+                v126 += v52;
               }
 
-              while (v128 != a6);
+              while (v127 != a6);
             }
           }
         }
@@ -8243,13 +8827,13 @@ LABEL_215:
           if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
           {
             OS::CF::String::AsStdString(&ioData, *&v17 + 152);
-            v135 = SHIBYTE(ioData.mBuffers[0].mData) >= 0 ? &ioData : *&ioData.mNumberBuffers;
+            v134 = SHIBYTE(ioData.mBuffers[0].mData) >= 0 ? &ioData : *&ioData.mNumberBuffers;
             *outPropertyData = 136315650;
             *&outPropertyData[4] = "ADS_Device.cpp";
             *&outPropertyData[12] = 1024;
             *&outPropertyData[14] = 1680;
             *&outPropertyData[18] = 2080;
-            *&outPropertyData[20] = v135;
+            *&outPropertyData[20] = v134;
             _os_log_error_impl(&dword_1DE1F9000, v86, OS_LOG_TYPE_ERROR, "%32s:%-5d ADS::Device::ReadInputData - mStartCount is 0 - this means the device thinks it should not be running: %s", outPropertyData, 0x1Cu);
             if (SHIBYTE(ioData.mBuffers[0].mData) < 0)
             {
@@ -8260,10 +8844,10 @@ LABEL_215:
       }
 
 LABEL_119:
-      ADS::ObjectManager::ReleaseObject(v158, v49);
-      v9 = v160;
+      ADS::ObjectManager::ReleaseObject(v157, v49);
+      v9 = v159;
       a5 = 1919246692;
-      if (!v155)
+      if (!v154)
       {
         goto LABEL_121;
       }
@@ -8280,11 +8864,10 @@ LABEL_155:
   v125 = *(*&v17 + 632);
   if (v125)
   {
-    v125(v163[0], v162, a5, a6, v9, a8, a9);
+    v125(v162[0], v161, a5, a6, v9, a8, a9);
   }
 
   ADS::ObjectManager::ReleaseObject(*&v17, v15);
-  v126 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -8293,13 +8876,8 @@ void sub_1DE21E790(void *a1, int a2)
   if (a2)
   {
     __cxa_end_catch();
-    ADS::ObjectManager::ReleaseObject(v2, v5);
-    v6 = __cxa_begin_catch(a1);
-    if (a2 == 2)
-    {
-      v7 = v6[2];
-    }
-
+    ADS::ObjectManager::ReleaseObject(v2, v4);
+    __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x1DE21DB90);
   }
@@ -8342,13 +8920,8 @@ void sub_1DE21E7F0(void *a1, int a2)
   if (a2)
   {
     CADeprecated::CAMutex::Locker::~Locker((v3 - 160));
-    ADS::ObjectManager::ReleaseObject(v2, v6);
-    v7 = __cxa_begin_catch(a1);
-    if (a2 == 2)
-    {
-      v8 = v7[2];
-    }
-
+    ADS::ObjectManager::ReleaseObject(v2, v5);
+    __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x1DE21DB90);
   }
@@ -8368,37 +8941,37 @@ void sub_1DE21E81C(uint64_t a1, int a2)
 
 uint64_t Simulator_BeginIOOperation(_UNKNOWN **a1, ADS::ObjectManager *this, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a1 != &gAudioServerPlugInDriverInterfacePtr)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "ADS_Simulator.cpp";
-      v15 = 1024;
-      v16 = 1697;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_BeginIOOperation: bad driver reference", &v13, 0x12u);
+      v12 = 136315394;
+      v13 = "ADS_Simulator.cpp";
+      v14 = 1024;
+      v15 = 1697;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_BeginIOOperation: bad driver reference", &v12, 0x12u);
     }
 
-    v10 = 560947818;
+    v9 = 560947818;
 LABEL_11:
     exception = __cxa_allocate_exception(0x10uLL);
     *exception = off_1F5991DD8;
-    exception[2] = v10;
+    exception[2] = v9;
   }
 
   if (!a6)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "ADS_Simulator.cpp";
-      v15 = 1024;
-      v16 = 1698;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_BeginIOOperation: no cycle info", &v13, 0x12u);
+      v12 = 136315394;
+      v13 = "ADS_Simulator.cpp";
+      v14 = 1024;
+      v15 = 1698;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_BeginIOOperation: no cycle info", &v12, 0x12u);
     }
 
-    v10 = 1852797029;
+    v9 = 1852797029;
     goto LABEL_11;
   }
 
@@ -8407,20 +8980,19 @@ LABEL_11:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "ADS_Simulator.cpp";
-      v15 = 1024;
-      v16 = 1702;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_BeginIOOperation: unknown device", &v13, 0x12u);
+      v12 = 136315394;
+      v13 = "ADS_Simulator.cpp";
+      v14 = 1024;
+      v15 = 1702;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_BeginIOOperation: unknown device", &v12, 0x12u);
     }
 
-    v12 = __cxa_allocate_exception(0x10uLL);
-    *v12 = off_1F5991DD8;
-    v12[2] = 560947818;
+    v11 = __cxa_allocate_exception(0x10uLL);
+    *v11 = off_1F5991DD8;
+    v11[2] = 560947818;
   }
 
   ADS::ObjectManager::ReleaseObject(v6, v7);
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -8438,14 +9010,8 @@ void sub_1DE21EAD0(void *a1, ADS::BaseObject *a2)
 {
   if (a2)
   {
-    v3 = a2;
     ADS::ObjectManager::ReleaseObject(0, a2);
-    v4 = __cxa_begin_catch(a1);
-    if (v3 == 2)
-    {
-      v5 = v4[2];
-    }
-
+    __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x1DE21E8B0);
   }
@@ -8455,41 +9021,41 @@ void sub_1DE21EAD0(void *a1, ADS::BaseObject *a2)
 
 uint64_t Simulator_WillDoIOOperation(_UNKNOWN **a1, ADS::ObjectManager *this, uint64_t a3, int a4, BOOL *a5, _BYTE *a6)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (a1 != &gAudioServerPlugInDriverInterfacePtr)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v19 = 136315394;
-      v20 = "ADS_Simulator.cpp";
-      v21 = 1024;
-      v22 = 1656;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_WillDoIOOperation: bad driver reference", &v19, 0x12u);
+      v18 = 136315394;
+      v19 = "ADS_Simulator.cpp";
+      v20 = 1024;
+      v21 = 1656;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_WillDoIOOperation: bad driver reference", &v18, 0x12u);
     }
 
-    v14 = 560947818;
+    v13 = 560947818;
 LABEL_19:
     exception = __cxa_allocate_exception(0x10uLL);
     *exception = off_1F5991DD8;
-    exception[2] = v14;
+    exception[2] = v13;
   }
 
   if (!a5)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v19 = 136315394;
-      v20 = "ADS_Simulator.cpp";
-      v21 = 1024;
-      v22 = 1657;
-      v15 = MEMORY[0x1E69E9C10];
-      v16 = "%25s:%-5d  Simulator_WillDoIOOperation: no place to put the will-do return value";
+      v18 = 136315394;
+      v19 = "ADS_Simulator.cpp";
+      v20 = 1024;
+      v21 = 1657;
+      v14 = MEMORY[0x1E69E9C10];
+      v15 = "%25s:%-5d  Simulator_WillDoIOOperation: no place to put the will-do return value";
 LABEL_17:
-      _os_log_impl(&dword_1DE1F9000, v15, OS_LOG_TYPE_ERROR, v16, &v19, 0x12u);
+      _os_log_impl(&dword_1DE1F9000, v14, OS_LOG_TYPE_ERROR, v15, &v18, 0x12u);
     }
 
 LABEL_18:
-    v14 = 1852797029;
+    v13 = 1852797029;
     goto LABEL_19;
   }
 
@@ -8497,12 +9063,12 @@ LABEL_18:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v19 = 136315394;
-      v20 = "ADS_Simulator.cpp";
-      v21 = 1024;
-      v22 = 1658;
-      v15 = MEMORY[0x1E69E9C10];
-      v16 = "%25s:%-5d  Simulator_WillDoIOOperation: no place to put the in-place return value";
+      v18 = 136315394;
+      v19 = "ADS_Simulator.cpp";
+      v20 = 1024;
+      v21 = 1658;
+      v14 = MEMORY[0x1E69E9C10];
+      v15 = "%25s:%-5d  Simulator_WillDoIOOperation: no place to put the in-place return value";
       goto LABEL_17;
     }
 
@@ -8514,16 +9080,16 @@ LABEL_18:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v19 = 136315394;
-      v20 = "ADS_Simulator.cpp";
-      v21 = 1024;
-      v22 = 1662;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_WillDoIOOperation: unknown device", &v19, 0x12u);
+      v18 = 136315394;
+      v19 = "ADS_Simulator.cpp";
+      v20 = 1024;
+      v21 = 1662;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_WillDoIOOperation: unknown device", &v18, 0x12u);
     }
 
-    v18 = __cxa_allocate_exception(0x10uLL);
-    *v18 = off_1F5991DD8;
-    v18[2] = 560947818;
+    v17 = __cxa_allocate_exception(0x10uLL);
+    *v17 = off_1F5991DD8;
+    v17[2] = 560947818;
   }
 
   if (a4 == 1919246692)
@@ -8543,7 +9109,6 @@ LABEL_18:
   *a5 = v11;
   *a6 = 1;
   ADS::ObjectManager::ReleaseObject(v9, v10);
-  v12 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -8561,14 +9126,8 @@ void sub_1DE21EE58(void *a1, ADS::BaseObject *a2)
 {
   if (a2)
   {
-    v3 = a2;
     ADS::ObjectManager::ReleaseObject(0, a2);
-    v4 = __cxa_begin_catch(a1);
-    if (v3 == 2)
-    {
-      v5 = v4[2];
-    }
-
+    __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x1DE21EBDCLL);
   }
@@ -8578,23 +9137,23 @@ void sub_1DE21EE58(void *a1, ADS::BaseObject *a2)
 
 uint64_t Simulator_GetZeroTimeStamp(_UNKNOWN **a1, ADS::ObjectManager *this, uint64_t a3, double *a4, void *a5, void *a6)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (a1 != &gAudioServerPlugInDriverInterfacePtr)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      *v37 = 136315394;
-      *&v37[4] = "ADS_Simulator.cpp";
-      v38 = 1024;
-      v39 = 1620;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_GetZeroTimeStamp: bad driver reference", v37, 0x12u);
+      *v36 = 136315394;
+      *&v36[4] = "ADS_Simulator.cpp";
+      v37 = 1024;
+      v38 = 1620;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_GetZeroTimeStamp: bad driver reference", v36, 0x12u);
     }
 
-    v32 = 560947818;
+    v31 = 560947818;
 LABEL_41:
     exception = __cxa_allocate_exception(0x10uLL);
     *exception = off_1F5991DD8;
-    exception[2] = v32;
+    exception[2] = v31;
   }
 
   if (!a4)
@@ -8604,14 +9163,14 @@ LABEL_41:
       goto LABEL_40;
     }
 
-    *v37 = 136315394;
-    *&v37[4] = "ADS_Simulator.cpp";
-    v38 = 1024;
-    v39 = 1621;
-    v33 = MEMORY[0x1E69E9C10];
-    v34 = "%25s:%-5d  Simulator_GetZeroTimeStamp: no place to put the sample time";
+    *v36 = 136315394;
+    *&v36[4] = "ADS_Simulator.cpp";
+    v37 = 1024;
+    v38 = 1621;
+    v32 = MEMORY[0x1E69E9C10];
+    v33 = "%25s:%-5d  Simulator_GetZeroTimeStamp: no place to put the sample time";
 LABEL_39:
-    _os_log_impl(&dword_1DE1F9000, v33, OS_LOG_TYPE_ERROR, v34, v37, 0x12u);
+    _os_log_impl(&dword_1DE1F9000, v32, OS_LOG_TYPE_ERROR, v33, v36, 0x12u);
     goto LABEL_40;
   }
 
@@ -8622,12 +9181,12 @@ LABEL_39:
       goto LABEL_40;
     }
 
-    *v37 = 136315394;
-    *&v37[4] = "ADS_Simulator.cpp";
-    v38 = 1024;
-    v39 = 1622;
-    v33 = MEMORY[0x1E69E9C10];
-    v34 = "%25s:%-5d  Simulator_GetZeroTimeStamp: no place to put the host time";
+    *v36 = 136315394;
+    *&v36[4] = "ADS_Simulator.cpp";
+    v37 = 1024;
+    v38 = 1622;
+    v32 = MEMORY[0x1E69E9C10];
+    v33 = "%25s:%-5d  Simulator_GetZeroTimeStamp: no place to put the host time";
     goto LABEL_39;
   }
 
@@ -8635,17 +9194,17 @@ LABEL_39:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      *v37 = 136315394;
-      *&v37[4] = "ADS_Simulator.cpp";
-      v38 = 1024;
-      v39 = 1623;
-      v33 = MEMORY[0x1E69E9C10];
-      v34 = "%25s:%-5d  Simulator_GetZeroTimeStamp: no place to put the seed";
+      *v36 = 136315394;
+      *&v36[4] = "ADS_Simulator.cpp";
+      v37 = 1024;
+      v38 = 1623;
+      v32 = MEMORY[0x1E69E9C10];
+      v33 = "%25s:%-5d  Simulator_GetZeroTimeStamp: no place to put the seed";
       goto LABEL_39;
     }
 
 LABEL_40:
-    v32 = 1852797029;
+    v31 = 1852797029;
     goto LABEL_41;
   }
 
@@ -8655,16 +9214,16 @@ LABEL_40:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      *v37 = 136315394;
-      *&v37[4] = "ADS_Simulator.cpp";
-      v38 = 1024;
-      v39 = 1627;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_GetZeroTimeStamp: unknown device", v37, 0x12u);
+      *v36 = 136315394;
+      *&v36[4] = "ADS_Simulator.cpp";
+      v37 = 1024;
+      v38 = 1627;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_GetZeroTimeStamp: unknown device", v36, 0x12u);
     }
 
-    v36 = __cxa_allocate_exception(0x10uLL);
-    *v36 = off_1F5991DD8;
-    v36[2] = 560947818;
+    v35 = __cxa_allocate_exception(0x10uLL);
+    *v35 = off_1F5991DD8;
+    v35[2] = 560947818;
   }
 
   v12 = atomic_load((v9 + 856));
@@ -8680,8 +9239,8 @@ LABEL_40:
 
   else
   {
-    *v37 = v9 + 272;
-    v37[8] = (*(*(v9 + 272) + 16))();
+    *v36 = v9 + 272;
+    v36[8] = (*(*(v9 + 272) + 16))();
     v13 = atomic_load((v11 + 856));
     if ((v13 & 0x4000) != 0 && !*(v11 + 536))
     {
@@ -8768,14 +9327,13 @@ LABEL_40:
       }
     }
 
-    if (v37[8] == 1)
+    if (v36[8] == 1)
     {
-      (*(**v37 + 24))(*v37);
+      (*(**v36 + 24))(*v36);
     }
   }
 
   ADS::ObjectManager::ReleaseObject(v11, v10);
-  v30 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -8811,15 +9369,15 @@ void sub_1DE21F444(uint64_t a1, int a2)
 
 uint64_t Simulator_StopIO(_UNKNOWN **a1, ADS::ObjectManager *this)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (a1 != &gAudioServerPlugInDriverInterfacePtr)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "ADS_Simulator.cpp";
-      v23 = 1024;
-      v24 = 1583;
+      v21 = "ADS_Simulator.cpp";
+      v22 = 1024;
+      v23 = 1583;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_StopIO: bad driver reference", buf, 0x12u);
     }
 
@@ -8834,36 +9392,36 @@ uint64_t Simulator_StopIO(_UNKNOWN **a1, ADS::ObjectManager *this)
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "ADS_Simulator.cpp";
-      v23 = 1024;
-      v24 = 1587;
+      v21 = "ADS_Simulator.cpp";
+      v22 = 1024;
+      v23 = 1587;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_StopIO: unknown device", buf, 0x12u);
     }
 
-    v16 = __cxa_allocate_exception(0x10uLL);
-    *v16 = off_1F5991DD8;
-    v16[2] = 560947818;
+    v15 = __cxa_allocate_exception(0x10uLL);
+    *v15 = off_1F5991DD8;
+    v15[2] = 560947818;
   }
 
-  v20 = (*(*(v2 + 184) + 16))();
-  v19 = (*(*(v2 + 272) + 16))();
+  v19 = (*(*(v2 + 184) + 16))();
+  v18 = (*(*(v2 + 272) + 16))();
   v4 = atomic_load((v2 + 500));
   if (v4)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "ADS_Device.cpp";
-      v23 = 1024;
-      v24 = 1391;
+      v21 = "ADS_Device.cpp";
+      v22 = 1024;
+      v23 = 1391;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Device::StopIO: config change is in progress, cannot start IO", buf, 0x12u);
     }
 
-    v17 = 1852990585;
+    v16 = 1852990585;
 LABEL_35:
-    v18 = __cxa_allocate_exception(0x10uLL);
-    *v18 = off_1F5991DD8;
-    v18[2] = v17;
+    v17 = __cxa_allocate_exception(0x10uLL);
+    *v17 = off_1F5991DD8;
+    v17[2] = v16;
   }
 
   v5 = *(v2 + 504);
@@ -8872,13 +9430,13 @@ LABEL_35:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "ADS_Device.cpp";
-      v23 = 1024;
-      v24 = 1393;
+      v21 = "ADS_Device.cpp";
+      v22 = 1024;
+      v23 = 1393;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Device::StopIO: failed to stop because IO was not running", buf, 0x12u);
     }
 
-    v17 = 1852797029;
+    v16 = 1852797029;
     goto LABEL_35;
   }
 
@@ -8890,11 +9448,11 @@ LABEL_35:
     {
       v7 = *(v2 + 8);
       *buf = 136315650;
-      v22 = "ADS_Device.cpp";
-      v23 = 1024;
-      v24 = 1397;
-      v25 = 1024;
-      v26 = v7;
+      v21 = "ADS_Device.cpp";
+      v22 = 1024;
+      v23 = 1397;
+      v24 = 1024;
+      v25 = v7;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  Device %u stopping IO.\n", buf, 0x18u);
     }
 
@@ -8910,15 +9468,15 @@ LABEL_35:
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v22 = "ADS_Device.cpp";
-            v23 = 1024;
-            v24 = 1401;
+            v21 = "ADS_Device.cpp";
+            v22 = 1024;
+            v23 = 1401;
             _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ADS::Device::StopIO: could not dispose of given ExtAudioFileRef", buf, 0x12u);
           }
 
-          v14 = __cxa_allocate_exception(0x10uLL);
-          *v14 = off_1F5991DD8;
-          v14[2] = v10;
+          v13 = __cxa_allocate_exception(0x10uLL);
+          *v13 = off_1F5991DD8;
+          v13[2] = v10;
         }
 
         ++v8;
@@ -8937,18 +9495,17 @@ LABEL_35:
     usleep(0x2625A0u);
   }
 
-  if (v19 == 1)
+  if (v18 == 1)
   {
     (*(*(v2 + 272) + 24))(v2 + 272);
   }
 
-  if (v20 == 1)
+  if (v19 == 1)
   {
     (*(*(v2 + 184) + 24))(v2 + 184);
   }
 
   ADS::ObjectManager::ReleaseObject(v2, v3);
-  v12 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -8962,19 +9519,14 @@ void sub_1DE21F9E4(_Unwind_Exception *exception_object, int a2)
   __clang_call_terminate(exception_object);
 }
 
-void sub_1DE21FA04(void *a1, int a2, uint64_t a3, uint64_t a4, ...)
+void sub_1DE21FA04(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a4);
+  va_start(va, a6);
   if (a2)
   {
     CADeprecated::CAMutex::Locker::~Locker(va);
-    ADS::ObjectManager::ReleaseObject(v4, v7);
-    v8 = __cxa_begin_catch(a1);
-    if (a2 == 2)
-    {
-      v9 = v8[2];
-    }
-
+    ADS::ObjectManager::ReleaseObject(v6, v8);
+    __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x1DE21F678);
   }
@@ -8984,7 +9536,7 @@ void sub_1DE21FA04(void *a1, int a2, uint64_t a3, uint64_t a4, ...)
 
 uint64_t Simulator_StartIO(_UNKNOWN **a1, ADS::ObjectManager *this, uint64_t a3)
 {
-  v108 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   if (a1 != &gAudioServerPlugInDriverInterfacePtr)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -9016,9 +9568,9 @@ uint64_t Simulator_StartIO(_UNKNOWN **a1, ADS::ObjectManager *this, uint64_t a3)
     }
 
 LABEL_137:
-    v82 = __cxa_allocate_exception(0x10uLL);
-    *v82 = off_1F5991DD8;
-    v82[2] = v7;
+    v81 = __cxa_allocate_exception(0x10uLL);
+    *v81 = off_1F5991DD8;
+    v81[2] = v7;
   }
 
   v6 = *(v4 + 640);
@@ -9029,18 +9581,18 @@ LABEL_137:
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        OS::CF::String::AsStdString(&v102, v5 + 152);
-        v81 = (v102.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v102 : v102.__r_.__value_.__r.__words[0];
+        OS::CF::String::AsStdString(&v101, v5 + 152);
+        v80 = (v101.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v101 : v101.__r_.__value_.__r.__words[0];
         LODWORD(buf.mSampleRate) = 136315650;
         *(&buf.mSampleRate + 4) = "ADS_Device.cpp";
         LOWORD(buf.mFormatFlags) = 1024;
         *(&buf.mFormatFlags + 2) = 1328;
         HIWORD(buf.mBytesPerPacket) = 2080;
-        *&buf.mFramesPerPacket = v81;
+        *&buf.mFramesPerPacket = v80;
         _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  %s: mStartIOCallback returned an error", &buf, 0x1Cu);
-        if (SHIBYTE(v102.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v102.__r_.__value_.__l.__data_);
+          operator delete(v101.__r_.__value_.__l.__data_);
         }
       }
 
@@ -9048,7 +9600,7 @@ LABEL_137:
     }
   }
 
-  v87 = (*(*(v5 + 184) + 16))();
+  v86 = (*(*(v5 + 184) + 16))();
   v9 = atomic_load((v5 + 500));
   if (v9)
   {
@@ -9075,30 +9627,30 @@ LABEL_137:
       goto LABEL_12;
     }
 
-    v83 = atomic_load(v12);
-    atomic_store(v83 & 0xFFFFFFFD, v12);
+    v82 = atomic_load(v12);
+    atomic_store(v82 & 0xFFFFFFFD, v12);
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      OS::CF::String::AsStdString(&v102, v5 + 152);
-      v84 = (v102.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v102 : v102.__r_.__value_.__r.__words[0];
+      OS::CF::String::AsStdString(&v101, v5 + 152);
+      v83 = (v101.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v101 : v101.__r_.__value_.__r.__words[0];
       LODWORD(buf.mSampleRate) = 136315650;
       *(&buf.mSampleRate + 4) = "ADS_Device.cpp";
       LOWORD(buf.mFormatFlags) = 1024;
       *(&buf.mFormatFlags + 2) = 1349;
       HIWORD(buf.mBytesPerPacket) = 2080;
-      *&buf.mFramesPerPacket = v84;
+      *&buf.mFramesPerPacket = v83;
       _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  %s: Neglecting to start IO due to Device Behavior", &buf, 0x1Cu);
-      if (SHIBYTE(v102.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v102.__r_.__value_.__l.__data_);
+        operator delete(v101.__r_.__value_.__l.__data_);
       }
     }
 
     v11 = 2003329396;
 LABEL_145:
-    v85 = __cxa_allocate_exception(0x10uLL);
-    *v85 = off_1F5991DD8;
-    v85[2] = v11;
+    v84 = __cxa_allocate_exception(0x10uLL);
+    *v84 = off_1F5991DD8;
+    v84[2] = v11;
   }
 
   if (v10 == -1)
@@ -9157,215 +9709,205 @@ LABEL_12:
       {
         v20 = v5 + 272;
         v21 = *MEMORY[0x1E695E478];
-        v86 = *MEMORY[0x1E695E478];
+        v85 = *MEMORY[0x1E695E478];
         while (1)
         {
           v22 = *v19;
           outExtAudioFile[1] = (v5 + 272);
           v23 = (*(*v20 + 16))(v5 + 272);
-          v105 = v23;
+          v104 = v23;
           v24 = ADS::ObjectManager::CopyObjectByObjectID(v22);
           v25 = *(v24 + 136);
           *&buf.mSampleRate = *(v24 + 120);
           *&buf.mBytesPerPacket = v25;
           *&buf.mBitsPerChannel = *(v24 + 152);
           outExtAudioFile[0] = 0;
-          v103 = time(0);
-          v26 = localtime(&v103);
-          std::to_string(&v93, v26->tm_year + 1900);
-          v27 = std::string::append(&v93, "_", 1uLL);
+          v102 = time(0);
+          v26 = localtime(&v102);
+          std::to_string(&v92, v26->tm_year + 1900);
+          v27 = std::string::append(&v92, "_", 1uLL);
           v28 = *&v27->__r_.__value_.__l.__data_;
-          v94.__r_.__value_.__r.__words[2] = v27->__r_.__value_.__r.__words[2];
-          *&v94.__r_.__value_.__l.__data_ = v28;
+          v93.__r_.__value_.__r.__words[2] = v27->__r_.__value_.__r.__words[2];
+          *&v93.__r_.__value_.__l.__data_ = v28;
           v27->__r_.__value_.__l.__size_ = 0;
           v27->__r_.__value_.__r.__words[2] = 0;
           v27->__r_.__value_.__r.__words[0] = 0;
-          std::to_string(&v92, v26->tm_mon + 1);
-          if ((v92.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::to_string(&v91, v26->tm_mon + 1);
+          if ((v91.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v29 = &v92;
+            v29 = &v91;
           }
 
           else
           {
-            v29 = v92.__r_.__value_.__r.__words[0];
+            v29 = v91.__r_.__value_.__r.__words[0];
           }
 
-          if ((v92.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v91.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            size = HIBYTE(v92.__r_.__value_.__r.__words[2]);
+            size = HIBYTE(v91.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            size = v92.__r_.__value_.__l.__size_;
+            size = v91.__r_.__value_.__l.__size_;
           }
 
-          v31 = std::string::append(&v94, v29, size);
+          v31 = std::string::append(&v93, v29, size);
           v32 = *&v31->__r_.__value_.__l.__data_;
-          v95.__r_.__value_.__r.__words[2] = v31->__r_.__value_.__r.__words[2];
-          *&v95.__r_.__value_.__l.__data_ = v32;
+          v94.__r_.__value_.__r.__words[2] = v31->__r_.__value_.__r.__words[2];
+          *&v94.__r_.__value_.__l.__data_ = v32;
           v31->__r_.__value_.__l.__size_ = 0;
           v31->__r_.__value_.__r.__words[2] = 0;
           v31->__r_.__value_.__r.__words[0] = 0;
-          v33 = std::string::append(&v95, "_", 1uLL);
+          v33 = std::string::append(&v94, "_", 1uLL);
           v34 = *&v33->__r_.__value_.__l.__data_;
-          v96.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
-          *&v96.__r_.__value_.__l.__data_ = v34;
+          v95.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
+          *&v95.__r_.__value_.__l.__data_ = v34;
           v33->__r_.__value_.__l.__size_ = 0;
           v33->__r_.__value_.__r.__words[2] = 0;
           v33->__r_.__value_.__r.__words[0] = 0;
-          std::to_string(&v91, v26->tm_mday);
-          if ((v91.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::to_string(&v90, v26->tm_mday);
+          if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v35 = &v91;
+            v35 = &v90;
           }
 
           else
           {
-            v35 = v91.__r_.__value_.__r.__words[0];
+            v35 = v90.__r_.__value_.__r.__words[0];
           }
 
-          if ((v91.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v36 = HIBYTE(v91.__r_.__value_.__r.__words[2]);
+            v36 = HIBYTE(v90.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v36 = v91.__r_.__value_.__l.__size_;
+            v36 = v90.__r_.__value_.__l.__size_;
           }
 
-          v37 = std::string::append(&v96, v35, v36);
+          v37 = std::string::append(&v95, v35, v36);
           v38 = *&v37->__r_.__value_.__l.__data_;
-          v97.__r_.__value_.__r.__words[2] = v37->__r_.__value_.__r.__words[2];
-          *&v97.__r_.__value_.__l.__data_ = v38;
+          v96.__r_.__value_.__r.__words[2] = v37->__r_.__value_.__r.__words[2];
+          *&v96.__r_.__value_.__l.__data_ = v38;
           v37->__r_.__value_.__l.__size_ = 0;
           v37->__r_.__value_.__r.__words[2] = 0;
           v37->__r_.__value_.__r.__words[0] = 0;
-          v39 = std::string::append(&v97, "_", 1uLL);
+          v39 = std::string::append(&v96, "_", 1uLL);
           v40 = *&v39->__r_.__value_.__l.__data_;
-          v98.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
-          *&v98.__r_.__value_.__l.__data_ = v40;
+          v97.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
+          *&v97.__r_.__value_.__l.__data_ = v40;
           v39->__r_.__value_.__l.__size_ = 0;
           v39->__r_.__value_.__r.__words[2] = 0;
           v39->__r_.__value_.__r.__words[0] = 0;
-          std::to_string(&v90, v26->tm_hour);
-          if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::to_string(&v89, v26->tm_hour);
+          if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v41 = &v90;
+            v41 = &v89;
           }
 
           else
           {
-            v41 = v90.__r_.__value_.__r.__words[0];
+            v41 = v89.__r_.__value_.__r.__words[0];
           }
 
-          if ((v90.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v42 = HIBYTE(v90.__r_.__value_.__r.__words[2]);
+            v42 = HIBYTE(v89.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v42 = v90.__r_.__value_.__l.__size_;
+            v42 = v89.__r_.__value_.__l.__size_;
           }
 
-          v43 = std::string::append(&v98, v41, v42);
+          v43 = std::string::append(&v97, v41, v42);
           v44 = *&v43->__r_.__value_.__l.__data_;
-          v99.__r_.__value_.__r.__words[2] = v43->__r_.__value_.__r.__words[2];
-          *&v99.__r_.__value_.__l.__data_ = v44;
+          v98.__r_.__value_.__r.__words[2] = v43->__r_.__value_.__r.__words[2];
+          *&v98.__r_.__value_.__l.__data_ = v44;
           v43->__r_.__value_.__l.__size_ = 0;
           v43->__r_.__value_.__r.__words[2] = 0;
           v43->__r_.__value_.__r.__words[0] = 0;
-          v45 = std::string::append(&v99, ".", 1uLL);
+          v45 = std::string::append(&v98, ".", 1uLL);
           v46 = *&v45->__r_.__value_.__l.__data_;
-          v100.__r_.__value_.__r.__words[2] = v45->__r_.__value_.__r.__words[2];
-          *&v100.__r_.__value_.__l.__data_ = v46;
+          v99.__r_.__value_.__r.__words[2] = v45->__r_.__value_.__r.__words[2];
+          *&v99.__r_.__value_.__l.__data_ = v46;
           v45->__r_.__value_.__l.__size_ = 0;
           v45->__r_.__value_.__r.__words[2] = 0;
           v45->__r_.__value_.__r.__words[0] = 0;
-          std::to_string(&v89, v26->tm_min);
-          if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::to_string(&v88, v26->tm_min);
+          if ((v88.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v47 = &v89;
+            v47 = &v88;
           }
 
           else
           {
-            v47 = v89.__r_.__value_.__r.__words[0];
+            v47 = v88.__r_.__value_.__r.__words[0];
           }
 
-          if ((v89.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v88.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v48 = HIBYTE(v89.__r_.__value_.__r.__words[2]);
+            v48 = HIBYTE(v88.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v48 = v89.__r_.__value_.__l.__size_;
+            v48 = v88.__r_.__value_.__l.__size_;
           }
 
-          v49 = std::string::append(&v100, v47, v48);
+          v49 = std::string::append(&v99, v47, v48);
           v50 = *&v49->__r_.__value_.__l.__data_;
-          v101.__r_.__value_.__r.__words[2] = v49->__r_.__value_.__r.__words[2];
-          *&v101.__r_.__value_.__l.__data_ = v50;
+          v100.__r_.__value_.__r.__words[2] = v49->__r_.__value_.__r.__words[2];
+          *&v100.__r_.__value_.__l.__data_ = v50;
           v49->__r_.__value_.__l.__size_ = 0;
           v49->__r_.__value_.__r.__words[2] = 0;
           v49->__r_.__value_.__r.__words[0] = 0;
-          v51 = std::string::append(&v101, ".", 1uLL);
+          v51 = std::string::append(&v100, ".", 1uLL);
           v52 = *&v51->__r_.__value_.__l.__data_;
-          v106.__r_.__value_.__r.__words[2] = v51->__r_.__value_.__r.__words[2];
-          *&v106.__r_.__value_.__l.__data_ = v52;
+          v105.__r_.__value_.__r.__words[2] = v51->__r_.__value_.__r.__words[2];
+          *&v105.__r_.__value_.__l.__data_ = v52;
           v51->__r_.__value_.__l.__size_ = 0;
           v51->__r_.__value_.__r.__words[2] = 0;
           v51->__r_.__value_.__r.__words[0] = 0;
-          std::to_string(&v88, v26->tm_sec);
-          if ((v88.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::to_string(&v87, v26->tm_sec);
+          if ((v87.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v53 = &v88;
+            v53 = &v87;
           }
 
           else
           {
-            v53 = v88.__r_.__value_.__r.__words[0];
+            v53 = v87.__r_.__value_.__r.__words[0];
           }
 
-          if ((v88.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v87.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v54 = HIBYTE(v88.__r_.__value_.__r.__words[2]);
+            v54 = HIBYTE(v87.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            v54 = v88.__r_.__value_.__l.__size_;
+            v54 = v87.__r_.__value_.__l.__size_;
           }
 
-          v55 = std::string::append(&v106, v53, v54);
+          v55 = std::string::append(&v105, v53, v54);
           v56 = *&v55->__r_.__value_.__l.__data_;
-          v102.__r_.__value_.__r.__words[2] = v55->__r_.__value_.__r.__words[2];
-          *&v102.__r_.__value_.__l.__data_ = v56;
+          v101.__r_.__value_.__r.__words[2] = v55->__r_.__value_.__r.__words[2];
+          *&v101.__r_.__value_.__l.__data_ = v56;
           v55->__r_.__value_.__l.__size_ = 0;
           v55->__r_.__value_.__r.__words[2] = 0;
           v55->__r_.__value_.__r.__words[0] = 0;
-          if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v88.__r_.__value_.__l.__data_);
+            operator delete(v87.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v106.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v105.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v106.__r_.__value_.__l.__data_);
-          }
-
-          if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v101.__r_.__value_.__l.__data_);
-          }
-
-          if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v89.__r_.__value_.__l.__data_);
+            operator delete(v105.__r_.__value_.__l.__data_);
           }
 
           if (SHIBYTE(v100.__r_.__value_.__r.__words[2]) < 0)
@@ -9373,14 +9915,14 @@ LABEL_12:
             operator delete(v100.__r_.__value_.__l.__data_);
           }
 
+          if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v88.__r_.__value_.__l.__data_);
+          }
+
           if (SHIBYTE(v99.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v99.__r_.__value_.__l.__data_);
-          }
-
-          if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v90.__r_.__value_.__l.__data_);
           }
 
           if (SHIBYTE(v98.__r_.__value_.__r.__words[2]) < 0)
@@ -9388,14 +9930,14 @@ LABEL_12:
             operator delete(v98.__r_.__value_.__l.__data_);
           }
 
+          if (SHIBYTE(v89.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v89.__r_.__value_.__l.__data_);
+          }
+
           if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v97.__r_.__value_.__l.__data_);
-          }
-
-          if (SHIBYTE(v91.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v91.__r_.__value_.__l.__data_);
           }
 
           if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
@@ -9403,14 +9945,14 @@ LABEL_12:
             operator delete(v96.__r_.__value_.__l.__data_);
           }
 
+          if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v90.__r_.__value_.__l.__data_);
+          }
+
           if (SHIBYTE(v95.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v95.__r_.__value_.__l.__data_);
-          }
-
-          if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v92.__r_.__value_.__l.__data_);
           }
 
           if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
@@ -9418,28 +9960,38 @@ LABEL_12:
             operator delete(v94.__r_.__value_.__l.__data_);
           }
 
+          if (SHIBYTE(v91.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v91.__r_.__value_.__l.__data_);
+          }
+
           if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v93.__r_.__value_.__l.__data_);
           }
 
-          OS::CF::String::AsStdString(&v106, v5 + 600);
-          v57 = &v106;
-          if ((v106.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          if (SHIBYTE(v92.__r_.__value_.__r.__words[2]) < 0)
           {
-            v57 = v106.__r_.__value_.__r.__words[0];
+            operator delete(v92.__r_.__value_.__l.__data_);
           }
 
-          v58 = &v102;
-          if ((v102.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          OS::CF::String::AsStdString(&v105, v5 + 600);
+          v57 = &v105;
+          if ((v105.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v58 = v102.__r_.__value_.__r.__words[0];
+            v57 = v105.__r_.__value_.__r.__words[0];
+          }
+
+          v58 = &v101;
+          if ((v101.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          {
+            v58 = v101.__r_.__value_.__r.__words[0];
           }
 
           v59 = CFStringCreateWithFormat(v21, 0, @"%s/Out_Stream_%u(%s).caf", v57, v22, v58);
-          if (SHIBYTE(v106.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v105.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v106.__r_.__value_.__l.__data_);
+            operator delete(v105.__r_.__value_.__l.__data_);
           }
 
           v60 = CFURLCreateWithFileSystemPath(0, v59, kCFURLPOSIXPathStyle, 0);
@@ -9459,14 +10011,14 @@ LABEL_12:
               goto LABEL_120;
             }
 
-            LODWORD(v106.__r_.__value_.__l.__data_) = 136315394;
-            *(v106.__r_.__value_.__r.__words + 4) = "ADS_Device.cpp";
-            WORD2(v106.__r_.__value_.__r.__words[1]) = 1024;
-            *(&v106.__r_.__value_.__r.__words[1] + 6) = 1306;
-            v77 = MEMORY[0x1E69E9C10];
-            v78 = "%25s:%-5d  ADS::Device::prepareAudioFile: Could not set the properties for the destination audio file";
+            LODWORD(v105.__r_.__value_.__l.__data_) = 136315394;
+            *(v105.__r_.__value_.__r.__words + 4) = "ADS_Device.cpp";
+            WORD2(v105.__r_.__value_.__r.__words[1]) = 1024;
+            *(&v105.__r_.__value_.__r.__words[1] + 6) = 1306;
+            v76 = MEMORY[0x1E69E9C10];
+            v77 = "%25s:%-5d  ADS::Device::prepareAudioFile: Could not set the properties for the destination audio file";
 LABEL_119:
-            _os_log_impl(&dword_1DE1F9000, v77, OS_LOG_TYPE_ERROR, v78, &v106, 0x12u);
+            _os_log_impl(&dword_1DE1F9000, v76, OS_LOG_TYPE_ERROR, v77, &v105, 0x12u);
             goto LABEL_120;
           }
 
@@ -9475,19 +10027,19 @@ LABEL_119:
           {
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              LODWORD(v106.__r_.__value_.__l.__data_) = 136315394;
-              *(v106.__r_.__value_.__r.__words + 4) = "ADS_Device.cpp";
-              WORD2(v106.__r_.__value_.__r.__words[1]) = 1024;
-              *(&v106.__r_.__value_.__r.__words[1] + 6) = 1310;
-              v77 = MEMORY[0x1E69E9C10];
-              v78 = "%25s:%-5d  ADS::Device::prepareAudioFile: Could not prime the async writing mechanism.";
+              LODWORD(v105.__r_.__value_.__l.__data_) = 136315394;
+              *(v105.__r_.__value_.__r.__words + 4) = "ADS_Device.cpp";
+              WORD2(v105.__r_.__value_.__r.__words[1]) = 1024;
+              *(&v105.__r_.__value_.__r.__words[1] + 6) = 1310;
+              v76 = MEMORY[0x1E69E9C10];
+              v77 = "%25s:%-5d  ADS::Device::prepareAudioFile: Could not prime the async writing mechanism.";
               goto LABEL_119;
             }
 
 LABEL_120:
-            v79 = __cxa_allocate_exception(0x10uLL);
-            *v79 = off_1F5991DD8;
-            v79[2] = v61;
+            v78 = __cxa_allocate_exception(0x10uLL);
+            *v78 = off_1F5991DD8;
+            v78[2] = v61;
           }
 
           v63 = *(v5 + 584);
@@ -9543,7 +10095,7 @@ LABEL_120:
               operator delete(v74);
             }
 
-            v21 = v86;
+            v21 = v85;
           }
 
           else
@@ -9553,9 +10105,9 @@ LABEL_120:
           }
 
           *(v5 + 584) = v65;
-          if (SHIBYTE(v102.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v101.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v102.__r_.__value_.__l.__data_);
+            operator delete(v101.__r_.__value_.__l.__data_);
           }
 
           ADS::ObjectManager::ReleaseObject(v24, v62);
@@ -9575,244 +10127,23 @@ LABEL_120:
           goto LABEL_120;
         }
 
-        LODWORD(v106.__r_.__value_.__l.__data_) = 136315394;
-        *(v106.__r_.__value_.__r.__words + 4) = "ADS_Device.cpp";
-        WORD2(v106.__r_.__value_.__r.__words[1]) = 1024;
-        *(&v106.__r_.__value_.__r.__words[1] + 6) = 1301;
-        v77 = MEMORY[0x1E69E9C10];
-        v78 = "%25s:%-5d  ADS::Device::prepareAudioFile: Call to ExtAudioFileCreateWithURL failed";
+        LODWORD(v105.__r_.__value_.__l.__data_) = 136315394;
+        *(v105.__r_.__value_.__r.__words + 4) = "ADS_Device.cpp";
+        WORD2(v105.__r_.__value_.__r.__words[1]) = 1024;
+        *(&v105.__r_.__value_.__r.__words[1] + 6) = 1301;
+        v76 = MEMORY[0x1E69E9C10];
+        v77 = "%25s:%-5d  ADS::Device::prepareAudioFile: Call to ExtAudioFileCreateWithURL failed";
         goto LABEL_119;
       }
     }
   }
 
 LABEL_110:
-  if (v87 == 1)
+  if (v86 == 1)
   {
     (*(*(v5 + 184) + 24))(v5 + 184);
   }
 
   ADS::ObjectManager::ReleaseObject(v5, v8);
-  v75 = *MEMORY[0x1E69E9840];
   return 0;
-}
-
-void sub_1DE220830(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(exception_object);
-  }
-
-  __clang_call_terminate(exception_object);
-}
-
-void sub_1DE220888(void *a1, ADS::BaseObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, void *a48, uint64_t a49, int a50, __int16 a51, char a52, char a53, uint64_t a54, void *a55, uint64_t a56, int a57, __int16 a58, char a59, char a60, uint64_t a61, void *a62, uint64_t a63)
-{
-  if (a2)
-  {
-    v83 = a2;
-    if (a79 < 0)
-    {
-      operator delete(__p);
-    }
-
-    if (a23 < 0)
-    {
-      operator delete(a18);
-    }
-
-    if (a77 < 0)
-    {
-      operator delete(a76);
-    }
-
-    if (a75 < 0)
-    {
-      operator delete(a74);
-    }
-
-    if (a29 < 0)
-    {
-      operator delete(a24);
-    }
-
-    if (a73 < 0)
-    {
-      operator delete(a72);
-    }
-
-    if (a71 < 0)
-    {
-      operator delete(a69);
-    }
-
-    if (a35 < 0)
-    {
-      operator delete(a30);
-    }
-
-    if (a67 < 0)
-    {
-      operator delete(a62);
-    }
-
-    if (a60 < 0)
-    {
-      operator delete(a55);
-    }
-
-    if (a41 < 0)
-    {
-      operator delete(a36);
-    }
-
-    if (a53 < 0)
-    {
-      operator delete(a48);
-    }
-
-    if (a47 < 0)
-    {
-      operator delete(a42);
-    }
-
-    ADS::ObjectManager::ReleaseObject(v80, a2);
-    CADeprecated::CAMutex::Locker::~Locker((v81 - 192));
-    CADeprecated::CAMutex::Locker::~Locker(&a13);
-    ADS::ObjectManager::ReleaseObject(v79, v84);
-    v85 = __cxa_begin_catch(a1);
-    if (v83 == 2)
-    {
-      v86 = v85[2];
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x1DE2202D0);
-  }
-
-  JUMPOUT(0x1DE220878);
-}
-
-uint64_t Simulator_SetPropertyData(_UNKNOWN **a1, ADS::ObjectManager *this, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v38 = *MEMORY[0x1E69E9840];
-  v33 = 0;
-  v30 = 0;
-  v31 = 0;
-  v32 = 0;
-  if (a1 != &gAudioServerPlugInDriverInterfacePtr)
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v35 = "ADS_Simulator.cpp";
-      v36 = 1024;
-      v37 = 1486;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_SetPropertyData: bad driver reference", buf, 0x12u);
-    }
-
-    v21 = 560947818;
-LABEL_23:
-    exception = __cxa_allocate_exception(0x10uLL);
-    *exception = off_1F5991DD8;
-    exception[2] = v21;
-  }
-
-  if (!a4)
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v35 = "ADS_Simulator.cpp";
-      v36 = 1024;
-      v37 = 1487;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_SetPropertyData: no address", buf, 0x12u);
-    }
-
-    v21 = 1852797029;
-    goto LABEL_23;
-  }
-
-  v15 = ADS::ObjectManager::CopyObjectByObjectID(this);
-  v16 = v15;
-  if (!v15)
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v35 = "ADS_Simulator.cpp";
-      v36 = 1024;
-      v37 = 1491;
-      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  Simulator_SetPropertyData: unknown object", buf, 0x12u);
-    }
-
-    v23 = __cxa_allocate_exception(0x10uLL);
-    *v23 = off_1F5991DD8;
-    v23[2] = 560947818;
-  }
-
-  if ((*(*v15 + 32))(v15, this, a3, a4))
-  {
-    if ((*(*v16 + 40))(v16, this, a3, a4))
-    {
-      (*(*v16 + 64))(v16, this, a3, a4, a5, a6, a7, a8, &v33, &v30, 0);
-      if (v33)
-      {
-        pthread_once(&ADS::Simulator::sStaticInitializer, ADS::Simulator::StaticInitializer);
-        block[0] = MEMORY[0x1E69E9820];
-        block[1] = 1174405120;
-        block[2] = __Simulator_SetPropertyData_block_invoke;
-        block[3] = &__block_descriptor_tmp_45;
-        v28 = this;
-        v29 = v33;
-        v26 = 0;
-        v27 = 0;
-        __p = 0;
-        std::vector<AudioObjectPropertyAddress>::__init_with_size[abi:ne200100]<AudioObjectPropertyAddress*,AudioObjectPropertyAddress*>(&__p, v30, v31, 0xAAAAAAAAAAAAAAABLL * ((v31 - v30) >> 2));
-        if (ADS::Simulator::sServerHighPriorityQueue)
-        {
-          AMCP::Utility::Dispatch_Queue::async(ADS::Simulator::sServerHighPriorityQueue, block);
-        }
-
-        if (__p)
-        {
-          v26 = __p;
-          operator delete(__p);
-        }
-      }
-
-      v18 = 0;
-    }
-
-    else
-    {
-      v18 = 1970171760;
-    }
-  }
-
-  else
-  {
-    v18 = 2003332927;
-  }
-
-  ADS::ObjectManager::ReleaseObject(v16, v17);
-  if (v30)
-  {
-    v31 = v30;
-    operator delete(v30);
-  }
-
-  v19 = *MEMORY[0x1E69E9840];
-  return v18;
-}
-
-void sub_1DE220F90(_Unwind_Exception *exception_object, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(exception_object);
-  }
-
-  __clang_call_terminate(exception_object);
 }

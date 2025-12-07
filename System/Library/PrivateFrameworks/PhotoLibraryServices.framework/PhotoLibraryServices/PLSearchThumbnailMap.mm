@@ -46,51 +46,51 @@
 
 - (id)data
 {
-  v64 = *MEMORY[0x1E69E9840];
-  if (![(NSMutableDictionary *)self->_thumbnailIdentifierByLookupIdentifier count])
+  v63 = *MEMORY[0x1E69E9840];
+  if (!objc_msgSend_count(self->_thumbnailIdentifierByLookupIdentifier, a2))
   {
     v16 = objc_alloc_init(MEMORY[0x1E695DEF0]);
     goto LABEL_30;
   }
 
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x9012000000;
-  v51 = __Block_byref_object_copy__84934;
-  v52 = __Block_byref_object_dispose__84935;
-  v53 = &unk_19C721442;
-  v54 = 0;
-  v55 = 0;
-  v56 = xmmword_19C60B040;
-  v57 = 0u;
-  v58 = 0u;
-  v59 = 0;
-  v60 = 1;
-  v61 = 256;
-  v62 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x4812000000;
-  v42 = __Block_byref_object_copy__3;
-  v43 = __Block_byref_object_dispose__4;
-  v44 = &unk_19C721442;
-  v46 = 0;
   v47 = 0;
+  v48 = &v47;
+  v49 = 0x9012000000;
+  v50 = __Block_byref_object_copy__84934;
+  v51 = __Block_byref_object_dispose__84935;
+  v52 = &unk_19C721442;
+  v53 = 0;
+  v54 = 0;
+  v55 = xmmword_19C60B040;
+  v56 = 0u;
+  v57 = 0u;
+  v58 = 0;
+  v59 = 1;
+  v60 = 256;
+  v61 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x4812000000;
+  v41 = __Block_byref_object_copy__3;
+  v42 = __Block_byref_object_dispose__4;
+  v43 = &unk_19C721442;
+  v45 = 0;
+  v46 = 0;
   __p = 0;
   thumbnailIdentifierByLookupIdentifier = self->_thumbnailIdentifierByLookupIdentifier;
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __28__PLSearchThumbnailMap_data__block_invoke;
-  v38[3] = &unk_1E7572F90;
-  v38[4] = &v48;
-  v38[5] = &v39;
-  [(NSMutableDictionary *)thumbnailIdentifierByLookupIdentifier enumerateKeysAndObjectsUsingBlock:v38];
-  v4 = v40[6];
-  v5 = v40[7];
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __28__PLSearchThumbnailMap_data__block_invoke;
+  v37[3] = &unk_1E7572F90;
+  v37[4] = &v47;
+  v37[5] = &v38;
+  [(NSMutableDictionary *)thumbnailIdentifierByLookupIdentifier enumerateKeysAndObjectsUsingBlock:v37];
+  v4 = v39[6];
+  v5 = v39[7];
   v6 = (v5 - v4) >> 2;
   v7 = 126 - 2 * __clz(v6);
-  v8 = v49;
-  v9 = (v49 + 6);
+  v8 = v48;
+  v9 = (v48 + 6);
   if (v5 == v4)
   {
     v10 = &apple::aiml::flatbuffers2::data<apple::aiml::flatbuffers2::Offset<pl::SearchThumbnailMapEntry>,std::allocator<apple::aiml::flatbuffers2::Offset<pl::SearchThumbnailMapEntry>>>(std::vector<apple::aiml::flatbuffers2::Offset<pl::SearchThumbnailMapEntry>> &)::t;
@@ -98,10 +98,10 @@
 
   else
   {
-    v10 = v40[6];
+    v10 = v39[6];
   }
 
-  *buf = v49 + 6;
+  *buf = v48 + 6;
   if (v5 == v4)
   {
     v11 = 0;
@@ -141,8 +141,8 @@
   }
 
   v17 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(v9, v6);
-  v18 = v49;
-  apple::aiml::flatbuffers2::FlatBufferBuilder::NotNested((v49 + 6));
+  v18 = v48;
+  apple::aiml::flatbuffers2::FlatBufferBuilder::NotNested((v48 + 6));
   *(v18 + 118) = 1;
   v19 = *(v18 + 20);
   v20 = *(v18 + 24);
@@ -176,67 +176,67 @@
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>((v18 + 6), 4, v26);
   }
 
-  v27 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable((v18 + 6), v19 - v20 + v21);
-  v28 = v49;
-  apple::aiml::flatbuffers2::FlatBufferBuilder::NotNested((v49 + 6));
+  v27 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable((v18 + 6), (v19 - v20 + v21));
+  v28 = v48;
+  apple::aiml::flatbuffers2::FlatBufferBuilder::NotNested((v48 + 6));
   v28[13] = v28[11];
   apple::aiml::flatbuffers2::FlatBufferBuilder::PreAlign((v28 + 6), 8, v28[15]);
   apple::aiml::flatbuffers2::vector_downward::ensure_space((v28 + 6), 4uLL);
   v29 = v28[12];
   v28[12] = v29 - 4;
   *(v29 - 4) = 1297371984;
-  v30 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo((v28 + 6), v27);
+  LODWORD(v27) = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo((v28 + 6), v27);
   apple::aiml::flatbuffers2::FlatBufferBuilder::Align((v28 + 6));
   apple::aiml::flatbuffers2::vector_downward::ensure_space((v28 + 6), 4uLL);
-  v31 = v28[12];
-  *(v31 - 4) = v30;
-  v28[12] = v31 - 4;
+  v30 = v28[12];
+  *(v30 - 4) = v27;
+  v28[12] = v30 - 4;
   *(v28 + 119) = 1;
-  if (*(v49 + 119) != 1)
+  if (*(v48 + 119) != 1)
   {
-    v35 = "finished";
-    v36 = 1319;
-    v37 = "Finished";
+    v34 = "finished";
+    v35 = 1319;
+    v36 = "Finished";
     goto LABEL_35;
   }
 
-  v32 = v49[12];
-  if (!v32)
+  v31 = v48[12];
+  if (!v31)
   {
-    v35 = "cur_";
-    v36 = 1016;
-    v37 = "data";
+    v34 = "cur_";
+    v35 = 1016;
+    v36 = "data";
 LABEL_35:
-    __assert_rtn(v37, "flatbuffers.h", v36, v35);
+    __assert_rtn(v36, "flatbuffers.h", v35, v34);
   }
 
-  if (*(v49 + 20) - v32 + *(v49 + 22))
+  if (*(v48 + 20) - v31 + *(v48 + 22))
   {
     v16 = [MEMORY[0x1E695DEF0] dataWithBytes:? length:?];
   }
 
   else
   {
-    v33 = PLSearchBackendThumbnailMapGetLog();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = PLSearchBackendThumbnailMapGetLog();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       *&buf[4] = self;
-      _os_log_impl(&dword_19BF1F000, v33, OS_LOG_TYPE_ERROR, "No data for builder. Unable to serialize ThumbnailMap: %@", buf, 0xCu);
+      _os_log_impl(&dword_19BF1F000, v32, OS_LOG_TYPE_ERROR, "No data for builder. Unable to serialize ThumbnailMap: %@", buf, 0xCu);
     }
 
     v16 = 0;
   }
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v38, 8);
   if (__p)
   {
-    v46 = __p;
+    v45 = __p;
     operator delete(__p);
   }
 
-  _Block_object_dispose(&v48, 8);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(&v54);
+  _Block_object_dispose(&v47, 8);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::~FlatBufferBuilder(&v53);
 LABEL_30:
 
   return v16;
@@ -264,7 +264,7 @@ void __28__PLSearchThumbnailMap_data__block_invoke(uint64_t a1, void *a2, void *
   LODWORD(v11) = *(v13 + 88);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>((v13 + 48), 6, v14);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>((v13 + 48), 4, v8);
-  v17 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable((v13 + 48), v15 - v16 + v11);
+  v17 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable((v13 + 48), (v15 - v16 + v11));
   v18 = (*(v13 + 88) + *(v13 + 80) - v17);
   v19 = (v18 - *v18);
   if (*v19 < 5u || !v19[2])
@@ -493,7 +493,7 @@ LABEL_23:
   identifiersCopy = identifiers;
   dataCopy = data;
   v35 = identifiersCopy;
-  if (!dataCopy || ![identifiersCopy count])
+  if (!dataCopy || !objc_msgSend_count(identifiersCopy))
   {
     v14 = 0;
     goto LABEL_31;

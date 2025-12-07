@@ -13,7 +13,10 @@
 - (id)initForTesting;
 - (int64_t)attemptTimer;
 - (void)checkForBackupStateChange;
+- (void)checkSyncingForPeer:(id)peer force:(BOOL)force;
 - (void)clearNextSyncNegativeCache;
+- (void)createIdentities:(id)identities dsid:(id)dsid roll:(BOOL)roll sync:(BOOL)sync forceSync:(BOOL)forceSync complete:(id)complete;
+- (void)createIdentity:(id)identity dsid:(id)dsid roll:(BOOL)roll sync:(BOOL)sync forceSync:(BOOL)forceSync complete:(id)complete;
 - (void)disableWalrusForAccount:(id)account withParameters:(id)parameters complete:(id)complete;
 - (void)enableWalrusForAccount:(id)account withParameters:(id)parameters complete:(id)complete;
 - (void)ensureManateeIdentitiesExist;
@@ -434,20 +437,23 @@ LABEL_6:
   v3 = +[PCSAccountsModel accountForCurrentPersona];
   aa_personID = [v3 aa_personID];
 
+  v5 = aa_personID;
   if (aa_personID)
   {
     v4 = [(PCSSyncing *)self identityCopySet:aa_personID];
+    v5 = aa_personID;
     if (v4)
     {
-      v5 = v4;
-      v6 = +[PCSMetrics metrics];
-      [v6 updateCurrentWState:v5 forceFetchFromServer:0];
+      v6 = v4;
+      v7 = +[PCSMetrics metrics];
+      [v7 updateCurrentWState:v6 forceFetchFromServer:0];
 
-      CFRelease(v5);
+      CFRelease(v6);
+      v5 = aa_personID;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(v4, v5);
 }
 
 - (void)clearNextSyncNegativeCache
@@ -1129,13 +1135,13 @@ LABEL_4:
 
   if (![neededCopy count])
   {
-    v16 = qword_1000407B8;
+    v15 = qword_1000407B8;
     if (os_log_type_enabled(qword_1000407B8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v17 = "received empty public keys array, will force CKKS fetch";
+      v16 = "received empty public keys array, will force CKKS fetch";
 LABEL_20:
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, v17, buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 2u);
     }
 
 LABEL_21:
@@ -1146,11 +1152,11 @@ LABEL_21:
   v8 = [(PCSSyncing *)self identityCopySet:dsidCopy];
   if (!v8)
   {
-    v16 = qword_1000407B8;
+    v15 = qword_1000407B8;
     if (os_log_type_enabled(qword_1000407B8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v17 = "failed to create identity set, will force CKKS fetch";
+      v16 = "failed to create identity set, will force CKKS fetch";
       goto LABEL_20;
     }
 
@@ -1158,36 +1164,35 @@ LABEL_21:
   }
 
   v9 = v8;
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v10 = neededCopy;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v11)
   {
-    v12 = *v20;
+    v12 = *v19;
     while (2)
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
-        v15 = PCSIdentitySetCopyIdentity();
-        if (!v15)
+        v14 = PCSIdentitySetCopyIdentity();
+        if (!v14)
         {
           LOBYTE(v11) = 1;
           goto LABEL_17;
         }
 
-        CFRelease(v15);
+        CFRelease(v14);
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
       if (v11)
       {
         continue;
@@ -1396,6 +1401,214 @@ LABEL_5:
   objc_destroyWeak(&location);
 }
 
+- (void)createIdentity:(id)identity dsid:(id)dsid roll:(BOOL)roll sync:(BOOL)sync forceSync:(BOOL)forceSync complete:(id)complete
+{
+  forceSyncCopy = forceSync;
+  syncCopy = sync;
+  rollCopy = roll;
+  identityCopy = identity;
+  completeCopy = complete;
+  v23 = identityCopy;
+  dsidCopy = dsid;
+  v17 = [NSArray arrayWithObjects:&v23 count:1];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_10001E7F0;
+  v20[3] = &unk_1000398A8;
+  v21 = identityCopy;
+  v22 = completeCopy;
+  v18 = identityCopy;
+  v19 = completeCopy;
+  [(PCSSyncing *)self createIdentities:v17 dsid:dsidCopy roll:rollCopy sync:syncCopy forceSync:forceSyncCopy complete:v20];
+}
+
+- (void)createIdentities:(id)identities dsid:(id)dsid roll:(BOOL)roll sync:(BOOL)sync forceSync:(BOOL)forceSync complete:(id)complete
+{
+  forceSyncCopy = forceSync;
+  syncCopy = sync;
+  rollCopy = roll;
+  identitiesCopy = identities;
+  dsidCopy = dsid;
+  completeCopy = complete;
+  cf = 0;
+  if (identitiesCopy && [identitiesCopy count] && (objc_msgSend(identitiesCopy, "count") < 2 || !rollCopy))
+  {
+    if (dsidCopy)
+    {
+      v17 = [(PCSSyncing *)self identityCopySet:dsidCopy];
+      if (v17 && (v43 = forceSyncCopy, [identitiesCopy objectAtIndexedSubscript:0], v18 = objc_claimAutoreleasedReturnValue(), v19 = PCSIdentityGetCDPStatus() == 0, v18, v19))
+      {
+        accounts = [(PCSSyncing *)self accounts];
+        dsid = [accounts dsid];
+        v23 = [PCSAccountsModel altDSIDForDSID:dsid];
+
+        v56[0] = 0;
+        v56[1] = v56;
+        v56[2] = 0x3032000000;
+        v56[3] = sub_1000194C8;
+        v56[4] = sub_1000194D8;
+        v24 = [AAFAnalyticsEventPCS alloc];
+        LOBYTE(v37) = 1;
+        v57 = [v24 initWithPCSMetrics:0 altDSID:v23 flowID:0 deviceSessionID:0 eventName:kPCSRTCEventNameCreateManateeIdentities testsAreEnabled:0 canSendMetrics:v37 category:kPCSRTCEventCategoryAccountDataAccessRecovery];
+        v25 = [[PCSCKKS alloc] initWithIdentitySet:v17 dsid:dsidCopy];
+        if (v25)
+        {
+          v42 = v23;
+          v54 = 0u;
+          v55 = 0u;
+          v52 = 0u;
+          v53 = 0u;
+          v26 = identitiesCopy;
+          v27 = [v26 countByEnumeratingWithState:&v52 objects:v61 count:16];
+          obj = v26;
+          if (v27)
+          {
+            v41 = v17;
+            v28 = *v53;
+LABEL_18:
+            v29 = 0;
+            while (1)
+            {
+              if (*v53 != v28)
+              {
+                objc_enumerationMutation(obj);
+              }
+
+              if ([*(*(&v52 + 1) + 8 * v29) isEqualToString:kPCSMessages3])
+              {
+                break;
+              }
+
+              if (v27 == ++v29)
+              {
+                v27 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
+                if (v27)
+                {
+                  goto LABEL_18;
+                }
+
+                v26 = obj;
+                v17 = v41;
+                goto LABEL_37;
+              }
+            }
+
+            v17 = v41;
+            v23 = v42;
+            if (!syncCopy)
+            {
+              goto LABEL_38;
+            }
+
+            v51 = 0;
+            v30 = [PCSAccountsModel accountEligibleForMBRestoreForDSID:dsidCopy error:&v51];
+            v40 = v51;
+            if (v30)
+            {
+              v49[0] = _NSConcreteStackBlock;
+              v49[1] = 3221225472;
+              v49[2] = sub_10001F00C;
+              v49[3] = &unk_1000398D0;
+              v31 = dispatch_semaphore_create(0);
+              v50 = v31;
+              [(PCSSyncing *)self restoreMobileBackup:0 dsid:dsidCopy withReply:v49];
+              v32 = dispatch_time(0, 60000000000);
+              v39 = v31;
+              v33 = dispatch_semaphore_wait(v31, v32);
+              v26 = v40;
+              if (v33)
+              {
+                v34 = qword_1000407B8;
+                if (os_log_type_enabled(qword_1000407B8, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 0;
+                  _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Timeout expired for best-effort backup recovery. Continuing with CKKS sync.", buf, 2u);
+                }
+              }
+            }
+
+            else
+            {
+              v36 = qword_1000407B8;
+              if (os_log_type_enabled(qword_1000407B8, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 138412290;
+                v26 = v40;
+                v60 = v40;
+                _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "account not eligible for mobile backup restore: %@", buf, 0xCu);
+              }
+
+              else
+              {
+                v26 = v40;
+              }
+            }
+          }
+
+LABEL_37:
+
+          v23 = v42;
+LABEL_38:
+          objc_initWeak(buf, self);
+          v45[0] = _NSConcreteStackBlock;
+          v45[1] = 3221225472;
+          v45[2] = sub_10001F120;
+          v45[3] = &unk_1000398F8;
+          objc_copyWeak(&v48, buf);
+          v47 = v56;
+          v46 = completeCopy;
+          [v25 createNewIdentities:obj roll:rollCopy sync:syncCopy forceSync:v43 complete:v45];
+          CFRelease(v17);
+
+          objc_destroyWeak(&v48);
+          objc_destroyWeak(buf);
+        }
+
+        else
+        {
+          _PCSError();
+          (*(completeCopy + 2))(completeCopy, 0, 0, cf);
+          v35 = cf;
+          if (cf)
+          {
+            cf = 0;
+            CFRelease(v35);
+          }
+
+          CFRelease(v17);
+        }
+
+        _Block_object_dispose(v56, 8);
+      }
+
+      else
+      {
+        _PCSError();
+        (*(completeCopy + 2))(completeCopy, 0, 0, cf);
+        if (v17)
+        {
+          CFRelease(v17);
+        }
+      }
+    }
+
+    else
+    {
+      accounts2 = [(PCSSyncing *)self accounts];
+      lastError = [accounts2 lastError];
+      _PCSError();
+
+      (*(completeCopy + 2))(completeCopy, 0, 0, cf);
+    }
+  }
+
+  else
+  {
+    _PCSError();
+    (*(completeCopy + 2))(completeCopy, 0, 0, cf);
+  }
+}
+
 - (_PCSIdentitySetData)identityCopySet:(id)set
 {
   setCopy = set;
@@ -1569,6 +1782,14 @@ LABEL_12:
   replyCopy = reply;
   [(PCSSyncing *)self notifyDailyEvent];
   replyCopy[2](replyCopy, &__NSDictionary0__struct, 0);
+}
+
+- (void)checkSyncingForPeer:(id)peer force:(BOOL)force
+{
+  forceCopy = force;
+  peerCopy = peer;
+  syncing = [(PCSSyncing *)self syncing];
+  [syncing checkSyncingForPeer:peerCopy force:forceCopy];
 }
 
 - (void)fetchAllDeviceKeys:(id)keys withReply:(id)reply

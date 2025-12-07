@@ -11,9 +11,9 @@
 - (AVTRendererViewTransitionTechnique)initWithWorldRenderer:(id)renderer
 {
   rendererCopy = renderer;
-  v20.receiver = self;
-  v20.super_class = AVTRendererViewTransitionTechnique;
-  v5 = [(AVTRendererViewTransitionTechnique *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = AVTRendererViewTransitionTechnique;
+  v5 = [(AVTRendererViewTransitionTechnique *)&v19 init];
   if (v5)
   {
     objc_opt_class();
@@ -46,8 +46,8 @@ LABEL_8:
         fragmentFunctionName = v5->_renderPipelineStateDescriptor.fragmentFunctionName;
         v5->_renderPipelineStateDescriptor.fragmentFunctionName = @"avt_view_transition_generic_fragment";
 
-        pixelFormat = [v6 pixelFormat];
-        [(AVTRendererViewTransitionTechnique *)v5 rebuildRenderPipelineStateIfNeededForPixelFormat:pixelFormat];
+        [v6 pixelFormat];
+        [(AVTRendererViewTransitionTechnique *)v5 rebuildRenderPipelineStateIfNeededForPixelFormat:?];
 
         goto LABEL_9;
       }
@@ -134,19 +134,20 @@ LABEL_9:
   if ([(AVTRendererViewTransitionTechnique *)self techniqueIsActive])
   {
     destinationTexture = [helperCopy destinationTexture];
-    -[AVTRendererViewTransitionTechnique rebuildRenderPipelineStateIfNeededForPixelFormat:](self, "rebuildRenderPipelineStateIfNeededForPixelFormat:", [destinationTexture pixelFormat]);
+    [destinationTexture pixelFormat];
+    [(AVTRendererViewTransitionTechnique *)self rebuildRenderPipelineStateIfNeededForPixelFormat:?];
 
     v10 = 0;
     LOBYTE(v10) = self->_viewIsOpaque;
     HIDWORD(v10) = LODWORD(self->_framebufferTextureOpacity);
     renderCommandEncoder = [helperCopy renderCommandEncoder];
-    v9 = [helperCopy mainPassColorTextureAtIndex:0];
-    [renderCommandEncoder pushDebugGroup:@"[AvatarKit] View transition"];
-    [renderCommandEncoder setRenderPipelineState:self->_renderPipelineState];
-    [renderCommandEncoder setFragmentTexture:self->_snapshotTexture atIndex:0];
-    [renderCommandEncoder setFragmentTexture:v9 atIndex:1];
-    [renderCommandEncoder setFragmentBytes:&v10 length:8 atIndex:0];
-    [renderCommandEncoder drawPrimitives:4 vertexStart:0 vertexCount:4];
+    v9 = [helperCopy mainPassColorTextureAtIndex:?];
+    [renderCommandEncoder pushDebugGroup:?];
+    [renderCommandEncoder setRenderPipelineState:?];
+    [renderCommandEncoder setFragmentTexture:? atIndex:?];
+    [renderCommandEncoder setFragmentTexture:? atIndex:?];
+    [renderCommandEncoder setFragmentBytes:? length:? atIndex:?];
+    [renderCommandEncoder drawPrimitives:? vertexStart:? vertexCount:?];
     [renderCommandEncoder popDebugGroup];
   }
 }

@@ -19,14 +19,14 @@
 - (BOOL)matchesSettings:(id)settings strength:(double)strength
 {
   [(_UILegibilityCachedShadow *)self strength];
-  if (vabdd_f64(v7, strength) >= 0.00000011920929)
+  if (vabdd_f64(v6, strength) >= 0.00000011920929)
   {
     return 0;
   }
 
   settings = [(_UILegibilityCachedShadow *)self settings];
 
-  return [(_UILegibilitySettings *)settings isEqual:settings];
+  return objc_msgSend_isEqual_(settings);
 }
 
 - (BOOL)isEqual:(id)equal

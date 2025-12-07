@@ -77,7 +77,7 @@ id sub_1E7C(uint64_t a1, double a2, double a3)
 
   else
   {
-    v6 = [SACommandFailed commandFailedWithErrorCode:SAMicroblogMicroblogLocationDisabledFromProviderErrorCode];
+    v6 = [SACommandFailed commandFailedWithErrorCode:SAMicroblogMicroblogLocationDisabledFromProviderErrorCode, a2, a3];
     v7 = *(a1 + 56);
     v8 = [(SACommandFailed *)v6 dictionary];
     v9 = *(v7 + 16);

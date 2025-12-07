@@ -102,28 +102,28 @@ void __82__EDLocalSearchInfoCollector_processRankingSignalsBySearchableItemID_fo
 
 - (id)localSearchInfoForMessageObjectIDs:(id)ds
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = objc_opt_new();
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         allRankingsByObjectID = [(EDLocalSearchInfoCollector *)self allRankingsByObjectID];
         v12 = [allRankingsByObjectID objectForKeyedSubscript:v10];
 
@@ -133,42 +133,41 @@ void __82__EDLocalSearchInfoCollector_processRankingSignalsBySearchableItemID_fo
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   v13 = [objc_alloc(MEMORY[0x1E699ACF8]) initWithQueryStatus:-[EDLocalSearchInfoCollector _combinedQueryStatus](self hasQueryEmbedding:"_combinedQueryStatus") hasKeywordResults:-[EDLocalSearchInfoCollector _combinedHasQueryEmbedding](self hasEmbeddingResults:"_combinedHasQueryEmbedding") rankingSignalsByObjectID:{-[EDLocalSearchInfoCollector hasKeywordResults](self, "hasKeywordResults"), -[EDLocalSearchInfoCollector hasEmbeddingResults](self, "hasEmbeddingResults"), v5}];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (id)localSearchInfoForConversationIDs:(id)ds
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = objc_opt_new();
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         rankingObjectIDsByConversation = [(EDLocalSearchInfoCollector *)self rankingObjectIDsByConversation];
         v12 = [rankingObjectIDsByConversation objectForKeyedSubscript:v10];
 
@@ -178,15 +177,13 @@ void __82__EDLocalSearchInfoCollector_processRankingSignalsBySearchableItemID_fo
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   v13 = [(EDLocalSearchInfoCollector *)self localSearchInfoForMessageObjectIDs:v5];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

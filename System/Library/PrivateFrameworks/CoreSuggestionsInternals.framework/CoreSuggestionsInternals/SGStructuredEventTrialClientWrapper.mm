@@ -14,11 +14,11 @@
 
 - (id)notificationsAllowListOverride
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   if ([(SGStructuredEventTrialClientWrapper *)self foundInMailNotifications])
   {
-    v5[0] = *MEMORY[0x277D021C0];
-    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+    v4[0] = *MEMORY[0x277D021C0];
+    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   }
 
   else
@@ -26,197 +26,186 @@
     v2 = 0;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 - (BOOL)foundInMailNotifications
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v10 = 0x2020000000;
-  v11 = 0;
+  v9 = 0x2020000000;
+  v10 = 0;
   lock = self->_lock;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __63__SGStructuredEventTrialClientWrapper_foundInMailNotifications__block_invoke;
-  v8[3] = &unk_27894E200;
-  v8[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __63__SGStructuredEventTrialClientWrapper_foundInMailNotifications__block_invoke;
+  v7[3] = &unk_27894E200;
+  v7[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v7];
   v3 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
   v4 = sgEventsLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = @"NO";
+    v6 = @"NO";
     if (v3)
     {
-      v7 = @"YES";
+      v6 = @"YES";
     }
 
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v7;
+    *(&buf + 4) = v6;
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGStructuredEventTrialClientWrapper: foundInMailNotifications: %@", &buf, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (id)structuredEventOutputMapping
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__15473;
-  v13 = __Block_byref_object_dispose__15474;
-  v14 = 0;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy__15473;
+  v12 = __Block_byref_object_dispose__15474;
+  v13 = 0;
   lock = self->_lock;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __67__SGStructuredEventTrialClientWrapper_structuredEventOutputMapping__block_invoke;
-  v9[3] = &unk_27894E200;
-  v9[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __67__SGStructuredEventTrialClientWrapper_structuredEventOutputMapping__block_invoke;
+  v8[3] = &unk_27894E200;
+  v8[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v8];
   v3 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   v4 = sgEventsLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [v3 count];
-    v8 = @"YES";
-    if (!v7)
+    v6 = objc_msgSend_count(v3);
+    v7 = @"YES";
+    if (!v6)
     {
-      v8 = @"NO";
+      v7 = @"NO";
     }
 
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v8;
+    *(&buf + 4) = v7;
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGStructuredEventTrialClientWrapper: structuredEventOutputMapping list loaded with Trial: %@", &buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)structuredEventInputMapping
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__15473;
-  v13 = __Block_byref_object_dispose__15474;
-  v14 = 0;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy__15473;
+  v12 = __Block_byref_object_dispose__15474;
+  v13 = 0;
   lock = self->_lock;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __66__SGStructuredEventTrialClientWrapper_structuredEventInputMapping__block_invoke;
-  v9[3] = &unk_27894E200;
-  v9[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __66__SGStructuredEventTrialClientWrapper_structuredEventInputMapping__block_invoke;
+  v8[3] = &unk_27894E200;
+  v8[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v8];
   v3 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   v4 = sgEventsLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [v3 count];
-    v8 = @"YES";
-    if (!v7)
+    v6 = objc_msgSend_count(v3);
+    v7 = @"YES";
+    if (!v6)
     {
-      v8 = @"NO";
+      v7 = @"NO";
     }
 
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v8;
+    *(&buf + 4) = v7;
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGStructuredEventTrialClientWrapper: structuredEventInputMapping list loaded with Trial: %@", &buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)engineConfig
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__15473;
-  v13 = __Block_byref_object_dispose__15474;
-  v14 = 0;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy__15473;
+  v12 = __Block_byref_object_dispose__15474;
+  v13 = 0;
   lock = self->_lock;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __51__SGStructuredEventTrialClientWrapper_engineConfig__block_invoke;
-  v9[3] = &unk_27894E200;
-  v9[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __51__SGStructuredEventTrialClientWrapper_engineConfig__block_invoke;
+  v8[3] = &unk_27894E200;
+  v8[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v8];
   v3 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   v4 = sgEventsLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [v3 count];
-    v8 = @"YES";
-    if (!v7)
+    v6 = objc_msgSend_count(v3);
+    v7 = @"YES";
+    if (!v6)
     {
-      v8 = @"NO";
+      v7 = @"NO";
     }
 
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v8;
+    *(&buf + 4) = v7;
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGStructuredEventTrialClientWrapper: engineConfig list loaded with Trial: %@", &buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)supportedProviders
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__15473;
-  v13 = __Block_byref_object_dispose__15474;
-  v14 = 0;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy__15473;
+  v12 = __Block_byref_object_dispose__15474;
+  v13 = 0;
   lock = self->_lock;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __57__SGStructuredEventTrialClientWrapper_supportedProviders__block_invoke;
-  v9[3] = &unk_27894E200;
-  v9[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __57__SGStructuredEventTrialClientWrapper_supportedProviders__block_invoke;
+  v8[3] = &unk_27894E200;
+  v8[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v8];
   v3 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   v4 = sgEventsLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [v3 count];
-    v8 = @"YES";
-    if (!v7)
+    v6 = objc_msgSend_count(v3);
+    v7 = @"YES";
+    if (!v6)
     {
-      v8 = @"NO";
+      v7 = @"NO";
     }
 
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v8;
+    *(&buf + 4) = v7;
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGStructuredEventTrialClientWrapper: supportedProviders list loaded with Trial: %@", &buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -234,7 +223,7 @@
 
 void __52__SGStructuredEventTrialClientWrapper_updateFactors__block_invoke(uint64_t a1, void *a2)
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = sgEventsLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -256,10 +245,10 @@ void __52__SGStructuredEventTrialClientWrapper_updateFactors__block_invoke(uint6
 
       if ((v12 & 1) == 0)
       {
-        v66 = *(a1 + 32);
+        v65 = *(a1 + 32);
         v26 = [v5 fileValue];
         v38 = [v26 path];
-        [v66 uncompressModelAndUpdateFactors:v38 destinationPath:v10];
+        [v65 uncompressModelAndUpdateFactors:v38 destinationPath:v10];
         goto LABEL_43;
       }
     }
@@ -290,9 +279,9 @@ void __52__SGStructuredEventTrialClientWrapper_updateFactors__block_invoke(uint6
       v19 = MEMORY[0x277D425D8];
       v20 = [v10 fileValue];
       v21 = [v20 path];
-      v79 = 0;
-      v22 = [v19 dictionaryWithPath:v21 error:&v79];
-      v23 = v79;
+      v78 = 0;
+      v22 = [v19 dictionaryWithPath:v21 error:&v78];
+      v23 = v78;
 
       if (v22)
       {
@@ -306,12 +295,12 @@ void __52__SGStructuredEventTrialClientWrapper_updateFactors__block_invoke(uint6
         v25 = sgEventsLogHandle();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          v67 = [v10 fileValue];
-          v68 = [v67 path];
+          v66 = [v10 fileValue];
+          v67 = [v66 path];
           *buf = 138412546;
-          v82 = v68;
-          v83 = 2112;
-          v84 = v23;
+          v81 = v67;
+          v82 = 2112;
+          v83 = v23;
           _os_log_error_impl(&dword_231E60000, v25, OS_LOG_TYPE_ERROR, "SGStructuredEventTrialClientWrapper: Unable to load plplist for %@ : %@", buf, 0x16u);
         }
       }
@@ -331,9 +320,9 @@ void __52__SGStructuredEventTrialClientWrapper_updateFactors__block_invoke(uint6
       v31 = MEMORY[0x277D425D8];
       v32 = [v26 fileValue];
       v33 = [v32 path];
-      v78 = 0;
-      v34 = [v31 dictionaryWithPath:v33 error:&v78];
-      v35 = v78;
+      v77 = 0;
+      v34 = [v31 dictionaryWithPath:v33 error:&v77];
+      v35 = v77;
 
       if (v34)
       {
@@ -347,12 +336,12 @@ void __52__SGStructuredEventTrialClientWrapper_updateFactors__block_invoke(uint6
         v37 = sgEventsLogHandle();
         if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          v69 = [v26 fileValue];
-          v70 = [v69 path];
+          v68 = [v26 fileValue];
+          v69 = [v68 path];
           *buf = 138412546;
-          v82 = v70;
-          v83 = 2112;
-          v84 = v35;
+          v81 = v69;
+          v82 = 2112;
+          v83 = v35;
           _os_log_error_impl(&dword_231E60000, v37, OS_LOG_TYPE_ERROR, "SGStructuredEventTrialClientWrapper: Unable to load plplist for %@ : %@", buf, 0x16u);
         }
       }
@@ -372,9 +361,9 @@ void __52__SGStructuredEventTrialClientWrapper_updateFactors__block_invoke(uint6
       v43 = MEMORY[0x277D425D8];
       v44 = [v38 fileValue];
       v45 = [v44 path];
-      v77 = 0;
-      v46 = [v43 dictionaryWithPath:v45 error:&v77];
-      v47 = v77;
+      v76 = 0;
+      v46 = [v43 dictionaryWithPath:v45 error:&v76];
+      v47 = v76;
 
       if (v46)
       {
@@ -388,12 +377,12 @@ void __52__SGStructuredEventTrialClientWrapper_updateFactors__block_invoke(uint6
         v49 = sgEventsLogHandle();
         if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
-          v75 = [v38 fileValue];
-          v71 = [v75 path];
+          v74 = [v38 fileValue];
+          v70 = [v74 path];
           *buf = 138412546;
-          v82 = v71;
-          v83 = 2112;
-          v84 = v47;
+          v81 = v70;
+          v82 = 2112;
+          v83 = v47;
           _os_log_error_impl(&dword_231E60000, v49, OS_LOG_TYPE_ERROR, "SGStructuredEventTrialClientWrapper: Unable to load plplist content for %@: %@", buf, 0x16u);
         }
       }
@@ -410,13 +399,13 @@ void __52__SGStructuredEventTrialClientWrapper_updateFactors__block_invoke(uint6
 
     if (v54)
     {
-      v74 = v5;
+      v73 = v5;
       v55 = MEMORY[0x277D425D8];
       v56 = [v50 fileValue];
       v57 = [v56 path];
-      v76 = 0;
-      v58 = [v55 dictionaryWithPath:v57 error:&v76];
-      v59 = v76;
+      v75 = 0;
+      v58 = [v55 dictionaryWithPath:v57 error:&v75];
+      v59 = v75;
 
       if (v58)
       {
@@ -430,17 +419,17 @@ void __52__SGStructuredEventTrialClientWrapper_updateFactors__block_invoke(uint6
         v61 = sgRemindersLogHandle();
         if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
-          v73 = [v50 fileValue];
-          v72 = [v73 path];
+          v72 = [v50 fileValue];
+          v71 = [v72 path];
           *buf = 138412546;
-          v82 = v72;
-          v83 = 2112;
-          v84 = v59;
+          v81 = v71;
+          v82 = 2112;
+          v83 = v59;
           _os_log_error_impl(&dword_231E60000, v61, OS_LOG_TYPE_ERROR, "SGStructuredEventTrialClientWrapper: Unable to load plplist content for %@: %@", buf, 0x16u);
         }
       }
 
-      v5 = v74;
+      v5 = v73;
     }
   }
 
@@ -462,7 +451,6 @@ void __52__SGStructuredEventTrialClientWrapper_updateFactors__block_invoke(uint6
   }
 
 LABEL_43:
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 - (SGStructuredEventTrialClientWrapper)init

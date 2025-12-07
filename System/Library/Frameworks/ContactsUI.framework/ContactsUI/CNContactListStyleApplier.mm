@@ -172,7 +172,7 @@
   [configurationCopy setSecondaryAttributedText:v25];
 }
 
-uint64_t __119__CNContactListStyleApplier_applySubtitleTextColorsToSearchCellContentConfiguration_withSubtitleText_forSelectedState___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__119__CNContactListStyleApplier_applySubtitleTextColorsToSearchCellContentConfiguration_withSubtitleText_forSelectedState___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   result = [a2 BOOLValue];
   if (result)

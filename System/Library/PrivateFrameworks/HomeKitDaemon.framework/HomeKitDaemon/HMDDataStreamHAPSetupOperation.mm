@@ -10,7 +10,7 @@
 
 - (void)processTransportSetupResponse:(id)response
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   parameters = [responseCopy parameters];
   sessionIdentifier = [parameters sessionIdentifier];
@@ -26,11 +26,11 @@
       v11 = HMFGetLogIdentifier();
       parameters2 = [responseCopy parameters];
       sessionIdentifier2 = [parameters2 sessionIdentifier];
-      v30 = 138543618;
-      v31 = v11;
-      v32 = 2112;
-      v33 = sessionIdentifier2;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@[Start Stream] The setup transfer succeeded; will use session identifier %@", &v30, 0x16u);
+      v29 = 138543618;
+      v30 = v11;
+      v31 = 2112;
+      v32 = sessionIdentifier2;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@[Start Stream] The setup transfer succeeded; will use session identifier %@", &v29, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -45,9 +45,9 @@
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       v20 = HMFGetLogIdentifier();
-      v30 = 138543362;
-      v31 = v20;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@[Start Stream] DataStream configuration valid; starting stream", &v30, 0xCu);
+      v29 = 138543362;
+      v30 = v20;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@[Start Stream] DataStream configuration valid; starting stream", &v29, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -67,22 +67,20 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v28 = HMFGetLogIdentifier();
-      v30 = 138543362;
-      v31 = v28;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@[Start Stream] The setup transfer write reply did not contain a session identifier", &v30, 0xCu);
+      v29 = 138543362;
+      v30 = v28;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@[Start Stream] The setup transfer write reply did not contain a session identifier", &v29, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
     v27 = [MEMORY[0x277CCA9B8] hmErrorWithCode:50];
     [(HMDDataStreamSetupOperation *)selfCopy postDidFailWithError:v27];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSetup
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -90,7 +88,7 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v28 = v6;
+    v27 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Creating new DataStream using HAP", buf, 0xCu);
   }
 
@@ -99,9 +97,9 @@
   v8 = [objc_alloc(MEMORY[0x277CFEB18]) initWithValue:1];
   v9 = [objc_alloc(MEMORY[0x277CFEB20]) initWithCommand:v7 transportType:v8 controllerKeySalt:0];
 
-  v25 = 0;
-  v10 = [v9 serializeWithError:&v25];
-  v11 = v25;
+  v24 = 0;
+  v10 = [v9 serializeWithError:&v24];
+  v11 = v24;
   if (v10)
   {
     transferManagementService = [(HMDDataStreamSetupOperation *)selfCopy transferManagementService];
@@ -110,17 +108,17 @@
     v14 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v13 value:v10 authorizationData:0 identifier:0 type:0 includeResponseValue:1];
     objc_initWeak(buf, selfCopy);
     accessory = [(HMDDataStreamSetupOperation *)selfCopy accessory];
-    v26 = v14;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+    v25 = v14;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
     queue = [(HMDDataStreamSetupOperation *)selfCopy queue];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __44__HMDDataStreamHAPSetupOperation_startSetup__block_invoke;
-    v23[3] = &unk_2786895F0;
-    objc_copyWeak(&v24, buf);
-    [accessory writeCharacteristicValues:v16 source:1090 queue:queue completionHandler:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __44__HMDDataStreamHAPSetupOperation_startSetup__block_invoke;
+    v22[3] = &unk_2786895F0;
+    objc_copyWeak(&v23, buf);
+    [accessory writeCharacteristicValues:v16 source:1090 queue:queue completionHandler:v22];
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(buf);
   }
 
@@ -133,17 +131,15 @@
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v21;
-      v29 = 2112;
-      v30 = v11;
+      v27 = v21;
+      v28 = 2112;
+      v29 = v11;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to create new DataStream; cannot serialize request (%@)", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
     [(HMDDataStreamSetupOperation *)v19 postDidFailWithError:v11];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HMDDataStreamHAPSetupOperation_startSetup__block_invoke(uint64_t a1, void *a2)
@@ -159,7 +155,7 @@ void __44__HMDDataStreamHAPSetupOperation_startSetup__block_invoke(uint64_t a1, 
 
 - (void)_readRequiredTransportCharacteristics
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   transferManagementService = [(HMDDataStreamSetupOperation *)self transferManagementService];
   v4 = [transferManagementService findCharacteristicWithType:*MEMORY[0x277CCFB98]];
 
@@ -190,11 +186,11 @@ void __44__HMDDataStreamHAPSetupOperation_startSetup__block_invoke(uint64_t a1, 
       uuid = [accessory2 uuid];
       uUIDString = [uuid UUIDString];
       *buf = 138543874;
-      v35 = v10;
-      v36 = 2112;
-      v37 = name;
-      v38 = 2112;
-      v39 = uUIDString;
+      v34 = v10;
+      v35 = 2112;
+      v36 = name;
+      v37 = 2112;
+      v38 = uUIDString;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@HDS characteristic(s) not found configuration/version (%@/%@)", buf, 0x20u);
     }
 
@@ -211,10 +207,10 @@ void __44__HMDDataStreamHAPSetupOperation_startSetup__block_invoke(uint64_t a1, 
   else
   {
     v17 = [HMDCharacteristicRequest requestWithCharacteristic:v4];
-    v33[0] = v17;
+    v32[0] = v17;
     v18 = [HMDCharacteristicRequest requestWithCharacteristic:v6];
-    v33[1] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+    v32[1] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
 
     v20 = objc_autoreleasePoolPush();
     selfCopy2 = self;
@@ -224,9 +220,9 @@ void __44__HMDDataStreamHAPSetupOperation_startSetup__block_invoke(uint64_t a1, 
       v24 = HMFGetLogIdentifier();
       v25 = [v19 count];
       *buf = 138543618;
-      v35 = v24;
-      v36 = 2048;
-      v37 = v25;
+      v34 = v24;
+      v35 = 2048;
+      v36 = v25;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Read required transport characteristics, requests size %lu", buf, 0x16u);
     }
 
@@ -234,18 +230,16 @@ void __44__HMDDataStreamHAPSetupOperation_startSetup__block_invoke(uint64_t a1, 
     objc_initWeak(buf, selfCopy2);
     accessory3 = [(HMDDataStreamSetupOperation *)selfCopy2 accessory];
     queue2 = [(HMDDataStreamSetupOperation *)selfCopy2 queue];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __71__HMDDataStreamHAPSetupOperation__readRequiredTransportCharacteristics__block_invoke_184;
-    v30[3] = &unk_2786895F0;
-    objc_copyWeak(&v31, buf);
-    [accessory3 readCharacteristicValues:v19 source:1090 queue:queue2 completionHandler:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __71__HMDDataStreamHAPSetupOperation__readRequiredTransportCharacteristics__block_invoke_184;
+    v29[3] = &unk_2786895F0;
+    objc_copyWeak(&v30, buf);
+    [accessory3 readCharacteristicValues:v19 source:1090 queue:queue2 completionHandler:v29];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(buf);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HMDDataStreamHAPSetupOperation__readRequiredTransportCharacteristics__block_invoke(uint64_t a1)

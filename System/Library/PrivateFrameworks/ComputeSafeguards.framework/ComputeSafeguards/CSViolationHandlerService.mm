@@ -81,7 +81,7 @@ uint64_t __44__CSViolationHandlerService__sharedInstance__block_invoke()
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v6 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285711248];
   [connectionCopy setExportedInterface:v6];
@@ -91,45 +91,40 @@ uint64_t __44__CSViolationHandlerService__sharedInstance__block_invoke()
   if (os_log_type_enabled(logger, OS_LOG_TYPE_INFO))
   {
     v8 = logger;
-    v11[0] = 67109120;
-    v11[1] = [connectionCopy processIdentifier];
-    _os_log_impl(&dword_243DC3000, v8, OS_LOG_TYPE_INFO, "Accepted new connection from pid %d", v11, 8u);
+    v10[0] = 67109120;
+    v10[1] = [connectionCopy processIdentifier];
+    _os_log_impl(&dword_243DC3000, v8, OS_LOG_TYPE_INFO, "Accepted new connection from pid %d", v10, 8u);
   }
 
   [connectionCopy resume];
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)initializeHandlers
 {
-  v3 = +[CSExcessiveCPUViolationHandler sharedInstance];
-  cpuViolationHandler = self->_cpuViolationHandler;
-  self->_cpuViolationHandler = v3;
+  self->_cpuViolationHandler = +[CSExcessiveCPUViolationHandler sharedInstance];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)reportExcessiveCPUUseBy:(id)by pid:(unint64_t)pid path:(id)path endTime:(mach_timespec)time observedValue:(int64_t)value observationWindow:(int64_t)window limitValue:(int64_t)limitValue limitWindow:(int64_t)self0 fatal:(BOOL)self1
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   byCopy = by;
   pathCopy = path;
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v23 = byCopy;
-    v24 = 2048;
+    v22 = byCopy;
+    v23 = 2048;
     pidCopy = pid;
     _os_log_impl(&dword_243DC3000, logger, OS_LOG_TYPE_INFO, "Received CPU violation for process: %@, pid: %llu.", buf, 0x16u);
   }
 
-  LOBYTE(v20) = fatal;
-  [(CSExcessiveCPUViolationHandler *)self->_cpuViolationHandler handleViolationByProcess:byCopy pid:pid path:pathCopy endTime:time observedValue:value observationWindow:window limitValue:limitValue limitWindow:limitWindow fatal:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  LOBYTE(v19) = fatal;
+  [(CSExcessiveCPUViolationHandler *)self->_cpuViolationHandler handleViolationByProcess:byCopy pid:pid path:pathCopy endTime:time observedValue:value observationWindow:window limitValue:limitValue limitWindow:limitWindow fatal:v19];
 }
 
 @end

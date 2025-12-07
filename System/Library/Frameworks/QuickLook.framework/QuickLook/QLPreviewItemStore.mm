@@ -35,40 +35,40 @@
 
 - (QLPreviewItemStore)initWithPreviewItems:(id)items
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
-  v21.receiver = self;
-  v21.super_class = QLPreviewItemStore;
-  v5 = [(QLPreviewItemStore *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = QLPreviewItemStore;
+  v5 = [(QLPreviewItemStore *)&v20 init];
   v6 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = itemsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [MEMORY[0x277D43F58] itemWithPreviewItem:{*(*(&v17 + 1) + 8 * v11), v17}];
+        v12 = [MEMORY[0x277D43F58] itemWithPreviewItem:{*(*(&v16 + 1) + 8 * v11), v16}];
         [v6 addObject:v12];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v9);
@@ -81,46 +81,45 @@
   [(QLPreviewItemStore *)v5 setItemProvider:v5->_internalItemProvider];
   -[QLPreviewItemStore reloadWithNumberOfPreviewItems:](v5, "reloadWithNumberOfPreviewItems:", [v7 count]);
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (QLPreviewItemStore)initWithItemsOfDirectoryAtURL:(id)l
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v31.receiver = self;
-  v31.super_class = QLPreviewItemStore;
-  v23 = [(QLPreviewItemStore *)&v31 init];
-  v24 = lCopy;
+  v30.receiver = self;
+  v30.super_class = QLPreviewItemStore;
+  v22 = [(QLPreviewItemStore *)&v30 init];
+  v23 = lCopy;
   v5 = [lCopy url];
   startAccessingSecurityScopedResource = [v5 startAccessingSecurityScopedResource];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   array = [MEMORY[0x277CBEA60] array];
-  v22 = defaultManager;
+  v21 = defaultManager;
   v8 = [defaultManager enumeratorAtURL:v5 includingPropertiesForKeys:array options:22 errorHandler:&__block_literal_global_3];
 
-  v25 = objc_opt_new();
+  v24 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = v8;
-  v9 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v9 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v28 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * i);
+        v13 = *(*(&v26 + 1) + 8 * i);
         v14 = MEMORY[0x23EE8CB40](v5);
         if (v14)
         {
@@ -134,11 +133,11 @@
 
         if ([QLPreviewController canPreviewItem:v16])
         {
-          [v25 addObject:v16];
+          [v24 addObject:v16];
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v10 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v10);
@@ -149,17 +148,16 @@
     [v5 stopAccessingSecurityScopedResource];
   }
 
-  [v25 sortUsingComparator:&__block_literal_global_41];
-  v23->_isArchive = 1;
-  v18 = [(QLPreviewItemStore *)v23 initWithPreviewItems:v25];
+  [v24 sortUsingComparator:&__block_literal_global_41];
+  v22->_isArchive = 1;
+  v18 = [(QLPreviewItemStore *)v22 initWithPreviewItems:v24];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 uint64_t __52__QLPreviewItemStore_initWithItemsOfDirectoryAtURL___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = MEMORY[0x277D43EF8];
@@ -172,12 +170,11 @@ uint64_t __52__QLPreviewItemStore_initWithItemsOfDirectoryAtURL___block_invoke(u
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138412290;
-    v11 = v4;
-    _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_ERROR, "Error while enumerating directory containing unarchived entries at URL: %@ #PreviewItemStore", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v4;
+    _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_ERROR, "Error while enumerating directory containing unarchived entries at URL: %@ #PreviewItemStore", &v9, 0xCu);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -210,70 +207,68 @@ uint64_t __52__QLPreviewItemStore_initWithItemsOfDirectoryAtURL___block_invoke_3
 
 - (void)clearItems
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_cache;
-  v3 = [(NSPointerArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSPointerArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) setItem:{0, v8}];
+        [*(*(&v7 + 1) + 8 * v6++) setItem:{0, v7}];
       }
 
       while (v4 != v6);
-      v4 = [(NSPointerArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSPointerArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearCache
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->_possibleRange.length && (WeakRetained = objc_loadWeakRetained(&self->_itemProvider), WeakRetained, WeakRetained))
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v4 = self->_cache;
-    v5 = [(NSPointerArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [(NSPointerArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v13;
       do
       {
         v8 = 0;
         do
         {
-          if (*v15 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v14 + 1) + 8 * v8++) invalidate];
+          [*(*(&v12 + 1) + 8 * v8++) invalidate];
         }
 
         while (v6 != v8);
-        v6 = [(NSPointerArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [(NSPointerArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -284,14 +279,12 @@ uint64_t __52__QLPreviewItemStore_initWithItemsOfDirectoryAtURL___block_invoke_3
     self->_cache = strongObjectsPointerArray;
 
     [(NSPointerArray *)self->_cache setCount:[(QLPreviewItemStore *)self numberOfItems]];
-    v11 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v12 = self->_cache;
+    v11 = self->_cache;
     self->_cache = 0;
-    v13 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -433,12 +426,10 @@ void __63__QLPreviewItemStore_previewItemAtIndex_withCompletionHandler___block_i
 void __63__QLPreviewItemStore_previewItemAtIndex_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v6 = a3;
-  v9 = *(a1 + 32);
-  v10 = v6;
-  v11 = *(a1 + 40);
-  v7 = v6;
-  v8 = v5;
+  v8 = a3;
+  v9 = *(a1 + 40);
+  v6 = v8;
+  v7 = v5;
   QLRunInMainThread();
 }
 
@@ -559,16 +550,15 @@ void __71__QLPreviewItemStore_resolvedPreviewItemAtIndex_withCompletionHandler__
 
 void __71__QLPreviewItemStore_resolvedPreviewItemAtIndex_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v6 = a2;
+  v5 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v3 = objc_alloc(MEMORY[0x277CDAB18]);
-    v4 = [v3 initWithURL:v6 sandboxType:*MEMORY[0x277D861B8]];
+    v4 = [v3 initWithURL:v5 sandboxType:*MEMORY[0x277D861B8]];
     [*(a1 + 32) setGeneratedURLHandler:v4];
   }
 
-  v5 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 

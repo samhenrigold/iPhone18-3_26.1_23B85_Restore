@@ -1,85 +1,3 @@
-uint64_t MKBSDCFCreateDeviceInfo(const __CFString *a1, CFMutableDictionaryRef *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  CFStringGetCString(a1, buffer, 32, 0x600u);
-  result = MKBSDCreateDeviceInfo(buffer, a2);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t MKMediaListCreate(CFMutableArrayRef *a1, char a2)
-{
-  *existing = 0;
-  Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-  *a1 = Mutable;
-  if (!Mutable)
-  {
-    return 12;
-  }
-
-  result = MEMORY[0x259C86740](*MEMORY[0x277D85F18], existing);
-  if (result)
-  {
-    return result;
-  }
-
-  v6 = IOServiceMatching("IOMedia");
-  if (!v6)
-  {
-    return 12;
-  }
-
-  v7 = v6;
-  if (a2)
-  {
-    CFDictionaryAddValue(v6, @"Whole", *MEMORY[0x277CBED28]);
-  }
-
-  result = IOServiceGetMatchingServices(existing[0], v7, &existing[1]);
-  if (!result)
-  {
-    v8 = IOIteratorNext(existing[1]);
-    if (v8)
-    {
-      v9 = v8;
-      v10 = *MEMORY[0x277CBECE8];
-      do
-      {
-        CFProperty = IORegistryEntryCreateCFProperty(v9, @"BSD Name", v10, 0);
-        if (CFProperty)
-        {
-          v12 = CFProperty;
-          if ((a2 & 2) != 0)
-          {
-            v13 = CFStringCreateMutable(0, 0);
-            CFStringAppendCString(v13, "/dev/", 0x600u);
-            CFStringAppend(v13, v12);
-            CFRelease(v12);
-            v12 = v13;
-          }
-
-          CFArrayAppendValue(*a1, v12);
-          CFRelease(v12);
-        }
-
-        IOObjectRelease(v9);
-        v9 = IOIteratorNext(existing[1]);
-      }
-
-      while (v9);
-    }
-
-    result = existing[1];
-    if (existing[1])
-    {
-      IOObjectRelease(existing[1]);
-      return 0;
-    }
-  }
-
-  return result;
-}
-
 uint64_t MKFetchMediaSetup(const void *a1, CFBundleRef bundle, CFTypeRef *a3)
 {
   v3 = 4294967246;
@@ -203,10 +121,10 @@ uint64_t MKGetMediaDefaults(const void *a1, __CFBundle *a2, CFTypeRef *a3, CFTyp
 
 __CFDictionary *MKMakePartDictExtended(int a1, const char *a2, const char *a3, int a4, uint64_t a5, int *a6, int a7)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   valuePtr = a1;
-  v23 = a7;
-  v24 = a4;
+  v22 = a7;
+  v23 = a4;
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (Mutable)
   {
@@ -226,7 +144,7 @@ __CFDictionary *MKMakePartDictExtended(int a1, const char *a2, const char *a3, i
     v17 = v15;
     CFDictionarySetValue(Mutable, @"Partition Type", v15);
     CFRelease(v17);
-    v18 = CFNumberCreate(0, kCFNumberSInt32Type, &v24);
+    v18 = CFNumberCreate(0, kCFNumberSInt32Type, &v23);
     CFDictionarySetValue(Mutable, @"Partition Size", v18);
     CFRelease(v18);
     if (a5)
@@ -239,7 +157,7 @@ __CFDictionary *MKMakePartDictExtended(int a1, const char *a2, const char *a3, i
 
     if (a7)
     {
-      v20 = CFNumberCreate(0, kCFNumberSInt32Type, &v23);
+      v20 = CFNumberCreate(0, kCFNumberSInt32Type, &v22);
       CFDictionarySetValue(Mutable, @"Partition Options", v20);
       CFRelease(v20);
     }
@@ -253,7 +171,6 @@ __CFDictionary *MKMakePartDictExtended(int a1, const char *a2, const char *a3, i
   }
 
   *a6 = v16;
-  v21 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
@@ -319,13 +236,13 @@ LABEL_10:
 
 uint64_t MKBuildDriver(Ptr *a1, CFDictionaryRef theDict, __CFBundle *a3, unsigned int a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v42 = 0;
-  memset(v41, 0, sizeof(v41));
-  memset(&v37, 0, sizeof(v37));
+  v42 = *MEMORY[0x277D85DE8];
+  v41 = 0;
+  memset(v40, 0, sizeof(v40));
+  memset(&v36, 0, sizeof(v36));
   valuePtr = 0;
   Value = CFDictionaryGetValue(theDict, @"Partition Name");
-  if (!Value || !CFStringGetCString(Value, &v41[2] + 12, 32, 0) || (v13 = CFDictionaryGetValue(theDict, @"Partition Type")) == 0 || !CFStringGetCString(v13, (v41 | 0xC), 32, 0))
+  if (!Value || !CFStringGetCString(Value, &v40[2] + 12, 32, 0) || (v13 = CFDictionaryGetValue(theDict, @"Partition Type")) == 0 || !CFStringGetCString(v13, (v40 | 0xC), 32, 0))
   {
     v17 = -1;
     v18 = -417;
@@ -340,83 +257,83 @@ uint64_t MKBuildDriver(Ptr *a1, CFDictionaryRef theDict, __CFBundle *a3, unsigne
     v16 = CFGetTypeID(v14);
     if (v16 == CFStringGetTypeID())
     {
-      v44.location = 0;
-      v44.length = 4;
-      CFStringGetBytes(v15, v44, 0, 0, 0, buffer, 4, 0);
+      v43.location = 0;
+      v43.length = 4;
+      CFStringGetBytes(v15, v43, 0, 0, 0, buffer, 4, 0);
     }
 
     else if (v16 == CFDataGetTypeID())
     {
-      v45.location = 0;
-      v45.length = 4;
-      CFDataGetBytes(v15, v45, buffer);
+      v44.location = 0;
+      v44.length = 4;
+      CFDataGetBytes(v15, v44, buffer);
     }
 
-    DWORD1(v41[0]) = bswap32(*buffer);
+    DWORD1(v40[0]) = bswap32(*buffer);
   }
 
-  v21 = CFDictionaryGetValue(theDict, @"Driver Present");
-  if (v21)
+  v20 = CFDictionaryGetValue(theDict, @"Driver Present");
+  if (v20)
   {
-    v22 = CFBooleanGetValue(v21) == 0;
+    v21 = CFBooleanGetValue(v20) == 0;
   }
 
   else
   {
-    v22 = 1;
+    v21 = 1;
   }
 
-  v23 = CFDictionaryGetValue(theDict, @"Cpu");
-  if (v23)
+  v22 = CFDictionaryGetValue(theDict, @"Cpu");
+  if (v22)
   {
-    CFStringGetCString(v23, &v41[4] + 12, 16, 0);
+    CFStringGetCString(v22, &v40[4] + 12, 16, 0);
   }
 
-  v24 = CFDictionaryGetValue(theDict, @"Chain Compatible");
+  v23 = CFDictionaryGetValue(theDict, @"Chain Compatible");
+  if (v23 && CFBooleanGetValue(v23))
+  {
+    LOWORD(v40[0]) |= 0x100u;
+  }
+
+  v24 = CFDictionaryGetValue(theDict, @"Chain Driver");
   if (v24 && CFBooleanGetValue(v24))
   {
-    LOWORD(v41[0]) |= 0x100u;
+    LOWORD(v40[0]) |= 0x200u;
   }
 
-  v25 = CFDictionaryGetValue(theDict, @"Chain Driver");
-  if (v25 && CFBooleanGetValue(v25))
+  v25 = CFDictionaryGetValue(theDict, @"Partition Size");
+  if (!v25)
   {
-    LOWORD(v41[0]) |= 0x200u;
-  }
-
-  v26 = CFDictionaryGetValue(theDict, @"Partition Size");
-  if (!v26)
-  {
-    v27 = 0;
+    v26 = 0;
     goto LABEL_34;
   }
 
-  CFNumberGetValue(v26, kCFNumberSInt32Type, &valuePtr);
-  v27 = valuePtr;
+  CFNumberGetValue(v25, kCFNumberSInt32Type, &valuePtr);
+  v26 = valuePtr;
   if (valuePtr <= 0x7FF)
   {
 LABEL_34:
-    valuePtr = v27 << 9;
+    valuePtr = v26 << 9;
   }
 
-  OSType2Ascii(DWORD1(v41[0]), v39, 2);
-  v28 = CFStringCreateWithFormat(0, 0, @"%s.%s", v41 | 0xC, v39, *&v37.st_dev, v37.st_ino, *&v37.st_uid, *&v37.st_rdev, v37.st_atimespec.tv_sec, v37.st_atimespec.tv_nsec, v37.st_mtimespec.tv_sec, v37.st_mtimespec.tv_nsec, v37.st_ctimespec.tv_sec, v37.st_ctimespec.tv_nsec, v37.st_birthtimespec.tv_sec, v37.st_birthtimespec.tv_nsec);
-  if (!v28)
+  OSType2Ascii(DWORD1(v40[0]), v38, 2);
+  v27 = CFStringCreateWithFormat(0, 0, @"%s.%s", v40 | 0xC, v38, *&v36.st_dev, v36.st_ino, *&v36.st_uid, *&v36.st_rdev, v36.st_atimespec.tv_sec, v36.st_atimespec.tv_nsec, v36.st_mtimespec.tv_sec, v36.st_mtimespec.tv_nsec, v36.st_ctimespec.tv_sec, v36.st_ctimespec.tv_nsec, v36.st_birthtimespec.tv_sec, v36.st_birthtimespec.tv_nsec);
+  if (!v27)
   {
     v17 = -1;
     goto LABEL_42;
   }
 
-  v29 = v28;
-  v30 = CFBundleCopyResourceURL(a3, v28, @"drvr", 0);
-  CFRelease(v29);
-  if (!v30)
+  v28 = v27;
+  v29 = CFBundleCopyResourceURL(a3, v27, @"drvr", 0);
+  CFRelease(v28);
+  if (!v29)
   {
     v17 = -1;
-    if (v22)
+    if (v21)
     {
 LABEL_41:
-      v18 = PMWriteDriver(a1, v41, valuePtr, a4, a5, a6);
+      v18 = PMWriteDriver(a1, v40, valuePtr, a4, a5, a6);
       goto LABEL_9;
     }
 
@@ -425,23 +342,23 @@ LABEL_42:
     goto LABEL_9;
   }
 
-  CFURLGetFileSystemRepresentation(v30, 1u, buffer, 1024);
-  CFRelease(v30);
-  v31 = stat(buffer, &v37);
-  if (v31 || ((DWORD2(v41[0]) = v37.st_size, v32 = *(*a1 + 1), !(LODWORD(v37.st_size) % v32)) ? (v33 = LODWORD(v37.st_size) / v32) : (v33 = LODWORD(v37.st_size) / v32 + 1), v34 = v33 * v32, v42 = NewPtr(v33 * v32), v31 = MemError(), !v42))
+  CFURLGetFileSystemRepresentation(v29, 1u, buffer, 1024);
+  CFRelease(v29);
+  v30 = stat(buffer, &v36);
+  if (v30 || ((DWORD2(v40[0]) = v36.st_size, v31 = *(*a1 + 1), !(LODWORD(v36.st_size) % v31)) ? (v32 = LODWORD(v36.st_size) / v31) : (v32 = LODWORD(v36.st_size) / v31 + 1), v33 = v32 * v31, v41 = NewPtr(v32 * v31), v30 = MemError(), !v41))
   {
-    v18 = v31;
+    v18 = v30;
     v17 = -1;
     goto LABEL_9;
   }
 
-  bzero(&v42[DWORD2(v41[0])], (v34 - DWORD2(v41[0])));
-  v35 = open(buffer, 0, 0);
-  v17 = v35;
-  if (v35 != -1)
+  bzero(&v41[DWORD2(v40[0])], (v33 - DWORD2(v40[0])));
+  v34 = open(buffer, 0, 0);
+  v17 = v34;
+  if (v34 != -1)
   {
-    v36 = read(v35, v42, DWORD2(v41[0]));
-    if (DWORD2(v41[0]) == v36)
+    v35 = read(v34, v41, DWORD2(v40[0]));
+    if (DWORD2(v40[0]) == v35)
     {
       goto LABEL_41;
     }
@@ -449,9 +366,9 @@ LABEL_42:
 
   v18 = -1;
 LABEL_9:
-  if (v42)
+  if (v41)
   {
-    DisposePtr(v42);
+    DisposePtr(v41);
   }
 
   if (v17 != -1)
@@ -464,20 +381,20 @@ LABEL_9:
     v18 = *__error();
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
-uint64_t MKCreatePatchPartition(const void **a1, CFArrayRef theArray, CFDictionaryRef theDict, const __CFArray *a4, __CFBundle *a5, unsigned int a6, int a7, uint64_t a8, uint64_t (*a9)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, Ptr))
+uint64_t MKCreatePatchPartition(char **a1, CFArrayRef theArray, CFDictionaryRef theDict, const __CFArray *a4, __CFBundle *a5, uint64_t a6, int a7, uint64_t a8, uint64_t (*a9)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, Ptr))
 {
   v9 = a1;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
-  strcpy(v31, "Patch Partition");
+  strcpy(v30, "Patch Partition");
   LOWORD(a1) = -50;
   if (v9 && theDict)
   {
-    v30 = 0;
+    v11 = a6;
+    v29 = 0;
     if (theArray)
     {
       Count = CFArrayGetCount(theArray);
@@ -498,10 +415,10 @@ uint64_t MKCreatePatchPartition(const void **a1, CFArrayRef theArray, CFDictiona
           Value = CFDictionaryGetValue(ValueAtIndex, @"Partition Type");
           if (Value && CFEqual(Value, @"Apple_Patches"))
           {
-            v26 = CFDictionaryGetValue(v19, @"Partition Size");
-            if (v26)
+            v25 = CFDictionaryGetValue(v19, @"Partition Size");
+            if (v25)
             {
-              CFNumberGetValue(v26, kCFNumberSInt32Type, &valuePtr);
+              CFNumberGetValue(v25, kCFNumberSInt32Type, &valuePtr);
               v23 = valuePtr;
               if (valuePtr)
               {
@@ -538,298 +455,283 @@ uint64_t MKCreatePatchPartition(const void **a1, CFArrayRef theArray, CFDictiona
 
 LABEL_15:
     valuePtr = PMConvertBlocks(v23, 0x200u, *(*v9 + 1));
-    LODWORD(a1) = PMNewPartitionExtended(v9, 12544, 0, 0, valuePtr, v31, a6, &v30, 0);
+    LODWORD(a1) = PMNewPartitionExtended(v9, 12544, 0, 0, valuePtr, v30, v11, &v29, 0);
     if (!a1)
     {
-      LOWORD(a1) = RebuildPatches(v9, v30, theDict, a4, a5, a6, a8, a9);
+      LOWORD(a1) = RebuildPatches(v9, v29, theDict, a4, a5, v11, a8, a9);
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
 uint64_t RebuildPatches(uint64_t *a1, int a2, const __CFDictionary *a3, const __CFArray *a4, __CFBundle *a5, unsigned int a6, uint64_t a7, uint64_t (*a8)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, Ptr))
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   if (a2 < 1)
   {
-    result = 4294967246;
-    goto LABEL_59;
+    return 4294967246;
   }
 
   *(*a1 + 1072 * a2 + 1036) = *(*a1 + 518) >> 9;
   result = VErasePartition(a1, a2, 0, a7, a8);
-  if (!result)
+  if (result)
   {
-    p = 0;
-    v54 = 0u;
-    v55 = 0u;
+    return result;
+  }
+
+  p = 0;
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  *buffer = 0u;
+  *v50 = 0u;
+  Value = CFDictionaryGetValue(a3, @"Patches");
+  if (!Value)
+  {
+    LOWORD(v36) = -417;
+    return v36;
+  }
+
+  v18 = Value;
+  Count = CFArrayGetCount(a4);
+  if (Count < 1)
+  {
+    LOWORD(v20) = 0;
+    goto LABEL_57;
+  }
+
+  bundle = a5;
+  v45 = a6;
+  v19 = 0;
+  v20 = 0;
+  while (1)
+  {
+    ValueAtIndex = CFArrayGetValueAtIndex(a4, v19);
+    if (!ValueAtIndex)
+    {
+      break;
+    }
+
+    v22 = CFDictionaryGetValue(v18, ValueAtIndex);
+    if (!v22)
+    {
+      break;
+    }
+
+    v23 = v22;
+    memset(&v47, 0, sizeof(v47));
+    *buffer = 0u;
+    *v50 = 0u;
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    *buffer = 0u;
-    *v51 = 0u;
-    Value = CFDictionaryGetValue(a3, @"Patches");
-    if (!Value)
+    v54 = 0u;
+    p = 0;
+    v24 = CFDictionaryGetValue(v22, @"Patch Name");
+    if (!v24 || (CFStringGetPascalString(v24, &v50[1] + 4, 33, 0), (v25 = CFDictionaryGetValue(v23, @"Patch Signature")) == 0) || (v58.location = 0, v58.length = 4, CFStringGetBytes(v25, v58, 0, 0, 0, buffer, 4, 0), (v26 = CFDictionaryGetValue(v23, @"Patch Vendor")) == 0) || (CFStringGetPascalString(v26, &v52 + 13, 33, 0), (v27 = CFDictionaryGetValue(v23, @"Major Vers")) == 0))
     {
-      LOWORD(v36) = -417;
-      goto LABEL_58;
+      v33 = -1;
+      v34 = 4294966879;
+      goto LABEL_18;
     }
 
-    v18 = Value;
-    Count = CFArrayGetCount(a4);
-    if (Count < 1)
+    CFNumberGetValue(v27, kCFNumberSInt16Type, &buffer[4]);
+    v28 = CFDictionaryGetValue(v23, @"Minor Vers");
+    if (v28)
     {
-      LOWORD(v20) = 0;
-      goto LABEL_57;
+      CFNumberGetValue(v28, kCFNumberSInt16Type, &buffer[6]);
     }
 
-    bundle = a5;
-    v46 = a6;
-    v19 = 0;
-    v20 = 0;
-    while (1)
+    v29 = CFDictionaryGetValue(v23, @"Flags");
+    if (v29)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(a4, v19);
-      if (!ValueAtIndex || (v22 = CFDictionaryGetValue(v18, ValueAtIndex)) == 0)
+      v30 = v29;
+      *v48 = -1;
+      v31 = CFGetTypeID(v29);
+      if (v31 == CFStringGetTypeID())
       {
-        LOWORD(v36) = -415;
-LABEL_54:
-        if (p)
-        {
-          DisposePtr(p);
-        }
-
-        if (!v36)
-        {
-LABEL_57:
-          LOWORD(v36) = v20;
-        }
-
-LABEL_58:
-        result = v36;
-        goto LABEL_59;
+        CFStringGetCString(v30, __str, 16, 0);
+        v32 = strtoul(__str, 0, 0);
       }
 
-      v23 = v22;
-      memset(&v48, 0, sizeof(v48));
-      *buffer = 0u;
-      *v51 = 0u;
-      v52 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v55 = 0u;
-      p = 0;
-      v24 = CFDictionaryGetValue(v22, @"Patch Name");
-      if (!v24)
+      else if (v31 == CFDataGetTypeID())
       {
-        goto LABEL_17;
+        v59.location = 0;
+        v59.length = 4;
+        CFDataGetBytes(v30, v59, v48);
+        v32 = bswap32(*v48);
       }
 
-      CFStringGetPascalString(v24, &v51[1] + 4, 33, 0);
-      v25 = CFDictionaryGetValue(v23, @"Patch Signature");
-      if (!v25 || (v59.location = 0, v59.length = 4, CFStringGetBytes(v25, v59, 0, 0, 0, buffer, 4, 0), (v26 = CFDictionaryGetValue(v23, @"Patch Vendor")) == 0) || (CFStringGetPascalString(v26, &v53 + 13, 33, 0), (v27 = CFDictionaryGetValue(v23, @"Major Vers")) == 0))
+      else
       {
-LABEL_17:
-        v33 = -1;
-        v34 = 4294966879;
-        goto LABEL_18;
+        v32 = -1;
       }
 
-      CFNumberGetValue(v27, kCFNumberSInt16Type, &buffer[4]);
-      v28 = CFDictionaryGetValue(v23, @"Minor Vers");
-      if (v28)
+      *&buffer[8] = v32;
+    }
+
+    v37 = CFStringCreateWithFormat(0, 0, @"Apple_Patches.%4.4s", buffer);
+    v38 = CFBundleCopyResourceURL(bundle, v37, @"ptch", 0);
+    CFRelease(v37);
+    if (!v38 || (v39 = CFURLGetFileSystemRepresentation(v38, 1u, __str, 1024), CFRelease(v38), !v39))
+    {
+      v33 = -1;
+      v34 = 4294967253;
+      goto LABEL_18;
+    }
+
+    v40 = stat(__str, &v47);
+    if (v40)
+    {
+      v34 = v40;
+      v33 = -1;
+      goto LABEL_18;
+    }
+
+    LODWORD(v50[0]) = v47.st_size;
+    p = NewPtr(LODWORD(v47.st_size));
+    v41 = MemError();
+    if (p)
+    {
+      v42 = open(__str, 0, 0);
+      v33 = v42;
+      if (v42 == -1)
       {
-        CFNumberGetValue(v28, kCFNumberSInt16Type, &buffer[6]);
-      }
-
-      v29 = CFDictionaryGetValue(v23, @"Flags");
-      if (v29)
-      {
-        v30 = v29;
-        *v49 = -1;
-        v31 = CFGetTypeID(v29);
-        if (v31 == CFStringGetTypeID())
-        {
-          CFStringGetCString(v30, __str, 16, 0);
-          v32 = strtoul(__str, 0, 0);
-        }
-
-        else if (v31 == CFDataGetTypeID())
-        {
-          v60.location = 0;
-          v60.length = 4;
-          CFDataGetBytes(v30, v60, v49);
-          v32 = bswap32(*v49);
-        }
-
-        else
-        {
-          v32 = -1;
-        }
-
-        *&buffer[8] = v32;
-      }
-
-      v37 = CFStringCreateWithFormat(0, 0, @"Apple_Patches.%4.4s", buffer);
-      v38 = CFBundleCopyResourceURL(bundle, v37, @"ptch", 0);
-      CFRelease(v37);
-      if (!v38)
-      {
-        break;
-      }
-
-      v39 = CFURLGetFileSystemRepresentation(v38, 1u, __str, 1024);
-      CFRelease(v38);
-      if (!v39)
-      {
-        break;
-      }
-
-      v40 = stat(__str, &v48);
-      if (v40)
-      {
-        v34 = v40;
-        v33 = -1;
-        goto LABEL_18;
-      }
-
-      LODWORD(v51[0]) = v48.st_size;
-      p = NewPtr(LODWORD(v48.st_size));
-      v41 = MemError();
-      if (p)
-      {
-        v42 = open(__str, 0, 0);
-        v33 = v42;
-        if (v42 == -1)
-        {
-          v34 = 0xFFFFFFFFLL;
+        v34 = 0xFFFFFFFFLL;
 LABEL_18:
-          if (p)
-          {
-            DisposePtr(p);
-            p = 0;
-          }
-
-          goto LABEL_20;
-        }
-
-        v43 = read(v42, p, LODWORD(v51[0]));
-        if (LODWORD(v51[0]) == v43)
-        {
-          v34 = 0;
-        }
-
-        else
-        {
-          v34 = 0xFFFFFFFFLL;
-        }
-      }
-
-      else
-      {
-        v34 = v41;
-        v33 = -1;
-      }
-
-      if (v34)
-      {
-        goto LABEL_18;
-      }
-
-LABEL_20:
-      if (v33 != -1)
-      {
-        close(v33);
-      }
-
-      if (v34 == -1)
-      {
-        v34 = *__error();
-      }
-
-      if (v34)
-      {
-        v35 = v34;
-        LOWORD(v36) = v34;
-        if (v34 != 65493)
-        {
-          goto LABEL_54;
-        }
-      }
-
-      else
-      {
-        v36 = PMAddpatch(a1, a2, buffer, p, v46, a7, a8);
         if (p)
         {
           DisposePtr(p);
           p = 0;
         }
 
-        v35 = v20;
-        if (v36)
-        {
-          goto LABEL_54;
-        }
+        goto LABEL_20;
       }
 
-      ++v19;
-      v20 = v35;
-      if (Count == v19)
+      v43 = read(v42, p, LODWORD(v50[0]));
+      if (LODWORD(v50[0]) == v43)
       {
-        LOWORD(v36) = v34;
-        LOWORD(v20) = v35;
+        v34 = 0;
+      }
+
+      else
+      {
+        v34 = 0xFFFFFFFFLL;
+      }
+    }
+
+    else
+    {
+      v34 = v41;
+      v33 = -1;
+    }
+
+    if (v34)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_20:
+    if (v33 != -1)
+    {
+      close(v33);
+    }
+
+    if (v34 == -1)
+    {
+      v34 = *__error();
+    }
+
+    if (v34)
+    {
+      v35 = v34;
+      LOWORD(v36) = v34;
+      if (v34 != 65493)
+      {
         goto LABEL_54;
       }
     }
 
-    v33 = -1;
-    v34 = 4294967253;
-    goto LABEL_18;
+    else
+    {
+      v36 = PMAddpatch(a1, a2, buffer, p, v45, a7, a8);
+      if (p)
+      {
+        DisposePtr(p);
+        p = 0;
+      }
+
+      v35 = v20;
+      if (v36)
+      {
+        goto LABEL_54;
+      }
+    }
+
+    ++v19;
+    v20 = v35;
+    if (Count == v19)
+    {
+      LOWORD(v36) = v34;
+      LOWORD(v20) = v35;
+      goto LABEL_54;
+    }
   }
 
-LABEL_59:
-  v44 = *MEMORY[0x277D85DE8];
-  return result;
+  LOWORD(v36) = -415;
+LABEL_54:
+  if (p)
+  {
+    DisposePtr(p);
+  }
+
+  if (!v36)
+  {
+LABEL_57:
+    LOWORD(v36) = v20;
+  }
+
+  return v36;
 }
 
-uint64_t MKMediaLayout(Ptr *a1, const __CFDictionary *a2, __CFBundle *a3, unsigned int a4, char a5, uint64_t a6, uint64_t (*a7)(uint64_t, uint64_t, uint64_t, uint64_t))
+uint64_t MKMediaLayout(char **a1, const __CFDictionary *a2, __CFBundle *a3, uint64_t a4, char a5, uint64_t a6, uint64_t (*a7)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v39 = -50;
+  v44 = *MEMORY[0x277D85DE8];
+  v38 = -50;
   if (!a1)
   {
-    goto LABEL_44;
+    return v38;
   }
 
-  v39 = -43;
+  v38 = -43;
   v14 = a3;
   if (!a3)
   {
     v14 = MKAccessLibrary(0);
     if (!v14)
     {
-      goto LABEL_44;
+      return v38;
     }
   }
 
-  v15 = MKLoadDB(v14, @"inventory", &v39);
+  v15 = MKLoadDB(v14, @"inventory", &v38);
   if (!v15)
   {
     v16 = 0;
     goto LABEL_38;
   }
 
-  v35 = a5;
-  v37 = a6;
-  v38 = a7;
-  v16 = MKLoadDB(v14, @"database", &v39);
-  v39 = 0;
+  v34 = a5;
+  v36 = a6;
+  v37 = a7;
+  v16 = MKLoadDB(v14, @"database", &v38);
+  v38 = 0;
   Value = CFDictionaryGetValue(a2, @"Drivers");
   v18 = CFDictionaryGetValue(a2, @"Patches");
   v19 = CFDictionaryGetValue(a2, @"Partitions");
-  if (Value && (v39 = MKBuildDrivers(a1, v15, Value, v14, a4, 0, v37, v38)) != 0 || v18 && (v39 = MKCreatePatchPartition(a1, v19, v15, v18, v14, a4, 0, v37, v38)) != 0)
+  if (Value && (v38 = MKBuildDrivers(a1, v15, Value, v14, a4, 0, v36, v37)) != 0 || v18 && (v38 = MKCreatePatchPartition(a1, v19, v15, v18, v14, a4, 0, v36, v37)) != 0)
   {
 LABEL_38:
     if (!a3)
@@ -843,7 +745,7 @@ LABEL_38:
   if (!v19 || (Count = CFArrayGetCount(v19)) == 0)
   {
 LABEL_35:
-    v39 = 0;
+    v38 = 0;
     if (!a3)
     {
       goto LABEL_39;
@@ -862,25 +764,25 @@ LABEL_35:
     }
 
     v22 = ValueAtIndex;
-    v40 = 0;
-    v44 = 0;
-    v43 = 0u;
-    memset(v42, 0, sizeof(v42));
+    v39 = 0;
+    v43 = 0;
+    v42 = 0u;
+    memset(v41, 0, sizeof(v41));
     v23 = *a1;
-    v24 = MKGetPartitionInfo(ValueAtIndex, *(*a1 + 257), v42);
+    v24 = MKGetPartitionInfo(ValueAtIndex, *(*a1 + 257), v41);
     if (v24)
     {
       goto LABEL_46;
     }
 
-    v25 = DWORD2(v43);
-    if (!DWORD2(v43))
+    v25 = DWORD2(v42);
+    if (!DWORD2(v42))
     {
       v26 = *(v23 + 261);
       if (v26 >= 2 && (v27 = &v23[1072 * (v26 - 1)], *(v27 + 541) == 24320))
       {
         v25 = *(v27 + 135);
-        DWORD2(v43) = v25;
+        DWORD2(v42) = v25;
       }
 
       else
@@ -889,19 +791,19 @@ LABEL_35:
       }
     }
 
-    v28 = WORD2(v44);
-    if (WORD2(v44) == 12544)
+    v28 = WORD2(v43);
+    if (WORD2(v43) == 12544)
     {
-      if (!PMSpecificIndex(a1, 12544, 0, &v40) && v40)
+      if (!PMSpecificIndex(a1, 12544, 0, &v39) && v39)
       {
         goto LABEL_34;
       }
 
-      v28 = WORD2(v44);
-      v25 = DWORD2(v43);
+      v28 = WORD2(v43);
+      v25 = DWORD2(v42);
     }
 
-    v24 = PMNewPartitionExtended(a1, v28, &v42[2] + 1, HIDWORD(v43), v25, v42, a4, &v40, v44);
+    v24 = PMNewPartitionExtended(a1, v28, &v41[2] + 1, HIDWORD(v42), v25, v41, a4, &v39, v43);
     if (v24)
     {
       goto LABEL_24;
@@ -910,24 +812,24 @@ LABEL_35:
     v29 = *a1;
     if (*(*a1 + 257) <= 3)
     {
-      v30 = &v29[1072 * v40 + 528];
-      if ((v35 & 1) != 0 && *(v29 + 1) == *&v29[1072 * v40 + 540] + *&v29[1072 * v40 + 536])
+      v30 = &v29[1072 * v39 + 528];
+      if ((v34 & 1) != 0 && *(v29 + 1) == *&v29[1072 * v39 + 540] + *&v29[1072 * v39 + 536])
       {
         v31 = (*(v30 + 3) - PMConvertBlocks(10, 0x200u, *(v29 + 1))) / a4 * a4;
         *(v30 + 3) = v31;
         *(v30 + 21) = v31;
       }
 
-      if (DWORD1(v43))
+      if (DWORD1(v42))
       {
-        *(v30 + 34) = DWORD1(v43);
+        *(v30 + 34) = DWORD1(v42);
       }
 
       v32 = CFDictionaryGetValue(v22, @"Partition Loader");
       if (v32)
       {
-        CFStringGetCString(v32, v41, 34, 0);
-        v24 = MKCreateLoaderPartition(a1, v14, v15, a4, 0, v40, v41, 1, v37, v38);
+        CFStringGetCString(v32, v40, 34, 0);
+        v24 = MKCreateLoaderPartition(a1, v14, v15, a4, 0, v39, v40, 1, v36, v37);
         if (v24 != 28)
         {
 LABEL_24:
@@ -948,7 +850,7 @@ LABEL_34:
 
   v24 = -415;
 LABEL_46:
-  v39 = v24;
+  v38 = v24;
   if (!a3)
   {
 LABEL_39:
@@ -966,10 +868,7 @@ LABEL_40:
     CFRelease(v16);
   }
 
-LABEL_44:
-  result = v39;
-  v34 = *MEMORY[0x277D85DE8];
-  return result;
+  return v38;
 }
 
 void SetHandleSize(Handle h, Size newSize)
@@ -1170,13 +1069,13 @@ LABEL_6:
 
 __CFDictionary *TAOCopyHFSPlusParametersDict(const __CFDictionary *a1, _DWORD *a2)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   *__str = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  *v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  *v46 = 0u;
+  v47 = 0u;
   Value = CFDictionaryGetValue(a1, @"volume sectors");
   if (!Value)
   {
@@ -1190,8 +1089,8 @@ __CFDictionary *TAOCopyHFSPlusParametersDict(const __CFDictionary *a1, _DWORD *a
     goto LABEL_97;
   }
 
-  memset(v45, 0, sizeof(v45));
-  v41 = 0;
+  memset(v44, 0, sizeof(v44));
+  v40 = 0;
   valuePtr = 0;
   CFNumberGetValue(v5, kCFNumberSInt64Type, &valuePtr);
   v7 = CFDictionaryGetValue(a1, @"journal size");
@@ -1202,8 +1101,8 @@ __CFDictionary *TAOCopyHFSPlusParametersDict(const __CFDictionary *a1, _DWORD *a
     v10 = CFGetTypeID(v8);
     if (v10 == CFNumberGetTypeID())
     {
-      CFNumberGetValue(v9, kCFNumberSInt64Type, &v41);
-      if (snprintf(__str, 0x20uLL, "%llu", v41) > 0x1F)
+      CFNumberGetValue(v9, kCFNumberSInt64Type, &v40);
+      if (snprintf(__str, 0x20uLL, "%llu", v40) > 0x1F)
       {
         goto LABEL_97;
       }
@@ -1217,8 +1116,8 @@ __CFDictionary *TAOCopyHFSPlusParametersDict(const __CFDictionary *a1, _DWORD *a
     v13 = CFGetTypeID(v11);
     if (v13 == CFNumberGetTypeID())
     {
-      CFNumberGetValue(v12, kCFNumberSInt64Type, &v41);
-      LODWORD(v12) = snprintf(v47, 0x40uLL, "a=%llu", v41);
+      CFNumberGetValue(v12, kCFNumberSInt64Type, &v40);
+      LODWORD(v12) = snprintf(v46, 0x40uLL, "a=%llu", v40);
       if (v12 > 0x3F)
       {
         goto LABEL_97;
@@ -1238,11 +1137,11 @@ __CFDictionary *TAOCopyHFSPlusParametersDict(const __CFDictionary *a1, _DWORD *a
     v16 = CFGetTypeID(v14);
     if (v16 == CFNumberGetTypeID())
     {
-      CFNumberGetValue(v15, kCFNumberSInt64Type, &v41);
+      CFNumberGetValue(v15, kCFNumberSInt64Type, &v40);
       if (v12)
       {
         v17 = v12 + 1;
-        v47[v12] = 44;
+        v46[v12] = 44;
       }
 
       else
@@ -1250,7 +1149,7 @@ __CFDictionary *TAOCopyHFSPlusParametersDict(const __CFDictionary *a1, _DWORD *a
         v17 = 0;
       }
 
-      v18 = snprintf(&v47[v17], 64 - v17, "c=%llu", v41);
+      v18 = snprintf(&v46[v17], 64 - v17, "c=%llu", v40);
       if (64 - v17 <= v18)
       {
         goto LABEL_97;
@@ -1267,10 +1166,10 @@ __CFDictionary *TAOCopyHFSPlusParametersDict(const __CFDictionary *a1, _DWORD *a
     v21 = CFGetTypeID(v19);
     if (v21 == CFNumberGetTypeID())
     {
-      CFNumberGetValue(v20, kCFNumberSInt64Type, &v41);
+      CFNumberGetValue(v20, kCFNumberSInt64Type, &v40);
       if (v12)
       {
-        v47[v12] = 44;
+        v46[v12] = 44;
         v22 = v12 + 1;
       }
 
@@ -1279,7 +1178,7 @@ __CFDictionary *TAOCopyHFSPlusParametersDict(const __CFDictionary *a1, _DWORD *a
         v22 = 0;
       }
 
-      if (64 - v22 <= snprintf(&v47[v22], 64 - v22, "e=%llu", v41))
+      if (64 - v22 <= snprintf(&v46[v22], 64 - v22, "e=%llu", v40))
       {
 LABEL_97:
         Mutable = 0;
@@ -1288,10 +1187,10 @@ LABEL_97:
     }
   }
 
-  *&v45[0] = "/sbin/newfs_hfs";
+  *&v44[0] = "/sbin/newfs_hfs";
   if (v7)
   {
-    *(&v45[0] + 1) = "-J";
+    *(&v44[0] + 1) = "-J";
     v23 = 2;
   }
 
@@ -1303,23 +1202,23 @@ LABEL_97:
   if (__str[0])
   {
     v24 = v23 + 1;
-    *(v45 + v23) = "-b";
+    *(v44 + v23) = "-b";
     v23 += 2;
-    *(v45 + v24) = __str;
+    *(v44 + v24) = __str;
   }
 
-  if (v47[0])
+  if (v46[0])
   {
     v25 = v23 + 1;
-    *(v45 + v23) = "-n";
+    *(v44 + v23) = "-n";
     v23 += 2;
-    *(v45 + v25) = v47;
+    *(v44 + v25) = v46;
   }
 
-  *(v45 + v23) = "-N";
-  snprintf(v53, 0x20uLL, "%llub", valuePtr);
-  *(v45 + v23 + 1) = v53;
-  *(&v45[1] + v23) = 0;
+  *(v44 + v23) = "-N";
+  snprintf(v52, 0x20uLL, "%llub", valuePtr);
+  *(v44 + v23 + 1) = v52;
+  *(&v44[1] + v23) = 0;
   v26 = dup(2);
   if (v26 < 0)
   {
@@ -1327,7 +1226,7 @@ LABEL_97:
     LODWORD(v7) = *__error();
     if (!a2)
     {
-      goto LABEL_101;
+      return Mutable;
     }
 
     goto LABEL_100;
@@ -1351,14 +1250,14 @@ LABEL_103:
     Mutable = 0;
     if (!a2)
     {
-      goto LABEL_101;
+      return Mutable;
     }
 
     goto LABEL_100;
   }
 
   close(v29);
-  v30 = TAOpopenv("r", *&v45[0], v45);
+  v30 = TAOpopenv("r", *&v44[0], v44);
   if (!v30)
   {
 LABEL_94:
@@ -1378,73 +1277,73 @@ LABEL_94:
       {
         __s1[v34] = 0;
         v35 = @"block size";
-        if (sscanf(__s1, " block-size:%32s", v54) == 1)
+        if (sscanf(__s1, " block-size:%32s", v53) == 1)
         {
           break;
         }
 
         v35 = @"total blocks";
-        if (sscanf(__s1, " total blocks:%32s", v54) == 1)
+        if (sscanf(__s1, " total blocks:%32s", v53) == 1)
         {
           break;
         }
 
         v35 = @"journal size";
-        if (sscanf(__s1, " journal-size:%32s", v54) == 1)
+        if (sscanf(__s1, " journal-size:%32s", v53) == 1)
         {
           break;
         }
 
         v35 = @"cat node size";
-        if (sscanf(__s1, " catalog b-tree node size:%32s", v54) == 1)
+        if (sscanf(__s1, " catalog b-tree node size:%32s", v53) == 1)
         {
           break;
         }
 
         v35 = @"cat clump size";
-        if (sscanf(__s1, " initial catalog file size:%32s", v54) == 1)
+        if (sscanf(__s1, " initial catalog file size:%32s", v53) == 1)
         {
           break;
         }
 
         v35 = @"ext node size";
-        if (sscanf(__s1, " extents b-tree node size:%32s", v54) == 1)
+        if (sscanf(__s1, " extents b-tree node size:%32s", v53) == 1)
         {
           break;
         }
 
         v35 = @"ext clump size";
-        if (sscanf(__s1, " initial extents file size:%32s", v54) == 1)
+        if (sscanf(__s1, " initial extents file size:%32s", v53) == 1)
         {
           break;
         }
 
         v35 = @"alloc clump size";
-        if (sscanf(__s1, " initial allocation file size:%32s", v54) == 1)
+        if (sscanf(__s1, " initial allocation file size:%32s", v53) == 1)
         {
           break;
         }
 
         v35 = @"data clump size";
-        if (sscanf(__s1, " data fork clump size:%32s", v54) == 1)
+        if (sscanf(__s1, " data fork clump size:%32s", v53) == 1)
         {
           break;
         }
 
         v35 = @"resource clump size";
-        if (sscanf(__s1, " resource fork clump size:%32s", v54) == 1)
+        if (sscanf(__s1, " resource fork clump size:%32s", v53) == 1)
         {
           break;
         }
 
         v35 = @"attr node size";
-        if (sscanf(__s1, " attributes b-tree node size:%32s", v54) == 1)
+        if (sscanf(__s1, " attributes b-tree node size:%32s", v53) == 1)
         {
           break;
         }
 
         v35 = @"attr clump size";
-        if (sscanf(__s1, " initial attributes file size:%32s", v54) == 1)
+        if (sscanf(__s1, " initial attributes file size:%32s", v53) == 1)
         {
           break;
         }
@@ -1458,8 +1357,8 @@ LABEL_78:
     }
 
     __endptr = 0;
-    v36 = strtoull(v54, &__endptr, 10);
-    v44 = v36;
+    v36 = strtoull(v53, &__endptr, 10);
+    v43 = v36;
     if (__endptr)
     {
       v37 = *__endptr;
@@ -1485,7 +1384,7 @@ LABEL_78:
 LABEL_69:
           v36 <<= 9;
 LABEL_75:
-          v44 = v36;
+          v43 = v36;
           goto LABEL_76;
         }
 
@@ -1546,7 +1445,7 @@ LABEL_72:
 LABEL_76:
     if (v36)
     {
-      v38 = CFNumberCreate(v32, kCFNumberSInt64Type, &v44);
+      v38 = CFNumberCreate(v32, kCFNumberSInt64Type, &v43);
       CFDictionarySetValue(Mutable, v35, v38);
       CFRelease(v38);
     }
@@ -1570,7 +1469,7 @@ LABEL_79:
       LODWORD(v7) = 0;
       if (!a2)
       {
-        goto LABEL_101;
+        return Mutable;
       }
 
       goto LABEL_100;
@@ -1592,8 +1491,6 @@ LABEL_100:
     *a2 = v7;
   }
 
-LABEL_101:
-  v39 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
@@ -1641,7 +1538,7 @@ uint64_t MKFATFSIdentity(unsigned int a1)
 
 uint64_t MKDetectFATFS(uint64_t a1, unsigned __int8 *a2, _DWORD *a3, _DWORD *a4, _DWORD *a5)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     *a4 = 0;
@@ -1655,64 +1552,60 @@ uint64_t MKDetectFATFS(uint64_t a1, unsigned __int8 *a2, _DWORD *a3, _DWORD *a4,
   *a3 = 0;
   if ((*(a2 + 11) & 0x7F) != 0)
   {
-    goto LABEL_20;
+    return 0;
   }
 
   if (*(a2 + 255) != 43605)
   {
-    goto LABEL_20;
+    return 0;
   }
 
   *a3 = 500;
   v8 = *a2;
   if (v8 != 233 && (v8 != 235 || a2[2] != 144))
   {
-    goto LABEL_20;
+    return 0;
   }
 
   *a3 = 1000;
-  if (*a2 == 235 && a2[1] == 235 && a2[2] == 144)
+  if (__PAIR64__(a2[1], *a2) == 0xEB000000EBLL && a2[2] == 144)
   {
-    goto LABEL_20;
+    return 0;
   }
 
-  v13 = 0;
-  memset(v12, 0, sizeof(v12));
-  v9 = _MKFATFSReadBPB(a1, v12);
+  v12 = 0;
+  memset(v11, 0, sizeof(v11));
+  v9 = _MKFATFSReadBPB(a1, v11);
   result = 0;
   if (v9 != -123 && v9 != 22)
   {
     if (v9)
     {
-      result = v9;
-      goto LABEL_21;
+      return v9;
     }
 
     *a3 += 4000;
     if (a4)
     {
-      *a4 = v12[0];
+      *a4 = v11[0];
     }
 
     if (a5)
     {
       result = 0;
       *a5 = 3;
-      goto LABEL_21;
+      return result;
     }
 
-LABEL_20:
-    result = 0;
+    return 0;
   }
 
-LABEL_21:
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t _MKFATFSReadBPB(uint64_t a1, uint64_t a2)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   *(a2 + 96) = 0;
   *(a2 + 64) = 0u;
   *(a2 + 80) = 0u;
@@ -1720,59 +1613,57 @@ uint64_t _MKFATFSReadBPB(uint64_t a1, uint64_t a2)
   *(a2 + 48) = 0u;
   *a2 = 0u;
   *(a2 + 16) = 0u;
-  result = MKMediaReadSectors(a1, 0, 1uLL, &v32, 0);
+  result = MKMediaReadSectors(a1, 0, 1uLL, &v31, 0);
   if (result)
   {
-    goto LABEL_21;
+    return result;
   }
 
-  if (v32 != 233)
+  if (v31 != 233)
   {
     result = 22;
-    if (v32 != 235 || BYTE2(v32) != 144)
+    if (v31 != 235 || BYTE2(v31) != 144)
     {
-      goto LABEL_21;
+      return result;
     }
   }
 
-  v5 = v36;
-  *(a2 + 12) = v36;
-  v6 = v35;
-  *(a2 + 8) = v35;
-  v7 = v37;
-  *(a2 + 14) = v37;
-  v8 = v38;
-  *(a2 + 16) = v38;
-  v9 = v39;
-  *(a2 + 18) = v39;
-  v10 = v40;
-  v11 = v42;
-  v12 = v43;
-  *(a2 + 28) = v42;
+  v5 = v35;
+  *(a2 + 12) = v35;
+  v6 = v34;
+  *(a2 + 8) = v34;
+  v7 = v36;
+  *(a2 + 14) = v36;
+  v8 = v37;
+  *(a2 + 16) = v37;
+  v9 = v38;
+  *(a2 + 18) = v38;
+  v10 = v39;
+  v11 = v41;
+  v12 = v42;
+  *(a2 + 28) = v41;
   *(a2 + 32) = v12;
-  *(a2 + 24) = v41;
+  *(a2 + 24) = v40;
   *(a2 + 4) = 512;
   v13 = v6 >> 9;
   *(a2 + 6) = v6 >> 9;
   if (!v9)
   {
-    if (v10 || v11 | v47)
+    if (v10 || v11 | v46)
     {
-LABEL_20:
-      result = 22;
-      goto LABEL_21;
+      return 22;
     }
 
     *(a2 + 76) = 0x100040FFFFFFFLL;
-    v11 = v45;
-    *(a2 + 28) = v45;
-    if ((v46 & 0x80) != 0)
+    v11 = v44;
+    *(a2 + 28) = v44;
+    if ((v45 & 0x80) != 0)
     {
-      *(a2 + 84) = v46 & 0xF;
+      *(a2 + 84) = v45 & 0xF;
     }
   }
 
-  v14 = v44;
+  v14 = v43;
   if (v10)
   {
     v14 = v10;
@@ -1780,28 +1671,28 @@ LABEL_20:
 
   if (!v14 || ((v5 - 1) & 0x80) != 0 || ((v5 - 1) & v5) != 0 || (v6 - 4097) < 0xF1FFu)
   {
-    goto LABEL_20;
+    return 22;
   }
 
   result = 22;
   if (((v6 + 0x1FFF) & v6) != 0)
   {
-    goto LABEL_21;
+    return result;
   }
 
   v15 = v6 * v5;
   if ((v6 * v5) > 0x8000)
   {
-    goto LABEL_21;
+    return result;
   }
 
   v16 = v7 + v11 * v8;
   v17 = *(a2 + 76);
   if (v17 == 0xFFFFFFF)
   {
-    v18 = v49;
-    v19 = v48;
-    *(a2 + 38) = v48;
+    v18 = v48;
+    v19 = v47;
+    *(a2 + 38) = v47;
     v20 = v16 * v13 + ((v19 - 2) << (*(a2 + 64) - *(a2 + 72)));
     *(a2 + 40) = v18;
     *(a2 + 44) = v20;
@@ -1811,17 +1702,17 @@ LABEL_20:
     v21 = 3;
 LABEL_31:
     *a2 = v21;
-    v25 = 128;
+    v24 = 128;
     goto LABEL_32;
   }
 
   v20 = v16 * v13;
-  v23 = (v6 + 32 * v9 - 1) / v6 + v16;
+  v22 = (v6 + 32 * v9 - 1) / v6 + v16;
   *(a2 + 20) = v14 * v13;
-  v24 = (v14 - v23) / v5;
+  v23 = (v14 - v22) / v5;
   *(a2 + 44) = v16 * v13;
-  *(a2 + 48) = v24;
-  *(a2 + 52) = v23 * v13;
+  *(a2 + 48) = v23;
+  *(a2 + 52) = v22 * v13;
   if (v17 == 0xFFFF)
   {
     goto LABEL_30;
@@ -1832,12 +1723,12 @@ LABEL_31:
     if (v17)
     {
       *a2 = 0;
-      v25 = 128;
+      v24 = 128;
       result = 4294967173;
       goto LABEL_32;
     }
 
-    if (v24 <= 0xFF4)
+    if (v23 <= 0xFF4)
     {
       *(a2 + 76) = 0x2000300000FFFLL;
       goto LABEL_27;
@@ -1851,93 +1742,89 @@ LABEL_30:
 
 LABEL_27:
   *a2 = 1;
-  v25 = 96;
+  v24 = 96;
 LABEL_32:
-  *(a2 + 88) = v25 * v6;
+  *(a2 + 88) = v24 * v6;
   *(a2 + 72) = 9;
   *(a2 + 10) = v15;
-  v26 = __clz(__rbit32(v15));
+  v25 = __clz(__rbit32(v15));
   if (v15)
   {
-    v27 = v26 + 1;
+    v26 = v25 + 1;
   }
 
   else
   {
-    v27 = 0;
+    v26 = 0;
   }
 
-  *(a2 + 64) = v27 - 1;
+  *(a2 + 64) = v26 - 1;
   *(a2 + 68) = v15 - 1;
   if ((v15 & (v15 - 1)) == 0)
   {
-    result = MKMediaReadSectors(a1, v20, 1uLL, &v32, 0);
+    result = MKMediaReadSectors(a1, v20, 1uLL, &v31, 0);
     if (!result)
     {
-      if ((v35 & 8) != 0 && v32 && v32 != 229)
+      if ((v34 & 8) != 0 && v31 && v31 != 229)
       {
-        if (v32 == 5)
+        if (v31 == 5)
         {
-          LOBYTE(v32) = -27;
+          LOBYTE(v31) = -27;
         }
 
-        strntrim(&v32, 8);
-        strntrim(&v33, 3);
-        *(a2 + 92) = v32;
-        if (v33)
+        strntrim(&v31, 8);
+        strntrim(&v32, 3);
+        *(a2 + 92) = v31;
+        if (v32)
         {
-          v28 = a2 + 92 + strlcat((a2 + 92), ".", 0xCuLL);
-          *v28 = v33;
-          *(v28 + 2) = v34;
+          v27 = a2 + 92 + strlcat((a2 + 92), ".", 0xCuLL);
+          *v27 = v32;
+          *(v27 + 2) = v33;
         }
       }
 
       if (!*(a2 + 40))
       {
-        goto LABEL_49;
+        return 0;
       }
 
-      result = MKMediaReadSectors(a1, *(a2 + 40), 1uLL, &v32, 0);
+      result = MKMediaReadSectors(a1, *(a2 + 40), 1uLL, &v31, 0);
       if (!result)
       {
-        if (v32 != 1096897106 || v50 != 1631679090 || v53 != -1437270016)
+        if (v31 != 1096897106 || v49 != 1631679090 || v52 != -1437270016)
         {
-LABEL_49:
-          result = 0;
-          goto LABEL_21;
+          return 0;
         }
 
         result = 0;
-        v29 = *(a2 + 12);
-        if (v51 == -1)
+        v28 = *(a2 + 12);
+        if (v50 == -1)
         {
-          v30 = 0;
+          v29 = 0;
         }
 
         else
         {
-          v30 = v51 * v29;
+          v29 = v50 * v28;
         }
 
-        v31 = v52 * v29;
-        *(a2 + 56) = v30;
-        *(a2 + 60) = v31;
+        v30 = v51 * v28;
+        *(a2 + 56) = v29;
+        *(a2 + 60) = v30;
       }
     }
   }
 
-LABEL_21:
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 __CFDictionary *MKFATFSCreateProperties(uint64_t a1, const __CFDictionary *a2, int *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  memset(v15, 0, sizeof(v15));
+  v16 = *MEMORY[0x277D85DE8];
+  v15 = 0;
   memset(v14, 0, sizeof(v14));
-  v6 = _MKFATFSReadBPB(a1, v15);
+  memset(v13, 0, sizeof(v13));
+  v6 = _MKFATFSReadBPB(a1, v14);
   if (v6)
   {
     Mutable = 0;
@@ -1950,8 +1837,8 @@ __CFDictionary *MKFATFSCreateProperties(uint64_t a1, const __CFDictionary *a2, i
     goto LABEL_11;
   }
 
-  v8 = LOWORD(v15[0]);
-  if (LOWORD(v15[0]) >= 4u)
+  v8 = LOWORD(v14[0]);
+  if (LOWORD(v14[0]) >= 4u)
   {
     v8 = 0;
   }
@@ -1964,13 +1851,13 @@ __CFDictionary *MKFATFSCreateProperties(uint64_t a1, const __CFDictionary *a2, i
     CFRelease(v10);
     if (MKCFOptionBit(a2, @"High Tide Mark", 1))
     {
-      v6 = FATSuperTidemark(v14, 0x40000, v15, a1, 0, 0);
+      v6 = FATSuperTidemark(v13, 0x40000, v14, a1, 0, 0);
       if (v6)
       {
         goto LABEL_12;
       }
 
-      v11 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt64Type, &v14[3] + 8);
+      v11 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt64Type, &v13[3] + 8);
       CFDictionarySetValue(Mutable, @"High Tide Mark", v11);
       CFRelease(v11);
     }
@@ -1995,7 +1882,6 @@ LABEL_12:
     *a3 = v6;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
@@ -2170,147 +2056,143 @@ LABEL_44:
 
 uint64_t MKRecordFATFSRuns(uint64_t a1, int a2, uint64_t (*a3)(uint64_t, uint64_t, uint64_t *), uint64_t a4)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  memset(v25, 0, sizeof(v25));
-  v29 = 0u;
-  memset(v30, 0, sizeof(v30));
-  v27 = 0u;
+  v37 = *MEMORY[0x277D85DE8];
+  memset(v24, 0, sizeof(v24));
   v28 = 0u;
+  memset(v29, 0, sizeof(v29));
   v26 = 0u;
-  v37 = 0;
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
+  v27 = 0u;
+  v25 = 0u;
+  v36 = 0;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  MKMediaGetGeometry(a1, v25);
-  v8 = _MKFATFSReadBPB(a1, &v31);
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  MKMediaGetGeometry(a1, v24);
+  v8 = _MKFATFSReadBPB(a1, &v30);
   if (v8)
   {
-    goto LABEL_2;
+    return v8;
   }
 
   if (a2 < 0)
   {
-    v12 = *MEMORY[0x277D85DF8];
-    v13 = malloc_type_malloc(0x400uLL, 0xA50DC1F3uLL);
-    if (v13)
+    v11 = *MEMORY[0x277D85DF8];
+    v12 = malloc_type_malloc(0x400uLL, 0xA50DC1F3uLL);
+    if (v12)
     {
-      v14 = v13;
+      v13 = v12;
       FileDescriptor = MKMediaGetFileDescriptor(a1);
-      if (fcntl(FileDescriptor, 50, v14) != -1)
+      if (fcntl(FileDescriptor, 50, v13) != -1)
       {
-        v16 = "s";
-        v17 = v34 * WORD6(v31);
-        if (v17 == 1)
+        v15 = "s";
+        v16 = v33 * WORD6(v30);
+        if (v16 == 1)
         {
-          v18 = &unk_2586A0C2E;
+          v17 = &unk_2586A0C2E;
         }
 
         else
         {
-          v18 = "s";
+          v17 = "s";
         }
 
-        if (v34 == 1)
+        if (v33 == 1)
         {
-          v16 = &unk_2586A0C2E;
+          v15 = &unk_2586A0C2E;
         }
 
-        fprintf(v12, "%s: %u sector%s in %u FAT%u cluster%s (%u bytes/cluster)\n", v14, v17, v18, v34, dword_2586A0880[v31], v16, WORD4(v31) * WORD6(v31));
-        fprintf(v12, "bps=%u spc=%u res=%u nft=%u", WORD4(v31), WORD6(v31), HIWORD(v31), v32);
-        if (WORD1(v32))
+        fprintf(v11, "%s: %u sector%s in %u FAT%u cluster%s (%u bytes/cluster)\n", v13, v16, v17, v33, dword_2586A0880[v30], v15, WORD4(v30) * WORD6(v30));
+        fprintf(v11, "bps=%u spc=%u res=%u nft=%u", WORD4(v30), WORD6(v30), HIWORD(v30), v31);
+        if (WORD1(v31))
         {
-          fprintf(v12, " rde=%u", WORD1(v32));
+          fprintf(v11, " rde=%u", WORD1(v31));
         }
 
-        if ((v31 - 1) >= 2)
+        if ((v30 - 1) >= 2)
         {
-          if (v31 == 3)
+          if (v30 == 3)
           {
-            fprintf(v12, " mid=%#x", WORD4(v32));
-            fprintf(v12, " spt=%u hds=%u hid=%u", v33, WORD1(v33), WORD2(v33));
-            fprintf(v12, " bsec=%u bspf=%u rdcl=%u", DWORD1(v32) / WORD3(v31), HIDWORD(v32), WORD3(v33));
-            fwrite(" infs=", 6uLL, 1uLL, v12);
-            if (WORD4(v33) == 0xFFFFLL)
+            fprintf(v11, " mid=%#x", WORD4(v31));
+            fprintf(v11, " spt=%u hds=%u hid=%u", v32, WORD1(v32), WORD2(v32));
+            fprintf(v11, " bsec=%u bspf=%u rdcl=%u", DWORD1(v31) / WORD3(v30), HIDWORD(v31), WORD3(v32));
+            fwrite(" infs=", 6uLL, 1uLL, v11);
+            if (WORD4(v32) == 0xFFFFLL)
             {
-              fprintf(v12, "%#x");
+              fprintf(v11, "%#x");
             }
 
             else
             {
-              fprintf(v12, "%u");
+              fprintf(v11, "%u");
             }
 
-            fwrite(" bkbs=", 6uLL, 1uLL, v12);
-            if (WORD5(v33) == 0xFFFFLL)
+            fwrite(" bkbs=", 6uLL, 1uLL, v11);
+            if (WORD5(v32) == 0xFFFFLL)
             {
-              v19 = "%#x";
+              v18 = "%#x";
             }
 
             else
             {
-              v19 = "%u";
+              v18 = "%u";
             }
 
-            fprintf(v12, v19, WORD5(v33), v23, v24);
+            fprintf(v11, v18, WORD5(v32), v22, v23);
           }
         }
 
         else
         {
-          fprintf(v12, " sec=%u mid=%#x spf=%u", DWORD1(v32) / WORD3(v31), WORD4(v32), HIDWORD(v32));
-          fprintf(v12, " spt=%u hds=%u hid=%u");
+          fprintf(v11, " sec=%u mid=%#x spf=%u", DWORD1(v31) / WORD3(v30), WORD4(v31), HIDWORD(v31));
+          fprintf(v11, " spt=%u hds=%u hid=%u");
         }
 
-        printf("\nvl=%s\n", &v36 + 12);
+        printf("\nvl=%s\n", &v35 + 12);
       }
 
-      free(v14);
+      free(v13);
     }
   }
 
-  LOWORD(v26) = 3;
-  WORD1(v26) = v31;
-  HIDWORD(v26) = WORD3(v31);
-  LODWORD(v27) = LODWORD(v25[0]) >> 9;
-  v20 = *(&v25[0] + 1);
-  *(&v27 + 1) = *(&v25[0] + 1);
-  *&v28 = *(&v25[0] + 1);
-  v21 = (v34 << (v35 - BYTE8(v35))) + DWORD1(v34);
-  *(&v28 + 1) = v21;
-  *&v29 = DWORD2(v34);
-  *(&v29 + 1) = v21 - 1;
-  if (BYTE12(v36))
+  LOWORD(v25) = 3;
+  WORD1(v25) = v30;
+  HIDWORD(v25) = WORD3(v30);
+  LODWORD(v26) = LODWORD(v24[0]) >> 9;
+  v19 = *(&v24[0] + 1);
+  *(&v26 + 1) = *(&v24[0] + 1);
+  *&v27 = *(&v24[0] + 1);
+  v20 = (v33 << (v34 - BYTE8(v34))) + DWORD1(v33);
+  *(&v27 + 1) = v20;
+  *&v28 = DWORD2(v33);
+  *(&v28 + 1) = v20 - 1;
+  if (BYTE12(v35))
   {
-    uniconvert(v30 + 12, 256, 0x8000100u, 0, &v36 + 12, 12, 0x500u, 1u);
+    uniconvert(v29 + 12, 256, 0x8000100u, 0, &v35 + 12, 12, 0x500u, 1u);
+    v19 = *(&v26 + 1);
     v20 = *(&v27 + 1);
-    v21 = *(&v28 + 1);
   }
 
-  v22 = v20 / v21;
+  v21 = v19 / v20;
   v9 = 22;
-  if (v22 <= 1000.0 && v22 >= 0.001)
+  if (v21 <= 1000.0 && v21 >= 0.001)
   {
     v8 = a3(a4, 0, 0);
     if (v8)
     {
-LABEL_2:
-      v9 = v8;
-      goto LABEL_3;
+      return v8;
     }
 
-    if ((a2 & 0x40003) == 0 || (v9 = FATSuperTidemark(&v26, a2, &v31, a1, a3, a4), !v9))
+    if ((a2 & 0x40003) == 0 || (v9 = FATSuperTidemark(&v25, a2, &v30, a1, a3, a4), !v9))
     {
-      v9 = a3(a4, 3, &v26);
+      v9 = a3(a4, 3, &v25);
     }
 
     a3(a4, 4, 0);
   }
 
-LABEL_3:
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -2493,7 +2375,7 @@ LABEL_6:
   return v6;
 }
 
-uint64_t MKHFSResizeVolume(unint64_t a1, const void *a2, uint64_t a3)
+uint64_t MKHFSResizeVolume(unint64_t a1, void *a2, uint64_t a3)
 {
   v27 = 0;
   valuePtr = 0;
@@ -2619,22 +2501,22 @@ LABEL_27:
 
 uint64_t MKHFSStdResize(unint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  Sectors = MKMediaReadSectors(a2, 2uLL, 1uLL, v19, 0);
+  v25 = *MEMORY[0x277D85DE8];
+  Sectors = MKMediaReadSectors(a2, 2uLL, 1uLL, v18, 0);
   if (!Sectors)
   {
-    TAO_HFSMasterDirectoryBlock_BigToHost(v19);
-    v5 = (v24 - v20) << 12;
+    TAO_HFSMasterDirectoryBlock_BigToHost(v18);
+    v5 = (v23 - v19) << 12;
     if (v5 >= 0x10000)
     {
       v5 = 0x10000;
     }
 
-    v6 = (v23 >> 9);
+    v6 = (v22 >> 9);
     if (((v5 * v6) | 0x15) >= a1)
     {
       v7 = a1 - 2;
-      v8 = (a1 - 2 - v24) / v6;
+      v8 = (a1 - 2 - v23) / v6;
       if ((v8 & 7) != 0)
       {
         v9 = (v8 >> 3) + 1;
@@ -2650,8 +2532,8 @@ uint64_t MKHFSStdResize(unint64_t a1, uint64_t a2)
       if (v11)
       {
         v12 = v11;
-        v13 = v22;
-        if (v8 < v22)
+        v13 = v21;
+        if (v8 < v21)
         {
           v13 = v8;
         }
@@ -2667,7 +2549,7 @@ uint64_t MKHFSStdResize(unint64_t a1, uint64_t a2)
           v15 = v14;
         }
 
-        v16 = MKMediaReadSectors(a2, v20, v15, v11, 0);
+        v16 = MKMediaReadSectors(a2, v19, v15, v11, 0);
         if (!v16)
         {
           if (8 * v9 > v8)
@@ -2680,25 +2562,25 @@ uint64_t MKHFSStdResize(unint64_t a1, uint64_t a2)
             bzero(&v12[v9], 512 - (v9 & 0x1FF));
           }
 
-          v25 += v8 - v22;
-          v22 = v8;
-          if (v8 < v21)
+          v24 += v8 - v21;
+          v21 = v8;
+          if (v8 < v20)
           {
-            v21 = 0;
+            v20 = 0;
           }
 
-          TAO_HFSMasterDirectoryBlock_BigToHost(v19);
-          v16 = MKMediaWriteSectors(a2, 2uLL, 1uLL, v19, 0);
+          TAO_HFSMasterDirectoryBlock_BigToHost(v18);
+          v16 = MKMediaWriteSectors(a2, 2uLL, 1uLL, v18, 0);
           if (!v16)
           {
-            v16 = MKMediaWriteSectors(a2, v7, 1uLL, v19, 0);
+            v16 = MKMediaWriteSectors(a2, v7, 1uLL, v18, 0);
             if (!v16)
             {
-              TAO_HFSMasterDirectoryBlock_BigToHost(v19);
-              v16 = MKMediaWriteSectors(a2, v20, v10, v12, 0);
+              TAO_HFSMasterDirectoryBlock_BigToHost(v18);
+              v16 = MKMediaWriteSectors(a2, v19, v10, v12, 0);
               if (!v16)
               {
-                v16 = MKMediaEraseSectors(a2, v10 + v20, v24 - (v10 + v20), 0);
+                v16 = MKMediaEraseSectors(a2, v10 + v19, v23 - (v10 + v19), 0);
               }
             }
           }
@@ -2710,162 +2592,168 @@ uint64_t MKHFSStdResize(unint64_t a1, uint64_t a2)
 
       else
       {
-        Sectors = 12;
+        return 12;
       }
     }
 
     else
     {
-      Sectors = 4294967262;
+      return 4294967262;
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return Sectors;
 }
 
-uint64_t MKHFSPlusResize(unint64_t a1, const void *a2)
+uint64_t MKHFSPlusResize(unint64_t a1, void *a2)
 {
-  v55[21] = *MEMORY[0x277D85DE8];
+  v54[21] = *MEMORY[0x277D85DE8];
   valuePtr = a1;
-  memset(v55, 0, 160);
-  memset(v54, 0, sizeof(v54));
+  memset(v54, 0, 160);
   memset(v53, 0, sizeof(v53));
   memset(v52, 0, sizeof(v52));
   memset(v51, 0, sizeof(v51));
-  v46 = 0;
-  v47 = 0;
-  v44 = 0;
+  memset(v50, 0, sizeof(v50));
   v45 = 0;
-  Sectors = MKMediaReadSectors(a2, 2uLL, 1uLL, v51, 0);
+  v46 = 0;
+  v43 = 0;
+  v44 = 0;
+  Sectors = MKMediaReadSectors(a2, 2uLL, 1uLL, v50, 0);
   if (Sectors)
   {
-    goto LABEL_9;
+    return Sectors;
   }
 
-  TAO_HFSPlusVolumeHeader_BigToHost(v51);
+  TAO_HFSPlusVolumeHeader_BigToHost(v50);
   v4 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   v6 = CFNumberCreate(v4, kCFNumberSInt64Type, &valuePtr);
   CFDictionaryAddValue(Mutable, @"volume sectors", v6);
   CFRelease(v6);
-  if ((v51[1] & 0x2000) != 0)
+  if ((v50[1] & 0x2000) != 0)
   {
-    v47 = 0;
-    v7 = CFNumberCreate(v4, kCFNumberSInt64Type, &v47);
+    v46 = 0;
+    v7 = CFNumberCreate(v4, kCFNumberSInt64Type, &v46);
     CFDictionaryAddValue(Mutable, @"journal size", v7);
     CFRelease(v7);
   }
 
-  v8 = CFNumberCreate(v4, kCFNumberSInt32Type, &v51[10]);
+  v8 = CFNumberCreate(v4, kCFNumberSInt32Type, &v50[10]);
   CFDictionaryAddValue(Mutable, @"block size", v8);
   CFRelease(v8);
-  Sectors = GetBTreeNodeSize(a2, v55, v51[10], &v46 + 1);
+  Sectors = GetBTreeNodeSize(a2, v54, v50[10], &v45 + 1);
   if (Sectors)
   {
-    goto LABEL_9;
+    return Sectors;
   }
 
-  if (HIDWORD(v46))
+  if (HIDWORD(v45))
   {
-    v9 = CFNumberCreate(v4, kCFNumberSInt32Type, &v46 + 4);
+    v9 = CFNumberCreate(v4, kCFNumberSInt32Type, &v45 + 4);
     CFDictionaryAddValue(Mutable, @"attr node size", v9);
     CFRelease(v9);
   }
 
-  Sectors = GetBTreeNodeSize(a2, v54, v51[10], &v46 + 1);
-  if (Sectors || (v10 = CFNumberCreate(v4, kCFNumberSInt32Type, &v46 + 4), CFDictionaryAddValue(Mutable, @"cat node size", v10), CFRelease(v10), Sectors = GetBTreeNodeSize(a2, v53, v51[10], &v46 + 1), Sectors))
+  Sectors = GetBTreeNodeSize(a2, v53, v50[10], &v45 + 1);
+  if (Sectors)
   {
-LABEL_9:
-    v11 = Sectors;
-    goto LABEL_10;
+    return Sectors;
   }
 
-  v14 = CFNumberCreate(v4, kCFNumberSInt32Type, &v46 + 4);
-  CFDictionaryAddValue(Mutable, @"ext node size", v14);
-  CFRelease(v14);
-  v15 = TAOCopyHFSPlusParametersDict(Mutable, &v46);
-  v16 = v15;
-  if (v46)
+  v10 = CFNumberCreate(v4, kCFNumberSInt32Type, &v45 + 4);
+  CFDictionaryAddValue(Mutable, @"cat node size", v10);
+  CFRelease(v10);
+  Sectors = GetBTreeNodeSize(a2, v52, v50[10], &v45 + 1);
+  if (Sectors)
   {
-    v17 = 0;
+    return Sectors;
+  }
+
+  v13 = CFNumberCreate(v4, kCFNumberSInt32Type, &v45 + 4);
+  CFDictionaryAddValue(Mutable, @"ext node size", v13);
+  CFRelease(v13);
+  v14 = TAOCopyHFSPlusParametersDict(Mutable, &v45);
+  v15 = v14;
+  if (v45)
+  {
+    v16 = 0;
   }
 
   else
   {
-    v17 = v15;
+    v16 = v14;
   }
 
-  if (v17)
+  if (v16)
   {
-    Value = CFDictionaryGetValue(v17, @"cat clump size");
-    v19 = Value;
+    Value = CFDictionaryGetValue(v16, @"cat clump size");
+    v18 = Value;
     if (!Value)
     {
       goto LABEL_37;
     }
 
-    v20 = CFGetTypeID(Value);
-    if (v20 == CFNumberGetTypeID())
+    v19 = CFGetTypeID(Value);
+    if (v19 == CFNumberGetTypeID())
     {
-      CFNumberGetValue(v19, kCFNumberSInt32Type, &v54[1]);
-      v21 = CFDictionaryGetValue(v17, @"ext clump size");
-      v19 = v21;
-      if (!v21)
+      CFNumberGetValue(v18, kCFNumberSInt32Type, &v53[1]);
+      v20 = CFDictionaryGetValue(v16, @"ext clump size");
+      v18 = v20;
+      if (!v20)
       {
         goto LABEL_37;
       }
 
-      v22 = CFGetTypeID(v21);
-      if (v22 == CFNumberGetTypeID())
+      v21 = CFGetTypeID(v20);
+      if (v21 == CFNumberGetTypeID())
       {
-        CFNumberGetValue(v19, kCFNumberSInt32Type, &v53[1]);
-        v23 = CFDictionaryGetValue(v17, @"attr clump size");
-        if (v55[0])
+        CFNumberGetValue(v18, kCFNumberSInt32Type, &v52[1]);
+        v22 = CFDictionaryGetValue(v16, @"attr clump size");
+        if (v54[0])
         {
-          v24 = v23;
-          if (v23)
+          v23 = v22;
+          if (v22)
           {
-            v25 = CFGetTypeID(v23);
-            if (v25 != CFNumberGetTypeID())
+            v24 = CFGetTypeID(v22);
+            if (v24 != CFNumberGetTypeID())
             {
               goto LABEL_36;
             }
 
-            CFNumberGetValue(v24, kCFNumberSInt32Type, &v55[1]);
+            CFNumberGetValue(v23, kCFNumberSInt32Type, &v54[1]);
           }
         }
 
-        v26 = CFDictionaryGetValue(v17, @"alloc clump size");
-        v19 = v26;
-        if (!v26)
+        v25 = CFDictionaryGetValue(v16, @"alloc clump size");
+        v18 = v25;
+        if (!v25)
         {
           goto LABEL_37;
         }
 
-        v27 = CFGetTypeID(v26);
-        if (v27 == CFNumberGetTypeID())
+        v26 = CFGetTypeID(v25);
+        if (v26 == CFNumberGetTypeID())
         {
-          CFNumberGetValue(v19, kCFNumberSInt32Type, &v52[1]);
-          v28 = CFDictionaryGetValue(v17, @"data clump size");
-          v19 = v28;
-          if (!v28)
+          CFNumberGetValue(v18, kCFNumberSInt32Type, &v51[1]);
+          v27 = CFDictionaryGetValue(v16, @"data clump size");
+          v18 = v27;
+          if (!v27)
           {
             goto LABEL_37;
           }
 
-          v29 = CFGetTypeID(v28);
-          if (v29 == CFNumberGetTypeID())
+          v28 = CFGetTypeID(v27);
+          if (v28 == CFNumberGetTypeID())
           {
-            CFNumberGetValue(v19, kCFNumberSInt32Type, &v51[15]);
-            v30 = CFDictionaryGetValue(v17, @"resource clump size");
-            v19 = v30;
-            if (v30)
+            CFNumberGetValue(v18, kCFNumberSInt32Type, &v50[15]);
+            v29 = CFDictionaryGetValue(v16, @"resource clump size");
+            v18 = v29;
+            if (v29)
             {
-              v31 = CFGetTypeID(v30);
-              if (v31 == CFNumberGetTypeID())
+              v30 = CFGetTypeID(v29);
+              if (v30 == CFNumberGetTypeID())
               {
-                CFNumberGetValue(v19, kCFNumberSInt32Type, &v51[14]);
+                CFNumberGetValue(v18, kCFNumberSInt32Type, &v50[14]);
                 goto LABEL_30;
               }
 
@@ -2881,30 +2769,30 @@ LABEL_37:
     }
 
 LABEL_36:
-    v19 = 0;
+    v18 = 0;
     goto LABEL_37;
   }
 
 LABEL_30:
-  v32 = v51[11];
-  v33 = valuePtr / (v51[10] >> 9);
-  v34 = v33 >> 3;
-  if ((v33 & 7) != 0)
+  v31 = v50[11];
+  v32 = valuePtr / (v50[10] >> 9);
+  v33 = v32 >> 3;
+  if ((v32 & 7) != 0)
   {
-    v35 = v34 + 1;
+    v34 = v33 + 1;
   }
 
   else
   {
-    v35 = v34;
+    v34 = v33;
   }
 
-  v19 = malloc_type_calloc(1uLL, v35, 0xF7CCFC61uLL);
-  if (!v19)
+  v18 = malloc_type_calloc(1uLL, v34, 0xF7CCFC61uLL);
+  if (!v18)
   {
     v11 = 12;
 LABEL_39:
-    if (!v17)
+    if (!v16)
     {
       goto LABEL_41;
     }
@@ -2912,115 +2800,115 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  v36 = ReadWriteFileToFromBuffer(a2, v19, v35, v52, v51[10] >> 9, 0);
-  if (v36)
+  v35 = ReadWriteFileToFromBuffer(a2, v18, v34, v51, v50[10] >> 9, 0);
+  if (v35)
   {
     goto LABEL_35;
   }
 
-  if (8 * v35 > v33)
+  if (8 * v34 > v32)
   {
-    SetBits(v19, v33, 8 * v35 - v33, 0);
+    SetBits(v18, v32, 8 * v34 - v32, 0);
   }
 
-  if (v32 < v33)
+  if (v31 < v32)
   {
-    v37 = 8 * LODWORD(v52[0]);
-    if (8 * v52[0] >= v33)
+    v36 = 8 * LODWORD(v51[0]);
+    if (8 * v51[0] >= v32)
     {
-      v37 = v33;
+      v36 = v32;
     }
 
-    SetBits(v19, v32, v37 - v32, 0);
+    SetBits(v18, v31, v36 - v31, 0);
   }
 
-  v51[12] += v33 - v51[11];
-  v51[11] = v33;
-  if (v51[13] > v33)
+  v50[12] += v32 - v50[11];
+  v50[11] = v32;
+  if (v50[13] > v32)
   {
-    v51[13] = 0;
+    v50[13] = 0;
   }
 
-  if (v51[10] > 0x200u)
+  if (v50[10] > 0x200u)
   {
-    v38 = 1;
+    v37 = 1;
   }
 
   else
   {
-    v38 = 2;
+    v37 = 2;
   }
 
-  if (v32 < v33)
+  if (v31 < v32)
   {
-    SetBits(v19, v32 - v38, 1u, 0);
+    SetBits(v18, v31 - v37, 1u, 0);
   }
 
-  SetBits(v19, v33 - v38, 1u, 1);
-  if (v52[0] < v35)
+  SetBits(v18, v32 - v37, 1u, 1);
+  if (v51[0] < v34)
   {
-    v36 = GrowAllocFile(v51, v19, v33, a2);
-    if (v36)
+    v35 = GrowAllocFile(v50, v18, v32, a2);
+    if (v35)
     {
 LABEL_35:
-      v11 = v36;
+      v11 = v35;
       goto LABEL_39;
     }
   }
 
-  if (!v17 || (v51[1] & 0x2000) == 0)
+  if (!v16 || (v50[1] & 0x2000) == 0)
   {
 LABEL_60:
-    TAO_HFSPlusVolumeHeader_BigToHost(v51);
-    v36 = MKMediaWriteSectors(a2, 2uLL, 1uLL, v51, 0);
-    if (!v36)
+    TAO_HFSPlusVolumeHeader_BigToHost(v50);
+    v35 = MKMediaWriteSectors(a2, 2uLL, 1uLL, v50, 0);
+    if (!v35)
     {
-      v36 = MKMediaWriteSectors(a2, valuePtr - 2, 1uLL, v51, 0);
-      if (!v36)
+      v35 = MKMediaWriteSectors(a2, valuePtr - 2, 1uLL, v50, 0);
+      if (!v35)
       {
-        TAO_HFSPlusVolumeHeader_BigToHost(v51);
-        v36 = ReadWriteFileToFromBuffer(a2, v19, v35, v52, v51[10] >> 9, 1);
+        TAO_HFSPlusVolumeHeader_BigToHost(v50);
+        v35 = ReadWriteFileToFromBuffer(a2, v18, v34, v51, v50[10] >> 9, 1);
       }
     }
 
     goto LABEL_35;
   }
 
-  v39 = CFDictionaryGetValue(v17, @"journal size");
-  if (!v39)
+  v38 = CFDictionaryGetValue(v16, @"journal size");
+  if (!v38)
   {
     goto LABEL_37;
   }
 
-  v40 = v39;
-  v41 = CFGetTypeID(v39);
-  if (v41 != CFNumberGetTypeID())
+  v39 = v38;
+  v40 = CFGetTypeID(v38);
+  if (v40 != CFNumberGetTypeID())
   {
     goto LABEL_37;
   }
 
-  CFNumberGetValue(v40, kCFNumberSInt64Type, &v47);
-  v42 = MKMediaReadSectors(a2, ((v51[10] >> 9) * v51[3]), 1uLL, v49, 0);
-  if (v42)
+  CFNumberGetValue(v39, kCFNumberSInt64Type, &v46);
+  v41 = MKMediaReadSectors(a2, ((v50[10] >> 9) * v50[3]), 1uLL, v48, 0);
+  if (v41)
   {
 LABEL_66:
-    v11 = v42;
+    v11 = v41;
     goto LABEL_40;
   }
 
-  TAO_JournalInfoBlock_BigToHost(v49);
-  if (v47 == v50)
+  TAO_JournalInfoBlock_BigToHost(v48);
+  if (v46 == v49)
   {
     goto LABEL_60;
   }
 
-  ChangeJournalSize(v51, v47, v19, v33, v49);
-  v44 = v49;
-  LODWORD(v45) = v51[10];
-  v43 = ApplyToHFSPlusCatalogRecords(a2, UpdateDotJournalFile, &v44);
-  if (v43)
+  ChangeJournalSize(v50, v46, v18, v32, v48);
+  v43 = v48;
+  LODWORD(v44) = v50[10];
+  v42 = ApplyToHFSPlusCatalogRecords(a2, UpdateDotJournalFile, &v43);
+  if (v42)
   {
-    v11 = v43;
+    v11 = v42;
   }
 
   else
@@ -3030,9 +2918,9 @@ LABEL_66:
 
   if (v11 == -128)
   {
-    TAO_JournalInfoBlock_BigToHost(v49);
-    v42 = MKMediaWriteSectors(a2, ((v51[10] >> 9) * v51[3]), 1uLL, v49, 0);
-    if (!v42)
+    TAO_JournalInfoBlock_BigToHost(v48);
+    v41 = MKMediaWriteSectors(a2, ((v50[10] >> 9) * v50[3]), 1uLL, v48, 0);
+    if (!v41)
     {
       goto LABEL_60;
     }
@@ -3041,73 +2929,71 @@ LABEL_66:
   }
 
 LABEL_40:
-  CFRelease(v16);
+  CFRelease(v15);
 LABEL_41:
-  if (v19)
+  if (v18)
   {
-    free(v19);
+    free(v18);
   }
 
-LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t MKHFSWrappedResize(unint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v53 = *MEMORY[0x277D85DE8];
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
+  v52 = *MEMORY[0x277D85DE8];
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v20 = 0;
-  Sectors = MKMediaReadSectors(a2, 2uLL, 1uLL, &v21, 0);
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0;
+  Sectors = MKMediaReadSectors(a2, 2uLL, 1uLL, &v20, 0);
   if (!Sectors)
   {
-    TAO_HFSMasterDirectoryBlock_BigToHost(&v21);
-    if ((WORD6(v22) - HIWORD(v21)) << 12 >= 0x10000)
+    TAO_HFSMasterDirectoryBlock_BigToHost(&v20);
+    if ((WORD6(v21) - HIWORD(v20)) << 12 >= 0x10000)
     {
       v7 = 0x10000;
     }
 
     else
     {
-      v7 = (WORD6(v22) - HIWORD(v21)) << 12;
+      v7 = (WORD6(v21) - HIWORD(v20)) << 12;
     }
 
-    v8 = DWORD1(v22) >> 9;
-    if (WORD6(v22) + v7 * v8 + 2 >= a1)
+    v8 = DWORD1(v21) >> 9;
+    if (WORD6(v21) + v7 * v8 + 2 >= a1)
     {
       v9 = a1 - 2;
-      v10 = (a1 - 2 - WORD6(v22)) / v8;
+      v10 = (a1 - 2 - WORD6(v21)) / v8;
       if ((v10 & 7) != 0)
       {
         v11 = (v10 >> 3) + 1;
@@ -3134,16 +3020,16 @@ uint64_t MKHFSWrappedResize(unint64_t a1, uint64_t a2, uint64_t a3)
           bzero(&v14[v11], 512 - (v11 & 0x1FF));
         }
 
-        LOWORD(v29) = v10 - WORD1(v22) + v29;
-        WORD1(v22) = v10;
-        if (v10 < v22)
+        LOWORD(v28) = v10 - WORD1(v21) + v28;
+        WORD1(v21) = v10;
+        if (v10 < v21)
         {
-          LOWORD(v22) = 0;
+          LOWORD(v21) = 0;
         }
 
-        TAO_HFSMasterDirectoryBlock_BigToHost(&v21);
-        v15 = MKMediaWriteSectors(a2, 2uLL, 1uLL, &v21, 0);
-        if (v15 || (v15 = MKMediaWriteSectors(a2, v9, 1uLL, &v21, 0), v15) || (TAO_HFSMasterDirectoryBlock_BigToHost(&v21), v15 = MKMediaWriteSectors(a2, HIWORD(v21), v12, v14, 0), v15) || (v15 = MKMediaEraseSectors(a2, v12 + HIWORD(v21), WORD6(v22) - (v12 + HIWORD(v21)), 0), v15))
+        TAO_HFSMasterDirectoryBlock_BigToHost(&v20);
+        v15 = MKMediaWriteSectors(a2, 2uLL, 1uLL, &v20, 0);
+        if (v15 || (v15 = MKMediaWriteSectors(a2, v9, 1uLL, &v20, 0), v15) || (TAO_HFSMasterDirectoryBlock_BigToHost(&v20), v15 = MKMediaWriteSectors(a2, HIWORD(v20), v12, v14, 0), v15) || (v15 = MKMediaEraseSectors(a2, v12 + HIWORD(v20), WORD6(v21) - (v12 + HIWORD(v20)), 0), v15))
         {
           Sectors = v15;
           free(v14);
@@ -3151,53 +3037,52 @@ uint64_t MKHFSWrappedResize(unint64_t a1, uint64_t a2, uint64_t a3)
 
         else
         {
-          v18 = (DWORD1(v22) >> 9) * v29;
-          v19 = MKMediaCreateWithSubRange(*MEMORY[0x277CBECE8], a2, WORD6(v22) + (DWORD1(v22) >> 9) * HIWORD(v28), v18, &v20);
-          Sectors = v20;
-          if (!v20)
+          v17 = (DWORD1(v21) >> 9) * v28;
+          v18 = MKMediaCreateWithSubRange(*MEMORY[0x277CBECE8], a2, WORD6(v21) + (DWORD1(v21) >> 9) * HIWORD(v27), v17, &v19);
+          Sectors = v19;
+          if (!v19)
           {
-            Sectors = MKHFSResizeVolume(v18, v19, a3);
+            Sectors = MKHFSResizeVolume(v17, v18, a3);
           }
 
           free(v14);
-          if (v19)
+          if (v18)
           {
-            CFRelease(v19);
+            CFRelease(v18);
           }
         }
       }
 
       else
       {
-        Sectors = 12;
+        return 12;
       }
     }
 
     else
     {
-      Sectors = 4294967262;
+      return 4294967262;
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return Sectors;
 }
 
-uint64_t MKHFSGetResizeLimits(uint64_t a1, const void *a2)
+uint64_t MKHFSGetResizeLimits(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   Sectors = 22;
   if (a1)
   {
-    v32 = 0;
-    valuePtr = 0;
     v31 = 0;
-    v29 = 0;
-    Sectors = MKFileSystemDetect(a2, &v32, &v31 + 1, &v31);
+    valuePtr = 0;
+    v30 = 0;
+    v28 = 0;
+    Sectors = MKFileSystemDetect(a2, &v31, &v30 + 1, &v30);
     if (!Sectors)
     {
       Sectors = 22;
-      if (v31 == 1)
+      if (v30 == 1)
       {
         Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         CFDictionaryAddValue(Mutable, @"Record Tidemark", *MEMORY[0x277CBED28]);
@@ -3208,8 +3093,8 @@ uint64_t MKHFSGetResizeLimits(uint64_t a1, const void *a2)
           Value = CFDictionaryGetValue(v5, @"Tidemark");
           CFNumberGetValue(Value, kCFNumberSInt64Type, &valuePtr);
           ++valuePtr;
-          v7 = HIDWORD(v31);
-          *(a1 + 28) = HIDWORD(v31);
+          v7 = HIDWORD(v30);
+          *(a1 + 28) = HIDWORD(v30);
           if (v7 > 2)
           {
             if (v7 != 3)
@@ -3222,34 +3107,34 @@ uint64_t MKHFSGetResizeLimits(uint64_t a1, const void *a2)
               goto LABEL_11;
             }
 
-            Sectors = MKMediaReadSectors(a2, 2uLL, 1uLL, v37, 0);
+            Sectors = MKMediaReadSectors(a2, 2uLL, 1uLL, v36, 0);
             if (Sectors)
             {
               goto LABEL_33;
             }
 
-            TAO_HFSMasterDirectoryBlock_BigToHost(v37);
+            TAO_HFSMasterDirectoryBlock_BigToHost(v36);
             v18 = CFDictionaryGetValue(v5, @"Volume offset");
-            CFNumberGetValue(v18, kCFNumberSInt32Type, &v29);
-            Sectors = MKMediaReadSectors(a2, v29 + 2, 1uLL, v34, 0);
+            CFNumberGetValue(v18, kCFNumberSInt32Type, &v28);
+            Sectors = MKMediaReadSectors(a2, v28 + 2, 1uLL, v33, 0);
             if (Sectors)
             {
               goto LABEL_33;
             }
 
-            TAO_HFSPlusVolumeHeader_BigToHost(v34);
-            v19 = v35;
-            v20 = v35 >> 9;
-            *(a1 + 24) = v35 >> 9;
-            v21 = v41;
-            v22 = v40 >> 9;
-            v23 = (v41 - v38) << 12;
+            TAO_HFSPlusVolumeHeader_BigToHost(v33);
+            v19 = v34;
+            v20 = v34 >> 9;
+            *(a1 + 24) = v34 >> 9;
+            v21 = v40;
+            v22 = v39 >> 9;
+            v23 = (v40 - v37) << 12;
             if (v23 >= 0x10000)
             {
               v23 = 0x10000;
             }
 
-            *a1 = v41 + 2 + v22 * v39;
+            *a1 = v40 + 2 + v22 * v38;
             *(a1 + 8) = v21 + 2 + v23 * v22;
             if (v19 >= 0x400)
             {
@@ -3261,7 +3146,7 @@ uint64_t MKHFSGetResizeLimits(uint64_t a1, const void *a2)
               v24 = 2;
             }
 
-            v25 = valuePtr - v29 + v24;
+            v25 = valuePtr - v28 + v24;
             if (v25 % v22)
             {
               v26 = v25 / v22 + 1;
@@ -3272,7 +3157,7 @@ uint64_t MKHFSGetResizeLimits(uint64_t a1, const void *a2)
               v26 = v25 / v22;
             }
 
-            v17 = v21 + v26 * v22 + v22 * v42;
+            v17 = v21 + v26 * v22 + v22 * v41;
           }
 
           else
@@ -3285,13 +3170,13 @@ uint64_t MKHFSGetResizeLimits(uint64_t a1, const void *a2)
               }
 
 LABEL_11:
-              Sectors = MKMediaReadSectors(a2, 2uLL, 1uLL, v34, 0);
+              Sectors = MKMediaReadSectors(a2, 2uLL, 1uLL, v33, 0);
               if (!Sectors)
               {
-                TAO_HFSPlusVolumeHeader_BigToHost(v34);
-                v8 = v35;
-                v9 = v36;
-                v10 = v35 >> 9;
+                TAO_HFSPlusVolumeHeader_BigToHost(v33);
+                v8 = v34;
+                v9 = v35;
+                v10 = v34 >> 9;
                 *(a1 + 24) = v10;
                 *a1 = (v9 * v10);
                 *(a1 + 8) = v10 << 32;
@@ -3308,26 +3193,26 @@ LABEL_11:
 
 LABEL_33:
               CFRelease(v5);
-              goto LABEL_34;
+              return Sectors;
             }
 
-            Sectors = MKMediaReadSectors(a2, 2uLL, 1uLL, v37, 0);
+            Sectors = MKMediaReadSectors(a2, 2uLL, 1uLL, v36, 0);
             if (Sectors)
             {
               goto LABEL_33;
             }
 
-            TAO_HFSMasterDirectoryBlock_BigToHost(v37);
-            v14 = v40 >> 9;
-            *(a1 + 24) = v40 >> 9;
-            v15 = v41;
-            v16 = (v41 - v38) << 12;
+            TAO_HFSMasterDirectoryBlock_BigToHost(v36);
+            v14 = v39 >> 9;
+            *(a1 + 24) = v39 >> 9;
+            v15 = v40;
+            v16 = (v40 - v37) << 12;
             if (v16 >= 0x10000)
             {
               v16 = 0x10000;
             }
 
-            *a1 = v41 + v14 * v39 + 2;
+            *a1 = v40 + v14 * v38 + 2;
             *(a1 + 8) = (v16 * v14) | 0x15;
             v17 = v15 + valuePtr;
           }
@@ -3341,10 +3226,7 @@ LABEL_32:
     }
   }
 
-LABEL_34:
-  result = Sectors;
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  return Sectors;
 }
 
 _BYTE *SetBits(_BYTE *result, unsigned int a2, unsigned int a3, int a4)
@@ -3660,30 +3542,28 @@ LABEL_34:
 
 uint64_t GetBTreeNodeSize(uint64_t a1, uint64_t *a2, unsigned int a3, _DWORD *a4)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = *a2;
-  if (!*a2)
+  if (*a2)
   {
-    goto LABEL_4;
+    result = MKMediaReadSectors(a1, *(a2 + 4) * (a3 >> 9), 1uLL, v7, 0);
+    if (result)
+    {
+      return result;
+    }
+
+    TAO_BTHeaderRec_BigToHost(v8);
+    LODWORD(v5) = v8[9];
   }
 
-  result = MKMediaReadSectors(a1, *(a2 + 4) * (a3 >> 9), 1uLL, v8, 0);
-  if (!result)
-  {
-    TAO_BTHeaderRec_BigToHost(v9);
-    LODWORD(v5) = v9[9];
-LABEL_4:
-    result = 0;
-    *a4 = v5;
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
+  result = 0;
+  *a4 = v5;
   return result;
 }
 
-uint64_t GrowAllocFile(uint64_t a1, _BYTE *a2, unsigned int a3, const void *a4)
+uint64_t GrowAllocFile(uint64_t a1, _BYTE *a2, unsigned int a3, void *a4)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v8 = a3 >> 3;
   if ((a3 & 7) != 0)
   {
@@ -3720,11 +3600,11 @@ uint64_t GrowAllocFile(uint64_t a1, _BYTE *a2, unsigned int a3, const void *a4)
 
   v17 = 0;
   v18 = 0;
-  memset(v38, 0, sizeof(v38));
-  v36 = 0;
-  v37 = 0;
-  v19 = (a1 + 128);
+  memset(v37, 0, sizeof(v37));
   v35 = 0;
+  v36 = 0;
+  v19 = (a1 + 128);
+  v34 = 0;
   do
   {
     v18 += *(a1 + 132 + v17);
@@ -3738,10 +3618,10 @@ uint64_t GrowAllocFile(uint64_t a1, _BYTE *a2, unsigned int a3, const void *a4)
   }
 
   while (v17 != 64);
-  LODWORD(v35) = 6;
-  LODWORD(v36) = v12;
-  v37 = v38;
-  LODWORD(result) = ApplyToHFSPlusExtentRecords(a4, LastExtentFinder, &v35);
+  LODWORD(v34) = 6;
+  LODWORD(v35) = v12;
+  v36 = v37;
+  LODWORD(result) = ApplyToHFSPlusExtentRecords(a4, LastExtentFinder, &v34);
   if (result)
   {
     result = result;
@@ -3754,9 +3634,9 @@ uint64_t GrowAllocFile(uint64_t a1, _BYTE *a2, unsigned int a3, const void *a4)
 
   if (result == -128)
   {
-    v21 = v36;
+    v21 = v35;
     v12 = *(a1 + 124);
-    v19 = v38;
+    v19 = v37;
 LABEL_19:
     v22 = 0;
     v23 = 4;
@@ -3810,8 +3690,7 @@ LABEL_19:
       v33 = ScanForZeros(a2, a3, v32);
       if (v33 == -1)
       {
-        result = 4294967262;
-        goto LABEL_37;
+        return 4294967262;
       }
 
       v19[2] = 0u;
@@ -3828,11 +3707,11 @@ LABEL_35:
         *(a1 + 124) += v16;
         *(a1 + 112) += *(a1 + 40) * v16;
         *(a1 + 48) -= v16;
-        goto LABEL_37;
+        return result;
       }
     }
 
-    LODWORD(result) = ApplyToHFSPlusExtentRecords(a4, LastExtentWriter, &v35);
+    LODWORD(result) = ApplyToHFSPlusExtentRecords(a4, LastExtentWriter, &v34);
     if (result)
     {
       result = result;
@@ -3849,8 +3728,6 @@ LABEL_35:
     }
   }
 
-LABEL_37:
-  v34 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3868,7 +3745,6 @@ _BYTE *ChangeJournalSize(uint64_t a1, unint64_t a2, _BYTE *a3, int a4, uint64_t 
     v11 = v9 / v10;
   }
 
-  *(a1 + 40);
   if (a2 % v10)
   {
     v12 = a2 / v10 + 1;
@@ -3966,17 +3842,17 @@ uint64_t UpdateDotJournalFile(uint64_t a1, uint64_t a2, unsigned int *a3, char *
   return result;
 }
 
-uint64_t ReadWriteFileToFromBuffer(const void *a1, char *a2, unint64_t a3, uint64_t a4, unsigned int a5, int a6)
+uint64_t ReadWriteFileToFromBuffer(void *a1, char *a2, unint64_t a3, uint64_t a4, unsigned int a5, int a6)
 {
   v9 = a1;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v10 = *(a4 + 12);
   v11 = a5 << 9;
   v12 = *(a4 + 32);
-  v47[0] = *(a4 + 16);
-  v47[1] = v12;
+  v46[0] = *(a4 + 16);
+  v46[1] = v12;
   v13 = *(a4 + 64);
-  v41 = a3 / v11;
+  v40 = a3 / v11;
   if (a3 / v11 <= v10)
   {
     v14 = a3 / v11;
@@ -3987,16 +3863,16 @@ uint64_t ReadWriteFileToFromBuffer(const void *a1, char *a2, unint64_t a3, uint6
     v14 = v10;
   }
 
-  v47[2] = *(a4 + 48);
-  v47[3] = v13;
-  v15 = v47;
+  v46[2] = *(a4 + 48);
+  v46[3] = v13;
+  v15 = v46;
   if (!v14)
   {
     v17 = 0;
     v20 = 0;
     v16 = 0;
 LABEL_22:
-    if (v41 >= v10 || (v26 = a3 - v41 * v11) == 0)
+    if (v40 >= v10 || (v26 = a3 - v40 * v11) == 0)
     {
       v28 = 0;
       if (!a6)
@@ -4010,8 +3886,7 @@ LABEL_22:
     v27 = malloc_type_calloc(1uLL, v11, 0x345CD47DuLL);
     if (!v27)
     {
-      v24 = 12;
-      goto LABEL_68;
+      return 12;
     }
 
     v28 = v27;
@@ -4020,10 +3895,10 @@ LABEL_22:
       v17 += 8;
       if (v17 == 64)
       {
-        v44 = 6;
-        v45 = v16;
-        v46 = v47;
-        v29 = ApplyToHFSPlusExtentRecords(a1, GetFileExtentRecord, &v44);
+        v43 = 6;
+        v44 = v16;
+        v45 = v46;
+        v29 = ApplyToHFSPlusExtentRecords(a1, GetFileExtentRecord, &v43);
         v17 = 0;
         v24 = v29 ? v29 : 22;
         if (v24 != -128)
@@ -4036,7 +3911,7 @@ LABEL_22:
       v9 = a1;
     }
 
-    v30 = *(v47 + v17) + v20;
+    v30 = *(v46 + v17) + v20;
     if (a6)
     {
       memcpy(v28, a2, v26);
@@ -4056,15 +3931,15 @@ LABEL_36:
         v32 = *(a4 + 12);
         if (v16 < v32)
         {
-          if (v20 == *(v47 + v17 + 4))
+          if (v20 == *(v46 + v17 + 4))
           {
             v17 += 8;
             if (v17 == 64)
             {
-              v44 = 6;
-              v45 = v16;
-              v46 = v47;
-              v33 = ApplyToHFSPlusExtentRecords(v9, GetFileExtentRecord, &v44);
+              v43 = 6;
+              v44 = v16;
+              v45 = v46;
+              v33 = ApplyToHFSPlusExtentRecords(v9, GetFileExtentRecord, &v43);
               if (v33)
               {
                 v24 = v33;
@@ -4092,8 +3967,8 @@ LABEL_36:
             while (1)
             {
               v34 = v32 - v16;
-              v35 = *(v47 + v17 + 4) - v20 >= v34 ? v34 : *(v47 + v17 + 4) - v20;
-              v36 = MKMediaEraseSectors(a1, (*(v47 + v17) + v20) * a5, v35 * a5, 0);
+              v35 = *(v46 + v17 + 4) - v20 >= v34 ? v34 : *(v46 + v17 + 4) - v20;
+              v36 = MKMediaEraseSectors(a1, (*(v46 + v17) + v20) * a5, v35 * a5, 0);
               if (v36)
               {
                 break;
@@ -4106,10 +3981,10 @@ LABEL_36:
                 v17 += 8;
                 if (v17 == 64)
                 {
-                  v44 = 6;
-                  v45 = v16;
-                  v46 = v47;
-                  v37 = ApplyToHFSPlusExtentRecords(a1, GetFileExtentRecord, &v44);
+                  v43 = 6;
+                  v44 = v16;
+                  v45 = v46;
+                  v37 = ApplyToHFSPlusExtentRecords(a1, GetFileExtentRecord, &v43);
                   if (v37)
                   {
                     v24 = v37;
@@ -4142,12 +4017,12 @@ LABEL_36:
 LABEL_66:
             if (!v28)
             {
-              goto LABEL_68;
+              return v24;
             }
 
 LABEL_67:
             free(v28);
-            goto LABEL_68;
+            return v24;
           }
         }
 
@@ -4173,25 +4048,25 @@ LABEL_65:
 
   v16 = 0;
   v17 = 0;
-  v18 = v47;
+  v18 = v46;
   while (1)
   {
     v19 = *(v18 + 1);
     v20 = v19 >= v14 - v16 ? v14 - v16 : v19;
-    v21 = *(v47 + v17) * a5;
+    v21 = *(v46 + v17) * a5;
     v22 = v20 * a5;
     v23 = a6 ? MKMediaWriteSectors(v9, v21, v22, a2, 0) : MKMediaReadSectors(v9, v21, v22, a2, 0);
     v24 = v23;
     if (v23)
     {
-      break;
+      return v24;
     }
 
     a2 += (v11 * v20);
     v16 += v20;
     if (v16 >= v14)
     {
-      v15 = v47 + v17;
+      v15 = v46 + v17;
       v9 = a1;
       v10 = *(a4 + 12);
       goto LABEL_22;
@@ -4200,25 +4075,21 @@ LABEL_65:
     v17 += 8;
     if (v17 == 64)
     {
-      v44 = 6;
-      v45 = v16;
-      v46 = v47;
-      v25 = ApplyToHFSPlusExtentRecords(a1, GetFileExtentRecord, &v44);
+      v43 = 6;
+      v44 = v16;
+      v45 = v46;
+      v25 = ApplyToHFSPlusExtentRecords(a1, GetFileExtentRecord, &v43);
       v17 = 0;
       v24 = v25 ? v25 : 22;
       if (v24 != -128)
       {
-        break;
+        return v24;
       }
     }
 
-    v18 = v47 + v17;
+    v18 = v46 + v17;
     v9 = a1;
   }
-
-LABEL_68:
-  v38 = *MEMORY[0x277D85DE8];
-  return v24;
 }
 
 uint64_t GetFileExtentRecord(uint64_t a1, __int128 *a2, uint64_t a3, _BYTE *a4)
@@ -4314,189 +4185,175 @@ uint64_t LastExtentWriter(uint64_t a1, _OWORD *a2, uint64_t a3, _BYTE *a4)
 
 uint64_t MKReadHFSMDBVHB(uint64_t a1, int *a2, _BYTE *a3, unint64_t *a4, unint64_t *a5)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   result = 4294967246;
   if (!a1 || !a2)
   {
-    goto LABEL_7;
+    return result;
   }
 
   *a2 = 0;
-  v11 = a3 ? a3 : v22;
+  v11 = a3 ? a3 : v21;
   result = MKMediaReadSectors(a1, 2uLL, 1uLL, v11, 0);
   if (result)
   {
-    goto LABEL_7;
+    return result;
   }
 
   if (*v11 != 17474)
   {
-    v16 = 0;
-    v18 = 0;
+    v15 = 0;
+    v17 = 0;
 LABEL_18:
-    v19 = *v11;
+    v18 = *v11;
     if (*a2 == 3)
     {
-      if (v19 != 11080)
+      if (v18 != 11080)
       {
-LABEL_20:
-        result = 4294967173;
-        goto LABEL_7;
+        return 4294967173;
       }
 
       goto LABEL_28;
     }
 
-    v20 = __rev16(v19);
-    if (v20 == 18475)
+    v19 = __rev16(v18);
+    if (v19 == 18475)
     {
-      v21 = 2;
+      v20 = 2;
     }
 
     else
     {
-      if (v20 != 18520)
+      if (v19 != 18520)
       {
         if (!*a2)
         {
-          goto LABEL_20;
+          return 4294967173;
         }
 
         goto LABEL_28;
       }
 
-      v21 = 4;
+      v20 = 4;
     }
 
-    *a2 = v21;
+    *a2 = v20;
 LABEL_28:
     TAO_HFSPlusVolumeHeader_BigToHost(v11);
     if (*a2 != 3)
     {
-      goto LABEL_33;
+      return 0;
     }
 
     if (a4)
     {
-      *a4 = v16;
+      *a4 = v15;
     }
 
-    if (a5)
+    if (!a5)
     {
-      result = 0;
-      *a5 = v18;
+      return 0;
     }
 
-    else
-    {
-LABEL_33:
-      result = 0;
-    }
-
-    goto LABEL_7;
+    result = 0;
+    *a5 = v17;
+    return result;
   }
 
   TAO_HFSMasterDirectoryBlock_BigToHost(v11);
-  v13 = v22;
-  if (a3)
-  {
-    v14 = a3;
-  }
-
-  else
-  {
-    v14 = v22;
-  }
-
-  if (*(v14 + 62) != 18475)
-  {
-    result = 0;
-    *a2 = 1;
-    goto LABEL_7;
-  }
-
-  *a2 = 3;
+  v12 = v21;
   if (a3)
   {
     v13 = a3;
   }
 
-  v15 = *(v13 + 5) >> 9;
-  v16 = *(v13 + 14) + *(v13 + 63) * v15;
-  v17 = *(v13 + 64);
-  result = MKMediaReadSectors(a1, v16 + 2, 1uLL, v11, 0);
+  else
+  {
+    v13 = v21;
+  }
+
+  if (*(v13 + 62) != 18475)
+  {
+    result = 0;
+    *a2 = 1;
+    return result;
+  }
+
+  *a2 = 3;
+  if (a3)
+  {
+    v12 = a3;
+  }
+
+  v14 = *(v12 + 5) >> 9;
+  v15 = *(v12 + 14) + *(v12 + 63) * v14;
+  v16 = *(v12 + 64);
+  result = MKMediaReadSectors(a1, v15 + 2, 1uLL, v11, 0);
   if (!result)
   {
-    v18 = v17 * v15;
+    v17 = v16 * v14;
     goto LABEL_18;
   }
 
-LABEL_7:
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t MKWriteHFSMDBVHB(uint64_t a1, int a2, void *__src, uint64_t a4, uint64_t a5)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   result = 4294967246;
-  if (!a1 || !__src)
+  if (a1 && __src)
   {
-    goto LABEL_19;
-  }
+    memset(v13, 0, sizeof(v13));
+    memcpy(__dst, __src, sizeof(__dst));
+    MKMediaGetGeometry(a1, v13);
+    switch(__dst[0])
+    {
+      case 0x4858u:
+        v10 = *(&v13[0] + 1);
+        TAO_HFSPlusVolumeHeader_BigToHost(__dst);
+        break;
+      case 0x482Bu:
+        v11 = a5 + a4;
+        if (a2 == 3)
+        {
+          v12 = a4 + 2;
+        }
 
-  memset(v14, 0, sizeof(v14));
-  memcpy(__dst, __src, sizeof(__dst));
-  MKMediaGetGeometry(a1, v14);
-  switch(__dst[0])
-  {
-    case 0x4858u:
-      v10 = *(&v14[0] + 1);
-      TAO_HFSPlusVolumeHeader_BigToHost(__dst);
-      break;
-    case 0x482Bu:
-      v11 = a5 + a4;
-      if (a2 == 3)
-      {
-        v12 = a4 + 2;
-      }
+        else
+        {
+          v12 = 2;
+        }
 
-      else
-      {
-        v12 = 2;
-      }
+        if (a2 == 3)
+        {
+          v10 = v11;
+        }
 
-      if (a2 == 3)
-      {
-        v10 = v11;
-      }
+        else
+        {
+          v10 = *(&v13[0] + 1);
+        }
 
-      else
-      {
-        v10 = *(&v14[0] + 1);
-      }
+        TAO_HFSPlusVolumeHeader_BigToHost(__dst);
+        goto LABEL_16;
+      case 0x4244u:
+        v10 = *(&v13[0] + 1);
+        TAO_HFSMasterDirectoryBlock_BigToHost(__dst);
+        break;
+      default:
+        return 4294967173;
+    }
 
-      TAO_HFSPlusVolumeHeader_BigToHost(__dst);
-      goto LABEL_16;
-    case 0x4244u:
-      v10 = *(&v14[0] + 1);
-      TAO_HFSMasterDirectoryBlock_BigToHost(__dst);
-      break;
-    default:
-      result = 4294967173;
-      goto LABEL_19;
-  }
-
-  v12 = 2;
+    v12 = 2;
 LABEL_16:
-  result = MKMediaWriteSectors(a1, v12, 1uLL, __dst, 0);
-  if (!result)
-  {
-    result = MKMediaWriteSectors(a1, v10 - 2, 1uLL, __dst, 0);
+    result = MKMediaWriteSectors(a1, v12, 1uLL, __dst, 0);
+    if (!result)
+    {
+      return MKMediaWriteSectors(a1, v10 - 2, 1uLL, __dst, 0);
+    }
   }
 
-LABEL_19:
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4514,7 +4371,6 @@ uint64_t _MKHFSReadWriteFile(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4
     v12 = a4 / v11;
   }
 
-  *(a2 + 40);
   if (a5 % v11)
   {
     v13 = a5 / v11 + 1;
@@ -4616,51 +4472,50 @@ uint64_t MKDetectAPFS(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4, _DWORD *
 
 uint64_t MKRecordAPFSRuns(uint64_t a1, int a2, uint64_t (*a3)(void, uint64_t, void *), uint64_t a4)
 {
-  v62 = *MEMORY[0x277D85DE8];
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
+  v61 = *MEMORY[0x277D85DE8];
   v59 = 0u;
-  v56 = 0u;
+  v60 = 0u;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v41 = 0u;
+  v44 = 0u;
   v42 = 0u;
-  v40 = 0;
-  memset(v39, 0, sizeof(v39));
+  v40 = 0u;
+  v41 = 0u;
+  v39 = 0;
+  memset(v38, 0, sizeof(v38));
+  v35 = 0;
   v36 = 0;
-  v37 = 0;
-  v38[0] = 0;
-  v38[1] = a1;
+  v37[0] = 0;
+  v37[1] = a1;
+  v32 = 0;
   v33 = 0;
   v34 = 0;
-  v35 = 0;
   valuePtr = 0;
-  Geometry = MKMediaGetGeometry(a1, v39);
-  LODWORD(v40) = LODWORD(v39[0]) >> 9;
-  LOWORD(v41) = 2;
-  LODWORD(v42) = LODWORD(v39[0]) >> 9;
-  *(&v42 + 1) = *(&v39[0] + 1);
+  Geometry = MKMediaGetGeometry(a1, v38);
+  LODWORD(v39) = LODWORD(v38[0]) >> 9;
+  LOWORD(v40) = 2;
+  LODWORD(v41) = LODWORD(v38[0]) >> 9;
+  *(&v41 + 1) = *(&v38[0] + 1);
   v8 = (a3)(a4, 0, 0, Geometry);
   if (!v8)
   {
     FreespaceInfo = APFSContainerGetFreespaceInfo();
     if (!FreespaceInfo)
     {
-      v8 = 12;
-      goto LABEL_33;
+      return 12;
     }
 
     v10 = FreespaceInfo;
@@ -4675,17 +4530,17 @@ LABEL_30:
 
     v12 = CFDictionaryGetValue(v10, *MEMORY[0x277CE4A40]);
     CFNumberGetValue(v12, kCFNumberSInt64Type, &valuePtr);
-    HIDWORD(v41) = valuePtr >> 9;
+    HIDWORD(v40) = valuePtr >> 9;
     v13 = CFDictionaryGetValue(v10, *MEMORY[0x277CE4A68]);
-    CFNumberGetValue(v13, kCFNumberSInt64Type, &v43);
+    CFNumberGetValue(v13, kCFNumberSInt64Type, &v42);
     v14 = CFDictionaryGetValue(v10, *MEMORY[0x277CE4A70]);
-    CFNumberGetValue(v14, kCFNumberSInt64Type, &v44 + 8);
-    *(&v43 + 1) = v43;
-    if (HIDWORD(v41) >= 2)
+    CFNumberGetValue(v14, kCFNumberSInt64Type, &v43 + 8);
+    *(&v42 + 1) = v42;
+    if (HIDWORD(v40) >= 2)
     {
-      *(&v44 + 1) *= HIDWORD(v41);
-      *&v43 = v43 * HIDWORD(v41);
-      *(&v43 + 1) = v43;
+      *(&v43 + 1) *= HIDWORD(v40);
+      *&v42 = v42 * HIDWORD(v40);
+      *(&v42 + 1) = v42;
     }
 
     v15 = CFDictionaryGetValue(v10, *MEMORY[0x277CE4A58]);
@@ -4695,8 +4550,8 @@ LABEL_30:
       goto LABEL_30;
     }
 
-    LOWORD(v36) = 0;
-    LOWORD(v33) = 1;
+    LOWORD(v35) = 0;
+    LOWORD(v32) = 1;
     if ((a2 & 3) != 0)
     {
       v16 = v15;
@@ -4717,51 +4572,51 @@ LABEL_30:
 
           v22 = ValueAtIndex;
           v23 = CFDictionaryGetValue(ValueAtIndex, key);
-          CFNumberGetValue(v23, kCFNumberSInt64Type, &v37);
+          CFNumberGetValue(v23, kCFNumberSInt64Type, &v36);
           v24 = CFDictionaryGetValue(v22, v19);
-          CFNumberGetValue(v24, kCFNumberSInt64Type, v38);
-          if (HIDWORD(v41) >= 2)
+          CFNumberGetValue(v24, kCFNumberSInt64Type, v37);
+          if (HIDWORD(v40) >= 2)
           {
-            v37 *= HIDWORD(v41);
-            v38[0] *= HIDWORD(v41);
+            v36 *= HIDWORD(v40);
+            v37[0] *= HIDWORD(v40);
           }
 
-          if (((v33 + 1) & a2) != 0)
+          if (((v32 + 1) & a2) != 0)
           {
-            v35 = v37 - v34;
-            if (v37 != v34)
+            v34 = v36 - v33;
+            if (v36 != v33)
             {
-              v25 = a3(a4, 1, &v33);
+              v25 = a3(a4, 1, &v32);
               if (v25)
               {
                 goto LABEL_29;
               }
 
-              v26 = v34 + v35;
-              v34 = v26;
-              if (v26 > *(&v44 + 1))
+              v26 = v33 + v34;
+              v33 = v26;
+              if (v26 > *(&v43 + 1))
               {
-                *(&v44 + 1) = v26;
+                *(&v43 + 1) = v26;
               }
             }
           }
 
-          if (((v36 + 1) & a2) != 0)
+          if (((v35 + 1) & a2) != 0)
           {
-            v25 = a3(a4, 1, &v36);
+            v25 = a3(a4, 1, &v35);
             if (v25)
             {
               goto LABEL_29;
             }
           }
 
-          *&v44 = v44 + v38[0];
-          v34 = v37 + v38[0];
+          *&v43 = v43 + v37[0];
+          v33 = v36 + v37[0];
           ++v18;
         }
 
         while (v18 < v20);
-        v27 = v33 + 1;
+        v27 = v32 + 1;
       }
 
       else
@@ -4771,27 +4626,27 @@ LABEL_30:
 
       if ((v27 & a2) != 0)
       {
-        v35 = v43 - v34;
-        if (v43 != v34)
+        v34 = v42 - v33;
+        if (v42 != v33)
         {
-          v25 = a3(a4, 1, &v33);
+          v25 = a3(a4, 1, &v32);
           if (v25)
           {
             goto LABEL_29;
           }
 
-          v30 = v34 + v35;
-          v34 = v30;
-          if (v30 > *(&v44 + 1))
+          v29 = v33 + v34;
+          v33 = v29;
+          if (v29 > *(&v43 + 1))
           {
-            *(&v44 + 1) = v30;
+            *(&v43 + 1) = v29;
           }
         }
       }
     }
 
-    DWORD2(v45) = *(&v44 + 1) / (*(&v43 + 1) - v44);
-    v25 = a3(a4, 3, &v41);
+    DWORD2(v44) = *(&v43 + 1) / (*(&v42 + 1) - v43);
+    v25 = a3(a4, 3, &v40);
 LABEL_29:
     v8 = v25;
     goto LABEL_30;
@@ -4800,15 +4655,13 @@ LABEL_29:
 LABEL_31:
   if (v8 == -1)
   {
-    v8 = *__error();
+    return *__error();
   }
 
-LABEL_33:
-  v28 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-uint64_t MKAPFS_IO(uint64_t a1, int a2, uint64_t a3)
+uint64_t MKAPFS_IO(uint64_t *a1, int a2, uint64_t a3)
 {
   v15 = 0;
   if (!a1)
@@ -4842,8 +4695,8 @@ uint64_t MKAPFS_IO(uint64_t a1, int a2, uint64_t a3)
       }
 
       result = 0;
-      *a3 = *(a1 + 8);
-      *(a3 + 8) = *(a1 + 16) / *(a1 + 40);
+      *a3 = *(a1 + 2);
+      *(a3 + 8) = a1[2] / *(a1 + 10);
       if (v15 & HIDWORD(v15))
       {
         v14 = 1;
@@ -4867,7 +4720,7 @@ uint64_t MKAPFS_IO(uint64_t a1, int a2, uint64_t a3)
     return 22;
   }
 
-  v8 = *(a1 + 8);
+  v8 = *(a1 + 2);
   v9 = *a3 / v8;
   v10 = *a1;
   v11 = *(a3 + 16);
@@ -5024,7 +4877,7 @@ __CFDictionary *_MKMediaFileCopyProperties(uint64_t a1)
   return v5;
 }
 
-__CFDictionary *_MKMediaBlockDeviceCopyProperties(uint64_t a1)
+CFMutableDictionaryRef _MKMediaBlockDeviceCopyProperties(uint64_t a1)
 {
   v2 = *(a1 + 16);
   v3 = *MEMORY[0x277CBECE8];
@@ -5256,7 +5109,7 @@ double MKMediaGetAttributes(uint64_t a1, double *a2)
   return result;
 }
 
-uint64_t MKCFCreatePartitions(int a1, const __CFDictionary *a2, CFArrayRef theArray, __CFBundle *a4, const __CFDictionary *a5, const __CFDictionary *a6, unsigned int a7, const __CFDictionary *a8, uint64_t a9)
+uint64_t MKCFCreatePartitions(int a1, const __CFDictionary *a2, CFArrayRef theArray, __CFBundle *a4, const __CFDictionary *a5, const __CFDictionary *a6, uint64_t a7, const __CFDictionary *a8, uint64_t a9)
 {
   switch(a1)
   {
@@ -5457,7 +5310,7 @@ __CFArray *MKCFCreateMapRuns(const void *a1, uint64_t a2, _DWORD *a3)
   return result;
 }
 
-uint64_t MKCFWriteMediaContent(uint64_t a1, CFDictionaryRef theDict, const __CFString *a3, unint64_t a4, size_t a5, char *a6)
+uint64_t MKCFWriteMediaContent(const __CFString *a1, CFDictionaryRef theDict, const __CFString *a3, unint64_t a4, size_t a5, char *a6)
 {
   v9 = a3;
   v34 = 0;
@@ -5641,9 +5494,9 @@ LABEL_36:
   return v21;
 }
 
-uint64_t MKCFSetBootcode(CFDictionaryRef theDict, uint64_t a2, unint64_t a3, void *a4)
+uint64_t MKCFSetBootcode(CFDictionaryRef theDict, uint64_t a2, size_t a3, void *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (theDict)
   {
     while (1)
@@ -5659,246 +5512,251 @@ uint64_t MKCFSetBootcode(CFDictionaryRef theDict, uint64_t a2, unint64_t a3, voi
       {
         v10 = ValueAtIndex;
         v11 = CFDictionaryGetValue(ValueAtIndex, @"ID");
-        if (!v11 || !CFStringGetCString(v11, buffer, 32, 0))
+        if (v11 && CFStringGetCString(v11, buffer, 32, 0))
         {
-          break;
-        }
+          if (PMSchemeSearchByDescriptor(buffer, 0) != 8)
+          {
+            return 4294967292;
+          }
 
-        if (PMSchemeSearchByDescriptor(buffer, 0) == 8)
-        {
           result = MBRCFSetBootcode(v10, a2, a3, a4);
           if (result == -1)
           {
-            result = *__error();
+            return *__error();
           }
+
+          return result;
         }
 
-        else
-        {
-          result = 4294967292;
-        }
-
-        goto LABEL_10;
+        return 22;
       }
     }
   }
 
-  result = 22;
-LABEL_10:
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return 22;
 }
 
 uint64_t MKReportMedia(const __CFDictionary *a1, const __CFDictionary *a2, uint64_t a3, FILE *a4)
 {
-  v121 = *MEMORY[0x277D85DE8];
-  v99 = 0;
-  v100 = 0;
+  v119 = *MEMORY[0x277D85DE8];
+  v97 = 0;
+  v98 = 0;
   if (!a1)
   {
-    goto LABEL_25;
+    return 22;
   }
 
-  v7 = *MEMORY[0x277D85E08];
   if (a4)
   {
-    v8 = a4;
+    v7 = a4;
   }
 
   else
   {
-    v8 = *MEMORY[0x277D85E08];
+    v7 = *MEMORY[0x277D85E08];
   }
 
   if (MKCFOptionBit(a2, @"Simple Report", 1))
   {
-    v9 = 0;
-    LOWORD(v99) = 1;
+    v8 = 0;
+    LOWORD(v97) = 1;
 LABEL_11:
-    v10 = v9 | MKCFOptionBit(a2, @"Show Ending Offset", 1);
-    v11 = MKCFOptionBit(a2, @"Show UUID", 2);
-    v12 = v10 | v11 | MKCFOptionBit(a2, @"Show Freespace", 4);
-    HIDWORD(v99) = v12 | MKCFOptionBit(a2, @"Show Shims", 8);
+    v9 = v8 | MKCFOptionBit(a2, @"Show Ending Offset", 1);
+    v10 = MKCFOptionBit(a2, @"Show UUID", 2);
+    v11 = v9 | v10 | MKCFOptionBit(a2, @"Show Freespace", 4);
+    HIDWORD(v97) = v11 | MKCFOptionBit(a2, @"Show Shims", 8);
     goto LABEL_12;
   }
 
   if (MKCFOptionBit(a2, @"Report Format #1", 1))
   {
-    v9 = 0;
-    LOWORD(v99) = 2;
+    v8 = 0;
+    LOWORD(v97) = 2;
     goto LABEL_11;
   }
 
   if (MKCFOptionBit(a2, @"Report Format #2", 1))
   {
-    LOWORD(v99) = 3;
-    v9 = 5;
+    LOWORD(v97) = 3;
+    v8 = 5;
     goto LABEL_11;
   }
 
 LABEL_12:
-  if (!a3 || (v101 = 0u, memset(v102, 0, sizeof(v102)), (v13 = MKMediaCopyProperties(a3)) == 0))
+  if (!a3)
   {
-LABEL_25:
-    UUID = 22;
-    goto LABEL_26;
+    return 22;
   }
 
-  v14 = v13;
-  Value = CFDictionaryGetValue(v13, @"Geometry");
+  v99 = 0u;
+  memset(v100, 0, sizeof(v100));
+  v12 = MKMediaCopyProperties(a3);
+  if (!v12)
+  {
+    return 22;
+  }
+
+  v13 = v12;
+  Value = CFDictionaryGetValue(v12, @"Geometry");
   if (Value)
   {
-    v16 = Value;
-    v17 = CFDictionaryGetValue(Value, @"Block Size");
+    v15 = Value;
+    v16 = CFDictionaryGetValue(Value, @"Block Size");
+    if (v16)
+    {
+      CFNumberGetValue(v16, kCFNumberSInt32Type, &v99 + 8);
+    }
+
+    v17 = CFDictionaryGetValue(v15, @"Sector Count");
     if (v17)
     {
-      CFNumberGetValue(v17, kCFNumberSInt32Type, &v101 + 8);
+      CFNumberGetValue(v17, kCFNumberSInt64Type, &v99);
     }
 
-    v18 = CFDictionaryGetValue(v16, @"Sector Count");
+    v18 = CFDictionaryGetValue(v15, @"Maximum Transfer Sector Count");
     if (v18)
     {
-      CFNumberGetValue(v18, kCFNumberSInt64Type, &v101);
-    }
-
-    v19 = CFDictionaryGetValue(v16, @"Maximum Transfer Sector Count");
-    if (v19)
-    {
-      CFNumberGetValue(v19, kCFNumberSInt64Type, v102);
+      CFNumberGetValue(v18, kCFNumberSInt64Type, v100);
     }
   }
 
-  v20 = MKCFOptionBit(v14, @"Writable", 1);
-  LODWORD(v102[1]) |= v20;
-  v21 = CFDictionaryGetValue(v14, @"Path");
-  if (v21)
+  v19 = MKCFOptionBit(v13, @"Writable", 1);
+  LODWORD(v100[1]) |= v19;
+  v20 = CFDictionaryGetValue(v13, @"Path");
+  if (v20)
   {
-    CFStringGetCString(v21, &v102[1] + 4, 64, 0);
+    CFStringGetCString(v20, &v100[1] + 4, 64, 0);
   }
 
-  CFRelease(v14);
-  v22 = DWORD2(v101);
-  fputc(10, v8);
-  scalenumstr(v101 << 9, v98);
-  fprintf(v8, "MEDIA: %s; Size %s", &v102[1] + 4, v98);
-  if (v99 > 1u)
+  CFRelease(v13);
+  v21 = DWORD2(v99);
+  fputc(10, v7);
+  scalenumstr(v99 << 9, v96);
+  fprintf(v7, "MEDIA: %s; Size %s", &v100[1] + 4, v96);
+  if (v97 > 1u)
   {
-    fprintf(v8, " [%lld x %ld]", v101 / (v22 >> 9), DWORD2(v101));
-    if ((v102[0] & 0xFFFFFFFFFFFEFFFFLL) != 0)
+    fprintf(v7, " [%lld x %ld]", v99 / (v21 >> 9), DWORD2(v99));
+    if ((v100[0] & 0xFFFFFFFFFFFEFFFFLL) != 0)
     {
-      fprintf(v8, "; Max Transfer Blocks %lld");
+      fprintf(v7, "; Max Transfer Blocks %lld");
     }
   }
 
   else
   {
-    fprintf(v8, "; Blocksize %ld");
+    fprintf(v7, "; Blocksize %ld");
   }
 
-  fputc(10, v8);
+  fputc(10, v7);
   buffer[0] = 0;
-  v26 = CFDictionaryGetValue(a1, @"Schemes");
-  if (!v26 || (v27 = v26, (Count = CFArrayGetCount(v26)) == 0))
+  v24 = CFDictionaryGetValue(a1, @"Schemes");
+  if (!v24)
   {
-    UUID = 0;
-    goto LABEL_26;
+    return 0;
   }
 
-  v29 = 0;
-  v88 = 0;
-  v82 = Count;
-  v81 = v27;
+  v25 = v24;
+  Count = CFArrayGetCount(v24);
+  if (!Count)
+  {
+    return 0;
+  }
+
+  v27 = 0;
+  v86 = 0;
+  v80 = Count;
+  v79 = v25;
   do
   {
     while (1)
     {
-      v103[0] = 0;
-      ValueAtIndex = CFArrayGetValueAtIndex(v27, v29);
+      v101[0] = 0;
+      ValueAtIndex = CFArrayGetValueAtIndex(v25, v27);
       if (ValueAtIndex)
       {
         break;
       }
 
-      if (++v29 >= v82)
+      if (++v27 >= v80)
       {
         goto LABEL_159;
       }
     }
 
-    v31 = ValueAtIndex;
-    v32 = CFDictionaryGetValue(ValueAtIndex, @"ID");
+    v29 = ValueAtIndex;
+    v30 = CFDictionaryGetValue(ValueAtIndex, @"ID");
+    if (!v30)
+    {
+      goto LABEL_159;
+    }
+
+    CFStringGetCString(v30, buffer, 32, 0x600u);
+    v31 = PMSchemeSearchByDescriptor(buffer, &v86);
+    v32 = CFDictionaryGetValue(v29, @"Name");
     if (!v32)
     {
       goto LABEL_159;
     }
 
-    CFStringGetCString(v32, buffer, 32, 0x600u);
-    v33 = PMSchemeSearchByDescriptor(buffer, &v88);
-    v34 = CFDictionaryGetValue(v31, @"Name");
-    if (!v34)
+    CFStringGetCString(v32, v101, 32, 0x600u);
+    fprintf(v7, "SCHEME: %i %s", v27 + 1, buffer);
+    if (v97 >= 2u)
     {
-      goto LABEL_159;
-    }
-
-    CFStringGetCString(v34, v103, 32, 0x600u);
-    fprintf(v8, "SCHEME: %i %s", v29 + 1, buffer);
-    if (v99 >= 2u)
-    {
-      fprintf(v8, ", %s [%d]", v103, v33);
-      v35 = v88;
-      if (v88)
+      fprintf(v7, ", %s [%d]", v101, v31);
+      v33 = v86;
+      if (v86)
       {
-        if (strcasecmp(v88, v103))
+        if (strcasecmp(v86, v101))
         {
-          fprintf(v8, " **official name varies. %s", v35);
+          fprintf(v7, " **official name varies. %s", v33);
         }
       }
     }
 
-    fputc(10, v8);
-    LOWORD(v100) = v33;
-    v93 = 0;
-    valuePtr = 0;
-    v90 = 0;
+    fputc(10, v7);
+    LOWORD(v98) = v31;
     v91 = 0;
+    valuePtr = 0;
+    v88 = 0;
     v89 = 0;
-    v111 = 0;
-    memset(v110, 0, sizeof(v110));
-    memset(v109, 0, sizeof(v109));
+    v87 = 0;
+    v109 = 0;
     memset(v108, 0, sizeof(v108));
+    memset(v107, 0, sizeof(v107));
+    memset(v106, 0, sizeof(v106));
     memset(out, 0, 38);
-    v36 = CFDictionaryGetValue(v31, @"Sections");
-    v83 = v29;
-    if (v36)
+    v34 = CFDictionaryGetValue(v29, @"Sections");
+    v81 = v27;
+    if (v34)
     {
-      v37 = v36;
-      v38 = CFArrayGetCount(v36);
-      if (v38 >= 1)
+      v35 = v34;
+      v36 = CFArrayGetCount(v34);
+      if (v36 >= 1)
       {
-        v39 = 0;
+        v37 = 0;
         memset(uu, 0, sizeof(uu));
-        v86 = v38 & 0x7FFFFFFF;
-        theArray = v37;
-        v85 = v38;
-        v84 = v38;
+        v84 = v36 & 0x7FFFFFFF;
+        theArray = v35;
+        v83 = v36;
+        v82 = v36;
         while (1)
         {
-          v40 = CFArrayGetValueAtIndex(theArray, v39);
-          UUID = v40;
-          if (v40)
+          v38 = CFArrayGetValueAtIndex(theArray, v37);
+          UUID = v38;
+          if (v38)
           {
             break;
           }
 
-          ++v39;
+          ++v37;
 LABEL_152:
-          if (v39 == v86)
+          if (v37 == v84)
           {
             goto LABEL_157;
           }
         }
 
-        if (CFDictionaryGetUUID(v40, @"GUID", uu))
+        if (CFDictionaryGetUUID(v38, @"GUID", uu))
         {
           uuid_clear(uu);
         }
@@ -5908,221 +5766,221 @@ LABEL_152:
           uuid_unparse(uu, out);
         }
 
-        v41 = CFDictionaryGetValue(UUID, @"ID");
+        v39 = CFDictionaryGetValue(UUID, @"ID");
+        if (v39)
+        {
+          CFStringGetCString(v39, v108, 40, 0x600u);
+        }
+
+        v40 = CFDictionaryGetValue(UUID, @"Type");
+        if (v40)
+        {
+          CFStringGetCString(v40, v106, 32, 0);
+        }
+
+        v41 = CFDictionaryGetValue(UUID, @"Name");
         if (v41)
         {
-          CFStringGetCString(v41, v110, 40, 0x600u);
+          CFStringGetCString(v41, v107, 32, 0);
         }
 
-        v42 = CFDictionaryGetValue(UUID, @"Type");
+        v42 = CFDictionaryGetValue(UUID, @"Overhead");
         if (v42)
         {
-          CFStringGetCString(v42, v108, 32, 0);
+          CFNumberGetValue(v42, kCFNumberSInt32Type, &valuePtr);
         }
 
-        v43 = CFDictionaryGetValue(UUID, @"Name");
-        if (v43)
+        fprintf(v7, "SECTION: %i", ++v37);
+        if (v83 != 1)
         {
-          CFStringGetCString(v43, v109, 32, 0);
+          fprintf(v7, " of %i", v82);
         }
 
-        v44 = CFDictionaryGetValue(UUID, @"Overhead");
-        if (v44)
+        fprintf(v7, " Type:'%s'", v108);
+        if (strcasecmp("MAP", v108))
         {
-          CFNumberGetValue(v44, kCFNumberSInt32Type, &valuePtr);
-        }
-
-        fprintf(v8, "SECTION: %i", ++v39);
-        if (v85 != 1)
-        {
-          fprintf(v8, " of %i", v84);
-        }
-
-        fprintf(v8, " Type:'%s'", v110);
-        if (strcasecmp("MAP", v110))
-        {
-          fprintf(v8, "; %s", v110);
-          if (LOBYTE(v108[0]))
+          fprintf(v7, "; %s", v108);
+          if (LOBYTE(v106[0]))
           {
-            fprintf(v8, ", Name:%s", v109);
+            fprintf(v7, ", Name:%s", v107);
           }
 
-          if (!strcasecmp("DDM", v110))
+          if (!strcasecmp("DDM", v108))
           {
-            fwrite("\n[ Not implemented ]", 0x14uLL, 1uLL, v8);
+            fwrite("\n[ Not implemented ]", 0x14uLL, 1uLL, v7);
           }
 
           UUID = 0;
           goto LABEL_151;
         }
 
-        v93 = 512;
-        v45 = CFDictionaryGetValue(UUID, @"Media Block Size");
-        if (v45)
+        v91 = 512;
+        v43 = CFDictionaryGetValue(UUID, @"Media Block Size");
+        if (v43)
         {
-          CFNumberGetValue(v45, kCFNumberSInt16Type, &v93);
+          CFNumberGetValue(v43, kCFNumberSInt16Type, &v91);
         }
 
-        v46 = CFDictionaryGetValue(UUID, @"Media Offset");
+        v44 = CFDictionaryGetValue(UUID, @"Media Offset");
+        if (v44)
+        {
+          CFNumberGetValue(v44, kCFNumberSInt64Type, &v87);
+        }
+
+        v45 = CFDictionaryGetValue(UUID, @"Media Block Count");
+        if (v45)
+        {
+          CFNumberGetValue(v45, kCFNumberSInt64Type, &v88);
+        }
+
+        v46 = CFDictionaryGetValue(UUID, @"Section Block Count");
         if (v46)
         {
           CFNumberGetValue(v46, kCFNumberSInt64Type, &v89);
         }
 
-        v47 = CFDictionaryGetValue(UUID, @"Media Block Count");
-        if (v47)
+        if (v88)
         {
-          CFNumberGetValue(v47, kCFNumberSInt64Type, &v90);
+          scalenumstr(v88 << 9, v104);
+          fprintf(v7, "; Size %s [%lld x %d]", v104, v89, 512);
         }
 
-        v48 = CFDictionaryGetValue(UUID, @"Section Block Count");
-        if (v48)
+        if (v97 >= 2u)
         {
-          CFNumberGetValue(v48, kCFNumberSInt64Type, &v91);
-        }
-
-        if (v90)
-        {
-          scalenumstr(v90 << 9, v106);
-          fprintf(v8, "; Size %s [%lld x %d]", v106, v91, 512);
-        }
-
-        if (v99 >= 2u)
-        {
-          fprintf(v8, "; Offset %lld Blocks (%lld", v89, v90);
+          fprintf(v7, "; Offset %lld Blocks (%lld", v87, v88);
           if (valuePtr)
           {
-            fprintf(v8, " + %u", valuePtr);
+            fprintf(v7, " + %u", valuePtr);
           }
 
-          fwrite(") x 512", 7uLL, 1uLL, v8);
-          if (v99 >= 2u && v93 != 512)
+          fwrite(") x 512", 7uLL, 1uLL, v7);
+          if (v97 >= 2u && v91 != 512)
           {
-            fprintf(v8, "; [Actual Blocksize %i]", v93);
+            fprintf(v7, "; [Actual Blocksize %i]", v91);
           }
         }
 
-        if ((v99 & 0x200000000) != 0)
+        if ((v97 & 0x200000000) != 0)
         {
-          fprintf(v8, "; UUID: %s\n", out);
+          fprintf(v7, "; UUID: %s\n", out);
         }
 
-        fputc(10, v8);
-        v49 = CFDictionaryGetValue(UUID, @"Partitions");
-        if (v49)
+        fputc(10, v7);
+        v47 = CFDictionaryGetValue(UUID, @"Partitions");
+        if (v47)
         {
-          v50 = v49;
-          v51 = CFArrayGetCount(v49);
-          UUID = v51;
-          if (v51)
+          v48 = v47;
+          v49 = CFArrayGetCount(v47);
+          UUID = v49;
+          if (v49)
           {
-            if (v99 < 2u)
+            if (v97 < 2u)
             {
-              fprintf(v8, "ID Type                 Size   Name             (%d)\n", v51);
-              v52 = "-- -------------------- ------ --------------------\n";
-              v53 = 52;
+              fprintf(v7, "ID Type                 Size   Name             (%d)\n", v49);
+              v50 = "-- -------------------- ------ --------------------\n";
+              v51 = 52;
             }
 
             else
             {
-              fwrite("ID Type                 Offset       Size         ", 0x32uLL, 1uLL, v8);
-              if ((v99 & 0x100000000) != 0)
+              fwrite("ID Type                 Offset       Size         ", 0x32uLL, 1uLL, v7);
+              if ((v97 & 0x100000000) != 0)
               {
-                fwrite("End          ", 0xDuLL, 1uLL, v8);
+                fwrite("End          ", 0xDuLL, 1uLL, v7);
               }
 
-              fprintf(v8, "Name                      (%i)\n", UUID);
-              fwrite("-- -------------------- ------------ ------------", 0x31uLL, 1uLL, v8);
-              if ((v99 & 0x100000000) != 0)
+              fprintf(v7, "Name                      (%i)\n", UUID);
+              fwrite("-- -------------------- ------------ ------------", 0x31uLL, 1uLL, v7);
+              if ((v97 & 0x100000000) != 0)
               {
-                fwrite(" ------------", 0xDuLL, 1uLL, v8);
+                fwrite(" ------------", 0xDuLL, 1uLL, v7);
               }
 
-              v52 = " -------------------- --------\n";
-              v53 = 31;
+              v50 = " -------------------- --------\n";
+              v51 = 31;
             }
 
-            fwrite(v52, v53, 1uLL, v8);
-            v97 = 0;
+            fwrite(v50, v51, 1uLL, v7);
             v95 = 0;
-            v96 = 0;
-            v114 = 0;
-            *v113 = 0;
+            v93 = 0;
             v94 = 0;
-            v54 = v89;
+            v112 = 0;
+            *v111 = 0;
+            v92 = 0;
+            v52 = v87;
             if (UUID < 1)
             {
               UUID = 0;
 LABEL_143:
-              if (v99 >= 2u && (v99 & 0x400000000) != 0)
+              if (v97 >= 2u && (v97 & 0x400000000) != 0)
               {
-                v79 = v90 + v89;
-                v80 = v90 + v89 - v54;
-                if (v80 >= 1 && (v80 > 0xF || (v99 & 0x800000000) != 0))
+                v77 = v88 + v87;
+                v78 = v88 + v87 - v52;
+                if (v78 >= 1 && (v78 > 0xF || (v97 & 0x800000000) != 0))
                 {
-                  fprintf(v8, "   %-20s %12llu %12llu", "Free", v54, v90 + v89 - v54);
-                  if ((v99 & 0x100000000) != 0)
+                  fprintf(v7, "   %-20s %12llu %12llu", "Free", v52, v88 + v87 - v52);
+                  if ((v97 & 0x100000000) != 0)
                   {
-                    fprintf(v8, " %12llu", v79 - 1);
+                    fprintf(v7, " %12llu", v77 - 1);
                   }
 
-                  fputc(10, v8);
+                  fputc(10, v7);
                 }
               }
 
               goto LABEL_151;
             }
 
-            v55 = 0;
-            v56 = UUID & 0x7FFFFFFF;
+            v53 = 0;
+            v54 = UUID & 0x7FFFFFFF;
             while (1)
             {
-              LOBYTE(v117) = 0;
-              v116[0] = 0;
-              v115[0] = 0;
-              v97 = 0;
+              LOBYTE(v115) = 0;
+              v114[0] = 0;
+              v113[0] = 0;
               v95 = 0;
-              v96 = 0;
+              v93 = 0;
               v94 = 0;
-              v57 = CFArrayGetValueAtIndex(v50, v55);
-              if (v57)
+              v92 = 0;
+              v55 = CFArrayGetValueAtIndex(v48, v53);
+              if (v55)
               {
                 break;
               }
 
               UUID = 0xFFFFFFFFLL;
 LABEL_140:
-              if (v56 == ++v55)
+              if (v54 == ++v53)
               {
                 goto LABEL_143;
               }
             }
 
-            v58 = v57;
-            v59 = CFDictionaryGetValue(v57, @"Partition ID");
-            if (v59)
+            v56 = v55;
+            v57 = CFDictionaryGetValue(v55, @"Partition ID");
+            if (v57)
             {
-              CFNumberGetValue(v59, kCFNumberIntType, &v97);
+              CFNumberGetValue(v57, kCFNumberIntType, &v95);
             }
 
-            v60 = CFDictionaryGetValue(v58, @"Type");
-            if (v60)
+            v58 = CFDictionaryGetValue(v56, @"Type");
+            if (v58)
             {
-              v61 = v60;
+              v59 = v58;
               TypeID = CFStringGetTypeID();
-              if (TypeID != CFGetTypeID(v61))
+              if (TypeID != CFGetTypeID(v59))
               {
-                v117 = *"Bad type";
-                v118 = unk_2586A08A0;
-                v119 = xmmword_2586A08B0;
-                v120 = unk_2586A08C0;
-                v94 = 7;
+                v115 = *"Bad type";
+                v116 = unk_2586A08A0;
+                v117 = xmmword_2586A08B0;
+                v118 = unk_2586A08C0;
+                v92 = 7;
                 UUID = 0xFFFFFFFFLL;
                 goto LABEL_104;
               }
 
-              CFStringGetCString(v61, v116, 64, 0x600u);
-              UUID = MKTypeClassify(v100, v61, 0, &v94, 0, 0);
+              CFStringGetCString(v59, v114, 64, 0x600u);
+              UUID = MKTypeClassify(v98, v59, 0, &v92, 0, 0);
             }
 
             else
@@ -6130,124 +5988,124 @@ LABEL_140:
               UUID = 0xFFFFFFFFLL;
             }
 
-            if (v94 == 3)
+            if (v92 == 3)
             {
-              v63 = "Explicit Record";
+              v61 = "Explicit Record";
               goto LABEL_108;
             }
 
 LABEL_104:
-            v64 = CFDictionaryGetValue(v58, @"Name");
-            if (!v64)
+            v62 = CFDictionaryGetValue(v56, @"Name");
+            if (!v62)
             {
               goto LABEL_109;
             }
 
-            v65 = v64;
-            v66 = CFStringGetTypeID();
-            if (v66 == CFGetTypeID(v65))
+            v63 = v62;
+            v64 = CFStringGetTypeID();
+            if (v64 == CFGetTypeID(v63))
             {
-              CFStringGetCString(v65, &v117, 64, 0x600u);
+              CFStringGetCString(v63, &v115, 64, 0x600u);
               goto LABEL_109;
             }
 
-            v63 = "Bad name";
+            v61 = "Bad name";
 LABEL_108:
-            v67 = *(v63 + 1);
-            v117 = *v63;
-            v118 = v67;
-            v68 = *(v63 + 3);
-            v119 = *(v63 + 2);
-            v120 = v68;
+            v65 = *(v61 + 1);
+            v115 = *v61;
+            v116 = v65;
+            v66 = *(v61 + 3);
+            v117 = *(v61 + 2);
+            v118 = v66;
 LABEL_109:
-            v69 = CFDictionaryGetValue(v58, @"Offset");
-            if (v69)
+            v67 = CFDictionaryGetValue(v56, @"Offset");
+            if (v67)
             {
-              v70 = v69;
-              v71 = CFNumberGetTypeID();
-              if (v71 == CFGetTypeID(v70))
+              v68 = v67;
+              v69 = CFNumberGetTypeID();
+              if (v69 == CFGetTypeID(v68))
               {
-                CFNumberGetValue(v70, kCFNumberSInt64Type, &v96);
+                CFNumberGetValue(v68, kCFNumberSInt64Type, &v94);
               }
             }
 
-            v72 = CFDictionaryGetValue(v58, @"Size");
-            if (v72)
+            v70 = CFDictionaryGetValue(v56, @"Size");
+            if (v70)
             {
-              v73 = v72;
-              v74 = CFNumberGetTypeID();
-              if (v74 == CFGetTypeID(v73))
+              v71 = v70;
+              v72 = CFNumberGetTypeID();
+              if (v72 == CFGetTypeID(v71))
               {
-                CFNumberGetValue(v73, kCFNumberSInt64Type, &v95);
+                CFNumberGetValue(v71, kCFNumberSInt64Type, &v93);
               }
             }
 
-            v75 = v96;
-            if (v96 <= v54)
+            v73 = v94;
+            if (v94 <= v52)
             {
-              v76 = v54;
-            }
-
-            else
-            {
-              v76 = v96;
-            }
-
-            if (v99 < 2u)
-            {
-              v78 = v97;
-              scalenumstr(v95 << 9, v112);
-              fprintf(v8, "%2i %-20.20s %6s", v78, v116, v112);
-              if (v117 && strcasecmp("untitled", &v117))
-              {
-                fprintf(v8, " %-20.20s");
-              }
+              v74 = v52;
             }
 
             else
             {
-              if ((v99 & 0x400000000) != 0 && (v76 - v54) >= 1 && (v76 - v54 > 0x1F || (v99 & 0x800000000) != 0))
+              v74 = v94;
+            }
+
+            if (v97 < 2u)
+            {
+              v76 = v95;
+              scalenumstr(v93 << 9, v110);
+              fprintf(v7, "%2i %-20.20s %6s", v76, v114, v110);
+              if (v115 && strcasecmp("untitled", &v115))
               {
-                fprintf(v8, "   %-20s %12llu %12llu", "Free", v54, v76 - v54);
-                if ((v99 & 0x100000000) != 0)
+                fprintf(v7, " %-20.20s");
+              }
+            }
+
+            else
+            {
+              if ((v97 & 0x400000000) != 0 && (v74 - v52) >= 1 && (v74 - v52 > 0x1F || (v97 & 0x800000000) != 0))
+              {
+                fprintf(v7, "   %-20s %12llu %12llu", "Free", v52, v74 - v52);
+                if ((v97 & 0x100000000) != 0)
                 {
-                  fprintf(v8, " %12llu", v76 - 1);
+                  fprintf(v7, " %12llu", v74 - 1);
                 }
 
-                fputc(10, v8);
-                v75 = v96;
+                fputc(10, v7);
+                v73 = v94;
               }
 
-              fprintf(v8, "%2i %-20.20s %12llu %12llu", v97, v116, v75, v95);
-              if ((v99 & 0x100000000) != 0)
+              fprintf(v7, "%2i %-20.20s %12llu %12llu", v95, v114, v73, v93);
+              if ((v97 & 0x100000000) != 0)
               {
-                v77 = v95 - 1;
-                if (!v95)
+                v75 = v93 - 1;
+                if (!v93)
                 {
-                  v77 = 0;
+                  v75 = 0;
                 }
 
-                fprintf(v8, " %12llu", v77 + v96);
+                fprintf(v7, " %12llu", v75 + v94);
               }
 
-              if (v117 && strcasecmp("untitled", &v117))
+              if (v115 && strcasecmp("untitled", &v115))
               {
-                fprintf(v8, " %-20.20s", &v117);
+                fprintf(v7, " %-20.20s", &v115);
               }
 
-              if ((v99 & 0x200000000) != 0)
+              if ((v97 & 0x200000000) != 0)
               {
-                UUID = CFDictionaryGetUUID(v58, @"GUID", v113);
-                uuid_unparse(v113, v115);
-                if (!uuid_is_null(v113))
+                UUID = CFDictionaryGetUUID(v56, @"GUID", v111);
+                uuid_unparse(v111, v113);
+                if (!uuid_is_null(v111))
                 {
-                  fprintf(v8, " %36s");
+                  fprintf(v7, " %36s");
                 }
               }
             }
 
-            fputc(10, v8);
-            v54 = v95 + v96;
+            fputc(10, v7);
+            v52 = v93 + v94;
             goto LABEL_140;
           }
         }
@@ -6258,30 +6116,28 @@ LABEL_109:
         }
 
 LABEL_151:
-        fputc(10, v8);
+        fputc(10, v7);
         goto LABEL_152;
       }
     }
 
     UUID = 22;
 LABEL_157:
-    v29 = v83 + 1;
-    v27 = v81;
+    v27 = v81 + 1;
+    v25 = v79;
   }
 
-  while (v83 + 1 < v82);
+  while (v81 + 1 < v80);
   if (UUID == -1)
   {
 LABEL_159:
     UUID = *__error();
     if (UUID == -1)
     {
-      UUID = *__error();
+      return *__error();
     }
   }
 
-LABEL_26:
-  v24 = *MEMORY[0x277D85DE8];
   return UUID;
 }
 
@@ -6327,7 +6183,7 @@ uint64_t MKShowMedia(const __CFDictionary *a1, uint64_t a2, FILE *a3)
   return v7;
 }
 
-uint64_t MKMediaCreateWithEmbeddedHFSPlus(uint64_t result, int *a2)
+void *MKMediaCreateWithEmbeddedHFSPlus(void *result, int *a2)
 {
   v7 = -50;
   if (result)
@@ -6368,11 +6224,11 @@ uint64_t MKMediaCreateWithEmbeddedHFSPlus(uint64_t result, int *a2)
 
 uint64_t MKStartupFileCreate(const void *a1, CFDictionaryRef theDict)
 {
-  v27[10] = *MEMORY[0x277D85DE8];
+  v26[10] = *MEMORY[0x277D85DE8];
   valuePtr = -1;
   if (!theDict)
   {
-    goto LABEL_12;
+    return 4294967246;
   }
 
   Value = CFDictionaryGetValue(theDict, @"Data");
@@ -6382,7 +6238,7 @@ uint64_t MKStartupFileCreate(const void *a1, CFDictionaryRef theDict)
     v6 = CFGetTypeID(Value);
     if (v6 != CFDataGetTypeID())
     {
-      goto LABEL_12;
+      return 4294967246;
     }
   }
 
@@ -6393,7 +6249,7 @@ uint64_t MKStartupFileCreate(const void *a1, CFDictionaryRef theDict)
     v9 = CFGetTypeID(v7);
     if (v9 != CFNumberGetTypeID() || !CFNumberGetValue(v8, kCFNumberSInt64Type, &valuePtr))
     {
-      goto LABEL_12;
+      return 4294967246;
     }
   }
 
@@ -6409,9 +6265,7 @@ uint64_t MKStartupFileCreate(const void *a1, CFDictionaryRef theDict)
         goto LABEL_15;
       }
 
-LABEL_12:
-      result = 4294967246;
-      goto LABEL_13;
+      return 4294967246;
     }
 
     valuePtr = Length;
@@ -6420,86 +6274,83 @@ LABEL_12:
 
   else if (valuePtr == -1)
   {
-    goto LABEL_12;
+    return 4294967246;
   }
 
 LABEL_15:
-  v24 = 0;
+  v23 = 0;
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
-  result = MKReadHFSMDBVHB(a1, &v24, __src, &v22, &v21);
-  v23 = result;
+  result = MKReadHFSMDBVHB(a1, &v23, __src, &v21, &v20);
+  v22 = result;
   if (result)
   {
-    goto LABEL_13;
+    return result;
   }
 
-  if (v24 == 4)
+  if (v23 == 4)
   {
     goto LABEL_19;
   }
 
-  if (v24 != 3)
+  if (v23 != 3)
   {
-    if (v24 != 2)
+    if (v23 != 2)
     {
-      result = 4294967173;
-      goto LABEL_13;
+      return 4294967173;
     }
 
 LABEL_19:
-    v14 = CFRetain(a1);
+    v13 = CFRetain(a1);
     goto LABEL_20;
   }
 
-  v14 = MKMediaCreateWithSubRange(*MEMORY[0x277CBECE8], a1, v22, v21, &v23);
-  result = v23;
-  if (!v23)
+  v13 = MKMediaCreateWithSubRange(*MEMORY[0x277CBECE8], a1, v21, v20, &v22);
+  result = v22;
+  if (!v22)
   {
 LABEL_20:
-    result = HFSAllocateSpace(v14, __src, v27, v10);
-    v23 = result;
+    result = HFSAllocateSpace(v13, __src, v26, v10);
+    v22 = result;
     if (!result)
     {
-      v15 = v10 / v26;
-      if (v10 % v26)
+      v14 = v10 / v25;
+      if (v10 % v25)
       {
-        ++v15;
+        ++v14;
       }
 
-      if (!v15)
+      if (!v14)
       {
         goto LABEL_27;
       }
 
-      v16 = v15 * v26;
-      v17 = malloc_type_calloc(v16, 1uLL, 0x100004077774924uLL);
+      v15 = v14 * v25;
+      v16 = malloc_type_calloc(v15, 1uLL, 0x100004077774924uLL);
       if (v5)
       {
         BytePtr = CFDataGetBytePtr(v5);
-        v19 = CFDataGetLength(v5);
-        memcpy(v17, BytePtr, v19);
+        v18 = CFDataGetLength(v5);
+        memcpy(v16, BytePtr, v18);
       }
 
-      result = MKHFSWriteFile(v14, __src, v27, 0, v16, v17);
-      v23 = result;
+      result = MKHFSWriteFile(v13, __src, v26, 0, v15, v16);
+      v22 = result;
       if (!result)
       {
 LABEL_27:
-        result = MKWriteHFSMDBVHB(v14, v24, __src, v22, v21);
-        v23 = result;
+        result = MKWriteHFSMDBVHB(v13, v23, __src, v21, v20);
+        v22 = result;
       }
     }
   }
 
-  if (v14)
+  if (v13)
   {
-    CFRelease(v14);
-    result = v23;
+    CFRelease(v13);
+    return v22;
   }
 
-LABEL_13:
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6638,14 +6489,13 @@ uint64_t ntfs_show_attr(uint64_t a1)
   puts("\nAttribute");
   printf("type            %8X\n", *a1);
   printf("record length   %8X\n", *(a1 + 4));
-  v3 = *(a1 + 8);
-  v4 = "non-resident";
+  v3 = "non-resident";
   if (!v2)
   {
-    v4 = "resident";
+    v3 = "resident";
   }
 
-  printf("flags           %8X %12s\n", *(a1 + 8), v4);
+  printf("flags           %8X %12s\n", *(a1 + 8), v3);
   if (*(a1 + 9))
   {
     printf("name %2i        %s\n", *(a1 + 9), (a1 + *(a1 + 10)));
@@ -6690,7 +6540,6 @@ uint64_t ntfs_show_attr(uint64_t a1)
 
     if (*(a1 + 56))
     {
-      v6 = *(a1 + 56);
       return printf("initialized     %8lli\n");
     }
   }
@@ -6706,7 +6555,6 @@ uint64_t ntfs_show_attr(uint64_t a1)
     result = printf("offset          %8i\n", *(a1 + 20));
     if (*(a1 + 22))
     {
-      v7 = *(a1 + 22);
       return printf("indexed         %8i\n");
     }
   }
@@ -6751,76 +6599,101 @@ uint64_t MKRecordNTFSRuns()
   v4 = v3;
   v6 = v5;
   v7 = v0;
-  v76 = *MEMORY[0x277D85DE8];
-  v59 = 0;
-  v60 = 0;
+  v75 = *MEMORY[0x277D85DE8];
   v58 = 0;
-  memset(v57, 0, sizeof(v57));
+  v59 = 0;
+  v57 = 0;
+  memset(v56, 0, sizeof(v56));
+  v53 = 0;
   v54 = 0;
   v55 = 0;
-  v56 = 0;
-  v64 = 0u;
-  memset(v65, 0, 272);
-  v62 = 0u;
   v63 = 0u;
+  memset(v64, 0, 272);
   v61 = 0u;
-  v53 = 0;
-  Blocks = MKMediaReadBlocks(v0, 0, 1, 0x800u, &v66, 0);
+  v62 = 0u;
+  v60 = 0u;
+  v52 = 0;
+  Blocks = MKMediaReadBlocks(v0, 0, 1, 0x800u, v65, 0);
   if (Blocks)
   {
     goto LABEL_2;
   }
 
-  MKDetectNTFS(Blocks, &v66, &v53, 0, 0);
-  if (v53 < 5000)
+  MKDetectNTFS(Blocks, v65, &v52, 0, 0);
+  if (v52 < 5000)
   {
     v10 = 0;
     v9 = 4294967173;
     goto LABEL_6;
   }
 
-  MKMediaGetGeometry(v7, v57);
+  MKMediaGetGeometry(v7, v56);
   v10 = 0;
-  LOWORD(v61) = 4;
-  LODWORD(v62) = LODWORD(v57[0]) >> 9;
-  *(&v62 + 1) = *(&v57[0] + 1) * (LODWORD(v57[0]) >> 9);
-  *&v63 = *(&v62 + 1);
+  LOWORD(v60) = 4;
+  LODWORD(v61) = LODWORD(v56[0]) >> 9;
+  *(&v61 + 1) = *(&v56[0] + 1) * (LODWORD(v56[0]) >> 9);
+  *&v62 = *(&v61 + 1);
   v9 = 22;
-  if ((v68 + 0x7FFF) >= 0x81FFu && ((v68 - 1) & v68) == 0)
+  if ((v67 + 0x7FFF) >= 0x81FFu && ((v67 - 1) & v67) == 0)
   {
-    if (!v69)
+    if (!v68)
     {
       goto LABEL_3;
     }
 
     v10 = 0;
-    if (v69 <= 0x80u && ((v69 - 1) & v69) == 0)
+    if (v68 <= 0x80u && ((v68 - 1) & v68) == 0)
     {
-      v13 = v69 * v68;
-      if (v13 > 0x10000)
+      v12 = v68 * v67;
+      if (v12 > 0x10000)
       {
         goto LABEL_3;
       }
 
-      v14 = v69 / (v68 >> 9);
-      v15 = v71 / v69;
-      HIDWORD(v61) = v68 >> 9;
-      *(&v63 + 1) = v15 * v14;
-      if (v15 * v14 < 0x40)
+      v13 = v68 / (v67 >> 9);
+      v14 = v70 / v68;
+      HIDWORD(v60) = v67 >> 9;
+      *(&v62 + 1) = v14 * v13;
+      if (v14 * v13 < 0x40)
       {
         goto LABEL_3;
       }
 
       v10 = 0;
-      v16 = (*(&v57[0] + 1) * (LODWORD(v57[0]) >> 9)) / (v15 * v14);
-      if (v16 <= 1000.0 && v16 >= 0.001)
+      v15 = (*(&v56[0] + 1) * (LODWORD(v56[0]) >> 9)) / (v14 * v13);
+      if (v15 <= 1000.0 && v15 >= 0.001)
       {
         v10 = 0;
-        if (v72 <= v15 && v73 <= v15)
+        if (v71 <= v14 && v72 <= v14)
         {
+          if (v73 < 0)
+          {
+            if (v73 < 0xFFFFFFF2)
+            {
+              goto LABEL_3;
+            }
+
+            v16 = 1 << -v73;
+          }
+
+          else
+          {
+            if (v73 > 0x40)
+            {
+              goto LABEL_3;
+            }
+
+            v16 = v12 * v73;
+          }
+
+          if ((v16 & (v16 - 1)) != 0)
+          {
+            goto LABEL_3;
+          }
+
           if (v74 < 0)
           {
-            if (v74 < 0xFFFFFFF2)
+            if (v74 < 0xFFFFFFF0)
             {
               goto LABEL_3;
             }
@@ -6835,7 +6708,7 @@ uint64_t MKRecordNTFSRuns()
               goto LABEL_3;
             }
 
-            v17 = v13 * v74;
+            v17 = v12 * v74;
           }
 
           if ((v17 & (v17 - 1)) != 0)
@@ -6843,84 +6716,59 @@ uint64_t MKRecordNTFSRuns()
             goto LABEL_3;
           }
 
-          if (v75 < 0)
+          v51 = v68 / (v67 >> 9);
+          v18 = v71 * v13;
+          v19 = v16 / v67;
+          if (v16 % v67)
           {
-            if (v75 < 0xFFFFFFF0)
-            {
-              goto LABEL_3;
-            }
-
-            v18 = 1 << -v75;
+            LOWORD(v19) = v19 + 1;
           }
 
-          else
-          {
-            if (v75 > 0x40)
-            {
-              goto LABEL_3;
-            }
-
-            v18 = v13 * v75;
-          }
-
-          if ((v18 & (v18 - 1)) != 0)
-          {
-            goto LABEL_3;
-          }
-
-          v52 = v69 / (v68 >> 9);
-          v19 = v72 * v14;
-          v20 = v17 / v68;
-          if (v17 % v68)
-          {
-            LOWORD(v20) = v20 + 1;
-          }
-
-          v21 = v20;
-          v22 = v68;
-          Blocks = MKMediaReadBlocks(v7, v19 + 2 * v21 + v20, v21, v68, &v66, 0);
+          v20 = v19;
+          v21 = v67;
+          Blocks = MKMediaReadBlocks(v7, v18 + 2 * v20 + v19, v20, v67, v65, 0);
           if (Blocks)
           {
             goto LABEL_2;
           }
 
-          v23 = v17;
-          if (ntfs_fixup(&v66, v17, v22))
+          v22 = v16;
+          if (ntfs_fixup(v65, v16, v21))
           {
             goto LABEL_40;
           }
 
-          v24 = v70;
-          v25 = &v66 + v17;
-          v26 = &v25[-2 * (v67 & 0x7FFF)];
-          if (&v66 + v70 < v26)
+          v23 = v69;
+          v24 = &v65[v16];
+          v25 = &v24[-2 * (v66 & 0x7FFF)];
+          if (&v65[v69] < v25)
           {
-            v27 = v70;
+            v26 = v69;
             while (1)
             {
-              v28 = (&v66 + v24);
-              v29 = *(&v66 + v24);
-              if (v29 == -1)
+              v27 = &v65[v23];
+              v28 = *&v65[v23];
+              if (v28 == -1)
               {
                 goto LABEL_49;
               }
 
-              if (v29 == 96)
+              if (v28 == 96)
               {
                 break;
               }
 
-              v27 += v28[2];
-              v24 = v27;
-              if (&v66 + v27 >= v26)
+              v26 += v27[2];
+              v23 = v26;
+              if (&v65[v26] >= v25)
               {
                 goto LABEL_49;
               }
             }
 
-            v30 = v24 + v28[10];
-            v31 = v28[8];
-            if ((v30 + v31) > 0x8000)
+            v29 = v23 + v27[10];
+            v30 = v27[8];
+            if ((v29 + v30) > 0x8000)
             {
 LABEL_40:
               v10 = 0;
@@ -6928,11 +6776,11 @@ LABEL_40:
               goto LABEL_6;
             }
 
-            uniconvert(&v65[3], 256, 0x8000100u, 0, &v66 + v30, v31, 0x14000100u, 1u);
+            uniconvert(&v64[3], 256, 0x8000100u, 0, &v65[v29], v30, 0x14000100u, 1u);
           }
 
 LABEL_49:
-          Blocks = MKMediaReadBlocks(v7, v19 + (6 * v21), v21, v22, &v66, 0);
+          Blocks = MKMediaReadBlocks(v7, v18 + (6 * v20), v20, v21, v65, 0);
           if (Blocks)
           {
 LABEL_2:
@@ -6942,101 +6790,101 @@ LABEL_3:
             goto LABEL_6;
           }
 
-          if (ntfs_fixup(&v66, v23, v22))
+          if (ntfs_fixup(v65, v22, v21))
           {
             goto LABEL_40;
           }
 
-          v32 = v70;
-          v33 = &v25[-2 * (v67 & 0x7FFF)];
-          v34 = &v66 + v70;
-          if (v34 < v33)
+          v31 = v69;
+          v32 = &v24[-2 * (v66 & 0x7FFF)];
+          v33 = &v65[v69];
+          if (v33 < v32)
           {
             v9 = 2;
             while (1)
             {
-              if (*v34 == -1)
+              if (*v33 == -1)
               {
                 goto LABEL_57;
               }
 
-              if (*v34 == 128)
+              if (*v33 == 128)
               {
                 break;
               }
 
               v10 = 0;
-              v32 += *(v34 + 2);
-              v34 = &v66 + v32;
-              if (v34 >= v33)
+              v31 += *(v33 + 2);
+              v33 = &v65[v31];
+              if (v33 >= v32)
               {
                 goto LABEL_6;
               }
             }
 
-            v35 = *(v34 + 16);
-            if (*(v34 + 2) <= v35)
+            v34 = *(v33 + 16);
+            if (*(v33 + 2) <= v34)
             {
               goto LABEL_40;
             }
 
-            ntfs_runtovrun(&v59, &v58, &v60, &v34[v35]);
-            v36 = v4(v2, 0, 0);
-            v10 = v59;
-            if (v36)
+            ntfs_runtovrun(&v58, &v57, &v59, &v33[v34]);
+            v35 = v4(v2, 0, 0);
+            v10 = v58;
+            if (v35)
             {
-              v9 = v36;
+              v9 = v35;
               goto LABEL_6;
             }
 
-            v37 = *v59;
-            v51 = malloc_type_malloc(0x2000uLL, 0x1497D878uLL);
-            if (!v51)
+            v36 = *v58;
+            v50 = malloc_type_malloc(0x2000uLL, 0x1497D878uLL);
+            if (!v50)
             {
               v9 = 0xFFFFFFFFLL;
               goto LABEL_6;
             }
 
-            v38 = *(v34 + 6);
-            if ((v38 & 0x1FF) != 0)
+            v37 = *(v33 + 6);
+            if ((v37 & 0x1FF) != 0)
             {
-              v39 = ((v38 >> 9) & 0xFFFFFFFFFFFFFLL) + 1;
+              v38 = ((v37 >> 9) & 0xFFFFFFFFFFFFFLL) + 1;
             }
 
             else
             {
-              v39 = (v38 >> 9) & 0xFFFFFFFFFFFFFLL;
+              v38 = (v37 >> 9) & 0xFFFFFFFFFFFFFLL;
             }
 
-            v50 = v39;
+            v49 = v38;
             if ((v6 & 0x40003) == 0)
             {
               goto LABEL_96;
             }
 
-            if (v39)
+            if (v38)
             {
-              v48 = v37 * v52;
-              v49 = 0;
+              v47 = v36 * v51;
+              v48 = 0;
 LABEL_68:
-              v40 = MKMediaReadBlocks(v7, v49 + v48, 16, 0x200u, v51, 0);
-              if (v40)
+              v39 = MKMediaReadBlocks(v7, v48 + v47, 16, 0x200u, v50, 0);
+              if (v39)
               {
 LABEL_99:
-                v9 = v40;
+                v9 = v39;
 LABEL_89:
-                if (v56)
+                if (v55)
                 {
-                  if (((v54 + 1) & v6) != 0)
+                  if (((v53 + 1) & v6) != 0)
                   {
-                    v9 = v4(v2, 1, &v54);
+                    v9 = v4(v2, 1, &v53);
                   }
 
                   if (v9)
                   {
 LABEL_97:
                     v4(v2, 4, 0);
-                    free(v51);
+                    free(v50);
                     if (v10)
                     {
                       goto LABEL_7;
@@ -7045,81 +6893,81 @@ LABEL_97:
                     goto LABEL_8;
                   }
 
-                  v47 = v55 + v56;
-                  v55 += v56;
-                  v56 = 0;
-                  if (v54 == 1 && v47 > *(&v64 + 1))
+                  v46 = v54 + v55;
+                  v54 += v55;
+                  v55 = 0;
+                  if (v53 == 1 && v46 > *(&v63 + 1))
                   {
-                    *(&v64 + 1) = v47;
+                    *(&v63 + 1) = v46;
                   }
                 }
 
 LABEL_96:
-                v65[2] = *(&v64 + 1) / (*(&v63 + 1) - v64);
-                v9 = v4(v2, 3, &v61);
+                v64[2] = *(&v63 + 1) / (*(&v62 + 1) - v63);
+                v9 = v4(v2, 3, &v60);
                 goto LABEL_97;
               }
 
-              v41 = 0;
-              v42 = v54;
-              v43 = v56;
+              v40 = 0;
+              v41 = v53;
+              v42 = v55;
 LABEL_70:
-              v44 = 0;
+              v43 = 0;
               while (1)
               {
-                v45 = (*&v51[8 * v41] >> v44) & 1;
-                if (v45 != v42)
+                v44 = (*&v50[8 * v40] >> v43) & 1;
+                if (v44 != v41)
                 {
-                  if (v43)
+                  if (v42)
                   {
-                    if (!v42)
+                    if (!v41)
                     {
-                      *&v64 = v64 + v43;
+                      *&v63 = v63 + v42;
                     }
 
-                    if (((v42 + 1) & v6) != 0)
+                    if (((v41 + 1) & v6) != 0)
                     {
-                      v40 = v4(v2, 1, &v54);
-                      if (v40)
+                      v39 = v4(v2, 1, &v53);
+                      if (v39)
                       {
                         goto LABEL_99;
                       }
 
-                      v43 = v56;
-                      v42 = v54;
+                      v42 = v55;
+                      v41 = v53;
                     }
 
-                    v46 = v55 + v43;
-                    v55 = v46;
-                    v56 = 0;
-                    if (v42 == 1 && v46 > *(&v64 + 1))
+                    v45 = v54 + v42;
+                    v54 = v45;
+                    v55 = 0;
+                    if (v41 == 1 && v45 > *(&v63 + 1))
                     {
-                      *(&v64 + 1) = v46;
+                      *(&v63 + 1) = v45;
                     }
                   }
 
-                  v43 = 0;
-                  LOWORD(v54) = v45;
-                  v42 = v45;
+                  v42 = 0;
+                  LOWORD(v53) = v44;
+                  v41 = v44;
                 }
 
-                if (v43 + v55 >= *(&v63 + 1))
+                if (v42 + v54 >= *(&v62 + 1))
                 {
                   break;
                 }
 
-                v43 += v52;
-                v56 = v43;
-                if (++v44 == 64)
+                v42 += v51;
+                v55 = v42;
+                if (++v43 == 64)
                 {
-                  if (++v41 != 1024)
+                  if (++v40 != 1024)
                   {
                     goto LABEL_70;
                   }
 
                   v9 = 0;
-                  v49 += 16;
-                  if (v50 > v49)
+                  v48 += 16;
+                  if (v49 > v48)
                   {
                     goto LABEL_68;
                   }
@@ -7150,32 +6998,30 @@ LABEL_7:
   }
 
 LABEL_8:
-  if (v58)
+  if (v57)
   {
-    free(v58);
+    free(v57);
   }
 
   if (v9 == -1)
   {
-    v9 = *__error();
+    return *__error();
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-uint64_t ntfs_fixup(unsigned int *a1, unint64_t a2, unsigned int a3)
+uint64_t ntfs_fixup(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   if (*a1 == 1162627398)
   {
-    v3 = *(a1 + 3);
+    v3 = *(a1 + 6);
     if ((v3 - 1) * a3 == a2)
     {
-      v4 = *(a1 + 2);
+      v4 = *(a1 + 4);
       if (v4 >= a2)
       {
-        v12 = *(a1 + 2);
-        printf("ntfs_fixup: invalid offset: %x");
+        printf("ntfs_fixup: invalid offset: %x", a2, a3);
       }
 
       else
@@ -7199,21 +7045,19 @@ uint64_t ntfs_fixup(unsigned int *a1, unint64_t a2, unsigned int a3)
           }
         }
 
-        printf("ntfs_fixup: fixup %d doesn't match\n");
+        printf("ntfs_fixup: fixup %d doesn't match\n", a2, a3);
       }
     }
 
     else
     {
-      v11 = *(a1 + 3);
-      printf("ntfs_fixup: bad fixups number: %d for %ld bytes block\n");
+      printf("ntfs_fixup: bad fixups number: %d for %ld bytes block\n", a2, a3);
     }
   }
 
   else
   {
-    v10 = *a1;
-    printf("ntfs_fixup: magic doesn't match: %08x != %08x\n");
+    printf("ntfs_fixup: magic doesn't match: %08x != %08x\n", a2, a3);
   }
 
   return 22;
@@ -7346,19 +7190,18 @@ CFMutableDictionaryRef MKCFCreateNTFSInfo(uint64_t a1, const __CFDictionary *a2,
     *v5 = FSConvertOptions(a2);
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     v6[1] = Mutable;
-    v8 = *v6;
-    v9 = MKRecordNTFSRuns();
-    if (v9)
+    v8 = MKRecordNTFSRuns();
+    if (v8)
     {
-      v10 = Mutable == 0;
+      v9 = Mutable == 0;
     }
 
     else
     {
-      v10 = 1;
+      v9 = 1;
     }
 
-    if (!v10)
+    if (!v9)
     {
       CFRelease(Mutable);
       Mutable = 0;
@@ -7367,15 +7210,15 @@ CFMutableDictionaryRef MKCFCreateNTFSInfo(uint64_t a1, const __CFDictionary *a2,
     free(v6);
     if (a3)
     {
-      if (v9 != -1)
+      if (v8 != -1)
       {
 LABEL_12:
-        *a3 = v9;
+        *a3 = v8;
         return Mutable;
       }
 
 LABEL_11:
-      v9 = *__error();
+      v8 = *__error();
       goto LABEL_12;
     }
   }
@@ -7570,33 +7413,33 @@ uint64_t PMIndexCompare(uint64_t a1, uint64_t a2)
 
 uint64_t PMISODetect(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v18 = 0u;
-  memset(v17, 0, sizeof(v17));
-  v14 = 0;
+  v18 = *MEMORY[0x277D85DE8];
   v15 = 0;
+  v17 = 0u;
+  memset(v16, 0, sizeof(v16));
   v13 = 0;
+  v14 = 0;
+  v12 = 0;
   v4 = *(*a1 + 2);
-  v5 = MKMediaCreateWithBIOVector(0, a2, a3, 0, &v16);
-  v6 = v16;
-  if (!v16)
+  v5 = MKMediaCreateWithBIOVector(0, a2, a3, 0, &v15);
+  v6 = v15;
+  if (!v15)
   {
-    v6 = MKDetectISO(v5, &v14, &v15, v17);
-    v16 = v6;
-    if (v14)
+    v6 = MKDetectISO(v5, &v13, &v14, v16);
+    v15 = v6;
+    if (v13)
     {
       if (!v6)
       {
-        v7 = HIDWORD(v18);
-        if (WORD4(v18) && WORD4(v18) != v4)
+        v7 = HIDWORD(v17);
+        if (WORD4(v17) && WORD4(v17) != v4)
         {
-          v7 = HIDWORD(v18) * (WORD4(v18) >> 9) / (v4 >> 9);
+          v7 = HIDWORD(v17) * (WORD4(v17) >> 9) / (v4 >> 9);
         }
 
         v8 = *a1;
-        v9 = PMPSpecificIndex(*a1, 4097, 0, &v13);
-        v16 = v9;
+        v9 = PMPSpecificIndex(*a1, 4097, 0, &v12);
+        v15 = v9;
         if (v9)
         {
           v10 = 0;
@@ -7604,12 +7447,12 @@ uint64_t PMISODetect(uint64_t *a1, uint64_t a2, uint64_t a3)
 
         else
         {
-          v10 = *(v8 + 1072 * v13 + 540) + *(v8 + 1072 * v13 + 536);
+          v10 = *(v8 + 1072 * v12 + 540) + *(v8 + 1072 * v12 + 536);
           v7 -= v10;
         }
 
-        v6 = PMGenPartitionType(a1, 16393, v10, v7, v4, 2097171, v17, 0, 0xFFFFu);
-        v16 = v6;
+        v6 = PMGenPartitionType(a1, 16393, v10, v7, v4, 2097171, v16, 0, 0xFFFF);
+        v15 = v6;
       }
     }
   }
@@ -7617,24 +7460,23 @@ uint64_t PMISODetect(uint64_t *a1, uint64_t a2, uint64_t a3)
   if (v5)
   {
     CFRelease(v5);
-    v6 = v16;
+    return v15;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-uint64_t VReadPartitions(const void ***a1, unsigned int a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, unsigned __int16 *))
+uint64_t VReadPartitions(Handle *a1, unsigned int a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t *))
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v43 = 0;
+  v45 = *MEMORY[0x277D85DE8];
   v42 = 0;
   v41 = 0;
+  v40 = 0;
+  v37 = 0;
   v38 = 0;
   v39 = 0;
-  v40 = 0;
-  v45[0] = *"Single Volume";
-  v45[1] = unk_2586A0992;
+  v44[0] = *"Single Volume";
+  v44[1] = unk_2586A0992;
   if (a2 == 0xFFFF)
   {
     v7 = 3584;
@@ -7645,7 +7487,7 @@ uint64_t VReadPartitions(const void ***a1, unsigned int a2, uint64_t a3, uint64_
     v7 = a2;
   }
 
-  v8 = a4(a3, 15, 0, 0, 0, &v38);
+  v8 = a4(a3, 15, 0, 0, 0, &v37);
   if (v8)
   {
     goto LABEL_5;
@@ -7653,9 +7495,9 @@ uint64_t VReadPartitions(const void ***a1, unsigned int a2, uint64_t a3, uint64_
 
   if ((v7 & 0x400) != 0)
   {
-    v13 = v39;
-    v12 = HIDWORD(v38);
-    if ((v39 * (HIDWORD(v38) >> 9)) >> 32)
+    v12 = v38;
+    v11 = HIDWORD(v37);
+    if ((v38 * (HIDWORD(v37) >> 9)) >> 32)
     {
       v9 = 0;
       LOWORD(v8) = -5308;
@@ -7665,136 +7507,136 @@ uint64_t VReadPartitions(const void ***a1, unsigned int a2, uint64_t a3, uint64_
 
   else
   {
-    v12 = HIDWORD(v38);
-    v13 = v39;
+    v11 = HIDWORD(v37);
+    v12 = v38;
   }
 
-  v14 = v12;
-  if (HIDWORD(v13))
+  v13 = v11;
+  if (HIDWORD(v12))
   {
-    v14 = v12;
-    while ((v14 & 0x80000000) == 0)
+    v13 = v11;
+    while ((v13 & 0x80000000) == 0)
     {
-      v14 *= 2;
-      HIDWORD(v38) = v14;
-      v15 = v13 >> 33;
-      v13 >>= 1;
-      v39 = v13;
-      if (!v15)
+      v13 *= 2;
+      HIDWORD(v37) = v13;
+      v14 = v12 >> 33;
+      v12 >>= 1;
+      v38 = v12;
+      if (!v14)
       {
         goto LABEL_15;
       }
     }
 
-    v14 = 0;
-    HIDWORD(v38) = 0;
-    v39 = 0;
-    v44 = 5;
+    v13 = 0;
+    HIDWORD(v37) = 0;
+    v38 = 0;
+    v43 = 5;
     goto LABEL_18;
   }
 
 LABEL_15:
   LOWORD(v8) = 5;
-  v44 = 5;
-  if ((v14 & 0x1FF) == 0)
+  v43 = 5;
+  if ((v13 & 0x1FF) == 0)
   {
 LABEL_18:
-    if (v14 <= 0x400)
+    if (v13 <= 0x400)
     {
-      v16 = 1024;
+      v15 = 1024;
     }
 
     else
     {
-      v16 = v14;
+      v15 = v13;
     }
 
-    v17 = NewPtr(v16 & 0xFE00);
+    v16 = NewPtr(v15 & 0xFE00);
     LOWORD(v8) = MemError();
-    v44 = v8;
-    if (!v17)
+    v43 = v8;
+    if (!v16)
     {
       goto LABEL_5;
     }
 
-    v18 = a4(a3, 130, v16, 0, 1, v17);
-    v44 = v18;
-    if (v18)
+    v17 = a4(a3, 130, v15, 0, 1, v16);
+    v43 = v17;
+    if (v17)
     {
       v9 = 0;
 LABEL_28:
-      DisposePtr(v17);
-      LOWORD(v8) = v44;
+      DisposePtr(v16);
+      LOWORD(v8) = v43;
       goto LABEL_6;
     }
 
-    v19 = MKMediaCreateWithBIOVector(0, a3, a4, 0, &v44);
-    if (v44)
+    v18 = MKMediaCreateWithBIOVector(0, a3, a4, 0, &v43);
+    if (v43)
     {
       v9 = 0;
       goto LABEL_26;
     }
 
     v9 = NewHandleClear(528);
-    v44 = MemError();
+    v43 = MemError();
     if (!v9)
     {
       goto LABEL_26;
     }
 
-    v20 = *v9;
-    v20[128] = 33554948;
-    v21 = WORD2(v38);
-    v22 = v39;
-    *(v20 + 259) = WORD2(v38);
+    v19 = *v9;
+    *(v19 + 128) = 33554948;
+    v20 = WORD2(v37);
+    v21 = v38;
+    *(v19 + 259) = WORD2(v37);
     if ((v7 & 0x400) != 0)
     {
-      v23 = 512;
+      v22 = 512;
     }
 
     else
     {
-      v23 = v21;
+      v22 = v20;
     }
 
-    *(v20 + 1) = v23;
-    v24 = v21 | 0x200;
-    v25 = (v21 >> 9) * v22;
-    if (v24 == 512)
+    *(v19 + 1) = v22;
+    v23 = v20 | 0x200;
+    v24 = (v20 >> 9) * v21;
+    if (v23 == 512)
     {
-      v25 = v22;
+      v24 = v21;
     }
 
-    v20[1] = v25;
-    *(v20 + 250) = v12 >> 9;
-    v41 = 0;
-    LODWORD(v42) = 0;
-    v44 = GPTSchemeDetect(v17, &v38, v19, &v42);
-    if (v44)
-    {
-      goto LABEL_26;
-    }
-
-    v26 = MKMBRSchemeDetect(v17, &v38, a3, a4, &v42);
-    v44 = v26;
-    if (v26)
+    *(v19 + 1) = v24;
+    *(v19 + 250) = v11 >> 9;
+    v40 = 0;
+    LODWORD(v41) = 0;
+    v43 = GPTSchemeDetect(v16, &v37, v18, &v41);
+    if (v43)
     {
       goto LABEL_26;
     }
 
-    if (v42 >= 5000)
+    v25 = MKMBRSchemeDetect(v16, &v37, a3, a4, &v41);
+    v43 = v25;
+    if (v25)
     {
-      v44 = MKISOSchemeDetect(v19, &v41);
-      if (v44)
+      goto LABEL_26;
+    }
+
+    if (v41 >= 5000)
+    {
+      v43 = MKISOSchemeDetect(v18, &v40);
+      if (v43)
       {
         goto LABEL_26;
       }
 
-      if (v41 <= 4999 && v42 >= 5000)
+      if (v40 <= 4999 && v41 >= 5000)
       {
-        v27 = VReadDosPartitions(v9, v7, 0, &v38, a3, a4);
-        v44 = v27;
-        if (v27)
+        v26 = VReadDosPartitions(v9, v7, 0, &v37, a3, a4);
+        v43 = v26;
+        if (v26)
         {
           goto LABEL_26;
         }
@@ -7808,14 +7650,14 @@ LABEL_28:
 LABEL_60:
         if ((v7 & 0x10) != 0)
         {
-          v36 = PMAccountFreespace(v9, 0, v7);
-          v44 = v36;
-          if ((v7 & 0x80) == 0 || v36)
+          v35 = PMAccountFreespace(v9, 0, v7);
+          v43 = v35;
+          if ((v7 & 0x80) == 0 || v35)
           {
 LABEL_26:
-            if (v19)
+            if (v18)
             {
-              CFRelease(v19);
+              CFRelease(v18);
             }
 
             goto LABEL_28;
@@ -7831,31 +7673,31 @@ LABEL_61:
         }
 
 LABEL_65:
-        v29 = PMRationalise(v9);
+        v28 = PMRationalise(v9);
 LABEL_71:
-        v44 = v29;
+        v43 = v28;
         goto LABEL_26;
       }
     }
 
-    LODWORD(v42) = 0;
-    v28 = MKAPMSchemeDetect(v17, &v38, a3, a4, &v42);
-    v44 = v28;
-    if (v28)
+    LODWORD(v41) = 0;
+    v27 = MKAPMSchemeDetect(v16, &v37, a3, a4, &v41);
+    v43 = v27;
+    if (v27)
     {
       goto LABEL_26;
     }
 
-    if (v42 >= 5000)
+    if (v41 >= 5000)
     {
       if ((v7 & 0x100) != 0)
       {
-        v29 = APMReadRawMediaMap(v9, v7, a3, a4);
+        v28 = APMReadRawMediaMap(v9, v7, a3, a4);
       }
 
       else
       {
-        v29 = APMReadMediaMap(v9, v7, a3, a4);
+        v28 = APMReadMediaMap(v9, v7, a3, a4);
       }
 
       goto LABEL_71;
@@ -7863,100 +7705,100 @@ LABEL_71:
 
     if ((v7 & 0x40) == 0)
     {
-      v30 = VReadISOPartitionsII(v9, v7, &v38, a3, a4);
-      v44 = v30;
-      if (v30)
+      v29 = VReadISOPartitionsII(v9, v7, &v37, a3, a4);
+      v43 = v29;
+      if (v29)
       {
-        v44 = -5345;
+        v43 = -5345;
         goto LABEL_26;
       }
 
       goto LABEL_60;
     }
 
-    LODWORD(v42) = 0;
+    LODWORD(v41) = 0;
     if ((v7 & 0x400) != 0)
     {
-      v39 *= HIDWORD(v38) >> 9;
-      HIDWORD(v38) = 512;
+      v38 *= HIDWORD(v37) >> 9;
+      HIDWORD(v37) = 512;
     }
 
-    v44 = MKFileSystemDetect(v19, &v42, &v43, &v42 + 1);
-    if (v44)
+    v43 = MKFileSystemDetect(v18, &v41, &v42, &v41 + 1);
+    if (v43)
     {
       goto LABEL_26;
     }
 
-    v31 = WORD2(v38);
-    v32 = v39;
+    v30 = WORD2(v37);
+    v31 = v38;
+    v32 = *v9;
+    *(v32 + 2) = 0u;
+    *(v32 + 3) = 0u;
+    *(v32 + 4) = 0u;
+    *(v32 + 5) = 0u;
+    *(v32 + 6) = 0u;
+    *(v32 + 7) = 0u;
+    *(v32 + 8) = 0u;
+    *(v32 + 9) = 0u;
+    *(v32 + 10) = 0u;
+    *(v32 + 11) = 0u;
+    *(v32 + 12) = 0u;
+    *(v32 + 13) = 0u;
+    *(v32 + 14) = 0u;
+    *(v32 + 15) = 0u;
+    *(v32 + 16) = 0u;
+    *(v32 + 17) = 0u;
+    *(v32 + 18) = 0u;
+    *(v32 + 19) = 0u;
+    *(v32 + 20) = 0u;
+    *(v32 + 21) = 0u;
+    *(v32 + 22) = 0u;
+    *(v32 + 23) = 0u;
+    *(v32 + 24) = 0u;
+    *(v32 + 25) = 0u;
+    *(v32 + 26) = 0u;
+    *(v32 + 27) = 0u;
+    *(v32 + 28) = 0u;
+    *(v32 + 29) = 0u;
+    *(v32 + 30) = 0u;
+    *(v32 + 31) = 0u;
+    *v32 = 0u;
+    *(v32 + 1) = 0u;
     v33 = *v9;
-    v33[2] = 0u;
-    v33[3] = 0u;
-    v33[4] = 0u;
-    v33[5] = 0u;
-    v33[6] = 0u;
-    v33[7] = 0u;
-    v33[8] = 0u;
-    v33[9] = 0u;
-    v33[10] = 0u;
-    v33[11] = 0u;
-    v33[12] = 0u;
-    v33[13] = 0u;
-    v33[14] = 0u;
-    v33[15] = 0u;
-    v33[16] = 0u;
-    v33[17] = 0u;
-    v33[18] = 0u;
-    v33[19] = 0u;
-    v33[20] = 0u;
-    v33[21] = 0u;
-    v33[22] = 0u;
-    v33[23] = 0u;
-    v33[24] = 0u;
-    v33[25] = 0u;
-    v33[26] = 0u;
-    v33[27] = 0u;
-    v33[28] = 0u;
-    v33[29] = 0u;
-    v33[30] = 0u;
-    v33[31] = 0u;
-    *v33 = 0u;
-    v33[1] = 0u;
-    v34 = *v9;
-    v34[128] = 8389124;
-    *(v34 + 1) = v31;
-    v34[1] = v32;
-    *(v34 + 250) = v31 >> 9;
-    if (v42 < 5000)
+    *(v33 + 128) = 8389124;
+    *(v33 + 1) = v30;
+    *(v33 + 1) = v31;
+    *(v33 + 250) = v30 >> 9;
+    if (v41 < 5000)
     {
       goto LABEL_69;
     }
 
-    if (SHIDWORD(v42) > 3)
+    if (SHIDWORD(v41) > 3)
     {
-      if (HIDWORD(v42) == 4)
+      if (HIDWORD(v41) == 4)
       {
-        v35 = 16398;
+        v34 = 16398;
       }
 
       else
       {
-        if (HIDWORD(v42) != 6)
+        if (HIDWORD(v41) != 6)
         {
           goto LABEL_69;
         }
 
-        v35 = 16386;
+        v34 = 16386;
       }
     }
 
     else
     {
-      if (HIDWORD(v42) != 1)
+      if (HIDWORD(v41) != 1)
       {
-        if (HIDWORD(v42) == 3)
+        if (HIDWORD(v41) == 3)
         {
-          v35 = 20225;
+          v34 = 20225;
           goto LABEL_76;
         }
 
@@ -7967,25 +7809,25 @@ LABEL_69:
         }
 
         *(*v9 + 257) = 1;
-        v29 = PMGenPartitionType(v9, 16394, 0, v39, WORD2(v38), 2097168, "Whole Device", 0, 0xFFFFu);
+        v28 = PMGenPartitionType(v9, 16394, 0, v38, WORD2(v37), 2097168, "Whole Device", 0, 0xFFFF);
         goto LABEL_71;
       }
 
-      if (v43 == 4)
+      if (v42 == 4)
       {
-        v35 = 16395;
+        v34 = 16395;
       }
 
       else
       {
-        v35 = 0x4000;
+        v34 = 0x4000;
       }
     }
 
 LABEL_76:
-    v37 = PMGenPartitionType(v9, v35, 0, v39, WORD2(v38), 2097168, v45, 0, 0xFFFFu);
-    v44 = v37;
-    if (!v37)
+    v36 = PMGenPartitionType(v9, v34, 0, v38, WORD2(v37), 2097168, v44, 0, 0xFFFF);
+    v43 = v36;
+    if (!v36)
     {
       PMISODetect(v9, a3, a4);
     }
@@ -7997,7 +7839,6 @@ LABEL_5:
   v9 = 0;
 LABEL_6:
   *a1 = v9;
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -8085,7 +7926,6 @@ uint64_t PMMediaWrite(uint64_t *a1, int a2, unsigned int a3, uint64_t a4, uint64
     return -5341;
   }
 
-  v13 = *(v9 + 536);
   return a6(a5, 3);
 }
 
@@ -8225,9 +8065,9 @@ uint64_t STOCWrite(unsigned __int16 *a1, unsigned int a2, uint64_t a3, uint64_t 
         *v13 = bswap32(a2);
         *(v13 + 1) = bswap32(HIDWORD(size[0]));
         *(v13 + 2) = 256;
-        *(v13 + 2) = time(0);
-        v17 = (v13 + 32);
-        v18 = (v13 + 32);
+        v13[2] = time(0);
+        v17 = (v13 + 4);
+        v18 = (v13 + 4);
       }
 
       else
@@ -8260,7 +8100,7 @@ LABEL_14:
     *v17 = bswap32(*a1) >> 16;
     v17[1] = bswap32(a1[1]) >> 16;
     memcpy(v17 + 2, a1 + 2, a1[1] - 4);
-    *(v13 + 3) = bswap32(time(0));
+    v13[3] = bswap32(time(0));
     LOWORD(v14) = a5(a4, 3, WORD2(size[0]), a3, 1, v13);
 LABEL_4:
     v11 = v14;
@@ -8428,7 +8268,7 @@ LABEL_7:
   return Value;
 }
 
-__CFDictionary *_MKMediaBIOVectorCopyProperties(uint64_t a1)
+CFMutableDictionaryRef _MKMediaBIOVectorCopyProperties(uint64_t a1)
 {
   v2 = *(a1 + 24);
   v3 = *MEMORY[0x277CBECE8];

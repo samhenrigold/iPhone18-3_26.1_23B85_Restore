@@ -9,9 +9,9 @@
 - (ACNotifyWriter)initWithKey:(id)key
 {
   keyCopy = key;
-  v11.receiver = self;
-  v11.super_class = ACNotifyWriter;
-  v5 = [(ACNotifyWriter *)&v11 init];
+  v12.receiver = self;
+  v12.super_class = ACNotifyWriter;
+  v5 = [(ACNotifyWriter *)&v12 init];
   v6 = v5;
   if (v5)
   {
@@ -22,8 +22,8 @@
 
     if (v8)
     {
-      v9 = _ACLogSystem();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _ACLogSystem(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [ACNotifyReader initWithKey:updateQueue:updateBlock:];
       }
@@ -50,7 +50,7 @@
 {
   if (self->notifierToken == -1)
   {
-    v4 = _ACLogSystem();
+    v4 = _ACLogSystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(ACNotifyWriter *)self write:v4];
@@ -81,7 +81,7 @@ void __24__ACNotifyWriter_write___block_invoke(uint64_t a1)
   if (v3)
   {
     v4 = v3;
-    v5 = _ACLogSystem();
+    v5 = _ACLogSystem(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [*v2 key];
@@ -97,7 +97,7 @@ void __24__ACNotifyWriter_write___block_invoke(uint64_t a1)
   if (v7)
   {
     v8 = v7;
-    v9 = _ACLogSystem();
+    v9 = _ACLogSystem(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = *(a1 + 40);
@@ -110,50 +110,42 @@ void __24__ACNotifyWriter_write___block_invoke(uint64_t a1)
       v19 = v8;
       _os_log_error_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_ERROR, "notify_set_state(%d, %llu) failed: %d", buf, 0x18u);
     }
-
-LABEL_11:
-
-    goto LABEL_12;
   }
 
-  v12 = [*v2 key];
-  v13 = notify_post([v12 UTF8String]);
-
-  if (v13)
+  else
   {
-    v9 = _ACLogSystem();
+    v12 = [*v2 key];
+    v13 = notify_post([v12 UTF8String]);
+
+    if (!v13)
+    {
+      return;
+    }
+
+    v9 = _ACLogSystem(v14);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __24__ACNotifyWriter_write___block_invoke_cold_1(v2, v13, v9);
     }
-
-    goto LABEL_11;
   }
-
-LABEL_12:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)write:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 key];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_ERROR, "Failed to get %@ number: libnotify registration failed", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_ERROR, "Failed to get %@ number: libnotify registration failed", &v4, 0xCu);
 }
 
 void __24__ACNotifyWriter_write___block_invoke_cold_1(id *a1, int a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v5 = [*a1 key];
   OUTLINED_FUNCTION_0_4();
-  v8 = a2;
-  _os_log_error_impl(&dword_1AC3CD000, a3, OS_LOG_TYPE_ERROR, "notify_post(%{public}@) failed: %d", v7, 0x12u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = a2;
+  _os_log_error_impl(&dword_1AC3CD000, a3, OS_LOG_TYPE_ERROR, "notify_post(%{public}@) failed: %d", v6, 0x12u);
 }
 
 @end

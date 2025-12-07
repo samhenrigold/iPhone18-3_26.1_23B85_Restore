@@ -29,7 +29,7 @@
 - (void)processElement:(id)element attributes:(id)attributes objectModel:(id)model completion:(id)completion
 {
   completionCopy = completion;
-  v8 = _FALogSystem();
+  v8 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -42,7 +42,7 @@
 - (void)processObjectModel:(id)model completion:(id)completion
 {
   completionCopy = completion;
-  v6 = _FALogSystem();
+  v6 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -55,7 +55,7 @@
 - (void)_invokeAgeAttestationOnboardingWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -91,18 +91,17 @@
 
 void __85__FAAgeRangeAttestationOnboardingHook__invokeAgeAttestationOnboardingWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_21BB35000, v4, OS_LOG_TYPE_DEFAULT, "AgeRangeSharingGlobalState completed with error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_21BB35000, v4, OS_LOG_TYPE_DEFAULT, "AgeRangeSharingGlobalState completed with error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (RUIServerHookDelegate)delegate

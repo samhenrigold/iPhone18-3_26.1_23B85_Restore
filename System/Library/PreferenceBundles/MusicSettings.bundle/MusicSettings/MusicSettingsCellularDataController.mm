@@ -153,32 +153,22 @@
 {
   enabledCopy = enabled;
   specifierCopy = specifier;
-  if (self->_musicCellularDataSpecifierSetter)
-  {
-    musicCellularDataSpecifierSetter = self->_musicCellularDataSpecifierSetter;
-  }
-
   WeakRetained = objc_loadWeakRetained(&self->_musicCellularDataSpecifierTarget);
-  v9 = MusicSettingsPerformSelector2();
+  v8 = MusicSettingsPerformSelector2();
 
-  v10 = objc_loadWeakRetained(&self->MusicSettingsListViewController_opaque[OBJC_IVAR___PSViewController__parentController]);
-  [v10 reloadSpecifiers];
+  v9 = objc_loadWeakRetained(&self->MusicSettingsListViewController_opaque[OBJC_IVAR___PSViewController__parentController]);
+  [v9 reloadSpecifiers];
 
   [(MusicSettingsCellularDataController *)self updateVisibleSpecifiers];
 }
 
 - (id)systemAllowMusicCellularDataEnabledForSpecifier:(id)specifier
 {
-  if (self->_musicCellularDataSpecifierGetter)
-  {
-    musicCellularDataSpecifierGetter = self->_musicCellularDataSpecifierGetter;
-  }
-
   specifierCopy = specifier;
   WeakRetained = objc_loadWeakRetained(&self->_musicCellularDataSpecifierTarget);
-  v7 = MusicSettingsPerformSelector();
+  v6 = MusicSettingsPerformSelector();
 
-  return v7;
+  return v6;
 }
 
 - (NSNumber)systemAllowCellularEnabled

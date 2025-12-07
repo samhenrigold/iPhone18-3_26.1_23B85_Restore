@@ -129,19 +129,20 @@ void __70__WebViewSnapshotContentProvider_prepareForSnapshotOfSize_completion___
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (!v5)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __70__WebViewSnapshotContentProvider_prepareForSnapshotOfSize_completion___block_invoke_cold_1(v7, v6);
+      __70__WebViewSnapshotContentProvider_prepareForSnapshotOfSize_completion___block_invoke_cold_1(v9, v8);
     }
   }
 
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 8);
-  *(v8 + 8) = v5;
-  v10 = v5;
+  v10 = *(a1 + 32);
+  v11 = *(v10 + 8);
+  *(v10 + 8) = v5;
+  v12 = v5;
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), *(*(a1 + 32) + 8) == 0);
 }

@@ -113,23 +113,22 @@ void __89__WFPropertyListParameterValue_processWithContext_userInputRequiredHand
 {
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 32);
-  v8 = [objc_opt_class() processedClassForValueType:*(v7 + 8)];
+  v7 = [objc_opt_class() processedClassForValueType:*(*(a1 + 32) + 8)];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [v8 isSubclassOfClass:objc_opt_class()])
+  if ((objc_opt_isKindOfClass() & 1) != 0 && [v7 isSubclassOfClass:objc_opt_class()])
   {
-    v9 = [MEMORY[0x1E6996DB0] resultsForString:v5 ofTypes:0x200000000 error:0];
-    v10 = [v9 number];
+    v8 = [MEMORY[0x1E6996DB0] resultsForString:v5 ofTypes:0x200000000 error:0];
+    v9 = [v8 number];
 
-    v5 = v10;
+    v5 = v9;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && *(*(a1 + 32) + 8) == 4 && (WFNumberIsBoolean(v5) & 1) == 0)
   {
-    v11 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "BOOLValue")}];
+    v10 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "BOOLValue")}];
 
-    v5 = v11;
+    v5 = v10;
   }
 
   if (v5)
@@ -139,19 +138,17 @@ void __89__WFPropertyListParameterValue_processWithContext_userInputRequiredHand
 
   else
   {
-    v12 = *(a1 + 32);
-    v13 = [objc_opt_class() defaultStateForValueType:*(v12 + 8)];
-    if (v13)
+    v11 = [objc_opt_class() defaultStateForValueType:*(*(a1 + 32) + 8)];
+    if (v11)
     {
-      v14 = *(a1 + 32);
-      v15 = [objc_alloc(objc_opt_class()) initWithType:*(v14 + 8) state:v13];
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __89__WFPropertyListParameterValue_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2;
-      v17[3] = &unk_1E837BD10;
-      v16 = *(a1 + 40);
-      v18 = *(a1 + 48);
-      [v15 processWithContext:v16 userInputRequiredHandler:v17 valueHandler:*(a1 + 48)];
+      v12 = [objc_alloc(objc_opt_class()) initWithType:*(*(a1 + 32) + 8) state:v11];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __89__WFPropertyListParameterValue_processWithContext_userInputRequiredHandler_valueHandler___block_invoke_2;
+      v14[3] = &unk_1E837BD10;
+      v13 = *(a1 + 40);
+      v15 = *(a1 + 48);
+      [v12 processWithContext:v13 userInputRequiredHandler:v14 valueHandler:*(a1 + 48)];
     }
 
     else
@@ -290,14 +287,14 @@ LABEL_10:
     if (objc_opt_isKindOfClass())
     {
       v17 = [v14 objectForKeyedSubscript:@"WFSerializationType"];
-      if ([v17 isEqualToString:@"WFDictionaryFieldValue"])
+      if (objc_msgSend_isEqualToString_(v17))
       {
         v18 = WFDictionarySubstitutableParameterState;
       }
 
       else
       {
-        if (![v17 isEqualToString:@"WFArrayParameterState"])
+        if (!objc_msgSend_isEqualToString_(v17))
         {
           v20 = WFDeserializedVariableObject(v14, providerCopy, parameterCopy);
 LABEL_31:
@@ -470,7 +467,6 @@ LABEL_10:
 {
   if (type <= 6)
   {
-    v4 = *off_1E837BDD0[type];
     self = objc_opt_class();
   }
 

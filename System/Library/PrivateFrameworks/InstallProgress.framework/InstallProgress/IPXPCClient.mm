@@ -21,12 +21,10 @@
   v9 = [(IPXPCClient *)&v18 init];
   if (v9)
   {
-    [connectionCopy _setQueue:queueCopy];
-    v10 = IPServerExportedInterface();
+    v10 = IPServerExportedInterface([connectionCopy _setQueue:queueCopy]);
     [connectionCopy setExportedInterface:v10];
 
-    [connectionCopy setExportedObject:v9];
-    v11 = IPClientExportedInterface();
+    v11 = IPClientExportedInterface([connectionCopy setExportedObject:v9]);
     [connectionCopy setRemoteObjectInterface:v11];
 
     objc_initWeak(&location, v9);
@@ -63,18 +61,17 @@ void __47__IPXPCClient_initWithConnection_serviceQueue___block_invoke(uint64_t a
 
 - (void)resume
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = _IPServerLog();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _IPServerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     connection = self->_connection;
-    v6 = 138412290;
-    v7 = connection;
-    _os_log_impl(&dword_254C69000, v3, OS_LOG_TYPE_DEFAULT, "resuming %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = connection;
+    _os_log_impl(&dword_254C69000, v3, OS_LOG_TYPE_DEFAULT, "resuming %@", &v5, 0xCu);
   }
 
   [(NSXPCConnection *)self->_connection resume];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendUpdateForIdentity:(id)identity currentProgress:(id)progress
@@ -92,11 +89,11 @@ void __47__IPXPCClient_initWithConnection_serviceQueue___block_invoke(uint64_t a
 
 void __53__IPXPCClient_sendUpdateForIdentity_currentProgress___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = _IPServerLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = _IPServerLog(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __53__IPXPCClient_sendUpdateForIdentity_currentProgress___block_invoke_cold_1(a1);
+    __53__IPXPCClient_sendUpdateForIdentity_currentProgress___block_invoke_cold_1();
   }
 }
 
@@ -114,28 +111,27 @@ void __53__IPXPCClient_sendUpdateForIdentity_currentProgress___block_invoke(uint
 
 void __49__IPXPCClient_sendProgressEndForIdentity_reason___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = _IPServerLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = _IPServerLog(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __49__IPXPCClient_sendProgressEndForIdentity_reason___block_invoke_cold_1(a1);
+    __49__IPXPCClient_sendProgressEndForIdentity_reason___block_invoke_cold_1();
   }
 }
 
 - (void)registerAsProgressObserver:(id)observer
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
-  v5 = _IPServerLog();
+  v5 = _IPServerLog(observerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
+    v6 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_254C69000, v5, OS_LOG_TYPE_DEFAULT, "Client %@ registering as progress observer.", &v7, 0xCu);
+    _os_log_impl(&dword_254C69000, v5, OS_LOG_TYPE_DEFAULT, "Client %@ registering as progress observer.", &v6, 0xCu);
   }
 
   observerCopy[2](observerCopy, 0);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getActiveInstallations:(id)installations
@@ -189,24 +185,6 @@ void __49__IPXPCClient_sendProgressEndForIdentity_reason___block_invoke(uint64_t
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __53__IPXPCClient_sendUpdateForIdentity_currentProgress___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_254C69000, v2, v3, "Could not send progress update to %@: %@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __49__IPXPCClient_sendProgressEndForIdentity_reason___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_254C69000, v2, v3, "could not send progress end to %@: %@");
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

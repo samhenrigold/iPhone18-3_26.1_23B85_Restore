@@ -4,9 +4,20 @@
 - (void)_setupRemoteProxy;
 - (void)configureWithContext:(id)context completion:(id)completion;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation NearbyDevicesRemoteViewController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = NearbyDevicesRemoteViewController;
+  [(NearbyDevicesRemoteViewController *)&v5 viewDidAppear:appear];
+  [(NearbyDevicesRemoteViewController *)self _setupRemoteProxy];
+  navigationController = [(NearbyDevicesRemoteViewController *)self navigationController];
+  [(NearbyDevicesRemoteViewController *)self presentViewController:navigationController animated:1 completion:&stru_100004160];
+}
 
 - (void)_dismissViewService
 {

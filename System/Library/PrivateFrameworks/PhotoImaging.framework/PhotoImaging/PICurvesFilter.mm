@@ -19,7 +19,7 @@
     imageByUnpremultiplyingAlpha = [inputImage imageByUnpremultiplyingAlpha];
 
     v10 = +[PICurvesFilter curvesKernel];
-    [imageByUnpremultiplyingAlpha extent];
+    objc_msgSend_extent(imageByUnpremultiplyingAlpha);
     v12 = v11;
     v14 = v13;
     v16 = v15;

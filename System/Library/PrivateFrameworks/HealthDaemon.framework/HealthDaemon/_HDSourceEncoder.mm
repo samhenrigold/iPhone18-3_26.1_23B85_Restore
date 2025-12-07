@@ -9,20 +9,20 @@
 
 - (id)orderedProperties
 {
-  v9[10] = *MEMORY[0x277D85DE8];
+  v8[10] = *MEMORY[0x277D85DE8];
   purpose = [(HDEntityEncoder *)self purpose];
   if (purpose == 1)
   {
-    v8[0] = @"name";
-    v8[1] = @"source_options";
-    v8[2] = @"local_device";
-    v8[3] = @"product_type";
-    v8[4] = @"mod_date";
-    v8[5] = @"logical_source_id";
-    v8[6] = @"logical_sources.bundle_id";
-    v8[7] = @"logical_sources.owner_bundle_id";
+    v7[0] = @"name";
+    v7[1] = @"source_options";
+    v7[2] = @"local_device";
+    v7[3] = @"product_type";
+    v7[4] = @"mod_date";
+    v7[5] = @"logical_source_id";
+    v7[6] = @"logical_sources.bundle_id";
+    v7[7] = @"logical_sources.owner_bundle_id";
     v3 = MEMORY[0x277CBEA60];
-    v4 = v8;
+    v4 = v7;
     v5 = 8;
   }
 
@@ -33,24 +33,23 @@
       goto LABEL_6;
     }
 
-    v9[0] = @"uuid";
-    v9[1] = @"name";
-    v9[2] = @"source_options";
-    v9[3] = @"product_type";
-    v9[4] = @"deleted";
-    v9[5] = @"mod_date";
-    v9[6] = @"logical_source_id";
-    v9[7] = @"sync_identity";
-    v9[8] = @"logical_sources.bundle_id";
-    v9[9] = @"logical_sources.owner_bundle_id";
+    v8[0] = @"uuid";
+    v8[1] = @"name";
+    v8[2] = @"source_options";
+    v8[3] = @"product_type";
+    v8[4] = @"deleted";
+    v8[5] = @"mod_date";
+    v8[6] = @"logical_source_id";
+    v8[7] = @"sync_identity";
+    v8[8] = @"logical_sources.bundle_id";
+    v8[9] = @"logical_sources.owner_bundle_id";
     v3 = MEMORY[0x277CBEA60];
-    v4 = v9;
+    v4 = v8;
     v5 = 10;
   }
 
   purpose = [v3 arrayWithObjects:v4 count:v5];
 LABEL_6:
-  v6 = *MEMORY[0x277D85DE8];
 
   return purpose;
 }

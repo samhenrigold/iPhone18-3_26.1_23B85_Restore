@@ -84,9 +84,10 @@
 - (uint64_t)characterCount
 {
   selfCopy = self;
-  v2 = sub_100A38A8C();
+  sub_100A38A8C();
+  v3 = v2;
 
-  return v2;
+  return v3;
 }
 
 - (_NSRange)rangeOfNumericalSuffixPrecedingCharIndex:(unint64_t)index
@@ -398,7 +399,7 @@
   if (*(self + OBJC_IVAR____TtC8Freeform12CRLWPStorage_markedTextStyle))
   {
     type metadata accessor for Key(0);
-    sub_100A40278(&qword_1019F34A0, 255, type metadata accessor for Key);
+    sub_100A40278(&qword_1019F34A0, 255, type metadata accessor for Key, byte_101467F70);
 
     v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
@@ -416,7 +417,7 @@
   if (style)
   {
     type metadata accessor for Key(0);
-    sub_100A40278(&qword_1019F34A0, 255, type metadata accessor for Key);
+    sub_100A40278(&qword_1019F34A0, 255, type metadata accessor for Key, byte_101467F70);
     v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -750,26 +751,28 @@ LABEL_9:
 - (_NSRange)textRangeForParagraphAtIndex:(int64_t)index
 {
   selfCopy = self;
-  v5 = sub_100A36400(index);
-  v7 = v6;
+  sub_100A36400(index);
+  v6 = v5;
+  v8 = v7;
 
-  v8 = v5;
-  v9 = v7;
-  result.length = v9;
-  result.location = v8;
+  v9 = v6;
+  v10 = v8;
+  result.length = v10;
+  result.location = v9;
   return result;
 }
 
 - (_NSRange)textRangeForParagraphAtCharIndex:(int64_t)index
 {
   selfCopy = self;
-  v5 = sub_100A364C0(index);
-  v7 = v6;
+  sub_100A364C0(index);
+  v6 = v5;
+  v8 = v7;
 
-  v8 = v5;
-  v9 = v7;
-  result.length = v9;
-  result.location = v8;
+  v9 = v6;
+  v10 = v8;
+  result.length = v10;
+  result.location = v9;
   return result;
 }
 
@@ -1102,7 +1105,7 @@ LABEL_6:
   swift_unknownObjectRetain();
   selfCopy = self;
   v16 = sub_100A39FF0(v12, string, options, delegate, v11, v14);
-  sub_1000C1014(v11);
+  sub_1000C1014(v11, v14);
   swift_unknownObjectRelease();
 
   return v16;

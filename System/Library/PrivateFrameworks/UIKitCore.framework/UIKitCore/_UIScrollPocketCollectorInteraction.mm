@@ -23,7 +23,7 @@
 - (_UIScrollPocketCollectorInteraction)init
 {
   v3 = OBJC_IVAR____UIScrollPocketCollectorInteraction_model;
-  type metadata accessor for ScrollPocketCollectorModel();
+  type metadata accessor for ScrollPocketCollectorModel(0);
   v4 = swift_allocObject();
   v5 = MEMORY[0x1E69E7CC0];
   v6 = sub_188E8E96C(MEMORY[0x1E69E7CC0]);
@@ -82,7 +82,7 @@
 {
   v3 = *(self + OBJC_IVAR____UIScrollPocketCollectorInteraction_model);
   swift_getKeyPath();
-  sub_188FAB9F8(&qword_1ED490BC0);
+  sub_188FAB9F8(&qword_1ED490BC0, &unk_18A6572C8);
   selfCopy = self;
   sub_18A4A2C08();
 

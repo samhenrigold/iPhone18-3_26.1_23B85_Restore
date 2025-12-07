@@ -51,7 +51,7 @@
   if (!size || (*(self->fStepWindow.c.__map_.__begin_ + (((size + self->fStepWindow.c.__start_ - 1) >> 5) & 0x7FFFFFFFFFFFFF8)))[4 * (size + LOBYTE(self->fStepWindow.c.__start_) - 1) + 2] != *(update + 8))
   {
 
-    sub_100248C10(&self->fStepWindow.c.__map_.__first_, update + 2, update + 8);
+    sub_100248C10(&self->fStepWindow, update + 2, update + 8);
   }
 }
 

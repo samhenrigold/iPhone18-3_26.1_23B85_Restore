@@ -40,7 +40,7 @@ LABEL_16:
     v11 = gLogObj;
     *buf = 136446210;
     v33 = "[NWPHContext initWithRequest:onConnection:]";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s xpc_dictionary_create_reply failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v29 = 0;
@@ -140,7 +140,7 @@ LABEL_14:
   v22 = __nwlog_obj();
   *buf = 136446210;
   v33 = "[NWPHContext initWithRequest:onConnection:]";
-  v23 = _os_log_send_and_compose_impl();
+  v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v29 = 0;

@@ -2,9 +2,17 @@
 - (void)_gaxDeviceWasUnlocked:(id)unlocked;
 - (void)_gaxInitializeOverride;
 - (void)dealloc;
+- (void)setSystemGesturesDisabledForAccessibility:(BOOL)accessibility;
 @end
 
 @implementation GAXSBMainDisplaySystemGestureManagerOverride
+
+- (void)setSystemGesturesDisabledForAccessibility:(BOOL)accessibility
+{
+  v3.receiver = self;
+  v3.super_class = GAXSBMainDisplaySystemGestureManagerOverride;
+  [(GAXSBMainDisplaySystemGestureManagerOverride *)&v3 setSystemGesturesDisabledForAccessibility:accessibility];
+}
 
 - (void)_gaxDeviceWasUnlocked:(id)unlocked
 {

@@ -256,7 +256,7 @@ LABEL_6:
 - (NSString)composedMessage
 {
   result = 0;
-  v23 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   type = self->_eint.type;
   if (type > 1023)
   {
@@ -268,66 +268,58 @@ LABEL_6:
         {
           if (type != 1536)
           {
-            goto LABEL_48;
+            return result;
           }
 
-LABEL_19:
-          result = self->_logMessage;
-          if (!result)
-          {
-            v7 = *MEMORY[0x277D85DE8];
-
-            return _compose_log_message(self);
-          }
-
-LABEL_48:
-          v19 = *MEMORY[0x277D85DE8];
-          return result;
+          goto LABEL_19;
         }
 
         count = self->_eint.var0.loss.count;
-        v12 = &_CTF_NULLSTR;
+        v10 = &_CTF_NULLSTR;
         if (count == 63)
         {
-          v12 = ">=";
+          v10 = ">=";
         }
 
-        creator_aid = self->_eint.var0.activity_create.creator_aid;
-        snprintf(__str, 0x100uLL, "lost %s%u unreliable messages from %llu-%llu (Mach continuous exact start-approx. end)", v12, count, creator_aid, self->_eint.var0.timesync.wallclock_nsec);
-        v14 = MEMORY[0x277CCACA8];
-        v15 = __str;
-LABEL_47:
-        result = [v14 stringWithUTF8String:v15];
-        goto LABEL_48;
+        snprintf(__str, 0x100uLL, "lost %s%u unreliable messages from %llu-%llu (Mach continuous exact start-approx. end)", v10, count, self->_eint.var0.activity_create.creator_aid, self->_eint.var0.timesync.wallclock_nsec);
+        v11 = MEMORY[0x277CCACA8];
+        v12 = __str;
+        return [v11 stringWithUTF8String:v12];
       }
 
       result = _state_support_create_message(self->_event->var5.var0.var2.var0, &self->_eint.statedump.message_size);
       if (!result)
       {
-        goto LABEL_48;
+        return result;
       }
 
-      v10 = result;
-      result = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytesNoCopy:v10 length:strlen(v10) encoding:4 freeWhenDone:1];
+      v8 = result;
+      result = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytesNoCopy:v8 length:strlen(v8) encoding:4 freeWhenDone:1];
       if (result)
       {
-        goto LABEL_48;
+        return result;
       }
 
-      free(v10);
-LABEL_32:
-      result = 0;
-      goto LABEL_48;
+      free(v8);
+      return 0;
     }
 
     if (type == 1024)
     {
-      goto LABEL_19;
+LABEL_19:
+      result = self->_logMessage;
+      if (!result)
+      {
+
+        return _compose_log_message(self, a2);
+      }
+
+      return result;
     }
 
     if (type != 1280)
     {
-      goto LABEL_48;
+      return result;
     }
 
     hdr = self->_eint.var0.log_message.hdr;
@@ -337,18 +329,18 @@ LABEL_32:
       {
         v6 = "=== system wallclock time adjusted";
 LABEL_46:
-        v14 = MEMORY[0x277CCACA8];
-        v15 = v6;
-        goto LABEL_47;
+        v11 = MEMORY[0x277CCACA8];
+        v12 = v6;
+        return [v11 stringWithUTF8String:v12];
       }
 
       memset(out, 0, 37);
       uuid_unparse_upper(&self->_eint.var0, out);
-      v20 = out;
-      v18 = "=== system boot: %s";
+      v16 = out;
+      v15 = "=== system boot: %s";
 LABEL_45:
       v6 = __str;
-      snprintf(__str, 0x80uLL, v18, v20);
+      snprintf(__str, 0x80uLL, v15, v16);
       goto LABEL_46;
     }
 
@@ -359,13 +351,13 @@ LABEL_45:
       {
         if (ttl == 1)
         {
-          v17 = "TTL less than 1 day";
+          v14 = "TTL less than 1 day";
           goto LABEL_43;
         }
 
         if (ttl == 3)
         {
-          v17 = "TTL less than 3 days";
+          v14 = "TTL less than 3 days";
           goto LABEL_43;
         }
       }
@@ -375,25 +367,25 @@ LABEL_45:
         switch(ttl)
         {
           case 7u:
-            v17 = "TTL less than 7 days";
+            v14 = "TTL less than 7 days";
             goto LABEL_43;
           case 0xEu:
-            v17 = "TTL less than 14 days";
+            v14 = "TTL less than 14 days";
             goto LABEL_43;
           case 0x1Eu:
-            v17 = "TTL more than 14 days";
+            v14 = "TTL more than 14 days";
 LABEL_43:
-            v20 = v17;
-            v18 = "=== log class: %s begins";
+            v16 = v14;
+            v15 = "=== log class: %s begins";
             goto LABEL_45;
         }
       }
 
-      v17 = "persist";
+      v14 = "persist";
       goto LABEL_43;
     }
 
-    v17 = "in-memory";
+    v14 = "in-memory";
     goto LABEL_43;
   }
 
@@ -403,7 +395,7 @@ LABEL_43:
     {
       if (type != 768)
       {
-        goto LABEL_48;
+        return result;
       }
 
       goto LABEL_19;
@@ -414,10 +406,10 @@ LABEL_43:
   {
     if (type == 514)
     {
-      result = [MEMORY[0x277CCACA8] stringWithFormat:@"Transition to 0x%llx", self->_eint.var0.activity_create.creator_aid & 0xFFFFFFFFFFFFFFLL];
+      return [MEMORY[0x277CCACA8] stringWithFormat:@"Transition to 0x%llx", self->_eint.var0.activity_create.creator_aid & 0xFFFFFFFFFFFFFFLL];
     }
 
-    goto LABEL_48;
+    return result;
   }
 
   if ((self->_efv & 3) == 1)
@@ -427,13 +419,12 @@ LABEL_43:
 
   if (!self->_eint.common.message)
   {
-    goto LABEL_32;
+    return 0;
   }
 
-  v8 = MEMORY[0x277CCACA8];
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = MEMORY[0x277CCACA8];
 
-  return [v8 stringWithUTF8String:?];
+  return [v7 stringWithUTF8String:?];
 }
 
 - (unint64_t)signpostIdentifier
@@ -1311,9 +1302,7 @@ LABEL_17:
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  event = self->_event;
-  return [v3 stringWithFormat:@"<%@: %p, %p, %02x, %d, %s>", v5, self, event, self->_eint.type, self->_eint.pid, self->_eint.common.message];
+  return [v3 stringWithFormat:@"<%@: %p, %p, %02x, %d, %s>", NSStringFromClass(v4), self, self->_event, self->_eint.type, self->_eint.pid, self->_eint.common.message];
 }
 
 - (void)_fillFromOSLogMessage:(id)message
@@ -1572,7 +1561,7 @@ LABEL_19:
     proc_imageuuid = self->_eint.proc_imageuuid;
     if (proc_imageuuid)
     {
-      uuidpath_lookup_fd(-3, proc_imageuuid, &self->_eint.proc_imagepath);
+      uuidpath_lookup_fd(4294967293, proc_imageuuid, &self->_eint.proc_imagepath);
     }
   }
 
@@ -1681,7 +1670,7 @@ LABEL_19:
 
 - (BOOL)_setLogEvent:(id *)event rangeUUIDIndex:(unint64_t)index machTimebase:(mach_timebase_info *)timebase traceFilename:(id)filename
 {
-  v124 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   self->_uuidi = index;
   processImagePath = self->_processImagePath;
   if (processImagePath)
@@ -1775,7 +1764,7 @@ LABEL_19:
     self->_eint.common.tv_gmt.tv_usec = var2 % 0x3B9ACA00 / 0x3E8;
 LABEL_35:
     LOBYTE(metricMetadata) = 1;
-    goto LABEL_148;
+    return metricMetadata & 1;
   }
 
   if (var0 == 2)
@@ -1803,7 +1792,7 @@ LABEL_35:
 
   if (var0 != 3)
   {
-    goto LABEL_148;
+    return metricMetadata & 1;
   }
 
   v19 = event->var5.var0.var2.var0;
@@ -1854,16 +1843,16 @@ LABEL_35:
         v43 = v40->var1.var0.var2;
         v44 = v40->var1.var0.var3;
         self->_eint.common.tz = self->_tz;
-        v95 = v40->var1.var0.var8.var0;
-        if (v95 != var6)
+        v92 = v40->var1.var0.var8.var0;
+        if (v92 != var6)
         {
           numer = v40->var1.var0.var0.numer;
           denom = v40->var1.var0.var0.denom;
-          if (v95 >= var6)
+          if (v92 >= var6)
           {
-            v113 = (v95 - var6) * numer / denom;
-            v43 -= v113 / 0x3B9ACA00;
-            v44 -= v113 % 0x3B9ACA00 / 0x3E8;
+            v108 = (v92 - var6) * numer / denom;
+            v43 -= v108 / 0x3B9ACA00;
+            v44 -= v108 % 0x3B9ACA00 / 0x3E8;
             if (v44 < 0)
             {
               --v43;
@@ -1873,9 +1862,9 @@ LABEL_35:
 
           else
           {
-            v98 = (var6 - v95) * numer / denom;
-            v43 += v98 / 0x3B9ACA00;
-            v44 += v98 % 0x3B9ACA00 / 0x3E8;
+            v95 = (var6 - v92) * numer / denom;
+            v43 += v95 / 0x3B9ACA00;
+            v44 += v95 % 0x3B9ACA00 / 0x3E8;
             if (v44 > 999999)
             {
               ++v43;
@@ -1891,38 +1880,32 @@ LABEL_35:
       *&self->_eint.common.tv_gmt.tv_usec = v44;
       self->_eint.common.dsc_uuid = v37->var1.var9.var9;
       self->_eint.common.image_uuid = &v37->var1.var8.var6[8];
-      v114 = v37->var1.var8.var5;
+      v109 = v37->var1.var8.var5;
       self->_eint.common.offset = v37->var1.var9.var7;
-      self->_eint.common.thread = v114;
+      self->_eint.common.thread = v109;
       self->_efv = v45;
       self->_eint.var0.log_message.ttl = v37->var1.var3.var2;
-      v115 = _simple_support_validate_payload(event->var5.var0.var2.var0, &self->_eint.common.sz);
+      v110 = _simple_support_validate_payload(event->var5.var0.var2.var0, &self->_eint.common.sz);
       self->_eint.common.trace_id = v37->var1.var3.var3[0] << 8;
-      v116 = self->_event;
-      v117 = v116->var5.var0.var2.var0;
-      if (*v117 != 24580)
+      v111 = self->_event;
+      v112 = v111->var5.var0.var2.var0;
+      if (*v112 == 24580 && !*(v112 + 4) && *(v112 + 8) >= 0x49uLL && (v113 = _simple_support_validate_payload(v112, 0)) != 0 && *(v113 + 4))
       {
-        goto LABEL_143;
-      }
-
-      if (!*(v117 + 4) && *(v117 + 8) >= 0x49uLL && (v118 = _simple_support_validate_payload(v117, 0)) != 0 && *(v118 + 4))
-      {
-        self->_eint.var0.log_message.subsystem = (v118 + 12);
-        v119 = &_CTF_NULLSTR;
-        v120 = 256;
+        self->_eint.var0.log_message.subsystem = (v113 + 12);
+        v114 = &_CTF_NULLSTR;
+        v115 = 256;
       }
 
       else
       {
-LABEL_143:
-        v119 = 0;
-        v120 = 248;
+        v114 = 0;
+        v115 = 248;
       }
 
-      *(&self->super.isa + v120) = v119;
-      if (v115)
+      *(&self->super.isa + v115) = v114;
+      if (v110)
       {
-        metricMetadata = v116->var5.var0.var2.var3;
+        metricMetadata = v111->var5.var0.var2.var3;
         goto LABEL_146;
       }
     }
@@ -1957,16 +1940,16 @@ LABEL_143:
         v31 = v28->var1.var0.var2;
         v32 = v28->var1.var0.var3;
         self->_eint.common.tz = self->_tz;
-        v91 = v28->var1.var0.var8.var0;
-        if (v91 != v26)
+        v88 = v28->var1.var0.var8.var0;
+        if (v88 != v26)
         {
-          v93 = v28->var1.var0.var0.numer;
-          v92 = v28->var1.var0.var0.denom;
-          if (v91 >= v26)
+          v90 = v28->var1.var0.var0.numer;
+          v89 = v28->var1.var0.var0.denom;
+          if (v88 >= v26)
           {
-            v109 = (v91 - v26) * v93 / v92;
-            v31 -= v109 / 0x3B9ACA00;
-            v32 -= v109 % 0x3B9ACA00 / 0x3E8;
+            v104 = (v88 - v26) * v90 / v89;
+            v31 -= v104 / 0x3B9ACA00;
+            v32 -= v104 % 0x3B9ACA00 / 0x3E8;
             if (v32 < 0)
             {
               --v31;
@@ -1976,9 +1959,9 @@ LABEL_143:
 
           else
           {
-            v94 = (v26 - v91) * v93 / v92;
-            v31 += v94 / 0x3B9ACA00;
-            v32 += v94 % 0x3B9ACA00 / 0x3E8;
+            v91 = (v26 - v88) * v90 / v89;
+            v31 += v91 / 0x3B9ACA00;
+            v32 += v91 % 0x3B9ACA00 / 0x3E8;
             if (v32 > 999999)
             {
               ++v31;
@@ -1995,18 +1978,18 @@ LABEL_143:
       self->_eint.common.image_uuid = v25->var1.var8.var6;
       self->_efv = v33;
       self->_eint.statedump.ttl = v25->var1.var3.var2;
-      v110 = event->var5.var0.var2.var0;
-      v111 = v110->var0.var2;
-      if (v111 - 48 >= 0xC8)
+      v105 = event->var5.var0.var2.var0;
+      v106 = v105->var0.var2;
+      if (v106 - 48 >= 0xC8)
       {
-        v112 = *&v110->var1.var10[52];
-        if (v111 - 248 >= v112)
+        v107 = *&v105->var1.var10[52];
+        if (v106 - 248 >= v107)
         {
-          self->_eint.common.sz = v112;
+          self->_eint.common.sz = v107;
           metricMetadata = event->var5.var0.var2.var3;
 LABEL_146:
           LOBYTE(metricMetadata) = metricMetadata != 0;
-          goto LABEL_148;
+          return metricMetadata & 1;
         }
       }
     }
@@ -2096,22 +2079,21 @@ LABEL_146:
       {
         if (v61 != 8)
         {
-          goto LABEL_148;
+          return metricMetadata & 1;
         }
 
         goto LABEL_61;
       }
 
-      v89 = self->_event->var5.var0.var3;
-      v90 = *MEMORY[0x277D85DE8];
+      v87 = self->_event->var5.var0.var3;
 
-      return _parse_loss(self, v89);
+      return _parse_loss(self, v87);
     }
 
 LABEL_61:
     v62 = self->_event;
     v63 = v62->var5.var0.var3;
-    v122 = 0;
+    v116 = 0;
     v64 = *(v63 + 1);
     if ((v64 & 1) == 0)
     {
@@ -2125,7 +2107,7 @@ LABEL_66:
           goto LABEL_147;
         }
 
-        v122 = v65;
+        v116 = v65;
       }
 
       if ((v64 & 0x100) != 0)
@@ -2135,7 +2117,7 @@ LABEL_66:
           goto LABEL_147;
         }
 
-        v122 = v65 + 4;
+        v116 = v65 + 4;
         v67 = v63 + v65;
         v68 = *(v67 + 12);
         v69 = *(v67 + 13);
@@ -2151,20 +2133,20 @@ LABEL_66:
         }
       }
 
-      if (_parse_location(self, v63, &v122))
+      if (_parse_location(self, v63, &v116))
       {
-        LOWORD(v71) = v122;
+        LOWORD(v71) = v116;
         if ((*(v63 + 1) & 0x200) != 0)
         {
-          LOWORD(v71) = v122 + 2;
-          if (v122 + 2 > *(v63 + 11))
+          LOWORD(v71) = v116 + 2;
+          if (v116 + 2 > *(v63 + 11))
           {
             goto LABEL_147;
           }
 
           v72 = v62->var5.var0.var2.var3;
-          v123 = *(v63 + v122 + 24);
-          v73 = hashtable_lookup(v72->var9, &v123);
+          v117 = *(v63 + v116 + 24);
+          v73 = hashtable_lookup(v72->var9, &v117);
           if (v73)
           {
             self->_eint.var0.log_message.subsystem = *(v73 + 8);
@@ -2212,15 +2194,15 @@ LABEL_66:
             v81 = *&v77[v71];
             if ((*(v63 + 1) & 0x20) != 0)
             {
-              v103 = HIWORD(v80);
-              v104 = v76 + 14;
-              if (v76 + 14 > v103)
+              v98 = HIWORD(v80);
+              v99 = v76 + 14;
+              if (v76 + 14 > v98)
               {
                 goto LABEL_147;
               }
 
               v82 = *&v77[v79] << 31;
-              LOWORD(v79) = v104;
+              LOWORD(v79) = v99;
             }
 
             else
@@ -2228,13 +2210,13 @@ LABEL_66:
               v82 = 0;
             }
 
-            v105 = v82 | v81 & 0x7FFFFFFF;
+            v100 = v82 | v81 & 0x7FFFFFFF;
             if (v81 < 0)
             {
-              v105 |= 0x8000000000000000;
+              v100 |= 0x8000000000000000;
             }
 
-            self->_eint.var0.log_message.signpost_name_offset = v105;
+            self->_eint.var0.log_message.signpost_name_offset = v100;
             LOWORD(v71) = v79;
           }
 
@@ -2243,29 +2225,29 @@ LABEL_66:
 
         if (v75 == 8)
         {
-          v106 = v71;
+          v101 = v71;
           v71 = v71 + 8;
           if (v71 > *(v63 + 11))
           {
             goto LABEL_147;
           }
 
-          v107 = *(v63 + v106 + 24);
+          v102 = *(v63 + v101 + 24);
           self->_eint.var0.log_message.var0.signpost_type = *(v63 + 1);
-          self->_eint.var0.log_message.var1.signpost_id = v107;
+          self->_eint.var0.log_message.var1.signpost_id = v102;
           self->_eint.type = 2048;
         }
 
         if ((*(v63 + 1) & 0x800) != 0)
         {
-          v108 = v71;
+          v103 = v71;
           v71 = v71 + 4;
           if (v71 > *(v63 + 11))
           {
             goto LABEL_147;
           }
 
-          self->_eint.var0.log_message.oversize_id = *(v63 + v108 + 24);
+          self->_eint.var0.log_message.oversize_id = *(v63 + v103 + 24);
         }
 
         self->_eint.var0.activity_create.creator_aid = v63 + v71 + 24;
@@ -2276,19 +2258,19 @@ LABEL_66:
           self->_eint.var0.log_message.has_context_data = 1;
         }
 
-        goto LABEL_148;
+        return metricMetadata & 1;
       }
 
 LABEL_147:
       LOBYTE(metricMetadata) = 0;
-      goto LABEL_148;
+      return metricMetadata & 1;
     }
 
     metricMetadata = (*(v63 + 2) >> 51);
     if (metricMetadata)
     {
       LODWORD(v65) = 8;
-      v122 = 8;
+      v116 = 8;
       v66 = *(v63 + 3);
       self->_eint.activity_id = v66;
       self->_eint.parent_id = _os_activity_map_find_parent(self->_aid_map, v66);
@@ -2296,8 +2278,6 @@ LABEL_147:
       goto LABEL_66;
     }
 
-LABEL_148:
-    v121 = *MEMORY[0x277D85DE8];
     return metricMetadata & 1;
   }
 
@@ -2307,18 +2287,15 @@ LABEL_148:
     switch(v83)
     {
       case 1:
-        v101 = self->_event->var5.var0.var3;
-        v102 = *MEMORY[0x277D85DE8];
+        v97 = self->_event->var5.var0.var3;
 
-        return _parse_activity_create(self, v101);
+        return _parse_activity_create(self, v97);
       case 3:
-        v99 = self->_event->var5.var0.var3;
-        v100 = *MEMORY[0x277D85DE8];
+        v96 = self->_event->var5.var0.var3;
 
-        return _parse_activity_useraction(self, v99);
+        return _parse_activity_useraction(self, v96);
       case 2:
         v84 = self->_event->var5.var0.var3;
-        v85 = *MEMORY[0x277D85DE8];
 
         return _parse_activity_swap(self, v84);
     }
@@ -2330,25 +2307,38 @@ LABEL_148:
   {
     if (v61 != 4)
     {
-      goto LABEL_148;
+      return metricMetadata & 1;
     }
 
     goto LABEL_61;
   }
 
-  v87 = self->_event->var5.var0.var3;
-  v88 = *MEMORY[0x277D85DE8];
+  v86 = self->_event->var5.var0.var3;
 
-  return _parse_trace(self, v87);
+  return _parse_trace(self, v86);
 }
 
 - (void)_setBuffer:(const void *)buffer size:(unint64_t)size privateBuffer:(const void *)privateBuffer privateSize:(unint64_t)privateSize
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_eint.var0.timesync.flags)
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v8 = 0;
+    memset(v11, 0, sizeof(v11));
+    v6 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v9 = 134217984;
+    v10 = 0;
+    _os_log_send_and_compose_impl(v7, &v8, v11, 80, &dword_22E01A000, v6, 16, "assertion failure: _eint.log_message.hdr == ((void*)0) -> %llu", &v9);
     _os_crash_msg();
     __break(1u);
   }
@@ -2358,7 +2348,6 @@ LABEL_148:
   self->_eint.var0.loss.end.tv_gmt.tv_sec = privateBuffer;
   self->_eint.var0.log_message.privdata_sz = privateSize;
   self->_eint.common.sz += privateSize + size;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setFallbackTimezone

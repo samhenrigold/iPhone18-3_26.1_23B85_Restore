@@ -16,13 +16,10 @@
 - (void)dispatchSync:(id)sync
 {
   v4 = _Block_copy(sync);
-  v5 = OBJC_IVAR___NPKSemaphoreQueue_semaphore;
-  v6 = *(&self->super.isa + OBJC_IVAR___NPKSemaphoreQueue_semaphore);
   selfCopy = self;
   sub_25B55AEDC();
   v4[2](v4);
   _Block_release(v4);
-  v7 = *(&self->super.isa + v5);
   sub_25B55AEEC();
 }
 

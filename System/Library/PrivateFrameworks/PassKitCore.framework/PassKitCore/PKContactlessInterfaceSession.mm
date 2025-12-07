@@ -2466,7 +2466,7 @@ LABEL_32:
     v12 = v50;
   }
 
-  if (!identifierCopy || (!groupMemberIDs || ([groupMemberIDs containsObject:identifierCopy] & 1) == 0) && !objc_msgSend(identifier, "isEqualToString:", identifierCopy))
+  if (!identifierCopy || (!groupMemberIDs || ([groupMemberIDs containsObject:identifierCopy] & 1) == 0) && !objc_msgSend_isEqualToString_(identifier))
   {
 
     v11 = v51;
@@ -2495,9 +2495,9 @@ LABEL_40:
 
       v38 = *(*(&v56 + 1) + 8 * v37);
       applicationIdentifier3 = [v38 applicationIdentifier];
-      v40 = [applicationIdentifier3 isEqualToString:identifierCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(applicationIdentifier3);
 
-      if (v40)
+      if (isEqualToString)
       {
         break;
       }
@@ -3899,7 +3899,7 @@ void __98__PKContactlessInterfaceSession_loyaltyAndPaymentSession_didPerformValu
   }
 }
 
-uint64_t __98__PKContactlessInterfaceSession_loyaltyAndPaymentSession_didPerformValueAddedServiceTransactions___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__98__PKContactlessInterfaceSession_loyaltyAndPaymentSession_didPerformValueAddedServiceTransactions___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 didSucceed];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -4024,14 +4024,14 @@ void __85__PKContactlessInterfaceSession_loyaltyAndPaymentSession_didSelectValue
   v10 = [eventCopy objectForKey:v9];
   stringValue = [v10 stringValue];
 
-  if ([stringValue isEqualToString:@"com.apple.secureelementservice.dck.event.vehicle.did.lock"])
+  if (objc_msgSend_isEqualToString_(stringValue))
   {
     v12 = 1;
   }
 
   else
   {
-    if (![stringValue isEqualToString:@"com.apple.secureelementservice.dck.event.vehicle.did.unlock"])
+    if (!objc_msgSend_isEqualToString_(stringValue))
     {
       goto LABEL_13;
     }
@@ -5606,9 +5606,9 @@ LABEL_39:
 
               else
               {
-                v34 = [credentialIdentifier isEqualToString:v31];
+                isEqualToString = objc_msgSend_isEqualToString_(credentialIdentifier);
 
-                if (v34)
+                if (isEqualToString)
                 {
                   goto LABEL_39;
                 }
@@ -5970,9 +5970,9 @@ void __54__PKContactlessInterfaceSession__sessionDidExitField___block_invoke_228
 - (void)_session:(id)_session didSelectApplet:(id)applet
 {
   identifier = [applet identifier];
-  v6 = [identifier isEqualToString:@"325041592E5359532E4444463031"];
+  isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-  if (v6)
+  if (isEqualToString)
   {
     v7 = PKLogFacilityTypeGetObject(7uLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))

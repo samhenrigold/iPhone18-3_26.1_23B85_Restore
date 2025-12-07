@@ -24,44 +24,42 @@
 {
   v5 = sub_2478D88FC();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   typeCopy = type;
   sub_2478D88EC();
 
-  v11 = sub_2478D88CC();
-  v13 = v12;
-  v14 = (self + OBJC_IVAR___CSUIBindable_rawBindable);
+  v10 = sub_2478D88CC();
+  v12 = v11;
+  v13 = (self + OBJC_IVAR___CSUIBindable_rawBindable);
   *&self->rawBindable[OBJC_IVAR___CSUIBindable_rawBindable + 16] = &type metadata for TypeIdentifierBindable;
-  v14[4] = sub_2478BCBD8();
-  *v14 = v11;
-  v14[1] = v13;
-  v17.receiver = self;
-  v17.super_class = CSUIBindable;
-  v15 = [(CSUIBindable *)&v17 init];
-  (*(v6 + 8))(v9, v5);
-  return v15;
+  v13[4] = sub_2478BCBD8();
+  *v13 = v10;
+  v13[1] = v12;
+  v16.receiver = self;
+  v16.super_class = CSUIBindable;
+  v14 = [(CSUIBindable *)&v16 init];
+  (*(v6 + 8))(v8, v5);
+  return v14;
 }
 
 - (CSUIBindable)initWithURL:(id)l
 {
   v4 = sub_2478D889C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2478D887C();
-  v9 = (self + OBJC_IVAR___CSUIBindable_rawBindable);
-  v9[3] = type metadata accessor for URLBindable();
-  v9[4] = sub_2478BCA20(&qword_27EE54B18, 255, type metadata accessor for URLBindable);
-  boxed_opaque_existential_0Tm = __swift_allocate_boxed_opaque_existential_0Tm(v9);
-  (*(v5 + 16))(boxed_opaque_existential_0Tm, v8, v4);
-  v13.receiver = self;
-  v13.super_class = CSUIBindable;
-  v11 = [(CSUIBindable *)&v13 init];
-  (*(v5 + 8))(v8, v4);
-  return v11;
+  v8 = (self + OBJC_IVAR___CSUIBindable_rawBindable);
+  v8[3] = type metadata accessor for URLBindable(0);
+  v8[4] = sub_2478BCA20(&qword_27EE54B18, 255, type metadata accessor for URLBindable, &unk_2478DAA80);
+  boxed_opaque_existential_0Tm = __swift_allocate_boxed_opaque_existential_0Tm(v8);
+  (*(v5 + 16))(boxed_opaque_existential_0Tm, v7, v4);
+  v12.receiver = self;
+  v12.super_class = CSUIBindable;
+  v10 = [(CSUIBindable *)&v12 init];
+  (*(v5 + 8))(v7, v4);
+  return v10;
 }
 
 - (NSString)description
@@ -69,15 +67,13 @@
   selfCopy = self;
   sub_2478D8CEC();
   MEMORY[0x24C1AD190](0x6E6942495553433CLL, 0xEF203A656C626164);
-  v3 = *&selfCopy->rawBindable[OBJC_IVAR___CSUIBindable_rawBindable + 24];
   __swift_project_boxed_opaque_existential_0Tm((&selfCopy->super.isa + OBJC_IVAR___CSUIBindable_rawBindable), *&selfCopy->rawBindable[OBJC_IVAR___CSUIBindable_rawBindable + 16]);
-  v4 = *(v3 + 8);
   sub_2478D8E3C();
   MEMORY[0x24C1AD190](62, 0xE100000000000000);
 
-  v5 = sub_2478D89BC();
+  v3 = sub_2478D89BC();
 
-  return v5;
+  return v3;
 }
 
 - (CSUIBindable)init

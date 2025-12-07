@@ -6,13 +6,13 @@
 
 + (_WORD)failureContext
 {
-  v0 = objc_alloc_init(objc_opt_self());
-  if (v0)
+  v1 = objc_alloc_init(objc_opt_self());
+  if (v1)
   {
-    v0[4] = 257;
+    v1[4] = 257;
   }
 
-  return v0;
+  return v1;
 }
 
 @end

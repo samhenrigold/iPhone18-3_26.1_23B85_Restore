@@ -21,7 +21,7 @@
 
 - (void)sharedApplicationGroupURL:(id)l
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AC08];
   lCopy = l;
   defaultManager = [v3 defaultManager];
@@ -32,11 +32,11 @@
   {
     if (os_log_type_enabled(AFSiriLogContextFilesystem, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315394;
-      v11 = "[AFApplicationGroupContainer sharedApplicationGroupURL:]";
-      v12 = 2112;
-      v13 = v6;
-      _os_log_debug_impl(&dword_1912FE000, v7, OS_LOG_TYPE_DEBUG, "%s Got container URL: %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[AFApplicationGroupContainer sharedApplicationGroupURL:]";
+      v11 = 2112;
+      v12 = v6;
+      _os_log_debug_impl(&dword_1912FE000, v7, OS_LOG_TYPE_DEBUG, "%s Got container URL: %@", &v9, 0x16u);
     }
 
     lCopy[2](lCopy, v6, 0);
@@ -46,9 +46,9 @@
   {
     if (os_log_type_enabled(AFSiriLogContextFilesystem, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "[AFApplicationGroupContainer sharedApplicationGroupURL:]";
-      _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, "%s Application group container path not found", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[AFApplicationGroupContainer sharedApplicationGroupURL:]";
+      _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, "%s Application group container path not found", &v9, 0xCu);
     }
 
     v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"kAFAssistantFilesystemDomain" code:1 userInfo:0];
@@ -56,8 +56,6 @@
 
     lCopy = v8;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sharedInstance

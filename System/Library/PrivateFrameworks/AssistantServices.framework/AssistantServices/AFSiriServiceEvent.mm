@@ -7,7 +7,7 @@
 
 - (AFSiriServiceEvent)initWithMetadata:(id)metadata identifier:(id)identifier
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   identifierCopy = identifier;
   if (metadataCopy)
@@ -27,9 +27,9 @@
       if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v35 = "[AFSiriServiceEvent initWithMetadata:identifier:]";
-        v36 = 2112;
-        v37 = v10;
+        v34 = "[AFSiriServiceEvent initWithMetadata:identifier:]";
+        v35 = 2112;
+        v36 = v10;
         v16 = "%s Unsupported metadata in {%@}";
         v17 = v20;
         v18 = 22;
@@ -57,9 +57,9 @@ LABEL_23:
         if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v35 = "[AFSiriServiceEvent initWithMetadata:identifier:]";
-          v36 = 1024;
-          LODWORD(v37) = integerValue;
+          v34 = "[AFSiriServiceEvent initWithMetadata:identifier:]";
+          v35 = 1024;
+          LODWORD(v36) = integerValue;
           v16 = "%s Unsupported BMSiriServiceDismissalReason %u";
           v17 = v15;
           v18 = 18;
@@ -91,9 +91,9 @@ LABEL_26:
         if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v35 = "[AFSiriServiceEvent initWithMetadata:identifier:]";
-          v36 = 1024;
-          LODWORD(v37) = integerValue2;
+          v34 = "[AFSiriServiceEvent initWithMetadata:identifier:]";
+          v35 = 1024;
+          LODWORD(v36) = integerValue2;
           _os_log_error_impl(&dword_1912FE000, v26, OS_LOG_TYPE_ERROR, "%s Unsupported BMSiriServiceRequestSource %u", buf, 0x12u);
         }
 
@@ -113,9 +113,9 @@ LABEL_26:
 
     if (v29)
     {
-      v33.receiver = self;
-      v33.super_class = AFSiriServiceEvent;
-      v30 = [(AFEvent *)&v33 initWithBMEvent:v29];
+      v32.receiver = self;
+      v32.super_class = AFSiriServiceEvent;
+      v30 = [(AFEvent *)&v32 initWithBMEvent:v29];
     }
 
     else
@@ -135,24 +135,21 @@ LABEL_22:
   selfCopy2 = 0;
 LABEL_24:
 
-  v31 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
 void __50__AFSiriServiceEvent_initWithMetadata_identifier___block_invoke()
 {
-  v5[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"dismissalReason";
-  v5[1] = @"requestSource";
-  v5[2] = @"unintended";
-  v5[3] = @"domain";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
+  v4[0] = @"dismissalReason";
+  v4[1] = @"requestSource";
+  v4[2] = @"unintended";
+  v4[3] = @"domain";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:4];
   v2 = [v0 setWithArray:v1];
   v3 = initWithMetadata_identifier__knownKeys;
   initWithMetadata_identifier__knownKeys = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (AFSiriServiceEvent)initWithDomain:(id)domain identifier:(id)identifier command:(id)command

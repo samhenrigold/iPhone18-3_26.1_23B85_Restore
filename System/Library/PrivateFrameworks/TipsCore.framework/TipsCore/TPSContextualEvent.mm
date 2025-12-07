@@ -41,9 +41,9 @@
 
 + (id)eventDictionaryForIdentifier:(id)identifier type:(int64_t)type status:(int64_t)status
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v15[0] = @"id";
+  v14[0] = @"id";
   uUIDString = identifierCopy;
   if (!identifierCopy)
   {
@@ -51,20 +51,18 @@
     uUIDString = [uUID UUIDString];
   }
 
-  v16[0] = uUIDString;
-  v15[1] = @"type";
+  v15[0] = uUIDString;
+  v14[1] = @"type";
   v10 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-  v16[1] = v10;
-  v15[2] = @"status";
+  v15[1] = v10;
+  v14[2] = @"status";
   v11 = [MEMORY[0x1E696AD98] numberWithInteger:status];
-  v16[2] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v15[2] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   if (!identifierCopy)
   {
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -383,7 +381,7 @@ LABEL_14:
 
 - (void)addObserverIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   os_unfair_lock_lock(&_sharedEventLock);
   if (!self->_observerIdentifiers)
@@ -396,21 +394,19 @@ LABEL_14:
   v7 = +[TPSLogger default];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = self->_observerIdentifiers;
+    v8 = self->_observerIdentifiers;
     identifier = self->_identifier;
-    v11 = 138412802;
-    v12 = identifierCopy;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2112;
+    v10 = 138412802;
+    v11 = identifierCopy;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
     identifierCopy2 = identifier;
-    _os_log_debug_impl(&dword_1C00A7000, v7, OS_LOG_TYPE_DEBUG, "Add observerIdentifier %@ to map %@ for event identifier %@", &v11, 0x20u);
+    _os_log_debug_impl(&dword_1C00A7000, v7, OS_LOG_TYPE_DEBUG, "Add observerIdentifier %@ to map %@ for event identifier %@", &v10, 0x20u);
   }
 
   [(NSMutableSet *)self->_observerIdentifiers addObject:identifierCopy];
   os_unfair_lock_unlock(&_sharedEventLock);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)observedWithResults:(id)results

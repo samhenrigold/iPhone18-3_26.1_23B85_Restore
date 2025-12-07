@@ -97,12 +97,12 @@
 
 - (id)currentSpeechTranslationAssetType
 {
-  v3 = _LTPreferencesOverrideDefaultCatalog();
+  v3 = _LTPreferencesOverrideDefaultCatalog(self, a2);
   if (v3)
   {
     lastObject = v3;
-    v5 = _LTOSLogAssets();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = _LTOSLogAssets(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [(_LTDAssetConfigurationModel *)lastObject currentSpeechTranslationAssetType];
     }
@@ -113,16 +113,16 @@
     speechTranslationAssetTypes = [(_LTDAssetConfigurationModel *)self speechTranslationAssetTypes];
     lastObject = [speechTranslationAssetTypes lastObject];
 
-    v7 = _LTOSLogAssets();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v10 = _LTOSLogAssets(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [(_LTDAssetConfigurationModel *)lastObject currentSpeechTranslationAssetType];
     }
   }
 
-  v8 = lastObject;
+  v11 = lastObject;
 
-  return v8;
+  return v11;
 }
 
 - (id)currentEndpointAssetType
@@ -143,11 +143,10 @@
 
 - (void)currentSpeechTranslationAssetType
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_232E53000, a2, OS_LOG_TYPE_DEBUG, "Current translation asset catalog is %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_232E53000, a2, OS_LOG_TYPE_DEBUG, "Current translation asset catalog is %{public}@", &v2, 0xCu);
 }
 
 @end

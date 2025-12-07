@@ -7,18 +7,16 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   snapshotCharacteristicEventUUID = [(HMDCameraSnapshotCacheEntry *)self snapshotCharacteristicEventUUID];
   v5 = [v3 initWithName:@"Characteristic Event UUID" value:snapshotCharacteristicEventUUID];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   snapshotFile = [(HMDCameraSnapshotCacheEntry *)self snapshotFile];
   v8 = [v6 initWithName:@"File" value:snapshotFile];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }

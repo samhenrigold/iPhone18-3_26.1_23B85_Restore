@@ -271,12 +271,13 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v10 = v9;
   if (v9)
   {
-    v10 = PRUISLogChannels();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = PRUISLogChannels(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invoke_5_cold_1(a1, v9);
+      __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invoke_5_cold_1(a1, v10);
     }
 
 LABEL_7:
@@ -286,19 +287,19 @@ LABEL_7:
 
   if (v8)
   {
-    v10 = PRUISLogChannels();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = PRUISLogChannels(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invoke_5_cold_2(a1);
+      __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invoke_5_cold_2(a1, v8);
     }
 
     goto LABEL_7;
   }
 
 LABEL_8:
-  v11 = *(a1 + 40);
-  v12 = [v8 posterSnapshotBundle];
-  (*(v11 + 16))(v11, v12, v9);
+  v12 = *(a1 + 40);
+  v13 = [v8 posterSnapshotBundle];
+  (*(v12 + 16))(v12, v13, v10);
 }
 
 - (void)prewarmSnapshotForDefinition:(id)definition interfaceOrientation:(int64_t)orientation
@@ -954,7 +955,7 @@ LABEL_5:
 
   else
   {
-    _extensionProvider = PRUISLogChannels();
+    _extensionProvider = PRUISLogChannels(v10);
     if (os_log_type_enabled(_extensionProvider, OS_LOG_TYPE_ERROR))
     {
       [(PRUISPosterChannel *)v6 relinquishExtensionInstanceForReason:_extensionProvider];
@@ -1409,19 +1410,27 @@ void __51__PRUISPosterChannel__notifyObserversDidInvalidate__block_invoke(uint64
 void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invoke_5_cold_1(uint64_t a1, void *a2)
 {
   v3 = [*(*(a1 + 32) + 56) channelIdentifier];
-  v10 = [a2 localizedDescription];
-  OUTLINED_FUNCTION_3_1(&dword_1CAE63000, v4, v5, "error snapshotting channel with identifier: %{public}@. Error: %{public}@.", v6, v7, v8, v9, 2u);
+  v4 = [a2 localizedDescription];
+  *v11 = 138543618;
+  *&v11[4] = v3;
+  *&v11[12] = 2114;
+  *&v11[14] = v4;
+  OUTLINED_FUNCTION_3_1(&dword_1CAE63000, v5, v6, "error snapshotting channel with identifier: %{public}@. Error: %{public}@.", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
-void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invoke_5_cold_2(uint64_t a1)
+void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invoke_5_cold_2(uint64_t a1, uint64_t a2)
 {
-  v1 = [*(*(a1 + 32) + 56) channelIdentifier];
-  OUTLINED_FUNCTION_3_1(&dword_1CAE63000, v2, v3, "successfully snapshotted channel with identifier: %{public}@. Result: %{public}@.", v4, v5, v6, v7, 2u);
+  v3 = [*(*(a1 + 32) + 56) channelIdentifier];
+  *v10 = 138543618;
+  *&v10[4] = v3;
+  *&v10[12] = 2114;
+  *&v10[14] = a2;
+  OUTLINED_FUNCTION_3_1(&dword_1CAE63000, v4, v5, "successfully snapshotted channel with identifier: %{public}@. Result: %{public}@.", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)prewarmSnapshotForDefinition:(char *)a1 interfaceOrientation:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"interfaceOrientation"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1429,7 +1438,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"interfaceOrientation", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1439,7 +1448,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
 
 - (void)prewarmSnapshotForDefinition:(char *)a1 interfaceOrientation:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"definition"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1447,7 +1456,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"definition", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1457,7 +1466,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
 
 - (void)prewarmSnapshotForDescriptor:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"descriptor"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1465,7 +1474,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"descriptor", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1475,7 +1484,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
 
 - (void)initWithModelCoordinator:(char *)a1 state:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"state"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1483,7 +1492,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"state", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1493,7 +1502,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
 
 - (void)initWithModelCoordinator:(char *)a1 state:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"modelCoordinator"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1501,7 +1510,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"modelCoordinator", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1511,7 +1520,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
 
 - (void)extensionInstanceForReason:(char *)a1 outError:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"reason"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1519,7 +1528,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"reason", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1537,7 +1546,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
 
 - (void)relinquishExtensionInstanceForReason:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"reason"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1545,7 +1554,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"reason", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1555,7 +1564,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
 
 - (void)relinquishPooledExtensionInstance:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pooledExtensionInstance"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1563,7 +1572,7 @@ void __60__PRUISPosterChannel_fetchSnapshotForDescriptor_completion___block_invo
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"pooledExtensionInstance", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

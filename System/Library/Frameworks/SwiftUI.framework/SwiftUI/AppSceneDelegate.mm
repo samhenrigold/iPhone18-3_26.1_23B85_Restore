@@ -86,8 +86,8 @@
 
 - (void)scene:(id)scene openURLContexts:(id)contexts
 {
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIOpenURLContext);
-  lazy protocol witness table accessor for type UIScene and conformance NSObject(&lazy protocol witness table cache variable for type UIOpenURLContext and conformance NSObject, &lazy cache variable for type metadata for UIOpenURLContext);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIOpenURLContext, 0x1E69DCD08);
+  lazy protocol witness table accessor for type UIScene and conformance NSObject(&lazy protocol witness table cache variable for type UIOpenURLContext and conformance NSObject, &lazy cache variable for type metadata for UIOpenURLContext, 0x1E69DCD08);
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sceneCopy = scene;
   selfCopy = self;

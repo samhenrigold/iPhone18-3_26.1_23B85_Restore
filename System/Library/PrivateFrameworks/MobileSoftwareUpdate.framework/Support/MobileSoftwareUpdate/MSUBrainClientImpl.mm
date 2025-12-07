@@ -1,14 +1,17 @@
 @interface MSUBrainClientImpl
+- (BOOL)calculateUpdateStorageRequirements:(int)requirements attributes:(id)attributes options:(id)options info:(id *)info error:(id *)error;
 - (id)init:(id)init version:(id)version endpoint:(id)endpoint delgate:(id)delgate;
 - (void)_connectToServerIfNecessary_nolock;
 - (void)_invalidateConnection;
 - (void)_invalidateConnection_nolock;
 - (void)applyUpdate:(id)update progress:(id)progress completion:(id)completion;
+- (void)cancelUpdate:(id)update purge:(BOOL)purge completion:(id)completion;
 - (void)commitUnlockOnceToken:(id)token progress:(id)progress completion:(id)completion;
 - (void)connectToServerIfNecessary;
 - (void)dealloc;
 - (void)handleConnectionError:(id)error method:(const char *)method handler:(id)handler;
 - (void)noteConnectionDropped;
+- (void)preflightUpdate:(int)update options:(id)options progress:(id)progress completion:(id)completion;
 - (void)prepareUpdate:(id)update options:(id)options progress:(id)progress completion:(id)completion;
 @end
 
@@ -128,14 +131,14 @@
   }
 }
 
-uint64_t __56__MSUBrainClientImpl__connectToServerIfNecessary_nolock__block_invoke(uint64_t a1)
+uint64_t __56__MSUBrainClientImpl__connectToServerIfNecessary_nolock__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = msuSharedLogger();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = msuSharedLogger(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 138412290;
-    v5 = @"com.apple.MobileSoftwareUpdate.UpdateBrainService2";
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "connection to %@ invalidated", &v4, 0xCu);
+    v5 = 138412290;
+    v6 = @"com.apple.MobileSoftwareUpdate.UpdateBrainService2";
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "connection to %@ invalidated", &v5, 0xCu);
   }
 
   [*(*(*(a1 + 32) + 8) + 40) noteConnectionDropped];
@@ -152,12 +155,12 @@ uint64_t __56__MSUBrainClientImpl__connectToServerIfNecessary_nolock__block_invo
   return result;
 }
 
-uint64_t __56__MSUBrainClientImpl__connectToServerIfNecessary_nolock__block_invoke_94(uint64_t a1)
+uint64_t __56__MSUBrainClientImpl__connectToServerIfNecessary_nolock__block_invoke_94(uint64_t a1, uint64_t a2)
 {
-  v2 = msuSharedLogger();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = msuSharedLogger(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __56__MSUBrainClientImpl__connectToServerIfNecessary_nolock__block_invoke_94_cold_1(v2);
+    __56__MSUBrainClientImpl__connectToServerIfNecessary_nolock__block_invoke_94_cold_1(v3);
   }
 
   [*(*(*(a1 + 32) + 8) + 40) noteConnectionDropped];
@@ -194,7 +197,7 @@ uint64_t __56__MSUBrainClientImpl__connectToServerIfNecessary_nolock__block_invo
 {
   if (error)
   {
-    v9 = msuSharedLogger();
+    v9 = msuSharedLogger(self, a2);
     v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
     if (method)
     {
@@ -211,6 +214,42 @@ uint64_t __56__MSUBrainClientImpl__connectToServerIfNecessary_nolock__block_invo
 
     [(MSUBrainClientImpl *)self _invalidateConnection];
     (*(handler + 2))(handler);
+  }
+}
+
+- (void)preflightUpdate:(int)update options:(id)options progress:(id)progress completion:(id)completion
+{
+  v9 = *&update;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = __66__MSUBrainClientImpl_preflightUpdate_options_progress_completion___block_invoke;
+  v15[3] = &unk_100049D58;
+  v15[5] = completion;
+  v15[6] = "[MSUBrainClientImpl preflightUpdate:options:progress:completion:]";
+  v15[4] = self;
+  v10 = [(MSUBrainClientImpl *)self _remoteInterfaceWithErrorHandler:v15];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = __66__MSUBrainClientImpl_preflightUpdate_options_progress_completion___block_invoke_3;
+  v14[3] = &unk_100049D80;
+  v14[4] = progress;
+  v11 = [[MSURemoteableBlock alloc] initWithProgressBlock:v14];
+  v12 = v11;
+  if (v10)
+  {
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = __66__MSUBrainClientImpl_preflightUpdate_options_progress_completion___block_invoke_4;
+    v13[3] = &unk_100049DA8;
+    v13[4] = completion;
+    [v10 _nsxpcPreflightUpdate:v9 options:options progress:v11 completion:v13];
+  }
+
+  else
+  {
+    v16 = NSDebugDescriptionErrorKey;
+    v17 = @"no remote object connection";
+    (*(completion + 2))(completion, [NSError errorWithDomain:@"MobileSoftwareUpdateErrorDomain" code:1364 userInfo:[NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1]]);
   }
 }
 
@@ -375,6 +414,35 @@ id __54__MSUBrainClientImpl_applyUpdate_progress_completion___block_invoke(void 
   return [v3 handleConnectionError:a2 method:v2 handler:v6];
 }
 
+- (void)cancelUpdate:(id)update purge:(BOOL)purge completion:(id)completion
+{
+  purgeCopy = purge;
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = __52__MSUBrainClientImpl_cancelUpdate_purge_completion___block_invoke;
+  v10[3] = &unk_100049D58;
+  v10[5] = completion;
+  v10[6] = "[MSUBrainClientImpl cancelUpdate:purge:completion:]";
+  v10[4] = self;
+  v8 = [(MSUBrainClientImpl *)self _remoteInterfaceWithErrorHandler:v10];
+  if (v8)
+  {
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = __52__MSUBrainClientImpl_cancelUpdate_purge_completion___block_invoke_3;
+    v9[3] = &unk_100049DA8;
+    v9[4] = completion;
+    [v8 _nsxpcCancelUpdate:purgeCopy options:update completion:v9];
+  }
+
+  else
+  {
+    v11 = NSDebugDescriptionErrorKey;
+    v12 = @"no remote object connection";
+    (*(completion + 2))(completion, [NSError errorWithDomain:@"MobileSoftwareUpdateErrorDomain" code:1364 userInfo:[NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1]]);
+  }
+}
+
 id __52__MSUBrainClientImpl_cancelUpdate_purge_completion___block_invoke(void *a1, uint64_t a2)
 {
   v2 = a1[6];
@@ -387,6 +455,122 @@ id __52__MSUBrainClientImpl_cancelUpdate_purge_completion___block_invoke(void *a
   v6[4] = a2;
   v6[5] = v4;
   return [v3 handleConnectionError:a2 method:v2 handler:v6];
+}
+
+- (BOOL)calculateUpdateStorageRequirements:(int)requirements attributes:(id)attributes options:(id)options info:(id *)info error:(id *)error
+{
+  v11 = *&requirements;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x2020000000;
+  v54 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3052000000;
+  v40 = __Block_byref_object_copy__4;
+  v41 = __Block_byref_object_dispose__4;
+  v42 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3052000000;
+  v34 = __Block_byref_object_copy__4;
+  v35 = __Block_byref_object_dispose__4;
+  v36 = 0;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = __87__MSUBrainClientImpl_calculateUpdateStorageRequirements_attributes_options_info_error___block_invoke;
+  v30[3] = &unk_100049DF8;
+  v30[7] = &v47;
+  v30[8] = "[MSUBrainClientImpl calculateUpdateStorageRequirements:attributes:options:info:error:]";
+  v30[4] = self;
+  v30[5] = &v43;
+  v30[6] = &v37;
+  v12 = [(MSUBrainClientImpl *)self _remoteInterfaceWithErrorHandler:v30];
+  if (!v12)
+  {
+    v58 = NSDebugDescriptionErrorKey;
+    __rqtp.tv_sec = @"no remote object connection";
+    v19 = [NSError errorWithDomain:@"MobileSoftwareUpdateErrorDomain" code:1364 userInfo:[NSDictionary dictionaryWithObjects:&__rqtp forKeys:&v58 count:1]];
+    goto LABEL_10;
+  }
+
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = __87__MSUBrainClientImpl_calculateUpdateStorageRequirements_attributes_options_info_error___block_invoke_99;
+  v29[3] = &unk_100049E20;
+  v29[4] = &v43;
+  v29[5] = &v51;
+  v29[6] = &v31;
+  v29[7] = &v37;
+  v29[8] = &v47;
+  v29[9] = "[MSUBrainClientImpl calculateUpdateStorageRequirements:attributes:options:info:error:]";
+  [v12 _nsxpcCalculateUpdateStorageRequirements:v11 attributes:attributes options:options completion:v29];
+  v26 = __87__MSUBrainClientImpl_calculateUpdateStorageRequirements_attributes_options_info_error___block_invoke_101;
+  v27 = &unk_100049E48;
+  v28 = &v47;
+  v13 = objc_autoreleasePoolPush();
+  v14 = [NSDate date:_NSConcreteStackBlock];
+  do
+  {
+    v15 = +[NSDate date];
+    [+[NSRunLoop currentRunLoop](NSRunLoop runUntilDate:"runUntilDate:", [(NSDate *)v15 dateByAddingTimeInterval:0.02]];
+    [+[NSDate date](NSDate timeIntervalSinceDate:"timeIntervalSinceDate:", v15];
+    if (v16 < 0.02)
+    {
+      v17 = 0.02 - v16;
+      __rqtp.tv_sec = v17;
+      __rqtp.tv_nsec = ((v17 - v17) * 1000000000.0);
+      nanosleep(&__rqtp, 0);
+    }
+
+    if (v26(&v25))
+    {
+      break;
+    }
+
+    [+[NSDate date](NSDate timeIntervalSinceDate:"timeIntervalSinceDate:", v14];
+  }
+
+  while (v18 < 10.0);
+  objc_autoreleasePoolPop(v13);
+  if ((v48[3] & 1) == 0)
+  {
+    *(v44 + 24) = 1;
+    v55 = NSDebugDescriptionErrorKey;
+    v56 = @"timeout waiting for SPI completion";
+    v19 = [NSError errorWithDomain:@"MobileSoftwareUpdateErrorDomain" code:1360 userInfo:[NSDictionary dictionaryWithObjects:&v56 forKeys:&v55 count:1]];
+LABEL_10:
+    v20 = [(NSError *)v19 copy];
+    v38[5] = v20;
+  }
+
+  if (info)
+  {
+    *info = v32[5];
+  }
+
+  if (error)
+  {
+    *error = v38[5];
+  }
+
+  v21 = v32[5];
+  v22 = v38[5];
+  v23 = *(v52 + 24);
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v51, 8);
+  return v23;
 }
 
 id __87__MSUBrainClientImpl_calculateUpdateStorageRequirements_attributes_options_info_error___block_invoke(uint64_t a1, uint64_t a2)
@@ -404,14 +588,14 @@ id __87__MSUBrainClientImpl_calculateUpdateStorageRequirements_attributes_option
   return [v2 handleConnectionError:a2 method:? handler:?];
 }
 
-void __87__MSUBrainClientImpl_calculateUpdateStorageRequirements_attributes_options_info_error___block_invoke_2(uint64_t a1)
+void __87__MSUBrainClientImpl_calculateUpdateStorageRequirements_attributes_options_info_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(*(*(a1 + 40) + 8) + 24))
   {
-    v2 = msuSharedLogger();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = msuSharedLogger(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __87__MSUBrainClientImpl_calculateUpdateStorageRequirements_attributes_options_info_error___block_invoke_2_cold_1(a1, v2);
+      __87__MSUBrainClientImpl_calculateUpdateStorageRequirements_attributes_options_info_error___block_invoke_2_cold_1(a1, v3);
     }
   }
 
@@ -426,7 +610,7 @@ void __87__MSUBrainClientImpl_calculateUpdateStorageRequirements_attributes_opti
 {
   if (*(*(a1[4] + 8) + 24))
   {
-    v6 = msuSharedLogger();
+    v6 = msuSharedLogger(a1, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = a1[9];

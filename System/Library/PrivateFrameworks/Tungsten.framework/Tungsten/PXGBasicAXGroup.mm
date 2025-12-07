@@ -973,7 +973,7 @@ LABEL_23:
   return v19;
 }
 
-uint64_t __46__PXGBasicAXGroup_updateWithSelectedChildren___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__46__PXGBasicAXGroup_updateWithSelectedChildren___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 updateWithSelectedChildren:*(a1 + 32)];
   *a4 = result;
@@ -1320,7 +1320,7 @@ id __31__PXGBasicAXGroup_leafAtPoint___block_invoke(uint64_t a1, void *a2)
   v3 = v2;
   if (v2)
   {
-    [v2 spriteStyle];
+    objc_msgSend_spriteStyle(v2);
     if (*&v6 > 0.0)
     {
       goto LABEL_6;
@@ -1386,7 +1386,7 @@ LABEL_11:
 
     if (v5)
     {
-      [v5 spriteGeometry];
+      objc_msgSend_spriteGeometry(v5);
       v11 = *(*(a1 + 48) + 8);
       v8 = *(v11 + 40);
       v14 = 0u;
@@ -1401,7 +1401,7 @@ LABEL_11:
       v14 = 0uLL;
     }
 
-    [v8 spriteGeometry];
+    objc_msgSend_spriteGeometry(v8, v14);
     v11 = *(*(a1 + 48) + 8);
 LABEL_10:
     v13 = *(v11 + 40);
@@ -1745,7 +1745,7 @@ LABEL_12:
   return v6;
 }
 
-uint64_t __54__PXGBasicAXGroup__loadNeighboringLeafsAtSpriteIndex___block_invoke(uint64_t a1, uint64_t a2)
+void *__54__PXGBasicAXGroup__loadNeighboringLeafsAtSpriteIndex___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _loadClosestLeafAtSpriteIndex:*(a1 + 48) inDirection:a2];
   if (result != -1)

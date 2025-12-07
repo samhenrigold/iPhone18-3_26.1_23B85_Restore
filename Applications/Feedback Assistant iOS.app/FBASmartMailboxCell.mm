@@ -7,6 +7,7 @@
 - (_TtC18Feedback_Assistant19FBASmartMailboxCell)initWithFrame:(CGRect)frame;
 - (void)awakeFromNib;
 - (void)configureWithInbox:(id)inbox;
+- (void)setHighlighted:(BOOL)highlighted;
 - (void)traitCollectionDidChange:(id)change;
 @end
 
@@ -52,7 +53,7 @@
   traitCollection = [(FBASmartMailboxCell *)selfCopy traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
 
-  sub_100088824();
+  sub_100088824(preferredContentSizeCategory);
 }
 
 - (void)configureWithInbox:(id)inbox
@@ -65,8 +66,18 @@
 - (BOOL)isHighlighted
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FBASmartMailboxCell();
+  v3.super_class = type metadata accessor for FBASmartMailboxCell(self, a2);
   return [(FBASmartMailboxCell *)&v3 isHighlighted];
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  selfCopy = self;
+  sub_100089534(highlightedCopy, v5);
+  v8.receiver = selfCopy;
+  v8.super_class = type metadata accessor for FBASmartMailboxCell(v6, v7);
+  [(FBASmartMailboxCell *)&v8 setHighlighted:highlightedCopy];
 }
 
 - (_TtC18Feedback_Assistant19FBASmartMailboxCell)initWithFrame:(CGRect)frame
@@ -77,10 +88,10 @@
   x = frame.origin.x;
   swift_unknownObjectWeakInit();
   swift_unknownObjectWeakInit();
-  swift_unknownObjectWeakInit();
-  v9.receiver = self;
-  v9.super_class = type metadata accessor for FBASmartMailboxCell();
-  return [(FBASmartMailboxCell *)&v9 initWithFrame:x, y, width, height];
+  v8 = swift_unknownObjectWeakInit();
+  v11.receiver = self;
+  v11.super_class = type metadata accessor for FBASmartMailboxCell(v8, v9);
+  return [(FBASmartMailboxCell *)&v11 initWithFrame:x, y, width, height];
 }
 
 @end

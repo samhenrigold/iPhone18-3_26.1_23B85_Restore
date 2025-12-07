@@ -223,20 +223,20 @@ void __41__PIInpaintCompositeNode__evaluateImage___block_invoke(uint64_t a1, __i
   }
 }
 
-void __41__PIInpaintCompositeNode__evaluateImage___block_invoke_2(uint64_t a1)
+void __41__PIInpaintCompositeNode__evaluateImage___block_invoke_2(uint64_t a1, __int128 *a2)
 {
-  v7 = *(a1 + 48);
-  v8 = *(a1 + 64);
+  v8 = *(a1 + 48);
+  v9 = *(a1 + 64);
   NUPixelRectIntersection();
   if ((NUPixelRectIsEmpty() & 1) == 0)
   {
-    v2 = *(a1 + 32);
+    v3 = *(a1 + 32);
     NUPixelRectToCGRect();
-    v3 = [v2 imageByCroppingToRect:{v7, v8, 0, 0, 0, 0}];
-    v4 = [v3 imageByCompositingOverImage:*(*(*(a1 + 40) + 8) + 40)];
-    v5 = *(*(a1 + 40) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = v4;
+    v4 = [v3 imageByCroppingToRect:{v8, v9, 0, 0, 0, 0}];
+    v5 = [v4 imageByCompositingOverImage:*(*(*(a1 + 40) + 8) + 40)];
+    v6 = *(*(a1 + 40) + 8);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = v5;
   }
 }
 

@@ -9,39 +9,37 @@
 
 - (NSSet)allRelevantAssetLocalIdentifiers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   allRelevantAssetUUIDs = [(PGGraphMomentFeaturesEdgeCollection *)self allRelevantAssetUUIDs];
   v3 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(allRelevantAssetUUIDs, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = allRelevantAssetUUIDs;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [MEMORY[0x277CD97A8] localIdentifierWithUUID:{*(*(&v12 + 1) + 8 * i), v12}];
+        v9 = [MEMORY[0x277CD97A8] localIdentifierWithUUID:{*(*(&v11 + 1) + 8 * i), v11}];
         [v3 addObject:v9];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -29,7 +29,7 @@
 - (_TtC24MenstrualCyclesAppPlugin27CycleHistorySingleCycleCell)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC24MenstrualCyclesAppPlugin27CycleHistorySingleCycleCell_singleCycleView;
-  *(&self->super.super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for CycleHistorySingleCycleView()) init];
+  *(&self->super.super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for CycleHistorySingleCycleView(0)) init];
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin27CycleHistorySingleCycleCell_press) = 0;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin27CycleHistorySingleCycleCell_tap) = 0;
   result = sub_29E2C4724();

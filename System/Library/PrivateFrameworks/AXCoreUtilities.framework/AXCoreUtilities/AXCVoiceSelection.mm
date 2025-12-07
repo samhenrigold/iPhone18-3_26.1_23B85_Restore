@@ -120,7 +120,6 @@ LABEL_4:
 
   v5 = OBJC_IVAR___AXCVoiceSelection_voiceSettings;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = settingsCopy;
 }
 
@@ -154,7 +153,6 @@ LABEL_4:
 
   v5 = OBJC_IVAR___AXCVoiceSelection_effects;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = effectsCopy;
 }
 

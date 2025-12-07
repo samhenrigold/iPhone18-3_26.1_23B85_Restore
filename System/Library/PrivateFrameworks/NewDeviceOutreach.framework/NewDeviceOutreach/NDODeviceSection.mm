@@ -27,35 +27,35 @@
 
 - (id)description
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   label = [(NDODeviceSection *)self label];
   identifier = [(NDODeviceSection *)self identifier];
   v6 = [v3 stringWithFormat:@"%@ (%@):\n", label, identifier];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   deviceList = [(NDODeviceSection *)self deviceList];
-  v8 = [deviceList countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [deviceList countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       v11 = 0;
       v12 = v6;
       do
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(deviceList);
         }
 
         v13 = MEMORY[0x277CCACA8];
-        v14 = [*(*(&v18 + 1) + 8 * v11) description];
+        v14 = [*(*(&v17 + 1) + 8 * v11) description];
         v15 = [v13 stringWithFormat:@"%@\n", v14];
         v6 = [v12 stringByAppendingString:v15];
 
@@ -64,13 +64,11 @@
       }
 
       while (v9 != v11);
-      v9 = [deviceList countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [deviceList countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -122,27 +120,27 @@
 
 - (id)deviceForSN:(id)n
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   nCopy = n;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   privateDeviceList = [(NDODeviceSection *)self privateDeviceList];
-  v6 = [privateDeviceList countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [privateDeviceList countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(privateDeviceList);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         serialNumber = [v9 serialNumber];
         v11 = [serialNumber isEqualToString:nCopy];
 
@@ -153,7 +151,7 @@
         }
       }
 
-      v6 = [privateDeviceList countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [privateDeviceList countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -164,8 +162,6 @@
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

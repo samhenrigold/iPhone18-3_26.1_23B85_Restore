@@ -21,7 +21,7 @@
   webVisiblePosition = [(UITextPositionImpl *)self webVisiblePosition];
   webVisiblePosition2 = [equalCopy webVisiblePosition];
 
-  LOBYTE(equalCopy) = [webVisiblePosition isEqual:webVisiblePosition2];
+  LOBYTE(equalCopy) = objc_msgSend_isEqual_(webVisiblePosition);
   return equalCopy;
 }
 

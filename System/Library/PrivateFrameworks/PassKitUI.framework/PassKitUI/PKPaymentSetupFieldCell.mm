@@ -214,52 +214,53 @@
 
 - (void)layoutSubviews
 {
-  v48.receiver = self;
-  v48.super_class = PKPaymentSetupFieldCell;
-  [(PKPaymentSetupFieldCell *)&v48 layoutSubviews];
+  v49.receiver = self;
+  v49.super_class = PKPaymentSetupFieldCell;
+  [(PKPaymentSetupFieldCell *)&v49 layoutSubviews];
   textLabel = [(PKPaymentSetupFieldCell *)self textLabel];
   editableTextField = [(PKPaymentSetupFieldCell *)self editableTextField];
   if (editableTextField)
   {
     contentView = [(PKPaymentSetupFieldCell *)self contentView];
     [contentView bounds];
-    v46 = v7;
-    v47 = v6;
+    v47 = v7;
+    v48 = v6;
     v9 = v8;
     v11 = v10;
     [textLabel frame];
     [editableTextField sizeThatFits:{v9, v11}];
     _shouldReverseLayoutDirection = [(PKPaymentSetupFieldCell *)self _shouldReverseLayoutDirection];
-    PKOBKListInlineCellContentEdgeInsets();
-    v16 = v15;
-    v17 = v13;
-    v19 = v18;
-    v20 = v14;
-    if (_shouldReverseLayoutDirection)
+    v13 = _shouldReverseLayoutDirection;
+    PKOBKListInlineCellContentEdgeInsets(_shouldReverseLayoutDirection);
+    v17 = v16;
+    v18 = v14;
+    v20 = v19;
+    v21 = v15;
+    if (v13)
     {
-      v21 = v14;
+      v22 = v15;
     }
 
     else
     {
-      v21 = v13;
+      v22 = v14;
     }
 
-    if ([editableTextField textAlignment] != 2 || _shouldReverseLayoutDirection)
+    if ([editableTextField textAlignment] != 2 || v13)
     {
-      if (!_shouldReverseLayoutDirection)
+      if (!v13)
       {
-        v17 = v20;
+        v18 = v21;
       }
 
       [editableTextField textAlignment];
     }
 
-    v45 = v47 + v21;
-    v22 = v9 - (v21 + v17);
-    v44 = v11 - (v16 + v19);
-    [textLabel sizeThatFits:v22];
-    v42 = v23;
+    v46 = v48 + v22;
+    v23 = v9 - (v22 + v18);
+    v45 = v11 - (v17 + v20);
+    [textLabel sizeThatFits:v23];
+    v43 = v24;
     traitCollection = [(PKPaymentSetupFieldCell *)self traitCollection];
     preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
     IsAccessibilityCategory = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory);
@@ -270,68 +271,68 @@
       minimumTextLabelWidth = self->_minimumTextLabelWidth;
     }
 
-    v43 = v46 + v16;
+    v44 = v47 + v17;
     UIRectCenteredYInRect();
-    MaxY = v28;
-    v31 = v30;
+    MaxY = v29;
+    v32 = v31;
     UIRectCenteredYInRect();
-    v34 = v33;
+    v35 = v34;
     if (IsAccessibilityCategory)
     {
-      v35 = v45;
-      v36 = v45;
-      if (_shouldReverseLayoutDirection)
+      v36 = v46;
+      v37 = v46;
+      if (v13)
       {
-        v49.origin.x = v45;
-        v49.origin.y = v43;
-        v49.size.height = v44;
-        v49.size.width = v22;
-        v36 = CGRectGetMaxX(v49) - v22;
+        v50.origin.x = v46;
+        v50.origin.y = v44;
+        v50.size.height = v45;
+        v50.size.width = v23;
+        v37 = CGRectGetMaxX(v50) - v23;
       }
 
-      [textLabel setFrame:{v36, v46 + 22.0, v22, v34}];
-      v50.origin.x = v36;
-      v50.origin.y = v46 + 22.0;
-      v50.size.width = v22;
-      v50.size.height = v34;
-      MaxY = CGRectGetMaxY(v50);
+      [textLabel setFrame:{v37, v47 + 22.0, v23, v35}];
+      v51.origin.x = v37;
+      v51.origin.y = v47 + 22.0;
+      v51.size.width = v23;
+      v51.size.height = v35;
+      MaxY = CGRectGetMaxY(v51);
     }
 
     else
     {
-      v37 = v32;
-      v38 = fmin(fmax(v42, minimumTextLabelWidth), v22 + -122.0);
-      v35 = v45;
-      if (_shouldReverseLayoutDirection)
+      v38 = v33;
+      v39 = fmin(fmax(v43, minimumTextLabelWidth), v23 + -122.0);
+      v36 = v46;
+      if (v13)
       {
-        v51.origin.x = v45;
-        v51.origin.y = v43;
-        v51.size.height = v44;
-        v51.size.width = v22;
-        MaxX = CGRectGetMaxX(v51);
-        v40 = MaxX - v38;
-        [textLabel setFrame:{MaxX - v38, v37, v38, v34}];
-        v22 = v40 - v45 + -22.0;
+        v52.origin.x = v46;
+        v52.origin.y = v44;
+        v52.size.height = v45;
+        v52.size.width = v23;
+        MaxX = CGRectGetMaxX(v52);
+        v41 = MaxX - v39;
+        [textLabel setFrame:{MaxX - v39, v38, v39, v35}];
+        v23 = v41 - v46 + -22.0;
       }
 
       else
       {
-        [textLabel setFrame:{v45, v32, v38, v33}];
-        v52.origin.x = v45;
-        v52.origin.y = v37;
-        v52.size.width = v38;
-        v52.size.height = v34;
-        v41 = CGRectGetMaxX(v52) + 22.0;
-        v53.origin.x = v45;
-        v53.origin.y = v43;
-        v53.size.height = v44;
-        v53.size.width = v22;
-        v22 = CGRectGetMaxX(v53) - v41;
-        v35 = v41;
+        [textLabel setFrame:{v46, v33, v39, v34}];
+        v53.origin.x = v46;
+        v53.origin.y = v38;
+        v53.size.width = v39;
+        v53.size.height = v35;
+        v42 = CGRectGetMaxX(v53) + 22.0;
+        v54.origin.x = v46;
+        v54.origin.y = v44;
+        v54.size.height = v45;
+        v54.size.width = v23;
+        v23 = CGRectGetMaxX(v54) - v42;
+        v36 = v42;
       }
     }
 
-    [editableTextField setFrame:{v35, MaxY, v22, v31}];
+    [editableTextField setFrame:{v36, MaxY, v23, v32}];
   }
 }
 
@@ -530,14 +531,14 @@ LABEL_13:
 - (void)_applyDefaultValues
 {
   textLabel = [(PKPaymentSetupFieldCell *)self textLabel];
-  v3 = PKOBKListTextFieldCellLabelFont();
+  v3 = PKOBKListTextFieldCellLabelFont(textLabel);
   [textLabel setFont:v3];
 
   [textLabel setBaselineAdjustment:1];
   [textLabel setAdjustsFontSizeToFitWidth:1];
   [textLabel setText:0];
   editableTextField = [(PKPaymentSetupFieldCell *)self editableTextField];
-  v5 = PKOBKListTextFieldCellTextFieldFont();
+  v5 = PKOBKListTextFieldCellTextFieldFont(editableTextField);
   [editableTextField setFont:v5];
 
   [editableTextField setText:0];
@@ -1033,43 +1034,43 @@ LABEL_16:
 
 - (CGRect)_separatorFrame
 {
-  v17.receiver = self;
-  v17.super_class = PKPaymentSetupFieldCell;
-  [(PKPaymentSetupFieldCell *)&v17 _separatorFrame];
+  v18.receiver = self;
+  v18.super_class = PKPaymentSetupFieldCell;
+  _separatorFrame = [(PKPaymentSetupFieldCell *)&v18 _separatorFrame];
   if (self->_shouldDrawSeperator)
   {
-    v5 = v3;
     v6 = v4;
+    v7 = v5;
     if (self->_shouldDrawFullWidthSeperator)
     {
       [(PKPaymentSetupFieldCell *)self bounds];
-      Width = CGRectGetWidth(v18);
-      v8 = 0.0;
+      Width = CGRectGetWidth(v19);
+      v9 = 0.0;
     }
 
     else
     {
-      PKOBKListInlineCellContentEdgeInsets();
-      v8 = v13;
-      v15 = v14;
+      PKOBKListInlineCellContentEdgeInsets(_separatorFrame);
+      v9 = v14;
+      v16 = v15;
       _shouldReverseLayoutDirection = [(PKPaymentSetupFieldCell *)self _shouldReverseLayoutDirection];
       [(PKPaymentSetupFieldCell *)self bounds];
-      Width = CGRectGetWidth(v19) - v8;
+      Width = CGRectGetWidth(v20) - v9;
       if (_UISolariumFeatureFlagEnabled())
       {
-        Width = Width - v15;
+        Width = Width - v16;
       }
 
       if (_shouldReverseLayoutDirection)
       {
         if (_UISolariumFeatureFlagEnabled())
         {
-          v8 = v15;
+          v9 = v16;
         }
 
         else
         {
-          v8 = 0.0;
+          v9 = 0.0;
         }
       }
     }
@@ -1077,20 +1078,20 @@ LABEL_16:
 
   else
   {
-    v8 = *MEMORY[0x1E695F058];
-    v5 = *(MEMORY[0x1E695F058] + 8);
+    v9 = *MEMORY[0x1E695F058];
+    v6 = *(MEMORY[0x1E695F058] + 8);
     Width = *(MEMORY[0x1E695F058] + 16);
-    v6 = *(MEMORY[0x1E695F058] + 24);
+    v7 = *(MEMORY[0x1E695F058] + 24);
   }
 
-  v9 = v8;
-  v10 = v5;
-  v11 = Width;
-  v12 = v6;
-  result.size.height = v12;
-  result.size.width = v11;
-  result.origin.y = v10;
-  result.origin.x = v9;
+  v10 = v9;
+  v11 = v6;
+  v12 = Width;
+  v13 = v7;
+  result.size.height = v13;
+  result.size.width = v12;
+  result.origin.y = v11;
+  result.origin.x = v10;
   return result;
 }
 
@@ -1449,11 +1450,11 @@ LABEL_15:
     {
       v30 = objc_opt_class();
       v31 = v30;
-      IsHardwareKeyboardActive = PKUIKeyboardIsHardwareKeyboardActive();
+      v32 = PKUIKeyboardIsHardwareKeyboardActive();
       v33 = @"NO";
       *buf = 138412802;
       v45 = v30;
-      if (IsHardwareKeyboardActive)
+      if (v32)
       {
         v33 = @"YES";
       }
@@ -2309,11 +2310,11 @@ LABEL_114:
   {
     v5 = objc_opt_class();
     v6 = v5;
-    IsHardwareKeyboardActive = PKUIKeyboardIsHardwareKeyboardActive();
+    v7 = PKUIKeyboardIsHardwareKeyboardActive();
     v8 = @"NO";
     v9 = 138412802;
     v10 = v5;
-    if (IsHardwareKeyboardActive)
+    if (v7)
     {
       v8 = @"YES";
     }
@@ -2336,11 +2337,11 @@ LABEL_114:
   {
     v5 = objc_opt_class();
     v6 = v5;
-    IsHardwareKeyboardActive = PKUIKeyboardIsHardwareKeyboardActive();
+    v7 = PKUIKeyboardIsHardwareKeyboardActive();
     v8 = @"NO";
     v9 = 138412802;
     v10 = v5;
-    if (IsHardwareKeyboardActive)
+    if (v7)
     {
       v8 = @"YES";
     }

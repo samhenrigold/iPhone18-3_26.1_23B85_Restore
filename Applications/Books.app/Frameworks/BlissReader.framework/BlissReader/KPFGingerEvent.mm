@@ -152,60 +152,60 @@
   v20 = v19;
   [objc_msgSend(v7 objectForKey:{@"height", "floatValue"}];
   [(CALayer *)v5 setBounds:0.0, 0.0, v20, v21];
-  v22 = [v7 objectForKey:@"sublayerTransform"];
+  [v7 objectForKey:@"sublayerTransform"];
   if (self)
   {
-    [(KPFGingerEvent *)self p_transformFromArray:v22];
+    objc_msgSend_p_transformFromArray_(self);
   }
 
   else
   {
-    v59 = 0u;
-    v60 = 0u;
     v57 = 0u;
     v58 = 0u;
     v55 = 0u;
     v56 = 0u;
     v53 = 0u;
     v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
   }
 
-  v49 = v57;
-  v50 = v58;
-  v51 = v59;
-  v52 = v60;
-  v45 = v53;
-  v46 = v54;
   v47 = v55;
   v48 = v56;
-  [(CALayer *)v5 setSublayerTransform:&v45];
-  v23 = [v7 objectForKey:@"affineTransform"];
+  v49 = v57;
+  v50 = v58;
+  v43 = v51;
+  v44 = v52;
+  v45 = v53;
+  v46 = v54;
+  [(CALayer *)v5 setSublayerTransform:&v43];
+  [v7 objectForKey:@"affineTransform"];
   if (self)
   {
-    [(KPFGingerEvent *)self p_affineTransformFromArray:v23];
+    objc_msgSend_p_affineTransformFromArray_(self);
   }
 
   else
   {
-    v46 = 0u;
-    v47 = 0u;
+    v44 = 0u;
     v45 = 0u;
+    v43 = 0u;
   }
 
-  [(CALayer *)v5 setAffineTransform:&v45];
+  [(CALayer *)v5 setAffineTransform:&v43];
   -[KPFGingerEvent p_rectFromDictionary:](self, "p_rectFromDictionary:", [v7 objectForKey:@"contentsRect"]);
   [(CALayer *)v5 setContentsRect:?];
   [objc_msgSend(v7 objectForKey:{@"opacity", "floatValue"}];
   [(CALayer *)v5 setOpacity:?];
-  v24 = [v7 objectForKey:@"opacityMultiplier"];
-  if (v24)
+  v22 = [v7 objectForKey:@"opacityMultiplier"];
+  if (v22)
   {
-    v25 = v24;
+    v23 = v22;
     [(CALayer *)v5 opacity];
-    v27 = v26;
-    [v25 floatValue];
-    *&v29 = v27 * v28;
-    [(CALayer *)v5 setOpacity:v29];
+    v25 = v24;
+    [v23 floatValue];
+    *&v27 = v25 * v26;
+    [(CALayer *)v5 setOpacity:v27];
   }
 
   mKPFSession = self->mKPFSession;
@@ -217,23 +217,23 @@
 
   if (v9)
   {
-    v31 = [(NSMutableDictionary *)self->mSwappableLayersDict objectForKey:v9];
-    if (v31)
+    v29 = [(NSMutableDictionary *)self->mSwappableLayersDict objectForKey:v9];
+    if (v29)
     {
-      v32 = v31;
-      superlayer = [v31 superlayer];
-      superlayer2 = [v32 superlayer];
+      v30 = v29;
+      superlayer = [v29 superlayer];
+      superlayer2 = [v30 superlayer];
       if (superlayer)
       {
-        [superlayer2 replaceSublayer:v32 with:v5];
+        [superlayer2 replaceSublayer:v30 with:v5];
       }
     }
 
     [(CALayer *)v5 setName:v9];
-    v35 = [(KPFGingerSlide *)[self->mKPFSession currentSlide] movieForObjectID:v9];
-    if (v35)
+    v33 = [(KPFGingerSlide *)[self->mKPFSession currentSlide] movieForObjectID:v9];
+    if (v33)
     {
-      [(NSMutableDictionary *)self->mMovietoLayerMap setObject:v35 forKey:[NSValue valueWithNonretainedObject:v5]];
+      [(NSMutableDictionary *)self->mMovietoLayerMap setObject:v33 forKey:[NSValue valueWithNonretainedObject:v5]];
     }
 
     [(NSMutableDictionary *)self->mSwappableLayersDict setObject:v5 forKey:v9];
@@ -241,31 +241,31 @@
 
   if ([v8 count])
   {
-    v43 = 0u;
-    v44 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v36 = [v8 countByEnumeratingWithState:&v41 objects:v61 count:16];
-    if (v36)
+    v39 = 0u;
+    v40 = 0u;
+    v34 = [v8 countByEnumeratingWithState:&v39 objects:v59 count:16];
+    if (v34)
     {
-      v37 = v36;
-      v38 = *v42;
+      v35 = v34;
+      v36 = *v40;
       do
       {
-        for (i = 0; i != v37; i = i + 1)
+        for (i = 0; i != v35; i = i + 1)
         {
-          if (*v42 != v38)
+          if (*v40 != v36)
           {
             objc_enumerationMutation(v8);
           }
 
-          [(CALayer *)v5 addSublayer:[(KPFGingerEvent *)self p_newLayerFromDict:*(*(&v41 + 1) + 8 * i)]];
+          [(CALayer *)v5 addSublayer:[(KPFGingerEvent *)self p_newLayerFromDict:*(*(&v39 + 1) + 8 * i)]];
         }
 
-        v37 = [v8 countByEnumeratingWithState:&v41 objects:v61 count:16];
+        v35 = [v8 countByEnumeratingWithState:&v39 objects:v59 count:16];
       }
 
-      while (v37);
+      while (v35);
     }
   }
 

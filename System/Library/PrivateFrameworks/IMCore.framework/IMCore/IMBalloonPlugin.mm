@@ -27,92 +27,92 @@
 
 - (IMBalloonPlugin)init
 {
-  v2 = objc_msgSend_exceptionWithName_reason_userInfo_(MEMORY[0x1E695DF30], a2, @"Unsupported init", @"[IMBalloonPlugin init] is not supported", 0);
+  v2 = [MEMORY[0x1E695DF30] exceptionWithName:@"Unsupported init" reason:@"[IMBalloonPlugin init] is not supported" userInfo:0];
   objc_exception_throw(v2);
 }
 
 - (IMBalloonPlugin)initWithBundle:(id)bundle
 {
   bundleCopy = bundle;
-  v6 = objc_msgSend_appWithPluginBundle_(IMBalloonApp, v5, bundleCopy);
-  v10 = objc_msgSend_initWithBundle_app_(self, v7, bundleCopy, v6);
-  if (v10)
+  v5 = [IMBalloonApp appWithPluginBundle:bundleCopy];
+  v6 = [(IMBalloonPlugin *)self initWithBundle:bundleCopy app:v5];
+  if (v6)
   {
-    v11 = objc_msgSend_bundleIdentifier(bundleCopy, v8, v9);
-    objc_msgSend_setIdentifier_(v6, v12, v11);
+    bundleIdentifier = [bundleCopy bundleIdentifier];
+    [v5 setIdentifier:bundleIdentifier];
   }
 
-  return v10;
+  return v6;
 }
 
 - (IMBalloonPlugin)initWithBundle:(id)bundle app:(id)app
 {
   bundleCopy = bundle;
   appCopy = app;
-  v38.receiver = self;
-  v38.super_class = IMBalloonPlugin;
-  v8 = [(IMBalloonPlugin *)&v38 init];
-  v10 = v8;
+  v20.receiver = self;
+  v20.super_class = IMBalloonPlugin;
+  v8 = [(IMBalloonPlugin *)&v20 init];
+  v9 = v8;
   if (v8)
   {
-    objc_msgSend_setPluginLoaded_(v8, v9, 0);
-    objc_storeStrong(&v10->_app, app);
-    objc_msgSend_setBundle_(v10, v11, bundleCopy);
-    v14 = objc_msgSend_infoDictionary(bundleCopy, v12, v13);
-    v16 = objc_msgSend_objectForKey_(v14, v15, @"CKBrowserGroup");
-    v19 = objc_msgSend_integerValue(v16, v17, v18);
+    [(IMBalloonPlugin *)v8 setPluginLoaded:0];
+    objc_storeStrong(&v9->_app, app);
+    [(IMBalloonPlugin *)v9 setBundle:bundleCopy];
+    infoDictionary = [bundleCopy infoDictionary];
+    v11 = [infoDictionary objectForKey:@"CKBrowserGroup"];
+    integerValue = [v11 integerValue];
 
-    objc_msgSend_setBrowserGroup_(v10, v20, v19);
-    v22 = objc_msgSend_objectForKey_(v14, v21, @"CKBrowserShowInBrowser");
-    v25 = v22;
-    if (v22 && (objc_msgSend_BOOLValue(v22, v23, v24) & 1) == 0)
+    [(IMBalloonPlugin *)v9 setBrowserGroup:integerValue];
+    v13 = [infoDictionary objectForKey:@"CKBrowserShowInBrowser"];
+    v14 = v13;
+    if (v13 && ([v13 BOOLValue] & 1) == 0)
     {
-      objc_msgSend_setShowInBrowser_(appCopy, v23, 0);
-      objc_msgSend_setShowInSendMenu_(appCopy, v26, 0);
+      [appCopy setShowInBrowser:0];
+      [appCopy setShowInSendMenu:0];
     }
 
-    v27 = objc_msgSend_objectForKey_(v14, v23, @"CKBrowserDisplayImageName");
-    if (objc_msgSend_length(v27, v28, v29))
+    v15 = [infoDictionary objectForKey:@"CKBrowserDisplayImageName"];
+    if ([v15 length])
     {
-      objc_msgSend_setBrowserImageName_(v10, v30, v27);
+      [(IMBalloonPlugin *)v9 setBrowserImageName:v15];
     }
 
-    v31 = objc_msgSend_objectForKey_(v14, v30, @"kCKBrowserDisplayImagePath");
-    if (objc_msgSend_length(v31, v32, v33))
+    v16 = [infoDictionary objectForKey:@"kCKBrowserDisplayImagePath"];
+    if ([v16 length])
     {
-      objc_msgSend_setBrowserImagePath_(v10, v34, v31);
+      [(IMBalloonPlugin *)v9 setBrowserImagePath:v16];
     }
 
-    if (!v10->_messageToBalloonControllerMap)
+    if (!v9->_messageToBalloonControllerMap)
     {
       Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      messageToBalloonControllerMap = v10->_messageToBalloonControllerMap;
-      v10->_messageToBalloonControllerMap = Mutable;
+      messageToBalloonControllerMap = v9->_messageToBalloonControllerMap;
+      v9->_messageToBalloonControllerMap = Mutable;
     }
   }
 
-  return v10;
+  return v9;
 }
 
 - (void)dealloc
 {
-  v4 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2);
-  objc_msgSend_removeObserver_(v4, v5, self);
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter removeObserver:self];
 
-  objc_msgSend_unloadBundle(self, v6, v7);
-  v8.receiver = self;
-  v8.super_class = IMBalloonPlugin;
-  [(IMBalloonPlugin *)&v8 dealloc];
+  [(IMBalloonPlugin *)self unloadBundle];
+  v4.receiver = self;
+  v4.super_class = IMBalloonPlugin;
+  [(IMBalloonPlugin *)&v4 dealloc];
 }
 
 - (void)unloadBundle
 {
-  objc_msgSend_setPluginLoaded_(self, a2, 0);
-  objc_msgSend_setBubbleClass_(self, v3, 0);
-  objc_msgSend_setBrowserClass_(self, v4, 0);
-  objc_msgSend_setDataSourceClass_(self, v5, 0);
-  objc_msgSend_setCustomTypingIndicatorLayerClass_(self, v6, 0);
-  objc_msgSend_setEntryClass_(self, v7, 0);
+  [(IMBalloonPlugin *)self setPluginLoaded:0];
+  [(IMBalloonPlugin *)self setBubbleClass:0];
+  [(IMBalloonPlugin *)self setBrowserClass:0];
+  [(IMBalloonPlugin *)self setDataSourceClass:0];
+  [(IMBalloonPlugin *)self setCustomTypingIndicatorLayerClass:0];
+  [(IMBalloonPlugin *)self setEntryClass:0];
   balloonControllerPool = self->_balloonControllerPool;
   self->_balloonControllerPool = 0;
 }
@@ -124,35 +124,35 @@
   balloonControllerPool = self->_balloonControllerPool;
   if (!balloonControllerPool)
   {
-    v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v12 = self->_balloonControllerPool;
-    self->_balloonControllerPool = v11;
+    v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v10 = self->_balloonControllerPool;
+    self->_balloonControllerPool = v9;
 
     balloonControllerPool = self->_balloonControllerPool;
   }
 
-  if (objc_msgSend_count(balloonControllerPool, v7, v8))
+  if ([(NSMutableArray *)balloonControllerPool count])
   {
-    v15 = objc_msgSend_lastObject(self->_balloonControllerPool, v13, v14);
-    v18 = objc_msgSend_dataSource(itemCopy, v16, v17);
-    if (objc_msgSend_conformsToProtocol_(v15, v19, &unk_1F1BF7248))
+    lastObject = [(NSMutableArray *)self->_balloonControllerPool lastObject];
+    dataSource = [itemCopy dataSource];
+    if ([lastObject conformsToProtocol:&unk_1F1BF7248])
     {
-      objc_msgSend_setDataSource_(v15, v20, v18);
+      [lastObject setDataSource:dataSource];
     }
 
-    v22 = objc_msgSend_messageGUID(v18, v20, v21);
-    v24 = objc_msgSend_balloonControllerKeyForMessageGUID_contextIdentifier_(self, v23, v22, identifierCopy);
+    messageGUID = [dataSource messageGUID];
+    v14 = [(IMBalloonPlugin *)self balloonControllerKeyForMessageGUID:messageGUID contextIdentifier:identifierCopy];
 
-    objc_msgSend_setObject_forKey_(self->_messageToBalloonControllerMap, v25, v15, v24);
-    objc_msgSend_removeLastObject(self->_balloonControllerPool, v26, v27);
+    [(NSMutableDictionary *)self->_messageToBalloonControllerMap setObject:lastObject forKey:v14];
+    [(NSMutableArray *)self->_balloonControllerPool removeLastObject];
   }
 
   else
   {
-    v15 = 0;
+    lastObject = 0;
   }
 
-  return v15;
+  return lastObject;
 }
 
 - (id)existingBalloonControllerWithMessageGUID:(id)d contextIdentifier:(id)identifier
@@ -161,70 +161,67 @@
   identifierCopy = identifier;
   if (identifierCopy)
   {
-    v9 = objc_msgSend_balloonControllerKeyForMessageGUID_contextIdentifier_(self, v7, dCopy, identifierCopy);
-    v11 = objc_msgSend_objectForKeyedSubscript_(self->_messageToBalloonControllerMap, v10, v9);
+    v8 = [(IMBalloonPlugin *)self balloonControllerKeyForMessageGUID:dCopy contextIdentifier:identifierCopy];
+    v9 = [(NSMutableDictionary *)self->_messageToBalloonControllerMap objectForKeyedSubscript:v8];
   }
 
   else
   {
     if (IMOSLoggingEnabled())
     {
-      v12 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v10 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Context identifier is nil, can't load balloonController from cache", v14, 2u);
+        *v12 = 0;
+        _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "Context identifier is nil, can't load balloonController from cache", v12, 2u);
       }
     }
 
-    v11 = 0;
+    v9 = 0;
   }
 
-  return v11;
+  return v9;
 }
 
 - (id)balloonControllerForChatItem:(id)item contextIdentifier:(id)identifier
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   identifierCopy = identifier;
   if (identifierCopy)
   {
-    v10 = objc_msgSend_dataSource(itemCopy, v7, v8);
-    v13 = objc_msgSend_messageGUID(v10, v11, v12);
-    v16 = objc_msgSend_length(v13, v14, v15);
+    dataSource = [itemCopy dataSource];
+    messageGUID = [dataSource messageGUID];
+    v10 = [messageGUID length];
 
-    if (v16)
+    if (v10)
     {
-      v19 = objc_msgSend_messageGUID(v10, v17, v18);
-      v21 = objc_msgSend_existingBalloonControllerWithMessageGUID_contextIdentifier_(self, v20, v19, identifierCopy);
+      messageGUID2 = [dataSource messageGUID];
+      v12 = [(IMBalloonPlugin *)self existingBalloonControllerWithMessageGUID:messageGUID2 contextIdentifier:identifierCopy];
 
-      if (v21)
+      if (v12)
       {
         goto LABEL_19;
       }
 
-      if (objc_msgSend_supportsControllerReuse(self, v22, v23))
+      if ([(IMBalloonPlugin *)self supportsControllerReuse])
       {
-        v21 = objc_msgSend__getControllerFromReusePoolForChatItem_contextIdentifier_(self, v24, itemCopy, identifierCopy);
-        if (v21)
+        v12 = [(IMBalloonPlugin *)self _getControllerFromReusePoolForChatItem:itemCopy contextIdentifier:identifierCopy];
+        if (v12)
         {
           goto LABEL_19;
         }
       }
 
-      v26 = objc_msgSend_bubbleClass(self, v24, v25);
-      if (objc_msgSend_conformsToProtocol_(v26, v27, &unk_1F1BE8250))
+      if (([(objc_class *)[(IMBalloonPlugin *)self bubbleClass] conformsToProtocol:&unk_1F1BE8250]& 1) != 0)
       {
-        v30 = objc_alloc(objc_msgSend_bubbleClass(self, v28, v29));
-        v33 = objc_msgSend_isFromMe(itemCopy, v31, v32);
-        v21 = objc_msgSend_initWithDataSource_isFromMe_(v30, v34, v10, v33);
-        if (v21)
+        v12 = [objc_alloc(-[IMBalloonPlugin bubbleClass](self "bubbleClass"))];
+        if (v12)
         {
-          v37 = objc_msgSend_messageGUID(v10, v35, v36);
-          v39 = objc_msgSend_balloonControllerKeyForMessageGUID_contextIdentifier_(self, v38, v37, identifierCopy);
+          messageGUID3 = [dataSource messageGUID];
+          v14 = [(IMBalloonPlugin *)self balloonControllerKeyForMessageGUID:messageGUID3 contextIdentifier:identifierCopy];
 
-          objc_msgSend_setObject_forKey_(self->_messageToBalloonControllerMap, v40, v21, v39);
+          [(NSMutableDictionary *)self->_messageToBalloonControllerMap setObject:v12 forKey:v14];
         }
 
         goto LABEL_19;
@@ -232,18 +229,18 @@
 
       if (IMOSLoggingEnabled())
       {
-        v42 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+        v16 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          v50 = objc_msgSend_messageGUID(v10, v48, v49);
-          v53 = objc_msgSend_guid(itemCopy, v51, v52);
-          v54 = 138412802;
-          v55 = v50;
-          v56 = 2048;
-          v57 = v10;
-          v58 = 2112;
-          v59 = v53;
-          _os_log_impl(&dword_1A823F000, v42, OS_LOG_TYPE_INFO, "IMBalloonPluginManager - bubbleClass does not conform to IMBalloonPluginController protocol; message guid: %@, dataSource: %p, chat item guid: %@", &v54, 0x20u);
+          messageGUID4 = [dataSource messageGUID];
+          guid = [itemCopy guid];
+          v21 = 138412802;
+          v22 = messageGUID4;
+          v23 = 2048;
+          v24 = dataSource;
+          v25 = 2112;
+          v26 = guid;
+          _os_log_impl(&dword_1A823F000, v16, OS_LOG_TYPE_INFO, "IMBalloonPluginManager - bubbleClass does not conform to IMBalloonPluginController protocol; message guid: %@, dataSource: %p, chat item guid: %@", &v21, 0x20u);
         }
 
 LABEL_17:
@@ -252,21 +249,21 @@ LABEL_17:
 
     else if (IMOSLoggingEnabled())
     {
-      v42 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+      v16 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v45 = objc_msgSend_guid(itemCopy, v43, v44);
-        v54 = 134218242;
-        v55 = v10;
-        v56 = 2112;
-        v57 = v45;
-        _os_log_impl(&dword_1A823F000, v42, OS_LOG_TYPE_INFO, "balloonControllerForChatItem dataSource: %p, chat item guid: %@", &v54, 0x16u);
+        guid2 = [itemCopy guid];
+        v21 = 134218242;
+        v22 = dataSource;
+        v23 = 2112;
+        v24 = guid2;
+        _os_log_impl(&dword_1A823F000, v16, OS_LOG_TYPE_INFO, "balloonControllerForChatItem dataSource: %p, chat item guid: %@", &v21, 0x16u);
       }
 
       goto LABEL_17;
     }
 
-    v21 = 0;
+    v12 = 0;
 LABEL_19:
 
     goto LABEL_20;
@@ -274,20 +271,18 @@ LABEL_19:
 
   if (IMOSLoggingEnabled())
   {
-    v41 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v54) = 0;
-      _os_log_impl(&dword_1A823F000, v41, OS_LOG_TYPE_INFO, "Context identifier is nil!", &v54, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_1A823F000, v15, OS_LOG_TYPE_INFO, "Context identifier is nil!", &v21, 2u);
     }
   }
 
-  v21 = 0;
+  v12 = 0;
 LABEL_20:
 
-  v46 = *MEMORY[0x1E69E9840];
-
-  return v21;
+  return v12;
 }
 
 - (void)moveController:(id)controller toReusePoolFromChatItem:(id)item contextIdentifier:(id)identifier
@@ -295,25 +290,25 @@ LABEL_20:
   controllerCopy = controller;
   itemCopy = item;
   identifierCopy = identifier;
-  objc_msgSend_setDataSource_(controllerCopy, v10, 0);
+  [controllerCopy setDataSource:0];
   if (controllerCopy)
   {
     balloonControllerPool = self->_balloonControllerPool;
     if (!balloonControllerPool)
     {
-      v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v14 = self->_balloonControllerPool;
-      self->_balloonControllerPool = v13;
+      v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v12 = self->_balloonControllerPool;
+      self->_balloonControllerPool = v11;
 
       balloonControllerPool = self->_balloonControllerPool;
     }
 
-    objc_msgSend_addObject_(balloonControllerPool, v11, controllerCopy);
-    v17 = objc_msgSend_dataSource(itemCopy, v15, v16);
-    v20 = objc_msgSend_messageGUID(v17, v18, v19);
-    v22 = objc_msgSend_balloonControllerKeyForMessageGUID_contextIdentifier_(self, v21, v20, identifierCopy);
+    [(NSMutableArray *)balloonControllerPool addObject:controllerCopy];
+    dataSource = [itemCopy dataSource];
+    messageGUID = [dataSource messageGUID];
+    v15 = [(IMBalloonPlugin *)self balloonControllerKeyForMessageGUID:messageGUID contextIdentifier:identifierCopy];
 
-    objc_msgSend_removeObjectForKey_(self->_messageToBalloonControllerMap, v23, v22);
+    [(NSMutableDictionary *)self->_messageToBalloonControllerMap removeObjectForKey:v15];
   }
 }
 
@@ -323,94 +318,79 @@ LABEL_20:
   {
     identifierCopy = identifier;
     itemCopy = item;
-    v11 = objc_msgSend_dataSource(itemCopy, v9, v10);
-    v14 = objc_msgSend_messageGUID(v11, v12, v13);
-    v18 = objc_msgSend_balloonControllerKeyForMessageGUID_contextIdentifier_(self, v15, v14, identifierCopy);
+    dataSource = [itemCopy dataSource];
+    messageGUID = [dataSource messageGUID];
+    v11 = [(IMBalloonPlugin *)self balloonControllerKeyForMessageGUID:messageGUID contextIdentifier:identifierCopy];
 
-    objc_msgSend_removeObjectForKey_(self->_messageToBalloonControllerMap, v16, v18);
-    objc_msgSend_removeDataSourceForChatItem_(self, v17, itemCopy);
+    [(NSMutableDictionary *)self->_messageToBalloonControllerMap removeObjectForKey:v11];
+    [(IMBalloonPlugin *)self removeDataSourceForChatItem:itemCopy];
   }
 }
 
 - (void)removeDataSourceForChatItem:(id)item
 {
   itemCopy = item;
-  if (objc_msgSend__canRemoveControllerFromCachedDatasource(self, v4, v5))
+  if ([(IMBalloonPlugin *)self _canRemoveControllerFromCachedDatasource])
   {
     messageToDatasourceMap = self->_messageToDatasourceMap;
-    v9 = objc_msgSend_dataSource(itemCopy, v6, v7);
-    v12 = objc_msgSend_pluginPayload(v9, v10, v11);
-    v15 = objc_msgSend_pluginSessionGUID(v12, v13, v14);
-    objc_msgSend_removeObjectForKey_(messageToDatasourceMap, v16, v15);
+    dataSource = [itemCopy dataSource];
+    pluginPayload = [dataSource pluginPayload];
+    pluginSessionGUID = [pluginPayload pluginSessionGUID];
+    [(NSMutableDictionary *)messageToDatasourceMap removeObjectForKey:pluginSessionGUID];
   }
 }
 
 - (BOOL)supportsControllerReuse
 {
-  v3 = objc_msgSend_bubbleClass(self, a2, v2);
+  bubbleClass = [(IMBalloonPlugin *)self bubbleClass];
 
-  return objc_msgSend_conformsToProtocol_(v3, v4, &unk_1F1BF7248);
+  return [(objc_class *)bubbleClass conformsToProtocol:&unk_1F1BF7248];
 }
 
 - (BOOL)shouldShowForRecipients:(id)recipients
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   recipientsCopy = recipients;
-  if (!objc_msgSend_count(recipientsCopy, v5, v6))
-  {
-    goto LABEL_5;
-  }
-
-  v9 = objc_msgSend_identifier(self, v7, v8);
-  isEqualToString = objc_msgSend_isEqualToString_(v9, v10, *MEMORY[0x1E69A68E8]);
-
-  if (!isEqualToString)
-  {
-    goto LABEL_5;
-  }
-
-  if (objc_msgSend_count(recipientsCopy, v12, v13) != 1 || (objc_msgSend_objectAtIndexedSubscript_(recipientsCopy, v14, 0), v15 = objc_claimAutoreleasedReturnValue(), v16 = MEMORY[0x1AC56C3A0](), v15, (v16 & 1) == 0))
+  if ([recipientsCopy count] && (-[IMBalloonPlugin identifier](self, "identifier"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isEqualToString:", *MEMORY[0x1E69A68E8]), v5, v6) && (objc_msgSend(recipientsCopy, "count") != 1 || (objc_msgSend(recipientsCopy, "objectAtIndexedSubscript:", 0), v7 = objc_claimAutoreleasedReturnValue(), v8 = MEMORY[0x1AC56C3A0](), v7, (v8 & 1) == 0)))
   {
     if (IMOSLoggingEnabled())
     {
-      v18 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v10 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v21 = 138412290;
-        v22 = recipientsCopy;
-        _os_log_impl(&dword_1A823F000, v18, OS_LOG_TYPE_INFO, "Attempt to display the business extension in a non-business context, recipients: %@", &v21, 0xCu);
+        v12 = 138412290;
+        v13 = recipientsCopy;
+        _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "Attempt to display the business extension in a non-business context, recipients: %@", &v12, 0xCu);
       }
     }
 
-    v17 = 0;
+    v9 = 0;
   }
 
   else
   {
-LABEL_5:
-    v17 = 1;
+    v9 = 1;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v17;
+  return v9;
 }
 
 - (BOOL)linkedBeforeSDKVersion:(id)version
 {
   versionCopy = version;
-  v7 = objc_msgSend_app(self, v5, v6);
-  v9 = objc_msgSend_linkedBeforeSDKVersion_(v7, v8, versionCopy);
+  v5 = [(IMBalloonPlugin *)self app];
+  v6 = [v5 linkedBeforeSDKVersion:versionCopy];
 
-  return v9;
+  return v6;
 }
 
 - (id)existingDataSourceForMessageGUID:(id)d
 {
   dCopy = d;
-  v7 = objc_msgSend_messageToDatasourceMap(self, v5, v6);
-  v9 = objc_msgSend_objectForKey_(v7, v8, dCopy);
+  messageToDatasourceMap = [(IMBalloonPlugin *)self messageToDatasourceMap];
+  v6 = [messageToDatasourceMap objectForKey:dCopy];
 
-  return v9;
+  return v6;
 }
 
 - (void)insertDataSource:(id)source forGUID:(id)d
@@ -426,20 +406,20 @@ LABEL_5:
       self->_messageToDatasourceMap = Mutable;
     }
 
-    v11 = objc_msgSend_messageToDatasourceMap(self, v6, v7);
-    objc_msgSend_setObject_forKey_(v11, v12, sourceCopy, dCopy);
+    messageToDatasourceMap = [(IMBalloonPlugin *)self messageToDatasourceMap];
+    [messageToDatasourceMap setObject:sourceCopy forKey:dCopy];
   }
 }
 
 - (id)dataSourceForPluginPayload:(id)payload
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
-  v7 = objc_msgSend_pluginSessionGUID(payloadCopy, v5, v6);
-  v10 = objc_msgSend_messageToDatasourceMap(self, v8, v9);
-  v12 = objc_msgSend_objectForKey_(v10, v11, v7);
+  pluginSessionGUID = [payloadCopy pluginSessionGUID];
+  messageToDatasourceMap = [(IMBalloonPlugin *)self messageToDatasourceMap];
+  v7 = [messageToDatasourceMap objectForKey:pluginSessionGUID];
 
-  if (!v12)
+  if (!v7)
   {
     if (!self->_messageToDatasourceMap)
     {
@@ -450,39 +430,36 @@ LABEL_5:
 
     if (IMOSLoggingEnabled())
     {
-      v19 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v11 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v32 = 138412290;
-        v33 = v7;
-        _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_INFO, "We did not find a datasource for messageGUID: %@", &v32, 0xCu);
+        v16 = 138412290;
+        v17 = pluginSessionGUID;
+        _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "We did not find a datasource for messageGUID: %@", &v16, 0xCu);
       }
     }
 
-    v20 = objc_msgSend_sharedInstance(IMBalloonPluginManager, v17, v18);
-    v23 = objc_msgSend_identifier(self, v21, v22);
-    v25 = objc_msgSend_dataSourceClassForBundleID_(v20, v24, v23);
+    v12 = +[IMBalloonPluginManager sharedInstance];
+    identifier = [(IMBalloonPlugin *)self identifier];
+    v14 = [v12 dataSourceClassForBundleID:identifier];
 
-    if (v25)
+    if (v14)
     {
-      v26 = [v25 alloc];
-      v12 = objc_msgSend_initWithPluginPayload_(v26, v27, payloadCopy);
-      if (v7)
+      v7 = [[v14 alloc] initWithPluginPayload:payloadCopy];
+      if (pluginSessionGUID)
       {
-        v30 = objc_msgSend_messageToDatasourceMap(self, v28, v29);
-        objc_msgSend_setObject_forKey_(v30, v31, v12, v7);
+        messageToDatasourceMap2 = [(IMBalloonPlugin *)self messageToDatasourceMap];
+        [messageToDatasourceMap2 setObject:v7 forKey:pluginSessionGUID];
       }
     }
 
     else
     {
-      v12 = 0;
+      v7 = 0;
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v7;
 }
 
 - (NSString)extensionIdentifier
@@ -490,19 +467,19 @@ LABEL_5:
   extensionIdentifier = self->_extensionIdentifier;
   if (!extensionIdentifier)
   {
-    v5 = objc_msgSend_identifier(self, a2, v2);
-    if (objc_msgSend_hasPrefix_(v5, v6, *MEMORY[0x1E69A69F0]))
+    identifier = [(IMBalloonPlugin *)self identifier];
+    if ([identifier hasPrefix:*MEMORY[0x1E69A69F0]])
     {
-      v7 = v5;
+      v5 = identifier;
     }
 
     else
     {
-      v7 = IMBalloonExtensionIDWithSuffix();
+      v5 = IMBalloonExtensionIDWithSuffix();
     }
 
-    v8 = self->_extensionIdentifier;
-    self->_extensionIdentifier = v7;
+    v6 = self->_extensionIdentifier;
+    self->_extensionIdentifier = v5;
 
     extensionIdentifier = self->_extensionIdentifier;
   }
@@ -512,28 +489,26 @@ LABEL_5:
 
 - (NSString)extensionBundleIdentifier
 {
-  v3 = objc_msgSend_plugin(self->_app, a2, v2);
-  v6 = objc_msgSend_identifier(v3, v4, v5);
+  plugin = [(IMBalloonApp *)self->_app plugin];
+  identifier = [plugin identifier];
 
-  return v6;
+  return identifier;
 }
 
 - (BOOL)allowsPresentationWithSendLater
 {
-  v3 = objc_msgSend_identifier(self, a2, v2);
-  v4 = *MEMORY[0x1E69A6A38];
-  v5 = IMBalloonExtensionIDWithSuffix();
-  isEqualToString = objc_msgSend_isEqualToString_(v3, v6, v5);
+  identifier = [(IMBalloonPlugin *)self identifier];
+  v3 = IMBalloonExtensionIDWithSuffix();
+  v4 = [identifier isEqualToString:v3];
 
-  return isEqualToString ^ 1;
+  return v4 ^ 1;
 }
 
 - (BOOL)wantsLoadingView
 {
-  v4 = objc_msgSend_identifier(self->_app, a2, v2);
-  v5 = *MEMORY[0x1E69A6928];
-  v6 = IMBalloonExtensionIDWithSuffix();
-  if (objc_msgSend_isEqualToString_(v4, v7, v6))
+  identifier = [(IMBalloonApp *)self->_app identifier];
+  v4 = IMBalloonExtensionIDWithSuffix();
+  if ([identifier isEqualToString:v4])
   {
 
     return 0;
@@ -541,54 +516,54 @@ LABEL_5:
 
   else
   {
-    v11 = objc_msgSend_prefersNoLoadingBubbles(self, v8, v9);
+    prefersNoLoadingBubbles = [(IMBalloonPlugin *)self prefersNoLoadingBubbles];
 
-    return v11 ^ 1;
+    return !prefersNoLoadingBubbles;
   }
 }
 
 - (id)attributionInfo
 {
-  if (objc_msgSend_hideAttributionInformation(self, a2, v2))
+  if ([(IMBalloonPlugin *)self hideAttributionInformation])
   {
-    v6 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v7 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v4, v5);
-    v10 = objc_msgSend_identifier(self, v8, v9);
-    if (v10)
+    dictionary = [MEMORY[0x1E695DF90] dictionary];
+    identifier = [(IMBalloonPlugin *)self identifier];
+    if (identifier)
     {
-      CFDictionarySetValue(v7, *MEMORY[0x1E69A6FB0], v10);
+      CFDictionarySetValue(dictionary, *MEMORY[0x1E69A6FB0], identifier);
     }
 
-    v13 = objc_msgSend_browserDisplayName(self, v11, v12);
-    if (v13)
+    browserDisplayName = [(IMBalloonPlugin *)self browserDisplayName];
+    if (browserDisplayName)
     {
-      CFDictionarySetValue(v7, *MEMORY[0x1E69A6FA8], v13);
+      CFDictionarySetValue(dictionary, *MEMORY[0x1E69A6FA8], browserDisplayName);
     }
 
-    v16 = objc_msgSend_adamID(self, v14, v15);
-    if (v16)
+    adamID = [(IMBalloonPlugin *)self adamID];
+    if (adamID)
     {
-      CFDictionarySetValue(v7, *MEMORY[0x1E69A6FA0], v16);
+      CFDictionarySetValue(dictionary, *MEMORY[0x1E69A6FA0], adamID);
     }
 
-    if (objc_msgSend_count(v7, v17, v18))
+    if ([(__CFDictionary *)dictionary count])
     {
-      v19 = v7;
+      v8 = dictionary;
     }
 
     else
     {
-      v19 = 0;
+      v8 = 0;
     }
 
-    v6 = v19;
+    v3 = v8;
   }
 
-  return v6;
+  return v3;
 }
 
 @end

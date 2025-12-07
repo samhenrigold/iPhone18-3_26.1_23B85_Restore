@@ -36,7 +36,7 @@
 
   else
   {
-    v9 = +[REMLog cloudkit];
+    v9 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       sub_100764E14();
@@ -68,8 +68,8 @@
       v12 = storeControllerManagedObjectContext;
       if (!storeControllerManagedObjectContext)
       {
-        v35 = +[REMLog cloudkit];
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+        v39 = objc_msgSend_cloudkit(REMLog);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
         {
           sub_1007651F0();
         }
@@ -81,8 +81,8 @@
       storeController = [storeControllerManagedObjectContext storeController];
       if (!storeController)
       {
-        v36 = +[REMLog cloudkit];
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+        v40 = objc_msgSend_cloudkit(REMLog);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
         {
           sub_100765118();
         }
@@ -112,12 +112,12 @@
             goto LABEL_37;
           }
 
-          v15 = +[REMLog cloudkit];
+          v15 = objc_msgSend_cloudkit(REMLog);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             accountIdentifier2 = [(ICREMCDAccountMergeLocalObjectsContext *)self accountIdentifier];
             *buf = 138543362;
-            v40 = accountIdentifier2;
+            v44 = accountIdentifier2;
             _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "MergeLocalObjectsContext.validate:(MERGE.LOCAL) Gathering all cloud objectIDs that should run attempt merging local objects {accountIdentifier: %{public}@}", buf, 0xCu);
           }
 
@@ -126,7 +126,7 @@
 
           if (v18 != 1)
           {
-            sub_100765050();
+            sub_100765050(v19, v20);
           }
 
           __unsafe_doesNotWorkUniversally_affectedStores2 = [v12 __unsafe_doesNotWorkUniversally_affectedStores];
@@ -135,21 +135,21 @@
           objectID = [accountCopy objectID];
           persistentStore = [objectID persistentStore];
           identifier2 = [persistentStore identifier];
-          v24 = [identifier isEqual:identifier2];
+          v26 = [identifier isEqual:identifier2];
 
-          if ((v24 & 1) == 0)
+          if ((v26 & 1) == 0)
           {
-            sub_1007650B4();
+            sub_1007650B4(v27, v28);
           }
 
-          v25 = [ICCloudContext allCloudObjectIDsOfClassesPassingTest:&stru_1008DB630 inContext:v12];
-          [(ICREMCDAccountMergeLocalObjectsContext *)self setObjectIDsOfClassesEligibleForLocalObjectMerge:v25];
+          v29 = [ICCloudContext allCloudObjectIDsOfClassesPassingTest:&stru_1008DB630 inContext:v12];
+          [(ICREMCDAccountMergeLocalObjectsContext *)self setObjectIDsOfClassesEligibleForLocalObjectMerge:v29];
         }
 
         else
         {
-          v25 = +[REMLog cloudkit];
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v29 = objc_msgSend_cloudkit(REMLog);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             sub_100764FC4(self);
           }
@@ -158,13 +158,13 @@
 
       else
       {
-        v25 = +[REMLog cloudkit];
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        v29 = objc_msgSend_cloudkit(REMLog);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           accountIdentifier3 = [(ICREMCDAccountMergeLocalObjectsContext *)self accountIdentifier];
           *buf = 138543362;
-          v40 = accountIdentifier3;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "MergeLocalObjectsContext.validate:(MERGE.LOCAL) Account does not need to merge local objects {accountIdentifier: %{public}@}", buf, 0xCu);
+          v44 = accountIdentifier3;
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "MergeLocalObjectsContext.validate:(MERGE.LOCAL) Account does not need to merge local objects {accountIdentifier: %{public}@}", buf, 0xCu);
         }
       }
 
@@ -174,8 +174,8 @@ LABEL_38:
       goto LABEL_39;
     }
 
-    v29 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+    v33 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
     {
       sub_100764EEC();
     }
@@ -184,19 +184,19 @@ LABEL_38:
     uuid2 = [remObjectID3 uuid];
     uUIDString2 = [uuid2 UUIDString];
     accountIdentifier4 = [(ICREMCDAccountMergeLocalObjectsContext *)self accountIdentifier];
-    v34 = [uUIDString2 isEqualToString:accountIdentifier4];
+    v38 = [uUIDString2 isEqualToString:accountIdentifier4];
 
-    if ((v34 & 1) == 0)
+    if ((v38 & 1) == 0)
     {
-      v28 = "[cdAccount.remObjectID.uuid.UUIDString isEqualToString:self.accountIdentifier]";
+      v32 = "[cdAccount.remObjectID.uuid.UUIDString isEqualToString:self.accountIdentifier]";
       goto LABEL_25;
     }
   }
 
   else
   {
-    v26 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v30 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
     {
       sub_1007652C8();
     }
@@ -205,9 +205,9 @@ LABEL_38:
 
     if (!remObjectID4)
     {
-      v28 = "cdAccount.remObjectID";
+      v32 = "cdAccount.remObjectID";
 LABEL_25:
-      NSLog(@"'%s' is unexpectedly nil", v28);
+      NSLog(@"'%s' is unexpectedly nil", v32);
     }
   }
 

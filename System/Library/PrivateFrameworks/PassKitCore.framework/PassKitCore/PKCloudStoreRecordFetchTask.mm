@@ -186,9 +186,9 @@
 
       else
       {
-        v8 = [(__CFString *)domain isEqualToString:@"PKPassKitErrorDomain"];
+        isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-        if (v8)
+        if (isEqualToString)
         {
           goto LABEL_12;
         }
@@ -383,9 +383,9 @@ LABEL_14:
       goto LABEL_37;
     }
 
-    v12 = [(NSString *)v9 isEqualToString:v10];
+    isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-    if (!v12)
+    if (!isEqualToString)
     {
       goto LABEL_37;
     }

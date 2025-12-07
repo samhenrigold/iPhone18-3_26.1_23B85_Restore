@@ -23,7 +23,7 @@
     v15 = gLogObj;
     *buf = 136446210;
     v32 = "+[NWBonjourServiceEndpoint endpointWithName:type:domain:]";
-    v16 = _os_log_send_and_compose_impl();
+    v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s nw_endpoint_create_bonjour_service failed", buf, 12);
 
     typea = OS_LOG_TYPE_ERROR;
     v29 = 0;
@@ -108,7 +108,7 @@
   v19 = gLogObj;
   *buf = 136446210;
   v32 = "+[NWBonjourServiceEndpoint endpointWithName:type:domain:]";
-  v16 = _os_log_send_and_compose_impl();
+  v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s NWBonjourServiceEndpoint created endpoint of wrong type", buf, 12);
 
   typea = OS_LOG_TYPE_ERROR;
   v29 = 0;
@@ -217,7 +217,7 @@ LABEL_40:
   v5 = gLogObj;
   *buf = 136446210;
   v19 = "[NWBonjourServiceEndpoint domain]";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s nw_endpoint_get_bonjour_service_domain failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -332,7 +332,7 @@ LABEL_15:
   v5 = gLogObj;
   *buf = 136446210;
   v19 = "[NWBonjourServiceEndpoint type]";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s nw_endpoint_get_bonjour_service_type failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -447,7 +447,7 @@ LABEL_15:
   v5 = gLogObj;
   *buf = 136446210;
   v19 = "[NWBonjourServiceEndpoint name]";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s nw_endpoint_get_bonjour_service_name failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;

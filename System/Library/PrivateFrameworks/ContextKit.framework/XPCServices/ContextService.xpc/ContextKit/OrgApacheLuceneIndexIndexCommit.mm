@@ -44,7 +44,8 @@
   }
 
   v4 = [getDirectory hash];
-  return ([JavaLangLong_valueOfWithLong_([(OrgApacheLuceneIndexIndexCommit *)self getGeneration]) hash]+ v4);
+  getGeneration = [(OrgApacheLuceneIndexIndexCommit *)self getGeneration];
+  return ([JavaLangLong_valueOfWithLong_(getGeneration hash]+ v4);
 }
 
 - (int)compareToWithId:(id)id

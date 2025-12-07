@@ -50,9 +50,11 @@
 
 uint64_t __41__DOCManagedPermission_defaultPermission__block_invoke()
 {
-  defaultPermission_manager = objc_alloc_init(DOCManagedPermission);
+  v0 = objc_alloc_init(DOCManagedPermission);
+  v1 = defaultPermission_manager;
+  defaultPermission_manager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (DOCManagedPermission)init
@@ -803,32 +805,32 @@ LABEL_9:
 
 - (unint64_t)dataOwnerStateForNodes:(id)nodes
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   v5 = nodesCopy;
   if (nodesCopy && [nodesCopy count])
   {
     firstObject = [v5 firstObject];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v21;
+      v10 = *v20;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          providerDomainID = [*(*(&v20 + 1) + 8 * i) providerDomainID];
+          providerDomainID = [*(*(&v19 + 1) + 8 * i) providerDomainID];
           providerDomainID2 = [firstObject providerDomainID];
           v14 = [providerDomainID isEqual:providerDomainID2];
 
@@ -850,7 +852,7 @@ LABEL_9:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v9)
         {
           continue;
@@ -882,7 +884,6 @@ LABEL_21:
     v16 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -1135,31 +1136,31 @@ LABEL_19:
 
 - (BOOL)canCopyNodes:(id)nodes
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   if ([(DOCManagedPermission *)self hasOpenInRestrictions]&& ![(DOCManagedPermission *)self mayOpenFromManagedToUnmanaged])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v6 = nodesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
-          if (-[DOCManagedPermission dataOwnerStateForNode:](self, "dataOwnerStateForNode:", v11, v16) == 1 || ([v11 isAppContainer] & 1) != 0)
+          v11 = *(*(&v15 + 1) + 8 * i);
+          if (-[DOCManagedPermission dataOwnerStateForNode:](self, "dataOwnerStateForNode:", v11, v15) == 1 || ([v11 isAppContainer] & 1) != 0)
           {
 LABEL_18:
             v5 = 0;
@@ -1182,7 +1183,7 @@ LABEL_18:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
         v5 = 1;
         if (v8)
         {
@@ -1206,7 +1207,6 @@ LABEL_20:
     v5 = 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1225,7 +1225,7 @@ LABEL_20:
 
 - (id)appContainerBundleIDForFPItem:(id)item
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   appContainerIDCache = [(DOCManagedPermission *)self appContainerIDCache];
   parentItemID = [itemCopy parentItemID];
@@ -1240,55 +1240,55 @@ LABEL_20:
   {
     appContainerIDCache2 = [(DOCManagedPermission *)self appContainerIDCache];
     itemID = [itemCopy itemID];
-    v35 = [appContainerIDCache2 objectForKey:itemID];
+    v34 = [appContainerIDCache2 objectForKey:itemID];
 
-    v11 = v35;
-    if (v35)
+    v11 = v34;
+    if (v34)
     {
-      fp_appContainerBundleIdentifier2 = v35;
+      fp_appContainerBundleIdentifier2 = v34;
     }
 
     else
     {
-      v47 = 0;
-      v48 = &v47;
-      v49 = 0x3032000000;
-      v50 = __Block_byref_object_copy__4;
-      v51 = __Block_byref_object_dispose__4;
-      v52 = 0;
+      v46 = 0;
+      v47 = &v46;
+      v48 = 0x3032000000;
+      v49 = __Block_byref_object_copy__4;
+      v50 = __Block_byref_object_dispose__4;
+      v51 = 0;
       v12 = dispatch_semaphore_create(0);
       defaultManager = [MEMORY[0x277CC6408] defaultManager];
       itemID2 = [itemCopy itemID];
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __54__DOCManagedPermission_appContainerBundleIDForFPItem___block_invoke;
-      v44[3] = &unk_278F9BB80;
-      v46 = &v47;
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __54__DOCManagedPermission_appContainerBundleIDForFPItem___block_invoke;
+      v43[3] = &unk_278F9BB80;
+      v45 = &v46;
       dsema = v12;
-      v45 = dsema;
-      [defaultManager fetchParentsForItemID:itemID2 recursively:1 completionHandler:v44];
+      v44 = dsema;
+      [defaultManager fetchParentsForItemID:itemID2 recursively:1 completionHandler:v43];
 
       v15 = dispatch_time(0, 5000000000);
       dispatch_semaphore_wait(dsema, v15);
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
-      reverseObjectEnumerator = [v48[5] reverseObjectEnumerator];
-      fp_appContainerBundleIdentifier2 = [reverseObjectEnumerator countByEnumeratingWithState:&v40 objects:v54 count:16];
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      reverseObjectEnumerator = [v47[5] reverseObjectEnumerator];
+      fp_appContainerBundleIdentifier2 = [reverseObjectEnumerator countByEnumeratingWithState:&v39 objects:v53 count:16];
       if (fp_appContainerBundleIdentifier2)
       {
-        v17 = *v41;
+        v17 = *v40;
 LABEL_7:
         v18 = 0;
         while (1)
         {
-          if (*v41 != v17)
+          if (*v40 != v17)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v19 = *(*(&v40 + 1) + 8 * v18);
+          v19 = *(*(&v39 + 1) + 8 * v18);
           fp_appContainerBundleIdentifier = [v19 fp_appContainerBundleIdentifier];
           v21 = fp_appContainerBundleIdentifier == 0;
 
@@ -1299,7 +1299,7 @@ LABEL_7:
 
           if (fp_appContainerBundleIdentifier2 == ++v18)
           {
-            fp_appContainerBundleIdentifier2 = [reverseObjectEnumerator countByEnumeratingWithState:&v40 objects:v54 count:16];
+            fp_appContainerBundleIdentifier2 = [reverseObjectEnumerator countByEnumeratingWithState:&v39 objects:v53 count:16];
             if (fp_appContainerBundleIdentifier2)
             {
               goto LABEL_7;
@@ -1316,25 +1316,25 @@ LABEL_7:
           goto LABEL_26;
         }
 
-        v38 = 0u;
-        v39 = 0u;
-        v36 = 0u;
         v37 = 0u;
-        v22 = v48[5];
-        v23 = [v22 countByEnumeratingWithState:&v36 objects:v53 count:16];
+        v38 = 0u;
+        v35 = 0u;
+        v36 = 0u;
+        v22 = v47[5];
+        v23 = [v22 countByEnumeratingWithState:&v35 objects:v52 count:16];
         if (v23)
         {
-          v24 = *v37;
+          v24 = *v36;
           do
           {
             for (i = 0; i != v23; ++i)
             {
-              if (*v37 != v24)
+              if (*v36 != v24)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v26 = *(*(&v36 + 1) + 8 * i);
+              v26 = *(*(&v35 + 1) + 8 * i);
               if (([v26 isRootItem] & 1) == 0)
               {
                 appContainerIDCache3 = [(DOCManagedPermission *)self appContainerIDCache];
@@ -1343,7 +1343,7 @@ LABEL_7:
               }
             }
 
-            v23 = [v22 countByEnumeratingWithState:&v36 objects:v53 count:16];
+            v23 = [v22 countByEnumeratingWithState:&v35 objects:v52 count:16];
           }
 
           while (v23);
@@ -1361,13 +1361,11 @@ LABEL_7:
 LABEL_25:
 
 LABEL_26:
-      _Block_object_dispose(&v47, 8);
+      _Block_object_dispose(&v46, 8);
 
       v11 = 0;
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return fp_appContainerBundleIdentifier2;
 }
@@ -1439,33 +1437,33 @@ uint64_t __84__DOCManagedPermission_allowedFileProviderBundleIdentifiersForHostB
 
 - (BOOL)adoptPersonaFromNodes:(id)nodes andPerformBlock:(id)block
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   blockCopy = block;
   if (nodesCopy && [nodesCopy count])
   {
     selfCopy = self;
     firstObject = [nodesCopy firstObject];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v9 = nodesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v25;
+      v12 = *v24;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          providerDomainID = [*(*(&v24 + 1) + 8 * i) providerDomainID];
+          providerDomainID = [*(*(&v23 + 1) + 8 * i) providerDomainID];
           providerDomainID2 = [firstObject providerDomainID];
           v16 = [providerDomainID isEqual:providerDomainID2];
 
@@ -1487,7 +1485,7 @@ uint64_t __84__DOCManagedPermission_allowedFileProviderBundleIdentifiersForHostB
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v11)
         {
           continue;
@@ -1521,7 +1519,6 @@ LABEL_21:
     v18 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -1567,7 +1564,7 @@ LABEL_21:
 
 - (BOOL)adoptPersona:(id)persona andPerformBlock:(id)block
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   personaCopy = persona;
   blockCopy = block;
   mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
@@ -1575,9 +1572,9 @@ LABEL_21:
 
   if ([currentPersona isSystemPersona])
   {
-    v21 = 0;
-    v9 = [currentPersona copyCurrentPersonaContextWithError:&v21];
-    v10 = v21;
+    v20 = 0;
+    v9 = [currentPersona copyCurrentPersonaContextWithError:&v20];
+    v10 = v20;
     v11 = docPersonaLogHandle;
     if (!docPersonaLogHandle)
     {
@@ -1588,7 +1585,7 @@ LABEL_21:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v23 = currentPersona;
+      v22 = currentPersona;
       _os_log_impl(&dword_249340000, v11, OS_LOG_TYPE_DEFAULT, "Copying current Persona into context. Persona: (%@)", buf, 0xCu);
     }
 
@@ -1618,7 +1615,7 @@ LABEL_21:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v23 = personaCopy;
+        v22 = personaCopy;
         _os_log_impl(&dword_249340000, v12, OS_LOG_TYPE_DEFAULT, "Generating and Restoring Persona from String. Persona String: (%@)", buf, 0xCu);
       }
 
@@ -1654,18 +1651,18 @@ LABEL_21:
         }
 
         blockCopy[2](blockCopy);
-        v19 = docPersonaLogHandle;
+        v18 = docPersonaLogHandle;
         if (!docPersonaLogHandle)
         {
           DOCInitLogging();
-          v19 = docPersonaLogHandle;
+          v18 = docPersonaLogHandle;
         }
 
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v23 = v9;
-          _os_log_impl(&dword_249340000, v19, OS_LOG_TYPE_DEFAULT, "Restoring Persona from context : %@", buf, 0xCu);
+          v22 = v9;
+          _os_log_impl(&dword_249340000, v18, OS_LOG_TYPE_DEFAULT, "Restoring Persona from context : %@", buf, 0xCu);
         }
 
         v10 = [currentPersona restorePersonaWithSavedPersonaContext:v9];
@@ -1675,14 +1672,14 @@ LABEL_21:
           goto LABEL_26;
         }
 
-        v20 = docPersonaLogHandle;
+        v19 = docPersonaLogHandle;
         if (!docPersonaLogHandle)
         {
           DOCInitLogging();
-          v20 = docPersonaLogHandle;
+          v19 = docPersonaLogHandle;
         }
 
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           [DOCManagedPermission adoptPersona:andPerformBlock:];
         }
@@ -1706,7 +1703,7 @@ LABEL_26:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = currentPersona;
+    v22 = currentPersona;
     _os_log_impl(&dword_249340000, v13, OS_LOG_TYPE_DEFAULT, "App already has a persona that's not system, just execute the block. Persona: (%@)", buf, 0xCu);
   }
 
@@ -1714,7 +1711,6 @@ LABEL_26:
   v14 = 0;
 LABEL_27:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -1773,34 +1769,34 @@ LABEL_27:
 
 - (void)cachePersonaStringForProviders:(id)providers
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   providersCopy = providers;
   v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(providersCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = providersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         personaIdentifier = [v10 personaIdentifier];
         identifier = [v10 identifier];
         [v5 setObject:personaIdentifier forKeyedSubscript:identifier];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -1810,8 +1806,6 @@ LABEL_27:
   objc_sync_enter(selfCopy);
   [(DOCManagedPermission *)selfCopy setPersonaStringForDomainID:v5];
   objc_sync_exit(selfCopy);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)canHostAppPerformAction:fileProviderDomain:.cold.1()
@@ -1860,30 +1854,6 @@ LABEL_27:
   v1 = [MEMORY[0x277CCA890] currentHandler];
   OUTLINED_FUNCTION_3();
   [v0 handleFailureInMethod:? object:? file:? lineNumber:? description:?];
-}
-
-- (void)adoptPersona:andPerformBlock:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2(&dword_249340000, v0, v1, "Could not copy current persona contex: Persona: (%@) Error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)adoptPersona:andPerformBlock:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2(&dword_249340000, v0, v1, "Could not adopt persona: (%@) Error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)adoptPersona:andPerformBlock:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2(&dword_249340000, v0, v1, "Could not restore current persona contex : Context: (%@) Error: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

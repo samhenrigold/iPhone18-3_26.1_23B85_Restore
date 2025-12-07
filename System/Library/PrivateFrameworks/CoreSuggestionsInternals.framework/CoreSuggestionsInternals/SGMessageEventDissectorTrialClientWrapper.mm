@@ -13,20 +13,20 @@
 
 - (id)rateLimitInterval
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v9 = 0x3032000000;
-  v10 = __Block_byref_object_copy__2108;
-  v11 = __Block_byref_object_dispose__2109;
-  v12 = 0;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__2108;
+  v10 = __Block_byref_object_dispose__2109;
+  v11 = 0;
   lock = self->_lock;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __62__SGMessageEventDissectorTrialClientWrapper_rateLimitInterval__block_invoke;
-  v7[3] = &unk_27894B3D0;
-  v7[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v7];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __62__SGMessageEventDissectorTrialClientWrapper_rateLimitInterval__block_invoke;
+  v6[3] = &unk_27894B3D0;
+  v6[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v6];
   v3 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
@@ -38,27 +38,25 @@
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGMessageEventDissectorTrialClientWrapper: rateLimitInterval: %@", &buf, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)messageProcessingLimit
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v9 = 0x3032000000;
-  v10 = __Block_byref_object_copy__2108;
-  v11 = __Block_byref_object_dispose__2109;
-  v12 = 0;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__2108;
+  v10 = __Block_byref_object_dispose__2109;
+  v11 = 0;
   lock = self->_lock;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __67__SGMessageEventDissectorTrialClientWrapper_messageProcessingLimit__block_invoke;
-  v7[3] = &unk_27894B3D0;
-  v7[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v7];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __67__SGMessageEventDissectorTrialClientWrapper_messageProcessingLimit__block_invoke;
+  v6[3] = &unk_27894B3D0;
+  v6[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v6];
   v3 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
@@ -70,27 +68,25 @@
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGMessageEventDissectorTrialClientWrapper: messageProcessingLimit: %@", &buf, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)eventClassifierThreshold
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v9 = 0x3032000000;
-  v10 = __Block_byref_object_copy__2108;
-  v11 = __Block_byref_object_dispose__2109;
-  v12 = 0;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__2108;
+  v10 = __Block_byref_object_dispose__2109;
+  v11 = 0;
   lock = self->_lock;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __69__SGMessageEventDissectorTrialClientWrapper_eventClassifierThreshold__block_invoke;
-  v7[3] = &unk_27894B3D0;
-  v7[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v7];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __69__SGMessageEventDissectorTrialClientWrapper_eventClassifierThreshold__block_invoke;
+  v6[3] = &unk_27894B3D0;
+  v6[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v6];
   v3 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
@@ -102,27 +98,25 @@
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGMessageEventDissectorTrialClientWrapper: eventClassifierThreshold: %@", &buf, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)eventClassifierModelPath
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v14 = __Block_byref_object_copy__2108;
-  v15 = __Block_byref_object_dispose__2109;
-  v16 = 0;
+  v13 = __Block_byref_object_copy__2108;
+  v14 = __Block_byref_object_dispose__2109;
+  v15 = 0;
   lock = self->_lock;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __69__SGMessageEventDissectorTrialClientWrapper_eventClassifierModelPath__block_invoke;
-  v12[3] = &unk_27894B3D0;
-  v12[4] = buf;
-  [(_PASLock *)lock runWithLockAcquired:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __69__SGMessageEventDissectorTrialClientWrapper_eventClassifierModelPath__block_invoke;
+  v11[3] = &unk_27894B3D0;
+  v11[4] = buf;
+  [(_PASLock *)lock runWithLockAcquired:v11];
   v3 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
 
@@ -139,22 +133,22 @@
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v11 = 0;
-  if (![defaultManager fileExistsAtPath:v3 isDirectory:&v11]|| v11 != 1)
+  v10 = 0;
+  if (![defaultManager fileExistsAtPath:v3 isDirectory:&v10]|| v10 != 1)
   {
     v7 = sgEventsLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = @"NO";
-      if (v11)
+      v9 = @"NO";
+      if (v10)
       {
-        v10 = @"YES";
+        v9 = @"YES";
       }
 
       *buf = 138478083;
       *&buf[4] = v3;
       *&buf[12] = 2112;
-      *&buf[14] = v10;
+      *&buf[14] = v9;
       _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: No assets found at trialEventClassifierModelPath: %{private}@ isDirectory: %@", buf, 0x16u);
     }
 
@@ -174,27 +168,25 @@ LABEL_11:
   v6 = v3;
 LABEL_12:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)eventExtractionAssetsPath
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v14 = __Block_byref_object_copy__2108;
-  v15 = __Block_byref_object_dispose__2109;
-  v16 = 0;
+  v13 = __Block_byref_object_copy__2108;
+  v14 = __Block_byref_object_dispose__2109;
+  v15 = 0;
   lock = self->_lock;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __70__SGMessageEventDissectorTrialClientWrapper_eventExtractionAssetsPath__block_invoke;
-  v12[3] = &unk_27894B3D0;
-  v12[4] = buf;
-  [(_PASLock *)lock runWithLockAcquired:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __70__SGMessageEventDissectorTrialClientWrapper_eventExtractionAssetsPath__block_invoke;
+  v11[3] = &unk_27894B3D0;
+  v11[4] = buf;
+  [(_PASLock *)lock runWithLockAcquired:v11];
   v3 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
 
@@ -211,22 +203,22 @@ LABEL_12:
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v11 = 0;
-  if (![defaultManager fileExistsAtPath:v3 isDirectory:&v11]|| v11 != 1)
+  v10 = 0;
+  if (![defaultManager fileExistsAtPath:v3 isDirectory:&v10]|| v10 != 1)
   {
     v7 = sgEventsLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = @"NO";
-      if (v11)
+      v9 = @"NO";
+      if (v10)
       {
-        v10 = @"YES";
+        v9 = @"YES";
       }
 
       *buf = 138478083;
       *&buf[4] = v3;
       *&buf[12] = 2112;
-      *&buf[14] = v10;
+      *&buf[14] = v9;
       _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: No assets found at trialEventExtractionAssetsPath: %{private}@ isDirectory: %@", buf, 0x16u);
     }
 
@@ -246,8 +238,6 @@ LABEL_11:
   v6 = v3;
 LABEL_12:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
@@ -264,7 +254,7 @@ LABEL_12:
 
 void __58__SGMessageEventDissectorTrialClientWrapper_updateFactors__block_invoke(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3[4];
   v3[4] = &unk_284749218;
@@ -278,8 +268,8 @@ void __58__SGMessageEventDissectorTrialClientWrapper_updateFactors__block_invoke
   v7 = sgEventsLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v49) = 0;
-    _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissectorTrialClientWrapper: Updating factors", &v49, 2u);
+    LOWORD(v48) = 0;
+    _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissectorTrialClientWrapper: Updating factors", &v48, 2u);
   }
 
   if ([*(a1 + 32) refreshEnrollmentInformationForNamespace:@"SMS_FILTER_INEN_CLASSIFICATION"] & 1) != 0 || (objc_msgSend(*(a1 + 32), "refreshRolloutIdentifiersForNamespace:", @"SMS_FILTER_INEN_CLASSIFICATION"))
@@ -293,9 +283,9 @@ void __58__SGMessageEventDissectorTrialClientWrapper_updateFactors__block_invoke
       {
         v14 = [v8 directoryValue];
         v15 = [v14 path];
-        v49 = 138477827;
-        v50 = v15;
-        _os_log_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissectorTrialClientWrapper: Updating trialEventExtractionAssetsPath from trial: %{private}@", &v49, 0xCu);
+        v48 = 138477827;
+        v49 = v15;
+        _os_log_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissectorTrialClientWrapper: Updating trialEventExtractionAssetsPath from trial: %{private}@", &v48, 0xCu);
       }
 
       v16 = [v8 directoryValue];
@@ -309,8 +299,8 @@ void __58__SGMessageEventDissectorTrialClientWrapper_updateFactors__block_invoke
       v16 = sgEventsLogHandle();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v49) = 0;
-        _os_log_error_impl(&dword_231E60000, v16, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: TRILevel is nil for trialEventExtractionAssetsPath", &v49, 2u);
+        LOWORD(v48) = 0;
+        _os_log_error_impl(&dword_231E60000, v16, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: TRILevel is nil for trialEventExtractionAssetsPath", &v48, 2u);
       }
     }
 
@@ -323,9 +313,9 @@ void __58__SGMessageEventDissectorTrialClientWrapper_updateFactors__block_invoke
       {
         v25 = [v19 directoryValue];
         v26 = [v25 path];
-        v49 = 138477827;
-        v50 = v26;
-        _os_log_impl(&dword_231E60000, v24, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissectorTrialClientWrapper: Updating trialEventClassifierModelPath from trial: %{private}@", &v49, 0xCu);
+        v48 = 138477827;
+        v49 = v26;
+        _os_log_impl(&dword_231E60000, v24, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissectorTrialClientWrapper: Updating trialEventClassifierModelPath from trial: %{private}@", &v48, 0xCu);
       }
 
       v27 = [v19 directoryValue];
@@ -339,8 +329,8 @@ void __58__SGMessageEventDissectorTrialClientWrapper_updateFactors__block_invoke
       v27 = sgEventsLogHandle();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v49) = 0;
-        _os_log_error_impl(&dword_231E60000, v27, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: TRILevel is nil for trialEventClassifierModelPath", &v49, 2u);
+        LOWORD(v48) = 0;
+        _os_log_error_impl(&dword_231E60000, v27, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: TRILevel is nil for trialEventClassifierModelPath", &v48, 2u);
       }
     }
 
@@ -352,9 +342,9 @@ void __58__SGMessageEventDissectorTrialClientWrapper_updateFactors__block_invoke
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         [v30 doubleValue];
-        v49 = 134217984;
-        v50 = v33;
-        _os_log_impl(&dword_231E60000, v32, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissectorTrialClientWrapper: Updating trialEventClassifierThreshold from trial: %.02f", &v49, 0xCu);
+        v48 = 134217984;
+        v49 = v33;
+        _os_log_impl(&dword_231E60000, v32, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissectorTrialClientWrapper: Updating trialEventClassifierThreshold from trial: %.02f", &v48, 0xCu);
       }
 
       v34 = MEMORY[0x277CCABB0];
@@ -366,8 +356,8 @@ void __58__SGMessageEventDissectorTrialClientWrapper_updateFactors__block_invoke
 
     else if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v49) = 0;
-      _os_log_error_impl(&dword_231E60000, v32, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: TRILevel is nil for trialEventClassifierThreshold", &v49, 2u);
+      LOWORD(v48) = 0;
+      _os_log_error_impl(&dword_231E60000, v32, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: TRILevel is nil for trialEventClassifierThreshold", &v48, 2u);
     }
 
     v36 = [*(*(a1 + 32) + 8) levelForFactor:@"trialEventExtractionMessageProcessingLimit" withNamespaceName:@"SMS_FILTER_INEN_CLASSIFICATION"];
@@ -378,9 +368,9 @@ void __58__SGMessageEventDissectorTrialClientWrapper_updateFactors__block_invoke
       if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         [v36 doubleValue];
-        v49 = 134217984;
-        v50 = v39;
-        _os_log_impl(&dword_231E60000, v38, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissectorTrialClientWrapper: Updating trialMessageProcessingLimit from trial: %.02f", &v49, 0xCu);
+        v48 = 134217984;
+        v49 = v39;
+        _os_log_impl(&dword_231E60000, v38, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissectorTrialClientWrapper: Updating trialMessageProcessingLimit from trial: %.02f", &v48, 0xCu);
       }
 
       v40 = MEMORY[0x277CCABB0];
@@ -392,8 +382,8 @@ void __58__SGMessageEventDissectorTrialClientWrapper_updateFactors__block_invoke
 
     else if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v49) = 0;
-      _os_log_error_impl(&dword_231E60000, v38, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: TRILevel is nil for trialMessageProcessingLimit", &v49, 2u);
+      LOWORD(v48) = 0;
+      _os_log_error_impl(&dword_231E60000, v38, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: TRILevel is nil for trialMessageProcessingLimit", &v48, 2u);
     }
 
     v42 = [*(*(a1 + 32) + 8) levelForFactor:@"trialEventExtractionRateLimitInterval" withNamespaceName:@"SMS_FILTER_INEN_CLASSIFICATION"];
@@ -404,9 +394,9 @@ void __58__SGMessageEventDissectorTrialClientWrapper_updateFactors__block_invoke
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         [v42 doubleValue];
-        v49 = 134217984;
-        v50 = v45;
-        _os_log_impl(&dword_231E60000, v44, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissectorTrialClientWrapper: Updating trialRateLimitInterval from trial: %.02f", &v49, 0xCu);
+        v48 = 134217984;
+        v49 = v45;
+        _os_log_impl(&dword_231E60000, v44, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissectorTrialClientWrapper: Updating trialRateLimitInterval from trial: %.02f", &v48, 0xCu);
       }
 
       v46 = MEMORY[0x277CCABB0];
@@ -418,8 +408,8 @@ void __58__SGMessageEventDissectorTrialClientWrapper_updateFactors__block_invoke
 
     else if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v49) = 0;
-      _os_log_error_impl(&dword_231E60000, v44, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: TRILevel is nil for trialRateLimitInterval", &v49, 2u);
+      LOWORD(v48) = 0;
+      _os_log_error_impl(&dword_231E60000, v44, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: TRILevel is nil for trialRateLimitInterval", &v48, 2u);
     }
   }
 
@@ -428,12 +418,10 @@ void __58__SGMessageEventDissectorTrialClientWrapper_updateFactors__block_invoke
     v8 = sgEventsLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v49) = 0;
-      _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: No active Trial deployment found", &v49, 2u);
+      LOWORD(v48) = 0;
+      _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "SGMessageEventDissectorTrialClientWrapper: No active Trial deployment found", &v48, 2u);
     }
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (SGMessageEventDissectorTrialClientWrapper)init

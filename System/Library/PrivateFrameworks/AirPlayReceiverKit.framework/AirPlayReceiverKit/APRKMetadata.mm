@@ -16,7 +16,7 @@
     v6 = v5;
     if (v5)
     {
-      [(APRKMetadata *)v5 updateMedatataWithDictionary:dictionaryCopy];
+      [(APRKMetadata *)v5 updateMedatataWithDictionary:?];
     }
 
     self = v6;
@@ -37,48 +37,48 @@
   if (dictionaryCopy)
   {
     v12 = dictionaryCopy;
-    v5 = [dictionaryCopy objectForKey:@"Album"];
+    v5 = [dictionaryCopy objectForKey:?];
     if (v5)
     {
       objc_storeStrong(&self->_album, v5);
     }
 
-    v6 = [v12 objectForKey:@"Artist"];
+    v6 = [v12 objectForKey:?];
 
     if (v6)
     {
       objc_storeStrong(&self->_artist, v6);
     }
 
-    v7 = [v12 objectForKey:@"ArtworkData"];
+    v7 = [v12 objectForKey:?];
 
     if (v7)
     {
       objc_storeStrong(&self->_artworkDataInBase64, v7);
     }
 
-    v8 = [v12 objectForKey:@"ArtworkMIMEType"];
+    v8 = [v12 objectForKey:?];
 
     if (v8)
     {
       objc_storeStrong(&self->_artworkMIMEType, v8);
     }
 
-    v9 = [v12 objectForKey:@"Title"];
+    v9 = [v12 objectForKey:?];
 
     if (v9)
     {
       objc_storeStrong(&self->_title, v9);
     }
 
-    v10 = [v12 objectForKey:@"TotalTrackCount"];
+    v10 = [v12 objectForKey:?];
 
     if (v10)
     {
       self->_totalTrackCount = [v10 integerValue];
     }
 
-    v11 = [v12 objectForKey:@"TrackNumber"];
+    v11 = [v12 objectForKey:?];
 
     if (v11)
     {

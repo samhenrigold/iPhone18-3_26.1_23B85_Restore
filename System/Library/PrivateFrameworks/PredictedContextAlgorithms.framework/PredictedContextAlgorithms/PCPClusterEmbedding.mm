@@ -259,7 +259,7 @@
 
 - (void)mapActivityContext:(id)context toEmbedding:(id)embedding
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   embeddingCopy = embedding;
   if (contextCopy)
@@ -284,10 +284,10 @@
     if (objc_opt_isKindOfClass())
     {
       v11 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v10];
-      v15[0] = 0;
-      v15[1] = 0;
-      [v11 getUUIDBytes:v15];
-      v12 = [MEMORY[0x1E695DEF0] dataWithBytes:v15 length:16];
+      v14[0] = 0;
+      v14[1] = 0;
+      [v11 getUUIDBytes:v14];
+      v12 = [MEMORY[0x1E695DEF0] dataWithBytes:v14 length:16];
       [(PCPClusterEmbeddingActivity *)v7 setHkObjectUUID:v12];
     }
 
@@ -304,8 +304,6 @@
       [embeddingCopy setActivityContext:v7];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mapLocationContext:(id)context toEmbedding:(id)embedding

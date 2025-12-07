@@ -13,21 +13,18 @@
 
 - (NSString)title
 {
-  v2 = *(self + 6);
-  if (*(v2 + 40))
+  if (*(*(self + 6) + 40))
   {
-    v3 = *(v2 + 32);
-    v4 = *(v2 + 40);
 
-    v5 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+    v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
   }
 
   else
   {
-    v5 = 0;
+    v2 = 0;
   }
 
-  return v5;
+  return v2;
 }
 
 - (NSData)timeframesData
@@ -88,20 +85,18 @@
   v2 = *(*(self + 6) + 16);
   if (v2 && *(v2 + 56))
   {
-    v3 = *(v2 + 48);
-    v4 = *(v2 + 56);
 
-    v5 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+    v3 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
 
-    v6 = v5;
+    v4 = v3;
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  return v6;
+  return v4;
 }
 
 - (NSString)artworkBackgroundColor
@@ -109,40 +104,34 @@
   v2 = *(*(self + 6) + 16);
   if (v2 && *(v2 + 72))
   {
-    v3 = *(v2 + 64);
-    v4 = *(v2 + 72);
 
-    v5 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+    v3 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
 
-    v6 = v5;
+    v4 = v3;
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  return v6;
+  return v4;
 }
 
 - (NSString)id
 {
-  v2 = *(self + 2);
-  v3 = *(self + 3);
 
-  v4 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+  v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)type
 {
-  v2 = *(self + 4);
-  v3 = *(self + 5);
 
-  v4 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+  v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
 
-  return v4;
+  return v2;
 }
 
 @end

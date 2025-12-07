@@ -6,11 +6,11 @@
 
 - (id)myPictureData
 {
-  v3 = objc_msgSend_sharedInstance(IMAccountController, a2, v2);
-  v6 = objc_msgSend_bestAccountForStatus(v3, v4, v5);
-  v9 = objc_msgSend_myPictureData(v6, v7, v8);
+  v2 = +[IMAccountController sharedInstance];
+  bestAccountForStatus = [v2 bestAccountForStatus];
+  myPictureData = [bestAccountForStatus myPictureData];
 
-  return v9;
+  return myPictureData;
 }
 
 @end

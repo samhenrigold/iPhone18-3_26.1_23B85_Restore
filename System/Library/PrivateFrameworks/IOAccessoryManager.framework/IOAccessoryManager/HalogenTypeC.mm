@@ -4,17 +4,22 @@
 - (BOOL)_allocBuffers;
 - (BOOL)_connectToAccessoryManager:(int)manager;
 - (BOOL)_createSleepWakeNotifier;
+- (BOOL)_doLDCMCalculation:(BOOL)calculation isReceptacleWet:(BOOL)wet withWetTransitionThreshold:(double)threshold withDryTransitionThreshold:(double)transitionThreshold pinParasitics:(double)parasitics measurementType:(int)type;
 - (BOOL)_readCalibrationParameters:(id)parameters;
 - (BOOL)_writeCalResults:(id)results;
 - (BOOL)setLiquidDetected:(BOOL)detected;
 - (BOOL)setMitigations:(BOOL)mitigations;
 - (BOOL)supportsSelfTest;
+- (HalogenTypeC)initWithParams:(int)params onPort:(int)port;
 - (id)_buildMeasurementOutputString:(id *)string;
 - (id)_buildVerboseMeasurementOutputString:(id *)string;
 - (id)_getHalogenMeasurementTypeString:(int)string;
 - (id)_getLDCMPinString:(int)string;
 - (id)getHalogenResultString:(int)string;
 - (id)getVerboseMeasurementOutputString;
+- (int)_doLDCMMeasurement:(int)measurement isReceptacleEmpty:(BOOL)empty isReceptacleWet:(BOOL)wet withWetTransitionThreshold:(double)threshold withDryTransitionThreshold:(double)transitionThreshold measurementType:(int)type;
+- (int)doLDCMMeasurement:(int)measurement isCalibrationNeeded:(BOOL)needed isReceptacleEmpty:(BOOL)empty isReceptacleWet:(BOOL)wet withWetTransitionThreshold:(double)threshold withDryTransitionThreshold:(double)transitionThreshold;
+- (int)playbackCallBackFunc:(unsigned int *)func AudioTimeStamp:(const AudioTimeStamp *)stamp busNum:(unsigned int)num numFrames:(unsigned int)frames AudioBufferList:(AudioBufferList *)list;
 - (int)recordCallBackFunc:(unsigned int *)func AudioTimeStamp:(const AudioTimeStamp *)stamp busNum:(unsigned int)num numFrames:(unsigned int)frames AudioBufferList:(AudioBufferList *)list;
 - (int)saveAsWav:(id)wav;
 - (uint64_t)supportsSelfTest;
@@ -33,6 +38,87 @@
 @end
 
 @implementation HalogenTypeC
+
+- (HalogenTypeC)initWithParams:(int)params onPort:(int)port
+{
+  v4 = *&port;
+  v14.receiver = self;
+  v14.super_class = HalogenTypeC;
+  v6 = [(HalogenTypeC *)&v14 init];
+  v7 = v6;
+  if (!v6)
+  {
+    return v7;
+  }
+
+  *(v6 + 36) = xmmword_25491C080;
+  *(v6 + 52) = 0x400000008;
+  *(v6 + 14) = 1;
+  *(v6 + 60) = 0x12C00000064;
+  *(v6 + 17) = params;
+  *(v6 + 9) = 0x3840000012C0;
+  *(v6 + 20) = 2 * params + 23296;
+  *(v6 + 21) = 4096;
+  *(v6 + 6) = 4800;
+  v8 = [HalogenAudio alloc];
+  LODWORD(v13) = *(v7 + 56);
+  v9 = [(HalogenAudio *)v8 initAudioWithParameters:v7 nInputChannels:*(v7 + 36) nOutputChannels:*(v7 + 40) sampleRate:*(v7 + 44) bitDepth:*(v7 + 48) inputFrameSizeInBytes:*(v7 + 52) outputFrameSizeInBytes:v13];
+  *(v7 + 448) = v9;
+  if (!v9)
+  {
+    [HalogenTypeC initWithParams:v7 onPort:buf];
+    return *buf;
+  }
+
+  *(v7 + 496) = objc_alloc_init(MEMORY[0x277CCA928]);
+  *(v7 + 112) = 1;
+  *(v7 + 456) = 0x405B800000000000;
+  *(v7 + 88) = 0;
+  v10 = MGCopyAnswer();
+  if (v10)
+  {
+    v11 = v10;
+    *(v7 + 13) = CFEqual(v10, @"Internal") != 0;
+    CFRelease(v11);
+  }
+
+  else
+  {
+    *(v7 + 13) = 0;
+  }
+
+  *(v7 + 11) = [v7 supportsSelfTest];
+  *(v7 + 512) = objc_alloc_init(MEMORY[0x277CCAB68]);
+  if (([v7 _allocBuffers] & 1) == 0)
+  {
+    [HalogenTypeC initWithParams:onPort:];
+LABEL_16:
+
+    return 0;
+  }
+
+  if (([v7 _connectToAccessoryManager:v4] & 1) == 0)
+  {
+    [HalogenTypeC initWithParams:onPort:];
+    goto LABEL_16;
+  }
+
+  if (([v7 _createSleepWakeNotifier] & 1) == 0)
+  {
+    [HalogenTypeC initWithParams:onPort:];
+    goto LABEL_16;
+  }
+
+  [v7 _generateSineWave];
+  *(v7 + 504) = [[HalogenCalcTypeC alloc] initWithParams:*(v7 + 68) signalFrequency:*(v7 + 44) sampleRate:*(v7 + 456) tiaGain:12400.0 adcGain:1.0 parasiticCap:4.0e-12];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenTypeC:HalogenTypeC Started!", buf, 2u);
+  }
+
+  return v7;
+}
 
 - (void)dealloc
 {
@@ -259,7 +345,7 @@ LABEL_7:
 - (void)_runHPMTool:(BOOL)tool
 {
   toolCopy = tool;
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   [objc_msgSend(MEMORY[0x277CCAC38] "processInfo")];
   pipe = [MEMORY[0x277CCAC10] pipe];
   fileHandleForReading = [pipe fileHandleForReading];
@@ -271,22 +357,20 @@ LABEL_7:
     v7 = @"--data=0x110B0400";
   }
 
-  v11[0] = @"--command=DVEn";
-  v11[1] = v7;
-  [v6 setArguments:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v11, 2)}];
+  v10[0] = @"--command=DVEn";
+  v10[1] = v7;
+  [v6 setArguments:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v10, 2)}];
   [v6 setStandardOutput:pipe];
   [v6 launch];
   readDataToEndOfFile = [fileHandleForReading readDataToEndOfFile];
   [fileHandleForReading closeFile];
   v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:readDataToEndOfFile encoding:4];
   NSLog(&cfstr_HpmtoolReturne.isa, v9);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (int)recordCallBackFunc:(unsigned int *)func AudioTimeStamp:(const AudioTimeStamp *)stamp busNum:(unsigned int)num numFrames:(unsigned int)frames AudioBufferList:(AudioBufferList *)list
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   *&ioData.mNumberBuffers = 0xAAAAAAAAAAAAAAAALL;
   *&ioData.mBuffers[0].mNumberChannels = 0xAAAAAAAAAAAAAAAALL;
   v9 = self->_inputFrameSizeInBytes * frames;
@@ -333,17 +417,15 @@ LABEL_7:
 
           else
           {
-            connect = self->_connect;
-            ldcmState = self->_ldcmState;
-            v20 = IOAccessoryManagerSetLDCM();
-            if (v20)
+            v18 = IOAccessoryManagerSetLDCM();
+            if (v18)
             {
-              v21 = v20;
+              v19 = v18;
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
-                *v25 = 67109120;
-                v26 = v21;
-                _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenTypeC:IOAccessoryManagerSetLDCM failed with: 0x%x", v25, 8u);
+                *v22 = 67109120;
+                v23 = v19;
+                _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenTypeC:IOAccessoryManagerSetLDCM failed with: 0x%x", v22, 8u);
               }
             }
           }
@@ -366,7 +448,48 @@ LABEL_7:
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
+  return 0;
+}
+
+- (int)playbackCallBackFunc:(unsigned int *)func AudioTimeStamp:(const AudioTimeStamp *)stamp busNum:(unsigned int)num numFrames:(unsigned int)frames AudioBufferList:(AudioBufferList *)list
+{
+  v9 = [(NSMutableData *)self->_pcmOutputData bytes:func];
+  pcmOutputDataIndexInBytes = self->_pcmOutputDataIndexInBytes;
+  mNumberBuffers = list->mNumberBuffers;
+  if (mNumberBuffers)
+  {
+    v12 = v9;
+    v13 = 0;
+    pcmOutputDataMaxSzInBytes = self->_pcmOutputDataMaxSzInBytes;
+    p_mData = &list->mBuffers[0].mData;
+    do
+    {
+      v16 = *(p_mData - 1);
+      if (pcmOutputDataMaxSzInBytes - pcmOutputDataIndexInBytes >= v16)
+      {
+        v17 = v16;
+      }
+
+      else
+      {
+        v17 = (pcmOutputDataMaxSzInBytes - pcmOutputDataIndexInBytes);
+      }
+
+      if (v17)
+      {
+        memcpy(*p_mData, (v12 + self->_pcmOutputDataIndexInBytes), v17);
+        pcmOutputDataIndexInBytes = (v17 + pcmOutputDataIndexInBytes);
+        mNumberBuffers = list->mNumberBuffers;
+      }
+
+      ++v13;
+      p_mData += 2;
+    }
+
+    while (v13 < mNumberBuffers);
+  }
+
+  [(HalogenTypeC *)self setPcmOutputDataIndexInBytes:pcmOutputDataIndexInBytes];
   return 0;
 }
 
@@ -422,47 +545,376 @@ LABEL_7:
   return v13;
 }
 
+- (int)doLDCMMeasurement:(int)measurement isCalibrationNeeded:(BOOL)needed isReceptacleEmpty:(BOOL)empty isReceptacleWet:(BOOL)wet withWetTransitionThreshold:(double)threshold withDryTransitionThreshold:(double)transitionThreshold
+{
+  wetCopy = wet;
+  emptyCopy = empty;
+  v12 = *&measurement;
+  self->_halogenResult = 11;
+  self->_measurementInfoDefault.halogenResult = 11;
+  [(HalogenTypeC *)self _resetCalcValues:*&measurement];
+  self->_ldcmState = 3;
+  if (v12 == 1)
+  {
+    v14 = 2;
+  }
+
+  else if (v12 == 3)
+  {
+    if (!self->_selfTestCapable)
+    {
+      [HalogenTypeC doLDCMMeasurement:v16 isCalibrationNeeded:? isReceptacleEmpty:? isReceptacleWet:? withWetTransitionThreshold:? withDryTransitionThreshold:?];
+      return v16[0];
+    }
+
+    self->_ldcmState = 4;
+    v14 = 1;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  if ([(HalogenTypeC *)self _doLDCMMeasurement:v12 isReceptacleEmpty:emptyCopy isReceptacleWet:wetCopy withWetTransitionThreshold:v14 withDryTransitionThreshold:threshold measurementType:transitionThreshold])
+  {
+    [HalogenTypeC doLDCMMeasurement:isCalibrationNeeded:isReceptacleEmpty:isReceptacleWet:withWetTransitionThreshold:withDryTransitionThreshold:];
+    return v16[1];
+  }
+
+  else
+  {
+    [(NSMutableString *)self->_measurementInfoOutputString setString:&stru_2866AF328];
+    [(HalogenTypeC *)self _storeMeasurementData:v12 measurementType:v14 measurementInfo:&self->_measurementInfoDefault halogenResult:self->_halogenResult];
+    [(NSMutableString *)self->_measurementInfoOutputString appendString:[(HalogenTypeC *)self _buildMeasurementOutputString:&self->_measurementInfoDefault]];
+    return 0;
+  }
+}
+
+- (int)_doLDCMMeasurement:(int)measurement isReceptacleEmpty:(BOOL)empty isReceptacleWet:(BOOL)wet withWetTransitionThreshold:(double)threshold withDryTransitionThreshold:(double)transitionThreshold measurementType:(int)type
+{
+  v31 = *MEMORY[0x277D85DE8];
+  v24 = 0xAAAAAAAAAAAAAAAALL;
+  *&self->_pcmInputDataIndexInBytes = 0;
+  self->_pcmOutputDataIndexInBytes = 0;
+  *&self->_isCalibrationDone = 0;
+  if ((measurement - 5) <= 0xFFFFFFFB)
+  {
+    [HalogenTypeC _doLDCMMeasurement:isReceptacleEmpty:isReceptacleWet:withWetTransitionThreshold:withDryTransitionThreshold:measurementType:];
+LABEL_29:
+    [(HalogenAudio *)self->_halogenAudioUnit releaseAudioUnitInstance];
+    v22 = 0;
+    goto LABEL_36;
+  }
+
+  v10 = *&type;
+  wetCopy = wet;
+  emptyCopy = empty;
+  self->_pinToMeasure = measurement;
+  if ((measurement - 2) >= 2)
+  {
+    if (measurement == 4)
+    {
+      if (!self->_isInternalBuild)
+      {
+        [HalogenTypeC _doLDCMMeasurement:buf isReceptacleEmpty:? isReceptacleWet:? withWetTransitionThreshold:? withDryTransitionThreshold:? measurementType:?];
+        goto LABEL_45;
+      }
+
+      [(HalogenTypeC *)self _runHPMTool:0, 0xAAAAAAAAAAAAAAAALL];
+      v15 = 2.26e-10;
+    }
+
+    else
+    {
+      v15 = 0.0;
+    }
+  }
+
+  else
+  {
+    v15 = 4.0e-11;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    pinToMeasure = self->_pinToMeasure;
+    *buf = 136315906;
+    *v26 = "[HalogenTypeC _doLDCMMeasurement:isReceptacleEmpty:isReceptacleWet:withWetTransitionThreshold:withDryTransitionThreshold:measurementType:]";
+    *&v26[8] = 1024;
+    *&v26[10] = measurement;
+    v27 = 1024;
+    v28 = pinToMeasure;
+    v29 = 1024;
+    v30 = v10;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenTypeC:%s pin:%d _pinToMeasure:%d measurementType:%d", buf, 0x1Eu);
+  }
+
+  if (IOAccessoryManagerSetLDCM())
+  {
+    [HalogenTypeC _doLDCMMeasurement:isReceptacleEmpty:isReceptacleWet:withWetTransitionThreshold:withDryTransitionThreshold:measurementType:];
+LABEL_45:
+    v22 = *buf;
+    goto LABEL_33;
+  }
+
+  if (![(HalogenTypeC *)self powerState])
+  {
+    [HalogenTypeC _doLDCMMeasurement:buf isReceptacleEmpty:? isReceptacleWet:? withWetTransitionThreshold:? withDryTransitionThreshold:? measurementType:?];
+    goto LABEL_45;
+  }
+
+  if ([(HalogenTypeC *)self powerState]== 1)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenTypeC:Waiting for kHalogenPowerStateAwake", buf, 2u);
+    }
+
+    [(NSCondition *)[(HalogenTypeC *)self powerStateCond] lock];
+    v17 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1.0];
+    if ([(HalogenTypeC *)self powerState]== 1)
+    {
+      do
+      {
+        v18 = [(NSCondition *)self->_powerStateCond waitUntilDate:v17];
+      }
+
+      while ([(HalogenTypeC *)self powerState]== 1 && v18);
+    }
+
+    [(NSCondition *)[(HalogenTypeC *)self powerStateCond] unlock];
+  }
+
+  if ([(HalogenTypeC *)self powerState]!= 2)
+  {
+    [HalogenTypeC _doLDCMMeasurement:buf isReceptacleEmpty:? isReceptacleWet:? withWetTransitionThreshold:? withDryTransitionThreshold:? measurementType:?];
+    goto LABEL_45;
+  }
+
+  if (![(HalogenAudio *)self->_halogenAudioUnit startAudioUnit])
+  {
+    [HalogenTypeC _doLDCMMeasurement:buf isReceptacleEmpty:? isReceptacleWet:? withWetTransitionThreshold:? withDryTransitionThreshold:? measurementType:?];
+    goto LABEL_45;
+  }
+
+  v19 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:self->_audioTimeoutInSec];
+  [(NSCondition *)self->_audioTimeoutCond lock];
+  if (self->_isMeasurementDone)
+  {
+    [(NSCondition *)self->_audioTimeoutCond unlock];
+    [(HalogenAudio *)self->_halogenAudioUnit stopAudioUnit];
+LABEL_26:
+    IOAccessoryManagerLDCMGetMeasurementStatus();
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109376;
+      *v26 = 789;
+      *&v26[4] = 2048;
+      *&v26[6] = 0;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenTypeC:%d:Measurement status:%llu", buf, 0x12u);
+    }
+
+    IOAccessoryManagerSetLDCM();
+    [(HalogenTypeC *)self _doLDCMCalculation:emptyCopy isReceptacleWet:wetCopy withWetTransitionThreshold:v10 withDryTransitionThreshold:threshold pinParasitics:transitionThreshold measurementType:v15];
+    goto LABEL_29;
+  }
+
+  do
+  {
+    v20 = [(NSCondition *)self->_audioTimeoutCond waitUntilDate:v19];
+    v21 = v20;
+  }
+
+  while (!self->_isMeasurementDone && v20);
+  [(NSCondition *)self->_audioTimeoutCond unlock];
+  [(HalogenAudio *)self->_halogenAudioUnit stopAudioUnit];
+  if (v21)
+  {
+    goto LABEL_26;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenTypeC:Timeout!", buf, 2u);
+  }
+
+  v22 = 1;
+LABEL_33:
+  [(HalogenAudio *)self->_halogenAudioUnit releaseAudioUnitInstance];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    *v26 = v22;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenTypeC:Setting LDCM back to Idle with HalogenReturnStatus: %u", buf, 8u);
+  }
+
+  IOAccessoryManagerSetLDCM();
+LABEL_36:
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    *v26 = v22;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenTypeC:Exiting function with HalogenReturnStatus: %u", buf, 8u);
+  }
+
+  return v22;
+}
+
+- (BOOL)_doLDCMCalculation:(BOOL)calculation isReceptacleWet:(BOOL)wet withWetTransitionThreshold:(double)threshold withDryTransitionThreshold:(double)transitionThreshold pinParasitics:(double)parasitics measurementType:(int)type
+{
+  v8 = *&type;
+  wetCopy = wet;
+  calculationCopy = calculation;
+  bytes = [(NSMutableData *)self->_pcmInputData bytes];
+  bytes2 = [(NSMutableData *)self->_voltageData bytes];
+  bytes3 = [(NSMutableData *)self->_currentData bytes];
+  [(HalogenTypeC *)self _resetCalcValues];
+  nMeasurementSamples = self->_nMeasurementSamples;
+  if (nMeasurementSamples >= 1)
+  {
+    v19 = (bytes + 8 * self->_calibrationSampleOffsetInFrames + 4);
+    v20 = bytes2;
+    v21 = bytes3;
+    do
+    {
+      v22 = *v19;
+      *v20++ = *(v19 - 1);
+      *v21++ = v22;
+      v19 += 2;
+      --nMeasurementSamples;
+    }
+
+    while (nMeasurementSamples);
+  }
+
+  v23 = [(HalogenCalcTypeC *)self->_halogenCalcTypeC doCalibration:self->_voltageData withCurrentData:self->_currentData];
+  [(HalogenCalcTypeC *)self->_halogenCalcTypeC calVoltageSNR];
+  self->_calVoltageSNR = v24;
+  [(HalogenCalcTypeC *)self->_halogenCalcTypeC calCurrentSNR];
+  self->_calCurrentSNR = v25;
+  [(HalogenCalcTypeC *)self->_halogenCalcTypeC calVoltageAmplitude];
+  self->_calVoltageAmplitude = v26;
+  [(HalogenCalcTypeC *)self->_halogenCalcTypeC calCurrentAmplitude];
+  self->_calCurrentAmplitude = v27;
+  [(HalogenCalcTypeC *)self->_halogenCalcTypeC voltageGainCorrection];
+  self->_voltageGainCorrection = v28;
+  [(HalogenCalcTypeC *)self->_halogenCalcTypeC currentGainCorrection];
+  self->_currentGainCorrection = v29;
+  [(HalogenCalcTypeC *)self->_halogenCalcTypeC currentPhaseCompensation];
+  self->_currentPhaseCompensation = v30;
+  if (v23)
+  {
+    NSLog(&cfstr_ErrorCalibrati.isa, v23);
+    v34 = 11;
+  }
+
+  else
+  {
+    [(HalogenTypeC *)self _writeCalResults:@"/var/logs/calibrationData.plist"];
+    v31 = self->_nMeasurementSamples;
+    if (v31 >= 1)
+    {
+      v32 = (bytes + 8 * self->_measurementSampleOffsetInFrames + 4);
+      do
+      {
+        v33 = *v32;
+        *bytes2++ = *(v32 - 1);
+        *bytes3++ = v33;
+        v32 += 2;
+        --v31;
+      }
+
+      while (v31);
+    }
+
+    v34 = [(HalogenCalcTypeC *)self->_halogenCalcTypeC doLiquidDetection:self->_voltageData withCurrentData:self->_currentData isReceptacleEmpty:calculationCopy isReceptacleWet:wetCopy withWetTransitionThreshold:v8 withDryTransitionThreshold:threshold pinParasitics:transitionThreshold measurementType:parasitics];
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC goertzelImpedance];
+    self->_goertzelImpedance = v35;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC goertzelPhase];
+    self->_goertzelPhase = v36;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC compensatedImpedance];
+    self->_compensatedImpedance = v37;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC compensatedPhase];
+    self->_compensatedPhase = v38;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC resistanceInOhms];
+    self->_resistanceInOhms = v39;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC capacitanceInNanoF];
+    self->_capacitanceInNanoF = v40;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC measurementVoltageSignalLevel];
+    self->_measurementVoltageSignalLevel = v41;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC measurementVoltageNoiseLevel];
+    self->_measurementVoltageNoiseLevel = v42;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC measurementVoltageSNR];
+    self->_measurementVoltageSNR = v43;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC measurementCurrentSignalLevel];
+    self->_measurementCurrentSignalLevel = v44;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC measurementCurrentNoiseLevel];
+    self->_measurementCurrentNoiseLevel = v45;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC measurementCurrentSNR];
+    self->_measurementCurrentSNR = v46;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC measurementVoltageAmplitude];
+    self->_measurementVoltageAmplitude = v47;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC measurementCurrentAmplitude];
+    self->_measurementCurrentAmplitude = v48;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC measurementVoltagePhase];
+    self->_measurementVoltagePhase = v49;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC measurementCurrentPhase];
+    self->_measurementCurrentPhase = v50;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC loadImpedanceInOhms];
+    self->_measurementLoadImpedanceMagnitude = v51;
+    [(HalogenCalcTypeC *)self->_halogenCalcTypeC loadPhase];
+    self->_measurementLoadImpedancePhase = v52;
+  }
+
+  self->_halogenResult = v34;
+  if ((v23 - 1) <= 2)
+  {
+    self->_halogenResult = dword_25491C120[(v23 - 1)];
+  }
+
+  return 1;
+}
+
 - (BOOL)setMitigations:(BOOL)mitigations
 {
-  connect = self->_connect;
-  v4 = IOAccessoryManagerLDCMEnableMitigations();
-  v5 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-  if (v4)
+  v3 = IOAccessoryManagerLDCMEnableMitigations();
+  v4 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    [HalogenTypeC setMitigations:v5];
+    [HalogenTypeC setMitigations:v4];
   }
 
-  else if (v5)
+  else if (v4)
   {
-    *v7 = 0;
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenTypeC:Mitigations Enabled: Turning off Type-C Port.", v7, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenTypeC:Mitigations Enabled: Turning off Type-C Port.", v6, 2u);
   }
 
-  return v4 == 0;
+  return v3 == 0;
 }
 
 - (BOOL)setLiquidDetected:(BOOL)detected
 {
   detectedCopy = detected;
-  v10 = *MEMORY[0x277D85DE8];
-  connect = self->_connect;
-  v5 = IOAccessoryManagerLDCMSetLiquidDetected();
-  v6 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-  if (v5)
-  {
-    [HalogenTypeC setLiquidDetected:v6];
-  }
-
-  else if (v6)
-  {
-    v9[0] = 67109120;
-    v9[1] = detectedCopy;
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenTypeC:Liquid Detected Set:%d.", v9, 8u);
-  }
-
-  result = v5 == 0;
   v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = IOAccessoryManagerLDCMSetLiquidDetected();
+  v5 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+  if (v4)
+  {
+    [HalogenTypeC setLiquidDetected:v5];
+  }
+
+  else if (v5)
+  {
+    v7[0] = 67109120;
+    v7[1] = detectedCopy;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "HalogenTypeC:Liquid Detected Set:%d.", v7, 8u);
+  }
+
+  return v4 == 0;
 }
 
 - (BOOL)_writeCalResults:(id)results
@@ -744,26 +1196,20 @@ LABEL_7:
 
 - (void)initWithParams:onPort:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0();
     _os_log_impl(v0, v1, v2, v3, v4, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithParams:onPort:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0();
     _os_log_impl(v0, v1, v2, v3, v4, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithParams:(uint64_t)a1 onPort:(void *)a2 .cold.4(uint64_t a1, void *a2)
@@ -791,7 +1237,6 @@ LABEL_7:
 - (void)_connectToAccessoryManager:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_1();
@@ -800,13 +1245,11 @@ LABEL_7:
   }
 
   *v0 = 0;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectToAccessoryManager:.cold.2()
 {
   OUTLINED_FUNCTION_2();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_1();
@@ -815,7 +1258,6 @@ LABEL_7:
   }
 
   *v0 = 0;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_allocBuffers
@@ -851,14 +1293,11 @@ LABEL_7:
 
 - (void)recordCallBackFunc:AudioTimeStamp:busNum:numFrames:AudioBufferList:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0();
     _os_log_impl(v0, v1, v2, v3, v4, 0x14u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveAsWav:(_DWORD *)a1 .cold.1(_DWORD *a1)
@@ -875,7 +1314,6 @@ LABEL_7:
 - (void)saveAsWav:.cold.2()
 {
   OUTLINED_FUNCTION_2();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_1();
@@ -884,7 +1322,6 @@ LABEL_7:
   }
 
   *v0 = -1;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveAsWav:(_DWORD *)a1 .cold.3(_DWORD *a1)
@@ -912,7 +1349,6 @@ LABEL_7:
 - (void)doLDCMMeasurement:isCalibrationNeeded:isReceptacleEmpty:isReceptacleWet:withWetTransitionThreshold:withDryTransitionThreshold:.cold.2()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_1();
@@ -921,7 +1357,6 @@ LABEL_7:
   }
 
   *v0 = v1;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doLDCMMeasurement:(_DWORD *)a1 isReceptacleEmpty:isReceptacleWet:withWetTransitionThreshold:withDryTransitionThreshold:measurementType:.cold.1(_DWORD *a1)
@@ -938,7 +1373,6 @@ LABEL_7:
 - (void)_doLDCMMeasurement:isReceptacleEmpty:isReceptacleWet:withWetTransitionThreshold:withDryTransitionThreshold:measurementType:.cold.2()
 {
   OUTLINED_FUNCTION_2();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_1();
@@ -947,7 +1381,6 @@ LABEL_7:
   }
 
   *v0 = 2;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doLDCMMeasurement:(_DWORD *)a1 isReceptacleEmpty:isReceptacleWet:withWetTransitionThreshold:withDryTransitionThreshold:measurementType:.cold.3(_DWORD *a1)
@@ -985,38 +1418,29 @@ LABEL_7:
 
 - (void)_doLDCMMeasurement:isReceptacleEmpty:isReceptacleWet:withWetTransitionThreshold:withDryTransitionThreshold:measurementType:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0();
     _os_log_impl(v0, v1, v2, v3, v4, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMitigations:(char)a1 .cold.1(char a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     OUTLINED_FUNCTION_0();
     _os_log_impl(v1, v2, v3, v4, v5, 8u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLiquidDetected:(char)a1 .cold.1(char a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     OUTLINED_FUNCTION_0();
     _os_log_impl(v1, v2, v3, v4, v5, 8u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

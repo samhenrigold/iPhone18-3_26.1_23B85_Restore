@@ -77,7 +77,7 @@ LABEL_7:
   layer = [variantView layer];
   if (variantView)
   {
-    [variantView transform3D];
+    objc_msgSend_transform3D(variantView);
   }
 
   else

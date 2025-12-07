@@ -277,7 +277,7 @@ uint64_t __70__WBSHistoryTopicTag_groupHistoryItemsBySessionWithCompletionHandle
   return v5;
 }
 
-uint64_t __42__WBSHistoryTopicTag_containsHistoryItem___block_invoke(void *a1)
+void *__42__WBSHistoryTopicTag_containsHistoryItem___block_invoke(void *a1)
 {
   result = [*(a1[4] + 48) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;

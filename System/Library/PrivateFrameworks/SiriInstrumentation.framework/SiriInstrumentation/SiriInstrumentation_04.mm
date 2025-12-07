@@ -1,3 +1,24 @@
+uint64_t NETSchemaNETQuality.description.getter(unsigned int a1)
+{
+  if (a1 > 3)
+  {
+    v1 = @"NETQUALITY_UNKNOWN";
+    v2 = @"NETQUALITY_UNKNOWN";
+  }
+
+  else
+  {
+    v1 = off_1E78C74A8[a1];
+    v2 = off_1E78C74C8[a1];
+  }
+
+  v3 = v1;
+  v4 = v2;
+  sub_1AA651AA4();
+  OUTLINED_FUNCTION_1_2();
+  return OUTLINED_FUNCTION_0_3();
+}
+
 uint64_t NETSchemaNETSessionState.description.getter(unsigned int a1)
 {
   if (a1 > 0xC)
@@ -7630,320 +7651,425 @@ uint64_t SISchemaAnyEventType.messageType.getter(int a1)
   {
     case 1:
       v3 = &unk_1ED92F790;
+      v4 = off_1E78B56B0;
       goto LABEL_107;
     case 2:
       v3 = &unk_1EB400558;
+      v4 = off_1E78B5870;
       goto LABEL_107;
     case 3:
       v3 = &unk_1EB4007C8;
+      v4 = off_1E78B56E8;
       goto LABEL_107;
     case 4:
       v3 = &unk_1EB4006D8;
+      v4 = off_1E78B3420;
       goto LABEL_107;
     case 5:
       v3 = &unk_1EB400628;
+      v4 = off_1E78B4980;
       goto LABEL_107;
     case 6:
       v3 = &unk_1EB400660;
+      v4 = off_1E78B5808;
       goto LABEL_107;
     case 7:
       v3 = &unk_1EB400620;
+      v4 = off_1E78B5838;
       goto LABEL_107;
     case 8:
       v3 = &unk_1EB4005A0;
+      v4 = off_1E78B5E98;
       goto LABEL_107;
     case 9:
       v3 = &unk_1EB3FECF0;
+      v4 = off_1E78B5850;
       goto LABEL_107;
     case 10:
       v3 = &unk_1EB400838;
+      v4 = off_1E78B55C0;
       goto LABEL_107;
     case 11:
       v3 = &unk_1EB400830;
+      v4 = off_1E78B55F8;
       goto LABEL_107;
     case 12:
       v3 = &unk_1EB400778;
+      v4 = off_1E78B2518;
       goto LABEL_107;
     case 13:
       v3 = &unk_1EB3FECC8;
+      v4 = off_1E78B2358;
       goto LABEL_107;
     case 14:
       v3 = &unk_1EB4007F8;
+      v4 = off_1E78B1AC0;
       goto LABEL_107;
     case 15:
       v3 = &unk_1EB400550;
+      v4 = off_1E78B6108;
       goto LABEL_107;
     case 16:
       v3 = &unk_1EB400740;
+      v4 = off_1E78B2800;
       goto LABEL_107;
     case 17:
       v3 = &unk_1EB3FED80;
+      v4 = off_1E78B1E98;
       goto LABEL_107;
     case 18:
       v3 = &unk_1EB3FECD0;
+      v4 = off_1E78B3F50;
       goto LABEL_107;
     case 19:
       v3 = &unk_1EB3FECC0;
+      v4 = off_1E78B44B8;
       goto LABEL_107;
     case 20:
       v3 = &unk_1ED92F778;
+      v4 = off_1E78B1758;
       goto LABEL_107;
     case 21:
       v3 = &unk_1EB4007C0;
+      v4 = off_1E78B2020;
       goto LABEL_107;
     case 22:
       v3 = &unk_1EB4006F8;
+      v4 = off_1E78B3008;
       goto LABEL_107;
     case 23:
       v3 = &unk_1EB3FECE8;
+      v4 = off_1E78B3660;
       goto LABEL_107;
     case 24:
       v3 = &unk_1EB3FED78;
+      v4 = off_1E78B5F90;
       goto LABEL_107;
     case 25:
       v3 = &unk_1EB4007E0;
+      v4 = off_1E78B1BD0;
       goto LABEL_107;
     case 26:
       v3 = &unk_1EB4005E0;
+      v4 = off_1E78B53A0;
       goto LABEL_107;
     case 27:
       v3 = &unk_1EB4007D0;
+      v4 = off_1E78B1CD0;
       goto LABEL_107;
     case 28:
       v3 = &unk_1EB400820;
+      v4 = off_1E78B1648;
       goto LABEL_107;
     case 29:
       v3 = &unk_1EB400818;
+      v4 = off_1E78B1668;
       goto LABEL_107;
     case 30:
       v3 = &unk_1EB4007B8;
+      v4 = off_1E78B1E90;
       goto LABEL_107;
     case 31:
       v3 = &unk_1EB400738;
+      v4 = off_1E78B2878;
       goto LABEL_107;
     case 32:
       v3 = &unk_1EB4006C0;
+      v4 = off_1E78B39D0;
       goto LABEL_107;
     case 33:
       v3 = &unk_1EB4005C8;
+      v4 = off_1E78B54B0;
       goto LABEL_107;
     case 37:
       v3 = &unk_1EB4007A8;
+      v4 = off_1E78B2008;
       goto LABEL_107;
     case 38:
       v3 = &unk_1EB400640;
+      v4 = off_1E78B4B20;
       goto LABEL_107;
     case 39:
       v3 = &unk_1EB400798;
+      v4 = off_1E78B2090;
       goto LABEL_107;
     case 40:
       v3 = &unk_1EB400790;
+      v4 = off_1E78B20E0;
       goto LABEL_107;
     case 41:
       v3 = &unk_1EB400588;
+      v4 = off_1E78B5BC0;
       goto LABEL_107;
     case 42:
       v3 = &unk_1EB400630;
+      v4 = off_1E78B4E38;
       goto LABEL_107;
     case 43:
       v3 = &unk_1EB4006D0;
+      v4 = off_1E78B3918;
       goto LABEL_107;
     case 44:
       v3 = &unk_1EB4007F0;
+      v4 = off_1E78B1B00;
       goto LABEL_107;
     case 45:
       v3 = &unk_1EB4006C8;
+      v4 = off_1E78B39A8;
       goto LABEL_107;
     case 46:
       v3 = &unk_1EB400728;
+      v4 = off_1E78B2960;
       goto LABEL_107;
     case 47:
       v3 = &unk_1EB400678;
+      v4 = off_1E78B5770;
       goto LABEL_107;
     case 48:
       v3 = &unk_1EB400668;
+      v4 = off_1E78B4410;
       goto LABEL_107;
     case 49:
       v3 = &unk_1EB400658;
+      v4 = off_1E78B48E8;
       goto LABEL_107;
     case 50:
       v3 = &unk_1EB4005D8;
+      v4 = off_1E78B5400;
       goto LABEL_107;
     case 51:
       v3 = &unk_1EB400788;
+      v4 = off_1E78B20F0;
       goto LABEL_107;
     case 52:
       v3 = &unk_1EB400578;
+      v4 = off_1E78B5D80;
       goto LABEL_107;
     case 53:
       v3 = &unk_1EB400780;
+      v4 = off_1E78B22F8;
       goto LABEL_107;
     case 54:
       v3 = &unk_1EB4005F0;
+      v4 = off_1E78B51F8;
       goto LABEL_107;
     case 56:
       v3 = &unk_1EB4005B0;
+      v4 = off_1E78B5530;
       goto LABEL_107;
     case 57:
       v3 = &unk_1EB4006F0;
+      v4 = off_1E78B3078;
       goto LABEL_107;
     case 58:
       v3 = &unk_1EB400800;
+      v4 = off_1E78B1A40;
       goto LABEL_107;
     case 59:
       v3 = &unk_1EB4005F8;
+      v4 = off_1E78B51F0;
       goto LABEL_107;
     case 60:
       v3 = &unk_1EB400598;
+      v4 = off_1E78B5BB0;
       goto LABEL_107;
     case 61:
       v3 = &unk_1EB3FECE0;
+      v4 = off_1E78B5500;
       goto LABEL_107;
     case 62:
       v3 = &unk_1EB4005A8;
+      v4 = off_1E78B5570;
       goto LABEL_107;
     case 63:
       v3 = &unk_1EB400670;
+      v4 = off_1E78B4400;
       goto LABEL_107;
     case 64:
       v3 = &unk_1EB4006E0;
+      v4 = off_1E78B33B8;
       goto LABEL_107;
     case 65:
       v3 = &unk_1EB400610;
+      v4 = off_1E78B5060;
       goto LABEL_107;
     case 66:
       v3 = &qword_1ED92F570;
+      v4 = off_1E78B27C8;
       goto LABEL_107;
     case 67:
       v3 = &unk_1EB400828;
+      v4 = off_1E78B1618;
       goto LABEL_107;
     case 68:
       v3 = &unk_1EB400720;
+      v4 = off_1E78B2990;
       goto LABEL_107;
     case 69:
       v3 = &unk_1EB4006B8;
+      v4 = off_1E78B3A88;
       goto LABEL_107;
     case 70:
       v3 = &unk_1EB400568;
+      v4 = off_1E78B5EE8;
       goto LABEL_107;
     case 71:
       v3 = &unk_1EB400570;
+      v4 = off_1E78B58B8;
       goto LABEL_107;
     case 72:
       v3 = &unk_1EB400690;
+      v4 = off_1E78B4370;
       goto LABEL_107;
     case 73:
       v3 = &unk_1EB400718;
+      v4 = off_1E78B29D0;
       goto LABEL_107;
     case 74:
       v3 = &unk_1EB400730;
+      v4 = off_1E78B2980;
       goto LABEL_107;
     case 75:
       v3 = &unk_1EB400600;
+      v4 = off_1E78B51A0;
       goto LABEL_107;
     case 76:
       v3 = &unk_1EB400680;
+      v4 = off_1E78B5800;
       goto LABEL_107;
     case 77:
       v3 = &unk_1EB400748;
+      v4 = off_1E78B27D8;
       goto LABEL_107;
     case 78:
       v3 = &unk_1EB400758;
+      v4 = off_1E78B27D0;
       goto LABEL_107;
     case 79:
       v3 = &unk_1EB400750;
+      v4 = off_1E78B27E8;
       goto LABEL_107;
     case 80:
       v3 = &unk_1EB4005D0;
+      v4 = off_1E78B5470;
       goto LABEL_107;
     case 81:
       v3 = &unk_1EB4006A0;
+      v4 = off_1E78B4288;
       goto LABEL_107;
     case 82:
-      v3 = &unk_1EB4005B8;
+      v3 = &qword_1EB4005B8;
+      v4 = off_1E78B5ED8;
       goto LABEL_107;
     case 84:
       v3 = &unk_1EB4006A8;
+      v4 = off_1E78B3FE8;
       goto LABEL_107;
     case 85:
       v3 = &unk_1EB4006B0;
+      v4 = off_1E78B3AE8;
       goto LABEL_107;
     case 86:
       v3 = &unk_1EB400650;
+      v4 = off_1E78B49B0;
       goto LABEL_107;
     case 87:
       v3 = &unk_1EB400590;
+      v4 = off_1E78B2060;
       goto LABEL_107;
     case 88:
       v3 = &unk_1EB400580;
+      v4 = off_1E78B5BE0;
       goto LABEL_107;
     case 89:
       v3 = &unk_1EB400710;
+      v4 = off_1E78B2C08;
       goto LABEL_107;
     case 90:
       v3 = &unk_1EB4007D8;
+      v4 = off_1E78B1C60;
       goto LABEL_107;
     case 91:
       v3 = &unk_1EB400638;
+      v4 = off_1E78B4D08;
       goto LABEL_107;
     case 92:
       v3 = &unk_1EB4006E8;
+      v4 = off_1E78B32C0;
       goto LABEL_107;
     case 93:
       v3 = &unk_1EB4005E8;
+      v4 = off_1E78B52B0;
       goto LABEL_107;
     case 94:
       v3 = &unk_1EB400618;
+      v4 = off_1E78B4FC0;
       goto LABEL_107;
     case 95:
       v3 = &unk_1EB400608;
+      v4 = off_1E78B50E0;
       goto LABEL_107;
     case 96:
       v3 = &unk_1EB400648;
+      v4 = off_1E78B4A38;
       goto LABEL_107;
     case 97:
       v3 = &unk_1EB4007B0;
+      v4 = off_1E78B2040;
       goto LABEL_107;
     case 98:
       v3 = &unk_1EB400560;
+      v4 = off_1E78B6058;
       goto LABEL_107;
     case 99:
       v3 = &unk_1EB400708;
+      v4 = off_1E78B2A80;
       goto LABEL_107;
     case 100:
       v3 = &unk_1EB400700;
+      v4 = off_1E78B2A48;
       goto LABEL_107;
     case 101:
       v3 = &unk_1EB400770;
+      v4 = off_1E78B25E0;
       goto LABEL_107;
     case 102:
       v3 = &unk_1EB4005C0;
+      v4 = off_1E78B5C88;
       goto LABEL_107;
     case 103:
       v3 = &unk_1EB400688;
+      v4 = off_1E78B43D0;
       goto LABEL_107;
     case 104:
       v3 = &unk_1EB400768;
+      v4 = off_1E78B2638;
       goto LABEL_107;
     case 106:
       v3 = &unk_1EB4007A0;
+      v4 = off_1E78B2118;
       goto LABEL_107;
     case 107:
       v3 = &unk_1EB400698;
+      v4 = off_1E78B4330;
       goto LABEL_107;
     case 108:
       v3 = &unk_1EB400760;
+      v4 = off_1E78B2780;
       goto LABEL_107;
     case 109:
       v3 = &unk_1EB4007E8;
+      v4 = off_1E78B1E70;
       goto LABEL_107;
     case 112:
       v3 = &unk_1EB400810;
+      v4 = off_1E78B19B8;
       goto LABEL_107;
     case 113:
       v3 = &unk_1EB400808;
+      v4 = off_1E78B19F8;
 LABEL_107:
-      result = sub_1A9C88910(0, v3);
+      result = sub_1A9C88910(0, v3, v4);
       break;
     default:
       return result;
@@ -7952,7 +8078,7 @@ LABEL_107:
   return result;
 }
 
-uint64_t sub_1A9C88910(uint64_t a1, unint64_t *a2)
+uint64_t sub_1A9C88910(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -9752,225 +9878,5 @@ uint64_t sub_1A9C8B588(unint64_t a1)
   else
   {
     return *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  }
-}
-
-uint64_t sub_1A9C8B5AC(void *a1)
-{
-  v1 = [a1 orderedMessages];
-  if (!v1)
-  {
-    return 0;
-  }
-
-  v2 = v1;
-  sub_1A9C8B60C();
-  v3 = sub_1AA651B34();
-
-  return v3;
-}
-
-unint64_t sub_1A9C8B60C()
-{
-  result = qword_1ED92F580[0];
-  if (!qword_1ED92F580[0])
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, qword_1ED92F580);
-  }
-
-  return result;
-}
-
-void OUTLINED_FUNCTION_3_1()
-{
-
-  JUMPOUT(0x1AC590720);
-}
-
-id OUTLINED_FUNCTION_4_1()
-{
-  v3 = *(v1 + 2080);
-
-  return [v0 v3];
-}
-
-id OUTLINED_FUNCTION_5_1()
-{
-  v3 = *(v0 + 8 * v1 + 32);
-
-  return v3;
-}
-
-id OUTLINED_FUNCTION_6_1(void *a1)
-{
-
-  return [a1 (v1 + 2580)];
-}
-
-id OUTLINED_FUNCTION_7_1(void *a1)
-{
-
-  return [a1 (v1 + 865)];
-}
-
-id OUTLINED_FUNCTION_8_0()
-{
-
-  return [v0 (v1 + 427)];
-}
-
-id OUTLINED_FUNCTION_9_0()
-{
-
-  return [v0 (v1 + 1665)];
-}
-
-id OUTLINED_FUNCTION_10_0(void *a1)
-{
-
-  return [a1 (v1 + 125)];
-}
-
-id OUTLINED_FUNCTION_11_0(void *a1)
-{
-
-  return [a1 (v1 + 2316)];
-}
-
-void sub_1A9C8B75C(uint64_t a1)
-{
-  v2 = sub_1A9C8B650();
-  for (i = 0; v2 != i; ++i)
-  {
-    if ((a1 & 0xC000000000000001) != 0)
-    {
-      v4 = MEMORY[0x1AC590720](i, a1);
-    }
-
-    else
-    {
-      if (i >= *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10))
-      {
-        goto LABEL_11;
-      }
-
-      v4 = *(a1 + 8 * i + 32);
-    }
-
-    v5 = v4;
-    if (__OFADD__(i, 1))
-    {
-      __break(1u);
-LABEL_11:
-      __break(1u);
-      return;
-    }
-
-    v6 = [v4 siriEventTypeUnion];
-    v7 = [v6 ttsClientEvent];
-
-    v8 = [v7 requestReceivedTier1];
-    [v8 deleteTextToSynthesize];
-  }
-}
-
-void sub_1A9C8B878(uint64_t a1)
-{
-  v2 = sub_1A9C8B650();
-  v3 = 0;
-  v4 = a1 & 0xC000000000000001;
-  v5 = a1 & 0xFFFFFFFFFFFFFF8;
-  v20 = a1;
-  v6 = a1 + 32;
-  v22 = a1 & 0xC000000000000001;
-  v23 = v2;
-  v21 = a1 & 0xFFFFFFFFFFFFFF8;
-  v24 = a1 + 32;
-LABEL_2:
-  while (v3 != v2)
-  {
-    if (v4)
-    {
-      v7 = MEMORY[0x1AC590720](v3, v20);
-    }
-
-    else
-    {
-      if (v3 >= *(v5 + 16))
-      {
-        goto LABEL_27;
-      }
-
-      v7 = *(v6 + 8 * v3);
-    }
-
-    v8 = v7;
-    if (__OFADD__(v3++, 1))
-    {
-      goto LABEL_26;
-    }
-
-    v10 = [v7 siriEventTypeUnion];
-    if (v10 && (v11 = v10, v12 = [v10 cnvClientEvent], v11, v12) && (v13 = objc_msgSend(v12, sel_actionCandidatesGeneratedTier1), v12, v13))
-    {
-      v14 = sub_1A9CAE468();
-      if (v14)
-      {
-        v15 = v14;
-        v16 = sub_1A9C8B650();
-        for (i = 0; ; ++i)
-        {
-          if (v16 == i)
-          {
-
-            v4 = v22;
-            v2 = v23;
-            v5 = v21;
-            v6 = v24;
-            goto LABEL_2;
-          }
-
-          if ((v15 & 0xC000000000000001) != 0)
-          {
-            v18 = MEMORY[0x1AC590720](i, v15);
-          }
-
-          else
-          {
-            if (i >= *((v15 & 0xFFFFFFFFFFFFFF8) + 0x10))
-            {
-              goto LABEL_25;
-            }
-
-            v18 = *(v15 + 8 * i + 32);
-          }
-
-          v19 = v18;
-          if (__OFADD__(i, 1))
-          {
-            break;
-          }
-
-          [v18 deleteAppBundleId];
-        }
-
-        __break(1u);
-LABEL_25:
-        __break(1u);
-LABEL_26:
-        __break(1u);
-LABEL_27:
-        __break(1u);
-        return;
-      }
-
-      v6 = v24;
-    }
-
-    else
-    {
-    }
   }
 }

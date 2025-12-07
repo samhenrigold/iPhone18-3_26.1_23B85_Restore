@@ -150,11 +150,10 @@
 
 + (void)fetchOrCreateUsageRequestForLocalUserInContext:(void *)a1 error:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 predicate];
-  OUTLINED_FUNCTION_3_2(&dword_1B831F000, v2, v3, "There was more than 1 usage request for %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_3_2(&dword_1B831F000, v2, v3, "There was more than 1 usage request for %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

@@ -54,11 +54,11 @@
 {
   historyCopy = history;
   completionCopy = completion;
-  v7 = IntentHandlerDefaultLog();
+  v7 = IntentHandlerDefaultLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v38 = historyCopy;
+    v44 = historyCopy;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Got a SearchCallHistory intent: %@", buf, 0xCu);
   }
 
@@ -70,101 +70,100 @@
   callTypes = [historyCopy callTypes];
   unseen = [historyCopy unseen];
   preferredCallProvider = [historyCopy preferredCallProvider];
-  v13 = IntentHandlerDefaultLog();
+  v13 = IntentHandlerDefaultLog(preferredCallProvider);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v38 = startDateComponents;
+    v44 = startDateComponents;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Start Date  : %@", buf, 0xCu);
   }
 
-  v14 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v38 = endDateComponents;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "End Date    : %@", buf, 0xCu);
-  }
-
-  v15 = IntentHandlerDefaultLog();
+  v15 = IntentHandlerDefaultLog(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v38 = recipient;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Recipient   : %@", buf, 0xCu);
+    v44 = endDateComponents;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "End Date    : %@", buf, 0xCu);
   }
 
-  v16 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 134218496;
-    v38 = callCapabilities;
-    v39 = 1024;
-    v40 = callCapabilities & 1;
-    v41 = 1024;
-    v42 = (callCapabilities >> 1) & 1;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Capabilities: %lx (audio: %d | video: %d)", buf, 0x18u);
-  }
-
-  v17 = IntentHandlerDefaultLog();
+  v17 = IntentHandlerDefaultLog(v16);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = INPreferredCallProviderGetName();
     *buf = 138412290;
-    v38 = v18;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "PreferredCallProvider: %@", buf, 0xCu);
+    v44 = recipient;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Recipient   : %@", buf, 0xCu);
   }
 
-  v19 = IntentHandlerDefaultLog();
+  v19 = IntentHandlerDefaultLog(v18);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 134217984;
-    v38 = callTypes;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Types       : %lx", buf, 0xCu);
+    *buf = 134218496;
+    v44 = callCapabilities;
+    v45 = 1024;
+    v46 = callCapabilities & 1;
+    v47 = 1024;
+    v48 = (callCapabilities >> 1) & 1;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Capabilities: %lx (audio: %d | video: %d)", buf, 0x18u);
   }
 
-  v20 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = IntentHandlerDefaultLog(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    v22 = INPreferredCallProviderGetName();
+    *buf = 138412290;
+    v44 = v22;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "PreferredCallProvider: %@", buf, 0xCu);
+  }
+
+  v24 = IntentHandlerDefaultLog(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    v44 = callTypes;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Types       : %lx", buf, 0xCu);
+  }
+
+  v26 = IntentHandlerDefaultLog(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v38 = unseen;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Unseen     : %@", buf, 0xCu);
+    v44 = unseen;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Unseen     : %@", buf, 0xCu);
   }
 
-  v21 = [objc_opt_class() maximumRecordCountForCallRecordTypeOptions:callTypes];
-  v22 = startDateComponents;
+  v27 = [objc_opt_class() maximumRecordCountForCallRecordTypeOptions:callTypes];
+  v28 = startDateComponents;
   date = [startDateComponents date];
   date2 = [endDateComponents date];
   if ((callTypes & 0x10) != 0)
   {
     selfCopy = self;
-    v26 = recipient;
-    v30 = unseen;
-    v32 = v21;
-    v29 = completionCopy;
-    [(SearchCallHistoryIntentHandler *)selfCopy handleSearchVoicemailForRecipient:recipient fromStartDate:date toEndDate:date2 unread:unseen maximumRecordCount:v32 completion:completionCopy];
+    v32 = recipient;
+    v36 = unseen;
+    v38 = v27;
+    v35 = completionCopy;
+    [(SearchCallHistoryIntentHandler *)selfCopy handleSearchVoicemailForRecipient:recipient fromStartDate:date toEndDate:date2 unread:unseen maximumRecordCount:v38 completion:completionCopy];
   }
 
   else
   {
     selfCopy2 = self;
-    v26 = recipient;
-    v27 = [(SearchCallHistoryIntentHandler *)selfCopy2 callRecordsForRecentCallsWithRecordTypeOptions:callTypes startDate:date endDate:date2 recipient:recipient capabilities:callCapabilities preferredProvider:preferredCallProvider maximumRecordCount:v21 unseen:unseen];
+    v32 = recipient;
+    v33 = [(SearchCallHistoryIntentHandler *)selfCopy2 callRecordsForRecentCallsWithRecordTypeOptions:callTypes startDate:date endDate:date2 recipient:recipient capabilities:callCapabilities preferredProvider:preferredCallProvider maximumRecordCount:v27 unseen:unseen];
 
     date2 = [[INSearchCallHistoryIntentResponse alloc] initWithCode:7 userActivity:0];
-    [date2 setCallRecords:v27];
-    v28 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v34 = IntentHandlerDefaultLog([date2 setCallRecords:v33]);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v38 = date2;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Calling completion block with response: %@", buf, 0xCu);
+      v44 = date2;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Calling completion block with response: %@", buf, 0xCu);
     }
 
-    v29 = completionCopy;
+    v35 = completionCopy;
     (*(completionCopy + 2))(completionCopy, date2);
-    date = v27;
-    v30 = unseen;
+    date = v33;
+    v36 = unseen;
   }
 }
 
@@ -172,85 +171,85 @@
 {
   completionCopy = completion;
   recipient = [history recipient];
-  v7 = IntentHandlerDefaultLog();
+  v7 = IntentHandlerDefaultLog(recipient);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412290;
-    v22 = recipient;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "resolveRecipientForSearchCallHistory: %@", &v21, 0xCu);
+    v23 = 138412290;
+    v24 = recipient;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "resolveRecipientForSearchCallHistory: %@", &v23, 0xCu);
   }
 
   if (!recipient)
   {
-    v13 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = IntentHandlerDefaultLog(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "No recipient specified, returning notRequired", &v21, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "No recipient specified, returning notRequired", &v23, 2u);
     }
 
-    v12 = +[INPersonResolutionResult notRequired];
+    v14 = +[INPersonResolutionResult notRequired];
     goto LABEL_11;
   }
 
   personHandle = [recipient personHandle];
   value = [personHandle value];
-  v10 = [value length];
+  v11 = [value length];
 
-  if (v10)
+  if (v11)
   {
-    v11 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = IntentHandlerDefaultLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = recipient;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Handle is present. Simply using the recipient to resolve with: %@", &v21, 0xCu);
+      v23 = 138412290;
+      v24 = recipient;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Handle is present. Simply using the recipient to resolve with: %@", &v23, 0xCu);
     }
 
-    v12 = [INPersonResolutionResult successWithResolvedPerson:recipient];
+    v14 = [INPersonResolutionResult successWithResolvedPerson:recipient];
 LABEL_11:
-    v14 = v12;
+    v16 = v14;
     goto LABEL_20;
   }
 
   siriMatches = [recipient siriMatches];
-  v16 = [siriMatches count];
-  v17 = IntentHandlerDefaultLog();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-  if (v16)
+  v18 = [siriMatches count];
+  v19 = IntentHandlerDefaultLog(v18);
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+  if (v18)
   {
-    if (v18)
+    if (v20)
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Recipient contains siriMatches, preserving those and returning success", &v21, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Recipient contains siriMatches, preserving those and returning success", &v23, 2u);
     }
 
-    v19 = [INPersonResolutionResult successWithResolvedPerson:recipient];
+    v21 = [INPersonResolutionResult successWithResolvedPerson:recipient];
   }
 
   else
   {
-    if (v18)
+    if (v20)
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "No contacts match the specified recipient, returning unsupported (a.k.a. notFound)", &v21, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "No contacts match the specified recipient, returning unsupported (a.k.a. notFound)", &v23, 2u);
     }
 
-    v19 = +[INPersonResolutionResult unsupported];
+    v21 = +[INPersonResolutionResult unsupported];
   }
 
-  v14 = v19;
+  v16 = v21;
 
 LABEL_20:
-  v20 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v22 = IntentHandlerDefaultLog(v14);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412290;
-    v22 = v14;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Resolving with: %@", &v21, 0xCu);
+    v23 = 138412290;
+    v24 = v16;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Resolving with: %@", &v23, 0xCu);
   }
 
-  completionCopy[2](completionCopy, v14);
+  completionCopy[2](completionCopy, v16);
 }
 
 - (void)handleSearchVoicemailForRecipient:(id)recipient fromStartDate:(id)date toEndDate:(id)endDate unread:(id)unread maximumRecordCount:(unint64_t)count completion:(id)completion
@@ -260,7 +259,7 @@ LABEL_20:
   endDateCopy = endDate;
   unreadCopy = unread;
   completionCopy = completion;
-  v19 = IntentHandlerDefaultLog();
+  v19 = IntentHandlerDefaultLog(completionCopy);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -322,62 +321,62 @@ LABEL_20:
 - (id)callRecordsForVoicemails:(id)voicemails
 {
   voicemailsCopy = voicemails;
-  v35 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [voicemailsCopy count]);
-  v33 = objc_alloc_init(NSMutableDictionary);
-  v38 = 0u;
-  v39 = 0u;
+  v37 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [voicemailsCopy count]);
+  v35 = objc_alloc_init(NSMutableDictionary);
   v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   obj = voicemailsCopy;
-  v36 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
-  if (v36)
+  v38 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (v38)
   {
-    v34 = *v39;
+    v36 = *v41;
     do
     {
-      for (i = 0; i != v36; i = i + 1)
+      for (i = 0; i != v38; i = i + 1)
       {
-        if (*v39 != v34)
+        if (*v41 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v38 + 1) + 8 * i);
+        v5 = *(*(&v40 + 1) + 8 * i);
         senderDestinationID = [v5 senderDestinationID];
         v7 = [senderDestinationID length];
 
         if (!v7)
         {
-          v13 = IntentHandlerDefaultLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = IntentHandlerDefaultLog(v8);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[WARN] Could not determine voicemail.senderDestinationID", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[WARN] Could not determine voicemail.senderDestinationID", buf, 2u);
           }
 
           goto LABEL_14;
         }
 
-        v8 = [TUHandle alloc];
+        v9 = [TUHandle alloc];
         senderDestinationID2 = [v5 senderDestinationID];
-        v10 = [v8 initWithType:2 value:senderDestinationID2];
+        v11 = [v9 initWithType:2 value:senderDestinationID2];
 
-        v11 = [v33 objectForKey:v10];
+        v12 = [v35 objectForKey:v11];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v12 = v11;
+          v13 = v12;
         }
 
         else
         {
-          if (v11)
+          if (v12)
           {
 
 LABEL_14:
-            v12 = 0;
+            v13 = 0;
 LABEL_23:
-            v22 = 0;
+            v24 = 0;
             goto LABEL_24;
           }
 
@@ -386,67 +385,67 @@ LABEL_23:
           dataSource2 = [(SearchCallHistoryIntentHandler *)self dataSource];
           coreTelephonyDataSource = [dataSource2 coreTelephonyDataSource];
           allRelevantISOCountryCodes = [coreTelephonyDataSource allRelevantISOCountryCodes];
-          v12 = [INPerson tu_personMatchingHandle:v10 contactsDataSource:contactsDataSource isoCountryCodes:allRelevantISOCountryCodes];
+          v13 = [INPerson tu_personMatchingHandle:v11 contactsDataSource:contactsDataSource isoCountryCodes:allRelevantISOCountryCodes];
 
-          if (v12)
+          if (v13)
           {
-            v19 = v12;
+            v20 = v13;
           }
 
           else
           {
-            v19 = +[NSNull null];
+            v20 = +[NSNull null];
           }
 
-          v20 = v19;
-          [v33 setObject:v19 forKey:v10];
+          v21 = v20;
+          [v35 setObject:v20 forKey:v11];
         }
 
-        if (!v12)
+        if (!v13)
         {
           goto LABEL_23;
         }
 
-        v21 = IntentHandlerDefaultLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v23 = IntentHandlerDefaultLog(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[WARN] person in callRecord is nil", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "[WARN] person in callRecord is nil", buf, 2u);
         }
 
-        v42 = v12;
-        v22 = [NSArray arrayWithObjects:&v42 count:1];
+        v44 = v13;
+        v24 = [NSArray arrayWithObjects:&v44 count:1];
 LABEL_24:
-        v23 = [INCallRecord alloc];
+        v25 = [INCallRecord alloc];
         vmIdentifier = [v5 vmIdentifier];
         date = [v5 date];
         [v5 duration];
-        v26 = [NSNumber numberWithDouble:?];
-        v27 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v5 isUnread]);
-        v28 = [v23 initWithIdentifier:vmIdentifier dateCreated:date callRecordType:5 callCapability:1 callDuration:v26 unseen:v27 participants:v22 numberOfCalls:0 isCallerIdBlocked:0];
+        v28 = [NSNumber numberWithDouble:?];
+        v29 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v5 isUnread]);
+        v30 = [v25 initWithIdentifier:vmIdentifier dateCreated:date callRecordType:5 callCapability:1 callDuration:v28 unseen:v29 participants:v24 numberOfCalls:0 isCallerIdBlocked:0];
 
-        [v35 addObject:v28];
+        [v37 addObject:v30];
       }
 
-      v36 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v38 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
-    while (v36);
+    while (v38);
   }
 
-  v29 = [v35 copy];
+  v31 = [v37 copy];
 
-  return v29;
+  return v31;
 }
 
 - (id)callRecordsForRecentCallsWithRecordTypeOptions:(unint64_t)options startDate:(id)date endDate:(id)endDate recipient:(id)recipient capabilities:(unint64_t)capabilities preferredProvider:(int64_t)provider maximumRecordCount:(unint64_t)count unseen:(id)self0
 {
   providerCopy = provider;
-  *(&v87 + 1) = date;
-  *&v87 = endDate;
+  *(&v91 + 1) = date;
+  *&v91 = endDate;
   recipientCopy = recipient;
   unseenCopy = unseen;
-  v14 = IntentHandlerDefaultLog();
+  v14 = IntentHandlerDefaultLog(unseenCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -455,9 +454,9 @@ LABEL_24:
 
   v15 = &AnalyticsSendEventLazy_ptr;
   v16 = objc_alloc_init(NSMutableArray);
-  if (v87 != 0)
+  if (v91 != 0)
   {
-    v17 = [CallHistoryDataSourcePredicate predicateForCallsAfterDate:*(&v87 + 1) beforeDate:v87];
+    v17 = [CallHistoryDataSourcePredicate predicateForCallsAfterDate:*(&v91 + 1) beforeDate:v91];
     [v16 addObject:v17];
   }
 
@@ -480,28 +479,29 @@ LABEL_24:
     [v16 addObject:v27];
   }
 
-  v85 = recipientCopy;
+  v89 = recipientCopy;
   v28 = unseenCopy;
   if (options)
   {
     v29 = objc_alloc_init(NSMutableArray);
+    v30 = v29;
     if (options)
     {
-      v30 = [CallHistoryDataSourcePredicate predicateForCallsThatWereOriginated:1];
-      [v29 addObject:v30];
+      v31 = [CallHistoryDataSourcePredicate predicateForCallsThatWereOriginated:1];
+      [v30 addObject:v31];
     }
 
     if ((options & 2) != 0)
     {
-      v31 = [CallHistoryDataSourcePredicate predicateForCallsThatWereOriginated:0];
-      v32 = [CallHistoryDataSourcePredicate predicateForCallsThatWereAnswered:0];
+      v32 = [CallHistoryDataSourcePredicate predicateForCallsThatWereOriginated:0];
+      v33 = [CallHistoryDataSourcePredicate predicateForCallsThatWereAnswered:0];
       optionsCopy = options;
-      v93[0] = v31;
-      v93[1] = v32;
-      v34 = [NSArray arrayWithObjects:v93 count:2];
-      v35 = [NSCompoundPredicate andPredicateWithSubpredicates:v34];
+      v97[0] = v32;
+      v97[1] = v33;
+      v35 = [NSArray arrayWithObjects:v97 count:2];
+      v36 = [NSCompoundPredicate andPredicateWithSubpredicates:v35];
 
-      [v29 addObject:v35];
+      [v30 addObject:v36];
       options = optionsCopy;
 
       v28 = unseenCopy;
@@ -510,49 +510,49 @@ LABEL_24:
 
     if ((options & 4) != 0)
     {
-      v36 = [CallHistoryDataSourcePredicate predicateForCallsThatWereOriginated:0];
+      v37 = [CallHistoryDataSourcePredicate predicateForCallsThatWereOriginated:0];
       [CallHistoryDataSourcePredicate predicateForCallsThatWereAnswered:1];
-      v38 = v37 = v28;
+      v39 = v38 = v28;
       optionsCopy2 = options;
-      v92[0] = v36;
-      v92[1] = v38;
-      v40 = [NSArray arrayWithObjects:v92 count:2];
-      v41 = [NSCompoundPredicate andPredicateWithSubpredicates:v40];
+      v96[0] = v37;
+      v96[1] = v39;
+      v41 = [NSArray arrayWithObjects:v96 count:2];
+      v42 = [NSCompoundPredicate andPredicateWithSubpredicates:v41];
 
-      [v29 addObject:v41];
+      [v30 addObject:v42];
       options = optionsCopy2;
 
-      v28 = v37;
+      v28 = v38;
       v15 = &AnalyticsSendEventLazy_ptr;
     }
 
     if (options >= 8)
     {
-      v42 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v43 = IntentHandlerDefaultLog(v29);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        sub_10002F50C(options, v42, v43, v44, v45, v46, v47, v48);
+        sub_10002F50C(options, v43, v44, v45, v46, v47, v48, v49);
       }
     }
 
-    if ([v29 count] == 1)
+    if ([v30 count] == 1)
     {
-      firstObject = [v29 firstObject];
+      firstObject = [v30 firstObject];
     }
 
     else
     {
-      if ([v29 count] < 2)
+      if ([v30 count] < 2)
       {
 LABEL_23:
 
         goto LABEL_24;
       }
 
-      firstObject = [NSCompoundPredicate orPredicateWithSubpredicates:v29];
+      firstObject = [NSCompoundPredicate orPredicateWithSubpredicates:v30];
     }
 
-    v50 = firstObject;
+    v51 = firstObject;
     [v16 addObject:firstObject];
 
     goto LABEL_23;
@@ -564,41 +564,42 @@ LABEL_24:
     goto LABEL_39;
   }
 
-  v51 = objc_alloc_init(v15[337]);
+  v52 = objc_alloc_init(v15[337]);
+  v53 = v52;
   if (capabilities)
   {
-    v52 = +[CallHistoryDataSourcePredicate predicateForAudioCalls];
-    [v51 addObject:v52];
+    v54 = +[CallHistoryDataSourcePredicate predicateForAudioCalls];
+    [v53 addObject:v54];
   }
 
   if ((capabilities & 2) != 0)
   {
-    v53 = +[CallHistoryDataSourcePredicate predicateForVideoCalls];
-    [v51 addObject:v53];
+    v55 = +[CallHistoryDataSourcePredicate predicateForVideoCalls];
+    [v53 addObject:v55];
   }
 
   if (capabilities >= 4)
   {
-    v54 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+    v56 = IntentHandlerDefaultLog(v52);
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
-      sub_10002F578(capabilities, v54, v55, v56, v57, v58, v59, v60);
+      sub_10002F578(capabilities, v56, v57, v58, v59, v60, v61, v62);
     }
   }
 
-  if ([v51 count] == 1)
+  if ([v53 count] == 1)
   {
-    firstObject2 = [v51 firstObject];
+    firstObject2 = [v53 firstObject];
 LABEL_37:
-    v62 = firstObject2;
+    v64 = firstObject2;
     [v16 addObject:firstObject2];
 
     goto LABEL_38;
   }
 
-  if ([v51 count] >= 2)
+  if ([v53 count] >= 2)
   {
-    firstObject2 = [NSCompoundPredicate orPredicateWithSubpredicates:v51];
+    firstObject2 = [NSCompoundPredicate orPredicateWithSubpredicates:v53];
     goto LABEL_37;
   }
 
@@ -607,7 +608,7 @@ LABEL_38:
 LABEL_39:
   if (providerCopy == 2)
   {
-    v63 = +[CallHistoryDataSourcePredicate predicateForFaceTimeCalls];
+    v65 = +[CallHistoryDataSourcePredicate predicateForFaceTimeCalls];
   }
 
   else
@@ -617,17 +618,17 @@ LABEL_39:
       goto LABEL_44;
     }
 
-    v63 = +[CallHistoryDataSourcePredicate predicateForTelephonyCalls];
+    v65 = +[CallHistoryDataSourcePredicate predicateForTelephonyCalls];
   }
 
-  v64 = v63;
-  [v16 addObject:{v63, providerCopy}];
+  v66 = v65;
+  [v16 addObject:{v65, providerCopy}];
 
 LABEL_44:
   if (v28)
   {
-    v65 = +[CallHistoryDataSourcePredicate predicateForCallsThatAreRead:](CallHistoryDataSourcePredicate, "predicateForCallsThatAreRead:", [v28 BOOLValue] ^ 1);
-    [v16 addObject:v65];
+    v67 = +[CallHistoryDataSourcePredicate predicateForCallsThatAreRead:](CallHistoryDataSourcePredicate, "predicateForCallsThatAreRead:", [v28 BOOLValue] ^ 1);
+    [v16 addObject:v67];
   }
 
   dataSource3 = [(SearchCallHistoryIntentHandler *)self dataSource];
@@ -635,62 +636,63 @@ LABEL_44:
 
   if (restrictedCallTypes)
   {
-    v68 = [CallHistoryDataSourcePredicate predicateFilteringOutCallTypes:restrictedCallTypes];
-    [v16 addObject:v68];
+    v70 = [CallHistoryDataSourcePredicate predicateFilteringOutCallTypes:restrictedCallTypes];
+    [v16 addObject:v70];
   }
 
   if ([v16 count] == 1)
   {
     firstObject3 = [v16 firstObject];
 LABEL_52:
-    v70 = firstObject3;
+    v72 = firstObject3;
     goto LABEL_54;
   }
 
-  if ([v16 count] >= 2)
+  firstObject3 = [v16 count];
+  if (firstObject3 >= 2)
   {
     firstObject3 = [NSCompoundPredicate andPredicateWithSubpredicates:v16];
     goto LABEL_52;
   }
 
-  v70 = 0;
+  v72 = 0;
 LABEL_54:
-  v71 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+  v73 = IntentHandlerDefaultLog(firstObject3);
+  if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v91 = v70;
-    _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "Using predicate: %@", buf, 0xCu);
+    v95 = v72;
+    _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "Using predicate: %@", buf, 0xCu);
   }
 
   dataSource4 = [(SearchCallHistoryIntentHandler *)self dataSource];
   callHistoryDataSource = [dataSource4 callHistoryDataSource];
-  v74 = [callHistoryDataSource coalescedCallsWithPredicate:v70 limit:count offset:0 batchSize:count];
+  v76 = [callHistoryDataSource coalescedCallsWithPredicate:v72 limit:count offset:0 batchSize:count];
 
-  v75 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+  v78 = IntentHandlerDefaultLog(v77);
+  if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v91 = v74;
-    _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "Call history search results: %@", buf, 0xCu);
+    v95 = v76;
+    _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "Call history search results: %@", buf, 0xCu);
   }
 
-  v76 = +[CallRecordConverter sharedInstance];
+  v79 = +[CallRecordConverter sharedInstance];
   dataSource5 = [(SearchCallHistoryIntentHandler *)self dataSource];
   contactsDataSource2 = [dataSource5 contactsDataSource];
   dataSource6 = [(SearchCallHistoryIntentHandler *)self dataSource];
   providerManager = [dataSource6 providerManager];
-  v81 = [v76 callRecordsForRecentCalls:v74 withContactsDataSource:contactsDataSource2 withCallProviderManager:providerManager];
+  v84 = [v79 callRecordsForRecentCalls:v76 withContactsDataSource:contactsDataSource2 withCallProviderManager:providerManager];
 
-  v82 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+  v86 = IntentHandlerDefaultLog(v85);
+  if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v91 = v81;
-    _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "callRecords: %@", buf, 0xCu);
+    v95 = v84;
+    _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_DEFAULT, "callRecords: %@", buf, 0xCu);
   }
 
-  return v81;
+  return v84;
 }
 
 @end

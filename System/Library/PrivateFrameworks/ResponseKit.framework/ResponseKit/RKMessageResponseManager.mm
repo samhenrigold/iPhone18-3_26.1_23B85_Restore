@@ -57,7 +57,6 @@
 
 uint64_t __41__RKMessageResponseManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedManager_singleton = [objc_alloc(objc_opt_class()) initWithDynamicDataURL:0];
 
   return MEMORY[0x2821F96F8]();
@@ -110,44 +109,44 @@ void __41__RKMessageResponseManager_dispatchQueue__block_invoke()
 
 - (RKMessageResponseManager)initWithAssetPlistURL:(id)l
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v25.receiver = self;
-  v25.super_class = RKMessageResponseManager;
-  v5 = [(RKMessageResponseManager *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = RKMessageResponseManager;
+  v5 = [(RKMessageResponseManager *)&v24 init];
   dispatchQueue = [(RKMessageResponseManager *)v5 dispatchQueue];
   dispatchQueue = v5->_dispatchQueue;
   v5->_dispatchQueue = dispatchQueue;
 
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
-  v10 = [preferredLanguages countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v10 = [preferredLanguages countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       v13 = 0;
       do
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(preferredLanguages);
         }
 
-        v14 = [RKUtilities canonicalLanguageAndScriptCodeIdentifierForIdentifier:*(*(&v21 + 1) + 8 * v13)];
+        v14 = [RKUtilities canonicalLanguageAndScriptCodeIdentifierForIdentifier:*(*(&v20 + 1) + 8 * v13)];
         [v8 addObject:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [preferredLanguages countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v11 = [preferredLanguages countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v11);
@@ -163,43 +162,42 @@ void __41__RKMessageResponseManager_dispatchQueue__block_invoke()
     v5->_collection = v17;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (RKMessageResponseManager)initWithDynamicDataURL:(id)l displayStringsProvider:(id)provider
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
-  v24.receiver = self;
-  v24.super_class = RKMessageResponseManager;
-  v6 = [(RKMessageResponseManager *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = RKMessageResponseManager;
+  v6 = [(RKMessageResponseManager *)&v23 init];
   dispatchQueue = [(RKMessageResponseManager *)v6 dispatchQueue];
   dispatchQueue = v6->_dispatchQueue;
   v6->_dispatchQueue = dispatchQueue;
 
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
-  v11 = [preferredLanguages countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v11 = [preferredLanguages countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       v14 = 0;
       do
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(preferredLanguages);
         }
 
-        v15 = [RKUtilities canonicalLanguageAndScriptCodeIdentifierForIdentifier:*(*(&v20 + 1) + 8 * v14)];
+        v15 = [RKUtilities canonicalLanguageAndScriptCodeIdentifierForIdentifier:*(*(&v19 + 1) + 8 * v14)];
         if (v15)
         {
           [v9 addObject:v15];
@@ -209,7 +207,7 @@ void __41__RKMessageResponseManager_dispatchQueue__block_invoke()
       }
 
       while (v12 != v14);
-      v12 = [preferredLanguages countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v12 = [preferredLanguages countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v12);
@@ -223,7 +221,6 @@ void __41__RKMessageResponseManager_dispatchQueue__block_invoke()
     v6->_collection = v16;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -371,10 +368,7 @@ void __137__RKMessageResponseManager_responsesForMessage_maximumResponses_recipi
 
 uint64_t __121__RKMessageResponseManager_responsesForMessage_maximumResponses_recipientID_forConversationHistory_withLanguage_options___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) responsesForMessageImp:*(a1 + 40) maximumResponses:*(a1 + 80) forRecipientID:*(a1 + 48) forConversationHistory:*(a1 + 56) forContext:0 withLanguage:*(a1 + 64) options:RKMessageResponseDontOverrideLanguageID | *(a1 + 88)];
-  v3 = *(*(a1 + 72) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 72) + 8) + 40) = [*(a1 + 32) responsesForMessageImp:*(a1 + 40) maximumResponses:*(a1 + 80) forRecipientID:*(a1 + 48) forConversationHistory:*(a1 + 56) forContext:0 withLanguage:*(a1 + 64) options:RKMessageResponseDontOverrideLanguageID | *(a1 + 88)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -424,7 +418,6 @@ void __157__RKMessageResponseManager_responsesForMessageWithLanguageDetection_ma
   obj = *(v7 + 40);
   v8 = [v2 responsesForMessageWithLanguageDetectionImp:v3 maximumResponses:v6 forRecipientID:0 forConversationHistory:v4 forContext:v5 withLanguage:&obj inputModes:0 options:a1[11]];
   objc_storeStrong((v7 + 40), obj);
-  v9 = *(*(a1[9] + 8) + 40);
   (*(a1[8] + 16))();
 }
 
@@ -645,10 +638,7 @@ void __120__RKMessageResponseManager_responsesForMessage_maximumResponses_forCon
 
 uint64_t __141__RKMessageResponseManager_responsesForMessageWithLanguageDetection_maximumResponses_forConversationHistory_forContext_withLanguage_options___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) responsesForMessageWithLanguageDetectionImp:*(a1 + 40) maximumResponses:*(a1 + 72) forRecipientID:0 forConversationHistory:*(a1 + 48) forContext:*(a1 + 56) withLanguage:*(a1 + 80) inputModes:0 options:*(a1 + 88)];
-  v3 = *(*(a1 + 64) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 64) + 8) + 40) = [*(a1 + 32) responsesForMessageWithLanguageDetectionImp:*(a1 + 40) maximumResponses:*(a1 + 72) forRecipientID:0 forConversationHistory:*(a1 + 48) forContext:*(a1 + 56) withLanguage:*(a1 + 80) inputModes:0 options:*(a1 + 88)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -762,7 +752,7 @@ void __126__RKMessageResponseManager_responseWithAttributesMatchingProactiveGram
 
 - (id)responseWithAttributesMatchingProactiveGrammarForMessageImp:(id)imp languageID:(id *)d kbdInputModes:(id)modes
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   modesCopy = modes;
   v8 = MEMORY[0x277CCA900];
   impCopy = imp;
@@ -771,74 +761,74 @@ void __126__RKMessageResponseManager_responseWithAttributesMatchingProactiveGram
 
   if ([v11 length] && objc_msgSend(v11, "length") <= 0x800 && !+[RKUtilities RKRepairStringNeeded:](RKUtilities, "RKRepairStringNeeded:", v11))
   {
-    v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v16 = [RKUtilities canonicalLanguageAndScriptCodeIdentifierForIdentifier:*d];
-    [v15 addObject:v16];
+    v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v15 = [RKUtilities canonicalLanguageAndScriptCodeIdentifierForIdentifier:*d];
+    [v14 addObject:v15];
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v17 = modesCopy;
-    v18 = [v17 countByEnumeratingWithState:&v35 objects:v40 count:16];
-    if (v18)
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v16 = modesCopy;
+    v17 = [v16 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    if (v17)
     {
-      v19 = v18;
-      v20 = *v36;
+      v18 = v17;
+      v19 = *v35;
       do
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v18; ++i)
         {
-          if (*v36 != v20)
+          if (*v35 != v19)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v16);
           }
 
-          v22 = [RKUtilities canonicalLanguageAndScriptCodeIdentifierForIdentifier:*(*(&v35 + 1) + 8 * i)];
-          if (([v15 containsObject:v22] & 1) == 0)
+          v21 = [RKUtilities canonicalLanguageAndScriptCodeIdentifierForIdentifier:*(*(&v34 + 1) + 8 * i)];
+          if (([v14 containsObject:v21] & 1) == 0)
           {
-            [v15 addObject:v22];
+            [v14 addObject:v21];
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
-      while (v19);
+      while (v18);
     }
 
-    v23 = +[RKProactiveGrammar sharedManager];
+    v22 = +[RKProactiveGrammar sharedManager];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v24 = v15;
-    v12 = [v24 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v23 = v14;
+    v12 = [v23 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v12)
     {
-      v25 = *v32;
+      v24 = *v31;
       while (2)
       {
         for (j = 0; j != v12; j = (j + 1))
         {
-          if (*v32 != v25)
+          if (*v31 != v24)
           {
-            objc_enumerationMutation(v24);
+            objc_enumerationMutation(v23);
           }
 
-          v27 = [v23 copyAttributedTokenForText:v11 forLanguage:{*(*(&v31 + 1) + 8 * j), v31}];
-          if (v27)
+          v26 = [v22 copyAttributedTokenForText:v11 forLanguage:{*(*(&v30 + 1) + 8 * j), v30}];
+          if (v26)
           {
-            v28 = v27;
-            v29 = [RKResponse alloc];
-            v30 = RKLinguisticCategoryToPreferenceKey(43);
-            v12 = [(RKResponse *)v29 initWithString:0 attributes:v28 category:v30];
+            v27 = v26;
+            v28 = [RKResponse alloc];
+            v29 = RKLinguisticCategoryToPreferenceKey(43);
+            v12 = [(RKResponse *)v28 initWithString:0 attributes:v27 category:v29];
 
             goto LABEL_27;
           }
         }
 
-        v12 = [v24 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v12 = [v23 countByEnumeratingWithState:&v30 objects:v38 count:16];
         if (v12)
         {
           continue;
@@ -856,22 +846,20 @@ LABEL_27:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)responsesForMessageWithLanguageDetectionImp:(id)imp maximumResponses:(unint64_t)responses forRecipientID:(id)d forConversationHistory:(id)history forContext:(id)context withLanguage:(id *)language inputModes:(id)modes options:(unint64_t)self0
 {
-  v219[1] = *MEMORY[0x277D85DE8];
+  v217[1] = *MEMORY[0x277D85DE8];
   impCopy = imp;
   dCopy = d;
   historyCopy = history;
   contextCopy = context;
   modesCopy = modes;
-  v174 = historyCopy;
+  v172 = historyCopy;
   v18 = [objc_opt_class() _chronologicalConversationHistory:historyCopy];
-  v180 = [objc_opt_class() _needsMirroredAnalysisForMessage:impCopy forChronologicalConversationHistory:v18];
+  v178 = [objc_opt_class() _needsMirroredAnalysisForMessage:impCopy forChronologicalConversationHistory:v18];
   selfCopy = self;
   if (![impCopy length])
   {
@@ -882,14 +870,14 @@ LABEL_27:
     contextCopy = v19;
   }
 
-  v171 = v18;
+  v169 = v18;
   if ([RKUtilities RKRepairStringNeeded:impCopy])
   {
     v21 = 0;
     goto LABEL_156;
   }
 
-  v168 = contextCopy;
+  v166 = contextCopy;
   whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
   v23 = [impCopy stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
@@ -902,7 +890,7 @@ LABEL_27:
   if ([impCopy length] > 0x800)
   {
     v21 = 0;
-    contextCopy = v168;
+    contextCopy = v166;
     goto LABEL_156;
   }
 
@@ -911,16 +899,16 @@ LABEL_27:
     responses = 0x7FFFFFFFLL;
   }
 
-  v26 = [v174 mutableCopy];
-  v165 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
-  v219[0] = v165;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v219 count:1];
+  v26 = [v172 mutableCopy];
+  v163 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
+  v217[0] = v163;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v217 count:1];
   [v26 sortUsingDescriptors:v27];
 
   preferredLanguages = [(RKMessageResponseManager *)self preferredLanguages];
   [RKMessageClassifier setPreferredLanguages:preferredLanguages];
 
-  v167 = v26;
+  v165 = v26;
   v29 = [RKMessageClassifier messageClassification:impCopy withLanguageIdentifier:*language conversationTurns:v26];
   language = [v29 language];
 
@@ -932,19 +920,19 @@ LABEL_27:
     }
 
     v21 = 0;
-    contextCopy = v168;
+    contextCopy = v166;
     v39 = v29;
     goto LABEL_155;
   }
 
-  v176 = RKLinguisticCategoryToPreferenceKey([v29 sentenceType]);
-  v179 = v29;
+  v174 = RKLinguisticCategoryToPreferenceKey([v29 sentenceType]);
+  v177 = v29;
   language2 = [v29 language];
   [RKCoreAnalytics sendCoreAnalyticsEvent:0 forAction:@"triggered" withLanguageID:language2];
 
   if ((RKMessageResponseDontOverrideLanguageID & options) == 0)
   {
-    *language = [v179 language];
+    *language = [v177 language];
   }
 
   if ((options & 0x200) == 0)
@@ -953,14 +941,14 @@ LABEL_20:
     array = [MEMORY[0x277CBEB18] array];
     if ((options & 1) == 0)
     {
-      customResponses = [v179 customResponses];
+      customResponses = [v177 customResponses];
       v43 = [customResponses count];
 
       if (v43)
       {
-        if ([v179 sentenceType] != 6 || (objc_msgSend(v179, "customResponses"), v44 = objc_claimAutoreleasedReturnValue(), v45 = objc_msgSend(v44, "count"), v44, v45 <= responses))
+        if ([v177 sentenceType] != 6 || (objc_msgSend(v177, "customResponses"), v44 = objc_claimAutoreleasedReturnValue(), v45 = objc_msgSend(v44, "count"), v44, v45 <= responses))
         {
-          customResponses2 = [v179 customResponses];
+          customResponses2 = [v177 customResponses];
           [array addObjectsFromArray:customResponses2];
 
           if ([array count] > responses)
@@ -980,31 +968,31 @@ LABEL_20:
     if (*language)
     {
       currentLocale = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:?];
-      v166 = currentLocale;
+      v164 = currentLocale;
     }
 
     else
     {
       currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
       localeIdentifier = [currentLocale localeIdentifier];
-      v166 = [v49 canonicalLanguageIdentifierFromString:localeIdentifier];
+      v164 = [v49 canonicalLanguageIdentifierFromString:localeIdentifier];
     }
 
-    language3 = [v179 language];
-    if (language3 && (v53 = language3, [v179 language], v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v54, "isEqualToString:", @"und"), v54, v53, (v55 & 1) == 0))
+    language3 = [v177 language];
+    if (language3 && (v53 = language3, [v177 language], v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v54, "isEqualToString:", @"und"), v54, v53, (v55 & 1) == 0))
     {
-      language4 = [v179 language];
+      language4 = [v177 language];
       v62 = [RKUtilities canonicalLanguageAndScriptCodeIdentifierForIdentifier:language4];
 
-      v63 = [RKUtilities canonicalLanguageAndScriptCodeIdentifierForIdentifier:v166];
+      v63 = [RKUtilities canonicalLanguageAndScriptCodeIdentifierForIdentifier:v164];
       if (([v62 isEqualToString:v63] & 1) == 0)
       {
-        language5 = [v179 language];
+        language5 = [v177 language];
 
-        v166 = language5;
+        v164 = language5;
       }
 
-      v39 = v179;
+      v39 = v177;
 
       if (responses)
       {
@@ -1023,12 +1011,12 @@ LABEL_33:
           rankLearner = [(RKMessageResponseManager *)self rankLearner];
           v59 = RKLinguisticCategoryToPreferenceKey([v39 sentenceType]);
           language6 = [v39 language];
-          v164 = [rankLearner getRankedResponses:v59 forRecipientID:dCopy withLanguageID:language6];
+          v162 = [rankLearner getRankedResponses:v59 forRecipientID:dCopy withLanguageID:language6];
         }
 
         else
         {
-          v164 = 0;
+          v162 = 0;
         }
 
         if ([v39 sentenceType] == 6)
@@ -1042,7 +1030,7 @@ LABEL_33:
         else
         {
           collection = [(RKMessageResponseManager *)self collection];
-          v89 = [collection responsesForCategory:objc_msgSend(v39 gender:"sentenceType") maximumResponses:objc_msgSend(v39 withLanguage:"gender") context:responses options:{v166, v168, options}];
+          v89 = [collection responsesForCategory:objc_msgSend(v39 gender:"sentenceType") maximumResponses:objc_msgSend(v39 withLanguage:"gender") context:responses options:{v164, v166, options}];
           [array addObjectsFromArray:v89];
 
           if ((options & 0x40) == 0)
@@ -1058,12 +1046,12 @@ LABEL_46:
         }
 
 LABEL_41:
-        v206[0] = MEMORY[0x277D85DD0];
-        v206[1] = 3221225472;
-        v206[2] = __170__RKMessageResponseManager_responsesForMessageWithLanguageDetectionImp_maximumResponses_forRecipientID_forConversationHistory_forContext_withLanguage_inputModes_options___block_invoke;
-        v206[3] = &unk_279B100A0;
-        v207 = array;
-        [v207 enumerateObjectsUsingBlock:v206];
+        v204[0] = MEMORY[0x277D85DD0];
+        v204[1] = 3221225472;
+        v204[2] = __170__RKMessageResponseManager_responsesForMessageWithLanguageDetectionImp_maximumResponses_forRecipientID_forConversationHistory_forContext_withLanguage_inputModes_options___block_invoke;
+        v204[3] = &unk_279B100A0;
+        v205 = array;
+        [v205 enumerateObjectsUsingBlock:v204];
 
         if ((options & 0x80) != 0)
         {
@@ -1075,22 +1063,22 @@ LABEL_48:
               [RKMessageResponseManager responsesForMessageWithLanguageDetectionImp:maximumResponses:forRecipientID:forConversationHistory:forContext:withLanguage:inputModes:options:];
             }
 
-            v202[0] = MEMORY[0x277D85DD0];
-            v202[1] = 3221225472;
-            v202[2] = __170__RKMessageResponseManager_responsesForMessageWithLanguageDetectionImp_maximumResponses_forRecipientID_forConversationHistory_forContext_withLanguage_inputModes_options___block_invoke_6;
-            v202[3] = &unk_279B100A0;
-            v203 = array;
-            [v203 enumerateObjectsUsingBlock:v202];
+            v200[0] = MEMORY[0x277D85DD0];
+            v200[1] = 3221225472;
+            v200[2] = __170__RKMessageResponseManager_responsesForMessageWithLanguageDetectionImp_maximumResponses_forRecipientID_forConversationHistory_forContext_withLanguage_inputModes_options___block_invoke_6;
+            v200[3] = &unk_279B100A0;
+            v201 = array;
+            [v201 enumerateObjectsUsingBlock:v200];
           }
 
           if ((options & 0x20) == 0)
           {
-            v200[0] = MEMORY[0x277D85DD0];
-            v200[1] = 3221225472;
-            v200[2] = __170__RKMessageResponseManager_responsesForMessageWithLanguageDetectionImp_maximumResponses_forRecipientID_forConversationHistory_forContext_withLanguage_inputModes_options___block_invoke_8;
-            v200[3] = &unk_279B100A0;
-            v201 = array;
-            [v201 enumerateObjectsUsingBlock:v200];
+            v198[0] = MEMORY[0x277D85DD0];
+            v198[1] = 3221225472;
+            v198[2] = __170__RKMessageResponseManager_responsesForMessageWithLanguageDetectionImp_maximumResponses_forRecipientID_forConversationHistory_forContext_withLanguage_inputModes_options___block_invoke_8;
+            v198[3] = &unk_279B100A0;
+            v199 = array;
+            [v199 enumerateObjectsUsingBlock:v198];
           }
 
           if ([v39 isSensitive])
@@ -1101,7 +1089,7 @@ LABEL_48:
 
           standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
           [standardUserDefaults synchronize];
-          v163 = standardUserDefaults;
+          v161 = standardUserDefaults;
           if ([standardUserDefaults BOOLForKey:@"RKSuppressGeneralStatementResponse"] && (!objc_msgSend(v39, "sentenceType") || objc_msgSend(v39, "sentenceType") == 31))
           {
 
@@ -1112,14 +1100,14 @@ LABEL_48:
           v67 = [impCopy stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet2];
 
           collection2 = [(RKMessageResponseManager *)selfCopy collection];
-          v69 = [collection2 responsesForCategory:objc_msgSend(v39 gender:"sentenceType") maximumResponses:objc_msgSend(v39 withLanguage:"gender") context:responses options:{v166, v168, options & 0xFFFFFFFFFFFFFFE0 | 0xF}];
+          v69 = [collection2 responsesForCategory:objc_msgSend(v39 gender:"sentenceType") maximumResponses:objc_msgSend(v39 withLanguage:"gender") context:responses options:{v164, v166, options & 0xFFFFFFFFFFFFFFE0 | 0xF}];
 
           v70 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF CONTAINS[c] %@", v67];
-          v161 = v69;
+          v159 = v69;
           v71 = [v69 filteredArrayUsingPredicate:v70];
           v72 = [v71 count];
 
-          v162 = v67;
+          v160 = v67;
           if (v72)
           {
             v73 = [MEMORY[0x277CCAC30] predicateWithFormat:@"NOT (SELF CONTAINS[c] %@)", v67];
@@ -1129,35 +1117,35 @@ LABEL_48:
             array = v75;
           }
 
-          v76 = v180;
+          v76 = v178;
           array2 = [MEMORY[0x277CBEB18] array];
+          v194 = 0u;
+          v195 = 0u;
           v196 = 0u;
           v197 = 0u;
-          v198 = 0u;
-          v199 = 0u;
           v78 = array;
-          v79 = [v78 countByEnumeratingWithState:&v196 objects:v218 count:16];
+          v79 = [v78 countByEnumeratingWithState:&v194 objects:v216 count:16];
           if (v79)
           {
             v80 = v79;
-            v81 = *v197;
+            v81 = *v195;
             do
             {
               for (i = 0; i != v80; ++i)
               {
-                if (*v197 != v81)
+                if (*v195 != v81)
                 {
                   objc_enumerationMutation(v78);
                 }
 
-                v83 = *(*(&v196 + 1) + 8 * i);
+                v83 = *(*(&v194 + 1) + 8 * i);
                 if (([array2 containsObject:v83] & 1) == 0)
                 {
                   [array2 addObject:v83];
                 }
               }
 
-              v80 = [v78 countByEnumeratingWithState:&v196 objects:v218 count:16];
+              v80 = [v78 countByEnumeratingWithState:&v194 objects:v216 count:16];
             }
 
             while (v80);
@@ -1194,30 +1182,30 @@ LABEL_48:
             if (v84)
             {
               array3 = [MEMORY[0x277CBEB18] array];
+              v190 = 0u;
+              v191 = 0u;
               v192 = 0u;
               v193 = 0u;
-              v194 = 0u;
-              v195 = 0u;
               obj = v84;
-              v90 = [obj countByEnumeratingWithState:&v192 objects:v217 count:16];
+              v90 = [obj countByEnumeratingWithState:&v190 objects:v215 count:16];
               if (v90)
               {
                 v91 = v90;
-                v92 = *v193;
+                v92 = *v191;
                 do
                 {
                   for (j = 0; j != v91; ++j)
                   {
-                    if (*v193 != v92)
+                    if (*v191 != v92)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    v94 = [[RKResponse alloc] initWithString:*(*(&v192 + 1) + 8 * j) attributes:0 category:v176];
+                    v94 = [[RKResponse alloc] initWithString:*(*(&v190 + 1) + 8 * j) attributes:0 category:v174];
                     [array3 addObject:v94];
                   }
 
-                  v91 = [obj countByEnumeratingWithState:&v192 objects:v217 count:16];
+                  v91 = [obj countByEnumeratingWithState:&v190 objects:v215 count:16];
                 }
 
                 while (v91);
@@ -1232,78 +1220,77 @@ LABEL_48:
 
 LABEL_92:
             v95 = objc_opt_new();
-            v160 = RKLinguisticCategoryToPreferenceKey([v39 sentenceType]);
+            v158 = RKLinguisticCategoryToPreferenceKey([v39 sentenceType]);
             [v95 setObject:? forKey:?];
             v96 = +[RKMessageIntentRecognizer sharedManager];
             language7 = [v39 language];
-            v158 = v96;
-            v159 = v95;
-            v98 = [v96 copyAttributedTokensForMessage:impCopy conversationTurns:v167 metadata:v95 languageID:language7];
+            v156 = v96;
+            v157 = v95;
+            v98 = [v96 copyAttributedTokensForMessage:impCopy conversationTurns:v165 metadata:v95 languageID:language7];
 
             if ([v98 count] && !array3)
             {
               array3 = objc_opt_new();
             }
 
-            v178 = array3;
-            v190 = 0u;
-            v191 = 0u;
+            v176 = array3;
             v188 = 0u;
             v189 = 0u;
-            v185 = v98;
-            v99 = [v185 countByEnumeratingWithState:&v188 objects:v216 count:16];
-            v184 = array2;
+            v186 = 0u;
+            v187 = 0u;
+            v183 = v98;
+            v99 = [v183 countByEnumeratingWithState:&v186 objects:v214 count:16];
+            v182 = array2;
             if (v99)
             {
               v100 = v99;
               v101 = 0;
-              v102 = *v189;
-              v177 = impCopy;
-              v182 = *v189;
+              v102 = *v187;
+              v175 = impCopy;
+              v180 = *v187;
               do
               {
                 for (k = 0; k != v100; ++k)
                 {
-                  if (*v189 != v102)
+                  if (*v187 != v102)
                   {
-                    objc_enumerationMutation(v185);
+                    objc_enumerationMutation(v183);
                   }
 
-                  v104 = *(*(&v188 + 1) + 8 * k);
                   IntentType = NLMessageIntentCandidateGetIntentType();
-                  v106 = NLMessageIntentCandidateCopyAttributes();
+                  v105 = NLMessageIntentCandidateCopyAttributes();
                   NLMessageIntentCandidateGetScore();
-                  v109 = v107 < 0.5 || IntentType != 1;
-                  if (((v109 | v76) & 1) == 0)
+                  v108 = v106 < 0.5 || IntentType != 1;
+                  if (((v108 | v76) & 1) == 0)
                   {
-                    v110 = objc_opt_new();
-                    [v110 setObject:@"photosharing" forKey:@"type"];
-                    v111 = [v106 objectForKey:*MEMORY[0x277D2B838]];
-                    v112 = [v111 componentsSeparatedByString:{@", "}];
-                    [v110 setObject:v112 forKey:@"keywords"];
-                    v113 = [RKMessageIntentRecognizer getRangesOfKeywords:v112 forMessage:impCopy];
-                    if ([v113 count])
+                    v109 = objc_opt_new();
+                    [v109 setObject:@"photosharing" forKey:@"type"];
+                    v110 = [v105 objectForKey:*MEMORY[0x277D2B838]];
+                    v111 = [v110 componentsSeparatedByString:{@", "}];
+                    [v109 setObject:v111 forKey:@"keywords"];
+                    v112 = [RKMessageIntentRecognizer getRangesOfKeywords:v111 forMessage:impCopy];
+                    if ([v112 count])
                     {
-                      [v110 setObject:v113 forKey:@"keywordranges"];
-                      [v110 setObject:impCopy forKey:@"message"];
-                      v114 = RKLinguisticCategoryToPreferenceKey(45);
-                      v186 = [[RKResponse alloc] initWithString:0 attributes:v110 category:v114];
-                      language8 = [v179 language];
-                      [RKCoreAnalytics sendCoreAnalyticsEvent:v114 forAction:@"triggered" withLanguageID:language8];
+                      [v109 setObject:v112 forKey:@"keywordranges"];
+                      [v109 setObject:impCopy forKey:@"message"];
+                      v113 = RKLinguisticCategoryToPreferenceKey(45);
+                      v184 = [[RKResponse alloc] initWithString:0 attributes:v109 category:v113];
+                      language8 = [v177 language];
+                      [RKCoreAnalytics sendCoreAnalyticsEvent:v113 forAction:@"triggered" withLanguageID:language8];
 
-                      [v178 insertObject:v186 atIndex:0];
-                      v76 = v180;
+                      [v176 insertObject:v184 atIndex:0];
+                      v76 = v178;
 
-                      impCopy = v177;
+                      impCopy = v175;
                       v101 = 1;
                     }
 
-                    v102 = v182;
-                    array2 = v184;
+                    v102 = v180;
+                    array2 = v182;
                   }
                 }
 
-                v100 = [v185 countByEnumeratingWithState:&v188 objects:v216 count:16];
+                v100 = [v183 countByEnumeratingWithState:&v186 objects:v214 count:16];
               }
 
               while (v100);
@@ -1314,56 +1301,56 @@ LABEL_92:
               v101 = 0;
             }
 
-            v187 = +[RKPaymentIdentifier sharedManager];
-            v116 = [v187 copyAttributedTokensForText:impCopy];
-            v183 = v116;
-            if (v116)
+            v185 = +[RKPaymentIdentifier sharedManager];
+            v115 = [v185 copyAttributedTokensForText:impCopy];
+            v181 = v115;
+            if (v115)
             {
-              v117 = v116;
+              v116 = v115;
               language10 = RKLinguisticCategoryToPreferenceKey(44);
-              v119 = [[RKResponse alloc] initWithString:0 attributes:v117 category:language10];
-              v39 = v179;
-              array4 = v178;
-              if (!v178)
+              v118 = [[RKResponse alloc] initWithString:0 attributes:v116 category:language10];
+              v39 = v177;
+              array4 = v176;
+              if (!v176)
               {
                 array4 = [MEMORY[0x277CBEB18] array];
               }
 
-              language9 = [v179 language];
+              language9 = [v177 language];
               [RKCoreAnalytics sendCoreAnalyticsEvent:language10 forAction:@"triggered" withLanguageID:language9];
 
-              [array4 insertObject:v119 atIndex:0];
+              [array4 insertObject:v118 atIndex:0];
             }
 
             else
             {
-              v39 = v179;
+              v39 = v177;
               if (v101)
               {
-                array4 = v178;
+                array4 = v176;
                 goto LABEL_122;
               }
 
-              language10 = [v179 language];
-              [RKCoreAnalytics sendCoreAnalyticsEvent:v160 forAction:@"triggered" withLanguageID:language10];
-              array4 = v178;
+              language10 = [v177 language];
+              [RKCoreAnalytics sendCoreAnalyticsEvent:v158 forAction:@"triggered" withLanguageID:language10];
+              array4 = v176;
             }
 
 LABEL_122:
-            v122 = [(RKMessageResponseManager *)selfCopy responseWithAttributesMatchingProactiveGrammarForMessageImp:impCopy languageID:language kbdInputModes:modesCopy];
-            if ([objc_opt_class() _responseLooksLikeIncomingCheckInResponse:v122])
+            v121 = [(RKMessageResponseManager *)selfCopy responseWithAttributesMatchingProactiveGrammarForMessageImp:impCopy languageID:language kbdInputModes:modesCopy];
+            if ([objc_opt_class() _responseLooksLikeIncomingCheckInResponse:v121])
             {
               if (v76)
               {
+                v122 = MEMORY[0x277D86220];
                 v123 = MEMORY[0x277D86220];
-                v124 = MEMORY[0x277D86220];
-                if (os_log_type_enabled(v123, OS_LOG_TYPE_INFO))
+                if (os_log_type_enabled(v122, OS_LOG_TYPE_INFO))
                 {
                   *buf = 0;
-                  v125 = MEMORY[0x277D86220];
-                  v126 = "Incoming check-in response is not valid for outgoing messages";
+                  v124 = MEMORY[0x277D86220];
+                  v125 = "Incoming check-in response is not valid for outgoing messages";
 LABEL_140:
-                  _os_log_impl(&dword_2620A2000, v125, OS_LOG_TYPE_INFO, v126, buf, 2u);
+                  _os_log_impl(&dword_2620A2000, v124, OS_LOG_TYPE_INFO, v125, buf, 2u);
                   goto LABEL_141;
                 }
 
@@ -1373,33 +1360,33 @@ LABEL_140:
 
             else
             {
-              if (![objc_opt_class() _responseLooksLikeOutgoingCheckInResponse:v122])
+              if (![objc_opt_class() _responseLooksLikeOutgoingCheckInResponse:v121])
               {
                 if (!v76)
                 {
-                  if ([objc_opt_class() _responseTypeIsSunsetted:v122])
+                  if ([objc_opt_class() _responseTypeIsSunsetted:v121])
                   {
+                    v151 = MEMORY[0x277D86220];
                     v152 = MEMORY[0x277D86220];
-                    v153 = MEMORY[0x277D86220];
-                    language11 = v163;
-                    if (os_log_type_enabled(v152, OS_LOG_TYPE_INFO))
+                    language11 = v161;
+                    if (os_log_type_enabled(v151, OS_LOG_TYPE_INFO))
                     {
-                      attributes = [v122 attributes];
-                      v155 = [attributes objectForKeyedSubscript:@"type"];
+                      attributes = [v121 attributes];
+                      v154 = [attributes objectForKeyedSubscript:@"type"];
                       *buf = 138412290;
-                      v209 = v155;
+                      v207 = v154;
                       _os_log_impl(&dword_2620A2000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Responses of this type (%@) have been sunsetted", buf, 0xCu);
                     }
 
-                    contextCopy = v168;
-                    array2 = v184;
+                    contextCopy = v166;
+                    array2 = v182;
                     goto LABEL_152;
                   }
 
-                  contextCopy = v168;
-                  language11 = v163;
-                  array2 = v184;
-                  if (!v122)
+                  contextCopy = v166;
+                  language11 = v161;
+                  array2 = v182;
+                  if (!v121)
                   {
 LABEL_152:
                     v21 = array4;
@@ -1413,84 +1400,84 @@ LABEL_149:
                     array4 = [MEMORY[0x277CBEB18] array];
                   }
 
-                  [array4 insertObject:v122 atIndex:0];
+                  [array4 insertObject:v121 atIndex:0];
                   goto LABEL_152;
                 }
 
-                attributes2 = [v122 attributes];
-                v128 = [attributes2 copy];
+                attributes2 = [v121 attributes];
+                v127 = [attributes2 copy];
 
-                v133 = [objc_opt_class() _isMirroredResponseValidForResponse:v122];
+                v132 = [objc_opt_class() _isMirroredResponseValidForResponse:v121];
+                v133 = MEMORY[0x277D86220];
                 v134 = MEMORY[0x277D86220];
-                v135 = MEMORY[0x277D86220];
-                if (os_log_type_enabled(v134, OS_LOG_TYPE_INFO))
+                if (os_log_type_enabled(v133, OS_LOG_TYPE_INFO))
                 {
-                  v136 = [v128 objectForKeyedSubscript:@"type"];
-                  v137 = [v128 objectForKeyedSubscript:@"subtype"];
-                  v138 = [v128 objectForKeyedSubscript:@"field"];
-                  v139 = v138;
-                  v140 = @"No";
+                  v135 = [v127 objectForKeyedSubscript:@"type"];
+                  v136 = [v127 objectForKeyedSubscript:@"subtype"];
+                  v137 = [v127 objectForKeyedSubscript:@"field"];
+                  v138 = v137;
+                  v139 = @"No";
                   *buf = 138413058;
-                  v209 = v136;
-                  if (v133)
+                  v207 = v135;
+                  if (v132)
                   {
-                    v140 = @"Yes";
+                    v139 = @"Yes";
                   }
 
+                  v208 = 2112;
+                  v209 = v136;
                   v210 = 2112;
                   v211 = v137;
                   v212 = 2112;
-                  v213 = v138;
-                  v214 = 2112;
-                  v215 = v140;
+                  v213 = v139;
                   _os_log_impl(&dword_2620A2000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Response with type: %@, subtype: %@, field: %@ is valid for mirroring: %@", buf, 0x2Au);
                 }
 
-                language11 = v163;
-                if (v133)
+                language11 = v161;
+                if (v132)
                 {
-                  v131 = [v128 mutableCopy];
-                  [v131 setObject:@"mirrored" forKeyedSubscript:@"pov"];
-                  v141 = [v131 copy];
-                  [v122 setAttributes:v141];
+                  v130 = [v127 mutableCopy];
+                  [v130 setObject:@"mirrored" forKeyedSubscript:@"pov"];
+                  v140 = [v130 copy];
+                  [v121 setAttributes:v140];
 
+                  v141 = MEMORY[0x277D86220];
                   v142 = MEMORY[0x277D86220];
-                  v143 = MEMORY[0x277D86220];
-                  if (os_log_type_enabled(v142, OS_LOG_TYPE_INFO))
+                  if (os_log_type_enabled(v141, OS_LOG_TYPE_INFO))
                   {
-                    attributes3 = [v122 attributes];
-                    v144 = [attributes3 objectForKeyedSubscript:@"type"];
-                    attributes4 = [v122 attributes];
-                    v146 = [attributes4 objectForKeyedSubscript:@"subtype"];
-                    attributes5 = [v122 attributes];
+                    attributes3 = [v121 attributes];
+                    v143 = [attributes3 objectForKeyedSubscript:@"type"];
+                    attributes4 = [v121 attributes];
+                    v145 = [attributes4 objectForKeyedSubscript:@"subtype"];
+                    attributes5 = [v121 attributes];
                     [attributes5 objectForKeyedSubscript:@"field"];
-                    v149 = v148 = impCopy;
+                    v148 = v147 = impCopy;
                     *buf = 138412802;
-                    v209 = v144;
+                    v207 = v143;
+                    v208 = 2112;
+                    v209 = v145;
                     v210 = 2112;
-                    v211 = v146;
-                    v212 = 2112;
-                    v213 = v149;
+                    v211 = v148;
                     _os_log_impl(&dword_2620A2000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Response after mirroring has type: %@, subtype: %@, field: %@", buf, 0x20u);
 
-                    impCopy = v148;
-                    v39 = v179;
+                    impCopy = v147;
+                    v39 = v177;
 
-                    language11 = v163;
+                    language11 = v161;
                   }
                 }
 
                 else
                 {
-                  v131 = v122;
-                  v122 = 0;
+                  v130 = v121;
+                  v121 = 0;
                 }
 
-                array2 = v184;
+                array2 = v182;
 LABEL_148:
 
-                contextCopy = v168;
-                if (!v122)
+                contextCopy = v166;
+                if (!v121)
                 {
                   goto LABEL_152;
                 }
@@ -1500,44 +1487,44 @@ LABEL_148:
 
               if ((v76 & 1) == 0)
               {
+                v149 = MEMORY[0x277D86220];
                 v150 = MEMORY[0x277D86220];
-                v151 = MEMORY[0x277D86220];
-                if (os_log_type_enabled(v150, OS_LOG_TYPE_INFO))
+                if (os_log_type_enabled(v149, OS_LOG_TYPE_INFO))
                 {
                   *buf = 0;
-                  v125 = MEMORY[0x277D86220];
-                  v126 = "Outgoing check-in response is not valid for incoming messages";
+                  v124 = MEMORY[0x277D86220];
+                  v125 = "Outgoing check-in response is not valid for incoming messages";
                   goto LABEL_140;
                 }
 
 LABEL_141:
 
-                contextCopy = v168;
-                language11 = v163;
+                contextCopy = v166;
+                language11 = v161;
                 goto LABEL_152;
               }
             }
 
-            attributes6 = [v122 attributes];
-            v128 = [attributes6 mutableCopy];
+            attributes6 = [v121 attributes];
+            v127 = [attributes6 mutableCopy];
 
-            v129 = [@"event" copy];
-            [v128 setObject:v129 forKeyedSubscript:@"type"];
+            v128 = [@"event" copy];
+            [v127 setObject:v128 forKeyedSubscript:@"type"];
 
-            v130 = [@"traveling home" copy];
-            [v128 setObject:v130 forKeyedSubscript:@"subtype"];
+            v129 = [@"traveling home" copy];
+            [v127 setObject:v129 forKeyedSubscript:@"subtype"];
 
-            [v128 setObject:0 forKeyedSubscript:@"request"];
-            v131 = [v128 copy];
-            [v122 setAttributes:v131];
-            language11 = v163;
+            [v127 setObject:0 forKeyedSubscript:@"request"];
+            v130 = [v127 copy];
+            [v121 setAttributes:v130];
+            language11 = v161;
             goto LABEL_148;
           }
 
           v21 = v84;
           obj = v21;
-          contextCopy = v168;
-          language11 = v163;
+          contextCopy = v166;
+          language11 = v161;
 LABEL_153:
 
           v32 = obj;
@@ -1545,12 +1532,12 @@ LABEL_153:
         }
 
 LABEL_47:
-        v204[0] = MEMORY[0x277D85DD0];
-        v204[1] = 3221225472;
-        v204[2] = __170__RKMessageResponseManager_responsesForMessageWithLanguageDetectionImp_maximumResponses_forRecipientID_forConversationHistory_forContext_withLanguage_inputModes_options___block_invoke_2;
-        v204[3] = &unk_279B100A0;
-        v205 = array;
-        [v205 enumerateObjectsUsingBlock:v204];
+        v202[0] = MEMORY[0x277D85DD0];
+        v202[1] = 3221225472;
+        v202[2] = __170__RKMessageResponseManager_responsesForMessageWithLanguageDetectionImp_maximumResponses_forRecipientID_forConversationHistory_forContext_withLanguage_inputModes_options___block_invoke_2;
+        v202[3] = &unk_279B100A0;
+        v203 = array;
+        [v203 enumerateObjectsUsingBlock:v202];
 
         goto LABEL_48;
       }
@@ -1558,14 +1545,14 @@ LABEL_47:
 
     else
     {
-      v39 = v179;
+      v39 = v177;
       if (responses)
       {
         goto LABEL_33;
       }
     }
 
-    v164 = 0;
+    v162 = 0;
     if ((options & 0x40) == 0)
     {
       goto LABEL_46;
@@ -1590,19 +1577,17 @@ LABEL_47:
   v37 = [v32 objectAtIndexedSubscript:0];
   v38 = [(RKResponse *)v36 initWithString:0 attributes:v37 category:v35];
 
-  v164 = v38;
+  v162 = v38;
   [v21 insertObject:v38 atIndex:0];
-  v39 = v179;
-  language11 = [v179 language];
-  v166 = v35;
+  v39 = v177;
+  language11 = [v177 language];
+  v164 = v35;
   [RKCoreAnalytics sendCoreAnalyticsEvent:v35 forAction:@"triggered" withLanguageID:language11];
-  contextCopy = v168;
+  contextCopy = v166;
 LABEL_154:
 
 LABEL_155:
 LABEL_156:
-
-  v156 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -1840,7 +1825,7 @@ void __98__RKMessageResponseManager_registerResponse_forMessage_forContext_withE
 
 void __78__RKMessageResponseManager_registerResponse_forMessage_metadata_withLanguage___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -1862,7 +1847,7 @@ void __78__RKMessageResponseManager_registerResponse_forMessage_metadata_withLan
           if (*(*(a1 + 48) + 32))
           {
             v7 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:*(a1 + 56)];
-            v30 = [v7 objectForKey:*MEMORY[0x277CBE6C8]];
+            v29 = [v7 objectForKey:*MEMORY[0x277CBE6C8]];
 
             v8 = objc_opt_new();
             v9 = [*(a1 + 64) objectForKeyedSubscript:@"recipient"];
@@ -1872,32 +1857,32 @@ void __78__RKMessageResponseManager_registerResponse_forMessage_metadata_withLan
             [v8 setObject:v10 forKeyedSubscript:@"source"];
 
             v11 = [*(a1 + 64) objectForKeyedSubscript:@"inputmethod"];
-            v29 = v8;
+            v28 = v8;
             [v8 setObject:v11 forKeyedSubscript:@"inputmethod"];
 
-            v31 = a1;
+            v30 = a1;
             v12 = [*(a1 + 64) objectForKeyedSubscript:@"rankedlist"];
             v13 = objc_opt_new();
+            v32 = 0u;
             v33 = 0u;
             v34 = 0u;
             v35 = 0u;
-            v36 = 0u;
             obj = v12;
-            v14 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+            v14 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
             if (v14)
             {
               v15 = v14;
-              v16 = *v34;
+              v16 = *v33;
               do
               {
                 for (i = 0; i != v15; ++i)
                 {
-                  if (*v34 != v16)
+                  if (*v33 != v16)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v18 = *(*(&v33 + 1) + 8 * i);
+                  v18 = *(*(&v32 + 1) + 8 * i);
                   v19 = objc_opt_new();
                   v20 = [v18 string];
                   [v19 addObject:v20];
@@ -1914,29 +1899,27 @@ void __78__RKMessageResponseManager_registerResponse_forMessage_metadata_withLan
                   [v13 addObject:v25];
                 }
 
-                v15 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+                v15 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
               }
 
               while (v15);
             }
 
-            v26 = [*(v31 + 48) categoryForMessageWithoutQueue:*(v31 + 32) langID:*(v31 + 56)];
-            [v29 setObject:v26 forKeyedSubscript:@"category"];
+            v26 = [*(v30 + 48) categoryForMessageWithoutQueue:*(v30 + 32) langID:*(v30 + 56)];
+            [v28 setObject:v26 forKeyedSubscript:@"category"];
             v27 = [v13 componentsJoinedByString:@""];;
-            [v29 setObject:v27 forKeyedSubscript:@"rankedlist"];
-            [v29 setObject:*(v31 + 32) forKeyedSubscript:@"message"];
-            [v29 setObject:*(v31 + 40) forKeyedSubscript:@"response"];
-            if ([*(*(v31 + 48) + 32) insertRankingInfo:v29 forLanguageID:v30])
+            [v28 setObject:v27 forKeyedSubscript:@"rankedlist"];
+            [v28 setObject:*(v30 + 32) forKeyedSubscript:@"message"];
+            [v28 setObject:*(v30 + 40) forKeyedSubscript:@"response"];
+            if ([*(*(v30 + 48) + 32) insertRankingInfo:v28 forLanguageID:v29])
             {
-              [*(*(v31 + 48) + 32) flushRankingData:v30];
+              [*(*(v30 + 48) + 32) flushRankingData:v29];
             }
           }
         }
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getRankLearner
@@ -1956,10 +1939,7 @@ void __78__RKMessageResponseManager_registerResponse_forMessage_metadata_withLan
 
 uint64_t __42__RKMessageResponseManager_getRankLearner__block_invoke(uint64_t a1)
 {
-  v2 = objc_alloc_init(RKRankLearner);
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 32);
-  *(v3 + 32) = v2;
+  *(*(a1 + 32) + 32) = objc_alloc_init(RKRankLearner);
 
   return MEMORY[0x2821F96F8]();
 }

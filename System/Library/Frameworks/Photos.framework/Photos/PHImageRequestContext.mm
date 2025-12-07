@@ -82,7 +82,7 @@
       imageOptions = self->_imageOptions;
       if (imageOptions)
       {
-        [(PHImageRequestOptions *)imageOptions videoFrameTime];
+        objc_msgSend_videoFrameTime(imageOptions);
       }
 
       else
@@ -212,7 +212,7 @@
     imageOptions = self->_imageOptions;
     if (imageOptions)
     {
-      [(PHImageRequestOptions *)imageOptions videoFrameTime];
+      objc_msgSend_videoFrameTime(imageOptions);
       v5 = v7 & 1;
     }
 
@@ -253,7 +253,7 @@
           imageOptions = self->_imageOptions;
           if (imageOptions)
           {
-            [(PHImageRequestOptions *)imageOptions videoFrameTime];
+            objc_msgSend_videoFrameTime(imageOptions);
           }
 
           else
@@ -278,7 +278,7 @@
         v39 = self->_imageOptions;
         if (v39)
         {
-          [(PHImageRequestOptions *)v39 videoFrameTime];
+          objc_msgSend_videoFrameTime(v39);
         }
 
         else

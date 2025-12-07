@@ -3,6 +3,7 @@
 - (id)managerInterface;
 - (void)connectWithParameters:(id)parameters;
 - (void)extension:(id)extension didRequestFlowDivertControlSocketWithCompletionHandler:(id)handler;
+- (void)setDelegateInterface:(unsigned int)interface;
 @end
 
 @implementation NEAgentAppProxyExtension
@@ -29,18 +30,24 @@
 
 void __93__NEAgentAppProxyExtension_extension_didRequestFlowDivertControlSocketWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Got an error on the XPC connection while creating a flow divert control socket: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Got an error on the XPC connection while creating a flow divert control socket: %@", &v5, 0xCu);
   }
 
   [(NEAgentTunnelExtension *)*(a1 + 32) sendStatus:0 withDisconnectError:?];
-  v5 = *MEMORY[0x1E69E9840];
+}
+
+- (void)setDelegateInterface:(unsigned int)interface
+{
+  v3 = *&interface;
+  sessionContext = [(NEAgentExtension *)self sessionContext];
+  [sessionContext setDelegateInterface:v3];
 }
 
 - (void)connectWithParameters:(id)parameters
@@ -66,18 +73,17 @@ void __93__NEAgentAppProxyExtension_extension_didRequestFlowDivertControlSocketW
 
 void __50__NEAgentAppProxyExtension_connectWithParameters___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Got an error on the XPC connection while creating a flow divert control socket: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Got an error on the XPC connection while creating a flow divert control socket: %@", &v5, 0xCu);
   }
 
   [(NEAgentTunnelExtension *)*(a1 + 32) sendStatus:0 withDisconnectError:?];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __50__NEAgentAppProxyExtension_connectWithParameters___block_invoke_36(uint64_t a1, void *a2)

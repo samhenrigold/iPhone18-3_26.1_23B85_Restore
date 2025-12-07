@@ -35,20 +35,17 @@
       [v7 handleFailureInFunction:v8 file:@"NIVisionSupport.mm" lineNumber:111 description:@"NSData must contain enough bytes for simd_float4x4"];
     }
 
-    [v5 getBytes:&v13 length:64];
+    [v5 getBytes:&v10 length:64];
 
-    v12 = v13;
+    v9 = v10;
   }
 
   else
   {
-    v11 = matrix_identity_float4x4.columns[1];
-    v12 = matrix_identity_float4x4.columns[0];
-    v9 = matrix_identity_float4x4.columns[3];
-    v10 = matrix_identity_float4x4.columns[2];
+    v9 = matrix_identity_float4x4.columns[0];
   }
 
-  return v12;
+  return v9;
 }
 
 - (void)encodeVector3:(id)vector3 forKey:

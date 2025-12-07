@@ -15,6 +15,7 @@
 - (BOOL)appIsAllowedToSelfLock:(id)lock;
 - (BOOL)appLayoutIsMultiAppForIntegrityVerifier:(id)verifier;
 - (BOOL)appWithBundleIdentifier:(id)identifier auditToken:(id *)token isAuthorizedForASAMStyle:(int64_t)style;
+- (BOOL)backboardServer:(id)server isRectInIgnoredRegion:(CGRect)region rectContextId:(unsigned int)id;
 - (BOOL)frontmostAppIsAcceptableForSessionAppWithIntegrityVerifier:(id)verifier;
 - (BOOL)hasMultipleSessionAppsForIntegrityVerifier:(id)verifier;
 - (BOOL)isActive;
@@ -27,6 +28,7 @@
 - (BOOL)isUnmanagedSelfLocked;
 - (BOOL)processWithAuditTokenIsEntitledForInternalASAM:(id *)m;
 - (BOOL)processWithAuditTokenIsEntitledForUnmanagedASAM:(id *)m;
+- (BOOL)requestAXFeatures:(unint64_t)features setEnabled:(BOOL)enabled fromClientAppWithPort:(unsigned int)port withErrorCode:(int64_t *)code;
 - (BOOL)sessionAppGAXClientDidCheckInForIntegrityVerifier:(id)verifier;
 - (BOOL)sessionAppIsPreferencesForIntegrityVerifier:(id)verifier;
 - (BOOL)sessionAppIsPurpleBuddyForIntegrityVerifier:(id)verifier;
@@ -67,10 +69,12 @@
 - (void)_clearSavedTimeRestrictionsSettingsAfterRelaunchIfNeeded;
 - (void)_didFinishTransitioningFromWorkspaceToApplication;
 - (void)_didFinishTransitioningFromWorkspaceToSession;
+- (void)_disableSOSGesture:(BOOL)gesture;
 - (void)_handleAssistiveTouchEnabledNotification:(id)notification;
 - (void)_handleInCheckerBoardScenarioUpdated;
 - (void)_handleInPreBoardScenarioUpdated;
 - (void)_handleLostModeChanged;
+- (void)_handleServerModeChangeRequestWithType:(int)type;
 - (void)_handleSubstationalTransition;
 - (void)_handleTelephonyCallStatusChangedNotification:(id)notification;
 - (void)_handleToggleServerModeNotification:(id)notification;
@@ -79,16 +83,23 @@
 - (void)_notifyEffectiveAppDidChange:(id)change;
 - (void)_notifyOfGAXBackboardStateChange;
 - (void)_performValidation;
+- (void)_persistInterestAreaPathsForStorageFromMessage:(id)message forInterfaceOrientation:(int)orientation;
 - (void)_prepareGuidedAccessAfterConnectingToSpringboard:(BOOL)springboard;
 - (void)_prepareGuidedAccessAfterConnectingToSpringboard:(BOOL)springboard springBoardPID:(int)d;
+- (void)_prepareGuidedAccessAfterConnectingToSpringboard:(BOOL)springboard springBoardPID:(int)d screenLocked:(BOOL)locked;
 - (void)_removeUnmanagedSelfLockRestrictions;
 - (void)_resetOverrideTouchReasons;
 - (void)_setPasscode:(id)passcode;
+- (void)_setTimeRestrictionHasExpired:(BOOL)expired;
+- (void)_showAlertWithTextType:(int)type asBanner:(BOOL)banner isUrgent:(BOOL)urgent timeRestrictionsEnabled:(BOOL)enabled remainingTime:(int64_t)time effectiveAppName:(id)name;
 - (void)_showPasscodeViewForVerification:(unsigned int)verification;
 - (void)_showUnmanagedASAMBannerWithType:(int)type;
+- (void)_transitionToMode:(unsigned int)mode;
 - (void)_transitionToMode:(unsigned int)mode requireUserUnlock:(BOOL)unlock assumeUserInterfaceConnectionSevered:(BOOL)severed completion:(id)completion;
 - (void)_updateDisablingSystemGesturesForMode:(unsigned int)mode;
 - (void)_updateIsInitializingAndWasActiveBeforeReboot:(BOOL)reboot;
+- (void)_updateMode:(unsigned int)mode;
+- (void)_updateRestrictedState:(BOOL)state;
 - (void)_updateSessionAppForSingleAppMode;
 - (void)_updateSessionAppWithIdentifier:(id)identifier notifyUserInterfaceServer:(BOOL)server sessionAppIdentifierDidChange:(BOOL *)change;
 - (void)addReasonToBlockAllEvents:(id)events;
@@ -99,6 +110,8 @@
 - (void)attemptAppRelaunchForAppWithIdentifier:(id)identifier withIntegrityVerifier:(id)verifier;
 - (void)backboardServer:(id)server clientWentInvalid:(unsigned int)invalid;
 - (void)backboardServer:(id)server didFinishLaunchingApplicationWithConfiguration:(unsigned int)configuration appLaunchGeneration:(unint64_t)generation errorMessage:(id)message;
+- (void)backboardServer:(id)server gaxClientAppDidBecomeActive:(id)active pid:(int)pid;
+- (void)backboardServer:(id)server gaxClientDidLoad:(id)load pid:(int)pid port:(unsigned int)port;
 - (void)backboardServer:(id)server isMakingEmergencyCall:(BOOL)call;
 - (void)backboardServer:(id)server passcodeDidChange:(id)change;
 - (void)backboardServer:(id)server sbMiniAlertIsShowing:(BOOL)showing;
@@ -211,9 +224,9 @@
   {
     byte_59604 = 1;
     *buf = 0;
-    v51[0] = buf;
-    v51[1] = 0x2020000000;
-    v52 = 0;
+    v51 = buf;
+    v52 = 0x2020000000;
+    v53 = 0;
     v12 = v2->_gaxStateAccessQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
@@ -222,11 +235,11 @@
     v48 = buf;
     v47 = v2;
     dispatch_sync(v12, block);
-    notify_set_state(dword_59600, *(v51[0] + 24));
+    notify_set_state(dword_59600, v51[24]);
     v13 = GAXLogCommon();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      sub_2AD10(v51);
+      sub_2AD10();
     }
 
     _Block_object_dispose(buf, 8);
@@ -462,7 +475,7 @@ LABEL_15:
 - (void)_prepareGuidedAccessAfterConnectingToSpringboard:(BOOL)springboard springBoardPID:(int)d
 {
   memset(v12, 0, 28);
-  [(GAXBackboard *)self gaxState];
+  objc_msgSend_gaxState(self, a2);
   v7 = +[AXSpringBoardServer server];
   v9[0] = _NSConcreteStackBlock;
   v9[1] = 3221225472;
@@ -474,6 +487,192 @@ LABEL_15:
   v8[0] = v12[0];
   *(v8 + 12) = *(v12 + 12);
   [v7 gaxBackboardStateDidChange:v8 completion:v9];
+}
+
+- (void)_prepareGuidedAccessAfterConnectingToSpringboard:(BOOL)springboard springBoardPID:(int)d screenLocked:(BOOL)locked
+{
+  springboardCopy = springboard;
+  if (d <= 0)
+  {
+    v31 = *&d;
+    _AXAssert();
+  }
+
+  v8 = GAXLogCommon();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "Did connect to SpringBoard, preparing Guided Access", buf, 2u);
+  }
+
+  if (springboardCopy && [(GAXBackboard *)self _hasSystemPasscode]|| AXSessionIsLoginSession())
+  {
+    [(GAXBackboard *)self _transitionToMode:0 requireUserUnlock:0, v31];
+    [(GAXBackboard *)self _resetOverrideTouchReasons];
+LABEL_9:
+    [(GAXBackboard *)self _updateIsInitializingAndWasActiveBeforeReboot:0, v31];
+    goto LABEL_10;
+  }
+
+  v9 = +[GAXSettings sharedInstance];
+  profileManager = [(GAXBackboard *)self profileManager];
+  configuration = [profileManager configuration];
+
+  if (configuration != 3)
+  {
+    if (configuration == 2)
+    {
+      [(GAXBackboard *)self _updateSessionAppForSingleAppMode];
+      if (![(GAXBackboard *)self _hasSystemPasscode]|| !locked)
+      {
+        integrityVerifier = [(GAXBackboard *)self integrityVerifier];
+        v16 = integrityVerifier;
+        if (springboardCopy)
+        {
+          v17 = 5;
+        }
+
+        else
+        {
+          v17 = 2;
+        }
+
+        [integrityVerifier verifyIntegrityWithEvent:v17 afterDelay:0.1];
+
+        goto LABEL_10;
+      }
+    }
+
+    else
+    {
+      if (configuration == 1)
+      {
+        goto LABEL_15;
+      }
+
+      v22 = GAXLogCommon();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      {
+        profileManager2 = [(GAXBackboard *)self profileManager];
+        v24 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [profileManager2 configuration]);
+        *buf = 138543362;
+        *v34 = v24;
+        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Guided Access profile configuration not supported: %{public}@", buf, 0xCu);
+      }
+    }
+
+    goto LABEL_9;
+  }
+
+LABEL_15:
+  systemDidRestartDueToLowBattery = [v9 systemDidRestartDueToLowBattery];
+  if (systemDidRestartDueToLowBattery)
+  {
+    profileManager3 = [(GAXBackboard *)self profileManager];
+    shouldAutolaunchAppsAfterLowBatteryPowerDown = [profileManager3 shouldAutolaunchAppsAfterLowBatteryPowerDown];
+  }
+
+  else
+  {
+    shouldAutolaunchAppsAfterLowBatteryPowerDown = 0;
+  }
+
+  if ([(GAXBackboard *)self _hasSystemPasscode])
+  {
+    profileManager4 = [(GAXBackboard *)self profileManager];
+    v19 = [profileManager4 configuration] == 1;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  v20 = GAXLogCommon();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 67109632;
+    *v34 = systemDidRestartDueToLowBattery;
+    *&v34[4] = 1024;
+    *&v34[6] = shouldAutolaunchAppsAfterLowBatteryPowerDown;
+    v35 = 1024;
+    v36 = v19;
+    _os_log_debug_impl(&dword_0, v20, OS_LOG_TYPE_DEBUG, "Prepare after SB connect: didRestartBattery: %d, shouldRelaunchBattery: %d, IgnoreDueToSystemPasscode: %d", buf, 0x14u);
+  }
+
+  if (!(shouldAutolaunchAppsAfterLowBatteryPowerDown & 1 | ((systemDidRestartDueToLowBattery & 1) == 0)) || [(GAXBackboard *)self _isRunningInStoreDemoMode]|| v19)
+  {
+    v21 = 1;
+    if (!systemDidRestartDueToLowBattery)
+    {
+      goto LABEL_50;
+    }
+
+    goto LABEL_47;
+  }
+
+  activeAppID = [v9 activeAppID];
+  v26 = [activeAppID copy];
+
+  if (!springboardCopy)
+  {
+    [v9 setActiveAppID:0];
+  }
+
+  v21 = v26 == 0;
+  if (v26)
+  {
+    v27 = GAXLogCommon();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    {
+      sub_2AEC4();
+    }
+
+    [(GAXBackboard *)self _updateSessionAppWithIdentifier:v26];
+    integrityVerifier2 = [(GAXBackboard *)self integrityVerifier];
+    v29 = integrityVerifier2;
+    if (springboardCopy)
+    {
+      v30 = 4;
+    }
+
+    else
+    {
+      v30 = 1;
+    }
+
+    [integrityVerifier2 verifyIntegrityWithEvent:v30 afterDelay:0.1];
+  }
+
+  if (systemDidRestartDueToLowBattery)
+  {
+LABEL_47:
+    [v9 setSystemDidRestartDueToLowBattery:0];
+    if (([v9 isActiveAppSelfLocked] & 1) == 0)
+    {
+      [v9 setActiveAppID:0];
+    }
+
+    [(GAXBackboard *)self _updateIsInitializingAndWasActiveBeforeReboot:0];
+  }
+
+LABEL_50:
+
+  if (v21)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_10:
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_137BC;
+  block[3] = &unk_4C958;
+  block[4] = self;
+  if (qword_59608 != -1)
+  {
+    dispatch_once(&qword_59608, block);
+  }
 }
 
 - (void)dealloc
@@ -807,6 +1006,51 @@ LABEL_24:
   return effectiveAppBundleIdentifier;
 }
 
+- (void)_updateMode:(unsigned int)mode
+{
+  v3 = *&mode;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  gaxStateAccessQueue = self->_gaxStateAccessQueue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_14834;
+  block[3] = &unk_4D5F0;
+  block[4] = self;
+  block[5] = &v11;
+  modeCopy = mode;
+  dispatch_sync(gaxStateAccessQueue, block);
+  modeHistory = [(GAXBackboard *)self modeHistory];
+  if (!modeHistory)
+  {
+    modeHistory = objc_opt_new();
+    [(GAXBackboard *)self setModeHistory:modeHistory];
+  }
+
+  v7 = [NSNumber numberWithUnsignedInt:v3];
+  [modeHistory insertObject:v7 atIndex:0];
+
+  while ([modeHistory count] >= 6)
+  {
+    [modeHistory removeLastObject];
+  }
+
+  if (v3 == 2 || *(v12 + 6) == 2)
+  {
+    DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+    CFNotificationCenterPostNotification(DarwinNotifyCenter, AXGuidedAccessActiveStatusDidChangeBroadcastNotification, 0, 0, 1u);
+    if (byte_59604 == 1)
+    {
+      notify_set_state(dword_59600, v3 == 2);
+      notify_post("com.apple.accessibility.guidedaccess.session.active");
+    }
+  }
+
+  _Block_object_dispose(&v11, 8);
+}
+
 - (void)_updateDisablingSystemGesturesForMode:(unsigned int)mode
 {
   if (mode)
@@ -827,10 +1071,50 @@ LABEL_24:
   }
 }
 
+- (void)_showAlertWithTextType:(int)type asBanner:(BOOL)banner isUrgent:(BOOL)urgent timeRestrictionsEnabled:(BOOL)enabled remainingTime:(int64_t)time effectiveAppName:(id)name
+{
+  enabledCopy = enabled;
+  urgentCopy = urgent;
+  bannerCopy = banner;
+  nameCopy = name;
+  +[NSDate timeIntervalSinceReferenceDate];
+  v16 = v15;
+  [(GAXBackboard *)self lastAlertDisplayedTimeInterval];
+  if (v16 - v17 >= 1.0)
+  {
+    [(GAXBackboard *)self setLastAlertDisplayedTimeInterval:v16];
+    v25[0] = @"alert text type";
+    v18 = [NSNumber numberWithUnsignedInteger:type];
+    v26[0] = v18;
+    v25[1] = @"alert is banner";
+    v19 = [NSNumber numberWithBool:bannerCopy];
+    v26[1] = v19;
+    v25[2] = @"alert is urgent";
+    v20 = [NSNumber numberWithBool:urgentCopy];
+    v26[2] = v20;
+    v21 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:3];
+    v22 = [v21 mutableCopy];
+
+    if (time >= 1 && enabledCopy)
+    {
+      v23 = [NSNumber numberWithInteger:time];
+      [v22 setObject:v23 forKeyedSubscript:@"alert time restriction remaining time"];
+    }
+
+    if (nameCopy)
+    {
+      [v22 setObject:nameCopy forKeyedSubscript:@"application name"];
+    }
+
+    userInterfaceClient = [(GAXBackboard *)self userInterfaceClient];
+    [userInterfaceClient sendAsynchronousMessage:v22 withIdentifier:5 targetAccessQueue:0 completion:0];
+  }
+}
+
 - (void)_notifyOfGAXBackboardStateChange
 {
   memset(&v7[40], 0, 28);
-  [(GAXBackboard *)self gaxState];
+  objc_msgSend_gaxState(self, a2);
   v3 = +[AXSpringBoardServer server];
   *v7 = *&v7[40];
   *&v7[12] = *&v7[52];
@@ -919,6 +1203,61 @@ LABEL_7:
   changeCopy = change;
   v4 = changeCopy;
   dispatch_async(&_dispatch_main_q, v5);
+}
+
+- (void)backboardServer:(id)server gaxClientDidLoad:(id)load pid:(int)pid port:(unsigned int)port
+{
+  v7 = *&pid;
+  loadCopy = load;
+  v10 = GAXLogAppLaunching();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = [NSNumber numberWithInt:v7];
+    *buf = 138543874;
+    v18 = loadCopy;
+    v19 = 2114;
+    v20 = v11;
+    v21 = 2048;
+    portCopy = port;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Was notified gax client did load: %{public}@. pid:%{public}@ send right name: %llx", buf, 0x20u);
+  }
+
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1529C;
+  block[3] = &unk_4D000;
+  block[4] = self;
+  v14 = loadCopy;
+  portCopy2 = port;
+  v16 = v7;
+  v12 = loadCopy;
+  dispatch_async(&_dispatch_main_q, block);
+}
+
+- (void)backboardServer:(id)server gaxClientAppDidBecomeActive:(id)active pid:(int)pid
+{
+  v5 = *&pid;
+  activeCopy = active;
+  v8 = GAXLogAppLaunching();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = [NSNumber numberWithInt:v5];
+    *buf = 138543618;
+    v15 = activeCopy;
+    v16 = 2114;
+    v17 = v9;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Was notified that client did become active. ID:%{public}@ PID:%{public}@", buf, 0x16u);
+  }
+
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1549C;
+  block[3] = &unk_4D640;
+  block[4] = self;
+  v12 = activeCopy;
+  v13 = v5;
+  v10 = activeCopy;
+  dispatch_async(&_dispatch_main_q, block);
 }
 
 - (void)deviceWasLockedWithBackboardServer:(id)server
@@ -1047,7 +1386,7 @@ LABEL_7:
 
 - (void)backboardServerPresentGuidedAccessActiveBanner:(id)banner
 {
-  [(GAXBackboard *)self gaxState];
+  objc_msgSend_gaxState(self, a2, banner);
   if ((v4 & 0x10) != 0)
   {
     [(GAXBackboard *)self presentStandardActiveTopBanner];
@@ -1102,6 +1441,64 @@ LABEL_7:
   }
 
   return v7;
+}
+
+- (BOOL)backboardServer:(id)server isRectInIgnoredRegion:(CGRect)region rectContextId:(unsigned int)id
+{
+  v5 = *&id;
+  height = region.size.height;
+  width = region.size.width;
+  y = region.origin.y;
+  x = region.origin.x;
+  _accessIgnoredTouchRegions = [(GAXBackboard *)self _accessIgnoredTouchRegions];
+  if (_accessIgnoredTouchRegions && (+[CADisplay mainDisplay](CADisplay, "mainDisplay"), v11 = objc_claimAutoreleasedReturnValue(), [v11 bounds], v13 = v12, v15 = v14, v17 = v16, r2 = v18, v11, Count = CFArrayGetCount(_accessIgnoredTouchRegions), +[AXBackBoardServer server](AXBackBoardServer, "server"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "convertFrame:fromContextId:", v5, x, y, width, height), v22 = v21, v24 = v23, v26 = v25, v28 = v27, v20, v43.origin.x = v22, v43.origin.y = v24, v43.size.width = v26, v43.size.height = v28, v45.origin.x = v13, v45.origin.y = v15, v45.size.width = v17, v45.size.height = r2, v44 = CGRectIntersection(v43, v45), Count >= 1))
+  {
+    v29 = v44.origin.x;
+    v30 = v44.origin.y;
+    v31 = 0;
+    v32 = v44.origin.y + v44.size.height;
+    v33 = v44.origin.x + v44.size.width;
+    v34 = v28 + v44.origin.y;
+    while (1)
+    {
+      ValueAtIndex = CFArrayGetValueAtIndex(_accessIgnoredTouchRegions, v31);
+      v39.x = v29;
+      v39.y = v30;
+      if (CGPathContainsPoint(ValueAtIndex, 0, v39, 1))
+      {
+        v40.x = v29;
+        v40.y = v32;
+        if (CGPathContainsPoint(ValueAtIndex, 0, v40, 1))
+        {
+          v41.x = v33;
+          v41.y = v30;
+          if (CGPathContainsPoint(ValueAtIndex, 0, v41, 1))
+          {
+            v36 = 1;
+            v42.x = v33;
+            v42.y = v34;
+            if (CGPathContainsPoint(ValueAtIndex, 0, v42, 1))
+            {
+              break;
+            }
+          }
+        }
+      }
+
+      if (Count == ++v31)
+      {
+        goto LABEL_9;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_9:
+    v36 = 0;
+  }
+
+  return v36;
 }
 
 - (id)userInterfaceClient:(id)client processMessageFromServer:(id)server withIdentifier:(unint64_t)identifier error:(id *)error
@@ -1454,7 +1851,7 @@ LABEL_43:
 {
   memset(&v9[2], 0, 28);
   messageCopy = message;
-  [(GAXBackboard *)self gaxState];
+  objc_msgSend_gaxState(self);
   v9[0] = v9[2];
   *(v9 + 12) = *(&v9[2] + 12);
   v6 = serializeGAXBackboardState(v9);
@@ -1492,7 +1889,7 @@ LABEL_43:
   v18 = 0;
   v20 = 0;
   v19 = 0;
-  [(GAXBackboard *)self gaxState:event];
+  objc_msgSend_gaxState(self, a2, event, outcome, verifier);
   if (outcome == 26)
   {
     [(GAXBackboard *)self _verificationWillPauseForSpringBoardRelaunch];
@@ -1571,7 +1968,7 @@ LABEL_43:
   v43 = 0;
   v45 = 0;
   v44 = 0;
-  [(GAXBackboard *)self gaxState];
+  objc_msgSend_gaxState(self);
   v5 = HIDWORD(v44);
   v41 = 0;
   [verifierCopy outcome:objc_msgSend(verifierCopy isError:"mostRecentOutcome") isIndeterminate:{&v41, 0}];
@@ -2401,6 +2798,13 @@ LABEL_13:
   dispatch_sync(gaxStateAccessQueue, block);
 }
 
+- (void)_disableSOSGesture:(BOOL)gesture
+{
+  CFPreferencesSetAppValue(@"SBDisablesSOSForAccessibility", [NSNumber numberWithBool:gesture], @"com.apple.springboard");
+
+  CFPreferencesAppSynchronize(@"com.apple.springboard");
+}
+
 - (void)_handleToggleServerModeNotification:(id)notification
 {
   v4 = GAXLogCommon();
@@ -2466,6 +2870,13 @@ LABEL_13:
   }
 
   dispatch_sync(gaxStateAccessQueue, v8);
+}
+
+- (void)_transitionToMode:(unsigned int)mode
+{
+  v3 = *&mode;
+  profileManager = [(GAXBackboard *)self profileManager];
+  -[GAXBackboard _transitionToMode:requireUserUnlock:](self, "_transitionToMode:requireUserUnlock:", v3, [profileManager isUserMode]);
 }
 
 - (void)_transitionToMode:(unsigned int)mode requireUserUnlock:(BOOL)unlock assumeUserInterfaceConnectionSevered:(BOOL)severed completion:(id)completion
@@ -3294,6 +3705,44 @@ LABEL_49:
   return v8;
 }
 
+- (void)_handleServerModeChangeRequestWithType:(int)type
+{
+  v3 = *&type;
+  v5 = GAXLogCommon();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [NSNumber numberWithUnsignedInt:v3];
+    *buf = 138543362;
+    v14 = v6;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "GAX did get request to change mode. type:%{public}@", buf, 0xCu);
+  }
+
+  +[NSDate timeIntervalSinceReferenceDate];
+  if (vabdd_f64(v7, *&qword_59610) >= 2.0)
+  {
+    qword_59610 = *&v7;
+    _SBServerQueryForAvailabilitySBParameters = [(GAXBackboard *)self _SBServerQueryForAvailabilitySBParameters];
+    v10 = +[AXSpringBoardServer server];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_1DC84;
+    v11[3] = &unk_4DA10;
+    v12 = v3;
+    v11[4] = self;
+    [v10 systemAppInfoWithQuery:_SBServerQueryForAvailabilitySBParameters completion:v11];
+  }
+
+  else
+  {
+    v8 = GAXLogCommon();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "currently handling a mode change request. Ignoring this one", buf, 2u);
+    }
+  }
+}
+
 - (void)_didFinishTransitioningFromWorkspaceToSession
 {
   if ([(GAXBackboard *)self _previousModeIgnoringWorkspace:1]== 2)
@@ -3691,6 +4140,39 @@ LABEL_11:
   return v7;
 }
 
+- (BOOL)requestAXFeatures:(unint64_t)features setEnabled:(BOOL)enabled fromClientAppWithPort:(unsigned int)port withErrorCode:(int64_t *)code
+{
+  v7 = *&port;
+  enabledCopy = enabled;
+  clientPortsToBundleIds = [(GAXBackboard *)self clientPortsToBundleIds];
+  v12 = [NSNumber numberWithUnsignedInt:v7];
+  v13 = [clientPortsToBundleIds objectForKeyedSubscript:v12];
+
+  if (v13 && -[GAXBackboard wantsSingleAppModeOrAppSelfLockMode](self, "wantsSingleAppModeOrAppSelfLockMode") && (-[GAXBackboard expectedSessionAppIdentifier](self, "expectedSessionAppIdentifier"), v14 = objc_claimAutoreleasedReturnValue(), v15 = [v14 isEqual:v13], v14, v15))
+  {
+    if (code)
+    {
+      *code = 0;
+    }
+
+    axFeatureManager = [(GAXBackboard *)self axFeatureManager];
+    [axFeatureManager configureAXFeatures:features enabled:enabledCopy];
+
+    v17 = 1;
+  }
+
+  else
+  {
+    v17 = 0;
+    if (code)
+    {
+      *code = 1;
+    }
+  }
+
+  return v17;
+}
+
 - (void)setEnabled:(BOOL)enabled fromAppWithIdentifier:(id)identifier withAuditToken:(id *)token configuration:(id)configuration completion:(id)completion
 {
   enabledCopy = enabled;
@@ -4001,51 +4483,50 @@ LABEL_23:
   arrayCopy = array;
   if ([arrayCopy count])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v4 = arrayCopy;
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
-        for (i = 0; i != v6; i = i + 1)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
-          v11 = AX_CGPathCreateWithDataRepresentation();
-          if (v11)
+          v10 = AX_CGPathCreateWithDataRepresentation();
+          if (v10)
           {
-            v12 = v11;
+            v11 = v10;
             if (!v7)
             {
               v7 = objc_opt_new();
             }
 
-            CFArrayAppendValue(v7, v12);
-            CGPathRelease(v12);
+            CFArrayAppendValue(v7, v11);
+            CGPathRelease(v11);
           }
 
           else
           {
-            v13 = GAXLogCommon();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v12 = GAXLogCommon();
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
-              sub_2B814(&v15, v16, v13);
+              sub_2B814(&v14, v15, v12);
             }
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v6);
@@ -4063,6 +4544,40 @@ LABEL_23:
   }
 
   return v7;
+}
+
+- (void)_persistInterestAreaPathsForStorageFromMessage:(id)message forInterfaceOrientation:(int)orientation
+{
+  unsignedIntegerValue = *&orientation;
+  messageCopy = message;
+  v11 = messageCopy;
+  if (!unsignedIntegerValue)
+  {
+    v7 = [messageCopy objectForKey:@"interface orientation"];
+    unsignedIntegerValue = [v7 unsignedIntegerValue];
+
+    messageCopy = v11;
+    if (!unsignedIntegerValue)
+    {
+      _AXAssert();
+      messageCopy = v11;
+    }
+  }
+
+  v8 = [messageCopy objectForKey:@"interest area paths for storage"];
+  if (v8)
+  {
+    v9 = v8;
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+
+      v9 = 0;
+    }
+
+    profileManager = [(GAXBackboard *)self profileManager];
+    [profileManager setIgnoredTouchRegions:v9 forOrientation:unsignedIntegerValue];
+  }
 }
 
 - (void)_applyAllowedStatesForRestrictions
@@ -4343,6 +4858,65 @@ LABEL_6:
   [userInterfaceClient sendAsynchronousMessage:0 withIdentifier:7 targetAccessQueue:v7 completion:v8];
 }
 
+- (void)_updateRestrictedState:(BOOL)state
+{
+  stateCopy = state;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  gaxStateAccessQueue = self->_gaxStateAccessQueue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_2222C;
+  block[3] = &unk_4DD70;
+  block[4] = self;
+  block[5] = &v14;
+  stateCopy2 = state;
+  dispatch_sync(gaxStateAccessQueue, block);
+  v6 = GAXLogCommon();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = [NSNumber numberWithBool:stateCopy];
+    *buf = 138543362;
+    v19 = v7;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "GAX restriction state did change: %{public}@", buf, 0xCu);
+  }
+
+  userInterfaceClient = [(GAXBackboard *)self userInterfaceClient];
+  v9 = userInterfaceClient;
+  if (stateCopy)
+  {
+    v10 = 14;
+  }
+
+  else
+  {
+    v10 = 15;
+  }
+
+  [userInterfaceClient sendAsynchronousMessage:0 withIdentifier:v10 targetAccessQueue:0 completion:0];
+
+  if (stateCopy)
+  {
+    eventProcessor = [(GAXBackboard *)self eventProcessor];
+    [eventProcessor beginHandlingSystemEventsForReason:@"GAX Restricted"];
+LABEL_10:
+
+    goto LABEL_11;
+  }
+
+  if (*(v15 + 24) == 1)
+  {
+    eventProcessor = [(GAXBackboard *)self eventProcessor];
+    [eventProcessor endHandlingSystemEventsForReason:@"GAX Restricted"];
+    goto LABEL_10;
+  }
+
+LABEL_11:
+  _Block_object_dispose(&v14, 8);
+}
+
 - (void)effectiveAppDidBecomeInvalidWithAppManager:(id)manager
 {
   if ([(GAXBackboard *)self isInWorkspace])
@@ -4368,6 +4942,19 @@ LABEL_6:
   timeRestrictionHasExpired = [v2 timeRestrictionHasExpired];
 
   return timeRestrictionHasExpired;
+}
+
+- (void)_setTimeRestrictionHasExpired:(BOOL)expired
+{
+  expiredCopy = expired;
+  v5 = +[GAXSettings sharedInstance];
+  [v5 setTimeRestrictionHasExpired:expiredCopy];
+
+  eventProcessor = [(GAXBackboard *)self eventProcessor];
+  [eventProcessor setForceDisableLockButton:expiredCopy];
+
+  v7 = +[AXSpringBoardServer server];
+  [v7 gaxTimeRestrictionStatusDidChange];
 }
 
 - (void)timeDidExpireForTimeRestriction:(id)restriction
@@ -4772,7 +5359,7 @@ LABEL_6:
 
 - (void)homeClickSwallowedInSpringBoard
 {
-  [(GAXBackboard *)self gaxState];
+  objc_msgSend_gaxState(self, a2);
   v2 = GAXLogCommon();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -4801,7 +5388,7 @@ LABEL_6:
 {
   v3 = [NSMutableString stringWithString:@"\n************************************\n"];
   [v3 appendFormat:@"GAX Backboard: %p\n", self];
-  [(GAXBackboard *)self gaxState];
+  objc_msgSend_gaxState(self);
   v4 = gaxDebugDescriptionForGAXBackboardState(v8);
   [v3 appendString:v4];
 
@@ -5032,7 +5619,7 @@ LABEL_13:
 
   if (v46)
   {
-    [(GAXBackboard *)self gaxState];
+    objc_msgSend_gaxState(self);
     _passcode = [NSNumber numberWithUnsignedInt:(v60 >> 18) & 1];
     goto LABEL_40;
   }

@@ -20,9 +20,19 @@
 - (void)_setGridForecastError:(unint64_t)error;
 - (void)setGridForecastError:(id)error withSpecifier:(id)specifier;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HOHomeInternalSettingsController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(HOHomeInternalSettingsController *)self reloadSpecifiers];
+  v5.receiver = self;
+  v5.super_class = HOHomeInternalSettingsController;
+  [(HOHomeInternalSettingsController *)&v5 viewWillAppear:appearCopy];
+}
 
 - (id)specifiers
 {

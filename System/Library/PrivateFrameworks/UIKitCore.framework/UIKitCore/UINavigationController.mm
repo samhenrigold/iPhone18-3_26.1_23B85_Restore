@@ -109,6 +109,7 @@
 - (UIViewController)previousViewController;
 - (UIViewController)topViewController;
 - (UIViewController)visibleViewController;
+- (_BYTE)_setRequiresToolbarHiddenForFindAndReplace:(_BYTE *)result;
 - (double)_computeTopAvoidanceAreaForBar:(unint64_t)bar edge:(int)edge hidden:;
 - (double)_computeTopBarCenter:(int)center hidden:(unint64_t)hidden edge:(double)edge center:offset:minimumTopOffset:;
 - (double)_contentMarginForView:(id)view;
@@ -213,7 +214,6 @@
 - (int64_t)preferredInterfaceOrientationForPresentation;
 - (int64_t)preferredStatusBarStyle;
 - (int64_t)preferredTrafficLightStyle;
-- (uint64_t)_setRequiresToolbarHiddenForFindAndReplace:(uint64_t)result;
 - (unint64_t)_keyboardScreenEdgeForTransition:(int)transition;
 - (unint64_t)preferredScreenEdgesDeferringSystemGestures;
 - (unint64_t)supportedInterfaceOrientations;
@@ -2955,7 +2955,7 @@ void __98__UINavigationController__shouldSkipHostedRefreshControlUpdateSchedulin
   }
 
   *&self->_navigationControllerFlags = *&self->_navigationControllerFlags & 0xFFFFFEFFFFFFFFFFLL | v6;
-  if ((_UIInternalPreferenceUsesDefault(&_MergedGlobals_929, @"PositionBarsExclusivelyWithSafeArea", _UIInternalPreferenceUpdateBool) & 1) == 0 && !byte_1ED48AC5C)
+  if (!_UIInternalPreferenceUsesDefault(&_MergedGlobals_929, @"PositionBarsExclusivelyWithSafeArea", _UIInternalPreferenceUpdateBool) && !byte_1ED48AC5C)
   {
     goto LABEL_10;
   }
@@ -3741,7 +3741,7 @@ LABEL_9:
       v11 = _Block_copy(v45);
       if ([(UINavigationController *)self _transitionConflictsWithNavigationTransitions:_transitionCoordinator])
       {
-        if (!v4 && !+[UIViewController _shouldDeferTransitions]&& ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_NavigationControllerShouldImmediatelyApplyViewControllersWithConflictingTransition, @"NavigationControllerShouldImmediatelyApplyViewControllersWithConflictingTransition", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1EA95E284))
+        if (!v4 && !+[UIViewController _shouldDeferTransitions]&& (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_NavigationControllerShouldImmediatelyApplyViewControllersWithConflictingTransition, @"NavigationControllerShouldImmediatelyApplyViewControllersWithConflictingTransition", _UIInternalPreferenceUpdateBool) || byte_1EA95E284))
         {
           v8[2](v8, v10, 0);
           goto LABEL_37;
@@ -4266,7 +4266,7 @@ LABEL_7:
     v18 = _Block_copy(v41);
     if ([(UINavigationController *)self _transitionConflictsWithNavigationTransitions:_transitionCoordinator])
     {
-      if (!animatedCopy && !+[UIViewController _shouldDeferTransitions]&& ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_NavigationControllerShouldImmediatelyApplyViewControllersWithConflictingTransition, @"NavigationControllerShouldImmediatelyApplyViewControllersWithConflictingTransition", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1EA95E284))
+      if (!animatedCopy && !+[UIViewController _shouldDeferTransitions]&& (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_NavigationControllerShouldImmediatelyApplyViewControllersWithConflictingTransition, @"NavigationControllerShouldImmediatelyApplyViewControllersWithConflictingTransition", _UIInternalPreferenceUpdateBool) || byte_1EA95E284))
       {
         v16[2](v16);
         goto LABEL_37;
@@ -5528,7 +5528,7 @@ void __89__UINavigationController__immediatelyApplyViewControllers_transition_an
   [v2 updateStateFromCounterpart:v3];
 }
 
-uint64_t __89__UINavigationController__immediatelyApplyViewControllers_transition_animated_operation___block_invoke_5(uint64_t a1, void *a2)
+void *__89__UINavigationController__immediatelyApplyViewControllers_transition_animated_operation___block_invoke_5(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)
@@ -6345,7 +6345,7 @@ LABEL_18:
 LABEL_61:
 }
 
-uint64_t __70__UINavigationController__startToolbarTransitionIfNecessary_animated___block_invoke_2(uint64_t a1)
+void *__70__UINavigationController__startToolbarTransitionIfNecessary_animated___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) setItems:*(a1 + 40) animated:*(a1 + 56)];
   if (*(a1 + 57) == 1)
@@ -6359,19 +6359,19 @@ uint64_t __70__UINavigationController__startToolbarTransitionIfNecessary_animate
   return result;
 }
 
-uint64_t __70__UINavigationController__startToolbarTransitionIfNecessary_animated___block_invoke_3(uint64_t result)
+id *__70__UINavigationController__startToolbarTransitionIfNecessary_animated___block_invoke_3(id *result)
 {
   v1 = result;
   if (*(result + 72) == 1)
   {
-    result = [*(result + 32) _positionToolbarHidden:{objc_msgSend(*(result + 32), "isToolbarHidden")}];
+    result = [result[4] _positionToolbarHidden:{objc_msgSend(result[4], "isToolbarHidden")}];
   }
 
   if (*(v1 + 73) == 1)
   {
     if (*(v1 + 74) == 1)
     {
-      v2 = [*(v1 + 40) _appearanceHint];
+      v2 = [v1[5] _appearanceHint];
       if (v2 == 1)
       {
         v3 = 0.0;
@@ -6384,11 +6384,11 @@ uint64_t __70__UINavigationController__startToolbarTransitionIfNecessary_animate
 
       else
       {
-        [*(v1 + 40) _backgroundTransitionProgress];
+        [v1[5] _backgroundTransitionProgress];
         v7 = v4;
-        v5 = [*(v1 + 48) _viewControllerForObservableScrollView];
+        v5 = [v1[6] _viewControllerForObservableScrollView];
         v6 = [v5 _contentOrObservableScrollViewForEdge:4];
-        _UIBarsGetBottomBarBackgroundTransitionProgressForScrollView(v6, *(v1 + 40), &v7);
+        _UIBarsGetBottomBarBackgroundTransitionProgressForScrollView(v6, v1[5], &v7);
 
         v3 = v7;
       }
@@ -6396,10 +6396,10 @@ uint64_t __70__UINavigationController__startToolbarTransitionIfNecessary_animate
 
     else
     {
-      v3 = *(v1 + 64);
+      v3 = *(v1 + 8);
     }
 
-    return [*(v1 + 56) _setBackgroundTransitionProgress:v3];
+    return [v1[7] _setBackgroundTransitionProgress:v3];
   }
 
   return result;
@@ -6497,7 +6497,7 @@ uint64_t __70__UINavigationController__startToolbarTransitionIfNecessary_animate
 - (id)_traitOverridesForChildViewController:(id)controller
 {
   controllerCopy = controller;
-  if (((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_NavigationControllerShouldMaintainOverrideTraitCollectionForPoppingViewController, @"NavigationControllerShouldMaintainOverrideTraitCollectionForPoppingViewController", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1ED48AC44) && ([controllerCopy _departingParentViewController], v5 = objc_claimAutoreleasedReturnValue(), v5, v5 == self))
+  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_NavigationControllerShouldMaintainOverrideTraitCollectionForPoppingViewController, @"NavigationControllerShouldMaintainOverrideTraitCollectionForPoppingViewController", _UIInternalPreferenceUpdateBool) || byte_1ED48AC44) && ([controllerCopy _departingParentViewController], v5 = objc_claimAutoreleasedReturnValue(), v5, v5 == self))
   {
     v6 = self->_overrideTraitCollectionForPoppingViewControler;
   }
@@ -7557,11 +7557,11 @@ void __105__UINavigationController__repositionPaletteWithNavigationBarHidden_dur
   [v12 _computeAndApplyScrollContentInsetDeltaForViewController:v13];
 }
 
-uint64_t __105__UINavigationController__repositionPaletteWithNavigationBarHidden_duration_shouldUpdateNavigationItems___block_invoke_2(uint64_t result)
+void *__105__UINavigationController__repositionPaletteWithNavigationBarHidden_duration_shouldUpdateNavigationItems___block_invoke_2(void *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(*(result + 32) + 1136) _setPalettePinningBarHidden:0];
+    return [*(result[4] + 1136) _setPalettePinningBarHidden:0];
   }
 
   return result;
@@ -7648,7 +7648,7 @@ LABEL_9:
   [(UINavigationController *)self _repositionPaletteWithNavigationBarHidden:hiddenCopy duration:1 shouldUpdateNavigationItems:duration];
 }
 
-uint64_t __79__UINavigationController__setNavigationBarHidden_edgeIfNotNavigating_duration___block_invoke(uint64_t a1, void *a2)
+void *__79__UINavigationController__setNavigationBarHidden_edgeIfNotNavigating_duration___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)
@@ -8145,7 +8145,7 @@ LABEL_32:
   }
 }
 
-uint64_t __64__UINavigationController__setNavigationBarHidden_edge_duration___block_invoke(uint64_t a1)
+void *__64__UINavigationController__setNavigationBarHidden_edge_duration___block_invoke(uint64_t a1)
 {
   if ((*(a1 + 56) & 1) == 0)
   {
@@ -8969,7 +8969,7 @@ LABEL_115:
     {
       tabBar = [tabBar barTintColor];
       toolbar = [toolbar barTintColor];
-      if (![tabBar isEqual:toolbar])
+      if (!objc_msgSend_isEqual_(tabBar))
       {
         v19 = 0;
         goto LABEL_26;
@@ -9168,7 +9168,7 @@ LABEL_31:
             v76 = 0;
           }
 
-          v77 = +[UIColor blackColor];
+          v77 = objc_msgSend_blackColor(UIColor);
           [(UIView *)v76 setBackgroundColor:v77];
 
           [(UIView *)v76 setOpaque:1];
@@ -9498,7 +9498,7 @@ void __58__UINavigationController__setToolbarHidden_edge_duration___block_invoke
   [v1 layoutIfNeeded];
 }
 
-uint64_t __58__UINavigationController__setToolbarHidden_edge_duration___block_invoke_12(uint64_t a1)
+void *__58__UINavigationController__setToolbarHidden_edge_duration___block_invoke_12(uint64_t a1)
 {
   [*(*(a1 + 32) + 1016) setAutoresizingMask:0];
   result = [*(a1 + 32) _positionToolbarHidden:*(a1 + 48) edge:*(a1 + 40) crossFade:*(a1 + 49)];
@@ -9800,12 +9800,12 @@ LABEL_12:
   }
 }
 
-uint64_t __55__UINavigationController__navigationBarDidChangeStyle___block_invoke(uint64_t result)
+void *__55__UINavigationController__navigationBarDidChangeStyle___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (v1)
   {
-    [*(result + 32) setNeedsStatusBarAppearanceUpdate];
+    [*(result + 4) setNeedsStatusBarAppearanceUpdate];
     [v1 _setNeedsUserInterfaceAppearanceUpdate];
 
     return [v1 setNeedsWhitePointAdaptivityStyleUpdate];
@@ -10223,16 +10223,16 @@ LABEL_15:
 LABEL_6:
 }
 
-- (uint64_t)_setRequiresToolbarHiddenForFindAndReplace:(uint64_t)result
+- (_BYTE)_setRequiresToolbarHiddenForFindAndReplace:(_BYTE *)result
 {
   if (result)
   {
     v2 = result;
-    v3 = *(result + 1296);
+    v3 = result[1296];
     if (((((v3 & 0x40) == 0) ^ a2) & 1) == 0)
     {
       v4 = a2 ? 64 : 0;
-      *(result + 1296) = v3 & 0xBF | v4;
+      result[1296] = v3 & 0xBF | v4;
       result = _UIUnifiedToolbarEnabled();
       if (result)
       {
@@ -10412,11 +10412,11 @@ LABEL_6:
   return v8;
 }
 
-uint64_t __76__UINavigationController_allowedChildViewControllersForUnwindingFromSource___block_invoke(uint64_t result, uint64_t a2)
+id *__76__UINavigationController_allowedChildViewControllersForUnwindingFromSource___block_invoke(id *result, id a2)
 {
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
-    return [*(result + 40) addObject:a2];
+    return [result[5] addObject:a2];
   }
 
   return result;
@@ -11105,31 +11105,31 @@ void __69__UINavigationController__didEndTransitionFromView_toView_wasCustom___b
   [v6 setFrame:{v2, v3, v4, v5}];
 }
 
-uint64_t __69__UINavigationController__didEndTransitionFromView_toView_wasCustom___block_invoke_2(uint64_t result)
+id *__69__UINavigationController__didEndTransitionFromView_toView_wasCustom___block_invoke_2(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) didMoveToParentViewController:0];
+    return [result[4] didMoveToParentViewController:0];
   }
 
   return result;
 }
 
-uint64_t __69__UINavigationController__didEndTransitionFromView_toView_wasCustom___block_invoke_3(uint64_t result)
+id *__69__UINavigationController__didEndTransitionFromView_toView_wasCustom___block_invoke_3(id *result)
 {
   if (*(result + 48) == 1)
   {
-    return [*(result + 32) didMoveToParentViewController:*(result + 40)];
+    return [result[4] didMoveToParentViewController:result[5]];
   }
 
   return result;
 }
 
-uint64_t __69__UINavigationController__didEndTransitionFromView_toView_wasCustom___block_invoke_4(uint64_t result)
+id *__69__UINavigationController__didEndTransitionFromView_toView_wasCustom___block_invoke_4(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) didMoveToParentViewController:0];
+    return [result[4] didMoveToParentViewController:0];
   }
 
   return result;
@@ -11921,7 +11921,7 @@ LABEL_20:
   v49 = 0u;
   if (_outermostNavigationController)
   {
-    [(UINavigationController *)_outermostNavigationController _calculateTopLayoutInfoForViewController:controllerCopy];
+    objc_msgSend__calculateTopLayoutInfoForViewController_(_outermostNavigationController);
     v9 = *&v48;
   }
 
@@ -12155,7 +12155,7 @@ LABEL_16:
   v55 = 0;
   v53 = 0u;
   v54 = 0u;
-  [(UINavigationController *)self _calculateTopLayoutInfoForViewController:controllerCopy];
+  objc_msgSend__calculateTopLayoutInfoForViewController_(self);
   _viewControllerUnderlapsStatusBar = [(UINavigationController *)self _viewControllerUnderlapsStatusBar];
   v15 = controllerCopy;
   navigationBar = [(UINavigationController *)self navigationBar];
@@ -12400,7 +12400,7 @@ LABEL_28:
   _outermostNavigationController2 = [(UINavigationController *)self _outermostNavigationController];
   _isNavigationBarVisible = [_outermostNavigationController2 _isNavigationBarVisible];
 
-  [(UINavigationController *)self _calculateTopLayoutInfoForViewController:controllerCopy, 0, 0];
+  objc_msgSend__calculateTopLayoutInfoForViewController_(self, 0, 0);
   v9 = _isNavigationBarVisible ^ 1;
   if ((extendedLayoutIncludesOpaqueBars & 1) != 0 || v9)
   {
@@ -13118,7 +13118,7 @@ LABEL_10:
   }
 }
 
-uint64_t __114__UINavigationController__updateTopViewFramesToMatchScrollOffsetInViewController_contentScrollView_topLayoutType___block_invoke(uint64_t a1)
+void *__114__UINavigationController__updateTopViewFramesToMatchScrollOffsetInViewController_contentScrollView_topLayoutType___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 1000);
@@ -15539,9 +15539,9 @@ LABEL_23:
 - (id)valueForUndefinedKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"__cachedTransitionController"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
-    UIKVCAccessProhibited(keyCopy, @"UINavigationController");
+    UIKVCAccessProhibited(keyCopy, @"UINavigationController", 983040);
 
     v5 = 0;
   }
@@ -16048,7 +16048,7 @@ LABEL_11:
     goto LABEL_15;
   }
 
-  if (sel__performBackKeyCommand_ != action || ![senderCopy isEqual:self->_backKeyCommand])
+  if (sel__performBackKeyCommand_ != action || !objc_msgSend_isEqual_(senderCopy))
   {
     if (sel_rename_ == action)
     {
@@ -17273,7 +17273,7 @@ LABEL_6:
       v7 = *(__UILogGetCategoryCachedImpl("Assert", &_UIInternalPreference_ForcePositionBarsExclusivelyWithSafeArea_block_invoke_2___s_category) + 8);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        *v16 = 0;
+        v16[0] = 0;
         _os_log_impl(&dword_188A29000, v7, OS_LOG_TYPE_ERROR, "Tried to pop to a view controller that doesn't exist.", v16, 2u);
       }
     }
@@ -17352,7 +17352,7 @@ LABEL_7:
 
       view3 = [controllerCopy view];
       [superview bounds];
-      v8 = [(UIViewControllerWrapperView *)v12 wrapperViewForView:v13 frame:v14, v15, UIViewControllerWrapperView, view3];
+      v8 = [UIViewControllerWrapperView wrapperViewForView:view3 frame:v12, v13, v14, v15];
 
       [v8 setAutoresizingMask:18];
       view4 = [controllerCopy view];
@@ -17615,7 +17615,7 @@ LABEL_10:
   [(UIViewController *)&v9 viewWillTransitionToSize:coordinatorCopy withTransitionCoordinator:width, height];
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
     if (!CGAffineTransformIsIdentity(&v10))
     {
       [(UINavigationController *)self _stopTransitionsImmediately];
@@ -17637,7 +17637,7 @@ LABEL_10:
   {
     traitCollection = [(UIViewController *)self traitCollection];
     userInterfaceStyle = [collectionCopy userInterfaceStyle];
-    if (userInterfaceStyle == [traitCollection userInterfaceStyle] || (objc_msgSend(traitCollection, "_traitCollectionByReplacingNSIntegerValue:forTraitToken:", 0, 0x1EFE323B0), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(collectionCopy, "_traitCollectionByReplacingNSIntegerValue:forTraitToken:", 0, 0x1EFE323B0), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqual:", v11), v11, v10, (v12 & 1) == 0))
+    if (userInterfaceStyle == [traitCollection userInterfaceStyle] || (objc_msgSend(traitCollection, "_traitCollectionByReplacingNSIntegerValue:forTraitToken:", 0, 0x1EFE323B0), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(collectionCopy, "_traitCollectionByReplacingNSIntegerValue:forTraitToken:", 0, 0x1EFE323B0), v11 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v10), v11, v10, (isEqual & 1) == 0))
     {
       v14[0] = MEMORY[0x1E69E9820];
       v14[1] = 3221225472;
@@ -20790,7 +20790,7 @@ LABEL_47:
       fromViewController = [contextCopy fromViewController];
       if ((*&self->_navigationControllerFlags & 0xF0) == 0x20 || (*&self->_navigationControllerFlags & 0x4000000000000) != 0)
       {
-        if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_NavigationControllerShouldMaintainOverrideTraitCollectionForPoppingViewController, @"NavigationControllerShouldMaintainOverrideTraitCollectionForPoppingViewController", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1ED48AC44)
+        if (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_NavigationControllerShouldMaintainOverrideTraitCollectionForPoppingViewController, @"NavigationControllerShouldMaintainOverrideTraitCollectionForPoppingViewController", _UIInternalPreferenceUpdateBool) || byte_1ED48AC44)
         {
           v11 = [(UIViewController *)self overrideTraitCollectionForChildViewController:fromViewController];
           overrideTraitCollectionForPoppingViewControler = self->_overrideTraitCollectionForPoppingViewControler;
@@ -22456,7 +22456,7 @@ uint64_t __82__UINavigationController__UIPalette___startPaletteTransitionIfNeces
   return [*(*(a1 + 32) + 1136) setFrame:{v3, MaxY, v4, v5}];
 }
 
-uint64_t __82__UINavigationController__UIPalette___startPaletteTransitionIfNecessary_animated___block_invoke_3(double *a1, void *a2)
+void *__82__UINavigationController__UIPalette___startPaletteTransitionIfNecessary_animated___block_invoke_3(double *a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)

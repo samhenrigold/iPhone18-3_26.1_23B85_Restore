@@ -442,7 +442,6 @@ LABEL_13:
   v10 = 0;
 LABEL_14:
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v10;
 
   return v3;
@@ -543,8 +542,6 @@ LABEL_14:
     objc_destroyWeak(&v25);
     objc_destroyWeak(&from);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__SUSUICommandLineToolClient__connectToServerIfNecessary__block_invoke(uint64_t a1)
@@ -570,9 +567,7 @@ uint64_t __57__SUSUICommandLineToolClient__connectToServerIfNecessary__block_inv
   }
 
   objc_storeStrong(oslog, 0);
-  result = (*(a1[4].isa + 2))();
-  *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[4].isa + 2))();
 }
 
 - (void)_noteConnectionDropped
@@ -589,7 +584,6 @@ uint64_t __57__SUSUICommandLineToolClient__connectToServerIfNecessary__block_inv
 
   objc_storeStrong(oslog, 0);
   selfCopy->_connected = 0;
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)getDDMAlertStatus:(id)status

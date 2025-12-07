@@ -62,12 +62,12 @@
 
 + (id)plainTextDataReplyWithFileURL:(id)l reportType:(id)type
 {
-  v4 = *(*(sub_100002C94() - 8) + 64);
-  (__chkstk_darwin)();
+  v4 = sub_100002C94();
+  __chkstk_darwin(v4 - 8);
   v5 = sub_100002C54();
   v6 = *(v5 - 8);
   v7 = *(v6 + 64);
-  v8 = (__chkstk_darwin)();
+  v8 = __chkstk_darwin(v5);
   v9 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
   v11 = &v16 - v10;

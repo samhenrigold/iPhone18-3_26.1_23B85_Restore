@@ -9,9 +9,9 @@
 - (id)ss_dataWithFileFormat:()SSImageSurface addProperties:imageDescription:;
 - (id)ss_heicDataWithImageDescription:()SSImageSurface;
 - (id)ss_pngDataWithImageDescription:()SSImageSurface;
-- (uint64_t)ss_hdrSurfaceCGImage;
-- (uint64_t)ss_sdrSurfaceCGImage;
+- (void)ss_hdrSurfaceCGImage;
 - (void)ss_imageSurfaceFromImage;
+- (void)ss_sdrSurfaceCGImage;
 @end
 
 @implementation UIImage(SSImageSurface)
@@ -97,24 +97,24 @@
 
 - (__CFData)ss_ioSurfaceImageData
 {
-  v42[5] = *MEMORY[0x1E69E9840];
+  v43[5] = *MEMORY[0x1E69E9840];
   sdrSurface = [self sdrSurface];
   hdrSurface = [self hdrSurface];
   if (sdrSurface | hdrSurface)
   {
     v4 = hdrSurface;
-    v5 = _SSSignpostLog();
+    v5 = _SSSignpostLog(hdrSurface);
     if (os_signpost_enabled(v5))
     {
-      *v38 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1D9E04000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "EncodeScreenshotImageData", &unk_1D9E28D6F, v38, 2u);
+      *v39 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1D9E04000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "EncodeScreenshotImageData", &unk_1D9E28D6F, v39, 2u);
     }
 
     v6 = os_log_create("com.apple.screenshotservices", "Performance");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v38 = 0;
-      _os_log_impl(&dword_1D9E04000, v6, OS_LOG_TYPE_INFO, "BEGIN EncodeScreenshotImageData", v38, 2u);
+      *v39 = 0;
+      _os_log_impl(&dword_1D9E04000, v6, OS_LOG_TYPE_INFO, "BEGIN EncodeScreenshotImageData", v39, 2u);
     }
 
     isHighDynamicRange = [self isHighDynamicRange];
@@ -157,21 +157,21 @@
       v15 = CGImageCreateFromIOSurface();
       v16 = [v14 mutableCopy];
       v17 = *MEMORY[0x1E696D200];
-      v41[0] = *MEMORY[0x1E696D300];
-      v41[1] = v17;
-      v42[0] = MEMORY[0x1E695E118];
-      v42[1] = MEMORY[0x1E695E118];
-      v41[2] = *MEMORY[0x1E696D2E0];
+      v42[0] = *MEMORY[0x1E696D300];
+      v42[1] = v17;
+      v43[0] = MEMORY[0x1E695E118];
+      v43[1] = MEMORY[0x1E695E118];
+      v42[2] = *MEMORY[0x1E696D2E0];
       v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:2019963956];
       v19 = *MEMORY[0x1E696D2D8];
       v20 = *MEMORY[0x1E695F0B8];
-      v42[2] = v18;
-      v42[3] = v20;
+      v43[2] = v18;
+      v43[3] = v20;
       v21 = *MEMORY[0x1E696D338];
-      v41[3] = v19;
-      v41[4] = v21;
-      v42[4] = &unk_1F555C1F0;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:5];
+      v42[3] = v19;
+      v42[4] = v21;
+      v43[4] = &unk_1F555C1F0;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:5];
       v23 = *MEMORY[0x1E696D310];
       [v16 setObject:v22 forKeyedSubscript:*MEMORY[0x1E696D310]];
 
@@ -181,22 +181,22 @@
       v25 = [v14 mutableCopy];
       [v25 setObject:*MEMORY[0x1E696D318] forKeyedSubscript:*MEMORY[0x1E696D308]];
       v26 = *MEMORY[0x1E696D2F8];
-      v40[0] = MEMORY[0x1E695E118];
+      v41[0] = MEMORY[0x1E695E118];
       v27 = *MEMORY[0x1E696D2E8];
-      v39[0] = v26;
-      v39[1] = v27;
+      v40[0] = v26;
+      v40[1] = v27;
       v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:2019963956];
       v29 = *MEMORY[0x1E696D2F0];
-      v40[1] = v28;
-      v40[2] = &unk_1F555C210;
+      v41[1] = v28;
+      v41[2] = &unk_1F555C210;
       v30 = *MEMORY[0x1E696D2D0];
-      v39[2] = v29;
-      v39[3] = v30;
+      v40[2] = v29;
+      v40[3] = v30;
       v31 = *MEMORY[0x1E695F0C8];
-      v39[4] = v21;
-      v40[3] = v31;
-      v40[4] = &unk_1F555C1F0;
-      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:5];
+      v40[4] = v21;
+      v41[3] = v31;
+      v41[4] = &unk_1F555C1F0;
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:5];
       [v25 setObject:v32 forKeyedSubscript:v23];
 
       CGImageDestinationAddImage(v12, v24, v25);
@@ -222,18 +222,18 @@
     }
 
     CFRelease(v12);
-    v35 = _SSSignpostLog();
-    if (os_signpost_enabled(v35))
+    v36 = _SSSignpostLog(v35);
+    if (os_signpost_enabled(v36))
     {
-      *v38 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1D9E04000, v35, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "EncodeScreenshotImageData", &unk_1D9E28D6F, v38, 2u);
+      *v39 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1D9E04000, v36, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "EncodeScreenshotImageData", &unk_1D9E28D6F, v39, 2u);
     }
 
-    v36 = os_log_create("com.apple.screenshotservices", "Performance");
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+    v37 = os_log_create("com.apple.screenshotservices", "Performance");
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
-      *v38 = 0;
-      _os_log_impl(&dword_1D9E04000, v36, OS_LOG_TYPE_INFO, "END EncodeScreenshotImageData", v38, 2u);
+      *v39 = 0;
+      _os_log_impl(&dword_1D9E04000, v37, OS_LOG_TYPE_INFO, "END EncodeScreenshotImageData", v39, 2u);
     }
   }
 
@@ -327,7 +327,7 @@
   return v7;
 }
 
-- (uint64_t)ss_hdrSurfaceCGImage
+- (void)ss_hdrSurfaceCGImage
 {
   result = [self hdrSurface];
   if (result)
@@ -339,7 +339,7 @@
   return result;
 }
 
-- (uint64_t)ss_sdrSurfaceCGImage
+- (void)ss_sdrSurfaceCGImage
 {
   result = [self sdrSurface];
   if (result)

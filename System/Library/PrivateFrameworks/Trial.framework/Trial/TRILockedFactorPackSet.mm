@@ -107,60 +107,8 @@ LABEL_4:
 {
   setCopy = set;
   v5 = setCopy;
-  if (!setCopy)
+  if (!setCopy || (v6 = self->_factorPackSetId == 0, [setCopy factorPackSetId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (factorPackSetId = self->_factorPackSetId) != 0 && (objc_msgSend(v5, "factorPackSetId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[TRIFactorPackSetId isEqual:](factorPackSetId, "isEqual:", v10), v10, !v11) || (v12 = self->_path == 0, objc_msgSend(v5, "path"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (path = self->_path) != 0 && (objc_msgSend(v5, "path"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](path, "isEqual:", v16), v16, !v17) || (v18 = self->_lock == 0, objc_msgSend(v5, "lock"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20))
   {
-    goto LABEL_11;
-  }
-
-  v6 = self->_factorPackSetId == 0;
-  factorPackSetId = [setCopy factorPackSetId];
-  v8 = factorPackSetId != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_11;
-  }
-
-  factorPackSetId = self->_factorPackSetId;
-  if (factorPackSetId)
-  {
-    factorPackSetId2 = [v5 factorPackSetId];
-    v11 = [(TRIFactorPackSetId *)factorPackSetId isEqual:factorPackSetId2];
-
-    if (!v11)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v12 = self->_path == 0;
-  path = [v5 path];
-  v14 = path != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_11;
-  }
-
-  path = self->_path;
-  if (path)
-  {
-    path2 = [v5 path];
-    v17 = [(NSString *)path isEqual:path2];
-
-    if (!v17)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v18 = self->_lock == 0;
-  lock = [v5 lock];
-  v20 = lock != 0;
-
-  if (v18 == v20)
-  {
-LABEL_11:
     v23 = 0;
   }
 
@@ -169,8 +117,8 @@ LABEL_11:
     lock = self->_lock;
     if (lock)
     {
-      lock2 = [v5 lock];
-      v23 = [(TRIReferenceManagedDirReaderLock *)lock isEqual:lock2];
+      lock = [v5 lock];
+      v23 = [(TRIReferenceManagedDirReaderLock *)lock isEqual:lock];
     }
 
     else

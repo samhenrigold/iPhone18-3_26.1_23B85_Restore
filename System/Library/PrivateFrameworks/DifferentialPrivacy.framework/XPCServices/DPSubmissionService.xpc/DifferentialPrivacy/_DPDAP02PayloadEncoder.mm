@@ -4,6 +4,7 @@
 - (BOOL)encodeReportMetadataWithError:(id *)error;
 - (_DPDAP02PayloadEncoder)initWithDonation:(id)donation keys:(id)keys error:(id *)error;
 - (id)encodedAdditionalDataWithError:(id *)error;
+- (id)encodedPlaintextInputShareForServerRole:(unsigned __int8)role error:(id *)error;
 - (id)encodedReportWithError:(id *)error;
 @end
 
@@ -156,6 +157,25 @@ LABEL_14:
   }
 
   return buffer;
+}
+
+- (id)encodedPlaintextInputShareForServerRole:(unsigned __int8)role error:(id *)error
+{
+  roleCopy = role;
+  v5 = [(_DPDAPPayloadEncoder *)self donation:role];
+  v6 = v5;
+  if (roleCopy == 2)
+  {
+    [v5 share1];
+  }
+
+  else
+  {
+    [v5 share2];
+  }
+  v7 = ;
+
+  return v7;
 }
 
 - (BOOL)encodeExtensionsWithError:(id *)error

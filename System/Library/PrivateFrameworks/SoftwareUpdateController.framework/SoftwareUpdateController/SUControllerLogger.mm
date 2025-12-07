@@ -52,10 +52,10 @@ uint64_t __34__SUControllerLogger_sharedLogger__block_invoke()
 
 - (void)logAtLevel:(int64_t)level label:(const char *)label format:(id)format
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CCACA8];
   formatCopy = format;
-  v10 = [[v8 alloc] initWithFormat:formatCopy arguments:&v22];
+  v10 = [[v8 alloc] initWithFormat:formatCopy arguments:&v21];
 
   if (level == 1)
   {
@@ -67,8 +67,8 @@ uint64_t __34__SUControllerLogger_sharedLogger__block_invoke()
 
     *buf = 136446466;
     labelCopy2 = label;
-    v19 = 2114;
-    v20 = v10;
+    v18 = 2114;
+    v19 = v10;
     v13 = logNotice;
     v14 = OS_LOG_TYPE_DEFAULT;
 LABEL_9:
@@ -86,8 +86,8 @@ LABEL_9:
 
     *buf = 136446466;
     labelCopy2 = label;
-    v19 = 2114;
-    v20 = v10;
+    v18 = 2114;
+    v19 = v10;
     v13 = logInfo;
     v14 = OS_LOG_TYPE_INFO;
     goto LABEL_9;
@@ -100,19 +100,16 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logAtLevel:(uint64_t)a1 label:(uint64_t)a2 format:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 136446466;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_26AB15000, log, OS_LOG_TYPE_ERROR, "%{public}s: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 136446466;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_26AB15000, log, OS_LOG_TYPE_ERROR, "%{public}s: %{public}@", &v3, 0x16u);
 }
 
 @end

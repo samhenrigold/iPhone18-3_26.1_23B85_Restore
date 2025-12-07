@@ -12,15 +12,15 @@
 
 - (HFServiceLikeItemUpdateRequest)initWithService:(id)service valueSource:(id)source characteristics:(id)characteristics
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   sourceCopy = source;
   characteristicsCopy = characteristics;
   if (serviceCopy && sourceCopy)
   {
-    v18.receiver = self;
-    v18.super_class = HFServiceLikeItemUpdateRequest;
-    v12 = [(HFServiceLikeItemUpdateRequest *)&v18 init];
+    v17.receiver = self;
+    v17.super_class = HFServiceLikeItemUpdateRequest;
+    v12 = [(HFServiceLikeItemUpdateRequest *)&v17 init];
     p_isa = &v12->super.isa;
     if (v12)
     {
@@ -39,30 +39,29 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v20 = serviceCopy;
-      v21 = 2112;
-      v22 = sourceCopy;
+      v19 = serviceCopy;
+      v20 = 2112;
+      v21 = sourceCopy;
       _os_log_error_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_ERROR, "HFServiceLikeItemUpdateRequest cannot init with nil service %@ or nil valueSource %@", buf, 0x16u);
     }
 
     selfCopy = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (HFServiceLikeItemUpdateRequest)initWithAccessory:(id)accessory valueSource:(id)source characteristics:(id)characteristics
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   sourceCopy = source;
   characteristicsCopy = characteristics;
   if (accessoryCopy && sourceCopy)
   {
-    v20.receiver = self;
-    v20.super_class = HFServiceLikeItemUpdateRequest;
-    v12 = [(HFServiceLikeItemUpdateRequest *)&v20 init];
+    v19.receiver = self;
+    v19.super_class = HFServiceLikeItemUpdateRequest;
+    v12 = [(HFServiceLikeItemUpdateRequest *)&v19 init];
     v13 = v12;
     if (v12)
     {
@@ -92,16 +91,15 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v22 = accessoryCopy;
-      v23 = 2112;
-      v24 = sourceCopy;
+      v21 = accessoryCopy;
+      v22 = 2112;
+      v23 = sourceCopy;
       _os_log_error_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_ERROR, "HFServiceLikeItemUpdateRequest cannot init with nil accessory %@ or nil valueSource %@", buf, 0x16u);
     }
 
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -124,8 +122,8 @@
 
   else
   {
-    service = [(HFServiceLikeItemUpdateRequest *)self service];
-    accessory = [service accessory];
+    v4 = objc_msgSend_service(self, a2);
+    accessory = [v4 accessory];
   }
 
   return accessory;
@@ -133,23 +131,23 @@
 
 - (id)updateWithOptions:(id)options
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   characteristics = [(HFServiceLikeItemUpdateRequest *)self characteristics];
   v6 = [characteristics mutableCopy];
 
-  service = [(HFServiceLikeItemUpdateRequest *)self service];
+  v7 = objc_msgSend_service(self);
 
-  if (service)
+  if (v7)
   {
-    service2 = [(HFServiceLikeItemUpdateRequest *)self service];
-    hf_requiredCharacteristicTypesForDisplayMetadata = [service2 hf_requiredCharacteristicTypesForDisplayMetadata];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __52__HFServiceLikeItemUpdateRequest_updateWithOptions___block_invoke;
-    v29[3] = &unk_277DFD7C8;
-    v29[4] = self;
-    v10 = [hf_requiredCharacteristicTypesForDisplayMetadata na_map:v29];
+    v8 = objc_msgSend_service(self);
+    hf_requiredCharacteristicTypesForDisplayMetadata = [v8 hf_requiredCharacteristicTypesForDisplayMetadata];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __52__HFServiceLikeItemUpdateRequest_updateWithOptions___block_invoke;
+    v28[3] = &unk_277DFD7C8;
+    v28[4] = self;
+    v10 = [hf_requiredCharacteristicTypesForDisplayMetadata na_map:v28];
     [v6 unionSet:v10];
   }
 
@@ -167,21 +165,19 @@
 
   valueSource2 = [(HFServiceLikeItemUpdateRequest *)self valueSource];
   v20 = [valueSource2 readValuesForCharacteristics:v6];
-  v30[0] = v20;
-  v30[1] = v18;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+  v29[0] = v20;
+  v29[1] = v18;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
 
   v22 = [MEMORY[0x277D2C900] combineAllFutures:v21];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __52__HFServiceLikeItemUpdateRequest_updateWithOptions___block_invoke_3;
-  v27[3] = &unk_277DFCDF8;
-  v27[4] = self;
-  v28 = optionsCopy;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __52__HFServiceLikeItemUpdateRequest_updateWithOptions___block_invoke_3;
+  v26[3] = &unk_277DFCDF8;
+  v26[4] = self;
+  v27 = optionsCopy;
   v23 = optionsCopy;
-  v24 = [v22 flatMap:v27];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = [v22 flatMap:v26];
 
   return v24;
 }
@@ -190,7 +186,7 @@ id __52__HFServiceLikeItemUpdateRequest_updateWithOptions___block_invoke(uint64_
 {
   v2 = *(a1 + 32);
   v3 = a2;
-  v4 = [v2 service];
+  v4 = objc_msgSend_service(v2);
   v5 = [v4 hf_characteristicOfType:v3];
 
   return v5;
@@ -213,12 +209,12 @@ id __52__HFServiceLikeItemUpdateRequest_updateWithOptions___block_invoke_3(uint6
 - (id)_displayMetadataForReadResponse:(id)response
 {
   responseCopy = response;
-  service = [(HFServiceLikeItemUpdateRequest *)self service];
+  v5 = objc_msgSend_service(self);
 
-  if (service)
+  if (v5)
   {
-    service2 = [(HFServiceLikeItemUpdateRequest *)self service];
-    v7 = [HFCharacteristicValueDisplayMetadata displayMetadataForService:service2 characteristicReadResponse:responseCopy];
+    v6 = objc_msgSend_service(self);
+    v7 = [HFCharacteristicValueDisplayMetadata displayMetadataForService:v6 characteristicReadResponse:responseCopy];
   }
 
   else
@@ -262,7 +258,7 @@ id __66__HFServiceLikeItemUpdateRequest__displayMetadataForReadResponse___block_
   else
   {
     v5 = [v4 accessory];
-    [v5 home];
+    objc_msgSend_home(v5);
   }
   v6 = ;
 
@@ -275,9 +271,9 @@ id __66__HFServiceLikeItemUpdateRequest__displayMetadataForReadResponse___block_
   resultsCopy = results;
   metadataCopy = metadata;
   responseCopy = response;
-  service = [(HFServiceLikeItemUpdateRequest *)self service];
-  accessory = service;
-  if (!service)
+  v14 = objc_msgSend_service(self);
+  accessory = v14;
+  if (!v14)
   {
     accessory = [(HFServiceLikeItemUpdateRequest *)self accessory];
   }
@@ -286,7 +282,7 @@ id __66__HFServiceLikeItemUpdateRequest__displayMetadataForReadResponse___block_
   valueSource = [(HFServiceLikeItemUpdateRequest *)self valueSource];
   v18 = [HFServiceLikeItemResultFactory populateStandardResultsForHomeKitObject:accessory withBackingAccessory:accessory2 displayMetadata:metadataCopy readResponse:responseCopy batteryLevelResults:resultsCopy valueSource:valueSource updateOptions:optionsCopy];
 
-  if (!service)
+  if (!v14)
   {
   }
 

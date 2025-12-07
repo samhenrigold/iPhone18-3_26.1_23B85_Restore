@@ -6,12 +6,12 @@
 
 - (BKMotionDetectStateInfo)initWithMotionMatrix:(id)matrix motionDetectState:(id)state
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   matrixCopy = matrix;
   stateCopy = state;
-  v16.receiver = self;
-  v16.super_class = BKMotionDetectStateInfo;
-  v9 = [(BKMotionDetectStateInfo *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = BKMotionDetectStateInfo;
+  v9 = [(BKMotionDetectStateInfo *)&v15 init];
   v10 = v9;
   if (!v9)
   {
@@ -39,27 +39,27 @@ LABEL_8:
   {
     if (__osLog)
     {
-      v15 = __osLog;
+      v14 = __osLog;
     }
 
     else
     {
-      v15 = MEMORY[0x1E69E9C10];
+      v14 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v18 = "0";
-      v19 = 2048;
-      v20 = 0;
-      v21 = 2080;
-      v22 = &unk_1C82F52EE;
-      v23 = 2080;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BKDevicePearl.m";
-      v25 = 1024;
-      v26 = 326;
-      _os_log_impl(&dword_1C82AD000, v15, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+      v17 = "0";
+      v18 = 2048;
+      v19 = 0;
+      v20 = 2080;
+      v21 = &unk_1C82F52EE;
+      v22 = 2080;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/BiometricKit/BiometricKit/BKDevicePearl.m";
+      v24 = 1024;
+      v25 = 326;
+      _os_log_impl(&dword_1C82AD000, v14, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
     }
   }
 
@@ -70,7 +70,6 @@ LABEL_8:
 
 LABEL_9:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -89,25 +89,25 @@
 
 - (id)collectionsAndFoldersContainingShortcut:(id)shortcut error:(id *)error
 {
-  sub_1CA94C3A8();
+  v5 = sub_1CA94C3A8();
   selfCopy = self;
-  Library.collectionsAndFoldersContaining(shortcut:)();
+  Library.collectionsAndFoldersContaining(shortcut:)(v5);
 
   sub_1CA27E37C();
-  v6 = sub_1CA94C648();
+  v7 = sub_1CA94C648();
 
-  return v6;
+  return v7;
 }
 
 - (id)collectionAndFolderIdentifiersContainingShortcut:(id)shortcut error:(id *)error
 {
-  sub_1CA94C3A8();
+  v5 = sub_1CA94C3A8();
   selfCopy = self;
-  Library.collectionAndFolderIdentifiersContaining(shortcut:)();
+  Library.collectionAndFolderIdentifiersContaining(shortcut:)(v5);
 
-  v6 = sub_1CA94C8E8();
+  v7 = sub_1CA94C8E8();
 
-  return v6;
+  return v7;
 }
 
 - (id)shortcutsInCategoryWithIdentifier:(id)identifier
@@ -197,12 +197,11 @@
 {
   v3 = sub_1CA948BA8();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CA948B68();
   static Library.setSharedContextURL(_:)();
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
 }
 
 - (WFLibrary)initWithIdentifier:(id)identifier data:(id)data

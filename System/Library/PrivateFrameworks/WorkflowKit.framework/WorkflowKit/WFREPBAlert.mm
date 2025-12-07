@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)preferredStyleAsString:(int)string;
 - (int)StringAsPreferredStyle:(id)style;
 - (int)preferredStyle;
 - (unint64_t)hash;
@@ -16,7 +17,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 4))
   {
@@ -28,29 +29,29 @@
     [(WFREPBAlert *)self setMessage:?];
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = *(fromCopy + 1);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(WFREPBAlert *)self addButtons:*(*(&v11 + 1) + 8 * i), v11];
+        [(WFREPBAlert *)self addButtons:*(*(&v10 + 1) + 8 * i), v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -61,8 +62,6 @@
     self->_preferredStyle = *(fromCopy + 6);
     *&self->_has |= 1u;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -138,7 +137,7 @@ LABEL_13:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_title copyWithZone:zone];
   v7 = *(v5 + 32);
@@ -148,34 +147,34 @@ LABEL_13:
   v9 = *(v5 + 16);
   *(v5 + 16) = v8;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = self->_buttons;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       v14 = 0;
       do
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v18 + 1) + 8 * v14) copyWithZone:{zone, v18}];
+        v15 = [*(*(&v17 + 1) + 8 * v14) copyWithZone:{zone, v17}];
         [v5 addButtons:v15];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
@@ -187,7 +186,6 @@ LABEL_13:
     *(v5 + 40) |= 1u;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -228,7 +226,7 @@ LABEL_13:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_title)
   {
@@ -240,33 +238,32 @@ LABEL_13:
     PBDataWriterWriteStringField();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_buttons;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -274,16 +271,13 @@ LABEL_13:
 
   if (*&self->_has)
   {
-    preferredStyle = self->_preferredStyle;
     PBDataWriterWriteInt32Field();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   title = self->_title;
@@ -301,30 +295,30 @@ LABEL_13:
   if ([(NSMutableArray *)self->_buttons count])
   {
     v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_buttons, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = self->_buttons;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
           [v7 addObject:dictionaryRepresentation];
         }
 
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -354,8 +348,6 @@ LABEL_13:
     [v4 setObject:v15 forKey:@"preferredStyle"];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
@@ -375,9 +367,9 @@ LABEL_13:
 {
   styleCopy = style;
   v4 = 1;
-  if (([styleCopy isEqualToString:@"Alert"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(styleCopy) & 1) == 0)
   {
-    if ([styleCopy isEqualToString:@"Sheet"])
+    if (objc_msgSend_isEqualToString_(styleCopy))
     {
       v4 = 2;
     }
@@ -386,6 +378,26 @@ LABEL_13:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)preferredStyleAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"Alert";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"Sheet";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

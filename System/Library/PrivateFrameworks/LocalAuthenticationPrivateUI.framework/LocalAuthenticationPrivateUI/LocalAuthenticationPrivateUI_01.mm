@@ -322,22 +322,23 @@ uint64_t anonymous namespace::coplanar_ring_updater<false>::function(float32x4_t
   return 0;
 }
 
-BOOL LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::set_target<LAUI_uniform_cubic_b_spline_renderer::animation_target_t<simd::quatf>>(uint64_t a1, float32x4_t *a2, int a3)
+BOOL LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::set_target<LAUI_uniform_cubic_b_spline_renderer::animation_target_t<simd::quatf>>(uint64_t a1, float32x4_t *a2, uint64_t a3)
 {
+  v3 = a3;
   if (*(a1 + 88))
   {
     std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,std::unique_ptr<LAUI_uniform_cubic_b_spline_renderer::animation_target_t<simd::quatf>>,std::unique_ptr<LAUI_uniform_cubic_b_spline_renderer::animation_timing_t>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1 + 80);
     *(a1 + 88) = 0;
   }
 
-  f32 = a2[1].f32;
+  v6 = a2 + 1;
   v8 = vmulq_f32(*a1, *a2);
   *v8.f32 = vadd_f32(*v8.f32, *&vextq_s8(v8, v8, 8uLL));
   v7 = vaddv_f32(*v8.f32);
   v8.i32[0] = 1.0;
   if (v7 == 1.0)
   {
-    LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::set_timing(a1, f32, a3, v8);
+    LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::set_timing(a1, v6, v3, v8);
   }
 
   else
@@ -348,7 +349,7 @@ BOOL LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_
       operator new();
     }
 
-    *v13 = *f32;
+    *v13 = *v6;
     *&v13[16] = a2[2].i64[0];
     *&v13[24] = 0;
     LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::_set_timing(a1, v13, *v13);
@@ -373,25 +374,25 @@ BOOL LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_
   return v7 != 1.0;
 }
 
-void LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::set_timing(uint64_t a1, uint64_t a2, int a3, float32x4_t a4)
+void LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::set_timing(float32x4_t *result, float32x4_t *a2, int a3, float32x4_t a4)
 {
-  if (*(a1 + 88))
+  if (result[5].i32[2])
   {
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,std::unique_ptr<LAUI_uniform_cubic_b_spline_renderer::animation_target_t<simd::quatf>>,std::unique_ptr<LAUI_uniform_cubic_b_spline_renderer::animation_timing_t>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](a1 + 80);
-    *(a1 + 88) = 0;
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,std::unique_ptr<LAUI_uniform_cubic_b_spline_renderer::animation_target_t<simd::quatf>>,std::unique_ptr<LAUI_uniform_cubic_b_spline_renderer::animation_timing_t>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&result[5]);
+    result[5].i32[2] = 0;
   }
 
   if (a3)
   {
-    v7 = *(a1 + 32);
+    v7 = result[2].f32[0];
     if (v7 > 0.0)
     {
-      if ((v8 = *(a1 + 40), a4.f32[0] = v7 - v8, v9 = *(a1 + 36) - v8, v10 = *(a2 + 24), v11 = *(a2 + 16) - v10, v12 = *(a2 + 20) - v10, (a3 & 2) != 0) && (v11 >= a4.f32[0] ? (v13 = v12 < v9) : (v13 = 1), v13) || (a3 & 4) != 0 && (v11 <= a4.f32[0] ? (v14 = v12 <= v9) : (v14 = 0), !v14))
+      if ((v8 = result[2].f32[2], a4.f32[0] = v7 - v8, v9 = result[2].f32[1] - v8, v10 = a2[1].f32[2], v11 = a2[1].f32[0] - v10, v12 = a2[1].f32[1] - v10, (a3 & 2) != 0) && (v11 >= a4.f32[0] ? (v13 = v12 < v9) : (v13 = 1), v13) || (a3 & 4) != 0 && (v11 <= a4.f32[0] ? (v14 = v12 <= v9) : (v14 = 0), !v14))
       {
         if (v10 >= 0.0)
         {
 
-          LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::_set_timing(a1, a2, a4);
+          LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::_set_timing(result, a2, a4);
         }
 
         else if ((a4.f32[0] + v10) > 0.0)
@@ -403,25 +404,25 @@ void LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_
   }
 }
 
-void LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::_set_timing(uint64_t a1, __int128 *a2, float32x4_t a3)
+void LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::_set_timing(float32x4_t *a1, float32x4_t *a2, float32x4_t a3)
 {
-  v3 = *(a2 + 6);
+  v3 = a2[1].f32[2];
   if (v3 < 0.0)
   {
     __break(1u);
     return;
   }
 
-  v6 = *(a2 + 4);
-  v7 = a1 + 16;
-  if (*(a1 + 32) > 0.0 && v6 > 0.0 && *v7 != *a2)
+  v6 = a2[1].f32[0];
+  v7 = a1 + 1;
+  if (a1[2].f32[0] > 0.0 && v6 > 0.0 && v7->f32[0] != a2->f32[0])
   {
-    v8 = (*a2 * (1.0 - *v7)) / (*v7 * (1.0 - *a2));
+    v8 = (a2->f32[0] * (1.0 - v7->f32[0])) / (v7->f32[0] * (1.0 - a2->f32[0]));
     v9 = (COERCE_INT(fabs(v8)) - 0x800000) >> 24;
     v10 = v8 < 0.0 || v9 > 0x7E;
     if (!v10 || (LODWORD(v8) - 1) <= 0x7FFFFE)
     {
-      v12 = *(a1 + 48);
+      v12 = a1[3];
       v13 = vmulq_f32(v12, *a1);
       *v13.f32 = vadd_f32(*v13.f32, *&vextq_s8(v13, v13, 8uLL));
       v13.f32[0] = vaddv_f32(*v13.f32);
@@ -435,7 +436,7 @@ void LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_
         v18 = vsubq_f32(v12, v15);
         v19 = vmulq_f32(v18, v18);
         v45 = v15;
-        v46 = *(a1 + 48);
+        v46 = a1[3];
         v20 = vaddq_f32(v12, v15);
         v21 = vmulq_f32(v20, v20);
         v22 = atan2f(sqrtf(vaddv_f32(vadd_f32(*v19.i8, *&vextq_s8(v19, v19, 8uLL)))), sqrtf(vaddv_f32(vadd_f32(*v21.i8, *&vextq_s8(v21, v21, 8uLL)))));
@@ -490,7 +491,7 @@ void LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_
         }
       }
 
-      *(a1 + 48) = v12;
+      a1[3] = v12;
     }
   }
 
@@ -507,13 +508,13 @@ void LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_
     goto LABEL_29;
   }
 
-  *(a1 + 40) = 0;
+  a1[2].i32[2] = 0;
   if (v6 <= 0.0)
   {
 LABEL_29:
     v41 = *a1;
-    *(a1 + 48) = *a1;
-    *(a1 + 64) = v41;
+    a1[3] = *a1;
+    a1[4] = v41;
     return;
   }
 
@@ -607,7 +608,7 @@ float *LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_unifor
     if (v5 < v3)
     {
       v6 = fmax((1.0 - powf(result[4], a2)), 0.0);
-      v7 = v4[3];
+      v7 = *(v4 + 12);
       v9 = vmulq_f32(v7, *v4);
       v8 = vextq_s8(v9, v9, 8uLL);
       *v9.f32 = vadd_f32(*v9.f32, *v8.f32);
@@ -620,7 +621,7 @@ float *LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_unifor
         v12 = vsubq_f32(v7, v10);
         v13 = vmulq_f32(v12, v12);
         v70 = v10;
-        v72 = v4[3];
+        v72 = *(v4 + 12);
         v14 = vaddq_f32(v7, v10);
         v15 = vmulq_f32(v14, v14);
         v16 = atan2f(sqrtf(vaddv_f32(vadd_f32(*v13.i8, *&vextq_s8(v13, v13, 8uLL)))), sqrtf(vaddv_f32(vadd_f32(*v15.i8, *&vextq_s8(v15, v15, 8uLL)))));
@@ -676,8 +677,8 @@ float *LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_unifor
         }
       }
 
-      v4[3] = v7;
-      v37 = v4[4];
+      *(v4 + 3) = v7;
+      v37 = *(v4 + 16);
       v39 = vmulq_f32(v7, v37);
       v38 = vextq_s8(v39, v39, 8uLL);
       *v39.f32 = vadd_f32(*v39.f32, *v38.f32);
@@ -690,7 +691,7 @@ float *LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_unifor
         v42 = vsubq_f32(v37, v40);
         v43 = vmulq_f32(v42, v42);
         v71 = v40;
-        v73 = v4[4];
+        v73 = *(v4 + 16);
         v44 = vaddq_f32(v37, v40);
         v45 = vmulq_f32(v44, v44);
         v46 = atan2f(sqrtf(vaddv_f32(vadd_f32(*v43.i8, *&vextq_s8(v43, v43, 8uLL)))), sqrtf(vaddv_f32(vadd_f32(*v45.i8, *&vextq_s8(v45, v45, 8uLL)))));
@@ -747,19 +748,19 @@ float *LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_unifor
       }
 
       v33 = 0;
-      v4[4] = v37;
-      v32 = v5 >= v4[2].f32[1];
+      *(v4 + 4) = v37;
+      v32 = v5 >= v4[9];
       return (v32 | (v33 << 8));
     }
 
     result[4] = fmaxf(fminf(nexttowardf(1.0, 0.0), 0.0), 0.0);
-    v4[1].i8[4] = 0;
-    v4[1].i8[12] = 0;
-    v4[2].i64[0] = 0;
-    v4[2].i32[2] = 0;
+    *(v4 + 20) = 0;
+    *(v4 + 28) = 0;
+    *(v4 + 4) = 0;
+    v4[10] = 0.0;
     v31 = *v4;
-    v4[3] = *v4;
-    v4[4] = v31;
+    *(v4 + 3) = *v4;
+    *(v4 + 4) = v31;
 LABEL_14:
     v32 = 1;
     v33 = 1;
@@ -826,7 +827,7 @@ void sub_256112EE0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::update(float)::{lambda(simd::quatf &)#1}::operator()<std::unique_ptr<LAUI_uniform_cubic_b_spline_renderer::animation_timing_t>>(uint64_t *result, uint64_t *a2)
+float32x4_t **LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::update(float)::{lambda(simd::quatf &)#1}::operator()<std::unique_ptr<LAUI_uniform_cubic_b_spline_renderer::animation_timing_t>>(float32x4_t **result, float32x4_t **a2)
 {
   v2 = result[1];
   if (*v2 < 0.0)
@@ -838,19 +839,19 @@ uint64_t *LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uni
   {
     v4 = *result;
     v5 = *a2;
-    v6 = *v2 + *(*a2 + 24);
-    *(*a2 + 24) = v6;
+    v6 = *v2 + (*a2)[1].f32[2];
+    (*a2)[1].f32[2] = v6;
     if (v6 >= 0.0)
     {
-      *(v5 + 24) = 0;
+      v5[1].i32[2] = 0;
       v9 = fmax((*v2 - v6), 0.0);
-      LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::_update(v4, v9);
+      LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::_update(v4->f32, v9);
       v11 = *a2;
       *a2 = 0;
-      if (*(v4 + 88))
+      if (v4[5].i32[2])
       {
-        std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,std::unique_ptr<LAUI_uniform_cubic_b_spline_renderer::animation_target_t<simd::quatf>>,std::unique_ptr<LAUI_uniform_cubic_b_spline_renderer::animation_timing_t>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v4 + 80);
-        *(v4 + 88) = 0;
+        std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,std::unique_ptr<LAUI_uniform_cubic_b_spline_renderer::animation_target_t<simd::quatf>>,std::unique_ptr<LAUI_uniform_cubic_b_spline_renderer::animation_timing_t>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v4[5]);
+        v4[5].i32[2] = 0;
       }
 
       LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::set_timing(v4, v11, 6, v10);
@@ -861,7 +862,7 @@ uint64_t *LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uni
 
     else
     {
-      LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::_update(v4, *v2);
+      LAUI_uniform_cubic_b_spline_renderer::animator_t<simd::quatf,(LAUI_uniform_cubic_b_spline_renderer::animator_interpolation_type)0>::_update(v4->f32, *v2);
       LOBYTE(v7) = 0;
       v8 = 0;
     }
@@ -899,8 +900,9 @@ uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<std
   return result;
 }
 
-BOOL _ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv4_fLNS_27animator_interpolation_typeE0EE10set_targetINS_18animation_target_tIS1_EEEEbOT_NS_25animation_target_option_tE(uint64_t a1, float32x4_t *a2, int a3)
+BOOL _ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv4_fLNS_27animator_interpolation_typeE0EE10set_targetINS_18animation_target_tIS1_EEEEbOT_NS_25animation_target_option_tE(uint64_t a1, float32x4_t *a2, uint64_t a3)
 {
+  v3 = a3;
   if (*(a1 + 88))
   {
     _ZNSt3__116__variant_detail6__dtorINS0_8__traitsIJNS_9monostateENS_10unique_ptrIN36LAUI_uniform_cubic_b_spline_renderer18animation_target_tIDv4_fEENS_14default_deleteIS8_EEEENS4_INS5_18animation_timing_tENS9_ISC_EEEEEEELNS0_6_TraitE1EE9__destroyB8ne200100Ev(a1 + 80);
@@ -912,7 +914,7 @@ BOOL _ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv4_fLNS_27animator_i
   v8 = vaddv_f32(vadd_f32(*v7.i8, *&vextq_s8(v7, v7, 8uLL)));
   if (v8 == 1.0)
   {
-    _ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv4_fLNS_27animator_interpolation_typeE0EE10set_timingERKNS_18animation_timing_tENS_25animation_target_option_tE(a1, f32, a3);
+    _ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv4_fLNS_27animator_interpolation_typeE0EE10set_timingERKNS_18animation_timing_tENS_25animation_target_option_tE(a1, f32, v3);
   }
 
   else
@@ -1121,15 +1123,15 @@ float *_ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv4_fLNS_27animator
     if (v5 < v3)
     {
       v6 = fmax((1.0 - powf(result[4], a2)), 0.0);
-      v7 = v4[3];
+      v7 = *(v4 + 12);
       v8 = vmulq_f32(v7, *v4);
       if (vaddv_f32(vadd_f32(*v8.i8, *&vextq_s8(v8, v8, 8uLL))) != 1.0)
       {
         v7 = vmlaq_n_f32(vmulq_n_f32(*v4, v6), v7, 1.0 - v6);
       }
 
-      v4[3] = v7;
-      v9 = v4[4];
+      *(v4 + 3) = v7;
+      v9 = *(v4 + 16);
       v10 = vmulq_f32(v7, v9);
       if (vaddv_f32(vadd_f32(*v10.i8, *&vextq_s8(v10, v10, 8uLL))) != 1.0)
       {
@@ -1137,19 +1139,19 @@ float *_ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv4_fLNS_27animator
       }
 
       v11 = 0;
-      v4[4] = v9;
-      v12 = v5 >= v4[2].f32[1];
+      *(v4 + 4) = v9;
+      v12 = v5 >= v4[9];
       return (v12 | (v11 << 8));
     }
 
     result[4] = fmaxf(fminf(nexttowardf(1.0, 0.0), 0.0), 0.0);
-    v4[1].i8[4] = 0;
-    v4[1].i8[12] = 0;
-    v4[2].i64[0] = 0;
-    v4[2].i32[2] = 0;
+    *(v4 + 20) = 0;
+    *(v4 + 28) = 0;
+    *(v4 + 4) = 0;
+    v4[10] = 0.0;
     v13 = *v4;
-    v4[3] = *v4;
-    v4[4] = v13;
+    *(v4 + 3) = *v4;
+    *(v4 + 4) = v13;
 LABEL_10:
     v12 = 1;
     v11 = 1;
@@ -1289,16 +1291,16 @@ uint64_t _ZNSt3__116__variant_detail12__assignmentINS0_8__traitsIJNS_9monostateE
   return result;
 }
 
-void std::vector<anonymous namespace::face_id_animator_t::quadrant_context_t>::__swap_out_circular_buffer(uint64_t *a1, void *a2)
+void std::vector<anonymous namespace::face_id_animator_t::quadrant_context_t>::__swap_out_circular_buffer(uint64_t *result, void *a2)
 {
   v4 = a2[1];
-  v5 = *a1;
-  v6 = a1[1];
-  v7 = v4 - (v6 - *a1);
-  if (v6 != *a1)
+  v5 = *result;
+  v6 = result[1];
+  v7 = v4 - (v6 - *result);
+  if (v6 != *result)
   {
     v8 = v5 + 192;
-    v9 = v4 - 16 * ((v6 - *a1) >> 4) + 192;
+    v9 = v4 - 16 * ((v6 - *result) >> 4) + 192;
     do
     {
       *(v9 - 192) = *(v8 - 192);
@@ -1357,15 +1359,15 @@ void std::vector<anonymous namespace::face_id_animator_t::quadrant_context_t>::_
   }
 
   a2[1] = v7;
-  v18 = *a1;
-  *a1 = v7;
-  a1[1] = v18;
+  v18 = *result;
+  *result = v7;
+  result[1] = v18;
   a2[1] = v18;
-  v19 = a1[1];
-  a1[1] = a2[2];
+  v19 = result[1];
+  result[1] = a2[2];
   a2[2] = v19;
-  v20 = a1[2];
-  a1[2] = a2[3];
+  v20 = result[2];
+  result[2] = a2[3];
   a2[3] = v20;
   *a2 = a2[1];
 }
@@ -1625,33 +1627,33 @@ LABEL_6:
   }
 }
 
-void *std::unordered_map<LAUI_uniform_cubic_b_spline_renderer::indexed_identifier_t<LAUI_uniform_cubic_b_spline_renderer::spline_t::instance_t,LAUI_uniform_cubic_b_spline_renderer::spline_t>,LAUI_uniform_cubic_b_spline_renderer::indexed_identifier_t<anonymous namespace::face_id_animator_t::ring_context_t>>::try_emplace[abi:ne200100]<LAUI_uniform_cubic_b_spline_renderer::indexed_identifier_t<anonymous namespace::face_id_animator_t::ring_context_t> const&>(void *result, void *a2)
+void std::unordered_map<LAUI_uniform_cubic_b_spline_renderer::indexed_identifier_t<LAUI_uniform_cubic_b_spline_renderer::spline_t::instance_t,LAUI_uniform_cubic_b_spline_renderer::spline_t>,LAUI_uniform_cubic_b_spline_renderer::indexed_identifier_t<anonymous namespace::face_id_animator_t::ring_context_t>>::try_emplace[abi:ne200100]<LAUI_uniform_cubic_b_spline_renderer::indexed_identifier_t<anonymous namespace::face_id_animator_t::ring_context_t> const&>(void *a1, void *a2, void *a3)
 {
-  v2 = a2[1];
-  v3 = result[1];
-  if (!*&v3)
+  v3 = a2[1];
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_22;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = a2[1];
-    if (v2 >= *&v3)
+    v6 = a2[1];
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*result + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_22:
     operator new();
@@ -1659,44 +1661,42 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_22;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != v2)
+  if (v8[2] != *a2 || v8[3] != v3)
   {
     goto LABEL_21;
   }
-
-  return result;
 }
 
 float32x4_t anonymous namespace::morphable_quadrant_t<9ul>::convert(float32x4_t *a1, unsigned int a2, float32x4_t result)
@@ -1738,24 +1738,22 @@ float32x4_t anonymous namespace::morphable_quadrant_t<9ul>::convert(float32x4_t 
     if (((a2 < 2) ^ v4))
     {
       v11 = a1 + 8;
-      v12 = &a1[1];
+      v12 = a1 + 1;
       do
       {
-        result = *(v12 - 16);
-        *(v12 - 16) = *v11;
+        result = v12[-1];
+        v12[-1] = *v11;
         *v11-- = result;
-        _CF = v12 >= v11;
-        v12 += 16;
       }
 
-      while (!_CF);
+      while (v12++ < v11);
     }
   }
 
   return result;
 }
 
-void *std::vector<LAUI_uniform_cubic_b_spline_renderer::spline_t::state_t>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<LAUI_uniform_cubic_b_spline_renderer::spline_t::state_t>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
   {
@@ -1770,9 +1768,9 @@ void *std::vector<LAUI_uniform_cubic_b_spline_renderer::spline_t::state_t>::rese
   return result;
 }
 
-void sub_256114468(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_256114468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<LAUI_uniform_cubic_b_spline_renderer::spline_t::state_t>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1969,14 +1967,14 @@ LABEL_12:
   return v13;
 }
 
-void sub_2561147F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2561147F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<LAUI_uniform_cubic_b_spline_renderer::spline_t::state_t>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1998,7 +1996,7 @@ void sub_25611485C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -2144,17 +2142,17 @@ uint64_t *std::__minmax_element_impl[abi:ne200100]<std::__wrap_iter<LAUI_uniform
   return result;
 }
 
-void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8ne200100EmRKS1_(void *result, unint64_t a2)
+uint64_t *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8ne200100EmRKS1_(uint64_t *a1, unint64_t a2, _OWORD *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_256114AE4(_Unwind_Exception *exception_object)
@@ -2258,7 +2256,7 @@ void anonymous namespace::face_id_animator_t::quadrant_context_t::static_state_t
 
   v7 = qword_25611D660[v4];
   LODWORD(__p[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](v12, v7 + 1);
+  std::vector<float>::vector[abi:ne200100](v12, v7 + 1, __p);
   v8 = *v12;
   *(v12[0] + v7) = 1065353216;
   *__p = v8;
@@ -2317,7 +2315,7 @@ LABEL_17:
   __break(1u);
 }
 
-void *_ZNSt3__16vectorIN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_fLNS1_27animator_interpolation_typeE0EEENS_9allocatorIS5_EEE7reserveEm(void *result, unint64_t a2)
+uint64_t *_ZNSt3__16vectorIN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_fLNS1_27animator_interpolation_typeE0EEENS_9allocatorIS5_EEE7reserveEm(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 5) < a2)
   {
@@ -2332,66 +2330,68 @@ void *_ZNSt3__16vectorIN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_f
   return result;
 }
 
-void sub_256114E98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_256114E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _ZNSt3__114__split_bufferIN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_fLNS1_27animator_interpolation_typeE0EEERNS_9allocatorIS5_EEED2Ev(va);
   _Unwind_Resume(a1);
 }
 
-void *LAUI_uniform_cubic_b_spline_renderer::weighted_spline_t::state@<X0>(unint64_t *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+uint64_t *LAUI_uniform_cubic_b_spline_renderer::weighted_spline_t::state@<X0>(unint64_t *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
-  result = _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8ne200100EmRKS1_(&v16, *a1);
-  v9 = a1[1];
-  v8 = a1[2];
-  if (v8 != v9)
+  v6 = *a1;
+  v17 = 0u;
+  result = _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8ne200100EmRKS1_(&v18, v6, &v17);
+  v10 = a1[1];
+  v9 = a1[2];
+  if (v9 != v10)
   {
-    v10 = 0;
+    v11 = 0;
     do
     {
-      if (v10 >= (a2[1] - *a2) >> 2)
+      if (v11 >= (a2[1] - *a2) >> 2)
       {
         break;
       }
 
-      v7.i32[0] = *(*a2 + 4 * v10);
-      if (v7.f32[0] != 0.0)
+      v8.i32[0] = *(*a2 + 4 * v11);
+      if (v8.f32[0] != 0.0)
       {
-        v11 = (v9 + 24 * v10);
-        v12 = *v11;
-        if (v11[1] != *v11)
+        v12 = (v10 + 24 * v11);
+        v13 = *v12;
+        if (v12[1] != *v12)
         {
-          v13 = 0;
-          v7 = vdupq_lane_s32(*v7.f32, 0);
+          v14 = 0;
+          v8 = vdupq_lane_s32(*v8.f32, 0);
           do
           {
-            if (v13 >= (v17 - v16) >> 4)
+            if (v14 >= (v19 - v18) >> 4)
             {
               break;
             }
 
-            *(v16 + 16 * v13) = vmlaq_f32(*(v16 + 16 * v13), *(v12 + 16 * v13), v7);
-            ++v13;
-            v12 = *v11;
+            *(v18 + 16 * v14) = vmlaq_f32(*(v18 + 16 * v14), *(v13 + 16 * v14), v8);
+            ++v14;
+            v13 = *v12;
           }
 
-          while (v13 < (v11[1] - *v11) >> 4);
-          v9 = a1[1];
-          v8 = a1[2];
+          while (v14 < (v12[1] - *v12) >> 4);
+          v10 = a1[1];
+          v9 = a1[2];
         }
       }
 
-      ++v10;
+      ++v11;
     }
 
-    while (v10 < 0xAAAAAAAAAAAAAAABLL * ((v8 - v9) >> 3));
+    while (v11 < 0xAAAAAAAAAAAAAAABLL * ((v9 - v10) >> 3));
   }
 
-  v14 = v16;
-  *a3 = v16;
-  v15 = v17;
-  *(a3 + 8) = v17;
-  if ((v15 - v14) <= 0x3F)
+  v15 = v18;
+  *a3 = v18;
+  v16 = v19;
+  *(a3 + 8) = v19;
+  if ((v16 - v15) <= 0x3F)
   {
     __break(1u);
   }
@@ -2399,17 +2399,17 @@ void *LAUI_uniform_cubic_b_spline_renderer::weighted_spline_t::state@<X0>(unint6
   return result;
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int32 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2561150BC(_Unwind_Exception *exception_object)
@@ -2424,7 +2424,7 @@ void sub_2561150BC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -2444,8 +2444,9 @@ void std::allocator<float>::allocate_at_least[abi:ne200100](uint64_t a1, unint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-BOOL _ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_fLNS_27animator_interpolation_typeE0EE10set_targetINS_18animation_target_tIS1_EEEEbOT_NS_25animation_target_option_tE(uint64_t a1, float32x4_t *a2, int a3)
+BOOL _ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_fLNS_27animator_interpolation_typeE0EE10set_targetINS_18animation_target_tIS1_EEEEbOT_NS_25animation_target_option_tE(uint64_t a1, float32x4_t *a2, uint64_t a3)
 {
+  v3 = a3;
   if (*(a1 + 88))
   {
     _ZNSt3__116__variant_detail6__dtorINS0_8__traitsIJNS_9monostateENS_10unique_ptrIN36LAUI_uniform_cubic_b_spline_renderer18animation_target_tIDv3_fEENS_14default_deleteIS8_EEEENS4_INS5_18animation_timing_tENS9_ISC_EEEEEEELNS0_6_TraitE1EE9__destroyB8ne200100Ev(a1 + 80);
@@ -2457,7 +2458,7 @@ BOOL _ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_fLNS_27animator_i
   v8 = v7.f32[2] + vaddv_f32(*v7.f32);
   if (v8 == 1.0)
   {
-    _ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_fLNS_27animator_interpolation_typeE0EE10set_timingERKNS_18animation_timing_tENS_25animation_target_option_tE(a1, f32, a3);
+    _ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_fLNS_27animator_interpolation_typeE0EE10set_timingERKNS_18animation_timing_tENS_25animation_target_option_tE(a1, f32, v3);
   }
 
   else
@@ -2666,15 +2667,15 @@ float *_ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_fLNS_27animator
     if (v5 < v3)
     {
       v6 = fmax((1.0 - powf(result[4], a2)), 0.0);
-      v7 = v4[3];
+      v7 = *(v4 + 12);
       v8 = vmulq_f32(v7, *v4);
       if ((v8.f32[2] + vaddv_f32(*v8.f32)) != 1.0)
       {
         v7 = vmlaq_n_f32(vmulq_n_f32(*v4, v6), v7, 1.0 - v6);
       }
 
-      v4[3] = v7;
-      v9 = v4[4];
+      *(v4 + 3) = v7;
+      v9 = *(v4 + 16);
       v10 = vmulq_f32(v7, v9);
       if ((v10.f32[2] + vaddv_f32(*v10.f32)) != 1.0)
       {
@@ -2682,19 +2683,19 @@ float *_ZN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_fLNS_27animator
       }
 
       v11 = 0;
-      v4[4] = v9;
-      v12 = v5 >= v4[2].f32[1];
+      *(v4 + 4) = v9;
+      v12 = v5 >= v4[9];
       return (v12 | (v11 << 8));
     }
 
     result[4] = fmaxf(fminf(nexttowardf(1.0, 0.0), 0.0), 0.0);
-    v4[1].i8[4] = 0;
-    v4[1].i8[12] = 0;
-    v4[2].i64[0] = 0;
-    v4[2].i32[2] = 0;
+    *(v4 + 20) = 0;
+    *(v4 + 28) = 0;
+    *(v4 + 4) = 0;
+    v4[10] = 0.0;
     v13 = *v4;
-    v4[3] = *v4;
-    v4[4] = v13;
+    *(v4 + 3) = *v4;
+    *(v4 + 4) = v13;
 LABEL_10:
     v12 = 1;
     v11 = 1;
@@ -2892,7 +2893,7 @@ uint64_t _ZNSt3__114__split_bufferIN36LAUI_uniform_cubic_b_spline_renderer10anim
   return a1;
 }
 
-uint64_t _ZNSt3__16vectorIN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_fLNS1_27animator_interpolation_typeE0EEENS_9allocatorIS5_EEE9push_backB8ne200100EOS5_(uint64_t a1, _OWORD *a2)
+_OWORD *_ZNSt3__16vectorIN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_fLNS1_27animator_interpolation_typeE0EEENS_9allocatorIS5_EEE9push_backB8ne200100EOS5_(uint64_t a1, _OWORD *a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -2911,7 +2912,7 @@ uint64_t _ZNSt3__16vectorIN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv
     v3[1] = v4;
     v3[2] = v5;
     _ZNSt3__116__variant_detail18__move_constructorINS0_8__traitsIJNS_9monostateENS_10unique_ptrIN36LAUI_uniform_cubic_b_spline_renderer18animation_target_tIDv3_fEENS_14default_deleteIS8_EEEENS4_INS5_18animation_timing_tENS9_ISC_EEEEEEELNS0_6_TraitE1EEC2B8ne200100EOSH_((v3 + 5), (a2 + 5));
-    result = (v3 + 6);
+    result = v3 + 6;
   }
 
   *(a1 + 8) = result;
@@ -2978,14 +2979,14 @@ uint64_t _ZNSt3__16vectorIN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv
   return v16;
 }
 
-void sub_256115D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_256115D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   _ZNSt3__114__split_bufferIN36LAUI_uniform_cubic_b_spline_renderer10animator_tIDv3_fLNS1_27animator_interpolation_typeE0EEERNS_9allocatorIS5_EEED2Ev(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<LAUI_uniform_cubic_b_spline_renderer::indexed_identifier_t<LAUI_uniform_cubic_b_spline_renderer::spline_t::instance_t,LAUI_uniform_cubic_b_spline_renderer::spline_t>>::__init_with_size[abi:ne200100]<LAUI_uniform_cubic_b_spline_renderer::indexed_identifier_t<LAUI_uniform_cubic_b_spline_renderer::spline_t::instance_t,LAUI_uniform_cubic_b_spline_renderer::spline_t> const*,LAUI_uniform_cubic_b_spline_renderer::indexed_identifier_t<LAUI_uniform_cubic_b_spline_renderer::spline_t::instance_t,LAUI_uniform_cubic_b_spline_renderer::spline_t> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<LAUI_uniform_cubic_b_spline_renderer::indexed_identifier_t<LAUI_uniform_cubic_b_spline_renderer::spline_t::instance_t,LAUI_uniform_cubic_b_spline_renderer::spline_t>>::__init_with_size[abi:ne200100]<LAUI_uniform_cubic_b_spline_renderer::indexed_identifier_t<LAUI_uniform_cubic_b_spline_renderer::spline_t::instance_t,LAUI_uniform_cubic_b_spline_renderer::spline_t> const*,LAUI_uniform_cubic_b_spline_renderer::indexed_identifier_t<LAUI_uniform_cubic_b_spline_renderer::spline_t::instance_t,LAUI_uniform_cubic_b_spline_renderer::spline_t> const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3059,16 +3060,16 @@ float64x2_t _ZN21LAUI_metal_transforms20look_at_transform_LHIDv3_ddEEN4simd6Matr
   return result;
 }
 
-void *LAUI_uniform_cubic_b_spline_renderer::spline_t::state_t::state_t(void *a1, uint64_t *a2)
+uint64_t *LAUI_uniform_cubic_b_spline_renderer::spline_t::state_t::state_t(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(a1, *a2, a2[1], (a2[1] - *a2) >> 4);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 4);
   return a1;
 }
 
-uint64_t _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3474,7 +3475,7 @@ void LAUI_uniform_cubic_b_spline_renderer::targetable_animator_t<anonymous names
   }
 
   v10 = 0x78u >> v6;
-  v125.i8[0] = 0x1020403uLL >> (8 * (v6 & 0x1F));
+  v125[0] = 0x1020403uLL >> (8 * (v6 & 0x1F));
   LOBYTE(v126) = 0;
   LOBYTE(v128) = 0;
   *(a1 + 80) = *a2;
@@ -3792,12 +3793,12 @@ LABEL_70:
     *&v140[12] = *&v132[12];
     *v140 = *v132;
     v119 = v59;
-    if (*&v132[16] <= 0.0 || v125.u8[0] - 2 < 3)
+    if (*&v132[16] <= 0.0 || v125[0] - 2 < 3)
     {
       goto LABEL_110;
     }
 
-    if (v125.u8[0] >= 2u)
+    if (v125[0] >= 2u)
     {
 LABEL_233:
       __break(1u);
@@ -3817,7 +3818,7 @@ LABEL_233:
 
     v61 = qword_25611D6E8[v60];
     __p[0].i32[0] = 0;
-    std::vector<float>::vector[abi:ne200100](&v141, v61 + 1);
+    std::vector<float>::vector[abi:ne200100](&v141, v61 + 1, __p);
     v62 = v141;
     *(v141.i64[0] + 4 * v61) = 1065353216;
     __p[0] = v62;
@@ -3844,9 +3845,9 @@ LABEL_233:
     }
 
     v64 = 8 * v63;
-    if (v125.u8[0] - 2 >= 3)
+    if (v125[0] - 2 >= 3)
     {
-      if (v125.u8[0] >= 2u)
+      if (v125[0] >= 2u)
       {
 LABEL_234:
         __break(1u);
@@ -5160,11 +5161,11 @@ void CASecureFlipBookLayerBaseNameFromLAUISecureFaceIDViewType_cold_1(int a1, NS
 
 void LAUI_uniform_cubic_b_spline_renderer::renderer_t::shared_state_t::create()
 {
-  if (__cxa_guard_acquire(&qword_27F82AC30))
+  if (__cxa_guard_acquire(byte_27F82AC30))
   {
     _MergedGlobals = 0;
 
-    __cxa_guard_release(&qword_27F82AC30);
+    __cxa_guard_release(byte_27F82AC30);
   }
 }
 
@@ -5199,11 +5200,11 @@ void ContainerStateFromSingleState_cold_1(uint64_t a1, NSObject *a2)
 
 void anonymous namespace::create_static_resources()
 {
-  if (__cxa_guard_acquire(&qword_27F82AC48))
+  if (__cxa_guard_acquire(byte_27F82AC48))
   {
     _MergedGlobals_0 = 0;
 
-    __cxa_guard_release(&qword_27F82AC48);
+    __cxa_guard_release(byte_27F82AC48);
   }
 }
 

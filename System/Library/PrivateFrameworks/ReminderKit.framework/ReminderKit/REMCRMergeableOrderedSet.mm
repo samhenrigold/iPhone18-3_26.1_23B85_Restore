@@ -187,7 +187,7 @@
 
 - (id)mergedOrderedSetWithOrderedSet:(id)set error:(id *)error
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   setCopy = set;
   document = [(REMCRMergeableOrderedSet *)self document];
   v8 = +[REMReplicaIDHelper nonEditingReplicaUUID];
@@ -212,15 +212,13 @@
   else if (error)
   {
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v19 = *MEMORY[0x1E696A588];
-    v20[0] = @"Failed to merge CR documents.";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x1E696A588];
+    v19[0] = @"Failed to merge CR documents.";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     *error = [v12 initWithDomain:@"REMCRMergeableOrderedSet" code:-1 userInfo:v13];
 
     error = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return error;
 }

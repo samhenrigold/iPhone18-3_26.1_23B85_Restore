@@ -67,32 +67,32 @@
 
 - (id)allEmailAndPhoneNumberHandlesForContact:(id)contact
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   phoneNumbers = [contactCopy phoneNumbers];
   v5 = [phoneNumbers valueForKey:@"value"];
 
   array = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         unformattedInternationalStringValue = [v12 unformattedInternationalStringValue];
 
         if (unformattedInternationalStringValue)
@@ -102,7 +102,7 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
@@ -112,14 +112,13 @@
   v16 = [emailAddresses valueForKey:@"value"];
 
   [array addObjectsFromArray:v16];
-  v17 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)resolveContactIdentifier:(id)identifier
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
@@ -164,38 +163,38 @@ LABEL_15:
   }
 
   contactStore = [(_PSContactResolver *)self contactStore];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
   v14 = getCNContactIdentifierKeySymbolLoc_ptr_3;
-  v31 = getCNContactIdentifierKeySymbolLoc_ptr_3;
+  v30 = getCNContactIdentifierKeySymbolLoc_ptr_3;
   if (!getCNContactIdentifierKeySymbolLoc_ptr_3)
   {
-    v26[1] = MEMORY[0x1E69E9820];
-    v26[2] = 3221225472;
-    v26[3] = __getCNContactIdentifierKeySymbolLoc_block_invoke_3;
-    v26[4] = &unk_1E7C23BF0;
-    v27 = &v28;
+    v25[1] = MEMORY[0x1E69E9820];
+    v25[2] = 3221225472;
+    v25[3] = __getCNContactIdentifierKeySymbolLoc_block_invoke_3;
+    v25[4] = &unk_1E7C23BF0;
+    v26 = &v27;
     v15 = ContactsLibrary_2();
-    v29[3] = dlsym(v15, "CNContactIdentifierKey");
-    getCNContactIdentifierKeySymbolLoc_ptr_3 = *(v27[1] + 24);
-    v14 = v29[3];
+    v28[3] = dlsym(v15, "CNContactIdentifierKey");
+    getCNContactIdentifierKeySymbolLoc_ptr_3 = *(v26[1] + 24);
+    v14 = v28[3];
   }
 
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v27, 8);
   if (!v14)
   {
     [_PSBlockedHandlesCache beginSyncingWithTU];
     __break(1u);
   }
 
-  v32[0] = *v14;
+  v31[0] = *v14;
   v16 = MEMORY[0x1E695DEC8];
-  v17 = v32[0];
-  v18 = [v16 arrayWithObjects:v32 count:1];
-  v26[0] = 0;
-  v19 = [contactStore unifiedContactsMatchingPredicate:v10 keysToFetch:v18 error:v26];
-  v20 = v26[0];
+  v17 = v31[0];
+  v18 = [v16 arrayWithObjects:v31 count:1];
+  v25[0] = 0;
+  v19 = [contactStore unifiedContactsMatchingPredicate:v10 keysToFetch:v18 error:v25];
+  v20 = v25[0];
 
   if (v20)
   {
@@ -222,7 +221,6 @@ LABEL_21:
 LABEL_22:
 
 LABEL_16:
-  v23 = *MEMORY[0x1E69E9840];
 
   return identifier4;
 }
@@ -291,30 +289,30 @@ LABEL_9:
 
 + (id)normalizedHandlesDictionaryFromHandles:(id)handles
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   v4 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(handlesCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = handlesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        if ([v10 containsString:{@"@", v15}])
+        v10 = *(*(&v14 + 1) + 8 * i);
+        if ([v10 containsString:{@"@", v14}])
         {
           [v4 setObject:v10 forKeyedSubscript:v10];
         }
@@ -330,13 +328,11 @@ LABEL_9:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

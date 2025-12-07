@@ -15,13 +15,12 @@
 
 - (NSSet)purchasedTagIDs
 {
-  v2 = *&self->userProfile[OBJC_IVAR____TtC10StocksCoreP33_6F15235305946077A82EB95D8E9A724719NewsUserProfileShim_userProfile + 16];
-  v3 = sub_1DACB71E4();
-  sub_1DAA5518C(v3);
+  v2 = sub_1DACB71E4();
+  sub_1DAA5518C(v2);
 
-  v4 = sub_1DACB97F4();
+  v3 = sub_1DACB97F4();
 
-  return v4;
+  return v3;
 }
 
 - (void)prepareForUseWithCompletion:(id)completion

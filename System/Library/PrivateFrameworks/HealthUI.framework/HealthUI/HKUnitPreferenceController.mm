@@ -2,8 +2,8 @@
 + (__CFString)_displayNameKey:(int)key withNumber:;
 + (__CFString)_displayNameKeyForUnit:(uint64_t)unit nameContext:;
 + (__CFString)_localizedHealthUIStringForDisplayType:(void *)type unit:(void *)unit key:(void *)key value:;
-- (id)_displayNameKeyForDisplayType:(int)type withNumber:;
 - (id)_displayNameKeyForDisplayType:(int)type withNumber:(uint64_t)number nameContext:;
+- (id)_displayNameKeyForDisplayType:(uint64_t)type withNumber:;
 - (id)_longDisplayNameForUnit:(uint64_t)unit;
 - (id)_longDisplayNameOverrideForDisplayType:(uint64_t)type;
 - (id)_unitDisplayNameKeyForDisplayType:(void *)type unit:(uint64_t)unit nameContext:;
@@ -352,7 +352,7 @@ void __67__HKUnitPreferenceController_HealthUI__displayRangeForDisplayType___blo
   return v9;
 }
 
-- (id)_displayNameKeyForDisplayType:(int)type withNumber:
+- (id)_displayNameKeyForDisplayType:(uint64_t)type withNumber:
 {
   if (self)
   {

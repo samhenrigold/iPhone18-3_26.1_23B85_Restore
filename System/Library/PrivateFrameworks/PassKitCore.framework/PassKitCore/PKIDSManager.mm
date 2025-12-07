@@ -299,7 +299,7 @@ void __31__PKIDSManager_paymentRequests__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __32__PKIDSManager_hasRemoteDevices__block_invoke(uint64_t a1)
+void *__32__PKIDSManager_hasRemoteDevices__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_hasRemoteDevices];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1207,9 +1207,9 @@ void __75__PKIDSManager_requestInstrumentThumbnail_forRemoteDevice_size_completi
 
         v9 = [*(*(&v14 + 1) + 8 * i) passIdentifier];
         v10 = [*(a1 + 32) passIdentifier];
-        v11 = [v9 isEqualToString:v10];
+        isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-        if (v11)
+        if (isEqualToString)
         {
           v12 = *(a1 + 40);
           v13 = [v3 pk_idsDestination];
@@ -2805,9 +2805,9 @@ uint64_t __81__PKIDSManager__paymentDiscoveryResponseReceived_service_account_fr
 {
   v3 = [a2 uniqueID];
   v4 = [*(a1 + 32) uniqueID];
-  v5 = [v3 isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  return v5;
+  return isEqualToString;
 }
 
 uint64_t __81__PKIDSManager__paymentDiscoveryResponseReceived_service_account_fromID_context___block_invoke_2(uint64_t a1)
@@ -3019,10 +3019,10 @@ LABEL_31:
 
 uint64_t __74__PKIDSManager__thumbnailResponseReceived_service_account_fromID_context___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 requestIdentifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 requestIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 void __74__PKIDSManager__thumbnailResponseReceived_service_account_fromID_context___block_invoke_2(uint64_t a1)
@@ -3133,9 +3133,9 @@ LABEL_15:
 
         v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
-        v11 = [identifier isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-        if (v11)
+        if (isEqualToString)
         {
           v6 = v9;
           goto LABEL_11;
@@ -3438,9 +3438,9 @@ uint64_t __71__PKIDSManager__queue_sendDeviceDiscoveryRequestWithProximity_devic
 
         v9 = IDSCopyIDForDevice();
         v10 = [v3 uniqueID];
-        v11 = [v9 isEqualToString:v10];
+        isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-        if (v11)
+        if (isEqualToString)
         {
           v12 = 0;
           goto LABEL_11;
@@ -3732,9 +3732,9 @@ LABEL_20:
 
           else
           {
-            v15 = [v11 isEqualToString:v12];
+            isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-            if (v15)
+            if (isEqualToString)
             {
               goto LABEL_20;
             }
@@ -3999,8 +3999,8 @@ uint64_t __78__PKIDSManager__preparePaymentDeviceResponseForRequestingDevice_use
   v4 = [v2 passIdentifier];
   v5 = [v3 passID];
 
-  v6 = [v4 isEqualToString:v5];
-  return v6;
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
+  return isEqualToString;
 }
 
 - (id)_fetchPaymentInstrumentsForRequestingDevice:(id)device
@@ -4495,10 +4495,10 @@ uint64_t __39__PKIDSManager_service_devicesChanged___block_invoke_207(uint64_t a
 
 uint64_t __68__PKIDSManager_service_account_identifier_didSendWithSuccess_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [a2 requestIdentifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 requestIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (void)deleteArchivedDevices

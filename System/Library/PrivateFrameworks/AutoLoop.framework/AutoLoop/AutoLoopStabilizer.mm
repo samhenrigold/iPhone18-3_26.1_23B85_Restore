@@ -179,7 +179,7 @@
   if (getVideoTrack)
   {
     -[AutoLoopStabilizer setNaturalTimeScale:](self, "setNaturalTimeScale:", [getVideoTrack naturalTimeScale]);
-    [v4 minFrameDuration];
+    objc_msgSend_minFrameDuration(v4);
     v6 = v8;
     v7 = v9;
     [(AutoLoopStabilizer *)self setMinimumFrameDuration:&v6];
@@ -201,7 +201,7 @@
   v9 = getVideoTrack;
   if (getVideoTrack)
   {
-    [getVideoTrack timeRange];
+    objc_msgSend_timeRange(getVideoTrack);
     v10 = *&v21[16];
     v23 = *v21;
     *v24 = *&v21[16];
@@ -217,7 +217,7 @@
       lhs.epoch = *v24;
       rhs = *&v24[8];
       CMTimeAdd(v21, &lhs, &rhs);
-      [(AutoLoopStabilizer *)self trimStart];
+      objc_msgSend_trimStart(self);
       *&rhs.value = v23;
       rhs.epoch = *v24;
       if (CMTimeCompare(&lhs, &rhs) < 1)
@@ -228,7 +228,7 @@
 
       else
       {
-        [(AutoLoopStabilizer *)self trimStart];
+        objc_msgSend_trimStart(self);
         *&retstr->var0.var0 = *&lhs.value;
         epoch = lhs.epoch;
       }
@@ -237,7 +237,7 @@
       memset(&lhs, 0, sizeof(lhs));
       *&rhs.value = *&retstr->var0.var0;
       rhs.epoch = epoch;
-      [(AutoLoopStabilizer *)self trimLength];
+      objc_msgSend_trimLength(self);
       CMTimeAdd(&lhs, &rhs, &time1);
       time1 = lhs;
       time2 = *v21;
@@ -314,12 +314,12 @@
 
   v55 = 0.0;
   [(AutoLoopStabilizer *)self setDidDrop:0];
-  [(AutoLoopStabilizer *)self maxAllowedTrimTimeStart];
+  objc_msgSend_maxAllowedTrimTimeStart(self);
   v9 = MEMORY[0x277CC08F0];
   time2 = **&MEMORY[0x277CC08F0];
   if (CMTimeCompare(&time1, &time2) <= 0)
   {
-    [(AutoLoopStabilizer *)self maxAllowedTrimTimeEnd];
+    objc_msgSend_maxAllowedTrimTimeEnd(self);
     time2 = *v9;
     v10 = CMTimeCompare(&time1, &time2) > 0;
   }
@@ -365,7 +365,7 @@ LABEL_20:
   time2 = *(*(times + 1) - 24);
   memset(&v52, 0, sizeof(v52));
   lhs = time2;
-  [(AutoLoopStabilizer *)self maxAllowedTrimTimeEnd];
+  objc_msgSend_maxAllowedTrimTimeEnd(self);
   CMTimeSubtract(&v52, &lhs, &rhs);
   v16 = *(times + 1) - *times;
   v17 = 0xAAAAAAAAAAAAAAABLL * (v16 >> 3);
@@ -397,7 +397,7 @@ LABEL_20:
   lhs = *v20;
   memset(&rhs, 0, sizeof(rhs));
   v49 = lhs;
-  [(AutoLoopStabilizer *)self maxAllowedTrimTimeStart];
+  objc_msgSend_maxAllowedTrimTimeStart(self);
   CMTimeAdd(&rhs, &v49, &v48);
   v25 = v19 - 1;
   v26 = (v19 - 1) & ~((v19 - 1) >> 63);
@@ -587,7 +587,7 @@ LABEL_44:
   [(AutoLoopStabilizer *)self getNaturalTimeScaleForVideoTrackInAsset];
   memset(v40, 0, sizeof(v40));
   v39 = 0u;
-  [(AutoLoopStabilizer *)self determinePreciseTimeRange];
+  objc_msgSend_determinePreciseTimeRange(self);
   currentStatusString = self->currentStatusString;
   self->currentStatusString = @"Stabilizing: sequential analyze";
 
@@ -626,9 +626,9 @@ LABEL_44:
       *&v35[16] = v40[0];
       *&v35[32] = *&v40[1];
       naturalTimeScale = [(AutoLoopStabilizer *)self naturalTimeScale];
-      [(AutoLoopStabilizer *)self minimumFrameDuration];
-      [(AutoLoopStabilizer *)self maxAllowedTrimTimeStart];
-      [(AutoLoopStabilizer *)self maxAllowedTrimTimeEnd];
+      objc_msgSend_minimumFrameDuration(self);
+      objc_msgSend_maxAllowedTrimTimeStart(self);
+      objc_msgSend_maxAllowedTrimTimeEnd(self);
       memset(&v48, 0, sizeof(v48));
       *&lhs.start.value = v39;
       lhs.start.epoch = *&v40[0];

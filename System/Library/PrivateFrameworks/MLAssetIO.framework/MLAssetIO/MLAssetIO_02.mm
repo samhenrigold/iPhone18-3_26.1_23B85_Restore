@@ -1,79 +1,3 @@
-void sub_1C1C00F48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<unsigned long long &>(uint64_t *a1, uint64_t *a2)
-{
-  v3 = a1[2];
-  if (a1[1] == v3)
-  {
-    v10 = *a2;
-    v15[0] = 6;
-    v16 = v10;
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v15);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v15);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator=(*a1, v15);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v15);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v16, v15[0]);
-    return *a1;
-  }
-
-  else
-  {
-    v4 = *(v3 - 8);
-    v5 = *v4;
-    if (v5 == 2)
-    {
-      v6 = *(v4 + 1);
-      v7 = *(v6 + 8);
-      if (v7 >= *(v6 + 16))
-      {
-        v9 = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<unsigned long long &>(v6, a2);
-      }
-
-      else
-      {
-        *(v7 + 8) = 0;
-        v8 = *a2;
-        *v7 = 6;
-        *(v7 + 8) = v8;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v7);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v7);
-        v9 = v7 + 16;
-      }
-
-      *(v6 + 8) = v9;
-      return *(*(*(a1[2] - 8) + 8) + 8) - 16;
-    }
-
-    else
-    {
-      if (v5 != 1)
-      {
-        nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
-      }
-
-      if (!a1[4])
-      {
-        nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>();
-      }
-
-      v12 = *a2;
-      v13[0] = 6;
-      v14 = v12;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v13);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v13);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::operator=(a1[4], v13);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v13);
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v14, v13[0]);
-      return a1[4];
-    }
-  }
-}
-
 uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<unsigned long long &>(uint64_t a1, uint64_t *a2)
 {
   v2 = (*(a1 + 8) - *a1) >> 4;
@@ -132,9 +56,9 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v15;
 }
 
-void sub_1C1C011EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C1C011EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -163,480 +87,466 @@ void nlohmann::detail::input_stream_adapter::~input_stream_adapter(nlohmann::det
   }
 }
 
-uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(void (****a1)(void), uint64_t **a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(void (****a1)(__n128), uint64_t ***a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, __n128 a7)
 {
-  v10 = *a2;
-  if (v10 <= 4)
+  v11 = *a2;
+  if (v11 <= 4)
   {
     if (*a2 > 1u)
     {
-      if (v10 != 2)
+      if (v11 != 2)
       {
-        if (v10 != 3)
+        if (v11 != 3)
         {
-          if (v10 == 4)
+          if (v11 == 4)
           {
-            v12 = *a1;
             v13 = (**a1)[1];
-            *(a2 + 8);
-            goto LABEL_71;
+LABEL_71:
+
+            return v13(a7);
           }
 
-LABEL_148:
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
+          goto LABEL_144;
         }
 
-        v25 = *a1;
-        (***a1)();
+        (***a1)(a7);
         nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, a2[1], a4);
-        v13 = ***a1;
-LABEL_134:
-
-        return v13();
+        v22 = ***a1;
+        goto LABEL_130;
       }
 
-      v33 = *a1;
-      v34 = **a1;
+      v29 = **a1;
       if (*a2[1] != a2[1][1])
       {
         if (!a3)
         {
-          (*v34)();
-          v56 = a2[1];
-          v58 = *v56;
-          v57 = v56[1];
-          if (v58 != v57 - 16)
+          (*v29)(a7);
+          v52 = a2[1];
+          v54 = *v52;
+          v53 = v52[1];
+          if (v54 != v53 - 16)
           {
             do
             {
-              nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v58, 0, a4, a5, a6);
+              nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v54, 0, a4, a5, a6, v51);
               (***a1)();
-              v58 += 16;
-              v59 = a2[1];
-              v57 = v59[1];
+              v54 += 16;
+              v55 = a2[1];
+              v53 = v55[1];
             }
 
-            while (v58 != v57 - 16);
-            v58 = *v59;
+            while (v54 != v53 - 16);
+            v54 = *v55;
           }
 
-          if (v58 == v57)
+          if (v54 == v53)
           {
             nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
           }
 
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v57 - 16, 0, a4, a5, a6);
-          goto LABEL_117;
+          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v53 - 16, 0, a4, a5, a6, v51);
+          goto LABEL_115;
         }
 
-        v34[1]();
-        v35 = a6 + a5;
-        v36 = a1 + 76;
-        v37 = *(a1 + 631);
-        if ((v37 & 0x80000000) != 0)
+        v29[1](a7);
+        v30 = a6 + a5;
+        v31 = (a1 + 76);
+        v32 = *(a1 + 631);
+        if ((v32 & 0x80000000) != 0)
         {
-          v38 = a1[77];
-          if (v38 < v35)
+          v33 = a1[77];
+          if (v33 < v30)
           {
-            goto LABEL_144;
+            goto LABEL_140;
           }
         }
 
-        else if (v35 > v37)
+        else if (v30 > v32)
         {
-          v38 = *(a1 + 631);
-LABEL_144:
-          std::string::resize((a1 + 76), 2 * v38, 32);
+          v33 = *(a1 + 631);
+LABEL_140:
+          std::string::resize((a1 + 76), 2 * v33, 32);
         }
 
-        v78 = a2[1];
-        v80 = *v78;
-        v79 = v78[1];
-        if (v80 != v79 - 16)
+        v73 = a2[1];
+        v75 = *v73;
+        v74 = v73[1];
+        if (v75 != v74 - 16)
         {
           do
           {
-            v81 = a1 + 76;
+            v76 = (a1 + 76);
             if (*(a1 + 631) < 0)
             {
-              v81 = *v36;
+              v76 = *v31;
             }
 
-            ((**a1)[1])(*a1, v81, (a6 + a5));
-            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v80, 1, a4, a5, (a6 + a5));
+            v77.n128_f64[0] = ((**a1)[1])(*a1, v76, (a6 + a5));
+            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v75, 1, a4, a5, (a6 + a5), v77);
             ((**a1)[1])(*a1, ",\n", 2);
-            v80 += 16;
-            v82 = a2[1];
-            v79 = v82[1];
+            v75 += 16;
+            v78 = a2[1];
+            v74 = v78[1];
           }
 
-          while (v80 != v79 - 16);
-          v80 = *v82;
+          while (v75 != v74 - 16);
+          v75 = *v78;
         }
 
-        if (v80 == v79)
+        if (v75 == v74)
         {
           nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
         }
 
-        v83 = a1 + 76;
+        v79 = (a1 + 76);
         if (*(a1 + 631) < 0)
         {
-          v83 = *v36;
+          v79 = *v31;
         }
 
-        ((**a1)[1])(*a1, v83, (a6 + a5));
-        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, a2[1][1] - 16, 1, a4, a5, (a6 + a5));
+        v80.n128_f64[0] = ((**a1)[1])(*a1, v79, (a6 + a5));
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, a2[1][1] - 16, 1, a4, a5, (a6 + a5), v80);
         (***a1)();
         if (*(a1 + 631) < 0)
         {
-          v36 = *v36;
+          v31 = *v31;
         }
 
-        ((**a1)[1])(*a1, v36, a6);
-LABEL_117:
-        v13 = ***a1;
-        goto LABEL_134;
+        ((**a1)[1])(*a1, v31, a6);
+LABEL_115:
+        v22 = ***a1;
+LABEL_130:
+
+        return v22();
       }
 
-      v44 = v34[1];
+      v38 = v29[1];
       goto LABEL_45;
     }
 
-    if (*a2)
+    if (!*a2)
     {
-      v15 = *a1;
-      v16 = **a1;
-      if (!a2[1][2])
-      {
-        v44 = v16[1];
+      v13 = (**a1)[1];
+      goto LABEL_71;
+    }
+
+    v14 = **a1;
+    if (!a2[1][2])
+    {
+      v38 = v14[1];
 LABEL_45:
 
-        return v44();
-      }
+      return v38(a7);
+    }
 
-      if (!a3)
+    if (!a3)
+    {
+      (*v14)(a7);
+      v41 = a2[1];
+      v42 = *v41;
+      if (v41[2] != 1)
       {
-        (*v16)();
-        v47 = a2[1];
-        v48 = *v47;
-        if (v47[2] != 1)
-        {
-          v49 = 0;
-          do
-          {
-            (***a1)(*a1, 34);
-            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v48 + 4, a4);
-            ((**a1)[1])(*a1, ":", 2);
-            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v48 + 7, 0, a4, a5, a6);
-            (***a1)();
-            v50 = v48[1];
-            v51 = v48;
-            if (v50)
-            {
-              do
-              {
-                v48 = v50;
-                v50 = *v50;
-              }
-
-              while (v50);
-            }
-
-            else
-            {
-              do
-              {
-                v48 = v51[2];
-                v52 = *v48 == v51;
-                v51 = v48;
-              }
-
-              while (!v52);
-            }
-
-            ++v49;
-            v47 = a2[1];
-          }
-
-          while (v49 < v47[2] - 1);
-        }
-
-        v53 = v47 + 1;
-        if (v48 == v53)
-        {
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
-        }
-
-        v54 = v48[1];
-        if (v54)
-        {
-          do
-          {
-            v55 = v54;
-            v54 = *v54;
-          }
-
-          while (v54);
-        }
-
-        else
-        {
-          v84 = v48;
-          do
-          {
-            v55 = v84[2];
-            v52 = *v55 == v84;
-            v84 = v55;
-          }
-
-          while (!v52);
-        }
-
-        if (v55 != v53)
-        {
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
-        }
-
-        (***a1)(*a1, 34);
-        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v48 + 4, a4);
-        ((**a1)[1])(*a1, ":", 2);
-        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v48 + 7, 0, a4, a5, a6);
-        goto LABEL_133;
-      }
-
-      v16[1]();
-      v17 = a6 + a5;
-      v18 = a1 + 76;
-      v19 = *(a1 + 631);
-      if ((v19 & 0x80000000) != 0)
-      {
-        v20 = a1[77];
-        if (v20 < v17)
-        {
-          goto LABEL_142;
-        }
-      }
-
-      else if (v17 > v19)
-      {
-        v20 = *(a1 + 631);
-LABEL_142:
-        std::string::resize((a1 + 76), 2 * v20, 32);
-      }
-
-      v69 = a2[1];
-      v70 = *v69;
-      if (v69[2] == 1)
-      {
-        v71 = *v69;
-      }
-
-      else
-      {
-        v72 = 0;
+        v43 = 0;
         do
         {
-          v73 = a1 + 76;
-          if (*(a1 + 631) < 0)
-          {
-            v73 = *v18;
-          }
-
-          ((**a1)[1])(*a1, v73, (a6 + a5));
+          (***a1)(*a1, 34);
+          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v42 + 4, a4);
+          v44.n128_f64[0] = ((**a1)[1])(*a1, ":", 2);
+          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v42 + 56, 0, a4, a5, a6, v44);
           (***a1)();
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v70 + 4, a4);
-          ((**a1)[1])(*a1, ": ", 3);
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v70 + 7, 1, a4, a5, (a6 + a5));
-          ((**a1)[1])(*a1, ",\n", 2);
-          v74 = v70[1];
-          if (v74)
+          v45 = v42[1];
+          v46 = v42;
+          if (v45)
           {
             do
             {
-              v71 = v74;
-              v74 = *v74;
+              v42 = v45;
+              v45 = *v45;
             }
 
-            while (v74);
+            while (v45);
           }
 
           else
           {
             do
             {
-              v71 = v70[2];
-              v52 = *v71 == v70;
-              v70 = v71;
+              v42 = v46[2];
+              v47 = *v42 == v46;
+              v46 = v42;
             }
 
-            while (!v52);
+            while (!v47);
           }
 
-          ++v72;
-          v69 = a2[1];
-          v70 = v71;
+          ++v43;
+          v41 = a2[1];
         }
 
-        while (v72 < v69[2] - 1);
+        while (v43 < v41[2] - 1);
       }
 
-      v75 = v69 + 1;
-      if (v71 == v75)
+      v48 = (v41 + 1);
+      if (v42 == v48)
       {
         nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
       }
 
-      v76 = v71[1];
-      if (v76)
+      v49 = v42[1];
+      if (v49)
       {
         do
         {
-          v77 = v76;
-          v76 = *v76;
+          v50 = v49;
+          v49 = *v49;
         }
 
-        while (v76);
+        while (v49);
       }
 
       else
       {
-        v85 = v71;
+        v81 = v42;
         do
         {
-          v77 = v85[2];
-          v52 = *v77 == v85;
-          v85 = v77;
+          v50 = v81[2];
+          v47 = *v50 == v81;
+          v81 = v50;
         }
 
-        while (!v52);
+        while (!v47);
       }
 
-      if (v77 != v75)
+      if (v50 != v48)
       {
         nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
       }
 
-      v86 = a1 + 76;
-      if (*(a1 + 631) < 0)
-      {
-        v86 = *v18;
-      }
-
-      ((**a1)[1])(*a1, v86, (a6 + a5));
-      (***a1)();
-      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v71 + 4, a4);
-      ((**a1)[1])(*a1, ": ", 3);
-      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v71 + 7, 1, a4, a5, (a6 + a5));
-      (***a1)();
-      if (*(a1 + 631) < 0)
-      {
-        v87 = *v18;
-      }
-
-      v68 = (**a1)[1];
-LABEL_132:
-      v68();
-LABEL_133:
-      v13 = ***a1;
-      goto LABEL_134;
+      (***a1)(*a1, 34);
+      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v42 + 4, a4);
+      v82.n128_f64[0] = ((**a1)[1])(*a1, ":", 2);
+      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v42 + 56, 0, a4, a5, a6, v82);
+      goto LABEL_129;
     }
 
-    v23 = *a1;
-    v13 = (**a1)[1];
-LABEL_71:
-
-    return v13();
-  }
-
-  if (*a2 <= 6u)
-  {
-    if (v10 == 5)
+    v14[1](a7);
+    v15 = a6 + a5;
+    v16 = (a1 + 76);
+    v17 = *(a1 + 631);
+    if ((v17 & 0x80000000) != 0)
     {
-      v24 = a2[1];
+      v18 = a1[77];
+      if (v18 < v15)
+      {
+        goto LABEL_138;
+      }
+    }
 
-      return nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<long long,0>(a1, v24);
+    else if (v15 > v17)
+    {
+      v18 = *(a1 + 631);
+LABEL_138:
+      std::string::resize((a1 + 76), 2 * v18, 32);
+    }
+
+    v63 = a2[1];
+    v64 = *v63;
+    if (v63[2] == 1)
+    {
+      v65 = *v63;
     }
 
     else
     {
-      if (v10 != 6)
+      v66 = 0;
+      do
       {
-        goto LABEL_148;
+        v67 = (a1 + 76);
+        if (*(a1 + 631) < 0)
+        {
+          v67 = *v16;
+        }
+
+        ((**a1)[1])(*a1, v67, (a6 + a5));
+        (***a1)();
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v64 + 4, a4);
+        v68.n128_f64[0] = ((**a1)[1])(*a1, ": ", 3);
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v64 + 56, 1, a4, a5, (a6 + a5), v68);
+        ((**a1)[1])(*a1, ",\n", 2);
+        v69 = v64[1];
+        if (v69)
+        {
+          do
+          {
+            v65 = v69;
+            v69 = *v69;
+          }
+
+          while (v69);
+        }
+
+        else
+        {
+          do
+          {
+            v65 = v64[2];
+            v47 = *v65 == v64;
+            v64 = v65;
+          }
+
+          while (!v47);
+        }
+
+        ++v66;
+        v63 = a2[1];
+        v64 = v65;
       }
 
+      while (v66 < v63[2] - 1);
+    }
+
+    v70 = (v63 + 1);
+    if (v65 == v70)
+    {
+      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
+    }
+
+    v71 = v65[1];
+    if (v71)
+    {
+      do
+      {
+        v72 = v71;
+        v71 = *v71;
+      }
+
+      while (v71);
+    }
+
+    else
+    {
+      v83 = v65;
+      do
+      {
+        v72 = v83[2];
+        v47 = *v72 == v83;
+        v83 = v72;
+      }
+
+      while (!v47);
+    }
+
+    if (v72 != v70)
+    {
+      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
+    }
+
+    v84 = (a1 + 76);
+    if (*(a1 + 631) < 0)
+    {
+      v84 = *v16;
+    }
+
+    ((**a1)[1])(*a1, v84, (a6 + a5));
+    (***a1)();
+    nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v65 + 4, a4);
+    v85.n128_f64[0] = ((**a1)[1])(*a1, ": ", 3);
+    nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v65 + 56, 1, a4, a5, (a6 + a5), v85);
+    (***a1)();
+    v62 = (**a1)[1];
+LABEL_128:
+    v62();
+LABEL_129:
+    v22 = ***a1;
+    goto LABEL_130;
+  }
+
+  if (*a2 <= 6u)
+  {
+    if (v11 == 5)
+    {
       v21 = a2[1];
 
-      return nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(a1, v21);
+      return nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<long long,0>(a1, v21);
+    }
+
+    else
+    {
+      if (v11 != 6)
+      {
+        goto LABEL_144;
+      }
+
+      v19 = a2[1];
+
+      return nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(a1, v19);
     }
   }
 
   else
   {
-    switch(v10)
+    switch(v11)
     {
       case 7u:
-        v39 = *(a2 + 1);
+        v34 = *(a2 + 1);
 
-        return nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_float(a1, v39);
+        return nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_float(a1, v34);
       case 8u:
-        v26 = *a1;
-        v27 = (**a1)[1];
+        v23 = (**a1)[1];
         if (a3)
         {
-          v27();
-          v28 = (a6 + a5);
-          v29 = a1 + 76;
-          v30 = *(a1 + 631);
-          if ((v30 & 0x80000000) != 0)
+          v23(a7);
+          v24 = (a6 + a5);
+          v25 = (a1 + 76);
+          v26 = *(a1 + 631);
+          if ((v26 & 0x80000000) != 0)
           {
-            v60 = a1[77];
-            if (v60 >= v28)
+            v56 = a1[77];
+            if (v56 >= v24)
             {
-              v31 = *a1;
+              v27 = *a1;
 LABEL_76:
-              v32 = *v29;
+              v28 = *v25;
               goto LABEL_77;
             }
           }
 
           else
           {
-            if (v28 <= v30)
+            if (v24 <= v26)
             {
-              v31 = *a1;
-              v32 = a1 + 76;
+              v27 = *a1;
+              v28 = (a1 + 76);
 LABEL_77:
-              ((*v31)[1])(v31, v32, v28);
+              ((*v27)[1])(v27, v28, v24);
               ((**a1)[1])(*a1, "bytes: [", 10);
-              v61 = *a2[1];
-              v62 = a2[1][1];
-              v63 = *a2[1];
-              if (v63 != v62)
+              v57 = a2[1][1];
+              v58 = *a2[1];
+              if (v58 != v57)
               {
-                for (; v63 != v62 - 1; v62 = a2[1][1])
+                for (; v58 != v57 - 1; v57 = a2[1][1])
                 {
-                  v64 = *v63++;
-                  nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, v64);
+                  v59 = *v58++;
+                  nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, v59);
                   ((**a1)[1])(*a1, ", ", 2);
                 }
 
-                nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v62 - 1));
+                nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v57 - 1));
               }
 
               ((**a1)[1])(*a1, "],\n", 3);
-              v65 = a1 + 76;
+              v60 = (a1 + 76);
               if (*(a1 + 631) < 0)
               {
-                v65 = *v29;
+                v60 = *v25;
               }
 
-              ((**a1)[1])(*a1, v65, v28);
+              ((**a1)[1])(*a1, v60, v24);
               ((**a1)[1])(*a1, "subtype: ", 11);
-              v66 = a2[1];
-              if (*(v66 + 25) == 1)
+              v61 = a2[1];
+              if (*(v61 + 25) == 1)
               {
-                nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v66 + 24));
+                nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v61 + 24));
               }
 
               else
@@ -645,21 +555,16 @@ LABEL_77:
               }
 
               (***a1)(*a1, 10);
-              if (*(a1 + 631) < 0)
-              {
-                v67 = *v29;
-              }
-
-              v68 = (**a1)[1];
-              goto LABEL_132;
+              v62 = (**a1)[1];
+              goto LABEL_128;
             }
 
-            v60 = *(a1 + 631);
+            v56 = *(a1 + 631);
           }
 
-          std::string::resize((a1 + 76), 2 * v60, 32);
-          v31 = *a1;
-          v32 = a1 + 76;
+          std::string::resize((a1 + 76), 2 * v56, 32);
+          v27 = *a1;
+          v28 = (a1 + 76);
           if ((*(a1 + 631) & 0x80000000) == 0)
           {
             goto LABEL_77;
@@ -668,41 +573,40 @@ LABEL_77:
           goto LABEL_76;
         }
 
-        v27();
-        v40 = *a2[1];
-        v41 = a2[1][1];
-        v42 = *a2[1];
-        if (v42 != v41)
+        v23(a7);
+        v35 = a2[1][1];
+        v36 = *a2[1];
+        if (v36 != v35)
         {
-          while (v42 != v41 - 1)
+          while (v36 != v35 - 1)
           {
-            v43 = *v42++;
-            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, v43);
+            v37 = *v36++;
+            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, v37);
             (***a1)(*a1, 44);
-            v41 = a2[1][1];
+            v35 = a2[1][1];
           }
 
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v41 - 1));
+          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v35 - 1));
         }
 
         ((**a1)[1])(*a1, "],subtype:", 12);
-        v45 = a2[1];
-        if (*(v45 + 25) != 1)
+        v39 = a2[1];
+        if (*(v39 + 25) != 1)
         {
           v13 = (**a1)[1];
           goto LABEL_71;
         }
 
-        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v45 + 24));
-        v46 = ***a1;
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v39 + 24));
+        v40 = ***a1;
 
-        return v46();
+        return v40();
       case 9u:
-        v14 = *a1;
         v13 = (**a1)[1];
         goto LABEL_71;
       default:
-        goto LABEL_148;
+LABEL_144:
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump();
     }
   }
 }
@@ -715,7 +619,7 @@ void std::__shared_ptr_emplace<nlohmann::detail::output_stream_adapter<char>>::~
   JUMPOUT(0x1C6908B60);
 }
 
-void nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::serializer(uint64_t a1, uint64_t a2, char a3)
+void nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::serializer(uint64_t a1, uint64_t a2, char a3, int a4)
 {
   *a1 = *a2;
   *a2 = 0;
@@ -724,17 +628,17 @@ void nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std:
   *(a1 + 64) = 0u;
   *(a1 + 16) = 0u;
   *(a1 + 32) = 0u;
-  v5 = localeconv();
-  *(a1 + 80) = v5;
-  thousands_sep = v5->thousands_sep;
+  v6 = localeconv();
+  *(a1 + 80) = v6;
+  thousands_sep = v6->thousands_sep;
   if (thousands_sep)
   {
     LOBYTE(thousands_sep) = *thousands_sep;
   }
 
   *(a1 + 88) = thousands_sep;
-  decimal_point = v5->decimal_point;
-  if (v5->decimal_point)
+  decimal_point = v6->decimal_point;
+  if (v6->decimal_point)
   {
     LOBYTE(decimal_point) = *decimal_point;
   }
@@ -787,7 +691,7 @@ void sub_1C1C02558(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(uint64_t result, uint64_t *a2, int a3)
+uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(uint64_t result, uint64_t **a2, int a3)
 {
   v47 = 0;
   v3 = *(a2 + 23);
@@ -919,13 +823,13 @@ LABEL_52:
       {
         switch(v48[0])
         {
-          case 8u:
+          case 8:
             v16 = 25180;
             goto LABEL_48;
-          case 9u:
+          case 9:
             v16 = 29788;
             goto LABEL_48;
-          case 0xAu:
+          case 10:
             v16 = 28252;
             goto LABEL_48;
         }
@@ -975,7 +879,7 @@ LABEL_49:
         }
       }
 
-      if (v48[0] > 0x7E)
+      if (v48[0] > 0x7Eu)
       {
         v21 = a3;
       }
@@ -985,7 +889,7 @@ LABEL_49:
         v21 = 0;
       }
 
-      if (v48[0] < 0x20 || v21)
+      if (v48[0] < 0x20u || v21)
       {
         if (HIWORD(v48[0]))
         {
@@ -1259,7 +1163,7 @@ LABEL_27:
       nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<long long,0>();
     }
 
-    v4 = &v3[v8];
+    v4 = v3 + v8;
     if (v2 < 0x64)
     {
       v12 = v2;
@@ -1354,7 +1258,7 @@ LABEL_15:
         do
         {
           v9 = v2 / 0x64;
-          *(v3 - 2) = *&nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[2 * (v2 % 0x64)];
+          *(v3 - 1) = *&nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[2 * (v2 % 0x64)];
           v3 -= 2;
           v10 = v2 >> 4;
           v2 /= 0x64uLL;
@@ -1365,7 +1269,7 @@ LABEL_15:
 
       if (v9 >= 0xA)
       {
-        *(v3 - 2) = *&nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[2 * v9];
+        *(v3 - 1) = *&nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[2 * v9];
 LABEL_24:
         v11 = (**a1)[1];
 
@@ -1396,14 +1300,9 @@ uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,
     nlohmann::detail::to_chars<double>(a1 + 16, (a1 + 80), a2);
   }
 
-  else
-  {
-    v3 = *a1;
-  }
+  v3 = *(**a1 + 8);
 
-  v4 = *(**a1 + 8);
-
-  return v4();
+  return v3();
 }
 
 uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::decode(_BYTE *a1, unsigned int *a2, int a3)
@@ -1431,7 +1330,7 @@ uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,
   return v6;
 }
 
-uint64_t nlohmann::detail::to_chars<double>(_BYTE *a1, uint64_t a2, double a3)
+_BYTE *nlohmann::detail::to_chars<double>(_BYTE *a1, uint64_t a2, double a3)
 {
   if ((*&a3 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
@@ -1484,7 +1383,7 @@ uint64_t nlohmann::detail::to_chars<double>(_BYTE *a1, uint64_t a2, double a3)
   return result;
 }
 
-uint64_t nlohmann::detail::dtoa_impl::grisu2<double>(uint64_t a1, unsigned int *a2, _DWORD *a3, double a4)
+uint64_t nlohmann::detail::dtoa_impl::grisu2<double>(nlohmann::detail::dtoa_impl *a1, unsigned int *a2, _DWORD *a3, double a4)
 {
   if ((*&a4 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
@@ -1670,7 +1569,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t nlohmann::detail::dtoa_impl::grisu2(uint64_t a1, unsigned int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, nlohmann::detail::dtoa_impl *a10)
+uint64_t nlohmann::detail::dtoa_impl::grisu2(nlohmann::detail::dtoa_impl *a1, unsigned int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, nlohmann::detail::dtoa_impl *a10)
 {
   v31[0] = a4;
   v31[1] = a5;
@@ -1783,18 +1682,16 @@ uint64_t nlohmann::detail::dtoa_impl::get_cached_power_for_binary_exponent(nlohm
   return *v3;
 }
 
-unint64_t nlohmann::detail::dtoa_impl::diyfp::mul(uint64_t a1, uint64_t a2)
+unint64_t nlohmann::detail::dtoa_impl::diyfp::mul(void *a1, void *a2)
 {
   v2 = HIDWORD(*a1);
   v3 = HIDWORD(*a2);
   v4 = v3 * *a1;
   v5 = *a2 * v2;
-  v6 = ((*a2 * *a1) >> 32) + v4 + v5;
-  v7 = (*(a1 + 8) + *(a2 + 8) + 64);
-  return HIDWORD(v5) + v3 * v2 + HIDWORD(v4) + ((v6 + 0x80000000) >> 32);
+  return HIDWORD(v5) + v3 * v2 + HIDWORD(v4) + ((((*a2 * *a1) >> 32) + v4 + v5 + 0x80000000) >> 32);
 }
 
-uint64_t nlohmann::detail::dtoa_impl::grisu2_digit_gen(uint64_t a1, unsigned int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10)
+uint64_t nlohmann::detail::dtoa_impl::grisu2_digit_gen(nlohmann::detail::dtoa_impl *a1, unsigned int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, uint64_t a10)
 {
   v47[0] = a4;
   v47[1] = a5;
@@ -2156,11 +2053,11 @@ uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::
 {
   v6 = 0;
   v7 = 0;
-  v14 = *MEMORY[0x1E69E9840];
-  v13 = xmmword_1C1C32300;
+  v13 = *MEMORY[0x1E69E9840];
+  v12 = xmmword_1C1C32300;
   do
   {
-    v8 = *(&v13 + v7);
+    v8 = *(&v12 + v7);
     result = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::input_stream_adapter>::get(this);
     v10 = *a2;
     v11 = *a2 - 48;
@@ -2195,7 +2092,6 @@ uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::
 
 LABEL_9:
   *a3 = v6;
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2688,12 +2584,17 @@ void MPL::detail::ModelPackageImpl::ModelPackageImpl(std::string *this, const st
   std::__fs::filesystem::__status(&this[1], 0);
   if (__p.__r_.__value_.__s.__data_[0] && __p.__r_.__value_.__s.__data_[0] != 255)
   {
-    if ((this[1].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    if ((this[1].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      data = this + 1;
+    }
+
+    else
     {
       data = this[1].__r_.__value_.__l.__data_;
     }
 
-    std::ifstream::basic_ifstream(&__p);
+    std::ifstream::basic_ifstream(&__p, data, 4);
     operator new();
   }
 
@@ -2750,8 +2651,7 @@ std::__fs::filesystem::path *std::__fs::filesystem::operator/[abi:ne200100]@<X0>
 
   else
   {
-    *&a3->__pn_.__r_.__value_.__l.__data_ = *a2;
-    a3->__pn_.__r_.__value_.__r.__words[2] = *(a2 + 16);
+    a3->__pn_ = *a2;
   }
 
   return std::__fs::filesystem::path::operator/=[abi:ne200100](a3, this);
@@ -2771,7 +2671,7 @@ void MPL::detail::ModelPackageImpl::validate(MPL::detail::ModelPackageImpl *this
 {
   v2 = *(this + 9);
   std::string::basic_string[abi:ne200100]<0>(__p, "fileFormatVersion");
-  JsonMap::getString(v2, __p, &v17);
+  JsonMap::getString(v2, &v17, __p);
   if (v16 < 0)
   {
     operator delete(__p[0]);
@@ -2859,7 +2759,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void sub_1C1C05CD0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, JsonMap *a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
+void sub_1C1C05CD0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
 {
   if (a14 < 0)
   {
@@ -3003,7 +2903,17 @@ void MPL::detail::ModelPackageImpl::~ModelPackageImpl(MPL::detail::ModelPackageI
     MPL::detail::ModelPackageImpl::generateIdentifier(v5);
     __replacement = v5[0];
     std::__fs::filesystem::path::replace_extension(&v4, &__replacement);
-    std::ofstream::basic_ofstream(v5);
+    if ((v4.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v2 = &v4;
+    }
+
+    else
+    {
+      v2 = v4.__r_.__value_.__r.__words[0];
+    }
+
+    std::ofstream::basic_ofstream(v5, v2, 4);
     JsonMap::serialize(*(this + 9), v5);
   }
 
@@ -3022,8 +2932,6 @@ void MPL::detail::ModelPackageImpl::~ModelPackageImpl(MPL::detail::ModelPackageI
   {
     operator delete(*this);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C1C06250(_Unwind_Exception *a1, int a2)
@@ -3036,17 +2944,15 @@ void sub_1C1C06250(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-_BYTE *MPL::detail::ModelPackageImpl::generateIdentifier@<X0>(_BYTE *a1@<X8>)
+uint64_t *MPL::detail::ModelPackageImpl::generateIdentifier@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   *uu = 0;
-  v7 = 0;
-  memset(v5, 0, sizeof(v5));
+  v5 = 0;
+  memset(v3, 0, sizeof(v3));
   MEMORY[0x1C6909170](uu);
-  uuid_unparse(uu, v5);
-  result = std::string::basic_string[abi:ne200100]<0>(a1, v5);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  uuid_unparse(uu, v3);
+  return std::string::basic_string[abi:ne200100]<0>(a1, v3);
 }
 
 uint64_t *std::istringstream::basic_istringstream[abi:ne200100](uint64_t *a1, const std::string *a2, int a3)
@@ -3162,19 +3068,19 @@ void sub_1C1C065CC(void *a1)
 
 void MPL::detail::ModelPackageImpl::getItemInfoEntries(MPL::detail::ModelPackageImpl *this)
 {
-  v2 = *(this + 9);
+  v3 = *(this + 9);
   std::string::basic_string[abi:ne200100]<0>(__p, "itemInfoEntries");
-  hasKey = JsonMap::hasKey(v2, __p);
-  v4 = hasKey;
-  if (v7 < 0)
+  hasKey = JsonMap::hasKey(v3, __p);
+  v5 = hasKey;
+  if (v8 < 0)
   {
     operator delete(__p[0]);
-    if (v4)
+    if (v5)
     {
 LABEL_3:
-      v5 = *(this + 9);
+      v6 = *(this + 9);
       std::string::basic_string[abi:ne200100]<0>(__p, "itemInfoEntries");
-      JsonMap::getObject(v5, __p);
+      JsonMap::getObject(v6, __p);
     }
   }
 
@@ -3186,16 +3092,16 @@ LABEL_3:
   operator new();
 }
 
-void sub_1C1C067E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C1C067E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<JsonMap>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
 
-void sub_1C1C06A3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, JsonMap *a25)
+void sub_1C1C06A3C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, unsigned __int8 **a25)
 {
-  MEMORY[0x1C6908B60](v26, v25);
+  MEMORY[0x1C6908B60](v26, v25, a3, a4, a5, a6, a7, a8);
   std::unique_ptr<JsonMap>::reset[abi:ne200100](&a25, 0);
   _Unwind_Resume(a1);
 }
@@ -3271,7 +3177,7 @@ void MPL::detail::ModelPackageImpl::findItem(MPL::detail::ModelPackageImpl *a1)
   MPL::detail::ModelPackageImpl::getItemInfoEntry(a1);
 }
 
-void sub_1C1C07278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, JsonMap *a13, void **a14)
+void sub_1C1C07278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, unsigned __int8 **a13, char *a14)
 {
   a14 = &a10;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a14);
@@ -3369,10 +3275,10 @@ LABEL_10:
 
 void MPL::detail::ModelPackageImpl::setRootModel(MPL::detail::ModelPackageImpl *a1)
 {
-  v2 = *(a1 + 9);
+  v7 = *(a1 + 9);
   std::string::basic_string[abi:ne200100]<0>(__p, "rootModelIdentifier");
-  hasKey = JsonMap::hasKey(v2, __p);
-  if (v6 < 0)
+  hasKey = JsonMap::hasKey(v7, __p);
+  if (v11 < 0)
   {
     operator delete(__p[0]);
   }
@@ -3389,9 +3295,9 @@ void MPL::detail::ModelPackageImpl::setRootModel(MPL::detail::ModelPackageImpl *
 
 void MPL::detail::ModelPackageImpl::getRootModel(MPL::detail::ModelPackageImpl *this)
 {
-  v2 = *(this + 9);
+  v3 = *(this + 9);
   std::string::basic_string[abi:ne200100]<0>(&__p, "rootModelIdentifier");
-  hasKey = JsonMap::hasKey(v2, &__p.__r_.__value_.__l.__data_);
+  hasKey = JsonMap::hasKey(v3, &__p.__r_.__value_.__l.__data_);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3399,12 +3305,12 @@ void MPL::detail::ModelPackageImpl::getRootModel(MPL::detail::ModelPackageImpl *
 
   if (hasKey)
   {
-    v4 = *(this + 9);
-    std::string::basic_string[abi:ne200100]<0>(v6, "rootModelIdentifier");
-    JsonMap::getString(v4, v6, &__p);
-    if (v7 < 0)
+    v5 = *(this + 9);
+    std::string::basic_string[abi:ne200100]<0>(v7, "rootModelIdentifier");
+    JsonMap::getString(v5, &__p, v7);
+    if (v8 < 0)
     {
-      operator delete(v6[0]);
+      operator delete(v7[0]);
     }
 
     MPL::detail::ModelPackageImpl::findItem(this);
@@ -3424,9 +3330,9 @@ void sub_1C1C07C50(void *a1)
 
 void MPL::ModelPackage::setRootModel(MPL::detail::ModelPackageImpl **a1, std::string *a2)
 {
-  v2 = *a1;
+  v6 = *a1;
   std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&__p, a2);
-  MPL::detail::ModelPackageImpl::setRootModel(v2);
+  MPL::detail::ModelPackageImpl::setRootModel(v6);
 }
 
 void sub_1C1C07D28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3661,7 +3567,7 @@ void sub_1C1C082AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -3674,18 +3580,18 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYT
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
-JsonMap *std::unique_ptr<JsonMap>::reset[abi:ne200100](JsonMap **a1, JsonMap *a2)
+unsigned __int8 **std::unique_ptr<JsonMap>::reset[abi:ne200100](unsigned __int8 ***a1, unsigned __int8 **a2)
 {
   result = *a1;
   *a1 = a2;
@@ -3699,23 +3605,23 @@ JsonMap *std::unique_ptr<JsonMap>::reset[abi:ne200100](JsonMap **a1, JsonMap *a2
   return result;
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t a2, int a3)
 {
   a1[59] = 0;
-  v2 = MEMORY[0x1E69E5528] + 64;
+  v4 = MEMORY[0x1E69E5528] + 64;
   a1[53] = MEMORY[0x1E69E5528] + 64;
-  v3 = *(MEMORY[0x1E69E54C8] + 16);
-  v4 = *(MEMORY[0x1E69E54C8] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x1E69E5528] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x1E69E54C8] + 16);
+  v6 = *(MEMORY[0x1E69E54C8] + 8);
   *a1 = v6;
-  a1[53] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  a1[1] = 0;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 2);
+  v8 = MEMORY[0x1E69E5528] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[53] = v4;
   MEMORY[0x1C69088D0](a1 + 2);
   if (!std::filebuf::open())
   {
@@ -3732,22 +3638,22 @@ void sub_1C1C08550(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t a2, int a3)
 {
   a1[58] = 0;
-  v2 = MEMORY[0x1E69E5530] + 64;
+  v4 = MEMORY[0x1E69E5530] + 64;
   a1[52] = MEMORY[0x1E69E5530] + 64;
-  v3 = *(MEMORY[0x1E69E54D0] + 16);
-  v4 = *(MEMORY[0x1E69E54D0] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 1);
-  v6 = MEMORY[0x1E69E5530] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x1E69E54D0] + 16);
+  v6 = *(MEMORY[0x1E69E54D0] + 8);
   *a1 = v6;
-  a1[52] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 1);
+  v8 = MEMORY[0x1E69E5530] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[52] = v4;
   MEMORY[0x1C69088D0](a1 + 1);
   if (!std::filebuf::open())
   {
@@ -3766,8 +3672,7 @@ void sub_1C1C08710(_Unwind_Exception *a1)
 
 std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(std::string *a1, std::string *a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   size = a2->__r_.__value_.__l.__size_;
@@ -3797,8 +3702,7 @@ void sub_1C1C08794(_Unwind_Exception *exception_object)
 
 std::string *std::__shared_ptr_emplace<MPL::detail::ModelPackageItemInfoImpl>::__shared_ptr_emplace[abi:ne200100]<std::string const&,std::__fs::filesystem::path &,std::string&,std::string&,std::string&,std::allocator<MPL::detail::ModelPackageItemInfoImpl>,0>(std::string *a1, __int128 *a2, uint64_t a3, __int128 *a4, __int128 *a5, __int128 *a6)
 {
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__r.__words[1] = 0uLL;
   a1->__r_.__value_.__r.__words[0] = &unk_1F415CCD0;
   std::allocator<MPL::detail::ModelPackageItemInfoImpl>::construct[abi:ne200100]<MPL::detail::ModelPackageItemInfoImpl,std::string const&,std::__fs::filesystem::path &,std::string&,std::string&,std::string&>(&v8, a1 + 1, a2, a3, a4, a5, a6);
   return a1;
@@ -4062,10 +3966,10 @@ uint64_t google::protobuf::internal::SerialArena::AllocateAlignedWithCleanup(voi
   return v3;
 }
 
-uint64_t google::protobuf::internal::ThreadSafeArena::AllocateAlignedWithCleanupFallback(google::protobuf::internal::ThreadSafeArena *this, uint64_t a2, const std::type_info *a3)
+uint64_t google::protobuf::internal::ThreadSafeArena::AllocateAlignedWithCleanupFallback(atomic_ullong *this, uint64_t a2, const std::type_info *a3)
 {
   v4 = this;
-  v5 = *(this + 1);
+  v5 = this[1];
   if ((v5 & 2) == 0)
   {
     goto LABEL_2;
@@ -4095,7 +3999,7 @@ LABEL_2:
   return google::protobuf::internal::SerialArena::AllocateAlignedWithCleanup(this, a2, v9);
 }
 
-char *google::protobuf::internal::ThreadSafeArena::GetSerialArenaFallback(atomic_ullong *this, void *a2)
+atomic_ullong *google::protobuf::internal::ThreadSafeArena::GetSerialArenaFallback(atomic_ullong *this, void *a2)
 {
   v3 = this;
   v4 = this + 2;
@@ -4104,7 +4008,7 @@ char *google::protobuf::internal::ThreadSafeArena::GetSerialArenaFallback(atomic
   {
     while (*explicit != a2)
     {
-      explicit = *(explicit + 2);
+      explicit = explicit[2];
       if (!explicit)
       {
         goto LABEL_4;
@@ -4120,7 +4024,7 @@ LABEL_4:
     this[1] = v6;
     this[2] = 0;
     this[3] = a2;
-    explicit = (this + 3);
+    explicit = this + 3;
     this[6] = 0;
     this[7] = v6;
     this[4] = this;
@@ -4189,10 +4093,10 @@ google::protobuf::internal::ThreadSafeArena *google::protobuf::internal::ThreadS
   return result;
 }
 
-uint64_t google::protobuf::internal::ThreadSafeArena::AllocateAlignedFallback(google::protobuf::internal::ThreadSafeArena *this, unint64_t a2, const std::type_info *a3)
+atomic_ullong google::protobuf::internal::ThreadSafeArena::AllocateAlignedFallback(atomic_ullong *this, unint64_t a2, const std::type_info *a3)
 {
   v4 = this;
-  v5 = *(this + 1);
+  v5 = this[1];
   if ((v5 & 2) == 0)
   {
     goto LABEL_2;
@@ -4217,8 +4121,8 @@ LABEL_2:
     }
   }
 
-  v9 = *(this + 5);
-  if (*(this + 6) - v9 < a2)
+  v9 = this[5];
+  if (this[6] - v9 < a2)
   {
     v11 = (v4[1] & 0xFFFFFFFFFFFFFFF8);
 
@@ -4227,12 +4131,12 @@ LABEL_2:
 
   else
   {
-    *(this + 5) = v9 + a2;
+    this[5] = v9 + a2;
     return v9;
   }
 }
 
-uint64_t google::protobuf::Arena::AllocateAlignedWithHook(atomic_ullong *this, unint64_t a2, const std::type_info *a3)
+atomic_ullong google::protobuf::Arena::AllocateAlignedWithHook(atomic_ullong *this, unint64_t a2, const std::type_info *a3)
 {
   if ((this[1] & 2) == 0)
   {
@@ -4332,16 +4236,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x1E69E5318]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -4364,9 +4268,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_1C1C09800(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1C1C09800(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x1C6908950](&a10);
+  MEMORY[0x1C6908950](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -4845,7 +4749,7 @@ void google::protobuf::io::CodedInputStream::~CodedInputStream(google::protobuf:
   }
 }
 
-uint64_t google::protobuf::io::CodedInputStream::PushLimit(google::protobuf::io::CodedInputStream *this, unsigned int a2)
+uint64_t google::protobuf::io::CodedInputStream::PushLimit(google::protobuf::io::CodedInputStream *this, signed int a2)
 {
   result = *(this + 10);
   if ((a2 & 0x80000000) == 0)
@@ -5131,7 +5035,7 @@ unint64_t google::protobuf::io::CodedInputStream::ReadVarint64Fallback(char **th
 
 uint64_t google::protobuf::io::CodedInputStream::Refresh(google::protobuf::io::CodedInputStream *this)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = *(this + 11);
   if (v2 > 0 || *(this + 7) > 0 || *(this + 6) == *(this + 10))
   {
@@ -5139,119 +5043,117 @@ uint64_t google::protobuf::io::CodedInputStream::Refresh(google::protobuf::io::C
     v4 = *(this + 12);
     if (v3 >= v4 && v4 != *(this + 10))
     {
-      LODWORD(v26[0]) = 2;
-      v26[1] = "/Library/Caches/com.apple.xbs/Sources/CoreML/coremltools-internal/deps/protobuf/src/google/protobuf/io/coded_stream.cc";
-      v27 = 193;
+      LODWORD(v25[0]) = 2;
+      v25[1] = "/Library/Caches/com.apple.xbs/Sources/CoreML/coremltools-internal/deps/protobuf/src/google/protobuf/io/coded_stream.cc";
+      v26 = 193;
       memset(&__p, 0, sizeof(__p));
       std::string::append(&__p, "A protocol message was rejected because it was too big (more than ");
       v6 = *(this + 12);
-      __s = &v31;
+      __s = &v30;
       if ((v6 & 0x80000000) != 0)
       {
-        v7 = (&v31 + 1);
-        LOBYTE(v31) = 45;
+        v7 = (&v30 + 1);
+        LOBYTE(v30) = 45;
         v6 = -v6;
       }
 
       else
       {
-        v7 = &v31;
+        v7 = &v30;
       }
 
-      v30 = (google::protobuf::FastUInt32ToBufferLeft(v6, v7, v5) - &v31);
-      std::string::append(&__p, __s, v30);
+      v29 = (google::protobuf::FastUInt32ToBufferLeft(v6, v7, v5) - &v30);
+      std::string::append(&__p, __s, v29);
       v8 = std::string::append(&__p, " bytes).  To increase the limit (or to disable these warnings), see CodedInputStream::SetTotalBytesLimit() in third_party/protobuf/src/google/protobuf/io/coded_stream.h.");
-      google::protobuf::internal::LogFinisher::operator=(v8, v26);
+      google::protobuf::internal::LogFinisher::operator=(v8, v25);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
     }
 
-    v9 = 0;
+    return 0;
   }
 
   else
   {
-    v26[0] = 0;
-    v25 = 0;
-    v12 = *(this + 2);
+    v25[0] = 0;
+    v24 = 0;
+    v11 = *(this + 2);
     do
     {
-      v9 = (*(*v12 + 16))(v12, v26, &v25);
+      v9 = (*(*v11 + 16))(v11, v25, &v24);
       if (!v9)
       {
         *this = 0;
         *(this + 1) = 0;
-        goto LABEL_12;
+        return v9;
       }
 
-      v13 = v25;
+      v12 = v24;
     }
 
-    while (!v25);
-    v14 = v26[0] + v25;
-    *this = v26[0];
-    *(this + 1) = v14;
-    if (v13 < 0)
+    while (!v24);
+    v13 = v25[0] + v24;
+    *this = v25[0];
+    *(this + 1) = v13;
+    if (v12 < 0)
     {
       LODWORD(__s) = 3;
-      v30 = "/Library/Caches/com.apple.xbs/Sources/CoreML/coremltools-internal/deps/protobuf/src/google/protobuf/io/coded_stream.cc";
-      v31 = 638;
-      memset(&v32, 0, sizeof(v32));
-      v15 = std::string::append(&v32, "CHECK failed: (buffer_size) >= (0): ");
-      google::protobuf::internal::LogFinisher::operator=(v15, &__s);
-      if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+      v29 = "/Library/Caches/com.apple.xbs/Sources/CoreML/coremltools-internal/deps/protobuf/src/google/protobuf/io/coded_stream.cc";
+      v30 = 638;
+      memset(&v31, 0, sizeof(v31));
+      v14 = std::string::append(&v31, "CHECK failed: (buffer_size) >= (0): ");
+      google::protobuf::internal::LogFinisher::operator=(v14, &__s);
+      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v32.__r_.__value_.__l.__data_);
+        operator delete(v31.__r_.__value_.__l.__data_);
       }
 
-      v13 = v25;
+      v12 = v24;
     }
 
-    v16 = *(this + 6);
-    v17 = v16 - (v13 ^ 0x7FFFFFFF);
-    if (v16 <= (v13 ^ 0x7FFFFFFF))
+    v15 = *(this + 6);
+    v16 = v15 - (v12 ^ 0x7FFFFFFF);
+    if (v15 <= (v12 ^ 0x7FFFFFFF))
     {
-      v19 = v13 + v16;
-      v18 = *(this + 1);
+      v18 = v12 + v15;
+      v17 = *(this + 1);
     }
 
     else
     {
-      *(this + 7) = v17;
-      v18 = *(this + 1) - v17;
-      *(this + 1) = v18;
-      v19 = 0x7FFFFFFF;
+      *(this + 7) = v16;
+      v17 = *(this + 1) - v16;
+      *(this + 1) = v17;
+      v18 = 0x7FFFFFFF;
     }
 
-    *(this + 6) = v19;
-    v20 = *(this + 10);
-    v21 = v18 + *(this + 11);
-    *(this + 1) = v21;
-    v22 = *(this + 12);
-    if (v22 >= v20)
+    *(this + 6) = v18;
+    v19 = *(this + 10);
+    v20 = v17 + *(this + 11);
+    *(this + 1) = v20;
+    v21 = *(this + 12);
+    if (v21 >= v19)
     {
-      v22 = v20;
+      v21 = v19;
     }
 
-    v23 = __OFSUB__(v19, v22);
-    v24 = v19 - v22;
-    if ((v24 < 0) ^ v23 | (v24 == 0))
+    v22 = __OFSUB__(v18, v21);
+    v23 = v18 - v21;
+    if ((v23 < 0) ^ v22 | (v23 == 0))
     {
-      v24 = 0;
+      v23 = 0;
     }
 
     else
     {
-      *(this + 1) = v21 - v24;
+      *(this + 1) = v20 - v23;
     }
 
-    *(this + 11) = v24;
+    *(this + 11) = v23;
   }
 
-LABEL_12:
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -5493,27 +5395,25 @@ BOOL google::protobuf::io::CodedInputStream::ReadLittleEndian32Fallback(unsigned
 
 BOOL google::protobuf::io::CodedInputStream::ReadLittleEndian64Fallback(unint64_t **this, unint64_t *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = *this;
-  if ((*(this + 2) - *this) >= 8)
+  if ((*(this + 2) - *this) < 8)
+  {
+    v3 = v5;
+    result = google::protobuf::io::CodedInputStream::ReadRaw(this, v5, 8);
+    if (!result)
+    {
+      return result;
+    }
+  }
+
+  else
   {
     *this = v3 + 1;
-LABEL_4:
-    *a2 = *v3;
-    result = 1;
-    goto LABEL_5;
   }
 
-  v3 = v6;
-  result = google::protobuf::io::CodedInputStream::ReadRaw(this, v6, 8);
-  if (result)
-  {
-    goto LABEL_4;
-  }
-
-LABEL_5:
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  *a2 = *v3;
+  return 1;
 }
 
 unint64_t google::protobuf::io::CodedInputStream::ReadVarintSizeAsIntFallback(char **this)
@@ -5829,7 +5729,7 @@ LABEL_4:
   return v6;
 }
 
-unint64_t google::protobuf::io::EpsCopyOutputStream::Flush(google::protobuf::io::EpsCopyOutputStream *this, unsigned __int8 *a2)
+uint64_t google::protobuf::io::EpsCopyOutputStream::Flush(google::protobuf::io::EpsCopyOutputStream *this, unsigned __int8 *a2)
 {
   v4 = (this + 16);
   v6 = this + 32;
@@ -5924,7 +5824,7 @@ unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::Trim(google::protobu
   return a2;
 }
 
-_OWORD *google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(google::protobuf::io::EpsCopyOutputStream *this, unsigned __int8 *a2)
+char *google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(google::protobuf::io::EpsCopyOutputStream *this, unsigned __int8 *a2)
 {
   LODWORD(v2) = a2;
   v4 = (this + 16);
@@ -5992,7 +5892,7 @@ LABEL_13:
   return v4;
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteRawFallback(google::protobuf::io::EpsCopyOutputStream *this, char *__src, int a3, unsigned __int8 *__dst)
+char *google::protobuf::io::EpsCopyOutputStream::WriteRawFallback(google::protobuf::io::EpsCopyOutputStream *this, char *__src, int a3, char *__dst)
 {
   v4 = __dst;
   v5 = a3;
@@ -6015,7 +5915,7 @@ unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteRawFallback(goo
   return &v4[v5];
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliasedOutline(google::protobuf::io::EpsCopyOutputStream *this, unsigned int a2, void *a3, unsigned __int8 *a4)
+char *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliasedOutline(google::protobuf::io::EpsCopyOutputStream *this, unsigned int a2, void *a3, unsigned __int8 *a4)
 {
   if (*this <= a4)
   {
@@ -6100,7 +6000,7 @@ LABEL_15:
   return google::protobuf::io::EpsCopyOutputStream::WriteRawFallback(this, a3, v7, v11);
 }
 
-unsigned __int8 *google::protobuf::io::EpsCopyOutputStream::WriteStringOutline(google::protobuf::io::EpsCopyOutputStream *this, char a2, uint64_t a3, unsigned __int8 *a4)
+char *google::protobuf::io::EpsCopyOutputStream::WriteStringOutline(google::protobuf::io::EpsCopyOutputStream *this, char a2, uint64_t a3, char *a4)
 {
   v4 = a4;
   if (*this <= a4)
@@ -6321,10 +6221,9 @@ void google::protobuf::internal::LogMessage::~LogMessage(void **this)
 
 std::string *google::protobuf::internal::LogMessage::operator<<(std::string *a1, google::protobuf *this, char *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6 = google::protobuf::FastUInt64ToBufferLeft(this, v7, a3) - v7;
-  std::string::append(a1 + 1, v7, v6);
-  v4 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v5 = google::protobuf::FastUInt64ToBufferLeft(this, v6, a3) - v6;
+  std::string::append(a1 + 1, v6, v5);
   return a1;
 }
 
@@ -6556,7 +6455,7 @@ void google::protobuf::internal::PrintUTF8ErrorLog(google::protobuf::internal *t
   v9.__r_.__value_.__s.__data_[0] = 0;
   if (this)
   {
-    google::protobuf::StringPrintf(&v7, this);
+    google::protobuf::StringPrintf(&v7, a2, this);
     v9 = v7;
   }
 
@@ -6634,16 +6533,6 @@ void google::protobuf::internal::ArenaStringPtr::Set(uint64_t **a1, __int128 *a2
 {
   if (*a1 != &google::protobuf::internal::fixed_address_empty_string)
   {
-    if (*(a2 + 23) >= 0)
-    {
-      v6 = *(a2 + 23);
-    }
-
-    else
-    {
-      v5 = *a2;
-      v6 = *(a2 + 1);
-    }
 
     JUMPOUT(0x1C6908840);
   }
@@ -6653,9 +6542,9 @@ void google::protobuf::internal::ArenaStringPtr::Set(uint64_t **a1, __int128 *a2
     operator new();
   }
 
-  v8 = AlignedWithCleanup;
-  *v9 = AlignedWithCleanup;
-  v9[1] = google::protobuf::internal::arena_destruct_object<std::string>;
+  v6 = AlignedWithCleanup;
+  *v7 = AlignedWithCleanup;
+  v7[1] = google::protobuf::internal::arena_destruct_object<std::string>;
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(AlignedWithCleanup, *a2, *(a2 + 1));
@@ -6663,12 +6552,12 @@ void google::protobuf::internal::ArenaStringPtr::Set(uint64_t **a1, __int128 *a2
 
   else
   {
-    v10 = *a2;
+    v8 = *a2;
     AlignedWithCleanup->__r_.__value_.__r.__words[2] = *(a2 + 2);
-    *&AlignedWithCleanup->__r_.__value_.__l.__data_ = v10;
+    *&AlignedWithCleanup->__r_.__value_.__l.__data_ = v8;
   }
 
-  *a1 = v8;
+  *a1 = v6;
 }
 
 void google::protobuf::internal::arena_destruct_object<std::string>(uint64_t a1)
@@ -6700,7 +6589,7 @@ uint64_t *google::protobuf::internal::ArenaStringPtr::Mutable(uint64_t **a1, ato
   return result;
 }
 
-google::protobuf::internal::EpsCopyInputStream *google::protobuf::internal::EpsCopyInputStream::ReadString(uint64_t a1, std::string::value_type *__s, int a3, std::string *this)
+const std::string::value_type *google::protobuf::internal::EpsCopyInputStream::ReadString(uint64_t a1, std::string::value_type *__s, int a3, std::string *this)
 {
   v5 = __s;
   v6 = a3;
@@ -6922,14 +6811,13 @@ uint64_t google::protobuf::io::CopyingOutputStreamAdaptor::Next(google::protobuf
     v7 = *(this + 4);
     if (!v7)
     {
-      v8 = *(this + 10);
       operator new[]();
     }
 
-    v9 = *(this + 10);
-    v10 = *(this + 11);
-    *a2 = (v7 + v10);
-    *a3 = v9 - v10;
+    v8 = *(this + 10);
+    v9 = *(this + 11);
+    *a2 = (v7 + v9);
+    *a3 = v8 - v9;
     *(this + 11) = *(this + 10);
     return 1;
   }
@@ -6964,12 +6852,11 @@ void google::protobuf::io::CopyingOutputStreamAdaptor::~CopyingOutputStreamAdapt
   }
 }
 
-std::string *google::protobuf::StringPrintf@<X0>(std::string *a1@<X8>, ...)
+std::string *google::protobuf::StringPrintf@<X0>(std::string *__return_ptr a1@<X8>, const char *a2@<X1>, ...)
 {
-  va_start(va, a1);
-  v7 = *MEMORY[0x1E69E9840];
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  va_start(va, a2);
+  v5 = *MEMORY[0x1E69E9840];
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   result = vsnprintf(__str, 0x400uLL, " '%s'", va);
   if (result > 1023)
@@ -6979,10 +6866,9 @@ std::string *google::protobuf::StringPrintf@<X0>(std::string *a1@<X8>, ...)
 
   if ((result & 0x80000000) == 0)
   {
-    result = std::string::append(a1, __str, result);
+    return std::string::append(a1, __str, result);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7004,12 +6890,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -7023,22 +6909,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -7072,13 +6958,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -7894,206 +7780,201 @@ uint64_t google::protobuf::ZeroCopyCodedInputStream::Next(google::protobuf::io::
 
 uint64_t google::protobuf::MessageLite::ParseFromCodedStream(google::protobuf::MessageLite *this, google::protobuf::io::CodedInputStream *a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   (*(*this + 32))(this);
-  v19[0] = &unk_1F415FD18;
-  v19[1] = a2;
+  v18[0] = &unk_1F415FD18;
+  v18[1] = a2;
   v4 = *(a2 + 13);
   v5 = *(a2 + 37);
+  v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v36 = -NAN;
-  v37 = v4;
-  v38 = 0x80000000;
-  v40 = 0;
-  v39 = 0uLL;
-  v35 = v5;
-  v32 = v19;
+  v35 = -NAN;
+  v36 = v4;
+  v37 = 0x80000000;
+  v39 = 0;
+  v38 = 0uLL;
+  v34 = v5;
+  v31 = v18;
   __src[0] = 0;
   LODWORD(__p) = 0;
-  v31 = 0x7FFFFFFF;
-  if (google::protobuf::ZeroCopyCodedInputStream::Next(v19, __src, &__p))
+  v30 = 0x7FFFFFFF;
+  if (google::protobuf::ZeroCopyCodedInputStream::Next(v18, __src, &__p))
   {
-    HIDWORD(v36) = __p ^ 0x7FFFFFFF;
+    HIDWORD(v35) = __p ^ 0x7FFFFFFF;
     if (__p < 17)
     {
-      v27 = &v34;
-      v28 = &v34;
-      v29 = &v33;
-      v6 = &v35 - __p;
+      v26 = &v33;
+      v27 = &v33;
+      v28 = &v32;
+      v6 = &v34 - __p;
       memcpy(v6, __src[0], __p);
     }
 
     else
     {
       v6 = __src[0];
-      v31 = -2147483633 - __p;
-      v27 = (__src[0] + __p - 16);
-      v28 = v27;
-      v29 = &v33;
+      v30 = -2147483633 - __p;
+      v26 = (__src[0] + __p - 16);
+      v27 = v26;
+      v28 = &v32;
       if (v5)
       {
-        v35 = 2;
+        v34 = 2;
       }
     }
   }
 
   else
   {
-    v28 = &v33;
+    v27 = &v32;
+    v28 = 0;
+    HIDWORD(v35) = 0;
     v29 = 0;
-    HIDWORD(v36) = 0;
-    v30 = 0;
-    v6 = &v33;
-    v27 = &v33;
+    v6 = &v32;
+    v26 = &v32;
   }
 
-  v38 = 0;
-  v39 = *(a2 + 4);
-  v7 = (*(*this + 80))(this, v6, &v27);
+  v37 = 0;
+  v38 = *(a2 + 4);
+  v7 = (*(*this + 80))(this, v6, &v26);
   v8 = v7;
   if (!v7)
   {
-    goto LABEL_47;
+    return 0;
   }
 
-  if (v29 == &v33)
+  if (v28 == &v32)
   {
-    v9 = (v28 - v7 + 16);
+    v9 = (v27 - v7 + 16);
   }
 
   else
   {
-    v9 = (v30 + v28 - v7);
+    v9 = (v29 + v27 - v7);
   }
 
   if (v9 >= 1)
   {
-    (*(*v32 + 3))(v32, v9);
-    HIDWORD(v36) += v9;
+    (*(*v31 + 3))(v31, v9);
+    HIDWORD(v35) += v9;
   }
 
-  if (LODWORD(v36) == 1)
+  if (LODWORD(v35) == 1)
   {
     *(a2 + 36) = 1;
   }
 
   else
   {
-    if (v27 < v8 && (!v29 || (v8 - v28) > v31))
+    if (v26 < v8 && (!v28 || (v8 - v27) > v30))
     {
-LABEL_47:
-      result = 0;
-      goto LABEL_48;
+      return 0;
     }
 
-    *(a2 + 8) = LODWORD(v36) + 1;
+    *(a2 + 8) = LODWORD(v35) + 1;
   }
 
-  if (((*(*this + 40))(this) & 1) == 0)
+  if ((*(*this + 40))(this))
   {
-    LODWORD(__src[0]) = 2;
-    __src[1] = "/Library/Caches/com.apple.xbs/Sources/CoreML/coremltools-internal/deps/protobuf/src/google/protobuf/message_lite.cc";
-    v22 = 134;
-    memset(&v23, 0, sizeof(v23));
-    memset(&v20, 0, sizeof(v20));
-    std::string::append(&v20, "Can't ");
-    std::string::append(&v20, "parse");
-    std::string::append(&v20, " message of type ");
-    (*(*this + 16))(&__p, this);
-    if ((v26 & 0x80u) == 0)
-    {
-      p_p = &__p;
-    }
-
-    else
-    {
-      p_p = __p;
-    }
-
-    if ((v26 & 0x80u) == 0)
-    {
-      v12 = v26;
-    }
-
-    else
-    {
-      v12 = v25;
-    }
-
-    std::string::append(&v20, p_p, v12);
-    if (v26 < 0)
-    {
-      operator delete(__p);
-    }
-
-    std::string::append(&v20, " because it is missing required fields: ");
-    (*(*this + 48))(&__p, this);
-    if ((v26 & 0x80u) == 0)
-    {
-      v13 = &__p;
-    }
-
-    else
-    {
-      v13 = __p;
-    }
-
-    if ((v26 & 0x80u) == 0)
-    {
-      v14 = v26;
-    }
-
-    else
-    {
-      v14 = v25;
-    }
-
-    std::string::append(&v20, v13, v14);
-    if (v26 < 0)
-    {
-      operator delete(__p);
-    }
-
-    if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v15 = &v20;
-    }
-
-    else
-    {
-      v15 = v20.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v20.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v20.__r_.__value_.__l.__size_;
-    }
-
-    v17 = std::string::append(&v23, v15, size);
-    google::protobuf::internal::LogFinisher::operator=(v17, __src);
-    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v20.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v23.__r_.__value_.__l.__data_);
-    }
-
-    goto LABEL_47;
+    return 1;
   }
 
-  result = 1;
-LABEL_48:
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  LODWORD(__src[0]) = 2;
+  __src[1] = "/Library/Caches/com.apple.xbs/Sources/CoreML/coremltools-internal/deps/protobuf/src/google/protobuf/message_lite.cc";
+  v21 = 134;
+  memset(&v22, 0, sizeof(v22));
+  memset(&v19, 0, sizeof(v19));
+  std::string::append(&v19, "Can't ");
+  std::string::append(&v19, "parse");
+  std::string::append(&v19, " message of type ");
+  (*(*this + 16))(&__p, this);
+  if ((v25 & 0x80u) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p;
+  }
+
+  if ((v25 & 0x80u) == 0)
+  {
+    v12 = v25;
+  }
+
+  else
+  {
+    v12 = v24;
+  }
+
+  std::string::append(&v19, p_p, v12);
+  if (v25 < 0)
+  {
+    operator delete(__p);
+  }
+
+  std::string::append(&v19, " because it is missing required fields: ");
+  (*(*this + 48))(&__p, this);
+  if ((v25 & 0x80u) == 0)
+  {
+    v13 = &__p;
+  }
+
+  else
+  {
+    v13 = __p;
+  }
+
+  if ((v25 & 0x80u) == 0)
+  {
+    v14 = v25;
+  }
+
+  else
+  {
+    v14 = v24;
+  }
+
+  std::string::append(&v19, v13, v14);
+  if (v25 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v15 = &v19;
+  }
+
+  else
+  {
+    v15 = v19.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = HIBYTE(v19.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = v19.__r_.__value_.__l.__size_;
+  }
+
+  v17 = std::string::append(&v22, v15, size);
+  google::protobuf::internal::LogFinisher::operator=(v17, __src);
+  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v19.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v22.__r_.__value_.__l.__data_);
+  }
+
+  return 0;
 }
 
 void sub_1C1C0DD08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
@@ -8502,7 +8383,7 @@ uint64_t google::protobuf::internal::EpsCopyInputStream::DoneFallback(google::pr
   __src[10] = v4;
   v6 = a2;
   v8 = (this + 40);
-  v9 = (this + 56);
+  v9 = this + 56;
   v10 = *(this + 2);
   while (v10)
   {
@@ -8529,13 +8410,12 @@ LABEL_49:
       {
         if ((a3 & 0x80000000) == 0 && v6 <= 15)
         {
-          v13 = (v8 + v6);
+          v13 = v8 + v6;
           v14 = a3;
           v15 = v13;
           do
           {
-            v16 = *v15;
-            v15 = (v15 + 1);
+            v16 = *v15++;
             v17 = v16;
             if (v16 < 0)
             {
@@ -8546,8 +8426,8 @@ LABEL_49:
                 v19 = 2;
                 while (1)
                 {
-                  v17 += (*(v13 + v19) - 1) << v18;
-                  if ((*(v13 + v19) & 0x80000000) == 0)
+                  v17 += (v13[v19] - 1) << v18;
+                  if ((v13[v19] & 0x80000000) == 0)
                   {
                     break;
                   }
@@ -8560,12 +8440,12 @@ LABEL_49:
                   }
                 }
 
-                v15 = (v13 + v19 + 1);
+                v15 = &v13[v19 + 1];
               }
 
               else
               {
-                v15 = (v13 + 2);
+                v15 = v13 + 2;
               }
             }
 
@@ -8596,7 +8476,7 @@ LABEL_49:
 
                   break;
                 case 5:
-                  v15 = (v15 + 4);
+                  v15 += 4;
                   break;
                 default:
                   goto LABEL_42;
@@ -8607,7 +8487,7 @@ LABEL_49:
             {
               if (v20 == 1)
               {
-                v15 = (v15 + 8);
+                v15 += 8;
               }
 
               else
@@ -8738,7 +8618,7 @@ LABEL_54:
   return result;
 }
 
-uint64_t google::protobuf::internal::VarintParse<unsigned long long>(char *a1, unint64_t *a2)
+char *google::protobuf::internal::VarintParse<unsigned long long>(char *a1, unint64_t *a2)
 {
   v2 = *a1;
   if ((v2 & 0x8000000000000000) != 0)
@@ -8774,14 +8654,14 @@ LABEL_10:
     else
     {
       *a2 = v4;
-      return (a1 + 2);
+      return a1 + 2;
     }
   }
 
   else
   {
     *a2 = v2;
-    return (a1 + 1);
+    return a1 + 1;
   }
 
   return result;
@@ -8913,7 +8793,7 @@ char *google::protobuf::internal::InlineGreedyStringParser(std::string *this, st
 
 char *google::protobuf::internal::PackedInt64Parser(google::protobuf::internal *this, google::protobuf::internal *a2, char *a3, google::protobuf::internal::ParseContext *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = *a2;
   if ((*a2 & 0x80000000) == 0)
   {
@@ -8936,16 +8816,16 @@ LABEL_5:
         result = google::protobuf::internal::ReadPackedVarintArray<char const* google::protobuf::internal::VarintParser<long long,false>(void *,char const*,google::protobuf::internal::ParseContext *)::{lambda(unsigned long long)#1}>(result, v14, this);
         if (v14 != result)
         {
-          result = 0;
+          return 0;
         }
 
-        goto LABEL_16;
+        return result;
       }
 
       result = google::protobuf::internal::ReadPackedVarintArray<char const* google::protobuf::internal::VarintParser<long long,false>(void *,char const*,google::protobuf::internal::ParseContext *)::{lambda(unsigned long long)#1}>(result, v9, this);
       if (!result)
       {
-        goto LABEL_16;
+        return result;
       }
 
       v11 = *(a3 + 1);
@@ -8958,34 +8838,30 @@ LABEL_5:
 
       if (*(a3 + 7) < 17)
       {
-        goto LABEL_15;
+        return 0;
       }
 
       result = google::protobuf::internal::EpsCopyInputStream::Next(a3);
       if (!result)
       {
-        goto LABEL_16;
+        return result;
       }
 
       v6 = v6 - v10 - v12;
       result += v12;
     }
 
-    v18 = 0;
     v17 = 0;
-    v16 = *v11;
-    if (google::protobuf::internal::ReadPackedVarintArray<char const* google::protobuf::internal::VarintParser<long long,false>(void *,char const*,google::protobuf::internal::ParseContext *)::{lambda(unsigned long long)#1}>(&v16 + v12, &v16 + v13, this) != &v16 + v13)
+    v16 = 0;
+    v15 = *v11;
+    if (google::protobuf::internal::ReadPackedVarintArray<char const* google::protobuf::internal::VarintParser<long long,false>(void *,char const*,google::protobuf::internal::ParseContext *)::{lambda(unsigned long long)#1}>(&v15 + v12, &v15 + v13, this) != &v15 + v13)
     {
-LABEL_15:
-      result = 0;
-      goto LABEL_16;
+      return 0;
     }
 
-    result = (*(a3 + 1) + v13);
+    return (*(a3 + 1) + v13);
   }
 
-LABEL_16:
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9019,456 +8895,454 @@ char *google::protobuf::internal::ReadPackedVarintArray<char const* google::prot
   return i;
 }
 
-uint64_t google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(unint64_t a1, std::string **a2, char *a3, int32x2_t *a4)
+std::string::value_type *google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(unint64_t a1, std::string **a2, std::string::value_type *a3, int32x2_t *a4)
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   if (a1 < 8)
   {
-    goto LABEL_2;
+    return 0;
   }
 
   v6 = a3;
   result = 0;
   v9 = a1 & 7;
-  if (v9 > 2)
+  if (v9 <= 2)
   {
-    switch(v9)
+    if ((a1 & 7) != 0)
     {
-      case 3uLL:
-        v22 = *a2;
-        v23 = a1 & 0xFFFFFFF8;
+      if (v9 == 1)
+      {
+        v6 = (a3 + 8);
+        v27 = *a3;
+        v28 = *a2;
         if (*a2)
         {
-          v24 = v23 | 3u;
+          v29 = a1 & 0xFFFFFFF8 | 1;
           if (a1 < 0x80)
           {
-            LOBYTE(v25) = v23 | 3;
+            LOBYTE(v30) = a1 & 0xF8 | 1;
           }
 
           else
           {
             do
             {
-              std::string::push_back(v22, v24 | 0x80);
-              v25 = v24 >> 7;
-              v26 = v24 >> 14;
-              v24 >>= 7;
+              std::string::push_back(v28, v29 | 0x80);
+              v30 = v29 >> 7;
+              v31 = v29 >> 14;
+              v29 >>= 7;
             }
 
-            while (v26);
+            while (v31);
           }
 
-          std::string::push_back(v22, v25);
+          std::string::push_back(v28, v30);
+          *__s = v27;
+          std::string::append(*a2, __s, 8uLL);
+        }
+      }
+
+      else
+      {
+        if (v9 != 2)
+        {
+          return result;
         }
 
-        v39 = a4[11].i32[0];
-        v40 = __OFSUB__(v39--, 1);
-        a4[11].i32[0] = v39;
-        if (v39 < 0 != v40)
+        v10 = *a3;
+        if (*a3 < 0)
         {
-          goto LABEL_2;
-        }
-
-        ++a4[11].i32[1];
-        *__s = v6;
-        while (1)
-        {
-          if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a4, __s, a4[11].i32[1]))
+          result = google::protobuf::internal::ReadSizeFallback(a3, *a3);
+          if (!result)
           {
-            v6 = *__s;
-            goto LABEL_87;
+            return result;
           }
 
-          v6 = (*__s + 1);
-          v41 = **__s;
-          if (**__s < 0)
+          v11 = result;
+          v10 = v33;
+        }
+
+        else
+        {
+          v11 = a3 + 1;
+        }
+
+        v34 = *a2;
+        if (*a2)
+        {
+          v35 = a1 & 0xFFFFFFF8 | 2;
+          if (a1 < 0x80)
           {
-            v41 = v41 + (*v6 << 7) - 128;
-            if (*v6 < 0)
+            LOBYTE(v36) = a1 & 0xF8 | 2;
+          }
+
+          else
+          {
+            do
             {
-              v42 = 14;
-              v43 = 2;
-              while (1)
-              {
-                v41 += (*(*__s + v43) - 1) << v42;
-                if ((*(*__s + v43) & 0x80000000) == 0)
-                {
-                  break;
-                }
+              std::string::push_back(v34, v35 | 0x80);
+              v36 = v35 >> 7;
+              v37 = v35 >> 14;
+              v35 >>= 7;
+            }
 
-                ++v43;
-                v42 += 7;
-                if (v43 == 5)
-                {
-                  goto LABEL_61;
-                }
+            while (v37);
+          }
+
+          std::string::push_back(v34, v36);
+          v45 = v10;
+          v46 = *a2;
+          LOBYTE(v47) = v10;
+          if (v10 >= 0x80)
+          {
+            v48 = v10;
+            do
+            {
+              std::string::push_back(v46, v48 | 0x80);
+              v47 = v48 >> 7;
+              v49 = v48 >> 14;
+              v48 >>= 7;
+            }
+
+            while (v49);
+          }
+
+          std::string::push_back(v46, v47);
+          v50 = *a2;
+          v51 = a4[1];
+          if (*&v51 - v11 + 16 < v10)
+          {
+            if (*&v51 - v11 + a4[3].i32[1] >= v10)
+            {
+              size = SHIBYTE(v50->__r_.__value_.__r.__words[2]);
+              if ((size & 0x8000000000000000) != 0)
+              {
+                size = v50->__r_.__value_.__l.__size_;
               }
 
-              v6 = (*__s + v43 + 1);
+              if (v10 >= 50000000)
+              {
+                v53 = 50000000;
+              }
+
+              else
+              {
+                v53 = v10;
+              }
+
+              std::string::reserve(v50, size + v53);
+              v51 = a4[1];
             }
 
-            else
+            v54 = v51.i32[0] - v11 + 16;
+            while (a4[2])
             {
-              v6 = (*__s + 2);
+              std::string::append(v50, v11, v54);
+              if (a4[3].i32[1] < 17)
+              {
+                break;
+              }
+
+              result = google::protobuf::internal::EpsCopyInputStream::Next(a4);
+              if (!result)
+              {
+                return result;
+              }
+
+              v10 -= v54;
+              v11 = result + 16;
+              v54 = a4[1].i32[0] - result;
+              if (v10 <= v54)
+              {
+                std::string::append(v50, v11, v10);
+                return &v11[v10];
+              }
             }
+
+            return 0;
           }
 
-          if (!v41 || (v41 & 7) == 4)
-          {
-            break;
-          }
-
-          *__s = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v41, a2, v6, a4);
-          if (!*__s)
-          {
-LABEL_61:
-            v6 = 0;
-            goto LABEL_87;
-          }
+          std::string::append(v50, v11, v10);
         }
 
-        a4[10].i32[0] = v41 - 1;
-LABEL_87:
-        a4[11] = vadd_s32(a4[11], 0xFFFFFFFF00000001);
-        v55 = a4[10].i32[0];
-        a4[10].i32[0] = 0;
-        if (v55 != (v23 | 3) || v6 == 0)
+        else
         {
-          goto LABEL_2;
-        }
-
-        v57 = *a2;
-        if (v57)
-        {
-          v58 = v23 | 4u;
-          if (a1 >= 0x80)
+          v38 = *&a4[1] - v11 + 16;
+          if (v38 < v10)
           {
-            do
+            while (*&a4[2] && a4[3].i32[1] >= 17)
             {
-              v59 = v58;
-              std::string::push_back(v57, v58 | 0x80);
-              v58 = v59 >> 7;
+              result = google::protobuf::internal::EpsCopyInputStream::Next(a4);
+              if (!result)
+              {
+                return result;
+              }
+
+              v10 -= v38;
+              LODWORD(v38) = a4[1].i32[0] - result;
+              if (v10 <= v38)
+              {
+                return &result[v10 + 16];
+              }
             }
 
-            while (v59 >> 14);
-            v60 = (v59 << 17) >> 24;
-            goto LABEL_101;
+            return 0;
           }
 
-LABEL_100:
-          LOBYTE(v60) = v58;
-LABEL_101:
-          std::string::push_back(v57, v60);
+          v45 = v10;
         }
 
-        break;
-      case 4uLL:
-        *__s = 3;
-        v64 = "/Library/Caches/com.apple.xbs/Sources/CoreML/coremltools-internal/deps/protobuf/src/google/protobuf/parse_context.h";
-        v65 = 825;
-        memset(&__p, 0, sizeof(__p));
-        v32 = std::string::append(&__p, "Can't happen");
-        google::protobuf::internal::LogFinisher::operator=(v32, __s);
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+        if (!v11)
         {
-          operator delete(__p.__r_.__value_.__l.__data_);
+          return 0;
         }
 
-        break;
-      case 5uLL:
-        v6 = a3 + 4;
-        v12 = *a3;
-        v13 = *a2;
-        if (*a2)
-        {
-          v14 = a1 & 0xFFFFFFF8 | 5;
-          if (a1 < 0x80)
-          {
-            LOBYTE(v15) = a1 & 0xF8 | 5;
-          }
+        return &v11[v45];
+      }
 
-          else
-          {
-            do
-            {
-              std::string::push_back(v13, v14 | 0x80);
-              v15 = v14 >> 7;
-              v16 = v14 >> 14;
-              v14 >>= 7;
-            }
-
-            while (v16);
-          }
-
-          std::string::push_back(v13, v15);
-          *__s = v12;
-          std::string::append(*a2, __s, 4uLL);
-        }
-
-        break;
-      default:
-        goto LABEL_106;
+      return v6;
     }
 
-LABEL_105:
-    result = v6;
-    goto LABEL_106;
-  }
-
-  if ((a1 & 7) == 0)
-  {
     *__s = 0;
     result = google::protobuf::internal::VarintParse<unsigned long long>(a3, __s);
     if (!result)
     {
-      goto LABEL_106;
+      return result;
     }
 
     v6 = result;
     v17 = *a2;
-    if (*a2)
+    if (!*a2)
     {
-      v18 = *__s;
-      v19 = a1 & 0xFFFFFFF8;
-      if (a1 < 0x80)
-      {
-        LOBYTE(v20) = a1 & 0x78;
-      }
-
-      else
-      {
-        do
-        {
-          std::string::push_back(v17, v19 | 0x80);
-          v20 = v19 >> 7;
-          v21 = v19 >> 14;
-          v19 >>= 7;
-        }
-
-        while (v21);
-      }
-
-      std::string::push_back(v17, v20);
-      v57 = *a2;
-      if (v18 < 0x80)
-      {
-        LOBYTE(v58) = v18;
-      }
-
-      else
-      {
-        do
-        {
-          std::string::push_back(v57, v18 | 0x80);
-          v58 = v18 >> 7;
-          v61 = v18 >> 14;
-          v18 >>= 7;
-        }
-
-        while (v61);
-      }
-
-      goto LABEL_100;
+      return v6;
     }
 
-    goto LABEL_105;
-  }
-
-  if (v9 == 1)
-  {
-    v6 = a3 + 8;
-    v27 = *a3;
-    v28 = *a2;
-    if (*a2)
-    {
-      v29 = a1 & 0xFFFFFFF8 | 1;
-      if (a1 < 0x80)
-      {
-        LOBYTE(v30) = a1 & 0xF8 | 1;
-      }
-
-      else
-      {
-        do
-        {
-          std::string::push_back(v28, v29 | 0x80);
-          v30 = v29 >> 7;
-          v31 = v29 >> 14;
-          v29 >>= 7;
-        }
-
-        while (v31);
-      }
-
-      std::string::push_back(v28, v30);
-      *__s = v27;
-      std::string::append(*a2, __s, 8uLL);
-    }
-
-    goto LABEL_105;
-  }
-
-  if (v9 != 2)
-  {
-    goto LABEL_106;
-  }
-
-  v10 = *a3;
-  if (*a3 < 0)
-  {
-    result = google::protobuf::internal::ReadSizeFallback(a3, *a3);
-    if (!result)
-    {
-      goto LABEL_106;
-    }
-
-    v11 = result;
-    v10 = v33;
-  }
-
-  else
-  {
-    v11 = a3 + 1;
-  }
-
-  v34 = *a2;
-  if (*a2)
-  {
-    v35 = a1 & 0xFFFFFFF8 | 2;
+    v18 = *__s;
+    v19 = a1 & 0xFFFFFFF8;
     if (a1 < 0x80)
     {
-      LOBYTE(v36) = a1 & 0xF8 | 2;
+      LOBYTE(v20) = a1 & 0x78;
     }
 
     else
     {
       do
       {
-        std::string::push_back(v34, v35 | 0x80);
-        v36 = v35 >> 7;
-        v37 = v35 >> 14;
-        v35 >>= 7;
+        std::string::push_back(v17, v19 | 0x80);
+        v20 = v19 >> 7;
+        v21 = v19 >> 14;
+        v19 >>= 7;
       }
 
-      while (v37);
+      while (v21);
     }
 
-    std::string::push_back(v34, v36);
-    v45 = v10;
-    v46 = *a2;
-    LOBYTE(v47) = v10;
-    if (v10 >= 0x80)
+    std::string::push_back(v17, v20);
+    v57 = *a2;
+    if (v18 < 0x80)
     {
-      v48 = v10;
+      LOBYTE(v58) = v18;
+    }
+
+    else
+    {
       do
       {
-        std::string::push_back(v46, v48 | 0x80);
-        v47 = v48 >> 7;
-        v49 = v48 >> 14;
-        v48 >>= 7;
+        std::string::push_back(v57, v18 | 0x80);
+        v58 = v18 >> 7;
+        v61 = v18 >> 14;
+        v18 >>= 7;
       }
 
-      while (v49);
+      while (v61);
     }
 
-    std::string::push_back(v46, v47);
-    v50 = *a2;
-    v51 = a4[1];
-    if (*&v51 - v11 + 16 < v10)
-    {
-      if (*&v51 - v11 + a4[3].i32[1] >= v10)
-      {
-        size = SHIBYTE(v50->__r_.__value_.__r.__words[2]);
-        if ((size & 0x8000000000000000) != 0)
-        {
-          size = v50->__r_.__value_.__l.__size_;
-        }
+    goto LABEL_100;
+  }
 
-        if (v10 >= 50000000)
+  if (v9 != 3)
+  {
+    if (v9 == 4)
+    {
+      *__s = 3;
+      v63 = "/Library/Caches/com.apple.xbs/Sources/CoreML/coremltools-internal/deps/protobuf/src/google/protobuf/parse_context.h";
+      v64 = 825;
+      memset(&__p, 0, sizeof(__p));
+      v32 = std::string::append(&__p, "Can't happen");
+      google::protobuf::internal::LogFinisher::operator=(v32, __s);
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+      }
+    }
+
+    else
+    {
+      if (v9 != 5)
+      {
+        return result;
+      }
+
+      v6 = (a3 + 4);
+      v12 = *a3;
+      v13 = *a2;
+      if (*a2)
+      {
+        v14 = a1 & 0xFFFFFFF8 | 5;
+        if (a1 < 0x80)
         {
-          v53 = 50000000;
+          LOBYTE(v15) = a1 & 0xF8 | 5;
         }
 
         else
         {
-          v53 = v10;
+          do
+          {
+            std::string::push_back(v13, v14 | 0x80);
+            v15 = v14 >> 7;
+            v16 = v14 >> 14;
+            v14 >>= 7;
+          }
+
+          while (v16);
         }
 
-        std::string::reserve(v50, size + v53);
-        v51 = a4[1];
+        std::string::push_back(v13, v15);
+        *__s = v12;
+        std::string::append(*a2, __s, 4uLL);
       }
-
-      v54 = v51.i32[0] - v11 + 16;
-      while (a4[2])
-      {
-        std::string::append(v50, v11, v54);
-        if (a4[3].i32[1] < 17)
-        {
-          break;
-        }
-
-        result = google::protobuf::internal::EpsCopyInputStream::Next(a4);
-        if (!result)
-        {
-          goto LABEL_106;
-        }
-
-        v10 -= v54;
-        v11 = (result + 16);
-        v54 = a4[1].i32[0] - result;
-        if (v10 <= v54)
-        {
-          std::string::append(v50, v11, v10);
-          v6 = &v11[v10];
-          goto LABEL_105;
-        }
-      }
-
-      goto LABEL_2;
     }
 
-    std::string::append(v50, v11, v10);
+    return v6;
   }
 
-  else
+  v22 = *a2;
+  v23 = a1 & 0xFFFFFFF8;
+  if (*a2)
   {
-    v38 = *&a4[1] - v11 + 16;
-    if (v38 < v10)
+    v24 = v23 | 3u;
+    if (a1 < 0x80)
     {
-      while (*&a4[2] && a4[3].i32[1] >= 17)
-      {
-        result = google::protobuf::internal::EpsCopyInputStream::Next(a4);
-        if (!result)
-        {
-          goto LABEL_106;
-        }
-
-        v10 -= v38;
-        LODWORD(v38) = a4[1].i32[0] - result;
-        if (v10 <= v38)
-        {
-          v6 = (result + 16 + v10);
-          goto LABEL_105;
-        }
-      }
-
-      goto LABEL_2;
+      LOBYTE(v25) = v23 | 3;
     }
 
-    v45 = v10;
+    else
+    {
+      do
+      {
+        std::string::push_back(v22, v24 | 0x80);
+        v25 = v24 >> 7;
+        v26 = v24 >> 14;
+        v24 >>= 7;
+      }
+
+      while (v26);
+    }
+
+    std::string::push_back(v22, v25);
   }
 
-  if (v11)
+  v39 = a4[11].i32[0];
+  v40 = __OFSUB__(v39--, 1);
+  a4[11].i32[0] = v39;
+  if (v39 < 0 != v40)
   {
-    v6 = &v11[v45];
-    goto LABEL_105;
+    return 0;
   }
 
-LABEL_2:
-  result = 0;
-LABEL_106:
-  v62 = *MEMORY[0x1E69E9840];
-  return result;
+  ++a4[11].i32[1];
+  *__s = v6;
+  while (1)
+  {
+    if (google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(a4, __s, a4[11].i32[1]))
+    {
+      v6 = *__s;
+      goto LABEL_87;
+    }
+
+    v6 = (*__s + 1);
+    v41 = **__s;
+    if (**__s < 0)
+    {
+      v41 = v41 + (*v6 << 7) - 128;
+      if (*v6 < 0)
+      {
+        v42 = 14;
+        v43 = 2;
+        while (1)
+        {
+          v41 += (*(*__s + v43) - 1) << v42;
+          if ((*(*__s + v43) & 0x80000000) == 0)
+          {
+            break;
+          }
+
+          ++v43;
+          v42 += 7;
+          if (v43 == 5)
+          {
+            goto LABEL_61;
+          }
+        }
+
+        v6 = (*__s + v43 + 1);
+      }
+
+      else
+      {
+        v6 = (*__s + 2);
+      }
+    }
+
+    if (!v41 || (v41 & 7) == 4)
+    {
+      break;
+    }
+
+    *__s = google::protobuf::internal::FieldParser<google::protobuf::internal::UnknownFieldLiteParserHelper>(v41, a2, v6, a4);
+    if (!*__s)
+    {
+LABEL_61:
+      v6 = 0;
+      goto LABEL_87;
+    }
+  }
+
+  a4[10].i32[0] = v41 - 1;
+LABEL_87:
+  a4[11] = vadd_s32(a4[11], 0xFFFFFFFF00000001);
+  v55 = a4[10].i32[0];
+  a4[10].i32[0] = 0;
+  if (v55 != (v23 | 3) || v6 == 0)
+  {
+    return 0;
+  }
+
+  v57 = *a2;
+  if (v57)
+  {
+    v58 = v23 | 4u;
+    if (a1 >= 0x80)
+    {
+      do
+      {
+        v59 = v58;
+        std::string::push_back(v57, v58 | 0x80);
+        v58 = v59 >> 7;
+      }
+
+      while (v59 >> 14);
+      v60 = (v59 << 17) >> 24;
+      goto LABEL_101;
+    }
+
+LABEL_100:
+    LOBYTE(v60) = v58;
+LABEL_101:
+    std::string::push_back(v57, v60);
+  }
+
+  return v6;
 }
 
 void sub_1C1C0F29C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -9481,20 +9355,20 @@ void sub_1C1C0F29C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CoreML::MIL::Operators::CoreML::Classify::Make()
+void CoreML::MIL::Operators::CoreML::Classify::Make(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v0 = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v3 = 0;
   operator new();
 }
 
-void sub_1C1C0FA9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, __int16 a30, char a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_1C1C0FA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
 {
   v39 = *(v37 - 96);
   *(v37 - 96) = 0;
   if (v39)
   {
-    (*(*v39 + 8))(v39);
+    (*(*v39 + 8))(v39, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a21)
@@ -9522,7 +9396,7 @@ void ***std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[a
   return result;
 }
 
-size_t *std::vector<std::shared_ptr<MIL::IRParameter>>::push_back[abi:ne200100](size_t *result, __int128 *a2)
+const void **std::vector<std::shared_ptr<MIL::IRParameter>>::push_back[abi:ne200100](const void **result, __int128 *a2)
 {
   v2 = result;
   v4 = result[1];
@@ -9565,11 +9439,10 @@ size_t *std::vector<std::shared_ptr<MIL::IRParameter>>::push_back[abi:ne200100](
 
     v10 = (16 * v6);
     v11 = *a2;
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    *a2 = 0uLL;
     v12 = *result;
     v13 = result[1] - *result;
-    v14 = 16 * v6 - v13;
+    v14 = (16 * v6 - v13);
     *v10 = v11;
     v5 = v10 + 1;
     memcpy(v10 - v13, v12, v13);
@@ -9587,9 +9460,8 @@ size_t *std::vector<std::shared_ptr<MIL::IRParameter>>::push_back[abi:ne200100](
   else
   {
     *v4 = *a2;
-    v5 = v4 + 1;
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    v5 = v4 + 16;
+    *a2 = 0uLL;
   }
 
   v2[1] = v5;
@@ -9825,4 +9697,240 @@ uint64_t std::__split_buffer<std::shared_ptr<MIL::IRParameter>>::~__split_buffer
   }
 
   return a1;
+}
+
+uint64_t std::__shared_ptr_pointer<MIL::IRParameter  *>::__get_deleter(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__shared_ptr_pointer<MIL::IRParameter  *>::__on_zero_shared(uint64_t a1)
+{
+  result = *(a1 + 24);
+  if (result)
+  {
+    return (*(*result + 8))();
+  }
+
+  return result;
+}
+
+void std::__shared_ptr_pointer<MIL::IRParameter  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1C6908B60);
+}
+
+uint64_t std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRParameter>>>>::__node_insert_unique(float *a1, uint64_t a2)
+{
+  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2 + 16);
+  *(a2 + 8) = v4;
+  v5 = *(a1 + 1);
+  if (v5)
+  {
+    v6 = v4;
+    v7 = vcnt_s8(v5);
+    v7.i16[0] = vaddlv_u8(v7);
+    v8 = v7.u32[0];
+    if (v7.u32[0] > 1uLL)
+    {
+      v9 = v4;
+      if (v5 <= v4)
+      {
+        v9 = v4 % v5;
+      }
+    }
+
+    else
+    {
+      v9 = (v5 - 1) & v4;
+    }
+
+    v10 = *(*a1 + 8 * v9);
+    if (v10)
+    {
+      for (i = *v10; i; i = *i)
+      {
+        v12 = i[1];
+        if (v12 == v6)
+        {
+          if (std::equal_to<std::string>::operator()[abi:ne200100](a1, i + 2, (a2 + 16)))
+          {
+            return 0;
+          }
+        }
+
+        else
+        {
+          if (v8 > 1)
+          {
+            if (v12 >= v5)
+            {
+              v12 %= v5;
+            }
+          }
+
+          else
+          {
+            v12 &= v5 - 1;
+          }
+
+          if (v12 != v9)
+          {
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  v13 = (*(a1 + 3) + 1);
+  v14 = a1[8];
+  if (!v5 || (v14 * v5) < v13)
+  {
+    v18 = 1;
+    if (v5 >= 3)
+    {
+      v18 = (v5 & (v5 - 1)) != 0;
+    }
+
+    v19 = v18 | (2 * v5);
+    v20 = vcvtps_u32_f32(v13 / v14);
+    if (v19 <= v20)
+    {
+      prime = v20;
+    }
+
+    else
+    {
+      prime = v19;
+    }
+
+    if (prime == 1)
+    {
+      prime = 2;
+    }
+
+    else if ((prime & (prime - 1)) != 0)
+    {
+      prime = std::__next_prime(prime);
+    }
+
+    v25 = *(a1 + 2);
+    if (prime <= *&v25)
+    {
+      if (prime >= *&v25)
+      {
+        goto LABEL_19;
+      }
+
+      v26 = vcvtps_u32_f32(*(a1 + 3) / a1[8]);
+      if (*&v25 < 3uLL || (v27 = vcnt_s8(v25), v27.i16[0] = vaddlv_u8(v27), v27.u32[0] > 1uLL))
+      {
+        v26 = std::__next_prime(v26);
+      }
+
+      else
+      {
+        v28 = 1 << -__clz(v26 - 1);
+        if (v26 >= 2)
+        {
+          v26 = v28;
+        }
+      }
+
+      if (prime <= v26)
+      {
+        prime = v26;
+      }
+
+      if (prime >= *&v25)
+      {
+        goto LABEL_19;
+      }
+
+      if (!prime)
+      {
+        v30 = *a1;
+        *a1 = 0;
+        if (v30)
+        {
+          operator delete(v30);
+        }
+
+        *(a1 + 1) = 0;
+        goto LABEL_19;
+      }
+    }
+
+    if (!(prime >> 61))
+    {
+      operator new();
+    }
+
+    std::__throw_bad_array_new_length[abi:ne200100]();
+  }
+
+LABEL_19:
+  v15 = *(a1 + 2);
+  v16 = *(a2 + 8);
+  v17 = vcnt_s8(v15);
+  v17.i16[0] = vaddlv_u8(v17);
+  if (v17.u32[0] > 1uLL)
+  {
+    if (v16 >= *&v15)
+    {
+      v16 %= *&v15;
+    }
+  }
+
+  else
+  {
+    v16 &= *&v15 - 1;
+  }
+
+  v22 = *a1;
+  v23 = *(*a1 + 8 * v16);
+  if (v23)
+  {
+    *a2 = *v23;
+LABEL_49:
+    *v23 = a2;
+    goto LABEL_50;
+  }
+
+  *a2 = *(a1 + 2);
+  *(a1 + 2) = a2;
+  v22[v16] = a1 + 4;
+  if (*a2)
+  {
+    v24 = *(*a2 + 8);
+    if (v17.u32[0] > 1uLL)
+    {
+      if (v24 >= *&v15)
+      {
+        v24 %= *&v15;
+      }
+    }
+
+    else
+    {
+      v24 &= *&v15 - 1;
+    }
+
+    v23 = (*a1 + 8 * v24);
+    goto LABEL_49;
+  }
+
+LABEL_50:
+  ++*(a1 + 3);
+  return 1;
 }

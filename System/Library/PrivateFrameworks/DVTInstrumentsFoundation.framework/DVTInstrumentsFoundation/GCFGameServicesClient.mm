@@ -4,6 +4,7 @@
 - (GKDTDaemonProxyDataUpdateDelegate)dataUpdateDelegate;
 - (void)disconnectServiceConnection;
 - (void)gameServicesRemoteCall:(id)call completionHandler:(id)handler;
+- (void)refreshContentsForDataType:(unsigned int)type userInfo:(id)info;
 - (void)refreshServiceConnection;
 - (void)setDebugMode:(BOOL)mode bundleID:(id)d reply:(id)reply;
 @end
@@ -96,6 +97,25 @@
   block[3] = &unk_278EF1070;
   block[4] = self;
   dispatch_barrier_sync(invocationQueue, block);
+}
+
+- (void)refreshContentsForDataType:(unsigned int)type userInfo:(id)info
+{
+  v4 = *&type;
+  infoCopy = info;
+  WeakRetained = objc_loadWeakRetained(&self->_dataUpdateDelegate);
+  if (WeakRetained)
+  {
+    v7 = WeakRetained;
+    v8 = objc_loadWeakRetained(&self->_dataUpdateDelegate);
+    v9 = objc_opt_respondsToSelector();
+
+    if (v9)
+    {
+      v10 = objc_loadWeakRetained(&self->_dataUpdateDelegate);
+      [v10 refreshContentsForDataType:v4 userInfo:infoCopy];
+    }
+  }
 }
 
 - (GKDTDaemonProxyDataUpdateDelegate)dataUpdateDelegate

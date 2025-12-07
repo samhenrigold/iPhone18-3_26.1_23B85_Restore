@@ -11,10 +11,10 @@
 
   if (v4 && generationReport)
   {
-    v6 = _ISDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _ISDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [IFImage(GenerationReport) setGenerationReport:v6];
+      [IFImage(GenerationReport) setGenerationReport:v7];
     }
   }
 

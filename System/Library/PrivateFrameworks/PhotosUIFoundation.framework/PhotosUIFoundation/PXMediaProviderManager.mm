@@ -88,9 +88,11 @@ void __48__PXMediaProviderManager_imageProviderForAsset___block_invoke(uint64_t 
 
 uint64_t __40__PXMediaProviderManager_defaultManager__block_invoke()
 {
-  defaultManager_defaultManager = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = defaultManager_defaultManager;
+  defaultManager_defaultManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

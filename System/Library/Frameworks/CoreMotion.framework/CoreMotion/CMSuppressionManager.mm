@@ -144,7 +144,7 @@
 
 - (void)stopSuppressionUpdatesPrivate
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   sub_19B420D84();
   sub_19B44B9A0();
   internal = self->_internal;
@@ -168,22 +168,22 @@
       v18 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v17, *(internal + 21));
       v19 = *(internal + 20);
       *buf = 134350850;
-      v47 = v9;
-      v48 = 2114;
-      v49 = v10;
-      v50 = 2114;
-      v51 = v12;
-      v52 = 2050;
-      v53 = v13;
+      v67 = v9;
+      v68 = 2114;
+      v69 = v10;
+      v70 = 2114;
+      v71 = v12;
+      v72 = 2050;
+      v73 = v13;
       v8 = &unk_19B7BD000;
-      v54 = 2114;
-      v55 = v15;
-      v56 = 2050;
-      v57 = v16;
-      v58 = 2114;
-      v59 = v18;
-      v60 = 2050;
-      v61 = v19;
+      v74 = 2114;
+      v75 = v15;
+      v76 = 2050;
+      v77 = v16;
+      v78 = 2114;
+      v79 = v18;
+      v80 = 2050;
+      v81 = v19;
       _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}ld][%{public}@] Stopping suppression updates. Final states: VO: %{public}@ @ %{public}f, SPN: %{public}@ @ %{public}f, DP: %{public}@ @ %{public}f", buf, 0x52u);
     }
 
@@ -196,51 +196,68 @@
         dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
       }
 
-      objc_msgSend_suppressionClientType(self, v23, v24);
-      v25 = *(internal + 43);
-      objc_msgSend_stringForEventType_(CMSuppressionEvent, v26, *(internal + 10));
-      v27 = *(internal + 9);
-      objc_msgSend_stringForEventType_(CMSuppressionEvent, v28, *(internal + 16));
-      v29 = *(internal + 15);
-      objc_msgSend_stringForEventType_(CMSuppressionEvent, v30, *(internal + 21));
-      v44 = v8[270];
-      v45 = *(internal + 20);
-      v31 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager stopSuppressionUpdatesPrivate]", "CoreLocation: %s\n", v31);
-      if (v31 != buf)
+      v25 = off_1EAFE2828;
+      v26 = objc_msgSend_suppressionClientType(self, v23, v24);
+      v27 = *(internal + 43);
+      v29 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v28, *(internal + 10));
+      v30 = *(internal + 9);
+      v32 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v31, *(internal + 16));
+      v33 = *(internal + 15);
+      v35 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v34, *(internal + 21));
+      v36 = *(internal + 20);
+      v50 = v8[270];
+      v51 = v26;
+      v52 = 2114;
+      v53 = v27;
+      v54 = 2114;
+      v55 = v29;
+      v56 = 2050;
+      v57 = v30;
+      v58 = 2114;
+      v59 = v32;
+      v60 = 2050;
+      v61 = v33;
+      v62 = 2114;
+      v63 = v35;
+      v64 = 2050;
+      v65 = v36;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v25, 0, "[%{public}ld][%{public}@] Stopping suppression updates. Final states: VO: %{public}@ @ %{public}f, SPN: %{public}@ @ %{public}f, DP: %{public}@ @ %{public}f", &v50, 82);
+      v38 = v37;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager stopSuppressionUpdatesPrivate]", "CoreLocation: %s\n", v37);
+      if (v38 != buf)
       {
-        free(v31);
+        free(v38);
       }
     }
 
-    v32 = objc_msgSend_defaultCenter(MEMORY[0x1E696ABB0], v21, v22);
-    objc_msgSend_removeObserver_name_object_(v32, v33, self, @"CMSuppressionEventSendNotification", 0);
-    v36 = *(internal + 42);
-    if ((v36 & 2) != 0)
+    v39 = objc_msgSend_defaultCenter(MEMORY[0x1E696ABB0], v21, v22);
+    objc_msgSend_removeObserver_name_object_(v39, v40, self, @"CMSuppressionEventSendNotification", 0);
+    v43 = *(internal + 42);
+    if ((v43 & 2) != 0)
     {
-      v37 = *(internal + 25);
-      if (v37)
+      v44 = *(internal + 25);
+      if (v44)
       {
-        objc_msgSend_unregister(v37, v34, v35);
+        objc_msgSend_unregister(v44, v41, v42);
 
         *(internal + 25) = 0;
-        v36 = *(internal + 42);
+        v43 = *(internal + 42);
       }
     }
 
-    if ((v36 & 4) != 0)
+    if ((v43 & 4) != 0)
     {
-      v38 = *(internal + 26);
-      if (v38)
+      v45 = *(internal + 26);
+      if (v45)
       {
-        objc_msgSend_unregisterForWatchPresence(v38, v34, v35);
+        objc_msgSend_unregisterForWatchPresence(v45, v41, v42);
 
         *(internal + 26) = 0;
-        v36 = *(internal + 42);
+        v43 = *(internal + 42);
       }
     }
 
-    if ((v36 & 0x19) != 0 && *(internal + 14))
+    if ((v43 & 0x19) != 0 && *(internal + 14))
     {
       if (qword_1EAFE3A58 != -1)
       {
@@ -248,10 +265,10 @@
       }
 
       sub_19B426A14(qword_1EAFE3A68, 0, *(internal + 14));
-      v39 = *(internal + 14);
-      if (v39)
+      v46 = *(internal + 14);
+      if (v46)
       {
-        (*(*v39 + 8))(v39);
+        (*(*v46 + 8))(v46);
       }
 
       *(internal + 14) = 0;
@@ -265,10 +282,10 @@
       }
 
       sub_19B426A14(qword_1EAFE3A68, 2, *(internal + 41));
-      v40 = *(internal + 41);
-      if (v40)
+      v47 = *(internal + 41);
+      if (v47)
       {
-        (*(*v40 + 8))(v40);
+        (*(*v47 + 8))(v47);
       }
 
       *(internal + 41) = 0;
@@ -276,15 +293,15 @@
       self->_cameraCapturePoseUIHint = 0;
     }
 
-    v41 = *(internal + 7);
-    if (v41)
+    v48 = *(internal + 7);
+    if (v48)
     {
 
       *(internal + 7) = 0;
     }
 
-    v42 = *(internal + 6);
-    if (v42)
+    v49 = *(internal + 6);
+    if (v49)
     {
 
       *(internal + 6) = 0;
@@ -302,13 +319,11 @@
     *(internal + 168) = 0u;
     *(internal + 184) = 0u;
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateSuppressionStateAndSendToClient
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   sub_19B420D84();
   sub_19B44B9A0();
   internal = self->_internal;
@@ -326,15 +341,15 @@
     v10 = objc_msgSend_suppressionClientType(self, v8, v9);
     v11 = *(internal + 43);
     *buf = 134350082;
-    v70 = v10;
-    v71 = 2114;
-    v72 = v11;
-    v73 = 2114;
-    v74 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v12, v5);
-    v75 = 2114;
-    v76 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v13, v4);
-    v77 = 2050;
-    v78 = v6;
+    v94 = v10;
+    v95 = 2114;
+    v96 = v11;
+    v97 = 2114;
+    v98 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v12, v5);
+    v99 = 2114;
+    v100 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v13, v4);
+    v101 = 2050;
+    v102 = v6;
     _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_INFO, "[%{public}ld][%{public}@] Previous: %{public}@ (%{public}@) @ %{public}f", buf, 0x34u);
   }
 
@@ -347,124 +362,134 @@
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    objc_msgSend_suppressionClientType(self, v15, v16);
-    v66 = *(internal + 43);
-    objc_msgSend_stringForEventType_(CMSuppressionEvent, v17, v5);
-    objc_msgSend_stringForEventReason_(CMSuppressionEvent, v18, v4);
-    v19 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager updateSuppressionStateAndSendToClient]", "CoreLocation: %s\n", v19);
-    if (v19 != buf)
+    v17 = off_1EAFE2828;
+    v18 = objc_msgSend_suppressionClientType(self, v15, v16);
+    v19 = *(internal + 43);
+    v83 = 134350082;
+    v84 = v18;
+    v85 = 2114;
+    v86 = v19;
+    v87 = 2114;
+    v88 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v20, v5);
+    v89 = 2114;
+    v90 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v21, v4);
+    v91 = 2050;
+    v92 = v6;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v17, 1, "[%{public}ld][%{public}@] Previous: %{public}@ (%{public}@) @ %{public}f", &v83, 52);
+    v23 = v22;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager updateSuppressionStateAndSendToClient]", "CoreLocation: %s\n", v22);
+    if (v23 != buf)
     {
-      free(v19);
+      free(v23);
     }
   }
 
-  v20 = *(internal + 10);
-  if (v20 != 1)
+  v24 = *(internal + 10);
+  if (v24 != 1)
   {
-    v21 = v4 & 0xFFFFFFFFFFFFFFFELL;
+    v25 = v4 & 0xFFFFFFFFFFFFFFFELL;
     goto LABEL_17;
   }
 
-  v21 = v4 | 1;
-  v22 = *(internal + 9);
-  if (v22 <= 0.0)
+  v25 = v4 | 1;
+  v26 = *(internal + 9);
+  if (v26 <= 0.0)
   {
 LABEL_17:
-    v22 = 0.0;
+    v26 = 0.0;
   }
 
-  v23 = *(internal + 16);
-  if (v23 != 1)
+  v27 = *(internal + 16);
+  if (v27 != 1)
   {
-    v24 = v21 & 0xFFFFFFFFFFFFFFFDLL;
+    v28 = v25 & 0xFFFFFFFFFFFFFFFDLL;
     goto LABEL_22;
   }
 
-  v24 = v21 | 2;
-  v25 = *(internal + 15);
-  if (v25 <= v22)
+  v28 = v25 | 2;
+  v29 = *(internal + 15);
+  if (v29 <= v26)
   {
 LABEL_22:
-    v25 = v22;
+    v29 = v26;
   }
 
-  v26 = *(internal + 13);
-  v27 = *(internal + 21);
-  if (v27 == 1)
+  v30 = *(internal + 13);
+  v31 = *(internal + 21);
+  if (v31 == 1)
   {
-    v28 = v24 | 4;
-    if (*(internal + 20) > v25)
+    v32 = v28 | 4;
+    if (*(internal + 20) > v29)
     {
-      v25 = *(internal + 20);
+      v29 = *(internal + 20);
     }
 
-    v29 = 1;
+    v33 = 1;
   }
 
   else
   {
-    v28 = v24 & 0xFFFFFFFFFFFFFFFBLL;
-    v29 = 1;
-    if (v20 != 1 && v23 != 1)
+    v32 = v28 & 0xFFFFFFFFFFFFFFFBLL;
+    v33 = 1;
+    if (v24 != 1 && v27 != 1)
     {
-      if (v20 == 2 && *(internal + 9) > v25)
+      if (v24 == 2 && *(internal + 9) > v29)
       {
-        v28 = 1;
-        v25 = *(internal + 9);
+        v32 = 1;
+        v29 = *(internal + 9);
       }
 
-      if (v23 == 2 && *(internal + 15) > v25)
+      if (v27 == 2 && *(internal + 15) > v29)
       {
-        v28 = 2;
-        v25 = *(internal + 15);
+        v32 = 2;
+        v29 = *(internal + 15);
       }
 
-      if (v27 == 2 && *(internal + 20) > v25)
+      if (v31 == 2 && *(internal + 20) > v29)
       {
-        v28 = 4;
-        v25 = *(internal + 20);
+        v32 = 4;
+        v29 = *(internal + 20);
       }
 
-      if (v25 == 0.0)
+      if (v29 == 0.0)
       {
         __assert_rtn("[CMSuppressionManager updateSuppressionStateAndSendToClient]", "CMSuppressionManager.mm", 867, "nextTimestamp != 0.");
       }
 
-      v29 = 2;
+      v33 = 2;
     }
   }
 
-  v65 = *(internal + 12);
+  v82 = *(internal + 12);
   if (qword_1EAFE2800 != -1)
   {
     dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
   }
 
-  v30 = off_1EAFE2828;
+  v34 = off_1EAFE2828;
   if (os_log_type_enabled(off_1EAFE2828, OS_LOG_TYPE_INFO))
   {
     selfCopy = self;
-    v34 = objc_msgSend_suppressionClientType(self, v31, v32);
-    v35 = *(internal + 43);
-    v37 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v36, v29);
-    v39 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v38, v28);
+    v38 = objc_msgSend_suppressionClientType(self, v35, v36);
+    v39 = *(internal + 43);
+    v41 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v40, v33);
+    v43 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v42, v32);
     *buf = 134350082;
-    v70 = v34;
+    v94 = v38;
     self = selfCopy;
-    v71 = 2114;
-    v72 = v35;
-    v73 = 2114;
-    v74 = v37;
-    v75 = 2114;
-    v76 = v39;
-    v77 = 2050;
-    v78 = v25;
-    _os_log_impl(&dword_19B41C000, v30, OS_LOG_TYPE_INFO, "[%{public}ld][%{public}@] Next: %{public}@ (%{public}@) @ %{public}f", buf, 0x34u);
+    v95 = 2114;
+    v96 = v39;
+    v97 = 2114;
+    v98 = v41;
+    v99 = 2114;
+    v100 = v43;
+    v101 = 2050;
+    v102 = v29;
+    _os_log_impl(&dword_19B41C000, v34, OS_LOG_TYPE_INFO, "[%{public}ld][%{public}@] Next: %{public}@ (%{public}@) @ %{public}f", buf, 0x34u);
   }
 
-  v40 = sub_19B420058();
-  if (*(v40 + 160) > 1 || *(v40 + 164) > 1 || *(v40 + 168) > 1 || *(v40 + 152))
+  v44 = sub_19B420058();
+  if (*(v44 + 160) > 1 || *(v44 + 164) > 1 || *(v44 + 168) > 1 || *(v44 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2800 != -1)
@@ -472,47 +497,63 @@ LABEL_22:
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    objc_msgSend_suppressionClientType(self, v42, v43);
-    v67 = *(internal + 43);
-    objc_msgSend_stringForEventType_(CMSuppressionEvent, v44, v29);
-    objc_msgSend_stringForEventReason_(CMSuppressionEvent, v45, v28);
-    v46 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager updateSuppressionStateAndSendToClient]", "CoreLocation: %s\n", v46);
-    if (v46 != buf)
+    v48 = off_1EAFE2828;
+    selfCopy2 = self;
+    v50 = objc_msgSend_suppressionClientType(self, v46, v47);
+    v51 = *(internal + 43);
+    v53 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v52, v33);
+    v55 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v54, v32);
+    v83 = 134350082;
+    v84 = v50;
+    v85 = 2114;
+    v86 = v51;
+    v87 = 2114;
+    v88 = v53;
+    v89 = 2114;
+    v90 = v55;
+    v91 = 2050;
+    v92 = v29;
+    LODWORD(v81) = 52;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v48, 1, "[%{public}ld][%{public}@] Next: %{public}@ (%{public}@) @ %{public}f", &v83, v81);
+    v57 = v56;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager updateSuppressionStateAndSendToClient]", "CoreLocation: %s\n", v56);
+    if (v57 != buf)
     {
-      free(v46);
+      free(v57);
     }
+
+    self = selfCopy2;
   }
 
-  if (v29 == v5 && v28 == v4)
+  if (v33 == v5 && v32 == v4)
   {
     if (qword_1EAFE2800 != -1)
     {
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    v47 = off_1EAFE2828;
+    v58 = off_1EAFE2828;
     if (os_log_type_enabled(off_1EAFE2828, OS_LOG_TYPE_INFO))
     {
-      v50 = objc_msgSend_suppressionClientType(self, v48, v49);
-      v51 = *(internal + 43);
-      v53 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v52, v5);
-      v55 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v54, v4);
+      v61 = objc_msgSend_suppressionClientType(self, v59, v60);
+      v62 = *(internal + 43);
+      v64 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v63, v5);
+      v66 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v65, v4);
       *buf = 134350082;
-      v70 = v50;
-      v71 = 2114;
-      v72 = v51;
-      v73 = 2114;
-      v74 = v53;
-      v75 = 2114;
-      v76 = v55;
-      v77 = 2050;
-      v78 = v6;
-      _os_log_impl(&dword_19B41C000, v47, OS_LOG_TYPE_INFO, "[%{public}ld][%{public}@] No Transition: %{public}@ (%{public}@) @ %{public}f", buf, 0x34u);
+      v94 = v61;
+      v95 = 2114;
+      v96 = v62;
+      v97 = 2114;
+      v98 = v64;
+      v99 = 2114;
+      v100 = v66;
+      v101 = 2050;
+      v102 = v6;
+      _os_log_impl(&dword_19B41C000, v58, OS_LOG_TYPE_INFO, "[%{public}ld][%{public}@] No Transition: %{public}@ (%{public}@) @ %{public}f", buf, 0x34u);
     }
 
-    v56 = sub_19B420058();
-    if (*(v56 + 160) > 1 || *(v56 + 164) > 1 || *(v56 + 168) > 1 || *(v56 + 152))
+    v67 = sub_19B420058();
+    if (*(v67 + 160) > 1 || *(v67 + 164) > 1 || *(v67 + 168) > 1 || *(v67 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2800 != -1)
@@ -520,26 +561,37 @@ LABEL_22:
         dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
       }
 
-      objc_msgSend_suppressionClientType(self, v57, v58);
-      v68 = *(internal + 43);
-      objc_msgSend_stringForEventType_(CMSuppressionEvent, v59, v5);
-      objc_msgSend_stringForEventReason_(CMSuppressionEvent, v60, v4);
-      v61 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager updateSuppressionStateAndSendToClient]", "CoreLocation: %s\n", v61);
-      if (v61 != buf)
+      v70 = off_1EAFE2828;
+      v71 = objc_msgSend_suppressionClientType(self, v68, v69);
+      v72 = *(internal + 43);
+      v74 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v73, v5);
+      v76 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v75, v4);
+      v83 = 134350082;
+      v84 = v71;
+      v85 = 2114;
+      v86 = v72;
+      v87 = 2114;
+      v88 = v74;
+      v89 = 2114;
+      v90 = v76;
+      v91 = 2050;
+      v92 = v6;
+      LODWORD(v81) = 52;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v70, 1, "[%{public}ld][%{public}@] No Transition: %{public}@ (%{public}@) @ %{public}f", &v83, v81);
+      v78 = v77;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager updateSuppressionStateAndSendToClient]", "CoreLocation: %s\n", v77);
+      if (v78 != buf)
       {
-        free(v61);
+        free(v78);
       }
     }
   }
 
   else
   {
-    objc_msgSend_updateCurrentSuppressionEvent_timestamp_reason_facedownState_timeSinceLastFacedownStatic_(self, v41, v29, v28, v65, v25, v26);
-    objc_msgSend_sendSuppressionEventToClientPrivate(self, v62, v63);
+    objc_msgSend_updateCurrentSuppressionEvent_timestamp_reason_facedownState_timeSinceLastFacedownStatic_(self, v45, v33, v32, v82, v29, v30);
+    objc_msgSend_sendSuppressionEventToClientPrivate(self, v79, v80);
   }
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isSourceAvailable:(unint64_t)available
@@ -724,16 +776,17 @@ LABEL_22:
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    v13 = 0;
-    v9 = _os_log_send_and_compose_impl();
+    v13[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 0, "Starting CameraCapturePose updates", v13, 2);
+    v10 = v9;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager startCameraCapturePoseUpdatesToQueue:withHandler:]", "CoreLocation: %s\n", v9);
-    if (v9 != buf)
+    if (v10 != buf)
     {
-      free(v9);
+      free(v10);
     }
   }
 
-  v10 = sub_19B420D84();
+  v11 = sub_19B420D84();
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
   v12[2] = sub_19B767264;
@@ -741,8 +794,7 @@ LABEL_22:
   v12[4] = self;
   v12[5] = queue;
   v12[6] = handler;
-  sub_19B421668(v10, v12);
-  v11 = *MEMORY[0x1E69E9840];
+  sub_19B421668(v11, v12);
 }
 
 - (void)stopCameraCapturePoseUpdates
@@ -769,28 +821,28 @@ LABEL_22:
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    v9 = 0;
-    v5 = _os_log_send_and_compose_impl();
+    v9[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 0, "Stopping CameraCapturePose updates", v9, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager stopCameraCapturePoseUpdates]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
-  v6 = sub_19B420D84();
+  v7 = sub_19B420D84();
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = sub_19B767478;
   v8[3] = &unk_1E7532988;
   v8[4] = self;
-  sub_19B421668(v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  sub_19B421668(v7, v8);
 }
 
 - (void)simulateSignificantUserInteraction
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2800 != -1)
   {
     dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
@@ -812,11 +864,13 @@ LABEL_22:
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    v4 = _os_log_send_and_compose_impl();
+    v7[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 0, "Simulated significant user interaction detected", v7, 2);
+    v5 = v4;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager simulateSignificantUserInteraction]", "CoreLocation: %s\n", v4);
-    if (v4 != buf)
+    if (v5 != buf)
     {
-      free(v4);
+      free(v5);
     }
   }
 
@@ -827,11 +881,9 @@ LABEL_22:
 
   if (qword_1EAFE3A68)
   {
-    v5 = sub_19B420D84();
-    sub_19B421668(v5, &unk_1F0E3B5F8);
+    v6 = sub_19B420D84();
+    sub_19B421668(v6, &unk_1F0E3B5F8);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)viewObstructedBlocking
@@ -879,19 +931,19 @@ LABEL_22:
         dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
       }
 
-      v11 = 0;
-      v7 = _os_log_send_and_compose_impl();
+      v11[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 16, "Suppression is not supported on this hardware.", v11, 2);
+      v8 = v7;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSuppressionManager viewObstructedBlocking]", "CoreLocation: %s\n", v7);
-      if (v7 != buf)
+      if (v8 != buf)
       {
-        free(v7);
+        free(v8);
       }
     }
 
-    v4 = 0;
+    return 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -940,25 +992,25 @@ LABEL_22:
         dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
       }
 
-      v11 = 0;
-      v7 = _os_log_send_and_compose_impl();
+      v11[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 16, "Suppression is not supported on this hardware.", v11, 2);
+      v8 = v7;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSuppressionManager staticPoseBlocking]", "CoreLocation: %s\n", v7);
-      if (v7 != buf)
+      if (v8 != buf)
       {
-        free(v7);
+        free(v8);
       }
     }
 
-    v4 = 0;
+    return 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)sendSuppressionEventToClientPrivate
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   sub_19B420D84();
   sub_19B44B9A0();
   internal = self->_internal;
@@ -1018,13 +1070,13 @@ LABEL_22:
       v19 = *(internal + 43);
       v20 = mach_absolute_time();
       *buf = 134349826;
-      v42 = v18;
-      v43 = 2114;
-      v44 = v19;
-      v45 = 2114;
-      v46 = FacedownStatic;
-      v47 = 2050;
-      v48 = sub_19B41E070(v20);
+      v43 = v18;
+      v44 = 2114;
+      v45 = v19;
+      v46 = 2114;
+      v47 = FacedownStatic;
+      v48 = 2050;
+      v49 = sub_19B41E070(v20);
       _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}ld][%{public}@] Sending to client: %{public}@,now,%{public}f", buf, 0x2Au);
     }
 
@@ -1037,44 +1089,44 @@ LABEL_22:
         dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
       }
 
-      v25 = objc_msgSend_suppressionClientType(self, v23, v24);
-      v26 = *(internal + 43);
-      v27 = mach_absolute_time();
-      v33 = 134349826;
-      v34 = v25;
-      v35 = 2114;
-      v36 = v26;
-      v37 = 2114;
-      v38 = FacedownStatic;
-      v39 = 2050;
-      v40 = sub_19B41E070(v27);
-      v28 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager sendSuppressionEventToClientPrivate]", "CoreLocation: %s\n", v28);
-      if (v28 != buf)
+      v25 = off_1EAFE2828;
+      v26 = objc_msgSend_suppressionClientType(self, v23, v24);
+      v27 = *(internal + 43);
+      v28 = mach_absolute_time();
+      v34 = 134349826;
+      v35 = v26;
+      v36 = 2114;
+      v37 = v27;
+      v38 = 2114;
+      v39 = FacedownStatic;
+      v40 = 2050;
+      v41 = sub_19B41E070(v28);
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v25, 0, "[%{public}ld][%{public}@] Sending to client: %{public}@,now,%{public}f", &v34, 42);
+      v30 = v29;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager sendSuppressionEventToClientPrivate]", "CoreLocation: %s\n", v29);
+      if (v30 != buf)
       {
-        free(v28);
+        free(v30);
       }
     }
 
-    v30 = *(internal + 6);
-    v29 = *(internal + 7);
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = sub_19B768090;
-    v32[3] = &unk_1E7532B90;
-    v32[4] = FacedownStatic;
-    v32[5] = v30;
-    objc_msgSend_addOperationWithBlock_(v29, v22, v32);
+    v32 = *(internal + 6);
+    v31 = *(internal + 7);
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = sub_19B768090;
+    v33[3] = &unk_1E7532B90;
+    v33[4] = FacedownStatic;
+    v33[5] = v32;
+    objc_msgSend_addOperationWithBlock_(v31, v22, v33);
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onEclipseData:(const Suppress *)data
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (data)
   {
     if (qword_1EAFE2800 != -1)
@@ -1089,11 +1141,11 @@ LABEL_22:
       fLux_low = LOBYTE(data->fLux);
       v10 = *&data->fType;
       *buf = 134349568;
-      v24 = v8;
-      v25 = 1026;
-      v26 = fLux_low;
-      v27 = 2050;
-      v28 = v10;
+      v33 = v8;
+      v34 = 1026;
+      v35 = fLux_low;
+      v36 = 2050;
+      v37 = v10;
       _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_INFO, "[%{public}ld] Incoming view obstructed event, shouldSuppress,%{public}u, timestampSecs,%{public}f", buf, 0x1Cu);
     }
 
@@ -1106,35 +1158,43 @@ LABEL_22:
         dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
       }
 
-      objc_msgSend_suppressionClientType(self, v13, v14);
-      v21 = LOBYTE(data->fLux);
-      v22 = *&data->fType;
-      v15 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager onEclipseData:]", "CoreLocation: %s\n", v15);
-      if (v15 != buf)
+      v15 = off_1EAFE2828;
+      v16 = objc_msgSend_suppressionClientType(self, v13, v14);
+      v17 = LOBYTE(data->fLux);
+      v18 = *&data->fType;
+      v26 = 134349568;
+      v27 = v16;
+      v28 = 1026;
+      v29 = v17;
+      v30 = 2050;
+      v31 = v18;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v15, 1, "[%{public}ld] Incoming view obstructed event, shouldSuppress,%{public}u, timestampSecs,%{public}f", &v26, 28);
+      v20 = v19;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager onEclipseData:]", "CoreLocation: %s\n", v19);
+      if (v20 != buf)
       {
-        free(v15);
+        free(v20);
       }
     }
 
     if (LOBYTE(data->fLux))
     {
-      v16 = 1;
+      v21 = 1;
     }
 
     else
     {
-      v16 = 2;
+      v21 = 2;
     }
 
     if (BYTE1(data->fLux))
     {
-      objc_msgSend_feedViewObstructedEvent_facedown_timeSinceLastFacedownStatic_timestamp_force_(self, v12, v16, 1, 0, *&data->fFacedownStatic, *&data->fType);
+      objc_msgSend_feedViewObstructedEvent_facedown_timeSinceLastFacedownStatic_timestamp_force_(self, v12, v21, 1, 0, *&data->fFacedownStatic, *&data->fType);
     }
 
     else
     {
-      objc_msgSend_feedViewObstructedEvent_facedown_timeSinceLastFacedownStatic_timestamp_force_(self, v12, v16, 2, 0, *&data->fFacedownStatic, *&data->fType);
+      objc_msgSend_feedViewObstructedEvent_facedown_timeSinceLastFacedownStatic_timestamp_force_(self, v12, v21, 2, 0, *&data->fFacedownStatic, *&data->fType);
     }
   }
 
@@ -1145,15 +1205,15 @@ LABEL_22:
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    v17 = off_1EAFE2828;
+    v22 = off_1EAFE2828;
     if (os_log_type_enabled(off_1EAFE2828, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_ERROR, "Invalid data parameter!", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_ERROR, "Invalid data parameter!", buf, 2u);
     }
 
-    v18 = sub_19B420058();
-    if ((*(v18 + 160) & 0x80000000) == 0 || (*(v18 + 164) & 0x80000000) == 0 || (*(v18 + 168) & 0x80000000) == 0 || *(v18 + 152))
+    v23 = sub_19B420058();
+    if ((*(v23 + 160) & 0x80000000) == 0 || (*(v23 + 164) & 0x80000000) == 0 || (*(v23 + 168) & 0x80000000) == 0 || *(v23 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2800 != -1)
@@ -1161,21 +1221,21 @@ LABEL_22:
         dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
       }
 
-      v19 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSuppressionManager onEclipseData:]", "CoreLocation: %s\n", v19);
-      if (v19 != buf)
+      LOWORD(v26) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 16, "Invalid data parameter!", &v26, 2);
+      v25 = v24;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSuppressionManager onEclipseData:]", "CoreLocation: %s\n", v24);
+      if (v25 != buf)
       {
-        free(v19);
+        free(v25);
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onNotification:(id)notification
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_userInfo(notification, a2, notification);
   v7 = objc_msgSend_objectForKeyedSubscript_(v5, v6, @"CMSuppressionEventTypeKey");
   v10 = objc_msgSend_userInfo(notification, v8, v9);
@@ -1207,38 +1267,48 @@ LABEL_22:
     v17 = sub_19B420058();
     if ((*(v17 + 160) & 0x80000000) != 0 && (*(v17 + 164) & 0x80000000) != 0 && (*(v17 + 168) & 0x80000000) != 0 && !*(v17 + 152))
     {
-      goto LABEL_52;
+      return;
     }
 
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2800 != -1)
     {
-      goto LABEL_62;
+      dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    goto LABEL_50;
+    *v48 = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 17, "Invalid notification payload!", v48, 2, *v48, *&v48[8]);
+LABEL_54:
+    v37 = v18;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSuppressionManager onNotification:]", "CoreLocation: %s\n", v18);
+    if (v37 != buf)
+    {
+      free(v37);
+    }
+
+    return;
   }
 
-  v18 = v12;
-  v21 = objc_msgSend_intValue(v7, v13, v14);
-  v22 = objc_msgSend_unsignedIntValue(v18, v19, v20);
+  v19 = v12;
+  v22 = objc_msgSend_intValue(v7, v13, v14);
+  v23 = objc_msgSend_unsignedIntValue(v19, v20, v21);
   if (qword_1EAFE2800 != -1)
   {
     dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
   }
 
-  v23 = off_1EAFE2828;
+  v24 = off_1EAFE2828;
   if (os_log_type_enabled(off_1EAFE2828, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v46 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v24, v21);
-    v47 = 2114;
-    v48 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v25, v22);
-    _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_INFO, "Incoming suppression notification: %{public}@ (%{public}@)", buf, 0x16u);
+    v50 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v25, v22);
+    v51 = 2114;
+    v52 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v26, v23);
+    _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_INFO, "Incoming suppression notification: %{public}@ (%{public}@)", buf, 0x16u);
   }
 
-  v26 = sub_19B420058();
-  if (*(v26 + 160) > 1 || *(v26 + 164) > 1 || *(v26 + 168) > 1 || *(v26 + 152))
+  v27 = sub_19B420058();
+  if (*(v27 + 160) > 1 || *(v27 + 164) > 1 || *(v27 + 168) > 1 || *(v27 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2800 != -1)
@@ -1246,126 +1316,125 @@ LABEL_22:
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    objc_msgSend_stringForEventType_(CMSuppressionEvent, v27, v21);
-    objc_msgSend_stringForEventReason_(CMSuppressionEvent, v28, v22);
-    v29 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager onNotification:]", "CoreLocation: %s\n", v29);
-    if (v29 != buf)
+    v29 = off_1EAFE2828;
+    *v48 = 138543618;
+    *&v48[4] = objc_msgSend_stringForEventType_(CMSuppressionEvent, v28, v22);
+    *&v48[12] = 2114;
+    *&v48[14] = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v30, v23);
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v29, 1, "Incoming suppression notification: %{public}@ (%{public}@)", v48, 22);
+    v32 = v31;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager onNotification:]", "CoreLocation: %s\n", v31);
+    if (v32 != buf)
     {
-      free(v29);
+      free(v32);
     }
   }
 
-  if ((v21 - 1) >= 2)
+  if ((v22 - 1) >= 2)
   {
     if (qword_1EAFE2800 != -1)
     {
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    v30 = off_1EAFE2828;
+    v33 = off_1EAFE2828;
     if (os_log_type_enabled(off_1EAFE2828, OS_LOG_TYPE_FAULT))
     {
       *buf = 134349056;
-      v46 = v21;
-      _os_log_impl(&dword_19B41C000, v30, OS_LOG_TYPE_FAULT, "Notification event type %{public}lu is invalid!", buf, 0xCu);
+      v50 = v22;
+      _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_FAULT, "Notification event type %{public}lu is invalid!", buf, 0xCu);
     }
 
-    v31 = sub_19B420058();
-    if ((*(v31 + 160) & 0x80000000) != 0 && (*(v31 + 164) & 0x80000000) != 0 && (*(v31 + 168) & 0x80000000) != 0 && !*(v31 + 152))
+    v34 = sub_19B420058();
+    if ((*(v34 + 160) & 0x80000000) != 0 && (*(v34 + 164) & 0x80000000) != 0 && (*(v34 + 168) & 0x80000000) != 0 && !*(v34 + 152))
     {
-      goto LABEL_52;
+      return;
     }
 
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2800 != -1)
     {
-      goto LABEL_62;
+      dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-LABEL_50:
-    v34 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSuppressionManager onNotification:]", "CoreLocation: %s\n", v34);
-    if (v34 != buf)
-    {
-      free(v34);
-    }
-
-    goto LABEL_52;
+    *v48 = 134349056;
+    *&v48[4] = v22;
+    LODWORD(v47) = 12;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 17, "Notification event type %{public}lu is invalid!", v48, v47, *v48, *&v48[8]);
+    goto LABEL_54;
   }
 
-  if ((v22 & 7) == 0)
+  if ((v23 & 7) == 0)
   {
     if (qword_1EAFE2800 != -1)
     {
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    v32 = off_1EAFE2828;
+    v35 = off_1EAFE2828;
     if (os_log_type_enabled(off_1EAFE2828, OS_LOG_TYPE_FAULT))
     {
       *buf = 134349056;
-      v46 = v22;
-      _os_log_impl(&dword_19B41C000, v32, OS_LOG_TYPE_FAULT, "Notification event reason %{public}lu is invalid!", buf, 0xCu);
+      v50 = v23;
+      _os_log_impl(&dword_19B41C000, v35, OS_LOG_TYPE_FAULT, "Notification event reason %{public}lu is invalid!", buf, 0xCu);
     }
 
-    v33 = sub_19B420058();
-    if ((*(v33 + 160) & 0x80000000) != 0 && (*(v33 + 164) & 0x80000000) != 0 && (*(v33 + 168) & 0x80000000) != 0 && !*(v33 + 152))
+    v36 = sub_19B420058();
+    if ((*(v36 + 160) & 0x80000000) != 0 && (*(v36 + 164) & 0x80000000) != 0 && (*(v36 + 168) & 0x80000000) != 0 && !*(v36 + 152))
     {
-      goto LABEL_52;
+      return;
     }
 
     bzero(buf, 0x65CuLL);
-    if (qword_1EAFE2800 == -1)
+    if (qword_1EAFE2800 != -1)
     {
-      goto LABEL_50;
+      dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-LABEL_62:
-    dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
-    goto LABEL_50;
+    *v48 = 134349056;
+    *&v48[4] = v23;
+    LODWORD(v47) = 12;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 17, "Notification event reason %{public}lu is invalid!", v48, v47, *v48, *&v48[8]);
+    goto LABEL_54;
   }
 
-  if (v22)
+  if (v23)
   {
-    v36 = mach_absolute_time();
-    v37 = sub_19B41E070(v36);
-    objc_msgSend_feedViewObstructedEvent_facedown_timeSinceLastFacedownStatic_timestamp_force_(self, v38, v21, 2, 0, 0.0, v37);
-    if ((v22 & 2) == 0)
+    v38 = mach_absolute_time();
+    v39 = sub_19B41E070(v38);
+    objc_msgSend_feedViewObstructedEvent_facedown_timeSinceLastFacedownStatic_timestamp_force_(self, v40, v22, 2, 0, 0.0, v39);
+    if ((v23 & 2) == 0)
     {
-LABEL_31:
-      if ((v22 & 4) != 0)
+LABEL_32:
+      if ((v23 & 4) != 0)
       {
-        goto LABEL_55;
+        goto LABEL_59;
       }
 
-      goto LABEL_52;
+      return;
     }
   }
 
-  else if ((v22 & 2) == 0)
+  else if ((v23 & 2) == 0)
   {
-    goto LABEL_31;
+    goto LABEL_32;
   }
 
-  v39 = mach_absolute_time();
-  v40 = sub_19B41E070(v39);
-  objc_msgSend_feedSmartPowerNapEvent_timestamp_force_(self, v41, v21, 0, v40);
-  if ((v22 & 4) != 0)
+  v41 = mach_absolute_time();
+  v42 = sub_19B41E070(v41);
+  objc_msgSend_feedSmartPowerNapEvent_timestamp_force_(self, v43, v22, 0, v42);
+  if ((v23 & 4) != 0)
   {
-LABEL_55:
-    v42 = mach_absolute_time();
-    v43 = sub_19B41E070(v42);
-    objc_msgSend_feedDevicePresenceEvent_timestamp_force_(self, v44, v21, 0, v43);
+LABEL_59:
+    v44 = mach_absolute_time();
+    v45 = sub_19B41E070(v44);
+    objc_msgSend_feedDevicePresenceEvent_timestamp_force_(self, v46, v22, 0, v45);
   }
-
-LABEL_52:
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateCurrentSuppressionEvent:(int64_t)event timestamp:(double)timestamp reason:(unint64_t)reason facedownState:(unint64_t)state timeSinceLastFacedownStatic:(double)static
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   sub_19B420D84();
   sub_19B44B9A0();
   internal = self->_internal;
@@ -1380,14 +1449,14 @@ LABEL_52:
     v17 = objc_msgSend_suppressionClientType(self, v15, v16);
     v18 = *(internal + 43);
     *buf = 134350082;
-    v30 = v17;
-    v31 = 2114;
-    v32 = v18;
-    v33 = 2114;
-    v34 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v19, event);
-    v35 = 2114;
-    v36 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v20, reason);
-    v37 = 2050;
+    v42 = v17;
+    v43 = 2114;
+    v44 = v18;
+    v45 = 2114;
+    v46 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v19, event);
+    v47 = 2114;
+    v48 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v20, reason);
+    v49 = 2050;
     timestampCopy = timestamp;
     _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}ld][%{public}@] ==== Updating current suppression event: %{public}@ (%{public}@) @ %{public}f", buf, 0x34u);
   }
@@ -1401,15 +1470,25 @@ LABEL_52:
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    objc_msgSend_suppressionClientType(self, v22, v23);
-    v28 = *(internal + 43);
-    objc_msgSend_stringForEventType_(CMSuppressionEvent, v24, event);
-    objc_msgSend_stringForEventReason_(CMSuppressionEvent, v25, reason);
-    v26 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager updateCurrentSuppressionEvent:timestamp:reason:facedownState:timeSinceLastFacedownStatic:]", "CoreLocation: %s\n", v26);
-    if (v26 != buf)
+    v24 = off_1EAFE2828;
+    v25 = objc_msgSend_suppressionClientType(self, v22, v23);
+    v26 = *(internal + 43);
+    v31 = 134350082;
+    v32 = v25;
+    v33 = 2114;
+    v34 = v26;
+    v35 = 2114;
+    v36 = objc_msgSend_stringForEventType_(CMSuppressionEvent, v27, event);
+    v37 = 2114;
+    v38 = objc_msgSend_stringForEventReason_(CMSuppressionEvent, v28, reason);
+    v39 = 2050;
+    timestampCopy2 = timestamp;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v24, 0, "[%{public}ld][%{public}@] ==== Updating current suppression event: %{public}@ (%{public}@) @ %{public}f", &v31, 52);
+    v30 = v29;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager updateCurrentSuppressionEvent:timestamp:reason:facedownState:timeSinceLastFacedownStatic:]", "CoreLocation: %s\n", v29);
+    if (v30 != buf)
     {
-      free(v26);
+      free(v30);
     }
   }
 
@@ -1418,7 +1497,6 @@ LABEL_52:
   *(internal + 3) = reason;
   *(internal + 4) = state;
   internal[5] = static;
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (CMSuppressionEventStruct)currentSuppressionEvent
@@ -1495,7 +1573,7 @@ LABEL_52:
 
 - (void)startSuppressionUpdatesPrivateToQueue:(id)queue withHandler:(id)handler
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   sub_19B420D84();
   sub_19B44B9A0();
   internal = self->_internal;
@@ -1515,10 +1593,14 @@ LABEL_52:
       *(internal + 6) = objc_msgSend_copy(handler, v12, v13);
     }
 
-    objc_msgSend_updateCurrentSuppressionEvent_timestamp_reason_facedownState_timeSinceLastFacedownStatic_(self, v9, 0, 0, 0, 0.0, 0.0);
-    if ((*(internal + 336) & 0x19) != 0 && !*(internal + 14) && (sub_19B421620() & 0x200) != 0)
+    updated = objc_msgSend_updateCurrentSuppressionEvent_timestamp_reason_facedownState_timeSinceLastFacedownStatic_(self, v9, 0, 0, 0, 0.0, 0.0);
+    if ((*(internal + 336) & 0x19) != 0 && !*(internal + 14))
     {
-      operator new();
+      updated = sub_19B421620();
+      if ((updated & 0x200) != 0)
+      {
+        operator new();
+      }
     }
 
     if (qword_1EAFE3A58 != -1)
@@ -1531,43 +1613,43 @@ LABEL_52:
       operator new();
     }
 
-    v16 = *(internal + 42);
-    if ((v16 & 2) != 0 && !*(internal + 25))
+    v17 = *(internal + 42);
+    if ((v17 & 2) != 0 && !*(internal + 25))
     {
-      *(internal + 25) = objc_alloc_init(off_1ED71C840[0]());
+      *(internal + 25) = objc_alloc_init(off_1ED71C840(updated));
       objc_initWeak(buf, self);
-      v29 = *(internal + 8);
+      v31 = *(internal + 8);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = sub_19B76ABCC;
       block[3] = &unk_1E7533528;
-      objc_copyWeak(&v34, buf);
+      objc_copyWeak(&v35, buf);
       block[4] = internal;
-      dispatch_async(v29, block);
-      objc_destroyWeak(&v34);
+      dispatch_async(v31, block);
+      objc_destroyWeak(&v35);
       objc_destroyWeak(buf);
       if ((*(internal + 42) & 4) != 0)
       {
 LABEL_18:
         if (!*(internal + 26))
         {
-          v17 = objc_alloc(off_1ED71C848[0]());
-          v19 = objc_msgSend_initWithDelegate_(v17, v18, self);
-          *(internal + 26) = v19;
-          objc_msgSend_registerForWatchPresence(v19, v20, v21);
-          objc_msgSend_getCurrentWatchPresenceStatus(*(internal + 26), v22, v23);
+          v18 = objc_alloc(off_1ED71C848(updated));
+          v20 = objc_msgSend_initWithDelegate_(v18, v19, self);
+          *(internal + 26) = v20;
+          objc_msgSend_registerForWatchPresence(v20, v21, v22);
+          objc_msgSend_getCurrentWatchPresenceStatus(*(internal + 26), v23, v24);
         }
       }
     }
 
-    else if ((v16 & 4) != 0)
+    else if ((v17 & 4) != 0)
     {
       goto LABEL_18;
     }
 
-    v30 = objc_msgSend_defaultCenter(MEMORY[0x1E696ABB0], v14, v15);
-    objc_msgSend_addObserver_selector_name_object_suspensionBehavior_(v30, v31, self, sel_onNotification_, @"CMSuppressionEventSendNotification", 0, 4);
-    goto LABEL_33;
+    v32 = objc_msgSend_defaultCenter(MEMORY[0x1E696ABB0], v15, v16);
+    objc_msgSend_addObserver_selector_name_object_suspensionBehavior_(v32, v33, self, sel_onNotification_, @"CMSuppressionEventSendNotification", 0, 4);
+    return;
   }
 
   if (qword_1EAFE2800 != -1)
@@ -1575,17 +1657,17 @@ LABEL_18:
     dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
   }
 
-  v24 = off_1EAFE2828;
+  v25 = off_1EAFE2828;
   if (os_log_type_enabled(off_1EAFE2828, OS_LOG_TYPE_ERROR))
   {
-    v25 = *(internal + 42);
+    v26 = *(internal + 42);
     *buf = 134349056;
-    v38 = v25;
-    _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_ERROR, "Suppression updates for sources=%{public}lu not available on this platform", buf, 0xCu);
+    v39 = v26;
+    _os_log_impl(&dword_19B41C000, v25, OS_LOG_TYPE_ERROR, "Suppression updates for sources=%{public}lu not available on this platform", buf, 0xCu);
   }
 
-  v26 = sub_19B420058();
-  if ((*(v26 + 160) & 0x80000000) == 0 || (*(v26 + 164) & 0x80000000) == 0 || (*(v26 + 168) & 0x80000000) == 0 || *(v26 + 152))
+  v27 = sub_19B420058();
+  if ((*(v27 + 160) & 0x80000000) == 0 || (*(v27 + 164) & 0x80000000) == 0 || (*(v27 + 168) & 0x80000000) == 0 || *(v27 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2800 != -1)
@@ -1593,19 +1675,17 @@ LABEL_18:
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    v27 = *(internal + 42);
-    v35 = 134349056;
-    v36 = v27;
-    v28 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSuppressionManager startSuppressionUpdatesPrivateToQueue:withHandler:]", "CoreLocation: %s\n", v28);
-    if (v28 != buf)
+    v28 = *(internal + 42);
+    v36 = 134349056;
+    v37 = v28;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 16, "Suppression updates for sources=%{public}lu not available on this platform", &v36, 12);
+    v30 = v29;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSuppressionManager startSuppressionUpdatesPrivateToQueue:withHandler:]", "CoreLocation: %s\n", v29);
+    if (v30 != buf)
     {
-      free(v28);
+      free(v30);
     }
   }
-
-LABEL_33:
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onViewObstructedStateData:(const ViewObstructedState *)data
@@ -1655,17 +1735,16 @@ LABEL_33:
         dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
       }
 
-      v16 = 0;
-      v12 = _os_log_send_and_compose_impl();
+      v16[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 16, "Invalid data parameter!", v16, 2);
+      v13 = v12;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSuppressionManager onViewObstructedStateData:]", "CoreLocation: %s\n", v12);
-      if (v12 != buf)
+      if (v13 != buf)
       {
-        free(v12);
+        free(v13);
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onCameraCapturePoseData:(const CameraCapturePose *)data
@@ -1709,17 +1788,16 @@ LABEL_33:
         dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
       }
 
-      v13 = 0;
-      v9 = _os_log_send_and_compose_impl();
+      v13[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 16, "Invalid data parameter!", v13, 2);
+      v10 = v9;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSuppressionManager onCameraCapturePoseData:]", "CoreLocation: %s\n", v9);
-      if (v9 != buf)
+      if (v10 != buf)
       {
-        free(v9);
+        free(v10);
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startViewObstructedStateUpdatesToQueue:(id)queue withHandler:(id)handler
@@ -1746,16 +1824,17 @@ LABEL_33:
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    v13 = 0;
-    v9 = _os_log_send_and_compose_impl();
+    v13[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 0, "Starting view obstructed state updates.", v13, 2);
+    v10 = v9;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager startViewObstructedStateUpdatesToQueue:withHandler:]", "CoreLocation: %s\n", v9);
-    if (v9 != buf)
+    if (v10 != buf)
     {
-      free(v9);
+      free(v10);
     }
   }
 
-  v10 = sub_19B420D84();
+  v11 = sub_19B420D84();
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
   v12[2] = sub_19B76B5DC;
@@ -1763,8 +1842,7 @@ LABEL_33:
   v12[4] = self;
   v12[5] = queue;
   v12[6] = handler;
-  sub_19B421668(v10, v12);
-  v11 = *MEMORY[0x1E69E9840];
+  sub_19B421668(v11, v12);
 }
 
 - (void)stopViewObstructedStateUpdates
@@ -1791,23 +1869,23 @@ LABEL_33:
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    v9 = 0;
-    v5 = _os_log_send_and_compose_impl();
+    v9[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2828, 0, "Stopping view obstructed state updates.", v9, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager stopViewObstructedStateUpdates]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
-  v6 = sub_19B420D84();
+  v7 = sub_19B420D84();
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = sub_19B76B830;
   v8[3] = &unk_1E7532988;
   v8[4] = self;
-  sub_19B421668(v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  sub_19B421668(v7, v8);
 }
 
 - (void)sendViewObstructedStateToClientPrivate:(float)private
@@ -1914,32 +1992,31 @@ LABEL_33:
       v63 = v38;
       v64 = 2114;
       v65 = v19;
-      v39 = _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(2, 0, __p, 1628, &dword_19B41C000, off_1EAFE2828, 1, "Incoming view obstructed state event, timestampSecs,%{public}f,shouldSuppress,%{public}u,currentState,%{public}u,orientation,%{public}u,motionType,%{public}u,lux,%{public}f,pocketProbability,%{public}f,meanProbabilities,%{public}@", &v50, 66);
+      v40 = v39;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager sendViewObstructedStateToClientPrivate:]", "CoreLocation: %s\n", v39);
-      if (v39 != __p)
+      if (v40 != __p)
       {
-        free(v39);
+        free(v40);
       }
     }
 
-    v40 = [CMViewObstructedStateEvent alloc];
-    LODWORD(v41) = *(internal + 255);
-    LODWORD(v42) = *(internal + 259);
-    ShouldSupress_currentState_orientation_motionType_lux_pocketProbability_meanProbabilitiesFloatArray = objc_msgSend_initWithShouldSupress_currentState_orientation_motionType_lux_pocketProbability_meanProbabilitiesFloatArray_(v40, v43, internal[250], internal[252], v10, v14, v19, v41, v42);
-    v45 = *(internal + 30);
-    v46 = *(internal + 7);
+    v41 = [CMViewObstructedStateEvent alloc];
+    LODWORD(v42) = *(internal + 255);
+    LODWORD(v43) = *(internal + 259);
+    ShouldSupress_currentState_orientation_motionType_lux_pocketProbability_meanProbabilitiesFloatArray = objc_msgSend_initWithShouldSupress_currentState_orientation_motionType_lux_pocketProbability_meanProbabilitiesFloatArray_(v41, v44, internal[250], internal[252], v10, v14, v19, v42, v43);
+    v46 = *(internal + 30);
+    v47 = *(internal + 7);
     v49[0] = MEMORY[0x1E69E9820];
     v49[1] = 3221225472;
     v49[2] = sub_19B76BCB4;
     v49[3] = &unk_1E7532B90;
     v49[4] = ShouldSupress_currentState_orientation_motionType_lux_pocketProbability_meanProbabilitiesFloatArray;
-    v49[5] = v45;
-    objc_msgSend_addOperationWithBlock_(v46, v47, v49);
+    v49[5] = v46;
+    objc_msgSend_addOperationWithBlock_(v47, v48, v49);
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startViewObstructedStateUpdatesPrivateToQueue:(id)queue withHandler:(id)handler
@@ -2070,7 +2147,7 @@ LABEL_33:
 - (void)handleSmartPowerNapState:(unsigned __int8)state
 {
   stateCopy = state;
-  v21 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2800 != -1)
   {
     dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
@@ -2080,9 +2157,9 @@ LABEL_33:
   if (os_log_type_enabled(off_1EAFE2828, OS_LOG_TYPE_INFO))
   {
     *buf = 134349312;
-    v18 = objc_msgSend_suppressionClientType(self, v6, v7);
-    v19 = 1026;
-    v20 = stateCopy;
+    v23 = objc_msgSend_suppressionClientType(self, v6, v7);
+    v24 = 1026;
+    v25 = stateCopy;
     _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_INFO, "[%{public}ld] Incoming smart power nap event, %{public}u", buf, 0x12u);
   }
 
@@ -2095,36 +2172,43 @@ LABEL_33:
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    objc_msgSend_suppressionClientType(self, v9, v10);
-    v11 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager handleSmartPowerNapState:]", "CoreLocation: %s\n", v11);
-    if (v11 != buf)
+    v11 = off_1EAFE2828;
+    v18 = 134349312;
+    v19 = objc_msgSend_suppressionClientType(self, v9, v10);
+    v20 = 1026;
+    v21 = stateCopy;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v11, 1, "[%{public}ld] Incoming smart power nap event, %{public}u", &v18, 18);
+    v13 = v12;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager handleSmartPowerNapState:]", "CoreLocation: %s\n", v12);
+    if (v13 != buf)
     {
-      free(v11);
+      free(v13);
     }
   }
 
   if (stateCopy == 1)
   {
-    v12 = 1;
-    goto LABEL_17;
+    v14 = 1;
   }
 
-  if (!stateCopy)
+  else
   {
-    v12 = 2;
-LABEL_17:
-    v13 = mach_absolute_time();
-    v14 = sub_19B41E070(v13);
-    objc_msgSend_feedSmartPowerNapEvent_timestamp_force_(self, v15, v12, 0, v14);
+    if (stateCopy)
+    {
+      return;
+    }
+
+    v14 = 2;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = mach_absolute_time();
+  v16 = sub_19B41E070(v15);
+  objc_msgSend_feedSmartPowerNapEvent_timestamp_force_(self, v17, v14, 0, v16);
 }
 
 - (void)managerDidDetectEvent:(unint64_t)event
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2800 != -1)
   {
     dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
@@ -2134,8 +2218,8 @@ LABEL_17:
   if (os_log_type_enabled(off_1EAFE2828, OS_LOG_TYPE_INFO))
   {
     *buf = 134349312;
-    v18 = objc_msgSend_suppressionClientType(self, v6, v7);
-    v19 = 2050;
+    v23 = objc_msgSend_suppressionClientType(self, v6, v7);
+    v24 = 2050;
     eventCopy = event;
     _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_INFO, "[%{public}ld] Incoming device presence event, %{public}lu", buf, 0x16u);
   }
@@ -2149,36 +2233,43 @@ LABEL_17:
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    objc_msgSend_suppressionClientType(self, v9, v10);
-    v11 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager managerDidDetectEvent:]", "CoreLocation: %s\n", v11);
-    if (v11 != buf)
+    v11 = off_1EAFE2828;
+    v18 = 134349312;
+    v19 = objc_msgSend_suppressionClientType(self, v9, v10);
+    v20 = 2050;
+    eventCopy2 = event;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v11, 1, "[%{public}ld] Incoming device presence event, %{public}lu", &v18, 22);
+    v13 = v12;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSuppressionManager managerDidDetectEvent:]", "CoreLocation: %s\n", v12);
+    if (v13 != buf)
     {
-      free(v11);
+      free(v13);
     }
   }
 
   if (event == 1)
   {
-    v12 = 2;
-    goto LABEL_17;
+    v14 = 2;
   }
 
-  if (event == 2)
+  else
   {
-    v12 = 1;
-LABEL_17:
-    v13 = mach_absolute_time();
-    v14 = sub_19B41E070(v13);
-    objc_msgSend_feedDevicePresenceEvent_timestamp_force_(self, v15, v12, 0, v14);
+    if (event != 2)
+    {
+      return;
+    }
+
+    v14 = 1;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = mach_absolute_time();
+  v16 = sub_19B41E070(v15);
+  objc_msgSend_feedDevicePresenceEvent_timestamp_force_(self, v17, v14, 0, v16);
 }
 
 - (void)managerDidFindError:(unint64_t)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2800 != -1)
   {
     dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
@@ -2188,8 +2279,8 @@ LABEL_17:
   if (os_log_type_enabled(off_1EAFE2828, OS_LOG_TYPE_ERROR))
   {
     *buf = 136446466;
-    v9 = sub_19B76C480(error);
-    v10 = 2050;
+    v14 = sub_19B76C480(error);
+    v15 = 2050;
     errorCopy = error;
     _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_ERROR, "Device presence error: %{public}s %{public}lu", buf, 0x16u);
   }
@@ -2203,16 +2294,19 @@ LABEL_17:
       dispatch_once(&qword_1EAFE2800, &unk_1F0E3B638);
     }
 
-    sub_19B76C480(error);
-    v6 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSuppressionManager managerDidFindError:]", "CoreLocation: %s\n", v6);
-    if (v6 != buf)
+    v6 = off_1EAFE2828;
+    v9 = 136446466;
+    v10 = sub_19B76C480(error);
+    v11 = 2050;
+    errorCopy2 = error;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v6, 16, "Device presence error: %{public}s %{public}lu", &v9, 22);
+    v8 = v7;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSuppressionManager managerDidFindError:]", "CoreLocation: %s\n", v7);
+    if (v8 != buf)
     {
-      free(v6);
+      free(v8);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

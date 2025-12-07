@@ -209,7 +209,6 @@ LABEL_35:
   toCopy = to;
   if ([(_CPCommandEngagementFeedback *)self commandType])
   {
-    commandType = self->_commandType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -217,13 +216,11 @@ LABEL_35:
 
   if (commandDetail)
   {
-    commandDetail = self->_commandDetail;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPCommandEngagementFeedback *)self uniqueButtonId])
   {
-    uniqueButtonId = self->_uniqueButtonId;
     PBDataWriterWriteUint64Field();
   }
 
@@ -231,7 +228,6 @@ LABEL_35:
 
   if (cardSectionId)
   {
-    cardSectionId = self->_cardSectionId;
     PBDataWriterWriteStringField();
   }
 
@@ -245,7 +241,6 @@ LABEL_35:
 
   if ([(_CPCommandEngagementFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -253,43 +248,38 @@ LABEL_35:
 
   if (resultSectionId)
   {
-    resultSectionId = self->_resultSectionId;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPCommandEngagementFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPCommandEngagementFeedback *)self contactActionType])
   {
-    contactActionType = self->_contactActionType;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPCommandEngagementFeedback *)self didDisplayHandleOptions])
   {
-    didDisplayHandleOptions = self->_didDisplayHandleOptions;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPCommandEngagementFeedback *)self didSelectFromOptionsMenu])
   {
-    didSelectFromOptionsMenu = self->_didSelectFromOptionsMenu;
     PBDataWriterWriteBOOLField();
   }
 
   photosAttributes = [(_CPCommandEngagementFeedback *)self photosAttributes];
 
-  v20 = toCopy;
+  v10 = toCopy;
   if (photosAttributes)
   {
     photosAttributes2 = [(_CPCommandEngagementFeedback *)self photosAttributes];
     PBDataWriterWriteSubmessage();
 
-    v20 = toCopy;
+    v10 = toCopy;
   }
 }
 

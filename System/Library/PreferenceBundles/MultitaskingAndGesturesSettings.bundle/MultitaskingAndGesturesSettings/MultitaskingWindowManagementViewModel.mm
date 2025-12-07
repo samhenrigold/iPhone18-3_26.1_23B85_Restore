@@ -44,7 +44,7 @@ LABEL_3:
   {
 LABEL_4:
     type metadata accessor for NSKeyValueChangeKey(0);
-    sub_ADAC(&qword_55B80, type metadata accessor for NSKeyValueChangeKey);
+    sub_ADAC(&qword_55B80, type metadata accessor for NSKeyValueChangeKey, &unk_3E638);
     sub_3D484();
   }
 

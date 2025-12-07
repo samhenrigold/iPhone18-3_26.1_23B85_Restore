@@ -126,54 +126,54 @@ LABEL_24:
 
 - (id)jsonDictionary
 {
-  v23[5] = *MEMORY[0x1E69E9840];
+  v22[5] = *MEMORY[0x1E69E9840];
   bundleID = [(BMShareSheetSuggestLessFeedback *)self bundleID];
   conversationIdentifier = [(BMShareSheetSuggestLessFeedback *)self conversationIdentifier];
   derivedIntentIdentifier = [(BMShareSheetSuggestLessFeedback *)self derivedIntentIdentifier];
   handle = [(BMShareSheetSuggestLessFeedback *)self handle];
   contactID = [(BMShareSheetSuggestLessFeedback *)self contactID];
-  v18 = @"bundleID";
+  v17 = @"bundleID";
   null = bundleID;
   if (!bundleID)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16 = null;
-  v23[0] = null;
-  v19 = @"conversationIdentifier";
+  v15 = null;
+  v22[0] = null;
+  v18 = @"conversationIdentifier";
   null2 = conversationIdentifier;
   if (!conversationIdentifier)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[1] = null2;
-  v20 = @"derivedIntentIdentifier";
+  v22[1] = null2;
+  v19 = @"derivedIntentIdentifier";
   null3 = derivedIntentIdentifier;
   if (!derivedIntentIdentifier)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null3;
-  v21 = @"handle";
+  v22[2] = null3;
+  v20 = @"handle";
   null4 = handle;
   if (!handle)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22 = @"contactID";
+  v22[3] = null4;
+  v21 = @"contactID";
   null5 = contactID;
   if (!contactID)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v18 count:{5, v16}];
+  v22[4] = null5;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v17 count:{5, v15}];
   if (contactID)
   {
     if (handle)
@@ -231,14 +231,13 @@ LABEL_15:
 LABEL_23:
 
 LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (BMShareSheetSuggestLessFeedback)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"bundleID"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -253,34 +252,34 @@ LABEL_4:
       {
         if (!error)
         {
-          v38 = 0;
+          v37 = 0;
           v16 = 0;
           goto LABEL_20;
         }
 
         errorCopy = error;
-        v22 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v23 = *MEMORY[0x1E698F240];
-        v45 = *MEMORY[0x1E696A578];
-        v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"conversationIdentifier"];
-        v46 = v36;
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-        v38 = 0;
+        v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v22 = *MEMORY[0x1E698F240];
+        v44 = *MEMORY[0x1E696A578];
+        v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"conversationIdentifier"];
+        v45 = v35;
+        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+        v37 = 0;
         v16 = 0;
-        *errorCopy = [v22 initWithDomain:v23 code:2 userInfo:v10];
+        *errorCopy = [v21 initWithDomain:v22 code:2 userInfo:v10];
         goto LABEL_19;
       }
 
-      v38 = v9;
+      v37 = v9;
     }
 
     else
     {
-      v38 = 0;
+      v37 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"derivedIntentIdentifier"];
-    v35 = v8;
+    v34 = v8;
     selfCopy = self;
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
@@ -289,36 +288,36 @@ LABEL_4:
       {
         if (!error)
         {
-          v36 = 0;
+          v35 = 0;
           v16 = 0;
           goto LABEL_19;
         }
 
         errorCopy2 = error;
-        v25 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v26 = *MEMORY[0x1E698F240];
-        v43 = *MEMORY[0x1E696A578];
+        v24 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v25 = *MEMORY[0x1E698F240];
+        v42 = *MEMORY[0x1E696A578];
         v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"derivedIntentIdentifier"];
-        v44 = v13;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-        v36 = 0;
+        v43 = v13;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+        v35 = 0;
         v16 = 0;
-        *errorCopy2 = [v25 initWithDomain:v26 code:2 userInfo:v11];
+        *errorCopy2 = [v24 initWithDomain:v25 code:2 userInfo:v11];
 LABEL_18:
 
         self = selfCopy;
-        v8 = v35;
+        v8 = v34;
 LABEL_19:
 
         goto LABEL_20;
       }
 
-      v36 = v10;
+      v35 = v10;
     }
 
     else
     {
-      v36 = 0;
+      v35 = 0;
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"handle"];
@@ -335,16 +334,16 @@ LABEL_19:
           goto LABEL_18;
         }
 
-        v33 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v27 = *MEMORY[0x1E698F240];
-        v41 = *MEMORY[0x1E696A578];
+        v32 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v26 = *MEMORY[0x1E698F240];
+        v40 = *MEMORY[0x1E696A578];
         v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"handle"];
-        v42 = v15;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-        v28 = [v33 initWithDomain:v27 code:2 userInfo:v14];
+        v41 = v15;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+        v27 = [v32 initWithDomain:v26 code:2 userInfo:v14];
         v13 = 0;
         v16 = 0;
-        *errorCopy3 = v28;
+        *errorCopy3 = v27;
         goto LABEL_17;
       }
 
@@ -364,13 +363,13 @@ LABEL_19:
       {
         if (errorCopy3)
         {
-          v34 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v31 = *MEMORY[0x1E698F240];
-          v39 = *MEMORY[0x1E696A578];
-          v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"contactID"];
-          v40 = v29;
-          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-          *errorCopy3 = [v34 initWithDomain:v31 code:2 userInfo:v30];
+          v33 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v30 = *MEMORY[0x1E698F240];
+          v38 = *MEMORY[0x1E696A578];
+          v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"contactID"];
+          v39 = v28;
+          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+          *errorCopy3 = [v33 initWithDomain:v30 code:2 userInfo:v29];
         }
 
         v15 = 0;
@@ -386,7 +385,7 @@ LABEL_19:
       v15 = 0;
     }
 
-    v16 = [(BMShareSheetSuggestLessFeedback *)selfCopy initWithBundleID:v35 conversationIdentifier:v38 derivedIntentIdentifier:v36 handle:v13 contactID:v15];
+    v16 = [(BMShareSheetSuggestLessFeedback *)selfCopy initWithBundleID:v34 conversationIdentifier:v37 derivedIntentIdentifier:v35 handle:v13 contactID:v15];
     selfCopy = v16;
 LABEL_17:
 
@@ -408,19 +407,18 @@ LABEL_17:
   }
 
   errorCopy4 = error;
-  v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v21 = *MEMORY[0x1E698F240];
-  v47 = *MEMORY[0x1E696A578];
-  v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"bundleID"];
-  v48[0] = v38;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+  v19 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v20 = *MEMORY[0x1E698F240];
+  v46 = *MEMORY[0x1E696A578];
+  v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"bundleID"];
+  v47[0] = v37;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:&v46 count:1];
   v8 = 0;
   v16 = 0;
-  *errorCopy4 = [v20 initWithDomain:v21 code:2 userInfo:v9];
+  *errorCopy4 = [v19 initWithDomain:v20 code:2 userInfo:v9];
 LABEL_20:
 
 LABEL_21:
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -607,39 +605,35 @@ LABEL_24:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"bundleID" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"conversationIdentifier" number:2 type:13 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"derivedIntentIdentifier" number:3 type:13 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"handle" number:4 type:13 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"contactID" number:5 type:13 subMessageClass:0];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"bundleID" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"conversationIdentifier" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"derivedIntentIdentifier" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"handle" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"contactID" dataType:2 requestOnly:0 fieldNumber:5 protoDataType:13 convertedType:0];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }

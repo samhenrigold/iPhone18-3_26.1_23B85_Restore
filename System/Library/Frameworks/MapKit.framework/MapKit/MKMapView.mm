@@ -7017,7 +7017,7 @@ void __75__MKMapView__setZoomScale_centerMapPoint_duration_timingFunction_animat
 
   else
   {
-    [(MKMapView *)self region];
+    objc_msgSend_region(self);
     if (vabdd_f64(latitude, v13) >= 0.00000000999999994 || vabdd_f64(longitude, v10) >= 0.00000000999999994 || vabdd_f64(latitudeDelta, v11) >= 0.00000000999999994 || vabdd_f64(longitudeDelta, v12) >= 0.00000000999999994)
     {
       if (fabs(longitude) > 180.0 || fabs(latitude) > 90.0 || latitudeDelta < 0.0 || latitudeDelta > 180.0 || longitudeDelta < 0.0 || longitudeDelta > 360.0)
@@ -8586,7 +8586,7 @@ LABEL_38:
           v53 = -(v43 - v47);
         }
 
-        [(MKMapView *)self region];
+        objc_msgSend_region(self);
         v56 = [objc_alloc(MEMORY[0x1E69A2200]) initWithCoordinateRegion:{v49, v50, v54 + v52 * 2.0, v55 + v53 * 2.0}];
         vk_mapLayer = [(MKMapView *)self vk_mapLayer];
         vk_mapLayer2 = [(MKMapView *)self vk_mapLayer];
@@ -10638,17 +10638,17 @@ LABEL_19:
   }
 }
 
-uint64_t __55__MKMapView__setCompassVisible_animationAllowed_force___block_invoke(uint64_t result, int a2)
+void *__55__MKMapView__setCompassVisible_animationAllowed_force___block_invoke(void *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    if ((*(result + 40) & 1) == 0)
+    if ((result[5] & 1) == 0)
     {
-      v3 = [*(*(result + 32) + 688) layer];
+      v3 = [*(result[4] + 688) layer];
       [v3 removeAnimationForKey:@"controlVisibility"];
 
-      v4 = *(*(v2 + 32) + 688);
+      v4 = *(v2[4] + 688);
 
       return [v4 removeFromSuperview];
     }
@@ -11161,13 +11161,13 @@ uint64_t __55__MKMapView__setCompassVisible_animationAllowed_force___block_invok
   }
 }
 
-uint64_t __41__MKMapView__showOrHideScaleIfNecessary___block_invoke(uint64_t result, int a2)
+id *__41__MKMapView__showOrHideScaleIfNecessary___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    if ((*(*(result + 32) + 744) & 1) == 0)
+    if ((*(result[4] + 744) & 1) == 0)
     {
-      return [*(result + 40) removeFromSuperview];
+      return [result[5] removeFromSuperview];
     }
   }
 
@@ -13750,7 +13750,7 @@ uint64_t __67__MKMapView__shouldDeselectMapFeatureForNewPreferredConfiguration__
     v4 = 0u;
     if (v1)
     {
-      [v1 cartographicConfiguration];
+      objc_msgSend_cartographicConfiguration(v1, v4, v5, v6, v7);
     }
 
     isKindOfClass = (_MKMapTypeForCartographicConfiguration(&v4) & 0x7D) == 1;
@@ -13835,7 +13835,7 @@ uint64_t __67__MKMapView__shouldDeselectMapFeatureForNewPreferredConfiguration__
   v18 = 0u;
   v19 = 0u;
   v17 = 0u;
-  [MKMapConfiguration _cartographicConfigurationForMapConfiguration:self->_preferredConfiguration];
+  objc_msgSend__cartographicConfigurationForMapConfiguration_(MKMapConfiguration, a2, self->_preferredConfiguration);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -15456,7 +15456,7 @@ LABEL_10:
   preferredConfiguration = self->_preferredConfiguration;
   self->_preferredConfiguration = &v22->super;
 
-  [MKMapConfiguration _cartographicConfigurationForMapConfiguration:self->_preferredConfiguration];
+  objc_msgSend__cartographicConfigurationForMapConfiguration_(MKMapConfiguration);
   v24 = v139;
   *&self->_cartographicConfiguration.style = *buf;
   *&self->_cartographicConfiguration.projection = v24;
@@ -15967,7 +15967,7 @@ void __139__MKMapView__commonInitFromIB_gestureRecognizerHostView_locationManage
   top = region.top;
   height = insets.height;
   width = insets.width;
-  v11 = [MKMapView minZoomLevelForMapType:size viewSize:a7];
+  v11 = objc_msgSend_minZoomLevelForMapType_viewSize_(MKMapView, type, size, a7);
   v12 = +[MKSystemController sharedInstance];
   if ([v12 supports3DMaps])
   {
@@ -21456,7 +21456,7 @@ LABEL_37:
 
 - ($E1D56841AF022BCD1A238A621DF8CB5F)_convertRect:(SEL)rect toRegionFromView:(CGRect)view
 {
-  [(MKMapView *)self _convertRect:a5 toMapRectFromView:view.origin.x, view.origin.y, view.size.width, view.size.height];
+  objc_msgSend__convertRect_toMapRectFromView_(self, rect, a5, view.origin.x, view.origin.y, view.size.width, view.size.height);
 
   MKCoordinateRegionForMapRect(*&v5);
   return result;
@@ -21594,33 +21594,33 @@ LABEL_37:
     return INFINITY;
   }
 
-  v42 = v29;
-  v43 = v28;
-  v44 = v26;
-  v45 = v27;
-  v31 = bounds - (a13 + a15);
-  if (v31 - (a17 + a19) > 0.0)
+  v37 = v24;
+  v38 = v23;
+  v39 = v21;
+  v40 = v22;
+  v26 = bounds - (a13 + a15);
+  if (v26 - (a17 + a19) > 0.0)
   {
-    v32 = rect - (a12 + a14);
-    if (v32 - (a16 + a18) > 0.0)
+    v27 = rect - (a12 + a14);
+    if (v27 - (a16 + a18) > 0.0)
     {
-      v33 = ceil(a20);
-      v34 = floor(a21);
+      v28 = ceil(a20);
+      v29 = floor(a21);
       if (!a11)
       {
-        v33 = a20;
-        v34 = a21;
+        v28 = a20;
+        v29 = a21;
       }
 
-      v35 = *MEMORY[0x1E695EFF8];
-      v36 = *(MEMORY[0x1E695EFF8] + 8);
-      v41 = 0uLL;
-      v40 = 0.0;
-      v39[0] = 0.0;
-      v39[1] = 0.0;
-      _scaleForMapRect(&v41, &v40, v39, a11, v35, v36, v31, v32, insets, padding, level, zoomLevel, a16, a17, a18, a19, v33, v34);
-      v37 = v31 * 0.5 / (1.0 / exp2(21.0 - v40));
-      return v41.f64[0] - v37;
+      v30 = *MEMORY[0x1E695EFF8];
+      v31 = *(MEMORY[0x1E695EFF8] + 8);
+      v36 = 0uLL;
+      v35 = 0.0;
+      v34[0] = 0.0;
+      v34[1] = 0.0;
+      _scaleForMapRect(&v36, &v35, v34, a11, v30, v31, v26, v27, insets, padding, level, zoomLevel, a16, a17, a18, a19, v28, v29);
+      v32 = v26 * 0.5 / (1.0 / exp2(21.0 - v35));
+      return v36.f64[0] - v32;
     }
   }
 

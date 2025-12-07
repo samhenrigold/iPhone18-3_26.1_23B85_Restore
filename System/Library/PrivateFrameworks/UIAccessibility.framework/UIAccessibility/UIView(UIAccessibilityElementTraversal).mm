@@ -501,11 +501,11 @@ LABEL_45:
 
   if (([self _accessibilityViewIsVisible] & 1) != 0 || objc_msgSend(v4, "includeHiddenViews"))
   {
-    [self accessibilityFrame];
-    v10 = v9 < 1.0 && v8 < 1.0;
-    if (!v10 || [self _accessibilityOverridesInvalidFrames])
+    accessibilityFrame = [self accessibilityFrame];
+    v12 = v11 < 1.0 && v10 < 1.0;
+    if (!v12 || (accessibilityFrame = [self _accessibilityOverridesInvalidFrames], accessibilityFrame))
     {
-      if ((UIAccessibilityIsWidgetExtension() & 1) == 0)
+      if ((UIAccessibilityIsWidgetExtension(accessibilityFrame, v9) & 1) == 0)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -513,16 +513,16 @@ LABEL_45:
           goto LABEL_24;
         }
 
-        v12 = [self _accessibilityAncestorIsKindOf:objc_opt_class()];
-        if (v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+        v14 = [self _accessibilityAncestorIsKindOf:objc_opt_class()];
+        if (v14 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
 
           goto LABEL_24;
         }
 
-        v14 = [self _accessibilityAncestorIsKindOf:objc_opt_class()];
+        v16 = [self _accessibilityAncestorIsKindOf:objc_opt_class()];
 
-        if (v14)
+        if (v16)
         {
           goto LABEL_24;
         }
@@ -533,7 +533,7 @@ LABEL_45:
       {
 
 LABEL_24:
-        v13 = 1;
+        v15 = 1;
         goto LABEL_25;
       }
 
@@ -544,10 +544,10 @@ LABEL_24:
     }
   }
 
-  v13 = 0;
+  v15 = 0;
 LABEL_25:
 
-  return v13;
+  return v15;
 }
 
 @end

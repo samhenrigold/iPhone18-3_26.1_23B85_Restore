@@ -46,41 +46,38 @@
 
 - (void)handleRunnerWillExit
 {
-  v11 = *MEMORY[0x1E69E9840];
-  currentState = [(WFStateMachine *)self currentState];
-  if (currentState && (v8 = currentState, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v9 = *MEMORY[0x1E69E9840];
+  isKindOfClass = [(WFStateMachine *)self currentState];
+  v4 = isKindOfClass;
+  if (isKindOfClass && (v6 = isKindOfClass, objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v4 = v6, (isKindOfClass & 1) != 0))
   {
-    if ([v8 stage] > 4)
+    if ([v6 stage] > 4)
     {
-      v6 = getWFVoiceShortcutClientLogObject();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v5 = getWFVoiceShortcutClientLogObject();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v10 = "[WFOutOfProcessWorkflowControllerStateMachine handleRunnerWillExit]";
-        _os_log_impl(&dword_1B1DE3000, v6, OS_LOG_TYPE_DEFAULT, "%s Runner will exit, but we're already in the proper cleanup. Ignore.", buf, 0xCu);
+        v8 = "[WFOutOfProcessWorkflowControllerStateMachine handleRunnerWillExit]";
+        _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_DEFAULT, "%s Runner will exit, but we're already in the proper cleanup. Ignore.", buf, 0xCu);
       }
-
-      v7 = *MEMORY[0x1E69E9840];
     }
 
     else
     {
       [(WFOutOfProcessWorkflowControllerStateMachine *)self stopShortcutWithError:0 reason:@"runner notified us of exit, moving to stop and cleanup"];
-      v4 = *MEMORY[0x1E69E9840];
     }
   }
 
   else
   {
-    v5 = *MEMORY[0x1E69E9840];
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](isKindOfClass, v4);
   }
 }
 
 - (void)handleXPCErrorWithDescription:(id)description reason:(id)reason currentDialogAttribution:(id)attribution
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   reasonCopy = reason;
   attributionCopy = attribution;
@@ -91,9 +88,9 @@
     {
       v12 = MEMORY[0x1E696ABC0];
       v13 = WFOutOfProcessWorkflowControllerErrorDomain;
-      v18 = *MEMORY[0x1E696A578];
-      v19[0] = descriptionCopy;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = *MEMORY[0x1E696A578];
+      v18[0] = descriptionCopy;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       v15 = [v12 errorWithDomain:v13 code:4 userInfo:v14];
 
       v16 = [[WFWorkflowRunResult alloc] initWithError:v15];
@@ -106,8 +103,6 @@
 
     currentState = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)exitWithReason:(id)reason
@@ -149,7 +144,7 @@ void __73__WFOutOfProcessWorkflowControllerStateMachine_tearDownRunnerWithReason
 
 - (void)notifyDelegateWithReason:(id)reason result:(id)result currentDialogAttribution:(id)attribution
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   resultCopy = result;
   attributionCopy = attribution;
@@ -175,8 +170,8 @@ void __73__WFOutOfProcessWorkflowControllerStateMachine_tearDownRunnerWithReason
             block[2] = __105__WFOutOfProcessWorkflowControllerStateMachine_notifyDelegateWithReason_result_currentDialogAttribution___block_invoke;
             block[3] = &unk_1E7B01C60;
             block[4] = self;
-            v18 = resultCopy;
-            v19 = attributionCopy;
+            v17 = resultCopy;
+            v18 = attributionCopy;
             dispatch_async(delegateQueue, block);
           }
         }
@@ -188,21 +183,19 @@ void __73__WFOutOfProcessWorkflowControllerStateMachine_tearDownRunnerWithReason
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v21 = "[WFOutOfProcessWorkflowControllerStateMachine notifyDelegateWithReason:result:currentDialogAttribution:]";
-          v22 = 2112;
-          v23 = reasonCopy;
+          v20 = "[WFOutOfProcessWorkflowControllerStateMachine notifyDelegateWithReason:result:currentDialogAttribution:]";
+          v21 = 2112;
+          v22 = reasonCopy;
           _os_log_impl(&dword_1B1DE3000, v12, OS_LOG_TYPE_DEFAULT, "%s Asked to notify delegate because %@ but we're already >= notifying delegate. Ignoring the request.", buf, 0x16u);
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __105__WFOutOfProcessWorkflowControllerStateMachine_notifyDelegateWithReason_result_currentDialogAttribution___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) delegate];
   [v2 controllerStateMachine:*(a1 + 32) shouldNotifyDelegateWithResult:*(a1 + 40) currentDialogAttribution:*(a1 + 48)];
 
@@ -210,14 +203,12 @@ void __105__WFOutOfProcessWorkflowControllerStateMachine_notifyDelegateWithReaso
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6 = 136315394;
-    v7 = "[WFOutOfProcessWorkflowControllerStateMachine notifyDelegateWithReason:result:currentDialogAttribution:]_block_invoke";
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_1B1DE3000, v3, OS_LOG_TYPE_DEFAULT, "%s Notifying delegate with result: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[WFOutOfProcessWorkflowControllerStateMachine notifyDelegateWithReason:result:currentDialogAttribution:]_block_invoke";
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_1B1DE3000, v3, OS_LOG_TYPE_DEFAULT, "%s Notifying delegate with result: %@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishRunningWithReason:(id)reason result:(id)result
@@ -254,7 +245,7 @@ void __79__WFOutOfProcessWorkflowControllerStateMachine_finishRunningWithReason_
 
 - (void)stopShortcutWithError:(id)error reason:(id)reason
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   reasonCopy = reason;
   currentState = [(WFStateMachine *)self currentState];
@@ -283,7 +274,7 @@ void __79__WFOutOfProcessWorkflowControllerStateMachine_finishRunningWithReason_
                 block[2] = __77__WFOutOfProcessWorkflowControllerStateMachine_stopShortcutWithError_reason___block_invoke;
                 block[3] = &unk_1E7B02180;
                 block[4] = self;
-                v16 = errorCopy;
+                v15 = errorCopy;
                 dispatch_async(delegateQueue, block);
               }
             }
@@ -291,14 +282,14 @@ void __79__WFOutOfProcessWorkflowControllerStateMachine_finishRunningWithReason_
 
           else if ([currentState stage] >= 4)
           {
-            v14 = getWFVoiceShortcutClientLogObject();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+            v13 = getWFVoiceShortcutClientLogObject();
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315394;
-              v18 = "[WFOutOfProcessWorkflowControllerStateMachine stopShortcutWithError:reason:]";
-              v19 = 2048;
+              v17 = "[WFOutOfProcessWorkflowControllerStateMachine stopShortcutWithError:reason:]";
+              v18 = 2048;
               stage = [currentState stage];
-              _os_log_impl(&dword_1B1DE3000, v14, OS_LOG_TYPE_DEFAULT, "%s stop was requested, but we're ignoring it because the current stage (%lu) will already result in a stop.", buf, 0x16u);
+              _os_log_impl(&dword_1B1DE3000, v13, OS_LOG_TYPE_DEFAULT, "%s stop was requested, but we're ignoring it because the current stage (%lu) will already result in a stop.", buf, 0x16u);
             }
           }
 
@@ -320,8 +311,6 @@ void __79__WFOutOfProcessWorkflowControllerStateMachine_finishRunningWithReason_
 LABEL_8:
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __77__WFOutOfProcessWorkflowControllerStateMachine_stopShortcutWithError_reason___block_invoke(uint64_t a1)

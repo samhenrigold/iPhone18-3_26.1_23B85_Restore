@@ -1,6 +1,5 @@
 @interface FPXEnumerator
 - (FPXEnumerator)initWithObservedItemID:(id)d domainContext:(id)context vendorEnumerator:(id)enumerator nsFileProviderRequest:(id)request observer:(id)observer isWorkingSetEnum:(BOOL)enum queue:(id)queue;
-- (NSString)description;
 - (id)vendorEnumerator;
 - (void)_invalidate;
 - (void)alternateContentsWereUpdatedAtURL:(id)l forItem:(id)item;
@@ -17,14 +16,6 @@
 
 @implementation FPXEnumerator
 
-- (NSString)description
-{
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_opt_class();
-  domainContext = self->_domainContext;
-  return [v3 stringWithFormat:@"<%@:%p %@ %@>", v4, self, domainContext, self->_observedItemID];
-}
-
 - (id)vendorEnumerator
 {
   selfCopy = self;
@@ -37,65 +28,39 @@
 
 - (void)_invalidate
 {
-  dispatch_assert_queue_V2(self->_queue);
-  v3 = [(FPXDomainContext *)self->_domainContext log];
-  v4 = fpfs_adopt_log(v3);
-
-  domain = [(FPXDomainContext *)self->_domainContext domain];
-  personaIdentifier = [domain personaIdentifier];
+  OUTLINED_FUNCTION_32();
+  OUTLINED_FUNCTION_2_7();
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
-  userPersonaUniqueString = [currentPersona userPersonaUniqueString];
-  if ([personaIdentifier isEqualToString:userPersonaUniqueString])
-  {
-  }
+  [currentPersona userPersonaUniqueString];
+  objc_claimAutoreleasedReturnValue();
+  domain = [OUTLINED_FUNCTION_5_4() domain];
+  personaIdentifier = [domain personaIdentifier];
+  OUTLINED_FUNCTION_0_10();
+  OUTLINED_FUNCTION_3_4(&dword_1AAAE1000, v5, v6, "[ERROR] Non matching personas for the extension %@ (%@, expect %@) on %s", v7, v8, v9, v10);
 
-  else
-  {
-    [MEMORY[0x1E69DF068] sharedManager];
-    v10 = v17 = domain;
-    currentPersona2 = [v10 currentPersona];
-    userPersonaUniqueString2 = [currentPersona2 userPersonaUniqueString];
-    domain2 = [(FPXDomainContext *)self->_domainContext domain];
-    personaIdentifier2 = [domain2 personaIdentifier];
-
-    if (userPersonaUniqueString2 != personaIdentifier2)
-    {
-      v15 = fp_current_or_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-      {
-        [(FPXEnumerator *)self _invalidate];
-      }
-
-      exit(1);
-    }
-  }
-
-  extensionContext = [(FPXDomainContext *)self->_domainContext extensionContext];
-  [extensionContext enumeratorWasInvalidated:self];
-
-  [(FPXEnumerator *)self invalidateVendorEnumeration];
+  OUTLINED_FUNCTION_31();
 }
 
 - (void)invalidateVendorEnumeration
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_vendorEnumerator)
   {
     section = __fp_create_section();
-    v8 = section;
+    v7 = section;
     v4 = fp_current_or_default_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       vendorEnumerator = selfCopy->_vendorEnumerator;
       *buf = 134218498;
-      v10 = section;
-      v11 = 2112;
-      v12 = selfCopy;
-      v13 = 2112;
-      v14 = vendorEnumerator;
+      v9 = section;
+      v10 = 2112;
+      v11 = selfCopy;
+      v12 = 2112;
+      v13 = vendorEnumerator;
       _os_log_debug_impl(&dword_1AAAE1000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %@: invalidating vendor enumeration: %@", buf, 0x20u);
     }
 
@@ -103,20 +68,26 @@
     v5 = selfCopy->_vendorEnumerator;
     selfCopy->_vendorEnumerator = 0;
 
-    __fp_leave_section_Debug(&v8);
+    __fp_leave_section_Debug(&v7);
   }
 
   objc_sync_exit(selfCopy);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: dealloc", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_32();
+  OUTLINED_FUNCTION_2_7();
+  mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
+  currentPersona = [mEMORY[0x1E69DF068] currentPersona];
+  [currentPersona userPersonaUniqueString];
+  objc_claimAutoreleasedReturnValue();
+  domain = [OUTLINED_FUNCTION_5_4() domain];
+  personaIdentifier = [domain personaIdentifier];
+  OUTLINED_FUNCTION_0_10();
+  OUTLINED_FUNCTION_3_4(&dword_1AAAE1000, v5, v6, "[ERROR] Non matching personas for the extension %@ (%@, expect %@) on %s", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_31();
 }
 
 - (void)invalidate
@@ -266,32 +237,32 @@ void __125__FPXEnumerator_initWithObservedItemID_domainContext_vendorEnumerator_
 
 - (void)forceAddFileURLsForItems:(id)items
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v2Instance = [(FPXDomainContext *)self->_domainContext v2Instance];
   v6 = v2Instance;
   if (self->_isWorkingSetEnum && v2Instance != 0)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v8 = itemsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           fileURL = [v13 fileURL];
 
           if (!fileURL)
@@ -302,14 +273,12 @@ void __125__FPXEnumerator_initWithObservedItemID_domainContext_vendorEnumerator_
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)currentSyncAnchorWithCompletion:(id)completion
@@ -328,8 +297,8 @@ void __125__FPXEnumerator_initWithObservedItemID_domainContext_vendorEnumerator_
 
 void __49__FPXEnumerator_currentSyncAnchorWithCompletion___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v32 = (a1 + 32);
+  v45 = *MEMORY[0x1E69E9840];
+  v31 = (a1 + 32);
   v1 = [*(*(a1 + 32) + 8) domain];
   v2 = [v1 personaIdentifier];
   v3 = [MEMORY[0x1E69DF068] sharedManager];
@@ -344,56 +313,56 @@ void __49__FPXEnumerator_currentSyncAnchorWithCompletion___block_invoke(uint64_t
     v6 = [MEMORY[0x1E69DF068] sharedManager];
     v7 = [v6 currentPersona];
     v8 = [v7 userPersonaUniqueString];
-    v9 = [*(*v32 + 1) domain];
+    v9 = [*(*v31 + 1) domain];
     v10 = [v9 personaIdentifier];
 
     if (v8 != v10)
     {
-      v30 = fp_current_or_default_log();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v29 = fp_current_or_default_log();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        __49__FPXEnumerator_currentSyncAnchorWithCompletion___block_invoke_cold_1(v32, v30);
+        __49__FPXEnumerator_currentSyncAnchorWithCompletion___block_invoke_cold_1();
       }
 
       exit(1);
     }
   }
 
-  v11 = [*v32 vendorEnumerator];
+  v11 = [*v31 vendorEnumerator];
   if (v11)
   {
     if (objc_opt_respondsToSelector())
     {
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __49__FPXEnumerator_currentSyncAnchorWithCompletion___block_invoke_175;
-      v33[3] = &unk_1E793BC80;
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __49__FPXEnumerator_currentSyncAnchorWithCompletion___block_invoke_175;
+      v32[3] = &unk_1E793BC80;
       v12 = *(a1 + 40);
-      v33[4] = *(a1 + 32);
-      v34 = v12;
-      [v11 currentSyncAnchorWithCompletionHandler:v33];
+      v32[4] = *(a1 + 32);
+      v33 = v12;
+      [v11 currentSyncAnchorWithCompletionHandler:v32];
     }
 
     else
     {
-      v35 = fpfs_adopt_log(*(*v32 + 7));
+      v34 = fpfs_adopt_log(*(*v31 + 7));
       v19 = fp_current_or_default_log();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        v27 = FPPopLogSectionForBlock(*(a1 + 40));
-        v28 = *v32;
+        v26 = FPPopLogSectionForBlock(*(a1 + 40));
+        v27 = *v31;
         v20 = *MEMORY[0x1E696A250];
-        v29 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:3328 userInfo:0];
+        v28 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:3328 userInfo:0];
         *buf = 134219010;
-        v37 = v27;
-        v38 = 2112;
-        v39 = v28;
-        v40 = 2080;
-        v41 = "[FPXEnumerator currentSyncAnchorWithCompletion:]_block_invoke";
-        v42 = 2112;
-        v43 = 0;
-        v44 = 2112;
-        v45 = v29;
+        v36 = v26;
+        v37 = 2112;
+        v38 = v27;
+        v39 = 2080;
+        v40 = "[FPXEnumerator currentSyncAnchorWithCompletion:]_block_invoke";
+        v41 = 2112;
+        v42 = 0;
+        v43 = 2112;
+        v44 = v28;
         _os_log_debug_impl(&dword_1AAAE1000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
       }
 
@@ -406,7 +375,7 @@ void __49__FPXEnumerator_currentSyncAnchorWithCompletion___block_invoke(uint64_t
       v22 = [MEMORY[0x1E696ABC0] errorWithDomain:v20 code:3328 userInfo:0];
       (*(v21 + 16))(v21, 0, v22);
 
-      __fp_pop_log(&v35);
+      __fp_pop_log(&v34);
     }
   }
 
@@ -415,30 +384,30 @@ void __49__FPXEnumerator_currentSyncAnchorWithCompletion___block_invoke(uint64_t
     v13 = fp_current_or_default_log();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *v32;
+      v14 = *v31;
       *buf = 138412290;
-      v37 = v14;
+      v36 = v14;
       _os_log_impl(&dword_1AAAE1000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] request on invalidated enumerator: %@", buf, 0xCu);
     }
 
-    v35 = fpfs_adopt_log(*(*v32 + 7));
+    v34 = fpfs_adopt_log(*(*v31 + 7));
     v15 = fp_current_or_default_log();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v24 = FPPopLogSectionForBlock(*(a1 + 40));
-      v25 = *v32;
+      v23 = FPPopLogSectionForBlock(*(a1 + 40));
+      v24 = *v31;
       v16 = *MEMORY[0x1E696A250];
-      v26 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:260 userInfo:0];
+      v25 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:260 userInfo:0];
       *buf = 134219010;
-      v37 = v24;
-      v38 = 2112;
-      v39 = v25;
-      v40 = 2080;
-      v41 = "[FPXEnumerator currentSyncAnchorWithCompletion:]_block_invoke";
-      v42 = 2112;
-      v43 = 0;
-      v44 = 2112;
-      v45 = v26;
+      v36 = v23;
+      v37 = 2112;
+      v38 = v24;
+      v39 = 2080;
+      v40 = "[FPXEnumerator currentSyncAnchorWithCompletion:]_block_invoke";
+      v41 = 2112;
+      v42 = 0;
+      v43 = 2112;
+      v44 = v25;
       _os_log_debug_impl(&dword_1AAAE1000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
     }
 
@@ -451,39 +420,35 @@ void __49__FPXEnumerator_currentSyncAnchorWithCompletion___block_invoke(uint64_t
     v18 = [MEMORY[0x1E696ABC0] errorWithDomain:v16 code:260 userInfo:0];
     (*(v17 + 16))(v17, 0, v18);
 
-    __fp_pop_log(&v35);
+    __fp_pop_log(&v34);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __49__FPXEnumerator_currentSyncAnchorWithCompletion___block_invoke_175(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v8 = fpfs_adopt_log(*(*(a1 + 32) + 56));
+  v7 = fpfs_adopt_log(*(*(a1 + 32) + 56));
   v4 = fp_current_or_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = FPPopLogSectionForBlock(*(a1 + 40));
-    v7 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock(*(a1 + 40));
+    v6 = *(a1 + 32);
     *buf = 134219010;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v7;
-    v13 = 2080;
-    v14 = "[FPXEnumerator currentSyncAnchorWithCompletion:]_block_invoke";
-    v15 = 2112;
-    v16 = v3;
-    v17 = 2112;
-    v18 = 0;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPXEnumerator currentSyncAnchorWithCompletion:]_block_invoke";
+    v14 = 2112;
+    v15 = v3;
+    v16 = 2112;
+    v17 = 0;
     _os_log_debug_impl(&dword_1AAAE1000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
   }
 
   (*(*(a1 + 40) + 16))();
-  __fp_pop_log(&v8);
-
-  v5 = *MEMORY[0x1E69E9840];
+  __fp_pop_log(&v7);
 }
 
 - (void)enumerateItemsFromPage:(id)page suggestedPageSize:(int64_t)size reply:(id)reply
@@ -506,11 +471,11 @@ void __49__FPXEnumerator_currentSyncAnchorWithCompletion___block_invoke_175(uint
 
 void __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v2 = a1 + 32;
-  v38 = fpfs_adopt_log(*(*(a1 + 32) + 56));
-  v29 = [*(*v2 + 8) domain];
-  v3 = [v29 personaIdentifier];
+  v37 = fpfs_adopt_log(*(*(a1 + 32) + 56));
+  v28 = [*(*v2 + 8) domain];
+  v3 = [v28 personaIdentifier];
   v4 = [MEMORY[0x1E69DF068] sharedManager];
   v5 = [v4 currentPersona];
   v6 = [v5 userPersonaUniqueString];
@@ -528,24 +493,24 @@ void __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_
 
     if (v9 != v11)
     {
-      v22 = fp_current_or_default_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v21 = fp_current_or_default_log();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v23 = *(a1 + 32);
-        v24 = [MEMORY[0x1E69DF068] sharedManager];
-        v25 = [v24 currentPersona];
-        v26 = [v25 userPersonaUniqueString];
-        v27 = [*(*(a1 + 32) + 8) domain];
-        v28 = [v27 personaIdentifier];
+        v22 = *(a1 + 32);
+        v23 = [MEMORY[0x1E69DF068] sharedManager];
+        v24 = [v23 currentPersona];
+        v25 = [v24 userPersonaUniqueString];
+        v26 = [*(*(a1 + 32) + 8) domain];
+        v27 = [v26 personaIdentifier];
         *buf = 138413058;
-        v40 = v23;
-        v41 = 2112;
-        v42 = v26;
-        v43 = 2112;
-        v44 = v28;
-        v45 = 2080;
-        v46 = "[FPXEnumerator enumerateItemsFromPage:suggestedPageSize:reply:]_block_invoke";
-        _os_log_error_impl(&dword_1AAAE1000, v22, OS_LOG_TYPE_ERROR, "[ERROR] Non matching personas for the extension %@ (%@, expect %@) on %s", buf, 0x2Au);
+        v39 = v22;
+        v40 = 2112;
+        v41 = v25;
+        v42 = 2112;
+        v43 = v27;
+        v44 = 2080;
+        v45 = "[FPXEnumerator enumerateItemsFromPage:suggestedPageSize:reply:]_block_invoke";
+        _os_log_error_impl(&dword_1AAAE1000, v21, OS_LOG_TYPE_ERROR, "[ERROR] Non matching personas for the extension %@ (%@, expect %@) on %s", buf, 0x2Au);
       }
 
       exit(1);
@@ -559,11 +524,11 @@ void __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_
   {
     v15 = *(a1 + 32);
     *buf = 138412802;
-    v40 = v15;
-    v41 = 2112;
-    v42 = v13;
-    v43 = 2114;
-    v44 = v12;
+    v39 = v15;
+    v40 = 2112;
+    v41 = v13;
+    v42 = 2114;
+    v43 = v12;
     _os_log_impl(&dword_1AAAE1000, v14, OS_LOG_TYPE_INFO, "[INFO] %@: enumerate items on %@ from page %{public}@", buf, 0x20u);
   }
 
@@ -571,27 +536,27 @@ void __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_
   {
     v16 = [[FPXItemsObserver alloc] initWithObservedItemID:*(*(a1 + 32) + 32) domainContext:*(*(a1 + 32) + 8) nsFileProviderRequest:*(*(a1 + 32) + 24)];
     [(FPXItemsObserver *)v16 setSuggestedPageSize:*(a1 + 56)];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_invoke_178;
-    v34[3] = &unk_1E793BCA8;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_invoke_178;
+    v33[3] = &unk_1E793BCA8;
     v17 = *(a1 + 40);
-    v34[4] = *(a1 + 32);
-    v35 = v17;
-    v37 = *(a1 + 48);
-    v36 = v12;
-    [(FPXItemsObserver *)v16 setFinishedBlock:v34];
+    v33[4] = *(a1 + 32);
+    v34 = v17;
+    v36 = *(a1 + 48);
+    v35 = v12;
+    [(FPXItemsObserver *)v16 setFinishedBlock:v33];
     if (objc_opt_respondsToSelector())
     {
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_invoke_186;
-      v30[3] = &unk_1E793BCD0;
-      v30[4] = *(a1 + 32);
-      v33 = *(a1 + 48);
-      v31 = v16;
-      v32 = *(a1 + 40);
-      [v13 currentSyncAnchorWithCompletionHandler:v30];
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_invoke_186;
+      v29[3] = &unk_1E793BCD0;
+      v29[4] = *(a1 + 32);
+      v32 = *(a1 + 48);
+      v30 = v16;
+      v31 = *(a1 + 40);
+      [v13 currentSyncAnchorWithCompletionHandler:v29];
     }
 
     else
@@ -607,7 +572,7 @@ void __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_
     {
       v19 = *(a1 + 32);
       *buf = 138412290;
-      v40 = v19;
+      v39 = v19;
       _os_log_impl(&dword_1AAAE1000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] request on invalidated enumerator: %@", buf, 0xCu);
     }
 
@@ -616,19 +581,18 @@ void __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_
     (*(v20 + 16))(v20, MEMORY[0x1E695E0F0], 0, 0, 0, v16);
   }
 
-  __fp_pop_log(&v38);
-  v21 = *MEMORY[0x1E69E9840];
+  __fp_pop_log(&v37);
 }
 
 void __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_invoke_178(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v61 = *MEMORY[0x1E69E9840];
-  v46 = a2;
-  v45 = a3;
-  v43 = a4;
-  v44 = a5;
+  v60 = *MEMORY[0x1E69E9840];
+  v45 = a2;
+  v44 = a3;
+  v42 = a4;
+  v43 = a5;
   v11 = a6;
-  v51 = fpfs_adopt_log(*(*(a1 + 32) + 56));
+  v50 = fpfs_adopt_log(*(*(a1 + 32) + 56));
   if (v11)
   {
     v12 = fp_current_or_default_log();
@@ -637,11 +601,11 @@ void __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_
       v13 = [*(a1 + 32) vendorEnumerator];
       v14 = *(a1 + 48);
       *buf = 138412802;
-      v53 = v13;
-      v54 = 2114;
-      v55 = v14;
-      v56 = 2112;
-      *v57 = v11;
+      v52 = v13;
+      v53 = 2114;
+      v54 = v14;
+      v55 = 2112;
+      *v56 = v11;
       _os_log_impl(&dword_1AAAE1000, v12, OS_LOG_TYPE_INFO, "[INFO] item enumeration on %@ from page %{public}@ returned error %@", buf, 0x20u);
     }
 
@@ -650,28 +614,28 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if (![*(a1 + 40) isEqualToData:v45])
+  if (![*(a1 + 40) isEqualToData:v44])
   {
     if (*(*(a1 + 32) + 41))
     {
 LABEL_5:
-      [*(a1 + 32) forceAddFileURLsForItems:v46];
+      [*(a1 + 32) forceAddFileURLsForItems:v45];
       v15 = [*(*(a1 + 32) + 8) internalErrorFromVendorError:v11 callerDescription:@"enumerateItemsFromPage"];
       v16 = fp_current_or_default_log();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v36 = *(a1 + 32);
-        v37 = [v46 count];
+        v35 = *(a1 + 32);
+        v36 = [v45 count];
         *buf = 138413314;
-        v53 = v36;
-        v54 = 2080;
-        v55 = "[FPXEnumerator enumerateItemsFromPage:suggestedPageSize:reply:]_block_invoke";
-        v56 = 1024;
-        *v57 = v37;
-        *&v57[4] = 2112;
-        *&v57[6] = v44;
-        v58 = 2112;
-        v59 = v15;
+        v52 = v35;
+        v53 = 2080;
+        v54 = "[FPXEnumerator enumerateItemsFromPage:suggestedPageSize:reply:]_block_invoke";
+        v55 = 1024;
+        *v56 = v36;
+        *&v56[4] = 2112;
+        *&v56[6] = v43;
+        v57 = 2112;
+        v58 = v15;
         _os_log_debug_impl(&dword_1AAAE1000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] ipc: %@, reply of %s %d, %@, %@", buf, 0x30u);
       }
 
@@ -679,48 +643,48 @@ LABEL_5:
       goto LABEL_8;
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
-    v12 = v46;
-    v28 = [v12 countByEnumeratingWithState:&v47 objects:v60 count:16];
-    if (!v28)
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v12 = v45;
+    v27 = [v12 countByEnumeratingWithState:&v46 objects:v59 count:16];
+    if (!v27)
     {
       goto LABEL_4;
     }
 
-    v29 = *v48;
-    v42 = 138543618;
+    v28 = *v47;
+    v41 = 138543618;
 LABEL_18:
-    v30 = 0;
+    v29 = 0;
     while (1)
     {
-      if (*v48 != v29)
+      if (*v47 != v28)
       {
         objc_enumerationMutation(v12);
       }
 
-      v31 = *(*(&v47 + 1) + 8 * v30);
-      v32 = [v31 parentItemID];
-      if (([v32 isEqualToItemID:*(*(a1 + 32) + 32)]& 1) != 0)
+      v30 = *(*(&v46 + 1) + 8 * v29);
+      v31 = [v30 parentItemID];
+      if (([v31 isEqualToItemID:*(*(a1 + 32) + 32)]& 1) != 0)
       {
         goto LABEL_25;
       }
 
-      v33 = [v31 itemID];
-      v34 = [v33 isEqualToItemID:*(*(a1 + 32) + 32)];
+      v32 = [v30 itemID];
+      v33 = [v32 isEqualToItemID:*(*(a1 + 32) + 32)];
 
-      if ((v34 & 1) == 0)
+      if ((v33 & 1) == 0)
       {
         break;
       }
 
 LABEL_26:
-      if (v28 == ++v30)
+      if (v27 == ++v29)
       {
-        v28 = [v12 countByEnumeratingWithState:&v47 objects:v60 count:16];
-        if (!v28)
+        v27 = [v12 countByEnumeratingWithState:&v46 objects:v59 count:16];
+        if (!v27)
         {
           goto LABEL_4;
         }
@@ -729,15 +693,15 @@ LABEL_26:
       }
     }
 
-    v32 = fp_current_or_default_log();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v31 = fp_current_or_default_log();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v35 = [*(a1 + 32) vendorEnumerator];
-      *buf = v42;
-      v53 = v35;
-      v54 = 2114;
-      v55 = v31;
-      _os_log_error_impl(&dword_1AAAE1000, v32, OS_LOG_TYPE_ERROR, "[ERROR] Enumerator %{public}@ returned the %{public}@ item whose parent is not the expected one. This may reveal a bug in the provider implementation.", buf, 0x16u);
+      v34 = [*(a1 + 32) vendorEnumerator];
+      *buf = v41;
+      v52 = v34;
+      v53 = 2114;
+      v54 = v30;
+      _os_log_error_impl(&dword_1AAAE1000, v31, OS_LOG_TYPE_ERROR, "[ERROR] Enumerator %{public}@ returned the %{public}@ item whose parent is not the expected one. This may reveal a bug in the provider implementation.", buf, 0x16u);
     }
 
 LABEL_25:
@@ -745,40 +709,39 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v18 = fp_current_or_default_log();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v17 = fp_current_or_default_log();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v38 = [*(a1 + 32) vendorEnumerator];
-    v39 = *(a1 + 40);
-    v40 = [MEMORY[0x1E696AEC0] fp_hashForToken:v39];
+    v37 = [*(a1 + 32) vendorEnumerator];
+    v38 = *(a1 + 40);
+    v39 = [MEMORY[0x1E696AEC0] fp_hashForToken:v38];
     *buf = 138543874;
-    v53 = v38;
-    v54 = 2114;
-    v55 = v39;
-    v56 = 2114;
-    *v57 = v40;
-    _os_log_error_impl(&dword_1AAAE1000, v18, OS_LOG_TYPE_ERROR, "[ERROR] Enumerator %{public}@ was asked to enumerate from page %{public}@ (%{public}@), but returned the same page back. This is an implementation error in the enumerator.", buf, 0x20u);
+    v52 = v37;
+    v53 = 2114;
+    v54 = v38;
+    v55 = 2114;
+    *v56 = v39;
+    _os_log_error_impl(&dword_1AAAE1000, v17, OS_LOG_TYPE_ERROR, "[ERROR] Enumerator %{public}@ was asked to enumerate from page %{public}@ (%{public}@), but returned the same page back. This is an implementation error in the enumerator.", buf, 0x20u);
   }
 
-  fp_simulate_crash(@"Enumerator was asked to enumerate from a page, but returned the same page back. This is an implementation error in the enumerator.", v19, v20, v21, v22, v23, v24, v25, v41);
-  v26 = fp_current_or_default_log();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+  fp_simulate_crash(@"Enumerator was asked to enumerate from a page, but returned the same page back. This is an implementation error in the enumerator.", v18, v19, v20, v21, v22, v23, v24, v40);
+  v25 = fp_current_or_default_log();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
   {
-    __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_invoke_178_cold_1(v26);
+    __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_invoke_178_cold_1(v25);
   }
 
-  v27 = *(a1 + 56);
+  v26 = *(a1 + 56);
   v15 = FPPluginOperationFailedError(0);
-  (*(v27 + 16))(v27, MEMORY[0x1E695E0F0], 0, 0, v44, v15);
+  (*(v26 + 16))(v26, MEMORY[0x1E695E0F0], 0, 0, v43, v15);
 LABEL_8:
 
-  __fp_pop_log(&v51);
-  v17 = *MEMORY[0x1E69E9840];
+  __fp_pop_log(&v50);
 }
 
 void __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_invoke_186(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) vendorEnumerator];
 
@@ -790,9 +753,9 @@ void __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = [MEMORY[0x1E696AEC0] fp_hashForToken:v3];
-      v12 = 138543362;
-      v13 = v6;
-      _os_log_impl(&dword_1AAAE1000, v5, OS_LOG_TYPE_INFO, "[INFO] current change token is %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v6;
+      _os_log_impl(&dword_1AAAE1000, v5, OS_LOG_TYPE_INFO, "[INFO] current change token is %{public}@", &v11, 0xCu);
     }
 
     v7 = [*(a1 + 32) vendorEnumerator];
@@ -805,17 +768,15 @@ void __64__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_reply___block_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_1AAAE1000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] request on invalidated enumerator: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v9;
+      _os_log_impl(&dword_1AAAE1000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] request on invalidated enumerator: %@", &v11, 0xCu);
     }
 
     v10 = *(a1 + 56);
     v7 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:260 userInfo:0];
     (*(v10 + 16))(v10, MEMORY[0x1E695E0F0], 0, 0, 0, v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateItemsFromPage:(id)page suggestedPageSize:(int64_t)size upTo:(int64_t)to reply:(id)reply
@@ -927,13 +888,13 @@ void __69__FPXEnumerator_enumerateItemsFromPage_suggestedPageSize_upTo_reply___b
 
 void __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (!*(a1 + 32))
   {
     __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___block_invoke_cold_1(a1);
   }
 
-  v2 = a1 + 40;
+  v2 = (a1 + 40);
   v3 = [*(*(a1 + 40) + 8) domain];
   v4 = [v3 personaIdentifier];
   v5 = [MEMORY[0x1E69DF068] sharedManager];
@@ -948,19 +909,18 @@ void __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___bl
     v8 = [MEMORY[0x1E69DF068] sharedManager];
     v9 = [v8 currentPersona];
     [v9 userPersonaUniqueString];
-    v10 = v28 = v3;
+    v10 = v27 = v3;
     v11 = [*(*v2 + 8) domain];
-    [v11 personaIdentifier];
-    v12 = v29 = a1 + 40;
+    v12 = [v11 personaIdentifier];
 
     v13 = v10 == v12;
-    v2 = a1 + 40;
+    v2 = (a1 + 40);
     if (!v13)
     {
-      v26 = fp_current_or_default_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v25 = fp_current_or_default_log();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___block_invoke_cold_2(v29, v26);
+        __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___block_invoke_cold_2();
       }
 
       exit(1);
@@ -974,11 +934,11 @@ void __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___bl
   {
     v17 = *v2;
     *buf = 138412802;
-    v36 = v17;
-    v37 = 2112;
-    v38 = v15;
-    v39 = 2114;
-    v40 = v14;
+    v34 = v17;
+    v35 = 2112;
+    v36 = v15;
+    v37 = 2114;
+    v38 = v14;
     _os_log_impl(&dword_1AAAE1000, v16, OS_LOG_TYPE_INFO, "[INFO] %@: enumerate changes on %@ from token %{public}@", buf, 0x20u);
   }
 
@@ -986,17 +946,17 @@ void __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___bl
   {
     v18 = [[FPXChangesObserver alloc] initWithObservedItemID:*(*(a1 + 40) + 32) domainContext:*(*(a1 + 40) + 8) previousChangeToken:*(a1 + 32) nsFileProviderRequest:*(*(a1 + 40) + 24)];
     [(FPXChangesObserver *)v18 setSuggestedBatchSize:*(a1 + 64)];
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___block_invoke_192;
-    v30[3] = &unk_1E793BD48;
-    v30[4] = *(a1 + 40);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___block_invoke_192;
+    v28[3] = &unk_1E793BD48;
+    v28[4] = *(a1 + 40);
     v19 = v15;
-    v31 = v19;
-    v32 = v14;
-    v33 = *(a1 + 32);
-    v34 = *(a1 + 48);
-    [(FPXChangesObserver *)v18 setFinishedBlock:v30];
+    v29 = v19;
+    v30 = v14;
+    v31 = *(a1 + 32);
+    v32 = *(a1 + 48);
+    [(FPXChangesObserver *)v18 setFinishedBlock:v28];
     if (objc_opt_respondsToSelector())
     {
       [v19 enumerateChangesForObserver:v18 fromSyncAnchor:*(a1 + 32)];
@@ -1022,7 +982,7 @@ void __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___bl
     {
       v21 = *v2;
       *buf = 138412290;
-      v36 = v21;
+      v34 = v21;
       _os_log_impl(&dword_1AAAE1000, v20, OS_LOG_TYPE_DEFAULT, "[WARNING] request on invalidated enumerator: %@", buf, 0xCu);
     }
 
@@ -1030,19 +990,17 @@ void __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___bl
     v18 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:260 userInfo:0];
     (*(v22 + 16))(v22, MEMORY[0x1E695E0F0], MEMORY[0x1E695E0F0], 0, 0, 0, v18);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___block_invoke_192(uint64_t a1, void *a2, void *a3, int a4, void *a5, void *a6, void *a7)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v13 = a2;
   v14 = a3;
   v15 = a5;
   v16 = a6;
   v17 = a7;
-  v28 = fpfs_adopt_log(*(*(a1 + 32) + 56));
+  v27 = fpfs_adopt_log(*(*(a1 + 32) + 56));
   if (v17)
   {
     v18 = fp_current_or_default_log();
@@ -1051,11 +1009,11 @@ void __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___bl
       v19 = *(a1 + 40);
       v20 = *(a1 + 48);
       *buf = 138412802;
-      v30 = v19;
-      v31 = 2114;
-      v32 = v20;
-      v33 = 2112;
-      *v34 = v17;
+      v29 = v19;
+      v30 = 2114;
+      v31 = v20;
+      v32 = 2112;
+      *v33 = v17;
       _os_log_impl(&dword_1AAAE1000, v18, OS_LOG_TYPE_INFO, "[INFO] change enumeration on %@ from page %{public}@ returned error %@", buf, 0x20u);
     }
   }
@@ -1085,30 +1043,28 @@ void __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___bl
   v23 = fp_current_or_default_log();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    v25 = *(a1 + 32);
-    v27 = [v13 count];
-    v26 = [v14 count];
+    v24 = *(a1 + 32);
+    v26 = [v13 count];
+    v25 = [v14 count];
     *buf = 138413826;
-    v30 = v25;
-    v31 = 2080;
-    v32 = "[FPXEnumerator enumerateChangesFromToken:suggestedBatchSize:reply:]_block_invoke";
-    v33 = 1024;
-    *v34 = v27;
-    *&v34[4] = 1024;
-    *&v34[6] = v26;
-    v35 = 1024;
-    v36 = a4;
-    v37 = 2112;
-    v38 = v16;
-    v39 = 2112;
-    v40 = v22;
+    v29 = v24;
+    v30 = 2080;
+    v31 = "[FPXEnumerator enumerateChangesFromToken:suggestedBatchSize:reply:]_block_invoke";
+    v32 = 1024;
+    *v33 = v26;
+    *&v33[4] = 1024;
+    *&v33[6] = v25;
+    v34 = 1024;
+    v35 = a4;
+    v36 = 2112;
+    v37 = v16;
+    v38 = 2112;
+    v39 = v22;
     _os_log_debug_impl(&dword_1AAAE1000, v23, OS_LOG_TYPE_DEBUG, "[DEBUG] ipc: %@, reply of %s %d, %d, %{BOOL}d,%@,  %@", buf, 0x3Cu);
   }
 
   (*(*(a1 + 64) + 16))();
-  __fp_pop_log(&v28);
-
-  v24 = *MEMORY[0x1E69E9840];
+  __fp_pop_log(&v27);
 }
 
 - (void)alternateContentsWereUpdatedAtURL:(id)l forItem:(id)item
@@ -1135,27 +1091,39 @@ void __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___bl
 
 - (void)initWithObservedItemID:domainContext:vendorEnumerator:nsFileProviderRequest:observer:isWorkingSetEnum:queue:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_FAULT, "[CRIT] %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_FAULT, "[CRIT] %{public}@", v1, 0xCu);
 }
 
 - (void)initWithObservedItemID:domainContext:vendorEnumerator:nsFileProviderRequest:observer:isWorkingSetEnum:queue:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v0, v1, "[DEBUG] %@: created with enumerator: %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __125__FPXEnumerator_initWithObservedItemID_domainContext_vendorEnumerator_nsFileProviderRequest_observer_isWorkingSetEnum_queue___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] observer was invalidated, invalidating %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] observer was invalidated, invalidating %@", v1, 0xCu);
+}
+
+void __49__FPXEnumerator_currentSyncAnchorWithCompletion___block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_32();
+  v1 = v0;
+  v2 = [MEMORY[0x1E69DF068] sharedManager];
+  v3 = [v2 currentPersona];
+  v4 = [v3 userPersonaUniqueString];
+  v5 = [*(*v1 + 8) domain];
+  v6 = [v5 personaIdentifier];
+  OUTLINED_FUNCTION_3_3();
+  OUTLINED_FUNCTION_1_8();
+  OUTLINED_FUNCTION_11(&dword_1AAAE1000, v7, v8, "[ERROR] Non matching personas for the extension %@ (%@, expect %@) on %s", v9, v10, v11, v12);
+
+  OUTLINED_FUNCTION_31();
 }
 
 void __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___block_invoke_cold_1(uint64_t a1)
@@ -1164,12 +1132,27 @@ void __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___bl
   [v2 handleFailureInMethod:*(a1 + 56) object:*(a1 + 40) file:@"FPXEnumerator.m" lineNumber:589 description:{@"Invalid parameter not satisfying: %@", @"enumeratedFromToken"}];
 }
 
+void __68__FPXEnumerator_enumerateChangesFromToken_suggestedBatchSize_reply___block_invoke_cold_2()
+{
+  OUTLINED_FUNCTION_32();
+  v1 = v0;
+  v2 = [MEMORY[0x1E69DF068] sharedManager];
+  v3 = [v2 currentPersona];
+  v4 = [v3 userPersonaUniqueString];
+  v5 = [*(*v1 + 8) domain];
+  v6 = [v5 personaIdentifier];
+  OUTLINED_FUNCTION_3_3();
+  OUTLINED_FUNCTION_1_8();
+  OUTLINED_FUNCTION_11(&dword_1AAAE1000, v7, v8, "[ERROR] Non matching personas for the extension %@ (%@, expect %@) on %s", v9, v10, v11, v12);
+
+  OUTLINED_FUNCTION_31();
+}
+
 - (void)alternateContentsWereUpdatedAtURL:forItem:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_ERROR, "[ERROR] nil item for alternate contents URL: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_ERROR, "[ERROR] nil item for alternate contents URL: %@", v1, 0xCu);
 }
 
 @end

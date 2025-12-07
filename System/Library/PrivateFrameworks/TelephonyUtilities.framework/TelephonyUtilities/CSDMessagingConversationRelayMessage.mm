@@ -4,9 +4,12 @@
 - (CSDMessagingConversationRelayMessage)initWithRemoteMembers:(id)members;
 - (NSSet)tuConversationMembers;
 - (NSSet)tuConversationParticipants;
+- (id)avModeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)stateAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsAvMode:(id)mode;
 - (int)StringAsState:(id)state;
 - (int)StringAsType:(id)type;
@@ -75,6 +78,21 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)typeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_10061C560[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsType:(id)type
 {
   typeCopy = type;
@@ -127,6 +145,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_10061C578[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsState:(id)state
@@ -227,6 +260,21 @@
   {
     return 0;
   }
+}
+
+- (id)avModeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_10061C5A0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAvMode:(id)mode
@@ -464,7 +512,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -484,12 +531,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  type = self->_type;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    state = self->_state;
     PBDataWriterWriteInt32Field();
   }
 
@@ -511,7 +556,6 @@ LABEL_5:
 
   if ((*&self->_has & 0x10) != 0)
   {
-    locallyCreated = self->_locallyCreated;
     PBDataWriterWriteBOOLField();
   }
 
@@ -525,67 +569,64 @@ LABEL_5:
     PBDataWriterWriteSubmessage();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v8 = self->_remoteMembers;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v9)
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v6 = self->_remoteMembers;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v28;
+    v8 = v7;
+    v9 = *v21;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v11)
+        if (*v21 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v14 = self->_activeParticipants;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v15)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v11 = self->_activeParticipants;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v24;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      for (j = 0; j != v16; j = j + 1)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v24 != v17)
+        if (*v17 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v23 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
 
   if (*&self->_has)
   {
-    avMode = self->_avMode;
     PBDataWriterWriteInt32Field();
   }
 
@@ -852,7 +893,6 @@ LABEL_5:
     goto LABEL_37;
   }
 
-  v5 = *(equalCopy + 96);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 96) & 8) == 0 || self->_version != *(equalCopy + 22))
@@ -916,7 +956,6 @@ LABEL_5:
     }
   }
 
-  v9 = *(equalCopy + 96);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 96) & 0x10) == 0)
@@ -924,7 +963,6 @@ LABEL_5:
       goto LABEL_37;
     }
 
-    v17 = *(equalCopy + 92);
     if (self->_locallyCreated)
     {
       if ((*(equalCopy + 92) & 1) == 0)
@@ -977,7 +1015,6 @@ LABEL_5:
     }
   }
 
-  v14 = *(equalCopy + 96);
   if ((*&self->_has & 1) == 0)
   {
     if ((*(equalCopy + 96) & 1) == 0)
@@ -986,7 +1023,7 @@ LABEL_5:
     }
 
 LABEL_37:
-    v15 = 0;
+    v12 = 0;
     goto LABEL_38;
   }
 
@@ -999,17 +1036,17 @@ LABEL_46:
   reportData = self->_reportData;
   if (reportData | *(equalCopy + 8))
   {
-    v15 = [(CSDMessagingConversationReport *)reportData isEqual:?];
+    v12 = [(CSDMessagingConversationReport *)reportData isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v12 = 1;
   }
 
 LABEL_38:
 
-  return v15;
+  return v12;
 }
 
 - (unint64_t)hash

@@ -3,6 +3,7 @@
 + (void)defineClassCollections;
 - (BOOL)submitMetricsWithError:(id *)error;
 - (MOEventData)initWithEvent:(id)event islandID:(id)d subDate:(id)date;
+- (MOEventData)initWithLoggingEnabled:(BOOL)enabled;
 - (void)setValues;
 @end
 
@@ -103,6 +104,121 @@ LABEL_16:
 LABEL_17:
 
   return selfCopy4;
+}
+
+- (MOEventData)initWithLoggingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  +[MOEventData defineClassCollections];
+  v40.receiver = self;
+  v40.super_class = MOEventData;
+  v5 = [(MOMetric *)&v40 initWithLoggingEnabled:enabledCopy];
+  if (v5)
+  {
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    bOOLeanKeys = [objc_opt_class() BOOLeanKeys];
+    v7 = [bOOLeanKeys countByEnumeratingWithState:&v36 objects:v43 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = *v37;
+      do
+      {
+        v10 = 0;
+        do
+        {
+          if (*v37 != v9)
+          {
+            objc_enumerationMutation(bOOLeanKeys);
+          }
+
+          v11 = *(*(&v36 + 1) + 8 * v10);
+          metrics = [(MOMetric *)v5 metrics];
+          [metrics setObject:&__kCFBooleanFalse forKeyedSubscript:v11];
+
+          v10 = v10 + 1;
+        }
+
+        while (v8 != v10);
+        v8 = [bOOLeanKeys countByEnumeratingWithState:&v36 objects:v43 count:16];
+      }
+
+      while (v8);
+    }
+
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    integerKeys = [objc_opt_class() integerKeys];
+    v14 = [integerKeys countByEnumeratingWithState:&v32 objects:v42 count:16];
+    if (v14)
+    {
+      v15 = v14;
+      v16 = *v33;
+      do
+      {
+        v17 = 0;
+        do
+        {
+          if (*v33 != v16)
+          {
+            objc_enumerationMutation(integerKeys);
+          }
+
+          v18 = *(*(&v32 + 1) + 8 * v17);
+          metrics2 = [(MOMetric *)v5 metrics];
+          [metrics2 setObject:&off_100369B68 forKeyedSubscript:v18];
+
+          v17 = v17 + 1;
+        }
+
+        while (v15 != v17);
+        v15 = [integerKeys countByEnumeratingWithState:&v32 objects:v42 count:16];
+      }
+
+      while (v15);
+    }
+
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    bucketedKeys = [objc_opt_class() bucketedKeys];
+    v21 = [bucketedKeys countByEnumeratingWithState:&v28 objects:v41 count:16];
+    if (v21)
+    {
+      v22 = v21;
+      v23 = *v29;
+      do
+      {
+        v24 = 0;
+        do
+        {
+          if (*v29 != v23)
+          {
+            objc_enumerationMutation(bucketedKeys);
+          }
+
+          v25 = *(*(&v28 + 1) + 8 * v24);
+          metrics3 = [(MOMetric *)v5 metrics];
+          [metrics3 setObject:&off_100369B68 forKeyedSubscript:v25];
+
+          v24 = v24 + 1;
+        }
+
+        while (v22 != v24);
+        v22 = [bucketedKeys countByEnumeratingWithState:&v28 objects:v41 count:16];
+      }
+
+      while (v22);
+    }
+  }
+
+  return v5;
 }
 
 + (id)supportedMetricKeys
@@ -1412,21 +1528,25 @@ LABEL_186:
 uint64_t __24__MOEventData_setValues__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
     v10 = v3;
-    v4 = [v3 appCategory];
-    if (v4 <= 0x11)
+    v3 = [v3 appCategory];
+    v4 = v10;
+    if (v3 <= 0x11)
     {
-      v5 = *(&off_100338E10 + v4);
+      v5 = *(&off_100338E10 + v3);
       v6 = [v10 duration];
       v7 = [MOMetric binForNumber:v6 bins:*(a1 + 40)];
       v8 = [*(a1 + 32) metrics];
       [v8 setObject:v7 forKeyedSubscript:v5];
+
+      v4 = v10;
     }
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(v3, v4);
 }
 
 @end

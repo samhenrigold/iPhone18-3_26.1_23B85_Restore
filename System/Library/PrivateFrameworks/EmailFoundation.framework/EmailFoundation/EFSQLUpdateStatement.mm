@@ -136,7 +136,7 @@ void __65__EFSQLUpdateStatement_enumerateBindingNamesAndValuesUsingBlock___block
 
 - (void)_renderSQLExpressionForUpsert:(void *)upsert into:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   upsertCopy = upsert;
   if (!self)
   {
@@ -181,56 +181,56 @@ LABEL_6:
 LABEL_4:
   [upsertCopy appendString:@"UPDATE SET "];
 LABEL_9:
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   allKeys = [*(self + 16) allKeys];
-  v13 = [allKeys countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v13 = [allKeys countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v13)
   {
-    v14 = *v24;
+    v14 = *v23;
     do
     {
       v15 = 0;
       do
       {
-        if (*v24 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v16 = *(*(&v23 + 1) + 8 * v15);
-        if (v28[3] >= 1)
+        v16 = *(*(&v22 + 1) + 8 * v15);
+        if (v27[3] >= 1)
         {
           [upsertCopy appendString:{@", "}];
         }
 
         [upsertCopy appendFormat:@"%@ = :update_%@", v16, v16];
-        ++v28[3];
+        ++v27[3];
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [allKeys countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v13 = [allKeys countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v13);
   }
 
   v17 = *(self + 24);
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __59__EFSQLUpdateStatement__renderSQLExpressionForUpsert_into___block_invoke;
-  v20[3] = &unk_1E824A100;
-  v22 = &v27;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __59__EFSQLUpdateStatement__renderSQLExpressionForUpsert_into___block_invoke;
+  v19[3] = &unk_1E824A100;
+  v21 = &v26;
   v18 = upsertCopy;
-  v21 = v18;
-  [v17 enumerateKeysAndObjectsUsingBlock:v20];
+  v20 = v18;
+  [v17 enumerateKeysAndObjectsUsingBlock:v19];
 
   if (*(self + 8))
   {
@@ -238,10 +238,8 @@ LABEL_9:
     [*(self + 8) ef_renderSQLExpressionInto:v18];
   }
 
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v26, 8);
 LABEL_21:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __59__EFSQLUpdateStatement__renderSQLExpressionForUpsert_into___block_invoke(uint64_t a1, void *a2, void *a3)

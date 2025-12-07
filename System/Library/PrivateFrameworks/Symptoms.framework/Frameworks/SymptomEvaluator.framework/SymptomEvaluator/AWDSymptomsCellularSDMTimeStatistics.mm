@@ -167,7 +167,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -187,7 +186,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  totalTimeSeconds = self->_totalTimeSeconds;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -202,7 +200,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  totalActiveTimeSeconds = self->_totalActiveTimeSeconds;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -217,12 +214,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  totalQuiesceTimeSeconds = self->_totalQuiesceTimeSeconds;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_6:
-    totalInferredSleepTimeSeconds = self->_totalInferredSleepTimeSeconds;
     PBDataWriterWriteUint64Field();
   }
 

@@ -1,6 +1,7 @@
 @interface _TSF_TSDgPTPUnicastUDPv6PtPPort
 + (id)diagnosticInfoForService:(id)service;
 + (id)iokitMatchingDictionaryForInterfaceName:(id)name andIPv6Address:(char *)address;
+- (_TSF_TSDgPTPUnicastUDPv6PtPPort)initWithService:(id)service pid:(int)pid;
 - (id)_destinationAddressString;
 - (id)_destinationIPv6Address;
 - (id)_sourceAddressString;
@@ -11,32 +12,31 @@
 
 + (id)iokitMatchingDictionaryForInterfaceName:(id)name andIPv6Address:(char *)address
 {
-  v21[3] = *MEMORY[0x277D85DE8];
-  v21[0] = @"IOTimeSyncUnicastUDPv6PtPPort";
-  v20[0] = @"IOProviderClass";
-  v20[1] = @"IOParentMatch";
+  v4 = MEMORY[0x277CBEAC0];
   nameCopy = name;
-  v18[0] = @"IOProviderClass";
-  v18[1] = @"IOPropertyMatch";
-  v19[0] = @"IOTimeSyncInterfaceAdapter";
-  v16 = @"InterfaceName";
-  v5 = MEMORY[0x277CBEAC0];
-  nameCopy2 = name;
-  v7 = [v5 dictionaryWithObjects:&nameCopy forKeys:&v16 count:1];
-  v19[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-  v21[1] = v8;
-  v20[2] = @"IOPropertyMatch";
-  v14 = @"DestinationIPAddress";
-  v9 = [MEMORY[0x277CBEA90] dataWithBytes:address length:16];
-  v15 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-  v21[2] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v9 = [v4 dictionaryWithObjects:? forKeys:? count:?];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+  v8 = [MEMORY[0x277CBEA90] dataWithBytes:? length:?];
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-  v12 = *MEMORY[0x277D85DE8];
+  return v6;
+}
 
-  return v11;
+- (_TSF_TSDgPTPUnicastUDPv6PtPPort)initWithService:(id)service pid:(int)pid
+{
+  v9.receiver = self;
+  v9.super_class = _TSF_TSDgPTPUnicastUDPv6PtPPort;
+  v4 = [(_TSF_TSDgPTPFDPtPPort *)&v9 initWithService:service pid:*&pid];
+  v5 = v4;
+  if (v4)
+  {
+    _destinationIPv6Address = [(_TSF_TSDgPTPUnicastUDPv6PtPPort *)v4 _destinationIPv6Address];
+    destinationIPv6Address = v5->_destinationIPv6Address;
+    v5->_destinationIPv6Address = _destinationIPv6Address;
+  }
+
+  return v5;
 }
 
 - (id)_sourceAddressString
@@ -45,12 +45,12 @@
   v9.super_class = _TSF_TSDgPTPUnicastUDPv6PtPPort;
   _sourceAddressString = [(_TSF_TSDgPTPNetworkPort *)&v9 _sourceAddressString];
   service = [(_TSF_TSDgPTPPort *)self service];
-  v5 = [service iodPropertyForKey:@"SourceIPAddress"];
+  v5 = [service iodPropertyForKey:?];
 
   if (v5)
   {
     bytes = [v5 bytes];
-    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x", *bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8], bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15]];
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:*bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8], bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15]];
 
     _sourceAddressString = v7;
   }
@@ -64,12 +64,12 @@
   v9.super_class = _TSF_TSDgPTPUnicastUDPv6PtPPort;
   _destinationAddressString = [(_TSF_TSDgPTPNetworkPort *)&v9 _destinationAddressString];
   service = [(_TSF_TSDgPTPPort *)self service];
-  v5 = [service iodPropertyForKey:@"DestinationIPAddress"];
+  v5 = [service iodPropertyForKey:?];
 
   if (v5)
   {
     bytes = [v5 bytes];
-    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x", *bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8], bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15]];
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:*bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8], bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15]];
 
     _destinationAddressString = v7;
   }
@@ -80,7 +80,7 @@
 - (id)_destinationIPv6Address
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"DestinationIPAddress"];
+  v3 = [service iodPropertyForKey:?];
 
   return v3;
 }
@@ -91,12 +91,12 @@
   v9.super_class = _TSF_TSDgPTPUnicastUDPv6PtPPort;
   propertiesForXPC = [(_TSF_TSDgPTPNetworkPort *)&v9 propertiesForXPC];
   service = [(_TSF_TSDgPTPPort *)self service];
-  v5 = [service iodPropertyForKey:@"SourceIPAddress"];
-  [propertiesForXPC setObject:v5 forKeyedSubscript:@"SourceIPAddress"];
+  v5 = [service iodPropertyForKey:?];
+  [propertiesForXPC setObject:? forKeyedSubscript:?];
 
   service2 = [(_TSF_TSDgPTPPort *)self service];
-  v7 = [service2 iodPropertyForKey:@"DestinationIPAddress"];
-  [propertiesForXPC setObject:v7 forKeyedSubscript:@"DestinationIPAddress"];
+  v7 = [service2 iodPropertyForKey:?];
+  [propertiesForXPC setObject:? forKeyedSubscript:?];
 
   return propertiesForXPC;
 }
@@ -107,25 +107,25 @@
   v15.receiver = self;
   v15.super_class = &OBJC_METACLASS____TSF_TSDgPTPUnicastUDPv6PtPPort;
   v5 = objc_msgSendSuper2(&v15, sel_diagnosticInfoForService_, serviceCopy);
-  v6 = [MEMORY[0x277CCABB0] numberWithInt:4];
-  [v5 setObject:v6 forKeyedSubscript:@"PortType"];
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:?];
+  [v5 setObject:? forKeyedSubscript:?];
 
-  v7 = [serviceCopy iodPropertyForKey:@"SourceIPAddress"];
+  v7 = [serviceCopy iodPropertyForKey:?];
   v8 = v7;
   if (v7)
   {
     bytes = [v7 bytes];
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x", *bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8], bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15]];
-    [v5 setObject:v10 forKeyedSubscript:@"SourceAddress"];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:*bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8], bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15]];
+    [v5 setObject:? forKeyedSubscript:?];
   }
 
-  v11 = [serviceCopy iodPropertyForKey:@"DestinationIPAddress"];
+  v11 = [serviceCopy iodPropertyForKey:?];
 
   if (v11)
   {
     bytes2 = [v11 bytes];
-    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x", *bytes2, bytes2[1], bytes2[2], bytes2[3], bytes2[4], bytes2[5], bytes2[6], bytes2[7], bytes2[8], bytes2[9], bytes2[10], bytes2[11], bytes2[12], bytes2[13], bytes2[14], bytes2[15]];
-    [v5 setObject:v13 forKeyedSubscript:@"DestinationAddress"];
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:*bytes2, bytes2[1], bytes2[2], bytes2[3], bytes2[4], bytes2[5], bytes2[6], bytes2[7], bytes2[8], bytes2[9], bytes2[10], bytes2[11], bytes2[12], bytes2[13], bytes2[14], bytes2[15]];
+    [v5 setObject:? forKeyedSubscript:?];
   }
 
   return v5;

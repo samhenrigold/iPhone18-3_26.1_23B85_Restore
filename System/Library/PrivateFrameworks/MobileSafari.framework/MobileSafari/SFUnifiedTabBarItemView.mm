@@ -2952,15 +2952,15 @@ uint64_t __79__SFUnifiedTabBarItemView__setIndexes_ofAccessoryButtonTypes_visibl
   return [v4 setTransform:&v6];
 }
 
-uint64_t __79__SFUnifiedTabBarItemView__setIndexes_ofAccessoryButtonTypes_visible_animated___block_invoke_3(uint64_t result)
+id *__79__SFUnifiedTabBarItemView__setIndexes_ofAccessoryButtonTypes_visible_animated___block_invoke_3(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
     v1 = result;
-    result = [*(result + 32) alpha];
+    result = [result[4] alpha];
     if (v2 == 0.0)
     {
-      v3 = *(v1 + 32);
+      v3 = v1[4];
 
       return [v3 setHidden:1];
     }
@@ -4321,9 +4321,9 @@ void __52__SFUnifiedTabBarItemView__setTitleContainerMasked___block_invoke_2(uin
   }
 }
 
-uint64_t __52__SFUnifiedTabBarItemView__setTitleContainerMasked___block_invoke_3(uint64_t result)
+void *__52__SFUnifiedTabBarItemView__setTitleContainerMasked___block_invoke_3(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 1170) & 1) == 0)
   {
     return [*(v1 + 1064) setMaskView:0];
@@ -4395,32 +4395,32 @@ uint64_t __52__SFUnifiedTabBarItemView__setTitleContainerMasked___block_invoke_3
   y = location.y;
   x = location.x;
   v7 = [(SFUnifiedBarItemView *)self hitTest:0 withEvent:?];
-  v8 = WBS_LOG_CHANNEL_PREFIXPencilInput();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = WBS_LOG_CHANNEL_PREFIXPencilInput(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [SFUnifiedTabBarItemView _scribbleInteraction:v8 shouldBeginAtLocation:?];
+    [SFUnifiedTabBarItemView _scribbleInteraction:v9 shouldBeginAtLocation:v7];
   }
 
   if ([(SFUnifiedTabBarItemView *)self showsSearchField])
   {
     objc_opt_class();
-    v9 = objc_opt_isKindOfClass() ^ 1;
+    v10 = objc_opt_isKindOfClass() ^ 1;
   }
 
   else
   {
     [(SFUnifiedTabBarItemTitleContainerView *)self->_titleContainer frame];
-    v11.x = x;
-    v11.y = y;
-    v9 = CGRectContainsPoint(v12, v11);
+    v12.x = x;
+    v12.y = y;
+    v10 = CGRectContainsPoint(v13, v12);
   }
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
 - (void)_scribbleInteraction:(id)interaction willBeginWritingInElement:(id)element
 {
-  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput();
+  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SFUnifiedTabBarItemView _scribbleInteraction:willBeginWritingInElement:];
@@ -4431,7 +4431,7 @@ uint64_t __52__SFUnifiedTabBarItemView__setTitleContainerMasked___block_invoke_3
 
 - (void)_scribbleInteraction:(id)interaction didFinishWritingInElement:(id)element
 {
-  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput();
+  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SFUnifiedTabBarItemView _scribbleInteraction:didFinishWritingInElement:];
@@ -4442,10 +4442,10 @@ uint64_t __52__SFUnifiedTabBarItemView__setTitleContainerMasked___block_invoke_3
 
 - (void)_scribbleInteraction:(id)interaction requestElementsInRect:(CGRect)rect completion:(id)completion
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v7 = WBS_LOG_CHANNEL_PREFIXPencilInput();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = WBS_LOG_CHANNEL_PREFIXPencilInput(completionCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [SFUnifiedTabBarItemView _scribbleInteraction:requestElementsInRect:completion:];
   }
@@ -4453,25 +4453,25 @@ uint64_t __52__SFUnifiedTabBarItemView__setTitleContainerMasked___block_invoke_3
   searchField = [(SFUnifiedTabBarItemView *)self searchField];
   if ([searchField isFirstResponder])
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v9 = 0x7FFFFFFFFFFFFFFFLL;
+    v10 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v11[0] = @"pencilTextInputElementIdentifier";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
-  completionCopy[2](completionCopy, v10, v9);
+  v12[0] = @"pencilTextInputElementIdentifier";
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  completionCopy[2](completionCopy, v11, v10);
 }
 
 - (void)_scribbleInteraction:(id)interaction focusElement:(id)element initialFocusSelectionReferencePoint:(CGPoint)point completion:(id)completion
 {
   elementCopy = element;
   completionCopy = completion;
-  v10 = WBS_LOG_CHANNEL_PREFIXPencilInput();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = WBS_LOG_CHANNEL_PREFIXPencilInput(completionCopy, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [SFUnifiedTabBarItemView _scribbleInteraction:focusElement:initialFocusSelectionReferencePoint:completion:];
   }
@@ -4479,13 +4479,13 @@ uint64_t __52__SFUnifiedTabBarItemView__setTitleContainerMasked___block_invoke_3
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (objc_opt_respondsToSelector() & 1) != 0 && ([elementCopy isEqual:@"pencilTextInputElementIdentifier"])
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __108__SFUnifiedTabBarItemView__scribbleInteraction_focusElement_initialFocusSelectionReferencePoint_completion___block_invoke;
-    v12[3] = &unk_1E721C1A8;
-    v12[4] = self;
-    v13 = completionCopy;
-    [WeakRetained tabBarItemViewDidRequestFocusForPencilInput:self completionHandler:v12];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __108__SFUnifiedTabBarItemView__scribbleInteraction_focusElement_initialFocusSelectionReferencePoint_completion___block_invoke;
+    v13[3] = &unk_1E721C1A8;
+    v13[4] = self;
+    v14 = completionCopy;
+    [WeakRetained tabBarItemViewDidRequestFocusForPencilInput:self completionHandler:v13];
   }
 
   else
@@ -4494,17 +4494,17 @@ uint64_t __52__SFUnifiedTabBarItemView__setTitleContainerMasked___block_invoke_3
   }
 }
 
-void __108__SFUnifiedTabBarItemView__scribbleInteraction_focusElement_initialFocusSelectionReferencePoint_completion___block_invoke(uint64_t a1)
+void __108__SFUnifiedTabBarItemView__scribbleInteraction_focusElement_initialFocusSelectionReferencePoint_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXPencilInput();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v5 = WBS_LOG_CHANNEL_PREFIXPencilInput(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __108__SFUnifiedTabBarItemView__scribbleInteraction_focusElement_initialFocusSelectionReferencePoint_completion___block_invoke_cold_1();
   }
 
-  v3 = *(a1 + 40);
-  v4 = [*(a1 + 32) searchField];
-  (*(v3 + 16))(v3, v4);
+  v6 = *(a1 + 40);
+  v7 = [*(a1 + 32) searchField];
+  (*(v6 + 16))(v6, v7);
 }
 
 - (void)availabilityDisplayController:(id)controller didUpdateWithState:(int64_t)state
@@ -4928,15 +4928,15 @@ LABEL_16:
   return WeakRetained;
 }
 
-- (void)_scribbleInteraction:(void *)a1 shouldBeginAtLocation:.cold.1(void *a1)
+- (void)_scribbleInteraction:(void *)a1 shouldBeginAtLocation:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = 138543362;
-  v5 = v3;
-  _os_log_debug_impl(&dword_18B7AC000, v1, OS_LOG_TYPE_DEBUG, "Should begin Scribble interaction in <%{public}@>", &v4, 0xCu);
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_debug_impl(&dword_18B7AC000, v2, OS_LOG_TYPE_DEBUG, "Should begin Scribble interaction in <%{public}@>", &v5, 0xCu);
 }
 
 @end

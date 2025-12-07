@@ -108,27 +108,6 @@
   return v3;
 }
 
-uint64_t __58__TranslationCardAccessibility_accessibilityCustomActions__block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  AXPerformSafeBlock();
-  return 1;
-}
-
-uint64_t __58__TranslationCardAccessibility_accessibilityCustomActions__block_invoke_3(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  AXPerformSafeBlock();
-  return 1;
-}
-
-uint64_t __58__TranslationCardAccessibility_accessibilityCustomActions__block_invoke_5(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  AXPerformSafeBlock();
-  return 1;
-}
-
 - (id)_accessibilitySupplementaryFooterViews
 {
   v3 = objc_opt_new();

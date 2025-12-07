@@ -98,15 +98,15 @@
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = HFLogForCategory(0x17uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromSelector(a2);
     *buf = 138412546;
     selfCopy = self;
-    v16 = 2112;
-    v17 = v5;
+    v15 = 2112;
+    v16 = v5;
     _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
   }
 
@@ -133,10 +133,9 @@
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self];
 
-  v13.receiver = self;
-  v13.super_class = HFCameraClipPlayer;
-  [(HFCameraClipPlayer *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = HFCameraClipPlayer;
+  [(HFCameraClipPlayer *)&v12 dealloc];
 }
 
 - (HFCameraClipPosition)currentPosition
@@ -151,7 +150,7 @@
     v7 = queuePlayer2;
     if (queuePlayer2)
     {
-      [queuePlayer2 currentTime];
+      objc_msgSend_currentTime(queuePlayer2);
     }
 
     else
@@ -174,22 +173,22 @@
 
 - (void)setCurrentPosition:(id)position
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   positionCopy = position;
   if ([(HFCameraClipPlayer *)self hasFatalError])
   {
     v6 = HFLogForCategory(0x17uLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v25 = NSStringFromSelector(a2);
+      v24 = NSStringFromSelector(a2);
       error = [(HFCameraClipPlayer *)self error];
-      v27 = 138412802;
+      v26 = 138412802;
       selfCopy = self;
-      v29 = 2112;
-      v30 = v25;
-      v31 = 2112;
-      v32 = error;
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Ignoring request to [%@ %@] as the player has a fatal error and cannot be used. Error: %@", &v27, 0x20u);
+      v28 = 2112;
+      v29 = v24;
+      v30 = 2112;
+      v31 = error;
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Ignoring request to [%@ %@] as the player has a fatal error and cannot be used. Error: %@", &v26, 0x20u);
     }
   }
 
@@ -231,17 +230,17 @@
         uniqueIdentifier2 = [clip2 uniqueIdentifier];
         [(HFCameraClipPlayer *)v9 offset];
         scrubbing = self->_scrubbing;
-        v27 = 138413314;
+        v26 = 138413314;
         selfCopy = uniqueIdentifier;
-        v29 = 2048;
-        v30 = v17;
-        v31 = 2112;
-        v32 = uniqueIdentifier2;
-        v33 = 2048;
-        v34 = v21;
-        v35 = 1024;
-        v36 = scrubbing;
-        _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Player updating playback position from: (%@, %f) to (%@, %f); scrubbing: %{BOOL}d", &v27, 0x30u);
+        v28 = 2048;
+        v29 = v17;
+        v30 = 2112;
+        v31 = uniqueIdentifier2;
+        v32 = 2048;
+        v33 = v21;
+        v34 = 1024;
+        v35 = scrubbing;
+        _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Player updating playback position from: (%@, %f) to (%@, %f); scrubbing: %{BOOL}d", &v26, 0x30u);
       }
 
       date = [(HFCameraClipPlayer *)v9 date];
@@ -251,9 +250,9 @@
         v23 = HFLogForCategory(0x17uLL);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v27 = 138412290;
+          v26 = 138412290;
           selfCopy = v9;
-          _os_log_error_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_ERROR, "newPosition does not contain an event: %@", &v27, 0xCu);
+          _os_log_error_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_ERROR, "newPosition does not contain an event: %@", &v26, 0xCu);
         }
       }
 
@@ -262,8 +261,6 @@
   }
 
 LABEL_18:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (double)currentTime
@@ -272,7 +269,7 @@ LABEL_18:
   v3 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -287,7 +284,7 @@ LABEL_18:
 
 - (void)setLastPlayerItem:(id)item
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v5 = objc_loadWeakRetained(&self->_lastPlayerItem);
   v6 = itemCopy;
@@ -316,11 +313,11 @@ LABEL_18:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       WeakRetained = objc_loadWeakRetained(&self->_lastPlayerItem);
-      v12 = 138412546;
-      v13 = WeakRetained;
-      v14 = 2112;
-      v15 = v7;
-      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Updating lastPlayerItem from: %@ to: %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = WeakRetained;
+      v13 = 2112;
+      v14 = v7;
+      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Updating lastPlayerItem from: %@ to: %@", &v11, 0x16u);
     }
 
     [(HFCameraClipPlayer *)self _setupObservationForLastPlayerItem:v7];
@@ -328,8 +325,6 @@ LABEL_18:
   }
 
 LABEL_10:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)timeControlStatus
@@ -351,7 +346,7 @@ LABEL_10:
 
 - (void)play
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   hasFatalError = [(HFCameraClipPlayer *)self hasFatalError];
   queuePlayer = HFLogForCategory(0x17uLL);
   v6 = os_log_type_enabled(queuePlayer, OS_LOG_TYPE_DEFAULT);
@@ -361,13 +356,13 @@ LABEL_10:
     {
       v7 = NSStringFromSelector(a2);
       error = [(HFCameraClipPlayer *)self error];
-      LODWORD(v18.value) = 138412802;
-      *(&v18.value + 4) = self;
-      LOWORD(v18.flags) = 2112;
-      *(&v18.flags + 2) = v7;
-      HIWORD(v18.epoch) = 2112;
-      v19 = *&error;
-      _os_log_impl(&dword_20D9BF000, queuePlayer, OS_LOG_TYPE_DEFAULT, "Ignoring request to [%@ %@] as the player has a fatal error and cannot be used. Error: %@", &v18, 0x20u);
+      LODWORD(v17.value) = 138412802;
+      *(&v17.value + 4) = self;
+      LOWORD(v17.flags) = 2112;
+      *(&v17.flags + 2) = v7;
+      HIWORD(v17.epoch) = 2112;
+      v18 = *&error;
+      _os_log_impl(&dword_20D9BF000, queuePlayer, OS_LOG_TYPE_DEFAULT, "Ignoring request to [%@ %@] as the player has a fatal error and cannot be used. Error: %@", &v17, 0x20u);
     }
   }
 
@@ -382,38 +377,36 @@ LABEL_10:
       v13 = player;
       if (player)
       {
-        [player currentTime];
+        objc_msgSend_currentTime(player);
       }
 
       else
       {
-        memset(&v18, 0, sizeof(v18));
+        memset(&v17, 0, sizeof(v17));
       }
 
-      Seconds = CMTimeGetSeconds(&v18);
+      Seconds = CMTimeGetSeconds(&v17);
       player2 = [(HFCameraClipPlayer *)self player];
       currentItem = [player2 currentItem];
-      LODWORD(v18.value) = 138413058;
-      *(&v18.value + 4) = self;
-      LOWORD(v18.flags) = 2112;
-      *(&v18.flags + 2) = uniqueIdentifier;
-      HIWORD(v18.epoch) = 2048;
-      v19 = Seconds;
-      v20 = 2112;
-      v21 = currentItem;
-      _os_log_impl(&dword_20D9BF000, queuePlayer, OS_LOG_TYPE_DEFAULT, "[%@ play] clipUUID:%@ at offset:%.2f for item:%@", &v18, 0x2Au);
+      LODWORD(v17.value) = 138413058;
+      *(&v17.value + 4) = self;
+      LOWORD(v17.flags) = 2112;
+      *(&v17.flags + 2) = uniqueIdentifier;
+      HIWORD(v17.epoch) = 2048;
+      v18 = Seconds;
+      v19 = 2112;
+      v20 = currentItem;
+      _os_log_impl(&dword_20D9BF000, queuePlayer, OS_LOG_TYPE_DEFAULT, "[%@ play] clipUUID:%@ at offset:%.2f for item:%@", &v17, 0x2Au);
     }
 
     queuePlayer = [(HFCameraClipPlayer *)self queuePlayer];
     [queuePlayer play];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pause
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0x17uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -422,19 +415,17 @@ LABEL_10:
     uniqueIdentifier = [clip uniqueIdentifier];
     currentPosition2 = [(HFCameraClipPlayer *)self currentPosition];
     date = [currentPosition2 date];
-    v11 = 138412802;
+    v10 = 138412802;
     selfCopy = self;
-    v13 = 2112;
-    v14 = uniqueIdentifier;
-    v15 = 2112;
-    v16 = date;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "[%@ pause] clipUUID:%@ at:%@", &v11, 0x20u);
+    v12 = 2112;
+    v13 = uniqueIdentifier;
+    v14 = 2112;
+    v15 = date;
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "[%@ pause] clipUUID:%@ at:%@", &v10, 0x20u);
   }
 
   queuePlayer = [(HFCameraClipPlayer *)self queuePlayer];
   [queuePlayer pause];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endScrubbingWithOffset:(double)offset
@@ -557,13 +548,13 @@ void __39__HFCameraClipPlayer__updateErrorState__block_invoke(uint64_t a1)
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (HFCameraClipQueuePlayerContext != context)
   {
-    v33.receiver = self;
-    v33.super_class = HFCameraClipPlayer;
-    [(HFCameraClipPlayer *)&v33 observeValueForKeyPath:pathCopy ofObject:object change:change context:context];
+    v32.receiver = self;
+    v32.super_class = HFCameraClipPlayer;
+    [(HFCameraClipPlayer *)&v32 observeValueForKeyPath:pathCopy ofObject:object change:change context:context];
     goto LABEL_26;
   }
 
@@ -580,7 +571,7 @@ void __39__HFCameraClipPlayer__updateErrorState__block_invoke(uint64_t a1)
       queuePlayer = [(HFCameraClipPlayer *)self queuePlayer];
       *buf = 138412546;
       selfCopy4 = self;
-      v37 = 2048;
+      v36 = 2048;
       timeControlStatus = [queuePlayer timeControlStatus];
       _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "clipPlayer:%@ didUpdateTimeControlStatus:%ld", buf, 0x16u);
     }
@@ -604,7 +595,7 @@ void __39__HFCameraClipPlayer__updateErrorState__block_invoke(uint64_t a1)
       currentItem = [queuePlayer2 currentItem];
       *buf = 138412546;
       selfCopy4 = self;
-      v37 = 2112;
+      v36 = 2112;
       timeControlStatus = currentItem;
       _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "clipPlayer:%@ currentItemDidChange:%@", buf, 0x16u);
     }
@@ -629,7 +620,7 @@ void __39__HFCameraClipPlayer__updateErrorState__block_invoke(uint64_t a1)
       currentPosition = [(HFCameraClipPlayer *)self currentPosition];
       *buf = 138412546;
       selfCopy4 = currentPosition;
-      v37 = 2112;
+      v36 = 2112;
       timeControlStatus = queuePlayer5;
       _os_log_impl(&dword_20D9BF000, v30, OS_LOG_TYPE_DEFAULT, "Updating position from:%@ to:%@", buf, 0x16u);
     }
@@ -654,7 +645,7 @@ void __39__HFCameraClipPlayer__updateErrorState__block_invoke(uint64_t a1)
       v29 = [v27 numberWithBool:{objc_msgSend(queuePlayer4, "isMuted")}];
       *buf = 138412546;
       selfCopy4 = self;
-      v37 = 2112;
+      v36 = 2112;
       timeControlStatus = v29;
       _os_log_impl(&dword_20D9BF000, v26, OS_LOG_TYPE_DEFAULT, "clipPlayer:%@ mutedDidChange:%@", buf, 0x16u);
     }
@@ -677,17 +668,15 @@ LABEL_25:
     error = [queuePlayer7 error];
     *buf = 138412802;
     selfCopy4 = self;
-    v37 = 2112;
+    v36 = 2112;
     timeControlStatus = v23;
-    v39 = 2112;
-    v40 = error;
+    v38 = 2112;
+    v39 = error;
     _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "clipPlayer:%@ statusDidChange:%@, error: %@", buf, 0x20u);
   }
 
   [(HFCameraClipPlayer *)self _updateErrorState];
 LABEL_26:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HFCameraClipPlayer_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
@@ -752,7 +741,7 @@ LABEL_9:
 
 - (void)_rebuildPlayerQueueForPosition:(id)position
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   positionCopy = position;
   if (positionCopy)
   {
@@ -776,9 +765,9 @@ LABEL_19:
           uniqueIdentifier = [clip2 uniqueIdentifier];
           [positionCopy offset];
           *buf = 138412546;
-          v49 = uniqueIdentifier;
-          v50 = 2048;
-          v51 = v21;
+          v48 = uniqueIdentifier;
+          v49 = 2048;
+          v50 = v21;
           _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "Rebuilding player queue for clip: %@; offset: %f", buf, 0x16u);
         }
 
@@ -828,13 +817,13 @@ LABEL_19:
           items3 = [queuePlayer7 items];
           v43 = [items3 na_map:&__block_literal_global_36];
           *buf = 134218754;
-          v49 = timeControlStatus2;
-          v50 = 2112;
-          v51 = uniqueIdentifier2;
-          v52 = 1024;
-          v53 = isUsingCachedVideoOnDisk;
-          v54 = 2112;
-          v55 = v43;
+          v48 = timeControlStatus2;
+          v49 = 2112;
+          v50 = uniqueIdentifier2;
+          v51 = 1024;
+          v52 = isUsingCachedVideoOnDisk;
+          v53 = 2112;
+          v54 = v43;
           _os_log_impl(&dword_20D9BF000, v36, OS_LOG_TYPE_DEFAULT, "Finished rebuilding player queue; status: %lu; lastPlayerItem: (clip: %@, isUsingCachedVideoOnDisk: %{BOOL}d); items: %@", buf, 0x26u);
         }
 
@@ -894,8 +883,6 @@ LABEL_19:
   }
 
 LABEL_29:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 id __53__HFCameraClipPlayer__rebuildPlayerQueueForPosition___block_invoke(uint64_t a1, void *a2)
@@ -913,7 +900,7 @@ id __53__HFCameraClipPlayer__rebuildPlayerQueueForPosition___block_invoke(uint64
 
 - (void)playerItemDidPlayToEndTime:(id)time
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   objc_opt_class();
   object = [timeCopy object];
@@ -934,8 +921,8 @@ id __53__HFCameraClipPlayer__rebuildPlayerQueueForPosition___block_invoke(uint64
   {
     *buf = 138412546;
     selfCopy2 = self;
-    v18 = 2112;
-    v19 = timeCopy;
+    v17 = 2112;
+    v18 = timeCopy;
     _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "clipPlayer:%@ did receive endTime notification:%@", buf, 0x16u);
   }
 
@@ -955,8 +942,8 @@ id __53__HFCameraClipPlayer__rebuildPlayerQueueForPosition___block_invoke(uint64
         {
           *buf = 138412546;
           selfCopy2 = self;
-          v18 = 2112;
-          v19 = v7;
+          v17 = 2112;
+          v18 = v7;
           _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "lastPlayerItem for clipPlayer:%@ playerItemDidPlayToEndTime:%@", buf, 0x16u);
         }
 
@@ -973,8 +960,6 @@ id __53__HFCameraClipPlayer__rebuildPlayerQueueForPosition___block_invoke(uint64
     {
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HFCameraClipPlayer_playerItemDidPlayToEndTime___block_invoke(uint64_t a1)
@@ -1096,7 +1081,7 @@ LABEL_8:
 
 - (void)seekToOffset:(double)offset inItem:(id)item
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v7 = objc_opt_class();
   v8 = itemCopy;
@@ -1142,7 +1127,7 @@ LABEL_7:
         LOWORD(buf.flags) = 2112;
         *(&buf.flags + 2) = v8;
         HIWORD(buf.epoch) = 2112;
-        v22 = scrubber;
+        v21 = scrubber;
         _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "Seeking to offset: %f in item: %@ with scrubber:%@", &buf, 0x20u);
       }
 
@@ -1166,8 +1151,6 @@ LABEL_7:
     CMTimeMakeWithSeconds(&buf, offset, 1000);
     [v10 seekToTime:&buf completionHandler:0];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (HFCameraClipPlayerDelegate)delegate

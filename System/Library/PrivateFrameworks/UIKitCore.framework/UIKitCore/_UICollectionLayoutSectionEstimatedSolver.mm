@@ -1687,7 +1687,7 @@ LABEL_50:
             [currentHandler5 handleFailureInMethod:v152 object:v67 file:@"_UICollectionLayoutSectionEstimatedSolver.m" lineNumber:1248 description:{@"Invalid parameter not satisfying: %@", @"supplementaryOffsets"}];
           }
 
-          if (v53 && (v70 = *(v53 + 48)) != 0)
+          if (v53 && (v70 = v53[6]) != 0)
           {
             v71 = *(v70 + 56);
           }
@@ -1720,7 +1720,7 @@ LABEL_50:
             v67->_solutionFrame.size.height = v59;
             v67->_itemRange.location = v68;
             v67->_itemRange.length = v73;
-            if (v53 && (v74 = *(v53 + 48)) != 0 && v73 < *(v74 + 56))
+            if (v53 && (v74 = v53[6]) != 0 && v73 < *(v74 + 56))
             {
               v75 = objc_alloc_init(_UICollectionLayoutAuxillaryOffsets);
               v76 = [(_UICollectionLayoutItemSolver *)v53 queryFramesWithItemLimit:v73];
@@ -1771,7 +1771,7 @@ LABEL_50:
 
         if (v53)
         {
-          v85 = *(v53 + 40);
+          v85 = v53[5];
         }
 
         else
@@ -1893,14 +1893,14 @@ LABEL_50:
         v42 = v103;
         if (v53)
         {
-          v104 = *(v53 + 48);
+          v104 = v53[6];
           if (v104)
           {
             v104 = *(v104 + 56);
           }
 
           v292[3] += v104;
-          v105 = *(v53 + 48);
+          v105 = v53[6];
           if (v105)
           {
             v105 = *(v105 + 56);

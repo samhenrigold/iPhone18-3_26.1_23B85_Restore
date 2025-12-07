@@ -23,9 +23,11 @@
 
 uint64_t __36__WLKProcessInfo_currentProcessInfo__block_invoke()
 {
-  currentProcessInfo_currentProcessInfo = objc_alloc_init(WLKProcessInfo);
+  v0 = objc_alloc_init(WLKProcessInfo);
+  v1 = currentProcessInfo_currentProcessInfo;
+  currentProcessInfo_currentProcessInfo = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WLKProcessInfo)init

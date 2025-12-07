@@ -11,9 +11,9 @@
     +[NSNumberFormatter(SBFCacheInstances) sbf_cachedDecimalNumberFormatter];
   }
 
-  v1 = sbf_cachedDecimalNumberFormatter__cachedDecimalNumberFormatter;
+  v2 = sbf_cachedDecimalNumberFormatter__cachedDecimalNumberFormatter;
 
-  return v1;
+  return v2;
 }
 
 @end

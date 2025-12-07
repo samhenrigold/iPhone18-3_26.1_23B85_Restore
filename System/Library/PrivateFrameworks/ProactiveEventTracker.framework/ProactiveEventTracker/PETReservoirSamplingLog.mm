@@ -84,18 +84,7 @@
   if (v5)
   {
     limit = self->_limit;
-    if (v17 >= 8 * limit + 16)
-    {
-      v7 = limit == 0;
-      self->_limit;
-    }
-
-    else
-    {
-      v7 = 1;
-    }
-
-    if (!v7)
+    if (v17 >= 8 * limit + 16 && limit != 0)
     {
       v8 = v5;
       v9 = 0;
@@ -206,14 +195,14 @@
 
 - (void)log:(id)log
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   logCopy = log;
   if ([(PETReservoirSamplingLog *)self _lock])
   {
-    v27 = 0;
-    v5 = [(PETReservoirSamplingLogStore *)self->_store headerMap:&v27];
-    v26 = v5;
-    if (v5 && v27 >= 8 * self->_limit + 16)
+    v26 = 0;
+    v5 = [(PETReservoirSamplingLogStore *)self->_store headerMap:&v26];
+    v25 = v5;
+    if (v5 && v26 >= 8 * self->_limit + 16)
     {
       v6 = *(v5 + 12);
       v7 = v6 + 1;
@@ -222,15 +211,15 @@
       if (v6 < limit)
       {
         currentLength = [(PETReservoirSamplingLogStore *)self->_store currentLength];
-        if ([(PETReservoirSamplingLogStore *)self->_store appendData:logCopy andReturnMapPointer:&v26])
+        if ([(PETReservoirSamplingLogStore *)self->_store appendData:logCopy andReturnMapPointer:&v25])
         {
-          if (v26)
+          if (v25)
           {
-            *(v26 + 8 * *(v26 + 8) + 16) = currentLength;
+            *(v25 + 8 * *(v25 + 8) + 16) = currentLength;
             v10 = [logCopy length];
-            v11 = v26;
-            v12 = *(v26 + 8);
-            *(v26 + 8 * v12 + 20) = v10;
+            v11 = v25;
+            v12 = *(v25 + 8);
+            *(v25 + 8 * v12 + 20) = v10;
             *(v11 + 8) = v12 + 1;
           }
 
@@ -240,13 +229,13 @@
 LABEL_13:
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v23 = *__error();
-          v24 = __error();
-          v25 = strerror(*v24);
+          v22 = *__error();
+          v23 = __error();
+          v24 = strerror(*v23);
           *buf = 67109378;
-          v29 = v23;
-          v30 = 2080;
-          v31 = v25;
+          v28 = v22;
+          v29 = 2080;
+          v30 = v24;
           _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not append: [%i] %s", buf, 0x12u);
         }
 
@@ -263,14 +252,14 @@ LABEL_13:
       if (limit > (v15 % v7))
       {
         currentLength2 = [(PETReservoirSamplingLogStore *)self->_store currentLength];
-        if ([(PETReservoirSamplingLogStore *)self->_store appendData:logCopy andReturnMapPointer:&v26])
+        if ([(PETReservoirSamplingLogStore *)self->_store appendData:logCopy andReturnMapPointer:&v25])
         {
-          if (v26)
+          if (v25)
           {
-            *(v26 + 8 * v17 + 16) = currentLength2;
+            *(v25 + 8 * v17 + 16) = currentLength2;
             v19 = [logCopy length];
-            v20 = v26;
-            *(v26 + 8 * v17 + 20) = v19;
+            v20 = v25;
+            *(v25 + 8 * v17 + 20) = v19;
             v21 = *(v20 + 8) + 1;
             *(v20 + 8) = v21;
             if (v21 > 2 * self->_limit)
@@ -289,8 +278,6 @@ LABEL_13:
 LABEL_15:
     [(PETReservoirSamplingLog *)self _unlock];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_readHeader
@@ -373,7 +360,7 @@ LABEL_15:
 
 - (PETReservoirSamplingLog)initWithStore:(id)store limit:(unint64_t)limit
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   v9 = storeCopy;
   if (limit - 0xFFFFFFFF > 0xFFFFFFFF00000001)
@@ -397,9 +384,9 @@ LABEL_12:
   }
 
 LABEL_3:
-  v17.receiver = self;
-  v17.super_class = PETReservoirSamplingLog;
-  v10 = [(PETReservoirSamplingLog *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = PETReservoirSamplingLog;
+  v10 = [(PETReservoirSamplingLog *)&v16 init];
   self = v10;
   if (v10)
   {
@@ -411,10 +398,10 @@ LABEL_3:
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
         *buf = 138412290;
-        v19 = v15;
+        v18 = v14;
         _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error reading %@ header, emptying log", buf, 0xCu);
       }
 
@@ -435,7 +422,6 @@ LABEL_3:
   selfCopy = self;
 LABEL_13:
 
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

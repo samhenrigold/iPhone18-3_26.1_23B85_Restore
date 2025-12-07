@@ -36,14 +36,16 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_23DDF776C(appear);
+  sub_23DDF776C(appearCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_23DDF78BC(disappear);
+  sub_23DDF78BC(disappearCopy);
 }
 
 - (void)configurationController:(id)controller didFinishWithAction:(id)action error:(id)error

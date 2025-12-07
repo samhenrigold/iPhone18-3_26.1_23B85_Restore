@@ -12,31 +12,30 @@
 
 + (id)defaultCustomizeGestures
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5[0] = &unk_283736368;
-  v5[1] = &unk_283736380;
-  v6[0] = kVOTEventCommandSimpleTap;
-  v6[1] = kVOTEventCommandActivateHomeButton;
-  v5[2] = &unk_283736398;
-  v5[3] = &unk_2837363B0;
-  v6[2] = kVOTEventCommandNextElement;
-  v6[3] = kVOTEventCommandPreviousElement;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4[0] = &unk_283736368;
+  v4[1] = &unk_283736380;
+  v5[0] = kVOTEventCommandSimpleTap;
+  v5[1] = kVOTEventCommandActivateHomeButton;
+  v4[2] = &unk_283736398;
+  v4[3] = &unk_2837363B0;
+  v5[2] = kVOTEventCommandNextElement;
+  v5[3] = kVOTEventCommandPreviousElement;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:4];
 
   return v2;
 }
 
 + (id)defaultActions
 {
-  v6[6] = *MEMORY[0x277D85DE8];
-  v6[0] = kVOTEventCommandActivateHomeButton;
-  v6[1] = kVOTEventCommandSimpleTap;
-  v6[2] = kVOTEventCommandNextElement;
-  v6[3] = kVOTEventCommandPreviousElement;
-  v6[4] = kVOTEventCommandWatchWakeDoubleTap;
-  v6[5] = kVOTEventCommandStartStopToggle;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
+  v5[6] = *MEMORY[0x277D85DE8];
+  v5[0] = kVOTEventCommandActivateHomeButton;
+  v5[1] = kVOTEventCommandSimpleTap;
+  v5[2] = kVOTEventCommandNextElement;
+  v5[3] = kVOTEventCommandPreviousElement;
+  v5[4] = kVOTEventCommandWatchWakeDoubleTap;
+  v5[5] = kVOTEventCommandStartStopToggle;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
   v3 = [v2 mutableCopy];
 
   if (+[VOSVoiceOverGreyCommandInfo _isStingSupported])
@@ -44,8 +43,6 @@
     [v3 insertObject:kVOTEventCommandStingKeycordPress atIndex:1];
     [v3 insertObject:kVOTEventCommandStingPress atIndex:1];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

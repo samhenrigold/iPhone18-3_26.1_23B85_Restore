@@ -55,33 +55,7 @@
   v13.super_class = PSMTLTextureStream;
   v5 = [(PSResourceStream *)&v13 initWithCoder:coderCopy];
   p_isa = &v5->super.super.isa;
-  if (!v5)
-  {
-    goto LABEL_4;
-  }
-
-  [(PSResourceStream *)v5 setResourceClass:6];
-  v7 = objc_alloc_init(MEMORY[0x277CD7058]);
-  v8 = p_isa[18];
-  p_isa[18] = v7;
-
-  [p_isa[18] setTextureType:{objc_msgSend(coderCopy, "decodeIntegerForKey:", @"textureType"}];
-  [p_isa[18] setPixelFormat:objc_msgSend(coderCopy, "decodeIntegerForKey:", @"pixelFormat"];
-  [p_isa[18] setWidth:{objc_msgSend(coderCopy, "decodeIntegerForKey:", @"width"}];
-  [p_isa[18] setHeight:{objc_msgSend(coderCopy, "decodeIntegerForKey:", @"height"}];
-  [p_isa[18] setDepth:{objc_msgSend(coderCopy, "decodeIntegerForKey:", @"depth"}];
-  [p_isa[18] setMipmapLevelCount:{objc_msgSend(coderCopy, "decodeIntegerForKey:", @"mipmapLevelCount"}];
-  [p_isa[18] setSampleCount:{objc_msgSend(coderCopy, "decodeIntegerForKey:", @"sampleCount"}];
-  [p_isa[18] setArrayLength:{objc_msgSend(coderCopy, "decodeIntegerForKey:", @"arrayLength"}];
-  [p_isa[18] setResourceOptions:{objc_msgSend(coderCopy, "decodeIntegerForKey:", @"resourceOptions"}];
-  [p_isa[18] setCpuCacheMode:{objc_msgSend(coderCopy, "decodeIntegerForKey:", @"cpuCacheMode"}];
-  [p_isa[18] setStorageMode:{objc_msgSend(coderCopy, "decodeIntegerForKey:", @"storageMode"}];
-  [p_isa[18] setHazardTrackingMode:{objc_msgSend(coderCopy, "decodeIntegerForKey:", @"hazardTrackingMode"}];
-  [p_isa[18] setUsage:{objc_msgSend(coderCopy, "decodeIntegerForKey:", @"usage"}];
-  [p_isa[18] setAllowGPUOptimizedContents:{objc_msgSend(coderCopy, "decodeBoolForKey:", @"allowGPUOptimizedContents"}];
-  v12 = 0;
-  v9 = [coderCopy decodeBytesForKey:@"swizzle" returnedLength:&v12];
-  if (v12 == 4)
+  if (v5 && (-[PSResourceStream setResourceClass:](v5, "setResourceClass:", 6), v7 = objc_alloc_init(MEMORY[0x277CD7058]), v8 = p_isa[18], p_isa[18] = v7, v8, [p_isa[18] setTextureType:{objc_msgSend(coderCopy, "decodeIntegerForKey:", @"textureType"}], objc_msgSend(p_isa[18], "setPixelFormat:", objc_msgSend(coderCopy, "decodeIntegerForKey:", @"pixelFormat")), objc_msgSend(p_isa[18], "setWidth:", objc_msgSend(coderCopy, "decodeIntegerForKey:", @"width")), objc_msgSend(p_isa[18], "setHeight:", objc_msgSend(coderCopy, "decodeIntegerForKey:", @"height")), objc_msgSend(p_isa[18], "setDepth:", objc_msgSend(coderCopy, "decodeIntegerForKey:", @"depth")), objc_msgSend(p_isa[18], "setMipmapLevelCount:", objc_msgSend(coderCopy, "decodeIntegerForKey:", @"mipmapLevelCount")), objc_msgSend(p_isa[18], "setSampleCount:", objc_msgSend(coderCopy, "decodeIntegerForKey:", @"sampleCount")), objc_msgSend(p_isa[18], "setArrayLength:", objc_msgSend(coderCopy, "decodeIntegerForKey:", @"arrayLength")), objc_msgSend(p_isa[18], "setResourceOptions:", objc_msgSend(coderCopy, "decodeIntegerForKey:", @"resourceOptions")), objc_msgSend(p_isa[18], "setCpuCacheMode:", objc_msgSend(coderCopy, "decodeIntegerForKey:", @"cpuCacheMode")), objc_msgSend(p_isa[18], "setStorageMode:", objc_msgSend(coderCopy, "decodeIntegerForKey:", @"storageMode")), objc_msgSend(p_isa[18], "setHazardTrackingMode:", objc_msgSend(coderCopy, "decodeIntegerForKey:", @"hazardTrackingMode")), objc_msgSend(p_isa[18], "setUsage:", objc_msgSend(coderCopy, "decodeIntegerForKey:", @"usage")), objc_msgSend(p_isa[18], "setAllowGPUOptimizedContents:", objc_msgSend(coderCopy, "decodeBoolForKey:", @"allowGPUOptimizedContents")), v12 = 0, v9 = objc_msgSend(coderCopy, "decodeBytesForKey:returnedLength:", @"swizzle", &v12), v12 == 4))
   {
     [p_isa[18] setSwizzle:*v9];
     v10 = p_isa;
@@ -89,7 +63,6 @@
 
   else
   {
-LABEL_4:
     v10 = 0;
   }
 

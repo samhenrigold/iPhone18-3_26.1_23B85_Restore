@@ -322,13 +322,15 @@
 
 - (void)mlModel
 {
-  v12 = *MEMORY[0x277D85DE8];
   name = [self name];
   identifier = [self identifier];
   modelURL = [self modelURL];
-  OUTLINED_FUNCTION_3_0(&dword_23D62D000, v4, v5, "No model found for detector: %@ %@ at URL %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  *v11 = 138412802;
+  *&v11[4] = name;
+  *&v11[12] = 2112;
+  *&v11[14] = identifier;
+  *&v11[22] = 2112;
+  OUTLINED_FUNCTION_3_0(&dword_23D62D000, v5, v6, "No model found for detector: %@ %@ at URL %@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16], modelURL);
 }
 
 @end

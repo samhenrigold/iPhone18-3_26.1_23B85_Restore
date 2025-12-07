@@ -45,10 +45,10 @@
 {
   sub_100002B84(0, &qword_100093C20, UIOpenURLContext_ptr);
   sub_100068DF0();
-  static Set._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sceneCopy = scene;
   selfCopy = self;
-  sub_100068630();
+  sub_100068630(v6);
 }
 
 - (id)stateRestorationActivityForScene:(id)scene
@@ -71,7 +71,7 @@
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   *(&self->super.isa + OBJC_IVAR____TtC5Files22QuickLookSceneDelegate_isSharedScene) = 0;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for QuickLookSceneDelegate();
+  v6.super_class = type metadata accessor for QuickLookSceneDelegate(0);
   return [(QuickLookSceneDelegate *)&v6 init];
 }
 

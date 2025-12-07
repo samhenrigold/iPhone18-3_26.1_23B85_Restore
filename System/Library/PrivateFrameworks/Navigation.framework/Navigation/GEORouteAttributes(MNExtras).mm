@@ -6,8 +6,8 @@
 - (id)arriveByDate;
 - (id)departAtDate;
 - (uint64_t)_automobileOptions;
-- (uint64_t)supportsDirections;
 - (uint64_t)supportsTurnByTurnNavigation;
+- (void)supportsDirections;
 @end
 
 @implementation GEORouteAttributes(MNExtras)
@@ -59,15 +59,15 @@
 
 - (id)anyDate
 {
-  [self timepoint];
+  objc_msgSend_timepoint(self, a2);
 
   return 0;
 }
 
 - (id)arriveByDate
 {
-  [self timepoint];
-  if (v4 == 1)
+  objc_msgSend_timepoint(self, a2);
+  if (v5 == 1)
   {
     anyDate = [self anyDate];
   }
@@ -82,8 +82,8 @@
 
 - (id)departAtDate
 {
-  [self timepoint];
-  if (v4)
+  objc_msgSend_timepoint(self, a2);
+  if (v5)
   {
     anyDate = 0;
   }
@@ -145,7 +145,7 @@
   return result;
 }
 
-- (uint64_t)supportsDirections
+- (void)supportsDirections
 {
   if ([self mainTransportType] == 4)
   {
@@ -168,7 +168,7 @@
         }
 
         while (v4 < [self uiContextsCount]);
-        return (~v3 & 3) == 0;
+        return ((~v3 & 3) == 0);
       }
     }
   }
@@ -178,7 +178,7 @@
 
 + (id)defaultRouteAttributesForTransportType:()MNExtras
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   defaultRouteAttributes = [MEMORY[0x1E69A2500] defaultRouteAttributes];
   [defaultRouteAttributes setMainTransportType:a3];
   if (a3 == 1)
@@ -188,8 +188,6 @@
 
   else
   {
-    v6 = *MEMORY[0x1E69A1A08];
-    v7 = *(MEMORY[0x1E69A1A08] + 8);
     BOOL = GEOConfigGetBOOL();
   }
 
@@ -211,26 +209,26 @@
     {
       +[MNNavigationService sharedService];
     }
-    v12 = ;
-    currentVoiceLanguage = [v12 currentVoiceLanguage];
+    v10 = ;
+    currentVoiceLanguage = [v10 currentVoiceLanguage];
     [defaultRouteAttributes setPhoneticLocaleIdentifier:currentVoiceLanguage];
 
     phoneticLocaleIdentifier = [defaultRouteAttributes phoneticLocaleIdentifier];
 
     if (!phoneticLocaleIdentifier)
     {
-      v20 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v17 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v21 = 136315906;
-        v22 = "+[GEORouteAttributes(MNExtras) defaultRouteAttributesForTransportType:]";
-        v23 = 2080;
-        v24 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/GEORouteAttributes+MNExtras.m";
-        v25 = 1024;
-        v26 = 80;
-        v27 = 2080;
-        v28 = "attributes.phoneticLocaleIdentifier != nil";
-        _os_log_impl(&dword_1D311E000, v20, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s)", &v21, 0x26u);
+        v18 = 136315906;
+        v19 = "+[GEORouteAttributes(MNExtras) defaultRouteAttributesForTransportType:]";
+        v20 = 2080;
+        v21 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/GEORouteAttributes+MNExtras.m";
+        v22 = 1024;
+        v23 = 80;
+        v24 = 2080;
+        v25 = "attributes.phoneticLocaleIdentifier != nil";
+        _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s)", &v18, 0x26u);
       }
     }
 
@@ -244,14 +242,14 @@
       if (a3 == 1)
       {
 LABEL_16:
-        v16 = objc_alloc_init(MEMORY[0x1E69A2668]);
-        [v16 setPrioritization:0];
+        v14 = objc_alloc_init(MEMORY[0x1E69A2668]);
+        [v14 setPrioritization:0];
         if (GEOConfigGetBOOL())
         {
-          [v16 setRoutingBehavior:1];
+          [v14 setRoutingBehavior:1];
         }
 
-        [defaultRouteAttributes setTransitOptions:v16];
+        [defaultRouteAttributes setTransitOptions:v14];
         goto LABEL_25;
       }
 
@@ -268,13 +266,13 @@ LABEL_16:
   {
     if (a3 == 2)
     {
-      v16 = objc_alloc_init(MEMORY[0x1E69A2770]);
-      [v16 setAvoidHills:0];
-      [v16 setAvoidStairs:0];
-      [v16 setAvoidBusyRoads:0];
-      v17 = objc_alloc_init(MEMORY[0x1E69A2768]);
-      [v17 setWalkingUserPreferences:v16];
-      [defaultRouteAttributes setWalkingOptions:v17];
+      v14 = objc_alloc_init(MEMORY[0x1E69A2770]);
+      [v14 setAvoidHills:0];
+      [v14 setAvoidStairs:0];
+      [v14 setAvoidBusyRoads:0];
+      v15 = objc_alloc_init(MEMORY[0x1E69A2768]);
+      [v15 setWalkingUserPreferences:v14];
+      [defaultRouteAttributes setWalkingOptions:v15];
     }
 
     else
@@ -284,13 +282,13 @@ LABEL_16:
         goto LABEL_26;
       }
 
-      v16 = objc_alloc_init(MEMORY[0x1E69A1CE8]);
-      [v16 setAvoidStairs:0];
-      [v16 setAvoidHills:0];
-      [v16 setAvoidBusyRoads:0];
-      v17 = objc_alloc_init(MEMORY[0x1E69A1CE0]);
-      [v17 setCyclingUserPreferences:v16];
-      [defaultRouteAttributes setCyclingOptions:v17];
+      v14 = objc_alloc_init(MEMORY[0x1E69A1CE8]);
+      [v14 setAvoidStairs:0];
+      [v14 setAvoidHills:0];
+      [v14 setAvoidBusyRoads:0];
+      v15 = objc_alloc_init(MEMORY[0x1E69A1CE0]);
+      [v15 setCyclingUserPreferences:v14];
+      [defaultRouteAttributes setCyclingOptions:v15];
     }
   }
 
@@ -306,17 +304,16 @@ LABEL_16:
       goto LABEL_16;
     }
 
-    v16 = objc_alloc_init(MEMORY[0x1E69A1B90]);
-    [v16 setIncludeHistoricTravelTime:1];
-    [v16 setTrafficType:3];
-    [defaultRouteAttributes setAutomobileOptions:v16];
+    v14 = objc_alloc_init(MEMORY[0x1E69A1B90]);
+    [v14 setIncludeHistoricTravelTime:1];
+    [v14 setTrafficType:3];
+    [defaultRouteAttributes setAutomobileOptions:v14];
   }
 
 LABEL_25:
 
 LABEL_26:
   [defaultRouteAttributes setRoutePointTypeForTransportType:a3];
-  v18 = *MEMORY[0x1E69E9840];
 
   return defaultRouteAttributes;
 }

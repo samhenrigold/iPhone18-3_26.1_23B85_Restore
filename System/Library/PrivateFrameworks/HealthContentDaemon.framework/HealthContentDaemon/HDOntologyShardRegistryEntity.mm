@@ -124,91 +124,91 @@ void __60__HDOntologyShardRegistryEntity_insertEntry_database_error___block_invo
   return error;
 }
 
-uint64_t __111__HDOntologyShardRegistryEntity_enumerateEntriesWithPredicate_orderingTerms_database_error_enumerationHandler___block_invoke(uint64_t a1)
+uint64_t __111__HDOntologyShardRegistryEntity_enumerateEntriesWithPredicate_orderingTerms_database_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = HDSQLiteColumnWithNameAsString();
-  v27 = v1;
-  if (v1)
+  v4 = HDSQLiteColumnWithNameAsString();
+  v30 = v4;
+  if (v4)
   {
-    v34 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:v1];
+    v37 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:v4];
   }
 
   else
   {
-    v34 = 0;
+    v37 = 0;
   }
 
-  v25 = objc_alloc(MEMORY[0x277CCD760]);
-  v33 = HDSQLiteColumnWithNameAsString();
-  v24 = HDSQLiteColumnWithNameAsString();
+  v28 = objc_alloc(MEMORY[0x277CCD760]);
+  v36 = HDSQLiteColumnWithNameAsString();
+  v27 = HDSQLiteColumnWithNameAsString();
+  v26 = HDSQLiteColumnWithNameAsInt64();
+  v25 = HDSQLiteColumnWithNameAsInt64();
+  v24 = HDSQLiteColumnWithNameAsInt64();
   v23 = HDSQLiteColumnWithNameAsInt64();
+  v35 = HDSQLiteColumnWithNameAsDate();
   v22 = HDSQLiteColumnWithNameAsInt64();
-  v21 = HDSQLiteColumnWithNameAsInt64();
-  v20 = HDSQLiteColumnWithNameAsInt64();
+  v34 = HDSQLiteColumnWithNameAsDate();
+  v21 = HDSQLiteColumnWithNameAsString();
+  v20 = HDSQLiteColumnWithNameAsDate();
+  v33 = HDSQLiteColumnWithNameAsString();
+  v19 = HDSQLiteColumnWithNameAsDate();
+  v18 = HDSQLiteColumnWithNameAsInt64();
   v32 = HDSQLiteColumnWithNameAsDate();
-  v19 = HDSQLiteColumnWithNameAsInt64();
-  v31 = HDSQLiteColumnWithNameAsDate();
-  v18 = HDSQLiteColumnWithNameAsString();
+  v16 = HDSQLiteColumnWithNameAsString();
   v17 = HDSQLiteColumnWithNameAsDate();
-  v30 = HDSQLiteColumnWithNameAsString();
-  v16 = HDSQLiteColumnWithNameAsDate();
-  v15 = HDSQLiteColumnWithNameAsInt64();
-  v29 = HDSQLiteColumnWithNameAsDate();
-  v13 = HDSQLiteColumnWithNameAsString();
+  v15 = HDSQLiteColumnWithNameAsString();
   v14 = HDSQLiteColumnWithNameAsDate();
-  v12 = HDSQLiteColumnWithNameAsString();
+  v5 = HDSQLiteColumnWithNameAsDate();
+  v6 = HDSQLiteColumnWithNameAsString();
+  v7 = HDSQLiteColumnWithNameAsDate();
+  v8 = HDSQLiteColumnWithNameAsInt64();
+  v9 = HDSQLiteColumnWithNameAsDate();
+  v10 = HDSQLiteColumnWithNameAsInt64();
   v11 = HDSQLiteColumnWithNameAsDate();
-  v2 = HDSQLiteColumnWithNameAsDate();
-  v3 = HDSQLiteColumnWithNameAsString();
-  v4 = HDSQLiteColumnWithNameAsDate();
-  v5 = HDSQLiteColumnWithNameAsInt64();
-  v6 = HDSQLiteColumnWithNameAsDate();
-  v7 = HDSQLiteColumnWithNameAsInt64();
-  v8 = HDSQLiteColumnWithNameAsDate();
-  v26 = [v25 initWithIdentifier:v33 schemaType:v24 schemaVersion:v23 settings:v22 slot:v21 desiredState:v20 desiredStateDate:v32 currentVersion:v19 currentVersionDate:v31 currentRegion:v18 currentRegionDate:v17 currentLocale:v30 currentLocaleDate:v16 availableVersion:v15 availableVersionDate:v29 availableRegion:v13 availableRegionDate:v14 availableLocale:v12 availableLocaleDate:v11 availableURL:v34 availableURLDate:v2 availableChecksum:v3 availableChecksumDate:v4 availableSize:v5 availableSizeDate:v6 availableState:v7 availableStateDate:v8];
+  v29 = [v28 initWithIdentifier:v36 schemaType:v27 schemaVersion:v26 settings:v25 slot:v24 desiredState:v23 desiredStateDate:v35 currentVersion:v22 currentVersionDate:v34 currentRegion:v21 currentRegionDate:v20 currentLocale:v33 currentLocaleDate:v19 availableVersion:v18 availableVersionDate:v32 availableRegion:v16 availableRegionDate:v17 availableLocale:v15 availableLocaleDate:v14 availableURL:v37 availableURLDate:v5 availableChecksum:v6 availableChecksumDate:v7 availableSize:v8 availableSizeDate:v9 availableState:v10 availableStateDate:v11];
 
-  v9 = (*(*(a1 + 32) + 16))();
-  return v9;
+  v12 = (*(*(a1 + 32) + 16))();
+  return v12;
 }
 
 + (id)nextAvailableSlotInAllowedRange:(_NSRange)range predicate:(id)predicate database:(id)database error:(id *)error
 {
   length = range.length;
   location = range.location;
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   databaseCopy = database;
   v13 = objc_alloc_init(MEMORY[0x277D10B80]);
   [v13 setEntityClass:self];
   [v13 setPredicate:predicateCopy];
-  v34[0] = @"slot";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+  v33[0] = @"slot";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
   v15 = [v13 selectSQLForProperties:v14];
 
   v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@ SELECT MIN(value) FROM generate_series WHERE value NOT IN (%@)", @"WITH RECURSIVE generate_series(value) AS (SELECT ? UNION ALL SELECT value+1 FROM generate_series WHERE value+1<=?)", v15];
   v17 = length + location - 1;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__8;
-  v32 = __Block_byref_object_dispose__8;
-  v33 = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __90__HDOntologyShardRegistryEntity_nextAvailableSlotInAllowedRange_predicate_database_error___block_invoke;
-  v24[3] = &unk_2796B9E48;
-  v26 = location;
-  v27 = v17;
-  v18 = v13;
-  v25 = v18;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__8;
+  v31 = __Block_byref_object_dispose__8;
+  v32 = 0;
   v23[0] = MEMORY[0x277D85DD0];
   v23[1] = 3221225472;
-  v23[2] = __90__HDOntologyShardRegistryEntity_nextAvailableSlotInAllowedRange_predicate_database_error___block_invoke_2;
-  v23[3] = &unk_2796B90A8;
-  v23[4] = &v28;
-  if ([databaseCopy executeSQL:v16 error:error bindingHandler:v24 enumerationHandler:v23])
+  v23[2] = __90__HDOntologyShardRegistryEntity_nextAvailableSlotInAllowedRange_predicate_database_error___block_invoke;
+  v23[3] = &unk_2796B9E48;
+  v25 = location;
+  v26 = v17;
+  v18 = v13;
+  v24 = v18;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __90__HDOntologyShardRegistryEntity_nextAvailableSlotInAllowedRange_predicate_database_error___block_invoke_2;
+  v22[3] = &unk_2796B90A8;
+  v22[4] = &v27;
+  if ([databaseCopy executeSQL:v16 error:error bindingHandler:v23 enumerationHandler:v22])
   {
-    v19 = v29[5];
+    v19 = v28[5];
     if (v19)
     {
       v20 = v19;
@@ -221,8 +221,7 @@ uint64_t __111__HDOntologyShardRegistryEntity_enumerateEntriesWithPredicate_orde
   v20 = 0;
 LABEL_6:
 
-  _Block_object_dispose(&v28, 8);
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
 
   return v20;
 }
@@ -247,12 +246,11 @@ uint64_t __90__HDOntologyShardRegistryEntity_nextAvailableSlotInAllowedRange_pre
 
 + (id)uniquedColumns
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"identifier";
-  v5[1] = @"schema_type";
-  v5[2] = @"schema_version";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"identifier";
+  v4[1] = @"schema_type";
+  v4[2] = @"schema_version";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }

@@ -1,427 +1,9 @@
-unint64_t sub_1000CF2B4()
-{
-  v2 = qword_100185248;
-  if (!qword_100185248)
-  {
-    type metadata accessor for DirectoryEnumerationOptions();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_100185248);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-uint64_t sub_1000CF334(uint64_t a1)
-{
-  v3 = type metadata accessor for URL();
-  v4 = *(v3 - 8);
-  if (!(*(v4 + 48))(a1, 1))
-  {
-    (*(v4 + 8))(a1, v3);
-  }
-
-  return a1;
-}
-
-unint64_t sub_1000CF3DC()
-{
-  v2 = qword_100185250;
-  if (!qword_100185250)
-  {
-    type metadata accessor for URLResourceKey();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_100185250);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000CF45C()
-{
-  v2 = qword_100185258;
-  if (!qword_100185258)
-  {
-    sub_1000CDD64(&qword_100185220, &qword_10013EE60);
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_100185258);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-uint64_t type metadata accessor for URLFileProtection()
-{
-  v4 = qword_1001852A0;
-  if (!qword_1001852A0)
-  {
-    ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    v4 = ForeignTypeMetadata;
-    if (!v0)
-    {
-      v1 = ForeignTypeMetadata;
-      atomic_store(ForeignTypeMetadata, &qword_1001852A0);
-      return v1;
-    }
-  }
-
-  return v4;
-}
-
-unint64_t sub_1000CF57C()
-{
-  v2 = qword_100185268;
-  if (!qword_100185268)
-  {
-    type metadata accessor for URLFileProtection();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_100185268);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000CF5FC()
-{
-  v2 = qword_100185270;
-  if (!qword_100185270)
-  {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_100185270);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-uint64_t sub_1000CF684(unsigned __int8 *a1, unsigned int a2)
-{
-  if (a2)
-  {
-    if (a2 <= 0xFE)
-    {
-      goto LABEL_15;
-    }
-
-    v7 = ((a2 + 1) >> 8) + 1;
-    v8 = 1;
-    if (v7 >= 0x100)
-    {
-      if (v7 >= 0x10000)
-      {
-        v2 = 4;
-      }
-
-      else
-      {
-        v2 = 2;
-      }
-
-      v8 = v2;
-    }
-
-    if (v8 == 1)
-    {
-      v6 = a1[1];
-    }
-
-    else
-    {
-      v6 = v8 == 2 ? *(a1 + 1) : *(a1 + 1);
-    }
-
-    if (v6)
-    {
-      v5 = (*a1 | ((v6 - 1) << 8)) + 254;
-    }
-
-    else
-    {
-LABEL_15:
-      v3 = *a1 - 2;
-      if (v3 < 0)
-      {
-        v3 = -1;
-      }
-
-      v5 = v3;
-    }
-  }
-
-  else
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-_BYTE *sub_1000CF7EC(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  v7 = 0;
-  if (a3 > 0xFE)
-  {
-    v5 = ((a3 + 1) >> 8) + 1;
-    v6 = 1;
-    if (v5 >= 0x100)
-    {
-      if (v5 >= 0x10000)
-      {
-        v3 = 4;
-      }
-
-      else
-      {
-        v3 = 2;
-      }
-
-      v6 = v3;
-    }
-
-    v7 = v6;
-  }
-
-  if (a2 > 0xFE)
-  {
-    v4 = ((a2 - 255) >> 8) + 1;
-    *result = a2 + 1;
-    if (v7)
-    {
-      if (v7 == 1)
-      {
-        result[1] = v4;
-      }
-
-      else if (v7 == 2)
-      {
-        *(result + 1) = v4;
-      }
-
-      else
-      {
-        *(result + 1) = v4;
-      }
-    }
-  }
-
-  else
-  {
-    if (v7)
-    {
-      if (v7 == 1)
-      {
-        result[1] = 0;
-      }
-
-      else if (v7 == 2)
-      {
-        *(result + 1) = 0;
-      }
-
-      else
-      {
-        *(result + 1) = 0;
-      }
-    }
-
-    if (a2)
-    {
-      *result = a2 + 1;
-    }
-  }
-
-  return result;
-}
-
-unint64_t type metadata accessor for FileProtectionClassMigrator()
-{
-  v2 = qword_100185BB0[0];
-  if (!qword_100185BB0[0])
-  {
-    objc_opt_self();
-    ObjCClassMetadata = swift_getObjCClassMetadata();
-    atomic_store(ObjCClassMetadata, qword_100185BB0);
-    return ObjCClassMetadata;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000CFA94()
-{
-  v2 = qword_1001852B8;
-  if (!qword_1001852B8)
-  {
-    type metadata accessor for URLResourceKey();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_1001852B8);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000CFB2C()
-{
-  v2 = qword_1001852C0;
-  if (!qword_1001852C0)
-  {
-    type metadata accessor for URLResourceKey();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_1001852C0);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000CFBC4()
-{
-  v2 = qword_1001852C8;
-  if (!qword_1001852C8)
-  {
-    type metadata accessor for DirectoryEnumerationOptions();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_1001852C8);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000CFC74()
-{
-  v2 = qword_1001852D0;
-  if (!qword_1001852D0)
-  {
-    type metadata accessor for URLFileProtection();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_1001852D0);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000CFD0C()
-{
-  v2 = qword_1001852D8;
-  if (!qword_1001852D8)
-  {
-    type metadata accessor for URLFileProtection();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_1001852D8);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000CFDA4()
-{
-  v2 = qword_1001852E0;
-  if (!qword_1001852E0)
-  {
-    type metadata accessor for URLFileProtection();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_1001852E0);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000CFE3C()
-{
-  v2 = qword_1001852E8;
-  if (!qword_1001852E8)
-  {
-    type metadata accessor for URLResourceKey();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_1001852E8);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000CFED4()
-{
-  v2 = qword_1001852F0;
-  if (!qword_1001852F0)
-  {
-    type metadata accessor for DirectoryEnumerationOptions();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_1001852F0);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000CFF6C()
-{
-  v2 = qword_1001852F8;
-  if (!qword_1001852F8)
-  {
-    type metadata accessor for DirectoryEnumerationOptions();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_1001852F8);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000D0004()
-{
-  v2 = qword_100186540[0];
-  if (!qword_100186540[0])
-  {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, qword_100186540);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000D0080()
-{
-  v2 = qword_100185300;
-  if (!qword_100185300)
-  {
-    type metadata accessor for DirectoryEnumerationOptions();
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_100185300);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
-unint64_t sub_1000D0100()
-{
-  v2 = qword_100185308;
-  if (!qword_100185308)
-  {
-    WitnessTable = swift_getWitnessTable();
-    atomic_store(WitnessTable, &qword_100185308);
-    return WitnessTable;
-  }
-
-  return v2;
-}
-
 unint64_t sub_1000D0178()
 {
   v2 = qword_100185310;
   if (!qword_100185310)
   {
-    type metadata accessor for URLResourceKey();
+    type metadata accessor for URLResourceKey(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_100185310);
     return WitnessTable;
@@ -435,7 +17,7 @@ unint64_t sub_1000D01F8()
   v2 = qword_100185318;
   if (!qword_100185318)
   {
-    type metadata accessor for URLFileProtection();
+    type metadata accessor for URLFileProtection(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_100185318);
     return WitnessTable;
@@ -486,20 +68,6 @@ uint64_t sub_1000D040C(uint64_t a1, uint64_t a2)
   *(a1 + 32) = v4;
   *(a1 + 40) = v5;
   return result;
-}
-
-uint64_t sub_1000D0470(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-
-  return a1;
-}
-
-uint64_t sub_1000D04E4()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return sub_1000CDFFC();
 }
 
 uint64_t sub_1000D051C(uint64_t a1, uint64_t a2)
@@ -719,76 +287,6 @@ void sub_1000D13D4(uint64_t a1, NSObject *a2)
   v2 = 138412290;
   v3 = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "#Favorites Failed to create FavoriteItem_Inbox dictionary representation for %@", &v2, 0xCu);
-}
-
-void sub_1000D172C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14)
-{
-  sub_10001C908(v16, v17, v18, v19, v20, v21, v22, v23);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1000D1C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20)
-{
-  sub_10001C8A4(v22, v23, v24, v25, v26, v27);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1000D1D78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20)
-{
-  sub_10001C8A4(v23, v24, v25, v26, v27, v28);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1000D1EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20)
-{
-  sub_10001C8A4(v22, v23, v24, v25, v26, v27);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1000D1FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20)
-{
-  sub_10001C8A4(v23, v24, v25, v26, v27, v28);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1000D2074(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20)
-{
-  sub_10001C854(a1, a2, a3, a4, a5, a6);
-
-  _Unwind_Resume(v20);
-}
-
-void sub_1000D2120(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20)
-{
-  sub_10001C854(a1, a2, a3, a4, a5, a6);
-
-  _Unwind_Resume(v20);
-}
-
-void sub_1000D21CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20)
-{
-  sub_10001C854(a1, a2, a3, a4, a5, a6);
-
-  _Unwind_Resume(v20);
-}
-
-void sub_1000D2278(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20)
-{
-  sub_10001C854(a1, a2, a3, a4, a5, a6);
-
-  _Unwind_Resume(v20);
-}
-
-void sub_1000D2360(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20)
-{
-  sub_10001C854(a1, a2, a3, a4, a5, a6);
-
-  _Unwind_Resume(v20);
 }
 
 void sub_1000D239C(uint64_t a1, NSObject *a2)
@@ -1101,6 +599,14 @@ LABEL_44:
   _Block_object_dispose(&v90, 8);
 }
 
+void sub_1000D2CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
+{
+  va_start(va, a46);
+
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 id sub_1000D2E70(uint64_t a1)
 {
   v1 = *(a1 + 32);
@@ -1124,8 +630,6 @@ void sub_1000D2E88(uint64_t a1)
     v3 = sub_10001EB38();
     if (sub_1000260AC(v3))
     {
-      v10 = *(a1 + 32);
-      v11 = *(a1 + 40);
       sub_1000260A0();
       _os_log_impl(v4, v5, v6, v7, v8, 0x16u);
     }
@@ -1330,6 +834,13 @@ void sub_1000D3CA4(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Removal of autosave failed with error. autosaveID=%@ error=%{public}@", buf, 0x16u);
 }
 
+void sub_1000D3D0C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 32);
+  sub_100054B14(&_mh_execute_header, a2, a3, "autosavedMessageDataWithIdentifier returned no data and no error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1000D3D7C(void *a1, uint64_t a2, NSObject *a3)
 {
   *a2 = 138543362;
@@ -1342,6 +853,20 @@ void sub_1000D3DC8(void *a1, uint64_t a2, NSObject *a3)
   *a2 = 138543362;
   *(a2 + 4) = a1;
   sub_100005FE4(&_mh_execute_header, a2, a3, "Autosave could not be performed because message does not have a document identifier header. error=%{public}@", a2);
+}
+
+void sub_1000D3E14(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  sub_100054B14(&_mh_execute_header, a2, a3, "Ignoring provided old identifier. Failed to create criterion. %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000D3E84(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  sub_100054B14(&_mh_execute_header, a2, a3, "Autosave failed! The saved message was not returned from the change manager. %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000D3EF4(void *a1, uint8_t *buf, void *a3, os_log_t log)
@@ -1650,6 +1175,27 @@ void sub_1000D527C()
   sub_10000E360(&_mh_execute_header, "Failed to replace notification due to VIP change: ID: %{public}@, error: %{public}@", v6, v7);
 }
 
+void sub_1000D52CC(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100054B14(&_mh_execute_header, a2, a3, "Received notification response without a message referense. %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000D5338(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100054B14(&_mh_execute_header, a2, a3, "Failed to process notification action with unknown action: %{public}@.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000D53A4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100054B14(&_mh_execute_header, a2, a3, "Failed to process notification action for unknown messages: %{public}@.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1000D5410()
 {
   sub_100005F80();
@@ -1692,11 +1238,10 @@ void sub_1000D556C(void *a1, uint8_t *buf, os_log_t log)
 
 void sub_1000D55C4(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(*(a2 + 40) + 16);
   sub_1000A4E14(a1, 5.8382e-34, a2, a3);
-  *(v5 + 12) = 2048;
-  *(v5 + 14) = v6;
-  _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "re-attempting body load for message=%{public}@. attempt number %tu", v7, 0x16u);
+  *(v4 + 12) = 2048;
+  *(v4 + 14) = v5;
+  _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "re-attempting body load for message=%{public}@. attempt number %tu", v6, 0x16u);
 }
 
 void sub_1000D5630(uint64_t a1, uint64_t a2, os_log_t log)
@@ -1857,4 +1402,12 @@ void sub_1000D5D68(uint64_t a1, uint64_t a2, os_log_t log)
   v6 = 2112;
   v7 = a2;
   _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "#search-manager [%{public}@] Failed with error: %@", &v4, 0x16u);
+}
+
+Swift::String __swiftcall String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(Builtin::RawPointer _builtinStringLiteral, Builtin::Word utf8CodeUnitCount, Builtin::Int1 isASCII)
+{
+  v3 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(_builtinStringLiteral, utf8CodeUnitCount, isASCII);
+  result._object = v4;
+  result._countAndFlagsBits = v3;
+  return result;
 }

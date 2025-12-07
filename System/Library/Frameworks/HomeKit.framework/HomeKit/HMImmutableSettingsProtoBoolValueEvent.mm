@@ -97,7 +97,6 @@ LABEL_5:
 {
   if (*&self->_has)
   {
-    value = self->_value;
     PBDataWriterWriteBOOLField();
   }
 }

@@ -83,39 +83,37 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_visitIdentifierOrigin)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_visitIdentifierDestination)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    startTimeCFAbsolute = self->_startTimeCFAbsolute;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    stopTimeCFAbsolute = self->_stopTimeCFAbsolute;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_predominantMotionActivity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -214,7 +212,6 @@
     }
   }
 
-  v7 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_startTimeCFAbsolute != *(equalCopy + 1))
@@ -226,7 +223,7 @@
   else if (*(equalCopy + 48))
   {
 LABEL_18:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
@@ -246,17 +243,17 @@ LABEL_18:
   predominantMotionActivity = self->_predominantMotionActivity;
   if (predominantMotionActivity | *(equalCopy + 3))
   {
-    v9 = [(PCPMotionActivity *)predominantMotionActivity isEqual:?];
+    v8 = [(PCPMotionActivity *)predominantMotionActivity isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_19:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

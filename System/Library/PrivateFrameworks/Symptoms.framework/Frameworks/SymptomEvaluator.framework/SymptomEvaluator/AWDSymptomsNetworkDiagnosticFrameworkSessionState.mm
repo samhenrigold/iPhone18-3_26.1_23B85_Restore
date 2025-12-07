@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)inStateAsString:(int)string;
 - (int)StringAsInState:(id)state;
 - (int)inState;
 - (unint64_t)hash;
@@ -56,6 +57,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)inStateAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898F560[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsInState:(id)state
@@ -162,12 +178,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -186,22 +201,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  inState = self->_inState;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    stateHeldForSecs = self->_stateHeldForSecs;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_symptomName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -304,7 +317,6 @@ LABEL_5:
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 40);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_timestamp != *(equalCopy + 2))
@@ -316,7 +328,7 @@ LABEL_5:
   else if ((*(equalCopy + 40) & 2) != 0)
   {
 LABEL_19:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_20;
   }
 
@@ -349,17 +361,17 @@ LABEL_19:
   symptomName = self->_symptomName;
   if (symptomName | *(equalCopy + 4))
   {
-    v7 = [(NSString *)symptomName isEqual:?];
+    v6 = [(NSString *)symptomName isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_20:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

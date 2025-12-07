@@ -139,10 +139,10 @@
 
 - (void)parseASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict account:(id)account
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = ASSettingsTaskAccountInformation;
-  [(ASItem *)&v13 parseASParseContext:context root:root parent:parent callbackDict:dict streamCallbackDict:callbackDict account:account];
+  v15 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = ASSettingsTaskAccountInformation;
+  [(ASItem *)&v12 parseASParseContext:context root:root parent:parent callbackDict:dict streamCallbackDict:callbackDict account:account];
   parsingState = self->super._parsingState;
   if (parsingState >= 2)
   {
@@ -163,8 +163,6 @@
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

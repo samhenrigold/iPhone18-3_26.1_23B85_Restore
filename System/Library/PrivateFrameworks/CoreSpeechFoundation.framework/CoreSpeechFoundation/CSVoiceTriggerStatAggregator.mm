@@ -22,55 +22,50 @@
 
 id __67__CSVoiceTriggerStatAggregator_reportDigitalZerosWithAudioZeroRun___block_invoke(uint64_t a1, double a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"duration";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"duration";
   LODWORD(a2) = *(a1 + 32);
   v2 = [MEMORY[0x1E696AD98] numberWithFloat:a2];
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 - (void)logTimeBasedTriggerLengthSampleCountStatistics:(unint64_t)statistics withAOPVTTriggerLengthSampleCount:(unint64_t)count
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = statistics - count;
   v7 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v10 = "[CSVoiceTriggerStatAggregator logTimeBasedTriggerLengthSampleCountStatistics:withAOPVTTriggerLengthSampleCount:]";
-    v11 = 2048;
+    v9 = "[CSVoiceTriggerStatAggregator logTimeBasedTriggerLengthSampleCountStatistics:withAOPVTTriggerLengthSampleCount:]";
+    v10 = 2048;
     statisticsCopy = statistics;
-    v13 = 2048;
+    v12 = 2048;
     countCopy = count;
-    v15 = 2048;
-    v16 = v6;
+    v14 = 2048;
+    v15 = v6;
     _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Sending event with time based triggerLengthSampleCount %llu, AOPVT triggerLengthSampleCount %llu, and delta of %lld samples", buf, 0x2Au);
   }
 
   AnalyticsSendEventLazy();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 id __113__CSVoiceTriggerStatAggregator_logTimeBasedTriggerLengthSampleCountStatistics_withAOPVTTriggerLengthSampleCount___block_invoke(void *a1)
 {
-  v9[3] = *MEMORY[0x1E69E9840];
-  v8[0] = @"newTriggerLengthSampleCount";
+  v8[3] = *MEMORY[0x1E69E9840];
+  v7[0] = @"newTriggerLengthSampleCount";
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a1[4]];
-  v9[0] = v2;
-  v8[1] = @"oldTriggerLengthSampleCount";
+  v8[0] = v2;
+  v7[1] = @"oldTriggerLengthSampleCount";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a1[5]];
-  v9[1] = v3;
-  v8[2] = @"sampleCountDelta";
+  v8[1] = v3;
+  v7[2] = @"sampleCountDelta";
   v4 = [MEMORY[0x1E696AD98] numberWithLongLong:a1[6]];
-  v9[2] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[2] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
@@ -78,7 +73,7 @@ id __113__CSVoiceTriggerStatAggregator_logTimeBasedTriggerLengthSampleCountStati
 - (void)logFalseWakeUp:(BOOL)up withPhrase:(id)phrase
 {
   upCopy = up;
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   phraseCopy = phrase;
   if (upCopy)
   {
@@ -108,11 +103,11 @@ id __113__CSVoiceTriggerStatAggregator_logTimeBasedTriggerLengthSampleCountStati
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       numFalseWakeUp = self->_numFalseWakeUp;
-      v29 = 136315394;
-      v30 = "[CSVoiceTriggerStatAggregator logFalseWakeUp:withPhrase:]";
-      v31 = 2050;
-      *v32 = numFalseWakeUp;
-      _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s ::: incrementing false wakeup to %{public}llu", &v29, 0x16u);
+      v28 = 136315394;
+      v29 = "[CSVoiceTriggerStatAggregator logFalseWakeUp:withPhrase:]";
+      v30 = 2050;
+      *v31 = numFalseWakeUp;
+      _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s ::: incrementing false wakeup to %{public}llu", &v28, 0x16u);
     }
   }
 
@@ -131,15 +126,15 @@ id __113__CSVoiceTriggerStatAggregator_logTimeBasedTriggerLengthSampleCountStati
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
           v27 = self->_falseWakePhraseDictionary;
-          v29 = 136315906;
-          v30 = "[CSVoiceTriggerStatAggregator logFalseWakeUp:withPhrase:]";
-          v31 = 2050;
-          *v32 = v19;
-          *&v32[8] = 2050;
-          *&v32[10] = v20;
-          *&v32[18] = 2114;
-          *&v32[20] = v27;
-          _os_log_impl(&dword_1DDA4B000, v26, OS_LOG_TYPE_DEFAULT, "%s ::: accumulated false wakeup count is %{public}llu so far, not reporting yet because it has been only %{public}.2f seconds since last report with current phrases %{public}@", &v29, 0x2Au);
+          v28 = 136315906;
+          v29 = "[CSVoiceTriggerStatAggregator logFalseWakeUp:withPhrase:]";
+          v30 = 2050;
+          *v31 = v19;
+          *&v31[8] = 2050;
+          *&v31[10] = v20;
+          *&v31[18] = 2114;
+          *&v31[20] = v27;
+          _os_log_impl(&dword_1DDA4B000, v26, OS_LOG_TYPE_DEFAULT, "%s ::: accumulated false wakeup count is %{public}llu so far, not reporting yet because it has been only %{public}.2f seconds since last report with current phrases %{public}@", &v28, 0x2Au);
         }
       }
 
@@ -152,15 +147,15 @@ id __113__CSVoiceTriggerStatAggregator_logTimeBasedTriggerLengthSampleCountStati
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
           v23 = self->_numFalseWakeUp;
-          v29 = 136315906;
-          v30 = "[CSVoiceTriggerStatAggregator logFalseWakeUp:withPhrase:]";
-          v31 = 1026;
-          *v32 = v23;
-          *&v32[4] = 2050;
-          *&v32[6] = v20;
-          *&v32[14] = 2114;
-          *&v32[16] = phraseCopy;
-          _os_log_impl(&dword_1DDA4B000, v22, OS_LOG_TYPE_DEFAULT, "%s PowerLog : HeySiriFalseTrigger numFalseWakeUp:%{public}d, secondsSinceLastReport:%{public}lf, phrase:%{public}@", &v29, 0x26u);
+          v28 = 136315906;
+          v29 = "[CSVoiceTriggerStatAggregator logFalseWakeUp:withPhrase:]";
+          v30 = 1026;
+          *v31 = v23;
+          *&v31[4] = 2050;
+          *&v31[6] = v20;
+          *&v31[14] = 2114;
+          *&v31[16] = phraseCopy;
+          _os_log_impl(&dword_1DDA4B000, v22, OS_LOG_TYPE_DEFAULT, "%s PowerLog : HeySiriFalseTrigger numFalseWakeUp:%{public}d, secondsSinceLastReport:%{public}lf, phrase:%{public}@", &v28, 0x26u);
         }
 
         self->_numFalseWakeUp = 0;
@@ -176,8 +171,6 @@ id __113__CSVoiceTriggerStatAggregator_logTimeBasedTriggerLengthSampleCountStati
   {
     self->_lastAggTimeFalseWakeUp = v16;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logSecondPassResult:(int)result eventInfo:(id)info triggerAPWakeUp:(BOOL)up
@@ -189,7 +182,7 @@ id __113__CSVoiceTriggerStatAggregator_logTimeBasedTriggerLengthSampleCountStati
 
 id __78__CSVoiceTriggerStatAggregator_logSecondPassResult_eventInfo_triggerAPWakeUp___block_invoke(uint64_t a1)
 {
-  v25[6] = *MEMORY[0x1E69E9840];
+  v24[6] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *"";
   if (!v2)
@@ -233,12 +226,12 @@ LABEL_10:
     v7 = @"unknown";
   }
 
-  v18 = *(a1 + 32);
-  if (v18)
+  v17 = *(a1 + 32);
+  if (v17)
   {
-    v19 = [v18 objectForKeyedSubscript:@"firstPassTriggerSource"];
+    v18 = [v17 objectForKeyedSubscript:@"firstPassTriggerSource"];
 
-    if (v19)
+    if (v18)
     {
       v10 = [*(a1 + 32) objectForKeyedSubscript:@"firstPassTriggerSource"];
     }
@@ -248,16 +241,16 @@ LABEL_10:
       v10 = @"unknown";
     }
 
-    v20 = *(a1 + 32);
-    if (v20)
+    v19 = *(a1 + 32);
+    if (v19)
     {
-      v21 = [v20 objectForKeyedSubscript:@"triggerScore"];
+      v20 = [v19 objectForKeyedSubscript:@"triggerScore"];
 
-      if (v21)
+      if (v20)
       {
-        v22 = [*(a1 + 32) objectForKeyedSubscript:@"triggerScore"];
-        [v22 floatValue];
-        v3 = v23;
+        v21 = [*(a1 + 32) objectForKeyedSubscript:@"triggerScore"];
+        [v21 floatValue];
+        v3 = v22;
       }
     }
   }
@@ -268,42 +261,38 @@ LABEL_10:
   }
 
 LABEL_11:
-  v24[0] = @"result";
+  v23[0] = @"result";
   v11 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 40)];
-  v25[0] = v11;
-  v25[1] = v6;
-  v24[1] = @"languageCode";
-  v24[2] = @"modelVersion";
-  v25[2] = v7;
-  v25[3] = v10;
-  v24[3] = @"firstPassSource";
-  v24[4] = @"triggerScore";
+  v24[0] = v11;
+  v24[1] = v6;
+  v23[1] = @"languageCode";
+  v23[2] = @"modelVersion";
+  v24[2] = v7;
+  v24[3] = v10;
+  v23[3] = @"firstPassSource";
+  v23[4] = @"triggerScore";
   LODWORD(v12) = v3;
   v13 = [MEMORY[0x1E696AD98] numberWithFloat:v12];
-  v25[4] = v13;
-  v24[5] = @"triggerAPWakeup";
+  v24[4] = v13;
+  v23[5] = @"triggerAPWakeup";
   v14 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 44)];
-  v25[5] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:6];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v24[5] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:6];
 
   return v15;
 }
 
 id __68__CSVoiceTriggerStatAggregator_logAOPFirstPassTriggerWakeupLatency___block_invoke(uint64_t a1, double a2)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"latency";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"latency";
   LODWORD(a2) = *(a1 + 32);
   v2 = [MEMORY[0x1E696AD98] numberWithFloat:a2];
-  v7[1] = @"device";
-  v8[0] = v2;
+  v6[1] = @"device";
+  v7[0] = v2;
   v3 = +[CSUtils deviceProductType];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }

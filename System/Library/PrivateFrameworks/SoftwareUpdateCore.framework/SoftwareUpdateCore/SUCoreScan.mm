@@ -1,6 +1,7 @@
 @interface SUCoreScan
 + (BOOL)isPreSUStagingEnabledForUpdate:(id)update policy:(id)policy reason:(id *)reason;
 + (id)_generateStateTable;
++ (id)_phaseName:(int)name;
 - (BOOL)_decideAndProcessPSUSScanForPrimaryDescriptor:(id)descriptor secondaryDescriptor:(id)secondaryDescriptor andError:(id)error;
 - (BOOL)_decideAndProcessSlowReleaseScan;
 - (BOOL)_decideAndProcessSplomboScan;
@@ -14,6 +15,7 @@
 - (id)_operationName;
 - (id)_simDescriptorAttributes;
 - (id)description;
+- (int)_getPhaseAndPostEventAfterReachingScanPhase:(int)phase;
 - (int64_t)_decrementMobileAssetPending:(id)pending;
 - (int64_t)_determinePSUSAssets;
 - (int64_t)_downloadCatalog:(id)catalog withIdentifier:(id)identifier;
@@ -48,15 +50,19 @@
 - (unint64_t)actionPerformReserveSpace:(id *)space;
 - (unint64_t)actionScanComplete:(id *)complete;
 - (void)_cancelCompleteWithError:(id)error;
+- (void)_cancelEndComplete:(id)complete error:(id)error clearingTransaction:(BOOL)transaction;
+- (void)_checkEndComplete:(id)complete scanPolicy:(id)policy primary:(id)primary secondary:(id)secondary error:(id)error clearingTransaction:(BOOL)transaction;
 - (void)_checkMajorMinorEndComplete:(id)complete scanPolicy:(id)policy majorPrimary:(id)primary majorSecondary:(id)secondary minorPrimary:(id)minorPrimary minorSecondary:(id)minorSecondary error:(id)error clearingTransaction:(BOOL)self0;
 - (void)_checkSlowReleaseEndComplete:(id)complete scanPolicy:(id)policy primary:(id)primary secondary:(id)secondary alternatePrimary:(id)alternatePrimary alternateSecondary:(id)alternateSecondary error:(id)error clearingTransaction:(BOOL)self0;
 - (void)_clearCurrentOperation;
+- (void)_collectEndComplete:(id)complete scanPolicy:(id)policy active:(id)active error:(id)error clearingTransaction:(BOOL)transaction;
 - (void)_filterDocQueryResults:(id)results;
 - (void)_filterSUQueryResults:(id)results;
 - (void)_filterSUQueryResultsForSPITypeMajorMinorFromQuery:(id)query;
 - (void)_filterSUQueryResultsForSPITypeSingleFromQuery:(id)query;
 - (void)_incrementMobileAssetPending:(id)pending;
 - (void)_invalidOperation:(id)operation;
+- (void)_locateEndComplete:(id)complete scanPolicy:(id)policy primary:(id)primary secondary:(id)secondary error:(id)error clearingTransaction:(BOOL)transaction;
 - (void)_operationCompleting:(id)completing error:(id)error clearingTransaction:(BOOL)transaction;
 - (void)_reportPSUSDetermineFinishedEvent:(id)event duration:(double)duration;
 - (void)_reportPSUSDetermineStartedEvent;
@@ -82,364 +88,363 @@
 
 + (id)_generateStateTable
 {
-  v196[9] = *MEMORY[0x277D85DE8];
-  v195[0] = @"Idle";
-  v193[0] = @"CheckForAvailableUpdate";
+  v195[9] = *MEMORY[0x277D85DE8];
+  v194[0] = @"Idle";
+  v192[0] = @"CheckForAvailableUpdate";
   v3 = *MEMORY[0x277D644B8];
-  v191[0] = *MEMORY[0x277D64800];
-  v2 = v191[0];
-  v191[1] = v3;
-  v192[0] = @"DownloadingSUCatalog";
-  v192[1] = @"DownloadSUCatalog";
-  v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v192 forKeys:v191 count:2];
-  v194[0] = v70;
-  v193[1] = @"VerifyLatestAvailable";
-  v189[0] = v2;
-  v189[1] = v3;
-  v190[0] = @"DownloadingSUCatalog";
-  v190[1] = @"DownloadSUCatalog";
-  v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v190 forKeys:v189 count:2];
-  v194[1] = v69;
-  v193[2] = @"CollectDocMetadata";
-  v187[0] = v2;
-  v187[1] = v3;
-  v188[0] = @"DownloadingDocCatalog";
-  v188[1] = @"DownloadDocCatalog";
-  v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v188 forKeys:v187 count:2];
-  v194[2] = v68;
-  v193[3] = @"DeterminePSUSAssets";
-  v185[0] = v2;
-  v185[1] = v3;
-  v186[0] = @"DeterminingPSUSAssets";
-  v186[1] = @"DeterminePSUSAssets";
-  v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v186 forKeys:v185 count:2];
-  v194[3] = v67;
-  v193[4] = @"DecideNextScanStep";
-  v183 = v3;
-  v184 = @"DecideNextScanStep";
-  v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v184 forKeys:&v183 count:1];
-  v194[4] = v66;
-  v193[5] = @"ReserveSpace";
-  v181 = v3;
-  v182 = @"PerformReserveSpace";
-  v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v182 forKeys:&v181 count:1];
-  v194[5] = v65;
-  v193[6] = @"ScanComplete";
-  v179 = v3;
-  v180 = @"ScanComplete";
-  v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v180 forKeys:&v179 count:1];
-  v194[6] = v64;
-  v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v194 forKeys:v193 count:7];
-  v196[0] = v63;
-  v195[1] = @"DownloadingSUCatalog";
-  v177[0] = @"CatalogDownloadSuccess";
-  v175[0] = v2;
-  v175[1] = v3;
-  v176[0] = @"QueryingSUMetadata";
-  v176[1] = @"QuerySUMetadata";
-  v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v176 forKeys:v175 count:2];
-  v178[0] = v62;
-  v177[1] = @"CatalogDownloadFailed";
-  v173[0] = v2;
-  v173[1] = v3;
-  v174[0] = @"Idle";
-  v174[1] = @"ScanFailed";
-  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v174 forKeys:v173 count:2];
-  v178[1] = v61;
-  v177[2] = @"AlterCurrentPolicy";
-  v171 = v3;
-  v172 = *MEMORY[0x277D647D0];
-  v4 = v172;
-  v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v172 forKeys:&v171 count:1];
-  v178[2] = v60;
-  v177[3] = @"CancelCurrentScan";
-  v169[0] = v2;
-  v169[1] = v3;
-  v170[0] = @"Canceling";
-  v170[1] = @"CancelSUCatalogDownload";
-  v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v170 forKeys:v169 count:2];
-  v178[3] = v59;
-  v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v178 forKeys:v177 count:4];
-  v196[1] = v58;
-  v195[2] = @"QueryingSUMetadata";
-  v167[0] = @"QueryMetadataNoAssetFound";
-  v165[0] = v2;
-  v165[1] = v3;
-  v166[0] = @"Idle";
-  v166[1] = @"ScanCompleteNoUpdate";
-  v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v166 forKeys:v165 count:2];
-  v168[0] = v57;
-  v167[1] = @"QueryMetadataUpdateAvailable";
-  v163[0] = v2;
-  v163[1] = v3;
-  v164[0] = @"Idle";
-  v164[1] = @"ScanSuccess";
-  v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v164 forKeys:v163 count:2];
-  v168[1] = v56;
-  v167[2] = @"QueryMetadataFailed";
-  v161[0] = v2;
-  v161[1] = v3;
-  v162[0] = @"Idle";
-  v162[1] = @"ScanFailed";
-  v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v162 forKeys:v161 count:2];
-  v168[2] = v55;
-  v167[3] = @"AlterCurrentPolicy";
-  v159 = v3;
-  v160 = v4;
-  v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v160 forKeys:&v159 count:1];
-  v168[3] = v54;
-  v167[4] = @"CancelCurrentScan";
-  v157 = v2;
-  v158 = @"Canceling";
-  v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v158 forKeys:&v157 count:1];
-  v168[4] = v53;
-  v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v168 forKeys:v167 count:5];
-  v196[2] = v52;
-  v195[3] = @"DeterminingPSUSAssets";
-  v155[0] = @"PSUSAssetsDetermineSuccess";
-  v153[0] = v2;
-  v153[1] = v3;
-  v154[0] = @"Idle";
-  v154[1] = @"DeterminePSUSAssetsSuccess";
-  v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v154 forKeys:v153 count:2];
-  v156[0] = v51;
-  v155[1] = @"PSUSAssetsDetermineFailed";
-  v151[0] = v2;
-  v151[1] = v3;
-  v152[0] = @"Idle";
-  v152[1] = @"DeterminePSUSAssetsFailed";
-  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v152 forKeys:v151 count:2];
-  v156[1] = v50;
-  v155[2] = @"AlterCurrentPolicy";
-  v149 = v3;
-  v150 = v4;
-  v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v150 forKeys:&v149 count:1];
-  v156[2] = v49;
-  v155[3] = @"CancelCurrentScan";
-  v147[0] = v2;
-  v147[1] = v3;
-  v148[0] = @"Canceling";
-  v148[1] = @"CancelPSUSAssetsDetermination";
-  v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v148 forKeys:v147 count:2];
-  v156[3] = v48;
-  v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v156 forKeys:v155 count:4];
-  v196[3] = v47;
-  v195[4] = @"DownloadingDocCatalog";
-  v145[0] = @"CatalogDownloadSuccess";
-  v143[0] = v2;
-  v143[1] = v3;
-  v144[0] = @"QueryingDocMetadata";
-  v144[1] = @"QueryDocMetadata";
-  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v144 forKeys:v143 count:2];
-  v146[0] = v46;
-  v145[1] = @"CatalogDownloadFailed";
-  v141[0] = v2;
-  v141[1] = v3;
-  v142[0] = @"Idle";
-  v142[1] = @"ScanFailed";
-  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v142 forKeys:v141 count:2];
-  v146[1] = v45;
-  v145[2] = @"AlterCurrentPolicy";
-  v139 = v3;
-  v140 = v4;
-  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
-  v146[2] = v44;
-  v145[3] = @"CancelCurrentScan";
-  v137[0] = v2;
-  v137[1] = v3;
-  v138[0] = @"Canceling";
-  v138[1] = @"CancelDocCatalogDownload";
-  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v138 forKeys:v137 count:2];
-  v146[3] = v43;
-  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v146 forKeys:v145 count:4];
-  v196[4] = v42;
-  v195[5] = @"QueryingDocMetadata";
-  v135[0] = @"QueryMetadataNoAssetFound";
-  v133[0] = v2;
-  v133[1] = v3;
-  v134[0] = @"Idle";
-  v134[1] = @"ScanFailed";
-  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v134 forKeys:v133 count:2];
-  v136[0] = v41;
-  v135[1] = @"QueryMetadataSuccess";
-  v131[0] = v2;
-  v131[1] = v3;
-  v132[0] = @"Idle";
-  v132[1] = @"ScanSuccess";
-  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v132 forKeys:v131 count:2];
-  v136[1] = v40;
-  v135[2] = @"QueryMetadataNeedDoc";
-  v129[0] = v2;
-  v129[1] = v3;
-  v130[0] = @"DownloadingDocAsset";
-  v130[1] = @"DownloadDocAsset";
-  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v130 forKeys:v129 count:2];
-  v136[2] = v39;
-  v135[3] = @"QueryMetadataFailed";
-  v127[0] = v2;
-  v127[1] = v3;
-  v128[0] = @"Idle";
-  v128[1] = @"ScanFailed";
-  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v128 forKeys:v127 count:2];
-  v136[3] = v38;
-  v135[4] = @"AlterCurrentPolicy";
-  v125 = v3;
-  v126 = v4;
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
-  v136[4] = v37;
-  v135[5] = @"CancelCurrentScan";
-  v123 = v2;
-  v124 = @"Canceling";
-  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
-  v136[5] = v36;
-  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v136 forKeys:v135 count:6];
-  v196[5] = v35;
-  v195[6] = @"DownloadingDocAsset";
-  v121[0] = @"DocDownloadSuccess";
-  v119[0] = v2;
-  v119[1] = v3;
-  v120[0] = @"Idle";
-  v120[1] = @"ScanSuccess";
-  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v120 forKeys:v119 count:2];
-  v122[0] = v34;
-  v121[1] = @"DocDownloadFailed";
-  v117[0] = v2;
-  v117[1] = v3;
-  v118[0] = @"Idle";
-  v118[1] = @"ScanFailed";
-  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v118 forKeys:v117 count:2];
-  v122[1] = v33;
-  v121[2] = @"AlterCurrentPolicy";
-  v115 = v3;
-  v116 = @"AlterDocDownloadConfig";
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
-  v122[2] = v32;
-  v121[3] = @"CancelCurrentScan";
-  v113[0] = v2;
-  v113[1] = v3;
-  v114[0] = @"Canceling";
-  v114[1] = @"RemoveDocAsset";
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v114 forKeys:v113 count:2];
-  v122[3] = v31;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v122 forKeys:v121 count:4];
-  v196[6] = v30;
-  v195[7] = @"Canceling";
-  v111[0] = @"CatalogDownloadSuccess";
-  v109 = v3;
-  v110 = @"CheckCancelDone";
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v110 forKeys:&v109 count:1];
-  v112[0] = v29;
-  v111[1] = @"CatalogDownloadFailed";
-  v107 = v3;
-  v108 = @"AfterFailCheckCancelDone";
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
-  v112[1] = v28;
-  v111[2] = @"CatalogDownloadCancelSuccess";
-  v105 = v3;
-  v106 = @"CheckCancelDone";
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
-  v112[2] = v27;
-  v111[3] = @"CatalogDownloadCancelFailed";
-  v103 = v3;
-  v104 = @"AfterFailCheckCancelDone";
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
-  v112[3] = v26;
-  v111[4] = @"PSUSAssetsDetermineSuccess";
-  v101 = v3;
-  v102 = @"CheckCancelDone";
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
-  v112[4] = v25;
-  v111[5] = @"PSUSAssetsDetermineFailed";
-  v99 = v3;
-  v100 = @"AfterFailCheckCancelDone";
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
-  v112[5] = v24;
-  v111[6] = @"PSUSAssetsDetermineCancelSuccess";
-  v97 = v3;
-  v98 = @"CheckCancelDone";
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
-  v112[6] = v23;
-  v111[7] = @"PSUSAssetsDetermineCancelFailed";
-  v95 = v3;
-  v96 = @"AfterFailCheckCancelDone";
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
-  v112[7] = v22;
-  v111[8] = @"QueryMetadataNoAssetFound";
-  v93[0] = v2;
-  v93[1] = v3;
-  v94[0] = @"Idle";
-  v94[1] = @"CancelSuccess";
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:v93 count:2];
-  v112[8] = v21;
-  v111[9] = @"QueryMetadataUpdateAvailable";
-  v91[0] = v2;
-  v91[1] = v3;
-  v92[0] = @"Idle";
-  v92[1] = @"AfterAvailCancelSuccess";
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:v91 count:2];
-  v112[9] = v20;
-  v111[10] = @"QueryMetadataNeedDoc";
-  v89[0] = v2;
-  v89[1] = v3;
-  v90[0] = @"Idle";
-  v90[1] = @"CancelSuccess";
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:v89 count:2];
-  v112[10] = v18;
-  v111[11] = @"QueryMetadataSuccess";
-  v87[0] = v2;
-  v87[1] = v3;
-  v88[0] = @"Idle";
-  v88[1] = @"CancelSuccess";
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:2];
-  v112[11] = v17;
-  v111[12] = @"QueryMetadataFailed";
-  v85[0] = v2;
-  v85[1] = v3;
-  v86[0] = @"Idle";
-  v86[1] = @"AfterFailCancelSuccess";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v86 forKeys:v85 count:2];
-  v112[12] = v5;
-  v111[13] = @"DocDownloadSuccess";
-  v83 = v3;
-  v84 = @"CheckCancelDone";
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
-  v112[13] = v6;
-  v111[14] = @"DocDownloadFailed";
-  v81 = v3;
-  v82 = @"AfterFailCheckCancelDone";
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
-  v112[14] = v7;
-  v111[15] = @"DocRemoveSuccess";
-  v79 = v3;
-  v80 = @"CheckCancelDone";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
-  v112[15] = v8;
-  v111[16] = @"DocRemoveFailed";
-  v77 = v3;
-  v78 = @"AfterFailCheckCancelDone";
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-  v112[16] = v9;
-  v111[17] = @"CancelComplete";
-  v75[0] = v2;
-  v75[1] = v3;
-  v76[0] = @"Idle";
-  v76[1] = @"CancelDone";
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:2];
-  v112[17] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v112 forKeys:v111 count:18];
-  v196[7] = v11;
-  v195[8] = *MEMORY[0x277D647E8];
-  v73 = *MEMORY[0x277D647E0];
-  v71 = v2;
-  v72 = *MEMORY[0x277D647F0];
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-  v74 = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-  v196[8] = v13;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v196 forKeys:v195 count:9];
+  v190[0] = *MEMORY[0x277D64800];
+  v2 = v190[0];
+  v190[1] = v3;
+  v191[0] = @"DownloadingSUCatalog";
+  v191[1] = @"DownloadSUCatalog";
+  v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v191 forKeys:v190 count:2];
+  v193[0] = v69;
+  v192[1] = @"VerifyLatestAvailable";
+  v188[0] = v2;
+  v188[1] = v3;
+  v189[0] = @"DownloadingSUCatalog";
+  v189[1] = @"DownloadSUCatalog";
+  v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v189 forKeys:v188 count:2];
+  v193[1] = v68;
+  v192[2] = @"CollectDocMetadata";
+  v186[0] = v2;
+  v186[1] = v3;
+  v187[0] = @"DownloadingDocCatalog";
+  v187[1] = @"DownloadDocCatalog";
+  v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v187 forKeys:v186 count:2];
+  v193[2] = v67;
+  v192[3] = @"DeterminePSUSAssets";
+  v184[0] = v2;
+  v184[1] = v3;
+  v185[0] = @"DeterminingPSUSAssets";
+  v185[1] = @"DeterminePSUSAssets";
+  v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v185 forKeys:v184 count:2];
+  v193[3] = v66;
+  v192[4] = @"DecideNextScanStep";
+  v182 = v3;
+  v183 = @"DecideNextScanStep";
+  v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v183 forKeys:&v182 count:1];
+  v193[4] = v65;
+  v192[5] = @"ReserveSpace";
+  v180 = v3;
+  v181 = @"PerformReserveSpace";
+  v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v181 forKeys:&v180 count:1];
+  v193[5] = v64;
+  v192[6] = @"ScanComplete";
+  v178 = v3;
+  v179 = @"ScanComplete";
+  v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v179 forKeys:&v178 count:1];
+  v193[6] = v63;
+  v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v193 forKeys:v192 count:7];
+  v195[0] = v62;
+  v194[1] = @"DownloadingSUCatalog";
+  v176[0] = @"CatalogDownloadSuccess";
+  v174[0] = v2;
+  v174[1] = v3;
+  v175[0] = @"QueryingSUMetadata";
+  v175[1] = @"QuerySUMetadata";
+  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v175 forKeys:v174 count:2];
+  v177[0] = v61;
+  v176[1] = @"CatalogDownloadFailed";
+  v172[0] = v2;
+  v172[1] = v3;
+  v173[0] = @"Idle";
+  v173[1] = @"ScanFailed";
+  v60 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v173 forKeys:v172 count:2];
+  v177[1] = v60;
+  v176[2] = @"AlterCurrentPolicy";
+  v170 = v3;
+  v171 = *MEMORY[0x277D647D0];
+  v4 = v171;
+  v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v171 forKeys:&v170 count:1];
+  v177[2] = v59;
+  v176[3] = @"CancelCurrentScan";
+  v168[0] = v2;
+  v168[1] = v3;
+  v169[0] = @"Canceling";
+  v169[1] = @"CancelSUCatalogDownload";
+  v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v169 forKeys:v168 count:2];
+  v177[3] = v58;
+  v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v177 forKeys:v176 count:4];
+  v195[1] = v57;
+  v194[2] = @"QueryingSUMetadata";
+  v166[0] = @"QueryMetadataNoAssetFound";
+  v164[0] = v2;
+  v164[1] = v3;
+  v165[0] = @"Idle";
+  v165[1] = @"ScanCompleteNoUpdate";
+  v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v165 forKeys:v164 count:2];
+  v167[0] = v56;
+  v166[1] = @"QueryMetadataUpdateAvailable";
+  v162[0] = v2;
+  v162[1] = v3;
+  v163[0] = @"Idle";
+  v163[1] = @"ScanSuccess";
+  v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v163 forKeys:v162 count:2];
+  v167[1] = v55;
+  v166[2] = @"QueryMetadataFailed";
+  v160[0] = v2;
+  v160[1] = v3;
+  v161[0] = @"Idle";
+  v161[1] = @"ScanFailed";
+  v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v161 forKeys:v160 count:2];
+  v167[2] = v54;
+  v166[3] = @"AlterCurrentPolicy";
+  v158 = v3;
+  v159 = v4;
+  v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v159 forKeys:&v158 count:1];
+  v167[3] = v53;
+  v166[4] = @"CancelCurrentScan";
+  v156 = v2;
+  v157 = @"Canceling";
+  v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v157 forKeys:&v156 count:1];
+  v167[4] = v52;
+  v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v167 forKeys:v166 count:5];
+  v195[2] = v51;
+  v194[3] = @"DeterminingPSUSAssets";
+  v154[0] = @"PSUSAssetsDetermineSuccess";
+  v152[0] = v2;
+  v152[1] = v3;
+  v153[0] = @"Idle";
+  v153[1] = @"DeterminePSUSAssetsSuccess";
+  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v153 forKeys:v152 count:2];
+  v155[0] = v50;
+  v154[1] = @"PSUSAssetsDetermineFailed";
+  v150[0] = v2;
+  v150[1] = v3;
+  v151[0] = @"Idle";
+  v151[1] = @"DeterminePSUSAssetsFailed";
+  v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v151 forKeys:v150 count:2];
+  v155[1] = v49;
+  v154[2] = @"AlterCurrentPolicy";
+  v148 = v3;
+  v149 = v4;
+  v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v149 forKeys:&v148 count:1];
+  v155[2] = v48;
+  v154[3] = @"CancelCurrentScan";
+  v146[0] = v2;
+  v146[1] = v3;
+  v147[0] = @"Canceling";
+  v147[1] = @"CancelPSUSAssetsDetermination";
+  v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v147 forKeys:v146 count:2];
+  v155[3] = v47;
+  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v155 forKeys:v154 count:4];
+  v195[3] = v46;
+  v194[4] = @"DownloadingDocCatalog";
+  v144[0] = @"CatalogDownloadSuccess";
+  v142[0] = v2;
+  v142[1] = v3;
+  v143[0] = @"QueryingDocMetadata";
+  v143[1] = @"QueryDocMetadata";
+  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v143 forKeys:v142 count:2];
+  v145[0] = v45;
+  v144[1] = @"CatalogDownloadFailed";
+  v140[0] = v2;
+  v140[1] = v3;
+  v141[0] = @"Idle";
+  v141[1] = @"ScanFailed";
+  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v141 forKeys:v140 count:2];
+  v145[1] = v44;
+  v144[2] = @"AlterCurrentPolicy";
+  v138 = v3;
+  v139 = v4;
+  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
+  v145[2] = v43;
+  v144[3] = @"CancelCurrentScan";
+  v136[0] = v2;
+  v136[1] = v3;
+  v137[0] = @"Canceling";
+  v137[1] = @"CancelDocCatalogDownload";
+  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v137 forKeys:v136 count:2];
+  v145[3] = v42;
+  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v145 forKeys:v144 count:4];
+  v195[4] = v41;
+  v194[5] = @"QueryingDocMetadata";
+  v134[0] = @"QueryMetadataNoAssetFound";
+  v132[0] = v2;
+  v132[1] = v3;
+  v133[0] = @"Idle";
+  v133[1] = @"ScanFailed";
+  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v133 forKeys:v132 count:2];
+  v135[0] = v40;
+  v134[1] = @"QueryMetadataSuccess";
+  v130[0] = v2;
+  v130[1] = v3;
+  v131[0] = @"Idle";
+  v131[1] = @"ScanSuccess";
+  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v131 forKeys:v130 count:2];
+  v135[1] = v39;
+  v134[2] = @"QueryMetadataNeedDoc";
+  v128[0] = v2;
+  v128[1] = v3;
+  v129[0] = @"DownloadingDocAsset";
+  v129[1] = @"DownloadDocAsset";
+  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v129 forKeys:v128 count:2];
+  v135[2] = v38;
+  v134[3] = @"QueryMetadataFailed";
+  v126[0] = v2;
+  v126[1] = v3;
+  v127[0] = @"Idle";
+  v127[1] = @"ScanFailed";
+  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v127 forKeys:v126 count:2];
+  v135[3] = v37;
+  v134[4] = @"AlterCurrentPolicy";
+  v124 = v3;
+  v125 = v4;
+  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v125 forKeys:&v124 count:1];
+  v135[4] = v36;
+  v134[5] = @"CancelCurrentScan";
+  v122 = v2;
+  v123 = @"Canceling";
+  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v123 forKeys:&v122 count:1];
+  v135[5] = v35;
+  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v135 forKeys:v134 count:6];
+  v195[5] = v34;
+  v194[6] = @"DownloadingDocAsset";
+  v120[0] = @"DocDownloadSuccess";
+  v118[0] = v2;
+  v118[1] = v3;
+  v119[0] = @"Idle";
+  v119[1] = @"ScanSuccess";
+  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v119 forKeys:v118 count:2];
+  v121[0] = v33;
+  v120[1] = @"DocDownloadFailed";
+  v116[0] = v2;
+  v116[1] = v3;
+  v117[0] = @"Idle";
+  v117[1] = @"ScanFailed";
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v117 forKeys:v116 count:2];
+  v121[1] = v32;
+  v120[2] = @"AlterCurrentPolicy";
+  v114 = v3;
+  v115 = @"AlterDocDownloadConfig";
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
+  v121[2] = v31;
+  v120[3] = @"CancelCurrentScan";
+  v112[0] = v2;
+  v112[1] = v3;
+  v113[0] = @"Canceling";
+  v113[1] = @"RemoveDocAsset";
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v113 forKeys:v112 count:2];
+  v121[3] = v30;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v121 forKeys:v120 count:4];
+  v195[6] = v29;
+  v194[7] = @"Canceling";
+  v110[0] = @"CatalogDownloadSuccess";
+  v108 = v3;
+  v109 = @"CheckCancelDone";
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
+  v111[0] = v28;
+  v110[1] = @"CatalogDownloadFailed";
+  v106 = v3;
+  v107 = @"AfterFailCheckCancelDone";
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+  v111[1] = v27;
+  v110[2] = @"CatalogDownloadCancelSuccess";
+  v104 = v3;
+  v105 = @"CheckCancelDone";
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+  v111[2] = v26;
+  v110[3] = @"CatalogDownloadCancelFailed";
+  v102 = v3;
+  v103 = @"AfterFailCheckCancelDone";
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
+  v111[3] = v25;
+  v110[4] = @"PSUSAssetsDetermineSuccess";
+  v100 = v3;
+  v101 = @"CheckCancelDone";
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+  v111[4] = v24;
+  v110[5] = @"PSUSAssetsDetermineFailed";
+  v98 = v3;
+  v99 = @"AfterFailCheckCancelDone";
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
+  v111[5] = v23;
+  v110[6] = @"PSUSAssetsDetermineCancelSuccess";
+  v96 = v3;
+  v97 = @"CheckCancelDone";
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
+  v111[6] = v22;
+  v110[7] = @"PSUSAssetsDetermineCancelFailed";
+  v94 = v3;
+  v95 = @"AfterFailCheckCancelDone";
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+  v111[7] = v21;
+  v110[8] = @"QueryMetadataNoAssetFound";
+  v92[0] = v2;
+  v92[1] = v3;
+  v93[0] = @"Idle";
+  v93[1] = @"CancelSuccess";
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:2];
+  v111[8] = v20;
+  v110[9] = @"QueryMetadataUpdateAvailable";
+  v90[0] = v2;
+  v90[1] = v3;
+  v91[0] = @"Idle";
+  v91[1] = @"AfterAvailCancelSuccess";
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v91 forKeys:v90 count:2];
+  v111[9] = v19;
+  v110[10] = @"QueryMetadataNeedDoc";
+  v88[0] = v2;
+  v88[1] = v3;
+  v89[0] = @"Idle";
+  v89[1] = @"CancelSuccess";
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:2];
+  v111[10] = v17;
+  v110[11] = @"QueryMetadataSuccess";
+  v86[0] = v2;
+  v86[1] = v3;
+  v87[0] = @"Idle";
+  v87[1] = @"CancelSuccess";
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:2];
+  v111[11] = v16;
+  v110[12] = @"QueryMetadataFailed";
+  v84[0] = v2;
+  v84[1] = v3;
+  v85[0] = @"Idle";
+  v85[1] = @"AfterFailCancelSuccess";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:v84 count:2];
+  v111[12] = v5;
+  v110[13] = @"DocDownloadSuccess";
+  v82 = v3;
+  v83 = @"CheckCancelDone";
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+  v111[13] = v6;
+  v110[14] = @"DocDownloadFailed";
+  v80 = v3;
+  v81 = @"AfterFailCheckCancelDone";
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+  v111[14] = v7;
+  v110[15] = @"DocRemoveSuccess";
+  v78 = v3;
+  v79 = @"CheckCancelDone";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+  v111[15] = v8;
+  v110[16] = @"DocRemoveFailed";
+  v76 = v3;
+  v77 = @"AfterFailCheckCancelDone";
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+  v111[16] = v9;
+  v110[17] = @"CancelComplete";
+  v74[0] = v2;
+  v74[1] = v3;
+  v75[0] = @"Idle";
+  v75[1] = @"CancelDone";
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:2];
+  v111[17] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v111 forKeys:v110 count:18];
+  v195[7] = v11;
+  v194[8] = *MEMORY[0x277D647E8];
+  v72 = *MEMORY[0x277D647E0];
+  v70 = v2;
+  v71 = *MEMORY[0x277D647F0];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+  v73 = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+  v195[8] = v13;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v195 forKeys:v194 count:9];
 
-  v14 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:v19 copyItems:1];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:v18 copyItems:1];
 
   return v14;
 }
@@ -634,7 +639,7 @@
 
 - (int64_t)actionQuerySUMetadata:(id *)metadata
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   scanFSM = [(SUCoreScan *)self scanFSM];
   extendedStateQueue = [scanFSM extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -655,8 +660,8 @@
     {
       *buf = 138543618;
       selfCopy3 = self;
-      v36 = 2114;
-      v37 = mobileAssetPurposeOverride2;
+      v35 = 2114;
+      v36 = mobileAssetPurposeOverride2;
       v13 = "%{public}@ SU metadata query using mobileAssetPurposeOverride as purpose: %{public}@";
 LABEL_10:
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, v13, buf, 0x16u);
@@ -678,8 +683,8 @@ LABEL_10:
     {
       *buf = 138543618;
       selfCopy3 = self;
-      v36 = 2114;
-      v37 = mobileAssetPurposeOverride2;
+      v35 = 2114;
+      v36 = mobileAssetPurposeOverride2;
       v13 = "%{public}@ SU metadata query using alternateAssetAudienceUUID as purpose: %{public}@";
       goto LABEL_10;
     }
@@ -704,8 +709,8 @@ LABEL_11:
     {
       *buf = 138543618;
       selfCopy3 = self;
-      v36 = 2114;
-      v37 = mobileAssetPurposeOverride2;
+      v35 = 2114;
+      v36 = mobileAssetPurposeOverride2;
       v13 = "%{public}@ SU metadata query using scan policy assetAudienceUUID as purpose: %{public}@";
       goto LABEL_10;
     }
@@ -722,13 +727,13 @@ LABEL_12:
   if (v21)
   {
     [(SUCoreScan *)self _trackScanBegin:@"queryMetaDataWithError" withIdentifier:@"su"];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __36__SUCoreScan_actionQuerySUMetadata___block_invoke;
-    v32[3] = &unk_27892D200;
-    v32[4] = self;
-    v33 = v21;
-    [v33 SUCoreBorder_queryMetaDataWithError:v32];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __36__SUCoreScan_actionQuerySUMetadata___block_invoke;
+    v31[3] = &unk_27892D200;
+    v31[4] = self;
+    v32 = v21;
+    [v32 SUCoreBorder_queryMetaDataWithError:v31];
   }
 
   else
@@ -747,7 +752,6 @@ LABEL_12:
     [scanFSM2 postEvent:@"QueryMetadataFailed" withInfo:v29];
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -773,7 +777,7 @@ void __36__SUCoreScan_actionQuerySUMetadata___block_invoke(uint64_t a1, uint64_t
 
 - (unint64_t)actionPerformReserveSpace:(id *)space
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   scanFSM = [(SUCoreScan *)self scanFSM];
   extendedStateQueue = [scanFSM extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -783,7 +787,7 @@ void __36__SUCoreScan_actionQuerySUMetadata___block_invoke(uint64_t a1, uint64_t
     scanFSM2 = [(SUCoreScan *)self scanFSM];
     [scanFSM2 followupEvent:@"DecideNextScanStep"];
 
-    goto LABEL_78;
+    return 0;
   }
 
   if ([(SUCoreScan *)self operationSPIType]== 1)
@@ -858,7 +862,7 @@ LABEL_20:
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     v18 = @"NO";
-    v64 = "[SUCoreScan actionPerformReserveSpace:]";
+    v63 = "[SUCoreScan actionPerformReserveSpace:]";
     if (v11)
     {
       v19 = @"YES";
@@ -880,17 +884,17 @@ LABEL_20:
       v20 = @"NO";
     }
 
-    v66 = v19;
-    v65 = 2112;
-    v67 = 2112;
-    v68 = v20;
+    v65 = v19;
+    v64 = 2112;
+    v66 = 2112;
+    v67 = v20;
     if (v15)
     {
       v18 = @"YES";
     }
 
-    v69 = 2112;
-    v70 = v18;
+    v68 = 2112;
+    v69 = v18;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[Space] %s, isReserveSpaceDisabled: %@, anyUpdateIsIncremental: %@, shouldUseReserveSpace: %@", buf, 0x2Au);
   }
 
@@ -1087,32 +1091,30 @@ LABEL_62:
     v53 = v52;
   }
 
-  v61[0] = @"CACHE_DELETE_RESERVE_SPACE_AMOUNT";
+  v60[0] = @"CACHE_DELETE_RESERVE_SPACE_AMOUNT";
   v54 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v53];
-  v62[0] = v54;
-  v61[1] = @"CACHE_DELETE_EXPECTED_SYSTEM_GROWTH_AMOUNT";
+  v61[0] = v54;
+  v60[1] = @"CACHE_DELETE_EXPECTED_SYSTEM_GROWTH_AMOUNT";
   v55 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:unsignedLongLongValue];
-  v62[1] = v55;
-  v62[2] = v45;
-  v61[2] = @"CACHE_DELETE_FACTOR_FOR_CENTRALIZED_PURGEABLE";
-  v61[3] = @"CACHE_DELETE_FACTOR_FOR_PLUGIN_PURGEABLE";
-  v61[4] = @"CACHE_DELETE_MAX_RESERVE_SPACE_AMOUNT";
-  v62[3] = v48;
-  v62[4] = v51;
-  v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:5];
+  v61[1] = v55;
+  v61[2] = v45;
+  v60[2] = @"CACHE_DELETE_FACTOR_FOR_CENTRALIZED_PURGEABLE";
+  v60[3] = @"CACHE_DELETE_FACTOR_FOR_PLUGIN_PURGEABLE";
+  v60[4] = @"CACHE_DELETE_MAX_RESERVE_SPACE_AMOUNT";
+  v61[3] = v48;
+  v61[4] = v51;
+  v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:5];
 
   [SUCoreSpace cacheDeleteSetReserveSpaceWithInfo:v56];
   scanFSM3 = [(SUCoreScan *)selfCopy scanFSM];
   [scanFSM3 followupEvent:@"DecideNextScanStep"];
 
-LABEL_78:
-  v58 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (unint64_t)actionDeterminePSUSAssetsSuccess:(id)success error:(id *)error
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   successCopy = success;
   scanFSM = [(SUCoreScan *)self scanFSM];
   extendedStateQueue = [scanFSM extendedStateQueue];
@@ -1135,39 +1137,38 @@ LABEL_3:
     goto LABEL_4;
   }
 
-  v19 = [additionalInfo safeObjectForKey:@"PSUSAssetsSizes" ofClass:objc_opt_class()];
-  if (!v19)
+  v18 = [additionalInfo safeObjectForKey:@"PSUSAssetsSizes" ofClass:objc_opt_class()];
+  if (!v18)
   {
     scanFSM2 = [(SUCoreScan *)self scanFSM];
     diag = [scanFSM2 diag];
-    v49 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@ unexpected no assets sizes", self];
-    [diag trackAnomaly:@"[SCAN] DETERMINE_PSUS_SUCCESS" forReason:v49 withResult:8117 withError:0];
+    v47 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@ unexpected no assets sizes", self];
+    [diag trackAnomaly:@"[SCAN] DETERMINE_PSUS_SUCCESS" forReason:v47 withResult:8117 withError:0];
 
-    v50 = [additionalInfo safeObjectForKey:@"Duration" ofClass:objc_opt_class()];
-    [v50 doubleValue];
-    v13 = v51;
+    v48 = [additionalInfo safeObjectForKey:@"Duration" ofClass:objc_opt_class()];
+    [v48 doubleValue];
+    v13 = v49;
 
     selfCopy2 = self;
     v15 = 0;
     goto LABEL_3;
   }
 
-  v20 = v19;
-  v52 = v8;
-  v21 = [v19 safeULLForKey:@"STAGE_GROUP_REQUIRED" defaultValue:0];
-  v22 = [v20 safeULLForKey:@"STAGE_GROUP_OPTIONAL" defaultValue:0];
+  v19 = v18;
+  v50 = v8;
+  v20 = [v18 safeULLForKey:@"STAGE_GROUP_REQUIRED" defaultValue:0];
+  v21 = [v19 safeULLForKey:@"STAGE_GROUP_OPTIONAL" defaultValue:0];
   psusPrimaryDescriptor = [(SUCoreScan *)self psusPrimaryDescriptor];
   preSUStagingMaxSize = [psusPrimaryDescriptor preSUStagingMaxSize];
 
-  v25 = *MEMORY[0x277D29460];
-  v26 = _MSUPreferencesCopyValue();
-  if (v26)
+  v24 = _MSUPreferencesCopyValue();
+  if (v24)
   {
-    v27 = v26;
-    v28 = CFGetTypeID(v26);
-    if (v28 == CFNumberGetTypeID())
+    v25 = v24;
+    v26 = CFGetTypeID(v24);
+    if (v26 == CFNumberGetTypeID())
     {
-      preSUStagingMaxSize = [v27 unsignedLongLongValue];
+      preSUStagingMaxSize = [v25 unsignedLongLongValue];
       mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
       oslog = [mEMORY[0x277D64460] oslog];
 
@@ -1175,17 +1176,17 @@ LABEL_3:
       {
         *buf = 138543618;
         selfCopy4 = self;
-        v55 = 2048;
-        v56 = preSUStagingMaxSize;
+        v53 = 2048;
+        v54 = preSUStagingMaxSize;
         _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ Using PSUS max size from preferences: %llu", buf, 0x16u);
       }
     }
 
-    CFRelease(v27);
+    CFRelease(v25);
   }
 
-  v33 = v21 > preSUStagingMaxSize || v22 > preSUStagingMaxSize || v22 + v21 > preSUStagingMaxSize;
-  if (v33)
+  v31 = v20 > preSUStagingMaxSize || v21 > preSUStagingMaxSize || v21 + v20 > preSUStagingMaxSize;
+  if (v31)
   {
     mEMORY[0x277D64460]2 = [MEMORY[0x277D64460] sharedLogger];
     oslog2 = [mEMORY[0x277D64460]2 oslog];
@@ -1194,35 +1195,35 @@ LABEL_3:
     {
       *buf = 138544130;
       selfCopy4 = self;
+      v53 = 2048;
+      v54 = v20;
       v55 = 2048;
       v56 = v21;
       v57 = 2048;
-      v58 = v22;
-      v59 = 2048;
-      v60 = preSUStagingMaxSize;
+      v58 = preSUStagingMaxSize;
       _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "%{public}@ Ignore PSUS assets because required=%llu, optional=%llu, max=%llu", buf, 0x2Au);
     }
   }
 
   psusPrimaryDescriptor2 = [(SUCoreScan *)self psusPrimaryDescriptor];
-  [psusPrimaryDescriptor2 setPreSUStagingRequiredSize:v21];
+  [psusPrimaryDescriptor2 setPreSUStagingRequiredSize:v20];
 
   psusPrimaryDescriptor3 = [(SUCoreScan *)self psusPrimaryDescriptor];
-  [psusPrimaryDescriptor3 setPreSUStagingOptionalSize:v22];
+  [psusPrimaryDescriptor3 setPreSUStagingOptionalSize:v21];
 
   psusSecondaryDescriptor = [(SUCoreScan *)self psusSecondaryDescriptor];
-  [psusSecondaryDescriptor setPreSUStagingRequiredSize:v21];
+  [psusSecondaryDescriptor setPreSUStagingRequiredSize:v20];
 
   psusSecondaryDescriptor2 = [(SUCoreScan *)self psusSecondaryDescriptor];
-  [psusSecondaryDescriptor2 setPreSUStagingOptionalSize:v22];
+  [psusSecondaryDescriptor2 setPreSUStagingOptionalSize:v21];
 
-  v40 = [additionalInfo safeObjectForKey:@"Duration" ofClass:objc_opt_class()];
-  [v40 doubleValue];
-  v42 = v41;
+  v38 = [additionalInfo safeObjectForKey:@"Duration" ofClass:objc_opt_class()];
+  [v38 doubleValue];
+  v40 = v39;
 
-  [(SUCoreScan *)self _reportPSUSDetermineFinishedEvent:0 duration:v42];
-  v8 = v52;
-  if (v33)
+  [(SUCoreScan *)self _reportPSUSDetermineFinishedEvent:0 duration:v40];
+  v8 = v50;
+  if (v31)
   {
     psusPrimaryDescriptor4 = [(SUCoreScan *)self psusPrimaryDescriptor];
     [psusPrimaryDescriptor4 setPreSUStagingRequiredSize:0];
@@ -1243,7 +1244,6 @@ LABEL_4:
   scanFSM3 = [(SUCoreScan *)self scanFSM];
   [scanFSM3 followupEvent:@"DecideNextScanStep"];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1352,6 +1352,275 @@ LABEL_12:
   return v13;
 }
 
+- (int)_getPhaseAndPostEventAfterReachingScanPhase:(int)phase
+{
+  v3 = *&phase;
+  v55 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
+  oslog = [mEMORY[0x277D64460] oslog];
+
+  if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = [SUCoreScan _phaseName:v3];
+    *buf = 138543618;
+    selfCopy2 = self;
+    v51 = 2114;
+    v52 = v7;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ DecideNextScanStep: reached phase = %{public}@", buf, 0x16u);
+  }
+
+  v8 = 0;
+  if (v3 > 1)
+  {
+    if (v3 != 2)
+    {
+      v9 = v3;
+      if (v3 != 3)
+      {
+        goto LABEL_29;
+      }
+
+LABEL_14:
+      if ([(SUCoreScan *)self operationSPIType]== 1)
+      {
+        interimScanResult = [(SUCoreScan *)self interimScanResult];
+        descriptor = [interimScanResult descriptor];
+
+        interimScanResult2 = [(SUCoreScan *)self interimScanResult];
+        fallbackDescriptor = [interimScanResult2 fallbackDescriptor];
+      }
+
+      else
+      {
+        if ([(SUCoreScan *)self operationSPIType]!= 2 && [(SUCoreScan *)self operationSPIType]!= 3)
+        {
+          v22 = 0;
+          descriptor = 0;
+          goto LABEL_22;
+        }
+
+        interimScanResult3 = [(SUCoreScan *)self interimScanResult];
+        descriptor = [interimScanResult3 majorPrimaryDescriptor];
+
+        interimScanResult2 = [(SUCoreScan *)self interimScanResult];
+        fallbackDescriptor = [interimScanResult2 majorSecondaryDescriptor];
+      }
+
+      v22 = fallbackDescriptor;
+
+LABEL_22:
+      interimScanResult4 = [(SUCoreScan *)self interimScanResult];
+      error = [interimScanResult4 error];
+
+      v25 = [(SUCoreScan *)self _decideAndProcessPSUSScanForPrimaryDescriptor:descriptor secondaryDescriptor:v22 andError:error];
+      if (v25)
+      {
+        v8 = @"DeterminePSUSAssets";
+      }
+
+      else
+      {
+        v8 = 0;
+      }
+
+      if (v25)
+      {
+        v9 = 3;
+      }
+
+      else
+      {
+        v9 = 4;
+      }
+
+      goto LABEL_29;
+    }
+
+LABEL_11:
+    if ([(SUCoreScan *)self _decideAndProcessSlowReleaseScan])
+    {
+      v10 = 3;
+      goto LABEL_13;
+    }
+
+    goto LABEL_14;
+  }
+
+  if (!v3)
+  {
+    scanPolicy = [(SUCoreScan *)self scanPolicy];
+    v48 = 0;
+    v16 = [scanPolicy isSupervisedAndRequestingInvalidOS:&v48];
+    v17 = v48;
+
+    if (!v16)
+    {
+      v9 = 0;
+      v8 = @"CheckForAvailableUpdate";
+LABEL_50:
+
+      goto LABEL_51;
+    }
+
+    mEMORY[0x277D643F8] = [MEMORY[0x277D643F8] sharedCore];
+    error3 = [mEMORY[0x277D643F8] buildError:8400 underlying:0 description:v17];
+
+    v20 = [[SUCoreScanParam alloc] initWithResult:8400 withError:error3];
+    [(SUCoreScan *)self setInterimScanResult:v20];
+
+    v8 = 0;
+    v9 = 6;
+LABEL_49:
+
+    goto LABEL_50;
+  }
+
+  v9 = v3;
+  if (v3 == 1)
+  {
+    if ([(SUCoreScan *)self _decideAndProcessSplomboScan])
+    {
+      v10 = 2;
+LABEL_13:
+      v8 = @"CheckForAvailableUpdate";
+      goto LABEL_56;
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_29:
+  if (v9 == 4)
+  {
+    if ([(SUCoreScan *)self operationSPIType]== 2 || [(SUCoreScan *)self operationSPIType]== 3)
+    {
+      interimScanResult5 = [(SUCoreScan *)self interimScanResult];
+      minorPrimaryDescriptor = [interimScanResult5 minorPrimaryDescriptor];
+
+      interimScanResult6 = [(SUCoreScan *)self interimScanResult];
+      minorSecondaryDescriptor = [interimScanResult6 minorSecondaryDescriptor];
+    }
+
+    else
+    {
+      minorSecondaryDescriptor = 0;
+      minorPrimaryDescriptor = 0;
+    }
+
+    interimScanResult7 = [(SUCoreScan *)self interimScanResult];
+    error2 = [interimScanResult7 error];
+
+    if ([(SUCoreScan *)self _decideAndProcessPSUSScanForPrimaryDescriptor:minorPrimaryDescriptor secondaryDescriptor:minorSecondaryDescriptor andError:error2])
+    {
+      v8 = @"DeterminePSUSAssets";
+      v9 = 4;
+    }
+
+    else
+    {
+      v9 = 5;
+    }
+  }
+
+  if (v9 == 5)
+  {
+    if ([(SUCoreScan *)self operationSPIType]== 1)
+    {
+      interimScanResult8 = [(SUCoreScan *)self interimScanResult];
+      descriptor2 = [interimScanResult8 descriptor];
+    }
+
+    else
+    {
+      if ([(SUCoreScan *)self operationSPIType]!= 2 && [(SUCoreScan *)self operationSPIType]!= 3)
+      {
+        v17 = 0;
+LABEL_46:
+        interimScanResult9 = [(SUCoreScan *)self interimScanResult];
+        error3 = [interimScanResult9 error];
+
+        if ([(SUCoreScan *)self _decideReserveSpace:v17 error:error3])
+        {
+          v8 = @"ReserveSpace";
+          v9 = 5;
+        }
+
+        else
+        {
+          v9 = 6;
+        }
+
+        goto LABEL_49;
+      }
+
+      interimScanResult8 = [(SUCoreScan *)self interimScanResult];
+      descriptor2 = [interimScanResult8 majorPrimaryDescriptor];
+    }
+
+    v17 = descriptor2;
+
+    goto LABEL_46;
+  }
+
+LABEL_51:
+  if (v9 == 6)
+  {
+    v10 = 7;
+    v8 = @"ScanComplete";
+    goto LABEL_56;
+  }
+
+  if (v9 >= 7)
+  {
+    scanFSM = [(SUCoreScan *)self scanFSM];
+    diag = [scanFSM diag];
+    v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ invalid phase detected", self];
+    [diag trackAnomaly:@"[SCAN_GET_NEXT_PHASE]" forReason:v37 withResult:8117 withError:0];
+
+    v8 = 0;
+    v10 = 0;
+    v38 = 0;
+LABEL_57:
+
+    goto LABEL_58;
+  }
+
+  v10 = (v9 + 1);
+  if (v8)
+  {
+LABEL_56:
+    v39 = [SUCoreScanParam alloc];
+    v40 = MEMORY[0x277CCACA8];
+    v41 = [SUCoreScan _phaseName:v3];
+    v42 = [SUCoreScan _phaseName:v10];
+    v43 = [v40 stringWithFormat:@"DecideNextScanStep: reached phase = %@, next (reached) phase = %@", v41, v42];
+    v38 = [(SUCoreScanParam *)v39 initWithNote:v43];
+
+    scanFSM = [(SUCoreScan *)self scanFSM];
+    [scanFSM followupEvent:v8 withInfo:v38];
+    goto LABEL_57;
+  }
+
+  v38 = 0;
+LABEL_58:
+  mEMORY[0x277D64460]2 = [MEMORY[0x277D64460] sharedLogger];
+  oslog2 = [mEMORY[0x277D64460]2 oslog];
+
+  if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
+  {
+    v46 = [SUCoreScan _phaseName:v10];
+    *buf = 138543874;
+    selfCopy2 = self;
+    v51 = 2114;
+    v52 = v46;
+    v53 = 2114;
+    v54 = v8;
+    _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "%{public}@ DecideNextScanStep: next (reached) phase = %{public}@, next event = %{public}@", buf, 0x20u);
+  }
+
+  return v10;
+}
+
 - (unint64_t)actionDecideNextScanStep:(id *)step
 {
   scanFSM = [(SUCoreScan *)self scanFSM];
@@ -1377,7 +1646,7 @@ LABEL_12:
 
 - (int64_t)actionQueryDocMetadata:(id *)metadata
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   scanFSM = [(SUCoreScan *)self scanFSM];
   extendedStateQueue = [scanFSM extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -1398,8 +1667,8 @@ LABEL_12:
     {
       *buf = 138543618;
       selfCopy3 = self;
-      v42 = 2114;
-      v43 = mobileAssetPurposeOverride2;
+      v41 = 2114;
+      v42 = mobileAssetPurposeOverride2;
       v13 = "%{public}@ doc metadata query using mobileAssetPurposeOverride as purpose: %{public}@";
 LABEL_10:
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, v13, buf, 0x16u);
@@ -1424,8 +1693,8 @@ LABEL_10:
     {
       *buf = 138543618;
       selfCopy3 = self;
-      v42 = 2114;
-      v43 = mobileAssetPurposeOverride2;
+      v41 = 2114;
+      v42 = mobileAssetPurposeOverride2;
       v13 = "%{public}@ doc metadata query using activeDescriptor assetAudienceUUID as purpose: %{public}@";
       goto LABEL_10;
     }
@@ -1450,8 +1719,8 @@ LABEL_11:
     {
       *buf = 138543618;
       selfCopy3 = self;
-      v42 = 2114;
-      v43 = mobileAssetPurposeOverride2;
+      v41 = 2114;
+      v42 = mobileAssetPurposeOverride2;
       v13 = "%{public}@ doc metadata query using scan policy assetAudienceUUID as purpose: %{public}@";
       goto LABEL_10;
     }
@@ -1470,13 +1739,13 @@ LABEL_12:
   if (v25)
   {
     [(SUCoreScan *)self _trackScanBegin:@"queryMetaDataWithError" withIdentifier:@"doc"];
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __37__SUCoreScan_actionQueryDocMetadata___block_invoke;
-    v38[3] = &unk_27892D200;
-    v38[4] = self;
-    v39 = v25;
-    [v39 SUCoreBorder_queryMetaDataWithError:v38];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __37__SUCoreScan_actionQueryDocMetadata___block_invoke;
+    v37[3] = &unk_27892D200;
+    v37[4] = self;
+    v38 = v25;
+    [v38 SUCoreBorder_queryMetaDataWithError:v37];
   }
 
   else
@@ -1497,7 +1766,6 @@ LABEL_12:
     [scanFSM2 postEvent:@"QueryMetadataFailed" withInfo:v35];
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1697,7 +1965,7 @@ void __35__SUCoreScan_actionRemoveDocAsset___block_invoke(uint64_t a1, void *a2)
 
 - (int64_t)actionScanSuccess:(id)success error:(id *)error
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   successCopy = success;
   scanFSM = [(SUCoreScan *)self scanFSM];
   extendedStateQueue = [scanFSM extendedStateQueue];
@@ -1711,7 +1979,7 @@ void __35__SUCoreScan_actionRemoveDocAsset___block_invoke(uint64_t a1, void *a2)
   {
     if (operation == 3)
     {
-      v54 = v8;
+      v53 = v8;
       mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
       oslog = [mEMORY[0x277D64460] oslog];
 
@@ -1727,10 +1995,10 @@ void __35__SUCoreScan_actionRemoveDocAsset___block_invoke(uint64_t a1, void *a2)
       summary2 = [documentation summary];
       *buf = 138543874;
       selfCopy8 = self;
-      v63 = 2114;
-      v64 = summary;
-      v65 = 2114;
-      v66 = summary2;
+      v62 = 2114;
+      v63 = summary;
+      v64 = 2114;
+      v65 = summary2;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ collected descriptor:%{public}@ doc metadata:%{public}@", buf, 0x20u);
     }
 
@@ -1741,7 +2009,7 @@ void __35__SUCoreScan_actionRemoveDocAsset___block_invoke(uint64_t a1, void *a2)
         goto LABEL_11;
       }
 
-      v54 = v8;
+      v53 = v8;
       secondaryUpdateAsset = [(SUCoreScan *)self secondaryUpdateAsset];
 
       mEMORY[0x277D64460]2 = [MEMORY[0x277D64460] sharedLogger];
@@ -1761,10 +2029,10 @@ void __35__SUCoreScan_actionRemoveDocAsset___block_invoke(uint64_t a1, void *a2)
         assetId2 = [secondaryUpdateAsset2 assetId];
         *buf = 138543874;
         selfCopy8 = self;
-        v63 = 2114;
-        v64 = assetId;
-        v65 = 2114;
-        v66 = assetId2;
+        v62 = 2114;
+        v63 = assetId;
+        v64 = 2114;
+        v65 = assetId2;
         _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ found primary update asset ID:%{public}@ with secondary update asset ID:%{public}@", buf, 0x20u);
       }
 
@@ -1779,8 +2047,8 @@ void __35__SUCoreScan_actionRemoveDocAsset___block_invoke(uint64_t a1, void *a2)
         assetId = [summary assetId];
         *buf = 138543618;
         selfCopy8 = self;
-        v63 = 2114;
-        v64 = assetId;
+        v62 = 2114;
+        v63 = assetId;
         _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ found update asset ID:%{public}@", buf, 0x16u);
       }
     }
@@ -1794,7 +2062,7 @@ LABEL_25:
   {
     if (operation == 2)
     {
-      v54 = v8;
+      v53 = v8;
       mEMORY[0x277D64460]3 = [MEMORY[0x277D64460] sharedLogger];
       oslog = [mEMORY[0x277D64460]3 oslog];
 
@@ -1806,10 +2074,10 @@ LABEL_25:
         v16 = [descriptor4 overviewWithMaxValueLength:96 providingSubstitutionMap:v9];
         *buf = 138543874;
         selfCopy8 = self;
-        v63 = 2114;
-        v64 = summary;
-        v65 = 2114;
-        v66 = v16;
+        v62 = 2114;
+        v63 = summary;
+        v64 = 2114;
+        v65 = v16;
         v17 = "%{public}@ verified active descriptor:%{public}@\n%{public}@";
 LABEL_24:
         _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, v17, buf, 0x20u);
@@ -1822,11 +2090,11 @@ LABEL_24:
 
 LABEL_11:
     [(SUCoreScan *)self _invalidOperation:@"[SCAN] SUCCESS"];
-    v54 = 8112;
+    v53 = 8112;
     goto LABEL_27;
   }
 
-  v54 = v8;
+  v53 = v8;
   fallbackDescriptor = [successCopy fallbackDescriptor];
 
   mEMORY[0x277D64460]4 = [MEMORY[0x277D64460] sharedLogger];
@@ -1843,10 +2111,10 @@ LABEL_11:
       v30 = [descriptor6 overviewWithMaxValueLength:96 providingSubstitutionMap:v9];
       *buf = 138543874;
       selfCopy8 = self;
-      v63 = 2114;
-      v64 = summary3;
-      v65 = 2114;
-      v66 = v30;
+      v62 = 2114;
+      v63 = summary3;
+      v64 = 2114;
+      v65 = v30;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ found primary descriptor:%{public}@\n%{public}@", buf, 0x20u);
     }
 
@@ -1864,10 +2132,10 @@ LABEL_11:
     v16 = [descriptor4 overviewWithMaxValueLength:96 providingSubstitutionMap:v9];
     *buf = 138543874;
     selfCopy8 = self;
-    v63 = 2114;
-    v64 = summary;
-    v65 = 2114;
-    v66 = v16;
+    v62 = 2114;
+    v63 = summary;
+    v64 = 2114;
+    v65 = v16;
     v17 = "%{public}@ with fallback descriptor:%{public}@\n%{public}@";
     goto LABEL_24;
   }
@@ -1880,10 +2148,10 @@ LABEL_11:
     v16 = [descriptor4 overviewWithMaxValueLength:96 providingSubstitutionMap:v9];
     *buf = 138543874;
     selfCopy8 = self;
-    v63 = 2114;
-    v64 = summary;
-    v65 = 2114;
-    v66 = v16;
+    v62 = 2114;
+    v63 = summary;
+    v64 = 2114;
+    v65 = v16;
     v17 = "%{public}@ found descriptor:%{public}@\n%{public}@";
     goto LABEL_24;
   }
@@ -1891,26 +2159,26 @@ LABEL_11:
 LABEL_26:
 
 LABEL_27:
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v37 = v9;
-  v38 = [v37 countByEnumeratingWithState:&v56 objects:v60 count:16];
+  v38 = [v37 countByEnumeratingWithState:&v55 objects:v59 count:16];
   if (v38)
   {
     v39 = v38;
-    v40 = *v57;
+    v40 = *v56;
     do
     {
       for (i = 0; i != v39; ++i)
       {
-        if (*v57 != v40)
+        if (*v56 != v40)
         {
           objc_enumerationMutation(v37);
         }
 
-        v42 = *(*(&v56 + 1) + 8 * i);
+        v42 = *(*(&v55 + 1) + 8 * i);
         mEMORY[0x277D64460]6 = [MEMORY[0x277D64460] sharedLogger];
         oslog2 = [mEMORY[0x277D64460]6 oslog];
 
@@ -1918,13 +2186,13 @@ LABEL_27:
         {
           *buf = 138543618;
           selfCopy8 = selfCopy;
-          v63 = 2114;
-          v64 = v42;
+          v62 = 2114;
+          v63 = v42;
           _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
         }
       }
 
-      v39 = [v37 countByEnumeratingWithState:&v56 objects:v60 count:16];
+      v39 = [v37 countByEnumeratingWithState:&v55 objects:v59 count:16];
     }
 
     while (v39);
@@ -1936,11 +2204,10 @@ LABEL_27:
   majorSecondaryDescriptor = [successCopy majorSecondaryDescriptor];
   minorPrimaryDescriptor = [successCopy minorPrimaryDescriptor];
   minorSecondaryDescriptor = [successCopy minorSecondaryDescriptor];
-  LOBYTE(v53) = 1;
-  [(SUCoreScan *)selfCopy _scanCompleteFoundPrimary:descriptor7 foundSecondary:fallbackDescriptor2 majorPrimary:majorPrimaryDescriptor majorSecondary:majorSecondaryDescriptor minorPrimary:minorPrimaryDescriptor minorSecondary:minorSecondaryDescriptor clearingOperation:v53 error:0];
+  LOBYTE(v52) = 1;
+  [(SUCoreScan *)selfCopy _scanCompleteFoundPrimary:descriptor7 foundSecondary:fallbackDescriptor2 majorPrimary:majorPrimaryDescriptor majorSecondary:majorSecondaryDescriptor minorPrimary:minorPrimaryDescriptor minorSecondary:minorSecondaryDescriptor clearingOperation:v52 error:0];
 
-  v51 = *MEMORY[0x277D85DE8];
-  return v54;
+  return v53;
 }
 
 - (int64_t)actionScanFailed:(id)failed error:(id *)error
@@ -2431,7 +2698,7 @@ void __47__SUCoreScan_initWithUUID_withCompletionQueue___block_invoke_2(uint64_t
 
 - (void)checkForAvailableUpdateWithPolicy:(id)policy completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   completionCopy = completion;
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
@@ -2441,30 +2708,28 @@ void __47__SUCoreScan_initWithUUID_withCompletionQueue___block_invoke_2(uint64_t
   {
     *buf = 138543874;
     selfCopy = self;
-    v23 = 2080;
-    v24 = "[SUCoreScan checkForAvailableUpdateWithPolicy:completion:]";
-    v25 = 2114;
-    v26 = policyCopy;
+    v22 = 2080;
+    v23 = "[SUCoreScan checkForAvailableUpdateWithPolicy:completion:]";
+    v24 = 2114;
+    v25 = policyCopy;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %s is called with policy:%{public}@", buf, 0x20u);
   }
 
   v10 = [MEMORY[0x277D643F8] beginTransactionWithName:@"scan.CheckForAvailableUpdate"];
   scanFSM = [(SUCoreScan *)self scanFSM];
   extendedStateQueue = [scanFSM extendedStateQueue];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __59__SUCoreScan_checkForAvailableUpdateWithPolicy_completion___block_invoke;
-  v17[3] = &unk_27892D2C8;
-  v17[4] = self;
-  v18 = policyCopy;
-  v19 = v10;
-  v20 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __59__SUCoreScan_checkForAvailableUpdateWithPolicy_completion___block_invoke;
+  v16[3] = &unk_27892D2C8;
+  v16[4] = self;
+  v17 = policyCopy;
+  v18 = v10;
+  v19 = completionCopy;
   v13 = v10;
   v14 = policyCopy;
   v15 = completionCopy;
-  dispatch_async(extendedStateQueue, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_async(extendedStateQueue, v16);
 }
 
 void __59__SUCoreScan_checkForAvailableUpdateWithPolicy_completion___block_invoke(uint64_t a1)
@@ -2536,7 +2801,7 @@ LABEL_6:
 
 - (void)checkForAvailableMajorMinorUpdatesWithPolicy:(id)policy completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   completionCopy = completion;
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
@@ -2546,30 +2811,28 @@ LABEL_6:
   {
     *buf = 138543874;
     selfCopy = self;
-    v23 = 2080;
-    v24 = "[SUCoreScan checkForAvailableMajorMinorUpdatesWithPolicy:completion:]";
-    v25 = 2114;
-    v26 = policyCopy;
+    v22 = 2080;
+    v23 = "[SUCoreScan checkForAvailableMajorMinorUpdatesWithPolicy:completion:]";
+    v24 = 2114;
+    v25 = policyCopy;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %s is called with policy:%{public}@", buf, 0x20u);
   }
 
   v10 = [MEMORY[0x277D643F8] beginTransactionWithName:@"scan.CheckForAvailableUpdate"];
   scanFSM = [(SUCoreScan *)self scanFSM];
   extendedStateQueue = [scanFSM extendedStateQueue];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __70__SUCoreScan_checkForAvailableMajorMinorUpdatesWithPolicy_completion___block_invoke;
-  v17[3] = &unk_27892D2C8;
-  v17[4] = self;
-  v18 = policyCopy;
-  v19 = v10;
-  v20 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __70__SUCoreScan_checkForAvailableMajorMinorUpdatesWithPolicy_completion___block_invoke;
+  v16[3] = &unk_27892D2C8;
+  v16[4] = self;
+  v17 = policyCopy;
+  v18 = v10;
+  v19 = completionCopy;
   v13 = v10;
   v14 = policyCopy;
   v15 = completionCopy;
-  dispatch_async(extendedStateQueue, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_async(extendedStateQueue, v16);
 }
 
 void __70__SUCoreScan_checkForAvailableMajorMinorUpdatesWithPolicy_completion___block_invoke(uint64_t a1)
@@ -2642,7 +2905,7 @@ LABEL_6:
 
 - (void)checkForAvailableSlowReleaseUpdatesWithPolicy:(id)policy completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   completionCopy = completion;
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
@@ -2652,30 +2915,28 @@ LABEL_6:
   {
     *buf = 138543874;
     selfCopy = self;
-    v23 = 2080;
-    v24 = "[SUCoreScan checkForAvailableSlowReleaseUpdatesWithPolicy:completion:]";
-    v25 = 2114;
-    v26 = policyCopy;
+    v22 = 2080;
+    v23 = "[SUCoreScan checkForAvailableSlowReleaseUpdatesWithPolicy:completion:]";
+    v24 = 2114;
+    v25 = policyCopy;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %s is called with policy:%{public}@", buf, 0x20u);
   }
 
   v10 = [MEMORY[0x277D643F8] beginTransactionWithName:@"scan.CheckForAvailableUpdate"];
   scanFSM = [(SUCoreScan *)self scanFSM];
   extendedStateQueue = [scanFSM extendedStateQueue];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __71__SUCoreScan_checkForAvailableSlowReleaseUpdatesWithPolicy_completion___block_invoke;
-  v17[3] = &unk_27892D2C8;
-  v17[4] = self;
-  v18 = policyCopy;
-  v19 = v10;
-  v20 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __71__SUCoreScan_checkForAvailableSlowReleaseUpdatesWithPolicy_completion___block_invoke;
+  v16[3] = &unk_27892D2C8;
+  v16[4] = self;
+  v17 = policyCopy;
+  v18 = v10;
+  v19 = completionCopy;
   v13 = v10;
   v14 = policyCopy;
   v15 = completionCopy;
-  dispatch_async(extendedStateQueue, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_async(extendedStateQueue, v16);
 }
 
 void __71__SUCoreScan_checkForAvailableSlowReleaseUpdatesWithPolicy_completion___block_invoke(uint64_t a1)
@@ -2739,7 +3000,7 @@ LABEL_6:
 
 - (void)verifyLatestAvailableWithPolicy:(id)policy descriptor:(id)descriptor completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   descriptorCopy = descriptor;
   completionCopy = completion;
@@ -2750,10 +3011,10 @@ LABEL_6:
   {
     *buf = 138543874;
     selfCopy = self;
-    v28 = 2080;
-    v29 = "[SUCoreScan verifyLatestAvailableWithPolicy:descriptor:completion:]";
-    v30 = 2114;
-    v31 = policyCopy;
+    v27 = 2080;
+    v28 = "[SUCoreScan verifyLatestAvailableWithPolicy:descriptor:completion:]";
+    v29 = 2114;
+    v30 = policyCopy;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %s is called with policy:%{public}@", buf, 0x20u);
   }
 
@@ -2764,18 +3025,16 @@ LABEL_6:
   block[1] = 3221225472;
   block[2] = __68__SUCoreScan_verifyLatestAvailableWithPolicy_descriptor_completion___block_invoke;
   block[3] = &unk_27892D2F0;
-  v24 = v13;
-  v25 = completionCopy;
+  v23 = v13;
+  v24 = completionCopy;
   block[4] = self;
-  v22 = policyCopy;
-  v23 = descriptorCopy;
+  v21 = policyCopy;
+  v22 = descriptorCopy;
   v16 = v13;
   v17 = descriptorCopy;
   v18 = policyCopy;
   v19 = completionCopy;
   dispatch_async(extendedStateQueue, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SUCoreScan_verifyLatestAvailableWithPolicy_descriptor_completion___block_invoke(uint64_t a1)
@@ -2849,7 +3108,7 @@ LABEL_6:
 
 - (void)collectDocumentationMetadataWithPolicy:(id)policy descriptor:(id)descriptor downloadDocumentation:(BOOL)documentation completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   descriptorCopy = descriptor;
   completionCopy = completion;
@@ -2860,33 +3119,31 @@ LABEL_6:
   {
     *buf = 138543874;
     selfCopy = self;
-    v31 = 2080;
-    v32 = "[SUCoreScan collectDocumentationMetadataWithPolicy:descriptor:downloadDocumentation:completion:]";
-    v33 = 2114;
-    v34 = policyCopy;
+    v30 = 2080;
+    v31 = "[SUCoreScan collectDocumentationMetadataWithPolicy:descriptor:downloadDocumentation:completion:]";
+    v32 = 2114;
+    v33 = policyCopy;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %s is called with policy:%{public}@", buf, 0x20u);
   }
 
   v15 = [MEMORY[0x277D643F8] beginTransactionWithName:@"scan.CollectDocumentationMetadata"];
   scanFSM = [(SUCoreScan *)self scanFSM];
   extendedStateQueue = [scanFSM extendedStateQueue];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __97__SUCoreScan_collectDocumentationMetadataWithPolicy_descriptor_downloadDocumentation_completion___block_invoke;
-  v23[3] = &unk_27892D318;
-  v26 = v15;
-  v27 = completionCopy;
-  v23[4] = self;
-  v24 = policyCopy;
-  v25 = descriptorCopy;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __97__SUCoreScan_collectDocumentationMetadataWithPolicy_descriptor_downloadDocumentation_completion___block_invoke;
+  v22[3] = &unk_27892D318;
+  v25 = v15;
+  v26 = completionCopy;
+  v22[4] = self;
+  v23 = policyCopy;
+  v24 = descriptorCopy;
   documentationCopy = documentation;
   v18 = v15;
   v19 = descriptorCopy;
   v20 = policyCopy;
   v21 = completionCopy;
-  dispatch_async(extendedStateQueue, v23);
-
-  v22 = *MEMORY[0x277D85DE8];
+  dispatch_async(extendedStateQueue, v22);
 }
 
 void __97__SUCoreScan_collectDocumentationMetadataWithPolicy_descriptor_downloadDocumentation_completion___block_invoke(uint64_t a1)
@@ -2960,7 +3217,7 @@ LABEL_6:
 
 - (void)locateAvailableUpdateWithPolicy:(id)policy completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   completionCopy = completion;
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
@@ -2970,30 +3227,28 @@ LABEL_6:
   {
     *buf = 138543874;
     selfCopy = self;
-    v23 = 2080;
-    v24 = "[SUCoreScan locateAvailableUpdateWithPolicy:completion:]";
-    v25 = 2114;
-    v26 = policyCopy;
+    v22 = 2080;
+    v23 = "[SUCoreScan locateAvailableUpdateWithPolicy:completion:]";
+    v24 = 2114;
+    v25 = policyCopy;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %s is called with policy:%{public}@", buf, 0x20u);
   }
 
   v10 = [MEMORY[0x277D643F8] beginTransactionWithName:@"scan.LocateAvailableUpdate"];
   scanFSM = [(SUCoreScan *)self scanFSM];
   extendedStateQueue = [scanFSM extendedStateQueue];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __57__SUCoreScan_locateAvailableUpdateWithPolicy_completion___block_invoke;
-  v17[3] = &unk_27892D2C8;
-  v17[4] = self;
-  v18 = policyCopy;
-  v19 = v10;
-  v20 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __57__SUCoreScan_locateAvailableUpdateWithPolicy_completion___block_invoke;
+  v16[3] = &unk_27892D2C8;
+  v16[4] = self;
+  v17 = policyCopy;
+  v18 = v10;
+  v19 = completionCopy;
   v13 = v10;
   v14 = policyCopy;
   v15 = completionCopy;
-  dispatch_async(extendedStateQueue, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_async(extendedStateQueue, v16);
 }
 
 void __57__SUCoreScan_locateAvailableUpdateWithPolicy_completion___block_invoke(uint64_t a1)
@@ -3077,7 +3332,7 @@ LABEL_6:
 
 - (void)alterCurrentPolicy:(id)policy
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   policyCopy = policy;
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
   oslog = [mEMORY[0x277D64460] oslog];
@@ -3086,10 +3341,10 @@ LABEL_6:
   {
     *buf = 138543874;
     selfCopy = self;
-    v18 = 2080;
-    v19 = "[SUCoreScan alterCurrentPolicy:]";
-    v20 = 2114;
-    v21 = policyCopy;
+    v17 = 2080;
+    v18 = "[SUCoreScan alterCurrentPolicy:]";
+    v19 = 2114;
+    v20 = policyCopy;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %s is called with policy:%{public}@", buf, 0x20u);
   }
 
@@ -3101,13 +3356,11 @@ LABEL_6:
   block[2] = __33__SUCoreScan_alterCurrentPolicy___block_invoke;
   block[3] = &unk_27892D340;
   block[4] = self;
-  v14 = policyCopy;
-  v15 = v7;
+  v13 = policyCopy;
+  v14 = v7;
   v10 = v7;
   v11 = policyCopy;
   dispatch_async(extendedStateQueue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __33__SUCoreScan_alterCurrentPolicy___block_invoke(uint64_t a1)
@@ -3246,7 +3499,7 @@ LABEL_12:
 
 - (void)_updateInterimScanResultForSlowReleaseWithPrimary:(id)primary secondary:(id)secondary error:(id)error
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   primaryCopy = primary;
   secondaryCopy = secondary;
   errorCopy = error;
@@ -3263,27 +3516,27 @@ LABEL_12:
 
   if (!interimScanResult)
   {
-    [MEMORY[0x277CCACA8] stringWithFormat:@"%@ unexpected no previous scan result for slow release scan", self, v85];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"%@ unexpected no previous scan result for slow release scan", self, v84];
     goto LABEL_20;
   }
 
-  v91 = errorCopy;
+  v90 = errorCopy;
   interimScanResult2 = [(SUCoreScan *)self interimScanResult];
   majorPrimaryDescriptor = [interimScanResult2 majorPrimaryDescriptor];
 
   interimScanResult3 = [(SUCoreScan *)self interimScanResult];
   majorSecondaryDescriptor = [interimScanResult3 majorSecondaryDescriptor];
 
-  v92 = primaryCopy;
-  v94 = secondaryCopy;
-  if (v92 && !majorPrimaryDescriptor)
+  v91 = primaryCopy;
+  v93 = secondaryCopy;
+  if (v91 && !majorPrimaryDescriptor)
   {
     goto LABEL_5;
   }
 
   v15 = 2;
   v16 = 1;
-  if (v92 && majorPrimaryDescriptor)
+  if (v91 && majorPrimaryDescriptor)
   {
     if ([(SUCoreScanParam *)majorPrimaryDescriptor promoteAlternateUpdate])
     {
@@ -3305,7 +3558,7 @@ LABEL_6:
   {
     v19 = errorCopy;
     v20 = @"YES";
-    v88 = v19;
+    v87 = v19;
     if (majorPrimaryDescriptor)
     {
       v21 = @"YES";
@@ -3316,9 +3569,9 @@ LABEL_6:
       v21 = @"NO";
     }
 
-    v96 = v21;
+    v95 = v21;
     v22 = [SUCoreDescriptor nameForDescriptorPreferredUpdateType:v15];
-    if (!v92)
+    if (!v91)
     {
       v20 = @"NO";
     }
@@ -3326,33 +3579,33 @@ LABEL_6:
     v23 = [SUCoreDescriptor nameForDescriptorPreferredUpdateType:v16];
     *buf = 138544386;
     selfCopy9 = self;
-    v105 = 2112;
-    v106 = v96;
-    v107 = 2114;
-    v108 = v22;
-    v109 = 2112;
-    v110 = v20;
-    errorCopy = v88;
-    v111 = 2114;
-    v112 = v23;
+    v104 = 2112;
+    v105 = v95;
+    v106 = 2114;
+    v107 = v22;
+    v108 = 2112;
+    v109 = v20;
+    errorCopy = v87;
+    v110 = 2114;
+    v111 = v23;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] assigning to descriptors (Default) promotedPrimary=%@ primaryPreferredType=%{public}@ and (Alternate) promotedAlternatePrimary=%@ alternatePreferredType=%{public}@", buf, 0x34u);
   }
 
   [(SUCoreScanParam *)majorPrimaryDescriptor assignDescriptorAudienceType:1 descriptorPreferredUpdateType:v15 assetAudienceUUID:0];
   [(SUCoreScanParam *)majorSecondaryDescriptor assignDescriptorAudienceType:1 descriptorPreferredUpdateType:v15 assetAudienceUUID:0];
   alternateAssetAudienceUUID = [(SUCoreScan *)self alternateAssetAudienceUUID];
-  [(SUCoreScanParam *)v92 assignDescriptorAudienceType:2 descriptorPreferredUpdateType:v16 assetAudienceUUID:alternateAssetAudienceUUID];
+  [(SUCoreScanParam *)v91 assignDescriptorAudienceType:2 descriptorPreferredUpdateType:v16 assetAudienceUUID:alternateAssetAudienceUUID];
 
   alternateAssetAudienceUUID2 = [(SUCoreScan *)self alternateAssetAudienceUUID];
-  [(SUCoreScanParam *)v94 assignDescriptorAudienceType:2 descriptorPreferredUpdateType:v16 assetAudienceUUID:alternateAssetAudienceUUID2];
+  [(SUCoreScanParam *)v93 assignDescriptorAudienceType:2 descriptorPreferredUpdateType:v16 assetAudienceUUID:alternateAssetAudienceUUID2];
 
-  v26 = v91;
-  domain = [v91 domain];
+  v26 = v90;
+  domain = [v90 domain];
   if ([domain isEqualToString:*MEMORY[0x277D646E8]])
   {
-    code = [v91 code];
+    code = [v90 code];
 
-    v29 = v92;
+    v29 = v91;
     v30 = 0x277D64000uLL;
     if (code != 8406)
     {
@@ -3369,13 +3622,13 @@ LABEL_6:
 
     v29 = 0;
     v26 = 0;
-    domain = v94;
-    v94 = 0;
+    domain = v93;
+    v93 = 0;
   }
 
   else
   {
-    v29 = v92;
+    v29 = v91;
     v30 = 0x277D64000;
   }
 
@@ -3388,39 +3641,39 @@ LABEL_27:
     goto LABEL_76;
   }
 
-  v90 = v26;
-  v86 = secondaryCopy;
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
+  v89 = v26;
+  v85 = secondaryCopy;
   v99 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
   selfCopy2 = self;
   scanPolicy2 = [(SUCoreScan *)self scanPolicy];
   policyExtensions = [scanPolicy2 policyExtensions];
 
-  v38 = [(SUCoreScanParam *)policyExtensions countByEnumeratingWithState:&v98 objects:v102 count:16];
+  v38 = [(SUCoreScanParam *)policyExtensions countByEnumeratingWithState:&v97 objects:v101 count:16];
   if (!v38)
   {
     goto LABEL_60;
   }
 
   v39 = v38;
-  v93 = v29;
-  v87 = majorSecondaryDescriptor;
-  v89 = errorCopy;
+  v92 = v29;
+  v86 = majorSecondaryDescriptor;
+  v88 = errorCopy;
   mdmSoftwareUpdatePath = 0;
   v41 = 0;
-  v42 = *v99;
+  v42 = *v98;
   do
   {
     for (i = 0; i != v39; ++i)
     {
-      if (*v99 != v42)
+      if (*v98 != v42)
       {
         objc_enumerationMutation(policyExtensions);
       }
 
-      v44 = *(*(&v98 + 1) + 8 * i);
+      v44 = *(*(&v97 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -3435,10 +3688,10 @@ LABEL_27:
           v48 = [SUCorePolicyExtensionManagedUpdates nameForMDMSoftwareUpdatePath:mdmSoftwareUpdatePath];
           *buf = 138543874;
           selfCopy9 = selfCopy2;
-          v105 = 2112;
-          v106 = v48;
-          v107 = 2048;
-          v108 = mdmSoftwareUpdatePath;
+          v104 = 2112;
+          v105 = v48;
+          v106 = 2048;
+          v107 = mdmSoftwareUpdatePath;
           _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] Found SUCorePolicyExtensionManagedUpdates with mdmSoftwareUpdatePath: %@ (%ld)", buf, 0x20u);
         }
 
@@ -3446,26 +3699,26 @@ LABEL_27:
       }
     }
 
-    v39 = [(SUCoreScanParam *)policyExtensions countByEnumeratingWithState:&v98 objects:v102 count:16];
+    v39 = [(SUCoreScanParam *)policyExtensions countByEnumeratingWithState:&v97 objects:v101 count:16];
   }
 
   while (v39);
 
   if (majorPrimaryDescriptor)
   {
-    v29 = v93;
-    policyExtensions = v94;
-    v93 = majorPrimaryDescriptor;
-    secondaryCopy = v86;
-    majorSecondaryDescriptor = v87;
+    v29 = v92;
+    policyExtensions = v93;
+    v92 = majorPrimaryDescriptor;
+    secondaryCopy = v85;
+    majorSecondaryDescriptor = v86;
   }
 
   else
   {
-    secondaryCopy = v86;
-    majorSecondaryDescriptor = v87;
-    policyExtensions = v94;
-    if (v93 && v41)
+    secondaryCopy = v85;
+    majorSecondaryDescriptor = v86;
+    policyExtensions = v93;
+    if (v92 && v41)
     {
       mEMORY[0x277D64460]4 = [MEMORY[0x277D64460] sharedLogger];
       oslog4 = [mEMORY[0x277D64460]4 oslog];
@@ -3477,7 +3730,7 @@ LABEL_27:
         _os_log_impl(&dword_23193C000, oslog4, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] MDM scan performed using a requested PMV with no primary update found, using alternate update instead", buf, 0xCu);
       }
 
-      v51 = v94;
+      v51 = v93;
       policyExtensions = 0;
       v29 = 0;
       majorSecondaryDescriptor = v51;
@@ -3485,15 +3738,15 @@ LABEL_27:
 
     else
     {
-      v29 = v93;
-      v93 = 0;
+      v29 = v92;
+      v92 = 0;
     }
   }
 
   if (mdmSoftwareUpdatePath == 1)
   {
-    majorPrimaryDescriptor = v93;
-    if (![(SUCoreScanParam *)v93 enableAlternateAssetAudience]|| v41)
+    majorPrimaryDescriptor = v92;
+    if (![(SUCoreScanParam *)v92 enableAlternateAssetAudience]|| v41)
     {
       v54 = v41;
     }
@@ -3520,7 +3773,7 @@ LABEL_27:
       mEMORY[0x277D64460]6 = [MEMORY[0x277D64460] sharedLogger];
       oslog6 = [mEMORY[0x277D64460]6 oslog];
 
-      errorCopy = v89;
+      errorCopy = v88;
       if (os_log_type_enabled(oslog6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
@@ -3542,18 +3795,18 @@ LABEL_27:
   if (v41 || mdmSoftwareUpdatePath != 2)
   {
     v54 = v41;
-    errorCopy = v89;
-    majorPrimaryDescriptor = v93;
+    errorCopy = v88;
+    majorPrimaryDescriptor = v92;
     goto LABEL_70;
   }
 
-  majorPrimaryDescriptor = v93;
+  majorPrimaryDescriptor = v92;
   if (v29)
   {
     mEMORY[0x277D64460]7 = [MEMORY[0x277D64460] sharedLogger];
     oslog7 = [mEMORY[0x277D64460]7 oslog];
 
-    errorCopy = v89;
+    errorCopy = v88;
     if (os_log_type_enabled(oslog7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
@@ -3561,26 +3814,26 @@ LABEL_27:
       _os_log_impl(&dword_23193C000, oslog7, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] MDM software update path indicates SUCoreMDMSoftwareUpdatePathFast and alternate update found, dropping alternate update", buf, 0xCu);
     }
 
-    v94 = 0;
+    v93 = 0;
     v29 = 0;
 LABEL_60:
 
     v54 = 0;
-    policyExtensions = v94;
+    policyExtensions = v93;
     goto LABEL_70;
   }
 
   v54 = 0;
 LABEL_69:
-  errorCopy = v89;
+  errorCopy = v88;
 LABEL_70:
-  if (v90 || v29 || majorPrimaryDescriptor)
+  if (v89 || v29 || majorPrimaryDescriptor)
   {
     goto LABEL_75;
   }
 
   mEMORY[0x277D643F8] = [MEMORY[0x277D643F8] sharedCore];
-  v90 = [(SUCoreScanParam *)mEMORY[0x277D643F8] buildError:8406 underlying:v91 description:@"Supervised device MDM restrictions resulted in no update found"];
+  v89 = [(SUCoreScanParam *)mEMORY[0x277D643F8] buildError:8406 underlying:v90 description:@"Supervised device MDM restrictions resulted in no update found"];
   v59 = 0;
 LABEL_74:
 
@@ -3588,10 +3841,10 @@ LABEL_74:
   majorPrimaryDescriptor = v59;
 LABEL_75:
 
-  v94 = policyExtensions;
+  v93 = policyExtensions;
   self = selfCopy2;
   v30 = 0x277D64000uLL;
-  v26 = v90;
+  v26 = v89;
 LABEL_76:
   if (v29 && majorPrimaryDescriptor && [(SUCoreScanParam *)majorPrimaryDescriptor isEqual:v29])
   {
@@ -3609,8 +3862,8 @@ LABEL_76:
 
       *buf = 138543618;
       selfCopy9 = self;
-      v105 = 2114;
-      v106 = v64;
+      v104 = 2114;
+      v105 = v64;
       _os_log_impl(&dword_23193C000, oslog8, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] Primary update and alternate update descriptors are equal, not returning alternate update (promoteAlternateUpdate=%{public}@)", buf, 0x16u);
     }
 
@@ -3620,8 +3873,8 @@ LABEL_76:
     {
       v66 = v29;
 
-      v67 = v94;
-      v68 = v94;
+      v67 = v93;
+      v68 = v93;
 
       v65 = v68;
       majorPrimaryDescriptor = v66;
@@ -3629,11 +3882,11 @@ LABEL_76:
 
     else
     {
-      v67 = v94;
+      v67 = v93;
     }
 
     [(SUCoreScanParam *)majorPrimaryDescriptor promoteAlternateUpdate];
-    v94 = 0;
+    v93 = 0;
     v29 = 0;
     majorSecondaryDescriptor = v65;
   }
@@ -3656,8 +3909,8 @@ LABEL_76:
       v72 = v29;
       v29 = majorPrimaryDescriptor;
 
-      v73 = v94;
-      v94 = majorSecondaryDescriptor;
+      v73 = v93;
+      v93 = majorSecondaryDescriptor;
       majorSecondaryDescriptor = v73;
       majorPrimaryDescriptor = v72;
     }
@@ -3686,8 +3939,8 @@ LABEL_76:
     {
       *buf = 138543618;
       selfCopy9 = self;
-      v105 = 2114;
-      v106 = majorPrimaryDescriptor;
+      v104 = 2114;
+      v105 = majorPrimaryDescriptor;
       _os_log_impl(&dword_23193C000, oslog10, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] promoted primary update: %{public}@", buf, 0x16u);
     }
 
@@ -3698,8 +3951,8 @@ LABEL_76:
     {
       *buf = 138543618;
       selfCopy9 = self;
-      v105 = 2114;
-      v106 = majorSecondaryDescriptor;
+      v104 = 2114;
+      v105 = majorSecondaryDescriptor;
       _os_log_impl(&dword_23193C000, oslog11, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] promoted secondary update: %{public}@", buf, 0x16u);
     }
 
@@ -3710,8 +3963,8 @@ LABEL_76:
     {
       *buf = 138543618;
       selfCopy9 = self;
-      v105 = 2114;
-      v106 = v29;
+      v104 = 2114;
+      v105 = v29;
       _os_log_impl(&dword_23193C000, oslog12, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] promoted alternate primary update: %{public}@", buf, 0x16u);
     }
 
@@ -3722,22 +3975,21 @@ LABEL_76:
     {
       *buf = 138543618;
       selfCopy9 = self;
-      v105 = 2114;
-      v106 = v94;
+      v104 = 2114;
+      v105 = v93;
       _os_log_impl(&dword_23193C000, oslog13, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] promoted alternate secondary update: %{public}@", buf, 0x16u);
     }
 
-    v83 = [[SUCoreScanParam alloc] initWithMajorPrimaryDescriptor:majorPrimaryDescriptor majorSecondaryDescriptor:majorSecondaryDescriptor minorPrimaryDescriptor:v29 minorSecondaryDescriptor:v94];
+    v83 = [[SUCoreScanParam alloc] initWithMajorPrimaryDescriptor:majorPrimaryDescriptor majorSecondaryDescriptor:majorSecondaryDescriptor minorPrimaryDescriptor:v29 minorSecondaryDescriptor:v93];
     [(SUCoreScan *)self setInterimScanResult:v83];
   }
 
 LABEL_106:
-  v84 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateInterimScanResultForSplomboWithPrimary:(id)primary secondary:(id)secondary majorPrimary:(id)majorPrimary majorSecondary:(id)majorSecondary minorPrimary:(id)minorPrimary minorSecondary:(id)minorSecondary error:(id)error
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   primaryCopy = primary;
   secondaryCopy = secondary;
   majorPrimaryCopy = majorPrimary;
@@ -3760,13 +4012,13 @@ LABEL_106:
     if ([(SUCoreScan *)self operationSPIType]== 1)
     {
       [(SUCoreScan *)self interimScanResult];
-      v27 = v49 = minorSecondaryCopy;
+      v27 = v48 = minorSecondaryCopy;
       descriptor = [v27 descriptor];
 
       interimScanResult2 = [(SUCoreScan *)self interimScanResult];
       fallbackDescriptor = [interimScanResult2 fallbackDescriptor];
 
-      minorSecondaryCopy = v49;
+      minorSecondaryCopy = v48;
       [descriptor setAssociatedSplatDescriptor:primaryCopy];
       [fallbackDescriptor setAssociatedSplatDescriptor:primaryCopy];
       v31 = [[SUCoreScanParam alloc] initWithDescriptor:descriptor withFallbackDescriptor:fallbackDescriptor];
@@ -3829,7 +4081,7 @@ LABEL_106:
 
       interimScanResult8 = [(SUCoreScan *)self interimScanResult];
       [interimScanResult8 majorSecondaryDescriptor];
-      v43 = v50 = minorSecondaryCopy;
+      v43 = v49 = minorSecondaryCopy;
 
       [descriptor setAssociatedSplatDescriptor:primaryCopy];
       [v43 setAssociatedSplatDescriptor:primaryCopy];
@@ -3837,7 +4089,7 @@ LABEL_106:
       [(SUCoreScan *)self setInterimScanResult:v44];
 
       secondaryCopy = v43;
-      minorSecondaryCopy = v50;
+      minorSecondaryCopy = v49;
     }
 
     primaryCopy = descriptor;
@@ -3852,8 +4104,8 @@ LABEL_106:
   {
     *buf = 138543618;
     selfCopy = self;
-    v53 = 2114;
-    v54 = errorCopy;
+    v52 = 2114;
+    v53 = errorCopy;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ [SPLOMBO] splombo scan failed with %{public}@, but this is non-fatal", buf, 0x16u);
   }
 
@@ -3863,7 +4115,6 @@ LABEL_18:
   [(SUCoreScan *)self setScanPolicy:originalScanPolicy];
 
   [(SUCoreScan *)self setOriginalScanPolicy:0];
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateInterimScanResultWithPrimary:(id)primary secondary:(id)secondary majorPrimary:(id)majorPrimary majorSecondary:(id)majorSecondary minorPrimary:(id)minorPrimary minorSecondary:(id)minorSecondary error:(id)error
@@ -4091,18 +4342,74 @@ LABEL_19:
   [(SUCoreScan *)self _clearCurrentOperation];
 }
 
-uint64_t __87__SUCoreScan__checkEndComplete_scanPolicy_primary_secondary_error_clearingTransaction___block_invoke(void *a1)
+- (void)_checkEndComplete:(id)complete scanPolicy:(id)policy primary:(id)primary secondary:(id)secondary error:(id)error clearingTransaction:(BOOL)transaction
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  v5 = a1[7];
-  result = (*(a1[9] + 16))();
-  if (a1[8])
-  {
-    v7 = MEMORY[0x277D643F8];
+  transactionCopy = transaction;
+  completeCopy = complete;
+  policyCopy = policy;
+  primaryCopy = primary;
+  secondaryCopy = secondary;
+  errorCopy = error;
+  scanFSM = [(SUCoreScan *)self scanFSM];
+  extendedStateQueue = [scanFSM extendedStateQueue];
+  dispatch_assert_queue_V2(extendedStateQueue);
 
-    return [v7 endTransaction:? withName:?];
+  if (transactionCopy)
+  {
+    scanCheckTransaction = [(SUCoreScan *)self scanCheckTransaction];
+    [(SUCoreScan *)self setScanCheckTransaction:0];
+  }
+
+  else
+  {
+    scanCheckTransaction = 0;
+  }
+
+  v22 = MEMORY[0x2383746D0](completeCopy);
+  [(SUCoreScan *)self _operationCompleting:v22 error:errorCopy clearingTransaction:transactionCopy];
+
+  if (completeCopy)
+  {
+    clientCompletionQueue = [(SUCoreScan *)self clientCompletionQueue];
+    v25 = MEMORY[0x277D85DD0];
+    v26 = 3221225472;
+    v27 = __87__SUCoreScan__checkEndComplete_scanPolicy_primary_secondary_error_clearingTransaction___block_invoke;
+    v28 = &unk_27892D390;
+    v34 = completeCopy;
+    v29 = policyCopy;
+    v30 = primaryCopy;
+    v31 = secondaryCopy;
+    v32 = errorCopy;
+    v33 = scanCheckTransaction;
+    dispatch_async(clientCompletionQueue, &v25);
+  }
+
+  else if (scanCheckTransaction)
+  {
+    [MEMORY[0x277D643F8] endTransaction:scanCheckTransaction withName:@"scan.CheckForAvailableUpdate"];
+  }
+
+  if (errorCopy)
+  {
+    code = [errorCopy code];
+  }
+
+  else
+  {
+    code = 0;
+  }
+
+  [(SUCoreScan *)self _trackScanEnd:@"checkForAvailableUpdateWithPolicy" withResult:code withError:errorCopy, v25, v26, v27, v28];
+}
+
+void *__87__SUCoreScan__checkEndComplete_scanPolicy_primary_secondary_error_clearingTransaction___block_invoke(uint64_t a1)
+{
+  result = (*(*(a1 + 72) + 16))();
+  if (*(a1 + 64))
+  {
+    v3 = MEMORY[0x277D643F8];
+
+    return [v3 endTransaction:? withName:?];
   }
 
   return result;
@@ -4176,20 +4483,14 @@ uint64_t __87__SUCoreScan__checkEndComplete_scanPolicy_primary_secondary_error_c
   [(SUCoreScan *)self _trackScanEnd:@"checkForAvailableUpdateWithPolicy" withResult:code withError:errorCopy];
 }
 
-uint64_t __135__SUCoreScan__checkMajorMinorEndComplete_scanPolicy_majorPrimary_majorSecondary_minorPrimary_minorSecondary_error_clearingTransaction___block_invoke(void *a1)
+void *__135__SUCoreScan__checkMajorMinorEndComplete_scanPolicy_majorPrimary_majorSecondary_minorPrimary_minorSecondary_error_clearingTransaction___block_invoke(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  v5 = a1[7];
-  v6 = a1[8];
-  v7 = a1[9];
-  result = (*(a1[11] + 16))();
-  if (a1[10])
+  result = (*(*(a1 + 88) + 16))();
+  if (*(a1 + 80))
   {
-    v9 = MEMORY[0x277D643F8];
+    v3 = MEMORY[0x277D643F8];
 
-    return [v9 endTransaction:? withName:?];
+    return [v3 endTransaction:? withName:?];
   }
 
   return result;
@@ -4197,7 +4498,7 @@ uint64_t __135__SUCoreScan__checkMajorMinorEndComplete_scanPolicy_majorPrimary_m
 
 - (BOOL)_decideAndProcessSlowReleaseScan
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   scanFSM = [(SUCoreScan *)self scanFSM];
   extendedStateQueue = [scanFSM extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -4249,10 +4550,10 @@ LABEL_15:
 
             if (!alternateAssetAudienceUUID3)
             {
-              v24 = objc_alloc(MEMORY[0x277D64408]);
-              v25 = [v24 initWithProjectName:*MEMORY[0x277D64540]];
-              v26 = [v25 getStringConfigForKey:*MEMORY[0x277D644C8]];
-              [(SUCoreScan *)self setAlternateAssetAudienceUUID:v26];
+              v23 = objc_alloc(MEMORY[0x277D64408]);
+              v24 = [v23 initWithProjectName:*MEMORY[0x277D64540]];
+              v25 = [v24 getStringConfigForKey:*MEMORY[0x277D644C8]];
+              [(SUCoreScan *)self setAlternateAssetAudienceUUID:v25];
 
               alternateAssetAudienceUUID4 = [(SUCoreScan *)self alternateAssetAudienceUUID];
 
@@ -4264,11 +4565,11 @@ LABEL_15:
                 if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
                 {
                   alternateAssetAudienceUUID5 = [(SUCoreScan *)self alternateAssetAudienceUUID];
-                  v34 = 138543618;
+                  v33 = 138543618;
                   selfCopy2 = self;
-                  v36 = 2114;
-                  v37 = alternateAssetAudienceUUID5;
-                  _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] Using alternate asset audience from SUCoreConfig: %{public}@", &v34, 0x16u);
+                  v35 = 2114;
+                  v36 = alternateAssetAudienceUUID5;
+                  _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] Using alternate asset audience from SUCoreConfig: %{public}@", &v33, 0x16u);
                 }
               }
 
@@ -4285,11 +4586,11 @@ LABEL_15:
           if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
           {
             alternateAssetAudienceUUID6 = [(SUCoreScan *)self alternateAssetAudienceUUID];
-            v34 = 138543618;
+            v33 = 138543618;
             selfCopy2 = self;
-            v36 = 2114;
-            v37 = alternateAssetAudienceUUID6;
-            _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] alternate scan using asset audience: %{public}@", &v34, 0x16u);
+            v35 = 2114;
+            v36 = alternateAssetAudienceUUID6;
+            _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] alternate scan using asset audience: %{public}@", &v33, 0x16u);
           }
 
           v15 = 1;
@@ -4301,9 +4602,9 @@ LABEL_15:
     else
     {
       scanPolicy3 = [(SUCoreScan *)self scanPolicy];
-      v19 = [(SUCoreScan *)self _shouldPerformAlternateScanFromFoundDescriptor:majorPrimaryDescriptor policy:scanPolicy3];
+      v18 = [(SUCoreScan *)self _shouldPerformAlternateScanFromFoundDescriptor:majorPrimaryDescriptor policy:scanPolicy3];
 
-      if (v19)
+      if (v18)
       {
         goto LABEL_15;
       }
@@ -4313,13 +4614,10 @@ LABEL_19:
     v15 = 0;
 LABEL_31:
 
-    goto LABEL_13;
+    return v15;
   }
 
-  v15 = 0;
-LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  return 0;
 }
 
 - (BOOL)_decideAndProcessSplomboScan
@@ -4517,10 +4815,10 @@ LABEL_22:
 
 - (BOOL)_shouldPerformPSUSScanFromFoundDescriptor:(id)descriptor policy:(id)policy
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v5 = [SUCoreScan isPreSUStagingEnabledForUpdate:descriptor policy:policy reason:&v12];
-  v6 = v12;
+  v18 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v5 = [SUCoreScan isPreSUStagingEnabledForUpdate:descriptor policy:policy reason:&v11];
+  v6 = v11;
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
   oslog = [mEMORY[0x277D64460] oslog];
 
@@ -4529,25 +4827,24 @@ LABEL_22:
     v9 = @"NO";
     *buf = 138543874;
     selfCopy = self;
-    v15 = 2114;
+    v14 = 2114;
     if (v5)
     {
       v9 = @"YES";
     }
 
-    v16 = v9;
-    v17 = 2114;
-    v18 = v6;
+    v15 = v9;
+    v16 = 2114;
+    v17 = v6;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ [PreSUStaging] Performing psus scan: %{public}@; reason; %{public}@", buf, 0x20u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)_shouldPerformSplomboScanFromFoundDescriptor:(id)descriptor policy:(id)policy
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   policyCopy = policy;
   v8 = policyCopy;
@@ -4600,27 +4897,26 @@ LABEL_22:
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     v14 = @"NO";
-    v17 = 138543874;
+    v16 = 138543874;
     selfCopy = self;
-    v19 = 2114;
+    v18 = 2114;
     if (v9)
     {
       v14 = @"YES";
     }
 
-    v20 = v14;
-    v21 = 2114;
-    v22 = v10;
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ [SPLOMBO] Performing splombo scan: %{public}@ (%{public}@)", &v17, 0x20u);
+    v19 = v14;
+    v20 = 2114;
+    v21 = v10;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ [SPLOMBO] Performing splombo scan: %{public}@ (%{public}@)", &v16, 0x20u);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)_shouldPerformAlternateScanFromFoundDescriptor:(id)descriptor policy:(id)policy
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   policyCopy = policy;
   if ([policyCopy disableAlternateUpdate])
@@ -4673,21 +4969,20 @@ LABEL_22:
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     v15 = @"NO";
-    v18 = 138543874;
+    v17 = 138543874;
     selfCopy = self;
-    v20 = 2114;
+    v19 = 2114;
     if (v8)
     {
       v15 = @"YES";
     }
 
-    v21 = v15;
-    v22 = 2114;
-    v23 = v9;
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] Performing alternate scan: %{public}@ (%{public}@)", &v18, 0x20u);
+    v20 = v15;
+    v21 = 2114;
+    v22 = v9;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ [DUAL_AUDIENCE] Performing alternate scan: %{public}@ (%{public}@)", &v17, 0x20u);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -4760,20 +5055,14 @@ LABEL_22:
   [(SUCoreScan *)self _trackScanEnd:@"checkForAvailableSlowReleaseUpdatesWithPolicy" withResult:code withError:v24];
 }
 
-uint64_t __134__SUCoreScan__checkSlowReleaseEndComplete_scanPolicy_primary_secondary_alternatePrimary_alternateSecondary_error_clearingTransaction___block_invoke(void *a1)
+void *__134__SUCoreScan__checkSlowReleaseEndComplete_scanPolicy_primary_secondary_alternatePrimary_alternateSecondary_error_clearingTransaction___block_invoke(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  v5 = a1[7];
-  v6 = a1[8];
-  v7 = a1[9];
-  result = (*(a1[11] + 16))();
-  if (a1[10])
+  result = (*(*(a1 + 88) + 16))();
+  if (*(a1 + 80))
   {
-    v9 = MEMORY[0x277D643F8];
+    v3 = MEMORY[0x277D643F8];
 
-    return [v9 endTransaction:? withName:?];
+    return [v3 endTransaction:? withName:?];
   }
 
   return result;
@@ -4840,66 +5129,225 @@ uint64_t __134__SUCoreScan__checkSlowReleaseEndComplete_scanPolicy_primary_secon
   [(SUCoreScan *)self _trackScanEnd:@"verifyLatestAvailableWithPolicy" withResult:code withError:errorCopy];
 }
 
-uint64_t __95__SUCoreScan__verifyEndComplete_scanPolicy_active_primary_secondary_error_clearingTransaction___block_invoke(void *a1)
+void *__95__SUCoreScan__verifyEndComplete_scanPolicy_active_primary_secondary_error_clearingTransaction___block_invoke(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  v5 = a1[7];
-  v6 = a1[8];
-  result = (*(a1[10] + 16))();
-  if (a1[9])
+  result = (*(*(a1 + 80) + 16))();
+  if (*(a1 + 72))
   {
-    v8 = MEMORY[0x277D643F8];
+    v3 = MEMORY[0x277D643F8];
 
-    return [v8 endTransaction:? withName:?];
+    return [v3 endTransaction:? withName:?];
   }
 
   return result;
 }
 
-uint64_t __78__SUCoreScan__collectEndComplete_scanPolicy_active_error_clearingTransaction___block_invoke(void *a1)
+- (void)_collectEndComplete:(id)complete scanPolicy:(id)policy active:(id)active error:(id)error clearingTransaction:(BOOL)transaction
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  result = (*(a1[8] + 16))();
-  if (a1[7])
-  {
-    v6 = MEMORY[0x277D643F8];
+  transactionCopy = transaction;
+  completeCopy = complete;
+  policyCopy = policy;
+  activeCopy = active;
+  errorCopy = error;
+  scanFSM = [(SUCoreScan *)self scanFSM];
+  extendedStateQueue = [scanFSM extendedStateQueue];
+  dispatch_assert_queue_V2(extendedStateQueue);
 
-    return [v6 endTransaction:? withName:?];
+  if (transactionCopy)
+  {
+    scanCollectTransaction = [(SUCoreScan *)self scanCollectTransaction];
+    [(SUCoreScan *)self setScanCollectTransaction:0];
+  }
+
+  else
+  {
+    scanCollectTransaction = 0;
+  }
+
+  v19 = MEMORY[0x2383746D0](completeCopy);
+  [(SUCoreScan *)self _operationCompleting:v19 error:errorCopy clearingTransaction:transactionCopy];
+
+  if (completeCopy)
+  {
+    clientCompletionQueue = [(SUCoreScan *)self clientCompletionQueue];
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __78__SUCoreScan__collectEndComplete_scanPolicy_active_error_clearingTransaction___block_invoke;
+    block[3] = &unk_27892D408;
+    v27 = completeCopy;
+    v23 = policyCopy;
+    v24 = activeCopy;
+    v25 = errorCopy;
+    v26 = scanCollectTransaction;
+    dispatch_async(clientCompletionQueue, block);
+  }
+
+  else if (scanCollectTransaction)
+  {
+    [MEMORY[0x277D643F8] endTransaction:scanCollectTransaction withName:@"scan.CollectDocumentationMetadata"];
+  }
+
+  if (errorCopy)
+  {
+    code = [errorCopy code];
+  }
+
+  else
+  {
+    code = 0;
+  }
+
+  [(SUCoreScan *)self _trackScanEnd:@"collectDocumentationMetadataWithPolicy" withResult:code withError:errorCopy];
+}
+
+void *__78__SUCoreScan__collectEndComplete_scanPolicy_active_error_clearingTransaction___block_invoke(uint64_t a1)
+{
+  result = (*(*(a1 + 64) + 16))();
+  if (*(a1 + 56))
+  {
+    v3 = MEMORY[0x277D643F8];
+
+    return [v3 endTransaction:? withName:?];
   }
 
   return result;
 }
 
-uint64_t __88__SUCoreScan__locateEndComplete_scanPolicy_primary_secondary_error_clearingTransaction___block_invoke(void *a1)
+- (void)_locateEndComplete:(id)complete scanPolicy:(id)policy primary:(id)primary secondary:(id)secondary error:(id)error clearingTransaction:(BOOL)transaction
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  v5 = a1[7];
-  result = (*(a1[9] + 16))();
-  if (a1[8])
-  {
-    v7 = MEMORY[0x277D643F8];
+  transactionCopy = transaction;
+  completeCopy = complete;
+  policyCopy = policy;
+  primaryCopy = primary;
+  secondaryCopy = secondary;
+  errorCopy = error;
+  scanFSM = [(SUCoreScan *)self scanFSM];
+  extendedStateQueue = [scanFSM extendedStateQueue];
+  dispatch_assert_queue_V2(extendedStateQueue);
 
-    return [v7 endTransaction:? withName:?];
+  if (transactionCopy)
+  {
+    scanLocateTransaction = [(SUCoreScan *)self scanLocateTransaction];
+    [(SUCoreScan *)self setScanLocateTransaction:0];
+  }
+
+  else
+  {
+    scanLocateTransaction = 0;
+  }
+
+  v22 = MEMORY[0x2383746D0](completeCopy);
+  [(SUCoreScan *)self _operationCompleting:v22 error:errorCopy clearingTransaction:transactionCopy];
+
+  if (completeCopy)
+  {
+    clientCompletionQueue = [(SUCoreScan *)self clientCompletionQueue];
+    v25 = MEMORY[0x277D85DD0];
+    v26 = 3221225472;
+    v27 = __88__SUCoreScan__locateEndComplete_scanPolicy_primary_secondary_error_clearingTransaction___block_invoke;
+    v28 = &unk_27892D390;
+    v34 = completeCopy;
+    v29 = policyCopy;
+    v30 = primaryCopy;
+    v31 = secondaryCopy;
+    v32 = errorCopy;
+    v33 = scanLocateTransaction;
+    dispatch_async(clientCompletionQueue, &v25);
+  }
+
+  else if (scanLocateTransaction)
+  {
+    [MEMORY[0x277D643F8] endTransaction:scanLocateTransaction withName:@"scan.LocateAvailableUpdate"];
+  }
+
+  if (errorCopy)
+  {
+    code = [errorCopy code];
+  }
+
+  else
+  {
+    code = 0;
+  }
+
+  [(SUCoreScan *)self _trackScanEnd:@"locateAvailableUpdateWithPolicy" withResult:code withError:errorCopy, v25, v26, v27, v28];
+}
+
+void *__88__SUCoreScan__locateEndComplete_scanPolicy_primary_secondary_error_clearingTransaction___block_invoke(uint64_t a1)
+{
+  result = (*(*(a1 + 72) + 16))();
+  if (*(a1 + 64))
+  {
+    v3 = MEMORY[0x277D643F8];
+
+    return [v3 endTransaction:? withName:?];
   }
 
   return result;
 }
 
-uint64_t __59__SUCoreScan__cancelEndComplete_error_clearingTransaction___block_invoke(void *a1)
+- (void)_cancelEndComplete:(id)complete error:(id)error clearingTransaction:(BOOL)transaction
 {
-  v2 = a1[4];
-  result = (*(a1[6] + 16))();
-  if (a1[5])
-  {
-    v4 = MEMORY[0x277D643F8];
+  transactionCopy = transaction;
+  completeCopy = complete;
+  errorCopy = error;
+  scanFSM = [(SUCoreScan *)self scanFSM];
+  extendedStateQueue = [scanFSM extendedStateQueue];
+  dispatch_assert_queue_V2(extendedStateQueue);
 
-    return [v4 endTransaction:? withName:?];
+  if (transactionCopy)
+  {
+    scanCancelTransaction = [(SUCoreScan *)self scanCancelTransaction];
+    [(SUCoreScan *)self setScanCancelTransaction:0];
+  }
+
+  else
+  {
+    scanCancelTransaction = 0;
+  }
+
+  v13 = MEMORY[0x2383746D0](completeCopy);
+  [(SUCoreScan *)self _operationCompleting:v13 error:errorCopy clearingTransaction:transactionCopy];
+
+  if (completeCopy)
+  {
+    clientCompletionQueue = [(SUCoreScan *)self clientCompletionQueue];
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __59__SUCoreScan__cancelEndComplete_error_clearingTransaction___block_invoke;
+    block[3] = &unk_27892C830;
+    v19 = completeCopy;
+    v17 = errorCopy;
+    v18 = scanCancelTransaction;
+    dispatch_async(clientCompletionQueue, block);
+  }
+
+  else if (scanCancelTransaction)
+  {
+    [MEMORY[0x277D643F8] endTransaction:scanCancelTransaction withName:@"scan.CancelCurrentScan"];
+  }
+
+  if (errorCopy)
+  {
+    code = [errorCopy code];
+  }
+
+  else
+  {
+    code = 0;
+  }
+
+  [(SUCoreScan *)self _trackScanEnd:@"cancelCurrentScan" withResult:code withError:errorCopy];
+}
+
+void *__59__SUCoreScan__cancelEndComplete_error_clearingTransaction___block_invoke(uint64_t a1)
+{
+  result = (*(*(a1 + 48) + 16))();
+  if (*(a1 + 40))
+  {
+    v3 = MEMORY[0x277D643F8];
+
+    return [v3 endTransaction:? withName:?];
   }
 
   return result;
@@ -4907,13 +5355,27 @@ uint64_t __59__SUCoreScan__cancelEndComplete_error_clearingTransaction___block_i
 
 - (void)_clearCurrentOperation
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
   selfCopy = self;
-  v6 = 1024;
+  v5 = 1024;
   pendingMobileAssetRequests = [self pendingMobileAssetRequests];
-  _os_log_error_impl(&dword_23193C000, a2, OS_LOG_TYPE_ERROR, "%{public}@ [MA_PENDING] clearCurrentOperation - non-zero MA pending (%d) - clearing", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23193C000, a2, OS_LOG_TYPE_ERROR, "%{public}@ [MA_PENDING] clearCurrentOperation - non-zero MA pending (%d) - clearing", &v3, 0x12u);
+}
+
++ (id)_phaseName:(int)name
+{
+  if (name > 7)
+  {
+    v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"UNKNOWN(%d)", *&name];
+  }
+
+  else
+  {
+    v3 = kSUCoreScanPhaseName[name];
+  }
+
+  return v3;
 }
 
 - (id)_operationName
@@ -4938,7 +5400,7 @@ uint64_t __59__SUCoreScan__cancelEndComplete_error_clearingTransaction___block_i
 - (void)_operationCompleting:(id)completing error:(id)error clearingTransaction:(BOOL)transaction
 {
   transactionCopy = transaction;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
   oslog = [mEMORY[0x277D64460] oslog];
@@ -4954,19 +5416,19 @@ uint64_t __59__SUCoreScan__cancelEndComplete_error_clearingTransaction___block_i
     }
 
     v14 = @"NO";
-    v17 = 138544386;
+    v16 = 138544386;
     selfCopy = self;
     if (transactionCopy)
     {
       v14 = @"YES";
     }
 
-    v19 = 2114;
-    v20 = _operationName;
-    v21 = 2114;
-    v22 = v13;
-    v23 = 2114;
-    v24 = v14;
+    v18 = 2114;
+    v19 = _operationName;
+    v20 = 2114;
+    v21 = v13;
+    v22 = 2114;
+    v23 = v14;
     if (errorCopy)
     {
       v15 = errorCopy;
@@ -4977,12 +5439,10 @@ uint64_t __59__SUCoreScan__cancelEndComplete_error_clearingTransaction___block_i
       v15 = @"SUCCESS";
     }
 
-    v25 = 2114;
-    v26 = v15;
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@ %{public}@ [clearingTransaction:%{public}@] | %{public}@", &v17, 0x34u);
+    v24 = 2114;
+    v25 = v15;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@ %{public}@ [clearingTransaction:%{public}@] | %{public}@", &v16, 0x34u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidOperation:(id)operation
@@ -5050,21 +5510,20 @@ uint64_t __59__SUCoreScan__cancelEndComplete_error_clearingTransaction___block_i
 
 - (double)_psusDetermineTimeout
 {
-  v2 = *MEMORY[0x277D29458];
-  v3 = _MSUPreferencesCopyValue();
-  if (v3)
+  v2 = _MSUPreferencesCopyValue();
+  if (v2)
   {
-    v4 = v3;
-    v5 = CFGetTypeID(v3);
-    if (v5 == CFNumberGetTypeID())
+    v3 = v2;
+    v4 = CFGetTypeID(v2);
+    if (v4 == CFNumberGetTypeID())
     {
-      [v4 doubleValue];
-      v7 = v6;
+      [v3 doubleValue];
+      v6 = v5;
 
-      return v7;
+      return v6;
     }
 
-    CFRelease(v4);
+    CFRelease(v3);
   }
 
   return 900.0;
@@ -5138,7 +5597,7 @@ uint64_t __59__SUCoreScan__cancelEndComplete_error_clearingTransaction___block_i
 
 void __34__SUCoreScan__determinePSUSAssets__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -5178,7 +5637,7 @@ void __34__SUCoreScan__determinePSUSAssets__block_invoke(uint64_t a1, void *a2, 
 
       if (v48 == 6609)
       {
-        [MEMORY[0x277CCACA8] stringWithFormat:@"Operation canceled", v66, v67];
+        [MEMORY[0x277CCACA8] stringWithFormat:@"Operation canceled", v65, v66];
         goto LABEL_30;
       }
     }
@@ -5214,9 +5673,9 @@ void __34__SUCoreScan__determinePSUSAssets__block_invoke(uint64_t a1, void *a2, 
     {
       v60 = *(a1 + 32);
       *buf = 138543618;
-      v84 = v60;
-      v85 = 2114;
-      v86 = v57;
+      v83 = v60;
+      v84 = 2114;
+      v85 = v57;
       _os_log_impl(&dword_23193C000, v59, OS_LOG_TYPE_DEFAULT, "%{public}@ [PreSUStaging] %{public}@", buf, 0x16u);
     }
 
@@ -5243,46 +5702,46 @@ void __34__SUCoreScan__determinePSUSAssets__block_invoke(uint64_t a1, void *a2, 
     {
       v23 = *(a1 + 32);
       *buf = 138544130;
-      v84 = v23;
-      v85 = 2114;
-      v86 = v20;
-      v87 = 2048;
-      v88 = [v7 count];
-      v89 = 2114;
-      v90 = v8;
+      v83 = v23;
+      v84 = 2114;
+      v85 = v20;
+      v86 = 2048;
+      v87 = [v7 count];
+      v88 = 2114;
+      v89 = v8;
       _os_log_impl(&dword_23193C000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ [PreSUStaging] succeeded; %{public}@\n[>>>\nbyGroupAvailableForStagingAttributes = DICT[%lu]\nbyGroupTotalExpectedBytes = %{public}@\n<<<]", buf, 0x2Au);
     }
 
-    v69 = v20;
-    v70 = v8;
+    v68 = v20;
+    v69 = v8;
 
     v24 = [v7 safeDictionaryForKey:@"STAGE_GROUP_REQUIRED"];
     v25 = [v24 allKeys];
 
-    v71 = v7;
+    v70 = v7;
     v26 = [v7 safeDictionaryForKey:@"STAGE_GROUP_OPTIONAL"];
-    v68 = [v26 allKeys];
+    v67 = [v26 allKeys];
 
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
     v78 = 0u;
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
     obj = v25;
-    v27 = [obj countByEnumeratingWithState:&v77 objects:v82 count:16];
+    v27 = [obj countByEnumeratingWithState:&v76 objects:v81 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v78;
+      v29 = *v77;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v78 != v29)
+          if (*v77 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v31 = *(*(&v77 + 1) + 8 * i);
+          v31 = *(*(&v76 + 1) + 8 * i);
           v32 = [MEMORY[0x277D64460] sharedLogger];
           v33 = [v32 oslog];
 
@@ -5290,39 +5749,39 @@ void __34__SUCoreScan__determinePSUSAssets__block_invoke(uint64_t a1, void *a2, 
           {
             v34 = *(a1 + 32);
             *buf = 138543618;
-            v84 = v34;
-            v85 = 2114;
-            v86 = v31;
+            v83 = v34;
+            v84 = 2114;
+            v85 = v31;
             _os_log_impl(&dword_23193C000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@ [PreSUStaging] required asset to stage: %{public}@", buf, 0x16u);
           }
         }
 
-        v28 = [obj countByEnumeratingWithState:&v77 objects:v82 count:16];
+        v28 = [obj countByEnumeratingWithState:&v76 objects:v81 count:16];
       }
 
       while (v28);
     }
 
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
     v74 = 0u;
-    v35 = v68;
-    v36 = [v35 countByEnumeratingWithState:&v73 objects:v81 count:16];
+    v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
+    v35 = v67;
+    v36 = [v35 countByEnumeratingWithState:&v72 objects:v80 count:16];
     if (v36)
     {
       v37 = v36;
-      v38 = *v74;
+      v38 = *v73;
       do
       {
         for (j = 0; j != v37; ++j)
         {
-          if (*v74 != v38)
+          if (*v73 != v38)
           {
             objc_enumerationMutation(v35);
           }
 
-          v40 = *(*(&v73 + 1) + 8 * j);
+          v40 = *(*(&v72 + 1) + 8 * j);
           v41 = [MEMORY[0x277D64460] sharedLogger];
           v42 = [v41 oslog];
 
@@ -5330,26 +5789,26 @@ void __34__SUCoreScan__determinePSUSAssets__block_invoke(uint64_t a1, void *a2, 
           {
             v43 = *(a1 + 32);
             *buf = 138543618;
-            v84 = v43;
-            v85 = 2114;
-            v86 = v40;
+            v83 = v43;
+            v84 = 2114;
+            v85 = v40;
             _os_log_impl(&dword_23193C000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@ [PreSUStaging] optional asset to stage: %{public}@", buf, 0x16u);
           }
         }
 
-        v37 = [v35 countByEnumeratingWithState:&v73 objects:v81 count:16];
+        v37 = [v35 countByEnumeratingWithState:&v72 objects:v80 count:16];
       }
 
       while (v37);
     }
 
-    v44 = [[SUCoreScanParam alloc] initWithNote:v69];
+    v44 = [[SUCoreScanParam alloc] initWithNote:v68];
     v45 = [(SUCoreScanParam *)v44 additionalInfo];
-    v8 = v70;
-    [v45 setSafeObject:v70 forKey:@"PSUSAssetsSizes"];
+    v8 = v69;
+    [v45 setSafeObject:v69 forKey:@"PSUSAssetsSizes"];
 
     v46 = @"PSUSAssetsDetermineSuccess";
-    v7 = v71;
+    v7 = v70;
     v9 = 0;
   }
 
@@ -5360,70 +5819,67 @@ LABEL_39:
 
   v64 = [*(a1 + 32) scanFSM];
   [v64 postEvent:v46 withInfo:v44];
-
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isPreSUStagingEnabledForUpdate:(id)update policy:(id)policy reason:(id *)reason
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   policyCopy = policy;
   if ([updateCopy enablePreSUStaging])
   {
     if ([policyCopy enablePreSUStaging])
     {
-      v9 = *MEMORY[0x277D29450];
       if (_MSUPreferencesGetAppBooleanValueWithDefaultValue())
       {
-        v10 = 0;
-        v11 = @"disabled by MSU default";
+        v9 = 0;
+        v10 = @"disabled by MSU default";
       }
 
       else if ([updateCopy splatOnly])
       {
-        v10 = 0;
-        v11 = @"disabled for a Splat update";
+        v9 = 0;
+        v10 = @"disabled for a Splat update";
       }
 
       else if ([updateCopy descriptorType] == 3)
       {
-        v10 = 0;
-        v11 = @"disabled for SFR-only updates";
+        v9 = 0;
+        v10 = @"disabled for SFR-only updates";
       }
 
       else
       {
-        v17 = os_variant_uses_ephemeral_storage();
-        v10 = v17 ^ 1;
-        if (v17)
+        v15 = os_variant_uses_ephemeral_storage();
+        v9 = v15 ^ 1;
+        if (v15)
         {
-          v11 = @"disabled in limited environment (NeRD)";
+          v10 = @"disabled in limited environment (NeRD)";
         }
 
         else
         {
-          v11 = @"not disabled by anything";
+          v10 = @"not disabled by anything";
         }
       }
     }
 
     else
     {
-      v10 = 0;
-      v11 = @"disabled by policy";
+      v9 = 0;
+      v10 = @"disabled by policy";
     }
   }
 
   else
   {
-    v10 = 0;
-    v11 = @"disabled by server (through software update asset metadata)";
+    v9 = 0;
+    v10 = @"disabled by server (through software update asset metadata)";
   }
 
   if (reason)
   {
-    *reason = v11;
+    *reason = v10;
   }
 
   else
@@ -5433,22 +5889,21 @@ LABEL_39:
 
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = @"disabled";
-      if (v10)
+      v13 = @"disabled";
+      if (v9)
       {
-        v14 = @"enabled";
+        v13 = @"enabled";
       }
 
-      v18 = 138543618;
-      v19 = v14;
-      v20 = 2114;
-      v21 = v11;
-      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[PreSUStaging] %{public}@: %{public}@", &v18, 0x16u);
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2114;
+      v19 = v10;
+      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[PreSUStaging] %{public}@: %{public}@", &v16, 0x16u);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v9;
 }
 
 - (int64_t)_downloadCatalog:(id)catalog withIdentifier:(id)identifier
@@ -5637,14 +6092,14 @@ LABEL_8:
 
 - (void)_filterSUQueryResultsForSPITypeSingleFromQuery:(id)query
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   scanPolicy = [(SUCoreScan *)self scanPolicy];
+  v45 = 0;
   v46 = 0;
-  v47 = 0;
-  [scanPolicy selectSoftwareUpdatePrimaryAsset:&v47 secondaryAsset:&v46 fromAssetQuery:queryCopy];
-  v6 = v47;
-  v7 = v46;
+  [scanPolicy selectSoftwareUpdatePrimaryAsset:&v46 secondaryAsset:&v45 fromAssetQuery:queryCopy];
+  v6 = v46;
+  v7 = v45;
 
   if (v6)
   {
@@ -5779,26 +6234,24 @@ LABEL_8:
 LABEL_11:
   [scanFSM2 postEvent:v25 withInfo:diag];
 LABEL_27:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_filterSUQueryResultsForSPITypeMajorMinorFromQuery:(id)query
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   if ([(SUCoreScan *)self operation]== 1)
   {
     scanPolicy = [(SUCoreScan *)self scanPolicy];
-    v43 = 0;
-    v44 = 0;
-    v41 = 0;
     v42 = 0;
-    [scanPolicy selectSoftwareUpdateMajorPrimaryAsset:&v44 majorSecondaryAsset:&v43 minorPrimaryAsset:&v42 minorSecondaryAsset:&v41 fromAssetQuery:queryCopy];
-    v6 = v44;
-    v7 = v43;
-    v8 = v42;
-    v40 = v41;
+    v43 = 0;
+    v40 = 0;
+    v41 = 0;
+    [scanPolicy selectSoftwareUpdateMajorPrimaryAsset:&v43 majorSecondaryAsset:&v42 minorPrimaryAsset:&v41 minorSecondaryAsset:&v40 fromAssetQuery:queryCopy];
+    v6 = v43;
+    v7 = v42;
+    v8 = v41;
+    v39 = v40;
 
     postedDate = [queryCopy postedDate];
 
@@ -5828,16 +6281,16 @@ LABEL_27:
       v17 = [SUCoreDescriptor alloc];
       scanPolicy2 = [(SUCoreScan *)self scanPolicy];
       defaultDescriptorValues = [scanPolicy2 defaultDescriptorValues];
-      v38 = [(SUCoreDescriptor *)v17 initWithSUAsset:v6 releaseDate:v16 defaultValues:defaultDescriptorValues];
+      v37 = [(SUCoreDescriptor *)v17 initWithSUAsset:v6 releaseDate:v16 defaultValues:defaultDescriptorValues];
     }
 
     else
     {
-      v38 = 0;
+      v37 = 0;
     }
 
-    v39 = v8;
-    v37 = v7;
+    v38 = v8;
+    v36 = v7;
     if (v7)
     {
       v20 = [SUCoreDescriptor alloc];
@@ -5845,7 +6298,7 @@ LABEL_27:
       defaultDescriptorValues2 = [scanPolicy3 defaultDescriptorValues];
       v23 = [(SUCoreDescriptor *)v20 initWithSUAsset:v7 releaseDate:v16 defaultValues:defaultDescriptorValues2];
 
-      v8 = v39;
+      v8 = v38;
     }
 
     else
@@ -5862,12 +6315,12 @@ LABEL_27:
       v8 = [(SUCoreDescriptor *)v25 initWithSUAsset:v8 releaseDate:v16 defaultValues:defaultDescriptorValues3];
     }
 
-    if (v40)
+    if (v39)
     {
       v28 = [SUCoreDescriptor alloc];
       scanPolicy5 = [(SUCoreScan *)self scanPolicy];
       defaultDescriptorValues4 = [scanPolicy5 defaultDescriptorValues];
-      v31 = [(SUCoreDescriptor *)v28 initWithSUAsset:v40 releaseDate:v16 defaultValues:defaultDescriptorValues4];
+      v31 = [(SUCoreDescriptor *)v28 initWithSUAsset:v39 releaseDate:v16 defaultValues:defaultDescriptorValues4];
     }
 
     else
@@ -5877,9 +6330,9 @@ LABEL_27:
 
     scanFSM = [(SUCoreScan *)self scanFSM];
     v33 = [SUCoreScanParam alloc];
-    if (v38 | v8)
+    if (v37 | v8)
     {
-      v34 = [(SUCoreScanParam *)v33 initWithMajorPrimaryDescriptor:v38 majorSecondaryDescriptor:v23 minorPrimaryDescriptor:v8 minorSecondaryDescriptor:v31];
+      v34 = [(SUCoreScanParam *)v33 initWithMajorPrimaryDescriptor:v37 majorSecondaryDescriptor:v23 minorPrimaryDescriptor:v8 minorSecondaryDescriptor:v31];
       v35 = @"QueryMetadataUpdateAvailable";
     }
 
@@ -5899,19 +6352,17 @@ LABEL_27:
     v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@ SU_SCAN_OP_CHECK is not supported for current operation", self];
     [diag trackAnomaly:@"[SCAN] FILTER_SU_QUERY" forReason:v13 withResult:8117 withError:0];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_filterDocQueryResults:(id)results
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   scanPolicy = [(SUCoreScan *)self scanPolicy];
-  v19 = 0;
-  [scanPolicy selectDocumentationAsset:&v19 fromAssetQuery:resultsCopy];
+  v18 = 0;
+  [scanPolicy selectDocumentationAsset:&v18 fromAssetQuery:resultsCopy];
 
-  v6 = v19;
+  v6 = v18;
   if (v6)
   {
     activeDescriptor = [(SUCoreScan *)self activeDescriptor];
@@ -5949,8 +6400,8 @@ LABEL_12:
       deviceClass = [mEMORY[0x277D64418]2 deviceClass];
       *buf = 138543618;
       selfCopy = self;
-      v22 = 2114;
-      v23 = deviceClass;
+      v21 = 2114;
+      v22 = deviceClass;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ documentation not required for device: %{public}@", buf, 0x16u);
     }
 
@@ -5970,12 +6421,11 @@ LABEL_12:
   [scanFSM2 postEvent:@"QueryMetadataNoAssetFound" withInfo:v15];
 
 LABEL_13:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_incrementMobileAssetPending:(id)pending
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pendingCopy = pending;
   scanFSM = [(SUCoreScan *)self scanFSM];
   extendedStateQueue = [scanFSM extendedStateQueue];
@@ -5987,21 +6437,19 @@ LABEL_13:
 
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543874;
+    v9 = 138543874;
     selfCopy = self;
-    v12 = 2114;
-    v13 = pendingCopy;
-    v14 = 1024;
+    v11 = 2114;
+    v12 = pendingCopy;
+    v13 = 1024;
     pendingMobileAssetRequests = [(SUCoreScan *)self pendingMobileAssetRequests];
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ [MA_PENDING(INCR)] %{public}@ - incremented MA pending (%d remaining)", &v10, 0x1Cu);
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ [MA_PENDING(INCR)] %{public}@ - incremented MA pending (%d remaining)", &v9, 0x1Cu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_decrementMobileAssetPending:(id)pending
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   pendingCopy = pending;
   scanFSM = [(SUCoreScan *)self scanFSM];
   extendedStateQueue = [scanFSM extendedStateQueue];
@@ -6050,9 +6498,9 @@ LABEL_13:
     {
       *buf = 138543874;
       selfCopy = self;
-      v20 = 2114;
-      v21 = pendingCopy;
-      v22 = 1024;
+      v19 = 2114;
+      v20 = pendingCopy;
+      v21 = 1024;
       pendingMobileAssetRequests = [(SUCoreScan *)self pendingMobileAssetRequests];
       _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "%{public}@ [MA_PENDING(DECR)] %{public}@ - decremented MA pending (%d remaining)", buf, 0x1Cu);
     }
@@ -6060,7 +6508,6 @@ LABEL_13:
     v9 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -6174,161 +6621,133 @@ void __57__SUCoreScan__reportPSUSDetermineFinishedEvent_duration___block_invoke(
 
 - (id)_simDescriptorAttributes
 {
-  v23[39] = *MEMORY[0x277D85DE8];
+  v22[39] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v2 setDateFormat:@"dd-MMM-yy"];
-  v17 = [v2 dateFromString:@"07-Jul-07"];
+  v16 = [v2 dateFromString:@"07-Jul-07"];
   v3 = objc_alloc_init(MEMORY[0x277CBEA90]);
-  v22[0] = @"OSVersion";
-  v22[1] = @"Build";
-  v23[0] = @"9.9.13.0";
-  v23[1] = @"17A408a";
-  v22[2] = @"SUProductSystemName";
-  v22[3] = @"ReleaseType";
-  v23[2] = @"iOS";
-  v23[3] = @"Internal";
-  v22[4] = @"SUPublisher";
-  v22[5] = @"ReleaseDate";
-  v23[4] = @"Apple Inc.";
-  v23[5] = v17;
-  v22[6] = @"SupportedDevices";
+  v21[0] = @"OSVersion";
+  v21[1] = @"Build";
+  v22[0] = @"9.9.13.0";
+  v22[1] = @"17A408a";
+  v21[2] = @"SUProductSystemName";
+  v21[3] = @"ReleaseType";
+  v22[2] = @"iOS";
+  v22[3] = @"Internal";
+  v21[4] = @"SUPublisher";
+  v21[5] = @"ReleaseDate";
+  v22[4] = @"Apple Inc.";
+  v22[5] = v16;
+  v21[6] = @"SupportedDevices";
   v4 = [MEMORY[0x277CBEA60] arrayWithObjects:{@"D11AP", 0}];
-  v23[6] = v4;
-  v22[7] = *MEMORY[0x277D28908];
+  v22[6] = v4;
+  v21[7] = *MEMORY[0x277D28908];
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:3209145381];
-  v23[7] = v5;
-  v22[8] = *MEMORY[0x277D28920];
+  v22[7] = v5;
+  v21[8] = *MEMORY[0x277D28920];
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:3309669376];
-  v23[8] = v6;
-  v22[9] = @"ActualMinimumSystemPartition";
+  v22[8] = v6;
+  v21[9] = @"ActualMinimumSystemPartition";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:5674];
   v8 = MEMORY[0x277CBEC38];
   v9 = *MEMORY[0x277D28910];
-  v23[9] = v7;
-  v23[10] = MEMORY[0x277CBEC38];
-  v22[10] = v9;
-  v22[11] = @"SystemPartitionPadding";
-  v23[11] = MEMORY[0x277CBEC10];
-  v23[12] = MEMORY[0x277CBEC38];
-  v22[12] = @"AutomaticDownloadOver3G";
-  v22[13] = @"AllowableOverCellular";
-  v23[13] = MEMORY[0x277CBEC38];
-  v23[14] = MEMORY[0x277CBEC38];
-  v22[14] = @"AllowableOTA";
-  v22[15] = @"SUDisableSiriVoiceDeletion";
-  v23[15] = MEMORY[0x277CBEC38];
-  v23[16] = MEMORY[0x277CBEC38];
-  v22[16] = @"SUDisableCDLevel4";
-  v22[17] = @"SUDisableAppDemotion";
-  v23[17] = MEMORY[0x277CBEC38];
-  v23[18] = MEMORY[0x277CBEC38];
-  v22[18] = @"SUInstallTonightEnabled";
-  v22[19] = @"SUDisableReserveSpace";
-  v23[19] = MEMORY[0x277CBEC38];
-  v23[20] = MEMORY[0x277CBEC38];
-  v22[20] = @"Ramp";
-  v22[21] = @"MDMDelayInterval";
+  v22[9] = v7;
+  v22[10] = MEMORY[0x277CBEC38];
+  v21[10] = v9;
+  v21[11] = @"SystemPartitionPadding";
+  v22[11] = MEMORY[0x277CBEC10];
+  v22[12] = MEMORY[0x277CBEC38];
+  v21[12] = @"AutomaticDownloadOver3G";
+  v21[13] = @"AllowableOverCellular";
+  v22[13] = MEMORY[0x277CBEC38];
+  v22[14] = MEMORY[0x277CBEC38];
+  v21[14] = @"AllowableOTA";
+  v21[15] = @"SUDisableSiriVoiceDeletion";
+  v22[15] = MEMORY[0x277CBEC38];
+  v22[16] = MEMORY[0x277CBEC38];
+  v21[16] = @"SUDisableCDLevel4";
+  v21[17] = @"SUDisableAppDemotion";
+  v22[17] = MEMORY[0x277CBEC38];
+  v22[18] = MEMORY[0x277CBEC38];
+  v21[18] = @"SUInstallTonightEnabled";
+  v21[19] = @"SUDisableReserveSpace";
+  v22[19] = MEMORY[0x277CBEC38];
+  v22[20] = MEMORY[0x277CBEC38];
+  v21[20] = @"Ramp";
+  v21[21] = @"MDMDelayInterval";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:24];
-  v23[21] = v10;
-  v23[22] = v8;
-  v22[22] = @"AutoUpdate";
-  v22[23] = @"SetupCritical";
-  v23[23] = @"kSUAssetSetupCriticalKey";
-  v23[24] = v8;
-  v22[24] = @"SetupCriticalCellularOverride";
-  v22[25] = @"SetupCriticalUpdateOutOfBoxOnly";
-  v23[25] = v8;
-  v23[26] = @"kSUAssetLastEmergencyBuildKey";
-  v22[26] = @"LastEmergencyBuild";
-  v22[27] = @"LastEmergencyOSVersion";
-  v23[27] = @"kSUAssetLastEmergencyOSVersionKey";
-  v23[28] = v3;
-  v22[28] = @"SEPDigest";
-  v22[29] = @"SEPTBMDigests";
-  v23[29] = v3;
-  v23[30] = v3;
-  v22[30] = @"RSEPDigest";
-  v22[31] = @"RSEPTBMDigests";
-  v23[31] = v3;
-  v23[32] = @"PreRelease";
-  v22[32] = @"SUDocumentationID";
-  v22[33] = @"Language";
-  v23[33] = @"kSUAssetLanguageKey";
-  v23[34] = @"kSUAssetReleaseNotesSummaryFileNameKey";
-  v22[34] = @"ReleaseNotesSummaryFileName";
-  v22[35] = @"ReleaseNotesFileName";
-  v23[35] = @"kSUAssetReleaseNotesFileNameKey";
-  v23[36] = @"kSUAssetLicenseAgreementFileNameKey";
-  v22[36] = @"LicenseAgreementFileName";
-  v22[37] = @"_Measurement";
-  v22[38] = @"_MeasurementAlgorithm";
-  v23[37] = v3;
-  v23[38] = @"SHA-1";
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:39];
+  v22[21] = v10;
+  v22[22] = v8;
+  v21[22] = @"AutoUpdate";
+  v21[23] = @"SetupCritical";
+  v22[23] = @"kSUAssetSetupCriticalKey";
+  v22[24] = v8;
+  v21[24] = @"SetupCriticalCellularOverride";
+  v21[25] = @"SetupCriticalUpdateOutOfBoxOnly";
+  v22[25] = v8;
+  v22[26] = @"kSUAssetLastEmergencyBuildKey";
+  v21[26] = @"LastEmergencyBuild";
+  v21[27] = @"LastEmergencyOSVersion";
+  v22[27] = @"kSUAssetLastEmergencyOSVersionKey";
+  v22[28] = v3;
+  v21[28] = @"SEPDigest";
+  v21[29] = @"SEPTBMDigests";
+  v22[29] = v3;
+  v22[30] = v3;
+  v21[30] = @"RSEPDigest";
+  v21[31] = @"RSEPTBMDigests";
+  v22[31] = v3;
+  v22[32] = @"PreRelease";
+  v21[32] = @"SUDocumentationID";
+  v21[33] = @"Language";
+  v22[33] = @"kSUAssetLanguageKey";
+  v22[34] = @"kSUAssetReleaseNotesSummaryFileNameKey";
+  v21[34] = @"ReleaseNotesSummaryFileName";
+  v21[35] = @"ReleaseNotesFileName";
+  v22[35] = @"kSUAssetReleaseNotesFileNameKey";
+  v22[36] = @"kSUAssetLicenseAgreementFileNameKey";
+  v21[36] = @"LicenseAgreementFileName";
+  v21[37] = @"_Measurement";
+  v21[38] = @"_MeasurementAlgorithm";
+  v22[37] = v3;
+  v22[38] = @"SHA-1";
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:39];
 
-  v20[0] = @"AssetProperties";
-  v20[1] = @"AssetAddedProperties";
-  v21[0] = v11;
-  v18[0] = @"AssetState";
+  v19[0] = @"AssetProperties";
+  v19[1] = @"AssetAddedProperties";
+  v20[0] = v11;
+  v17[0] = @"AssetState";
   v12 = [MEMORY[0x277CCABB0] numberWithInt:1];
-  v19[0] = v12;
-  v19[1] = @"com.apple.MobileAsset.SoftwareUpdateCoreTest";
-  v18[1] = @"AssetType";
-  v18[2] = @"AssetId";
-  v19[2] = @"ma-asset-id";
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
-  v21[1] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v18[0] = v12;
+  v18[1] = @"com.apple.MobileAsset.SoftwareUpdateCoreTest";
+  v17[1] = @"AssetType";
+  v17[2] = @"AssetId";
+  v18[2] = @"ma-asset-id";
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v20[1] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   return v14;
 }
 
-- (void)_updateInterimScanResultForSlowReleaseWithPrimary:secondary:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_23193C000, v0, v1, "%{public}@ [DUAL_AUDIENCE] Dropping no update found alternate scan error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_downloadCatalog:withIdentifier:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_23193C000, v0, v1, "%{public}@ %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_filterDocQueryResults:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_23193C000, a2, OS_LOG_TYPE_ERROR, "%{public}@ no documentation asset (after filtering/selection)", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_decrementMobileAssetPending:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_23193C000, v0, v1, "%{public}@ [MA_PENDING(DECR)] %{public}@ - 0 MA pending");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_23193C000, a2, OS_LOG_TYPE_ERROR, "%{public}@ no documentation asset (after filtering/selection)", &v2, 0xCu);
 }
 
 - (void)_decrementMobileAssetPending:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = 138543874;
-  v6 = a1;
-  v7 = 2114;
-  v8 = a2;
-  v9 = 1024;
-  v10 = [a1 pendingMobileAssetRequests];
-  _os_log_error_impl(&dword_23193C000, a3, OS_LOG_TYPE_ERROR, "%{public}@ [MA_PENDING(DECR)] %{public}@ - negative MA pending (%d) - clearing", &v5, 0x1Cu);
-  v4 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = 138543874;
+  v5 = a1;
+  v6 = 2114;
+  v7 = a2;
+  v8 = 1024;
+  v9 = [a1 pendingMobileAssetRequests];
+  _os_log_error_impl(&dword_23193C000, a3, OS_LOG_TYPE_ERROR, "%{public}@ [MA_PENDING(DECR)] %{public}@ - negative MA pending (%d) - clearing", &v4, 0x1Cu);
 }
 
 @end

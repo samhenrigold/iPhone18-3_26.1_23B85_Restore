@@ -94,9 +94,11 @@ void __63__FBSDeviceEmulationConfiguration__isEmulatedDeviceViaDefaults__block_i
 
 uint64_t __50__FBSDeviceEmulationConfiguration__sharedDefaults__block_invoke()
 {
-  _sharedDefaults_sEmulationDefaults = [(BSAbstractDefaultDomain *)[FBSDeviceEmulationDefaults alloc] _initWithDomain:@"com.apple.frontboardservices.device_emulation"];
+  v0 = [(BSAbstractDefaultDomain *)[FBSDeviceEmulationDefaults alloc] _initWithDomain:@"com.apple.frontboardservices.device_emulation"];
+  v1 = _sharedDefaults_sEmulationDefaults;
+  _sharedDefaults_sEmulationDefaults = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (int64_t)scalingStyle

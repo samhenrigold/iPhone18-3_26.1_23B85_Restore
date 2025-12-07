@@ -9,11 +9,13 @@
 - (id)_replyTokenForSectionID:(id)d publisherMatchID:(id)iD;
 - (id)_stateDescription;
 - (unint64_t)_nanoPresentableFeedFromPhoneFeed:(unint64_t)feed;
+- (void)_addBulletin:(id)bulletin forFeed:(unint64_t)feed playLightsAndSirens:(BOOL)sirens attachment:(id)attachment attachmentType:(int64_t)type alwaysSend:(BOOL)send completion:(id)completion;
 - (void)_attachAttachment:(id)attachment attachmentType:(int64_t)type toBulletin:(id)bulletin;
 - (void)_attachIconToBulletin:(id)bulletin;
 - (void)_cleanupForAddedBulletin:(id)bulletin;
 - (void)_handleAddBulletin:(id)bulletin feed:(unint64_t)feed shouldPlayLightsAndSirens:(BOOL)sirens performedWithSuccess:(BOOL)success sendAttemptTime:(id)time connectionStatus:(unint64_t)status isGizmoReady:(BOOL)ready shouldSendReplyIfNeeded:(BOOL)self0 replyToken:(id)self1;
 - (void)_handleAllSyncComplete;
+- (void)_handleDidPlayLightsAndSirens:(BOOL)sirens forBulletin:(id)bulletin inPhoneSection:(id)section finalReply:(BOOL)reply replyToken:(id)token;
 - (void)_handleDidPlayLightsAndSirens:(BOOL)sirens forBulletin:(id)bulletin inPhoneSection:(id)section transmissionDate:(id)date receptionDate:(id)receptionDate fromGizmo:(BOOL)gizmo finalReply:(BOOL)reply replyToken:(id)self0;
 - (void)_handleInitialSyncStateCompleteChanged:(id)changed;
 - (void)_handleSyncStateChanged:(id)changed;
@@ -46,6 +48,7 @@
 - (void)observer:(id)observer removeBulletin:(id)bulletin forFeed:(unint64_t)feed;
 - (void)observer:(id)observer updateGlobalSettings:(id)settings;
 - (void)removeBulletinWithPublisherBulletinID:(id)d recordID:(id)iD sectionID:(id)sectionID;
+- (void)sendAllSectionInfoWithSpool:(BOOL)spool completion:(id)completion;
 - (void)sendSectionInfoWithSectionID:(id)d completion:(id)completion;
 - (void)setReplyBlock:(id)block forSection:(id)section bulletin:(id)bulletin publicationDate:(id)date replyToken:(id)token;
 - (void)spoolSectionInfoWithCompletion:(id)completion;
@@ -78,10 +81,10 @@ uint64_t __43__BLTBulletinDistributor_sharedDistributor__block_invoke()
 
 - (BLTBulletinDistributor)init
 {
-  v56 = *MEMORY[0x277D85DE8];
-  v53.receiver = self;
-  v53.super_class = BLTBulletinDistributor;
-  v2 = [(BLTBulletinDistributor *)&v53 init];
+  v59 = *MEMORY[0x277D85DE8];
+  v56.receiver = self;
+  v56.super_class = BLTBulletinDistributor;
+  v2 = [(BLTBulletinDistributor *)&v56 init];
   if (v2)
   {
     date = [MEMORY[0x277CBEAA8] date];
@@ -123,7 +126,7 @@ uint64_t __43__BLTBulletinDistributor_sharedDistributor__block_invoke()
     v2->_sectionConfiguration = v19;
 
     v21 = [BLTClientReplyTimeoutManager alloc];
-    v22 = BLTWorkQueue();
+    v22 = BLTWorkQueue(v21);
     v23 = [(BLTClientReplyTimeoutManager *)v21 initWithQueue:v22];
     clientReplyTimeoutManager = v2->_clientReplyTimeoutManager;
     v2->_clientReplyTimeoutManager = v23;
@@ -151,37 +154,37 @@ uint64_t __43__BLTBulletinDistributor_sharedDistributor__block_invoke()
     [(BLTRemoteGizmoClient *)v2->_gizmoConnection setGizmoLegacyMap:v2->_gizmoLegacyMap];
     v34 = [BLTSettingSync alloc];
     v35 = v2->_sectionConfiguration;
-    v36 = BLTWorkQueue();
+    v36 = BLTWorkQueue(v34);
     v37 = [(BLTSettingSync *)v34 initWithSectionConfiguration:v35 queue:v36 watchKitAppList:v2->_watchKitAppList];
     settingSync = v2->_settingSync;
     v2->_settingSync = v37;
 
-    v39 = blt_general_log();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v40 = blt_general_log(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241FB3000, v39, OS_LOG_TYPE_DEFAULT, "Getting summarization setting from gateway", buf, 2u);
+      _os_log_impl(&dword_241FB3000, v40, OS_LOG_TYPE_DEFAULT, "Getting summarization setting from gateway", buf, 2u);
     }
 
     settingsGateway = [(BLTSettingSyncInternal *)v2->_settingSync settingsGateway];
     v2->_summarizationSetting = [settingsGateway effectiveGlobalSummarizationSetting];
 
-    v41 = blt_general_log();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v43 = blt_general_log(v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
-      v42 = [MEMORY[0x277CCABB0] numberWithInteger:v2->_summarizationSetting];
+      v44 = [MEMORY[0x277CCABB0] numberWithInteger:v2->_summarizationSetting];
       *buf = 138412290;
-      v55 = v42;
-      _os_log_impl(&dword_241FB3000, v41, OS_LOG_TYPE_DEFAULT, "Gateway returned summarization setting %@", buf, 0xCu);
+      v58 = v44;
+      _os_log_impl(&dword_241FB3000, v43, OS_LOG_TYPE_DEFAULT, "Gateway returned summarization setting %@", buf, 0xCu);
     }
 
-    v43 = [[BLTPingSubscriberManager alloc] initWithDeviceDelegate:v2];
+    v45 = [[BLTPingSubscriberManager alloc] initWithDeviceDelegate:v2];
     pingSubscriberManager = v2->_pingSubscriberManager;
-    v2->_pingSubscriberManager = v43;
+    v2->_pingSubscriberManager = v45;
 
     [BLTDebugObserverHolder startWithWKAppList:v2->_watchKitAppList];
-    v45 = +[BLTPairedSyncCoordinator syncState];
-    if ([v45 isSyncRestricted])
+    v47 = +[BLTPairedSyncCoordinator syncState];
+    if ([v47 isSyncRestricted])
     {
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
       [defaultCenter addObserver:v2 selector:sel__handleSyncStateChanged_ name:@"BLTPairedSyncStateChanged" object:0];
@@ -192,10 +195,11 @@ uint64_t __43__BLTBulletinDistributor_sharedDistributor__block_invoke()
       [(BLTBulletinDistributor *)v2 _performSync];
     }
 
-    if ([v45 isInitialSyncComplete])
+    isInitialSyncComplete = [v47 isInitialSyncComplete];
+    if (isInitialSyncComplete)
     {
       [(BLTBulletinDistributor *)v2 _startBulletinListening];
-      if (([v45 isSyncRestricted] & 1) == 0)
+      if (([v47 isSyncRestricted] & 1) == 0)
       {
         [(BLTBulletinDistributor *)v2 _handleAllSyncComplete];
       }
@@ -203,27 +207,26 @@ uint64_t __43__BLTBulletinDistributor_sharedDistributor__block_invoke()
 
     else
     {
-      v47 = blt_general_log();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      v50 = blt_general_log(isInitialSyncComplete);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_241FB3000, v47, OS_LOG_TYPE_DEFAULT, "Waiting for initial sync complete before listening for bulletins", buf, 2u);
+        _os_log_impl(&dword_241FB3000, v50, OS_LOG_TYPE_DEFAULT, "Waiting for initial sync complete before listening for bulletins", buf, 2u);
       }
 
       defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
       [defaultCenter2 addObserver:v2 selector:sel__handleInitialSyncStateCompleteChanged_ name:@"BLTPairedSyncStateInitialSyncCompleteChanged" object:0];
     }
 
-    objc_initWeak(buf, v2);
-    v49 = BLTWorkQueue();
-    objc_copyWeak(&v52, buf);
+    inited = objc_initWeak(buf, v2);
+    v53 = BLTWorkQueue(inited);
+    objc_copyWeak(&v55, buf);
     v2->_stateHandler = os_state_add_handler();
 
-    objc_destroyWeak(&v52);
+    objc_destroyWeak(&v55);
     objc_destroyWeak(buf);
   }
 
-  v50 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -245,12 +248,11 @@ _DWORD *__30__BLTBulletinDistributor_init__block_invoke(uint64_t a1)
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self];
 
-  stateHandler = self->_stateHandler;
   os_state_remove_handler();
   self->_stateHandler = 0;
-  v5.receiver = self;
-  v5.super_class = BLTBulletinDistributor;
-  [(BLTBulletinDistributor *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = BLTBulletinDistributor;
+  [(BLTBulletinDistributor *)&v4 dealloc];
 }
 
 - (void)getWillNanoPresentNotificationForSectionID:(id)d subsectionIDs:(id)ds subtype:(int64_t)subtype completion:(id)completion
@@ -265,22 +267,20 @@ _DWORD *__30__BLTBulletinDistributor_init__block_invoke(uint64_t a1)
 
 - (void)sendSectionInfoWithSectionID:(id)d completion:(id)completion
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   settingSync = self->_settingSync;
-  v15[0] = d;
+  v14[0] = d;
   v8 = MEMORY[0x277CBEA60];
   dCopy = d;
-  v10 = [v8 arrayWithObjects:v15 count:1];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __66__BLTBulletinDistributor_sendSectionInfoWithSectionID_completion___block_invoke;
-  v13[3] = &unk_278D314F0;
-  v14 = completionCopy;
+  v10 = [v8 arrayWithObjects:v14 count:1];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __66__BLTBulletinDistributor_sendSectionInfoWithSectionID_completion___block_invoke;
+  v12[3] = &unk_278D314F0;
+  v13 = completionCopy;
   v11 = completionCopy;
-  [(BLTSettingSync *)settingSync sendSectionInfosWithSectionIDs:v10 completion:v13 spoolToFile:0];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(BLTSettingSync *)settingSync sendSectionInfosWithSectionIDs:v10 completion:v12 spoolToFile:0];
 }
 
 uint64_t __66__BLTBulletinDistributor_sendSectionInfoWithSectionID_completion___block_invoke(uint64_t a1)
@@ -292,6 +292,20 @@ uint64_t __66__BLTBulletinDistributor_sendSectionInfoWithSectionID_completion___
   }
 
   return result;
+}
+
+- (void)sendAllSectionInfoWithSpool:(BOOL)spool completion:(id)completion
+{
+  spoolCopy = spool;
+  completionCopy = completion;
+  settingSync = self->_settingSync;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __65__BLTBulletinDistributor_sendAllSectionInfoWithSpool_completion___block_invoke;
+  v9[3] = &unk_278D314F0;
+  v10 = completionCopy;
+  v8 = completionCopy;
+  [(BLTSettingSync *)settingSync sendAllSectionInfoWithSpool:spoolCopy completion:v9];
 }
 
 uint64_t __65__BLTBulletinDistributor_sendAllSectionInfoWithSpool_completion___block_invoke(uint64_t a1)
@@ -350,7 +364,7 @@ uint64_t __57__BLTBulletinDistributor_spoolSectionInfoWithCompletion___block_inv
 - (void)_handleSyncStateChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = BLTWorkQueue();
+  v5 = BLTWorkQueue(changedCopy);
   v7[0] = MEMORY[0x277D85DD0];
   v7[1] = 3221225472;
   v7[2] = __50__BLTBulletinDistributor__handleSyncStateChanged___block_invoke;
@@ -377,7 +391,7 @@ void __50__BLTBulletinDistributor__handleSyncStateChanged___block_invoke(uint64_
 - (void)_handleInitialSyncStateCompleteChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = BLTWorkQueue();
+  v5 = BLTWorkQueue(changedCopy);
   v7[0] = MEMORY[0x277D85DD0];
   v7[1] = 3221225472;
   v7[2] = __65__BLTBulletinDistributor__handleInitialSyncStateCompleteChanged___block_invoke;
@@ -457,7 +471,7 @@ uint64_t __38__BLTBulletinDistributor__performSync__block_invoke_3(uint64_t a1)
 
 uint64_t __49__BLTBulletinDistributor__startBulletinListening__block_invoke(uint64_t a1)
 {
-  v2 = blt_general_log();
+  v2 = blt_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -495,74 +509,70 @@ uint64_t __49__BLTBulletinDistributor__startBulletinListening__block_invoke(uint
 
 void __48__BLTBulletinDistributor__handleAllSyncComplete__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = blt_general_log();
+  v17 = *MEMORY[0x277D85DE8];
+  v2 = blt_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
     _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_INFO, "Sync is not restricted and initial sync complete", buf, 2u);
   }
 
-  v3 = BLTWorkQueue();
+  v4 = BLTWorkQueue(v3);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __48__BLTBulletinDistributor__handleAllSyncComplete__block_invoke_84;
   block[3] = &unk_278D31428;
   block[4] = *(a1 + 32);
-  dispatch_async(v3, block);
+  dispatch_async(v4, block);
 
-  v4 = [MEMORY[0x277CBEAA8] date];
-  [v4 timeIntervalSinceDate:*(*(a1 + 32) + 96)];
-  v6 = 60.0 - v5;
-  if (v6 >= 0.0)
+  v5 = [MEMORY[0x277CBEAA8] date];
+  v6 = [v5 timeIntervalSinceDate:*(*(a1 + 32) + 96)];
+  v8 = 60.0 - v7;
+  if (v8 >= 0.0)
   {
-    v7 = v6;
+    v9 = v8;
   }
 
   else
   {
-    v7 = 0.0;
+    v9 = 0.0;
   }
 
-  v8 = blt_general_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = blt_general_log(v6);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v15 = v7;
-    _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "Waiting for %f seconds until we send bulletin metadata", buf, 0xCu);
+    v16 = v9;
+    _os_log_impl(&dword_241FB3000, v10, OS_LOG_TYPE_DEFAULT, "Waiting for %f seconds until we send bulletin metadata", buf, 0xCu);
   }
 
-  v9 = dispatch_time(0, (v7 * 1000000000.0));
-  v10 = BLTWorkQueue();
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __48__BLTBulletinDistributor__handleAllSyncComplete__block_invoke_85;
-  v12[3] = &unk_278D31428;
-  v12[4] = *(a1 + 32);
-  dispatch_after(v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = dispatch_time(0, (v9 * 1000000000.0));
+  v12 = BLTWorkQueue(v11);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __48__BLTBulletinDistributor__handleAllSyncComplete__block_invoke_85;
+  v13[3] = &unk_278D31428;
+  v13[4] = *(a1 + 32);
+  dispatch_after(v11, v12, v13);
 }
 
 - (void)_registerForPairedDeviceBuildChanges
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   blt_boundedWaitForActivePairedDevice = [MEMORY[0x277D2BCF8] blt_boundedWaitForActivePairedDevice];
-  v7[0] = *MEMORY[0x277D2BC08];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __62__BLTBulletinDistributor__registerForPairedDeviceBuildChanges__block_invoke;
-  v6[3] = &unk_278D32610;
-  v6[4] = self;
-  [blt_boundedWaitForActivePairedDevice registerForPropertyChanges:v4 withBlock:v6];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = *MEMORY[0x277D2BC08];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __62__BLTBulletinDistributor__registerForPairedDeviceBuildChanges__block_invoke;
+  v5[3] = &unk_278D32610;
+  v5[4] = self;
+  [blt_boundedWaitForActivePairedDevice registerForPropertyChanges:v4 withBlock:v5];
 }
 
 void __62__BLTBulletinDistributor__registerForPairedDeviceBuildChanges__block_invoke(uint64_t a1)
 {
-  v2 = BLTWorkQueue();
+  v2 = BLTWorkQueue(a1);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __62__BLTBulletinDistributor__registerForPairedDeviceBuildChanges__block_invoke_2;
@@ -573,38 +583,36 @@ void __62__BLTBulletinDistributor__registerForPairedDeviceBuildChanges__block_in
 
 - (void)_setupBBObserver
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v3 = blt_general_log();
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = blt_general_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
+    v13 = 138412290;
     selfCopy2 = self;
-    _os_log_impl(&dword_241FB3000, v3, OS_LOG_TYPE_DEFAULT, "%@ _setupBBObserver", &v12, 0xCu);
+    _os_log_impl(&dword_241FB3000, v3, OS_LOG_TYPE_DEFAULT, "%@ _setupBBObserver", &v13, 0xCu);
   }
 
-  v4 = BLTWorkQueue();
-  v5 = BLTWorkQueue();
-  v6 = [BLTBBObserver surrogateGatewayWithQueue:v4 calloutQueue:v5 name:@"GizmoGateway" priority:2];
+  v5 = BLTWorkQueue(v4);
+  v6 = BLTWorkQueue(v5);
+  v7 = [BLTBBObserver surrogateGatewayWithQueue:v5 calloutQueue:v6 name:@"GizmoGateway" priority:2];
   bbObserver = self->_bbObserver;
-  self->_bbObserver = v6;
+  self->_bbObserver = v7;
 
   [(BBObserver *)self->_bbObserver setDelegate:self];
   [(BBObserver *)self->_bbObserver setObserverFeed:33663];
   bbObserver = [(BLTBulletinDistributor *)self bbObserver];
   [bbObserver setObserverOptions:1];
 
-  v9 = blt_general_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = blt_general_log(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     bbObserver2 = [(BLTBulletinDistributor *)self bbObserver];
-    v12 = 138412546;
+    v13 = 138412546;
     selfCopy2 = self;
-    v14 = 2112;
-    v15 = bbObserver2;
-    _os_log_impl(&dword_241FB3000, v9, OS_LOG_TYPE_DEFAULT, "%@ _setupBBObserver: %@", &v12, 0x16u);
+    v15 = 2112;
+    v16 = bbObserver2;
+    _os_log_impl(&dword_241FB3000, v11, OS_LOG_TYPE_DEFAULT, "%@ _setupBBObserver: %@", &v13, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pingSubscriberWithBulletin:(id)bulletin ack:(id)ack
@@ -622,55 +630,53 @@ void __62__BLTBulletinDistributor__registerForPairedDeviceBuildChanges__block_in
   bulletinCopy = bulletin;
   dCopy = d;
   iDCopy = iD;
-  [date timeIntervalSinceNow];
-  v16 = v15 + 86400.0;
-  v17 = blt_general_log();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  timeIntervalSinceNow = [date timeIntervalSinceNow];
+  v17 = v16 + 86400.0;
+  v18 = blt_general_log(timeIntervalSinceNow);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = " not going to send";
+    v19 = " not going to send";
     v31 = 2112;
     v29 = 138413314;
     v30 = bulletinCopy;
-    if (v16 > 0.0)
+    if (v17 > 0.0)
     {
-      v18 = "";
+      v19 = "";
     }
 
     v32 = iDCopy;
     v33 = 2048;
     feedCopy = feed;
     v35 = 2048;
-    v36 = v16;
+    v36 = v17;
     v37 = 2080;
-    v38 = v18;
-    _os_log_impl(&dword_241FB3000, v17, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor _notifyGizmoOfCancelBulletin with publisherMatchID: %@ in universal section: %@ forFeed: %lu timeout: %f%s", &v29, 0x34u);
+    v38 = v19;
+    _os_log_impl(&dword_241FB3000, v18, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor _notifyGizmoOfCancelBulletin with publisherMatchID: %@ in universal section: %@ forFeed: %lu timeout: %f%s", &v29, 0x34u);
   }
 
-  if (v16 > 0.0)
+  if (v17 > 0.0)
   {
-    v19 = [BLTBBBulletinKey bulletinKeyWithSectionID:dCopy publisherMatchID:bulletinCopy];
-    v20 = [(BLTGizmoLegacyMap *)self->_gizmoLegacyMap gizmoPublisherBulletinIDForPhoneKey:v19];
-    v21 = [(BLTGizmoLegacyMap *)self->_gizmoLegacyMap gizmoSectionInfoForPhoneKey:v19];
-    mappedSectionID = [v21 mappedSectionID];
-    v23 = mappedSectionID;
+    v20 = [BLTBBBulletinKey bulletinKeyWithSectionID:dCopy publisherMatchID:bulletinCopy];
+    v21 = [(BLTGizmoLegacyMap *)self->_gizmoLegacyMap gizmoPublisherBulletinIDForPhoneKey:v20];
+    v22 = [(BLTGizmoLegacyMap *)self->_gizmoLegacyMap gizmoSectionInfoForPhoneKey:v20];
+    mappedSectionID = [v22 mappedSectionID];
+    v24 = mappedSectionID;
     if (mappedSectionID)
     {
-      v24 = mappedSectionID;
+      v25 = mappedSectionID;
     }
 
     else
     {
-      v24 = iDCopy;
+      v25 = iDCopy;
     }
 
-    v25 = v24;
+    v26 = v25;
 
     gizmoConnection = self->_gizmoConnection;
-    v27 = [MEMORY[0x277CCABB0] numberWithDouble:v16];
-    [(BLTRemoteGizmoClient *)gizmoConnection cancelBulletinWithPublisherMatchID:v20 universalSectionID:v25 feed:feed withTimeout:v27];
+    v28 = [MEMORY[0x277CCABB0] numberWithDouble:v17];
+    [(BLTRemoteGizmoClient *)gizmoConnection cancelBulletinWithPublisherMatchID:v21 universalSectionID:v26 feed:feed withTimeout:v28];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_mapBulletin:(id)bulletin
@@ -691,23 +697,22 @@ void __62__BLTBulletinDistributor__registerForPairedDeviceBuildChanges__block_in
 
 - (void)_postWillSendBulletinToGizmoNotificationForBulletin:(id)bulletin
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA9A0];
   bulletinCopy = bulletin;
   defaultCenter = [v3 defaultCenter];
-  v9 = @"sectionID";
+  v8 = @"sectionID";
   sectionID = [bulletinCopy sectionID];
 
-  v10[0] = sectionID;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = sectionID;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [defaultCenter postNotificationName:@"BLTWillSendBulletinToGizmoNotification" object:0 userInfo:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_attachAttachment:(id)attachment attachmentType:(int64_t)type toBulletin:(id)bulletin
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   attachmentCopy = attachment;
   bulletinCopy = bulletin;
   v10 = bulletinCopy;
@@ -731,35 +736,35 @@ void __62__BLTBulletinDistributor__registerForPairedDeviceBuildChanges__block_in
       v16 = [BLTHashCacheItem hashCacheItemWithData:attachment URL:attachmentURLURL identifier:attachmentID];
 
       [array addObject:v16];
-      v32 = 1;
+      v31 = 1;
     }
 
     else
     {
-      v32 = 0;
+      v31 = 0;
     }
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
-    v34 = v10;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v33 = v10;
     additionalAttachments = [v10 additionalAttachments];
-    v18 = [additionalAttachments countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v18 = [additionalAttachments countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v40;
+      v20 = *v39;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v40 != v20)
+          if (*v39 != v20)
           {
             objc_enumerationMutation(additionalAttachments);
           }
 
-          v22 = *(*(&v39 + 1) + 8 * i);
+          v22 = *(*(&v38 + 1) + 8 * i);
           v23 = [v22 uRL];
 
           if (v23)
@@ -773,47 +778,45 @@ void __62__BLTBulletinDistributor__registerForPairedDeviceBuildChanges__block_in
           }
         }
 
-        v19 = [additionalAttachments countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v19 = [additionalAttachments countByEnumeratingWithState:&v38 objects:v42 count:16];
       }
 
       while (v19);
     }
 
-    v10 = v34;
+    v10 = v33;
     attachmentHashCache = selfCopy->_attachmentHashCache;
-    sectionID = [v34 sectionID];
-    publisherMatchID = [v34 publisherMatchID];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __70__BLTBulletinDistributor__attachAttachment_attachmentType_toBulletin___block_invoke;
-    v35[3] = &unk_278D32638;
-    v38 = v32;
-    v36 = v34;
-    v37 = array2;
+    sectionID = [v33 sectionID];
+    publisherMatchID = [v33 publisherMatchID];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __70__BLTBulletinDistributor__attachAttachment_attachmentType_toBulletin___block_invoke;
+    v34[3] = &unk_278D32638;
+    v37 = v31;
+    v35 = v33;
+    v36 = array2;
     v30 = array2;
-    [(BLTHashCache *)attachmentHashCache updateCacheWithItems:array forSectionID:sectionID matchID:publisherMatchID result:v35];
+    [(BLTHashCache *)attachmentHashCache updateCacheWithItems:array forSectionID:sectionID matchID:publisherMatchID result:v34];
 
     attachmentCopy = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __70__BLTBulletinDistributor__attachAttachment_attachmentType_toBulletin___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  v8 = blt_general_log();
+  v8 = blt_general_log(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v7 identifier];
-    v15 = 134218498;
-    v16 = a3;
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2048;
-    v20 = a4;
-    _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "Attachment hash cache updated item index %lu id %@ with result %lu", &v15, 0x20u);
+    v14 = 134218498;
+    v15 = a3;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2048;
+    v19 = a4;
+    _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "Attachment hash cache updated item index %lu id %@ with result %lu", &v14, 0x20u);
   }
 
   if (a4 == 2)
@@ -867,8 +870,6 @@ LABEL_16:
   }
 
 LABEL_18:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_attachIconToBulletin:(id)bulletin
@@ -908,15 +909,15 @@ LABEL_18:
 
 void __48__BLTBulletinDistributor__attachIconToBulletin___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v7 = blt_general_log();
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = blt_general_log(a1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134218240;
-    v10 = a3;
-    v11 = 2048;
-    v12 = a4;
-    _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Icon hash cache updated item index %lu with result %lu", &v9, 0x16u);
+    v8 = 134218240;
+    v9 = a3;
+    v10 = 2048;
+    v11 = a4;
+    _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Icon hash cache updated item index %lu with result %lu", &v8, 0x16u);
   }
 
   if ((a4 - 1) >= 2)
@@ -931,18 +932,16 @@ void __48__BLTBulletinDistributor__attachIconToBulletin___block_invoke(uint64_t 
   {
     [*(a1 + 32) setContainsUpdateIcon:1];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAddBulletin:(id)bulletin feed:(unint64_t)feed shouldPlayLightsAndSirens:(BOOL)sirens performedWithSuccess:(BOOL)success sendAttemptTime:(id)time connectionStatus:(unint64_t)status isGizmoReady:(BOOL)ready shouldSendReplyIfNeeded:(BOOL)self0 replyToken:(id)self1
 {
   successCopy = success;
   sirensCopy = sirens;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   tokenCopy = token;
-  v17 = blt_general_log();
+  v17 = blt_general_log(tokenCopy);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     if (successCopy)
@@ -958,20 +957,20 @@ void __48__BLTBulletinDistributor__attachIconToBulletin___block_invoke(uint64_t 
     publisherMatchID = [bulletinCopy publisherMatchID];
     v20 = publisherMatchID;
     v21 = "NO";
-    *v29 = 136315906;
-    *&v29[4] = v18;
-    *&v29[12] = 2112;
+    *v28 = 136315906;
+    *&v28[4] = v18;
+    *&v28[12] = 2112;
     if (sirensCopy)
     {
       v21 = "YES";
     }
 
-    *&v29[14] = publisherMatchID;
-    v30 = 2048;
+    *&v28[14] = publisherMatchID;
+    v29 = 2048;
     feedCopy = feed;
-    v32 = 2080;
-    v33 = v21;
-    _os_log_impl(&dword_241FB3000, v17, OS_LOG_TYPE_DEFAULT, "%s gizmo of bulletin with publisherMatchID: %@ forFeed: %lu playLightsAndSirens: %s", v29, 0x2Au);
+    v31 = 2080;
+    v32 = v21;
+    _os_log_impl(&dword_241FB3000, v17, OS_LOG_TYPE_DEFAULT, "%s gizmo of bulletin with publisherMatchID: %@ forFeed: %lu playLightsAndSirens: %s", v28, 0x2Au);
   }
 
   if (!successCopy)
@@ -989,8 +988,6 @@ void __48__BLTBulletinDistributor__attachIconToBulletin___block_invoke(uint64_t 
     dateOrRecencyDate = [bulletinCopy dateOrRecencyDate];
     [(BLTBulletinDistributor *)self _notifyGizmoOfCancelBulletin:publisherMatchID3 sectionID:sectionID2 universalSectionID:sectionMatchID feed:feed withBulletinDate:dateOrRecencyDate];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendPBBulletin:(id)bulletin forBulletin:(id)forBulletin feed:(unint64_t)feed updateType:(unint64_t)type playLightsAndSirens:(BOOL)sirens shouldSendReplyIfNeeded:(BOOL)needed
@@ -1000,13 +997,14 @@ void __48__BLTBulletinDistributor__attachIconToBulletin___block_invoke(uint64_t 
   bulletinCopy = bulletin;
   forBulletinCopy = forBulletin;
   connectionStatus = [(BLTRemoteObject *)self->_gizmoConnection connectionStatus];
+  v15 = connectionStatus;
   if (connectionStatus != 1)
   {
-    v15 = blt_general_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = blt_general_log(connectionStatus);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_241FB3000, v15, OS_LOG_TYPE_DEFAULT, "Not locally connected to gizmo. Replying to local bulletin board immediately.", buf, 2u);
+      _os_log_impl(&dword_241FB3000, v16, OS_LOG_TYPE_DEFAULT, "Not locally connected to gizmo. Replying to local bulletin board immediately.", buf, 2u);
     }
 
     if (neededCopy)
@@ -1019,30 +1017,30 @@ void __48__BLTBulletinDistributor__attachIconToBulletin___block_invoke(uint64_t 
   }
 
   isPairedDeviceReady = [(BLTRemoteObject *)self->_gizmoConnection isPairedDeviceReady];
-  v19 = [MEMORY[0x277CCABB0] numberWithInteger:BLTGetPlayLightsAndSirensTimeout(connectionStatus == 1)];
+  v21 = [MEMORY[0x277CCABB0] numberWithInteger:{BLTGetPlayLightsAndSirensTimeout(v15 == 1, v20)}];
   date = [MEMORY[0x277CBEAA8] date];
   objc_initWeak(buf, self);
   replyToken2 = [bulletinCopy replyToken];
   gizmoConnection = self->_gizmoConnection;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __114__BLTBulletinDistributor__sendPBBulletin_forBulletin_feed_updateType_playLightsAndSirens_shouldSendReplyIfNeeded___block_invoke;
-  v29[3] = &unk_278D32688;
-  objc_copyWeak(v33, buf);
-  v23 = forBulletinCopy;
-  v30 = v23;
-  v33[1] = feed;
-  v34 = sirensCopy;
-  v24 = date;
-  v31 = v24;
-  v33[2] = connectionStatus;
-  v35 = isPairedDeviceReady;
-  v36 = neededCopy;
-  v25 = replyToken2;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __114__BLTBulletinDistributor__sendPBBulletin_forBulletin_feed_updateType_playLightsAndSirens_shouldSendReplyIfNeeded___block_invoke;
+  v31[3] = &unk_278D32688;
+  objc_copyWeak(v35, buf);
+  v25 = forBulletinCopy;
   v32 = v25;
-  [(BLTRemoteGizmoClient *)gizmoConnection addBulletin:bulletinCopy playLightsAndSirens:sirensCopy updateType:type withTimeout:v19 completion:v29];
+  v35[1] = feed;
+  v36 = sirensCopy;
+  v26 = date;
+  v33 = v26;
+  v35[2] = v15;
+  v37 = isPairedDeviceReady;
+  v38 = neededCopy;
+  v27 = replyToken2;
+  v34 = v27;
+  [(BLTRemoteGizmoClient *)gizmoConnection addBulletin:bulletinCopy playLightsAndSirens:sirensCopy updateType:type withTimeout:v21 completion:v31];
 
-  objc_destroyWeak(v33);
+  objc_destroyWeak(v35);
   objc_destroyWeak(buf);
 }
 
@@ -1056,30 +1054,30 @@ void __114__BLTBulletinDistributor__sendPBBulletin_forBulletin_feed_updateType_p
 - (BOOL)_notifyGizmoOfBulletin:(id)bulletin forFeed:(unint64_t)feed updateType:(unint64_t)type playLightsAndSirens:(BOOL)sirens shouldSendReplyIfNeeded:(BOOL)needed attachment:(id)attachment attachmentType:(int64_t)attachmentType replyToken:(id)self0
 {
   sirensCopy = sirens;
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   attachmentCopy = attachment;
   tokenCopy = token;
-  v15 = blt_general_log();
+  v15 = blt_general_log(tokenCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     publisherMatchID = [bulletinCopy publisherMatchID];
     v17 = "NO";
     *buf = 138412802;
-    v86 = publisherMatchID;
+    v85 = publisherMatchID;
     if (sirensCopy)
     {
       v17 = "YES";
     }
 
-    v87 = 2048;
+    v86 = 2048;
     feedCopy = feed;
-    v89 = 2080;
-    v90 = v17;
+    v88 = 2080;
+    v89 = v17;
     _os_log_impl(&dword_241FB3000, v15, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor _notifyGizmoOfBulletin with publisherMatchID: %@ forFeed: %lu playLightsAndSirens: %s", buf, 0x20u);
   }
 
-  v72 = sirensCopy;
+  v71 = sirensCopy;
 
   [(BLTBulletinDistributor *)self _postWillSendBulletinToGizmoNotificationForBulletin:bulletinCopy];
   bulletinID = [bulletinCopy bulletinID];
@@ -1112,22 +1110,22 @@ void __114__BLTBulletinDistributor__sendPBBulletin_forBulletin_feed_updateType_p
 
   v31 = sectionID4;
 
-  v67 = [(BLTSettingSync *)self->_settingSync universalSectionIDForSectionID:v31];
+  v66 = [(BLTSettingSync *)self->_settingSync universalSectionIDForSectionID:v31];
   [(BLTRemoteGizmoClient *)self->_gizmoConnection queuePendingRequests];
   sectionConfiguration = self->_sectionConfiguration;
   sectionID5 = [bulletinCopy sectionID];
   v34 = [(BLTSectionConfigurationInternal *)sectionConfiguration watchVersionThatUsesUserInfoForContextForSectionID:sectionID5];
 
-  v69 = v31;
-  v66 = v34;
+  v68 = v31;
+  v65 = v34;
   if (v34)
   {
-    v64 = [MEMORY[0x277D2BCC8] activePairedDeviceSupportIsGreaterEqualVersion:{objc_msgSend(v34, "unsignedIntegerValue")}] ^ 1;
+    v63 = [MEMORY[0x277D2BCC8] activePairedDeviceSupportIsGreaterEqualVersion:{objc_msgSend(v34, "unsignedIntegerValue")}] ^ 1;
   }
 
   else
   {
-    LOBYTE(v64) = 0;
+    LOBYTE(v63) = 0;
   }
 
   v35 = self->_sectionConfiguration;
@@ -1136,7 +1134,7 @@ void __114__BLTBulletinDistributor__sendPBBulletin_forBulletin_feed_updateType_p
 
   v38 = self->_sectionConfiguration;
   sectionID7 = [bulletinCopy sectionID];
-  v63 = [(BLTSectionConfigurationInternal *)v38 shouldUsePhoneExpirationDateForSectionID:sectionID7];
+  v62 = [(BLTSectionConfigurationInternal *)v38 shouldUsePhoneExpirationDateForSectionID:sectionID7];
 
   v40 = self->_sectionConfiguration;
   sectionID8 = [bulletinCopy sectionID];
@@ -1161,38 +1159,37 @@ void __114__BLTBulletinDistributor__sendPBBulletin_forBulletin_feed_updateType_p
     v46 = 2;
   }
 
-  v59 = v46;
-  v58 = !v37;
+  v58 = v46;
+  v57 = !v37;
   watchKitAppBundleID = [v20 watchKitAppBundleID];
   bbObserver = self->_bbObserver;
   teamID = [v23 teamID];
   [(BLTGizmoLegacyMap *)self->_gizmoLegacyMap gizmoPublisherBulletinIDForPhoneKey:v26];
-  v49 = v62 = v23;
+  v49 = v61 = v23;
   v50 = [(BLTGizmoLegacyMap *)self->_gizmoLegacyMap categoryIDForBulletinKey:v26];
   [(BLTGizmoLegacyMap *)self->_gizmoLegacyMap sectionSubtypeForBulletinKey:v26];
-  v51 = v61 = v26;
-  v76[0] = MEMORY[0x277D85DD0];
-  v76[1] = 3221225472;
-  v76[2] = __149__BLTBulletinDistributor__notifyGizmoOfBulletin_forFeed_updateType_playLightsAndSirens_shouldSendReplyIfNeeded_attachment_attachmentType_replyToken___block_invoke;
-  v76[3] = &unk_278D326B0;
-  v76[4] = self;
-  v77 = attachmentCopy;
+  v51 = v60 = v26;
+  v75[0] = MEMORY[0x277D85DD0];
+  v75[1] = 3221225472;
+  v75[2] = __149__BLTBulletinDistributor__notifyGizmoOfBulletin_forFeed_updateType_playLightsAndSirens_shouldSendReplyIfNeeded_attachment_attachmentType_replyToken___block_invoke;
+  v75[3] = &unk_278D326B0;
+  v75[4] = self;
+  v76 = attachmentCopy;
   attachmentTypeCopy = attachmentType;
-  v81 = feedCopy2;
+  v80 = feedCopy2;
   typeCopy = type;
-  v83 = v72;
+  v82 = v71;
   neededCopy = needed;
-  v78 = bulletinCopy;
-  v79 = bulletinID;
-  v74 = bulletinID;
+  v77 = bulletinCopy;
+  v78 = bulletinID;
+  v73 = bulletinID;
   v52 = bulletinCopy;
   v53 = attachmentCopy;
-  BYTE1(v57) = v58;
-  LOBYTE(v57) = v64;
+  BYTE1(v56) = v57;
   LOBYTE(v56) = v63;
-  [BLTPBBulletin bulletinWithBBBulletin:v52 sockPuppetAppBundleID:watchKitAppBundleID observer:bbObserver feed:feedCopy2 teamID:teamID universalSectionID:v67 shouldUseExpirationDate:v56 replyToken:tokenCopy gizmoLegacyPublisherBulletinID:v49 gizmoLegacyCategoryID:v50 gizmoSectionID:v69 gizmoSectionSubtype:v51 useUserInfoForContext:v57 removeSubtitleForOlderWatches:v59 attachOption:v76 completion:?];
+  LOBYTE(v55) = v62;
+  [BLTPBBulletin bulletinWithBBBulletin:v52 sockPuppetAppBundleID:watchKitAppBundleID observer:bbObserver feed:feedCopy2 teamID:teamID universalSectionID:v66 shouldUseExpirationDate:v55 replyToken:tokenCopy gizmoLegacyPublisherBulletinID:v49 gizmoLegacyCategoryID:v50 gizmoSectionID:v68 gizmoSectionSubtype:v51 useUserInfoForContext:v56 removeSubtitleForOlderWatches:v58 attachOption:v75 completion:?];
 
-  v54 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1256,7 +1253,7 @@ uint64_t __149__BLTBulletinDistributor__notifyGizmoOfBulletin_forFeed_updateType
     {
 
 LABEL_6:
-      v14 = 1;
+      v15 = 1;
       goto LABEL_7;
     }
 
@@ -1268,7 +1265,7 @@ LABEL_6:
     }
   }
 
-  v19 = blt_general_log();
+  v19 = blt_general_log(v14);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     bulletinID = [v9 bulletinID];
@@ -1277,42 +1274,39 @@ LABEL_6:
     _os_log_impl(&dword_241FB3000, v19, OS_LOG_TYPE_DEFAULT, "Bulletin with id: %@ has no message and was sent to sounds feed only. Should not coordinate", &v21, 0xCu);
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_7:
-  v15 = [(BLTBulletinDistributor *)self _willNanoPresent:present];
+  v16 = [(BLTBulletinDistributor *)self _willNanoPresent:present];
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v14 & v15;
+  return v15 & v16;
 }
 
 - (void)_reloadBulletins
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _obsoletionDateRelativeToNow = [(BLTBulletinDistributor *)self _obsoletionDateRelativeToNow];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v5 = blt_general_log();
+  v5 = blt_general_log(dictionary);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v15 = 2112;
-    v16 = _obsoletionDateRelativeToNow;
+    v14 = 2112;
+    v15 = _obsoletionDateRelativeToNow;
     _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "%@ _reloadBulletins: obsoletionDate: %@", buf, 0x16u);
   }
 
   bbObserver = [(BLTBulletinDistributor *)self bbObserver];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __42__BLTBulletinDistributor__reloadBulletins__block_invoke;
-  v10[3] = &unk_278D32750;
-  v10[4] = self;
-  v11 = dictionary;
-  v12 = _obsoletionDateRelativeToNow;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __42__BLTBulletinDistributor__reloadBulletins__block_invoke;
+  v9[3] = &unk_278D32750;
+  v9[4] = self;
+  v10 = dictionary;
+  v11 = _obsoletionDateRelativeToNow;
   v7 = _obsoletionDateRelativeToNow;
   v8 = dictionary;
-  [bbObserver getPublisherMatchIDsOfBulletinsPublishedAfterDate:v7 withCompletion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [bbObserver getPublisherMatchIDsOfBulletinsPublishedAfterDate:v7 withCompletion:v9];
 }
 
 void __42__BLTBulletinDistributor__reloadBulletins__block_invoke(id *a1, uint64_t a2)
@@ -1335,22 +1329,20 @@ void __42__BLTBulletinDistributor__reloadBulletins__block_invoke(id *a1, uint64_
   v5 = [BLTBulletinFetcher batchBulletinFetchForBulletinIDs:a2 fetcher:v14 completion:v11];
   [a1[4] setBulletinFetcher:v5];
 
-  v6 = blt_general_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = blt_general_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = a1[4];
-    v8 = a1[6];
-    v9 = [v7 bulletinFetcher];
+    v8 = a1[4];
+    v9 = a1[6];
+    v10 = [v8 bulletinFetcher];
     *buf = 138412802;
-    v17 = v7;
+    v17 = v8;
     v18 = 2112;
-    v19 = v8;
+    v19 = v9;
     v20 = 2112;
-    v21 = v9;
-    _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_DEFAULT, "%@ _reloadBulletins: obsoletionDate: %@ bulletinFetcher: %@", buf, 0x20u);
+    v21 = v10;
+    _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "%@ _reloadBulletins: obsoletionDate: %@ bulletinFetcher: %@", buf, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __42__BLTBulletinDistributor__reloadBulletins__block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1431,22 +1423,20 @@ void __42__BLTBulletinDistributor__reloadBulletins__block_invoke_4(uint64_t a1, 
 
 uint64_t __42__BLTBulletinDistributor__reloadBulletins__block_invoke_5(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = blt_general_log();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = blt_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_DEFAULT, "%@ _reloadBulletins: obsoletionDate: %@ complete", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_DEFAULT, "%@ _reloadBulletins: obsoletionDate: %@ complete", &v6, 0x16u);
   }
 
-  result = [*(a1 + 32) _sendCurrentBulletinIdentifiers:*(a1 + 48)];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _sendCurrentBulletinIdentifiers:*(a1 + 48)];
 }
 
 - (id)_obsoletionDateRelativeToNow
@@ -1459,38 +1449,36 @@ uint64_t __42__BLTBulletinDistributor__reloadBulletins__block_invoke_5(uint64_t 
 
 - (void)_sendCurrentBulletinIdentifiers:(id)identifiers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
-  v5 = blt_general_log();
+  v5 = blt_general_log(identifiersCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy2 = self;
-    v14 = 2112;
-    v15 = identifiersCopy;
+    v13 = 2112;
+    v14 = identifiersCopy;
     _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "%@ _sendCurrentBulletinIdentifiers: bulletinIdentifiersBySectionID: %@", buf, 0x16u);
   }
 
   v6 = objc_alloc_init(BLTPBFullBulletinList);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke;
-  v10[3] = &unk_278D327A0;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke;
+  v9[3] = &unk_278D327A0;
   v7 = v6;
-  v11 = v7;
-  [(BLTPBFullBulletinList *)identifiersCopy enumerateKeysAndObjectsUsingBlock:v10];
-  v8 = blt_general_log();
+  v10 = v7;
+  v8 = blt_general_log([(BLTPBFullBulletinList *)identifiersCopy enumerateKeysAndObjectsUsingBlock:v9]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy2 = self;
-    v14 = 2112;
-    v15 = v7;
+    v13 = 2112;
+    v14 = v7;
     _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "%@ _sendCurrentBulletinIdentifiers: fullList: %@", buf, 0x16u);
   }
 
   [(BLTRemoteGizmoClient *)self->_gizmoConnection updateBulletinList:v7];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1513,7 +1501,7 @@ void __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke
 
 - (void)_performNextPendingBulletinUpdateForBulletinID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   os_unfair_lock_lock(&self->_pendingBulletinUpdatesLock);
   v5 = [(NSMutableDictionary *)self->_pendingBulletinUpdates objectForKeyedSubscript:dCopy];
@@ -1521,8 +1509,7 @@ void __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke
   if ([v5 count])
   {
     v6 = [v5 objectAtIndexedSubscript:0];
-    [v5 removeObjectAtIndex:0];
-    v7 = blt_general_log();
+    v7 = blt_general_log([v5 removeObjectAtIndex:0]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       updateType = [v6 updateType];
@@ -1538,11 +1525,11 @@ void __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke
       }
 
       v10 = v9;
-      v15 = 138412546;
-      v16 = v10;
-      v17 = 2112;
-      v18 = dCopy;
-      _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Performing pending update type %@ for %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v10;
+      v16 = 2112;
+      v17 = dCopy;
+      _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Performing pending update type %@ for %@", &v14, 0x16u);
     }
 
     updateType2 = [v6 updateType];
@@ -1560,8 +1547,6 @@ void __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke
       -[BLTBulletinDistributor _performModifyBulletin:forFeed:](self, "_performModifyBulletin:forFeed:", bulletin2, [v6 feed]);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_enqueuBulletinUpdate:(unint64_t)update bulletin:(id)bulletin feed:(unint64_t)feed
@@ -1583,35 +1568,34 @@ void __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke
       os_unfair_lock_unlock(&self->_pendingBulletinUpdatesLock);
     }
 
-    v12 = blt_general_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = blt_general_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = @"remove";
+      v14 = @"remove";
       if (update != 1)
       {
-        v13 = 0;
+        v14 = 0;
       }
 
       if (!update)
       {
-        v13 = @"modify";
+        v14 = @"modify";
       }
 
-      v14 = v13;
+      v15 = v14;
       v18 = 138412802;
-      v19 = v14;
+      v19 = v15;
       v20 = 2112;
       v21 = bulletinCopy;
       v22 = 2048;
       feedCopy = feed;
-      _os_log_impl(&dword_241FB3000, v12, OS_LOG_TYPE_DEFAULT, "Enqueuing bulletin update: %@ for bulletin: %@ feed: %lu", &v18, 0x20u);
+      _os_log_impl(&dword_241FB3000, v13, OS_LOG_TYPE_DEFAULT, "Enqueuing bulletin update: %@ for bulletin: %@ feed: %lu", &v18, 0x20u);
     }
 
-    v15 = [BLTBulletinDistributorBulletinUpdate bulletinUpdateWithType:update bulletin:bulletinCopy feed:feed];
-    [array addObject:v15];
+    v16 = [BLTBulletinDistributorBulletinUpdate bulletinUpdateWithType:update bulletin:bulletinCopy feed:feed];
+    [array addObject:v16];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1626,16 +1610,16 @@ void __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke
     if (v5)
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v10 = 0;
-      v7 = [defaultManager removeItemAtURL:v5 error:&v10];
-      v8 = v10;
+      v11 = 0;
+      v7 = [defaultManager removeItemAtURL:v5 error:&v11];
+      v8 = v11;
 
       if ((v7 & 1) == 0)
       {
-        v9 = blt_general_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = blt_general_log(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          [(BLTBulletinDistributor *)v5 _removeTranscodedAttachmentIfNeededForBulletin:v8, v9];
+          [(BLTBulletinDistributor *)v5 _removeTranscodedAttachmentIfNeededForBulletin:v8, v10];
         }
       }
     }
@@ -1661,7 +1645,7 @@ void __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke
   tokenCopy = token;
   dateCopy = date;
   blockCopy = block;
-  v16 = blt_general_log();
+  v16 = blt_general_log(blockCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v20 = 138412546;
@@ -1674,26 +1658,24 @@ void __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke
   v17 = +[BLTLightsAndSirensReplyInfoCache sharedReplyCache];
   [v17 cacheReply:blockCopy withSectionID:sectionCopy bulletinID:bulletinCopy publicationDate:dateCopy replyToken:tokenCopy];
 
-  v18 = blt_general_log();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = blt_general_log(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v20) = 0;
-    _os_log_impl(&dword_241FB3000, v18, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor saved new reply", &v20, 2u);
+    _os_log_impl(&dword_241FB3000, v19, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor saved new reply", &v20, 2u);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearReplyBlockForReplyToken:(id)token
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
-  v4 = blt_general_log();
+  v4 = blt_general_log(tokenCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = tokenCopy;
-    _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor clearReplyBlockForReplyToken: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = tokenCopy;
+    _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor clearReplyBlockForReplyToken: %@", &v8, 0xCu);
   }
 
   v5 = +[BLTLightsAndSirensReplyInfoCache sharedReplyCache];
@@ -1701,8 +1683,6 @@ void __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke
 
   v7 = +[BLTLightsAndSirensReplyInfoCache sharedReplyCache];
   [v7 purgeReplyInfo:v6 withReplyToken:tokenCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_replyTokenForSectionID:(id)d publisherMatchID:(id)iD
@@ -1715,20 +1695,20 @@ void __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke
 
 - (void)_subscriberWillAllowBulletin:(id)bulletin completion:(id)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   completionCopy = completion;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__6;
-  v32 = __Block_byref_object_dispose__6;
-  v33 = 0;
-  v26[0] = 0;
-  v26[1] = v26;
-  v26[2] = 0x2020000000;
   v27 = 0;
-  v8 = blt_general_log();
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__6;
+  v31 = __Block_byref_object_dispose__6;
+  v32 = 0;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x2020000000;
+  v26 = 0;
+  v8 = blt_general_log(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:8.0];
@@ -1740,43 +1720,41 @@ void __58__BLTBulletinDistributor__sendCurrentBulletinIdentifiers___block_invoke
   clientReplyTimeoutManager = [(BLTBulletinDistributor *)self clientReplyTimeoutManager];
   publisherMatchID = [bulletinCopy publisherMatchID];
   sectionID = [bulletinCopy sectionID];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __66__BLTBulletinDistributor__subscriberWillAllowBulletin_completion___block_invoke;
-  v23[3] = &unk_278D327C8;
-  v25 = v26;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __66__BLTBulletinDistributor__subscriberWillAllowBulletin_completion___block_invoke;
+  v22[3] = &unk_278D327C8;
+  v24 = v25;
   v13 = completionCopy;
-  v24 = v13;
-  v14 = [clientReplyTimeoutManager addClientReplyTimeoutForBulletin:publisherMatchID sectionID:sectionID timeout:v23 handler:8.0];
-  v15 = v29[5];
-  v29[5] = v14;
+  v23 = v13;
+  v14 = [clientReplyTimeoutManager addClientReplyTimeoutForBulletin:publisherMatchID sectionID:sectionID timeout:v22 handler:8.0];
+  v15 = v28[5];
+  v28[5] = v14;
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v35 = 0x2020000000;
-  v36 = 0;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __66__BLTBulletinDistributor__subscriberWillAllowBulletin_completion___block_invoke_126;
-  v18[3] = &unk_278D32818;
+  v34 = 0x2020000000;
+  v35 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __66__BLTBulletinDistributor__subscriberWillAllowBulletin_completion___block_invoke_126;
+  v17[3] = &unk_278D32818;
   p_buf = &buf;
-  v21 = v26;
-  v18[4] = self;
-  v22 = &v28;
+  v20 = v25;
+  v17[4] = self;
+  v21 = &v27;
   v16 = v13;
-  v19 = v16;
-  [(BLTBulletinDistributor *)self _pingSubscriberWithBulletin:bulletinCopy ack:v18];
+  v18 = v16;
+  [(BLTBulletinDistributor *)self _pingSubscriberWithBulletin:bulletinCopy ack:v17];
 
   _Block_object_dispose(&buf, 8);
-  _Block_object_dispose(v26, 8);
-  _Block_object_dispose(&v28, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v25, 8);
+  _Block_object_dispose(&v27, 8);
 }
 
 uint64_t __66__BLTBulletinDistributor__subscriberWillAllowBulletin_completion___block_invoke(uint64_t a1)
 {
-  v2 = blt_general_log();
+  v2 = blt_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1789,7 +1767,7 @@ uint64_t __66__BLTBulletinDistributor__subscriberWillAllowBulletin_completion___
 
 void __66__BLTBulletinDistributor__subscriberWillAllowBulletin_completion___block_invoke_126(uint64_t a1, uint64_t a2)
 {
-  v4 = BLTWorkQueue();
+  v4 = BLTWorkQueue(a1);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __66__BLTBulletinDistributor__subscriberWillAllowBulletin_completion___block_invoke_2;
@@ -1805,48 +1783,46 @@ void __66__BLTBulletinDistributor__subscriberWillAllowBulletin_completion___bloc
 
 void __66__BLTBulletinDistributor__subscriberWillAllowBulletin_completion___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = blt_general_log();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = blt_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v8) = 0;
-    _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor _subscriberWillAllowBulletin received ack from subscriber", &v8, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor _subscriberWillAllowBulletin received ack from subscriber", &v9, 2u);
   }
 
   if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
   {
-    v3 = blt_general_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = blt_general_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_241FB3000, v3, OS_LOG_TYPE_INFO, "BLTBulletinDistributor _subscriberWillAllowBulletin this is first ack", &v8, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_INFO, "BLTBulletinDistributor _subscriberWillAllowBulletin this is first ack", &v9, 2u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
     if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
     {
-      v4 = blt_general_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = blt_general_log(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 72)];
-        v8 = 138412290;
-        v9 = v5;
-        _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor _subscriberWillAllowBulletin not timed out, returning %@", &v8, 0xCu);
+        v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 72)];
+        v9 = 138412290;
+        v10 = v7;
+        _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor _subscriberWillAllowBulletin not timed out, returning %@", &v9, 0xCu);
       }
 
-      v6 = [*(a1 + 32) clientReplyTimeoutManager];
-      [v6 invalidateClientReplyTimeout:*(*(*(a1 + 64) + 8) + 40)];
+      v8 = [*(a1 + 32) clientReplyTimeoutManager];
+      [v8 invalidateClientReplyTimeout:*(*(*(a1 + 64) + 8) + 40)];
 
       (*(*(a1 + 40) + 16))(*(a1 + 40), *(a1 + 72) == 1);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observer:(id)observer addBulletin:(id)bulletin forFeed:(unint64_t)feed playLightsAndSirens:(BOOL)sirens attachment:(id)attachment attachmentType:(int64_t)type alwaysSend:(BOOL)send withReply:(id)self0
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   bulletinCopy = bulletin;
   attachmentCopy = attachment;
@@ -1860,114 +1836,112 @@ void __66__BLTBulletinDistributor__subscriberWillAllowBulletin_completion___bloc
     [(BLTSimpleCache *)mruCacheOfSectionIDs cacheObject:sectionID2];
 
     kdebug_trace();
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v60[2] = __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke;
-    v60[3] = &unk_278D32868;
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke;
+    v62[3] = &unk_278D32868;
     sendCopy = send;
-    v60[4] = self;
-    v21 = bulletinCopy;
-    v61 = v21;
+    v62[4] = self;
+    v22 = bulletinCopy;
+    v63 = v22;
     feedCopy = feed;
     sirensCopy = sirens;
-    v63 = replyCopy;
-    v62 = attachmentCopy;
+    v65 = replyCopy;
+    v64 = attachmentCopy;
     typeCopy = type;
-    v22 = MEMORY[0x245D067A0](v60);
-    [(BLTBulletinDistributor *)self _mapBulletin:v21];
+    v23 = MEMORY[0x245D067A0](v62);
+    [(BLTBulletinDistributor *)self _mapBulletin:v22];
     if (send)
     {
-      v22[2](v22);
+      v23[2](v23);
     }
 
     else
     {
-      sectionID3 = [v21 sectionID];
-      publisherMatchID = [v21 publisherMatchID];
-      v43 = [BLTBBBulletinKey bulletinKeyWithSectionID:sectionID3 publisherMatchID:publisherMatchID];
+      sectionID3 = [v22 sectionID];
+      publisherMatchID = [v22 publisherMatchID];
+      v45 = [BLTBBBulletinKey bulletinKeyWithSectionID:sectionID3 publisherMatchID:publisherMatchID];
 
-      v26 = [(BLTGizmoLegacyMap *)self->_gizmoLegacyMap gizmoSectionInfoForPhoneKey:v43];
-      icon = [v21 icon];
-      [v26 setIcon:icon];
+      v27 = [(BLTGizmoLegacyMap *)self->_gizmoLegacyMap gizmoSectionInfoForPhoneKey:v45];
+      icon = [v22 icon];
+      [v27 setIcon:icon];
 
-      sectionDisplayName = [v21 sectionDisplayName];
-      [v26 setDisplayName:sectionDisplayName];
+      sectionDisplayName = [v22 sectionDisplayName];
+      [v27 setDisplayName:sectionDisplayName];
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v69 = 0x3032000000;
-      v70 = __Block_byref_object_copy__6;
-      v71 = __Block_byref_object_dispose__6;
-      v72 = 0;
-      v56 = 0;
-      v57 = &v56;
-      v58 = 0x2020000000;
-      v59 = 0;
+      v71 = 0x3032000000;
+      v72 = __Block_byref_object_copy__6;
+      v73 = __Block_byref_object_dispose__6;
+      v74 = 0;
+      v58 = 0;
+      v59 = &v58;
+      v60 = 0x2020000000;
+      v61 = 0;
       clientReplyTimeoutManager = [(BLTBulletinDistributor *)self clientReplyTimeoutManager];
-      publisherMatchID2 = [v21 publisherMatchID];
-      sectionID4 = [v21 sectionID];
-      v32 = BLTGetSettingSyncForNotificationTimeout();
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke_2;
-      v53[3] = &unk_278D327C8;
-      v55 = &v56;
-      v33 = v22;
-      v54 = v33;
-      v34 = [clientReplyTimeoutManager addClientReplyTimeoutForBulletin:publisherMatchID2 sectionID:sectionID4 timeout:v53 handler:v32];
-      v35 = *(*(&buf + 1) + 40);
-      *(*(&buf + 1) + 40) = v34;
+      publisherMatchID2 = [v22 publisherMatchID];
+      sectionID4 = [v22 sectionID];
+      v34 = BLTGetSettingSyncForNotificationTimeout(sectionID4, v33);
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke_2;
+      v55[3] = &unk_278D327C8;
+      v57 = &v58;
+      v35 = v23;
+      v56 = v35;
+      v36 = [clientReplyTimeoutManager addClientReplyTimeoutForBulletin:publisherMatchID2 sectionID:sectionID4 timeout:v55 handler:v34];
+      v37 = *(*(&buf + 1) + 40);
+      *(*(&buf + 1) + 40) = v36;
 
-      v49[0] = MEMORY[0x277D85DD0];
-      v49[1] = 3221225472;
-      v49[2] = __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke_142;
-      v49[3] = &unk_278D32890;
-      v51 = &v56;
-      v49[4] = self;
+      v51[0] = MEMORY[0x277D85DD0];
+      v51[1] = 3221225472;
+      v51[2] = __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke_142;
+      v51[3] = &unk_278D32890;
+      v53 = &v58;
+      v51[4] = self;
       p_buf = &buf;
-      v50 = v33;
-      v36 = MEMORY[0x245D067A0](v49);
+      v52 = v35;
+      v38 = MEMORY[0x245D067A0](v51);
       settingSync = self->_settingSync;
-      sectionID5 = [v21 sectionID];
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke_2_143;
-      v46[3] = &unk_278D327C8;
-      v48 = &v56;
-      v39 = v36;
-      v47 = v39;
-      v40 = [(BLTSettingSync *)settingSync performSyncIfNeededForSectionID:sectionID5 gizmoSectionInfo:v26 completion:v46];
+      sectionID5 = [v22 sectionID];
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke_2_143;
+      v48[3] = &unk_278D327C8;
+      v50 = &v58;
+      v41 = v38;
+      v49 = v41;
+      v42 = [(BLTSettingSync *)settingSync performSyncIfNeededForSectionID:sectionID5 gizmoSectionInfo:v27 completion:v48];
 
-      if (v40 == 2 && (v57[3] & 1) == 0)
+      if (v42 == 2 && (v59[3] & 1) == 0)
       {
-        v41 = blt_general_log();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+        v44 = blt_general_log(v43);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           [BLTBulletinDistributor observer:addBulletin:forFeed:playLightsAndSirens:attachment:attachmentType:alwaysSend:withReply:];
         }
 
-        v39[2](v39);
+        v41[2](v41);
       }
 
-      _Block_object_dispose(&v56, 8);
+      _Block_object_dispose(&v58, 8);
       _Block_object_dispose(&buf, 8);
     }
   }
 
   else
   {
-    v23 = blt_general_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = blt_general_log(v19);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = bulletinCopy;
-      _os_log_impl(&dword_241FB3000, v23, OS_LOG_TYPE_ERROR, "Serious error adding bulletin: bulletin has no section ID.  Dropping bulletin.\n%@", &buf, 0xCu);
+      _os_log_impl(&dword_241FB3000, v24, OS_LOG_TYPE_ERROR, "Serious error adding bulletin: bulletin has no section ID.  Dropping bulletin.\n%@", &buf, 0xCu);
     }
 
     _BLTCaptureBug(@"BBAddBulletinSectionNil");
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke(uint64_t a1)
@@ -1988,7 +1962,7 @@ void __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSir
     v2 = [v3 willNanoPresentNotificationForSectionID:v4 subsectionIDs:v5 subtype:v6 category:v7 ignoresDowntime:objc_msgSend(*(a1 + 40) isCritical:{"ignoresDowntime"), objc_msgSend(*(a1 + 40), "hasCriticalIcon")}];
   }
 
-  v8 = blt_general_log();
+  v8 = blt_general_log(a1);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 40);
@@ -2026,80 +2000,80 @@ void __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSir
     _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor addBulletin: %@ (publisherMatchID: %@) forFeed: %lu playLightsAndSirens: %s turnsOnDisplay: %s willPresentNotification: %@", buf, 0x3Eu);
   }
 
-  if ([*(a1 + 32) _willNanoPresent:v2 forBulletin:*(a1 + 40) feed:*(a1 + 64)])
+  if (![*(a1 + 32) _willNanoPresent:v2 forBulletin:*(a1 + 40) feed:*(a1 + 64)])
   {
-    v15 = *(a1 + 64) & 0x817ELL;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke_131;
-    v33[3] = &unk_278D32840;
-    v39 = v15 != 0;
-    v36 = v2;
-    v16 = *(a1 + 40);
-    v17 = *(a1 + 56);
-    v37 = *(a1 + 64);
-    *&v18 = v16;
-    *(&v18 + 1) = *(a1 + 32);
-    v30 = v18;
-    v19 = v17;
-    v40 = *(a1 + 81);
-    *&v20 = *(a1 + 48);
-    *(&v20 + 1) = v19;
-    v34 = v30;
-    v35 = v20;
-    v38 = *(a1 + 72);
-    v21 = MEMORY[0x245D067A0](v33);
-    v22 = [*(*(a1 + 32) + 144) subscribers];
-    v23 = [*(a1 + 40) sectionID];
-    v24 = [v22 hasSubscribersForSectionID:v23];
+    [*(a1 + 32) _cleanupForAddedBulletin:*(a1 + 40)];
+    (*(*(a1 + 56) + 16))();
+    return;
+  }
 
-    v25 = blt_general_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
-    {
-      v26 = "NO";
-      if (v24)
-      {
-        v26 = "YES";
-      }
+  v15 = *(a1 + 64) & 0x817ELL;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke_131;
+  v33[3] = &unk_278D32840;
+  v39 = v15 != 0;
+  v36 = v2;
+  v16 = *(a1 + 40);
+  v17 = *(a1 + 56);
+  v37 = *(a1 + 64);
+  *&v18 = v16;
+  *(&v18 + 1) = *(a1 + 32);
+  v30 = v18;
+  v19 = v17;
+  v40 = *(a1 + 81);
+  *&v20 = *(a1 + 48);
+  *(&v20 + 1) = v19;
+  v34 = v30;
+  v35 = v20;
+  v38 = *(a1 + 72);
+  v21 = MEMORY[0x245D067A0](v33);
+  v22 = [*(*(a1 + 32) + 144) subscribers];
+  v23 = [*(a1 + 40) sectionID];
+  v24 = [v22 hasSubscribersForSectionID:v23];
 
-      *buf = 136315138;
-      v42 = v26;
-      _os_log_impl(&dword_241FB3000, v25, OS_LOG_TYPE_INFO, "BLTBulletinDistributor addBulletin hasSubscribers: %s", buf, 0xCu);
-    }
-
+  v26 = blt_general_log(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+  {
+    v27 = "NO";
     if (v24)
     {
-      v28 = *(a1 + 32);
-      v27 = *(a1 + 40);
-      if (v15)
-      {
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke_141;
-        v31[3] = &unk_278D320A8;
-        v32 = v21;
-        [v28 _subscriberWillAllowBulletin:v27 completion:v31];
-
-LABEL_22:
-        goto LABEL_23;
-      }
-
-      [v28 _pingSubscriberWithBulletin:v27 ack:0];
+      v27 = "YES";
     }
 
+    *buf = 136315138;
+    v42 = v27;
+    _os_log_impl(&dword_241FB3000, v26, OS_LOG_TYPE_INFO, "BLTBulletinDistributor addBulletin hasSubscribers: %s", buf, 0xCu);
+  }
+
+  if (!v24)
+  {
+    goto LABEL_21;
+  }
+
+  v29 = *(a1 + 32);
+  v28 = *(a1 + 40);
+  if (!v15)
+  {
+    [v29 _pingSubscriberWithBulletin:v28 ack:0];
+LABEL_21:
     v21[2](v21, 1);
     goto LABEL_22;
   }
 
-  [*(a1 + 32) _cleanupForAddedBulletin:*(a1 + 40)];
-  (*(*(a1 + 56) + 16))();
-LABEL_23:
-  v29 = *MEMORY[0x277D85DE8];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke_141;
+  v31[3] = &unk_278D320A8;
+  v32 = v21;
+  [v29 _subscriberWillAllowBulletin:v28 completion:v31];
+
+LABEL_22:
 }
 
 void __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke_131(uint64_t a1, int a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (a2 && *(a1 + 88) == 1)
   {
     v4 = *(a1 + 64);
@@ -2141,39 +2115,39 @@ void __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSir
     {
       if (v4 == 128)
       {
-        v17 = "Wrist detection disabled";
+        v18 = "Wrist detection disabled";
       }
 
       else if (v4 == 256)
       {
-        v17 = "Forwarded only";
+        v18 = "Forwarded only";
       }
 
       else
       {
-        v22 = "Alerting everywhere";
+        v23 = "Alerting everywhere";
         if (v10)
         {
-          v22 = "Ringtone call";
+          v23 = "Ringtone call";
         }
 
         if (v5)
         {
-          v17 = "Critical icon";
+          v18 = "Critical icon";
         }
 
         else
         {
-          v17 = v22;
+          v18 = v23;
         }
       }
 
-      v23 = blt_general_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v24 = blt_general_log(v17);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v30 = v17;
-        _os_log_impl(&dword_241FB3000, v23, OS_LOG_TYPE_INFO, "BLTBulletinDistributor: %s so lie to Companion that Gizmo won't alert.", buf, 0xCu);
+        v31 = v18;
+        _os_log_impl(&dword_241FB3000, v24, OS_LOG_TYPE_INFO, "BLTBulletinDistributor: %s so lie to Companion that Gizmo won't alert.", buf, 0xCu);
       }
 
       (*(*(a1 + 56) + 16))();
@@ -2181,28 +2155,29 @@ void __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSir
 
     else
     {
-      v18 = *(a1 + 56);
-      v19 = *(a1 + 40);
-      v20 = [*(a1 + 32) publisherMatchID];
-      v21 = [*(a1 + 32) publishDate];
-      [v19 setReplyBlock:v18 forSection:v13 bulletin:v20 publicationDate:v21 replyToken:v16];
+      v19 = *(a1 + 56);
+      v20 = *(a1 + 40);
+      v21 = [*(a1 + 32) publisherMatchID];
+      v22 = [*(a1 + 32) publishDate];
+      [v20 setReplyBlock:v19 forSection:v13 bulletin:v21 publicationDate:v22 replyToken:v16];
     }
 
-    v25 = *(a1 + 32);
-    v24 = *(a1 + 40);
-    v26 = [v25 turnsOnDisplay];
-    if (!(v11 & 1 | ((v26 & 1) == 0)))
+    v26 = *(a1 + 32);
+    v25 = *(a1 + 40);
+    v27 = [v26 turnsOnDisplay];
+    if (!(v11 & 1 | ((v27 & 1) == 0)))
     {
-      v26 = *(a1 + 89);
+      v27 = *(a1 + 89);
     }
 
-    if (([v24 _notifyGizmoOfBulletin:v25 forFeed:v12 updateType:0 playLightsAndSirens:v26 & 1 shouldSendReplyIfNeeded:(v11 ^ 1) & 1 attachment:*(a1 + 48) attachmentType:*(a1 + 80) replyToken:v16] & 1) == 0)
+    v28 = [v25 _notifyGizmoOfBulletin:v26 forFeed:v12 updateType:0 playLightsAndSirens:v27 & 1 shouldSendReplyIfNeeded:(v11 ^ 1) & 1 attachment:*(a1 + 48) attachmentType:*(a1 + 80) replyToken:v16];
+    if ((v28 & 1) == 0)
     {
-      v27 = blt_general_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v29 = blt_general_log(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_241FB3000, v27, OS_LOG_TYPE_DEFAULT, "Will not notify gizmo", buf, 2u);
+        _os_log_impl(&dword_241FB3000, v29, OS_LOG_TYPE_DEFAULT, "Will not notify gizmo", buf, 2u);
       }
 
       [*(a1 + 40) _cleanupForAddedBulletin:*(a1 + 32)];
@@ -2216,7 +2191,7 @@ void __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSir
 
   else
   {
-    v6 = blt_general_log();
+    v6 = blt_general_log(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = "subscriber suppressed";
@@ -2236,15 +2211,13 @@ void __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSir
       }
 
       *buf = 136315138;
-      v30 = v8;
+      v31 = v8;
       _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_INFO, "BLTBulletinDistributor: %s so not going to coordinate.", buf, 0xCu);
     }
 
     [*(a1 + 40) _cleanupForAddedBulletin:*(a1 + 32)];
     (*(*(a1 + 56) + 16))();
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke_2(uint64_t result)
@@ -2252,7 +2225,7 @@ uint64_t __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAn
   if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
   {
     v1 = result;
-    v2 = blt_general_log();
+    v2 = blt_general_log(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_withReply___block_invoke_2_cold_1();
@@ -2281,7 +2254,7 @@ uint64_t __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAn
   if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
   {
     v1 = result;
-    v2 = blt_general_log();
+    v2 = blt_general_log(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *v3 = 0;
@@ -2298,7 +2271,7 @@ uint64_t __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAn
 {
   v21 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
-  v8 = blt_general_log();
+  v8 = blt_general_log(bulletinCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     bbObserver = [(BLTBulletinDistributor *)self bbObserver];
@@ -2325,36 +2298,33 @@ uint64_t __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAn
 
   else
   {
-    v11 = blt_general_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = blt_general_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = 138412290;
       selfCopy = bulletinCopy;
-      _os_log_impl(&dword_241FB3000, v11, OS_LOG_TYPE_ERROR, "Serious error modifying bulletin: bulletin has no section ID.  Dropping bulletin.\n%@", &v13, 0xCu);
+      _os_log_impl(&dword_241FB3000, v12, OS_LOG_TYPE_ERROR, "Serious error modifying bulletin: bulletin has no section ID.  Dropping bulletin.\n%@", &v13, 0xCu);
     }
 
     _BLTCaptureBug(@"BBModifyBulletinSectionNil");
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performModifyBulletin:(id)bulletin forFeed:(unint64_t)feed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
-  v7 = blt_general_log();
+  v7 = blt_general_log(bulletinCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     feedCopy = feed;
-    v11 = 2112;
-    v12 = bulletinCopy;
+    v10 = 2112;
+    v11 = bulletinCopy;
     _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Modifying bulletin for feed: %lu %@", buf, 0x16u);
   }
 
   [(BLTBulletinDistributor *)self _notifyGizmoOfBulletin:bulletinCopy forFeed:feed updateType:1 playLightsAndSirens:0 shouldSendReplyIfNeeded:0 attachment:0 attachmentType:0 replyToken:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observer:(id)observer removeBulletin:(id)bulletin forFeed:(unint64_t)feed
@@ -2362,7 +2332,7 @@ uint64_t __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAn
   v25 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   bulletinCopy = bulletin;
-  v10 = blt_general_log();
+  v10 = blt_general_log(bulletinCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (feed == 8)
   {
@@ -2409,33 +2379,31 @@ uint64_t __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAn
 
     else
     {
-      v15 = blt_general_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = blt_general_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = 138412290;
         selfCopy2 = bulletinCopy;
-        _os_log_impl(&dword_241FB3000, v15, OS_LOG_TYPE_ERROR, "Serious error removing bulletin: bulletin has no section ID.  Dropping bulletin.\n%@", &v17, 0xCu);
+        _os_log_impl(&dword_241FB3000, v16, OS_LOG_TYPE_ERROR, "Serious error removing bulletin: bulletin has no section ID.  Dropping bulletin.\n%@", &v17, 0xCu);
       }
 
       _BLTCaptureBug(@"BBRemoveBulletinSectionNil");
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performRemoveBulletin:(id)bulletin forFeed:(unint64_t)feed
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
-  v7 = blt_general_log();
+  v7 = blt_general_log(bulletinCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v39 = 134218242;
+    v38 = 134218242;
     feedCopy = feed;
-    v41 = 2112;
-    v42 = bulletinCopy;
-    _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Removing bulletin for feed: %lu %@", &v39, 0x16u);
+    v40 = 2112;
+    v41 = bulletinCopy;
+    _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Removing bulletin for feed: %lu %@", &v38, 0x16u);
   }
 
   if ((feed & 8) != 0)
@@ -2518,24 +2486,31 @@ uint64_t __122__BLTBulletinDistributor_observer_addBulletin_forFeed_playLightsAn
 
 LABEL_16:
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observer:(id)observer updateGlobalSettings:(id)settings
 {
-  v10 = *MEMORY[0x277D85DE8];
-  -[BLTBulletinDistributor setSummarizationSetting:](self, "setSummarizationSetting:", [settings globalSummarizationSetting]);
-  v5 = blt_general_log();
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = blt_general_log(-[BLTBulletinDistributor setSummarizationSetting:](self, "setSummarizationSetting:", [settings globalSummarizationSetting]));
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [MEMORY[0x277CCABB0] numberWithInteger:{-[BLTBulletinDistributor summarizationSetting](self, "summarizationSetting")}];
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "Updated summarization setting to %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "Updated summarization setting to %@", &v7, 0xCu);
   }
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)_handleDidPlayLightsAndSirens:(BOOL)sirens forBulletin:(id)bulletin inPhoneSection:(id)section finalReply:(BOOL)reply replyToken:(id)token
+{
+  sirensCopy = sirens;
+  v12 = MEMORY[0x277CBEAA8];
+  tokenCopy = token;
+  sectionCopy = section;
+  bulletinCopy = bulletin;
+  date = [v12 date];
+  LOBYTE(v16) = reply;
+  [(BLTBulletinDistributor *)self _handleDidPlayLightsAndSirens:sirensCopy forBulletin:bulletinCopy inPhoneSection:sectionCopy transmissionDate:date receptionDate:date fromGizmo:0 finalReply:v16 replyToken:tokenCopy];
 }
 
 - (void)handleDidPlayLightsAndSirens:(BOOL)sirens forBulletin:(id)bulletin inPhoneSection:(id)section transmissionDate:(id)date receptionDate:(id)receptionDate replyToken:(id)token
@@ -2545,7 +2520,7 @@ LABEL_16:
   dateCopy = date;
   receptionDateCopy = receptionDate;
   tokenCopy = token;
-  v19 = BLTWorkQueue();
+  v19 = BLTWorkQueue(tokenCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __124__BLTBulletinDistributor_handleDidPlayLightsAndSirens_forBulletin_inPhoneSection_transmissionDate_receptionDate_replyToken___block_invoke;
@@ -2569,36 +2544,37 @@ LABEL_16:
 {
   gizmoCopy = gizmo;
   sirensCopy = sirens;
-  v45 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   sectionCopy = section;
   dateCopy = date;
   tokenCopy = token;
-  if (([MEMORY[0x277D2BCC8] activePairedDeviceSupportsAddBulletinReplyToken] & 1) == 0)
+  activePairedDeviceSupportsAddBulletinReplyToken = [MEMORY[0x277D2BCC8] activePairedDeviceSupportsAddBulletinReplyToken];
+  if ((activePairedDeviceSupportsAddBulletinReplyToken & 1) == 0)
   {
-    v19 = [(BLTBulletinDistributor *)self _replyTokenForSectionID:sectionCopy publisherMatchID:bulletinCopy];
+    v20 = [(BLTBulletinDistributor *)self _replyTokenForSectionID:sectionCopy publisherMatchID:bulletinCopy];
 
-    tokenCopy = v19;
+    tokenCopy = v20;
   }
 
   if (tokenCopy)
   {
     if (sirensCopy)
     {
-      v20 = 1;
+      v21 = 1;
     }
 
     else
     {
-      v20 = 2;
+      v21 = 2;
     }
 
-    v21 = +[BLTLightsAndSirensReplyInfoCache sharedReplyCache];
-    v22 = [v21 cacheDidPlayLightsAndSirens:v20 withReplyToken:tokenCopy];
+    v22 = +[BLTLightsAndSirensReplyInfoCache sharedReplyCache];
+    v23 = [v22 cacheDidPlayLightsAndSirens:v21 withReplyToken:tokenCopy];
 
-    if (!v22)
+    if (!v23)
     {
-      publisherMatchID = blt_general_log();
+      publisherMatchID = blt_general_log(v24);
       if (os_log_type_enabled(publisherMatchID, OS_LOG_TYPE_ERROR))
       {
         [BLTBulletinDistributor _handleDidPlayLightsAndSirens:forBulletin:inPhoneSection:transmissionDate:receptionDate:fromGizmo:finalReply:replyToken:];
@@ -2607,69 +2583,70 @@ LABEL_16:
       goto LABEL_31;
     }
 
-    publisherMatchID = [v22 publisherMatchID];
-    sectionID = [v22 sectionID];
-    v25 = blt_general_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    publisherMatchID = [v23 publisherMatchID];
+    sectionID = [v23 sectionID];
+    v27 = blt_general_log(sectionID);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = "NO";
-      *v38 = 136315906;
+      v28 = "NO";
+      *v42 = 136315906;
       if (sirensCopy)
       {
-        v26 = "YES";
+        v28 = "YES";
       }
 
-      *&v38[4] = v26;
-      v39 = 2112;
-      v40 = tokenCopy;
-      v41 = 2112;
-      v42 = publisherMatchID;
+      *&v42[4] = v28;
       v43 = 2112;
-      v44 = sectionID;
-      _os_log_impl(&dword_241FB3000, v25, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor handleDidPlayLightsAndSirens: %s forReplyToken: %@ bulletin: %@ inSection: %@", v38, 0x2Au);
+      v44 = tokenCopy;
+      v45 = 2112;
+      v46 = publisherMatchID;
+      v47 = 2112;
+      v48 = sectionID;
+      _os_log_impl(&dword_241FB3000, v27, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor handleDidPlayLightsAndSirens: %s forReplyToken: %@ bulletin: %@ inSection: %@", v42, 0x2Au);
     }
 
     if (gizmoCopy)
     {
-      v27 = blt_perf_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v30 = blt_perf_log(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         date = [MEMORY[0x277CBEAA8] date];
         [date timeIntervalSinceDate:dateCopy];
-        *v38 = 138412802;
-        *&v38[4] = sectionID;
-        v39 = 2112;
-        v40 = publisherMatchID;
-        v41 = 2048;
-        v42 = v29;
-        _os_log_impl(&dword_241FB3000, v27, OS_LOG_TYPE_INFO, "%@.%@.GizmoToCompanionDelay: %f", v38, 0x20u);
+        *v42 = 138412802;
+        *&v42[4] = sectionID;
+        v43 = 2112;
+        v44 = publisherMatchID;
+        v45 = 2048;
+        v46 = v32;
+        _os_log_impl(&dword_241FB3000, v30, OS_LOG_TYPE_INFO, "%@.%@.GizmoToCompanionDelay: %f", v42, 0x20u);
       }
 
-      v30 = blt_perf_log();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v34 = blt_perf_log(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
         date2 = [MEMORY[0x277CBEAA8] date];
-        bulletinPublicationDate = [v22 bulletinPublicationDate];
+        bulletinPublicationDate = [v23 bulletinPublicationDate];
         [date2 timeIntervalSinceDate:bulletinPublicationDate];
-        *v38 = 138412802;
-        *&v38[4] = sectionID;
-        v39 = 2112;
-        v40 = publisherMatchID;
-        v41 = 2048;
-        v42 = v33;
-        _os_log_impl(&dword_241FB3000, v30, OS_LOG_TYPE_INFO, "%@.%@.PublicationToReplayDelay: %f", v38, 0x20u);
+        *v42 = 138412802;
+        *&v42[4] = sectionID;
+        v43 = 2112;
+        v44 = publisherMatchID;
+        v45 = 2048;
+        v46 = v37;
+        _os_log_impl(&dword_241FB3000, v34, OS_LOG_TYPE_INFO, "%@.%@.PublicationToReplayDelay: %f", v42, 0x20u);
       }
     }
 
-    sendReply = [v22 sendReply];
-    v35 = blt_general_log();
-    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
-    if (sendReply)
+    sendReply = [v23 sendReply];
+    v39 = sendReply;
+    v40 = blt_general_log(sendReply);
+    v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
+    if (v39)
     {
-      if (v36)
+      if (v41)
       {
-        *v38 = 0;
-        _os_log_impl(&dword_241FB3000, v35, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor sending reply", v38, 2u);
+        *v42 = 0;
+        _os_log_impl(&dword_241FB3000, v40, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor sending reply", v42, 2u);
       }
 
       if (!reply)
@@ -2677,14 +2654,14 @@ LABEL_16:
         goto LABEL_30;
       }
 
-      v35 = +[BLTLightsAndSirensReplyInfoCache sharedReplyCache];
-      [v35 purgeReplyInfo:v22 withReplyToken:tokenCopy];
+      v40 = +[BLTLightsAndSirensReplyInfoCache sharedReplyCache];
+      [v40 purgeReplyInfo:v23 withReplyToken:tokenCopy];
     }
 
-    else if (v36)
+    else if (v41)
     {
-      *v38 = 0;
-      _os_log_impl(&dword_241FB3000, v35, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor saved didPlayLightsAndSirens state", v38, 2u);
+      *v42 = 0;
+      _os_log_impl(&dword_241FB3000, v40, OS_LOG_TYPE_DEFAULT, "BLTBulletinDistributor saved didPlayLightsAndSirens state", v42, 2u);
     }
 
 LABEL_30:
@@ -2693,54 +2670,50 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v22 = blt_general_log();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v23 = blt_general_log(activePairedDeviceSupportsAddBulletinReplyToken);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     [BLTBulletinDistributor _handleDidPlayLightsAndSirens:forBulletin:inPhoneSection:transmissionDate:receptionDate:fromGizmo:finalReply:replyToken:];
   }
 
 LABEL_32:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAction:(id)action
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   actionCopy = action;
-  v5 = blt_general_log();
+  v5 = blt_general_log(actionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v17 = 2112;
-    v18 = actionCopy;
+    v16 = 2112;
+    v17 = actionCopy;
     _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "%@ handleAction: %@", buf, 0x16u);
   }
 
   bbObserver = [(BLTBulletinDistributor *)self bbObserver];
   publisherBulletinID = [actionCopy publisherBulletinID];
-  v14 = publisherBulletinID;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v13 = publisherBulletinID;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
   sectionID = [actionCopy sectionID];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __39__BLTBulletinDistributor_handleAction___block_invoke;
-  v12[3] = &unk_278D325A0;
-  v12[4] = self;
-  v13 = actionCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __39__BLTBulletinDistributor_handleAction___block_invoke;
+  v11[3] = &unk_278D325A0;
+  v11[4] = self;
+  v12 = actionCopy;
   v10 = actionCopy;
-  [bbObserver getBulletinsForPublisherMatchIDs:v8 sectionID:sectionID withCompletion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [bbObserver getBulletinsForPublisherMatchIDs:v8 sectionID:sectionID withCompletion:v11];
 }
 
 void __39__BLTBulletinDistributor_handleAction___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 firstObject];
-  v5 = blt_general_log();
+  v5 = blt_general_log(v4);
   v6 = v5;
   if (v4)
   {
@@ -2748,13 +2721,13 @@ void __39__BLTBulletinDistributor_handleAction___block_invoke(uint64_t a1, void 
     {
       v7 = *(a1 + 32);
       v8 = *(a1 + 40);
-      v10 = 138412802;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v4;
-      _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_DEFAULT, "%@ handleAction: %@ bulletins: %@", &v10, 0x20u);
+      v9 = 138412802;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v4;
+      _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_DEFAULT, "%@ handleAction: %@ bulletins: %@", &v9, 0x20u);
     }
 
     [*(a1 + 32) handleAction:*(a1 + 40) bulletin:v4];
@@ -2764,18 +2737,16 @@ void __39__BLTBulletinDistributor_handleAction___block_invoke(uint64_t a1, void 
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __39__BLTBulletinDistributor_handleAction___block_invoke_cold_1(a1);
+      __39__BLTBulletinDistributor_handleAction___block_invoke_cold_1();
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAction:(id)action bulletin:(id)bulletin
 {
   actionCopy = action;
   bulletinCopy = bulletin;
-  v8 = BLTWorkQueue();
+  v8 = BLTWorkQueue(bulletinCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke;
@@ -2790,8 +2761,8 @@ void __39__BLTBulletinDistributor_handleAction___block_invoke(uint64_t a1, void 
 
 void __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke(uint64_t a1)
 {
-  v67 = *MEMORY[0x277D85DE8];
-  v2 = blt_general_log();
+  v68 = *MEMORY[0x277D85DE8];
+  v2 = blt_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = BLTNameForActionType([*(a1 + 32) actionType]);
@@ -2799,13 +2770,13 @@ void __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke(uint64_t 
     v5 = [*(a1 + 32) recordID];
     v6 = [*(a1 + 32) sectionID];
     *buf = 138413058;
-    v60 = v3;
-    v61 = 2112;
-    v62 = v4;
-    v63 = 2112;
-    v64 = v5;
-    v65 = 2112;
-    v66 = v6;
+    v61 = v3;
+    v62 = 2112;
+    v63 = v4;
+    v64 = 2112;
+    v65 = v5;
+    v66 = 2112;
+    v67 = v6;
     _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_DEFAULT, "Received %@ action for publisherBulletinD: %@, recordID: %@, sectionID: %@", buf, 0x2Au);
   }
 
@@ -2834,8 +2805,9 @@ void __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke(uint64_t 
         goto LABEL_33;
       }
 
-      v15 = [*(a1 + 40) responseForSnoozeAction];
-      if (!v15)
+      v18 = [*(a1 + 40) responseForSnoozeAction];
+      v15 = v18;
+      if (!v18)
       {
         goto LABEL_54;
       }
@@ -2843,19 +2815,19 @@ void __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke(uint64_t 
       goto LABEL_49;
     }
 
-    v31 = [*(a1 + 40) responseForAcknowledgeAction];
-    if (v31)
+    v32 = [*(a1 + 40) responseForAcknowledgeAction];
+    if (v32)
     {
-      v15 = v31;
+      v15 = v32;
       v11 = 0;
       goto LABEL_49;
     }
 
-    v38 = blt_general_log();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v40 = blt_general_log(0);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241FB3000, v38, OS_LOG_TYPE_DEFAULT, "Did not find acknowledgeAction. Synthesizing action.", buf, 2u);
+      _os_log_impl(&dword_241FB3000, v40, OS_LOG_TYPE_DEFAULT, "Did not find acknowledgeAction. Synthesizing action.", buf, 2u);
     }
 
     v14 = [MEMORY[0x277CF3500] actionWithIdentifier:@"BLTAcknowledgeActionIdentifier"];
@@ -2874,26 +2846,26 @@ void __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke(uint64_t 
           if (v14)
           {
             v15 = [*(a1 + 40) responseForAction:v14];
-            v16 = blt_general_log();
+            v16 = blt_general_log(v15);
             if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
               v17 = *(a1 + 48);
               *buf = 138412802;
-              v60 = v17;
-              v61 = 2112;
-              v62 = v14;
-              v63 = 2112;
-              v64 = v15;
+              v61 = v17;
+              v62 = 2112;
+              v63 = v14;
+              v64 = 2112;
+              v65 = v15;
               _os_log_impl(&dword_241FB3000, v16, OS_LOG_TYPE_INFO, "%@ handleAction: followActivityAction: %@ response: %@", buf, 0x20u);
             }
           }
 
           else
           {
-            v16 = blt_general_log();
+            v16 = blt_general_log(0);
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_cold_1(a1);
+              __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_cold_1();
             }
 
             v15 = 0;
@@ -2903,8 +2875,8 @@ void __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke(uint64_t 
         }
 
 LABEL_33:
-        v32 = blt_general_log();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v33 = blt_general_log(v13);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_cold_2(v12);
         }
@@ -2912,9 +2884,9 @@ LABEL_33:
         goto LABEL_54;
       }
 
-      v29 = *(a1 + 40);
-      v30 = [v29 dismissAction];
-      v15 = [v29 responseForAction:v30];
+      v30 = *(a1 + 40);
+      v31 = [v30 dismissAction];
+      v15 = [v30 responseForAction:v31];
 
       if (!v15)
       {
@@ -2922,85 +2894,85 @@ LABEL_33:
       }
 
 LABEL_49:
-      v39 = [*v12 context];
-      v40 = [v39 mutableCopy];
+      v41 = [*v12 context];
+      v42 = [v41 mutableCopy];
 
-      if (!v40)
+      if (!v42)
       {
-        v40 = [MEMORY[0x277CBEB38] dictionary];
+        v42 = [MEMORY[0x277CBEB38] dictionary];
       }
 
-      v41 = [*(v7 + 3320) blt_boundedWaitForActivePairedDevice];
-      v42 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:NRWatchOSVersionForRemoteDevice()];
-      [v40 setObject:v42 forKey:@"BLTNRWatchOSVersion"];
+      v43 = [*(v7 + 3320) blt_boundedWaitForActivePairedDevice];
+      v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:NRWatchOSVersionForRemoteDevice()];
+      [v42 setObject:v44 forKey:@"BLTNRWatchOSVersion"];
 
-      [v15 setContext:v40];
-      v43 = *(a1 + 48);
-      v44 = *(v43 + 40);
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_154;
-      v51[3] = &unk_278D328E0;
-      v51[4] = v43;
-      v52 = *(a1 + 32);
-      v45 = v15;
-      v53 = v45;
-      [v44 sendResponse:v45 withCompletion:v51];
+      [v15 setContext:v42];
+      v45 = *(a1 + 48);
+      v46 = *(v45 + 40);
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 3221225472;
+      v52[2] = __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_154;
+      v52[3] = &unk_278D328E0;
+      v52[4] = v45;
+      v53 = *(a1 + 32);
+      v47 = v15;
+      v54 = v47;
+      [v46 sendResponse:v47 withCompletion:v52];
       if (v11)
       {
-        v46 = *(*(a1 + 48) + 40);
-        v47 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 40)];
-        v48 = [*(a1 + 40) sectionID];
-        [v46 clearBulletins:v47 inSection:v48];
+        v48 = *(*(a1 + 48) + 40);
+        v49 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 40)];
+        v50 = [*(a1 + 40) sectionID];
+        [v48 clearBulletins:v49 inSection:v50];
       }
 
       goto LABEL_56;
     }
 
-    v50 = v9;
+    v51 = v9;
     v14 = *v12;
-    v18 = blt_general_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v19 = blt_general_log(v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v19 = [v14 identifier];
+      v20 = [v14 identifier];
       *buf = 138412290;
-      v60 = v19;
-      _os_log_impl(&dword_241FB3000, v18, OS_LOG_TYPE_INFO, "Looking for action with identifier: %@", buf, 0xCu);
+      v61 = v20;
+      _os_log_impl(&dword_241FB3000, v19, OS_LOG_TYPE_INFO, "Looking for action with identifier: %@", buf, 0xCu);
     }
 
-    v56 = 0u;
     v57 = 0u;
-    v54 = 0u;
+    v58 = 0u;
     v55 = 0u;
-    v20 = [*(a1 + 40) supplementaryActions];
-    v21 = [v20 countByEnumeratingWithState:&v54 objects:v58 count:16];
-    if (v21)
+    v56 = 0u;
+    v21 = [*(a1 + 40) supplementaryActions];
+    v22 = [v21 countByEnumeratingWithState:&v55 objects:v59 count:16];
+    if (v22)
     {
-      v22 = v21;
-      v23 = *v55;
+      v23 = v22;
+      v24 = *v56;
 LABEL_22:
-      v24 = 0;
+      v25 = 0;
       while (1)
       {
-        if (*v55 != v23)
+        if (*v56 != v24)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v21);
         }
 
-        v25 = *(*(&v54 + 1) + 8 * v24);
-        v26 = [v25 identifier];
-        v27 = [v14 identifier];
-        v28 = [v26 isEqualToString:v27];
+        v26 = *(*(&v55 + 1) + 8 * v25);
+        v27 = [v26 identifier];
+        v28 = [v14 identifier];
+        v29 = [v27 isEqualToString:v28];
 
-        if (v28)
+        if (v29)
         {
           break;
         }
 
-        if (v22 == ++v24)
+        if (v23 == ++v25)
         {
-          v22 = [v20 countByEnumeratingWithState:&v54 objects:v58 count:16];
-          if (v22)
+          v23 = [v21 countByEnumeratingWithState:&v55 objects:v59 count:16];
+          if (v23)
           {
             goto LABEL_22;
           }
@@ -3009,10 +2981,10 @@ LABEL_22:
         }
       }
 
-      v15 = [*(a1 + 40) responseForAction:v25];
+      v15 = [*(a1 + 40) responseForAction:v26];
 
       v12 = (a1 + 32);
-      v9 = v50;
+      v9 = v51;
       v7 = 0x277D2B000;
       if (v15)
       {
@@ -3025,7 +2997,7 @@ LABEL_22:
 LABEL_28:
 
       v12 = (a1 + 32);
-      v9 = v50;
+      v9 = v51;
       v7 = 0x277D2B000;
     }
 
@@ -3033,20 +3005,20 @@ LABEL_28:
 
     if (v15)
     {
-      v33 = blt_general_log();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v35 = blt_general_log(v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
-        v34 = [v14 identifier];
+        v36 = [v14 identifier];
         *buf = 138412290;
-        v60 = v34;
-        _os_log_impl(&dword_241FB3000, v33, OS_LOG_TYPE_DEFAULT, "Did not find action with identifier: %@. Synthesizing action.", buf, 0xCu);
+        v61 = v36;
+        _os_log_impl(&dword_241FB3000, v35, OS_LOG_TYPE_DEFAULT, "Did not find action with identifier: %@. Synthesizing action.", buf, 0xCu);
       }
 
-      v35 = MEMORY[0x277CF3500];
-      v36 = [v14 identifier];
-      v37 = [v35 actionWithIdentifier:v36];
+      v37 = MEMORY[0x277CF3500];
+      v38 = [v14 identifier];
+      v39 = [v37 actionWithIdentifier:v38];
 
-      v15 = [*(a1 + 40) responseForAction:v37];
+      v15 = [*(a1 + 40) responseForAction:v39];
     }
   }
 
@@ -3059,21 +3031,19 @@ LABEL_48:
   }
 
 LABEL_54:
-  v45 = blt_general_log();
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+  v47 = blt_general_log(v18);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
   {
     __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_cold_3(v12);
   }
 
 LABEL_56:
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_154(void *a1, int a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v4 = blt_general_log();
+  v15 = *MEMORY[0x277D85DE8];
+  v4 = blt_general_log(a1);
   v5 = v4;
   if (a2)
   {
@@ -3082,68 +3052,64 @@ void __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_154(void 
       v6 = a1[4];
       v7 = a1[5];
       v8 = a1[6];
-      v10 = 138412802;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "%@ handleAction: SUCCESS: actionInfo: %@ at sending response %@", &v10, 0x20u);
+      v9 = 138412802;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "%@ handleAction: SUCCESS: actionInfo: %@ at sending response %@", &v9, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_154_cold_1(a1);
+    __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_154_cold_1();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeBulletinWithPublisherBulletinID:(id)d recordID:(id)iD sectionID:(id)sectionID
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   sectionIDCopy = sectionID;
-  v11 = blt_general_log();
+  v11 = blt_general_log(sectionIDCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
     selfCopy = self;
-    v25 = 2112;
-    v26 = dCopy;
-    v27 = 2112;
-    v28 = iDCopy;
-    v29 = 2112;
-    v30 = sectionIDCopy;
+    v24 = 2112;
+    v25 = dCopy;
+    v26 = 2112;
+    v27 = iDCopy;
+    v28 = 2112;
+    v29 = sectionIDCopy;
     _os_log_impl(&dword_241FB3000, v11, OS_LOG_TYPE_DEFAULT, "%@ removeBulletinWithPublisherBulletinID: %@ recordID: %@ sectionID: %@", buf, 0x2Au);
   }
 
   bbObserver = [(BLTBulletinDistributor *)self bbObserver];
-  v22 = dCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __83__BLTBulletinDistributor_removeBulletinWithPublisherBulletinID_recordID_sectionID___block_invoke;
-  v18[3] = &unk_278D32908;
-  v18[4] = self;
-  v19 = dCopy;
-  v20 = iDCopy;
-  v21 = sectionIDCopy;
+  v21 = dCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __83__BLTBulletinDistributor_removeBulletinWithPublisherBulletinID_recordID_sectionID___block_invoke;
+  v17[3] = &unk_278D32908;
+  v17[4] = self;
+  v18 = dCopy;
+  v19 = iDCopy;
+  v20 = sectionIDCopy;
   v14 = sectionIDCopy;
   v15 = iDCopy;
   v16 = dCopy;
-  [bbObserver getBulletinsForPublisherMatchIDs:v13 sectionID:v14 withCompletion:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [bbObserver getBulletinsForPublisherMatchIDs:v13 sectionID:v14 withCompletion:v17];
 }
 
 void __83__BLTBulletinDistributor_removeBulletinWithPublisherBulletinID_recordID_sectionID___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [a2 firstObject];
-  v4 = blt_general_log();
+  v4 = blt_general_log(v3);
   v5 = v4;
   if (v3)
   {
@@ -3153,17 +3119,17 @@ void __83__BLTBulletinDistributor_removeBulletinWithPublisherBulletinID_recordID
       v7 = *(a1 + 40);
       v8 = *(a1 + 48);
       v9 = *(a1 + 56);
-      v13 = 138413314;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v7;
-      v17 = 2112;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v3;
-      _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "%@ removeBulletinWithPublisherBulletinID: %@ recordID: %@ sectionID: %@ bulletin: %@", &v13, 0x34u);
+      v12 = 138413314;
+      v13 = v6;
+      v14 = 2112;
+      v15 = v7;
+      v16 = 2112;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v9;
+      v20 = 2112;
+      v21 = v3;
+      _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "%@ removeBulletinWithPublisherBulletinID: %@ recordID: %@ sectionID: %@ bulletin: %@", &v12, 0x34u);
     }
 
     v5 = [*(a1 + 32) bbObserver];
@@ -3174,10 +3140,8 @@ void __83__BLTBulletinDistributor_removeBulletinWithPublisherBulletinID_recordID
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __83__BLTBulletinDistributor_removeBulletinWithPublisherBulletinID_recordID_sectionID___block_invoke_cold_1(a1);
+    __83__BLTBulletinDistributor_removeBulletinWithPublisherBulletinID_recordID_sectionID___block_invoke_cold_1();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldSuppressLightsAndSirensNow
@@ -3190,52 +3154,50 @@ void __83__BLTBulletinDistributor_removeBulletinWithPublisherBulletinID_recordID
 
 - (void)willSendLightsAndSirensWithPublisherBulletinID:(id)d recordID:(id)iD inPhoneSection:(id)section systemApp:(BOOL)app completion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   sectionCopy = section;
   completionCopy = completion;
-  v16 = blt_general_log();
+  v16 = blt_general_log(completionCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
     selfCopy = self;
-    v33 = 2112;
-    v34 = dCopy;
-    v35 = 2112;
-    v36 = iDCopy;
-    v37 = 2112;
-    v38 = sectionCopy;
+    v32 = 2112;
+    v33 = dCopy;
+    v34 = 2112;
+    v35 = iDCopy;
+    v36 = 2112;
+    v37 = sectionCopy;
     _os_log_impl(&dword_241FB3000, v16, OS_LOG_TYPE_DEFAULT, "%@ willSendLightsAndSirensWithPublisherBulletinID: %@ recordID: %@ phoneSectionID: %@", buf, 0x2Au);
   }
 
   bbObserver = [(BLTBulletinDistributor *)self bbObserver];
-  v30 = dCopy;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __118__BLTBulletinDistributor_willSendLightsAndSirensWithPublisherBulletinID_recordID_inPhoneSection_systemApp_completion___block_invoke;
-  v24[3] = &unk_278D32930;
-  v24[4] = self;
-  v25 = dCopy;
-  v26 = iDCopy;
-  v27 = sectionCopy;
+  v29 = dCopy;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __118__BLTBulletinDistributor_willSendLightsAndSirensWithPublisherBulletinID_recordID_inPhoneSection_systemApp_completion___block_invoke;
+  v23[3] = &unk_278D32930;
+  v23[4] = self;
+  v24 = dCopy;
+  v25 = iDCopy;
+  v26 = sectionCopy;
   appCopy = app;
-  v28 = completionCopy;
+  v27 = completionCopy;
   v19 = completionCopy;
   v20 = sectionCopy;
   v21 = iDCopy;
   v22 = dCopy;
-  [bbObserver getBulletinsForPublisherMatchIDs:v18 sectionID:v20 withCompletion:v24];
-
-  v23 = *MEMORY[0x277D85DE8];
+  [bbObserver getBulletinsForPublisherMatchIDs:v18 sectionID:v20 withCompletion:v23];
 }
 
 void __118__BLTBulletinDistributor_willSendLightsAndSirensWithPublisherBulletinID_recordID_inPhoneSection_systemApp_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = [a2 firstObject];
-  v4 = blt_general_log();
+  v4 = blt_general_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
@@ -3245,17 +3207,17 @@ void __118__BLTBulletinDistributor_willSendLightsAndSirensWithPublisherBulletinI
       v7 = *(a1 + 40);
       v8 = *(a1 + 48);
       v9 = *(a1 + 56);
-      v15 = 138413314;
-      v16 = v6;
-      v17 = 2112;
-      v18 = v7;
-      v19 = 2112;
-      v20 = v8;
-      v21 = 2112;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v3;
-      _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_DEFAULT, "%@ removeBulletinWithPublisherBulletinID: %@ recordID: %@ phoneSectionID: %@ bulletin: %@", &v15, 0x34u);
+      v14 = 138413314;
+      v15 = v6;
+      v16 = 2112;
+      v17 = v7;
+      v18 = 2112;
+      v19 = v8;
+      v20 = 2112;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v3;
+      _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_DEFAULT, "%@ removeBulletinWithPublisherBulletinID: %@ recordID: %@ phoneSectionID: %@ bulletin: %@", &v14, 0x34u);
     }
   }
 
@@ -3267,21 +3229,19 @@ void __118__BLTBulletinDistributor_willSendLightsAndSirensWithPublisherBulletinI
       v11 = *(a1 + 40);
       v12 = *(a1 + 48);
       v13 = *(a1 + 56);
-      v15 = 138413058;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v12;
-      v21 = 2112;
-      v22 = v13;
-      _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_DEFAULT, "%@ removeBulletinWithPublisherBulletinID: %@ recordID: %@ phoneSectionID: %@ - failed no bulletin found", &v15, 0x2Au);
+      v14 = 138413058;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v12;
+      v20 = 2112;
+      v21 = v13;
+      _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_DEFAULT, "%@ removeBulletinWithPublisherBulletinID: %@ recordID: %@ phoneSectionID: %@ - failed no bulletin found", &v14, 0x2Au);
     }
 
     [*(a1 + 32) willSendLightsAndSirensWithRecordID:*(a1 + 48) inPhoneSection:*(a1 + 56) systemApp:*(a1 + 72) completion:*(a1 + 64)];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willSendLightsAndSirensWithRecordID:(id)d inPhoneSection:(id)section systemApp:(BOOL)app completion:(id)completion
@@ -3289,7 +3249,7 @@ void __118__BLTBulletinDistributor_willSendLightsAndSirensWithPublisherBulletinI
   dCopy = d;
   sectionCopy = section;
   completionCopy = completion;
-  v13 = BLTWorkQueue();
+  v13 = BLTWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __98__BLTBulletinDistributor_willSendLightsAndSirensWithRecordID_inPhoneSection_systemApp_completion___block_invoke;
@@ -3307,41 +3267,41 @@ void __118__BLTBulletinDistributor_willSendLightsAndSirensWithPublisherBulletinI
 
 uint64_t __98__BLTBulletinDistributor_willSendLightsAndSirensWithRecordID_inPhoneSection_systemApp_completion___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) != 1)
   {
-    v7 = [*(*(a1 + 32) + 160) currentLayout];
-    v21 = 0u;
+    v9 = [*(*(a1 + 32) + 160) currentLayout];
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v9 = [v7 elements];
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
-    if (v10)
+    v25 = 0u;
+    v11 = [v9 elements];
+    v12 = [v11 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    if (v12)
     {
-      v11 = *v22;
-      v12 = *MEMORY[0x277D0ABA0];
+      v13 = *v23;
+      v14 = *MEMORY[0x277D0ABA0];
       while (2)
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v11)
+          if (*v23 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v11);
           }
 
-          v14 = [*(*(&v21 + 1) + 8 * i) identifier];
-          v15 = [v14 isEqualToString:v12];
+          v16 = [*(*(&v22 + 1) + 8 * i) identifier];
+          v17 = [v16 isEqualToString:v14];
 
-          if (v15)
+          if (v17)
           {
-            LODWORD(v10) = 1;
+            LODWORD(v12) = 1;
             goto LABEL_18;
           }
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
-        if (v10)
+        v12 = [v11 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        if (v12)
         {
           continue;
         }
@@ -3352,32 +3312,32 @@ uint64_t __98__BLTBulletinDistributor_willSendLightsAndSirensWithRecordID_inPhon
 
 LABEL_18:
 
-    v16 = [v7 displayBacklightLevel];
-    v17 = blt_general_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = [v9 displayBacklightLevel];
+    v19 = blt_general_log(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      LODWORD(v26[0]) = v16 != 0;
-      WORD2(v26[0]) = 1024;
-      *(v26 + 6) = v10;
-      _os_log_impl(&dword_241FB3000, v17, OS_LOG_TYPE_DEFAULT, "willSendLightsAndSirensWithPublisherBulletinID: no stored bulletin and not for a system app. willSend based on screenIsOn: %{BOOL}u isUILocked: %{BOOL}u", buf, 0xEu);
+      LODWORD(v27[0]) = v18 != 0;
+      WORD2(v27[0]) = 1024;
+      *(v27 + 6) = v12;
+      _os_log_impl(&dword_241FB3000, v19, OS_LOG_TYPE_DEFAULT, "willSendLightsAndSirensWithPublisherBulletinID: no stored bulletin and not for a system app. willSend based on screenIsOn: %{BOOL}u isUILocked: %{BOOL}u", buf, 0xEu);
     }
 
-    v5 = 0;
-    if (v16)
+    v6 = 0;
+    if (v18)
     {
-      v8 = v10 ^ 1;
+      v10 = v12 ^ 1;
     }
 
     else
     {
-      v8 = 0;
+      v10 = 0;
     }
 
     goto LABEL_23;
   }
 
-  v2 = blt_general_log();
+  v2 = blt_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3389,40 +3349,53 @@ LABEL_18:
 
   if (v4)
   {
-    v5 = 120;
-    v6 = [*(*(a1 + 32) + 144) subscribers];
-    [v6 pingWithRecordID:*(a1 + 48) forSectionID:*(a1 + 40)];
+    v6 = 120;
+    v7 = [*(*(a1 + 32) + 144) subscribers];
+    [v7 pingWithRecordID:*(a1 + 48) forSectionID:*(a1 + 40)];
 
-    v7 = blt_general_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = blt_general_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v26[0] = 120;
-      _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "willSendLightsAndSirensWithPublisherBulletinID: found subscribers sending response with additional time: %lu", buf, 0xCu);
+      v27[0] = 120;
+      _os_log_impl(&dword_241FB3000, v9, OS_LOG_TYPE_DEFAULT, "willSendLightsAndSirensWithPublisherBulletinID: found subscribers sending response with additional time: %lu", buf, 0xCu);
     }
 
-    v8 = 1;
+    v10 = 1;
 LABEL_23:
 
     goto LABEL_25;
   }
 
-  v5 = 0;
-  v8 = 1;
+  v6 = 0;
+  v10 = 1;
 LABEL_25:
-  v18 = blt_general_log();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = blt_general_log(v5);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    LODWORD(v26[0]) = v8;
-    WORD2(v26[0]) = 2048;
-    *(v26 + 6) = v5;
-    _os_log_impl(&dword_241FB3000, v18, OS_LOG_TYPE_DEFAULT, "willSendLightsAndSirensWithPublisherBulletinID: sending back response willSend: %{BOOL}u additionalTime: %lu", buf, 0x12u);
+    LODWORD(v27[0]) = v10;
+    WORD2(v27[0]) = 2048;
+    *(v27 + 6) = v6;
+    _os_log_impl(&dword_241FB3000, v20, OS_LOG_TYPE_DEFAULT, "willSendLightsAndSirensWithPublisherBulletinID: sending back response willSend: %{BOOL}u additionalTime: %lu", buf, 0x12u);
   }
 
-  result = (*(*(a1 + 56) + 16))();
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 56) + 16))();
+}
+
+- (void)_addBulletin:(id)bulletin forFeed:(unint64_t)feed playLightsAndSirens:(BOOL)sirens attachment:(id)attachment attachmentType:(int64_t)type alwaysSend:(BOOL)send completion:(id)completion
+{
+  sirensCopy = sirens;
+  completionCopy = completion;
+  bbObserver = self->_bbObserver;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __115__BLTBulletinDistributor__addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_completion___block_invoke;
+  v20[3] = &unk_278D320A8;
+  v21 = completionCopy;
+  v18 = completionCopy;
+  LOBYTE(v19) = send;
+  [(BLTBulletinDistributor *)self observer:bbObserver addBulletin:bulletin forFeed:feed playLightsAndSirens:sirensCopy attachment:attachment attachmentType:type alwaysSend:v19 withReply:v20];
 }
 
 uint64_t __115__BLTBulletinDistributor__addBulletin_forFeed_playLightsAndSirens_attachment_attachmentType_alwaysSend_completion___block_invoke(uint64_t a1)
@@ -3447,92 +3420,54 @@ uint64_t __115__BLTBulletinDistributor__addBulletin_forFeed_playLightsAndSirens_
 
 - (void)_removeTranscodedAttachmentIfNeededForBulletin:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_241FB3000, log, OS_LOG_TYPE_ERROR, "Unable to remove transcoded attachment file at %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_241FB3000, log, OS_LOG_TYPE_ERROR, "Unable to remove transcoded attachment file at %@: %@", &v3, 0x16u);
 }
 
-- (void)_handleDidPlayLightsAndSirens:forBulletin:inPhoneSection:transmissionDate:receptionDate:fromGizmo:finalReply:replyToken:.cold.1()
+void __39__BLTBulletinDistributor_handleAction___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __39__BLTBulletinDistributor_handleAction___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
-  v7 = v3;
-  _os_log_error_impl(&dword_241FB3000, v4, OS_LOG_TYPE_ERROR, "%@ handleAction: %@ bulletins: %@", v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 48);
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_241FB3000, v1, OS_LOG_TYPE_ERROR, "%@ handleAction: %@ bulletins: %@", v2, 0x20u);
 }
 
 void __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_cold_2(id *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = BLTNameForActionType([*a1 actionType]);
   v3 = [*a1 publisherBulletinID];
   v4 = [*a1 recordID];
   v5 = [*a1 sectionID];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_3(&dword_241FB3000, v6, v7, "No handler for %@ for publisherBulletinD: %@, recordID: %@, sectionID: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_241FB3000, v6, v7, "No handler for %@ for publisherBulletinD: %@, recordID: %@, sectionID: %@", v8, v9, v10, v11);
 }
 
 void __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_cold_3(id *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = BLTNameForActionType([*a1 actionType]);
   v3 = [*a1 publisherBulletinID];
   v4 = [*a1 recordID];
   v5 = [*a1 sectionID];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_3(&dword_241FB3000, v6, v7, "Failed to find matching action for %@ for publisherBulletinD: %@, recordID: %@, sectionID: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_241FB3000, v6, v7, "Failed to find matching action for %@ for publisherBulletinD: %@, recordID: %@, sectionID: %@", v8, v9, v10, v11);
 }
 
-void __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_154_cold_1(void *a1)
+void __48__BLTBulletinDistributor_handleAction_bulletin___block_invoke_154_cold_1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = a1[4];
-  v2 = a1[5];
-  v3 = a1[6];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __83__BLTBulletinDistributor_removeBulletinWithPublisherBulletinID_recordID_sectionID___block_invoke_cold_1(void *a1)
+void __83__BLTBulletinDistributor_removeBulletinWithPublisherBulletinID_recordID_sectionID___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = a1[4];
-  v2 = a1[5];
-  v3 = a1[6];
-  v4 = a1[7];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x2Au);
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
 @end

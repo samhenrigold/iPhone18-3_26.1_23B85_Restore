@@ -16,29 +16,29 @@
     +[CTXPCServiceSubscriptionContext(TelephonyPreferences) telephonyClient];
   }
 
-  v1 = telephonyClient_telephonyClient;
+  v2 = telephonyClient_telephonyClient;
 
-  return v1;
+  return v2;
 }
 
 - (id)tps_isoCountryCode
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   telephonyClient = [objc_opt_class() telephonyClient];
-  v11 = 0;
-  v3 = [telephonyClient getMobileSubscriberHomeCountryList:self error:&v11];
-  v4 = v11;
+  v14 = 0;
+  v3 = [telephonyClient getMobileSubscriberHomeCountryList:self error:&v14];
+  v4 = v14;
 
   if (v3)
   {
-    v5 = TPSLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = TPSLog(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v13 = v3;
-      v14 = 2112;
+      v16 = v3;
+      v17 = 2112;
       selfCopy2 = self;
-      _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "Retreived ISO country codes %@ for %@.", buf, 0x16u);
+      _os_log_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_DEFAULT, "Retreived ISO country codes %@ for %@.", buf, 0x16u);
     }
 
     firstObject = [v3 firstObject];
@@ -50,21 +50,19 @@
 
     if (domain)
     {
-      v8 = TPSLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v12 = TPSLog(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v13 = v4;
-        v14 = 2112;
+        v16 = v4;
+        v17 = 2112;
         selfCopy2 = self;
-        _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, "Retreiving ISO country codes failed with error %@ for %@.", buf, 0x16u);
+        _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "Retreiving ISO country codes failed with error %@ for %@.", buf, 0x16u);
       }
     }
 
     firstObject = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -82,14 +80,13 @@
 
 - (id)tps_localizedPhoneNumber
 {
-  v1 = *MEMORY[0x277CBECE8];
   phoneNumber = [self phoneNumber];
-  v3 = CFPhoneNumberCreate();
+  v2 = CFPhoneNumberCreate();
 
-  if (v3)
+  if (v2)
   {
     String = CFPhoneNumberCreateString();
-    CFRelease(v3);
+    CFRelease(v2);
   }
 
   else
@@ -102,33 +99,31 @@
 
 - (id)tps_localizedShortLabel
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   telephonyClient = [objc_opt_class() telephonyClient];
-  v9 = 0;
-  v3 = [telephonyClient getShortLabel:self error:&v9];
-  v4 = v9;
+  v10 = 0;
+  v3 = [telephonyClient getShortLabel:self error:&v10];
+  v4 = v10;
 
-  v5 = 0;
+  v7 = 0;
   if (!v4)
   {
-    v6 = TPSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = TPSLog(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v11 = "[CTXPCServiceSubscriptionContext(TelephonyPreferences) tps_localizedShortLabel]";
-      v12 = 2112;
-      v13 = v3;
-      v14 = 2112;
+      v12 = "[CTXPCServiceSubscriptionContext(TelephonyPreferences) tps_localizedShortLabel]";
+      v13 = 2112;
+      v14 = v3;
+      v15 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "%s: Received shortLabel: %@ for Context: %@", buf, 0x20u);
+      _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, "%s: Received shortLabel: %@ for Context: %@", buf, 0x20u);
     }
 
-    v5 = v3;
+    v7 = v3;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  return v5;
+  return v7;
 }
 
 - (uint64_t)tps_isEquivalentToSubscriptionContext:()TelephonyPreferences

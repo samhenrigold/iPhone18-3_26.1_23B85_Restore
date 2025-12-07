@@ -11,12 +11,12 @@
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v8 = sub_1000AF1FC(storeCopy);
+  v10 = sub_1000AF1FC(storeCopy, manager, data);
 
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 
-  return v8;
+  return v10;
 }
 
 - (_TtC10NewsToday223FeedPersonalizerFactory)init

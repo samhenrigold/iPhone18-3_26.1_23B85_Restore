@@ -13,7 +13,7 @@
   rendererCopy = renderer;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_100004AAC(rendererCopy, environment);
+  sub_100004AAC(rendererCopy, environment, v7, v8);
 
   swift_unknownObjectRelease();
 }
@@ -24,7 +24,7 @@
   swift_unknownObjectRetain();
   transitionCopy = transition;
   selfCopy = self;
-  sub_100005690(rendererCopy, environment, transition);
+  sub_100005690(rendererCopy, environment, transition, v10, v11);
 
   swift_unknownObjectRelease();
 }

@@ -14,6 +14,7 @@
 - (id)_routeRequestStorage;
 - (id)transferToImmutableIfValidWithError:(id *)error;
 - (int64_t)transportType;
+- (void)setNavigationInterrupted:(BOOL)interrupted;
 - (void)setRouteInformationSource:(id)source;
 @end
 
@@ -317,9 +318,17 @@ LABEL_7:
   return navigationInterrupted;
 }
 
+- (void)setNavigationInterrupted:(BOOL)interrupted
+{
+  interruptedCopy = interrupted;
+  storage = [(MSPMutableHistoryEntry *)self storage];
+  directionsSearch = [storage directionsSearch];
+  [directionsSearch setNavigationInterrupted:interruptedCopy];
+}
+
 - (id)transferToImmutableIfValidWithError:(id *)error
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   routeInformationSource = [(MSPMutableHistoryEntryRoute *)self routeInformationSource];
 
@@ -348,11 +357,11 @@ LABEL_7:
     if (error)
     {
       v9 = MEMORY[0x277CCA9B8];
-      v13[0] = @"MSPContainerUntransferableObject";
-      v13[1] = @"MSPContainerUnavailableKeys";
-      v14[0] = self;
-      v14[1] = v5;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+      v12[0] = @"MSPContainerUntransferableObject";
+      v12[1] = @"MSPContainerUnavailableKeys";
+      v13[0] = self;
+      v13[1] = v5;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
       *error = [v9 errorWithDomain:@"com.apple.MapsSupport.MSPContainer" code:1 userInfo:v10];
 
       error = 0;
@@ -364,8 +373,6 @@ LABEL_7:
     [(MSPMutableHistoryEntry *)self _markImmutable];
     error = self;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return error;
 }

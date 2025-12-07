@@ -22,9 +22,9 @@
     [SKUIReviewsFacebookView initWithClientContext:];
   }
 
-  v40.receiver = self;
-  v40.super_class = SKUIReviewsFacebookView;
-  v6 = [(SKUIReviewsFacebookView *)&v40 init];
+  v41.receiver = self;
+  v41.super_class = SKUIReviewsFacebookView;
+  v6 = [(SKUIReviewsFacebookView *)&v41 init];
   v7 = v6;
   if (v6)
   {
@@ -101,28 +101,28 @@
     [(SKUIReviewsFacebookView *)v7 _reloadLikeButtonState];
     v28 = objc_alloc(MEMORY[0x277D755E8]);
     v29 = MEMORY[0x277D755B8];
-    v30 = SKUIBundle();
-    v31 = [v29 imageNamed:@"ProductViewReviewsFacebookIcon" inBundle:v30];
-    v32 = [v28 initWithImage:v31];
+    v31 = SKUIBundle(v28, v30);
+    v32 = [v29 imageNamed:@"ProductViewReviewsFacebookIcon" inBundle:v31];
+    v33 = [v28 initWithImage:v32];
     logoImageView = v7->_logoImageView;
-    v7->_logoImageView = v32;
+    v7->_logoImageView = v33;
 
     [(SKUIReviewsFacebookView *)v7 addSubview:v7->_logoImageView];
-    v34 = objc_alloc_init(MEMORY[0x277D75D18]);
+    v35 = objc_alloc_init(MEMORY[0x277D75D18]);
     separatorView = v7->_separatorView;
-    v7->_separatorView = v34;
+    v7->_separatorView = v35;
 
-    v36 = v7->_separatorView;
-    primaryTextColor = [(SKUIColorScheme *)v7->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v37 = v7->_separatorView;
+    v38 = objc_msgSend_primaryTextColor(v7->_colorScheme);
+    if (v38)
     {
-      [(UIView *)v36 setBackgroundColor:primaryTextColor];
+      [(UIView *)v37 setBackgroundColor:v38];
     }
 
     else
     {
-      v38 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.200000003];
-      [(UIView *)v36 setBackgroundColor:v38];
+      v39 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.200000003];
+      [(UIView *)v37 setBackgroundColor:v39];
     }
 
     [(SKUIReviewsFacebookView *)v7 addSubview:v7->_separatorView];
@@ -152,10 +152,10 @@
     }
 
     separatorView = self->_separatorView;
-    primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v10 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v10)
     {
-      [(UIView *)separatorView setBackgroundColor:primaryTextColor];
+      [(UIView *)separatorView setBackgroundColor:v10];
     }
 
     else
@@ -209,84 +209,84 @@
 - (void)layoutSubviews
 {
   [(SKUIReviewsFacebookView *)self bounds];
-  v47 = v3;
+  v57 = v3;
   v5 = v4;
   v7 = v6;
   v9 = v8;
   [(UIImageView *)self->_logoImageView frame];
-  v45 = v10;
+  v55 = v10;
   titleLabel = self->_titleLabel;
   v12 = 15.0;
   v13 = 15.0;
   if (titleLabel)
   {
     [(UILabel *)titleLabel sizeToFit];
-    [(UILabel *)self->_titleLabel frame];
-    v15 = v14;
-    v16 = self->_titleLabel;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(15.0, 11.0, v7 + -30.0, v14, v47, v5, v7, v9);
-    [(UILabel *)v16 setFrame:?];
-    v49.origin.x = 15.0;
-    v49.origin.y = 11.0;
-    v49.size.width = v7 + -30.0;
-    v49.size.height = v15;
-    v13 = CGRectGetMaxY(v49) + -4.0 + 10.0;
+    frame = [(UILabel *)self->_titleLabel frame];
+    v16 = v15;
+    v17 = self->_titleLabel;
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(15.0, 11.0, v7 + -30.0, v15, v57, v5, v7, v9, frame, v18);
+    [(UILabel *)v17 setFrame:?];
+    v59.origin.x = 15.0;
+    v59.origin.y = 11.0;
+    v59.size.width = v7 + -30.0;
+    v59.size.height = v16;
+    v13 = CGRectGetMaxY(v59) + -4.0 + 10.0;
   }
 
   logoImageView = self->_logoImageView;
   if (logoImageView)
   {
-    [(UIImageView *)logoImageView frame];
-    v19 = v18;
-    v21 = v20;
-    v22 = self->_logoImageView;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(15.0, v13, v18, v20, v47, v5, v7, v9);
-    [(UIImageView *)v22 setFrame:?];
-    v50.origin.x = 15.0;
-    v50.origin.y = v13;
-    v50.size.width = v19;
-    v50.size.height = v21;
-    v12 = CGRectGetMaxX(v50) + 10.0;
+    frame2 = [(UIImageView *)logoImageView frame];
+    v22 = v21;
+    v24 = v23;
+    v25 = self->_logoImageView;
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(15.0, v13, v21, v23, v57, v5, v7, v9, frame2, v26);
+    [(UIImageView *)v25 setFrame:?];
+    v60.origin.x = 15.0;
+    v60.origin.y = v13;
+    v60.size.width = v22;
+    v60.size.height = v24;
+    v12 = CGRectGetMaxX(v60) + 10.0;
   }
 
-  v23 = v7 + -15.0;
+  v27 = v7 + -15.0;
   likeButton = self->_likeButton;
-  v25 = v7 + -15.0;
+  v29 = v7 + -15.0;
   if (likeButton)
   {
-    v26 = [(UIButton *)likeButton imageForState:0];
+    v30 = [(UIButton *)likeButton imageForState:0];
     [(UIButton *)self->_likeButton sizeToFit];
     [(UIButton *)self->_likeButton frame];
-    v46 = v9;
-    v27 = v5;
-    v29 = v28;
+    v56 = v9;
+    v31 = v5;
+    v33 = v32;
     titleLabel = [(UIButton *)self->_likeButton titleLabel];
     [titleLabel sizeThatFits:{1.79769313e308, 1.79769313e308}];
-    v32 = v31;
-    [v26 size];
-    v34 = v32 + v33 + 6.0;
+    v36 = v35;
+    [v30 size];
+    v38 = v36 + v37 + 6.0;
 
-    v35 = (v45 - v29) * 0.5;
-    v36 = v13 + roundf(v35);
-    v37 = self->_likeButton;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v23 - v34, v36, v34, v29, v47, v27, v7, v46);
-    [(UIButton *)v37 setFrame:?];
-    v51.origin.x = v23 - v34;
-    v51.origin.y = v36;
-    v51.size.width = v34;
-    v51.size.height = v29;
-    v5 = v27;
-    v9 = v46;
-    v25 = CGRectGetMinX(v51) + -7.0;
+    v39 = (v55 - v33) * 0.5;
+    v40 = v13 + roundf(v39);
+    v41 = self->_likeButton;
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v27 - v38, v40, v38, v33, v57, v31, v7, v56, v42, v43);
+    [(UIButton *)v41 setFrame:?];
+    v61.origin.x = v27 - v38;
+    v61.origin.y = v40;
+    v61.size.width = v38;
+    v61.size.height = v33;
+    v5 = v31;
+    v9 = v56;
+    v29 = CGRectGetMinX(v61) + -7.0;
   }
 
   if (self->_friendsLabel)
   {
     [(SKUIReviewsFacebookView *)self bringSubviewToFront:?];
     [(UILabel *)self->_friendsLabel frame];
-    [(UILabel *)self->_friendsLabel sizeThatFits:v25 - v12, 1.79769313e308];
+    v44 = [(UILabel *)self->_friendsLabel sizeThatFits:v29 - v12, 1.79769313e308];
     friendsLabel = self->_friendsLabel;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v12, v13 + -5.0, v39, v9 - v13 + -15.0 + 5.0 + 3.0, v47, v5, v7, v9);
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v12, v13 + -5.0, v47, v9 - v13 + -15.0 + 5.0 + 3.0, v57, v5, v7, v9, v44, v46);
     [(UILabel *)friendsLabel setFrame:?];
   }
 
@@ -296,12 +296,12 @@
     [(UIView *)separatorView frame];
     mainScreen = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen scale];
-    v43 = 1.0 / v42;
+    v51 = 1.0 / v50;
 
-    v44 = self->_separatorView;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(15.0, v9 - v43, v23, v43, v47, v5, v7, v9);
+    v52 = self->_separatorView;
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(15.0, v9 - v51, v27, v51, v57, v5, v7, v9, v53, v54);
 
-    [(UIView *)v44 setFrame:?];
+    [(UIView *)v52 setFrame:?];
   }
 }
 
@@ -602,16 +602,16 @@ LABEL_53:
   v6 = *MEMORY[0x277D740C0];
   v13[1] = v5;
   v13[2] = v6;
-  primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-  v8 = primaryTextColor;
-  if (!primaryTextColor)
+  v7 = objc_msgSend_primaryTextColor(self->_colorScheme);
+  v8 = v7;
+  if (!v7)
   {
     v8 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.800000012];
   }
 
   v14[2] = v8;
   v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-  if (!primaryTextColor)
+  if (!v7)
   {
   }
 
@@ -653,7 +653,7 @@ LABEL_53:
   else
   {
     v6 = MEMORY[0x277D755B8];
-    v7 = SKUIBundle();
+    v7 = SKUIBundle(self, a2);
     v8 = [v6 imageNamed:@"ProductViewReviewsFacebookLikeIcon" inBundle:v7];
     [(UIButton *)likeButton setImage:v8 forState:0];
 
@@ -671,7 +671,7 @@ LABEL_53:
     v17 = ;
     [(UIButton *)v9 setTitle:v17 forState:0];
 
-    ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
+    ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(v18, v19);
     v13 = 0.0;
     v14 = 6.0;
     if (ShouldReverseLayoutDirection)

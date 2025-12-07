@@ -101,9 +101,9 @@ LABEL_14:
 - (STSCHBluetoothAlternativeCarrier)initWithNdefRecordBundle:(id)bundle
 {
   bundleCopy = bundle;
-  v38.receiver = self;
-  v38.super_class = STSCHBluetoothAlternativeCarrier;
-  v7 = [(STSCHAlternativeCarrier *)&v38 initWithNdefRecordBundle:bundleCopy];
+  v37.receiver = self;
+  v37.super_class = STSCHBluetoothAlternativeCarrier;
+  v7 = [(STSCHAlternativeCarrier *)&v37 initWithNdefRecordBundle:bundleCopy];
   if (v7)
   {
     v8 = objc_msgSend_configurationRecord(bundleCopy, v5, v6);
@@ -126,7 +126,6 @@ LABEL_14:
         v24 = v24 - 2 - v30;
         if (v24 < 0 != v31)
         {
-          v37 = *v15 - 1;
           sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSCHBluetoothAlternativeCarrier initWithNdefRecordBundle:]", 87, v7, @"Not enough room for TLV: %ld expected %d", v26, v27, v29);
           goto LABEL_20;
         }
@@ -276,10 +275,10 @@ LABEL_20:
 
 - (id)_createCarrierConfigurationRecord
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], a2, "application/vnd.bluetooth.le.oob", 32);
   v5 = objc_msgSend_dataUsingEncoding_(@"0", v4, 4);
-  memset(v29, 0, sizeof(v29));
+  memset(v28, 0, sizeof(v28));
   leRole = self->_leRole;
   v9 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v7, v8, 0, 0, 0, 0);
   v11 = objc_msgSend_BOOLForKey_(v9, v10, @"BTOOBDataExtras");
@@ -292,33 +291,31 @@ LABEL_20:
 
   else
   {
-    LOWORD(v29[0]) = 6920;
-    v16 = objc_msgSend_bytes(self->_leAddr, v12, v13, *&v29[0]);
+    LOWORD(v28[0]) = 6920;
+    v16 = objc_msgSend_bytes(self->_leAddr, v12, v13, *&v28[0]);
     v17 = *(v16 + 3);
-    *(v29 + 2) = *v16;
-    *(v29 + 5) = v17;
+    *(v28 + 2) = *v16;
+    *(v28 + 5) = v17;
     v18 = 9;
   }
 
   if (leRole != 1 && leRole != 4)
   {
-    v28 = objc_msgSend_length(self->_advertiseUUID, v12, v13);
-    if (v28 == 16)
+    v27 = objc_msgSend_length(self->_advertiseUUID, v12, v13);
+    if (v27 == 16)
     {
-      *(v29 | v18) = 1809;
-      *(v29 | v18 | 2) = *objc_msgSend_bytes(self->_advertiseUUID, v12, v13);
+      *(v28 | v18) = 1809;
+      *(v28 | v18 | 2) = *objc_msgSend_bytes(self->_advertiseUUID, v12, v13);
       v18 |= 0x12u;
     }
   }
 
-  v20 = v29 + v18;
+  v20 = v28 + v18;
   *v20 = 7170;
   v20[2] = objc_msgSend_specRole(self, v12, v13);
-  v22 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v21, v29, v18 + 3);
+  v22 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v21, v28, v18 + 3);
   v23 = [STSNDEFRecord alloc];
   v25 = objc_msgSend_initWithFormat_type_identifier_payload_(v23, v24, 2, v3, v5, v22);
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

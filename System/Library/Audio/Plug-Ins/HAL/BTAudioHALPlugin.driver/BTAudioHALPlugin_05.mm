@@ -11,7 +11,7 @@ void sub_64064(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
 BOOL sub_640A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = a1 + 0x2000;
-  if (*(a1 + 9288) == a2 && *(a1 + 9296) == a3)
+  if (*(a1 + 9288) == __PAIR128__(a3, a2))
   {
     v8 = *(a1 + 9305);
   }
@@ -124,7 +124,7 @@ BOOL sub_640A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
         return result;
     }
 
-LABEL_37:
+LABEL_36:
     if (v8)
     {
       v26 = qword_D8590;
@@ -173,7 +173,7 @@ LABEL_37:
       return 0;
     }
 
-    goto LABEL_37;
+    goto LABEL_36;
   }
 
   if (a2 == 1952538980)
@@ -191,9 +191,9 @@ LABEL_37:
   return result;
 }
 
-void sub_6454C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_6454C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   sub_70C40(va);
   _Unwind_Resume(a1);
 }
@@ -635,7 +635,7 @@ uint64_t sub_65044(uint64_t a1, uint64_t a2, int *a3, uint64_t a4, uint64_t a5, 
       {
         if (v8 == 1853059619)
         {
-          v9 = 16 * (*(*a1 + 1264))(a1);
+          v9 = 16 * (*(*a1 + 1264))(a1, a2);
         }
 
         else
@@ -892,7 +892,7 @@ LABEL_60:
       return v12;
     }
 
-    v20 = (*(*a1 + 16))(a1);
+    v20 = (*(*a1 + 16))(a1, a2);
 LABEL_62:
     v12 = 0;
     *a9 = v20;
@@ -1407,7 +1407,7 @@ uint64_t sub_661B0(uint64_t a1, uint64_t a2, int *a3, uint64_t a4, uint64_t a5, 
 {
   if (*(a1 + 9176) && *(a1 + 9288) == 1953719151)
   {
-    v10 = (*(*a2 + 16))(a2);
+    v10 = (*(*a2 + 16))(a2, a2, a3, a4, a5);
     v11 = v10 == (*(**(a1 + 9176) + 16))(*(a1 + 9176));
   }
 
@@ -1418,7 +1418,7 @@ uint64_t sub_661B0(uint64_t a1, uint64_t a2, int *a3, uint64_t a4, uint64_t a5, 
 
   if (*(a1 + 9160))
   {
-    v12 = (*(*a2 + 16))(a2);
+    v12 = (*(*a2 + 16))(a2, a2, a3, a4, a5);
     v13 = v12 == (*(**(a1 + 9160) + 16))(*(a1 + 9160));
   }
 
@@ -1429,7 +1429,7 @@ uint64_t sub_661B0(uint64_t a1, uint64_t a2, int *a3, uint64_t a4, uint64_t a5, 
 
   if (*(a1 + 9168))
   {
-    v14 = (*(*a2 + 16))(a2);
+    v14 = (*(*a2 + 16))(a2, a2, a3, a4, a5);
     v15 = v14 == (*(**(a1 + 9168) + 16))(*(a1 + 9168));
   }
 
@@ -2123,13 +2123,13 @@ uint64_t sub_67154(uint64_t a1, uint64_t a2, int *a3, uint64_t a4, uint64_t a5, 
 {
   if (*(a1 + 9176) && *(a1 + 9288) == 1953719151)
   {
-    (*(*a2 + 16))(a2);
+    (*(*a2 + 16))(a2, a2, a3, a4, a5);
     (*(**(a1 + 9176) + 16))(*(a1 + 9176));
   }
 
   if (*(a1 + 9160))
   {
-    v14 = (*(*a2 + 16))(a2);
+    v14 = (*(*a2 + 16))(a2, a2, a3, a4, a5);
     v15 = (*(**(a1 + 9160) + 16))(*(a1 + 9160));
     v16 = v14 == v15;
     if (!*(a1 + 9168))
@@ -2580,7 +2580,7 @@ void sub_680C0(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-uint64_t sub_681F0(uint64_t a1, uint64_t a2, __int32 a3)
+uint64_t sub_681F0(uint64_t a1, uint64_t a2, int a3)
 {
   v4 = a3;
   v5 = 1735159650;
@@ -2599,38 +2599,38 @@ uint64_t sub_68228(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
       switch(a2)
       {
         case 1819569763:
-          (*(*a1 + 272))(a1, a3);
+          (*(*a1 + 272))(a1, a3, a3, a4);
           goto LABEL_78;
         case 1853059700:
-          v32 = a3;
-          v52 = a3;
-          v33 = qword_D8590;
+          v31 = a3;
+          v49 = a3;
+          v32 = qword_D8590;
           if (os_log_type_enabled(qword_D8590, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            *&buf[4] = v32;
-            _os_log_impl(&dword_0, v33, OS_LOG_TYPE_DEFAULT, "BTUnifiedAudioDevice::PerformDeviceConfigurationChange [sample rate = %f]", buf, 0xCu);
+            *&buf[4] = v31;
+            _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "BTUnifiedAudioDevice::PerformDeviceConfigurationChange [sample rate = %f]", buf, 0xCu);
           }
 
-          v35 = sub_5BD5C(a1, &v52, v34);
-          v36 = *(a1 + 1142);
-          if (v36)
+          v34 = sub_5BD5C(a1, &v49, v33);
+          v35 = *(a1 + 1142);
+          if (v35)
           {
-            (*(*v36 + 528))(v36, v32);
+            (*(*v35 + 528))(v35, v31);
           }
 
-          v37 = qword_D8590;
+          v36 = qword_D8590;
           if (os_log_type_enabled(qword_D8590, OS_LOG_TYPE_DEFAULT))
           {
-            v38 = "NO";
-            if (v35)
+            v37 = "NO";
+            if (v34)
             {
-              v38 = "YES";
+              v37 = "YES";
             }
 
             *buf = 136446210;
-            *&buf[4] = v38;
-            _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "Perform Config change : kAudioDevicePropertyNominalSampleRate Upate pending shedule Profile Updated %{public}s", buf, 0xCu);
+            *&buf[4] = v37;
+            _os_log_impl(&dword_0, v36, OS_LOG_TYPE_DEFAULT, "Perform Config change : kAudioDevicePropertyNominalSampleRate Upate pending shedule Profile Updated %{public}s", buf, 0xCu);
           }
 
           v7[1112] = 0;
@@ -2659,17 +2659,17 @@ uint64_t sub_68228(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
     if (a2 == 1885762657)
     {
-      v30 = qword_D8590;
+      v29 = qword_D8590;
       if (os_log_type_enabled(qword_D8590, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "kAudioStreamPropertyAvailablePhysicalFormats Config change", buf, 2u);
+        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "kAudioStreamPropertyAvailablePhysicalFormats Config change", buf, 2u);
       }
 
-      v31 = *(a1 + 1142);
-      if (v31)
+      v30 = *(a1 + 1142);
+      if (v30)
       {
-        (*(*v31 + 560))(v31);
+        (*(*v30 + 560))(v30);
       }
 
       goto LABEL_78;
@@ -2677,24 +2677,24 @@ uint64_t sub_68228(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
     if (a2 == 1937009955)
     {
-      v41 = a3 != 0;
-      v42 = (*(**(a1 + 1142) + 1072))(*(a1 + 1142));
-      (*(*a1 + 1288))(a1, v41, v42);
+      v40 = a3 != 0;
+      v41 = (*(**(a1 + 1142) + 1072))(*(a1 + 1142));
+      (*(*a1 + 1288))(a1, v40, v41);
       sub_5AE6C(a1);
-      v43 = qword_D8590;
+      v42 = qword_D8590;
       if (!os_log_type_enabled(qword_D8590, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_78;
       }
 
-      v44 = (*(**(a1 + 1143) + 16))(*(a1 + 1143));
-      strcpy(&v52, "stm#");
+      v43 = (*(**(a1 + 1143) + 16))(*(a1 + 1143));
+      strcpy(&v49, "stm#");
       *buf = 67109378;
-      *&buf[4] = v44;
+      *&buf[4] = v43;
       *&buf[8] = 2082;
-      *&buf[10] = &v52;
+      *&buf[10] = &v49;
       v18 = "Object %u:Perform ConfigurationChange on property %{public}s";
-      v19 = v43;
+      v19 = v42;
       v20 = 18;
       goto LABEL_66;
     }
@@ -2732,20 +2732,19 @@ uint64_t sub_68228(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
       {
 LABEL_74:
         sub_68E0C(a1);
-        v47 = *(a1 + 1137);
-        if (v47)
+        v45 = *(a1 + 1137);
+        if (v45)
         {
-          sub_687C(v47);
+          sub_687C(v45);
         }
 
         *buf = xmmword_88F40;
         *&buf[16] = xmmword_88F50;
-        v54 = xmmword_89090;
-        v55 = xmmword_890A0;
-        v56 = xmmword_890B0;
-        v57 = xmmword_890C0;
+        v51 = xmmword_89090;
+        v52 = xmmword_890A0;
+        v53 = xmmword_890B0;
+        v54 = xmmword_890C0;
         v28 = **(qword_D8DF0 + 144);
-        v48 = *(a1 + 2);
         goto LABEL_77;
       }
 
@@ -2793,17 +2792,17 @@ LABEL_74:
     {
       v25.i32[0] = *(a1 + 2322);
       v26 = vrev64_s16(*&vmovl_u8(v25));
-      LODWORD(v52) = vuzp1_s8(v26, v26).u32[0];
-      BYTE4(v52) = 0;
-      v51[0] = BYTE3(a3);
-      v51[1] = BYTE2(a3);
-      v51[2] = BYTE1(a3);
-      v51[3] = a3;
-      v51[4] = 0;
+      LODWORD(v49) = vuzp1_s8(v26, v26).u32[0];
+      BYTE4(v49) = 0;
+      v48[0] = BYTE3(a3);
+      v48[1] = BYTE2(a3);
+      v48[2] = BYTE1(a3);
+      v48[3] = a3;
+      v48[4] = 0;
       *buf = 136315394;
-      *&buf[4] = &v52;
+      *&buf[4] = &v49;
       *&buf[12] = 2080;
-      *&buf[14] = v51;
+      *&buf[14] = v48;
       _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "perform kBluetoothAudioDevicePropertyDeviceType, %s -> %s", buf, 0x16u);
     }
 
@@ -2818,12 +2817,11 @@ LABEL_74:
     v7[1112] = 0;
     *buf = xmmword_88F40;
     *&buf[16] = xmmword_88F50;
-    v54 = xmmword_89090;
-    v55 = xmmword_890A0;
-    v56 = xmmword_890B0;
-    LODWORD(v57) = 0;
+    v51 = xmmword_89090;
+    v52 = xmmword_890A0;
+    v53 = xmmword_890B0;
+    LODWORD(v54) = 0;
     v28 = **(qword_D8DF0 + 144);
-    v29 = *(a1 + 2);
     goto LABEL_77;
   }
 
@@ -2876,8 +2874,8 @@ LABEL_66:
           sub_5C6B4(a1, v16);
           if ([*(qword_D8DF0 + 464) usbMetric])
           {
-            v50 = [*(qword_D8DF0 + 464) usbMetric];
-            [v50 setTotalCountUnifiedAudio:{objc_msgSend(v50, "totalCountUnifiedAudio") + 1}];
+            v47 = [*(qword_D8DF0 + 464) usbMetric];
+            [v47 setTotalCountUnifiedAudio:{objc_msgSend(v47, "totalCountUnifiedAudio") + 1}];
           }
         }
 
@@ -2892,42 +2890,41 @@ LABEL_66:
       buf[9] = 0;
       *&buf[10] = 0;
       v28 = **(qword_D8DF0 + 144);
-      v46 = *(a1 + 2);
 LABEL_77:
       v28();
       goto LABEL_78;
     }
 
 LABEL_67:
-    v45 = qword_D8590;
+    v44 = qword_D8590;
     if (os_log_type_enabled(qword_D8590, OS_LOG_TYPE_ERROR))
     {
-      LOBYTE(v52) = HIBYTE(v5);
-      BYTE1(v52) = BYTE2(v5);
-      BYTE2(v52) = BYTE1(v5);
-      *(&v52 + 3) = v5;
+      LOBYTE(v49) = HIBYTE(v5);
+      BYTE1(v49) = BYTE2(v5);
+      BYTE2(v49) = BYTE1(v5);
+      *(&v49 + 3) = v5;
       *buf = 136446210;
-      *&buf[4] = &v52;
-      _os_log_error_impl(&dword_0, v45, OS_LOG_TYPE_ERROR, "PerformDeviceConfigurationChange on property %{public}s, but we're doing nothing.", buf, 0xCu);
+      *&buf[4] = &v49;
+      _os_log_error_impl(&dword_0, v44, OS_LOG_TYPE_ERROR, "PerformDeviceConfigurationChange on property %{public}s, but we're doing nothing.", buf, 0xCu);
     }
 
     goto LABEL_78;
   }
 
-  v39 = *(a1 + 1137);
-  if (v39 && v39[192] == 1)
+  v38 = *(a1 + 1137);
+  if (v38 && v38[192] == 1)
   {
     if (*(a1 + 1161) == 1952539500)
     {
-      v40 = *(*(a1 + 1160) + 288);
+      v39 = *(*(a1 + 1160) + 288);
     }
 
     else
     {
-      v40 = 0;
+      v39 = 0;
     }
 
-    (*(*v39 + 584))(v39, v40 & 1);
+    (*(*v38 + 584))(v38, v39 & 1, a3, a4);
   }
 
 LABEL_78:
@@ -3474,7 +3471,7 @@ uint64_t sub_69E0C(uint64_t result, uint64_t a2, unsigned int *a3)
 
 uint64_t sub_69EE0(uint64_t a1, _DWORD *a2)
 {
-  if (!*(a1 + 9096) && !*(a1 + 9088) && !*(a1 + 9120) && !*(a1 + 9128))
+  if (*(a1 + 9088) == 0 && !*(a1 + 9120) && !*(a1 + 9128))
   {
     return 0;
   }
@@ -4174,12 +4171,11 @@ void sub_6AFD4(uint64_t a1)
   v2 = *(a1 + 9136);
   if (v2)
   {
-    v3 = *(*(a1 + 9280) + 304);
-    sub_65F0(v2);
+    sub_65F0(v2, *(*(a1 + 9280) + 304));
   }
 }
 
-void sub_6AFFC(void *a1, _BOOL4 a2, int a3)
+void sub_6AFFC(void *a1, uint64_t a2, int a3)
 {
   v3 = a1[1160];
   if (*(v3 + 293) != 1)
@@ -4258,7 +4254,7 @@ void sub_6B1F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
 void sub_6B270(void *a1, int a2)
 {
   v3 = a1[1160];
-  if (*(v3 + 184) != a2)
+  if (v3[46] != a2)
   {
     sub_2C7A0(v3, a2);
     v5 = qword_D8590;
@@ -4327,9 +4323,9 @@ uint64_t sub_6B4CC(_BYTE *a1)
   return (*(*a1 + 248))(a1, &v2);
 }
 
-uint64_t sub_6B52C(uint64_t result)
+void *sub_6B52C(void *result)
 {
-  if (*(*(result + 9280) + 230) == 1)
+  if (*(result[1160] + 230) == 1)
   {
     v1 = result;
     v2 = qword_D8590;
@@ -4657,7 +4653,7 @@ uint64_t sub_6C0E0(uint64_t a1)
 
     if (pthread_cond_timedwait_relative_np((a1 + 9408), (a1 + 9344), (a1 + 9456)) == 60 && os_log_type_enabled(qword_D8590, OS_LOG_TYPE_ERROR))
     {
-      sub_8130C(a1);
+      sub_8130C();
     }
 
     *(a1 + 9473) = 0;
@@ -4940,9 +4936,9 @@ uint64_t sub_6C7C0(uint64_t a1, int a2, int a3)
   return v8;
 }
 
-void sub_6C9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_6C9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   sub_70C40(va);
   _Unwind_Resume(a1);
 }
@@ -5087,23 +5083,21 @@ void sub_6CDDC(uint64_t a1)
 
 void sub_6CE2C(uint64_t a1)
 {
-  v2 = sub_508C0(qword_D8DF0, *(a1 + 40));
-  if (v2)
+  v1 = sub_508C0(qword_D8DF0, *(a1 + 40));
+  if (v1)
   {
-    v3 = *(a1 + 44);
-    v4 = *(a1 + 32);
-    v5 = *(*v2 + 240);
+    v2 = *(*v1 + 240);
 
-    v5();
+    v2();
   }
 
   else
   {
-    v6 = qword_D8590;
+    v3 = qword_D8590;
     if (os_log_type_enabled(qword_D8590, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Update dispatched after disconnection", v7, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Update dispatched after disconnection", v4, 2u);
     }
   }
 }
@@ -5608,9 +5602,9 @@ uint64_t sub_6DC28(dispatch_block_t *a1, uint64_t a2)
   return sub_70C40(v10);
 }
 
-void sub_6DD94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_6DD94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   sub_70C40(va);
   _Unwind_Resume(a1);
 }
@@ -5692,10 +5686,9 @@ void *sub_6E11C(uint64_t a1)
     {
       if (*(result + 192) == 1)
       {
-        v3 = *(a1 + 36);
-        v4 = *(*result + 744);
+        v2 = *(*result + 744);
 
-        return v4();
+        return v2();
       }
     }
   }
@@ -5892,9 +5885,9 @@ void sub_6E5D4(uint64_t a1)
   }
 }
 
-void sub_6E7B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_6E7B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5989,7 +5982,7 @@ void *sub_6EAC8(void *result, uint64_t a2, void *a3, _BYTE *a4)
     {
       if (os_log_type_enabled(qword_D8590, OS_LOG_TYPE_ERROR))
       {
-        sub_81420(v6 + 4);
+        sub_81420();
       }
 
       result = [objc_msgSend(a3 "usbDevice")];
@@ -6045,9 +6038,9 @@ NSString *sub_6EC70(uint64_t a1, uint64_t *a2)
   return [NSString stringWithCString:v2 encoding:v3];
 }
 
-void sub_6ECC8(uint64_t *a1, void *a2, int a3, int a4, int a5, int a6, int a7)
+void sub_6ECC8(uint64_t **a1, void *a2, int a3, int a4, int a5, int a6, int a7)
 {
-  (*(*a1 + 864))(__p);
+  ((*a1)[108])(__p);
   v13 = v31;
   v14 = __p[0];
   v15 = +[NSString defaultCStringEncoding];
@@ -6075,11 +6068,11 @@ void sub_6ECC8(uint64_t *a1, void *a2, int a3, int a4, int a5, int a6, int a7)
     v19 = a1[1160];
     *(v19 + 347) = v18;
     v21 = a4 == 1 && a5 == 1;
-    v22 = *(v19 + 352);
+    v22 = *(v19 + 88);
     v23 = v22 & 0xFFFFFFFD;
     if ((a6 & 0xFD) != 0)
     {
-      v23 = *(v19 + 352);
+      v23 = *(v19 + 88);
     }
 
     v24 = ~v22 & 2;
@@ -6090,7 +6083,7 @@ void sub_6ECC8(uint64_t *a1, void *a2, int a3, int a4, int a5, int a6, int a7)
 
     v25 = v24 | v23;
     v26 = v25 & 0xFFFFFFFB;
-    v27 = *(v19 + 352) & 4;
+    v27 = v19[44] & 4;
     if (!v27)
     {
       v26 = v25;
@@ -6107,11 +6100,11 @@ void sub_6ECC8(uint64_t *a1, void *a2, int a3, int a4, int a5, int a6, int a7)
       v28 = 0;
     }
 
-    *(v19 + 352) = v25 | v28;
+    *(v19 + 88) = v25 | v28;
     *(v19 + 348) = v21;
     v32 = 0x676C6F6268616573;
     v33 = 0;
-    (*(*a1 + 248))(a1, &v32);
+    ((*a1)[31])(a1, &v32);
     sub_35CB0(a1[1160]);
   }
 }
@@ -6340,20 +6333,21 @@ double sub_6EFF0()
   return result;
 }
 
-uint64_t sub_6F6C0(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t sub_6F6C0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a2;
   v5 = *(a3 + 16);
   v9[0] = *a3;
   v9[1] = v5;
   v10 = *(a3 + 32);
   sub_58DE4(a1, a2, v9);
   *v6 = &off_B16F8;
-  if (a2 > 0x11 || ((1 << a2) & 0x30018) == 0)
+  if (v3 > 0x11 || ((1 << v3) & 0x30018) == 0)
   {
     v8 = qword_D8CA8;
     if (os_log_type_enabled(qword_D8CA8, OS_LOG_TYPE_ERROR))
     {
-      sub_79E90(a2, v8);
+      sub_79E90(v3, v8);
     }
   }
 
@@ -6950,10 +6944,10 @@ void sub_70264(uint64_t a1, unsigned __int8 *a2, unsigned int a3, _DWORD *a4, UI
       v29 = *v28;
       v30 = (v27 + *v28);
       v31 = &a4[4 * (v46 + v26) + 2];
-      *(v31 + 8) = v30;
+      *(v31 + 1) = v30;
       v32 = *(v28 + 3);
       *v31 = 1;
-      *(v31 + 4) = v32;
+      v31[1] = v32;
       ++*a4;
       if (*(a1 + 210) == 1)
       {
@@ -7242,16 +7236,17 @@ os_log_t sub_70C50()
   return result;
 }
 
-int *decoder_create(int a1)
+unsigned int *decoder_create(uint64_t a1)
 {
+  v1 = a1;
   v2 = malloc_type_malloc(0x30uLL, 0x10A0040D8AFB92EuLL);
-  v3 = (&hmModesConfig + 16 * a1);
+  v3 = (&hmModesConfig + 16 * v1);
   v5 = *v3;
   v4 = v3[1];
-  *v2 = (a1 - 5) < 2;
+  *v2 = (v1 - 5) < 2;
   v2[1] = v5;
   v2[2] = v4;
-  if ((a1 - 5) <= 1)
+  if ((v1 - 5) <= 1)
   {
     unpack_lite_create();
     *(v2 + 4) = v6;
@@ -7263,15 +7258,15 @@ int *decoder_create(int a1)
   return v2;
 }
 
-void decoder_destroy(void *a1)
+void decoder_destroy(void **a1)
 {
   if (*a1 == 1)
   {
-    unpack_lite_destroy(*(a1 + 4));
+    unpack_lite_destroy(a1[4]);
   }
 
-  imdct_destroy(*(a1 + 5));
-  free(*(a1 + 2));
+  imdct_destroy(a1[5]);
+  free(a1[2]);
 
   free(a1);
 }
@@ -7305,19 +7300,20 @@ void decode(uint64_t a1, unsigned __int16 *a2, float *a3, int a4)
   imdct(*(a1 + 40), v6, v7, a3);
 }
 
-int *encoder_create(int a1)
+unsigned int *encoder_create(uint64_t a1)
 {
+  v1 = a1;
   v2 = malloc_type_malloc(0x68uLL, 0x10A0040D1EDB599uLL);
-  v3 = (&hmModesConfig + 16 * a1);
+  v3 = (&hmModesConfig + 16 * v1);
   v5 = *v3;
   v4 = v3[1];
-  *v2 = (a1 - 5) < 2;
+  *v2 = (v1 - 5) < 2;
   v2[1] = v5;
   *(v2 + 12) = &filters_875;
   v6 = v3[2];
   v2[2] = v4;
   v2[3] = v6;
-  if (a1 == 6)
+  if (v1 == 6)
   {
     *(v2 + 12) = &filters_583;
   }
@@ -7325,12 +7321,12 @@ int *encoder_create(int a1)
   else
   {
     v7 = v3[3];
-    if ((a1 - 4) <= 2)
+    if ((v1 - 4) <= 2)
     {
       *(v2 + 12) = &filters_777;
     }
 
-    if ((a1 - 5) > 1)
+    if ((v1 - 5) > 1)
     {
       v8 = quantizer_create(v4, v6, v5, v7);
       goto LABEL_8;
@@ -7420,7 +7416,7 @@ void encode(uint64_t a1, const float *__A, _OWORD *a3)
   }
 }
 
-float butterfly2(uint64_t a1, float *a2, int a3)
+float butterfly2(uint64_t a1, float *a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -7457,11 +7453,11 @@ float butterfly2(uint64_t a1, float *a2, int a3)
   return result;
 }
 
-uint64_t butterfly3(uint64_t result, float *a2, int a3)
+uint64_t butterfly3(uint64_t result, float *a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
-    v3 = 4 * a3;
+    v3 = 2 * (2 * a3);
     v4 = (result + 4);
     v5 = 2 * a3;
     v6 = a3;
@@ -7502,19 +7498,19 @@ uint64_t butterfly3(uint64_t result, float *a2, int a3)
   return result;
 }
 
-float butterfly4(uint64_t a1, uint64_t a2, int a3)
+float butterfly4(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
     v3 = 0;
     v4 = a1 + 8 * a3;
-    v5 = 2 * a3;
+    v5 = (2 * a3);
     v6 = a2 + 8 * a3;
     v7 = a2 + 8 * v5;
     v8 = 8 * a3;
-    v9 = a1 + 24 * a3 + 4;
+    v9 = a1 + 8 * (3 * a3) + 4;
     v10 = a1 + 8 * v5 + 4;
-    v11 = a2 + 24 * a3;
+    v11 = a2 + 8 * (3 * a3);
     do
     {
       v12 = (a1 + v3);
@@ -7944,7 +7940,7 @@ uint64_t hfft_run(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return v19(a2, v10, v5, a4, v17, v18, v7, v8);
 }
 
-char *imdct_create(unsigned int a1)
+char *imdct_create(signed int a1)
 {
   v2 = malloc_type_malloc(0x60uLL, 0x10A004068F99EA3uLL);
   LODWORD(v3) = 2 * a1;
@@ -7952,7 +7948,7 @@ char *imdct_create(unsigned int a1)
   v4 = vshl_s32(vdup_n_s32(a1), 0xFFFFFFFEFFFFFFFFLL);
   v52 = v4.i32[0];
   *(v2 + 20) = v4;
-  v5 = (2 * a1);
+  v5 = 2 * a1;
   *v2 = malloc_type_malloc(4 * v5, 0x100004052888210uLL);
   *(v2 + 1) = malloc_type_malloc(4 * a1 + 4, 0x100004052888210uLL);
   v6 = v52;
@@ -7966,7 +7962,7 @@ char *imdct_create(unsigned int a1)
   *(v2 + 10) = malloc_type_malloc(8 * v52, 0x100004000313F17uLL);
   v8 = *v2;
   v9 = (2 * a1);
-  if ((2 * a1) >= 1)
+  if (2 * a1 >= 1)
   {
     v10 = 3.14159265 / v9;
     v46 = v10;
@@ -8592,7 +8588,7 @@ uint64_t computeMask(uint64_t result, float *a2, float *a3, int a4)
   return result;
 }
 
-uint64_t normalize(const float *a1, int a2)
+uint64_t normalize(const float *a1, unsigned int a2)
 {
   v3 = a1;
   __C = 0.0;
@@ -8649,7 +8645,7 @@ uint64_t q(float a1)
     v2 = v3 - v1;
   }
 
-  while (v3 - v1 > 1);
+  while ((v3 - v1) > 1);
   if (vabds_f32(huff_vals[v1], a1) >= vabds_f32(huff_vals[v3], a1))
   {
     return v3;

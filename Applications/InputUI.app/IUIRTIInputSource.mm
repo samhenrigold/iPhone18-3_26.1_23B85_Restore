@@ -53,13 +53,13 @@
   window = [(IUIRTIInputSource *)self window];
   if (!window)
   {
-    v10 = sub_10000A9D0();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_10000A9D0(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = NSStringFromSelector(a2);
+      v13 = NSStringFromSelector(a2);
       *buf = 138412290;
-      *&buf[4] = v12;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@: nil window", buf, 0xCu);
+      *&buf[4] = v13;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@: nil window", buf, 0xCu);
     }
 
     goto LABEL_12;
@@ -73,27 +73,27 @@
 
   if (contextID)
   {
-    v9 = layerID == 0;
+    v10 = layerID == 0;
   }
 
   else
   {
-    v9 = 1;
+    v10 = 1;
   }
 
-  if (v9)
+  if (v10)
   {
-    v10 = sub_10000A9D0();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_10000A9D0(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = NSStringFromSelector(a2);
+      v12 = NSStringFromSelector(a2);
       *buf = 138412802;
-      *&buf[4] = v11;
+      *&buf[4] = v12;
       *&buf[12] = 1024;
       *&buf[14] = contextID;
       *&buf[18] = 2048;
       *&buf[20] = layerID;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@: destinationContextID = %u, destinationLayerID = %llu", buf, 0x1Cu);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@: destinationContextID = %u, destinationLayerID = %llu", buf, 0x1Cu);
     }
 
 LABEL_12:
@@ -105,7 +105,6 @@ LABEL_12:
   *&buf[8] = buf;
   *&buf[16] = 0xA010000000;
   *&buf[24] = &unk_1000186BA;
-  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
@@ -113,25 +112,25 @@ LABEL_12:
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v13 = dispatch_group_create();
+  v44 = 0u;
+  v14 = dispatch_group_create();
   layerTransformQueue = self->_layerTransformQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10000AA14;
   block[3] = &unk_100020780;
-  v34 = contextID;
+  v35 = contextID;
   block[4] = buf;
   block[5] = layerID;
-  dispatch_group_async(v13, layerTransformQueue, block);
+  dispatch_group_async(v14, layerTransformQueue, block);
   _contextId = [window _contextId];
   layer = [window layer];
   RenderId = CALayerGetRenderId();
 
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0xA010000000;
-  v24[3] = &unk_1000186BA;
-  v25 = 0u;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0xA010000000;
+  v25[3] = &unk_1000186BA;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
@@ -139,27 +138,28 @@ LABEL_12:
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v18 = self->_layerTransformQueue;
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_10000AA74;
-  v22[3] = &unk_100020780;
-  v23 = _contextId;
-  v22[4] = v24;
-  v22[5] = RenderId;
-  dispatch_group_async(v13, v18, v22);
+  v33 = 0u;
+  v19 = self->_layerTransformQueue;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_10000AA74;
+  v23[3] = &unk_100020780;
+  v24 = _contextId;
+  v23[4] = v25;
+  v23[5] = RenderId;
+  dispatch_group_async(v14, v19, v23);
   objc_initWeak(&location, self);
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_10000AAD4;
-  v19[3] = &unk_1000207A8;
-  objc_copyWeak(&v20, &location);
-  v19[4] = buf;
-  v19[5] = v24;
-  dispatch_group_notify(v13, &_dispatch_main_q, v19);
-  objc_destroyWeak(&v20);
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_10000AAD4;
+  v20[3] = &unk_1000207A8;
+  objc_copyWeak(&v21, &location);
+  v20[4] = buf;
+  v20[5] = v25;
+  dispatch_group_notify(v14, &_dispatch_main_q, v20);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
-  _Block_object_dispose(v24, 8);
+  _Block_object_dispose(v25, 8);
 
   _Block_object_dispose(buf, 8);
 LABEL_13:
@@ -316,16 +316,16 @@ LABEL_13:
 
 - (id)inputView
 {
-  v3 = sub_10000A9D0();
+  v3 = sub_10000A9D0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     sourceSession = self->_sourceSession;
     documentTraits = [(RTIInputSystemSourceSession *)sourceSession documentTraits];
-    v40 = 138412546;
-    v41 = sourceSession;
-    v42 = 2112;
-    v43 = documentTraits;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "inputView, sourceSession: %@, traits: %@", &v40, 0x16u);
+    v41 = 138412546;
+    v42 = sourceSession;
+    v43 = 2112;
+    v44 = documentTraits;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "inputView, sourceSession: %@, traits: %@", &v41, 0x16u);
   }
 
   documentTraits2 = [(RTIInputSystemSourceSession *)self->_sourceSession documentTraits];
@@ -344,36 +344,36 @@ LABEL_13:
   documentTraits3 = [(RTIInputSystemSourceSession *)self->_sourceSession documentTraits];
   inputViewInfo = [documentTraits3 inputViewInfo];
 
-  v9 = sub_10000A9D0();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_10000A9D0(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     inputViewInfo = self->_inputViewInfo;
     contextId = [inputViewInfo contextId];
     [inputViewInfo size];
-    v12 = NSStringFromCGSize(v51);
+    v13 = NSStringFromCGSize(v52);
     [inputViewInfo insets];
-    v40 = 138413314;
-    v41 = inputViewInfo;
-    v42 = 2048;
-    v43 = inputViewInfo;
-    v44 = 1024;
-    v45 = contextId;
-    v46 = 2112;
-    v47 = v12;
-    v48 = 2048;
-    v49 = v13;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "inputView, inputViewInfo: %@ (_inputViewInfo %p), contextId: %u size: %@ insets: %f", &v40, 0x30u);
+    v41 = 138413314;
+    v42 = inputViewInfo;
+    v43 = 2048;
+    v44 = inputViewInfo;
+    v45 = 1024;
+    v46 = contextId;
+    v47 = 2112;
+    v48 = v13;
+    v49 = 2048;
+    v50 = v14;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "inputView, inputViewInfo: %@ (_inputViewInfo %p), contextId: %u size: %@ insets: %f", &v41, 0x30u);
   }
 
   if (![inputViewInfo contextId])
   {
-    v36 = self->_remoteInputView;
+    v37 = self->_remoteInputView;
     self->_remoteInputView = 0;
 
-    v37 = self->_remoteInputViewLayerHost;
+    v38 = self->_remoteInputViewLayerHost;
     self->_remoteInputViewLayerHost = 0;
 
-    v33 = self->_inputViewInfo;
+    v34 = self->_inputViewInfo;
     self->_inputViewInfo = 0;
 LABEL_13:
 
@@ -382,45 +382,45 @@ LABEL_13:
 
   if (([inputViewInfo isEqual:self->_inputViewInfo] & 1) == 0)
   {
-    v14 = [IUIRTIInputView alloc];
+    v15 = [IUIRTIInputView alloc];
     y = CGPointZero.y;
     [inputViewInfo size];
-    v18 = [(IUIRTIInputView *)v14 initWithFrame:CGPointZero.x, y, v16, v17];
-    v19 = self->_remoteInputView;
-    self->_remoteInputView = v18;
+    v19 = [(IUIRTIInputView *)v15 initWithFrame:CGPointZero.x, y, v17, v18];
+    v20 = self->_remoteInputView;
+    self->_remoteInputView = v19;
 
     if (objc_opt_respondsToSelector())
     {
       -[IUIRTIInputView setShouldShowDockView:](self->_remoteInputView, "setShouldShowDockView:", [inputViewInfo shouldShowDockView]);
     }
 
-    v20 = [_UILayerHostView alloc];
+    v21 = [_UILayerHostView alloc];
     [inputViewInfo insets];
-    v22 = -v21;
+    v23 = -v22;
     [inputViewInfo size];
-    v24 = v23;
+    v25 = v24;
     [inputViewInfo size];
-    v26 = v25;
+    v27 = v26;
     [inputViewInfo insets];
-    v28 = v26 + v27;
+    v29 = v27 + v28;
     documentTraits4 = [(RTIInputSystemSourceSession *)self->_sourceSession documentTraits];
-    v30 = [v20 initWithFrame:objc_msgSend(documentTraits4 pid:"processId") contextID:{objc_msgSend(inputViewInfo, "contextId"), 0.0, v22, v24, v28}];
-    v31 = self->_remoteInputViewLayerHost;
-    self->_remoteInputViewLayerHost = v30;
+    v31 = [v21 initWithFrame:objc_msgSend(documentTraits4 pid:"processId") contextID:{objc_msgSend(inputViewInfo, "contextId"), 0.0, v23, v25, v29}];
+    v32 = self->_remoteInputViewLayerHost;
+    self->_remoteInputViewLayerHost = v31;
 
     [(IUIRTIInputView *)self->_remoteInputView addSubview:self->_remoteInputViewLayerHost];
-    v32 = [inputViewInfo copy];
-    v33 = self->_inputViewInfo;
-    self->_inputViewInfo = v32;
+    v33 = [inputViewInfo copy];
+    v34 = self->_inputViewInfo;
+    self->_inputViewInfo = v33;
     goto LABEL_13;
   }
 
 LABEL_14:
 
 LABEL_15:
-  v38 = self->_remoteInputView;
+  v39 = self->_remoteInputView;
 
-  return v38;
+  return v39;
 }
 
 - (id)textInputContextIdentifier

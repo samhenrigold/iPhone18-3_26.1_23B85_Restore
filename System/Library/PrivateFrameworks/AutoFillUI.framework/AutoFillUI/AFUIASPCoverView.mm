@@ -1,5 +1,7 @@
 @interface AFUIASPCoverView
 + (double)screenScale;
++ (id)coverForeground:(BOOL)foreground withFrame:(CGRect)frame isRightToLeft:(BOOL)left withTextWidth:(double)width;
+- (id)initCoverBackgroundViewWithFrame:(CGRect)frame isRightToLeft:(BOOL)left;
 - (id)initCoverViewWithFrame:(CGRect)frame isRightToLeft:(BOOL)left withTextWidth:(double)width;
 - (void)layoutSubviews;
 @end
@@ -15,6 +17,46 @@
   return v4;
 }
 
++ (id)coverForeground:(BOOL)foreground withFrame:(CGRect)frame isRightToLeft:(BOOL)left withTextWidth:(double)width
+{
+  leftCopy = left;
+  height = frame.size.height;
+  width = frame.size.width;
+  y = frame.origin.y;
+  x = frame.origin.x;
+  foregroundCopy = foreground;
+  v13 = [self alloc];
+  if (foregroundCopy)
+  {
+    v14 = [v13 initCoverViewWithFrame:leftCopy isRightToLeft:x withTextWidth:{y, width, height, width}];
+  }
+
+  else
+  {
+    v14 = [v13 initCoverBackgroundViewWithFrame:leftCopy isRightToLeft:{x, y, width, height}];
+  }
+
+  return v14;
+}
+
+- (id)initCoverBackgroundViewWithFrame:(CGRect)frame isRightToLeft:(BOOL)left
+{
+  v10.receiver = self;
+  v10.super_class = AFUIASPCoverView;
+  v4 = [(AFUIASPCoverView *)&v10 initWithFrame:left, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v5 = v4;
+  if (v4)
+  {
+    [(AFUIASPCoverView *)v4 setUserInteractionEnabled:0];
+    aSPCoverViewColor = [objc_opt_class() ASPCoverViewColor];
+    cGColor = [aSPCoverViewColor CGColor];
+    layer = [(AFUIASPCoverView *)v5 layer];
+    [layer setBackgroundColor:cGColor];
+  }
+
+  return v5;
+}
+
 - (id)initCoverViewWithFrame:(CGRect)frame isRightToLeft:(BOOL)left withTextWidth:(double)width
 {
   leftCopy = left;
@@ -22,10 +64,10 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v55[2] = *MEMORY[0x1E69E9840];
-  v52.receiver = self;
-  v52.super_class = AFUIASPCoverView;
-  v11 = [(AFUIASPCoverView *)&v52 initWithFrame:?];
+  v54[2] = *MEMORY[0x1E69E9840];
+  v51.receiver = self;
+  v51.super_class = AFUIASPCoverView;
+  v11 = [(AFUIASPCoverView *)&v51 initWithFrame:?];
   p_isa = &v11->super.super.super.isa;
   if (v11)
   {
@@ -51,19 +93,19 @@
     }
 
     [p_isa bounds];
-    v51 = v19;
+    v50 = v19;
     v21 = v20 - v19;
     [p_isa bounds];
     [p_isa[51] setFrame:{0.0, 0.0, v21}];
     v22 = [MEMORY[0x1E69DC888] colorWithRed:0.980392157 green:1.0 blue:0.741176471 alpha:0.0];
-    v55[0] = [v22 CGColor];
+    v54[0] = [v22 CGColor];
     v23 = [MEMORY[0x1E69DC888] colorWithRed:0.980392157 green:1.0 blue:0.741176471 alpha:1.0];
-    v55[1] = [v23 CGColor];
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
+    v54[1] = [v23 CGColor];
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
 
     [p_isa[51] setColors:v24];
     [p_isa[51] frame];
-    v25 = CGRectGetWidth(v56);
+    v25 = CGRectGetWidth(v55);
     v26 = 0.45;
     if (v25 * 0.45 <= width)
     {
@@ -103,26 +145,26 @@
 
     v34 = [MEMORY[0x1E69DB878] systemFontOfSize:14.0 weight:*MEMORY[0x1E69DB970]];
     v35 = *MEMORY[0x1E69DB648];
-    v54[0] = v34;
+    v53[0] = v34;
     v36 = *MEMORY[0x1E69DB650];
-    v53[0] = v35;
-    v53[1] = v36;
+    v52[0] = v35;
+    v52[1] = v36;
     v37 = [MEMORY[0x1E69DC888] colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
-    v54[1] = v37;
-    v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:2];
+    v53[1] = v37;
+    v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:2];
 
     [v33 sizeWithAttributes:v38];
     v40 = v39;
     [p_isa[51] frame];
-    v41 = v29 * CGRectGetWidth(v57);
+    v41 = v29 * CGRectGetWidth(v56);
     if (v40 < v41)
     {
       v42 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v33 attributes:v38];
-      v58.origin.x = x;
-      v58.origin.y = y;
-      v58.size.width = width;
-      v58.size.height = height;
-      v43 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{0.0, 0.0, v41, CGRectGetHeight(v58)}];
+      v57.origin.x = x;
+      v57.origin.y = y;
+      v57.size.width = width;
+      v57.size.height = height;
+      v43 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{0.0, 0.0, v41, CGRectGetHeight(v57)}];
       [v43 setUserInteractionEnabled:0];
       [v43 setAttributedText:v42];
       [v43 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -138,7 +180,7 @@
         v45 = 2;
       }
 
-      v46 = -v51;
+      v46 = -v50;
       if (leftCopy)
       {
         v46 = leftCopy;
@@ -154,7 +196,6 @@
     }
   }
 
-  v49 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 

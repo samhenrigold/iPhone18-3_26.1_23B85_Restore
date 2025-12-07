@@ -5,7 +5,6 @@
 
 __CFData *__SecKeyCopyDigestForMessage_block_invoke(uint64_t a1, uint64_t a2, const __CFData *a3)
 {
-  v5 = *(a1 + 40);
   CFDataGetLength(*(a1 + 48));
   CFDataGetBytePtr(*(a1 + 48));
   ccdigest();

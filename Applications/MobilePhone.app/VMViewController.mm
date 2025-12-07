@@ -57,7 +57,7 @@
 - (void)detailSliderTrackingDidCancel:(id)cancel
 {
   playerController = [(VMViewController *)self playerController];
-  [playerController currentTime];
+  objc_msgSend_currentTime(playerController);
   v5 = v4;
   playerControlsView = [(VMViewController *)self playerControlsView];
   [playerControlsView setElapsedTime:v5];
@@ -102,7 +102,7 @@
     }
 
     v12 = controllerCopy;
-    [controllerCopy duration];
+    objc_msgSend_duration(controllerCopy);
     v8 = v7;
     playerControlsView = [(VMViewController *)self playerControlsView];
     [playerControlsView setDuration:v8];

@@ -155,7 +155,7 @@ LABEL_12:
 
     else
     {
-      v4 = _LSDefaultLog();
+      v4 = _LSDefaultLog(0);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -167,7 +167,7 @@ LABEL_12:
 
 void __46__LSRebuildStatisticsGatherer_submitAnalytics__block_invoke_21(uint64_t a1)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = OUTLINED_FUNCTION_1_9();
   if (v5)
@@ -218,86 +218,85 @@ void __46__LSRebuildStatisticsGatherer_submitAnalytics__block_invoke_21(uint64_t
   v22 = [v20 numberWithUnsignedLongLong:*(v21 + 56)];
   OUTLINED_FUNCTION_3_3();
 
-  v23 = *(a1 + 32);
-  if (v23)
+  v25 = *(a1 + 32);
+  if (v25)
   {
-    v24 = *(v23 + 72);
-    v25 = v24;
-    if (v24)
+    v23 = *(v25 + 72);
+    v26 = v23;
+    if (v23)
     {
-      v26 = MEMORY[0x1E696AEC0];
-      v27 = [v24 domain];
-      v1 = [v26 stringWithFormat:@"%@, %ld", v27, objc_msgSend(v25, "code")];
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = [v23 domain];
+      v1 = [v27 stringWithFormat:@"%@, %ld", v28, objc_msgSend(v26, "code")];
       OUTLINED_FUNCTION_2_9();
     }
   }
 
   else
   {
-    v25 = 0;
+    v26 = 0;
   }
 
-  v28 = *(a1 + 32);
-  if (v28[1])
+  v29 = *(a1 + 32);
+  if (v29[1])
   {
-    v29 = OUTLINED_FUNCTION_6_2();
-    v30 = [v1 numberWithDouble:OUTLINED_FUNCTION_0_14(v29) / 1000000000.0];
+    v30 = OUTLINED_FUNCTION_6_2(v23, v24);
+    v31 = [v1 numberWithDouble:OUTLINED_FUNCTION_0_14(v30) / 1000000000.0];
     OUTLINED_FUNCTION_2_9();
 
-    v31 = MEMORY[0x1E696AD98];
-    v32 = (*(*(a1 + 32) + 8) - vaddvq_s64(vaddq_s64(*(*(a1 + 32) + 16), *(*(a1 + 32) + 32))));
-    v33 = _LSGetMachTimebase();
-    v1 = [v31 numberWithDouble:v33 / HIDWORD(v33) * v32 / 1000000000.0];
+    v32 = MEMORY[0x1E696AD98];
+    v33 = (*(*(a1 + 32) + 8) - vaddvq_s64(vaddq_s64(*(*(a1 + 32) + 16), *(*(a1 + 32) + 32))));
+    v36 = _LSGetMachTimebase(v34, v35);
+    v1 = [v32 numberWithDouble:v36 / HIDWORD(v36) * v33 / 1000000000.0];
     OUTLINED_FUNCTION_2_9();
 
-    v28 = *(a1 + 32);
+    v29 = *(a1 + 32);
   }
 
-  if (v28[2])
+  if (v29[2])
   {
-    v34 = OUTLINED_FUNCTION_6_2();
-    v1 = [v1 numberWithDouble:OUTLINED_FUNCTION_0_14(v34) / 1000000000.0];
+    v37 = OUTLINED_FUNCTION_6_2(v23, v24);
+    v1 = [v1 numberWithDouble:OUTLINED_FUNCTION_0_14(v37) / 1000000000.0];
     OUTLINED_FUNCTION_2_9();
 
-    v28 = *(a1 + 32);
+    v29 = *(a1 + 32);
   }
 
-  if (v28[3])
+  if (v29[3])
   {
-    v35 = OUTLINED_FUNCTION_6_2();
-    v1 = [v1 numberWithDouble:OUTLINED_FUNCTION_0_14(v35) / 1000000000.0];
+    v38 = OUTLINED_FUNCTION_6_2(v23, v24);
+    v1 = [v1 numberWithDouble:OUTLINED_FUNCTION_0_14(v38) / 1000000000.0];
     OUTLINED_FUNCTION_2_9();
 
-    v28 = *(a1 + 32);
+    v29 = *(a1 + 32);
   }
 
-  if (v28[4])
+  if (v29[4])
   {
-    v36 = OUTLINED_FUNCTION_6_2();
-    v37 = [v1 numberWithDouble:OUTLINED_FUNCTION_0_14(v36) / 1000000000.0];
+    v39 = OUTLINED_FUNCTION_6_2(v23, v24);
+    v40 = [v1 numberWithDouble:OUTLINED_FUNCTION_0_14(v39) / 1000000000.0];
     OUTLINED_FUNCTION_2_9();
 
-    v28 = *(a1 + 32);
+    v29 = *(a1 + 32);
   }
 
-  if (v28[5])
+  if (v29[5])
   {
-    v38 = MEMORY[0x1E696AD98];
-    v39 = _LSGetMachTimebase();
-    v40 = [v38 numberWithDouble:OUTLINED_FUNCTION_0_14(v39) / 1000000000.0];
-    [v3 setObject:v40 forKeyedSubscript:@"containerizedContentScanTime"];
+    v41 = MEMORY[0x1E696AD98];
+    v42 = _LSGetMachTimebase(v23, v24);
+    v43 = [v41 numberWithDouble:OUTLINED_FUNCTION_0_14(v42) / 1000000000.0];
+    [v3 setObject:v43 forKeyedSubscript:@"containerizedContentScanTime"];
   }
 
-  v41 = _LSDefaultLog();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  v44 = _LSDefaultLog(v23);
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v44 = v3;
-    _os_log_impl(&dword_18162D000, v41, OS_LOG_TYPE_DEFAULT, "Noting rebuild statistics: %{public}@", buf, 0xCu);
+    v46 = v3;
+    _os_log_impl(&dword_18162D000, v44, OS_LOG_TYPE_DEFAULT, "Noting rebuild statistics: %{public}@", buf, 0xCu);
   }
 
-  softLinkAnalyticsSendEvent(@"com.apple.coreservices.DatabaseRebuildStatistics", v3);
-  v42 = *MEMORY[0x1E69E9840];
+  (softLinkAnalyticsSendEvent[0])(@"com.apple.coreservices.DatabaseRebuildStatistics", v3);
 }
 
 - (uint64_t)setOnlyCryptexContent:(uint64_t)result

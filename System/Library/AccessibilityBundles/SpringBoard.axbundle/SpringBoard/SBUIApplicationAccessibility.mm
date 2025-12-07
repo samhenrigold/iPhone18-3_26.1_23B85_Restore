@@ -106,27 +106,27 @@ LABEL_14:
   return v4;
 }
 
-void __69__SBUIApplicationAccessibility__accessibilitySpeakThisViewController__block_invoke(uint64_t a1)
+void __69__SBUIApplicationAccessibility__accessibilitySpeakThisViewController__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) pageViewControllerAtIndex:{objc_msgSend(*(a1 + 32), "safeUnsignedIntegerForKey:", @"_indexOfTodayPage"}];
-  v3 = __UIAccessibilityCastAsClass();
+  v3 = [*(a1 + 32) pageViewControllerAtIndex:{objc_msgSend(*(a1 + 32), "safeUnsignedIntegerForKey:", @"_indexOfTodayPage"}];
+  v4 = __UIAccessibilityCastAsClass();
 
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
   if (!*(*(*(a1 + 40) + 8) + 40))
   {
     objc_opt_class();
-    v6 = [*(a1 + 32) safeValueForKey:@"overlayController"];
-    v7 = [v6 safeValueForKey:@"overlayViewController"];
-    v8 = [v7 safeValueForKey:@"leadingSidebarViewController"];
-    v9 = __UIAccessibilityCastAsClass();
+    v7 = [*(a1 + 32) safeValueForKey:@"overlayController"];
+    v8 = [v7 safeValueForKey:@"overlayViewController"];
+    v9 = [v8 safeValueForKey:@"leadingSidebarViewController"];
+    v10 = __UIAccessibilityCastAsClass();
 
-    v10 = *(*(a1 + 40) + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
+    v11 = *(*(a1 + 40) + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
   }
 }
 

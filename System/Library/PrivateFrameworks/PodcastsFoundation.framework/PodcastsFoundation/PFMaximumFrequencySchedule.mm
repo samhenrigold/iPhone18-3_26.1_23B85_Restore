@@ -25,33 +25,31 @@
 - (BOOL)shouldExecuteOn:(id)on previousExecution:(id)execution
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECAB75C0, &unk_1D9188A50);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v19 - v8;
-  v10 = sub_1D9176E3C();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v17 - v7;
+  v9 = sub_1D9176E3C();
+  v10 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D9176DFC();
   if (execution)
   {
     sub_1D9176DFC();
-    v15 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v15 = 1;
+    v13 = 1;
   }
 
-  (*(v11 + 56))(v9, v15, 1, v10);
+  (*(v10 + 56))(v8, v13, 1, v9);
   selfCopy = self;
-  v17 = sub_1D9153088(v14, v9);
+  v15 = sub_1D9153088(v12, v8);
 
-  sub_1D8CF5EF8(v9);
-  (*(v11 + 8))(v14, v10);
-  return v17;
+  sub_1D8CF5EF8(v8);
+  (*(v10 + 8))(v12, v9);
+  return v15;
 }
 
 - (PFMaximumFrequencySchedule)init

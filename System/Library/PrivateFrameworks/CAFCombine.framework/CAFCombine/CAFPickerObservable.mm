@@ -33,14 +33,14 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFPickerObservable.pickerService(_:didUpdateSelectedEntryIndex:)();
+  CAFPickerObservable.pickerService(_:didUpdateSelectedEntryIndex:)(selfCopy, index);
 }
 
 - (void)pickerService:(id)service didUpdateUserSelectionEnabled:(BOOL)enabled
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFPickerObservable.pickerService(_:didUpdateUserSelectionEnabled:)();
+  CAFPickerObservable.pickerService(_:didUpdateUserSelectionEnabled:)(selfCopy, enabled);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

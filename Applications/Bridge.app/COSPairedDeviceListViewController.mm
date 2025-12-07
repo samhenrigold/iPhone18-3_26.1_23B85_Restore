@@ -335,7 +335,7 @@ LABEL_17:
 
   v8 = 0;
 LABEL_18:
-  [(COSPairedDeviceListViewController *)self _showBackButtonBehavior:v8 animated:0, *v11];
+  [(COSPairedDeviceListViewController *)self _showBackButtonBehavior:v8 animated:0, *v11, *&v11[8]];
   v9 = pbb_bridge_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {

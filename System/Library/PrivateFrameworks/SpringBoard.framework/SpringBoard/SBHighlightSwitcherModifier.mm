@@ -50,7 +50,7 @@
       if (!phase)
       {
         v9 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:3];
-        v10 = SBAppendSwitcherModifierResponse(v9, v5);
+        v10 = SBAppendSwitcherModifierResponse();
 
         phase = self->_phase;
         v5 = v10;
@@ -203,7 +203,7 @@
       if (v5)
       {
         v9 = [v5 mutableCopy];
-        if ([v9 containsObject:v8])
+        if (objc_msgSend_containsObject_(v9))
         {
           [v9 removeObject:v8];
         }

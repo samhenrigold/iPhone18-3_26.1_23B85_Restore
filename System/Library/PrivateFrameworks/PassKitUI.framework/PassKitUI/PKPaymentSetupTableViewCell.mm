@@ -117,7 +117,7 @@
   }
 }
 
-uint64_t __58__PKPaymentSetupTableViewCell_setThumbnail_type_animated___block_invoke(uint64_t a1)
+void *__58__PKPaymentSetupTableViewCell_setThumbnail_type_animated___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = &OBJC_IVAR___PKPaymentSetupTableViewCell__cardImageView;
@@ -159,10 +159,10 @@ LABEL_6:
 
 - (void)layoutSubviews
 {
-  v58[1] = *MEMORY[0x1E69E9840];
-  v56.receiver = self;
-  v56.super_class = PKPaymentSetupTableViewCell;
-  [(PKPaymentSetupTableViewCell *)&v56 layoutSubviews];
+  v68[1] = *MEMORY[0x1E69E9840];
+  v66.receiver = self;
+  v66.super_class = PKPaymentSetupTableViewCell;
+  [(PKPaymentSetupTableViewCell *)&v66 layoutSubviews];
   _shouldReverseLayoutDirection = [(PKPaymentSetupTableViewCell *)self _shouldReverseLayoutDirection];
   contentView = [(PKPaymentSetupTableViewCell *)self contentView];
   [contentView frame];
@@ -171,153 +171,163 @@ LABEL_6:
   v10 = v9;
   v12 = v11;
 
-  v59.origin.x = v6;
-  v59.origin.y = v8;
-  v59.size.width = v10;
-  v59.size.height = v12;
-  Width = CGRectGetWidth(v59);
-  v60.origin.x = v6;
-  v60.origin.y = v8;
-  v60.size.width = v10;
-  v60.size.height = v12;
-  Height = CGRectGetHeight(v60);
+  v69.origin.x = v6;
+  v69.origin.y = v8;
+  v69.size.width = v10;
+  v69.size.height = v12;
+  Width = CGRectGetWidth(v69);
+  v70.origin.x = v6;
+  v70.origin.y = v8;
+  v70.size.width = v10;
+  v70.size.height = v12;
+  v14.n128_f64[0] = CGRectGetHeight(v70);
   thumbnail = self->_thumbnail;
-  v16 = *MEMORY[0x1E695F058];
-  v17 = *(MEMORY[0x1E695F058] + 8);
-  v54 = Height;
+  v17 = *MEMORY[0x1E695F058];
+  v18 = *(MEMORY[0x1E695F058] + 8);
+  v64 = v14.n128_u64[0];
   if (thumbnail)
   {
-    PKFloatRoundToPixel();
-    v19 = v18;
+    v15.n128_u64[0] = 0.5;
+    v14.n128_f64[0] = (v14.n128_f64[0] + -32.0) * 0.5;
+    PKFloatRoundToPixel(v14, v15);
+    v20 = v19;
     if (_shouldReverseLayoutDirection)
     {
-      v20 = Width + -53.0 + -15.0;
+      v21 = Width + -53.0 + -15.0;
     }
 
     else
     {
-      v20 = 15.0;
+      v21 = 15.0;
     }
 
-    v21 = 53.0;
-    v22 = 32.0;
+    v22 = 53.0;
+    v23 = 32.0;
   }
 
   else
   {
-    v21 = *(MEMORY[0x1E695F058] + 16);
-    v22 = *(MEMORY[0x1E695F058] + 24);
-    v19 = *(MEMORY[0x1E695F058] + 8);
-    v20 = *MEMORY[0x1E695F058];
+    v22 = *(MEMORY[0x1E695F058] + 16);
+    v23 = *(MEMORY[0x1E695F058] + 24);
+    v20 = *(MEMORY[0x1E695F058] + 8);
+    v21 = *MEMORY[0x1E695F058];
   }
 
-  [(UIImageView *)self->_cardImageView setFrame:v20, v19, v21, v22, *&v54];
+  [(UIImageView *)self->_cardImageView setFrame:v21, v20, v22, v23, v64];
   iconImageView = self->_iconImageView;
-  PKSizeAlignedInRect();
+  v25.n128_u64[0] = 0x4040000000000000;
+  v26.n128_u64[0] = 0x4040000000000000;
+  v27.n128_f64[0] = v21;
+  v28.n128_f64[0] = v20;
+  v29.n128_f64[0] = v22;
+  v30.n128_f64[0] = v23;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v25, v26, v27, v28, v29, v30, v31);
   [(UIImageView *)iconImageView setFrame:?];
   if (thumbnail)
   {
     if ([(PKPaymentSetupTableViewCell *)self accessoryType])
     {
-      v24 = 0.0;
+      v32 = 0.0;
     }
 
     else
     {
-      v24 = 40.0;
+      v32 = 40.0;
     }
 
-    v61.origin.x = v20;
-    v61.origin.y = v19;
-    v61.size.width = v21;
-    v61.size.height = v22;
-    v25 = Width - CGRectGetWidth(v61) + -30.0 - v24;
+    v71.origin.x = v21;
+    v71.origin.y = v20;
+    v71.size.width = v22;
+    v71.size.height = v23;
+    v33 = Width - CGRectGetWidth(v71) + -30.0 - v32;
     textLabel = [(PKPaymentSetupTableViewCell *)self textLabel];
     [textLabel sizeToFit];
-    [textLabel sizeThatFits:{v25, 1.79769313e308}];
-    v29 = v28;
-    if (v25 >= v27)
+    [textLabel sizeThatFits:{v33, 1.79769313e308}];
+    v37 = v36;
+    if (v33 >= v35)
     {
-      v25 = v27;
+      v33 = v35;
     }
 
-    v62.origin.x = v16;
-    v62.origin.y = v17;
-    v62.size.width = v25;
-    v62.size.height = v29;
-    v30 = (v55 - CGRectGetHeight(v62)) * 0.5;
-    v31 = v20;
-    v32 = v19;
-    v33 = v21;
-    v34 = v22;
+    v72.origin.x = v17;
+    v72.origin.y = v18;
+    v72.size.width = v33;
+    v72.size.height = v37;
+    v38 = (v65 - CGRectGetHeight(v72)) * 0.5;
+    v39 = v21;
+    v40 = v20;
+    v41 = v22;
+    v42 = v23;
     if (_shouldReverseLayoutDirection)
     {
-      v35 = CGRectGetMinX(*&v31) + -15.0 - v25;
+      v43 = CGRectGetMinX(*&v39) + -15.0 - v33;
     }
 
     else
     {
-      v35 = CGRectGetMaxX(*&v31) + 15.0;
+      v43 = CGRectGetMaxX(*&v39) + 15.0;
     }
 
-    [textLabel setFrame:{v35, v30, v25, v29}];
+    [textLabel setFrame:{v43, v38, v33, v37}];
   }
 
   if (self->_showBetaBadge)
   {
     [(UILabel *)self->_betaLabel frame];
-    if (v36 >= 40.0)
+    if (v44 >= 40.0)
     {
-      v38 = v36;
+      v46 = v44;
     }
 
     else
     {
-      v38 = 40.0;
+      v46 = 40.0;
     }
 
-    if (v37 >= 19.0)
+    if (v45 >= 19.0)
     {
-      v39 = v37;
+      v47 = v45;
     }
 
     else
     {
-      v39 = 19.0;
+      v47 = 19.0;
     }
 
     text = [(UILabel *)self->_betaLabel text];
-    v57 = *MEMORY[0x1E69DB648];
+    v67 = *MEMORY[0x1E69DB648];
     font = [(UILabel *)self->_betaLabel font];
-    v58[0] = font;
-    v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:&v57 count:1];
-    [text sizeWithAttributes:v42];
-    v44 = v43;
+    v68[0] = font;
+    v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:&v67 count:1];
+    [text sizeWithAttributes:v50];
+    v52 = v51;
 
-    if (v38 >= v44 + 20.0)
+    if (v46 >= v52 + 20.0)
     {
-      v45 = v38;
+      v53 = v46;
     }
 
     else
     {
-      v45 = v44 + 20.0;
+      v53 = v52 + 20.0;
     }
 
     textLabel2 = [(PKPaymentSetupTableViewCell *)self textLabel];
     [textLabel2 frame];
-    v48 = v47;
-    v50 = v49;
+    v56 = v55;
+    v58 = v57;
 
-    PKFloatRoundToPixel();
-    v52 = v51;
-    v53 = v48 - v45 + -11.0;
+    v59.n128_f64[0] = v65 * 0.5;
+    v60.n128_f64[0] = v65 * 0.5 - v47 * 0.5;
+    PKFloatRoundToPixel(v60, v59);
+    v62 = v61;
+    v63 = v56 - v53 + -11.0;
     if (!_shouldReverseLayoutDirection)
     {
-      v53 = v48 + v50 + 11.0;
+      v63 = v56 + v58 + 11.0;
     }
 
-    [(UILabel *)self->_betaLabel setFrame:v53, v52, v45, v39];
+    [(UILabel *)self->_betaLabel setFrame:v63, v62, v53, v47];
   }
 }
 

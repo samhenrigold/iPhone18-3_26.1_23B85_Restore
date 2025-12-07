@@ -22,6 +22,7 @@
 - (void)setSideButtonConfirmWithWatchControl:(id)control specifier:(id)specifier;
 - (void)setWatchControlEnabled:(id)enabled;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WatchControlController
@@ -47,11 +48,11 @@
 
 - (id)specifiers
 {
-  v97[2] = *MEMORY[0x277D85DE8];
+  v96[2] = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v93 = *MEMORY[0x277D3FC48];
+    v92 = *MEMORY[0x277D3FC48];
     array = [MEMORY[0x277CBEB18] array];
     emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
     v6 = settingsLocString(@"WATCH_CONTROL_SWITCH_SECTION_FOOTER", @"AccessibilitySettings-watchcontrol");
@@ -73,20 +74,20 @@
       v11 = 1;
     }
 
-    v91 = v6;
-    v94 = *MEMORY[0x277D3FF88];
+    v90 = v6;
+    v93 = *MEMORY[0x277D3FF88];
     [emptyGroupSpecifier setProperty:v6 forKey:?];
-    v92 = emptyGroupSpecifier;
+    v91 = emptyGroupSpecifier;
     [array addObject:emptyGroupSpecifier];
     v15 = MEMORY[0x277D3FAD8];
     v16 = settingsLocString(@"WATCH_CONTROL_ROW_TITLE", @"AccessibilitySettings-watchcontrol");
     v17 = [v15 preferenceSpecifierNamed:v16 target:self set:sel_setWatchControlEnabled_ get:sel_watchControlEnabled detail:0 cell:6 edit:0];
 
     v18 = [MEMORY[0x277CCABB0] numberWithInt:v11];
-    v88 = *MEMORY[0x277D3FF38];
+    v87 = *MEMORY[0x277D3FF38];
     [v17 setProperty:v18 forKey:?];
 
-    v90 = v17;
+    v89 = v17;
     [array addObject:v17];
     v19 = MEMORY[0x277D3FAD8];
     v20 = settingsLocString(@"WATCH_CONTROL_INPUTS_SECTION", @"AccessibilitySettings-watchcontrol");
@@ -115,13 +116,13 @@
         v33 = WCNameForInputSourceType();
         v34 = [v32 preferenceSpecifierNamed:v33 target:self set:0 get:sel__descriptionForInputSource_ detail:-[WatchControlController _detailClassForInputSourceType:](self cell:"_detailClassForInputSourceType:" edit:{v24), 2, 0}];
 
-        v96[0] = @"InputSource";
+        v95[0] = @"InputSource";
         v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v24];
-        v96[1] = @"InputSourceEnabled";
-        v97[0] = v35;
+        v95[1] = @"InputSourceEnabled";
+        v96[0] = v35;
         v36 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
-        v97[1] = v36;
-        v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:2];
+        v96[1] = v36;
+        v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:v95 count:2];
         [v34 setUserInfo:v37];
 
         v38 = [(WatchControlController *)self _identifierForInputSourceType:v24];
@@ -187,7 +188,7 @@
     v62 = [v60 groupSpecifierWithName:v61];
 
     v63 = settingsLocString(@"SIDE_BUTTON_CONFIRM_SECTION_FOOTER", @"AccessibilitySettings-watchcontrol");
-    [v62 setProperty:v63 forKey:v94];
+    [v62 setProperty:v63 forKey:v93];
 
     [v22 addObject:v62];
     mEMORY[0x277CE6A88] = [MEMORY[0x277CE6A88] sharedInstance];
@@ -198,13 +199,13 @@
     v68 = MEMORY[0x277D3FAD8];
     if (_accessibilitySecureIntentProvider)
     {
-      v87 = v55;
+      v86 = v55;
       v69 = v42;
       v70 = settingsLocString(@"SIDE_BUTTON_CONFIRM_WITH_WATCH_CONTROL", @"AccessibilitySettings-watchcontrol");
       v71 = [v68 preferenceSpecifierNamed:v70 target:self set:sel_setSideButtonConfirmWithWatchControl_specifier_ get:sel_sideButtonConfirmWithWatchControl detail:0 cell:6 edit:0];
 
       v72 = [MEMORY[0x277CCABB0] numberWithBool:v66 != 0];
-      [v71 setProperty:v72 forKey:v88];
+      [v71 setProperty:v72 forKey:v87];
 
       v73 = *MEMORY[0x277D3FFB8];
       [v71 setProperty:@"SideButtonOptOutSpecifier" forKey:*MEMORY[0x277D3FFB8]];
@@ -223,7 +224,7 @@
 
       v77 = 0x277D3F000;
       v42 = v69;
-      v55 = v87;
+      v55 = v86;
     }
 
     else
@@ -233,7 +234,7 @@
 
       [v71 setButtonAction:sel__requestOnboardingEnrollment_];
       v79 = [MEMORY[0x277CCABB0] numberWithBool:v66 != 0];
-      [v71 setProperty:v79 forKey:v88];
+      [v71 setProperty:v79 forKey:v87];
 
       v73 = *MEMORY[0x277D3FFB8];
       [v71 setProperty:@"SideButtonEnrollmentSpecifier" forKey:*MEMORY[0x277D3FFB8]];
@@ -246,7 +247,7 @@
     {
       emptyGroupSpecifier5 = [*(v77 + 2776) emptyGroupSpecifier];
       v80 = settingsLocString(@"QUICK_ACTIONS_SWITCH_FOOTER", @"AccessibilitySettings-elton");
-      [emptyGroupSpecifier5 setProperty:v80 forKey:v94];
+      [emptyGroupSpecifier5 setProperty:v80 forKey:v93];
 
       [v22 addObject:emptyGroupSpecifier5];
       v81 = *(v77 + 2776);
@@ -257,15 +258,37 @@
       [v22 addObject:v83];
     }
 
-    v84 = *(&self->super.super.super.super.super.super.isa + v93);
-    *(&self->super.super.super.super.super.super.isa + v93) = v22;
+    v84 = *(&self->super.super.super.super.super.super.isa + v92);
+    *(&self->super.super.super.super.super.super.isa + v92) = v22;
 
-    v3 = *(&self->super.super.super.super.super.super.isa + v93);
+    v3 = *(&self->super.super.super.super.super.super.isa + v92);
   }
 
-  v85 = *MEMORY[0x277D85DE8];
-
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v16[1] = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = WatchControlController;
+  [(AccessibilityBridgeBaseController *)&v15 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"WATCH_CONTROL_ROW_TITLE" table:@"AccessibilitySettings-watchcontrol" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v12 = MEMORY[0x277CF3470];
+  v16[0] = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v14 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=WATCH_CONTROL_ROW_ID"];
+  [v12 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v13 deepLink:v14];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
@@ -303,22 +326,9 @@ LABEL_5:
 
 - (Class)_detailClassForInputSourceType:(unint64_t)type
 {
-  v3 = off_278B8FFB0;
-  v4 = off_278B8FFC8;
-  if (type != 1)
-  {
-    v4 = off_278B8FFC0;
-  }
+  v3 = objc_opt_class();
 
-  if (type)
-  {
-    v3 = v4;
-  }
-
-  v5 = *v3;
-  v6 = objc_opt_class();
-
-  return v6;
+  return v3;
 }
 
 - (id)_identifierForInputSourceType:(unint64_t)type

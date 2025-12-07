@@ -8,8 +8,8 @@
 
 - (void)showConfirmationWithButtons:(NSArray *)buttons title:(NSString *)title message:(NSString *)message destructive:(BOOL)destructive completion:(id)completion
 {
-  v13 = (*(*(sub_4AB4(&qword_1C960, &qword_12DC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v13 = sub_4AB4(&qword_1C960, &qword_12DC0);
+  __chkstk_darwin(v13 - 8);
   v15 = &v25 - v14;
   v16 = _Block_copy(completion);
   v17 = swift_allocObject();

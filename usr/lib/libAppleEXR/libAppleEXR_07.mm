@@ -1078,7 +1078,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                 v53 = xmmword_296B8F080;
                 do
                 {
-                  v239.val[0] = v50;
+                  v239 = v50;
                   v268.val[1] = *(v256[0] + v63 - 32);
                   v278.val[1] = *(v256[0] + v63 - 16);
                   v280.val[1] = *(v55 + v63 - 32);
@@ -1206,7 +1206,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v52 = xmmword_296B8F000;
                   v51 = xmmword_296B8F060;
                   v280.val[1] = vqtbl2q_s8(v286, xmmword_296B8F020);
-                  v50.i64[1] = v239.val[0].i64[1];
+                  *(&v50 + 1) = *(&v239 + 1);
                   v282.val[0] = vqtbl2q_s8(v270, xmmword_296B8F020);
                   v64 = xmmword_296B8F020;
                   *v278.val[0].i8 = vadd_s32(*v278.val[0].i8, *v278.val[1].i8);
@@ -1231,7 +1231,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v35 = vaddq_s32(v38, vaddq_s32(v36, v263.val[0]));
                   *v36.i8 = vadd_s32(vadd_s32(*v268.val[1].i8, *v40.i8), vadd_s32(vadd_s32(vadd_s32(*v37.i8, *&vextq_s8(v37, v37, 8uLL)), vadd_s32(*v231.i8, *&vextq_s8(v231, v231, 8uLL))), vadd_s32(vadd_s32(*v237.i8, *&vextq_s8(v237, v237, 8uLL)), vadd_s32(*v235.i8, *&vextq_s8(v235, v235, 8uLL)))));
                   *v35.i8 = vzip2_s32(*v36.i8, vadd_s32(*v278.val[0].i8, *v77.i8));
-                  *v50.i8 = vadd_s32(*v35.i8, *v239.val[0].i8);
+                  *&v50 = vadd_s32(*v35.i8, *&v239);
                   v48 += v35.u32[3];
                   v63 += 32;
                 }
@@ -1246,7 +1246,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
               else
               {
                 v49 = 0;
-                v50.i64[0] = 0;
+                *&v50 = 0;
                 v52 = xmmword_296B8F000;
                 v51 = xmmword_296B8F060;
                 v54 = xmmword_296B8F050;
@@ -1282,10 +1282,10 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v40 = vshlq_n_s64(v99, 0x20uLL);
                   v39 = vaddq_s32(v40, v99);
                   v101 = vaddq_s32(vshlq_n_s64(v100, 0x20uLL), v100);
-                  *v96.i8 = vadd_s32(vzip2_s32(vadd_s32(*v96.i8, *&vextq_s8(v96, v96, 8uLL)), vadd_s32(*v101.i8, *&vextq_s8(v101, v101, 8uLL))), *v50.i8);
+                  *v96.i8 = vadd_s32(vzip2_s32(vadd_s32(*v96.i8, *&vextq_s8(v96, v96, 8uLL)), vadd_s32(*v101.i8, *&vextq_s8(v101, v101, 8uLL))), *&v50);
                   v102 = vextq_s8(v39, v39, 8uLL);
                   v103 = vextq_s8(v95, v95, 8uLL);
-                  *v50.i8 = vadd_s32(*v96.i8, vzip2_s32(vadd_s32(*v95.i8, *v103.i8), vadd_s32(*v39.i8, *v102.i8)));
+                  *&v50 = vadd_s32(*v96.i8, vzip2_s32(vadd_s32(*v95.i8, *v103.i8), vadd_s32(*v39.i8, *v102.i8)));
                   v96.i64[0] = *(v242[0] + v49);
                   v102.i64[0] = *(v243 + v242[0] + v49);
                   v95.i64[0] = *(v242[0] + 2 * v243 + v49);
@@ -1329,7 +1329,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v113 = vand_s8(v111, 0xFF000000FFLL);
                   *v36.i8 = vorr_s8(vshl_n_s32(v113, 8uLL), v113);
                   *v35.i8 = vorr_s8(v112, *v36.i8);
-                  *v50.i8 = vadd_s32(*v35.i8, *v50.i8);
+                  *&v50 = vadd_s32(*v35.i8, *&v50);
                   v114 = *(v242[0] + 2 * v243 + v88);
                   result = (*(v242[0] + v88) << 24) | (*(v243 + v242[0] + v88) << 16) | (v114 << 8) | v114;
                   v48 += result;
@@ -1417,8 +1417,8 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v229 = *(v47 + v88 + 16);
                   v227.val[0] = *(v124 + v88 + 16);
                   v227.val[1] = *(result + v88 + 16);
-                  v135 = vdupq_lane_s32(*v50.i8, 0);
-                  v136 = vdupq_lane_s32(*v50.i8, 1);
+                  v135 = vdupq_lane_s32(*&v50, 0);
+                  v136 = vdupq_lane_s32(*&v50, 1);
                   v266.val[1] = vaddq_s32(v264.val[0], v135);
                   v137 = v264.val[0];
                   v269.val[0] = vaddq_s32(v133, v136);
@@ -1579,7 +1579,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v51 = xmmword_296B8F060;
                   v50 = v228;
                   v157 = v229;
-                  v287.val[1] = vqtbl2q_s8(*v50.i8, xmmword_296B8F070);
+                  v287.val[1] = vqtbl2q_s8(*&v50, xmmword_296B8F070);
                   v287.val[0] = vqtbl2q_s8(v227, xmmword_296B8F080);
                   v284.val[1] = vqtbl2q_s8(v287, xmmword_296B8F020);
                   v264.val[1] = vdupq_laneq_s32(v264.val[1], 3);
@@ -1597,7 +1597,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v281.val[1] = vzip1q_s32(v269.val[1], v287.val[0]);
                   v159 = v117 + 64;
                   vst2q_f32(v159, v281);
-                  v281.val[1] = vqtbl2q_s8(*v50.i8, xmmword_296B8F050);
+                  v281.val[1] = vqtbl2q_s8(*&v50, xmmword_296B8F050);
                   v281.val[0] = vqtbl2q_s8(v227, xmmword_296B8F060);
                   v281.val[0] = vqtbl2q_s8(v281, xmmword_296B8F020);
                   v281.val[0] = vaddq_s32(vshlq_n_s64(v281.val[0], 0x20uLL), v281.val[0]);
@@ -1618,7 +1618,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v162 = v117 + 80;
                   vst2q_f32(v162, v287);
                   v277.val[1] = vaddq_s32(v284.val[0], v277.val[1]);
-                  v287.val[1] = vqtbl2q_s8(*v50.i8, xmmword_296B8F030);
+                  v287.val[1] = vqtbl2q_s8(*&v50, xmmword_296B8F030);
                   v287.val[0] = vqtbl2q_s8(v227, xmmword_296B8F040);
                   v42 = vaddq_s32(vaddq_s32(vaddq_s32(v153, v266.val[1]), v135), v264.val[0]);
                   v284.val[1] = vqtbl2q_s8(v287, xmmword_296B8F020);
@@ -1643,7 +1643,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   v165 = v117 + 104;
                   vst2q_f32(v165, v287);
                   v52 = xmmword_296B8F000;
-                  v284.val[0] = vqtbl2q_s8(*v50.i8, xmmword_296B8F000);
+                  v284.val[0] = vqtbl2q_s8(*&v50, xmmword_296B8F000);
                   v281.val[1] = vqtbl2q_s8(v227, xmmword_296B8F010);
                   v54 = xmmword_296B8F050;
                   v53 = xmmword_296B8F080;
@@ -1682,7 +1682,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
                   vst2q_f32(v170, v266);
                   v37 = vextq_s8(v36, v36, 8uLL);
                   v38 = vextq_s8(v35, v35, 8uLL);
-                  *v50.i8 = vzip2_s32(*v38.i8, *v37.i8);
+                  *&v50 = vzip2_s32(*v38.i8, *v37.i8);
                   v117 += 128;
                   v171 = v88 + 64;
                   v88 += 32;
@@ -1697,8 +1697,8 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(StreamT
 
               else
               {
-                v115 = v50.i32[0];
-                v116 = v50.u32[1];
+                v115 = v50;
+                v116 = DWORD1(v50);
                 v117 = a11;
               }
 
@@ -7088,7 +7088,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)0,(StreamType)1,(StreamT
                 v54 = xmmword_296B8F060;
                 do
                 {
-                  v242.val[0] = v50;
+                  v242 = v50;
                   v271.val[1] = *(v259[0] + v63 - 32);
                   v280.val[1] = *(v259[0] + v63 - 16);
                   v282.val[1] = *(v55 + v63 - 32);
@@ -7218,7 +7218,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)0,(StreamType)1,(StreamT
                   *v271.val[1].i8 = vadd_s32(*&vextq_s8(v83, v83, 8uLL), vadd_s32(vdup_lane_s32(*v271.val[1].i8, 1), *&vextq_s8(v271.val[1], v271.val[1], 8uLL)));
                   v84 = vqtbl2q_s8(v284, xmmword_296B8F020);
                   v85 = vqtbl2q_s8(v287, xmmword_296B8F020);
-                  v50.i64[1] = v242.val[0].i64[1];
+                  v50.i64[1] = v242.i64[1];
                   v282.val[0] = vqtbl2q_s8(v277, xmmword_296B8F020);
                   v54 = xmmword_296B8F060;
                   v282.val[1] = vqtbl2q_s8(v288, xmmword_296B8F020);
@@ -7245,7 +7245,7 @@ uint64_t CompressedInterleave4<unsigned int,(StreamType)0,(StreamType)1,(StreamT
                   v35 = vaddq_s32(v38, vaddq_s32(v36, v266.val[0]));
                   *v36.i8 = vadd_s32(vadd_s32(*v271.val[1].i8, *v40.i8), vadd_s32(*v37.i8, vadd_s32(vadd_s32(*v240.i8, *&vextq_s8(v240, v240, 8uLL)), vadd_s32(*v237.i8, *&vextq_s8(v237, v237, 8uLL)))));
                   *v35.i8 = vzip2_s32(*v36.i8, vadd_s32(*v280.val[0].i8, v234));
-                  *v50.i8 = vadd_s32(*v35.i8, *v242.val[0].i8);
+                  *v50.i8 = vadd_s32(*v35.i8, *v242.i8);
                   v48 += v35.u32[3];
                   v63 += 32;
                 }
@@ -9501,7 +9501,7 @@ unint64_t CompressedInterleave4<unsigned int,(StreamType)1,(StreamType)1,(Stream
                   v60 = xmmword_296B8F040;
                 }
 
-                if ((v55 | 8uLL) <= v35)
+                if ((v55 | 8) <= v35)
                 {
                   result = v375 + v374[0];
                   do

@@ -71,12 +71,12 @@ void __71__NUProviderCache_provideImageData_bytesPerRow_origin::size::userInfo__
 {
   v24[4] = *MEMORY[0x1E69E9840];
   inputImage = [(NUProcessorCache *)self inputImage];
-  [inputImage extent];
+  objc_msgSend_extent(inputImage);
   v22.origin.x = v4;
   v22.origin.y = v5;
   v22.size.width = v6;
   v22.size.height = v7;
-  NU::RectT<long>::RectT(&v20, &v22, 3);
+  NU::RectT<long>::RectT(v20, &v22, 3);
   v19 = v21;
 
   pixelFormat = [(NUProcessorCache *)self pixelFormat];

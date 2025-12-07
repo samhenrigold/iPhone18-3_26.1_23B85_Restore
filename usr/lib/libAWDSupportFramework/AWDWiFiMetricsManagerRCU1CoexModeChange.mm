@@ -330,7 +330,6 @@ LABEL_12:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -350,7 +349,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  channelNum = self->_channelNum;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -365,7 +363,6 @@ LABEL_4:
   }
 
 LABEL_15:
-  onWifiMode = self->_onWifiMode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -380,7 +377,6 @@ LABEL_5:
   }
 
 LABEL_16:
-  offWifiMode = self->_offWifiMode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -395,7 +391,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  onAirplayMode = self->_onAirplayMode;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -410,7 +405,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  offAirplayMode = self->_offAirplayMode;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -425,7 +419,6 @@ LABEL_8:
   }
 
 LABEL_19:
-  powerOnDuration = self->_powerOnDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -440,7 +433,6 @@ LABEL_9:
   }
 
 LABEL_20:
-  disableDuration = self->_disableDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -452,7 +444,6 @@ LABEL_10:
     }
 
 LABEL_22:
-    tddDuration = self->_tddDuration;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x40) == 0)
     {
@@ -463,7 +454,6 @@ LABEL_22:
   }
 
 LABEL_21:
-  denyDuration = self->_denyDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -478,7 +468,6 @@ LABEL_11:
   }
 
 LABEL_23:
-  fwDenyCount = self->_fwDenyCount;
 
   PBDataWriterWriteUint32Field();
 }
@@ -867,7 +856,6 @@ LABEL_12:
       goto LABEL_62;
     }
 
-    v8 = *(equal + 65);
     if (self->_onAirplayMode)
     {
       if ((*(equal + 65) & 1) == 0)
@@ -891,7 +879,6 @@ LABEL_12:
   {
     if ((*(equal + 34) & 0x200) != 0)
     {
-      v9 = *(equal + 64);
       if (self->_offAirplayMode)
       {
         if ((*(equal + 64) & 1) == 0)

@@ -1789,8 +1789,8 @@ LABEL_51:
 - (void)updateWithTarget:(id)target forTime:(double)time
 {
   targetCopy = target;
-  SKCAction::ratioForTime(self->_caction, time);
-  if (v6 >= 1.0)
+  v6.n128_f64[0] = time;
+  if (SKCAction::ratioForTime(self->_caction, v6) >= 1.0)
   {
     caction = self->_caction;
     _backingNode = [targetCopy _backingNode];

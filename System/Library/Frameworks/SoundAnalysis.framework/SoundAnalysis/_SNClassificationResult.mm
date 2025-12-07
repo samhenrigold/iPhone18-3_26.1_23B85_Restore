@@ -19,20 +19,20 @@
 - (NSDictionary)classificationDictionary
 {
   selfCopy = self;
-  _SNClassificationResult.classificationDictionary.getter();
+  _SNClassificationResult.classificationDictionary.getter(selfCopy);
 
-  sub_1C97BD318(0, &qword_1EC3C54B0);
-  v3 = sub_1C9A922F8();
+  sub_1C97BD318(v3, 0, &qword_1EC3C54B0, 0x1E696AD98);
+  v4 = sub_1C9A922F8();
 
-  return v3;
+  return v4;
 }
 
 - (void)setClassificationDictionary:(id)dictionary
 {
-  sub_1C97BD318(0, &qword_1EC3C54B0);
-  v4 = sub_1C9A92328();
+  sub_1C97BD318(v3, 0, &qword_1EC3C54B0, 0x1E696AD98);
+  v5 = sub_1C9A92328();
   selfCopy = self;
-  _SNClassificationResult.classificationDictionary.setter(v4);
+  _SNClassificationResult.classificationDictionary.setter(v5);
 }
 
 - ($E36B78CDAC119E0352F6B513F3BB0FF8)timeRange
@@ -63,7 +63,7 @@
 
 - (NSString)classifierIdentifier
 {
-  _SNClassificationResult.classifierIdentifier.getter();
+  _SNClassificationResult.classifierIdentifier.getter(self);
   if (v2)
   {
     v3 = sub_1C9A92478();
@@ -113,10 +113,10 @@
   selfCopy = self;
   sub_1C98478CC();
 
-  type metadata accessor for _SNClassification();
-  v3 = sub_1C9A92768();
+  type metadata accessor for _SNClassification(v3);
+  v4 = sub_1C9A92768();
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)hash

@@ -32,7 +32,7 @@
 
 void __49__TransparencyStaticKey_setupKTSession_complete___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -47,7 +47,7 @@ void __49__TransparencyStaticKey_setupKTSession_complete___block_invoke(uint64_t
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", buf, 0xCu);
     }
 
@@ -56,16 +56,14 @@ void __49__TransparencyStaticKey_setupKTSession_complete___block_invoke(uint64_t
 
   else
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __49__TransparencyStaticKey_setupKTSession_complete___block_invoke_303;
-    v11[3] = &unk_1E8702348;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __49__TransparencyStaticKey_setupKTSession_complete___block_invoke_303;
+    v10[3] = &unk_1E8702348;
     v8 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    [v5 setupKTSession:v8 complete:v11];
+    v11 = *(a1 + 40);
+    [v5 setupKTSession:v8 complete:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__TransparencyStaticKey_setupKTSession_complete___block_invoke_2()
@@ -77,7 +75,7 @@ uint64_t __49__TransparencyStaticKey_setupKTSession_complete___block_invoke_2()
 
 void __49__TransparencyStaticKey_setupKTSession_complete___block_invoke_2_306(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_13 != -1)
   {
@@ -87,14 +85,12 @@ void __49__TransparencyStaticKey_setupKTSession_complete___block_invoke_2_306(ui
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_13;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown setupKTSession error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown setupKTSession error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__TransparencyStaticKey_setupKTSession_complete___block_invoke_3()
@@ -126,7 +122,7 @@ uint64_t __49__TransparencyStaticKey_setupKTSession_complete___block_invoke_3()
 
 void __50__TransparencyStaticKey_deleteKTSession_complete___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -141,7 +137,7 @@ void __50__TransparencyStaticKey_deleteKTSession_complete___block_invoke(uint64_
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", buf, 0xCu);
     }
 
@@ -150,16 +146,14 @@ void __50__TransparencyStaticKey_deleteKTSession_complete___block_invoke(uint64_
 
   else
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __50__TransparencyStaticKey_deleteKTSession_complete___block_invoke_312;
-    v11[3] = &unk_1E8702398;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __50__TransparencyStaticKey_deleteKTSession_complete___block_invoke_312;
+    v10[3] = &unk_1E8702398;
     v8 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    [v5 deleteKTSession:v8 complete:v11];
+    v11 = *(a1 + 40);
+    [v5 deleteKTSession:v8 complete:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __50__TransparencyStaticKey_deleteKTSession_complete___block_invoke_2()
@@ -171,7 +165,7 @@ uint64_t __50__TransparencyStaticKey_deleteKTSession_complete___block_invoke_2()
 
 void __50__TransparencyStaticKey_deleteKTSession_complete___block_invoke_2_314(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_13 != -1)
   {
@@ -181,14 +175,12 @@ void __50__TransparencyStaticKey_deleteKTSession_complete___block_invoke_2_314(u
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_13;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown deleteKTSession error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown deleteKTSession error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __50__TransparencyStaticKey_deleteKTSession_complete___block_invoke_3()
@@ -217,7 +209,7 @@ uint64_t __50__TransparencyStaticKey_deleteKTSession_complete___block_invoke_3()
 
 void __40__TransparencyStaticKey_listKTSessions___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -232,7 +224,7 @@ void __40__TransparencyStaticKey_listKTSessions___block_invoke(uint64_t a1, void
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v7;
+      v12 = v7;
       _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", buf, 0xCu);
     }
 
@@ -241,15 +233,13 @@ void __40__TransparencyStaticKey_listKTSessions___block_invoke(uint64_t a1, void
 
   else
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __40__TransparencyStaticKey_listKTSessions___block_invoke_319;
-    v10[3] = &unk_1E87023C0;
-    v11 = *(a1 + 32);
-    [v5 listKTSession:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __40__TransparencyStaticKey_listKTSessions___block_invoke_319;
+    v9[3] = &unk_1E87023C0;
+    v10 = *(a1 + 32);
+    [v5 listKTSession:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __40__TransparencyStaticKey_listKTSessions___block_invoke_2()
@@ -261,7 +251,7 @@ uint64_t __40__TransparencyStaticKey_listKTSessions___block_invoke_2()
 
 void __40__TransparencyStaticKey_listKTSessions___block_invoke_2_321(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_13 != -1)
   {
@@ -271,14 +261,12 @@ void __40__TransparencyStaticKey_listKTSessions___block_invoke_2_321(uint64_t a1
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_13;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown listKTSessions error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown listKTSessions error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __40__TransparencyStaticKey_listKTSessions___block_invoke_3()
@@ -310,7 +298,7 @@ uint64_t __40__TransparencyStaticKey_listKTSessions___block_invoke_3()
 
 void __55__TransparencyStaticKey_getKTSessionByHandle_complete___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -325,7 +313,7 @@ void __55__TransparencyStaticKey_getKTSessionByHandle_complete___block_invoke(ui
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", buf, 0xCu);
     }
 
@@ -334,16 +322,14 @@ void __55__TransparencyStaticKey_getKTSessionByHandle_complete___block_invoke(ui
 
   else
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __55__TransparencyStaticKey_getKTSessionByHandle_complete___block_invoke_326;
-    v11[3] = &unk_1E87023C0;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __55__TransparencyStaticKey_getKTSessionByHandle_complete___block_invoke_326;
+    v10[3] = &unk_1E87023C0;
     v8 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    [v5 getKTSessionByHandle:v8 complete:v11];
+    v11 = *(a1 + 40);
+    [v5 getKTSessionByHandle:v8 complete:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55__TransparencyStaticKey_getKTSessionByHandle_complete___block_invoke_2()
@@ -355,7 +341,7 @@ uint64_t __55__TransparencyStaticKey_getKTSessionByHandle_complete___block_invok
 
 void __55__TransparencyStaticKey_getKTSessionByHandle_complete___block_invoke_2_327(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_13 != -1)
   {
@@ -365,14 +351,12 @@ void __55__TransparencyStaticKey_getKTSessionByHandle_complete___block_invoke_2_
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_13;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getKTSessionByHandle error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getKTSessionByHandle error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55__TransparencyStaticKey_getKTSessionByHandle_complete___block_invoke_3()
@@ -404,7 +388,7 @@ uint64_t __55__TransparencyStaticKey_getKTSessionByHandle_complete___block_invok
 
 void __51__TransparencyStaticKey_getKTSessionByID_complete___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -419,7 +403,7 @@ void __51__TransparencyStaticKey_getKTSessionByID_complete___block_invoke(uint64
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", buf, 0xCu);
     }
 
@@ -428,16 +412,14 @@ void __51__TransparencyStaticKey_getKTSessionByID_complete___block_invoke(uint64
 
   else
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __51__TransparencyStaticKey_getKTSessionByID_complete___block_invoke_332;
-    v11[3] = &unk_1E8702410;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __51__TransparencyStaticKey_getKTSessionByID_complete___block_invoke_332;
+    v10[3] = &unk_1E8702410;
     v8 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    [v5 getKTSessionByID:v8 complete:v11];
+    v11 = *(a1 + 40);
+    [v5 getKTSessionByID:v8 complete:v10];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __51__TransparencyStaticKey_getKTSessionByID_complete___block_invoke_2()
@@ -449,7 +431,7 @@ uint64_t __51__TransparencyStaticKey_getKTSessionByID_complete___block_invoke_2(
 
 void __51__TransparencyStaticKey_getKTSessionByID_complete___block_invoke_2_334(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_13 != -1)
   {
@@ -459,14 +441,12 @@ void __51__TransparencyStaticKey_getKTSessionByID_complete___block_invoke_2_334(
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_13;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getKTSessionByID error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getKTSessionByID error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __51__TransparencyStaticKey_getKTSessionByID_complete___block_invoke_3()
@@ -504,7 +484,7 @@ uint64_t __51__TransparencyStaticKey_getKTSessionByID_complete___block_invoke_3(
 
 void __60__TransparencyStaticKey_sasTTR_toHandle_pushToken_complete___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -519,7 +499,7 @@ void __60__TransparencyStaticKey_sasTTR_toHandle_pushToken_complete___block_invo
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v7;
+      v15 = v7;
       _os_log_impl(&dword_1E10DB000, v11, OS_LOG_TYPE_ERROR, "Unknown sasTTR invokeXPCSynchronousCallWithBlock error: %@", buf, 0xCu);
     }
 
@@ -530,16 +510,14 @@ void __60__TransparencyStaticKey_sasTTR_toHandle_pushToken_complete___block_invo
   {
     v8 = *(a1 + 32);
     v9 = *(a1 + 40);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __60__TransparencyStaticKey_sasTTR_toHandle_pushToken_complete___block_invoke_339;
-    v13[3] = &unk_1E87013C8;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __60__TransparencyStaticKey_sasTTR_toHandle_pushToken_complete___block_invoke_339;
+    v12[3] = &unk_1E87013C8;
     v10 = *(a1 + 48);
-    v14 = *(a1 + 56);
-    [v5 sasTTR:v8 toHandle:v9 pushToken:v10 complete:v13];
+    v13 = *(a1 + 56);
+    [v5 sasTTR:v8 toHandle:v9 pushToken:v10 complete:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60__TransparencyStaticKey_sasTTR_toHandle_pushToken_complete___block_invoke_2()
@@ -551,7 +529,7 @@ uint64_t __60__TransparencyStaticKey_sasTTR_toHandle_pushToken_complete___block_
 
 void __60__TransparencyStaticKey_sasTTR_toHandle_pushToken_complete___block_invoke_2_340(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_13 != -1)
   {
@@ -561,14 +539,12 @@ void __60__TransparencyStaticKey_sasTTR_toHandle_pushToken_complete___block_invo
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_13;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown sasTTR error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown sasTTR error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60__TransparencyStaticKey_sasTTR_toHandle_pushToken_complete___block_invoke_3()

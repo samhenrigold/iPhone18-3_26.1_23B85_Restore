@@ -721,25 +721,24 @@ LABEL_12:
 
 - (void)printWithLogFile:(void *)file
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Multiway Video Stream Settings: SSRC=%x maxNetworkBitrate=%d maxMediaBitrate=%d maxPacketsPerSecond=%d payload=%d streamID=%d qualityIndex=%d supportedvideoFormats=%d frameRate=%d keyFrameInterval=%u metadata=%u hasRepaired:%u repairedMaxNetworkBitrate=%d repairedStreamID=%d", self->_ssrc, self->_maxNetworkBitrate, self->_maxMediaBitrate, self->_maxPacketsPerSecond, self->_payload, self->_streamID, self->_qualityIndex, self->_supportedVideoFormats, self->_frameRate, self->_keyFrameInterval, self->_metadata, -[VCMediaNegotiationBlobMultiwayVideoStream hasRepairedStreamID](self, "hasRepairedStreamID"), self->_repairedMaxNetworkBitrate, self->_repairedStreamID];
-  uTF8String = [v3 UTF8String];
-  VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v5, v6, v7, v8, v9, v10, uTF8String);
+  VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", [v3 UTF8String]);
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v11 = VRTraceErrorLogLevelToCSTR();
-    v12 = *MEMORY[0x1E6986650];
+    v4 = VRTraceErrorLogLevelToCSTR();
+    v5 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v15 = v11;
-      v16 = 2080;
-      v17 = "[VCMediaNegotiationBlobMultiwayVideoStream(MultiwayVideoStream) printWithLogFile:]";
-      v18 = 1024;
-      v19 = 1436;
-      v20 = 2080;
-      uTF8String2 = [v3 UTF8String];
-      _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s\n", buf, 0x26u);
+      v8 = v4;
+      v9 = 2080;
+      v10 = "[VCMediaNegotiationBlobMultiwayVideoStream(MultiwayVideoStream) printWithLogFile:]";
+      v11 = 1024;
+      v12 = 1436;
+      v13 = 2080;
+      uTF8String = [v3 UTF8String];
+      _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s\n", buf, 0x26u);
     }
   }
 }

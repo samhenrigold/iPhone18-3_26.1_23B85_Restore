@@ -7,6 +7,7 @@
 - (unint64_t)_updatedDimStyle;
 - (void)_updateAppearanceTrackingLayer;
 - (void)_updateDimView;
+- (void)_updateDimViewAnimated:(BOOL)animated;
 - (void)_updateOverlayImageViewWithPath:(id)path;
 - (void)_updateWallpaperImage;
 - (void)createImageOfResolvedWallpaper:(id)wallpaper completion:(id)completion;
@@ -354,6 +355,45 @@
   userInterfaceStyle = [traitCollection userInterfaceStyle];
 
   return userInterfaceStyle == 1;
+}
+
+- (void)_updateDimViewAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  homeScreenDimStyle = self->_homeScreenDimStyle;
+  traitCollection = [(CPWRootViewController *)self traitCollection];
+  userInterfaceStyle = [traitCollection userInterfaceStyle];
+
+  v8 = userInterfaceStyle == 1;
+  if (homeScreenDimStyle != 2)
+  {
+    v8 = homeScreenDimStyle;
+  }
+
+  if (self->_isHomeScreenWallpaperCurrentlyDimmed)
+  {
+    v9 = 1.0;
+  }
+
+  else
+  {
+    v9 = 0.0;
+  }
+
+  if (self->_isHomeScreenWallpaperCurrentlyDimmed)
+  {
+    v10 = v8;
+  }
+
+  else
+  {
+    v10 = 3;
+  }
+
+  [(CRSUIWallpaperDimmingView *)self->_dimView setUseDimStyle:v10];
+  dimView = self->_dimView;
+
+  [(CRSUIWallpaperDimmingView *)dimView setDim:animatedCopy animated:v9];
 }
 
 - (id)resolveWallpaper:(id)wallpaper

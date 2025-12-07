@@ -47,7 +47,7 @@
 
 void __41__FCReadingList_loadLocalCachesFromStore__block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF90] dictionary];
   v3 = *(a1 + 32);
   if (v3)
@@ -56,99 +56,90 @@ void __41__FCReadingList_loadLocalCachesFromStore__block_invoke(uint64_t a1)
   }
 
   v4 = [*(a1 + 32) localStore];
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v5 = [v4 allKeys];
-  v6 = [v5 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
-    v9 = 0x1E695D000uLL;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
-        v12 = *(a1 + 32);
-        if (([objc_opt_class() isLocalStoreKeyInternal:v11] & 1) == 0)
+        v10 = *(*(&v22 + 1) + 8 * i);
+        if (([objc_opt_class() isLocalStoreKeyInternal:v10] & 1) == 0)
         {
-          v13 = *(v9 + 3872);
           objc_opt_class();
-          v14 = [v4 objectForKey:v11];
-          if (v14)
+          v11 = [v4 objectForKey:v10];
+          if (v11)
           {
             if (objc_opt_isKindOfClass())
             {
-              v15 = v14;
+              v12 = v11;
             }
 
             else
             {
-              v15 = 0;
+              v12 = 0;
             }
           }
 
           else
           {
-            v15 = 0;
+            v12 = 0;
           }
 
-          v16 = v15;
+          v13 = v12;
 
-          if (v16)
+          if (v13)
           {
-            v17 = [[FCReadingListEntry alloc] initWithEntryID:v11 dictionaryRepresentation:v16];
-            if (v17)
+            v14 = [[FCReadingListEntry alloc] initWithEntryID:v10 dictionaryRepresentation:v13];
+            if (v14)
             {
-              v18 = *(a1 + 32);
-              if (v18)
+              v15 = *(a1 + 32);
+              if (v15)
               {
-                v18 = v18[11];
+                v15 = v15[11];
               }
 
-              v19 = v18;
-              v20 = v17[2];
-              [v19 setObject:v17 forKey:v20];
-
-              v9 = 0x1E695D000;
+              v16 = v15;
+              v17 = v14[2];
+              [v16 setObject:v14 forKey:v17];
             }
           }
 
           else
           {
-            v21 = FCDefaultLog;
+            v18 = FCDefaultLog;
             if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
             {
-              v22 = v21;
-              v23 = objc_opt_class();
-              v24 = NSStringFromClass(v23);
+              v19 = v18;
+              v20 = objc_opt_class();
+              v21 = NSStringFromClass(v20);
               *buf = 138412546;
-              v31 = v24;
-              v32 = 2114;
-              v33 = v11;
-              _os_log_error_impl(&dword_1B63EF000, v22, OS_LOG_TYPE_ERROR, "ERROR: Object of type %@ is not dictionary for key %{public}@", buf, 0x16u);
-
-              v9 = 0x1E695D000;
+              v27 = v21;
+              v28 = 2114;
+              v29 = v10;
+              _os_log_error_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_ERROR, "ERROR: Object of type %@ is not dictionary for key %{public}@", buf, 0x16u);
             }
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v7);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (FCReadingList)initWithContext:(id)context pushNotificationCenter:(id)center storeDirectory:(id)directory
@@ -239,7 +230,7 @@ void __41__FCReadingList_loadLocalCachesFromStore__block_invoke(uint64_t a1)
 
 - (void)addArticleToReadingList:(id)list eventInitiationLevel:(int64_t)level origin:(unint64_t)origin
 {
-  v38[3] = *MEMORY[0x1E69E9840];
+  v37[3] = *MEMORY[0x1E69E9840];
   listCopy = list;
   [MEMORY[0x1E696AF00] isMainThread];
   if (listCopy)
@@ -251,13 +242,13 @@ void __41__FCReadingList_loadLocalCachesFromStore__block_invoke(uint64_t a1)
 
     if (v12)
     {
-      v38[0] = @"articleID";
+      v37[0] = @"articleID";
       v13 = v12[2];
       *buf = v13;
-      v38[1] = @"dateAdded";
+      v37[1] = @"dateAdded";
       v14 = v12[3];
       *&buf[8] = v14;
-      v38[2] = @"origin";
+      v37[2] = @"origin";
       if (v12[4] - 1 >= 3)
       {
         v15 = 0;
@@ -270,7 +261,7 @@ void __41__FCReadingList_loadLocalCachesFromStore__block_invoke(uint64_t a1)
 
       v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v15];
       *&buf[16] = v16;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v38 count:3];
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v37 count:3];
 
       if (self)
       {
@@ -282,27 +273,27 @@ void __41__FCReadingList_loadLocalCachesFromStore__block_invoke(uint64_t a1)
         itemsLock = 0;
       }
 
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __69__FCReadingList_addArticleToReadingList_eventInitiationLevel_origin___block_invoke;
-      v29[3] = &unk_1E7C376A0;
-      v29[4] = self;
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __69__FCReadingList_addArticleToReadingList_eventInitiationLevel_origin___block_invoke;
+      v28[3] = &unk_1E7C376A0;
+      v28[4] = self;
       v19 = v12;
-      v30 = v19;
+      v29 = v19;
       v20 = listCopy;
-      v31 = v20;
-      [(FCMTWriterLock *)itemsLock performWriteSync:v29];
+      v30 = v20;
+      [(FCMTWriterLock *)itemsLock performWriteSync:v28];
       localStore = [(FCPrivateDataController *)self localStore];
       v22 = v19[1];
       [localStore setObject:v17 forKey:v22];
 
-      v33 = v20;
-      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+      v32 = v20;
+      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
       [(FCReadingList *)self _addedArticleIDs:v23 removedArticleIDs:MEMORY[0x1E695E0F0] eventInitiationLevel:level];
 
       v24 = [FCModifyReadingListCommand alloc];
-      v32 = v19;
-      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
+      v31 = v19;
+      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
       v26 = [(FCModifyReadingListCommand *)v24 initWithReadingListEntries:v25 merge:0];
 
       [(FCPrivateDataController *)self addCommandToCommandQueue:v26];
@@ -310,15 +301,15 @@ void __41__FCReadingList_loadLocalCachesFromStore__block_invoke(uint64_t a1)
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "entry"];
+      v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "entry"];
       *buf = 136315906;
       *&buf[4] = "[FCReadingList addArticleToReadingList:eventInitiationLevel:origin:]";
       *&buf[12] = 2080;
       *&buf[14] = "FCReadingList.m";
       *&buf[22] = 1024;
-      v35 = 95;
-      v36 = 2114;
-      v37 = v28;
+      v34 = 95;
+      v35 = 2114;
+      v36 = v27;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -333,14 +324,12 @@ void __41__FCReadingList_loadLocalCachesFromStore__block_invoke(uint64_t a1)
     *&buf[12] = 2080;
     *&buf[14] = "FCReadingList.m";
     *&buf[22] = 1024;
-    v35 = 87;
-    v36 = 2114;
-    v37 = v12;
+    v34 = 87;
+    v35 = 2114;
+    v36 = v12;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 LABEL_13:
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69__FCReadingList_addArticleToReadingList_eventInitiationLevel_origin___block_invoke(void *a1)
@@ -356,7 +345,7 @@ uint64_t __69__FCReadingList_addArticleToReadingList_eventInitiationLevel_origin
 
 - (void)_addedArticleIDs:(void *)ds removedArticleIDs:(uint64_t)iDs eventInitiationLevel:
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v7 = a2;
   dsCopy = ds;
   if (!self)
@@ -367,15 +356,15 @@ uint64_t __69__FCReadingList_addArticleToReadingList_eventInitiationLevel_origin
   [MEMORY[0x1E696AF00] isMainThread];
   if (!v7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "addedArticleIDs"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "addedArticleIDs"];
     *buf = 136315906;
-    v24 = "[FCReadingList _addedArticleIDs:removedArticleIDs:eventInitiationLevel:]";
-    v25 = 2080;
-    v26 = "FCReadingList.m";
-    v27 = 1024;
-    v28 = 442;
-    v29 = 2114;
-    v30 = v16;
+    v23 = "[FCReadingList _addedArticleIDs:removedArticleIDs:eventInitiationLevel:]";
+    v24 = 2080;
+    v25 = "FCReadingList.m";
+    v26 = 1024;
+    v27 = 442;
+    v28 = 2114;
+    v29 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (!dsCopy)
@@ -383,15 +372,15 @@ uint64_t __69__FCReadingList_addArticleToReadingList_eventInitiationLevel_origin
 LABEL_5:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "removedArticleIDs"];
+        v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "removedArticleIDs"];
         *buf = 136315906;
-        v24 = "[FCReadingList _addedArticleIDs:removedArticleIDs:eventInitiationLevel:]";
-        v25 = 2080;
-        v26 = "FCReadingList.m";
-        v27 = 1024;
-        v28 = 443;
-        v29 = 2114;
-        v30 = v17;
+        v23 = "[FCReadingList _addedArticleIDs:removedArticleIDs:eventInitiationLevel:]";
+        v24 = 2080;
+        v25 = "FCReadingList.m";
+        v26 = 1024;
+        v27 = 443;
+        v28 = 2114;
+        v29 = v16;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
@@ -402,45 +391,44 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   observers = [self observers];
   v10 = [observers copy];
 
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       v14 = 0;
       do
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v18 + 1) + 8 * v14++) readingList:self didAddArticles:v7 removeArticles:dsCopy eventInitiationLevel:iDs];
+        [*(*(&v17 + 1) + 8 * v14++) readingList:self didAddArticles:v7 removeArticles:dsCopy eventInitiationLevel:iDs];
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
   }
 
 LABEL_15:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeArticleFromReadingList:(id)list
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   listCopy = list;
   [MEMORY[0x1E696AF00] isMainThread];
   if (listCopy)
@@ -468,20 +456,20 @@ LABEL_15:
         itemsLock = 0;
       }
 
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __46__FCReadingList_removeArticleFromReadingList___block_invoke;
-      v15[3] = &unk_1E7C36C58;
-      v15[4] = self;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __46__FCReadingList_removeArticleFromReadingList___block_invoke;
+      v14[3] = &unk_1E7C36C58;
+      v14[4] = self;
       v8 = listCopy;
-      v16 = v8;
-      [(FCMTWriterLock *)itemsLock performWriteSync:v15];
+      v15 = v8;
+      [(FCMTWriterLock *)itemsLock performWriteSync:v14];
       v9 = v6[1];
       localStore = [(FCPrivateDataController *)self localStore];
       [localStore removeObjectForKey:v9];
 
-      v17 = v8;
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
+      v16 = v8;
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
       [(FCReadingList *)self _addedArticleIDs:v11 removedArticleIDs:0 eventInitiationLevel:?];
 
       v12 = [[FCRemoveFromReadingListCommand alloc] initWithEntryID:v9];
@@ -490,15 +478,15 @@ LABEL_15:
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "entry"];
+      v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "entry"];
       *buf = 136315906;
-      v19 = "[FCReadingList removeArticleFromReadingList:]";
-      v20 = 2080;
-      v21 = "FCReadingList.m";
-      v22 = 1024;
-      v23 = 121;
-      v24 = 2114;
-      v25 = v14;
+      v18 = "[FCReadingList removeArticleFromReadingList:]";
+      v19 = 2080;
+      v20 = "FCReadingList.m";
+      v21 = 1024;
+      v22 = 121;
+      v23 = 2114;
+      v24 = v13;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -509,18 +497,16 @@ LABEL_15:
   {
     v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID != nil"];
     *buf = 136315906;
-    v19 = "[FCReadingList removeArticleFromReadingList:]";
-    v20 = 2080;
-    v21 = "FCReadingList.m";
-    v22 = 1024;
-    v23 = 117;
-    v24 = 2114;
-    v25 = v6;
+    v18 = "[FCReadingList removeArticleFromReadingList:]";
+    v19 = 2080;
+    v20 = "FCReadingList.m";
+    v21 = 1024;
+    v22 = 117;
+    v23 = 2114;
+    v24 = v6;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 LABEL_12:
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__FCReadingList_removeArticleFromReadingList___block_invoke(uint64_t a1)
@@ -743,34 +729,34 @@ uint64_t __59__FCReadingList_countOfAllArticlesSavedOutsideOfNewsSince___block_i
 
 - (id)allNonConsumedArticleIDs
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   _allEntriesInReadingList = [(FCReadingList *)&self->super.super.isa _allEntriesInReadingList];
   v5 = [_allEntriesInReadingList sortedArrayUsingComparator:&__block_literal_global_28];
   readingHistory = [(FCCloudContext *)self->_cloudContext readingHistory];
   allConsumedArticleIDs = [readingHistory allConsumedArticleIDs];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       v12 = 0;
       do
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * v12);
+        v13 = *(*(&v21 + 1) + 8 * v12);
         if (v13)
         {
           v14 = *(v13 + 16);
@@ -782,7 +768,7 @@ uint64_t __59__FCReadingList_countOfAllArticlesSavedOutsideOfNewsSince___block_i
         }
 
         v15 = v14;
-        v16 = [allConsumedArticleIDs containsObject:{v15, v22}];
+        v16 = [allConsumedArticleIDs containsObject:{v15, v21}];
 
         if ((v16 & 1) == 0)
         {
@@ -804,14 +790,12 @@ uint64_t __59__FCReadingList_countOfAllArticlesSavedOutsideOfNewsSince___block_i
       }
 
       while (v10 != v12);
-      v19 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v19 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
       v10 = v19;
     }
 
     while (v19);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -914,29 +898,29 @@ uint64_t __41__FCReadingList_allNonConsumedArticleIDs__block_invoke(uint64_t a1,
 
 void __65__FCReadingList_handleSyncWithChangedRecords_deletedRecordNames___block_invoke(uint64_t a1)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   obj = *(a1 + 32);
-  v41 = [obj countByEnumeratingWithState:&v46 objects:v61 count:16];
-  if (v41)
+  v40 = [obj countByEnumeratingWithState:&v45 objects:v60 count:16];
+  if (v40)
   {
-    v40 = *v47;
+    v39 = *v46;
     *&v2 = 136315906;
-    v38 = v2;
+    v37 = v2;
     do
     {
       v3 = 0;
       do
       {
-        if (*v47 != v40)
+        if (*v46 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v46 + 1) + 8 * v3);
+        v4 = *(*(&v45 + 1) + 8 * v3);
         v5 = [v4 recordID];
         v6 = [v5 recordName];
 
@@ -993,13 +977,13 @@ void __65__FCReadingList_handleSyncWithChangedRecords_deletedRecordNames___block
         {
           if (v9)
           {
-            v51[0] = @"articleID";
-            v51[1] = @"dateAdded";
-            v52[0] = v8;
-            v52[1] = v9;
-            v51[2] = @"origin";
-            v52[2] = v13;
-            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:3];
+            v50[0] = @"articleID";
+            v50[1] = @"dateAdded";
+            v51[0] = v8;
+            v51[1] = v9;
+            v50[2] = @"origin";
+            v51[2] = v13;
+            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:3];
             v20 = [[FCReadingListEntry alloc] initWithEntryID:v6 dictionaryRepresentation:v19];
             v21 = *(a1 + 48);
             if (v21)
@@ -1025,14 +1009,14 @@ void __65__FCReadingList_handleSyncWithChangedRecords_deletedRecordNames___block
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"should never have a reading list entry without an article ID"];
-            *buf = v38;
-            v54 = "[FCReadingList handleSyncWithChangedRecords:deletedRecordNames:]_block_invoke";
-            v55 = 2080;
-            v56 = "FCReadingList.m";
-            v57 = 1024;
-            v58 = 284;
-            v59 = 2114;
-            v60 = v23;
+            *buf = v37;
+            v53 = "[FCReadingList handleSyncWithChangedRecords:deletedRecordNames:]_block_invoke";
+            v54 = 2080;
+            v55 = "FCReadingList.m";
+            v56 = 1024;
+            v57 = 284;
+            v58 = 2114;
+            v59 = v23;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
 
@@ -1045,14 +1029,14 @@ void __65__FCReadingList_handleSyncWithChangedRecords_deletedRecordNames___block
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"should never have a reading list entry without a date added"];
-          *buf = v38;
-          v54 = "[FCReadingList handleSyncWithChangedRecords:deletedRecordNames:]_block_invoke";
-          v55 = 2080;
-          v56 = "FCReadingList.m";
-          v57 = 1024;
-          v58 = 285;
-          v59 = 2114;
-          v60 = v15;
+          *buf = v37;
+          v53 = "[FCReadingList handleSyncWithChangedRecords:deletedRecordNames:]_block_invoke";
+          v54 = 2080;
+          v55 = "FCReadingList.m";
+          v56 = 1024;
+          v57 = 285;
+          v58 = 2114;
+          v59 = v15;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 LABEL_17:
         }
@@ -1062,35 +1046,35 @@ LABEL_18:
         ++v3;
       }
 
-      while (v41 != v3);
-      v24 = [obj countByEnumeratingWithState:&v46 objects:v61 count:16];
-      v41 = v24;
+      while (v40 != v3);
+      v24 = [obj countByEnumeratingWithState:&v45 objects:v60 count:16];
+      v40 = v24;
     }
 
     while (v24);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v25 = *(a1 + 64);
-  v26 = [v25 countByEnumeratingWithState:&v42 objects:v50 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v41 objects:v49 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v43;
+    v28 = *v42;
     do
     {
       v29 = 0;
       do
       {
-        if (*v43 != v28)
+        if (*v42 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v42 + 1) + 8 * v29);
+        v30 = *(*(&v41 + 1) + 8 * v29);
         v31 = [*(a1 + 40) objectForKey:v30];
         v32 = v31;
         if (v31)
@@ -1116,14 +1100,12 @@ LABEL_18:
       }
 
       while (v27 != v29);
-      v36 = [v25 countByEnumeratingWithState:&v42 objects:v50 count:16];
+      v36 = [v25 countByEnumeratingWithState:&v41 objects:v49 count:16];
       v27 = v36;
     }
 
     while (v36);
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allKnownRecordNamesWithinRecordZoneWithID:(id)d
@@ -1160,42 +1142,40 @@ uint64_t __59__FCReadingList_allKnownRecordNamesWithinRecordZoneWithID___block_i
 
 + (id)backingRecordZoneIDs
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E695BA90]);
   v3 = [v2 initWithZoneName:@"ReadingList" ownerName:*MEMORY[0x1E695B728]];
-  v7[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
 
   return v4;
 }
 
 + (id)commandsToMergeLocalDataToCloud:(id)cloud privateDataDirectory:(id)directory
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   cloudCopy = cloud;
   array = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   allKeys = [cloudCopy allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         if (([self isLocalStoreKeyInternal:v12] & 1) == 0)
         {
           v13 = [cloudCopy objectForKey:v12];
@@ -1204,17 +1184,15 @@ uint64_t __59__FCReadingList_allKnownRecordNamesWithinRecordZoneWithID___block_i
         }
       }
 
-      v9 = [allKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v9);
   }
 
   v15 = [[FCModifyReadingListCommand alloc] initWithReadingListEntries:array merge:1];
-  v23 = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v22 = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
 
   return v16;
 }

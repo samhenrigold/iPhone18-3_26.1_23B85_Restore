@@ -618,7 +618,8 @@ uint64_t __72__PUCommentsTableDataController__postCommentWithText_completionHand
 - (BOOL)_canPostCommentWithText:(id)text localizedFailureDescription:(id *)description
 {
   v6 = [text length];
-  if (v6 <= [MEMORY[0x1E69BE6A8] maxCharactersPerComment])
+  maxCharactersPerComment = [MEMORY[0x1E69BE6A8] maxCharactersPerComment];
+  if (v6 <= maxCharactersPerComment)
   {
     if (v6)
     {
@@ -627,8 +628,8 @@ uint64_t __72__PUCommentsTableDataController__postCommentWithText_completionHand
 
       if (totalCommentsCount < [MEMORY[0x1E69BE6A8] maxCommentsPerAsset])
       {
-        v8 = 0;
-        v11 = 1;
+        v16 = 0;
+        v19 = 1;
         if (!description)
         {
           goto LABEL_11;
@@ -637,32 +638,33 @@ uint64_t __72__PUCommentsTableDataController__postCommentWithText_completionHand
         goto LABEL_10;
       }
 
-      v8 = PLLocalizedFrameworkString();
+      v16 = PLLocalizedFrameworkString();
     }
 
     else
     {
-      v8 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    v7 = PULocalizedString(@"TOO_MANY_CHARS_IN_COMMENT");
-    v8 = PULocalizedStringWithValidatedFormat(v7, @"%ld");
+    v8 = maxCharactersPerComment;
+    v9 = PULocalizedString(@"TOO_MANY_CHARS_IN_COMMENT");
+    v16 = PULocalizedStringWithValidatedFormat(v9, @"%ld", v10, v11, v12, v13, v14, v15, v8);
   }
 
-  v11 = 0;
+  v19 = 0;
   if (description)
   {
 LABEL_10:
-    v12 = v8;
-    *description = v8;
+    v20 = v16;
+    *description = v16;
   }
 
 LABEL_11:
 
-  return v11;
+  return v19;
 }
 
 - (id)_commentText

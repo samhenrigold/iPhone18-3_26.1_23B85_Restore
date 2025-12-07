@@ -71,28 +71,28 @@ void __47__WBSCookieTransferController_sharedController__block_invoke(uint64_t a
   if (httpCookieStore)
   {
     safari_stringByRemovingWwwDotPrefix = [safari_highLevelDomainFromHost safari_stringByRemovingWwwDotPrefix];
-    v19 = [domainsToDisableCookieCopying containsObject:safari_stringByRemovingWwwDotPrefix];
+    v21 = [domainsToDisableCookieCopying containsObject:safari_stringByRemovingWwwDotPrefix];
 
-    if (!v19)
+    if (!v21)
     {
       [(WBSCookieTransferController *)self _copyCookiesFromCookieStore:httpCookieStore matchingDomain:safari_highLevelDomainFromHost intoFolderAtURL:lCopy completionHandler:handlerCopy];
       goto LABEL_9;
     }
 
-    v20 = WBS_LOG_CHANNEL_PREFIXWebApps();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v24 = WBS_LOG_CHANNEL_PREFIXWebApps(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C6968000, v20, OS_LOG_TYPE_INFO, "Skipping cookie copying due to quirks", buf, 2u);
+      _os_log_impl(&dword_1C6968000, v24, OS_LOG_TYPE_INFO, "Skipping cookie copying due to quirks", buf, 2u);
     }
   }
 
   else
   {
-    v21 = WBS_LOG_CHANNEL_PREFIXWebApps();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v25 = WBS_LOG_CHANNEL_PREFIXWebApps(v18, v19);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [WBSCookieTransferController copyCookiesFromWebView:v21 intoFolderAtURL:? completionHandler:?];
+      [WBSCookieTransferController copyCookiesFromWebView:v25 intoFolderAtURL:? completionHandler:?];
     }
   }
 
@@ -101,7 +101,7 @@ void __47__WBSCookieTransferController_sharedController__block_invoke(uint64_t a
   block[1] = 3221225472;
   block[2] = __88__WBSCookieTransferController_copyCookiesFromWebView_intoFolderAtURL_completionHandler___block_invoke;
   block[3] = &unk_1E8283C40;
-  v24 = handlerCopy;
+  v28 = handlerCopy;
   dispatch_async(internalQueue, block);
 
 LABEL_9:
@@ -153,27 +153,27 @@ void __108__WBSCookieTransferController__copyCookiesFromCookieStore_matchingDoma
 
 uint64_t __108__WBSCookieTransferController__copyCookiesFromCookieStore_matchingDomain_intoFolderAtURL_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v19 = 0u;
-  v20 = 0u;
+  v27 = *MEMORY[0x1E69E9840];
   v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v20;
+    v5 = *v22;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * i);
+        v7 = *(*(&v21 + 1) + 8 * i);
         if ([v7 safari_belongsToDomain:*(a1 + 40)])
         {
           v8 = *(a1 + 48);
@@ -184,22 +184,22 @@ uint64_t __108__WBSCookieTransferController__copyCookiesFromCookieStore_matching
           v13 = [v8 URLByAppendingPathComponent:v12];
 
           v14 = [v7 properties];
-          v18 = 0;
-          LOBYTE(v10) = [v14 writeToURL:v13 error:&v18];
-          v15 = v18;
+          v20 = 0;
+          LOBYTE(v10) = [v14 writeToURL:v13 error:&v20];
+          v15 = v20;
 
           if ((v10 & 1) == 0)
           {
-            v16 = WBS_LOG_CHANNEL_PREFIXWebApps();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v18 = WBS_LOG_CHANNEL_PREFIXWebApps(v16, v17);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              __108__WBSCookieTransferController__copyCookiesFromCookieStore_matchingDomain_intoFolderAtURL_completionHandler___block_invoke_2_cold_1(v23, v16);
+              __108__WBSCookieTransferController__copyCookiesFromCookieStore_matchingDomain_intoFolderAtURL_completionHandler___block_invoke_2_cold_1(v25, v18);
             }
           }
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v4);
@@ -210,72 +210,72 @@ uint64_t __108__WBSCookieTransferController__copyCookiesFromCookieStore_matching
 
 - (BOOL)copyCookiesFromArray:(id)array matchingDomain:(id)domain intoFolderAtURL:(id)l
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   domainCopy = domain;
   lCopy = l;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v30 = lCopy;
+  v32 = lCopy;
   v11 = [defaultManager safari_ensureDirectoryExists:lCopy];
 
   if (v11)
   {
-    v27 = v11;
-    v28 = defaultManager;
+    v29 = v11;
+    v30 = defaultManager;
+    v36 = 0u;
+    v37 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v29 = arrayCopy;
+    v31 = arrayCopy;
     v12 = arrayCopy;
-    v13 = [v12 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v33;
+      v15 = *v35;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v33 != v15)
+          if (*v35 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v32 + 1) + 8 * i);
+          v17 = *(*(&v34 + 1) + 8 * i);
           if ([v17 safari_belongsToDomain:domainCopy])
           {
             v18 = MEMORY[0x1E696AEC0];
             uUID = [MEMORY[0x1E696AFB0] UUID];
             uUIDString = [uUID UUIDString];
             v21 = [v18 stringWithFormat:@"%@.plist", uUIDString];
-            v22 = [v30 URLByAppendingPathComponent:v21];
+            v22 = [v32 URLByAppendingPathComponent:v21];
 
             properties = [v17 properties];
-            v31 = 0;
-            LOBYTE(uUID) = [properties writeToURL:v22 error:&v31];
-            v24 = v31;
+            v33 = 0;
+            LOBYTE(uUID) = [properties writeToURL:v22 error:&v33];
+            v24 = v33;
 
             if ((uUID & 1) == 0)
             {
-              v25 = WBS_LOG_CHANNEL_PREFIXWebApps();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+              v27 = WBS_LOG_CHANNEL_PREFIXWebApps(v25, v26);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
-                __108__WBSCookieTransferController__copyCookiesFromCookieStore_matchingDomain_intoFolderAtURL_completionHandler___block_invoke_2_cold_1(v36, v25);
+                __108__WBSCookieTransferController__copyCookiesFromCookieStore_matchingDomain_intoFolderAtURL_completionHandler___block_invoke_2_cold_1(v38, v27);
               }
             }
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v14);
     }
 
-    defaultManager = v28;
-    arrayCopy = v29;
-    v11 = v27;
+    defaultManager = v30;
+    arrayCopy = v31;
+    v11 = v29;
   }
 
   return v11 != 0;
@@ -283,144 +283,144 @@ uint64_t __108__WBSCookieTransferController__copyCookiesFromCookieStore_matching
 
 - (void)copyCookiesFromFolderAtURL:(id)l intoDataStore:(id)store
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   lCopy = l;
   storeCopy = store;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v49 = 0;
+  v57 = 0;
   path = [lCopy path];
-  v38 = defaultManager;
-  v9 = [defaultManager fileExistsAtPath:path isDirectory:&v49];
-  v10 = v49;
+  v46 = defaultManager;
+  v9 = [defaultManager fileExistsAtPath:path isDirectory:&v57];
+  v10 = v57;
 
   if (v9 && (v10 & 1) != 0)
   {
-    v48 = 0;
-    v11 = [v38 contentsOfDirectoryAtURL:lCopy includingPropertiesForKeys:0 options:0 error:&v48];
-    v12 = v48;
+    v56 = 0;
+    v11 = [v46 contentsOfDirectoryAtURL:lCopy includingPropertiesForKeys:0 options:0 error:&v56];
+    v12 = v56;
     if (v12)
     {
-      v13 = v12;
-      v14 = WBS_LOG_CHANNEL_PREFIXWebApps();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v14 = v12;
+      v15 = WBS_LOG_CHANNEL_PREFIXWebApps(v12, v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [WBSCookieTransferController copyCookiesFromFolderAtURL:v14 intoDataStore:v13];
+        [WBSCookieTransferController copyCookiesFromFolderAtURL:v15 intoDataStore:v14];
       }
     }
 
     else
     {
-      v35 = storeCopy;
-      v36 = lCopy;
+      v43 = storeCopy;
+      v44 = lCopy;
       httpCookieStore = [storeCopy httpCookieStore];
-      v44 = 0u;
-      v45 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v34 = v11;
-      v15 = v11;
-      v16 = [v15 countByEnumeratingWithState:&v44 objects:v52 count:16];
-      if (v16)
+      v52 = 0u;
+      v53 = 0u;
+      v54 = 0u;
+      v55 = 0u;
+      v42 = v11;
+      v16 = v11;
+      v17 = [v16 countByEnumeratingWithState:&v52 objects:v60 count:16];
+      if (v17)
       {
-        v17 = v16;
-        v18 = 0;
-        v19 = *v45;
+        v18 = v17;
+        v19 = 0;
+        v20 = *v53;
         do
         {
-          for (i = 0; i != v17; ++i)
+          for (i = 0; i != v18; ++i)
           {
-            if (*v45 != v19)
+            if (*v53 != v20)
             {
-              objc_enumerationMutation(v15);
+              objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v44 + 1) + 8 * i);
-            pathExtension = [v21 pathExtension];
-            v23 = [pathExtension isEqualToString:@"plist"];
+            v22 = *(*(&v52 + 1) + 8 * i);
+            pathExtension = [v22 pathExtension];
+            v24 = [pathExtension isEqualToString:@"plist"];
 
-            if (v23)
+            if (v24)
             {
-              v43 = v18;
-              v24 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v21 error:&v43];
-              v25 = v43;
+              v51 = v19;
+              v25 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v22 error:&v51];
+              v26 = v51;
 
-              if (v24)
+              if (v25)
               {
-                v26 = [MEMORY[0x1E695ABF8] cookieWithProperties:v24];
-                if (v26)
+                v30 = [MEMORY[0x1E695ABF8] cookieWithProperties:v25];
+                if (v30)
                 {
-                  [httpCookieStore setCookie:v26 completionHandler:0];
-                  v40 = v25;
-                  v27 = [v38 removeItemAtURL:v21 error:&v40];
-                  v28 = v40;
+                  [httpCookieStore setCookie:v30 completionHandler:0];
+                  v48 = v26;
+                  v31 = [v46 removeItemAtURL:v22 error:&v48];
+                  v32 = v48;
 
-                  if (v27)
+                  if (v31)
                   {
-                    v25 = v28;
+                    v26 = v32;
                   }
 
                   else
                   {
-                    v31 = WBS_LOG_CHANNEL_PREFIXWebApps();
-                    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+                    v37 = WBS_LOG_CHANNEL_PREFIXWebApps(v33, v34);
+                    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
                     {
-                      [WBSCookieTransferController copyCookiesFromFolderAtURL:v50 intoDataStore:v31];
+                      [WBSCookieTransferController copyCookiesFromFolderAtURL:v58 intoDataStore:v37];
                     }
 
-                    v25 = 0;
+                    v26 = 0;
                   }
                 }
 
                 else
                 {
-                  v30 = WBS_LOG_CHANNEL_PREFIXWebApps();
-                  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+                  v36 = WBS_LOG_CHANNEL_PREFIXWebApps(0, v29);
+                  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                   {
-                    [(WBSCookieTransferController *)&buf copyCookiesFromFolderAtURL:v42 intoDataStore:v30];
+                    [(WBSCookieTransferController *)&buf copyCookiesFromFolderAtURL:v50 intoDataStore:v36];
                   }
                 }
               }
 
               else
               {
-                v29 = WBS_LOG_CHANNEL_PREFIXWebApps();
-                if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+                v35 = WBS_LOG_CHANNEL_PREFIXWebApps(v27, v28);
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
                 {
-                  [WBSCookieTransferController copyCookiesFromFolderAtURL:v51 intoDataStore:v29];
+                  [WBSCookieTransferController copyCookiesFromFolderAtURL:v59 intoDataStore:v35];
                 }
               }
 
-              v18 = v25;
+              v19 = v26;
             }
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v44 objects:v52 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v52 objects:v60 count:16];
         }
 
-        while (v17);
+        while (v18);
       }
 
       else
       {
-        v18 = 0;
+        v19 = 0;
       }
 
-      v39 = v18;
-      lCopy = v36;
-      v32 = [v38 removeItemAtURL:v36 error:&v39];
-      v13 = v39;
+      v47 = v19;
+      lCopy = v44;
+      v38 = [v46 removeItemAtURL:v44 error:&v47];
+      v14 = v47;
 
-      if ((v32 & 1) == 0)
+      if ((v38 & 1) == 0)
       {
-        v33 = WBS_LOG_CHANNEL_PREFIXWebApps();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v41 = WBS_LOG_CHANNEL_PREFIXWebApps(v39, v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
-          [WBSCookieTransferController copyCookiesFromFolderAtURL:v33 intoDataStore:v13];
+          [WBSCookieTransferController copyCookiesFromFolderAtURL:v41 intoDataStore:v14];
         }
       }
 
-      v11 = v34;
-      storeCopy = v35;
+      v11 = v42;
+      storeCopy = v43;
     }
   }
 }
@@ -437,7 +437,9 @@ void __108__WBSCookieTransferController__copyCookiesFromCookieStore_matchingDoma
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Unable to enumerate staged cookies directory: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Unable to enumerate staged cookies directory: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)copyCookiesFromFolderAtURL:(uint64_t)a1 intoDataStore:(void *)a2 .cold.2(uint64_t a1, void *a2)
@@ -467,7 +469,9 @@ void __108__WBSCookieTransferController__copyCookiesFromCookieStore_matchingDoma
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Unable to remove staged cookie directory: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Unable to remove staged cookie directory: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

@@ -72,18 +72,18 @@
   }
 }
 
-- (uint64_t)insertBackdropAsSublayerToLayer:below:.cold.1()
+- (double)insertBackdropAsSublayerToLayer:below:.cold.1()
 {
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFFFFFLL, "<<<< FigCaptionBackdropLayer >>>>", 125, v0);
 }
 
-- (uint64_t)insertBackdropAsSublayerToLayer:below:.cold.2()
+- (double)insertBackdropAsSublayerToLayer:below:.cold.2()
 {
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFFFFFLL, "<<<< FigCaptionBackdropLayer >>>>", 124, v0);
 }
 
 @end

@@ -137,7 +137,7 @@ LABEL_9:
 
 - (id)createAlternativeCarrierRecord
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_identifier(self->_carrierRecord, a2, v2);
   v9 = v4;
   if (!v4)
@@ -152,63 +152,62 @@ LABEL_9:
     v11 = @"Invalid carrier reference length";
     v12 = 102;
 LABEL_5:
-    sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSCHAlternativeCarrier createAlternativeCarrierRecord]", v12, self, v11, v7, v8, v47);
+    sub_2645010D8(OS_LOG_TYPE_ERROR, 0, "[STSCHAlternativeCarrier createAlternativeCarrierRecord]", v12, self, v11, v7, v8, v46);
     v13 = 0;
     goto LABEL_14;
   }
 
-  v48 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v10, "ac", 2);
-  v54 = self->_powerState & 3;
-  v15 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEB28], v14, &v54, 1);
-  v54 = objc_msgSend_length(v9, v16, v17);
-  objc_msgSend_appendBytes_length_(v15, v18, &v54, 1);
+  v47 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v10, "ac", 2);
+  v53 = self->_powerState & 3;
+  v15 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEB28], v14, &v53, 1);
+  v53 = objc_msgSend_length(v9, v16, v17);
+  objc_msgSend_appendBytes_length_(v15, v18, &v53, 1);
   objc_msgSend_appendData_(v15, v19, v9);
-  v53 = 0;
+  v52 = 0;
   v22 = objc_msgSend_data(MEMORY[0x277CBEB28], v20, v21);
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   v23 = self->_auxiliaryRecords;
-  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v49, v55, 16);
+  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v48, v54, 16);
   if (v25)
   {
     v28 = v25;
     v29 = 0;
-    v30 = *v50;
+    v30 = *v49;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v50 != v30)
+        if (*v49 != v30)
         {
           objc_enumerationMutation(v23);
         }
 
-        v32 = *(*(&v49 + 1) + 8 * i);
+        v32 = *(*(&v48 + 1) + 8 * i);
         v33 = objc_msgSend_identifier(v32, v26, v27);
-        v54 = objc_msgSend_length(v33, v34, v35);
+        v53 = objc_msgSend_length(v33, v34, v35);
 
-        objc_msgSend_appendBytes_length_(v22, v36, &v54, 1);
+        objc_msgSend_appendBytes_length_(v22, v36, &v53, 1);
         v39 = objc_msgSend_identifier(v32, v37, v38);
         objc_msgSend_appendData_(v22, v40, v39);
 
-        v53 = ++v29;
+        v52 = ++v29;
       }
 
-      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v49, v55, 16);
+      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v48, v54, 16);
     }
 
     while (v28);
   }
 
-  objc_msgSend_appendBytes_length_(v15, v41, &v53, 1);
+  objc_msgSend_appendBytes_length_(v15, v41, &v52, 1);
   objc_msgSend_appendData_(v15, v42, v22);
   v43 = [STSNDEFRecord alloc];
-  v13 = objc_msgSend_initWithFormat_type_identifier_payload_(v43, v44, 1, v48, 0, v15);
+  v13 = objc_msgSend_initWithFormat_type_identifier_payload_(v43, v44, 1, v47, 0, v15);
 
 LABEL_14:
-  v45 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

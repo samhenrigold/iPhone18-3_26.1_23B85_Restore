@@ -59,10 +59,10 @@
   identityToken = [_FBSScene identityToken];
   clientScene = [(FBSSceneComponent *)self clientScene];
   identityToken2 = [clientScene identityToken];
-  v9 = [identityToken isEqual:identityToken2];
+  isEqual = objc_msgSend_isEqual_(identityToken);
 
   v10 = focusCopy;
-  if (v9)
+  if (isEqual)
   {
     firstResponder = [focusCopy firstResponder];
     if (firstResponder && (-[_UISceneHostingEventDeferringClientComponent requestEventDeferralForAllFirstResponderChanges](self, "requestEventDeferralForAllFirstResponderChanges") || ([firstResponder _wantsTargetOfKeyboardEventDeferringEnvironment] & 1) != 0 || objc_msgSend(firstResponder, "_isHostingRemoteContent")))

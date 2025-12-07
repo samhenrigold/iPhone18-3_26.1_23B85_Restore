@@ -10,9 +10,9 @@
 + (id)cacheWithTableInfo:(id)info
 {
   v4 = [self alloc];
-  v8 = objc_msgSend_initWithTableInfo_(v4, v5, info, v6, v7);
+  v7 = objc_msgSend_initWithTableInfo_(v4, v5, info, v6);
 
-  return v8;
+  return v7;
 }
 
 - (TSTStyleDefaultsCache)initWithTableInfo:(id)info
@@ -38,44 +38,44 @@
 
 - (id)cellStyleHandleForKey:(unint64_t)key
 {
-  v11 = objc_msgSend_objectForKey_(self->_cellStyleHandles, a2, key, v3, v4);
-  if (!v11)
+  v9 = objc_msgSend_objectForKey_(self->_cellStyleHandles, a2, key, v3);
+  if (!v9)
   {
-    v12 = objc_msgSend_baseTableModel(self->_tableInfo, v7, v8, v9, v10);
-    v28 = 0;
-    v29 = 0;
-    objc_msgSend_defaultStylesForTableStyleArea_outCellStyle_outTextStyle_(v12, v13, key, &v29, &v28);
-    v14 = v29;
-    v15 = v28;
+    v10 = objc_msgSend_baseTableModel(self->_tableInfo, v6, v7, v8);
+    v22 = 0;
+    v23 = 0;
+    objc_msgSend_defaultStylesForTableStyleArea_outCellStyle_outTextStyle_(v10, v11, key, &v23, &v22);
+    v12 = v23;
+    v13 = v22;
 
-    v11 = objc_msgSend_handleForCellStyle_(TSTCellStyleHandle, v16, v14, v17, v18);
-    v22 = objc_msgSend_handleForTextStyle_(TSTTextStyleHandle, v19, v15, v20, v21);
-    objc_msgSend_setObject_forKey_(self->_cellStyleHandles, v23, v11, key, v24);
-    objc_msgSend_setObject_forKey_(self->_textStyleHandles, v25, v22, key, v26);
+    v9 = objc_msgSend_handleForCellStyle_(TSTCellStyleHandle, v14, v12, v15);
+    v18 = objc_msgSend_handleForTextStyle_(TSTTextStyleHandle, v16, v13, v17);
+    objc_msgSend_setObject_forKey_(self->_cellStyleHandles, v19, v9, key);
+    objc_msgSend_setObject_forKey_(self->_textStyleHandles, v20, v18, key);
   }
 
-  return v11;
+  return v9;
 }
 
 - (id)textStyleHandleForKey:(unint64_t)key
 {
-  v11 = objc_msgSend_objectForKey_(self->_textStyleHandles, a2, key, v3, v4);
-  if (!v11)
+  v9 = objc_msgSend_objectForKey_(self->_textStyleHandles, a2, key, v3);
+  if (!v9)
   {
-    v12 = objc_msgSend_baseTableModel(self->_tableInfo, v7, v8, v9, v10);
-    v28 = 0;
-    v29 = 0;
-    objc_msgSend_defaultStylesForTableStyleArea_outCellStyle_outTextStyle_(v12, v13, key, &v29, &v28);
-    v14 = v29;
-    v15 = v28;
+    v10 = objc_msgSend_baseTableModel(self->_tableInfo, v6, v7, v8);
+    v22 = 0;
+    v23 = 0;
+    objc_msgSend_defaultStylesForTableStyleArea_outCellStyle_outTextStyle_(v10, v11, key, &v23, &v22);
+    v12 = v23;
+    v13 = v22;
 
-    v19 = objc_msgSend_handleForCellStyle_(TSTCellStyleHandle, v16, v14, v17, v18);
-    v11 = objc_msgSend_handleForTextStyle_(TSTTextStyleHandle, v20, v15, v21, v22);
-    objc_msgSend_setObject_forKey_(self->_cellStyleHandles, v23, v19, key, v24);
-    objc_msgSend_setObject_forKey_(self->_textStyleHandles, v25, v11, key, v26);
+    v16 = objc_msgSend_handleForCellStyle_(TSTCellStyleHandle, v14, v12, v15);
+    v9 = objc_msgSend_handleForTextStyle_(TSTTextStyleHandle, v17, v13, v18);
+    objc_msgSend_setObject_forKey_(self->_cellStyleHandles, v19, v16, key);
+    objc_msgSend_setObject_forKey_(self->_textStyleHandles, v20, v9, key);
   }
 
-  return v11;
+  return v9;
 }
 
 @end

@@ -61,50 +61,45 @@
 
 - (int64_t)bestMatchingCategory
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   categoryJudgements = self->categoryJudgements;
-  v3 = [(NSMutableArray *)categoryJudgements countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v3)
+  v3 = [(NSMutableArray *)categoryJudgements countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (!v3)
   {
-    v4 = v3;
-    v5 = *v15;
-    category = -1;
-    v7 = -1.0;
-    do
-    {
-      for (i = 0; i != v4; ++i)
-      {
-        if (*v15 != v5)
-        {
-          objc_enumerationMutation(categoryJudgements);
-        }
+    return -1;
+  }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        [v9 score];
-        if (v10 > v7)
-        {
-          v11 = v10;
-          category = [v9 category];
-          v7 = v11;
-        }
+  v4 = v3;
+  v5 = *v14;
+  category = -1;
+  v7 = -1.0;
+  do
+  {
+    for (i = 0; i != v4; ++i)
+    {
+      if (*v14 != v5)
+      {
+        objc_enumerationMutation(categoryJudgements);
       }
 
-      v4 = [(NSMutableArray *)categoryJudgements countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = *(*(&v13 + 1) + 8 * i);
+      [v9 score];
+      if (v10 > v7)
+      {
+        v11 = v10;
+        category = [v9 category];
+        v7 = v11;
+      }
     }
 
-    while (v4);
+    v4 = [(NSMutableArray *)categoryJudgements countByEnumeratingWithState:&v13 objects:v17 count:16];
   }
 
-  else
-  {
-    category = -1;
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
+  while (v4);
   return category;
 }
 

@@ -10,7 +10,7 @@
   v6 = MEMORY[0x1E695D560];
   contextCopy = context;
   v8 = [v6 alloc];
-  v9 = +[PLManagedAsset entity];
+  v9 = objc_msgSend_entity(PLManagedAsset);
   v10 = [v8 initWithEntity:v9];
 
   v11 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K > 0.0", @"curationScore"];
@@ -92,37 +92,45 @@ LABEL_5:
         v41 = 0u;
         memset(buf, 0, sizeof(buf));
         v25 = PLMigrationGetLog();
-        os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
-        v26 = objc_opt_class();
-        v27 = NSStringFromClass(v26);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        {
+          v26 = 3;
+        }
+
+        else
+        {
+          v26 = 2;
+        }
+
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
         v35 = 138543618;
-        v36 = v27;
+        v36 = v28;
         v37 = 2112;
         v38 = v14;
-        LODWORD(v33) = 22;
-        v28 = _os_log_send_and_compose_impl();
+        v29 = _os_log_send_and_compose_impl(v26, 0, buf, 512, &dword_19BF1F000, v25, 16, "Failed to perform a save operation for %{public}@. Failed to batch reset savedAssetType for assets: %@", &v35, 22);
 
-        v29 = [(PLModelMigrationActionCore *)self logger:&v35];
-        [v29 logWithMessage:v28 fromCodeLocation:"PLModelMigrationActions_15000.m" type:{678, 16}];
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v29 fromCodeLocation:"PLModelMigrationActions_15000.m" type:{678, 16}];
 
-        if (v28 != buf)
+        if (v29 != buf)
         {
-          free(v28);
+          free(v29);
         }
       }
 
       else
       {
-        v30 = PLMigrationGetLog();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v31 = PLMigrationGetLog();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          v31 = objc_opt_class();
-          v32 = NSStringFromClass(v31);
+          v32 = objc_opt_class();
+          v33 = NSStringFromClass(v32);
           *buf = 138543618;
-          *&buf[4] = v32;
+          *&buf[4] = v33;
           *&buf[12] = 2112;
           *&buf[14] = v14;
-          _os_log_impl(&dword_19BF1F000, v30, OS_LOG_TYPE_ERROR, "Failed to perform a save operation for %{public}@. Failed to batch reset savedAssetType for assets: %@", buf, 0x16u);
+          _os_log_impl(&dword_19BF1F000, v31, OS_LOG_TYPE_ERROR, "Failed to perform a save operation for %{public}@. Failed to batch reset savedAssetType for assets: %@", buf, 0x16u);
         }
       }
     }

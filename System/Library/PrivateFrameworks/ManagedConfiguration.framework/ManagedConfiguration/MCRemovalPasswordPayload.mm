@@ -7,28 +7,28 @@
 
 - (MCRemovalPasswordPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v37.receiver = self;
-  v37.super_class = MCRemovalPasswordPayload;
-  v10 = [(MCPayload *)&v37 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v36.receiver = self;
+  v36.super_class = MCRemovalPasswordPayload;
+  v10 = [(MCPayload *)&v36 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (v10)
   {
     if ([profileCopy isStub])
     {
-      v35 = 0;
-      v11 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"RemovalPassword" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v35];
-      v12 = v35;
+      v34 = 0;
+      v11 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"RemovalPassword" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v34];
+      v12 = v34;
       removalPasscode = v10->_removalPasscode;
       v10->_removalPasscode = v11;
     }
 
     else
     {
-      v36 = 0;
-      v14 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"RemovalPassword" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v36];
-      v12 = v36;
+      v35 = 0;
+      v14 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"RemovalPassword" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v35];
+      v12 = v35;
       v15 = v10->_removalPasscode;
       v10->_removalPasscode = v14;
 
@@ -68,9 +68,9 @@ LABEL_11:
         v30 = v29;
         mCVerboseDescription = [v12 MCVerboseDescription];
         *buf = 138543618;
-        v39 = v29;
-        v40 = 2114;
-        v41 = mCVerboseDescription;
+        v38 = v29;
+        v39 = 2114;
+        v40 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v28, OS_LOG_TYPE_ERROR, "Cannot parse payload %{public}@. Error: %{public}@", buf, 0x16u);
       }
 
@@ -93,7 +93,6 @@ LABEL_11:
 LABEL_16:
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

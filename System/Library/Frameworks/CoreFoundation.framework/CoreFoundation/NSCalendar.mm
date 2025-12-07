@@ -80,24 +80,20 @@
 
 + (NSCalendar)allocWithZone:(_NSZone *)zone
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (NSCalendar == self)
   {
-    v6 = objc_lookUpClass("_NSSwiftCalendar");
-    v7 = *MEMORY[0x1E69E9840];
+    v5 = objc_lookUpClass("_NSSwiftCalendar");
 
-    return [(objc_class *)v6 allocWithZone:zone];
+    return [(objc_class *)v5 allocWithZone:zone];
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = &OBJC_METACLASS___NSCalendar;
-    result = objc_msgSendSuper2(&v8, sel_allocWithZone_, zone);
-    v5 = *MEMORY[0x1E69E9840];
+    v6.receiver = self;
+    v6.super_class = &OBJC_METACLASS___NSCalendar;
+    return objc_msgSendSuper2(&v6, sel_allocWithZone_, zone);
   }
-
-  return result;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -365,13 +361,11 @@ LABEL_17:
 
 - (NSDate)startOfDayForDate:(NSDate *)date
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = 0;
-  v6[0] = 0;
-  [(NSCalendar *)self rangeOfUnit:16 startDate:v6 interval:&v5 forDate:date];
-  result = v6[0];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = 0;
+  v5[0] = 0;
+  [(NSCalendar *)self rangeOfUnit:16 startDate:v5 interval:&v4 forDate:date];
+  return v5[0];
 }
 
 - (NSDateComponents)componentsInTimeZone:(NSTimeZone *)timezone fromDate:(NSDate *)date
@@ -385,7 +379,7 @@ LABEL_17:
 
 - (NSComparisonResult)compareDate:(NSDate *)date1 toDate:(NSDate *)date2 toUnitGranularity:(NSCalendarUnit)unit
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   [(NSDate *)date1 timeIntervalSinceReferenceDate];
   v10 = v9;
   [(NSDate *)date2 timeIntervalSinceReferenceDate];
@@ -408,22 +402,22 @@ LABEL_17:
       if (unit == 64)
       {
         *&__y[0] = 0;
-        *&v40 = 0;
+        *&v39 = 0;
         [(NSDate *)date1 timeIntervalSinceReferenceDate];
         [(NSDate *)date2 timeIntervalSinceReferenceDate:modf(v18];
-        modf(v19, &v40);
+        modf(v19, &v39);
         v14 = floor(*__y / 60.0);
-        v15 = floor(*&v40 / 60.0);
+        v15 = floor(*&v39 / 60.0);
         goto LABEL_17;
       }
 
 LABEL_26:
       __y[0] = xmmword_1834469D0;
       __y[1] = xmmword_1834469E0;
-      v44 = 16;
-      v40 = xmmword_1834469D0;
-      v41 = xmmword_1834469F0;
-      v42 = 512;
+      v43 = 16;
+      v39 = xmmword_1834469D0;
+      v40 = xmmword_1834469F0;
+      v41 = 512;
       if (unit <= 4095)
       {
         if (unit != 512)
@@ -431,83 +425,79 @@ LABEL_26:
           if (unit != 1024)
           {
 LABEL_42:
-            v22 = &qword_183446A00;
-            v23 = 4;
+            v21 = &qword_183446A00;
+            v22 = 4;
 LABEL_43:
-            v27 = 0;
+            v26 = 0;
+            v27 = v21;
             v28 = v22;
-            v29 = v23;
             do
             {
-              v30 = *v28++;
-              v27 |= v30;
-              --v29;
+              v29 = *v27++;
+              v26 |= v29;
+              --v28;
             }
 
-            while (v29);
-            v31 = [(NSCalendar *)self components:v27 fromDate:date1, v40, v41, v42];
-            v32 = [(NSCalendar *)self components:v27 fromDate:date2];
-            v33 = v23 - 1;
+            while (v28);
+            v30 = [(NSCalendar *)self components:v26 fromDate:date1, v39, v40, v41];
+            v31 = [(NSCalendar *)self components:v26 fromDate:date2];
+            v32 = v22 - 1;
             while (1)
             {
-              v34 = v33;
-              v35 = [(NSDateComponents *)v31 valueForComponent:*v22];
-              v36 = [(NSDateComponents *)v32 valueForComponent:*v22];
-              if (v35 > v36)
+              v33 = v32;
+              v34 = [(NSDateComponents *)v30 valueForComponent:*v21];
+              v35 = [(NSDateComponents *)v31 valueForComponent:*v21];
+              if (v34 > v35)
               {
-LABEL_56:
-                result = NSOrderedDescending;
-                goto LABEL_23;
+                return 1;
               }
 
-              if (v35 < v36)
+              if (v34 < v35)
               {
-                goto LABEL_57;
+                return -1;
               }
 
-              if (*v22 == 8 && [(NSString *)[(NSCalendar *)self calendarIdentifier] isEqualToString:@"chinese"])
+              if (*v21 == 8 && [(NSString *)[(NSCalendar *)self calendarIdentifier] isEqualToString:@"chinese"])
               {
-                isLeapMonth = [(NSDateComponents *)v31 isLeapMonth];
-                isLeapMonth2 = [(NSDateComponents *)v32 isLeapMonth];
+                isLeapMonth = [(NSDateComponents *)v30 isLeapMonth];
+                isLeapMonth2 = [(NSDateComponents *)v31 isLeapMonth];
                 if (!isLeapMonth && isLeapMonth2)
                 {
-LABEL_57:
-                  result = NSOrderedAscending;
-                  goto LABEL_23;
+                  return -1;
                 }
 
                 if (!isLeapMonth2 && isLeapMonth)
                 {
-                  goto LABEL_56;
+                  return 1;
                 }
               }
 
               result = NSOrderedSame;
-              v39 = *v22++;
-              if (v39 != unit)
+              v38 = *v21++;
+              if (v38 != unit)
               {
-                v33 = v34 - 1;
-                if (v34)
+                v32 = v33 - 1;
+                if (v33)
                 {
                   continue;
                 }
               }
 
-              goto LABEL_23;
+              return result;
             }
           }
 
-          v22 = __y;
+          v21 = __y;
 LABEL_41:
-          v23 = 5;
+          v22 = 5;
           goto LABEL_43;
         }
       }
 
       else if (unit != 4096)
       {
-        v22 = &qword_183446A20;
-        v23 = 4;
+        v21 = &qword_183446A20;
+        v22 = 4;
         if (unit == 0x2000 || unit == 0x4000)
         {
           goto LABEL_43;
@@ -516,32 +506,32 @@ LABEL_41:
         goto LABEL_42;
       }
 
-      v22 = &v40;
+      v21 = &v39;
       goto LABEL_41;
     }
 
     *&__y[0] = 0;
-    *&v40 = 0;
-    [(NSCalendar *)self rangeOfUnit:unit startDate:__y interval:&v40 forDate:date1];
+    *&v39 = 0;
+    [(NSCalendar *)self rangeOfUnit:unit startDate:__y interval:&v39 forDate:date1];
     [*&__y[0] timeIntervalSinceReferenceDate];
-    v25 = v24;
+    v24 = v23;
     [(NSDate *)date2 timeIntervalSinceReferenceDate];
-    if (v25 > v26 || v26 >= v25 + *&v40)
+    if (v24 > v25 || v25 >= v24 + *&v39)
     {
-      if (v26 < v25)
+      if (v25 < v24)
       {
-        result = NSOrderedDescending;
+        return 1;
       }
 
       else
       {
-        result = NSOrderedAscending;
+        return -1;
       }
     }
 
     else
     {
-      result = NSOrderedSame;
+      return 0;
     }
   }
 
@@ -554,9 +544,9 @@ LABEL_41:
         *&__y[0] = 0;
         [(NSDate *)date1 timeIntervalSinceReferenceDate];
         [(NSDate *)date2 timeIntervalSinceReferenceDate:modf(v12];
-        modf(v13, &v40);
+        modf(v13, &v39);
         v14 = *__y;
-        v15 = *&v40;
+        v15 = *&v39;
 LABEL_17:
         v17 = NSOrderedAscending;
         if (v15 < v14)
@@ -568,15 +558,13 @@ LABEL_17:
 LABEL_20:
         if (v16)
         {
-          result = NSOrderedSame;
+          return 0;
         }
 
         else
         {
-          result = v17;
+          return v17;
         }
-
-        goto LABEL_23;
       }
 
       goto LABEL_26;
@@ -589,8 +577,6 @@ LABEL_20:
     }
   }
 
-LABEL_23:
-  v21 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -698,15 +684,15 @@ LABEL_23:
 
 - (BOOL)isDateInYesterday:(NSDate *)date
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if (date || !_CFExecutableLinkedOnOrAfter(9uLL))
   {
-    v15 = 0;
-    v16[0] = 0;
-    v5 = [(NSCalendar *)self rangeOfUnit:16 startDate:v16 interval:&v15 forDate:+[NSDate date]];
+    v14 = 0;
+    v15[0] = 0;
+    v5 = [(NSCalendar *)self rangeOfUnit:16 startDate:v15 interval:&v14 forDate:+[NSDate date]];
     if (v5)
     {
-      LOBYTE(v5) = -[NSCalendar compareDate:toDate:toUnitGranularity:](self, "compareDate:toDate:toUnitGranularity:", date, [v16[0] dateByAddingTimeInterval:-60.0], 16) == NSOrderedSame;
+      LOBYTE(v5) = -[NSCalendar compareDate:toDate:toUnitGranularity:](self, "compareDate:toDate:toUnitGranularity:", date, [v15[0] dateByAddingTimeInterval:-60.0], 16) == NSOrderedSame;
     }
   }
 
@@ -724,21 +710,20 @@ LABEL_23:
     isDateInYesterday____count__ = v6 + 1;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)isDateInTomorrow:(NSDate *)date
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if (date || !_CFExecutableLinkedOnOrAfter(9uLL))
   {
-    v15 = 0.0;
-    v16[0] = 0;
-    v5 = [(NSCalendar *)self rangeOfUnit:16 startDate:v16 interval:&v15 forDate:+[NSDate date]];
+    v14 = 0.0;
+    v15[0] = 0;
+    v5 = [(NSCalendar *)self rangeOfUnit:16 startDate:v15 interval:&v14 forDate:+[NSDate date]];
     if (v5)
     {
-      LOBYTE(v5) = -[NSCalendar compareDate:toDate:toUnitGranularity:](self, "compareDate:toDate:toUnitGranularity:", date, [v16[0] dateByAddingTimeInterval:v15 + 60.0], 16) == NSOrderedSame;
+      LOBYTE(v5) = -[NSCalendar compareDate:toDate:toUnitGranularity:](self, "compareDate:toDate:toUnitGranularity:", date, [v15[0] dateByAddingTimeInterval:v14 + 60.0], 16) == NSOrderedSame;
     }
   }
 
@@ -756,20 +741,19 @@ LABEL_23:
     isDateInTomorrow____count__ = v6 + 1;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)rangeOfWeekendStartDate:(NSDate *)datep interval:(NSTimeInterval *)tip containingDate:(NSDate *)date
 {
-  v20[1] = *MEMORY[0x1E69E9840];
-  v19 = 0;
-  v20[0] = 0;
-  v17 = 0.0;
+  v19[1] = *MEMORY[0x1E69E9840];
   v18 = 0;
-  if ([(NSCalendar *)self nextWeekendStartDate:v20 interval:&v18 options:0 afterDate:date])
+  v19[0] = 0;
+  v16 = 0.0;
+  v17 = 0;
+  if ([(NSCalendar *)self nextWeekendStartDate:v19 interval:&v17 options:0 afterDate:date])
   {
-    v9 = ![(NSCalendar *)self nextWeekendStartDate:&v19 interval:&v17 options:4 afterDate:v20[0]];
+    v9 = ![(NSCalendar *)self nextWeekendStartDate:&v18 interval:&v16 options:4 afterDate:v19[0]];
   }
 
   else
@@ -779,29 +763,29 @@ LABEL_23:
 
   [(NSDate *)date timeIntervalSinceReferenceDate];
   v11 = v10;
-  [(NSDate *)v19 timeIntervalSinceReferenceDate];
-  if ((v9 & 1) == 0 && ((v13 = v17, v12 <= v11) ? (v14 = v11 < v12 + v17) : (v14 = 0), v14))
+  [(NSDate *)v18 timeIntervalSinceReferenceDate];
+  if (v9)
   {
-    if (datep)
-    {
-      *datep = v19;
-    }
-
-    if (tip)
-    {
-      *tip = v13;
-    }
-
-    result = 1;
+    return 0;
   }
 
-  else
+  v13 = v16;
+  if (v12 > v11 || v11 >= v12 + v16)
   {
-    result = 0;
+    return 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  if (datep)
+  {
+    *datep = v18;
+  }
+
+  if (tip)
+  {
+    *tip = v13;
+  }
+
+  return 1;
 }
 
 - (NSDateComponents)components:(NSCalendarUnit)unitFlags fromDateComponents:(NSDateComponents *)startingDateComp toDateComponents:(NSDateComponents *)resultDateComp options:(NSCalendarOptions)options
@@ -834,22 +818,21 @@ LABEL_23:
 
 - (NSDate)nextDateAfterDate:(NSDate *)date matchingComponents:(NSDateComponents *)comps options:(NSCalendarOptions)options
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3052000000;
-  v12 = __Block_byref_object_copy__1;
-  v13 = __Block_byref_object_dispose__1;
-  v14 = 0;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __59__NSCalendar_nextDateAfterDate_matchingComponents_options___block_invoke;
-  v8[3] = &unk_1E6DD0080;
-  v8[4] = &v9;
-  [(NSCalendar *)self enumerateDatesStartingAfterDate:date matchingComponents:comps options:options usingBlock:v8];
-  v5 = v10[5];
-  _Block_object_dispose(&v9, 8);
-  v6 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3052000000;
+  v11 = __Block_byref_object_copy__1;
+  v12 = __Block_byref_object_dispose__1;
+  v13 = 0;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __59__NSCalendar_nextDateAfterDate_matchingComponents_options___block_invoke;
+  v7[3] = &unk_1E6DD0080;
+  v7[4] = &v8;
+  [(NSCalendar *)self enumerateDatesStartingAfterDate:date matchingComponents:comps options:options usingBlock:v7];
+  v5 = v9[5];
+  _Block_object_dispose(&v8, 8);
   return v5;
 }
 
@@ -915,7 +898,7 @@ uint64_t __59__NSCalendar_nextDateAfterDate_matchingComponents_options___block_i
 - (NSDate)dateBySettingUnit:(NSCalendarUnit)unit value:(NSInteger)v ofDate:(NSDate *)date options:(NSCalendarOptions)opts
 {
   v7 = date;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if ([(NSCalendar *)self component:unit fromDate:date]!= v)
   {
     if (opts)
@@ -930,24 +913,23 @@ uint64_t __59__NSCalendar_nextDateAfterDate_matchingComponents_options___block_i
 
     v12 = objc_alloc_init(NSDateComponents);
     [(NSDateComponents *)v12 setValue:v forComponent:unit];
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x3052000000;
-    v19 = __Block_byref_object_copy__1;
-    v20 = __Block_byref_object_dispose__1;
-    v21 = 0;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __53__NSCalendar_dateBySettingUnit_value_ofDate_options___block_invoke;
-    v15[3] = &unk_1E6DD0080;
-    v15[4] = &v16;
-    [(NSCalendar *)self enumerateDatesStartingAfterDate:v7 matchingComponents:v12 options:v11 usingBlock:v15];
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x3052000000;
+    v18 = __Block_byref_object_copy__1;
+    v19 = __Block_byref_object_dispose__1;
+    v20 = 0;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __53__NSCalendar_dateBySettingUnit_value_ofDate_options___block_invoke;
+    v14[3] = &unk_1E6DD0080;
+    v14[4] = &v15;
+    [(NSCalendar *)self enumerateDatesStartingAfterDate:v7 matchingComponents:v12 options:v11 usingBlock:v14];
 
-    v7 = v17[5];
-    _Block_object_dispose(&v16, 8);
+    v7 = v16[5];
+    _Block_object_dispose(&v15, 8);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -961,13 +943,13 @@ uint64_t __53__NSCalendar_dateBySettingUnit_value_ofDate_options___block_invoke(
 - (NSDate)dateBySettingHour:(NSInteger)h minute:(NSInteger)m second:(NSInteger)s ofDate:(NSDate *)date options:(NSCalendarOptions)opts
 {
   v7 = opts;
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   if (date || !_CFExecutableLinkedOnOrAfter(9uLL))
   {
-    v26 = 0;
-    v27[0] = 0;
-    [(NSCalendar *)self rangeOfUnit:16 startDate:v27 interval:&v26 forDate:date];
-    if (v27[0])
+    v25 = 0;
+    v26[0] = 0;
+    [(NSCalendar *)self rangeOfUnit:16 startDate:v26 interval:&v25 forDate:date];
+    if (v26[0])
     {
       v13 = objc_alloc_init(NSDateComponents);
       [(NSDateComponents *)v13 setHour:h];
@@ -993,16 +975,16 @@ uint64_t __53__NSCalendar_dateBySettingUnit_value_ofDate_options___block_invoke(
         v15 = 4096;
       }
 
-      v16 = -[NSCalendar nextDateAfterDate:matchingComponents:options:](self, "nextDateAfterDate:matchingComponents:options:", [v27[0] dateByAddingTimeInterval:-0.5], v13, v14 | v15);
-      if ([(NSDate *)v16 compare:v27[0]]== NSOrderedAscending)
+      v16 = -[NSCalendar nextDateAfterDate:matchingComponents:options:](self, "nextDateAfterDate:matchingComponents:options:", [v26[0] dateByAddingTimeInterval:-0.5], v13, v14 | v15);
+      if ([(NSDate *)v16 compare:v26[0]]== NSOrderedAscending)
       {
-        v16 = [(NSCalendar *)self nextDateAfterDate:v27[0] matchingComponents:v13 options:v14 | v15];
+        v16 = [(NSCalendar *)self nextDateAfterDate:v26[0] matchingComponents:v13 options:v14 | v15];
       }
     }
 
     else
     {
-      v16 = 0;
+      return 0;
     }
   }
 
@@ -1020,7 +1002,6 @@ uint64_t __53__NSCalendar_dateBySettingUnit_value_ofDate_options___block_invoke(
     dateBySettingHour_minute_second_ofDate_options____count__ = v17 + 1;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

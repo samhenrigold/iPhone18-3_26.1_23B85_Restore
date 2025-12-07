@@ -13,69 +13,69 @@
 
   if (v5)
   {
-    v6 = [NSInputStream inputStreamWithFileAtPath:fileCopy];
-    if (v6)
+    v7 = [NSInputStream inputStreamWithFileAtPath:fileCopy];
+    if (v7)
     {
-      v7 = v6;
-      v8 = +[NSRunLoop currentRunLoop];
-      [v7 scheduleInRunLoop:v8 forMode:NSDefaultRunLoopMode];
+      v8 = v7;
+      v9 = +[NSRunLoop currentRunLoop];
+      [v8 scheduleInRunLoop:v9 forMode:NSDefaultRunLoopMode];
 
-      [v7 open];
-      v16 = 0;
-      v9 = [NSPropertyListSerialization propertyListWithStream:v7 options:2 format:0 error:&v16];
-      v10 = v16;
-      [v7 close];
-      v11 = +[NSRunLoop currentRunLoop];
-      [v7 removeFromRunLoop:v11 forMode:NSDefaultRunLoopMode];
+      [v8 open];
+      v17 = 0;
+      v10 = [NSPropertyListSerialization propertyListWithStream:v8 options:2 format:0 error:&v17];
+      v11 = v17;
+      [v8 close];
+      v12 = +[NSRunLoop currentRunLoop];
+      [v8 removeFromRunLoop:v12 forMode:NSDefaultRunLoopMode];
 
-      if (!v9)
+      if (!v10)
       {
-        sub_1000DD9BC(v10);
+        sub_1000DD9BC(v11);
         goto LABEL_12;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v12 = [v9 objectForKey:@"Version"];
-        if (v12)
+        v13 = [v10 objectForKey:@"Version"];
+        if (v13)
         {
-          v13 = v12;
+          v14 = v13;
           if (+[MSDPlatform iOSHub])
           {
-            v14 = 6;
+            v15 = 6;
           }
 
           else
           {
-            v14 = 7;
+            v15 = 7;
           }
 
-          if ([v13 intValue] >= v14 && objc_msgSend(v13, "intValue") < 8)
+          if ([v14 intValue] >= v15 && objc_msgSend(v14, "intValue") < 8)
           {
 
             goto LABEL_12;
           }
 
-          sub_1000DD828(v13, v9);
+          sub_1000DD828(v14, v10);
         }
 
         else
         {
-          sub_1000DD900(fileCopy, v9);
+          sub_1000DD900(fileCopy, v10);
         }
       }
 
       else
       {
-        sub_1000DD76C(fileCopy, v9);
+        sub_1000DD76C(fileCopy, v10);
       }
     }
 
     else
     {
-      v10 = sub_100063A54();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sub_100063A54(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_1000DDA7C();
       }
@@ -84,17 +84,17 @@
 
   else
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100063A54(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1000DD6F0();
     }
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_12:
 
-  return v9;
+  return v10;
 }
 
 + (id)createSignedManifestFromManifestFile:(id)file

@@ -34,7 +34,7 @@
 
 - (void)handleIncomingStatusData:(id)data onChannelIdentifier:(id)identifier dateReceived:(id)received dateExpired:(id)expired serverTime:(id)time
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   identifierCopy = identifier;
   expiredCopy = expired;
@@ -45,7 +45,7 @@
   if (v16)
   {
     v18 = dataCopy;
-    v51 = v16;
+    v50 = v16;
     statusType = [v16 statusType];
     v20 = [SKAServerBag statusEnabledByServerForStatusTypeIdentifier:statusType];
 
@@ -56,21 +56,21 @@
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v57 = identifierCopy;
+        v56 = identifierCopy;
         _os_log_impl(&dword_220099000, v22, OS_LOG_TYPE_DEFAULT, "Found channel matching channel identifier: %@.", buf, 0xCu);
       }
 
       dataCopy = v18;
       v23 = [(SKAStatusEncryptionManaging *)self->_encryptionManager extractEnvelopeFromStatusEnvelopeData:v18];
       v22 = v23;
-      v17 = v51;
+      v17 = v50;
       if (v23)
       {
-        v48 = timeCopy;
+        v47 = timeCopy;
         statusUniqueIdentifier = [v23 statusUniqueIdentifier];
         datePublished = [v22 datePublished];
         dateCreated = [v22 dateCreated];
-        statusType2 = [v51 statusType];
+        statusType2 = [v50 statusType];
         v26 = [statusType2 isEqualToString:@"com.apple.offgrid.status"];
 
         if (v26)
@@ -79,7 +79,7 @@
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v57 = @"com.apple.offgrid.status";
+            v56 = @"com.apple.offgrid.status";
             _os_log_impl(&dword_220099000, v27, OS_LOG_TYPE_DEFAULT, "Status type is %@, overriding creation date to make it most recent", buf, 0xCu);
           }
 
@@ -97,9 +97,9 @@
           v30 = dateCreated;
         }
 
-        v47 = v30;
-        timeCopy = v48;
-        [v30 timeIntervalSinceDate:v48];
+        v46 = v30;
+        timeCopy = v47;
+        [v30 timeIntervalSinceDate:v47];
         v33 = v32;
         dataCopy = v18;
         if ([statusUniqueIdentifier length])
@@ -117,9 +117,9 @@
                 if (v36)
                 {
                   *buf = 138412546;
-                  v57 = statusUniqueIdentifier;
-                  v58 = 2112;
-                  v59 = v34;
+                  v56 = statusUniqueIdentifier;
+                  v57 = 2112;
+                  v58 = v34;
                   _os_log_impl(&dword_220099000, v35, OS_LOG_TYPE_DEFAULT, "We've already received a status with this unique identifier (%@), ignoring. Existing status: %@", buf, 0x16u);
                 }
               }
@@ -129,18 +129,18 @@
                 if (v36)
                 {
                   *buf = 138412546;
-                  v57 = statusUniqueIdentifier;
-                  v58 = 2112;
-                  v59 = identifierCopy;
+                  v56 = statusUniqueIdentifier;
+                  v57 = 2112;
+                  v58 = identifierCopy;
                   _os_log_impl(&dword_220099000, v35, OS_LOG_TYPE_DEFAULT, "Received new status %@ for channel %@", buf, 0x16u);
                 }
 
-                v35 = [(SKADatabaseManaging *)self->_databaseManager createStatusWithUniqueIdentifier:statusUniqueIdentifier dateCreated:v47 datePublished:datePublished dateReceived:v48 dateExpired:expiredCopy rawData:dataCopy channelIdentifier:identifierCopy databaseContext:newBackgroundContext];
+                v35 = [(SKADatabaseManaging *)self->_databaseManager createStatusWithUniqueIdentifier:statusUniqueIdentifier dateCreated:v46 datePublished:datePublished dateReceived:v47 dateExpired:expiredCopy rawData:dataCopy channelIdentifier:identifierCopy databaseContext:newBackgroundContext];
                 v37 = +[SKAStatusReceivingManager logger];
                 if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v57 = statusUniqueIdentifier;
+                  v56 = statusUniqueIdentifier;
                   _os_log_impl(&dword_220099000, v37, OS_LOG_TYPE_DEFAULT, "Saved incoming status update to database with unique identifier: %@", buf, 0xCu);
                 }
 
@@ -159,7 +159,7 @@
                 {
                   v44 = expiredCopy;
                   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-                  [WeakRetained statusReceivingManager:self didReceiveStatusUpdate:v35 onChannel:v51];
+                  [WeakRetained statusReceivingManager:self didReceiveStatusUpdate:v35 onChannel:v50];
                 }
 
                 objc_initWeak(buf, self);
@@ -168,16 +168,16 @@
                 block[1] = 3221225472;
                 block[2] = __110__SKAStatusReceivingManager_handleIncomingStatusData_onChannelIdentifier_dateReceived_dateExpired_serverTime___block_invoke;
                 block[3] = &unk_27843F768;
-                objc_copyWeak(&v55, buf);
-                v53 = identifierCopy;
-                v54 = statusUniqueIdentifier;
+                objc_copyWeak(&v54, buf);
+                v52 = identifierCopy;
+                v53 = statusUniqueIdentifier;
                 dispatch_async(backgroundCleanupQueue, block);
 
-                objc_destroyWeak(&v55);
+                objc_destroyWeak(&v54);
                 objc_destroyWeak(buf);
                 expiredCopy = v44;
                 v31 = statusUniqueIdentifier;
-                timeCopy = v48;
+                timeCopy = v47;
               }
             }
 
@@ -213,7 +213,7 @@
           v31 = statusUniqueIdentifier;
         }
 
-        v17 = v51;
+        v17 = v50;
       }
 
       else
@@ -228,15 +228,15 @@
 
     else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v17 = v51;
-      [SKAStatusReceivingManager handleIncomingStatusData:v51 onChannelIdentifier:v22 dateReceived:? dateExpired:? serverTime:?];
+      v17 = v50;
+      [SKAStatusReceivingManager handleIncomingStatusData:v50 onChannelIdentifier:v22 dateReceived:? dateExpired:? serverTime:?];
       dataCopy = v18;
     }
 
     else
     {
       dataCopy = v18;
-      v17 = v51;
+      v17 = v50;
     }
   }
 
@@ -248,8 +248,6 @@
       [SKAStatusReceivingManager handleIncomingStatusData:onChannelIdentifier:dateReceived:dateExpired:serverTime:];
     }
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __110__SKAStatusReceivingManager_handleIncomingStatusData_onChannelIdentifier_dateReceived_dateExpired_serverTime___block_invoke(uint64_t a1)
@@ -290,13 +288,11 @@ uint64_t __35__SKAStatusReceivingManager_logger__block_invoke()
 
 - (void)handleIncomingStatusData:(void *)a1 onChannelIdentifier:(NSObject *)a2 dateReceived:dateExpired:serverTime:.cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 statusType];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "Status type %@ disabled by server. Dropping incoming status update", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "Status type %@ disabled by server. Dropping incoming status update", &v4, 0xCu);
 }
 
 @end

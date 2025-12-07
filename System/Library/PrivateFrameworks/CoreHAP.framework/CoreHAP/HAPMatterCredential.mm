@@ -143,37 +143,37 @@ LABEL_21:
 
 - (id)serializeWithError:(id *)error
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
+  v54 = *MEMORY[0x277D85DE8];
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
+  v37 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v33 = 0u;
   TLV8BufferInit();
   issuerKey = [(HAPMatterCredential *)self issuerKey];
 
   if (issuerKey)
   {
     issuerKey2 = [(HAPMatterCredential *)self issuerKey];
-    v33 = 0;
-    v7 = [issuerKey2 serializeWithError:&v33];
-    v8 = v33;
+    v32 = 0;
+    v7 = [issuerKey2 serializeWithError:&v32];
+    v8 = v32;
 
     if (!v8)
     {
@@ -206,9 +206,9 @@ LABEL_10:
   if (readerKey)
   {
     readerKey2 = [(HAPMatterCredential *)self readerKey];
-    v32 = 0;
-    v7 = [readerKey2 serializeWithError:&v32];
-    v8 = v32;
+    v31 = 0;
+    v7 = [readerKey2 serializeWithError:&v31];
+    v8 = v31;
 
     if (!v8)
     {
@@ -268,9 +268,9 @@ LABEL_19:
   if (deviceCredentialKey)
   {
     deviceCredentialKey2 = [(HAPMatterCredential *)self deviceCredentialKey];
-    v31 = 0;
-    v7 = [deviceCredentialKey2 serializeWithError:&v31];
-    v8 = v31;
+    v30 = 0;
+    v7 = [deviceCredentialKey2 serializeWithError:&v30];
+    v8 = v30;
 
     if (v8)
     {
@@ -323,12 +323,10 @@ LABEL_19:
     }
   }
 
-  v21 = [MEMORY[0x277CBEA90] dataWithBytes:v34 length:?];
+  v21 = [MEMORY[0x277CBEA90] dataWithBytes:v33 length:?];
   v8 = 0;
 LABEL_42:
   TLV8BufferFree();
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

@@ -65,26 +65,25 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   ptr = self->_service.__ptr_;
-  v7 = 0;
-  AUHostingServiceClient::setInvalidationHandler(*(ptr + 7), v6);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
-  v5.receiver = self;
-  v5.super_class = AUAudioUnit_RemoteV2;
-  [(AUAudioUnit_XPC *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  AUHostingServiceClient::setInvalidationHandler(*(ptr + 7), v5);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v5);
+  v4.receiver = self;
+  v4.super_class = AUAudioUnit_RemoteV2;
+  [(AUAudioUnit_XPC *)&v4 dealloc];
 }
 
 - (AUAudioUnit_RemoteV2)initWithXPCService:()unique_ptr<AUHostingServiceClient componentDescription:(std:(AudioComponentDescription *)description :(OpaqueAudioComponentInstance *)a5 default_delete<AUHostingServiceClient>>)a3 instance:(id)instance instanceUUID:(id *)d error:
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   instanceCopy = instance;
-  v27 = *&description->componentType;
-  LODWORD(v28) = description->componentFlagsMask;
-  v34.receiver = self;
-  v34.super_class = AUAudioUnit_RemoteV2;
-  v14 = [(AUAudioUnit *)&v34 initWithComponentDescription:&v27 options:0 error:d];
+  v26 = *&description->componentType;
+  LODWORD(v27) = description->componentFlagsMask;
+  v33.receiver = self;
+  v33.super_class = AUAudioUnit_RemoteV2;
+  v14 = [(AUAudioUnit *)&v33 initWithComponentDescription:&v26 options:0 error:d];
   v15 = v14;
   if (v14)
   {
@@ -96,19 +95,19 @@
     objc_initWeak(&location, v15);
     ptr = v15->_service.__ptr_;
     objc_copyWeak(&to, &location);
-    v37 = 0;
-    v35 = &unk_1F033E9F0;
-    objc_moveWeak(&v36, &to);
-    v37 = &v35;
+    v36 = 0;
+    v34 = &unk_1F033E9F0;
+    objc_moveWeak(&v35, &to);
+    v36 = &v34;
     objc_destroyWeak(&to);
-    AUHostingServiceClient::setInvalidationHandler(*(ptr + 7), &v35);
-    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v35);
-    *&v27 = 0;
-    *(&v27 + 1) = &v27;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__15569;
-    v30 = __Block_byref_object_dispose__15570;
-    v31 = 0;
+    AUHostingServiceClient::setInvalidationHandler(*(ptr + 7), &v34);
+    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v34);
+    *&v26 = 0;
+    *(&v26 + 1) = &v26;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy__15569;
+    v29 = __Block_byref_object_dispose__15570;
+    v30 = 0;
     v18 = *(v15->_service.__ptr_ + 5);
     v19 = v15;
     v20 = v18;
@@ -119,25 +118,24 @@
     [v22 setAudioUnit:v19];
     [v20 setExportedObject:v22];
 
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __92__AUAudioUnit_RemoteV2_initWithXPCService_componentDescription_instance_instanceUUID_error___block_invoke;
-    v26[3] = &unk_1E72C2D38;
-    v26[4] = &v27;
-    [(AUAudioUnit_XPC *)v19 _doOpen:v20 completion:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __92__AUAudioUnit_RemoteV2_initWithXPCService_componentDescription_instance_instanceUUID_error___block_invoke;
+    v25[3] = &unk_1E72C2D38;
+    v25[4] = &v26;
+    [(AUAudioUnit_XPC *)v19 _doOpen:v20 completion:v25];
 
     if (d)
     {
-      *d = *(*(&v27 + 1) + 40);
+      *d = *(*(&v26 + 1) + 40);
     }
 
     v23 = v19;
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v26, 8);
 
     objc_destroyWeak(&location);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

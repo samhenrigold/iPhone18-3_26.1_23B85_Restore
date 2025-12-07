@@ -26,7 +26,7 @@
   {
     identifier = self->_identifier;
     identifier = [equalCopy identifier];
-    if ([(NSString *)identifier isEqualToString:identifier])
+    if (objc_msgSend_isEqualToString_(identifier))
     {
       pid = self->_pid;
       v8 = pid == [equalCopy pid];

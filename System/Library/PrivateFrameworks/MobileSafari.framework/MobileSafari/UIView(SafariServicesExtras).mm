@@ -167,21 +167,22 @@
 
 - (double)_sf_bottomUnsafeAreaFrameForToolbar
 {
-  [self _sf_bottomUnsafeAreaFrame];
-  v2 = v1;
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  if ((_SFDeviceHasHomeButton() & 1) == 0 && _SFDeviceIsPad())
+  _sf_bottomUnsafeAreaFrame = [self _sf_bottomUnsafeAreaFrame];
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  HasHomeButton = _SFDeviceHasHomeButton(_sf_bottomUnsafeAreaFrame, v10);
+  if ((HasHomeButton & 1) == 0 && _SFDeviceIsPad(HasHomeButton, v12))
   {
-    v10.origin.x = v2;
-    v10.origin.y = v4;
-    v10.size.width = v6;
-    v10.size.height = v8;
-    CGRectGetHeight(v10);
+    v14.origin.x = v3;
+    v14.origin.y = v5;
+    v14.size.width = v7;
+    v14.size.height = v9;
+    CGRectGetHeight(v14);
   }
 
-  return v2;
+  return v3;
 }
 
 - (id)sf_privacyPreservingDescription
@@ -195,7 +196,7 @@
   v6 = [v2 stringWithFormat:@"<%@: %p bounds = %@; center = %@", v3, self, v4, v5];;
 
   memset(&v10, 0, sizeof(v10));
-  [self transform];
+  objc_msgSend_transform(self);
   transform = v10;
   if (!CGAffineTransformIsIdentity(&transform))
   {
@@ -580,10 +581,10 @@ LABEL_15:
 {
   if (a3)
   {
-    return [self addInteraction:?];
+    return [result addInteraction:?];
   }
 
-  return self;
+  return result;
 }
 
 + (void)_sf_animateLinkImage:()SafariServicesExtras withAnimation:fromPoint:inView:toRect:inView:afterImageDisappearsBlock:afterDestinationLayerBouncesBlock:
@@ -726,7 +727,7 @@ LABEL_15:
     v123 = v46;
     if (v53)
     {
-      [v53 transform];
+      objc_msgSend_transform(v53);
     }
 
     else
@@ -759,7 +760,7 @@ LABEL_15:
     v87 = v86;
     if (v53)
     {
-      [v53 transform];
+      objc_msgSend_transform(v53);
     }
 
     else
@@ -827,7 +828,7 @@ LABEL_15:
     if (v113)
     {
       v101 = v113;
-      [v113 transform];
+      objc_msgSend_transform(v113);
       v30 = v35;
       v102 = v123;
       v34 = v118;
@@ -893,7 +894,7 @@ LABEL_15:
   {
     if (layer)
     {
-      [layer transform];
+      objc_msgSend_transform(layer);
     }
 
     else

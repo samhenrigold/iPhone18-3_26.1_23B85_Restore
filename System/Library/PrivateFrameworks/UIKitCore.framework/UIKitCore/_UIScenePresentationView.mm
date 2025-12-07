@@ -117,7 +117,7 @@ LABEL_19:
   memset(&v28, 0, sizeof(v28));
   if (hostTransformer)
   {
-    [hostTransformer transform];
+    objc_msgSend_transform(hostTransformer);
   }
 
   else
@@ -264,9 +264,13 @@ LABEL_19:
 
 - (void)_intelligenceCollectRemoteContentIn:(CGRect)in remoteContextWrapper:(id)wrapper
 {
+  height = in.size.height;
+  width = in.size.width;
+  y = in.origin.y;
+  x = in.origin.x;
   wrapperCopy = wrapper;
   selfCopy = self;
-  _UIScenePresentationView._intelligenceCollectRemoteContent(in:remoteContextWrapper:)(wrapperCopy);
+  _UIScenePresentationView._intelligenceCollectRemoteContent(in:remoteContextWrapper:)(wrapperCopy, x, y, width, height);
 }
 
 - (_UIScenePresentationView)initWithPresenter:(id)presenter
@@ -594,10 +598,10 @@ LABEL_19:
 
   [(UIView *)self frame];
   v12 = [v3 appendRect:@"frame" withName:?];
-  [(UIView *)self transform];
+  objc_msgSend_transform(self);
   if (!CGAffineTransformIsIdentity(&v17))
   {
-    [(UIView *)self transform];
+    objc_msgSend_transform(self);
     v13 = NSStringFromCGAffineTransform(&v17);
     v14 = [v3 appendObject:v13 withName:@"transform"];
   }

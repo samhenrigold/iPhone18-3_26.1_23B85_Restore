@@ -3,6 +3,7 @@
 - (AFSiriDataSharingSensitivityManager)init;
 - (BOOL)_isRequestSensitiveForUnknownPolicy;
 - (BOOL)_isRequestSensitiveWithPolicy:(int64_t)policy optInStatus:(int64_t)status siriLanguageCode:(id)code;
+- (BOOL)_isTrialConfigEnabledWithNamespaceId:(int)id factorName:(id)name;
 - (BOOL)isOptedOutOfMTE;
 - (BOOL)isRequestSensitiveWithPolicy:(int64_t)policy optInStatus:(int64_t)status siriLanguageCode:(id)code;
 - (void)_registerUpdateHandler;
@@ -24,31 +25,29 @@
 
 - (BOOL)isOptedOutOfMTE
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[AFSiriDataSharingSensitivityManager isOptedOutOfMTE]";
-    _os_log_debug_impl(&dword_1912FE000, v2, OS_LOG_TYPE_DEBUG, "%s #MTEOptOut device is opted out of uploading MTE.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFSiriDataSharingSensitivityManager isOptedOutOfMTE]";
+    _os_log_debug_impl(&dword_1912FE000, v2, OS_LOG_TYPE_DEBUG, "%s #MTEOptOut device is opted out of uploading MTE.", &v4, 0xCu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (BOOL)_isRequestSensitiveForUnknownPolicy
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[AFSiriDataSharingSensitivityManager _isRequestSensitiveForUnknownPolicy]";
-    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s Unknown sensitivity policy used. This should not happen! Assuming non-sensitive.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFSiriDataSharingSensitivityManager _isRequestSensitiveForUnknownPolicy]";
+    _os_log_error_impl(&dword_1912FE000, v2, OS_LOG_TYPE_ERROR, "%s Unknown sensitivity policy used. This should not happen! Assuming non-sensitive.", &v4, 0xCu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -82,47 +81,96 @@ LABEL_10:
   return v9;
 }
 
+- (BOOL)_isTrialConfigEnabledWithNamespaceId:(int)id factorName:(id)name
+{
+  v4 = *&id;
+  v24[1] = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  v7 = [getTRINamespaceClass() namespaceNameFromId:v4];
+  v8 = [(TRIClient *)self->_client levelForFactor:nameCopy withNamespaceName:v7];
+  v9 = v8;
+  if (v8)
+  {
+    bOOLeanValue = [v8 BOOLeanValue];
+    v11 = AFSiriLogContextUtility;
+    if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
+    {
+      v12 = MEMORY[0x1E696AD98];
+      v13 = v11;
+      v14 = [v12 numberWithBool:bOOLeanValue];
+      v17 = 136315650;
+      v18 = "[AFSiriDataSharingSensitivityManager _isTrialConfigEnabledWithNamespaceId:factorName:]";
+      v19 = 2112;
+      v20 = nameCopy;
+      v21 = 2112;
+      v22 = v14;
+      _os_log_impl(&dword_1912FE000, v13, OS_LOG_TYPE_INFO, "%s TRILevel %@: %@", &v17, 0x20u);
+    }
+  }
+
+  else
+  {
+    v15 = AFSiriLogContextUtility;
+    if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
+    {
+      v17 = 136315394;
+      v18 = "[AFSiriDataSharingSensitivityManager _isTrialConfigEnabledWithNamespaceId:factorName:]";
+      v19 = 2112;
+      v20 = nameCopy;
+      _os_log_error_impl(&dword_1912FE000, v15, OS_LOG_TYPE_ERROR, "%s TRILevel not found for factor: %@. Assuming feature disabled.", &v17, 0x16u);
+    }
+
+    v23 = @"Factor";
+    v24[0] = nameCopy;
+    bOOLeanValue = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    AnalyticsSendEvent();
+
+    LOBYTE(bOOLeanValue) = 0;
+  }
+
+  return bOOLeanValue;
+}
+
 - (void)_registerUpdateHandler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   objc_initWeak(&location, self);
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v16 = "[AFSiriDataSharingSensitivityManager _registerUpdateHandler]";
+    v15 = "[AFSiriDataSharingSensitivityManager _registerUpdateHandler]";
     _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s Registering update handler", buf, 0xCu);
   }
 
-  v9 = MEMORY[0x1E69E9820];
-  v10 = 3221225472;
-  v11 = __61__AFSiriDataSharingSensitivityManager__registerUpdateHandler__block_invoke;
-  v12 = &unk_1E7347978;
-  objc_copyWeak(&v13, &location);
-  v4 = MEMORY[0x193AFB7B0](&v9);
+  v8 = MEMORY[0x1E69E9820];
+  v9 = 3221225472;
+  v10 = __61__AFSiriDataSharingSensitivityManager__registerUpdateHandler__block_invoke;
+  v11 = &unk_1E7347978;
+  objc_copyWeak(&v12, &location);
+  v4 = MEMORY[0x193AFB7B0](&v8);
   client = self->_client;
-  v6 = [getTRINamespaceClass() namespaceNameFromId:{1571, v9, v10, v11, v12}];
+  v6 = [getTRINamespaceClass() namespaceNameFromId:{1571, v8, v9, v10, v11}];
   v7 = [(TRIClient *)client addUpdateHandlerForNamespaceName:v6 usingBlock:v4];
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __61__AFSiriDataSharingSensitivityManager__registerUpdateHandler__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v5 = v4;
     v6 = [v3 namespaceName];
-    v10 = 136315394;
-    v11 = "[AFSiriDataSharingSensitivityManager _registerUpdateHandler]_block_invoke";
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s New update for %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[AFSiriDataSharingSensitivityManager _registerUpdateHandler]_block_invoke";
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s New update for %@", &v9, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -131,13 +179,11 @@ void __61__AFSiriDataSharingSensitivityManager__registerUpdateHandler__block_inv
   {
     [WeakRetained[1] refresh];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isRequestSensitiveWithPolicy:(int64_t)policy optInStatus:(int64_t)status siriLanguageCode:(id)code
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   codeCopy = code;
   if (+[AFFeatureFlags isOptOutLogRedactionEnabled])
   {
@@ -177,17 +223,17 @@ void __61__AFSiriDataSharingSensitivityManager__registerUpdateHandler__block_inv
       }
 
       v16 = v15;
-      v19 = 136316162;
-      v20 = "[AFSiriDataSharingSensitivityManager isRequestSensitiveWithPolicy:optInStatus:siriLanguageCode:]";
-      v21 = 2112;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v12;
-      v25 = 2112;
-      v26 = v16;
-      v27 = 2112;
-      v28 = codeCopy;
-      _os_log_impl(&dword_1912FE000, v14, OS_LOG_TYPE_INFO, "%s Request is sensitive:%@ with policy:%@, optInStatus:%@, siriLanguage:%@", &v19, 0x34u);
+      v18 = 136316162;
+      v19 = "[AFSiriDataSharingSensitivityManager isRequestSensitiveWithPolicy:optInStatus:siriLanguageCode:]";
+      v20 = 2112;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v12;
+      v24 = 2112;
+      v25 = v16;
+      v26 = 2112;
+      v27 = codeCopy;
+      _os_log_impl(&dword_1912FE000, v14, OS_LOG_TYPE_INFO, "%s Request is sensitive:%@ with policy:%@, optInStatus:%@, siriLanguage:%@", &v18, 0x34u);
     }
   }
 
@@ -196,15 +242,14 @@ void __61__AFSiriDataSharingSensitivityManager__registerUpdateHandler__block_inv
     v13 = AFSiriLogContextUtility;
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_DEBUG))
     {
-      v19 = 136315138;
-      v20 = "[AFSiriDataSharingSensitivityManager isRequestSensitiveWithPolicy:optInStatus:siriLanguageCode:]";
-      _os_log_debug_impl(&dword_1912FE000, v13, OS_LOG_TYPE_DEBUG, "%s FeatureFlag opt_out_log_redaction disabled. Skipping.", &v19, 0xCu);
+      v18 = 136315138;
+      v19 = "[AFSiriDataSharingSensitivityManager isRequestSensitiveWithPolicy:optInStatus:siriLanguageCode:]";
+      _os_log_debug_impl(&dword_1912FE000, v13, OS_LOG_TYPE_DEBUG, "%s FeatureFlag opt_out_log_redaction disabled. Skipping.", &v18, 0xCu);
     }
 
     LOBYTE(v9) = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

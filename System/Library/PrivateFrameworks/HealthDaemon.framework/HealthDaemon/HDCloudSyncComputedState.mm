@@ -78,7 +78,7 @@
   v7 = [(NSMutableArray *)targets hk_filter:v11];
   v8 = [v7 arrayByAddingObjectsFromArray:v6];
 
-  v9 = [v8 copy];
+  v9 = objc_msgSend_copy(v8);
   v10 = self->_targets;
   self->_targets = v9;
 
@@ -97,33 +97,33 @@
 
 - (id)detailedDescription
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   pushTargets = [(HDCloudSyncComputedState *)self pushTargets];
   [v3 appendFormat:@"Push Targets (%lu):\n", objc_msgSend(pushTargets, "count")];
   if ([pushTargets count])
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v30 = pushTargets;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v29 = pushTargets;
     v5 = pushTargets;
-    v6 = [v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v36;
+      v8 = *v35;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v36 != v8)
+          if (*v35 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v35 + 1) + 8 * i);
+          v10 = *(*(&v34 + 1) + 8 * i);
           v11 = [v10 description];
           v12 = [v11 hk_stringIndentedBy:4];
           [v3 appendString:v12];
@@ -137,37 +137,37 @@
           [v3 appendString:@"\n"];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v7);
     }
 
-    pushTargets = v30;
+    pushTargets = v29;
   }
 
   pullTargets = [(HDCloudSyncComputedState *)self pullTargets];
   [v3 appendFormat:@"\nPull Targets (%lu):\n", objc_msgSend(pullTargets, "count")];
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v17 = pullTargets;
-  v18 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v32;
+    v20 = *v31;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v32 != v20)
+        if (*v31 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v31 + 1) + 8 * j);
+        v22 = *(*(&v30 + 1) + 8 * j);
         v23 = [v22 description];
         v24 = [v23 hk_stringIndentedBy:4];
         [v3 appendString:v24];
@@ -181,13 +181,11 @@
         [v3 appendString:@"\n"];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v19);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

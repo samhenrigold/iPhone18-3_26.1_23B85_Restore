@@ -125,24 +125,24 @@ LABEL_8:
 + (BOOL)shouldExecuteActionOnApplicationWithBundleIdentifier:(id)identifier allowSuspended:(BOOL)suspended
 {
   suspendedCopy = suspended;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
     v6 = [MEMORY[0x1E69C7610] predicateMatchingBundleIdentifier:identifierCopy];
     descriptor = [MEMORY[0x1E69C7630] descriptor];
-    v22 = 0;
-    v8 = [MEMORY[0x1E69C7618] statesForPredicate:v6 withDescriptor:descriptor error:&v22];
-    v9 = v22;
+    v21 = 0;
+    v8 = [MEMORY[0x1E69C7618] statesForPredicate:v6 withDescriptor:descriptor error:&v21];
+    v9 = v21;
     if (v9)
     {
       firstObject = getLNLogCategoryPolicy();
       if (os_log_type_enabled(firstObject, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v24 = identifierCopy;
-        v25 = 2112;
-        v26 = v9;
+        v23 = identifierCopy;
+        v24 = 2112;
+        v25 = v9;
         v11 = "Failed to determine process state for application bundle; will use extension if available. bundle=%@; %@";
         v12 = firstObject;
         v13 = 22;
@@ -166,7 +166,7 @@ LABEL_15:
       }
 
       *buf = 138412290;
-      v24 = identifierCopy;
+      v23 = identifierCopy;
       v11 = "Failed to find process state for application bundle; will use extension if available. bundle=%@";
       goto LABEL_12;
     }
@@ -180,7 +180,7 @@ LABEL_15:
       }
 
       *buf = 138412290;
-      v24 = identifierCopy;
+      v23 = identifierCopy;
       v11 = "Found multiple process states for application bundle; will use extension if available. bundle=%@";
 LABEL_12:
       v12 = firstObject;
@@ -190,12 +190,12 @@ LABEL_12:
 
     firstObject = [v8 firstObject];
     taskState = [firstObject taskState];
-    v18 = taskState;
+    v17 = taskState;
     if (suspendedCopy && taskState == 3)
     {
-      v19 = getLNLogCategoryPolicy();
+      v18 = getLNLogCategoryPolicy();
       v14 = 1;
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
 LABEL_29:
 
@@ -203,47 +203,46 @@ LABEL_29:
       }
 
       *buf = 138412290;
-      v24 = identifierCopy;
-      v20 = "Found process state running suspended for application bundle; will use application if available. bundle=%@";
+      v23 = identifierCopy;
+      v19 = "Found process state running suspended for application bundle; will use application if available. bundle=%@";
     }
 
     else
     {
-      v19 = getLNLogCategoryPolicy();
-      v21 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
-      if (v18 != 4)
+      v18 = getLNLogCategoryPolicy();
+      v20 = os_log_type_enabled(v18, OS_LOG_TYPE_INFO);
+      if (v17 != 4)
       {
-        if (v21)
+        if (v20)
         {
           *buf = 138412290;
-          v24 = identifierCopy;
-          _os_log_impl(&dword_19763D000, v19, OS_LOG_TYPE_INFO, "Found process state other than running scheduled or suspended for application bundle; will use extension if available. bundle=%@", buf, 0xCu);
+          v23 = identifierCopy;
+          _os_log_impl(&dword_19763D000, v18, OS_LOG_TYPE_INFO, "Found process state other than running scheduled or suspended for application bundle; will use extension if available. bundle=%@", buf, 0xCu);
         }
 
         v14 = 0;
         goto LABEL_29;
       }
 
-      if (!v21)
+      if (!v20)
       {
         v14 = 1;
         goto LABEL_29;
       }
 
       *buf = 138412290;
-      v24 = identifierCopy;
-      v20 = "Found process state running scheduled for application bundle; will use application if available. bundle=%@";
+      v23 = identifierCopy;
+      v19 = "Found process state running scheduled for application bundle; will use application if available. bundle=%@";
       v14 = 1;
     }
 
-    _os_log_impl(&dword_19763D000, v19, OS_LOG_TYPE_INFO, v20, buf, 0xCu);
+    _os_log_impl(&dword_19763D000, v18, OS_LOG_TYPE_INFO, v19, buf, 0xCu);
     goto LABEL_29;
   }
 
   v14 = 0;
 LABEL_16:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -457,21 +456,21 @@ LABEL_5:
 
 + (id)policyWithEnumMetadata:(id)metadata signals:(id)signals
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   signalsCopy = signals;
   effectiveBundleIdentifiers = [metadataCopy effectiveBundleIdentifiers];
   array = [effectiveBundleIdentifiers array];
   allowedTargets = [metadataCopy allowedTargets];
-  v58 = 0;
-  v59 = 0;
-  v56 = 0;
   v57 = 0;
-  [self resolveEffectiveBundleIdentifiers:array allowedTargets:allowedTargets appBundleIdentifier:&v59 extensionBundleIdentifier:&v58 daemonBundleIdentifier:&v57 frameworkBundleIdentifier:&v56 signals:signalsCopy];
-  v11 = v59;
-  v12 = v58;
-  v13 = v57;
-  v14 = v56;
+  v58 = 0;
+  v55 = 0;
+  v56 = 0;
+  [self resolveEffectiveBundleIdentifiers:array allowedTargets:allowedTargets appBundleIdentifier:&v58 extensionBundleIdentifier:&v57 daemonBundleIdentifier:&v56 frameworkBundleIdentifier:&v55 signals:signalsCopy];
+  v11 = v58;
+  v12 = v57;
+  v13 = v56;
+  v14 = v55;
 
   if (!v14)
   {
@@ -494,9 +493,9 @@ LABEL_49:
       identifier = [metadataCopy identifier];
       bundleIdentifier2 = [v11 bundleIdentifier];
       *buf = 138543618;
-      v61 = identifier;
-      v62 = 2114;
-      v63 = bundleIdentifier2;
+      v60 = identifier;
+      v61 = 2114;
+      v62 = bundleIdentifier2;
 LABEL_10:
       _os_log_impl(&dword_19763D000, v21, OS_LOG_TYPE_INFO, v24, buf, 0x16u);
 
@@ -511,9 +510,9 @@ LABEL_10:
         identifier2 = [metadataCopy identifier];
         bundleIdentifier3 = [v12 bundleIdentifier];
         *buf = 138543618;
-        v61 = identifier2;
-        v62 = 2114;
-        v63 = bundleIdentifier3;
+        v60 = identifier2;
+        v61 = 2114;
+        v62 = bundleIdentifier3;
       }
 
       v31 = 0;
@@ -528,9 +527,9 @@ LABEL_10:
         identifier3 = [metadataCopy identifier];
         bundleIdentifier4 = [v13 bundleIdentifier];
         *buf = 138543618;
-        v61 = identifier3;
-        v62 = 2114;
-        v63 = bundleIdentifier4;
+        v60 = identifier3;
+        v61 = 2114;
+        v62 = bundleIdentifier4;
       }
 
       v35 = 0;
@@ -561,9 +560,9 @@ LABEL_41:
         identifier = [v11 bundleIdentifier];
         bundleIdentifier2 = [metadataCopy identifier];
         *buf = 138543618;
-        v61 = identifier;
-        v62 = 2114;
-        v63 = bundleIdentifier2;
+        v60 = identifier;
+        v61 = 2114;
+        v62 = bundleIdentifier2;
         goto LABEL_10;
       }
 
@@ -573,9 +572,9 @@ LABEL_41:
         {
           identifier4 = [metadataCopy identifier];
           *buf = 138543618;
-          v61 = v13;
-          v62 = 2114;
-          v63 = identifier4;
+          v60 = v13;
+          v61 = 2114;
+          v62 = identifier4;
         }
 
         v35 = v11;
@@ -598,9 +597,9 @@ LABEL_18:
 LABEL_54:
       identifier5 = [metadataCopy identifier];
       *buf = 138543618;
-      v61 = v12;
-      v62 = 2114;
-      v63 = identifier5;
+      v60 = v12;
+      v61 = 2114;
+      v62 = identifier5;
 
       goto LABEL_55;
     }
@@ -624,9 +623,9 @@ LABEL_40:
         goto LABEL_41;
       }
 
-      v55 = [v40 isEqualToString:v41];
+      v54 = [v40 isEqualToString:v41];
 
-      if ((v55 & 1) == 0)
+      if ((v54 & 1) == 0)
       {
         goto LABEL_41;
       }
@@ -644,7 +643,7 @@ LABEL_40:
       {
         preferredBundleIdentifier3 = [signalsCopy preferredBundleIdentifier];
         *buf = 138543362;
-        v61 = preferredBundleIdentifier3;
+        v60 = preferredBundleIdentifier3;
       }
 
       v21 = getLNLogCategoryPolicy();
@@ -671,9 +670,9 @@ LABEL_40:
     identifier6 = [metadataCopy identifier];
     bundleIdentifier8 = [v14 bundleIdentifier];
     *buf = 138543618;
-    v61 = identifier6;
-    v62 = 2114;
-    v63 = bundleIdentifier8;
+    v60 = identifier6;
+    v61 = 2114;
+    v62 = bundleIdentifier8;
   }
 
   bundleIdentifier = [signalsCopy preferredBundleIdentifier];
@@ -681,14 +680,13 @@ LABEL_40:
   v20 = [self policyWithEnumMetadata:metadataCopy effectiveBundleIdentifier:v14 appBundleIdentifier:bundleIdentifier processInstanceIdentifier:processInstanceIdentifier];
 
 LABEL_50:
-  v52 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
 
 + (id)policyWithEntityQueryMetadata:(id)metadata signals:(id)signals
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   signalsCopy = signals;
   v8 = getLNLogCategoryPolicy();
@@ -703,24 +701,24 @@ LABEL_50:
     }
 
     *buf = 138543618;
-    v66 = identifier;
-    v67 = 2114;
-    v68 = v11;
+    v65 = identifier;
+    v66 = 2114;
+    v67 = v11;
     _os_log_impl(&dword_19763D000, v8, OS_LOG_TYPE_INFO, "Requesting policy for query: %{public}@ using signals: %{public}@", buf, 0x16u);
   }
 
   effectiveBundleIdentifiers = [metadataCopy effectiveBundleIdentifiers];
   array = [effectiveBundleIdentifiers array];
   allowedTargets = [metadataCopy allowedTargets];
-  v63 = 0;
-  v64 = 0;
-  v61 = 0;
   v62 = 0;
-  [self resolveEffectiveBundleIdentifiers:array allowedTargets:allowedTargets appBundleIdentifier:&v64 extensionBundleIdentifier:&v63 daemonBundleIdentifier:&v62 frameworkBundleIdentifier:&v61 signals:signalsCopy];
-  v15 = v64;
-  v16 = v63;
-  v17 = v62;
-  v18 = v61;
+  v63 = 0;
+  v60 = 0;
+  v61 = 0;
+  [self resolveEffectiveBundleIdentifiers:array allowedTargets:allowedTargets appBundleIdentifier:&v63 extensionBundleIdentifier:&v62 daemonBundleIdentifier:&v61 frameworkBundleIdentifier:&v60 signals:signalsCopy];
+  v15 = v63;
+  v16 = v62;
+  v17 = v61;
+  v18 = v60;
 
   if (v18)
   {
@@ -730,9 +728,9 @@ LABEL_50:
       identifier2 = [metadataCopy identifier];
       bundleIdentifier = [v18 bundleIdentifier];
       *buf = 138543618;
-      v66 = identifier2;
-      v67 = 2114;
-      v68 = bundleIdentifier;
+      v65 = identifier2;
+      v66 = 2114;
+      v67 = bundleIdentifier;
     }
 
     preferredBundleIdentifier = [(__CFString *)signalsCopy preferredBundleIdentifier];
@@ -763,9 +761,9 @@ LABEL_17:
     identifier3 = [metadataCopy identifier];
     bundleIdentifier2 = [v15 bundleIdentifier];
     *buf = 138543618;
-    v66 = identifier3;
-    v67 = 2114;
-    v68 = bundleIdentifier2;
+    v65 = identifier3;
+    v66 = 2114;
+    v67 = bundleIdentifier2;
 LABEL_14:
     _os_log_impl(&dword_19763D000, v25, OS_LOG_TYPE_INFO, v28, buf, 0x16u);
 
@@ -776,20 +774,20 @@ LABEL_14:
   {
     if (v17 && !v15 && !v16)
     {
-      v40 = getLNLogCategoryPolicy();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+      v39 = getLNLogCategoryPolicy();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
         identifier4 = [metadataCopy identifier];
         bundleIdentifier3 = [v17 bundleIdentifier];
         *buf = 138543618;
-        v66 = identifier4;
-        v67 = 2114;
-        v68 = bundleIdentifier3;
+        v65 = identifier4;
+        v66 = 2114;
+        v67 = bundleIdentifier3;
       }
 
       selfCopy5 = self;
-      v38 = metadataCopy;
-      v39 = v17;
+      v37 = metadataCopy;
+      v38 = v17;
       goto LABEL_33;
     }
 
@@ -798,13 +796,13 @@ LABEL_14:
     {
 LABEL_50:
       bundleIdentifier4 = [v15 bundleIdentifier];
-      v56 = [self shouldExecuteActionOnApplicationWithBundleIdentifier:bundleIdentifier4 allowSuspended:1];
+      v55 = [self shouldExecuteActionOnApplicationWithBundleIdentifier:bundleIdentifier4 allowSuspended:1];
 
       v25 = getLNLogCategoryPolicy();
-      v57 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
-      if (v56)
+      v56 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
+      if (v55)
       {
-        if (!v57)
+        if (!v56)
         {
           goto LABEL_15;
         }
@@ -812,21 +810,21 @@ LABEL_50:
         identifier3 = [v15 bundleIdentifier];
         bundleIdentifier2 = [metadataCopy identifier];
         *buf = 138543618;
-        v66 = identifier3;
-        v67 = 2114;
-        v68 = bundleIdentifier2;
+        v65 = identifier3;
+        v66 = 2114;
+        v67 = bundleIdentifier2;
         goto LABEL_14;
       }
 
       if (v17)
       {
-        if (v57)
+        if (v56)
         {
           identifier5 = [metadataCopy identifier];
           *buf = 138543618;
-          v66 = v17;
-          v67 = 2114;
-          v68 = identifier5;
+          v65 = v17;
+          v66 = 2114;
+          v67 = identifier5;
         }
 
         preferredBundleIdentifier = [v15 bundleIdentifier];
@@ -836,7 +834,7 @@ LABEL_50:
         goto LABEL_16;
       }
 
-      if (!v57)
+      if (!v56)
       {
 LABEL_59:
 
@@ -850,53 +848,53 @@ LABEL_59:
 LABEL_58:
       identifier6 = [metadataCopy identifier];
       *buf = 138543618;
-      v66 = v16;
-      v67 = 2114;
-      v68 = identifier6;
+      v65 = v16;
+      v66 = 2114;
+      v67 = identifier6;
 
       goto LABEL_59;
     }
 
-    v44 = preferredBundleIdentifier2;
+    v43 = preferredBundleIdentifier2;
     bundleIdentifier5 = [v16 bundleIdentifier];
     preferredBundleIdentifier3 = [(__CFString *)signalsCopy preferredBundleIdentifier];
-    v47 = bundleIdentifier5;
-    v48 = preferredBundleIdentifier3;
-    v49 = v48;
-    if (v47 == v48)
+    v46 = bundleIdentifier5;
+    v47 = preferredBundleIdentifier3;
+    v48 = v47;
+    if (v46 == v47)
     {
     }
 
     else
     {
-      if (!v47 || !v48)
+      if (!v46 || !v47)
       {
 
 LABEL_49:
         goto LABEL_50;
       }
 
-      v60 = [v47 isEqualToString:v48];
+      v59 = [v46 isEqualToString:v47];
 
-      if ((v60 & 1) == 0)
+      if ((v59 & 1) == 0)
       {
         goto LABEL_50;
       }
     }
 
-    v50 = MEMORY[0x1E6963620];
+    v49 = MEMORY[0x1E6963620];
     bundleIdentifier6 = [v15 bundleIdentifier];
-    v52 = [v50 bundleLinkedOnOrAfter2024:bundleIdentifier6];
+    v51 = [v49 bundleLinkedOnOrAfter2024:bundleIdentifier6];
 
-    v53 = getLNLogCategoryPolicy();
-    v44 = v53;
-    if (v52)
+    v52 = getLNLogCategoryPolicy();
+    v43 = v52;
+    if (v51)
     {
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
       {
         preferredBundleIdentifier4 = [(__CFString *)signalsCopy preferredBundleIdentifier];
         *buf = 138543362;
-        v66 = preferredBundleIdentifier4;
+        v65 = preferredBundleIdentifier4;
       }
 
       v25 = getLNLogCategoryPolicy();
@@ -908,41 +906,39 @@ LABEL_49:
       goto LABEL_58;
     }
 
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19763D000, v44, OS_LOG_TYPE_DEFAULT, "Client requested running using the preferred bundle identifier, but it is linked prior to 2024 so ignoring", buf, 2u);
+      _os_log_impl(&dword_19763D000, v43, OS_LOG_TYPE_DEFAULT, "Client requested running using the preferred bundle identifier, but it is linked prior to 2024 so ignoring", buf, 2u);
     }
 
     goto LABEL_49;
   }
 
-  v34 = getLNLogCategoryPolicy();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+  v33 = getLNLogCategoryPolicy();
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
   {
     identifier7 = [metadataCopy identifier];
     bundleIdentifier7 = [v16 bundleIdentifier];
     *buf = 138543618;
-    v66 = identifier7;
-    v67 = 2114;
-    v68 = bundleIdentifier7;
+    v65 = identifier7;
+    v66 = 2114;
+    v67 = bundleIdentifier7;
   }
 
   selfCopy5 = self;
-  v38 = metadataCopy;
-  v39 = v16;
+  v37 = metadataCopy;
+  v38 = v16;
 LABEL_33:
-  v24 = [selfCopy5 policyWithQueryMetadata:v38 effectiveBundleIdentifier:v39 appBundleIdentifier:0 processInstanceIdentifier:0];
+  v24 = [selfCopy5 policyWithQueryMetadata:v37 effectiveBundleIdentifier:v38 appBundleIdentifier:0 processInstanceIdentifier:0];
 LABEL_18:
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
 
 + (id)policyWithEntityMetadata:(id)metadata signals:(id)signals
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   signalsCopy = signals;
   v8 = getLNLogCategoryPolicy();
@@ -957,24 +953,24 @@ LABEL_18:
     }
 
     *buf = 138543618;
-    v65 = identifier;
-    v66 = 2114;
-    v67 = v11;
+    v64 = identifier;
+    v65 = 2114;
+    v66 = v11;
     _os_log_impl(&dword_19763D000, v8, OS_LOG_TYPE_INFO, "Requesting policy for entity: %{public}@ using signals: %{public}@", buf, 0x16u);
   }
 
   effectiveBundleIdentifiers = [metadataCopy effectiveBundleIdentifiers];
   array = [effectiveBundleIdentifiers array];
   allowedTargets = [metadataCopy allowedTargets];
-  v62 = 0;
-  v63 = 0;
-  v60 = 0;
   v61 = 0;
-  [self resolveEffectiveBundleIdentifiers:array allowedTargets:allowedTargets appBundleIdentifier:&v63 extensionBundleIdentifier:&v62 daemonBundleIdentifier:&v61 frameworkBundleIdentifier:&v60 signals:signalsCopy];
-  v15 = v63;
-  v16 = v62;
-  v17 = v61;
-  v18 = v60;
+  v62 = 0;
+  v59 = 0;
+  v60 = 0;
+  [self resolveEffectiveBundleIdentifiers:array allowedTargets:allowedTargets appBundleIdentifier:&v62 extensionBundleIdentifier:&v61 daemonBundleIdentifier:&v60 frameworkBundleIdentifier:&v59 signals:signalsCopy];
+  v15 = v62;
+  v16 = v61;
+  v17 = v60;
+  v18 = v59;
 
   if (!v18)
   {
@@ -997,9 +993,9 @@ LABEL_53:
       identifier2 = [metadataCopy identifier];
       bundleIdentifier2 = [v15 bundleIdentifier];
       *buf = 138543618;
-      v65 = identifier2;
-      v66 = 2114;
-      v67 = bundleIdentifier2;
+      v64 = identifier2;
+      v65 = 2114;
+      v66 = bundleIdentifier2;
 LABEL_14:
       _os_log_impl(&dword_19763D000, v25, OS_LOG_TYPE_INFO, v28, buf, 0x16u);
 
@@ -1014,9 +1010,9 @@ LABEL_14:
         identifier3 = [metadataCopy identifier];
         bundleIdentifier3 = [v16 bundleIdentifier];
         *buf = 138543618;
-        v65 = identifier3;
-        v66 = 2114;
-        v67 = bundleIdentifier3;
+        v64 = identifier3;
+        v65 = 2114;
+        v66 = bundleIdentifier3;
       }
 
       v35 = 0;
@@ -1031,9 +1027,9 @@ LABEL_14:
         identifier4 = [metadataCopy identifier];
         bundleIdentifier4 = [v17 bundleIdentifier];
         *buf = 138543618;
-        v65 = identifier4;
-        v66 = 2114;
-        v67 = bundleIdentifier4;
+        v64 = identifier4;
+        v65 = 2114;
+        v66 = bundleIdentifier4;
       }
 
       v39 = 0;
@@ -1064,9 +1060,9 @@ LABEL_45:
         identifier2 = [v15 bundleIdentifier];
         bundleIdentifier2 = [metadataCopy identifier];
         *buf = 138543618;
-        v65 = identifier2;
-        v66 = 2114;
-        v67 = bundleIdentifier2;
+        v64 = identifier2;
+        v65 = 2114;
+        v66 = bundleIdentifier2;
         goto LABEL_14;
       }
 
@@ -1076,9 +1072,9 @@ LABEL_45:
         {
           identifier5 = [metadataCopy identifier];
           *buf = 138543618;
-          v65 = v17;
-          v66 = 2114;
-          v67 = identifier5;
+          v64 = v17;
+          v65 = 2114;
+          v66 = identifier5;
         }
 
         v39 = v15;
@@ -1101,9 +1097,9 @@ LABEL_22:
 LABEL_58:
       identifier6 = [metadataCopy identifier];
       *buf = 138543618;
-      v65 = v16;
-      v66 = 2114;
-      v67 = identifier6;
+      v64 = v16;
+      v65 = 2114;
+      v66 = identifier6;
 
       goto LABEL_59;
     }
@@ -1127,9 +1123,9 @@ LABEL_44:
         goto LABEL_45;
       }
 
-      v59 = [v44 isEqualToString:v45];
+      v58 = [v44 isEqualToString:v45];
 
-      if ((v59 & 1) == 0)
+      if ((v58 & 1) == 0)
       {
         goto LABEL_45;
       }
@@ -1147,7 +1143,7 @@ LABEL_44:
       {
         preferredBundleIdentifier3 = [(__CFString *)signalsCopy preferredBundleIdentifier];
         *buf = 138543362;
-        v65 = preferredBundleIdentifier3;
+        v64 = preferredBundleIdentifier3;
       }
 
       v25 = getLNLogCategoryPolicy();
@@ -1174,9 +1170,9 @@ LABEL_44:
     identifier7 = [metadataCopy identifier];
     bundleIdentifier8 = [v18 bundleIdentifier];
     *buf = 138543618;
-    v65 = identifier7;
-    v66 = 2114;
-    v67 = bundleIdentifier8;
+    v64 = identifier7;
+    v65 = 2114;
+    v66 = bundleIdentifier8;
   }
 
   bundleIdentifier = [(__CFString *)signalsCopy preferredBundleIdentifier];
@@ -1184,14 +1180,13 @@ LABEL_44:
   v24 = [self policyWithEntityMetadata:metadataCopy effectiveBundleIdentifier:v18 appBundleIdentifier:bundleIdentifier processInstanceIdentifier:processInstanceIdentifier];
 
 LABEL_54:
-  v56 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
 
 + (id)policyWithActionMetadata:(id)metadata signals:(id)signals
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   signalsCopy = signals;
   v8 = getLNLogCategoryPolicy();
@@ -1206,24 +1201,24 @@ LABEL_54:
     }
 
     *buf = 138543618;
-    v75 = identifier;
-    v76 = 2114;
-    v77 = v11;
+    v74 = identifier;
+    v75 = 2114;
+    v76 = v11;
     _os_log_impl(&dword_19763D000, v8, OS_LOG_TYPE_INFO, "Requesting policy for intent: %{public}@ using signals: %{public}@", buf, 0x16u);
   }
 
   effectiveBundleIdentifiers = [metadataCopy effectiveBundleIdentifiers];
   array = [effectiveBundleIdentifiers array];
   allowedTargets = [metadataCopy allowedTargets];
-  v72 = 0;
-  v73 = 0;
-  v70 = 0;
   v71 = 0;
-  [self resolveEffectiveBundleIdentifiers:array allowedTargets:allowedTargets appBundleIdentifier:&v73 extensionBundleIdentifier:&v72 daemonBundleIdentifier:&v71 frameworkBundleIdentifier:&v70 signals:signalsCopy];
-  v15 = v73;
-  v16 = v72;
-  v17 = v71;
-  v18 = v70;
+  v72 = 0;
+  v69 = 0;
+  v70 = 0;
+  [self resolveEffectiveBundleIdentifiers:array allowedTargets:allowedTargets appBundleIdentifier:&v72 extensionBundleIdentifier:&v71 daemonBundleIdentifier:&v70 frameworkBundleIdentifier:&v69 signals:signalsCopy];
+  v15 = v72;
+  v16 = v71;
+  v17 = v70;
+  v18 = v69;
 
   if (v18)
   {
@@ -1233,9 +1228,9 @@ LABEL_54:
       identifier2 = [metadataCopy identifier];
       bundleIdentifier = [v18 bundleIdentifier];
       *buf = 138543618;
-      v75 = identifier2;
-      v76 = 2114;
-      v77 = bundleIdentifier;
+      v74 = identifier2;
+      v75 = 2114;
+      v76 = bundleIdentifier;
     }
 
     preferredBundleIdentifier = [(__CFString *)signalsCopy preferredBundleIdentifier];
@@ -1258,9 +1253,9 @@ LABEL_54:
         identifier3 = [metadataCopy identifier];
         bundleIdentifier2 = [v16 bundleIdentifier];
         *buf = 138543618;
-        v75 = identifier3;
-        v76 = 2114;
-        v77 = bundleIdentifier2;
+        v74 = identifier3;
+        v75 = 2114;
+        v76 = bundleIdentifier2;
       }
 
       preferredBundleIdentifier = [0 bundleIdentifier];
@@ -1278,9 +1273,9 @@ LABEL_54:
         identifier4 = [metadataCopy identifier];
         bundleIdentifier3 = [v17 bundleIdentifier];
         *buf = 138543618;
-        v75 = identifier4;
-        v76 = 2114;
-        v77 = bundleIdentifier3;
+        v74 = identifier4;
+        v75 = 2114;
+        v76 = bundleIdentifier3;
       }
 
       preferredBundleIdentifier = [0 bundleIdentifier];
@@ -1290,19 +1285,19 @@ LABEL_54:
       goto LABEL_28;
     }
 
-    v69 = 0;
-    v44 = [self shouldExecuteActionOnApplicationWithActionMetadata:metadataCopy signals:signalsCopy reason:&v69];
-    preferredBundleIdentifier = v69;
-    if (v44)
+    v68 = 0;
+    v43 = [self shouldExecuteActionOnApplicationWithActionMetadata:metadataCopy signals:signalsCopy reason:&v68];
+    preferredBundleIdentifier = v68;
+    if (v43)
     {
-      v45 = getLNLogCategoryPolicy();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+      v44 = getLNLogCategoryPolicy();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
       {
         bundleIdentifier4 = [v15 bundleIdentifier];
         *buf = 138543618;
-        v75 = bundleIdentifier4;
-        v76 = 2114;
-        v77 = preferredBundleIdentifier;
+        v74 = bundleIdentifier4;
+        v75 = 2114;
+        v76 = preferredBundleIdentifier;
       }
 
 LABEL_54:
@@ -1325,21 +1320,21 @@ LABEL_9:
     {
 LABEL_51:
       bundleIdentifier5 = [v15 bundleIdentifier];
-      v60 = [self shouldExecuteActionOnApplicationWithBundleIdentifier:bundleIdentifier5 allowSuspended:1];
+      v59 = [self shouldExecuteActionOnApplicationWithBundleIdentifier:bundleIdentifier5 allowSuspended:1];
 
-      v45 = getLNLogCategoryPolicy();
-      v61 = os_log_type_enabled(v45, OS_LOG_TYPE_INFO);
-      if (v60)
+      v44 = getLNLogCategoryPolicy();
+      v60 = os_log_type_enabled(v44, OS_LOG_TYPE_INFO);
+      if (v59)
       {
-        if (v61)
+        if (v60)
         {
           bundleIdentifier6 = [v15 bundleIdentifier];
           identifier5 = [metadataCopy identifier];
           *buf = 138543618;
-          v75 = bundleIdentifier6;
-          v76 = 2114;
-          v77 = identifier5;
-          v63 = identifier5;
+          v74 = bundleIdentifier6;
+          v75 = 2114;
+          v76 = identifier5;
+          v62 = identifier5;
         }
 
         goto LABEL_54;
@@ -1347,13 +1342,13 @@ LABEL_51:
 
       if (v17)
       {
-        if (v61)
+        if (v60)
         {
           identifier6 = [metadataCopy identifier];
           *buf = 138543618;
-          v75 = v17;
-          v76 = 2114;
-          v77 = identifier6;
+          v74 = v17;
+          v75 = 2114;
+          v76 = identifier6;
         }
 
         processInstanceIdentifier = [v15 bundleIdentifier];
@@ -1363,7 +1358,7 @@ LABEL_51:
         goto LABEL_55;
       }
 
-      if (!v61)
+      if (!v60)
       {
 LABEL_62:
 
@@ -1377,60 +1372,60 @@ LABEL_62:
 LABEL_61:
       identifier7 = [metadataCopy identifier];
       *buf = 138543618;
-      v75 = v16;
-      v76 = 2114;
-      v77 = identifier7;
+      v74 = v16;
+      v75 = 2114;
+      v76 = identifier7;
 
       goto LABEL_62;
     }
 
-    v67 = preferredBundleIdentifier2;
+    v66 = preferredBundleIdentifier2;
     bundleIdentifier7 = [v16 bundleIdentifier];
     preferredBundleIdentifier3 = [(__CFString *)signalsCopy preferredBundleIdentifier];
-    v50 = bundleIdentifier7;
-    v51 = preferredBundleIdentifier3;
+    v49 = bundleIdentifier7;
+    v50 = preferredBundleIdentifier3;
+    v51 = v49;
     v52 = v50;
-    v53 = v51;
-    if (v52 == v51)
+    if (v51 == v50)
     {
     }
 
     else
     {
-      if (!v52 || !v51)
+      if (!v51 || !v50)
       {
 
-        v57 = v67;
+        v56 = v66;
 LABEL_50:
 
         goto LABEL_51;
       }
 
-      v66 = [v52 isEqualToString:v51];
+      v65 = [v51 isEqualToString:v50];
 
-      if ((v66 & 1) == 0)
+      if ((v65 & 1) == 0)
       {
         goto LABEL_51;
       }
     }
 
-    v54 = MEMORY[0x1E6963620];
+    v53 = MEMORY[0x1E6963620];
     bundleIdentifier8 = [v15 bundleIdentifier];
-    LODWORD(v54) = [v54 bundleLinkedOnOrAfter2024:bundleIdentifier8];
+    LODWORD(v53) = [v53 bundleLinkedOnOrAfter2024:bundleIdentifier8];
 
-    v56 = getLNLogCategoryPolicy();
-    v57 = v56;
-    if (v54)
+    v55 = getLNLogCategoryPolicy();
+    v56 = v55;
+    if (v53)
     {
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
       {
         preferredBundleIdentifier4 = [(__CFString *)signalsCopy preferredBundleIdentifier];
         *buf = 138543362;
-        v75 = preferredBundleIdentifier4;
+        v74 = preferredBundleIdentifier4;
       }
 
-      v45 = getLNLogCategoryPolicy();
-      if (!os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+      v44 = getLNLogCategoryPolicy();
+      if (!os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
       {
         goto LABEL_62;
       }
@@ -1438,10 +1433,10 @@ LABEL_50:
       goto LABEL_61;
     }
 
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19763D000, v57, OS_LOG_TYPE_DEFAULT, "Client requested running using the preferred bundle identifier, but it is linked prior to 2024 so ignoring", buf, 2u);
+      _os_log_impl(&dword_19763D000, v56, OS_LOG_TYPE_DEFAULT, "Client requested running using the preferred bundle identifier, but it is linked prior to 2024 so ignoring", buf, 2u);
     }
 
     goto LABEL_50;
@@ -1453,9 +1448,9 @@ LABEL_50:
     identifier8 = [metadataCopy identifier];
     bundleIdentifier9 = [v15 bundleIdentifier];
     *buf = 138543618;
-    v75 = identifier8;
-    v76 = 2114;
-    v77 = bundleIdentifier9;
+    v74 = identifier8;
+    v75 = 2114;
+    v76 = bundleIdentifier9;
   }
 
   preferredBundleIdentifier = [v15 bundleIdentifier];
@@ -1465,8 +1460,6 @@ LABEL_50:
 LABEL_28:
   v29 = [selfCopy7 policyWithActionMetadata:v34 effectiveBundleIdentifier:v35 appBundleIdentifier:preferredBundleIdentifier processInstanceIdentifier:0];
 LABEL_29:
-
-  v42 = *MEMORY[0x1E69E9840];
 
   return v29;
 }

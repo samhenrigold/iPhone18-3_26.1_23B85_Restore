@@ -24,9 +24,9 @@
 
 - (NSString)assetID
 {
-  v3 = getPHObjectClass[0]();
+  PHObjectClass = getPHObjectClass(self, a2);
   localIdentifier = [(PHAsset *)self->_wrappedAsset localIdentifier];
-  v5 = [(objc_class *)v3 uuidFromLocalIdentifier:localIdentifier];
+  v5 = [PHObjectClass uuidFromLocalIdentifier:localIdentifier];
 
   return v5;
 }
@@ -36,8 +36,8 @@
   height = size.height;
   width = size.width;
   handlerCopy = handler;
-  defaultManager = [getPHCachingImageManagerClass[0]() defaultManager];
-  v9 = objc_alloc_init(getPHImageRequestOptionsClass[0]());
+  defaultManager = [(objc_class *)getPHCachingImageManagerClass() defaultManager];
+  v9 = objc_alloc_init(getPHImageRequestOptionsClass());
   [v9 setNetworkAccessAllowed:1];
   [v9 setDeliveryMode:1];
   wrappedAsset = self->_wrappedAsset;
@@ -79,7 +79,7 @@ void __60__CNUIPHAsset_requestImageWithTargetSize_completionHandler___block_invo
   v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
   [v11 setMedia:v13];
 
-  v14 = [objc_alloc(getPHWallpaperAssetClass[0]()) initWithPhotoAsset:self->_wrappedAsset];
+  v14 = [objc_alloc(getPHWallpaperAssetClass()) initWithPhotoAsset:self->_wrappedAsset];
   v15 = [objc_alloc(getPISegmentationLoaderClass()) initWithParallaxAsset:v14];
   deviceConfiguration = [MEMORY[0x1E69C0938] deviceConfiguration];
   if ([MEMORY[0x1E69C0938] deviceSupportsLandscapeConfiguration])

@@ -84,15 +84,15 @@
           if (v24)
           {
             v25 = [@"manifest" stringByAppendingPathExtension:@"json"];
-            if ([v24 isEqualToString:v25])
+            if (objc_msgSend_isEqualToString_(v24))
             {
             }
 
             else
             {
-              v33 = [v24 isEqualToString:@"signature"];
+              isEqualToString = objc_msgSend_isEqualToString_(v24);
 
-              if ((v33 & 1) == 0)
+              if ((isEqualToString & 1) == 0)
               {
                 [v32 setObject:hexEncoding forKeyedSubscript:v24];
               }
@@ -899,9 +899,9 @@ uint64_t __65__PKPlaceholderPassGenerator_updatePaymentApplicationsWithBlock___b
 
           v15 = *(*(&v44 + 1) + 8 * v14);
           pathExtension = [v15 pathExtension];
-          v17 = [pathExtension isEqualToString:@"urls"];
+          isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
-          if (v17)
+          if (isEqualToString)
           {
             v18 = [objc_alloc(*(v13 + 3824)) initWithContentsOfURL:v15];
             if (v18)
@@ -1010,7 +1010,7 @@ uint64_t __65__PKPlaceholderPassGenerator_updatePaymentApplicationsWithBlock___b
   }
 
   domain = [v16 domain];
-  if (([domain isEqualToString:*MEMORY[0x1E696A250]] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(domain) & 1) == 0)
   {
 
     goto LABEL_16;

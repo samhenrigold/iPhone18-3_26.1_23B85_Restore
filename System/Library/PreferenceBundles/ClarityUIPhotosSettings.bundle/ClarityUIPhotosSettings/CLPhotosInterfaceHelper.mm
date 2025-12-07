@@ -13,7 +13,7 @@
   v8[3] = sub_38B4(&qword_10908, &qword_7538);
   v8[4] = sub_38FC();
   sub_39A8(v8);
-  type metadata accessor for CLPhotosSharedAlbumRow();
+  type metadata accessor for CLPhotosSharedAlbumRow(0);
   sub_3A0C();
   sub_5730();
   sub_58B0();

@@ -146,13 +146,13 @@ void __46__SUUIReloadConfigurationOperation_setURLBag___block_invoke(uint64_t a1
 
 - (void)main
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__3_0;
-  v46 = __Block_byref_object_dispose__4_0;
-  v47 = 0;
+  v49 = *MEMORY[0x277D85DE8];
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__3_0;
+  v45 = __Block_byref_object_dispose__4_0;
+  v46 = 0;
   uRLBag = [(SUUIReloadConfigurationOperation *)self URLBag];
   if (!uRLBag)
   {
@@ -164,22 +164,22 @@ void __46__SUUIReloadConfigurationOperation_setURLBag___block_invoke(uint64_t a1
     uRLBag = [(SSURLBag *)[SUUIURLBag alloc] initWithURLBagContext:v4];
   }
 
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__3_0;
-  v40 = __Block_byref_object_dispose__4_0;
-  v41 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__3_0;
+  v39 = __Block_byref_object_dispose__4_0;
+  v40 = 0;
   v6 = dispatch_semaphore_create(0);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __40__SUUIReloadConfigurationOperation_main__block_invoke;
-  v32[3] = &unk_2798FC420;
-  v34 = &v36;
-  v35 = &v42;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __40__SUUIReloadConfigurationOperation_main__block_invoke;
+  v31[3] = &unk_2798FC420;
+  v33 = &v35;
+  v34 = &v41;
   v7 = v6;
-  v33 = v7;
-  [(SUUIURLBag *)uRLBag loadWithCompletionBlock:v32];
+  v32 = v7;
+  [(SUUIURLBag *)uRLBag loadWithCompletionBlock:v31];
   v8 = dispatch_time(0, 5000000000);
   if (dispatch_semaphore_wait(v7, v8))
   {
@@ -205,24 +205,22 @@ void __46__SUUIReloadConfigurationOperation_setURLBag___block_invoke(uint64_t a1
 
     if (v14)
     {
-      v48 = 138543362;
+      v47 = 138543362;
       selfCopy = self;
-      LODWORD(v30) = 12;
-      v29 = &v48;
-      v15 = _os_log_send_and_compose_impl();
+      v15 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_259CB8000, v13, 16, "[%{public}@] Timed out waiting for bag load.", &v47, 12);
 
       if (!v15)
       {
 LABEL_13:
 
         v16 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"SUUIErrorDomain" code:6 userInfo:0];
-        v17 = v43[5];
-        v43[5] = v16;
+        v17 = v42[5];
+        v42[5] = v16;
 
         goto LABEL_14;
       }
 
-      v13 = [MEMORY[0x277CCACA8] stringWithCString:v15 encoding:{4, &v48, v30}];
+      v13 = [MEMORY[0x277CCACA8] stringWithCString:v15 encoding:4];
       free(v15);
       v29 = v13;
       SSFileLog();
@@ -232,7 +230,7 @@ LABEL_13:
   }
 
 LABEL_14:
-  if ([v37[5] count])
+  if ([v36[5] count])
   {
     storeFrontIdentifier = [(SUUIURLBag *)uRLBag storeFrontIdentifier];
     defaultStore = [MEMORY[0x277D69A20] defaultStore];
@@ -249,15 +247,15 @@ LABEL_14:
     if (storeFrontIdentifier)
     {
       v23 = [SUUIClientContext _cachePathForStoreFrontIdentifier:storeFrontIdentifier];
-      v24 = [SUUIClientContext _configurationDictionaryWithBagDictionary:v37[5]];
+      v24 = [SUUIClientContext _configurationDictionaryWithBagDictionary:v36[5]];
       if (v24 && v23)
       {
         v25 = [MEMORY[0x277CCAC58] dataWithPropertyList:v24 format:200 options:0 error:0];
         if (v25)
         {
-          v31 = objc_alloc_init(MEMORY[0x277CCAA00]);
+          v30 = objc_alloc_init(MEMORY[0x277CCAA00]);
           stringByDeletingLastPathComponent = [v23 stringByDeletingLastPathComponent];
-          [v31 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
+          [v30 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
 
           [v25 writeToFile:v23 options:1 error:0];
         }
@@ -279,11 +277,11 @@ LABEL_14:
   v28 = outputBlock;
   if (outputBlock)
   {
-    (*(outputBlock + 16))(outputBlock, v24, v43[5]);
+    (*(outputBlock + 16))(outputBlock, v24, v42[5]);
   }
 
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v41, 8);
 }
 
 intptr_t __40__SUUIReloadConfigurationOperation_main__block_invoke(void *a1, void *a2, void *a3)

@@ -416,7 +416,7 @@ LABEL_47:
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if ([pathCopy isEqualToString:@"site"])
   {
@@ -426,11 +426,11 @@ LABEL_47:
     {
       _siteCodingCollection = [(HKMedicationDosage *)self _siteCodingCollection];
       v9 = [HKIndexableObject indexableObjectWithObject:_siteCodingCollection];
-      v19 = v9;
+      v18 = v9;
       v10 = MEMORY[0x1E695DEC8];
-      v11 = &v19;
+      v11 = &v18;
 LABEL_10:
-      v14 = [v10 arrayWithObjects:v11 count:{1, v17, v18, v19, v20}];
+      v14 = [v10 arrayWithObjects:v11 count:{1, v16, v17, v18, v19}];
 
       goto LABEL_13;
     }
@@ -446,9 +446,9 @@ LABEL_10:
     {
       _siteCodingCollection = [(HKMedicationDosage *)self _methodCodingCollection];
       v9 = [HKIndexableObject indexableObjectWithObject:_siteCodingCollection];
-      v18 = v9;
+      v17 = v9;
       v10 = MEMORY[0x1E695DEC8];
-      v11 = &v18;
+      v11 = &v17;
       goto LABEL_10;
     }
 
@@ -463,9 +463,9 @@ LABEL_10:
     {
       _siteCodingCollection = [(HKMedicationDosage *)self _routeCodingCollection];
       v9 = [HKIndexableObject indexableObjectWithObject:_siteCodingCollection];
-      v17 = v9;
+      v16 = v9;
       v10 = MEMORY[0x1E695DEC8];
-      v11 = &v17;
+      v11 = &v16;
       goto LABEL_10;
     }
 
@@ -477,8 +477,6 @@ LABEL_11:
   [HKConceptIndexUtilities assignError:error forInvalidKeyPath:pathCopy inClass:objc_opt_class()];
   v14 = 0;
 LABEL_13:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

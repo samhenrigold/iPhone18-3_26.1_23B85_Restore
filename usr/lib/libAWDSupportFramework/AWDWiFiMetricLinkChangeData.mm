@@ -975,27 +975,24 @@ LABEL_65:
 {
   if ((*&self->_has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if (self->_rssiHistorys.count)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = self->_rssiHistorys.list[v5];
       PBDataWriterWriteInt32Field();
-      ++v5;
+      ++v4;
     }
 
-    while (v5 < self->_rssiHistorys.count);
+    while (v4 < self->_rssiHistorys.count);
   }
 
   has = self->_has;
   if ((*&has & 0x4000000) != 0)
   {
-    isLinkUp = self->_isLinkUp;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((*&has & 0x2000000) == 0)
@@ -1015,7 +1012,6 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  isInVol = self->_isInVol;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1030,7 +1026,6 @@ LABEL_9:
   }
 
 LABEL_92:
-  reason = self->_reason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1045,7 +1040,6 @@ LABEL_10:
   }
 
 LABEL_93:
-  subreason = self->_subreason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1060,7 +1054,6 @@ LABEL_11:
   }
 
 LABEL_94:
-  channel = self->_channel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1075,7 +1068,6 @@ LABEL_12:
   }
 
 LABEL_95:
-  channelWidth = self->_channelWidth;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1090,12 +1082,10 @@ LABEL_13:
   }
 
 LABEL_96:
-  phyMode = self->_phyMode;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x200) != 0)
   {
 LABEL_14:
-    flags = self->_flags;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1105,16 +1095,15 @@ LABEL_15:
     PBDataWriterWriteDataField();
   }
 
-  v9 = self->_has;
-  if ((*&v9 & 0x100000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x100000) != 0)
   {
-    securityType = self->_securityType;
     PBDataWriterWriteUint32Field();
-    v9 = self->_has;
-    if ((*&v9 & 0x1000000) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 0x1000000) == 0)
     {
 LABEL_19:
-      if ((*&v9 & 0x10000) == 0)
+      if ((*&v6 & 0x10000) == 0)
       {
         goto LABEL_20;
       }
@@ -1123,18 +1112,17 @@ LABEL_19:
     }
   }
 
-  else if ((*&v9 & 0x1000000) == 0)
+  else if ((*&v6 & 0x1000000) == 0)
   {
     goto LABEL_19;
   }
 
-  wpaProtocol = self->_wpaProtocol;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x10000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x10000) == 0)
   {
 LABEL_20:
-    if ((*&v9 & 0x400000) == 0)
+    if ((*&v6 & 0x400000) == 0)
     {
       goto LABEL_21;
     }
@@ -1143,13 +1131,12 @@ LABEL_20:
   }
 
 LABEL_100:
-  mcastCipher = self->_mcastCipher;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x400000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x400000) == 0)
   {
 LABEL_21:
-    if ((*&v9 & 4) == 0)
+    if ((*&v6 & 4) == 0)
     {
       goto LABEL_22;
     }
@@ -1158,13 +1145,12 @@ LABEL_21:
   }
 
 LABEL_101:
-  ucastCipher = self->_ucastCipher;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 4) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 4) == 0)
   {
 LABEL_22:
-    if ((*&v9 & 8) == 0)
+    if ((*&v6 & 8) == 0)
     {
       goto LABEL_23;
     }
@@ -1173,13 +1159,12 @@ LABEL_22:
   }
 
 LABEL_102:
-  akmSuites = self->_akmSuites;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 8) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 8) == 0)
   {
 LABEL_23:
-    if ((*&v9 & 0x100) == 0)
+    if ((*&v6 & 0x100) == 0)
     {
       goto LABEL_24;
     }
@@ -1188,13 +1173,12 @@ LABEL_23:
   }
 
 LABEL_103:
-  capabilities = self->_capabilities;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x100) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x100) == 0)
   {
 LABEL_24:
-    if ((*&v9 & 0x4000) == 0)
+    if ((*&v6 & 0x4000) == 0)
     {
       goto LABEL_25;
     }
@@ -1203,13 +1187,12 @@ LABEL_24:
   }
 
 LABEL_104:
-  enhancedSecurityType = self->_enhancedSecurityType;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x4000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x4000) == 0)
   {
 LABEL_25:
-    if ((*&v9 & 0x2000) == 0)
+    if ((*&v6 & 0x2000) == 0)
     {
       goto LABEL_26;
     }
@@ -1218,13 +1201,12 @@ LABEL_25:
   }
 
 LABEL_105:
-  htInfo = self->_htInfo;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x2000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x2000) == 0)
   {
 LABEL_26:
-    if ((*&v9 & 0x8000) == 0)
+    if ((*&v6 & 0x8000) == 0)
     {
       goto LABEL_27;
     }
@@ -1233,13 +1215,12 @@ LABEL_26:
   }
 
 LABEL_106:
-  htExtended = self->_htExtended;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x8000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x8000) == 0)
   {
 LABEL_27:
-    if ((*&v9 & 0x800) == 0)
+    if ((*&v6 & 0x800) == 0)
     {
       goto LABEL_28;
     }
@@ -1248,13 +1229,12 @@ LABEL_27:
   }
 
 LABEL_107:
-  htTxBf = self->_htTxBf;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x800) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x800) == 0)
   {
 LABEL_28:
-    if ((*&v9 & 0x1000) == 0)
+    if ((*&v6 & 0x1000) == 0)
     {
       goto LABEL_30;
     }
@@ -1263,12 +1243,10 @@ LABEL_28:
   }
 
 LABEL_108:
-  htASel = self->_htASel;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_29:
-    htAmpduParams = self->_htAmpduParams;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1280,7 +1258,6 @@ LABEL_30:
 
   if ((*(&self->_has + 2) & 0x80) != 0)
   {
-    vhtInfo = self->_vhtInfo;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1291,85 +1268,78 @@ LABEL_30:
 
   if (self->_txPerHistorys.count)
   {
-    v12 = 0;
+    v7 = 0;
     do
     {
-      v13 = self->_txPerHistorys.list[v12];
       PBDataWriterWriteInt32Field();
-      ++v12;
+      ++v7;
     }
 
-    while (v12 < self->_txPerHistorys.count);
+    while (v7 < self->_txPerHistorys.count);
   }
 
   if (self->_txFrmsHistorys.count)
   {
-    v14 = 0;
+    v8 = 0;
     do
     {
-      v15 = self->_txFrmsHistorys.list[v14];
       PBDataWriterWriteInt32Field();
-      ++v14;
+      ++v8;
     }
 
-    while (v14 < self->_txFrmsHistorys.count);
+    while (v8 < self->_txFrmsHistorys.count);
   }
 
   if (self->_fwTxPerHistorys.count)
   {
-    v16 = 0;
+    v9 = 0;
     do
     {
-      v17 = self->_fwTxPerHistorys.list[v16];
       PBDataWriterWriteInt32Field();
-      ++v16;
+      ++v9;
     }
 
-    while (v16 < self->_fwTxPerHistorys.count);
+    while (v9 < self->_fwTxPerHistorys.count);
   }
 
   if (self->_fwTxFrmsHistorys.count)
   {
-    v18 = 0;
+    v10 = 0;
     do
     {
-      v19 = self->_fwTxFrmsHistorys.list[v18];
       PBDataWriterWriteInt32Field();
-      ++v18;
+      ++v10;
     }
 
-    while (v18 < self->_fwTxFrmsHistorys.count);
+    while (v10 < self->_fwTxFrmsHistorys.count);
   }
 
   if (self->_bcnPerHistorys.count)
   {
-    v20 = 0;
+    v11 = 0;
     do
     {
-      v21 = self->_bcnPerHistorys.list[v20];
       PBDataWriterWriteInt32Field();
-      ++v20;
+      ++v11;
     }
 
-    while (v20 < self->_bcnPerHistorys.count);
+    while (v11 < self->_bcnPerHistorys.count);
   }
 
   if (self->_bcnFrmsHistorys.count)
   {
-    v22 = 0;
+    v12 = 0;
     do
     {
-      v23 = self->_bcnFrmsHistorys.list[v22];
       PBDataWriterWriteInt32Field();
-      ++v22;
+      ++v12;
     }
 
-    while (v22 < self->_bcnFrmsHistorys.count);
+    while (v12 < self->_bcnFrmsHistorys.count);
   }
 
   if ((*(&self->_has + 1) & 4) != 0)
   {
-    gatewayARPHistory = self->_gatewayARPHistory;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1380,7 +1350,6 @@ LABEL_30:
 
   if (*&self->_has)
   {
-    associationDuration = self->_associationDuration;
     PBDataWriterWriteDoubleField();
   }
 
@@ -1439,16 +1408,15 @@ LABEL_30:
     PBDataWriterWriteStringField();
   }
 
-  v26 = self->_has;
-  if ((*&v26 & 0x80000) != 0)
+  v13 = self->_has;
+  if ((*&v13 & 0x80000) != 0)
   {
-    rxCSAFrames = self->_rxCSAFrames;
     PBDataWriterWriteUint32Field();
-    v26 = self->_has;
-    if ((*&v26 & 0x20) == 0)
+    v13 = self->_has;
+    if ((*&v13 & 0x20) == 0)
     {
 LABEL_84:
-      if ((*&v26 & 0x40) == 0)
+      if ((*&v13 & 0x40) == 0)
       {
         goto LABEL_86;
       }
@@ -1457,17 +1425,15 @@ LABEL_84:
     }
   }
 
-  else if ((*&v26 & 0x20) == 0)
+  else if ((*&v13 & 0x20) == 0)
   {
     goto LABEL_84;
   }
 
-  channelSwitchDuringHostSleep = self->_channelSwitchDuringHostSleep;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_85:
-    channelSwitchDuringHostWake = self->_channelSwitchDuringHostWake;
     PBDataWriterWriteUint32Field();
   }
 
@@ -2405,7 +2371,6 @@ LABEL_35:
       goto LABEL_185;
     }
 
-    v9 = *(equal + 433);
     if (self->_isLinkUp)
     {
       if ((*(equal + 433) & 1) == 0)
@@ -2429,7 +2394,6 @@ LABEL_35:
   {
     if ((v8 & 0x2000000) != 0)
     {
-      v10 = *(equal + 432);
       if (self->_isInVol)
       {
         if ((*(equal + 432) & 1) == 0)
@@ -2547,159 +2511,159 @@ LABEL_12:
     has = self->_has;
   }
 
-  v12 = *(equal + 109);
+  v10 = *(equal + 109);
   if ((*&has & 0x100000) != 0)
   {
-    if ((v12 & 0x100000) == 0 || self->_securityType != *(equal + 82))
+    if ((v10 & 0x100000) == 0 || self->_securityType != *(equal + 82))
     {
       goto LABEL_185;
     }
   }
 
-  else if ((v12 & 0x100000) != 0)
+  else if ((v10 & 0x100000) != 0)
   {
     goto LABEL_185;
   }
 
   if ((*&has & 0x1000000) != 0)
   {
-    if ((v12 & 0x1000000) == 0 || self->_wpaProtocol != *(equal + 88))
+    if ((v10 & 0x1000000) == 0 || self->_wpaProtocol != *(equal + 88))
     {
       goto LABEL_185;
     }
   }
 
-  else if ((v12 & 0x1000000) != 0)
+  else if ((v10 & 0x1000000) != 0)
   {
     goto LABEL_185;
   }
 
   if ((*&has & 0x10000) != 0)
   {
-    if ((v12 & 0x10000) == 0 || self->_mcastCipher != *(equal + 72))
+    if ((v10 & 0x10000) == 0 || self->_mcastCipher != *(equal + 72))
     {
       goto LABEL_185;
     }
   }
 
-  else if ((v12 & 0x10000) != 0)
+  else if ((v10 & 0x10000) != 0)
   {
     goto LABEL_185;
   }
 
   if ((*&has & 0x400000) != 0)
   {
-    if ((v12 & 0x400000) == 0 || self->_ucastCipher != *(equal + 84))
+    if ((v10 & 0x400000) == 0 || self->_ucastCipher != *(equal + 84))
     {
       goto LABEL_185;
     }
   }
 
-  else if ((v12 & 0x400000) != 0)
+  else if ((v10 & 0x400000) != 0)
   {
     goto LABEL_185;
   }
 
   if ((*&has & 4) != 0)
   {
-    if ((v12 & 4) == 0 || self->_akmSuites != *(equal + 48))
+    if ((v10 & 4) == 0 || self->_akmSuites != *(equal + 48))
     {
       goto LABEL_185;
     }
   }
 
-  else if ((v12 & 4) != 0)
+  else if ((v10 & 4) != 0)
   {
     goto LABEL_185;
   }
 
   if ((*&has & 8) != 0)
   {
-    if ((v12 & 8) == 0 || self->_capabilities != *(equal + 49))
+    if ((v10 & 8) == 0 || self->_capabilities != *(equal + 49))
     {
       goto LABEL_185;
     }
   }
 
-  else if ((v12 & 8) != 0)
+  else if ((v10 & 8) != 0)
   {
     goto LABEL_185;
   }
 
   if ((*&has & 0x100) != 0)
   {
-    if ((v12 & 0x100) == 0 || self->_enhancedSecurityType != *(equal + 56))
+    if ((v10 & 0x100) == 0 || self->_enhancedSecurityType != *(equal + 56))
     {
       goto LABEL_185;
     }
   }
 
-  else if ((v12 & 0x100) != 0)
+  else if ((v10 & 0x100) != 0)
   {
     goto LABEL_185;
   }
 
   if ((*&has & 0x4000) != 0)
   {
-    if ((v12 & 0x4000) == 0 || self->_htInfo != *(equal + 62))
+    if ((v10 & 0x4000) == 0 || self->_htInfo != *(equal + 62))
     {
       goto LABEL_185;
     }
   }
 
-  else if ((v12 & 0x4000) != 0)
+  else if ((v10 & 0x4000) != 0)
   {
     goto LABEL_185;
   }
 
   if ((*&has & 0x2000) != 0)
   {
-    if ((v12 & 0x2000) == 0 || self->_htExtended != *(equal + 61))
+    if ((v10 & 0x2000) == 0 || self->_htExtended != *(equal + 61))
     {
       goto LABEL_185;
     }
   }
 
-  else if ((v12 & 0x2000) != 0)
+  else if ((v10 & 0x2000) != 0)
   {
     goto LABEL_185;
   }
 
   if ((*&has & 0x8000) != 0)
   {
-    if ((v12 & 0x8000) == 0 || self->_htTxBf != *(equal + 66))
+    if ((v10 & 0x8000) == 0 || self->_htTxBf != *(equal + 66))
     {
       goto LABEL_185;
     }
   }
 
-  else if ((v12 & 0x8000) != 0)
+  else if ((v10 & 0x8000) != 0)
   {
     goto LABEL_185;
   }
 
   if ((*&has & 0x800) != 0)
   {
-    if ((v12 & 0x800) == 0 || self->_htASel != *(equal + 59))
+    if ((v10 & 0x800) == 0 || self->_htASel != *(equal + 59))
     {
       goto LABEL_185;
     }
   }
 
-  else if ((v12 & 0x800) != 0)
+  else if ((v10 & 0x800) != 0)
   {
     goto LABEL_185;
   }
 
   if ((*&has & 0x1000) != 0)
   {
-    if ((v12 & 0x1000) == 0 || self->_htAmpduParams != *(equal + 60))
+    if ((v10 & 0x1000) == 0 || self->_htAmpduParams != *(equal + 60))
     {
       goto LABEL_185;
     }
   }
 
-  else if ((v12 & 0x1000) != 0)
+  else if ((v10 & 0x1000) != 0)
   {
     goto LABEL_185;
   }
@@ -2716,16 +2680,16 @@ LABEL_12:
     has = self->_has;
   }
 
-  v14 = *(equal + 109);
+  v12 = *(equal + 109);
   if ((*&has & 0x800000) != 0)
   {
-    if ((v14 & 0x800000) == 0 || self->_vhtInfo != *(equal + 85))
+    if ((v12 & 0x800000) == 0 || self->_vhtInfo != *(equal + 85))
     {
       goto LABEL_185;
     }
   }
 
-  else if ((v14 & 0x800000) != 0)
+  else if ((v12 & 0x800000) != 0)
   {
     goto LABEL_185;
   }
@@ -2751,17 +2715,17 @@ LABEL_12:
               IsEqual = PBRepeatedInt32IsEqual();
               if (IsEqual)
               {
-                v16 = self->_has;
-                v17 = *(equal + 109);
-                if ((*&v16 & 0x400) != 0)
+                v14 = self->_has;
+                v15 = *(equal + 109);
+                if ((*&v14 & 0x400) != 0)
                 {
-                  if ((v17 & 0x400) == 0 || self->_gatewayARPHistory != *(equal + 58))
+                  if ((v15 & 0x400) == 0 || self->_gatewayARPHistory != *(equal + 58))
                   {
                     goto LABEL_185;
                   }
                 }
 
-                else if ((v17 & 0x400) != 0)
+                else if ((v15 & 0x400) != 0)
                 {
                   goto LABEL_185;
                 }
@@ -2775,19 +2739,19 @@ LABEL_12:
                     return IsEqual;
                   }
 
-                  v16 = self->_has;
+                  v14 = self->_has;
                 }
 
-                v19 = *(equal + 109);
-                if (*&v16)
+                v17 = *(equal + 109);
+                if (*&v14)
                 {
-                  if ((v19 & 1) == 0 || self->_associationDuration != *(equal + 22))
+                  if ((v17 & 1) == 0 || self->_associationDuration != *(equal + 22))
                   {
                     goto LABEL_185;
                   }
                 }
 
-                else if (v19)
+                else if (v17)
                 {
                   goto LABEL_185;
                 }
@@ -2825,43 +2789,43 @@ LABEL_12:
                                     localeSource = self->_localeSource;
                                     if (!(localeSource | *(equal + 35)) || (IsEqual = [(NSString *)localeSource isEqual:?]) != 0)
                                     {
-                                      v31 = self->_has;
-                                      v32 = *(equal + 109);
-                                      if ((*&v31 & 0x80000) != 0)
+                                      v29 = self->_has;
+                                      v30 = *(equal + 109);
+                                      if ((*&v29 & 0x80000) != 0)
                                       {
-                                        if ((v32 & 0x80000) == 0 || self->_rxCSAFrames != *(equal + 81))
+                                        if ((v30 & 0x80000) == 0 || self->_rxCSAFrames != *(equal + 81))
                                         {
                                           goto LABEL_185;
                                         }
                                       }
 
-                                      else if ((v32 & 0x80000) != 0)
+                                      else if ((v30 & 0x80000) != 0)
                                       {
                                         goto LABEL_185;
                                       }
 
-                                      if ((*&v31 & 0x20) != 0)
+                                      if ((*&v29 & 0x20) != 0)
                                       {
-                                        if ((v32 & 0x20) == 0 || self->_channelSwitchDuringHostSleep != *(equal + 51))
+                                        if ((v30 & 0x20) == 0 || self->_channelSwitchDuringHostSleep != *(equal + 51))
                                         {
                                           goto LABEL_185;
                                         }
                                       }
 
-                                      else if ((v32 & 0x20) != 0)
+                                      else if ((v30 & 0x20) != 0)
                                       {
                                         goto LABEL_185;
                                       }
 
-                                      if ((*&v31 & 0x40) != 0)
+                                      if ((*&v29 & 0x40) != 0)
                                       {
-                                        if ((v32 & 0x40) == 0 || self->_channelSwitchDuringHostWake != *(equal + 52))
+                                        if ((v30 & 0x40) == 0 || self->_channelSwitchDuringHostWake != *(equal + 52))
                                         {
                                           goto LABEL_185;
                                         }
                                       }
 
-                                      else if ((v32 & 0x40) != 0)
+                                      else if ((v30 & 0x40) != 0)
                                       {
                                         goto LABEL_185;
                                       }

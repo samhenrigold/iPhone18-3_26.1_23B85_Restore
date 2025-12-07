@@ -155,9 +155,9 @@ LABEL_16:
 
 - (MAStorage)init
 {
-  v89.receiver = self;
-  v89.super_class = MAStorage;
-  v2 = [(MAStorage *)&v89 init];
+  v87.receiver = self;
+  v87.super_class = MAStorage;
+  v2 = [(MAStorage *)&v87 init];
   if (!v2)
   {
     v9 = 0;
@@ -183,9 +183,9 @@ LABEL_16:
     v8 = [NSString stringWithFormat:@"%@/%@", v7, uUIDString];
   }
 
-  v88 = 0;
-  v13 = [MAStorage ensureDirectoryExists:"" parent:v8 fileMgr:v3 error:&v88];
-  v9 = v88;
+  v86 = 0;
+  v13 = [MAStorage ensureDirectoryExists:"" parent:v8 fileMgr:v3 error:&v86];
+  v9 = v86;
   marootPath = v2->_marootPath;
   v2->_marootPath = v13;
 
@@ -203,9 +203,9 @@ LABEL_16:
   v16 = v15;
 
   [_TtC6server14MAPurgeUtility enableFastDirectory:v2->_marootPath];
-  v87 = v9;
-  v17 = [MAStorage ensureDirectoryExists:"assets/" parent:v16 fileMgr:v3 error:&v87];
-  v18 = v87;
+  v85 = v9;
+  v17 = [MAStorage ensureDirectoryExists:"assets/" parent:v16 fileMgr:v3 error:&v85];
+  v18 = v85;
 
   malocalAssetPath = v2->_malocalAssetPath;
   v2->_malocalAssetPath = v17;
@@ -222,9 +222,9 @@ LABEL_40:
   }
 
   [_TtC6server14MAPurgeUtility markPurgeable:?];
-  v86 = v18;
-  v20 = [MAStorage ensureDirectoryExists:"tmpAssets/" parent:v16 fileMgr:v3 error:&v86];
-  v9 = v86;
+  v84 = v18;
+  v20 = [MAStorage ensureDirectoryExists:"tmpAssets/" parent:v16 fileMgr:v3 error:&v84];
+  v9 = v84;
 
   malocalTmpAssetPath = v2->_malocalTmpAssetPath;
   v2->_malocalTmpAssetPath = v20;
@@ -236,22 +236,22 @@ LABEL_40:
     goto LABEL_39;
   }
 
-  v62 = v6;
-  v64 = v16;
-  v85 = v9;
-  v23 = [v3 contentsOfDirectoryAtPath:v22 error:&v85];
-  v24 = v85;
+  v60 = v6;
+  v62 = v16;
+  v83 = v9;
+  v23 = [v3 contentsOfDirectoryAtPath:v22 error:&v83];
+  v24 = v83;
 
-  v83 = 0u;
-  v84 = 0u;
   v81 = 0u;
   v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   v25 = v23;
-  v26 = [v25 countByEnumeratingWithState:&v81 objects:v91 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v79 objects:v89 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v82;
+    v28 = *v80;
     do
     {
       v29 = v25;
@@ -259,16 +259,15 @@ LABEL_40:
       v31 = v24;
       do
       {
-        if (*v82 != v28)
+        if (*v80 != v28)
         {
           objc_enumerationMutation(v29);
         }
 
-        v32 = v2->_malocalTmpAssetPath;
-        v33 = [NSString stringWithFormat:@"%@%@", v32, *(*(&v81 + 1) + 8 * v30)];
-        v80 = v31;
-        [v3 removeItemAtPath:v33 error:&v80];
-        v24 = v80;
+        v32 = [NSString stringWithFormat:@"%@%@", v2->_malocalTmpAssetPath, *(*(&v79 + 1) + 8 * v30)];
+        v78 = v31;
+        [v3 removeItemAtPath:v32 error:&v78];
+        v24 = v78;
 
         v30 = v30 + 1;
         v31 = v24;
@@ -276,19 +275,19 @@ LABEL_40:
 
       while (v27 != v30);
       v25 = v29;
-      v27 = [v29 countByEnumeratingWithState:&v81 objects:v91 count:16];
+      v27 = [v29 countByEnumeratingWithState:&v79 objects:v89 count:16];
     }
 
     while (v27);
   }
 
   [_TtC6server14MAPurgeUtility markPurgeable:v2->_malocalTmpAssetPath];
-  v79 = v24;
-  v34 = [MAStorage ensureDirectoryExists:"syncUpTmpAssets/" parent:v64 fileMgr:v3 error:&v79];
-  v9 = v79;
+  v77 = v24;
+  v33 = [MAStorage ensureDirectoryExists:"syncUpTmpAssets/" parent:v62 fileMgr:v3 error:&v77];
+  v9 = v77;
 
   malocalSyncUpTmpAssetPath = v2->_malocalSyncUpTmpAssetPath;
-  v2->_malocalSyncUpTmpAssetPath = v34;
+  v2->_malocalSyncUpTmpAssetPath = v33;
 
   if (!v2->_malocalSyncUpTmpAssetPath)
   {
@@ -296,139 +295,138 @@ LABEL_40:
     goto LABEL_40;
   }
 
-  v63 = v25;
+  v61 = v25;
   [_TtC6server14MAPurgeUtility markPurgeable:?];
-  v36 = v2->_malocalSyncUpTmpAssetPath;
-  v78 = v9;
-  v37 = [v3 contentsOfDirectoryAtPath:v36 error:&v78];
-  v38 = v78;
+  v35 = v2->_malocalSyncUpTmpAssetPath;
+  v76 = v9;
+  v36 = [v3 contentsOfDirectoryAtPath:v35 error:&v76];
+  v37 = v76;
 
-  v76 = 0u;
-  v77 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v39 = v37;
-  v40 = [v39 countByEnumeratingWithState:&v74 objects:v90 count:16];
-  if (v40)
+  v72 = 0u;
+  v73 = 0u;
+  v38 = v36;
+  v39 = [v38 countByEnumeratingWithState:&v72 objects:v88 count:16];
+  if (v39)
   {
-    v41 = v40;
-    v42 = *v75;
+    v40 = v39;
+    v41 = *v73;
     do
     {
-      v43 = 0;
-      v44 = v38;
+      v42 = 0;
+      v43 = v37;
       do
       {
-        if (*v75 != v42)
+        if (*v73 != v41)
         {
-          objc_enumerationMutation(v39);
+          objc_enumerationMutation(v38);
         }
 
-        v45 = v2->_malocalSyncUpTmpAssetPath;
-        v46 = [NSString stringWithFormat:@"%@%@", v45, *(*(&v74 + 1) + 8 * v43)];
-        v73 = v44;
-        [v3 removeItemAtPath:v46 error:&v73];
-        v38 = v73;
+        v44 = [NSString stringWithFormat:@"%@%@", v2->_malocalSyncUpTmpAssetPath, *(*(&v72 + 1) + 8 * v42)];
+        v71 = v43;
+        [v3 removeItemAtPath:v44 error:&v71];
+        v37 = v71;
 
-        v43 = v43 + 1;
-        v44 = v38;
+        v42 = v42 + 1;
+        v43 = v37;
       }
 
-      while (v41 != v43);
-      v41 = [v39 countByEnumeratingWithState:&v74 objects:v90 count:16];
+      while (v40 != v42);
+      v40 = [v38 countByEnumeratingWithState:&v72 objects:v88 count:16];
     }
 
-    while (v41);
+    while (v40);
   }
 
-  v72 = v38;
-  v47 = [MAStorage ensureDirectoryExists:"remoteassets/" parent:v64 fileMgr:v3 error:&v72];
-  v9 = v72;
+  v70 = v37;
+  v45 = [MAStorage ensureDirectoryExists:"remoteassets/" parent:v62 fileMgr:v3 error:&v70];
+  v9 = v70;
 
   maremoteAssetPath = v2->_maremoteAssetPath;
-  v2->_maremoteAssetPath = v47;
+  v2->_maremoteAssetPath = v45;
 
   if (!v2->_maremoteAssetPath)
   {
-    v60 = 0;
-    v52 = v63;
+    v58 = 0;
+    v50 = v61;
     goto LABEL_46;
   }
 
-  v71 = v9;
-  v49 = [MAStorage ensureDirectoryExists:"predownloadedassets/" parent:v64 fileMgr:v3 error:&v71];
-  v50 = v71;
+  v69 = v9;
+  v47 = [MAStorage ensureDirectoryExists:"predownloadedassets/" parent:v62 fileMgr:v3 error:&v69];
+  v48 = v69;
 
   maPredownloadedAssetPath = v2->_maPredownloadedAssetPath;
-  v2->_maPredownloadedAssetPath = v49;
+  v2->_maPredownloadedAssetPath = v47;
 
-  v52 = v63;
+  v50 = v61;
   if (!v2->_maPredownloadedAssetPath)
   {
     goto LABEL_44;
   }
 
-  v70 = v50;
-  v53 = [MAStorage ensureDirectoryExists:"prefs/" parent:v64 fileMgr:v3 error:&v70];
-  v9 = v70;
+  v68 = v48;
+  v51 = [MAStorage ensureDirectoryExists:"prefs/" parent:v62 fileMgr:v3 error:&v68];
+  v9 = v68;
 
   maPrefsPath = v2->_maPrefsPath;
-  v2->_maPrefsPath = v53;
+  v2->_maPrefsPath = v51;
 
   if (!v2->_maPrefsPath)
   {
 LABEL_45:
-    v60 = 0;
+    v58 = 0;
     goto LABEL_46;
   }
 
-  v69 = v9;
-  v55 = [MAStorage ensureDirectoryExists:"users/" parent:v64 fileMgr:v3 error:&v69];
-  v50 = v69;
+  v67 = v9;
+  v53 = [MAStorage ensureDirectoryExists:"users/" parent:v62 fileMgr:v3 error:&v67];
+  v48 = v67;
 
   maUsersPath = v2->_maUsersPath;
-  v2->_maUsersPath = v55;
+  v2->_maUsersPath = v53;
 
   if (!v2->_maUsersPath)
   {
 LABEL_44:
-    v60 = 0;
-    v9 = v50;
+    v58 = 0;
+    v9 = v48;
     goto LABEL_46;
   }
 
-  v68 = v50;
-  v57 = [(MAStorage *)v2 createOrLoadLocalDatabase:v64 error:&v68];
-  v9 = v68;
+  v66 = v48;
+  v55 = [(MAStorage *)v2 createOrLoadLocalDatabase:v62 error:&v66];
+  v9 = v66;
 
-  if (!v57)
+  if (!v55)
   {
     goto LABEL_45;
   }
 
   objc_storeStrong(&v2->_fileMgr, v3);
-  if (v62)
+  if (v60)
   {
-    v58 = off_100127CD8;
-    v66[0] = _NSConcreteStackBlock;
-    v66[1] = 3221225472;
-    v66[2] = sub_10000EF04;
-    v66[3] = &unk_100116118;
-    v67 = v64;
-    [MAUtilityHelper registerAssetsWithSpaceAttributesWithPath:v67 logger:v58 completion:v66];
+    v56 = off_100127CD8;
+    v64[0] = _NSConcreteStackBlock;
+    v64[1] = 3221225472;
+    v64[2] = sub_10000EF04;
+    v64[3] = &unk_100116118;
+    v65 = v62;
+    [MAUtilityHelper registerAssetsWithSpaceAttributesWithPath:v65 logger:v56 completion:v64];
   }
 
-  v59 = off_100127CD8;
+  v57 = off_100127CD8;
   if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "Successfully create/load local database for assets.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Successfully create/load local database for assets.", buf, 2u);
   }
 
-  v60 = 1;
+  v58 = 1;
 LABEL_46:
 
-  if (!v60)
+  if (!v58)
   {
     goto LABEL_40;
   }
@@ -461,7 +459,7 @@ LABEL_41:
 
   else if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
   {
-    sub_1000182F0(&self->_dbInClassCPath);
+    sub_1000182F0();
   }
 }
 
@@ -490,7 +488,7 @@ LABEL_41:
 
   else if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
   {
-    sub_10001836C(&self->_dbInClassDPath);
+    sub_10001836C();
   }
 }
 
@@ -520,7 +518,7 @@ LABEL_41:
   [(MAStorage *)self loadDBInClassD];
   if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_DEBUG))
   {
-    sub_100018428(&self->_databasePath);
+    sub_100018428();
   }
 
   [(MAStorage *)self removeAssetMetaDataDbIfCorruptedWith:self->_databasePath];
@@ -614,7 +612,7 @@ LABEL_41:
 
       if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
       {
-        sub_1000184F8(&errmsg);
+        sub_1000184F8();
       }
 
       v31 = 0;
@@ -667,7 +665,7 @@ LABEL_41:
 
         if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
         {
-          sub_100018600(&errmsg);
+          sub_100018600();
         }
 
         v31 = 0;
@@ -919,7 +917,7 @@ LABEL_31:
     {
       if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
       {
-        sub_1000189A0(tokenCopy, error);
+        sub_1000189A0();
       }
 
       v21 = 0;
@@ -927,7 +925,7 @@ LABEL_31:
       goto LABEL_70;
     }
 
-    v122 = v16;
+    v121 = v16;
     outCopy = out;
     errorCopy = error;
     v42 = [v20 objectForKeyedSubscript:NSFileSize];
@@ -946,7 +944,7 @@ LABEL_31:
 
     error = errorCopy;
     out = outCopy;
-    v16 = v122;
+    v16 = v121;
   }
 
   else
@@ -955,7 +953,7 @@ LABEL_31:
   }
 
   p_database = &self->_database;
-  v122 = v16;
+  v121 = v16;
   if (sqlite3_prepare_v2(self->_database, "INSERT INTO mAssets (assetProfileID, assetProfileName, assetProcess, assetType, assetLabel, isSyncedToiCloud, lastUpdatedOSVersion, lastUpdatedAlgorithmVersion, assetHandle, assetState, enrollmentIdentifier, activeState, creatorAttest, serverAttest, deviceIdentifier, deviceName, recordName, creationTime, lastUpdatedTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", -1, &ppStmt, 0))
   {
     if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
@@ -972,9 +970,9 @@ LABEL_31:
   }
 
   selfCopy = self;
-  v116 = v17;
+  v115 = v17;
   outCopy2 = out;
-  v119 = tokenCopy;
+  v118 = tokenCopy;
   v23 = ppStmt;
   assetOwner = [assetCopy assetOwner];
   sqlite3_bind_int64(v23, 1, [assetOwner profileID]);
@@ -1098,7 +1096,7 @@ LABEL_31:
     sqlite3_bind_null(ppStmt, 15);
   }
 
-  tokenCopy = v119;
+  tokenCopy = v118;
   deviceName = [assetMetadata deviceName];
 
   v79 = ppStmt;
@@ -1179,7 +1177,7 @@ LABEL_31:
 
     v21 = 0;
     v22 = 0;
-    v17 = v116;
+    v17 = v115;
     goto LABEL_69;
   }
 
@@ -1192,19 +1190,19 @@ LABEL_31:
     sub_100018BAC();
   }
 
-  if (!v122)
+  if (!v121)
   {
     fileMgr = selfCopy->_fileMgr;
     assetData = [assetCopy assetData];
-    v124 = NSFileProtectionKey;
-    v125 = v116;
-    v106 = [NSDictionary dictionaryWithObjects:&v125 forKeys:&v124 count:1];
+    v123 = NSFileProtectionKey;
+    v124 = v115;
+    v106 = [NSDictionary dictionaryWithObjects:&v124 forKeys:&v123 count:1];
     LOBYTE(fileMgr) = [(NSFileManager *)fileMgr createFileAtPath:v21 contents:assetData attributes:v106];
 
-    v17 = v116;
+    v17 = v115;
     if ((fileMgr & 1) == 0)
     {
-      *__error();
+      __error();
       *error = createManagedAssetError();
       if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
       {
@@ -1221,7 +1219,7 @@ LABEL_60:
       assetHandle4 = [assetCopy assetHandle];
       [(NSMutableDictionary *)cachedAssets setObject:assetCopy forKeyedSubscript:assetHandle4];
 
-      v17 = v116;
+      v17 = v115;
       v110 = off_100127CD8;
       if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_DEBUG))
       {
@@ -1236,12 +1234,12 @@ LABEL_60:
     }
 
     v22 = 1;
-    tokenCopy = v119;
-    v16 = v122;
+    tokenCopy = v118;
+    v16 = v121;
     goto LABEL_70;
   }
 
-  fileSystemRepresentation = [v119 fileSystemRepresentation];
+  fileSystemRepresentation = [v118 fileSystemRepresentation];
   fileSystemRepresentation2 = [v21 fileSystemRepresentation];
   rename(fileSystemRepresentation, fileSystemRepresentation2, v100);
   if (!v101)
@@ -1249,28 +1247,28 @@ LABEL_60:
     v107 = [NSFileHandle fileHandleForUpdatingAtPath:v21];
     [assetCopy setAssetFileHandle:v107];
 
-    v17 = v116;
+    v17 = v115;
     goto LABEL_60;
   }
 
-  v114 = *__error();
+  __error();
   *error = createManagedAssetError();
   v102 = off_100127CD8;
-  v17 = v116;
+  v17 = v115;
   if (!os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
   {
 LABEL_68:
     v22 = 0;
-    tokenCopy = v119;
+    tokenCopy = v118;
     goto LABEL_69;
   }
 
-  tokenCopy = v119;
-  sub_100018C14(v119, v21, v102);
+  tokenCopy = v118;
+  sub_100018C14(v118, v21, v102);
 LABEL_12:
   v22 = 0;
 LABEL_69:
-  v16 = v122;
+  v16 = v121;
 LABEL_70:
   if (ppStmt)
   {
@@ -1633,18 +1631,7 @@ LABEL_52:
           v52 = [(MAStorage *)self buildMetaDataFromSqlStatement:ppStmt];
           [(MASDAsset *)v23 setAssetMetadata:v52];
 
-          if (option != 1)
-          {
-            goto LABEL_39;
-          }
-
-          v53 = [NSURL fileURLWithPath:assetCopy];
-          v69 = 0;
-          v54 = [NSFileHandle fileHandleForReadingFromURL:v53 error:&v69];
-          v21 = v69;
-          [(MASDAsset *)v23 setAssetFileHandle:v54];
-
-          if (v21)
+          if (option == 1 && ([NSURL fileURLWithPath:assetCopy], v53 = objc_claimAutoreleasedReturnValue(), v69 = 0, [NSFileHandle fileHandleForReadingFromURL:v53 error:&v69], v54 = objc_claimAutoreleasedReturnValue(), v21 = v69, [(MASDAsset *)v23 setAssetFileHandle:v54], v54, v53, v21))
           {
             v50 = v64;
             if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
@@ -1661,7 +1648,6 @@ LABEL_52:
 
           else
           {
-LABEL_39:
             assetMetadata = [(MASDAsset *)v23 assetMetadata];
             -[MASDAsset setSyncOption:](v23, "setSyncOption:", [assetMetadata syncOption]);
 
@@ -1872,19 +1858,14 @@ LABEL_50:
   LOBYTE(fileMgr) = [(NSFileManager *)fileMgr createFileAtPath:file contents:0 attributes:v16];
   if ((fileMgr & 1) == 0)
   {
-    v19 = __error();
-    if (*v19 != 28)
-    {
-      v22 = *v19;
-    }
-
+    __error();
     *error = createManagedAssetError();
     if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
     {
       sub_10001914C();
     }
 
-    goto LABEL_14;
+    goto LABEL_12;
   }
 
   if (out)
@@ -1902,19 +1883,19 @@ LABEL_50:
     {
       if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
       {
-        sub_1000191C8(file, error);
+        sub_1000191C8();
       }
 
-LABEL_14:
-      v20 = 0;
-      goto LABEL_15;
+LABEL_12:
+      v19 = 0;
+      goto LABEL_13;
     }
   }
 
-  v20 = 1;
-LABEL_15:
+  v19 = 1;
+LABEL_13:
 
-  return v20;
+  return v19;
 }
 
 - (BOOL)validateSessionToken:(id)token
@@ -1972,9 +1953,9 @@ LABEL_15:
       if ([(NSFileManager *)self->_fileMgr contentsEqualAtPath:tokenCopy andPath:v13])
       {
         fileMgr = self->_fileMgr;
-        v27 = 0;
-        [(NSFileManager *)fileMgr removeItemAtPath:tokenCopy error:&v27];
-        v15 = v27;
+        v26 = 0;
+        [(NSFileManager *)fileMgr removeItemAtPath:tokenCopy error:&v26];
+        v15 = v26;
         if (v15 && os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
         {
           sub_10001934C();
@@ -1995,7 +1976,7 @@ LABEL_15:
           goto LABEL_15;
         }
 
-        v26 = *__error();
+        __error();
         *error = createManagedAssetError();
         v23 = off_100127CD8;
         if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
@@ -2527,7 +2508,7 @@ LABEL_21:
   {
     if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
     {
-      sub_1000194C4(&errmsg);
+      sub_1000194C4();
     }
 
     createManagedAssetError();
@@ -2549,21 +2530,19 @@ LABEL_21:
         goto LABEL_32;
       }
 
-      v33 = *p_malocalAssetPath;
       *error = createManagedAssetError();
       if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
       {
-        sub_1000195FC(&self->_malocalAssetPath);
+        sub_1000195FC();
       }
     }
 
     else
     {
-      v34 = *p_malocalAssetPath;
       *error = createManagedAssetError();
       if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
       {
-        sub_100019594(&self->_malocalAssetPath);
+        sub_100019594();
       }
     }
 
@@ -2574,11 +2553,10 @@ LABEL_21:
   v16 = v15;
   if (*error)
   {
-    v32 = *p_malocalAssetPath;
     *error = createManagedAssetError();
     if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
     {
-      sub_10001952C(&self->_malocalAssetPath);
+      sub_10001952C();
     }
 
 LABEL_31:
@@ -2588,25 +2566,25 @@ LABEL_31:
 
   selfCopy = self;
   obj = v15;
-  v40 = 0u;
-  v41 = 0u;
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v17 = [v15 countByEnumeratingWithState:&v38 objects:v47 count:16];
+  v35 = 0u;
+  v36 = 0u;
+  v17 = [v15 countByEnumeratingWithState:&v35 objects:v44 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v39;
+    v19 = *v36;
     do
     {
       for (i = 0; i != v18; i = i + 1)
       {
-        if (*v39 != v19)
+        if (*v36 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v38 + 1) + 8 * i);
+        v21 = *(*(&v35 + 1) + 8 * i);
         v22 = [v21 componentsSeparatedByString:@"."];
         v23 = [v22 objectAtIndexedSubscript:0];
 
@@ -2617,18 +2595,18 @@ LABEL_31:
         if ((v26 & 1) == 0)
         {
           v28 = selfCopy->_fileMgr;
-          v37 = 0;
-          v29 = [(NSFileManager *)v28 removeItemAtPath:v24 error:&v37];
-          v27 = v37;
+          v34 = 0;
+          v29 = [(NSFileManager *)v28 removeItemAtPath:v24 error:&v34];
+          v27 = v34;
           if ((v29 & 1) == 0)
           {
             v30 = off_100127CD8;
             if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v44 = v24;
-              v45 = 2112;
-              v46 = v27;
+              v41 = v24;
+              v42 = 2112;
+              v43 = v27;
               _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Failed to delete asset file store at: %@, error: %@", buf, 0x16u);
             }
           }
@@ -2637,7 +2615,7 @@ LABEL_31:
         exceptCopy = v25;
       }
 
-      v18 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v18 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
     }
 
     while (v18);
@@ -2933,10 +2911,9 @@ LABEL_36:
 
     if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
     {
-      sub_100019738(error);
+      sub_100019738();
     }
 
-    v24 = *error;
     *error = createManagedAssetError();
 
     v20 = 0;
@@ -3351,7 +3328,7 @@ LABEL_9:
     if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
     {
 LABEL_10:
-      sub_100019A6C(error);
+      sub_100019A6C();
     }
 
 LABEL_11:
@@ -3620,26 +3597,26 @@ LABEL_9:
 
   aSelector = a2;
   v7 = +[NSMutableArray array];
+  v37 = 0u;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
   v8 = assetsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v40;
+    v11 = *v38;
     while (2)
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v40 != v11)
+        if (*v38 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v39 + 1) + 8 * i);
+        v13 = *(*(&v37 + 1) + 8 * i);
         if (([v13 isValidAssetHandle] & 1) == 0)
         {
           if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
@@ -3657,7 +3634,7 @@ LABEL_9:
         [v7 addObject:v14];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v37 objects:v43 count:16];
       if (v10)
       {
         continue;
@@ -3692,7 +3669,7 @@ LABEL_9:
     }
 
 LABEL_32:
-    v29 = NSStringFromSelector(v19);
+    v28 = NSStringFromSelector(v19);
     sqlite3_errmsg(*p_database);
     *error = createManagedAssetError();
 
@@ -3704,40 +3681,38 @@ LABEL_33:
 
   if (sqlite3_changes(*p_database))
   {
-    v37 = 0u;
-    v38 = 0u;
     v35 = 0u;
     v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     aSelectora = v8;
-    v22 = [aSelectora countByEnumeratingWithState:&v35 objects:v44 count:16];
+    v22 = [aSelectora countByEnumeratingWithState:&v33 objects:v42 count:16];
     if (v22)
     {
       v23 = v22;
       v20 = 0;
-      v24 = *v36;
+      v24 = *v34;
       while (2)
       {
         v25 = 0;
         v26 = v20;
         do
         {
-          if (*v36 != v24)
+          if (*v34 != v24)
           {
             objc_enumerationMutation(aSelectora);
           }
 
-          v27 = *(*(&v35 + 1) + 8 * v25);
-          malocalAssetPath = self->_malocalAssetPath;
-          v20 = [NSString stringWithFormat:@"%@%@.asset", malocalAssetPath, v27];
+          v27 = *(*(&v33 + 1) + 8 * v25);
+          v20 = [NSString stringWithFormat:@"%@%@.asset", self->_malocalAssetPath, v27];
 
           if ([(NSFileManager *)self->_fileMgr fileExistsAtPath:v20]&& ![(NSFileManager *)self->_fileMgr removeItemAtPath:v20 error:error])
           {
             if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
             {
-              sub_100019738(error);
+              sub_100019738();
             }
 
-            v31 = *error;
             createManagedAssetError();
             *error = v21 = 0;
             goto LABEL_45;
@@ -3749,7 +3724,7 @@ LABEL_33:
         }
 
         while (v23 != v25);
-        v23 = [aSelectora countByEnumeratingWithState:&v35 objects:v44 count:16];
+        v23 = [aSelectora countByEnumeratingWithState:&v33 objects:v42 count:16];
         if (v23)
         {
           continue;

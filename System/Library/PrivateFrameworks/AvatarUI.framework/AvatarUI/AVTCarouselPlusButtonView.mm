@@ -22,7 +22,7 @@
   if (height)
   {
     v12 = [MEMORY[0x1E69DC738] buttonWithType:0];
-    v13 = AVTPlusButtonImage();
+    v13 = AVTPlusButtonImage(v12);
     [(UIButton *)v12 setImage:v13 forState:0];
     [(UIButton *)v12 setUserInteractionEnabled:0];
     button = height->_button;

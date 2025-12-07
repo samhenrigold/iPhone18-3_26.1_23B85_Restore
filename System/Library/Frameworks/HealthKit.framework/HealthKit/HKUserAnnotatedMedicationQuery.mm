@@ -187,12 +187,10 @@ void __83__HKUserAnnotatedMedicationQuery_client_deliverUserAnnotatedMedications
 
 void __88__HKUserAnnotatedMedicationQuery__enumerateUserAnnotatedMedicationsWithHandler_handler___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v10 = a2;
-  v7 = objc_autoreleasePoolPush();
+  v7 = a2;
+  v6 = objc_autoreleasePoolPush();
   if ([*(a1 + 32) deactivateCallCount] <= *(a1 + 48))
   {
-    v8 = *(a1 + 56) - 1 == a3;
-    v9 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 
@@ -201,7 +199,7 @@ void __88__HKUserAnnotatedMedicationQuery__enumerateUserAnnotatedMedicationsWith
     *a4 = 1;
   }
 
-  objc_autoreleasePoolPop(v7);
+  objc_autoreleasePoolPop(v6);
 }
 
 @end

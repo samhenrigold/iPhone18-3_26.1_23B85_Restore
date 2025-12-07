@@ -47,23 +47,23 @@
 
 - (void)setupMorphTargetsWithComputeContext:(id)context
 {
-  BaseGeometry = C3DMorpherGetBaseGeometry(self->_morpher);
-  v6 = C3DGeometryUsesDeformerBasedDynamicMesh(BaseGeometry);
-  if (v6)
+  BaseGeometry = C3DMorpherGetBaseGeometry(self->_morpher, a2);
+  v7 = C3DGeometryUsesDeformerBasedDynamicMesh(BaseGeometry);
+  if (v7)
   {
     PositionSourceForDeformerBasedDynamicMesh = C3DGeometryCreatePositionSourceForDeformerBasedDynamicMesh(BaseGeometry);
     if (PositionSourceForDeformerBasedDynamicMesh)
     {
       SourceWithSemanticAtIndex = PositionSourceForDeformerBasedDynamicMesh;
 LABEL_11:
-      v10 = 0;
+      v13 = 0;
       goto LABEL_12;
     }
 
-    v11 = scn_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v14 = scn_default_log(0, v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMTLMorphDeformer *)v11 setupMorphTargetsWithComputeContext:v12, v13, v14, v15, v16, v17, v18];
+      [(SCNMTLMorphDeformer *)v14 setupMorphTargetsWithComputeContext:v15, v16, v17, v18, v19, v20, v21];
     }
 
 LABEL_10:
@@ -71,362 +71,363 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  Mesh = C3DGeometryGetMesh(BaseGeometry);
+  Mesh = C3DGeometryGetMesh(BaseGeometry, v6);
   if (!Mesh)
   {
-    v19 = scn_default_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v22 = scn_default_log(0, v12);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMTLMorphDeformer *)v19 setupMorphTargetsWithComputeContext:v20, v21, v22, v23, v24, v25, v26];
+      [(SCNMTLMorphDeformer *)v22 setupMorphTargetsWithComputeContext:v23, v24, v25, v26, v27, v28, v29];
     }
 
     goto LABEL_10;
   }
 
-  v10 = Mesh;
+  v13 = Mesh;
   SourceWithSemanticAtIndex = 0;
 LABEL_12:
   OverrideMaterial = C3DGeometryGetOverrideMaterial(self->_morpher);
   if (!OverrideMaterial)
   {
-    v28 = scn_default_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+    v32 = scn_default_log(0, v30);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMTLMorphDeformer *)v28 setupMorphTargetsWithComputeContext:v29, v30, v31, v32, v33, v34, v35];
+      [(SCNMTLMorphDeformer *)v32 setupMorphTargetsWithComputeContext:v33, v34, v35, v36, v37, v38, v39];
     }
   }
 
-  v36 = C3DMorphGetCalculationMode(OverrideMaterial) == 0;
-  IsUsingSparseTargets = C3DMorphIsUsingSparseTargets(OverrideMaterial);
+  v40 = C3DMorphGetCalculationMode(OverrideMaterial) == 0;
+  IsUsingSparseTargets = C3DMorphIsUsingSparseTargets(OverrideMaterial, v41);
   if (IsUsingSparseTargets)
   {
     finalMeshDataKind = 0;
-    v39 = 44;
-    v40 = 23;
-    v41 = 1;
+    v44 = 44;
+    v45 = 23;
+    v46 = 1;
   }
 
   else
   {
-    v41 = 0;
+    v46 = 0;
     finalMeshDataKind = self->_finalMeshDataKind;
-    v40 = 9;
-    v39 = 9;
+    v45 = 9;
+    v44 = 9;
   }
 
   if (!self->_morphNormals)
   {
-    v40 = 0;
+    v45 = 0;
   }
 
-  self->_morphKind = v41;
+  self->_morphKind = v46;
   self->_dataKindForComputeKernel = finalMeshDataKind;
   self->_basePositionDataType = 9;
-  self->_baseNormalDataType = v40;
-  self->_morphTargetPositionDataType = v39;
-  self->_morphTargetNormalDataType = v40;
-  v168 = OverrideMaterial;
-  v170 = C3DGeometryGetOverrideMaterial(OverrideMaterial);
-  Count = CFArrayGetCount(v170);
-  v43 = Count;
+  self->_baseNormalDataType = v45;
+  self->_morphTargetPositionDataType = v44;
+  self->_morphTargetNormalDataType = v45;
+  v193 = OverrideMaterial;
+  v195 = C3DGeometryGetOverrideMaterial(OverrideMaterial);
+  Count = CFArrayGetCount(v195);
+  v49 = Count;
   if (!Count)
   {
-    v44 = scn_default_log();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+    v50 = scn_default_log(Count, v48);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMTLMorphDeformer *)v44 setupMorphTargetsWithComputeContext:v45, v46, v47, v48, v49, v50, v51];
+      [(SCNMTLMorphDeformer *)v50 setupMorphTargetsWithComputeContext:v48, v51, v52, v53, v54, v55, v56];
     }
   }
 
-  v188[0] = 0;
-  v52 = self->_finalMeshDataKind;
+  v213[0] = 0;
+  v57 = self->_finalMeshDataKind;
   selfCopy = self;
   contextCopy = context;
-  v169 = SourceWithSemanticAtIndex;
-  if (v6)
+  v194 = SourceWithSemanticAtIndex;
+  if (v7)
   {
-    if (v52 != self->_dataKindForComputeKernel)
+    if (v57 != self->_dataKindForComputeKernel)
     {
       [SCNMTLMorphDeformer setupMorphTargetsWithComputeContext:];
     }
 
     PositionOriginalToFirstDeindexedTable = 0;
     PositionDeindexedToOriginalTable = 0;
-    v54 = 0;
-    v55 = SourceWithSemanticAtIndex;
+    v59 = 0;
+    v60 = SourceWithSemanticAtIndex;
   }
 
   else
   {
-    SourceWithSemanticAtIndex = C3DMeshGetSourceWithSemanticAtIndex(v10, 0, 0, v52);
-    PositionDeindexedToOriginalTable = C3DMeshGetPositionDeindexedToOriginalTable(v10, v188);
-    PositionOriginalToFirstDeindexedTable = C3DMeshGetPositionOriginalToFirstDeindexedTable(v10);
-    v56 = C3DMeshGetSourceWithSemanticAtIndex(v10, 0, 0, self->_dataKindForComputeKernel);
-    if (!v56)
+    SourceWithSemanticAtIndex = C3DMeshGetSourceWithSemanticAtIndex(v13, 0, 0, v57);
+    PositionDeindexedToOriginalTable = C3DMeshGetPositionDeindexedToOriginalTable(v13, v213);
+    PositionOriginalToFirstDeindexedTable = C3DMeshGetPositionOriginalToFirstDeindexedTable(v13);
+    v61 = C3DMeshGetSourceWithSemanticAtIndex(v13, 0, 0, self->_dataKindForComputeKernel);
+    if (!v61)
     {
-      v57 = scn_default_log();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
+      v62 = scn_default_log(0, v48);
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
       {
-        [(SCNMTLMorphDeformer *)v57 setupMorphTargetsWithComputeContext:v58, v59, v60, v61, v62, v63, v64];
+        [(SCNMTLMorphDeformer *)v62 setupMorphTargetsWithComputeContext:v48, v63, v64, v65, v66, v67, v68];
       }
     }
 
     if (self->_morphNormals)
     {
-      v65 = C3DMeshGetSourceWithSemanticAtIndex(v10, 1, 0, self->_dataKindForComputeKernel);
-      if (v65)
+      v69 = C3DMeshGetSourceWithSemanticAtIndex(v13, 1, 0, self->_dataKindForComputeKernel);
+      if (v69)
       {
-        v55 = v56;
-        v54 = v65;
+        v60 = v61;
+        v59 = v69;
       }
 
       else
       {
-        v66 = C3DCreateNormalsWithMesh(v10, self->_dataKindForComputeKernel, 0);
-        if (!v66)
+        v71 = C3DCreateNormalsWithMesh(v13, self->_dataKindForComputeKernel, 0);
+        if (!v71)
         {
-          v67 = scn_default_log();
-          if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
+          v72 = scn_default_log(0, v70);
+          if (os_log_type_enabled(v72, OS_LOG_TYPE_FAULT))
           {
-            [(SCNMTLDeformerStack *)v67 setupInitialBuffersWithBasePositionSourceProvider:v68 baseNormalSourceProvider:v69 baseTangentSourceProvider:v70 info:v71, v72, v73, v74];
+            [(SCNMTLDeformerStack *)v72 setupInitialBuffersWithBasePositionSourceProvider:v73 baseNormalSourceProvider:v74 baseTangentSourceProvider:v75 info:v76, v77, v78, v79];
           }
         }
 
-        CFAutorelease(v66);
-        v55 = v56;
-        v54 = v66;
+        CFAutorelease(v71);
+        v60 = v61;
+        v59 = v71;
       }
     }
 
     else
     {
-      v55 = v56;
-      v54 = 0;
+      v60 = v61;
+      v59 = 0;
     }
   }
 
-  selfCopy->_vertexCountForComputeKernel = C3DMeshSourceGetCount(v55);
-  selfCopy->_finalMeshVertexCount = C3DMeshSourceGetCount(SourceWithSemanticAtIndex);
-  v75 = malloc_type_malloc(40 * v43, 0x10600401818AB88uLL);
-  v184[0] = MEMORY[0x277D85DD0];
-  v184[1] = 3221225472;
-  v184[2] = __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invoke;
-  v184[3] = &unk_2782FD170;
-  v186 = IsUsingSparseTargets;
-  v184[4] = selfCopy;
-  v184[5] = v10;
-  v166 = v54;
-  v167 = v55;
-  v184[6] = v55;
-  v184[7] = v54;
-  v76 = selfCopy;
-  v185 = v188[0];
-  v187 = v36;
-  v184[8] = PositionDeindexedToOriginalTable;
-  v184[9] = v75;
-  C3DCFArrayApplyBlock(v170, v184);
+  selfCopy->_vertexCountForComputeKernel = C3DMeshSourceGetCount(v60, v48);
+  selfCopy->_finalMeshVertexCount = C3DMeshSourceGetCount(SourceWithSemanticAtIndex, v80);
+  v81 = malloc_type_malloc(40 * v49, 0x10600401818AB88uLL);
+  v209[0] = MEMORY[0x277D85DD0];
+  v209[1] = 3221225472;
+  v209[2] = __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invoke;
+  v209[3] = &unk_2782FD170;
+  v211 = IsUsingSparseTargets;
+  v209[4] = selfCopy;
+  v209[5] = v13;
+  v191 = v59;
+  v192 = v60;
+  v209[6] = v60;
+  v209[7] = v59;
+  v82 = selfCopy;
+  v210 = v213[0];
+  v212 = v40;
+  v209[8] = PositionDeindexedToOriginalTable;
+  v209[9] = v81;
+  C3DCFArrayApplyBlock(v195, v209);
   runtimeMorphTargetCount = selfCopy->_runtimeMorphTargetCount;
   if (runtimeMorphTargetCount)
   {
     selfCopy->_runtimeMorphTargets = malloc_type_malloc(32 * runtimeMorphTargetCount, 0x100004017768742uLL);
-    v78 = C3DSizeOfBaseType(selfCopy->_morphTargetPositionDataType);
-    v79 = C3DSizeOfBaseType(selfCopy->_morphTargetNormalDataType);
+    v85 = C3DSizeOfBaseType(selfCopy->_morphTargetPositionDataType, v84);
+    v87 = C3DSizeOfBaseType(selfCopy->_morphTargetNormalDataType, v86);
     computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)selfCopy->_resourceManager computeEvaluator];
     if (SCNMTLDeviceRequiresOffsetAndStrideForStageInAsMultipleOf4Bytes(computeEvaluator))
     {
-      v81 = (v79 + ((v78 + 3) & 0xFFFFFFFFFFFFFFFCLL) + 3) & 0xFFFFFFFFFFFFFFFCLL;
+      v90 = (v87 + ((v85 + 3) & 0xFFFFFFFFFFFFFFFCLL) + 3) & 0xFFFFFFFFFFFFFFFCLL;
     }
 
     else
     {
-      v81 = v79 + v78;
+      v90 = v87 + v85;
     }
 
-    v176 = v81;
-    v84 = selfCopy->_vertexCountForComputeKernel - 1;
-    v85 = 1;
-    if (v84 > 0xFF)
+    v201 = v90;
+    v93 = selfCopy->_vertexCountForComputeKernel - 1;
+    v94 = 1;
+    if (v93 > 0xFF)
     {
-      v85 = 2;
+      v94 = 2;
     }
 
-    v86 = HIWORD(v84);
-    if (HIWORD(v84))
+    v95 = HIWORD(v93);
+    if (HIWORD(v93))
     {
-      v85 = 4;
+      v94 = 4;
     }
 
-    v171 = v85;
-    SCNMTLDataTypeFromC3DBaseType(selfCopy->_morphTargetPositionDataType);
-    v165 = v75;
-    if (selfCopy->_runtimeMorphTargetCount)
-    {
-      v87 = 0;
-      v88 = 0;
-      v89 = 0;
-      if (v86)
-      {
-        v90 = 2;
-      }
-
-      else
-      {
-        v90 = v84 > 0xFF;
-      }
-
-      v91 = v75 + 4;
-      do
-      {
-        Alignment = MTLDataTypeGetAlignment();
-        v93 = *v91;
-        if (*v91 != selfCopy->_vertexCountForComputeKernel)
-        {
-          v94 = MTLDataTypeGetAlignment();
-          v89 = ((v89 + v94 - 1) & -v94) + (*v91 << v90);
-        }
-
-        v88 = ((v88 + Alignment - 1) & -Alignment) + v93 * v176;
-        ++v87;
-        v91 += 5;
-      }
-
-      while (v87 < selfCopy->_runtimeMorphTargetCount);
-      v173 = malloc_type_malloc(v88, 0x100004077774924uLL);
-      if (v89)
-      {
-        v95 = malloc_type_malloc(v89, 0x100004077774924uLL);
-      }
-
-      else
-      {
-        v95 = 0;
-      }
-
-      v86 = HIWORD(v84);
-    }
-
-    else
-    {
-      v173 = malloc_type_malloc(0, 0x100004077774924uLL);
-      v88 = 0;
-      v89 = 0;
-      v95 = 0;
-    }
-
-    v174 = v95;
-    v164 = v89;
+    v196 = v94;
+    SCNMTLDataTypeFromC3DBaseType(selfCopy->_morphTargetPositionDataType, v89);
+    v190 = v81;
     if (selfCopy->_runtimeMorphTargetCount)
     {
       v96 = 0;
       v97 = 0;
       v98 = 0;
-      if (v86)
+      if (v95)
       {
         v99 = 2;
       }
 
       else
       {
-        v99 = v84 > 0xFF;
+        v99 = v93 > 0xFF;
       }
 
-      v100 = 4;
-      v101 = v165;
+      v100 = v81 + 4;
       do
       {
-        v102 = (&v76->_runtimeMorphTargets->var0 + v100);
-        *v102 = *v101;
-        v103 = MTLDataTypeGetAlignment();
-        v104 = (v97 + v103 - 1) & -v103;
-        v105 = MTLDataTypeGetAlignment();
-        v106 = (v98 + v105 - 1) & -v105;
-        [(SCNMTLMorphDeformer *)v76 createVertexBufferForMorphTarget:v102 - 1 withSetupTarget:v101 vertexBuffer:v173 vertexBufferOffset:v104 indicesBuffer:v174 indicesBufferOffset:v106 indexSize:v171 originalToFirstDeindexedTable:PositionOriginalToFirstDeindexedTable computeContext:contextCopy];
-        v107 = *(v101 + 4);
-        if (v107 == v76->_vertexCountForComputeKernel)
+        Alignment = MTLDataTypeGetAlignment();
+        v102 = *v100;
+        if (*v100 != selfCopy->_vertexCountForComputeKernel)
         {
-          v108 = 0;
+          v103 = MTLDataTypeGetAlignment();
+          v98 = ((v98 + v103 - 1) & -v103) + (*v100 << v99);
         }
 
-        else
-        {
-          v108 = v107 << v99;
-        }
-
-        CFRelease(*(v101 + 2));
-        v109 = *(v101 + 3);
-        if (v109)
-        {
-          CFRelease(v109);
-          *(v101 + 3) = 0;
-        }
-
-        v97 = v104 + v107 * v176;
-        v98 = v108 + v106;
+        v97 = ((v97 + Alignment - 1) & -Alignment) + v102 * v201;
         ++v96;
-        v76 = selfCopy;
-        v100 += 32;
-        v101 += 40;
+        v100 += 5;
       }
 
       while (v96 < selfCopy->_runtimeMorphTargetCount);
+      v198 = malloc_type_malloc(v97, 0x100004077774924uLL);
+      if (v98)
+      {
+        v104 = malloc_type_malloc(v98, 0x100004077774924uLL);
+      }
+
+      else
+      {
+        v104 = 0;
+      }
+
+      v95 = HIWORD(v93);
     }
 
     else
     {
-      v98 = 0;
+      v198 = malloc_type_malloc(0, 0x100004077774924uLL);
       v97 = 0;
+      v98 = 0;
+      v104 = 0;
     }
 
-    free(v165);
-    contextCopy2 = contextCopy;
-    v76->_morphTargetsVertexBuffer = -[SCNMTLResourceManager newPrivateBufferWithBytes:length:blitEncoder:](v76->_resourceManager, v173, v88, [contextCopy currentBlitEncoder]);
-    free(v173);
-    if (v174)
+    v199 = v104;
+    v189 = v98;
+    if (selfCopy->_runtimeMorphTargetCount)
     {
-      v76->_morphTargetsSparseIndicesBuffer = -[SCNMTLResourceManager newPrivateBufferWithBytes:length:blitEncoder:](v76->_resourceManager, v174, v164, [contextCopy currentBlitEncoder]);
-      free(v174);
-    }
-
-    v82 = v169;
-    if (v97 != v88)
-    {
-      v110 = scn_default_log();
-      if (os_log_type_enabled(v110, OS_LOG_TYPE_FAULT))
+      v105 = 0;
+      v106 = 0;
+      v107 = 0;
+      if (v95)
       {
-        [(SCNMTLMorphDeformer *)v110 setupMorphTargetsWithComputeContext:v111, v112, v113, v114, v115, v116, v117];
+        v108 = 2;
+      }
+
+      else
+      {
+        v108 = v93 > 0xFF;
+      }
+
+      v109 = 4;
+      v110 = v190;
+      do
+      {
+        v111 = (&v82->_runtimeMorphTargets->var0 + v109);
+        *v111 = *v110;
+        v112 = MTLDataTypeGetAlignment();
+        v113 = (v106 + v112 - 1) & -v112;
+        v114 = MTLDataTypeGetAlignment();
+        v115 = (v107 + v114 - 1) & -v114;
+        [(SCNMTLMorphDeformer *)v82 createVertexBufferForMorphTarget:v111 - 1 withSetupTarget:v110 vertexBuffer:v198 vertexBufferOffset:v113 indicesBuffer:v199 indicesBufferOffset:v115 indexSize:v196 originalToFirstDeindexedTable:PositionOriginalToFirstDeindexedTable computeContext:contextCopy];
+        v116 = *(v110 + 4);
+        if (v116 == v82->_vertexCountForComputeKernel)
+        {
+          v117 = 0;
+        }
+
+        else
+        {
+          v117 = v116 << v108;
+        }
+
+        CFRelease(*(v110 + 2));
+        v118 = *(v110 + 3);
+        if (v118)
+        {
+          CFRelease(v118);
+          *(v110 + 3) = 0;
+        }
+
+        v106 = v113 + v116 * v201;
+        v107 = v117 + v115;
+        ++v105;
+        v82 = selfCopy;
+        v109 += 32;
+        v110 += 40;
+      }
+
+      while (v105 < selfCopy->_runtimeMorphTargetCount);
+    }
+
+    else
+    {
+      v107 = 0;
+      v106 = 0;
+    }
+
+    free(v190);
+    contextCopy2 = contextCopy;
+    v82->_morphTargetsVertexBuffer = -[SCNMTLResourceManager newPrivateBufferWithBytes:length:blitEncoder:](v82->_resourceManager, v198, v97, [contextCopy currentBlitEncoder]);
+    free(v198);
+    if (v199)
+    {
+      v82->_morphTargetsSparseIndicesBuffer = -[SCNMTLResourceManager newPrivateBufferWithBytes:length:blitEncoder:](v82->_resourceManager, v199, v189, [contextCopy currentBlitEncoder]);
+      free(v199);
+    }
+
+    v91 = v194;
+    if (v106 != v97)
+    {
+      v121 = scn_default_log(v119, v120);
+      v119 = os_log_type_enabled(v121, OS_LOG_TYPE_FAULT);
+      if (v119)
+      {
+        [(SCNMTLMorphDeformer *)v121 setupMorphTargetsWithComputeContext:v120, v122, v123, v124, v125, v126, v127];
       }
     }
 
-    if (v98 != v164)
+    if (v107 != v189)
     {
-      v118 = scn_default_log();
-      if (os_log_type_enabled(v118, OS_LOG_TYPE_FAULT))
+      v128 = scn_default_log(v119, v120);
+      if (os_log_type_enabled(v128, OS_LOG_TYPE_FAULT))
       {
-        [(SCNMTLMorphDeformer *)v118 setupMorphTargetsWithComputeContext:v119, v120, v121, v122, v123, v124, v125];
+        [(SCNMTLMorphDeformer *)v128 setupMorphTargetsWithComputeContext:v129, v130, v131, v132, v133, v134, v135];
       }
     }
   }
 
   else
   {
-    free(v75);
-    v82 = v169;
+    free(v81);
+    v91 = v194;
     contextCopy2 = context;
   }
 
-  v182 = 0;
-  v183 = 0;
-  v181 = 0;
-  LOBYTE(v163) = 1;
-  v76->_baseBufferForComputeKernel = [contextCopy2 newBufferForDataKind:v76->_dataKindForComputeKernel positionSource:v167 normalSource:v166 positionDataType:v76->_basePositionDataType normalDataType:v76->_baseNormalDataType forStageInputOutputDescriptor:1 usePrivateStorageMode:v163 outStride:&v183 outPositionOffset:&v182 outNormalOffset:&v181];
-  v126 = v76;
-  v127 = C3DSizeOfBaseType(v76->_morphTargetPositionDataType);
-  v128 = C3DSizeOfBaseType(v126->_morphTargetNormalDataType);
-  computeEvaluator2 = [(SCNMTLOpenSubdivComputeEvaluator *)v126->_resourceManager computeEvaluator];
+  v207 = 0;
+  v208 = 0;
+  v206 = 0;
+  LOBYTE(v188) = 1;
+  v82->_baseBufferForComputeKernel = [contextCopy2 newBufferForDataKind:v82->_dataKindForComputeKernel positionSource:v192 normalSource:v191 positionDataType:v82->_basePositionDataType normalDataType:v82->_baseNormalDataType forStageInputOutputDescriptor:1 usePrivateStorageMode:v188 outStride:&v208 outPositionOffset:&v207 outNormalOffset:&v206];
+  v137 = v82;
+  v138 = C3DSizeOfBaseType(v82->_morphTargetPositionDataType, v136);
+  v140 = C3DSizeOfBaseType(v137->_morphTargetNormalDataType, v139);
+  computeEvaluator2 = [(SCNMTLOpenSubdivComputeEvaluator *)v137->_resourceManager computeEvaluator];
   if (!SCNMTLDeviceRequiresOffsetAndStrideForStageInAsMultipleOf4Bytes(computeEvaluator2))
   {
-    v130 = v128 + v127;
-    if (!v82)
+    v143 = v140 + v138;
+    if (!v91)
     {
       goto LABEL_85;
     }
@@ -434,198 +435,200 @@ LABEL_12:
     goto LABEL_84;
   }
 
-  v127 = (v127 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  v130 = (v128 + v127 + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (v82)
+  v138 = (v138 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  v143 = (v140 + v138 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+  if (v91)
   {
 LABEL_84:
-    CFRelease(v82);
+    CFRelease(v91);
   }
 
 LABEL_85:
-  if (C3DMorphGetClearCPUDataAfterUpload(v168))
+  ClearCPUDataAfterUpload = C3DMorphGetClearCPUDataAfterUpload(v193, v142);
+  if (ClearCPUDataAfterUpload)
   {
-    C3DCFArrayApplyBlock(v170, &__block_literal_global_36);
+    C3DCFArrayApplyBlock(v195, &__block_literal_global_36);
   }
 
   morphKind = selfCopy->_morphKind;
   if (!morphKind)
   {
-    LOBYTE(v180) = selfCopy->_morphNormals;
-    v133 = objc_alloc_init(MEMORY[0x277CD6D70]);
-    [v133 setConstantValue:&v180 type:53 withName:@"morphNormal"];
-    v139 = 45;
+    LOBYTE(v205) = selfCopy->_morphNormals;
+    v148 = objc_alloc_init(MEMORY[0x277CD6D70]);
+    [v148 setConstantValue:&v205 type:53 withName:@"morphNormal"];
+    v156 = 45;
     if (selfCopy->_morphNormals)
     {
-      v139 = 78;
+      v156 = 78;
     }
 
-    v139 = [MEMORY[0x277CCACA8] stringWithFormat:@"%c", v139];
-    v141 = objc_alloc_init(MEMORY[0x277CD6FF0]);
-    v142 = 0;
+    v156 = [MEMORY[0x277CCACA8] stringWithFormat:@"%c", v156];
+    v158 = objc_alloc_init(MEMORY[0x277CD6FF0]);
+    v159 = 0;
     do
     {
-      v143 = v142 + 1;
-      v144 = [objc_msgSend(v141 "layouts")];
-      [v144 setStepFunction:5];
-      [v144 setStride:v130];
-      v145 = [objc_msgSend(v141 "attributes")];
-      [v145 setFormat:SCNMTLVertexFormatFromC3DBaseType(selfCopy->_morphTargetPositionDataType)];
-      [v145 setOffset:0];
-      [v145 setBufferIndex:v142 + 1];
-      if (v180 == 1)
+      v160 = v159 + 1;
+      v161 = [objc_msgSend(v158 "layouts")];
+      [v161 setStepFunction:5];
+      [v161 setStride:v143];
+      v162 = [objc_msgSend(v158 "attributes")];
+      [v162 setFormat:SCNMTLVertexFormatFromC3DBaseType(selfCopy->_morphTargetPositionDataType, v163)];
+      [v162 setOffset:0];
+      [v162 setBufferIndex:v159 + 1];
+      if (v205 == 1)
       {
-        v146 = [objc_msgSend(v141 "attributes")];
-        [v146 setFormat:SCNMTLVertexFormatFromC3DBaseType(selfCopy->_morphTargetNormalDataType)];
-        [v146 setOffset:v127];
-        [v146 setBufferIndex:v143];
+        v164 = [objc_msgSend(v158 "attributes")];
+        [v164 setFormat:SCNMTLVertexFormatFromC3DBaseType(selfCopy->_morphTargetNormalDataType, v165)];
+        [v164 setOffset:v138];
+        [v164 setBufferIndex:v160];
       }
 
-      v142 = v143;
+      v159 = v160;
     }
 
-    while (v143 != 8);
-    selfCopy->_incrementalInitPipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:@"blend_inc_init_8x_generic" withStageDescriptor:v141 stageDescriptorUpdateBlock:0 constants:v133 constantsHash:v139];
-    selfCopy->_incrementalAddPipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:@"blend_inc_add_8x_generic" withStageDescriptor:v141 stageDescriptorUpdateBlock:0 constants:v133 constantsHash:v139];
+    while (v160 != 8);
+    selfCopy->_incrementalInitPipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:@"blend_inc_init_8x_generic" withStageDescriptor:v158 stageDescriptorUpdateBlock:0 constants:v148 constantsHash:v156];
+    selfCopy->_incrementalAddPipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:@"blend_inc_add_8x_generic" withStageDescriptor:v158 stageDescriptorUpdateBlock:0 constants:v148 constantsHash:v156];
 
     goto LABEL_141;
   }
 
   if (morphKind == 1)
   {
-    v179 = 0;
-    v180 = 0;
+    v204 = 0;
+    v205 = 0;
     if (!selfCopy->_dataKindForComputeKernel && selfCopy->_finalMeshDataKind == 1 && PositionOriginalToFirstDeindexedTable)
     {
       currentBlitEncoder = [contextCopy2 currentBlitEncoder];
-      selfCopy->_originalToFirstDeindexedTableBuffer = [contextCopy2 originalToFirstDeindexedTableBufferWithBlitEncoder:currentBlitEncoder indexSizeOut:&v180];
-      selfCopy->_deindexedToFirstDeindexedTableBuffer = [contextCopy2 deindexedToFirstDeindexedTableBufferWithBlitEncoder:currentBlitEncoder indexSizeOut:&v179];
+      selfCopy->_originalToFirstDeindexedTableBuffer = [contextCopy2 originalToFirstDeindexedTableBufferWithBlitEncoder:currentBlitEncoder indexSizeOut:&v205];
+      selfCopy->_deindexedToFirstDeindexedTableBuffer = [contextCopy2 deindexedToFirstDeindexedTableBufferWithBlitEncoder:currentBlitEncoder indexSizeOut:&v204];
     }
 
     morphNormals = selfCopy->_morphNormals;
-    v133 = objc_alloc_init(MEMORY[0x277CD6D70]);
-    [v133 setConstantValue:&morphNormals type:53 withName:@"morphNormal"];
-    v134 = 45;
+    v148 = objc_alloc_init(MEMORY[0x277CD6D70]);
+    [v148 setConstantValue:&morphNormals type:53 withName:@"morphNormal"];
+    v149 = 45;
     if (selfCopy->_morphNormals)
     {
-      v134 = 78;
+      v149 = 78;
     }
 
-    v134 = [MEMORY[0x277CCACA8] stringWithFormat:@"%c", v134];
+    v149 = [MEMORY[0x277CCACA8] stringWithFormat:@"%c", v149];
+    v152 = v149;
     if (selfCopy->_originalToFirstDeindexedTableBuffer)
     {
-      switch(v180)
+      switch(v205)
       {
         case 1:
-          v136 = 0;
-          v137 = @"copy_indexed_u8_generic";
-          v138 = @"blend_indexed_u8_generic";
+          v153 = 0;
+          v154 = @"copy_indexed_u8_generic";
+          v155 = @"blend_indexed_u8_generic";
           goto LABEL_114;
         case 4:
-          v136 = 0;
-          v137 = @"copy_indexed_u32_generic";
-          v138 = @"blend_indexed_u32_generic";
+          v153 = 0;
+          v154 = @"copy_indexed_u32_generic";
+          v155 = @"blend_indexed_u32_generic";
           goto LABEL_114;
         case 2:
-          v136 = 0;
-          v137 = @"copy_indexed_u16_generic";
-          v138 = @"blend_indexed_u16_generic";
+          v153 = 0;
+          v154 = @"copy_indexed_u16_generic";
+          v155 = @"blend_indexed_u16_generic";
 LABEL_114:
-          v149 = objc_alloc_init(MEMORY[0x277CD6FF0]);
-          v150 = [objc_msgSend(v149 "layouts")];
-          [v150 setStepFunction:5];
-          [v150 setStride:v183];
-          v151 = [objc_msgSend(v149 "attributes")];
-          [v151 setFormat:SCNMTLVertexFormatFromC3DBaseType(selfCopy->_basePositionDataType)];
-          [v151 setOffset:v182];
-          [v151 setBufferIndex:1];
+          v168 = objc_alloc_init(MEMORY[0x277CD6FF0]);
+          v169 = [objc_msgSend(v168 "layouts")];
+          [v169 setStepFunction:5];
+          [v169 setStride:v208];
+          v170 = [objc_msgSend(v168 "attributes")];
+          [v170 setFormat:SCNMTLVertexFormatFromC3DBaseType(selfCopy->_basePositionDataType, v171)];
+          [v170 setOffset:v207];
+          [v170 setBufferIndex:1];
           if (selfCopy->_morphNormals)
           {
-            v152 = [objc_msgSend(v149 "attributes")];
-            [v152 setFormat:SCNMTLVertexFormatFromC3DBaseType(selfCopy->_baseNormalDataType)];
-            [v152 setOffset:v181];
-            [v152 setBufferIndex:1];
+            v172 = [objc_msgSend(v168 "attributes")];
+            [v172 setFormat:SCNMTLVertexFormatFromC3DBaseType(selfCopy->_baseNormalDataType, v173)];
+            [v172 setOffset:v206];
+            [v172 setBufferIndex:1];
           }
 
-          selfCopy->_copyBaseBufferPipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:v137 withStageDescriptor:v149 stageDescriptorUpdateBlock:0 constants:v133 constantsHash:v134];
-          [v149 reset];
-          v153 = [objc_msgSend(v149 "layouts")];
-          [v153 setStepFunction:5];
-          [v153 setStride:v130];
-          v154 = [objc_msgSend(v149 "attributes")];
-          [v154 setFormat:SCNMTLVertexFormatFromC3DBaseType(selfCopy->_morphTargetPositionDataType)];
-          [v154 setOffset:0];
-          [v154 setBufferIndex:1];
+          selfCopy->_copyBaseBufferPipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:v154 withStageDescriptor:v168 stageDescriptorUpdateBlock:0 constants:v148 constantsHash:v152];
+          [v168 reset];
+          v174 = [objc_msgSend(v168 "layouts")];
+          [v174 setStepFunction:5];
+          [v174 setStride:v143];
+          v175 = [objc_msgSend(v168 "attributes")];
+          [v175 setFormat:SCNMTLVertexFormatFromC3DBaseType(selfCopy->_morphTargetPositionDataType, v176)];
+          [v175 setOffset:0];
+          [v175 setBufferIndex:1];
           if (morphNormals)
           {
-            v155 = [objc_msgSend(v149 "attributes")];
-            [v155 setFormat:SCNMTLVertexFormatFromC3DBaseType(selfCopy->_morphTargetNormalDataType)];
-            [v155 setOffset:v127];
-            [v155 setBufferIndex:1];
+            v177 = [objc_msgSend(v168 "attributes")];
+            [v177 setFormat:SCNMTLVertexFormatFromC3DBaseType(selfCopy->_morphTargetNormalDataType, v178)];
+            [v177 setOffset:v138];
+            [v177 setBufferIndex:1];
           }
 
-          selfCopy->_blendDensePipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:@"blend_generic" withStageDescriptor:v149 stageDescriptorUpdateBlock:0 constants:v133 constantsHash:v134];
-          if ((v136 & 1) == 0)
+          selfCopy->_blendDensePipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:@"blend_generic" withStageDescriptor:v168 stageDescriptorUpdateBlock:0 constants:v148 constantsHash:v152];
+          if ((v153 & 1) == 0)
           {
-            selfCopy->_blendDenseIndexedPipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:v138 withStageDescriptor:v149 stageDescriptorUpdateBlock:0 constants:v133 constantsHash:v134];
+            selfCopy->_blendDenseIndexedPipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:v155 withStageDescriptor:v168 stageDescriptorUpdateBlock:0 constants:v148 constantsHash:v152];
           }
 
-          v156 = selfCopy->_vertexCountForComputeKernel - 1;
-          v157 = 1;
-          if (v156 > 0xFF)
+          v179 = selfCopy->_vertexCountForComputeKernel - 1;
+          v180 = 1;
+          if (v179 > 0xFF)
           {
-            v157 = 2;
+            v180 = 2;
           }
 
-          v158 = HIWORD(v156) == 0;
-          v159 = 4;
-          if (v158)
+          v181 = HIWORD(v179) == 0;
+          v182 = 4;
+          if (v181)
           {
-            v159 = v157;
+            v182 = v180;
           }
 
-          if (v159 == 1)
+          if (v182 == 1)
           {
-            v160 = @"blend_indexed_u8_generic";
+            v183 = @"blend_indexed_u8_generic";
           }
 
-          else if (v159 == 4)
+          else if (v182 == 4)
           {
-            v160 = @"blend_indexed_u32_generic";
+            v183 = @"blend_indexed_u32_generic";
           }
 
           else
           {
-            v160 = @"blend_indexed_u16_generic";
+            v183 = @"blend_indexed_u16_generic";
           }
 
-          selfCopy->_blendSparsePipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:v160 withStageDescriptor:v149 stageDescriptorUpdateBlock:0 constants:v133 constantsHash:v134];
+          selfCopy->_blendSparsePipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:v183 withStageDescriptor:v168 stageDescriptorUpdateBlock:0 constants:v148 constantsHash:v152];
 
           if (selfCopy->_deindexedToFirstDeindexedTableBuffer)
           {
-            switch(v179)
+            switch(v204)
             {
               case 1:
-                v161 = @"splat_indexed_s8_vertices";
+                v186 = @"splat_indexed_s8_vertices";
                 break;
               case 4:
-                v161 = @"splat_indexed_s32_vertices";
+                v186 = @"splat_indexed_s32_vertices";
                 break;
               case 2:
-                v161 = @"splat_indexed_s16_vertices";
+                v186 = @"splat_indexed_s16_vertices";
                 break;
               default:
-                v162 = scn_default_log();
-                if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
+                v187 = scn_default_log(v184, v185);
+                if (os_log_type_enabled(v187, OS_LOG_TYPE_ERROR))
                 {
                   [SCNMTLMorphDeformer setupMorphTargetsWithComputeContext:];
                 }
 
-                v161 = 0;
+                v186 = 0;
                 break;
             }
 
-            selfCopy->_splatPipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:v161 constants:v133 constantsHash:v134];
+            selfCopy->_splatPipeline = [(SCNMTLResourceManager *)selfCopy->_resourceManager computePipelineStateForKernel:v186 constants:v148 constantsHash:v152];
           }
 
 LABEL_141:
@@ -633,21 +636,21 @@ LABEL_141:
           return;
       }
 
-      v148 = scn_default_log();
-      if (os_log_type_enabled(v148, OS_LOG_TYPE_ERROR))
+      v167 = scn_default_log(v149, v151);
+      if (os_log_type_enabled(v167, OS_LOG_TYPE_ERROR))
       {
         [SCNMTLMorphDeformer setupMorphTargetsWithComputeContext:];
       }
     }
 
-    v138 = 0;
-    v137 = @"copy_generic";
-    v136 = 1;
+    v155 = 0;
+    v154 = @"copy_generic";
+    v153 = 1;
     goto LABEL_114;
   }
 
-  v147 = scn_default_log();
-  if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
+  v166 = scn_default_log(ClearCPUDataAfterUpload, v145);
+  if (os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
   {
     [SCNMTLMorphDeformer setupMorphTargetsWithComputeContext:];
   }
@@ -669,7 +672,7 @@ void __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invok
 
   else
   {
-    Mesh = C3DGeometryGetMesh(a3);
+    Mesh = C3DGeometryGetMesh(a3, v6);
     PositionSourceForDeformerBasedDynamicMesh = C3DMeshGetSourceWithSemanticAtIndex(Mesh, 0, 0, 0);
     SourceWithSemanticAtIndex = 0;
     if (*(*(a1 + 32) + 32) == 1)
@@ -680,10 +683,10 @@ void __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invok
         SourceWithSemanticAtIndex = C3DCreateNormalsForMorphTargetWithBaseMesh(Mesh, *(a1 + 40), 0);
         if (!SourceWithSemanticAtIndex)
         {
-          v9 = scn_default_log();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+          v17 = scn_default_log(0, v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
           {
-            __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invoke_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
+            __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invoke_cold_1(v17, v18, v19, v20, v21, v22, v23, v24);
           }
         }
 
@@ -701,7 +704,7 @@ void __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invok
 
     else
     {
-      if (!C3DMeshGetElementsCount(Mesh))
+      if (!C3DMeshGetElementsCount(Mesh, v15))
       {
         return;
       }
@@ -716,137 +719,138 @@ void __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invok
     if (*(*(a1 + 32) + 40) != 1)
     {
       ElementAtIndex = C3DMeshGetElementAtIndex(Mesh, 0, 0);
-      Count = C3DMeshSourceGetCount(*(a1 + 48));
+      Count = C3DMeshSourceGetCount(*(a1 + 48), v26);
       ChannelForSourceWithSemanticAtIndex = C3DMeshGetChannelForSourceWithSemanticAtIndex(*(a1 + 40), 0, 0);
-      PositionSourceForDeformerBasedDynamicMesh = C3DMeshSourceCreateUnpackedCopy(PositionSourceForDeformerBasedDynamicMesh, ElementAtIndex, Count, ChannelForSourceWithSemanticAtIndex);
+      PositionSourceForDeformerBasedDynamicMesh = C3DMeshSourceCreateUnpackedCopy(PositionSourceForDeformerBasedDynamicMesh, ElementAtIndex, Count, ChannelForSourceWithSemanticAtIndex, v29, v30, v31, v32);
       CFAutorelease(PositionSourceForDeformerBasedDynamicMesh);
       if (*(*(a1 + 32) + 32) == 1)
       {
-        v20 = C3DMeshSourceGetCount(*(a1 + 56));
-        v21 = C3DMeshGetChannelForSourceWithSemanticAtIndex(*(a1 + 40), 1, 0);
-        SourceWithSemanticAtIndex = C3DMeshSourceCreateUnpackedCopy(SourceWithSemanticAtIndex, ElementAtIndex, v20, v21);
+        v34 = C3DMeshSourceGetCount(*(a1 + 56), v33);
+        v35 = C3DMeshGetChannelForSourceWithSemanticAtIndex(*(a1 + 40), 1, 0);
+        SourceWithSemanticAtIndex = C3DMeshSourceCreateUnpackedCopy(SourceWithSemanticAtIndex, ElementAtIndex, v34, v35, v36, v37, v38, v39);
         CFAutorelease(SourceWithSemanticAtIndex);
       }
     }
   }
 
 LABEL_19:
-  if (*(*(a1 + 32) + 17) == 1 && (v22 = *(a1 + 64)) != 0)
+  if (*(*(a1 + 32) + 17) == 1 && (v40 = *(a1 + 64)) != 0)
   {
-    v23 = C3DMeshSourceCreatedDeindexedCopy(PositionSourceForDeformerBasedDynamicMesh, *(a1 + 80), v22);
+    v47 = C3DMeshSourceCreatedDeindexedCopy(PositionSourceForDeformerBasedDynamicMesh, *(a1 + 80), v40, v8, v9, v10, v11, v12);
     if (*(*(a1 + 32) + 32) == 1)
     {
-      v24 = C3DMeshSourceCreatedDeindexedCopy(SourceWithSemanticAtIndex, *(a1 + 80), *(a1 + 64));
+      v48 = C3DMeshSourceCreatedDeindexedCopy(SourceWithSemanticAtIndex, *(a1 + 80), *(a1 + 64), v42, v43, v44, v45, v46);
 LABEL_25:
-      v25 = v24;
+      v49 = v48;
       goto LABEL_27;
     }
   }
 
   else
   {
-    v23 = CFRetain(PositionSourceForDeformerBasedDynamicMesh);
+    v47 = CFRetain(PositionSourceForDeformerBasedDynamicMesh);
     if (*(*(a1 + 32) + 32) == 1)
     {
-      v24 = CFRetain(SourceWithSemanticAtIndex);
+      v48 = CFRetain(SourceWithSemanticAtIndex);
       goto LABEL_25;
     }
   }
 
-  v25 = 0;
+  v49 = 0;
 LABEL_27:
   if (*(a1 + 85) == 1)
   {
-    DeltaSource = C3DMeshSourceCreateDeltaSource(*(a1 + 48), v23);
+    DeltaSource = C3DMeshSourceCreateDeltaSource(*(a1 + 48), v47);
     if (!DeltaSource)
     {
       return;
     }
 
-    v27 = DeltaSource;
-    CFRelease(v23);
+    v51 = DeltaSource;
+    CFRelease(v47);
     if (*(*(a1 + 32) + 32) == 1)
     {
-      v28 = C3DMeshSourceCreateDeltaSource(*(a1 + 56), v25);
-      if (!v28)
+      v52 = C3DMeshSourceCreateDeltaSource(*(a1 + 56), v49);
+      if (!v52)
       {
         return;
       }
 
-      v29 = v28;
-      CFRelease(v25);
-      v25 = v29;
+      v53 = v52;
+      CFRelease(v49);
+      v49 = v53;
     }
   }
 
   else
   {
-    v27 = v23;
+    v51 = v47;
   }
 
   if (*(*(a1 + 32) + 40) != 1)
   {
-    v42 = C3DMeshSourceGetCount(v27);
-    if (*(*(a1 + 32) + 64) != v42)
+    v67 = C3DMeshSourceGetCount(v51, v41);
+    v69 = v67;
+    if (*(*(a1 + 32) + 64) != v67)
     {
-      v43 = scn_default_log();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
+      v70 = scn_default_log(v67, v68);
+      if (os_log_type_enabled(v70, OS_LOG_TYPE_FAULT))
       {
-        __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invoke_cold_3(v43, v44, v45, v46, v47, v48, v49, v50);
+        __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invoke_cold_3(v70, v71, v72, v73, v74, v75, v76, v77);
       }
     }
 
-    v51 = v42;
+    v78 = v69;
     goto LABEL_51;
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  C3DMeshSourceGetContent(v27, &v62);
-  v32 = 0uLL;
-  v60 = 0u;
-  v61 = 0u;
-  if (v25)
+  v89 = 0u;
+  v90 = 0u;
+  C3DMeshSourceGetContent(v51, v41, &v89);
+  v57 = 0uLL;
+  v87 = 0u;
+  v88 = 0u;
+  if (v49)
   {
-    C3DMeshSourceGetContent(v25, &v60);
-    v36 = v63;
-    if (v63)
+    C3DMeshSourceGetContent(v49, v54, &v87);
+    v61 = v90;
+    if (v90)
     {
-      v37 = 0;
-      v38 = 0;
+      v62 = 0;
+      v63 = 0;
       do
       {
-        *v39.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v63), (v62 + v38 * BYTE6(v63)), v33, v34.f32[0], v35.f32[0]);
-        v59 = v39;
-        *v33.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v61), (v60 + v38 * BYTE6(v61)), v39, v40, v41);
-        v35.i64[0] = 0x3400000034000000;
-        v35.i64[1] = 0x3400000034000000;
-        v34.i32[0] = vminvq_u32(vcgtq_f32(v35, vabsq_f32(v59)));
-        if ((v34.i32[0] & 0x80000000) == 0 || (v34.i64[0] = 0x3400000034000000, v34.i64[1] = 0x3400000034000000, v33 = vcgtq_f32(v34, vabsq_f32(v33)), v33.i32[0] = vminvq_u32(v33), (v33.i32[0] & 0x80000000) == 0))
+        *v64.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v90), (v89 + v63 * BYTE6(v90)), v58, v59.f32[0], v60.f32[0]);
+        v86 = v64;
+        *v58.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v88), (v87 + v63 * BYTE6(v88)), v64, v65, v66);
+        v60.i64[0] = 0x3400000034000000;
+        v60.i64[1] = 0x3400000034000000;
+        v59.i32[0] = vminvq_u32(vcgtq_f32(v60, vabsq_f32(v86)));
+        if ((v59.i32[0] & 0x80000000) == 0 || (v59.i64[0] = 0x3400000034000000, v59.i64[1] = 0x3400000034000000, v58 = vcgtq_f32(v59, vabsq_f32(v58)), v58.i32[0] = vminvq_u32(v58), (v58.i32[0] & 0x80000000) == 0))
         {
-          ++v37;
+          ++v62;
         }
 
-        ++v38;
+        ++v63;
       }
 
-      while (v36 != v38);
+      while (v61 != v63);
 LABEL_49:
-      if (v37)
+      if (v62)
       {
-        v51 = v37;
+        v78 = v62;
 LABEL_51:
-        v55 = *(a1 + 72);
-        v56 = *(a1 + 32);
-        v57 = *(v56 + 68);
-        *(v56 + 68) = v57 + 1;
-        v58 = v55 + 40 * v57;
-        *v58 = a2;
-        *(v58 + 4) = 0;
-        *(v58 + 8) = a3;
-        *(v58 + 16) = v27;
-        *(v58 + 24) = v25;
-        *(v58 + 32) = v51;
+        v82 = *(a1 + 72);
+        v83 = *(a1 + 32);
+        v84 = *(v83 + 68);
+        *(v83 + 68) = v84 + 1;
+        v85 = v82 + 40 * v84;
+        *v85 = a2;
+        *(v85 + 4) = 0;
+        *(v85 + 8) = a3;
+        *(v85 + 16) = v51;
+        *(v85 + 24) = v49;
+        *(v85 + 32) = v78;
         return;
       }
     }
@@ -854,31 +858,31 @@ LABEL_51:
 
   else
   {
-    v52 = v63;
-    if (v63)
+    v79 = v90;
+    if (v90)
     {
-      v37 = 0;
-      v53 = 0;
+      v62 = 0;
+      v80 = 0;
       do
       {
-        *v54.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v63), (v62 + v53 * BYTE6(v63)), v32, v30.f32[0], v31);
-        v30.i64[0] = 0x3400000034000000;
-        v30.i64[1] = 0x3400000034000000;
-        v32 = vcgtq_f32(v30, vabsq_f32(v54));
-        v32.i32[0] = vminvq_u32(v32);
-        v37 += v32.i32[0] >= 0;
-        ++v53;
+        *v81.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v90), (v89 + v80 * BYTE6(v90)), v57, v55.f32[0], v56);
+        v55.i64[0] = 0x3400000034000000;
+        v55.i64[1] = 0x3400000034000000;
+        v57 = vcgtq_f32(v55, vabsq_f32(v81));
+        v57.i32[0] = vminvq_u32(v57);
+        v62 += v57.i32[0] >= 0;
+        ++v80;
       }
 
-      while (v52 != v53);
+      while (v79 != v80);
       goto LABEL_49;
     }
   }
 
-  CFRelease(v27);
-  if (v25)
+  CFRelease(v51);
+  if (v49)
   {
-    CFRelease(v25);
+    CFRelease(v49);
   }
 }
 
@@ -886,29 +890,29 @@ void __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invok
 {
   if (!C3DGeometryUsesDeformerBasedDynamicMesh(a3))
   {
-    Mesh = C3DGeometryGetMesh(a3);
+    Mesh = C3DGeometryGetMesh(a3, v4);
 
-    C3DMeshClearCPURepresentation(Mesh);
+    C3DMeshClearCPURepresentation(Mesh, v6);
   }
 }
 
 - (void)createVertexBufferForMorphTarget:(id *)target withSetupTarget:(id *)setupTarget vertexBuffer:(char *)buffer vertexBufferOffset:(unint64_t)offset indicesBuffer:(char *)indicesBuffer indicesBufferOffset:(unint64_t)bufferOffset indexSize:(unint64_t)size originalToFirstDeindexedTable:(unsigned int *)self0 computeContext:(id)self1
 {
-  v63 = 0u;
-  v64 = 0u;
-  C3DMeshSourceGetContent(setupTarget->var2, &v63);
-  v61 = 0u;
-  v62 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  Content = C3DMeshSourceGetContent(setupTarget->var2, a2, &v67);
+  v65 = 0u;
+  v66 = 0u;
   if (self->_morphNormals)
   {
-    C3DMeshSourceGetContent(setupTarget->var3, &v61);
+    Content = C3DMeshSourceGetContent(setupTarget->var3, v19, &v65);
   }
 
-  v18 = v64;
+  v26 = v68;
   target->var2 = setupTarget->var4;
   if (self->_morphKind == 1)
   {
-    [(SCNMTLMorphDeformer *)self createSparseIndicesBufferForMorphTarget:target withSetupTarget:setupTarget indicesBuffer:indicesBuffer indicesBufferOffset:bufferOffset indexSize:size originalToFirstDeindexedTable:table computeContext:context];
+    Content = [(SCNMTLMorphDeformer *)self createSparseIndicesBufferForMorphTarget:target withSetupTarget:setupTarget indicesBuffer:indicesBuffer indicesBufferOffset:bufferOffset indexSize:size originalToFirstDeindexedTable:table computeContext:context];
   }
 
   else
@@ -921,137 +925,138 @@ void __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invok
   {
     if (self->_morphKind != 1)
     {
-      v20 = scn_default_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v28 = scn_default_log(Content, v19);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
       {
-        [SCNMTLMorphDeformer createVertexBufferForMorphTarget:v20 withSetupTarget:v21 vertexBuffer:v22 vertexBufferOffset:v23 indicesBuffer:v24 indicesBufferOffset:v25 indexSize:v26 originalToFirstDeindexedTable:v27 computeContext:?];
+        [SCNMTLMorphDeformer createVertexBufferForMorphTarget:v28 withSetupTarget:v19 vertexBuffer:v20 vertexBufferOffset:v21 indicesBuffer:v22 indicesBufferOffset:v23 indexSize:v24 originalToFirstDeindexedTable:v25 computeContext:?];
       }
     }
 
-    v28 = vmaxvq_f32(C3DMeshSourceGetAbsoluteMaxValue(setupTarget->var2));
+    v29 = vmaxvq_f32(C3DMeshSourceGetAbsoluteMaxValue(setupTarget->var2, v19, v20, v21, v22, v23, v24, v25));
     LOWORD(morphTargetPositionDataType) = self->_morphTargetPositionDataType;
-    v60 = 1.0 / v28;
+    v64 = 1.0 / v29;
   }
 
   else
   {
-    v60 = 1.0;
-    v28 = 1.0;
+    v64 = 1.0;
+    v29 = 1.0;
   }
 
-  target->var0 = v28;
-  v29 = C3DSizeOfBaseType(morphTargetPositionDataType);
-  v30 = C3DSizeOfBaseType(self->_morphTargetNormalDataType);
-  v31 = v30 + v29;
+  target->var0 = v29;
+  v30 = C3DSizeOfBaseType(morphTargetPositionDataType, v19);
+  v32 = C3DSizeOfBaseType(self->_morphTargetNormalDataType, v31);
+  v33 = v32 + v30;
   computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)self->_resourceManager computeEvaluator];
-  if (SCNMTLDeviceRequiresOffsetAndStrideForStageInAsMultipleOf4Bytes(computeEvaluator))
+  v35 = SCNMTLDeviceRequiresOffsetAndStrideForStageInAsMultipleOf4Bytes(computeEvaluator);
+  if (v35)
   {
-    v31 = (v30 + ((v29 + 3) & 0xFFFFFFFFFFFFFFFCLL) + 3) & 0xFFFFFFFFFFFFFFFCLL;
-    v36 = (v29 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+    v33 = (v32 + ((v30 + 3) & 0xFFFFFFFFFFFFFFFCLL) + 3) & 0xFFFFFFFFFFFFFFFCLL;
+    v40 = (v30 + 3) & 0xFFFFFFFFFFFFFFFCLL;
   }
 
   else
   {
-    v36 = v29;
+    v40 = v30;
   }
 
-  v37 = v31 * target->var2;
-  v38 = &buffer[offset];
+  v41 = v33 * target->var2;
+  v42 = &buffer[offset];
   if (self->_morphKind == 1)
   {
     if (self->_morphNormals)
     {
-      if (v18)
+      if (v26)
       {
-        v39 = 0;
-        v40 = &buffer[offset];
+        v43 = 0;
+        v44 = &buffer[offset];
         do
         {
-          *v41.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v64), (v63 + v39 * BYTE6(v64)), v33, v34.f32[0], v35.f32[0]);
-          v58 = v41;
-          *v44.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v62), (v61 + v39 * BYTE6(v62)), v41, v42, v43);
-          v35 = v44;
-          v34.i64[0] = 0x3400000034000000;
-          v34.i64[1] = 0x3400000034000000;
-          if ((vminvq_u32(vcgtq_f32(v34, vabsq_f32(v58))) & 0x80000000) == 0 || (v33 = vcgtq_f32(v34, vabsq_f32(v44)), v33.i32[0] = vminvq_u32(v33), (v33.i32[0] & 0x80000000) == 0))
+          *v45.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v68), (v67 + v43 * BYTE6(v68)), v37, v38.f32[0], v39.f32[0]);
+          v62 = v45;
+          *v48.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v66), (v65 + v43 * BYTE6(v66)), v45, v46, v47);
+          v39 = v48;
+          v38.i64[0] = 0x3400000034000000;
+          v38.i64[1] = 0x3400000034000000;
+          if ((vminvq_u32(vcgtq_f32(v38, vabsq_f32(v62))) & 0x80000000) == 0 || (v37 = vcgtq_f32(v38, vabsq_f32(v48)), v37.i32[0] = vminvq_u32(v37), (v37.i32[0] & 0x80000000) == 0))
           {
-            v45 = vmulq_n_f32(v58, v60);
-            v59 = v35;
-            C3DConvertFloatingTypeFromFloat4(self->_morphTargetPositionDataType, v40, v45);
-            C3DConvertFloatingTypeFromFloat4(self->_morphTargetNormalDataType, &v40[v36], v59);
-            v40 += v31;
+            v49 = vmulq_n_f32(v62, v64);
+            v63 = v39;
+            C3DConvertFloatingTypeFromFloat4(self->_morphTargetPositionDataType, v44, v49);
+            C3DConvertFloatingTypeFromFloat4(self->_morphTargetNormalDataType, &v44[v40], v63);
+            v44 += v33;
           }
 
-          ++v39;
+          ++v43;
         }
 
-        while (v18 != v39);
+        while (v26 != v43);
         goto LABEL_37;
       }
 
 LABEL_36:
-      v40 = &buffer[offset];
+      v44 = &buffer[offset];
       goto LABEL_37;
     }
 
-    if (!v18)
+    if (!v26)
     {
       goto LABEL_36;
     }
 
-    v49 = 0;
-    v40 = &buffer[offset];
+    v53 = 0;
+    v44 = &buffer[offset];
     do
     {
-      *v33.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v64), (v63 + v49 * BYTE6(v64)), v33, v34.f32[0], v35.f32[0]);
-      v35.i64[0] = 0x3400000034000000;
-      v35.i64[1] = 0x3400000034000000;
-      v34.i32[0] = vminvq_u32(vcgtq_f32(v35, vabsq_f32(v33)));
-      if ((v34.i32[0] & 0x80000000) == 0)
+      *v37.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v68), (v67 + v53 * BYTE6(v68)), v37, v38.f32[0], v39.f32[0]);
+      v39.i64[0] = 0x3400000034000000;
+      v39.i64[1] = 0x3400000034000000;
+      v38.i32[0] = vminvq_u32(vcgtq_f32(v39, vabsq_f32(v37)));
+      if ((v38.i32[0] & 0x80000000) == 0)
       {
-        C3DConvertFloatingTypeFromFloat4(self->_morphTargetPositionDataType, v40, vmulq_n_f32(v33, v60));
-        v40 += v31;
+        C3DConvertFloatingTypeFromFloat4(self->_morphTargetPositionDataType, v44, vmulq_n_f32(v37, v64));
+        v44 += v33;
       }
 
-      ++v49;
+      ++v53;
     }
 
-    while (v18 != v49);
+    while (v26 != v53);
   }
 
   else
   {
-    if (!v18)
+    if (!v26)
     {
       goto LABEL_36;
     }
 
-    v46 = 0;
-    v40 = &buffer[offset];
+    v50 = 0;
+    v44 = &buffer[offset];
     do
     {
-      *v47.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v64), (v63 + v46 * BYTE6(v64)), v33, v34.f32[0], v35.f32[0]);
-      C3DConvertFloatingTypeFromFloat4(self->_morphTargetPositionDataType, v40, vmulq_n_f32(v47, v60));
+      *v51.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v68), (v67 + v50 * BYTE6(v68)), v37, v38.f32[0], v39.f32[0]);
+      C3DConvertFloatingTypeFromFloat4(self->_morphTargetPositionDataType, v44, vmulq_n_f32(v51, v64));
       if (self->_morphNormals)
       {
-        *v48.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v62), (v61 + v46 * BYTE6(v62)), v33, v34.f32[0], v35.f32[0]);
-        C3DConvertFloatingTypeFromFloat4(self->_morphTargetNormalDataType, &v40[v36], v48);
+        *v52.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v66), (v65 + v50 * BYTE6(v66)), v37, v38.f32[0], v39.f32[0]);
+        C3DConvertFloatingTypeFromFloat4(self->_morphTargetNormalDataType, &v44[v40], v52);
       }
 
-      v40 += v31;
-      ++v46;
+      v44 += v33;
+      ++v50;
     }
 
-    while (v18 != v46);
+    while (v26 != v50);
   }
 
 LABEL_37:
-  if (v40 != &v38[v37])
+  if (v44 != &v42[v41])
   {
-    v50 = scn_default_log();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
+    v54 = scn_default_log(v35, v36);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
     {
-      [SCNMTLMorphDeformer createVertexBufferForMorphTarget:v50 withSetupTarget:v51 vertexBuffer:v52 vertexBufferOffset:v53 indicesBuffer:v54 indicesBufferOffset:v55 indexSize:v56 originalToFirstDeindexedTable:v57 computeContext:?];
+      [SCNMTLMorphDeformer createVertexBufferForMorphTarget:v54 withSetupTarget:v55 vertexBuffer:v56 vertexBufferOffset:v57 indicesBuffer:v58 indicesBufferOffset:v59 indexSize:v60 originalToFirstDeindexedTable:v61 computeContext:?];
     }
   }
 
@@ -1089,28 +1094,18 @@ LABEL_37:
     v16 = v17;
   }
 
-  v91 = 0u;
-  v92 = 0u;
-  C3DMeshSourceGetContent(setupTarget->var2, &v91);
-  v89 = 0u;
-  v90 = 0u;
+  v97 = 0u;
+  v98 = 0u;
+  C3DMeshSourceGetContent(setupTarget->var2, a2, &v97);
+  v95 = 0u;
+  v96 = 0u;
   if (var3)
   {
-    C3DMeshSourceGetContent(setupTarget->var3, &v89);
+    C3DMeshSourceGetContent(setupTarget->var3, v18, &v95);
   }
 
-  v18 = &buffer[offset];
+  v19 = &buffer[offset];
   if (size == 1)
-  {
-    v19 = &buffer[offset];
-  }
-
-  else
-  {
-    v19 = 0;
-  }
-
-  if (size == 2)
   {
     v20 = &buffer[offset];
   }
@@ -1120,9 +1115,9 @@ LABEL_37:
     v20 = 0;
   }
 
-  if (size == 4)
+  if (size == 2)
   {
-    v21 = v18;
+    v21 = &buffer[offset];
   }
 
   else
@@ -1130,124 +1125,135 @@ LABEL_37:
     v21 = 0;
   }
 
-  Mesh = C3DGeometryGetMesh(setupTarget->var1);
-  if (C3DMeshGetElementsCount(Mesh) >= 1)
+  if (size == 4)
   {
-    v77 = targetCopy;
+    v22 = v19;
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  Mesh = C3DGeometryGetMesh(setupTarget->var1, v18);
+  ElementsCount = C3DMeshGetElementsCount(Mesh, v24);
+  if (ElementsCount >= 1)
+  {
+    v83 = targetCopy;
     ElementAtIndex = C3DMeshGetElementAtIndex(Mesh, 0, 0);
-    v87 = 0u;
-    v88 = 0u;
-    v85 = 0u;
-    v86 = 0u;
-    C3DMeshElementGetContent(ElementAtIndex, 0, &v85);
+    v93 = 0u;
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
+    Content = C3DMeshElementGetContent(ElementAtIndex, 0, &v91);
     offsetCopy = offset;
     if (var3)
     {
-      if (v86)
+      if (v92)
       {
-        v27 = 0;
-        v28 = 0;
-        v29 = 0;
+        v33 = 0;
+        v34 = 0;
+        v35 = 0;
         while (1)
         {
-          v84 = 0;
-          v80 = v85;
-          v81 = v86;
-          v82 = v87;
-          v83 = v88;
-          C3DIndicesContentGetVertexIndicesForLinePrimitiveAtIndex(&v80, v27, &v84 + 1, &v84);
-          v33 = v84;
-          for (i = HIDWORD(v84); i < v33; ++i)
+          v90 = 0;
+          v86 = v91;
+          v87 = v92;
+          v88 = v93;
+          v89 = v94;
+          C3DIndicesContentGetVertexIndicesForLinePrimitiveAtIndex(&v86, v33, &v90 + 1, &v90);
+          v39 = v90;
+          for (i = HIDWORD(v90); i < v39; ++i)
           {
-            *v35.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v92), (v91 + v28 * BYTE6(v92)), v30, v31.f32[0], v32.f32[0]);
-            v78 = v35;
-            *v30.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v90), (v89 + v28 * BYTE6(v90)), v35, v36, v37);
-            v32.i64[0] = 0x3400000034000000;
-            v32.i64[1] = 0x3400000034000000;
-            v31.i32[0] = vminvq_u32(vcgtq_f32(v32, vabsq_f32(v78)));
-            if ((v31.i32[0] & 0x80000000) == 0 || (v31.i64[0] = 0x3400000034000000, v31.i64[1] = 0x3400000034000000, v30 = vcgtq_f32(v31, vabsq_f32(v30)), v30.i32[0] = vminvq_u32(v30), (v30.i32[0] & 0x80000000) == 0))
+            *v41.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v98), (v97 + v34 * BYTE6(v98)), v36, v37.f32[0], v38.f32[0]);
+            v84 = v41;
+            *v36.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v96), (v95 + v34 * BYTE6(v96)), v41, v42, v43);
+            v38.i64[0] = 0x3400000034000000;
+            v38.i64[1] = 0x3400000034000000;
+            v37.i32[0] = vminvq_u32(vcgtq_f32(v38, vabsq_f32(v84)));
+            if ((v37.i32[0] & 0x80000000) == 0 || (v37.i64[0] = 0x3400000034000000, v37.i64[1] = 0x3400000034000000, v36 = vcgtq_f32(v37, vabsq_f32(v36)), v36.i32[0] = vminvq_u32(v36), (v36.i32[0] & 0x80000000) == 0))
             {
               if (v16)
               {
-                v38 = table[i];
-                if (v19)
+                v44 = table[i];
+                if (v20)
                 {
                   goto LABEL_31;
                 }
 
 LABEL_33:
-                v19 = 0;
-                if (v20)
+                v20 = 0;
+                if (v21)
                 {
-                  *v20 = v38;
-                  v20 += 2;
+                  *v21 = v44;
+                  v21 += 2;
                 }
 
                 else
                 {
-                  *v21++ = v38;
+                  *v22++ = v44;
                 }
               }
 
               else
               {
-                v38 = i;
-                if (!v19)
+                v44 = i;
+                if (!v20)
                 {
                   goto LABEL_33;
                 }
 
 LABEL_31:
-                *v19++ = v38;
+                *v20++ = v44;
               }
 
-              ++v29;
-              v33 = v84;
+              ++v35;
+              v39 = v90;
             }
 
-            ++v28;
+            ++v34;
           }
 
-          if (++v27 >= v86)
+          if (++v33 >= v92)
           {
             goto LABEL_73;
           }
         }
       }
 
-      v29 = 0;
+      v35 = 0;
 LABEL_73:
-      targetCopy = v77;
-      if (v29 == v77->var2)
+      targetCopy = v83;
+      if (v35 == v83->var2)
       {
         goto LABEL_97;
       }
 
-      v56 = scn_default_log();
-      if (!os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
+      v62 = scn_default_log(Content, v32);
+      if (!os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_97;
       }
 
 LABEL_96:
-      [(SCNMTLMorphDeformer *)v56 createSparseIndicesBufferForMorphTarget:v57 withSetupTarget:v58 indicesBuffer:v59 indicesBufferOffset:v60 indexSize:v61 originalToFirstDeindexedTable:v62 computeContext:v63];
+      [(SCNMTLMorphDeformer *)v62 createSparseIndicesBufferForMorphTarget:v63 withSetupTarget:v64 indicesBuffer:v65 indicesBufferOffset:v66 indexSize:v67 originalToFirstDeindexedTable:v68 computeContext:v69];
 LABEL_97:
       offset = offsetCopy;
       goto LABEL_98;
     }
 
-    if (!v86)
+    if (!v92)
     {
-      v48 = 0;
+      v54 = 0;
 LABEL_94:
-      targetCopy = v77;
-      if (v48 == v77->var2)
+      targetCopy = v83;
+      if (v54 == v83->var2)
       {
         goto LABEL_97;
       }
 
-      v56 = scn_default_log();
-      if (!os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
+      v62 = scn_default_log(Content, v32);
+      if (!os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_97;
       }
@@ -1255,22 +1261,22 @@ LABEL_94:
       goto LABEL_96;
     }
 
-    v46 = 0;
-    v47 = 0;
-    v48 = 0;
+    v52 = 0;
+    v53 = 0;
+    v54 = 0;
 LABEL_58:
-    v84 = 0;
-    v80 = v85;
-    v81 = v86;
-    v82 = v87;
-    v83 = v88;
-    C3DIndicesContentGetVertexIndicesForLinePrimitiveAtIndex(&v80, v46, &v84 + 1, &v84);
-    v52 = v84;
-    for (j = HIDWORD(v84); ; ++j)
+    v90 = 0;
+    v86 = v91;
+    v87 = v92;
+    v88 = v93;
+    v89 = v94;
+    C3DIndicesContentGetVertexIndicesForLinePrimitiveAtIndex(&v86, v52, &v90 + 1, &v90);
+    v58 = v90;
+    for (j = HIDWORD(v90); ; ++j)
     {
-      if (j >= v52)
+      if (j >= v58)
       {
-        if (++v46 >= v86)
+        if (++v52 >= v92)
         {
           goto LABEL_94;
         }
@@ -1278,72 +1284,72 @@ LABEL_58:
         goto LABEL_58;
       }
 
-      *v54.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v92), (v91 + v47 * BYTE6(v92)), v49, v50.f32[0], v51);
-      v50.i64[0] = 0x3400000034000000;
-      v50.i64[1] = 0x3400000034000000;
-      v49 = vcgtq_f32(v50, vabsq_f32(v54));
-      v49.i32[0] = vminvq_u32(v49);
-      if ((v49.i32[0] & 0x80000000) == 0)
+      *v60.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v98), (v97 + v53 * BYTE6(v98)), v55, v56.f32[0], v57);
+      v56.i64[0] = 0x3400000034000000;
+      v56.i64[1] = 0x3400000034000000;
+      v55 = vcgtq_f32(v56, vabsq_f32(v60));
+      v55.i32[0] = vminvq_u32(v55);
+      if ((v55.i32[0] & 0x80000000) == 0)
       {
         break;
       }
 
 LABEL_69:
-      ++v47;
+      ++v53;
     }
 
     if (v16)
     {
-      v55 = table[j];
-      if (v19)
+      v61 = table[j];
+      if (v20)
       {
 LABEL_63:
-        *v19++ = v55;
+        *v20++ = v61;
 LABEL_68:
-        ++v48;
-        v52 = v84;
+        ++v54;
+        v58 = v90;
         goto LABEL_69;
       }
     }
 
     else
     {
-      v55 = j;
-      if (v19)
+      v61 = j;
+      if (v20)
       {
         goto LABEL_63;
       }
     }
 
-    v19 = 0;
-    if (v20)
+    v20 = 0;
+    if (v21)
     {
-      *v20 = v55;
-      v20 += 2;
+      *v21 = v61;
+      v21 += 2;
     }
 
     else
     {
-      *v21++ = v55;
+      *v22++ = v61;
     }
 
     goto LABEL_68;
   }
 
-  v39 = v92;
+  v45 = v98;
   if (!var3)
   {
-    if (!v92)
+    if (!v98)
     {
-      v65 = 0;
+      v71 = 0;
 LABEL_100:
-      if (v65 == targetCopy->var2)
+      if (v71 == targetCopy->var2)
       {
         goto LABEL_98;
       }
 
-      v68 = scn_default_log();
-      if (!os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
+      v74 = scn_default_log(ElementsCount, v26);
+      if (!os_log_type_enabled(v74, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_98;
       }
@@ -1351,22 +1357,22 @@ LABEL_100:
       goto LABEL_92;
     }
 
-    v64 = 0;
-    v65 = 0;
+    v70 = 0;
+    v71 = 0;
     while (1)
     {
-      *v66.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v92), (v91 + v64 * BYTE6(v92)), v23, v24.f32[0], v25.f32[0]);
-      v24.i64[0] = 0x3400000034000000;
-      v24.i64[1] = 0x3400000034000000;
-      v23 = vcgtq_f32(v24, vabsq_f32(v66));
-      v23.i32[0] = vminvq_u32(v23);
-      if ((v23.i32[0] & 0x80000000) == 0)
+      *v72.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v98), (v97 + v70 * BYTE6(v98)), v27, v28.f32[0], v29.f32[0]);
+      v28.i64[0] = 0x3400000034000000;
+      v28.i64[1] = 0x3400000034000000;
+      v27 = vcgtq_f32(v28, vabsq_f32(v72));
+      v27.i32[0] = vminvq_u32(v27);
+      if ((v27.i32[0] & 0x80000000) == 0)
       {
         break;
       }
 
 LABEL_87:
-      if (v39 == ++v64)
+      if (v45 == ++v70)
       {
         goto LABEL_100;
       }
@@ -1374,60 +1380,60 @@ LABEL_87:
 
     if (v16)
     {
-      v67 = table[v64];
-      if (v19)
+      v73 = table[v70];
+      if (v20)
       {
 LABEL_81:
-        *v19++ = v67;
+        *v20++ = v73;
 LABEL_86:
-        ++v65;
+        ++v71;
         goto LABEL_87;
       }
     }
 
     else
     {
-      v67 = v64;
-      if (v19)
+      v73 = v70;
+      if (v20)
       {
         goto LABEL_81;
       }
     }
 
-    v19 = 0;
-    if (v20)
+    v20 = 0;
+    if (v21)
     {
-      *v20 = v67;
-      v20 += 2;
+      *v21 = v73;
+      v21 += 2;
     }
 
     else
     {
-      *v21++ = v67;
+      *v22++ = v73;
     }
 
     goto LABEL_86;
   }
 
-  if (v92)
+  if (v98)
   {
-    v40 = 0;
-    v41 = 0;
+    v46 = 0;
+    v47 = 0;
     while (1)
     {
-      *v42.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v92), (v91 + v40 * BYTE6(v92)), v23, v24.f32[0], v25.f32[0]);
-      v79 = v42;
-      *v23.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v90), (v89 + v40 * BYTE6(v90)), v42, v43, v44);
-      v25.i64[0] = 0x3400000034000000;
-      v25.i64[1] = 0x3400000034000000;
-      v24.i32[0] = vminvq_u32(vcgtq_f32(v25, vabsq_f32(v79)));
-      if (v24.i32[0] < 0)
+      *v48.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v98), (v97 + v46 * BYTE6(v98)), v27, v28.f32[0], v29.f32[0]);
+      v85 = v48;
+      *v27.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v96), (v95 + v46 * BYTE6(v96)), v48, v49, v50);
+      v29.i64[0] = 0x3400000034000000;
+      v29.i64[1] = 0x3400000034000000;
+      v28.i32[0] = vminvq_u32(vcgtq_f32(v29, vabsq_f32(v85)));
+      if (v28.i32[0] < 0)
       {
-        v24.i64[0] = 0x3400000034000000;
-        v24.i64[1] = 0x3400000034000000;
-        v23 = vcgtq_f32(v24, vabsq_f32(v23));
-        v23.i32[0] = vminvq_u32(v23);
-        if (v23.i32[0] < 0)
+        v28.i64[0] = 0x3400000034000000;
+        v28.i64[1] = 0x3400000034000000;
+        v27 = vcgtq_f32(v28, vabsq_f32(v27));
+        v27.i32[0] = vminvq_u32(v27);
+        if (v27.i32[0] < 0)
         {
           goto LABEL_54;
         }
@@ -1435,8 +1441,8 @@ LABEL_86:
 
       if (v16)
       {
-        v45 = table[v40];
-        if (!v19)
+        v51 = table[v46];
+        if (!v20)
         {
           goto LABEL_50;
         }
@@ -1444,52 +1450,52 @@ LABEL_86:
 
       else
       {
-        v45 = v40;
-        if (!v19)
+        v51 = v46;
+        if (!v20)
         {
 LABEL_50:
-          v19 = 0;
-          if (v20)
+          v20 = 0;
+          if (v21)
           {
-            *v20 = v45;
-            v20 += 2;
+            *v21 = v51;
+            v21 += 2;
           }
 
           else
           {
-            *v21++ = v45;
+            *v22++ = v51;
           }
 
           goto LABEL_53;
         }
       }
 
-      *v19++ = v45;
+      *v20++ = v51;
 LABEL_53:
-      ++v41;
+      ++v47;
 LABEL_54:
-      if (v39 == ++v40)
+      if (v45 == ++v46)
       {
         goto LABEL_90;
       }
     }
   }
 
-  v41 = 0;
+  v47 = 0;
 LABEL_90:
-  if (v41 == targetCopy->var2)
+  if (v47 == targetCopy->var2)
   {
     goto LABEL_98;
   }
 
-  v68 = scn_default_log();
-  if (!os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
+  v74 = scn_default_log(ElementsCount, v26);
+  if (!os_log_type_enabled(v74, OS_LOG_TYPE_FAULT))
   {
     goto LABEL_98;
   }
 
 LABEL_92:
-  [(SCNMTLMorphDeformer *)v68 createSparseIndicesBufferForMorphTarget:v69 withSetupTarget:v70 indicesBuffer:v71 indicesBufferOffset:v72 indexSize:v73 originalToFirstDeindexedTable:v74 computeContext:v75];
+  [(SCNMTLMorphDeformer *)v74 createSparseIndicesBufferForMorphTarget:v75 withSetupTarget:v76 indicesBuffer:v77 indicesBufferOffset:v78 indexSize:v79 originalToFirstDeindexedTable:v80 computeContext:v81];
 LABEL_98:
   targetCopy->var4 = offset;
 }
@@ -1781,12 +1787,12 @@ LABEL_55:
 - (unint64_t)morphIncrementallyWithComputeContext:(id)context positions:(id)positions normals:(id)normals
 {
   positionsCopy = positions;
-  v85 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
+  v81 = 0;
   v79 = 0;
-  v77 = 0;
-  v78 = 0;
-  v76 = 0.0;
-  v8 = C3DMorpherBeginIncrementalPass(self->_morpher, self->_lastMorpherIncrementalPassState, &v78, &v77, &v79, &v76);
+  v80 = 0;
+  v78 = 0.0;
+  v8 = C3DMorpherBeginIncrementalPass(self->_morpher, self->_lastMorpherIncrementalPassState, &v80, &v79, &v81, &v78);
   if (!v8)
   {
     return 0;
@@ -1796,135 +1802,135 @@ LABEL_55:
   normalsCopy = normals;
   currentComputeEncoder = [context currentComputeEncoder];
   bzero(currentComputeEncoder, 0x678uLL);
-  v63[1] = v63;
-  v11 = MEMORY[0x28223BE20](v10);
-  v13 = (v63 - v12);
-  v14 = MEMORY[0x28223BE20](v11);
-  v16 = (v63 - ((v15 + 15) & 0xFFFFFFFF0));
-  MEMORY[0x28223BE20](v14);
-  v18 = (v63 - v17);
-  v70 = v9 == 2;
-  v19 = 1.0;
+  v65[1] = v65;
+  MEMORY[0x28223BE20](v10);
+  v12 = (v65 - v11);
+  MEMORY[0x28223BE20](v13);
+  v15 = (v65 - ((v14 + 15) & 0xFFFFFFFF0));
+  MEMORY[0x28223BE20](v16);
+  v20 = (v65 - v19);
+  v72 = v9 == 2;
+  v21 = 1.0;
   if (v9 == 2)
   {
-    v19 = 0.0;
-    if (v79)
+    v21 = 0.0;
+    if (v81)
     {
-      bzero(v78, 4 * v79);
+      bzero(v80, 4 * v81);
     }
   }
 
-  if (vabds_f32(1.0, v19) <= 0.00000011921)
+  if (vabds_f32(1.0, v21) <= 0.00000011921)
   {
-    v20 = 0;
+    v22 = 0;
   }
 
   else
   {
-    *v13 = 1.0 - v19;
-    *v16 = self->_baseBufferForComputeKernel;
-    *v18 = 0;
-    v20 = 1;
+    *v12 = 1.0 - v21;
+    *v15 = self->_baseBufferForComputeKernel;
+    *v20 = 0;
+    v22 = 1;
   }
 
-  LODWORD(v22) = self->_runtimeMorphTargetCount;
-  if (v79 != v22)
+  LODWORD(v24) = self->_runtimeMorphTargetCount;
+  if (v81 != v24)
   {
-    v23 = scn_default_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v25 = scn_default_log(v17, v18);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
-      [(SCNMTLMorphDeformer *)v23 morphIncrementallyWithComputeContext:v24 positions:v25 normals:v26, v27, v28, v29, v30];
+      [(SCNMTLMorphDeformer *)v25 morphIncrementallyWithComputeContext:v26 positions:v27 normals:v28, v29, v30, v31, v32];
     }
 
-    LODWORD(v22) = self->_runtimeMorphTargetCount;
+    LODWORD(v24) = self->_runtimeMorphTargetCount;
   }
 
-  if (v22)
+  if (v24)
   {
-    v31 = v77;
-    v32 = v78;
-    v33 = v76;
-    v22 = v22;
+    v33 = v79;
+    v34 = v80;
+    v35 = v78;
+    v24 = v24;
     p_var3 = &self->_runtimeMorphTargets->var3;
     do
     {
-      v35 = *(p_var3 - 3);
-      v36 = *&v31[4 * v35];
-      v37 = v32[v35];
-      if (vabds_f32(v36, v37) > v33)
+      v37 = *(p_var3 - 3);
+      v38 = *&v33[4 * v37];
+      v39 = v34[v37];
+      if (vabds_f32(v38, v39) > v35)
       {
-        v13[v20] = v36 - v37;
-        v16[v20] = self->_morphTargetsVertexBuffer;
-        v18[v20++] = *p_var3;
+        v12[v22] = v38 - v39;
+        v15[v22] = self->_morphTargetsVertexBuffer;
+        v20[v22++] = *p_var3;
       }
 
       p_var3 += 4;
-      --v22;
+      --v24;
     }
 
-    while (v22);
+    while (v24);
   }
 
-  memset(v74, 0, sizeof(v74));
+  memset(v76, 0, sizeof(v76));
   vertexCountForComputeKernel = self->_vertexCountForComputeKernel;
-  memset(v84, 0, sizeof(v84));
-  memset(&v83[4], 0, 32);
-  v38 = 136;
+  memset(v86, 0, sizeof(v86));
+  memset(&v85[4], 0, 32);
+  v40 = 136;
   if (v9 == 2)
   {
-    v38 = 128;
+    v40 = 128;
   }
 
-  memset(v83, 0, 32);
+  memset(v85, 0, 32);
   selfCopy = self;
-  computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)*(&self->super.isa + v38) computeEvaluator];
-  v67 = v20 + 7;
-  if (v20 + 7 >= 8)
+  computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)*(&self->super.isa + v40) computeEvaluator];
+  v69 = v22 + 7;
+  if (v22 + 7 >= 8)
   {
-    v39 = v16;
-    v40 = 0;
-    v41 = 0;
-    v65 = v67 >> 3;
+    v41 = v15;
+    v42 = 0;
+    v43 = 0;
+    v67 = v69 >> 3;
     p_baseBufferForComputeKernel = &selfCopy->_baseBufferForComputeKernel;
     do
     {
-      v71 = v41;
-      v43 = 0;
-      v44 = v39;
+      v73 = v43;
+      v45 = 0;
+      v46 = v41;
       do
       {
-        if (v40 + v43 >= v20)
+        if (v42 + v45 >= v22)
         {
-          v46 = 0;
-          v45 = 0.0;
-          v47 = p_baseBufferForComputeKernel;
+          v48 = 0;
+          v47 = 0.0;
+          v49 = p_baseBufferForComputeKernel;
         }
 
         else
         {
-          v45 = v13[v43];
-          v46 = v18[v43];
-          v47 = v44;
+          v47 = v12[v45];
+          v48 = v20[v45];
+          v49 = v46;
         }
 
-        v48 = *v47;
-        *&v74[v43] = v45;
-        *(v84 + v43) = v48;
-        v83[v43++] = v46;
-        ++v44;
+        v50 = *v49;
+        *&v76[v45] = v47;
+        *(v86 + v45) = v50;
+        v85[v45++] = v48;
+        ++v46;
       }
 
-      while (v43 != 8);
-      v72 = v39;
-      v49 = currentComputeEncoder;
-      SCNMTLComputeCommandEncoder::setBuffers(currentComputeEncoder, v84, v83, 1, 8);
-      v50 = v49;
-      if (v49->_buffers[10] == positionsCopy)
+      while (v45 != 8);
+      v74 = v41;
+      v51 = currentComputeEncoder;
+      SCNMTLComputeCommandEncoder::setBuffers(currentComputeEncoder, v86, v85, 1, 8);
+      v52 = v51;
+      if (v51->_buffers[10] == positionsCopy)
       {
-        v53 = v49->_offsets[10];
-        v51 = normalsCopy;
-        v52 = computeEvaluator;
-        if (!v53)
+        v55 = v51->_offsets[10];
+        v53 = normalsCopy;
+        v54 = computeEvaluator;
+        if (!v55)
         {
           goto LABEL_31;
         }
@@ -1932,72 +1938,72 @@ LABEL_55:
 
       else
       {
-        v49->_buffers[10] = positionsCopy;
-        v51 = normalsCopy;
-        v52 = computeEvaluator;
+        v51->_buffers[10] = positionsCopy;
+        v53 = normalsCopy;
+        v54 = computeEvaluator;
       }
 
-      v50->_offsets[10] = 0;
-      v50->_buffersToBind[0] |= 0x400uLL;
+      v52->_offsets[10] = 0;
+      v52->_buffersToBind[0] |= 0x400uLL;
 LABEL_31:
-      if (v51)
+      if (v53)
       {
-        if (v50->_buffers[11] != v51)
+        if (v52->_buffers[11] != v53)
         {
-          v50->_buffers[11] = v51;
+          v52->_buffers[11] = v53;
 LABEL_35:
-          v50->_offsets[11] = 0;
-          v50->_buffersToBind[0] |= 0x800uLL;
+          v52->_offsets[11] = 0;
+          v52->_buffersToBind[0] |= 0x800uLL;
           goto LABEL_36;
         }
 
-        if (v50->_offsets[11])
+        if (v52->_offsets[11])
         {
           goto LABEL_35;
         }
       }
 
 LABEL_36:
-      SCNMTLComputeCommandEncoder::setBytes(v50, v74, 0x24uLL, 0xCuLL);
-      memset(v80, 0, sizeof(v80));
+      SCNMTLComputeCommandEncoder::setBytes(v52, v76, 0x24uLL, 0xCuLL);
+      memset(v82, 0, sizeof(v82));
       encoder = currentComputeEncoder->_encoder;
-      v81 = vertexCountForComputeKernel;
-      v82 = vdupq_n_s64(1uLL);
-      [(MTLComputeCommandEncoder *)encoder setStageInRegion:v80];
-      v55 = currentComputeEncoder;
-      v56 = vertexCountForComputeKernel;
-      if (currentComputeEncoder->_computePipelineState != v52)
+      v83 = vertexCountForComputeKernel;
+      v84 = vdupq_n_s64(1uLL);
+      [(MTLComputeCommandEncoder *)encoder setStageInRegion:v82];
+      v57 = currentComputeEncoder;
+      v58 = vertexCountForComputeKernel;
+      if (currentComputeEncoder->_computePipelineState != v54)
       {
-        currentComputeEncoder->_computePipelineState = v52;
-        v57 = v52;
-        v58 = v56;
-        [(MTLComputeCommandEncoder *)v55->_encoder setComputePipelineState:v57];
-        v56 = v58;
-        v55 = currentComputeEncoder;
+        currentComputeEncoder->_computePipelineState = v54;
+        v59 = v54;
+        v60 = v58;
+        [(MTLComputeCommandEncoder *)v57->_encoder setComputePipelineState:v59];
+        v58 = v60;
+        v57 = currentComputeEncoder;
       }
 
-      v59 = v67 < 0x10;
-      SCNMTLComputeCommandEncoder::dispatchOnGrid1D(v55, v56);
-      v60 = v59 | ~v70;
-      v61 = v71;
-      if ((v60 & 1) == 0)
+      v61 = v69 < 0x10;
+      SCNMTLComputeCommandEncoder::dispatchOnGrid1D(v57, v58);
+      v62 = v61 | ~v72;
+      v63 = v73;
+      if ((v62 & 1) == 0)
       {
         computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)selfCopy->_incrementalAddPipeline computeEvaluator];
-        v70 = 0;
+        v72 = 0;
       }
 
-      v41 = v61 + 1;
-      v13 += 8;
-      v39 = v72 + 8;
-      v18 += 8;
-      v40 += 8;
+      v43 = v63 + 1;
+      v12 += 8;
+      v41 = v74 + 8;
+      v20 += 8;
+      v42 += 8;
     }
 
-    while (v41 != v65);
+    while (v43 != v67);
   }
 
-  v62 = selfCopy;
-  v62->_lastMorpherIncrementalPassState = C3DMorpherEndIncrementalPass(selfCopy->_morpher);
+  v64 = selfCopy;
+  v64->_lastMorpherIncrementalPassState = C3DMorpherEndIncrementalPass(selfCopy->_morpher);
   return 1;
 }
 
@@ -2042,6 +2048,96 @@ LABEL_36:
   }
 
   return result;
+}
+
+- (void)setupMorphTargetsWithComputeContext:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "baseMesh";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)setupMorphTargetsWithComputeContext:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "baseGeometryMeshlessPositionSource";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)setupMorphTargetsWithComputeContext:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "morph";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)setupMorphTargetsWithComputeContext:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "maxMorphTargetCount > 0";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Internal consistency error", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)setupMorphTargetsWithComputeContext:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "basePositionSource";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)setupMorphTargetsWithComputeContext:(uint64_t)a3 .cold.8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "vertexBufferOffset == vertexBufferLength";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Vertex buffer has not been completely written to", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)setupMorphTargetsWithComputeContext:(uint64_t)a3 .cold.9(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "sparseIndicesBufferOffset == sparseIndicesBufferLength";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Sparse indices buffer has not been completely written to", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "originalNormalSource";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __59__SCNMTLMorphDeformer_setupMorphTargetsWithComputeContext___block_invoke_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "vertexCount == _vertexCountForComputeKernel";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Internal consistency error - unexpected sparse morph target", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)createVertexBufferForMorphTarget:(uint64_t)a3 withSetupTarget:(uint64_t)a4 vertexBuffer:(uint64_t)a5 vertexBufferOffset:(uint64_t)a6 indicesBuffer:(uint64_t)a7 indicesBufferOffset:(uint64_t)a8 indexSize:originalToFirstDeindexedTable:computeContext:.cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_morphKind == SCNMTLMorphDeformerKindSparse";
+}
+
+- (void)createVertexBufferForMorphTarget:(uint64_t)a3 withSetupTarget:(uint64_t)a4 vertexBuffer:(uint64_t)a5 vertexBufferOffset:(uint64_t)a6 indicesBuffer:(uint64_t)a7 indicesBufferOffset:(uint64_t)a8 indexSize:originalToFirstDeindexedTable:computeContext:.cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "dstForWriting == dst + length";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Buffer has not been completely written to", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)createSparseIndicesBufferForMorphTarget:(uint64_t)a3 withSetupTarget:(uint64_t)a4 indicesBuffer:(uint64_t)a5 indicesBufferOffset:(uint64_t)a6 indexSize:(uint64_t)a7 originalToFirstDeindexedTable:(uint64_t)a8 computeContext:.cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "writtenIndexCount == runtimeTarget->vertexCount";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Buffer has not been completely written to", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)morphIncrementallyWithComputeContext:(uint64_t)a3 positions:(uint64_t)a4 normals:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "weightCount == _runtimeMorphTargetCount";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Internal consistency error", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

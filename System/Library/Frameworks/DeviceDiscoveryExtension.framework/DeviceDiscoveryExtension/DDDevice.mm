@@ -688,7 +688,7 @@
 
 - (void)encodeWithXPCObject:(id)object
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   bluetoothIdentifier = self->_bluetoothIdentifier;
   if (bluetoothIdentifier)
@@ -842,8 +842,6 @@
   {
     xpc_dictionary_set_string(v49, "wFVn", uTF8String11);
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -909,208 +907,314 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v96 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v95 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v95, &v96, "%@", v5);
+    v6 = v95;
   }
 
   identifier = self->_identifier;
   if (identifier)
   {
-    v48 = identifier;
-    CUAppendF();
-    v6 = v4;
+    v94 = v6;
+    v8 = identifier;
+    CUAppendF(&v94, &v96, "ID %@", v8);
+    v9 = v94;
 
-    v4 = v6;
+    v6 = v9;
   }
 
   displayName = self->_displayName;
   if (displayName)
   {
-    v49 = displayName;
-    CUAppendF();
-    v8 = v4;
+    v93 = v6;
+    v11 = displayName;
+    CUAppendF(&v93, &v96, "displayName '%@'", v11);
+    v12 = v93;
 
-    v4 = v8;
+    v6 = v12;
   }
 
-  v50 = DDDeviceCategoryToString(self->_category);
-  CUAppendF();
-  v9 = v4;
+  v92 = v6;
+  v13 = DDDeviceCategoryToString(self->_category);
+  CUAppendF(&v92, &v96, "category %@", v13);
+  v14 = v92;
 
   protocolType = self->_protocolType;
   if (protocolType)
   {
-    v51 = protocolType;
-    CUAppendF();
-    v11 = v9;
+    v91 = v14;
+    v16 = protocolType;
+    CUAppendF(&v91, &v96, "protocol UTType %@", v16);
+    v17 = v91;
 
-    v9 = v11;
+    v14 = v17;
   }
 
-  self->_state;
-  CUAppendF();
-  v12 = v9;
+  v90 = v14;
+  state = self->_state;
+  if (state <= 19)
+  {
+    v19 = @"Invalid";
+    if (!state)
+    {
+      goto LABEL_24;
+    }
 
-  self->_supportsGrouping;
-  CUAppendF();
-  v13 = v12;
+    if (state == 10)
+    {
+      v19 = @"Activating";
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+    switch(state)
+    {
+      case 20:
+        v19 = @"Activated";
+        goto LABEL_24;
+      case 25:
+        v19 = @"Authorized";
+        goto LABEL_24;
+      case 30:
+        v19 = @"Invalidating";
+        goto LABEL_24;
+    }
+  }
+
+  v19 = @"?";
+LABEL_24:
+  CUAppendF(&v90, &v96, "state %@", v19);
+  v20 = v90;
+
+  v89 = v20;
+  if (self->_supportsGrouping)
+  {
+    v21 = "yes";
+  }
+
+  else
+  {
+    v21 = "no";
+  }
+
+  CUAppendF(&v89, &v96, "supportsGrouping %s", v21);
+  v22 = v89;
 
   bluetoothIdentifier = self->_bluetoothIdentifier;
   if (bluetoothIdentifier)
   {
-    v52 = bluetoothIdentifier;
-    CUAppendF();
-    v15 = v13;
+    v88 = v22;
+    v24 = bluetoothIdentifier;
+    CUAppendF(&v88, &v96, "btID %@", v24);
+    v25 = v88;
 
-    v13 = v15;
+    v22 = v25;
   }
 
   networkEndpoint = self->_networkEndpoint;
   if (networkEndpoint)
   {
-    v53 = networkEndpoint;
-    CUAppendF();
-    v17 = v13;
+    v87 = v22;
+    v27 = networkEndpoint;
+    CUAppendF(&v87, &v96, "nwEP %@", v27);
+    v28 = v87;
 
-    v13 = v17;
+    v22 = v28;
   }
 
-  self->_protocol;
-  CUAppendF();
-  v18 = v13;
+  v86 = v22;
+  protocol = self->_protocol;
+  v30 = @"DIAL";
+  if (protocol != 1)
+  {
+    v30 = @"?";
+  }
+
+  if (protocol)
+  {
+    v31 = v30;
+  }
+
+  else
+  {
+    v31 = @"Invalid";
+  }
+
+  CUAppendF(&v86, &v96, "protocol %@", v31);
+  v32 = v86;
 
   txtRecordData = self->_txtRecordData;
   if (txtRecordData)
   {
-    v20 = txtRecordData;
-    v54 = CUPrintNSObjectOneLine();
-    CUAppendF();
-    v21 = v18;
+    v85 = v32;
+    v34 = txtRecordData;
+    v35 = CUPrintNSObjectOneLine();
+    CUAppendF(&v85, &v96, "txtRecord %@", v35);
+    v36 = v85;
 
-    v18 = v21;
+    v32 = v36;
   }
 
   url = self->_url;
   if (url)
   {
-    v55 = url;
-    CUAppendF();
-    v23 = v18;
+    v84 = v32;
+    v38 = url;
+    CUAppendF(&v84, &v96, "url %@", v38);
+    v39 = v84;
 
-    v18 = v23;
+    v32 = v39;
   }
 
+  v83 = v32;
   mediaPlaybackState = self->_mediaPlaybackState;
-  if (mediaPlaybackState < 3)
+  if (mediaPlaybackState >= 3)
   {
-    v25 = off_278A46A50[mediaPlaybackState];
+    v41 = @"?";
   }
 
-  CUAppendF();
-  v26 = v18;
+  else
+  {
+    v41 = off_278A46A50[mediaPlaybackState];
+  }
+
+  CUAppendF(&v83, &v96, "playback state %@", v41);
+  v42 = v83;
 
   mediaContentTitle = self->_mediaContentTitle;
   if (mediaContentTitle)
   {
-    v56 = mediaContentTitle;
-    CUAppendF();
-    v28 = v26;
+    v82 = v42;
+    v44 = mediaContentTitle;
+    CUAppendF(&v82, &v96, "mediaContentTitle '%@'", v44);
+    v45 = v82;
 
-    v26 = v28;
+    v42 = v45;
   }
 
   mediaContentSubtitle = self->_mediaContentSubtitle;
   if (mediaContentSubtitle)
   {
-    v57 = mediaContentSubtitle;
-    CUAppendF();
-    v30 = v26;
+    v81 = v42;
+    v47 = mediaContentSubtitle;
+    CUAppendF(&v81, &v96, "mediaContentSubtitle '%@'", v47);
+    v48 = v81;
 
-    v26 = v30;
+    v42 = v48;
   }
 
   displayImageName = self->_displayImageName;
   if (displayImageName)
   {
-    v58 = displayImageName;
-    CUAppendF();
-    v32 = v26;
+    v80 = v42;
+    v50 = displayImageName;
+    CUAppendF(&v80, &v96, "displayImageName '%@'", v50);
+    v51 = v80;
 
-    v26 = v32;
+    v42 = v51;
   }
 
   SSID = self->_SSID;
   if (SSID)
   {
-    v59 = SSID;
-    CUAppendF();
-    v34 = v26;
+    v79 = v42;
+    v53 = SSID;
+    CUAppendF(&v79, &v96, "ssid '%@'", v53);
+    v54 = v79;
 
-    v26 = v34;
+    v42 = v54;
   }
 
   wifiAwareServiceName = self->_wifiAwareServiceName;
   if (wifiAwareServiceName)
   {
-    v60 = wifiAwareServiceName;
-    CUAppendF();
-    v36 = v26;
+    v78 = v42;
+    v56 = wifiAwareServiceName;
+    CUAppendF(&v78, &v96, "Wi-Fi Aware '%@'", v56);
+    v57 = v78;
 
-    v26 = v36;
+    v42 = v57;
   }
 
-  if (self->_wifiAwareServiceRole)
+  wifiAwareServiceRole = self->_wifiAwareServiceRole;
+  if (wifiAwareServiceRole)
   {
-    CUAppendF();
-    v37 = v26;
+    v77 = v42;
+    CUAppendF(&v77, &v96, "'%ld'", wifiAwareServiceRole);
+    v59 = v77;
 
-    v26 = v37;
+    v42 = v59;
   }
 
   wifiAwareModelName = self->_wifiAwareModelName;
   if (wifiAwareModelName)
   {
+    v76 = v42;
     v61 = wifiAwareModelName;
-    CUAppendF();
-    v39 = v26;
+    CUAppendF(&v76, &v96, "'%@'", v61);
+    v62 = v76;
 
-    v26 = v39;
+    v42 = v62;
   }
 
   wifiAwareVendorName = self->_wifiAwareVendorName;
   if (wifiAwareVendorName)
   {
-    v62 = wifiAwareVendorName;
-    CUAppendF();
-    v41 = v26;
+    v75 = v42;
+    v64 = wifiAwareVendorName;
+    CUAppendF(&v75, &v96, "'%@'", v64);
+    v65 = v75;
 
-    v26 = v41;
+    v42 = v65;
   }
 
-  self->_allowPairing;
-  CUAppendF();
-  v42 = v26;
-
-  deviceSupports = self->_deviceSupports;
-  v63 = CUPrintFlags64();
-  CUAppendF();
-  v44 = v42;
-
-  v45 = &stru_284AE9D28;
-  if (v44)
+  v74 = v42;
+  if (self->_allowPairing)
   {
-    v45 = v44;
+    v66 = "yes";
   }
 
-  v46 = v45;
+  else
+  {
+    v66 = "no";
+  }
 
-  return v46;
+  CUAppendF(&v74, &v96, "allowPairing %s", v66);
+  v67 = v74;
+
+  v73 = v67;
+  v68 = CUPrintFlags64();
+  CUAppendF(&v73, &v96, "supports %@", v68);
+  v69 = v73;
+
+  v70 = &stru_284AE9D28;
+  if (v69)
+  {
+    v70 = v69;
+  }
+
+  v71 = v70;
+
+  return v71;
 }
 
 - (DDDevice)initWithXPCObject:(id)object error:(id *)error
@@ -1124,7 +1228,7 @@
       objc_opt_class();
       OUTLINED_FUNCTION_2();
       DAErrorF();
-      *error = v17 = 0;
+      *error = v35 = 0;
       goto LABEL_42;
     }
 
@@ -1132,32 +1236,33 @@
   }
 
   OUTLINED_FUNCTION_1();
-  if (!CUXPCDecodeNSUUID())
+  v8 = CUXPCDecodeNSUUID();
+  if (!v8)
   {
     goto LABEL_47;
   }
 
-  v8 = OUTLINED_FUNCTION_0();
-  if (v8 == 6)
+  v12 = OUTLINED_FUNCTION_0(v8, "dvCa", v9, v10, v11);
+  if (v12 == 6)
   {
     v7->_category = 0;
   }
 
-  else if (v8 == 5)
+  else if (v12 == 5)
   {
     goto LABEL_47;
   }
 
-  v9 = CUXPCDecodeUInt64RangedEx();
-  if (v9 != 6)
+  v13 = CUXPCDecodeUInt64RangedEx();
+  if (v13 != 6)
   {
-    if (v9 != 5)
+    if (v13 != 5)
     {
       goto LABEL_9;
     }
 
 LABEL_47:
-    v17 = 0;
+    v35 = 0;
     goto LABEL_42;
   }
 
@@ -1175,17 +1280,18 @@ LABEL_9:
     goto LABEL_47;
   }
 
-  v10 = xpc_dictionary_get_dictionary(objectCopy, "nwEP");
-  if (v10)
+  v14 = xpc_dictionary_get_dictionary(objectCopy, "nwEP");
+  v18 = v14;
+  if (v14)
   {
-    v11 = nw_endpoint_create_from_dictionary();
-    if (!v11)
+    v19 = nw_endpoint_create_from_dictionary();
+    if (!v19)
     {
       if (error)
       {
-        v19 = OUTLINED_FUNCTION_2();
-        DDErrorF(v19, v20, v21, v22, v23, v24, v25, v26, v27);
-        *error = v17 = 0;
+        v37 = OUTLINED_FUNCTION_2();
+        DDErrorF(v37, v38, v39, v40, v41, v42, v43, v44, v45);
+        *error = v35 = 0;
         goto LABEL_41;
       }
 
@@ -1193,40 +1299,41 @@ LABEL_9:
     }
 
     networkEndpoint = v7->_networkEndpoint;
-    v7->_networkEndpoint = v11;
+    v7->_networkEndpoint = v19;
   }
 
-  v13 = OUTLINED_FUNCTION_0();
-  if (v13 == 6)
+  v21 = OUTLINED_FUNCTION_0(v14, "dvPT", v15, v16, v17);
+  if (v21 == 6)
   {
     v7->_protocol = 0;
     goto LABEL_17;
   }
 
-  if (v13 == 5)
+  if (v21 == 5)
   {
 LABEL_50:
-    v17 = 0;
+    v35 = 0;
     goto LABEL_41;
   }
 
 LABEL_17:
   OUTLINED_FUNCTION_1();
-  if (!CUXPCDecodeNSString())
+  v22 = CUXPCDecodeNSString();
+  if (!v22)
   {
     goto LABEL_44;
   }
 
-  v14 = OUTLINED_FUNCTION_0();
-  if (v14 != 6)
+  v25 = OUTLINED_FUNCTION_0(v22, "dvSt", 0, v23, v24);
+  if (v25 != 6)
   {
-    if (v14 != 5)
+    if (v25 != 5)
     {
       goto LABEL_21;
     }
 
 LABEL_44:
-    v17 = 0;
+    v35 = 0;
     goto LABEL_40;
   }
 
@@ -1245,18 +1352,19 @@ LABEL_21:
   }
 
   OUTLINED_FUNCTION_1();
-  if (!CUXPCDecodeNSString())
+  v26 = CUXPCDecodeNSString();
+  if (!v26)
   {
     goto LABEL_43;
   }
 
-  v15 = OUTLINED_FUNCTION_0();
-  if (v15 == 6)
+  v29 = OUTLINED_FUNCTION_0(v26, "mpSt", 0, v27, v28);
+  if (v29 == 6)
   {
     v7->_mediaPlaybackState = 0;
   }
 
-  else if (v15 == 5)
+  else if (v29 == 5)
   {
     goto LABEL_43;
   }
@@ -1292,21 +1400,22 @@ LABEL_21:
   }
 
   OUTLINED_FUNCTION_1();
-  if (!CUXPCDecodeNSString())
+  v30 = CUXPCDecodeNSString();
+  if (!v30)
   {
     goto LABEL_43;
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  if (v16 != 6)
+  v34 = OUTLINED_FUNCTION_0(v30, "wFSt", v31, v32, v33);
+  if (v34 != 6)
   {
-    if (v16 != 5)
+    if (v34 != 5)
     {
       goto LABEL_36;
     }
 
 LABEL_43:
-    v17 = 0;
+    v35 = 0;
     goto LABEL_39;
   }
 
@@ -1324,14 +1433,14 @@ LABEL_36:
     goto LABEL_43;
   }
 
-  v17 = v7;
+  v35 = v7;
 LABEL_39:
 
 LABEL_40:
 LABEL_41:
 
 LABEL_42:
-  return v17;
+  return v35;
 }
 
 + (BOOL)deviceMetadataURLValid:(id)valid

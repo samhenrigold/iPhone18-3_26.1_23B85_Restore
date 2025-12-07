@@ -25,6 +25,7 @@
 - (void)pairingPopupDidFinish:(id)finish;
 - (void)proxCardFlowDidDismiss;
 - (void)proxCardFlowWillPresent;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -184,6 +185,18 @@ LABEL_16:
     *buf = 136315138;
     v10 = "[HSProximityCardHostViewController viewDidLoad]";
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = HSProximityCardHostViewController;
+  [(HSProximityCardHostViewController *)&v5 viewDidDisappear:disappear];
+  if ([(HSProximityCardHostViewController *)self _didPRXActuallyDismiss])
+  {
+    coordinator = [(HSProximityCardHostViewController *)self coordinator];
+    [coordinator dismissProxCardFlowAfterExecuting:0];
   }
 }
 

@@ -5,6 +5,7 @@
 - (MPSSVGFFunctionHash)getHashForKernelID:(SEL)d haveMotionVectorTexture:(unint64_t)texture haveDepthNormalTexture:(BOOL)normalTexture haveSecondTexture:(BOOL)secondTexture;
 - (MPSSVGFParams)params;
 - (id)description;
+- (id)getPipelineForFunctionName:(id)name kernelID:(unint64_t)d haveMotionVectorTexture:(BOOL)texture haveDepthNormalTexture:(BOOL)normalTexture haveSecondTexture:(BOOL)secondTexture;
 - (unint64_t)channelCount:(id)count;
 - (void)dealloc;
 - (void)encodeBilateralFilterToCommandBuffer:(id)commandBuffer stepDistance:(NSUInteger)stepDistance sourceTexture:(id)sourceTexture destinationTexture:(id)destinationTexture sourceTexture2:(id)sourceTexture2 destinationTexture2:(id)destinationTexture2 depthNormalTexture:(id)depthNormalTexture;
@@ -30,7 +31,7 @@
 {
   if (variancePrefilterSigma <= 0.0)
   {
-    sub_239E207EC();
+    sub_239E207EC(self, a2);
   }
 
   self->_variancePrefilterSigma = variancePrefilterSigma;
@@ -40,7 +41,7 @@
 {
   if (bilateralFilterSigma <= 0.0)
   {
-    sub_239E20838();
+    sub_239E20838(self, a2);
   }
 
   self->_bilateralFilterSigma = bilateralFilterSigma;
@@ -50,7 +51,7 @@
 {
   if (temporalWeighting >= 2)
   {
-    sub_239E20884();
+    sub_239E20884(self, a2);
   }
 
   self->_temporalWeighting = temporalWeighting;
@@ -60,7 +61,7 @@
 {
   if (temporalReprojectionBlendFactor < 0.0 || temporalReprojectionBlendFactor > 1.0)
   {
-    sub_239E208D4();
+    sub_239E208D4(self, a2);
   }
 
   self->_temporalReprojectionBlendFactor = temporalReprojectionBlendFactor;
@@ -70,7 +71,7 @@
 {
   if (depthWeight <= 0.0)
   {
-    sub_239E20920();
+    sub_239E20920(self, a2);
   }
 
   self->_depthWeight = depthWeight;
@@ -80,7 +81,7 @@
 {
   if (normalWeight < 0.0)
   {
-    sub_239E2096C();
+    sub_239E2096C(self, a2);
   }
 
   self->_normalWeight = normalWeight;
@@ -90,7 +91,7 @@
 {
   if (luminanceWeight < 0.0)
   {
-    sub_239E209B8();
+    sub_239E209B8(self, a2);
   }
 
   self->_luminanceWeight = luminanceWeight;
@@ -100,7 +101,7 @@
 {
   if (reprojectionThreshold < 0.0)
   {
-    sub_239E20A04();
+    sub_239E20A04(self, a2);
   }
 
   self->_reprojectionThreshold = reprojectionThreshold;
@@ -110,7 +111,7 @@
 {
   if (varianceEstimationSigma <= 0.0)
   {
-    sub_239E20A50();
+    sub_239E20A50(self, a2);
   }
 
   self->_varianceEstimationSigma = varianceEstimationSigma;
@@ -120,7 +121,7 @@
 {
   if (channelCount - 1 >= 3)
   {
-    sub_239E20A9C();
+    sub_239E20A9C(channelCount, a2);
   }
 
   self->_channelCount = channelCount;
@@ -130,7 +131,7 @@
 {
   if (channelCount2 - 1 >= 3)
   {
-    sub_239E20AE8();
+    sub_239E20AE8(channelCount2, a2);
   }
 
   self->_channelCount2 = channelCount2;
@@ -165,45 +166,45 @@
 
 - (MPSSVGF)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v62.receiver = self;
-  v62.super_class = MPSSVGF;
-  v5 = [(MPSKernel *)&v62 initWithCoder:aDecoder device:device];
-  v9 = v5;
+  v32.receiver = self;
+  v32.super_class = MPSSVGF;
+  v5 = [(MPSKernel *)&v32 initWithCoder:aDecoder device:device];
+  v7 = v5;
   if (v5)
   {
     if (*(&v5->super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
     {
-      v5->_temporalWeighting = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"MPSSVGFKeyTemporalWeighting", v7, v8);
-      objc_msgSend_decodeFloatForKey_(aDecoder, v10, @"MPSSVGFKeyTemporalReprojectionBlendFactor", v11, v12);
-      v9->_temporalReprojectionBlendFactor = v13;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v14, @"MPSSVGFKeyVariancePrefilterSigma", v15, v16);
-      v9->_variancePrefilterSigma = v17;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v18, @"MPSSVGFKeyBilateralFilterSigma", v19, v20);
-      v9->_bilateralFilterSigma = v21;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v22, @"MPSSVGFKeyDepthWeight", v23, v24);
-      v9->_depthWeight = v25;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v26, @"MPSSVGFKeyNormalWeight", v27, v28);
-      v9->_normalWeight = v29;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v30, @"MPSSVGFKeyLuminanceWeight", v31, v32);
-      v9->_luminanceWeight = v33;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v34, @"MPSSVGFKeyReprojectionThreshold", v35, v36);
-      v9->_reprojectionThreshold = v37;
-      objc_msgSend_decodeFloatForKey_(aDecoder, v38, @"MPSSVGFKeyVarianceEstimationSigma", v39, v40);
-      v9->_varianceEstimationSigma = v41;
-      v9->_minimumFramesForVarianceEstimation = objc_msgSend_decodeInt64ForKey_(aDecoder, v42, @"MPSSVGFKeyMinimumFramesForVarianceEstimation", v43, v44);
-      v9->_varianceEstimationRadius = objc_msgSend_decodeInt64ForKey_(aDecoder, v45, @"MPSSVGFKeyVarianceEstimationRadius", v46, v47);
-      v9->_variancePrefilterRadius = objc_msgSend_decodeInt64ForKey_(aDecoder, v48, @"MPSSVGFKeyVariancePrefilterRadius", v49, v50);
-      v9->_bilateralFilterRadius = objc_msgSend_decodeInt64ForKey_(aDecoder, v51, @"MPSSVGFKeyBilateralFilterRadius", v52, v53);
-      v9->_channelCount = objc_msgSend_decodeInt64ForKey_(aDecoder, v54, @"MPSSVGFKeyChannelCount", v55, v56);
-      v9->_channelCount2 = objc_msgSend_decodeInt64ForKey_(aDecoder, v57, @"MPSSVGFKeyChannelCount2", v58, v59);
+      v5->_temporalWeighting = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"MPSSVGFKeyTemporalWeighting");
+      objc_msgSend_decodeFloatForKey_(aDecoder, v8, @"MPSSVGFKeyTemporalReprojectionBlendFactor");
+      v7->_temporalReprojectionBlendFactor = v9;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v10, @"MPSSVGFKeyVariancePrefilterSigma");
+      v7->_variancePrefilterSigma = v11;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v12, @"MPSSVGFKeyBilateralFilterSigma");
+      v7->_bilateralFilterSigma = v13;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v14, @"MPSSVGFKeyDepthWeight");
+      v7->_depthWeight = v15;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v16, @"MPSSVGFKeyNormalWeight");
+      v7->_normalWeight = v17;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v18, @"MPSSVGFKeyLuminanceWeight");
+      v7->_luminanceWeight = v19;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v20, @"MPSSVGFKeyReprojectionThreshold");
+      v7->_reprojectionThreshold = v21;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v22, @"MPSSVGFKeyVarianceEstimationSigma");
+      v7->_varianceEstimationSigma = v23;
+      v7->_minimumFramesForVarianceEstimation = objc_msgSend_decodeInt64ForKey_(aDecoder, v24, @"MPSSVGFKeyMinimumFramesForVarianceEstimation");
+      v7->_varianceEstimationRadius = objc_msgSend_decodeInt64ForKey_(aDecoder, v25, @"MPSSVGFKeyVarianceEstimationRadius");
+      v7->_variancePrefilterRadius = objc_msgSend_decodeInt64ForKey_(aDecoder, v26, @"MPSSVGFKeyVariancePrefilterRadius");
+      v7->_bilateralFilterRadius = objc_msgSend_decodeInt64ForKey_(aDecoder, v27, @"MPSSVGFKeyBilateralFilterRadius");
+      v7->_channelCount = objc_msgSend_decodeInt64ForKey_(aDecoder, v28, @"MPSSVGFKeyChannelCount");
+      v7->_channelCount2 = objc_msgSend_decodeInt64ForKey_(aDecoder, v29, @"MPSSVGFKeyChannelCount2");
     }
 
     else
     {
       if (MTLReportFailureTypeEnabled())
       {
-        v60 = objc_opt_class();
-        NSStringFromClass(v60);
+        v30 = objc_opt_class();
+        NSStringFromClass(v30);
         MTLReportFailure();
       }
 
@@ -211,7 +212,7 @@
     }
   }
 
-  return v9;
+  return v7;
 }
 
 - (void)dealloc
@@ -224,63 +225,60 @@
 - (void)encodeWithCoder:(NSCoder *)coder
 {
   *(&self->super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v51.receiver = self;
-  v51.super_class = MPSSVGF;
-  [(MPSKernel *)&v51 encodeWithCoder:?];
-  objc_msgSend_encodeInteger_forKey_(coder, v5, self->_temporalWeighting, @"MPSSVGFKeyTemporalWeighting", v6);
-  *&v7 = self->_temporalReprojectionBlendFactor;
-  objc_msgSend_encodeFloat_forKey_(coder, v8, @"MPSSVGFKeyTemporalReprojectionBlendFactor", v9, v10, v7);
-  *&v11 = self->_variancePrefilterSigma;
-  objc_msgSend_encodeFloat_forKey_(coder, v12, @"MPSSVGFKeyVariancePrefilterSigma", v13, v14, v11);
-  *&v15 = self->_bilateralFilterSigma;
-  objc_msgSend_encodeFloat_forKey_(coder, v16, @"MPSSVGFKeyBilateralFilterSigma", v17, v18, v15);
-  *&v19 = self->_depthWeight;
-  objc_msgSend_encodeFloat_forKey_(coder, v20, @"MPSSVGFKeyDepthWeight", v21, v22, v19);
-  *&v23 = self->_normalWeight;
-  objc_msgSend_encodeFloat_forKey_(coder, v24, @"MPSSVGFKeyNormalWeight", v25, v26, v23);
-  *&v27 = self->_luminanceWeight;
-  objc_msgSend_encodeFloat_forKey_(coder, v28, @"MPSSVGFKeyLuminanceWeight", v29, v30, v27);
-  *&v31 = self->_reprojectionThreshold;
-  objc_msgSend_encodeFloat_forKey_(coder, v32, @"MPSSVGFKeyReprojectionThreshold", v33, v34, v31);
-  *&v35 = self->_varianceEstimationSigma;
-  objc_msgSend_encodeFloat_forKey_(coder, v36, @"MPSSVGFKeyVarianceEstimationSigma", v37, v38, v35);
-  objc_msgSend_encodeInteger_forKey_(coder, v39, self->_minimumFramesForVarianceEstimation, @"MPSSVGFKeyMinimumFramesForVarianceEstimation", v40);
-  objc_msgSend_encodeInteger_forKey_(coder, v41, self->_varianceEstimationRadius, @"MPSSVGFKeyVarianceEstimationRadius", v42);
-  objc_msgSend_encodeInteger_forKey_(coder, v43, self->_variancePrefilterRadius, @"MPSSVGFKeyVariancePrefilterRadius", v44);
-  objc_msgSend_encodeInteger_forKey_(coder, v45, self->_bilateralFilterRadius, @"MPSSVGFKeyBilateralFilterRadius", v46);
-  objc_msgSend_encodeInteger_forKey_(coder, v47, self->_channelCount, @"MPSSVGFKeyChannelCount", v48);
-  objc_msgSend_encodeInteger_forKey_(coder, v49, self->_channelCount2, @"MPSSVGFKeyChannelCount2", v50);
+  v28.receiver = self;
+  v28.super_class = MPSSVGF;
+  [(MPSKernel *)&v28 encodeWithCoder:?];
+  objc_msgSend_encodeInteger_forKey_(coder, v5, self->_temporalWeighting, @"MPSSVGFKeyTemporalWeighting");
+  *&v6 = self->_temporalReprojectionBlendFactor;
+  objc_msgSend_encodeFloat_forKey_(coder, v7, @"MPSSVGFKeyTemporalReprojectionBlendFactor", v6);
+  *&v8 = self->_variancePrefilterSigma;
+  objc_msgSend_encodeFloat_forKey_(coder, v9, @"MPSSVGFKeyVariancePrefilterSigma", v8);
+  *&v10 = self->_bilateralFilterSigma;
+  objc_msgSend_encodeFloat_forKey_(coder, v11, @"MPSSVGFKeyBilateralFilterSigma", v10);
+  *&v12 = self->_depthWeight;
+  objc_msgSend_encodeFloat_forKey_(coder, v13, @"MPSSVGFKeyDepthWeight", v12);
+  *&v14 = self->_normalWeight;
+  objc_msgSend_encodeFloat_forKey_(coder, v15, @"MPSSVGFKeyNormalWeight", v14);
+  *&v16 = self->_luminanceWeight;
+  objc_msgSend_encodeFloat_forKey_(coder, v17, @"MPSSVGFKeyLuminanceWeight", v16);
+  *&v18 = self->_reprojectionThreshold;
+  objc_msgSend_encodeFloat_forKey_(coder, v19, @"MPSSVGFKeyReprojectionThreshold", v18);
+  *&v20 = self->_varianceEstimationSigma;
+  objc_msgSend_encodeFloat_forKey_(coder, v21, @"MPSSVGFKeyVarianceEstimationSigma", v20);
+  objc_msgSend_encodeInteger_forKey_(coder, v22, self->_minimumFramesForVarianceEstimation, @"MPSSVGFKeyMinimumFramesForVarianceEstimation");
+  objc_msgSend_encodeInteger_forKey_(coder, v23, self->_varianceEstimationRadius, @"MPSSVGFKeyVarianceEstimationRadius");
+  objc_msgSend_encodeInteger_forKey_(coder, v24, self->_variancePrefilterRadius, @"MPSSVGFKeyVariancePrefilterRadius");
+  objc_msgSend_encodeInteger_forKey_(coder, v25, self->_bilateralFilterRadius, @"MPSSVGFKeyBilateralFilterRadius");
+  objc_msgSend_encodeInteger_forKey_(coder, v26, self->_channelCount, @"MPSSVGFKeyChannelCount");
+  objc_msgSend_encodeInteger_forKey_(coder, v27, self->_channelCount2, @"MPSSVGFKeyChannelCount2");
 }
 
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v13.receiver = self;
-  v13.super_class = MPSSVGF;
-  v4 = [(MPSSVGF *)&v13 description];
+  v9.receiver = self;
+  v9.super_class = MPSSVGF;
+  v4 = [(MPSSVGF *)&v9 description];
   temporalWeighting = self->_temporalWeighting;
   if (temporalWeighting == 1)
   {
-    v9 = "MPSTemporalWeightingExponentialMovingAverage";
+    v7 = "MPSTemporalWeightingExponentialMovingAverage";
   }
 
   else
   {
-    v9 = "Unknown";
+    v7 = "Unknown";
   }
 
   if (temporalWeighting)
   {
-    v10 = v9;
+    return objc_msgSend_stringWithFormat_(v3, v5, @"%@\n\ttemporal weighting: %s\n\ttemporal reprojection blend factor: %f\n\tvariance prefilter sigma: %f\n\tbilateral filter sigma: %f\n\tdepth weight: %f\n\tnormal weight: %f\n\tluminance weight: %f\n\treprojection threshold: %f\n\tvariance estimation sigma: %f\n\tminimum frames for variance estimation: %u\n\tvariance estimation radius: %u\n\tvariance prefilter radius: %u\n\tbilateral filter radius: %u\n\tchannel count: %u\n\tchannel count 2: %u", v4, v7, self->_temporalReprojectionBlendFactor, self->_variancePrefilterSigma, self->_bilateralFilterSigma, self->_depthWeight, self->_normalWeight, self->_luminanceWeight, self->_reprojectionThreshold, self->_varianceEstimationSigma, self->_minimumFramesForVarianceEstimation, self->_varianceEstimationRadius, self->_variancePrefilterRadius, self->_bilateralFilterRadius, self->_channelCount, self->_channelCount2);
   }
 
   else
   {
-    v10 = "MPSTemporalWeightingAverage";
+    return objc_msgSend_stringWithFormat_(v3, v5, @"%@\n\ttemporal weighting: %s\n\ttemporal reprojection blend factor: %f\n\tvariance prefilter sigma: %f\n\tbilateral filter sigma: %f\n\tdepth weight: %f\n\tnormal weight: %f\n\tluminance weight: %f\n\treprojection threshold: %f\n\tvariance estimation sigma: %f\n\tminimum frames for variance estimation: %u\n\tvariance estimation radius: %u\n\tvariance prefilter radius: %u\n\tbilateral filter radius: %u\n\tchannel count: %u\n\tchannel count 2: %u", v4, "MPSTemporalWeightingAverage", self->_temporalReprojectionBlendFactor, self->_variancePrefilterSigma, self->_bilateralFilterSigma, self->_depthWeight, self->_normalWeight, self->_luminanceWeight, self->_reprojectionThreshold, self->_varianceEstimationSigma, self->_minimumFramesForVarianceEstimation, self->_varianceEstimationRadius, self->_variancePrefilterRadius, self->_bilateralFilterRadius, self->_channelCount, self->_channelCount2);
   }
-
-  channelCount = self->_channelCount;
-  return objc_msgSend_stringWithFormat_(v3, v5, @"%@\n\ttemporal weighting: %s\n\ttemporal reprojection blend factor: %f\n\tvariance prefilter sigma: %f\n\tbilateral filter sigma: %f\n\tdepth weight: %f\n\tnormal weight: %f\n\tluminance weight: %f\n\treprojection threshold: %f\n\tvariance estimation sigma: %f\n\tminimum frames for variance estimation: %u\n\tvariance estimation radius: %u\n\tvariance prefilter radius: %u\n\tbilateral filter radius: %u\n\tchannel count: %u\n\tchannel count 2: %u", v6, v7, v4, v10, self->_temporalReprojectionBlendFactor, self->_variancePrefilterSigma, self->_bilateralFilterSigma, self->_depthWeight, self->_normalWeight, self->_luminanceWeight, self->_reprojectionThreshold, self->_varianceEstimationSigma, self->_minimumFramesForVarianceEstimation, self->_varianceEstimationRadius, self->_variancePrefilterRadius, self->_bilateralFilterRadius, channelCount, self->_channelCount2);
 }
 
 - (MPSSVGF)copyWithZone:(NSZone *)zone device:(id)device
@@ -351,6 +349,22 @@
   return self;
 }
 
+- (id)getPipelineForFunctionName:(id)name kernelID:(unint64_t)d haveMotionVectorTexture:(BOOL)texture haveDepthNormalTexture:(BOOL)normalTexture haveSecondTexture:(BOOL)secondTexture
+{
+  v13 = 0u;
+  v14 = 0u;
+  if (self)
+  {
+    objc_msgSend_getHashForKernelID_haveMotionVectorTexture_haveDepthNormalTexture_haveSecondTexture_(self, a2, d, texture, normalTexture, secondTexture);
+  }
+
+  v9 = (*(&self->super.super.isa + *MEMORY[0x277CD7350]))[2];
+  v10 = *(&self->super.super.isa + *MEMORY[0x277CD7370]);
+  v12[0] = v13;
+  v12[1] = v14;
+  return sub_239DEEE1C(name, v9, v10, v12, sub_239DEEFC0);
+}
+
 - (MPSSVGFParams)params
 {
   var1 = self[3].var1;
@@ -370,9 +384,9 @@
 
 - (unint64_t)channelCount:(id)count
 {
-  v5 = *(&self->super.super.isa + *MEMORY[0x277CD7350]);
-  v6 = objc_msgSend_pixelFormat(count, a2, count, v3, v4);
-  PixelInfo = MPSDevice::GetPixelInfo(v5, v6, MPSImageFeatureChannelFormatNone);
+  v3 = *(&self->super.super.isa + *MEMORY[0x277CD7350]);
+  v4 = objc_msgSend_pixelFormat(count, a2, count);
+  PixelInfo = MPSDevice::GetPixelInfo(v3, v4, MPSImageFeatureChannelFormatNone);
   if ((PixelInfo & 0xE000000) != 0)
   {
     return HIBYTE(PixelInfo) & 0xF;
@@ -387,8 +401,9 @@
 - (void)encodeReprojectionToCommandBuffer:(id)commandBuffer sourceTexture:(id)sourceTexture previousTexture:(id)previousTexture destinationTexture:(id)destinationTexture previousLuminanceMomentsTexture:(id)previousLuminanceMomentsTexture destinationLuminanceMomentsTexture:(id)destinationLuminanceMomentsTexture sourceTexture2:(id)sourceTexture2 previousTexture2:(id)previousTexture2 destinationTexture2:(id)destinationTexture2 previousLuminanceMomentsTexture2:(id)previousLuminanceMomentsTexture2 destinationLuminanceMomentsTexture2:(id)destinationLuminanceMomentsTexture2 previousFrameCountTexture:(id)previousFrameCountTexture destinationFrameCountTexture:(id)destinationFrameCountTexture motionVectorTexture:(id)motionVectorTexture depthNormalTexture:(id)depthNormalTexture previousDepthNormalTexture:(id)previousDepthNormalTexture
 {
   v21 = sourceTexture;
-  v222 = *MEMORY[0x277CD7378];
-  if (*(&self->super.super.isa + v222))
+  selfCopy = self;
+  v122 = *MEMORY[0x277CD7378];
+  if (*(&self->super.super.isa + v122))
   {
     goto LABEL_48;
   }
@@ -403,19 +418,20 @@
 
   else
   {
-    sub_239E20B9C();
+    self = sub_239E20B9C(self, a2);
     if (v21)
     {
       goto LABEL_4;
     }
   }
 
-  sub_239E20BEC();
+  sub_239E20BEC(self, a2);
 LABEL_4:
-  objc_msgSend_channelCount_(self, a2, v21, sourceTexture, previousTexture);
-  if (objc_msgSend_channelCount_(self, v25, v21, v26, v27) < self->_channelCount)
+  objc_msgSend_channelCount_(selfCopy, a2, v21);
+  v26 = objc_msgSend_channelCount_(selfCopy, v25, v21);
+  if (v26 < selfCopy->_channelCount)
   {
-    sub_239E20C3C();
+    v26 = sub_239E20C3C(selfCopy, v21);
     if (previousTexture)
     {
       goto LABEL_6;
@@ -427,12 +443,13 @@ LABEL_4:
     goto LABEL_6;
   }
 
-  sub_239E20C94();
+  sub_239E20C94(v26, v27);
 LABEL_6:
-  objc_msgSend_channelCount_(self, v28, previousTexture, v29, v30);
-  if (objc_msgSend_channelCount_(self, v31, previousTexture, v32, v33) < self->_channelCount)
+  objc_msgSend_channelCount_(selfCopy, v27, previousTexture);
+  v29 = objc_msgSend_channelCount_(selfCopy, v28, previousTexture);
+  if (v29 < selfCopy->_channelCount)
   {
-    sub_239E20CE4();
+    v29 = sub_239E20CE4(selfCopy, previousTexture);
     if (destinationTexture)
     {
       goto LABEL_8;
@@ -444,12 +461,13 @@ LABEL_6:
     goto LABEL_8;
   }
 
-  sub_239E20D3C();
+  sub_239E20D3C(v29, v30);
 LABEL_8:
-  objc_msgSend_channelCount_(self, v34, destinationTexture, v35, v36);
-  if (objc_msgSend_channelCount_(self, v37, destinationTexture, v38, v39) < self->_channelCount)
+  objc_msgSend_channelCount_(selfCopy, v30, destinationTexture);
+  v32 = objc_msgSend_channelCount_(selfCopy, v31, destinationTexture);
+  if (v32 < selfCopy->_channelCount)
   {
-    sub_239E20D8C();
+    v32 = sub_239E20D8C(selfCopy, destinationTexture);
     if (previousLuminanceMomentsTexture)
     {
       goto LABEL_10;
@@ -461,12 +479,13 @@ LABEL_8:
     goto LABEL_10;
   }
 
-  sub_239E20DE4();
+  sub_239E20DE4(v32, v33);
 LABEL_10:
-  objc_msgSend_channelCount_(self, v40, previousLuminanceMomentsTexture, v41, v42);
-  if (objc_msgSend_channelCount_(self, v43, previousLuminanceMomentsTexture, v44, v45) <= 1)
+  objc_msgSend_channelCount_(selfCopy, v33, previousLuminanceMomentsTexture);
+  v35 = objc_msgSend_channelCount_(selfCopy, v34, previousLuminanceMomentsTexture);
+  if (v35 <= 1)
   {
-    sub_239E20E34();
+    v35 = sub_239E20E34(selfCopy, previousLuminanceMomentsTexture);
     if (destinationLuminanceMomentsTexture)
     {
       goto LABEL_12;
@@ -478,136 +497,144 @@ LABEL_10:
     goto LABEL_12;
   }
 
-  sub_239E20E84();
+  sub_239E20E84(v35, v36);
 LABEL_12:
-  objc_msgSend_channelCount_(self, v46, destinationLuminanceMomentsTexture, v47, v48);
-  if (objc_msgSend_channelCount_(self, v49, destinationLuminanceMomentsTexture, v50, v51) <= 1)
+  objc_msgSend_channelCount_(selfCopy, v36, destinationLuminanceMomentsTexture);
+  v38 = objc_msgSend_channelCount_(selfCopy, v37, destinationLuminanceMomentsTexture);
+  if (v38 <= 1)
   {
-    sub_239E20ED4();
+    v38 = sub_239E20ED4(selfCopy, destinationLuminanceMomentsTexture);
   }
 
   if (sourceTexture2)
   {
-    objc_msgSend_channelCount_(self, v52, sourceTexture2, v53, v54);
-    if (objc_msgSend_channelCount_(self, v55, sourceTexture2, v56, v57) < self->_channelCount2)
+    objc_msgSend_channelCount_(selfCopy, v39, sourceTexture2);
+    v41 = objc_msgSend_channelCount_(selfCopy, v40, sourceTexture2);
+    if (v41 < selfCopy->_channelCount2)
     {
-      sub_239E20F24();
+      v41 = sub_239E20F24(selfCopy, sourceTexture2);
     }
 
-    v61 = previousTexture2;
+    v43 = previousTexture2;
     if (!previousTexture2)
     {
-      sub_239E20F7C();
-      v61 = 0;
+      sub_239E20F7C(v41, v42);
+      v43 = 0;
     }
 
-    v62 = destinationLuminanceMomentsTexture;
-    v63 = v61;
-    objc_msgSend_channelCount_(self, v58, v61, v59, v60);
-    if (objc_msgSend_channelCount_(self, v64, v63, v65, v66) < self->_channelCount2)
+    v44 = destinationLuminanceMomentsTexture;
+    v45 = v43;
+    objc_msgSend_channelCount_(selfCopy, v42, v43);
+    v47 = objc_msgSend_channelCount_(selfCopy, v46, v45);
+    if (v47 < selfCopy->_channelCount2)
     {
-      sub_239E20FCC();
+      v47 = sub_239E20FCC(selfCopy, previousTexture2);
     }
 
-    v70 = destinationTexture2;
+    v49 = destinationTexture2;
     if (destinationTexture2)
     {
-      objc_msgSend_channelCount_(self, v67, destinationTexture2, v68, v69);
+      objc_msgSend_channelCount_(selfCopy, v48, destinationTexture2);
     }
 
     else
     {
-      sub_239E21024();
-      v70 = 0;
-      objc_msgSend_channelCount_(self, v211, 0, v212, v213);
+      sub_239E21024(v47, v48);
+      v49 = 0;
+      objc_msgSend_channelCount_(selfCopy, v117, 0);
     }
 
+    v51 = objc_msgSend_channelCount_(selfCopy, v50, v49);
     v21 = sourceTexture;
-    if (objc_msgSend_channelCount_(self, v71, v70, v72, v73) < self->_channelCount2)
+    if (v51 < selfCopy->_channelCount2)
     {
-      sub_239E21074();
+      v51 = sub_239E21074(selfCopy, destinationTexture2);
     }
 
-    v77 = previousLuminanceMomentsTexture2;
-    destinationLuminanceMomentsTexture = v62;
+    v53 = previousLuminanceMomentsTexture2;
+    destinationLuminanceMomentsTexture = v44;
     if (previousLuminanceMomentsTexture2)
     {
-      objc_msgSend_channelCount_(self, v74, previousLuminanceMomentsTexture2, v75, v76);
+      objc_msgSend_channelCount_(selfCopy, v52, previousLuminanceMomentsTexture2);
     }
 
     else
     {
-      sub_239E210CC();
-      v77 = 0;
-      objc_msgSend_channelCount_(self, v214, 0, v215, v216);
+      sub_239E210CC(v51, v52);
+      v53 = 0;
+      objc_msgSend_channelCount_(selfCopy, v118, 0);
     }
 
-    if (objc_msgSend_channelCount_(self, v78, v77, v79, v80) <= 1)
+    v55 = objc_msgSend_channelCount_(selfCopy, v54, v53);
+    if (v55 <= 1)
     {
-      sub_239E2111C();
+      v55 = sub_239E2111C(selfCopy, previousLuminanceMomentsTexture2);
     }
 
-    v84 = destinationLuminanceMomentsTexture2;
+    v57 = destinationLuminanceMomentsTexture2;
     if (destinationLuminanceMomentsTexture2)
     {
-      objc_msgSend_channelCount_(self, v81, destinationLuminanceMomentsTexture2, v82, v83);
+      objc_msgSend_channelCount_(selfCopy, v56, destinationLuminanceMomentsTexture2);
     }
 
     else
     {
-      sub_239E2116C();
-      v84 = 0;
-      objc_msgSend_channelCount_(self, v217, 0, v218, v219);
+      sub_239E2116C(v55, v56);
+      v57 = 0;
+      objc_msgSend_channelCount_(selfCopy, v119, 0);
     }
 
-    if (objc_msgSend_channelCount_(self, v85, v84, v86, v87) <= 1)
+    v38 = objc_msgSend_channelCount_(selfCopy, v58, v57);
+    if (v38 <= 1)
     {
-      sub_239E211BC();
+      v38 = sub_239E211BC(selfCopy, destinationLuminanceMomentsTexture2);
     }
   }
 
-  v88 = previousFrameCountTexture;
+  v59 = previousFrameCountTexture;
   if (previousFrameCountTexture)
   {
-    objc_msgSend_channelCount_(self, v52, previousFrameCountTexture, v53, v54);
+    objc_msgSend_channelCount_(selfCopy, v39, previousFrameCountTexture);
   }
 
   else
   {
-    sub_239E2120C();
-    v88 = 0;
-    objc_msgSend_channelCount_(self, v205, 0, v206, v207);
+    sub_239E2120C(v38, v39);
+    v59 = 0;
+    objc_msgSend_channelCount_(selfCopy, v115, 0);
   }
 
-  if (!objc_msgSend_channelCount_(self, v89, v88, v90, v91))
+  v61 = objc_msgSend_channelCount_(selfCopy, v60, v59);
+  if (!v61)
   {
-    sub_239E2125C();
+    v61 = sub_239E2125C(selfCopy, previousFrameCountTexture);
   }
 
-  v95 = destinationFrameCountTexture;
+  v63 = destinationFrameCountTexture;
   if (destinationFrameCountTexture)
   {
-    objc_msgSend_channelCount_(self, v92, destinationFrameCountTexture, v93, v94);
+    objc_msgSend_channelCount_(selfCopy, v62, destinationFrameCountTexture);
   }
 
   else
   {
-    sub_239E212AC();
-    v95 = 0;
-    objc_msgSend_channelCount_(self, v208, 0, v209, v210);
+    sub_239E212AC(v61, v62);
+    v63 = 0;
+    objc_msgSend_channelCount_(selfCopy, v116, 0);
   }
 
-  if (!objc_msgSend_channelCount_(self, v96, v95, v97, v98))
+  if (!objc_msgSend_channelCount_(selfCopy, v64, v63))
   {
-    sub_239E212FC();
+    sub_239E212FC(selfCopy, destinationFrameCountTexture);
   }
 
   if (motionVectorTexture)
   {
-    objc_msgSend_channelCount_(self, a2, motionVectorTexture, sourceTexture, previousTexture);
-    if (objc_msgSend_channelCount_(self, v99, motionVectorTexture, v100, v101) <= 1)
+    objc_msgSend_channelCount_(selfCopy, a2, motionVectorTexture);
+    v66 = objc_msgSend_channelCount_(selfCopy, v65, motionVectorTexture);
+    if (v66 <= 1)
     {
-      sub_239E2134C();
+      v66 = sub_239E2134C(selfCopy, motionVectorTexture);
       if (previousDepthNormalTexture)
       {
         goto LABEL_44;
@@ -619,10 +646,11 @@ LABEL_12:
       goto LABEL_44;
     }
 
-    sub_239E2139C();
+    sub_239E2139C(v66, v67);
 LABEL_44:
-    objc_msgSend_channelCount_(self, v102, previousDepthNormalTexture, v103, v104);
-    if (objc_msgSend_channelCount_(self, v105, previousDepthNormalTexture, v106, v107) == 4)
+    objc_msgSend_channelCount_(selfCopy, v67, previousDepthNormalTexture);
+    v69 = objc_msgSend_channelCount_(selfCopy, v68, previousDepthNormalTexture);
+    if (v69 == 4)
     {
       if (depthNormalTexture)
       {
@@ -632,137 +660,138 @@ LABEL_44:
 
     else
     {
-      sub_239E213EC();
+      v69 = sub_239E213EC(selfCopy, previousDepthNormalTexture);
       if (depthNormalTexture)
       {
         goto LABEL_46;
       }
     }
 
-    sub_239E2143C();
+    sub_239E2143C(v69, v70);
 LABEL_46:
-    objc_msgSend_channelCount_(self, v108, depthNormalTexture, v109, v110);
-    if (objc_msgSend_channelCount_(self, v111, depthNormalTexture, v112, v113) != 4)
+    objc_msgSend_channelCount_(selfCopy, v70, depthNormalTexture);
+    if (objc_msgSend_channelCount_(selfCopy, v71, depthNormalTexture) != 4)
     {
-      sub_239E2148C();
+      sub_239E2148C(selfCopy, depthNormalTexture);
     }
   }
 
 LABEL_48:
-  v221 = destinationLuminanceMomentsTexture;
-  if (objc_msgSend_retainedReferences(commandBuffer, a2, commandBuffer, sourceTexture, previousTexture))
+  v121 = destinationLuminanceMomentsTexture;
+  if (objc_msgSend_retainedReferences(commandBuffer, a2, commandBuffer))
   {
-    v115 = 0;
+    v73 = 0;
   }
 
   else
   {
-    v115 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v73 = objc_alloc_init(MEMORY[0x277CBEB18]);
   }
 
-  if ((*(&self->super.super.isa + v222) & 2) != 0)
+  if ((*(&selfCopy->super.super.isa + v122) & 2) != 0)
   {
-    v116 = @"reprojectKernelHalf";
+    v74 = @"reprojectKernelHalf";
   }
 
   else
   {
-    v116 = @"reprojectKernelFloat";
+    v74 = @"reprojectKernelFloat";
   }
 
-  haveSecondTexture = objc_msgSend_getPipelineForFunctionName_kernelID_haveMotionVectorTexture_haveDepthNormalTexture_haveSecondTexture_(self, v114, v116, 0, motionVectorTexture != 0, depthNormalTexture != 0, sourceTexture2 != 0);
-  v223 = commandBuffer;
-  v122 = objc_msgSend_computeCommandEncoder(commandBuffer, v118, v119, v120, v121);
-  objc_msgSend_setLabel_(v122, v123, @"MPSSVGF reprojection", v124, v125);
-  objc_msgSend_setComputePipelineState_(v122, v126, haveSecondTexture, v127, v128);
-  v230 = 0;
-  memset(v229, 0, sizeof(v229));
-  objc_msgSend_params(self, v129, v130, v131, v132);
-  objc_msgSend_setBytes_length_atIndex_(v122, v133, v229, 36, 0);
-  objc_msgSend_setTexture_atIndex_(v122, v134, v21, 0, v135);
-  objc_msgSend_setTexture_atIndex_(v122, v136, previousTexture, 1, v137);
-  objc_msgSend_setTexture_atIndex_(v122, v138, previousLuminanceMomentsTexture, 2, v139);
-  objc_msgSend_setTexture_atIndex_(v122, v140, destinationTexture, 3, v141);
-  objc_msgSend_setTexture_atIndex_(v122, v142, v221, 4, v143);
-  objc_msgSend_setTexture_atIndex_(v122, v144, sourceTexture2, 5, v145);
-  objc_msgSend_setTexture_atIndex_(v122, v146, previousTexture2, 6, v147);
-  objc_msgSend_setTexture_atIndex_(v122, v148, previousLuminanceMomentsTexture2, 7, v149);
-  objc_msgSend_setTexture_atIndex_(v122, v150, destinationTexture2, 8, v151);
-  objc_msgSend_setTexture_atIndex_(v122, v152, destinationLuminanceMomentsTexture2, 9, v153);
-  objc_msgSend_setTexture_atIndex_(v122, v154, previousFrameCountTexture, 10, v155);
-  objc_msgSend_setTexture_atIndex_(v122, v156, destinationFrameCountTexture, 11, v157);
-  objc_msgSend_setTexture_atIndex_(v122, v158, motionVectorTexture, 12, v159);
-  objc_msgSend_setTexture_atIndex_(v122, v160, depthNormalTexture, 13, v161);
-  objc_msgSend_setTexture_atIndex_(v122, v162, previousDepthNormalTexture, 14, v163);
-  v228[0] = (objc_msgSend_width(destinationTexture, v164, v165, v166, v167) + 7) >> 3;
-  v228[1] = (objc_msgSend_height(destinationTexture, v168, v169, v170, v171) + 7) >> 3;
-  v228[2] = 1;
-  v226 = vdupq_n_s64(8uLL);
-  v227 = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v122, v172, v228, &v226, v173);
-  objc_msgSend_endEncoding(v122, v174, v175, v176, v177);
-  if (v115)
+  haveSecondTexture = objc_msgSend_getPipelineForFunctionName_kernelID_haveMotionVectorTexture_haveDepthNormalTexture_haveSecondTexture_(selfCopy, v72, v74, 0, motionVectorTexture != 0, depthNormalTexture != 0, sourceTexture2 != 0);
+  v123 = commandBuffer;
+  v78 = objc_msgSend_computeCommandEncoder(commandBuffer, v76, v77);
+  objc_msgSend_setLabel_(v78, v79, @"MPSSVGF reprojection");
+  objc_msgSend_setComputePipelineState_(v78, v80, haveSecondTexture);
+  v130 = 0;
+  memset(v129, 0, sizeof(v129));
+  objc_msgSend_params(selfCopy, v81, v82);
+  objc_msgSend_setBytes_length_atIndex_(v78, v83, v129, 36, 0);
+  objc_msgSend_setTexture_atIndex_(v78, v84, v21, 0);
+  objc_msgSend_setTexture_atIndex_(v78, v85, previousTexture, 1);
+  objc_msgSend_setTexture_atIndex_(v78, v86, previousLuminanceMomentsTexture, 2);
+  objc_msgSend_setTexture_atIndex_(v78, v87, destinationTexture, 3);
+  objc_msgSend_setTexture_atIndex_(v78, v88, v121, 4);
+  objc_msgSend_setTexture_atIndex_(v78, v89, sourceTexture2, 5);
+  objc_msgSend_setTexture_atIndex_(v78, v90, previousTexture2, 6);
+  objc_msgSend_setTexture_atIndex_(v78, v91, previousLuminanceMomentsTexture2, 7);
+  objc_msgSend_setTexture_atIndex_(v78, v92, destinationTexture2, 8);
+  objc_msgSend_setTexture_atIndex_(v78, v93, destinationLuminanceMomentsTexture2, 9);
+  objc_msgSend_setTexture_atIndex_(v78, v94, previousFrameCountTexture, 10);
+  objc_msgSend_setTexture_atIndex_(v78, v95, destinationFrameCountTexture, 11);
+  objc_msgSend_setTexture_atIndex_(v78, v96, motionVectorTexture, 12);
+  objc_msgSend_setTexture_atIndex_(v78, v97, depthNormalTexture, 13);
+  objc_msgSend_setTexture_atIndex_(v78, v98, previousDepthNormalTexture, 14);
+  v128[0] = (objc_msgSend_width(destinationTexture, v99, v100) + 7) >> 3;
+  v128[1] = (objc_msgSend_height(destinationTexture, v101, v102) + 7) >> 3;
+  v128[2] = 1;
+  v126 = vdupq_n_s64(8uLL);
+  v127 = 1;
+  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v78, v103, v128, &v126);
+  objc_msgSend_endEncoding(v78, v104, v105);
+  if (v73)
   {
-    objc_msgSend_addObject_(v115, v178, haveSecondTexture, v179, v180);
-    objc_msgSend_addObject_(v115, v181, sourceTexture, v182, v183);
-    objc_msgSend_addObject_(v115, v184, previousTexture, v185, v186);
-    objc_msgSend_addObject_(v115, v187, previousLuminanceMomentsTexture, v188, v189);
-    objc_msgSend_addObject_(v115, v190, destinationTexture, v191, v192);
-    objc_msgSend_addObject_(v115, v193, v221, v194, v195);
+    objc_msgSend_addObject_(v73, v106, haveSecondTexture);
+    objc_msgSend_addObject_(v73, v107, sourceTexture);
+    objc_msgSend_addObject_(v73, v108, previousTexture);
+    objc_msgSend_addObject_(v73, v109, previousLuminanceMomentsTexture);
+    objc_msgSend_addObject_(v73, v110, destinationTexture);
+    objc_msgSend_addObject_(v73, v111, v121);
     if (sourceTexture2)
     {
-      objc_msgSend_addObject_(v115, v196, sourceTexture2, v197, v198);
+      objc_msgSend_addObject_(v73, v112, sourceTexture2);
     }
 
     if (previousTexture2)
     {
-      objc_msgSend_addObject_(v115, v196, previousTexture2, v197, v198);
+      objc_msgSend_addObject_(v73, v112, previousTexture2);
     }
 
     if (previousLuminanceMomentsTexture2)
     {
-      objc_msgSend_addObject_(v115, v196, previousLuminanceMomentsTexture2, v197, v198);
+      objc_msgSend_addObject_(v73, v112, previousLuminanceMomentsTexture2);
     }
 
     if (destinationTexture2)
     {
-      objc_msgSend_addObject_(v115, v196, destinationTexture2, v197, v198);
+      objc_msgSend_addObject_(v73, v112, destinationTexture2);
     }
 
     if (destinationLuminanceMomentsTexture2)
     {
-      objc_msgSend_addObject_(v115, v196, destinationLuminanceMomentsTexture2, v197, v198);
+      objc_msgSend_addObject_(v73, v112, destinationLuminanceMomentsTexture2);
     }
 
-    objc_msgSend_addObject_(v115, v196, previousFrameCountTexture, v197, v198);
-    objc_msgSend_addObject_(v115, v199, destinationFrameCountTexture, v200, v201);
+    objc_msgSend_addObject_(v73, v112, previousFrameCountTexture);
+    objc_msgSend_addObject_(v73, v113, destinationFrameCountTexture);
     if (motionVectorTexture)
     {
-      objc_msgSend_addObject_(v115, v202, motionVectorTexture, v203, v204);
+      objc_msgSend_addObject_(v73, v114, motionVectorTexture);
     }
 
     if (depthNormalTexture)
     {
-      objc_msgSend_addObject_(v115, v202, depthNormalTexture, v203, v204);
+      objc_msgSend_addObject_(v73, v114, depthNormalTexture);
     }
 
     if (previousDepthNormalTexture)
     {
-      objc_msgSend_addObject_(v115, v202, previousDepthNormalTexture, v203, v204);
+      objc_msgSend_addObject_(v73, v114, previousDepthNormalTexture);
     }
 
-    v225[0] = MEMORY[0x277D85DD0];
-    v225[1] = 3221225472;
-    v225[2] = sub_239DEFC80;
-    v225[3] = &unk_278B3B370;
-    v225[4] = v115;
-    objc_msgSend_addCompletedHandler_(v223, v202, v225, v203, v204);
+    v125[0] = MEMORY[0x277D85DD0];
+    v125[1] = 3221225472;
+    v125[2] = sub_239DEFC80;
+    v125[3] = &unk_278B3B370;
+    v125[4] = v73;
+    objc_msgSend_addCompletedHandler_(v123, v114, v125);
   }
 }
 
 - (void)encodeVarianceEstimationToCommandBuffer:(id)commandBuffer sourceTexture:(id)sourceTexture luminanceMomentsTexture:(id)luminanceMomentsTexture destinationTexture:(id)destinationTexture sourceTexture2:(id)sourceTexture2 luminanceMomentsTexture2:(id)luminanceMomentsTexture2 destinationTexture2:(id)destinationTexture2 frameCountTexture:(id)frameCountTexture depthNormalTexture:(id)depthNormalTexture
 {
   v13 = destinationTexture;
+  selfCopy = self;
   v16 = *MEMORY[0x277CD7378];
   if (*(&self->super.super.isa + v16))
   {
@@ -772,64 +801,67 @@ LABEL_48:
   v17 = *MEMORY[0x277CD7378];
   if (!commandBuffer)
   {
-    sub_239E214DC();
+    self = sub_239E214DC(self, a2);
   }
 
   v19 = sourceTexture;
   if (sourceTexture)
   {
-    objc_msgSend_channelCount_(self, a2, sourceTexture, sourceTexture, luminanceMomentsTexture);
+    objc_msgSend_channelCount_(selfCopy, a2, sourceTexture);
   }
 
   else
   {
-    sub_239E2152C();
+    sub_239E2152C(self, a2);
     v19 = 0;
-    objc_msgSend_channelCount_(self, v129, 0, v130, v131);
+    objc_msgSend_channelCount_(selfCopy, v72, 0);
   }
 
-  if (objc_msgSend_channelCount_(self, v20, v19, v21, v22) < self->_channelCount)
+  v21 = objc_msgSend_channelCount_(selfCopy, v20, v19);
+  if (v21 < selfCopy->_channelCount)
   {
-    sub_239E2157C();
+    v21 = sub_239E2157C(selfCopy, sourceTexture);
   }
 
   v13 = destinationTexture;
   if (!destinationTexture)
   {
-    sub_239E215D4();
+    sub_239E215D4(v21, v22);
   }
 
-  objc_msgSend_channelCount_(self, v23, destinationTexture, v24, v25);
-  v29 = objc_msgSend_channelCount_(self, v26, destinationTexture, v27, v28);
+  objc_msgSend_channelCount_(selfCopy, v22, destinationTexture);
+  v24 = objc_msgSend_channelCount_(selfCopy, v23, destinationTexture);
   v16 = v17;
-  if (v29 < self->_channelCount + 1)
+  if (v24 < selfCopy->_channelCount + 1)
   {
-    sub_239E21624();
+    v24 = sub_239E21624(selfCopy, v13);
   }
 
-  v33 = luminanceMomentsTexture;
+  v26 = luminanceMomentsTexture;
   if (luminanceMomentsTexture)
   {
-    objc_msgSend_channelCount_(self, v30, luminanceMomentsTexture, v31, v32);
+    objc_msgSend_channelCount_(selfCopy, v25, luminanceMomentsTexture);
   }
 
   else
   {
-    sub_239E2167C();
-    v33 = 0;
-    objc_msgSend_channelCount_(self, v132, 0, v133, v134);
+    sub_239E2167C(v24, v25);
+    v26 = 0;
+    objc_msgSend_channelCount_(selfCopy, v73, 0);
   }
 
-  if (objc_msgSend_channelCount_(self, v34, v33, v35, v36) <= 1)
+  v28 = objc_msgSend_channelCount_(selfCopy, v27, v26);
+  if (v28 <= 1)
   {
-    sub_239E216CC();
+    v28 = sub_239E216CC(selfCopy, luminanceMomentsTexture);
     if (sourceTexture2)
     {
 LABEL_16:
-      objc_msgSend_channelCount_(self, v37, sourceTexture2, v38, v39);
-      if (objc_msgSend_channelCount_(self, v40, sourceTexture2, v41, v42) < self->_channelCount2)
+      objc_msgSend_channelCount_(selfCopy, v29, sourceTexture2);
+      v31 = objc_msgSend_channelCount_(selfCopy, v30, sourceTexture2);
+      if (v31 < selfCopy->_channelCount2)
       {
-        sub_239E2171C();
+        v31 = sub_239E2171C(selfCopy, sourceTexture2);
         if (destinationTexture2)
         {
           goto LABEL_18;
@@ -841,12 +873,13 @@ LABEL_16:
         goto LABEL_18;
       }
 
-      sub_239E21774();
+      sub_239E21774(v31, v32);
 LABEL_18:
-      objc_msgSend_channelCount_(self, v43, destinationTexture2, v44, v45);
-      if (objc_msgSend_channelCount_(self, v46, destinationTexture2, v47, v48) < self->_channelCount2 + 1)
+      objc_msgSend_channelCount_(selfCopy, v32, destinationTexture2);
+      v34 = objc_msgSend_channelCount_(selfCopy, v33, destinationTexture2);
+      if (v34 < selfCopy->_channelCount2 + 1)
       {
-        sub_239E217C4();
+        v34 = sub_239E217C4(selfCopy, destinationTexture2);
         if (luminanceMomentsTexture2)
         {
           goto LABEL_20;
@@ -858,12 +891,13 @@ LABEL_18:
         goto LABEL_20;
       }
 
-      sub_239E2181C();
+      sub_239E2181C(v34, v35);
 LABEL_20:
-      objc_msgSend_channelCount_(self, v49, luminanceMomentsTexture2, v50, v51);
-      if (objc_msgSend_channelCount_(self, v52, luminanceMomentsTexture2, v53, v54) <= 1)
+      objc_msgSend_channelCount_(selfCopy, v35, luminanceMomentsTexture2);
+      v28 = objc_msgSend_channelCount_(selfCopy, v36, luminanceMomentsTexture2);
+      if (v28 <= 1)
       {
-        sub_239E2186C();
+        v28 = sub_239E2186C(selfCopy, luminanceMomentsTexture2);
       }
     }
   }
@@ -875,112 +909,113 @@ LABEL_20:
 
   if (!frameCountTexture)
   {
-    sub_239E218BC();
+    sub_239E218BC(v28, v29);
   }
 
-  objc_msgSend_channelCount_(self, v37, frameCountTexture, v38, v39);
-  if (!objc_msgSend_channelCount_(self, v55, frameCountTexture, v56, v57))
+  objc_msgSend_channelCount_(selfCopy, v29, frameCountTexture);
+  if (!objc_msgSend_channelCount_(selfCopy, v37, frameCountTexture))
   {
-    sub_239E2190C();
+    sub_239E2190C(selfCopy, frameCountTexture);
   }
 
-  if (self->_minimumFramesForVarianceEstimation >= 2)
+  if (selfCopy->_minimumFramesForVarianceEstimation >= 2)
   {
     if (!depthNormalTexture)
     {
-      sub_239E2195C();
+      sub_239E2195C(&selfCopy->_minimumFramesForVarianceEstimation, a2);
     }
 
-    objc_msgSend_channelCount_(self, a2, depthNormalTexture, sourceTexture, luminanceMomentsTexture);
-    if (objc_msgSend_channelCount_(self, v58, depthNormalTexture, v59, v60) != 4)
+    objc_msgSend_channelCount_(selfCopy, a2, depthNormalTexture);
+    if (objc_msgSend_channelCount_(selfCopy, v38, depthNormalTexture) != 4)
     {
-      sub_239E219AC();
+      sub_239E219AC(selfCopy, depthNormalTexture);
     }
   }
 
 LABEL_31:
-  v137 = commandBuffer;
-  if (objc_msgSend_retainedReferences(commandBuffer, a2, commandBuffer, sourceTexture, luminanceMomentsTexture))
+  v76 = commandBuffer;
+  if (objc_msgSend_retainedReferences(commandBuffer, a2, commandBuffer))
   {
-    v62 = 0;
+    v40 = 0;
   }
 
   else
   {
-    v62 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
   }
 
-  if ((*(&self->super.super.isa + v16) & 2) != 0)
+  if ((*(&selfCopy->super.super.isa + v16) & 2) != 0)
   {
-    v63 = @"varianceKernelHalf";
+    v41 = @"varianceKernelHalf";
   }
 
   else
   {
-    v63 = @"varianceKernelFloat";
+    v41 = @"varianceKernelFloat";
   }
 
-  haveSecondTexture = objc_msgSend_getPipelineForFunctionName_kernelID_haveMotionVectorTexture_haveDepthNormalTexture_haveSecondTexture_(self, v61, v63, 1, 0, depthNormalTexture != 0, luminanceMomentsTexture2 != 0);
-  v69 = objc_msgSend_computeCommandEncoder(v137, v65, v66, v67, v68);
-  objc_msgSend_setLabel_(v69, v70, @"MPSSVGF variance estimation", v71, v72);
-  objc_msgSend_setComputePipelineState_(v69, v73, haveSecondTexture, v74, v75);
-  v143 = 0;
-  memset(v142, 0, sizeof(v142));
-  objc_msgSend_params(self, v76, v77, v78, v79);
-  objc_msgSend_setBytes_length_atIndex_(v69, v80, v142, 36, 0);
-  objc_msgSend_setTexture_atIndex_(v69, v81, v13, 0, v82);
-  objc_msgSend_setTexture_atIndex_(v69, v83, luminanceMomentsTexture, 1, v84);
-  objc_msgSend_setTexture_atIndex_(v69, v85, sourceTexture, 2, v86);
-  objc_msgSend_setTexture_atIndex_(v69, v87, destinationTexture2, 3, v88);
-  objc_msgSend_setTexture_atIndex_(v69, v89, luminanceMomentsTexture2, 4, v90);
-  objc_msgSend_setTexture_atIndex_(v69, v91, sourceTexture2, 5, v92);
-  objc_msgSend_setTexture_atIndex_(v69, v93, depthNormalTexture, 6, v94);
-  objc_msgSend_setTexture_atIndex_(v69, v95, frameCountTexture, 7, v96);
-  v141[0] = (objc_msgSend_width(v13, v97, v98, v99, v100) + 7) >> 3;
-  v141[1] = (objc_msgSend_height(v13, v101, v102, v103, v104) + 7) >> 3;
-  v141[2] = 1;
-  v139 = vdupq_n_s64(8uLL);
-  v140 = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v69, v105, v141, &v139, v106);
-  objc_msgSend_endEncoding(v69, v107, v108, v109, v110);
-  if (v62)
+  haveSecondTexture = objc_msgSend_getPipelineForFunctionName_kernelID_haveMotionVectorTexture_haveDepthNormalTexture_haveSecondTexture_(selfCopy, v39, v41, 1, 0, depthNormalTexture != 0, luminanceMomentsTexture2 != 0);
+  v45 = objc_msgSend_computeCommandEncoder(v76, v43, v44);
+  objc_msgSend_setLabel_(v45, v46, @"MPSSVGF variance estimation");
+  objc_msgSend_setComputePipelineState_(v45, v47, haveSecondTexture);
+  v82 = 0;
+  memset(v81, 0, sizeof(v81));
+  objc_msgSend_params(selfCopy, v48, v49);
+  objc_msgSend_setBytes_length_atIndex_(v45, v50, v81, 36, 0);
+  objc_msgSend_setTexture_atIndex_(v45, v51, v13, 0);
+  objc_msgSend_setTexture_atIndex_(v45, v52, luminanceMomentsTexture, 1);
+  objc_msgSend_setTexture_atIndex_(v45, v53, sourceTexture, 2);
+  objc_msgSend_setTexture_atIndex_(v45, v54, destinationTexture2, 3);
+  objc_msgSend_setTexture_atIndex_(v45, v55, luminanceMomentsTexture2, 4);
+  objc_msgSend_setTexture_atIndex_(v45, v56, sourceTexture2, 5);
+  objc_msgSend_setTexture_atIndex_(v45, v57, depthNormalTexture, 6);
+  objc_msgSend_setTexture_atIndex_(v45, v58, frameCountTexture, 7);
+  v80[0] = (objc_msgSend_width(v13, v59, v60) + 7) >> 3;
+  v80[1] = (objc_msgSend_height(v13, v61, v62) + 7) >> 3;
+  v80[2] = 1;
+  v78 = vdupq_n_s64(8uLL);
+  v79 = 1;
+  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v45, v63, v80, &v78);
+  objc_msgSend_endEncoding(v45, v64, v65);
+  if (v40)
   {
-    objc_msgSend_addObject_(v62, v111, haveSecondTexture, v112, v113);
-    objc_msgSend_addObject_(v62, v114, sourceTexture, v115, v116);
-    objc_msgSend_addObject_(v62, v117, luminanceMomentsTexture, v118, v119);
-    objc_msgSend_addObject_(v62, v120, v13, v121, v122);
+    objc_msgSend_addObject_(v40, v66, haveSecondTexture);
+    objc_msgSend_addObject_(v40, v67, sourceTexture);
+    objc_msgSend_addObject_(v40, v68, luminanceMomentsTexture);
+    objc_msgSend_addObject_(v40, v69, v13);
     if (sourceTexture2)
     {
-      objc_msgSend_addObject_(v62, v123, sourceTexture2, v124, v125);
+      objc_msgSend_addObject_(v40, v70, sourceTexture2);
     }
 
     if (luminanceMomentsTexture2)
     {
-      objc_msgSend_addObject_(v62, v123, luminanceMomentsTexture2, v124, v125);
+      objc_msgSend_addObject_(v40, v70, luminanceMomentsTexture2);
     }
 
     if (destinationTexture2)
     {
-      objc_msgSend_addObject_(v62, v123, destinationTexture2, v124, v125);
+      objc_msgSend_addObject_(v40, v70, destinationTexture2);
     }
 
-    objc_msgSend_addObject_(v62, v123, frameCountTexture, v124, v125);
+    objc_msgSend_addObject_(v40, v70, frameCountTexture);
     if (depthNormalTexture)
     {
-      objc_msgSend_addObject_(v62, v126, depthNormalTexture, v127, v128);
+      objc_msgSend_addObject_(v40, v71, depthNormalTexture);
     }
 
-    v138[0] = MEMORY[0x277D85DD0];
-    v138[1] = 3221225472;
-    v138[2] = sub_239DF020C;
-    v138[3] = &unk_278B3B370;
-    v138[4] = v62;
-    objc_msgSend_addCompletedHandler_(v137, v126, v138, v127, v128);
+    v77[0] = MEMORY[0x277D85DD0];
+    v77[1] = 3221225472;
+    v77[2] = sub_239DF020C;
+    v77[3] = &unk_278B3B370;
+    v77[4] = v40;
+    objc_msgSend_addCompletedHandler_(v76, v71, v77);
   }
 }
 
 - (void)encodeBilateralFilterToCommandBuffer:(id)commandBuffer stepDistance:(NSUInteger)stepDistance sourceTexture:(id)sourceTexture destinationTexture:(id)destinationTexture sourceTexture2:(id)sourceTexture2 destinationTexture2:(id)destinationTexture2 depthNormalTexture:(id)depthNormalTexture
 {
+  selfCopy = self;
   v16 = *MEMORY[0x277CD7378];
   if (*(&self->super.super.isa + v16))
   {
@@ -989,18 +1024,19 @@ LABEL_31:
 
   if (!commandBuffer)
   {
-    sub_239E219FC();
+    self = sub_239E219FC(self, a2);
   }
 
   if (!sourceTexture)
   {
-    sub_239E21A4C();
+    sub_239E21A4C(self, a2);
   }
 
-  objc_msgSend_channelCount_(self, a2, sourceTexture, stepDistance, sourceTexture);
-  if (objc_msgSend_channelCount_(self, v17, sourceTexture, v18, v19) < self->_channelCount + 1)
+  objc_msgSend_channelCount_(selfCopy, a2, sourceTexture);
+  v18 = objc_msgSend_channelCount_(selfCopy, v17, sourceTexture);
+  if (v18 < selfCopy->_channelCount + 1)
   {
-    sub_239E21A9C();
+    v18 = sub_239E21A9C(selfCopy, sourceTexture);
     if (destinationTexture)
     {
       goto LABEL_8;
@@ -1012,19 +1048,21 @@ LABEL_31:
     goto LABEL_8;
   }
 
-  sub_239E21AF4();
+  sub_239E21AF4(v18, v19);
 LABEL_8:
-  objc_msgSend_channelCount_(self, v20, destinationTexture, v21, v22);
-  if (objc_msgSend_channelCount_(self, v23, destinationTexture, v24, v25) < self->_channelCount + 1)
+  objc_msgSend_channelCount_(selfCopy, v19, destinationTexture);
+  v21 = objc_msgSend_channelCount_(selfCopy, v20, destinationTexture);
+  if (v21 < selfCopy->_channelCount + 1)
   {
-    sub_239E21B44();
+    v21 = sub_239E21B44(selfCopy, destinationTexture);
     if (sourceTexture2)
     {
 LABEL_10:
-      objc_msgSend_channelCount_(self, v26, sourceTexture2, v27, v28);
-      if (objc_msgSend_channelCount_(self, v29, sourceTexture2, v30, v31) < self->_channelCount2 + 1)
+      objc_msgSend_channelCount_(selfCopy, v22, sourceTexture2);
+      v24 = objc_msgSend_channelCount_(selfCopy, v23, sourceTexture2);
+      if (v24 < selfCopy->_channelCount2 + 1)
       {
-        sub_239E21B9C();
+        v24 = sub_239E21B9C(selfCopy, sourceTexture2);
         if (destinationTexture2)
         {
           goto LABEL_12;
@@ -1036,12 +1074,13 @@ LABEL_10:
         goto LABEL_12;
       }
 
-      sub_239E21BF4();
+      sub_239E21BF4(v24, v25);
 LABEL_12:
-      objc_msgSend_channelCount_(self, v32, destinationTexture2, v33, v34);
-      if (objc_msgSend_channelCount_(self, v35, destinationTexture2, v36, v37) < self->_channelCount2 + 1)
+      objc_msgSend_channelCount_(selfCopy, v25, destinationTexture2);
+      v21 = objc_msgSend_channelCount_(selfCopy, v26, destinationTexture2);
+      if (v21 < selfCopy->_channelCount2 + 1)
       {
-        sub_239E21C44();
+        v21 = sub_239E21C44(selfCopy, destinationTexture2);
       }
     }
   }
@@ -1053,98 +1092,98 @@ LABEL_12:
 
   if (!depthNormalTexture)
   {
-    sub_239E21C9C();
+    sub_239E21C9C(v21, v22);
   }
 
-  objc_msgSend_channelCount_(self, v26, depthNormalTexture, v27, v28);
-  if (objc_msgSend_channelCount_(self, v38, depthNormalTexture, v39, v40) != 4)
+  objc_msgSend_channelCount_(selfCopy, v22, depthNormalTexture);
+  if (objc_msgSend_channelCount_(selfCopy, v27, depthNormalTexture) != 4)
   {
-    sub_239E21CEC();
+    sub_239E21CEC(selfCopy, depthNormalTexture);
   }
 
 LABEL_18:
-  v110 = destinationTexture2;
-  v42 = sourceTexture;
-  if (objc_msgSend_retainedReferences(commandBuffer, a2, commandBuffer, stepDistance, sourceTexture))
+  v65 = destinationTexture2;
+  v29 = sourceTexture;
+  if (objc_msgSend_retainedReferences(commandBuffer, a2, commandBuffer))
   {
-    v43 = 0;
+    v30 = 0;
   }
 
   else
   {
-    v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
   }
 
-  if ((*(&self->super.super.isa + v16) & 2) != 0)
+  if ((*(&selfCopy->super.super.isa + v16) & 2) != 0)
   {
-    v44 = @"bilateralKernelHalf";
-  }
-
-  else
-  {
-    v44 = @"bilateralKernelFloat";
-  }
-
-  haveSecondTexture = objc_msgSend_getPipelineForFunctionName_kernelID_haveMotionVectorTexture_haveDepthNormalTexture_haveSecondTexture_(self, v41, v44, 2, 0, depthNormalTexture != 0, sourceTexture2 != 0);
-  v50 = objc_msgSend_computeCommandEncoder(commandBuffer, v46, v47, v48, v49);
-  v54 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v51, @"MPSSVGF bilateral filter (stepDistance=%u)", v52, v53, stepDistance);
-  objc_msgSend_setLabel_(v50, v55, v54, v56, v57);
-  objc_msgSend_setComputePipelineState_(v50, v58, haveSecondTexture, v59, v60);
-  v116[0] = stepDistance;
-  v115 = 0;
-  memset(v114, 0, sizeof(v114));
-  objc_msgSend_params(self, v61, v62, v63, v64);
-  objc_msgSend_setBytes_length_atIndex_(v50, v65, v114, 36, 0);
-  objc_msgSend_setBytes_length_atIndex_(v50, v66, v116, 4, 1);
-  objc_msgSend_setTexture_atIndex_(v50, v67, destinationTexture, 0, v68);
-  objc_msgSend_setTexture_atIndex_(v50, v69, v42, 1, v70);
-  objc_msgSend_setTexture_atIndex_(v50, v71, v110, 2, v72);
-  objc_msgSend_setTexture_atIndex_(v50, v73, sourceTexture2, 3, v74);
-  objc_msgSend_setTexture_atIndex_(v50, v75, depthNormalTexture, 4, v76);
-  v81 = objc_msgSend_width(destinationTexture, v77, v78, v79, v80);
-  v86 = objc_msgSend_height(destinationTexture, v82, v83, v84, v85);
-  v89 = 8;
-  if (((*(&self->super.super.isa + *MEMORY[0x277CD7350]))[369] & 0x400) != 0)
-  {
-    v90 = 3;
+    v31 = @"bilateralKernelHalf";
   }
 
   else
   {
-    v89 = 16;
-    v90 = 4;
+    v31 = @"bilateralKernelFloat";
   }
 
-  v113[0] = (v89 - 1 + v81) >> v90;
-  v113[1] = (v89 - 1 + v86) >> v90;
-  v113[2] = 1;
-  v112[0] = v89;
-  v112[1] = v89;
-  v112[2] = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v50, v87, v113, v112, v88);
-  objc_msgSend_endEncoding(v50, v91, v92, v93, v94);
-  if (v43)
+  haveSecondTexture = objc_msgSend_getPipelineForFunctionName_kernelID_haveMotionVectorTexture_haveDepthNormalTexture_haveSecondTexture_(selfCopy, v28, v31, 2, 0, depthNormalTexture != 0, sourceTexture2 != 0);
+  v35 = objc_msgSend_computeCommandEncoder(commandBuffer, v33, v34);
+  v37 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v36, @"MPSSVGF bilateral filter (stepDistance=%u)", stepDistance);
+  objc_msgSend_setLabel_(v35, v38, v37);
+  objc_msgSend_setComputePipelineState_(v35, v39, haveSecondTexture);
+  v71[0] = stepDistance;
+  v70 = 0;
+  memset(v69, 0, sizeof(v69));
+  objc_msgSend_params(selfCopy, v40, v41);
+  objc_msgSend_setBytes_length_atIndex_(v35, v42, v69, 36, 0);
+  objc_msgSend_setBytes_length_atIndex_(v35, v43, v71, 4, 1);
+  objc_msgSend_setTexture_atIndex_(v35, v44, destinationTexture, 0);
+  objc_msgSend_setTexture_atIndex_(v35, v45, v29, 1);
+  objc_msgSend_setTexture_atIndex_(v35, v46, v65, 2);
+  objc_msgSend_setTexture_atIndex_(v35, v47, sourceTexture2, 3);
+  objc_msgSend_setTexture_atIndex_(v35, v48, depthNormalTexture, 4);
+  v51 = objc_msgSend_width(destinationTexture, v49, v50);
+  v54 = objc_msgSend_height(destinationTexture, v52, v53);
+  v56 = 8;
+  if (((*(&selfCopy->super.super.isa + *MEMORY[0x277CD7350]))[369] & 0x400) != 0)
   {
-    objc_msgSend_addObject_(v43, v95, haveSecondTexture, v96, v97);
-    objc_msgSend_addObject_(v43, v98, v42, v99, v100);
-    objc_msgSend_addObject_(v43, v101, destinationTexture, v102, v103);
+    v57 = 3;
+  }
+
+  else
+  {
+    v56 = 16;
+    v57 = 4;
+  }
+
+  v68[0] = (v56 - 1 + v51) >> v57;
+  v68[1] = (v56 - 1 + v54) >> v57;
+  v68[2] = 1;
+  v67[0] = v56;
+  v67[1] = v56;
+  v67[2] = 1;
+  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v35, v55, v68, v67);
+  objc_msgSend_endEncoding(v35, v58, v59);
+  if (v30)
+  {
+    objc_msgSend_addObject_(v30, v60, haveSecondTexture);
+    objc_msgSend_addObject_(v30, v61, v29);
+    objc_msgSend_addObject_(v30, v62, destinationTexture);
     if (sourceTexture2)
     {
-      objc_msgSend_addObject_(v43, v104, sourceTexture2, v105, v106);
+      objc_msgSend_addObject_(v30, v63, sourceTexture2);
     }
 
-    if (v110)
+    if (v65)
     {
-      objc_msgSend_addObject_(v43, v104, v110, v105, v106);
+      objc_msgSend_addObject_(v30, v63, v65);
     }
 
-    objc_msgSend_addObject_(v43, v104, depthNormalTexture, v105, v106);
-    v111[0] = MEMORY[0x277D85DD0];
-    v111[1] = 3221225472;
-    v111[2] = sub_239DF069C;
-    v111[3] = &unk_278B3B370;
-    v111[4] = v43;
-    objc_msgSend_addCompletedHandler_(commandBuffer, v107, v111, v108, v109);
+    objc_msgSend_addObject_(v30, v63, depthNormalTexture);
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = sub_239DF069C;
+    v66[3] = &unk_278B3B370;
+    v66[4] = v30;
+    objc_msgSend_addCompletedHandler_(commandBuffer, v64, v66);
   }
 }
 

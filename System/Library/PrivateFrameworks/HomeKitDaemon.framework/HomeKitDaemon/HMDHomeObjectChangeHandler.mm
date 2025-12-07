@@ -17,7 +17,7 @@
 
 - (void)handleObjectUpdate:(id)update newValues:(id)values message:(id)message
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   valuesCopy = values;
   messageCopy = message;
@@ -48,9 +48,9 @@
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v107 = v20;
-      v108 = 2112;
-      v109 = v16;
+      v106 = v20;
+      v107 = 2112;
+      v108 = v16;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Received room transaction, applying it to room: %@", buf, 0x16u);
     }
 
@@ -94,22 +94,22 @@
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v99 = v12;
+      v98 = v12;
       v29 = v21;
       v30 = home;
       v31 = messageCopy;
       v33 = v32 = updateCopy;
       *buf = 138543618;
-      v107 = v33;
-      v108 = 2112;
-      v109 = v25;
+      v106 = v33;
+      v107 = 2112;
+      v108 = v25;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Received zone transaction, applying it to zone: %@", buf, 0x16u);
 
       updateCopy = v32;
       messageCopy = v31;
       home = v30;
       v21 = v29;
-      v12 = v99;
+      v12 = v98;
     }
 
     objc_autoreleasePoolPop(v26);
@@ -127,7 +127,7 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  v100 = updateCopy;
+  v99 = updateCopy;
   v21 = v21;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -154,9 +154,9 @@ LABEL_36:
     {
       v40 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v107 = v40;
-      v108 = 2112;
-      v109 = v25;
+      v106 = v40;
+      v107 = 2112;
+      v108 = v25;
       _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@Received serviceGroup transaction, applying it to serviceGroup: %@", buf, 0x16u);
     }
 
@@ -194,58 +194,93 @@ LABEL_36:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v45 = v21;
+    v44 = v21;
   }
 
   else
   {
-    v45 = 0;
+    v44 = 0;
   }
 
-  v46 = v45;
+  v45 = v44;
 
-  if (v46 || ((v21 = v21, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v47 = 0) : (v47 = v21), v46 = v47, v21, v46))
+  if (v45 || ((v21 = v21, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v46 = 0) : (v46 = v21), v45 = v46, v21, v45))
   {
-    uuid5 = [v46 uuid];
-    v49 = [home triggerWithUUID:uuid5];
+    uuid5 = [v45 uuid];
+    v48 = [home triggerWithUUID:uuid5];
 
-    v50 = v49;
+    v49 = v48;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     if (isKindOfClass)
     {
-      v52 = v50;
+      v51 = v49;
     }
 
     else
     {
-      v52 = 0;
+      v51 = 0;
     }
 
-    v53 = v52;
+    v52 = v51;
 
-    if (v50)
+    if (v49)
     {
       if (isKindOfClass)
       {
-        updateCopy = v100;
-        [v50 transactionObjectUpdated:v100 newValues:v21 message:messageCopy];
+        updateCopy = v99;
+        [v49 transactionObjectUpdated:v99 newValues:v21 message:messageCopy];
 LABEL_55:
 
         goto LABEL_37;
       }
 
-      v54 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
-      [messageCopy respondWithError:v54];
+      v53 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
+      [messageCopy respondWithError:v53];
     }
 
     else
     {
-      [(HMDHomeObjectChangeHandler *)self handleObjectAdd:v46 message:messageCopy];
+      [(HMDHomeObjectChangeHandler *)self handleObjectAdd:v45 message:messageCopy];
     }
 
-    updateCopy = v100;
+    updateCopy = v99;
     goto LABEL_55;
+  }
+
+  v21 = v21;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v54 = v21;
+  }
+
+  else
+  {
+    v54 = 0;
+  }
+
+  v36 = v54;
+
+  if (v36)
+  {
+    uuid4 = [v36 uuid];
+    v43 = [home accessoryWithUUID:uuid4];
+LABEL_34:
+    v25 = v43;
+
+    if (v25)
+    {
+LABEL_26:
+      v34 = v25;
+      updateCopy = v99;
+      goto LABEL_27;
+    }
+
+LABEL_35:
+    [(HMDHomeObjectChangeHandler *)self handleObjectAdd:v36 message:messageCopy];
+    updateCopy = v99;
+    goto LABEL_36;
   }
 
   v21 = v21;
@@ -260,132 +295,97 @@ LABEL_55:
     v55 = 0;
   }
 
-  v36 = v55;
+  v56 = v55;
 
-  if (v36)
+  if (v56)
   {
-    uuid4 = [v36 uuid];
-    v43 = [home accessoryWithUUID:uuid4];
-LABEL_34:
-    v25 = v43;
+    v57 = v56;
+    parentUUID = [v57 parentUUID];
+    v59 = [home accessoryWithUUID:parentUUID];
 
-    if (v25)
+    if (v59)
     {
-LABEL_26:
-      v34 = v25;
-      updateCopy = v100;
-      goto LABEL_27;
-    }
-
-LABEL_35:
-    [(HMDHomeObjectChangeHandler *)self handleObjectAdd:v36 message:messageCopy];
-    updateCopy = v100;
-    goto LABEL_36;
-  }
-
-  v21 = v21;
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v56 = v21;
-  }
-
-  else
-  {
-    v56 = 0;
-  }
-
-  v57 = v56;
-
-  if (v57)
-  {
-    v58 = v57;
-    parentUUID = [v58 parentUUID];
-    v60 = [home accessoryWithUUID:parentUUID];
-
-    if (v60)
-    {
-      updateCopy = v100;
-      [v60 transactionObjectUpdated:v100 newValues:v21 message:messageCopy];
+      updateCopy = v99;
+      [v59 transactionObjectUpdated:v99 newValues:v21 message:messageCopy];
     }
 
     else
     {
-      v68 = objc_autoreleasePoolPush();
-      v69 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+      v67 = objc_autoreleasePoolPush();
+      v68 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v70 = v98 = v68;
-        parentUUID2 = [v58 parentUUID];
-        instanceID = [v58 instanceID];
+        v69 = v97 = v67;
+        parentUUID2 = [v57 parentUUID];
+        instanceID = [v57 instanceID];
         *buf = 138543874;
-        v107 = v70;
-        v108 = 2112;
-        v109 = parentUUID2;
-        v110 = 2112;
-        v111 = instanceID;
-        _os_log_impl(&dword_229538000, v69, OS_LOG_TYPE_ERROR, "%{public}@Failed to find accessory %@ to add/update service %@", buf, 0x20u);
+        v106 = v69;
+        v107 = 2112;
+        v108 = parentUUID2;
+        v109 = 2112;
+        v110 = instanceID;
+        _os_log_impl(&dword_229538000, v68, OS_LOG_TYPE_ERROR, "%{public}@Failed to find accessory %@ to add/update service %@", buf, 0x20u);
 
-        v68 = v98;
+        v67 = v97;
       }
 
-      objc_autoreleasePoolPop(v68);
-      updateCopy = v100;
+      objc_autoreleasePoolPop(v67);
+      updateCopy = v99;
     }
   }
 
   else
   {
-    v61 = v21;
+    v60 = v21;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v62 = v61;
+      v61 = v60;
     }
 
     else
     {
-      v62 = 0;
+      v61 = 0;
     }
 
-    v21 = v62;
+    v21 = v61;
 
     if (v21)
     {
-      v94 = v61;
+      v93 = v60;
       [home usersIncludingPendingUsers:1];
+      v100 = 0u;
       v101 = 0u;
       v102 = 0u;
-      v103 = 0u;
-      obj = v104 = 0u;
-      v97 = [obj countByEnumeratingWithState:&v101 objects:v105 count:16];
-      if (v97)
+      obj = v103 = 0u;
+      v96 = [obj countByEnumeratingWithState:&v100 objects:v104 count:16];
+      if (v96)
       {
-        v96 = *v102;
+        v95 = *v101;
 LABEL_73:
-        v63 = 0;
+        v62 = 0;
         while (1)
         {
-          if (*v102 != v96)
+          if (*v101 != v95)
           {
             objc_enumerationMutation(obj);
           }
 
-          v64 = *(*(&v101 + 1) + 8 * v63);
-          uuid6 = [v64 uuid];
+          v63 = *(*(&v100 + 1) + 8 * v62);
+          uuid6 = [v63 uuid];
           uuid7 = [v21 uuid];
-          v67 = [uuid6 isEqual:uuid7];
+          v66 = [uuid6 isEqual:uuid7];
 
-          if (v67)
+          if (v66)
           {
             break;
           }
 
-          if (v97 == ++v63)
+          if (v96 == ++v62)
           {
-            v97 = [obj countByEnumeratingWithState:&v101 objects:v105 count:16];
-            if (v97)
+            v96 = [obj countByEnumeratingWithState:&v100 objects:v104 count:16];
+            if (v96)
             {
               goto LABEL_73;
             }
@@ -394,22 +394,22 @@ LABEL_73:
           }
         }
 
-        v73 = v64;
+        v72 = v63;
 
-        updateCopy = v100;
-        if (!v73)
+        updateCopy = v99;
+        if (!v72)
         {
           goto LABEL_86;
         }
 
-        [v73 transactionObjectUpdated:v100 newValues:v94 message:messageCopy];
+        [v72 transactionObjectUpdated:v99 newValues:v93 message:messageCopy];
       }
 
       else
       {
 LABEL_79:
 
-        updateCopy = v100;
+        updateCopy = v99;
 LABEL_86:
         [(HMDHomeObjectChangeHandler *)self handleObjectAdd:v21 message:messageCopy];
       }
@@ -417,35 +417,35 @@ LABEL_86:
 
     else
     {
-      v21 = v61;
+      v21 = v60;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v74 = v21;
+        v73 = v21;
       }
 
       else
       {
-        v74 = 0;
+        v73 = 0;
       }
 
-      v75 = v74;
+      v74 = v73;
 
-      if (v75)
+      if (v74)
       {
-        uuid8 = [v75 uuid];
-        v77 = [home outgoingInvitationWithUUID:uuid8];
+        uuid8 = [v74 uuid];
+        v76 = [home outgoingInvitationWithUUID:uuid8];
 
-        if (v77)
+        if (v76)
         {
-          updateCopy = v100;
-          [v77 transactionObjectUpdated:v100 newValues:v21 message:messageCopy];
+          updateCopy = v99;
+          [v76 transactionObjectUpdated:v99 newValues:v21 message:messageCopy];
         }
 
         else
         {
-          [(HMDHomeObjectChangeHandler *)self handleObjectAdd:v75 message:messageCopy];
-          updateCopy = v100;
+          [(HMDHomeObjectChangeHandler *)self handleObjectAdd:v74 message:messageCopy];
+          updateCopy = v99;
         }
       }
 
@@ -455,113 +455,111 @@ LABEL_86:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v78 = v21;
+          v77 = v21;
         }
 
         else
         {
-          v78 = 0;
+          v77 = 0;
         }
 
-        v79 = v78;
+        v78 = v77;
 
-        if (!v79)
+        if (!v78)
         {
-          v80 = v21;
+          v79 = v21;
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v81 = v80;
+            v80 = v79;
           }
 
           else
           {
-            v81 = 0;
+            v80 = 0;
           }
 
-          v82 = v81;
-          v21 = v80;
+          v81 = v80;
+          v21 = v79;
 
-          if (v82)
+          if (v81)
           {
-            uuid9 = [v82 uuid];
-            v84 = [home mediaSystemWithUUID:uuid9];
+            uuid9 = [v81 uuid];
+            v83 = [home mediaSystemWithUUID:uuid9];
 
-            if (v84)
+            if (v83)
             {
-              [v84 transactionObjectUpdated:v100 newValues:v80 message:messageCopy];
+              [v83 transactionObjectUpdated:v99 newValues:v79 message:messageCopy];
             }
 
             else
             {
               mediaSystemController = [home mediaSystemController];
-              [mediaSystemController _handleAddMediaSystemModel:v82 message:messageCopy];
+              [mediaSystemController _handleAddMediaSystemModel:v81 message:messageCopy];
             }
           }
 
           else
           {
-            v21 = v80;
+            v21 = v79;
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v85 = v21;
+              v84 = v21;
             }
 
             else
             {
-              v85 = 0;
+              v84 = 0;
             }
 
-            v86 = v85;
+            v85 = v84;
 
-            if (v86)
+            if (v85)
             {
               networkProtectionGroupRegistry = [home networkProtectionGroupRegistry];
-              [networkProtectionGroupRegistry handleAddOrUpdateAccessoryNetworkProtectionGroupModel:v86 message:messageCopy];
+              [networkProtectionGroupRegistry handleAddOrUpdateAccessoryNetworkProtectionGroupModel:v85 message:messageCopy];
 
-              updateCopy = v100;
+              updateCopy = v99;
               goto LABEL_37;
             }
 
-            v89 = objc_autoreleasePoolPush();
+            v88 = objc_autoreleasePoolPush();
             selfCopy3 = self;
-            v91 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+            v90 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
             {
-              v92 = HMFGetLogIdentifier();
+              v91 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v107 = v92;
-              v108 = 2112;
-              v109 = v21;
-              v110 = 2112;
-              v111 = objc_opt_class();
-              v93 = v111;
-              _os_log_impl(&dword_229538000, v91, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectUpdated]", buf, 0x20u);
+              v106 = v91;
+              v107 = 2112;
+              v108 = v21;
+              v109 = 2112;
+              v110 = objc_opt_class();
+              v92 = v110;
+              _os_log_impl(&dword_229538000, v90, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectUpdated]", buf, 0x20u);
             }
 
-            objc_autoreleasePoolPop(v89);
+            objc_autoreleasePoolPop(v88);
             v21 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
             [messageCopy respondWithError:v21];
           }
 
-          updateCopy = v100;
+          updateCopy = v99;
           goto LABEL_37;
         }
 
-        [home _handleUpdateAppDataModel:v79 message:messageCopy];
+        [home _handleUpdateAppDataModel:v78 message:messageCopy];
       }
     }
   }
 
 LABEL_37:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleObjectRemove:(id)remove message:(id)message
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   removeCopy = remove;
   messageCopy = message;
   home = [(HMDHomeObjectChangeHandler *)self home];
@@ -818,40 +816,38 @@ LABEL_61:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v39 = v12;
+    v38 = v12;
   }
 
   else
   {
-    v39 = 0;
+    v38 = 0;
   }
 
-  v22 = v39;
+  v22 = v38;
 
   if (v22)
   {
     goto LABEL_30;
   }
 
-  v40 = objc_autoreleasePoolPush();
+  v39 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v42 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+  v41 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
   {
-    v43 = HMFGetLogIdentifier();
-    v44 = 138543618;
-    v45 = v43;
-    v46 = 2112;
-    v47 = v12;
-    _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [HMDHome transactionObjectRemoved]", &v44, 0x16u);
+    v42 = HMFGetLogIdentifier();
+    v43 = 138543618;
+    v44 = v42;
+    v45 = 2112;
+    v46 = v12;
+    _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [HMDHome transactionObjectRemoved]", &v43, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v40);
+  objc_autoreleasePoolPop(v39);
   v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
   [messageCopy respondWithError:v12];
 LABEL_62:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleObjectAdd:(id)add message:(id)message

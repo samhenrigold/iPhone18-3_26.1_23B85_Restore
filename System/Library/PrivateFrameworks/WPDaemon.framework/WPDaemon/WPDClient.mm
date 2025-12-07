@@ -19,8 +19,14 @@
 - (void)_signpostBegin;
 - (void)_signpostEnd;
 - (void)addCharacteristic:(id)characteristic forService:(id)service;
+- (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)advertisingPendingOfType:(unsigned __int8)type;
+- (void)advertisingStartedOfType:(unsigned __int8)type;
+- (void)advertisingStartedOfTypeAt:(unsigned __int8)at;
+- (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error;
 - (void)anyDiscoveredDevice:(id)device;
 - (void)cancelConnectionTimer:(id)timer;
+- (void)central:(id)central subscribed:(BOOL)subscribed toCharacteristic:(id)characteristic inService:(id)service;
 - (void)checkAllowDuplicates:(id)duplicates;
 - (void)checkEntitlements;
 - (void)clearDuplicateFilterCache:(id)cache;
@@ -45,28 +51,35 @@
 - (void)enableTestMode;
 - (void)enteredZone:(id)zone manufacturerData:(id)data;
 - (void)exitedZone:(id)zone;
+- (void)foundPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)getAllTrackedZones;
 - (void)getPowerLogStats:(id)stats;
 - (void)isRangingEnabledReply:(id)reply;
+- (void)lostPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)notifyClientStateChange:(int64_t)change Restricted:(BOOL)restricted;
 - (void)overrideAdvTimeout:(double)timeout;
 - (void)overrideScanTimeout:(double)timeout;
 - (void)peerTrackingAvailable;
 - (void)peerTrackingFull;
 - (void)queueBlock:(id)block;
+- (void)rangingEnabled:(BOOL)enabled withError:(id)error;
 - (void)readyForDataTransfer;
 - (void)receivedData:(id)data fromCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral;
 - (void)receivedData:(id)data fromEndpoint:(id)endpoint forPeripheral:(id)peripheral;
 - (void)receivedTestResponse:(id)response;
+- (void)registerEndpoint:(id)endpoint requireAck:(BOOL)ack requireEncryption:(BOOL)encryption;
 - (void)registerForAnyScanResults:(BOOL)results;
 - (void)registerWithDaemon:(id)daemon forProcess:(id)process machName:(id)name holdVouchers:(int64_t)vouchers;
 - (void)resetConnection;
+- (void)resumeCommunicationWithConnection:(id)connection andProcessID:(int)d;
 - (void)sendDataToCharacteristic:(id)characteristic inService:(id)service forPeer:(id)peer;
 - (void)sendDatatoLePipe:(id)pipe forPeer:(id)peer;
+- (void)sendRegisteredWithDaemonAndContinuingSession:(BOOL)session;
 - (void)sendTestRequest:(id)request;
 - (void)sentData:(id)data forCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral withError:(id)error;
 - (void)sentData:(id)data toEndpoint:(id)endpoint forPeripheral:(id)peripheral withError:(id)error;
 - (void)setupConnection;
+- (void)shouldSubscribe:(BOOL)subscribe toPeer:(id)peer withCharacteristic:(id)characteristic inService:(id)service;
 - (void)startAdvertising:(id)advertising;
 - (void)startAdvertising:(id)advertising reply:(id)reply;
 - (void)startAdvertising_async:(id)advertising_async;
@@ -82,8 +95,10 @@
 - (void)stopTrackingAllZones;
 - (void)stopTrackingPeerWithRequest:(id)request;
 - (void)stopTrackingZones:(id)zones;
+- (void)stoppedTrackingPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)tickleMachPort;
 - (void)unregisterEndpoint:(id)endpoint;
+- (void)updatedNotificationState:(BOOL)state forCharacteristic:(id)characteristic inService:(id)service withPeripheral:(id)peripheral;
 - (void)verifyApprovedUseCase;
 @end
 
@@ -178,26 +193,22 @@
 
 - (void)stopScans
 {
-  v10 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   [OUTLINED_FUNCTION_9() processID];
   clientUUID = [OUTLINED_FUNCTION_10() clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)verifyApprovedUseCase
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = 1;
+  v5 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = 1;
   OUTLINED_FUNCTION_7();
-  v5 = v0;
-  OUTLINED_FUNCTION_15(&dword_272965000, v1, v2, "WPDClient approved:%d use case: (%@)", v4);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  OUTLINED_FUNCTION_15(&dword_272965000, v1, v2, "WPDClient approved:%d use case: (%@)", v3);
 }
 
 + (NSSet)approvedBundleIDs
@@ -259,7 +270,7 @@ uint64_t __30__WPDClient_approvedProcesses__block_invoke()
 
 + (void)generateStateDump
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     +[WPDClient generateStateDump];
@@ -271,31 +282,31 @@ uint64_t __30__WPDClient_approvedProcesses__block_invoke()
     v3 = v2;
     v4 = +[WPDClient unknownUseCases];
     *buf = 134217984;
-    v19 = [v4 count];
+    v18 = [v4 count];
     _os_log_impl(&dword_272965000, v3, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: unknown use cases (%ld):", buf, 0xCu);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = +[WPDClient unknownUseCases];
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         if (WPLogInitOnce != -1)
         {
           +[WPDClient generateStateDump];
@@ -305,7 +316,7 @@ uint64_t __30__WPDClient_approvedProcesses__block_invoke()
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v19 = v10;
+          v18 = v10;
           _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "WPDaemon statedump: %@", buf, 0xCu);
         }
 
@@ -313,21 +324,18 @@ uint64_t __30__WPDClient_approvedProcesses__block_invoke()
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)initialize
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_22();
-  _os_log_debug_impl(&dword_272965000, v0, OS_LOG_TYPE_DEBUG, "WPDClient using custom enable scan advert vouchers: %d", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_272965000, v0, OS_LOG_TYPE_DEBUG, "WPDClient using custom enable scan advert vouchers: %d", v1, 8u);
 }
 
 - (WPDClient)initWithXPCConnection:(id)connection server:(id)server
@@ -358,7 +366,7 @@ uint64_t __30__WPDClient_approvedProcesses__block_invoke()
 
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
       {
-        [WPDClient initWithXPCConnection:&v10->_bundleID server:?];
+        [WPDClient initWithXPCConnection:server:];
       }
     }
 
@@ -379,7 +387,7 @@ uint64_t __30__WPDClient_approvedProcesses__block_invoke()
 
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
       {
-        [WPDClient initWithXPCConnection:&v10->_bundleID server:?];
+        [WPDClient initWithXPCConnection:server:];
       }
     }
 
@@ -474,7 +482,7 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490()
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDClient dealloc];
@@ -486,7 +494,7 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490()
     v4 = v3;
     clientUUID = [(WPDClient *)self clientUUID];
     *buf = 138412290;
-    v13 = clientUUID;
+    v12 = clientUUID;
     _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_INFO, "Deallocing WPDClient %@", buf, 0xCu);
   }
 
@@ -506,10 +514,9 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490()
     [(WPDClient *)self setConn:0];
   }
 
-  v11.receiver = self;
-  v11.super_class = WPDClient;
-  [(WPDClient *)&v11 dealloc];
-  v10 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = WPDClient;
+  [(WPDClient *)&v10 dealloc];
 }
 
 - (NSString)description
@@ -527,7 +534,7 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490()
 
 - (void)registerWithDaemon:(id)daemon forProcess:(id)process machName:(id)name holdVouchers:(int64_t)vouchers
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   daemonCopy = daemon;
   processCopy = process;
   nameCopy = name;
@@ -539,15 +546,15 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490()
   v13 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
   {
-    v25 = v13;
+    v24 = v13;
     clientUUID = [(WPDClient *)self clientUUID];
     *buf = 138412802;
-    v30 = clientUUID;
-    v31 = 2112;
-    v32 = daemonCopy;
-    v33 = 2112;
-    v34 = processCopy;
-    _os_log_debug_impl(&dword_272965000, v25, OS_LOG_TYPE_DEBUG, "Registering with daemon client %@ type %@ for process %@", buf, 0x20u);
+    v29 = clientUUID;
+    v30 = 2112;
+    v31 = daemonCopy;
+    v32 = 2112;
+    v33 = processCopy;
+    _os_log_debug_impl(&dword_272965000, v24, OS_LOG_TYPE_DEBUG, "Registering with daemon client %@ type %@ for process %@", buf, 0x20u);
   }
 
   [(WPDClient *)self setProcessName:processCopy];
@@ -577,7 +584,7 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490()
           v19 = v18;
           clientUUID2 = [(WPDClient *)self clientUUID];
           *buf = 138412290;
-          v30 = clientUUID2;
+          v29 = clientUUID2;
           _os_log_impl(&dword_272965000, v19, OS_LOG_TYPE_INFO, "WPDClient removing new client %@", buf, 0xCu);
         }
 
@@ -592,15 +599,15 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490()
     }
 
     objc_initWeak(buf, self);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __65__WPDClient_registerWithDaemon_forProcess_machName_holdVouchers___block_invoke_522;
-    v27[3] = &unk_279E59208;
-    objc_copyWeak(&v28, buf);
-    v23 = MEMORY[0x2743D14E0](v27);
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __65__WPDClient_registerWithDaemon_forProcess_machName_holdVouchers___block_invoke_522;
+    v26[3] = &unk_279E59208;
+    objc_copyWeak(&v27, buf);
+    v23 = MEMORY[0x2743D14E0](v26);
     [v16 registerClient:self withMachName:nameCopy withCompletion:v23];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(buf);
 LABEL_19:
 
@@ -621,8 +628,6 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __65__WPDClient_registerWithDaemon_forProcess_machName_holdVouchers___block_invoke_522(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
@@ -646,21 +651,90 @@ void __65__WPDClient_registerWithDaemon_forProcess_machName_holdVouchers___block
   }
 }
 
+- (void)sendRegisteredWithDaemonAndContinuingSession:(BOOL)session
+{
+  sessionCopy = session;
+  conn = [(WPDClient *)self conn];
+
+  if (conn)
+  {
+    conn2 = [(WPDClient *)self conn];
+    remoteObjectProxy = [conn2 remoteObjectProxy];
+    [remoteObjectProxy registeredWithDaemonAndContinuingSession:sessionCopy];
+  }
+
+  server = [(WPDClient *)self server];
+  wpdState = [server wpdState];
+  state = [wpdState state];
+  scanManager = [(WPDClient *)self scanManager];
+  -[WPDClient notifyClientStateChange:Restricted:](self, "notifyClientStateChange:Restricted:", state, [scanManager restricted]);
+
+  if (+[WPDaemonServer isInternalBuild])
+  {
+
+    [(WPDClient *)self verifyApprovedUseCase];
+  }
+}
+
 - (void)tickleMachPort
 {
-  v10 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   clientUUID = [OUTLINED_FUNCTION_18() clientUUID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_11();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)resumeCommunicationWithConnection:(id)connection andProcessID:(int)d
+{
+  v4 = *&d;
+  v19 = *MEMORY[0x277D85DE8];
+  connectionCopy = connection;
+  conn = [(WPDClient *)self conn];
+  [conn setInterruptionHandler:0];
+
+  conn2 = [(WPDClient *)self conn];
+  [conn2 setInvalidationHandler:0];
+
+  conn3 = [(WPDClient *)self conn];
+  [conn3 invalidate];
+
+  [(WPDClient *)self setConn:0];
+  [(WPDClient *)self setProcessID:v4];
+  if (WPLogInitOnce != -1)
+  {
+    [WPDClient resumeCommunicationWithConnection:andProcessID:];
+  }
+
+  v10 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = v10;
+    clientUUID = [(WPDClient *)self clientUUID];
+    v15 = 138412546;
+    v16 = clientUUID;
+    v17 = 1024;
+    processID = [(WPDClient *)self processID];
+    _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "WPDClient resuming new connection on old client %@ from new pid %d", &v15, 0x12u);
+  }
+
+  [(WPDClient *)self setConn:connectionCopy];
+
+  [(WPDClient *)self setupConnection];
+  [(WPDClient *)self sendRegisteredWithDaemonAndContinuingSession:1];
+  [(WPDClient *)self setPortTickled:0];
+  messageQueue = [(WPDClient *)self messageQueue];
+
+  if (messageQueue)
+  {
+    messageQueue2 = [(WPDClient *)self messageQueue];
+    dispatch_activate(messageQueue2);
+  }
 }
 
 void __28__WPDClient_setupConnection__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -675,24 +749,22 @@ void __28__WPDClient_setupConnection__block_invoke(uint64_t a1)
       v3 = v2;
       v4 = [WeakRetained clientUUID];
       v5 = [WeakRetained processName];
-      v7 = 138543874;
-      v8 = v4;
-      v9 = 2114;
-      v10 = v5;
-      v11 = 1024;
-      v12 = [WeakRetained processID];
-      _os_log_impl(&dword_272965000, v3, OS_LOG_TYPE_DEFAULT, "WPDClient %{public}@ XPC connection for process %{public}@ (%d) is becoming invalidated", &v7, 0x1Cu);
+      v6 = 138543874;
+      v7 = v4;
+      v8 = 2114;
+      v9 = v5;
+      v10 = 1024;
+      v11 = [WeakRetained processID];
+      _os_log_impl(&dword_272965000, v3, OS_LOG_TYPE_DEFAULT, "WPDClient %{public}@ XPC connection for process %{public}@ (%d) is becoming invalidated", &v6, 0x1Cu);
     }
 
     [WeakRetained destroy];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __28__WPDClient_setupConnection__block_invoke_579(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -707,24 +779,22 @@ void __28__WPDClient_setupConnection__block_invoke_579(uint64_t a1)
       v3 = v2;
       v4 = [WeakRetained clientUUID];
       v5 = [WeakRetained processName];
-      v7 = 138543874;
-      v8 = v4;
-      v9 = 2114;
-      v10 = v5;
-      v11 = 1024;
-      v12 = [WeakRetained processID];
-      _os_log_impl(&dword_272965000, v3, OS_LOG_TYPE_DEFAULT, "WPDClient %{public}@ XPC connection for client %{public}@ (%d) is becoming interrupted", &v7, 0x1Cu);
+      v6 = 138543874;
+      v7 = v4;
+      v8 = 2114;
+      v9 = v5;
+      v10 = 1024;
+      v11 = [WeakRetained processID];
+      _os_log_impl(&dword_272965000, v3, OS_LOG_TYPE_DEFAULT, "WPDClient %{public}@ XPC connection for client %{public}@ (%d) is becoming interrupted", &v6, 0x1Cu);
     }
 
     [WeakRetained destroy];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)destroy
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   machName = [(WPDClient *)self machName];
 
   if (machName)
@@ -754,15 +824,15 @@ void __28__WPDClient_setupConnection__block_invoke_579(uint64_t a1)
       processID = [(WPDClient *)self processID];
       machName2 = [(WPDClient *)self machName];
       *buf = 138544386;
-      v31 = clientUUID;
-      v32 = 2050;
+      v30 = clientUUID;
+      v31 = 2050;
       selfCopy2 = self;
-      v34 = 2114;
-      v35 = processName;
-      v36 = 1024;
+      v33 = 2114;
+      v34 = processName;
+      v35 = 1024;
       processID2 = processID;
-      v38 = 2112;
-      v39 = machName2;
+      v37 = 2112;
+      v38 = machName2;
       _os_log_impl(&dword_272965000, v10, OS_LOG_TYPE_DEFAULT, "Invalidating WPDClient %{public}@ (%{public}p) of process %{public}@ (%d) with mach port %@", buf, 0x30u);
     }
 
@@ -786,12 +856,12 @@ void __28__WPDClient_setupConnection__block_invoke_579(uint64_t a1)
       clientUUID2 = [(WPDClient *)self clientUUID];
       processName2 = [(WPDClient *)self processName];
       *buf = 138544130;
-      v31 = clientUUID2;
-      v32 = 2050;
+      v30 = clientUUID2;
+      v31 = 2050;
       selfCopy2 = self;
-      v34 = 2114;
-      v35 = processName2;
-      v36 = 1024;
+      v33 = 2114;
+      v34 = processName2;
+      v35 = 1024;
       processID2 = [(WPDClient *)self processID];
       _os_log_impl(&dword_272965000, v17, OS_LOG_TYPE_DEFAULT, "Removing WPDClient %{public}@ (%{public}p) of process %{public}@ (%d)", buf, 0x26u);
     }
@@ -800,26 +870,24 @@ void __28__WPDClient_setupConnection__block_invoke_579(uint64_t a1)
     {
       objc_initWeak(buf, self);
       serverQueue2 = [(WPDClient *)self serverQueue];
-      v24 = MEMORY[0x277D85DD0];
-      v25 = 3221225472;
-      v26 = __20__WPDClient_destroy__block_invoke_588;
-      v27 = &unk_279E590A0;
-      objc_copyWeak(&v29, buf);
+      v23 = MEMORY[0x277D85DD0];
+      v24 = 3221225472;
+      v25 = __20__WPDClient_destroy__block_invoke_588;
+      v26 = &unk_279E590A0;
+      objc_copyWeak(&v28, buf);
       selfCopy3 = self;
-      dispatch_async(serverQueue2, &v24);
+      dispatch_async(serverQueue2, &v23);
 
-      objc_destroyWeak(&v29);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(buf);
     }
 
-    v21 = [(WPDClient *)self conn:v24];
+    v21 = [(WPDClient *)self conn:v23];
     [v21 invalidate];
 
     server = [(WPDClient *)self server];
     [server removeClient:self];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __20__WPDClient_destroy__block_invoke_588(uint64_t a1)
@@ -835,17 +903,15 @@ void __20__WPDClient_destroy__block_invoke_588(uint64_t a1)
 
 - (void)destroy_async
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   [OUTLINED_FUNCTION_9() processName];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_10() processID];
-  v6 = 138543618;
-  v7 = v2;
+  v5 = 138543618;
+  v6 = v2;
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_15(&dword_272965000, v1, v4, "Advert voucher release for process %{public}@ (%d)", &v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_15(&dword_272965000, v1, v4, "Advert voucher release for process %{public}@ (%d)", &v5);
 }
 
 void __26__WPDClient_destroy_async__block_invoke_3(uint64_t a1, void *a2)
@@ -886,7 +952,7 @@ LABEL_5:
 
 - (void)addCharacteristic:(id)characteristic forService:(id)service
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   serviceCopy = service;
   if (WPLogInitOnce != -1)
@@ -897,18 +963,16 @@ LABEL_5:
   v8 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
-    v13 = characteristicCopy;
-    v14 = 2114;
-    v15 = serviceCopy;
-    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "Adding %{public}@ for service %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = characteristicCopy;
+    v13 = 2114;
+    v14 = serviceCopy;
+    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "Adding %{public}@ for service %{public}@", &v11, 0x16u);
   }
 
   advertisingManager = [(WPDClient *)self advertisingManager];
   clientUUID = [(WPDClient *)self clientUUID];
   [advertisingManager addCharacteristic:characteristicCopy forService:serviceCopy forClient:clientUUID];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAdvertising:(id)advertising reply:(id)reply
@@ -972,7 +1036,7 @@ void __30__WPDClient_startAdvertising___block_invoke_612(uint64_t a1)
 
 - (void)startAdvertising_async:(id)advertising_async
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   advertising_asyncCopy = advertising_async;
   if (![(WPDClient *)self registered])
   {
@@ -1012,9 +1076,9 @@ void __30__WPDClient_startAdvertising___block_invoke_612(uint64_t a1)
         v12 = v11;
         clientTypeString = [(WPDClient *)self clientTypeString];
         *buf = 134218242;
-        *v55 = v12;
-        *&v55[8] = 2112;
-        *&v55[10] = clientTypeString;
+        *v54 = v12;
+        *&v54[8] = 2112;
+        *&v54[10] = clientTypeString;
         _os_log_impl(&dword_272965000, v10, OS_LOG_TYPE_DEFAULT, "Setting advert update time to %f for %@", buf, 0x16u);
       }
 
@@ -1037,15 +1101,15 @@ void __30__WPDClient_startAdvertising___block_invoke_612(uint64_t a1)
     advertisingRate = [advertising_asyncCopy advertisingRate];
     advertisingRate2 = [advertising_asyncCopy advertisingRate];
     *buf = 138544386;
-    *v55 = processName;
-    *&v55[8] = 1024;
-    *&v55[10] = processID;
-    *&v55[14] = 2048;
-    *&v55[16] = clientType;
-    v56 = 2048;
-    v57 = advertisingRate;
-    v58 = 2048;
-    v59 = advertisingRate2 * 0.625;
+    *v54 = processName;
+    *&v54[8] = 1024;
+    *&v54[10] = processID;
+    *&v54[14] = 2048;
+    *&v54[16] = clientType;
+    v55 = 2048;
+    v56 = advertisingRate;
+    v57 = 2048;
+    v58 = advertisingRate2 * 0.625;
     _os_log_impl(&dword_272965000, v16, OS_LOG_TYPE_DEFAULT, "Start advertising for process %{public}@ (%d) of type %ld with advertising interval %ld (%.2f ms)", buf, 0x30u);
   }
 
@@ -1086,9 +1150,9 @@ void __30__WPDClient_startAdvertising___block_invoke_612(uint64_t a1)
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v55 = clientType;
-      *&v55[4] = 2048;
-      *&v55[6] = v7;
+      *v54 = clientType;
+      *&v54[4] = 2048;
+      *&v54[6] = v7;
       _os_log_impl(&dword_272965000, v29, OS_LOG_TYPE_DEFAULT, "Setting advert timer for client %d with time %.2f ", buf, 0x12u);
     }
 
@@ -1102,12 +1166,12 @@ void __30__WPDClient_startAdvertising___block_invoke_612(uint64_t a1)
     handler[1] = 3221225472;
     handler[2] = __36__WPDClient_startAdvertising_async___block_invoke_625;
     handler[3] = &unk_279E592A0;
-    v51 = clientType;
-    v50[1] = v7;
+    v50 = clientType;
+    v49[1] = v7;
     v33 = v31;
-    v48 = v33;
-    objc_copyWeak(v50, buf);
-    v49 = advertising_asyncCopy;
+    v47 = v33;
+    objc_copyWeak(v49, buf);
+    v48 = advertising_asyncCopy;
     dispatch_source_set_event_handler(v33, handler);
     advertTimerState = [(WPDClient *)self advertTimerState];
     v35 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:clientType];
@@ -1117,7 +1181,7 @@ void __30__WPDClient_startAdvertising___block_invoke_612(uint64_t a1)
     v37 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:clientType];
     [advertTimers4 setObject:v33 forKeyedSubscript:v37];
 
-    objc_destroyWeak(v50);
+    objc_destroyWeak(v49);
     objc_destroyWeak(buf);
   }
 
@@ -1146,9 +1210,9 @@ void __30__WPDClient_startAdvertising___block_invoke_612(uint64_t a1)
       }
 
       v45 = MEMORY[0x277CCA9B8];
-      v52 = *MEMORY[0x277CCA450];
-      v53 = @"ObjectDiscovery advertising is not supported on this platform.";
-      objectDiscoveryManager2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+      v51 = *MEMORY[0x277CCA450];
+      v52 = @"ObjectDiscovery advertising is not supported on this platform.";
+      objectDiscoveryManager2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
       v41 = [v45 errorWithDomain:@"WPErrorDomain" code:27 userInfo:objectDiscoveryManager2];
     }
   }
@@ -1166,13 +1230,11 @@ LABEL_39:
     -[WPDClient advertisingFailedToStart:ofType:](self, "advertisingFailedToStart:ofType:", v41, [advertising_asyncCopy clientType]);
     [(WPDClient *)self setPendingSent:0];
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __36__WPDClient_startAdvertising_async___block_invoke_625(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     __36__WPDClient_startAdvertising_async___block_invoke_625_cold_1();
@@ -1184,9 +1246,9 @@ void __36__WPDClient_startAdvertising_async___block_invoke_625(uint64_t a1)
     v3 = *(a1 + 64);
     v4 = *(a1 + 56);
     *buf = 67109376;
-    v15 = v3;
-    v16 = 2048;
-    v17 = v4;
+    v14 = v3;
+    v15 = 2048;
+    v16 = v4;
     _os_log_impl(&dword_272965000, v2, OS_LOG_TYPE_DEFAULT, "Advert timer expired for client %d after %.2f seconds", buf, 0x12u);
   }
 
@@ -1215,24 +1277,22 @@ void __36__WPDClient_startAdvertising_async___block_invoke_625(uint64_t a1)
     v7 = [WeakRetained conn];
     v8 = [v7 remoteObjectProxy];
     v9 = *(a1 + 40);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __36__WPDClient_startAdvertising_async___block_invoke_631;
-    v11[3] = &unk_279E59278;
-    objc_copyWeak(v12, (a1 + 48));
-    v13 = *(a1 + 64);
-    v12[1] = *(a1 + 56);
-    [v8 updateAdvertisingRequest:v9 withUpdate:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __36__WPDClient_startAdvertising_async___block_invoke_631;
+    v10[3] = &unk_279E59278;
+    objc_copyWeak(v11, (a1 + 48));
+    v12 = *(a1 + 64);
+    v11[1] = *(a1 + 56);
+    [v8 updateAdvertisingRequest:v9 withUpdate:v10];
 
-    objc_destroyWeak(v12);
+    objc_destroyWeak(v11);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __36__WPDClient_startAdvertising_async___block_invoke_631(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -1259,11 +1319,11 @@ void __36__WPDClient_startAdvertising_async___block_invoke_631(uint64_t a1, void
       {
         v10 = *(a1 + 48);
         v11 = *(a1 + 40);
-        v18 = 67109376;
-        *v19 = v10;
-        *&v19[4] = 2048;
-        *&v19[6] = v11;
-        _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "Updating advert request for client %d after %.2f seconds", &v18, 0x12u);
+        v17 = 67109376;
+        *v18 = v10;
+        *&v18[4] = 2048;
+        *&v18[6] = v11;
+        _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "Updating advert request for client %d after %.2f seconds", &v17, 0x12u);
       }
 
       [v5 startAdvertising:v3];
@@ -1280,10 +1340,10 @@ void __36__WPDClient_startAdvertising_async___block_invoke_631(uint64_t a1, void
     {
       v13 = v16;
       v14 = [v5 processName];
-      v18 = 138412546;
-      *v19 = v14;
-      *&v19[8] = 1024;
-      *&v19[10] = [v5 processID];
+      v17 = 138412546;
+      *v18 = v14;
+      *&v18[8] = 1024;
+      *&v18[10] = [v5 processID];
       v15 = "Tried to update the advertising request interval for process %@ (%d), but a client has asked us to stop in the meantime";
       goto LABEL_17;
     }
@@ -1301,19 +1361,17 @@ void __36__WPDClient_startAdvertising_async___block_invoke_631(uint64_t a1, void
     {
       v13 = v12;
       v14 = [v5 processName];
-      v18 = 138412546;
-      *v19 = v14;
-      *&v19[8] = 1024;
-      *&v19[10] = [v5 processID];
+      v17 = 138412546;
+      *v18 = v14;
+      *&v18[8] = 1024;
+      *&v18[10] = [v5 processID];
       v15 = "Tried to update the advertising request for process %@ (%d) - NOOP";
 LABEL_17:
-      _os_log_impl(&dword_272965000, v13, OS_LOG_TYPE_DEFAULT, v15, &v18, 0x12u);
+      _os_log_impl(&dword_272965000, v13, OS_LOG_TYPE_DEFAULT, v15, &v17, 0x12u);
     }
   }
 
 LABEL_18:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAdvertising:(id)advertising
@@ -1362,7 +1420,7 @@ void __29__WPDClient_stopAdvertising___block_invoke_655(uint64_t a1)
 
 - (void)stopAdvertising_async:(id)advertising_async
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   advertising_asyncCopy = advertising_async;
   if ([(WPDClient *)self registered])
   {
@@ -1378,11 +1436,11 @@ void __29__WPDClient_stopAdvertising___block_invoke_655(uint64_t a1)
       v7 = v6;
       processName = [(WPDClient *)self processName];
       *buf = 138543874;
-      v32 = processName;
-      v33 = 1024;
+      v31 = processName;
+      v32 = 1024;
       processID = [(WPDClient *)self processID];
-      v35 = 2048;
-      v36 = clientType;
+      v34 = 2048;
+      v35 = clientType;
       _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "Stop advertising for process %{public}@ (%d) of type %ld", buf, 0x1Cu);
     }
 
@@ -1413,17 +1471,17 @@ void __29__WPDClient_stopAdvertising___block_invoke_655(uint64_t a1)
           [WPDClient stopAdvertising_async:];
         }
 
-        v27 = WiProxLog;
+        v26 = WiProxLog;
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
         {
-          [WPDClient stopAdvertising_async:v27];
+          [WPDClient stopAdvertising_async:v26];
         }
 
-        v28 = MEMORY[0x277CCA9B8];
-        v29 = *MEMORY[0x277CCA450];
-        v30 = @"ObjectDiscovery advertising is not supported on this platform.";
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-        v22 = [v28 errorWithDomain:@"WPErrorDomain" code:27 userInfo:v20];
+        v27 = MEMORY[0x277CCA9B8];
+        v28 = *MEMORY[0x277CCA450];
+        v29 = @"ObjectDiscovery advertising is not supported on this platform.";
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+        v22 = [v27 errorWithDomain:@"WPErrorDomain" code:27 userInfo:v20];
         goto LABEL_17;
       }
 
@@ -1478,8 +1536,191 @@ LABEL_17:
   }
 
 LABEL_24:
+}
 
-  v26 = *MEMORY[0x277D85DE8];
+- (void)advertisingStartedOfType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v27 = *MEMORY[0x277D85DE8];
+  if (WPLogInitOnce != -1)
+  {
+    [WPDClient advertisingStartedOfType:];
+  }
+
+  v5 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    processName = [(WPDClient *)self processName];
+    v21 = 138412802;
+    v22 = processName;
+    v23 = 1024;
+    processID = [(WPDClient *)self processID];
+    v25 = 2048;
+    v26 = typeCopy;
+    _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "Advertising started for client %@ (%d) of type %ld", &v21, 0x1Cu);
+  }
+
+  advertTimers = [(WPDClient *)self advertTimers];
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:typeCopy];
+  v10 = [advertTimers objectForKeyedSubscript:v9];
+  if (!v10)
+  {
+    goto LABEL_8;
+  }
+
+  v11 = v10;
+  advertTimerState = [(WPDClient *)self advertTimerState];
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:typeCopy];
+  v14 = [advertTimerState objectForKeyedSubscript:v13];
+  bOOLValue = [v14 BOOLValue];
+
+  if ((bOOLValue & 1) == 0)
+  {
+    advertTimers2 = [(WPDClient *)self advertTimers];
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:typeCopy];
+    v18 = [advertTimers2 objectForKeyedSubscript:v17];
+    dispatch_resume(v18);
+
+    advertTimers = [(WPDClient *)self advertTimerState];
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:typeCopy];
+    [advertTimers setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v9];
+LABEL_8:
+  }
+
+  [(WPDClient *)self setPendingSent:0];
+  conn = [(WPDClient *)self conn];
+  remoteObjectProxy = [conn remoteObjectProxy];
+  [remoteObjectProxy advertisingStartedOfType:typeCopy];
+}
+
+- (void)advertisingStartedOfTypeAt:(unsigned __int8)at
+{
+  atCopy = at;
+  conn = [(WPDClient *)self conn];
+  remoteObjectProxy = [conn remoteObjectProxy];
+  [remoteObjectProxy advertisingStartedOfTypeAt:atCopy];
+}
+
+- (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v19 = *MEMORY[0x277D85DE8];
+  startCopy = start;
+  if (WPLogInitOnce != -1)
+  {
+    [WPDClient advertisingFailedToStart:ofType:];
+  }
+
+  v7 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+  {
+    v10 = v7;
+    processName = [(WPDClient *)self processName];
+    localizedDescription = [startCopy localizedDescription];
+    v13 = 138412802;
+    v14 = processName;
+    v15 = 1024;
+    v16 = typeCopy;
+    v17 = 2112;
+    v18 = localizedDescription;
+    _os_log_error_impl(&dword_272965000, v10, OS_LOG_TYPE_ERROR, "Advertising failed to start for client %@ type %d with error: %@", &v13, 0x1Cu);
+  }
+
+  conn = [(WPDClient *)self conn];
+  remoteObjectProxy = [conn remoteObjectProxy];
+  [remoteObjectProxy advertisingFailedToStart:startCopy ofType:typeCopy];
+
+  [(WPDClient *)self setPendingSent:0];
+}
+
+- (void)advertisingPendingOfType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v14 = *MEMORY[0x277D85DE8];
+  if (![(WPDClient *)self pendingSent])
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPDClient advertisingPendingOfType:];
+    }
+
+    v5 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = v5;
+      processName = [(WPDClient *)self processName];
+      v10 = 138543618;
+      v11 = processName;
+      v12 = 2048;
+      v13 = typeCopy;
+      _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "Advertising pending for client %{public}@ type %ld", &v10, 0x16u);
+    }
+
+    conn = [(WPDClient *)self conn];
+    remoteObjectProxy = [conn remoteObjectProxy];
+    [remoteObjectProxy advertisingPendingOfType:typeCopy];
+
+    [(WPDClient *)self setPendingSent:1];
+  }
+}
+
+- (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error
+{
+  typeCopy = type;
+  v20 = *MEMORY[0x277D85DE8];
+  errorCopy = error;
+  if (errorCopy)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPDClient advertisingStoppedOfType:withError:];
+    }
+
+    v7 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v7;
+      processName = [(WPDClient *)self processName];
+      localizedDescription = [errorCopy localizedDescription];
+      v14 = 138412802;
+      v15 = processName;
+      v16 = 1024;
+      v17 = typeCopy;
+      v18 = 2112;
+      v19 = localizedDescription;
+      _os_log_error_impl(&dword_272965000, v8, OS_LOG_TYPE_ERROR, "Advertising stopped for client %@ type %d with error: %@", &v14, 0x1Cu);
+
+LABEL_10:
+    }
+  }
+
+  else
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPDClient advertisingStoppedOfType:withError:];
+    }
+
+    v11 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v11;
+      processName = [(WPDClient *)self processName];
+      v14 = 138412546;
+      v15 = processName;
+      v16 = 1024;
+      v17 = typeCopy;
+      _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "Advertising stopped for client %@ type %d", &v14, 0x12u);
+      goto LABEL_10;
+    }
+  }
+
+  conn = [(WPDClient *)self conn];
+  remoteObjectProxy = [conn remoteObjectProxy];
+  [remoteObjectProxy advertisingStoppedOfType:typeCopy withError:errorCopy];
+
+  [(WPDClient *)self setPendingSent:0];
 }
 
 - (void)notifyClientStateChange:(int64_t)change Restricted:(BOOL)restricted
@@ -1557,7 +1798,7 @@ LABEL_24:
 
 void __30__WPDClient_discoveredDevice___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) objectForKeyedSubscript:@"kDeviceAdvertisingData"];
   v4 = [*v2 objectForKeyedSubscript:@"kDeviceType"];
@@ -1578,32 +1819,30 @@ void __30__WPDClient_discoveredDevice___block_invoke(uint64_t a1)
     v10 = [v8 processName];
     v11 = [*(a1 + 40) clientUUID];
     *buf = 138413314;
-    v18 = v10;
-    v19 = 2112;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v6;
-    v23 = 1024;
-    v24 = v5;
-    v25 = 2112;
-    v26 = v3;
+    v17 = v10;
+    v18 = 2112;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v6;
+    v22 = 1024;
+    v23 = v5;
+    v24 = 2112;
+    v25 = v3;
     _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_INFO, "Telling process %@ (%@) about discovered device (%@) of type %d with data %@", buf, 0x30u);
   }
 
   objc_initWeak(buf, *(a1 + 40));
   v12 = *(a1 + 40);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __30__WPDClient_discoveredDevice___block_invoke_685;
-  v14[3] = &unk_279E590A0;
-  objc_copyWeak(&v16, buf);
-  v15 = *(a1 + 32);
-  [v12 queueBlock:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __30__WPDClient_discoveredDevice___block_invoke_685;
+  v13[3] = &unk_279E590A0;
+  objc_copyWeak(&v15, buf);
+  v14 = *(a1 + 32);
+  [v12 queueBlock:v13];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __30__WPDClient_discoveredDevice___block_invoke_685(uint64_t a1)
@@ -1671,7 +1910,7 @@ void __31__WPDClient_discoveredDevices___block_invoke(uint64_t a1)
 
 void __31__WPDClient_discoveredDevices___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 objectForKeyedSubscript:@"kDeviceAdvertisingData"];
   v7 = [v5 objectForKeyedSubscript:@"kDeviceType"];
@@ -1691,22 +1930,20 @@ void __31__WPDClient_discoveredDevices___block_invoke_2(uint64_t a1, void *a2, u
     v12 = [v10 processName];
     v13 = [*(a1 + 32) clientUUID];
     v14 = *(a1 + 40);
-    v16 = 138413570;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v13;
-    v20 = 2048;
-    v21 = a3 + 1;
-    v22 = 2048;
-    v23 = v14;
-    v24 = 1024;
-    v25 = v8;
-    v26 = 2112;
-    v27 = v6;
-    _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_INFO, "Telling process %@ (%@) about ADV Buffer (%ld/%ld) discovered device of type %d with data %@", &v16, 0x3Au);
+    v15 = 138413570;
+    v16 = v12;
+    v17 = 2112;
+    v18 = v13;
+    v19 = 2048;
+    v20 = a3 + 1;
+    v21 = 2048;
+    v22 = v14;
+    v23 = 1024;
+    v24 = v8;
+    v25 = 2112;
+    v26 = v6;
+    _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_INFO, "Telling process %@ (%@) about ADV Buffer (%ld/%ld) discovered device of type %d with data %@", &v15, 0x3Au);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __31__WPDClient_discoveredDevices___block_invoke_689(uint64_t a1)
@@ -1739,7 +1976,7 @@ void __31__WPDClient_discoveredDevices___block_invoke_689(uint64_t a1)
 
 void __33__WPDClient_anyDiscoveredDevice___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) objectForKeyedSubscript:@"kDeviceAdvertisingData"];
   v4 = [*v2 objectForKeyedSubscript:@"kDeviceType"];
@@ -1759,30 +1996,28 @@ void __33__WPDClient_anyDiscoveredDevice___block_invoke(uint64_t a1)
     v9 = [v7 processName];
     v10 = [*(a1 + 40) clientUUID];
     *buf = 138413058;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
-    v20 = 1024;
-    v21 = v5;
-    v22 = 2112;
-    v23 = v3;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v10;
+    v19 = 1024;
+    v20 = v5;
+    v21 = 2112;
+    v22 = v3;
     _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_INFO, "Telling process %@ (%@) about ANY discovered device of type %d with data %@", buf, 0x26u);
   }
 
   objc_initWeak(buf, *(a1 + 40));
   v11 = *(a1 + 40);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __33__WPDClient_anyDiscoveredDevice___block_invoke_692;
-  v13[3] = &unk_279E590A0;
-  objc_copyWeak(&v15, buf);
-  v14 = *(a1 + 32);
-  [v11 queueBlock:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __33__WPDClient_anyDiscoveredDevice___block_invoke_692;
+  v12[3] = &unk_279E590A0;
+  objc_copyWeak(&v14, buf);
+  v13 = *(a1 + 32);
+  [v11 queueBlock:v12];
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __33__WPDClient_anyDiscoveredDevice___block_invoke_692(uint64_t a1)
@@ -1904,7 +2139,7 @@ void __40__WPDClient_startScanning_withDispatch___block_invoke_696(uint64_t a1)
 
 - (void)startScanning_async:(id)scanning_async
 {
-  v73[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   scanning_asyncCopy = scanning_async;
   clientType = [scanning_asyncCopy clientType];
   if (![(WPDClient *)self registered])
@@ -1921,9 +2156,9 @@ void __40__WPDClient_startScanning_withDispatch___block_invoke_696(uint64_t a1)
     }
 
     v11 = MEMORY[0x277CCA9B8];
-    v72 = *MEMORY[0x277CCA450];
-    v73[0] = @"The client is currently not registered with the daemon";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
+    v71 = *MEMORY[0x277CCA450];
+    v72[0] = @"The client is currently not registered with the daemon";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
     v9 = [v11 errorWithDomain:@"WPErrorDomain" code:2 userInfo:v8];
     goto LABEL_13;
   }
@@ -1942,9 +2177,9 @@ void __40__WPDClient_startScanning_withDispatch___block_invoke_696(uint64_t a1)
     }
 
     v7 = MEMORY[0x277CCA9B8];
-    v70 = *MEMORY[0x277CCA450];
-    v71 = @"The client is currently denylisted";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+    v69 = *MEMORY[0x277CCA450];
+    v70 = @"The client is currently denylisted";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
     v9 = [v7 errorWithDomain:@"WPErrorDomain" code:2 userInfo:v8];
 LABEL_13:
     conn2 = v9;
@@ -1966,17 +2201,17 @@ LABEL_14:
         [WPDClient startScanning_async:];
       }
 
-      v52 = WiProxLog;
+      v51 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
       {
-        [(WPDClient *)v52 startScanning_async:?];
+        [(WPDClient *)v51 startScanning_async:?];
       }
 
-      v53 = MEMORY[0x277CCA9B8];
-      v68 = *MEMORY[0x277CCA450];
-      v69 = @"The client is not entitled to scan for ObjectDiscovery";
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
-      v9 = [v53 errorWithDomain:@"WPErrorDomain" code:10 userInfo:v8];
+      v52 = MEMORY[0x277CCA9B8];
+      v67 = *MEMORY[0x277CCA450];
+      v68 = @"The client is not entitled to scan for ObjectDiscovery";
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+      v9 = [v52 errorWithDomain:@"WPErrorDomain" code:10 userInfo:v8];
       goto LABEL_13;
     }
 
@@ -1987,17 +2222,17 @@ LABEL_14:
         [WPDClient startScanning_async:];
       }
 
-      v55 = WiProxLog;
+      v54 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
       {
-        [(WPDClient *)v55 startScanning_async:?];
+        [(WPDClient *)v54 startScanning_async:?];
       }
 
-      v56 = MEMORY[0x277CCA9B8];
-      v66 = *MEMORY[0x277CCA450];
-      v67 = @"ObjectDiscovery not supported on this platform";
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
-      v9 = [v56 errorWithDomain:@"WPErrorDomain" code:10 userInfo:v8];
+      v55 = MEMORY[0x277CCA9B8];
+      v65 = *MEMORY[0x277CCA450];
+      v66 = @"ObjectDiscovery not supported on this platform";
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+      v9 = [v55 errorWithDomain:@"WPErrorDomain" code:10 userInfo:v8];
       goto LABEL_13;
     }
   }
@@ -2016,11 +2251,11 @@ LABEL_14:
       [WPDClient startScanning_async:];
     }
 
-    v54 = MEMORY[0x277CCA9B8];
-    v64 = *MEMORY[0x277CCA450];
-    v65 = @"WPDScanManager is nil";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-    v9 = [v54 errorWithDomain:@"WPErrorDomain" code:10 userInfo:v8];
+    v53 = MEMORY[0x277CCA9B8];
+    v63 = *MEMORY[0x277CCA450];
+    v64 = @"WPDScanManager is nil";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+    v9 = [v53 errorWithDomain:@"WPErrorDomain" code:10 userInfo:v8];
     goto LABEL_13;
   }
 
@@ -2029,18 +2264,18 @@ LABEL_14:
     [WPDClient startScanning_async:];
   }
 
-  v17 = WiProxLog;
+  v16 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = v17;
+    v17 = v16;
     processName = [(WPDClient *)self processName];
     *buf = 138543874;
-    *v63 = processName;
-    *&v63[8] = 1024;
-    *&v63[10] = [(WPDClient *)self processID];
-    *&v63[14] = 2114;
-    *&v63[16] = scanning_asyncCopy;
-    _os_log_impl(&dword_272965000, v18, OS_LOG_TYPE_DEFAULT, "Start scanning for process %{public}@ (%d) with %{public}@", buf, 0x1Cu);
+    *v62 = processName;
+    *&v62[8] = 1024;
+    *&v62[10] = [(WPDClient *)self processID];
+    *&v62[14] = 2114;
+    *&v62[16] = scanning_asyncCopy;
+    _os_log_impl(&dword_272965000, v17, OS_LOG_TYPE_DEFAULT, "Start scanning for process %{public}@ (%d) with %{public}@", buf, 0x1Cu);
   }
 
   scanManager2 = [(WPDClient *)self scanManager];
@@ -2057,117 +2292,117 @@ LABEL_14:
   if (clientType == 18)
   {
     objectDiscoveryManager = [(WPDClient *)self objectDiscoveryManager];
-    v23 = objectDiscoveryManager == 0;
+    v22 = objectDiscoveryManager == 0;
 
-    if (!v23)
+    if (!v22)
     {
       objectDiscoveryManager2 = [(WPDClient *)self objectDiscoveryManager];
       clientUUID2 = [(WPDClient *)self clientUUID];
-      v26 = [objectDiscoveryManager2 addScanRequest:scanning_asyncCopy forClient:clientUUID2];
+      v25 = [objectDiscoveryManager2 addScanRequest:scanning_asyncCopy forClient:clientUUID2];
 
-      if (v26)
+      if (v25)
       {
         if (WPLogInitOnce != -1)
         {
           [WPDClient startScanning_async:];
         }
 
-        v27 = WiProxLog;
+        v26 = WiProxLog;
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
         {
-          [(WPDClient *)v27 startScanning_async:v26];
+          [(WPDClient *)v26 startScanning_async:v25];
         }
       }
     }
   }
 
   [scanning_asyncCopy updateTime];
-  v29 = v28;
+  v28 = v27;
   if ([(WPDClient *)self isTestModeClient])
   {
     [(WPDClient *)self scanTimeout];
-    if (v30 != 0.0)
+    if (v29 != 0.0)
     {
       if (WPLogInitOnce != -1)
       {
         [WPDClient startScanning_async:];
       }
 
-      v31 = WiProxLog;
+      v30 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = v31;
+        v31 = v30;
         [(WPDClient *)self scanTimeout];
-        v34 = v33;
+        v33 = v32;
         clientTypeString = [(WPDClient *)self clientTypeString];
         *buf = 134218242;
-        *v63 = v34;
-        *&v63[8] = 2112;
-        *&v63[10] = clientTypeString;
-        _os_log_impl(&dword_272965000, v32, OS_LOG_TYPE_DEFAULT, "Setting scan update time to %f for %@", buf, 0x16u);
+        *v62 = v33;
+        *&v62[8] = 2112;
+        *&v62[10] = clientTypeString;
+        _os_log_impl(&dword_272965000, v31, OS_LOG_TYPE_DEFAULT, "Setting scan update time to %f for %@", buf, 0x16u);
       }
 
       [(WPDClient *)self scanTimeout];
-      v29 = v36;
+      v28 = v35;
     }
   }
 
   scanTimers = [(WPDClient *)self scanTimers];
-  v38 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:clientType];
-  v39 = [scanTimers objectForKeyedSubscript:v38];
+  v37 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:clientType];
+  v38 = [scanTimers objectForKeyedSubscript:v37];
 
-  if (v39)
+  if (v38)
   {
     scanTimers2 = [(WPDClient *)self scanTimers];
-    v41 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:clientType];
-    v42 = [scanTimers2 objectForKeyedSubscript:v41];
-    dispatch_source_cancel(v42);
+    v40 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:clientType];
+    v41 = [scanTimers2 objectForKeyedSubscript:v40];
+    dispatch_source_cancel(v41);
 
     scanTimers3 = [(WPDClient *)self scanTimers];
-    v44 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:clientType];
-    [scanTimers3 setObject:0 forKeyedSubscript:v44];
+    v43 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:clientType];
+    [scanTimers3 setObject:0 forKeyedSubscript:v43];
   }
 
-  if (*&v29 > 0.0)
+  if (*&v28 > 0.0)
   {
     if (WPLogInitOnce != -1)
     {
       [WPDClient startScanning_async:];
     }
 
-    v45 = WiProxLog;
+    v44 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v63 = clientType;
-      *&v63[4] = 2048;
-      *&v63[6] = v29;
-      _os_log_impl(&dword_272965000, v45, OS_LOG_TYPE_DEFAULT, "Setting scan timer for type %d with time %.2f ", buf, 0x12u);
+      *v62 = clientType;
+      *&v62[4] = 2048;
+      *&v62[6] = v28;
+      _os_log_impl(&dword_272965000, v44, OS_LOG_TYPE_DEFAULT, "Setting scan timer for type %d with time %.2f ", buf, 0x12u);
     }
 
     serverQueue = [(WPDClient *)self serverQueue];
-    v47 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, serverQueue);
+    v46 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, serverQueue);
 
-    v48 = dispatch_time(0, (*&v29 * 1000000000.0));
-    dispatch_source_set_timer(v47, v48, 0xFFFFFFFFFFFFFFFFLL, 0);
+    v47 = dispatch_time(0, (*&v28 * 1000000000.0));
+    dispatch_source_set_timer(v46, v47, 0xFFFFFFFFFFFFFFFFLL, 0);
     objc_initWeak(buf, self);
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __33__WPDClient_startScanning_async___block_invoke_738;
     handler[3] = &unk_279E592A0;
-    v61 = clientType;
-    v60[1] = v29;
-    v49 = v47;
-    v58 = v49;
-    objc_copyWeak(v60, buf);
-    v59 = scanning_asyncCopy;
-    dispatch_source_set_event_handler(v49, handler);
+    v60 = clientType;
+    v59[1] = v28;
+    v48 = v46;
+    v57 = v48;
+    objc_copyWeak(v59, buf);
+    v58 = scanning_asyncCopy;
+    dispatch_source_set_event_handler(v48, handler);
     scanTimers4 = [(WPDClient *)self scanTimers];
-    v51 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:clientType];
-    [scanTimers4 setObject:v49 forKeyedSubscript:v51];
+    v50 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:clientType];
+    [scanTimers4 setObject:v48 forKeyedSubscript:v50];
 
-    dispatch_resume(v49);
-    objc_destroyWeak(v60);
+    dispatch_resume(v48);
+    objc_destroyWeak(v59);
 
     objc_destroyWeak(buf);
   }
@@ -2176,13 +2411,11 @@ LABEL_14:
   conn = [conn2 remoteObjectProxy];
   [conn scanningStartedOfType:clientType];
 LABEL_15:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __33__WPDClient_startScanning_async___block_invoke_738(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     __33__WPDClient_startScanning_async___block_invoke_738_cold_1();
@@ -2194,9 +2427,9 @@ void __33__WPDClient_startScanning_async___block_invoke_738(uint64_t a1)
     v3 = *(a1 + 64);
     v4 = *(a1 + 56);
     *buf = 67109376;
-    v15 = v3;
-    v16 = 2048;
-    v17 = v4;
+    v14 = v3;
+    v15 = 2048;
+    v16 = v4;
     _os_log_impl(&dword_272965000, v2, OS_LOG_TYPE_DEFAULT, "Scan timer expired for client %d after %.2f seconds", buf, 0x12u);
   }
 
@@ -2225,24 +2458,22 @@ void __33__WPDClient_startScanning_async___block_invoke_738(uint64_t a1)
     v7 = [WeakRetained conn];
     v8 = [v7 remoteObjectProxy];
     v9 = *(a1 + 40);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __33__WPDClient_startScanning_async___block_invoke_744;
-    v11[3] = &unk_279E59318;
-    objc_copyWeak(v12, (a1 + 48));
-    v13 = *(a1 + 64);
-    v12[1] = *(a1 + 56);
-    [v8 updateScanningRequest:v9 withUpdate:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __33__WPDClient_startScanning_async___block_invoke_744;
+    v10[3] = &unk_279E59318;
+    objc_copyWeak(v11, (a1 + 48));
+    v12 = *(a1 + 64);
+    v11[1] = *(a1 + 56);
+    [v8 updateScanningRequest:v9 withUpdate:v10];
 
-    objc_destroyWeak(v12);
+    objc_destroyWeak(v11);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __33__WPDClient_startScanning_async___block_invoke_744(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -2269,11 +2500,11 @@ void __33__WPDClient_startScanning_async___block_invoke_744(uint64_t a1, void *a
       {
         v10 = *(a1 + 48);
         v11 = *(a1 + 40);
-        v18 = 67109376;
-        *v19 = v10;
-        *&v19[4] = 2048;
-        *&v19[6] = v11;
-        _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "Updating scan request for client %d after %.2f seconds", &v18, 0x12u);
+        v17 = 67109376;
+        *v18 = v10;
+        *&v18[4] = 2048;
+        *&v18[6] = v11;
+        _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "Updating scan request for client %d after %.2f seconds", &v17, 0x12u);
       }
 
       [v5 startScanning:v3];
@@ -2290,10 +2521,10 @@ void __33__WPDClient_startScanning_async___block_invoke_744(uint64_t a1, void *a
     {
       v13 = v16;
       v14 = [v5 processName];
-      v18 = 138412546;
-      *v19 = v14;
-      *&v19[8] = 1024;
-      *&v19[10] = [v5 processID];
+      v17 = 138412546;
+      *v18 = v14;
+      *&v18[8] = 1024;
+      *&v18[10] = [v5 processID];
       v15 = "Tried to update the scan request interval for process %@ (%d), but a client has asked us to stop in the meantime";
       goto LABEL_17;
     }
@@ -2311,19 +2542,17 @@ void __33__WPDClient_startScanning_async___block_invoke_744(uint64_t a1, void *a
     {
       v13 = v12;
       v14 = [v5 processName];
-      v18 = 138412546;
-      *v19 = v14;
-      *&v19[8] = 1024;
-      *&v19[10] = [v5 processID];
+      v17 = 138412546;
+      *v18 = v14;
+      *&v18[8] = 1024;
+      *&v18[10] = [v5 processID];
       v15 = "Tried to update the scan request for process %@ (%d) - NOOP";
 LABEL_17:
-      _os_log_impl(&dword_272965000, v13, OS_LOG_TYPE_DEFAULT, v15, &v18, 0x12u);
+      _os_log_impl(&dword_272965000, v13, OS_LOG_TYPE_DEFAULT, v15, &v17, 0x12u);
     }
   }
 
 LABEL_18:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopScanning:(id)scanning
@@ -2372,7 +2601,7 @@ void __26__WPDClient_stopScanning___block_invoke_757(uint64_t a1)
 
 - (void)stopScanning_async:(id)scanning_async
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   scanning_asyncCopy = scanning_async;
   clientType = [scanning_asyncCopy clientType];
   if ([(WPDClient *)self registered])
@@ -2390,13 +2619,13 @@ LABEL_5:
       {
         v7 = v6;
         processName = [(WPDClient *)self processName];
-        v30 = 138543874;
-        v31 = processName;
-        v32 = 1024;
+        v29 = 138543874;
+        v30 = processName;
+        v31 = 1024;
         processID = [(WPDClient *)self processID];
-        v34 = 2114;
-        v35 = scanning_asyncCopy;
-        _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "Stop scanning for process %{public}@ (%d) with %{public}@", &v30, 0x1Cu);
+        v33 = 2114;
+        v34 = scanning_asyncCopy;
+        _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "Stop scanning for process %{public}@ (%d) with %{public}@", &v29, 0x1Cu);
       }
 
       scanTimers = [(WPDClient *)self scanTimers];
@@ -2442,9 +2671,9 @@ LABEL_5:
         v23 = WiProxLog;
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
         {
-          v30 = 67109120;
-          LODWORD(v31) = clientType;
-          _os_log_impl(&dword_272965000, v23, OS_LOG_TYPE_DEFAULT, "Trying to stop scanning for a type %d we don't scan for", &v30, 8u);
+          v29 = 67109120;
+          LODWORD(v30) = clientType;
+          _os_log_impl(&dword_272965000, v23, OS_LOG_TYPE_DEFAULT, "Trying to stop scanning for a type %d we don't scan for", &v29, 8u);
         }
       }
 
@@ -2470,10 +2699,10 @@ LABEL_5:
         [WPDClient stopScanning_async:];
       }
 
-      v29 = WiProxLog;
+      v28 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
       {
-        [WPDClient stopScanning_async:v29];
+        [WPDClient stopScanning_async:v28];
       }
     }
 
@@ -2507,8 +2736,6 @@ LABEL_5:
   }
 
 LABEL_29:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearDuplicateFilterCache:(id)cache
@@ -2542,7 +2769,7 @@ void __39__WPDClient_clearDuplicateFilterCache___block_invoke(uint64_t a1)
 
 - (void)clearDuplicateFilterCache_async:(id)cache_async
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   cache_asyncCopy = cache_async;
   clientType = [cache_asyncCopy clientType];
   if ([(WPDClient *)self registered])
@@ -2560,13 +2787,13 @@ LABEL_5:
       {
         v7 = v6;
         processName = [(WPDClient *)self processName];
-        v17 = 138543874;
-        v18 = processName;
-        v19 = 1024;
+        v16 = 138543874;
+        v17 = processName;
+        v18 = 1024;
         processID = [(WPDClient *)self processID];
-        v21 = 2114;
-        v22 = cache_asyncCopy;
-        _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "clear dup filter cache for process %{public}@ (%d) with %{public}@", &v17, 0x1Cu);
+        v20 = 2114;
+        v21 = cache_asyncCopy;
+        _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "clear dup filter cache for process %{public}@ (%d) with %{public}@", &v16, 0x1Cu);
       }
 
       scanManager = [(WPDClient *)self scanManager];
@@ -2583,9 +2810,9 @@ LABEL_5:
         v12 = WiProxLog;
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = 67109120;
-          LODWORD(v18) = clientType;
-          _os_log_impl(&dword_272965000, v12, OS_LOG_TYPE_DEFAULT, "Trying to clear dup filter cache for a type %d we don't scan for", &v17, 8u);
+          v16 = 67109120;
+          LODWORD(v17) = clientType;
+          _os_log_impl(&dword_272965000, v12, OS_LOG_TYPE_DEFAULT, "Trying to clear dup filter cache for a type %d we don't scan for", &v16, 8u);
         }
       }
 
@@ -2604,10 +2831,10 @@ LABEL_5:
         [WPDClient clearDuplicateFilterCache_async:];
       }
 
-      v16 = WiProxLog;
+      v15 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
       {
-        [WPDClient clearDuplicateFilterCache_async:v16];
+        [WPDClient clearDuplicateFilterCache_async:v15];
       }
     }
 
@@ -2618,10 +2845,10 @@ LABEL_5:
         [WPDClient clearDuplicateFilterCache_async:];
       }
 
-      v15 = WiProxLog;
+      v14 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
       {
-        [WPDClient clearDuplicateFilterCache_async:v15];
+        [WPDClient clearDuplicateFilterCache_async:v14];
       }
     }
   }
@@ -2641,8 +2868,6 @@ LABEL_5:
   }
 
 LABEL_19:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTrackingPeerWithRequest:(id)request
@@ -2687,6 +2912,69 @@ LABEL_19:
     peerUUID = [requestCopy peerUUID];
     [v9 stoppedTrackingPeer:peerUUID ofType:{objc_msgSend(requestCopy, "clientType")}];
   }
+}
+
+- (void)stoppedTrackingPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  peerCopy = peer;
+  conn = [(WPDClient *)self conn];
+  remoteObjectProxy = [conn remoteObjectProxy];
+  [remoteObjectProxy stoppedTrackingPeer:peerCopy ofType:typeCopy];
+}
+
+- (void)foundPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v16 = *MEMORY[0x277D85DE8];
+  peerCopy = peer;
+  if (WPLogInitOnce != -1)
+  {
+    [WPDClient foundPeer:ofType:];
+  }
+
+  v7 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v7;
+    processName = [(WPDClient *)self processName];
+    v12 = 138412546;
+    v13 = processName;
+    v14 = 2112;
+    v15 = peerCopy;
+    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "Telling client %@ that peer %@ has been found", &v12, 0x16u);
+  }
+
+  conn = [(WPDClient *)self conn];
+  remoteObjectProxy = [conn remoteObjectProxy];
+  [remoteObjectProxy foundPeer:peerCopy ofType:typeCopy];
+}
+
+- (void)lostPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v16 = *MEMORY[0x277D85DE8];
+  peerCopy = peer;
+  if (WPLogInitOnce != -1)
+  {
+    [WPDClient lostPeer:ofType:];
+  }
+
+  v7 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v7;
+    processName = [(WPDClient *)self processName];
+    v12 = 138412546;
+    v13 = processName;
+    v14 = 2112;
+    v15 = peerCopy;
+    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "Telling client %@ that peer %@ has been lost", &v12, 0x16u);
+  }
+
+  conn = [(WPDClient *)self conn];
+  remoteObjectProxy = [conn remoteObjectProxy];
+  [remoteObjectProxy lostPeer:peerCopy ofType:typeCopy];
 }
 
 - (void)peerTrackingAvailable
@@ -2767,20 +3055,16 @@ LABEL_19:
 
 - (void)stopTrackingAllZones
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAllTrackedZones
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enteredZone:(id)zone manufacturerData:(id)data
@@ -2821,7 +3105,7 @@ LABEL_19:
 
 - (void)connectToPeer:(id)peer withOptions:(id)options
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   optionsCopy = options;
   if ([peerCopy isEqual:AllZeroUUID])
@@ -2882,15 +3166,15 @@ LABEL_19:
           v22 = WiProxLog;
           if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
           {
-            v45 = v22;
+            v44 = v22;
             clientUUID = [(WPDClient *)self clientUUID];
             *buf = 138543874;
-            v51 = peerCopy;
-            v52 = 2114;
-            v53 = clientUUID;
-            v54 = 2112;
-            v55 = v16;
-            _os_log_debug_impl(&dword_272965000, v45, OS_LOG_TYPE_DEBUG, "TODO: rdar_57238900 amend existing connection, Connect to %{public}@ called by client %{public}@ - options %@", buf, 0x20u);
+            v50 = peerCopy;
+            v51 = 2114;
+            v52 = clientUUID;
+            v53 = 2112;
+            v54 = v16;
+            _os_log_debug_impl(&dword_272965000, v44, OS_LOG_TYPE_DEBUG, "TODO: rdar_57238900 amend existing connection, Connect to %{public}@ called by client %{public}@ - options %@", buf, 0x20u);
           }
 
           if (WPLogInitOnce != -1)
@@ -2902,7 +3186,7 @@ LABEL_19:
           if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v51 = peerCopy;
+            v50 = peerCopy;
             _os_log_impl(&dword_272965000, v23, OS_LOG_TYPE_DEFAULT, "We're already connected to this device %{public}@. Sending back didConnect again...", buf, 0xCu);
           }
 
@@ -2954,17 +3238,17 @@ LABEL_42:
       clientTypeString = [(WPDClient *)self clientTypeString];
       processName = [(WPDClient *)self processName];
       *buf = 138544642;
-      v51 = peerCopy;
-      v52 = 2114;
-      v53 = clientUUID4;
-      v54 = 2112;
-      v55 = clientTypeString;
-      v56 = 2114;
-      v57 = processName;
-      v58 = 1024;
+      v50 = peerCopy;
+      v51 = 2114;
+      v52 = clientUUID4;
+      v53 = 2112;
+      v54 = clientTypeString;
+      v55 = 2114;
+      v56 = processName;
+      v57 = 1024;
       processID = [(WPDClient *)self processID];
-      v60 = 2112;
-      v61 = v16;
+      v59 = 2112;
+      v60 = v16;
       _os_log_impl(&dword_272965000, v29, OS_LOG_TYPE_DEFAULT, "Connect to %{public}@ called by client %{public}@ (%@) - process %{public}@ (%d) - options %@", buf, 0x3Au);
     }
 
@@ -2993,9 +3277,9 @@ LABEL_42:
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v51 = peerCopy;
-          v52 = 2048;
-          v53 = 0x4024000000000000;
+          v50 = peerCopy;
+          v51 = 2048;
+          v52 = 0x4024000000000000;
           _os_log_impl(&dword_272965000, v38, OS_LOG_TYPE_INFO, "Setting connection timer for peer %@ with time %.2f ", buf, 0x16u);
         }
 
@@ -3009,16 +3293,16 @@ LABEL_42:
         handler[1] = 3221225472;
         handler[2] = __39__WPDClient_connectToPeer_withOptions___block_invoke_818;
         handler[3] = &unk_279E590A0;
-        objc_copyWeak(&v49, buf);
+        objc_copyWeak(&v48, buf);
         v42 = peerCopy;
-        v48 = v42;
+        v47 = v42;
         dispatch_source_set_event_handler(v40, handler);
         [(WPDClient *)self cancelConnectionTimer:v42];
         connectionTimer = [(WPDClient *)self connectionTimer];
         [connectionTimer setObject:v40 forKeyedSubscript:v42];
 
         dispatch_resume(v40);
-        objc_destroyWeak(&v49);
+        objc_destroyWeak(&v48);
         objc_destroyWeak(buf);
       }
     }
@@ -3038,33 +3322,29 @@ LABEL_42:
   }
 
 LABEL_43:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __39__WPDClient_connectToPeer_withOptions___block_invoke_818(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
     v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"The connection to peer %@ didn't complete in %.2f seconds", *(a1 + 32), 0x4024000000000000];
     v4 = MEMORY[0x277CCA9B8];
-    v8 = *MEMORY[0x277CCA450];
-    v9[0] = v3;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = *MEMORY[0x277CCA450];
+    v8[0] = v3;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     v6 = [v4 errorWithDomain:@"WPErrorDomain" code:7 userInfo:v5];
 
     [WeakRetained connectedDevice:*(a1 + 32) withError:v6 shouldDiscover:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectedDevice:(id)device withError:(id)error shouldDiscover:(BOOL)discover
 {
   discoverCopy = discover;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   errorCopy = error;
   if (WPLogInitOnce != -1)
@@ -3077,9 +3357,9 @@ void __39__WPDClient_connectToPeer_withOptions___block_invoke_818(uint64_t a1)
   {
     v11 = v10;
     localizedDescription = [errorCopy localizedDescription];
-    v30 = 138543362;
-    v31 = localizedDescription;
-    _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "Sending connected device with error %{public}@", &v30, 0xCu);
+    v29 = 138543362;
+    v30 = localizedDescription;
+    _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "Sending connected device with error %{public}@", &v29, 0xCu);
   }
 
   [(WPDClient *)self cancelConnectionTimer:deviceCopy];
@@ -3137,8 +3417,8 @@ LABEL_25:
     v28 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v30) = 0;
-      _os_log_impl(&dword_272965000, v28, OS_LOG_TYPE_DEFAULT, "connectedDevice over GATT", &v30, 2u);
+      LOWORD(v29) = 0;
+      _os_log_impl(&dword_272965000, v28, OS_LOG_TYPE_DEFAULT, "connectedDevice over GATT", &v29, 2u);
     }
 
     conn = [(WPDClient *)self conn];
@@ -3158,19 +3438,17 @@ LABEL_25:
   v21 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v30) = 0;
-    _os_log_impl(&dword_272965000, v21, OS_LOG_TYPE_DEFAULT, "connectedDevice over Pipe, set didConnectSent flag", &v30, 2u);
+    LOWORD(v29) = 0;
+    _os_log_impl(&dword_272965000, v21, OS_LOG_TYPE_DEFAULT, "connectedDevice over Pipe, set didConnectSent flag", &v29, 2u);
   }
 
   [v14 setDidConnectSent:1];
 LABEL_26:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectedDeviceOverLEPipe:(id)pipe
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   pipeCopy = pipe;
   if (WPLogInitOnce != -1)
   {
@@ -3183,13 +3461,13 @@ LABEL_26:
     v6 = v5;
     clientUUID = [(WPDClient *)self clientUUID];
     processName = [(WPDClient *)self processName];
-    v21 = 138412802;
-    v22 = pipeCopy;
-    v23 = 2112;
-    v24 = clientUUID;
-    v25 = 2112;
-    v26 = processName;
-    _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "Sending connected device over LE pipe to peer %@ for client %@ (%@)", &v21, 0x20u);
+    v20 = 138412802;
+    v21 = pipeCopy;
+    v22 = 2112;
+    v23 = clientUUID;
+    v24 = 2112;
+    v25 = processName;
+    _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "Sending connected device over LE pipe to peer %@ for client %@ (%@)", &v20, 0x20u);
   }
 
   [(WPDClient *)self cancelConnectionTimer:pipeCopy];
@@ -3206,8 +3484,8 @@ LABEL_26:
     v11 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "Setting didConnectSent flag", &v21, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "Setting didConnectSent flag", &v20, 2u);
     }
 
     [v10 setDidConnectSent:1];
@@ -3228,27 +3506,25 @@ LABEL_26:
     clientTypeString = [(WPDClient *)self clientTypeString];
     processName2 = [(WPDClient *)self processName];
     lePipePeersSet2 = [(WPDClient *)self lePipePeersSet];
-    v21 = 138413058;
-    v22 = clientTypeString;
-    v23 = 2112;
-    v24 = processName2;
-    v25 = 2112;
-    v26 = pipeCopy;
-    v27 = 2112;
-    v28 = lePipePeersSet2;
-    _os_log_impl(&dword_272965000, v14, OS_LOG_TYPE_DEFAULT, "%@ (%@) connected over LE Pipe %@, current pipes %@", &v21, 0x2Au);
+    v20 = 138413058;
+    v21 = clientTypeString;
+    v22 = 2112;
+    v23 = processName2;
+    v24 = 2112;
+    v25 = pipeCopy;
+    v26 = 2112;
+    v27 = lePipePeersSet2;
+    _os_log_impl(&dword_272965000, v14, OS_LOG_TYPE_DEFAULT, "%@ (%@) connected over LE Pipe %@, current pipes %@", &v20, 0x2Au);
   }
 
   conn = [(WPDClient *)self conn];
   remoteObjectProxy = [conn remoteObjectProxy];
   [remoteObjectProxy connectedDeviceOverLEPipe:pipeCopy];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectFromPeer:(id)peer
 {
-  *&v43[11] = *MEMORY[0x277D85DE8];
+  *&v42[11] = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   if (![peerCopy isEqual:AllZeroUUID])
   {
@@ -3268,17 +3544,17 @@ LABEL_26:
       processName = [(WPDClient *)self processName];
       processID = [(WPDClient *)self processID];
       subscribedCharacteristics = [v6 subscribedCharacteristics];
-      v36 = 138544386;
-      v37 = peerCopy;
-      v38 = 2114;
-      v39 = clientUUID;
-      v40 = 2114;
-      v41 = processName;
-      v42 = 1024;
-      *v43 = processID;
-      v43[2] = 2114;
-      *&v43[3] = subscribedCharacteristics;
-      _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "Disconnect from %{public}@ called by client %{public}@ - process %{public}@ (%d) - subscribed characteristics: %{public}@", &v36, 0x30u);
+      v35 = 138544386;
+      v36 = peerCopy;
+      v37 = 2114;
+      v38 = clientUUID;
+      v39 = 2114;
+      v40 = processName;
+      v41 = 1024;
+      *v42 = processID;
+      v42[2] = 2114;
+      *&v42[3] = subscribedCharacteristics;
+      _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "Disconnect from %{public}@ called by client %{public}@ - process %{public}@ (%d) - subscribed characteristics: %{public}@", &v35, 0x30u);
     }
 
     if (![(WPDClient *)self registered])
@@ -3311,9 +3587,9 @@ LABEL_26:
       v21 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_INFO))
       {
-        v36 = 138412290;
-        v37 = peerCopy;
-        _os_log_impl(&dword_272965000, v21, OS_LOG_TYPE_INFO, "WPDConnection doesn't exist for %@", &v36, 0xCu);
+        v35 = 138412290;
+        v36 = peerCopy;
+        _os_log_impl(&dword_272965000, v21, OS_LOG_TYPE_INFO, "WPDConnection doesn't exist for %@", &v35, 0xCu);
       }
 
       lePipePeersSet = [(WPDClient *)self lePipePeersSet];
@@ -3333,15 +3609,15 @@ LABEL_26:
           clientTypeString = [(WPDClient *)self clientTypeString];
           processName2 = [(WPDClient *)self processName];
           lePipePeersSet2 = [(WPDClient *)self lePipePeersSet];
-          v36 = 138413058;
-          v37 = clientTypeString;
-          v38 = 2112;
-          v39 = processName2;
-          v40 = 2112;
-          v41 = peerCopy;
-          v42 = 2112;
-          *v43 = lePipePeersSet2;
-          _os_log_impl(&dword_272965000, v25, OS_LOG_TYPE_DEFAULT, "%@ (%@) Disconnect over LE Pipe %@, current pipes %@", &v36, 0x2Au);
+          v35 = 138413058;
+          v36 = clientTypeString;
+          v37 = 2112;
+          v38 = processName2;
+          v39 = 2112;
+          v40 = peerCopy;
+          v41 = 2112;
+          *v42 = lePipePeersSet2;
+          _os_log_impl(&dword_272965000, v25, OS_LOG_TYPE_DEFAULT, "%@ (%@) Disconnect over LE Pipe %@, current pipes %@", &v35, 0x2Au);
         }
 
         v29 = objc_loadWeakRetained(&self->_pipeManager);
@@ -3407,13 +3683,11 @@ LABEL_34:
   }
 
 LABEL_35:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectedPeer:(id)peer error:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   errorCopy = error;
   connections = [(WPDClient *)self connections];
@@ -3470,9 +3744,9 @@ LABEL_23:
       }
 
       v21 = MEMORY[0x277CCA9B8];
-      v24 = *MEMORY[0x277CCA450];
-      v25 = conn;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v23 = *MEMORY[0x277CCA450];
+      v24 = conn;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       remoteObjectProxy = [v21 errorWithDomain:@"WPErrorDomain" code:7 userInfo:v22];
 
       [(WPDClient *)self connectedDevice:peerCopy withError:remoteObjectProxy shouldDiscover:0];
@@ -3490,7 +3764,7 @@ LABEL_23:
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = peerCopy;
+    v26 = peerCopy;
     _os_log_impl(&dword_272965000, v14, OS_LOG_TYPE_DEFAULT, "Disconnected peer %@ but no connection object is set - check to see if we have pending connection", buf, 0xCu);
   }
 
@@ -3510,13 +3784,11 @@ LABEL_23:
 
 LABEL_24:
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectedDeviceOverLEPipe:(id)pipe withError:(id)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   pipeCopy = pipe;
   errorCopy = error;
   if (WPLogInitOnce != -1)
@@ -3532,17 +3804,17 @@ LABEL_24:
     clientUUID = [(WPDClient *)self clientUUID];
     processName = [(WPDClient *)self processName];
     lePipePeersSet = [(WPDClient *)self lePipePeersSet];
-    v23 = 138413314;
-    v24 = pipeCopy;
-    v25 = 2112;
-    v26 = localizedDescription;
-    v27 = 2112;
-    v28 = clientUUID;
-    v29 = 2112;
-    v30 = processName;
-    v31 = 2112;
-    v32 = lePipePeersSet;
-    _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "Disconnected peer %@ over LE pipe with err %@ for client %@ (%@), pipe peers %@", &v23, 0x34u);
+    v22 = 138413314;
+    v23 = pipeCopy;
+    v24 = 2112;
+    v25 = localizedDescription;
+    v26 = 2112;
+    v27 = clientUUID;
+    v28 = 2112;
+    v29 = processName;
+    v30 = 2112;
+    v31 = lePipePeersSet;
+    _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "Disconnected peer %@ over LE pipe with err %@ for client %@ (%@), pipe peers %@", &v22, 0x34u);
   }
 
   lePipePeersSet2 = [(WPDClient *)self lePipePeersSet];
@@ -3565,13 +3837,11 @@ LABEL_24:
     connections = [(WPDClient *)self connections];
     [connections removeObjectForKey:pipeCopy];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createdConnection:(id)connection
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   kdebug_trace();
   fetchConnectionType = [connectionCopy fetchConnectionType];
@@ -3591,16 +3861,16 @@ LABEL_24:
 
     v8 = v14;
     clientUUID = [(WPDClient *)self clientUUID];
-    *v21 = 138543618;
-    *&v21[4] = getPeripheralUUID;
-    *&v21[12] = 2114;
-    *&v21[14] = clientUUID;
+    *v20 = 138543618;
+    *&v20[4] = getPeripheralUUID;
+    *&v20[12] = 2114;
+    *&v20[14] = clientUUID;
     v10 = "Created a connection to central %{public}@ for client %{public}@";
 LABEL_16:
-    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, v10, v21, 0x16u);
+    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, v10, v20, 0x16u);
 
 LABEL_17:
-    [(WPDClient *)self cancelConnectionTimer:getPeripheralUUID, *v21, *&v21[16], v22];
+    [(WPDClient *)self cancelConnectionTimer:getPeripheralUUID, *v20, *&v20[8], v21];
     goto LABEL_18;
   }
 
@@ -3624,10 +3894,10 @@ LABEL_17:
 
     v8 = v7;
     clientUUID = [(WPDClient *)self clientUUID];
-    *v21 = 138543618;
-    *&v21[4] = getPeripheralUUID;
-    *&v21[12] = 2114;
-    *&v21[14] = clientUUID;
+    *v20 = 138543618;
+    *&v20[4] = getPeripheralUUID;
+    *&v20[12] = 2114;
+    *&v20[14] = clientUUID;
     v10 = "Created a dual connection to peer %{public}@ for client %{public}@";
     goto LABEL_16;
   }
@@ -3642,11 +3912,11 @@ LABEL_17:
   {
     v12 = v11;
     clientUUID2 = [(WPDClient *)self clientUUID];
-    *v21 = 138543618;
-    *&v21[4] = getPeripheralUUID;
-    *&v21[12] = 2114;
-    *&v21[14] = clientUUID2;
-    _os_log_impl(&dword_272965000, v12, OS_LOG_TYPE_DEFAULT, "Created a connection to peripheral %{public}@ for client %{public}@", v21, 0x16u);
+    *v20 = 138543618;
+    *&v20[4] = getPeripheralUUID;
+    *&v20[12] = 2114;
+    *&v20[14] = clientUUID2;
+    _os_log_impl(&dword_272965000, v12, OS_LOG_TYPE_DEFAULT, "Created a connection to peripheral %{public}@ for client %{public}@", v20, 0x16u);
   }
 
 LABEL_18:
@@ -3663,9 +3933,9 @@ LABEL_18:
     v17 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 138543362;
-      *&v21[4] = getPeripheralUUID;
-      _os_log_impl(&dword_272965000, v17, OS_LOG_TYPE_DEFAULT, "Being given a new connection to %{public}@ when we already have a connection to it", v21, 0xCu);
+      *v20 = 138543362;
+      *&v20[4] = getPeripheralUUID;
+      _os_log_impl(&dword_272965000, v17, OS_LOG_TYPE_DEFAULT, "Being given a new connection to %{public}@ when we already have a connection to it", v20, 0xCu);
     }
   }
 
@@ -3679,13 +3949,11 @@ LABEL_18:
 
   getPeripheralUUID2 = [connectionCopy getPeripheralUUID];
   [(WPDClient *)self connectedDevice:getPeripheralUUID2 withError:0 shouldDiscover:1];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelConnectionTimer:(id)timer
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   connectionTimer = [(WPDClient *)self connectionTimer];
   v6 = [connectionTimer objectForKeyedSubscript:timerCopy];
@@ -3700,9 +3968,9 @@ LABEL_18:
     v7 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = timerCopy;
-      _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "Cancel connnection timer for peer %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = timerCopy;
+      _os_log_impl(&dword_272965000, v7, OS_LOG_TYPE_DEFAULT, "Cancel connnection timer for peer %@", &v11, 0xCu);
     }
 
     connectionTimer2 = [(WPDClient *)self connectionTimer];
@@ -3712,13 +3980,211 @@ LABEL_18:
     connectionTimer3 = [(WPDClient *)self connectionTimer];
     [connectionTimer3 setObject:0 forKeyedSubscript:timerCopy];
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)shouldSubscribe:(BOOL)subscribe toPeer:(id)peer withCharacteristic:(id)characteristic inService:(id)service
+{
+  subscribeCopy = subscribe;
+  peerCopy = peer;
+  characteristicCopy = characteristic;
+  serviceCopy = service;
+  if ([peerCopy isEqual:AllZeroUUID])
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPDClient shouldSubscribe:toPeer:withCharacteristic:inService:];
+    }
+
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+    {
+      [WPDClient shouldSubscribe:toPeer:withCharacteristic:inService:];
+    }
+  }
+
+  else
+  {
+    connections = [(WPDClient *)self connections];
+    v14 = [connections objectForKeyedSubscript:peerCopy];
+
+    if ([(WPDClient *)self registered]&& v14)
+    {
+      v15 = [v14 subscribe:subscribeCopy toPeer:peerCopy withCharacteristic:characteristicCopy inService:serviceCopy];
+    }
+
+    else
+    {
+      if (WPLogInitOnce != -1)
+      {
+        [WPDClient shouldSubscribe:toPeer:withCharacteristic:inService:];
+      }
+
+      if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+      {
+        [WPDClient shouldSubscribe:toPeer:withCharacteristic:inService:];
+      }
+    }
+  }
+}
+
+- (void)updatedNotificationState:(BOOL)state forCharacteristic:(id)characteristic inService:(id)service withPeripheral:(id)peripheral
+{
+  stateCopy = state;
+  characteristicCopy = characteristic;
+  serviceCopy = service;
+  peripheralCopy = peripheral;
+  lePipePeersSet = [(WPDClient *)self lePipePeersSet];
+  v14 = [lePipePeersSet containsObject:peripheralCopy];
+
+  if (v14)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPDClient updatedNotificationState:forCharacteristic:inService:withPeripheral:];
+    }
+
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+    {
+      [WPDClient updatedNotificationState:forCharacteristic:inService:withPeripheral:];
+    }
+
+    lePipePeersSet2 = [(WPDClient *)self lePipePeersSet];
+    [lePipePeersSet2 removeObject:peripheralCopy];
+  }
+
+  connections = [(WPDClient *)self connections];
+  v17 = [connections objectForKeyedSubscript:peripheralCopy];
+
+  if ([v17 didConnectSent] && objc_msgSend(v17, "fetchConnectionType") != 2)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPDClient updatedNotificationState:forCharacteristic:inService:withPeripheral:];
+    }
+
+    v20 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+    {
+      *v21 = 0;
+      _os_log_impl(&dword_272965000, v20, OS_LOG_TYPE_DEFAULT, "We've already sent a didConnect event as the central might have subscribed in the meantime. Not sending didConnect again because it's not dual connection", v21, 2u);
+    }
+  }
+
+  else
+  {
+    [v17 setDidConnectSent:1];
+    conn = [(WPDClient *)self conn];
+    remoteObjectProxy = [conn remoteObjectProxy];
+    [remoteObjectProxy updatedNotificationState:stateCopy forCharacteristic:characteristicCopy inService:serviceCopy withPeripheral:peripheralCopy];
+  }
+}
+
+- (void)central:(id)central subscribed:(BOOL)subscribed toCharacteristic:(id)characteristic inService:(id)service
+{
+  subscribedCopy = subscribed;
+  v36 = *MEMORY[0x277D85DE8];
+  centralCopy = central;
+  characteristicCopy = characteristic;
+  serviceCopy = service;
+  lePipePeersSet = [(WPDClient *)self lePipePeersSet];
+  v14 = [lePipePeersSet containsObject:centralCopy];
+
+  if (v14)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPDClient central:subscribed:toCharacteristic:inService:];
+    }
+
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+    {
+      [WPDClient central:subscribed:toCharacteristic:inService:];
+    }
+
+    lePipePeersSet2 = [(WPDClient *)self lePipePeersSet];
+    [lePipePeersSet2 removeObject:centralCopy];
+  }
+
+  lePipePeersSet3 = [(WPDClient *)self lePipePeersSet];
+  v17 = [lePipePeersSet3 containsObject:centralCopy];
+
+  if ((v17 & 1) == 0)
+  {
+    conn = [(WPDClient *)self conn];
+    remoteObjectProxy = [conn remoteObjectProxy];
+    [remoteObjectProxy central:centralCopy subscribed:subscribedCopy toCharacteristic:characteristicCopy inService:serviceCopy];
+  }
+
+  connections = [(WPDClient *)self connections];
+  v21 = [connections objectForKeyedSubscript:centralCopy];
+
+  if (subscribedCopy)
+  {
+    [v21 setDidConnectSent:1];
+  }
+
+  else
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPDClient central:subscribed:toCharacteristic:inService:];
+    }
+
+    v22 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v23 = v22;
+      uUIDString = [centralCopy UUIDString];
+      *buf = 138543618;
+      v33 = uUIDString;
+      v34 = 2114;
+      v35 = characteristicCopy;
+      _os_log_impl(&dword_272965000, v23, OS_LOG_TYPE_DEFAULT, "Central %{public}@ has unsubscribed from characteristics %{public}@", buf, 0x16u);
+    }
+
+    if (v21)
+    {
+      if (WPLogInitOnce != -1)
+      {
+        [WPDClient central:subscribed:toCharacteristic:inService:];
+      }
+
+      v25 = WiProxLog;
+      if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_272965000, v25, OS_LOG_TYPE_DEFAULT, "A connection already existed...disconnecting", buf, 2u);
+      }
+
+      [(WPDClient *)self disconnectFromPeer:centralCopy];
+    }
+
+    else
+    {
+      if (WPLogInitOnce != -1)
+      {
+        [WPDClient central:subscribed:toCharacteristic:inService:];
+      }
+
+      if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+      {
+        [WPDClient central:subscribed:toCharacteristic:inService:];
+      }
+
+      v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"A central unsubscribed while a connection didn't exist"];
+      v27 = MEMORY[0x277CCA9B8];
+      v30 = *MEMORY[0x277CCA450];
+      v31 = v26;
+      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v29 = [v27 errorWithDomain:@"WPErrorDomain" code:7 userInfo:v28];
+
+      [(WPDClient *)self connectedDevice:centralCopy withError:v29 shouldDiscover:0];
+    }
+  }
 }
 
 - (void)discoverCharacteristicsAndServices:(id)services forPeripheral:(id)peripheral
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   peripheralCopy = peripheral;
   connections = [(WPDClient *)self connections];
@@ -3734,11 +4200,11 @@ LABEL_18:
     v10 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_INFO))
     {
-      v12 = 138412546;
-      v13 = servicesCopy;
-      v14 = 2112;
-      v15 = peripheralCopy;
-      _os_log_impl(&dword_272965000, v10, OS_LOG_TYPE_INFO, "Trying to discover characteristics and services %@ on device %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = servicesCopy;
+      v13 = 2112;
+      v14 = peripheralCopy;
+      _os_log_impl(&dword_272965000, v10, OS_LOG_TYPE_INFO, "Trying to discover characteristics and services %@ on device %@", &v11, 0x16u);
     }
 
     [v9 discoverCharacteristicsAndServices:servicesCopy forPeripheral:peripheralCopy];
@@ -3756,13 +4222,11 @@ LABEL_18:
       [WPDClient discoverCharacteristicsAndServices:forPeripheral:];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)discoveredCharacteristicsAndServices:(id)services forPeripheral:(id)peripheral
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   peripheralCopy = peripheral;
   lePipePeersSet = [(WPDClient *)self lePipePeersSet];
@@ -3782,15 +4246,15 @@ LABEL_18:
       clientTypeString = [(WPDClient *)self clientTypeString];
       processName = [(WPDClient *)self processName];
       lePipePeersSet2 = [(WPDClient *)self lePipePeersSet];
-      v18 = 138413058;
-      v19 = clientTypeString;
-      v20 = 2112;
-      v21 = processName;
-      v22 = 2114;
-      v23 = peripheralCopy;
-      v24 = 2112;
-      v25 = lePipePeersSet2;
-      _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "%@ (%@) connected to LE pipe during service discovery %{public}@, current pipes %@", &v18, 0x2Au);
+      v17 = 138413058;
+      v18 = clientTypeString;
+      v19 = 2112;
+      v20 = processName;
+      v21 = 2114;
+      v22 = peripheralCopy;
+      v23 = 2112;
+      v24 = lePipePeersSet2;
+      _os_log_impl(&dword_272965000, v11, OS_LOG_TYPE_DEFAULT, "%@ (%@) connected to LE pipe during service discovery %{public}@, current pipes %@", &v17, 0x2Au);
     }
   }
 
@@ -3800,13 +4264,11 @@ LABEL_18:
     remoteObjectProxy = [conn remoteObjectProxy];
     [remoteObjectProxy discoveredCharacteristicsAndServices:servicesCopy forPeripheral:peripheralCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendDataToCharacteristic:(id)characteristic inService:(id)service forPeer:(id)peer
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   serviceCopy = service;
   peerCopy = peer;
@@ -3855,9 +4317,9 @@ LABEL_18:
         uUIDString = [peerCopy UUIDString];
         data3 = [characteristicCopy data];
         *buf = 138412546;
-        v33 = uUIDString;
-        v34 = 2048;
-        v35 = [data3 length];
+        v32 = uUIDString;
+        v33 = 2048;
+        v34 = [data3 length];
         _os_log_impl(&dword_272965000, v18, OS_LOG_TYPE_INFO, "Begin sending data to peer %@ of length %ld", buf, 0x16u);
       }
 
@@ -3899,9 +4361,9 @@ LABEL_27:
 
       v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"Device is already disconnected"];
       v26 = MEMORY[0x277CCA9B8];
-      v30 = *MEMORY[0x277CCA450];
-      v31 = v21;
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v29 = *MEMORY[0x277CCA450];
+      v30 = v21;
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       data4 = [v26 errorWithDomain:@"WPErrorDomain" code:7 userInfo:v27];
 
       uuid = [characteristicCopy data];
@@ -3925,13 +4387,11 @@ LABEL_26:
   }
 
 LABEL_28:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sentData:(id)data forCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral withError:(id)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   peripheralCopy = peripheral;
   errorCopy = error;
@@ -3951,25 +4411,23 @@ LABEL_28:
     uUIDString = [peripheralCopy UUIDString];
     v20 = [dataCopy length];
     localizedDescription = [errorCopy localizedDescription];
-    v25 = 138412802;
-    v26 = uUIDString;
-    v27 = 2048;
-    v28 = v20;
-    v29 = 2112;
-    v30 = localizedDescription;
-    _os_log_impl(&dword_272965000, v18, OS_LOG_TYPE_INFO, "End sending data to peer %@ of length %ld with error: %@", &v25, 0x20u);
+    v24 = 138412802;
+    v25 = uUIDString;
+    v26 = 2048;
+    v27 = v20;
+    v28 = 2112;
+    v29 = localizedDescription;
+    _os_log_impl(&dword_272965000, v18, OS_LOG_TYPE_INFO, "End sending data to peer %@ of length %ld with error: %@", &v24, 0x20u);
   }
 
   conn = [(WPDClient *)self conn];
   remoteObjectProxy = [conn remoteObjectProxy];
   [remoteObjectProxy sentData:dataCopy forCharacteristic:characteristicCopy inService:serviceCopy forPeripheral:peripheralCopy withError:errorCopy];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sentData:(id)data toEndpoint:(id)endpoint forPeripheral:(id)peripheral withError:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   endpointCopy = endpoint;
   peripheralCopy = peripheral;
@@ -3986,27 +4444,25 @@ LABEL_28:
     uUIDString = [peripheralCopy UUIDString];
     v17 = [dataCopy length];
     localizedDescription = [errorCopy localizedDescription];
-    v22 = 138413058;
-    v23 = uUIDString;
-    v24 = 2048;
-    v25 = v17;
-    v26 = 2112;
-    v27 = endpointCopy;
-    v28 = 2112;
-    v29 = localizedDescription;
-    _os_log_impl(&dword_272965000, v15, OS_LOG_TYPE_INFO, "End sending data to peer %@ of length %ld to enpoint %@ with error: %@", &v22, 0x2Au);
+    v21 = 138413058;
+    v22 = uUIDString;
+    v23 = 2048;
+    v24 = v17;
+    v25 = 2112;
+    v26 = endpointCopy;
+    v27 = 2112;
+    v28 = localizedDescription;
+    _os_log_impl(&dword_272965000, v15, OS_LOG_TYPE_INFO, "End sending data to peer %@ of length %ld to enpoint %@ with error: %@", &v21, 0x2Au);
   }
 
   conn = [(WPDClient *)self conn];
   remoteObjectProxy = [conn remoteObjectProxy];
   [remoteObjectProxy sentData:dataCopy toEndpoint:endpointCopy forPeripheral:peripheralCopy withError:errorCopy];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedData:(id)data fromCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   characteristicCopy = characteristic;
   serviceCopy = service;
@@ -4019,22 +4475,20 @@ LABEL_28:
   v14 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
   {
-    v18 = v14;
+    v17 = v14;
     uUIDString = [peripheralCopy UUIDString];
-    v20 = 138412802;
-    v21 = characteristicCopy;
-    v22 = 2112;
-    v23 = serviceCopy;
-    v24 = 2112;
-    v25 = uUIDString;
-    _os_log_debug_impl(&dword_272965000, v18, OS_LOG_TYPE_DEBUG, "Client received value update for characteristic %@ in service %@ for peripheral %@. Notifying client implementation.", &v20, 0x20u);
+    v19 = 138412802;
+    v20 = characteristicCopy;
+    v21 = 2112;
+    v22 = serviceCopy;
+    v23 = 2112;
+    v24 = uUIDString;
+    _os_log_debug_impl(&dword_272965000, v17, OS_LOG_TYPE_DEBUG, "Client received value update for characteristic %@ in service %@ for peripheral %@. Notifying client implementation.", &v19, 0x20u);
   }
 
   conn = [(WPDClient *)self conn];
   remoteObjectProxy = [conn remoteObjectProxy];
   [remoteObjectProxy receivedData:dataCopy forCharacteristic:characteristicCopy inService:serviceCopy forPeripheral:peripheralCopy];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedData:(id)data fromEndpoint:(id)endpoint forPeripheral:(id)peripheral
@@ -4089,7 +4543,7 @@ LABEL_28:
 
 void __33__WPDClient_enableRanging_reply___block_invoke(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (!WeakRetained)
   {
@@ -4110,9 +4564,9 @@ void __33__WPDClient_enableRanging_reply___block_invoke(uint64_t a1)
     }
 
     v10 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CCA450];
-    v21[0] = @"Ranging is not supported.";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x277CCA450];
+    v20[0] = @"Ranging is not supported.";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v12 = v10;
     v13 = 27;
     goto LABEL_15;
@@ -4132,9 +4586,9 @@ void __33__WPDClient_enableRanging_reply___block_invoke(uint64_t a1)
     }
 
     v15 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA450];
-    v19 = @"The client is not entitled to manipulate ranging.";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18 = @"The client is not entitled to manipulate ranging.";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     v12 = v15;
     v13 = 29;
 LABEL_15:
@@ -4168,7 +4622,6 @@ LABEL_16:
   }
 
 LABEL_20:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isRangingEnabledReply:(id)reply
@@ -4191,7 +4644,7 @@ LABEL_20:
 
 void __35__WPDClient_isRangingEnabledReply___block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -4218,9 +4671,9 @@ void __35__WPDClient_isRangingEnabledReply___block_invoke(uint64_t a1)
       }
 
       v8 = MEMORY[0x277CCA9B8];
-      v12 = *MEMORY[0x277CCA450];
-      v13[0] = @"The client is not entitled to manipulate ranging";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v11 = *MEMORY[0x277CCA450];
+      v12[0] = @"The client is not entitled to manipulate ranging";
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
       v6 = [v8 errorWithDomain:@"WPErrorDomain" code:29 userInfo:v9];
 
       v5 = 0;
@@ -4237,8 +4690,47 @@ void __35__WPDClient_isRangingEnabledReply___block_invoke(uint64_t a1)
       [v3 rangingEnabled:v5 withError:v6];
     }
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)rangingEnabled:(BOOL)enabled withError:(id)error
+{
+  enabledCopy = enabled;
+  v21 = *MEMORY[0x277D85DE8];
+  errorCopy = error;
+  if (WPLogInitOnce != -1)
+  {
+    [WPDClient rangingEnabled:withError:];
+  }
+
+  v7 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
+  {
+    if (enabledCopy)
+    {
+      v10 = "enabled";
+    }
+
+    else
+    {
+      v10 = "disabled";
+    }
+
+    v11 = v7;
+    processName = [(WPDClient *)self processName];
+    v13 = 136315906;
+    v14 = v10;
+    v15 = 2112;
+    v16 = processName;
+    v17 = 1024;
+    processID = [(WPDClient *)self processID];
+    v19 = 2112;
+    v20 = errorCopy;
+    _os_log_debug_impl(&dword_272965000, v11, OS_LOG_TYPE_DEBUG, "Ranging %s for client %@ (%d) with error: %@", &v13, 0x26u);
+  }
+
+  conn = [(WPDClient *)self conn];
+  remoteObjectProxy = [conn remoteObjectProxy];
+  [remoteObjectProxy rangingEnabled:enabledCopy withError:errorCopy];
 }
 
 - (void)checkAllowDuplicates:(id)duplicates
@@ -4307,7 +4799,7 @@ void __35__WPDClient_isRangingEnabledReply___block_invoke(uint64_t a1)
 
 - (void)overrideScanTimeout:(double)timeout
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDClient overrideScanTimeout:];
@@ -4318,20 +4810,19 @@ void __35__WPDClient_isRangingEnabledReply___block_invoke(uint64_t a1)
   {
     v6 = v5;
     clientTypeString = [(WPDClient *)self clientTypeString];
-    v9 = 134218242;
+    v8 = 134218242;
     timeoutCopy = timeout;
-    v11 = 2112;
-    v12 = clientTypeString;
-    _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "Overriding scan timeout to %f for %@", &v9, 0x16u);
+    v10 = 2112;
+    v11 = clientTypeString;
+    _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "Overriding scan timeout to %f for %@", &v8, 0x16u);
   }
 
   [(WPDClient *)self setScanTimeout:timeout];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)overrideAdvTimeout:(double)timeout
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDClient overrideAdvTimeout:];
@@ -4342,15 +4833,14 @@ void __35__WPDClient_isRangingEnabledReply___block_invoke(uint64_t a1)
   {
     v6 = v5;
     clientTypeString = [(WPDClient *)self clientTypeString];
-    v9 = 134218242;
+    v8 = 134218242;
     timeoutCopy = timeout;
-    v11 = 2112;
-    v12 = clientTypeString;
-    _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "Overriding advertising timeout to %f for %@", &v9, 0x16u);
+    v10 = 2112;
+    v11 = clientTypeString;
+    _os_log_impl(&dword_272965000, v6, OS_LOG_TYPE_DEFAULT, "Overriding advertising timeout to %f for %@", &v8, 0x16u);
   }
 
   [(WPDClient *)self setAdvTimeout:timeout];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPowerLogStats:(id)stats
@@ -4365,7 +4855,7 @@ void __35__WPDClient_isRangingEnabledReply___block_invoke(uint64_t a1)
 
 - (void)disableScanning
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(WPDClient *)self canDisableScans])
   {
     if (WPLogInitOnce != -1)
@@ -4379,8 +4869,8 @@ void __35__WPDClient_isRangingEnabledReply___block_invoke(uint64_t a1)
       v4 = v3;
       processName = [(WPDClient *)self processName];
       *buf = 138543618;
-      v13 = processName;
-      v14 = 1024;
+      v11 = processName;
+      v12 = 1024;
       processID = [(WPDClient *)self processID];
       _os_log_impl(&dword_272965000, v4, OS_LOG_TYPE_DEFAULT, "Disabling all scanning called by process %{public}@ (%d)", buf, 0x12u);
     }
@@ -4388,16 +4878,13 @@ void __35__WPDClient_isRangingEnabledReply___block_invoke(uint64_t a1)
     server = [(WPDClient *)self server];
     clientUUID = [(WPDClient *)self clientUUID];
     [server disableScanningForClient:clientUUID];
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = MEMORY[0x277CBEAD8];
+    v8 = MEMORY[0x277CBEAD8];
     processName2 = [(WPDClient *)self processName];
-    [v9 raise:@"Illegal Operation" format:{@"Disabling scans for process %@ is not supported", processName2}];
-    v10 = *MEMORY[0x277D85DE8];
+    [v8 raise:@"Illegal Operation" format:{@"Disabling scans for process %@ is not supported", processName2}];
   }
 }
 
@@ -4419,9 +4906,40 @@ void __35__WPDClient_isRangingEnabledReply___block_invoke(uint64_t a1)
   [server dumpDaemonState];
 }
 
+- (void)registerEndpoint:(id)endpoint requireAck:(BOOL)ack requireEncryption:(BOOL)encryption
+{
+  v17 = *MEMORY[0x277D85DE8];
+  if (endpoint)
+  {
+    encryptionCopy = encryption;
+    ackCopy = ack;
+    endpointsSet = self->_endpointsSet;
+    endpointCopy = endpoint;
+    [(NSMutableSet *)endpointsSet addObject:endpointCopy];
+    WeakRetained = objc_loadWeakRetained(&self->_pipeManager);
+    clientUUID = [(WPDClient *)self clientUUID];
+    [WeakRetained registerEndpoint:endpointCopy requireAck:ackCopy requireEncryption:encryptionCopy forClient:clientUUID];
+
+    if (WPLogInitOnce != -1)
+    {
+      [WPDClient registerEndpoint:requireAck:requireEncryption:];
+    }
+
+    v12 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v12;
+      endpointsSet = [(WPDClient *)self endpointsSet];
+      v15 = 138412290;
+      v16 = endpointsSet;
+      _os_log_impl(&dword_272965000, v13, OS_LOG_TYPE_DEFAULT, "registerEndpoint: %@", &v15, 0xCu);
+    }
+  }
+}
+
 - (void)unregisterEndpoint:(id)endpoint
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (endpoint)
   {
     endpointsSet = self->_endpointsSet;
@@ -4441,13 +4959,11 @@ void __35__WPDClient_isRangingEnabledReply___block_invoke(uint64_t a1)
     {
       v9 = v8;
       endpointsSet = [(WPDClient *)self endpointsSet];
-      v12 = 138412290;
-      v13 = endpointsSet;
-      _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "unregisterEndpoint: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = endpointsSet;
+      _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "unregisterEndpoint: %@", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendDatatoLePipe:(id)pipe forPeer:(id)peer
@@ -4627,54 +5143,43 @@ uint64_t __29__WPDClient_sendTestRequest___block_invoke_987(uint64_t a1)
   return WeakRetained;
 }
 
-- (void)initWithXPCConnection:(unsigned int *)a1 server:(uint64_t *)a2 .cold.2(unsigned int *a1, uint64_t *a2)
+- (void)initWithXPCConnection:server:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = *a2;
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_22();
   OUTLINED_FUNCTION_7();
-  v8 = v4;
-  OUTLINED_FUNCTION_15(&dword_272965000, v5, v5, "PID %d bundleID %@", v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  OUTLINED_FUNCTION_15(&dword_272965000, v1, v1, "PID %d bundleID %@", v2);
 }
 
-- (void)initWithXPCConnection:(unsigned int *)a1 server:(uint64_t *)a2 .cold.4(unsigned int *a1, uint64_t *a2)
+- (void)initWithXPCConnection:server:.cold.4()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = *a2;
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_22();
   OUTLINED_FUNCTION_7();
-  v8 = v4;
-  OUTLINED_FUNCTION_15(&dword_272965000, v5, v5, "PID %d bundleID %@ from local process", v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  OUTLINED_FUNCTION_15(&dword_272965000, v1, v1, "PID %d bundleID %@ from local process", v2);
 }
 
 void __42__WPDClient_initWithXPCConnection_server___block_invoke_490_cold_2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = AllZeroUUID;
-  _os_log_debug_impl(&dword_272965000, log, OS_LOG_TYPE_DEBUG, "Initialised AllZeroUUID to %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = AllZeroUUID;
+  _os_log_debug_impl(&dword_272965000, log, OS_LOG_TYPE_DEBUG, "Initialised AllZeroUUID to %@", &v1, 0xCu);
 }
 
 - (void)registerWithDaemon:(void *)a1 forProcess:(void *)a2 machName:holdVouchers:.cold.3(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 clientUUID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAdvertising:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v4 = a1;
   [a2 processName];
   objc_claimAutoreleasedReturnValue();
@@ -4682,47 +5187,37 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490_cold_2(os_l
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x12u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAdvertising_async:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a1;
   OUTLINED_FUNCTION_20();
   v5 = [a2 clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAdvertising_async:.cold.6()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_22();
-  _os_log_debug_impl(&dword_272965000, v0, OS_LOG_TYPE_DEBUG, "Canceled previous advert timer for client %d", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_272965000, v0, OS_LOG_TYPE_DEBUG, "Canceled previous advert timer for client %d", v1, 8u);
 }
 
 - (void)startAdvertising_async:(void *)a1 .cold.9(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 processID];
   v4 = [a2 clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x12u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAdvertising:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v4 = a1;
   [a2 processName];
   objc_claimAutoreleasedReturnValue();
@@ -4730,83 +5225,66 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490_cold_2(os_l
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x12u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAdvertising_async:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_9() processID];
   v3 = [OUTLINED_FUNCTION_10() clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAdvertising_async:(void *)a1 .cold.5(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_9() processID];
   v3 = [OUTLINED_FUNCTION_10() clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAdvertising_async:(void *)a1 .cold.7(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_9() localizedDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyClientStateChange:(void *)a1 Restricted:.cold.2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [OUTLINED_FUNCTION_9() processName];
   objc_claimAutoreleasedReturnValue();
-  v5[0] = 67109890;
-  v5[1] = 3;
-  v6 = 1024;
-  v7 = 2;
-  v8 = 2112;
-  v9 = v2;
-  v10 = 1024;
-  v11 = [OUTLINED_FUNCTION_10() processID];
-  _os_log_debug_impl(&dword_272965000, v1, OS_LOG_TYPE_DEBUG, "Modified state %d -> %d for client %@ (%d) per <rdar://problem/33456853>", v5, 0x1Eu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109890;
+  v4[1] = 3;
+  v5 = 1024;
+  v6 = 2;
+  v7 = 2112;
+  v8 = v2;
+  v9 = 1024;
+  v10 = [OUTLINED_FUNCTION_10() processID];
+  _os_log_debug_impl(&dword_272965000, v1, OS_LOG_TYPE_DEBUG, "Modified state %d -> %d for client %@ (%d) per <rdar://problem/33456853>", v4, 0x1Eu);
 }
 
 - (void)notifyClientStateChange:(void *)a1 Restricted:(void *)a2 .cold.4(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = [OUTLINED_FUNCTION_18() processName];
   [a2 processID];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x1Cu);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startScanning:(void *)a1 withDispatch:(void *)a2 .cold.2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v4 = a1;
   [a2 processName];
   objc_claimAutoreleasedReturnValue();
@@ -4814,59 +5292,45 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490_cold_2(os_l
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x12u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startScanning_async:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a1;
   OUTLINED_FUNCTION_20();
   v5 = [a2 clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startScanning_async:(void *)a1 .cold.4(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a1;
   OUTLINED_FUNCTION_20();
   v5 = [a2 clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startScanning_async:(void *)a1 .cold.6(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a1;
   OUTLINED_FUNCTION_20();
   v5 = [a2 clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startScanning_async:(void *)a1 .cold.9(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 localizedDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startScanning_async:.cold.13()
@@ -4878,20 +5342,16 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490_cold_2(os_l
 
 - (void)startScanning_async:(void *)a1 .cold.15(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a1;
   OUTLINED_FUNCTION_20();
   v5 = [a2 clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopScanning:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v4 = a1;
   [a2 processName];
   objc_claimAutoreleasedReturnValue();
@@ -4899,125 +5359,96 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490_cold_2(os_l
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x12u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopScanning_async:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [OUTLINED_FUNCTION_9() processID];
   v4 = [OUTLINED_FUNCTION_10() clientUUID];
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x18u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopScanning_async:(void *)a1 .cold.4(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_9() processID];
   v3 = [OUTLINED_FUNCTION_10() clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopScanning_async:(void *)a1 .cold.6(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_9() processID];
   v3 = [OUTLINED_FUNCTION_10() clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearDuplicateFilterCache_async:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [OUTLINED_FUNCTION_9() processID];
   v4 = [OUTLINED_FUNCTION_10() clientUUID];
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x18u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearDuplicateFilterCache_async:(void *)a1 .cold.4(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_9() processID];
   v3 = [OUTLINED_FUNCTION_10() clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearDuplicateFilterCache_async:(void *)a1 .cold.6(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_9() processID];
   v3 = [OUTLINED_FUNCTION_10() clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTrackingZone:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopTrackingZones:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enteredZone:manufacturerData:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectToPeer:(void *)a1 withOptions:(void *)a2 .cold.2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 UUIDString];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectToPeer:withOptions:.cold.8()
@@ -5029,26 +5460,20 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490_cold_2(os_l
 
 - (void)connectedDevice:(void *)a1 withError:shouldDiscover:.cold.3(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_9() localizedDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectFromPeer:(void *)a1 .cold.3(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_9() UUIDString];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectFromPeer:.cold.7()
@@ -5060,20 +5485,16 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490_cold_2(os_l
 
 - (void)disconnectedPeer:error:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shouldSubscribe:toPeer:withCharacteristic:inService:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shouldSubscribe:toPeer:withCharacteristic:inService:.cold.4()
@@ -5085,20 +5506,16 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490_cold_2(os_l
 
 - (void)updatedNotificationState:forCharacteristic:inService:withPeripheral:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)central:subscribed:toCharacteristic:inService:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)central:subscribed:toCharacteristic:inService:.cold.6()
@@ -5117,14 +5534,11 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490_cold_2(os_l
 
 - (void)sendDataToCharacteristic:(void *)a1 inService:forPeer:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_18() registered];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_11();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendDataToCharacteristic:inService:forPeer:.cold.6()
@@ -5136,59 +5550,43 @@ void __42__WPDClient_initWithXPCConnection_server___block_invoke_490_cold_2(os_l
 
 - (void)receivedData:(uint64_t)a1 fromEndpoint:(void *)a2 forPeripheral:.cold.2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_10() UUIDString];
   OUTLINED_FUNCTION_19();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __33__WPDClient_enableRanging_reply___block_invoke_cold_2(uint64_t a1, id *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  *(a1 + 56);
-  v5 = *a2;
-  v6 = a3;
+  v5 = a3;
   [OUTLINED_FUNCTION_18() processID];
-  v7 = [*a2 clientUUID];
+  v6 = [*a2 clientUUID];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_21();
   OUTLINED_FUNCTION_11();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0x1Cu);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0x1Cu);
 }
 
 void __33__WPDClient_enableRanging_reply___block_invoke_cold_4(uint64_t a1, id *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  *(a1 + 56);
-  v5 = *a2;
-  v6 = a3;
+  v5 = a3;
   [OUTLINED_FUNCTION_18() processID];
-  v7 = [*a2 clientUUID];
+  v6 = [*a2 clientUUID];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_21();
   OUTLINED_FUNCTION_11();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0x1Cu);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0x1Cu);
 }
 
 void __35__WPDClient_isRangingEnabledReply___block_invoke_cold_2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_9() processID];
   v3 = [OUTLINED_FUNCTION_10() clientUUID];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkAllowDuplicates:.cold.2()
@@ -5200,50 +5598,38 @@ void __35__WPDClient_isRangingEnabledReply___block_invoke_cold_2(void *a1)
 
 - (void)sendTestRequest:(void *)a3 .cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v11 = [a3 clientUUID];
+  v10 = [a3 clientUUID];
   [a3 isTestModeClient];
   OUTLINED_FUNCTION_3_0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x1Cu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendTestRequest:(void *)a1 .cold.4(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 clientUUID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendTestRequest:(void *)a3 .cold.6(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a3 clientUUID];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedTestResponse:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_10() clientUUID];
   OUTLINED_FUNCTION_19();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

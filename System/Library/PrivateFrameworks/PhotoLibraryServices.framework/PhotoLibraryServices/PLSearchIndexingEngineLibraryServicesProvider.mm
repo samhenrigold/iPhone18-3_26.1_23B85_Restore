@@ -9,7 +9,7 @@
 
 - (id)createLogger
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   pathManager = [(PLSearchIndexingEngineLibraryServicesProvider *)self pathManager];
   libraryURL = [pathManager libraryURL];
 
@@ -81,156 +81,172 @@
 
     if (!v17)
     {
-      goto LABEL_33;
+      goto LABEL_39;
     }
 
     if (v14)
     {
-      v67 = 0u;
       v68 = 0u;
-      v65 = 0u;
+      v69 = 0u;
       v66 = 0u;
-      v63 = 0u;
+      v67 = 0u;
       v64 = 0u;
-      v61 = 0u;
+      v65 = 0u;
       v62 = 0u;
-      v59 = 0u;
+      v63 = 0u;
       v60 = 0u;
-      v57 = 0u;
+      v61 = 0u;
       v58 = 0u;
-      v55 = 0u;
+      v59 = 0u;
       v56 = 0u;
-      v53 = 0u;
+      v57 = 0u;
       v54 = 0u;
-      v51 = 0u;
+      v55 = 0u;
       v52 = 0u;
-      v49 = 0u;
+      v53 = 0u;
       v50 = 0u;
-      v47 = 0u;
+      v51 = 0u;
       v48 = 0u;
-      v45 = 0u;
+      v49 = 0u;
       v46 = 0u;
-      v43 = 0u;
+      v47 = 0u;
       v44 = 0u;
-      v41 = 0u;
+      v45 = 0u;
       v42 = 0u;
-      v39 = 0u;
+      v43 = 0u;
       v40 = 0u;
+      v41 = 0u;
       memset(buf, 0, sizeof(buf));
       v18 = PLSearchBackendIndexStatusGetLog();
-      os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
-      lastPathComponent = [libraryURL lastPathComponent];
-      v34 = 138543618;
-      v35 = uuid;
-      v36 = 2114;
-      v37 = lastPathComponent;
-      LODWORD(v33) = 22;
-      v20 = _os_log_send_and_compose_impl();
-
-      [v14 logWithMessage:v20 fromCodeLocation:"PLSearchIndexingEngine.m" type:{155, 0, &v34, v33}];
-      if (v20 == buf)
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_33;
+        v19 = 3;
       }
 
-      v21 = v20;
-LABEL_26:
-      free(v21);
-      goto LABEL_33;
+      else
+      {
+        v19 = 2;
+      }
+
+      lastPathComponent = [libraryURL lastPathComponent];
+      v35 = 138543618;
+      v36 = uuid;
+      v37 = 2114;
+      v38 = lastPathComponent;
+      v21 = _os_log_send_and_compose_impl(v19, 0, buf, 512, &dword_19BF1F000, v18, 0, "[Search Logger]: Library identifier for library : [%{public}@ : %{public}@]", &v35, 22);
+
+      [v14 logWithMessage:v21 fromCodeLocation:"PLSearchIndexingEngine.m" type:{155, 0}];
+      if (v21 == buf)
+      {
+        goto LABEL_39;
+      }
+
+      v22 = v21;
+      goto LABEL_32;
     }
 
-    v26 = PLSearchBackendIndexStatusGetLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v28 = PLSearchBackendIndexStatusGetLog();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       lastPathComponent2 = [libraryURL lastPathComponent];
       *buf = 138543618;
       *&buf[4] = uuid;
       *&buf[12] = 2114;
       *&buf[14] = lastPathComponent2;
-      v28 = "[Search Logger]: Library identifier for library : [%{public}@ : %{public}@]";
-      v29 = v26;
-      v30 = OS_LOG_TYPE_DEFAULT;
-      v31 = 22;
-LABEL_31:
-      _os_log_impl(&dword_19BF1F000, v29, v30, v28, buf, v31);
+      v30 = "[Search Logger]: Library identifier for library : [%{public}@ : %{public}@]";
+      v31 = v28;
+      v32 = OS_LOG_TYPE_DEFAULT;
+      v33 = 22;
+LABEL_37:
+      _os_log_impl(&dword_19BF1F000, v31, v32, v30, buf, v33);
     }
   }
 
   else
   {
-    v22 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+    v23 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
 
-    if (!v22)
+    if (!v23)
     {
-      goto LABEL_33;
+      goto LABEL_39;
     }
 
     if (v14)
     {
-      v67 = 0u;
       v68 = 0u;
-      v65 = 0u;
+      v69 = 0u;
       v66 = 0u;
-      v63 = 0u;
+      v67 = 0u;
       v64 = 0u;
-      v61 = 0u;
+      v65 = 0u;
       v62 = 0u;
-      v59 = 0u;
+      v63 = 0u;
       v60 = 0u;
-      v57 = 0u;
+      v61 = 0u;
       v58 = 0u;
-      v55 = 0u;
+      v59 = 0u;
       v56 = 0u;
-      v53 = 0u;
+      v57 = 0u;
       v54 = 0u;
-      v51 = 0u;
+      v55 = 0u;
       v52 = 0u;
-      v49 = 0u;
+      v53 = 0u;
       v50 = 0u;
-      v47 = 0u;
+      v51 = 0u;
       v48 = 0u;
-      v45 = 0u;
+      v49 = 0u;
       v46 = 0u;
-      v43 = 0u;
+      v47 = 0u;
       v44 = 0u;
-      v41 = 0u;
+      v45 = 0u;
       v42 = 0u;
-      v39 = 0u;
+      v43 = 0u;
       v40 = 0u;
+      v41 = 0u;
       memset(buf, 0, sizeof(buf));
-      v23 = PLSearchBackendIndexStatusGetLog();
-      os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
-      lastPathComponent3 = [libraryURL lastPathComponent];
-      v34 = 138543362;
-      v35 = lastPathComponent3;
-      LODWORD(v33) = 12;
-      v25 = _os_log_send_and_compose_impl();
-
-      [v14 logWithMessage:v25 fromCodeLocation:"PLSearchIndexingEngine.m" type:{157, 16, &v34, v33}];
-      if (v25 == buf)
+      v24 = PLSearchBackendIndexStatusGetLog();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_33;
+        v25 = 3;
       }
 
-      v21 = v25;
-      goto LABEL_26;
+      else
+      {
+        v25 = 2;
+      }
+
+      lastPathComponent3 = [libraryURL lastPathComponent];
+      v35 = 138543362;
+      v36 = lastPathComponent3;
+      v27 = _os_log_send_and_compose_impl(v25, 0, buf, 512, &dword_19BF1F000, v24, 16, "[Search Logger]: Failed to obtain library identifier for library : %{public}@", &v35, 12);
+
+      [v14 logWithMessage:v27 fromCodeLocation:"PLSearchIndexingEngine.m" type:{157, 16}];
+      if (v27 == buf)
+      {
+        goto LABEL_39;
+      }
+
+      v22 = v27;
+LABEL_32:
+      free(v22);
+      goto LABEL_39;
     }
 
-    v26 = PLSearchBackendIndexStatusGetLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v28 = PLSearchBackendIndexStatusGetLog();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       lastPathComponent2 = [libraryURL lastPathComponent];
       *buf = 138543362;
       *&buf[4] = lastPathComponent2;
-      v28 = "[Search Logger]: Failed to obtain library identifier for library : %{public}@";
-      v29 = v26;
-      v30 = OS_LOG_TYPE_ERROR;
-      v31 = 12;
-      goto LABEL_31;
+      v30 = "[Search Logger]: Failed to obtain library identifier for library : %{public}@";
+      v31 = v28;
+      v32 = OS_LOG_TYPE_ERROR;
+      v33 = 12;
+      goto LABEL_37;
     }
   }
 
-LABEL_33:
+LABEL_39:
 
   return v14;
 }

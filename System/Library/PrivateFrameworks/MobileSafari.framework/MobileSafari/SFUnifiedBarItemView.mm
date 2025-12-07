@@ -947,7 +947,7 @@ LABEL_11:
 - (void)_updateBackgroundAlpha
 {
   themeColor = [(SFThemeColorBarTheme *)self->_barTheme themeColor];
-  v4 = SFBarBackgroundAlphaForSquishTransformFactor(self->_squishTransformFactor);
+  v4 = SFBarBackgroundAlphaForSquishTransformFactor(themeColor, self->_squishTransformFactor);
   if (themeColor)
   {
     v5 = _SFInterpolate(1.0 - 0.85, 0.0, self->_themeColorVisibility);
@@ -1200,7 +1200,7 @@ LABEL_11:
 - (void)_updateContentAlpha
 {
   contentAlpha = self->_contentAlpha;
-  v4 = contentAlpha * SFBarContentAlphaForSquishTransformFactor(self->_squishTransformFactor);
+  v4 = contentAlpha * SFBarContentAlphaForSquishTransformFactor(self, self->_squishTransformFactor);
   if (!self->_platterStyle && [(SFUnifiedBarItemView *)self isHighlighted])
   {
     v4 = v4 * dbl_18BC3D930[[(SFThemeColorBarTheme *)self->_barTheme userInterfaceStyle]== 2];
@@ -1404,7 +1404,7 @@ LABEL_11:
     {
       [(SFUnifiedBarItemView *)self bounds];
       [(UIView *)self->_glassView setFrame:?];
-      [(SFUnifiedBarItemView *)self cornerRadii];
+      objc_msgSend_cornerRadii(self);
       layer = [(UIView *)self->_glassView layer];
       v17[0] = v17[4];
       v17[1] = v17[5];
@@ -1669,7 +1669,7 @@ uint64_t __43__SFUnifiedBarItemView_setShowsSeparators___block_invoke(uint64_t a
     v9[8] = v4;
     v9[11] = v2;
     v9[12] = v3;
-    v7 = SFBarBackgroundAlphaForSquishTransformFactor(self->_squishTransformFactor);
+    v7 = SFBarBackgroundAlphaForSquishTransformFactor(self, self->_squishTransformFactor);
     if (UIAccessibilityButtonShapesEnabled())
     {
       visibleSeparatorEdges = 0;

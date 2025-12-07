@@ -71,22 +71,22 @@
   v5 = objc_alloc_init(CNContactStore);
   contactIdentifier = [recipientCopy contactIdentifier];
 
-  v40 = contactIdentifier;
-  v7 = [NSArray arrayWithObjects:&v40 count:1];
+  v41 = contactIdentifier;
+  v7 = [NSArray arrayWithObjects:&v41 count:1];
   v8 = [CNContact predicateForContactsWithIdentifiers:v7];
 
-  v39 = CNContactThumbnailImageDataKey;
-  v9 = [NSArray arrayWithObjects:&v39 count:1];
-  v34 = 0;
-  v10 = [v5 unifiedContactsMatchingPredicate:v8 keysToFetch:v9 error:&v34];
-  v11 = v34;
+  v40 = CNContactThumbnailImageDataKey;
+  v9 = [NSArray arrayWithObjects:&v40 count:1];
+  v35 = 0;
+  v10 = [v5 unifiedContactsMatchingPredicate:v8 keysToFetch:v9 error:&v35];
+  v11 = v35;
   if (v11)
   {
     firstObject = PKLogFacilityTypeGetObject();
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v38 = v11;
+      v39 = v11;
       _os_log_impl(&_mh_execute_header, firstObject, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentSiriSnippetContentView Error fetching contacts: %@", buf, 0xCu);
     }
   }
@@ -96,60 +96,60 @@
     firstObject = [v10 firstObject];
     if (firstObject)
     {
-      v33 = [UIImage _applicationIconImageForBundleIdentifier:@"com.apple.MobileSMS" format:2];
+      v34 = [UIImage _applicationIconImageForBundleIdentifier:@"com.apple.MobileSMS" format:2];
       v13 = objc_alloc_init(off_10000CBD0());
       [v13 setCropStyle:1];
-      v29 = v13;
-      [v13 setPosition:2];
-      v14 = objc_alloc_init(off_10000CBD8());
-      [v14 setBadgeStyleSettings:v13];
-      v36 = firstObject;
-      [NSArray arrayWithObjects:&v36 count:1];
-      v15 = v30 = v10;
-      v28 = v14;
-      [v14 setContacts:v15];
+      v30 = v13;
+      v14 = [v13 setPosition:2];
+      v15 = objc_alloc_init(off_10000CBD8(v14));
+      [v15 setBadgeStyleSettings:v13];
+      v37 = firstObject;
+      [NSArray arrayWithObjects:&v37 count:1];
+      v16 = v31 = v10;
+      v29 = v15;
+      [v15 setContacts:v16];
 
-      [v14 setBadgeImage:v33];
-      view = [v14 view];
+      [v15 setBadgeImage:v34];
+      view = [v15 view];
       recipientBadgedAvatarView = self->_recipientBadgedAvatarView;
       self->_recipientBadgedAvatarView = view;
 
-      LODWORD(v18) = 1148846080;
-      [(UIView *)self->_recipientBadgedAvatarView setContentCompressionResistancePriority:0 forAxis:v18];
       LODWORD(v19) = 1148846080;
-      [(UIView *)self->_recipientBadgedAvatarView setContentCompressionResistancePriority:1 forAxis:v19];
+      [(UIView *)self->_recipientBadgedAvatarView setContentCompressionResistancePriority:0 forAxis:v19];
       LODWORD(v20) = 1148846080;
-      [(UIView *)self->_recipientBadgedAvatarView setContentHuggingPriority:0 forAxis:v20];
+      [(UIView *)self->_recipientBadgedAvatarView setContentCompressionResistancePriority:1 forAxis:v20];
+      LODWORD(v21) = 1148846080;
+      [(UIView *)self->_recipientBadgedAvatarView setContentHuggingPriority:0 forAxis:v21];
       [(UIView *)self->_recipientBadgedAvatarView setTranslatesAutoresizingMaskIntoConstraints:0];
       widthAnchor = [(UIView *)self->_recipientBadgedAvatarView widthAnchor];
       [widthAnchor constraintEqualToConstant:64.0];
-      v22 = v31 = v9;
-      v35[0] = v22;
+      v23 = v32 = v9;
+      v36[0] = v23;
       [(UIView *)self->_recipientBadgedAvatarView heightAnchor];
-      v32 = v8;
-      v24 = v23 = v5;
-      v25 = [v24 constraintEqualToConstant:64.0];
-      v35[1] = v25;
-      v26 = [NSArray arrayWithObjects:v35 count:2];
-      [NSLayoutConstraint activateConstraints:v26];
+      v33 = v8;
+      v25 = v24 = v5;
+      v26 = [v25 constraintEqualToConstant:64.0];
+      v36[1] = v26;
+      v27 = [NSArray arrayWithObjects:v36 count:2];
+      [NSLayoutConstraint activateConstraints:v27];
 
-      v27 = v33;
-      v5 = v23;
-      v8 = v32;
+      v28 = v34;
+      v5 = v24;
+      v8 = v33;
 
-      v9 = v31;
-      v10 = v30;
+      v9 = v32;
+      v10 = v31;
       [(UIStackView *)self->_toFieldStackView insertArrangedSubview:self->_recipientBadgedAvatarView atIndex:0];
       [(PKPeerPaymentSiriSnippetContentView *)self setNeedsLayout];
     }
 
     else
     {
-      v27 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v28 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentSiriSnippetContentView Error no results from contacts query for image data", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "PKPeerPaymentSiriSnippetContentView Error no results from contacts query for image data", buf, 2u);
       }
     }
   }

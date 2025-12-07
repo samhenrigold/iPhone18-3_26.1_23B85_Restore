@@ -35,7 +35,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_29E07138C();
+  sub_29E07138C(v2);
 }
 
 - (void)nextButtonTapped:(id)tapped
@@ -46,7 +46,7 @@
   swift_unknownObjectRelease();
   sub_29E07158C();
 
-  sub_29DE93B3C(&v5);
+  sub_29DE93B3C(v5);
 }
 
 - (void)cancelButtonTapped:(id)tapped
@@ -93,11 +93,11 @@
 {
   selfCopy = self;
 
-  v4 = sub_29E06E164(0);
+  v5 = sub_29E06E164(0, v4);
 
-  v5 = v4[2];
+  v6 = v5[2];
 
-  return v5;
+  return v6;
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

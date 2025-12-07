@@ -270,9 +270,17 @@ void __82__UIAction_UITextInteractableItemDefaultAction__textInteractableItemDef
 {
   equalCopy = equal;
   objc_opt_class();
-  v5 = (objc_opt_isKindOfClass() & 1) != 0 && [(NSString *)self->_identifier isEqualToString:equalCopy[19]];
+  if (objc_opt_isKindOfClass())
+  {
+    isEqualToString = objc_msgSend_isEqualToString_(self->_identifier);
+  }
 
-  return v5;
+  else
+  {
+    isEqualToString = 0;
+  }
+
+  return isEqualToString;
 }
 
 - (void)setTitle:(NSString *)title
@@ -501,37 +509,37 @@ void __82__UIAction_UITextInteractableItemDefaultAction__textInteractableItemDef
 + (id)_textFromCameraTitleForResponder:(id)responder
 {
   v3 = [UIKeyboardCameraSession keyboardCameraContentTypeForResponder:responder];
-  if ([v3 isEqualToString:@"tel"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"Scan Phone Number";
   }
 
-  else if ([v3 isEqualToString:@"street-address"])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"Scan Address";
   }
 
-  else if ([v3 isEqualToString:@"url"])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"Scan URL";
   }
 
-  else if ([v3 isEqualToString:@"email"])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"Scan Email Address";
   }
 
-  else if ([v3 isEqualToString:@"flight-number"])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"Scan Flight Number";
   }
 
-  else if ([v3 isEqualToString:@"shipment-tracking-number"])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"Scan Tracking Number";
   }
 
-  else if ([v3 isEqualToString:@"date-time"])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = @"Scan Date or Time";
   }

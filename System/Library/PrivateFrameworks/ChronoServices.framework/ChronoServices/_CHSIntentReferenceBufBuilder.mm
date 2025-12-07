@@ -1,6 +1,6 @@
 @interface _CHSIntentReferenceBufBuilder
-- (id)initWithBufferBuilder:(id *)builder;
 - (void)dealloc;
+- (void)initWithBufferBuilder:(void *)builder;
 - (void)setIntentData:(id)data;
 - (void)setPartialIntentData:(id)data;
 - (void)setSchemaData:(id)data;
@@ -9,7 +9,7 @@
 
 @implementation _CHSIntentReferenceBufBuilder
 
-- (id)initWithBufferBuilder:(id *)builder
+- (void)initWithBufferBuilder:(void *)builder
 {
   v4 = a2;
   if (builder)
@@ -48,20 +48,16 @@
 
 - (void)setStableHash:(int64_t)hash
 {
-  v7 = *MEMORY[0x1E69E9840];
   firstError = [(AFBBufferBuilder *)self->_owner firstError];
 
   if (!firstError)
   {
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<long long>(self->_bldr->var0, 4, hash, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIntentData:(id)data
 {
-  v10 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (!dataCopy)
   {
@@ -76,13 +72,10 @@
     v7 = dataCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 6, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSchemaData:(id)data
 {
-  v10 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (!dataCopy)
   {
@@ -97,13 +90,10 @@
     v7 = dataCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 8, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPartialIntentData:(id)data
 {
-  v10 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (!dataCopy)
   {
@@ -118,8 +108,6 @@
     v7 = dataCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 10, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

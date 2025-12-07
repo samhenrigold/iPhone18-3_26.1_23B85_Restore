@@ -81,10 +81,7 @@
 
 uint64_t __47__HKSPSleepStoreModelCache_cachedSleepSchedule__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _locked_cachedSleepSchedule];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _locked_cachedSleepSchedule];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -216,10 +213,7 @@ void __63__HKSPSleepStoreModelCache_cachedSleepScheduleWithMissHandler___block_i
 
 uint64_t __47__HKSPSleepStoreModelCache_cachedSleepSettings__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _locked_cachedSleepSettings];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _locked_cachedSleepSettings];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -351,10 +345,7 @@ void __63__HKSPSleepStoreModelCache_cachedSleepSettingsWithMissHandler___block_i
 
 uint64_t __50__HKSPSleepStoreModelCache_cachedSleepEventRecord__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _locked_cachedSleepEventRecord];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _locked_cachedSleepEventRecord];
 
   return MEMORY[0x2821F96F8]();
 }

@@ -8,11 +8,11 @@
 
 - (ADInstallAttributionData)initWithDict:(id)dict
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
-  v86.receiver = self;
-  v86.super_class = ADInstallAttributionData;
-  v5 = [(ADInstallAttributionData *)&v86 init];
+  v85.receiver = self;
+  v85.super_class = ADInstallAttributionData;
+  v5 = [(ADInstallAttributionData *)&v85 init];
   if (!v5)
   {
     goto LABEL_16;
@@ -30,7 +30,7 @@
     {
       v12 = objc_opt_class();
       *buf = 138412290;
-      v88 = v12;
+      v87 = v12;
       _os_log_impl(&dword_264E42000, v11, OS_LOG_TYPE_INFO, "[%@] No version information, assuming SKIV V1", buf, 0xCu);
     }
   }
@@ -47,7 +47,7 @@
     {
       v19 = objc_opt_class();
       *buf = 138412290;
-      v88 = v19;
+      v87 = v19;
       _os_log_impl(&dword_264E42000, v18, OS_LOG_TYPE_INFO, "[%@] No Source App AdamID, assuming SKIV V1, or default is acceptable", buf, 0xCu);
     }
   }
@@ -68,9 +68,9 @@
     v52 = objc_opt_class();
     v57 = objc_msgSend_AD_jsonString(dictCopy, v53, v54, v55, v56);
     *buf = 138412546;
-    v88 = v52;
-    v89 = 2112;
-    v90 = v57;
+    v87 = v52;
+    v88 = 2112;
+    v89 = v57;
     v58 = "[%@] ERROR: No Ad Network ID was provided: %@";
 LABEL_29:
     _os_log_impl(&dword_264E42000, v51, OS_LOG_TYPE_ERROR, v58, buf, 0x16u);
@@ -94,9 +94,9 @@ LABEL_29:
     v59 = objc_opt_class();
     v57 = objc_msgSend_AD_jsonString(dictCopy, v60, v61, v62, v63);
     *buf = 138412546;
-    v88 = v59;
-    v89 = 2112;
-    v90 = v57;
+    v87 = v59;
+    v88 = 2112;
+    v89 = v57;
     v58 = "[%@] ERROR: No Campaign ID was provided: %@";
     goto LABEL_29;
   }
@@ -117,9 +117,9 @@ LABEL_29:
     v64 = objc_opt_class();
     v57 = objc_msgSend_AD_jsonString(dictCopy, v65, v66, v67, v68);
     *buf = 138412546;
-    v88 = v64;
-    v89 = 2112;
-    v90 = v57;
+    v87 = v64;
+    v88 = 2112;
+    v89 = v57;
     v58 = "[%@] ERROR: No UUID was provided: %@";
     goto LABEL_29;
   }
@@ -140,9 +140,9 @@ LABEL_29:
     v69 = objc_opt_class();
     v57 = objc_msgSend_AD_jsonString(dictCopy, v70, v71, v72, v73);
     *buf = 138412546;
-    v88 = v69;
-    v89 = 2112;
-    v90 = v57;
+    v87 = v69;
+    v88 = 2112;
+    v89 = v57;
     v58 = "[%@] ERROR: No Adam ID was provided: %@";
     goto LABEL_29;
   }
@@ -163,9 +163,9 @@ LABEL_29:
     v74 = objc_opt_class();
     v57 = objc_msgSend_AD_jsonString(dictCopy, v75, v76, v77, v78);
     *buf = 138412546;
-    v88 = v74;
-    v89 = 2112;
-    v90 = v57;
+    v87 = v74;
+    v88 = 2112;
+    v89 = v57;
     v58 = "[%@] ERROR: No Timestamp was provided: %@";
     goto LABEL_29;
   }
@@ -183,9 +183,9 @@ LABEL_29:
       v79 = objc_opt_class();
       v57 = objc_msgSend_AD_jsonString(dictCopy, v80, v81, v82, v83);
       *buf = 138412546;
-      v88 = v79;
-      v89 = 2112;
-      v90 = v57;
+      v87 = v79;
+      v88 = 2112;
+      v89 = v57;
       v58 = "[%@] ERROR: No Signature was provided: %@";
       goto LABEL_29;
     }
@@ -200,7 +200,6 @@ LABEL_16:
   v50 = v5;
 LABEL_31:
 
-  v84 = *MEMORY[0x277D85DE8];
   return v50;
 }
 
@@ -263,7 +262,7 @@ LABEL_31:
 
 - (void)recordStoreKitAdTap:(id)tap
 {
-  v123 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   tapCopy = tap;
   v5 = APLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -273,9 +272,9 @@ LABEL_31:
     v12 = objc_msgSend_dictionaryRepresentation(self, v8, v9, v10, v11);
     v17 = objc_msgSend_AD_jsonString(v12, v13, v14, v15, v16);
     *buf = 138412546;
-    v120 = v6;
-    v121 = 2112;
-    v122 = v17;
+    v119 = v6;
+    v120 = 2112;
+    v121 = v17;
     _os_log_impl(&dword_264E42000, v5, OS_LOG_TYPE_DEFAULT, "[%@] Attempting to update StoreKit Install Attribution with data: %@", buf, 0x16u);
   }
 
@@ -322,24 +321,22 @@ LABEL_31:
   {
     v106 = objc_opt_class();
     *buf = 138412546;
-    v120 = v106;
-    v121 = 2112;
-    v122 = v18;
+    v119 = v106;
+    v120 = 2112;
+    v121 = v18;
     v107 = v106;
     _os_log_impl(&dword_264E42000, v105, OS_LOG_TYPE_DEFAULT, "[%@] Making call to StoreKit Install Attribution with ASDInstallAttributionParamsConfig: %@", buf, 0x16u);
   }
 
   v112 = objc_msgSend_sharedInstance(MEMORY[0x277CEC3C8], v108, v109, v110, v111);
-  v117[0] = MEMORY[0x277D85DD0];
-  v117[1] = 3221225472;
-  v117[2] = sub_264E50808;
-  v117[3] = &unk_279B88AD0;
-  v117[4] = self;
-  v118 = tapCopy;
+  v116[0] = MEMORY[0x277D85DD0];
+  v116[1] = 3221225472;
+  v116[2] = sub_264E50808;
+  v116[3] = &unk_279B88AD0;
+  v116[4] = self;
+  v117 = tapCopy;
   v113 = tapCopy;
-  objc_msgSend_addInstallAttributionParamsWithConfig_completionHandler_(v112, v114, v18, v117, v115);
-
-  v116 = *MEMORY[0x277D85DE8];
+  objc_msgSend_addInstallAttributionParamsWithConfig_completionHandler_(v112, v114, v18, v116, v115);
 }
 
 @end

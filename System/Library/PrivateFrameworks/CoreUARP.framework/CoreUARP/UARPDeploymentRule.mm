@@ -158,11 +158,11 @@ LABEL_18:
 
 - (UARPDeploymentRule)initWithCoder:(id)coder
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = UARPDeploymentRule;
-  v5 = [(UARPDeploymentRule *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = UARPDeploymentRule;
+  v5 = [(UARPDeploymentRule *)&v22 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"goLiveDate"];
@@ -178,9 +178,9 @@ LABEL_18:
     v5->_deploymentLimit = v10;
 
     v12 = MEMORY[0x277CBEB98];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
     v14 = [v12 setWithArray:v13];
 
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"countryList"];
@@ -196,7 +196,6 @@ LABEL_18:
     v5->_maxOSVersion = v19;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -248,9 +247,7 @@ LABEL_18:
 
 - (void)setTestSerialNumber:(id)number
 {
-  v4 = [number copy];
-  testSerialNumber = self->_testSerialNumber;
-  self->_testSerialNumber = v4;
+  self->_testSerialNumber = [number copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -282,7 +279,7 @@ LABEL_18:
     v7 = processInfo;
     if (processInfo)
     {
-      [processInfo operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(processInfo);
     }
 
     else
@@ -362,7 +359,7 @@ LABEL_10:
 
 - (BOOL)isDeploymentAllowedPerGoLiveDate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   v4 = [date compare:self->_goLiveDate];
   log = self->_log;
@@ -372,12 +369,12 @@ LABEL_10:
     if (v6)
     {
       goLiveDate = self->_goLiveDate;
-      v14 = 136315650;
-      v15 = "[UARPDeploymentRule isDeploymentAllowedPerGoLiveDate]";
-      v16 = 2112;
-      v17 = goLiveDate;
-      v18 = 2112;
-      v19 = date;
+      v13 = 136315650;
+      v14 = "[UARPDeploymentRule isDeploymentAllowedPerGoLiveDate]";
+      v15 = 2112;
+      v16 = goLiveDate;
+      v17 = 2112;
+      v18 = date;
       v8 = "%s: GoLive %@ date today (today: %@), deployment allowed";
       goto LABEL_7;
     }
@@ -392,16 +389,16 @@ LABEL_8:
     if (v6)
     {
       v7 = self->_goLiveDate;
-      v14 = 136315650;
-      v15 = "[UARPDeploymentRule isDeploymentAllowedPerGoLiveDate]";
-      v16 = 2112;
-      v17 = v7;
-      v18 = 2112;
-      v19 = date;
+      v13 = 136315650;
+      v14 = "[UARPDeploymentRule isDeploymentAllowedPerGoLiveDate]";
+      v15 = 2112;
+      v16 = v7;
+      v17 = 2112;
+      v18 = date;
       v8 = "%s: GoLive %@ date in past (today: %@), deployment allowed";
 LABEL_7:
       v10 = 1;
-      _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, v8, &v14, 0x20u);
+      _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, v8, &v13, 0x20u);
       goto LABEL_12;
     }
 
@@ -411,34 +408,31 @@ LABEL_7:
   if (v6)
   {
     v11 = self->_goLiveDate;
-    v14 = 136315650;
-    v15 = "[UARPDeploymentRule isDeploymentAllowedPerGoLiveDate]";
-    v16 = 2112;
-    v17 = v11;
-    v18 = 2112;
-    v19 = date;
-    _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: GoLive date (%@) in future (today: %@), deployment not allowed", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[UARPDeploymentRule isDeploymentAllowedPerGoLiveDate]";
+    v15 = 2112;
+    v16 = v11;
+    v17 = 2112;
+    v18 = date;
+    _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: GoLive date (%@) in future (today: %@), deployment not allowed", &v13, 0x20u);
   }
 
   v10 = 0;
 LABEL_12:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)isDeploymentAllowedPerRampPeriod
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  time(&v13);
-  v3 = localtime(&v13);
+  v19 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  time(&v12);
+  v3 = localtime(&v12);
   deploymentDay = self->_deploymentDay;
   if (!deploymentDay)
   {
-LABEL_7:
-    v9 = 0;
-    goto LABEL_8;
+    return 0;
   }
 
   unsignedIntValue = [(NSNumber *)deploymentDay unsignedIntValue];
@@ -451,45 +445,37 @@ LABEL_7:
     {
       v10 = v3->tm_wday;
       *buf = 136315650;
-      v15 = "[UARPDeploymentRule isDeploymentAllowedPerRampPeriod]";
-      v16 = 1024;
-      v17 = v10;
-      v18 = 1024;
-      v19 = unsignedIntValue;
+      v14 = "[UARPDeploymentRule isDeploymentAllowedPerRampPeriod]";
+      v15 = 1024;
+      v16 = v10;
+      v17 = 1024;
+      v18 = unsignedIntValue;
       _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: Cannot apply update today is Day %d and this device can only do Ramped Updates on Day %d", buf, 0x18u);
     }
 
-    goto LABEL_7;
+    return 0;
   }
 
-  if (v8)
+  if (!v8)
   {
-    *buf = 136315394;
-    v15 = "[UARPDeploymentRule isDeploymentAllowedPerRampPeriod]";
-    v16 = 1024;
-    v17 = unsignedIntValue;
-    v9 = 1;
-    _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: Today is the day for Ramped Updates: Day %d", buf, 0x12u);
+    return 1;
   }
 
-  else
-  {
-    v9 = 1;
-  }
-
-LABEL_8:
-  v11 = *MEMORY[0x277D85DE8];
+  *buf = 136315394;
+  v14 = "[UARPDeploymentRule isDeploymentAllowedPerRampPeriod]";
+  v15 = 1024;
+  v16 = unsignedIntValue;
+  v9 = 1;
+  _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: Today is the day for Ramped Updates: Day %d", buf, 0x12u);
   return v9;
 }
 
 - (BOOL)isDeploymentAllowedPerDeploymentLimit
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (!self->_deploymentPercent)
   {
-LABEL_5:
-    v7 = 0;
-    goto LABEL_6;
+    return 0;
   }
 
   unsignedIntValue = [(NSNumber *)self->_deploymentLimit unsignedIntValue];
@@ -500,41 +486,35 @@ LABEL_5:
   {
     if (v6)
     {
-      v10 = 136315650;
-      v11 = "[UARPDeploymentRule isDeploymentAllowedPerDeploymentLimit]";
-      v12 = 1024;
-      v13 = unsignedIntValue;
-      v14 = 1024;
-      v15 = unsignedIntValue2;
-      _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: Device cannot apply metered rollout as it doesn't fall under %d percent. Device is %d percent.", &v10, 0x18u);
+      v9 = 136315650;
+      v10 = "[UARPDeploymentRule isDeploymentAllowedPerDeploymentLimit]";
+      v11 = 1024;
+      v12 = unsignedIntValue;
+      v13 = 1024;
+      v14 = unsignedIntValue2;
+      _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: Device cannot apply metered rollout as it doesn't fall under %d percent. Device is %d percent.", &v9, 0x18u);
     }
 
-    goto LABEL_5;
+    return 0;
   }
 
-  if (v6)
+  if (!v6)
   {
-    v10 = 136315394;
-    v11 = "[UARPDeploymentRule isDeploymentAllowedPerDeploymentLimit]";
-    v12 = 1024;
-    v13 = unsignedIntValue2;
-    v7 = 1;
-    _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: Device can apply metered rollout, %d percent.", &v10, 0x12u);
+    return 1;
   }
 
-  else
-  {
-    v7 = 1;
-  }
-
-LABEL_6:
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = 136315394;
+  v10 = "[UARPDeploymentRule isDeploymentAllowedPerDeploymentLimit]";
+  v11 = 1024;
+  v12 = unsignedIntValue2;
+  v7 = 1;
+  _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: Device can apply metered rollout, %d percent.", &v9, 0x12u);
   return v7;
 }
 
 - (void)calculateDeploymentDay
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->_serialNumber)
   {
     rampPeriod = self->_rampPeriod;
@@ -553,11 +533,11 @@ LABEL_6:
       log = self->_log;
       if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
       {
-        v14 = 136315394;
-        v15 = "[UARPDeploymentRule calculateDeploymentDay]";
-        v16 = 1024;
-        v17 = v9;
-        _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: deployDay = %d", &v14, 0x12u);
+        v13 = 136315394;
+        v14 = "[UARPDeploymentRule calculateDeploymentDay]";
+        v15 = 1024;
+        v16 = v9;
+        _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: deployDay = %d", &v13, 0x12u);
       }
 
       v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v9];
@@ -565,13 +545,11 @@ LABEL_6:
       self->_deploymentDay = v11;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)calculateDeploymentPercent
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   serialNumber = self->_serialNumber;
   if (serialNumber)
   {
@@ -601,42 +579,40 @@ LABEL_6:
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
-      v14 = 136315394;
-      v15 = "[UARPDeploymentRule calculateDeploymentPercent]";
-      v16 = 1024;
-      v17 = v9;
-      _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: deployPercent = %d", &v14, 0x12u);
+      v13 = 136315394;
+      v14 = "[UARPDeploymentRule calculateDeploymentPercent]";
+      v15 = 1024;
+      v16 = v9;
+      _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: deployPercent = %d", &v13, 0x12u);
     }
 
     v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v9];
     deploymentPercent = self->_deploymentPercent;
     self->_deploymentPercent = v11;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createSerialNumber
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   testSerialNumber = self->_testSerialNumber;
   if (testSerialNumber)
   {
     objc_storeStrong(&self->_serialNumber, testSerialNumber);
     log = self->_log;
-    if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
-      serialNumber = self->_serialNumber;
-      v13 = 136315394;
-      v14 = "[UARPDeploymentRule createSerialNumber]";
-      v15 = 2112;
-      v16 = serialNumber;
-      v6 = "%s: Using %@ provided by user as seed";
-      v7 = log;
-      v8 = 22;
-LABEL_6:
-      _os_log_impl(&dword_247AA7000, v7, OS_LOG_TYPE_INFO, v6, &v13, v8);
+      return;
     }
+
+    serialNumber = self->_serialNumber;
+    v12 = 136315394;
+    v13 = "[UARPDeploymentRule createSerialNumber]";
+    v14 = 2112;
+    v15 = serialNumber;
+    v6 = "%s: Using %@ provided by user as seed";
+    v7 = log;
+    v8 = 22;
   }
 
   else
@@ -646,18 +622,19 @@ LABEL_6:
     self->_serialNumber = v9;
 
     v11 = self->_log;
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v13 = 136315138;
-      v14 = "[UARPDeploymentRule createSerialNumber]";
-      v6 = "%s: Using device serial number as seed";
-      v7 = v11;
-      v8 = 12;
-      goto LABEL_6;
+      return;
     }
+
+    v12 = 136315138;
+    v13 = "[UARPDeploymentRule createSerialNumber]";
+    v6 = "%s: Using device serial number as seed";
+    v7 = v11;
+    v8 = 12;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
+  _os_log_impl(&dword_247AA7000, v7, OS_LOG_TYPE_INFO, v6, &v12, v8);
 }
 
 - (void)addDeploymentLimit:(id)limit withGoLiveDate:(id)date error:(id *)error
@@ -770,7 +747,7 @@ LABEL_5:
 
 - (void)dumpWithTabDepth:(unint64_t)depth dumpString:(id)string
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   [stringCopy appendWithTabDepth:depth format:@"Deployment Rule:\n"];
   if (self->_currentISOCountryCode)
@@ -786,31 +763,31 @@ LABEL_5:
   if ([(NSArray *)self->_countryList count])
   {
     [stringCopy appendWithTabDepth:depth + 1 format:@"Country List:"];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = self->_countryList;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [stringCopy appendFormat:@" %@", *(*(&v13 + 1) + 8 * v11++)];
+          [stringCopy appendFormat:@" %@", *(*(&v12 + 1) + 8 * v11++)];
         }
 
         while (v9 != v11);
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -843,8 +820,6 @@ LABEL_5:
   {
     [stringCopy appendWithTabDepth:depth + 1 format:{@"Serial Number: %@\n", self->_serialNumber}];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -875,30 +850,28 @@ LABEL_5:
 
 - (BOOL)isDeploymentAllowedPerCountryList
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (!self->_currentISOCountryCode)
   {
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
     {
       currentISOCountryCode = self->_currentISOCountryCode;
-      v16 = 136315394;
-      v17 = "[UARPDeploymentRule isDeploymentAllowedPerCountryList]";
-      v18 = 2112;
-      v19 = currentISOCountryCode;
-      _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: Current location unknown %@", &v16, 0x16u);
+      *v15 = 136315394;
+      *&v15[4] = "[UARPDeploymentRule isDeploymentAllowedPerCountryList]";
+      *&v15[12] = 2112;
+      *&v15[14] = currentISOCountryCode;
+      _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%s: Current location unknown %@", v15, 0x16u);
     }
 
     if (!objc_opt_class())
     {
-      goto LABEL_12;
+      return 1;
     }
 
     if (!self->_currentISOCountryCode)
     {
-LABEL_11:
-      v13 = 0;
-      goto LABEL_13;
+      return 0;
     }
   }
 
@@ -908,37 +881,34 @@ LABEL_11:
   {
     if (v6)
     {
-      v17 = "[UARPDeploymentRule isDeploymentAllowedPerCountryList]";
-      OUTLINED_FUNCTION_0(&dword_247AA7000, v7, v8, "%s: Device not in country list, deployment not allowed", v9, v10, v11, v12, 2u);
+      *v15 = 136315138;
+      *&v15[4] = "[UARPDeploymentRule isDeploymentAllowedPerCountryList]";
+      OUTLINED_FUNCTION_0(&dword_247AA7000, v7, v8, "%s: Device not in country list, deployment not allowed", v9, v10, v11, v12, *v15, *&v15[8]);
     }
 
-    goto LABEL_11;
+    return 0;
   }
 
   if (!v6)
   {
-LABEL_12:
-    v13 = 1;
-    goto LABEL_13;
+    return 1;
   }
 
-  v17 = "[UARPDeploymentRule isDeploymentAllowedPerCountryList]";
+  *v15 = 136315138;
+  *&v15[4] = "[UARPDeploymentRule isDeploymentAllowedPerCountryList]";
   v13 = 1;
-  OUTLINED_FUNCTION_0(&dword_247AA7000, v7, v8, "%s: Device is in country list", v9, v10, v11, v12, 2u);
-LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_247AA7000, v7, v8, "%s: Device is in country list", v9, v10, v11, v12, *v15);
   return v13;
 }
 
 - (void)initWithConfig:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[UARPDeploymentRule initWithConfig:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_247AA7000, a2, OS_LOG_TYPE_ERROR, "%s: Failed to initialize deployment limits with error %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[UARPDeploymentRule initWithConfig:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_247AA7000, a2, OS_LOG_TYPE_ERROR, "%s: Failed to initialize deployment limits with error %@", &v2, 0x16u);
 }
 
 - (void)isDeploymentAllowed:(void *)a1 .cold.1(void *a1)

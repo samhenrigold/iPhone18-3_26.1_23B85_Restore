@@ -13,13 +13,10 @@
 
 - (SRSensorDescription)descriptionForSensor:(uint64_t)sensor
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (!sensor)
   {
-    v6 = 0;
-LABEL_29:
-    v22 = *MEMORY[0x277D85DE8];
-    return v6;
+    return 0;
   }
 
   sr_sensorByDeletingDeletionRecord = [a2 sr_sensorByDeletingDeletionRecord];
@@ -27,39 +24,39 @@ LABEL_29:
   v6 = [*(sensor + 8) objectForKey:sr_sensorByDeletingDeletionRecord];
   if (!v6)
   {
-    v27 = v5;
+    v25 = v5;
+    v27 = 0u;
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
     v7 = *(sensor + 16);
-    v8 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v8)
     {
       v10 = v8;
-      v11 = *v30;
-      v28 = *MEMORY[0x277CCA050];
+      v11 = *v28;
+      v26 = *MEMORY[0x277CCA050];
       *&v9 = 138543362;
-      v26 = v9;
+      v24 = v9;
 LABEL_5:
       v12 = 0;
       while (1)
       {
-        if (*v30 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v29 + 1) + 8 * v12);
-        v14 = [sr_sensorByDeletingDeletionRecord stringByAppendingPathExtension:{@"plist", v26}];
+        v13 = *(*(&v27 + 1) + 8 * v12);
+        v14 = [sr_sensorByDeletingDeletionRecord stringByAppendingPathExtension:{@"plist", v24}];
         if (!v14)
         {
           break;
         }
 
         v15 = [MEMORY[0x277CBEBC0] fileURLWithPath:v14 isDirectory:0 relativeToURL:v13];
-        v33 = 0;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v15 error:&v33];
+        v31 = 0;
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v15 error:&v31];
         if (v16)
         {
           v6 = [[SRSensorDescription alloc] initWithDictionary:v16];
@@ -74,9 +71,9 @@ LABEL_5:
           if (os_log_type_enabled(SRLogSensorsCache, OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v36 = name;
-            v37 = 2114;
-            v38 = v6;
+            v34 = name;
+            v35 = 2114;
+            v36 = v6;
             _os_log_impl(&dword_26561F000, v18, OS_LOG_TYPE_INFO, "Cached description for %{public}@, %{public}@", buf, 0x16u);
           }
 
@@ -86,13 +83,13 @@ LABEL_5:
           }
         }
 
-        else if ([-[SRSensorDescription domain](v33 "domain")] && -[SRSensorDescription code](v33, "code") == 260)
+        else if ([-[SRSensorDescription domain](v31 "domain")] && -[SRSensorDescription code](v31, "code") == 260)
         {
           v19 = SRLogSensorsCache;
           if (os_log_type_enabled(SRLogSensorsCache, OS_LOG_TYPE_INFO))
           {
-            *buf = v26;
-            v36 = v15;
+            *buf = v24;
+            v34 = v15;
             _os_log_impl(&dword_26561F000, v19, OS_LOG_TYPE_INFO, "%{public}@ not found", buf, 0xCu);
           }
         }
@@ -103,16 +100,16 @@ LABEL_5:
           if (os_log_type_enabled(SRLogSensorsCache, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v36 = v15;
-            v37 = 2114;
-            v38 = v33;
+            v34 = v15;
+            v35 = 2114;
+            v36 = v31;
             _os_log_error_impl(&dword_26561F000, v20, OS_LOG_TYPE_ERROR, "Failed to parse %{public}@ because %{public}@", buf, 0x16u);
           }
         }
 
         if (v10 == ++v12)
         {
-          v10 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+          v10 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
           if (v10)
           {
             goto LABEL_5;
@@ -129,26 +126,24 @@ LABEL_24:
       v21 = SRLogSensorsCache;
       if (os_log_type_enabled(SRLogSensorsCache, OS_LOG_TYPE_ERROR))
       {
-        v25 = *(sensor + 16);
+        v23 = *(sensor + 16);
         *buf = 138543618;
-        v36 = sr_sensorByDeletingDeletionRecord;
-        v37 = 2114;
-        v38 = v25;
+        v34 = sr_sensorByDeletingDeletionRecord;
+        v35 = 2114;
+        v36 = v23;
         _os_log_error_impl(&dword_26561F000, v21, OS_LOG_TYPE_ERROR, "Failed to find description for %{public}@ in %{public}@", buf, 0x16u);
       }
     }
 
     v6 = 0;
 LABEL_27:
-    v5 = v27;
+    v5 = v25;
   }
 
   if ((v6 == 0) | v5 & 1)
   {
-    goto LABEL_29;
+    return v6;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return [SRSensorDescription sensorDescriptionForDeletionRecordFromDescription:v6];
 }
@@ -197,7 +192,7 @@ SRSensorsCache *__29__SRSensorsCache_sharedCache__block_invoke()
 
 - (SRSensorsCache)init
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEBC0];
   v4 = NSClassFromString(&cfstr_Srsensorreader.isa);
   if (!v4 || (v5 = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{v4), "bundleURL"}]) == 0)
@@ -209,7 +204,7 @@ SRSensorsCache *__29__SRSensorsCache_sharedCache__block_invoke()
       if (os_log_type_enabled(SRLogSensorsCache, OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v21 = v17;
+        v20 = v16;
         _os_log_fault_impl(&dword_26561F000, v7, OS_LOG_TYPE_FAULT, "Failed to locate the /System/Library directory because %{public}@", buf, 0xCu);
       }
 
@@ -225,24 +220,22 @@ SRSensorsCache *__29__SRSensorsCache_sharedCache__block_invoke()
   if (v10)
   {
     v11 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"SensorDescriptions" isDirectory:1 relativeToURL:v10];
-    v19[0] = v8;
-    v19[1] = v11;
+    v18[0] = v8;
+    v18[1] = v11;
     v12 = MEMORY[0x277CBEA60];
-    v13 = v19;
+    v13 = v18;
     v14 = 2;
   }
 
   else
   {
-    v18 = v8;
+    v17 = v8;
     v12 = MEMORY[0x277CBEA60];
-    v13 = &v18;
+    v13 = &v17;
     v14 = 1;
   }
 
-  result = -[SRSensorsCache initWithDirectories:](self, "initWithDirectories:", [v12 arrayWithObjects:v13 count:v14]);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return -[SRSensorsCache initWithDirectories:](self, "initWithDirectories:", [v12 arrayWithObjects:v13 count:v14]);
 }
 
 - (SRSensorsCache)initWithDirectories:(id)directories

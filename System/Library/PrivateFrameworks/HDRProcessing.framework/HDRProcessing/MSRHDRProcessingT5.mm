@@ -2,6 +2,7 @@
 - (MSRHDRProcessingT5)init;
 - (void)getDegammaLutInput:(float *)input;
 - (void)populateMSRColorConfigStageDownSampleFilter:(id *)filter Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0;
+- (void)setDegammaBuffer:(int64_t)buffer Buffer:(float *)a4 TableSize:(unint64_t)size LutInput:(float *)input Type:(int)type scalerForSrgbBeyondMax:(float)max InputScale:(float)scale OutputScale:(float)self0;
 - (void)setupHardwareConfigUnit;
 @end
 
@@ -62,6 +63,29 @@
   }
 
   while (v3 != 8);
+}
+
+- (void)setDegammaBuffer:(int64_t)buffer Buffer:(float *)a4 TableSize:(unint64_t)size LutInput:(float *)input Type:(int)type scalerForSrgbBeyondMax:(float)max InputScale:(float)scale OutputScale:(float)self0
+{
+  if (buffer == 2)
+  {
+    v13 = *&type;
+    if (type == 3 && GetConfig() && (Config = GetConfig(), *HDRConfig::GetConfigEntryValue(Config, 0x42u, 0) == 1))
+    {
+
+      memcpy(a4, &HLGDegammaCoeff, 4 * size);
+    }
+
+    else
+    {
+      v22.receiver = self;
+      v22.super_class = MSRHDRProcessingT5;
+      *&v19 = max;
+      *&v20 = scale;
+      *&v21 = outputScale;
+      [(MSRHDRProcessing *)&v22 setDegammaBuffer:2 Buffer:a4 TableSize:size LutInput:input Type:v13 scalerForSrgbBeyondMax:v19 InputScale:v20 OutputScale:v21];
+    }
+  }
 }
 
 - (void)populateMSRColorConfigStageDownSampleFilter:(id *)filter Enabled:(BOOL)enabled Prefix:(char *)prefix DMConfig:(id *)config DMData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl MSRHDRContext:(MSRHDRContext *)self0

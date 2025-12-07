@@ -36,7 +36,7 @@
 
 void __59__WFGetParkedCarLocationAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [a2 firstObject];
   if (v6)
@@ -61,17 +61,15 @@ void __59__WFGetParkedCarLocationAction_runAsynchronouslyWithInput___block_invok
     v13 = getWFActionsLogObject();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315394;
-      v16 = "[WFGetParkedCarLocationAction runAsynchronouslyWithInput:]_block_invoke";
-      v17 = 2112;
-      v18 = v5;
-      _os_log_impl(&dword_23DE30000, v13, OS_LOG_TYPE_ERROR, "%s No RTVehicleEvent found, error = %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[WFGetParkedCarLocationAction runAsynchronouslyWithInput:]_block_invoke";
+      v16 = 2112;
+      v17 = v5;
+      _os_log_impl(&dword_23DE30000, v13, OS_LOG_TYPE_ERROR, "%s No RTVehicleEvent found, error = %@", &v14, 0x16u);
     }
 
     [*(a1 + 32) finishRunningWithError:v5];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

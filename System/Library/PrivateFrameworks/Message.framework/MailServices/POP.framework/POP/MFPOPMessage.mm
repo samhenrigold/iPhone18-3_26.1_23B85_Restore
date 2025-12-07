@@ -1,5 +1,6 @@
 @interface MFPOPMessage
 - (BOOL)messageData:(id *)data messageSize:(unint64_t *)size isComplete:(BOOL *)complete downloadIfNecessary:(BOOL)necessary;
+- (BOOL)messageDataHolder:(id *)holder messageSize:(unint64_t *)size isComplete:(BOOL *)complete downloadIfNecessary:(BOOL)necessary;
 - (NSData)messageData;
 - (id)headers;
 - (id)messageDataHolder;
@@ -79,6 +80,36 @@
   if (data)
   {
     *data = self->_messageData;
+  }
+
+  if (size)
+  {
+    size = self->_size;
+    if (size)
+    {
+      *size = size;
+    }
+  }
+
+  if (complete)
+  {
+    messageData = self->_messageData;
+    if (messageData)
+    {
+      LOBYTE(messageData) = self->_messageDataIsComplete;
+    }
+
+    *complete = messageData & 1;
+  }
+
+  return self->_messageData != 0;
+}
+
+- (BOOL)messageDataHolder:(id *)holder messageSize:(unint64_t *)size isComplete:(BOOL *)complete downloadIfNecessary:(BOOL)necessary
+{
+  if (holder)
+  {
+    *holder = [MEMORY[0x277D24F08] dataHolderWithData:{self->_messageData, size, complete, necessary}];
   }
 
   if (size)

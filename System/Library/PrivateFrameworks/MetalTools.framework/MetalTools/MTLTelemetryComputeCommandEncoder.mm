@@ -496,7 +496,7 @@ LABEL_10:
 {
   length = range.length;
   location = range.location;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   enableTelemetry = [(MTLTelemetryDevice *)self->_telemetryDevice enableTelemetry];
   v9 = location + length;
   if (enableTelemetry && v9 != 0)
@@ -540,7 +540,7 @@ LABEL_15:
   }
 
 LABEL_16:
-  v12 = v16;
+  v12 = v15;
   v13 = length;
   do
   {
@@ -552,7 +552,6 @@ LABEL_16:
   while (v13);
 LABEL_18:
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)memoryBarrierWithScope:(unint64_t)scope

@@ -60,7 +60,7 @@
   endpointCopy = endpoint;
   if (![(UARPDynamicAssetLogsEvent *)self decomposeUARP])
   {
-    v25 = 0;
+    v26 = 0;
     goto LABEL_23;
   }
 
@@ -72,7 +72,7 @@
   v7 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (!v7)
   {
-    v25 = 1;
+    v26 = 1;
     goto LABEL_22;
   }
 
@@ -113,33 +113,34 @@
       {
 
 LABEL_21:
-        v25 = 0;
+        v26 = 0;
         goto LABEL_22;
       }
 
       v19 = self->_log;
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
+      if (v20)
       {
-        v20 = v19;
+        v21 = v19;
         path2 = [v13 path];
         *buf = v29;
         v38 = "[UARPDynamicAssetLogsEvent expandToDirectory:forRemoteEndpoint:]";
         v39 = 2112;
         v40 = path2;
-        _os_log_impl(&dword_247AA7000, v20, OS_LOG_TYPE_INFO, "%s: Successfully Expanded LOGS to File: %@", buf, 0x16u);
+        _os_log_impl(&dword_247AA7000, v21, OS_LOG_TYPE_INFO, "%s: Successfully Expanded LOGS to File: %@", buf, 0x16u);
       }
 
       if (directoryCopy)
       {
-        v22 = UARPStringLogsDirectoryFilePath();
+        v23 = UARPStringLogsDirectoryFilePath(v20);
         path3 = [directoryCopy path];
         lastPathComponent = [v12 lastPathComponent];
-        UARPCopyFile(v22, path3, lastPathComponent);
+        UARPCopyFile(v23, path3, lastPathComponent);
       }
     }
 
     v9 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
-    v25 = 1;
+    v26 = 1;
     if (v9)
     {
       continue;
@@ -151,8 +152,7 @@ LABEL_21:
 LABEL_22:
 
 LABEL_23:
-  v27 = *MEMORY[0x277D85DE8];
-  return v25;
+  return v26;
 }
 
 + (id)tag
@@ -186,22 +186,20 @@ LABEL_23:
   appleModelNumber = [endpointCopy appleModelNumber];
   serialNumber = [endpointCopy serialNumber];
 
-  v14 = UARPStringLogsDirectoryFilePath();
-  v15 = UARPUniqueFilename(appleModelNumber, serialNumber, v14, @"LOGS", v11);
+  v15 = UARPStringLogsDirectoryFilePath(v14);
+  v16 = UARPUniqueFilename(appleModelNumber, serialNumber, v15, @"LOGS", v11);
 
-  return v15;
+  return v16;
 }
 
 - (void)expandToDirectory:(void *)a1 forRemoteEndpoint:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 path];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_247AA7000, v3, OS_LOG_TYPE_ERROR, "Failed to create filepath for radar LOGS at %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_247AA7000, v3, OS_LOG_TYPE_ERROR, "Failed to create filepath for radar LOGS at %@", &v5, 0xCu);
 }
 
 @end

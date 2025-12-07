@@ -56,11 +56,11 @@
 - (void)_activated
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v3 = sub_100005370();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_100005370(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Activated.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Activated.", v5, 2u);
   }
 
   [(CDPhotoSetupSession *)self _startCSKClient];
@@ -72,11 +72,11 @@
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    v3 = sub_100005370();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100005370(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Session invalidated.", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Session invalidated.", v10, 2u);
     }
 
     [(CDCSKClient *)self->_cskClient invalidate];
@@ -95,7 +95,7 @@
     if (invalidationHandler)
     {
       invalidationHandler[2]();
-      v8 = self->_invalidationHandler;
+      v9 = self->_invalidationHandler;
       self->_invalidationHandler = 0;
     }
 
@@ -122,7 +122,7 @@
 
 - (void)_startNotificationSession
 {
-  v3 = sub_100005370();
+  v3 = sub_100005370(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -147,7 +147,7 @@
 
 - (void)_showViewService
 {
-  v3 = sub_100005370();
+  v3 = sub_100005370(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -173,7 +173,7 @@
 - (void)remoteAlertHandleDidActivate:(id)activate
 {
   activateCopy = activate;
-  v4 = sub_100005370();
+  v4 = sub_100005370(activateCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -185,7 +185,7 @@
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
   deactivateCopy = deactivate;
-  v5 = sub_100005370();
+  v5 = sub_100005370(deactivateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -206,7 +206,7 @@
 {
   handleCopy = handle;
   errorCopy = error;
-  v8 = sub_100005370();
+  v8 = sub_100005370(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;

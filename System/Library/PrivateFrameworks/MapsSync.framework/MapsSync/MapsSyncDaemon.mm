@@ -10,7 +10,7 @@
   contextCopy = context;
 
   errorCopy = error;
-  LOBYTE(error) = _s9mapssyncd14MapsSyncDaemonC19willPerformRecovery8forError4fromSbs0I0_pSg_So33NSXPCStoreServerConnectionContextCSgtF_0();
+  LOBYTE(error) = _s9mapssyncd14MapsSyncDaemonC19willPerformRecovery8forError4fromSbs0I0_pSg_So33NSXPCStoreServerConnectionContextCSgtF_0(error);
 
   return error & 1;
 }

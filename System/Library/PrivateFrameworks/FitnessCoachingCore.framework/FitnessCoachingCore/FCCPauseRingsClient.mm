@@ -2,6 +2,7 @@
 - (FCCPauseRingsClient)init;
 - (FCCPauseRingsClient)initWithQueue:(id)queue xpcClient:(id)client;
 - (void)_postNotificationWithRequest:(id)request completion:(id)completion;
+- (void)postNotificationWithForce:(BOOL)force completion:(id)completion;
 @end
 
 @implementation FCCPauseRingsClient
@@ -30,6 +31,24 @@
   }
 
   return v10;
+}
+
+- (void)postNotificationWithForce:(BOOL)force completion:(id)completion
+{
+  forceCopy = force;
+  completionCopy = completion;
+  v7 = [[FCCPauseRingsPostNotificationRequest alloc] initWithForce:forceCopy];
+  dispatchQueue = self->_dispatchQueue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __60__FCCPauseRingsClient_postNotificationWithForce_completion___block_invoke;
+  block[3] = &unk_279009F10;
+  block[4] = self;
+  v12 = v7;
+  v13 = completionCopy;
+  v9 = completionCopy;
+  v10 = v7;
+  dispatch_async(dispatchQueue, block);
 }
 
 - (void)_postNotificationWithRequest:(id)request completion:(id)completion

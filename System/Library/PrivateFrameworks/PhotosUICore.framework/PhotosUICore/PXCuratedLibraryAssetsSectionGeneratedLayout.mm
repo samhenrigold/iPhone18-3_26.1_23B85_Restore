@@ -150,7 +150,7 @@ LABEL_5:
 
       v34 = 0u;
       v35 = 0u;
-      [contentSource sectionIndexPath];
+      objc_msgSend_sectionIndexPath(contentSource);
     }
 
     else

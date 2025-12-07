@@ -28,7 +28,7 @@
 
 - (CSSearchableItem)spotlightItem
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E6964E90]);
   v4 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.shortcuts.contextual-action"];
   v5 = [v3 initWithContentType:v4];
@@ -90,9 +90,9 @@ LABEL_8:
   }
 
   actionForRunningFromSpotlight = [(WFContextualAction *)self actionForRunningFromSpotlight];
-  v47 = 0;
-  v21 = WFDataFromSpotlightResultRunnable(actionForRunningFromSpotlight, &v47);
-  v22 = v47;
+  v46 = 0;
+  v21 = WFDataFromSpotlightResultRunnable(actionForRunningFromSpotlight, &v46);
+  v22 = v46;
 
   if (v21)
   {
@@ -102,7 +102,7 @@ LABEL_8:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v49 = "[WFContextualAction(Spotlight) spotlightItem]";
+        v48 = "[WFContextualAction(Spotlight) spotlightItem]";
         _os_log_impl(&dword_1B1DE3000, v23, OS_LOG_TYPE_FAULT, "%s Packing large objects into CoreSpotlight index", buf, 0xCu);
       }
     }
@@ -118,7 +118,7 @@ LABEL_8:
       [v5 setValue:v26 forCustomKey:v27];
     }
 
-    v43 = v21;
+    v42 = v21;
     accessoryIcon = [(WFContextualAction *)self accessoryIcon];
     systemName2 = [accessoryIcon systemName];
 
@@ -128,7 +128,7 @@ LABEL_8:
       [v5 setValue:systemName2 forCustomKey:v30];
     }
 
-    v46 = systemName;
+    v45 = systemName;
     associatedSettingsPreference = [(WFContextualAction *)self associatedSettingsPreference];
     if ([associatedSettingsPreference length])
     {
@@ -136,8 +136,8 @@ LABEL_8:
       [v5 setValue:associatedSettingsPreference forCustomKey:v32];
     }
 
-    v44 = v22;
-    v45 = associatedAppBundleIdentifier;
+    v43 = v22;
+    v44 = associatedAppBundleIdentifier;
     settingBiomeStreamIdentifier = [(WFContextualAction *)self settingBiomeStreamIdentifier];
     if ([settingBiomeStreamIdentifier length])
     {
@@ -158,11 +158,11 @@ LABEL_8:
     v40 = [v37 initWithUniqueIdentifier:uniquePrivateIdentifier domainIdentifier:v39 attributeSet:v5];
 
     imageURL = v36;
-    associatedAppBundleIdentifier = v45;
-    systemName = v46;
+    associatedAppBundleIdentifier = v44;
+    systemName = v45;
     applicationBundleIdentifier = v35;
-    v21 = v43;
-    v22 = v44;
+    v21 = v42;
+    v22 = v43;
   }
 
   else
@@ -171,23 +171,21 @@ LABEL_8:
     if (os_log_type_enabled(systemName2, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v49 = "[WFContextualAction(Spotlight) spotlightItem]";
-      v50 = 2112;
-      v51 = v22;
+      v48 = "[WFContextualAction(Spotlight) spotlightItem]";
+      v49 = 2112;
+      v50 = v22;
       _os_log_impl(&dword_1B1DE3000, systemName2, OS_LOG_TYPE_FAULT, "%s Cannot pack WFContextualAction into a data blob: %@", buf, 0x16u);
     }
 
     v40 = 0;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
-
   return v40;
 }
 
 - (void)wf_launchAppIfNeededUsingSurface:(unint64_t)surface linkAction:(id)action appBundleIdentifier:(id)identifier actionIdentifier:(id)actionIdentifier
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   identifierCopy = identifier;
   actionIdentifierCopy = actionIdentifier;
@@ -205,7 +203,7 @@ LABEL_8:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v34 = "[WFContextualAction(Prewarm_Internal) wf_launchAppIfNeededUsingSurface:linkAction:appBundleIdentifier:actionIdentifier:]";
+        v33 = "[WFContextualAction(Prewarm_Internal) wf_launchAppIfNeededUsingSurface:linkAction:appBundleIdentifier:actionIdentifier:]";
         _os_log_impl(&dword_1B1DE3000, v18, OS_LOG_TYPE_DEFAULT, "%s The effective bundle identifier is not an app, ignoring app launch", buf, 0xCu);
       }
 
@@ -214,13 +212,13 @@ LABEL_8:
 
     v19 = objc_alloc(MEMORY[0x1E695DF90]);
     v20 = *MEMORY[0x1E699F970];
-    v31[0] = *MEMORY[0x1E699F990];
-    v31[1] = v20;
-    v32[0] = MEMORY[0x1E695E118];
-    v32[1] = MEMORY[0x1E695E118];
-    v31[2] = *MEMORY[0x1E699F930];
-    v32[2] = &unk_1F2931200;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:3];
+    v30[0] = *MEMORY[0x1E699F990];
+    v30[1] = v20;
+    v31[0] = MEMORY[0x1E695E118];
+    v31[1] = MEMORY[0x1E695E118];
+    v30[2] = *MEMORY[0x1E699F930];
+    v31[2] = &unk_1F2931200;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:3];
     v18 = [v19 initWithDictionary:v21];
 
     v22 = MEMORY[0x1E69D4438];
@@ -232,16 +230,16 @@ LABEL_11:
         serviceWithDefaultShellEndpoint = [MEMORY[0x1E699FB78] serviceWithDefaultShellEndpoint];
         v24 = [MEMORY[0x1E699FB70] optionsWithDictionary:v18];
         [v15 effectiveBundleIdentifier];
-        v25 = v28 = v15;
+        v25 = v27 = v15;
         bundleIdentifier = [v25 bundleIdentifier];
-        v29[0] = MEMORY[0x1E69E9820];
-        v29[1] = 3221225472;
-        v29[2] = __121__WFContextualAction_Prewarm_Internal__wf_launchAppIfNeededUsingSurface_linkAction_appBundleIdentifier_actionIdentifier___block_invoke;
-        v29[3] = &unk_1E7B01630;
-        v30 = v13;
-        [serviceWithDefaultShellEndpoint openApplication:bundleIdentifier withOptions:v24 completion:v29];
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __121__WFContextualAction_Prewarm_Internal__wf_launchAppIfNeededUsingSurface_linkAction_appBundleIdentifier_actionIdentifier___block_invoke;
+        v28[3] = &unk_1E7B01630;
+        v29 = v13;
+        [serviceWithDefaultShellEndpoint openApplication:bundleIdentifier withOptions:v24 completion:v28];
 
-        v15 = v28;
+        v15 = v27;
 LABEL_12:
 
         goto LABEL_13;
@@ -255,13 +253,11 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __121__WFContextualAction_Prewarm_Internal__wf_launchAppIfNeededUsingSurface_linkAction_appBundleIdentifier_actionIdentifier___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   v6 = getWFVoiceShortcutClientLogObject();
@@ -270,30 +266,28 @@ void __121__WFContextualAction_Prewarm_Internal__wf_launchAppIfNeededUsingSurfac
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[WFContextualAction(Prewarm_Internal) wf_launchAppIfNeededUsingSurface:linkAction:appBundleIdentifier:actionIdentifier:]_block_invoke";
-      v12 = 2114;
-      v13 = v5;
-      _os_log_impl(&dword_1B1DE3000, v7, OS_LOG_TYPE_ERROR, "%s Pre-warmed app launch completed with error %{public}@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[WFContextualAction(Prewarm_Internal) wf_launchAppIfNeededUsingSurface:linkAction:appBundleIdentifier:actionIdentifier:]_block_invoke";
+      v11 = 2114;
+      v12 = v5;
+      _os_log_impl(&dword_1B1DE3000, v7, OS_LOG_TYPE_ERROR, "%s Pre-warmed app launch completed with error %{public}@", &v9, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v4, "pid")}];
-    v10 = 136315394;
-    v11 = "[WFContextualAction(Prewarm_Internal) wf_launchAppIfNeededUsingSurface:linkAction:appBundleIdentifier:actionIdentifier:]_block_invoke";
-    v12 = 2114;
-    v13 = v8;
-    _os_log_impl(&dword_1B1DE3000, v7, OS_LOG_TYPE_DEFAULT, "%s Pre-warmed app launch completed with pid %{public}@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[WFContextualAction(Prewarm_Internal) wf_launchAppIfNeededUsingSurface:linkAction:appBundleIdentifier:actionIdentifier:]_block_invoke";
+    v11 = 2114;
+    v12 = v8;
+    _os_log_impl(&dword_1B1DE3000, v7, OS_LOG_TYPE_DEFAULT, "%s Pre-warmed app launch completed with pid %{public}@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)wf_shouldLaunchAppWithSurface:(unint64_t)surface linkAction:(id)action actionMetadata:(id)metadata appBundleIdentifier:(id)identifier actionIdentifier:(id)actionIdentifier
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   metadataCopy = metadata;
   identifierCopy = identifier;
@@ -312,13 +306,13 @@ void __121__WFContextualAction_Prewarm_Internal__wf_launchAppIfNeededUsingSurfac
     {
       if (v18)
       {
-        v21 = 136315650;
-        v22 = "[WFContextualAction(Prewarm_Internal) wf_shouldLaunchAppWithSurface:linkAction:actionMetadata:appBundleIdentifier:actionIdentifier:]";
-        v23 = 2114;
-        v24 = identifierCopy;
-        v25 = 2114;
-        v26 = actionIdentifierCopy;
-        _os_log_impl(&dword_1B1DE3000, v17, OS_LOG_TYPE_DEFAULT, "%s The action %{public}@:%{public}@ requires pre-warmed app launch", &v21, 0x20u);
+        v20 = 136315650;
+        v21 = "[WFContextualAction(Prewarm_Internal) wf_shouldLaunchAppWithSurface:linkAction:actionMetadata:appBundleIdentifier:actionIdentifier:]";
+        v22 = 2114;
+        v23 = identifierCopy;
+        v24 = 2114;
+        v25 = actionIdentifierCopy;
+        _os_log_impl(&dword_1B1DE3000, v17, OS_LOG_TYPE_DEFAULT, "%s The action %{public}@:%{public}@ requires pre-warmed app launch", &v20, 0x20u);
       }
 
       v15 = 1;
@@ -328,20 +322,19 @@ void __121__WFContextualAction_Prewarm_Internal__wf_launchAppIfNeededUsingSurfac
     {
       if (v18)
       {
-        v21 = 136315650;
-        v22 = "[WFContextualAction(Prewarm_Internal) wf_shouldLaunchAppWithSurface:linkAction:actionMetadata:appBundleIdentifier:actionIdentifier:]";
-        v23 = 2114;
-        v24 = identifierCopy;
-        v25 = 2114;
-        v26 = actionIdentifierCopy;
-        _os_log_impl(&dword_1B1DE3000, v17, OS_LOG_TYPE_DEFAULT, "%s The action %{public}@:%{public}@ doesn't require pre-warmed app launch", &v21, 0x20u);
+        v20 = 136315650;
+        v21 = "[WFContextualAction(Prewarm_Internal) wf_shouldLaunchAppWithSurface:linkAction:actionMetadata:appBundleIdentifier:actionIdentifier:]";
+        v22 = 2114;
+        v23 = identifierCopy;
+        v24 = 2114;
+        v25 = actionIdentifierCopy;
+        _os_log_impl(&dword_1B1DE3000, v17, OS_LOG_TYPE_DEFAULT, "%s The action %{public}@:%{public}@ doesn't require pre-warmed app launch", &v20, 0x20u);
       }
 
       v15 = 0;
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

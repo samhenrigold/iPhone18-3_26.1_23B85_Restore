@@ -54,7 +54,7 @@ LABEL_8:
 
 - (NSString)description
 {
-  v3 = new_JavaLangStringBuilder_initWithInt_(0x2Du);
+  v3 = new_JavaLangStringBuilder_initWithInt_(45);
   [(JavaLangStringBuilder *)v3 appendWithCharArray:qword_100555218];
   [(JavaLangStringBuilder *)v3 appendWithInt:self->precision_];
   [(JavaLangStringBuilder *)v3 appendWithChar:32];

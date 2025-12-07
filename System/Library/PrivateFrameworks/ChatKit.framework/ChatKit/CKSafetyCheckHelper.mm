@@ -8,14 +8,14 @@
 
 - (CKSafetyCheckHelper)initWithContacts:(id)contacts
 {
-  sub_1902188FC(0, &qword_1EAD44E40);
+  sub_1902188FC(0, &qword_1EAD44E40, 0x1E695CD58);
   v3 = sub_190D57180();
   return SafetyCheckHelper.init(contacts:)(v3);
 }
 
 - (void)presentSafetyCheckFromController:(UIViewController *)controller completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);

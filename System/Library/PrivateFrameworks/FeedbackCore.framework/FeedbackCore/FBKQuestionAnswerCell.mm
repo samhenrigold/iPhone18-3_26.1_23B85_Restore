@@ -163,87 +163,83 @@
 
 - (void)showErrorArrow
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   errorArrow = [(FBKQuestionAnswerCell *)self errorArrow];
-  if (!errorArrow)
+  if (errorArrow)
   {
-LABEL_10:
-    v37 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v38 = errorArrow;
-  errorArrow2 = [(FBKQuestionAnswerCell *)self errorArrow];
-  superview = [errorArrow2 superview];
-  if (!superview)
-  {
-    questionLabel = [(FBKQuestionAnswerCell *)self questionLabel];
-
-    if (questionLabel)
+    v36 = errorArrow;
+    errorArrow2 = [(FBKQuestionAnswerCell *)self errorArrow];
+    superview = [errorArrow2 superview];
+    if (superview)
     {
-      contentView = [(FBKQuestionAnswerCell *)self contentView];
-      errorArrow3 = [(FBKQuestionAnswerCell *)self errorArrow];
-      [contentView addSubview:errorArrow3];
-
-      array = [MEMORY[0x1E695DF70] array];
-      v11 = MEMORY[0x1E696ACD8];
-      v43 = @"margin";
-      v12 = MEMORY[0x1E696AD98];
-      [(FBKQuestionAnswerCell *)self separatorInset];
-      v14 = v13;
-      [(FBKQuestionAnswerCell *)self safeAreaInsets];
-      v16 = [v12 numberWithDouble:v14 - v15];
-      v44[0] = v16;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
-      v41[0] = @"arrow";
-      errorArrow4 = [(FBKQuestionAnswerCell *)self errorArrow];
-      v41[1] = @"q";
-      v42[0] = errorArrow4;
-      questionLabel2 = [(FBKQuestionAnswerCell *)self questionLabel];
-      v42[1] = questionLabel2;
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:2];
-      v21 = [v11 constraintsWithVisualFormat:@"|-margin-[arrow(18)]-8-[q]" options:0 metrics:v17 views:v20];
-
-      [array addObjectsFromArray:v21];
-      objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
-      {
-        v22 = MEMORY[0x1E696ACD8];
-        v39[0] = @"arrow";
-        errorArrow5 = [(FBKQuestionAnswerCell *)self errorArrow];
-        v39[1] = @"a";
-        v40[0] = errorArrow5;
-        answerTextView = [(FBKQuestionAnswerCell *)self answerTextView];
-        v40[1] = answerTextView;
-        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
-        v26 = [v22 constraintsWithVisualFormat:@"[arrow]-8-[a]" options:0 metrics:0 views:v25];
-
-        firstObject = [v26 firstObject];
-        LODWORD(v28) = 1148829696;
-        [firstObject setPriority:v28];
-
-        [array addObjectsFromArray:v26];
-      }
-
-      v29 = MEMORY[0x1E696ACD8];
-      errorArrow6 = [(FBKQuestionAnswerCell *)self errorArrow];
-      v31 = [v29 constraintWithItem:errorArrow6 attribute:8 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:17.0];
-      [array addObject:v31];
-
-      contentView2 = [(FBKQuestionAnswerCell *)self contentView];
-      v33 = MEMORY[0x1E696ACD8];
-      errorArrow7 = [(FBKQuestionAnswerCell *)self errorArrow];
-      v35 = [v33 constraintWithItem:errorArrow7 attribute:10 relatedBy:0 toItem:contentView2 attribute:10 multiplier:1.0 constant:0.0];
-      [array addObject:v35];
-
-      contentView3 = [(FBKQuestionAnswerCell *)self contentView];
-      [contentView3 addConstraints:array];
     }
 
-    goto LABEL_10;
-  }
+    else
+    {
+      questionLabel = [(FBKQuestionAnswerCell *)self questionLabel];
 
-  v6 = *MEMORY[0x1E69E9840];
+      if (questionLabel)
+      {
+        contentView = [(FBKQuestionAnswerCell *)self contentView];
+        errorArrow3 = [(FBKQuestionAnswerCell *)self errorArrow];
+        [contentView addSubview:errorArrow3];
+
+        array = [MEMORY[0x1E695DF70] array];
+        v10 = MEMORY[0x1E696ACD8];
+        v41 = @"margin";
+        v11 = MEMORY[0x1E696AD98];
+        [(FBKQuestionAnswerCell *)self separatorInset];
+        v13 = v12;
+        [(FBKQuestionAnswerCell *)self safeAreaInsets];
+        v15 = [v11 numberWithDouble:v13 - v14];
+        v42[0] = v15;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+        v39[0] = @"arrow";
+        errorArrow4 = [(FBKQuestionAnswerCell *)self errorArrow];
+        v39[1] = @"q";
+        v40[0] = errorArrow4;
+        questionLabel2 = [(FBKQuestionAnswerCell *)self questionLabel];
+        v40[1] = questionLabel2;
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
+        v20 = [v10 constraintsWithVisualFormat:@"|-margin-[arrow(18)]-8-[q]" options:0 metrics:v16 views:v19];
+
+        [array addObjectsFromArray:v20];
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          v21 = MEMORY[0x1E696ACD8];
+          v37[0] = @"arrow";
+          errorArrow5 = [(FBKQuestionAnswerCell *)self errorArrow];
+          v37[1] = @"a";
+          v38[0] = errorArrow5;
+          answerTextView = [(FBKQuestionAnswerCell *)self answerTextView];
+          v38[1] = answerTextView;
+          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
+          v25 = [v21 constraintsWithVisualFormat:@"[arrow]-8-[a]" options:0 metrics:0 views:v24];
+
+          firstObject = [v25 firstObject];
+          LODWORD(v27) = 1148829696;
+          [firstObject setPriority:v27];
+
+          [array addObjectsFromArray:v25];
+        }
+
+        v28 = MEMORY[0x1E696ACD8];
+        errorArrow6 = [(FBKQuestionAnswerCell *)self errorArrow];
+        v30 = [v28 constraintWithItem:errorArrow6 attribute:8 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:17.0];
+        [array addObject:v30];
+
+        contentView2 = [(FBKQuestionAnswerCell *)self contentView];
+        v32 = MEMORY[0x1E696ACD8];
+        errorArrow7 = [(FBKQuestionAnswerCell *)self errorArrow];
+        v34 = [v32 constraintWithItem:errorArrow7 attribute:10 relatedBy:0 toItem:contentView2 attribute:10 multiplier:1.0 constant:0.0];
+        [array addObject:v34];
+
+        contentView3 = [(FBKQuestionAnswerCell *)self contentView];
+        [contentView3 addConstraints:array];
+      }
+    }
+  }
 }
 
 - (void)hideErrorArrow

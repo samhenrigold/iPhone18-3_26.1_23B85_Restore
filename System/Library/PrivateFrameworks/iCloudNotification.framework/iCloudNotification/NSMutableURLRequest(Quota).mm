@@ -1,11 +1,11 @@
 @interface NSMutableURLRequest(Quota)
-- (uint64_t)ind_addQuotaHeadersForAccount:()Quota;
+- (void)ind_addQuotaHeadersForAccount:()Quota;
 - (void)ind_addUserAgentString;
 @end
 
 @implementation NSMutableURLRequest(Quota)
 
-- (uint64_t)ind_addQuotaHeadersForAccount:()Quota
+- (void)ind_addQuotaHeadersForAccount:()Quota
 {
   v4 = a3;
   [self setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

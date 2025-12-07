@@ -138,7 +138,7 @@
 
 - (id)localizedPastTenseDescription
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(WFUserFocusActivityTrigger *)self onEnable]&& [(WFUserFocusActivityTrigger *)self onDisable])
   {
     v3 = MEMORY[0x1E696AEC0];
@@ -165,26 +165,25 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v10 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+  v9 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v12 = "[WFUserFocusActivityTrigger localizedPastTenseDescription]";
-    v13 = 2114;
+    v11 = "[WFUserFocusActivityTrigger localizedPastTenseDescription]";
+    v12 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
   }
 
   v7 = &stru_1F4A1C408;
 LABEL_9:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)localizedDescriptionWithConfigurationSummary
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([(WFUserFocusActivityTrigger *)self onEnable]&& [(WFUserFocusActivityTrigger *)self onDisable])
   {
     v3 = MEMORY[0x1E696AEC0];
@@ -211,19 +210,18 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v10 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+  v9 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v12 = "[WFUserFocusActivityTrigger localizedDescriptionWithConfigurationSummary]";
-    v13 = 2114;
+    v11 = "[WFUserFocusActivityTrigger localizedDescriptionWithConfigurationSummary]";
+    v12 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
   }
 
   v7 = &stru_1F4A1C408;
 LABEL_9:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

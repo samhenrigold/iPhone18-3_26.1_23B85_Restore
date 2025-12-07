@@ -34,26 +34,26 @@
     if (v8)
     {
       v9 = v8->_internal;
-      objc_opt_class();
-      v10 = sub_10018E3FC(v5, "0");
-      v11 = v9[1];
-      v9[1] = v10;
+      v10 = objc_opt_class();
+      v11 = sub_10018E3FC(v5, "0", v10);
+      v12 = v9[1];
+      v9[1] = v11;
 
-      v12 = objc_alloc_init(NSMutableArray);
-      v13 = objc_alloc_init(NSMutableDictionary);
-      v14 = xpc_dictionary_get_value(v5, "1");
-      v19 = _NSConcreteStackBlock;
-      v20 = 3221225472;
-      v21 = sub_10018D1A8;
-      v22 = &unk_1003280D0;
-      v23 = v13;
-      v24 = v12;
-      v15 = v12;
+      v13 = objc_alloc_init(NSMutableArray);
+      v14 = objc_alloc_init(NSMutableDictionary);
+      v15 = xpc_dictionary_get_value(v5, "1");
+      v20 = _NSConcreteStackBlock;
+      v21 = 3221225472;
+      v22 = sub_10018D1A8;
+      v23 = &unk_1003280D0;
+      v24 = v14;
+      v25 = v13;
       v16 = v13;
-      xpc_array_apply(v14, &v19);
-      v17 = [v15 copy];
-      v18 = v9[2];
-      v9[2] = v17;
+      v17 = v14;
+      xpc_array_apply(v15, &v20);
+      v18 = [v16 copy];
+      v19 = v9[2];
+      v9[2] = v18;
     }
   }
 

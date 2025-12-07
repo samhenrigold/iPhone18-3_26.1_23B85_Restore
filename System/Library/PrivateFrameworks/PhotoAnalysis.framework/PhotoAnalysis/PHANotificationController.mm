@@ -144,11 +144,11 @@
   [v6 fireLocalNotificationWithOptions:v7 completionHandler:v14];
 }
 
-uint64_t __72__PHANotificationController_postNotificationForSuggestion_deliveryDate___block_invoke(uint64_t result, int a2)
+void *__72__PHANotificationController_postNotificationForSuggestion_deliveryDate___block_invoke(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 24) sendEvent:@"com.apple.Photos.suggestion.notificationSent" withPayload:MEMORY[0x277CBEC10]];
+    return [*(result[4] + 24) sendEvent:@"com.apple.Photos.suggestion.notificationSent" withPayload:MEMORY[0x277CBEC10]];
   }
 
   return result;

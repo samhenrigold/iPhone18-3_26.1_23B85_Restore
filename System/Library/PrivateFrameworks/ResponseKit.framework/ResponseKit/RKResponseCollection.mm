@@ -51,28 +51,28 @@
 
 - (void)flushDynamicData
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   personalizersByLanguageID = [(RKResponseCollection *)self personalizersByLanguageID];
-  v4 = [personalizersByLanguageID countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [personalizersByLanguageID countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(personalizersByLanguageID);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         personalizersByLanguageID2 = [(RKResponseCollection *)self personalizersByLanguageID];
         v10 = [personalizersByLanguageID2 objectForKey:v8];
 
@@ -81,13 +81,11 @@
       }
 
       while (v5 != v7);
-      v5 = [personalizersByLanguageID countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [personalizersByLanguageID countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetRegisteredResponses
@@ -111,7 +109,7 @@
 
 - (id)standardResponsesByCategoryForLanguageIdentifier:(id)identifier andUsage:(id)usage
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   usageCopy = usage;
   v7 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:identifier];
   responseCatalog = [(RKResponseCollection *)self responseCatalog];
@@ -141,21 +139,21 @@
     dictionary3 = [MEMORY[0x277CBEB38] dictionary];
     responseCatalog5 = [(RKResponseCollection *)self responseCatalog];
     [responseCatalog5 objectForKeyedSubscript:v7];
-    v19 = v47 = self;
+    v19 = v46 = self;
     [v19 setObject:dictionary3 forKeyedSubscript:usageCopy];
 
     selfCopy = self;
     responseCatalog6 = [(RKResponseCollection *)self responseCatalog];
     v22 = [responseCatalog6 objectForKeyedSubscript:v7];
-    v43 = [v22 objectForKeyedSubscript:usageCopy];
+    v42 = [v22 objectForKeyedSubscript:usageCopy];
 
     v23 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v7];
-    v44 = [v23 objectForKey:*MEMORY[0x277CBE6C8]];
+    v43 = [v23 objectForKey:*MEMORY[0x277CBE6C8]];
 
-    v42 = usageCopy;
+    v41 = usageCopy;
     v24 = usageCopy;
     displayStringsProvider = [(RKResponseCollection *)self displayStringsProvider];
-    v48 = v7;
+    v47 = v7;
     v26 = [displayStringsProvider displayStringsForPlatform:v24 languageID:v7];
 
     if ([v26 count])
@@ -163,47 +161,47 @@
       for (i = 0; i != 46; ++i)
       {
         v28 = RKLinguisticCategoryToPreferenceKey(i);
-        if (![v28 isEqualToString:@"Unknown"] || (objc_msgSend(v44, "isEqualToString:", @"zh") & 1) == 0 && (objc_msgSend(v44, "isEqualToString:", @"ja") & 1) == 0)
+        if (![v28 isEqualToString:@"Unknown"] || (objc_msgSend(v43, "isEqualToString:", @"zh") & 1) == 0 && (objc_msgSend(v43, "isEqualToString:", @"ja") & 1) == 0)
         {
           array = [MEMORY[0x277CBEB18] array];
-          v45 = i;
+          v44 = i;
           v30 = [objc_opt_class() speechActsForCategory:i platform:v24];
+          v55 = 0u;
           v56 = 0u;
           v57 = 0u;
           v58 = 0u;
-          v59 = 0u;
           obj = v30;
-          v31 = [v30 countByEnumeratingWithState:&v56 objects:v60 count:16];
+          v31 = [v30 countByEnumeratingWithState:&v55 objects:v59 count:16];
           if (v31)
           {
             v32 = v31;
-            v33 = *v57;
+            v33 = *v56;
             do
             {
               for (j = 0; j != v32; ++j)
               {
-                if (*v57 != v33)
+                if (*v56 != v33)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v35 = *(*(&v56 + 1) + 8 * j);
+                v35 = *(*(&v55 + 1) + 8 * j);
                 v36 = [v26 objectForKeyedSubscript:v35];
-                v49[0] = MEMORY[0x277D85DD0];
-                v49[1] = 3221225472;
-                v49[2] = __82__RKResponseCollection_standardResponsesByCategoryForLanguageIdentifier_andUsage___block_invoke;
-                v49[3] = &unk_279B0FE58;
-                v50 = v24;
-                v51 = v35;
-                selfCopy = v47;
-                v52 = v28;
+                v48[0] = MEMORY[0x277D85DD0];
+                v48[1] = 3221225472;
+                v48[2] = __82__RKResponseCollection_standardResponsesByCategoryForLanguageIdentifier_andUsage___block_invoke;
+                v48[3] = &unk_279B0FE58;
+                v49 = v24;
+                v50 = v35;
+                selfCopy = v46;
+                v51 = v28;
+                v52 = v46;
                 v53 = v47;
-                v54 = v48;
-                v55 = array;
-                [v36 enumerateObjectsUsingBlock:v49];
+                v54 = array;
+                [v36 enumerateObjectsUsingBlock:v48];
               }
 
-              v32 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
+              v32 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
             }
 
             while (v32);
@@ -211,24 +209,22 @@
 
           if ([array count])
           {
-            [v43 setObject:array forKey:v28];
+            [v42 setObject:array forKey:v28];
           }
 
-          i = v45;
+          i = v44;
         }
       }
     }
 
-    usageCopy = v42;
-    v7 = v48;
+    usageCopy = v41;
+    v7 = v47;
     self = selfCopy;
   }
 
   responseCatalog7 = [(RKResponseCollection *)self responseCatalog];
   v38 = [responseCatalog7 objectForKeyedSubscript:v7];
   v39 = [v38 objectForKeyedSubscript:usageCopy];
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v39;
 }
@@ -280,7 +276,7 @@ LABEL_14:
 - (id)cannedResponsesForCategory:(id)category withLanguage:(id)language options:(unint64_t)options
 {
   optionsCopy = options;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   categoryCopy = category;
   v9 = @"watchOS";
   if ((optionsCopy & 0x100) == 0)
@@ -293,26 +289,26 @@ LABEL_14:
   v12 = [v11 objectForKeyedSubscript:categoryCopy];
 
   v13 = objc_opt_new();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v23 + 1) + 8 * i);
+        v19 = *(*(&v22 + 1) + 8 * i);
         if ([v19 type] != 4)
         {
           text = [v19 text];
@@ -320,13 +316,11 @@ LABEL_14:
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v16);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -334,7 +328,7 @@ LABEL_14:
 - (id)responsesForCategory:(unint64_t)category gender:(unint64_t)gender maximumResponses:(unint64_t)responses withLanguage:(id)language context:(id)context options:(unint64_t)options
 {
   optionsCopy = options;
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   contextCopy = context;
   v14 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:languageCopy];
@@ -350,26 +344,26 @@ LABEL_14:
   array = [MEMORY[0x277CBEB18] array];
   v18 = RKLinguisticCategoryToPreferenceKey(category);
   v19 = [(RKResponseCollection *)self standardResponsesByCategoryForLanguageIdentifier:languageCopy andUsage:v16];
-  v55 = v18;
+  v54 = v18;
   v20 = [v19 objectForKeyedSubscript:v18];
   v21 = [v20 mutableCopy];
 
-  v57 = v16;
+  v56 = v16;
   if ((optionsCopy & 8) == 0 && ([(__CFString *)v16 isEqualToString:@"watchOS"]& 1) == 0)
   {
     v22 = [(RKResponseCollection *)self personalizerForLanguageID:languageCopy];
     array2 = [MEMORY[0x277CBEB18] array];
-    v68[0] = MEMORY[0x277D85DD0];
-    v68[1] = 3221225472;
-    v68[2] = __98__RKResponseCollection_responsesForCategory_gender_maximumResponses_withLanguage_context_options___block_invoke;
-    v68[3] = &unk_279B0FED0;
-    v69 = v22;
-    v70 = contextCopy;
+    v67[0] = MEMORY[0x277D85DD0];
+    v67[1] = 3221225472;
+    v67[2] = __98__RKResponseCollection_responsesForCategory_gender_maximumResponses_withLanguage_context_options___block_invoke;
+    v67[3] = &unk_279B0FED0;
+    v68 = v22;
+    v69 = contextCopy;
     v24 = array2;
-    v71 = v24;
-    v72 = languageCode;
+    v70 = v24;
+    v71 = languageCode;
     v25 = v22;
-    [v21 enumerateObjectsUsingBlock:v68];
+    [v21 enumerateObjectsUsingBlock:v67];
     v26 = v24;
 
     v21 = v26;
@@ -386,30 +380,30 @@ LABEL_14:
 
   else
   {
-    v53 = contextCopy;
-    v54 = languageCopy;
+    v52 = contextCopy;
+    v53 = languageCopy;
     v35 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v21, "count")}];
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
     v36 = v21;
-    v37 = [v36 countByEnumeratingWithState:&v64 objects:v73 count:16];
+    v37 = [v36 countByEnumeratingWithState:&v63 objects:v72 count:16];
     if (v37)
     {
       v38 = v37;
       v39 = 0;
-      v40 = *v65;
+      v40 = *v64;
       do
       {
         for (i = 0; i != v38; ++i)
         {
-          if (*v65 != v40)
+          if (*v64 != v40)
           {
             objc_enumerationMutation(v36);
           }
 
-          v42 = *(*(&v64 + 1) + 8 * i);
+          v42 = *(*(&v63 + 1) + 8 * i);
           v43 = [v42 type] == 4;
           if ((v43 & v39) == 1)
           {
@@ -423,15 +417,15 @@ LABEL_14:
           }
         }
 
-        v38 = [v36 countByEnumeratingWithState:&v64 objects:v73 count:16];
+        v38 = [v36 countByEnumeratingWithState:&v63 objects:v72 count:16];
       }
 
       while (v38);
     }
 
     [v36 removeObjectsInArray:v35];
-    contextCopy = v53;
-    languageCopy = v54;
+    contextCopy = v52;
+    languageCopy = v53;
     responsesCopy2 = responses;
     if ((optionsCopy & 2) != 0)
     {
@@ -502,19 +496,18 @@ LABEL_11:
     v34 = off_279B0FFD8[gender];
   }
 
-  v60[0] = MEMORY[0x277D85DD0];
-  v60[1] = 3221225472;
-  v60[2] = __98__RKResponseCollection_responsesForCategory_gender_maximumResponses_withLanguage_context_options___block_invoke_8;
-  v60[3] = &unk_279B0FF18;
+  v59[0] = MEMORY[0x277D85DD0];
+  v59[1] = 3221225472;
+  v59[2] = __98__RKResponseCollection_responsesForCategory_gender_maximumResponses_withLanguage_context_options___block_invoke_8;
+  v59[3] = &unk_279B0FF18;
   genderCopy = gender;
-  v61 = v34;
+  v60 = v34;
   v48 = v33;
-  v62 = v48;
-  [v48 enumerateObjectsUsingBlock:v60];
-  v49 = v62;
+  v61 = v48;
+  [v48 enumerateObjectsUsingBlock:v59];
+  v49 = v61;
   v50 = v48;
 
-  v51 = *MEMORY[0x277D85DE8];
   return v48;
 }
 
@@ -738,30 +731,30 @@ uint64_t __61__RKResponseCollection_responsesForFixedPhrase_withLanguage___block
 
 void __61__RKResponseCollection_responsesForFixedPhrase_withLanguage___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v17 = v6;
+  v16 = v6;
   obj = [v6 componentsSeparatedByString:@"/"];
-  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         v13 = [v7 length];
         if (v13)
         {
@@ -782,18 +775,16 @@ void __61__RKResponseCollection_responsesForFixedPhrase_withLanguage___block_inv
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)responsesForFullScreenMoments:(id)moments
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA900];
   v5 = v4 = moments;
   v6 = +[RKAssets momentsPhrases];
@@ -810,53 +801,51 @@ void __61__RKResponseCollection_responsesForFixedPhrase_withLanguage___block_inv
   v13 = [v6 objectForKeyedSubscript:v12];
   if (v13)
   {
-    v24 = v12;
-    v25 = v5;
+    v23 = v12;
+    v24 = v5;
     v14 = objc_opt_new();
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v23 = v13;
+    v22 = v13;
     obj = v13;
-    v15 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v15 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v28;
+      v17 = *v27;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v28 != v17)
+          if (*v27 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v27 + 1) + 8 * i);
+          v19 = *(*(&v26 + 1) + 8 * i);
           v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
           [v20 setObject:@"moment" forKeyedSubscript:@"type"];
           [v20 setObject:v19 forKeyedSubscript:@"subtype"];
           [v14 addObject:v20];
         }
 
-        v16 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v16 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v16);
     }
 
-    v5 = v25;
-    v13 = v23;
-    v12 = v24;
+    v5 = v24;
+    v13 = v22;
+    v12 = v23;
   }
 
   else
   {
     v14 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

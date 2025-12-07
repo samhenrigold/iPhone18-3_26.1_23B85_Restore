@@ -50,7 +50,7 @@ uint64_t __126__PKRemotePaymentInstrument_PKPaymentAuthorizationDataModel__sortD
   if (v10)
   {
     v11 = v10;
-    LOBYTE(v12) = 0;
+    LOBYTE(isEqualToString) = 0;
     LOBYTE(v13) = 0;
     v14 = *v38;
     while (1)
@@ -66,7 +66,7 @@ uint64_t __126__PKRemotePaymentInstrument_PKPaymentAuthorizationDataModel__sortD
         if (v13)
         {
           v13 = 1;
-          if ((v12 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
             goto LABEL_8;
           }
@@ -75,23 +75,23 @@ uint64_t __126__PKRemotePaymentInstrument_PKPaymentAuthorizationDataModel__sortD
         else
         {
           v13 = [*(*(&v37 + 1) + 8 * i) canProcessPayment:*(a1 + 40)];
-          if ((v12 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
 LABEL_8:
             v17 = [v16 applicationIdentifier];
-            v12 = [v17 isEqualToString:v8];
+            isEqualToString = objc_msgSend_isEqualToString_(v17);
 
             continue;
           }
         }
 
-        v12 = 1;
+        isEqualToString = 1;
       }
 
       v11 = [v9 countByEnumeratingWithState:&v37 objects:v42 count:16];
       if (!v11)
       {
-        v18 = v12 ^ 1;
+        v18 = isEqualToString ^ 1;
         goto LABEL_15;
       }
     }
@@ -141,7 +141,7 @@ LABEL_15:
           {
 LABEL_22:
             v27 = [v26 applicationIdentifier];
-            v23 = [v27 isEqualToString:v8];
+            v23 = objc_msgSend_isEqualToString_(v27);
 
             continue;
           }
@@ -323,32 +323,32 @@ LABEL_9:
 
 - (id)protobuf
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(PKProtobufPaymentInstrument);
-  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
   paymentApplications = [(PKRemotePaymentInstrument *)self paymentApplications];
-  v5 = [paymentApplications countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v5 = [paymentApplications countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v32;
+    v7 = *v33;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v32 != v7)
+        if (*v33 != v7)
         {
           objc_enumerationMutation(paymentApplications);
         }
 
-        protobuf = [*(*(&v31 + 1) + 8 * i) protobuf];
+        protobuf = [*(*(&v32 + 1) + 8 * i) protobuf];
         [(PKProtobufPaymentInstrument *)v3 addPaymentApplications:protobuf];
       }
 
-      v6 = [paymentApplications countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v6 = [paymentApplications countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v6);
@@ -401,8 +401,8 @@ LABEL_9:
     v25 = DecimalToCustomPrecisionProtobuf(amount);
     [(PKProtobufPaymentInstrument *)v3 setCustomPrecisionPeerPaymentAccountBalance:v25];
 
-    v26 = PKProtoSupportProtoDecimalNumberFromDecimalNumber(amount);
-    [(PKProtobufPaymentInstrument *)v3 setDecimalAccountBalance:v26];
+    v27 = PKProtoSupportProtoDecimalNumberFromDecimalNumber(amount, v26);
+    [(PKProtobufPaymentInstrument *)v3 setDecimalAccountBalance:v27];
   }
 
   [(PKProtobufPaymentInstrument *)v3 setAssociatedAccountFeatureIdentifier:[(PKRemotePaymentInstrument *)self associatedAccountFeatureIdentifier]];
@@ -765,18 +765,14 @@ LABEL_9:
     }
   }
 
-  else
+  else if (([(NSArray *)paymentApplications isEqual:?]& 1) == 0)
   {
-    v8 = [(NSArray *)paymentApplications isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_54;
-    }
+    goto LABEL_54;
   }
 
   primaryPaymentApplication = self->_primaryPaymentApplication;
-  v10 = instrumentCopy[13];
-  if (primaryPaymentApplication && v10)
+  v9 = instrumentCopy[13];
+  if (primaryPaymentApplication && v9)
   {
     if (![(PKPaymentApplication *)primaryPaymentApplication isEqual:?])
     {
@@ -784,83 +780,83 @@ LABEL_9:
     }
   }
 
-  else if (primaryPaymentApplication != v10)
+  else if (primaryPaymentApplication != v9)
   {
     goto LABEL_54;
   }
 
-  v11 = instrumentCopy[2];
-  v12 = self->_passIdentifier;
-  v13 = v11;
-  v14 = v13;
-  if (v12 == v13)
+  v10 = instrumentCopy[2];
+  v11 = self->_passIdentifier;
+  v12 = v10;
+  v13 = v12;
+  if (v11 == v12)
   {
   }
 
   else
   {
-    if (!v12 || !v13)
+    if (!v11 || !v12)
     {
       goto LABEL_53;
     }
 
-    v15 = [(NSString *)v12 isEqualToString:v13];
+    isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-    if (!v15)
+    if (!isEqualToString)
     {
       goto LABEL_54;
     }
   }
 
-  v16 = instrumentCopy[3];
-  v12 = self->_organizationName;
-  v17 = v16;
-  v14 = v17;
-  if (v12 == v17)
+  v15 = instrumentCopy[3];
+  v11 = self->_organizationName;
+  v16 = v15;
+  v13 = v16;
+  if (v11 == v16)
   {
   }
 
   else
   {
-    if (!v12 || !v17)
+    if (!v11 || !v16)
     {
       goto LABEL_53;
     }
 
-    v18 = [(NSString *)v12 isEqualToString:v17];
+    v17 = objc_msgSend_isEqualToString_(v11);
 
-    if (!v18)
+    if (!v17)
     {
       goto LABEL_54;
     }
   }
 
-  v19 = instrumentCopy[5];
-  v12 = self->_displayName;
-  v20 = v19;
-  v14 = v20;
-  if (v12 == v20)
+  v18 = instrumentCopy[5];
+  v11 = self->_displayName;
+  v19 = v18;
+  v13 = v19;
+  if (v11 == v19)
   {
   }
 
   else
   {
-    if (!v12 || !v20)
+    if (!v11 || !v19)
     {
       goto LABEL_53;
     }
 
-    v21 = [(NSString *)v12 isEqualToString:v20];
+    v20 = objc_msgSend_isEqualToString_(v11);
 
-    if (!v21)
+    if (!v20)
     {
       goto LABEL_54;
     }
   }
 
   ingestedDate = self->_ingestedDate;
-  v23 = instrumentCopy[14];
-  if (ingestedDate && v23)
+  v22 = instrumentCopy[14];
+  if (ingestedDate && v22)
   {
     if (([(NSDate *)ingestedDate isEqual:?]& 1) == 0)
     {
@@ -868,14 +864,14 @@ LABEL_9:
     }
   }
 
-  else if (ingestedDate != v23)
+  else if (ingestedDate != v22)
   {
     goto LABEL_54;
   }
 
   manifestHash = self->_manifestHash;
-  v25 = instrumentCopy[4];
-  if (manifestHash && v25)
+  v24 = instrumentCopy[4];
+  if (manifestHash && v24)
   {
     if (([(NSData *)manifestHash isEqual:?]& 1) == 0)
     {
@@ -883,62 +879,62 @@ LABEL_9:
     }
   }
 
-  else if (manifestHash != v25)
+  else if (manifestHash != v24)
   {
     goto LABEL_54;
   }
 
-  v26 = instrumentCopy[6];
-  v12 = self->_primaryAccountNumberSuffix;
-  v27 = v26;
-  v14 = v27;
-  if (v12 == v27)
+  v25 = instrumentCopy[6];
+  v11 = self->_primaryAccountNumberSuffix;
+  v26 = v25;
+  v13 = v26;
+  if (v11 == v26)
   {
   }
 
   else
   {
-    if (!v12 || !v27)
+    if (!v11 || !v26)
     {
       goto LABEL_53;
     }
 
-    v28 = [(NSString *)v12 isEqualToString:v27];
+    v27 = objc_msgSend_isEqualToString_(v11);
 
-    if (!v28)
+    if (!v27)
     {
       goto LABEL_54;
     }
   }
 
-  v29 = instrumentCopy[7];
-  v12 = self->_primaryAccountIdentifier;
-  v30 = v29;
-  v14 = v30;
-  if (v12 == v30)
+  v28 = instrumentCopy[7];
+  v11 = self->_primaryAccountIdentifier;
+  v29 = v28;
+  v13 = v29;
+  if (v11 == v29)
   {
 
     goto LABEL_57;
   }
 
-  if (!v12 || !v30)
+  if (!v11 || !v29)
   {
 LABEL_53:
 
     goto LABEL_54;
   }
 
-  v31 = [(NSString *)v12 isEqualToString:v30];
+  v30 = objc_msgSend_isEqualToString_(v11);
 
-  if (!v31)
+  if (!v30)
   {
     goto LABEL_54;
   }
 
 LABEL_57:
   associatedWebDomains = self->_associatedWebDomains;
-  v35 = instrumentCopy[17];
-  if (associatedWebDomains && v35)
+  v34 = instrumentCopy[17];
+  if (associatedWebDomains && v34)
   {
     if (([(NSArray *)associatedWebDomains isEqual:?]& 1) == 0)
     {
@@ -946,14 +942,14 @@ LABEL_57:
     }
   }
 
-  else if (associatedWebDomains != v35)
+  else if (associatedWebDomains != v34)
   {
     goto LABEL_54;
   }
 
   issuerCountryCode = self->_issuerCountryCode;
-  v37 = instrumentCopy[8];
-  if (issuerCountryCode && v37)
+  v36 = instrumentCopy[8];
+  if (issuerCountryCode && v36)
   {
     if (([(NSString *)issuerCountryCode isEqual:?]& 1) == 0)
     {
@@ -961,7 +957,7 @@ LABEL_57:
     }
   }
 
-  else if (issuerCountryCode != v37)
+  else if (issuerCountryCode != v36)
   {
     goto LABEL_54;
   }
@@ -972,8 +968,8 @@ LABEL_57:
   }
 
   peerPaymentAccountBalance = self->_peerPaymentAccountBalance;
-  v39 = instrumentCopy[15];
-  if (peerPaymentAccountBalance && v39)
+  v38 = instrumentCopy[15];
+  if (peerPaymentAccountBalance && v38)
   {
     if (![(PKCurrencyAmount *)peerPaymentAccountBalance isEqual:?])
     {
@@ -981,7 +977,7 @@ LABEL_57:
     }
   }
 
-  else if (peerPaymentAccountBalance != v39)
+  else if (peerPaymentAccountBalance != v38)
   {
     goto LABEL_54;
   }
@@ -992,8 +988,8 @@ LABEL_57:
   }
 
   cobranded = self->_cobranded;
-  v41 = instrumentCopy[10];
-  if (cobranded && v41)
+  v40 = instrumentCopy[10];
+  if (cobranded && v40)
   {
     if (([(NSNumber *)cobranded isEqual:?]& 1) != 0)
     {
@@ -1001,31 +997,31 @@ LABEL_57:
     }
 
 LABEL_54:
-    v32 = 0;
+    v31 = 0;
     goto LABEL_55;
   }
 
-  if (cobranded != v41)
+  if (cobranded != v40)
   {
     goto LABEL_54;
   }
 
 LABEL_80:
   cobrandName = self->_cobrandName;
-  v43 = instrumentCopy[11];
-  if (cobrandName && v43)
+  v42 = instrumentCopy[11];
+  if (cobrandName && v42)
   {
-    v32 = [(NSString *)cobrandName isEqual:?];
+    v31 = [(NSString *)cobrandName isEqual:?];
   }
 
   else
   {
-    v32 = cobrandName == v43;
+    v31 = cobrandName == v42;
   }
 
 LABEL_55:
 
-  return v32;
+  return v31;
 }
 
 + (id)thumbnailCachePathForManifestHash:(id)hash size:(CGSize)size planningToWrite:(BOOL)write

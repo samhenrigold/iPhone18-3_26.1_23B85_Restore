@@ -850,7 +850,6 @@ LABEL_20:
   has = self->_has;
   if ((*&has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 2) == 0)
@@ -870,7 +869,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rxPackets = self->_rxPackets;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -885,7 +883,6 @@ LABEL_4:
   }
 
 LABEL_98:
-  txPackets = self->_txPackets;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -900,7 +897,6 @@ LABEL_5:
   }
 
 LABEL_99:
-  txPacketsBe = self->_txPacketsBe;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -915,7 +911,6 @@ LABEL_6:
   }
 
 LABEL_100:
-  txPacketsBk = self->_txPacketsBk;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -930,7 +925,6 @@ LABEL_7:
   }
 
 LABEL_101:
-  txPacketsVi = self->_txPacketsVi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -945,7 +939,6 @@ LABEL_8:
   }
 
 LABEL_102:
-  txPacketsVo = self->_txPacketsVo;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -960,7 +953,6 @@ LABEL_9:
   }
 
 LABEL_103:
-  rxBytes = self->_rxBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -975,7 +967,6 @@ LABEL_10:
   }
 
 LABEL_104:
-  txBytes = self->_txBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -990,7 +981,6 @@ LABEL_11:
   }
 
 LABEL_105:
-  txBytesBe = self->_txBytesBe;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1005,7 +995,6 @@ LABEL_12:
   }
 
 LABEL_106:
-  txBytesBk = self->_txBytesBk;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1020,7 +1009,6 @@ LABEL_13:
   }
 
 LABEL_107:
-  txBytesVi = self->_txBytesVi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1035,7 +1023,6 @@ LABEL_14:
   }
 
 LABEL_108:
-  txBytesVo = self->_txBytesVo;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1050,7 +1037,6 @@ LABEL_15:
   }
 
 LABEL_109:
-  linkRateMbps = self->_linkRateMbps;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1065,7 +1051,6 @@ LABEL_16:
   }
 
 LABEL_110:
-  effectiveLinkRateMpbs = self->_effectiveLinkRateMpbs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1080,7 +1065,6 @@ LABEL_17:
   }
 
 LABEL_111:
-  dataTransferRateMpbs = self->_dataTransferRateMpbs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1095,12 +1079,10 @@ LABEL_18:
   }
 
 LABEL_112:
-  effectiveDataTransferRateMpbs = self->_effectiveDataTransferRateMpbs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20000) != 0)
   {
 LABEL_19:
-    linkLatencyMs = self->_linkLatencyMs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1137,7 +1119,6 @@ LABEL_20:
 
   if ((*(&self->_has + 2) & 4) != 0)
   {
-    linkOpenPct = self->_linkOpenPct;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1188,7 +1169,6 @@ LABEL_20:
 
   if ((*(&self->_has + 1) & 0x20) != 0)
   {
-    avgCCA = self->_avgCCA;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1239,7 +1219,6 @@ LABEL_20:
 
   if ((*(&self->_has + 2) & 0x10) != 0)
   {
-    lqm = self->_lqm;
     PBDataWriterWriteUint32Field();
   }
 

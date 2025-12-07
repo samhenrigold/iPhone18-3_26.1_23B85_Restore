@@ -125,16 +125,16 @@
   return v16;
 }
 
-void __40__SSVURLCache_cachedResponseForRequest___block_invoke(uint64_t a1)
+void __40__SSVURLCache_cachedResponseForRequest___block_invoke(void *a1)
 {
-  if (*(*(a1 + 32) + 32))
+  if (*(a1[4] + 32))
   {
     v2 = CFURLCacheCopyResponseForRequest();
     if (v2)
     {
       v3 = v2;
       v4 = [objc_alloc(MEMORY[0x1E696AAF8]) _initWithCFCachedURLResponse:v2];
-      v5 = *(*(a1 + 40) + 8);
+      v5 = *(a1[5] + 8);
       v6 = *(v5 + 40);
       *(v5 + 40) = v4;
 

@@ -151,8 +151,8 @@
 
 - (NSString)description
 {
-  v28[4] = *MEMORY[0x1E69E9840];
-  v27[0] = @"disableReappearPlaceholder";
+  v27[4] = *MEMORY[0x1E69E9840];
+  v26[0] = @"disableReappearPlaceholder";
   if ([(AMSUIWebSafariPageModel *)self disableReappearPlaceholder])
   {
     v3 = @"true";
@@ -163,8 +163,8 @@
     v3 = @"false";
   }
 
-  v28[0] = v3;
-  v27[1] = @"hideToolBar";
+  v27[0] = v3;
+  v26[1] = @"hideToolBar";
   if ([(AMSUIWebSafariPageModel *)self hideToolBar])
   {
     v4 = @"true";
@@ -175,8 +175,8 @@
     v4 = @"false";
   }
 
-  v28[1] = v4;
-  v27[2] = @"showShareButton";
+  v27[1] = v4;
+  v26[2] = @"showShareButton";
   if ([(AMSUIWebSafariPageModel *)self showShareButton])
   {
     v5 = @"true";
@@ -187,12 +187,12 @@
     v5 = @"false";
   }
 
-  v28[2] = v5;
-  v27[3] = @"windowSize";
+  v27[2] = v5;
+  v26[3] = @"windowSize";
   [(AMSUIWebSafariPageModel *)self windowSize];
-  v6 = NSStringFromCGSize(v30);
-  v28[3] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:4];
+  v6 = NSStringFromCGSize(v29);
+  v27[3] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:4];
   v8 = [v7 mutableCopy];
 
   backgroundColor = [(AMSUIWebSafariPageModel *)self backgroundColor];
@@ -254,8 +254,6 @@
 
   v24 = [v8 description];
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
@@ -273,32 +271,13 @@
     v5 = 0;
   }
 
-  if (!v5)
-  {
-    goto LABEL_8;
-  }
-
-  originalURL = [v5 originalURL];
-  if (!originalURL)
-  {
-    goto LABEL_8;
-  }
-
-  v7 = originalURL;
-  v8 = [(AMSUIWebSafariPageModel *)self URL];
-  absoluteString = [v8 absoluteString];
-  originalURL2 = [v5 originalURL];
-  absoluteString2 = [originalURL2 absoluteString];
-  v12 = [absoluteString isEqualToString:absoluteString2];
-
-  if (v12)
+  if (v5 && ([v5 originalURL], (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (v7 = v6, -[AMSUIWebSafariPageModel URL](self, "URL"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "absoluteString"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "originalURL"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "absoluteString"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v9, "isEqualToString:", v11), v11, v10, v9, v8, v7, v12))
   {
     v13 = v5;
   }
 
   else
   {
-LABEL_8:
     v14 = [AMSUIWebSafariViewController alloc];
     context = [(AMSUIWebSafariPageModel *)self context];
     v13 = [(AMSUIWebSafariViewController *)v14 initWithContext:context];

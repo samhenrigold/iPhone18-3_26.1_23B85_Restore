@@ -18,19 +18,19 @@
 - (__CFArray)associatedResults;
 - (__DDResult)coalescedResult;
 - (id)_iconFromName:(id)name;
+- (id)calloutFlavor;
 - (id)description;
 - (id)feedbackIdentifier;
 - (id)generateIdentifier;
 - (id)localizedName;
 - (id)localizedSubItemName:(BOOL)name;
 - (id)variantIconName;
-- (uint64_t)calloutFlavor;
 - (void)_openURL:(id)l fromView:(id)view options:(id)options;
 - (void)_openURL:(id)l options:(id)options fallbackURL:(id)rL;
+- (void)_performFromView:(id)view byOpeningURL:(id)l disableAppLink:(BOOL)link;
 - (void)addToRecents;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
-- (void)invalidate;
 - (void)localizedName;
 - (void)performFromView:(id)view;
 - (void)prepareViewControllerForActionController:(id)controller;
@@ -154,57 +154,55 @@
 
 + (id)encodableContextWithContext:(id)context
 {
-  v19[14] = *MEMORY[0x277D85DE8];
+  v18[14] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v19[0] = @"EventTitle";
-  v19[1] = @"SelectedText";
-  v19[2] = @"ReferenceDate";
-  v19[3] = @"SpecialURL";
-  v19[4] = @"IsAccountManaged";
-  v19[5] = @"CoreRecents";
-  v19[6] = @"EventComponents";
-  v19[7] = @"ICS";
-  v19[8] = @"Contact";
-  v19[9] = @"LeadingText";
-  v19[10] = @"MiddleText";
-  v19[11] = @"TrailingText";
-  v19[12] = @"GroupTranscript";
-  v19[13] = @"CoreSpotlightUniqueIdentifier";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:14];
+  v18[0] = @"EventTitle";
+  v18[1] = @"SelectedText";
+  v18[2] = @"ReferenceDate";
+  v18[3] = @"SpecialURL";
+  v18[4] = @"IsAccountManaged";
+  v18[5] = @"CoreRecents";
+  v18[6] = @"EventComponents";
+  v18[7] = @"ICS";
+  v18[8] = @"Contact";
+  v18[9] = @"LeadingText";
+  v18[10] = @"MiddleText";
+  v18[11] = @"TrailingText";
+  v18[12] = @"GroupTranscript";
+  v18[13] = @"CoreSpotlightUniqueIdentifier";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:14];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        v11 = [contextCopy objectForKeyedSubscript:{v10, v14}];
+        v10 = *(*(&v13 + 1) + 8 * i);
+        v11 = [contextCopy objectForKeyedSubscript:{v10, v13}];
         if (v11)
         {
           [v4 setObject:v11 forKeyedSubscript:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -351,7 +349,7 @@
 
 + (id)actionsWithURL:(id)l result:(__DDResult *)result context:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   lCopy = l;
   v10 = [[self alloc] initWithURL:lCopy result:result context:contextCopy];
@@ -360,24 +358,22 @@
   v12 = companionAction;
   if (companionAction)
   {
-    v20 = v10;
-    v21 = companionAction;
+    v19 = v10;
+    v20 = companionAction;
     v13 = MEMORY[0x277CBEA60];
-    v14 = &v20;
+    v14 = &v19;
     v15 = 2;
   }
 
   else
   {
-    v19 = v10;
+    v18 = v10;
     v13 = MEMORY[0x277CBEA60];
-    v14 = &v19;
+    v14 = &v18;
     v15 = 1;
   }
 
-  v16 = [v13 arrayWithObjects:v14 count:{v15, v19, v20, v21, v22}];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = [v13 arrayWithObjects:v14 count:{v15, v18, v19, v20, v21}];
 
   return v16;
 }
@@ -445,7 +441,7 @@
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    [DDAction performFromView:];
+    [DDAction performFromView:?];
   }
 }
 
@@ -512,24 +508,24 @@ void __41__DDAction__openURL_options_fallbackURL___block_invoke_2(uint64_t a1, c
 
 void __41__DDAction__openURL_options_fallbackURL___block_invoke_3(uint64_t a1)
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = [MEMORY[0x277D75128] sharedApplication];
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __41__DDAction__openURL_options_fallbackURL___block_invoke_4;
-    v14[3] = &unk_278291400;
-    v15 = *(a1 + 48);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __41__DDAction__openURL_options_fallbackURL___block_invoke_4;
+    v13[3] = &unk_278291400;
+    v14 = *(a1 + 48);
     v5 = *(a1 + 32);
     v6 = *(a1 + 56);
-    v16 = v5;
-    v17 = v6;
-    [v2 openURL:v3 options:v4 completionHandler:v14];
+    v15 = v5;
+    v16 = v6;
+    [v2 openURL:v3 options:v4 completionHandler:v13];
 
-    v7 = v15;
+    v7 = v14;
   }
 
   else
@@ -537,29 +533,27 @@ void __41__DDAction__openURL_options_fallbackURL___block_invoke_3(uint64_t a1)
     v8 = [MEMORY[0x277CC1E80] defaultWorkspace];
     v9 = *(a1 + 48);
     v10 = *MEMORY[0x277D0AC58];
-    v18[0] = *MEMORY[0x277D0AC70];
-    v18[1] = v10;
-    v19[0] = MEMORY[0x277CBEC38];
-    v19[1] = MEMORY[0x277CBEC38];
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-    v13 = 0;
-    [v8 openSensitiveURL:v9 withOptions:v11 error:&v13];
-    v7 = v13;
+    v17[0] = *MEMORY[0x277D0AC70];
+    v17[1] = v10;
+    v18[0] = MEMORY[0x277CBEC38];
+    v18[1] = MEMORY[0x277CBEC38];
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v12 = 0;
+    [v8 openSensitiveURL:v9 withOptions:v11 error:&v12];
+    v7 = v12;
 
     if (v7 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       __41__DDAction__openURL_options_fallbackURL___block_invoke_3_cold_1((a1 + 48), a1);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void __41__DDAction__openURL_options_fallbackURL___block_invoke_4(uint64_t a1, char a2)
+void __41__DDAction__openURL_options_fallbackURL___block_invoke_4(uint64_t result, char a2)
 {
   if ((a2 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    __41__DDAction__openURL_options_fallbackURL___block_invoke_4_cold_1(a1);
+    __41__DDAction__openURL_options_fallbackURL___block_invoke_4_cold_1(result);
   }
 }
 
@@ -583,11 +577,11 @@ void __41__DDAction__openURL_options_fallbackURL___block_invoke_4(uint64_t a1, c
   [mEMORY[0x277D75128] _openURL:v14 originatingView:v13 options:v12 completionHandler:v15];
 }
 
-void __38__DDAction__openURL_fromView_options___block_invoke(uint64_t a1, char a2)
+void __38__DDAction__openURL_fromView_options___block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    if (dd_isInternalInstall())
+    if (dd_isInternalInstall(a1, a2))
     {
       v3 = [*(a1 + 32) radarWebURL];
       if (v3)
@@ -623,21 +617,58 @@ void __38__DDAction__openURL_fromView_options___block_invoke(uint64_t a1, char a
   }
 }
 
-uint64_t __38__DDAction__openURL_fromView_options___block_invoke_2(uint64_t result, char a2)
+id *__38__DDAction__openURL_fromView_options___block_invoke_2(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) _openURL:*(result + 40) options:*(result + 48) fallbackURL:*(result + 56)];
+    return [result[4] _openURL:result[5] options:result[6] fallbackURL:result[7]];
   }
 
   return result;
+}
+
+- (void)_performFromView:(id)view byOpeningURL:(id)l disableAppLink:(BOOL)link
+{
+  linkCopy = link;
+  v18[4] = *MEMORY[0x277D85DE8];
+  viewCopy = view;
+  lCopy = l;
+  if (lCopy && [(DDAction *)self canBePerformedByOpeningURL])
+  {
+    v10 = *MEMORY[0x277D0AC58];
+    v17[0] = *MEMORY[0x277D0AC70];
+    v17[1] = v10;
+    v18[0] = MEMORY[0x277CBEC38];
+    v18[1] = MEMORY[0x277CBEC38];
+    v18[2] = &unk_282C2BDD0;
+    v11 = *MEMORY[0x277D77310];
+    v17[2] = *MEMORY[0x277D0AC20];
+    v17[3] = v11;
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:linkCopy];
+    v18[3] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
+
+    serviceIdentifier = [(DDAction *)self serviceIdentifier];
+    if (serviceIdentifier)
+    {
+      defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
+      v16 = [defaultWorkspace operationToOpenResource:lCopy usingApplication:serviceIdentifier uniqueDocumentIdentifier:0 isContentManaged:0 sourceAuditToken:0 userInfo:0 options:v13 delegate:0];
+
+      [v16 start];
+    }
+
+    else
+    {
+      [(DDAction *)self _openURL:lCopy fromView:viewCopy options:v13];
+    }
+  }
 }
 
 - (id)localizedName
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    [DDAction localizedName];
+    [(DDAction *)self localizedName];
   }
 
   return &stru_282C1E0A8;
@@ -902,17 +933,9 @@ LABEL_5:
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v6 = self->_result;
-  v7 = [v3 stringWithFormat:@"<%@:%p result:%@ URL:%@>", v5, self, v6, self->_url];
+  v6 = [v3 stringWithFormat:@"<%@:%p result:%@ URL:%@>", v5, self, self->_result, self->_url];
 
-  return v7;
-}
-
-- (void)invalidate
-{
-  viewController = self->_viewController;
-  self->_viewController = 0;
-  MEMORY[0x2821F96F8]();
+  return v6;
 }
 
 - (void)setupPopoverPresentationController:(id)controller view:(id)view
@@ -1003,11 +1026,11 @@ LABEL_7:
   return WeakRetained;
 }
 
-- (uint64_t)calloutFlavor
+- (id)calloutFlavor
 {
   if (result)
   {
-    v1 = [*(result + 56) objectForKeyedSubscript:@"kDDContextNoRoomForSubtitlesKey"];
+    v1 = [result[7] objectForKeyedSubscript:@"kDDContextNoRoomForSubtitlesKey"];
     bOOLValue = [v1 BOOLValue];
 
     return bOOLValue;
@@ -1016,51 +1039,38 @@ LABEL_7:
   return result;
 }
 
-- (void)performFromView:.cold.1()
+- (void)performFromView:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void __41__DDAction__openURL_options_fallbackURL___block_invoke_3_cold_1(id *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = [*a1 scheme];
-  v4 = *(a2 + 56);
+  v7 = [*a1 scheme];
   objc_opt_class();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void __41__DDAction__openURL_options_fallbackURL___block_invoke_4_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) scheme];
-  v3 = [*(a1 + 40) scheme];
-  v4 = *(a1 + 48);
+  v8 = [*(a1 + 40) scheme];
   objc_opt_class();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 - (void)localizedName
 {
-  v8 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_1_0();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 @end

@@ -67,7 +67,7 @@ id __59___NSTextAttributeStorage_setAttribute_value_forTextRange___block_invoke_
   return result;
 }
 
-uint64_t __71___NSTextAttributeStorage__attributesInTextRange_areEqualToAttributes___block_invoke(void *a1, void *a2, void *a3, _BYTE *a4)
+void *__71___NSTextAttributeStorage__attributesInTextRange_areEqualToAttributes___block_invoke(void *a1, void *a2, void *a3, _BYTE *a4)
 {
   result = [a3 containsRange:a1[4]];
   if (result)
@@ -80,7 +80,7 @@ uint64_t __71___NSTextAttributeStorage__attributesInTextRange_areEqualToAttribut
   return result;
 }
 
-uint64_t __71___NSTextAttributeStorage__attributesInTextRange_areEqualToAttributes___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__71___NSTextAttributeStorage__attributesInTextRange_areEqualToAttributes___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [objc_msgSend(*(a1 + 32) "endLocation")];
   *(*(*(a1 + 40) + 8) + 24) = result != 1;

@@ -14,17 +14,16 @@
 
 - (void)endAlertingSession
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ ending alerting session", &v5, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ ending alerting session", &v4, 0xCu);
   }
 
   [(MTActivityCoordinator *)self->_coordinator endAlertingSession];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (MTSessionServer)initWithCoordinator:(id)coordinator
@@ -44,58 +43,53 @@
       _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", buf, 0xCu);
     }
 
-    v8 = MTSessionClientInterface();
-    v9 = MTSessionServerInterface();
-    v10 = [MTXPCConnectionInfo infoForMachServiceName:@"com.apple.MobileTimer.sessionserver" remoteObjectInterface:v8 exportedObject:v6 exportedObjectInterface:v9 lifecycleNotification:@"com.apple.MTSessionServer.wakeup" requiredEntitlement:@"com.apple.private.mobiletimerd" options:0];
+    v9 = MTSessionClientInterface(v8);
+    v10 = MTSessionServerInterface(v9);
+    v11 = [MTXPCConnectionInfo infoForMachServiceName:@"com.apple.MobileTimer.sessionserver" remoteObjectInterface:v9 exportedObject:v6 exportedObjectInterface:v10 lifecycleNotification:@"com.apple.MTSessionServer.wakeup" requiredEntitlement:@"com.apple.private.mobiletimerd" options:0];
 
-    v11 = +[MTScheduler serialSchedulerWithName:priority:](MTScheduler, "serialSchedulerWithName:priority:", @"com.apple.MTSessionServer.ready-queue", +[MTScheduler defaultPriority]);
+    v12 = +[MTScheduler serialSchedulerWithName:priority:](MTScheduler, "serialSchedulerWithName:priority:", @"com.apple.MTSessionServer.ready-queue", +[MTScheduler defaultPriority]);
     serializer = v6->_serializer;
-    v6->_serializer = v11;
+    v6->_serializer = v12;
 
-    v13 = [MTXPCConnectionListenerProvider providerWithConnectionInfo:v10 errorHandler:0];
+    v14 = [MTXPCConnectionListenerProvider providerWithConnectionInfo:v11 errorHandler:0];
     connectionListenerProvider = v6->_connectionListenerProvider;
-    v6->_connectionListenerProvider = v13;
-    v15 = v13;
+    v6->_connectionListenerProvider = v14;
+    v16 = v14;
 
     objc_storeStrong(&v6->_coordinator, coordinator);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)startListening
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Starting %{public}@", &v6, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Starting %{public}@", &v5, 0xCu);
   }
 
   connectionListenerProvider = [(MTSessionServer *)self connectionListenerProvider];
   [connectionListenerProvider startListening];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopListening
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Stopping %{public}@", &v6, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Stopping %{public}@", &v5, 0xCu);
   }
 
   connectionListenerProvider = [(MTSessionServer *)self connectionListenerProvider];
   [connectionListenerProvider stopListening];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSystemReady
@@ -111,21 +105,19 @@
 
 void __36__MTSessionServer_handleSystemReady__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "System is ready: %{public}@.  Will post MTSessionServerReadyNotification.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "System is ready: %{public}@.  Will post MTSessionServerReadyNotification.", &v5, 0xCu);
   }
 
   *(*(a1 + 32) + 8) = 1;
   v4 = [MEMORY[0x1E696ABB0] defaultCenter];
   [v4 postNotificationName:@"com.apple.MTSessionServer.ready" object:0 userInfo:0 deliverImmediately:1];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_systemNotReadyError
@@ -168,21 +160,21 @@ void __36__MTSessionServer_handleSystemReady__block_invoke(uint64_t a1)
 
 - (void)printDiagnostics
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTSessionServer-----", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTSessionServer-----", &v9, 2u);
   }
 
   v4 = MTLogForCategory(1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x1E696AD98] numberWithBool:{-[MTSessionServer _isSystemReady](self, "_isSystemReady")}];
-    v10 = 138412290;
-    v11 = v5;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "System Ready: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v5;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "System Ready: %@", &v9, 0xCu);
   }
 
   v6 = MTLogForCategory(1);
@@ -190,18 +182,16 @@ void __36__MTSessionServer_handleSystemReady__block_invoke(uint64_t a1)
   {
     connectionListenerProvider = [(MTSessionServer *)self connectionListenerProvider];
     connectedClients = [connectionListenerProvider connectedClients];
-    v10 = 138543362;
-    v11 = connectedClients;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "Clients: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = connectedClients;
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "Clients: %{public}@", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)gatherDiagnostics
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11[0] = @"Session system ready";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10[0] = @"Session system ready";
   if ([(MTSessionServer *)self _isSystemReady])
   {
     v3 = @"YES";
@@ -212,16 +202,14 @@ void __36__MTSessionServer_handleSystemReady__block_invoke(uint64_t a1)
     v3 = @"NO";
   }
 
-  v11[1] = @"Session clients";
-  v12[0] = v3;
+  v10[1] = @"Session clients";
+  v11[0] = v3;
   connectionListenerProvider = [(MTSessionServer *)self connectionListenerProvider];
   connectedClients = [connectionListenerProvider connectedClients];
   v6 = [connectedClients valueForKey:@"processName"];
   v7 = [v6 componentsJoinedByString:{@", "}];
-  v12[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   return v8;
 }

@@ -450,7 +450,7 @@ LABEL_21:
         if ((!v47 || !-[SBAppLayout isOrContainsAppLayout:](v47, "isOrContainsAppLayout:", *(*(&v147 + 1) + 8 * v45)) && ([v46 isOrContainsAppLayout:self->_appLayout] & 1) == 0) && (objc_msgSend(v46, "containsAnyItemFromSet:", bs_set2) & 1) == 0)
         {
           v48 = [(SBStripModelWindowingModifier *)self _stripIdentifierForAppLayout:v46];
-          if (![v117 containsObject:v48])
+          if (!objc_msgSend_containsObject_(v117))
           {
             goto LABEL_43;
           }
@@ -458,7 +458,7 @@ LABEL_21:
           allItems3 = [v46 allItems];
           if ([allItems3 count] == 1)
           {
-            v50 = [v42 containsObject:v46];
+            v50 = objc_msgSend_containsObject_(v42);
 
             v40 = v112;
             if ((v50 & 1) == 0)
@@ -600,7 +600,7 @@ LABEL_43:
         if ((!v76 || !-[SBAppLayout isOrContainsAppLayout:](v76, "isOrContainsAppLayout:", v75) && ([v75 isOrContainsAppLayout:self->_appLayout] & 1) == 0) && (objc_msgSend(v75, "containsAnyItemFromSet:", bs_set2) & 1) == 0 && (objc_msgSend(v75, "containsAnyItemFromSet:", v120) & 1) == 0)
         {
           v77 = [(SBStripModelWindowingModifier *)self _stripIdentifierForAppLayout:v75];
-          if ([v62 containsObject:?] && (objc_msgSend(v75, "containsAnyItemFromSet:", bs_set2) & 1) == 0)
+          if (objc_msgSend_containsObject_(v62) && ([v75 containsAnyItemFromSet:bs_set2] & 1) == 0)
           {
             v78 = [v119 objectForKey:v77];
             if (!v78)

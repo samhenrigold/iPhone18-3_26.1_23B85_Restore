@@ -418,10 +418,10 @@ void __27__SSPromise_thenWithBlock___block_invoke(uint64_t a1, void *a2, void *a
   {
     if (resultCopy | errorCopy)
     {
-      goto LABEL_26;
+      goto LABEL_28;
     }
 
-    v9 = SSPromiseLogConfig();
+    v9 = SSPromiseLogConfig(errorCopy);
     if (!v9)
     {
       v9 = +[SSLogConfig sharedConfig];
@@ -430,16 +430,21 @@ void __27__SSPromise_thenWithBlock___block_invoke(uint64_t a1, void *a2, void *a
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v23 = shouldLog | 2;
+      LODWORD(v23) = shouldLog | 2;
     }
 
     else
     {
-      v23 = shouldLog;
+      LODWORD(v23) = shouldLog;
     }
 
     oSLogObject = [v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v23 = v23;
+    }
+
+    else
     {
       v23 &= 2u;
     }
@@ -449,24 +454,22 @@ void __27__SSPromise_thenWithBlock___block_invoke(uint64_t a1, void *a2, void *a
       *location = 138543362;
       *&location[4] = objc_opt_class();
       v24 = *&location[4];
-      LODWORD(v47) = 12;
-      v46 = location;
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Someone is finishing a promise with neither a result nor an error. This will result in neither the success nor the error blocks being called.", location, 12);
 
       if (!v14)
       {
-        goto LABEL_25;
+        goto LABEL_27;
       }
 
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-LABEL_24:
+LABEL_26:
 
-    goto LABEL_25;
+    goto LABEL_27;
   }
 
-  v9 = SSPromiseLogConfig();
+  v9 = SSPromiseLogConfig(errorCopy);
   if (!v9)
   {
     v9 = +[SSLogConfig sharedConfig];
@@ -475,23 +478,28 @@ LABEL_24:
   shouldLog2 = [v9 shouldLog];
   if ([v9 shouldLogToDisk])
   {
-    v11 = shouldLog2 | 2;
+    LODWORD(v11) = shouldLog2 | 2;
   }
 
   else
   {
-    v11 = shouldLog2;
+    LODWORD(v11) = shouldLog2;
   }
 
   oSLogObject = [v9 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
 
   if (!v11)
   {
-    goto LABEL_24;
+    goto LABEL_26;
   }
 
   *location = 138543874;
@@ -501,21 +509,19 @@ LABEL_24:
   v53 = 2114;
   v54 = v8;
   v13 = *&location[4];
-  LODWORD(v47) = 32;
-  v46 = location;
-  v14 = _os_log_send_and_compose_impl();
+  v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Someone is finishing a promise with both a result and an error. This will result in both the success and error blocks being called. result = %{public}@ error = %{public}@", location, 32);
 
   if (v14)
   {
-LABEL_12:
-    v15 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, location, v47}];
+LABEL_13:
+    v15 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
     free(v14);
     SSFileLog(v9, @"%@", v16, v17, v18, v19, v20, v21, v15);
   }
 
-LABEL_25:
+LABEL_27:
 
-LABEL_26:
+LABEL_28:
   stateLock = [(SSPromise *)self stateLock];
   [stateLock lock];
 
@@ -524,53 +530,58 @@ LABEL_26:
 
   if (condition == 1)
   {
-    v32 = SSPromiseLogConfig();
-    if (!v32)
+    v33 = SSPromiseLogConfig(v28);
+    if (!v33)
     {
-      v32 = +[SSLogConfig sharedConfig];
+      v33 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v32 shouldLog];
-    if ([v32 shouldLogToDisk])
+    shouldLog3 = [v33 shouldLog];
+    if ([v33 shouldLogToDisk])
     {
-      v34 = shouldLog3 | 2;
+      LODWORD(v35) = shouldLog3 | 2;
     }
 
     else
     {
-      v34 = shouldLog3;
+      LODWORD(v35) = shouldLog3;
     }
 
-    oSLogObject2 = [v32 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+    oSLogObject2 = [v33 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
     {
-      v34 &= 2u;
+      v35 = v35;
     }
 
-    if (v34)
+    else
     {
-      v36 = objc_opt_class();
+      v35 &= 2u;
+    }
+
+    if (v35)
+    {
+      v37 = objc_opt_class();
       *location = 138543362;
-      *&location[4] = v36;
-      v37 = v36;
+      *&location[4] = v37;
+      v38 = v37;
       LODWORD(v47) = 12;
-      v38 = _os_log_send_and_compose_impl();
+      v39 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 2, "%{public}@: Someone is attempting to finish or cancel a finished SSPromise.", location, v47);
 
-      if (!v38)
+      if (!v39)
       {
-LABEL_39:
+LABEL_42:
 
         stateLock3 = [(SSPromise *)self stateLock];
         [(SSPromiseResult *)stateLock3 unlock];
-        goto LABEL_40;
+        goto LABEL_43;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v38 encoding:{4, location, v47}];
-      free(v38);
-      SSFileLog(v32, @"%@", v39, v40, v41, v42, v43, v44, oSLogObject2);
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v39 encoding:4];
+      free(v39);
+      SSFileLog(v33, @"%@", v40, v41, v42, v43, v44, v45, oSLogObject2);
     }
 
-    goto LABEL_39;
+    goto LABEL_42;
   }
 
   stateLock3 = [[SSPromiseResult alloc] initWithResult:resultCopy error:v8];
@@ -582,17 +593,17 @@ LABEL_39:
   [completionBlocks flushCompletionBlocksWithPromiseResult:stateLock3];
 
   objc_initWeak(location, self);
-  v31 = +[SSPromise _globalPromiseStorageAccessQueue];
+  v32 = +[SSPromise _globalPromiseStorageAccessQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __36__SSPromise_finishWithResult_error___block_invoke;
   block[3] = &unk_1E84AD820;
   objc_copyWeak(&v49, location);
-  dispatch_async(v31, block);
+  dispatch_async(v32, block);
 
   objc_destroyWeak(&v49);
   objc_destroyWeak(location);
-LABEL_40:
+LABEL_43:
 
   return condition != 1;
 }

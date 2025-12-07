@@ -9,7 +9,7 @@
 
 - (void)_addCoreDuetDatasetSample:(id)sample toDataset:(id)dataset
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   sampleCopy = sample;
   datasetCopy = dataset;
   v8 = MEMORY[0x277CFE1E8];
@@ -27,25 +27,23 @@
   v18 = [v14 eventWithStream:v10 startDate:date endDate:date2 value:v13 metadata:metadata];
 
   knowledgeStore = [(CPAnalyticsKnowledgeStoreDestination *)self knowledgeStore];
-  v28[0] = v18;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+  v27[0] = v18;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
   v21 = dispatch_get_global_queue(9, 0);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __76__CPAnalyticsKnowledgeStoreDestination__addCoreDuetDatasetSample_toDataset___block_invoke;
-  v25[3] = &unk_278D612C8;
-  v26 = datasetCopy;
-  v27 = sampleCopy;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __76__CPAnalyticsKnowledgeStoreDestination__addCoreDuetDatasetSample_toDataset___block_invoke;
+  v24[3] = &unk_278D612C8;
+  v25 = datasetCopy;
+  v26 = sampleCopy;
   v22 = sampleCopy;
   v23 = datasetCopy;
-  [knowledgeStore saveObjects:v20 responseQueue:v21 withCompletion:v25];
-
-  v24 = *MEMORY[0x277D85DE8];
+  [knowledgeStore saveObjects:v20 responseQueue:v21 withCompletion:v24];
 }
 
 void __76__CPAnalyticsKnowledgeStoreDestination__addCoreDuetDatasetSample_toDataset___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = CPAnalyticsLog();
   v7 = v6;
@@ -54,9 +52,9 @@ void __76__CPAnalyticsKnowledgeStoreDestination__addCoreDuetDatasetSample_toData
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v8 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_24260A000, v7, OS_LOG_TYPE_INFO, "CPAnalytics KnowledgeStore saved in %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&dword_24260A000, v7, OS_LOG_TYPE_INFO, "CPAnalytics KnowledgeStore saved in %@", &v10, 0xCu);
     }
 
     v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -69,12 +67,10 @@ void __76__CPAnalyticsKnowledgeStoreDestination__addCoreDuetDatasetSample_toData
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_error_impl(&dword_24260A000, v7, OS_LOG_TYPE_ERROR, "CPAnalytics KnowledgeStore failed to save Duet event: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_error_impl(&dword_24260A000, v7, OS_LOG_TYPE_ERROR, "CPAnalytics KnowledgeStore failed to save Duet event: %@", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_datasetSampleFromEvent:(id)event andMatcher:(id)matcher
@@ -111,28 +107,28 @@ void __76__CPAnalyticsKnowledgeStoreDestination__addCoreDuetDatasetSample_toData
 
 - (void)processEvent:(id)event
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   eventCopy = event;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   matchers = [(CPAnalyticsKnowledgeStoreDestination *)self matchers];
-  v6 = [matchers countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [matchers countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v16 != v8)
+      if (*v15 != v8)
       {
         objc_enumerationMutation(matchers);
       }
 
-      v10 = *(*(&v15 + 1) + 8 * v9);
+      v10 = *(*(&v14 + 1) + 8 * v9);
       if ([v10 doesMatch:eventCopy])
       {
         v11 = [(CPAnalyticsKnowledgeStoreDestination *)self _datasetSampleFromEvent:eventCopy andMatcher:v10];
@@ -152,7 +148,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [matchers countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [matchers countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -162,17 +158,15 @@ LABEL_3:
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (CPAnalyticsKnowledgeStoreDestination)initWithConfig:(id)config cpAnalyticsInstance:(id)instance
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   configCopy = config;
-  v27.receiver = self;
-  v27.super_class = CPAnalyticsKnowledgeStoreDestination;
-  v6 = [(CPAnalyticsKnowledgeStoreDestination *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = CPAnalyticsKnowledgeStoreDestination;
+  v6 = [(CPAnalyticsKnowledgeStoreDestination *)&v26 init];
   if (v6)
   {
     knowledgeStore = [MEMORY[0x277CFE208] knowledgeStore];
@@ -188,29 +182,29 @@ LABEL_3:
       matchers = v6->_matchers;
       v6->_matchers = v11;
 
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v13 = v10;
-      v14 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v24;
+        v16 = *v23;
         do
         {
           v17 = 0;
           do
           {
-            if (*v24 != v16)
+            if (*v23 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v23 + 1) + 8 * v17);
+            v18 = *(*(&v22 + 1) + 8 * v17);
             v19 = [CPAnalyticsCoreDuetEventMatcher alloc];
-            v20 = [(CPAnalyticsCoreDuetEventMatcher *)v19 initWithConfig:v18, v23];
+            v20 = [(CPAnalyticsCoreDuetEventMatcher *)v19 initWithConfig:v18, v22];
             if (v20)
             {
               [(NSMutableArray *)v6->_matchers addObject:v20];
@@ -220,7 +214,7 @@ LABEL_3:
           }
 
           while (v15 != v17);
-          v15 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v22 objects:v27 count:16];
         }
 
         while (v15);
@@ -228,7 +222,6 @@ LABEL_3:
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

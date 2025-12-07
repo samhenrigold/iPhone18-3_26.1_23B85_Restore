@@ -124,30 +124,30 @@
 {
   argCopy = arg;
   lowercaseString = [argCopy lowercaseString];
-  if ([lowercaseString isEqualToString:@"y"])
+  if (objc_msgSend_isEqualToString_(lowercaseString))
   {
     goto LABEL_4;
   }
 
   lowercaseString2 = [argCopy lowercaseString];
-  if (![lowercaseString2 isEqualToString:@"yes"])
+  if (!objc_msgSend_isEqualToString_(lowercaseString2))
   {
     lowercaseString3 = [argCopy lowercaseString];
-    v10 = [lowercaseString3 isEqualToString:@"1"];
+    isEqualToString = objc_msgSend_isEqualToString_(lowercaseString3);
 
-    if (v10)
+    if (isEqualToString)
     {
       goto LABEL_5;
     }
 
     lowercaseString4 = [argCopy lowercaseString];
-    if (([lowercaseString4 isEqualToString:@"n"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(lowercaseString4) & 1) == 0)
     {
       lowercaseString5 = [argCopy lowercaseString];
-      if (![lowercaseString5 isEqualToString:@"no"])
+      if (!objc_msgSend_isEqualToString_(lowercaseString5))
       {
         lowercaseString6 = [argCopy lowercaseString];
-        v14 = [lowercaseString6 isEqualToString:@"0"];
+        v14 = objc_msgSend_isEqualToString_(lowercaseString6);
 
         if ((v14 & 1) == 0)
         {
@@ -226,8 +226,8 @@ LABEL_6:
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  entity = [objectCopy entity];
-  propertiesByName = [entity propertiesByName];
+  v15 = objc_msgSend_entity(objectCopy);
+  propertiesByName = [v15 propertiesByName];
 
   v22[0] = MEMORY[0x1E69E9820];
   v22[1] = 3221225472;
@@ -262,7 +262,7 @@ void __110__PhotosControlPhotoLibraryCommand__jsonDictionaryFromManagedObject_al
     v9 = v8;
     if (v7)
     {
-      if ([v8 count])
+      if (objc_msgSend_count(v8))
       {
         v10 = [MEMORY[0x1E695DF70] array];
         v31 = v5;
@@ -398,8 +398,8 @@ LABEL_37:
   stringCopy = string;
   keyCopy = key;
   objectCopy = object;
-  entity = [objectCopy entity];
-  propertiesByName = [entity propertiesByName];
+  v11 = objc_msgSend_entity(objectCopy);
+  propertiesByName = [v11 propertiesByName];
 
   v13 = [propertiesByName objectForKey:keyCopy];
   if (v13)
@@ -533,7 +533,7 @@ LABEL_35:
   objectCopy = object;
   v8 = [keys mutableCopy];
   v25 = objectCopy;
-  if ([v8 count])
+  if (objc_msgSend_count(v8))
   {
     v9 = @"Cannot find relationship %@ on object of class %@\n";
     v10 = 0x1E695D000uLL;
@@ -542,8 +542,8 @@ LABEL_35:
     {
       firstObject = [v8 firstObject];
       [v8 removeObjectAtIndex:0];
-      entity = [objectCopy entity];
-      propertiesByName = [entity propertiesByName];
+      v12 = objc_msgSend_entity(objectCopy);
+      propertiesByName = [v12 propertiesByName];
 
       v14 = [propertiesByName objectForKey:firstObject];
       if (!v14)
@@ -582,7 +582,7 @@ LABEL_9:
       self = selfCopy;
 LABEL_10:
 
-      v19 = [v8 count];
+      v19 = objc_msgSend_count(v8);
       if (!v17 || !v19)
       {
         goto LABEL_15;
@@ -660,7 +660,7 @@ uint64_t __90__PhotosControlPhotoLibraryCommand_runOnAssetArgumentsAllowAll_addi
     args2 = [(PhotosControlCommand *)self args];
   }
 
-  v23 = [args2 count];
+  v23 = objc_msgSend_count(args2);
   if (v23 > 1)
   {
     v28[0] = MEMORY[0x1E69E9820];
@@ -722,16 +722,16 @@ LABEL_6:
   }
 
   v4 = [v2 lowercaseString];
-  v5 = [v4 isEqualToString:@"guest"];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  if (!v5)
+  if (!isEqualToString)
   {
     goto LABEL_6;
   }
 
   v6 = [MEMORY[0x1E69BF328] predicateForIncludeMask:objc_msgSend(MEMORY[0x1E69BF328] useIndex:{"maskForGuestAsset"), 1}];
 LABEL_7:
-  if (*(a1 + 120) == 1 && ([v3 lowercaseString], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqualToString:", @"all"), v7, (v8 & 1) != 0))
+  if (*(a1 + 120) == 1 && ([v3 lowercaseString], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend_isEqualToString_(v7), v7, (v8 & 1) != 0))
   {
     v46 = 0;
     v9 = 1;
@@ -740,13 +740,13 @@ LABEL_7:
   else
   {
     v10 = [v3 lowercaseString];
-    v11 = [v10 isEqualToString:@"latest"];
+    v11 = objc_msgSend_isEqualToString_(v10);
 
     v46 = v11;
     v9 = v11;
   }
 
-  LODWORD(v12) = [*(a1 + 40) isEqualToString:@"self"];
+  LODWORD(v12) = objc_msgSend_isEqualToString_(*(a1 + 40));
   v13 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:*(a1 + 48)];
   [v13 setRelationshipKeyPathsForPrefetching:*(a1 + 56)];
   v14 = [MEMORY[0x1E695DF70] array];
@@ -870,7 +870,7 @@ LABEL_7:
   v50 = v36;
   v51 = v37;
   v38 = [v34 enumerateObjectsFromFetchRequest:v13 count:0 usingDefaultBatchSizeWithBlock:v47];
-  if ([v35 count] && !*(*(*(a1 + 104) + 8) + 24))
+  if (objc_msgSend_count(v35) && !*(*(*(a1 + 104) + 8) + 24))
   {
     [*(a1 + 88) outputError:{@"Unable to find objects with identifiers: %@\n", v35}];
   }

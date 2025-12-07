@@ -1,13 +1,17 @@
 @interface PPEventStore
 - (BOOL)interactionSummaryMetricsError:(id *)error block:(id)block;
+- (BOOL)iterDailyEventHighlightsWithOptions:(int)options error:(id *)error block:(id)block;
+- (BOOL)iterEventHighlightsFrom:(id)from to:(id)to options:(int)options error:(id *)error block:(id)block;
 - (BOOL)iterEventNameRecordsForClient:(id)client error:(id *)error block:(id)block;
 - (BOOL)iterScoredEventsWithQuery:(id)query error:(id *)error block:(id)block;
+- (BOOL)iterWeeklyEventHighlightsWithOptions:(int)options error:(id *)error block:(id)block;
 - (BOOL)loadEventNameRecordsAndMonitorChangesWithDelegate:(id)delegate error:(id *)error;
 - (BOOL)sendRTCLogsWithError:(id *)error;
 - (PPEventStore)init;
 - (id)forwardingTargetForSelector:(SEL)selector;
 - (void)_loadEventNameRecordsWithDelegate:(id)delegate;
 - (void)_sendChangesToDelegates:(id)delegates;
+- (void)logEventInteractionForEventWithEventIdentifier:(id)identifier interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
 - (void)registerFeedback:(id)feedback completion:(id)completion;
 @end
 
@@ -34,18 +38,17 @@
 
 - (id)forwardingTargetForSelector:(SEL)selector
 {
-  clientFeedbackHelper = self->_clientFeedbackHelper;
   if (objc_opt_respondsToSelector())
   {
-    v5 = self->_clientFeedbackHelper;
+    v4 = self->_clientFeedbackHelper;
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)registerFeedback:(id)feedback completion:(id)completion
@@ -85,7 +88,7 @@
 
 void __44__PPEventStore_registerFeedback_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (v5)
@@ -93,9 +96,9 @@ void __44__PPEventStore_registerFeedback_completion___block_invoke(uint64_t a1, 
     v7 = pp_events_log_handle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_error_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_ERROR, "Error from registerFeedback:completion: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_error_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_ERROR, "Error from registerFeedback:completion: %@", &v9, 0xCu);
     }
   }
 
@@ -104,8 +107,6 @@ void __44__PPEventStore_registerFeedback_completion___block_invoke(uint64_t a1, 
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)sendRTCLogsWithError:(id *)error
@@ -133,31 +134,30 @@ void __44__PPEventStore_registerFeedback_completion___block_invoke(uint64_t a1, 
 
 void __53__PPEventStore_interactionSummaryMetricsError_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -166,7 +166,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -177,8 +177,15 @@ LABEL_4:
       }
     }
   }
+}
 
-  v13 = *MEMORY[0x1E69E9840];
+- (void)logEventInteractionForEventWithEventIdentifier:(id)identifier interface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  identifierCopy = identifier;
+  v8 = +[PPEventClient sharedInstance];
+  [v8 logEventInteractionForEventWithEventIdentifier:identifierCopy interface:interfaceCopy actionType:typeCopy];
 }
 
 - (BOOL)iterScoredEventsWithQuery:(id)query error:(id *)error block:(id)block
@@ -199,7 +206,7 @@ LABEL_4:
 
 void __54__PPEventStore_iterScoredEventsWithQuery_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = pp_events_log_handle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -210,26 +217,25 @@ void __54__PPEventStore_iterScoredEventsWithQuery_error_block___block_invoke(uin
 
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_6:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -238,7 +244,7 @@ LABEL_6:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
           if (v9)
           {
             goto LABEL_6;
@@ -249,13 +255,100 @@ LABEL_6:
       }
     }
   }
+}
 
-  v13 = *MEMORY[0x1E69E9840];
+- (BOOL)iterWeeklyEventHighlightsWithOptions:(int)options error:(id *)error block:(id)block
+{
+  v6 = *&options;
+  v8 = MEMORY[0x1E695DEE8];
+  blockCopy = block;
+  currentCalendar = [v8 currentCalendar];
+  date = [MEMORY[0x1E695DF00] date];
+  v15 = 0;
+  v16 = 0.0;
+  [currentCalendar rangeOfUnit:0x2000 startDate:&v15 interval:&v16 forDate:date];
+  v12 = v15;
+  v13 = [v12 dateByAddingTimeInterval:v16 + -1.0];
+  LOBYTE(error) = [(PPEventStore *)self iterEventHighlightsFrom:date to:v13 options:v6 error:error block:blockCopy];
+
+  return error;
+}
+
+- (BOOL)iterDailyEventHighlightsWithOptions:(int)options error:(id *)error block:(id)block
+{
+  v6 = *&options;
+  v22 = *MEMORY[0x1E69E9840];
+  blockCopy = block;
+  v9 = objc_opt_new();
+  currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
+  v11 = [currentCalendar components:252 fromDate:v9];
+  [v11 setHour:23];
+  [v11 setMinute:59];
+  [v11 setSecond:59];
+  v12 = [currentCalendar dateFromComponents:v11];
+  if (v12)
+  {
+    LOBYTE(error) = [(PPEventStore *)self iterEventHighlightsFrom:v9 to:v12 options:v6 error:error block:blockCopy];
+  }
+
+  else
+  {
+    v13 = pp_events_log_handle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v21 = v11;
+      _os_log_error_impl(&dword_1A7FD3000, v13, OS_LOG_TYPE_ERROR, "failed to get endOfDay from %@", buf, 0xCu);
+    }
+
+    if (error)
+    {
+      v14 = MEMORY[0x1E696ABC0];
+      v18 = @"PPErrorInfoKey";
+      v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"failed to get endOfDay from %@", v11];
+      v19 = v15;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+      *error = [v14 errorWithDomain:@"PPErrorDomain" code:12 userInfo:v16];
+
+      LOBYTE(error) = 0;
+    }
+  }
+
+  return error;
+}
+
+- (BOOL)iterEventHighlightsFrom:(id)from to:(id)to options:(int)options error:(id *)error block:(id)block
+{
+  v9 = *&options;
+  v25 = *MEMORY[0x1E69E9840];
+  fromCopy = from;
+  toCopy = to;
+  blockCopy = block;
+  v14 = pp_events_log_handle();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v22 = fromCopy;
+    v23 = 2112;
+    v24 = toCopy;
+    _os_log_impl(&dword_1A7FD3000, v14, OS_LOG_TYPE_DEFAULT, "loadEventHighlights from: %@ to: %@", buf, 0x16u);
+  }
+
+  v15 = +[PPEventClient sharedInstance];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __63__PPEventStore_iterEventHighlightsFrom_to_options_error_block___block_invoke;
+  v19[3] = &unk_1E77F7D70;
+  v20 = blockCopy;
+  v16 = blockCopy;
+  v17 = [v15 eventHighlightsFrom:fromCopy to:toCopy options:v9 error:error handleBatch:v19];
+
+  return v17;
 }
 
 void __63__PPEventStore_iterEventHighlightsFrom_to_options_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = pp_events_log_handle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -266,26 +359,25 @@ void __63__PPEventStore_iterEventHighlightsFrom_to_options_error_block___block_i
 
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_6:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -294,7 +386,7 @@ LABEL_6:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v17 count:16];
           if (v9)
           {
             goto LABEL_6;
@@ -305,8 +397,6 @@ LABEL_6:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)loadEventNameRecordsAndMonitorChangesWithDelegate:(id)delegate error:(id *)error
@@ -360,19 +450,17 @@ void __72__PPEventStore_loadEventNameRecordsAndMonitorChangesWithDelegate_error_
 
 uint64_t __72__PPEventStore_loadEventNameRecordsAndMonitorChangesWithDelegate_error___block_invoke_3(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = pp_events_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) count];
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_DEFAULT, "_sendChangesToDelegates Events observation block being called with %tu changes", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_DEFAULT, "_sendChangesToDelegates Events observation block being called with %tu changes", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) _sendChangesToDelegates:*(a1 + 32)];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _sendChangesToDelegates:*(a1 + 32)];
 }
 
 - (void)_loadEventNameRecordsWithDelegate:(id)delegate
@@ -399,7 +487,7 @@ uint64_t __72__PPEventStore_loadEventNameRecordsAndMonitorChangesWithDelegate_er
 
 id __40__PPEventStore__sendChangesToDelegates___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if ([*(a1 + 32) count])
   {
@@ -407,15 +495,15 @@ id __40__PPEventStore__sendChangesToDelegates___block_invoke(uint64_t a1, void *
     v7 = [*(a1 + 32) _pas_mappedArrayWithTransform:&__block_literal_global_18];
     v8 = +[PPEventClient sharedInstance];
     v9 = [v5 name];
-    v17 = 0;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __40__PPEventStore__sendChangesToDelegates___block_invoke_3;
-    v15[3] = &unk_1E77F6DC8;
+    v16 = 0;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __40__PPEventStore__sendChangesToDelegates___block_invoke_3;
+    v14[3] = &unk_1E77F6DC8;
     v10 = v6;
-    v16 = v10;
-    [v8 resolveEventNameRecordChanges:v7 client:v9 error:&v17 handleBatch:v15];
-    v11 = v17;
+    v15 = v10;
+    [v8 resolveEventNameRecordChanges:v7 client:v9 error:&v16 handleBatch:v14];
+    v11 = v16;
 
     if (v11)
     {
@@ -423,7 +511,7 @@ id __40__PPEventStore__sendChangesToDelegates___block_invoke(uint64_t a1, void *
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v19 = v11;
+        v18 = v11;
         _os_log_error_impl(&dword_1A7FD3000, v12, OS_LOG_TYPE_ERROR, "resolveEventNameRecordChanges returned error: %@", buf, 0xCu);
       }
     }
@@ -439,31 +527,29 @@ id __40__PPEventStore__sendChangesToDelegates___block_invoke(uint64_t a1, void *
     v10 = MEMORY[0x1E695E0F0];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 id __32__PPEventStore__recordGenerator__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__4492;
-  v16 = __Block_byref_object_dispose__4493;
-  v17 = objc_opt_new();
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__4492;
+  v15 = __Block_byref_object_dispose__4493;
+  v16 = objc_opt_new();
   v3 = +[PPEventClient sharedInstance];
   v4 = [v2 name];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __32__PPEventStore__recordGenerator__block_invoke_15;
-  v10[3] = &unk_1E77F6D80;
-  v10[4] = &v12;
-  v11 = 0;
-  [v3 eventNameRecordsForClient:v4 error:&v11 handleBatch:v10];
-  v5 = v11;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __32__PPEventStore__recordGenerator__block_invoke_15;
+  v9[3] = &unk_1E77F6D80;
+  v9[4] = &v11;
+  v10 = 0;
+  [v3 eventNameRecordsForClient:v4 error:&v10 handleBatch:v9];
+  v5 = v10;
 
   if (v5)
   {
@@ -471,26 +557,24 @@ id __32__PPEventStore__recordGenerator__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v19 = v2;
-      v20 = 2112;
-      v21 = v5;
+      v18 = v2;
+      v19 = 2112;
+      v20 = v5;
       _os_log_error_impl(&dword_1A7FD3000, v6, OS_LOG_TYPE_ERROR, "error during eventNameRecordsForClient for delegate %@: %@", buf, 0x16u);
     }
   }
 
-  v7 = v13[5];
-  _Block_object_dispose(&v12, 8);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = v12[5];
+  _Block_object_dispose(&v11, 8);
 
   return v7;
 }
 
-uint64_t __32__PPEventStore__recordGenerator__block_invoke_15(uint64_t result, uint64_t a2, _BYTE *a3)
+void *__32__PPEventStore__recordGenerator__block_invoke_15(void *result, uint64_t a2, _BYTE *a3)
 {
   if ((*a3 & 1) == 0)
   {
-    return [*(*(*(result + 32) + 8) + 40) addObjectsFromArray:a2];
+    return [*(*(result[4] + 8) + 40) addObjectsFromArray:a2];
   }
 
   return result;
@@ -514,31 +598,30 @@ uint64_t __32__PPEventStore__recordGenerator__block_invoke_15(uint64_t result, u
 
 void __58__PPEventStore_iterEventNameRecordsForClient_error_block___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   if ((*a3 & 1) == 0)
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v13;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
         if (*a3)
         {
@@ -547,7 +630,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v9)
           {
             goto LABEL_4;
@@ -558,8 +641,6 @@ LABEL_4:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

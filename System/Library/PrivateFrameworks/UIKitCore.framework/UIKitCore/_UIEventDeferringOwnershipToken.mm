@@ -52,7 +52,7 @@
     v17 = *(v14 + 4);
     *(v14 + 4) = v16;
 
-    *(v14 + 5) = _UIEventDeferringInterfaceCategoryForOwningElement();
+    *(v14 + 5) = _UIEventDeferringInterfaceCategoryForOwningElement(a2);
     *(v14 + 6) = a2;
     *(v14 + 7) = owner;
     objc_storeStrong(v14 + 8, scope);

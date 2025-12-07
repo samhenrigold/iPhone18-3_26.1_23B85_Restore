@@ -12,9 +12,9 @@
     +[NSUndoManager(IC) shared];
   }
 
-  v1 = shared_sharedUndoManager;
+  v2 = shared_sharedUndoManager;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)ic_isUndoingOrRedoing

@@ -144,7 +144,7 @@ LABEL_24:
 
 - (id)jsonDictionary
 {
-  v28[5] = *MEMORY[0x1E69E9840];
+  v27[5] = *MEMORY[0x1E69E9840];
   originalInstallationDate = [(BMAppInstallationMetadata *)self originalInstallationDate];
   if (originalInstallationDate)
   {
@@ -167,48 +167,48 @@ LABEL_24:
   installSessionID = [(BMAppInstallationMetadata *)self installSessionID];
   v12 = [installSessionID base64EncodedStringWithOptions:0];
 
-  v23 = @"originalInstallationDate";
+  v22 = @"originalInstallationDate";
   null = v6;
   if (!v6)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v28[0] = null;
-  v24 = @"version";
+  v20 = null;
+  v27[0] = null;
+  v23 = @"version";
   null2 = version;
   if (!version)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[1] = null2;
-  v25 = @"shortVersion";
+  v27[1] = null2;
+  v24 = @"shortVersion";
   null3 = shortVersion;
   if (!shortVersion)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[2] = null3;
-  v26 = @"uniqueInstallID";
+  v27[2] = null3;
+  v25 = @"uniqueInstallID";
   null4 = v10;
   if (!v10)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[3] = null4;
-  v27 = @"installSessionID";
+  v27[3] = null4;
+  v26 = @"installSessionID";
   null5 = v12;
   if (!v12)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[4] = null5;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v23 count:{5, v21}];
+  v27[4] = null5;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v22 count:{5, v20}];
   if (v12)
   {
     if (v10)
@@ -266,19 +266,18 @@ LABEL_18:
 LABEL_26:
 
 LABEL_19:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 - (BMAppInstallationMetadata)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v64[1] = *MEMORY[0x1E69E9840];
+  v63[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"originalInstallationDate"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v50 = 0;
+    v49 = 0;
 LABEL_9:
     v15 = [dictionaryCopy objectForKeyedSubscript:@"version"];
     if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -288,29 +287,29 @@ LABEL_9:
       {
         if (!error)
         {
-          v49 = 0;
+          v48 = 0;
           v22 = 0;
           goto LABEL_26;
         }
 
-        v25 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v26 = *MEMORY[0x1E698F240];
-        v61 = *MEMORY[0x1E696A578];
-        v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"version"];
-        v62 = v47;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
-        v49 = 0;
+        v24 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v25 = *MEMORY[0x1E698F240];
+        v60 = *MEMORY[0x1E696A578];
+        v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"version"];
+        v61 = v46;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+        v48 = 0;
         v22 = 0;
-        *error = [v25 initWithDomain:v26 code:2 userInfo:v16];
+        *error = [v24 initWithDomain:v25 code:2 userInfo:v16];
         goto LABEL_25;
       }
 
-      v49 = v15;
+      v48 = v15;
     }
 
     else
     {
-      v49 = 0;
+      v48 = 0;
     }
 
     v16 = [dictionaryCopy objectForKeyedSubscript:@"shortVersion"];
@@ -321,39 +320,39 @@ LABEL_9:
       {
         if (!error)
         {
-          v47 = 0;
+          v46 = 0;
           v22 = 0;
           goto LABEL_25;
         }
 
-        v48 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v27 = *MEMORY[0x1E698F240];
-        v59 = *MEMORY[0x1E696A578];
+        v47 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v26 = *MEMORY[0x1E698F240];
+        v58 = *MEMORY[0x1E696A578];
         v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"shortVersion"];
-        v60 = v19;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-        v28 = v7;
-        v18 = v29 = error;
-        v30 = [v48 initWithDomain:v27 code:2 userInfo:v18];
-        v47 = 0;
+        v59 = v19;
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+        v27 = v7;
+        v18 = v28 = error;
+        v29 = [v47 initWithDomain:v26 code:2 userInfo:v18];
+        v46 = 0;
         v22 = 0;
-        *v29 = v30;
-        v7 = v28;
+        *v28 = v29;
+        v7 = v27;
 LABEL_24:
 
 LABEL_25:
         goto LABEL_26;
       }
 
-      v46 = v7;
+      v45 = v7;
       errorCopy2 = error;
-      v47 = v16;
+      v46 = v16;
     }
 
     else
     {
-      v46 = v7;
-      v47 = 0;
+      v45 = v7;
+      v46 = 0;
       errorCopy2 = error;
     }
 
@@ -367,12 +366,12 @@ LABEL_18:
       {
         v21 = 0;
 LABEL_21:
-        v22 = [(BMAppInstallationMetadata *)self initWithOriginalInstallationDate:v50 version:v49 shortVersion:v47 uniqueInstallID:v19 installSessionID:v21];
+        v22 = [(BMAppInstallationMetadata *)self initWithOriginalInstallationDate:v49 version:v48 shortVersion:v46 uniqueInstallID:v19 installSessionID:v21];
         self = v22;
 LABEL_22:
 
 LABEL_23:
-        v7 = v46;
+        v7 = v45;
         goto LABEL_24;
       }
 
@@ -394,30 +393,30 @@ LABEL_23:
 
         if (errorCopy2)
         {
-          v45 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v43 = *MEMORY[0x1E698F240];
-          v53 = *MEMORY[0x1E696A578];
-          v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"installSessionID"];
-          v54 = v35;
-          v36 = MEMORY[0x1E695DF20];
-          v37 = &v54;
-          v38 = &v53;
+          v44 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v42 = *MEMORY[0x1E698F240];
+          v52 = *MEMORY[0x1E696A578];
+          v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"installSessionID"];
+          v53 = v34;
+          v35 = MEMORY[0x1E695DF20];
+          v36 = &v53;
+          v37 = &v52;
 LABEL_56:
-          v40 = [v36 dictionaryWithObjects:v37 forKeys:v38 count:1];
-          *errorCopy2 = [v45 initWithDomain:v43 code:2 userInfo:v40];
+          v39 = [v35 dictionaryWithObjects:v36 forKeys:v37 count:1];
+          *errorCopy2 = [v44 initWithDomain:v42 code:2 userInfo:v39];
         }
       }
 
       else if (errorCopy2)
       {
-        v45 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v43 = *MEMORY[0x1E698F240];
-        v51 = *MEMORY[0x1E696A578];
-        v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"installSessionID"];
-        v52 = v35;
-        v36 = MEMORY[0x1E695DF20];
-        v37 = &v52;
-        v38 = &v51;
+        v44 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v42 = *MEMORY[0x1E698F240];
+        v50 = *MEMORY[0x1E696A578];
+        v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"installSessionID"];
+        v51 = v34;
+        v35 = MEMORY[0x1E695DF20];
+        v36 = &v51;
+        v37 = &v50;
         goto LABEL_56;
       }
 
@@ -444,34 +443,34 @@ LABEL_56:
 
       if (errorCopy2)
       {
-        v44 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v31 = *MEMORY[0x1E698F240];
-        v57 = *MEMORY[0x1E696A578];
+        v43 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v30 = *MEMORY[0x1E698F240];
+        v56 = *MEMORY[0x1E696A578];
         v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"uniqueInstallID"];
-        v58 = v21;
-        v32 = MEMORY[0x1E695DF20];
-        v33 = &v58;
-        v34 = &v57;
+        v57 = v21;
+        v31 = MEMORY[0x1E695DF20];
+        v32 = &v57;
+        v33 = &v56;
 LABEL_53:
-        v20 = [v32 dictionaryWithObjects:v33 forKeys:v34 count:1];
-        v39 = [v44 initWithDomain:v31 code:2 userInfo:v20];
+        v20 = [v31 dictionaryWithObjects:v32 forKeys:v33 count:1];
+        v38 = [v43 initWithDomain:v30 code:2 userInfo:v20];
         v19 = 0;
         v22 = 0;
-        *errorCopy2 = v39;
+        *errorCopy2 = v38;
         goto LABEL_22;
       }
     }
 
     else if (errorCopy2)
     {
-      v44 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v31 = *MEMORY[0x1E698F240];
-      v55 = *MEMORY[0x1E696A578];
+      v43 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v30 = *MEMORY[0x1E698F240];
+      v54 = *MEMORY[0x1E696A578];
       v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"uniqueInstallID"];
-      v56 = v21;
-      v32 = MEMORY[0x1E695DF20];
-      v33 = &v56;
-      v34 = &v55;
+      v55 = v21;
+      v31 = MEMORY[0x1E695DF20];
+      v32 = &v55;
+      v33 = &v54;
       goto LABEL_53;
     }
 
@@ -491,7 +490,7 @@ LABEL_53:
 
     v13 = [v10 initWithTimeIntervalSince1970:v12];
 LABEL_6:
-    v50 = v13;
+    v49 = v13;
     goto LABEL_9;
   }
 
@@ -499,7 +498,7 @@ LABEL_6:
   if (objc_opt_isKindOfClass())
   {
     v14 = objc_alloc_init(MEMORY[0x1E696AC80]);
-    v50 = [v14 dateFromString:v7];
+    v49 = [v14 dateFromString:v7];
 
     goto LABEL_9;
   }
@@ -513,24 +512,23 @@ LABEL_6:
 
   if (!error)
   {
-    v50 = 0;
+    v49 = 0;
     v22 = 0;
     goto LABEL_27;
   }
 
-  v41 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v42 = *MEMORY[0x1E698F240];
-  v63 = *MEMORY[0x1E696A578];
-  v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"originalInstallationDate"];
-  v64[0] = v49;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:&v63 count:1];
-  v50 = 0;
+  v40 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v41 = *MEMORY[0x1E698F240];
+  v62 = *MEMORY[0x1E696A578];
+  v48 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"originalInstallationDate"];
+  v63[0] = v48;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:&v62 count:1];
+  v49 = 0;
   v22 = 0;
-  *error = [v41 initWithDomain:v42 code:2 userInfo:v15];
+  *error = [v40 initWithDomain:v41 code:2 userInfo:v15];
 LABEL_26:
 
 LABEL_27:
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -546,36 +544,35 @@ LABEL_27:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_hasRaw_originalInstallationDate)
   {
-    raw_originalInstallationDate = self->_raw_originalInstallationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_version)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_shortVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_uniqueInstallID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_installSessionID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -774,39 +771,35 @@ LABEL_40:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"originalInstallationDate" number:1 type:0 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"version" number:2 type:13 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"shortVersion" number:3 type:13 subMessageClass:0];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"uniqueInstallID" number:4 type:14 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"installSessionID" number:5 type:14 subMessageClass:0];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"originalInstallationDate" dataType:3 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:2];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"version" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"shortVersion" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"uniqueInstallID" dataType:4 requestOnly:0 fieldNumber:4 protoDataType:14 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"installSessionID" dataType:4 requestOnly:0 fieldNumber:5 protoDataType:14 convertedType:0];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }

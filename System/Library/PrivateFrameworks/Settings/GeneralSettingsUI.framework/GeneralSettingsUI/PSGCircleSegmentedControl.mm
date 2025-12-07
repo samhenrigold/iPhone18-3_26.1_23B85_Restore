@@ -6,6 +6,7 @@
 - (void)addSegmentWithTitle:(id)title;
 - (void)segmentTapped:(id)tapped;
 - (void)selectSegmentAtIndex:(unint64_t)index;
+- (void)setPositionConstraintsActive:(BOOL)active forButtonAtIndex:(unint64_t)index;
 - (void)setSelectedSegmentIndex:(unint64_t)index;
 @end
 
@@ -157,15 +158,15 @@
   return v2;
 }
 
-id __33__PSGCircleSegmentedControl_init__block_invoke()
+id __33__PSGCircleSegmentedControl_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277D755B8];
-  v1 = PSG_BundleForGeneralSettingsUIFramework();
-  v2 = [v0 imageNamed:@"HomeButtonSelector-sshb" inBundle:v1 compatibleWithTraitCollection:0];
-  v3 = [MEMORY[0x277D75348] systemBlueColor];
-  v4 = [v2 _flatImageWithColor:v3];
+  v2 = MEMORY[0x277D755B8];
+  v3 = PSG_BundleForGeneralSettingsUIFramework(a1);
+  v4 = [v2 imageNamed:@"HomeButtonSelector-sshb" inBundle:v3 compatibleWithTraitCollection:0];
+  v5 = [MEMORY[0x277D75348] systemBlueColor];
+  v6 = [v4 _flatImageWithColor:v5];
 
-  return v4;
+  return v6;
 }
 
 id __33__PSGCircleSegmentedControl_init__block_invoke_2(uint64_t a1)
@@ -194,7 +195,7 @@ id __33__PSGCircleSegmentedControl_init__block_invoke_3(uint64_t a1)
 - (id)styleSensitiveImage:(id)image
 {
   selfCopy = self;
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   imageCopy = image;
   v4 = MEMORY[0x277D75C80];
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
@@ -204,31 +205,31 @@ id __33__PSGCircleSegmentedControl_init__block_invoke_3(uint64_t a1)
   v7 = objc_alloc_init(MEMORY[0x277D755C0]);
   v8 = 0;
   v9 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy_;
-  v30 = __Block_byref_object_dispose_;
-  v31 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy_;
+  v29 = __Block_byref_object_dispose_;
+  v30 = 0;
   v10 = 1;
   do
   {
     v11 = v10;
     v12 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:{*(&xmmword_21CF58B40 + v8), selfCopy}];
 
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __49__PSGCircleSegmentedControl_styleSensitiveImage___block_invoke;
-    v23[3] = &unk_278325638;
-    v25 = &v26;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __49__PSGCircleSegmentedControl_styleSensitiveImage___block_invoke;
+    v22[3] = &unk_278325638;
+    v24 = &v25;
     v13 = imageCopy;
-    v24 = v13;
-    [v12 performAsCurrentTraitCollection:v23];
-    v14 = v27[5];
+    v23 = v13;
+    [v12 performAsCurrentTraitCollection:v22];
+    v14 = v26[5];
     v15 = MEMORY[0x277D75C80];
-    v32[0] = v6;
-    v32[1] = v12;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+    v31[0] = v6;
+    v31[1] = v12;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
     v17 = [v15 traitCollectionWithTraitsFromCollections:v16];
     [v7 registerImage:v14 withTraitCollection:v17];
 
@@ -241,8 +242,7 @@ id __33__PSGCircleSegmentedControl_init__block_invoke_3(uint64_t a1)
   traitCollection = [(PSGCircleSegmentedControl *)selfCopy traitCollection];
   v19 = [v7 imageWithTraitCollection:traitCollection];
 
-  _Block_object_dispose(&v26, 8);
-  v20 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
 
   return v19;
 }
@@ -257,9 +257,44 @@ uint64_t __49__PSGCircleSegmentedControl_styleSensitiveImage___block_invoke(uint
   return MEMORY[0x2821F96F8](v2, v4);
 }
 
+- (void)setPositionConstraintsActive:(BOOL)active forButtonAtIndex:(unint64_t)index
+{
+  activeCopy = active;
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v5 = [(NSMutableArray *)self->_segmentConstraints objectAtIndexedSubscript:index, 0];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        [*(*(&v10 + 1) + 8 * v9++) setActive:activeCopy];
+      }
+
+      while (v7 != v9);
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v7);
+  }
+}
+
 - (void)addSegmentWithTitle:(id)title
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D755E8];
   titleCopy = title;
   v6 = [[v4 alloc] initWithImage:self->_placeholderImage];
@@ -283,18 +318,17 @@ uint64_t __49__PSGCircleSegmentedControl_styleSensitiveImage___block_invoke(uint
   v13 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
 
   segmentConstraints = self->_segmentConstraints;
-  v17[0] = v10;
-  v17[1] = v13;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = v10;
+  v16[1] = v13;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   [(NSMutableArray *)segmentConstraints addObject:v15];
 
   [(PSGCircleSegmentedControl *)self setPositionConstraintsActive:1 forButtonAtIndex:[(NSMutableArray *)self->_segmentConstraints count]- 1];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSelectedSegmentIndex:(unint64_t)index
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = [(NSMutableArray *)self->_segments objectAtIndexedSubscript:?];
   if (v5 != self->_selectedSegment)
   {
@@ -307,29 +341,29 @@ uint64_t __49__PSGCircleSegmentedControl_styleSensitiveImage___block_invoke(uint
       [(PSGCircleSegmentedControl *)self setPositionConstraintsActive:1 forButtonAtIndex:v7];
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v8 = self->_selectedSegmentConstraints;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v24;
+      v11 = *v23;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v23 + 1) + 8 * i) setActive:0];
+          [*(*(&v22 + 1) + 8 * i) setActive:0];
         }
 
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v10);
@@ -344,20 +378,18 @@ uint64_t __49__PSGCircleSegmentedControl_styleSensitiveImage___block_invoke(uint
     centerXAnchor = [(PSGCircleSegment *)self->_selectedSegment centerXAnchor];
     centerXAnchor2 = [(PSGCircleSegmentedControl *)self centerXAnchor];
     v15 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v27[0] = v15;
+    v26[0] = v15;
     bottomAnchor = [(PSGCircleSegment *)self->_selectedSegment bottomAnchor];
     bottomAnchor2 = [(PSGCircleSegmentedControl *)self bottomAnchor];
     [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
     v19 = v18 = v5;
-    v27[1] = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+    v26[1] = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
     [(NSMutableArray *)selectedSegmentConstraints addObjectsFromArray:v20];
 
     v5 = v18;
     [MEMORY[0x277CCAAD0] activateConstraints:self->_selectedSegmentConstraints];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)segmentTapped:(id)tapped

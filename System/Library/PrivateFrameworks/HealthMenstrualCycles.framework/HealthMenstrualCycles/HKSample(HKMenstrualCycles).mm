@@ -1,23 +1,22 @@
 @interface HKSample(HKMenstrualCycles)
 + (id)hkmc_defaultMetadata;
 - (uint64_t)hkmc_isCycleFactorSample;
-- (uint64_t)hkmc_isNotPresentSymptom;
 - (uint64_t)hkmc_isSleepDependentSample;
 - (uint64_t)hkmc_wasEnteredFromCycleTracking;
+- (void)hkmc_isNotPresentSymptom;
 @end
 
 @implementation HKSample(HKMenstrualCycles)
 
 + (id)hkmc_defaultMetadata
 {
-  v5[2] = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CCE148];
-  v4[0] = *MEMORY[0x277CCC548];
-  v4[1] = v0;
-  v5[0] = MEMORY[0x277CBEC38];
-  v5[1] = MEMORY[0x277CBEC38];
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
-  v2 = *MEMORY[0x277D85DE8];
+  v3[0] = *MEMORY[0x277CCC548];
+  v3[1] = v0;
+  v4[0] = MEMORY[0x277CBEC38];
+  v4[1] = MEMORY[0x277CBEC38];
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:2];
 
   return v1;
 }
@@ -31,7 +30,7 @@
   return bOOLValue;
 }
 
-- (uint64_t)hkmc_isNotPresentSymptom
+- (void)hkmc_isNotPresentSymptom
 {
   sampleType = [self sampleType];
   code = [sampleType code];

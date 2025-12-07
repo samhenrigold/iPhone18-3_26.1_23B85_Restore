@@ -285,7 +285,7 @@
   v5 = 20.0;
   if (![(_DASRequiresPluggedInPolicy *)self requiresPluginForActivity:activityCopy])
   {
-    if (([activityCopy requestsApplicationLaunch] & 1) != 0 || (objc_msgSend(activityCopy, "relatedApplications"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "count"), v6, v7))
+    if (([activityCopy requestsApplicationLaunch] & 1) != 0 || (objc_msgSend(activityCopy, "relatedApplications"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend_count(v6), v6, v7))
     {
       v5 = 2.0;
     }

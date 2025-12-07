@@ -85,25 +85,20 @@ uint64_t __28__BKUIDevice_sharedInstance__block_invoke()
 
 - (BOOL)isZoomEnabled
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (!DisplayAndBrightnessSettingsLibraryCore_frameworkLibrary)
   {
     DisplayAndBrightnessSettingsLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  if (DisplayAndBrightnessSettingsLibraryCore_frameworkLibrary)
+  if (!DisplayAndBrightnessSettingsLibraryCore_frameworkLibrary)
   {
-    defaultController = [MEMORY[0x277D4D820] defaultController];
-    currentDisplayZoomMode = [defaultController currentDisplayZoomMode];
-    v4 = [currentDisplayZoomMode displayZoomOption] == 1;
+    return 0;
   }
 
-  else
-  {
-    v4 = 0;
-  }
+  defaultController = [MEMORY[0x277D4D820] defaultController];
+  currentDisplayZoomMode = [defaultController currentDisplayZoomMode];
+  v4 = [currentDisplayZoomMode displayZoomOption] == 1;
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

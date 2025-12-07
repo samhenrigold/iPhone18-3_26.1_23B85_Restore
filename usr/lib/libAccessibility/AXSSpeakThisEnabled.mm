@@ -3,7 +3,7 @@
 
 @implementation AXSSpeakThisEnabled
 
-uint64_t ___AXSSpeakThisEnabled_block_invoke()
+void *___AXSSpeakThisEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

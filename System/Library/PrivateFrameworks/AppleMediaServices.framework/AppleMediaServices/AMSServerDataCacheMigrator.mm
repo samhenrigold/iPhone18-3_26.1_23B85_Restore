@@ -116,7 +116,7 @@ void __58__AMSServerDataCacheMigrator_migrateDataCacheWithOptions___block_invoke
 
   if (v5 && ([v5 code] == 107 || objc_msgSend(v5, "code") == 2))
   {
-    v13 = +[AMSLogConfig sharedDataMigrationConfig];
+    v13 = [AMSLogConfig sharedDataMigrationConfig:*v17];
     if (!v13)
     {
       v13 = +[AMSLogConfig sharedConfig];

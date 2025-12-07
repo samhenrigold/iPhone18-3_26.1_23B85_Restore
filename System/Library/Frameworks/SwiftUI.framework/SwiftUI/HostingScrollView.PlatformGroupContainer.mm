@@ -20,21 +20,21 @@
 - (NSArray)preferredFocusEnvironments
 {
   selfCopy = self;
-  HostingScrollView.PlatformGroupContainer.preferredFocusEnvironments.getter();
+  HostingScrollView.PlatformGroupContainer.preferredFocusEnvironments.getter(v3);
 
-  type metadata accessor for _UISceneBSActionHandler(0, &lazy cache variable for type metadata for UIFocusEnvironment);
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  type metadata accessor for _UISceneBSActionHandler(0, &lazy cache variable for type metadata for UIFocusEnvironment, &protocolRef_UIFocusEnvironment);
+  v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v4.super.isa;
 }
 
 - (id)focusItemsInRect:(CGRect)rect
 {
-  type metadata accessor for [UIFocusItem]();
+  type metadata accessor for [UIFocusItem](0);
   selfCopy = self;
   static Update.ensure<A>(_:)();
 
-  type metadata accessor for _UISceneBSActionHandler(0, &lazy cache variable for type metadata for UIFocusItem);
+  type metadata accessor for _UISceneBSActionHandler(0, &lazy cache variable for type metadata for UIFocusItem, &protocolRef_UIFocusItem);
   v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;

@@ -27,39 +27,39 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  v11 = (objc_opt_isKindOfClass() & 1) != 0 && ((v5 = *(equalCopy + 2), v5 == self->_recognition) || [(AFSpeechRecognition *)v5 isEqual:?]) && ((v6 = *(equalCopy + 3), v6 == self->_unfilteredRecognition) || [(AFSpeechRecognition *)v6 isEqual:?]) && ((v7 = *(equalCopy + 4), v7 == self->_rawRecognition) || [(AFSpeechRecognition *)v7 isEqual:?]) && equalCopy[8] == self->_isFinal && *(equalCopy + 6) == self->_utteranceStart && equalCopy[9] == self->_recognitionPaused && equalCopy[10] == self->_speechProfileUsed && *(equalCopy + 11) == self->_resultCandidateId && ((v8 = *(equalCopy + 8), v8 == self->_endOfSentenceLikelihood) || [(NSNumber *)v8 isEqual:?]) && ((v9 = *(equalCopy + 12), v9 == self->_modelVersion) || [(NSString *)v9 isEqualToString:?]) && ((v10 = *(equalCopy + 13), v10 == self->_acousticModelVersion) || [(NSString *)v10 isEqualToString:?]) && *(equalCopy + 14) == self->_numOneBestTokensExcludingTriggerPhrase;
+  v11 = (objc_opt_isKindOfClass() & 1) != 0 && ((v5 = *(equalCopy + 2), v5 == self->_recognition) || [(AFSpeechRecognition *)v5 isEqual:?]) && ((v6 = *(equalCopy + 3), v6 == self->_unfilteredRecognition) || [(AFSpeechRecognition *)v6 isEqual:?]) && ((v7 = *(equalCopy + 4), v7 == self->_rawRecognition) || [(AFSpeechRecognition *)v7 isEqual:?]) && equalCopy[8] == self->_isFinal && *(equalCopy + 6) == self->_utteranceStart && equalCopy[9] == self->_recognitionPaused && equalCopy[10] == self->_speechProfileUsed && *(equalCopy + 11) == self->_resultCandidateId && ((v8 = *(equalCopy + 8), v8 == self->_endOfSentenceLikelihood) || [(NSNumber *)v8 isEqual:?]) && ((v9 = *(equalCopy + 12), v9 == self->_modelVersion) || objc_msgSend_isEqualToString_(v9)) && ((v10 = *(equalCopy + 13), v10 == self->_acousticModelVersion) || objc_msgSend_isEqualToString_(v10)) && *(equalCopy + 14) == self->_numOneBestTokensExcludingTriggerPhrase;
 
   return v11;
 }
 
 - (id)dictionaryRepresentation
 {
-  v22[12] = *MEMORY[0x1E69E9840];
-  v21[0] = @"recognition";
+  v21[12] = *MEMORY[0x1E69E9840];
+  v20[0] = @"recognition";
   dictionaryRepresentation = [(AFSpeechRecognition *)self->_recognition dictionaryRepresentation];
-  v22[0] = dictionaryRepresentation;
-  v21[1] = @"unfilteredRecognition";
+  v21[0] = dictionaryRepresentation;
+  v20[1] = @"unfilteredRecognition";
   dictionaryRepresentation2 = [(AFSpeechRecognition *)self->_unfilteredRecognition dictionaryRepresentation];
-  v22[1] = dictionaryRepresentation2;
-  v21[2] = @"rawRecognition";
+  v21[1] = dictionaryRepresentation2;
+  v20[2] = @"rawRecognition";
   dictionaryRepresentation3 = [(AFSpeechRecognition *)self->_rawRecognition dictionaryRepresentation];
-  v22[2] = dictionaryRepresentation3;
-  v21[3] = @"isFinal";
-  v17 = [MEMORY[0x1E696AD98] numberWithBool:self->_isFinal];
-  v22[3] = v17;
-  v21[4] = @"utteranceStart";
-  v16 = [MEMORY[0x1E696AD98] numberWithDouble:self->_utteranceStart];
-  v22[4] = v16;
-  v21[5] = @"recognitionPaused";
-  v15 = [MEMORY[0x1E696AD98] numberWithBool:self->_recognitionPaused];
-  v22[5] = v15;
-  v21[6] = @"speechProfileUsed";
+  v21[2] = dictionaryRepresentation3;
+  v20[3] = @"isFinal";
+  v16 = [MEMORY[0x1E696AD98] numberWithBool:self->_isFinal];
+  v21[3] = v16;
+  v20[4] = @"utteranceStart";
+  v15 = [MEMORY[0x1E696AD98] numberWithDouble:self->_utteranceStart];
+  v21[4] = v15;
+  v20[5] = @"recognitionPaused";
+  v14 = [MEMORY[0x1E696AD98] numberWithBool:self->_recognitionPaused];
+  v21[5] = v14;
+  v20[6] = @"speechProfileUsed";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:self->_speechProfileUsed];
-  v22[6] = v3;
-  v21[7] = @"resultCandidateId";
+  v21[6] = v3;
+  v20[7] = @"resultCandidateId";
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:self->_resultCandidateId];
-  v22[7] = v4;
-  v21[8] = @"endOfSentenceLikelihood";
+  v21[7] = v4;
+  v20[8] = @"endOfSentenceLikelihood";
   endOfSentenceLikelihood = self->_endOfSentenceLikelihood;
   null = endOfSentenceLikelihood;
   if (!endOfSentenceLikelihood)
@@ -67,8 +67,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[8] = null;
-  v21[9] = @"modelVersion";
+  v21[8] = null;
+  v20[9] = @"modelVersion";
   modelVersion = self->_modelVersion;
   null2 = modelVersion;
   if (!modelVersion)
@@ -76,8 +76,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[9] = null2;
-  v21[10] = @"acousticModelVersion";
+  v21[9] = null2;
+  v20[10] = @"acousticModelVersion";
   acousticModelVersion = self->_acousticModelVersion;
   null3 = acousticModelVersion;
   if (!acousticModelVersion)
@@ -85,11 +85,11 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[10] = null3;
-  v21[11] = @"numOneBestTokensExcludingTriggerPhrase";
+  v21[10] = null3;
+  v20[11] = @"numOneBestTokensExcludingTriggerPhrase";
   v11 = [MEMORY[0x1E696AD98] numberWithInteger:self->_numOneBestTokensExcludingTriggerPhrase];
-  v22[11] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:12];
+  v21[11] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:12];
 
   if (acousticModelVersion)
   {
@@ -122,7 +122,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -504,7 +503,7 @@ LABEL_40:
 
 + (id)fromSASRecognition:(id)recognition processedAudioDuration:(double)duration
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   recognitionCopy = recognition;
   af_speechPhrases = [recognitionCopy af_speechPhrases];
   af_speechUtterances = [recognitionCopy af_speechUtterances];
@@ -522,15 +521,13 @@ LABEL_40:
     v12 = AFSiriLogContextSpeech;
     if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315138;
-      v16 = "+[AFSpeechPackage(SASRecognition) fromSASRecognition:processedAudioDuration:]";
-      _os_log_debug_impl(&dword_1912FE000, v12, OS_LOG_TYPE_DEBUG, "%s Returning empty AFSpeechPackage because recognition was empty.", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "+[AFSpeechPackage(SASRecognition) fromSASRecognition:processedAudioDuration:]";
+      _os_log_debug_impl(&dword_1912FE000, v12, OS_LOG_TYPE_DEBUG, "%s Returning empty AFSpeechPackage because recognition was empty.", &v14, 0xCu);
     }
 
     v11 = objc_alloc_init(AFSpeechPackage);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

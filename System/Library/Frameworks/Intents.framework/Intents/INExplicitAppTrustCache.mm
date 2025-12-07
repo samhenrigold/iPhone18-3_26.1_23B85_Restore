@@ -63,41 +63,41 @@
   return signingIdentitiesRequiringExplicitTrust;
 }
 
-uint64_t __66__INExplicitAppTrustCache_signingIdentitiesRequiringExplicitTrust__block_invoke(uint64_t a1)
+uint64_t __66__INExplicitAppTrustCache_signingIdentitiesRequiringExplicitTrust__block_invoke(uint64_t a1, uint64_t a2)
 {
   v22 = *MEMORY[0x1E69E9840];
   MISProvisioningProfileGetDeveloperCertificates();
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v1 = v20 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v2)
+  v2 = v20 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v3)
   {
-    v3 = v2;
-    v4 = *v18;
+    v4 = v3;
+    v5 = *v18;
     while (2)
     {
-      for (i = 0; i != v3; ++i)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v4)
+        if (*v18 != v5)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v6 = SecCertificateCreateWithData(0, *(*(&v17 + 1) + 8 * i));
-        if (v6)
+        v7 = SecCertificateCreateWithData(0, *(*(&v17 + 1) + 8 * i));
+        if (v7)
         {
-          v7 = v6;
-          v8 = SecCertificateCopySubjectSummary(v6);
-          if (v8)
+          v8 = v7;
+          v9 = SecCertificateCopySubjectSummary(v7);
+          if (v9)
           {
-            v9 = MISProvisioningProfileProvisionsAllDevices();
+            v10 = MISProvisioningProfileProvisionsAllDevices();
             Value = MISProfileGetValue();
-            if (Value && (v11 = Value, v12 = CFGetTypeID(Value), v12 == CFBooleanGetTypeID()))
+            if (Value && (v12 = Value, v13 = CFGetTypeID(Value), v13 == CFBooleanGetTypeID()))
             {
-              v13 = CFBooleanGetValue(v11) != 0;
-              if (v9)
+              v14 = CFBooleanGetValue(v12) != 0;
+              if (v10)
               {
                 goto LABEL_18;
               }
@@ -105,29 +105,29 @@ uint64_t __66__INExplicitAppTrustCache_signingIdentitiesRequiringExplicitTrust__
 
             else
             {
-              v13 = 0;
-              if (v9)
+              v14 = 0;
+              if (v10)
               {
                 goto LABEL_18;
               }
             }
 
-            if (v13)
+            if (v14)
             {
 LABEL_18:
-              [*(*(*(a1 + 32) + 8) + 40) addObject:v8];
-              CFRelease(v7);
+              [*(*(*(a1 + 32) + 8) + 40) addObject:v9];
+              CFRelease(v8);
 
               goto LABEL_19;
             }
           }
 
-          CFRelease(v7);
+          CFRelease(v8);
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v17 objects:v21 count:16];
-      if (v3)
+      v4 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      if (v4)
       {
         continue;
       }
@@ -138,7 +138,6 @@ LABEL_18:
 
 LABEL_19:
 
-  v14 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

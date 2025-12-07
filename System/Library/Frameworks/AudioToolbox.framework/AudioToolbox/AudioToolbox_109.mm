@@ -1,4 +1,4 @@
-unint64_t FLAC__lpc_compute_residual_from_qlp_coefficients(unint64_t result, int a2, unint64_t a3, unsigned int a4, unsigned int a5, _DWORD *a6)
+unint64_t FLAC__lpc_compute_residual_from_qlp_coefficients(unint64_t result, unsigned int a2, unint64_t a3, unsigned int a4, unsigned int a5, _DWORD *a6)
 {
   v494 = a6;
   v493 = a5;
@@ -85,49 +85,49 @@ unint64_t FLAC__lpc_compute_residual_from_qlp_coefficients(unint64_t result, int
         v128 = 0;
         switch(v7)
         {
-          case 0u:
+          case 0:
             v129 = 0;
             v130 = *result;
             v131 = *(result + 8);
             v132 = *(result + 16);
             goto LABEL_405;
-          case 1u:
+          case 1:
             goto LABEL_395;
-          case 2u:
+          case 2:
             goto LABEL_385;
-          case 3u:
+          case 3:
             goto LABEL_375;
-          case 4u:
+          case 4:
             goto LABEL_365;
-          case 5u:
+          case 5:
             goto LABEL_355;
-          case 6u:
+          case 6:
             goto LABEL_345;
-          case 7u:
+          case 7:
             goto LABEL_335;
-          case 8u:
+          case 8:
             goto LABEL_325;
-          case 9u:
+          case 9:
             goto LABEL_315;
-          case 0xAu:
+          case 10:
             goto LABEL_305;
-          case 0xBu:
+          case 11:
             goto LABEL_295;
-          case 0xCu:
+          case 12:
             goto LABEL_285;
-          case 0xDu:
+          case 13:
             goto LABEL_275;
-          case 0xEu:
+          case 14:
             goto LABEL_265;
-          case 0xFu:
+          case 15:
             goto LABEL_255;
-          case 0x10u:
+          case 16:
             goto LABEL_245;
-          case 0x11u:
+          case 17:
             goto LABEL_235;
-          case 0x12u:
+          case 18:
             goto LABEL_225;
-          case 0x13u:
+          case 19:
             v134 = *result + v38;
             v135 = (v134 - 128);
             v136 = v134 - 124;
@@ -2549,16 +2549,16 @@ LABEL_64:
     while (1)
     {
       v33 = (a3 + 8 * v29);
-      v34 = v33 + 1;
+      v34 = (v33 + 1);
       v35 = v33 < a3 || v34 > a4;
       v36 = v35 || v33 > v34;
       v37 = (a3 + 8 * (v29 + 1));
-      v38 = v37 + 1;
+      v38 = (v37 + 1);
       v39 = !v36 && v37 >= a3;
       v40 = !v39 || v38 > a4;
       v41 = v40 || v37 > v38;
       v42 = (a3 + 8 * v30);
-      v43 = v42 + 1;
+      v43 = (v42 + 1);
       v44 = !v41 && v42 >= a3;
       v45 = !v44 || v43 > a4;
       if (v45 || v42 > v43)
@@ -3690,7 +3690,9 @@ LABEL_89:
 
   v118 = 0;
   LODWORD(v119) = 0;
-  memset(v630 + 8, 170, 24);
+  *(&v630[0] + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *&v630[1] = 0xAAAAAAAAAAAAAAAALL;
+  *(&v630[1] + 1) = 0xAAAAAAAAAAAAAAAALL;
   v120 = 1.0e11;
   v121 = &sns::gLFCB;
   do
@@ -4417,7 +4419,7 @@ LABEL_270:
     *&v650[8] = -1;
     v243 = &v241[v227];
     v624.i64[0] = v227;
-    v244 = &v238[v227];
+    v244 = v238 + v227;
     do
     {
       vDSP_svesq((v629.i64[0] + 4 * *&v244[v242]), 1, &v650[v242], (*&v243[v242] - *&v244[v242]));
@@ -4434,7 +4436,7 @@ LABEL_270:
       *&v674 = vdiv_f32(v611, v245);
       *(&v674 + 2) = 1.0 / *&v650[8];
       v246 = &v241[v624.i64[0]];
-      v247 = &v238[v624.i64[0]];
+      v247 = v238 + v624.i64[0];
       for (jj = 1; jj != 9; ++jj)
       {
         for (kk = 0; kk != 12; kk += 4)
@@ -7088,12 +7090,12 @@ LABEL_25:
 
 void *ltpf::Decoder::Apply(ltpf::Decoder *this, __int16 a2, int a3, unsigned int a4, float *a5)
 {
-  v97 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1EEE9AC00](this);
-  v11 = &v89[-2 * v10];
+  v11 = &v88[-2 * v10];
   if (v10)
   {
-    v12 = &v89[-2 * v10];
+    v12 = &v88[-2 * v10];
     do
     {
       *v12 = -1;
@@ -7106,10 +7108,10 @@ void *ltpf::Decoder::Apply(ltpf::Decoder *this, __int16 a2, int a3, unsigned int
   }
 
   v13 = MEMORY[0x1EEE9AC00](v8);
-  v21 = &v89[-2 * v17];
+  v21 = &v88[-2 * v17];
   if (v17)
   {
-    v22 = &v89[-2 * v17];
+    v22 = &v88[-2 * v17];
     do
     {
       *v22 = -1;
@@ -7251,10 +7253,10 @@ LABEL_48:
     while (v16);
   }
 
-  v35 = v26 >> 2;
+  v35 = (v26 >> 2);
   if (v17 >= 1)
   {
-    v36 = &v89[-2 * v17];
+    v36 = &v88[-2 * v17];
     do
     {
       v37 = *v31;
@@ -7275,17 +7277,17 @@ LABEL_48:
       memmove(v38, &a5[*(this + 2) - ((v39 - v38) >> 2)], v39 - v38);
     }
 
-    goto LABEL_99;
+    goto LABEL_98;
   }
 
-  v91 = v29;
-  v93 = v21;
-  v89[1] = v89;
+  v90 = v29;
+  v92 = v21;
+  v88[1] = v88;
   v40 = MEMORY[0x1EEE9AC00](v13);
-  v43 = v89 - v42;
+  v43 = v88 - v42;
   if (v44)
   {
-    v40 = memset(v89 - v42, 255, v41);
+    v40 = memset(v88 - v42, 255, v41);
   }
 
   v46 = *(this + 9);
@@ -7302,33 +7304,33 @@ LABEL_48:
     v40 = memcpy(&v43[v47], a5, 4 * v48);
   }
 
-  v94 = v11;
+  v93 = v11;
   if (v45 == v46)
   {
-    v92 = v46;
+    v91 = v46;
   }
 
   else
   {
     v40 = memmove(v46, &a5[v48 - (v47 >> 2)], v45 - v46);
     v46 = *(this + 9);
-    v92 = *(this + 10);
+    v91 = *(this + 10);
     LODWORD(v48) = *(this + 2);
   }
 
-  v95 = a3;
-  v96 = a5;
+  v94 = a3;
+  v95 = a5;
   v50 = *(this + 12);
   v49 = *(this + 13);
   v51 = v49 - v50;
   MEMORY[0x1EEE9AC00](v40);
-  v54 = v89 - v53;
+  v54 = v88 - v53;
   if (v55)
   {
-    memset(v89 - v53, 255, v52);
+    memset(v88 - v53, 255, v52);
   }
 
-  v56 = v92 - v46;
+  v56 = v91 - v46;
   if (v49 != v50)
   {
     memcpy(v54, v50, v49 - v50);
@@ -7346,153 +7348,153 @@ LABEL_48:
     v59 = v48 / 3;
   }
 
-  a5 = v96;
-  a3 = v95;
+  a5 = v95;
+  a3 = v94;
   v60 = *(this + 128);
-  v90 = v58;
+  v89 = v58;
   if (v60)
   {
-    if (!v95)
+    if (!v94)
     {
       ltpf::Decoder::Process<(ltpf::Decoder::Flavor)2>(this, *(this + 3), *(this + 6), v57, v58, *(this + 30), v59);
-      goto LABEL_94;
+      goto LABEL_93;
     }
 
-    v61 = *(this + 30);
-    if (v35 != v61 || v91 != *(this + 31))
+    if (__PAIR64__(v90, v35) != *(this + 15))
     {
       v48 = v58;
-      ltpf::Decoder::Process<(ltpf::Decoder::Flavor)2>(this, *(this + 3), *(this + 6), v57, v58, v61, v59);
-      v89[0] = v89;
-      v69 = v92 - v46;
-      MEMORY[0x1EEE9AC00](v70);
-      v74 = v89 - v73;
-      if (v75)
+      ltpf::Decoder::Process<(ltpf::Decoder::Flavor)2>(this, *(this + 3), *(this + 6), v57, v58, *(this + 30), v59);
+      v88[0] = v88;
+      v68 = v91 - v46;
+      MEMORY[0x1EEE9AC00](v69);
+      v73 = v88 - v72;
+      if (v74)
       {
-        memcpy(v89 - v73, &v48[-v72], v71);
+        memcpy(v88 - v72, &v48[-v71], v70);
       }
 
-      ltpf::Decoder::Process<(ltpf::Decoder::Flavor)0>(this, v94, v93, &v74[v69], v48, v35, v59);
+      ltpf::Decoder::Process<(ltpf::Decoder::Flavor)0>(this, v93, v92, &v73[v68], v48, v35, v59);
       LODWORD(v48) = *(this + 2);
-      goto LABEL_88;
+      goto LABEL_87;
     }
 
     if (!v59)
     {
-      goto LABEL_88;
+      goto LABEL_87;
     }
 
-    v62 = v59;
-    v63 = v57;
-    v64 = v58;
-    v65 = v57;
-    v67 = v93;
-    v66 = v94;
+    v61 = v59;
+    v62 = v57;
+    v63 = v58;
+    v64 = v57;
+    v66 = v92;
+    v65 = v93;
     do
     {
-      v68 = *v65++;
-      *v64 = v68 - ltpf::Decoder::DirectFormLoop(this, v66, v67, v63, v64, v35);
-      ++v64;
-      v63 = v65;
-      --v62;
+      v67 = *v64++;
+      *v63 = v67 - ltpf::Decoder::DirectFormLoop(this, v65, v66, v62, v63, v35);
+      ++v63;
+      v62 = v64;
+      --v61;
     }
 
-    while (v62);
+    while (v61);
   }
 
   else
   {
-    ltpf::Decoder::Process<(ltpf::Decoder::Flavor)0>(this, v94, v93, v57, v58, v35, v59);
+    ltpf::Decoder::Process<(ltpf::Decoder::Flavor)0>(this, v93, v92, v57, v58, v35, v59);
   }
 
-  a5 = v96;
-  a3 = v95;
-  if (!v95)
+  a5 = v95;
+  a3 = v94;
+  if (!v94)
   {
-LABEL_94:
+LABEL_93:
     if (v48 != v59)
     {
-      memcpy(&v90[v59], (v57 + 4 * v59), 4 * (v48 - v59));
+      memcpy(&v89[v59], &v57[v59], 4 * (v48 - v59));
     }
 
-    goto LABEL_96;
+    goto LABEL_95;
   }
 
-LABEL_88:
-  v76 = v48 - v59;
+LABEL_87:
+  v75 = v48 - v59;
   if (v48 == v59)
   {
     LODWORD(v48) = v59;
-LABEL_96:
-    v21 = v93;
-    v11 = v94;
-    goto LABEL_97;
+LABEL_95:
+    v21 = v92;
+    v11 = v93;
+    goto LABEL_96;
   }
 
-  v77 = v59;
-  v78 = v90;
-  v80 = v93;
-  v79 = v94;
+  v76 = v59;
+  v77 = v89;
+  v79 = v92;
+  v78 = v93;
   do
   {
-    v81 = *(v57 + v77 * 4);
-    v78[v77] = v81 - ltpf::Decoder::DirectFormLoop(this, v79, v80, v57 + v77 * 4, &v78[v77], v35);
-    ++v78;
-    v57 += 4;
-    --v76;
+    v80 = v57[v76];
+    v77[v76] = v80 - ltpf::Decoder::DirectFormLoop(this, v78, v79, &v57[v76], &v77[v76], v35);
+    ++v77;
+    ++v57;
+    --v75;
   }
 
-  while (v76);
-  v11 = v79;
-  a3 = v95;
-  v21 = v80;
-  a5 = v96;
-LABEL_97:
-  LODWORD(v29) = v91;
+  while (v75);
+  v11 = v78;
+  a3 = v94;
+  v21 = v79;
+  a5 = v95;
+LABEL_96:
+  LODWORD(v29) = v90;
   if (v48)
   {
-    memcpy(a5, v90, 4 * v48);
+    memcpy(a5, v89, 4 * v48);
   }
 
-LABEL_99:
+LABEL_98:
   *(this + 30) = v35;
   *(this + 31) = v29;
-  v82 = *(this + 4);
-  if (v82)
+  v81 = *(this + 4);
+  if (v81)
   {
-    memmove(*(this + 3), v11, 16 * v82);
+    memmove(*(this + 3), v11, 16 * v81);
   }
 
-  v83 = *(this + 3);
-  if (v83)
+  v82 = *(this + 3);
+  if (v82)
   {
-    memmove(*(this + 6), v21, 16 * v83);
+    memmove(*(this + 6), v21, 16 * v82);
   }
 
   *(this + 128) = a3 != 0;
   result = *(this + 12);
-  v85 = *(this + 13);
-  v86 = (v85 - result) >> 2;
-  v87 = *(this + 2);
-  v88 = v86 - v87;
-  if (v86 != v87)
+  v84 = *(this + 13);
+  v85 = (v84 - result) >> 2;
+  v86 = *(this + 2);
+  v87 = v85 - v86;
+  if (v85 != v86)
   {
-    result = memmove(result, (v85 - 4 * v88), 4 * v88);
-    LODWORD(v87) = *(this + 2);
+    result = memmove(result, (v84 - 4 * v87), 4 * v87);
+    LODWORD(v86) = *(this + 2);
   }
 
-  if (v87)
+  if (v86)
   {
-    return memmove((*(this + 12) + 4 * v88), a5, 4 * v87);
+    return memmove((*(this + 12) + 4 * v87), a5, 4 * v86);
   }
 
   return result;
 }
 
-void ltpf::Decoder::Process<(ltpf::Decoder::Flavor)0>(unsigned int *a1, float32x4_t *a2, float32x4_t *a3, uint64_t a4, float *a5, int a6, unsigned int a7)
+void ltpf::Decoder::Process<(ltpf::Decoder::Flavor)0>(unsigned int *a1, float32x4_t *a2, float32x4_t *a3, float *a4, float *a5, uint64_t a6, unsigned int a7)
 {
   if (a7)
   {
+    v7 = a6;
     v12 = 1.0 / a7;
     v13 = a7;
     v14 = 0.0;
@@ -7500,7 +7502,7 @@ void ltpf::Decoder::Process<(ltpf::Decoder::Flavor)0>(unsigned int *a1, float32x
     do
     {
       v16 = *v15++;
-      *a5 = v16 - (v14 * ltpf::Decoder::DirectFormLoop(a1, a2, a3, a4, a5, a6));
+      *a5 = v16 - (v14 * ltpf::Decoder::DirectFormLoop(a1, a2, a3, a4, a5, v7));
       ++a5;
       v14 = v12 + v14;
       a4 = v15;
@@ -7511,10 +7513,11 @@ void ltpf::Decoder::Process<(ltpf::Decoder::Flavor)0>(unsigned int *a1, float32x
   }
 }
 
-void ltpf::Decoder::Process<(ltpf::Decoder::Flavor)2>(unsigned int *a1, float32x4_t *a2, float32x4_t *a3, uint64_t a4, float *a5, int a6, unsigned int a7)
+void ltpf::Decoder::Process<(ltpf::Decoder::Flavor)2>(unsigned int *a1, float32x4_t *a2, float32x4_t *a3, float *a4, float *a5, uint64_t a6, unsigned int a7)
 {
   if (a7)
   {
+    v7 = a6;
     v12 = 1.0;
     v13 = 1.0 / a7;
     v14 = a7;
@@ -7522,7 +7525,7 @@ void ltpf::Decoder::Process<(ltpf::Decoder::Flavor)2>(unsigned int *a1, float32x
     do
     {
       v16 = *v15++;
-      *a5 = v16 - (v12 * ltpf::Decoder::DirectFormLoop(a1, a2, a3, a4, a5, a6));
+      *a5 = v16 - (v12 * ltpf::Decoder::DirectFormLoop(a1, a2, a3, a4, a5, v7));
       ++a5;
       v12 = v12 - v13;
       a4 = v15;
@@ -9232,7 +9235,8 @@ LABEL_227:
             do
             {
               v223 = *v222++;
-              *v221++ = sinf((v223 + -8.0) * 0.1848);
+              v221->f32[0] = sinf((v223 + -8.0) * 0.1848);
+              v221 = (v221 + 4);
               --v220;
             }
 
@@ -9372,23 +9376,23 @@ LABEL_350:
         {
           if (v235 == 2)
           {
-            v260 = &sns::GetAdjustmentGain(unsigned int,unsigned int)::gNearAdjGains;
+            v260 = sns::GetAdjustmentGain(unsigned int,unsigned int)::gNearAdjGains;
           }
 
           else
           {
-            v260 = &sns::GetAdjustmentGain(unsigned int,unsigned int)::gFarAdjGains;
+            v260 = sns::GetAdjustmentGain(unsigned int,unsigned int)::gFarAdjGains;
           }
         }
 
         else if (v235)
         {
-          v260 = &sns::GetAdjustmentGain(unsigned int,unsigned int)::gRegLFAdjGains;
+          v260 = sns::GetAdjustmentGain(unsigned int,unsigned int)::gRegLFAdjGains;
         }
 
         else
         {
-          v260 = &sns::GetAdjustmentGain(unsigned int,unsigned int)::gRegAdjGains;
+          v260 = sns::GetAdjustmentGain(unsigned int,unsigned int)::gRegAdjGains;
         }
 
         v261 = 0;

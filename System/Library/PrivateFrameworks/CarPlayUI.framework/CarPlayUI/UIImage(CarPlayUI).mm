@@ -22,25 +22,26 @@
 
 - (id)roundingCornersIfSquared
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if ([self isSquared])
+  v13 = *MEMORY[0x277D85DE8];
+  isSquared = [self isSquared];
+  if (isSquared)
   {
     selfCopy = self;
   }
 
   else
   {
-    v3 = CarPlayUIGeneralLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = CarPlayUIGeneralLogging(isSquared);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       [self size];
-      v5 = v4;
+      v6 = v5;
       [self size];
-      v8 = 134218240;
-      v9 = v5;
-      v10 = 2048;
-      v11 = v6;
-      _os_log_impl(&dword_243134000, v3, OS_LOG_TYPE_DEFAULT, "Setting corner radius to artwork image with size: (%f, %f)", &v8, 0x16u);
+      v9 = 134218240;
+      v10 = v6;
+      v11 = 2048;
+      v12 = v7;
+      _os_log_impl(&dword_243134000, v4, OS_LOG_TYPE_DEFAULT, "Setting corner radius to artwork image with size: (%f, %f)", &v9, 0x16u);
     }
 
     selfCopy = [self imageWithRoundedCornersOfRadius:14.0];

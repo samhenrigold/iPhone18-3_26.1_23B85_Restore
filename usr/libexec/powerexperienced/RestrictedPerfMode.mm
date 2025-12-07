@@ -2,6 +2,7 @@
 + (id)powerModeInstance;
 - (BOOL)evaluatePowerModeWithResourceHints:(id)hints andContext:(id)context;
 - (RestrictedPerfMode)init;
+- (void)allowOnCharger:(BOOL)charger;
 - (void)enterPowerMode;
 - (void)exitPowerMode;
 - (void)logStatusToPowerLog;
@@ -304,6 +305,20 @@ LABEL_35:
 
     [(RestrictedPerfMode *)self logStatusToPowerLog];
   }
+}
+
+- (void)allowOnCharger:(BOOL)charger
+{
+  chargerCopy = charger;
+  v5 = [(PowerModeObjImpl *)self log];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = chargerCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting allowOnCharger: %d", v6, 8u);
+  }
+
+  [(RestrictedPerfMode *)self setAllowOnCharger:chargerCopy];
 }
 
 - (void)logStatusToPowerLog

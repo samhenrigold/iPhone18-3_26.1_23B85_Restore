@@ -180,9 +180,9 @@ id sub_7EBC()
   return v1;
 }
 
-void sub_7F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_7F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -267,7 +267,7 @@ Class sub_93B8(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -285,7 +285,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t sub_94FC()
+uint64_t sub_94FC(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_32278 = result;
@@ -552,9 +552,9 @@ id sub_EB58()
   return v1;
 }
 
-void sub_EC20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_EC20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -583,9 +583,9 @@ id sub_EC38()
   return v1;
 }
 
-void sub_ED00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_ED00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -628,7 +628,7 @@ uint64_t sub_F694()
   v1 = v3[0];
   if (!qword_32298)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -641,7 +641,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t sub_F794()
+uint64_t sub_F794(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_32298 = result;
@@ -660,7 +660,7 @@ Class sub_F808(uint64_t a1)
 
   else
   {
-    v3 = sub_139C8();
+    sub_139C8();
     return sub_F860(v3);
   }
 
@@ -676,7 +676,7 @@ void *sub_F860(uint64_t a1)
   return result;
 }
 
-uint64_t sub_101F8()
+uint64_t sub_101F8(uint64_t a1, uint64_t a2)
 {
   qword_322B0 = objc_alloc_init(objc_opt_class());
 
@@ -985,7 +985,7 @@ uint64_t sub_1385C(uint64_t a1)
 
 uint64_t sub_1397C()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   return sub_139A0();
 }

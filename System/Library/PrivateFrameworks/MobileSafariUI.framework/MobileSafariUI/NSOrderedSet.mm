@@ -4,7 +4,7 @@
 
 @implementation NSOrderedSet
 
-void __73__NSOrderedSet_SafariExtras__safari_changeFromSet_withModificationCheck___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __73__NSOrderedSet_SafariExtras__safari_changeFromSet_withModificationCheck___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v16 = a2;
   v5 = [*(a1 + 32) indexOfObject:?];
@@ -12,7 +12,7 @@ void __73__NSOrderedSet_SafariExtras__safari_changeFromSet_withModificationCheck
   {
     v6 = v5;
     v7 = [*(a1 + 40) countOfIndexesInRange:{0, a3}];
-    v8 = a3 - v7 + [*(a1 + 48) countOfIndexesInRange:{0, v6}];
+    v8 = &a3[[*(a1 + 48) countOfIndexesInRange:{0, v6}] - v7];
     v9 = [*(a1 + 32) objectAtIndexedSubscript:v6];
     v10 = *(a1 + 64);
     if (v10)

@@ -545,15 +545,14 @@
         v66 = v21;
         v22 = v21;
         LODWORD(v46) = 12;
-        v45 = &v65;
-        v23 = _os_log_send_and_compose_impl();
+        v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, v18, 1, "%@: Sending header enrichment request", &v65, v46);
 
         if (!v23)
         {
           goto LABEL_22;
         }
 
-        v18 = [NSString stringWithCString:v23 encoding:4, &v65, v46];
+        v18 = [NSString stringWithCString:v23 encoding:4];
         free(v23);
         v45 = v18;
         SSFileLog();
@@ -656,15 +655,14 @@ LABEL_32:
         v66 = v40;
         v41 = v40;
         LODWORD(v46) = 12;
-        v44 = &v65;
-        v42 = _os_log_send_and_compose_impl();
+        v42 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &_mh_execute_header, v37, 0, "%@: Performing delayed retry: still need header enrichment", &v65, v46);
 
         if (!v42)
         {
           goto LABEL_45;
         }
 
-        v37 = [NSString stringWithCString:v42 encoding:4, &v65, v46];
+        v37 = [NSString stringWithCString:v42 encoding:4];
         free(v42);
         v44 = v37;
         SSFileLog();
@@ -693,9 +691,9 @@ LABEL_48:
 - (id)_sendPreflightRequest:(id *)request
 {
   v5 = objc_alloc_init(ISLoadURLBagOperation);
-  v45 = 0;
-  [(CarrierBundlingEligibilityOperation *)self runSubOperation:v5 returningError:&v45];
-  v6 = v45;
+  v44 = 0;
+  [(CarrierBundlingEligibilityOperation *)self runSubOperation:v5 returningError:&v44];
+  v6 = v44;
   uRLBag = [v5 URLBag];
   v8 = [uRLBag urlForKey:@"fuseHeaderEnrichment"];
   v9 = v8;
@@ -717,50 +715,54 @@ LABEL_48:
       v26 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v26 shouldLog];
+    LODWORD(v27) = [v26 shouldLog];
     if ([v26 shouldLogToDisk])
     {
-      shouldLog |= 2u;
+      LODWORD(v27) = v27 | 2;
     }
 
     oSLogObject = [v26 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
     {
-      shouldLog &= 2u;
+      v27 = v27;
     }
 
-    if (shouldLog)
+    else
+    {
+      v27 &= 2u;
+    }
+
+    if (v27)
     {
       v29 = objc_opt_class();
-      v46 = 138412290;
-      v47 = v29;
+      v45 = 138412290;
+      v46 = v29;
       v30 = v29;
-      LODWORD(v39) = 12;
-      v31 = _os_log_send_and_compose_impl();
+      v31 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Loaded bag successfully, but no enrichment URL found. Assuming carrier bundle status not eligible.", &v45, 12);
 
       if (!v31)
       {
-LABEL_34:
+LABEL_35:
 
         v32 = objc_alloc_init(CarrierBundlingEligibilityResponse);
         [(CarrierBundlingEligibilityResponse *)v32 setBundlingStatus:2];
         v33 = 0;
-        goto LABEL_44;
+        goto LABEL_45;
       }
 
-      oSLogObject = [NSString stringWithCString:v31 encoding:4, &v46, v39];
+      oSLogObject = [NSString stringWithCString:v31 encoding:4];
       free(v31);
       SSFileLog();
     }
 
-    goto LABEL_34;
+    goto LABEL_35;
   }
 
   if (!v8)
   {
     v33 = SSError();
     v32 = 0;
-    goto LABEL_44;
+    goto LABEL_45;
   }
 
   v12 = objc_alloc_init(ISStoreURLOperation);
@@ -778,15 +780,15 @@ LABEL_34:
     [_newDefaultRequestBodyDictionary setObject:phoneNumber forKey:@"phoneNumber"];
   }
 
-  v40 = phoneNumber;
+  v39 = phoneNumber;
   if ([(CarrierBundlingEligibilityOperation *)self isDeepLink])
   {
     [_newDefaultRequestBodyDictionary setObject:@"true" forKey:@"deepLink"];
   }
 
   requestCopy = request;
-  v43 = v6;
-  v41 = _newDefaultRequestBodyDictionary;
+  v42 = v6;
+  v40 = _newDefaultRequestBodyDictionary;
   v17 = [NSJSONSerialization dataWithJSONObject:_newDefaultRequestBodyDictionary options:0 error:0];
   [v14 setHTTPBody:v17];
 
@@ -797,15 +799,15 @@ LABEL_34:
     v18 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v18 shouldLog];
+  shouldLog = [v18 shouldLog];
   if ([v18 shouldLogToDisk])
   {
-    v20 = shouldLog2 | 2;
+    v20 = shouldLog | 2;
   }
 
   else
   {
-    v20 = shouldLog2;
+    v20 = shouldLog;
   }
 
   oSLogObject2 = [v18 OSLogObject];
@@ -821,29 +823,28 @@ LABEL_34:
 
   if (!v22)
   {
-    v6 = v43;
-    goto LABEL_37;
+    v6 = v42;
+    goto LABEL_38;
   }
 
   v23 = objc_opt_class();
-  v46 = 138412290;
-  v47 = v23;
+  v45 = 138412290;
+  v46 = v23;
   v24 = v23;
-  LODWORD(v39) = 12;
-  v25 = _os_log_send_and_compose_impl();
+  v25 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Running preflight operation", &v45, 12);
 
-  v6 = v43;
+  v6 = v42;
   if (v25)
   {
-    oSLogObject2 = [NSString stringWithCString:v25 encoding:4, &v46, v39];
+    oSLogObject2 = [NSString stringWithCString:v25 encoding:4];
     free(v25);
     SSFileLog();
-LABEL_37:
+LABEL_38:
   }
 
-  v44 = 0;
-  v34 = [(CarrierBundlingEligibilityOperation *)self runSubOperation:v12 returningError:&v44];
-  v33 = v44;
+  v43 = 0;
+  v34 = [(CarrierBundlingEligibilityOperation *)self runSubOperation:v12 returningError:&v43];
+  v33 = v43;
   v32 = 0;
   request = requestCopy;
   if (v34)
@@ -862,10 +863,10 @@ LABEL_37:
       v32 = 0;
     }
 
-    v6 = v43;
+    v6 = v42;
   }
 
-LABEL_44:
+LABEL_45:
   if (request && !v32)
   {
     v37 = v33;
@@ -957,12 +958,11 @@ LABEL_44:
       v64 = v20;
       v21 = v20;
       LODWORD(v46) = 12;
-      v45 = &v63;
-      v22 = _os_log_send_and_compose_impl();
+      v22 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, v17, 1, "%@: Silent SMS succeeded", &v63, v46);
 
       if (v22)
       {
-        v17 = [NSString stringWithCString:v22 encoding:4, &v63, v46];
+        v17 = [NSString stringWithCString:v22 encoding:4];
         free(v22);
         v45 = v17;
         SSFileLog();
@@ -1016,12 +1016,11 @@ LABEL_17:
       v64 = v29;
       v30 = v29;
       LODWORD(v46) = 12;
-      v45 = &v63;
-      v31 = _os_log_send_and_compose_impl();
+      v31 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, v17, 16, "%@: Silent SMS failed", &v63, v46);
 
       if (v31)
       {
-        v17 = [NSString stringWithCString:v31 encoding:4, &v63, v46];
+        v17 = [NSString stringWithCString:v31 encoding:4];
         free(v31);
         v45 = v17;
         SSFileLog();
@@ -1087,15 +1086,14 @@ LABEL_31:
       v64 = v40;
       v41 = v40;
       LODWORD(v46) = 12;
-      v44 = &v63;
-      v42 = _os_log_send_and_compose_impl();
+      v42 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &_mh_execute_header, v37, 0, "%@: Performing delayed retry: still need silent SMS", &v63, v46);
 
       if (!v42)
       {
         goto LABEL_44;
       }
 
-      v37 = [NSString stringWithCString:v42 encoding:4, &v63, v46];
+      v37 = [NSString stringWithCString:v42 encoding:4];
       free(v42);
       v44 = v37;
       SSFileLog();

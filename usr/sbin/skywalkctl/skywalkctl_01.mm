@@ -1,135 +1,10 @@
-uint64_t sub_10000E308(int a1, char *const *a2)
-{
-  v22 = off_100024400;
-  v23 = unk_100024410;
-  v24 = xmmword_100024420;
-  v25 = unk_100024430;
-  v21 = off_1000243E0;
-  v4 = getopt_long(a1, a2, "t:d:", &v21, 0) << 24;
-  if (v4 == -16777216)
-  {
-    if (optind != a1 - 1)
-    {
-LABEL_19:
-      fflush(__stderrp);
-      fputs("Usage: redirect create [ OPTIONS ] <interface>\n\t-t, --type <typename>        Supported: ethernet, cellular\n\t-d, --delegate <interface>   Delegate interface\n", __stderrp);
-      return 64;
-    }
-
-LABEL_3:
-    fwrite("type required\n", 0xEuLL, 1uLL, __stderrp);
-    goto LABEL_19;
-  }
-
-  v5 = 0;
-  v6 = 0;
-  do
-  {
-    v7 = v4 >> 24;
-    if (v7 == 100)
-    {
-      v5 = optarg;
-    }
-
-    else
-    {
-      if (v7 != 116)
-      {
-        fprintf(__stderrp, "unknown option %s\n");
-        goto LABEL_19;
-      }
-
-      v8 = optarg;
-      if (!strcmp(optarg, "ethernet"))
-      {
-        v6 = 2;
-      }
-
-      else
-      {
-        if (strcmp(v8, "cellular"))
-        {
-          fprintf(__stderrp, "invalid redirect type: %s\n");
-          goto LABEL_19;
-        }
-
-        v6 = 15;
-      }
-    }
-
-    v4 = getopt_long(a1, a2, "t:d:", &v21, 0) << 24;
-  }
-
-  while (v4 != -16777216);
-  if (optind != a1 - 1)
-  {
-    goto LABEL_19;
-  }
-
-  if (!v6)
-  {
-    goto LABEL_3;
-  }
-
-  v9 = a2[optind];
-  printf("redirect_create: ifname %s, type %d, delegate %s\n", v9, v6, v5);
-  v20 = 0;
-  v19 = 535847;
-  v10 = sub_10000EA60(&v20);
-  if (v10)
-  {
-    v11 = v10;
-    v12 = __stderrp;
-    v13 = strerror(v10);
-    fprintf(v12, "inet_dgram_socket failed: %s\n", v13);
-    return v11;
-  }
-
-  v26 = 0u;
-  v27 = 0u;
-  __strlcpy_chk();
-  HIDWORD(v19) = v6;
-  *&v27 = &v19;
-  v15 = v20;
-  if (ioctl(v20, 0xC020697AuLL, &v26) < 0)
-  {
-    v16 = __error();
-    v11 = *v16;
-    v17 = __stderrp;
-    v18 = strerror(*v16);
-    fprintf(v17, "SIOCIFCREATE2 failed: %s\n", v18);
-    close(v15);
-    if (v11)
-    {
-      return v11;
-    }
-  }
-
-  else
-  {
-    close(v15);
-  }
-
-  if (!v5)
-  {
-    return 0;
-  }
-
-  v11 = sub_10000E7F8(v9, v5);
-  if (v11)
-  {
-    sub_10000E964();
-  }
-
-  return v11;
-}
-
 uint64_t sub_10000E60C(int a1, uint64_t a2)
 {
   if (a1 == 2)
   {
-    printf("redirect_destroy: ifname %s\n", *(a2 + 8));
-    sub_10000E964();
+    v2 = *(a2 + 8);
+    printf("redirect_destroy: ifname %s\n", v2);
+    sub_10000E964(v2);
     return 0;
   }
 
@@ -235,31 +110,31 @@ uint64_t sub_10000E7F8(uint64_t a1, const char *a2)
   return v4;
 }
 
-uint64_t sub_10000E964()
+uint64_t sub_10000E964(uint64_t a1)
 {
-  v8 = 0;
-  v0 = sub_10000EA60(&v8);
-  if (v0)
+  v9 = 0;
+  v1 = sub_10000EA60(&v9);
+  if (v1)
   {
-    v1 = __stderrp;
-    v2 = strerror(v0);
-    return fprintf(v1, "inet_dgram_socket failed: %s\n", v2);
+    v2 = __stderrp;
+    v3 = strerror(v1);
+    return fprintf(v2, "inet_dgram_socket failed: %s\n", v3);
   }
 
   else
   {
-    memset(v9, 0, sizeof(v9));
+    memset(v10, 0, sizeof(v10));
     __strlcpy_chk();
-    v4 = v8;
-    if (ioctl(v8, 0x80206979uLL, v9) < 0)
+    v5 = v9;
+    if (ioctl(v9, 0x80206979uLL, v10) < 0)
     {
-      v5 = __error();
-      v6 = __stderrp;
-      v7 = strerror(*v5);
-      fprintf(v6, "SIOCIFDESTROY failed: %s\n", v7);
+      v6 = __error();
+      v7 = __stderrp;
+      v8 = strerror(*v6);
+      fprintf(v7, "SIOCIFDESTROY failed: %s\n", v8);
     }
 
-    return close(v4);
+    return close(v5);
   }
 }
 
@@ -379,22 +254,7 @@ uint64_t sub_10000ECCC()
     byte_100028664 = 1;
   }
 
-  if (tcgetattr(0, &xmmword_100028668) == -1)
-  {
-    goto LABEL_7;
-  }
-
-  *v2.c_cc = xmmword_100028688;
-  *&v2.c_cc[16] = unk_100028698;
-  v0.i64[1] = *(&xmmword_100028668 + 1);
-  v0.i64[0] = 768;
-  v0.i64[0] = vorrq_s8(unk_100028678, v0).u64[0];
-  v2.c_ospeed = qword_1000286A8;
-  v0.i64[1] = vandq_s8(unk_100028678, vdupq_n_s64(0xFFFFFFFFFFFFFA77)).i64[1];
-  *&v2.c_iflag = vandq_s8(xmmword_100028668, xmmword_10001E630);
-  *&v2.c_cflag = v0;
-  *&v2.c_cc[16] = 1;
-  if (tcsetattr(0, 2, &v2) < 0)
+  if (tcgetattr(0, &xmmword_100028668) == -1 || (*v2.c_cc = xmmword_100028688, *&v2.c_cc[16] = unk_100028698, v0.i64[1] = *(&xmmword_100028668 + 1), v0.i64[0] = 768, v0.i64[0] = vorrq_s8(unk_100028678, v0).u64[0], v2.c_ospeed = qword_1000286A8, v0.i64[1] = vandq_s8(unk_100028678, vdupq_n_s64(0xFFFFFFFFFFFFFA77)).i64[1], *&v2.c_iflag = vandq_s8(xmmword_100028668, xmmword_10001E630), *&v2.c_cflag = v0, *&v2.c_cc[16] = 1, tcsetattr(0, 2, &v2) < 0))
   {
 LABEL_7:
     *__error() = 25;
@@ -1103,20 +963,20 @@ void sub_10000FAC4()
   }
 }
 
-void sub_10000FB6C(void *a1)
+void sub_10000FB6C(void *result)
 {
-  v1 = a1[7];
+  v1 = result[7];
   if (v1)
   {
-    v3 = a1[5];
+    v3 = result[5];
     if (v3 < v1)
     {
-      memmove((a1[1] + v3), (a1[1] + v3 + 1), v1 + ~v3);
-      v4 = a1[7] - 1;
-      a1[7] = v4;
-      *(a1[1] + v4) = 0;
+      memmove((result[1] + v3), (result[1] + v3 + 1), v1 + ~v3);
+      v4 = result[7] - 1;
+      result[7] = v4;
+      *(result[1] + v4) = 0;
 
-      sub_10000FBEC(a1);
+      sub_10000FBEC(result);
     }
   }
 }
@@ -1476,7 +1336,7 @@ LABEL_19:
   return v7;
 }
 
-char *sub_10001044C(void **a1, int *a2, unsigned int *a3, uint64_t a4, uint64_t a5)
+char *sub_10001044C(char **a1, int *a2, unsigned int *a3, uint64_t a4, uint64_t a5)
 {
   v9 = *a3;
   v10 = *a2;
@@ -1635,7 +1495,7 @@ void *sub_100010788(void *a1, size_t a2)
   return result;
 }
 
-const char *sub_1000107D4(int a1)
+char *sub_1000107D4(int a1)
 {
   switch(a1)
   {
@@ -1753,7 +1613,7 @@ uint64_t sub_10001096C(uint64_t a1, unsigned int a2, _BYTE *a3)
   return putchar(62);
 }
 
-const char *sub_100010A54(const char *a1, const char *a2)
+char *sub_100010A54(char *a1, const char *a2)
 {
   v4 = fileno(__stdoutp);
   if (isatty(v4))
@@ -1910,11 +1770,6 @@ char *sub_100010DA8(in_addr_t *a1, int a2, const char *a3, int a4)
   v10 = (byte_100028BB9 - v8);
   if (!a2 || v9)
   {
-    if (v9)
-    {
-      s_name = v9->s_name;
-    }
-
     snprintf(v8, (v10 + 80), "%.15s");
   }
 
@@ -1926,7 +1781,7 @@ char *sub_100010DA8(in_addr_t *a1, int a2, const char *a3, int a4)
   return byte_100028BB9;
 }
 
-void *sub_100010EA8(_DWORD *a1, char a2)
+char *sub_100010EA8(unsigned int *a1, char a2)
 {
   if ((byte_100028D3C & 1) == 0 && (a2 & 1) == 0)
   {
@@ -1985,7 +1840,8 @@ LABEL_18:
   v10 = *a1;
   if ((*a1 || a1[1] || a1[2] || a1[3]) && !h_name)
   {
-    *&v12[8] = 0uLL;
+    *&v12[8] = 0;
+    *&v12[16] = 0;
     v13 = 0;
     *v12 = 7708;
     *&v12[8] = *a1;
@@ -2015,10 +1871,10 @@ LABEL_31:
 
 LABEL_33:
   __strlcpy_chk();
-  return &unk_100028C09;
+  return byte_100028C09;
 }
 
-char *sub_100011108(_DWORD *a1, int a2, const char *a3, char a4)
+char *sub_100011108(unsigned int *a1, int a2, const char *a3, char a4)
 {
   sub_100010EA8(a1, a4);
   snprintf(byte_100028D3D, 0x50uLL, "%.*s.", 39, byte_100028C09);
@@ -2053,11 +1909,6 @@ LABEL_10:
   v11 = (byte_100028D3D - v7);
   if (!a2 || v8)
   {
-    if (v8)
-    {
-      s_name = v8->s_name;
-    }
-
     snprintf(v7, (v11 + 80), "%.15s");
   }
 
@@ -2267,27 +2118,20 @@ char *sub_1000113A8(int a1)
   return byte_100028D8D;
 }
 
-char *sub_1000114F4(char *__str, int a2, unsigned int a3, uint64_t a4, double a5)
+char *sub_1000114F4(char *__str, int a2, unsigned int a3, double a4)
 {
-  v6 = a3;
-  if (a3 <= a5)
+  v5 = a3;
+  if (a3 <= a4)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      a5 = a5 / v6;
-      v7 = v8 + 1;
+      a4 = a4 / v5;
     }
 
-    while (a5 >= v6 && v8++ < 3);
+    while (a4 >= v5 && v6++ < 3);
   }
 
-  else
-  {
-    v7 = 0;
-  }
-
-  v10 = *(a4 + 8 * v7);
   if (a3 == 1000)
   {
     snprintf(__str, a2, "%.2f%s");
@@ -2303,9 +2147,9 @@ char *sub_1000114F4(char *__str, int a2, unsigned int a3, uint64_t a4, double a5
 
 uint64_t sub_100011590(const char **a1, char *a2, size_t *a3)
 {
-  v28 = 0;
-  *v29 = -1;
-  if (pipe(v29))
+  v26 = 0;
+  *v27 = -1;
+  if (pipe(v27))
   {
     v6 = __stderrp;
     v7 = *a1;
@@ -2314,11 +2158,11 @@ uint64_t sub_100011590(const char **a1, char *a2, size_t *a3)
     fprintf(v6, "pipe failed while preparing to execute %s: %s", v7, v9);
   }
 
-  v27 = 0;
-  posix_spawn_file_actions_init(&v27);
-  posix_spawn_file_actions_adddup2(&v27, v29[1], 1);
-  posix_spawn_file_actions_addclose(&v27, v29[0]);
-  v10 = posix_spawn(&v28, *a1, &v27, 0, a1, 0);
+  v25 = 0;
+  posix_spawn_file_actions_init(&v25);
+  posix_spawn_file_actions_adddup2(&v25, v27[1], 1);
+  posix_spawn_file_actions_addclose(&v25, v27[0]);
+  v10 = posix_spawn(&v26, *a1, &v25, 0, a1, 0);
   if (v10)
   {
     v11 = v10;
@@ -2326,13 +2170,13 @@ uint64_t sub_100011590(const char **a1, char *a2, size_t *a3)
     v13 = *a1;
     v14 = strerror(v10);
     fprintf(v12, "posix_spawn %s failed: %s", v13, v14);
-    close(v29[0]);
+    close(v27[0]);
     goto LABEL_5;
   }
 
-  v16 = v29[0];
-  close(v29[1]);
-  v29[1] = -1;
+  v16 = v27[0];
+  close(v27[1]);
+  v27[1] = -1;
   if (a2 && a3)
   {
     v17 = *a3;
@@ -2359,8 +2203,8 @@ uint64_t sub_100011590(const char **a1, char *a2, size_t *a3)
     *a3 = v19;
   }
 
-  v26 = 0;
-  if (waitpid(v28, &v26, 0) == -1)
+  v24 = 0;
+  if (waitpid(v26, &v24, 0) == -1)
   {
     v11 = *__error();
     v20 = __stderrp;
@@ -2372,21 +2216,19 @@ uint64_t sub_100011590(const char **a1, char *a2, size_t *a3)
 
   else
   {
-    if ((v26 & 0x7F) == 0x7F)
+    if ((v24 & 0x7F) == 0x7F)
     {
-      v24 = *a1;
       fprintf(__stderrp, "%s was stopped by signal %d");
     }
 
     else
     {
-      if ((v26 & 0x7F) == 0)
+      if ((v24 & 0x7F) == 0)
       {
-        v11 = BYTE1(v26);
+        v11 = BYTE1(v24);
         goto LABEL_5;
       }
 
-      v25 = *a1;
       fprintf(__stderrp, "%s terminated by signal %d");
     }
 
@@ -2394,10 +2236,10 @@ uint64_t sub_100011590(const char **a1, char *a2, size_t *a3)
   }
 
 LABEL_5:
-  posix_spawn_file_actions_destroy(&v27);
-  if (v29[1] != -1)
+  posix_spawn_file_actions_destroy(&v25);
+  if (v27[1] != -1)
   {
-    close(v29[1]);
+    close(v27[1]);
   }
 
   return v11;

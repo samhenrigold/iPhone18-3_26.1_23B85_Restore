@@ -95,7 +95,7 @@
 - (void)_setDefaultsKeyForPreferences:(id)preferences
 {
   preferencesCopy = preferences;
-  v4 = sub_377D4();
+  v4 = sub_377D4(preferencesCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *v7 = 0;

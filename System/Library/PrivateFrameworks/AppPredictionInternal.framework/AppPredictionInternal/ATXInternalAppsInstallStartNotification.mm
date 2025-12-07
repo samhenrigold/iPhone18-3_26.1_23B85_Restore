@@ -23,7 +23,7 @@
 + (void)postNotificationWithInstallStartDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(dictionaryCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(ATXInternalAppsInstallStartNotification *)dictionaryCopy postNotificationWithInstallStartDictionary:v4];
@@ -34,11 +34,10 @@
 
 + (void)postNotificationWithInstallStartDictionary:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXInternalAppsInstallStartNotification: posting install start notification with payload:\n%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXInternalAppsInstallStartNotification: posting install start notification with payload:\n%@", &v2, 0xCu);
 }
 
 @end

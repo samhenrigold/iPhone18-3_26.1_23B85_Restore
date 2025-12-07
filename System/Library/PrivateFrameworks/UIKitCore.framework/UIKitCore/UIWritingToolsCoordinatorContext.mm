@@ -65,9 +65,9 @@
   {
     if (currentHandler && v9)
     {
-      v11 = [currentHandler isEqual:v9];
+      isEqual = objc_msgSend_isEqual_(currentHandler);
 
-      if (v11)
+      if (isEqual)
       {
         goto LABEL_8;
       }

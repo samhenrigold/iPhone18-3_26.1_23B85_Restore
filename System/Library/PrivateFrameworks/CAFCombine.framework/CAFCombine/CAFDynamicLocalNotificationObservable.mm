@@ -24,7 +24,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFDynamicLocalNotificationObservable.dynamicLocalNotificationService(_:didUpdateUserDismissible:)();
+  CAFDynamicLocalNotificationObservable.dynamicLocalNotificationService(_:didUpdateUserDismissible:)(selfCopy, dismissible);
 }
 
 - (void)dynamicLocalNotificationService:(id)service didUpdateSymbolNameAndColor:(id)color

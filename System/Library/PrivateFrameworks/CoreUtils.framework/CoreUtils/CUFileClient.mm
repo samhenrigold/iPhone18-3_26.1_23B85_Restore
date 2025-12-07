@@ -30,8 +30,8 @@
   responseCopy = response;
   queryCopy = query;
   errorCopy = error;
-  v16 = responseCopy;
-  if (!v16 || errorCopy)
+  v11 = responseCopy;
+  if (!v11 || errorCopy)
   {
     if (errorCopy)
     {
@@ -40,17 +40,17 @@
 
     else
     {
-      v19 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "No response, no error", v11, v12, v13, v14, v15, v20);
-      [(CUFileClient *)self _completeQuery:queryCopy response:0 error:v19];
+      v14 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "No response, no error");
+      [(CUFileClient *)self _completeQuery:queryCopy response:0 error:v14];
     }
   }
 
   else
   {
-    v21 = 0;
-    v17 = [[CUFileResponse alloc] initWithDictionary:v16 error:&v21];
-    v18 = v21;
-    [(CUFileClient *)self _completeQuery:queryCopy response:v17 error:v18];
+    v15 = 0;
+    v12 = [[CUFileResponse alloc] initWithDictionary:v11 error:&v15];
+    v13 = v15;
+    [(CUFileClient *)self _completeQuery:queryCopy response:v12 error:v13];
   }
 }
 
@@ -71,7 +71,7 @@
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUFileClient _runSendQuery:]", 0x1Eu, "Query start: %@", v4, v5, v6, v7, queryCopy);
+    LogPrintF(ucat, "[CUFileClient _runSendQuery:]", 30, "Query start: %@", v4, v5, v6, v7, queryCopy);
   }
 
 LABEL_5:
@@ -166,33 +166,33 @@ void *__27__CUFileClient__runPrepare__block_invoke(uint64_t a1)
 {
   responseCopy = response;
   errorCopy = error;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__2972;
-  v33 = __Block_byref_object_dispose__2973;
-  v34 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__2972;
+  v22 = __Block_byref_object_dispose__2973;
+  v23 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __47__CUFileClient__runSessionStartResponse_error___block_invoke;
   aBlock[3] = &unk_1E73A3290;
   aBlock[4] = self;
-  aBlock[5] = &v29;
-  v13 = _Block_copy(aBlock);
+  aBlock[5] = &v18;
+  v8 = _Block_copy(aBlock);
   if (responseCopy && !errorCopy)
   {
-    v19 = NSDictionaryGetNSNumber(responseCopy, @"sid", 0);
-    if (!v19)
+    v9 = NSDictionaryGetNSNumber(responseCopy, @"sid", 0);
+    if (!v9)
     {
-      v25 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No session ID", v14, v15, v16, v17, v18, v27);
-      v26 = v30[5];
-      v30[5] = v25;
+      v15 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No session ID");
+      v16 = v19[5];
+      v19[5] = v15;
 
-      v19 = 0;
+      v9 = 0;
       goto LABEL_9;
     }
 
-    objc_storeStrong(&self->_sessionID, v19);
+    objc_storeStrong(&self->_sessionID, v9);
     ucat = self->_ucat;
     if (ucat->var0 <= 30)
     {
@@ -206,7 +206,7 @@ void *__27__CUFileClient__runPrepare__block_invoke(uint64_t a1)
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUFileClient _runSessionStartResponse:error:]", 0x1Eu, "Session started: ID %@", v20, v21, v22, v23, v19);
+      LogPrintF(ucat, "[CUFileClient _runSessionStartResponse:error:]", 30, "Session started: ID %@", v10, v11, v12, v13, v9);
     }
 
 LABEL_8:
@@ -216,27 +216,27 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v19 = errorCopy;
+  v9 = errorCopy;
   if (!errorCopy)
   {
-    v19 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "No response, no error", v8, v9, v10, v11, v12, v27);
+    v9 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "No response, no error");
   }
 
-  objc_storeStrong(v30 + 5, v19);
+  objc_storeStrong(v19 + 5, v9);
   if (!errorCopy)
   {
     goto LABEL_9;
   }
 
 LABEL_10:
-  v13[2](v13);
+  v8[2](v8);
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v18, 8);
 }
 
-uint64_t __47__CUFileClient__runSessionStartResponse_error___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__47__CUFileClient__runSessionStartResponse_error___block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = *(result + 40);
+  v8 = result[5];
   v9 = *(*(v8 + 8) + 40);
   if (!v9)
   {
@@ -244,15 +244,15 @@ uint64_t __47__CUFileClient__runSessionStartResponse_error___block_invoke(uint64
   }
 
   v10 = result;
-  v11 = *(result + 32);
+  v11 = result[4];
   v12 = v11[12];
   if (*v12 <= 90)
   {
     if (*v12 == -1)
     {
       v13 = _LogCategory_Initialize(v11[12], 0x5Au);
-      v11 = *(v10 + 32);
-      v8 = *(v10 + 40);
+      v11 = v10[4];
+      v8 = v10[5];
       if (!v13)
       {
         goto LABEL_7;
@@ -262,9 +262,9 @@ uint64_t __47__CUFileClient__runSessionStartResponse_error___block_invoke(uint64
       v9 = *(*(v8 + 8) + 40);
     }
 
-    LogPrintF(v12, "[CUFileClient _runSessionStartResponse:error:]_block_invoke", 0x5Au, "### Session start failed: %{error}", a5, a6, a7, a8, v9);
-    v11 = *(v10 + 32);
-    v8 = *(v10 + 40);
+    LogPrintF(v12, "[CUFileClient _runSessionStartResponse:error:]_block_invoke", 90, "### Session start failed: %{error}", a5, a6, a7, a8, v9);
+    v11 = v10[4];
+    v8 = v10[5];
   }
 
 LABEL_7:
@@ -288,7 +288,7 @@ LABEL_7:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUFileClient _runSessionStartRequest]", 0x1Eu, "Session start request", v2, v3, v4, v5, v18);
+    LogPrintF(ucat, "[CUFileClient _runSessionStartRequest]", 30, "Session start request", v2, v3, v4, v5, v18);
   }
 
 LABEL_5:
@@ -321,47 +321,47 @@ LABEL_5:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUFileClient _runCLinkActivate]", 0x1Eu, "CLink activate start", v2, v3, v4, v5, v12[0]);
+    LogPrintF(ucat, "[CUFileClient _runCLinkActivate]", 30, "CLink activate start", v2, v3, v4, v5, v14[0]);
   }
 
 LABEL_5:
   self->_clinkActivated = 0;
-  [(RPCompanionLinkClient *)self->_clinkClient invalidate];
-  v8 = objc_alloc_init(getRPCompanionLinkClientClass[0]());
+  invalidate = [(RPCompanionLinkClient *)self->_clinkClient invalidate];
+  v9 = objc_alloc_init(getRPCompanionLinkClientClass(invalidate));
   clinkClient = self->_clinkClient;
-  self->_clinkClient = v8;
-  v10 = v8;
+  self->_clinkClient = v9;
+  v11 = v9;
 
-  [(RPCompanionLinkClient *)v10 setDispatchQueue:self->_dispatchQueue];
-  v11 = objc_alloc_init(getRPCompanionLinkDeviceClass[0]());
-  [v11 setIdentifier:self->_destinationID];
-  [(RPCompanionLinkClient *)v10 setDestinationDevice:v11];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __33__CUFileClient__runCLinkActivate__block_invoke;
-  v13[3] = &unk_1E73A49F0;
-  v13[4] = v10;
-  v13[5] = self;
-  [(RPCompanionLinkClient *)v10 setInvalidationHandler:v13];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __33__CUFileClient__runCLinkActivate__block_invoke_2;
-  v12[3] = &unk_1E73A35E0;
-  v12[4] = v10;
-  v12[5] = self;
-  [(RPCompanionLinkClient *)v10 activateWithCompletion:v12];
+  v12 = [(RPCompanionLinkClient *)v11 setDispatchQueue:self->_dispatchQueue];
+  v13 = objc_alloc_init(getRPCompanionLinkDeviceClass(v12));
+  [v13 setIdentifier:self->_destinationID];
+  [(RPCompanionLinkClient *)v11 setDestinationDevice:v13];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __33__CUFileClient__runCLinkActivate__block_invoke;
+  v15[3] = &unk_1E73A49F0;
+  v15[4] = v11;
+  v15[5] = self;
+  [(RPCompanionLinkClient *)v11 setInvalidationHandler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __33__CUFileClient__runCLinkActivate__block_invoke_2;
+  v14[3] = &unk_1E73A35E0;
+  v14[4] = v11;
+  v14[5] = self;
+  [(RPCompanionLinkClient *)v11 activateWithCompletion:v14];
 }
 
-uint64_t __33__CUFileClient__runCLinkActivate__block_invoke(uint64_t result)
+void *__33__CUFileClient__runCLinkActivate__block_invoke(void *result)
 {
-  v2 = *(result + 40);
+  v2 = result[5];
   v3 = *(v2 + 32);
-  if (*(result + 32) == v3)
+  if (result[4] == v3)
   {
     v4 = result;
     *(v2 + 32) = 0;
 
-    v5 = *(v4 + 40);
+    v5 = v4[5];
 
     return [v5 _invalidated];
   }
@@ -394,7 +394,7 @@ void __33__CUFileClient__runCLinkActivate__block_invoke_2(uint64_t a1, void *a2)
           v10 = *(v9 + 96);
         }
 
-        LogPrintF(v10, "[CUFileClient _runCLinkActivate]_block_invoke_2", 0x5Au, "### CLink activate failed: %{error}", v4, v5, v6, v7, v8);
+        LogPrintF(v10, "[CUFileClient _runCLinkActivate]_block_invoke_2", 90, "### CLink activate failed: %{error}", v4, v5, v6, v7, v8);
         v9 = *(a1 + 40);
       }
 
@@ -423,7 +423,7 @@ LABEL_13:
         v12 = v11[12];
       }
 
-      LogPrintF(v12, "[CUFileClient _runCLinkActivate]_block_invoke_2", 0x1Eu, "CLink activated", v4, v5, v6, v7, v15);
+      LogPrintF(v12, "[CUFileClient _runCLinkActivate]_block_invoke_2", 30, "CLink activated", v4, v5, v6, v7, v15);
       v11 = *(a1 + 40);
     }
 
@@ -523,7 +523,7 @@ LABEL_26:
             v10 = off_1E73A32D8[state];
           }
 
-          LogPrintF(ucat, "[CUFileClient _run]", 0x1Eu, "State: %s -> %s", v2, v3, v4, v5, v10);
+          LogPrintF(ucat, "[CUFileClient _run]", 30, "State: %s -> %s", v2, v3, v4, v5, v10);
         }
       }
     }
@@ -562,7 +562,7 @@ LABEL_26:
     {
       ucat = self->_ucat;
 LABEL_6:
-      LogPrintF(ucat, "[CUFileClient _sessionTimerFired]", 0x14u, "Keep alive deferred: %.3f seconds", v3, v4, v5, v6, *&v8);
+      LogPrintF(ucat, "[CUFileClient _sessionTimerFired]", 20, "Keep alive deferred: %.3f seconds", v3, v4, v5, v6, *&v8);
     }
   }
 
@@ -589,7 +589,7 @@ LABEL_8:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUFileClient _sendSessionStop]", 0x1Eu, "Session stop", v4, v5, v6, v7, v15);
+    LogPrintF(ucat, "[CUFileClient _sendSessionStop]", 30, "Session stop", v4, v5, v6, v7, v15);
   }
 
 LABEL_5:
@@ -624,7 +624,7 @@ void __32__CUFileClient__sendSessionStop__block_invoke(uint64_t a1, void *a2, vo
     if (*v14 != -1)
     {
 LABEL_3:
-      LogPrintF(v14, "[CUFileClient _sendSessionStop]_block_invoke", 0x1Eu, "Session stop response: %{error}", v8, v9, v10, v11, v12);
+      LogPrintF(v14, "[CUFileClient _sendSessionStop]_block_invoke", 30, "Session stop response: %{error}", v8, v9, v10, v11, v12);
       v13 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -662,7 +662,7 @@ LABEL_5:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUFileClient _sendKeepAlive:]", 0x14u, "Keep alive request: %.3f delta seconds", v5, v6, v7, v8, *&alive);
+    LogPrintF(ucat, "[CUFileClient _sendKeepAlive:]", 20, "Keep alive request: %.3f delta seconds", v5, v6, v7, v8, *&alive);
   }
 
 LABEL_5:
@@ -692,7 +692,7 @@ void __31__CUFileClient__sendKeepAlive___block_invoke(uint64_t a1, void *a2, voi
     if (*v13 != -1)
     {
 LABEL_3:
-      LogPrintF(v13, "[CUFileClient _sendKeepAlive:]_block_invoke", 0x14u, "Keep alive response: %##@, %{error}", v8, v9, v10, v11, v14);
+      LogPrintF(v13, "[CUFileClient _sendKeepAlive:]_block_invoke", 20, "Keep alive response: %##@, %{error}", v8, v9, v10, v11, v14);
       goto LABEL_5;
     }
 
@@ -719,7 +719,7 @@ LABEL_5:
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUFileClient _reportError:where:]", 0x5Au, "### Error: %s, %{error}", v6, v7, v8, v9, where);
+      LogPrintF(ucat, "[CUFileClient _reportError:where:]", 90, "### Error: %s, %{error}", v6, v7, v8, v9, where);
       goto LABEL_5;
     }
 
@@ -767,7 +767,7 @@ LABEL_5:
       ucat = self->_ucat;
       v16 = queryCopy;
 LABEL_4:
-      LogPrintF(ucat, "[CUFileClient _completeQuery:response:error:]", 0x5Au, "### Query failed: %@, %{error}", v9, v10, v11, v12, v16);
+      LogPrintF(ucat, "[CUFileClient _completeQuery:response:error:]", 90, "### Query failed: %@, %{error}", v9, v10, v11, v12, v16);
     }
   }
 
@@ -790,7 +790,7 @@ LABEL_4:
       v17 = queryCopy;
     }
 
-    LogPrintF(ucat, "[CUFileClient _completeQuery:response:error:]", 0x1Eu, "Query completed: %@, %@", v9, v10, v11, v12, v17);
+    LogPrintF(ucat, "[CUFileClient _completeQuery:response:error:]", 30, "Query completed: %@, %@", v9, v10, v11, v12, v17);
   }
 
 LABEL_12:
@@ -828,55 +828,55 @@ void __29__CUFileClient_performQuery___block_invoke(uint64_t a1, uint64_t a2, ui
 {
   v10 = [*(a1 + 32) completionHandler];
 
-  v16 = *(a1 + 40);
+  v15 = *(a1 + 40);
   if (v10)
   {
-    if (*(v16 + 40) == 1)
+    if (*(v15 + 40) == 1)
     {
-      v17 = *(a1 + 32);
-      v25 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294896148, "Query after invalidate", v11, v12, v13, v14, v15, v24);
-      [v16 _completeQuery:v17 response:0 error:v25];
+      v16 = *(a1 + 32);
+      v23 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294896148, "Query after invalidate");
+      [v15 _completeQuery:v16 response:0 error:v23];
     }
 
     else
     {
-      v19 = *(v16 + 56);
-      if (!v19)
+      v18 = *(v15 + 56);
+      if (!v18)
       {
-        v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v21 = *(a1 + 40);
-        v22 = *(v21 + 56);
-        *(v21 + 56) = v20;
+        v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v20 = *(a1 + 40);
+        v21 = *(v20 + 56);
+        *(v20 + 56) = v19;
 
-        v19 = *(*(a1 + 40) + 56);
+        v18 = *(*(a1 + 40) + 56);
       }
 
-      [v19 addObject:*(a1 + 32)];
-      v23 = *(a1 + 40);
+      [v18 addObject:*(a1 + 32)];
+      v22 = *(a1 + 40);
 
-      [v23 _run];
+      [v22 _run];
     }
   }
 
   else
   {
-    v18 = *(v16 + 96);
-    if (*v18 > 90)
+    v17 = *(v15 + 96);
+    if (*v17 > 90)
     {
       return;
     }
 
-    if (*v18 == -1)
+    if (*v17 == -1)
     {
-      if (!_LogCategory_Initialize(v18, 0x5Au))
+      if (!_LogCategory_Initialize(v17, 0x5Au))
       {
         return;
       }
 
-      v18 = *(*(a1 + 40) + 96);
+      v17 = *(*(a1 + 40) + 96);
     }
 
-    LogPrintF(v18, "[CUFileClient performQuery:]_block_invoke", 0x5Au, "### Query without completion", v12, v13, v14, v15, a9);
+    LogPrintF(v17, "[CUFileClient performQuery:]_block_invoke", 90, "### Query without completion", v11, v12, v13, v14, a9);
   }
 }
 
@@ -915,7 +915,7 @@ void __29__CUFileClient_performQuery___block_invoke(uint64_t a1, uint64_t a2, ui
       ucat = self->_ucat;
     }
 
-    ucat = LogPrintF(ucat, "[CUFileClient _invalidated]", 0x1Eu, "Invalidated", v4, v5, v6, v7, v10);
+    ucat = LogPrintF(ucat, "[CUFileClient _invalidated]", 30, "Invalidated", v4, v5, v6, v7, v10);
     v8 = v11;
   }
 
@@ -926,7 +926,7 @@ LABEL_14:
 
 - (void)_invalidate
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (self->_invalidateCalled)
   {
     return;
@@ -946,7 +946,7 @@ LABEL_14:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUFileClient _invalidate]", 0x1Eu, "Invalidate", v2, v3, v4, v5, v25);
+    LogPrintF(ucat, "[CUFileClient _invalidate]", 30, "Invalidate", v2, v3, v4, v5, v20);
   }
 
 LABEL_6:
@@ -960,35 +960,35 @@ LABEL_6:
     [(RPCompanionLinkClient *)self->_clinkClient invalidate];
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v8 = self->_queryArray;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
-    v15 = v9;
-    v16 = *v26;
-    v17 = *MEMORY[0x1E696A768];
+    v10 = v9;
+    v11 = *v21;
+    v12 = *MEMORY[0x1E696A768];
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v16)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v19 = *(*(&v25 + 1) + 8 * i);
-        v20 = NSErrorF_safe(v17, 4294896148, "Invalidated", v10, v11, v12, v13, v14, v25);
-        [(CUFileClient *)self _completeQuery:v19 response:0 error:v20];
+        v14 = *(*(&v20 + 1) + 8 * i);
+        v15 = NSErrorF_safe(v12, 4294896148, "Invalidated", v20);
+        [(CUFileClient *)self _completeQuery:v14 response:0 error:v15];
       }
 
-      v15 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
-    while (v15);
+    while (v10);
   }
 
   [(NSMutableArray *)self->_queryArray removeAllObjects];
@@ -998,9 +998,9 @@ LABEL_6:
   sessionTimer = self->_sessionTimer;
   if (sessionTimer)
   {
-    v23 = sessionTimer;
-    dispatch_source_cancel(v23);
-    v24 = self->_sessionTimer;
+    v18 = sessionTimer;
+    dispatch_source_cancel(v18);
+    v19 = self->_sessionTimer;
     self->_sessionTimer = 0;
   }
 
@@ -1021,69 +1021,69 @@ LABEL_6:
 - (void)_activateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__2972;
-  v26 = __Block_byref_object_dispose__2973;
-  v27 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__2972;
+  v20 = __Block_byref_object_dispose__2973;
+  v21 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __40__CUFileClient__activateWithCompletion___block_invoke;
   aBlock[3] = &unk_1E73A3FA0;
-  v21 = &v22;
+  v15 = &v16;
   aBlock[4] = self;
   v5 = completionCopy;
-  v20 = v5;
-  v11 = _Block_copy(aBlock);
+  v14 = v5;
+  v6 = _Block_copy(aBlock);
   if (!self->_destinationID)
   {
-    v14 = "No destination ID";
+    v9 = "No destination ID";
 LABEL_8:
-    v15 = 4294960591;
+    v10 = 4294960591;
 LABEL_10:
-    v16 = NSErrorF_safe(*MEMORY[0x1E696A768], v15, v14, v6, v7, v8, v9, v10, v18);
-    v17 = v23[5];
-    v23[5] = v16;
+    v11 = NSErrorF_safe(*MEMORY[0x1E696A768], v10, v9);
+    v12 = v17[5];
+    v17[5] = v11;
 
     goto LABEL_5;
   }
 
   if (!self->_serviceType)
   {
-    v14 = "No service type";
+    v9 = "No service type";
     goto LABEL_8;
   }
 
   if (self->_activateCalled)
   {
-    v14 = "Activate already called";
-    v15 = 4294960575;
+    v9 = "Activate already called";
+    v10 = 4294960575;
     goto LABEL_10;
   }
 
   self->_activateCalled = 1;
-  v12 = _Block_copy(v5);
+  v7 = _Block_copy(v5);
   activateCompletion = self->_activateCompletion;
-  self->_activateCompletion = v12;
+  self->_activateCompletion = v7;
 
   [(CUFileClient *)self _run];
 LABEL_5:
-  v11[2](v11);
+  v6[2](v6);
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __40__CUFileClient__activateWithCompletion___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__40__CUFileClient__activateWithCompletion___block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = *(*(*(result + 48) + 8) + 40);
+  v8 = *(*(result[6] + 8) + 40);
   if (!v8)
   {
     return result;
   }
 
   v9 = result;
-  v10 = *(*(result + 32) + 96);
+  v10 = *(result[4] + 96);
   if (*v10 <= 90)
   {
     if (*v10 == -1)
@@ -1097,7 +1097,7 @@ uint64_t __40__CUFileClient__activateWithCompletion___block_invoke(uint64_t resu
       v8 = *(*(v9[6] + 8) + 40);
     }
 
-    LogPrintF(v10, "[CUFileClient _activateWithCompletion:]_block_invoke", 0x5Au, "### Activate failed: %{error}", a5, a6, a7, a8, v8);
+    LogPrintF(v10, "[CUFileClient _activateWithCompletion:]_block_invoke", 90, "### Activate failed: %{error}", a5, a6, a7, a8, v8);
   }
 
 LABEL_7:
@@ -1129,7 +1129,7 @@ uint64_t __39__CUFileClient_activateWithCompletion___block_invoke(uint64_t a1, u
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUFileClient activateWithCompletion:]_block_invoke", 0x1Eu, "Activate", a5, a6, a7, a8, v14);
+      LogPrintF(v10, "[CUFileClient activateWithCompletion:]_block_invoke", 30, "Activate", a5, a6, a7, a8, v14);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }

@@ -10,28 +10,28 @@
 
 - (BOOL)_openFilenames:(id)filenames store:(id)store filesArray:(id)array
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v8 = [filenames countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [filenames countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v18 != v10)
+      if (*v17 != v10)
       {
         objc_enumerationMutation(filenames);
       }
 
-      v12 = *(*(&v17 + 1) + 8 * v11);
-      v16 = 0;
-      v13 = [store openFileWithFilename:v12 error:&v16];
+      v12 = *(*(&v16 + 1) + 8 * v11);
+      v15 = 0;
+      v13 = [store openFileWithFilename:v12 error:&v15];
       if (!v13)
       {
         break;
@@ -40,7 +40,7 @@ LABEL_3:
       [array addObject:v13];
       if (v9 == ++v11)
       {
-        v9 = [filenames countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [filenames countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -57,13 +57,12 @@ LABEL_9:
     LOBYTE(v13) = 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)_openFiles:(id)files
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   v5 = objc_opt_new();
   [v5 addObjectsFromArray:{objc_msgSend(objc_msgSend(files, "filenamesWithPrefix:error:", *MEMORY[0x277D0B1A8], 0), "sortedArrayUsingSelector:", sel_dy_numericCompare_)}];
@@ -107,21 +106,19 @@ LABEL_9:
 LABEL_9:
   if ([v11 count] != 1)
   {
-    v19 = *MEMORY[0x277D0B240];
-    [v11 count];
-    DYLog();
-    v20 = MEMORY[0x277CCA9B8];
-    v21 = *MEMORY[0x277CCA050];
-    v30 = *MEMORY[0x277CCA450];
-    v22 = v30;
-    v31[0] = [MEMORY[0x277CCACA8] stringWithFormat:@"Capture file names: %@", v11];
-    v23 = [v20 errorWithDomain:v21 code:256 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v31, &v30, 1)}];
-    v24 = *MEMORY[0x277CCA7E8];
-    v28[0] = v22;
-    v28[1] = v24;
-    v29[0] = @"The gputrace is invalid because it contains multiple capture archives.";
-    v29[1] = v23;
-    -[DYCaptureVisitor setVisitCaptureArchiveError:](self, "setVisitCaptureArchiveError:", [MEMORY[0x277CCA9B8] errorWithDomain:v21 code:256 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v29, v28, 2)}]);
+    DYLog(*MEMORY[0x277D0B240], "Error: only one capture file can be present but there are %lu capture files", [v11 count]);
+    v19 = MEMORY[0x277CCA9B8];
+    v20 = *MEMORY[0x277CCA050];
+    v28 = *MEMORY[0x277CCA450];
+    v21 = v28;
+    v29[0] = [MEMORY[0x277CCACA8] stringWithFormat:@"Capture file names: %@", v11];
+    v22 = [v19 errorWithDomain:v20 code:256 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v29, &v28, 1)}];
+    v23 = *MEMORY[0x277CCA7E8];
+    v26[0] = v21;
+    v26[1] = v23;
+    v27[0] = @"The gputrace is invalid because it contains multiple capture archives.";
+    v27[1] = v22;
+    -[DYCaptureVisitor setVisitCaptureArchiveError:](self, "setVisitCaptureArchiveError:", [MEMORY[0x277CCA9B8] errorWithDomain:v20 code:256 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v27, v26, 2)}]);
     goto LABEL_13;
   }
 
@@ -146,7 +143,6 @@ LABEL_13:
 
 LABEL_14:
   objc_autoreleasePoolPop(context);
-  v25 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -170,31 +166,31 @@ LABEL_14:
 
 - (void)_performVisit:(id)visit
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   performPreVisitActions = [(DYInOrderInstructionFilesVisitor *)self performPreVisitActions];
   if (!self->super._abort)
   {
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     initialPhaseFiles = self->_initialPhaseFiles;
-    v8 = OUTLINED_FUNCTION_0_0(performPreVisitActions, v6, &v41, v47);
+    v8 = OUTLINED_FUNCTION_0_0(performPreVisitActions, v6, &v40, v46);
     if (v8)
     {
       v9 = v8;
-      v10 = *v42;
+      v10 = *v41;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v42 != v10)
+        if (*v41 != v10)
         {
           objc_enumerationMutation(initialPhaseFiles);
         }
 
-        v12 = [*(*(&v41 + 1) + 8 * v11) acceptCaptureVisitor:self];
+        v12 = [*(*(&v40 + 1) + 8 * v11) acceptCaptureVisitor:self];
         if (self->super._abort)
         {
           break;
@@ -202,7 +198,7 @@ LABEL_4:
 
         if (v9 == ++v11)
         {
-          v9 = OUTLINED_FUNCTION_0_0(v12, v13, &v41, v47);
+          v9 = OUTLINED_FUNCTION_0_0(v12, v13, &v40, v46);
           if (v9)
           {
             goto LABEL_4;
@@ -219,26 +215,26 @@ LABEL_10:
       performPreCaptureVisitActions = [(DYInOrderInstructionFilesVisitor *)self performPreCaptureVisitActions];
       if (!self->super._abort)
       {
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
         v38 = 0u;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
         captureFiles = self->_captureFiles;
-        v17 = OUTLINED_FUNCTION_0_0(performPreCaptureVisitActions, v15, &v37, v46);
+        v17 = OUTLINED_FUNCTION_0_0(performPreCaptureVisitActions, v15, &v36, v45);
         if (v17)
         {
           v18 = v17;
-          v19 = *v38;
+          v19 = *v37;
 LABEL_13:
           v20 = 0;
           while (1)
           {
-            if (*v38 != v19)
+            if (*v37 != v19)
             {
               objc_enumerationMutation(captureFiles);
             }
 
-            v21 = [*(*(&v37 + 1) + 8 * v20) acceptCaptureVisitor:self];
+            v21 = [*(*(&v36 + 1) + 8 * v20) acceptCaptureVisitor:self];
             if (self->super._abort)
             {
               break;
@@ -246,7 +242,7 @@ LABEL_13:
 
             if (v18 == ++v20)
             {
-              v18 = OUTLINED_FUNCTION_0_0(v21, v22, &v37, v46);
+              v18 = OUTLINED_FUNCTION_0_0(v21, v22, &v36, v45);
               if (v18)
               {
                 goto LABEL_13;
@@ -263,26 +259,26 @@ LABEL_19:
           performPostCaptureVisitActions = [(DYInOrderInstructionFilesVisitor *)self performPostCaptureVisitActions];
           if (!self->super._abort && self->_visitDeltaFiles)
           {
-            v35 = 0u;
-            v36 = 0u;
-            v33 = 0u;
             v34 = 0u;
+            v35 = 0u;
+            v32 = 0u;
+            v33 = 0u;
             deltaFiles = self->_deltaFiles;
-            v26 = OUTLINED_FUNCTION_0_0(performPostCaptureVisitActions, v24, &v33, v45);
+            v26 = OUTLINED_FUNCTION_0_0(performPostCaptureVisitActions, v24, &v32, v44);
             if (v26)
             {
               v27 = v26;
-              v28 = *v34;
+              v28 = *v33;
 LABEL_23:
               v29 = 0;
               while (1)
               {
-                if (*v34 != v28)
+                if (*v33 != v28)
                 {
                   objc_enumerationMutation(deltaFiles);
                 }
 
-                v30 = [*(*(&v33 + 1) + 8 * v29) acceptCaptureVisitor:self];
+                v30 = [*(*(&v32 + 1) + 8 * v29) acceptCaptureVisitor:self];
                 if (self->super._abort)
                 {
                   break;
@@ -290,7 +286,7 @@ LABEL_23:
 
                 if (v27 == ++v29)
                 {
-                  v27 = OUTLINED_FUNCTION_0_0(v30, v31, &v33, v45);
+                  v27 = OUTLINED_FUNCTION_0_0(v30, v31, &v32, v44);
                   if (v27)
                   {
                     goto LABEL_23;
@@ -307,7 +303,6 @@ LABEL_23:
   }
 
   objc_autoreleasePoolPop(v4);
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 @end

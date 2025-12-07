@@ -725,7 +725,7 @@ LABEL_41:
         else
         {
           v57 = v56;
-          if ((v54 & 1) != 0 || ([(NSString *)v47 substringWithRange:i, [(NSString *)v48 length]], v58 = objc_claimAutoreleasedReturnValue(), v59 = [(NSString *)v48 isEqual:v58], v58, !v59))
+          if ((v54 & 1) != 0 || ([(NSString *)v47 substringWithRange:i, [(NSString *)v48 length]], v58 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v48), v58, !isEqual))
           {
             [v53 appendFormat:@"%C", v57];
           }
@@ -842,9 +842,9 @@ LABEL_8:
 {
   zoneCopy = zone;
   timeZone = [(_UIDatePickerCalendarTimeFormat *)self timeZone];
-  v7 = [timeZone isEqual:zoneCopy];
+  isEqual = objc_msgSend_isEqual_(timeZone);
 
-  if (v7)
+  if (isEqual)
   {
     selfCopy = self;
   }

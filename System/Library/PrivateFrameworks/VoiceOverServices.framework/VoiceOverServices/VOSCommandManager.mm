@@ -182,11 +182,10 @@ void __32__VOSCommandManager__commonInit__block_invoke(uint64_t a1)
 
 - (void)reloadPreferringUserProfile
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_223C70000, a2, OS_LOG_TYPE_ERROR, "Could not load user command profile: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_223C70000, a2, OS_LOG_TYPE_ERROR, "Could not load user command profile: %@", &v2, 0xCu);
 }
 
 uint64_t __48__VOSCommandManager_reloadPreferringUserProfile__block_invoke(uint64_t a1)
@@ -228,16 +227,16 @@ uint64_t __48__VOSCommandManager_reloadPreferringUserProfile__block_invoke(uint6
 
 - (BOOL)_validateUserProfileDiscrepancies:(id)discrepancies
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   discrepanciesCopy = discrepancies;
   v5 = +[VOSCommandResolver resolverForCurrentHost];
   systemProfile = [(VOSCommandManager *)self systemProfile];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = +[VOSGesture allGestures];
-  v7 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v7 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (!v7)
   {
     v10 = 0;
@@ -246,21 +245,21 @@ uint64_t __48__VOSCommandManager_reloadPreferringUserProfile__block_invoke(uint6
 
   v9 = v7;
   v10 = 0;
-  v11 = *v29;
+  v11 = *v28;
   *&v8 = 138412546;
-  v26 = v8;
+  v25 = v8;
   do
   {
     v12 = 0;
     do
     {
-      if (*v29 != v11)
+      if (*v28 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v28 + 1) + 8 * v12);
-      if ([systemProfile availabilityForGesture:v13 withResolver:{v5, v26}] != 1)
+      v13 = *(*(&v27 + 1) + 8 * v12);
+      if ([systemProfile availabilityForGesture:v13 withResolver:{v5, v25}] != 1)
       {
         if ([systemProfile availabilityForGesture:v13 withResolver:v5])
         {
@@ -289,10 +288,10 @@ uint64_t __48__VOSCommandManager_reloadPreferringUserProfile__block_invoke(uint6
             goto LABEL_17;
           }
 
-          *buf = v26;
-          v33 = v13;
-          v34 = 2112;
-          v35 = v15;
+          *buf = v25;
+          v32 = v13;
+          v33 = 2112;
+          v34 = v15;
           v18 = v17;
           v19 = "Found new VO default command that didn't make it into the default set: %@ > %@";
 LABEL_23:
@@ -320,10 +319,10 @@ LABEL_18:
             goto LABEL_17;
           }
 
-          *buf = v26;
-          v33 = v13;
-          v34 = 2112;
-          v35 = v15;
+          *buf = v25;
+          v32 = v13;
+          v33 = 2112;
+          v34 = v15;
           v18 = v17;
           v19 = "Found VO hardwired gesture that was missing command: %@ > %@";
           goto LABEL_23;
@@ -339,14 +338,13 @@ LABEL_20:
     }
 
     while (v9 != v12);
-    v23 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v23 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
     v9 = v23;
   }
 
   while (v23);
 LABEL_27:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
@@ -365,12 +363,11 @@ LABEL_27:
 
 - (void)saveAsUserProfile
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_223C70000, a2, OS_LOG_TYPE_ERROR, "Failed to archive VOSCommandProfile. error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_223C70000, a2, OS_LOG_TYPE_ERROR, "Failed to archive VOSCommandProfile. error: %@", &v3, 0xCu);
 }
 
 void __38__VOSCommandManager_saveAsUserProfile__block_invoke(void *a1)
@@ -453,10 +450,7 @@ void __38__VOSCommandManager_saveAsUserProfile__block_invoke(void *a1)
 
 uint64_t __55__VOSCommandManager_addGesture_toCommand_withResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) addGesture:a1[5] toCommand:a1[6] withResolver:a1[7]];
-  v3 = *(a1[8] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[8] + 8) + 40) = [*(a1[4] + 16) addGesture:a1[5] toCommand:a1[6] withResolver:a1[7]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -495,10 +489,7 @@ uint64_t __55__VOSCommandManager_addGesture_toCommand_withResolver___block_invok
 
 uint64_t __60__VOSCommandManager_removeGesture_fromCommand_withResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) removeGesture:a1[5] fromCommand:a1[6] withResolver:a1[7]];
-  v3 = *(a1[8] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[8] + 8) + 40) = [*(a1[4] + 16) removeGesture:a1[5] fromCommand:a1[6] withResolver:a1[7]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -537,10 +528,7 @@ uint64_t __60__VOSCommandManager_removeGesture_fromCommand_withResolver___block_
 
 uint64_t __56__VOSCommandManager_addKeyChord_toCommand_withResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) addKeyChord:a1[5] toCommand:a1[6] withResolver:a1[7]];
-  v3 = *(a1[8] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[8] + 8) + 40) = [*(a1[4] + 16) addKeyChord:a1[5] toCommand:a1[6] withResolver:a1[7]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -579,10 +567,7 @@ uint64_t __56__VOSCommandManager_addKeyChord_toCommand_withResolver___block_invo
 
 uint64_t __61__VOSCommandManager_removeKeyChord_fromCommand_withResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) removeKeyChord:a1[5] fromCommand:a1[6] withResolver:a1[7]];
-  v3 = *(a1[8] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[8] + 8) + 40) = [*(a1[4] + 16) removeKeyChord:a1[5] fromCommand:a1[6] withResolver:a1[7]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -621,10 +606,7 @@ uint64_t __61__VOSCommandManager_removeKeyChord_fromCommand_withResolver___block
 
 uint64_t __66__VOSCommandManager_validateCanAddGesture_toCommand_withResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) validateCanAddGesture:a1[5] toCommand:a1[6] withResolver:a1[7]];
-  v3 = *(a1[8] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[8] + 8) + 40) = [*(a1[4] + 16) validateCanAddGesture:a1[5] toCommand:a1[6] withResolver:a1[7]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -663,10 +645,7 @@ uint64_t __66__VOSCommandManager_validateCanAddGesture_toCommand_withResolver___
 
 uint64_t __71__VOSCommandManager_validateCanRemoveGesture_fromCommand_withResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) validateCanRemoveGesture:a1[5] fromCommand:a1[6] withResolver:a1[7]];
-  v3 = *(a1[8] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[8] + 8) + 40) = [*(a1[4] + 16) validateCanRemoveGesture:a1[5] fromCommand:a1[6] withResolver:a1[7]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -705,10 +684,7 @@ uint64_t __71__VOSCommandManager_validateCanRemoveGesture_fromCommand_withResolv
 
 uint64_t __67__VOSCommandManager_validateCanAddKeyChord_toCommand_withResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) validateCanAddKeyChord:a1[5] toCommand:a1[6] withResolver:a1[7]];
-  v3 = *(a1[8] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[8] + 8) + 40) = [*(a1[4] + 16) validateCanAddKeyChord:a1[5] toCommand:a1[6] withResolver:a1[7]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -747,39 +723,36 @@ uint64_t __67__VOSCommandManager_validateCanAddKeyChord_toCommand_withResolver__
 
 uint64_t __72__VOSCommandManager_validateCanRemoveKeyChord_fromCommand_withResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) validateCanRemoveKeyChord:a1[5] fromCommand:a1[6] withResolver:a1[7]];
-  v3 = *(a1[8] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[8] + 8) + 40) = [*(a1[4] + 16) validateCanRemoveKeyChord:a1[5] fromCommand:a1[6] withResolver:a1[7]];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)commandForTouchGesture:(id)gesture withResolver:(id)resolver
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
   resolverCopy = resolver;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy_;
-  v31 = __Block_byref_object_dispose_;
-  v32 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy_;
+  v30 = __Block_byref_object_dispose_;
+  v31 = 0;
   queue = self->_queue;
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __57__VOSCommandManager_commandForTouchGesture_withResolver___block_invoke;
-  v22 = &unk_2784F34F0;
-  v26 = &v27;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __57__VOSCommandManager_commandForTouchGesture_withResolver___block_invoke;
+  v21 = &unk_2784F34F0;
+  v25 = &v26;
   selfCopy = self;
   v9 = gestureCopy;
-  v24 = v9;
+  v23 = v9;
   v10 = resolverCopy;
-  v25 = v10;
-  dispatch_sync(queue, &v19);
-  v11 = v28[5];
-  v12 = [VOSCommand ToggleQuickNote:v19];
+  v24 = v10;
+  dispatch_sync(queue, &v18);
+  v11 = v27[5];
+  v12 = [VOSCommand ToggleQuickNote:v18];
   if ([v11 isEqual:v12])
   {
     IsPad = AXDeviceIsPad();
@@ -789,92 +762,82 @@ uint64_t __72__VOSCommandManager_validateCanRemoveKeyChord_fromCommand_withResol
       goto LABEL_5;
     }
 
-    v12 = v28[5];
-    v28[5] = 0;
+    v12 = v27[5];
+    v27[5] = 0;
   }
 
 LABEL_5:
   v14 = VOTLogCommon();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v18 = v28[5];
+    v17 = v27[5];
     *buf = 138412802;
-    v34 = v18;
-    v35 = 2112;
-    v36 = v9;
-    v37 = 2112;
-    v38 = v10;
+    v33 = v17;
+    v34 = 2112;
+    v35 = v9;
+    v36 = 2112;
+    v37 = v10;
     _os_log_debug_impl(&dword_223C70000, v14, OS_LOG_TYPE_DEBUG, "Resolved command: '%@' for gesture: '%@' resolver: %@", buf, 0x20u);
   }
 
-  v15 = v28[5];
-  _Block_object_dispose(&v27, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = v27[5];
+  _Block_object_dispose(&v26, 8);
 
   return v15;
 }
 
 uint64_t __57__VOSCommandManager_commandForTouchGesture_withResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) commandForTouchGesture:a1[5] withResolver:a1[6]];
-  v3 = *(a1[7] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[7] + 8) + 40) = [*(a1[4] + 16) commandForTouchGesture:a1[5] withResolver:a1[6]];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)commandForKeyChord:(id)chord withResolver:(id)resolver
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   chordCopy = chord;
   resolverCopy = resolver;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy_;
-  v24 = __Block_byref_object_dispose_;
-  v25 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy_;
+  v23 = __Block_byref_object_dispose_;
+  v24 = 0;
   queue = self->_queue;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __53__VOSCommandManager_commandForKeyChord_withResolver___block_invoke;
-  v16[3] = &unk_2784F34F0;
-  v19 = &v20;
-  v16[4] = self;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __53__VOSCommandManager_commandForKeyChord_withResolver___block_invoke;
+  v15[3] = &unk_2784F34F0;
+  v18 = &v19;
+  v15[4] = self;
   v9 = chordCopy;
-  v17 = v9;
+  v16 = v9;
   v10 = resolverCopy;
-  v18 = v10;
-  dispatch_sync(queue, v16);
+  v17 = v10;
+  dispatch_sync(queue, v15);
   v11 = VOTLogCommon();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v15 = v21[5];
+    v14 = v20[5];
     *buf = 138412802;
-    v27 = v15;
-    v28 = 2112;
-    v29 = v9;
-    v30 = 2112;
-    v31 = v10;
+    v26 = v14;
+    v27 = 2112;
+    v28 = v9;
+    v29 = 2112;
+    v30 = v10;
     _os_log_debug_impl(&dword_223C70000, v11, OS_LOG_TYPE_DEBUG, "Resolved command: '%@' for keyChord: '%@' resolver: %@", buf, 0x20u);
   }
 
-  v12 = v21[5];
-  _Block_object_dispose(&v20, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = v20[5];
+  _Block_object_dispose(&v19, 8);
 
   return v12;
 }
 
 uint64_t __53__VOSCommandManager_commandForKeyChord_withResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) commandForKeyChord:a1[5] withResolver:a1[6]];
-  v3 = *(a1[7] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[7] + 8) + 40) = [*(a1[4] + 16) commandForKeyChord:a1[5] withResolver:a1[6]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -907,10 +870,7 @@ uint64_t __53__VOSCommandManager_commandForKeyChord_withResolver___block_invoke(
 
 uint64_t __45__VOSCommandManager_allCommandsWithResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) allCommandsWithResolver:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 16) allCommandsWithResolver:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -943,10 +903,7 @@ uint64_t __45__VOSCommandManager_allCommandsWithResolver___block_invoke(void *a1
 
 uint64_t __57__VOSCommandManager_allSiriShortcutCommandsWithResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) allSiriShortcutCommandsWithResolver:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 16) allSiriShortcutCommandsWithResolver:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -979,10 +936,7 @@ uint64_t __57__VOSCommandManager_allSiriShortcutCommandsWithResolver___block_inv
 
 uint64_t __53__VOSCommandManager_allShortcutBindingsWithResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) allShortcutBindingsWithResolver:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 16) allShortcutBindingsWithResolver:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1015,10 +969,7 @@ uint64_t __53__VOSCommandManager_allShortcutBindingsWithResolver___block_invoke(
 
 uint64_t __68__VOSCommandManager_userPresentableAllShortcutBindingsWithResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) userPresentableAllShortcutBindingsWithResolver:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 16) userPresentableAllShortcutBindingsWithResolver:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1054,10 +1005,7 @@ uint64_t __68__VOSCommandManager_userPresentableAllShortcutBindingsWithResolver_
 
 uint64_t __60__VOSCommandManager_gestureBindingsForCommand_withResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) gestureBindingsForCommand:a1[5] withResolver:a1[6]];
-  v3 = *(a1[7] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[7] + 8) + 40) = [*(a1[4] + 16) gestureBindingsForCommand:a1[5] withResolver:a1[6]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1093,10 +1041,7 @@ uint64_t __60__VOSCommandManager_gestureBindingsForCommand_withResolver___block_
 
 uint64_t __61__VOSCommandManager_shortcutBindingsForCommand_withResolver___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 16) shortcutBindingsForCommand:a1[5] withResolver:a1[6]];
-  v3 = *(a1[7] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[7] + 8) + 40) = [*(a1[4] + 16) shortcutBindingsForCommand:a1[5] withResolver:a1[6]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1127,7 +1072,7 @@ uint64_t __61__VOSCommandManager_shortcutBindingsForCommand_withResolver___block
   return queue;
 }
 
-uint64_t __56__VOSCommandManager_commandHasAnyBindings_withResolver___block_invoke(void *a1)
+void *__56__VOSCommandManager_commandHasAnyBindings_withResolver___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) commandHasAnyBindings:a1[5] withResolver:a1[6]];
   *(*(a1[7] + 8) + 24) = result;
@@ -1160,7 +1105,7 @@ uint64_t __56__VOSCommandManager_commandHasAnyBindings_withResolver___block_invo
   return v11;
 }
 
-uint64_t __57__VOSCommandManager_availabilityForGesture_withResolver___block_invoke(void *a1)
+void *__57__VOSCommandManager_availabilityForGesture_withResolver___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) availabilityForGesture:a1[5] withResolver:a1[6]];
   *(*(a1[7] + 8) + 24) = result;
@@ -1193,7 +1138,7 @@ uint64_t __57__VOSCommandManager_availabilityForGesture_withResolver___block_inv
   return v11;
 }
 
-uint64_t __58__VOSCommandManager_availabilityForShortcut_withResolver___block_invoke(void *a1)
+void *__58__VOSCommandManager_availabilityForShortcut_withResolver___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) availabilityForShortcut:a1[5] withResolver:a1[6]];
   *(*(a1[7] + 8) + 24) = result;
@@ -1226,7 +1171,7 @@ uint64_t __58__VOSCommandManager_availabilityForShortcut_withResolver___block_in
   return v11;
 }
 
-uint64_t __57__VOSCommandManager_availabilityForCommand_withResolver___block_invoke(void *a1)
+void *__57__VOSCommandManager_availabilityForCommand_withResolver___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) availabilityForCommand:a1[5] withResolver:a1[6]];
   *(*(a1[7] + 8) + 24) = result;
@@ -1259,7 +1204,7 @@ uint64_t __57__VOSCommandManager_availabilityForCommand_withResolver___block_inv
   return queue;
 }
 
-uint64_t __76__VOSCommandManager_commandHasModifiedBindingsWhenZoomEnabled_withResolver___block_invoke(void *a1)
+void *__76__VOSCommandManager_commandHasModifiedBindingsWhenZoomEnabled_withResolver___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) commandHasModifiedBindingsWhenZoomEnabled:a1[5] withResolver:a1[6]];
   *(*(a1[7] + 8) + 24) = result;

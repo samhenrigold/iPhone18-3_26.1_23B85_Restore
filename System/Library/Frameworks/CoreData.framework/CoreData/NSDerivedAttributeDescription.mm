@@ -4,8 +4,8 @@
 - (NSDerivedAttributeDescription)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
-- (uint64_t)_validateKeypaths:(uint64_t)result;
 - (void)_createCachesAndOptimizeState;
+- (void)_validateKeypaths:(void *)result;
 - (void)_versionHash:(char *)hash inStyle:(unint64_t)style;
 - (void)_writeIntoData:(id)data propertiesDict:(id)dict uniquedPropertyNames:(id)names uniquedStrings:(id)strings uniquedData:(id)uniquedData entitiesSlots:(id)slots fetchRequests:(id)requests;
 - (void)dealloc;
@@ -30,54 +30,54 @@
 
 - (void)_createCachesAndOptimizeState
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-  v18.receiver = self;
-  v18.super_class = NSDerivedAttributeDescription;
-  [(NSAttributeDescription *)&v18 _createCachesAndOptimizeState];
-  v17 = 0;
-  v4 = [(NSExpression *)self->_derivationExpression _keypathsForDerivedPropertyValidation:&v17];
+  v17.receiver = self;
+  v17.super_class = NSDerivedAttributeDescription;
+  [(NSAttributeDescription *)&v17 _createCachesAndOptimizeState];
+  v16 = 0;
+  v4 = [(NSExpression *)self->_derivationExpression _keypathsForDerivedPropertyValidation:&v16];
   if (!v4)
   {
-    v9 = v17;
-    if (!v17)
+    v8 = v16;
+    if (!v16)
     {
-      v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134097 userInfo:&unk_1EF4357D8];
-      v17 = v9;
+      v8 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134097 userInfo:&unk_1EF4357D8];
+      v16 = v8;
     }
 
-    v10 = MEMORY[0x1E695DF30];
-    v11 = *MEMORY[0x1E696AA08];
-    v21[0] = @"offending property";
-    v21[1] = v11;
-    v22[0] = self;
-    v22[1] = v9;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:{2, v17}];
-    objc_exception_throw([v10 exceptionWithName:*MEMORY[0x1E695D940] reason:@"Can't get keypaths for derived attribute validation" userInfo:v12]);
+    v9 = MEMORY[0x1E695DF30];
+    v10 = *MEMORY[0x1E696AA08];
+    v20[0] = @"offending property";
+    v20[1] = v10;
+    v21[0] = self;
+    v21[1] = v8;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:{2, v16}];
+    objc_exception_throw([v9 exceptionWithName:*MEMORY[0x1E695D940] reason:@"Can't get keypaths for derived attribute validation" userInfo:v11]);
   }
 
   [(NSDerivedAttributeDescription *)self _validateKeypaths:v4];
   filteringPredicate = self->_filteringPredicate;
   if (filteringPredicate)
   {
-    v6 = [(NSPredicate *)filteringPredicate _keypathsForDerivedPropertyValidation:&v17];
+    v6 = [(NSPredicate *)filteringPredicate _keypathsForDerivedPropertyValidation:&v16];
     if (!v6)
     {
-      v13 = v17;
-      if (!v17)
+      v12 = v16;
+      if (!v16)
       {
-        v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134097 userInfo:&unk_1EF435800];
-        v17 = v13;
+        v12 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134097 userInfo:&unk_1EF435800];
+        v16 = v12;
       }
 
-      v14 = MEMORY[0x1E695DF30];
-      v15 = *MEMORY[0x1E696AA08];
-      v19[0] = @"offending property";
-      v19[1] = v15;
-      v20[0] = self;
-      v20[1] = v13;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:{2, v17}];
-      objc_exception_throw([v14 exceptionWithName:*MEMORY[0x1E695D940] reason:@"Can't get keypaths for derived attribute validation" userInfo:v16]);
+      v13 = MEMORY[0x1E695DF30];
+      v14 = *MEMORY[0x1E696AA08];
+      v18[0] = @"offending property";
+      v18[1] = v14;
+      v19[0] = self;
+      v19[1] = v12;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:{2, v16}];
+      objc_exception_throw([v13 exceptionWithName:*MEMORY[0x1E695D940] reason:@"Can't get keypaths for derived attribute validation" userInfo:v15]);
     }
 
     [(NSDerivedAttributeDescription *)self _validateKeypaths:v6];
@@ -87,30 +87,32 @@
   [(NSPredicate *)self->_filteringPredicate allowEvaluation];
   [v3 drain];
   v7 = 0;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
   v4 = MEMORY[0x1E696AEC0];
-  v14.receiver = self;
-  v14.super_class = NSDerivedAttributeDescription;
-  v5 = [(NSAttributeDescription *)&v14 description];
+  v13.receiver = self;
+  v13.super_class = NSDerivedAttributeDescription;
+  v5 = [(NSAttributeDescription *)&v13 description];
   attributeType = [(NSAttributeDescription *)self attributeType];
   attributeValueClassName = [(NSAttributeDescription *)self attributeValueClassName];
   derivationExpression = self->_derivationExpression;
   filteringPredicate = self->_filteringPredicate;
-  preservesValueInHistoryOnDeletion = [(NSAttributeDescription *)self preservesValueInHistoryOnDeletion];
-  v11 = @"NO";
-  if (preservesValueInHistoryOnDeletion)
+  if ([(NSAttributeDescription *)self preservesValueInHistoryOnDeletion])
   {
-    v11 = @"YES";
+    v10 = objc_msgSend_stringWithFormat_(v4, v5, attributeType, attributeValueClassName, derivationExpression, filteringPredicate, @"YES");
   }
 
-  v12 = [v4 stringWithFormat:@"%@, attributeType %lu, attributeValueClassName %@, derivationExpression %@, filteringPredicate %@, preservesValueInHistoryOnDeletion %@", v5, attributeType, attributeValueClassName, derivationExpression, filteringPredicate, v11];
+  else
+  {
+    v10 = objc_msgSend_stringWithFormat_(v4, v5, attributeType, attributeValueClassName, derivationExpression, filteringPredicate, @"NO");
+  }
+
+  v11 = v10;
   objc_autoreleasePoolPop(v3);
-  return v12;
+  return v11;
 }
 
 - (NSDerivedAttributeDescription)initWithCoder:(id)coder
@@ -156,7 +158,7 @@
 
 - (void)setDerivationExpression:(NSExpression *)derivationExpression
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   [(NSPropertyDescription *)self _throwIfNotEditable];
   if (self->_derivationExpression != derivationExpression)
   {
@@ -166,16 +168,16 @@ LABEL_9:
       v11 = derivationExpression;
 
       self->_derivationExpression = derivationExpression;
-      goto LABEL_10;
+      return;
     }
 
     keyPath = [(NSExpression *)derivationExpression keyPath];
     if ([(NSString *)keyPath hasSuffix:@".@sum"])
     {
       v6 = MEMORY[0x1E696ABC8];
-      v15[0] = [MEMORY[0x1E696ABC8] expressionForKeyPath:{-[NSString substringToIndex:](keyPath, "substringToIndex:", -[NSString length](keyPath, "length") - 5)}];
+      v14[0] = [MEMORY[0x1E696ABC8] expressionForKeyPath:{-[NSString substringToIndex:](keyPath, "substringToIndex:", -[NSString length](keyPath, "length") - 5)}];
       v7 = MEMORY[0x1E695DEC8];
-      v8 = v15;
+      v8 = v14;
     }
 
     else
@@ -188,16 +190,16 @@ LABEL_9:
         }
 
         v6 = MEMORY[0x1E696ABC8];
-        v13 = [MEMORY[0x1E696ABC8] expressionForKeyPath:{-[NSString substringToIndex:](keyPath, "substringToIndex:", -[NSString length](keyPath, "length") - 7)}];
-        v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
+        v12 = [MEMORY[0x1E696ABC8] expressionForKeyPath:{-[NSString substringToIndex:](keyPath, "substringToIndex:", -[NSString length](keyPath, "length") - 7)}];
+        v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
         v10 = @"count:";
         goto LABEL_8;
       }
 
       v6 = MEMORY[0x1E696ABC8];
-      v14 = [MEMORY[0x1E696ABC8] expressionForKeyPath:{-[NSString substringToIndex:](keyPath, "substringToIndex:", -[NSString length](keyPath, "length") - 7)}];
+      v13 = [MEMORY[0x1E696ABC8] expressionForKeyPath:{-[NSString substringToIndex:](keyPath, "substringToIndex:", -[NSString length](keyPath, "length") - 7)}];
       v7 = MEMORY[0x1E695DEC8];
-      v8 = &v14;
+      v8 = &v13;
     }
 
     v9 = [v7 arrayWithObjects:v8 count:1];
@@ -206,9 +208,6 @@ LABEL_8:
     derivationExpression = [v6 expressionForFunction:v10 arguments:v9];
     goto LABEL_9;
   }
-
-LABEL_10:
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setFilteringPredicate:(id)predicate
@@ -323,46 +322,44 @@ LABEL_15:
 
 - (void)setRenamingIdentifier:(id)identifier
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (([(NSString *)[(NSPropertyDescription *)self renamingIdentifier] isEqual:identifier]& 1) == 0)
   {
-    v5 = *MEMORY[0x1E695D940];
-    v6 = @"derived attribute";
-    v7[0] = self;
-    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:v5 reason:@"Can't set renaming identifiers for derived attributes" userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v7, &v6, 1)}]);
+    v4 = *MEMORY[0x1E695D940];
+    v5 = @"derived attribute";
+    v6[0] = self;
+    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:v4 reason:@"Can't set renaming identifiers for derived attributes" userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v6, &v5, 1)}]);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)_validateKeypaths:(uint64_t)result
+- (void)_validateKeypaths:(void *)result
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v20 = result;
+  v38 = *MEMORY[0x1E69E9840];
+  v19 = result;
   if (result)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    result = [a2 countByEnumeratingWithState:&v22 objects:v38 count:16];
-    v21 = result;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    result = [a2 countByEnumeratingWithState:&v21 objects:v37 count:16];
+    v20 = result;
     if (result)
     {
-      v19 = *v23;
+      v18 = *v22;
       do
       {
         v2 = 0;
         do
         {
-          if (*v23 != v19)
+          if (*v22 != v18)
           {
             objc_enumerationMutation(a2);
           }
 
-          v18 = *(*(&v22 + 1) + 8 * v2);
-          v3 = [v18 componentsSeparatedByString:@"."];
-          entity = [v20 entity];
+          v17 = *(*(&v21 + 1) + 8 * v2);
+          v3 = [v17 componentsSeparatedByString:@"."];
+          entity = [v19 entity];
           if ([v3 count])
           {
             v5 = 1;
@@ -372,14 +369,14 @@ LABEL_15:
               v7 = [v3 objectAtIndexedSubscript:v5 - 1];
               if ([v7 rangeOfString:@"$"] != 0x7FFFFFFFFFFFFFFFLL)
               {
-                v13 = MEMORY[0x1E695DF30];
-                v14 = *MEMORY[0x1E695D940];
-                v36[0] = @"offending property";
-                v36[1] = @"keypath";
-                v37[0] = v20;
-                v37[1] = v18;
-                v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:2];
-                v16 = @"Bad keypath for derived property (unresolved variable)";
+                v12 = MEMORY[0x1E695DF30];
+                v13 = *MEMORY[0x1E695D940];
+                v35[0] = @"offending property";
+                v35[1] = @"keypath";
+                v36[0] = v19;
+                v36[1] = v17;
+                v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
+                v15 = @"Bad keypath for derived property (unresolved variable)";
                 goto LABEL_32;
               }
 
@@ -387,16 +384,16 @@ LABEL_15:
               {
                 if (!entity || (v8 = [objc_msgSend(entity "propertiesByName")]) == 0)
                 {
-                  v13 = MEMORY[0x1E695DF30];
-                  v14 = *MEMORY[0x1E695D940];
-                  v32[0] = @"offending property";
-                  v32[1] = @"keypath";
-                  v33[0] = v20;
-                  v33[1] = v18;
-                  v32[2] = @"component";
-                  v33[2] = v7;
-                  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:3];
-                  v16 = @"Bad keypath for derived property (missing keypath component)";
+                  v12 = MEMORY[0x1E695DF30];
+                  v13 = *MEMORY[0x1E695D940];
+                  v31[0] = @"offending property";
+                  v31[1] = @"keypath";
+                  v32[0] = v19;
+                  v32[1] = v17;
+                  v31[2] = @"component";
+                  v32[2] = v7;
+                  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:3];
+                  v15 = @"Bad keypath for derived property (missing keypath component)";
                   goto LABEL_32;
                 }
 
@@ -408,32 +405,32 @@ LABEL_15:
                   {
                     if (v6 != [v3 count] - 2)
                     {
-                      v13 = MEMORY[0x1E695DF30];
-                      v14 = *MEMORY[0x1E695D940];
-                      v28[0] = @"offending property";
-                      v28[1] = @"keypath";
-                      v29[0] = v20;
-                      v29[1] = v18;
-                      v28[2] = @"component";
-                      v29[2] = v7;
-                      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:3];
-                      v16 = @"Bad keypath for derived property (attribute has multiple keys following)";
+                      v12 = MEMORY[0x1E695DF30];
+                      v13 = *MEMORY[0x1E695D940];
+                      v27[0] = @"offending property";
+                      v27[1] = @"keypath";
+                      v28[0] = v19;
+                      v28[1] = v17;
+                      v27[2] = @"component";
+                      v28[2] = v7;
+                      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
+                      v15 = @"Bad keypath for derived property (attribute has multiple keys following)";
 LABEL_32:
-                      objc_exception_throw([v13 exceptionWithName:v14 reason:v16 userInfo:v15]);
+                      objc_exception_throw([v12 exceptionWithName:v13 reason:v15 userInfo:v14]);
                     }
 
                     if ([objc_msgSend(v3 objectAtIndexedSubscript:{v5), "rangeOfString:", @"@"}] == 0x7FFFFFFFFFFFFFFFLL)
                     {
-                      v13 = MEMORY[0x1E695DF30];
-                      v14 = *MEMORY[0x1E695D940];
-                      v30[0] = @"offending property";
-                      v30[1] = @"keypath";
-                      v31[0] = v20;
-                      v31[1] = v18;
-                      v30[2] = @"component";
-                      v31[2] = v7;
-                      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:3];
-                      v16 = @"Bad keypath for derived property (attribute in non-terminal location not followed by operator)";
+                      v12 = MEMORY[0x1E695DF30];
+                      v13 = *MEMORY[0x1E695D940];
+                      v29[0] = @"offending property";
+                      v29[1] = @"keypath";
+                      v30[0] = v19;
+                      v30[1] = v17;
+                      v29[2] = @"component";
+                      v30[2] = v7;
+                      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:3];
+                      v15 = @"Bad keypath for derived property (attribute in non-terminal location not followed by operator)";
                       goto LABEL_32;
                     }
                   }
@@ -443,16 +440,16 @@ LABEL_32:
                 {
                   if (_propertyType != 4)
                   {
-                    v13 = MEMORY[0x1E695DF30];
-                    v14 = *MEMORY[0x1E695D940];
-                    v26[0] = @"offending property";
-                    v26[1] = @"keypath";
-                    v27[0] = v20;
-                    v27[1] = v18;
-                    v26[2] = @"component";
-                    v27[2] = v7;
-                    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
-                    v16 = @"Bad keypath for derived property (unsupported property type in keypath)";
+                    v12 = MEMORY[0x1E695DF30];
+                    v13 = *MEMORY[0x1E695D940];
+                    v25[0] = @"offending property";
+                    v25[1] = @"keypath";
+                    v26[0] = v19;
+                    v26[1] = v17;
+                    v25[2] = @"component";
+                    v26[2] = v7;
+                    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
+                    v15 = @"Bad keypath for derived property (unsupported property type in keypath)";
                     goto LABEL_32;
                   }
 
@@ -462,14 +459,14 @@ LABEL_32:
 
               else if (v6 != [v3 count] - 1)
               {
-                v13 = MEMORY[0x1E695DF30];
-                v14 = *MEMORY[0x1E695D940];
-                v34[0] = @"offending property";
-                v34[1] = @"keypath";
-                v35[0] = v20;
-                v35[1] = v18;
-                v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
-                v16 = @"Bad keypath for derived property (misplaced operator)";
+                v12 = MEMORY[0x1E695DF30];
+                v13 = *MEMORY[0x1E695D940];
+                v33[0] = @"offending property";
+                v33[1] = @"keypath";
+                v34[0] = v19;
+                v34[1] = v17;
+                v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
+                v15 = @"Bad keypath for derived property (misplaced operator)";
                 goto LABEL_32;
               }
             }
@@ -477,30 +474,29 @@ LABEL_32:
             while (v5++ < [v3 count]);
           }
 
-          ++v2;
+          v2 = v2 + 1;
         }
 
-        while (v2 != v21);
-        result = [a2 countByEnumeratingWithState:&v22 objects:v38 count:16];
-        v21 = result;
+        while (v2 != v20);
+        result = [a2 countByEnumeratingWithState:&v21 objects:v37 count:16];
+        v20 = result;
       }
 
       while (result);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_versionHash:(char *)hash inStyle:(unint64_t)style
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   memset(&c, 0, sizeof(c));
   CC_SHA256_Init(&c);
-  v16.receiver = self;
-  v16.super_class = NSDerivedAttributeDescription;
-  [(NSAttributeDescription *)&v16 _versionHash:v18 inStyle:style];
+  v15.receiver = self;
+  v15.super_class = NSDerivedAttributeDescription;
+  [(NSAttributeDescription *)&v15 _versionHash:v17 inStyle:style];
   derivationExpression = self->_derivationExpression;
   if (derivationExpression)
   {
@@ -530,7 +526,6 @@ LABEL_32:
   }
 
   CC_SHA256_Final(hash, &c);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_writeIntoData:(id)data propertiesDict:(id)dict uniquedPropertyNames:(id)names uniquedStrings:(id)strings uniquedData:(id)uniquedData entitiesSlots:(id)slots fetchRequests:(id)requests

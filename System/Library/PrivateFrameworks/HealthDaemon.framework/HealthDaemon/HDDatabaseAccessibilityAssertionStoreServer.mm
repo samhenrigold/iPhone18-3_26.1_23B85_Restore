@@ -13,26 +13,25 @@
 {
   v10 = sub_22911B8DC();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x28223BE20](v10);
-  v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v22 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22911B8CC();
   *(&self->super.super.isa + OBJC_IVAR___HDDatabaseAccessibilityAssertionStoreServer____lazy_storage___queue) = 0;
   configurationCopy = configuration;
   clientCopy = client;
   swift_unknownObjectRetain();
-  v17 = sub_22911B8BC();
-  v18 = type metadata accessor for DatabaseAccessibilityAssertionStoreServer();
-  v23.receiver = self;
-  v23.super_class = v18;
-  v19 = [(HDStandardTaskServer *)&v23 initWithUUID:v17 configuration:configurationCopy client:clientCopy delegate:delegate];
+  v16 = sub_22911B8BC();
+  v17 = type metadata accessor for DatabaseAccessibilityAssertionStoreServer();
+  v22.receiver = self;
+  v22.super_class = v17;
+  v18 = [(HDStandardTaskServer *)&v22 initWithUUID:v16 configuration:configurationCopy client:clientCopy delegate:delegate];
 
-  v20 = v19;
-  v21 = sub_2289CB03C();
+  v19 = v18;
+  v20 = sub_2289CB03C();
 
   swift_unknownObjectRelease();
-  (*(v11 + 8))(v14, v10);
-  return v20;
+  (*(v11 + 8))(v13, v10);
+  return v19;
 }
 
 - (id)exportedInterface

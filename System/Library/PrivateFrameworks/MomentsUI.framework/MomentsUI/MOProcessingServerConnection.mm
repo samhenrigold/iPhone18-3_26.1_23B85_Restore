@@ -87,7 +87,7 @@
   v3 = OBJC_IVAR___MOProcessingServerConnection_connection;
   *(&self->super.isa + v3) = [objc_allocWithZone(type metadata accessor for ProcessingServerConnection()) init];
   v4 = OBJC_IVAR___MOProcessingServerConnection_presenterServerConnection;
-  *(&self->super.isa + v4) = [objc_allocWithZone(type metadata accessor for PresenterServerConnection()) init];
+  *(&self->super.isa + v4) = [objc_allocWithZone(type metadata accessor for PresenterServerConnection(0)) init];
   v6.receiver = self;
   v6.super_class = MOProcessingServerConnection;
   return [(MOProcessingServerConnection *)&v6 init];

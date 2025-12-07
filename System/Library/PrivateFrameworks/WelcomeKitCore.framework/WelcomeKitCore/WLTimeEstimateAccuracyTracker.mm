@@ -100,29 +100,29 @@ LABEL_7:
 
 - (void)estimatesDidResolveAtDate:(id)date block:(id)block
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   blockCopy = block;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = [(WLTimeEstimateAccuracyTracker *)self samples];
-  v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         startDate = [v12 startDate];
         [dateCopy timeIntervalSinceDate:startDate];
         v15 = v14;
@@ -133,13 +133,11 @@ LABEL_7:
         blockCopy[2](blockCopy, estimate, threshold, vcvtpd_u64_f64(v15), associatedObject);
       }
 
-      v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

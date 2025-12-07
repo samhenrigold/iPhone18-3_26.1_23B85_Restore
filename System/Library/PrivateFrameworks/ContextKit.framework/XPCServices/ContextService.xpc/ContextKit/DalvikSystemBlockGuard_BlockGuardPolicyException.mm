@@ -9,7 +9,7 @@
 
 - (DalvikSystemBlockGuard_BlockGuardPolicyException)initWithInt:(int)int withInt:(int)withInt
 {
-  JavaLangRuntimeException_init(self, a2);
+  JavaLangRuntimeException_init(self);
   *(&self->super.super.super.rawFrameCount + 1) = int;
   self->mPolicyState_ = withInt;
   JreStrongAssign(&self->mMessage_, 0);
@@ -19,7 +19,7 @@
 
 - (DalvikSystemBlockGuard_BlockGuardPolicyException)initWithInt:(int)int withInt:(int)withInt withNSString:(id)string
 {
-  JavaLangRuntimeException_init(self, a2);
+  JavaLangRuntimeException_init(self);
   *(&self->super.super.super.rawFrameCount + 1) = int;
   self->mPolicyState_ = withInt;
   JreStrongAssign(&self->mMessage_, string);
@@ -29,11 +29,8 @@
 
 - (id)getMessage
 {
-  v8 = *(&self->super.super.super.rawFrameCount + 1);
-  mPolicyState = self->mPolicyState_;
   if (self->mMessage_)
   {
-    mMessage = self->mMessage_;
     JreStrcat("$$", a2, v2, v3, v4, v5, v6, v7, @" msg=");
   }
 

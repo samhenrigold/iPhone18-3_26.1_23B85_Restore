@@ -28,12 +28,12 @@
 
 - (id)stsParameters
 {
-  v3 = objc_alloc(getSTSTapToProvisionParametersClass[0]());
+  v3 = objc_alloc(getSTSTapToProvisionParametersClass(self, a2));
   zero = [MEMORY[0x1E696AB90] zero];
   v5 = zero;
   if (zero)
   {
-    [zero decimalValue];
+    objc_msgSend_decimalValue(zero);
   }
 
   else

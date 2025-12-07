@@ -277,7 +277,7 @@ LABEL_10:
   v6 = v3;
   if (self)
   {
-    [(VCMediaRecorderLocal *)self defaultAudioIOConfig:v6];
+    objc_msgSend_defaultAudioIOConfig(self, a2, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
   else
@@ -478,11 +478,13 @@ LABEL_5:
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v4 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v11) = 136315650;
+      *(&v11 + 4) = v4;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v4, v5, " [%s] %s:%d Failed to get local video attributes", v6, v7, v8, v9, 2u);
+      OUTLINED_FUNCTION_13_8(&dword_1DB56E000, v5, v6, " [%s] %s:%d Failed to get local video attributes", v7, v8, v9, v10, v11, DWORD2(v11));
     }
   }
 

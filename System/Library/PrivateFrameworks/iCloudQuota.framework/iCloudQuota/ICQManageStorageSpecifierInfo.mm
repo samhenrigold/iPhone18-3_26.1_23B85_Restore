@@ -9,35 +9,35 @@
 
 - (id)initFromDictionary:(id)dictionary
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v23.receiver = self;
-  v23.super_class = ICQManageStorageSpecifierInfo;
-  v5 = [(ICQManageStorageSpecifierInfo *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = ICQManageStorageSpecifierInfo;
+  v5 = [(ICQManageStorageSpecifierInfo *)&v22 init];
   if (v5)
   {
-    v6 = [dictionaryCopy objectForKeyedSubscript:@"type"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(ICQManageStorageSpecifierInfo *)v5 setType:v6];
     }
 
-    v7 = [dictionaryCopy objectForKeyedSubscript:@"title"];
+    v7 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(ICQManageStorageSpecifierInfo *)v5 setTitle:v7];
     }
 
-    v8 = [dictionaryCopy objectForKeyedSubscript:@"subTitle"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(ICQManageStorageSpecifierInfo *)v5 setSubtitle:v8];
     }
 
-    v9 = [dictionaryCopy objectForKeyedSubscript:@"iconURLs"];
+    v9 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -45,18 +45,18 @@
       [(ICQManageStorageSpecifierInfo *)v5 setIconURL:v10];
     }
 
-    v11 = [dictionaryCopy objectForKeyedSubscript:@"actions"];
+    v11 = objc_msgSend_objectForKeyedSubscript_(dictionaryCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __52__ICQManageStorageSpecifierInfo_initFromDictionary___block_invoke;
-      v21[3] = &unk_27A6528C0;
-      v22 = v12;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __52__ICQManageStorageSpecifierInfo_initFromDictionary___block_invoke;
+      v20[3] = &unk_27A6528C0;
+      v21 = v12;
       v13 = v12;
-      [v11 enumerateObjectsUsingBlock:v21];
+      [v11 enumerateObjectsUsingBlock:v20];
       [(ICQManageStorageSpecifierInfo *)v5 setActions:v13];
     }
 
@@ -69,14 +69,13 @@
       v17 = v16;
       if (v16)
       {
-        v24[0] = v16;
-        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+        v23[0] = v16;
+        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
         [(ICQManageStorageSpecifierInfo *)v5 setActions:v18];
       }
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -118,11 +117,11 @@ void __52__ICQManageStorageSpecifierInfo_initFromDictionary___block_invoke(uint6
 
 - (ICQManageStorageSpecifierInfo)initWithCoder:(id)coder
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = ICQManageStorageSpecifierInfo;
-  v5 = [(ICQManageStorageSpecifierInfo *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = ICQManageStorageSpecifierInfo;
+  v5 = [(ICQManageStorageSpecifierInfo *)&v20 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"type"];
@@ -142,9 +141,9 @@ void __52__ICQManageStorageSpecifierInfo_initFromDictionary___block_invoke(uint6
     v5->_iconURL = v12;
 
     v14 = MEMORY[0x277CBEB98];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     v16 = [v14 setWithArray:v15];
 
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"actions"];
@@ -152,7 +151,6 @@ void __52__ICQManageStorageSpecifierInfo_initFromDictionary___block_invoke(uint6
     v5->_actions = v17;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

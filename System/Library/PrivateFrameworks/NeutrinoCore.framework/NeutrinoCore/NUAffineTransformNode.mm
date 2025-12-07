@@ -190,7 +190,7 @@
       if (transform)
       {
         v59 = v15;
-        [(NUImageTransformAffine *)transform transform];
+        objc_msgSend_transform(transform);
         v15 = v59;
         v16 = v65;
       }
@@ -258,7 +258,7 @@
   v6 = v24;
   if (v5)
   {
-    [v5 extent];
+    objc_msgSend_extent(v5);
     v7 = *&v22.a;
     v8 = *&v22.b;
     v9 = *&v22.c;
@@ -266,7 +266,7 @@
     transform = self->_transform;
     if (transform)
     {
-      [(NUImageTransformAffine *)transform transform];
+      objc_msgSend_transform(transform);
     }
 
     else

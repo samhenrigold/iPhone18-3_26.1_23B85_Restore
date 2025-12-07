@@ -57,7 +57,7 @@ uint64_t sub_100001DA4@<X0>(uint64_t a1@<X8>)
   v3.super.isa = v2;
   v25._countAndFlagsBits = 0;
   v25._object = 0xE000000000000000;
-  sub_100041180(v23, v24, v3, v25, v22);
+  sub_100041180(v23, v24, v3, v25, 0, v22);
 
   sub_1000024FC();
   v4 = sub_100041860();
@@ -113,7 +113,7 @@ uint64_t sub_10000200C(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_10000208C@<X0>(void *a1@<X8>)
+uint64_t sub_10000208C@<X0>(uint64_t *a1@<X8>)
 {
   sub_100041B20();
   v2 = sub_100041AF0();
@@ -124,90 +124,82 @@ uint64_t sub_10000208C@<X0>(void *a1@<X8>)
 
 uint64_t sub_1000020D0()
 {
-  v1 = *v0;
   sub_100041B20();
-  v2 = sub_100041BE0();
+  v0 = sub_100041BE0();
 
-  return v2;
+  return v0;
 }
 
-uint64_t sub_10000210C()
+uint64_t sub_10000210C(uint64_t a1)
 {
-  v1 = *v0;
   sub_100041B20();
   sub_100041B70();
 }
 
-Swift::Int sub_100002160()
+Swift::Int sub_100002160(uint64_t a1)
 {
-  v1 = *v0;
   sub_100041B20();
   sub_100042000();
   sub_100041B70();
-  v2 = sub_100042020();
+  v1 = sub_100042020();
 
-  return v2;
+  return v1;
 }
 
-uint64_t sub_1000021E8(uint64_t *a1, uint64_t *a2)
+uint64_t sub_1000021E8(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = sub_100041B20();
-  v6 = v5;
-  if (v4 == sub_100041B20() && v6 == v7)
+  v2 = sub_100041B20();
+  v4 = v3;
+  if (v2 == sub_100041B20() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = sub_100041FC0();
+    v7 = sub_100041FC0();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
-void sub_100002298(uint64_t a1, unint64_t *a2)
+void sub_100002298(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-uint64_t sub_1000022E4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_1000022E4@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_100041AF0();
+  v3 = sub_100041AF0();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_10000232C@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = sub_100041B20();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
 uint64_t sub_100002358(uint64_t a1)
 {
-  v2 = sub_100002458(&qword_10005C570);
-  v3 = sub_100002458(&qword_10005C578);
+  v2 = sub_100002458(&qword_10005C570, &unk_100045854);
+  v3 = sub_100002458(&qword_10005C578, &unk_1000457A8);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
 
-uint64_t sub_100002458(unint64_t *a1)
+uint64_t sub_100002458(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -261,7 +253,6 @@ uint64_t sub_1000025E8(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -433,143 +424,139 @@ LABEL_20:
 
 uint64_t sub_1000027C8@<X0>(char a1@<W0>, uint64_t a2@<X8>)
 {
-  v74 = a2;
+  v70 = a2;
   v3 = sub_100041310();
-  v75 = *(v3 - 8);
-  v4 = *(v75 + 64);
-  __chkstk_darwin();
-  v6 = &v66[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = sub_100002D08(&qword_10005C720, &qword_1000459F0);
-  v8 = *(v7 - 8);
-  v73 = v7 - 8;
-  v9 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v11 = &v66[-v10];
-  v12 = GKGameCenterUIFrameworkBundle();
-  v13 = "ARD_FRIEND_CODE_EXPIRED";
+  v71 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v5 = &v62[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v69 = sub_100002D08(&qword_10005C720, &qword_1000459F0) - 8;
+  __chkstk_darwin(v69);
+  v7 = &v62[-v6];
+  v8 = GKGameCenterUIFrameworkBundle();
+  v9 = "ARD_FRIEND_CODE_EXPIRED";
   if (a1)
   {
-    v13 = "ELL_IGNORED_ACTION";
-    v14._countAndFlagsBits = 0xD00000000000001ELL;
+    v9 = "ELL_IGNORED_ACTION";
+    v10._countAndFlagsBits = 0xD00000000000001ELL;
   }
 
   else
   {
-    v14._countAndFlagsBits = 0xD000000000000022;
+    v10._countAndFlagsBits = 0xD000000000000022;
   }
 
-  v65._countAndFlagsBits = 0xE000000000000000;
-  v14._object = (v13 | 0x8000000000000000);
-  v87.value._countAndFlagsBits = 0;
-  v87.value._object = 0;
-  v15.super.isa = v12;
-  v88._countAndFlagsBits = 0;
-  v88._object = 0xE000000000000000;
-  v16 = sub_100041180(v14, v87, v15, v88, v65);
-  v18 = v17;
+  v61._countAndFlagsBits = 0xE000000000000000;
+  v10._object = (v9 | 0x8000000000000000);
+  v83.value._countAndFlagsBits = 0;
+  v83.value._object = 0;
+  v11.super.isa = v8;
+  v84._countAndFlagsBits = 0;
+  v84._object = 0xE000000000000000;
+  v12 = sub_100041180(v10, v83, v11, v84, 0, v61);
+  v14 = v13;
 
-  *&v80 = v16;
-  *(&v80 + 1) = v18;
+  *&v76 = v12;
+  *(&v76 + 1) = v14;
   sub_1000024FC();
-  v19 = sub_100041860();
-  v21 = v20;
-  v23 = v22;
+  v15 = sub_100041860();
+  v17 = v16;
+  v19 = v18;
   sub_100041790();
   sub_1000417B0();
 
-  v24 = sub_100041840();
-  v71 = v25;
-  v72 = v24;
-  v68 = v26;
-  v70 = v27;
+  v20 = sub_100041840();
+  v67 = v21;
+  v68 = v20;
+  v64 = v22;
+  v66 = v23;
 
-  sub_100002550(v19, v21, v23 & 1);
+  sub_100002550(v15, v17, v19 & 1);
 
-  v69 = sub_100041780();
-  v28 = enum case for GKFeatureFlags.NewFriendInviteMessageCard(_:);
-  v29 = v75;
-  v30 = *(v75 + 104);
-  v30(v6, enum case for GKFeatureFlags.NewFriendInviteMessageCard(_:), v3);
+  v65 = sub_100041780();
+  v24 = enum case for GKFeatureFlags.NewFriendInviteMessageCard(_:);
+  v25 = v71;
+  v26 = *(v71 + 104);
+  v26(v5, enum case for GKFeatureFlags.NewFriendInviteMessageCard(_:), v3);
   sub_100041300();
-  v31 = *(v29 + 8);
-  v75 = v29 + 8;
-  v31(v6, v3);
+  v27 = *(v25 + 8);
+  v71 = v25 + 8;
+  v27(v5, v3);
   sub_1000414B0();
+  v29 = v28;
+  v31 = v30;
   v33 = v32;
   v35 = v34;
+  v63 = v64 & 1;
+  v73 = v64 & 1;
+  v72 = 0;
+  v64 = sub_100041740();
+  v26(v5, v24, v3);
+  sub_100041300();
+  v27(v5, v3);
+  sub_1000414B0();
   v37 = v36;
   v39 = v38;
-  v67 = v68 & 1;
-  v77 = v68 & 1;
-  v76 = 0;
-  v68 = sub_100041740();
-  v30(v6, v28, v3);
-  sub_100041300();
-  v31(v6, v3);
-  sub_1000414B0();
   v41 = v40;
   v43 = v42;
-  v45 = v44;
-  v47 = v46;
-  v78 = 0;
-  v30(v6, v28, v3);
+  v74 = 0;
+  v26(v5, v24, v3);
   sub_100041300();
-  v31(v6, v3);
+  v27(v5, v3);
   sub_1000419D0();
   sub_100041550();
-  *&v79[55] = v83;
-  *&v79[71] = v84;
-  *&v79[87] = v85;
-  *&v79[103] = v86;
-  *&v79[7] = v80;
-  *&v79[23] = v81;
-  *&v79[39] = v82;
-  v48 = sub_100041750();
-  v49 = sub_100041700();
-  v50 = &v11[*(v73 + 44)];
-  v51 = *(sub_100041540() + 20);
-  v52 = enum case for RoundedCornerStyle.continuous(_:);
-  v53 = sub_100041640();
-  (*(*(v53 - 8) + 104))(&v50[v51], v52, v53);
+  *&v75[55] = v79;
+  *&v75[71] = v80;
+  *&v75[87] = v81;
+  *&v75[103] = v82;
+  *&v75[7] = v76;
+  *&v75[23] = v77;
+  *&v75[39] = v78;
+  v44 = sub_100041750();
+  v45 = sub_100041700();
+  v46 = &v7[*(v69 + 44)];
+  v47 = *(sub_100041540() + 20);
+  v48 = enum case for RoundedCornerStyle.continuous(_:);
+  v49 = sub_100041640();
+  (*(*(v49 - 8) + 104))(&v46[v47], v48, v49);
   __asm { FMOV            V0.2D, #9.0 }
 
-  *v50 = _Q0;
-  *&v50[*(sub_100002D08(&qword_10005C728, &qword_1000459F8) + 36)] = 256;
-  v59 = v71;
-  *v11 = v72;
-  *(v11 + 1) = v59;
-  v11[16] = v67;
-  *(v11 + 3) = v70;
-  LOBYTE(v59) = v68;
-  v11[32] = v69;
-  *(v11 + 5) = v33;
-  *(v11 + 6) = v35;
-  *(v11 + 7) = v37;
-  *(v11 + 8) = v39;
-  v11[72] = 0;
-  v11[80] = v59;
-  *(v11 + 11) = v41;
-  *(v11 + 12) = v43;
-  *(v11 + 13) = v45;
-  *(v11 + 14) = v47;
-  v11[120] = 0;
-  v60 = *&v79[80];
-  *(v11 + 185) = *&v79[64];
-  *(v11 + 201) = v60;
-  *(v11 + 217) = *&v79[96];
-  *(v11 + 29) = *&v79[111];
-  v61 = *&v79[16];
-  *(v11 + 121) = *v79;
-  *(v11 + 137) = v61;
-  v62 = *&v79[48];
-  *(v11 + 153) = *&v79[32];
-  *(v11 + 169) = v62;
-  v11[240] = v48;
-  *(v11 + 61) = v49;
-  v63 = v74;
-  sub_100002D50(v11, v74);
+  *v46 = _Q0;
+  *&v46[*(sub_100002D08(&qword_10005C728, &qword_1000459F8) + 36)] = 256;
+  v55 = v67;
+  *v7 = v68;
+  *(v7 + 1) = v55;
+  v7[16] = v63;
+  *(v7 + 3) = v66;
+  LOBYTE(v55) = v64;
+  v7[32] = v65;
+  *(v7 + 5) = v29;
+  *(v7 + 6) = v31;
+  *(v7 + 7) = v33;
+  *(v7 + 8) = v35;
+  v7[72] = 0;
+  v7[80] = v55;
+  *(v7 + 11) = v37;
+  *(v7 + 12) = v39;
+  *(v7 + 13) = v41;
+  *(v7 + 14) = v43;
+  v7[120] = 0;
+  v56 = *&v75[80];
+  *(v7 + 185) = *&v75[64];
+  *(v7 + 201) = v56;
+  *(v7 + 217) = *&v75[96];
+  *(v7 + 29) = *&v75[111];
+  v57 = *&v75[16];
+  *(v7 + 121) = *v75;
+  *(v7 + 137) = v57;
+  v58 = *&v75[48];
+  *(v7 + 153) = *&v75[32];
+  *(v7 + 169) = v58;
+  v7[240] = v44;
+  *(v7 + 61) = v45;
+  v59 = v70;
+  sub_100002D50(v7, v70);
   result = sub_100002D08(&qword_10005C730, &qword_100045A00);
-  *(v63 + *(result + 36)) = 256;
+  *(v59 + *(result + 36)) = 256;
   return result;
 }
 
@@ -578,7 +565,6 @@ uint64_t sub_100002D08(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -614,7 +600,7 @@ unint64_t sub_100002E50()
   {
     sub_1000025E8(&qword_10005C720, &qword_1000459F0);
     sub_100002F08();
-    sub_100003214(&qword_10005C7B8, &qword_10005C728, &qword_1000459F8);
+    sub_100003214(&qword_10005C7B8, &qword_10005C728, &qword_1000459F8, &protocol conformance descriptor for _ClipEffect<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10005C740);
   }
@@ -629,7 +615,7 @@ unint64_t sub_100002F08()
   {
     sub_1000025E8(&qword_10005C750, &qword_100045A08);
     sub_100002FC0();
-    sub_100003214(&qword_10005C7A8, &qword_10005C7B0, qword_100045A38);
+    sub_100003214(&qword_10005C7A8, &qword_10005C7B0, qword_100045A38, &protocol conformance descriptor for _EnvironmentBackgroundStyleModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10005C748);
   }
@@ -644,7 +630,7 @@ unint64_t sub_100002FC0()
   {
     sub_1000025E8(&qword_10005C760, &qword_100045A10);
     sub_100003078();
-    sub_100003214(&qword_10005C798, &qword_10005C7A0, &qword_100045A30);
+    sub_100003214(&qword_10005C798, &qword_10005C7A0, &qword_100045A30, &protocol conformance descriptor for _BackgroundStyleModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10005C758);
   }
@@ -693,7 +679,7 @@ unint64_t sub_100003190()
   return result;
 }
 
-uint64_t sub_100003214(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_100003214(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -716,7 +702,7 @@ void sub_10000325C(void *a1, uint64_t a2, char *a3)
   [v6 reloadData];
 }
 
-uint64_t sub_1000033BC(uint64_t a1, void *a2, uint64_t a3, void (*a4)(void))
+uint64_t sub_1000033BC(uint64_t a1, void *a2, uint64_t a3, uint64_t (*a4)(void))
 {
   v8 = sub_100041AF0();
   a4(0);
@@ -777,26 +763,25 @@ uint64_t sub_1000036C4()
   return result;
 }
 
-uint64_t sub_10000393C()
+uint64_t sub_10000393C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = sub_1000412F0();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin();
-  v4 = &v6 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_1000412F0();
+  v5 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000412D0();
-  (*(v1 + 8))(v4, v0);
+  (*(v5 + 8))(v7, v4);
   return 1;
 }
 
-id sub_100003CE8()
+id sub_100003CE8(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for MessageActionsViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for MessageActionsViewController();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
-uint64_t sub_100003D8C(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void *sub_100003D8C(uint64_t a1, uint64_t a2, void *a3, unint64_t *a4)
 {
   if (sub_100041B20() == a2 && v7 == a3)
   {
@@ -862,7 +847,7 @@ LABEL_12:
   return v17;
 }
 
-id sub_100003FE8()
+char *sub_100003FE8()
 {
   v0 = sub_1000036C4();
   [v0 setClipsToBounds:1];
@@ -1262,26 +1247,26 @@ Swift::Int sub_100005020()
 {
   v1 = *v0;
   sub_100042000();
-  sub_100005070();
+  sub_100005070(v3, v1);
   return sub_100042020();
 }
 
-uint64_t sub_100005070()
+uint64_t sub_100005070(uint64_t a1, unsigned __int8 a2)
 {
   sub_100041B70();
 }
 
-Swift::Int sub_1000051D8()
+Swift::Int sub_1000051D8(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_100042000();
-  sub_100005070();
+  sub_100005070(v4, v2);
   return sub_100042020();
 }
 
-uint64_t sub_10000521C@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+unint64_t sub_10000521C@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_10000E67C(*a1, *(a1 + 8));
+  result = sub_10000E67C(*a1, a1[1]);
   *a2 = result;
   return result;
 }
@@ -1302,11 +1287,11 @@ Swift::Int sub_1000052B4()
   return sub_100042020();
 }
 
-Swift::Int sub_100005328()
+Swift::Int sub_100005328(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_100042000();
-  sub_100042010(v1);
+  sub_100042010(v2);
   return sub_100042020();
 }
 
@@ -1324,40 +1309,39 @@ id sub_1000056A8()
 {
   v1 = sub_100041410();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  v4 = __chkstk_darwin(v1);
-  v6 = &v88 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __chkstk_darwin(v4);
-  v88 = &v88 - v8;
-  v9 = __chkstk_darwin(v7);
-  v11 = &v88 - v10;
-  v12 = __chkstk_darwin(v9);
-  v91 = &v88 - v13;
-  __chkstk_darwin(v12);
-  v15 = &v88 - v14;
+  v3 = __chkstk_darwin(v1);
+  v5 = &v87 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __chkstk_darwin(v3);
+  v87 = &v87 - v7;
+  v8 = __chkstk_darwin(v6);
+  v10 = &v87 - v9;
+  v11 = __chkstk_darwin(v8);
+  v90 = &v87 - v12;
+  __chkstk_darwin(v11);
+  v14 = &v87 - v13;
   sub_1000413E0();
-  v16 = v0;
-  v17 = sub_100041400();
-  v18 = sub_100041CC0();
+  v15 = v0;
+  v16 = sub_100041400();
+  v17 = sub_100041CC0();
 
-  if (os_log_type_enabled(v17, v18))
+  if (os_log_type_enabled(v16, v17))
   {
-    v19 = v6;
+    v18 = v5;
+    v19 = swift_slowAlloc();
     v20 = swift_slowAlloc();
-    v21 = swift_slowAlloc();
-    *v20 = 138412290;
-    *(v20 + 4) = v16;
-    *v21 = v16;
-    v22 = v16;
-    _os_log_impl(&_mh_execute_header, v17, v18, "%@ updatePlayerUI", v20, 0xCu);
-    sub_10000E9F0(v21, &unk_10005CA00, &unk_100045CF0);
+    *v19 = 138412290;
+    *(v19 + 4) = v15;
+    *v20 = v15;
+    v21 = v15;
+    _os_log_impl(&_mh_execute_header, v16, v17, "%@ updatePlayerUI", v19, 0xCu);
+    sub_10000E9F0(v20, &unk_10005CA00, &unk_100045CF0);
 
-    v6 = v19;
+    v5 = v18;
   }
 
-  v92 = *(v2 + 8);
-  v92(v15, v1);
-  v23 = [objc_opt_self() local];
+  v91 = *(v2 + 8);
+  v91(v14, v1);
+  v22 = [objc_opt_self() local];
   result = swift_unknownObjectWeakLoadStrong();
   if (!result)
   {
@@ -1365,7 +1349,7 @@ id sub_1000056A8()
     goto LABEL_42;
   }
 
-  v25 = result;
+  v24 = result;
   result = [objc_opt_self() sharedTheme];
   if (!result)
   {
@@ -1374,10 +1358,10 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  v26 = result;
-  v27 = [result eventIconImage];
+  v25 = result;
+  v26 = [result eventIconImage];
 
-  [v25 setImage:v27];
+  [v24 setImage:v26];
   result = swift_unknownObjectWeakLoadStrong();
   if (!result)
   {
@@ -1386,7 +1370,7 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  v28 = result;
+  v27 = result;
   [result setHidden:1];
 
   result = swift_unknownObjectWeakLoadStrong();
@@ -1397,7 +1381,7 @@ LABEL_44:
     goto LABEL_45;
   }
 
-  v29 = result;
+  v28 = result;
   [result setHidden:1];
 
   result = swift_unknownObjectWeakLoadStrong();
@@ -1408,7 +1392,7 @@ LABEL_45:
     goto LABEL_46;
   }
 
-  v30 = result;
+  v29 = result;
   [result setHidden:1];
 
   result = swift_unknownObjectWeakLoadStrong();
@@ -1419,7 +1403,7 @@ LABEL_46:
     goto LABEL_47;
   }
 
-  v31 = result;
+  v30 = result;
   [result setHidden:1];
 
   result = swift_unknownObjectWeakLoadStrong();
@@ -1430,8 +1414,8 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  v32 = result;
-  v90 = v1;
+  v31 = result;
+  v89 = v1;
   [result setHidden:1];
 
   result = swift_unknownObjectWeakLoadStrong();
@@ -1442,7 +1426,7 @@ LABEL_48:
     goto LABEL_49;
   }
 
-  v33 = result;
+  v32 = result;
   [result setTextAlignment:4];
 
   result = swift_unknownObjectWeakLoadStrong();
@@ -1455,15 +1439,15 @@ LABEL_50:
     goto LABEL_51;
   }
 
-  v34 = result;
+  v33 = result;
   [result setTextAlignment:4];
 
-  v35 = [v16 traitCollection];
-  v36 = [v35 preferredContentSizeCategory];
+  v34 = [v15 traitCollection];
+  v35 = [v34 preferredContentSizeCategory];
 
   IsAccessibilityContentSizeCategory = _UIContentSizeCategoryIsAccessibilityContentSizeCategory();
   result = swift_unknownObjectWeakLoadStrong();
-  v38 = result;
+  v37 = result;
   if (IsAccessibilityContentSizeCategory)
   {
     if (!result)
@@ -1483,7 +1467,7 @@ LABEL_54:
       goto LABEL_55;
     }
 
-    v39 = result;
+    v38 = result;
     result = swift_unknownObjectWeakLoadStrong();
     if (!result)
     {
@@ -1492,8 +1476,8 @@ LABEL_56:
       goto LABEL_57;
     }
 
-    v40 = result;
-    [v39 insertArrangedSubview:result atIndex:1];
+    v39 = result;
+    [v38 insertArrangedSubview:result atIndex:1];
   }
 
   else
@@ -1515,7 +1499,7 @@ LABEL_55:
       goto LABEL_56;
     }
 
-    v39 = result;
+    v38 = result;
     result = swift_unknownObjectWeakLoadStrong();
     if (!result)
     {
@@ -1524,8 +1508,8 @@ LABEL_57:
       goto LABEL_58;
     }
 
-    v40 = result;
-    [v39 insertArrangedSubview:result atIndex:0];
+    v39 = result;
+    [v38 insertArrangedSubview:result atIndex:0];
   }
 
   result = swift_unknownObjectWeakLoadStrong();
@@ -1534,7 +1518,7 @@ LABEL_57:
     goto LABEL_50;
   }
 
-  v41 = result;
+  v40 = result;
   [result setNeedsLayout];
 
   result = swift_unknownObjectWeakLoadStrong();
@@ -1545,19 +1529,19 @@ LABEL_51:
     goto LABEL_52;
   }
 
-  v42 = result;
+  v41 = result;
   [result layoutIfNeeded];
 
-  v43 = [v16 traitCollection];
-  v44 = [v43 userInterfaceStyle];
+  v42 = [v15 traitCollection];
+  v43 = [v42 userInterfaceStyle];
 
   result = swift_unknownObjectWeakLoadStrong();
-  v45 = result;
-  if (v44 != 2)
+  v44 = result;
+  if (v43 != 2)
   {
     if (result)
     {
-      v46 = &selRef_systemGray6Color;
+      v45 = &selRef_systemGray6Color;
       goto LABEL_28;
     }
 
@@ -1573,220 +1557,219 @@ LABEL_58:
     goto LABEL_59;
   }
 
-  v46 = &selRef_tertiarySystemGroupedBackgroundColor;
+  v45 = &selRef_tertiarySystemGroupedBackgroundColor;
 LABEL_28:
-  v89 = v23;
-  v47 = [objc_opt_self() *v46];
-  [v45 setBackgroundColor:v47];
+  v88 = v22;
+  v46 = [objc_opt_self() *v45];
+  [v44 setBackgroundColor:v46];
 
-  v48 = *&v16[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_playerModel];
-  if (v48)
+  v47 = *&v15[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_playerModel];
+  if (v47)
   {
-    v49 = v6;
-    v50 = v48;
+    v48 = v5;
+    v49 = v47;
     sub_1000413E0();
-    v51 = v16;
-    v52 = v50;
-    v53 = sub_100041400();
-    v54 = sub_100041CC0();
+    v50 = v15;
+    v51 = v49;
+    v52 = sub_100041400();
+    v53 = sub_100041CC0();
 
-    if (os_log_type_enabled(v53, v54))
+    if (os_log_type_enabled(v52, v53))
     {
+      v54 = swift_slowAlloc();
       v55 = swift_slowAlloc();
-      v56 = swift_slowAlloc();
-      *v55 = 138412546;
-      *(v55 + 4) = v51;
-      *(v55 + 12) = 2112;
-      *(v55 + 14) = v52;
-      *v56 = v51;
-      v56[1] = v48;
+      *v54 = 138412546;
+      *(v54 + 4) = v50;
+      *(v54 + 12) = 2112;
+      *(v54 + 14) = v51;
+      *v55 = v50;
+      v55[1] = v47;
+      v56 = v50;
       v57 = v51;
-      v58 = v52;
-      _os_log_impl(&_mh_execute_header, v53, v54, "%@ Updating friend card UI , player model is non nil: %@", v55, 0x16u);
+      _os_log_impl(&_mh_execute_header, v52, v53, "%@ Updating friend card UI , player model is non nil: %@", v54, 0x16u);
       sub_100002D08(&unk_10005CA00, &unk_100045CF0);
       swift_arrayDestroy();
     }
 
-    v59 = v90;
-    v92(v91, v90);
-    v60 = swift_allocObject();
-    *(v60 + 16) = v51;
-    *(v60 + 24) = v52;
+    v58 = v89;
+    v91(v90, v89);
+    v59 = swift_allocObject();
+    *(v59 + 16) = v50;
+    *(v59 + 24) = v51;
+    v60 = v50;
     v61 = v51;
-    v62 = v52;
-    sub_1000123C8(sub_10000EA60, v60);
+    sub_1000123C8(sub_10000EA60, v59);
 
-    v6 = v49;
+    v5 = v48;
   }
 
   else
   {
     sub_1000413D0();
-    v63 = v16;
-    v64 = sub_100041400();
-    v65 = sub_100041CE0();
+    v62 = v15;
+    v63 = sub_100041400();
+    v64 = sub_100041CE0();
 
-    if (os_log_type_enabled(v64, v65))
+    if (os_log_type_enabled(v63, v64))
     {
+      v65 = swift_slowAlloc();
       v66 = swift_slowAlloc();
-      v67 = swift_slowAlloc();
-      *v66 = 138412290;
-      *(v66 + 4) = v63;
-      *v67 = v63;
-      v68 = v63;
-      _os_log_impl(&_mh_execute_header, v64, v65, "%@ expected a playerModel", v66, 0xCu);
-      sub_10000E9F0(v67, &unk_10005CA00, &unk_100045CF0);
+      *v65 = 138412290;
+      *(v65 + 4) = v62;
+      *v66 = v62;
+      v67 = v62;
+      _os_log_impl(&_mh_execute_header, v63, v64, "%@ expected a playerModel", v65, 0xCu);
+      sub_10000E9F0(v66, &unk_10005CA00, &unk_100045CF0);
     }
 
-    v59 = v90;
-    v92(v11, v90);
-    v63[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState] = 7;
+    v58 = v89;
+    v91(v10, v89);
+    v62[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState] = 7;
     sub_10000AC8C();
-    v69 = sub_100039914();
-    if (v69)
+    v68 = sub_100039914();
+    if (v68)
     {
-      v70 = v69;
+      v69 = v68;
       sub_1000413E0();
-      v71 = v70;
-      v72 = sub_100041400();
-      v73 = sub_100041CC0();
+      v70 = v69;
+      v71 = sub_100041400();
+      v72 = sub_100041CC0();
 
-      if (os_log_type_enabled(v72, v73))
+      if (os_log_type_enabled(v71, v72))
       {
+        v73 = swift_slowAlloc();
         v74 = swift_slowAlloc();
-        v75 = swift_slowAlloc();
-        *v74 = 138412290;
-        *(v74 + 4) = v71;
-        *v75 = v70;
-        v76 = v71;
-        _os_log_impl(&_mh_execute_header, v72, v73, "%@ user interface is ready for display", v74, 0xCu);
-        sub_10000E9F0(v75, &unk_10005CA00, &unk_100045CF0);
+        *v73 = 138412290;
+        *(v73 + 4) = v70;
+        *v74 = v69;
+        v75 = v70;
+        _os_log_impl(&_mh_execute_header, v71, v72, "%@ user interface is ready for display", v73, 0xCu);
+        sub_10000E9F0(v74, &unk_10005CA00, &unk_100045CF0);
       }
 
-      v92(v88, v59);
-      [v71 setReadyForDisplay];
+      v91(v87, v58);
+      [v70 setReadyForDisplay];
     }
   }
 
   sub_1000413E0();
-  v77 = v16;
-  v78 = sub_100041400();
-  v79 = sub_100041CC0();
+  v76 = v15;
+  v77 = sub_100041400();
+  v78 = sub_100041CC0();
 
-  if (os_log_type_enabled(v78, v79))
+  if (os_log_type_enabled(v77, v78))
   {
+    v79 = swift_slowAlloc();
     v80 = swift_slowAlloc();
     v81 = swift_slowAlloc();
-    v82 = swift_slowAlloc();
-    v93 = v82;
-    *v80 = 138412546;
-    *(v80 + 4) = v77;
-    *v81 = v77;
-    *(v80 + 12) = 2080;
-    v83 = v77[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState];
-    v84 = v77;
-    v85 = sub_100004BFC(v83);
-    v87 = sub_10003FBD0(v85, v86, &v93);
+    v92 = v81;
+    *v79 = 138412546;
+    *(v79 + 4) = v76;
+    *v80 = v76;
+    *(v79 + 12) = 2080;
+    v82 = v76[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState];
+    v83 = v76;
+    v84 = sub_100004BFC(v82);
+    v86 = sub_10003FBD0(v84, v85, &v92);
 
-    *(v80 + 14) = v87;
-    _os_log_impl(&_mh_execute_header, v78, v79, "%@ inviteCardState is set to : %s", v80, 0x16u);
-    sub_10000E9F0(v81, &unk_10005CA00, &unk_100045CF0);
+    *(v79 + 14) = v86;
+    _os_log_impl(&_mh_execute_header, v77, v78, "%@ inviteCardState is set to : %s", v79, 0x16u);
+    sub_10000E9F0(v80, &unk_10005CA00, &unk_100045CF0);
 
-    sub_10000E8A8(v82);
+    sub_10000E8A8(v81);
   }
 
-  return (v92)(v6, v59);
+  return (v91)(v5, v58);
 }
 
 void sub_1000061DC(void *a1, uint64_t a2, char *a3, unsigned __int8 *a4)
 {
   v7 = sub_100041410();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = __chkstk_darwin(v7);
-  v12 = &v101 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v14 = &v101 - v13;
+  v9 = __chkstk_darwin(v7);
+  v11 = &v100 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v13 = &v100 - v12;
   if (!a1)
   {
     goto LABEL_4;
   }
 
-  v15 = v7;
-  v16 = objc_opt_self();
-  v17 = a1;
-  v104 = v16;
-  v18 = [v16 unknownPlayer];
+  v14 = v7;
+  v15 = objc_opt_self();
+  v16 = a1;
+  v103 = v15;
+  v17 = [v15 unknownPlayer];
   sub_10000EA78(0, &qword_10005CA38, GKPlayer_ptr);
-  v19 = sub_100041DB0();
+  v18 = sub_100041DB0();
 
-  if (v19)
+  if (v18)
   {
 
-    v7 = v15;
+    v7 = v14;
 LABEL_4:
     sub_1000413E0();
-    v20 = a4;
-    v21 = a3;
-    v22 = sub_100041400();
-    v23 = sub_100041CC0();
+    v19 = a4;
+    v20 = a3;
+    v21 = sub_100041400();
+    v22 = sub_100041CC0();
 
-    if (os_log_type_enabled(v22, v23))
+    if (os_log_type_enabled(v21, v22))
     {
+      v23 = swift_slowAlloc();
       v24 = swift_slowAlloc();
-      v25 = swift_slowAlloc();
-      *v24 = 138412546;
-      *(v24 + 4) = v21;
-      *(v24 + 12) = 2112;
-      *(v24 + 14) = v20;
-      *v25 = v21;
-      v25[1] = v20;
+      *v23 = 138412546;
+      *(v23 + 4) = v20;
+      *(v23 + 12) = 2112;
+      *(v23 + 14) = v19;
+      *v24 = v20;
+      v24[1] = v19;
+      v25 = v19;
       v26 = v20;
-      v27 = v21;
-      _os_log_impl(&_mh_execute_header, v22, v23, "%@ Could not find a valid player using playerModel: %@", v24, 0x16u);
+      _os_log_impl(&_mh_execute_header, v21, v22, "%@ Could not find a valid player using playerModel: %@", v23, 0x16u);
       sub_100002D08(&unk_10005CA00, &unk_100045CF0);
       swift_arrayDestroy();
     }
 
-    v28 = *(v8 + 8);
-    v28(v14, v7);
-    v21[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState] = 7;
+    v27 = *(v8 + 8);
+    v27(v13, v7);
+    v20[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState] = 7;
     sub_10000AC8C();
-    v29 = sub_100039914();
-    if (v29)
+    v28 = sub_100039914();
+    if (v28)
     {
-      v30 = v29;
+      v29 = v28;
       sub_1000413E0();
-      v31 = v30;
-      v32 = sub_100041400();
-      v33 = sub_100041CC0();
+      v30 = v29;
+      v31 = sub_100041400();
+      v32 = sub_100041CC0();
 
-      if (os_log_type_enabled(v32, v33))
+      if (os_log_type_enabled(v31, v32))
       {
+        v33 = swift_slowAlloc();
         v34 = swift_slowAlloc();
-        v35 = swift_slowAlloc();
-        *v34 = 138412290;
-        *(v34 + 4) = v31;
-        *v35 = v30;
-        v36 = v31;
-        _os_log_impl(&_mh_execute_header, v32, v33, "%@ user interface is ready for display", v34, 0xCu);
-        sub_10000E9F0(v35, &unk_10005CA00, &unk_100045CF0);
+        *v33 = 138412290;
+        *(v33 + 4) = v30;
+        *v34 = v29;
+        v35 = v30;
+        _os_log_impl(&_mh_execute_header, v31, v32, "%@ user interface is ready for display", v33, 0xCu);
+        sub_10000E9F0(v34, &unk_10005CA00, &unk_100045CF0);
       }
 
-      v28(v12, v7);
-      [v31 setReadyForDisplay];
+      v27(v11, v7);
+      [v30 setReadyForDisplay];
     }
 
     return;
   }
 
-  v37 = [v17 internal];
-  v38 = [v37 friendsVisibility];
+  v36 = [v16 internal];
+  v37 = [v36 friendsVisibility];
 
-  *&a3[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_profileVisibility] = v38;
-  v39 = *&a3[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_sender];
+  *&a3[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_profileVisibility] = v37;
+  v38 = *&a3[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_sender];
   *&a3[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_sender] = a1;
-  v105 = v17;
+  v104 = v16;
 
   sub_10000AAC0();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -1797,160 +1780,160 @@ LABEL_66:
     goto LABEL_67;
   }
 
-  v41 = Strong;
+  v40 = Strong;
   [Strong setDelegate:a3];
 
-  v42 = swift_unknownObjectWeakLoadStrong();
-  if (!v42)
+  v41 = swift_unknownObjectWeakLoadStrong();
+  if (!v41)
   {
 LABEL_67:
     __break(1u);
     goto LABEL_68;
   }
 
-  v43 = v42;
-  [v42 setPlayer:v105];
+  v42 = v41;
+  [v41 setPlayer:v104];
 
-  v44 = [v105 internal];
-  v45 = [v44 friendsVisibility];
+  v43 = [v104 internal];
+  v44 = [v43 friendsVisibility];
 
-  a3[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_isSenderProfilePublic] = v45 == 0;
-  v46 = [v105 internal];
-  v47 = [v46 friendsVisibility];
+  a3[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_isSenderProfilePublic] = v44 == 0;
+  v45 = [v104 internal];
+  v46 = [v45 friendsVisibility];
 
-  if (!v47)
+  if (!v46)
   {
-    sub_10000D5B0(v105);
+    sub_10000D5B0(v104);
   }
 
-  v48 = a4[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeState];
-  if (v48 > 2)
+  v47 = a4[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeState];
+  if (v47 > 2)
   {
-    if (v48 - 4 < 2)
+    if (v47 - 4 < 2)
     {
-      v49 = OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState;
-      v50 = 8;
+      v48 = OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState;
+      v49 = 8;
       goto LABEL_22;
     }
 
-    v52 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayerIDs;
+    v51 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayerIDs;
     swift_beginAccess();
-    v53 = *&a4[v52];
-    if (!v53)
+    v52 = *&a4[v51];
+    if (!v52)
     {
       goto LABEL_57;
     }
 
-    v54 = *(v53 + 16);
+    v53 = *(v52 + 16);
 
-    if (v54)
+    if (v53)
     {
-      v55 = 0;
-      v102 = v54 - 1;
-      v103 = v53 + 40;
-      v104 = _swiftEmptyArrayStorage;
+      v54 = 0;
+      v101 = v53 - 1;
+      v102 = v52 + 40;
+      v103 = _swiftEmptyArrayStorage;
       do
       {
-        v56 = (v103 + 16 * v55);
-        v57 = v55;
+        v55 = (v102 + 16 * v54);
+        v56 = v54;
         while (1)
         {
-          if (v57 >= *(v53 + 16))
+          if (v56 >= *(v52 + 16))
           {
             __break(1u);
             goto LABEL_66;
           }
 
-          v59 = *(v56 - 1);
-          v58 = *v56;
-          v60 = objc_opt_self();
+          v58 = *(v55 - 1);
+          v57 = *v55;
+          v59 = objc_opt_self();
 
-          v61 = [v60 local];
-          v62 = [v61 internal];
+          v60 = [v59 local];
+          v61 = [v60 internal];
 
-          v63 = [v62 playerID];
-          v64 = sub_100041B20();
-          v66 = v65;
+          v62 = [v61 playerID];
+          v63 = sub_100041B20();
+          v65 = v64;
 
-          if (v59 == v64 && v58 == v66)
+          if (v58 == v63 && v57 == v65)
           {
             break;
           }
 
-          v68 = sub_100041FC0();
+          v67 = sub_100041FC0();
 
-          if (v68)
+          if (v67)
           {
             goto LABEL_39;
           }
 
-          ++v57;
+          ++v56;
 
-          v56 += 2;
-          if (v54 == v57)
+          v55 += 2;
+          if (v53 == v56)
           {
             goto LABEL_55;
           }
         }
 
 LABEL_39:
-        v69 = v104;
+        v68 = v103;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        aBlock = v69;
+        aBlock = v68;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          sub_100040178(0, v104[2] + 1, 1);
-          v104 = aBlock;
+          sub_100040178(0, v103[2] + 1, 1);
+          v103 = aBlock;
         }
 
-        v72 = v104[2];
-        v71 = v104[3];
-        if (v72 >= v71 >> 1)
+        v71 = v103[2];
+        v70 = v103[3];
+        if (v71 >= v70 >> 1)
         {
-          sub_100040178((v71 > 1), v72 + 1, 1);
-          v104 = aBlock;
+          sub_100040178((v70 > 1), v71 + 1, 1);
+          v103 = aBlock;
         }
 
-        v55 = v57 + 1;
-        v73 = v104;
-        v104[2] = (v72 + 1);
-        v74 = &v73[2 * v72];
-        v74[4] = v59;
-        v74[5] = v58;
+        v54 = v56 + 1;
+        v72 = v103;
+        v103[2] = (v71 + 1);
+        v73 = &v72[2 * v71];
+        v73[4] = v58;
+        v73[5] = v57;
       }
 
-      while (v102 != v57);
+      while (v101 != v56);
     }
 
     else
     {
-      v104 = _swiftEmptyArrayStorage;
+      v103 = _swiftEmptyArrayStorage;
     }
 
 LABEL_55:
 
-    v90 = v104[2];
+    v89 = v103[2];
 
-    if (!v90)
+    if (!v89)
     {
 LABEL_57:
-      v91 = [objc_opt_self() local];
-      v92 = swift_allocObject();
-      *(v92 + 16) = v105;
-      *(v92 + 24) = a3;
-      v110 = sub_10000EA68;
-      v111 = v92;
+      v90 = [objc_opt_self() local];
+      v91 = swift_allocObject();
+      *(v91 + 16) = v104;
+      *(v91 + 24) = a3;
+      v109 = sub_10000EA68;
+      v110 = v91;
       aBlock = _NSConcreteStackBlock;
-      v107 = 1107296256;
-      v108 = sub_10003A434;
-      v109 = &unk_100055DF0;
-      v93 = _Block_copy(&aBlock);
-      v94 = v105;
-      v95 = a3;
+      v106 = 1107296256;
+      v107 = sub_10003A434;
+      v108 = &unk_100055DF0;
+      v92 = _Block_copy(&aBlock);
+      v93 = v104;
+      v94 = a3;
 
-      [v91 loadFriendsAsPlayersWithCompletionHandler:v93];
+      [v90 loadFriendsAsPlayersWithCompletionHandler:v92];
 
-      _Block_release(v93);
+      _Block_release(v92);
       return;
     }
 
@@ -1963,12 +1946,12 @@ LABEL_64:
 
   if (!a4[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeState])
   {
-    v49 = OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState;
-    v50 = 5;
+    v48 = OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState;
+    v49 = 5;
     goto LABEL_22;
   }
 
-  if (v48 != 1)
+  if (v47 != 1)
   {
     if ((a4[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeUsageCount + 8] & 1) != 0 || *&a4[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeUsageCount] < 1)
     {
@@ -1976,49 +1959,49 @@ LABEL_64:
       goto LABEL_23;
     }
 
-    v75 = sub_100039914();
-    if (v75)
+    v74 = sub_100039914();
+    if (v74)
     {
-      v76 = v75;
-      v77 = [v75 activeConversation];
+      v75 = v74;
+      v76 = [v74 activeConversation];
 
-      if (v77)
+      if (v76)
       {
-        v78 = [v77 recipientAddresses];
-        v79 = sub_100041C20();
+        v77 = [v76 recipientAddresses];
+        v78 = sub_100041C20();
 
-        v80 = *(v79 + 16);
+        v79 = *(v78 + 16);
 
-        if (v80 == 1)
+        if (v79 == 1)
         {
-          v81 = swift_unknownObjectWeakLoadStrong();
-          if (v81)
+          v80 = swift_unknownObjectWeakLoadStrong();
+          if (v80)
           {
-            v82 = v81;
-            [v81 setDelegate:a3];
+            v81 = v80;
+            [v80 setDelegate:a3];
 
-            v83 = swift_unknownObjectWeakLoadStrong();
-            if (v83)
+            v82 = swift_unknownObjectWeakLoadStrong();
+            if (v82)
             {
-              v84 = v83;
-              [v83 setHidden:0];
+              v83 = v82;
+              [v82 setHidden:0];
 
-              v85 = [objc_opt_self() local];
-              v86 = swift_allocObject();
-              *(v86 + 16) = a4;
-              *(v86 + 24) = a3;
-              v110 = sub_10000EA70;
-              v111 = v86;
+              v84 = [objc_opt_self() local];
+              v85 = swift_allocObject();
+              *(v85 + 16) = a4;
+              *(v85 + 24) = a3;
+              v109 = sub_10000EA70;
+              v110 = v85;
               aBlock = _NSConcreteStackBlock;
-              v107 = 1107296256;
-              v108 = sub_10003A434;
-              v109 = &unk_100055E40;
-              v87 = _Block_copy(&aBlock);
-              v88 = a4;
-              v89 = a3;
+              v106 = 1107296256;
+              v107 = sub_10003A434;
+              v108 = &unk_100055E40;
+              v86 = _Block_copy(&aBlock);
+              v87 = a4;
+              v88 = a3;
 
-              [v85 loadFriendsAsPlayersWithCompletionHandler:v87];
-              _Block_release(v87);
+              [v84 loadFriendsAsPlayersWithCompletionHandler:v86];
+              _Block_release(v86);
 LABEL_63:
 
               sub_10000C1B0(a4);
@@ -2037,24 +2020,24 @@ LABEL_71:
       }
     }
 
-    v96 = swift_unknownObjectWeakLoadStrong();
-    if (v96)
+    v95 = swift_unknownObjectWeakLoadStrong();
+    if (v95)
     {
-      v97 = v96;
-      [v96 setDelegate:a3];
+      v96 = v95;
+      [v95 setDelegate:a3];
 
-      v98 = swift_unknownObjectWeakLoadStrong();
-      if (v98)
+      v97 = swift_unknownObjectWeakLoadStrong();
+      if (v97)
       {
-        v99 = v98;
-        [v98 setHidden:0];
+        v98 = v97;
+        [v97 setHidden:0];
 
-        v100 = swift_unknownObjectWeakLoadStrong();
-        if (v100)
+        v99 = swift_unknownObjectWeakLoadStrong();
+        if (v99)
         {
-          v77 = v100;
-          v85 = [v104 unknownPlayer];
-          [v77 setPlayer:v85];
+          v76 = v99;
+          v84 = [v103 unknownPlayer];
+          [v76 setPlayer:v84];
           goto LABEL_63;
         }
 
@@ -2073,13 +2056,13 @@ LABEL_68:
     goto LABEL_69;
   }
 
-  v49 = OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState;
-  v50 = 6;
+  v48 = OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState;
+  v49 = 6;
 LABEL_22:
-  a3[v49] = v50;
+  a3[v48] = v49;
 LABEL_23:
   sub_10000AC8C();
-  v51 = v105;
+  v50 = v104;
 }
 
 void sub_100006CD8(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2090,12 +2073,12 @@ void sub_100006CD8(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
   v5 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  v34 = a3;
+  v33 = a3;
   if (v5)
   {
     do
     {
-      v33 = a4;
+      v32 = a4;
       v6 = 0;
       v7 = (a3 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendNickname);
       while (1)
@@ -2147,7 +2130,6 @@ void sub_100006CD8(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 LABEL_18:
             sub_100041EF0();
-            v21 = _swiftEmptyArrayStorage[2];
             sub_100041F10();
             sub_100041F20();
             sub_100041F00();
@@ -2176,44 +2158,44 @@ LABEL_6:
 LABEL_22:
       __break(1u);
 LABEL_23:
-      v22 = a4;
-      v23 = a3;
-      v24 = sub_100041F50();
-      a3 = v23;
-      a4 = v22;
-      v5 = v24;
-      v34 = v23;
+      v21 = a4;
+      v22 = a3;
+      v23 = sub_100041F50();
+      a3 = v22;
+      a4 = v21;
+      v5 = v23;
+      v33 = v22;
     }
 
-    while (v24);
+    while (v23);
   }
 
 LABEL_24:
-  v25 = _swiftEmptyArrayStorage < 0 || (_swiftEmptyArrayStorage & 0x4000000000000000) != 0;
-  if (v25)
+  v24 = _swiftEmptyArrayStorage < 0 || (_swiftEmptyArrayStorage & 0x4000000000000000) != 0;
+  if (v24)
   {
-    v26 = sub_100041F50();
+    v25 = sub_100041F50();
   }
 
   else
   {
-    v26 = _swiftEmptyArrayStorage[2];
+    v25 = _swiftEmptyArrayStorage[2];
   }
 
-  if (v26 <= 0)
+  if (v25 <= 0)
   {
-    v29 = *(v34 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayer);
+    v28 = *(v33 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayer);
     Strong = swift_unknownObjectWeakLoadStrong();
-    v35 = Strong;
-    if (!v29)
+    v34 = Strong;
+    if (!v28)
     {
       if (Strong)
       {
 
-        v32 = [objc_opt_self() playerFromPlayerID:GKUnknownPlayerID];
-        [v35 setPlayer:v32];
-        v31 = v35;
-        v35 = v32;
+        v31 = [objc_opt_self() playerFromPlayerID:GKUnknownPlayerID];
+        [v34 setPlayer:v31];
+        v30 = v34;
+        v34 = v31;
         goto LABEL_43;
       }
 
@@ -2224,7 +2206,7 @@ LABEL_53:
 
     if (Strong)
     {
-      v28 = v29;
+      v27 = v28;
       goto LABEL_39;
     }
 
@@ -2233,16 +2215,16 @@ LABEL_52:
     goto LABEL_53;
   }
 
-  v27 = swift_unknownObjectWeakLoadStrong();
-  if (!v27)
+  v26 = swift_unknownObjectWeakLoadStrong();
+  if (!v26)
   {
 LABEL_51:
     __break(1u);
     goto LABEL_52;
   }
 
-  v35 = v27;
-  if (v25)
+  v34 = v26;
+  if (v24)
   {
     if (sub_100041F50())
     {
@@ -2251,7 +2233,7 @@ LABEL_51:
 
 LABEL_41:
 
-    v31 = 0;
+    v30 = 0;
     goto LABEL_42;
   }
 
@@ -2263,7 +2245,7 @@ LABEL_41:
 LABEL_33:
   if ((_swiftEmptyArrayStorage & 0xC000000000000001) != 0)
   {
-    v28 = sub_100041EC0();
+    v27 = sub_100041EC0();
     goto LABEL_39;
   }
 
@@ -2273,12 +2255,12 @@ LABEL_33:
     goto LABEL_51;
   }
 
-  v28 = _swiftEmptyArrayStorage[4];
+  v27 = _swiftEmptyArrayStorage[4];
 LABEL_39:
-  v31 = v28;
+  v30 = v27;
 
 LABEL_42:
-  [v35 setPlayer:{v31, v33}];
+  [v34 setPlayer:{v30, v32}];
 LABEL_43:
 }
 
@@ -2301,12 +2283,12 @@ LABEL_23:
     if (v6)
     {
 LABEL_3:
-      v29 = a4;
-      v30 = v6;
+      v28 = a4;
+      v29 = v6;
       v7 = 0;
       a4 = v5 & 0xC000000000000001;
-      v33 = v5 & 0xFFFFFFFFFFFFFF8;
-      v31 = v5;
+      v32 = v5 & 0xFFFFFFFFFFFFFF8;
+      v30 = v5;
       while (1)
       {
         if (a4)
@@ -2316,7 +2298,7 @@ LABEL_3:
 
         else
         {
-          if (v7 >= *(v33 + 16))
+          if (v7 >= *(v32 + 16))
           {
             goto LABEL_22;
           }
@@ -2348,7 +2330,7 @@ LABEL_5:
         ++v7;
         if (v10 == v6)
         {
-          a4 = v29;
+          a4 = v28;
           if ((_swiftEmptyArrayStorage & 0x8000000000000000) == 0)
           {
             goto LABEL_25;
@@ -2390,13 +2372,12 @@ LABEL_5:
       }
 
       sub_100041EF0();
-      v26 = _swiftEmptyArrayStorage[2];
       sub_100041F10();
       sub_100041F20();
       sub_100041F00();
 LABEL_17:
-      v6 = v30;
-      v5 = v31;
+      v6 = v29;
+      v5 = v30;
       goto LABEL_5;
     }
   }
@@ -2410,103 +2391,102 @@ LABEL_25:
   if ((_swiftEmptyArrayStorage & 0x4000000000000000) != 0)
   {
 LABEL_31:
-    v27 = sub_100041F50();
+    v26 = sub_100041F50();
   }
 
   else
   {
-    v27 = _swiftEmptyArrayStorage[2];
+    v26 = _swiftEmptyArrayStorage[2];
   }
 
-  if (v27 <= 0)
+  if (v26 <= 0)
   {
-    v28 = 3;
+    v27 = 3;
   }
 
   else
   {
-    v28 = 4;
+    v27 = 4;
   }
 
-  *(a4 + OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState) = v28;
+  *(a4 + OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState) = v27;
   sub_10000AC8C();
 }
 
-uint64_t sub_1000073F0()
+uint64_t sub_1000073F0(uint64_t a1)
 {
-  v1 = 0xEA00000000006C61;
-  v2 = 0x7564697669646E69;
-  v3 = *(v0 + OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardViewer);
-  v4 = sub_100039914();
-  if (v4)
+  v2 = 0xEA00000000006C61;
+  v3 = 0x7564697669646E69;
+  v4 = *(v1 + OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardViewer);
+  v5 = sub_100039914();
+  if (v5)
   {
-    v5 = v4;
-    v6 = [v4 activeConversation];
+    v6 = v5;
+    v7 = [v5 activeConversation];
 
-    if (v6)
+    if (v7)
     {
-      v7 = [v6 recipientAddresses];
-      v8 = sub_100041C20();
+      v8 = [v7 recipientAddresses];
+      v9 = sub_100041C20();
 
-      v9 = *(v8 + 16);
+      v10 = *(v9 + 16);
 
-      if (v9 > 1)
+      if (v10 > 1)
       {
-        v2 = 0x70756F7267;
-        v1 = 0xE500000000000000;
+        v3 = 0x70756F7267;
+        v2 = 0xE500000000000000;
       }
     }
   }
 
-  v10 = 0x7265646E6573;
-  if (v3)
+  v11 = 0x7265646E6573;
+  if (v4)
   {
-    v10 = 0x6E65697069636572;
+    v11 = 0x6E65697069636572;
   }
 
-  v12 = v10;
-  v13._countAndFlagsBits = 95;
-  v13._object = 0xE100000000000000;
-  sub_100041B80(v13);
-  v14._countAndFlagsBits = v2;
-  v14._object = v1;
+  v13 = v11;
+  v14._countAndFlagsBits = 95;
+  v14._object = 0xE100000000000000;
   sub_100041B80(v14);
+  v15._countAndFlagsBits = v3;
+  v15._object = v2;
+  sub_100041B80(v15);
 
-  return v12;
+  return v13;
 }
 
 void sub_100007534()
 {
   v1 = sub_100041410();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   __chkstk_darwin(v1);
-  v5 = &v79 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for FriendRequestCardViewController();
-  v79.receiver = v0;
-  v79.super_class = v6;
-  objc_msgSendSuper2(&v79, "viewDidLoad");
+  v4 = &v78 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for FriendRequestCardViewController();
+  v78.receiver = v0;
+  v78.super_class = v5;
+  objc_msgSendSuper2(&v78, "viewDidLoad");
   sub_1000413E0();
-  v7 = v0;
-  v8 = sub_100041400();
-  v9 = sub_100041CC0();
+  v6 = v0;
+  v7 = sub_100041400();
+  v8 = sub_100041CC0();
 
-  if (os_log_type_enabled(v8, v9))
+  if (os_log_type_enabled(v7, v8))
   {
+    v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    *v10 = 138412290;
-    *(v10 + 4) = v7;
-    *v11 = v7;
-    v12 = v7;
-    _os_log_impl(&_mh_execute_header, v8, v9, "%@ viewDidLoad", v10, 0xCu);
-    sub_10000E9F0(v11, &unk_10005CA00, &unk_100045CF0);
+    *v9 = 138412290;
+    *(v9 + 4) = v6;
+    *v10 = v6;
+    v11 = v6;
+    _os_log_impl(&_mh_execute_header, v7, v8, "%@ viewDidLoad", v9, 0xCu);
+    sub_10000E9F0(v10, &unk_10005CA00, &unk_100045CF0);
   }
 
-  (*(v2 + 8))(v5, v1);
-  v13 = [objc_opt_self() defaultCenter];
-  v14 = sub_100041AF0();
-  [v13 addObserver:v7 selector:"updateCard:" name:v14 object:0];
+  (*(v2 + 8))(v4, v1);
+  v12 = [objc_opt_self() defaultCenter];
+  v13 = sub_100041AF0();
+  [v12 addObserver:v6 selector:"updateCard:" name:v13 object:0];
 
   Strong = swift_unknownObjectWeakLoadStrong();
   if (!Strong)
@@ -2515,24 +2495,24 @@ void sub_100007534()
     goto LABEL_41;
   }
 
-  v16 = Strong;
-  v17 = [Strong layer];
+  v15 = Strong;
+  v16 = [Strong layer];
 
-  [v17 setCornerRadius:9.0];
-  v18 = swift_unknownObjectWeakLoadStrong();
-  if (!v18)
+  [v16 setCornerRadius:9.0];
+  v17 = swift_unknownObjectWeakLoadStrong();
+  if (!v17)
   {
 LABEL_41:
     __break(1u);
     goto LABEL_42;
   }
 
-  v19 = v18;
-  v20 = [v18 layer];
+  v18 = v17;
+  v19 = [v17 layer];
 
-  [v20 setMasksToBounds:1];
-  v21 = swift_unknownObjectWeakLoadStrong();
-  if (!v21)
+  [v19 setMasksToBounds:1];
+  v20 = swift_unknownObjectWeakLoadStrong();
+  if (!v20)
   {
 LABEL_42:
     __break(1u);
@@ -2541,27 +2521,27 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  v22 = v21;
-  v23 = [v21 titleLabel];
+  v21 = v20;
+  v22 = [v20 titleLabel];
 
-  if (v23)
+  if (v22)
   {
-    v24 = [objc_opt_self() _preferredFontForTextStyle:UIFontTextStyleSubheadline variant:1024];
-    [v23 setFont:v24];
+    v23 = [objc_opt_self() _preferredFontForTextStyle:UIFontTextStyleSubheadline variant:1024];
+    [v22 setFont:v23];
   }
 
-  v25 = swift_unknownObjectWeakLoadStrong();
-  if (!v25)
+  v24 = swift_unknownObjectWeakLoadStrong();
+  if (!v24)
   {
     goto LABEL_43;
   }
 
-  v26 = v25;
-  v27 = [v25 titleLabel];
+  v25 = v24;
+  v26 = [v24 titleLabel];
 
-  [v27 setAdjustsFontSizeToFitWidth:1];
-  v28 = swift_unknownObjectWeakLoadStrong();
-  if (!v28)
+  [v26 setAdjustsFontSizeToFitWidth:1];
+  v27 = swift_unknownObjectWeakLoadStrong();
+  if (!v27)
   {
 LABEL_44:
     __break(1u);
@@ -2570,38 +2550,38 @@ LABEL_45:
     goto LABEL_46;
   }
 
-  v29 = v28;
-  v30 = [v28 titleLabel];
+  v28 = v27;
+  v29 = [v27 titleLabel];
 
-  if (v30)
+  if (v29)
   {
-    [v30 setMinimumScaleFactor:0.5];
+    [v29 setMinimumScaleFactor:0.5];
   }
 
-  v31 = swift_unknownObjectWeakLoadStrong();
-  if (!v31)
+  v30 = swift_unknownObjectWeakLoadStrong();
+  if (!v30)
   {
     goto LABEL_45;
   }
 
-  v32 = v31;
-  v33 = [v31 layer];
+  v31 = v30;
+  v32 = [v30 layer];
 
-  [v33 setCornerRadius:9.0];
-  v34 = swift_unknownObjectWeakLoadStrong();
-  if (!v34)
+  [v32 setCornerRadius:9.0];
+  v33 = swift_unknownObjectWeakLoadStrong();
+  if (!v33)
   {
 LABEL_46:
     __break(1u);
     goto LABEL_47;
   }
 
-  v35 = v34;
-  v36 = [v34 layer];
+  v34 = v33;
+  v35 = [v33 layer];
 
-  [v36 setMasksToBounds:1];
-  v37 = swift_unknownObjectWeakLoadStrong();
-  if (!v37)
+  [v35 setMasksToBounds:1];
+  v36 = swift_unknownObjectWeakLoadStrong();
+  if (!v36)
   {
 LABEL_47:
     __break(1u);
@@ -2612,54 +2592,54 @@ LABEL_49:
     goto LABEL_50;
   }
 
-  v38 = v37;
-  v39 = [v37 titleLabel];
+  v37 = v36;
+  v38 = [v36 titleLabel];
 
-  if (v39)
+  if (v38)
   {
-    v40 = [objc_opt_self() _preferredFontForTextStyle:UIFontTextStyleSubheadline variant:1024];
-    [v39 setFont:v40];
+    v39 = [objc_opt_self() _preferredFontForTextStyle:UIFontTextStyleSubheadline variant:1024];
+    [v38 setFont:v39];
   }
 
-  v41 = swift_unknownObjectWeakLoadStrong();
-  if (!v41)
+  v40 = swift_unknownObjectWeakLoadStrong();
+  if (!v40)
   {
     goto LABEL_48;
   }
 
-  v42 = v41;
-  v43 = [v41 titleLabel];
+  v41 = v40;
+  v42 = [v40 titleLabel];
 
-  if (v43)
+  if (v42)
   {
-    v44 = [objc_opt_self() whiteColor];
-    [v43 setTextColor:v44];
+    v43 = [objc_opt_self() whiteColor];
+    [v42 setTextColor:v43];
   }
 
-  v45 = swift_unknownObjectWeakLoadStrong();
-  if (!v45)
+  v44 = swift_unknownObjectWeakLoadStrong();
+  if (!v44)
   {
     goto LABEL_49;
   }
 
-  v46 = v45;
-  v47 = [v45 layer];
+  v45 = v44;
+  v46 = [v44 layer];
 
-  [v47 setCornerRadius:9.0];
-  v48 = swift_unknownObjectWeakLoadStrong();
-  if (!v48)
+  [v46 setCornerRadius:9.0];
+  v47 = swift_unknownObjectWeakLoadStrong();
+  if (!v47)
   {
 LABEL_50:
     __break(1u);
     goto LABEL_51;
   }
 
-  v49 = v48;
-  v50 = [v48 layer];
+  v48 = v47;
+  v49 = [v47 layer];
 
-  [v50 setMasksToBounds:1];
-  v51 = swift_unknownObjectWeakLoadStrong();
-  if (!v51)
+  [v49 setMasksToBounds:1];
+  v50 = swift_unknownObjectWeakLoadStrong();
+  if (!v50)
   {
 LABEL_51:
     __break(1u);
@@ -2668,27 +2648,27 @@ LABEL_52:
     goto LABEL_53;
   }
 
-  v52 = v51;
-  v53 = [v51 titleLabel];
+  v51 = v50;
+  v52 = [v50 titleLabel];
 
-  if (v53)
+  if (v52)
   {
-    v54 = [objc_opt_self() _preferredFontForTextStyle:UIFontTextStyleSubheadline variant:1024];
-    [v53 setFont:v54];
+    v53 = [objc_opt_self() _preferredFontForTextStyle:UIFontTextStyleSubheadline variant:1024];
+    [v52 setFont:v53];
   }
 
-  v55 = swift_unknownObjectWeakLoadStrong();
-  if (!v55)
+  v54 = swift_unknownObjectWeakLoadStrong();
+  if (!v54)
   {
     goto LABEL_52;
   }
 
-  v56 = v55;
-  v57 = [v55 titleLabel];
+  v55 = v54;
+  v56 = [v54 titleLabel];
 
-  [v57 setAdjustsFontSizeToFitWidth:1];
-  v58 = swift_unknownObjectWeakLoadStrong();
-  if (!v58)
+  [v56 setAdjustsFontSizeToFitWidth:1];
+  v57 = swift_unknownObjectWeakLoadStrong();
+  if (!v57)
   {
 LABEL_53:
     __break(1u);
@@ -2697,69 +2677,69 @@ LABEL_54:
     goto LABEL_55;
   }
 
-  v59 = v58;
-  v60 = [v58 titleLabel];
+  v58 = v57;
+  v59 = [v57 titleLabel];
 
-  if (v60)
+  if (v59)
   {
-    [v60 setMinimumScaleFactor:0.5];
+    [v59 setMinimumScaleFactor:0.5];
   }
 
-  v61 = swift_unknownObjectWeakLoadStrong();
-  if (!v61)
+  v60 = swift_unknownObjectWeakLoadStrong();
+  if (!v60)
   {
     goto LABEL_54;
   }
 
-  v62 = v61;
-  [v61 setUserInteractionEnabled:1];
+  v61 = v60;
+  [v60 setUserInteractionEnabled:1];
 
-  v63 = objc_allocWithZone(UITapGestureRecognizer);
-  v64 = v7;
-  v65 = [v63 initWithTarget:v64 action:"avatarPressed:"];
-  v66 = swift_unknownObjectWeakLoadStrong();
-  if (!v66)
+  v62 = objc_allocWithZone(UITapGestureRecognizer);
+  v63 = v6;
+  v64 = [v62 initWithTarget:v63 action:"avatarPressed:"];
+  v65 = swift_unknownObjectWeakLoadStrong();
+  if (!v65)
   {
 LABEL_55:
     __break(1u);
     goto LABEL_56;
   }
 
-  v67 = v66;
-  [v66 addGestureRecognizer:v65];
+  v66 = v65;
+  [v65 addGestureRecognizer:v64];
 
-  v68 = swift_unknownObjectWeakLoadStrong();
-  if (!v68)
+  v67 = swift_unknownObjectWeakLoadStrong();
+  if (!v67)
   {
 LABEL_56:
     __break(1u);
     goto LABEL_57;
   }
 
-  v69 = v68;
-  [v68 setUserInteractionEnabled:1];
+  v68 = v67;
+  [v67 setUserInteractionEnabled:1];
 
-  v70 = [objc_allocWithZone(UITapGestureRecognizer) initWithTarget:v64 action:"friendAvatarPressed:"];
-  v71 = swift_unknownObjectWeakLoadStrong();
-  if (!v71)
+  v69 = [objc_allocWithZone(UITapGestureRecognizer) initWithTarget:v63 action:"friendAvatarPressed:"];
+  v70 = swift_unknownObjectWeakLoadStrong();
+  if (!v70)
   {
 LABEL_57:
     __break(1u);
     goto LABEL_58;
   }
 
-  v72 = v71;
-  [v71 addGestureRecognizer:v70];
+  v71 = v70;
+  [v70 addGestureRecognizer:v69];
 
-  v73 = *&v64[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_playerModel];
-  if (!v73)
+  v72 = *&v63[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_playerModel];
+  if (!v72)
   {
 LABEL_58:
     __break(1u);
     return;
   }
 
-  if (*(v73 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode + 8))
+  if (*(v72 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode + 8))
   {
     sub_1000056A8();
   }
@@ -2769,79 +2749,78 @@ LABEL_58:
     sub_100007EF8();
   }
 
-  if (v64[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardViewer] == 1)
+  if (v63[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardViewer] == 1)
   {
-    v74 = [objc_allocWithZone(GKReporter) init];
-    [v74 reportEvent:GKReporterDomainImprovedFriendingUIInteractions type:GKFriendInviteViewedByReceiver];
+    v73 = [objc_allocWithZone(GKReporter) init];
+    [v73 reportEvent:GKReporterDomainImprovedFriendingUIInteractions type:GKFriendInviteViewedByReceiver];
   }
 
-  v75 = [objc_allocWithZone(GKAPIReporter) init];
-  sub_1000073F0();
-  v76 = sub_100041AF0();
+  v74 = [objc_allocWithZone(GKAPIReporter) init];
+  sub_1000073F0(v74);
+  v75 = sub_100041AF0();
 
+  v76 = sub_100041AF0();
   v77 = sub_100041AF0();
-  v78 = sub_100041AF0();
-  [v75 recordPageWithID:v76 pageContext:v77 pageType:v78];
+  [v74 recordPageWithID:v75 pageContext:v76 pageType:v77];
 }
 
 void sub_100007EF8()
 {
   v1 = sub_100041410();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   __chkstk_darwin(v1);
-  v5 = &v26 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = *&v0[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_playerModel];
-  if (v6)
+  v4 = &v25 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = *&v0[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_playerModel];
+  if (v5)
   {
-    v7 = v6;
+    v6 = v5;
     sub_1000413E0();
-    v8 = v0;
-    v9 = sub_100041400();
-    v10 = sub_100041CC0();
+    v7 = v0;
+    v8 = sub_100041400();
+    v9 = sub_100041CC0();
 
-    if (os_log_type_enabled(v9, v10))
+    if (os_log_type_enabled(v8, v9))
     {
+      v10 = swift_slowAlloc();
       v11 = swift_slowAlloc();
-      v12 = swift_slowAlloc();
-      *v11 = 138412290;
-      *(v11 + 4) = v8;
-      *v12 = v8;
-      v13 = v8;
-      _os_log_impl(&_mh_execute_header, v9, v10, "%@ creating friend request", v11, 0xCu);
-      sub_10000E9F0(v12, &unk_10005CA00, &unk_100045CF0);
+      *v10 = 138412290;
+      *(v10 + 4) = v7;
+      *v11 = v7;
+      v12 = v7;
+      _os_log_impl(&_mh_execute_header, v8, v9, "%@ creating friend request", v10, 0xCu);
+      sub_10000E9F0(v11, &unk_10005CA00, &unk_100045CF0);
     }
 
-    (*(v2 + 8))(v5, v1);
-    v14 = [objc_allocWithZone(UIActivityIndicatorView) initWithActivityIndicatorStyle:100];
-    v15 = [v8 traitCollection];
-    v16 = [v15 userInterfaceStyle];
+    (*(v2 + 8))(v4, v1);
+    v13 = [objc_allocWithZone(UIActivityIndicatorView) initWithActivityIndicatorStyle:100];
+    v14 = [v7 traitCollection];
+    v15 = [v14 userInterfaceStyle];
 
-    v17 = objc_opt_self();
-    v18 = &selRef_tertiarySystemGroupedBackgroundColor;
-    if (v16 != 2)
+    v16 = objc_opt_self();
+    v17 = &selRef_tertiarySystemGroupedBackgroundColor;
+    if (v15 != 2)
     {
-      v18 = &selRef_systemGray6Color;
+      v17 = &selRef_systemGray6Color;
     }
 
-    v19 = [v17 *v18];
-    [v14 setBackgroundColor:v19];
+    v18 = [v16 *v17];
+    [v13 setBackgroundColor:v18];
 
-    [v14 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [v14 startAnimating];
-    v20 = [v8 view];
-    if (v20)
+    [v13 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [v13 startAnimating];
+    v19 = [v7 view];
+    if (v19)
     {
-      v21 = v20;
-      [v20 addSubview:v14];
+      v20 = v19;
+      [v19 addSubview:v13];
 
-      v22 = objc_opt_self();
-      v23 = [v8 view];
-      [v22 _gkInstallEdgeConstraintsForView:v14 containedWithinParentView:v23];
+      v21 = objc_opt_self();
+      v22 = [v7 view];
+      [v21 _gkInstallEdgeConstraintsForView:v13 containedWithinParentView:v22];
 
+      v23 = v6;
       v24 = v7;
-      v25 = v8;
-      sub_10001903C(v24, v14, v24, v25);
+      sub_10001903C(v23, v13, v23, v24);
     }
 
     else
@@ -2854,181 +2833,177 @@ void sub_100007EF8()
 void sub_100008230(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
   v7 = sub_100041410();
-  v56 = *(v7 - 8);
-  v57 = v7;
-  v8 = *(v56 + 64);
-  v9 = __chkstk_darwin(v7);
-  v55 = &v54 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __chkstk_darwin(v9);
-  v13 = &v54 - v12;
-  __chkstk_darwin(v11);
-  v15 = &v54 - v14;
-  v16 = sub_100002D08(&qword_10005CA30, &unk_100046380);
-  v17 = *(*(v16 - 8) + 64);
-  __chkstk_darwin(v16 - 8);
-  v19 = &v54 - v18;
-  v20 = sub_100041200();
-  v21 = *(v20 - 8);
-  v22 = *(v21 + 64);
-  __chkstk_darwin(v20);
-  v24 = &v54 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v53 = *(v7 - 8);
+  v54 = v7;
+  v8 = __chkstk_darwin(v7);
+  v52 = &v51 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __chkstk_darwin(v8);
+  v12 = &v51 - v11;
+  __chkstk_darwin(v10);
+  v14 = &v51 - v13;
+  v15 = sub_100002D08(&qword_10005CA30, &unk_100046380);
+  __chkstk_darwin(v15 - 8);
+  v17 = &v51 - v16;
+  v18 = sub_100041200();
+  v19 = *(v18 - 8);
+  __chkstk_darwin(v18);
+  v21 = &v51 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   [a2 removeFromSuperview];
   if (a1)
   {
     goto LABEL_4;
   }
 
-  sub_10001287C(1, v19);
-  if ((*(v21 + 48))(v19, 1, v20) == 1)
+  sub_10001287C(1, v17);
+  if ((*(v19 + 48))(v17, 1, v18) == 1)
   {
-    sub_10000E9F0(v19, &qword_10005CA30, &unk_100046380);
+    sub_10000E9F0(v17, &qword_10005CA30, &unk_100046380);
 LABEL_4:
     sub_1000413E0();
-    v25 = a4;
+    v22 = a4;
     swift_errorRetain();
-    v26 = sub_100041400();
-    v27 = sub_100041CC0();
+    v23 = sub_100041400();
+    v24 = sub_100041CC0();
 
-    if (os_log_type_enabled(v26, v27))
+    if (os_log_type_enabled(v23, v24))
     {
-      v28 = swift_slowAlloc();
-      v29 = swift_slowAlloc();
-      v30 = swift_slowAlloc();
-      v58 = a1;
-      v59 = v30;
-      *v28 = 138412546;
-      *(v28 + 4) = v25;
-      *v29 = v25;
-      *(v28 + 12) = 2080;
-      v31 = v25;
+      v25 = swift_slowAlloc();
+      v26 = swift_slowAlloc();
+      v27 = swift_slowAlloc();
+      v55 = a1;
+      v56 = v27;
+      *v25 = 138412546;
+      *(v25 + 4) = v22;
+      *v26 = v22;
+      *(v25 + 12) = 2080;
+      v28 = v22;
       sub_100002D08(&unk_10005CF10, &qword_100047670);
-      v32 = sub_100041E10();
-      v34 = sub_10003FBD0(v32, v33, &v59);
+      v29 = sub_100041E10();
+      v31 = sub_10003FBD0(v29, v30, &v56);
 
-      *(v28 + 14) = v34;
-      _os_log_impl(&_mh_execute_header, v26, v27, "%@ failed to create friend request with %s", v28, 0x16u);
-      sub_10000E9F0(v29, &unk_10005CA00, &unk_100045CF0);
+      *(v25 + 14) = v31;
+      _os_log_impl(&_mh_execute_header, v23, v24, "%@ failed to create friend request with %s", v25, 0x16u);
+      sub_10000E9F0(v26, &unk_10005CA00, &unk_100045CF0);
 
-      sub_10000E8A8(v30);
+      sub_10000E8A8(v27);
     }
 
-    v35 = v57;
-    v36 = *(v56 + 8);
-    v36(v13, v57);
-    v37 = v55;
-    *(v25 + OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState) = 7;
+    v32 = v54;
+    v33 = *(v53 + 8);
+    v33(v12, v54);
+    v34 = v52;
+    *(v22 + OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardState) = 7;
     sub_10000AC8C();
-    v38 = sub_100039914();
-    if (v38)
+    v35 = sub_100039914();
+    if (v35)
     {
-      v39 = v38;
+      v36 = v35;
       sub_1000413E0();
-      v40 = v39;
-      v41 = sub_100041400();
-      v42 = sub_100041CC0();
+      v37 = v36;
+      v38 = sub_100041400();
+      v39 = sub_100041CC0();
 
-      if (os_log_type_enabled(v41, v42))
+      if (os_log_type_enabled(v38, v39))
       {
-        v43 = swift_slowAlloc();
-        v44 = swift_slowAlloc();
-        *v43 = 138412290;
-        *(v43 + 4) = v40;
-        *v44 = v39;
-        v45 = v40;
-        _os_log_impl(&_mh_execute_header, v41, v42, "%@ user interface is ready for display", v43, 0xCu);
-        sub_10000E9F0(v44, &unk_10005CA00, &unk_100045CF0);
+        v40 = swift_slowAlloc();
+        v41 = swift_slowAlloc();
+        *v40 = 138412290;
+        *(v40 + 4) = v37;
+        *v41 = v36;
+        v42 = v37;
+        _os_log_impl(&_mh_execute_header, v38, v39, "%@ user interface is ready for display", v40, 0xCu);
+        sub_10000E9F0(v41, &unk_10005CA00, &unk_100045CF0);
       }
 
-      v36(v37, v35);
-      [v40 setReadyForDisplay];
+      v33(v34, v32);
+      [v37 setReadyForDisplay];
     }
 
     return;
   }
 
-  (*(v21 + 32))(v24, v19, v20);
+  (*(v19 + 32))(v21, v17, v18);
   sub_1000413E0();
-  v46 = a4;
-  v47 = sub_100041400();
-  v48 = sub_100041CC0();
+  v43 = a4;
+  v44 = sub_100041400();
+  v45 = sub_100041CC0();
 
-  if (os_log_type_enabled(v47, v48))
+  if (os_log_type_enabled(v44, v45))
   {
-    v49 = swift_slowAlloc();
-    v50 = swift_slowAlloc();
-    *v49 = 138412290;
-    *(v49 + 4) = v46;
-    *v50 = v46;
-    v51 = v46;
-    _os_log_impl(&_mh_execute_header, v47, v48, "%@ friend request created", v49, 0xCu);
-    sub_10000E9F0(v50, &unk_10005CA00, &unk_100045CF0);
+    v46 = swift_slowAlloc();
+    v47 = swift_slowAlloc();
+    *v46 = 138412290;
+    *(v46 + 4) = v43;
+    *v47 = v43;
+    v48 = v43;
+    _os_log_impl(&_mh_execute_header, v44, v45, "%@ friend request created", v46, 0xCu);
+    sub_10000E9F0(v47, &unk_10005CA00, &unk_100045CF0);
   }
 
-  (*(v56 + 8))(v15, v57);
-  v52 = *&v46[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_onFetchedUrl];
-  if (v52)
+  (*(v53 + 8))(v14, v54);
+  v49 = *&v43[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_onFetchedUrl];
+  if (v49)
   {
-    v53 = *&v46[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_onFetchedUrl + 8];
+    v50 = *&v43[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_onFetchedUrl + 8];
 
-    v52(v24);
-    sub_10000EA50(v52);
+    v49(v21);
+    sub_10000EA50(v49, v50);
   }
 
   sub_1000056A8();
-  (*(v21 + 8))(v24, v20);
+  (*(v19 + 8))(v21, v18);
 }
 
 void sub_100008854()
 {
   v1 = sub_100041410();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   __chkstk_darwin(v1);
-  v5 = &v71 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_100039914();
-  if (v6)
+  v4 = &v70 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_100039914();
+  if (v5)
   {
-    v72 = v6;
+    v71 = v5;
     if (([objc_opt_self() _gkIsOnline] & 1) == 0)
     {
-      v31 = GKGameCenterUIFrameworkBundle();
-      v67._countAndFlagsBits = 0xE000000000000000;
-      v77._countAndFlagsBits = 0xD000000000000016;
-      v77._object = 0x8000000100044140;
+      v30 = GKGameCenterUIFrameworkBundle();
+      v66._countAndFlagsBits = 0xE000000000000000;
+      v76._countAndFlagsBits = 0xD000000000000016;
+      v76._object = 0x8000000100044140;
+      v81.value._countAndFlagsBits = 0;
+      v81.value._object = 0;
+      v31.super.isa = v30;
+      v86._countAndFlagsBits = 0;
+      v86._object = 0xE000000000000000;
+      sub_100041180(v76, v81, v31, v86, 0, v66);
+
+      v32 = sub_100041AF0();
+
+      v33 = GKGameCenterUIFrameworkBundle();
+      v68._countAndFlagsBits = 0xE000000000000000;
+      v77._countAndFlagsBits = 0xD000000000000018;
+      v77._object = 0x8000000100043F40;
       v82.value._countAndFlagsBits = 0;
       v82.value._object = 0;
-      v32.super.isa = v31;
+      v34.super.isa = v33;
       v87._countAndFlagsBits = 0;
       v87._object = 0xE000000000000000;
-      sub_100041180(v77, v82, v32, v87, v67);
+      sub_100041180(v77, v82, v34, v87, 0, v68);
 
-      v33 = sub_100041AF0();
+      v35 = sub_100041AF0();
 
-      v34 = GKGameCenterUIFrameworkBundle();
+      v36 = GKGameCenterUIFrameworkBundle();
       v69._countAndFlagsBits = 0xE000000000000000;
-      v78._countAndFlagsBits = 0xD000000000000018;
-      v78._object = 0x8000000100043F40;
+      v78._countAndFlagsBits = 0x4F545455425F4B4FLL;
+      v78._object = 0xE90000000000004ELL;
       v83.value._countAndFlagsBits = 0;
       v83.value._object = 0;
-      v35.super.isa = v34;
+      v37.super.isa = v36;
       v88._countAndFlagsBits = 0;
       v88._object = 0xE000000000000000;
-      sub_100041180(v78, v83, v35, v88, v69);
+      sub_100041180(v78, v83, v37, v88, 0, v69);
 
-      v36 = sub_100041AF0();
-
-      v37 = GKGameCenterUIFrameworkBundle();
-      v70._countAndFlagsBits = 0xE000000000000000;
-      v79._countAndFlagsBits = 0x4F545455425F4B4FLL;
-      v79._object = 0xE90000000000004ELL;
-      v84.value._countAndFlagsBits = 0;
-      v84.value._object = 0;
-      v38.super.isa = v37;
-      v89._countAndFlagsBits = 0;
-      v89._object = 0xE000000000000000;
-      sub_100041180(v79, v84, v38, v89, v70);
-
-      v39 = sub_100041AF0();
+      v38 = sub_100041AF0();
 
       aBlock[4] = nullsub_1;
       aBlock[5] = 0;
@@ -3036,71 +3011,71 @@ void sub_100008854()
       aBlock[1] = 1107296256;
       aBlock[2] = sub_100012BD4;
       aBlock[3] = &unk_100055CB0;
-      v40 = _Block_copy(aBlock);
-      [v72 _presentAlertWithTitle:v33 message:v36 buttonTitle:v39 completion:v40];
-      _Block_release(v40);
+      v39 = _Block_copy(aBlock);
+      [v71 _presentAlertWithTitle:v32 message:v35 buttonTitle:v38 completion:v39];
+      _Block_release(v39);
 
-      v41 = [objc_allocWithZone(GKAPIReporter) init];
+      v40 = [objc_allocWithZone(GKAPIReporter) init];
+      v41 = sub_100041AF0();
       v42 = sub_100041AF0();
       v43 = sub_100041AF0();
+      sub_1000073F0(v43);
       v44 = sub_100041AF0();
-      sub_1000073F0();
-      v45 = sub_100041AF0();
 
-      v46 = sub_100041AF0();
-      [v41 recordClickWithAction:v42 targetId:v43 targetType:v44 pageId:v45 pageType:v46];
+      v45 = sub_100041AF0();
+      [v40 recordClickWithAction:v41 targetId:v42 targetType:v43 pageId:v44 pageType:v45];
 
       return;
     }
 
-    v7 = [objc_opt_self() shared];
-    if (v7)
+    v6 = [objc_opt_self() shared];
+    if (v6)
     {
-      v8 = v7;
-      v9 = [v7 isAddingFriendsRestricted];
+      v7 = v6;
+      v8 = [v6 isAddingFriendsRestricted];
 
-      if (v9)
+      if (v8)
       {
-        v10 = [objc_allocWithZone(GKReporter) init];
-        [v10 reportEvent:GKReporterDomainManualFriending type:GKFriendRequestRestrictedError];
+        v9 = [objc_allocWithZone(GKReporter) init];
+        [v9 reportEvent:GKReporterDomainManualFriending type:GKFriendRequestRestrictedError];
 
-        v11 = [objc_allocWithZone(GKAPIReporter) init];
+        v10 = [objc_allocWithZone(GKAPIReporter) init];
+        v11 = sub_100041AF0();
         v12 = sub_100041AF0();
         v13 = sub_100041AF0();
+        sub_1000073F0(v13);
         v14 = sub_100041AF0();
-        sub_1000073F0();
+
         v15 = sub_100041AF0();
+        [v10 recordClickWithAction:v11 targetId:v12 targetType:v13 pageId:v14 pageType:v15];
 
-        v16 = sub_100041AF0();
-        [v11 recordClickWithAction:v12 targetId:v13 targetType:v14 pageId:v15 pageType:v16];
+        v16 = GKGameCenterUIFrameworkBundle();
+        v66._countAndFlagsBits = 0xE000000000000000;
+        v74._countAndFlagsBits = 0x525F444E45495246;
+        v74._object = 0xEE00545345555145;
+        v79.value._countAndFlagsBits = 0;
+        v79.value._object = 0;
+        v17.super.isa = v16;
+        v84._countAndFlagsBits = 0;
+        v84._object = 0xE000000000000000;
+        v18 = sub_100041180(v74, v79, v17, v84, 0, v66);
+        v20 = v19;
 
-        v17 = GKGameCenterUIFrameworkBundle();
+        v21 = GKGameCenterUIFrameworkBundle();
         v67._countAndFlagsBits = 0xE000000000000000;
-        v75._countAndFlagsBits = 0x525F444E45495246;
-        v75._object = 0xEE00545345555145;
+        v75._countAndFlagsBits = 0xD000000000000027;
+        v75._object = 0x8000000100044180;
         v80.value._countAndFlagsBits = 0;
         v80.value._object = 0;
-        v18.super.isa = v17;
+        v22.super.isa = v21;
         v85._countAndFlagsBits = 0;
         v85._object = 0xE000000000000000;
-        v19 = sub_100041180(v75, v80, v18, v85, v67);
-        v21 = v20;
+        v23 = sub_100041180(v75, v80, v22, v85, 0, v67);
+        v25 = v24;
 
-        v22 = GKGameCenterUIFrameworkBundle();
-        v68._countAndFlagsBits = 0xE000000000000000;
-        v76._countAndFlagsBits = 0xD000000000000027;
-        v76._object = 0x8000000100044180;
-        v81.value._countAndFlagsBits = 0;
-        v81.value._object = 0;
-        v23.super.isa = v22;
-        v86._countAndFlagsBits = 0;
-        v86._object = 0xE000000000000000;
-        v24 = sub_100041180(v76, v81, v23, v86, v68);
-        v26 = v25;
+        sub_10003074C(v18, v20, v23, v25);
 
-        sub_10003074C(v19, v21, v24, v26);
-
-        v27 = v72;
+        v26 = v71;
 
         return;
       }
@@ -3111,46 +3086,46 @@ void sub_100008854()
         goto LABEL_27;
       }
 
-      v48 = Strong;
+      v47 = Strong;
       [Strong setEnabled:0];
 
-      v49 = swift_unknownObjectWeakLoadStrong();
-      if (!v49)
+      v48 = swift_unknownObjectWeakLoadStrong();
+      if (!v48)
       {
 LABEL_28:
         __break(1u);
         goto LABEL_29;
       }
 
-      v50 = v49;
-      v51 = [objc_opt_self() systemGray2Color];
-      [v50 setBackgroundColor:v51];
+      v49 = v48;
+      v50 = [objc_opt_self() systemGray2Color];
+      [v49 setBackgroundColor:v50];
 
-      v52 = [v72 activeConversation];
-      v53 = v52;
-      if (v52)
+      v51 = [v71 activeConversation];
+      v52 = v51;
+      if (v51)
       {
-        v54 = [v52 recipientAddresses];
-        v55 = sub_100041C20();
+        v53 = [v51 recipientAddresses];
+        v54 = sub_100041C20();
 
-        v56 = *(v55 + 16);
+        v55 = *(v54 + 16);
 
-        if (v56)
+        if (v55)
         {
-          v57 = [v53 recipientAddresses];
-          v58 = sub_100041C20();
+          v56 = [v52 recipientAddresses];
+          v57 = sub_100041C20();
 
-          if (v58[2])
+          if (v57[2])
           {
-            v59 = v58[4];
-            v56 = v58[5];
+            v58 = v57[4];
+            v55 = v57[5];
 
-            v60 = [v53 recipientAddresses];
-            v61 = sub_100041C20();
+            v59 = [v52 recipientAddresses];
+            v60 = sub_100041C20();
 
-            v53 = *(v61 + 16);
+            v52 = *(v60 + 16);
 
-            LODWORD(v53) = v53 > 1;
+            LODWORD(v52) = v52 > 1;
             goto LABEL_21;
           }
 
@@ -3158,27 +3133,27 @@ LABEL_28:
           goto LABEL_26;
         }
 
-        LODWORD(v53) = 0;
-        v59 = 0;
+        LODWORD(v52) = 0;
+        v58 = 0;
       }
 
       else
       {
-        v59 = 0;
-        v56 = 0;
+        v58 = 0;
+        v55 = 0;
       }
 
 LABEL_21:
-      v62 = *&v0[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_playerModel];
-      if (v62)
+      v61 = *&v0[OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_playerModel];
+      if (v61)
       {
-        v63 = swift_allocObject();
-        *(v63 + 16) = v0;
-        *(v63 + 24) = v72;
-        v64 = v62;
-        v65 = v0;
-        v66 = v72;
-        sub_100012C18(v59, v56, v53, sub_10000E934, v63);
+        v62 = swift_allocObject();
+        *(v62 + 16) = v0;
+        *(v62 + 24) = v71;
+        v63 = v61;
+        v64 = v0;
+        v65 = v71;
+        sub_100012C18(v58, v55, v52, sub_10000E934, v62);
 
         return;
       }
@@ -3196,107 +3171,106 @@ LABEL_27:
   }
 
   sub_1000413D0();
-  v28 = sub_100041400();
-  v29 = sub_100041CE0();
-  if (os_log_type_enabled(v28, v29))
+  v27 = sub_100041400();
+  v28 = sub_100041CE0();
+  if (os_log_type_enabled(v27, v28))
   {
-    v30 = swift_slowAlloc();
-    *v30 = 0;
-    _os_log_impl(&_mh_execute_header, v28, v29, "acceptButtonPressed - expected a messagesViewController", v30, 2u);
+    v29 = swift_slowAlloc();
+    *v29 = 0;
+    _os_log_impl(&_mh_execute_header, v27, v28, "acceptButtonPressed - expected a messagesViewController", v29, 2u);
   }
 
-  (*(v2 + 8))(v5, v1);
+  (*(v2 + 8))(v4, v1);
 }
 
-void sub_10000915C(uint64_t a1, void *a2, void *a3)
+void sub_10000915C(uint64_t a1, char *a2, void *a3)
 {
   v6 = sub_100041410();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = __chkstk_darwin(v6);
-  v11 = v65 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v13 = v65 - v12;
+  v8 = __chkstk_darwin(v6);
+  v10 = v64 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v12 = v64 - v11;
   if (a1)
   {
     Strong = swift_unknownObjectWeakLoadStrong();
     if (Strong)
     {
-      v15 = Strong;
+      v14 = Strong;
       [Strong setEnabled:1];
 
-      v16 = swift_unknownObjectWeakLoadStrong();
-      if (v16)
+      v15 = swift_unknownObjectWeakLoadStrong();
+      if (v15)
       {
-        v17 = v16;
-        v18 = swift_unknownObjectWeakLoadStrong();
-        if (v18)
+        v16 = v15;
+        v17 = swift_unknownObjectWeakLoadStrong();
+        if (v17)
         {
-          v19 = v18;
-          v20 = [v18 tintColor];
+          v18 = v17;
+          v19 = [v17 tintColor];
 
-          [v17 setBackgroundColor:v20];
-          v21 = [objc_allocWithZone(GKReporter) init];
-          [v21 reportEvent:GKReporterDomainManualFriending type:GKFriendRequestExpiredError];
+          [v16 setBackgroundColor:v19];
+          v20 = [objc_allocWithZone(GKReporter) init];
+          [v20 reportEvent:GKReporterDomainManualFriending type:GKFriendRequestExpiredError];
 
-          v22 = [objc_allocWithZone(GKAPIReporter) init];
+          v21 = [objc_allocWithZone(GKAPIReporter) init];
+          v22 = sub_100041AF0();
           v23 = sub_100041AF0();
           v24 = sub_100041AF0();
+          sub_1000073F0(v24);
           v25 = sub_100041AF0();
-          sub_1000073F0();
-          v26 = sub_100041AF0();
 
-          v27 = sub_100041AF0();
-          [v22 recordClickWithAction:v23 targetId:v24 targetType:v25 pageId:v26 pageType:v27];
+          v26 = sub_100041AF0();
+          [v21 recordClickWithAction:v22 targetId:v23 targetType:v24 pageId:v25 pageType:v26];
 
           sub_1000413D0();
           swift_errorRetain();
-          v28 = sub_100041400();
-          v29 = sub_100041CE0();
+          v27 = sub_100041400();
+          v28 = sub_100041CE0();
 
-          if (os_log_type_enabled(v28, v29))
+          if (os_log_type_enabled(v27, v28))
           {
+            v29 = swift_slowAlloc();
             v30 = swift_slowAlloc();
-            v31 = swift_slowAlloc();
-            v65[1] = a1;
-            aBlock[0] = v31;
-            *v30 = 136315138;
+            v64[1] = a1;
+            aBlock[0] = v30;
+            *v29 = 136315138;
             swift_errorRetain();
             sub_100002D08(&unk_10005CF10, &qword_100047670);
-            v32 = sub_100041B40();
-            v34 = sub_10003FBD0(v32, v33, aBlock);
+            v31 = sub_100041B40();
+            v33 = sub_10003FBD0(v31, v32, aBlock);
 
-            *(v30 + 4) = v34;
-            _os_log_impl(&_mh_execute_header, v28, v29, "acceptButtonPressed - acceptFriendRequest error: %s", v30, 0xCu);
-            sub_10000E8A8(v31);
+            *(v29 + 4) = v33;
+            _os_log_impl(&_mh_execute_header, v27, v28, "acceptButtonPressed - acceptFriendRequest error: %s", v29, 0xCu);
+            sub_10000E8A8(v30);
           }
 
-          (*(v7 + 8))(v11, v6);
-          v35 = GKGameCenterUIFrameworkBundle();
+          (*(v7 + 8))(v10, v6);
+          v34 = GKGameCenterUIFrameworkBundle();
+          v62._countAndFlagsBits = 0xE000000000000000;
+          v66._countAndFlagsBits = 0x525F444E45495246;
+          v66._object = 0xEE00545345555145;
+          v68.value._countAndFlagsBits = 0;
+          v68.value._object = 0;
+          v35.super.isa = v34;
+          v70._countAndFlagsBits = 0;
+          v70._object = 0xE000000000000000;
+          v36 = sub_100041180(v66, v68, v35, v70, 0, v62);
+          v38 = v37;
+
+          v39 = GKGameCenterUIFrameworkBundle();
           v63._countAndFlagsBits = 0xE000000000000000;
-          v67._countAndFlagsBits = 0x525F444E45495246;
-          v67._object = 0xEE00545345555145;
+          v67._countAndFlagsBits = 0xD000000000000024;
+          v67._object = 0x8000000100043F90;
           v69.value._countAndFlagsBits = 0;
           v69.value._object = 0;
-          v36.super.isa = v35;
+          v40.super.isa = v39;
           v71._countAndFlagsBits = 0;
           v71._object = 0xE000000000000000;
-          v37 = sub_100041180(v67, v69, v36, v71, v63);
-          v39 = v38;
+          v41 = sub_100041180(v67, v69, v40, v71, 0, v63);
+          v43 = v42;
 
-          v40 = GKGameCenterUIFrameworkBundle();
-          v64._countAndFlagsBits = 0xE000000000000000;
-          v68._countAndFlagsBits = 0xD000000000000024;
-          v68._object = 0x8000000100043F90;
-          v70.value._countAndFlagsBits = 0;
-          v70.value._object = 0;
-          v41.super.isa = v40;
-          v72._countAndFlagsBits = 0;
-          v72._object = 0xE000000000000000;
-          v42 = sub_100041180(v68, v70, v41, v72, v64);
-          v44 = v43;
-
-          sub_10003074C(v37, v39, v42, v44);
+          sub_10003074C(v36, v38, v41, v43);
 
           return;
         }
@@ -3316,113 +3290,111 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v65[0] = v6;
-  v45 = [objc_allocWithZone(GKReporter) init];
-  [v45 reportEvent:GKReporterDomainManualFriending type:GKFriendRequestAccepted];
+  v64[0] = v6;
+  v44 = [objc_allocWithZone(GKReporter) init];
+  [v44 reportEvent:GKReporterDomainManualFriending type:GKFriendRequestAccepted];
 
-  v46 = [objc_allocWithZone(GKAPIReporter) init];
+  v45 = [objc_allocWithZone(GKAPIReporter) init];
+  v46 = sub_100041AF0();
   v47 = sub_100041AF0();
   v48 = sub_100041AF0();
+  sub_1000073F0(v48);
   v49 = sub_100041AF0();
-  sub_1000073F0();
-  v50 = sub_100041AF0();
 
-  v51 = sub_100041AF0();
-  [v46 recordClickWithAction:v47 targetId:v48 targetType:v49 pageId:v50 pageType:v51];
+  v50 = sub_100041AF0();
+  [v45 recordClickWithAction:v46 targetId:v47 targetType:v48 pageId:v49 pageType:v50];
 
   sub_1000413E0();
-  v52 = a2;
-  v53 = sub_100041400();
-  v54 = sub_100041CC0();
+  v51 = a2;
+  v52 = sub_100041400();
+  v53 = sub_100041CC0();
 
-  if (os_log_type_enabled(v53, v54))
+  if (os_log_type_enabled(v52, v53))
   {
+    v54 = swift_slowAlloc();
     v55 = swift_slowAlloc();
-    v56 = swift_slowAlloc();
-    *v55 = 138412290;
-    *(v55 + 4) = v52;
-    *v56 = v52;
-    v57 = v52;
-    _os_log_impl(&_mh_execute_header, v53, v54, "%@ acceptButtonPressed - acceptFriendRequest succeed", v55, 0xCu);
-    sub_10000E9F0(v56, &unk_10005CA00, &unk_100045CF0);
+    *v54 = 138412290;
+    *(v54 + 4) = v51;
+    *v55 = v51;
+    v56 = v51;
+    _os_log_impl(&_mh_execute_header, v52, v53, "%@ acceptButtonPressed - acceptFriendRequest succeed", v54, 0xCu);
+    sub_10000E9F0(v55, &unk_10005CA00, &unk_100045CF0);
   }
 
-  (*(v7 + 8))(v13, v65[0]);
-  v58 = [objc_opt_self() local];
-  v59 = swift_allocObject();
-  *(v59 + 16) = a3;
-  *(v59 + 24) = v52;
+  (*(v7 + 8))(v12, v64[0]);
+  v57 = [objc_opt_self() local];
+  v58 = swift_allocObject();
+  *(v58 + 16) = a3;
+  *(v58 + 24) = v51;
   aBlock[4] = sub_10000E93C;
-  aBlock[5] = v59;
+  aBlock[5] = v58;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_10003A434;
   aBlock[3] = &unk_100055D28;
-  v60 = _Block_copy(aBlock);
-  v61 = v52;
-  v62 = a3;
+  v59 = _Block_copy(aBlock);
+  v60 = v51;
+  v61 = a3;
 
-  [v58 loadFriendsAsPlayersWithCompletionHandler:v60];
-  _Block_release(v60);
+  [v57 loadFriendsAsPlayersWithCompletionHandler:v59];
+  _Block_release(v59);
 }
 
 void sub_1000098D0(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v6 = sub_100041A10();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_100041A30();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v11);
-  v15 = &v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = [a3 activeConversation];
-  if (!v16)
+  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_100041A30();
+  v11 = *(v10 - 8);
+  __chkstk_darwin(v10);
+  v13 = &v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = [a3 activeConversation];
+  if (!v14)
   {
     goto LABEL_7;
   }
 
-  v26 = v16;
-  v17 = [v16 recipientAddresses];
-  v18 = sub_100041C20();
+  v24 = v14;
+  v15 = [v14 recipientAddresses];
+  v16 = sub_100041C20();
 
-  v19 = *(v18 + 16);
+  v17 = *(v16 + 16);
 
-  if (v19 != 1)
+  if (v17 != 1)
   {
 
 LABEL_7:
     sub_10000EA78(0, &qword_10005CA10, OS_dispatch_queue_ptr);
-    v21 = sub_100041D50();
-    v22 = swift_allocObject();
-    *(v22 + 16) = a4;
+    v19 = sub_100041D50();
+    v20 = swift_allocObject();
+    *(v20 + 16) = a4;
     aBlock[4] = sub_10000F3D8;
-    aBlock[5] = v22;
+    aBlock[5] = v20;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_100012BD4;
     aBlock[3] = &unk_100055D78;
-    v23 = _Block_copy(aBlock);
-    v24 = a4;
+    v21 = _Block_copy(aBlock);
+    v22 = a4;
 
     sub_100041A20();
     aBlock[0] = _swiftEmptyArrayStorage;
-    sub_10000E944(&qword_10005CA18, &type metadata accessor for DispatchWorkItemFlags);
+    sub_10000E944(&qword_10005CA18, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
     sub_100002D08(&qword_10005CA20, qword_100045D00);
     sub_10000E98C();
     sub_100041E60();
     sub_100041D60();
-    _Block_release(v23);
+    _Block_release(v21);
 
-    (*(v7 + 8))(v10, v6);
-    (*(v12 + 8))(v15, v11);
+    (*(v7 + 8))(v9, v6);
+    (*(v11 + 8))(v13, v10);
     return;
   }
 
   sub_100029094();
-  v20 = v26;
+  v18 = v24;
 }
 
 void sub_100009C80()
@@ -3517,7 +3489,7 @@ LABEL_19:
     v18.super.isa = v17;
     v48._countAndFlagsBits = 0;
     v48._object = 0xE000000000000000;
-    sub_100041180(v42, v45, v18, v48, v37);
+    sub_100041180(v42, v45, v18, v48, 0, v37);
 
     v19 = sub_100041AF0();
 
@@ -3530,7 +3502,7 @@ LABEL_19:
     v21.super.isa = v20;
     v49._countAndFlagsBits = 0;
     v49._object = 0xE000000000000000;
-    sub_100041180(v43, v46, v21, v49, v38);
+    sub_100041180(v43, v46, v21, v49, 0, v38);
 
     v22 = sub_100041AF0();
 
@@ -3543,7 +3515,7 @@ LABEL_19:
     v24.super.isa = v23;
     v50._countAndFlagsBits = 0;
     v50._object = 0xE000000000000000;
-    sub_100041180(v44, v47, v24, v50, v39);
+    sub_100041180(v44, v47, v24, v50, 0, v39);
 
     v25 = sub_100041AF0();
 
@@ -3561,7 +3533,7 @@ LABEL_19:
     v28 = sub_100041AF0();
     v29 = sub_100041AF0();
     v30 = sub_100041AF0();
-    sub_1000073F0();
+    sub_1000073F0(v30);
     v31 = sub_100041AF0();
 
     v32 = sub_100041AF0();
@@ -3569,104 +3541,103 @@ LABEL_19:
   }
 }
 
-void *sub_10000A1A0(uint64_t a1, void *a2)
+void *sub_10000A1A0(uint64_t a1, char *a2)
 {
   v4 = sub_100041410();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = __chkstk_darwin(v4);
-  v9 = &v59 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v11 = &v59 - v10;
+  v6 = __chkstk_darwin(v4);
+  v8 = &v58 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v10 = &v58 - v9;
   if (a1)
   {
     result = swift_unknownObjectWeakLoadStrong();
     if (result)
     {
-      v13 = result;
+      v12 = result;
       [result setEnabled:1];
 
       result = swift_unknownObjectWeakLoadStrong();
       if (result)
       {
-        v14 = result;
-        v60 = v4;
+        v13 = result;
+        v59 = v4;
         result = swift_unknownObjectWeakLoadStrong();
         if (result)
         {
-          v15 = result;
-          v16 = [result tintColor];
+          v14 = result;
+          v15 = [result tintColor];
 
-          [v14 setBackgroundColor:v16];
-          v17 = [objc_allocWithZone(GKReporter) init];
-          [v17 reportEvent:GKReporterDomainManualFriending type:GKFriendRequestExpiredError];
+          [v13 setBackgroundColor:v15];
+          v16 = [objc_allocWithZone(GKReporter) init];
+          [v16 reportEvent:GKReporterDomainManualFriending type:GKFriendRequestExpiredError];
 
-          v18 = [objc_allocWithZone(GKAPIReporter) init];
+          v17 = [objc_allocWithZone(GKAPIReporter) init];
+          v18 = sub_100041AF0();
           v19 = sub_100041AF0();
           v20 = sub_100041AF0();
+          sub_1000073F0(v20);
           v21 = sub_100041AF0();
-          sub_1000073F0();
-          v22 = sub_100041AF0();
 
-          v23 = sub_100041AF0();
-          [v18 recordClickWithAction:v19 targetId:v20 targetType:v21 pageId:v22 pageType:v23];
+          v22 = sub_100041AF0();
+          [v17 recordClickWithAction:v18 targetId:v19 targetType:v20 pageId:v21 pageType:v22];
 
           sub_1000413D0();
-          v24 = a2;
+          v23 = a2;
           swift_errorRetain();
-          v25 = sub_100041400();
-          v26 = sub_100041CE0();
+          v24 = sub_100041400();
+          v25 = sub_100041CE0();
 
-          if (os_log_type_enabled(v25, v26))
+          if (os_log_type_enabled(v24, v25))
           {
+            v26 = swift_slowAlloc();
             v27 = swift_slowAlloc();
             v28 = swift_slowAlloc();
-            v29 = swift_slowAlloc();
-            v61 = a1;
-            v62 = v29;
-            *v27 = 138412546;
-            *(v27 + 4) = v24;
-            *v28 = v24;
-            *(v27 + 12) = 2080;
-            v30 = v24;
+            v60 = a1;
+            v61 = v28;
+            *v26 = 138412546;
+            *(v26 + 4) = v23;
+            *v27 = v23;
+            *(v26 + 12) = 2080;
+            v29 = v23;
             swift_errorRetain();
             sub_100002D08(&unk_10005CF10, &qword_100047670);
-            v31 = sub_100041B40();
-            v33 = sub_10003FBD0(v31, v32, &v62);
+            v30 = sub_100041B40();
+            v32 = sub_10003FBD0(v30, v31, &v61);
 
-            *(v27 + 14) = v33;
-            _os_log_impl(&_mh_execute_header, v25, v26, "%@ ignoreButtonPressed - ignoreFriendRequest error: %s", v27, 0x16u);
-            sub_10000E9F0(v28, &unk_10005CA00, &unk_100045CF0);
+            *(v26 + 14) = v32;
+            _os_log_impl(&_mh_execute_header, v24, v25, "%@ ignoreButtonPressed - ignoreFriendRequest error: %s", v26, 0x16u);
+            sub_10000E9F0(v27, &unk_10005CA00, &unk_100045CF0);
 
-            sub_10000E8A8(v29);
+            sub_10000E8A8(v28);
           }
 
-          (*(v5 + 8))(v9, v60);
-          v34 = GKGameCenterUIFrameworkBundle();
+          (*(v5 + 8))(v8, v59);
+          v33 = GKGameCenterUIFrameworkBundle();
+          v56._countAndFlagsBits = 0xE000000000000000;
+          v62._countAndFlagsBits = 0x525F444E45495246;
+          v62._object = 0xEE00545345555145;
+          v64.value._countAndFlagsBits = 0;
+          v64.value._object = 0;
+          v34.super.isa = v33;
+          v66._countAndFlagsBits = 0;
+          v66._object = 0xE000000000000000;
+          v35 = sub_100041180(v62, v64, v34, v66, 0, v56);
+          v37 = v36;
+
+          v38 = GKGameCenterUIFrameworkBundle();
           v57._countAndFlagsBits = 0xE000000000000000;
-          v63._countAndFlagsBits = 0x525F444E45495246;
-          v63._object = 0xEE00545345555145;
+          v63._countAndFlagsBits = 0xD000000000000024;
+          v63._object = 0x8000000100043F90;
           v65.value._countAndFlagsBits = 0;
           v65.value._object = 0;
-          v35.super.isa = v34;
+          v39.super.isa = v38;
           v67._countAndFlagsBits = 0;
           v67._object = 0xE000000000000000;
-          v36 = sub_100041180(v63, v65, v35, v67, v57);
-          v38 = v37;
+          v40 = sub_100041180(v63, v65, v39, v67, 0, v57);
+          v42 = v41;
 
-          v39 = GKGameCenterUIFrameworkBundle();
-          v58._countAndFlagsBits = 0xE000000000000000;
-          v64._countAndFlagsBits = 0xD000000000000024;
-          v64._object = 0x8000000100043F90;
-          v66.value._countAndFlagsBits = 0;
-          v66.value._object = 0;
-          v40.super.isa = v39;
-          v68._countAndFlagsBits = 0;
-          v68._object = 0xE000000000000000;
-          v41 = sub_100041180(v64, v66, v40, v68, v58);
-          v43 = v42;
-
-          sub_10003074C(v36, v38, v41, v43);
+          sub_10003074C(v35, v37, v40, v42);
         }
 
 LABEL_14:
@@ -3684,37 +3655,37 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v44 = [objc_allocWithZone(GKReporter) init];
-  [v44 reportEvent:GKReporterDomainManualFriending type:GKFriendRequestAccepted];
+  v43 = [objc_allocWithZone(GKReporter) init];
+  [v43 reportEvent:GKReporterDomainManualFriending type:GKFriendRequestAccepted];
 
-  v45 = [objc_allocWithZone(GKAPIReporter) init];
+  v44 = [objc_allocWithZone(GKAPIReporter) init];
+  v45 = sub_100041AF0();
   v46 = sub_100041AF0();
   v47 = sub_100041AF0();
+  sub_1000073F0(v47);
   v48 = sub_100041AF0();
-  sub_1000073F0();
-  v49 = sub_100041AF0();
 
-  v50 = sub_100041AF0();
-  [v45 recordClickWithAction:v46 targetId:v47 targetType:v48 pageId:v49 pageType:v50];
+  v49 = sub_100041AF0();
+  [v44 recordClickWithAction:v45 targetId:v46 targetType:v47 pageId:v48 pageType:v49];
 
   sub_1000413E0();
-  v51 = a2;
-  v52 = sub_100041400();
-  v53 = sub_100041CC0();
+  v50 = a2;
+  v51 = sub_100041400();
+  v52 = sub_100041CC0();
 
-  if (os_log_type_enabled(v52, v53))
+  if (os_log_type_enabled(v51, v52))
   {
+    v53 = swift_slowAlloc();
     v54 = swift_slowAlloc();
-    v55 = swift_slowAlloc();
-    *v54 = 138412290;
-    *(v54 + 4) = v51;
-    *v55 = v51;
-    v56 = v51;
-    _os_log_impl(&_mh_execute_header, v52, v53, "%@ ignoreButtonPressed - ignoreFriendRequest succeed", v54, 0xCu);
-    sub_10000E9F0(v55, &unk_10005CA00, &unk_100045CF0);
+    *v53 = 138412290;
+    *(v53 + 4) = v50;
+    *v54 = v50;
+    v55 = v50;
+    _os_log_impl(&_mh_execute_header, v51, v52, "%@ ignoreButtonPressed - ignoreFriendRequest succeed", v53, 0xCu);
+    sub_10000E9F0(v54, &unk_10005CA00, &unk_100045CF0);
   }
 
-  return (*(v5 + 8))(v11, v4);
+  return (*(v5 + 8))(v10, v4);
 }
 
 void sub_10000AAC0()
@@ -4604,7 +4575,7 @@ LABEL_62:
                   v71.super.isa = v34;
                   v76._countAndFlagsBits = 0;
                   v76._object = 0xE000000000000000;
-                  sub_100041180(v35, v75, v71, v76, v72);
+                  sub_100041180(v35, v75, v71, v76, 0, v72);
 
                   v73 = sub_100041AF0();
 
@@ -4846,7 +4817,7 @@ LABEL_22:
         v27.super.isa = v26;
         v33._countAndFlagsBits = 0;
         v33._object = 0xE000000000000000;
-        sub_100041180(v31, v32, v27, v33, v28);
+        sub_100041180(v31, v32, v27, v33, 0, v28);
 
         v29 = sub_100041AF0();
 
@@ -4985,7 +4956,7 @@ LABEL_16:
   v11.super.isa = v10;
   v17._countAndFlagsBits = 0;
   v17._object = 0xE000000000000000;
-  sub_100041180(v15, v16, v11, v17, v12);
+  sub_100041180(v15, v16, v11, v17, 0, v12);
 
   v13 = sub_100041AF0();
 
@@ -5001,7 +4972,7 @@ LABEL_16:
     v33 = *(a1 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayer);
     if (v33 && (v34 = [v33 displayNameWithOptions:0]) != 0)
     {
-      v80 = v1;
+      v79 = v1;
       v35 = v34;
       sub_100041B20();
     }
@@ -5016,120 +4987,119 @@ LABEL_28:
         return;
       }
 
-      v80 = v1;
-      v36 = *(a1 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendNickname);
+      v79 = v1;
     }
 
-    v37 = objc_allocWithZone(NSMutableAttributedString);
-    v38 = sub_100041AF0();
-    v39 = [v37 initWithString:v38];
+    v36 = objc_allocWithZone(NSMutableAttributedString);
+    v37 = sub_100041AF0();
+    v38 = [v36 initWithString:v37];
 
     sub_100002D08(&qword_10005C9C8, &qword_100045CD8);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_100045AE0;
     *(inited + 32) = NSFontAttributeName;
-    v41 = objc_opt_self();
-    v78 = NSFontAttributeName;
-    v42 = v39;
-    v43 = [v41 _gkPreferredFontForTextStyle:UIFontTextStyleFootnote symbolicTraits:2];
-    v44 = sub_10000EA78(0, &qword_10005C9D0, UIFont_ptr);
-    *(inited + 64) = v44;
-    *(inited + 40) = v43;
-    v45 = sub_10000E6C8(inited);
+    v40 = objc_opt_self();
+    v77 = NSFontAttributeName;
+    v41 = v38;
+    v42 = [v40 _gkPreferredFontForTextStyle:UIFontTextStyleFootnote symbolicTraits:2];
+    v43 = sub_10000EA78(0, &qword_10005C9D0, UIFont_ptr);
+    *(inited + 64) = v43;
+    *(inited + 40) = v42;
+    v44 = sub_10000E6C8(inited);
     swift_setDeallocating();
     sub_10000E9F0(inited + 32, &unk_10005C9D8, &qword_100045CE0);
     type metadata accessor for Key(0);
-    sub_10000E944(&qword_10005C570, type metadata accessor for Key);
-    v46 = v42;
-    v76._object = v45;
+    sub_10000E944(&qword_10005C570, type metadata accessor for Key, &unk_100045854);
+    v45 = v41;
+    v75._object = v44;
     isa = sub_100041A70().super.isa;
-    [v46 addAttributes:isa range:{0, objc_msgSend(v46, "length")}];
+    [v45 addAttributes:isa range:{0, objc_msgSend(v45, "length")}];
 
-    v48 = GKGameCenterUIFrameworkBundle();
-    v76._countAndFlagsBits = 0xE000000000000000;
-    v84._countAndFlagsBits = 0xD000000000000020;
-    v84._object = 0x8000000100043FE0;
-    v88.value._countAndFlagsBits = 0;
-    v88.value._object = 0;
-    v49.super.isa = v48;
-    v92._countAndFlagsBits = 0;
-    v92._object = 0xE000000000000000;
-    sub_100041180(v84, v88, v49, v92, v76);
+    v47 = GKGameCenterUIFrameworkBundle();
+    v75._countAndFlagsBits = 0xE000000000000000;
+    v83._countAndFlagsBits = 0xD000000000000020;
+    v83._object = 0x8000000100043FE0;
+    v87.value._countAndFlagsBits = 0;
+    v87.value._object = 0;
+    v48.super.isa = v47;
+    v91._countAndFlagsBits = 0;
+    v91._object = 0xE000000000000000;
+    sub_100041180(v83, v87, v48, v91, 0, v75);
 
-    v50 = objc_allocWithZone(NSMutableAttributedString);
-    v51 = sub_100041AF0();
+    v49 = objc_allocWithZone(NSMutableAttributedString);
+    v50 = sub_100041AF0();
 
-    v52 = [v50 initWithString:v51];
+    v51 = [v49 initWithString:v50];
 
-    v53 = swift_initStackObject();
-    *(v53 + 16) = xmmword_100045AE0;
-    *(v53 + 32) = v78;
-    v54 = [v41 preferredFontForTextStyle:UIFontTextStyleFootnote];
-    *(v53 + 64) = v44;
-    *(v53 + 40) = v54;
-    sub_10000E6C8(v53);
+    v52 = swift_initStackObject();
+    *(v52 + 16) = xmmword_100045AE0;
+    *(v52 + 32) = v77;
+    v53 = [v40 preferredFontForTextStyle:UIFontTextStyleFootnote];
+    *(v52 + 64) = v43;
+    *(v52 + 40) = v53;
+    sub_10000E6C8(v52);
     swift_setDeallocating();
-    sub_10000E9F0(v53 + 32, &unk_10005C9D8, &qword_100045CE0);
-    v55 = sub_100041A70().super.isa;
-    [v52 addAttributes:v55 range:{0, objc_msgSend(v52, "length")}];
+    sub_10000E9F0(v52 + 32, &unk_10005C9D8, &qword_100045CE0);
+    v54 = sub_100041A70().super.isa;
+    [v51 addAttributes:v54 range:{0, objc_msgSend(v51, "length")}];
 
-    [v46 appendAttributedString:v52];
+    [v45 appendAttributedString:v51];
     Strong = swift_unknownObjectWeakLoadStrong();
     if (Strong)
     {
-      v57 = Strong;
-      [Strong setAttributedText:v46];
+      v56 = Strong;
+      [Strong setAttributedText:v45];
 
-      v58 = swift_unknownObjectWeakLoadStrong();
-      if (v58)
+      v57 = swift_unknownObjectWeakLoadStrong();
+      if (v57)
       {
-        v59 = v58;
-        v60 = GKGameCenterUIFrameworkBundle();
-        v77._countAndFlagsBits = 0xE000000000000000;
-        v85._countAndFlagsBits = 0xD00000000000001DLL;
-        v85._object = 0x8000000100044010;
-        v89.value._countAndFlagsBits = 0;
-        v89.value._object = 0;
-        v61.super.isa = v60;
-        v93._countAndFlagsBits = 0;
-        v93._object = 0xE000000000000000;
-        sub_100041180(v85, v89, v61, v93, v77);
+        v58 = v57;
+        v59 = GKGameCenterUIFrameworkBundle();
+        v76._countAndFlagsBits = 0xE000000000000000;
+        v84._countAndFlagsBits = 0xD00000000000001DLL;
+        v84._object = 0x8000000100044010;
+        v88.value._countAndFlagsBits = 0;
+        v88.value._object = 0;
+        v60.super.isa = v59;
+        v92._countAndFlagsBits = 0;
+        v92._object = 0xE000000000000000;
+        sub_100041180(v84, v88, v60, v92, 0, v76);
 
-        v62 = sub_100041AF0();
+        v61 = sub_100041AF0();
 
-        [v59 setText:v62];
+        [v58 setText:v61];
 
-        v63 = swift_unknownObjectWeakLoadStrong();
-        if (v63)
+        v62 = swift_unknownObjectWeakLoadStrong();
+        if (v62)
         {
-          v64 = v63;
-          [v63 setUserInteractionEnabled:1];
+          v63 = v62;
+          [v62 setUserInteractionEnabled:1];
 
-          v65 = objc_allocWithZone(UITapGestureRecognizer);
-          v66 = v80;
-          v67 = [v65 initWithTarget:v66 action:"friendAvatarPressed:"];
-          v68 = [objc_allocWithZone(UITapGestureRecognizer) initWithTarget:v66 action:"friendAvatarPressed:"];
+          v64 = objc_allocWithZone(UITapGestureRecognizer);
+          v65 = v79;
+          v66 = [v64 initWithTarget:v65 action:"friendAvatarPressed:"];
+          v67 = [objc_allocWithZone(UITapGestureRecognizer) initWithTarget:v65 action:"friendAvatarPressed:"];
 
-          v69 = swift_unknownObjectWeakLoadStrong();
-          if (v69)
+          v68 = swift_unknownObjectWeakLoadStrong();
+          if (v68)
           {
-            v70 = v69;
-            [v69 addGestureRecognizer:v67];
+            v69 = v68;
+            [v68 addGestureRecognizer:v66];
 
-            v71 = swift_unknownObjectWeakLoadStrong();
-            if (v71)
+            v70 = swift_unknownObjectWeakLoadStrong();
+            if (v70)
             {
-              v72 = v71;
-              [v71 setUserInteractionEnabled:1];
+              v71 = v70;
+              [v70 setUserInteractionEnabled:1];
 
-              v73 = swift_unknownObjectWeakLoadStrong();
+              v72 = swift_unknownObjectWeakLoadStrong();
 
-              if (v73)
+              if (v72)
               {
 
-                [v73 addGestureRecognizer:v68];
+                [v72 addGestureRecognizer:v67];
 
-                v1 = v80;
+                v1 = v79;
                 goto LABEL_28;
               }
 
@@ -5186,15 +5156,15 @@ LABEL_35:
 
   v12 = v11;
   v13 = GKGameCenterUIFrameworkBundle();
-  v74._countAndFlagsBits = 0xE000000000000000;
-  v82._object = 0x8000000100044030;
-  v82._countAndFlagsBits = 0xD00000000000001ALL;
-  v86.value._countAndFlagsBits = 0;
-  v86.value._object = 0;
+  v73._countAndFlagsBits = 0xE000000000000000;
+  v81._object = 0x8000000100044030;
+  v81._countAndFlagsBits = 0xD00000000000001ALL;
+  v85.value._countAndFlagsBits = 0;
+  v85.value._object = 0;
   v14.super.isa = v13;
-  v90._countAndFlagsBits = 0;
-  v90._object = 0xE000000000000000;
-  sub_100041180(v82, v86, v14, v90, v74);
+  v89._countAndFlagsBits = 0;
+  v89._object = 0xE000000000000000;
+  sub_100041180(v81, v85, v14, v89, 0, v73);
 
   sub_100002D08(&qword_10005C9C0, &qword_100045CD0);
   v15 = swift_allocObject();
@@ -5218,15 +5188,15 @@ LABEL_36:
 
   v18 = v17;
   v19 = GKGameCenterUIFrameworkBundle();
-  v75._countAndFlagsBits = 0xE000000000000000;
-  v83._countAndFlagsBits = 0xD00000000000001CLL;
-  v83._object = 0x8000000100044050;
-  v87.value._countAndFlagsBits = 0;
-  v87.value._object = 0;
+  v74._countAndFlagsBits = 0xE000000000000000;
+  v82._countAndFlagsBits = 0xD00000000000001CLL;
+  v82._object = 0x8000000100044050;
+  v86.value._countAndFlagsBits = 0;
+  v86.value._object = 0;
   v20.super.isa = v19;
-  v91._countAndFlagsBits = 0;
-  v91._object = 0xE000000000000000;
-  sub_100041180(v83, v87, v20, v91, v75);
+  v90._countAndFlagsBits = 0;
+  v90._object = 0xE000000000000000;
+  sub_100041180(v82, v86, v20, v90, 0, v74);
 
   v21 = sub_100041AF0();
 
@@ -5278,7 +5248,7 @@ LABEL_40:
     return;
   }
 
-  v79 = v32;
+  v78 = v32;
   [v32 addGestureRecognizer:v27];
 }
 
@@ -5335,7 +5305,7 @@ void sub_10000CB8C(uint64_t a1, uint64_t a2)
     v18 = [v16 initWithString:v17];
 
     type metadata accessor for Key(0);
-    sub_10000E944(&qword_10005C570, type metadata accessor for Key);
+    sub_10000E944(&qword_10005C570, type metadata accessor for Key, &unk_100045854);
     v19 = v18;
     isa = sub_100041A70().super.isa;
     [v19 addAttributes:isa range:{0, objc_msgSend(v19, "length")}];
@@ -5404,7 +5374,7 @@ LABEL_20:
   }
 
   type metadata accessor for Key(0);
-  sub_10000E944(&qword_10005C570, type metadata accessor for Key);
+  sub_10000E944(&qword_10005C570, type metadata accessor for Key, &unk_100045854);
   v36 = sub_100041A70().super.isa;
   [v9 addAttributes:v36 range:{0, objc_msgSend(v9, "length")}];
 
@@ -5528,7 +5498,7 @@ LABEL_13:
   v10.super.isa = v9;
   v19._countAndFlagsBits = 0;
   v19._object = 0xE000000000000000;
-  sub_100041180(v17, v18, v10, v19, v14);
+  sub_100041180(v17, v18, v10, v19, 0, v14);
 
   v15 = sub_100041AF0();
 
@@ -5644,7 +5614,7 @@ void sub_10000D5B0(void *a1)
                   v28.super.isa = v27;
                   v58._countAndFlagsBits = 0;
                   v58._object = 0xE000000000000000;
-                  sub_100041180(v52, v55, v28, v58, v45);
+                  sub_100041180(v52, v55, v28, v58, 0, v45);
 
                   sub_100002D08(&qword_10005C9C0, &qword_100045CD0);
                   v29 = swift_allocObject();
@@ -5672,7 +5642,7 @@ void sub_10000D5B0(void *a1)
                     v34.super.isa = v33;
                     v59._countAndFlagsBits = 0;
                     v59._object = 0xE000000000000000;
-                    sub_100041180(v53, v56, v34, v59, v46);
+                    sub_100041180(v53, v56, v34, v59, 0, v46);
 
                     v35 = swift_allocObject();
                     *(v35 + 16) = xmmword_100045AE0;
@@ -5699,7 +5669,7 @@ void sub_10000D5B0(void *a1)
                       v40.super.isa = v39;
                       v60._countAndFlagsBits = 0;
                       v60._object = 0xE000000000000000;
-                      sub_100041180(v54, v57, v40, v60, v47);
+                      sub_100041180(v54, v57, v40, v60, 0, v47);
 
                       v41 = swift_allocObject();
                       *(v41 + 16) = xmmword_100045AE0;
@@ -6153,7 +6123,7 @@ unint64_t sub_10000E628()
   return result;
 }
 
-uint64_t sub_10000E67C(uint64_t a1, void *a2)
+unint64_t sub_10000E67C(uint64_t a1, void *a2)
 {
   v6._countAndFlagsBits = a1;
   v3._rawValue = &off_100055818;
@@ -6251,15 +6221,17 @@ uint64_t sub_10000E868()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-uint64_t sub_10000E8A8(uint64_t *a1)
+uint64_t sub_10000E8A8(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_10000E8F4()
@@ -6268,7 +6240,7 @@ uint64_t sub_10000E8F4()
   return _swift_deallocObject(v0, 32, 7);
 }
 
-uint64_t sub_10000E944(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10000E944(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6301,7 +6273,7 @@ uint64_t sub_10000E9F0(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return a1;
 }
 
-uint64_t sub_10000EA50(uint64_t result)
+uint64_t sub_10000EA50(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -6310,12 +6282,11 @@ uint64_t sub_10000EA50(uint64_t result)
   return result;
 }
 
-uint64_t sub_10000EA78(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_10000EA78(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -6327,91 +6298,88 @@ uint64_t sub_10000EA78(uint64_t a1, unint64_t *a2, uint64_t *a3)
 uint64_t sub_10000EAC0()
 {
   v1 = sub_100041A10();
-  v25 = *(v1 - 8);
-  v2 = *(v25 + 64);
+  v22 = *(v1 - 8);
   __chkstk_darwin(v1);
-  v4 = &v22 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_100041A30();
-  v23 = *(v5 - 8);
-  v24 = v5;
-  v6 = *(v23 + 64);
-  __chkstk_darwin(v5);
-  v8 = &v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_100041A50();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  v12 = __chkstk_darwin(v9);
-  v14 = &v22 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v12);
-  v16 = &v22 - v15;
+  v3 = &v19 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_100041A30();
+  v20 = *(v4 - 8);
+  v21 = v4;
+  __chkstk_darwin(v4);
+  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_100041A50();
+  v8 = *(v7 - 8);
+  v9 = __chkstk_darwin(v7);
+  v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v13 = &v19 - v12;
   sub_10000EA78(0, &qword_10005CA10, OS_dispatch_queue_ptr);
-  v17 = sub_100041D50();
+  v14 = sub_100041D50();
   sub_100041A40();
   sub_100041A60();
-  v22 = *(v10 + 8);
-  v22(v14, v9);
-  v18 = swift_allocObject();
-  *(v18 + 16) = v0;
+  v19 = *(v8 + 8);
+  v19(v11, v7);
+  v15 = swift_allocObject();
+  *(v15 + 16) = v0;
   aBlock[4] = sub_10000F37C;
-  aBlock[5] = v18;
+  aBlock[5] = v15;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_100012BD4;
   aBlock[3] = &unk_100055E90;
-  v19 = _Block_copy(aBlock);
-  v20 = v0;
+  v16 = _Block_copy(aBlock);
+  v17 = v0;
 
   sub_100041A20();
   aBlock[0] = _swiftEmptyArrayStorage;
-  sub_10000E944(&qword_10005CA18, &type metadata accessor for DispatchWorkItemFlags);
+  sub_10000E944(&qword_10005CA18, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
   sub_100002D08(&qword_10005CA20, qword_100045D00);
   sub_10000E98C();
   sub_100041E60();
   sub_100041D20();
-  _Block_release(v19);
+  _Block_release(v16);
 
-  (*(v25 + 8))(v4, v1);
-  (*(v23 + 8))(v8, v24);
-  return (v22)(v16, v9);
+  (*(v22 + 8))(v3, v1);
+  (*(v20 + 8))(v6, v21);
+  return (v19)(v13, v7);
 }
 
-void sub_10000EE6C()
+void sub_10000EE6C(uint64_t a1)
 {
-  v1 = sub_100039914();
-  if (v1)
+  v2 = sub_100039914();
+  if (v2)
   {
-    v13 = v1;
-    v2 = *(v0 + OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardViewer);
-    v3 = [objc_allocWithZone(GKReporter) init];
-    v4 = v3;
-    v5 = &GKSenderTappedViewPlayerProfileButton;
-    if (v2)
+    v14 = v2;
+    v3 = *(v1 + OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_inviteCardViewer);
+    v4 = [objc_allocWithZone(GKReporter) init];
+    v5 = v4;
+    v6 = &GKSenderTappedViewPlayerProfileButton;
+    if (v3)
     {
-      v5 = &GKReceiverTappedViewPlayerProfileButton;
+      v6 = &GKReceiverTappedViewPlayerProfileButton;
     }
 
-    [v3 reportEvent:GKReporterDomainImprovedFriendingUIInteractions type:*v5];
+    [v4 reportEvent:GKReporterDomainImprovedFriendingUIInteractions type:*v6];
 
-    v6 = *(v0 + OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_playerModel);
-    if (v6)
+    v7 = *(v1 + OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_playerModel);
+    if (v7)
     {
-      v7 = *(v6 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player);
-      if (v7)
+      v8 = *(v7 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player);
+      if (v8)
       {
-        v8 = [v7 internal];
-        v9 = [v8 playerID];
+        v9 = [v8 internal];
+        v10 = [v9 playerID];
 
-        v10 = sub_100041B20();
-        v12 = v11;
+        v11 = sub_100041B20();
+        v13 = v12;
       }
 
       else
       {
-        v10 = 0;
-        v12 = 0;
+        v11 = 0;
+        v13 = 0;
       }
 
-      sub_1000313A4(v10, v12);
+      sub_1000313A4(v11, v13);
     }
 
     else
@@ -6421,75 +6389,75 @@ void sub_10000EE6C()
   }
 }
 
-void sub_10000EFBC()
+void sub_10000EFBC(uint64_t a1)
 {
-  v1 = sub_100039914();
-  if (v1)
+  v2 = sub_100039914();
+  if (v2)
   {
-    v2 = v1;
-    v3 = [objc_allocWithZone(GKReporter) init];
-    [v3 reportEvent:GKReporterDomainImprovedFriendingUIInteractions type:GKViewFriendProfileButtonTapped];
+    v3 = v2;
+    v4 = [objc_allocWithZone(GKReporter) init];
+    [v4 reportEvent:GKReporterDomainImprovedFriendingUIInteractions type:GKViewFriendProfileButtonTapped];
 
     Strong = swift_unknownObjectWeakLoadStrong();
-    if (Strong && (v5 = Strong, v6 = [Strong player], v5, v6))
+    if (Strong && (v6 = Strong, v7 = [Strong player], v6, v7))
     {
-      v7 = [v6 internal];
+      v8 = [v7 internal];
 
-      v8 = [v7 playerID];
-      v9 = sub_100041B20();
-      v11 = v10;
+      v9 = [v8 playerID];
+      v10 = sub_100041B20();
+      v12 = v11;
     }
 
     else
     {
-      v9 = sub_100041B20();
-      v11 = v12;
+      v10 = sub_100041B20();
+      v12 = v13;
     }
 
-    if (v9 == sub_100041B20() && v11 == v13)
+    if (v10 == sub_100041B20() && v12 == v14)
     {
     }
 
     else
     {
-      v15 = sub_100041FC0();
+      v16 = sub_100041FC0();
 
-      if ((v15 & 1) == 0)
+      if ((v16 & 1) == 0)
       {
         goto LABEL_20;
       }
     }
 
-    v16 = *(v0 + OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_playerModel);
-    if (v16)
+    v17 = *(v1 + OBJC_IVAR____TtC26GameCenterMessageExtension31FriendRequestCardViewController_playerModel);
+    if (v17)
     {
-      v17 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayerIDs;
+      v18 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayerIDs;
       swift_beginAccess();
-      v18 = *(v16 + v17);
-      if (!v18 || !v18[2])
+      v19 = *(v17 + v18);
+      if (!v19 || !v19[2])
       {
-        v19 = *(v16 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player);
-        if (v19)
+        v20 = *(v17 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player);
+        if (v20)
         {
-          v20 = v19;
+          v21 = v20;
 
-          v21 = [v20 internal];
+          v22 = [v21 internal];
 
-          v22 = [v21 playerID];
-          v9 = sub_100041B20();
-          v11 = v23;
+          v23 = [v22 playerID];
+          v10 = sub_100041B20();
+          v12 = v24;
         }
 
         goto LABEL_20;
       }
 
-      if (v18[2])
+      if (v19[2])
       {
-        v9 = v18[4];
-        v11 = v18[5];
+        v10 = v19[4];
+        v12 = v19[5];
 
 LABEL_20:
-        sub_1000313A4(v9, v11);
+        sub_1000313A4(v10, v12);
 
         return;
       }
@@ -6507,7 +6475,7 @@ id sub_10000F264()
   v1 = sub_100041AF0();
   v2 = sub_100041AF0();
   v3 = sub_100041AF0();
-  sub_1000073F0();
+  sub_1000073F0(v3);
   v4 = sub_100041AF0();
 
   v5 = sub_100041AF0();
@@ -6516,11 +6484,11 @@ id sub_10000F264()
   return sub_1000056A8();
 }
 
-id sub_10000F544()
+id sub_10000F544(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for HeaderView();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for HeaderView();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 void sub_10000F5C8(uint64_t a1, uint64_t a2)
@@ -6592,9 +6560,9 @@ uint64_t sub_10000F840(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(vo
   {
     do
     {
-      v19 = a3;
-      v20 = a2;
-      v21 = a4;
+      v17 = a3;
+      v18 = a2;
+      v19 = a4;
       v8 = 0;
       a4 = (a1 & 0xC000000000000001);
       a2 = a1 & 0xFFFFFFFFFFFFFF8;
@@ -6628,7 +6596,6 @@ uint64_t sub_10000F840(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(vo
         if (v13)
         {
           sub_100041EF0();
-          v14 = _swiftEmptyArrayStorage[2];
           sub_100041F10();
           sub_100041F20();
           sub_100041F00();
@@ -6641,9 +6608,9 @@ uint64_t sub_10000F840(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(vo
         ++v8;
         if (v11 == v7)
         {
-          a4 = v21;
-          a2 = v20;
-          a3 = v19;
+          a4 = v19;
+          a2 = v18;
+          a3 = v17;
           goto LABEL_17;
         }
       }
@@ -6652,17 +6619,16 @@ uint64_t sub_10000F840(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(vo
 LABEL_15:
       __break(1u);
 LABEL_16:
-      v15 = a3;
-      v16 = sub_100041F50();
-      a3 = v15;
-      v7 = v16;
+      v14 = a3;
+      v15 = sub_100041F50();
+      a3 = v14;
+      v7 = v15;
     }
 
-    while (v16);
+    while (v15);
   }
 
 LABEL_17:
-  v17 = *(a3 + qword_10005D768);
   *(a3 + qword_10005D768) = _swiftEmptyArrayStorage;
 
   return a4(a2);
@@ -6670,13 +6636,12 @@ LABEL_17:
 
 void sub_10000F9E4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v4 = *(a1 + 32);
   sub_100010190();
-  v6 = sub_100041C20();
+  v5 = sub_100041C20();
 
-  v7 = a3;
-  v5(v6, a3);
+  v6 = a3;
+  v4(v5, a3);
 }
 
 uint64_t sub_10000FA84(unint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, char *a5, uint64_t (*a6)(void))
@@ -6688,9 +6653,9 @@ uint64_t sub_10000FA84(unint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, cha
 
   for (i = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = sub_100041F50())
   {
-    v23 = a5;
-    v24 = a4;
-    v25 = a6;
+    v20 = a5;
+    v21 = a4;
+    v22 = a6;
     v11 = 0;
     a6 = (a1 & 0xFFFFFFFFFFFFFF8);
     a5 = &unk_10005A000;
@@ -6724,7 +6689,6 @@ uint64_t sub_10000FA84(unint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, cha
       if (v15)
       {
         sub_100041EF0();
-        v16 = _swiftEmptyArrayStorage[2];
         sub_100041F10();
         sub_100041F20();
         sub_100041F00();
@@ -6737,9 +6701,9 @@ uint64_t sub_10000FA84(unint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, cha
       ++v11;
       if (a4 == i)
       {
-        a6 = v25;
-        a4 = v24;
-        a5 = v23;
+        a6 = v22;
+        a4 = v21;
+        a5 = v20;
         goto LABEL_17;
       }
     }
@@ -6752,142 +6716,133 @@ LABEL_16:
   }
 
 LABEL_17:
-  v17 = qword_10005D768;
-  v18 = *&a5[qword_10005D768];
+  v16 = qword_10005D768;
   *&a5[qword_10005D768] = _swiftEmptyArrayStorage;
 
-  v19 = *&a5[v17];
-  if (v19 >> 62)
+  v17 = *&a5[v16];
+  if (v17 >> 62)
   {
-    if (v19 < 0)
-    {
-      v22 = *&a5[v17];
-    }
-
-    v20 = sub_100041F50();
+    v18 = sub_100041F50();
   }
 
   else
   {
-    v20 = *((v19 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v18 = *((v17 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  *&a5[qword_10005D770] = v20;
+  *&a5[qword_10005D770] = v18;
   return a6(a4);
 }
 
 void sub_10000FC5C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
   sub_100010190();
-  v7 = sub_100041C20();
-  v8 = sub_100041B20();
-  v10 = v9;
+  v6 = sub_100041C20();
+  v7 = sub_100041B20();
+  v9 = v8;
 
-  v11 = a4;
-  v6(v7, v8, v10, a4);
+  v10 = a4;
+  v5(v6, v7, v9, a4);
 }
 
 id sub_10000FD20(void *a1)
 {
   v2.receiver = a1;
-  v2.super_class = type metadata accessor for GamesModel();
+  v2.super_class = type metadata accessor for GamesModel(0);
   return objc_msgSendSuper2(&v2, "init");
 }
 
 id sub_10000FD64()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for GamesModel();
+  v2.super_class = type metadata accessor for GamesModel(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
 uint64_t _sSo12GKGameRecordC26GameCenterMessageExtensionE1loiySbAB_ABtFZ_0(void *a1, void *a2)
 {
   v4 = sub_100002D08(&qword_10005CC90, qword_100045DE8);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = __chkstk_darwin(v4 - 8);
-  v8 = &v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v37 - v9;
-  v11 = sub_100041280();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = __chkstk_darwin(v11);
-  v16 = &v37 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = __chkstk_darwin(v14);
-  v19 = &v37 - v18;
-  __chkstk_darwin(v17);
-  v21 = &v37 - v20;
-  v22 = &unk_10005A000;
-  v23 = [a1 lastPlayedDate];
-  v38 = v21;
-  if (v23)
+  v5 = __chkstk_darwin(v4 - 8);
+  v7 = &v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = &v35 - v8;
+  v10 = sub_100041280();
+  v11 = *(v10 - 8);
+  v12 = __chkstk_darwin(v10);
+  v14 = &v35 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = __chkstk_darwin(v12);
+  v17 = &v35 - v16;
+  __chkstk_darwin(v15);
+  v19 = &v35 - v18;
+  v20 = &unk_10005A000;
+  v21 = [a1 lastPlayedDate];
+  v36 = v19;
+  if (v21)
   {
-    v24 = v23;
+    v22 = v21;
     sub_100041270();
 
-    v25 = v16;
-    v26 = v8;
-    v27 = a2;
-    v28 = *(v12 + 32);
-    v28(v10, v19, v11);
-    v37 = *(v12 + 56);
-    v37(v10, 0, 1, v11);
-    v28(v21, v10, v11);
-    v22 = &unk_10005A000;
-    a2 = v27;
-    v8 = v26;
-    v16 = v25;
+    v23 = v14;
+    v24 = v7;
+    v25 = a2;
+    v26 = *(v11 + 32);
+    v26(v9, v17, v10);
+    v35 = *(v11 + 56);
+    v35(v9, 0, 1, v10);
+    v26(v19, v9, v10);
+    v20 = &unk_10005A000;
+    a2 = v25;
+    v7 = v24;
+    v14 = v23;
   }
 
   else
   {
-    v37 = *(v12 + 56);
-    v37(v10, 1, 1, v11);
+    v35 = *(v11 + 56);
+    v35(v9, 1, 1, v10);
     sub_100041250();
-    if ((*(v12 + 48))(v10, 1, v11) != 1)
+    if ((*(v11 + 48))(v9, 1, v10) != 1)
     {
-      sub_100010354(v10);
+      sub_100010354(v9);
     }
   }
 
-  v29 = [a2 v22[259]];
-  if (v29)
+  v27 = [a2 v20[259]];
+  if (v27)
   {
-    v30 = v29;
+    v28 = v27;
     sub_100041270();
 
-    v31 = *(v12 + 32);
-    v31(v8, v19, v11);
-    v37(v8, 0, 1, v11);
-    v31(v16, v8, v11);
-    v32 = v38;
+    v29 = *(v11 + 32);
+    v29(v7, v17, v10);
+    v35(v7, 0, 1, v10);
+    v29(v14, v7, v10);
+    v30 = v36;
   }
 
   else
   {
-    v37(v8, 1, 1, v11);
+    v35(v7, 1, 1, v10);
     sub_100041250();
-    v33 = (*(v12 + 48))(v8, 1, v11);
-    v32 = v38;
-    if (v33 != 1)
+    v31 = (*(v11 + 48))(v7, 1, v10);
+    v30 = v36;
+    if (v31 != 1)
     {
-      sub_100010354(v8);
+      sub_100010354(v7);
     }
   }
 
-  v34 = sub_100041260();
-  v35 = *(v12 + 8);
-  v35(v16, v11);
-  v35(v32, v11);
-  return v34 & 1;
+  v32 = sub_100041260();
+  v33 = *(v11 + 8);
+  v33(v14, v10);
+  v33(v30, v10);
+  return v32 & 1;
 }
 
 uint64_t sub_10001014C(uint64_t a1)
 {
-  result = sub_100010210(&qword_10005CA80);
+  result = sub_100010210(&qword_10005CA80, &protocol conformance descriptor for GKGameRecord);
   *(a1 + 8) = result;
   return result;
 }
@@ -6905,7 +6860,7 @@ unint64_t sub_100010190()
   return result;
 }
 
-uint64_t sub_100010210(unint64_t *a1)
+uint64_t sub_100010210(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -6918,7 +6873,7 @@ uint64_t sub_100010210(unint64_t *a1)
   return result;
 }
 
-uint64_t type metadata accessor for GamesModel()
+uint64_t type metadata accessor for GamesModel(uint64_t a1)
 {
   result = qword_10005CAC0;
   if (!qword_10005CAC0)
@@ -6938,7 +6893,6 @@ uint64_t sub_1000102F0(uint64_t a1, uint64_t a2)
 
 uint64_t sub_100010308()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -6991,32 +6945,32 @@ id sub_1000109E8(uint64_t (*a1)(void))
   return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-uint64_t UICollectionView.dequeueSupplementaryView<A>(ofKind:for:)(uint64_t a1, void *a2)
+uint64_t UICollectionView.dequeueSupplementaryView<A>(ofKind:for:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = sub_100041AF0();
+  v7 = sub_100041AF0();
   sub_100002D08(&qword_10005C7F8, "Z1");
   sub_100041B40();
-  v6 = sub_100041AF0();
+  v8 = sub_100041AF0();
 
   isa = sub_1000412C0().super.isa;
-  v8 = [v2 dequeueReusableSupplementaryViewOfKind:v5 withReuseIdentifier:v6 forIndexPath:isa];
+  v10 = [v4 dequeueReusableSupplementaryViewOfKind:v7 withReuseIdentifier:v8 forIndexPath:isa];
 
   result = swift_dynamicCastUnknownClass();
   if (!result)
   {
 
     sub_100041EB0(68);
-    v10._countAndFlagsBits = 0xD00000000000002ELL;
-    v10._object = 0x8000000100043550;
-    sub_100041B80(v10);
-    v11._countAndFlagsBits = a1;
-    v11._object = a2;
-    sub_100041B80(v11);
-    v12._object = 0x8000000100043580;
-    v12._countAndFlagsBits = 0xD000000000000012;
+    v12._countAndFlagsBits = 0xD00000000000002ELL;
+    v12._object = 0x8000000100043550;
     sub_100041B80(v12);
-    v13._countAndFlagsBits = sub_100041B40();
+    v13._countAndFlagsBits = a1;
+    v13._object = a2;
     sub_100041B80(v13);
+    v14._object = 0x8000000100043580;
+    v14._countAndFlagsBits = 0xD000000000000012;
+    sub_100041B80(v14);
+    v15._countAndFlagsBits = sub_100041B40();
+    sub_100041B80(v15);
 
     result = sub_100041F40();
     __break(1u);
@@ -7025,14 +6979,14 @@ uint64_t UICollectionView.dequeueSupplementaryView<A>(ofKind:for:)(uint64_t a1, 
   return result;
 }
 
-uint64_t UICollectionView.dequeueCell<A>(for:)()
+uint64_t UICollectionView.dequeueCell<A>(for:)(uint64_t a1, unint64_t a2)
 {
   sub_100002D08(&qword_10005C7F8, "Z1");
   sub_100041B40();
-  v1 = sub_100041AF0();
+  v3 = sub_100041AF0();
 
   isa = sub_1000412C0().super.isa;
-  v3 = [v0 dequeueReusableCellWithReuseIdentifier:v1 forIndexPath:isa];
+  v5 = [v2 dequeueReusableCellWithReuseIdentifier:v3 forIndexPath:isa];
 
   result = swift_dynamicCastUnknownClass();
   if (!result)
@@ -7040,8 +6994,8 @@ uint64_t UICollectionView.dequeueCell<A>(for:)()
 
     sub_100041EB0(42);
 
-    v5._countAndFlagsBits = sub_100041B40();
-    sub_100041B80(v5);
+    v7._countAndFlagsBits = sub_100041B40();
+    sub_100041B80(v7);
 
     result = sub_100041F40();
     __break(1u);
@@ -7062,11 +7016,9 @@ uint64_t static NIBLoadableView<>.nibName.getter()
   v3 = *(v2 + 16);
   if (v3)
   {
-    v4 = (v2 + 16 + 16 * v3);
-    v5 = *v4;
-    v6 = v4[1];
+    v4 = *(v2 + 16 + 16 * v3);
 
-    return v5;
+    return v4;
   }
 
   else
@@ -7078,14 +7030,14 @@ uint64_t static NIBLoadableView<>.nibName.getter()
   return result;
 }
 
-void UICollectionView.register<A>(_:)()
+void UICollectionView.register<A>(_:)(uint64_t a1, uint64_t a2)
 {
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   sub_100002D08(&qword_10005C7F8, "Z1");
   sub_100041B40();
-  v2 = sub_100041AF0();
+  v4 = sub_100041AF0();
 
-  [v0 registerClass:ObjCClassFromMetadata forCellWithReuseIdentifier:v2];
+  [v2 registerClass:ObjCClassFromMetadata forCellWithReuseIdentifier:v4];
 }
 
 void UICollectionView.register<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7109,106 +7061,105 @@ void UICollectionView.register<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1000110F0(uint64_t a1, uint64_t a2)
 {
-  v39 = a2;
+  v38 = a2;
   v3 = sub_100041100();
-  v38 = *(v3 - 8);
-  v4 = *(v38 + 64);
-  v5 = __chkstk_darwin(v3);
-  v41 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __chkstk_darwin(v5);
-  v42 = &v32 - v8;
-  v9 = __chkstk_darwin(v7);
-  v11 = &v32 - v10;
-  __chkstk_darwin(v9);
-  v13 = &v32 - v12;
+  v37 = *(v3 - 8);
+  v4 = __chkstk_darwin(v3);
+  v40 = &v31 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __chkstk_darwin(v4);
+  v41 = &v31 - v7;
+  v8 = __chkstk_darwin(v6);
+  v10 = &v31 - v9;
+  __chkstk_darwin(v8);
+  v12 = &v31 - v11;
   result = sub_100041110();
   if (result)
   {
-    v15 = result;
-    v32 = v11;
-    v33 = v13;
-    v37 = *(result + 16);
-    if (v37)
+    v14 = result;
+    v31 = v10;
+    v32 = v12;
+    v36 = *(result + 16);
+    if (v36)
     {
-      v16 = 0;
-      v36 = v38 + 16;
-      v34 = (v38 + 8);
-      v40 = (v38 + 32);
-      v17 = _swiftEmptyArrayStorage;
-      v35 = v3;
+      v15 = 0;
+      v35 = v37 + 16;
+      v33 = (v37 + 8);
+      v39 = (v37 + 32);
+      v16 = _swiftEmptyArrayStorage;
+      v34 = v3;
       while (1)
       {
-        if (v16 >= *(v15 + 16))
+        if (v15 >= *(v14 + 16))
         {
           __break(1u);
           return result;
         }
 
-        v18 = (*(v38 + 80) + 32) & ~*(v38 + 80);
-        v19 = *(v38 + 72);
-        (*(v38 + 16))(v42, v15 + v18 + v19 * v16, v3);
-        if (sub_1000410E0() == a1 && v20 == v39)
+        v17 = (*(v37 + 80) + 32) & ~*(v37 + 80);
+        v18 = *(v37 + 72);
+        (*(v37 + 16))(v41, v14 + v17 + v18 * v15, v3);
+        if (sub_1000410E0() == a1 && v19 == v38)
         {
           break;
         }
 
-        v21 = sub_100041FC0();
+        v20 = sub_100041FC0();
 
-        if (v21)
+        if (v20)
         {
           goto LABEL_11;
         }
 
-        result = (*v34)(v42, v3);
+        result = (*v33)(v41, v3);
 LABEL_5:
-        if (v37 == ++v16)
+        if (v36 == ++v15)
         {
           goto LABEL_17;
         }
       }
 
 LABEL_11:
-      v22 = a1;
-      v23 = *v40;
-      (*v40)(v41, v42, v3);
+      v21 = a1;
+      v22 = *v39;
+      (*v39)(v40, v41, v3);
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v43 = v17;
+      v42 = v16;
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
-        sub_100040198(0, v17[2] + 1, 1);
-        v17 = v43;
+        sub_100040198(0, v16[2] + 1, 1);
+        v16 = v42;
       }
 
-      v26 = v17[2];
-      v25 = v17[3];
-      if (v26 >= v25 >> 1)
+      v25 = v16[2];
+      v24 = v16[3];
+      if (v25 >= v24 >> 1)
       {
-        sub_100040198(v25 > 1, v26 + 1, 1);
-        v17 = v43;
+        sub_100040198((v24 > 1), v25 + 1, 1);
+        v16 = v42;
       }
 
-      v17[2] = v26 + 1;
-      v27 = v17 + v18 + v26 * v19;
-      v3 = v35;
-      result = (v23)(v27, v41, v35);
-      a1 = v22;
+      v16[2] = (v25 + 1);
+      v26 = v16 + v17 + v25 * v18;
+      v3 = v34;
+      result = (v22)(v26, v40, v34);
+      a1 = v21;
       goto LABEL_5;
     }
 
-    v17 = _swiftEmptyArrayStorage;
+    v16 = _swiftEmptyArrayStorage;
 LABEL_17:
 
-    if (v17[2])
+    if (v16[2])
     {
-      v28 = v38;
-      v29 = v32;
-      (*(v38 + 16))(v32, v17 + ((*(v28 + 80) + 32) & ~*(v28 + 80)), v3);
+      v27 = v37;
+      v28 = v31;
+      (*(v37 + 16))(v31, v16 + ((*(v27 + 80) + 32) & ~*(v27 + 80)), v3);
 
-      v30 = v33;
-      (*(v28 + 32))(v33, v29, v3);
-      v31 = sub_1000410F0();
-      (*(v28 + 8))(v30, v3);
-      return v31;
+      v29 = v32;
+      (*(v27 + 32))(v32, v28, v3);
+      v30 = sub_1000410F0();
+      (*(v27 + 8))(v29, v3);
+      return v30;
     }
 
     else
@@ -7228,15 +7179,15 @@ id + infix(_:_:)(uint64_t a1, uint64_t a2)
   return v3;
 }
 
-id + infix(_:_:)(uint64_t a1)
+id + infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = [objc_allocWithZone(NSMutableAttributedString) initWithAttributedString:a1];
-  v2 = objc_allocWithZone(NSAttributedString);
-  v3 = sub_100041AF0();
-  v4 = [v2 initWithString:v3];
+  v3 = [objc_allocWithZone(NSMutableAttributedString) initWithAttributedString:a1];
+  v4 = objc_allocWithZone(NSAttributedString);
+  v5 = sub_100041AF0();
+  v6 = [v4 initWithString:v5];
 
-  [v1 appendAttributedString:v4];
-  return v1;
+  [v3 appendAttributedString:v6];
+  return v3;
 }
 
 __n128 sub_10001159C(uint64_t a1, uint64_t a2)
@@ -7309,107 +7260,101 @@ LABEL_8:
 
 uint64_t sub_10001166C@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
-  v65 = a2;
+  v59 = a2;
   v3 = sub_1000416F0();
-  v59 = *(v3 - 8);
-  v60 = v3;
-  v4 = *(v59 + 64);
+  v53 = *(v3 - 8);
+  v54 = v3;
   __chkstk_darwin(v3);
-  v58 = &v52[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v6 = sub_100002D08(&qword_10005CD30, &qword_100045FC8);
-  v56 = *(v6 - 8);
-  v57 = v6;
-  v7 = *(v56 + 64);
-  __chkstk_darwin(v6);
-  v55 = &v52[-v8];
-  v9 = sub_100002D08(&qword_10005CD38, &qword_100045FD0);
-  v62 = *(v9 - 8);
-  v63 = v9;
-  v10 = *(v62 + 64);
-  __chkstk_darwin(v9);
-  v54 = &v52[-v11];
-  v12 = sub_100002D08(&qword_10005CD40, &qword_100045FD8);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = __chkstk_darwin(v12 - 8);
-  v64 = &v52[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v14);
-  v17 = &v52[-v16];
-  v61 = a1;
-  v18 = a1[1];
-  v66 = *a1;
-  v67 = v18;
+  v52 = &v46[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v5 = sub_100002D08(&qword_10005CD30, &qword_100045FC8);
+  v50 = *(v5 - 8);
+  v51 = v5;
+  __chkstk_darwin(v5);
+  v49 = &v46[-v6];
+  v7 = sub_100002D08(&qword_10005CD38, &qword_100045FD0);
+  v56 = *(v7 - 8);
+  v57 = v7;
+  __chkstk_darwin(v7);
+  v48 = &v46[-v8];
+  v9 = sub_100002D08(&qword_10005CD40, &qword_100045FD8);
+  v10 = __chkstk_darwin(v9 - 8);
+  v58 = &v46[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v10);
+  v13 = &v46[-v12];
+  v55 = a1;
+  v14 = a1[1];
+  v60 = *a1;
+  v61 = v14;
   sub_1000024FC();
 
-  v19 = sub_100041860();
-  v32 = v20;
-  v22 = v21;
+  v15 = sub_100041860();
+  v28 = v16;
+  v18 = v17;
   sub_100041790();
-  v23 = sub_100041840();
-  v25 = v24;
-  v27 = v26;
+  v19 = sub_100041840();
+  v21 = v20;
+  v23 = v22;
 
-  sub_100002550(v19, v32, v22 & 1);
+  sub_100002550(v15, v28, v18 & 1);
 
-  LODWORD(v66) = sub_100041720();
-  v28 = sub_100041830();
+  LODWORD(v60) = sub_100041720();
+  v24 = sub_100041830();
+  v26 = v25;
+  LODWORD(v28) = v27;
   v30 = v29;
-  LODWORD(v32) = v31;
-  v34 = v33;
-  sub_100002550(v23, v25, v27 & 1);
+  sub_100002550(v19, v21, v23 & 1);
 
-  if (v61[2])
+  if (v55[2])
   {
-    v35 = v61[3];
-    v36 = v61[4];
 
-    v53 = v32;
-    v32 = v55;
+    v47 = v28;
+    v28 = v49;
     sub_100041960();
-    v37 = v58;
+    v31 = v52;
     sub_1000416E0();
-    sub_100003214(&qword_10005CD50, &qword_10005CD30, &qword_100045FC8);
+    sub_100003214(&qword_10005CD50, &qword_10005CD30, &qword_100045FC8, &protocol conformance descriptor for Button<A>);
     sub_100011DBC();
-    v61 = v34;
-    v38 = v54;
-    v39 = v57;
-    v40 = v60;
+    v55 = v30;
+    v32 = v48;
+    v33 = v51;
+    v34 = v54;
     sub_100041890();
-    (*(v59 + 8))(v37, v40);
-    v41 = v32;
-    LOBYTE(v32) = v53;
-    (*(v56 + 8))(v41, v39);
-    v43 = v62;
-    v42 = v63;
-    v44 = v38;
-    v34 = v61;
-    (*(v62 + 32))(v17, v44, v63);
-    v45 = 0;
-    v46 = v42;
-    v47 = v43;
+    (*(v53 + 8))(v31, v34);
+    v35 = v28;
+    LOBYTE(v28) = v47;
+    (*(v50 + 8))(v35, v33);
+    v37 = v56;
+    v36 = v57;
+    v38 = v32;
+    v30 = v55;
+    (*(v56 + 32))(v13, v38, v57);
+    v39 = 0;
+    v40 = v36;
+    v41 = v37;
   }
 
   else
   {
-    v45 = 1;
-    v47 = v62;
-    v46 = v63;
+    v39 = 1;
+    v41 = v56;
+    v40 = v57;
   }
 
-  (*(v47 + 56))(v17, v45, 1, v46);
-  v48 = v64;
-  sub_100011CD4(v17, v64);
-  v49 = v65;
-  *v65 = v28;
-  v49[1] = v30;
-  *(v49 + 16) = v32 & 1;
-  v49[3] = v34;
-  v50 = sub_100002D08(&qword_10005CD48, &qword_100045FE0);
-  sub_100011CD4(v48, v49 + *(v50 + 48));
-  sub_100011D44(v28, v30, v32 & 1);
+  (*(v41 + 56))(v13, v39, 1, v40);
+  v42 = v58;
+  sub_100011CD4(v13, v58);
+  v43 = v59;
+  *v59 = v24;
+  v43[1] = v26;
+  *(v43 + 16) = v28 & 1;
+  v43[3] = v30;
+  v44 = sub_100002D08(&qword_10005CD48, &qword_100045FE0);
+  sub_100011CD4(v42, v43 + *(v44 + 48));
+  sub_100011D44(v24, v26, v28 & 1);
 
-  sub_100011D54(v17);
-  sub_100011D54(v48);
-  sub_100002550(v28, v30, v32 & 1);
+  sub_100011D54(v13);
+  sub_100011D54(v42);
+  sub_100002550(v24, v26, v28 & 1);
 }
 
 uint64_t sub_100011B70@<X0>(uint64_t a1@<X8>)
@@ -7434,17 +7379,17 @@ uint64_t sub_100011B70@<X0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t sub_100011C68@<X0>(uint64_t a1@<X8>)
+uint64_t sub_100011C68@<X0>(uint64_t a6@<X8>)
 {
-  v3 = *(v1 + 16);
-  v6[0] = *v1;
-  v6[1] = v3;
-  v7 = *(v1 + 32);
-  *a1 = sub_100041690();
-  *(a1 + 8) = 0x4020000000000000;
-  *(a1 + 16) = 0;
-  v4 = sub_100002D08(&qword_10005CD28, &qword_100045FC0);
-  return sub_10001166C(v6, (a1 + *(v4 + 44)));
+  v8 = *(v6 + 16);
+  v11[0] = *v6;
+  v11[1] = v8;
+  v12 = *(v6 + 32);
+  *a6 = sub_100041690();
+  *(a6 + 8) = 0x4020000000000000;
+  *(a6 + 16) = 0;
+  v9 = sub_100002D08(&qword_10005CD28, &qword_100045FC0);
+  return sub_10001166C(v11, (a6 + *(v9 + 44)));
 }
 
 uint64_t sub_100011CD4(uint64_t a1, uint64_t a2)
@@ -7493,11 +7438,11 @@ Swift::Int sub_100011E6C()
   return sub_100042020();
 }
 
-Swift::Int sub_100011EE4()
+Swift::Int sub_100011EE4(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_100042000();
-  sub_100042010(v1 + 1);
+  sub_100042010(v2 + 1);
   return sub_100042020();
 }
 
@@ -7789,115 +7734,114 @@ unint64_t sub_10001237C()
 
 void sub_1000123C8(uint64_t a1, uint64_t a2)
 {
-  v39 = a2;
-  v40 = sub_100041410();
-  v4 = *(v40 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v40);
-  v8 = &v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v37 - v9;
+  v38 = a2;
+  v39 = sub_100041410();
+  v4 = *(v39 - 8);
+  v5 = __chkstk_darwin(v39);
+  v7 = &v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = &v36 - v8;
   sub_1000413E0();
-  v11 = v2;
-  v12 = sub_100041400();
-  v13 = sub_100041CC0();
+  v10 = v2;
+  v11 = sub_100041400();
+  v12 = sub_100041CC0();
 
-  if (os_log_type_enabled(v12, v13))
+  if (os_log_type_enabled(v11, v12))
   {
+    v13 = swift_slowAlloc();
     v14 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    *v14 = 138412546;
-    *(v14 + 4) = v11;
-    *(v14 + 12) = 2112;
-    *(v14 + 14) = v11;
-    *v15 = v11;
-    v15[1] = v11;
-    v16 = v11;
-    _os_log_impl(&_mh_execute_header, v12, v13, "%@ fetching player information using the playerModel: %@", v14, 0x16u);
+    *v13 = 138412546;
+    *(v13 + 4) = v10;
+    *(v13 + 12) = 2112;
+    *(v13 + 14) = v10;
+    *v14 = v10;
+    v14[1] = v10;
+    v15 = v10;
+    _os_log_impl(&_mh_execute_header, v11, v12, "%@ fetching player information using the playerModel: %@", v13, 0x16u);
     sub_100002D08(&unk_10005CA00, &unk_100045CF0);
     swift_arrayDestroy();
   }
 
-  v17 = *(v4 + 8);
-  v17(v10, v40);
+  v16 = *(v4 + 8);
+  v16(v9, v39);
   type metadata accessor for LocalPlayerAuthenticator();
   inited = swift_initStaticObject();
-  v19 = &off_10005C000;
-  v20 = "GameCenterMessageExtension.MessagesViewController" + 48;
-  if (*(inited + 16) != 2 || !*&v11[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player])
+  v18 = &off_10005C000;
+  v19 = "GameCenterMessageExtension.MessagesViewController" + 48;
+  if (*(inited + 16) != 2 || !*&v10[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player])
   {
-    v38 = a1;
+    v37 = a1;
     sub_1000413E0();
-    v21 = v11;
-    v22 = sub_100041400();
-    v23 = sub_100041CC0();
+    v20 = v10;
+    v21 = sub_100041400();
+    v22 = sub_100041CC0();
 
-    if (os_log_type_enabled(v22, v23))
+    if (os_log_type_enabled(v21, v22))
     {
+      v23 = swift_slowAlloc();
       v24 = swift_slowAlloc();
-      v25 = swift_slowAlloc();
-      *v24 = 138412290;
-      *(v24 + 4) = v21;
-      *v25 = v21;
-      v26 = v21;
-      _os_log_impl(&_mh_execute_header, v22, v23, "%@ Player was not authenticated or player was nil", v24, 0xCu);
-      sub_10000E9F0(v25, &unk_10005CA00, &unk_100045CF0);
+      *v23 = 138412290;
+      *(v23 + 4) = v20;
+      *v24 = v20;
+      v25 = v20;
+      _os_log_impl(&_mh_execute_header, v21, v22, "%@ Player was not authenticated or player was nil", v23, 0xCu);
+      sub_10000E9F0(v24, &unk_10005CA00, &unk_100045CF0);
 
-      v20 = "r";
+      v19 = "r";
     }
 
-    v17(v8, v40);
-    v19 = &off_10005C000;
-    v27 = *&v21[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerGroup];
-    [v27 setError:0];
-    v28 = swift_allocObject();
-    v28[2] = inited;
-    v28[3] = v21;
-    v28[4] = v27;
-    v45 = sub_100019C4C;
-    v46 = v28;
+    v16(v7, v39);
+    v18 = &off_10005C000;
+    v26 = *&v20[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerGroup];
+    [v26 setError:0];
+    v27 = swift_allocObject();
+    v27[2] = inited;
+    v27[3] = v20;
+    v27[4] = v26;
+    v44 = sub_100019C4C;
+    v45 = v27;
     aBlock = _NSConcreteStackBlock;
-    v42 = *(v20 + 345);
-    v43 = sub_100016ECC;
-    v44 = &unk_1000562F8;
-    v29 = _Block_copy(&aBlock);
-    v30 = v21;
-    v31 = v27;
+    v41 = *(v19 + 345);
+    v42 = sub_100016ECC;
+    v43 = &unk_1000562F8;
+    v28 = _Block_copy(&aBlock);
+    v29 = v20;
+    v30 = v26;
 
-    [v31 perform:v29];
-    _Block_release(v29);
+    [v30 perform:v28];
+    _Block_release(v28);
 
-    a1 = v38;
+    a1 = v37;
   }
 
-  v32 = *(v19[470] + v11);
-  v33 = swift_allocObject();
-  v33[2] = v11;
-  v33[3] = a1;
-  v33[4] = v39;
-  v45 = sub_100019C58;
-  v46 = v33;
+  v31 = *(v18[470] + v10);
+  v32 = swift_allocObject();
+  v32[2] = v10;
+  v32[3] = a1;
+  v32[4] = v38;
+  v44 = sub_100019C58;
+  v45 = v32;
   aBlock = _NSConcreteStackBlock;
-  v42 = *(v20 + 345);
-  v43 = sub_100012BD4;
-  v44 = &unk_100056348;
-  v34 = _Block_copy(&aBlock);
-  v35 = v11;
-  v36 = v32;
+  v41 = *(v19 + 345);
+  v42 = sub_100012BD4;
+  v43 = &unk_100056348;
+  v33 = _Block_copy(&aBlock);
+  v34 = v10;
+  v35 = v31;
 
-  [v36 notifyOnMainQueueWithBlock:v34];
-  _Block_release(v34);
+  [v35 notifyOnMainQueueWithBlock:v33];
+  _Block_release(v33);
 }
 
 uint64_t sub_10001287C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = (*(*(sub_100002D08(&qword_10005CA30, &unk_100046380) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v7 = &v26 - v6;
+  v5 = sub_100002D08(&qword_10005CA30, &unk_100046380);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v24 - v6;
   v8 = *(v2 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode + 8);
   if (!v8)
   {
-    goto LABEL_7;
+    goto LABEL_6;
   }
 
   v9 = HIBYTE(v8) & 0xF;
@@ -7911,71 +7855,65 @@ uint64_t sub_10001287C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v10 = objc_allocWithZone(GKFriendRequestURLModel);
 
     v11 = [v10 init];
-    if (*(v2 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendSupportPageURL + 8))
-    {
-      v12 = *(v2 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendSupportPageURL);
-      v13 = *(v2 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendSupportPageURL + 8);
-    }
 
+    v15 = sub_100041AF0();
+
+    [v11 setFriendSupportPageURL:v15];
+
+    v16 = sub_100041AF0();
+
+    [v11 setFriendCode:v16];
+
+    v25 = *(v2 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestState);
+    sub_100041FB0();
     v17 = sub_100041AF0();
 
-    [v11 setFriendSupportPageURL:v17];
+    [v11 setFriendRequestState:v17];
 
-    v18 = sub_100041AF0();
+    v18 = [objc_opt_self() local];
+    [v11 setInitiator:v18];
 
-    [v11 setFriendCode:v18];
-
-    v27 = *(v2 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestState);
+    v25 = a1;
     sub_100041FB0();
     v19 = sub_100041AF0();
 
-    [v11 setFriendRequestState:v19];
+    [v11 setFriendRequestVersion:v19];
 
-    v20 = [objc_opt_self() local];
-    [v11 setInitiator:v20];
-
-    v27 = a1;
-    sub_100041FB0();
-    v21 = sub_100041AF0();
-
-    [v11 setFriendRequestVersion:v21];
-
-    v22 = [objc_opt_self() _gkGenerateFriendRequestURL:v11];
-    if (v22)
+    v20 = [objc_opt_self() _gkGenerateFriendRequestURL:v11];
+    if (v20)
     {
-      v23 = v22;
+      v21 = v20;
       sub_1000411E0();
 
-      v24 = 0;
-      v11 = v23;
+      v22 = 0;
+      v11 = v21;
     }
 
     else
     {
-      v24 = 1;
+      v22 = 1;
     }
 
-    v25 = sub_100041200();
-    (*(*(v25 - 8) + 56))(v7, v24, 1, v25);
+    v23 = sub_100041200();
+    (*(*(v23 - 8) + 56))(v7, v22, 1, v23);
     return sub_100019B94(v7, a2);
   }
 
   else
   {
-LABEL_7:
-    v14 = sub_100041200();
-    v15 = *(*(v14 - 8) + 56);
+LABEL_6:
+    v12 = sub_100041200();
+    v13 = *(*(v12 - 8) + 56);
 
-    return v15(a2, 1, 1, v14);
+    return v13(a2, 1, 1, v12);
   }
 }
 
 uint64_t sub_100012BD4(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 void sub_100012C18(uint64_t a1, uint64_t a2, int a3, void (*a4)(void), uint64_t a5)
@@ -7983,160 +7921,18 @@ void sub_100012C18(uint64_t a1, uint64_t a2, int a3, void (*a4)(void), uint64_t 
   v6 = v5;
   ObjectType = swift_getObjectType();
   v13 = sub_100041410();
-  v63 = *(v13 - 8);
-  v14 = *(v63 + 64);
+  v62 = *(v13 - 8);
   __chkstk_darwin(v13);
-  v16 = &v57 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = *&v6[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player];
-  if (!v17)
-  {
-    goto LABEL_17;
-  }
-
-  v64 = ObjectType;
-  v65 = a3;
-  v66 = a1;
-  v67 = a2;
-  v68 = a4;
-  v18 = objc_opt_self();
-  v19 = v17;
-  v69 = [v18 local];
-  if (![v69 isAuthenticated])
-  {
-LABEL_17:
-    sub_100041F40();
-    __break(1u);
-    return;
-  }
-
-  v20 = [v69 internal];
-  v21 = [v20 playerID];
-
-  v22 = sub_100041B20();
-  v24 = v23;
-
-  v25 = [v19 internal];
-  v26 = [v25 playerID];
-
-  v27 = sub_100041B20();
-  v29 = v28;
-
-  if (v22 == v27 && v24 == v29)
-  {
-  }
-
-  else
-  {
-    v31 = sub_100041FC0();
-
-    if ((v31 & 1) == 0 && *&v6[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode + 8])
-    {
-      v62 = *&v6[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode];
-
-      sub_1000413E0();
-      v32 = v6;
-      v33 = sub_100041400();
-      v34 = sub_100041CC0();
-
-      if (os_log_type_enabled(v33, v34))
-      {
-        v35 = swift_slowAlloc();
-        v36 = swift_slowAlloc();
-        v59 = v36;
-        v60 = swift_slowAlloc();
-        aBlock[0] = v60;
-        *v35 = 138412546;
-        *(v35 + 4) = v32;
-        *v36 = v32;
-        *(v35 + 12) = 2080;
-        v37 = v32;
-        v58 = v34;
-        v38 = v37;
-        v39 = [v37 description];
-        v57 = v33;
-        v40 = v39;
-        v41 = sub_100041B20();
-        v61 = v32;
-        v43 = v42;
-
-        v44 = sub_10003FBD0(v41, v43, aBlock);
-        v32 = v61;
-
-        *(v35 + 14) = v44;
-        v45 = v57;
-        _os_log_impl(&_mh_execute_header, v57, v58, "%@ ACCEPT friend request for playerModel: %s", v35, 0x16u);
-        sub_10000E9F0(v59, &unk_10005CA00, &unk_100045CF0);
-
-        sub_10000E8A8(v60);
-      }
-
-      else
-      {
-      }
-
-      (*(v63 + 8))(v16, v13);
-      v47 = v65;
-      v48 = v64;
-      v49 = sub_100041AF0();
-
-      v50 = swift_allocObject();
-      v51 = v47 & 1;
-      *(v50 + 16) = v51;
-      v52 = v66;
-      v53 = v67;
-      *(v50 + 24) = v32;
-      *(v50 + 32) = v52;
-      v54 = v68;
-      *(v50 + 40) = v53;
-      *(v50 + 48) = v54;
-      *(v50 + 56) = a5;
-      *(v50 + 64) = v48;
-      aBlock[4] = sub_10001C1C8;
-      aBlock[5] = v50;
-      aBlock[0] = _NSConcreteStackBlock;
-      aBlock[1] = 1107296256;
-      aBlock[2] = sub_1000151F0;
-      aBlock[3] = &unk_100056640;
-      v55 = _Block_copy(aBlock);
-
-      v56 = v32;
-
-      [v69 acceptFriendRequestWithIdentifier:v49 sendPush:v51 handler:v55];
-
-      _Block_release(v55);
-      return;
-    }
-  }
-
-  v68(0);
-
-  v46 = v69;
-}
-
-void sub_1000131E8(uint64_t a1, uint64_t a2, void (*a3)(void), uint64_t a4)
-{
-  v5 = v4;
-  ObjectType = swift_getObjectType();
-  v11 = sub_100041410();
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11);
-  v15 = &v55 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = *&v5[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player];
-  if (!v16 || (v64 = v13, v65 = ObjectType, v66 = a1, v17 = objc_opt_self(), v18 = v16, v67 = [v17 local], !objc_msgSend(v67, "isAuthenticated")))
+  v15 = &v56 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = *&v6[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player];
+  if (!v16 || (v63 = ObjectType, v64 = a3, v65 = a1, v66 = a2, v67 = a4, v17 = objc_opt_self(), v18 = v16, v68 = [v17 local], !objc_msgSend(v68, "isAuthenticated")))
   {
     sub_100041F40();
     __break(1u);
     return;
   }
 
-  if (v5[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestState] > 3u)
-  {
-    goto LABEL_11;
-  }
-
-  v62 = a2;
-  v63 = a4;
-  v19 = [v67 internal];
+  v19 = [v68 internal];
   v20 = [v19 playerID];
 
   v21 = sub_100041B20();
@@ -8150,97 +7946,223 @@ void sub_1000131E8(uint64_t a1, uint64_t a2, void (*a3)(void), uint64_t a4)
 
   if (v21 == v26 && v23 == v28)
   {
+  }
+
+  else
+  {
+    v30 = sub_100041FC0();
+
+    if ((v30 & 1) == 0 && *&v6[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode + 8])
+    {
+      v61 = *&v6[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode];
+
+      sub_1000413E0();
+      v31 = v6;
+      v32 = sub_100041400();
+      v33 = sub_100041CC0();
+
+      if (os_log_type_enabled(v32, v33))
+      {
+        v34 = swift_slowAlloc();
+        v35 = swift_slowAlloc();
+        v58 = v35;
+        v59 = swift_slowAlloc();
+        aBlock[0] = v59;
+        *v34 = 138412546;
+        *(v34 + 4) = v31;
+        *v35 = v31;
+        *(v34 + 12) = 2080;
+        v36 = v31;
+        v57 = v33;
+        v37 = v36;
+        v38 = [v36 description];
+        v56 = v32;
+        v39 = v38;
+        v40 = sub_100041B20();
+        v60 = v31;
+        v42 = v41;
+
+        v43 = sub_10003FBD0(v40, v42, aBlock);
+        v31 = v60;
+
+        *(v34 + 14) = v43;
+        v44 = v56;
+        _os_log_impl(&_mh_execute_header, v56, v57, "%@ ACCEPT friend request for playerModel: %s", v34, 0x16u);
+        sub_10000E9F0(v58, &unk_10005CA00, &unk_100045CF0);
+
+        sub_10000E8A8(v59);
+      }
+
+      else
+      {
+      }
+
+      (*(v62 + 8))(v15, v13);
+      v46 = v64;
+      v47 = v63;
+      v48 = sub_100041AF0();
+
+      v49 = swift_allocObject();
+      v50 = v46 & 1;
+      *(v49 + 16) = v50;
+      v51 = v65;
+      v52 = v66;
+      *(v49 + 24) = v31;
+      *(v49 + 32) = v51;
+      v53 = v67;
+      *(v49 + 40) = v52;
+      *(v49 + 48) = v53;
+      *(v49 + 56) = a5;
+      *(v49 + 64) = v47;
+      aBlock[4] = sub_10001C1C8;
+      aBlock[5] = v49;
+      aBlock[0] = _NSConcreteStackBlock;
+      aBlock[1] = 1107296256;
+      aBlock[2] = sub_1000151F0;
+      aBlock[3] = &unk_100056640;
+      v54 = _Block_copy(aBlock);
+
+      v55 = v31;
+
+      [v68 acceptFriendRequestWithIdentifier:v48 sendPush:v50 handler:v54];
+
+      _Block_release(v54);
+      return;
+    }
+  }
+
+  v67(0);
+
+  v45 = v68;
+}
+
+void sub_1000131E8(uint64_t a1, uint64_t a2, void (*a3)(void), uint64_t a4)
+{
+  v5 = v4;
+  ObjectType = swift_getObjectType();
+  v11 = sub_100041410();
+  __chkstk_darwin(v11);
+  v14 = &v54 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = *&v5[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player];
+  if (!v15 || (v63 = v12, v64 = ObjectType, v65 = a1, v16 = objc_opt_self(), v17 = v15, v66 = [v16 local], !objc_msgSend(v66, "isAuthenticated")))
+  {
+    sub_100041F40();
+    __break(1u);
+    return;
+  }
+
+  if (v5[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestState] > 3u)
+  {
+    goto LABEL_11;
+  }
+
+  v61 = a2;
+  v62 = a4;
+  v18 = [v66 internal];
+  v19 = [v18 playerID];
+
+  v20 = sub_100041B20();
+  v22 = v21;
+
+  v23 = [v17 internal];
+  v24 = [v23 playerID];
+
+  v25 = sub_100041B20();
+  v27 = v26;
+
+  if (v20 == v25 && v22 == v27)
+  {
 
     goto LABEL_11;
   }
 
-  v29 = sub_100041FC0();
+  v28 = sub_100041FC0();
 
-  v31 = v62;
-  v30 = v63;
-  if ((v29 & 1) != 0 || !*&v5[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode + 8])
+  v30 = v61;
+  v29 = v62;
+  if ((v28 & 1) != 0 || !*&v5[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode + 8])
   {
 LABEL_11:
     a3(0);
 
-    v47 = v67;
+    v46 = v66;
 
     return;
   }
 
-  v61 = *&v5[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode];
+  v60 = *&v5[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode];
 
   sub_1000413E0();
-  v32 = v5;
-  v33 = sub_100041400();
-  v34 = sub_100041CC0();
+  v31 = v5;
+  v32 = sub_100041400();
+  v33 = sub_100041CC0();
 
-  v60 = v34;
-  if (os_log_type_enabled(v33, v34))
+  v59 = v33;
+  if (os_log_type_enabled(v32, v33))
   {
+    v34 = swift_slowAlloc();
     v35 = swift_slowAlloc();
-    v36 = swift_slowAlloc();
-    v57 = v36;
-    v58 = swift_slowAlloc();
-    aBlock[0] = v58;
     v56 = v35;
-    *v35 = 138412546;
-    *(v35 + 4) = v32;
-    *v36 = v32;
-    *(v35 + 12) = 2080;
-    v37 = v32;
-    v59 = v32;
-    v38 = v37;
-    v39 = [v37 description];
-    v55 = v33;
-    v40 = v39;
-    v41 = sub_100041B20();
-    v43 = v42;
+    v57 = swift_slowAlloc();
+    aBlock[0] = v57;
+    v55 = v34;
+    *v34 = 138412546;
+    *(v34 + 4) = v31;
+    *v35 = v31;
+    *(v34 + 12) = 2080;
+    v36 = v31;
+    v58 = v31;
+    v37 = v36;
+    v38 = [v36 description];
+    v54 = v32;
+    v39 = v38;
+    v40 = sub_100041B20();
+    v42 = v41;
 
-    v44 = v41;
-    v30 = v63;
-    v45 = sub_10003FBD0(v44, v43, aBlock);
-    v31 = v62;
+    v43 = v40;
+    v29 = v62;
+    v44 = sub_10003FBD0(v43, v42, aBlock);
+    v30 = v61;
 
-    v46 = v56;
-    *(v56 + 14) = v45;
-    v32 = v59;
-    _os_log_impl(&_mh_execute_header, v33, v60, "%@ Reject friend request for playerModel: %s", v46, 0x16u);
-    sub_10000E9F0(v57, &unk_10005CA00, &unk_100045CF0);
+    v45 = v55;
+    *(v55 + 14) = v44;
+    v31 = v58;
+    _os_log_impl(&_mh_execute_header, v32, v59, "%@ Reject friend request for playerModel: %s", v45, 0x16u);
+    sub_10000E9F0(v56, &unk_10005CA00, &unk_100045CF0);
 
-    sub_10000E8A8(v58);
+    sub_10000E8A8(v57);
   }
 
   else
   {
   }
 
-  (*(v64 + 8))(v15, v11);
-  v48 = sub_100041AF0();
+  (*(v63 + 8))(v14, v11);
+  v47 = sub_100041AF0();
 
-  v49 = swift_allocObject();
+  v48 = swift_allocObject();
+  v49 = v64;
   v50 = v65;
-  v51 = v66;
-  v49[2] = v32;
-  v49[3] = v51;
-  v49[4] = v31;
-  v49[5] = a3;
-  v49[6] = v30;
-  v49[7] = v50;
+  v48[2] = v31;
+  v48[3] = v50;
+  v48[4] = v30;
+  v48[5] = a3;
+  v48[6] = v29;
+  v48[7] = v49;
   aBlock[4] = sub_10001C11C;
-  aBlock[5] = v49;
+  aBlock[5] = v48;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1000151F0;
   aBlock[3] = &unk_1000565C8;
-  v52 = v32;
-  v53 = _Block_copy(aBlock);
+  v51 = v31;
+  v52 = _Block_copy(aBlock);
 
-  v54 = v52;
+  v53 = v51;
 
-  [v67 rejectFriendRequestWithIdentifier:v48 handler:v53];
+  [v66 rejectFriendRequestWithIdentifier:v47 handler:v52];
 
-  _Block_release(v53);
+  _Block_release(v52);
 }
 
 uint64_t sub_1000137CC(void *a1)
@@ -8268,7 +8190,6 @@ uint64_t sub_1000137CC(void *a1)
   }
 
   v11 = (v1 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID);
-  v12 = *(v1 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID + 8);
   *v11 = v8;
   v11[1] = v10;
 }
@@ -8287,13 +8208,14 @@ unint64_t sub_1000138D0@<X0>(unint64_t *a1@<X0>, _BYTE *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100013908(unsigned __int8 a1)
+uint64_t sub_100013908(uint64_t a1)
 {
+  v1 = a1;
   v2 = GKGameCenterUIFrameworkBundle();
   v3 = "PLAYER_CARD_GAMES";
   v4 = "LERT_MESSAGE_INVALID";
   v5 = "NO_NETWORK_ALERT_MESSAGE";
-  if (a1 == 3)
+  if (v1 == 3)
   {
     v6 = 0xD000000000000024;
   }
@@ -8304,7 +8226,7 @@ uint64_t sub_100013908(unsigned __int8 a1)
     v6 = 0xD000000000000018;
   }
 
-  if (a1 == 2)
+  if (v1 == 2)
   {
     v7 = 0xD000000000000024;
   }
@@ -8315,7 +8237,7 @@ uint64_t sub_100013908(unsigned __int8 a1)
     v7 = v6;
   }
 
-  if (a1)
+  if (v1)
   {
     v3 = "LERT_MESSAGE_EXPIRED";
     v8 = 0xD000000000000019;
@@ -8326,7 +8248,7 @@ uint64_t sub_100013908(unsigned __int8 a1)
     v8 = 0xD00000000000002ELL;
   }
 
-  if (a1 <= 1u)
+  if (v1 <= 1u)
   {
     v9 = v3;
   }
@@ -8336,7 +8258,7 @@ uint64_t sub_100013908(unsigned __int8 a1)
     v9 = v4;
   }
 
-  if (a1 <= 1u)
+  if (v1 <= 1u)
   {
     v10._countAndFlagsBits = v8;
   }
@@ -8353,61 +8275,51 @@ uint64_t sub_100013908(unsigned __int8 a1)
   v11.super.isa = v2;
   v16._countAndFlagsBits = 0;
   v16._object = 0xE000000000000000;
-  v12 = sub_100041180(v10, v15, v11, v16, v14);
+  v12 = sub_100041180(v10, v15, v11, v16, 0, v14);
 
   return v12;
 }
 
 uint64_t sub_100013A74()
 {
-  v1 = v0;
   sub_100041EB0(148);
-  v10._countAndFlagsBits = 0x6F43646E65697266;
-  v10._object = 0xEC000000203A6564;
-  sub_100041B80(v10);
-  v7 = *(v0 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode);
+  v1._countAndFlagsBits = 0x6F43646E65697266;
+  v1._object = 0xEC000000203A6564;
+  sub_100041B80(v1);
   sub_100002D08(&qword_10005CF28, &qword_1000463A8);
   sub_100041F30();
-  v11._countAndFlagsBits = 0xD00000000000001ALL;
-  v11._object = 0x80000001000448A0;
-  sub_100041B80(v11);
-  v8 = *(v0 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendSupportPageURL);
+  v2._countAndFlagsBits = 0xD00000000000001ALL;
+  v2._object = 0x80000001000448A0;
+  sub_100041B80(v2);
   sub_100041F30();
-  v12._countAndFlagsBits = 0xD000000000000014;
-  v12._object = 0x80000001000448C0;
-  sub_100041B80(v12);
-  v9 = *(v0 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendNickname);
+  v3._countAndFlagsBits = 0xD000000000000014;
+  v3._object = 0x80000001000448C0;
+  sub_100041B80(v3);
   sub_100041F30();
-  v13._countAndFlagsBits = 0xD000000000000019;
-  v13._object = 0x80000001000448E0;
-  sub_100041B80(v13);
-  *&v9 = *(v0 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeUsageCount);
-  BYTE8(v9) = *(v0 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeUsageCount + 8);
+  v4._countAndFlagsBits = 0xD000000000000019;
+  v4._object = 0x80000001000448E0;
+  sub_100041B80(v4);
   sub_100002D08(&qword_10005D010, &qword_100046410);
   sub_100041F30();
-  v14._countAndFlagsBits = 0xD000000000000015;
-  v14._object = 0x8000000100044900;
-  sub_100041B80(v14);
-  v2 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayerIDs;
+  v5._countAndFlagsBits = 0xD000000000000015;
+  v5._object = 0x8000000100044900;
+  sub_100041B80(v5);
   swift_beginAccess();
-  v4 = *(v1 + v2);
   sub_100002D08(&qword_10005D018, &qword_100046418);
   sub_100041F30();
-  v15._countAndFlagsBits = 0x79616C70200A202CLL;
-  v15._object = 0xEC000000203A7265;
-  sub_100041B80(v15);
-  v5 = *(v1 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player);
+  v6._countAndFlagsBits = 0x79616C70200A202CLL;
+  v6._object = 0xEC000000203A7265;
+  sub_100041B80(v6);
   sub_100002D08(&qword_10005D020, &unk_100046420);
   sub_100041F30();
-  v16._object = 0x8000000100044920;
-  v16._countAndFlagsBits = 0xD000000000000012;
-  sub_100041B80(v16);
-  v6 = *(v1 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayer);
+  v7._object = 0x8000000100044920;
+  v7._countAndFlagsBits = 0xD000000000000012;
+  sub_100041B80(v7);
   sub_100041F30();
   return 0;
 }
 
-uint64_t *sub_100013D50@<X0>(uint64_t *result@<X0>, _BYTE *a2@<X8>)
+unint64_t *sub_100013D50@<X0>(unint64_t *result@<X0>, _BYTE *a2@<X8>)
 {
   v2 = *result;
   if (*result >= 3)
@@ -8425,50 +8337,48 @@ id sub_100013D68(uint64_t a1, uint64_t a2)
   ObjectType = swift_getObjectType();
   v7 = sub_1000412B0();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_senderFriendRequestIdentifier];
+  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_senderFriendRequestIdentifier];
   sub_1000412A0();
-  v13 = sub_100041290();
-  v15 = v14;
-  (*(v8 + 8))(v11, v7);
-  *v12 = v13;
-  v12[1] = v15;
-  v16 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID];
+  v12 = sub_100041290();
+  v14 = v13;
+  (*(v8 + 8))(v10, v7);
+  *v11 = v12;
+  v11[1] = v14;
+  v15 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID];
+  *v15 = 0;
+  v15[1] = 0;
+  *&v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player] = 0;
+  v16 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode];
   *v16 = 0;
   v16[1] = 0;
-  *&v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player] = 0;
-  v17 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode];
+  v17 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendSupportPageURL];
   *v17 = 0;
   v17[1] = 0;
-  v18 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendSupportPageURL];
+  v18 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendNickname];
   *v18 = 0;
   v18[1] = 0;
-  v19 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendNickname];
+  v19 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeUsageCount];
   *v19 = 0;
-  v19[1] = 0;
-  v20 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeUsageCount];
-  *v20 = 0;
-  v20[8] = 1;
+  v19[8] = 1;
   *&v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayerIDs] = 0;
   *&v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayer] = 0;
   v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeState] = 2;
   v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestState] = 0;
   v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestErrorType] = 0;
-  v21 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerGroup;
-  v22 = objc_allocWithZone(GKDispatchGroup);
-  v23 = sub_100041AF0();
-  v24 = [v22 initWithName:v23];
+  v20 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerGroup;
+  v21 = objc_allocWithZone(GKDispatchGroup);
+  v22 = sub_100041AF0();
+  v23 = [v21 initWithName:v22];
 
-  *&v3[v21] = v24;
-  v25 = v17[1];
-  *v17 = a1;
-  v17[1] = a2;
+  *&v3[v20] = v23;
+  *v16 = a1;
+  v16[1] = a2;
 
-  v27.receiver = v3;
-  v27.super_class = ObjectType;
-  return objc_msgSendSuper2(&v27, "init");
+  v25.receiver = v3;
+  v25.super_class = ObjectType;
+  return objc_msgSendSuper2(&v25, "init");
 }
 
 id sub_100013F98(uint64_t a1, uint64_t a2)
@@ -8477,53 +8387,51 @@ id sub_100013F98(uint64_t a1, uint64_t a2)
   ObjectType = swift_getObjectType();
   v7 = sub_1000412B0();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_senderFriendRequestIdentifier];
+  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_senderFriendRequestIdentifier];
   sub_1000412A0();
-  v13 = sub_100041290();
-  v15 = v14;
-  (*(v8 + 8))(v11, v7);
-  *v12 = v13;
-  v12[1] = v15;
-  v16 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID];
+  v12 = sub_100041290();
+  v14 = v13;
+  (*(v8 + 8))(v10, v7);
+  *v11 = v12;
+  v11[1] = v14;
+  v15 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID];
+  *v15 = 0;
+  v15[1] = 0;
+  *&v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player] = 0;
+  v16 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode];
   *v16 = 0;
   v16[1] = 0;
-  *&v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player] = 0;
-  v17 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode];
+  v17 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendSupportPageURL];
   *v17 = 0;
   v17[1] = 0;
-  v18 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendSupportPageURL];
+  v18 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendNickname];
   *v18 = 0;
   v18[1] = 0;
-  v19 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendNickname];
+  v19 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeUsageCount];
   *v19 = 0;
-  v19[1] = 0;
-  v20 = &v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeUsageCount];
-  *v20 = 0;
-  v20[8] = 1;
+  v19[8] = 1;
   *&v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayerIDs] = 0;
   *&v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayer] = 0;
   v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeState] = 2;
   v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestState] = 0;
   v3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestErrorType] = 0;
-  v21 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerGroup;
-  v22 = objc_allocWithZone(GKDispatchGroup);
-  v23 = sub_100041AF0();
-  v24 = [v22 initWithName:v23];
+  v20 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerGroup;
+  v21 = objc_allocWithZone(GKDispatchGroup);
+  v22 = sub_100041AF0();
+  v23 = [v21 initWithName:v22];
 
-  *&v3[v21] = v24;
-  v25 = v16[1];
-  *v16 = a1;
-  v16[1] = a2;
+  *&v3[v20] = v23;
+  *v15 = a1;
+  v15[1] = a2;
 
-  v27.receiver = v3;
-  v27.super_class = ObjectType;
-  return objc_msgSendSuper2(&v27, "init");
+  v25.receiver = v3;
+  v25.super_class = ObjectType;
+  return objc_msgSendSuper2(&v25, "init");
 }
 
-uint64_t sub_1000141C8(uint64_t result, unint64_t a2)
+unint64_t sub_1000141C8(unint64_t result, unint64_t a2)
 {
   v2 = HIBYTE(a2) & 0xF;
   v3 = result & 0xFFFFFFFFFFFFLL;
@@ -8846,54 +8754,51 @@ LABEL_63:
   }
 }
 
-uint64_t sub_1000144C8(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t (*a8)(uint64_t))
+uint64_t sub_1000144C8(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t (*a8)(uint64_t, uint64_t, uint64_t, void *, void *))
 {
   if (!a6)
   {
     v14 = (a7 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID);
-    v15 = *(a7 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID + 8);
     *v14 = a1;
     v14[1] = a2;
 
-    v16 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayerIDs;
+    v15 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayerIDs;
     swift_beginAccess();
-    v17 = *(a7 + v16);
-    *(a7 + v16) = a3;
+    *(a7 + v15) = a3;
 
     if (a4)
     {
-      v18 = [a4 integerValue];
-      v19 = a7 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeUsageCount;
-      *v19 = v18;
-      *(v19 + 8) = 0;
+      v16 = [a4 integerValue];
+      v17 = a7 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeUsageCount;
+      *v17 = v16;
+      *(v17 + 8) = 0;
     }
 
-    v20 = sub_100019B18([a5 integerValue]);
-    if (v20 == 6)
+    v18 = sub_100019B18([a5 integerValue]);
+    if (v18 == 6)
     {
-      v21 = 5;
+      v19 = 5;
     }
 
     else
     {
-      v21 = v20;
+      v19 = v18;
     }
 
-    *(a7 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeState) = v21;
+    *(a7 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCodeState) = v19;
   }
 
-  return a8(a6);
+  return a8(a6, a2, a3, a4, a5);
 }
 
 uint64_t sub_1000145E4(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, void *a6)
 {
   v9 = a3;
-  v11 = *(a1 + 32);
-  v10 = *(a1 + 40);
+  v10 = *(a1 + 32);
   if (a2)
   {
-    v12 = sub_100041B20();
-    v14 = v13;
+    v11 = sub_100041B20();
+    v13 = v12;
     if (!v9)
     {
       goto LABEL_4;
@@ -8902,8 +8807,8 @@ uint64_t sub_1000145E4(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5
     goto LABEL_3;
   }
 
-  v12 = 0;
-  v14 = 0;
+  v11 = 0;
+  v13 = 0;
   if (a3)
   {
 LABEL_3:
@@ -8912,10 +8817,10 @@ LABEL_3:
 
 LABEL_4:
 
-  v15 = a4;
-  v16 = a5;
-  v17 = a6;
-  v11(v12, v14, v9, a4, v16, a6);
+  v14 = a4;
+  v15 = a5;
+  v16 = a6;
+  v10(v11, v13, v9, a4, v15, a6);
 }
 
 uint64_t sub_1000146E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t (*a7)(uint64_t))
@@ -8932,19 +8837,17 @@ LABEL_5:
   if (a2)
   {
     v10 = (a6 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode);
-    v11 = *(a6 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode + 8);
     *v10 = a1;
     v10[1] = a2;
-    v12 = a7;
-    v13 = a6;
+    v11 = a7;
+    v12 = a6;
 
-    v16 = (v13 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendSupportPageURL);
-    v17 = *(v13 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendSupportPageURL + 8);
-    *v16 = a3;
-    v16[1] = a4;
+    v15 = (v12 + OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendSupportPageURL);
+    *v15 = a3;
+    v15[1] = a4;
 
-    a6 = v13;
-    a7 = v12;
+    a6 = v12;
+    a7 = v11;
     v8 = 1;
     v9 = &OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestState;
     goto LABEL_5;
@@ -8956,46 +8859,45 @@ LABEL_5:
 uint64_t sub_1000147B8(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a3;
-  v7 = *(a1 + 32);
-  v6 = *(a1 + 40);
+  v6 = *(a1 + 32);
   if (a2)
   {
-    v8 = sub_100041B20();
-    v10 = v9;
+    v7 = sub_100041B20();
+    v9 = v8;
     if (v5)
     {
 LABEL_3:
-      v11 = sub_100041B20();
-      v5 = v12;
+      v10 = sub_100041B20();
+      v5 = v11;
       goto LABEL_6;
     }
   }
 
   else
   {
-    v8 = 0;
-    v10 = 0;
+    v7 = 0;
+    v9 = 0;
     if (a3)
     {
       goto LABEL_3;
     }
   }
 
-  v11 = 0;
+  v10 = 0;
 LABEL_6:
 
-  v13 = a4;
-  v7(v8, v10, v11, v5, a4);
+  v12 = a4;
+  v6(v7, v9, v10, v5, a4);
 }
 
-uint64_t sub_100014888(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t))
+uint64_t sub_100014888(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (!a1)
   {
     if (a2)
     {
-      v25 = a5;
-      v26 = a4;
+      v24 = a5;
+      v25 = a4;
       v8 = [objc_opt_self() local];
       v9 = [v8 internal];
 
@@ -9008,29 +8910,28 @@ uint64_t sub_100014888(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
       v15 = *(a3 + v14);
       if (v15)
       {
-        v16 = *(a3 + v14);
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
         *(a3 + v14) = v15;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          v15 = sub_100017AF8(0, *(v15 + 2) + 1, 1, v15);
+          v15 = sub_100017AF8(0, v15[2] + 1, 1, v15);
           *(a3 + v14) = v15;
         }
 
-        v19 = *(v15 + 2);
-        v18 = *(v15 + 3);
-        v20 = v19 + 1;
-        if (v19 >= v18 >> 1)
+        v18 = v15[2];
+        v17 = v15[3];
+        v19 = (v18 + 1);
+        if (v18 >= v17 >> 1)
         {
-          v24 = sub_100017AF8((v18 > 1), v19 + 1, 1, v15);
-          v20 = v19 + 1;
-          v15 = v24;
+          v23 = sub_100017AF8((v17 > 1), v18 + 1, 1, v15);
+          v19 = (v18 + 1);
+          v15 = v23;
         }
 
-        *(v15 + 2) = v20;
-        v21 = &v15[16 * v19];
-        *(v21 + 4) = v11;
-        *(v21 + 5) = v13;
+        v15[2] = v19;
+        v20 = &v15[2 * v18];
+        v20[4] = v11;
+        v20[5] = v13;
         *(a3 + v14) = v15;
         swift_endAccess();
       }
@@ -9039,15 +8940,15 @@ uint64_t sub_100014888(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
       {
         swift_endAccess();
         sub_100002D08(&qword_10005CF00, &unk_100046F40);
-        v22 = swift_allocObject();
-        *(v22 + 16) = xmmword_100045AE0;
-        *(v22 + 32) = v11;
-        *(v22 + 40) = v13;
-        *(a3 + v14) = v22;
+        v21 = swift_allocObject();
+        *(v21 + 16) = xmmword_100045AE0;
+        *(v21 + 32) = v11;
+        *(v21 + 40) = v13;
+        *(a3 + v14) = v21;
       }
 
-      a5 = v25;
-      a4 = v26;
+      a5 = v24;
+      a4 = v25;
     }
 
     else
@@ -9060,33 +8961,32 @@ uint64_t sub_100014888(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t 
     a1 = 0;
   }
 
-  return a6(a1);
+  return a6(a1, a2, a3, a4, a5);
 }
 
 void sub_100014A88(uint64_t a1, uint64_t a2)
 {
   v3 = sub_100041410();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
-  v8 = &v49 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v49 - v9;
+  v5 = __chkstk_darwin(v3);
+  v7 = &v48 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = &v48 - v8;
   if (!a2)
   {
     return;
   }
 
-  v11 = objc_opt_self();
-  v12 = sub_100041AF0();
-  v13 = [v11 predicateWithPhoneNumberOrEmail:v12];
+  v10 = objc_opt_self();
+  v11 = sub_100041AF0();
+  v12 = [v10 predicateWithPhoneNumberOrEmail:v11];
 
-  if (!v13)
+  if (!v12)
   {
     return;
   }
 
-  v14 = [objc_allocWithZone(CNContactStore) init];
+  v13 = [objc_allocWithZone(CNContactStore) init];
   if (qword_10005C500 != -1)
   {
     swift_once();
@@ -9095,62 +8995,62 @@ void sub_100014A88(uint64_t a1, uint64_t a2)
   sub_100002D08(&qword_10005CFA0, &qword_1000463C0);
   isa = sub_100041C10().super.isa;
   aBlock[0] = 0;
-  v16 = [v14 unifiedContactsMatchingPredicate:v13 keysToFetch:isa error:aBlock];
+  v15 = [v13 unifiedContactsMatchingPredicate:v12 keysToFetch:isa error:aBlock];
 
-  v17 = aBlock[0];
-  if (!v16)
+  v16 = aBlock[0];
+  if (!v15)
   {
-    v35 = aBlock[0];
+    v34 = aBlock[0];
     sub_1000411C0();
 
     swift_willThrow();
     sub_1000413E0();
     swift_errorRetain();
-    v36 = sub_100041400();
-    v37 = sub_100041CC0();
+    v35 = sub_100041400();
+    v36 = sub_100041CC0();
 
-    if (os_log_type_enabled(v36, v37))
+    if (os_log_type_enabled(v35, v36))
     {
+      v37 = swift_slowAlloc();
       v38 = swift_slowAlloc();
-      v39 = swift_slowAlloc();
-      v51 = v4;
-      v40 = v39;
-      v52 = swift_slowAlloc();
-      aBlock[0] = v52;
-      *v38 = 136315650;
-      v41 = sub_100042030();
-      v43 = sub_10003FBD0(v41, v42, aBlock);
+      v50 = v4;
+      v39 = v38;
+      v51 = swift_slowAlloc();
+      aBlock[0] = v51;
+      *v37 = 136315650;
+      v40 = sub_100042030();
+      v42 = sub_10003FBD0(v40, v41, aBlock);
 
-      *(v38 + 4) = v43;
-      *(v38 + 12) = 2080;
-      *(v38 + 14) = sub_10003FBD0(0xD000000000000019, 0x80000001000447B0, aBlock);
-      *(v38 + 22) = 2112;
+      *(v37 + 4) = v42;
+      *(v37 + 12) = 2080;
+      *(v37 + 14) = sub_10003FBD0(0xD000000000000019, 0x80000001000447B0, aBlock);
+      *(v37 + 22) = 2112;
       swift_errorRetain();
-      v44 = _swift_stdlib_bridgeErrorToNSError();
-      *(v38 + 24) = v44;
-      *v40 = v44;
-      _os_log_impl(&_mh_execute_header, v36, v37, "%s %s - Error fetching contacts: %@", v38, 0x20u);
-      sub_10000E9F0(v40, &unk_10005CA00, &unk_100045CF0);
+      v43 = _swift_stdlib_bridgeErrorToNSError();
+      *(v37 + 24) = v43;
+      *v39 = v43;
+      _os_log_impl(&_mh_execute_header, v35, v36, "%s %s - Error fetching contacts: %@", v37, 0x20u);
+      sub_10000E9F0(v39, &unk_10005CA00, &unk_100045CF0);
 
       swift_arrayDestroy();
 
-      (*(v51 + 8))(v8, v3);
+      (*(v50 + 8))(v7, v3);
     }
 
     else
     {
 
-      (*(v4 + 8))(v8, v3);
+      (*(v4 + 8))(v7, v3);
     }
 
     return;
   }
 
   sub_10000EA78(0, &qword_10005CFA8, CNContact_ptr);
-  v18 = sub_100041C20();
-  v19 = v17;
+  v17 = sub_100041C20();
+  v18 = v16;
 
-  if (v18 >> 62)
+  if (v17 >> 62)
   {
     if (sub_100041F50() >= 1)
     {
@@ -9162,78 +9062,78 @@ LABEL_21:
     return;
   }
 
-  if (*((v18 & 0xFFFFFFFFFFFFFF8) + 0x10) < 1)
+  if (*((v17 & 0xFFFFFFFFFFFFFF8) + 0x10) < 1)
   {
     goto LABEL_21;
   }
 
 LABEL_8:
-  if ((v18 & 0xC000000000000001) != 0)
+  if ((v17 & 0xC000000000000001) != 0)
   {
-    v20 = sub_100041EC0();
+    v19 = sub_100041EC0();
   }
 
   else
   {
-    if (!*((v18 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (!*((v17 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       __break(1u);
     }
 
-    v20 = *(v18 + 32);
+    v19 = *(v17 + 32);
   }
 
-  v21 = v20;
+  v20 = v19;
 
   sub_1000413C0();
-  v22 = v21;
-  v23 = sub_100041400();
-  v24 = sub_100041CC0();
-  v52 = v22;
+  v21 = v20;
+  v22 = sub_100041400();
+  v23 = sub_100041CC0();
+  v51 = v21;
 
-  v25 = &unk_10005A000;
-  if (os_log_type_enabled(v23, v24))
+  v24 = &unk_10005A000;
+  if (os_log_type_enabled(v22, v23))
   {
-    v26 = swift_slowAlloc();
-    v50 = swift_slowAlloc();
-    aBlock[0] = v50;
-    *v26 = 136315394;
-    *(v26 + 4) = sub_10003FBD0(0xD000000000000019, 0x80000001000447B0, aBlock);
-    *(v26 + 12) = 2080;
-    v27 = [v52 identifier];
-    v51 = v4;
-    v28 = v27;
-    v29 = sub_100041B20();
+    v25 = swift_slowAlloc();
+    v49 = swift_slowAlloc();
+    aBlock[0] = v49;
+    *v25 = 136315394;
+    *(v25 + 4) = sub_10003FBD0(0xD000000000000019, 0x80000001000447B0, aBlock);
+    *(v25 + 12) = 2080;
+    v26 = [v51 identifier];
+    v50 = v4;
+    v27 = v26;
+    v28 = sub_100041B20();
+    v29 = v12;
     v30 = v13;
-    v31 = v14;
-    v33 = v32;
+    v32 = v31;
 
-    v34 = sub_10003FBD0(v29, v33, aBlock);
-    v14 = v31;
+    v33 = sub_10003FBD0(v28, v32, aBlock);
     v13 = v30;
-    v25 = &unk_10005A000;
+    v12 = v29;
+    v24 = &unk_10005A000;
 
-    *(v26 + 14) = v34;
-    _os_log_impl(&_mh_execute_header, v23, v24, "%s - Adding %s to the deny list.", v26, 0x16u);
+    *(v25 + 14) = v33;
+    _os_log_impl(&_mh_execute_header, v22, v23, "%s - Adding %s to the deny list.", v25, 0x16u);
     swift_arrayDestroy();
 
-    (*(v51 + 8))(v10, v3);
+    (*(v50 + 8))(v9, v3);
   }
 
   else
   {
 
-    (*(v4 + 8))(v10, v3);
+    (*(v4 + 8))(v9, v3);
   }
 
-  v45 = [objc_opt_self() proxyForLocalPlayer];
-  v46 = [v45 utilityServicePrivate];
+  v44 = [objc_opt_self() proxyForLocalPlayer];
+  v45 = [v44 utilityServicePrivate];
 
-  v47 = [v52 v25[293]];
-  if (!v47)
+  v46 = [v51 v24[293]];
+  if (!v46)
   {
     sub_100041B20();
-    v47 = sub_100041AF0();
+    v46 = sub_100041AF0();
   }
 
   aBlock[4] = nullsub_1;
@@ -9242,20 +9142,19 @@ LABEL_8:
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1000151F0;
   aBlock[3] = &unk_1000565F0;
-  v48 = _Block_copy(aBlock);
-  [v46 denyContact:v47 handler:v48];
+  v47 = _Block_copy(aBlock);
+  [v45 denyContact:v46 handler:v47];
 
-  _Block_release(v48);
+  _Block_release(v47);
   swift_unknownObjectRelease();
 }
 
 void sub_1000151F0(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4(a2);
+  v4 = a2;
+  v3(a2);
 }
 
 void sub_10001525C()
@@ -9305,78 +9204,77 @@ uint64_t sub_10001541C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5
   sub_100011F64(sub_100019CB0);
 }
 
-void sub_1000154C0(void *a1, void *a2, void *a3, void *a4, void (*a5)(void), uint64_t a6)
+void sub_1000154C0(void *a1, void *a2, void *a3, void *a4, uint64_t (*a5)(uint64_t), uint64_t a6)
 {
-  v102 = a4;
+  v98 = a4;
   v11 = sub_100041410();
   v12 = *(v11 - 8);
-  v103 = v11;
-  v104 = v12;
-  v13 = *(v12 + 64);
-  v14 = __chkstk_darwin(v11);
-  v96 = &v94 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __chkstk_darwin(v14);
-  v97 = &v94 - v17;
-  v18 = __chkstk_darwin(v16);
-  v95 = &v94 - v19;
-  __chkstk_darwin(v18);
-  v21 = &v94 - v20;
+  v99 = v11;
+  v100 = v12;
+  v13 = __chkstk_darwin(v11);
+  v92 = &v90 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = __chkstk_darwin(v13);
+  v93 = &v90 - v16;
+  v17 = __chkstk_darwin(v15);
+  v91 = &v90 - v18;
+  __chkstk_darwin(v17);
+  v20 = &v90 - v19;
   sub_1000413E0();
-  v22 = a3;
-  v23 = a1;
+  v21 = a3;
+  v22 = a1;
   swift_errorRetain();
-  v24 = sub_100041400();
-  v25 = sub_100041CC0();
-  v98 = v23;
+  v23 = sub_100041400();
+  v24 = sub_100041CC0();
+  v94 = v22;
 
-  v26 = os_log_type_enabled(v24, v25);
-  v100 = a1;
-  v101 = v22;
-  if (v26)
+  v25 = os_log_type_enabled(v23, v24);
+  v96 = a1;
+  v97 = v21;
+  if (v25)
   {
-    v27 = swift_slowAlloc();
-    v99 = a5;
-    v28 = v27;
-    v29 = swift_slowAlloc();
-    v94 = swift_slowAlloc();
-    v105 = a1;
-    aBlock[0] = v94;
-    *v28 = 138412802;
-    *(v28 + 4) = v22;
-    *v29 = v22;
-    *(v28 + 12) = 2080;
-    v30 = v22;
+    v26 = swift_slowAlloc();
+    v95 = a5;
+    v27 = v26;
+    v28 = swift_slowAlloc();
+    v90 = swift_slowAlloc();
+    v101 = a1;
+    aBlock[0] = v90;
+    *v27 = 138412802;
+    *(v27 + 4) = v21;
+    *v28 = v21;
+    *(v27 + 12) = 2080;
+    v29 = v21;
     sub_100002D08(&qword_10005CF08, &unk_100046390);
-    v31 = sub_100041E10();
-    v33 = sub_10003FBD0(v31, v32, aBlock);
+    v30 = sub_100041E10();
+    v32 = sub_10003FBD0(v30, v31, aBlock);
 
-    *(v28 + 14) = v33;
-    *(v28 + 22) = 2080;
-    v105 = a2;
+    *(v27 + 14) = v32;
+    *(v27 + 22) = 2080;
+    v101 = a2;
     sub_100002D08(&unk_10005CF10, &qword_100047670);
-    v34 = sub_100041E10();
-    v36 = sub_10003FBD0(v34, v35, aBlock);
+    v33 = sub_100041E10();
+    v35 = sub_10003FBD0(v33, v34, aBlock);
 
-    *(v28 + 24) = v36;
-    v37 = v102;
-    _os_log_impl(&_mh_execute_header, v24, v25, "%@ authCompleted: %s error: %s)", v28, 0x20u);
-    sub_10000E9F0(v29, &unk_10005CA00, &unk_100045CF0);
+    *(v27 + 24) = v35;
+    v36 = v98;
+    _os_log_impl(&_mh_execute_header, v23, v24, "%@ authCompleted: %s error: %s)", v27, 0x20u);
+    sub_10000E9F0(v28, &unk_10005CA00, &unk_100045CF0);
 
     swift_arrayDestroy();
 
-    a5 = v99;
+    a5 = v95;
 
-    v38 = v103;
-    v39 = *(v104 + 8);
-    v39(v21, v103);
+    v37 = v99;
+    v38 = *(v100 + 8);
+    v38(v20, v99);
     if (a2)
     {
 LABEL_3:
-      v40 = sub_1000411B0();
-      [v37 setError:v40];
+      v39 = sub_1000411B0();
+      [v36 setError:v39];
 
 LABEL_6:
-      a5();
+      (a5)();
       return;
     }
   }
@@ -9384,31 +9282,30 @@ LABEL_6:
   else
   {
 
-    v38 = v103;
-    v39 = *(v104 + 8);
-    v39(v21, v103);
-    v37 = v102;
+    v37 = v99;
+    v38 = *(v100 + 8);
+    v38(v20, v99);
+    v36 = v98;
     if (a2)
     {
       goto LABEL_3;
     }
   }
 
-  [v37 setError:0];
-  v41 = v101;
-  if (*&v101[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player])
+  [v36 setError:0];
+  v40 = v97;
+  if (*&v97[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_player])
   {
     goto LABEL_6;
   }
 
-  v42 = &v101[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID];
-  v43 = *&v101[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID + 8];
-  v44 = v100;
-  if (!v100)
+  v41 = &v97[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID];
+  v42 = *&v97[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID + 8];
+  v43 = v96;
+  if (!v96)
   {
-    v51 = *&v101[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID + 8];
 
-    if (!v43)
+    if (!v42)
     {
       goto LABEL_32;
     }
@@ -9416,21 +9313,21 @@ LABEL_6:
     goto LABEL_18;
   }
 
-  v99 = a5;
-  v45 = *v42;
+  v95 = a5;
+  v44 = *v41;
 
-  v46 = [v98 internal];
-  v47 = [v46 playerID];
+  v45 = [v94 internal];
+  v46 = [v45 playerID];
 
-  v48 = sub_100041B20();
-  v50 = v49;
+  v47 = sub_100041B20();
+  v49 = v48;
 
-  if (!v43)
+  if (!v42)
   {
-    a5 = v99;
-    v44 = v100;
-    v38 = v103;
-    if (!v50)
+    a5 = v95;
+    v43 = v96;
+    v37 = v99;
+    if (!v49)
     {
       goto LABEL_32;
     }
@@ -9438,249 +9335,248 @@ LABEL_6:
     goto LABEL_18;
   }
 
-  if (!v50)
+  if (!v49)
   {
-    a5 = v99;
-    v38 = v103;
+    a5 = v95;
+    v37 = v99;
 LABEL_18:
 
     goto LABEL_19;
   }
 
-  if (v45 == v48 && v43 == v50)
+  if (v44 == v47 && v42 == v49)
   {
 
-    a5 = v99;
-    v44 = v100;
+    a5 = v95;
+    v43 = v96;
 LABEL_32:
-    v75 = v98;
-    sub_1000137CC(v44);
+    v71 = v94;
+    sub_1000137CC(v43);
     goto LABEL_6;
   }
 
-  v74 = sub_100041FC0();
+  v70 = sub_100041FC0();
 
-  a5 = v99;
-  v44 = v100;
-  v38 = v103;
-  if (v74)
+  a5 = v95;
+  v43 = v96;
+  v37 = v99;
+  if (v70)
   {
     goto LABEL_32;
   }
 
 LABEL_19:
-  v52 = v42[1];
-  if (!v52 || (v53 = *v42, *v42 == 0x496E776F6E6B6E55) && v52 == 0xE900000000000044 || (v54 = *v42, v55 = v42[1], (sub_100041FC0() & 1) != 0))
+  v50 = v41[1];
+  if (!v50 || (v51 = *v41, *v41 == 0x496E776F6E6B6E55) && v50 == 0xE900000000000044 || (sub_100041FC0() & 1) != 0)
   {
-    if (*&v41[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode + 8])
+    if (*&v40[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendCode + 8])
     {
-      v56 = v97;
+      v52 = v93;
       sub_1000413E0();
-      v57 = v41;
-      v58 = sub_100041400();
-      v59 = sub_100041CC0();
+      v53 = v40;
+      v54 = sub_100041400();
+      v55 = sub_100041CC0();
 
-      if (os_log_type_enabled(v58, v59))
+      if (os_log_type_enabled(v54, v55))
       {
-        v60 = swift_slowAlloc();
-        v61 = a5;
-        v62 = swift_slowAlloc();
-        *v60 = 138412290;
-        *(v60 + 4) = v57;
-        *v62 = v57;
-        v63 = v57;
-        _os_log_impl(&_mh_execute_header, v58, v59, "%@ We have a non nil friend code, fetching sender playerID", v60, 0xCu);
-        sub_10000E9F0(v62, &unk_10005CA00, &unk_100045CF0);
-        a5 = v61;
+        v56 = swift_slowAlloc();
+        v57 = a5;
+        v58 = swift_slowAlloc();
+        *v56 = 138412290;
+        *(v56 + 4) = v53;
+        *v58 = v53;
+        v59 = v53;
+        _os_log_impl(&_mh_execute_header, v54, v55, "%@ We have a non nil friend code, fetching sender playerID", v56, 0xCu);
+        sub_10000E9F0(v58, &unk_10005CA00, &unk_100045CF0);
+        a5 = v57;
       }
 
-      v39(v56, v38);
-      v64 = v57;
-      v65 = v102;
+      v38(v52, v37);
+      v60 = v53;
+      v61 = v98;
 
-      sub_10001B970(v64, v65, v64, a5, a6);
+      sub_10001B970(v60, v61, v60, a5, a6);
     }
 
     else
     {
-      v66 = v96;
+      v62 = v92;
       sub_1000413E0();
-      v67 = v41;
-      v68 = sub_100041400();
-      v69 = sub_100041CC0();
+      v63 = v40;
+      v64 = sub_100041400();
+      v65 = sub_100041CC0();
 
-      if (os_log_type_enabled(v68, v69))
+      if (os_log_type_enabled(v64, v65))
       {
-        v70 = swift_slowAlloc();
-        v71 = a5;
-        v72 = swift_slowAlloc();
-        *v70 = 138412290;
-        *(v70 + 4) = v67;
-        *v72 = v67;
-        v73 = v67;
-        _os_log_impl(&_mh_execute_header, v68, v69, "%@ Creating a new friend request", v70, 0xCu);
-        sub_10000E9F0(v72, &unk_10005CA00, &unk_100045CF0);
-        a5 = v71;
+        v66 = swift_slowAlloc();
+        v67 = a5;
+        v68 = swift_slowAlloc();
+        *v66 = 138412290;
+        *(v66 + 4) = v63;
+        *v68 = v63;
+        v69 = v63;
+        _os_log_impl(&_mh_execute_header, v64, v65, "%@ Creating a new friend request", v66, 0xCu);
+        sub_10000E9F0(v68, &unk_10005CA00, &unk_100045CF0);
+        a5 = v67;
       }
 
-      v39(v66, v38);
-      v64 = v67;
+      v38(v62, v37);
+      v60 = v63;
 
-      sub_100019620(v64, v64, a5, a6);
+      sub_100019620(v60, v60, a5, a6);
     }
   }
 
   else
   {
-    v99 = a5;
+    v95 = a5;
 
-    v76 = v95;
+    v72 = v91;
     sub_1000413E0();
-    v77 = v41;
+    v73 = v40;
 
-    v78 = sub_100041400();
-    v79 = sub_100041CC0();
+    v74 = sub_100041400();
+    v75 = sub_100041CC0();
 
-    if (os_log_type_enabled(v78, v79))
+    if (os_log_type_enabled(v74, v75))
     {
-      v80 = swift_slowAlloc();
-      v81 = swift_slowAlloc();
-      v82 = swift_slowAlloc();
-      aBlock[0] = v82;
-      *v80 = 138412546;
-      *(v80 + 4) = v77;
-      *v81 = v77;
-      *(v80 + 12) = 2080;
-      v83 = v77;
-      *(v80 + 14) = sub_10003FBD0(v53, v52, aBlock);
-      _os_log_impl(&_mh_execute_header, v78, v79, "%@ loading playerID: %s", v80, 0x16u);
-      sub_10000E9F0(v81, &unk_10005CA00, &unk_100045CF0);
+      v76 = swift_slowAlloc();
+      v77 = swift_slowAlloc();
+      v78 = swift_slowAlloc();
+      aBlock[0] = v78;
+      *v76 = 138412546;
+      *(v76 + 4) = v73;
+      *v77 = v73;
+      *(v76 + 12) = 2080;
+      v79 = v73;
+      *(v76 + 14) = sub_10003FBD0(v51, v50, aBlock);
+      _os_log_impl(&_mh_execute_header, v74, v75, "%@ loading playerID: %s", v76, 0x16u);
+      sub_10000E9F0(v77, &unk_10005CA00, &unk_100045CF0);
 
-      sub_10000E8A8(v82);
+      sub_10000E8A8(v78);
 
-      v84 = v103;
-      v85 = v95;
+      v80 = v99;
+      v81 = v91;
     }
 
     else
     {
 
-      v85 = v76;
-      v84 = v38;
+      v81 = v72;
+      v80 = v37;
     }
 
-    v39(v85, v84);
-    v86 = objc_opt_self();
+    v38(v81, v80);
+    v82 = objc_opt_self();
     sub_100002D08(&qword_10005CF00, &unk_100046F40);
-    v87 = swift_allocObject();
-    *(v87 + 16) = xmmword_100045AE0;
-    *(v87 + 32) = v53;
-    *(v87 + 40) = v52;
+    v83 = swift_allocObject();
+    *(v83 + 16) = xmmword_100045AE0;
+    *(v83 + 32) = v51;
+    *(v83 + 40) = v50;
     isa = sub_100041C10().super.isa;
 
-    v89 = swift_allocObject();
-    v90 = v102;
-    v89[2] = v77;
-    v89[3] = v90;
-    v89[4] = v99;
-    v89[5] = a6;
+    v85 = swift_allocObject();
+    v86 = v98;
+    v85[2] = v73;
+    v85[3] = v86;
+    v85[4] = v95;
+    v85[5] = a6;
     aBlock[4] = sub_10001BF84;
-    aBlock[5] = v89;
+    aBlock[5] = v85;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_100016238;
     aBlock[3] = &unk_1000563E8;
-    v91 = _Block_copy(aBlock);
-    v92 = v77;
-    v93 = v90;
+    v87 = _Block_copy(aBlock);
+    v88 = v73;
+    v89 = v86;
 
-    [v86 loadPlayersForIdentifiers:isa withCompletionHandler:v91];
-    _Block_release(v91);
+    [v82 loadPlayersForIdentifiers:isa withCompletionHandler:v87];
+    _Block_release(v87);
   }
 }
 
 void sub_100015EE0(uint64_t a1, uint64_t a2, void *a3, void *a4, void (*a5)(void))
 {
-  v35 = a4;
+  v34 = a4;
   v9 = sub_100041410();
-  v33 = *(v9 - 8);
-  v34 = v9;
-  v10 = *(v33 + 64);
+  v32 = *(v9 - 8);
+  v33 = v9;
   __chkstk_darwin(v9);
-  v12 = &v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000413E0();
-  v13 = a3;
+  v12 = a3;
 
   swift_errorRetain();
-  v14 = sub_100041400();
-  v15 = sub_100041CC0();
+  v13 = sub_100041400();
+  v14 = sub_100041CC0();
 
-  if (os_log_type_enabled(v14, v15))
+  if (os_log_type_enabled(v13, v14))
   {
+    v15 = swift_slowAlloc();
     v16 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
-    v30 = v17;
-    v31 = swift_slowAlloc();
-    v36 = a1;
-    v37 = v31;
-    *v16 = 138412802;
-    *(v16 + 4) = v13;
-    *v17 = v13;
-    *(v16 + 12) = 2080;
-    v18 = v13;
+    v29 = v16;
+    v30 = swift_slowAlloc();
+    v35 = a1;
+    v36 = v30;
+    *v15 = 138412802;
+    *(v15 + 4) = v12;
+    *v16 = v12;
+    *(v15 + 12) = 2080;
+    v17 = v12;
     sub_100002D08(&qword_10005CF20, &qword_1000463A0);
-    v19 = sub_100041E10();
-    v21 = sub_10003FBD0(v19, v20, &v37);
-    v32 = v13;
-    v22 = a5;
-    v23 = v21;
+    v18 = sub_100041E10();
+    v20 = sub_10003FBD0(v18, v19, &v36);
+    v31 = v12;
+    v21 = a5;
+    v22 = v20;
 
-    *(v16 + 14) = v23;
-    *(v16 + 22) = 2080;
-    v36 = a2;
+    *(v15 + 14) = v22;
+    *(v15 + 22) = 2080;
+    v35 = a2;
     sub_100002D08(&unk_10005CF10, &qword_100047670);
-    v24 = sub_100041E10();
-    v26 = sub_10003FBD0(v24, v25, &v37);
+    v23 = sub_100041E10();
+    v25 = sub_10003FBD0(v23, v24, &v36);
 
-    *(v16 + 24) = v26;
-    a5 = v22;
-    _os_log_impl(&_mh_execute_header, v14, v15, "%@ players: %s error:%s", v16, 0x20u);
-    sub_10000E9F0(v30, &unk_10005CA00, &unk_100045CF0);
+    *(v15 + 24) = v25;
+    a5 = v21;
+    _os_log_impl(&_mh_execute_header, v13, v14, "%@ players: %s error:%s", v15, 0x20u);
+    sub_10000E9F0(v29, &unk_10005CA00, &unk_100045CF0);
 
     swift_arrayDestroy();
   }
 
-  (*(v33 + 8))(v12, v34);
+  (*(v32 + 8))(v11, v33);
   if (a2)
   {
-    v27 = sub_1000411B0();
+    v26 = sub_1000411B0();
   }
 
   else
   {
-    v27 = 0;
+    v26 = 0;
   }
 
-  [v35 setError:v27];
+  [v34 setError:v26];
 
   if (!a1)
   {
-    v28 = [objc_opt_self() unknownPlayer];
+    v27 = [objc_opt_self() unknownPlayer];
     goto LABEL_11;
   }
 
   if ((a1 & 0xC000000000000001) != 0)
   {
-    v28 = sub_100041EC0();
+    v27 = sub_100041EC0();
     goto LABEL_11;
   }
 
   if (*((a1 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    v28 = *(a1 + 32);
+    v27 = *(a1 + 32);
 LABEL_11:
-    v29 = sub_1000137CC(v28);
-    a5(v29);
+    v28 = sub_1000137CC(v27);
+    a5(v28);
     return;
   }
 
@@ -9690,171 +9586,169 @@ LABEL_11:
 uint64_t sub_100016238(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a2;
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
   if (a2)
   {
     sub_10000EA78(0, &qword_10005CA38, GKPlayer_ptr);
     v4 = sub_100041C20();
   }
 
-  v7 = a3;
-  v6(v4, a3);
+  v6 = a3;
+  v5(v4, a3);
 }
 
 uint64_t sub_1000162DC(void *a1, void *a2, char *a3, uint64_t (*a4)(uint64_t), uint64_t a5)
 {
-  v59[1] = a5;
-  v60 = a4;
+  v58[1] = a5;
+  v59 = a4;
   v8 = sub_100041410();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = __chkstk_darwin(v8);
-  v13 = v59 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __chkstk_darwin(v11);
-  v16 = v59 - v15;
-  __chkstk_darwin(v14);
-  v18 = v59 - v17;
+  v10 = __chkstk_darwin(v8);
+  v12 = v58 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __chkstk_darwin(v10);
+  v15 = v58 - v14;
+  __chkstk_darwin(v13);
+  v17 = v58 - v16;
   if (a1)
   {
-    v19 = sub_1000411B0();
+    v18 = sub_1000411B0();
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  [a2 setError:v19];
+  [a2 setError:v18];
 
-  v20 = *&a3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID + 8];
-  if (v20)
+  v19 = *&a3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID + 8];
+  if (v19)
   {
-    v21 = *&a3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID];
-    if (v21 == sub_100041B20() && v20 == v22)
+    v20 = *&a3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_playerID];
+    if (v20 == sub_100041B20() && v19 == v21)
     {
     }
 
     else
     {
-      v24 = v8;
-      v25 = sub_100041FC0();
+      v23 = v8;
+      v24 = sub_100041FC0();
 
-      if ((v25 & 1) == 0)
+      if ((v24 & 1) == 0)
       {
-        v54 = swift_allocObject();
-        v54[2] = v21;
-        v54[3] = v20;
-        v54[4] = a3;
-        v54[5] = a2;
+        v53 = swift_allocObject();
+        v53[2] = v20;
+        v53[3] = v19;
+        v53[4] = a3;
+        v53[5] = a2;
         aBlock[4] = sub_10001C058;
-        aBlock[5] = v54;
+        aBlock[5] = v53;
         aBlock[0] = _NSConcreteStackBlock;
         aBlock[1] = 1107296256;
         aBlock[2] = sub_100016ECC;
         aBlock[3] = &unk_1000564B0;
-        v55 = _Block_copy(aBlock);
-        v56 = a3;
-        v57 = a2;
+        v54 = _Block_copy(aBlock);
+        v55 = a3;
+        v56 = a2;
 
-        [v57 perform:v55];
-        _Block_release(v55);
-        return v60(v49);
+        [v56 perform:v54];
+        _Block_release(v54);
+        return v59(v48);
       }
 
-      v8 = v24;
+      v8 = v23;
     }
 
     sub_1000413E0();
-    v34 = a3;
-    v35 = sub_100041400();
-    v36 = sub_100041CC0();
+    v33 = a3;
+    v34 = sub_100041400();
+    v35 = sub_100041CC0();
 
-    if (os_log_type_enabled(v35, v36))
+    if (os_log_type_enabled(v34, v35))
     {
-      v37 = v8;
+      v36 = v8;
+      v37 = swift_slowAlloc();
       v38 = swift_slowAlloc();
-      v39 = swift_slowAlloc();
-      *v38 = 138412290;
-      *(v38 + 4) = v34;
-      *v39 = v34;
-      v40 = v34;
-      _os_log_impl(&_mh_execute_header, v35, v36, "%@ We have a non nil friend code, but playerID was unknown.", v38, 0xCu);
-      sub_10000E9F0(v39, &unk_10005CA00, &unk_100045CF0);
+      *v37 = 138412290;
+      *(v37 + 4) = v33;
+      *v38 = v33;
+      v39 = v33;
+      _os_log_impl(&_mh_execute_header, v34, v35, "%@ We have a non nil friend code, but playerID was unknown.", v37, 0xCu);
+      sub_10000E9F0(v38, &unk_10005CA00, &unk_100045CF0);
 
-      v8 = v37;
+      v8 = v36;
     }
 
-    v41 = *(v9 + 8);
-    v41(v18, v8);
-    v42 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestErrorType;
-    v34[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestErrorType] = 0;
+    v40 = *(v9 + 8);
+    v40(v17, v8);
+    v41 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestErrorType;
+    v33[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestErrorType] = 0;
     sub_1000413E0();
-    v43 = v34;
-    v44 = sub_100041400();
-    v45 = sub_100041CC0();
-    if (os_log_type_enabled(v44, v45))
+    v42 = v33;
+    v43 = sub_100041400();
+    v44 = sub_100041CC0();
+    if (os_log_type_enabled(v43, v44))
     {
-      v46 = swift_slowAlloc();
-      v59[0] = v8;
-      v47 = v46;
-      v48 = swift_slowAlloc();
-      *v47 = 138412546;
-      *(v47 + 4) = v43;
-      *v48 = v43;
-      *(v47 + 12) = 2048;
-      *(v47 + 14) = v34[v42];
-      _os_log_impl(&_mh_execute_header, v44, v45, "%@ PlayerID was unknown, friendRequestErrorType set to %ld.", v47, 0x16u);
-      sub_10000E9F0(v48, &unk_10005CA00, &unk_100045CF0);
+      v45 = swift_slowAlloc();
+      v58[0] = v8;
+      v46 = v45;
+      v47 = swift_slowAlloc();
+      *v46 = 138412546;
+      *(v46 + 4) = v42;
+      *v47 = v42;
+      *(v46 + 12) = 2048;
+      *(v46 + 14) = v33[v41];
+      _os_log_impl(&_mh_execute_header, v43, v44, "%@ PlayerID was unknown, friendRequestErrorType set to %ld.", v46, 0x16u);
+      sub_10000E9F0(v47, &unk_10005CA00, &unk_100045CF0);
 
-      v8 = v59[0];
+      v8 = v58[0];
     }
 
     else
     {
 
-      v44 = v43;
+      v43 = v42;
     }
 
-    v49 = (v41)(v16, v8);
+    v48 = (v40)(v15, v8);
   }
 
   else
   {
     sub_1000413D0();
     swift_errorRetain();
-    v26 = sub_100041400();
-    v27 = sub_100041CE0();
+    v25 = sub_100041400();
+    v26 = sub_100041CE0();
 
-    if (os_log_type_enabled(v26, v27))
+    if (os_log_type_enabled(v25, v26))
     {
+      v27 = swift_slowAlloc();
       v28 = swift_slowAlloc();
-      v29 = swift_slowAlloc();
-      v59[0] = v8;
-      v30 = v29;
-      aBlock[0] = v29;
-      *v28 = 136315138;
-      v62 = a1;
+      v58[0] = v8;
+      v29 = v28;
+      aBlock[0] = v28;
+      *v27 = 136315138;
+      v61 = a1;
       sub_100002D08(&unk_10005CF10, &qword_100047670);
-      v31 = sub_100041E10();
-      v33 = sub_10003FBD0(v31, v32, aBlock);
+      v30 = sub_100041E10();
+      v32 = sub_10003FBD0(v30, v31, aBlock);
 
-      *(v28 + 4) = v33;
-      _os_log_impl(&_mh_execute_header, v26, v27, "getPlayerIDFromFriendCode error:%s", v28, 0xCu);
-      sub_10000E8A8(v30);
+      *(v27 + 4) = v32;
+      _os_log_impl(&_mh_execute_header, v25, v26, "getPlayerIDFromFriendCode error:%s", v27, 0xCu);
+      sub_10000E8A8(v29);
 
-      (*(v9 + 8))(v13, v59[0]);
+      (*(v9 + 8))(v12, v58[0]);
     }
 
     else
     {
 
-      (*(v9 + 8))(v13, v8);
+      (*(v9 + 8))(v12, v8);
     }
 
-    v50 = [objc_opt_self() unknownPlayer];
-    v49 = sub_1000137CC(v50);
-    v51 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestErrorType;
+    v49 = [objc_opt_self() unknownPlayer];
+    v48 = sub_1000137CC(v49);
+    v50 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestErrorType;
     a3[OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendRequestErrorType] = 2;
     if (a1)
     {
@@ -9862,19 +9756,72 @@ uint64_t sub_1000162DC(void *a1, void *a2, char *a3, uint64_t (*a4)(uint64_t), u
       swift_errorRetain();
       sub_100002D08(&qword_10005CF30, &unk_1000463B0);
       sub_10000EA78(0, &qword_10005CF38, NSError_ptr);
-      v49 = swift_dynamicCast();
-      if (v49)
+      v48 = swift_dynamicCast();
+      if (v48)
       {
-        v52 = v62;
-        v53 = sub_10001953C(v62);
+        v51 = v61;
+        v52 = sub_10001953C(v61);
 
-        if (v53)
+        if (v52)
         {
-          a3[v51] = 4;
+          a3[v50] = 4;
         }
       }
     }
   }
 
-  return v60(v49);
+  return v59(v48);
+}
+
+void sub_100016938(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char *a5, void *a6)
+{
+  sub_100002D08(&qword_10005CF00, &unk_100046F40);
+  v12 = swift_allocObject();
+  *(v12 + 16) = xmmword_100045AE0;
+  *(v12 + 32) = a3;
+  *(v12 + 40) = a4;
+  v13 = OBJC_IVAR____TtC26GameCenterMessageExtension11PlayerModel_friendPlayerIDs;
+  swift_beginAccess();
+  v14 = *&a5[v13];
+  if (v14 && v14[2])
+  {
+    v16 = v14[4];
+    v15 = v14[5];
+    swift_bridgeObjectRetain_n();
+
+    v17 = sub_100017AF8(1, 2, 1, v12);
+    v17[2] = 2;
+    v17[6] = v16;
+    v17[7] = v15;
+  }
+
+  else
+  {
+
+    v16 = 0;
+    v15 = 0xE000000000000000;
+  }
+
+  v18 = objc_opt_self();
+  isa = sub_100041C10().super.isa;
+
+  v20 = swift_allocObject();
+  v20[2] = a6;
+  v20[3] = a5;
+  v20[4] = v16;
+  v20[5] = v15;
+  v20[6] = a1;
+  v20[7] = a2;
+  aBlock[4] = sub_10001C0B4;
+  aBlock[5] = v20;
+  aBlock[0] = _NSConcreteStackBlock;
+  aBlock[1] = 1107296256;
+  aBlock[2] = sub_100016238;
+  aBlock[3] = &unk_100056500;
+  v21 = _Block_copy(aBlock);
+  v22 = a6;
+  v23 = a5;
+
+  [v18 loadPlayersForIdentifiers:isa withCompletionHandler:v21];
+  _Block_release(v21);
 }

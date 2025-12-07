@@ -1,141 +1,3 @@
-id _LSMakeNSErrorImpl(void *a1, uint64_t a2, void *a3, const char *a4, char *a5, uint64_t a6)
-{
-  v11 = a1;
-  v12 = a3;
-  v13 = _LSMakeNSErrorDomainUserInfoWithExtras(a4, a5, a6);
-  v14 = v13;
-  if (v12)
-  {
-    [v13 addEntriesFromDictionary:v12];
-  }
-
-  if ([v11 isEqual:*MEMORY[0x1E696A5A0]])
-  {
-    v15 = mach_error_string(a2);
-    if (v15)
-    {
-      v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v15];
-      [v14 setObject:v16 forKeyedSubscript:@"_LSErrorMessage"];
-    }
-  }
-
-  v17 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:v11 code:a2 userInfo:v14];
-
-  return v17;
-}
-
-id _LSErrorLog(void)
-{
-  if (_LSErrorLog(void)::once != -1)
-  {
-    _LSErrorLog();
-  }
-
-  v1 = _LSErrorLog(void)::result;
-
-  return v1;
-}
-
-void ___ZL23findPluginDataInContextP9LSContextP6NSUUIDP6FSNodeP8NSStringbjPjPU15__autoreleasingP7NSError_block_invoke(uint64_t a1)
-{
-  v2 = **(a1 + 72);
-  v3 = [*(a1 + 32) UUIDString];
-  v4 = *(a1 + 92);
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 88);
-  v8 = *(a1 + 80);
-  v9 = *(*(a1 + 64) + 8);
-  obj = *(v9 + 40);
-  v10 = _LSPluginFindWithPlatformInfo(v2, v3, v5, v4 | 3u, v6, v7, v8, &obj);
-  objc_storeStrong((v9 + 40), obj);
-  *(*(*(a1 + 56) + 8) + 24) = v10;
-}
-
-uint64_t findPluginDataInContext(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, uint64_t a7, void *a8)
-{
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__0;
-  v23 = __Block_byref_object_dispose__0;
-  v24 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
-  if (a5)
-  {
-    v9 = 4;
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = ___ZL23findPluginDataInContextP9LSContextP6NSUUIDP6FSNodeP8NSStringbjPjPU15__autoreleasingP7NSError_block_invoke;
-  v12[3] = &unk_1E6A18E40;
-  v12[4] = a2;
-  v12[5] = a4;
-  v14 = v9;
-  v12[6] = a3;
-  v12[7] = &v15;
-  v13 = a6;
-  v12[9] = a1;
-  v12[10] = a7;
-  v12[8] = &v19;
-  __LSRECORD_IS_PERFORMING_IO_FOR_A_CALLER__(v12);
-  if (a8)
-  {
-    *a8 = v20[5];
-  }
-
-  v10 = v16[3];
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v19, 8);
-
-  return v10;
-}
-
-void sub_18164165C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t XCFBufInit(uint64_t result)
-{
-  *(result + 28) = 0;
-  *result = result + 28;
-  *(result + 8) = 0;
-  *(result + 24) = 127;
-  *(result + 16) = 0;
-  return result;
-}
-
-id _LSLazyLoadObjectWithLock(id *a1, os_unfair_lock_s *a2, void *a3)
-{
-  v5 = a3;
-  os_unfair_lock_lock(a2);
-  v6 = *a1;
-  if (!v6)
-  {
-    v6 = v5[2](v5);
-    v7 = *a1;
-    *a1 = v6;
-  }
-
-  os_unfair_lock_unlock(a2);
-
-  return v6;
-}
-
 void sub_181641750(_Unwind_Exception *a1)
 {
   os_unfair_lock_unlock(v2);
@@ -147,24 +9,8 @@ uint64_t _LSCopyRationalizedGroupContainerURLDict(void *a1)
 {
   v1 = a1;
   v2 = v1;
-  if (!v1)
+  if (!v1 || ([MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v1, "count")}], v3 = objc_claimAutoreleasedReturnValue(), v7[0] = MEMORY[0x1E69E9820], v7[1] = 3221225472, v7[2] = ___LSCopyRationalizedGroupContainerURLDict_block_invoke, v7[3] = &unk_1E6A1B468, v8 = v3, v4 = v3, objc_msgSend(v2, "enumerateKeysAndObjectsUsingBlock:", v7), v5 = objc_msgSend(v4, "copy"), v8, v4, !v5))
   {
-    goto LABEL_3;
-  }
-
-  v3 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v1, "count")}];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = ___LSCopyRationalizedGroupContainerURLDict_block_invoke;
-  v7[3] = &unk_1E6A1B468;
-  v8 = v3;
-  v4 = v3;
-  [v2 enumerateKeysAndObjectsUsingBlock:v7];
-  v5 = [v4 copy];
-
-  if (!v5)
-  {
-LABEL_3:
     v5 = MEMORY[0x1E695E0F8];
   }
 
@@ -188,60 +34,60 @@ BOOL _LSIsNewsBundleIdentifier(void *a1)
   return v3;
 }
 
-uint64_t _LSPluginFindWithPlatformInfo(void *a1, const __CFString *a2, const __CFString *a3, char a4, void *a5, int a6, _DWORD *a7, void *a8)
+uint64_t _LSPluginFindWithPlatformInfo(void *a1, __CFString *a2, __CFString *a3, char a4, void *a5, int a6, _DWORD *a7, void *a8)
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   v13 = a1;
   v14 = a5;
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x2020000000;
-  v71 = 0;
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x2020000000;
   v67 = 0;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x2020000000;
+  v68 = &v67;
+  v69 = 0x2020000000;
+  v70 = 0;
   v63 = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v64 = &v63;
+  v65 = 0x2020000000;
+  v66 = 0;
   v59 = 0;
-  v54[0] = 0;
-  v54[1] = v54;
-  v54[2] = 0x3032000000;
-  v54[3] = __Block_byref_object_copy__37;
-  v54[4] = __Block_byref_object_dispose__37;
+  v60 = &v59;
+  v61 = 0x2020000000;
+  v62 = 0;
   v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = 0;
+  v53[0] = 0;
+  v53[1] = v53;
+  v53[2] = 0x3032000000;
+  v53[3] = __Block_byref_object_copy__37;
+  v53[4] = __Block_byref_object_dispose__37;
+  v54 = 0;
   if (!v13)
   {
-    v42 = [MEMORY[0x1E696AAA8] currentHandler];
-    v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"const LSPluginData *_LSPluginFindWithPlatformInfo(__strong LSDatabaseRef, CFStringRef, CFStringRef, LSPluginFindOptions, FSNode *__strong, dyld_platform_t, LSPluginID *, NSError *__autoreleasing *)"}];
-    [v42 handleFailureInFunction:v43 file:@"LSPluginBundle.mm" lineNumber:556 description:{@"Invalid parameter not satisfying: %@", @"inDB != NULL"}];
+    v41 = [MEMORY[0x1E696AAA8] currentHandler];
+    v42 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"const LSPluginData *_LSPluginFindWithPlatformInfo(__strong LSDatabaseRef, CFStringRef, CFStringRef, LSPluginFindOptions, FSNode *__strong, dyld_platform_t, LSPluginID *, NSError *__autoreleasing *)"}];
+    [v41 handleFailureInFunction:v42 file:@"LSPluginBundle.mm" lineNumber:556 description:{@"Invalid parameter not satisfying: %@", @"inDB != NULL"}];
   }
 
   if (a2 && (v15 = CFGetTypeID(a2), v15 == CFStringGetTypeID()))
   {
     Length = CFStringGetLength(a2);
-    XCFBufInitWithCFStringRange(v102, a2, 0, Length, 0);
-  }
-
-  else
-  {
-    XCFBufInit(v102);
-  }
-
-  if (a3 && (v17 = CFGetTypeID(a3), v17 == CFStringGetTypeID()))
-  {
-    v18 = CFStringGetLength(a3);
-    XCFBufInitWithCFStringRange(v101, a3, 0, v18, 0);
+    XCFBufInitWithCFStringRange(v101, a2, 0, Length, 0);
   }
 
   else
   {
     XCFBufInit(v101);
+  }
+
+  if (a3 && (v17 = CFGetTypeID(a3), v17 == CFStringGetTypeID()))
+  {
+    v18 = CFStringGetLength(a3);
+    XCFBufInitWithCFStringRange(v100, a3, 0, v18, 0);
+  }
+
+  else
+  {
+    XCFBufInit(v100);
   }
 
   if (v14)
@@ -254,9 +100,9 @@ uint64_t _LSPluginFindWithPlatformInfo(void *a1, const __CFString *a2, const __C
     v19 = 0;
   }
 
-  v53 = 0;
   v52 = 0;
-  if (DWORD2(v101[0]))
+  v51 = 0;
+  if (DWORD2(v100[0]))
   {
     v20 = v13;
     [(_LSDatabase *)v13 store];
@@ -265,7 +111,7 @@ uint64_t _LSPluginFindWithPlatformInfo(void *a1, const __CFString *a2, const __C
     CSStringBindingFindStringAndBindings();
   }
 
-  if (DWORD2(v102[0]))
+  if (DWORD2(v101[0]))
   {
     v22 = v13;
     [(_LSDatabase *)v13 store];
@@ -276,7 +122,7 @@ uint64_t _LSPluginFindWithPlatformInfo(void *a1, const __CFString *a2, const __C
 
   if (v19)
   {
-    v24 = HIDWORD(v53) == 0;
+    v24 = HIDWORD(v52) == 0;
   }
 
   else
@@ -290,133 +136,132 @@ uint64_t _LSPluginFindWithPlatformInfo(void *a1, const __CFString *a2, const __C
   {
     [(_LSDatabase *)v13 store];
     v27 = v13;
-    v28 = *([(_LSDatabase *)v13 schema]+ 1588);
-    v50 = a6;
-    v46 = v13;
-    v51 = (a4 & 4) != 0;
-    v47 = v19;
-    v48 = &v60;
-    v49 = &v56;
+    [(_LSDatabase *)v13 schema];
+    v49 = a6;
+    v45 = v13;
+    v50 = (a4 & 4) != 0;
+    v46 = v19;
+    v47 = &v59;
+    v48 = &v55;
     _CSStoreEnumerateUnits();
 
-    v29 = &v46;
+    v28 = &v45;
   }
 
   else
   {
     [(_LSDatabase *)v13 store];
-    v73[3] = MEMORY[0x1E69E9820];
-    v73[4] = 3221225472;
-    v73[5] = ___LSPluginFindWithPlatformInfo_block_invoke_2;
-    v73[6] = &unk_1E6A1D650;
-    v30 = v13;
-    v95 = a6;
-    v81 = v101[6];
-    v82 = v101[7];
-    v83 = v101[8];
-    v84 = v101[9];
-    v77 = v101[2];
-    v78 = v101[3];
-    v79 = v101[4];
-    v80 = v101[5];
-    v75 = v101[0];
-    v76 = v101[1];
-    v91 = v102[6];
-    v92 = v102[7];
-    v93 = v102[8];
-    v94 = v102[9];
-    v87 = v102[2];
-    v88 = v102[3];
-    v89 = v102[4];
-    v90 = v102[5];
-    v85 = v102[0];
-    v86 = v102[1];
+    v72[3] = MEMORY[0x1E69E9820];
+    v72[4] = 3221225472;
+    v72[5] = ___LSPluginFindWithPlatformInfo_block_invoke_2;
+    v72[6] = &unk_1E6A1D650;
+    v29 = v13;
+    v94 = a6;
+    v80 = v100[6];
+    v81 = v100[7];
+    v82 = v100[8];
+    v83 = v100[9];
+    v76 = v100[2];
+    v77 = v100[3];
+    v78 = v100[4];
+    v79 = v100[5];
+    v74 = v100[0];
+    v75 = v100[1];
+    v90 = v101[6];
+    v91 = v101[7];
+    v92 = v101[8];
+    v93 = v101[9];
+    v86 = v101[2];
+    v87 = v101[3];
+    v88 = v101[4];
+    v89 = v101[5];
+    v84 = v101[0];
+    v85 = v101[1];
+    v95 = v51;
     v96 = v52;
-    v97 = v53;
-    v98 = (a4 & 2) != 0;
-    v74[0] = v30;
-    v74[1] = v54;
-    v99 = (a4 & 4) != 0;
-    v100 = a4 & 1;
-    v74[2] = &v68;
-    v74[3] = &v64;
-    v74[4] = &v60;
-    v74[5] = &v56;
+    v97 = (a4 & 2) != 0;
+    v73[0] = v29;
+    v73[1] = v53;
+    v98 = (a4 & 4) != 0;
+    v99 = a4 & 1;
+    v73[2] = &v67;
+    v73[3] = &v63;
+    v73[4] = &v59;
+    v73[5] = &v55;
     _CSArrayEnumerateAllValues();
-    v29 = v74;
+    v28 = v73;
     if (a4)
     {
-      v31 = *(v69 + 6);
-      if (v31)
+      v30 = *(v68 + 6);
+      if (v30)
       {
-        v32 = v65[3];
-        if (v32)
+        v31 = v64[3];
+        if (v31)
         {
-          *(v61 + 6) = v31;
-          v57[3] = v32;
+          *(v60 + 6) = v30;
+          v56[3] = v31;
         }
       }
     }
   }
 
-  v33 = *(v61 + 6);
-  if (v33)
+  v32 = *(v60 + 6);
+  if (v32)
   {
     if (a7)
     {
-      *a7 = v33;
+      *a7 = v32;
     }
   }
 
   else
   {
-    v34 = @"UNKNOWN";
+    v33 = @"UNKNOWN";
     if (v19)
     {
-      v34 = v19;
+      v33 = v19;
     }
 
     if (a2)
     {
-      v34 = a2;
+      v33 = a2;
     }
 
     if (a3)
     {
-      v34 = a3;
+      v33 = a3;
     }
 
-    v35 = v34;
-    v36 = v35;
+    v34 = v33;
+    v36 = v34;
     if (a8)
     {
-      v72[0] = *MEMORY[0x1E696A278];
-      v72[1] = @"SK";
-      v73[0] = @"Unable to find this application extension record in the Launch Services database.";
-      v73[1] = v35;
-      v72[2] = @"IS";
-      v37 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(__LSDefaultsGetSharedInstance(), "isServer")}];
-      v73[2] = v37;
-      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:3];
+      v71[0] = *MEMORY[0x1E696A278];
+      v71[1] = @"SK";
+      v72[0] = @"Unable to find this application extension record in the Launch Services database.";
+      v72[1] = v34;
+      v71[2] = @"IS";
+      v37 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(__LSDefaultsGetSharedInstance(v34, v35), "isServer")}];
+      v72[2] = v37;
+      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v72 forKeys:v71 count:3];
       *a8 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10814, v38, "_LSPluginFindWithPlatformInfo", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSPluginBundle.mm", 692);
     }
   }
 
-  XCFBufDestroy(v102);
   XCFBufDestroy(v101);
-  v39 = v57[3];
+  XCFBufDestroy(v100);
+  v39 = v56[3];
 
-  _Block_object_dispose(v54, 8);
-  _Block_object_dispose(&v56, 8);
-  _Block_object_dispose(&v60, 8);
-  _Block_object_dispose(&v64, 8);
-  _Block_object_dispose(&v68, 8);
+  _Block_object_dispose(v53, 8);
+  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v63, 8);
+  _Block_object_dispose(&v67, 8);
 
-  v40 = *MEMORY[0x1E69E9840];
   return v39;
 }
 
-void sub_1816426C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_1816426C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
 {
   _Block_object_dispose(&a27, 8);
 
@@ -428,78 +273,89 @@ void sub_1816426C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t _LSExtensionPointFindWithStringID(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5, void *a6)
+uint64_t _LSExtensionPointFindWithStringID(void *a1, uint64_t a2, int a3, int a4, _DWORD *a5, void *a6)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  v8 = a1;
-  _LSDatabaseEnumeratingBindingMap(v8);
-  v9 = *(v25 + 6);
-  if (!v9)
+  v38 = *MEMORY[0x1E69E9840];
+  v11 = a1;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = ___LSExtensionPointFindWithStringID_block_invoke;
+  v22[3] = &unk_1E6A1CC98;
+  v12 = v11;
+  v26 = a3;
+  v27 = a4;
+  v23 = v12;
+  v24 = &v32;
+  v25 = &v28;
+  _LSDatabaseEnumeratingBindingMap(v12, 12, a2, v22);
+  v13 = *(v33 + 6);
+  if (!v13)
   {
-    v10 = v8;
-    [(_LSDatabase *)v8 store];
-    v11 = _CSStringCopyCFString();
-    v12 = _LSDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = v12;
+    [(_LSDatabase *)v12 store];
+    v15 = _CSStringCopyCFString();
+    v16 = _LSDefaultLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v11;
-      _os_log_impl(&dword_18162D000, v12, OS_LOG_TYPE_DEFAULT, "Extension point %@ not in the binding map, scanning all extension points", buf, 0xCu);
+      v37 = v15;
+      _os_log_impl(&dword_18162D000, v16, OS_LOG_TYPE_DEFAULT, "Extension point %@ not in the binding map, scanning all extension points", buf, 0xCu);
     }
 
-    v13 = v8;
-    [(_LSDatabase *)v8 store];
-    v14 = v8;
-    v15 = *([(_LSDatabase *)v8 schema]+ 1592);
+    v17 = v12;
+    [(_LSDatabase *)v12 store];
+    v18 = v12;
+    [(_LSDatabase *)v12 schema];
     _CSStoreEnumerateUnits();
 
-    v9 = *(v25 + 6);
-    if (!v9)
+    v13 = *(v33 + 6);
+    if (!v13)
     {
       goto LABEL_10;
     }
   }
 
-  v16 = v21[3];
-  if (v16)
+  v19 = v29[3];
+  if (v19)
   {
     if (a5)
     {
-      *a5 = v9;
+      *a5 = v13;
     }
 
-    v17 = 0;
+    v20 = 0;
     if (a6)
     {
-      *a6 = v16;
+      *a6 = v19;
     }
   }
 
   else
   {
 LABEL_10:
-    v17 = 4294956482;
+    v20 = 4294956482;
   }
 
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v32, 8);
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v17;
+  return v20;
 }
 
-void sub_181642A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_181642A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
+
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
@@ -549,11 +405,11 @@ id _LSDNCBalanceBiDiControlCharacters(NSString *a1)
   return v4;
 }
 
-void sub_181642ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_181642ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v15 - 64), 8);
 
   _Unwind_Resume(a1);
 }
@@ -784,7 +640,7 @@ NSString *_LSDNCReplaceForbiddenCharacters(NSString *a1, char a2)
   return v8;
 }
 
-void sub_18164340C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_18164340C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -890,7 +746,7 @@ LABEL_23:
   return v8;
 }
 
-uint64_t ___ZL32_LSDNCReplaceForbiddenCharactersP8NSStringj_block_invoke(uint64_t result, CFStringInlineBuffer *a2, uint64_t a3)
+void *___ZL32_LSDNCReplaceForbiddenCharactersP8NSStringj_block_invoke(void *result, CFStringInlineBuffer *a2, uint64_t a3)
 {
   if (a3)
   {
@@ -964,18 +820,18 @@ uint64_t ___ZL32_LSDNCReplaceForbiddenCharactersP8NSStringj_block_invoke(uint64_
       }
 
 LABEL_12:
-      result = _LSDNCCharacterSetContainsCharacterFromInlineBuffer(*(v5 + 32), v13, a2, v7);
+      result = _LSDNCCharacterSetContainsCharacterFromInlineBuffer(*(v5 + 4), v13, a2, v7);
       if (result)
       {
-        v14 = *(*(*(v5 + 48) + 8) + 40);
+        v14 = *(*(*(v5 + 6) + 8) + 40);
         if (!v14)
         {
-          v15 = [*(v5 + 40) mutableCopy];
-          v16 = *(*(v5 + 48) + 8);
+          v15 = [*(v5 + 5) mutableCopy];
+          v16 = *(*(v5 + 6) + 8);
           v17 = *(v16 + 40);
           *(v16 + 40) = v15;
 
-          v14 = *(*(*(v5 + 48) + 8) + 40);
+          v14 = *(*(*(v5 + 6) + 8) + 40);
         }
 
         result = [v14 replaceCharactersInRange:v7 withCharacters:1 length:{&_LSDisplayNameConstructorForbiddenCharacterSubstitute, 1}];
@@ -1006,7 +862,7 @@ id postprocessLocalizedNameishStringFromStringRecord(LSBundleRecord *a1, NSStrin
   return v4;
 }
 
-uint64_t _LSGetAuditTokenForSelf()
+uint64_t _LSGetAuditTokenForSelf(uint64_t a1, uint64_t a2)
 {
   if (_LSGetAuditTokenForSelf::once != -1)
   {
@@ -1016,66 +872,49 @@ uint64_t _LSGetAuditTokenForSelf()
   return _LSGetAuditTokenForSelf::result;
 }
 
-id _LSGetMainBundleURL()
+id _LSGetMainBundleURL(uint64_t a1)
 {
   if (_LSGetMainBundleURL::once != -1)
   {
     _LSGetMainBundleURL_cold_1();
   }
 
-  v1 = _LSGetMainBundleURL::result;
+  v2 = _LSGetMainBundleURL::result;
 
-  return v1;
+  return v2;
 }
 
-uint64_t _LSCopyBundleURLForAuditToken(_OWORD *a1, int a2)
+uint64_t _LSCopyBundleURLForAuditToken(_OWORD *a1, uint64_t a2)
 {
   if (!a1)
   {
     return 0;
   }
 
-  if (a2 != 1)
+  if (a2 != 1 || ([__LSDefaultsGetSharedInstance(a1 a2)] & 1) != 0 || (v3 = getpid(), pidp = 0, v4 = a1[1], *atoken.val = *a1, *&atoken.val[4] = v4, audit_token_to_au32(&atoken, 0, 0, 0, 0, 0, &pidp, 0, 0), v3 != pidp) || (_LSGetMainBundleURL(v5), (v6 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    goto LABEL_6;
-  }
-
-  if ([__LSDefaultsGetSharedInstance() isServer])
-  {
-    goto LABEL_6;
-  }
-
-  v3 = getpid();
-  pidp = 0;
-  v4 = a1[1];
-  *atoken.val = *a1;
-  *&atoken.val[4] = v4;
-  audit_token_to_au32(&atoken, 0, 0, 0, 0, 0, &pidp, 0, 0);
-  if (v3 != pidp || (_LSGetMainBundleURL(), (v5 = objc_claimAutoreleasedReturnValue()) == 0))
-  {
-LABEL_6:
-    v6 = _LSCopyExecutableURLForAuditToken(a1);
-    if (v6)
+    v7 = _LSCopyExecutableURLForAuditToken(a1);
+    if (v7)
     {
-      v7 = v6;
-      v8 = _CFBundleCopyBundleURLForExecutableURL();
-      v9 = v8;
-      if (v8)
+      v8 = v7;
+      v9 = _CFBundleCopyBundleURLForExecutableURL();
+      v10 = v9;
+      if (v9)
       {
-        v10 = CFURLCopyPathExtension(v8);
-        v11 = v10;
-        if (v10)
+        v11 = CFURLCopyPathExtension(v9);
+        v12 = v11;
+        if (v11)
         {
-          if (CFStringGetLength(v10) <= 0)
+          if (CFStringGetLength(v11) <= 0)
           {
-            CFRelease(v11);
+            CFRelease(v12);
           }
 
           else
           {
-            v5 = CFRetain(v9);
-            CFRelease(v11);
-            if (v5)
+            v6 = CFRetain(v10);
+            CFRelease(v12);
+            if (v6)
             {
               goto LABEL_15;
             }
@@ -1083,23 +922,23 @@ LABEL_6:
         }
       }
 
-      v5 = CFRetain(v7);
-      if (!v9)
+      v6 = CFRetain(v8);
+      if (!v10)
       {
 LABEL_16:
-        CFRelease(v7);
-        return v5;
+        CFRelease(v8);
+        return v6;
       }
 
 LABEL_15:
-      CFRelease(v9);
+      CFRelease(v10);
       goto LABEL_16;
     }
 
     return 0;
   }
 
-  return v5;
+  return v6;
 }
 
 void sub_1816440E4(_Unwind_Exception *a1)
@@ -1119,9 +958,9 @@ uint64_t _FSNodeGetSimpleBoolValue(FSNode *a1, NSString *a2, uint64_t a3, uint64
     }
 
 LABEL_9:
-    v11 = [MEMORY[0x1E696AAA8] currentHandler];
-    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _FSNodeGetSimpleBoolValue(FSNode *const __strong, const __strong NSURLResourceKey, CFURLResourcePropertyFlags, CFURLVolumePropertyFlags)"}];
-    [v11 handleFailureInFunction:v12 file:@"FSUtils.mm" lineNumber:657 description:{@"Invalid parameter not satisfying: %@", @"inKey != nil"}];
+    v10 = [MEMORY[0x1E696AAA8] currentHandler];
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _FSNodeGetSimpleBoolValue(FSNode *const __strong, const __strong NSURLResourceKey, CFURLResourcePropertyFlags, CFURLVolumePropertyFlags)"}];
+    [v10 handleFailureInFunction:v11 file:@"FSUtils.mm" lineNumber:657 description:{@"Invalid parameter not satisfying: %@", @"inKey != nil"}];
 
     if (!a1)
     {
@@ -1131,9 +970,9 @@ LABEL_9:
     goto LABEL_4;
   }
 
-  v9 = [MEMORY[0x1E696AAA8] currentHandler];
-  v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _FSNodeGetSimpleBoolValue(FSNode *const __strong, const __strong NSURLResourceKey, CFURLResourcePropertyFlags, CFURLVolumePropertyFlags)"}];
-  [v9 handleFailureInFunction:v10 file:@"FSUtils.mm" lineNumber:656 description:{@"Invalid parameter not satisfying: %@", @"inNode != nil"}];
+  v8 = [MEMORY[0x1E696AAA8] currentHandler];
+  v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL _FSNodeGetSimpleBoolValue(FSNode *const __strong, const __strong NSURLResourceKey, CFURLResourcePropertyFlags, CFURLVolumePropertyFlags)"}];
+  [v8 handleFailureInFunction:v9 file:@"FSUtils.mm" lineNumber:656 description:{@"Invalid parameter not satisfying: %@", @"inNode != nil"}];
 
   if (!a2)
   {
@@ -1147,32 +986,179 @@ LABEL_3:
   }
 
 LABEL_4:
-  if (a4 | a3)
+  if (a4 | a3 && (*(a1 + 24) & 8) != 0 && __CFURLResourceInfoPtr())
   {
-    if ((*(a1 + 24) & 8) != 0)
-    {
-      url = a1->_url;
-      if (__CFURLResourceInfoPtr())
-      {
-        v15 = 0;
-        MEMORY[0x1865D5CA0]();
-      }
-    }
+    v14 = 0;
+    MEMORY[0x1865D5CA0]();
   }
 
 LABEL_10:
-  v15 = 0;
-  if ([(FSNode *)a1 getResourceValue:&v15 forKey:a2 options:1 error:0])
+  v14 = 0;
+  if ([(FSNode *)a1 getResourceValue:&v14 forKey:a2 options:1 error:0])
   {
-    v13 = [v15 BOOLValue];
+    v12 = [v14 BOOLValue];
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  return v13;
+  return v12;
+}
+
+uint64_t _LSGetBundleClassForExtensionInlineBuffer(uint64_t a1)
+{
+  result = 0;
+  v3 = *(a1 + 160);
+  if (v3 <= 7)
+  {
+    if (v3 <= 4)
+    {
+      if (v3 != 3)
+      {
+        if (v3 != 4)
+        {
+          return result;
+        }
+
+        v14.location = *(a1 + 152);
+        v14.length = 4;
+        if (CFStringCompareWithOptions(*(a1 + 128), @"wdgt", v14, 0) == kCFCompareEqualTo)
+        {
+          return 6;
+        }
+
+        v7 = CFStringCompareWithOptions(*(a1 + 128), @"dext", *(a1 + 152), 0) == kCFCompareEqualTo;
+        v8 = 15;
+        goto LABEL_30;
+      }
+
+      v15.location = *(a1 + 152);
+      v15.length = 3;
+      if (CFStringCompareWithOptions(*(a1 + 128), @"app", v15, 0) == kCFCompareEqualTo)
+      {
+        return 2;
+      }
+
+      v9 = *(a1 + 128);
+      v10 = *(a1 + 152);
+      v11 = @"xpc";
+    }
+
+    else
+    {
+      if (v3 != 5)
+      {
+        if (v3 == 6)
+        {
+          v16.location = *(a1 + 152);
+          v16.length = 6;
+          if (CFStringCompareWithOptions(*(a1 + 128), @"bundle", v16, 0) == kCFCompareEqualTo)
+          {
+            return 1;
+          }
+
+          v7 = CFStringCompareWithOptions(*(a1 + 128), @"action", *(a1 + 152), 0) == kCFCompareEqualTo;
+          v8 = 5;
+          goto LABEL_30;
+        }
+
+        v4 = *(a1 + 128);
+        v6.location = *(a1 + 152);
+        v5 = @"service";
+        v6.length = 7;
+        return 2 * (CFStringCompareWithOptions(v4, v5, v6, 0) == kCFCompareEqualTo);
+      }
+
+      v9 = *(a1 + 128);
+      v10.location = *(a1 + 152);
+      v11 = @"appex";
+      v10.length = 5;
+    }
+
+    v7 = CFStringCompareWithOptions(v9, v11, v10, 0) == kCFCompareEqualTo;
+    v8 = 12;
+LABEL_30:
+    if (v7)
+    {
+      return v8;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  if (v3 <= 10)
+  {
+    if (v3 == 8)
+    {
+      v19.location = *(a1 + 152);
+      v19.length = 8;
+      v7 = CFStringCompareWithOptions(*(a1 + 128), @"prefpane", v19, 0) == kCFCompareEqualTo;
+      v8 = 9;
+    }
+
+    else
+    {
+      if (v3 != 9)
+      {
+        v12.location = *(a1 + 152);
+        v12.length = 10;
+        return 4 * (CFStringCompareWithOptions(*(a1 + 128), @"mdimporter", v12, 0) == kCFCompareEqualTo);
+      }
+
+      v17.location = *(a1 + 152);
+      v17.length = 9;
+      if (CFStringCompareWithOptions(*(a1 + 128), @"framework", v17, 0) == kCFCompareEqualTo)
+      {
+        return 3;
+      }
+
+      v7 = CFStringCompareWithOptions(*(a1 + 128), @"vpnplugin", *(a1 + 152), 0) == kCFCompareEqualTo;
+      v8 = 13;
+    }
+
+    goto LABEL_30;
+  }
+
+  switch(v3)
+  {
+    case 11:
+      v20.location = *(a1 + 152);
+      v20.length = 11;
+      if (CFStringCompareWithOptions(*(a1 + 128), @"qlgenerator", v20, 0) == kCFCompareEqualTo)
+      {
+        return 7;
+      }
+
+      v4 = *(a1 + 128);
+      v6 = *(a1 + 152);
+      v5 = @"placeholder";
+      return 2 * (CFStringCompareWithOptions(v4, v5, v6, 0) == kCFCompareEqualTo);
+    case 12:
+      v18.location = *(a1 + 152);
+      v18.length = 12;
+      v7 = CFStringCompareWithOptions(*(a1 + 128), @"cannedsearch", v18, 0) == kCFCompareEqualTo;
+      v8 = 10;
+      goto LABEL_30;
+    case 15:
+      v13.location = *(a1 + 152);
+      v13.length = 15;
+      if (CFStringCompareWithOptions(*(a1 + 128), @"systemextension", v13, 0))
+      {
+        return 0;
+      }
+
+      else
+      {
+        return 15;
+      }
+  }
+
+  return result;
 }
 
 uint64_t _LSGetBundleClassForNode(uint64_t *a1, void *a2)
@@ -1313,14 +1299,14 @@ LABEL_39:
   return v4;
 }
 
-const void *_LSCreateResolvedURL(const void *a1)
+CFErrorRef _LSCreateResolvedURL(const void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!CFURLGetFileSystemRepresentation(a1, 1u, buffer, 1024))
   {
     v9 = CFGetAllocator(a1);
     v7 = CFErrorCreate(v9, *MEMORY[0x1E695E628], 4, 0);
-    v8 = _LSDefaultLog();
+    v8 = _LSDefaultLog(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       _LSCreateResolvedURL_cold_2();
@@ -1329,10 +1315,10 @@ const void *_LSCreateResolvedURL(const void *a1)
     goto LABEL_7;
   }
 
-  v16 = 0;
-  v15 = xmmword_1817E8D88;
-  memset(v17, 0, 512);
-  v2 = getattrlist(buffer, &v15, v17, 0x40CuLL, 0x21u);
+  v15 = 0;
+  v14 = xmmword_1817E8D88;
+  memset(v16, 0, 512);
+  v2 = getattrlist(buffer, &v14, v16, 0x40CuLL, 0x21u);
   v3 = CFGetAllocator(a1);
   v4 = v3;
   if (v2)
@@ -1340,7 +1326,7 @@ const void *_LSCreateResolvedURL(const void *a1)
     v5 = *MEMORY[0x1E695E640];
     v6 = __error();
     v7 = CFErrorCreate(v4, v5, *v6, 0);
-    v8 = _LSDefaultLog();
+    v8 = _LSDefaultLog(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       _LSCreateResolvedURL_cold_1();
@@ -1351,15 +1337,15 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v13 = CFStringCreateWithFileSystemRepresentation(v3, v17 + SDWORD1(v17[0]) + 4);
-  if (v13)
+  v10 = CFStringCreateWithFileSystemRepresentation(v3, v16 + SDWORD1(v16[0]) + 4);
+  if (v10)
   {
-    v14 = v13;
-    v7 = CFURLCreateWithFileSystemPath(*MEMORY[0x1E695E480], v13, kCFURLPOSIXPathStyle, 1u);
-    CFRelease(v14);
+    v13 = v10;
+    v7 = CFURLCreateWithFileSystemPath(*MEMORY[0x1E695E480], v10, kCFURLPOSIXPathStyle, 1u);
+    CFRelease(v13);
     if (v7)
     {
-      goto LABEL_13;
+      return v7;
     }
   }
 
@@ -1369,8 +1355,8 @@ LABEL_7:
   }
 
 LABEL_8:
-  v10 = _LSDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _LSDefaultLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     _LSCreateResolvedURL_cold_3();
   }
@@ -1380,32 +1366,29 @@ LABEL_8:
     CFRelease(v7);
   }
 
-  v7 = CFRetain(a1);
-LABEL_13:
-  v11 = *MEMORY[0x1E69E9840];
-  return v7;
+  return CFRetain(a1);
 }
 
-uint64_t _LSBundleFindWithNode(uint64_t *a1, void *a2, _DWORD *a3, void *a4)
+uint64_t _LSBundleFindWithNode(LSContext *a1, void *a2, _DWORD *a3, void *a4)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v7 = a2;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
-  v51 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2020000000;
-  v47 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
   v38 = 0;
-  v39 = 0;
-  v8 = [v7 nameWithError:&v38];
-  v9 = v38;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v36 = 0;
+  v37 = 0;
+  v8 = [v7 nameWithError:&v36];
+  v9 = v36;
   v10 = v9;
   if (v8)
   {
@@ -1421,9 +1404,9 @@ uint64_t _LSBundleFindWithNode(uint64_t *a1, void *a2, _DWORD *a3, void *a4)
     }
   }
 
-  v37 = 0;
-  v11 = [v7 getVolumeIdentifier:&v39 error:&v37];
-  v12 = v37;
+  v35 = 0;
+  v11 = [v7 getVolumeIdentifier:&v37 error:&v35];
+  v12 = v35;
   v13 = v12;
   if (v11)
   {
@@ -1439,72 +1422,72 @@ uint64_t _LSBundleFindWithNode(uint64_t *a1, void *a2, _DWORD *a3, void *a4)
     }
   }
 
-  if (!*(v49 + 24))
+  if (!*(v47 + 24))
   {
-    memset(v52, 0, sizeof(v52));
-    LaunchServices::BindingEvaluator::CreateWithBundleInfo(0, v8, 0, 0, v52, v56);
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = ___LSBundleFindWithNode_block_invoke;
-    v33[3] = &unk_1E6A1AA58;
-    v35 = a1;
+    memset(v50, 0, sizeof(v50));
+    LaunchServices::BindingEvaluator::CreateWithBundleInfo(0, v8, 0, 0, v50, v54);
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = ___LSBundleFindWithNode_block_invoke;
+    v31[3] = &unk_1E6A1AA58;
+    v33 = a1;
     v19 = v7;
-    v34 = v19;
-    v36 = v39;
-    LaunchServices::BindingEvaluator::setFilter(v56, @"bundle unit matches input node", v33);
-    LaunchServices::BindingEvaluator::setOptions(v56, 32910);
-    LaunchServices::BindingEvaluator::getBestBinding(v56);
-    if (v55 == 1)
+    v32 = v19;
+    v34 = v37;
+    LaunchServices::BindingEvaluator::setFilter(v54, @"bundle unit matches input node", v31);
+    LaunchServices::BindingEvaluator::setOptions(v54, 32910);
+    LaunchServices::BindingEvaluator::getBestBinding(v54, a1, 0, v50);
+    if (v53 == 1)
     {
-      *(v45 + 6) = v52[0];
-      v41[3] = *(&v52[0] + 1);
-      *(v49 + 24) = 1;
+      *(v43 + 6) = v50[0];
+      v39[3] = *(&v50[0] + 1);
+      *(v47 + 24) = 1;
     }
 
     else
     {
-      v21 = _LSDefaultLog();
+      v21 = _LSDefaultLog(v20);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         _LSBundleFindWithNode_cold_1(v19, v21);
       }
 
-      [(_LSDatabase *)*a1 store];
-      v22 = *([(_LSDatabase *)*a1 schema]+ 4);
-      v26[1] = MEMORY[0x1E69E9820];
-      v26[2] = 3221225472;
-      v26[3] = ___LSBundleFindWithNode_block_invoke_137;
-      v26[4] = &unk_1E6A1AA80;
-      v28 = &v44;
-      v29 = &v40;
-      v31 = a1;
-      v23 = v19;
-      v32 = v39;
-      v27 = v23;
-      v30 = &v48;
+      [(_LSDatabase *)a1->db store];
+      [(_LSDatabase *)a1->db schema];
+      v24[1] = MEMORY[0x1E69E9820];
+      v24[2] = 3221225472;
+      v24[3] = ___LSBundleFindWithNode_block_invoke_137;
+      v24[4] = &unk_1E6A1AA80;
+      v26 = &v42;
+      v27 = &v38;
+      v29 = a1;
+      v22 = v19;
+      v30 = v37;
+      v25 = v22;
+      v28 = &v46;
       _CSStoreEnumerateUnits();
     }
 
-    if (v55 == 1)
+    if (v53 == 1)
     {
     }
 
-    LaunchServices::BindingEvaluator::~BindingEvaluator(v56);
+    LaunchServices::BindingEvaluator::~BindingEvaluator(v54);
     v15 = 0;
     goto LABEL_23;
   }
 
   v14 = 0;
 LABEL_9:
-  if (*(v49 + 24))
+  if (*(v47 + 24))
   {
     v15 = 0;
     goto LABEL_24;
   }
 
-  v26[0] = 0;
-  v16 = [v7 pathWithError:v26];
-  v17 = v26[0];
+  v24[0] = 0;
+  v16 = [v7 pathWithError:v24];
+  v17 = v24[0];
   v18 = v17;
   if (v16)
   {
@@ -1521,24 +1504,24 @@ LABEL_9:
     }
   }
 
-  [(_LSDatabase *)*a1 store];
-  v20 = *([(_LSDatabase *)*a1 schema]+ 4);
+  [(_LSDatabase *)a1->db store];
+  [(_LSDatabase *)a1->db schema];
   v15 = v16;
   _CSStoreEnumerateUnits();
 
 LABEL_23:
   v14 = 0;
 LABEL_24:
-  if (*(v49 + 24))
+  if (*(v47 + 24))
   {
     if (a3)
     {
-      *a3 = *(v45 + 6);
+      *a3 = *(v43 + 6);
     }
 
     if (a4)
     {
-      *a4 = v41[3];
+      *a4 = v39[3];
     }
   }
 
@@ -1549,21 +1532,22 @@ LABEL_24:
 
 LABEL_30:
 
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v46, 8);
 
-  v24 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
-void sub_181645130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, id a55, id a56, uint64_t a57, char a58, uint64_t a59, char a60)
+void sub_181645130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, id a55, id a56, uint64_t a57, char a58, uint64_t a59, ...)
 {
+  va_start(va, a59);
+
   if (a58 == 1)
   {
   }
 
-  LaunchServices::BindingEvaluator::~BindingEvaluator(&a60);
+  LaunchServices::BindingEvaluator::~BindingEvaluator(va);
   _Block_object_dispose(&a39, 8);
   _Block_object_dispose(&a43, 8);
   _Block_object_dispose(&a47, 8);
@@ -1582,7 +1566,7 @@ void LaunchServices::BindingEvaluator::setFilter(uint64_t a1, void *a2, void *a3
   *(a1 + 144) = v7;
 }
 
-uint64_t _LSAliasCompareToNode(void *a1, int a2, uint64_t a3, uint64_t a4, void *a5)
+uint64_t _LSAliasCompareToNode(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v7 = a5;
   v8 = _LSAliasGet(a1, a2);
@@ -1600,7 +1584,7 @@ uint64_t _LSAliasCompareToNode(void *a1, int a2, uint64_t a3, uint64_t a4, void 
   return v10;
 }
 
-uint64_t _LSBundleMatchesNode(void *a1, int a2, uint64_t a3, void *a4, uint64_t a5)
+uint64_t _LSBundleMatchesNode(void *a1, int a2, unsigned int *a3, void *a4, uint64_t a5)
 {
   v9 = a1;
   v10 = a4;
@@ -1608,17 +1592,17 @@ uint64_t _LSBundleMatchesNode(void *a1, int a2, uint64_t a3, void *a4, uint64_t 
   v12 = 0;
   if (a2 && a3 && v10)
   {
-    v12 = _LSAliasAndInodeOnContainerMatchesNode(v9, *a3, 0, *(a3 + 4), v10, a5);
+    v12 = _LSAliasAndInodeOnContainerMatchesNode(v9, *a3, 0, a3[1], v10, a5);
   }
 
   return v12;
 }
 
-uint64_t _LSAliasAndInodeOnContainerMatchesNode(void *a1, int a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6)
+uint64_t _LSAliasAndInodeOnContainerMatchesNode(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6)
 {
   v11 = a1;
   v12 = a5;
-  v13 = _LSContainerGet(v11);
+  v13 = _LSContainerGet(v11, a4);
   if (v13)
   {
     v18 = 0;
@@ -1728,18 +1712,18 @@ uint64_t _UTTypeGetCachedType(_LSDatabase *a1, const __CFString *a2, unsigned in
 void ___ZL35_LSSessionInitMemoryWarningListenerv_block_invoke_2()
 {
   v0 = objc_autoreleasePoolPush();
-  os_unfair_recursive_lock_lock_with_options();
-  for (i = *(_LSGetSessions() + 16); i; i = *i)
+  v1 = os_unfair_recursive_lock_lock_with_options();
+  for (i = *(_LSGetSessions(v1) + 16); i; i = *i)
   {
-    v2 = i[3];
-    if (v2)
+    v3 = i[3];
+    if (v3)
     {
-      v3 = *(v2 + 24);
-      v4 = v3;
-      if (v3)
+      v4 = *(v3 + 24);
+      v5 = v4;
+      if (v4)
       {
-        v5 = v3;
-        _LSSchemaClearLocalizedCaches(v4 + 48);
+        v6 = v4;
+        _LSSchemaClearLocalizedCaches(v5 + 48);
       }
     }
   }
@@ -1829,7 +1813,7 @@ __n128 std::allocator_traits<LaunchServices::MallocZoneAllocator<LaunchServices:
 
 uint64_t LaunchServices::BindingEvaluation::compareBindings(LaunchServices::BindingEvaluation *this, LaunchServices::BindingEvaluation::State *a2, const LaunchServices::BindingEvaluation::ExtendedBinding *a3, const LaunchServices::BindingEvaluation::ExtendedBinding *a4, const LaunchServices::BindingEvaluation::ExtendedBinding *a5)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if ((*(this + 116) & 0x40) == 0 || (v8 = LaunchServices::BindingEvaluation::compareVendorsAndBundleClass(this, 1, a2, a3, a5), LOBYTE(v9) = v8, !v8))
   {
     if (*(a2 + 57) == *(a3 + 57))
@@ -1861,7 +1845,7 @@ uint64_t LaunchServices::BindingEvaluation::compareBindings(LaunchServices::Bind
         v25 = 1;
 LABEL_38:
         LaunchServices::BindingEvaluation::logComparison(v22, v23, v24, v21, v25);
-        goto LABEL_39;
+        return v9;
       }
 
       v20 = v11 & v19;
@@ -1870,7 +1854,7 @@ LABEL_38:
       {
 LABEL_19:
         LOBYTE(v9) = -1;
-        goto LABEL_39;
+        return v9;
       }
     }
 
@@ -1890,12 +1874,12 @@ LABEL_19:
         {
           if (v14 && !v13)
           {
-            LODWORD(v9) = 1;
+            v9 = 1;
           }
 
           else
           {
-            LODWORD(v9) = -1;
+            v9 = -1;
           }
 
           v21 = "wildcard";
@@ -1957,59 +1941,59 @@ LABEL_36:
     }
 
     LaunchServices::BindingEvaluation::logComparison(this, a2, a3, "legacy claim", 0);
-    v29 = LaunchServices::BindingEvaluation::compareDirectoryClasses(LaunchServices::BindingEvaluation::State &,LaunchServices::BindingEvaluation::ExtendedBinding const&,LaunchServices::BindingEvaluation::ExtendedBinding const&)::priority[*(*(a2 + 1) + 148)];
-    v30 = LaunchServices::BindingEvaluation::compareDirectoryClasses(LaunchServices::BindingEvaluation::State &,LaunchServices::BindingEvaluation::ExtendedBinding const&,LaunchServices::BindingEvaluation::ExtendedBinding const&)::priority[*(*(a3 + 1) + 148)];
-    v31 = v29 >= v30;
-    v32 = v29 > v30;
-    if (v31)
+    v28 = LaunchServices::BindingEvaluation::compareDirectoryClasses(LaunchServices::BindingEvaluation::State &,LaunchServices::BindingEvaluation::ExtendedBinding const&,LaunchServices::BindingEvaluation::ExtendedBinding const&)::priority[*(*(a2 + 1) + 148)];
+    v29 = LaunchServices::BindingEvaluation::compareDirectoryClasses(LaunchServices::BindingEvaluation::State &,LaunchServices::BindingEvaluation::ExtendedBinding const&,LaunchServices::BindingEvaluation::ExtendedBinding const&)::priority[*(*(a3 + 1) + 148)];
+    v30 = v28 >= v29;
+    v31 = v28 > v29;
+    if (v30)
     {
-      LODWORD(v9) = v32;
+      v9 = v31;
     }
 
     else
     {
-      LODWORD(v9) = -1;
+      v9 = -1;
     }
 
     LaunchServices::BindingEvaluation::logComparison(this, a2, a3, "dir class", v9);
     if ((*(this + 116) & 0x40) == 0 && !v9)
     {
-      LOBYTE(v9) = LaunchServices::BindingEvaluation::compareVendorsAndBundleClass(this, 0, a2, a3, v33);
+      LOBYTE(v9) = LaunchServices::BindingEvaluation::compareVendorsAndBundleClass(this, 0, a2, a3, v32);
     }
 
     if (!v9)
     {
-      v34 = *(a2 + 1);
-      v35 = *(a3 + 1);
-      if (*(v34 + 304) == *(v35 + 304))
+      v33 = *(a2 + 1);
+      v34 = *(a3 + 1);
+      if (*(v33 + 304) == *(v34 + 304))
       {
+        v35 = *(v33 + 44);
+        v52[0] = *(v33 + 28);
+        v52[1] = v35;
         v36 = *(v34 + 44);
-        v54[0] = *(v34 + 28);
-        v54[1] = v36;
-        v37 = *(v35 + 44);
-        v53[0] = *(v35 + 28);
-        v53[1] = v37;
-        v38 = _LSVersionNumberCompare(v54, v53);
-        if (v38 == 1)
+        v51[0] = *(v34 + 28);
+        v51[1] = v36;
+        v37 = _LSVersionNumberCompare(v52, v51);
+        if (v37 == 1)
         {
           LaunchServices::BindingEvaluation::logComparison(this, a2, a3, "bundle version", 1);
           LOBYTE(v9) = 1;
-          goto LABEL_39;
+          return v9;
         }
 
-        v39 = v38 == -1;
-        if (v38 == -1)
+        v38 = v37 == -1;
+        if (v37 == -1)
         {
-          v40 = -1;
+          v39 = -1;
         }
 
         else
         {
-          v40 = 0;
+          v39 = 0;
         }
 
-        LaunchServices::BindingEvaluation::logComparison(this, a2, a3, "bundle version", v40);
-        if (v39)
+        LaunchServices::BindingEvaluation::logComparison(this, a2, a3, "bundle version", v39);
+        if (v38)
         {
           goto LABEL_19;
         }
@@ -2020,56 +2004,54 @@ LABEL_36:
         LaunchServices::BindingEvaluation::logComparison(this, a2, a3, "bundle version", 0);
       }
 
-      v41 = *(*(a2 + 1) + 304);
       [(_LSDatabase *)**this store];
-      v42 = _CSStringCopyCFString();
-      v9 = *(*(a3 + 1) + 304);
+      v40 = _CSStringCopyCFString();
       [(_LSDatabase *)**this store];
-      v43 = _CSStringCopyCFString();
-      v44 = v43;
+      v41 = _CSStringCopyCFString();
+      v42 = v41;
       LOBYTE(v9) = 0;
-      if (v42 && v43)
+      if (v40 && v41)
       {
-        v45 = [v42 compare:v43];
-        if (v45 == -1)
+        v43 = [v40 compare:v41];
+        if (v43 == -1)
         {
           LOBYTE(v9) = -1;
         }
 
         else
         {
-          LOBYTE(v9) = v45 == 1;
+          LOBYTE(v9) = v43 == 1;
         }
       }
 
       LaunchServices::BindingEvaluation::logComparison(this, a2, a3, "desperation (bundle ID)", v9);
       if (!v9)
       {
-        v47 = LaunchServices::BindingEvaluation::getBindingPath(this, a2, v46);
-        v49 = LaunchServices::BindingEvaluation::getBindingPath(this, a3, v48);
-        v50 = v49;
+        v45 = LaunchServices::BindingEvaluation::getBindingPath(this, a2, v44);
+        v47 = LaunchServices::BindingEvaluation::getBindingPath(this, a3, v46);
+        v48 = v47;
         LOBYTE(v9) = 0;
-        if (v47 && v49)
+        if (v45 && v47)
         {
-          v51 = [v47 caseInsensitiveCompare:v49];
-          if (v51 == 1)
+          v49 = [v45 caseInsensitiveCompare:v47];
+          if (v49 == 1)
           {
-            v52 = -1;
+            v50 = -1;
           }
 
           else
           {
-            v52 = 0;
+            v50 = 0;
           }
 
-          if (v51 == -1)
+          if (v49 == -1)
           {
             LOBYTE(v9) = 1;
           }
 
           else
           {
-            LOBYTE(v9) = v52;
+            LOBYTE(v9) = v50;
           }
         }
 
@@ -2078,8 +2060,6 @@ LABEL_36:
     }
   }
 
-LABEL_39:
-  v27 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -2207,7 +2187,7 @@ void std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,LaunchServices::Bindi
   }
 
   v9 = (0x9D89D89D89D89D8ALL * ((a4 - a1) >> 3)) | 1;
-  v10 = (a1 + 104 * v9);
+  v10 = a1 + 104 * v9;
   v11 = 0x9D89D89D89D89D8ALL * ((a4 - a1) >> 3) + 2;
   if (v11 < a3)
   {
@@ -2246,7 +2226,7 @@ LABEL_7:
     if (v19)
     {
 LABEL_10:
-      v10 = (v10 + 104);
+      v10 += 104;
       v9 = v11;
     }
   }
@@ -2301,38 +2281,38 @@ LABEL_22:
     {
       v34 = v5;
       v5 = v10;
-      v35 = v10[1];
+      v35 = *(v10 + 16);
       *v34 = *v10;
       *(v34 + 1) = v35;
-      v36 = *(v10 + 4);
-      *(v10 + 4) = 0;
+      v36 = *(v10 + 32);
+      *(v10 + 32) = 0;
       v37 = *(v34 + 4);
       *(v34 + 4) = v36;
 
-      v38 = *(v10 + 5);
-      *(v10 + 5) = 0;
+      v38 = *(v10 + 40);
+      *(v10 + 40) = 0;
       v39 = *(v34 + 5);
       *(v34 + 5) = v38;
 
-      *(v34 + 6) = *(v10 + 6);
-      *(v34 + 28) = *(v10 + 28);
-      v40 = *(v10 + 8);
-      *(v10 + 8) = 0;
+      *(v34 + 6) = *(v10 + 48);
+      *(v34 + 28) = *(v10 + 56);
+      v40 = *(v10 + 64);
+      *(v10 + 64) = 0;
       v41 = *(v34 + 8);
       *(v34 + 8) = v40;
 
-      v42 = *(v10 + 9);
-      *(v10 + 9) = 0;
+      v42 = *(v10 + 72);
+      *(v10 + 72) = 0;
       v43 = *(v34 + 9);
       *(v34 + 9) = v42;
 
       *(v34 + 80) = *(v10 + 80);
-      v44 = *(v10 + 11);
-      *(v10 + 11) = 0;
+      v44 = *(v10 + 88);
+      *(v10 + 88) = 0;
       v45 = *(v34 + 11);
       *(v34 + 11) = v44;
 
-      *(v34 + 24) = *(v10 + 24);
+      *(v34 + 24) = *(v10 + 96);
       if (v77 < v9)
       {
 LABEL_43:
@@ -2373,7 +2353,7 @@ LABEL_43:
 
       v46 = 2 * v9;
       v9 = (2 * v9) | 1;
-      v10 = (a1 + 104 * v9);
+      v10 = a1 + 104 * v9;
       v47 = v46 + 2;
       if (v46 + 2 >= a3)
       {
@@ -2460,7 +2440,7 @@ LABEL_33:
     }
 
 LABEL_31:
-    v10 = (v10 + 104);
+    v10 += 104;
     v9 = v47;
     goto LABEL_34;
   }
@@ -2472,9 +2452,9 @@ LABEL_31:
   }
 }
 
-void sub_181646680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_181646680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   LaunchServices::BindingEvaluation::ExtendedBinding::~ExtendedBinding(va);
   _Unwind_Resume(a1);
 }
@@ -2482,19 +2462,29 @@ void sub_181646680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 CFURLRef _LSCopyExecutableURLForAuditToken(uint64_t a1)
 {
   v1 = MEMORY[0x1EEE9AC00](a1);
-  v10 = *MEMORY[0x1E69E9840];
-  if (v1 && (v2 = v1[1], *v8.val = *v1, *&v8.val[4] = v2, proc_pidpath_audittoken(&v8, buffer, 0x1000u) >= 1) && (v3 = *MEMORY[0x1E695E480], (v4 = CFStringCreateWithFileSystemRepresentation(*MEMORY[0x1E695E480], buffer)) != 0))
+  v9 = *MEMORY[0x1E69E9840];
+  if (!v1)
   {
-    v5 = CFURLCreateWithFileSystemPath(v3, v4, kCFURLPOSIXPathStyle, 0);
-    CFRelease(v4);
+    return 0;
   }
 
-  else
+  v2 = v1[1];
+  *v7.val = *v1;
+  *&v7.val[4] = v2;
+  if (proc_pidpath_audittoken(&v7, buffer, 0x1000u) < 1)
   {
-    v5 = 0;
+    return 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E695E480];
+  v4 = CFStringCreateWithFileSystemRepresentation(*MEMORY[0x1E695E480], buffer);
+  if (!v4)
+  {
+    return 0;
+  }
+
+  v5 = CFURLCreateWithFileSystemPath(v3, v4, kCFURLPOSIXPathStyle, 0);
+  CFRelease(v4);
   return v5;
 }
 
@@ -2542,87 +2532,87 @@ void ___ZL16getPropertyTablev_block_invoke_cold_6()
   }
 }
 
-void _LSRegisterFilePropertyProvider()
+void _LSRegisterFilePropertyProvider(void *a1)
 {
   __p = 0;
-  v11 = 0;
   v12 = 0;
+  v13 = 0;
   if (getPropertyTable(void)::onceToken != -1)
   {
     _LSRegisterFilePropertyProvider_cold_1();
   }
 
-  v0 = 0;
-  v1 = *LaunchServices::URLPropertyProvider::propertyTable;
-  v2 = *(LaunchServices::URLPropertyProvider::propertyTable + 8);
+  v1 = 0;
+  v2 = *LaunchServices::URLPropertyProvider::propertyTable;
+  v3 = *(LaunchServices::URLPropertyProvider::propertyTable + 8);
   do
   {
-    if (v0 >= v12)
+    if (v1 >= v13)
     {
-      v3 = (v0 - __p) >> 3;
-      if ((v3 + 1) >> 61)
+      v4 = (v1 - __p) >> 3;
+      if ((v4 + 1) >> 61)
       {
         std::vector<os_eligibility_answer_t>::__throw_length_error[abi:nn200100]();
       }
 
-      v4 = (v12 - __p) >> 2;
-      if (v4 <= v3 + 1)
+      v5 = (v13 - __p) >> 2;
+      if (v5 <= v4 + 1)
       {
-        v4 = v3 + 1;
+        v5 = v4 + 1;
       }
 
-      if (v12 - __p >= 0x7FFFFFFFFFFFFFF8)
+      if (v13 - __p >= 0x7FFFFFFFFFFFFFF8)
       {
-        v5 = 0x1FFFFFFFFFFFFFFFLL;
+        v6 = 0x1FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v5 = v4;
+        v6 = v5;
       }
 
-      if (v5)
+      if (v6)
       {
-        std::allocator<__CFString const*>::allocate_at_least[abi:nn200100](&__p, v5);
+        std::allocator<__CFString const*>::allocate_at_least[abi:nn200100](&__p, v6);
       }
 
-      *(8 * v3) = *v1;
-      v0 = (8 * v3 + 8);
-      v6 = (8 * v3 - (v11 - __p));
-      memcpy(v6, __p, v11 - __p);
-      v7 = __p;
-      __p = v6;
-      v11 = v0;
-      v12 = 0;
-      if (v7)
+      *(8 * v4) = *v2;
+      v1 = (8 * v4 + 8);
+      v7 = (8 * v4 - (v12 - __p));
+      memcpy(v7, __p, v12 - __p);
+      v8 = __p;
+      __p = v7;
+      v12 = v1;
+      v13 = 0;
+      if (v8)
       {
-        operator delete(v7);
+        operator delete(v8);
       }
     }
 
     else
     {
-      *v0 = *v1;
-      v0 += 8;
+      *v1 = *v2;
+      v1 += 8;
     }
 
-    v11 = v0;
-    v1 += 7;
+    v12 = v1;
+    v2 += 7;
   }
 
-  while (v1 != v2);
+  while (v2 != v3);
   MEMORY[0x1865D5D20](LaunchServices::URLPropertyProvider::kLSPropertyProviderCallbacks, 0);
-  v8 = *LaunchServices::URLPropertyProvider::propertyTable;
-  v9 = *(LaunchServices::URLPropertyProvider::propertyTable + 8);
-  while (v8 != v9)
+  v9 = *LaunchServices::URLPropertyProvider::propertyTable;
+  v10 = *(LaunchServices::URLPropertyProvider::propertyTable + 8);
+  while (v9 != v10)
   {
-    MEMORY[0x1865D5D30](*v8, v8[1], v8[5], v8[6], v8);
-    v8 += 7;
+    MEMORY[0x1865D5D30](*v9, v9[1], v9[5], v9[6], v9);
+    v9 += 7;
   }
 
   if (__p)
   {
-    v11 = __p;
+    v12 = __p;
     operator delete(__p);
   }
 }
@@ -2639,8 +2629,8 @@ void sub_181646AAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZL16getPropertyTablev_block_invoke()
 {
-  v133 = *MEMORY[0x1E69E9840];
-  if ((atomic_load_explicit(&_MergedGlobals_3, memory_order_acquire) & 1) == 0)
+  v169 = *MEMORY[0x1E69E9840];
+  if ((atomic_load_explicit(_MergedGlobals_3, memory_order_acquire) & 1) == 0)
   {
     ___ZL16getPropertyTablev_block_invoke_cold_1();
   }
@@ -2650,12 +2640,12 @@ void ___ZL16getPropertyTablev_block_invoke()
     ___ZL16getPropertyTablev_block_invoke_cold_2();
   }
 
-  if ((atomic_load_explicit(&qword_1ED445348, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED445348, memory_order_acquire) & 1) == 0)
   {
     ___ZL16getPropertyTablev_block_invoke_cold_3();
   }
 
-  if ((atomic_load_explicit(&qword_1ED445350, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED445350, memory_order_acquire) & 1) == 0)
   {
     ___ZL16getPropertyTablev_block_invoke_cold_4();
   }
@@ -2670,201 +2660,201 @@ void ___ZL16getPropertyTablev_block_invoke()
     ___ZL16getPropertyTablev_block_invoke_cold_6();
   }
 
-  if ((atomic_load_explicit(&qword_1ED445378, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED445378, memory_order_acquire) & 1) == 0)
   {
     ___ZL16getPropertyTablev_block_invoke_cold_7();
   }
 
-  if ((atomic_load_explicit(&qword_1ED445388, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED445388, memory_order_acquire) & 1) == 0)
   {
     ___ZL16getPropertyTablev_block_invoke_cold_8();
   }
 
-  if ((atomic_load_explicit(&qword_1ED445398, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED445398, memory_order_acquire) & 1) == 0)
   {
     ___ZL16getPropertyTablev_block_invoke_cold_9();
   }
 
-  if ((atomic_load_explicit(&qword_1ED4453A0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED4453A0, memory_order_acquire) & 1) == 0)
   {
     ___ZL16getPropertyTablev_block_invoke_cold_10();
   }
 
-  if ((atomic_load_explicit(&qword_1ED4453A8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED4453A8, memory_order_acquire) & 1) == 0)
   {
     ___ZL16getPropertyTablev_block_invoke_cold_11();
   }
 
-  v6[0] = *MEMORY[0x1E695EB50];
-  v6[1] = 1;
-  v6[2] = LaunchServices::URLPropertyProvider::prepareIsPackageValue;
-  v6[3] = LaunchServices::URLPropertyProvider::prepareIsPackageMimic;
-  v6[4] = LaunchServices::URLPropertyProvider::setIsPackageValue;
-  v6[5] = &qword_1ED445470;
+  *&v6 = *MEMORY[0x1E695EB50];
+  *(&v6 + 1) = 1;
+  v7 = LaunchServices::URLPropertyProvider::prepareIsPackageValue;
+  v8 = LaunchServices::URLPropertyProvider::prepareIsPackageMimic;
+  v9 = LaunchServices::URLPropertyProvider::setIsPackageValue;
+  v10 = &qword_1ED445470;
   v0 = *MEMORY[0x1E695EB20];
-  v6[6] = 10;
-  v6[7] = v0;
-  v6[8] = 0;
-  v6[9] = LaunchServices::URLPropertyProvider::prepareIsApplicationValue;
-  v6[10] = LaunchServices::URLPropertyProvider::prepareIsApplicationMimic;
-  v6[11] = 0;
-  v6[12] = &qword_1ED4454C0;
-  v6[13] = 10;
-  v6[14] = *MEMORY[0x1E695E228];
-  v6[15] = 0;
-  v6[16] = LaunchServices::URLPropertyProvider::prepareApplicationFlags;
-  v6[17] = LaunchServices::URLPropertyProvider::prepareAppFlagsMimic;
-  v6[18] = 0;
-  v6[19] = &qword_1ED445470;
-  v6[20] = 10;
-  v6[21] = *MEMORY[0x1E695E220];
-  v6[22] = 0;
-  v6[23] = LaunchServices::URLPropertyProvider::prepareApplicationFlags;
-  v6[24] = LaunchServices::URLPropertyProvider::prepareAppFlagsMimic;
-  v6[25] = 0;
-  v6[26] = &qword_1ED445470;
+  v11 = 10;
+  v12 = v0;
+  v13 = 0;
+  v14 = LaunchServices::URLPropertyProvider::prepareIsApplicationValue;
+  v15 = LaunchServices::URLPropertyProvider::prepareIsApplicationMimic;
+  v16 = 0;
+  v17 = &qword_1ED4454C0;
+  v18 = 10;
+  v19 = *MEMORY[0x1E695E228];
+  v20 = 0;
+  v21 = LaunchServices::URLPropertyProvider::prepareApplicationFlags;
+  v22 = LaunchServices::URLPropertyProvider::prepareAppFlagsMimic;
+  v23 = 0;
+  v24 = &qword_1ED445470;
+  v25 = 10;
+  v26 = *MEMORY[0x1E695E220];
+  v27 = 0;
+  v28 = LaunchServices::URLPropertyProvider::prepareApplicationFlags;
+  v29 = LaunchServices::URLPropertyProvider::prepareAppFlagsMimic;
+  v30 = 0;
+  v31 = &qword_1ED445470;
   v1 = *MEMORY[0x1E695EBC8];
-  v6[27] = 10;
-  v6[28] = v1;
-  v6[29] = 1;
-  v6[30] = LaunchServices::URLPropertyProvider::prepareLocalizedNameValue;
-  v6[31] = LaunchServices::URLPropertyProvider::prepareDNCMimic;
-  v6[32] = 0;
-  v6[33] = &qword_1ED445470;
-  v6[34] = 10;
-  v6[35] = *MEMORY[0x1E695E280];
-  v6[36] = 0;
-  v7 = 0u;
-  v6[37] = LaunchServices::URLPropertyProvider::prepareDistinctLocalizedNameValue;
-  v8 = &qword_1ED4453B0;
+  v32 = 10;
+  v33 = v1;
+  v34 = 1;
+  v35 = LaunchServices::URLPropertyProvider::prepareLocalizedNameValue;
+  v36 = LaunchServices::URLPropertyProvider::prepareDNCMimic;
+  v37 = 0;
+  v38 = &qword_1ED445470;
+  v39 = 10;
+  v40 = *MEMORY[0x1E695E280];
+  v41 = 0;
+  v43 = 0u;
+  v42 = LaunchServices::URLPropertyProvider::prepareDistinctLocalizedNameValue;
+  v44 = &qword_1ED4453B0;
   v2 = *MEMORY[0x1E695E378];
-  v9 = 2;
-  v10 = v2;
-  v11 = 0;
-  v12 = LaunchServices::URLPropertyProvider::prepareLocalizedNameDictionaryValue;
-  v13 = LaunchServices::URLPropertyProvider::prepareDNCMimic;
-  v14 = 0;
-  v15 = &qword_1ED445470;
+  v45 = 2;
+  v46 = v2;
+  v47 = 0;
+  v48 = LaunchServices::URLPropertyProvider::prepareLocalizedNameDictionaryValue;
+  v49 = LaunchServices::URLPropertyProvider::prepareDNCMimic;
+  v50 = 0;
+  v51 = &qword_1ED445470;
   v3 = *MEMORY[0x1E695E380];
-  v16 = 10;
-  v17 = v3;
-  v18 = 0;
-  v19 = LaunchServices::URLPropertyProvider::prepareLocalizedNameDictionaryValue;
-  v20 = LaunchServices::URLPropertyProvider::prepareDNCMimic;
-  v21 = 0;
-  v22 = &qword_1ED445470;
-  v23 = 10;
-  v24 = *MEMORY[0x1E695E370];
-  v25 = 0;
-  v26 = LaunchServices::URLPropertyProvider::prepareLocalizedNameComponentsValue;
-  v27 = LaunchServices::URLPropertyProvider::prepareDNCMimic;
-  v28 = 0;
-  v29 = &qword_1ED445470;
+  v52 = 10;
+  v53 = v3;
+  v54 = 0;
+  v55 = LaunchServices::URLPropertyProvider::prepareLocalizedNameDictionaryValue;
+  v56 = LaunchServices::URLPropertyProvider::prepareDNCMimic;
+  v57 = 0;
+  v58 = &qword_1ED445470;
+  v59 = 10;
+  v60 = *MEMORY[0x1E695E370];
+  v61 = 0;
+  v62 = LaunchServices::URLPropertyProvider::prepareLocalizedNameComponentsValue;
+  v63 = LaunchServices::URLPropertyProvider::prepareDNCMimic;
+  v64 = 0;
+  v65 = &qword_1ED445470;
   v4 = *MEMORY[0x1E695E250];
-  v30 = 10;
-  v31 = v4;
-  v32 = 0;
-  v33 = LaunchServices::URLPropertyProvider::prepareCanSetHiddenExtensionValue;
-  v34 = LaunchServices::URLPropertyProvider::prepareDNCMimic;
-  v35 = 0;
-  v36 = &qword_1ED445358;
-  v37 = 1;
-  v38 = *MEMORY[0x1E695EC28];
-  v39 = 1;
-  v40 = LaunchServices::URLPropertyProvider::prepareTypeIdentifierAndObjectValue;
-  v41 = LaunchServices::URLPropertyProvider::prepareTypeMimic;
-  v42 = 0;
-  v43 = &qword_1ED445400;
-  v44 = 7;
-  v45 = *MEMORY[0x1E695E268];
-  v46 = 1;
-  v47 = LaunchServices::URLPropertyProvider::prepareTypeIdentifierAndObjectValue;
-  v48 = LaunchServices::URLPropertyProvider::prepareTypeMimic;
-  v49 = 0;
-  v50 = &qword_1ED445400;
-  v51 = 7;
-  v52 = *MEMORY[0x1E695EBD0];
-  v53 = 1;
-  v54 = LaunchServices::URLPropertyProvider::prepareLocalizedTypeDescriptionValue;
-  v55 = LaunchServices::URLPropertyProvider::prepareBindingMimic;
-  v56 = 0;
-  v57 = &qword_1ED445380;
-  v58 = 1;
-  v59 = *MEMORY[0x1E695E388];
-  v60 = 0;
-  v61 = LaunchServices::URLPropertyProvider::prepareLocalizedTypeDescriptionDictionaryValue;
-  v62 = LaunchServices::URLPropertyProvider::prepareBindingMimic;
-  v63 = 0;
-  v64 = &qword_1ED445380;
-  v65 = 1;
-  v66 = *MEMORY[0x1E695E248];
-  v67 = 0;
-  v68 = LaunchServices::URLPropertyProvider::prepareBundleIdentifierValue;
-  v69 = LaunchServices::URLPropertyProvider::prepareMimicForBundleLookup;
-  v70 = 0;
-  v71 = &qword_1ED445470;
-  v72 = 10;
-  v73 = *MEMORY[0x1E695E2D8];
-  v74 = 0;
-  v75 = LaunchServices::URLPropertyProvider::prepareHFSTypeCodeValue;
-  v76 = LaunchServices::URLPropertyProvider::prepareMimicForBundleLookup;
-  v77 = 0;
-  v78 = &qword_1ED445470;
-  v79 = 10;
-  v80 = *MEMORY[0x1E695E238];
-  v81 = 0;
-  v82 = LaunchServices::URLPropertyProvider::prepareArchitecturesValue;
-  v83 = LaunchServices::URLPropertyProvider::prepareMimicForBundleLookup;
-  v84 = 0;
-  v85 = &qword_1ED445390;
-  v86 = 1;
-  v87 = *MEMORY[0x1E695E210];
-  v88 = 0;
-  v89 = LaunchServices::URLPropertyProvider::prepareArchitecturesValue;
-  v90 = LaunchServices::URLPropertyProvider::prepareMimicForBundleLookup;
-  v91 = 0;
-  v92 = &qword_1ED445390;
-  v93 = 1;
-  v94 = @"_NSURLCanSetStrongBindingKey";
-  v95 = 0;
-  v96 = LaunchServices::URLPropertyProvider::prepareCanSetStrongBindingValue;
-  v97 = 0u;
-  v98 = &qword_1ED445438;
-  v99 = 7;
-  v100 = @"_NSURLStrongBindingKey";
-  v101 = 0;
-  v102 = LaunchServices::URLPropertyProvider::prepareStrongBindingValue;
+  v66 = 10;
+  v67 = v4;
+  v68 = 0;
+  v69 = LaunchServices::URLPropertyProvider::prepareCanSetHiddenExtensionValue;
+  v70 = LaunchServices::URLPropertyProvider::prepareDNCMimic;
+  v71 = 0;
+  v72 = &qword_1ED445358;
+  v73 = 1;
+  v74 = *MEMORY[0x1E695EC28];
+  v75 = 1;
+  v76 = LaunchServices::URLPropertyProvider::prepareTypeIdentifierAndObjectValue;
+  v77 = LaunchServices::URLPropertyProvider::prepareTypeMimic;
+  v78 = 0;
+  v79 = &qword_1ED445400;
+  v80 = 7;
+  v81 = *MEMORY[0x1E695E268];
+  v82 = 1;
+  v83 = LaunchServices::URLPropertyProvider::prepareTypeIdentifierAndObjectValue;
+  v84 = LaunchServices::URLPropertyProvider::prepareTypeMimic;
+  v85 = 0;
+  v86 = &qword_1ED445400;
+  v87 = 7;
+  v88 = *MEMORY[0x1E695EBD0];
+  v89 = 1;
+  v90 = LaunchServices::URLPropertyProvider::prepareLocalizedTypeDescriptionValue;
+  v91 = LaunchServices::URLPropertyProvider::prepareBindingMimic;
+  v92 = 0;
+  v93 = &qword_1ED445380;
+  v94 = 1;
+  v95 = *MEMORY[0x1E695E388];
+  v96 = 0;
+  v97 = LaunchServices::URLPropertyProvider::prepareLocalizedTypeDescriptionDictionaryValue;
+  v98 = LaunchServices::URLPropertyProvider::prepareBindingMimic;
+  v99 = 0;
+  v100 = &qword_1ED445380;
+  v101 = 1;
+  v102 = *MEMORY[0x1E695E248];
   v103 = 0;
-  v104 = LaunchServices::URLPropertyProvider::setStrongBindingValue;
-  v105 = &qword_1ED4453C0;
-  v106 = 2;
-  v107 = *MEMORY[0x1E695ED60];
-  v108 = 0;
-  v109 = LaunchServices::URLPropertyProvider::prepareVolumeLocalizedNameValue;
-  v110 = 0u;
-  v111 = &qword_1ED4453D0;
-  v112 = 6;
-  v113 = @"_NSURLIsHiddenBySystemKey";
-  v114 = 0;
-  v115 = LaunchServices::URLPropertyProvider::prepareIsHiddenBySystemValue;
-  v116 = LaunchServices::URLPropertyProvider::prepareMimicForBundleLookup;
+  v104 = LaunchServices::URLPropertyProvider::prepareBundleIdentifierValue;
+  v105 = LaunchServices::URLPropertyProvider::prepareMimicForBundleLookup;
+  v106 = 0;
+  v107 = &qword_1ED445470;
+  v108 = 10;
+  v109 = *MEMORY[0x1E695E2D8];
+  v110 = 0;
+  v111 = LaunchServices::URLPropertyProvider::prepareHFSTypeCodeValue;
+  v112 = LaunchServices::URLPropertyProvider::prepareMimicForBundleLookup;
+  v113 = 0;
+  v114 = &qword_1ED445470;
+  v115 = 10;
+  v116 = *MEMORY[0x1E695E238];
   v117 = 0;
-  v118 = &qword_1ED445368;
-  v119 = 1;
-  v120 = @"_NSURLIsHiddenBySystemChangedNotificationsKey";
-  v121 = 0;
-  v122 = LaunchServices::URLPropertyProvider::prepareIsHiddenBySystemNotificationsValue;
-  v123 = LaunchServices::URLPropertyProvider::prepareMimicForBundleLookup;
+  v118 = LaunchServices::URLPropertyProvider::prepareArchitecturesValue;
+  v119 = LaunchServices::URLPropertyProvider::prepareMimicForBundleLookup;
+  v120 = 0;
+  v121 = &qword_1ED445390;
+  v122 = 1;
+  v123 = *MEMORY[0x1E695E210];
   v124 = 0;
-  v125 = &qword_1ED445368;
-  v126 = 1;
-  v127 = *MEMORY[0x1E695E218];
-  v128 = 0;
-  v129 = LaunchServices::URLPropertyProvider::prepareApplicationDeviceManagementPolicyValue;
-  v130 = 0u;
-  v131 = &qword_1ED445470;
-  v132 = 10;
-  std::vector<LaunchServices::URLPropertyProvider::FileProperty>::vector[abi:nn200100](&v5, v6, 0x18uLL);
+  v125 = LaunchServices::URLPropertyProvider::prepareArchitecturesValue;
+  v126 = LaunchServices::URLPropertyProvider::prepareMimicForBundleLookup;
+  v127 = 0;
+  v128 = &qword_1ED445390;
+  v129 = 1;
+  v130 = @"_NSURLCanSetStrongBindingKey";
+  v131 = 0;
+  v132 = LaunchServices::URLPropertyProvider::prepareCanSetStrongBindingValue;
+  v133 = 0u;
+  v134 = &qword_1ED445438;
+  v135 = 7;
+  v136 = @"_NSURLStrongBindingKey";
+  v137 = 0;
+  v138 = LaunchServices::URLPropertyProvider::prepareStrongBindingValue;
+  v139 = 0;
+  v140 = LaunchServices::URLPropertyProvider::setStrongBindingValue;
+  v141 = &qword_1ED4453C0;
+  v142 = 2;
+  v143 = *MEMORY[0x1E695ED60];
+  v144 = 0;
+  v145 = LaunchServices::URLPropertyProvider::prepareVolumeLocalizedNameValue;
+  v146 = 0u;
+  v147 = &qword_1ED4453D0;
+  v148 = 6;
+  v149 = @"_NSURLIsHiddenBySystemKey";
+  v150 = 0;
+  v151 = LaunchServices::URLPropertyProvider::prepareIsHiddenBySystemValue;
+  v152 = LaunchServices::URLPropertyProvider::prepareMimicForBundleLookup;
+  v153 = 0;
+  v154 = &qword_1ED445368;
+  v155 = 1;
+  v156 = @"_NSURLIsHiddenBySystemChangedNotificationsKey";
+  v157 = 0;
+  v158 = LaunchServices::URLPropertyProvider::prepareIsHiddenBySystemNotificationsValue;
+  v159 = LaunchServices::URLPropertyProvider::prepareMimicForBundleLookup;
+  v160 = 0;
+  v161 = &qword_1ED445368;
+  v162 = 1;
+  v163 = *MEMORY[0x1E695E218];
+  v164 = 0;
+  v165 = LaunchServices::URLPropertyProvider::prepareApplicationDeviceManagementPolicyValue;
+  v166 = 0u;
+  v167 = &qword_1ED445470;
+  v168 = 10;
+  std::vector<LaunchServices::URLPropertyProvider::FileProperty>::vector[abi:nn200100](&v5, &v6, 0x18uLL);
   operator new();
 }
 
@@ -2880,7 +2870,7 @@ void sub_181647164(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZL16getPropertyTablev_block_invoke_cold_1()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_3))
+  if (__cxa_guard_acquire(_MergedGlobals_3))
   {
     v0 = *MEMORY[0x1E695E2C0];
     qword_1ED445470 = *MEMORY[0x1E695EBE8];
@@ -2898,25 +2888,25 @@ void ___ZL16getPropertyTablev_block_invoke_cold_1()
     qword_1ED4454B0 = *MEMORY[0x1E695EB98];
     unk_1ED4454B8 = v4;
 
-    __cxa_guard_release(&_MergedGlobals_3);
+    __cxa_guard_release(_MergedGlobals_3);
   }
 }
 
 void ___ZL16getPropertyTablev_block_invoke_cold_3()
 {
-  if (__cxa_guard_acquire(&qword_1ED445348))
+  if (__cxa_guard_acquire(byte_1ED445348))
   {
     v0 = *MEMORY[0x1E695EBC8];
     qword_1ED4453B0 = *MEMORY[0x1E695EBE8];
     unk_1ED4453B8 = v0;
 
-    __cxa_guard_release(&qword_1ED445348);
+    __cxa_guard_release(byte_1ED445348);
   }
 }
 
 void ___ZL16getPropertyTablev_block_invoke_cold_4()
 {
-  if (__cxa_guard_acquire(&qword_1ED445350))
+  if (__cxa_guard_acquire(byte_1ED445350))
   {
     v0 = *MEMORY[0x1E695ED78];
     qword_1ED4453D0 = *MEMORY[0x1E695EE48];
@@ -2928,13 +2918,13 @@ void ___ZL16getPropertyTablev_block_invoke_cold_4()
     qword_1ED4453F0 = *MEMORY[0x1E695EB48];
     unk_1ED4453F8 = v2;
 
-    __cxa_guard_release(&qword_1ED445350);
+    __cxa_guard_release(byte_1ED445350);
   }
 }
 
 void ___ZL16getPropertyTablev_block_invoke_cold_7()
 {
-  if (__cxa_guard_acquire(&qword_1ED445378))
+  if (__cxa_guard_acquire(byte_1ED445378))
   {
     v0 = *MEMORY[0x1E695E2C0];
     qword_1ED445400 = *MEMORY[0x1E695EBE8];
@@ -2947,33 +2937,33 @@ void ___ZL16getPropertyTablev_block_invoke_cold_7()
     unk_1ED445428 = v2;
     qword_1ED445430 = *MEMORY[0x1E695E3C0];
 
-    __cxa_guard_release(&qword_1ED445378);
+    __cxa_guard_release(byte_1ED445378);
   }
 }
 
 void ___ZL16getPropertyTablev_block_invoke_cold_8()
 {
-  if (__cxa_guard_acquire(&qword_1ED445388))
+  if (__cxa_guard_acquire(byte_1ED445388))
   {
     qword_1ED445380 = *MEMORY[0x1E695EC28];
 
-    __cxa_guard_release(&qword_1ED445388);
+    __cxa_guard_release(byte_1ED445388);
   }
 }
 
 void ___ZL16getPropertyTablev_block_invoke_cold_9()
 {
-  if (__cxa_guard_acquire(&qword_1ED445398))
+  if (__cxa_guard_acquire(byte_1ED445398))
   {
     qword_1ED445390 = *MEMORY[0x1E695EB20];
 
-    __cxa_guard_release(&qword_1ED445398);
+    __cxa_guard_release(byte_1ED445398);
   }
 }
 
 void ___ZL16getPropertyTablev_block_invoke_cold_10()
 {
-  if (__cxa_guard_acquire(&qword_1ED4453A0))
+  if (__cxa_guard_acquire(byte_1ED4453A0))
   {
     v0 = *MEMORY[0x1E695EB68];
     qword_1ED445438 = *MEMORY[0x1E695EB50];
@@ -2986,36 +2976,36 @@ void ___ZL16getPropertyTablev_block_invoke_cold_10()
     unk_1ED445460 = v2;
     qword_1ED445468 = *MEMORY[0x1E695EB20];
 
-    __cxa_guard_release(&qword_1ED4453A0);
+    __cxa_guard_release(byte_1ED4453A0);
   }
 }
 
 void ___ZL16getPropertyTablev_block_invoke_cold_11()
 {
-  if (__cxa_guard_acquire(&qword_1ED4453A8))
+  if (__cxa_guard_acquire(byte_1ED4453A8))
   {
     v0 = *MEMORY[0x1E695EBF8];
     qword_1ED4453C0 = @"_NSURLCanSetStrongBindingKey";
     unk_1ED4453C8 = v0;
 
-    __cxa_guard_release(&qword_1ED4453A8);
+    __cxa_guard_release(byte_1ED4453A8);
   }
 }
 
-void *std::vector<LaunchServices::URLPropertyProvider::FileProperty>::vector[abi:nn200100](void *result, uint64_t a2, unint64_t a3)
+uint64_t *std::vector<LaunchServices::URLPropertyProvider::FileProperty>::vector[abi:nn200100](uint64_t *a1, __int128 *a2, unint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
-    std::vector<LaunchServices::URLPropertyProvider::FileProperty>::__vallocate[abi:nn200100](result, a3);
+    std::vector<LaunchServices::URLPropertyProvider::FileProperty>::__vallocate[abi:nn200100](a1, a3);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<LaunchServices::URLPropertyProvider::FileProperty>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<LaunchServices::URLPropertyProvider::FileProperty>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -3045,15 +3035,15 @@ void std::allocator<__CFString const*>::allocate_at_least[abi:nn200100](uint64_t
   std::vector<os_eligibility_answer_t>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t _LSBundleFindWithInfo(uint64_t a1, NSString *a2, void *a3, int a4, _OWORD *a5, int a6, int a7, _DWORD *a8, void *a9)
+uint64_t _LSBundleFindWithInfo(LSContext *a1, NSString *a2, void *a3, int a4, _OWORD *a5, int a6, int a7, _DWORD *a8, void *a9)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v9 = a5[1];
-  v17[0] = *a5;
-  v17[1] = v9;
-  v16 = 0;
-  v10 = _LSBundleFindWithInfoAndNo_IOFilter(a1, a2, a3, a4 != 0, v17, a6, a7, 0, 0, a8, a9, &v16);
-  v11 = v16;
+  v16[0] = *a5;
+  v16[1] = v9;
+  v15 = 0;
+  v10 = _LSBundleFindWithInfoAndNo_IOFilter(a1, a2, a3, a4 != 0, v16, a6, a7, 0, 0, a8, a9, &v15);
+  v11 = v15;
   v12 = v11;
   if (v10)
   {
@@ -3065,11 +3055,10 @@ uint64_t _LSBundleFindWithInfo(uint64_t a1, NSString *a2, void *a3, int a4, _OWO
     v13 = _LSGetOSStatusFromNSError(v11);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
-uint64_t _LSLogAppRecordInitsForDataSeparation()
+uint64_t _LSLogAppRecordInitsForDataSeparation(uint64_t a1, uint64_t a2)
 {
   if (_LSLogAppRecordInitsForDataSeparation::onceToken != -1)
   {
@@ -3135,13 +3124,13 @@ void _LSSplitApplicationIdentifier(void *a1, void **a2, id *a3)
   }
 }
 
-void _LSAssertRunningInServer(uint64_t a1)
+void _LSAssertRunningInServer(uint64_t a1, uint64_t a2)
 {
-  if (([__LSDefaultsGetSharedInstance() isServer] & 1) == 0)
+  if (([__LSDefaultsGetSharedInstance(a1 a2)] & 1) == 0)
   {
-    v3 = [MEMORY[0x1E696AAA8] currentHandler];
-    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _LSAssertRunningInServer(const char *)"];
-    [v3 handleFailureInFunction:v2 file:@"LSUtils.mm" lineNumber:1105 description:{@"Must call %s from within the Launch Services daemon.", a1}];
+    v4 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _LSAssertRunningInServer(const char *)"];
+    [v4 handleFailureInFunction:v3 file:@"LSUtils.mm" lineNumber:1105 description:{@"Must call %s from within the Launch Services daemon.", a1}];
   }
 }
 
@@ -3154,7 +3143,7 @@ Class initUMUserManager()
 
   result = objc_getClass("UMUserManager");
   classUMUserManager = result;
-  getUMUserManagerClass[0] = UMUserManagerFunction;
+  getUMUserManagerClass = UMUserManagerFunction;
   return result;
 }
 
@@ -3171,31 +3160,29 @@ Class initUMUserManager_0()
   return result;
 }
 
-void _LSIsAuditTokenSandboxed(__int128 *a1, _BYTE *a2, BOOL *a3)
+void _LSIsAuditTokenSandboxed(_OWORD *a1, _BYTE *a2, BOOL *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    goto LABEL_16;
+    return;
   }
 
-  v12 = *a1;
-  v13 = a1[1];
-  v6 = sandbox_check_by_audit_token();
-  if (v6 < 0)
+  v5 = sandbox_check_by_audit_token();
+  if ((v5 & 0x80000000) != 0)
   {
-    if ([__LSDefaultsGetSharedInstance() isServer])
+    if ([__LSDefaultsGetSharedInstance(v5 v6)])
     {
-      v7 = *__error();
-      v8 = _LSDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v7 = __error();
+      v8 = *v7;
+      v9 = _LSDefaultLog(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        _LSIsAuditTokenSandboxed_cold_1(v7, v8);
+        _LSIsAuditTokenSandboxed_cold_1(v8, v9);
       }
     }
   }
 
-  else if (!v6)
+  else if (!v5)
   {
     if (a2)
     {
@@ -3207,7 +3194,7 @@ void _LSIsAuditTokenSandboxed(__int128 *a1, _BYTE *a2, BOOL *a3)
       *a3 = 0;
     }
 
-    goto LABEL_16;
+    return;
   }
 
   if (a2)
@@ -3217,37 +3204,24 @@ void _LSIsAuditTokenSandboxed(__int128 *a1, _BYTE *a2, BOOL *a3)
 
   if (a3)
   {
-    v10 = *a1;
-    v11 = a1[1];
     *a3 = sandbox_container_path_for_audit_token() == 0;
   }
-
-LABEL_16:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-__int128 *_LSAuditTokenMayMapDatabase(__int128 *result)
+unint64_t _LSAuditTokenMayMapDatabase(unint64_t result)
 {
   if (result)
   {
     v1 = result;
     v2 = 0;
     _LSIsAuditTokenSandboxed(result, 0, &v2);
-    if (v2)
-    {
-      return _LSCheckEntitlementForAuditTokenWithDefault(v1, @"com.apple.private.coreservices.canmaplsdatabase", 0);
-    }
-
-    else
-    {
-      return 1;
-    }
+    return !v2 || _LSCheckEntitlementForAuditTokenWithDefault(v1, @"com.apple.private.coreservices.canmaplsdatabase", 0);
   }
 
   return result;
 }
 
-BOOL _LSCheckEntitlementForAuditTokenWithDefault(__int128 *a1, void *a2, _BOOL8 a3)
+BOOL _LSCheckEntitlementForAuditTokenWithDefault(_OWORD *a1, void *a2, _BOOL8 a3)
 {
   if (a1)
   {
@@ -3262,23 +3236,21 @@ BOOL _LSCheckEntitlementForAuditTokenWithDefault(__int128 *a1, void *a2, _BOOL8 
   return a3;
 }
 
-id _LSCopyEntitlementValueForAuditToken(__int128 *a1, void *a2)
+id _LSCopyEntitlementValueForAuditToken(_OWORD *a1, void *a2)
 {
   v2 = 0;
   if (a1 && a2)
   {
-    v5 = objc_autoreleasePoolPush();
+    v4 = objc_autoreleasePoolPush();
     if (![a2 UTF8String])
     {
-      v7 = [MEMORY[0x1E696AAA8] currentHandler];
-      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"xpc_object_t _LSCopyEntitlementValueForAuditToken(const audit_token_t *, CFStringRef)"}];
-      [v7 handleFailureInFunction:v8 file:@"LSEntitlements.mm" lineNumber:1027 description:{@"Couldn't get C string from entitlement name '%@'", a2}];
+      v6 = [MEMORY[0x1E696AAA8] currentHandler];
+      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"xpc_object_t _LSCopyEntitlementValueForAuditToken(const audit_token_t *, CFStringRef)"}];
+      [v6 handleFailureInFunction:v7 file:@"LSEntitlements.mm" lineNumber:1027 description:{@"Couldn't get C string from entitlement name '%@'", a2}];
     }
 
-    v9 = *a1;
-    v10 = a1[1];
     v2 = xpc_copy_entitlement_for_token();
-    objc_autoreleasePoolPop(v5);
+    objc_autoreleasePoolPop(v4);
   }
 
   return v2;
@@ -3335,18 +3307,18 @@ void ___ZL11_LSErrorLogv_block_invoke()
   _LSErrorLog(void)::result = v0;
 }
 
-void LaunchServices::notifyd::NotifyToken::RegisterCheck(LaunchServices::notifyd::NotifyToken *this@<X0>, unsigned int *a2@<X8>)
+void LaunchServices::notifyd::NotifyToken::RegisterCheck(unsigned int *__return_ptr a1@<X8>, LaunchServices::notifyd::NotifyToken *this@<X0>)
 {
-  v4 = this;
-  *a2 = -1;
-  v5 = objc_autoreleasePoolPush();
+  v3 = this;
+  *a1 = -1;
+  v4 = objc_autoreleasePoolPush();
   out_token = -1;
-  if (!notify_register_check([(LaunchServices::notifyd::NotifyToken *)v4 UTF8String], &out_token))
+  if (!notify_register_check([(LaunchServices::notifyd::NotifyToken *)v3 UTF8String], &out_token))
   {
-    atomic_store(out_token, a2);
+    atomic_store(out_token, a1);
   }
 
-  objc_autoreleasePoolPop(v5);
+  objc_autoreleasePoolPop(v4);
 }
 
 void sub_1816486B0(_Unwind_Exception *a1)
@@ -3368,12 +3340,12 @@ void LaunchServices::notifyd::NotifyToken::~NotifyToken(LaunchServices::notifyd:
 
 uint64_t _LSCopyServerStore(void *a1, char a2, id *a3, void *a4, id *a5)
 {
-  v106 = *MEMORY[0x1E69E9840];
+  v109 = *MEMORY[0x1E69E9840];
   v7 = 0;
-  v58 = a1;
-  v53 = *MEMORY[0x1E696A798];
-  v57 = *MEMORY[0x1E696A768];
-  v56 = *MEMORY[0x1E696A250];
+  v61 = a1;
+  v56 = *MEMORY[0x1E696A798];
+  v60 = *MEMORY[0x1E696A768];
+  v59 = *MEMORY[0x1E696A250];
   if (sLastCallToMapDatabaseFailed)
   {
     v9 = 0;
@@ -3384,155 +3356,153 @@ uint64_t _LSCopyServerStore(void *a1, char a2, id *a3, void *a4, id *a5)
     v9 = 100000;
   }
 
-  v55 = v9;
+  v58 = v9;
   *&v8 = 138478339;
-  v51 = v8;
+  v54 = v8;
   while (1)
   {
     location = 0;
-    v10 = v58;
-    v85 = 0;
-    v86 = 0;
-    v87 = &v86;
-    v88 = 0x2020000000;
+    v10 = v61;
+    v88 = 0;
     v89 = 0;
+    v90 = &v89;
+    v91 = 0x2020000000;
+    v92 = 0;
+    v83 = 0;
+    v84 = &v83;
+    v85 = 0x3032000000;
+    v86 = __Block_byref_object_copy__26;
+    v87 = __Block_byref_object_dispose__26;
     v80 = 0;
-    v81 = &v80;
-    v82 = 0x3032000000;
-    v83 = __Block_byref_object_copy__26;
-    v84 = __Block_byref_object_dispose__26;
-    v77 = 0;
-    v78[0] = &v77;
-    v78[1] = 0x3032000000;
-    v78[2] = __Block_byref_object_copy__26;
-    v78[3] = __Block_byref_object_dispose__26;
+    v81[0] = &v80;
+    v81[1] = 0x3032000000;
+    v81[2] = __Block_byref_object_copy__26;
+    v81[3] = __Block_byref_object_dispose__26;
+    v82 = 0;
+    v74 = 0;
+    v75 = &v74;
+    v76 = 0x3032000000;
+    v77 = __Block_byref_object_copy__26;
+    v78 = __Block_byref_object_dispose__26;
     v79 = 0;
-    v71 = 0;
-    v72 = &v71;
-    v73 = 0x3032000000;
-    v74 = __Block_byref_object_copy__26;
-    v75 = __Block_byref_object_dispose__26;
-    v76 = 0;
-    v67 = 0;
-    v68 = &v67;
-    v69 = 0x2020000000;
     v70 = 0;
-    v64 = 0;
-    v65[0] = &v64;
-    v65[1] = 0x3032000000;
-    v65[2] = __Block_byref_object_copy__26;
-    v65[3] = __Block_byref_object_dispose__26;
-    v66 = 0;
+    v71 = &v70;
+    v72 = 0x2020000000;
+    v73 = 0;
+    v67 = 0;
+    v68[0] = &v67;
+    v68[1] = 0x3032000000;
+    v68[2] = __Block_byref_object_copy__26;
+    v68[3] = __Block_byref_object_dispose__26;
+    v69 = 0;
     v11 = objc_autoreleasePoolPush();
-    *v96 = MEMORY[0x1E69E9820];
-    v97 = 3221225472;
-    v98 = ___LSCopyStoreFromServer_block_invoke;
-    v99 = &unk_1E6A1CA70;
-    v100 = &v80;
-    v101 = &v77;
-    v102 = &v71;
-    v103 = &v67;
-    v104 = &v64;
-    v105 = &v86;
-    v12 = MEMORY[0x1865D71B0](v96);
+    *v99 = MEMORY[0x1E69E9820];
+    v100 = 3221225472;
+    v101 = ___LSCopyStoreFromServer_block_invoke;
+    v102 = &unk_1E6A1CA70;
+    v103 = &v83;
+    v104 = &v80;
+    v105 = &v74;
+    v106 = &v70;
+    v107 = &v67;
+    v108 = &v89;
+    v12 = MEMORY[0x1865D71B0](v99);
     v13 = objc_opt_class();
     v14 = _LSDServiceGetXPCConnection(v13, v10);
-    v62[0] = MEMORY[0x1E69E9820];
-    v62[1] = 3221225472;
-    v62[2] = ___LSCopyStoreFromServer_block_invoke_2;
-    v62[3] = &unk_1E6A19A70;
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = ___LSCopyStoreFromServer_block_invoke_2;
+    v65[3] = &unk_1E6A19A70;
     v15 = v12;
-    v63 = v15;
-    v16 = [v14 synchronousRemoteObjectProxyWithErrorHandler:v62];
+    v66 = v15;
+    v16 = [v14 synchronousRemoteObjectProxyWithErrorHandler:v65];
 
-    [v16 getServerStoreNonBlockingWithCompletionHandler:v15];
-    v17 = v72[5];
-    if ((v87[3] & 1) == 0 && (a2 & 1) == 0 && v17)
+    v17 = [v16 getServerStoreNonBlockingWithCompletionHandler:v15];
+    v18 = v75[5];
+    if ((v90[3] & 1) == 0 && (a2 & 1) == 0 && v18)
     {
-      v18 = _LSDefaultLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = _LSDefaultLog(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_18162D000, v18, OS_LOG_TYPE_DEFAULT, "Database was seeding; client will retry and block. This is not an error.", buf, 2u);
+        _os_log_impl(&dword_18162D000, v19, OS_LOG_TYPE_DEFAULT, "Database was seeding; client will retry and block. This is not an error.", buf, 2u);
       }
 
       LSResetDatabaseKnownAvailable(v10);
-      v19 = objc_alloc(MEMORY[0x1E696B0B8]);
-      v20 = [v19 initWithListenerEndpoint:v72[5]];
-      v21 = LSDatabaseBlockingFetchInterface();
-      [v20 setRemoteObjectInterface:v21];
+      v20 = objc_alloc(MEMORY[0x1E696B0B8]);
+      v21 = [v20 initWithListenerEndpoint:v75[5]];
+      v22 = LSDatabaseBlockingFetchInterface(v21);
+      [v21 setRemoteObjectInterface:v22];
 
-      v22 = [v20 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_37];
-      [v20 resume];
-      v60[0] = MEMORY[0x1E69E9820];
-      v60[1] = 3221225472;
-      v60[2] = ___LSCopyStoreFromServer_block_invoke_73;
-      v60[3] = &unk_1E6A1CA98;
-      v61 = v15;
-      v23 = MEMORY[0x1865D71B0](v60);
+      v23 = [v21 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_37];
+      [v21 resume];
+      v63[0] = MEMORY[0x1E69E9820];
+      v63[1] = 3221225472;
+      v63[2] = ___LSCopyStoreFromServer_block_invoke_73;
+      v63[3] = &unk_1E6A1CA98;
+      v64 = v15;
+      v24 = MEMORY[0x1865D71B0](v63);
       if (_LSCopyStoreFromServer_onceToken != -1)
       {
         _LSCopyServerStore_cold_1();
       }
 
-      v24 = [MEMORY[0x1E696AF00] isMainThread];
-      v25 = *(v68 + 24);
-      if (v24)
+      if ([MEMORY[0x1E696AF00] isMainThread])
       {
-        if (*(v68 + 24))
+        if (*(v71 + 24))
         {
-          __LAUNCH_SERVICES_IS_WAITING_ON_THE_MAIN_QUEUE_DUE_TO_A_MANUAL_REBUILD__(v22, v23);
+          __LAUNCH_SERVICES_IS_WAITING_ON_THE_MAIN_QUEUE_DUE_TO_A_MANUAL_REBUILD__(v23, v24);
         }
 
         else
         {
-          __LAUNCH_SERVICES_WAS_ASKED_TO_PERFORM_BLOCKING_IO_ON_THE_MAIN_QUEUE__(v22, v23);
+          __LAUNCH_SERVICES_WAS_ASKED_TO_PERFORM_BLOCKING_IO_ON_THE_MAIN_QUEUE__(v23, v24);
         }
       }
 
-      else if (*(v68 + 24))
+      else if (*(v71 + 24))
       {
-        __LAUNCH_SERVICES_IS_RESEEDING_ITS_DATABASE_DUE_TO_A_MANUAL_REBUILD_AND_MAY_BLOCK__(v22, v23);
+        __LAUNCH_SERVICES_IS_RESEEDING_ITS_DATABASE_DUE_TO_A_MANUAL_REBUILD_AND_MAY_BLOCK__(v23, v24);
       }
 
       else
       {
-        __LAUNCH_SERVICES_IS_RESEEDING_ITS_DATABASE_AND_MAY_BLOCK__(v22, v23);
+        __LAUNCH_SERVICES_IS_RESEEDING_ITS_DATABASE_AND_MAY_BLOCK__(v23, v24);
       }
 
-      [v20 invalidate];
+      [v21 invalidate];
 
       goto LABEL_23;
     }
 
-    if ((a2 & 1) != 0 && v17)
+    if ((a2 & 1) != 0 && v18)
     {
-      v26 = _LSMakeNSErrorImpl(v53, 36, 0, "_LSCopyStoreFromServer", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDXPCClient.m", 463);
-      v20 = *(v65[0] + 40);
-      *(v65[0] + 40) = v26;
+      v25 = _LSMakeNSErrorImpl(v56, 36, 0, "_LSCopyStoreFromServer", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDXPCClient.m", 463);
+      v21 = *(v68[0] + 40);
+      *(v68[0] + 40) = v25;
 LABEL_23:
     }
 
     objc_autoreleasePoolPop(v11);
-    if (*(v87 + 24) != 1)
+    if (*(v90 + 24) != 1)
     {
-      v30 = _LSDefaultLog();
+      v30 = _LSDefaultLog(v26);
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v42 = v81[5];
-        v43 = *(v78[0] + 40);
-        v44 = *(v65[0] + 40);
-        *buf = v51;
-        v91 = v42;
-        v92 = 2113;
-        v93 = v43;
-        v94 = 2114;
-        v95 = v44;
+        v46 = v84[5];
+        v47 = *(v81[0] + 40);
+        v48 = *(v68[0] + 40);
+        *buf = v54;
+        v94 = v46;
+        v95 = 2113;
+        v96 = v47;
+        v97 = 2114;
+        v98 = v48;
         _os_log_error_impl(&dword_18162D000, v30, OS_LOG_TYPE_ERROR, "LaunchServices: store %{private}@ or url %{private}@ was nil: %{public}@", buf, 0x20u);
       }
 
       p_location = &location;
-      v28 = v65;
+      v28 = v68;
 LABEL_32:
       objc_storeStrong(p_location, *(*v28 + 40));
       goto LABEL_33;
@@ -3540,12 +3510,12 @@ LABEL_32:
 
     if (a4)
     {
-      v27 = v81[5];
+      v27 = v84[5];
       _CSStoreSetMutable();
       *a4 = v27;
     }
 
-    v28 = v78;
+    v28 = v81;
     p_location = a3;
     if (a3)
     {
@@ -3553,16 +3523,16 @@ LABEL_32:
     }
 
 LABEL_33:
-    v31 = *(v87 + 24);
-    _Block_object_dispose(&v64, 8);
-
+    v31 = *(v90 + 24);
     _Block_object_dispose(&v67, 8);
-    _Block_object_dispose(&v71, 8);
 
-    _Block_object_dispose(&v77, 8);
+    _Block_object_dispose(&v70, 8);
+    _Block_object_dispose(&v74, 8);
+
     _Block_object_dispose(&v80, 8);
+    _Block_object_dispose(&v83, 8);
 
-    _Block_object_dispose(&v86, 8);
+    _Block_object_dispose(&v89, 8);
     if (v31)
     {
       sLastCallToMapDatabaseFailed = 0;
@@ -3578,14 +3548,14 @@ LABEL_33:
 
     sLastCallToMapDatabaseFailed = 1;
     v33 = [v32 domain];
-    if ([v33 isEqual:v57] && objc_msgSend(v32, "code") == -54)
+    if ([v33 isEqual:v60] && objc_msgSend(v32, "code") == -54)
     {
       v34 = _LSCurrentProcessMayMapDatabase() == 0;
 
       if (v34)
       {
-        v46 = _LSDefaultLog();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v50 = _LSDefaultLog(v35);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
           _LSCopyServerStore_cold_5();
         }
@@ -3600,15 +3570,15 @@ LABEL_33:
 
     if (a2)
     {
-      v35 = [v32 domain];
-      if ([v35 isEqual:v53])
+      v37 = [v32 domain];
+      if ([v37 isEqual:v56])
       {
-        v36 = [v32 code] == 36;
+        v38 = [v32 code] == 36;
 
-        if (v36)
+        if (v38)
         {
-          v46 = _LSDefaultLog();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+          v50 = _LSDefaultLog(v35);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
           {
             _LSCopyServerStore_cold_2();
           }
@@ -3624,23 +3594,24 @@ LABEL_33:
 
     if (!v7)
     {
-      v37 = _LSGetAuditTokenForSelf();
-      v38 = objc_opt_class();
-      if (!_LSCheckLSDServiceAccessForAuditToken(v37, v38))
+      v39 = _LSGetAuditTokenForSelf(v35, v36);
+      v40 = objc_opt_class();
+      v41 = _LSCheckLSDServiceAccessForAuditToken(v39, v40);
+      if (!v41)
       {
         break;
       }
     }
 
-    v39 = [v32 domain];
-    if ([v39 isEqual:v56])
+    v42 = [v32 domain];
+    if ([v42 isEqual:v59])
     {
-      v40 = [v32 code] == 4099;
+      v43 = [v32 code] == 4099;
 
-      if (v40)
+      if (v43)
       {
-        v46 = _LSDefaultLog();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v50 = _LSDefaultLog(v44);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
           _LSCopyServerStore_cold_3();
         }
@@ -3653,23 +3624,23 @@ LABEL_33:
     {
     }
 
-    v41 = _LSDefaultLog();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v45 = _LSDefaultLog(v44);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
-      *v96 = 67109120;
-      *&v96[4] = v7;
-      _os_log_error_impl(&dword_18162D000, v41, OS_LOG_TYPE_ERROR, "LaunchServices: Database mapping failed, retries = %d", v96, 8u);
+      *v99 = 67109120;
+      *&v99[4] = v7;
+      _os_log_error_impl(&dword_18162D000, v45, OS_LOG_TYPE_ERROR, "LaunchServices: Database mapping failed, retries = %d", v99, 8u);
     }
 
-    usleep(v55);
+    usleep(v58);
     if (++v7 == 10)
     {
       goto LABEL_70;
     }
   }
 
-  v46 = _LSDefaultLog();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+  v50 = _LSDefaultLog(v41);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
   {
     _LSCopyServerStore_cold_4();
   }
@@ -3679,22 +3650,21 @@ LABEL_68:
 LABEL_69:
 LABEL_70:
 
-  v49 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
-void sub_181649378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_181649378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a45, 8);
   _Block_object_dispose(&a51, 8);
   _Block_object_dispose(&a55, 8);
   _Block_object_dispose(&a61, 8);
-  _Block_object_dispose(&a67, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x200], 8);
   _Unwind_Resume(a1);
 }
 
-id _LSDServiceGetXPCConnection(void *a1, uint64_t a2)
+id _LSDServiceGetXPCConnection(void *a1, _WORD *a2)
 {
   if (objc_opt_class() == a1)
   {
@@ -3764,14 +3734,12 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
 
 __n128 __Block_byref_object_copy__5(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -3816,14 +3784,12 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
 
 __n128 __Block_byref_object_copy__8(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -3837,14 +3803,12 @@ uint64_t __Block_byref_object_copy__9(uint64_t result, uint64_t a2)
 
 __n128 __Block_byref_object_copy__11(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -3872,14 +3836,12 @@ uint64_t __Block_byref_object_copy__14(uint64_t result, uint64_t a2)
 
 __n128 __Block_byref_object_copy__15(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -3893,14 +3855,12 @@ uint64_t __Block_byref_object_copy__16(uint64_t result, uint64_t a2)
 
 __n128 __Block_byref_object_copy__17(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -4050,27 +4010,23 @@ uint64_t __Block_byref_object_copy__31(uint64_t result, uint64_t a2)
 
 __n128 __Block_byref_object_copy__32(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
 
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -4145,14 +4101,12 @@ uint64_t __Block_byref_object_copy__41(uint64_t result, uint64_t a2)
 
 __n128 __Block_byref_object_copy__42(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -4281,15 +4235,15 @@ void sub_181649C14(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id _FSNodeGetClasses()
+id _FSNodeGetClasses(uint64_t a1, uint64_t a2)
 {
-  v0 = [__LSDefaultsGetSharedInstance() classesWithNameForXCTests:"FSNode"];
-  if (!v0)
+  v2 = [__LSDefaultsGetSharedInstance(a1 a2)];
+  if (!v2)
   {
-    v0 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+    v2 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
   }
 
-  return v0;
+  return v2;
 }
 
 void ___ZL35_LSSessionInitMemoryWarningListenerv_block_invoke()
@@ -4329,40 +4283,38 @@ id _LSDatabaseGetLog()
   return v1;
 }
 
-id XNSGetPropertyListClasses()
+id XNSGetPropertyListClasses(uint64_t a1)
 {
   if (XNSGetPropertyListClasses_once != -1)
   {
     XNSGetPropertyListClasses_cold_1();
   }
 
-  v1 = XNSGetPropertyListClasses_result;
+  v2 = XNSGetPropertyListClasses_result;
 
-  return v1;
+  return v2;
 }
 
-id _LSGetURLPropertyClasses()
+id _LSGetURLPropertyClasses(uint64_t a1)
 {
   v8[4] = *MEMORY[0x1E69E9840];
-  v0 = XNSGetPropertyListClasses();
+  v1 = XNSGetPropertyListClasses(a1);
   v8[0] = objc_opt_class();
   v8[1] = objc_opt_class();
   v8[2] = objc_opt_class();
   v8[3] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
-  v2 = [v0 setByAddingObjectsFromArray:v1];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
+  v3 = [v1 setByAddingObjectsFromArray:v2];
 
-  UTTypeClass = LaunchServices::URLPropertyProvider::getUTTypeClass(v3);
+  UTTypeClass = LaunchServices::URLPropertyProvider::getUTTypeClass(v4);
   if (UTTypeClass)
   {
-    v5 = [v2 setByAddingObject:UTTypeClass];
+    v6 = [v3 setByAddingObject:UTTypeClass];
 
-    v2 = v5;
+    v3 = v6;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
-  return v2;
+  return v3;
 }
 
 void __XNSGetPropertyListClasses_block_invoke()
@@ -4406,11 +4358,11 @@ void *___ZN14LaunchServices19URLPropertyProviderL14getUTTypeClassEv_block_invoke
   return result;
 }
 
-uint64_t _UTTypeGet(void *a1)
+uint64_t _UTTypeGet(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  [(_LSDatabase *)v1 store];
-  v2 = *([(_LSDatabase *)v1 schema]+ 16);
+  v2 = a1;
+  [(_LSDatabase *)v2 store];
+  [(_LSDatabase *)v2 schema];
   Unit = CSStoreGetUnit();
 
   return Unit;
@@ -4480,15 +4432,16 @@ LABEL_4:
   _Block_object_dispose(v20, 8);
 }
 
-uint64_t _LSGetExtensionPointData(void *a1, int a2)
+uint64_t _LSGetExtensionPointData(void *a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = a1;
   v4 = v3;
   Unit = 0;
-  if (v3 && a2)
+  if (v3 && v2)
   {
     [(_LSDatabase *)v3 store];
-    v6 = *([(_LSDatabase *)v4 schema]+ 1592);
+    [(_LSDatabase *)v4 schema];
     Unit = CSStoreGetUnit();
   }
 
@@ -4497,73 +4450,71 @@ uint64_t _LSGetExtensionPointData(void *a1, int a2)
 
 void ___ZL37_LSSchemeApprovalGetBouncebackHistoryv_block_invoke_3(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [MEMORY[0x1E695DFA8] set];
-  if (SpringBoardServicesLibrary(void)::frameworkLibrary || (SpringBoardServicesLibrary(void)::frameworkLibrary = dlopen("/System/Library/PrivateFrameworks/SpringBoardServices.framework/SpringBoardServices", 2)) != 0)
+  if (SpringBoardServicesLibrary(void)::frameworkLibrary || (v4 = dlopen("/System/Library/PrivateFrameworks/SpringBoardServices.framework/SpringBoardServices", 2), (SpringBoardServicesLibrary(void)::frameworkLibrary = v4) != 0))
   {
-    v19 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    v4 = [v2 elements];
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v5)
+    v19 = 0u;
+    v5 = [v2 elements];
+    v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v6)
     {
-      v6 = *v18;
+      v7 = *v19;
       do
       {
-        for (i = 0; i != v5; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v6)
+          if (*v19 != v7)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          v8 = *(*(&v17 + 1) + 8 * i);
-          if ([v8 isUIApplicationElement] && (objc_msgSend(v8, "layoutRole") - 1) < 2)
+          v9 = *(*(&v18 + 1) + 8 * i);
+          if ([v9 isUIApplicationElement] && (objc_msgSend(v9, "layoutRole") - 1) < 2)
           {
-            v9 = [v8 bundleIdentifier];
-            if (v9)
+            v10 = [v9 bundleIdentifier];
+            if (v10)
             {
-              [v3 addObject:v9];
+              [v3 addObject:v10];
             }
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v5);
+      while (v6);
     }
   }
 
-  v10 = _LSSchemeApprovalGetBouncebackHistory();
-  objc_sync_enter(v10);
-  v11 = [v10 count];
-  if (v11)
+  v11 = _LSSchemeApprovalGetBouncebackHistory(v4);
+  objc_sync_enter(v11);
+  v12 = [v11 count];
+  if (v12)
   {
-    v12 = [v10 objectAtIndexedSubscript:v11 - 1];
-    v13 = [v12 objectAtIndexedSubscript:0];
-    if ([v3 containsObject:v13])
+    v13 = [v11 objectAtIndexedSubscript:v12 - 1];
+    v14 = [v13 objectAtIndexedSubscript:0];
+    if ([v3 containsObject:v14])
     {
     }
 
     else
     {
-      v14 = [v12 objectAtIndexedSubscript:1];
-      v15 = [v3 containsObject:v14];
+      v15 = [v13 objectAtIndexedSubscript:1];
+      v16 = [v3 containsObject:v15];
 
-      if ((v15 & 1) == 0)
+      if ((v16 & 1) == 0)
       {
-        _LSSchemeApprovalClearBouncebackHistory();
+        _LSSchemeApprovalClearBouncebackHistory(v17);
       }
     }
   }
 
-  objc_sync_exit(v10);
-
-  v16 = *MEMORY[0x1E69E9840];
+  objc_sync_exit(v11);
 }
 
 void sub_18164BC74(_Unwind_Exception *a1)
@@ -4573,16 +4524,16 @@ void sub_18164BC74(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id _LSSchemeApprovalGetBouncebackHistory(void)
+id _LSSchemeApprovalGetBouncebackHistory(uint64_t a1)
 {
   if (_LSSchemeApprovalGetBouncebackHistory(void)::once != -1)
   {
     _LSSchemeApprovalGetBouncebackHistory();
   }
 
-  v1 = _LSSchemeApprovalGetBouncebackHistory(void)::result;
+  v2 = _LSSchemeApprovalGetBouncebackHistory(void)::result;
 
-  return v1;
+  return v2;
 }
 
 Boolean UTTypeEqual(CFStringRef inUTI1, CFStringRef inUTI2)
@@ -4617,7 +4568,7 @@ void sub_18164BFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t _LSPluginGetSDKDictionaryDataUnit(void *a1, int a2, uint64_t a3)
+uint64_t _LSPluginGetSDKDictionaryDataUnit(void *a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1;
   v6 = v5;
@@ -4692,49 +4643,50 @@ uint64_t _UTGetActiveTypeForCFStringIdentifier(void *a1, const __CFString *a2, _
   return active;
 }
 
-uint64_t _UTGetActiveTypeForIdentifier(void *a1, int a2, _DWORD *a3)
+uint64_t _UTGetActiveTypeForIdentifier(void *a1, uint64_t a2, _DWORD *a3)
 {
   v5 = a1;
   v6 = v5;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
   if (v5)
   {
     if (a2)
     {
       v7 = [(_LSDatabase *)v5 schema];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = ___UTGetActiveTypeForIdentifier_block_invoke;
-      v15[3] = &unk_1E6A1EDF8;
-      v16 = a2;
-      v15[4] = &v17;
-      _LSSchemaCacheRead(v7, v15);
-      if (!*(v18 + 6) || (v8 = _UTTypeGet(v6), v22[3] = v8, !*(v18 + 6)) || !v22[3])
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = ___UTGetActiveTypeForIdentifier_block_invoke;
+      v16[3] = &unk_1E6A1EDF8;
+      v17 = a2;
+      v16[4] = &v18;
+      _LSSchemaCacheRead(v7, v16);
+      v8 = *(v19 + 6);
+      if (!v8 || (v9 = _UTTypeGet(v6, v8), v23[3] = v9, !*(v19 + 6)) || !v23[3])
       {
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = ___UTGetActiveTypeForIdentifier_block_invoke_2;
-        v14[3] = &unk_1E6A1EE20;
-        v14[4] = &v17;
-        v14[5] = &v21;
-        _UTEnumerateTypesForIdentifier(v6, a2, v14);
-        if (*(v18 + 6))
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = ___UTGetActiveTypeForIdentifier_block_invoke_2;
+        v15[3] = &unk_1E6A1EE20;
+        v15[4] = &v18;
+        v15[5] = &v22;
+        _UTEnumerateTypesForIdentifier(v6, a2, v15);
+        if (*(v19 + 6))
         {
-          v9 = [(_LSDatabase *)v6 schema];
-          v12[0] = MEMORY[0x1E69E9820];
-          v12[1] = 3221225472;
-          v12[2] = ___UTGetActiveTypeForIdentifier_block_invoke_3;
-          v12[3] = &unk_1E6A1EE48;
-          v13 = a2;
-          v12[4] = &v17;
-          _LSSchemaCacheWrite(v9, v12);
+          v10 = [(_LSDatabase *)v6 schema];
+          v13[0] = MEMORY[0x1E69E9820];
+          v13[1] = 3221225472;
+          v13[2] = ___UTGetActiveTypeForIdentifier_block_invoke_3;
+          v13[3] = &unk_1E6A1EE48;
+          v14 = a2;
+          v13[4] = &v18;
+          _LSSchemaCacheWrite(v10, v13);
         }
       }
     }
@@ -4742,14 +4694,14 @@ uint64_t _UTGetActiveTypeForIdentifier(void *a1, int a2, _DWORD *a3)
 
   if (a3)
   {
-    *a3 = *(v18 + 6);
+    *a3 = *(v19 + 6);
   }
 
-  v10 = v22[3];
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v21, 8);
+  v11 = v23[3];
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v22, 8);
 
-  return v10;
+  return v11;
 }
 
 void sub_18164C820(_Unwind_Exception *a1)
@@ -4787,7 +4739,7 @@ void sub_18164C8C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t _UTTypeConformsTo(void *a1, int a2, unsigned int a3)
+uint64_t _UTTypeConformsTo(void *a1, uint64_t a2, unsigned int a3)
 {
   v5 = a1;
   v6 = v5;
@@ -4841,37 +4793,35 @@ uint64_t _UTTypeConformsTo(void *a1, int a2, unsigned int a3)
   return v7;
 }
 
-void sub_18164CAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_18164CAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v16 - 80), 8);
+  _Block_object_dispose((v23 - 80), 8);
 
   _Unwind_Resume(a1);
 }
 
-void LaunchServices::BindingEvaluator::CreateWithUTI(LaunchServices::BindingEvaluator *this@<X0>, NSString *a2@<X1>, LaunchServices::BindingEvaluator *a3@<X8>)
+void LaunchServices::BindingEvaluator::CreateWithUTI(LaunchServices::BindingEvaluator *__return_ptr a1@<X8>, LaunchServices::BindingEvaluator *this@<X0>, NSString *a3@<X1>)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  LaunchServices::BindingEvaluator::BindingEvaluator(a3);
-  v7 = _LSBindingLog();
+  v15 = *MEMORY[0x1E69E9840];
+  v6 = LaunchServices::BindingEvaluator::BindingEvaluator(a1);
+  v7 = _LSBindingLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v15 = this;
+    v14 = this;
     _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEBUG, "BindingEvaluator::CreateWithUTI(%{public}@)", buf, 0xCu);
   }
 
   LaunchServices::BindingEvaluation::logToFile(@"Creating binding evaluator for UTI %@", v8, this);
   v9 = [(LaunchServices::BindingEvaluator *)this copy];
-  v10 = *(a3 + 2);
-  *(a3 + 2) = v9;
+  v10 = *(a1 + 2);
+  *(a1 + 2) = v9;
 
-  v11 = [(NSString *)a2 copy];
-  v12 = *(a3 + 3);
-  *(a3 + 3) = v11;
-
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = [(NSString *)a3 copy];
+  v12 = *(a1 + 3);
+  *(a1 + 3) = v11;
 }
 
 id LaunchServices::BindingEvaluator::getFilter_NoIO(LaunchServices::BindingEvaluator *this, NSString **a2)
@@ -4900,7 +4850,7 @@ void std::vector<std::pair<BOOL({block_pointer} {__strong})(LSContext *,LSBindin
 
 uint64_t _UTTypeIsDenylistedForBinding(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (_UTTypeIsDenylistedForBinding::once != -1)
   {
@@ -4909,32 +4859,32 @@ uint64_t _UTTypeIsDenylistedForBinding(void *a1)
 
   if (v1)
   {
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
     v9 = 0u;
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
     v2 = _UTTypeIsDenylistedForBinding::denyListedTypes;
-    v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v3)
     {
-      v4 = *v9;
+      v4 = *v8;
       while (2)
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v9 != v4)
+          if (*v8 != v4)
           {
             objc_enumerationMutation(v2);
           }
 
-          if (UTTypeEqual(v1, *(*(&v8 + 1) + 8 * i)))
+          if (UTTypeEqual(v1, *(*(&v7 + 1) + 8 * i)))
           {
             v3 = 1;
             goto LABEL_14;
           }
         }
 
-        v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+        v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
         if (v3)
         {
           continue;
@@ -4952,32 +4902,31 @@ LABEL_14:
     v3 = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
-uint64_t LaunchServices::BindingEvaluation::conformsTo(void ***this, const LaunchServices::BindingEvaluation::State *a2, CFStringRef inConformsToUTI, const __CFString *a4)
+uint64_t LaunchServices::BindingEvaluation::conformsTo(CFStringRef *this, const LaunchServices::BindingEvaluation::State *a2, CFStringRef inConformsToUTI, const __CFString *a4)
 {
   v5 = a2;
   v11 = a2;
   v7 = *(this + 56);
   if (v7)
   {
-    v8 = **this;
+    isa = (*this)->isa;
     if (!v5)
     {
-      result = _UTGetActiveTypeForCFStringIdentifier(v8, inConformsToUTI, &v11);
+      result = _UTGetActiveTypeForCFStringIdentifier(isa, inConformsToUTI, &v11);
       if (!result)
       {
         return result;
       }
 
-      v8 = **this;
+      isa = (*this)->isa;
       v7 = *(this + 56);
       v5 = v11;
     }
 
-    v10 = _UTTypeConformsTo(v8, v7, v5);
+    v10 = _UTTypeConformsTo(isa, v7, v5);
     return v10 != 0;
   }
 
@@ -4990,33 +4939,42 @@ uint64_t LaunchServices::BindingEvaluation::conformsTo(void ***this, const Launc
   return 0;
 }
 
-uint64_t LSHandlerPref::GetOrAddHandlerPref(void *a1, int a2, int a3, int a4, _DWORD *a5)
+uint64_t LSHandlerPref::GetOrAddHandlerPref(void *a1, uint64_t a2, uint64_t a3, int a4, _DWORD *a5)
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v7 = a3;
   v9 = a1;
-  _LSDatabaseEnumeratingBindingMap(v9);
-  v10 = v14[3];
-  if (a4 && !v10)
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = ___ZN13LSHandlerPref19GetOrAddHandlerPrefEP11_LSDatabasej14LSBindingMapIDhPj_block_invoke;
+  v14[3] = &unk_1E6A1D840;
+  v16 = &v18;
+  v17 = a5;
+  v10 = v9;
+  v15 = v10;
+  _LSDatabaseEnumeratingBindingMap(v10, v7, a2, v14);
+  v11 = v19[3];
+  if (a4 && !v11)
   {
-    v11 = LSHandlerPref::Add(v9, a2, a3);
+    v12 = LSHandlerPref::Add(v10, a2, v7);
     if (a5)
     {
-      *a5 = v11;
+      *a5 = v12;
     }
 
-    v10 = LSHandlerPref::Get(v9, v11);
+    v11 = LSHandlerPref::Get(v10, v12);
   }
 
-  _Block_object_dispose(&v13, 8);
-  return v10;
+  _Block_object_dispose(&v18, 8);
+  return v11;
 }
 
-void sub_18164D084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_18164D084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -5062,16 +5020,24 @@ LABEL_9:
   return v3;
 }
 
-void LaunchServices::BindingEvaluation::addClaimsInBindingMap(uint64_t **a1, unsigned int a2, int a3)
+void LaunchServices::BindingEvaluation::addClaimsInBindingMap(id **a1, unsigned int a2, uint64_t a3, char a4)
 {
   if (a3)
   {
-    v4 = _LSDatabaseGetBindingMapDebugName(**a1, a2);
+    v8 = _LSDatabaseGetBindingMapDebugName(**a1, a2);
     [(_LSDatabase *)**a1 store];
-    v5 = _CSStringCopyCFString();
-    LaunchServices::BindingEvaluation::logToFile(@"Adding claims for %@ %@", v6, v4, v5);
+    v9 = _CSStringCopyCFString();
+    LaunchServices::BindingEvaluation::logToFile(@"Adding claims for %@ %@", v10, v8, v9);
 
-    _LSDatabaseEnumeratingBindingMap(**a1);
+    v11 = **a1;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = ___ZN14LaunchServices17BindingEvaluationL21addClaimsInBindingMapERNS0_5StateE14LSBindingMapIDjb_block_invoke;
+    v12[3] = &__block_descriptor_45_e14_v24__0I8I12_16l;
+    v12[4] = a1;
+    v13 = a2;
+    v14 = a4;
+    _LSDatabaseEnumeratingBindingMap(v11, a2, a3, v12);
   }
 }
 
@@ -5080,7 +5046,7 @@ void LaunchServices::BindingEvaluation::addClaims(LaunchServices::BindingEvaluat
   v3 = *(this + 29);
   if (v3)
   {
-    LaunchServices::BindingEvaluation::addClaimsInBindingMap(this, 0, *(v3 + 12));
+    LaunchServices::BindingEvaluation::addClaimsInBindingMap(this, 0, *(v3 + 12), 0);
   }
 
   if ((LaunchServices::BindingEvaluation::State::shouldBindToTagClaims(this, a2) & 1) == 0)
@@ -5106,42 +5072,42 @@ LABEL_6:
       if (v7 && [(__CFString *)v7 length])
       {
         StringForCFString = _LSDatabaseGetStringForCFString(**this, v8, 1);
-        LaunchServices::BindingEvaluation::addClaimsInBindingMap(this, 1u, StringForCFString);
+        LaunchServices::BindingEvaluation::addClaimsInBindingMap(this, 1u, StringForCFString, 0);
       }
     }
 
     goto LABEL_12;
   }
 
-  v25[0] = 0;
-  v25[1] = v25;
-  v25[2] = 0x2020000000;
-  v26 = 0;
-  v23[0] = 0;
-  v23[1] = v23;
-  v23[2] = 0x2020000000;
-  v24 = -1;
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = ___ZN14LaunchServices17BindingEvaluationL27addExtensionAndOSTypeClaimsERNS0_5StateE_block_invoke;
-  v19 = &unk_1E6A1A8C0;
-  v20 = v25;
-  v21 = v23;
-  v22 = this;
-  v14 = MEMORY[0x1865D71B0](&v16);
-  v15 = *(this + 29);
-  if (v15)
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x2020000000;
+  v25 = 0;
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x2020000000;
+  v23 = -1;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = ___ZN14LaunchServices17BindingEvaluationL27addExtensionAndOSTypeClaimsERNS0_5StateE_block_invoke;
+  v18 = &unk_1E6A1A8C0;
+  v19 = v24;
+  v20 = v22;
+  v21 = this;
+  v13 = MEMORY[0x1865D71B0](&v15);
+  v14 = *(this + 29);
+  if (v14)
   {
-    _LSBindingListEnumerate(**this, *(v15 + 80), v14);
+    _LSBindingListEnumerate(**this, *(v14 + 80), v13);
   }
 
   else if (*(this + 240) == 1)
   {
-    _UTDynamicEnumerateTagsFoundInDatabase(**this, *(this + 27), v14);
+    _UTDynamicEnumerateTagsFoundInDatabase(**this, *(this + 27), v13);
   }
 
-  _Block_object_dispose(v23, 8);
-  _Block_object_dispose(v25, 8);
+  _Block_object_dispose(v22, 8);
+  _Block_object_dispose(v24, 8);
 LABEL_12:
   if (!*(this + 1))
   {
@@ -5149,7 +5115,7 @@ LABEL_12:
     if (v6)
     {
       v10 = _LSDatabaseGetStringForCFString(**this, v6, 1);
-      LaunchServices::BindingEvaluation::addClaimsInBindingMap(this, 5u, v10);
+      LaunchServices::BindingEvaluation::addClaimsInBindingMap(this, 5u, v10, 0);
     }
   }
 
@@ -5169,23 +5135,23 @@ LABEL_23:
 
   LaunchServices::BindingEvaluation::logToFile(@"Adding wildcard document claims from all applications", &v6->isa);
   [(_LSDatabase *)**this store];
-  v12 = *([(_LSDatabase *)**this schema]+ 4);
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = ___ZN14LaunchServices17BindingEvaluationL17addWildcardClaimsERNS0_5StateE_block_invoke;
-  v19 = &__block_descriptor_40_e19_v32__0I8r_v12I20_24l;
-  v20 = this;
+  [(_LSDatabase *)**this schema];
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = ___ZN14LaunchServices17BindingEvaluationL17addWildcardClaimsERNS0_5StateE_block_invoke;
+  v18 = &__block_descriptor_40_e19_v32__0I8r_v12I20_24l;
+  v19 = this;
   _CSStoreEnumerateUnits();
 LABEL_24:
-  LaunchServices::BindingEvaluation::logToFile(@"%llu bindings found", v13, 0x4EC4EC4EC4EC4EC5 * ((*(this + 24) - *(this + 23)) >> 3));
+  LaunchServices::BindingEvaluation::logToFile(@"%llu bindings found", v12, 0x4EC4EC4EC4EC4EC5 * ((*(this + 24) - *(this + 23)) >> 3));
 }
 
-void sub_18164D558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18164D558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v10 - 48), 8);
+  _Block_object_dispose((v17 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5194,7 +5160,7 @@ void ___ZN14LaunchServices17BindingEvaluationL21addClaimsInBindingMapERNS0_5Stat
   v3 = a3 & 0xFFFFFFFC;
   if ((a3 & 3) == 2 && v3 != 0)
   {
-    v6 = _LSClaimGet(***(a1 + 32));
+    v6 = _LSClaimGet(***(a1 + 32), a3 & 0xFFFFFFFC);
     if (v6)
     {
       v7 = v6;
@@ -5303,8 +5269,7 @@ LABEL_21:
     v20 = this[29];
     if (v20)
     {
-      v21 = *(v20 + 20);
-      EntryCount = _LSBindingListGetEntryCount(**this);
+      EntryCount = _LSBindingListGetEntryCount(**this, *(v20 + 20));
       v13 = 0;
       IsPackage = 0;
       v10 = 0;
@@ -5351,24 +5316,24 @@ LABEL_24:
   *(this + 128) = v12 | ~((IsPackage | ~v13) & (v11 | ~v10)) | 0x100;
   if (v12 | ~((IsPackage | ~v13) & (v11 | ~v10)))
   {
-    v25 = "";
+    v24 = "";
   }
 
   else
   {
-    v25 = " NOT";
+    v24 = " NOT";
   }
 
-  LaunchServices::BindingEvaluation::logToFile(@"Will%s bind to tag claims (regular file? %i; resolvable? %i; package? %i; AVCHD? %i; tagged UTI? %i)", a2, v25, v13, IsPackage, v10, v11, v12);
+  LaunchServices::BindingEvaluation::logToFile(@"Will%s bind to tag claims (regular file? %i; resolvable? %i; package? %i; AVCHD? %i; tagged UTI? %i)", a2, v24, v13, IsPackage, v10, v11, v12);
   if ((*(this + 257) & 1) == 0)
   {
-    v26 = 1;
-    return v26 & 1;
+    v25 = 1;
+    return v25 & 1;
   }
 
 LABEL_28:
-  v26 = *(this + 256);
-  return v26 & 1;
+  v25 = *(this + 256);
+  return v25 & 1;
 }
 
 uint64_t _UTTypeGetTypeData(void *a1)
@@ -5418,30 +5383,28 @@ void LaunchServices::BindingEvaluation::addAlternateUTIClaims(LaunchServices::Bi
 
         else
         {
-          v11 = LaunchServices::BindingEvaluation::conformsTo(this, TypeData, @"public.data", v9);
-          v13 = *(this + 27);
-          if (!v11)
+          if (!LaunchServices::BindingEvaluation::conformsTo(this, TypeData, @"public.data", v9))
           {
-            LaunchServices::BindingEvaluation::logToFile(@"Base type of UTI %@ was not public.data or com.apple.package; skipping alternate UTI claims", v12, *(this + 27));
+            LaunchServices::BindingEvaluation::logToFile(@"Base type of UTI %@ was not public.data or com.apple.package; skipping alternate UTI claims", v11, *(this + 27));
             return;
           }
 
-          LaunchServices::BindingEvaluation::logToFile(@"Base type of UTI %@ was public.data; looking for alternate UTI claims", v12, *(this + 27));
+          LaunchServices::BindingEvaluation::logToFile(@"Base type of UTI %@ was public.data; looking for alternate UTI claims", v11, *(this + 27));
           if (!TypeData)
           {
             return;
           }
         }
 
-        v14 = **this;
-        v15[0] = MEMORY[0x1E69E9820];
-        v15[1] = 3221225472;
-        v15[2] = ___ZN14LaunchServices17BindingEvaluationL21addAlternateUTIClaimsERNS0_5StateE_block_invoke;
-        v15[3] = &__block_descriptor_52_e42_v32__0I8I12r____IIIIiII_8I_IIIIIIIII_16_24lu40l8;
-        v16 = TypeData;
-        v15[4] = this;
-        v15[5] = v4;
-        _UTEnumerateTypesForTag(v14, @"public.filename-extension", v4, v15);
+        v12 = **this;
+        v13[0] = MEMORY[0x1E69E9820];
+        v13[1] = 3221225472;
+        v13[2] = ___ZN14LaunchServices17BindingEvaluationL21addAlternateUTIClaimsERNS0_5StateE_block_invoke;
+        v13[3] = &__block_descriptor_52_e42_v32__0I8I12r____IIIIiII_8I_IIIIIIIII_16_24lu40l8;
+        v14 = TypeData;
+        v13[4] = this;
+        v13[5] = v4;
+        _UTEnumerateTypesForTag(v12, @"public.filename-extension", v4, v13);
         return;
       }
     }
@@ -5496,13 +5459,13 @@ LABEL_5:
   LaunchServices::BindingEvaluation::logToFile(@"%llu bindings found", a2, 0x4EC4EC4EC4EC4EC5 * ((*(this + 24) - *(this + 23)) >> 3));
 }
 
-uint64_t ___ZL32_UTTypeSearchConformsToTypesCoreP14UTTypeSearchPB_block_invoke(uint64_t a1, uint64_t a2, int a3, _BYTE *a4)
+unint64_t ___ZL32_UTTypeSearchConformsToTypesCoreP14UTTypeSearchPB_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   *(*(a1 + 48) + 64) = _UTGetActiveTypeForIdentifier(*(a1 + 32), a3, (*(a1 + 48) + 56));
   result = *(a1 + 48);
   if (*(result + 64))
   {
-    result = _UTTypeSearchConformsToTypesCore();
+    result = _UTTypeSearchConformsToTypesCore(result);
     if (result)
     {
       *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -5571,7 +5534,7 @@ void sub_18164E078(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned int>::push_back[abi:nn200100](const void **a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:nn200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5620,7 +5583,7 @@ void std::vector<unsigned int>::push_back[abi:nn200100](const void **a1, _DWORD 
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -6073,9 +6036,10 @@ id LaunchServices::BindingEvaluation::State::getExtension(LaunchServices::Bindin
   return v2;
 }
 
-uint64_t _UTTypeSearchConformsToTypesCommon(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6)
+uint64_t _UTTypeSearchConformsToTypesCommon(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6)
 {
-  v12 = _UTTypeGet(a1);
+  v10 = a2;
+  v12 = _UTTypeGet(a1, a2);
   if (!v12)
   {
     return 0;
@@ -6085,7 +6049,7 @@ uint64_t _UTTypeSearchConformsToTypesCommon(void *a1, int a2, uint64_t a3, uint6
   v17 = 1065353216;
   v18 = a1;
   v19 = a5;
-  v20 = a2;
+  v20 = v10;
   v21 = v12;
   v22 = a4;
   v23 = 0;
@@ -6112,33 +6076,33 @@ uint64_t _UTTypeSearchConformsToTypesCommon(void *a1, int a2, uint64_t a3, uint6
   return v14;
 }
 
-uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int &>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int &>(void *a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -6146,44 +6110,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecordUpdateAvailability>>>::~__hash_table(uint64_t a1)
@@ -6275,7 +6239,7 @@ id LaunchServices::BindingEvaluation::State::getTypeRecord(LaunchServices::Bindi
   return v1;
 }
 
-uint64_t ___ZN13LSHandlerPref19GetOrAddHandlerPrefEP11_LSDatabasej14LSBindingMapIDhPj_block_invoke(uint64_t result, uint64_t a2, int a3, _BYTE *a4)
+uint64_t ___ZN13LSHandlerPref19GetOrAddHandlerPrefEP11_LSDatabasej14LSBindingMapIDhPj_block_invoke(uint64_t result, uint64_t a2, unsigned int a3, _BYTE *a4)
 {
   v4 = (a3 & 0xFFFFFFFC);
   if ((a3 & 3) == 1 && v4 != 0)
@@ -6295,11 +6259,11 @@ uint64_t ___ZN13LSHandlerPref19GetOrAddHandlerPrefEP11_LSDatabasej14LSBindingMap
   return result;
 }
 
-uint64_t _LSBindingListGetEntryCount(void *a1)
+uint64_t _LSBindingListGetEntryCount(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  [(_LSDatabase *)v1 store];
-  v2 = *([(_LSDatabase *)v1 schema]+ 1596);
+  v2 = a1;
+  [(_LSDatabase *)v2 store];
+  [(_LSDatabase *)v2 schema];
   Unit = CSStoreGetUnit();
   if (Unit)
   {
@@ -6314,14 +6278,14 @@ uint64_t _LSBindingListGetEntryCount(void *a1)
   return v4;
 }
 
-uint64_t _UTTypeSearchConformsToTypesCore(uint64_t a1)
+uint64_t _UTTypeSearchConformsToTypesCore(unint64_t a1)
 {
   if (std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::find<unsigned int>(a1, (a1 + 56)))
   {
     return 0;
   }
 
-  std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int &>(a1, (a1 + 56));
+  std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int &>(a1, (a1 + 56), (a1 + 56));
   *(a1 + 72) = *(a1 + 88);
   if ((*(a1 + 80))(a1 + 40))
   {
@@ -6372,9 +6336,9 @@ uint64_t _UTTypeSearchConformsToTypesCore(uint64_t a1)
   return v2;
 }
 
-void sub_18164F080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_18164F080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -6384,129 +6348,131 @@ void LaunchServices::BindingEvaluation::addClaimsForParentUTI(uint64_t a1, uint6
 {
   if ((*(a2 + 9) & 2) == 0 || (*(a1 + 116) & 0x20) != 0)
   {
-    v4 = *(a2 + 12);
+    v3 = *(a2 + 12);
 
-    LaunchServices::BindingEvaluation::addClaimsInBindingMap(a1, 0, v4);
+    LaunchServices::BindingEvaluation::addClaimsInBindingMap(a1, 0, v3, 1);
   }
 
   else
   {
-    v2 = *(a2 + 12);
     [(_LSDatabase *)**a1 store];
-    v5 = _CSStringCopyCFString();
-    LaunchServices::BindingEvaluation::logToFile(@"Skipping parent UTI claim for %@ due to options (wildcard UTIs not requested)", v3, v5);
+    v4 = _CSStringCopyCFString();
+    LaunchServices::BindingEvaluation::logToFile(@"Skipping parent UTI claim for %@ due to options (wildcard UTIs not requested)", v2, v4);
   }
 }
 
-NSObject *LaunchServices::LocalizedString::localizeUnsafely(uint64_t a1, void *a2, void *a3)
+NSObject *LaunchServices::LocalizedString::localizeUnsafely(unsigned int *a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v5 = a2;
   prefArray = a3;
-  v32 = v5;
+  v37 = v5;
   if (!v5)
   {
-    v27 = [MEMORY[0x1E696AAA8] currentHandler];
-    v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSString *LaunchServices::LocalizedString::localizeUnsafely(_LSDatabase *__strong _Nonnull, NSArray<NSString *> *__strong _Nullable) const"}];
-    [v27 handleFailureInFunction:v28 file:@"LSLocalizedString.mm" lineNumber:163 description:{@"Invalid parameter not satisfying: %@", @"db != nil"}];
+    v32 = [MEMORY[0x1E696AAA8] currentHandler];
+    v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSString *LaunchServices::LocalizedString::localizeUnsafely(_LSDatabase *__strong _Nonnull, NSArray<NSString *> *__strong _Nullable) const"}];
+    [v32 handleFailureInFunction:v33 file:@"LSLocalizedString.mm" lineNumber:163 description:{@"Invalid parameter not satisfying: %@", @"db != nil"}];
   }
 
-  context = objc_autoreleasePoolPush();
-  if ((*(a1 + 8) & 2) != 0)
+  v6 = objc_autoreleasePoolPush();
+  context = v6;
+  if ((a1[2] & 2) != 0)
   {
-    v21 = *(a1 + 4);
     [(_LSDatabase *)v5 store];
-    v22 = _CSStringCopyCFString();
-    if (*(a1 + 8))
+    v27 = _CSStringCopyCFString();
+    if (a1[2])
     {
-      v23 = @"✴️";
+      v29 = @"✴️";
     }
 
     else
     {
-      v23 = @"🔂";
+      v29 = @"🔂";
     }
 
-    v13 = v22;
+    v17 = v27;
   }
 
   else
   {
-    if (!*a1 || (v31 = *(a1 + 4), !v31))
+    v8 = *a1;
+    if (!v8 || (v36 = a1[1], !v36))
     {
-      v13 = 0;
+      v17 = 0;
       goto LABEL_47;
     }
 
     if (!prefArray)
     {
-      prefArray = [__LSDefaultsGetSharedInstance() preferredLocalizations];
+      prefArray = [__LSDefaultsGetSharedInstance(v6 v7)];
     }
 
-    v6 = _LSDatabaseGetStringArray(v5);
-    v7 = 0;
-    if (prefArray && v6)
+    v9 = _LSDatabaseGetStringArray(v5, v8);
+    v10 = 0;
+    if (prefArray && v9)
     {
-      v7 = CFBundleCopyLocalizationsForPreferences(v6, prefArray);
+      v10 = CFBundleCopyLocalizationsForPreferences(v9, prefArray);
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v8 = v7;
-    v9 = [(__CFArray *)v8 countByEnumeratingWithState:&v35 objects:v47 count:16];
-    if (v9)
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v11 = v10;
+    v12 = [(__CFArray *)v11 countByEnumeratingWithState:&v40 objects:v52 count:16];
+    if (v12)
     {
-      v10 = *v36;
+      v13 = *v41;
       do
       {
-        v11 = 0;
+        v14 = 0;
         do
         {
-          if (*v36 != v10)
+          if (*v41 != v13)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v11);
           }
 
-          v12 = *(*(&v35 + 1) + 8 * v11);
-          if ([(__CFArray *)v12 isEqual:@"LSDefaultLocalizedValue"])
+          v15 = *(*(&v40 + 1) + 8 * v14);
+          v16 = [v15 isEqual:@"LSDefaultLocalizedValue"];
+          if (v16)
           {
-            v13 = _LSDefaultLog();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+            v17 = _LSDefaultLog(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
-              LaunchServices::LocalizedString::localizeUnsafely(&v33, v34, v13);
+              LaunchServices::LocalizedString::localizeUnsafely(&v38, v39, v17);
             }
           }
 
           else
           {
-            v14 = [(__CFArray *)v6 indexOfObject:v12];
-            if (v14 == 0x7FFFFFFFFFFFFFFFLL || v14 >= [(__CFArray *)v6 count])
+            v18 = [(__CFArray *)v9 indexOfObject:v15];
+            v19 = v18;
+            if (v18 == 0x7FFFFFFFFFFFFFFFLL || (v18 = [(__CFArray *)v9 count], v19 >= v18))
             {
-              v13 = _LSDefaultLog();
-              if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+              v17 = _LSDefaultLog(v18);
+              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138543618;
-                v40 = v12;
-                v41 = 2114;
-                v42 = v6;
-                _os_log_debug_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEBUG, "Unexpected: localization %{public}@ was not found in bundle localizations list %{public}@", buf, 0x16u);
+                v45 = v15;
+                v46 = 2114;
+                v47 = v9;
+                _os_log_debug_impl(&dword_18162D000, v17, OS_LOG_TYPE_DEBUG, "Unexpected: localization %{public}@ was not found in bundle localizations list %{public}@", buf, 0x16u);
               }
             }
 
             else
             {
-              v15 = v32;
-              [(_LSDatabase *)v32 store];
+              v20 = v37;
+              [(_LSDatabase *)v37 store];
               ValueAtIndex = _CSArrayGetValueAtIndex();
-              v17 = v32;
-              [(_LSDatabase *)v32 store];
-              v18 = _CSStringCopyCFString();
-              v13 = v18;
-              if (v18)
+              v22 = v37;
+              [(_LSDatabase *)v37 store];
+              v23 = _CSStringCopyCFString();
+              v17 = v23;
+              if (v23)
               {
-                if ([v18 length])
+                if ([v23 length])
                 {
 
                   goto LABEL_41;
@@ -6520,83 +6486,72 @@ NSObject *LaunchServices::LocalizedString::localizeUnsafely(uint64_t a1, void *a
                   goto LABEL_33;
                 }
 
-                v19 = _LSDefaultLog();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+                v24 = _LSDefaultLog(0);
+                if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 134218754;
-                  v40 = v14;
-                  v41 = 2114;
-                  v42 = v12;
-                  v43 = 2048;
-                  v44 = v31;
-                  v45 = 2048;
-                  v46 = v31;
-                  _os_log_debug_impl(&dword_18162D000, v19, OS_LOG_TYPE_DEBUG, "Unexpected: could not get value #%lu (key %{public}@) from localized name array %llu(%llx)", buf, 0x2Au);
+                  v45 = v19;
+                  v46 = 2114;
+                  v47 = v15;
+                  v48 = 2048;
+                  v49 = v36;
+                  v50 = 2048;
+                  v51 = v36;
+                  _os_log_debug_impl(&dword_18162D000, v24, OS_LOG_TYPE_DEBUG, "Unexpected: could not get value #%lu (key %{public}@) from localized name array %llu(%llx)", buf, 0x2Au);
                 }
               }
             }
           }
 
-          ++v11;
+          ++v14;
         }
 
-        while (v9 != v11);
-        v20 = [(__CFArray *)v8 countByEnumeratingWithState:&v35 objects:v47 count:16];
-        v9 = v20;
+        while (v12 != v14);
+        v25 = [(__CFArray *)v11 countByEnumeratingWithState:&v40 objects:v52 count:16];
+        v12 = v25;
       }
 
-      while (v20);
+      while (v25);
     }
 
 LABEL_33:
 
-    if ([(__CFArray *)v8 count]&& [(__CFArray *)v6 indexOfObject:@"LSDefaultLocalizedValue"]!= 0x7FFFFFFFFFFFFFFFLL)
+    if ([(__CFArray *)v11 count]&& (v26 = [(__CFArray *)v9 indexOfObject:@"LSDefaultLocalizedValue"], v26 != 0x7FFFFFFFFFFFFFFFLL))
     {
-      v13 = _LSDatabaseGetNSStringFromArray(v32);
-      v23 = @"🔴";
+      v17 = _LSDatabaseGetNSStringFromArray(v37, v36, v26);
+      v29 = @"🔴";
     }
 
     else
     {
-      v13 = 0;
+      v17 = 0;
 LABEL_41:
-      v23 = @"❇️";
+      v29 = @"❇️";
     }
   }
 
-  if (v13 && [__LSDefaultsGetSharedInstance() markLocalizationsStoredInDatabase])
+  if (v17 && [__LSDefaultsGetSharedInstance(v27 v28)])
   {
-    v24 = [v13 stringByAppendingString:v23];
+    v30 = [v17 stringByAppendingString:v29];
 
-    v13 = v24;
+    v17 = v30;
   }
 
 LABEL_47:
   objc_autoreleasePoolPop(context);
 
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v17;
 }
 
-id _LSDatabaseGetNSStringFromArray(void *a1)
+id _LSDatabaseGetNSStringFromArray(void *a1, uint64_t a2, uint64_t a3)
 {
-  v1 = a1;
-  if (v1)
-  {
-    v2 = v1[5];
-  }
-
+  v3 = a1;
+  v4 = v3;
   _CSArrayGetValueAtIndex();
-  v3 = v1;
-  if (v1)
-  {
-    v4 = v1[5];
-  }
+  v5 = v3;
+  v6 = _CSStringCopyCFString();
 
-  v5 = _CSStringCopyCFString();
-
-  return v5;
+  return v6;
 }
 
 id _LSLazyLoadObjectOnQueue(uint64_t a1, void *a2, void *a3)
@@ -6662,23 +6617,23 @@ LABEL_3:
   return v8;
 }
 
-void sub_18164FFD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_18164FFD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a23, 8);
 
   _Unwind_Resume(a1);
 }
 
-id _LSExtensionsLog()
+id _LSExtensionsLog(uint64_t a1)
 {
   if (_LSExtensionsLog_onceToken != -1)
   {
     _LSExtensionsLog_cold_1();
   }
 
-  v1 = _LSExtensionsLog_log;
+  v2 = _LSExtensionsLog_log;
 
-  return v1;
+  return v2;
 }
 
 id _LSDataSeparationLog()
@@ -6757,7 +6712,7 @@ LABEL_15:
   return v2;
 }
 
-uint64_t LaunchServices::TypeEvaluator::PrepareMimicForTypeEvaluation(void *a1, uint64_t a2)
+void *LaunchServices::TypeEvaluator::PrepareMimicForTypeEvaluation(void *a1, uint64_t a2)
 {
   result = _LSPrepareMimicForBundleClass(a1, a2);
   if (result)
@@ -6837,40 +6792,40 @@ uint64_t _LSPrepareMimicForBundleClass(void *a1, uint64_t a2)
 
 uint64_t LaunchServices::URLPropertyProvider::prepareValues(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6, void **a7)
 {
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x2020000000;
-  v76 = 1;
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x2020000000;
+  v78 = 1;
   location = 0;
   v11 = objc_autoreleasePoolPush();
-  v71 = 0;
+  v73 = 0;
+  v72 = 0;
+  v69 = 0;
   v70 = 0;
+  v71 = 0;
+  v65[0] = 0;
   v67 = 0;
   v68 = 0;
-  v69 = 0;
-  v63[0] = 0;
-  v65 = 0;
-  v66 = 0;
-  v62 = 0;
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  v64 = 0;
+  if ([__LSDefaultsGetSharedInstance(v11 v12)])
   {
-    v61 = 0;
-    [a1 getResourceValue:&v61 forKey:@"_LSMimicKey" error:0];
-    v12 = v61;
+    v63 = 0;
+    [a1 getResourceValue:&v63 forKey:@"_LSMimicKey" error:0];
+    v13 = v63;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  v60[0] = &v71;
-  v60[1] = &location;
-  v60[2] = a7;
-  v60[3] = a1;
-  v49 = a1;
-  v13 = getenv("LS_FORCE_URL_PROPERTY_PREP_OOP");
-  if (!v13)
+  v62[0] = &v73;
+  v62[1] = &location;
+  v62[2] = a7;
+  v62[3] = a1;
+  v51 = a1;
+  v14 = getenv("LS_FORCE_URL_PROPERTY_PREP_OOP");
+  if (!v14)
   {
     if (!_LSCurrentProcessMayMapDatabase())
     {
@@ -6878,172 +6833,172 @@ uint64_t LaunchServices::URLPropertyProvider::prepareValues(void *a1, uint64_t a
     }
 
 LABEL_31:
-    v16 = 0;
+    v17 = 0;
     goto LABEL_43;
   }
 
-  v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v13];
-  v15 = [v14 BOOLValue];
+  v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v14];
+  v16 = [v15 BOOLValue];
 
-  if ((v15 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
     goto LABEL_31;
   }
 
 LABEL_6:
-  v46 = v11;
-  v47 = v12;
+  v48 = v11;
+  v49 = v13;
   if (a5 >= 1)
   {
-    v50 = 0;
-    v16 = 0;
+    v52 = 0;
+    v17 = 0;
     p_obj = &obj;
     if (!a7)
     {
       p_obj = 0;
     }
 
-    v48 = p_obj;
-    v18 = a3;
-    v19 = a4;
-    v20 = a5;
+    v50 = p_obj;
+    v19 = a3;
+    v20 = a4;
+    v21 = a5;
     while (1)
     {
-      if (!*(v74 + 24))
+      if (!*(v76 + 24))
       {
         goto LABEL_33;
       }
 
-      v21 = *v19;
-      if (*(*v19 + 24))
+      v22 = *v20;
+      if (*(*v20 + 24))
       {
-        v22 = *v18;
-        if (!MEMORY[0x1865D5CC0](a2, *v18, &v62))
+        v23 = *v19;
+        if (!MEMORY[0x1865D5CC0](a2, *v19, &v64))
         {
           break;
         }
       }
 
 LABEL_27:
+      ++v20;
       ++v19;
-      ++v18;
-      if (!--v20)
+      if (!--v21)
       {
         goto LABEL_33;
       }
     }
 
-    if (v50)
+    if (v52)
     {
-      if (v16)
+      if (v17)
       {
 LABEL_15:
-        v16 = v16;
+        v17 = v17;
         goto LABEL_21;
       }
     }
 
     else
     {
-      v50 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      if (v16)
+      v52 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      if (v17)
       {
         goto LABEL_15;
       }
     }
 
-    v23 = LaunchServices::URLPropertyProvider::prepareValues(__CFURL const*,__FileCache *,__CFString const* const*,void const**,long,void const*,__CFError **)::$_0::operator()(v60);
-    if (v23)
+    v24 = LaunchServices::URLPropertyProvider::prepareValues(__CFURL const*,__FileCache *,__CFString const* const*,void const**,long,void const*,__CFError **)::$_0::operator()(v62);
+    if (v24)
     {
-      v24 = [[FSMimicPopulator alloc] initWithNode:v23];
+      v25 = [[FSMimicPopulator alloc] initWithNode:v24];
     }
 
     else
     {
-      v24 = 0;
+      v25 = 0;
     }
 
-    v16 = v24;
-    if (!v16)
+    v17 = v25;
+    if (!v17)
     {
-      *(v74 + 24) = 0;
+      *(v76 + 24) = 0;
 LABEL_26:
 
       goto LABEL_27;
     }
 
 LABEL_21:
-    v25 = *(v21 + 24);
+    v26 = *(v22 + 24);
     if (a7)
     {
       obj = location;
     }
 
-    v26 = v25(v16, a2, v22, v63, v48);
+    v27 = v26(v17, a2, v23, v65, v50);
     if (a7)
     {
       objc_storeStrong(&location, obj);
     }
 
-    *(v74 + 24) = v26;
-    [v50 addObject:{v22, v46}];
+    *(v76 + 24) = v27;
+    [v52 addObject:{v23, v48}];
     goto LABEL_26;
   }
 
-  v16 = 0;
-  v50 = 0;
+  v17 = 0;
+  v52 = 0;
 LABEL_33:
-  v12 = v47;
-  if (*(v74 + 24))
+  v13 = v49;
+  if (*(v76 + 24))
   {
-    v11 = v46;
-    if ([v50 count])
+    v11 = v48;
+    if ([v52 count])
     {
-      v57[0] = 0;
-      v57[1] = v57;
-      v57[2] = 0x3032000000;
-      v57[3] = __Block_byref_object_copy__51;
-      v57[4] = __Block_byref_object_dispose__51;
-      v58 = 0;
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = ___ZN14LaunchServices19URLPropertyProviderL13prepareValuesEPK7__CFURLP11__FileCachePKPK10__CFStringPPKvlSC_PP9__CFError_block_invoke;
-      v56[3] = &unk_1E6A18DF0;
-      v56[4] = v57;
-      v27 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:v56];
-      if (!v16)
+      v59[0] = 0;
+      v59[1] = v59;
+      v59[2] = 0x3032000000;
+      v59[3] = __Block_byref_object_copy__51;
+      v59[4] = __Block_byref_object_dispose__51;
+      v60 = 0;
+      v58[0] = MEMORY[0x1E69E9820];
+      v58[1] = 3221225472;
+      v58[2] = ___ZN14LaunchServices19URLPropertyProviderL13prepareValuesEPK7__CFURLP11__FileCachePKPK10__CFStringPPKvlSC_PP9__CFError_block_invoke;
+      v58[3] = &unk_1E6A18DF0;
+      v58[4] = v59;
+      v28 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:v58];
+      if (!v17)
       {
-        v28 = LaunchServices::URLPropertyProvider::prepareValues(__CFURL const*,__FileCache *,__CFString const* const*,void const**,long,void const*,__CFError **)::$_0::operator()(v60);
-        if (v28)
+        v29 = LaunchServices::URLPropertyProvider::prepareValues(__CFURL const*,__FileCache *,__CFString const* const*,void const**,long,void const*,__CFError **)::$_0::operator()(v62);
+        if (v29)
         {
-          v16 = [[FSMimicPopulator alloc] initWithNode:v28];
+          v17 = [[FSMimicPopulator alloc] initWithNode:v29];
         }
 
         else
         {
-          v16 = 0;
+          v17 = 0;
         }
       }
 
-      v16 = v16;
-      v29 = [(FSMimicPopulator *)v16 mimic];
-      v30 = [__LSDefaultsGetSharedInstance() preferredLocalizations];
-      v55[0] = MEMORY[0x1E69E9820];
-      v55[1] = 3221225472;
-      v55[2] = ___ZN14LaunchServices19URLPropertyProviderL13prepareValuesEPK7__CFURLP11__FileCachePKPK10__CFStringPPKvlSC_PP9__CFError_block_invoke_2;
-      v55[3] = &unk_1E6A1E608;
-      v55[4] = &v73;
-      v55[5] = v57;
-      v55[6] = a2;
-      [v27 getResourceValuesForKeys:v50 mimic:v29 preferredLocalizations:v30 completionHandler:v55];
+      v17 = v17;
+      v30 = [(FSMimicPopulator *)v17 mimic];
+      v32 = [__LSDefaultsGetSharedInstance(v30 v31)];
+      v57[0] = MEMORY[0x1E69E9820];
+      v57[1] = 3221225472;
+      v57[2] = ___ZN14LaunchServices19URLPropertyProviderL13prepareValuesEPK7__CFURLP11__FileCachePKPK10__CFStringPPKvlSC_PP9__CFError_block_invoke_2;
+      v57[3] = &unk_1E6A1E608;
+      v57[4] = &v75;
+      v57[5] = v59;
+      v57[6] = a2;
+      [v28 getResourceValuesForKeys:v52 mimic:v30 preferredLocalizations:v32 completionHandler:v57];
 
-      _Block_object_dispose(v57, 8);
+      _Block_object_dispose(v59, 8);
     }
   }
 
   else
   {
-    v11 = v46;
+    v11 = v48;
   }
 
 LABEL_43:
@@ -7051,66 +7006,66 @@ LABEL_43:
   {
     if (a7)
     {
-      v31 = &v54;
+      v33 = &v56;
     }
 
     else
     {
-      v31 = 0;
+      v33 = 0;
     }
 
     do
     {
-      if (!*(v74 + 24))
+      if (!*(v76 + 24))
       {
         break;
       }
 
-      v32 = *a4;
+      v34 = *a4;
       if (*(*a4 + 16))
       {
-        v33 = *a3;
-        if (!MEMORY[0x1865D5CC0](a2, *a3, &v62))
+        v35 = *a3;
+        if (!MEMORY[0x1865D5CC0](a2, *a3, &v64))
         {
-          v34 = v12;
-          if (v12)
+          v36 = v13;
+          if (v13)
           {
-            v35 = v34;
-            v36 = v74;
+            v37 = v36;
+            v38 = v76;
           }
 
           else
           {
-            v37 = LaunchServices::URLPropertyProvider::prepareValues(__CFURL const*,__FileCache *,__CFString const* const*,void const**,long,void const*,__CFError **)::$_0::operator()(v60);
-            v36 = v74;
-            if (v37)
+            v39 = LaunchServices::URLPropertyProvider::prepareValues(__CFURL const*,__FileCache *,__CFString const* const*,void const**,long,void const*,__CFError **)::$_0::operator()(v62);
+            v38 = v76;
+            if (v39)
             {
-              v35 = v37;
+              v37 = v39;
             }
 
             else
             {
-              v35 = 0;
-              *(v74 + 24) = 0;
+              v37 = 0;
+              *(v76 + 24) = 0;
             }
           }
 
-          if (*(v36 + 24))
+          if (*(v38 + 24))
           {
             if (a7)
             {
-              v54 = location;
+              v56 = location;
             }
 
-            v38 = (*(v32 + 16))(&v67, v35, a2, v33, v63, v31);
+            v40 = (*(v34 + 16))(&v69, v37, a2, v35, v65, v33);
             if (a7)
             {
-              objc_storeStrong(&location, v54);
+              objc_storeStrong(&location, v56);
             }
 
-            if (!v38)
+            if (!v40)
             {
-              *(v74 + 24) = 0;
+              *(v76 + 24) = 0;
             }
           }
         }
@@ -7124,55 +7079,55 @@ LABEL_43:
     while (a5);
   }
 
-  v39 = v71;
-  v40 = v71;
-  if (v40 && os_unfair_lock_trylock(&LaunchServices::URLPropertyProvider::reusableNodeLock))
+  v41 = v73;
+  v42 = v73;
+  if (v42 && os_unfair_lock_trylock(&LaunchServices::URLPropertyProvider::reusableNodeLock))
   {
     if (!LaunchServices::URLPropertyProvider::reusableNode)
     {
-      [v40 prepareForReuse];
-      objc_storeStrong(&LaunchServices::URLPropertyProvider::reusableNode, v39);
+      [v42 prepareForReuse];
+      objc_storeStrong(&LaunchServices::URLPropertyProvider::reusableNode, v41);
     }
 
     os_unfair_lock_unlock(&LaunchServices::URLPropertyProvider::reusableNodeLock);
   }
 
-  v41 = v71;
-  v71 = 0;
+  v43 = v73;
+  v73 = 0;
 
-  if (a7 && !*(v74 + 24))
+  if (a7 && !*(v76 + 24))
   {
-    v53 = location;
-    LaunchServices::URLPropertyProvider::normalizeError(v49, 0, &v53);
-    objc_storeStrong(&location, v53);
+    v55 = location;
+    LaunchServices::URLPropertyProvider::normalizeError(v51, 0, &v55);
+    objc_storeStrong(&location, v55);
     *a7 = location;
   }
 
-  if (v65 == 1)
+  if (v67 == 1)
   {
   }
 
-  if (v67 && v69 == 1)
+  if (v69 && v71 == 1)
   {
-    _LSContextDestroy(v67);
+    _LSContextDestroy(v69);
   }
 
-  v42 = v68;
-  v67 = 0;
-  v68 = 0;
-
+  v44 = v70;
   v69 = 0;
-  v43 = v70;
   v70 = 0;
 
-  objc_autoreleasePoolPop(v11);
-  v44 = *(v74 + 24);
+  v71 = 0;
+  v45 = v72;
+  v72 = 0;
 
-  _Block_object_dispose(&v73, 8);
-  return v44;
+  objc_autoreleasePoolPop(v11);
+  v46 = *(v76 + 24);
+
+  _Block_object_dispose(&v75, 8);
+  return v46;
 }
 
-void sub_181650B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id a35)
+void sub_181650B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id a35)
 {
   _Block_object_dispose(&a30, 8);
 
@@ -7226,35 +7181,35 @@ LABEL_10:
   return v6;
 }
 
-void *std::__hash_table<std::__hash_value_type<_opaque_pthread_t *,std::shared_ptr<LaunchServices::PerThreadContext>>,std::__unordered_map_hasher<_opaque_pthread_t *,std::__hash_value_type<_opaque_pthread_t *,std::shared_ptr<LaunchServices::PerThreadContext>>,std::hash<_opaque_pthread_t *>,std::equal_to<_opaque_pthread_t *>,true>,std::__unordered_map_equal<_opaque_pthread_t *,std::__hash_value_type<_opaque_pthread_t *,std::shared_ptr<LaunchServices::PerThreadContext>>,std::equal_to<_opaque_pthread_t *>,std::hash<_opaque_pthread_t *>,true>,std::allocator<std::__hash_value_type<_opaque_pthread_t *,std::shared_ptr<LaunchServices::PerThreadContext>>>>::__emplace_unique_key_args<_opaque_pthread_t *,std::piecewise_construct_t const&,std::tuple<_opaque_pthread_t *&&>,std::tuple<std::shared_ptr<LaunchServices::PerThreadContext>&&>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<_opaque_pthread_t *,std::shared_ptr<LaunchServices::PerThreadContext>>,std::__unordered_map_hasher<_opaque_pthread_t *,std::__hash_value_type<_opaque_pthread_t *,std::shared_ptr<LaunchServices::PerThreadContext>>,std::hash<_opaque_pthread_t *>,std::equal_to<_opaque_pthread_t *>,true>,std::__unordered_map_equal<_opaque_pthread_t *,std::__hash_value_type<_opaque_pthread_t *,std::shared_ptr<LaunchServices::PerThreadContext>>,std::equal_to<_opaque_pthread_t *>,std::hash<_opaque_pthread_t *>,true>,std::allocator<std::__hash_value_type<_opaque_pthread_t *,std::shared_ptr<LaunchServices::PerThreadContext>>>>::__emplace_unique_key_args<_opaque_pthread_t *,std::piecewise_construct_t const&,std::tuple<_opaque_pthread_t *&&>,std::tuple<std::shared_ptr<LaunchServices::PerThreadContext>&&>>(void *a1, void *a2, uint64_t a3, void **a4, uint64_t *a5)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v5 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v6 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v5 >> 47) ^ v5);
+  v7 = 0x9DDFEA08EB382D69 * (v6 ^ (v6 >> 47));
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  if (v9.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v10 = 0x9DDFEA08EB382D69 * (v6 ^ (v6 >> 47));
+    if (v7 >= *&v8)
     {
-      v7 = v4 % *&v5;
+      v10 = v7 % *&v8;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v10 = v7 & (*&v8 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -7262,71 +7217,70 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v13 = v12[1];
+    if (v13 == v7)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v9.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v13 >= *&v8)
       {
-        v10 %= *&v5;
+        v13 %= *&v8;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v13 &= *&v8 - 1;
     }
 
-    if (v10 != v7)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v12[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v12;
 }
 
 uint64_t _LSIsKindOfClasses(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a1;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = a2;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
         if (objc_opt_isKindOfClass())
         {
 
@@ -7338,7 +7292,7 @@ uint64_t _LSIsKindOfClasses(void *a1, void *a2)
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -7348,9 +7302,10 @@ uint64_t _LSIsKindOfClasses(void *a1, void *a2)
     }
   }
 
-  if (_LSClassListContainsBundleRecord(v4))
+  v9 = _LSClassListContainsBundleRecord(v4);
+  if (v9)
   {
-    v10 = _LSDefaultLog();
+    v10 = _LSDefaultLog(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       _LSIsKindOfClasses_cold_1(v10);
@@ -7367,19 +7322,18 @@ uint64_t _LSIsKindOfClasses(void *a1, void *a2)
 
 LABEL_15:
 
-  v12 = *MEMORY[0x1E69E9840];
   return isKindOfClass & 1;
 }
 
-double ___ZL27_FSNodeInfoLifetimeAbsolutev_block_invoke()
+double ___ZL27_FSNodeInfoLifetimeAbsolutev_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = _LSGetMachTimebase();
-  result = 5000000000.0 / (v0 / HIDWORD(v0));
+  v2 = _LSGetMachTimebase(a1, a2);
+  result = 5000000000.0 / (v2 / HIDWORD(v2));
   _FSNodeInfoLifetimeAbsolute(void)::nodeInfoLifetimeAbsolute = result;
   return result;
 }
 
-uint64_t _LSGetMachTimebase()
+uint64_t _LSGetMachTimebase(uint64_t a1, uint64_t a2)
 {
   if (_LSGetMachTimebase::once != -1)
   {
@@ -7391,57 +7345,57 @@ uint64_t _LSGetMachTimebase()
 
 uint64_t _LSDatabaseGetSessionStatus()
 {
-  os_unfair_recursive_lock_lock_with_options();
-  v0 = _LSServer_SelfSessionKey();
-  v1 = _LSGetSession(v0);
-  v2 = v1;
-  if (*(v1 + 20))
+  v0 = os_unfair_recursive_lock_lock_with_options();
+  v2 = _LSServer_SelfSessionKey(v0, v1);
+  v3 = _LSGetSession(v2);
+  v4 = v3;
+  if (*(v3 + 20))
   {
-    v3 = 128;
+    v5 = 128;
   }
 
   else
   {
-    v3 = 0;
+    v5 = 0;
   }
 
-  v4 = v3 & 0xFFFFFBFF | ((((*(v1 + 20) & 2) >> 1) & 1) << 10);
-  v5 = *(v1 + 24);
-  if (v5)
+  v6 = v5 & 0xFFFFFBFF | ((((*(v3 + 20) & 2) >> 1) & 1) << 10);
+  v7 = *(v3 + 24);
+  if (v7)
   {
-    v6 = v5;
-    v7 = [(_LSDatabase *)*(v2 + 24) isSeedingComplete];
+    v8 = v7;
+    v9 = [(_LSDatabase *)*(v4 + 24) isSeedingComplete];
 
-    if (v7)
+    if (v9)
     {
-      v4 = v4;
+      v6 = v6;
     }
 
     else
     {
-      v4 = v4 | 0x200;
+      v6 = v6 | 0x200;
     }
   }
 
-  v8 = *(v2 + 24);
-  if (v8)
+  v10 = *(v4 + 24);
+  if (v10)
   {
-    v9 = v8;
-    v10 = [(_LSDatabase *)*(v2 + 24) isSeeded];
+    v11 = v10;
+    v12 = [(_LSDatabase *)*(v4 + 24) isSeeded];
 
-    if (v10)
+    if (v12)
     {
-      v4 = v4 | 0x100;
+      v6 = v6 | 0x100;
     }
 
     else
     {
-      v4 = v4;
+      v6 = v6;
     }
   }
 
   os_unfair_recursive_lock_unlock();
-  return v4;
+  return v6;
 }
 
 void sub_181651814(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -7454,26 +7408,25 @@ void sub_181651814(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void LSDBHeader::GetCurrentBuildVersion(std::string *a1@<X8>)
+void LSDBHeader::GetCurrentBuildVersion(std::string *__return_ptr a1@<X8>, LSDBHeader *this@<X0>, uint64_t a3@<X1>)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
-  v5 = _LSGetCurrentSystemBuildVersionString();
-  if (v5)
+  v6 = _LSGetCurrentSystemBuildVersionString(this, a3);
+  if (v6)
   {
-    v3 = [v5 UTF8String];
-    if (v3)
+    v4 = [v6 UTF8String];
+    if (v4)
     {
-      v4 = v3;
+      v5 = v4;
     }
 
     else
     {
-      v4 = "";
+      v5 = "";
     }
 
-    std::string::__assign_external(a1, v4);
+    std::string::__assign_external(a1, v5);
   }
 }
 
@@ -7490,22 +7443,22 @@ void sub_181651A2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 uint64_t _LSServer_CopyLocalDatabase(void *a1)
 {
   v2 = _LSServer_DatabaseExecutionContext();
-  v3 = v2;
+  v4 = v2;
   if (v2)
   {
     [(LSDBExecutionContext *)v2 assertActiveForThisThread];
-    v4 = [(LSDBExecutionContext *)v3 getPerThreadDatabaseWithError:a1];
+    v5 = [(LSDBExecutionContext *)v4 getPerThreadDatabaseWithError:a1];
   }
 
   else
   {
-    v5 = _LSServer_SelfSessionKey();
-    v4 = _LSCopyLocalDatabase(v5, a1);
+    v6 = _LSServer_SelfSessionKey(0, v3);
+    v5 = _LSCopyLocalDatabase(v6, a1);
   }
 
-  v6 = v4;
+  v7 = v5;
 
-  return v6;
+  return v7;
 }
 
 std::string *__cdecl std::string::__assign_external(std::string *this, const std::string::value_type *__s)
@@ -7663,7 +7616,7 @@ void __Block_byref_object_dispose__53(uint64_t a1)
 {
 }
 
-uint64_t _LSGetCurrentSystemBuildVersionString()
+uint64_t _LSGetCurrentSystemBuildVersionString(uint64_t a1, uint64_t a2)
 {
   if (_LSGetCurrentSystemIOSSupportAndBuildVersions(LSVersionNumber *,LSVersionNumber *,__CFString const**,LSVersionNumber *,__CFString const**)::once != -1)
   {
@@ -7676,36 +7629,36 @@ uint64_t _LSGetCurrentSystemBuildVersionString()
 _LSDatabase *_LSDatabaseCreate(void *a1, LSSessionKey a2, const void *a3, void *a4)
 {
   v7 = a1;
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(v7 v8)])
   {
-    v8 = _LSServer_DatabaseExecutionContext();
-    v9 = [(LSDBExecutionContext *)v8 rawWriteAccessContextForDBInit];
+    v9 = _LSServer_DatabaseExecutionContext();
+    v10 = [(LSDBExecutionContext *)v9 rawWriteAccessContextForDBInit];
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = a2;
-  v11 = _LSDatabaseCreateWithAccessContext(v7, v10, a3, v9, a4);
+  v11 = a2;
+  v12 = _LSDatabaseCreateWithAccessContext(v7, v11, a3, v10, a4);
 
-  return v11;
+  return v12;
 }
 
 _LSDatabase *_LSDatabaseCreateWithAccessContext(void *a1, LSSessionKey a2, const void *a3, uint64_t a4, void *a5)
 {
-  v89 = *MEMORY[0x1E69E9840];
-  v65 = a1;
-  v67 = 0;
+  v86 = *MEMORY[0x1E69E9840];
+  v62 = a1;
+  v64 = 0;
   if (!a3)
   {
-    v72 = *MEMORY[0x1E696A278];
-    v73 = @"inStore";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-    v15 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v14, "_LSDatabaseCreateWithAccessContext", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 1390);
-    v16 = v67;
-    v67 = v15;
+    v69 = *MEMORY[0x1E696A278];
+    v70 = @"inStore";
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+    v18 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v17, "_LSDatabaseCreateWithAccessContext", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 1390);
+    v19 = v64;
+    v64 = v18;
 
     goto LABEL_53;
   }
@@ -7714,39 +7667,39 @@ _LSDatabase *_LSDatabaseCreateWithAccessContext(void *a1, LSSessionKey a2, const
   v10 = v9;
   if (!v9)
   {
-    v17 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -41, 0, "_LSDatabaseCreateWithAccessContext", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 1385);
-    v18 = v67;
-    v67 = v17;
+    v20 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -41, 0, "_LSDatabaseCreateWithAccessContext", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 1385);
+    v21 = v64;
+    v64 = v20;
 
     goto LABEL_53;
   }
 
   objc_storeStrong(v9 + 1, a1);
-  v10->sessionKey = a2;
-  if (![__LSDefaultsGetSharedInstance() isServer])
+  v10[2] = a2;
+  if (![__LSDefaultsGetSharedInstance(v11 v12)])
   {
-    v19 = CFRetain(a3);
-    v10->_store = v19;
+    MutableCopy = CFRetain(a3);
+    v10[5] = MutableCopy;
     goto LABEL_12;
   }
 
   MutableCopy = CSStoreCreateMutableCopy();
-  v10->_store = MutableCopy;
-  p_store = &v10->_store;
+  v10[5] = MutableCopy;
+  v15 = (v10 + 5);
   if (!MutableCopy)
   {
-    v20 = _LSDatabaseGetLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = _LSDatabaseGetLog();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      _LSDatabaseCreateWithAccessContext_cold_1(&v67);
+      _LSDatabaseCreateWithAccessContext_cold_1();
     }
 
     v10 = 0;
-    v19 = MEMORY[0x28];
+    MutableCopy = MEMORY[0x28];
 LABEL_12:
-    p_store = &v10->_store;
-    v13 = v10;
-    if (!v19)
+    v15 = (v10 + 5);
+    v16 = v10;
+    if (!MutableCopy)
     {
       goto LABEL_15;
     }
@@ -7754,27 +7707,25 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v13 = v10;
+  v16 = v10;
 LABEL_13:
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(MutableCopy v14)])
   {
-    objc_initWeak(location, v13);
-    v21 = *p_store;
-    objc_copyWeak(&v66, location);
+    objc_initWeak(location, v16);
+    objc_copyWeak(&v63, location);
     _CSStoreSetUnitIdentifierExhaustionHandler();
-    objc_destroyWeak(&v66);
+    objc_destroyWeak(&v63);
     objc_destroyWeak(location);
   }
 
 LABEL_15:
-  v22 = *p_store;
-  if (*p_store)
+  v23 = *v15;
+  if (*v15)
   {
-    p_schema = &v13->_schema;
-    v24 = v67;
-    v71 = 0;
-    v25 = _LSSchemaConfigureTable(v22, @"DB Header", &v13->_schema.headerTable, &v71);
-    v26 = v71;
+    v24 = v64;
+    v68 = 0;
+    v25 = _LSSchemaConfigureTable(v23, @"DB Header", &v16->_schema.headerTable, &v68);
+    v26 = v68;
     if (!v25)
     {
 LABEL_37:
@@ -7782,8 +7733,7 @@ LABEL_37:
       goto LABEL_44;
     }
 
-    LODWORD(v70) = 0;
-    headerTable = p_schema->headerTable;
+    LODWORD(v67) = 0;
     Header = CSStoreGetHeader();
     v29 = Header;
     if (!Header)
@@ -7794,21 +7744,21 @@ LABEL_43:
       goto LABEL_44;
     }
 
-    if (v70 == 208)
+    if (v67 == 208)
     {
       v30 = *Header;
-      if (v30 != [__LSDefaultsGetSharedInstance() currentSchemaVersion])
+      if (v30 != [__LSDefaultsGetSharedInstance(Header v28)])
       {
         *buf = @"WrongSchemaVersion";
-        v55 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*v29];
-        v75 = @"CurrentSchemaVersion";
-        location[0] = v55;
-        v56 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(__LSDefaultsGetSharedInstance(), "currentSchemaVersion")}];
-        location[1] = v56;
-        v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:location forKeys:buf count:2];
-        v39 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10817, v58, "_LSSchemaConfigureForStore", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 487);
+        v52 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*v29];
+        v72 = @"CurrentSchemaVersion";
+        location[0] = v52;
+        v53 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(__LSDefaultsGetSharedInstance(v52, v55), "currentSchemaVersion")}];
+        location[1] = v53;
+        v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:location forKeys:buf count:2];
+        v39 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10817, v56, "_LSSchemaConfigureForStore", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 487);
 
-        v26 = v58;
+        v26 = v56;
         goto LABEL_42;
       }
 
@@ -7820,9 +7770,9 @@ LABEL_43:
         {
           v33 = *(v31 - 1);
           v34 = *v31;
-          v70 = v26;
-          v35 = _LSSchemaConfigureTable(v22, v33, (&p_schema->headerTable + v34), &v70);
-          v36 = v70;
+          v67 = v26;
+          v35 = _LSSchemaConfigureTable(v23, v33, (&v16->_schema.headerTable + v34), &v67);
+          v36 = v67;
 
           v26 = v36;
           if (!v35)
@@ -7834,53 +7784,51 @@ LABEL_43:
           v32 -= 16;
           if (!v32)
           {
-            v37 = CSBindableKeyMapInit();
-            v69 = v36;
-            v38 = _LSGetNSErrorFromOSStatusImpl(v37, &v69, 0, "_LSSchemaConfigureForStore", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 524);
-            v39 = v69;
+            v37 = CSBindableKeyMapInit(v23, @"BindableKeyMap", &v16->_schema.bindableKeyMap);
+            v66 = v36;
+            v38 = _LSGetNSErrorFromOSStatusImpl(v37, &v66, 0, "_LSSchemaConfigureForStore", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 524);
+            v39 = v66;
 
             if (v38)
             {
               v40 = 0;
-              bindingMaps = v13->_schema.bindingMaps;
+              bindingMaps = v16->_schema.bindingMaps;
               v42 = &byte_1E6A1B510;
-              v64 = *MEMORY[0x1E696A768];
+              v61 = *MEMORY[0x1E696A768];
               v43 = v39;
               do
               {
-                v68 = v43;
+                v65 = v43;
                 v44 = *(v42 - 1);
-                if (!v44 || (v45 = strlen(*(v42 - 1)), _CSGetStringForCharacters()))
+                if (!v44 || (strlen(*(v42 - 1)), _CSGetStringForCharacters()))
                 {
-                  v49 = *(v42 - 2);
-                  v50 = *v42;
-                  v51 = CSStringBindingStoreInit();
-                  v48 = _LSGetNSErrorFromOSStatusImpl(v51, &v68, 0, "_LSSchemaConfigureBindingMap", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 452);
+                  v48 = CSStringBindingStoreInit();
+                  v47 = _LSGetNSErrorFromOSStatusImpl(v48, &v65, 0, "_LSSchemaConfigureBindingMap", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 452);
                 }
 
                 else
                 {
                   *buf = @"BindingClassName";
-                  v46 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v44];
-                  location[0] = v46;
-                  v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:location forKeys:buf count:1];
-                  v68 = _LSMakeNSErrorImpl(v64, -10817, v47, "_LSSchemaConfigureBindingMap", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 447);
+                  v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v44];
+                  location[0] = v45;
+                  v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:location forKeys:buf count:1];
+                  v65 = _LSMakeNSErrorImpl(v61, -10817, v46, "_LSSchemaConfigureBindingMap", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 447);
 
-                  v48 = 0;
+                  v47 = 0;
                 }
 
-                v39 = v68;
+                v39 = v65;
 
-                v53 = v40++ < 0xD && v48;
+                v50 = v40++ < 0xD && v47;
                 ++bindingMaps;
                 v42 += 32;
                 v43 = v39;
               }
 
-              while (v53);
-              if (v48)
+              while (v50);
+              if (v47)
               {
-                v54 = 1;
+                v51 = 1;
                 goto LABEL_45;
               }
             }
@@ -7891,63 +7839,63 @@ LABEL_43:
       }
 
       *buf = @"WrongHeaderLength";
-      v55 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
-      v75 = @"ExpectedHeaderLength";
-      location[0] = v55;
+      v52 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+      v72 = @"ExpectedHeaderLength";
+      location[0] = v52;
       location[1] = &unk_1EEF8EF18;
-      v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:location forKeys:buf count:2];
-      v57 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10817, v56, "_LSSchemaConfigureForStore", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 491);
+      v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:location forKeys:buf count:2];
+      v54 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10817, v53, "_LSSchemaConfigureForStore", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 491);
     }
 
     else
     {
       *buf = @"WrongHeaderLength";
-      v55 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
-      v75 = @"ExpectedHeaderLength";
-      location[0] = v55;
+      v52 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+      v72 = @"ExpectedHeaderLength";
+      location[0] = v52;
       location[1] = &unk_1EEF8EF18;
-      v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:location forKeys:buf count:2];
-      v57 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10817, v56, "_LSSchemaConfigureForStore", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 483);
+      v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:location forKeys:buf count:2];
+      v54 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10817, v53, "_LSSchemaConfigureForStore", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 483);
     }
 
-    v39 = v57;
+    v39 = v54;
 LABEL_42:
 
-    v26 = v55;
+    v26 = v52;
     goto LABEL_43;
   }
 
   v39 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, 0, "_LSSchemaConfigureForStore", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 468);
 LABEL_44:
-  v59 = v39;
-  v54 = 0;
+  v57 = v39;
+  v51 = 0;
   v24 = v39;
 LABEL_45:
 
-  objc_storeStrong(&v67, v24);
-  if (v54)
+  objc_storeStrong(&v64, v24);
+  if (v51)
   {
-    if (v13)
+    if (v16)
     {
-      [_LSDatabase setAccessContext:v13];
-      v60 = _LSDatabaseGetLog();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+      [_LSDatabase setAccessContext:v16];
+      v58 = _LSDatabaseGetLog();
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
       {
-        v87 = 0u;
-        v88 = 0u;
-        v85 = 0u;
-        v86 = 0u;
-        v83 = 0u;
         v84 = 0u;
-        v81 = 0u;
+        v85 = 0u;
         v82 = 0u;
-        v79 = 0u;
+        v83 = 0u;
         v80 = 0u;
-        v77 = 0u;
+        v81 = 0u;
         v78 = 0u;
+        v79 = 0u;
+        v76 = 0u;
+        v77 = 0u;
+        v74 = 0u;
+        v75 = 0u;
         *location = 0u;
-        _LSDatabaseGetHeader(v13, location);
-        _LSDatabaseCreateWithAccessContext_cold_3(location, buf, v60);
+        _LSDatabaseGetHeader(location, v16);
+        _LSDatabaseCreateWithAccessContext_cold_3(location, buf, v58);
       }
 
       goto LABEL_55;
@@ -7956,27 +7904,26 @@ LABEL_45:
 
   else
   {
-    v61 = _LSDatabaseGetLog();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+    v59 = _LSDatabaseGetLog();
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
-      _LSDatabaseCreateWithAccessContext_cold_2(&v67);
+      _LSDatabaseCreateWithAccessContext_cold_2();
     }
   }
 
 LABEL_53:
-  v13 = 0;
+  v16 = 0;
   if (a5)
   {
-    *a5 = v67;
+    *a5 = v64;
   }
 
 LABEL_55:
 
-  v62 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v16;
 }
 
-_BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:nn200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -7990,13 +7937,13 @@ _BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -8074,79 +8021,82 @@ void _LSSchemaCache::_LSSchemaCache(_LSSchemaCache *this)
 
 void _LSServer_GetServerStoreForConnectionWithCompletionHandler(void *a1, void *a2)
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
-  _LSAssertRunningInServer("void _LSServer_GetServerStoreForConnectionWithCompletionHandler(NSXPCConnection *__strong, void (^__strong)(__strong id, FSNode *__strong, NSError *__strong))");
-  v5 = _LSServer_DatabaseExecutionContext();
-  [(LSDBExecutionContext *)v5 assertActiveForThisThread];
+  _LSAssertRunningInServer("void _LSServer_GetServerStoreForConnectionWithCompletionHandler(NSXPCConnection *__strong, void (^__strong)(__strong id, FSNode *__strong, NSError *__strong))", v5);
+  v6 = _LSServer_DatabaseExecutionContext();
+  [(LSDBExecutionContext *)v6 assertActiveForThisThread];
 
-  v6 = [v3 _xpcConnection];
-  v7 = _LSXPCConnectionMayMapDatabase(v6);
+  v7 = [v3 _xpcConnection];
+  MayMapDatabase = _LSXPCConnectionMayMapDatabase(v7);
 
-  if (v7)
+  if (MayMapDatabase)
   {
-    v21 = 0;
-    v8 = _LSServer_CopyLocalDatabase(&v21);
-    v9 = v21;
-    if (v8 && ([(_LSDatabase *)v8 isSeeded]& 1) != 0)
+    v22 = 0;
+    v9 = _LSServer_CopyLocalDatabase(&v22);
+    v10 = v22;
+    v11 = v10;
+    if (v9)
     {
-      goto LABEL_7;
+      v10 = [(_LSDatabase *)v9 isSeeded];
+      if (v10)
+      {
+        goto LABEL_7;
+      }
     }
 
-    v10 = _LSDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = _LSDefaultLog(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v18 = [(_LSDatabase *)v8 isSeeded];
+      v19 = [(_LSDatabase *)v9 isSeeded];
       *buf = 138412802;
-      v23 = v8;
-      v24 = 1024;
-      v25 = v18;
-      v26 = 2114;
-      v27 = v9;
-      _os_log_error_impl(&dword_18162D000, v10, OS_LOG_TYPE_ERROR, "_LSServer_CopyLocalDatabase returned db %@ (seeded? %d) error %{public}@", buf, 0x1Cu);
+      v24 = v9;
+      v25 = 1024;
+      v26 = v19;
+      v27 = 2114;
+      v28 = v11;
+      _os_log_error_impl(&dword_18162D000, v12, OS_LOG_TYPE_ERROR, "_LSServer_CopyLocalDatabase returned db %@ (seeded? %d) error %{public}@", buf, 0x1Cu);
     }
 
-    v11 = os_transaction_create();
-    v12 = _LSServer_GetIOQueue();
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = ___LSServer_GetServerStoreForConnectionWithCompletionHandler_block_invoke;
-    v19[3] = &unk_1E6A1A830;
-    v20 = v11;
-    v13 = v11;
-    dispatch_async(v12, v19);
+    v13 = os_transaction_create();
+    v14 = _LSServer_GetIOQueue(v13);
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = ___LSServer_GetServerStoreForConnectionWithCompletionHandler_block_invoke;
+    v20[3] = &unk_1E6A1A830;
+    v21 = v13;
+    v15 = v13;
+    dispatch_async(v14, v20);
 
-    if (v8)
+    if (v9)
     {
 LABEL_7:
-      v14 = v8;
-      v15 = [(_LSDatabase *)v8 store];
-      v16 = _LSDatabaseGetNode(v8);
-      v4[2](v4, v15, v16, 0);
+      v16 = v9;
+      v17 = [(_LSDatabase *)v9 store];
+      v18 = _LSDatabaseGetNode(v9);
+      v4[2](v4, v17, v18, 0);
     }
 
     else
     {
-      (v4)[2](v4, 0, 0, v9);
+      (v4)[2](v4, 0, 0, v11);
     }
   }
 
   else
   {
-    v28 = *MEMORY[0x1E696A278];
-    v29[0] = @"process may not map database";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-    v8 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -54, v9, "_LSServer_GetServerStoreForConnectionWithCompletionHandler", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDReadService.mm", 72);
-    (v4)[2](v4, 0, 0, v8);
+    v29 = *MEMORY[0x1E696A278];
+    v30[0] = @"process may not map database";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v9 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -54, v11, "_LSServer_GetServerStoreForConnectionWithCompletionHandler", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Server/LSDReadService.mm", 72);
+    (v4)[2](v4, 0, 0, v9);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 BOOL _LSSchemaConfigureTable(uint64_t a1, uint64_t a2, _DWORD *a3, void *a4)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   TableWithName = _CSStoreGetTableWithName();
   v8 = TableWithName;
   if (TableWithName)
@@ -8156,44 +8106,42 @@ BOOL _LSSchemaConfigureTable(uint64_t a1, uint64_t a2, _DWORD *a3, void *a4)
 
   else if (a4)
   {
-    v12 = @"TableName";
-    v13[0] = a2;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = @"TableName";
+    v12[0] = a2;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     *a4 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -9499, v9, "_LSSchemaConfigureTable", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Database/LSDatabase.mm", 430);
   }
 
-  result = v8 != 0;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return v8 != 0;
 }
 
-__int128 *_LSXPCConnectionMayMapDatabase(void *a1)
+unint64_t _LSXPCConnectionMayMapDatabase(void *a1)
 {
   v1 = a1;
   if (v1)
   {
     xpc_connection_get_audit_token();
-    v2 = _LSAuditTokenMayMapDatabase(&v4);
+    MayMapDatabase = _LSAuditTokenMayMapDatabase(&v4);
   }
 
   else
   {
-    v2 = 0;
+    MayMapDatabase = 0;
   }
 
-  return v2;
+  return MayMapDatabase;
 }
 
-id _LSGetDispatchTokenQueue(void)
+id _LSGetDispatchTokenQueue(uint64_t a1)
 {
   if (_LSGetDispatchTokenQueue(void)::once != -1)
   {
     _LSGetDispatchTokenQueue();
   }
 
-  v1 = _LSGetDispatchTokenQueue(void)::result;
+  v2 = _LSGetDispatchTokenQueue(void)::result;
 
-  return v1;
+  return v2;
 }
 
 void ___ZL24_LSGetDispatchTokenQueuev_block_invoke()
@@ -8241,12 +8189,12 @@ void *availabilityStateForServiceDomain(_LSDServiceDomain *a1)
 
   os_unfair_lock_lock(&availabilityStateForServiceDomain(_LSDServiceDomain *)::m);
   v2 = availabilityStateForServiceDomain(_LSDServiceDomain *)::sessionQuickAvailabilityMap;
-  v5[0] = [(_LSDServiceDomain *)v1 resolvedSessionKey];
-  v5[2] = v5;
-  v3 = std::__hash_table<std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>,std::__unordered_map_hasher<LSSessionKey,std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>,LSSessionKeyHasher,LSSessionKeyComparator,true>,std::__unordered_map_equal<LSSessionKey,std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>,LSSessionKeyComparator,LSSessionKeyHasher,true>,std::allocator<std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>>>::__emplace_unique_key_args<LSSessionKey,std::piecewise_construct_t const&,std::tuple<LSSessionKey&&>,std::tuple<>>(v2, v5);
+  v6 = [(_LSDServiceDomain *)v1 resolvedSessionKey];
+  v7 = &v6;
+  v4 = std::__hash_table<std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>,std::__unordered_map_hasher<LSSessionKey,std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>,LSSessionKeyHasher,LSSessionKeyComparator,true>,std::__unordered_map_equal<LSSessionKey,std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>,LSSessionKeyComparator,LSSessionKeyHasher,true>,std::allocator<std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>>>::__emplace_unique_key_args<LSSessionKey,std::piecewise_construct_t const&,std::tuple<LSSessionKey&&>,std::tuple<>>(v2, &v6, &std::piecewise_construct, &v7);
   os_unfair_lock_unlock(&availabilityStateForServiceDomain(_LSDServiceDomain *)::m);
 
-  return v3 + 3;
+  return v4 + 3;
 }
 
 void sub_181653530(_Unwind_Exception *a1)
@@ -8272,10 +8220,14 @@ void _LSContextInitCommon()
 }
 
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Client database updated - seq#: %llu", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Client database updated - seq#: %llu", v2, v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_17(*MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_8();
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, v0, v1, "Failed to initialize client context with error %{public}@", v2, v3, v4, v5);
 }
 
 {
@@ -8388,80 +8340,80 @@ void ***_ZZZN14LaunchServices15DatabaseContextL26getPerThreadStateReferenceEvEUb
 id __LAUNCH_SERVICES_IS_GETTING_ENTITLEMENTS_FROM_THE_KERNEL__(uint64_t a1)
 {
   v21 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = xpc_copy_entitlements_data_for_token();
-  v4 = v3;
-  if (!v3 || object_getClass(v3) != MEMORY[0x1E69E9E70])
+  v2 = xpc_copy_entitlements_data_for_token();
+  v3 = v2;
+  if (!v2 || object_getClass(v2) != MEMORY[0x1E69E9E70])
   {
-    v5 = 0;
+    v4 = 0;
     goto LABEL_17;
   }
 
-  v6 = objc_alloc(MEMORY[0x1E695DEF0]);
-  bytes_ptr = xpc_data_get_bytes_ptr(v4);
-  v8 = [v6 initWithBytesNoCopy:bytes_ptr length:xpc_data_get_length(v4) freeWhenDone:0];
-  if (v8)
+  v5 = objc_alloc(MEMORY[0x1E695DEF0]);
+  bytes_ptr = xpc_data_get_bytes_ptr(v3);
+  v7 = [v5 initWithBytesNoCopy:bytes_ptr length:xpc_data_get_length(v3) freeWhenDone:0];
+  if (v7)
   {
     v16 = 0;
-    v9 = [MEMORY[0x1E696AE40] propertyListWithData:v8 options:0 format:0 error:&v16];
-    v10 = v16;
-    if (v9)
+    v8 = [MEMORY[0x1E696AE40] propertyListWithData:v7 options:0 format:0 error:&v16];
+    v9 = v16;
+    v10 = v9;
+    if (v8)
     {
-      if (_NSIsNSDictionary())
+      v11 = _NSIsNSDictionary();
+      if (v11)
       {
-        v5 = [_LSLazyPropertyList lazyPropertyListWithPropertyList:v9];
+        v4 = [_LSLazyPropertyList lazyPropertyListWithPropertyList:v8];
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      v11 = _LSRecordLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = _LSRecordLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v13 = objc_opt_class();
+        v14 = objc_opt_class();
         *buf = 138412546;
         v18 = a1;
         v19 = 2114;
-        v20 = v13;
-        v12 = "Entitlements for audit-token-based bundle record %@ were of type %{public}@ instead of NSDictionary. Please file a radar.";
+        v20 = v14;
+        v13 = "Entitlements for audit-token-based bundle record %@ were of type %{public}@ instead of NSDictionary. Please file a radar.";
         goto LABEL_13;
       }
     }
 
     else
     {
-      v11 = _LSRecordLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = _LSRecordLog(v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
         v18 = a1;
         v19 = 2112;
         v20 = v10;
-        v12 = "Error reading entitlements from data blob for audit-token-based bundle record %@: %@";
+        v13 = "Error reading entitlements from data blob for audit-token-based bundle record %@: %@";
 LABEL_13:
-        _os_log_impl(&dword_18162D000, v11, OS_LOG_TYPE_ERROR, v12, buf, 0x16u);
+        _os_log_impl(&dword_18162D000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0x16u);
       }
     }
 
-    v5 = 0;
+    v4 = 0;
     goto LABEL_15;
   }
 
-  v5 = 0;
+  v4 = 0;
 LABEL_16:
 
 LABEL_17:
-  v14 = *MEMORY[0x1E69E9840];
 
-  return v5;
+  return v4;
 }
 
-void LSSession::setDatabase(LSSession *this, _LSDatabase *a2)
+void LSSession::setDatabase(id *this, _LSDatabase *a2)
 {
   v9 = a2;
   objc_storeStrong(this + 3, a2);
-  v4 = *(this + 4);
-  v5 = *(this + 5);
+  v4 = this[4];
+  v5 = this[5];
   if (v4 != v5)
   {
     do
@@ -8475,8 +8427,8 @@ void LSSession::setDatabase(LSSession *this, _LSDatabase *a2)
     }
 
     while (v4 != v5);
-    v4 = *(this + 4);
-    v5 = *(this + 5);
+    v4 = this[4];
+    v5 = this[5];
   }
 
   while (v5 != v4)
@@ -8484,42 +8436,38 @@ void LSSession::setDatabase(LSSession *this, _LSDatabase *a2)
     v8 = *--v5;
   }
 
-  *(this + 5) = v4;
+  this[5] = v4;
   std::vector<void({block_pointer} {__strong})(BOOL,_LSDatabase *,NSError *),std::allocator<void({block_pointer} {__strong})(BOOL,_LSDatabase *,NSError *)>>::shrink_to_fit(this + 4);
 }
 
-void ___ZL23yieldAppsMatchingSearchU13block_pointerFbP14_LSQueryResultP7NSErrorEU13block_pointerFbP11_LSDatabasejPK12LSBundleDataE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void ___ZL23yieldAppsMatchingSearchU13block_pointerFbP14_LSQueryResultP7NSErrorEU13block_pointerFbP11_LSDatabasejPK12LSBundleDataE_block_invoke(void *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   v8 = objc_autoreleasePoolPush();
-  if (*(a3 + 12))
+  if (*(a3 + 12) && (*(a1[4] + 16))())
   {
-    v9 = **(a1 + 48);
-    if ((*(*(a1 + 32) + 16))())
+    v9 = [LSApplicationProxy applicationProxyWithBundleUnitID:a2 withContext:a1[6]];
+    if (v9)
     {
-      v10 = [LSApplicationProxy applicationProxyWithBundleUnitID:a2 withContext:*(a1 + 48)];
-      if (v10)
-      {
-        *a4 = (*(*(a1 + 40) + 16))() ^ 1;
-      }
+      *a4 = (*(a1[5] + 16))() ^ 1;
     }
   }
 
   objc_autoreleasePoolPop(v8);
 }
 
-void LaunchServices::PerThreadContext::initialize(LaunchServices::PerThreadContext *this)
+void LaunchServices::PerThreadContext::initialize(LaunchServices::PerThreadContext *this, uint64_t a2)
 {
   if ((*(this + 17) & 1) == 0)
   {
-    v2 = _LSServer_SelfSessionKey();
-    v7 = 0;
-    v3 = _LSCopyLocalDatabase(v2, &v7);
-    v4 = v7;
-    v5 = *this;
-    *this = v3;
+    v3 = _LSServer_SelfSessionKey(this, a2);
+    v8 = 0;
+    v4 = _LSCopyLocalDatabase(v3, &v8);
+    v5 = v8;
+    v6 = *this;
+    *this = v4;
 
-    v6 = *(this + 1);
-    *(this + 1) = v4;
+    v7 = *(this + 1);
+    *(this + 1) = v5;
 
     *(this + 17) = 1;
   }
@@ -8538,26 +8486,26 @@ uint64_t _LSDatabaseIsMutable(void *a1)
 
 uint64_t _LSClassListContainsBundleRecord(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
-    v3 = *v10;
+    v3 = *v9;
     while (2)
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v10 != v3)
+        if (*v9 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v5 = *(*(&v9 + 1) + 8 * i);
+        v5 = *(*(&v8 + 1) + 8 * i);
         if (v5 == LSRecord || v5 == LSBundleRecord)
         {
           v2 = 1;
@@ -8565,7 +8513,7 @@ uint64_t _LSClassListContainsBundleRecord(void *a1)
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v2)
       {
         continue;
@@ -8577,7 +8525,6 @@ uint64_t _LSClassListContainsBundleRecord(void *a1)
 
 LABEL_14:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -8642,9 +8589,9 @@ uint64_t *std::vector<void({block_pointer} {__strong})(BOOL,_LSDatabase *,NSErro
   return result;
 }
 
-void sub_1816544CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1816544CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<LSApplicationRecord * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8689,10 +8636,10 @@ id _LSServer_DatabaseExecutionContext()
   return v0;
 }
 
-uint64_t _LSServer_SelfSessionKey()
+uint64_t _LSServer_SelfSessionKey(uint64_t a1, uint64_t a2)
 {
-  _LSAssertRunningInServer("LSSessionKey _LSServer_SelfSessionKey()");
-  if ([__LSDefaultsGetSharedInstance() isLightweightSystemServer])
+  _LSAssertRunningInServer("LSSessionKey _LSServer_SelfSessionKey()", a2);
+  if ([__LSDefaultsGetSharedInstance(v2 v3)])
   {
     return 0x100000000;
   }
@@ -8705,7 +8652,7 @@ uint64_t _LSServer_SelfSessionKey()
 
 id LaunchServices::PerThreadContext::getDatabase(id *a1, void *a2)
 {
-  LaunchServices::PerThreadContext::initialize(a1);
+  LaunchServices::PerThreadContext::initialize(a1, a2);
   v4 = *a1;
   if (a2 && !v4)
   {
@@ -8716,67 +8663,67 @@ id LaunchServices::PerThreadContext::getDatabase(id *a1, void *a2)
   return v4;
 }
 
-void *std::__hash_table<std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>,std::__unordered_map_hasher<LSSessionKey,std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>,LSSessionKeyHasher,LSSessionKeyComparator,true>,std::__unordered_map_equal<LSSessionKey,std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>,LSSessionKeyComparator,LSSessionKeyHasher,true>,std::allocator<std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>>>::__emplace_unique_key_args<LSSessionKey,std::piecewise_construct_t const&,std::tuple<LSSessionKey&&>,std::tuple<>>(void *a1, unsigned int *a2)
+void *std::__hash_table<std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>,std::__unordered_map_hasher<LSSessionKey,std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>,LSSessionKeyHasher,LSSessionKeyComparator,true>,std::__unordered_map_equal<LSSessionKey,std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>,LSSessionKeyComparator,LSSessionKeyHasher,true>,std::allocator<std::__hash_value_type<LSSessionKey,LSQuickSessionAvailabilityState>>>::__emplace_unique_key_args<LSSessionKey,std::piecewise_construct_t const&,std::tuple<LSSessionKey&&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, uint64_t **a4)
 {
   if (*(a2 + 4))
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v2 = *a2;
+    v4 = *a2;
   }
 
-  v3 = a1[1];
-  if (!*&v3)
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_29;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = v2;
-    if (v2 >= *&v3)
+    v7 = v4;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_29:
     operator new();
   }
 
-  v8 = *a2;
+  v10 = *a2;
   while (1)
   {
-    v9 = v7[1];
-    if (v9 != v2)
+    v11 = v9[1];
+    if (v11 != v4)
     {
-      if (v4.u32[0] > 1uLL)
+      if (v6.u32[0] > 1uLL)
       {
-        if (v9 >= *&v3)
+        if (v11 >= *&v5)
         {
-          v9 %= *&v3;
+          v11 %= *&v5;
         }
       }
 
       else
       {
-        v9 &= *&v3 - 1;
+        v11 &= *&v5 - 1;
       }
 
-      if (v9 != v5)
+      if (v11 != v7)
       {
         goto LABEL_29;
       }
@@ -8784,25 +8731,25 @@ LABEL_29:
       goto LABEL_28;
     }
 
-    v10 = v7[2];
-    if ((v10 & 0x100000000) != 0)
+    v12 = v9[2];
+    if ((v12 & 0x100000000) != 0)
     {
-      if ((v8 & 0x100000000) != 0)
+      if ((v10 & 0x100000000) != 0)
       {
-        return v7;
+        return v9;
       }
 
       goto LABEL_28;
     }
 
-    if (v10 == v8 && (v8 & 0x100000000) == 0)
+    if (v12 == v10 && (v10 & 0x100000000) == 0)
     {
-      return v7;
+      return v9;
     }
 
 LABEL_28:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_29;
     }
@@ -8963,7 +8910,7 @@ uint64_t _LSGetPIDFromToken(_OWORD *a1)
   return pidp;
 }
 
-void (**_LSDServiceGetXPCProxyForServiceClass(void *a1, uint64_t a2, int a3, void (**a4)(void, void)))(void, void)
+void (**_LSDServiceGetXPCProxyForServiceClass(void *a1, _WORD *a2, int a3, void (**a4)(void, void)))(void, void)
 {
   v6 = _LSDServiceGetXPCConnection(a1, a2);
   v7 = v6;
@@ -8983,7 +8930,7 @@ void (**_LSDServiceGetXPCProxyForServiceClass(void *a1, uint64_t a2, int a3, voi
 
   else if (a4)
   {
-    v8 = _LSDefaultLog();
+    v8 = _LSDefaultLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       _LSDServiceGetXPCProxyForServiceClass_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
@@ -8998,10 +8945,10 @@ void (**_LSDServiceGetXPCProxyForServiceClass(void *a1, uint64_t a2, int a3, voi
   return a4;
 }
 
-void __LAUNCH_SERVICES_IS_WAITING_FOR_THE_DATABASE_TO_FINISH_SEEDING__(void)
+void __LAUNCH_SERVICES_IS_WAITING_FOR_THE_DATABASE_TO_FINISH_SEEDING__(uint64_t a1, uint64_t a2)
 {
-  v0 = _LSDatabaseGetSeedingGroup();
-  dispatch_group_wait(v0, 0xFFFFFFFFFFFFFFFFLL);
+  v2 = _LSDatabaseGetSeedingGroup(a1, a2);
+  dispatch_group_wait(v2, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 id _LSRetryForConnectionInterrupted(void *a1)
@@ -9023,16 +8970,16 @@ id _LSRetryForConnectionInterrupted(void *a1)
   return v4;
 }
 
-id _LSDatabaseGetSeedingGroup()
+id _LSDatabaseGetSeedingGroup(uint64_t a1, uint64_t a2)
 {
-  if ([__LSDefaultsGetSharedInstance() isServer] && _LSDatabaseGetSeedingGroup::once != -1)
+  if ([__LSDefaultsGetSharedInstance(a1 a2)] && _LSDatabaseGetSeedingGroup::once != -1)
   {
     _LSDatabaseGetSeedingGroup_cold_1();
   }
 
-  v0 = _LSDatabaseGetSeedingGroup::seedingGroup;
+  v2 = _LSDatabaseGetSeedingGroup::seedingGroup;
 
-  return v0;
+  return v2;
 }
 
 uint64_t categorizeSelector(objc_selector *a1)
@@ -9060,7 +9007,7 @@ uint64_t categorizeSelector(objc_selector *a1)
 LABEL_29:
       v14[0] = v15;
       v14[1] = v3;
-      v1 = std::__hash_table<std::__hash_value_type<objc_selector *,FSSelectorCategory>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,FSSelectorCategory>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,FSSelectorCategory>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,FSSelectorCategory>>>::__emplace_unique_key_args<objc_selector *,std::pair<objc_selector *,FSSelectorCategory>>(v2, v14);
+      v1 = std::__hash_table<std::__hash_value_type<objc_selector *,FSSelectorCategory>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,FSSelectorCategory>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,FSSelectorCategory>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,FSSelectorCategory>>>::__emplace_unique_key_args<objc_selector *,std::pair<objc_selector *,FSSelectorCategory>>(v2, v14, v14);
       goto LABEL_30;
     }
 
@@ -9171,35 +9118,35 @@ void sub_181655360(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<objc_selector *,std::hash<objc_selector *>,std::equal_to<objc_selector *>,std::allocator<objc_selector *>>::__emplace_unique_key_args<objc_selector *,objc_selector * const&>(void *a1, void *a2)
+void *std::__hash_table<objc_selector *,std::hash<objc_selector *>,std::equal_to<objc_selector *>,std::allocator<objc_selector *>>::__emplace_unique_key_args<objc_selector *,objc_selector * const&>(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -9207,47 +9154,47 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-uint64_t std::unordered_set<objc_selector *>::unordered_set(uint64_t a1, void *a2, uint64_t a3)
+unint64_t std::unordered_set<objc_selector *>::unordered_set(unint64_t a1, void *a2, uint64_t a3)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -9257,7 +9204,8 @@ uint64_t std::unordered_set<objc_selector *>::unordered_set(uint64_t a1, void *a
     v5 = 8 * a3;
     do
     {
-      std::__hash_table<objc_selector *,std::hash<objc_selector *>,std::equal_to<objc_selector *>,std::allocator<objc_selector *>>::__emplace_unique_key_args<objc_selector *,objc_selector * const&>(a1, a2++);
+      std::__hash_table<objc_selector *,std::hash<objc_selector *>,std::equal_to<objc_selector *>,std::allocator<objc_selector *>>::__emplace_unique_key_args<objc_selector *,objc_selector * const&>(a1, a2, a2);
+      ++a2;
       v5 -= 8;
     }
 
@@ -9267,35 +9215,35 @@ uint64_t std::unordered_set<objc_selector *>::unordered_set(uint64_t a1, void *a
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<objc_selector *,FSSelectorCategory>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,FSSelectorCategory>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,FSSelectorCategory>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,FSSelectorCategory>>>::__emplace_unique_key_args<objc_selector *,std::pair<objc_selector *,FSSelectorCategory>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<objc_selector *,FSSelectorCategory>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,FSSelectorCategory>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,FSSelectorCategory>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,FSSelectorCategory>>>::__emplace_unique_key_args<objc_selector *,std::pair<objc_selector *,FSSelectorCategory>>(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -9303,44 +9251,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
 void ___ZL30_LSPlistCreateTransformedValueP11objc_objectPFP8NSStringS2_PbES3__block_invoke_2(uint64_t a1, void *a2)
@@ -9359,7 +9307,7 @@ void ___ZL30_LSPlistCreateTransformedValueP11objc_objectPFP8NSStringS2_PbES3__bl
   [*(a1 + 32) addObject:?];
 }
 
-uint64_t LaunchServices::URLPropertyProvider::prepareIsPackageValue(LaunchServices::Database::Context *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
+uint64_t LaunchServices::URLPropertyProvider::prepareIsPackageValue(id *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
   v10 = +[_LSDServiceDomain defaultServiceDomain];
   v11 = LaunchServices::Database::Context::_get(a1, v10, 0);
@@ -9389,7 +9337,7 @@ uint64_t LaunchServices::URLPropertyProvider::prepareIsPackageValue(LaunchServic
 
     else
     {
-      v17 = *(a1 + 3);
+      v17 = a1[3];
       v18 = v17;
     }
 
@@ -9470,9 +9418,9 @@ LABEL_7:
   return v9;
 }
 
-void sub_1816561E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1816561E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9503,34 +9451,34 @@ uint64_t _LSIsSetWithValuesOfClasses(void *a1, void *a2)
 
 uint64_t _LSIsSequenceOfClassWithValuesOfClasses(void *a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a3;
   if (v5 && (!a2 || (objc_opt_isKindOfClass() & 1) != 0))
   {
     if (v6)
     {
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       v7 = v5;
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v16;
+        v10 = *v15;
         while (2)
         {
           v11 = 0;
           do
           {
-            if (*v16 != v10)
+            if (*v15 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            if (!_LSIsKindOfClasses(*(*(&v15 + 1) + 8 * v11), v6))
+            if (!_LSIsKindOfClasses(*(*(&v14 + 1) + 8 * v11), v6))
             {
               v12 = 0;
               goto LABEL_16;
@@ -9540,7 +9488,7 @@ uint64_t _LSIsSequenceOfClassWithValuesOfClasses(void *a1, uint64_t a2, void *a3
           }
 
           while (v9 != v11);
-          v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
           if (v9)
           {
             continue;
@@ -9565,6 +9513,64 @@ LABEL_16:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
+}
+
+uint64_t _LSNodeIsPackageCommon(LSContext *a1, void *a2, int a3, _BYTE *a4)
+{
+  v7 = a2;
+  v8 = v7;
+  if (a4)
+  {
+    *a4 = 0;
+  }
+
+  if ([v7 isDirectory] && (objc_msgSend(v8, "isVolume") & 1) == 0)
+  {
+    if ([v8 hasPackageBit])
+    {
+      v9 = 1;
+    }
+
+    else
+    {
+      v11 = [v8 extensionWithError:0];
+      v12 = v11;
+      if (v11)
+      {
+        if (a1 && -[__CFString length](v11, "length") && (_LSIsPackageExtension(a1, a3, v12) || ([v8 getHFSType:0 creator:0 error:0] & 1) != 0))
+        {
+          v9 = 1;
+        }
+
+        else
+        {
+          v9 = [v8 isAVCHDCollection];
+          v13 = v9 ^ 1;
+          if (!a4)
+          {
+            v13 = 1;
+          }
+
+          if ((v13 & 1) == 0)
+          {
+            v9 = 1;
+            *a4 = 1;
+          }
+        }
+      }
+
+      else
+      {
+        v9 = 0;
+      }
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
 }

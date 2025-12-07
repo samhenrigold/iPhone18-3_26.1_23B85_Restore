@@ -1,6 +1,7 @@
 @interface NEKRPCEndpoint
 - (BOOL)_calendarItem:(id)item snoozeAlarmID:(id)d withTimeIntervalFromNow:(double)now;
 - (BOOL)_disableMutation;
+- (NEKRPCEndpoint)initWithReminderKitEnabled:(BOOL)enabled clientName:(id)name;
 - (void)_recvDeleteEventEndpoint:(id)endpoint;
 - (void)_recvSetEventKitAlarmSnoozeEndpoint:(id)endpoint;
 - (void)_recvSetEventKitReminderCompletedEndpoint:(id)endpoint;
@@ -10,6 +11,61 @@
 @end
 
 @implementation NEKRPCEndpoint
+
+- (NEKRPCEndpoint)initWithReminderKitEnabled:(BOOL)enabled clientName:(id)name
+{
+  v31.receiver = self;
+  v31.super_class = NEKRPCEndpoint;
+  v5 = [(NEKRPCEndpoint *)&v31 init:enabled];
+  if (v5)
+  {
+    v6 = [NDTLog facilityWithSubsystem:@"com.apple.eventkitsync" category:@"backchannel"];
+    messageLogging = v5->_messageLogging;
+    v5->_messageLogging = v6;
+
+    v8 = [[NDTMessaging alloc] initWithIDSServiceName:@"com.apple.private.alloy.eventkitmutation" logging:v5->_messageLogging];
+    messaging = v5->_messaging;
+    v5->_messaging = v8;
+
+    v10 = v5->_messaging;
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_100027CA0;
+    v28[3] = &unk_1000B5328;
+    enabledCopy = enabled;
+    v11 = v5;
+    v29 = v11;
+    [(NDTMessaging *)v10 registerMessageType:@"setRemCom" handler:v28];
+    v12 = v5->_messaging;
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_100027CBC;
+    v26[3] = &unk_1000B5350;
+    v13 = v11;
+    v27 = v13;
+    [(NDTMessaging *)v12 registerMessageType:@"setParStt" handler:v26];
+    v14 = v5->_messaging;
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100027CC8;
+    v23[3] = &unk_1000B5328;
+    enabledCopy2 = enabled;
+    v15 = v13;
+    v24 = v15;
+    [(NDTMessaging *)v14 registerMessageType:@"setAlmSno" handler:v23];
+    v16 = v5->_messaging;
+    v18 = _NSConcreteStackBlock;
+    v19 = 3221225472;
+    v20 = sub_100027CE4;
+    v21 = &unk_1000B5350;
+    v22 = v15;
+    [(NDTMessaging *)v16 registerMessageType:@"deleEvent" handler:&v18];
+    [(NDTMessaging *)v5->_messaging setCloudFallback:1, v18, v19, v20, v21];
+    [(NDTMessaging *)v5->_messaging resume];
+  }
+
+  return v5;
+}
 
 - (BOOL)_disableMutation
 {

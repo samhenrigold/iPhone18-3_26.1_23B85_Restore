@@ -38,36 +38,37 @@
   crlaxMode = [(CRLLineSpacingAccessibility *)self crlaxMode];
   if (crlaxMode >= 5)
   {
-    if (CRLAccessibilityShouldPerformValidationChecks())
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(crlaxMode, v4);
+    if (ShouldPerformValidationChecks)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Unknown line spacing, treat as relative format multiplier.", v6, v7, v8, v9, v10, v15))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Unknown line spacing, treat as relative format multiplier.", v8, v9, v10, v11, v12, v17))
       {
         abort();
       }
     }
 
-    v4 = @"line.spacing.relative";
+    v5 = @"line.spacing.relative";
   }
 
   else
   {
-    v4 = *(&off_1018713C0 + crlaxMode);
+    v5 = *(&off_1018713C0 + crlaxMode);
   }
 
-  v11 = CRLAccessibilityStringsDictKey(v4);
-  if (v11)
+  v13 = CRLAccessibilityStringsDictKey(v5);
+  if (v13)
   {
     [(CRLLineSpacingAccessibility *)self crlaxAmount];
-    v13 = [NSString stringWithFormat:v11, v12];
+    v15 = [NSString stringWithFormat:v13, v14];
   }
 
   else
   {
-    v13 = 0;
+    v15 = 0;
   }
 
-  return v13;
+  return v15;
 }
 
 @end

@@ -64,7 +64,7 @@
 
 - (SFCardSection)initWithProtobuf:(id)protobuf
 {
-  v846 = *MEMORY[0x1E69E9840];
+  v845 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
   v4 = objc_alloc_init(SFNullCardSection);
   value = [protobufCopy value];
@@ -1536,33 +1536,33 @@
       v678 = 0;
     }
 
-    v836 = 0u;
-    v837 = 0u;
-    v834 = 0u;
     v835 = 0u;
+    v836 = 0u;
+    v833 = 0u;
+    v834 = 0u;
     commands3 = [protobufCopy commands];
-    v680 = [commands3 countByEnumeratingWithState:&v834 objects:v845 count:16];
+    v680 = [commands3 countByEnumeratingWithState:&v833 objects:v844 count:16];
     if (v680)
     {
       v681 = v680;
-      v682 = *v835;
+      v682 = *v834;
       do
       {
         for (i = 0; i != v681; ++i)
         {
-          if (*v835 != v682)
+          if (*v834 != v682)
           {
             objc_enumerationMutation(commands3);
           }
 
-          v684 = [[SFAbstractCommand alloc] initWithProtobuf:*(*(&v834 + 1) + 8 * i)];
+          v684 = [[SFAbstractCommand alloc] initWithProtobuf:*(*(&v833 + 1) + 8 * i)];
           if (v684)
           {
             [v678 addObject:v684];
           }
         }
 
-        v681 = [commands3 countByEnumeratingWithState:&v834 objects:v845 count:16];
+        v681 = [commands3 countByEnumeratingWithState:&v833 objects:v844 count:16];
       }
 
       while (v681);
@@ -1587,33 +1587,33 @@
       v688 = 0;
     }
 
-    v832 = 0u;
-    v833 = 0u;
-    v830 = 0u;
     v831 = 0u;
+    v832 = 0u;
+    v829 = 0u;
+    v830 = 0u;
     parameterKeyPaths3 = [protobufCopy parameterKeyPaths];
-    v690 = [parameterKeyPaths3 countByEnumeratingWithState:&v830 objects:v844 count:16];
+    v690 = [parameterKeyPaths3 countByEnumeratingWithState:&v829 objects:v843 count:16];
     if (v690)
     {
       v691 = v690;
-      v692 = *v831;
+      v692 = *v830;
       do
       {
         for (j = 0; j != v691; ++j)
         {
-          if (*v831 != v692)
+          if (*v830 != v692)
           {
             objc_enumerationMutation(parameterKeyPaths3);
           }
 
-          v694 = *(*(&v830 + 1) + 8 * j);
+          v694 = *(*(&v829 + 1) + 8 * j);
           if (v694)
           {
             [v688 addObject:v694];
           }
         }
 
-        v691 = [parameterKeyPaths3 countByEnumeratingWithState:&v830 objects:v844 count:16];
+        v691 = [parameterKeyPaths3 countByEnumeratingWithState:&v829 objects:v843 count:16];
       }
 
       while (v691);
@@ -1684,33 +1684,33 @@
       v714 = 0;
     }
 
-    v828 = 0u;
-    v829 = 0u;
-    v826 = 0u;
     v827 = 0u;
+    v828 = 0u;
+    v825 = 0u;
+    v826 = 0u;
     previewButtonItems3 = [protobufCopy previewButtonItems];
-    v716 = [previewButtonItems3 countByEnumeratingWithState:&v826 objects:v843 count:16];
+    v716 = [previewButtonItems3 countByEnumeratingWithState:&v825 objects:v842 count:16];
     if (v716)
     {
       v717 = v716;
-      v718 = *v827;
+      v718 = *v826;
       do
       {
         for (k = 0; k != v717; ++k)
         {
-          if (*v827 != v718)
+          if (*v826 != v718)
           {
             objc_enumerationMutation(previewButtonItems3);
           }
 
-          v720 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v826 + 1) + 8 * k)];
+          v720 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v825 + 1) + 8 * k)];
           if (v720)
           {
             [v714 addObject:v720];
           }
         }
 
-        v717 = [previewButtonItems3 countByEnumeratingWithState:&v826 objects:v843 count:16];
+        v717 = [previewButtonItems3 countByEnumeratingWithState:&v825 objects:v842 count:16];
       }
 
       while (v717);
@@ -1766,33 +1766,33 @@
       v732 = 0;
     }
 
-    v824 = 0u;
-    v825 = 0u;
-    v822 = 0u;
     v823 = 0u;
+    v824 = 0u;
+    v821 = 0u;
+    v822 = 0u;
     leadingSwipeButtonItems3 = [protobufCopy leadingSwipeButtonItems];
-    v734 = [leadingSwipeButtonItems3 countByEnumeratingWithState:&v822 objects:v842 count:16];
+    v734 = [leadingSwipeButtonItems3 countByEnumeratingWithState:&v821 objects:v841 count:16];
     if (v734)
     {
       v735 = v734;
-      v736 = *v823;
+      v736 = *v822;
       do
       {
         for (m = 0; m != v735; ++m)
         {
-          if (*v823 != v736)
+          if (*v822 != v736)
           {
             objc_enumerationMutation(leadingSwipeButtonItems3);
           }
 
-          v738 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v822 + 1) + 8 * m)];
+          v738 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v821 + 1) + 8 * m)];
           if (v738)
           {
             [v732 addObject:v738];
           }
         }
 
-        v735 = [leadingSwipeButtonItems3 countByEnumeratingWithState:&v822 objects:v842 count:16];
+        v735 = [leadingSwipeButtonItems3 countByEnumeratingWithState:&v821 objects:v841 count:16];
       }
 
       while (v735);
@@ -1817,33 +1817,33 @@
       v742 = 0;
     }
 
-    v820 = 0u;
-    v821 = 0u;
-    v818 = 0u;
     v819 = 0u;
+    v820 = 0u;
+    v817 = 0u;
+    v818 = 0u;
     trailingSwipeButtonItems3 = [protobufCopy trailingSwipeButtonItems];
-    v744 = [trailingSwipeButtonItems3 countByEnumeratingWithState:&v818 objects:v841 count:16];
+    v744 = [trailingSwipeButtonItems3 countByEnumeratingWithState:&v817 objects:v840 count:16];
     if (v744)
     {
       v745 = v744;
-      v746 = *v819;
+      v746 = *v818;
       do
       {
         for (n = 0; n != v745; ++n)
         {
-          if (*v819 != v746)
+          if (*v818 != v746)
           {
             objc_enumerationMutation(trailingSwipeButtonItems3);
           }
 
-          v748 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v818 + 1) + 8 * n)];
+          v748 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v817 + 1) + 8 * n)];
           if (v748)
           {
             [v742 addObject:v748];
           }
         }
 
-        v745 = [trailingSwipeButtonItems3 countByEnumeratingWithState:&v818 objects:v841 count:16];
+        v745 = [trailingSwipeButtonItems3 countByEnumeratingWithState:&v817 objects:v840 count:16];
       }
 
       while (v745);
@@ -1868,33 +1868,33 @@
       v752 = 0;
     }
 
-    v816 = 0u;
-    v817 = 0u;
-    v814 = 0u;
     v815 = 0u;
+    v816 = 0u;
+    v813 = 0u;
+    v814 = 0u;
     punchoutOptions3 = [protobufCopy punchoutOptions];
-    v754 = [punchoutOptions3 countByEnumeratingWithState:&v814 objects:v840 count:16];
+    v754 = [punchoutOptions3 countByEnumeratingWithState:&v813 objects:v839 count:16];
     if (v754)
     {
       v755 = v754;
-      v756 = *v815;
+      v756 = *v814;
       do
       {
         for (ii = 0; ii != v755; ++ii)
         {
-          if (*v815 != v756)
+          if (*v814 != v756)
           {
             objc_enumerationMutation(punchoutOptions3);
           }
 
-          v758 = [[SFPunchout alloc] initWithProtobuf:*(*(&v814 + 1) + 8 * ii)];
+          v758 = [[SFPunchout alloc] initWithProtobuf:*(*(&v813 + 1) + 8 * ii)];
           if (v758)
           {
             [v752 addObject:v758];
           }
         }
 
-        v755 = [punchoutOptions3 countByEnumeratingWithState:&v814 objects:v840 count:16];
+        v755 = [punchoutOptions3 countByEnumeratingWithState:&v813 objects:v839 count:16];
       }
 
       while (v755);
@@ -1955,33 +1955,33 @@
       v766 = 0;
     }
 
-    v812 = 0u;
-    v813 = 0u;
-    v810 = 0u;
     v811 = 0u;
+    v812 = 0u;
+    v809 = 0u;
+    v810 = 0u;
     referencedCommands3 = [protobufCopy referencedCommands];
-    v768 = [referencedCommands3 countByEnumeratingWithState:&v810 objects:v839 count:16];
+    v768 = [referencedCommands3 countByEnumeratingWithState:&v809 objects:v838 count:16];
     if (v768)
     {
       v769 = v768;
-      v770 = *v811;
+      v770 = *v810;
       do
       {
         for (jj = 0; jj != v769; ++jj)
         {
-          if (*v811 != v770)
+          if (*v810 != v770)
           {
             objc_enumerationMutation(referencedCommands3);
           }
 
-          v772 = [[SFCommand alloc] initWithProtobuf:*(*(&v810 + 1) + 8 * jj)];
+          v772 = [[SFCommand alloc] initWithProtobuf:*(*(&v809 + 1) + 8 * jj)];
           if (v772)
           {
             [v766 addObject:v772];
           }
         }
 
-        v769 = [referencedCommands3 countByEnumeratingWithState:&v810 objects:v839 count:16];
+        v769 = [referencedCommands3 countByEnumeratingWithState:&v809 objects:v838 count:16];
       }
 
       while (v769);
@@ -2052,12 +2052,12 @@
   if (v786)
   {
     racFeedbackLoggingContent2 = [protobufCopy racFeedbackLoggingContent];
-    v808[0] = MEMORY[0x1E69E9820];
-    v808[1] = 3221225472;
-    v808[2] = __55__SFCardSection_ProtobufInitializer__initWithProtobuf___block_invoke;
-    v808[3] = &unk_1E7ACDB40;
-    v809 = v4;
-    [racFeedbackLoggingContent2 enumerateKeysAndObjectsUsingBlock:v808];
+    v807[0] = MEMORY[0x1E69E9820];
+    v807[1] = 3221225472;
+    v807[2] = __55__SFCardSection_ProtobufInitializer__initWithProtobuf___block_invoke;
+    v807[3] = &unk_1E7ACDB40;
+    v808 = v4;
+    [racFeedbackLoggingContent2 enumerateKeysAndObjectsUsingBlock:v807];
   }
 
   copyableItems = [protobufCopy copyableItems];
@@ -2076,33 +2076,33 @@
       v791 = 0;
     }
 
-    v806 = 0u;
-    v807 = 0u;
-    v804 = 0u;
     v805 = 0u;
+    v806 = 0u;
+    v803 = 0u;
+    v804 = 0u;
     copyableItems3 = [protobufCopy copyableItems];
-    v793 = [copyableItems3 countByEnumeratingWithState:&v804 objects:v838 count:16];
+    v793 = [copyableItems3 countByEnumeratingWithState:&v803 objects:v837 count:16];
     if (v793)
     {
       v794 = v793;
-      v795 = *v805;
+      v795 = *v804;
       do
       {
         for (kk = 0; kk != v794; ++kk)
         {
-          if (*v805 != v795)
+          if (*v804 != v795)
           {
             objc_enumerationMutation(copyableItems3);
           }
 
-          v797 = [[SFCopyItem alloc] initWithProtobuf:*(*(&v804 + 1) + 8 * kk)];
+          v797 = [[SFCopyItem alloc] initWithProtobuf:*(*(&v803 + 1) + 8 * kk)];
           if (v797)
           {
             [v791 addObject:v797];
           }
         }
 
-        v794 = [copyableItems3 countByEnumeratingWithState:&v804 objects:v838 count:16];
+        v794 = [copyableItems3 countByEnumeratingWithState:&v803 objects:v837 count:16];
       }
 
       while (v794);
@@ -2121,7 +2121,6 @@
 
   v800 = v4;
 
-  v801 = *MEMORY[0x1E69E9840];
   return v800;
 }
 
@@ -2136,69 +2135,67 @@ void __55__SFCardSection_ProtobufInitializer__initWithProtobuf___block_invoke(ui
 
 - (void)addCardsFromEmbeddedSectionsTo:(id)to
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   sectionsWithCards = [(SFCardSection *)self sectionsWithCards];
-  v6 = [sectionsWithCards countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [sectionsWithCards countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(sectionsWithCards);
         }
 
-        embeddedCards = [*(*(&v12 + 1) + 8 * v9) embeddedCards];
+        embeddedCards = [*(*(&v11 + 1) + 8 * v9) embeddedCards];
         [toCopy addObjectsFromArray:embeddedCards];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [sectionsWithCards countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [sectionsWithCards countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addCardsFromButtonsTo:(id)to
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   previewButtonItems = [(SFCardSection *)self previewButtonItems];
-  v6 = [previewButtonItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [previewButtonItems countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(previewButtonItems);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -2211,13 +2208,11 @@ void __55__SFCardSection_ProtobufInitializer__initWithProtobuf___block_invoke(ui
       }
 
       while (v7 != v9);
-      v7 = [previewButtonItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [previewButtonItems countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addCardsFromCommandsTo:(id)to
@@ -2234,7 +2229,7 @@ void __55__SFCardSection_ProtobufInitializer__initWithProtobuf___block_invoke(ui
 
 - (NSArray)embeddedCards
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:10];
   nextCard = [(SFCardSection *)self nextCard];
 
@@ -2243,32 +2238,32 @@ void __55__SFCardSection_ProtobufInitializer__initWithProtobuf___block_invoke(ui
     nextCard2 = [(SFCardSection *)self nextCard];
     [v3 addObject:nextCard2];
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     nextCard3 = [(SFCardSection *)self nextCard];
     cardSections = [nextCard3 cardSections];
 
-    v8 = [cardSections countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [cardSections countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(cardSections);
           }
 
-          embeddedCards = [*(*(&v15 + 1) + 8 * i) embeddedCards];
+          embeddedCards = [*(*(&v14 + 1) + 8 * i) embeddedCards];
           [v3 addObjectsFromArray:embeddedCards];
         }
 
-        v9 = [cardSections countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [cardSections countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -2278,7 +2273,6 @@ void __55__SFCardSection_ProtobufInitializer__initWithProtobuf___block_invoke(ui
   [(SFCardSection *)self addCardsFromCommandsTo:v3];
   [(SFCardSection *)self addCardsFromButtonsTo:v3];
   [(SFCardSection *)self addCardsFromEmbeddedSectionsTo:v3];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -2295,118 +2289,62 @@ void __55__SFCardSection_ProtobufInitializer__initWithProtobuf___block_invoke(ui
   {
     v5 = equalCopy;
     punchoutOptions = self->_punchoutOptions;
-    if ((punchoutOptions != 0) == (v5->_punchoutOptions == 0) || punchoutOptions && ![(NSArray *)punchoutOptions isEqual:?])
+    if ((punchoutOptions != 0) == (v5->_punchoutOptions == 0)
+      || punchoutOptions && ![(NSArray *)punchoutOptions isEqual:?]
+      || (punchoutPickerTitle = self->_punchoutPickerTitle, (punchoutPickerTitle != 0) == (v5->_punchoutPickerTitle == 0))
+      || punchoutPickerTitle && ![(NSString *)punchoutPickerTitle isEqual:?]
+      || (punchoutPickerDismissText = self->_punchoutPickerDismissText, (punchoutPickerDismissText != 0) == (v5->_punchoutPickerDismissText == 0))
+      || punchoutPickerDismissText && ![(NSString *)punchoutPickerDismissText isEqual:?]
+      || self->_canBeHidden != v5->_canBeHidden
+      || self->_hasTopPadding != v5->_hasTopPadding
+      || self->_hasBottomPadding != v5->_hasBottomPadding
+      || (type = self->_type, (type != 0) == (v5->_type == 0))
+      || type && ![(NSString *)type isEqual:?]
+      || self->_separatorStyle != v5->_separatorStyle
+      || (nextCard = self->_nextCard, (nextCard != 0) == (v5->_nextCard == 0))
+      || nextCard && ![(SFCard *)nextCard isEqual:?]
+      || (commands = self->_commands, (commands != 0) == (v5->_commands == 0))
+      || commands && ![(NSArray *)commands isEqual:?]
+      || (parameterKeyPaths = self->_parameterKeyPaths, (parameterKeyPaths != 0) == (v5->_parameterKeyPaths == 0))
+      || parameterKeyPaths && ![(NSArray *)parameterKeyPaths isEqual:?]
+      || (cardSectionId = self->_cardSectionId, (cardSectionId != 0) == (v5->_cardSectionId == 0))
+      || cardSectionId && ![(NSString *)cardSectionId isEqual:?]
+      || (resultIdentifier = self->_resultIdentifier, (resultIdentifier != 0) == (v5->_resultIdentifier == 0))
+      || resultIdentifier && ![(NSString *)resultIdentifier isEqual:?]
+      || (backgroundColor = self->_backgroundColor, (backgroundColor != 0) == (v5->_backgroundColor == 0))
+      || backgroundColor && ![(SFColor *)backgroundColor isEqual:?]
+      || (command = self->_command, (command != 0) == (v5->_command == 0))
+      || command && ![(SFCommand *)command isEqual:?]
+      || (previewCommand = self->_previewCommand, (previewCommand != 0) == (v5->_previewCommand == 0))
+      || previewCommand && ![(SFCommand *)previewCommand isEqual:?]
+      || (previewButtonItems = self->_previewButtonItems, (previewButtonItems != 0) == (v5->_previewButtonItems == 0))
+      || previewButtonItems && ![(NSArray *)previewButtonItems isEqual:?]
+      || (commandDetail = self->_commandDetail, (commandDetail != 0) == (v5->_commandDetail == 0))
+      || commandDetail && ![(NSString *)commandDetail isEqual:?]
+      || (cardSectionDetail = self->_cardSectionDetail, (cardSectionDetail != 0) == (v5->_cardSectionDetail == 0))
+      || cardSectionDetail && ![(NSString *)cardSectionDetail isEqual:?]
+      || (previewButtonItemsTitle = self->_previewButtonItemsTitle, (previewButtonItemsTitle != 0) == (v5->_previewButtonItemsTitle == 0))
+      || previewButtonItemsTitle && ![(NSString *)previewButtonItemsTitle isEqual:?]
+      || self->_shouldHideInAmbientMode != v5->_shouldHideInAmbientMode
+      || self->_leadingSwipeButtonItems != v5->_leadingSwipeButtonItems
+      || self->_trailingSwipeButtonItems != v5->_trailingSwipeButtonItems
+      || self->_forceEnable3DTouch != v5->_forceEnable3DTouch
+      || self->_shouldShowInSmartDialog != v5->_shouldShowInSmartDialog
+      || (appEntityAnnotation = self->_appEntityAnnotation, (appEntityAnnotation != 0) == (v5->_appEntityAnnotation == 0))
+      || appEntityAnnotation && ![(SFAppEntityAnnotation *)appEntityAnnotation isEqual:?]
+      || (emphasisSubjectId = self->_emphasisSubjectId, (emphasisSubjectId != 0) == (v5->_emphasisSubjectId == 0))
+      || emphasisSubjectId && ![(NSString *)emphasisSubjectId isEqual:?]
+      || self->_increasedContrastMode != v5->_increasedContrastMode
+      || self->_requiredLevelOfDetail != v5->_requiredLevelOfDetail
+      || (secondaryCommand = self->_secondaryCommand, (secondaryCommand != 0) == (v5->_secondaryCommand == 0))
+      || secondaryCommand && (![(SFCommand *)secondaryCommand isEqual:?]|| self->_requiredLevelOfDetail != v5->_requiredLevelOfDetail)
+      || (racFeedbackSubfeatureId = self->_racFeedbackSubfeatureId, (racFeedbackSubfeatureId != 0) == (v5->_racFeedbackSubfeatureId == 0))
+      || racFeedbackSubfeatureId && ![(NSString *)racFeedbackSubfeatureId isEqual:?]
+      || (racFeedbackLoggingContent = self->_racFeedbackLoggingContent, (racFeedbackLoggingContent != 0) == (v5->_racFeedbackLoggingContent == 0))
+      || racFeedbackLoggingContent && ![(NSMutableDictionary *)racFeedbackLoggingContent isEqual:?]
+      || (copyableItems = self->_copyableItems, (copyableItems != 0) == (v5->_copyableItems == 0))
+      || copyableItems && ![(SFCopyItem *)copyableItems isEqual:?])
     {
-      goto LABEL_86;
-    }
-
-    punchoutPickerTitle = self->_punchoutPickerTitle;
-    if ((punchoutPickerTitle != 0) == (v5->_punchoutPickerTitle == 0) || punchoutPickerTitle && ![(NSString *)punchoutPickerTitle isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    punchoutPickerDismissText = self->_punchoutPickerDismissText;
-    if ((punchoutPickerDismissText != 0) == (v5->_punchoutPickerDismissText == 0) || punchoutPickerDismissText && ![(NSString *)punchoutPickerDismissText isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    if (self->_canBeHidden != v5->_canBeHidden)
-    {
-      goto LABEL_86;
-    }
-
-    if (self->_hasTopPadding != v5->_hasTopPadding)
-    {
-      goto LABEL_86;
-    }
-
-    if (self->_hasBottomPadding != v5->_hasBottomPadding)
-    {
-      goto LABEL_86;
-    }
-
-    type = self->_type;
-    if ((type != 0) == (v5->_type == 0) || type && ![(NSString *)type isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    if (self->_separatorStyle != v5->_separatorStyle)
-    {
-      goto LABEL_86;
-    }
-
-    nextCard = self->_nextCard;
-    if ((nextCard != 0) == (v5->_nextCard == 0) || nextCard && ![(SFCard *)nextCard isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    commands = self->_commands;
-    if ((commands != 0) == (v5->_commands == 0) || commands && ![(NSArray *)commands isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    parameterKeyPaths = self->_parameterKeyPaths;
-    if ((parameterKeyPaths != 0) == (v5->_parameterKeyPaths == 0) || parameterKeyPaths && ![(NSArray *)parameterKeyPaths isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    cardSectionId = self->_cardSectionId;
-    if ((cardSectionId != 0) == (v5->_cardSectionId == 0) || cardSectionId && ![(NSString *)cardSectionId isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    resultIdentifier = self->_resultIdentifier;
-    if ((resultIdentifier != 0) == (v5->_resultIdentifier == 0) || resultIdentifier && ![(NSString *)resultIdentifier isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    backgroundColor = self->_backgroundColor;
-    if ((backgroundColor != 0) == (v5->_backgroundColor == 0) || backgroundColor && ![(SFColor *)backgroundColor isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    command = self->_command;
-    if ((command != 0) == (v5->_command == 0) || command && ![(SFCommand *)command isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    previewCommand = self->_previewCommand;
-    if ((previewCommand != 0) == (v5->_previewCommand == 0) || previewCommand && ![(SFCommand *)previewCommand isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    previewButtonItems = self->_previewButtonItems;
-    if ((previewButtonItems != 0) == (v5->_previewButtonItems == 0) || previewButtonItems && ![(NSArray *)previewButtonItems isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    commandDetail = self->_commandDetail;
-    if ((commandDetail != 0) == (v5->_commandDetail == 0) || commandDetail && ![(NSString *)commandDetail isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    cardSectionDetail = self->_cardSectionDetail;
-    if ((cardSectionDetail != 0) == (v5->_cardSectionDetail == 0) || cardSectionDetail && ![(NSString *)cardSectionDetail isEqual:?])
-    {
-      goto LABEL_86;
-    }
-
-    if ((previewButtonItemsTitle = self->_previewButtonItemsTitle, (previewButtonItemsTitle != 0) == (v5->_previewButtonItemsTitle == 0)) || previewButtonItemsTitle && ![(NSString *)previewButtonItemsTitle isEqual:?]|| self->_shouldHideInAmbientMode != v5->_shouldHideInAmbientMode || self->_leadingSwipeButtonItems != v5->_leadingSwipeButtonItems || self->_trailingSwipeButtonItems != v5->_trailingSwipeButtonItems || self->_forceEnable3DTouch != v5->_forceEnable3DTouch || self->_shouldShowInSmartDialog != v5->_shouldShowInSmartDialog || (appEntityAnnotation = self->_appEntityAnnotation, (appEntityAnnotation != 0) == (v5->_appEntityAnnotation == 0)) || appEntityAnnotation && ![(SFAppEntityAnnotation *)appEntityAnnotation isEqual:?]|| (emphasisSubjectId = self->_emphasisSubjectId, (emphasisSubjectId != 0) == (v5->_emphasisSubjectId == 0)) || emphasisSubjectId && ![(NSString *)emphasisSubjectId isEqual:?]|| self->_increasedContrastMode != v5->_increasedContrastMode || self->_requiredLevelOfDetail != v5->_requiredLevelOfDetail || (secondaryCommand = self->_secondaryCommand, (secondaryCommand != 0) == (v5->_secondaryCommand == 0)) || secondaryCommand && (![(SFCommand *)secondaryCommand isEqual:?]|| self->_requiredLevelOfDetail != v5->_requiredLevelOfDetail) || (racFeedbackSubfeatureId = self->_racFeedbackSubfeatureId, (racFeedbackSubfeatureId != 0) == (v5->_racFeedbackSubfeatureId == 0)) || racFeedbackSubfeatureId && ![(NSString *)racFeedbackSubfeatureId isEqual:?]|| (racFeedbackLoggingContent = self->_racFeedbackLoggingContent, (racFeedbackLoggingContent != 0) == (v5->_racFeedbackLoggingContent == 0)) || racFeedbackLoggingContent && ![(NSMutableDictionary *)racFeedbackLoggingContent isEqual:?]|| (copyableItems = self->_copyableItems, (copyableItems != 0) == (v5->_copyableItems == 0)) || copyableItems && ![(SFCopyItem *)copyableItems isEqual:?])
-    {
-LABEL_86:
       v30 = 0;
     }
 
@@ -2585,7 +2523,7 @@ LABEL_86:
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   punchoutOptions = [(SFCardSection *)self punchoutOptions];
   v5 = [punchoutOptions count];
@@ -2593,30 +2531,30 @@ LABEL_86:
   if (v5)
   {
     array = [MEMORY[0x1E695DF70] array];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     punchoutOptions2 = [(SFCardSection *)self punchoutOptions];
-    v8 = [punchoutOptions2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [punchoutOptions2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          dictionaryRepresentation = [*(*(&v15 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v14 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v9 = [punchoutOptions2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [punchoutOptions2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -2624,8 +2562,6 @@ LABEL_86:
 
     [dictionary setObject:array forKeyedSubscript:@"punchoutOptions"];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

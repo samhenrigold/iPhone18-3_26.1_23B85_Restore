@@ -1,8 +1,26 @@
 @interface CSSiriDebugConnection
++ (id)_getFalseRejectBannerCommandWithTriggerScore:(float)score withTriggeredPhraseId:(unsigned int)id;
 + (void)launchSiriDebugAppWithMessage:(id)message;
++ (void)launchSiriDebugFeedbackBannerFalseRejectBannerWithTriggerScore:(float)score withTriggeredPhraseId:(unsigned int)id;
 @end
 
 @implementation CSSiriDebugConnection
+
++ (id)_getFalseRejectBannerCommandWithTriggerScore:(float)score withTriggeredPhraseId:(unsigned int)id
+{
+  v5 = [NSString stringWithFormat:@"%d", *&id];
+  score = [NSString stringWithFormat:@"%0.1f", score];
+  v7 = [@"com.apple.siri.SiriDebug.FeedbackBanner.NearMiss.Notify?triggeredPhraseId={TRIGGERED_PHRASE_ID}&triggerScore={TRIGGER_SCORE}" stringByReplacingOccurrencesOfString:@"{TRIGGERED_PHRASE_ID}" withString:v5];
+  v8 = [v7 stringByReplacingOccurrencesOfString:@"{TRIGGER_SCORE}" withString:score];
+
+  return v8;
+}
+
++ (void)launchSiriDebugFeedbackBannerFalseRejectBannerWithTriggerScore:(float)score withTriggeredPhraseId:(unsigned int)id
+{
+  v4 = [CSSiriDebugConnection _getFalseRejectBannerCommandWithTriggerScore:*&id withTriggeredPhraseId:?];
+  [CSSiriDebugConnection launchSiriDebugAppWithMessage:v4];
+}
 
 + (void)launchSiriDebugAppWithMessage:(id)message
 {

@@ -14,7 +14,6 @@
 - (id)snapshotForProvider:(id)provider withError:(id *)error;
 - (void)_listenForNotifications;
 - (void)_protectedDataStateDidChange;
-- (void)_queue_populateAllPropertiesFromDatabase;
 - (void)_startUp;
 - (void)_syncEntityDidReceiveValues:(id)values;
 - (void)activate;
@@ -100,7 +99,7 @@
 
 void __36__ACHDataStore_addPropertyProvider___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) propertyProviders];
   [v2 addObject:*(a1 + 40)];
 
@@ -108,14 +107,12 @@ void __36__ACHDataStore_addPropertyProvider___block_invoke(uint64_t a1)
   {
     v3 = [*(a1 + 32) injectedError];
     v4 = *(a1 + 32);
-    v9[0] = *(a1 + 40);
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-    v8 = v3;
-    [v4 _queue_populateFromDatabaseForProviders:v5 error:&v8];
-    v6 = v8;
+    v8[0] = *(a1 + 40);
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7 = v3;
+    [v4 _queue_populateFromDatabaseForProviders:v5 error:&v7];
+    v6 = v7;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_syncEntityDidReceiveValues:(id)values
@@ -208,7 +205,7 @@ void __39__ACHDataStore__listenForNotifications__block_invoke_2(uint64_t a1)
   dispatch_async(internalQueue, block);
 }
 
-uint64_t __24__ACHDataStore__startUp__block_invoke(uint64_t a1)
+void *__24__ACHDataStore__startUp__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_populateAllPropertiesFromDatabase];
   if ((result & 1) == 0)
@@ -333,16 +330,16 @@ void __44__ACHDataStore__protectedDataStateDidChange__block_invoke(uint64_t a1)
 
 void __71__ACHDataStore_snapshotForProvider_maxAgeInDays_currentDate_withError___block_invoke(uint64_t a1)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) propertyProviders];
   v3 = [v2 count];
 
   if (v3)
   {
     v4 = [*(a1 + 32) assertionClient];
-    v47 = 0;
-    v5 = [v4 acquireDatabaseAssertionWithIdentifier:&stru_283541ED8 error:&v47];
-    v6 = v47;
+    v46 = 0;
+    v5 = [v4 acquireDatabaseAssertionWithIdentifier:&stru_283541ED8 error:&v46];
+    v6 = v46;
 
     if (v6)
     {
@@ -361,15 +358,15 @@ void __71__ACHDataStore_snapshotForProvider_maxAgeInDays_currentDate_withError__
 
     v11 = [*(a1 + 32) keyValueClient];
     v12 = [*(a1 + 40) uniqueName];
-    v46 = 0;
-    v13 = [v11 dataForKey:@"snapshot" domain:v12 error:&v46];
-    v10 = v46;
+    v45 = 0;
+    v13 = [v11 dataForKey:@"snapshot" domain:v12 error:&v45];
+    v10 = v45;
 
     if (v13)
     {
-      v45 = 0;
-      v14 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v13 error:&v45];
-      v15 = v45;
+      v44 = 0;
+      v14 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v13 error:&v44];
+      v15 = v44;
       v16 = *(*(a1 + 64) + 8);
       v17 = *(v16 + 40);
       *(v16 + 40) = v14;
@@ -395,48 +392,48 @@ LABEL_12:
 
       if ([*(*(*(a1 + 64) + 8) + 40) version] <= 0)
       {
-        v41 = ACHLogDatabase();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v40 = ACHLogDatabase();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
-          v42 = [*(*(*(a1 + 64) + 8) + 40) version];
+          v41 = [*(*(*(a1 + 64) + 8) + 40) version];
           *buf = 134218240;
-          v49 = v42;
-          v50 = 2048;
-          v51 = 1;
-          _os_log_impl(&dword_221DDC000, v41, OS_LOG_TYPE_DEFAULT, "Snapshot has version %ld which is lower than current version %ld, returning nil", buf, 0x16u);
+          v48 = v41;
+          v49 = 2048;
+          v50 = 1;
+          _os_log_impl(&dword_221DDC000, v40, OS_LOG_TYPE_DEFAULT, "Snapshot has version %ld which is lower than current version %ld, returning nil", buf, 0x16u);
         }
 
-        v43 = *(*(a1 + 64) + 8);
-        v21 = *(v43 + 40);
-        *(v43 + 40) = 0;
+        v42 = *(*(a1 + 64) + 8);
+        v21 = *(v42 + 40);
+        *(v42 + 40) = 0;
         goto LABEL_11;
       }
 
-      v31 = [MEMORY[0x277CBEA80] currentCalendar];
-      v15 = [v31 hk_dateBySubtractingDays:*(a1 + 72) fromDate:*(a1 + 48)];
+      v30 = [MEMORY[0x277CBEA80] currentCalendar];
+      v15 = [v30 hk_dateBySubtractingDays:*(a1 + 72) fromDate:*(a1 + 48)];
 
-      v32 = [*(*(*(a1 + 64) + 8) + 40) snapshotDate];
-      [v32 timeIntervalSinceReferenceDate];
-      v34 = v33;
+      v31 = [*(*(*(a1 + 64) + 8) + 40) snapshotDate];
+      [v31 timeIntervalSinceReferenceDate];
+      v33 = v32;
       [v15 timeIntervalSinceReferenceDate];
-      v36 = v35;
+      v35 = v34;
 
-      if (v34 <= v36)
+      if (v33 <= v35)
       {
-        v37 = ACHLogDatabase();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v36 = ACHLogDatabase();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
-          v38 = [*(*(*(a1 + 64) + 8) + 40) snapshotDate];
+          v37 = [*(*(*(a1 + 64) + 8) + 40) snapshotDate];
           *buf = 138412546;
-          v49 = v38;
-          v50 = 2112;
-          v51 = v15;
-          _os_log_impl(&dword_221DDC000, v37, OS_LOG_TYPE_DEFAULT, "Snapshot with date (%@) older than max age (%@), returning nil", buf, 0x16u);
+          v48 = v37;
+          v49 = 2112;
+          v50 = v15;
+          _os_log_impl(&dword_221DDC000, v36, OS_LOG_TYPE_DEFAULT, "Snapshot with date (%@) older than max age (%@), returning nil", buf, 0x16u);
         }
 
-        v39 = *(*(a1 + 64) + 8);
-        v40 = *(v39 + 40);
-        *(v39 + 40) = 0;
+        v38 = *(*(a1 + 64) + 8);
+        v39 = *(v38 + 40);
+        *(v38 + 40) = 0;
 
         goto LABEL_12;
       }
@@ -457,16 +454,16 @@ LABEL_12:
     }
 
     v25 = [*(a1 + 32) assertionClient];
-    v44 = 0;
-    [v25 invalidateAssertionWithToken:v5 error:&v44];
-    v9 = v44;
+    v43 = 0;
+    [v25 invalidateAssertionWithToken:v5 error:&v43];
+    v9 = v43;
 
     if (!v9)
     {
 LABEL_23:
 
 LABEL_24:
-      goto LABEL_25;
+      return;
     }
 
     v26 = ACHLogDatabase();
@@ -489,9 +486,6 @@ LABEL_22:
 
     goto LABEL_23;
   }
-
-LABEL_25:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)clearAllInMemoryPropertiesWithError:(id *)error
@@ -544,33 +538,33 @@ LABEL_25:
 
 void __52__ACHDataStore_clearAllInMemoryPropertiesWithError___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v23[0] = 0;
-  v23[1] = v23;
-  v23[2] = 0x2810000000;
-  v23[3] = &unk_221E74077;
-  v24 = 0;
+  v25 = *MEMORY[0x277D85DE8];
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x2810000000;
+  v22[3] = &unk_221E74077;
+  v23 = 0;
   v2 = dispatch_group_create();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v3 = [*(a1 + 32) propertyProviders];
-  v4 = [v3 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v4)
   {
-    v5 = *v20;
+    v5 = *v19;
     do
     {
       v6 = 0;
       do
       {
-        if (*v20 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * v6);
+        v7 = *(*(&v18 + 1) + 8 * v6);
         dispatch_group_enter(v2);
         v8 = dispatch_get_global_queue(17, 0);
         block[0] = MEMORY[0x277D85DD0];
@@ -580,16 +574,16 @@ void __52__ACHDataStore_clearAllInMemoryPropertiesWithError___block_invoke(uint6
         v9 = *(a1 + 32);
         block[4] = v7;
         block[5] = v9;
-        v17 = v23;
-        v18 = *(a1 + 40);
-        v16 = v2;
+        v16 = v22;
+        v17 = *(a1 + 40);
+        v15 = v2;
         dispatch_async(v8, block);
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v4);
@@ -610,13 +604,12 @@ void __52__ACHDataStore_clearAllInMemoryPropertiesWithError___block_invoke(uint6
     v12 = ACHLogDatabase();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_221DDC000, v12, OS_LOG_TYPE_DEFAULT, "Failure in resetting in-memory values for one or more property providers.", v14, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_221DDC000, v12, OS_LOG_TYPE_DEFAULT, "Failure in resetting in-memory values for one or more property providers.", v13, 2u);
     }
   }
 
-  _Block_object_dispose(v23, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v22, 8);
 }
 
 void __52__ACHDataStore_clearAllInMemoryPropertiesWithError___block_invoke_2(uint64_t a1)
@@ -637,35 +630,33 @@ void __52__ACHDataStore_clearAllInMemoryPropertiesWithError___block_invoke_2(uin
 
 void __52__ACHDataStore_clearAllInMemoryPropertiesWithError___block_invoke_3(uint64_t a1, char a2)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v4 = *(*(a1 + 48) + 8);
+  v14[1] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   if ((a2 & 1) == 0)
   {
-    v5 = MEMORY[0x277CCACA8];
-    v6 = [*(a1 + 32) uniqueName];
-    v7 = [v5 stringWithFormat:@"Error clearing in memory store for property provider: %@", v6];
+    v4 = MEMORY[0x277CCACA8];
+    v5 = [*(a1 + 32) uniqueName];
+    v6 = [v4 stringWithFormat:@"Error clearing in memory store for property provider: %@", v5];
 
-    v8 = ACHLogDatabase();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = ACHLogDatabase();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __52__ACHDataStore_clearAllInMemoryPropertiesWithError___block_invoke_3_cold_1();
     }
 
-    v9 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = v7;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-    v11 = [v9 errorWithDomain:@"com.apple.ActivityAchievements" code:10 userInfo:v10];
-    v12 = *(*(a1 + 56) + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = v11;
+    v8 = MEMORY[0x277CCA9B8];
+    v13 = *MEMORY[0x277CCA450];
+    v14[0] = v6;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v10 = [v8 errorWithDomain:@"com.apple.ActivityAchievements" code:10 userInfo:v9];
+    v11 = *(*(a1 + 56) + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
   }
 
   *(*(*(a1 + 64) + 8) + 24) &= a2;
   os_unfair_lock_unlock((*(*(a1 + 48) + 8) + 32));
   dispatch_group_leave(*(a1 + 40));
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)commitSnapshotForProvider:(id)provider withError:(id *)error
@@ -721,7 +712,7 @@ void __52__ACHDataStore_clearAllInMemoryPropertiesWithError___block_invoke_3(uin
 
 void __52__ACHDataStore_commitSnapshotForProvider_withError___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) propertyProviders];
   v3 = [v2 count];
 
@@ -731,9 +722,9 @@ void __52__ACHDataStore_commitSnapshotForProvider_withError___block_invoke(uint6
     if (v4)
     {
       v5 = [*(a1 + 32) assertionClient];
-      v39 = 0;
-      v6 = [v5 acquireDatabaseAssertionWithIdentifier:&stru_283541ED8 error:&v39];
-      v7 = v39;
+      v38 = 0;
+      v6 = [v5 acquireDatabaseAssertionWithIdentifier:&stru_283541ED8 error:&v38];
+      v7 = v38;
 
       if (v7)
       {
@@ -754,27 +745,27 @@ void __52__ACHDataStore_commitSnapshotForProvider_withError___block_invoke(uint6
       {
         v11 = [*(a1 + 40) dataStoreProperties];
         v14 = [[ACHDataStorePropertyProviderSnapshot alloc] initWithValidThroughDate:v4 version:1 properties:v11];
-        v38 = 0;
-        v15 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v14 requiringSecureCoding:1 error:&v38];
-        v16 = v38;
+        v37 = 0;
+        v15 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v14 requiringSecureCoding:1 error:&v37];
+        v16 = v37;
         v17 = v16;
         if (v15)
         {
-          v34 = v16;
-          v35 = v14;
+          v33 = v16;
+          v34 = v14;
           v18 = [*(a1 + 32) keyValueClient];
           v19 = [*(a1 + 40) uniqueName];
-          v37 = 0;
-          v20 = [v18 setData:v15 forKey:@"snapshot" domain:v19 error:&v37];
-          v21 = v37;
-          v22 = v37;
+          v36 = 0;
+          v20 = [v18 setData:v15 forKey:@"snapshot" domain:v19 error:&v36];
+          v21 = v36;
+          v22 = v36;
           *(*(*(a1 + 48) + 8) + 24) = v20;
 
           objc_storeStrong((*(*(a1 + 56) + 8) + 40), v21);
           v23 = [*(a1 + 32) assertionClient];
-          v36 = 0;
-          [v23 invalidateAssertionWithToken:v6 error:&v36];
-          v10 = v36;
+          v35 = 0;
+          [v23 invalidateAssertionWithToken:v6 error:&v35];
+          v10 = v35;
 
           if (v10)
           {
@@ -801,8 +792,8 @@ void __52__ACHDataStore_commitSnapshotForProvider_withError___block_invoke(uint6
             objc_storeStrong(v26, v29);
           }
 
-          v17 = v34;
-          v14 = v35;
+          v17 = v33;
+          v14 = v34;
         }
 
         else
@@ -830,7 +821,7 @@ void __52__ACHDataStore_commitSnapshotForProvider_withError___block_invoke(uint6
       {
         v13 = [*(a1 + 40) uniqueName];
         *buf = 138543362;
-        v41 = v13;
+        v40 = v13;
         _os_log_impl(&dword_221DDC000, v10, OS_LOG_TYPE_DEFAULT, "Property provider %{public}@ doesn't have a valid through date, not saving a snapshot", buf, 0xCu);
       }
     }
@@ -843,12 +834,10 @@ void __52__ACHDataStore_commitSnapshotForProvider_withError___block_invoke(uint6
     {
       v12 = [*(a1 + 40) uniqueName];
       *buf = 138543362;
-      v41 = v12;
+      v40 = v12;
       _os_log_impl(&dword_221DDC000, v4, OS_LOG_TYPE_DEFAULT, "There are no property providers registered, so not committing snapshot for %{public}@.", buf, 0xCu);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)removeSnapshotForProvider:(id)provider withError:(id *)error
@@ -904,16 +893,16 @@ void __52__ACHDataStore_commitSnapshotForProvider_withError___block_invoke(uint6
 
 void __52__ACHDataStore_removeSnapshotForProvider_withError___block_invoke(uint64_t a1)
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) propertyProviders];
   v3 = [v2 count];
 
   if (v3)
   {
     v4 = [*(a1 + 32) assertionClient];
-    v26 = 0;
-    v5 = [v4 acquireDatabaseAssertionWithIdentifier:&stru_283541ED8 error:&v26];
-    v6 = v26;
+    v25 = 0;
+    v5 = [v4 acquireDatabaseAssertionWithIdentifier:&stru_283541ED8 error:&v25];
+    v6 = v25;
 
     if (v6)
     {
@@ -932,20 +921,20 @@ void __52__ACHDataStore_removeSnapshotForProvider_withError___block_invoke(uint6
     else
     {
       v11 = [*(a1 + 32) keyValueClient];
-      v27[0] = @"snapshot";
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+      v26[0] = @"snapshot";
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
       v13 = [*(a1 + 40) uniqueName];
-      v25 = 0;
-      v14 = [v11 removeValuesForKeys:v12 domain:v13 error:&v25];
-      v15 = v25;
-      v10 = v25;
+      v24 = 0;
+      v14 = [v11 removeValuesForKeys:v12 domain:v13 error:&v24];
+      v15 = v24;
+      v10 = v24;
       *(*(*(a1 + 56) + 8) + 24) = v14;
 
       objc_storeStrong((*(*(a1 + 48) + 8) + 40), v15);
       v16 = [*(a1 + 32) assertionClient];
-      v24 = 0;
-      [v16 invalidateAssertionWithToken:v5 error:&v24];
-      v9 = v24;
+      v23 = 0;
+      [v16 invalidateAssertionWithToken:v5 error:&v23];
+      v9 = v23;
 
       if (v9)
       {
@@ -973,8 +962,6 @@ void __52__ACHDataStore_removeSnapshotForProvider_withError___block_invoke(uint6
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)commitAllPropertiesWithError:(id *)error
@@ -1027,7 +1014,7 @@ void __52__ACHDataStore_removeSnapshotForProvider_withError___block_invoke(uint6
 
 void __45__ACHDataStore_commitAllPropertiesWithError___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) propertyProviders];
   v3 = [v2 count];
 
@@ -1036,9 +1023,9 @@ void __45__ACHDataStore_commitAllPropertiesWithError___block_invoke(uint64_t a1)
     v4 = [MEMORY[0x277CBEB38] dictionary];
     v5 = [MEMORY[0x277CBEB38] dictionary];
     v6 = [*(a1 + 32) assertionClient];
-    v43 = 0;
-    v7 = [v6 acquireDatabaseAssertionWithIdentifier:&stru_283541ED8 error:&v43];
-    v8 = v43;
+    v42 = 0;
+    v7 = [v6 acquireDatabaseAssertionWithIdentifier:&stru_283541ED8 error:&v42];
+    v8 = v42;
 
     if (v8)
     {
@@ -1056,26 +1043,26 @@ void __45__ACHDataStore_commitAllPropertiesWithError___block_invoke(uint64_t a1)
 
     else
     {
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       v13 = [*(a1 + 32) propertyProviders];
-      v14 = [v13 countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v40;
+        v16 = *v39;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v40 != v16)
+            if (*v39 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v39 + 1) + 8 * i);
+            v18 = *(*(&v38 + 1) + 8 * i);
             v19 = [v18 dataStoreProperties];
             v20 = [v18 uniqueName];
             [v4 setObject:v19 forKeyedSubscript:v20];
@@ -1087,21 +1074,21 @@ void __45__ACHDataStore_commitAllPropertiesWithError___block_invoke(uint64_t a1)
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v39 objects:v44 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
         }
 
         while (v15);
       }
 
       v22 = [*(a1 + 32) keyValueClient];
-      v38 = 0;
-      v23 = [v22 setValuesWithDomainDictionary:v4 error:&v38];
-      v12 = v38;
+      v37 = 0;
+      v23 = [v22 setValuesWithDomainDictionary:v4 error:&v37];
+      v12 = v37;
 
       v24 = [*(a1 + 32) keyValueClient];
-      v37 = 0;
-      v25 = [v24 setLegacyValuesWithDictionary:v5 error:&v37];
-      v26 = v37;
+      v36 = 0;
+      v25 = [v24 setLegacyValuesWithDictionary:v5 error:&v36];
+      v26 = v36;
 
       *(*(*(a1 + 48) + 8) + 24) = v23 & v25;
       if (v12)
@@ -1116,9 +1103,9 @@ void __45__ACHDataStore_commitAllPropertiesWithError___block_invoke(uint64_t a1)
 
       objc_storeStrong((*(*(a1 + 40) + 8) + 40), v27);
       v28 = [*(a1 + 32) assertionClient];
-      v36 = 0;
-      [v28 invalidateAssertionWithToken:v7 error:&v36];
-      v11 = v36;
+      v35 = 0;
+      [v28 invalidateAssertionWithToken:v7 error:&v35];
+      v11 = v35;
 
       if (v11)
       {
@@ -1146,8 +1133,6 @@ void __45__ACHDataStore_commitAllPropertiesWithError___block_invoke(uint64_t a1)
       }
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)commitPropertiesForProvider:(id)provider withError:(id *)error
@@ -1203,16 +1188,16 @@ void __45__ACHDataStore_commitAllPropertiesWithError___block_invoke(uint64_t a1)
 
 void __54__ACHDataStore_commitPropertiesForProvider_withError___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) propertyProviders];
   v3 = [v2 count];
 
   if (v3)
   {
     v4 = [*(a1 + 32) assertionClient];
-    v33 = 0;
-    v5 = [v4 acquireDatabaseAssertionWithIdentifier:@"com.apple.activityawardsd.ACHDataStoreCommit" error:&v33];
-    v6 = v33;
+    v32 = 0;
+    v5 = [v4 acquireDatabaseAssertionWithIdentifier:@"com.apple.activityawardsd.ACHDataStoreCommit" error:&v32];
+    v6 = v32;
 
     if (v6)
     {
@@ -1237,25 +1222,25 @@ void __54__ACHDataStore_commitPropertiesForProvider_withError___block_invoke(uin
       {
         v13 = [*(a1 + 40) uniqueName];
         *buf = 138412546;
-        v37 = v13;
-        v38 = 2112;
-        v39 = v10;
+        v36 = v13;
+        v37 = 2112;
+        v38 = v10;
         _os_log_impl(&dword_221DDC000, v12, OS_LOG_TYPE_DEFAULT, "Commiting properties [%@]: %@", buf, 0x16u);
       }
 
       v14 = [*(a1 + 32) keyValueClient];
       v15 = [*(a1 + 40) uniqueName];
-      v34 = v15;
-      v35 = v10;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-      v32 = 0;
-      v17 = [v14 setValuesWithDomainDictionary:v16 error:&v32];
-      v18 = v32;
+      v33 = v15;
+      v34 = v10;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+      v31 = 0;
+      v17 = [v14 setValuesWithDomainDictionary:v16 error:&v31];
+      v18 = v31;
 
       v19 = [*(a1 + 32) keyValueClient];
-      v31 = 0;
-      LOBYTE(v16) = [v19 setLegacyValuesWithDictionary:v11 error:&v31];
-      v20 = v31;
+      v30 = 0;
+      LOBYTE(v16) = [v19 setLegacyValuesWithDictionary:v11 error:&v30];
+      v20 = v30;
 
       *(*(*(a1 + 56) + 8) + 24) = v17 & v16;
       if (v18)
@@ -1270,9 +1255,9 @@ void __54__ACHDataStore_commitPropertiesForProvider_withError___block_invoke(uin
 
       objc_storeStrong((*(*(a1 + 48) + 8) + 40), v21);
       v22 = [*(a1 + 32) assertionClient];
-      v30 = 0;
-      [v22 invalidateAssertionWithToken:v5 error:&v30];
-      v9 = v30;
+      v29 = 0;
+      [v22 invalidateAssertionWithToken:v5 error:&v29];
+      v9 = v29;
 
       if (v9)
       {
@@ -1300,8 +1285,6 @@ void __54__ACHDataStore_commitPropertiesForProvider_withError___block_invoke(uin
       }
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_queue_populateAllPropertiesFromDatabase
@@ -1345,95 +1328,39 @@ void __54__ACHDataStore_commitPropertiesForProvider_withError___block_invoke(uin
 
 void __56__ACHDataStore__queue_populateAllPropertiesFromDatabase__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [*(a1 + 32) observers];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) dataStoreDidPopulate:*(a1 + 32)];
+        [*(*(&v7 + 1) + 8 * v6++) dataStoreDidPopulate:*(a1 + 32)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_dictionaryRepresentationOfAllProviderProperties
-{
-  v20 = *MEMORY[0x277D85DE8];
-  internalQueue = [(ACHDataStore *)self internalQueue];
-  dispatch_assert_queue_V2(internalQueue);
-
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  propertyProviders = [(ACHDataStore *)self propertyProviders];
-  v5 = [propertyProviders countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v16;
-    v8 = MEMORY[0x277CBEC10];
-    do
-    {
-      v9 = 0;
-      v10 = v8;
-      do
-      {
-        if (*v16 != v7)
-        {
-          objc_enumerationMutation(propertyProviders);
-        }
-
-        dataStoreProperties = [*(*(&v15 + 1) + 8 * v9) dataStoreProperties];
-        v12 = [v10 mutableCopy];
-        [v12 addEntriesFromDictionary:dataStoreProperties];
-        v8 = [v12 copy];
-
-        ++v9;
-        v10 = v8;
-      }
-
-      while (v6 != v9);
-      v6 = [propertyProviders countByEnumeratingWithState:&v15 objects:v19 count:16];
-    }
-
-    while (v6);
-  }
-
-  else
-  {
-    v8 = MEMORY[0x277CBEC10];
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v8;
-}
-
-- (id)_queue_allPropertyProviderKeys
 {
   v19 = *MEMORY[0x277D85DE8];
   internalQueue = [(ACHDataStore *)self internalQueue];
@@ -1449,7 +1376,7 @@ void __56__ACHDataStore__queue_populateAllPropertiesFromDatabase__block_invoke(u
   {
     v6 = v5;
     v7 = *v15;
-    v8 = MEMORY[0x277CBEBF8];
+    v8 = MEMORY[0x277CBEC10];
     do
     {
       v9 = 0;
@@ -1461,8 +1388,10 @@ void __56__ACHDataStore__queue_populateAllPropertiesFromDatabase__block_invoke(u
           objc_enumerationMutation(propertyProviders);
         }
 
-        dataStorePropertyKeys = [*(*(&v14 + 1) + 8 * v9) dataStorePropertyKeys];
-        v8 = [v10 arrayByAddingObjectsFromArray:dataStorePropertyKeys];
+        dataStoreProperties = [*(*(&v14 + 1) + 8 * v9) dataStoreProperties];
+        v12 = [v10 mutableCopy];
+        [v12 addEntriesFromDictionary:dataStoreProperties];
+        v8 = [v12 copy];
 
         ++v9;
         v10 = v8;
@@ -1477,17 +1406,65 @@ void __56__ACHDataStore__queue_populateAllPropertiesFromDatabase__block_invoke(u
 
   else
   {
-    v8 = MEMORY[0x277CBEBF8];
+    v8 = MEMORY[0x277CBEC10];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
+  return v8;
+}
+
+- (id)_queue_allPropertyProviderKeys
+{
+  v18 = *MEMORY[0x277D85DE8];
+  internalQueue = [(ACHDataStore *)self internalQueue];
+  dispatch_assert_queue_V2(internalQueue);
+
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  propertyProviders = [(ACHDataStore *)self propertyProviders];
+  v5 = [propertyProviders countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v14;
+    v8 = MEMORY[0x277CBEBF8];
+    do
+    {
+      v9 = 0;
+      v10 = v8;
+      do
+      {
+        if (*v14 != v7)
+        {
+          objc_enumerationMutation(propertyProviders);
+        }
+
+        dataStorePropertyKeys = [*(*(&v13 + 1) + 8 * v9) dataStorePropertyKeys];
+        v8 = [v10 arrayByAddingObjectsFromArray:dataStorePropertyKeys];
+
+        ++v9;
+        v10 = v8;
+      }
+
+      while (v6 != v9);
+      v6 = [propertyProviders countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v6);
+  }
+
+  else
+  {
+    v8 = MEMORY[0x277CBEBF8];
+  }
 
   return v8;
 }
 
 - (BOOL)_queue_populateFromDatabaseForProviders:(id)providers error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   providersCopy = providers;
   internalQueue = [(ACHDataStore *)self internalQueue];
   dispatch_assert_queue_V2(internalQueue);
@@ -1498,9 +1475,9 @@ void __56__ACHDataStore__queue_populateAllPropertiesFromDatabase__block_invoke(u
   if (protectedDataAvailable)
   {
     assertionClient = [(ACHDataStore *)self assertionClient];
-    v44 = 0;
-    v11 = [assertionClient acquireDatabaseAssertionWithIdentifier:@"Populate" error:&v44];
-    v12 = v44;
+    v43 = 0;
+    v11 = [assertionClient acquireDatabaseAssertionWithIdentifier:@"Populate" error:&v43];
+    v12 = v43;
 
     if (v12)
     {
@@ -1515,36 +1492,36 @@ void __56__ACHDataStore__queue_populateAllPropertiesFromDatabase__block_invoke(u
 
     else
     {
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       v15 = providersCopy;
-      v16 = [v15 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v39 objects:v44 count:16];
       if (v16)
       {
         v17 = v16;
         errorCopy = error;
-        v35 = v11;
-        v36 = providersCopy;
+        v34 = v11;
+        v35 = providersCopy;
         obj = v15;
-        v18 = *v41;
+        v18 = *v40;
         while (2)
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v41 != v18)
+            if (*v40 != v18)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v40 + 1) + 8 * i);
+            v20 = *(*(&v39 + 1) + 8 * i);
             keyValueClient2 = [(ACHDataStore *)self keyValueClient];
             dataStorePropertyKeys = [v20 dataStorePropertyKeys];
             uniqueName = [v20 uniqueName];
-            v39 = 0;
-            v24 = [keyValueClient2 valuesForKeys:dataStorePropertyKeys domain:uniqueName error:&v39];
-            v25 = v39;
+            v38 = 0;
+            v24 = [keyValueClient2 valuesForKeys:dataStorePropertyKeys domain:uniqueName error:&v38];
+            v25 = v38;
 
             if (v25)
             {
@@ -1572,7 +1549,7 @@ void __56__ACHDataStore__queue_populateAllPropertiesFromDatabase__block_invoke(u
           }
 
           v15 = obj;
-          v17 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+          v17 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
           if (v17)
           {
             continue;
@@ -1584,8 +1561,8 @@ void __56__ACHDataStore__queue_populateAllPropertiesFromDatabase__block_invoke(u
         v13 = 0;
         v14 = 1;
 LABEL_21:
-        v11 = v35;
-        providersCopy = v36;
+        v11 = v34;
+        providersCopy = v35;
       }
 
       else
@@ -1595,9 +1572,9 @@ LABEL_21:
       }
 
       assertionClient2 = [(ACHDataStore *)self assertionClient];
-      v38 = 0;
-      [assertionClient2 invalidateAssertionWithToken:v11 error:&v38];
-      v12 = v38;
+      v37 = 0;
+      [assertionClient2 invalidateAssertionWithToken:v11 error:&v37];
+      v12 = v37;
 
       if (v12)
       {
@@ -1628,7 +1605,6 @@ LABEL_21:
     LOBYTE(v14) = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -1657,7 +1633,7 @@ LABEL_21:
   }
 }
 
-uint64_t __28__ACHDataStore_addObserver___block_invoke(uint64_t a1)
+void *__28__ACHDataStore_addObserver___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) observers];
   [v2 addObject:*(a1 + 40)];
@@ -1721,111 +1697,25 @@ void __31__ACHDataStore_removeObserver___block_invoke(uint64_t a1)
   return selfCopy;
 }
 
-uint64_t __38__ACHDataStore__forceDatabasePopulate__block_invoke(uint64_t a1)
+void *__38__ACHDataStore__forceDatabasePopulate__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_populateAllPropertiesFromDatabase];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-void __71__ACHDataStore_snapshotForProvider_maxAgeInDays_currentDate_withError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error getting assertion for snapshot commit: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __71__ACHDataStore_snapshotForProvider_maxAgeInDays_currentDate_withError___block_invoke_cold_2(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*a1 uniqueName];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_1(&dword_221DDC000, v2, v3, "Error unarchiving snapshot for source %@: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_221DDC000, v2, v3, "Error unarchiving snapshot for source %@: %@", v4, v5, v6, v7);
 }
 
 void __71__ACHDataStore_snapshotForProvider_maxAgeInDays_currentDate_withError___block_invoke_cold_3(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*a1 uniqueName];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_1(&dword_221DDC000, v2, v3, "Error looking up snapshot for source %@: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __71__ACHDataStore_snapshotForProvider_maxAgeInDays_currentDate_withError___block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error invalidating assertion for snapshot commit: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __52__ACHDataStore_clearAllInMemoryPropertiesWithError___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __52__ACHDataStore_commitSnapshotForProvider_withError___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error encoding snapshot: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __52__ACHDataStore_removeSnapshotForProvider_withError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error getting assertion for snapshot removal: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __45__ACHDataStore_commitAllPropertiesWithError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error getting assertion: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __45__ACHDataStore_commitAllPropertiesWithError___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error invalidating assertion: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_populateAllPropertiesFromDatabase
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error populating data store properties: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_populateFromDatabaseForProviders:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Error acquiring assertion: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addObserver:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_221DDC000, v0, v1, "Data store did not add observer %@ since it doesn't conform to the observer protocol.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_221DDC000, v2, v3, "Error looking up snapshot for source %@: %@", v4, v5, v6, v7);
 }
 
 @end

@@ -76,9 +76,9 @@ void ___UIFontPickerLoadRecentsMatchingConfigurationForSuite_block_invoke(id *a1
 
               v20 = [*(*(&v64 + 1) + 8 * i) fontDescriptor];
               v21 = [v9 fontDescriptor];
-              v22 = [v20 isEqual:v21];
+              isEqual = objc_msgSend_isEqual_(v20);
 
-              if (v22)
+              if (isEqual)
               {
 
                 v5 = v51;
@@ -210,9 +210,9 @@ LABEL_33:
             {
               v39 = [v38 fontName];
               v40 = [v27 fontName];
-              v41 = [v39 isEqualToString:v40];
+              isEqualToString = objc_msgSend_isEqualToString_(v39);
 
-              if (v41)
+              if (isEqualToString)
               {
                 goto LABEL_59;
               }
@@ -222,7 +222,7 @@ LABEL_33:
             {
               v42 = [v38 familyName];
               v43 = [v27 familyName];
-              v44 = [v42 isEqualToString:v43];
+              v44 = objc_msgSend_isEqualToString_(v42);
 
               if (v44)
               {

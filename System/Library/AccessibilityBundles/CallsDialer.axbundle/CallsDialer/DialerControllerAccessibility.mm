@@ -10,6 +10,8 @@
 - (void)phonePad:(id)pad appendString:(id)string;
 - (void)phonePad:(id)pad replaceLastDigitWithString:(id)string;
 - (void)phonePadDeleteLastDigit:(id)digit;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation DialerControllerAccessibility
@@ -95,6 +97,23 @@
   [defaultCenter addObserver:self selector:sel__voiceOverStatusChange_ name:*MEMORY[0x29EDC8000] object:0];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = DialerControllerAccessibility;
+  [(DialerControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(DialerControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = DialerControllerAccessibility;
+  [(DialerControllerAccessibility *)&v4 viewWillDisappear:disappear];
+  mEMORY[0x29EDC7B08] = [MEMORY[0x29EDC7B08] sharedInstance];
+  [mEMORY[0x29EDC7B08] setDelegate:0];
+}
+
 - (BOOL)_accessibilityHasDeletableText
 {
   v2 = [(DialerControllerAccessibility *)self safeValueForKey:@"_dialerView"];
@@ -113,7 +132,7 @@
   return v5 != 0;
 }
 
-uint64_t __63__DialerControllerAccessibility__accessibilityHasDeletableText__block_invoke(uint64_t a1)
+void *__63__DialerControllerAccessibility__accessibilityHasDeletableText__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) length];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -138,24 +157,24 @@ uint64_t __63__DialerControllerAccessibility__accessibilityHasDeletableText__blo
   AXPerformSafeBlock();
 }
 
-uint64_t __84__DialerControllerAccessibility__accessibilityReplaceCharactersAtCursor_withString___block_invoke(uint64_t result)
+void *__84__DialerControllerAccessibility__accessibilityReplaceCharactersAtCursor_withString___block_invoke(void *result)
 {
   v1 = result;
-  if (*(result + 48))
+  if (result[6])
   {
     v2 = 0;
     do
     {
-      result = [*(v1 + 32) phonePadDeleteLastDigit:0];
+      result = [v1[4] phonePadDeleteLastDigit:0];
       ++v2;
     }
 
-    while (v2 < *(v1 + 48));
+    while (v2 < v1[6]);
   }
 
-  if (*(v1 + 40))
+  if (v1[5])
   {
-    v3 = *(v1 + 32);
+    v3 = v1[4];
 
     return [v3 _accessibilityInsertText:?];
   }

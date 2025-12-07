@@ -59,8 +59,7 @@
           v17 = [VNValidationUtilities requiredObjectOfClass:objc_opt_class() forKey:@"VNTrackingOption_TrackingLevel" inOptions:optionsCopy error:error];
           if (v17)
           {
-            [(VNTracker *)v7 _createTrackerWithLevel:v17 options:v19 error:error];
-            std::shared_ptr<vision::mod::ObjectTrackerAbstract>::reset[abi:ne200100]<vision::mod::ObjectTrackerAbstract,0>();
+            std::shared_ptr<vision::mod::ObjectTrackerAbstract>::reset[abi:ne200100]<vision::mod::ObjectTrackerAbstract,0>(&v7->super.super.mTrackerImpl, -[VNTracker _createTrackerWithLevel:options:error:](v7, "_createTrackerWithLevel:options:error:", v17, v19, error));
           }
 
           vision::mod::RPNTrackerOptions::~RPNTrackerOptions(v19);

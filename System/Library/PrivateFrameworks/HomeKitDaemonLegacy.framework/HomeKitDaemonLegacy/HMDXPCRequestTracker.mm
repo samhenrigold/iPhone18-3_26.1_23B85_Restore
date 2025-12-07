@@ -16,7 +16,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   watchdogTimer = [(HMDXPCRequestTracker *)self watchdogTimer];
 
@@ -24,30 +24,30 @@
   if (watchdogTimer == fireCopy)
   {
     date = [MEMORY[0x277CBEAA8] date];
-    v35 = 8;
+    v34 = 8;
     os_unfair_lock_lock_with_options();
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     pendingRequests = [(HMDXPCRequestTracker *)self pendingRequests];
-    v7 = [pendingRequests copy];
+    v7 = objc_msgSend_copy(pendingRequests);
 
-    v8 = [v7 countByEnumeratingWithState:&v40 objects:v52 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v39 objects:v51 count:16];
     if (v8)
     {
-      v38 = *v41;
+      v37 = *v40;
       obj = v7;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v41 != v38)
+          if (*v40 != v37)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v40 + 1) + 8 * i);
+          v10 = *(*(&v39 + 1) + 8 * i);
           pendingRequests2 = [(HMDXPCRequestTracker *)self pendingRequests];
           v12 = [pendingRequests2 objectForKeyedSubscript:v10];
 
@@ -59,11 +59,11 @@
             v16 = HMFGetLogIdentifier();
             name = [v12 name];
             *buf = 138543874;
-            v45 = v16;
-            v46 = 2112;
-            v47 = name;
-            v48 = 2112;
-            v49 = v10;
+            v44 = v16;
+            v45 = 2112;
+            v46 = name;
+            v47 = 2112;
+            v48 = v10;
             _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Checking if request %@ (%@) timed out after watchdog timer fired", buf, 0x20u);
           }
 
@@ -82,13 +82,13 @@
               name2 = [v12 name];
               clientName = v21->_clientName;
               *buf = 138544130;
-              v45 = v23;
-              v46 = 2112;
-              v47 = name2;
-              v48 = 2112;
-              v49 = v10;
-              v50 = 2112;
-              v51 = clientName;
+              v44 = v23;
+              v45 = 2112;
+              v46 = name2;
+              v47 = 2112;
+              v48 = v10;
+              v49 = 2112;
+              v50 = clientName;
               _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Reaping timed out pending request %@ (%@) from client '%@' that expects a response", buf, 0x2Au);
             }
 
@@ -111,7 +111,7 @@
               {
                 v32 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v45 = v32;
+                v44 = v32;
                 _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_DEBUG, "%{public}@Suspending watchdog timer after handling timeout", buf, 0xCu);
               }
 
@@ -123,17 +123,15 @@
         }
 
         v7 = obj;
-        v8 = [obj countByEnumeratingWithState:&v40 objects:v52 count:16];
+        v8 = [obj countByEnumeratingWithState:&v39 objects:v51 count:16];
       }
 
       while (v8);
     }
 
-    os_unfair_lock_unlock((self + v35));
+    os_unfair_lock_unlock((self + v34));
     v5 = fireCopy;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_respondToRequest:(id)request withPayload:(id)payload error:(id)error
@@ -142,7 +140,7 @@
   errorCopy = error;
   requestCopy = request;
   responseHandler = [requestCopy responseHandler];
-  v12 = [responseHandler copy];
+  v12 = objc_msgSend_copy(responseHandler);
 
   [requestCopy qualityOfService];
   LODWORD(responseHandler) = HMFQOSClassFromQualityOfService();
@@ -163,7 +161,7 @@
 
 - (void)cancelAllRequests
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -171,32 +169,32 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v31 = v6;
+    v30 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Canceling all pending requests", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   os_unfair_lock_lock_with_options();
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   pendingRequests = [(HMDXPCRequestTracker *)selfCopy pendingRequests];
-  v8 = [pendingRequests countByEnumeratingWithState:&v26 objects:v38 count:16];
+  v8 = [pendingRequests countByEnumeratingWithState:&v25 objects:v37 count:16];
   if (v8)
   {
-    v25 = *v27;
+    v24 = *v26;
     obj = pendingRequests;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v25)
+        if (*v26 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * i);
+        v10 = *(*(&v25 + 1) + 8 * i);
         pendingRequests2 = [(HMDXPCRequestTracker *)selfCopy pendingRequests];
         v12 = [pendingRequests2 objectForKeyedSubscript:v10];
 
@@ -212,13 +210,13 @@
             name = [v12 name];
             clientName = v14->_clientName;
             *buf = 138544130;
-            v31 = v17;
-            v32 = 2112;
-            v33 = name;
-            v34 = 2112;
-            v35 = v10;
-            v36 = 2112;
-            v37 = clientName;
+            v30 = v17;
+            v31 = 2112;
+            v32 = name;
+            v33 = 2112;
+            v34 = v10;
+            v35 = 2112;
+            v36 = clientName;
             _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Canceling pending request %@ (%@) from client '%@' that expects a response", buf, 0x2Au);
 
             selfCopy = v16;
@@ -231,7 +229,7 @@
       }
 
       pendingRequests = obj;
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v37 count:16];
     }
 
     while (v8);
@@ -244,14 +242,13 @@
   [watchdogTimer suspend];
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setClientName:(id)name
 {
   nameCopy = name;
   os_unfair_lock_lock_with_options();
-  v4 = [nameCopy copy];
+  v4 = objc_msgSend_copy(nameCopy);
   clientName = self->_clientName;
   self->_clientName = v4;
 
@@ -282,7 +279,7 @@
 
 - (void)respondToRequestWithIdentifier:(id)identifier withPayload:(id)payload error:(id)error
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   payloadCopy = payload;
   errorCopy = error;
@@ -311,15 +308,15 @@
       name = [v11 name];
       clientName = selfCopy->_clientName;
       *buf = 138544386;
-      v35 = v20;
-      v36 = 2114;
-      v37 = name;
-      v38 = 2114;
-      v39 = identifierCopy;
-      v40 = 2114;
-      v41 = clientName;
-      v42 = 2114;
-      v43 = errorCopy;
+      v34 = v20;
+      v35 = 2114;
+      v36 = name;
+      v37 = 2114;
+      v38 = identifierCopy;
+      v39 = 2114;
+      v40 = clientName;
+      v41 = 2114;
+      v42 = errorCopy;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Answering incoming message %{public}@ (%{public}@) from client '%{public}@' that expects a response%{public}@", buf, 0x34u);
     }
 
@@ -340,7 +337,7 @@
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v35 = v29;
+        v34 = v29;
         _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_DEBUG, "%{public}@Suspending timer after last request was removed", buf, 0xCu);
       }
 
@@ -360,11 +357,11 @@
       v15 = HMFGetLogIdentifier();
       v16 = selfCopy2->_clientName;
       *buf = 138543874;
-      v35 = v15;
-      v36 = 2114;
-      v37 = identifierCopy;
-      v38 = 2114;
-      v39 = v16;
+      v34 = v15;
+      v35 = 2114;
+      v36 = identifierCopy;
+      v37 = 2114;
+      v38 = v16;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to find request with identifier %{public}@ for client '%{public}@' to remove from request tracker", buf, 0x20u);
     }
 
@@ -372,13 +369,12 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addRequestWithIdentifier:(id)identifier name:(id)name qualityOfService:(int64_t)service isTimeoutDisabled:(BOOL)disabled responseHandler:(id)handler
 {
   disabledCopy = disabled;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   nameCopy = name;
   handlerCopy = handler;
@@ -395,7 +391,7 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v35 = v19;
+      v34 = v19;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Starting watchdog timer", buf, 0xCu);
     }
 
@@ -418,11 +414,11 @@
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v35 = v27;
-      v36 = 2112;
-      v37 = nameCopy;
-      v38 = 2112;
-      v39 = identifierCopy;
+      v34 = v27;
+      v35 = 2112;
+      v36 = nameCopy;
+      v37 = 2112;
+      v38 = identifierCopy;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Disabling timeout for message %@(%@)", buf, 0x20u);
     }
 
@@ -432,12 +428,11 @@
     v23 = distantFuture;
   }
 
-  v29 = [[HMDXPCRequest alloc] initWithName:nameCopy qualityOfService:v33 timeoutDate:v23 responseHandler:handlerCopy];
+  v29 = [[HMDXPCRequest alloc] initWithName:nameCopy qualityOfService:v32 timeoutDate:v23 responseHandler:handlerCopy];
   pendingRequests2 = [(HMDXPCRequestTracker *)self pendingRequests];
   [pendingRequests2 setObject:v29 forKeyedSubscript:identifierCopy];
 
   os_unfair_lock_unlock(&self->_lock);
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDXPCRequestTracker)initWithQueue:(id)queue watchdogTimer:(id)timer
@@ -490,12 +485,11 @@
 
 uint64_t __35__HMDXPCRequestTracker_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v18_165804;
-  logCategory__hmf_once_v18_165804 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v18_165804;
+  logCategory__hmf_once_v18_165804 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

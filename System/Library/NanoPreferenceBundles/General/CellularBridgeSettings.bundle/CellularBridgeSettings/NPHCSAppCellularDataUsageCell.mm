@@ -1,4 +1,5 @@
 @interface NPHCSAppCellularDataUsageCell
++ (id)cellForTableView:(id)view reuseIdentifier:(id)identifier appDataUsageItem:(id)item isCellularSetup:(BOOL)setup;
 - (NPHCSAppCellularDataUsageCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier appDataUsageItem:(id)item;
 - (void)_cellularDataPolicySwitchFlipped:(id)flipped;
 - (void)_setIcon;
@@ -47,6 +48,121 @@
   }
 
   return v10;
+}
+
++ (id)cellForTableView:(id)view reuseIdentifier:(id)identifier appDataUsageItem:(id)item isCellularSetup:(BOOL)setup
+{
+  setupCopy = setup;
+  identifierCopy = identifier;
+  itemCopy = item;
+  v11 = [view dequeueReusableCellWithIdentifier:identifierCopy];
+  if (!v11)
+  {
+    v11 = [[NPHCSAppCellularDataUsageCell alloc] initWithStyle:3 reuseIdentifier:identifierCopy appDataUsageItem:itemCopy];
+  }
+
+  [(NPHCSAppCellularDataUsageCell *)v11 setAppDataUsageItem:itemCopy];
+  hyphenatedDisplayName = [itemCopy hyphenatedDisplayName];
+  textLabel = [(NPHCSAppCellularDataUsageCell *)v11 textLabel];
+  [textLabel setAttributedText:hyphenatedDisplayName];
+
+  isCellularDataEnabled = [itemCopy isCellularDataEnabled];
+  accessorySwitch = [(NPHCSAppCellularDataUsageCell *)v11 accessorySwitch];
+  [accessorySwitch setOn:isCellularDataEnabled];
+
+  if (+[NPHSharedUtilities isActiveWatchChinaRegionCellular])
+  {
+    v16 = [itemCopy chinaSKUWirelessDataOptionForCellularSetup:setupCopy];
+    detailTextLabel = [(NPHCSAppCellularDataUsageCell *)v11 detailTextLabel];
+    [detailTextLabel setText:v16];
+
+    usageDisplayString = [itemCopy usageDisplayString];
+    v19 = [usageDisplayString length];
+
+    if (!v19)
+    {
+      goto LABEL_8;
+    }
+
+    displayName = [itemCopy displayName];
+    usageDisplayString2 = [itemCopy usageDisplayString];
+    usageDisplayString4 = [NSString stringWithFormat:@"%@\n%@", displayName, usageDisplayString2];
+
+    usageDisplayString3 = [itemCopy usageDisplayString];
+    v24 = [usageDisplayString4 rangeOfString:usageDisplayString3];
+    v26 = v25;
+
+    detailTextLabel2 = [[NSMutableAttributedString alloc] initWithString:usageDisplayString4];
+    v28 = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    [detailTextLabel2 addAttribute:NSFontAttributeName value:v28 range:{v24, v26}];
+
+    v29 = [detailTextLabel2 copy];
+    textLabel2 = [(NPHCSAppCellularDataUsageCell *)v11 textLabel];
+    [textLabel2 setAttributedText:v29];
+  }
+
+  else
+  {
+    usageDisplayString4 = [itemCopy usageDisplayString];
+    detailTextLabel2 = [(NPHCSAppCellularDataUsageCell *)v11 detailTextLabel];
+    [detailTextLabel2 setText:usageDisplayString4];
+  }
+
+LABEL_8:
+  if ([itemCopy isForAnApp])
+  {
+    accessoryView = [(NPHCSAppCellularDataUsageCell *)v11 accessoryView];
+    [accessoryView setHidden:0];
+
+    [(NPHCSAppCellularDataUsageCell *)v11 _setIcon];
+    v32 = +[MCProfileConnection sharedConnection];
+    v33 = [v32 effectiveBoolValueForSetting:MCFeatureAppCellularDataModificationAllowed];
+
+    v34 = v33 != 2;
+    if (v33 == 2)
+    {
+      v35 = 0.5;
+    }
+
+    else
+    {
+      v35 = 1.0;
+    }
+
+    [(NPHCSAppCellularDataUsageCell *)v11 setUserInteractionEnabled:v33 != 2];
+    accessorySwitch2 = [(NPHCSAppCellularDataUsageCell *)v11 accessorySwitch];
+    [accessorySwitch2 setEnabled:v34];
+    detailTextLabel3 = [(NPHCSAppCellularDataUsageCell *)v11 detailTextLabel];
+    [detailTextLabel3 setEnabled:v34];
+    textLabel3 = [(NPHCSAppCellularDataUsageCell *)v11 textLabel];
+    [textLabel3 setEnabled:v34];
+
+    imageView = [(NPHCSAppCellularDataUsageCell *)v11 imageView];
+    [imageView setAlpha:v35];
+  }
+
+  else
+  {
+    childObjects = [itemCopy childObjects];
+
+    if (childObjects)
+    {
+      [(NPHCSAppCellularDataUsageCell *)v11 setAccessoryType:1];
+      v41 = v11;
+      v42 = 3;
+    }
+
+    else
+    {
+      [(NPHCSAppCellularDataUsageCell *)v11 setAccessoryType:0];
+      v41 = v11;
+      v42 = 0;
+    }
+
+    [(NPHCSAppCellularDataUsageCell *)v41 setSelectionStyle:v42];
+  }
+
+  return v11;
 }
 
 - (void)_setIcon
@@ -108,7 +224,7 @@
 
 - (void)_cellularDataPolicySwitchFlipped:(id)flipped
 {
-  v4 = nph_general_log();
+  v4 = nph_general_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;

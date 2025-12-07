@@ -117,13 +117,13 @@
 - (id)binarySampleRepresentation
 {
   selfCopy = self;
-  v3 = SNSpeechEmotionResult.binarySampleRepresentation()();
-  v5 = v4;
+  v4 = SNSpeechEmotionResult.binarySampleRepresentation()(v3);
+  v6 = v5;
 
-  v6 = sub_1C9A915F8();
-  sub_1C97A5978(v3, v5);
+  v7 = sub_1C9A915F8();
+  sub_1C97A5978(v4, v6);
 
-  return v6;
+  return v7;
 }
 
 - (SNSpeechEmotionResult)initWithBinarySampleRepresentation:(id)representation metadata:(id)metadata timestamp:(double)timestamp

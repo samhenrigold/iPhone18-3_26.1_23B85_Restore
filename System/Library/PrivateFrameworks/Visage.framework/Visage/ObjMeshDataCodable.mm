@@ -90,20 +90,24 @@
   v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"meshProperties"];
 
   cva::DictionaryHandler::DictionaryHandler(v12, v7);
-  if (cva::DictionaryHandler::hasKey(v12, "V") && (cva::DictionaryHandler::hasKey(v12, "F") & 1) != 0)
+  hasKey = cva::DictionaryHandler::hasKey(v12, "V");
+  if (hasKey)
   {
-    operator new();
+    hasKey = cva::DictionaryHandler::hasKey(v12, "F");
+    if (hasKey)
+    {
+      operator new();
+    }
   }
 
-  v8 = __VGLogSharedInstance();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = __VGLogSharedInstance(hasKey);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_270F06000, v8, OS_LOG_TYPE_ERROR, " Required properties : Vertices and Faces, not found in mesh data ", buf, 2u);
+    _os_log_impl(&dword_270F06000, v9, OS_LOG_TYPE_ERROR, " Required properties : Vertices and Faces, not found in mesh data ", buf, 2u);
   }
 
   cva::DictionaryHandler::~DictionaryHandler(v12);
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

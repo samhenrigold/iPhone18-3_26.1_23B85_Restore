@@ -152,15 +152,14 @@
     v4 = _MRLogForCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      discoveryMode = obj->_discoveryMode;
+      v5 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
       v6 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
-      v7 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
       *buf = 138412802;
-      v13 = obj;
-      v14 = 2114;
-      v15 = v6;
-      v16 = 2114;
-      v17 = v7;
+      v12 = obj;
+      v13 = 2114;
+      v14 = v5;
+      v15 = 2114;
+      v16 = v6;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[MRDDiscoverySession] %@ setting discoveryMode from %{public}@ to %{public}@", buf, 0x20u);
     }
 

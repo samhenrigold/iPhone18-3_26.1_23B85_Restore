@@ -22,7 +22,7 @@
 
 - (void)activityMonitor:(id)monitor didReceiveActivityUpdate:(id)update
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   monitorCopy = monitor;
   updateCopy = update;
   v8 = +[HMDAccountRegistry sharedRegistry];
@@ -46,37 +46,37 @@
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v34 = v18;
-      v35 = 2112;
-      v36 = updateCopy;
+      v33 = v18;
+      v34 = 2112;
+      v35 = updateCopy;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Notifying delegates of IDS Activity update: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v19 = allObjects;
-    v20 = [v19 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v20)
     {
-      v21 = *v29;
+      v21 = *v28;
       do
       {
         v22 = 0;
         do
         {
-          if (*v29 != v21)
+          if (*v28 != v21)
           {
             objc_enumerationMutation(v19);
           }
 
-          [*(*(&v28 + 1) + 8 * v22++) observer:selfCopy didUpdateDevice:v10 isOnline:{objc_msgSend(updateCopy, "isDeviceOnline", v28)}];
+          [*(*(&v27 + 1) + 8 * v22++) observer:selfCopy didUpdateDevice:v10 isOnline:{objc_msgSend(updateCopy, "isDeviceOnline", v27)}];
         }
 
         while (v20 != v22);
-        v20 = [v19 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v20);
@@ -92,16 +92,14 @@
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v34 = v26;
-      v35 = 2112;
-      v36 = updateCopy;
+      v33 = v26;
+      v34 = 2112;
+      v35 = updateCopy;
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Received IDS Activity update for unkonwn device: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v23);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopObservingPresenceForDevice:(id)device
@@ -113,7 +111,7 @@
 
 - (void)startObservingPresenceForDevice:(id)device
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   dataSource = [(HMDIDSActivityMonitorObserver *)self dataSource];
 
@@ -125,9 +123,9 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@startObservingPresenceForDevice: called before configureWithDataSource:", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@startObservingPresenceForDevice: called before configureWithDataSource:", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -135,8 +133,6 @@
 
   dataSource2 = [(HMDIDSActivityMonitorObserver *)self dataSource];
   [dataSource2 startObservingDevice:deviceCopy subActivity:*MEMORY[0x277D18518]];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObserver:(id)observer forSubActivity:(id)activity
@@ -236,12 +232,11 @@ LABEL_7:
 
 uint64_t __44__HMDIDSActivityMonitorObserver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v18_137584;
-  logCategory__hmf_once_v18_137584 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v18_137584;
+  logCategory__hmf_once_v18_137584 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

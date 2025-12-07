@@ -346,7 +346,7 @@
     v19 = contentView3;
     if (contentView3)
     {
-      [contentView3 transform3D];
+      objc_msgSend_transform3D(contentView3);
     }
 
     else
@@ -512,7 +512,7 @@ void __30__CKPaddleOverlayView_dismiss__block_invoke_3(uint64_t a1)
   v3 = v2;
   if (v2)
   {
-    [v2 transform3D];
+    objc_msgSend_transform3D(v2);
   }
 
   else

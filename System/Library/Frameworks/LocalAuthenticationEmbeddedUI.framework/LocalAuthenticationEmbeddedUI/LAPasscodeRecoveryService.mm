@@ -42,7 +42,7 @@
 
 - (BOOL)isRecoveryAvailableWithError:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = LACLogPasscodeService();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -51,9 +51,9 @@
   }
 
   passcodeRecoveryPreflightController = [(LAPSPasscodeChangeControllerProviding *)self->_builder passcodeRecoveryPreflightController];
-  v13 = 0;
-  v7 = [passcodeRecoveryPreflightController canChangePasscodeWithError:&v13];
-  v8 = v13;
+  v12 = 0;
+  v7 = [passcodeRecoveryPreflightController canChangePasscodeWithError:&v12];
+  v8 = v12;
 
   if (error && (v7 & 1) == 0)
   {
@@ -65,17 +65,16 @@
   if (os_log_type_enabled(v9, v10))
   {
     *buf = 138543362;
-    v15 = v8;
+    v14 = v8;
     _os_log_impl(&dword_238BCD000, v9, v10, "LAPasscodeRecoveryService preflight did finish (error=%{public}@)", buf, 0xCu);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)startRecoveryInParentVC:(id)c completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   cCopy = c;
   completionCopy = completion;
   v8 = LACLogPasscodeService();
@@ -83,38 +82,36 @@
   {
     *buf = 138543618;
     selfCopy = self;
-    v24 = 2114;
-    v25 = cCopy;
+    v23 = 2114;
+    v24 = cCopy;
     _os_log_impl(&dword_238BCD000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ will start on parentVC: %{public}@", buf, 0x16u);
   }
 
   builder = self->_builder;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __64__LAPasscodeRecoveryService_startRecoveryInParentVC_completion___block_invoke;
-  v20[3] = &unk_278A65F60;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __64__LAPasscodeRecoveryService_startRecoveryInParentVC_completion___block_invoke;
+  v19[3] = &unk_278A65F60;
   v10 = cCopy;
-  v21 = v10;
-  v11 = __64__LAPasscodeRecoveryService_startRecoveryInParentVC_completion___block_invoke(v20);
+  v20 = v10;
+  v11 = __64__LAPasscodeRecoveryService_startRecoveryInParentVC_completion___block_invoke(v19);
   v12 = [(LAPSPasscodeChangeControllerProviding *)builder passcodeRecoveryControllerWithOptions:v11];
 
   objc_initWeak(buf, self);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __64__LAPasscodeRecoveryService_startRecoveryInParentVC_completion___block_invoke_2;
-  v16[3] = &unk_278A658B8;
-  objc_copyWeak(&v19, buf);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __64__LAPasscodeRecoveryService_startRecoveryInParentVC_completion___block_invoke_2;
+  v15[3] = &unk_278A658B8;
+  objc_copyWeak(&v18, buf);
   v13 = completionCopy;
-  v18 = v13;
+  v17 = v13;
   v14 = v12;
-  v17 = v14;
-  [v14 startWithCompletion:v16];
+  v16 = v14;
+  [v14 startWithCompletion:v15];
   objc_storeWeak(&self->_recoveryController, v14);
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 LAPSPasscodeChangeControllerProviderOptions *__64__LAPasscodeRecoveryService_startRecoveryInParentVC_completion___block_invoke(uint64_t a1)
@@ -134,25 +131,23 @@ LAPSPasscodeChangeControllerProviderOptions *__64__LAPasscodeRecoveryService_sta
 
 void __64__LAPasscodeRecoveryService_startRecoveryInParentVC_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = LACLogPasscodeService();
   v6 = 16 * (v4 != 0);
   if (os_log_type_enabled(v5, v6))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    v11 = 138543618;
-    v12 = WeakRetained;
-    v13 = 2114;
-    v14 = v4;
-    _os_log_impl(&dword_238BCD000, v5, v6, "%{public}@ did finish (error=%{public}@)", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = WeakRetained;
+    v12 = 2114;
+    v13 = v4;
+    _os_log_impl(&dword_238BCD000, v5, v6, "%{public}@ did finish (error=%{public}@)", &v10, 0x16u);
   }
 
   v8 = *(a1 + 40);
   v9 = [LAPasscodeServiceErrorBuilder redactError:v4];
   (*(v8 + 16))(v8, v9);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelRecovery

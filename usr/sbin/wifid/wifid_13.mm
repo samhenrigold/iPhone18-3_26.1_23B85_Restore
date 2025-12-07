@@ -1,480 +1,3 @@
-BOOL sub_1000E0A04(uint64_t a1, void *a2, const void *a3)
-{
-  v6 = objc_autoreleasePoolPush();
-  if (!a2)
-  {
-    v7 = objc_autoreleasePoolPush();
-    v10 = off_100298C40;
-    if (off_100298C40)
-    {
-      v41 = a3;
-      v9 = "%s: null network,  isFilteringAJCandidates %d";
-LABEL_25:
-      [v10 WFLog:3 message:{v9, "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", v41, v42}];
-      goto LABEL_26;
-    }
-
-    goto LABEL_26;
-  }
-
-  if (CFSetContainsValue(*(a1 + 3552), a2))
-  {
-    v7 = objc_autoreleasePoolPush();
-    v8 = off_100298C40;
-    if (off_100298C40)
-    {
-      v41 = sub_10000A878(a2);
-      v42 = a3;
-      v9 = "%s: user canceled network %@, isFilteringAJCandidates %d";
-LABEL_24:
-      v10 = v8;
-      goto LABEL_25;
-    }
-
-    goto LABEL_26;
-  }
-
-  if (&_CNForgetSSID && sub_10000A540(a2, kCNSIsWhitelistedCaptiveNetworkProperty) == kCFBooleanTrue)
-  {
-    v7 = objc_autoreleasePoolPush();
-    v8 = off_100298C40;
-    if (off_100298C40)
-    {
-      v41 = sub_10000A878(a2);
-      v9 = "%s: %@ auto-join disabled for potentially bypassing captive detection";
-      goto LABEL_24;
-    }
-
-    goto LABEL_26;
-  }
-
-  if (sub_100177324(a2))
-  {
-    v7 = objc_autoreleasePoolPush();
-    v8 = off_100298C40;
-    if (off_100298C40)
-    {
-      v41 = sub_10000A878(a2);
-      v42 = a3;
-      v9 = "%s: disabled until first user join network %@ isFilteringAJCandidates %d";
-      goto LABEL_24;
-    }
-
-LABEL_26:
-    objc_autoreleasePoolPop(v7);
-    v11 = 0;
-    goto LABEL_27;
-  }
-
-  if (sub_10017740C(a2))
-  {
-    v7 = objc_autoreleasePoolPush();
-    v8 = off_100298C40;
-    if (off_100298C40)
-    {
-      v41 = sub_10000A878(a2);
-      v9 = "%s: disabled because %@ is an infrequently joined public network";
-      goto LABEL_24;
-    }
-
-    goto LABEL_26;
-  }
-
-  if (sub_100022834(a2))
-  {
-    v7 = objc_autoreleasePoolPush();
-    v8 = off_100298C40;
-    if (off_100298C40)
-    {
-      v41 = sub_10000A878(a2);
-      v9 = "%s: accessory network (%@) is not suitable for autojoin";
-      goto LABEL_24;
-    }
-
-    goto LABEL_26;
-  }
-
-  if (a3)
-  {
-    if (sub_1001901C0(a1, a2))
-    {
-      goto LABEL_31;
-    }
-  }
-
-  else
-  {
-    if (sub_100177158(a2))
-    {
-      v7 = objc_autoreleasePoolPush();
-      v8 = off_100298C40;
-      if (off_100298C40)
-      {
-        v41 = sub_10000A878(a2);
-        v42 = 0;
-        v9 = "%s: disabled for Fully Loaded Network %@ isFilteringAJCandidates %d";
-        goto LABEL_24;
-      }
-
-      goto LABEL_26;
-    }
-
-    if (sub_1001901C0(a1, a2))
-    {
-LABEL_31:
-      v7 = objc_autoreleasePoolPush();
-      v8 = off_100298C40;
-      if (!off_100298C40)
-      {
-        goto LABEL_26;
-      }
-
-      v41 = sub_10000A878(a2);
-      v42 = a3;
-      v9 = "%s: disabled for missing password Network %@ isFilteringAJCandidates %d";
-      goto LABEL_24;
-    }
-
-    if (sub_10009F2A4(a2) && !sub_100009730(a2) && !sub_100174C78(a2))
-    {
-      v49 = 0;
-      v33 = sub_10009F954(a2, &v49 + 1, 0.1);
-      if (v33)
-      {
-        if (HIBYTE(v49))
-        {
-          goto LABEL_36;
-        }
-      }
-
-      else
-      {
-        v33 = sub_10009FB8C(a2, &v49, 0.1);
-        if (!v33)
-        {
-          v39 = HIBYTE(v49) | v49;
-          v7 = objc_autoreleasePoolPush();
-          if (!v39)
-          {
-            if (off_100298C40)
-            {
-              [off_100298C40 WFLog:4 message:{"%s: No password found for %@, return as unsuitable", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", sub_10000A878(a2), v42}];
-            }
-
-            goto LABEL_26;
-          }
-
-          if (off_100298C40)
-          {
-            [off_100298C40 WFLog:4 message:{"%s: Keychain fetch for %@ timed out, password presence unknown, ignoring", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", sub_10000A878(a2)}];
-          }
-
-          objc_autoreleasePoolPop(v7);
-          goto LABEL_36;
-        }
-
-        if (v49)
-        {
-          goto LABEL_36;
-        }
-      }
-
-      CFRelease(v33);
-    }
-  }
-
-LABEL_36:
-  v13 = sub_10001A9BC(a2);
-  v47 = 0.0;
-  v48 = 0;
-  v14 = [*(a1 + 6720) isNetworkTemporarilyDenyListedForAutoJoin:v13];
-  v15 = [*(a1 + 6720) isNetworkInDenyListedState:1 scanResult:v13];
-  v16 = [*(a1 + 6720) isNetworkDenyListedForAutoJoinDueToTrigDisc:v13 RSSI:&v48 timestamp:&v47];
-  if (a3)
-  {
-    v17 = v14;
-  }
-
-  else
-  {
-    v17 = v15 | v14;
-  }
-
-  v46 = v17;
-  v18 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: Network '%@', isFilteringAJCandidates %d, isSSIDTemporarilyDenylisted %d, isBSSIDDenylisted %d, isTDDenylisted %d", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", sub_10000A878(a2), a3, v14, v15, v16}];
-  }
-
-  objc_autoreleasePoolPop(v18);
-  v19 = v46;
-  v11 = ((v46 | v16) & 1) == 0;
-  if (a3)
-  {
-    if ((v16 & 1) != 0 || sub_10019057C(a1, a2))
-    {
-      v20 = objc_autoreleasePoolPush();
-      if (off_100298C40)
-      {
-        [off_100298C40 WFLog:3 message:{"%s: disabled for non-TD, non-onDemand problematic Network %@ isFilteringAJCandidates %d", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", sub_10000A878(a2), 1}];
-      }
-
-      objc_autoreleasePoolPop(v20);
-      v11 = 1;
-    }
-  }
-
-  else
-  {
-    if (!(v16 & 1 | (((v15 | v14) & 1) == 0)))
-    {
-      v25 = objc_autoreleasePoolPush();
-      if (off_100298C40)
-      {
-        [off_100298C40 WFLog:3 message:{"%s: Not considering problematic Network %@ isSSIDTemporarilyDenylisted %d isBSSIDDenylisted %d isFilteringAJCandidates %d isTDDenylisted %d", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", sub_10000A878(a2), v14, v15, 0, v16}];
-      }
-
-      goto LABEL_62;
-    }
-
-    if (v16)
-    {
-      if (sub_1000C59AC(a1, a2, v48, v47))
-      {
-        v11 = 1;
-      }
-
-      else
-      {
-        v11 = ((v46 | v16) & 1) == 0;
-      }
-    }
-
-    if (sub_100190354(a1, a2))
-    {
-      v34 = objc_autoreleasePoolPush();
-      if (off_100298C40)
-      {
-        [off_100298C40 WFLog:3 message:{"Use problematic network %@ for auto-join, as rssi improved", sub_10000A878(a2)}];
-      }
-
-      objc_autoreleasePoolPop(v34);
-      v11 = 1;
-    }
-
-    v35 = sub_100006F88(*(a1 + 64));
-    v36 = sub_100007D90(a1, v35, 1);
-    if (v36)
-    {
-      v37 = v36;
-      if (!sub_10000AFE4(v36) && CFEqual(v37, a2))
-      {
-        v38 = objc_autoreleasePoolPush();
-        if (off_100298C40)
-        {
-          [off_100298C40 WFLog:3 message:{"%s: skipping current network %@ as auto-join candidate", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", sub_10000A878(a2)}];
-        }
-
-        objc_autoreleasePoolPop(v38);
-        v11 = 0;
-      }
-
-      CFRelease(v37);
-    }
-
-    v19 = v46;
-  }
-
-  v21 = _os_feature_enabled_impl();
-  if (!a3 && ((v21 ^ 1 | v16 | v19) & 1) == 0)
-  {
-    v22 = *(a1 + 3560);
-    if (v22 && CFEqual(v22, a2) && !sub_100064904(*(a1 + 64)) && ![+[WiFiUserInteractionMonitor isCellularDataUsable] sharedInstance]
-    {
-      v25 = objc_autoreleasePoolPush();
-      if (off_100298C40)
-      {
-        [off_100298C40 WFLog:3 message:{"%s: %@ previously disconnected network and no alternative network interface - ok to autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", sub_10000A878(a2)}];
-      }
-
-      goto LABEL_138;
-    }
-
-    if ([+[WiFiUserInteractionMonitor isPriorityNetwork:"isPriorityNetwork:"]
-    {
-      v23 = objc_autoreleasePoolPush();
-      if (off_100298C40)
-      {
-        [off_100298C40 WFLog:3 message:{"%s: current network %@ is a Priority Network", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", sub_10000A878(a2)}];
-      }
-
-      objc_autoreleasePoolPop(v23);
-      if (![+[WiFiUserInteractionMonitor isRealTimeAppActive] sharedInstance]
-      {
-        v25 = objc_autoreleasePoolPush();
-        if (off_100298C40)
-        {
-          [off_100298C40 WFLog:3 message:{"%s: Priority Network with no RT traffic - ok to autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", v40}];
-        }
-
-        goto LABEL_138;
-      }
-
-      v24 = sub_100034EEC(a2, @"RSSI");
-      v25 = objc_autoreleasePoolPush();
-      if (v24 >= -70)
-      {
-        if (off_100298C40)
-        {
-          [off_100298C40 WFLog:3 message:{"%s: Priority Network with RT traffic and Favorable RSSI - ok to autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", v40}];
-        }
-
-LABEL_138:
-        v11 = 1;
-        goto LABEL_139;
-      }
-
-      if (off_100298C40)
-      {
-        [off_100298C40 WFLog:3 message:{"%s: Priority Network with RT traffic and Unfavorable RSSI - defer autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", v40, v42, v43, v44, v45}];
-      }
-    }
-
-    else if ([+[WiFiUserInteractionMonitor sharedInstance](WiFiUserInteractionMonitor isPublicNetwork:"isPublicNetwork:", a2]|| sub_1000A1F04(a2) && [+[WiFiUserInteractionMonitor isCellularDataUsable] sharedInstance]
-    {
-      if ([*(a1 + 9088) confidence] == 2)
-      {
-        [objc_msgSend(*(a1 + 9088) "settledDate")];
-        v27 = v26;
-        [objc_msgSend(*(a1 + 9088) "settledDate")];
-        if (v27 < 0.0)
-        {
-          v28 = -v28;
-        }
-
-        if (v28 < 300.0 && ([+[WiFiUserInteractionMonitor isCarModeActive]|| (*(a1 + 3408) | 2) == 6 sharedInstance])
-        {
-          v25 = objc_autoreleasePoolPush();
-          v29 = off_100298C40;
-          if (off_100298C40)
-          {
-            [objc_msgSend(*(a1 + 9088) "settledDate")];
-            v31 = v30;
-            [objc_msgSend(*(a1 + 9088) "settledDate")];
-            if (v31 < 0.0)
-            {
-              v32 = -v32;
-            }
-
-            [v29 WFLog:3 message:{"%s: Public, Carrier (no cellular), or Outdoor Network, High Confidence Settlement (%.3fs ago, timeout=%ds), Driving - defer autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", *&v32, 300, v43, v44, v45}];
-          }
-        }
-
-        else if ([+[WiFiUserInteractionMonitor isLowQualityNetwork:"isLowQualityNetwork:"]
-        {
-          v25 = objc_autoreleasePoolPush();
-          if (off_100298C40)
-          {
-            [off_100298C40 WFLog:3 message:{"%s: Public, Carrier (no cellular), or Outdoor Network, High Confidence Settlement, Low Quality - defer autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", v40, v42, v43, v44, v45}];
-          }
-        }
-
-        else
-        {
-          if (![+[WiFiUserInteractionMonitor sharedInstance](WiFiUserInteractionMonitor isRealTimeAppActive]|| ![+[WiFiUserInteractionMonitor isCellularInexpensive5G] sharedInstance]
-          {
-            v25 = objc_autoreleasePoolPush();
-            if (off_100298C40)
-            {
-              [off_100298C40 WFLog:3 message:{"%s: Public, Carrier (no cellular), or Outdoor Network, High Confidence Settlement, Ok Quality with no RT traffic or Expensive Cellular - ok to autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", v40}];
-            }
-
-            goto LABEL_138;
-          }
-
-          v25 = objc_autoreleasePoolPush();
-          if (off_100298C40)
-          {
-            [off_100298C40 WFLog:3 message:{"%s: Public, Carrier (no cellular), or Outdoor Network, High Confidence Settlement, Ok Quality with RT traffic and Inexpensive Cellular - defer autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", v40, v42, v43, v44, v45}];
-          }
-        }
-      }
-
-      else if ([+[WiFiUserInteractionMonitor isCarModeActive]|| (*(a1 + 3408) | 2) == 6 sharedInstance]
-      {
-        v25 = objc_autoreleasePoolPush();
-        if (off_100298C40)
-        {
-          [off_100298C40 WFLog:3 message:{"%s: Public, Carrier (no cellular), or Outdoor Network, Low Confidence Settlement, Driving - defer autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", v40, v42, v43, v44, v45}];
-        }
-      }
-
-      else if ([+[WiFiUserInteractionMonitor isLowQualityNetwork:"isLowQualityNetwork:"]
-      {
-        v25 = objc_autoreleasePoolPush();
-        if (off_100298C40)
-        {
-          [off_100298C40 WFLog:3 message:{"%s: Public, Carrier (no cellular), or Outdoor Network, Low Confidence Settlement, Low Quality, Not Driving - defer autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", v40, v42, v43, v44, v45}];
-        }
-      }
-
-      else
-      {
-        if (![+[WiFiUserInteractionMonitor sharedInstance](WiFiUserInteractionMonitor isRealTimeAppActive]|| ![+[WiFiUserInteractionMonitor isCellularInexpensive5G] sharedInstance]
-        {
-          v25 = objc_autoreleasePoolPush();
-          if (off_100298C40)
-          {
-            [off_100298C40 WFLog:3 message:{"%s: Public, Carrier (no cellular), or Outdoor Network, Low Confidence Settlement, Ok Quality, Not Driving with no RT traffic or Expensive Cellular - ok to autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", v40}];
-          }
-
-          goto LABEL_138;
-        }
-
-        v25 = objc_autoreleasePoolPush();
-        if (off_100298C40)
-        {
-          [off_100298C40 WFLog:3 message:{"%s: Public, Carrier (no cellular), or Outdoor Network, Low Confidence Settlement, Ok Quality, Not Driving with RT traffic and Inexpensive Cellular - defer autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", v40, v42, v43, v44, v45}];
-        }
-      }
-    }
-
-    else
-    {
-      if (![+[WiFiUserInteractionMonitor sharedInstance](WiFiUserInteractionMonitor isRealTimeAppActive]|| ![+[WiFiUserInteractionMonitor isCellularInexpensive5G] sharedInstance]
-      {
-        v25 = objc_autoreleasePoolPush();
-        if (off_100298C40)
-        {
-          [off_100298C40 WFLog:3 message:{"%s: Non-Public, Non-Carrier (or cellular available), Non-Outdoor Network, with RT traffic and Inexpensive Cellular - ok to autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", v40}];
-        }
-
-        goto LABEL_138;
-      }
-
-      v25 = objc_autoreleasePoolPush();
-      if (off_100298C40)
-      {
-        [off_100298C40 WFLog:3 message:{"%s: Non-Public, Non-Carrier (or cellular available), Non-Outdoor Network, with RT traffic and Inexpensive Cellular - defer autojoin", "__WiFiDeviceManagerKnownNetworkSuitabilityCheck", v40, v42, v43, v44, v45}];
-      }
-    }
-
-LABEL_62:
-    v11 = 0;
-LABEL_139:
-    objc_autoreleasePoolPop(v25);
-  }
-
-  if (v13)
-  {
-  }
-
-LABEL_27:
-  objc_autoreleasePoolPop(v6);
-  return v11;
-}
-
 void sub_1000E1594(uint64_t a1, const void *a2, int a3)
 {
   if (a1)
@@ -550,9 +73,9 @@ void sub_1000E1594(uint64_t a1, const void *a2, int a3)
   }
 }
 
-void sub_1000E1714(uint64_t a1)
+void sub_1000E1714(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  if (!result)
   {
     sub_1001A4710();
   }
@@ -643,16 +166,14 @@ void sub_1000E186C(uint64_t a1)
 void sub_1000E18F8(uint64_t a1)
 {
   sub_1000158B8(*(*(a1 + 32) + 120), 0, 0);
-  v2 = *(*(a1 + 32) + 5536);
-  v3 = *(a1 + 48);
   SCNetworkInterfaceSetPrimaryRank();
-  v4 = objc_autoreleasePoolPush();
+  v2 = objc_autoreleasePoolPush();
   if (off_100298C40)
   {
     [off_100298C40 WFLog:3 message:{"%s: setting interface rank %s for network %@", "__WiFiDeviceManagerSetInterfaceRank_block_invoke", "kSCNetworkServicePrimaryRankDefault", sub_10000A878(*(a1 + 40))}];
   }
 
-  objc_autoreleasePoolPop(v4);
+  objc_autoreleasePoolPop(v2);
 }
 
 void sub_1000E19AC(void *a1)
@@ -737,34 +258,34 @@ void sub_1000E1AA4(uint64_t a1, uint64_t a2, int a3, int a4)
   LODWORD(v50) = (CFAbsoluteTimeGetCurrent() - *(a1 + 744));
   LODWORD(v57) = a4;
   v16 = sub_100058CA4(a3);
-  v17 = @"unknown";
+  v18 = @"unknown";
   if (v16)
   {
-    v17 = v16;
+    v18 = v16;
   }
 
-  *(&v56 + 1) = v17;
+  *(&v56 + 1) = v18;
   if ((v14 & 0x100) != 0)
   {
-    v18 = @"11ax";
+    v19 = @"11ax";
   }
 
   else if ((v14 & 0x80) != 0)
   {
-    v18 = @"11ac";
+    v19 = @"11ac";
   }
 
   else if ((v14 & 0x10) != 0)
   {
-    v18 = @"11n";
+    v19 = @"11n";
   }
 
   else
   {
-    v18 = @"legacy";
+    v19 = @"legacy";
   }
 
-  *(&v57 + 1) = v18;
+  *(&v57 + 1) = v19;
   WORD5(v55) = v15;
   *v49 = @"Unknown";
   *&v49[8] = @"Unknown";
@@ -776,27 +297,26 @@ void sub_1000E1AA4(uint64_t a1, uint64_t a2, int a3, int a4)
   }
 
   *(&v50 + 4) = *(a1 + 752);
-  v19 = *(a1 + 768);
+  v20 = *(a1 + 768);
   HIDWORD(v50) = *(a1 + 760);
-  LODWORD(v51) = v19;
+  LODWORD(v51) = v20;
   DWORD1(v51) = *(a1 + 764);
   *(&v51 + 1) = *(a1 + 776);
-  v20 = *(a1 + 784);
+  v21 = *(a1 + 784);
   LODWORD(v52) = *(a1 + 792);
-  DWORD1(v52) = v20;
+  DWORD1(v52) = v21;
   *(&v52 + 1) = *(a1 + 800);
-  v21 = *(a1 + 808);
+  v22 = *(a1 + 808);
   LODWORD(v53) = *(a1 + 816);
-  DWORD1(v53) = v21;
+  DWORD1(v53) = v22;
   *(&v53 + 1) = *(a1 + 824);
-  v22 = *(a1 + 832);
+  v23 = *(a1 + 832);
   LODWORD(v54) = *(a1 + 840);
-  DWORD1(v54) = v22;
+  DWORD1(v54) = v23;
   *(&v54 + 1) = *(a1 + 848);
-  v23 = *(a1 + 856);
+  v24 = *(a1 + 856);
   LODWORD(v55) = *(a1 + 864);
-  DWORD1(v55) = v23;
-  v24 = *(a1 + 872);
+  DWORD1(v55) = v24;
   if (*(a1 + 892))
   {
     v25 = 1;
@@ -809,7 +329,7 @@ void sub_1000E1AA4(uint64_t a1, uint64_t a2, int a3, int a4)
 
   HIDWORD(v55) = *(a1 + 872);
   LODWORD(v56) = v25;
-  v26 = sub_100014000(a2);
+  v26 = sub_100014000(a2, v17);
   if (v26)
   {
     valuePtr = -21846;
@@ -1126,13 +646,12 @@ void sub_1000E2574(uint64_t a1, void *a2)
     objc_autoreleasePoolPop(v4);
   }
 
-  v5 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 32) invalidate];
   }
 
-  v6 = *(a1 + 32);
+  v5 = *(a1 + 32);
 }
 
 void sub_1000E2620(int a1, uint64_t a2, CFDictionaryRef theDict, uint64_t a4, uint64_t a5)
@@ -1628,9 +1147,9 @@ LABEL_33:
     if (*(a1 + 3560))
     {
       v19 = *(a1 + 3624);
-      v68.length = CFArrayGetCount(v19);
-      v68.location = 0;
-      if (CFArrayGetFirstIndexOfValue(v19, v68, *(a1 + 3560)) != -1)
+      v69.length = CFArrayGetCount(v19);
+      v69.location = 0;
+      if (CFArrayGetFirstIndexOfValue(v19, v69, *(a1 + 3560)) != -1)
       {
         ValueAtIndex = *(a1 + 3560);
         if (ValueAtIndex)
@@ -1676,7 +1195,7 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  v61 = v2;
+  v62 = v2;
   v14 = 0;
   while (1)
   {
@@ -1720,25 +1239,25 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v58 = CFArrayGetValueAtIndex(*(a1 + 3624), v17);
-  if (!v58)
+  v59 = CFArrayGetValueAtIndex(*(a1 + 3624), v17);
+  if (!v59)
   {
 LABEL_30:
     v9 = v12;
-    v2 = v61;
+    v2 = v62;
     goto LABEL_32;
   }
 
-  ValueAtIndex = v58;
+  ValueAtIndex = v59;
   *(a1 + 5692) = 11;
-  v59 = objc_autoreleasePoolPush();
-  v2 = v61;
+  v60 = objc_autoreleasePoolPush();
+  v2 = v62;
   if (off_100298C40)
   {
     [off_100298C40 WFLog:3 message:{"%s: Enter location based AJ's 1st stage - top network %@", "__WiFiDeviceManagerScanPreviousNetworkChannel", ValueAtIndex}];
   }
 
-  objc_autoreleasePoolPop(v59);
+  objc_autoreleasePoolPop(v60);
   *(a1 + 3432) = ValueAtIndex;
   CFRetain(ValueAtIndex);
   *(a1 + 3424) = v12;
@@ -1780,7 +1299,7 @@ LABEL_74:
   }
 
   v23 = v22;
-  v62 = v2;
+  v63 = v2;
   if (!sub_10000A7CC(ValueAtIndex))
   {
 LABEL_55:
@@ -1810,7 +1329,7 @@ LABEL_55:
   if (v24 > 14 || (v25 = sub_10000A540(ValueAtIndex, @"networkKnownBSSListKey")) == 0 || (v26 = v25, CFArrayGetCount(v25) < 2) || CFArrayGetCount(v26) < 1)
   {
 LABEL_54:
-    v2 = v62;
+    v2 = v63;
     goto LABEL_55;
   }
 
@@ -1842,16 +1361,16 @@ LABEL_54:
   v33 = v31;
   *(a1 + 676) = valuePtr[0];
   *(a1 + 680) = 1;
-  v60 = objc_autoreleasePoolPush();
+  v61 = objc_autoreleasePoolPush();
   if (off_100298C40)
   {
     [off_100298C40 WFLog:3 message:{"%s: Re-directed to connect to chanenl %d", "__WiFiDeviceManagerScanPreviousNetworkChannel", LODWORD(valuePtr[0])}];
   }
 
-  objc_autoreleasePoolPop(v60);
+  objc_autoreleasePoolPop(v61);
 LABEL_57:
-  v63 = 0;
-  if (sub_1000E6A7C(a1, &v63))
+  v64 = 0;
+  if (sub_1000E6A7C(a1, &v64))
   {
     v34 = sub_1000333E8(ValueAtIndex, @"CHANNEL");
     if ((v34 - 1) <= 0xD)
@@ -1867,8 +1386,8 @@ LABEL_57:
     }
   }
 
-  v63 = 0;
-  if (sub_1000E6D08(a1, &v63))
+  v64 = 0;
+  if (sub_1000E6D08(a1, &v64))
   {
     v42 = sub_1000333E8(ValueAtIndex, @"CHANNEL");
     if (v42 >= 15)
@@ -1881,9 +1400,9 @@ LABEL_57:
       }
 
 LABEL_71:
-      v2 = v62;
+      v2 = v63;
       objc_autoreleasePoolPop(v36);
-      *(a1 + 6232) = v63;
+      *(a1 + 6232) = v64;
       v44 = 4294963394;
 LABEL_77:
       v45 = objc_autoreleasePoolPush();
@@ -1918,7 +1437,7 @@ LABEL_77:
   {
 LABEL_106:
     v44 = 4294963394;
-    v2 = v62;
+    v2 = v63;
     goto LABEL_77;
   }
 
@@ -1932,44 +1451,44 @@ LABEL_106:
 
   v51 = Mutable;
   CFArrayAppendValue(Mutable, v49);
-  sub_1000E1714(a1);
-  v52 = objc_autoreleasePoolPush();
+  sub_1000E1714(a1, v52);
+  v53 = objc_autoreleasePoolPush();
   if (off_100298C40)
   {
-    v53 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s", [[NSString stringWithFormat:?];
+    v54 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s", [[NSString stringWithFormat:?];
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v54 = [+[NSString stringWithFormat:](NSString UTF8String:@"[WiFiPolicy] %s"];
+      v55 = [+[NSString stringWithFormat:](NSString UTF8String:@"[WiFiPolicy] %s"];
       *buf = 136446210;
-      v65 = v54;
+      v66 = v55;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
     }
   }
 
-  objc_autoreleasePoolPop(v52);
+  objc_autoreleasePoolPop(v53);
   if (*(a1 + 5592) == 1 || *(a1 + 5576))
   {
-    v56 = objc_autoreleasePoolPush();
-    v2 = v62;
+    v57 = objc_autoreleasePoolPush();
+    v2 = v63;
     if (off_100298C40)
     {
       [off_100298C40 WFLog:3 message:{"%s: CarPlay scan dewll time (%d), channel (%d), dual band (%d)", "__WiFiDeviceManagerScanPreviousNetworkChannel", 40, *(a1 + 676), *(a1 + 680)}];
     }
 
-    objc_autoreleasePoolPop(v56);
-    v55 = 40;
+    objc_autoreleasePoolPop(v57);
+    v56 = 40;
   }
 
   else
   {
-    v55 = 110;
-    v2 = v62;
+    v56 = 110;
+    v2 = v63;
   }
 
-  v57 = sub_100191A78(a1, *(a1 + 3600), v51, v55, 0x19);
-  if (v57)
+  v58 = sub_100191A78(a1, *(a1 + 3600), v51, v56, 0x19);
+  if (v58)
   {
-    v44 = v57;
+    v44 = v58;
     CFRelease(v49);
     CFRelease(v51);
     goto LABEL_77;
@@ -1990,12 +1509,12 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
   v8 = objc_autoreleasePoolPush();
   if (off_100298C40)
   {
-    v122 = [NSString stringWithFormat:@"%s: current state: %@", "__WiFiDeviceManagerProcessAssociationResult", sub_1000AA864(*(a1 + 3336))];
-    v121 = [+[NSString stringWithFormat:](NSString UTF8String:@"{%@*} %@"];
+    v121 = [NSString stringWithFormat:@"%s: current state: %@", "__WiFiDeviceManagerProcessAssociationResult", sub_1000AA864(*(a1 + 3336))];
+    v120 = [+[NSString stringWithFormat:](NSString UTF8String:@"{%@*} %@"];
     v9 = [NSString stringWithFormat:@"%s"];
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v121 = [(NSString *)v9 UTF8String];
+      v120 = [(NSString *)v9 UTF8String];
       LODWORD(buf) = 136446210;
       *(&buf + 4) = [[NSString stringWithFormat:?]];
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%{public}s", &buf, 0xCu);
@@ -2003,7 +1522,7 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
   }
 
   objc_autoreleasePoolPop(v8);
-  v156[0] = 0.0;
+  v155[0] = 0.0;
   if (a3)
   {
     MutableCopy = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, a3);
@@ -2025,10 +1544,10 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
   {
     if (sub_100009730(a2))
     {
-      v157 = 0;
-      v156[1] = 0.0;
+      v156 = 0;
+      v155[1] = 0.0;
       *buffer = 0;
-      v164 = 0;
+      v163 = 0;
       v13 = sub_100009664(*(a1 + 64));
       CFStringGetCString(v13, buffer, 16, 0);
       EAPOLControlCopyStateAndStatus();
@@ -2038,8 +1557,8 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
     v19 = off_100298C40;
     if (off_100298C40)
     {
-      v121 = "__WiFiDeviceManagerProcessAssociationResult";
-      v122 = sub_10000A878(a2);
+      v120 = "__WiFiDeviceManagerProcessAssociationResult";
+      v121 = sub_10000A878(a2);
       [v19 WFLog:3 message:{"%s: %@ not an EAP network and not checking AT notification code, or is EAP network and does not have AT notification code"}];
     }
 
@@ -2060,7 +1579,7 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
         sub_10000AD34(a2, @"ALLOW_OWE_TSN", v23);
       }
 
-      sub_100174EB4(v21, a2, v23, v24, v25, v26, v27, v28, v121, v122, v123, v124, source, v127, v128, v130, value, cf, v139, v142, context, v146, v147, v148, v149, p_buf);
+      sub_100174EB4(v21, a2, v23, v24, v25, v26, v27, v28, v120, v121, v122, v123, source, v126, v127, v129, value, cf, v138, v141, context, v145, v146, v147, v148, p_buf);
       v29 = sub_10000DC20(v21);
       if (v29)
       {
@@ -2073,7 +1592,6 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
         v31 = v30;
         if (v30)
         {
-          v32 = *(a1 + 6872);
           [v30 coordinate];
           [v31 coordinate];
           [v31 horizontalAccuracy];
@@ -2084,11 +1602,11 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
         if (*(a1 + 3470))
         {
           Current = CFAbsoluteTimeGetCurrent();
-          v34 = CFDateCreate(kCFAllocatorDefault, Current);
-          if (v34)
+          v33 = CFDateCreate(kCFAllocatorDefault, Current);
+          if (v33)
           {
-            sub_100175658(a2, v34);
-            CFRelease(v34);
+            sub_100175658(a2, v33);
+            CFRelease(v33);
           }
         }
       }
@@ -2096,90 +1614,90 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
       CFRelease(v21);
     }
 
-    v35 = CFAbsoluteTimeGetCurrent();
-    v36 = CFDateCreate(kCFAllocatorDefault, v35);
-    if (v36)
+    v34 = CFAbsoluteTimeGetCurrent();
+    v35 = CFDateCreate(kCFAllocatorDefault, v34);
+    if (v35)
     {
-      sub_1000A0170(a2, 0, v36);
-      v37 = objc_autoreleasePoolPush();
-      v38 = off_100298C40;
+      sub_1000A0170(a2, 0, v35);
+      v36 = objc_autoreleasePoolPush();
+      v37 = off_100298C40;
       if (off_100298C40)
       {
-        v122 = sub_10000A878(a2);
-        v123 = v36;
-        v121 = "__WiFiDeviceManagerProcessAssociationResult";
-        [v38 WFLog:3 message:"%s: setting auto association date for %@ to %@"];
+        v121 = sub_10000A878(a2);
+        v122 = v35;
+        v120 = "__WiFiDeviceManagerProcessAssociationResult";
+        [v37 WFLog:3 message:"%s: setting auto association date for %@ to %@"];
       }
 
-      objc_autoreleasePoolPop(v37);
-      CFRelease(v36);
+      objc_autoreleasePoolPop(v36);
+      CFRelease(v35);
     }
 
     if (a2)
     {
-      v39 = sub_10001A9BC(a2);
-      [*(a1 + 6720) isNetworkDenyListedForAutoJoinDueToTrigDisc:v39 RSSI:0 timestamp:v156];
-      sub_10013D5D8(*(a1 + 120), v156[0]);
+      v38 = sub_10001A9BC(a2);
+      [*(a1 + 6720) isNetworkDenyListedForAutoJoinDueToTrigDisc:v38 RSSI:0 timestamp:v155];
+      sub_10013D5D8(*(a1 + 120), v155[0]);
 
       sub_100193574(a1, a2, 0);
-      v40 = sub_10001A9BC(a2);
-      [*(a1 + 6720) removeNetworkDenyListInfoWithReason:1 forScanResult:v40];
-      [*(a1 + 6720) removeNetworkDenyListInfoForTrigger:0 forNetwork:v40];
+      v39 = sub_10001A9BC(a2);
+      [*(a1 + 6720) removeNetworkDenyListInfoWithReason:1 forScanResult:v39];
+      [*(a1 + 6720) removeNetworkDenyListInfoForTrigger:0 forNetwork:v39];
     }
 
     else
     {
-      v41 = objc_autoreleasePoolPush();
+      v40 = objc_autoreleasePoolPush();
       if (off_100298C40)
       {
-        v121 = "__WiFiDeviceManagerProcessAssociationResult";
+        v120 = "__WiFiDeviceManagerProcessAssociationResult";
         [off_100298C40 WFLog:3 message:"%s: Failed to set blacklist last trigger disconnect"];
       }
 
-      objc_autoreleasePoolPop(v41);
+      objc_autoreleasePoolPop(v40);
       sub_100193574(a1, 0, 0);
-      v42 = objc_autoreleasePoolPush();
+      v41 = objc_autoreleasePoolPush();
       if (off_100298C40)
       {
-        v121 = "__WiFiDeviceManagerProcessAssociationResult";
+        v120 = "__WiFiDeviceManagerProcessAssociationResult";
         [off_100298C40 WFLog:3 message:"%s: Failed to clear blacklist trigger"];
       }
 
-      objc_autoreleasePoolPop(v42);
+      objc_autoreleasePoolPop(v41);
     }
 
     if (*(a1 + 3468))
     {
-      v43 = objc_autoreleasePoolPush();
-      v44 = off_100298C40;
+      v42 = objc_autoreleasePoolPush();
+      v43 = off_100298C40;
       if (off_100298C40)
       {
-        v121 = "__WiFiDeviceManagerProcessAssociationResult";
-        v122 = sub_10000A878(a2);
-        [v44 WFLog:3 message:"%s: tagging network %@ as moving"];
+        v120 = "__WiFiDeviceManagerProcessAssociationResult";
+        v121 = sub_10000A878(a2);
+        [v43 WFLog:3 message:"%s: tagging network %@ as moving"];
       }
 
-      objc_autoreleasePoolPop(v43);
-      v45 = &kCFBooleanTrue;
+      objc_autoreleasePoolPop(v42);
+      v44 = &kCFBooleanTrue;
     }
 
     else
     {
-      v45 = &kCFBooleanFalse;
+      v44 = &kCFBooleanFalse;
     }
 
-    sub_10000AD34(a2, @"WiFiNetworkAttributeIsMoving", *v45);
+    sub_10000AD34(a2, @"WiFiNetworkAttributeIsMoving", *v44);
     if (*(a1 + 3516))
     {
-      v46 = a2 == 0;
+      v45 = a2 == 0;
     }
 
     else
     {
-      v46 = 1;
+      v45 = 1;
     }
 
-    if (!v46)
+    if (!v45)
     {
       sub_10000AD34(a2, @"TransitionDisabledFlags", [NSNumber numberWithUnsignedInt:?]);
     }
@@ -2191,36 +1709,36 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
       {
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v168 = 0x2020000000;
-        v169 = 0;
-        *&v158 = 0;
-        *(&v158 + 1) = &v158;
-        v159 = 0x2020000000;
-        v160 = 0;
+        v167 = 0x2020000000;
+        v168 = 0;
+        *&v157 = 0;
+        *(&v157 + 1) = &v157;
+        v158 = 0x2020000000;
+        v159 = 0;
         if (a2)
         {
-          v47 = CFRetain(a2);
-          *(*(&buf + 1) + 24) = v47;
+          v46 = CFRetain(a2);
+          *(*(&buf + 1) + 24) = v46;
         }
 
         if (v11)
         {
-          v48 = CFRetain(v11);
-          *(*(&v158 + 1) + 24) = v48;
+          v47 = CFRetain(v11);
+          *(*(&v157 + 1) + 24) = v47;
         }
 
         CFRetain(a1);
-        v49 = *(a1 + 240);
+        v48 = *(a1 + 240);
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_1000EB1B8;
         block[3] = &unk_1002619D8;
         block[4] = &buf;
-        block[5] = &v158;
+        block[5] = &v157;
         block[6] = a1;
-        v155 = 0;
-        dispatch_async(v49, block);
-        _Block_object_dispose(&v158, 8);
+        v154 = 0;
+        dispatch_async(v48, block);
+        _Block_object_dispose(&v157, 8);
         _Block_object_dispose(&buf, 8);
       }
 
@@ -2237,10 +1755,10 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
     sub_1000ED650(a1, @"autoJoinSuccess", a2, 0);
     if (_os_feature_enabled_impl())
     {
-      v50 = sub_10000A878(a2);
-      if (v50)
+      v49 = sub_10000A878(a2);
+      if (v49)
       {
-        [*(a1 + 9008) removeObjectForKey:v50];
+        [*(a1 + 9008) removeObjectForKey:v49];
       }
     }
 
@@ -2249,7 +1767,7 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
       sub_100193454(a1, a2, 0);
     }
 
-    sub_100193620(a1, a2, v51, v52, v53, v54, v55, v56, v121, v122, v123, v124, source, v127, SWORD2(v127), v128, v130, value, cf, v139, v142, context, v146, v147, v148, v149, p_buf);
+    sub_100193620(a1, a2, v50, v51, v52, v53, v54, v55, v120, v121, v122, v123, source, v126, SWORD2(v126), v127, v129, value, cf, v138, v141, context, v145, v146, v147, v148, p_buf);
     if (v11)
     {
       CFRelease(v11);
@@ -2258,20 +1776,20 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
     *(a1 + 6680) = sub_100189234(a1, a2);
     sub_1000BBAE0(a1, 1, 1);
     sub_1000E2164(a1, a2);
-    v57 = objc_autoreleasePoolPush();
+    v56 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
-      v58 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s", [[NSString stringWithFormat:?];
+      v57 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s", [[NSString stringWithFormat:?];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        v59 = [+[NSString stringWithFormat:](NSString UTF8String:@"[WiFiPolicy] %s"];
+        v58 = [+[NSString stringWithFormat:](NSString UTF8String:@"[WiFiPolicy] %s"];
         LODWORD(buf) = 136446210;
-        *(&buf + 4) = v59;
+        *(&buf + 4) = v58;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%{public}s", &buf, 0xCu);
       }
     }
 
-    objc_autoreleasePoolPop(v57);
+    objc_autoreleasePoolPop(v56);
     v14 = 0;
     goto LABEL_72;
   }
@@ -2279,9 +1797,9 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
   v14 = *(a1 + 3336);
   if (a2)
   {
-    HIDWORD(v128) = sub_100009730(a2);
+    HIDWORD(v127) = sub_100009730(a2);
     v15 = sub_10000B3A8(a1, a2, 1);
-    v140 = v15;
+    v139 = v15;
     v16 = kCFBooleanFalse;
     if (v15)
     {
@@ -2296,27 +1814,27 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
 
   else
   {
-    HIDWORD(v128) = 0;
-    v140 = 0;
+    HIDWORD(v127) = 0;
+    v139 = 0;
     v17 = 0;
     v16 = kCFBooleanFalse;
   }
 
-  v143 = v17;
-  v61 = sub_10000AA64(*(a1 + 3752), v17);
-  cfa = v61;
-  if (v61)
+  v142 = v17;
+  v60 = sub_10000AA64(*(a1 + 3752), v17);
+  cfa = v60;
+  if (v60)
   {
-    v62 = sub_10000A540(v61, @"PRIVATE_MAC_ADDRESS");
-    if (v62 && (TypeID = CFDictionaryGetTypeID(), TypeID == CFGetTypeID(v62)))
+    v61 = sub_10000A540(v60, @"PRIVATE_MAC_ADDRESS");
+    if (v61 && (TypeID = CFDictionaryGetTypeID(), TypeID == CFGetTypeID(v61)))
     {
-      v64 = CFDictionaryGetValue(v62, @"PRIVATE_MAC_ADDRESS_VALUE");
-      v131 = sub_10000ABFC(v64);
+      v63 = CFDictionaryGetValue(v61, @"PRIVATE_MAC_ADDRESS_VALUE");
+      v130 = sub_10000ABFC(v63);
     }
 
     else
     {
-      v131 = 0;
+      v130 = 0;
     }
 
     v16 = sub_10000A540(cfa, @"MacAddressRandomisationTagMigratedNetwork");
@@ -2324,8 +1842,8 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
 
   else
   {
-    v131 = 0;
-    v62 = 0;
+    v130 = 0;
+    v61 = 0;
   }
 
   if (sub_10000A154(*(a1 + 6872)))
@@ -2333,7 +1851,7 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
     goto LABEL_82;
   }
 
-  v65 = *(a1 + 3736);
+  v64 = *(a1 + 3736);
   if (!*(a1 + 3736))
   {
     goto LABEL_83;
@@ -2341,43 +1859,43 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
 
   if (!v16 || v16 != kCFBooleanTrue)
   {
-    v101 = cfa;
-    if (cfa && v131)
+    v100 = cfa;
+    if (cfa && v130)
     {
-      v101 = cfa;
-      if (!sub_10000C894(v143) && *(a1 + 4792))
+      v100 = cfa;
+      if (!sub_10000C894(v142) && *(a1 + 4792))
       {
         if (*(a1 + 240))
         {
-          *&v158 = 0;
-          *(&v158 + 1) = &v158;
-          v159 = 0x2020000000;
-          v160 = 0;
-          v102 = CFRetain(cfa);
-          *(*(&v158 + 1) + 24) = v102;
+          *&v157 = 0;
+          *(&v157 + 1) = &v157;
+          v158 = 0x2020000000;
+          v159 = 0;
+          v101 = CFRetain(cfa);
+          *(*(&v157 + 1) + 24) = v101;
           CFRetain(a1);
-          v103 = *(a1 + 240);
+          v102 = *(a1 + 240);
           *&buf = _NSConcreteStackBlock;
           *(&buf + 1) = 3221225472;
-          v168 = sub_1000EB9D4;
-          v169 = &unk_10025EFD8;
-          v170 = &v158;
-          v171 = a1;
-          dispatch_async(v103, &buf);
-          _Block_object_dispose(&v158, 8);
+          v167 = sub_1000EB9D4;
+          v168 = &unk_10025EFD8;
+          v169 = &v157;
+          v170 = a1;
+          dispatch_async(v102, &buf);
+          _Block_object_dispose(&v157, 8);
         }
 
         else
         {
-          v117 = objc_autoreleasePoolPush();
+          v116 = objc_autoreleasePoolPush();
           if (off_100298C40)
           {
-            v121 = "__WiFiDeviceManagerProcessAssociationFailure";
+            v120 = "__WiFiDeviceManagerProcessAssociationFailure";
             [off_100298C40 WFLog:4 message:"%s: null queue."];
           }
 
-          objc_autoreleasePoolPop(v117);
-          v101 = cfa;
+          objc_autoreleasePoolPop(v116);
+          v100 = cfa;
         }
       }
     }
@@ -2387,52 +1905,52 @@ uint64_t sub_1000E3DB4(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t
       goto LABEL_82;
     }
 
-    *(&v158 + 4) = 0xAAAAAAAAAAAAAAAALL;
-    LODWORD(v158) = 5;
-    sub_100147640(v101, &v158);
-    sub_1001473EC(&v158);
+    *(&v157 + 4) = 0xAAAAAAAAAAAAAAAALL;
+    LODWORD(v157) = 5;
+    sub_100147640(v100, &v157);
+    sub_1001473EC(&v157);
     goto LABEL_82;
   }
 
-  if (!v62)
+  if (!v61)
   {
 LABEL_82:
-    v65 = 0;
+    v64 = 0;
 LABEL_83:
     LODWORD(value) = 1;
     goto LABEL_84;
   }
 
-  v80 = CFDictionaryGetTypeID();
-  v81 = CFGetTypeID(v62);
-  v65 = 0;
+  v79 = CFDictionaryGetTypeID();
+  v80 = CFGetTypeID(v61);
+  v64 = 0;
   LODWORD(value) = 1;
-  if (v80 == v81 && v131)
+  if (v79 == v80 && v130)
   {
-    v82 = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, v62);
+    v81 = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, 0, v61);
     value = sub_100059228(1);
-    CFDictionarySetValue(v82, @"PRIVATE_MAC_ADDRESS_TYPE", value);
-    CFDictionarySetValue(v82, @"PRIVATE_MAC_ADDRESS_VALUE", *(a1 + 3760));
-    sub_10000AD34(v143, @"PRIVATE_MAC_ADDRESS", v82);
-    v83 = objc_autoreleasePoolPush();
-    v84 = off_100298C40;
+    CFDictionarySetValue(v81, @"PRIVATE_MAC_ADDRESS_TYPE", value);
+    CFDictionarySetValue(v81, @"PRIVATE_MAC_ADDRESS_VALUE", *(a1 + 3760));
+    sub_10000AD34(v142, @"PRIVATE_MAC_ADDRESS", v81);
+    v82 = objc_autoreleasePoolPush();
+    v83 = off_100298C40;
     if (off_100298C40)
     {
-      v121 = "__WiFiDeviceManagerProcessAssociationFailure";
-      v122 = sub_10000A878(v143);
-      [v84 WFLog:3 message:"%s: WFMacRandomisation : Network <%@> falling back to physical Mac due to Assoc failure"];
+      v120 = "__WiFiDeviceManagerProcessAssociationFailure";
+      v121 = sub_10000A878(v142);
+      [v83 WFLog:3 message:"%s: WFMacRandomisation : Network <%@> falling back to physical Mac due to Assoc failure"];
     }
 
-    objc_autoreleasePoolPop(v83);
+    objc_autoreleasePoolPop(v82);
     if (value)
     {
       CFRelease(value);
     }
 
-    v85 = *(a1 + 4760);
-    if (v85)
+    v84 = *(a1 + 4760);
+    if (v84)
     {
-      v85(a1, v143, *(a1 + 4768));
+      v84(a1, v142, *(a1 + 4768));
     }
 
     if (cfa)
@@ -2443,45 +1961,45 @@ LABEL_83:
       sub_1001473EC(&buf);
     }
 
-    if (v82)
+    if (v81)
     {
-      CFRelease(v82);
+      CFRelease(v81);
     }
 
-    v86 = objc_autoreleasePoolPush();
-    v87 = off_100298C40;
+    v85 = objc_autoreleasePoolPush();
+    v86 = off_100298C40;
     if (off_100298C40)
     {
-      v121 = sub_10000A878(v143);
-      v122 = *(a1 + 1184);
-      [v87 WFLog:3 message:"WFMacRandomisation : Changing mac address of <%@> from Private to HW to Retry. Current count is <%ld>"];
+      v120 = sub_10000A878(v142);
+      v121 = *(a1 + 1184);
+      [v86 WFLog:3 message:"WFMacRandomisation : Changing mac address of <%@> from Private to HW to Retry. Current count is <%ld>"];
     }
 
-    objc_autoreleasePoolPop(v86);
-    v88 = *(a1 + 7480);
-    if (v88)
+    objc_autoreleasePoolPop(v85);
+    v87 = *(a1 + 7480);
+    if (v87)
     {
-      [v88 addFaultEvent:11 forInterface:sub_100006F88(*(a1 + 64))];
+      [v87 addFaultEvent:11 forInterface:sub_100006F88(*(a1 + 64))];
     }
 
     LODWORD(value) = 0;
-    v65 = 1;
+    v64 = 1;
   }
 
 LABEL_84:
-  cfb = v65;
+  cfb = v64;
   if (*(a1 + 7480))
   {
-    *&v158 = _NSConcreteStackBlock;
-    *(&v158 + 1) = 3221225472;
-    v159 = sub_1000EBA60;
-    v160 = &unk_100261670;
-    v161 = a1;
-    v162 = a4;
-    sub_1000C4084(a1, v143, &v158);
+    *&v157 = _NSConcreteStackBlock;
+    *(&v157 + 1) = 3221225472;
+    v158 = sub_1000EBA60;
+    v159 = &unk_100261670;
+    v160 = a1;
+    v161 = a4;
+    sub_1000C4084(a1, v142, &v157);
   }
 
-  if (sub_100009730(v140) && sub_10009ED84(v140))
+  if (sub_100009730(v139) && sub_10009ED84(v139))
   {
     sub_1000ED650(a1, @"autoJoinStatusEAPFromProfileFailedToJoin", 0, 0);
   }
@@ -2491,13 +2009,13 @@ LABEL_84:
     goto LABEL_96;
   }
 
-  if (!v11 || (v72 = CFDictionaryGetValue(v11, @"reason"), CFStringCompare(@"Guessing 2ghz Network", v72, 0)))
+  if (!v11 || (v71 = CFDictionaryGetValue(v11, @"reason"), CFStringCompare(@"Guessing 2ghz Network", v71, 0)))
   {
-    if (v143)
+    if (v142)
     {
-      v73 = objc_autoreleasePoolPush();
-      v74 = sub_10001A9BC(v143);
-      v75 = 7;
+      v72 = objc_autoreleasePoolPush();
+      v73 = sub_10001A9BC(v142);
+      v74 = 7;
       if ((a4 + 369033216) < 0x15 || (a4 + 369032216) < 2)
       {
         goto LABEL_95;
@@ -2505,108 +2023,108 @@ LABEL_84:
 
       if (a4 == -369032214)
       {
-        v104 = [sub_10000A540(v143 @"JOIN:"intValue" EXTENDED:?STATUS")];
-        if (v104 == 1031)
+        v103 = [sub_10000A540(v142 @"JOIN:"intValue" EXTENDED:?STATUS")];
+        if (v103 == 1031)
         {
 LABEL_164:
-          [*(a1 + 6720) setNetworkDenyListInfo:sub_1000BE2EC(a1 forScanResult:{12, -369032214, 0, 5), v74}];
-          v105 = objc_alloc_init(NSDate);
-          v127 = sub_10014A684(v105, 5, 0, 0);
-          [(NSDate *)v127 timeIntervalSinceDate:v105];
+          [*(a1 + 6720) setNetworkDenyListInfo:sub_1000BE2EC(a1 forScanResult:{12, -369032214, 0, 5), v73}];
+          v104 = objc_alloc_init(NSDate);
+          v126 = sub_10014A684(v104, 5, 0, 0);
+          [(NSDate *)v126 timeIntervalSinceDate:v104];
           if (*(a1 + 7448))
           {
             source = objc_autoreleasePoolPush();
             if (off_100298C40)
             {
-              v121 = "__WiFiDeviceManagerProcessAssociationFailure";
+              v120 = "__WiFiDeviceManagerProcessAssociationFailure";
               [off_100298C40 WFLog:3 message:"%s: EAPATNotifBlacklist expiry timer already running"];
             }
           }
 
           else
           {
-            v119 = v106;
+            v118 = v105;
             *(a1 + 7448) = 1;
             sourcea = *(a1 + 7456);
-            v120 = dispatch_time(0, (v106 * 1000000000.0));
-            dispatch_source_set_timer(sourcea, v120, 0xFFFFFFFFFFFFFFFFLL, 0);
+            v119 = dispatch_time(0, (v105 * 1000000000.0));
+            dispatch_source_set_timer(sourcea, v119, 0xFFFFFFFFFFFFFFFFLL, 0);
             source = objc_autoreleasePoolPush();
             if (off_100298C40)
             {
-              v122 = *&v119;
-              v121 = "__WiFiDeviceManagerProcessAssociationFailure";
+              v121 = *&v118;
+              v120 = "__WiFiDeviceManagerProcessAssociationFailure";
               [off_100298C40 WFLog:3 message:"%s: EAPATNotifBlacklist expiry timer set to fire in %f seconds from now"];
             }
           }
 
           objc_autoreleasePoolPop(source);
-          if (v105)
+          if (v104)
           {
-            CFRelease(v105);
+            CFRelease(v104);
           }
 
-          if (v127)
+          if (v126)
           {
-            CFRelease(v127);
+            CFRelease(v126);
           }
 
           goto LABEL_214;
         }
 
-        if (v104 == 1026)
+        if (v103 == 1026)
         {
-          [*(a1 + 6720) setNetworkDenyListInfo:sub_1000BE2EC(a1 forScanResult:{11, -369032214, 0, 5), v74}];
+          [*(a1 + 6720) setNetworkDenyListInfo:sub_1000BE2EC(a1 forScanResult:{11, -369032214, 0, 5), v73}];
           goto LABEL_164;
         }
 
-        v118 = sub_10000A540(v143, @"BSSID");
-        [*(a1 + 6720) setNetworkDenyListInfo:sub_1000BE2EC(a1 forScanResult:{7, -369032214, v118, 5), v74}];
+        v117 = sub_10000A540(v142, @"BSSID");
+        [*(a1 + 6720) setNetworkDenyListInfo:sub_1000BE2EC(a1 forScanResult:{7, -369032214, v117, 5), v73}];
       }
 
 LABEL_214:
-      v75 = 5;
+      v74 = 5;
 LABEL_95:
-      v76 = sub_10000A540(v143, @"BSSID");
-      v77 = sub_1000BE2EC(a1, v75, a4, v76, 5);
-      [*(a1 + 6720) setNetworkDenyListInfo:v77 forScanResult:v74];
+      v75 = sub_10000A540(v142, @"BSSID");
+      v76 = sub_1000BE2EC(a1, v74, a4, v75, 5);
+      [*(a1 + 6720) setNetworkDenyListInfo:v76 forScanResult:v73];
 
-      objc_autoreleasePoolPop(v73);
+      objc_autoreleasePoolPop(v72);
     }
 
 LABEL_96:
-    sub_100193620(a1, v143, v66, v67, v68, v69, v70, v71, v121, v122, v123, v124, source, v127, SWORD2(v127), v128, v131, value, cfb, v140, v143, context, v146, v147, v148, v149, p_buf);
-    v78 = objc_autoreleasePoolPush();
+    sub_100193620(a1, v142, v65, v66, v67, v68, v69, v70, v120, v121, v122, v123, source, v126, SWORD2(v126), v127, v130, value, cfb, v139, v142, context, v145, v146, v147, v148, p_buf);
+    v77 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
-      v79 = v144 ? sub_10000A878(v144) : @"Unknown";
-      v89 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s", [[NSString stringWithFormat:?];
+      v78 = v143 ? sub_10000A878(v143) : @"Unknown";
+      v88 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s", [[NSString stringWithFormat:?];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        v90 = [+[NSString stringWithFormat:](NSString UTF8String:@"[WiFiPolicy] %s"];
-        *v165 = 136446210;
-        v166 = v90;
-        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%{public}s", v165, 0xCu);
+        v89 = [+[NSString stringWithFormat:](NSString UTF8String:@"[WiFiPolicy] %s"];
+        *v164 = 136446210;
+        v165 = v89;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%{public}s", v164, 0xCu);
       }
     }
 
-    objc_autoreleasePoolPop(v78);
+    objc_autoreleasePoolPop(v77);
     if (a4 > -3913)
     {
       if (a4 == -3912)
       {
-        v97 = sub_100006F88(*(a1 + 64));
-        v14 = sub_1000D62B4(a1, v97, 1, 1, v144, 0);
-        v98 = objc_autoreleasePoolPush();
+        v96 = sub_100006F88(*(a1 + 64));
+        v14 = sub_1000D62B4(a1, v96, 1, 1, v143, 0);
+        v97 = objc_autoreleasePoolPush();
         if (off_100298C40)
         {
           [off_100298C40 WFLog:3 message:{"%s: state %@", "__WiFiDeviceManagerProcessAssociationFailure", sub_1000AA864(*(a1 + 3336))}];
         }
 
-        objc_autoreleasePoolPop(v98);
+        objc_autoreleasePoolPop(v97);
         goto LABEL_172;
       }
 
-      v91 = v141;
+      v90 = v140;
       if (a4 == 82)
       {
         v14 = 0;
@@ -2615,32 +2133,32 @@ LABEL_96:
 
       if (a4 == -100)
       {
-        if (sub_100174C78(v144))
+        if (sub_100174C78(v143))
         {
-          v92 = 3;
+          v91 = 3;
         }
 
         else
         {
-          v92 = 1;
+          v91 = 1;
         }
 
-        v93 = sub_100006F88(*(a1 + 64));
-        v14 = sub_1000D62B4(a1, v93, v92, 1, v144, 0);
-        v94 = objc_autoreleasePoolPush();
+        v92 = sub_100006F88(*(a1 + 64));
+        v14 = sub_1000D62B4(a1, v92, v91, 1, v143, 0);
+        v93 = objc_autoreleasePoolPush();
         if (off_100298C40)
         {
           [off_100298C40 WFLog:3 message:{"%s: state %@", "__WiFiDeviceManagerProcessAssociationFailure", sub_1000AA864(*(a1 + 3336))}];
         }
 
-        objc_autoreleasePoolPop(v94);
-        v91 = v141;
+        objc_autoreleasePoolPop(v93);
+        v90 = v140;
         if (v14 == 14)
         {
-          sub_1000E1594(a1, v144, 1);
+          sub_1000E1594(a1, v143, 1);
           v14 = 14;
 LABEL_172:
-          v91 = v141;
+          v90 = v140;
         }
 
 LABEL_173:
@@ -2648,42 +2166,42 @@ LABEL_173:
         {
           *(a1 + 1184) = 0;
 LABEL_179:
-          if (v91)
+          if (v90)
           {
-            CFRelease(v91);
+            CFRelease(v90);
           }
 
           goto LABEL_181;
         }
 
 LABEL_175:
-        v111 = objc_autoreleasePoolPush();
+        v110 = objc_autoreleasePoolPush();
         if (off_100298C40)
         {
-          objc_msgSend(off_100298C40, "WFLog:message:", 3, "Retrying (WFMacRandomisation : Attempting again for migration? <%d> autojoin association of %@ with retry count %ld", cfc, sub_10000A878(v144), *(a1 + 1184));
+          objc_msgSend(off_100298C40, "WFLog:message:", 3, "Retrying (WFMacRandomisation : Attempting again for migration? <%d> autojoin association of %@ with retry count %ld", cfc, sub_10000A878(v143), *(a1 + 1184));
         }
 
-        objc_autoreleasePoolPop(v111);
+        objc_autoreleasePoolPop(v110);
         *(a1 + 1176) = vaddq_s64(*(a1 + 1176), xmmword_1001CE7B0);
-        v91 = v141;
+        v90 = v140;
         goto LABEL_179;
       }
 
 LABEL_143:
-      v99 = v129 ^ 1;
+      v98 = v128 ^ 1;
       if (a4 != -3905)
       {
-        v99 = 1;
+        v98 = 1;
       }
 
-      if ((v99 & 1) == 0)
+      if ((v98 & 1) == 0)
       {
-        v100 = *(a1 + 1168);
-        if (v100)
+        v99 = *(a1 + 1168);
+        if (v99)
         {
-          if (CFArrayGetCount(v100))
+          if (CFArrayGetCount(v99))
           {
-            v91 = v141;
+            v90 = v140;
             if (*(a1 + 1184) < 2uLL)
             {
               goto LABEL_175;
@@ -2699,7 +2217,7 @@ LABEL_143:
       goto LABEL_173;
     }
 
-    v91 = v141;
+    v90 = v140;
     if (a4 != -369033215)
     {
       if (a4 != -369033213)
@@ -2716,28 +2234,28 @@ LABEL_143:
       *(a1 + 1184) = -1;
       if (CFDictionaryGetValue(v11, @"TLSServerCertificateChain"))
       {
-        v95 = sub_100006F88(*(a1 + 64));
-        v96 = sub_1000D62B4(a1, v95, 2, 2, v144, v11);
+        v94 = sub_100006F88(*(a1 + 64));
+        v95 = sub_1000D62B4(a1, v94, 2, 2, v143, v11);
 LABEL_171:
-        v14 = v96;
+        v14 = v95;
         goto LABEL_172;
       }
 
-      v107 = CFDictionaryGetValue(v11, @"RequiredProperties");
-      v108 = v107;
-      if (!v107)
+      v106 = CFDictionaryGetValue(v11, @"RequiredProperties");
+      v107 = v106;
+      if (!v106)
       {
         goto LABEL_172;
       }
 
-      v172.length = CFArrayGetCount(v107);
-      v172.location = 0;
-      if (!CFArrayGetFirstIndexOfValue(v108, v172, @"UserName"))
+      v171.length = CFArrayGetCount(v106);
+      v171.location = 0;
+      if (!CFArrayGetFirstIndexOfValue(v107, v171, @"UserName"))
       {
-        v173.length = CFArrayGetCount(v108);
-        v173.location = 0;
-        FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v108, v173, @"UserPassword");
-        v91 = v141;
+        v172.length = CFArrayGetCount(v107);
+        v172.location = 0;
+        FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v107, v172, @"UserPassword");
+        v90 = v140;
         if (!FirstIndexOfValue)
         {
           goto LABEL_173;
@@ -2745,8 +2263,8 @@ LABEL_171:
       }
     }
 
-    v110 = sub_100006F88(*(a1 + 64));
-    v96 = sub_1000D62B4(a1, v110, 3, 1, v144, 0);
+    v109 = sub_100006F88(*(a1 + 64));
+    v95 = sub_1000D62B4(a1, v109, 3, 1, v143, 0);
     goto LABEL_171;
   }
 
@@ -2758,58 +2276,58 @@ LABEL_181:
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v168 = 0x2020000000;
-      v169 = 0;
-      *&v158 = 0;
-      *(&v158 + 1) = &v158;
-      v159 = 0x2020000000;
-      v160 = 0;
+      v167 = 0x2020000000;
+      v168 = 0;
+      *&v157 = 0;
+      *(&v157 + 1) = &v157;
+      v158 = 0x2020000000;
+      v159 = 0;
       if (a2)
       {
-        v112 = CFRetain(a2);
-        *(*(&buf + 1) + 24) = v112;
+        v111 = CFRetain(a2);
+        *(*(&buf + 1) + 24) = v111;
       }
 
       if (v11)
       {
-        v113 = CFRetain(v11);
-        *(*(&v158 + 1) + 24) = v113;
+        v112 = CFRetain(v11);
+        *(*(&v157 + 1) + 24) = v112;
       }
 
       CFRetain(a1);
-      v114 = *(a1 + 240);
-      v146 = _NSConcreteStackBlock;
-      v147 = 3221225472;
-      v148 = sub_1000EB2B4;
-      v149 = &unk_1002619D8;
+      v113 = *(a1 + 240);
+      v145 = _NSConcreteStackBlock;
+      v146 = 3221225472;
+      v147 = sub_1000EB2B4;
+      v148 = &unk_1002619D8;
       p_buf = &buf;
-      v151 = &v158;
-      v152 = a1;
-      v153 = a4;
-      dispatch_async(v114, &v146);
-      _Block_object_dispose(&v158, 8);
+      v150 = &v157;
+      v151 = a1;
+      v152 = a4;
+      dispatch_async(v113, &v145);
+      _Block_object_dispose(&v157, 8);
       _Block_object_dispose(&buf, 8);
     }
 
     else
     {
-      v115 = objc_autoreleasePoolPush();
+      v114 = objc_autoreleasePoolPush();
       if (off_100298C40)
       {
         [off_100298C40 WFLog:4 message:{"%s: null queue.", "__WiFiDeviceManagerProcessAssociationResult"}];
       }
 
-      objc_autoreleasePoolPop(v115);
+      objc_autoreleasePoolPop(v114);
     }
   }
 
-  v116 = objc_autoreleasePoolPush();
+  v115 = objc_autoreleasePoolPush();
   if (off_100298C40)
   {
     [off_100298C40 WFLog:3 message:{"%s: error %d, state %d\n", "__WiFiDeviceManagerProcessAssociationResult", a4, v14}];
   }
 
-  objc_autoreleasePoolPop(v116);
+  objc_autoreleasePoolPop(v115);
   if (_os_feature_enabled_impl())
   {
     if (v14 == 14)
@@ -2846,6 +2364,13 @@ LABEL_181:
 LABEL_72:
   objc_autoreleasePoolPop(context);
   return v14;
+}
+
+void sub_1000E5470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000E54AC(uint64_t a1)
@@ -3048,7 +2573,7 @@ LABEL_39:
               if (v25)
               {
                 CFRetain(a1);
-                sub_1001A4B2C((a1 + 240), &v26);
+                sub_1001A4B2C((a1 + 240), v26);
               }
 
               _Block_object_dispose(&v27, 8);
@@ -3085,9 +2610,9 @@ LABEL_49:
   return v2;
 }
 
-void sub_1000E5954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000E5954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3099,7 +2624,7 @@ uint64_t sub_1000E596C(uint64_t a1)
   v4 = CFArrayGetCount(*(a1 + 6992));
   v5 = CFArrayGetCount(*(a1 + 7000));
   v6 = CFArrayGetCount(*(a1 + 7008));
-  v66 = Count;
+  v65 = Count;
   if (!Count)
   {
     sub_1000B6E20(a1, 0);
@@ -3115,13 +2640,13 @@ uint64_t sub_1000E596C(uint64_t a1)
   }
 
   objc_autoreleasePoolPop(v8);
-  if (v66 < 1)
+  if (v65 < 1)
   {
     ValueAtIndex = 0;
     goto LABEL_52;
   }
 
-  v65 = v2;
+  v64 = v2;
   v9 = 0;
   while (1)
   {
@@ -3129,7 +2654,7 @@ uint64_t sub_1000E596C(uint64_t a1)
     if (v4 < 1)
     {
 LABEL_10:
-      v67 = 0;
+      v66 = 0;
     }
 
     else
@@ -3150,7 +2675,7 @@ LABEL_10:
       }
 
       objc_autoreleasePoolPop(v12);
-      v67 = 1;
+      v66 = 1;
     }
 
     if (v5 < 1)
@@ -3271,13 +2796,13 @@ LABEL_35:
       goto LABEL_41;
     }
 
-    if ((v67 | v14 | v22) != 1)
+    if ((v66 | v14 | v22) != 1)
     {
       break;
     }
 
 LABEL_41:
-    if (++v9 == v66)
+    if (++v9 == v65)
     {
       goto LABEL_52;
     }
@@ -3291,7 +2816,7 @@ LABEL_41:
   if (*(a1 + 3560) && CFEqual(v34, v35))
   {
     v36 = *(a1 + 7112);
-    v30 = v65;
+    v30 = v64;
     if (v36 && [v36 isEqualToString:v34])
     {
       v37 = sub_10001A904(a1);
@@ -3365,7 +2890,7 @@ LABEL_41:
   {
     sub_1000D7904(a1);
     v42 = 0;
-    v30 = v65;
+    v30 = v64;
   }
 
   if ([objc_msgSend(+[WiFiXPCManager sharedXPCManager](WiFiXPCManager "sharedXPCManager")] - 3 > 1)
@@ -3396,10 +2921,9 @@ LABEL_41:
 
     if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
     {
-      v68 = 0;
-      LODWORD(v64) = 2;
-      v63 = &v68;
-      _os_log_send_and_compose_impl();
+      v67[0] = 0;
+      LODWORD(v63) = 2;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v47, 1, "[corewifi] [bbh] Forcing ask-to-join for broken backhaul fallback", v67, v63);
     }
 
 LABEL_92:
@@ -3417,7 +2941,7 @@ LABEL_92:
       *(a1 + 7112) = 0;
     }
 
-    v51 = [*(a1 + 6824) getHotspotDeviceName:{*(a1 + 6984), v63, v64}];
+    v51 = [*(a1 + 6824) getHotspotDeviceName:*(a1 + 6984)];
     if (_os_feature_enabled_impl())
     {
       v52 = [*(a1 + 6776) dispatchNotificationWithAskToJoinHotspotRecommendation:v51];
@@ -3539,19 +3063,19 @@ uint64_t sub_1000E61CC(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-void sub_1000E6370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000E6370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4095,7 +3619,7 @@ LABEL_9:
     if (a1[174] == 1 && v3 <= 2)
     {
 
-      return sub_1000E345C();
+      return sub_1000E345C(a1);
     }
 
     a1[168] = 0;
@@ -4231,7 +3755,7 @@ LABEL_76:
 
       v17 = v16;
       v42 = &v40;
-      __chkstk_darwin();
+      __chkstk_darwin(v16);
       v19 = &v40 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
       memset(v19, 170, v18);
       CFDictionaryGetKeysAndValues(v15, 0, v19);
@@ -4450,13 +3974,13 @@ uint64_t sub_1000E76B8(uint64_t a1)
     objc_autoreleasePoolPop(v12);
     v13 = 4294963394;
 LABEL_93:
-    v42 = objc_autoreleasePoolPush();
+    v43 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
       [off_100298C40 WFLog:4 message:{"CarPlay multi-stage auto-join: Error scanning remaining channels, err=%d", v13}];
     }
 
-    objc_autoreleasePoolPop(v42);
+    objc_autoreleasePoolPop(v43);
     goto LABEL_96;
   }
 
@@ -4588,12 +4112,12 @@ LABEL_32:
   }
 
   v24 = CFStringCreateMutable(kCFAllocatorDefault, 0);
-  v57 = 0;
+  v58 = 0;
   v25 = *(a1 + 696);
   if (v25 == 4)
   {
 LABEL_48:
-    if (sub_1000E6D08(a1, &v57))
+    if (sub_1000E6D08(a1, &v58))
     {
       v26 = objc_autoreleasePoolPush();
       if (off_100298C40)
@@ -4602,7 +4126,7 @@ LABEL_48:
       }
 
       objc_autoreleasePoolPop(v26);
-      sub_1000E1714(a1);
+      sub_1000E1714(a1, v27);
 LABEL_56:
       v13 = 0;
       goto LABEL_90;
@@ -4621,22 +4145,22 @@ LABEL_56:
     goto LABEL_48;
   }
 
-  v27 = sub_1000E6A7C(a1, &v57);
-  *(a1 + 6232) = v57;
-  if (v27)
+  v28 = sub_1000E6A7C(a1, &v58);
+  *(a1 + 6232) = v58;
+  if (v28)
   {
-    v28 = objc_autoreleasePoolPush();
+    v29 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
       [off_100298C40 WFLog:3 message:{"%s: Disallowing 2Ghz channel", "__WiFiDeviceManagerScanCarPlayRemainingChannels"}];
     }
 
-    objc_autoreleasePoolPop(v28);
+    objc_autoreleasePoolPop(v29);
     goto LABEL_56;
   }
 
 LABEL_57:
-  v55 = v10;
+  v56 = v10;
   if (CFArrayGetCount(v17) >= 1)
   {
     for (i = 0; i < CFArrayGetCount(v17); ++i)
@@ -4645,27 +4169,27 @@ LABEL_57:
       ValueAtIndex = CFArrayGetValueAtIndex(v17, i);
       if (ValueAtIndex)
       {
-        v31 = ValueAtIndex;
+        v32 = ValueAtIndex;
         Value = CFDictionaryGetValue(ValueAtIndex, @"SUP_CHANNEL");
-        v33 = CFDictionaryGetValue(v31, @"SUP_CHANNEL_FLAGS");
+        v34 = CFDictionaryGetValue(v32, @"SUP_CHANNEL_FLAGS");
         if (Value)
         {
-          if (v33)
+          if (v34)
           {
             *&keys = @"CHANNEL";
             *(&keys + 1) = @"CHANNEL_FLAGS";
             values[0] = Value;
-            values[1] = v33;
-            v34 = CFDictionaryCreate(kCFAllocatorDefault, &keys, values, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-            if (!v34)
+            values[1] = v34;
+            v35 = CFDictionaryCreate(kCFAllocatorDefault, &keys, values, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+            if (!v35)
             {
-              v41 = objc_autoreleasePoolPush();
+              v42 = objc_autoreleasePoolPush();
               if (off_100298C40)
               {
                 [off_100298C40 WFLog:4 message:{"%s: Couldn't allocate channelEntry", "__WiFiDeviceManagerScanCarPlayRemainingChannels"}];
               }
 
-              objc_autoreleasePoolPop(v41);
+              objc_autoreleasePoolPop(v42);
               v13 = 4294963394;
 LABEL_90:
               if (v24)
@@ -4676,10 +4200,10 @@ LABEL_90:
               goto LABEL_92;
             }
 
-            v35 = v34;
+            v36 = v35;
             CFNumberGetValue(Value, kCFNumberSInt32Type, &valuePtr);
-            v36 = *(a1 + 696);
-            if (v36 == 4)
+            v37 = *(a1 + 696);
+            if (v37 == 4)
             {
               if (valuePtr >= 36)
               {
@@ -4689,23 +4213,23 @@ LABEL_90:
 
             else
             {
-              if (v36 == 2)
+              if (v37 == 2)
               {
-                if (v55 == valuePtr)
+                if (v56 == valuePtr)
                 {
                   if (v24)
                   {
                     CFStringAppendFormat(v24, 0, @"%@ ", Value);
                   }
 
-                  CFArrayAppendValue(v4, v35);
+                  CFArrayAppendValue(v4, v36);
                   break;
                 }
 
                 goto LABEL_79;
               }
 
-              if (v36 == 3 && valuePtr <= 14)
+              if (v37 == 3 && valuePtr <= 14)
               {
 LABEL_76:
                 if (v24)
@@ -4713,16 +4237,16 @@ LABEL_76:
                   CFStringAppendFormat(v24, 0, @"%@ ", Value);
                 }
 
-                CFArrayAppendValue(v4, v35);
+                CFArrayAppendValue(v4, v36);
               }
             }
 
 LABEL_79:
-            CFRelease(v35);
+            CFRelease(v36);
             continue;
           }
 
-          v37 = objc_autoreleasePoolPush();
+          v38 = objc_autoreleasePoolPush();
           if (off_100298C40)
           {
             [off_100298C40 WFLog:3 message:{"%s: Null channel flag", "__WiFiDeviceManagerScanCarPlayRemainingChannels"}];
@@ -4731,14 +4255,14 @@ LABEL_79:
 
         else
         {
-          v37 = objc_autoreleasePoolPush();
+          v38 = objc_autoreleasePoolPush();
           if (off_100298C40)
           {
             [off_100298C40 WFLog:3 message:{"%s: Null channel number", "__WiFiDeviceManagerScanCarPlayRemainingChannels"}];
           }
         }
 
-        objc_autoreleasePoolPop(v37);
+        objc_autoreleasePoolPop(v38);
       }
     }
   }
@@ -4749,20 +4273,20 @@ LABEL_79:
     goto LABEL_90;
   }
 
-  v38 = objc_autoreleasePoolPush();
+  v39 = objc_autoreleasePoolPush();
   if (off_100298C40)
   {
-    v39 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s", [[NSString stringWithFormat:?];
+    v40 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s", [[NSString stringWithFormat:?];
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = [+[NSString stringWithFormat:](NSString UTF8String:@"[WiFiPolicy] %s"];
+      v41 = [+[NSString stringWithFormat:](NSString UTF8String:@"[WiFiPolicy] %s"];
       LODWORD(keys) = 136446210;
-      *(&keys + 4) = v40;
+      *(&keys + 4) = v41;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%{public}s", &keys, 0xCu);
     }
   }
 
-  objc_autoreleasePoolPop(v38);
+  objc_autoreleasePoolPop(v39);
   v13 = 0;
 LABEL_91:
   CFRelease(v24);
@@ -4782,35 +4306,35 @@ LABEL_43:
 
 LABEL_96:
   *(a1 + 696) = 0;
-  v43 = *(a1 + 688);
-  v44 = 0.5;
-  if (v43 == 0.0 || (v45 = v43 + v43, v44 = 4.0, v45 > 4.0))
+  v44 = *(a1 + 688);
+  v45 = 0.5;
+  if (v44 == 0.0 || (v46 = v44 + v44, v45 = 4.0, v46 > 4.0))
   {
-    v45 = v44;
+    v46 = v45;
   }
 
-  *(a1 + 688) = v45;
-  v46 = v45 - v45 * 0.1;
-  v47 = v45 + v45 * 0.1;
-  v48 = arc4random();
-  v49 = v46 + (v48 + ((v48 / 0x7FFFFFFF) | ((v48 / 0x7FFFFFFF) << 31))) / 2147483650.0 * (v47 - v46);
-  v50 = *(a1 + 320);
-  v51 = dispatch_time(0, (v49 * 1000000000.0));
-  dispatch_source_set_timer(v50, v51, 0xFFFFFFFFFFFFFFFFLL, 0);
-  v52 = objc_autoreleasePoolPush();
+  *(a1 + 688) = v46;
+  v47 = v46 - v46 * 0.1;
+  v48 = v46 + v46 * 0.1;
+  v49 = arc4random();
+  v50 = v47 + (v49 + ((v49 / 0x7FFFFFFF) | ((v49 / 0x7FFFFFFF) << 31))) / 2147483650.0 * (v48 - v47);
+  v51 = *(a1 + 320);
+  v52 = dispatch_time(0, (v50 * 1000000000.0));
+  dispatch_source_set_timer(v51, v52, 0xFFFFFFFFFFFFFFFFLL, 0);
+  v53 = objc_autoreleasePoolPush();
   if (off_100298C40)
   {
-    v53 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s", [[NSString stringWithFormat:?];
+    v54 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s", [[NSString stringWithFormat:?];
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v54 = [+[NSString stringWithFormat:](NSString UTF8String:@"[WiFiPolicy] %s"];
+      v55 = [+[NSString stringWithFormat:](NSString UTF8String:@"[WiFiPolicy] %s"];
       LODWORD(keys) = 136446210;
-      *(&keys + 4) = v54;
+      *(&keys + 4) = v55;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%{public}s", &keys, 0xCu);
     }
   }
 
-  objc_autoreleasePoolPop(v52);
+  objc_autoreleasePoolPop(v53);
   return 1;
 }
 
@@ -4880,7 +4404,7 @@ uint64_t sub_1000E8070(uint64_t a1)
     }
   }
 
-  v37 = v6;
+  v38 = v6;
   *(a1 + 3340) = v6;
   Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
   v8 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
@@ -4898,7 +4422,7 @@ uint64_t sub_1000E8070(uint64_t a1)
   if (v10)
   {
     sub_1001A4E18();
-    v32 = 4294963394;
+    v33 = 4294963394;
     goto LABEL_50;
   }
 
@@ -4907,8 +4431,8 @@ uint64_t sub_1000E8070(uint64_t a1)
   v13 = sub_10001A6E4(v11, v12, v9);
   if (v13)
   {
-    v32 = v13;
-    v36 = objc_autoreleasePoolPush();
+    v33 = v13;
+    v37 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
       [off_100298C40 WFLog:3 message:{"%s :Device failed to return supported channels.", "__WiFiDeviceManagerScanRemainingChannels"}];
@@ -4921,10 +4445,10 @@ uint64_t sub_1000E8070(uint64_t a1)
     {
       theArray = Mutable;
       v14 = CFStringCreateMutable(kCFAllocatorDefault, 0);
-      v40 = 0;
-      v15 = sub_1000E6A7C(a1, &v40);
-      *(a1 + 6232) = v40;
-      v39 = sub_1000E6D08(a1, &v40);
+      v41 = 0;
+      v15 = sub_1000E6A7C(a1, &v41);
+      *(a1 + 6232) = v41;
+      v40 = sub_1000E6D08(a1, &v41);
       v16 = objc_autoreleasePoolPush();
       if (off_100298C40)
       {
@@ -4952,31 +4476,31 @@ uint64_t sub_1000E8070(uint64_t a1)
           ValueAtIndex = CFArrayGetValueAtIndex(v9, i);
           if (ValueAtIndex)
           {
-            v22 = ValueAtIndex;
+            v23 = ValueAtIndex;
             Value = CFDictionaryGetValue(ValueAtIndex, @"SUP_CHANNEL");
-            v24 = CFDictionaryGetValue(v22, @"SUP_CHANNEL_FLAGS");
+            v25 = CFDictionaryGetValue(v23, @"SUP_CHANNEL_FLAGS");
             if (Value)
             {
-              v25 = v24;
-              if (v24)
+              v26 = v25;
+              if (v25)
               {
                 if (sub_1000E7FE4(*(a1 + 3344), Value) != 1)
                 {
-                  if (!v15 || (LODWORD(buf) = 0, !CFNumberGetValue(v25, kCFNumberSInt32Type, &buf)) || (buf & 8) == 0)
+                  if (!v15 || (LODWORD(buf) = 0, !CFNumberGetValue(v26, kCFNumberSInt32Type, &buf)) || (buf & 8) == 0)
                   {
-                    if (!v39 || (LODWORD(buf) = -1431655766, CFNumberGetValue(Value, kCFNumberSInt32Type, &buf), buf) && buf <= 0xE)
+                    if (!v40 || (LODWORD(buf) = -1431655766, CFNumberGetValue(Value, kCFNumberSInt32Type, &buf), buf) && buf <= 0xE)
                     {
                       *&buf = @"CHANNEL";
                       *(&buf + 1) = @"CHANNEL_FLAGS";
                       values[0] = Value;
-                      values[1] = v25;
-                      v26 = CFDictionaryCreate(kCFAllocatorDefault, &buf, values, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-                      if (v26)
+                      values[1] = v26;
+                      v27 = CFDictionaryCreate(kCFAllocatorDefault, &buf, values, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+                      if (v27)
                       {
-                        v27 = v26;
-                        CFArrayAppendValue(theArray, v26);
-                        CFArrayAppendValue(*(a1 + 3344), v27);
-                        CFRelease(v27);
+                        v28 = v27;
+                        CFArrayAppendValue(theArray, v27);
+                        CFArrayAppendValue(*(a1 + 3344), v28);
+                        CFRelease(v28);
                         if (v14)
                         {
                           CFStringAppendFormat(v14, 0, @"%@ ", Value);
@@ -4989,7 +4513,7 @@ uint64_t sub_1000E8070(uint64_t a1)
                 continue;
               }
 
-              v28 = objc_autoreleasePoolPush();
+              v29 = objc_autoreleasePoolPush();
               if (off_100298C40)
               {
                 [off_100298C40 WFLog:3 message:{"%s: Null channel flag", "__WiFiDeviceManagerScanRemainingChannels"}];
@@ -4998,41 +4522,41 @@ uint64_t sub_1000E8070(uint64_t a1)
 
             else
             {
-              v28 = objc_autoreleasePoolPush();
+              v29 = objc_autoreleasePoolPush();
               if (off_100298C40)
               {
                 [off_100298C40 WFLog:3 message:{"%s: Null channel number", "__WiFiDeviceManagerScanRemainingChannels"}];
               }
             }
 
-            objc_autoreleasePoolPop(v28);
+            objc_autoreleasePoolPop(v29);
           }
         }
       }
 
-      sub_1000E1714(a1);
+      sub_1000E1714(a1, v20);
       Mutable = theArray;
       if (v14)
       {
-        v29 = objc_autoreleasePoolPush();
+        v30 = objc_autoreleasePoolPush();
         if (off_100298C40)
         {
-          v30 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s", [[NSString stringWithFormat:?];
+          v31 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s", [[NSString stringWithFormat:?];
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
-            v31 = [+[NSString stringWithFormat:](NSString UTF8String:@"[WiFiPolicy] %s"];
+            v32 = [+[NSString stringWithFormat:](NSString UTF8String:@"[WiFiPolicy] %s"];
             LODWORD(buf) = 136446210;
-            *(&buf + 4) = v31;
+            *(&buf + 4) = v32;
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%{public}s", &buf, 0xCu);
           }
         }
 
-        objc_autoreleasePoolPop(v29);
+        objc_autoreleasePoolPop(v30);
       }
 
       if (!CFArrayGetCount(theArray))
       {
-        v32 = 4294963394;
+        v33 = 4294963394;
         if (!v14)
         {
           goto LABEL_50;
@@ -5042,7 +4566,7 @@ uint64_t sub_1000E8070(uint64_t a1)
       }
 
       *(a1 + 5692) = 2;
-      v32 = sub_100191A78(a1, *(a1 + 3600), theArray, 0, 3);
+      v33 = sub_100191A78(a1, *(a1 + 3600), theArray, 0, 3);
       if (v14)
       {
 LABEL_49:
@@ -5050,7 +4574,7 @@ LABEL_49:
       }
 
 LABEL_50:
-      v33 = 1;
+      v34 = 1;
       if (!v9)
       {
         goto LABEL_52;
@@ -5059,17 +4583,17 @@ LABEL_50:
       goto LABEL_51;
     }
 
-    v36 = objc_autoreleasePoolPush();
+    v37 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
       [off_100298C40 WFLog:3 message:{"%s: Empty supported channels.", "__WiFiDeviceManagerScanRemainingChannels"}];
     }
 
-    v32 = 0;
+    v33 = 0;
   }
 
-  objc_autoreleasePoolPop(v36);
-  v33 = 0;
+  objc_autoreleasePoolPop(v37);
+  v34 = 0;
 LABEL_51:
   CFRelease(v9);
 LABEL_52:
@@ -5078,22 +4602,22 @@ LABEL_52:
     CFRelease(Mutable);
   }
 
-  if (v32)
+  if (v33)
   {
-    v34 = objc_autoreleasePoolPush();
+    v35 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
-      [off_100298C40 WFLog:4 message:{"multi-stage auto-join: Error scanning remaining channels, err=%d", v32}];
+      [off_100298C40 WFLog:4 message:{"multi-stage auto-join: Error scanning remaining channels, err=%d", v33}];
     }
 
-    objc_autoreleasePoolPop(v34);
-    return sub_1000D7FA8(a1, v32);
+    objc_autoreleasePoolPop(v35);
+    return sub_1000D7FA8(a1, v33);
   }
 
   else
   {
-    result = v37;
-    if ((v33 & 1) == 0)
+    result = v38;
+    if ((v34 & 1) == 0)
     {
       sub_1001A4E78();
       return buf;
@@ -6475,10 +5999,10 @@ uint64_t sub_1000EA750(uint64_t a1, const void *a2)
   if (!v6)
   {
 LABEL_116:
-    v54 = -3902;
+    v55 = -3902;
     if (!Mutable)
     {
-      return sub_1000D7FA8(a1, v54);
+      return sub_1000D7FA8(a1, v55);
     }
 
     goto LABEL_111;
@@ -6573,9 +6097,9 @@ LABEL_18:
 LABEL_34:
     if (CFStringGetLength(Mutable))
     {
-      v62.length = CFStringGetLength(Mutable);
-      v62.location = 0;
-      CFStringDelete(Mutable, v62);
+      v63.length = CFStringGetLength(Mutable);
+      v63.location = 0;
+      CFStringDelete(Mutable, v63);
     }
 
     v21 = CFArrayGetValueAtIndex(*(a1 + 1168), *(a1 + 1176));
@@ -6586,9 +6110,9 @@ LABEL_34:
       {
         v23 = CFArrayGetValueAtIndex(*(a1 + 3600), v22);
         v24 = *(a1 + 1224);
-        v63.length = CFArrayGetCount(v24);
-        v63.location = 0;
-        if (CFArrayGetFirstIndexOfValue(v24, v63, v23) == -1)
+        v64.length = CFArrayGetCount(v24);
+        v64.location = 0;
+        if (CFArrayGetFirstIndexOfValue(v24, v64, v23) == -1)
         {
           if (sub_10009F48C(v21, v23))
           {
@@ -6615,9 +6139,9 @@ LABEL_70:
       *(a1 + 1200) = v22;
       if (CFStringGetLength(Mutable))
       {
-        v64.length = CFStringGetLength(Mutable);
-        v64.location = 0;
-        CFStringDelete(Mutable, v64);
+        v65.length = CFStringGetLength(Mutable);
+        v65.location = 0;
+        CFStringDelete(Mutable, v65);
       }
 
       v31 = *(a1 + 1200);
@@ -6638,66 +6162,66 @@ LABEL_70:
       cf = CFArrayCreate(kCFAllocatorDefault, &values, 1, &kCFTypeArrayCallBacks);
       v37 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
       v38 = CFDictionaryGetCount(*(a1 + 1208));
-      v57 = CFArrayGetValueAtIndex(*(a1 + 3600), *(a1 + 1200));
+      v58 = CFArrayGetValueAtIndex(*(a1 + 3600), *(a1 + 1200));
       if (v38)
       {
-        v39 = *(a1 + 1168);
-        if (v39)
+        v40 = *(a1 + 1168);
+        if (v40)
         {
-          v40 = CFArrayGetCount(v39);
-          if (v40 >= 1)
+          v41 = CFArrayGetCount(v40);
+          if (v41 >= 1)
           {
-            v41 = v40;
-            for (i = 0; i != v41; ++i)
+            v42 = v41;
+            for (i = 0; i != v42; ++i)
             {
-              v43 = CFArrayGetValueAtIndex(*(a1 + 1168), i);
-              if (v43)
+              v44 = CFArrayGetValueAtIndex(*(a1 + 1168), i);
+              if (v44)
               {
-                v44 = v43;
-                if (sub_10001CBF8(v43))
+                v45 = v44;
+                if (sub_10001CBF8(v44))
                 {
-                  if (sub_10009F48C(v57, v44))
+                  if (sub_10009F48C(v58, v45))
                   {
-                    v45 = sub_10000A540(v44, @"CHANNEL");
-                    if (v45)
+                    v46 = sub_10000A540(v45, @"CHANNEL");
+                    if (v46)
                     {
-                      v46 = v45;
-                      v47 = sub_10000A540(v44, @"CHANNEL_FLAGS");
-                      if (v47)
+                      v47 = v46;
+                      v48 = sub_10000A540(v45, @"CHANNEL_FLAGS");
+                      if (v48)
                       {
-                        v48 = v47;
+                        v49 = v48;
                         if (CFArrayGetCount(v37) < 1)
                         {
 LABEL_99:
                           keys[0] = @"CHANNEL";
                           keys[1] = @"CHANNEL_FLAGS";
-                          v58[0] = v46;
-                          v58[1] = v48;
-                          v52 = CFDictionaryCreate(kCFAllocatorDefault, keys, v58, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-                          if (v52)
+                          v59[0] = v47;
+                          v59[1] = v49;
+                          v53 = CFDictionaryCreate(kCFAllocatorDefault, keys, v59, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+                          if (v53)
                           {
-                            v53 = v52;
-                            CFArrayAppendValue(v37, v52);
-                            CFRelease(v53);
+                            v54 = v53;
+                            CFArrayAppendValue(v37, v53);
+                            CFRelease(v54);
                           }
                         }
 
                         else
                         {
-                          v49 = 0;
+                          v50 = 0;
                           while (1)
                           {
-                            v50 = CFArrayGetValueAtIndex(v37, v49);
-                            if (v50)
+                            v51 = CFArrayGetValueAtIndex(v37, v50);
+                            if (v51)
                             {
-                              Value = CFDictionaryGetValue(v50, @"CHANNEL");
-                              if (CFEqual(v46, Value))
+                              Value = CFDictionaryGetValue(v51, @"CHANNEL");
+                              if (CFEqual(v47, Value))
                               {
                                 break;
                               }
                             }
 
-                            if (++v49 >= CFArrayGetCount(v37))
+                            if (++v50 >= CFArrayGetCount(v37))
                             {
                               goto LABEL_99;
                             }
@@ -6713,24 +6237,24 @@ LABEL_99:
         }
       }
 
-      sub_1000E1714(a1);
+      sub_1000E1714(a1, v39);
       *(a1 + 5692) = 10;
       if (CFArrayGetCount(v37) < 1)
       {
-        v55 = cf;
-        v54 = sub_100191A78(a1, v57, cf, 0, 7);
+        v56 = cf;
+        v55 = sub_100191A78(a1, v58, cf, 0, 7);
       }
 
       else
       {
-        v54 = sub_100191A78(a1, v57, v37, 0, 7);
-        CFArrayAppendValue(*(a1 + 1224), v57);
-        v55 = cf;
+        v55 = sub_100191A78(a1, v58, v37, 0, 7);
+        CFArrayAppendValue(*(a1 + 1224), v58);
+        v56 = cf;
       }
 
-      if (v55)
+      if (v56)
       {
-        CFRelease(v55);
+        CFRelease(v56);
       }
 
       if (v37)
@@ -6738,7 +6262,7 @@ LABEL_99:
         CFRelease(v37);
       }
 
-      if (!v54)
+      if (!v55)
       {
         v34 = 0;
         v33 = 5;
@@ -6752,12 +6276,12 @@ LABEL_99:
 
       if (!Mutable)
       {
-        return sub_1000D7FA8(a1, v54);
+        return sub_1000D7FA8(a1, v55);
       }
 
 LABEL_111:
       CFRelease(Mutable);
-      return sub_1000D7FA8(a1, v54);
+      return sub_1000D7FA8(a1, v55);
     }
 
     v25 = objc_autoreleasePoolPush();
@@ -7507,9 +7031,9 @@ const __CFArray *sub_1000EBEB0(uint64_t a1, uint64_t a2)
   return sub_10018DA2C(a1);
 }
 
-void sub_1000EC02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000EC02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7879,11 +7403,12 @@ CFAbsoluteTime sub_1000EC97C(uint64_t a1)
   return result;
 }
 
-void sub_1000ECA38(int a1, int a2, const __CFArray *a3, int a4, int a5, uint64_t *a6)
+void sub_1000ECA38(int a1, int a2, const __CFArray *a3, int a4, uint64_t a5, uint64_t *a6)
 {
   v6 = *a6;
   if (*(*a6 + 6936))
   {
+    v7 = a5;
     free(a6);
     v9 = sub_10000A540(*(v6 + 6936), @"SSID_STR");
     v10 = v9;
@@ -8001,7 +7526,7 @@ LABEL_15:
 
       else
       {
-        sub_1001A5E98(v6, v10, a5);
+        sub_1001A5E98(v6, v10, v7);
       }
     }
 
@@ -8227,9 +7752,9 @@ LABEL_14:
   }
 }
 
-void sub_1000ED3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000ED3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8570,7 +8095,7 @@ BOOL sub_1000EDB40(const __CFString *a1)
   }
 }
 
-void sub_1000EDBD8(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
+void sub_1000EDBD8(uint64_t a1, _BYTE *a2, const void *a3, uint64_t a4)
 {
   v8 = (a4 + 4096);
   v9 = objc_autoreleasePoolPush();
@@ -8580,8 +8105,8 @@ void sub_1000EDBD8(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
   }
 
   objc_autoreleasePoolPop(v9);
-  v17 = *a2;
-  v18 = a2[2];
+  v23 = *a2;
+  v24 = a2[2];
   if (v8[1171])
   {
     v8[1312] = v8[1170] + v8[1169];
@@ -8606,44 +8131,44 @@ void sub_1000EDBD8(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
       }
 
       objc_autoreleasePoolPop(v11);
-      sub_10005C3D0(*(a4 + 64), a3);
-      v12 = CWFNetworkStackMACAddressWithInterfaceName();
-      if (_os_feature_enabled_impl() && v12)
+      sub_10005C3D0(*(a4 + 64), a3, v12, v13, v14, v15, v16, v17);
+      v18 = CWFNetworkStackMACAddressWithInterfaceName();
+      if (_os_feature_enabled_impl() && v18)
       {
-        v13 = objc_autoreleasePoolPush();
+        v19 = objc_autoreleasePoolPush();
         if (off_100298C40)
         {
-          [off_100298C40 WFLog:3 message:{"%s NANSTA Associated: %@ thisDeviceMACAddress = %@", "void __WiFiDeviceManagerNANPHSSTAArrivingCallback(UInt8, NSString *, NSString *, void *)", a2, v12}];
+          [off_100298C40 WFLog:3 message:{"%s NANSTA Associated: %@ thisDeviceMACAddress = %@", "void __WiFiDeviceManagerNANPHSSTAArrivingCallback(UInt8, NSString *, NSString *, void *)", a2, v18}];
         }
 
-        objc_autoreleasePoolPop(v13);
-        [+[CWFHotspotClientManager sharedInstance](CWFHotspotClientManager clientAssociated:"clientAssociated:thisDeviceMACAddress:" thisDeviceMACAddress:a2, v12];
+        objc_autoreleasePoolPop(v19);
+        [+[CWFHotspotClientManager sharedInstance](CWFHotspotClientManager clientAssociated:"clientAssociated:thisDeviceMACAddress:" thisDeviceMACAddress:a2, v18];
       }
     }
 
     sub_1000C7220(a4, 0);
     *(a4 + 5384) = CFAbsoluteTimeGetCurrent() + 3.0;
     v8[1280] = 1;
-    sub_1000D5F40(a4, 1, &v17, 0, 1);
-    v14 = objc_autoreleasePoolPush();
-    v15 = *(a4 + 7480);
-    if (v15)
+    sub_1000D5F40(a4, 1, &v23, 0, 1);
+    v20 = objc_autoreleasePoolPush();
+    v21 = *(a4 + 7480);
+    if (v21)
     {
-      [v15 addSoftApClientEvent:1 identifier:a2 isAppleClient:sub_100058BB4(&v17) != 0 isInstantHotspot:0 isAutoHotspot:0 isHidden:v8[1212] != 0];
+      [v21 addSoftApClientEvent:1 identifier:a2 isAppleClient:sub_100058BB4(&v23) != 0 isInstantHotspot:0 isAutoHotspot:0 isHidden:v8[1212] != 0];
     }
 
-    objc_autoreleasePoolPop(v14);
+    objc_autoreleasePoolPop(v20);
   }
 
   else
   {
-    v16 = objc_autoreleasePoolPush();
+    v22 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
       [off_100298C40 WFLog:4 message:{"%s: called while MIS is disabled", "__WiFiDeviceManagerNANPHSSTAArrivingCallback"}];
     }
 
-    objc_autoreleasePoolPop(v16);
+    objc_autoreleasePoolPop(v22);
   }
 }
 
@@ -9056,23 +8581,7 @@ LABEL_80:
             if (v45)
             {
               v46 = sub_10002A1CC(v45);
-              if (!v46)
-              {
-                goto LABEL_411;
-              }
-
-              [*(a1 + 6832) setPasswordForPHSOverNAN:v46];
-              sub_1000C7640(a1);
-              CFDictionaryAddValue(Mutable, @"AP_MODE_KEY", v46);
-              v202 = 0u;
-              v203 = 0u;
-              v200 = 0u;
-              v201 = 0u;
-              v198 = 0u;
-              v199 = 0u;
-              *buffer = 0u;
-              v197 = 0u;
-              if (!CFStringGetCString(v46, buffer, 128, 0x8000100u))
+              if (!v46 || ([*(a1 + 6832) setPasswordForPHSOverNAN:v46], sub_1000C7640(a1), CFDictionaryAddValue(Mutable, @"AP_MODE_KEY", v46), v202 = 0u, v203 = 0u, v200 = 0u, v201 = 0u, v198 = 0u, v199 = 0u, *buffer = 0u, v197 = 0u, !CFStringGetCString(v46, buffer, 128, 0x8000100u)))
               {
 LABEL_411:
                 v167 = objc_autoreleasePoolPush();

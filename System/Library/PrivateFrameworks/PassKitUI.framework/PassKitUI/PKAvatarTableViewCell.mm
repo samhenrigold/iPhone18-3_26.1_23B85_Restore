@@ -28,9 +28,9 @@
 
 - (void)layoutSubviews
 {
-  v18.receiver = self;
-  v18.super_class = PKAvatarTableViewCell;
-  [(PKAvatarTableViewCell *)&v18 layoutSubviews];
+  v25.receiver = self;
+  v25.super_class = PKAvatarTableViewCell;
+  [(PKAvatarTableViewCell *)&v25 layoutSubviews];
   if ([(PKAvatarTableViewCell *)self _shouldReverseLayoutDirection])
   {
     v3 = CGRectMaxXEdge;
@@ -49,18 +49,24 @@
   v12 = v11;
 
   [(UITableViewCell *)self pkui_effectiveLayoutMargins];
-  v19.origin.x = v6 + v13;
-  v19.size.width = v10 - (v13 + v14);
-  v19.size.height = v12 + -16.0;
+  v26.origin.x = v6 + v13;
+  v26.size.width = v10 - (v13 + v14);
+  v26.size.height = v12 + -16.0;
   remainder.origin.x = v6 + v13;
   remainder.origin.y = v8 + 8.0;
-  remainder.size.width = v19.size.width;
+  remainder.size.width = v26.size.width;
   remainder.size.height = v12 + -16.0;
-  memset(&v16, 0, sizeof(v16));
-  v19.origin.y = v8 + 8.0;
-  CGRectDivide(v19, &v16, &remainder, 45.0, v3);
+  memset(&v23, 0, sizeof(v23));
+  v26.origin.y = v8 + 8.0;
+  CGRectDivide(v26, &v23, &remainder, 45.0, v3);
   avatarView = self->_avatarView;
-  PKSizeAlignedInRect();
+  v17.n128_u64[0] = *&v23.origin.y;
+  v16.n128_u64[0] = *&v23.origin.x;
+  v19.n128_u64[0] = *&v23.size.height;
+  v18.n128_u64[0] = *&v23.size.width;
+  v20.n128_u64[0] = 0x4046800000000000;
+  v21.n128_u64[0] = 0x4046800000000000;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v20, v21, v16, v17, v18, v19, v22);
   [(CNAvatarView *)avatarView setFrame:?];
 }
 

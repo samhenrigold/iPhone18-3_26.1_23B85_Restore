@@ -36,7 +36,7 @@
 
 - (void)loadView
 {
-  v44[8] = *MEMORY[0x277D85DE8];
+  v43[8] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CF0D98]);
   v3 = *MEMORY[0x277CBF3A0];
   v4 = *(MEMORY[0x277CBF3A0] + 8);
@@ -51,53 +51,52 @@
   [contentView addSubview:v8];
   [contentView setTranslatesAutoresizingMaskIntoConstraints:0];
   [(AMUIDateTimeView *)v8 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v32 = MEMORY[0x277CCAAD0];
+  v31 = MEMORY[0x277CCAAD0];
   leadingAnchor = [contentView leadingAnchor];
   leadingAnchor2 = [(AMUIDateTimeView *)v8 leadingAnchor];
-  v40 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v44[0] = v40;
+  v39 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v43[0] = v39;
   trailingAnchor = [contentView trailingAnchor];
   trailingAnchor2 = [(AMUIDateTimeView *)v8 trailingAnchor];
-  v37 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v44[1] = v37;
+  v36 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v43[1] = v36;
   topAnchor = [contentView topAnchor];
   topAnchor2 = [(AMUIDateTimeView *)v8 topAnchor];
-  v34 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v44[2] = v34;
+  v33 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v43[2] = v33;
   bottomAnchor = [contentView bottomAnchor];
   bottomAnchor2 = [(AMUIDateTimeView *)v8 bottomAnchor];
-  v30 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v44[3] = v30;
+  v29 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v43[3] = v29;
   leadingAnchor3 = [v7 leadingAnchor];
   leadingAnchor4 = [contentView leadingAnchor];
-  v26 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v44[4] = v26;
+  v25 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+  v43[4] = v25;
   trailingAnchor3 = [v7 trailingAnchor];
   trailingAnchor4 = [contentView trailingAnchor];
   v11 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v44[5] = v11;
-  v29 = v7;
+  v43[5] = v11;
+  v28 = v7;
   topAnchor3 = [v7 topAnchor];
   topAnchor4 = [contentView topAnchor];
   v14 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-  v44[6] = v14;
+  v43[6] = v14;
   bottomAnchor3 = [v7 bottomAnchor];
   bottomAnchor4 = [contentView bottomAnchor];
   v17 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v44[7] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:8];
-  [v32 activateConstraints:v18];
+  v43[7] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:8];
+  [v31 activateConstraints:v18];
 
   vibrancyView = self->_vibrancyView;
-  self->_vibrancyView = v29;
-  v20 = v29;
+  self->_vibrancyView = v28;
+  v20 = v28;
 
   dateTimeView = self->_dateTimeView;
   self->_dateTimeView = v8;
   v22 = v8;
 
   [(AMUIDateTimeViewController *)self setView:self->_vibrancyView];
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDateProvider:(id)provider

@@ -5,6 +5,7 @@
 - (void)deregisterCommonNotifications;
 - (void)didAddNewTrackedLocation:(id)location;
 - (void)didMakeProviderActive;
+- (void)recordLocation:(id)location ofType:(unsigned __int8)type;
 - (void)registerCommonNotifications;
 - (void)sendLostModeExitAuthWithToken:(id)token;
 - (void)sendTrackedLocations:(id)locations withCurrentLocation:(id)location;
@@ -70,6 +71,19 @@
   [(FMDServiceProvider *)&v4 deregisterCommonNotifications];
 }
 
+- (void)recordLocation:(id)location ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  locationCopy = location;
+  locationTracker = [(FMDDeviceActionsServiceProvider *)self locationTracker];
+
+  if (locationTracker)
+  {
+    locationTracker2 = [(FMDDeviceActionsServiceProvider *)self locationTracker];
+    [locationTracker2 recordLocation:locationCopy ofType:typeCopy];
+  }
+}
+
 - (BOOL)setPasscodeLock:(id)lock statusCode:(int64_t *)code
 {
   lockCopy = lock;
@@ -78,13 +92,13 @@
   v7 = +[FMDSystemConfig sharedInstance];
   isPasscodeSet = [v7 isPasscodeSet];
 
-  if (!lockCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ![lockCopy length])
+  if (!lockCopy || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0) || (isKindOfClass = [lockCopy length]) == 0)
   {
-    localizedDescriptionOfCurrentPasscodeConstraints = sub_100002880();
-    v11 = os_log_type_enabled(localizedDescriptionOfCurrentPasscodeConstraints, OS_LOG_TYPE_DEFAULT);
+    localizedDescriptionOfCurrentPasscodeConstraints = sub_100002880(isKindOfClass);
+    v12 = os_log_type_enabled(localizedDescriptionOfCurrentPasscodeConstraints, OS_LOG_TYPE_DEFAULT);
     if (isPasscodeSet)
     {
-      if (v11)
+      if (v12)
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, localizedDescriptionOfCurrentPasscodeConstraints, OS_LOG_TYPE_DEFAULT, "Remote Lock:  Passcode is already set - Locking device only", buf, 2u);
@@ -94,25 +108,25 @@
       goto LABEL_12;
     }
 
-    if (v11)
+    if (v12)
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, localizedDescriptionOfCurrentPasscodeConstraints, OS_LOG_TYPE_DEFAULT, "Remote Lock:  Invalid passcode state - locking device only", buf, 2u);
     }
 
     LOBYTE(localizedDescriptionOfCurrentPasscodeConstraints) = 0;
-    v12 = &qword_100312AE0;
+    v13 = &qword_100312AE0;
     goto LABEL_16;
   }
 
   if (isPasscodeSet)
   {
     *code = qword_100312B08;
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002880(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Remote Lock:  Passcode already set.  Ignoring new passcode and locking device", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Remote Lock:  Passcode already set.  Ignoring new passcode and locking device", buf, 2u);
     }
 
 LABEL_12:
@@ -120,94 +134,94 @@ LABEL_12:
     goto LABEL_17;
   }
 
-  v15 = +[MCProfileConnection sharedConnection];
-  v16 = [v15 passcode:lockCopy meetsCurrentConstraintsOutError:0];
+  v16 = +[MCProfileConnection sharedConnection];
+  v17 = [v16 passcode:lockCopy meetsCurrentConstraintsOutError:0];
 
-  v17 = +[MCProfileConnection sharedConnection];
-  v18 = v17;
-  if (v16)
+  v18 = +[MCProfileConnection sharedConnection];
+  v19 = v18;
+  if (v17)
   {
-    LODWORD(localizedDescriptionOfCurrentPasscodeConstraints) = [v17 isPasscodeModificationAllowed];
+    LODWORD(localizedDescriptionOfCurrentPasscodeConstraints) = [v18 isPasscodeModificationAllowed];
 
     if (localizedDescriptionOfCurrentPasscodeConstraints)
     {
-      localizedDescriptionOfCurrentPasscodeConstraints = sub_100002880();
+      localizedDescriptionOfCurrentPasscodeConstraints = sub_100002880(v20);
       if (os_log_type_enabled(localizedDescriptionOfCurrentPasscodeConstraints, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, localizedDescriptionOfCurrentPasscodeConstraints, OS_LOG_TYPE_DEFAULT, "Remote Lock:  Setting new lock passcode", buf, 2u);
       }
 
-      v19 = +[MCProfileConnection sharedConnection];
-      v30 = 0;
-      LOBYTE(localizedDescriptionOfCurrentPasscodeConstraints) = [v19 changePasscodeFrom:0 to:lockCopy outError:&v30];
-      v20 = v30;
+      v21 = +[MCProfileConnection sharedConnection];
+      v34 = 0;
+      LOBYTE(localizedDescriptionOfCurrentPasscodeConstraints) = [v21 changePasscodeFrom:0 to:lockCopy outError:&v34];
+      v22 = v34;
 
       if ((localizedDescriptionOfCurrentPasscodeConstraints & 1) == 0)
       {
-        v21 = sub_100002880();
-        v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-        if (v20)
+        v24 = sub_100002880(v23);
+        v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+        if (v22)
         {
-          if (v22)
+          if (v25)
           {
-            sub_100227394(v20, v21);
+            sub_100227394(v22, v24);
           }
         }
 
-        else if (v22)
+        else if (v25)
         {
-          sub_10022740C(v21);
+          sub_10022740C(v24);
         }
 
         *code = qword_100312AE8;
       }
 
-      v24 = [CDPStateController alloc];
-      v25 = +[CDPContext contextForPrimaryAccount];
-      v26 = [v24 initWithContext:v25];
+      v28 = [CDPStateController alloc];
+      v29 = +[CDPContext contextForPrimaryAccount];
+      v30 = [v28 initWithContext:v29];
 
-      v27 = +[MCProfileConnection sharedConnection];
-      v28 = [v27 unlockScreenTypeForPasscode:lockCopy outSimplePasscodeType:0];
+      v31 = +[MCProfileConnection sharedConnection];
+      v32 = [v31 unlockScreenTypeForPasscode:lockCopy outSimplePasscodeType:0];
 
-      if (v28)
+      if (v32)
       {
-        v29 = 3;
+        v33 = 3;
       }
 
       else
       {
-        v29 = 2;
+        v33 = 2;
       }
 
-      [v26 localSecretChangedTo:lockCopy secretType:v29 completion:&stru_1002CE108];
+      [v30 localSecretChangedTo:lockCopy secretType:v33 completion:&stru_1002CE108];
 
       goto LABEL_17;
     }
 
-    v12 = &qword_100312AF0;
+    v13 = &qword_100312AF0;
 LABEL_16:
-    *code = *v12;
+    *code = *v13;
     goto LABEL_17;
   }
 
-  localizedDescriptionOfCurrentPasscodeConstraints = [v17 localizedDescriptionOfCurrentPasscodeConstraints];
+  localizedDescriptionOfCurrentPasscodeConstraints = [v18 localizedDescriptionOfCurrentPasscodeConstraints];
 
-  v23 = sub_100002880();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v27 = sub_100002880(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v32 = lockCopy;
-    v33 = 2112;
-    v34 = localizedDescriptionOfCurrentPasscodeConstraints;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Remote Lock: New passcode %@ does not meet current policy: %@", buf, 0x16u);
+    v36 = lockCopy;
+    v37 = 2112;
+    v38 = localizedDescriptionOfCurrentPasscodeConstraints;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Remote Lock: New passcode %@ does not meet current policy: %@", buf, 0x16u);
   }
 
   *code = qword_100312AD8;
   LOBYTE(localizedDescriptionOfCurrentPasscodeConstraints) = 0;
 LABEL_17:
-  v13 = +[MCProfileConnection sharedConnection];
-  [v13 lockDeviceImmediately:1];
+  v14 = +[MCProfileConnection sharedConnection];
+  [v14 lockDeviceImmediately:1];
 
   objc_autoreleasePoolPop(v6);
   return localizedDescriptionOfCurrentPasscodeConstraints;
@@ -231,15 +245,15 @@ LABEL_17:
 
 LABEL_4:
     locationTracker2 = [(FMDDeviceActionsServiceProvider *)self locationTracker];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_100147FF8;
-    v9[3] = &unk_1002CE150;
-    v10 = locationCopy;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100147FF8;
+    v10[3] = &unk_1002CE150;
+    v11 = locationCopy;
     selfCopy = self;
-    [locationTracker2 actOnTrackedLocationsUsingBlock:v9];
+    [locationTracker2 actOnTrackedLocationsUsingBlock:v10];
 
-    v8 = v10;
+    v9 = v11;
     goto LABEL_5;
   }
 
@@ -250,11 +264,11 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v8 = sub_100002880();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100002880(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Not informing provider about change to trackedLocations because trackNotifyEnabled is false", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not informing provider about change to trackedLocations because trackNotifyEnabled is false", buf, 2u);
   }
 
 LABEL_5:

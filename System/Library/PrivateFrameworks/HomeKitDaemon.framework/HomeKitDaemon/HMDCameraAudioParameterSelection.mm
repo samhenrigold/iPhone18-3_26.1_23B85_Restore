@@ -110,14 +110,14 @@
   {
   }
 
-  v28 = [array copy];
+  v28 = objc_msgSend_copy(array);
   validAudioParameterCombinations = self->_validAudioParameterCombinations;
   self->_validAudioParameterCombinations = v28;
 }
 
 - (id)createSelectedAudioParameters
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   rtpPTime = rtpPtime;
   if (!rtpPTime)
   {
@@ -125,16 +125,16 @@
     rtpPTime = [selectedAudioParameterCombination rtpPTime];
   }
 
-  v32 = rtpPTime;
+  v31 = rtpPTime;
   v5 = [HMDAudioCodecParameters alloc];
   selectedAudioChannelCount = [(HMDCameraAudioParameterSelection *)self selectedAudioChannelCount];
   selectedBitRateSetting = [(HMDCameraAudioParameterSelection *)self selectedBitRateSetting];
-  v35[0] = selectedBitRateSetting;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+  v34[0] = selectedBitRateSetting;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
   selectedSampleRate = [(HMDCameraAudioParameterSelection *)self selectedSampleRate];
-  v34 = selectedSampleRate;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
-  v33 = [(HMDAudioCodecParameters *)v5 initWithChannelCount:selectedAudioChannelCount bitRateSetting:v8 audioSampleRate:v10 rtpPtime:rtpPTime];
+  v33 = selectedSampleRate;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+  v32 = [(HMDAudioCodecParameters *)v5 initWithChannelCount:selectedAudioChannelCount bitRateSetting:v8 audioSampleRate:v10 rtpPtime:rtpPTime];
 
   v11 = [HMDSelectedRTPParameters alloc];
   v12 = MEMORY[0x277CCABB0];
@@ -169,9 +169,7 @@
   v25 = [HMDSelectedAudioParameters alloc];
   selectedCodecGroupType2 = [(HMDCameraAudioParameterSelection *)self selectedCodecGroupType];
   comfortNoiseSupported = [(HMDCameraAudioParameterSelection *)self comfortNoiseSupported];
-  v28 = [(HMDSelectedAudioParameters *)v25 initWithCodecGroup:selectedCodecGroupType2 codecParameter:v33 rtpParameter:v24 comfortNoiseEnabled:comfortNoiseSupported];
-
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = [(HMDSelectedAudioParameters *)v25 initWithCodecGroup:selectedCodecGroupType2 codecParameter:v32 rtpParameter:v24 comfortNoiseEnabled:comfortNoiseSupported];
 
   return v28;
 }
@@ -188,57 +186,57 @@
 
 - (BOOL)_selectParametersFromCodec:(id)codec bitRateSettings:(id)settings sampleRates:(id)rates audioChannelCount:(id)count
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   codecCopy = codec;
   settingsCopy = settings;
   ratesCopy = rates;
   countCopy = count;
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v14 = settingsCopy;
-  v40 = [v14 countByEnumeratingWithState:&v51 objects:v60 count:16];
-  if (v40)
+  v39 = [v14 countByEnumeratingWithState:&v50 objects:v59 count:16];
+  if (v39)
   {
-    v15 = *v52;
-    v45 = codecCopy;
-    v43 = countCopy;
-    v44 = ratesCopy;
-    v42 = v14;
-    v39 = *v52;
+    v15 = *v51;
+    v44 = codecCopy;
+    v42 = countCopy;
+    v43 = ratesCopy;
+    v41 = v14;
+    v38 = *v51;
     do
     {
       v16 = 0;
       do
       {
-        if (*v52 != v15)
+        if (*v51 != v15)
         {
           objc_enumerationMutation(v14);
         }
 
-        v41 = v16;
-        v17 = *(*(&v51 + 1) + 8 * v16);
+        v40 = v16;
+        v17 = *(*(&v50 + 1) + 8 * v16);
+        v46 = 0u;
         v47 = 0u;
         v48 = 0u;
         v49 = 0u;
-        v50 = 0u;
         obj = ratesCopy;
-        v18 = [obj countByEnumeratingWithState:&v47 objects:v59 count:16];
+        v18 = [obj countByEnumeratingWithState:&v46 objects:v58 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v48;
+          v20 = *v47;
           while (2)
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v48 != v20)
+              if (*v47 != v20)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v22 = *(*(&v47 + 1) + 8 * i);
+              v22 = *(*(&v46 + 1) + 8 * i);
               v23 = [[HMDCameraAudioParameterCombination alloc] initWithCodecGroup:codecCopy bitrateSetting:v17 sampleRate:v22];
               validAudioParameterCombinations = [(HMDCameraAudioParameterSelection *)self validAudioParameterCombinations];
               v25 = [validAudioParameterCombinations indexOfObject:v23];
@@ -255,25 +253,25 @@
                 {
                   v36 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v56 = v36;
-                  v57 = 2112;
-                  v58 = v32;
+                  v55 = v36;
+                  v56 = 2112;
+                  v57 = v32;
                   _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_INFO, "%{public}@Using audio parameter combination: %@", buf, 0x16u);
 
-                  codecCopy = v45;
+                  codecCopy = v44;
                 }
 
                 objc_autoreleasePoolPop(v33);
                 [(HMDCameraAudioParameterSelection *)selfCopy setSelectedCodecGroupType:codecCopy];
                 [(HMDCameraAudioParameterSelection *)selfCopy setSelectedBitRateSetting:v17];
                 [(HMDCameraAudioParameterSelection *)selfCopy setSelectedSampleRate:v22];
-                countCopy = v43;
-                [(HMDCameraAudioParameterSelection *)selfCopy setSelectedAudioChannelCount:v43];
+                countCopy = v42;
+                [(HMDCameraAudioParameterSelection *)selfCopy setSelectedAudioChannelCount:v42];
                 [(HMDCameraAudioParameterSelection *)selfCopy setSelectedAudioParameterCombination:v32];
 
                 v30 = 1;
-                ratesCopy = v44;
-                v14 = v42;
+                ratesCopy = v43;
+                v14 = v41;
                 goto LABEL_23;
               }
 
@@ -284,18 +282,18 @@
               {
                 v29 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v56 = v29;
-                v57 = 2112;
-                v58 = v23;
+                v55 = v29;
+                v56 = 2112;
+                v57 = v23;
                 _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Could not find audio parameter combination: %@", buf, 0x16u);
 
-                codecCopy = v45;
+                codecCopy = v44;
               }
 
               objc_autoreleasePoolPop(v26);
             }
 
-            v19 = [obj countByEnumeratingWithState:&v47 objects:v59 count:16];
+            v19 = [obj countByEnumeratingWithState:&v46 objects:v58 count:16];
             if (v19)
             {
               continue;
@@ -305,19 +303,19 @@
           }
         }
 
-        v16 = v41 + 1;
-        countCopy = v43;
-        ratesCopy = v44;
-        v14 = v42;
-        v15 = v39;
+        v16 = v40 + 1;
+        countCopy = v42;
+        ratesCopy = v43;
+        v14 = v41;
+        v15 = v38;
       }
 
-      while (v41 + 1 != v40);
+      while (v40 + 1 != v39);
       v30 = 0;
-      v40 = [v42 countByEnumeratingWithState:&v51 objects:v60 count:16];
+      v39 = [v41 countByEnumeratingWithState:&v50 objects:v59 count:16];
     }
 
-    while (v40);
+    while (v39);
   }
 
   else
@@ -327,13 +325,12 @@
 
 LABEL_23:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 - (BOOL)selectAudioParameters
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   audioCodecsPreference = [(HMDCameraAudioParameterSelection *)self audioCodecsPreference];
   streamingCapabilities = [(HMDCameraAudioParameterSelection *)self streamingCapabilities];
@@ -355,29 +352,29 @@ LABEL_23:
 
   v12 = [v3 selectedParametersFromPreferredParameters:audioCodecsPreference deviceSupportedParameters:allKeys cameraSupportedParameters:allKeys2 overriddenParameters:v11 parameterDescription:@"Audio-Codec"];
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v13 = v12;
-  v52 = [v13 countByEnumeratingWithState:&v53 objects:v63 count:16];
-  if (v52)
+  v51 = [v13 countByEnumeratingWithState:&v52 objects:v62 count:16];
+  if (v51)
   {
     obj = v13;
-    v50 = *v54;
+    v49 = *v53;
     *&v14 = 138543874;
-    v48 = v14;
+    v47 = v14;
     selfCopy2 = self;
 LABEL_6:
     v16 = 0;
     while (1)
     {
-      if (*v54 != v50)
+      if (*v53 != v49)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v53 + 1) + 8 * v16);
+      v17 = *(*(&v52 + 1) + 8 * v16);
       supportedAudioStreamConfiguration2 = [(HMDCameraAudioParameterSelection *)selfCopy2 supportedAudioStreamConfiguration];
       codecConfigurations2 = [supportedAudioStreamConfiguration2 codecConfigurations];
       v20 = [codecConfigurations2 objectForKeyedSubscript:v17];
@@ -438,22 +435,22 @@ LABEL_6:
         if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
           v40 = HMFGetLogIdentifier();
-          *buf = v48;
-          v58 = v40;
-          v59 = 2112;
-          v60 = v26;
-          v61 = 2112;
-          v62 = v34;
+          *buf = v47;
+          v57 = v40;
+          v58 = 2112;
+          v59 = v26;
+          v60 = 2112;
+          v61 = v34;
           _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@One of the intersected candidates is empty: candidateBitrateSettings: %@, candidateSampleRates: %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v37);
       }
 
-      if (v52 == ++v16)
+      if (v51 == ++v16)
       {
-        v52 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
-        if (v52)
+        v51 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
+        if (v51)
         {
           goto LABEL_6;
         }
@@ -471,7 +468,6 @@ LABEL_22:
 LABEL_23:
 
 LABEL_25:
-  v46 = *MEMORY[0x277D85DE8];
   return v41;
 }
 
@@ -529,10 +525,9 @@ LABEL_25:
 
 void __47__HMDCameraAudioParameterSelection_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_12493;
-  logCategory__hmf_once_v1_12493 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_12493;
+  logCategory__hmf_once_v1_12493 = v0;
 }
 
 @end

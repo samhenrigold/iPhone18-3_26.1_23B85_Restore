@@ -731,7 +731,7 @@ LABEL_45:
 
     [currentBookAssetPresenter minifiedAssetPresenterDidCloseAssetMinified];
 LABEL_47:
-    [(BKMinifiedFlowController *)self setCurrentBookAssetPresenter:presenterCopy, *v67, *&v67[16]];
+    [(BKMinifiedFlowController *)self setCurrentBookAssetPresenter:presenterCopy, *v67, *&v67[8]];
     if (!presenterCopy)
     {
 LABEL_55:

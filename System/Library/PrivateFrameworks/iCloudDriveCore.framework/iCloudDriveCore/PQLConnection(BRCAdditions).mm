@@ -43,8 +43,8 @@
 
 - (uint64_t)registerFunction:()BRCAdditions nArgs:handler:error:
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v8 = [self registerFunction:? nArgs:? handler:?];
+  v23 = *MEMORY[0x277D85DE8];
+  v8 = [self registerFunction:a3 nArgs:a4 handler:a5];
   if ((v8 & 1) == 0)
   {
     lastError = [self lastError];
@@ -54,21 +54,21 @@
       v11 = brc_default_log();
       if (os_log_type_enabled(v11, 0x90u))
       {
-        v15 = "(passed to caller)";
-        v16 = 136315906;
-        v17 = "[PQLConnection(BRCAdditions) registerFunction:nArgs:handler:error:]";
-        v18 = 2080;
+        v14 = "(passed to caller)";
+        v15 = 136315906;
+        v16 = "[PQLConnection(BRCAdditions) registerFunction:nArgs:handler:error:]";
+        v17 = 2080;
         if (!a6)
         {
-          v15 = "(ignored by caller)";
+          v14 = "(ignored by caller)";
         }
 
-        v19 = v15;
-        v20 = 2112;
-        v21 = lastError;
-        v22 = 2112;
-        v23 = v10;
-        _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] %s: %s error: %@%@", &v16, 0x2Au);
+        v18 = v14;
+        v19 = 2112;
+        v20 = lastError;
+        v21 = 2112;
+        v22 = v10;
+        _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] %s: %s error: %@%@", &v15, 0x2Au);
       }
     }
 
@@ -79,7 +79,6 @@
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -24,15 +24,15 @@ Swift::Int sub_100001720()
   return Hasher._finalize()();
 }
 
-Swift::Int sub_100001794()
+Swift::Int sub_100001794(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
-uint64_t *sub_1000017D8@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+unint64_t *sub_1000017D8@<X0>(unint64_t *result@<X0>, uint64_t a2@<X8>)
 {
   v2 = *result;
   v3 = *result > 1;
@@ -104,22 +104,21 @@ uint64_t sub_1000018E4(uint64_t a1, uint64_t (*a2)(uint64_t))
 
 void sub_100001AF8(uint64_t a1, void *a2, void *a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
-  v8 = a2;
-  v7 = a3;
-  v6(a2, a3);
+  v7 = a2;
+  v6 = a3;
+  v5(a2, a3);
 }
 
-id sub_100001BC4()
+id sub_100001BC4(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for NFWindowSceneEventLauncher();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for NFWindowSceneEventLauncher();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
-uint64_t sub_100001BF8(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_100001BF8(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_100001CC4(v11, 0, 0, 1, a1, a2);
@@ -219,11 +218,9 @@ LABEL_8:
 
 char *sub_100001DD0(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100001E1C(a1, a2);
+  v3 = sub_100001E1C(a1, a2);
   sub_100001F4C(&off_10000C560);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100001E1C(uint64_t a1, unint64_t a2)
@@ -323,7 +320,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -337,15 +333,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_1000020AC(result, v12, 1, v3);
+  result = sub_1000020AC(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -360,15 +356,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -377,12 +373,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -490,15 +486,17 @@ char *sub_1000020AC(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_1000021A0(uint64_t *a1)
+uint64_t sub_1000021A0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_1000021EC(uint64_t a1)
@@ -513,7 +511,6 @@ uint64_t sub_100002254(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -672,28 +669,26 @@ void sub_1000024C4(uint64_t a1, uint64_t a2, void *a3, void (**a4)(void, void))
 
 void sub_100002844(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (**a5)(void, void))
 {
-  v36 = a1;
-  v37 = a2;
+  v33 = a1;
+  v34 = a2;
   v8 = type metadata accessor for OSSignpostID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin();
-  v12 = &v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100001800();
   _Block_copy(a5);
   _Block_copy(a5);
-  v13 = OS_os_log.init(subsystem:category:)();
+  v12 = OS_os_log.init(subsystem:category:)();
   if (!a4)
   {
-    v14 = type metadata accessor for NFCWindowSceneEvent();
-    v35 = &v34;
-    v15 = *(v14 - 8);
-    v20 = *(v15 + 64);
+    v13 = type metadata accessor for NFCWindowSceneEvent();
+    v32 = &v31;
+    v14 = *(v13 - 8);
     __chkstk_darwin();
-    v19 = &v34 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v17 = &v31 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
     if (a3 == 1)
     {
-      (*(v15 + 104))(v19, enum case for NFCWindowSceneEvent.readerDetected(_:), v14);
+      (*(v14 + 104))(v17, enum case for NFCWindowSceneEvent.readerDetected(_:), v13);
       static os_signpost_type_t.event.getter();
       static OSSignpostID.exclusive.getter();
     }
@@ -708,56 +703,55 @@ void sub_100002844(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (**a
           swift_once();
         }
 
-        v29 = type metadata accessor for Logger();
-        sub_1000016D4(v29, qword_100010DE0);
-        v30 = Logger.logObject.getter();
-        v31 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v30, v31))
+        v26 = type metadata accessor for Logger();
+        sub_1000016D4(v26, qword_100010DE0);
+        v27 = Logger.logObject.getter();
+        v28 = static os_log_type_t.error.getter();
+        if (os_log_type_enabled(v27, v28))
         {
-          v32 = swift_slowAlloc();
-          v33 = swift_slowAlloc();
-          v38 = v33;
-          *v32 = 136315394;
-          *(v32 + 4) = sub_100001BF8(0xD000000000000032, 0x8000000100007410, &v38);
-          *(v32 + 12) = 2048;
-          *(v32 + 14) = 78;
-          _os_log_impl(&_mh_execute_header, v30, v31, "%s: %ld: Unexpected event value", v32, 0x16u);
-          sub_1000021A0(v33);
+          v29 = swift_slowAlloc();
+          v30 = swift_slowAlloc();
+          v35 = v30;
+          *v29 = 136315394;
+          *(v29 + 4) = sub_100001BF8(0xD000000000000032, 0x8000000100007410, &v35);
+          *(v29 + 12) = 2048;
+          *(v29 + 14) = 78;
+          _os_log_impl(&_mh_execute_header, v27, v28, "%s: %ld: Unexpected event value", v29, 0x16u);
+          sub_1000021A0(v30);
         }
 
         goto LABEL_18;
       }
 
-      (*(v15 + 104))(v19, enum case for NFCWindowSceneEvent.presentation(_:), v14);
+      (*(v14 + 104))(v17, enum case for NFCWindowSceneEvent.presentation(_:), v13);
       static os_signpost_type_t.event.getter();
       static OSSignpostID.exclusive.getter();
     }
 
     os_signpost(_:dso:log:name:signpostID:)();
-    (*(v9 + 8))(v12, v8);
-    v22 = NFCWindowSceneEvent.asBSAction()();
+    (*(v9 + 8))(v11, v8);
+    v19 = NFCWindowSceneEvent.asBSAction()();
 LABEL_17:
-    v28 = v22;
+    v25 = v19;
     _Block_copy(a5);
-    sub_1000024C4(v36, v37, v28, a5);
+    sub_1000024C4(v33, v34, v25, a5);
     _Block_release(a5);
 
-    (*(v15 + 8))(v19, v14);
+    (*(v14 + 8))(v17, v13);
 LABEL_18:
     _Block_release(a5);
     _Block_release(a5);
     return;
   }
 
-  v14 = type metadata accessor for CredentialSessionWindowSceneEvent();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
+  v13 = type metadata accessor for CredentialSessionWindowSceneEvent();
+  v14 = *(v13 - 8);
   __chkstk_darwin();
-  v19 = &v34 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = &v31 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a3 == 1)
   {
-    v35 = v17;
-    (*(v15 + 104))(v19, enum case for CredentialSessionWindowSceneEvent.readerDetected(_:), v14);
+    v32 = v15;
+    (*(v14 + 104))(v17, enum case for CredentialSessionWindowSceneEvent.readerDetected(_:), v13);
     static os_signpost_type_t.event.getter();
     static OSSignpostID.exclusive.getter();
     goto LABEL_9;
@@ -765,14 +759,14 @@ LABEL_18:
 
   if (a3 == 2)
   {
-    v35 = v17;
-    (*(v15 + 104))(v19, enum case for CredentialSessionWindowSceneEvent.presentation(_:), v14);
+    v32 = v15;
+    (*(v14 + 104))(v17, enum case for CredentialSessionWindowSceneEvent.presentation(_:), v13);
     static os_signpost_type_t.event.getter();
     static OSSignpostID.exclusive.getter();
 LABEL_9:
     os_signpost(_:dso:log:name:signpostID:)();
-    (*(v9 + 8))(v12, v8);
-    v22 = CredentialSessionWindowSceneEvent.asBSAction()();
+    (*(v9 + 8))(v11, v8);
+    v19 = CredentialSessionWindowSceneEvent.asBSAction()();
     goto LABEL_17;
   }
 
@@ -782,21 +776,21 @@ LABEL_9:
     swift_once();
   }
 
-  v23 = type metadata accessor for Logger();
-  sub_1000016D4(v23, qword_100010DE0);
-  v24 = Logger.logObject.getter();
-  v25 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v24, v25))
+  v20 = type metadata accessor for Logger();
+  sub_1000016D4(v20, qword_100010DE0);
+  v21 = Logger.logObject.getter();
+  v22 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v21, v22))
   {
-    v26 = swift_slowAlloc();
-    v27 = swift_slowAlloc();
-    v38 = v27;
-    *v26 = 136315394;
-    *(v26 + 4) = sub_100001BF8(0xD000000000000032, 0x8000000100007410, &v38);
-    *(v26 + 12) = 2048;
-    *(v26 + 14) = 50;
-    _os_log_impl(&_mh_execute_header, v24, v25, "%s: %ld: Unexpected event value", v26, 0x16u);
-    sub_1000021A0(v27);
+    v23 = swift_slowAlloc();
+    v24 = swift_slowAlloc();
+    v35 = v24;
+    *v23 = 136315394;
+    *(v23 + 4) = sub_100001BF8(0xD000000000000032, 0x8000000100007410, &v35);
+    *(v23 + 12) = 2048;
+    *(v23 + 14) = 50;
+    _os_log_impl(&_mh_execute_header, v21, v22, "%s: %ld: Unexpected event value", v23, 0x16u);
+    sub_1000021A0(v24);
   }
 
   _Block_release(a5);
@@ -824,7 +818,6 @@ uint64_t sub_100003260()
 
 uint64_t sub_1000032B0()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -861,14 +854,11 @@ uint64_t sub_10000343C(uint64_t a1, uint64_t a2)
 
 uint64_t *sub_10000349C(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;

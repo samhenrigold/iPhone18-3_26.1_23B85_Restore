@@ -20,11 +20,12 @@
 
 - (AATimeDurationGranularityFactory)initWithName:(id)name
 {
-  sub_1B6AB92E0();
+  v4 = sub_1B6AB92E0();
+  v6 = v5;
   selfCopy = self;
-  v5 = _s12AppAnalytics37BridgedTimeDurationGranularityFactoryC04makedeF0yAA0cdeF0OSSF_0();
+  v8 = _s12AppAnalytics37BridgedTimeDurationGranularityFactoryC04makedeF0yAA0cdeF0OSSF_0(v4, v6);
 
-  return v5;
+  return v8;
 }
 
 - (AATimeDurationGranularityFactory)init

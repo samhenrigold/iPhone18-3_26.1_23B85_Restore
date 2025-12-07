@@ -127,7 +127,7 @@ LABEL_14:
 
 - (void)pruneCacheWithBlock:(id)block completion:(id)completion
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   completionCopy = completion;
   if (!blockCopy)
@@ -137,35 +137,35 @@ LABEL_14:
 
   os_unfair_lock_lock(&self->_lock);
   v8 = objc_autoreleasePoolPush();
-  v34 = 0;
+  v33 = 0;
   v9 = objc_opt_new();
   context = v8;
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v10 = self->_mapTable;
-  v11 = [(NSMapTable *)v10 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v11 = [(NSMapTable *)v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v11)
   {
-    v12 = *v31;
+    v12 = *v30;
 LABEL_5:
     v13 = 0;
     while (1)
     {
-      if (*v31 != v12)
+      if (*v30 != v12)
       {
         objc_enumerationMutation(v10);
       }
 
-      v14 = *(*(&v30 + 1) + 8 * v13);
+      v14 = *(*(&v29 + 1) + 8 * v13);
       context = [(NSMapTable *)self->_mapTable objectForKey:v14, context];
-      if (!context || blockCopy[2](blockCopy, v14, context, &v34))
+      if (!context || blockCopy[2](blockCopy, v14, context, &v33))
       {
         [v9 addObject:v14];
       }
 
-      v16 = v34;
+      v16 = v33;
 
       if (v16)
       {
@@ -174,7 +174,7 @@ LABEL_5:
 
       if (v11 == ++v13)
       {
-        v11 = [(NSMapTable *)v10 countByEnumeratingWithState:&v30 objects:v36 count:16];
+        v11 = [(NSMapTable *)v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
         if (v11)
         {
           goto LABEL_5;
@@ -185,28 +185,28 @@ LABEL_5:
     }
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v17 = v9;
-  v18 = [v17 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v25 objects:v34 count:16];
   if (v18)
   {
-    v19 = *v27;
+    v19 = *v26;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(v17);
         }
 
-        [(NSMapTable *)self->_mapTable removeObjectForKey:*(*(&v26 + 1) + 8 * i), context];
+        [(NSMapTable *)self->_mapTable removeObjectForKey:*(*(&v25 + 1) + 8 * i), context];
       }
 
-      v18 = [v17 countByEnumeratingWithState:&v26 objects:v35 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v25 objects:v34 count:16];
     }
 
     while (v18);
@@ -223,8 +223,6 @@ LABEL_5:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pruneCacheWithBlock:(uint64_t)a1 completion:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

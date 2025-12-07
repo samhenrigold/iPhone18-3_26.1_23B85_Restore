@@ -18,23 +18,21 @@
 
 + (BOOL)deviceHasFaceID
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (deviceHasFaceID_onceToken != -1)
   {
     +[LACMobileGestalt deviceHasFaceID];
   }
 
-  v2 = LACLogGestalt();
+  v2 = LACLogGestalt(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v5[0] = 67109120;
-    v5[1] = deviceHasFaceID_hasPearl;
-    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_INFO, "deviceHasPearl returned %d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = deviceHasFaceID_hasPearl;
+    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_INFO, "deviceHasPearl returned %d", v4, 8u);
   }
 
-  result = deviceHasFaceID_hasPearl;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return deviceHasFaceID_hasPearl;
 }
 
 + (int)_deviceClass
@@ -70,15 +68,16 @@ uint64_t __32__LACMobileGestalt__deviceClass__block_invoke()
 
 void __35__LACMobileGestalt_deviceHasFaceID__block_invoke()
 {
-  if (MGIsQuestionValid())
+  v0 = MGIsQuestionValid();
+  if (v0)
   {
     deviceHasFaceID_hasPearl = MGGetBoolAnswer();
   }
 
   else
   {
-    v0 = LACLogGestalt();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = LACLogGestalt(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       __35__LACMobileGestalt_deviceHasFaceID__block_invoke_cold_1();
     }
@@ -87,38 +86,37 @@ void __35__LACMobileGestalt_deviceHasFaceID__block_invoke()
 
 + (BOOL)deviceHasOpticID
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (deviceHasOpticID_onceToken != -1)
   {
     +[LACMobileGestalt deviceHasOpticID];
   }
 
-  v2 = LACLogGestalt();
+  v2 = LACLogGestalt(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315394;
-    v6 = "+[LACMobileGestalt deviceHasOpticID]";
-    v7 = 1024;
-    v8 = deviceHasOpticID_hasOyster;
-    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_INFO, "%s returned %d", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "+[LACMobileGestalt deviceHasOpticID]";
+    v6 = 1024;
+    v7 = deviceHasOpticID_hasOyster;
+    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_INFO, "%s returned %d", &v4, 0x12u);
   }
 
-  result = deviceHasOpticID_hasOyster;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return deviceHasOpticID_hasOyster;
 }
 
 void __36__LACMobileGestalt_deviceHasOpticID__block_invoke()
 {
-  if (MGIsQuestionValid())
+  v0 = MGIsQuestionValid();
+  if (v0)
   {
     deviceHasOpticID_hasOyster = MGGetBoolAnswer();
   }
 
   else
   {
-    v0 = LACLogGestalt();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = LACLogGestalt(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       __36__LACMobileGestalt_deviceHasOpticID__block_invoke_cold_1();
     }
@@ -127,36 +125,35 @@ void __36__LACMobileGestalt_deviceHasOpticID__block_invoke()
 
 + (BOOL)deviceHasTouchID
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (deviceHasTouchID_onceToken != -1)
   {
     +[LACMobileGestalt deviceHasTouchID];
   }
 
-  v2 = LACLogGestalt();
+  v2 = LACLogGestalt(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v5[0] = 67109120;
-    v5[1] = deviceHasTouchID_hasTouchID;
-    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_INFO, "deviceHasTouchID returned %d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = deviceHasTouchID_hasTouchID;
+    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_INFO, "deviceHasTouchID returned %d", v4, 8u);
   }
 
-  result = deviceHasTouchID_hasTouchID;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return deviceHasTouchID_hasTouchID;
 }
 
 void __36__LACMobileGestalt_deviceHasTouchID__block_invoke()
 {
-  if (MGIsQuestionValid())
+  v0 = MGIsQuestionValid();
+  if (v0)
   {
     deviceHasTouchID_hasTouchID = MGGetBoolAnswer();
   }
 
   else
   {
-    v0 = LACLogGestalt();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = LACLogGestalt(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       __36__LACMobileGestalt_deviceHasTouchID__block_invoke_cold_1();
     }
@@ -190,36 +187,35 @@ void __36__LACMobileGestalt_deviceHasTouchID__block_invoke()
 
 + (BOOL)deviceSupportsExclaves
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (deviceSupportsExclaves_onceToken != -1)
   {
     +[LACMobileGestalt deviceSupportsExclaves];
   }
 
-  v2 = LACLogGestalt();
+  v2 = LACLogGestalt(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v5[0] = 67109120;
-    v5[1] = deviceSupportsExclaves_hasExclaves;
-    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_INFO, "deviceSupportsExclaves returned %d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = deviceSupportsExclaves_hasExclaves;
+    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_INFO, "deviceSupportsExclaves returned %d", v4, 8u);
   }
 
-  result = deviceSupportsExclaves_hasExclaves;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return deviceSupportsExclaves_hasExclaves;
 }
 
 void __42__LACMobileGestalt_deviceSupportsExclaves__block_invoke()
 {
-  if (MGIsQuestionValid())
+  v0 = MGIsQuestionValid();
+  if (v0)
   {
     deviceSupportsExclaves_hasExclaves = MGGetBoolAnswer();
   }
 
   else
   {
-    v0 = LACLogGestalt();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = LACLogGestalt(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       __42__LACMobileGestalt_deviceSupportsExclaves__block_invoke_cold_1();
     }
@@ -249,7 +245,7 @@ void __32__LACMobileGestalt_isSharedIPad__block_invoke()
   else
   {
     v2 = 0;
-    v3 = LACLogGestalt();
+    v3 = LACLogGestalt(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __32__LACMobileGestalt_isSharedIPad__block_invoke_cold_1(0, v3);
@@ -286,13 +282,14 @@ void __32__LACMobileGestalt_isSharedIPad__block_invoke()
   }
 
   v2 = MGGetSInt32Answer();
-  v3 = LACLogGestalt();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v3 = v2;
+  v4 = LACLogGestalt(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    +[(LACMobileGestalt *)v2];
+    +[(LACMobileGestalt *)v3];
   }
 
-  if (v2)
+  if (v3)
   {
     return 2;
   }
@@ -305,20 +302,18 @@ void __32__LACMobileGestalt_isSharedIPad__block_invoke()
 
 void __32__LACMobileGestalt_isSharedIPad__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "MKBUserTypeDeviceMode returned NULL: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "MKBUserTypeDeviceMode returned NULL: %{public}@", &v2, 0xCu);
 }
 
 + (void)faceIDCameraOrientation
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "camera rotation: %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "camera rotation: %d", v2, 8u);
 }
 
 @end

@@ -8,31 +8,29 @@
 
 - (Class)taskClassForTaskType:(int)type
 {
-  v4 = type - 1;
-  if (type - 1) <= 0x20 && ((0x10FFFF57FuLL >> v4))
+  if (type - 1) <= 0x20 && ((0x10FFFF57FuLL >> (type - 1)))
   {
-    v7 = *off_279DE5038[v4];
-    v8 = objc_opt_class();
-    if (v8)
+    v6 = objc_opt_class();
+    if (v6)
     {
-      v9 = v8;
-      if (([(objc_class *)v8 conformsToProtocol:&unk_287FD33B8]& 1) == 0)
+      v7 = v6;
+      if (([(objc_class *)v6 conformsToProtocol:&unk_287FD33B8]& 1) == 0)
       {
         currentHandler = [MEMORY[0x277CCA890] currentHandler];
-        v12 = NSStringFromClass(v9);
-        [currentHandler handleFailureInMethod:a2 object:self file:@"TRITaskSupport.m" lineNumber:141 description:{@"taskClassForTaskType returning class %@ which is not a TRITask", v12}];
+        v10 = NSStringFromClass(v7);
+        [currentHandler handleFailureInMethod:a2 object:self file:@"TRITaskSupport.m" lineNumber:141 description:{@"taskClassForTaskType returning class %@ which is not a TRITask", v10}];
       }
 
-      v8 = v9;
+      v6 = v7;
     }
   }
 
   else
   {
-    v8 = 0;
+    v6 = 0;
   }
 
-  return v8;
+  return v6;
 }
 
 - (id)XPCTaskAllowlist
@@ -95,13 +93,12 @@ void __34__TRITaskSupport_XPCTaskAllowlist__block_invoke(uint64_t a1)
 
 void __32__TRITaskSupport_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = qword_281597858;
-  qword_281597858 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = qword_281597858;
+  qword_281597858 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

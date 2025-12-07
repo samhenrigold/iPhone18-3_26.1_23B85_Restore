@@ -14,11 +14,11 @@
   v3[1] = 0;
   v3[2] = 0xE000000000000000;
   v3[3] = sub_245F6D310(MEMORY[0x277D84F90]);
-  v4 = v3 + *(type metadata accessor for CoreMotionFoundationModel_Request(0) + 28);
+  type metadata accessor for CoreMotionFoundationModel_Request(0);
   sub_245F765C8();
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for CMFoundationModelRequest(0);
-  return [(CMFoundationModelRequest *)&v6 init];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for CMFoundationModelRequest(0);
+  return [(CMFoundationModelRequest *)&v5 init];
 }
 
 - (void)addArrayWithName:(const char *)name type:(unsigned __int8)type shape:(const unsigned int *)shape dimensions:(unsigned __int8)dimensions byteArray:(const char *)array byteLength:(unint64_t)length
@@ -41,7 +41,6 @@
   v6 = v5;
   v7 = selfCopy + OBJC_IVAR____TtC15CoreMotionFDNML24CMFoundationModelRequest_request;
   swift_beginAccess();
-  v8 = *(v7 + 2);
   *(v7 + 1) = v4;
   *(v7 + 2) = v6;
 }

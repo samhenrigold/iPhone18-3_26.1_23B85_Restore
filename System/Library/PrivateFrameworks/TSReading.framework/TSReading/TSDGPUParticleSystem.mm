@@ -980,205 +980,205 @@ LABEL_49:
 
 void __64__TSDGPUParticleSystem_Private__p_setupParticleDataWithTexture___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v276 = *MEMORY[0x277D85DE8];
-  v270 = xmmword_26CA662E8;
-  v271 = unk_26CA662F8;
-  v272 = xmmword_26CA66308;
-  v273 = 0;
-  v268 = TSDGPUDataBufferAttributeUpdateDataInvalid;
-  v269 = unk_26CA662D8;
+  v271 = *MEMORY[0x277D85DE8];
+  v265 = xmmword_26CA662E8;
+  v266 = unk_26CA662F8;
+  v267 = xmmword_26CA66308;
+  v268 = 0;
+  v263 = TSDGPUDataBufferAttributeUpdateDataInvalid;
+  v264 = unk_26CA662D8;
   v3 = *(a1 + 64);
   if (v3 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v4 = a2 + 88 * v3;
     v5 = *(v4 + 48);
-    v270 = *(v4 + 32);
-    v271 = v5;
-    v272 = *(v4 + 64);
-    v273 = *(v4 + 80);
+    v265 = *(v4 + 32);
+    v266 = v5;
+    v267 = *(v4 + 64);
+    v268 = *(v4 + 80);
     v6 = *(v4 + 16);
-    v268 = *v4;
-    v269 = v6;
+    v263 = *v4;
+    v264 = v6;
   }
 
-  v264 = xmmword_26CA662E8;
-  v265 = unk_26CA662F8;
-  v266 = xmmword_26CA66308;
-  v267 = 0;
-  v262 = TSDGPUDataBufferAttributeUpdateDataInvalid;
-  v263 = unk_26CA662D8;
+  v259 = xmmword_26CA662E8;
+  v260 = unk_26CA662F8;
+  v261 = xmmword_26CA66308;
+  v262 = 0;
+  v257 = TSDGPUDataBufferAttributeUpdateDataInvalid;
+  v258 = unk_26CA662D8;
   v7 = *(a1 + 72);
   if (v7 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v8 = a2 + 88 * v7;
     v9 = *(v8 + 48);
-    v264 = *(v8 + 32);
-    v265 = v9;
-    v266 = *(v8 + 64);
-    v267 = *(v8 + 80);
+    v259 = *(v8 + 32);
+    v260 = v9;
+    v261 = *(v8 + 64);
+    v262 = *(v8 + 80);
     v10 = *(v8 + 16);
-    v262 = *v8;
-    v263 = v10;
+    v257 = *v8;
+    v258 = v10;
   }
 
-  v258 = xmmword_26CA662E8;
-  v259 = unk_26CA662F8;
-  v260 = xmmword_26CA66308;
-  v261 = 0;
-  v256 = TSDGPUDataBufferAttributeUpdateDataInvalid;
-  v257 = unk_26CA662D8;
+  v253 = xmmword_26CA662E8;
+  v254 = unk_26CA662F8;
+  v255 = xmmword_26CA66308;
+  v256 = 0;
+  v251 = TSDGPUDataBufferAttributeUpdateDataInvalid;
+  v252 = unk_26CA662D8;
   v11 = *(a1 + 80);
   if (v11 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v12 = a2 + 88 * v11;
     v13 = *(v12 + 48);
-    v258 = *(v12 + 32);
-    v259 = v13;
-    v260 = *(v12 + 64);
-    v261 = *(v12 + 80);
+    v253 = *(v12 + 32);
+    v254 = v13;
+    v255 = *(v12 + 64);
+    v256 = *(v12 + 80);
     v14 = *(v12 + 16);
-    v256 = *v12;
-    v257 = v14;
+    v251 = *v12;
+    v252 = v14;
   }
 
-  v252 = xmmword_26CA662E8;
-  v253 = unk_26CA662F8;
-  v254 = xmmword_26CA66308;
-  v255 = 0;
-  v250 = TSDGPUDataBufferAttributeUpdateDataInvalid;
-  v251 = unk_26CA662D8;
+  v247 = xmmword_26CA662E8;
+  v248 = unk_26CA662F8;
+  v249 = xmmword_26CA66308;
+  v250 = 0;
+  v245 = TSDGPUDataBufferAttributeUpdateDataInvalid;
+  v246 = unk_26CA662D8;
   v15 = *(a1 + 88);
   if (v15 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v16 = a2 + 88 * v15;
     v17 = *(v16 + 48);
-    v252 = *(v16 + 32);
-    v253 = v17;
-    v254 = *(v16 + 64);
-    v255 = *(v16 + 80);
+    v247 = *(v16 + 32);
+    v248 = v17;
+    v249 = *(v16 + 64);
+    v250 = *(v16 + 80);
     v18 = *(v16 + 16);
-    v250 = *v16;
-    v251 = v18;
+    v245 = *v16;
+    v246 = v18;
   }
 
-  v246 = xmmword_26CA662E8;
-  v247 = unk_26CA662F8;
-  v248 = xmmword_26CA66308;
-  v249 = 0;
-  v244 = TSDGPUDataBufferAttributeUpdateDataInvalid;
-  v245 = unk_26CA662D8;
+  v241 = xmmword_26CA662E8;
+  v242 = unk_26CA662F8;
+  v243 = xmmword_26CA66308;
+  v244 = 0;
+  v239 = TSDGPUDataBufferAttributeUpdateDataInvalid;
+  v240 = unk_26CA662D8;
   v19 = *(a1 + 96);
   if (v19 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v20 = a2 + 88 * v19;
     v21 = *(v20 + 48);
-    v246 = *(v20 + 32);
-    v247 = v21;
-    v248 = *(v20 + 64);
-    v249 = *(v20 + 80);
+    v241 = *(v20 + 32);
+    v242 = v21;
+    v243 = *(v20 + 64);
+    v244 = *(v20 + 80);
     v22 = *(v20 + 16);
-    v244 = *v20;
-    v245 = v22;
+    v239 = *v20;
+    v240 = v22;
   }
 
-  v240 = xmmword_26CA662E8;
-  v241 = unk_26CA662F8;
-  v242 = xmmword_26CA66308;
-  v243 = 0;
-  v238 = TSDGPUDataBufferAttributeUpdateDataInvalid;
-  v239 = unk_26CA662D8;
+  v235 = xmmword_26CA662E8;
+  v236 = unk_26CA662F8;
+  v237 = xmmword_26CA66308;
+  v238 = 0;
+  v233 = TSDGPUDataBufferAttributeUpdateDataInvalid;
+  v234 = unk_26CA662D8;
   v23 = *(a1 + 104);
   if (v23 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v24 = a2 + 88 * v23;
     v25 = *(v24 + 48);
-    v240 = *(v24 + 32);
-    v241 = v25;
-    v242 = *(v24 + 64);
-    v243 = *(v24 + 80);
+    v235 = *(v24 + 32);
+    v236 = v25;
+    v237 = *(v24 + 64);
+    v238 = *(v24 + 80);
     v26 = *(v24 + 16);
-    v238 = *v24;
-    v239 = v26;
+    v233 = *v24;
+    v234 = v26;
   }
 
-  v234 = xmmword_26CA662E8;
-  v235 = unk_26CA662F8;
-  v236 = xmmword_26CA66308;
-  v237 = 0;
-  v232 = TSDGPUDataBufferAttributeUpdateDataInvalid;
-  v233 = unk_26CA662D8;
+  v229 = xmmword_26CA662E8;
+  v230 = unk_26CA662F8;
+  v231 = xmmword_26CA66308;
+  v232 = 0;
+  v227 = TSDGPUDataBufferAttributeUpdateDataInvalid;
+  v228 = unk_26CA662D8;
   v27 = *(a1 + 112);
   if (v27 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v28 = a2 + 88 * v27;
     v29 = *(v28 + 48);
-    v234 = *(v28 + 32);
-    v235 = v29;
-    v236 = *(v28 + 64);
-    v237 = *(v28 + 80);
+    v229 = *(v28 + 32);
+    v230 = v29;
+    v231 = *(v28 + 64);
+    v232 = *(v28 + 80);
     v30 = *(v28 + 16);
-    v232 = *v28;
-    v233 = v30;
+    v227 = *v28;
+    v228 = v30;
   }
 
-  v228 = xmmword_26CA662E8;
-  v229 = unk_26CA662F8;
-  v230 = xmmword_26CA66308;
-  v231 = 0;
-  v226 = TSDGPUDataBufferAttributeUpdateDataInvalid;
-  v227 = unk_26CA662D8;
+  v223 = xmmword_26CA662E8;
+  v224 = unk_26CA662F8;
+  v225 = xmmword_26CA66308;
+  v226 = 0;
+  v221 = TSDGPUDataBufferAttributeUpdateDataInvalid;
+  v222 = unk_26CA662D8;
   v31 = *(a1 + 120);
   if (v31 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v32 = a2 + 88 * v31;
     v33 = *(v32 + 48);
-    v228 = *(v32 + 32);
-    v229 = v33;
-    v230 = *(v32 + 64);
-    v231 = *(v32 + 80);
+    v223 = *(v32 + 32);
+    v224 = v33;
+    v225 = *(v32 + 64);
+    v226 = *(v32 + 80);
     v34 = *(v32 + 16);
-    v226 = *v32;
-    v227 = v34;
+    v221 = *v32;
+    v222 = v34;
   }
 
-  v222 = xmmword_26CA662E8;
-  v223 = unk_26CA662F8;
-  v224 = xmmword_26CA66308;
-  v225 = 0;
-  v220 = TSDGPUDataBufferAttributeUpdateDataInvalid;
-  v221 = unk_26CA662D8;
+  v217 = xmmword_26CA662E8;
+  v218 = unk_26CA662F8;
+  v219 = xmmword_26CA66308;
+  v220 = 0;
+  v215 = TSDGPUDataBufferAttributeUpdateDataInvalid;
+  v216 = unk_26CA662D8;
   v35 = *(a1 + 128);
   if (v35 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v36 = a2 + 88 * v35;
     v37 = *(v36 + 48);
-    v222 = *(v36 + 32);
-    v223 = v37;
-    v224 = *(v36 + 64);
-    v225 = *(v36 + 80);
+    v217 = *(v36 + 32);
+    v218 = v37;
+    v219 = *(v36 + 64);
+    v220 = *(v36 + 80);
     v38 = *(v36 + 16);
-    v220 = *v36;
-    v221 = v38;
+    v215 = *v36;
+    v216 = v38;
   }
 
-  v216 = xmmword_26CA662E8;
-  v217 = unk_26CA662F8;
-  v218 = xmmword_26CA66308;
-  v219 = 0;
-  v214 = TSDGPUDataBufferAttributeUpdateDataInvalid;
-  v215 = unk_26CA662D8;
+  v211 = xmmword_26CA662E8;
+  v212 = unk_26CA662F8;
+  v213 = xmmword_26CA66308;
+  v214 = 0;
+  v209 = TSDGPUDataBufferAttributeUpdateDataInvalid;
+  v210 = unk_26CA662D8;
   v39 = *(a1 + 136);
   if (v39 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v40 = a2 + 88 * v39;
     v41 = *(v40 + 48);
-    v216 = *(v40 + 32);
-    v217 = v41;
-    v218 = *(v40 + 64);
-    v219 = *(v40 + 80);
+    v211 = *(v40 + 32);
+    v212 = v41;
+    v213 = *(v40 + 64);
+    v214 = *(v40 + 80);
     v42 = *(v40 + 16);
-    v214 = *v40;
-    v215 = v42;
+    v209 = *v40;
+    v210 = v42;
   }
 
   v43 = *(a1 + 144);
@@ -1187,7 +1187,7 @@ void __64__TSDGPUParticleSystem_Private__p_setupParticleDataWithTexture___block_
     return;
   }
 
-  v197 = 0;
+  v193 = 0;
   v44 = *(a1 + 152);
   v45 = 1.0;
   do
@@ -1198,17 +1198,17 @@ void __64__TSDGPUParticleSystem_Private__p_setupParticleDataWithTexture___block_
     }
 
     v46 = 0;
-    v47 = v197;
-    v200 = v197;
+    v47 = v193;
+    v196 = v193;
     do
     {
-      v48 = [*(a1 + 32) indexFromPoint:{v46, v47, v197}];
+      v48 = [*(a1 + 32) indexFromPoint:{v46, v47, v193}];
       v49 = *(a1 + 160);
       v50 = *(a1 + 168);
       v51 = *(a1 + 176);
       v52 = v50 * v46;
       v53 = v51 * v47;
-      if (*(a1 + 320) == 1 && (v46 == *(a1 + 152) - 1 || v197 == *(a1 + 144) - 1))
+      if (*(a1 + 320) == 1 && (v46 == *(a1 + 152) - 1 || v193 == *(a1 + 144) - 1))
       {
         v54 = v50 * v46;
         v55 = *(a1 + 168);
@@ -1219,172 +1219,168 @@ void __64__TSDGPUParticleSystem_Private__p_setupParticleDataWithTexture___block_
         v51 = v59;
       }
 
-      v202 = v53;
-      v203 = v46;
+      v198 = v53;
+      v199 = v46;
       if (*(a1 + 321) == 1)
       {
-        v206 = vdivq_f64(*(a1 + 216), *(a1 + 232));
-        v60.n128_f64[0] = TSDMultiplyPointBySize(v52, v53, v206.f64[0]);
-        v61.n128_u64[1] = *&v206.f64[1];
-        v62.n128_f64[0] = v50 * v206.f64[0];
-        v61.n128_f64[0] = vmuld_lane_f64(v51, v206, 1);
-        v65 = TSDRectWithOriginAndSize(v63, v60, v64, v62, v61);
+        TSDMultiplyPointBySize(v52, v53, vdivq_f64(*(a1 + 216), *(a1 + 232)).f64[0]);
+        TSDRectWithOriginAndSize();
       }
 
       else
       {
-        v204 = v53;
-        v205 = v51;
-        v69 = v50;
-        v70 = v52;
+        v200 = v53;
+        v201 = v51;
+        v65 = v50;
+        v66 = v52;
         if (*(a1 + 322) != 1)
         {
           goto LABEL_34;
         }
 
-        v71 = TSDNormalizedPointInRect(v52, v53, *(a1 + 184), *(a1 + 192), *(a1 + 200));
-        v73 = v72;
-        MaxPoint = TSDRectGetMaxPoint(v52, v202, v50, v51);
-        v76 = TSDNormalizedPointInRect(MaxPoint, v75, *(a1 + 184), *(a1 + 192), *(a1 + 200));
-        v77 = TSDRectWithPoints(v71, v73, v76);
-        TSDRectFromNormalizedSubrect(*(a1 + 248), *(a1 + 256), *(a1 + 264), *(a1 + 272), v77, v78, v79, v80);
+        v67 = TSDNormalizedPointInRect(v52, v53, *(a1 + 184), *(a1 + 192), *(a1 + 200));
+        v69 = v68;
+        MaxPoint = TSDRectGetMaxPoint(v52, v198, v50, v51);
+        v72 = TSDNormalizedPointInRect(MaxPoint, v71, *(a1 + 184), *(a1 + 192), *(a1 + 200));
+        v73 = TSDRectWithPoints(v67, v69, v72);
+        TSDRectFromNormalizedSubrect(*(a1 + 248), *(a1 + 256), *(a1 + 264), *(a1 + 272), v73, v74, v75, v76);
       }
 
-      v70 = TSDRoundedRect(v65, v66, v67, v68);
-      v204 = v81;
-      v205 = v82;
-      v69 = v83;
+      v66 = TSDRoundedRect(v60, v61, v62, v63, v64);
+      v200 = v77;
+      v201 = v78;
+      v65 = v79;
 LABEL_34:
-      v201 = v52;
-      v84 = v49 * v48;
+      v197 = v52;
+      v80 = v49 * v48;
       if (*(a1 + 280))
       {
-        v198 = v51;
-        v199 = v50;
-        v85 = *(a1 + 323);
-        v277.origin.x = v70;
-        v277.origin.y = v204;
-        v277.size.width = v69;
-        v277.size.height = v205;
-        MaxX = CGRectGetMaxX(v277);
-        v278.origin.x = v70;
-        v278.origin.y = v204;
-        v278.size.width = v69;
-        v278.size.height = v205;
-        MaxY = CGRectGetMaxY(v278);
-        v89 = v204;
-        v90 = 0.0;
-        v92 = 0.0;
-        v91 = 0.0;
-        v93 = 0;
-        if (v204 < MaxY)
+        v194 = v51;
+        v195 = v50;
+        v81 = *(a1 + 323);
+        v272.origin.x = v66;
+        v272.origin.y = v200;
+        v272.size.width = v65;
+        v272.size.height = v201;
+        MaxX = CGRectGetMaxX(v272);
+        v273.origin.x = v66;
+        v273.origin.y = v200;
+        v273.size.width = v65;
+        v273.size.height = v201;
+        MaxY = CGRectGetMaxY(v273);
+        v85 = v200;
+        v86 = 0.0;
+        v88 = 0.0;
+        v87 = 0.0;
+        v89 = 0;
+        if (v200 < MaxY)
         {
-          v94 = MaxX;
-          if (v85)
+          v90 = MaxX;
+          if (v81)
           {
-            v95 = 3;
+            v91 = 3;
           }
 
           else
           {
-            v95 = 2;
+            v91 = 2;
           }
 
-          v96 = ~v89;
-          v92 = 0.0;
-          v91 = 0.0;
-          v93 = 0;
-          while (v70 >= v94)
+          v92 = ~v85;
+          v88 = 0.0;
+          v87 = 0.0;
+          v89 = 0;
+          while (v66 >= v90)
           {
 LABEL_60:
-            ++v89;
-            --v96;
-            if (v89 == MaxY)
+            ++v85;
+            --v92;
+            if (v85 == MaxY)
             {
               goto LABEL_61;
             }
           }
 
-          v97 = (v89 - v204 + v89 - v204) / v205 + -1.0;
-          v98 = 1.0 - v97 * v97;
-          v99 = v70;
+          v93 = (v85 - v200 + v85 - v200) / v201 + -1.0;
+          v94 = 1.0 - v93 * v93;
+          v95 = v66;
           while (1)
           {
-            if (v99 < *(a1 + 288))
+            if (v95 < *(a1 + 288))
             {
-              v100 = *(a1 + 296);
-              if (v89 < v100)
+              v96 = *(a1 + 296);
+              if (v85 < v96)
               {
                 if (*(*(a1 + 40) + 160))
                 {
-                  *&v88 = 1.0;
-                  if (v69 > 1.0)
+                  *&v84 = 1.0;
+                  if (v65 > 1.0)
                   {
-                    v101 = (v99 - v70 + v99 - v70) / v69 + -1.0;
-                    *&v88 = v98 + 1.0 - v101 * v101;
+                    v97 = (v95 - v66 + v95 - v66) / v65 + -1.0;
+                    *&v84 = v94 + 1.0 - v97 * v97;
                   }
 
                   if (*(a1 + 323) == 1)
                   {
-                    v207 = v88;
-                    *&v97 = TSDMetalColor4fWithUIntAndFormat(*(*(a1 + 280) + 8 * (v99 + (*(a1 + 304) >> v95) * (v96 + v100))), *(a1 + 312));
+                    v202 = v84;
+                    *&v93 = TSDMetalColor4fWithUIntAndFormat(*(*(a1 + 280) + 8 * (v95 + (*(a1 + 304) >> v91) * (v92 + v96))), *(a1 + 312));
                     goto LABEL_53;
                   }
 
-                  v108 = *(*(a1 + 280) + 4 * (v99 + (*(a1 + 304) >> v95) * (v96 + v100)));
+                  v104 = *(*(a1 + 280) + 4 * (v95 + (*(a1 + 304) >> v91) * (v92 + v96)));
                   if (*(a1 + 324) == 1)
                   {
-                    v207 = v88;
-                    *&v97 = TSDMetalColor4fWith32BitUIntAndFormat(v108, *(a1 + 312));
+                    v202 = v84;
+                    *&v93 = TSDMetalColor4fWith32BitUIntAndFormat(v104, *(a1 + 312));
 LABEL_53:
-                    v88 = v207;
+                    v84 = v202;
                   }
 
                   else
                   {
-                    v109 = vand_s8(vshl_u32(vdup_n_s32(v108), 0xFFFFFFF8FFFFFFF0), 0xFF000000FFLL);
-                    v110.i64[0] = v109.u32[0];
-                    v110.i64[1] = v109.u32[1];
-                    v97 = COERCE_DOUBLE(vcvt_f32_f64(vmulq_f64(vcvtq_f64_u64(v110), vdupq_n_s64(0x3F700028F62B6A81uLL))));
-                    v103 = *(*(a1 + 280) + 4 * (v99 + (*(a1 + 304) >> v95) * (v96 + v100))) * 0.00390640259;
-                    v104 = HIBYTE(v108) * 0.00390640259;
-                    v102 = HIDWORD(v97);
+                    v105 = vand_s8(vshl_u32(vdup_n_s32(v104), 0xFFFFFFF8FFFFFFF0), 0xFF000000FFLL);
+                    v106.i64[0] = v105.u32[0];
+                    v106.i64[1] = v105.u32[1];
+                    v93 = COERCE_DOUBLE(vcvt_f32_f64(vmulq_f64(vcvtq_f64_u64(v106), vdupq_n_s64(0x3F700028F62B6A81uLL))));
+                    v99 = *(*(a1 + 280) + 4 * (v95 + (*(a1 + 304) >> v91) * (v92 + v96))) * 0.00390640259;
+                    v100 = HIBYTE(v104) * 0.00390640259;
+                    v98 = HIDWORD(v93);
                   }
 
-                  if (v104 != 0.0)
+                  if (v100 != 0.0)
                   {
-                    *&v111 = v104;
-                    HIDWORD(v97) = v102;
-                    v93 = vcvt_f32_f64(vaddq_f64(vdivq_f64(vmulq_n_f64(vcvtq_f64_f32(*&v97), *&v88), vdupq_lane_s64(v111, 0)), vcvtq_f64_f32(v93)));
-                    v91 = *&v88 * v103 / *&v111 + v91;
-                    v97 = v92 + *&v88 * *&v111;
-                    v92 = v97;
-                    v90 = v90 + *&v88;
+                    *&v107 = v100;
+                    HIDWORD(v93) = v98;
+                    v89 = vcvt_f32_f64(vaddq_f64(vdivq_f64(vmulq_n_f64(vcvtq_f64_f32(*&v93), *&v84), vdupq_lane_s64(v107, 0)), vcvtq_f64_f32(v89)));
+                    v87 = *&v84 * v99 / *&v107 + v87;
+                    v93 = v88 + *&v84 * *&v107;
+                    v88 = v93;
+                    v86 = v86 + *&v84;
                   }
 
                   goto LABEL_59;
                 }
 
-                v105 = *(a1 + 280);
-                v106 = (v99 + (*(a1 + 304) >> v95) * (v96 + v100)) << 32;
+                v101 = *(a1 + 280);
+                v102 = (v95 + (*(a1 + 304) >> v91) * (v92 + v96)) << 32;
                 if (*(a1 + 323) == 1)
                 {
-                  v97 = TSDMetalColor4fWithUIntAndFormatOnlyAlpha(*(v105 + (v106 >> 29)), *(a1 + 312));
+                  v93 = TSDMetalColor4fWithUIntAndFormatOnlyAlpha(*(v101 + (v102 >> 29)), *(a1 + 312));
                 }
 
                 else
                 {
-                  LOBYTE(v97) = *(v105 + (v106 >> 30) + 3);
-                  v97 = *&v97 * 0.00390640259;
-                  v107 = v97;
+                  LOBYTE(v93) = *(v101 + (v102 >> 30) + 3);
+                  v93 = *&v93 * 0.00390640259;
+                  v103 = v93;
                 }
 
-                v92 = v92 + v107;
+                v88 = v88 + v103;
               }
             }
 
 LABEL_59:
-            if (v94 == ++v99)
+            if (v90 == ++v95)
             {
               goto LABEL_60;
             }
@@ -1392,245 +1388,245 @@ LABEL_59:
         }
 
 LABEL_61:
-        v112 = v92 > 0.0;
-        v113 = *(a1 + 40);
-        v47 = v200;
-        if (*(v113 + 160))
+        v108 = v88 > 0.0;
+        v109 = *(a1 + 40);
+        v47 = v196;
+        if (*(v109 + 160))
         {
-          if (v92 <= 0.0 && *(v113 + 8))
+          if (v88 <= 0.0 && *(v109 + 8))
           {
-            v112 = 0;
+            v108 = 0;
             v45 = 1.0;
-            v114 = v46;
-            v51 = v198;
-            v50 = v199;
+            v110 = v46;
+            v51 = v194;
+            v50 = v195;
             goto LABEL_79;
           }
 
           if (*(a1 + 160))
           {
-            v116 = 0;
-            v117 = 1.0 / v90;
-            if (v90 == 0.0)
+            v112 = 0;
+            v113 = 1.0 / v86;
+            if (v86 == 0.0)
             {
-              v117 = 1.0;
+              v113 = 1.0;
             }
 
-            v118 = v117 * v92;
-            v119 = v117 * v91;
-            v120 = vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(v93), v117));
+            v114 = v113 * v88;
+            v115 = v113 * v87;
+            v116 = vcvt_f32_f64(vmulq_n_f64(vcvtq_f64_f32(v89), v113));
             do
             {
-              v210 = v222;
-              v211 = v223;
-              v212 = v224;
-              v213 = v225;
+              v205 = v217;
+              v206 = v218;
+              v207 = v219;
               v208 = v220;
-              v209 = v221;
-              TSDGPUUpdateDataSetMetalPoint4DAtIndex(&v208, v84 + v116++, v120.f32[0], v120.f32[1], v119, v118);
+              v203 = v215;
+              v204 = v216;
+              TSDGPUUpdateDataSetMetalPoint4DAtIndex(&v203, v80 + v112++, v116.f32[0], v116.f32[1], v115, v114);
             }
 
-            while (v116 < *(a1 + 160));
+            while (v112 < *(a1 + 160));
           }
         }
 
         if (!*(*(a1 + 40) + 8))
         {
           v45 = 1.0;
-          v114 = v46;
-          v51 = v198;
-          v50 = v199;
+          v110 = v46;
+          v51 = v194;
+          v50 = v195;
           goto LABEL_82;
         }
 
         v45 = 1.0;
-        v51 = v198;
-        v50 = v199;
-        if (v92 <= 0.0)
+        v51 = v194;
+        v50 = v195;
+        if (v88 <= 0.0)
         {
-          v112 = 0;
-          v114 = v46;
+          v108 = 0;
+          v110 = v46;
           goto LABEL_79;
         }
       }
 
       else
       {
-        v47 = v200;
+        v47 = v196;
         if (!*(*(a1 + 40) + 8))
         {
-          v115 = (*(*(a1 + 48) + 8) + 24);
-          v114 = v46;
+          v111 = (*(*(a1 + 48) + 8) + 24);
+          v110 = v46;
 LABEL_83:
-          v123 = *v115;
-          v124 = 1;
+          v119 = *v111;
+          v120 = 1;
           goto LABEL_85;
         }
       }
 
-      v114 = v46;
+      v110 = v46;
       if (*(a1 + 325) == 1)
       {
-        v112 = [*(a1 + 32) visibilityAtIndexPoint:{v203, v47}];
+        v108 = [*(a1 + 32) visibilityAtIndexPoint:{v199, v47}];
       }
 
       else
       {
-        v112 = 1;
+        v108 = 1;
       }
 
 LABEL_79:
-      v121 = *(a1 + 160);
-      if (v121)
+      v117 = *(a1 + 160);
+      if (v117)
       {
-        v122 = v84;
+        v118 = v80;
         do
         {
-          *(*(*(a1 + 40) + 8) + v122++) = v112;
-          --v121;
+          *(*(*(a1 + 40) + 8) + v118++) = v108;
+          --v117;
         }
 
-        while (v121);
+        while (v117);
       }
 
 LABEL_82:
-      v115 = (*(*(a1 + 48) + 8) + 24);
-      if (v112)
+      v111 = (*(*(a1 + 48) + 8) + 24);
+      if (v108)
       {
         goto LABEL_83;
       }
 
-      v124 = 0;
-      v123 = 0;
+      v120 = 0;
+      v119 = 0;
 LABEL_85:
-      *v115 = v123;
-      *(*(*(a1 + 56) + 8) + 24) |= v124;
-      v125 = *(a1 + 40);
-      if (v124)
+      *v111 = v119;
+      *(*(*(a1 + 56) + 8) + 24) |= v120;
+      v121 = *(a1 + 40);
+      if (v120)
       {
-        ++*(v125 + 88);
+        ++*(v121 + 88);
       }
 
-      else if (*(v125 + 8))
+      else if (*(v121 + 8))
       {
         goto LABEL_147;
       }
 
       if (*(a1 + 326) == 1)
       {
-        [*(a1 + 32) startingPointAtIndexPoint:{v114, v47}];
-        v201 = v126;
-        v202 = v127;
+        [*(a1 + 32) startingPointAtIndexPoint:{v110, v47}];
+        v197 = v122;
+        v198 = v123;
       }
 
       if (*(a1 + 327) == 1)
       {
-        v128 = *(a1 + 160);
-        if (!v128)
+        v124 = *(a1 + 160);
+        if (!v124)
         {
           goto LABEL_100;
         }
 
-        v129 = 0;
-        v130 = v275;
+        v125 = 0;
+        v126 = v270;
         do
         {
-          [*(a1 + 32) vertexPositionAtVertexIndex:v129 particleIndexPoint:{v114, v47}];
-          *(v130 - 1) = v131;
-          *v130 = v132;
-          ++v129;
-          v128 = *(a1 + 160);
-          v130 += 2;
+          [*(a1 + 32) vertexPositionAtVertexIndex:v125 particleIndexPoint:{v110, v47}];
+          *(v126 - 1) = v127;
+          *v126 = v128;
+          ++v125;
+          v124 = *(a1 + 160);
+          v126 += 2;
         }
 
-        while (v129 < v128);
+        while (v125 < v124);
       }
 
       else
       {
-        v279.origin.x = v201;
-        v279.origin.y = v202;
-        v279.size.width = v50;
-        v279.size.height = v51;
-        MinX = CGRectGetMinX(v279);
-        v280.origin.x = v201;
+        v274.origin.x = v197;
+        v274.origin.y = v198;
+        v274.size.width = v50;
+        v274.size.height = v51;
+        MinX = CGRectGetMinX(v274);
+        v275.origin.x = v197;
         v45 = 1.0;
-        v280.origin.y = v202;
-        v280.size.width = v50;
-        v280.size.height = v51;
-        MinY = CGRectGetMinY(v280);
-        v135 = MinX;
+        v275.origin.y = v198;
+        v275.size.width = v50;
+        v275.size.height = v51;
+        MinY = CGRectGetMinY(v275);
+        v131 = MinX;
         *&MinY = MinY;
-        v274 = v135;
-        v275[0] = LODWORD(MinY);
-        v128 = *(a1 + 160);
-        if (v128 >= 2)
+        v269 = v131;
+        v270[0] = LODWORD(MinY);
+        v124 = *(a1 + 160);
+        if (v124 >= 2)
         {
-          v281.origin.x = v201;
-          v281.origin.y = v202;
+          v276.origin.x = v197;
+          v276.origin.y = v198;
+          v276.size.width = v50;
+          v276.size.height = v51;
+          v132 = CGRectGetMaxX(v276);
+          v277.origin.x = v197;
+          v277.origin.y = v198;
+          v277.size.width = v50;
+          v277.size.height = v51;
+          v133 = CGRectGetMinY(v277);
+          v134 = v132;
+          *&v133 = v133;
+          *&v270[1] = v134;
+          v270[2] = LODWORD(v133);
+          v278.origin.x = v197;
+          v278.origin.y = v198;
+          v278.size.width = v50;
+          v278.size.height = v51;
+          v135 = CGRectGetMaxX(v278);
+          v279.origin.x = v197;
+          v279.origin.y = v198;
+          v279.size.width = v50;
+          v279.size.height = v51;
+          v136 = CGRectGetMaxY(v279);
+          v137 = v135;
+          *&v136 = v136;
+          *&v270[3] = v137;
+          v270[4] = LODWORD(v136);
+          v280.origin.x = v197;
+          v280.origin.y = v198;
+          v280.size.width = v50;
+          v280.size.height = v51;
+          v138 = CGRectGetMinX(v280);
+          v281.origin.x = v197;
+          v45 = 1.0;
+          v281.origin.y = v198;
           v281.size.width = v50;
           v281.size.height = v51;
-          v136 = CGRectGetMaxX(v281);
-          v282.origin.x = v201;
-          v282.origin.y = v202;
-          v282.size.width = v50;
-          v282.size.height = v51;
-          v137 = CGRectGetMinY(v282);
-          v138 = v136;
-          *&v137 = v137;
-          *&v275[1] = v138;
-          v275[2] = LODWORD(v137);
-          v283.origin.x = v201;
-          v283.origin.y = v202;
-          v283.size.width = v50;
-          v283.size.height = v51;
-          v139 = CGRectGetMaxX(v283);
-          v284.origin.x = v201;
-          v284.origin.y = v202;
-          v284.size.width = v50;
-          v284.size.height = v51;
-          v140 = CGRectGetMaxY(v284);
-          v141 = v139;
-          *&v140 = v140;
-          *&v275[3] = v141;
-          v275[4] = LODWORD(v140);
-          v285.origin.x = v201;
-          v285.origin.y = v202;
-          v285.size.width = v50;
-          v285.size.height = v51;
-          v142 = CGRectGetMinX(v285);
-          v286.origin.x = v201;
-          v45 = 1.0;
-          v286.origin.y = v202;
-          v286.size.width = v50;
-          v286.size.height = v51;
-          v143 = CGRectGetMaxY(v286);
-          v144 = v142;
-          *&v143 = v143;
-          *&v275[5] = v144;
-          v275[6] = LODWORD(v143);
-          v128 = *(a1 + 160);
+          v139 = CGRectGetMaxY(v281);
+          v140 = v138;
+          *&v139 = v139;
+          *&v270[5] = v140;
+          v270[6] = LODWORD(v139);
+          v124 = *(a1 + 160);
         }
       }
 
-      if (v128)
+      if (v124)
       {
-        v145 = 0;
-        v146 = v275;
+        v141 = 0;
+        v142 = v270;
         do
         {
-          v210 = v270;
-          v211 = v271;
-          v212 = v272;
-          v213 = v273;
+          v205 = v265;
+          v206 = v266;
+          v207 = v267;
           v208 = v268;
-          v209 = v269;
-          TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v208, v84 + v145++, *(v146 - 1), *v146);
-          v128 = *(a1 + 160);
-          v146 += 2;
+          v203 = v263;
+          v204 = v264;
+          TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v203, v80 + v141++, *(v142 - 1), *v142);
+          v124 = *(a1 + 160);
+          v142 += 2;
         }
 
-        while (v145 < v128);
+        while (v141 < v124);
       }
 
 LABEL_100:
@@ -1638,25 +1634,25 @@ LABEL_100:
       {
         if (*(a1 + 327) == 1)
         {
-          [*(a1 + 32) centerAtIndexPoint:{v114, v47}];
-          v148 = v147;
-          MidY = v149;
+          [*(a1 + 32) centerAtIndexPoint:{v110, v47}];
+          v144 = v143;
+          MidY = v145;
         }
 
         else
         {
-          v287.origin.x = v201;
-          v287.origin.y = v202;
-          v287.size.width = v50;
-          v287.size.height = v51;
-          MidX = CGRectGetMidX(v287);
-          v288.origin.x = v201;
+          v282.origin.x = v197;
+          v282.origin.y = v198;
+          v282.size.width = v50;
+          v282.size.height = v51;
+          MidX = CGRectGetMidX(v282);
+          v283.origin.x = v197;
           v45 = 1.0;
-          v288.origin.y = v202;
-          v288.size.width = v50;
-          v288.size.height = v51;
-          v148 = MidX;
-          MidY = CGRectGetMidY(v288);
+          v283.origin.y = v198;
+          v283.size.width = v50;
+          v283.size.height = v51;
+          v144 = MidX;
+          MidY = CGRectGetMidY(v283);
         }
 
         if (!*(a1 + 160))
@@ -1664,186 +1660,186 @@ LABEL_100:
           goto LABEL_114;
         }
 
-        v152 = 0;
+        v148 = 0;
         do
         {
-          v210 = v252;
-          v211 = v253;
-          v212 = v254;
-          v213 = v255;
+          v205 = v247;
+          v206 = v248;
+          v207 = v249;
           v208 = v250;
-          v209 = v251;
-          TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v208, v84 + v152++, v148, MidY);
-          v128 = *(a1 + 160);
+          v203 = v245;
+          v204 = v246;
+          TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v203, v80 + v148++, v144, MidY);
+          v124 = *(a1 + 160);
         }
 
-        while (v152 < v128);
-        v114 = v46;
+        while (v148 < v124);
+        v110 = v46;
       }
 
-      v153 = *(a1 + 40);
-      if (*(v153 + 144))
+      v149 = *(a1 + 40);
+      if (*(v149 + 144))
       {
-        v154 = v128 == 0;
+        v150 = v124 == 0;
       }
 
       else
       {
-        v154 = 1;
+        v150 = 1;
       }
 
-      if (v154)
+      if (v150)
       {
         goto LABEL_115;
       }
 
-      v155 = 0;
-      v156 = v275;
+      v151 = 0;
+      v152 = v270;
       do
       {
-        v157 = v45 - *v156 / *(a1 + 240);
-        v158 = *(v156 - 1) / *(a1 + 232);
-        v210 = v264;
-        v211 = v265;
-        v212 = v266;
-        v213 = v267;
-        *&v157 = v157;
+        v153 = v45 - *v152 / *(a1 + 240);
+        v154 = *(v152 - 1) / *(a1 + 232);
+        v205 = v259;
+        v206 = v260;
+        v207 = v261;
         v208 = v262;
-        v209 = v263;
-        TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v208, v84 + v155++, v158, *&v157);
-        v156 += 2;
+        *&v153 = v153;
+        v203 = v257;
+        v204 = v258;
+        TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v203, v80 + v151++, v154, *&v153);
+        v152 += 2;
       }
 
-      while (v155 < *(a1 + 160));
+      while (v151 < *(a1 + 160));
 LABEL_114:
-      v153 = *(a1 + 40);
-      v114 = v46;
+      v149 = *(a1 + 40);
+      v110 = v46;
 LABEL_115:
-      if (*(v153 + 152))
+      if (*(v149 + 152))
       {
-        v210 = v258;
-        v211 = v259;
-        v212 = v260;
-        v213 = v261;
+        v205 = v253;
+        v206 = v254;
+        v207 = v255;
         v208 = v256;
-        v209 = v257;
-        TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v208, v84, 0.0, 0.0);
+        v203 = v251;
+        v204 = v252;
+        TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v203, v80, 0.0, 0.0);
         if (*(a1 + 160) >= 2uLL)
         {
-          v210 = v258;
-          v211 = v259;
-          v212 = v260;
-          v213 = v261;
+          v205 = v253;
+          v206 = v254;
+          v207 = v255;
           v208 = v256;
-          v209 = v257;
-          TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v208, v84 + 1, 1.0, 0.0);
-          v210 = v258;
-          v211 = v259;
-          v212 = v260;
-          v213 = v261;
+          v203 = v251;
+          v204 = v252;
+          TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v203, v80 + 1, 1.0, 0.0);
+          v205 = v253;
+          v206 = v254;
+          v207 = v255;
           v208 = v256;
-          v209 = v257;
-          TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v208, v84 + 2, 1.0, 1.0);
-          v210 = v258;
-          v211 = v259;
-          v212 = v260;
-          v213 = v261;
+          v203 = v251;
+          v204 = v252;
+          TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v203, v80 + 2, 1.0, 1.0);
+          v205 = v253;
+          v206 = v254;
+          v207 = v255;
           v208 = v256;
-          v209 = v257;
-          TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v208, v84 + 3, 0.0, 1.0);
+          v203 = v251;
+          v204 = v252;
+          TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v203, v80 + 3, 0.0, 1.0);
         }
       }
 
       if (*(*(a1 + 40) + 176))
       {
-        [*(a1 + 32) speedAtIndexPoint:{v114, v47}];
+        [*(a1 + 32) speedAtIndexPoint:{v110, v47}];
         if (*(a1 + 160))
         {
-          v162 = v159;
-          v163 = v160;
-          v164 = v161;
-          v165 = 0;
+          v158 = v155;
+          v159 = v156;
+          v160 = v157;
+          v161 = 0;
           do
           {
-            v210 = v246;
-            v211 = v247;
-            v212 = v248;
-            v213 = v249;
+            v205 = v241;
+            v206 = v242;
+            v207 = v243;
             v208 = v244;
-            v209 = v245;
-            TSDGPUUpdateDataSetMetalPoint3DAtIndex(&v208, v84 + v165++, v162, v163, v164);
+            v203 = v239;
+            v204 = v240;
+            TSDGPUUpdateDataSetMetalPoint3DAtIndex(&v203, v80 + v161++, v158, v159, v160);
           }
 
-          while (v165 < *(a1 + 160));
+          while (v161 < *(a1 + 160));
         }
       }
 
       if (*(*(a1 + 40) + 184))
       {
-        [*(a1 + 32) rotationAtIndexPoint:{v114, v47}];
+        [*(a1 + 32) rotationAtIndexPoint:{v110, v47}];
         if (*(a1 + 160))
         {
-          v169 = v166;
-          v170 = v167;
-          v171 = v168;
-          v172 = 0;
+          v165 = v162;
+          v166 = v163;
+          v167 = v164;
+          v168 = 0;
           do
           {
-            v210 = v240;
-            v211 = v241;
-            v212 = v242;
-            v213 = v243;
+            v205 = v235;
+            v206 = v236;
+            v207 = v237;
             v208 = v238;
-            v209 = v239;
-            TSDGPUUpdateDataSetMetalPoint3DAtIndex(&v208, v84 + v172++, v169, v170, v171);
+            v203 = v233;
+            v204 = v234;
+            TSDGPUUpdateDataSetMetalPoint3DAtIndex(&v203, v80 + v168++, v165, v166, v167);
           }
 
-          while (v172 < *(a1 + 160));
+          while (v168 < *(a1 + 160));
         }
       }
 
       if (*(*(a1 + 40) + 192))
       {
-        [*(a1 + 32) scaleAtIndexPoint:{v114, v47}];
+        [*(a1 + 32) scaleAtIndexPoint:{v110, v47}];
         if (*(a1 + 160))
         {
-          v174 = 0;
-          v175 = v173;
+          v170 = 0;
+          v171 = v169;
           do
           {
-            v210 = v234;
-            v211 = v235;
-            v212 = v236;
-            v213 = v237;
+            v205 = v229;
+            v206 = v230;
+            v207 = v231;
             v208 = v232;
-            v209 = v233;
-            TSDGPUUpdateDataSetMetalFloatAtIndex(&v208, v84 + v174++, v175);
+            v203 = v227;
+            v204 = v228;
+            TSDGPUUpdateDataSetMetalFloatAtIndex(&v203, v80 + v170++, v171);
           }
 
-          while (v174 < *(a1 + 160));
+          while (v170 < *(a1 + 160));
         }
       }
 
       if (*(*(a1 + 40) + 168))
       {
-        [*(a1 + 32) lifeSpanAtIndexPoint:{v114, v47}];
+        [*(a1 + 32) lifeSpanAtIndexPoint:{v110, v47}];
         if (*(a1 + 160))
         {
-          v178 = v176;
-          v179 = v177;
-          v180 = 0;
+          v174 = v172;
+          v175 = v173;
+          v176 = 0;
           do
           {
-            v210 = v228;
-            v211 = v229;
-            v212 = v230;
-            v213 = v231;
+            v205 = v223;
+            v206 = v224;
+            v207 = v225;
             v208 = v226;
-            v209 = v227;
-            TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v208, v84 + v180++, v178, v179);
+            v203 = v221;
+            v204 = v222;
+            TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v203, v80 + v176++, v174, v175);
           }
 
-          while (v180 < *(a1 + 160));
+          while (v176 < *(a1 + 160));
         }
       }
 
@@ -1851,75 +1847,75 @@ LABEL_115:
       {
         if (*(a1 + 328) == 1)
         {
-          [*(a1 + 32) colorAtIndexPoint:{v203, v47}];
+          [*(a1 + 32) colorAtIndexPoint:{v199, v47}];
           if (*(a1 + 160))
           {
-            v185 = v181;
-            v186 = v182;
-            v187 = v183;
-            v188 = v184;
-            v189 = 0;
+            v181 = v177;
+            v182 = v178;
+            v183 = v179;
+            v184 = v180;
+            v185 = 0;
             do
             {
-              v210 = v222;
-              v211 = v223;
-              v212 = v224;
-              v213 = v225;
+              v205 = v217;
+              v206 = v218;
+              v207 = v219;
               v208 = v220;
-              v209 = v221;
-              TSDGPUUpdateDataSetMetalPoint4DAtIndex(&v208, v84 + v189++, v185, v186, v187, v188);
+              v203 = v215;
+              v204 = v216;
+              TSDGPUUpdateDataSetMetalPoint4DAtIndex(&v203, v80 + v185++, v181, v182, v183, v184);
             }
 
-            while (v189 < *(a1 + 160));
+            while (v185 < *(a1 + 160));
           }
         }
       }
 
-      v190 = *(a1 + 40);
-      if (v190[25])
+      v186 = *(a1 + 40);
+      if (v186[25])
       {
         if (*(a1 + 329) == 1)
         {
-          [v190 colorTexCoordAtIndexPoint:{v203, v200}];
-          v192 = v191;
-          v194 = v193;
+          [v186 colorTexCoordAtIndexPoint:{v199, v196}];
+          v188 = v187;
+          v190 = v189;
         }
 
         else
         {
-          v289.origin.x = v70;
-          v289.origin.y = v204;
-          v289.size.width = v69;
-          v289.size.height = v205;
-          v195 = CGRectGetMidX(v289) / *(a1 + 216);
-          v290.origin.x = v70;
-          v290.origin.y = v204;
-          v290.size.width = v69;
-          v290.size.height = v205;
-          v192 = v195;
+          v284.origin.x = v66;
+          v284.origin.y = v200;
+          v284.size.width = v65;
+          v284.size.height = v201;
+          v191 = CGRectGetMidX(v284) / *(a1 + 216);
+          v285.origin.x = v66;
+          v285.origin.y = v200;
+          v285.size.width = v65;
+          v285.size.height = v201;
+          v188 = v191;
           v45 = 1.0;
-          v194 = 1.0 - CGRectGetMidY(v290) / *(a1 + 224);
+          v190 = 1.0 - CGRectGetMidY(v285) / *(a1 + 224);
         }
 
         if (*(a1 + 160))
         {
-          v196 = 0;
+          v192 = 0;
           do
           {
-            v210 = v216;
-            v211 = v217;
-            v212 = v218;
-            v213 = v219;
+            v205 = v211;
+            v206 = v212;
+            v207 = v213;
             v208 = v214;
-            v209 = v215;
-            TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v208, v84 + v196++, v192, v194);
+            v203 = v209;
+            v204 = v210;
+            TSDGPUUpdateDataSetMetalPoint2DAtIndex(&v203, v80 + v192++, v188, v190);
           }
 
-          while (v196 < *(a1 + 160));
+          while (v192 < *(a1 + 160));
         }
       }
 
-      v47 = v200;
+      v47 = v196;
 LABEL_147:
       ++v46;
       v44 = *(a1 + 152);
@@ -1928,10 +1924,10 @@ LABEL_147:
     while (v46 < v44);
     v43 = *(a1 + 144);
 LABEL_149:
-    ++v197;
+    ++v193;
   }
 
-  while (v197 < v43);
+  while (v193 < v43);
 }
 
 - (void)p_setupVertexData

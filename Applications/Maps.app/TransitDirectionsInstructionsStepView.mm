@@ -1180,7 +1180,7 @@ LABEL_32:
   v28 = 0u;
   v29 = 0u;
   v27 = 0u;
-  [(TransitDirectionsInstructionsStepView *)self _metrics];
+  objc_msgSend__metrics(self);
   minimumCellHeightConstraint = [(_TransitDirectionsInstructionsCellConstraints *)self->_styleConstraints minimumCellHeightConstraint];
   [minimumCellHeightConstraint setConstant:0.0];
 
@@ -1750,13 +1750,13 @@ LABEL_28:
   v5 = 0.0;
   if (self->_primaryAccessoryLabel == viewCopy)
   {
-    [(TransitDirectionsInstructionsStepView *)self _metrics];
+    objc_msgSend__metrics(self, 0.0);
     v5 = v9;
   }
 
   if (self->_secondaryLabel == viewCopy)
   {
-    [(TransitDirectionsInstructionsStepView *)self _metrics];
+    objc_msgSend__metrics(self, v5);
     v5 = v8;
   }
 

@@ -3,7 +3,7 @@
 
 @implementation CNGeneratorObservable
 
-uint64_t __48___CNGeneratorObservable_sendResultsToObserver___block_invoke(uint64_t a1)
+void *__48___CNGeneratorObservable_sendResultsToObserver___block_invoke(uint64_t a1)
 {
   if (([*(a1 + 32) isCanceled] & 1) == 0)
   {
@@ -32,7 +32,7 @@ uint64_t __48___CNGeneratorObservable_sendResultsToObserver___block_invoke(uint6
   return result;
 }
 
-uint64_t __56___CNGeneratorObservable_scheduleNextResultForObserver___block_invoke(uint64_t a1)
+void *__56___CNGeneratorObservable_scheduleNextResultForObserver___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isCanceled];
   if ((result & 1) == 0)

@@ -22,83 +22,81 @@
 
 void __50__BRCUbiquitousAttributes_brc_getterForAttribute___block_invoke()
 {
-  v26[22] = *MEMORY[0x277D85DE8];
-  v25[0] = *MEMORY[0x277CBE958];
-  v24 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemHasUnresolvedConflicts];
-  v26[0] = v24;
-  v25[1] = *MEMORY[0x277CBE960];
-  v23 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemIsDownloading];
-  v26[1] = v23;
-  v25[2] = *MEMORY[0x277CBEBE0];
-  v22 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemIsDownloadRequested];
-  v26[2] = v22;
-  v25[3] = *MEMORY[0x277CBE928];
+  v25[22] = *MEMORY[0x277D85DE8];
+  v24[0] = *MEMORY[0x277CBE958];
+  v23 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemHasUnresolvedConflicts];
+  v25[0] = v23;
+  v24[1] = *MEMORY[0x277CBE960];
+  v22 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemIsDownloading];
+  v25[1] = v22;
+  v24[2] = *MEMORY[0x277CBEBE0];
   v21 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemIsDownloadRequested];
-  v26[3] = v21;
-  v25[4] = *MEMORY[0x277CBE990];
-  v20 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemUploadingError];
-  v26[4] = v20;
-  v25[5] = *MEMORY[0x277CBE930];
-  v19 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemDownloadingError];
-  v26[5] = v19;
-  v25[6] = *MEMORY[0x277CBE970];
-  v18 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemIsShared];
-  v26[6] = v18;
-  v25[7] = *MEMORY[0x277CBE9D8];
-  v17 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousSharedItemRole];
-  v26[7] = v17;
-  v25[8] = *MEMORY[0x277CBE9A0];
+  v25[2] = v21;
+  v24[3] = *MEMORY[0x277CBE928];
+  v20 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemIsDownloadRequested];
+  v25[3] = v20;
+  v24[4] = *MEMORY[0x277CBE990];
+  v19 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemUploadingError];
+  v25[4] = v19;
+  v24[5] = *MEMORY[0x277CBE930];
+  v18 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemDownloadingError];
+  v25[5] = v18;
+  v24[6] = *MEMORY[0x277CBE970];
+  v17 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemIsShared];
+  v25[6] = v17;
+  v24[7] = *MEMORY[0x277CBE9D8];
   v16 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousSharedItemRole];
-  v26[8] = v16;
-  v25[9] = *MEMORY[0x277CBE9B8];
-  v15 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousSharedItemOwnerName];
-  v26[9] = v15;
-  v25[10] = *MEMORY[0x277CBE9B0];
-  v14 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousSharedItemOwnerNameComponents];
-  v26[10] = v14;
-  v25[11] = *MEMORY[0x277CBE9A8];
-  v13 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemLastEditorNameComponents];
-  v26[11] = v13;
-  v25[12] = *MEMORY[0x277CBE9C0];
+  v25[7] = v16;
+  v24[8] = *MEMORY[0x277CBE9A0];
+  v15 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousSharedItemRole];
+  v25[8] = v15;
+  v24[9] = *MEMORY[0x277CBE9B8];
+  v14 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousSharedItemOwnerName];
+  v25[9] = v14;
+  v24[10] = *MEMORY[0x277CBE9B0];
+  v13 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousSharedItemOwnerNameComponents];
+  v25[10] = v13;
+  v24[11] = *MEMORY[0x277CBE9A8];
+  v12 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemLastEditorNameComponents];
+  v25[11] = v12;
+  v24[12] = *MEMORY[0x277CBE9C0];
   v0 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousSharedItemOldPermissions];
-  v26[12] = v0;
-  v25[13] = *MEMORY[0x277CBE998];
+  v25[12] = v0;
+  v24[13] = *MEMORY[0x277CBE998];
   v1 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousSharedItemCurrentUserPermissions];
-  v26[13] = v1;
-  v25[14] = *MEMORY[0x277CBE988];
+  v25[13] = v1;
+  v24[14] = *MEMORY[0x277CBE988];
   v2 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemIsUploading];
-  v26[14] = v2;
-  v25[15] = *MEMORY[0x277CFAD38];
+  v25[14] = v2;
+  v24[15] = *MEMORY[0x277CFAD38];
   v3 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemLastEditorDeviceName];
-  v26[15] = v3;
-  v25[16] = *MEMORY[0x277CFAD40];
+  v25[15] = v3;
+  v24[16] = *MEMORY[0x277CFAD40];
   v4 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemLastEditorName];
-  v26[16] = v4;
-  v25[17] = *MEMORY[0x277CFAD30];
+  v25[16] = v4;
+  v24[17] = *MEMORY[0x277CFAD30];
   v5 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemIsConflicted];
-  v26[17] = v5;
-  v25[18] = *MEMORY[0x277CFAD28];
+  v25[17] = v5;
+  v24[18] = *MEMORY[0x277CFAD28];
   v6 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousItemIdentifier];
-  v26[18] = v6;
-  v25[19] = *MEMORY[0x277CFAD18];
+  v25[18] = v6;
+  v24[19] = *MEMORY[0x277CFAD18];
   v7 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousDocumentRecordID];
-  v26[19] = v7;
-  v25[20] = *MEMORY[0x277CFACD0];
+  v25[19] = v7;
+  v24[20] = *MEMORY[0x277CFACD0];
   v8 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousEditedSinceShared];
-  v26[20] = v8;
-  v25[21] = *MEMORY[0x277CFAD20];
+  v25[20] = v8;
+  v24[21] = *MEMORY[0x277CFAD20];
   v9 = [MEMORY[0x277CCAE60] valueWithPointer:ubiquitousIsTopLevelSharedItem];
-  v26[21] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:22];
+  v25[21] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:22];
   v11 = brc_getterForAttribute__ubiquitousAttributeToFunction;
   brc_getterForAttribute__ubiquitousAttributeToFunction = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)brc_attributesValues:(id)values localItem:(id)item
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   itemCopy = item;
   v8 = brc_bread_crumbs();
@@ -108,30 +106,30 @@ void __50__BRCUbiquitousAttributes_brc_getterForAttribute___block_invoke()
     +[BRCUbiquitousAttributes brc_attributesValues:localItem:];
   }
 
-  v29 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(valuesCopy, "count")}];
+  v28 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(valuesCopy, "count")}];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v10 = valuesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v11)
   {
     v13 = v11;
-    v14 = *v31;
+    v14 = *v30;
     *&v12 = 138412546;
-    v28 = v12;
+    v27 = v12;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v31 != v14)
+        if (*v30 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v30 + 1) + 8 * i);
-        v17 = [self brc_getterForAttribute:{v16, v28}];
+        v16 = *(*(&v29 + 1) + 8 * i);
+        v17 = [self brc_getterForAttribute:{v16, v27}];
         if (v17)
         {
           v18 = v17;
@@ -140,7 +138,7 @@ void __50__BRCUbiquitousAttributes_brc_getterForAttribute___block_invoke()
 
           if (v20)
           {
-            [v29 setObject:v20 forKeyedSubscript:v16];
+            [v28 setObject:v20 forKeyedSubscript:v16];
           }
 
           else
@@ -149,10 +147,10 @@ void __50__BRCUbiquitousAttributes_brc_getterForAttribute___block_invoke()
             v23 = brc_default_log();
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v28;
-              v35 = v16;
-              v36 = 2112;
-              v37 = v22;
+              *buf = v27;
+              v34 = v16;
+              v35 = 2112;
+              v36 = v22;
               _os_log_debug_impl(&dword_223E7A000, v23, OS_LOG_TYPE_DEBUG, "[DEBUG] No value for attribute: %@%@", buf, 0x16u);
             }
           }
@@ -164,16 +162,16 @@ void __50__BRCUbiquitousAttributes_brc_getterForAttribute___block_invoke()
           v21 = brc_default_log();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v28;
-            v35 = v16;
-            v36 = 2112;
-            v37 = v20;
+            *buf = v27;
+            v34 = v16;
+            v35 = 2112;
+            v36 = v20;
             _os_log_debug_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEBUG, "[DEBUG] unsupported attribute: %@%@", buf, 0x16u);
           }
         }
       }
 
-      v13 = [v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v13 = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v13);
@@ -186,25 +184,7 @@ void __50__BRCUbiquitousAttributes_brc_getterForAttribute___block_invoke()
     +[BRCUbiquitousAttributes brc_attributesValues:localItem:];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v29;
-}
-
-+ (void)brc_attributesValues:localItem:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] localItem: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)brc_attributesValues:localItem:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] returning %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  return v28;
 }
 
 @end

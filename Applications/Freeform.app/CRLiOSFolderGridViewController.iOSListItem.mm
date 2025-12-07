@@ -10,7 +10,7 @@
 - (BOOL)isSelected
 {
   v3.receiver = self;
-  v3.super_class = _s11iOSListItemCMa();
+  v3.super_class = _s11iOSListItemCMa(0);
   return [(CRLiOSFolderGridViewController.iOSListItem *)&v3 isSelected];
 }
 
@@ -27,7 +27,7 @@
 
   if (v3)
   {
-    sub_100006370(0, &qword_101A00130);
+    sub_100006370(0, &qword_101A00130, UIAccessibilityCustomAction_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

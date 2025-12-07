@@ -73,7 +73,6 @@
     else if ([(ENUIAnalyticsDataViewController *)selfCopy fetchCompleted])
     {
       v19 = +[PSSpecifier emptyGroupSpecifier];
-      selfCopy->_analyticsDataFileURLs;
       v20 = ENUILocalizedString();
       [v19 setObject:v20 forKeyedSubscript:PSFooterTextGroupKey];
 

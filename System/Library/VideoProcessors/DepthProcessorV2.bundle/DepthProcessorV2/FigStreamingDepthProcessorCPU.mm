@@ -1,6 +1,8 @@
 @interface FigStreamingDepthProcessorCPU
 - (BOOL)allocateResources;
 - (FigStreamingDepthProcessorCPU)initWithParameters:(depthProcessorParameters *)parameters commandQueue:(id)queue;
+- (int)_convertInputShifts:(__CVBuffer *)shifts disparityOut:(float *)out resX:(int)x resY:(int)y extendedWidth:(int)width inputInvalidDisparityValue:(float)value outputDisparitySaturationValue:(float)saturationValue;
+- (int)_convertInputYUV:(__CVBuffer *)v;
 - (int)_copyToDepthImage:(__CVBuffer *)image disparityIn:(float *)in resX:(int)x resY:(int)y extendedWidth:(int)width;
 - (int)_performGDRFilterOnDisparity:(float *)disparity yuvBuffer:(__CVBuffer *)buffer disparityOut:(float *)out;
 - (int)_performSMPFilterOnDisparity:(float *)disparity depthBuffer:(__CVBuffer *)buffer inputInvalidDisparityValue:(float)value outputInvalidDisparityValue:(float)disparityValue disparityOut:(float *)out;
@@ -54,7 +56,7 @@
   gdr = self->_gdr;
   if (gdr)
   {
-    v4 = sub_295728090(gdr, a2);
+    v4 = sub_295728090(gdr);
     MEMORY[0x29C250EB0](v4, 0x10A0C406C794524);
   }
 
@@ -134,7 +136,7 @@
 {
   objc_msgSend__startSMPFilteringTrace(self, a2, disparity, out, v6, v7);
   *&v13 = value;
-  sub_29571AB8C(self->_smpFilter, disparity, 0, v20, v13, disparityValue);
+  sub_29571AB8C(self->_smpFilter, disparity, 0, v20, disparityValue, v13);
   objc_msgSend__endSMPFilteringTrace(self, v14, v15, v16, v17, v18);
   sub_29572D568(v20, out, &v21);
   return v21;
@@ -303,6 +305,279 @@ LABEL_13:
   }
 }
 
+- (int)_convertInputYUV:(__CVBuffer *)v
+{
+  resX = self->_resX;
+  resY = self->_resY;
+  image = self->_image;
+  BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(v, 0);
+  v9 = 1;
+  v10 = sub_2957195DC();
+  v12 = CVPixelBufferGetBytesPerRowOfPlane(v10, v11);
+  v13 = sub_2957195DC();
+  if (!CVPixelBufferLockBaseAddress(v13, v14))
+  {
+    BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(v, 0);
+    v16 = sub_2957195DC();
+    v18 = CVPixelBufferGetBaseAddressOfPlane(v16, v17);
+    if (self->_resY >= 1)
+    {
+      v23 = 0;
+      v24 = resY * resX;
+      v25 = 2 * resY * resX;
+      v26 = BytesPerRowOfPlane;
+      v27 = 2 * BytesPerRowOfPlane;
+      v28 = v12;
+      v29 = v25;
+      v30 = v24;
+      v31 = vdupq_n_s32(0x3FB374BCu);
+      v19.i64[0] = 0x7F007F007F007FLL;
+      v32 = vdupq_n_s32(0x437F0000u);
+      v33 = vdupq_n_s32(0x3B808081u);
+      v34 = vdupq_n_s32(0xBEB02DE0);
+      v35 = vdupq_n_s32(0xBF36CF42);
+      v36 = vdupq_n_s32(0x3FE2D0E5u);
+      do
+      {
+        v37 = self->_resX;
+        if (v37 < 16)
+        {
+          LODWORD(v67) = 0;
+        }
+
+        else
+        {
+          v38 = 15;
+          v39 = v18;
+          v40 = BaseAddressOfPlane;
+          v41 = image;
+          v42 = BaseAddressOfPlane;
+          do
+          {
+            v85 = vld2_s8(v42);
+            v42 += 16;
+            v43 = vmovl_u8(*v85.f32);
+            v86 = vld2_s8(v39);
+            v39 += 16;
+            v44 = vcvtq_f32_u32(vmovl_u16(*v43.i8));
+            v45 = vcvtq_f32_u32(vmovl_high_u16(v43));
+            v85 = vmovl_u8(*&v85.u32[2]);
+            v46 = vcvtq_f32_u32(vmovl_u16(*v85.f32));
+            *(&v85 + 8) = vmovl_u8(*v86.f32);
+            v43.i64[0] = vextq_s8(*(&v85 + 8), *(&v85 + 8), 8uLL).u64[0];
+            v47 = vcvtq_f32_u32(vmovl_high_u16(v85));
+            *(&v85 + 8) = vcvtq_f32_s32(vmovl_s16(*&vaddw_u8(v19, *v86.f32)));
+            v85 = vmovl_s16(vadd_s16(*v43.i8, 0x7F007F007F007FLL));
+            v48 = vmovl_u8(*&v86.u32[2]);
+            v85 = vcvtq_f32_s32(v85);
+            v49 = vcvtq_f32_s32(vmovl_s16(*&vaddw_u8(v19, *&v86.u32[2])));
+            v50 = vcvtq_f32_s32(vmovl_s16(vadd_s16(*&vextq_s8(v48, v48, 8uLL), 0x7F007F007F007FLL)));
+            v88.val[0] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v44, v31, v49), 0), v32), v33);
+            v51 = v41;
+            v88.val[1] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v46, v31, v49), 0), v32), v33);
+            vst2q_f32(v51, v88);
+            v52 = &v51[v29];
+            v53 = v41 + 8;
+            v89.val[0] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v45, v31, v50), 0), v32), v33);
+            v89.val[1] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v47, v31, v50), 0), v32), v33);
+            v88.val[0] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(vmlaq_f32(v44, v34, *(&v85 + 8)), v35, v49), 0), v32), v33);
+            v54 = &v41[v30];
+            v88.val[1] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(vmlaq_f32(v46, v34, *(&v85 + 8)), v35, v49), 0), v32), v33);
+            vst2q_f32(v53, v89);
+            vst2q_f32(v54, v88);
+            v54 += 8;
+            v88.val[0] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(vmlaq_f32(v45, v34, v85), v35, v50), 0), v32), v33);
+            v89.val[0] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v44, v36, *(&v85 + 8)), 0), v32), v33);
+            v89.val[1] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v46, v36, *(&v85 + 8)), 0), v32), v33);
+            v88.val[1] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(vmlaq_f32(v47, v34, v85), v35, v50), 0), v32), v33);
+            vst2q_f32(v54, v88);
+            vst2q_f32(v52, v89);
+            v52 += 8;
+            v87.val[0] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v45, v36, v85), 0), v32), v33);
+            v87.val[1] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v47, v36, v85), 0), v32), v33);
+            vst2q_f32(v52, v87);
+            v55 = &v40[v26];
+            v45 = vld2_s8(v55);
+            v87.val[1] = vmovl_u8(*v45.f32);
+            v87.val[0] = vcvtq_f32_u32(vmovl_u16(*v87.val[1].f32));
+            v56 = vmovl_u8(*v47.f32);
+            v57 = vcvtq_f32_u32(vmovl_high_u16(v87.val[1]));
+            v87.val[1] = vcvtq_f32_u32(vmovl_u16(*v56.i8));
+            v58 = vcvtq_f32_u32(vmovl_high_u16(v56));
+            v59 = &v41[self->_resX];
+            v89.val[0] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v87.val[0], v31, v49), 0), v32), v33);
+            v89.val[1] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v87.val[1], v31, v49), 0), v32), v33);
+            vst2q_f32(v59, v89);
+            v89.val[0] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v57, v31, v50), 0), v32), v33);
+            v89.val[1] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v58, v31, v50), 0), v32), v33);
+            *(&v86 + 8) = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(vmlaq_f32(v87.val[0], v34, *(&v85 + 8)), v35, v49), 0), v32), v33);
+            v88.val[0] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(vmlaq_f32(v87.val[1], v34, *(&v85 + 8)), v35, v49), 0), v32), v33);
+            v60 = &v41[self->_resX + 8];
+            vst2q_f32(v60, v89);
+            v61 = &v41[self->_resX + v30];
+            vst2q_f32(v61, *&v86.u32[2]);
+            v86 = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(vmlaq_f32(v57, v34, v85), v35, v50), 0), v32), v33);
+            *(&v86 + 8) = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(vmlaq_f32(v58, v34, v85), v35, v50), 0), v32), v33);
+            v62 = &v41[self->_resX + 8 + v30];
+            vst2q_f32(v62, *v86.f32);
+            v87.val[0] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v87.val[0], v36, *(&v85 + 8)), 0), v32), v33);
+            v87.val[1] = vmulq_f32(vminq_f32(vmaxq_f32(vmlaq_f32(v87.val[1], v36, *(&v85 + 8)), 0), v32), v33);
+            v63 = &v41[self->_resX + v29];
+            vst2q_f32(v63, v87);
+            v64 = vmlaq_f32(v58, v36, v85);
+            v20 = vminq_f32(vmaxq_f32(vmlaq_f32(v57, v36, v85), 0), v32);
+            v21 = vminq_f32(vmaxq_f32(v64, 0), v32);
+            v22 = vmulq_f32(v20, v33);
+            v65 = vmulq_f32(v21, v33);
+            v66 = &v41[self->_resX + 8 + v29];
+            vst2q_f32(v66, *v22.f32);
+            v37 = self->_resX;
+            v41 += 16;
+            v38 += 16;
+            v40 = v42;
+          }
+
+          while (v38 < v37);
+          LODWORD(v67) = v38 - 15;
+        }
+
+        if (v67 < v37)
+        {
+          v67 = v67;
+          do
+          {
+            v20.i8[0] = v18[v67];
+            v21.i8[0] = BaseAddressOfPlane[v67];
+            v22.i8[0] = v18[v67 | 1];
+            v68 = v21.u32[0];
+            v69 = v20.u32[0] + -128.0;
+            v70 = v22.u32[0] + -128.0;
+            v71 = fmaxf(v21.u32[0] + (v70 * 1.402), 0.0);
+            v21.i32[0] = 1132396544;
+            v72 = fminf(v71, 255.0);
+            v22.i32[0] = 998277249;
+            image[v67] = v72 * 0.0039216;
+            image[v67 + v24] = fminf(fmaxf((v68 + (v69 * -0.3441)) + (v70 * -0.7141), 0.0), 255.0) * 0.0039216;
+            *&v73 = fminf(fmaxf(v68 + (v69 * 1.772), 0.0), 255.0) * 0.0039216;
+            image[v67 + v25] = *&v73;
+            LOBYTE(v73) = BaseAddressOfPlane[v67 | 1];
+            v74 = v73;
+            image[v67 | 1] = fminf(fmaxf(v74 + (v70 * 1.402), 0.0), 255.0) * 0.0039216;
+            image[(v67 | 1) + v24] = fminf(fmaxf((v74 + (v69 * -0.3441)) + (v70 * -0.7141), 0.0), 255.0) * 0.0039216;
+            *&v75 = fminf(fmaxf(v74 + (v69 * 1.772), 0.0), 255.0) * 0.0039216;
+            image[(v67 | 1) + v25] = *&v75;
+            v76 = &BaseAddressOfPlane[v67 + v26];
+            LOBYTE(v75) = *v76;
+            v77 = v75;
+            image[v67 + v37] = fminf(fmaxf(v77 + (v70 * 1.402), 0.0), 255.0) * 0.0039216;
+            v78 = fminf(fmaxf((v77 + (v69 * -0.3441)) + (v70 * -0.7141), 0.0), 255.0);
+            *&v79 = fminf(fmaxf(v77 + (v69 * 1.772), 0.0), 255.0) * 0.0039216;
+            image[v67 + v37 + v24] = v78 * 0.0039216;
+            image[v67 + v37 + v25] = *&v79;
+            LOBYTE(v79) = v76[1];
+            v80 = v79;
+            v81 = v67 + v37 + 1;
+            image[v81] = fminf(fmaxf(v80 + (v70 * 1.402), 0.0), 255.0) * 0.0039216;
+            image[v81 + v24] = fminf(fmaxf((v80 + (v69 * -0.3441)) + (v70 * -0.7141), 0.0), 255.0) * 0.0039216;
+            v20.f32[0] = fminf(fmaxf(v80 + (v69 * 1.772), 0.0), 255.0) * 0.0039216;
+            image[v81 + v25] = v20.f32[0];
+            v67 += 2;
+          }
+
+          while (v67 < v37);
+        }
+
+        image += 2 * v37;
+        BaseAddressOfPlane += v27;
+        v18 += v28;
+        v23 += 2;
+      }
+
+      while (v23 < self->_resY);
+    }
+
+    v82 = sub_2957195DC();
+    CVPixelBufferUnlockBaseAddress(v82, v83);
+    return 0;
+  }
+
+  return v9;
+}
+
+- (int)_convertInputShifts:(__CVBuffer *)shifts disparityOut:(float *)out resX:(int)x resY:(int)y extendedWidth:(int)width inputInvalidDisparityValue:(float)value outputDisparitySaturationValue:(float)saturationValue
+{
+  v29 = *&value;
+  v30 = *&saturationValue;
+  v14 = sub_2957195E8(self, a2, shifts);
+  v15 = sub_2957195DC();
+  if (CVPixelBufferLockBaseAddress(v15, v16))
+  {
+    return 3;
+  }
+
+  BaseAddress = CVPixelBufferGetBaseAddress(v9);
+  if (v10 >= 1)
+  {
+    v18 = 0;
+    v19 = vdupq_lane_s32(v30, 0);
+    v20 = vdupq_lane_s32(v29, 0);
+    do
+    {
+      if (v11 < 4)
+      {
+        v24 = 0;
+      }
+
+      else
+      {
+        v21 = 0;
+        v22 = 0;
+        do
+        {
+          *(v12 + v21 * 4) = vbslq_s8(vornq_s8(vcgtq_f32(v19, *&BaseAddress[v21]), vcgtq_f32(*&BaseAddress[v21], v20)), v20, *&BaseAddress[v21]);
+          v23 = v22 + 7;
+          v22 += 4;
+          v21 += 4;
+        }
+
+        while (v23 < v11);
+        v24 = v22;
+      }
+
+      if (v24 < v11)
+      {
+        do
+        {
+          v25 = BaseAddress[v24];
+          if (v25 <= *v29.i32)
+          {
+            v25 = *v29.i32;
+          }
+
+          if (v25 <= *v30.i32)
+          {
+            v25 = *v30.i32;
+          }
+
+          *(v12 + 4 * v24++) = v25;
+        }
+
+        while (v11 != v24);
+      }
+
+      ++v18;
+      v12 += 4 * v13;
+      BaseAddress += v14 >> 2;
+    }
+
+    while (v18 != v10);
+  }
+
+  v26 = sub_2957195DC();
+  CVPixelBufferUnlockBaseAddress(v26, v27);
+  return 0;
+}
+
 - (int)_copyToDepthImage:(__CVBuffer *)image disparityIn:(float *)in resX:(int)x resY:(int)y extendedWidth:(int)width
 {
   v12 = sub_2957195E8(self, a2, image);
@@ -402,13 +677,13 @@ LABEL_13:
     v10 = MEMORY[0x29EDB9270];
     if (*MEMORY[0x29EDB9270] == 1)
     {
-      sub_295719610();
+      sub_295719610(822150713, 10);
     }
 
     sub_295728094(self->_gdr, self->_image, disparity);
     if (*v10 == 1)
     {
-      sub_295719610();
+      sub_295719610(822150714, 10);
     }
 
     *out = disparity;

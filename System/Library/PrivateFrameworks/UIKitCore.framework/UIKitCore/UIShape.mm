@@ -286,7 +286,7 @@
 - (UIShape)shapeWithProvider:(id)provider
 {
   ObjCClassFromObject = swift_getObjCClassFromObject();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA940F40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA940F40, &qword_18A676C98);
   v5 = swift_allocObject();
   *(v5 + 16) = provider;
   v6 = objc_allocWithZone(ObjCClassFromObject);
@@ -407,7 +407,7 @@
 
 + (UIShape)shapeWithProvider:(id)provider
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA940F40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA940F40, &qword_18A676C98);
   v4 = swift_allocObject();
   *(v4 + 16) = provider;
   v5 = objc_allocWithZone(UIShape);

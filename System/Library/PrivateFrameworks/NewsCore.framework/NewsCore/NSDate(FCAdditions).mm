@@ -36,20 +36,20 @@
 
 + (id)fc_dateFromString:()FCAdditions possibleFormats:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a4;
   if (!v5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "string != nil"];
+    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "string != nil"];
     *buf = 136315906;
-    v26 = "+[NSDate(FCAdditions) fc_dateFromString:possibleFormats:]";
-    v27 = 2080;
-    v28 = "NSDate+FCAdditions.m";
-    v29 = 1024;
-    v30 = 56;
-    v31 = 2114;
-    v32 = v18;
+    v25 = "+[NSDate(FCAdditions) fc_dateFromString:possibleFormats:]";
+    v26 = 2080;
+    v27 = "NSDate+FCAdditions.m";
+    v28 = 1024;
+    v29 = 56;
+    v30 = 2114;
+    v31 = v17;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (v6)
@@ -65,39 +65,39 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "formats != nil"];
+    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "formats != nil"];
     *buf = 136315906;
-    v26 = "+[NSDate(FCAdditions) fc_dateFromString:possibleFormats:]";
-    v27 = 2080;
-    v28 = "NSDate+FCAdditions.m";
-    v29 = 1024;
-    v30 = 57;
-    v31 = 2114;
-    v32 = v19;
+    v25 = "+[NSDate(FCAdditions) fc_dateFromString:possibleFormats:]";
+    v26 = 2080;
+    v27 = "NSDate+FCAdditions.m";
+    v28 = 1024;
+    v29 = 57;
+    v30 = 2114;
+    v31 = v18;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
 LABEL_8:
     v11 = 0;
     while (1)
     {
-      if (*v21 != v10)
+      if (*v20 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v20 + 1) + 8 * v11);
+      v12 = *(*(&v19 + 1) + 8 * v11);
       v13 = objc_autoreleasePoolPush();
       v14 = [MEMORY[0x1E696AB78] dateFormatterWithFormat:v12 forReuse:0];
       v15 = [v14 dateFromString:v5];
@@ -110,7 +110,7 @@ LABEL_8:
 
       if (v9 == ++v11)
       {
-        v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v9)
         {
           goto LABEL_8;
@@ -127,38 +127,32 @@ LABEL_14:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 + (id)fc_dateFromStringWithISO8601Format:()FCAdditions
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = @"yyyy-MM-dd'T'HH:mm:ssZZ";
+  v10 = *MEMORY[0x1E69E9840];
+  v9 = @"yyyy-MM-dd'T'HH:mm:ssZZ";
   v4 = MEMORY[0x1E695DEC8];
   v5 = a3;
-  v6 = [v4 arrayWithObjects:&v10 count:1];
-  v7 = [self fc_dateFromString:v5 possibleFormats:{v6, v10, v11}];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = [v4 arrayWithObjects:&v9 count:1];
+  v7 = [self fc_dateFromString:v5 possibleFormats:{v6, v9, v10}];
 
   return v7;
 }
 
 + (id)fc_dateFromStringWithHTTPHeaderFormat:()FCAdditions
 {
-  v10[4] = *MEMORY[0x1E69E9840];
-  v10[0] = @"EEE, dd MMM yyyy HH:mm:ss z";
-  v10[1] = @"EEEE, dd-MMM-yy HH:mm:ss z";
-  v10[2] = @"EEE MMM d HH:mm:ss yyyy";
-  v10[3] = @"EEE MMM dd HH:mm:ss z yyyy";
+  v9[4] = *MEMORY[0x1E69E9840];
+  v9[0] = @"EEE, dd MMM yyyy HH:mm:ss z";
+  v9[1] = @"EEEE, dd-MMM-yy HH:mm:ss z";
+  v9[2] = @"EEE MMM d HH:mm:ss yyyy";
+  v9[3] = @"EEE MMM dd HH:mm:ss z yyyy";
   v4 = MEMORY[0x1E695DEC8];
   v5 = a3;
-  v6 = [v4 arrayWithObjects:v10 count:4];
+  v6 = [v4 arrayWithObjects:v9 count:4];
   v7 = [self fc_dateFromString:v5 possibleFormats:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -219,26 +213,25 @@ LABEL_14:
 
 - (unint64_t)fc_millisecondTimeIntervalSinceDate:()FCAdditions
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (!v4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "date"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "date"];
     *buf = 136315906;
-    v11 = "[NSDate(FCAdditions) fc_millisecondTimeIntervalSinceDate:]";
-    v12 = 2080;
-    v13 = "NSDate+FCAdditions.m";
-    v14 = 1024;
-    v15 = 176;
-    v16 = 2114;
-    v17 = v9;
+    v10 = "[NSDate(FCAdditions) fc_millisecondTimeIntervalSinceDate:]";
+    v11 = 2080;
+    v12 = "NSDate+FCAdditions.m";
+    v13 = 1024;
+    v14 = 176;
+    v15 = 2114;
+    v16 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   [self timeIntervalSinceDate:v4];
   v6 = v5;
 
-  v7 = *MEMORY[0x1E69E9840];
   return (fmax(v6, 0.0) * 1000.0);
 }
 
@@ -259,19 +252,19 @@ LABEL_14:
 
 - (uint64_t)fc_GregorianCalendarDaysSinceDate:()FCAdditions
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (!v4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "date"];
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "date"];
     *buf = 136315906;
-    v16 = "[NSDate(FCAdditions) fc_GregorianCalendarDaysSinceDate:]";
-    v17 = 2080;
-    v18 = "NSDate+FCAdditions.m";
-    v19 = 1024;
-    v20 = 201;
-    v21 = 2114;
-    v22 = v14;
+    v15 = "[NSDate(FCAdditions) fc_GregorianCalendarDaysSinceDate:]";
+    v16 = 2080;
+    v17 = "NSDate+FCAdditions.m";
+    v18 = 1024;
+    v19 = 201;
+    v20 = 2114;
+    v21 = v13;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -285,7 +278,6 @@ LABEL_14:
   v10 = [v6 components:16 fromDate:fc_dateOfEarliestGregorianCalendarDay toDate:fc_dateOfEarliestGregorianCalendarDay2 options:0];
   v11 = [v10 day];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -428,9 +420,9 @@ LABEL_7:
 - (id)fc_stringWithYearAndMonthFormat
 {
   _fr_sharedYearAndMonthDateFormatter = [objc_opt_class() _fr_sharedYearAndMonthDateFormatter];
-  v3 = [_fr_sharedYearAndMonthDateFormatter stringFromDate:self];
+  v4 = [_fr_sharedYearAndMonthDateFormatter stringFromDate:self];
 
-  return v3;
+  return v4;
 }
 
 - (id)fc_adjustToRecentDate

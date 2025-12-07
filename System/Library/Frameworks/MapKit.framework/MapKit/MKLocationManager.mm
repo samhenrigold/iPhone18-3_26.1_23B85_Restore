@@ -202,13 +202,13 @@ void __42__MKLocationManager_sharedLocationManager__block_invoke()
   return v4;
 }
 
-uint64_t __51__MKLocationManager_isAuthorizedForPreciseLocation__block_invoke(uint64_t result)
+id *__51__MKLocationManager_isAuthorizedForPreciseLocation__block_invoke(id *result)
 {
   v1 = result;
-  v2 = *(*(result + 32) + 312);
+  v2 = *(result[4] + 78);
   if (!v2)
   {
-    result = [*(result + 40) accuracyAuthorization];
+    result = [result[5] accuracyAuthorization];
     if (result)
     {
       v3 = 2;
@@ -219,11 +219,11 @@ uint64_t __51__MKLocationManager_isAuthorizedForPreciseLocation__block_invoke(ui
       v3 = 1;
     }
 
-    *(*(v1 + 32) + 312) = v3;
-    v2 = *(*(v1 + 32) + 312);
+    *(v1[4] + 78) = v3;
+    v2 = *(v1[4] + 78);
   }
 
-  *(*(*(v1 + 48) + 8) + 24) = v2 == 1;
+  *(*(v1[6] + 1) + 24) = v2 == 1;
   return result;
 }
 
@@ -598,7 +598,7 @@ LABEL_9:
     }
   }
 
-  [(NSLock *)self->_visitObserversLock unlock];
+  [(NSLock *)self->_visitObserversLock unlock:*v14];
 }
 
 - (void)stopVehicleHeadingUpdate
@@ -1511,7 +1511,7 @@ LABEL_23:
   _Block_object_dispose(buf, 8);
 }
 
-uint64_t __66__MKLocationManager_locationProviderDidChangeAuthorizationStatus___block_invoke_2(uint64_t a1)
+void *__66__MKLocationManager_locationProviderDidChangeAuthorizationStatus___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) accuracyAuthorization];
   if (result)
@@ -1661,9 +1661,9 @@ uint64_t __66__MKLocationManager_locationProviderDidChangeAuthorizationStatus___
 
   if (locationCopy)
   {
-    [locationCopy clientLocation];
+    objc_msgSend_clientLocation(locationCopy);
     v10 = *(&v50 + 4);
-    [locationCopy clientLocation];
+    objc_msgSend_clientLocation(locationCopy);
     v11 = *(&v45 + 4);
     if (*(&v45 + 4) > 0.0 && *(&v45 + 4) < 20.0)
     {
@@ -2049,7 +2049,7 @@ LABEL_48:
             memset(v78, 0, 28);
             v76 = 0u;
             memset(buf, 0, sizeof(buf));
-            [locationCopy clientLocation];
+            objc_msgSend_clientLocation(locationCopy);
             if (isMatchShifted)
             {
               matchInfo4 = [locationCopy matchInfo];
@@ -2146,53 +2146,53 @@ LABEL_41:
 LABEL_42:
 }
 
-void __75__MKLocationManager_locationProvider_didUpdateLocation_lastKnownNavCourse___block_invoke(uint64_t a1, double a2, double a3)
+void __75__MKLocationManager_locationProvider_didUpdateLocation_lastKnownNavCourse___block_invoke(uint64_t a1, const char *a2, double a3, double a4)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  memset(v15, 0, 28);
-  *&v14[16] = 0u;
-  *v14 = 0;
-  v6 = *(a1 + 32);
-  if (v6)
+  v25 = *MEMORY[0x1E69E9840];
+  memset(v16, 0, 28);
+  *&v15[16] = 0u;
+  *v15 = 0;
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    [v6 clientLocation];
+    objc_msgSend_clientLocation(v7, a2);
   }
 
-  *&v14[4] = a2;
-  *&v14[12] = a3;
-  DWORD1(v15[0]) = 2;
-  v7 = MKGetMKLocationManagerLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  *&v15[4] = a3;
+  *&v15[12] = a4;
+  DWORD1(v16[0]) = 2;
+  v8 = MKGetMKLocationManagerLog();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     [*(a1 + 32) coordinate];
-    v9 = v8;
+    v10 = v9;
     [*(a1 + 32) coordinate];
     *buf = 134284289;
-    *&buf[4] = v9;
+    *&buf[4] = v10;
     *&buf[12] = 2049;
-    *&buf[14] = v10;
+    *&buf[14] = v11;
     *&buf[22] = 2049;
-    *&buf[24] = a2;
-    LOWORD(v17) = 2049;
-    *(&v17 + 2) = a3;
-    _os_log_impl(&dword_1A2EA0000, v7, OS_LOG_TYPE_INFO, "Maps shifting location %{private}f, %{private}f => %{private}f, %{private}f", buf, 0x2Au);
+    *&buf[24] = a3;
+    LOWORD(v18) = 2049;
+    *(&v18 + 2) = a4;
+    _os_log_impl(&dword_1A2EA0000, v8, OS_LOG_TYPE_INFO, "Maps shifting location %{private}f, %{private}f => %{private}f, %{private}f", buf, 0x2Au);
   }
 
-  v11 = objc_alloc(MEMORY[0x1E6985C40]);
-  v12 = [*(a1 + 32) coarseMetaData];
-  v21 = 0u;
+  v12 = objc_alloc(MEMORY[0x1E6985C40]);
+  v13 = [*(a1 + 32) coarseMetaData];
   v22 = 0u;
-  v23[0] = v15[0];
-  *(v23 + 12) = *(v15 + 12);
-  v17 = 0u;
+  v23 = 0u;
+  v24[0] = v16[0];
+  *(v24 + 12) = *(v16 + 12);
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  *buf = *v14;
-  *&buf[16] = *&v14[16];
-  v13 = [v11 initWithClientLocation:buf coarseMetaData:v12];
+  v21 = 0u;
+  *buf = *v15;
+  *&buf[16] = *&v15[16];
+  v14 = [v12 initWithClientLocation:buf coarseMetaData:v13];
 
-  [*(a1 + 40) _locationProvider:*(a1 + 48) didUpdateLocation:v13 lastKnownNavCourse:*(a1 + 56)];
+  [*(a1 + 40) _locationProvider:*(a1 + 48) didUpdateLocation:v14 lastKnownNavCourse:*(a1 + 56)];
 }
 
 - (void)pushLocation:(id)location
@@ -2351,7 +2351,7 @@ LABEL_24:
           v20 = 0u;
           if (v5)
           {
-            [v5 clientLocation];
+            objc_msgSend_clientLocation(v5);
           }
 
           [lastLocation horizontalAccuracy];
@@ -3219,7 +3219,7 @@ LABEL_11:
         v11 = objc_alloc(MEMORY[0x1E6985C40]);
         if (lastLocation)
         {
-          [lastLocation clientLocation];
+          objc_msgSend_clientLocation(lastLocation);
         }
 
         else

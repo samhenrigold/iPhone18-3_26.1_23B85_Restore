@@ -180,7 +180,7 @@ LABEL_12:
     v20 = [v5 localizedStringForKey:@"Keyboard" value:@"Keyboard" table:@"Localizable"];
 
     v6 = MEMORY[0x1E69DC628];
-    v7 = +[UIImage _pk_keyboardButtonImage];
+    v7 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
     v23[0] = MEMORY[0x1E69E9820];
     v23[1] = 3221225472;
     v23[2] = __69__PKPaletteFloatingKeyboardController__updateKeyboardMenuIfNecessary__block_invoke;
@@ -191,7 +191,7 @@ LABEL_12:
     v9 = MEMORY[0x1E69DC628];
     v10 = val[4];
     extendedDisplayName = [v10 extendedDisplayName];
-    v12 = +[UIImage _pk_emojiButtonImage];
+    v12 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
     v13 = val[4];
     primaryLanguage = [v13 primaryLanguage];
     v21[0] = MEMORY[0x1E69E9820];
@@ -306,7 +306,7 @@ void __69__PKPaletteFloatingKeyboardController__updateKeyboardMenuIfNecessary__b
     selfCopy = self;
     [(PKPaletteFloatingKeyboardController *)self _updateKeyboardMenuIfNecessary];
     [(PKPaletteFloatingKeyboardController *)selfCopy _clearMenuStateIfNecessary];
-    self = *(selfCopy + 8);
+    self = selfCopy[1];
     v1 = vars8;
   }
 

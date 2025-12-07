@@ -6,6 +6,7 @@
 - (void)_enqueueTask:(id)task;
 - (void)checkInAssetUpdateXPCActivity;
 - (void)enqueueAssetUpdateTaskWithContext:(id)context;
+- (void)enqueueCatalogRefreshTaskWithOverrideTimeout:(id)timeout forceCatalogRefresh:(BOOL)refresh context:(id)context;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 @end
 
@@ -100,6 +101,19 @@
 
   objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
+}
+
+- (void)enqueueCatalogRefreshTaskWithOverrideTimeout:(id)timeout forceCatalogRefresh:(BOOL)refresh context:(id)context
+{
+  refreshCopy = refresh;
+  contextCopy = context;
+  timeoutCopy = timeout;
+  v10 = [AXCatalogRefreshTask alloc];
+  policy = [(AXManagedAsset *)self policy];
+  v12 = [(AXCatalogRefreshTask *)v10 initWithPolicy:policy forceCatalogRefresh:refreshCopy context:contextCopy];
+
+  [(AXCatalogRefreshTask *)v12 setOverrideTimeout:timeoutCopy];
+  [(AXManagedAsset *)self _enqueueTask:v12];
 }
 
 - (void)enqueueAssetUpdateTaskWithContext:(id)context

@@ -9,6 +9,8 @@
 - (void)_refreshGroupCommands;
 - (void)dealloc;
 - (void)presentCustomAction:(id)action;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CACCommandsController
@@ -358,6 +360,25 @@ LABEL_11:
   v4 = [commandsArray sortedArrayUsingComparator:&stru_29098];
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = CACCommandsController;
+  [(CACCommandsController *)&v5 viewWillAppear:appear];
+  [(CACCommandsController *)self setIsCurrentlyAppearing:1];
+  [(CACCommandsController *)self _commandSettingsDidChange];
+  table = [(CACCommandsController *)self table];
+  [table selectRowAtIndexPath:0 animated:1 scrollPosition:0];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CACCommandsController;
+  [(CACCommandsController *)&v4 viewWillDisappear:disappear];
+  [(CACCommandsController *)self setIsCurrentlyAppearing:0];
 }
 
 @end

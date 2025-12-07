@@ -110,17 +110,18 @@
         [(VCMediaNegotiatorStreamGroupCodecConfiguration *)v13 setCipherSuite:3];
         [array addObject:v13];
 
-        if (+[VCHardwareSettings deviceClass]== 8)
+        v14 = +[VCHardwareSettings deviceClass];
+        if (v14 == 8)
         {
-          v14 = objc_alloc_init(VCMediaNegotiatorStreamGroupCodecConfiguration);
-          [(VCMediaNegotiatorStreamGroupCodecConfiguration *)v14 setCodecType:16];
-          [(VCMediaNegotiatorStreamGroupCodecConfiguration *)v14 setRtpPayload:101];
-          [(VCMediaNegotiatorStreamGroupCodecConfiguration *)v14 setPTime:10];
-          [(VCMediaNegotiatorStreamGroupCodecConfiguration *)v14 setCipherSuite:3];
-          [array addObject:v14];
+          v15 = objc_alloc_init(VCMediaNegotiatorStreamGroupCodecConfiguration);
+          [(VCMediaNegotiatorStreamGroupCodecConfiguration *)v15 setCodecType:16];
+          [(VCMediaNegotiatorStreamGroupCodecConfiguration *)v15 setRtpPayload:101];
+          [(VCMediaNegotiatorStreamGroupCodecConfiguration *)v15 setPTime:10];
+          [(VCMediaNegotiatorStreamGroupCodecConfiguration *)v15 setCipherSuite:3];
+          [array addObject:v15];
         }
 
-        if (!VCFeatureFlagManager_UseAudioCodecACC24ForGFT())
+        if (!VCFeatureFlagManager_UseAudioCodecACC24ForGFT(v14))
         {
           return array;
         }
@@ -1048,7 +1049,7 @@ LABEL_39:
 
 + (void)printWithLogFile:(void *)file prefix:(id)prefix payloadConfig:(id)config
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   prefix = [MEMORY[0x1E696AD60] stringWithFormat:@"[%lu] %@", objc_msgSend(config, "serializedSize"), prefix];
   [prefix appendString:@"Payload config:"];
   if (!config)
@@ -1112,23 +1113,22 @@ LABEL_20:
   }
 
 LABEL_21:
-  uTF8String = [prefix UTF8String];
-  VRLogfilePrintWithTimestamp(file, "%s\n", v14, v15, v16, v17, v18, v19, uTF8String);
+  VRLogfilePrintWithTimestamp(file, "%s\n", [prefix UTF8String]);
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v20 = VRTraceErrorLogLevelToCSTR();
-    v21 = *MEMORY[0x1E6986650];
+    v13 = VRTraceErrorLogLevelToCSTR();
+    v14 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v24 = v20;
-      v25 = 2080;
-      v26 = "+[VCMediaNegotiationBlobV2StreamGroupPayload(Utils) printWithLogFile:prefix:payloadConfig:]";
-      v27 = 1024;
-      v28 = 887;
-      v29 = 2112;
-      v30 = prefix;
-      _os_log_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
+      v17 = v13;
+      v18 = 2080;
+      v19 = "+[VCMediaNegotiationBlobV2StreamGroupPayload(Utils) printWithLogFile:prefix:payloadConfig:]";
+      v20 = 1024;
+      v21 = 887;
+      v22 = 2112;
+      v23 = prefix;
+      _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
     }
   }
 }

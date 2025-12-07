@@ -134,7 +134,6 @@ LABEL_21:
   toCopy = to;
   if ([(_CPLookupHintRelevancyFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -150,30 +149,26 @@ LABEL_21:
 
   if (domain)
   {
-    domain = self->_domain;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPLookupHintRelevancyFeedback *)self discarded])
   {
-    discarded = self->_discarded;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPLookupHintRelevancyFeedback *)self grade])
   {
-    grade = self->_grade;
     PBDataWriterWriteInt32Field();
   }
 
   context = [(_CPLookupHintRelevancyFeedback *)self context];
 
-  v12 = toCopy;
+  v8 = toCopy;
   if (context)
   {
-    context = self->_context;
     PBDataWriterWriteStringField();
-    v12 = toCopy;
+    v8 = toCopy;
   }
 }
 

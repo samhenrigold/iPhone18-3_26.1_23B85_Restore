@@ -57,7 +57,7 @@
   imageCopy = image;
   selfCopy = self;
   CPWWallpaperImageCache.save(image:with:completion:)(imageCopy, v8, v10, v7, v11);
-  sub_10000907C(v7);
+  sub_10000907C(v7, v11);
 }
 
 - (_TtC16CarPlayWallpaper22CPWWallpaperImageCache)init

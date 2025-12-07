@@ -6,58 +6,58 @@
 
 - (int64_t)performActionWithManagedObjectContext:(id)context error:(id *)error
 {
-  v105 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x2020000000;
-  v69 = 1;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x2020000000;
+  v71 = 1;
   v7 = +[PLGenericAlbum predicateForAlbumsSupportingCachedKeyAssets];
   v8 = MEMORY[0x1E695D5E0];
   v9 = +[PLGenericAlbum entityName];
   v10 = [v8 fetchRequestWithEntityName:v9];
 
   [v10 setPredicate:v7];
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = __Block_byref_object_copy__43771;
-  v64 = __Block_byref_object_dispose__43772;
-  v65 = 0;
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = __Block_byref_object_copy__43771;
-  v58 = __Block_byref_object_dispose__43772;
-  v59 = 0;
+  v62 = 0;
+  v63 = &v62;
+  v64 = 0x3032000000;
+  v65 = __Block_byref_object_copy__43771;
+  v66 = __Block_byref_object_dispose__43772;
+  v67 = 0;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = __Block_byref_object_copy__43771;
+  v60 = __Block_byref_object_dispose__43772;
+  v61 = 0;
   v11 = [PLEnumerateAndSaveController alloc];
   v12 = objc_opt_class();
   v13 = NSStringFromClass(v12);
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __88__PLModelMigrationAction_PopulateKeyAssets_performActionWithManagedObjectContext_error___block_invoke;
-  v52[3] = &unk_1E7575B30;
-  v53 = contextCopy;
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __88__PLModelMigrationAction_PopulateKeyAssets_performActionWithManagedObjectContext_error___block_invoke_2;
-  v51[3] = &unk_1E7572E50;
-  v51[4] = self;
-  v51[5] = &v54;
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __88__PLModelMigrationAction_PopulateKeyAssets_performActionWithManagedObjectContext_error___block_invoke_3;
-  v46[3] = &unk_1E756C760;
-  v46[4] = self;
-  v48 = &v60;
-  v49 = &v66;
-  v14 = v53;
-  v47 = v14;
-  v50 = &v54;
-  v15 = [(PLEnumerateAndSaveController *)v11 initWithName:v13 fetchRequest:v10 context:v14 options:4 generateContextBlock:v52 didFetchObjectIDsBlock:v51 processResultBlock:v46];
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v54[2] = __88__PLModelMigrationAction_PopulateKeyAssets_performActionWithManagedObjectContext_error___block_invoke;
+  v54[3] = &unk_1E7575B30;
+  v55 = contextCopy;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __88__PLModelMigrationAction_PopulateKeyAssets_performActionWithManagedObjectContext_error___block_invoke_2;
+  v53[3] = &unk_1E7572E50;
+  v53[4] = self;
+  v53[5] = &v56;
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __88__PLModelMigrationAction_PopulateKeyAssets_performActionWithManagedObjectContext_error___block_invoke_3;
+  v48[3] = &unk_1E756C760;
+  v48[4] = self;
+  v50 = &v62;
+  v51 = &v68;
+  v14 = v55;
+  v49 = v14;
+  v52 = &v56;
+  v15 = [(PLEnumerateAndSaveController *)v11 initWithName:v13 fetchRequest:v10 context:v14 options:4 generateContextBlock:v54 didFetchObjectIDsBlock:v53 processResultBlock:v48];
 
-  v16 = (v61 + 5);
-  obj = v61[5];
+  v16 = (v63 + 5);
+  obj = v63[5];
   v17 = [(PLEnumerateAndSaveController *)v15 processObjectsWithError:&obj];
   objc_storeStrong(v16, obj);
   if (v17)
@@ -67,7 +67,7 @@
 
     if (!v19)
     {
-      goto LABEL_16;
+      goto LABEL_22;
     }
 
     logger = [(PLModelMigrationActionCore *)self logger];
@@ -75,6 +75,8 @@
 
     if (!v21)
     {
+      v105 = 0u;
+      v106 = 0u;
       v103 = 0u;
       v104 = 0u;
       v101 = 0u;
@@ -103,67 +105,76 @@
       v80 = 0u;
       v77 = 0u;
       v78 = 0u;
-      v75 = 0u;
-      v76 = 0u;
       memset(buf, 0, sizeof(buf));
       v22 = PLMigrationGetLog();
-      os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-      totalUnitCount = [v55[5] totalUnitCount];
-      v70 = 134217984;
-      v71 = totalUnitCount;
-      LODWORD(v44) = 12;
-      v24 = _os_log_send_and_compose_impl();
+      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+      totalUnitCount = [v57[5] totalUnitCount];
+      if (v23)
+      {
+        v25 = 3;
+      }
 
-      v25 = [(PLModelMigrationActionCore *)self logger:&v70];
-      [v25 logWithMessage:v24 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1111, 0}];
+      else
+      {
+        v25 = 2;
+      }
 
-      goto LABEL_8;
+      v72 = 134217984;
+      v73 = totalUnitCount;
+      v26 = _os_log_send_and_compose_impl(v25, 0, buf, 512, &dword_19BF1F000, v22, 0, "Populated keyAssets for %lld albums", &v72);
+
+      logger2 = [(PLModelMigrationActionCore *)self logger];
+      [logger2 logWithMessage:v26 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1111, 0}];
+
+      goto LABEL_14;
     }
 
-    v35 = PLMigrationGetLog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v38 = PLMigrationGetLog();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
-      totalUnitCount2 = [v55[5] totalUnitCount];
+      totalUnitCount2 = [v57[5] totalUnitCount];
       *buf = 134217984;
       *&buf[4] = totalUnitCount2;
-      _os_log_impl(&dword_19BF1F000, v35, OS_LOG_TYPE_DEFAULT, "Populated keyAssets for %lld albums", buf, 0xCu);
+      _os_log_impl(&dword_19BF1F000, v38, OS_LOG_TYPE_DEFAULT, "Populated keyAssets for %lld albums", buf, 0xCu);
     }
 
-LABEL_15:
+LABEL_21:
 
-    goto LABEL_16;
+    goto LABEL_22;
   }
 
-  v67[3] = 3;
-  v26 = PLMigrationGetLog();
-  v27 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
+  v69[3] = 3;
+  v28 = PLMigrationGetLog();
+  v29 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
 
-  if (!v27)
+  if (!v29)
   {
-    goto LABEL_16;
+    goto LABEL_22;
   }
 
-  logger2 = [(PLModelMigrationActionCore *)self logger];
-  v29 = logger2 == 0;
+  logger3 = [(PLModelMigrationActionCore *)self logger];
+  v31 = logger3 == 0;
 
-  if (v29)
+  if (v31)
   {
-    v35 = PLMigrationGetLog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v38 = PLMigrationGetLog();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      v37 = objc_opt_class();
-      v38 = NSStringFromClass(v37);
-      v39 = v61[5];
+      v40 = objc_opt_class();
+      v41 = NSStringFromClass(v40);
+      v42 = v63[5];
       *buf = 138543618;
-      *&buf[4] = v38;
+      *&buf[4] = v41;
       *&buf[12] = 2112;
-      *&buf[14] = v39;
-      _os_log_impl(&dword_19BF1F000, v35, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %@", buf, 0x16u);
+      *&buf[14] = v42;
+      _os_log_impl(&dword_19BF1F000, v38, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %@", buf, 0x16u);
     }
 
-    goto LABEL_15;
+    goto LABEL_21;
   }
 
+  v105 = 0u;
+  v106 = 0u;
   v103 = 0u;
   v104 = 0u;
   v101 = 0u;
@@ -192,47 +203,53 @@ LABEL_15:
   v80 = 0u;
   v77 = 0u;
   v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
   memset(buf, 0, sizeof(buf));
-  v30 = PLMigrationGetLog();
-  os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
-  v31 = objc_opt_class();
-  v32 = NSStringFromClass(v31);
-  v33 = v61[5];
-  v70 = 138543618;
-  v71 = v32;
-  v72 = 2112;
-  v73 = v33;
-  LODWORD(v44) = 22;
-  v24 = _os_log_send_and_compose_impl();
-
-  v34 = [(PLModelMigrationActionCore *)self logger:&v70];
-  [v34 logWithMessage:v24 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1109, 16}];
-
-LABEL_8:
-  if (v24 != buf)
+  v32 = PLMigrationGetLog();
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
   {
-    free(v24);
+    v33 = 3;
   }
 
-LABEL_16:
-  v40 = v67[3];
-  v41 = v61[5];
-  if (v40 != 1 && error)
+  else
   {
-    v41 = v41;
-    *error = v41;
+    v33 = 2;
+  }
+
+  v34 = objc_opt_class();
+  v35 = NSStringFromClass(v34);
+  v36 = v63[5];
+  v72 = 138543618;
+  v73 = v35;
+  v74 = 2112;
+  v75 = v36;
+  v26 = _os_log_send_and_compose_impl(v33, 0, buf, 512, &dword_19BF1F000, v32, 16, "Failed to process %{public}@. Error: %@", &v72, 22);
+
+  logger4 = [(PLModelMigrationActionCore *)self logger];
+  [logger4 logWithMessage:v26 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1109, 16}];
+
+LABEL_14:
+  if (v26 != buf)
+  {
+    free(v26);
+  }
+
+LABEL_22:
+  v43 = v69[3];
+  v44 = v63[5];
+  if (v43 != 1 && error)
+  {
+    v44 = v44;
+    *error = v44;
   }
 
   [(PLModelMigrationActionCore *)self finalizeProgress];
-  v42 = v67[3];
+  v45 = v69[3];
 
-  _Block_object_dispose(&v54, 8);
-  _Block_object_dispose(&v60, 8);
+  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v62, 8);
 
-  _Block_object_dispose(&v66, 8);
-  return v42;
+  _Block_object_dispose(&v68, 8);
+  return v45;
 }
 
 @end

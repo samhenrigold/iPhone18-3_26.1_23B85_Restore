@@ -30,7 +30,7 @@
   v40.receiver = self;
   v40.super_class = PKPaymentBarcodeViewController;
   [(PKPaymentBarcodeViewController *)&v40 viewDidLoad];
-  [(PKPaymentBarcodeViewController *)self _barcodePadding];
+  objc_msgSend__barcodePadding(self);
   v3 = v38;
   *&self->_viewSizeInfo.barcodeTopPadding = *location;
   *&self->_viewSizeInfo.disclaimerSidePadding = v3;
@@ -132,9 +132,9 @@ void __45__PKPaymentBarcodeViewController_viewDidLoad__block_invoke(uint64_t a1,
 
 - (void)viewWillLayoutSubviews
 {
-  v27.receiver = self;
-  v27.super_class = PKPaymentBarcodeViewController;
-  [(PKPaymentBarcodeViewController *)&v27 viewWillLayoutSubviews];
+  v37.receiver = self;
+  v37.super_class = PKPaymentBarcodeViewController;
+  [(PKPaymentBarcodeViewController *)&v37 viewWillLayoutSubviews];
   view = [(PKPaymentBarcodeViewController *)self view];
   [view bounds];
   v5 = v4;
@@ -145,53 +145,60 @@ void __45__PKPaymentBarcodeViewController_viewDidLoad__block_invoke(uint64_t a1,
   [(PKPaymentBarcodeViewController *)self _barcodeSize];
   v13 = v12;
   memset(&slice, 0, sizeof(slice));
-  v25.origin.x = v5;
-  v25.origin.y = v7;
+  v35.origin.x = v5;
+  v35.origin.y = v7;
   disclaimerText = self->_disclaimerText;
-  v25.size.width = v9;
-  v25.size.height = v11;
+  v35.size.width = v9;
+  v35.size.height = v11;
   [(UILabel *)disclaimerText pkui_sizeThatFits:1 forceWordWrap:v9 + self->_viewSizeInfo.disclaimerSidePadding * -2.0, 1.79769313e308];
   v16 = v15;
-  v17 = (v11 - (v13 + self->_viewSizeInfo.disclaimerToBarcodePadding + v15 + self->_viewSizeInfo.bankToDisclaimerPadding + 24.0 + self->_viewSizeInfo.barcodeTopPadding * 2.0)) * 0.5 + 8.0;
-  v28.origin.x = v5;
-  v28.origin.y = v7;
-  v28.size.width = v9;
-  v28.size.height = v11;
-  CGRectDivide(v28, &slice, &v25, v17, CGRectMinYEdge);
+  v18 = v17;
+  v19 = (v11 - (v13 + self->_viewSizeInfo.disclaimerToBarcodePadding + v17 + self->_viewSizeInfo.bankToDisclaimerPadding + 24.0 + self->_viewSizeInfo.barcodeTopPadding * 2.0)) * 0.5 + 8.0;
+  v38.origin.x = v5;
+  v38.origin.y = v7;
+  v38.size.width = v9;
+  v38.size.height = v11;
+  CGRectDivide(v38, &slice, &v35, v19, CGRectMinYEdge);
   closeButton = self->_closeButton;
   if (closeButton)
   {
     [(UIButton *)closeButton sizeToFit];
     [(UIButton *)self->_closeButton frame];
-    [(UIButton *)self->_closeButton setFrame:v5 + v9 - v19 + -12.0, v7 + 12.0];
+    [(UIButton *)self->_closeButton setFrame:v5 + v9 - v21 + -12.0, v7 + 12.0];
   }
 
   if (self->_compactBankLogoView)
   {
-    CGRectDivide(v25, &slice, &v25, 24.0, CGRectMinYEdge);
+    CGRectDivide(v35, &slice, &v35, 24.0, CGRectMinYEdge);
     [(UIImageView *)self->_compactBankLogoView setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
   }
 
-  CGRectDivide(v25, &slice, &v25, self->_viewSizeInfo.bankToDisclaimerPadding, CGRectMinYEdge);
+  CGRectDivide(v35, &slice, &v35, self->_viewSizeInfo.bankToDisclaimerPadding, CGRectMinYEdge);
   if (self->_disclaimerText)
   {
-    CGRectDivide(v25, &slice, &v25, v16, CGRectMinYEdge);
-    v20 = self->_disclaimerText;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
-    [(UILabel *)v20 setFrame:?];
+    CGRectDivide(v35, &slice, &v35, v18, CGRectMinYEdge);
+    v22 = self->_disclaimerText;
+    v23 = PKContentAlignmentMake();
+    v24.n128_u64[0] = *&slice.origin.x;
+    v25.n128_u64[0] = *&slice.origin.y;
+    v26.n128_u64[0] = *&slice.size.width;
+    v27.n128_u64[0] = *&slice.size.height;
+    v28.n128_u64[0] = v16;
+    v29.n128_f64[0] = v18;
+    PKSizeAlignedInRect(v23, v28, v29, v24, v25, v26, v27, v30);
+    [(UILabel *)v22 setFrame:?];
   }
 
-  CGRectDivide(v25, &slice, &v25, self->_viewSizeInfo.disclaimerToBarcodePadding + self->_viewSizeInfo.barcodeTopPadding, CGRectMinYEdge);
+  CGRectDivide(v35, &slice, &v35, self->_viewSizeInfo.disclaimerToBarcodePadding + self->_viewSizeInfo.barcodeTopPadding, CGRectMinYEdge);
   barcodeView = self->_barcodeView;
   if (barcodeView)
   {
     rotatedView = [(PKRightAngleRotatingView *)barcodeView rotatedView];
     [rotatedView sizeThatFits:{v13, 1.79769313e308}];
-    v24 = v23;
+    v34 = v33;
 
-    CGRectDivide(v25, &slice, &v25, v13, CGRectMinYEdge);
-    [(PKRightAngleRotatingView *)self->_barcodeView setBounds:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v24, v13];
+    CGRectDivide(v35, &slice, &v35, v13, CGRectMinYEdge);
+    [(PKRightAngleRotatingView *)self->_barcodeView setBounds:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v34, v13];
     [(PKRightAngleRotatingView *)self->_barcodeView setCenter:v9 * 0.5, v13 * 0.5 + slice.origin.y];
   }
 }

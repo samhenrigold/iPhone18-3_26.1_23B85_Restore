@@ -35,10 +35,10 @@
 
 - (id)dequeueNextRequest
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_21;
+    return 0;
   }
 
   if (self[12])
@@ -46,92 +46,87 @@
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      v9 = self[12];
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Dequeue called during an active request: %@\n", &v11, 0xCu);
+      v8 = self[12];
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Dequeue called during an active request: %@\n", &v10, 0xCu);
     }
 
     v3 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      v10 = self[12];
-      v11 = 138412290;
-      v12 = v10;
-      _os_log_fault_impl(&dword_18565F000, v3, OS_LOG_TYPE_FAULT, "CoreData: Dequeue called during an active request: %@", &v11, 0xCu);
+      v9 = self[12];
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_fault_impl(&dword_18565F000, v3, OS_LOG_TYPE_FAULT, "CoreData: Dequeue called during an active request: %@", &v10, 0xCu);
     }
   }
 
   v5 = self + 4;
   v4 = self[4];
-  if (v4)
+  if (!v4)
   {
-    goto LABEL_18;
-  }
-
-  v5 = self + 3;
-  v4 = self[3];
-  if (v4)
-  {
-    goto LABEL_18;
-  }
-
-  v5 = self + 9;
-  v4 = self[9];
-  if (v4)
-  {
-    goto LABEL_18;
-  }
-
-  v5 = self + 5;
-  v4 = self[5];
-  if (v4)
-  {
-    goto LABEL_18;
-  }
-
-  v5 = self + 7;
-  v4 = self[7];
-  if (v4)
-  {
-    goto LABEL_18;
-  }
-
-  v5 = self + 11;
-  v4 = self[11];
-  if (v4)
-  {
-    goto LABEL_18;
-  }
-
-  v5 = self + 8;
-  v4 = self[8];
-  if (v4)
-  {
-    goto LABEL_18;
-  }
-
-  v5 = self + 1;
-  v4 = self[1];
-  if (v4 || (v5 = self + 2, (v4 = self[2]) != 0) || (v5 = self + 6, (v4 = self[6]) != 0) || (v5 = self + 10, (v4 = self[10]) != 0))
-  {
-LABEL_18:
-    v6 = v4;
-
-    *v5 = 0;
-    if (v6)
+    v5 = self + 3;
+    v4 = self[3];
+    if (!v4)
     {
-      self[12] = v6;
+      v5 = self + 9;
+      v4 = self[9];
+      if (!v4)
+      {
+        v5 = self + 5;
+        v4 = self[5];
+        if (!v4)
+        {
+          v5 = self + 7;
+          v4 = self[7];
+          if (!v4)
+          {
+            v5 = self + 11;
+            v4 = self[11];
+            if (!v4)
+            {
+              v5 = self + 8;
+              v4 = self[8];
+              if (!v4)
+              {
+                v5 = self + 1;
+                v4 = self[1];
+                if (!v4)
+                {
+                  v5 = self + 2;
+                  v4 = self[2];
+                  if (!v4)
+                  {
+                    v5 = self + 6;
+                    v4 = self[6];
+                    if (!v4)
+                    {
+                      v5 = self + 10;
+                      v4 = self[10];
+                      if (!v4)
+                      {
+                        return 0;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 
-  else
+  v6 = v4;
+
+  *v5 = 0;
+  if (v6)
   {
-LABEL_21:
-    v6 = 0;
+    self[12] = v6;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -140,7 +135,7 @@ LABEL_21:
   v34[1] = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_60;
+    return result;
   }
 
   v5 = result;
@@ -150,9 +145,7 @@ LABEL_21:
     if (!v5[3])
     {
       v5[3] = a2;
-LABEL_26:
-      result = 1;
-      goto LABEL_60;
+      return 1;
     }
 
     goto LABEL_10;
@@ -164,7 +157,7 @@ LABEL_26:
     if (!v5[6])
     {
       v5[6] = a2;
-      goto LABEL_26;
+      return 1;
     }
 
 LABEL_10:
@@ -173,21 +166,20 @@ LABEL_10:
     v34[0] = *MEMORY[0x1E696A588];
     v8 = MEMORY[0x1E696AEC0];
     v9 = objc_opt_class();
-    *buf = [v8 stringWithFormat:@"Request '%@' was cancelled because there is already a pending request of type '%@'.", a2, NSStringFromClass(v9)];
-    v10 = [v6 errorWithDomain:v7 code:134417 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", buf, v34, 1)}];
-    if (v10)
+    v10 = NSStringFromClass(v9);
+    *buf = objc_msgSend_stringWithFormat_(v8, a2, v10);
+    v11 = [v6 errorWithDomain:v7 code:134417 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", buf, v34, 1)}];
+    if (v11)
     {
       if (request)
       {
-        v11 = v10;
+        v12 = v11;
         result = 0;
-        *request = v11;
-        goto LABEL_60;
+        *request = v12;
+        return result;
       }
 
-LABEL_59:
-      result = 0;
-      goto LABEL_60;
+      return 0;
     }
 
     goto LABEL_55;
@@ -199,7 +191,7 @@ LABEL_59:
     if (!v5[1])
     {
       v5[1] = a2;
-      goto LABEL_26;
+      return 1;
     }
 
     goto LABEL_10;
@@ -208,17 +200,17 @@ LABEL_59:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v12 = v5[2];
-    if (!v12)
+    v13 = v5[2];
+    if (!v13)
     {
       v5[2] = a2;
-      goto LABEL_26;
+      return 1;
     }
 
     if (a2 && *(a2 + 56) == 1)
     {
-      -[NSCloudKitMirroringRequest addContainerBlock:](v12, [a2 requestCompletionBlock]);
-      goto LABEL_26;
+      -[NSCloudKitMirroringRequest addContainerBlock:](v13, [a2 requestCompletionBlock]);
+      return 1;
     }
 
     goto LABEL_10;
@@ -230,7 +222,7 @@ LABEL_59:
     if (!v5[5])
     {
       v5[5] = a2;
-      goto LABEL_26;
+      return 1;
     }
 
     goto LABEL_10;
@@ -242,7 +234,7 @@ LABEL_59:
     if (!v5[7])
     {
       v5[7] = a2;
-      goto LABEL_26;
+      return 1;
     }
 
     goto LABEL_10;
@@ -254,7 +246,7 @@ LABEL_59:
     if (!v5[4])
     {
       v5[4] = a2;
-      goto LABEL_26;
+      return 1;
     }
 
     goto LABEL_10;
@@ -266,7 +258,7 @@ LABEL_59:
     if (!v5[8])
     {
       v5[8] = a2;
-      goto LABEL_26;
+      return 1;
     }
 
     goto LABEL_10;
@@ -278,7 +270,7 @@ LABEL_59:
     if (!v5[9])
     {
       v5[9] = a2;
-      goto LABEL_26;
+      return 1;
     }
 
     goto LABEL_10;
@@ -290,7 +282,7 @@ LABEL_59:
     if (!v5[10])
     {
       v5[10] = a2;
-      goto LABEL_26;
+      return 1;
     }
 
     goto LABEL_10;
@@ -302,54 +294,54 @@ LABEL_59:
     if (!v5[11])
     {
       v5[11] = a2;
-      goto LABEL_26;
+      return 1;
     }
 
     if (a2 && *(a2 + 56) == 1)
     {
-      v13 = objc_alloc(MEMORY[0x1E695DF70]);
-      v14 = v5[11];
-      if (v14)
+      v14 = objc_alloc(MEMORY[0x1E695DF70]);
+      v15 = v5[11];
+      if (v15)
       {
-        v15 = *(v14 + 80);
+        v16 = *(v15 + 80);
       }
 
       else
       {
-        v15 = 0;
+        v16 = 0;
       }
 
-      v16 = [v13 initWithArray:v15];
-      [v16 addObjectsFromArray:*(a2 + 80)];
-      v17 = objc_alloc(MEMORY[0x1E695DF70]);
-      v18 = v5[11];
-      if (v18)
+      v17 = [v14 initWithArray:v16];
+      [v17 addObjectsFromArray:*(a2 + 80)];
+      v18 = objc_alloc(MEMORY[0x1E695DF70]);
+      v19 = v5[11];
+      if (v19)
       {
-        v19 = *(v18 + 88);
+        v20 = *(v19 + 88);
       }
 
       else
       {
-        v19 = 0;
+        v20 = 0;
       }
 
-      v20 = [v17 initWithArray:v19];
-      [v20 addObjectsFromArray:*(a2 + 88)];
-      v22 = v5[11];
-      if (v22 && (objc_setProperty_nonatomic_copy(v22, v21, v16, 80), (v24 = v5[11]) != 0))
+      v21 = [v18 initWithArray:v20];
+      [v21 addObjectsFromArray:*(a2 + 88)];
+      v23 = v5[11];
+      if (v23 && (objc_setProperty_nonatomic_copy(v23, v22, v17, 80), (v25 = v5[11]) != 0))
       {
-        objc_setProperty_nonatomic_copy(v24, v23, v20, 88);
-        v25 = v5[11];
+        objc_setProperty_nonatomic_copy(v25, v24, v21, 88);
+        v26 = v5[11];
       }
 
       else
       {
-        v25 = 0;
+        v26 = 0;
       }
 
-      -[NSCloudKitMirroringRequest addContainerBlock:](v25, [a2 requestCompletionBlock]);
+      -[NSCloudKitMirroringRequest addContainerBlock:](v26, [a2 requestCompletionBlock]);
 
-      goto LABEL_26;
+      return 1;
     }
 
     goto LABEL_10;
@@ -363,45 +355,43 @@ LABEL_59:
     _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Unknown request class: %@\n", buf, 0xCu);
   }
 
-  v27 = _PFLogGetLogStream(17);
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+  v28 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
     *&buf[4] = a2;
-    _os_log_fault_impl(&dword_18565F000, v27, OS_LOG_TYPE_FAULT, "CoreData: Unknown request class: %@", buf, 0xCu);
+    _os_log_fault_impl(&dword_18565F000, v28, OS_LOG_TYPE_FAULT, "CoreData: Unknown request class: %@", buf, 0xCu);
   }
 
 LABEL_55:
-  v28 = _PFLogGetLogStream(17);
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  v29 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
     *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringRequestManager.m";
     v32 = 1024;
     v33 = 164;
-    _os_log_error_impl(&dword_18565F000, v28, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
+    _os_log_error_impl(&dword_18565F000, v29, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
   }
 
-  v29 = _PFLogGetLogStream(17);
-  result = os_log_type_enabled(v29, OS_LOG_TYPE_FAULT);
+  v30 = _PFLogGetLogStream(17);
+  result = os_log_type_enabled(v30, OS_LOG_TYPE_FAULT);
   if (result)
   {
     *buf = 136315394;
     *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSCloudKitMirroringRequestManager.m";
     v32 = 1024;
     v33 = 164;
-    _os_log_fault_impl(&dword_18565F000, v29, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
-    goto LABEL_59;
+    _os_log_fault_impl(&dword_18565F000, v30, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+    return 0;
   }
 
-LABEL_60:
-  v30 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)requestFinished:(uint64_t)finished
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (finished)
   {
     v4 = *(finished + 96);
@@ -411,33 +401,35 @@ LABEL_60:
       {
 
         *(finished + 96) = 0;
-        goto LABEL_14;
       }
 
-      LogStream = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+      else
       {
-        v14 = *(finished + 96);
-        v15 = 138412546;
-        v16 = v14;
-        v17 = 2112;
-        v18 = a2;
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: requestFinished called with a different request than the active request: %@\nCalled with: %@\n", &v15, 0x16u);
-      }
+        LogStream = _PFLogGetLogStream(17);
+        if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+        {
+          v13 = *(finished + 96);
+          v14 = 138412546;
+          v15 = v13;
+          v16 = 2112;
+          v17 = a2;
+          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: requestFinished called with a different request than the active request: %@\nCalled with: %@\n", &v14, 0x16u);
+        }
 
-      v6 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-      {
-        v7 = *(finished + 96);
-        v15 = 138412546;
-        v16 = v7;
-        v17 = 2112;
-        v18 = a2;
-        v8 = "CoreData: requestFinished called with a different request than the active request: %@\nCalled with: %@";
-        v9 = v6;
-        v10 = 22;
+        v6 = _PFLogGetLogStream(17);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+        {
+          v7 = *(finished + 96);
+          v14 = 138412546;
+          v15 = v7;
+          v16 = 2112;
+          v17 = a2;
+          v8 = "CoreData: requestFinished called with a different request than the active request: %@\nCalled with: %@";
+          v9 = v6;
+          v10 = 22;
 LABEL_12:
-        _os_log_fault_impl(&dword_18565F000, v9, OS_LOG_TYPE_FAULT, v8, &v15, v10);
+          _os_log_fault_impl(&dword_18565F000, v9, OS_LOG_TYPE_FAULT, v8, &v14, v10);
+        }
       }
     }
 
@@ -446,16 +438,16 @@ LABEL_12:
       v11 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138412290;
-        v16 = a2;
-        _os_log_error_impl(&dword_18565F000, v11, OS_LOG_TYPE_ERROR, "CoreData: fault: requestFinished called without an active request: %@\n", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = a2;
+        _os_log_error_impl(&dword_18565F000, v11, OS_LOG_TYPE_ERROR, "CoreData: fault: requestFinished called without an active request: %@\n", &v14, 0xCu);
       }
 
       v12 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
-        v15 = 138412290;
-        v16 = a2;
+        v14 = 138412290;
+        v15 = a2;
         v8 = "CoreData: requestFinished called without an active request: %@";
         v9 = v12;
         v10 = 12;
@@ -463,9 +455,6 @@ LABEL_12:
       }
     }
   }
-
-LABEL_14:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dequeueAllPendingRequests

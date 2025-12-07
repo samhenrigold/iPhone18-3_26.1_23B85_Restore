@@ -6,6 +6,7 @@
 - (void)_didTap:(id)tap;
 - (void)_dismiss;
 - (void)_reloadWithRootModule:(id)module;
+- (void)pushViewController:(id)controller animated:(BOOL)animated;
 - (void)setDismissButton:(id)button;
 - (void)viewDidLoad;
 @end
@@ -63,43 +64,53 @@
 
 - (void)setDismissButton:(id)button
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   buttonCopy = button;
   objc_storeStrong(&self->_dismissButton, button);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   viewControllers = [(PTUISettingsController *)self viewControllers];
-  v7 = [viewControllers countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [viewControllers countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(viewControllers);
         }
 
-        navigationItem = [*(*(&v13 + 1) + 8 * v10) navigationItem];
+        navigationItem = [*(*(&v12 + 1) + 8 * v10) navigationItem];
         [navigationItem setRightBarButtonItem:self->_dismissButton];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [viewControllers countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [viewControllers countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)pushViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  navigationItem = [controllerCopy navigationItem];
+  [navigationItem setRightBarButtonItem:self->_dismissButton];
+
+  v8.receiver = self;
+  v8.super_class = PTUISettingsController;
+  [(PTUISettingsController *)&v8 pushViewController:controllerCopy animated:animatedCopy];
 }
 
 - (void)_didTap:(id)tap

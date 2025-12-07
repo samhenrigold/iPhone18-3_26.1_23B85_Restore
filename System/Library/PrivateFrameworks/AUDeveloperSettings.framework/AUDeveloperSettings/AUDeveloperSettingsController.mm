@@ -55,13 +55,12 @@
 
 - (void)registerForNotifications
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "com.apple.bluetoothuser.settingsChanged";
-  v5 = 1024;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "com.apple.bluetoothuser.settingsChanged";
+  v4 = 1024;
   selfCopy = self;
-  _os_log_error_impl(&dword_23D433000, a2, OS_LOG_TYPE_ERROR, "notify_register_dispatch failed for %s (%u)", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23D433000, a2, OS_LOG_TYPE_ERROR, "notify_register_dispatch failed for %s (%u)", &v2, 0x12u);
 }
 
 void __57__AUDeveloperSettingsController_registerForNotifications__block_invoke(uint64_t a1, uint64_t a2)
@@ -72,21 +71,20 @@ void __57__AUDeveloperSettingsController_registerForNotifications__block_invoke(
 
 - (void)handleBTUserSettingsChangedNotification:(int)notification
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     logCollectionSpecifier = self->_logCollectionSpecifier;
-    v7 = 136315394;
-    v8 = "[AUDeveloperSettingsController handleBTUserSettingsChangedNotification:]";
-    v9 = 2112;
-    v10 = logCollectionSpecifier;
-    _os_log_impl(&dword_23D433000, log, OS_LOG_TYPE_DEFAULT, "%s: Reloading %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[AUDeveloperSettingsController handleBTUserSettingsChangedNotification:]";
+    v8 = 2112;
+    v9 = logCollectionSpecifier;
+    _os_log_impl(&dword_23D433000, log, OS_LOG_TYPE_DEFAULT, "%s: Reloading %@", &v6, 0x16u);
   }
 
   self->_btQueried = 0;
   [(AUDeveloperSettingsController *)self reloadSpecifier:self->_logCollectionSpecifier];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad
@@ -204,186 +202,183 @@ void __57__AUDeveloperSettingsController_registerForNotifications__block_invoke(
 
 - (id)createCustomerSpecifiers
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v44 = *MEMORY[0x277D85DE8];
+  v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
   mEMORY[0x277CE5450] = [MEMORY[0x277CE5450] sharedDatabase];
   accessoriesDictionary = [mEMORY[0x277CE5450] accessoriesDictionary];
+  v39 = 0u;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v40 = [accessoriesDictionary countByEnumeratingWithState:&v41 objects:v45 count:16];
-  if (v40)
+  v38 = [accessoriesDictionary countByEnumeratingWithState:&v39 objects:v43 count:16];
+  if (v38)
   {
-    v37 = *v42;
-    v35 = *MEMORY[0x277CE5560];
-    v36 = *MEMORY[0x277CE5580];
-    v3 = *MEMORY[0x277CE5530];
-    v30 = *MEMORY[0x277CE5530];
-    v31 = *MEMORY[0x277D3FF38];
-    v34 = *MEMORY[0x277D3FD80];
-    v32 = accessoriesDictionary;
-    v33 = *MEMORY[0x277D3FF00];
+    v35 = *v40;
+    v33 = *MEMORY[0x277CE5560];
+    v34 = *MEMORY[0x277CE5580];
+    v28 = *MEMORY[0x277CE5530];
+    v29 = *MEMORY[0x277D3FF38];
+    v32 = *MEMORY[0x277D3FD80];
+    v30 = accessoriesDictionary;
+    v31 = *MEMORY[0x277D3FF00];
     do
     {
-      v4 = 0;
+      v3 = 0;
       do
       {
-        if (*v42 != v37)
+        if (*v40 != v35)
         {
           objc_enumerationMutation(accessoriesDictionary);
         }
 
-        v5 = *(*(&v41 + 1) + 8 * v4);
-        v6 = [accessoriesDictionary objectForKeyedSubscript:v5];
-        v7 = [v6 objectForKeyedSubscript:v36];
-        if ([v7 isEqualToString:&stru_284F76208])
+        v4 = *(*(&v39 + 1) + 8 * v3);
+        v5 = [accessoriesDictionary objectForKeyedSubscript:v4];
+        v6 = [v5 objectForKeyedSubscript:v34];
+        if ([v6 isEqualToString:&stru_284F76208])
         {
-          v8 = v5;
+          v7 = v4;
 
-          v7 = v8;
+          v6 = v7;
         }
 
-        v9 = [v6 objectForKeyedSubscript:v35];
-        v10 = AUDeveloperSettingsAccessoryFusingStringToType();
-        if (v10 == 2)
+        v8 = [v5 objectForKeyedSubscript:v33];
+        v9 = AUDeveloperSettingsAccessoryFusingStringToType();
+        if (v9 == 2)
         {
-          v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-          v12 = v11;
-          v13 = @"UNFUSED_NOT_ELIGIBLE";
+          v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+          v11 = v10;
+          v12 = @"UNFUSED_NOT_ELIGIBLE";
           goto LABEL_12;
         }
 
-        if (!v10)
+        if (!v9)
         {
-          v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-          v12 = v11;
-          v13 = @"DEV_FUSED_NOT_ELIGIBLE";
+          v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+          v11 = v10;
+          v12 = @"DEV_FUSED_NOT_ELIGIBLE";
 LABEL_12:
-          v14 = [v11 localizedStringForKey:v13 value:&stru_284F76208 table:@"AUDeveloperSettings"];
-          v15 = [v7 stringByAppendingString:v14];
-          v16 = 1;
+          v13 = [v10 localizedStringForKey:v12 value:&stru_284F76208 table:@"AUDeveloperSettings"];
+          v14 = [v6 stringByAppendingString:v13];
+          v15 = 1;
           goto LABEL_13;
         }
 
-        v12 = [v6 objectForKeyedSubscript:v30];
-        v17 = AUDeveloperSettingsURLStringToType();
-        v16 = v17 - 4 < 0xFFFFFFFFFFFFFFFELL && v17 != 6;
-        if (v17 <= 6 && ((1 << v17) & 0x4C) != 0)
+        v11 = [v5 objectForKeyedSubscript:v28];
+        v16 = AUDeveloperSettingsURLStringToType();
+        v15 = v16 - 4 < 0xFFFFFFFFFFFFFFFELL && v16 != 6;
+        if (v16 <= 6 && ((1 << v16) & 0x4C) != 0)
         {
           goto LABEL_21;
         }
 
-        v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v24 = [v14 localizedStringForKey:@"LOCATION_NOT_ELIGIBLE" value:&stru_284F76208 table:@"AUDeveloperSettings"];
-        v15 = [v7 stringByAppendingString:v24];
+        v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v23 = [v13 localizedStringForKey:@"LOCATION_NOT_ELIGIBLE" value:&stru_284F76208 table:@"AUDeveloperSettings"];
+        v14 = [v6 stringByAppendingString:v23];
 
-        v7 = v24;
+        v6 = v23;
 LABEL_13:
 
-        v7 = v15;
-        accessoriesDictionary = v32;
+        v6 = v14;
+        accessoriesDictionary = v30;
 LABEL_21:
 
         mEMORY[0x277D75130] = [MEMORY[0x277D75130] sharedApplication];
-        v20 = [MEMORY[0x277CBEBC0] URLWithString:@"appleconnect://settings"];
-        v21 = [mEMORY[0x277D75130] canOpenURL:v20];
+        v19 = [MEMORY[0x277CBEBC0] URLWithString:@"appleconnect://settings"];
+        v20 = [mEMORY[0x277D75130] canOpenURL:v19];
 
-        if (v16 || !v21)
+        if (v15 || !v20)
         {
-          [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v7 target:self set:sel_setSeedParticipationLegacy_specifier_ get:sel_isSeedParticipationEnabled_ detail:0 cell:6 edit:0];
+          [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v6 target:self set:sel_setSeedParticipationLegacy_specifier_ get:sel_isSeedParticipationEnabled_ detail:0 cell:6 edit:0];
         }
 
         else
         {
-          [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v7 target:self set:0 get:sel_getOverrideLocation_ detail:objc_opt_class() cell:1 edit:0];
+          [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v6 target:self set:0 get:sel_getOverrideLocation_ detail:objc_opt_class() cell:1 edit:0];
         }
-        v22 = ;
+        v21 = ;
         updateSeedEnablementForAccessory();
-        if (v16)
+        if (v15)
         {
-          [v22 setProperty:MEMORY[0x277CBEC28] forKey:v31];
+          [v21 setProperty:MEMORY[0x277CBEC28] forKey:v29];
         }
 
-        [v22 setProperty:MEMORY[0x277CBEC38] forKey:v34];
-        [v22 setIdentifier:v5];
-        v23 = NSStringFromSelector(sel_removedSpecifier_);
-        [v22 setProperty:v23 forKey:v33];
+        [v21 setProperty:MEMORY[0x277CBEC38] forKey:v32];
+        [v21 setIdentifier:v4];
+        v22 = NSStringFromSelector(sel_removedSpecifier_);
+        [v21 setProperty:v22 forKey:v31];
 
-        [v39 addObject:v22];
-        ++v4;
+        [v37 addObject:v21];
+        ++v3;
       }
 
-      while (v40 != v4);
-      v25 = [accessoriesDictionary countByEnumeratingWithState:&v41 objects:v45 count:16];
-      v40 = v25;
+      while (v38 != v3);
+      v24 = [accessoriesDictionary countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v38 = v24;
     }
 
-    while (v25);
+    while (v24);
   }
 
-  v26 = [MEMORY[0x277CBEA60] arrayWithArray:v39];
+  v25 = [MEMORY[0x277CBEA60] arrayWithArray:v37];
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v25;
 }
 
 - (id)createSeedCustomerSpecifiers
 {
-  v65 = *MEMORY[0x277D85DE8];
-  v41 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v64 = *MEMORY[0x277D85DE8];
+  v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
   mEMORY[0x277CE5450] = [MEMORY[0x277CE5450] sharedDatabase];
   accessoriesDictionary = [mEMORY[0x277CE5450] accessoriesDictionary];
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
-  v52 = [accessoriesDictionary countByEnumeratingWithState:&v59 objects:v64 count:16];
-  if (v52)
+  v51 = [accessoriesDictionary countByEnumeratingWithState:&v58 objects:v63 count:16];
+  if (v51)
   {
-    v51 = *v60;
-    v46 = *MEMORY[0x277CE5560];
-    v47 = *MEMORY[0x277CE5580];
-    v44 = *MEMORY[0x277D3FF38];
-    v45 = *MEMORY[0x277CE5520];
-    v43 = *MEMORY[0x277D3FD80];
-    v42 = *MEMORY[0x277D3FF00];
-    v49 = accessoriesDictionary;
+    v50 = *v59;
+    v45 = *MEMORY[0x277CE5560];
+    v46 = *MEMORY[0x277CE5580];
+    v43 = *MEMORY[0x277D3FF38];
+    v44 = *MEMORY[0x277CE5520];
+    v42 = *MEMORY[0x277D3FD80];
+    v41 = *MEMORY[0x277D3FF00];
+    v48 = accessoriesDictionary;
     do
     {
-      for (i = 0; i != v52; ++i)
+      for (i = 0; i != v51; ++i)
       {
-        if (*v60 != v51)
+        if (*v59 != v50)
         {
           objc_enumerationMutation(accessoriesDictionary);
         }
 
-        v4 = *(*(&v59 + 1) + 8 * i);
+        v4 = *(*(&v58 + 1) + 8 * i);
         v5 = [accessoriesDictionary objectForKeyedSubscript:v4];
         v6 = [MEMORY[0x277CBE030] devicesWithDiscoveryFlags:0x800000 error:0];
+        v54 = 0u;
         v55 = 0u;
         v56 = 0u;
         v57 = 0u;
-        v58 = 0u;
         v7 = v6;
-        v8 = [v7 countByEnumeratingWithState:&v55 objects:v63 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v54 objects:v62 count:16];
         if (v8)
         {
           v9 = v8;
-          v53 = v5;
-          v54 = i;
-          v10 = *v56;
+          v52 = v5;
+          v53 = i;
+          v10 = *v55;
 LABEL_8:
           v11 = 0;
           while (1)
           {
-            if (*v56 != v10)
+            if (*v55 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v55 + 1) + 8 * v11);
+            v12 = *(*(&v54 + 1) + 8 * v11);
             serialNumber = [v12 serialNumber];
             if ([serialNumber isEqualToString:v4])
             {
@@ -406,7 +401,7 @@ LABEL_8:
 
             if (v9 == ++v11)
             {
-              v9 = [v7 countByEnumeratingWithState:&v55 objects:v63 count:16];
+              v9 = [v7 countByEnumeratingWithState:&v54 objects:v62 count:16];
               if (v9)
               {
                 goto LABEL_8;
@@ -414,7 +409,7 @@ LABEL_8:
 
               v17 = 0;
               v18 = v7;
-              accessoriesDictionary = v49;
+              accessoriesDictionary = v48;
               goto LABEL_41;
             }
           }
@@ -425,24 +420,24 @@ LABEL_20:
 
           if (!v17)
           {
-            accessoriesDictionary = v49;
-            v5 = v53;
-            i = v54;
+            accessoriesDictionary = v48;
+            v5 = v52;
+            i = v53;
             goto LABEL_43;
           }
 
           productID = [v17 productID];
           v20 = (productID - 8194) > 0x26 || ((1 << (productID - 2)) & 0x6472863101) == 0;
-          accessoriesDictionary = v49;
-          v5 = v53;
-          i = v54;
+          accessoriesDictionary = v48;
+          v5 = v52;
+          i = v53;
           if (!v20)
           {
             productID2 = [v17 productID];
             if ((productID2 - 8212) <= 0x14 && ((1 << (productID2 - 20)) & 0x1916A1) != 0)
             {
               connectedServices = [v17 connectedServices];
-              v18 = [v53 objectForKeyedSubscript:v47];
+              v18 = [v52 objectForKeyedSubscript:v46];
               if (![v18 length])
               {
                 v24 = v4;
@@ -450,9 +445,9 @@ LABEL_20:
                 v18 = v24;
               }
 
-              v25 = [v53 objectForKeyedSubscript:v46];
+              v25 = [v52 objectForKeyedSubscript:v45];
               v26 = AUDeveloperSettingsAccessoryFusingStringToType();
-              v50 = v25;
+              v49 = v25;
               v27 = connectedServices;
               if (v26)
               {
@@ -480,25 +475,25 @@ LABEL_36:
               v33 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v18 target:self set:0 get:0 detail:0 cell:1 edit:0];
               [v33 setButtonAction:sel_setSeedParticipation_];
               v34 = [MEMORY[0x277CCABB0] numberWithBool:v27 != 0];
-              [v33 setProperty:v34 forKey:v45];
+              [v33 setProperty:v34 forKey:v44];
 
               updateSeedEnablementForAccessory();
               v35 = [MEMORY[0x277CCABB0] numberWithBool:v32];
-              [v33 setProperty:v35 forKey:v44];
+              [v33 setProperty:v35 forKey:v43];
 
-              [v33 setProperty:MEMORY[0x277CBEC38] forKey:v43];
+              [v33 setProperty:MEMORY[0x277CBEC38] forKey:v42];
               [v33 setIdentifier:v4];
               v36 = NSStringFromSelector(sel_removedSpecifier_);
-              [v33 setProperty:v36 forKey:v42];
+              [v33 setProperty:v36 forKey:v41];
 
               if (v27)
               {
-                [v41 addObject:v33];
+                [v40 addObject:v33];
               }
 
 LABEL_41:
-              v5 = v53;
-              i = v54;
+              v5 = v52;
+              i = v53;
               goto LABEL_42;
             }
           }
@@ -514,15 +509,13 @@ LABEL_42:
 LABEL_43:
       }
 
-      v52 = [accessoriesDictionary countByEnumeratingWithState:&v59 objects:v64 count:16];
+      v51 = [accessoriesDictionary countByEnumeratingWithState:&v58 objects:v63 count:16];
     }
 
-    while (v52);
+    while (v51);
   }
 
-  v37 = [MEMORY[0x277CBEA60] arrayWithArray:v41];
-
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = [MEMORY[0x277CBEA60] arrayWithArray:v40];
 
   return v37;
 }
@@ -561,14 +554,14 @@ LABEL_43:
 
 - (void)setSeedParticipation:(id)participation
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   identifier = [participation identifier];
   [MEMORY[0x277CBE030] devicesWithDiscoveryFlags:0x800000 error:0];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  obj = v33 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+  obj = v32 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (!v4)
   {
 LABEL_19:
@@ -584,17 +577,17 @@ LABEL_30:
   }
 
   v5 = v4;
-  v6 = *v31;
+  v6 = *v30;
 LABEL_3:
   v7 = 0;
   while (1)
   {
-    if (*v31 != v6)
+    if (*v30 != v6)
     {
       objc_enumerationMutation(obj);
     }
 
-    v8 = *(*(&v30 + 1) + 8 * v7);
+    v8 = *(*(&v29 + 1) + 8 * v7);
     productID = [v8 productID];
     if ((productID - 8194) > 0x26 || ((1 << (productID - 2)) & 0x6472863101) == 0)
     {
@@ -630,7 +623,7 @@ LABEL_3:
 LABEL_17:
     if (v5 == ++v7)
     {
-      v5 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v5 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
       if (v5)
       {
         goto LABEL_3;
@@ -665,15 +658,15 @@ LABEL_22:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v35 = v23;
+    v34 = v23;
     _os_log_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Navigating to Bluetooth settings at URL: %{public}@", buf, 0xCu);
   }
 
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
   v25 = [MEMORY[0x277CBEBC0] URLWithString:v23];
-  v29 = 0;
-  [defaultWorkspace openSensitiveURL:v25 withOptions:0 error:&v29];
-  v26 = v29;
+  v28 = 0;
+  [defaultWorkspace openSensitiveURL:v25 withOptions:0 error:&v28];
+  v26 = v28;
 
   if (v26 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -681,7 +674,6 @@ LABEL_22:
   }
 
 LABEL_32:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)isSeedParticipationEnabled:(id)enabled
@@ -699,35 +691,35 @@ LABEL_32:
 
 - (BOOL)needLegalConsent
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CE5450] = [MEMORY[0x277CE5450] sharedDatabase];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   accessoriesDictionary = [mEMORY[0x277CE5450] accessoriesDictionary];
-  v4 = [accessoriesDictionary countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [accessoriesDictionary countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(accessoriesDictionary);
         }
 
-        if ([mEMORY[0x277CE5450] isSeedParticipationEnabled:*(*(&v11 + 1) + 8 * i)])
+        if ([mEMORY[0x277CE5450] isSeedParticipationEnabled:*(*(&v10 + 1) + 8 * i)])
         {
           v8 = 0;
           goto LABEL_11;
         }
       }
 
-      v5 = [accessoriesDictionary countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [accessoriesDictionary countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -740,7 +732,6 @@ LABEL_32:
   v8 = 1;
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -767,7 +758,7 @@ LABEL_11:
 
 - (void)showLegalConsent:(id)consent
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   consentCopy = consent;
   objc_storeStrong(&self->_currentAccessorySpecifier, consent);
   if (!self->_legalConsentController)
@@ -802,14 +793,12 @@ LABEL_11:
   }
 
   v24 = objc_opt_new();
-  v27[0] = self->_legalConsentController;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26[0] = self->_legalConsentController;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
   [v24 setViewControllers:v25];
 
   [v24 setModalPresentationStyle:2];
   [(AUDeveloperSettingsController *)self presentViewController:v24 animated:1 completion:0];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showParticipateInSeedOffAlert:(id)alert
@@ -925,15 +914,15 @@ void __60__AUDeveloperSettingsController_setlogCollection_specifier___block_invo
 
 void __60__AUDeveloperSettingsController_setlogCollection_specifier___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v2 = *(a1 + 32);
-    v5 = 136315394;
-    v6 = "[AUDeveloperSettingsController setlogCollection:specifier:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: inError=%@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[AUDeveloperSettingsController setlogCollection:specifier:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: inError=%@", &v4, 0x16u);
   }
 
   if (*(a1 + 32))
@@ -941,13 +930,11 @@ void __60__AUDeveloperSettingsController_setlogCollection_specifier___block_invo
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     [WeakRetained reloadSpecifier:*(a1 + 40)];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleLogCollectionToggle:(id)toggle specifier:(id)specifier
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   toggleCopy = toggle;
   specifierCopy = specifier;
   bOOLValue = [toggleCopy BOOLValue];
@@ -989,8 +976,8 @@ void __60__AUDeveloperSettingsController_setlogCollection_specifier___block_invo
       }
 
       v28 = objc_opt_new();
-      v31[0] = self->_privacyConsentController;
-      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+      v30[0] = self->_privacyConsentController;
+      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
       [v28 setViewControllers:v29];
 
       [v28 setModalPresentationStyle:2];
@@ -1002,8 +989,6 @@ void __60__AUDeveloperSettingsController_setlogCollection_specifier___block_invo
       [(AUDeveloperSettingsController *)self setlogCollection:toggleCopy specifier:specifierCopy];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)islogCollectionEnabled:(id)enabled
@@ -1049,26 +1034,24 @@ void __56__AUDeveloperSettingsController_islogCollectionEnabled___block_invoke(u
 
 uint64_t __56__AUDeveloperSettingsController_islogCollectionEnabled___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 1456);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 56);
     v4 = *(a1 + 40);
-    v7 = 136315650;
-    v8 = "[AUDeveloperSettingsController islogCollectionEnabled:]_block_invoke_2";
-    v9 = 1024;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_23D433000, v2, OS_LOG_TYPE_DEFAULT, "%s: inEnabled=%d, error=%@", &v7, 0x1Cu);
+    v6 = 136315650;
+    v7 = "[AUDeveloperSettingsController islogCollectionEnabled:]_block_invoke_2";
+    v8 = 1024;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_23D433000, v2, OS_LOG_TYPE_DEFAULT, "%s: inEnabled=%d, error=%@", &v6, 0x1Cu);
   }
 
   *(*(a1 + 32) + 1513) = *(a1 + 56);
   *(*(a1 + 32) + 1512) = 1;
-  result = [*(a1 + 32) reloadSpecifier:*(a1 + 48)];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) reloadSpecifier:*(a1 + 48)];
 }
 
 - (id)getOverrideLocation:(id)location
@@ -1129,20 +1112,18 @@ uint64_t __56__AUDeveloperSettingsController_islogCollectionEnabled___block_invo
 
 - (void)setSeedParticipation:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_error_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error navigating to bluetooth settings: %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_error_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error navigating to bluetooth settings: %{public}@", &v1, 0xCu);
 }
 
 - (void)setSeedParticipation:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_error_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not find paired bluetooth device matching: %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_error_impl(&dword_23D433000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not find paired bluetooth device matching: %{public}@", &v1, 0xCu);
 }
 
 @end

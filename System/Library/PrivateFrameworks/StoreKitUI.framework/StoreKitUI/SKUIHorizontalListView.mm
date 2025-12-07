@@ -105,7 +105,7 @@
   return v18;
 }
 
-uint64_t __73__SKUIHorizontalListView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__73__SKUIHorizontalListView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -1056,61 +1056,61 @@ LABEL_13:
 
 - (void)layoutSubviews
 {
-  v88 = *MEMORY[0x277D85DE8];
-  v84.receiver = self;
-  v84.super_class = SKUIHorizontalListView;
-  [(SKUIHorizontalListView *)&v84 layoutSubviews];
+  v90 = *MEMORY[0x277D85DE8];
+  v86.receiver = self;
+  v86.super_class = SKUIHorizontalListView;
+  [(SKUIHorizontalListView *)&v86 layoutSubviews];
   allExistingViews = [(SKUIViewReuseView *)self allExistingViews];
   style = [(SKUIListViewElement *)self->_listElement style];
   elementAlignment = [style elementAlignment];
 
   [(SKUIHorizontalListView *)self bounds];
-  v69 = v6;
-  v70 = v5;
-  v71 = v7;
-  v68 = v8;
+  v71 = v6;
+  v72 = v5;
+  v73 = v7;
+  v70 = v8;
   top = self->_contentInset.top;
   left = self->_contentInset.left;
-  v80 = 0u;
-  v81 = 0u;
   v82 = 0u;
   v83 = 0u;
+  v84 = 0u;
+  v85 = 0u;
   obj = self->_lines;
-  v63 = [(NSArray *)obj countByEnumeratingWithState:&v80 objects:v87 count:16];
-  if (v63)
+  v65 = [(NSArray *)obj countByEnumeratingWithState:&v82 objects:v89 count:16];
+  if (v65)
   {
     v11 = 0;
-    v61 = *v81;
+    v63 = *v83;
     v12 = *MEMORY[0x277CBF3A0];
     v13 = *(MEMORY[0x277CBF3A0] + 8);
-    v66 = *(MEMORY[0x277CBF390] + 24);
-    v67 = *(MEMORY[0x277CBF390] + 16);
-    v59 = v13;
-    v60 = *MEMORY[0x277CBF3A0];
+    v68 = *(MEMORY[0x277CBF390] + 24);
+    v69 = *(MEMORY[0x277CBF390] + 16);
+    v61 = v13;
+    v62 = *MEMORY[0x277CBF3A0];
     do
     {
       v14 = 0;
       do
       {
-        if (*v81 != v61)
+        if (*v83 != v63)
         {
           objc_enumerationMutation(obj);
         }
 
-        v65 = v14;
-        v15 = *(*(&v80 + 1) + 8 * v14);
-        v64 = [v15 count];
-        v76 = 0u;
-        v77 = 0u;
+        v67 = v14;
+        v15 = *(*(&v82 + 1) + 8 * v14);
+        v66 = [v15 count];
         v78 = 0u;
         v79 = 0u;
+        v80 = 0u;
+        v81 = 0u;
         v16 = v15;
-        v17 = [v16 countByEnumeratingWithState:&v76 objects:v86 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v78 objects:v88 count:16];
         if (v17)
         {
           v18 = v17;
           v19 = 0;
-          v20 = *v77;
+          v20 = *v79;
           v21 = 0.0;
           v22 = 0.0;
           v23 = v11;
@@ -1118,12 +1118,12 @@ LABEL_13:
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v77 != v20)
+              if (*v79 != v20)
               {
                 objc_enumerationMutation(v16);
               }
 
-              if ([*(*(&v76 + 1) + 8 * i) elementType] == 127)
+              if ([*(*(&v78 + 1) + 8 * i) elementType] == 127)
               {
                 ++v19;
               }
@@ -1131,7 +1131,7 @@ LABEL_13:
               else
               {
                 v25 = [allExistingViews objectAtIndex:v23];
-                [v25 sizeThatFits:{v67, v66}];
+                [v25 sizeThatFits:{v69, v68}];
                 v27 = v26;
                 v29 = v28;
                 [(SKUIHorizontalListView *)self bounds];
@@ -1143,10 +1143,10 @@ LABEL_13:
                 v31 = v12;
                 v32 = v13;
                 v33 = v29;
-                v89 = CGRectIntegral(*(&v30 - 2));
-                width = v89.size.width;
-                height = v89.size.height;
-                [v25 setFrame:{v89.origin.x, v89.origin.y}];
+                v91 = CGRectIntegral(*(&v30 - 2));
+                width = v91.size.width;
+                height = v91.size.height;
+                [v25 setFrame:{v91.origin.x, v91.origin.y}];
                 if (v22 < height)
                 {
                   v22 = height;
@@ -1157,7 +1157,7 @@ LABEL_13:
               }
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v76 objects:v86 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v78 objects:v88 count:16];
           }
 
           while (v18);
@@ -1170,9 +1170,9 @@ LABEL_13:
           v22 = 0.0;
         }
 
-        if (v64 > 1)
+        if (v66 > 1)
         {
-          v21 = v21 + self->_elementSpacing * (v64 - 1);
+          v21 = v21 + self->_elementSpacing * (v66 - 1);
         }
 
         if (v19 < 1)
@@ -1183,7 +1183,7 @@ LABEL_13:
         else
         {
           [(SKUIHorizontalListView *)self bounds];
-          v36 = CGRectGetWidth(v90) - self->_contentInset.left - self->_contentInset.right - v21;
+          v36 = CGRectGetWidth(v92) - self->_contentInset.left - self->_contentInset.right - v21;
           v37 = v36 <= 0.0;
           v38 = v36 / v19;
           if (v37)
@@ -1199,35 +1199,35 @@ LABEL_13:
 
         if (elementAlignment == 3)
         {
-          left = v71 - v21 - self->_contentInset.right;
+          left = v73 - v21 - self->_contentInset.right;
         }
 
         else if (elementAlignment == 2)
         {
-          v40 = (v71 - v21) * 0.5;
+          v40 = (v73 - v21) * 0.5;
           left = floorf(v40);
         }
 
+        v76 = 0u;
+        v77 = 0u;
         v74 = 0u;
         v75 = 0u;
-        v72 = 0u;
-        v73 = 0u;
         v41 = v16;
-        v42 = [v41 countByEnumeratingWithState:&v72 objects:v85 count:16];
+        v42 = [v41 countByEnumeratingWithState:&v74 objects:v87 count:16];
         if (v42)
         {
           v43 = v42;
-          v44 = *v73;
+          v44 = *v75;
           do
           {
             for (j = 0; j != v43; ++j)
             {
-              if (*v73 != v44)
+              if (*v75 != v44)
               {
                 objc_enumerationMutation(v41);
               }
 
-              v46 = *(*(&v72 + 1) + 8 * j);
+              v46 = *(*(&v74 + 1) + 8 * j);
               if ([v46 elementType] == 127)
               {
                 MaxX = v39 + left;
@@ -1242,39 +1242,39 @@ LABEL_13:
                 style2 = [v46 style];
                 elementPosition = [style2 elementPosition];
 
-                v55 = top;
+                v57 = top;
                 if (elementPosition <= 9)
                 {
                   if (((1 << elementPosition) & 0x33) != 0)
                   {
-                    v56 = top + (v22 - v52) * 0.5;
-                    v55 = roundf(v56);
+                    v58 = top + (v22 - v52) * 0.5;
+                    v57 = roundf(v58);
                   }
 
                   else
                   {
-                    v55 = top;
+                    v57 = top;
                     if (((1 << elementPosition) & 0x308) != 0)
                     {
-                      v55 = top + v22 - v52;
+                      v57 = top + v22 - v52;
                     }
                   }
                 }
 
-                SKUIRectByApplyingUserInterfaceLayoutDirectionInRect(left, v55, v50, v52, v70, v69, v71, v68);
+                SKUIRectByApplyingUserInterfaceLayoutDirectionInRect(left, v57, v50, v52, v72, v71, v73, v70, v55, v56);
                 [v48 setFrame:?];
-                v91.origin.x = left;
-                v91.origin.y = v55;
-                v91.size.width = v50;
-                v91.size.height = v52;
-                MaxX = CGRectGetMaxX(v91);
+                v93.origin.x = left;
+                v93.origin.y = v57;
+                v93.size.width = v50;
+                v93.size.height = v52;
+                MaxX = CGRectGetMaxX(v93);
                 ++v11;
               }
 
               left = MaxX + self->_elementSpacing;
             }
 
-            v43 = [v41 countByEnumeratingWithState:&v72 objects:v85 count:16];
+            v43 = [v41 countByEnumeratingWithState:&v74 objects:v87 count:16];
           }
 
           while (v43);
@@ -1282,17 +1282,17 @@ LABEL_13:
 
         left = self->_contentInset.left;
         [objc_opt_class() _lineSpacingForLineElements:v41];
-        top = top + v22 + v57;
-        v14 = v65 + 1;
-        v13 = v59;
-        v12 = v60;
+        top = top + v22 + v59;
+        v14 = v67 + 1;
+        v13 = v61;
+        v12 = v62;
       }
 
-      while (v65 + 1 != v63);
-      v63 = [(NSArray *)obj countByEnumeratingWithState:&v80 objects:v87 count:16];
+      while (v67 + 1 != v65);
+      v65 = [(NSArray *)obj countByEnumeratingWithState:&v82 objects:v89 count:16];
     }
 
-    while (v63);
+    while (v65);
   }
 }
 
@@ -1493,7 +1493,7 @@ LABEL_13:
 
 - (void)_buttonAction:(id)action
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v25[3] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   flattenedChildren = [(SKUIViewElement *)self->_listElement flattenedChildren];
   allExistingViews = [(SKUIViewReuseView *)self allExistingViews];
@@ -1502,15 +1502,16 @@ LABEL_13:
   if (v7 < [flattenedChildren count])
   {
     v8 = [flattenedChildren objectAtIndex:v7];
-    if (SKUIIKViewElementTypeIsButton([v8 elementType]))
+    elementType = [v8 elementType];
+    if (SKUIIKViewElementTypeIsButton(elementType, v10))
     {
-      v9 = SKUICollectionViewCellForView(self);
-      v10 = SKUICollectionViewForView(v9);
-      delegate = [v10 delegate];
+      v11 = SKUICollectionViewCellForView(self);
+      v12 = SKUICollectionViewForView(v11);
+      delegate = [v12 delegate];
       if ((objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        v20 = [v10 indexPathForCell:v9];
-        [delegate collectionView:v10 didConfirmButtonElement:v8 withClickInfo:0 forItemAtIndexPath:v20];
+        v22 = [v12 indexPathForCell:v11];
+        [delegate collectionView:v12 didConfirmButtonElement:v8 withClickInfo:0 forItemAtIndexPath:v22];
       }
 
       else
@@ -1518,37 +1519,37 @@ LABEL_13:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v21 = v9;
-          v12 = actionCopy;
-          v13 = MEMORY[0x277CBEB38];
-          v22[0] = @"toggled";
-          v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v12, "isToggled")}];
-          v23[0] = v14;
-          v23[1] = v8;
-          v22[1] = @"target";
-          v22[2] = @"count";
-          v15 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v12, "count")}];
-          v23[2] = v15;
-          v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
-          v17 = [v13 dictionaryWithDictionary:v16];
+          v23 = v11;
+          v14 = actionCopy;
+          v15 = MEMORY[0x277CBEB38];
+          v24[0] = @"toggled";
+          v16 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v14, "isToggled")}];
+          v25[0] = v16;
+          v25[1] = v8;
+          v24[1] = @"target";
+          v24[2] = @"count";
+          v17 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v14, "count")}];
+          v25[2] = v17;
+          v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
+          v19 = [v15 dictionaryWithDictionary:v18];
 
-          toggleItemIdentifier = [v12 toggleItemIdentifier];
+          toggleItemIdentifier = [v14 toggleItemIdentifier];
 
           if (toggleItemIdentifier)
           {
-            toggleItemIdentifier2 = [v12 toggleItemIdentifier];
-            [v17 setObject:toggleItemIdentifier2 forKey:@"toggleId"];
+            toggleItemIdentifier2 = [v14 toggleItemIdentifier];
+            [v19 setObject:toggleItemIdentifier2 forKey:@"toggleId"];
           }
 
-          v9 = v21;
+          v11 = v23;
         }
 
         else
         {
-          v17 = 0;
+          v19 = 0;
         }
 
-        [v8 dispatchEventOfType:2 canBubble:1 isCancelable:1 extraInfo:v17 completionBlock:{0, v21}];
+        [v8 dispatchEventOfType:2 canBubble:1 isCancelable:1 extraInfo:v19 completionBlock:{0, v23}];
       }
     }
   }
@@ -1633,20 +1634,20 @@ LABEL_13:
   textCopy = text;
   styleCopy = style;
   contextCopy = context;
-  v12 = SKUIViewElementFontWithStyle(styleCopy);
-  if (!v12)
+  v13 = SKUIViewElementFontWithStyle(styleCopy);
+  if (!v13)
   {
     if (type)
     {
-      v13 = 5;
+      v14 = 5;
     }
 
     else
     {
-      v13 = 1;
+      v14 = 1;
     }
 
-    v12 = SKUIFontPreferredFontForTextStyle(v13);
+    v13 = SKUIFontPreferredFontForTextStyle(v14, v12);
   }
 
   tintColor = [contextCopy tintColor];
@@ -1657,9 +1658,9 @@ LABEL_13:
     blackColor = [MEMORY[0x277D75348] blackColor];
   }
 
-  v16 = [textCopy attributedStringWithDefaultFont:v12 foregroundColor:blackColor style:styleCopy];
+  v17 = [textCopy attributedStringWithDefaultFont:v13 foregroundColor:blackColor style:styleCopy];
 
-  return v16;
+  return v17;
 }
 
 + (id)_attributedStringForLabel:(id)label context:(id)context
@@ -1667,24 +1668,24 @@ LABEL_13:
   labelCopy = label;
   contextCopy = context;
   style = [labelCopy style];
-  v8 = SKUIViewElementFontWithStyle(style);
-  if (!v8)
+  v9 = SKUIViewElementFontWithStyle(style);
+  if (!v9)
   {
-    v8 = SKUIFontPreferredFontForTextStyle(5);
+    v9 = SKUIFontPreferredFontForTextStyle(5, v8);
   }
 
   tintColor = [contextCopy tintColor];
-  v10 = SKUIViewElementPlainColorWithStyle(style, tintColor);
+  v11 = SKUIViewElementPlainColorWithStyle(style, tintColor);
 
-  if (!v10)
+  if (!v11)
   {
-    v10 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
+    v11 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
   }
 
   text = [labelCopy text];
-  v12 = [text attributedStringWithDefaultFont:v8 foregroundColor:v10 style:style];
+  v13 = [text attributedStringWithDefaultFont:v9 foregroundColor:v11 style:style];
 
-  return v12;
+  return v13;
 }
 
 + (id)_attributedStringForMenuItem:(id)item context:(id)context
@@ -1935,11 +1936,35 @@ void __62__SKUIHorizontalListView__linesWithViewElement_width_context___block_in
   return v9;
 }
 
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIHorizontalListView initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalListView prefetchResourcesForViewElement:reason:context:]";
+}
+
 + (void)preferredSizeForViewElement:context:.cold.1()
 {
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "+[SKUIHorizontalListView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalListView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalListView sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

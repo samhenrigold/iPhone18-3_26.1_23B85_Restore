@@ -72,31 +72,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    transactionType = self->_transactionType;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_watchPassUniqueID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    validUntilEpochTimeInterval = self->_validUntilEpochTimeInterval;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_terminalReaderIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -165,7 +163,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 40);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_transactionType != *(equalCopy + 6))
@@ -185,14 +182,13 @@
     if (![(NSString *)watchPassUniqueID isEqual:?])
     {
 LABEL_17:
-      v10 = 0;
+      v8 = 0;
       goto LABEL_18;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 40);
   if (has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_validUntilEpochTimeInterval != *(equalCopy + 1))
@@ -209,17 +205,17 @@ LABEL_17:
   terminalReaderIdentifier = self->_terminalReaderIdentifier;
   if (terminalReaderIdentifier | *(equalCopy + 2))
   {
-    v10 = [(NSString *)terminalReaderIdentifier isEqual:?];
+    v8 = [(NSString *)terminalReaderIdentifier isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_18:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

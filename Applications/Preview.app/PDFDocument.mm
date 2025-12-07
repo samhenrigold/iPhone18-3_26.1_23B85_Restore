@@ -26,7 +26,7 @@
 
 - (BOOL)writeContents:(id)contents toURL:(id)l forSaveOperation:(int64_t)operation originalContentsURL:(id)rL error:(id *)error
 {
-  v10 = sub_1000FF5D8(&qword_10020DAA8);
+  v10 = sub_1000FF5D8(&qword_10020DAA8, qword_1001A5130);
   __chkstk_darwin(v10 - 8);
   v12 = &v25[-v11];
   v13 = type metadata accessor for URL();
@@ -59,7 +59,7 @@
   (*(v14 + 56))(v12, v23, 1, v13);
   sub_100186260(v26, v19, v12);
 
-  sub_100110174(v12, &qword_10020DAA8);
+  sub_100110174(v12, &qword_10020DAA8, qword_1001A5130);
   (*(v14 + 8))(v19, v13);
   sub_10010FA4C(v26);
   return 1;
@@ -69,9 +69,9 @@
 {
   v3 = type metadata accessor for URL();
   __chkstk_darwin(v3 - 8);
-  v5 = &v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  return sub_100185D44(v5);
+  return sub_100185D44(v5, v6);
 }
 
 @end

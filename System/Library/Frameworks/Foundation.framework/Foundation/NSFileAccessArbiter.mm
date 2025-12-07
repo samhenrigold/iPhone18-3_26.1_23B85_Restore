@@ -781,17 +781,17 @@ void __86__NSFileAccessArbiter__writerWithPurposeID_didMoveItemAtURL_toURL_withF
   }
 }
 
-uint64_t __86__NSFileAccessArbiter__writerWithPurposeID_didMoveItemAtURL_toURL_withFSID_andFileID___block_invoke_52(uint64_t result, void *a2)
+_BYTE *__86__NSFileAccessArbiter__writerWithPurposeID_didMoveItemAtURL_toURL_withFSID_andFileID___block_invoke_52(_BYTE *result, void *a2)
 {
-  if (*(result + 32) == 1)
+  if (result[32] == 1)
   {
-    if ((*(result + 33) & 1) == 0)
+    if ((result[33] & 1) == 0)
     {
       return [a2 promisedFileWasFulfilled];
     }
   }
 
-  else if (*(result + 33))
+  else if (result[33])
   {
     return [a2 localFileWasEvicted];
   }
@@ -1019,7 +1019,7 @@ LABEL_7:
       }
     }
 
-    [(NSFileAccessArbiter *)self _willRemoveReactor:v6, *v9];
+    [(NSFileAccessArbiter *)self _willRemoveReactor:v6, *v9, *&v9[8]];
     [(NSMutableDictionary *)self->_reactorsByID removeObjectForKey:d];
   }
 }
@@ -1106,7 +1106,7 @@ LABEL_8:
   dispatch_sync(queue, v3);
 }
 
-uint64_t __38__NSFileAccessArbiter_stopArbitrating__block_invoke(uint64_t a1)
+void *__38__NSFileAccessArbiter_stopArbitrating__block_invoke(uint64_t a1)
 {
   v18 = *MEMORY[0x1E69E9840];
   v2 = _NSFCClaimsLog();
@@ -1157,7 +1157,8 @@ uint64_t __38__NSFileAccessArbiter_stopArbitrating__block_invoke(uint64_t a1)
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v14 + 1) + 8 * v10++) revoked];
+        [*(*(&v14 + 1) + 8 * v10) revoked];
+        v10 = v10 + 1;
       }
 
       while (v8 != v10);
@@ -1621,12 +1622,12 @@ uint64_t __134__NSFileAccessArbiter_resolveReparentRequestOfFileAtURL_toDestinat
   dispatch_async(queue, block);
 }
 
-uint64_t __58__NSFileAccessArbiter_cancelMaterializationWithRequestID___block_invoke(uint64_t a1)
+void (**__58__NSFileAccessArbiter_cancelMaterializationWithRequestID___block_invoke(uint64_t a1))(void)
 {
   result = [*(*(a1 + 32) + 72) objectForKey:*(a1 + 40)];
   if (result)
   {
-    (*(result + 16))();
+    result[2]();
     [*(*(a1 + 32) + 72) removeObjectForKey:*(a1 + 40)];
     v3 = *(a1 + 40);
     v4 = *(*(a1 + 32) + 80);
@@ -1996,7 +1997,7 @@ LABEL_7:
   [(NSMutableDictionary *)self->_reactorsByID removeObjectsForKeys:v13];
 }
 
-uint64_t __45__NSFileAccessArbiter__handleCanceledClient___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__45__NSFileAccessArbiter__handleCanceledClient___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v21 = *MEMORY[0x1E69E9840];
   result = [a3 client];
@@ -2048,11 +2049,11 @@ uint64_t __45__NSFileAccessArbiter__handleCanceledClient___block_invoke(uint64_t
   return result;
 }
 
-uint64_t __45__NSFileAccessArbiter__handleCanceledClient___block_invoke_107(uint64_t a1, uint64_t a2, void *a3)
+void *__45__NSFileAccessArbiter__handleCanceledClient___block_invoke_107(void **a1, uint64_t a2, void *a3)
 {
   v10 = *MEMORY[0x1E69E9840];
   result = [a3 client];
-  if (result == *(a1 + 32))
+  if (result == a1[4])
   {
     if (object_getClass(a3) == NSFileProviderProxy)
     {
@@ -2079,8 +2080,8 @@ LABEL_7:
       }
     }
 
-    [*(a1 + 40) addObject:{a2, *v9}];
-    return [*(a1 + 48) _willRemoveReactor:a3];
+    [a1[5] addObject:{a2, *v9, *&v9[8]}];
+    return [a1[6] _willRemoveReactor:a3];
   }
 
   return result;
@@ -2098,7 +2099,7 @@ LABEL_7:
   v7 = +[NSXPCConnection currentConnection];
   if (v7)
   {
-    [(NSXPCConnection *)v7 auditToken];
+    objc_msgSend_auditToken(v7);
   }
 
   else
@@ -2275,7 +2276,7 @@ uint64_t __94__NSFileAccessArbiter_getDebugInformationIncludingEverything_withSt
   return [*(a1 + 32) appendFormat:@"%@ (%i):\n%@\n", v7, objc_msgSend(a2, "intValue"), a3];
 }
 
-uint64_t __94__NSFileAccessArbiter_getDebugInformationIncludingEverything_withString_fromPid_thenContinue___block_invoke_4(uint64_t a1, void *a2)
+void *__94__NSFileAccessArbiter_getDebugInformationIncludingEverything_withString_fromPid_thenContinue___block_invoke_4(uint64_t a1, void *a2)
 {
   v9 = *MEMORY[0x1E69E9840];
   v4 = [objc_msgSend(a2 "client")];
@@ -2788,7 +2789,7 @@ uint64_t __71__NSFileAccessArbiter_writerWithPurposeID_didChangeSharingOfItemAtU
   }
 }
 
-uint64_t __69__NSFileAccessArbiter_writerWithPurposeID_didMakeItemDisappearAtURL___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__69__NSFileAccessArbiter_writerWithPurposeID_didMakeItemDisappearAtURL___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [*(a1 + 32) isEqual:{objc_msgSend(a2, "reactorID")}];
   if ((result & 1) == 0)
@@ -2839,7 +2840,7 @@ uint64_t __69__NSFileAccessArbiter_writerWithPurposeID_didMakeItemDisappearAtURL
   }
 }
 
-uint64_t __62__NSFileAccessArbiter_writerWithPurposeID_didChangeItemAtURL___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__62__NSFileAccessArbiter_writerWithPurposeID_didChangeItemAtURL___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [*(a1 + 32) isEqual:{objc_msgSend(a2, "reactorID")}];
   if ((result & 1) == 0)

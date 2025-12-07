@@ -62,34 +62,34 @@
 
 - (id)_rm_AccountAssociatedWithRemoteManagementWithAccountTypeIdentifier:()RemoteManagement altDSID:
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
-  v26[0] = v6;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
-  v24 = 0;
-  v9 = [self accountsWithAccountTypeIdentifiers:v8 preloadedProperties:0 error:&v24];
-  v10 = v24;
+  v25[0] = v6;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+  v23 = 0;
+  v9 = [self accountsWithAccountTypeIdentifiers:v8 preloadedProperties:0 error:&v23];
+  v10 = v23;
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = v9;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v12)
   {
-    v13 = *v21;
+    v13 = *v20;
     while (2)
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
+        v15 = *(*(&v19 + 1) + 8 * i);
         aa_altDSID = [v15 aa_altDSID];
         v17 = [aa_altDSID isEqualToString:v7];
 
@@ -100,7 +100,7 @@
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
       if (v12)
       {
         continue;
@@ -112,34 +112,32 @@
 
 LABEL_11:
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)rm_remoteManagementAccountForAltDSID:()RemoteManagement
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   [self rm_RemoteManagementAccounts];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         rm_altDSID = [v9 rm_altDSID];
         v11 = [rm_altDSID isEqualToString:v4];
 
@@ -150,7 +148,7 @@ LABEL_11:
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -162,34 +160,32 @@ LABEL_11:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (id)rm_remoteManagementAccountForDSID:()RemoteManagement
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   [self rm_RemoteManagementAccounts];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         rm_DSID = [v9 rm_DSID];
         v11 = [rm_DSID isEqualToNumber:v4];
 
@@ -200,7 +196,7 @@ LABEL_11:
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -212,34 +208,32 @@ LABEL_11:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (id)rm_remoteManagementAccountForIdentifier:()RemoteManagement
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   [self rm_RemoteManagementAccounts];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqualToString:v4];
 
@@ -250,7 +244,7 @@ LABEL_11:
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -261,35 +255,33 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)rm_remoteManagementAccountForEnrollmentURL:()RemoteManagement
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   [self rm_RemoteManagementAccounts];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         rm_enrollmentURL = [v9 rm_enrollmentURL];
         v11 = [rm_enrollmentURL isEqualToString:v4];
 
@@ -300,7 +292,7 @@ LABEL_11:
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -311,35 +303,33 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)rm_remoteManagementAccountForProfileIdentifier:()RemoteManagement
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   [self rm_RemoteManagementAccounts];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         rm_enrollmentURL = [v9 rm_enrollmentURL];
         v11 = [rm_enrollmentURL isEqualToString:v4];
 
@@ -350,7 +340,7 @@ LABEL_11:
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -361,8 +351,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

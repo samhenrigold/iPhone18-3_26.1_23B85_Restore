@@ -153,34 +153,34 @@ uint64_t __43__PSCellularManagementCache_sharedInstance__block_invoke()
 - (id)managedCellDataAppBundleIDs
 {
   selfCopy = self;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   managedCellDataAppCache = [(PSCellularManagementCache *)self managedCellDataAppCache];
 
   if (!managedCellDataAppCache)
   {
     v4 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v17 = selfCopy;
+    v16 = selfCopy;
     managedAppBundleIDs = [(PSCellularManagementCache *)selfCopy managedAppBundleIDs];
-    v6 = [managedAppBundleIDs countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v6 = [managedAppBundleIDs countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         v9 = 0;
         do
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(managedAppBundleIDs);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * v9);
+          v10 = *(*(&v17 + 1) + 8 * v9);
           v11 = +[PSAppDataUsagePolicyCache sharedInstance];
           v12 = [v11 policiesFor:v10];
           isManaged = [v12 isManaged];
@@ -194,18 +194,17 @@ uint64_t __43__PSCellularManagementCache_sharedInstance__block_invoke()
         }
 
         while (v7 != v9);
-        v7 = [managedAppBundleIDs countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [managedAppBundleIDs countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
     }
 
-    selfCopy = v17;
-    [(PSCellularManagementCache *)v17 setManagedCellDataAppCache:v4];
+    selfCopy = v16;
+    [(PSCellularManagementCache *)v16 setManagedCellDataAppCache:v4];
   }
 
   managedCellDataAppCache2 = [(PSCellularManagementCache *)selfCopy managedCellDataAppCache];
-  v15 = *MEMORY[0x277D85DE8];
 
   return managedCellDataAppCache2;
 }
@@ -220,7 +219,7 @@ uint64_t __43__PSCellularManagementCache_sharedInstance__block_invoke()
 
 - (BOOL)isManaged:(id)managed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   managedCopy = managed;
   managedCellDataAppBundleIDs = [(PSCellularManagementCache *)self managedCellDataAppBundleIDs];
   v6 = [managedCellDataAppBundleIDs containsObject:managedCopy];
@@ -234,14 +233,13 @@ uint64_t __43__PSCellularManagementCache_sharedInstance__block_invoke()
       v8 = @"is managed";
     }
 
-    v11 = 138543618;
-    v12 = managedCopy;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_INFO, "For %{public}@, policy: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = managedCopy;
+    v12 = 2112;
+    v13 = v8;
+    _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_INFO, "For %{public}@, policy: %@", &v10, 0x16u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

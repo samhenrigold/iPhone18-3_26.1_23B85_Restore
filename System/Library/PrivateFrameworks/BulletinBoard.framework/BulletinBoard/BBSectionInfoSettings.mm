@@ -923,85 +923,26 @@
           {
             muteAssertion = [(BBSectionInfoSettings *)self muteAssertion];
             muteAssertion2 = [(BBSectionInfoSettings *)v5 muteAssertion];
-            if (!BSEqualObjects())
-            {
-              goto LABEL_33;
-            }
-
-            notificationCenterSetting = [(BBSectionInfoSettings *)self notificationCenterSetting];
-            if (notificationCenterSetting != [(BBSectionInfoSettings *)v5 notificationCenterSetting])
-            {
-              goto LABEL_33;
-            }
-
-            lockScreenSetting = [(BBSectionInfoSettings *)self lockScreenSetting];
-            if (lockScreenSetting != [(BBSectionInfoSettings *)v5 lockScreenSetting])
-            {
-              goto LABEL_33;
-            }
-
-            showsOnExternalDevices = [(BBSectionInfoSettings *)self showsOnExternalDevices];
-            if (showsOnExternalDevices != [(BBSectionInfoSettings *)v5 showsOnExternalDevices])
-            {
-              goto LABEL_33;
-            }
-
-            showsCustomSettingsLink = [(BBSectionInfoSettings *)self showsCustomSettingsLink];
-            if (showsCustomSettingsLink != [(BBSectionInfoSettings *)v5 showsCustomSettingsLink])
-            {
-              goto LABEL_33;
-            }
-
-            contentPreviewSetting = [(BBSectionInfoSettings *)self contentPreviewSetting];
-            if (contentPreviewSetting != [(BBSectionInfoSettings *)v5 contentPreviewSetting])
-            {
-              goto LABEL_33;
-            }
-
-            alertType = [(BBSectionInfoSettings *)self alertType];
-            if (alertType != [(BBSectionInfoSettings *)v5 alertType])
-            {
-              goto LABEL_33;
-            }
-
-            pushSettings = [(BBSectionInfoSettings *)self pushSettings];
-            if (pushSettings != [(BBSectionInfoSettings *)v5 pushSettings])
-            {
-              goto LABEL_33;
-            }
-
-            carPlaySetting = [(BBSectionInfoSettings *)self carPlaySetting];
-            if (carPlaySetting != [(BBSectionInfoSettings *)v5 carPlaySetting])
-            {
-              goto LABEL_33;
-            }
-
-            remoteNotificationsSetting = [(BBSectionInfoSettings *)self remoteNotificationsSetting];
-            if (remoteNotificationsSetting != [(BBSectionInfoSettings *)v5 remoteNotificationsSetting])
-            {
-              goto LABEL_33;
-            }
-
-            criticalAlertSetting = [(BBSectionInfoSettings *)self criticalAlertSetting];
-            if (criticalAlertSetting != [(BBSectionInfoSettings *)v5 criticalAlertSetting])
-            {
-              goto LABEL_33;
-            }
-
-            timeSensitiveSetting = [(BBSectionInfoSettings *)self timeSensitiveSetting];
-            if (timeSensitiveSetting != [(BBSectionInfoSettings *)v5 timeSensitiveSetting])
-            {
-              goto LABEL_33;
-            }
-
-            hasUserConfiguredTimeSensitiveSetting = [(BBSectionInfoSettings *)self hasUserConfiguredTimeSensitiveSetting];
-            if (hasUserConfiguredTimeSensitiveSetting != [(BBSectionInfoSettings *)v5 hasUserConfiguredTimeSensitiveSetting])
-            {
-              goto LABEL_33;
-            }
-
-            bulletinGroupingSetting = [(BBSectionInfoSettings *)self bulletinGroupingSetting];
-            if (bulletinGroupingSetting == [(BBSectionInfoSettings *)v5 bulletinGroupingSetting]&& (v27 = [(BBSectionInfoSettings *)self announceSetting], v27 == [(BBSectionInfoSettings *)v5 announceSetting]) && (v28 = [(BBSectionInfoSettings *)self scheduledDeliverySetting], v28 == [(BBSectionInfoSettings *)v5 scheduledDeliverySetting]) && (v29 = [(BBSectionInfoSettings *)self directMessagesSetting], v29 == [(BBSectionInfoSettings *)v5 directMessagesSetting]) && (v30 = [(BBSectionInfoSettings *)self hasUserConfiguredDirectMessagesSetting], v30 == [(BBSectionInfoSettings *)v5 hasUserConfiguredDirectMessagesSetting]) && (v31 = [(BBSectionInfoSettings *)self summarizationSetting], v31 == [(BBSectionInfoSettings *)v5 summarizationSetting]) && (v32 = [(BBSectionInfoSettings *)self prioritizationSetting], v32 == [(BBSectionInfoSettings *)v5 prioritizationSetting]))
+            if (BSEqualObjects()
+              && (v14 = [(BBSectionInfoSettings *)self notificationCenterSetting], v14 == [(BBSectionInfoSettings *)v5 notificationCenterSetting])
+              && (v15 = [(BBSectionInfoSettings *)self lockScreenSetting], v15 == [(BBSectionInfoSettings *)v5 lockScreenSetting])
+              && (v16 = [(BBSectionInfoSettings *)self showsOnExternalDevices], v16 == [(BBSectionInfoSettings *)v5 showsOnExternalDevices])
+              && (v17 = [(BBSectionInfoSettings *)self showsCustomSettingsLink], v17 == [(BBSectionInfoSettings *)v5 showsCustomSettingsLink])
+              && (v18 = [(BBSectionInfoSettings *)self contentPreviewSetting], v18 == [(BBSectionInfoSettings *)v5 contentPreviewSetting])
+              && (v19 = [(BBSectionInfoSettings *)self alertType], v19 == [(BBSectionInfoSettings *)v5 alertType])
+              && (v20 = [(BBSectionInfoSettings *)self pushSettings], v20 == [(BBSectionInfoSettings *)v5 pushSettings])
+              && (v21 = [(BBSectionInfoSettings *)self carPlaySetting], v21 == [(BBSectionInfoSettings *)v5 carPlaySetting])
+              && (v22 = [(BBSectionInfoSettings *)self remoteNotificationsSetting], v22 == [(BBSectionInfoSettings *)v5 remoteNotificationsSetting])
+              && (v23 = [(BBSectionInfoSettings *)self criticalAlertSetting], v23 == [(BBSectionInfoSettings *)v5 criticalAlertSetting])
+              && (v24 = [(BBSectionInfoSettings *)self timeSensitiveSetting], v24 == [(BBSectionInfoSettings *)v5 timeSensitiveSetting])
+              && (v25 = [(BBSectionInfoSettings *)self hasUserConfiguredTimeSensitiveSetting], v25 == [(BBSectionInfoSettings *)v5 hasUserConfiguredTimeSensitiveSetting])
+              && (v26 = [(BBSectionInfoSettings *)self bulletinGroupingSetting], v26 == [(BBSectionInfoSettings *)v5 bulletinGroupingSetting])
+              && (v27 = [(BBSectionInfoSettings *)self announceSetting], v27 == [(BBSectionInfoSettings *)v5 announceSetting])
+              && (v28 = [(BBSectionInfoSettings *)self scheduledDeliverySetting], v28 == [(BBSectionInfoSettings *)v5 scheduledDeliverySetting])
+              && (v29 = [(BBSectionInfoSettings *)self directMessagesSetting], v29 == [(BBSectionInfoSettings *)v5 directMessagesSetting])
+              && (v30 = [(BBSectionInfoSettings *)self hasUserConfiguredDirectMessagesSetting], v30 == [(BBSectionInfoSettings *)v5 hasUserConfiguredDirectMessagesSetting])
+              && (v31 = [(BBSectionInfoSettings *)self summarizationSetting], v31 == [(BBSectionInfoSettings *)v5 summarizationSetting])
+              && (v32 = [(BBSectionInfoSettings *)self prioritizationSetting], v32 == [(BBSectionInfoSettings *)v5 prioritizationSetting]))
             {
               announcePriorityNotificationsSetting = [(BBSectionInfoSettings *)self announcePriorityNotificationsSetting];
               v9 = announcePriorityNotificationsSetting == [(BBSectionInfoSettings *)v5 announcePriorityNotificationsSetting];
@@ -1009,7 +950,6 @@
 
             else
             {
-LABEL_33:
               v9 = 0;
             }
           }
@@ -1379,22 +1319,6 @@ LABEL_51:
   }
 
   [(BBSectionInfoSettings *)self setAnnounceSetting:v4];
-}
-
-- (void)muteThreadIdentifier:untilDate:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)unmuteThreadIdentifier:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

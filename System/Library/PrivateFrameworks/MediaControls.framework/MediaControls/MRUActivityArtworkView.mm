@@ -91,7 +91,7 @@
   {
     screenCopy = screen;
     self->_onScreen = screen;
-    v5 = MCLogCategoryDefault();
+    v5 = MCLogCategoryDefault(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = 138543618;
@@ -112,7 +112,7 @@
   {
     playingCopy = playing;
     self->_playing = playing;
-    v5 = MCLogCategoryDefault();
+    v5 = MCLogCategoryDefault(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = 138543618;
@@ -133,7 +133,7 @@
   {
     loadingCopy = loading;
     self->_loading = loading;
-    v5 = MCLogCategoryDefault();
+    v5 = MCLogCategoryDefault(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = 138543618;
@@ -166,72 +166,73 @@
 
 - (void)setArtworkImage:(id)image
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   imageCopy = image;
-  if ([(MRUArtworkView *)self style]== 10)
+  style = [(MRUArtworkView *)self style];
+  if (style == 10)
   {
     artworkImage = [(MRUArtworkView *)self artworkImage];
     if (imageCopy)
     {
-      v6 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v6 = artworkImage == 0;
+      v7 = artworkImage == 0;
     }
 
-    v7 = !v6;
+    v8 = !v7;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v8 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = MCLogCategoryDefault(style);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
     selfCopy3 = self;
-    _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_INFO, "%{public}@ - Artwork will change to nil. Marking needsTransition", buf, 0xCu);
+    _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_INFO, "%{public}@ - Artwork will change to nil. Marking needsTransition", buf, 0xCu);
   }
 
-  v21.receiver = self;
-  v21.super_class = MRUActivityArtworkView;
-  [(MRUArtworkView *)&v21 setArtworkImage:imageCopy];
+  v23.receiver = self;
+  v23.super_class = MRUActivityArtworkView;
+  [(MRUArtworkView *)&v23 setArtworkImage:imageCopy];
   loading = self->_loading;
   [(MRUActivityArtworkView *)self setLoading:imageCopy == 0];
-  v10 = self->_artworkIdentifier;
+  v11 = self->_artworkIdentifier;
   imageLoader = [(MRUArtworkView *)self imageLoader];
   lastVendedArtworkIdentifier = [imageLoader lastVendedArtworkIdentifier];
   stringRepresentation = [lastVendedArtworkIdentifier stringRepresentation];
   artworkIdentifier = self->_artworkIdentifier;
   self->_artworkIdentifier = stringRepresentation;
 
-  v15 = self->_artworkIdentifier;
-  v16 = v10;
-  v17 = v16;
-  if (v16 == v15)
+  v16 = self->_artworkIdentifier;
+  v17 = v11;
+  v18 = v17;
+  if (v17 == v16)
   {
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v18 = [(NSString *)v16 isEqual:v15]^ 1;
+    v19 = [(NSString *)v17 isEqual:v16]^ 1;
   }
 
-  if (v7 & 1) != 0 || (self->_currentItemHasChangedSinceArtworkLastSet & v18)
+  if (v8 & 1) != 0 || (self->_currentItemHasChangedSinceArtworkLastSet & v19)
   {
-    v19 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = MCLogCategoryDefault(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       selfCopy3 = self;
-      v24 = 2114;
-      v25 = imageCopy;
-      _os_log_impl(&dword_1A20FC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ - Transitioning to new image: %{public}@", buf, 0x16u);
+      v26 = 2114;
+      v27 = imageCopy;
+      _os_log_impl(&dword_1A20FC000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ - Transitioning to new image: %{public}@", buf, 0x16u);
     }
 
     [(MRUActivityArtworkView *)self transitionToImage:imageCopy];
@@ -239,17 +240,16 @@
 
   else
   {
-    [(MRUActivityArtworkView *)self updatePackageState];
-    v20 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = MCLogCategoryDefault([(MRUActivityArtworkView *)self updatePackageState]);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
       selfCopy3 = self;
-      v24 = 2114;
-      v25 = imageCopy;
-      v26 = 1024;
-      v27 = !loading;
-      _os_log_impl(&dword_1A20FC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ - Changing image: %{public}@, animated=%{BOOL}u", buf, 0x1Cu);
+      v26 = 2114;
+      v27 = imageCopy;
+      v28 = 1024;
+      v29 = !loading;
+      _os_log_impl(&dword_1A20FC000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ - Changing image: %{public}@, animated=%{BOOL}u", buf, 0x1Cu);
     }
 
     [(MRUActivityArtworkView *)self setCurrentImage:imageCopy animated:!loading];
@@ -258,26 +258,30 @@
 
 - (void)setItemIdentifier:(id)identifier
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = identifierCopy;
-  if (self->_itemIdentifier != identifierCopy && ([(NSString *)identifierCopy isEqual:?]& 1) == 0)
+  if (self->_itemIdentifier != identifierCopy)
   {
-    v6 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v6 = [(NSString *)identifierCopy isEqual:?];
+    if ((v6 & 1) == 0)
     {
-      v9 = 138543618;
-      selfCopy = self;
-      v11 = 2114;
-      v12 = v5;
-      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_INFO, "%{public}@ - Item identifier changed to: %{public}@. Marking needsTransition", &v9, 0x16u);
+      v7 = MCLogCategoryDefault(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      {
+        v10 = 138543618;
+        selfCopy = self;
+        v12 = 2114;
+        v13 = v5;
+        _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_INFO, "%{public}@ - Item identifier changed to: %{public}@. Marking needsTransition", &v10, 0x16u);
+      }
+
+      v8 = [(NSString *)v5 copy];
+      itemIdentifier = self->_itemIdentifier;
+      self->_itemIdentifier = v8;
+
+      self->_currentItemHasChangedSinceArtworkLastSet = 1;
     }
-
-    v7 = [(NSString *)v5 copy];
-    itemIdentifier = self->_itemIdentifier;
-    self->_itemIdentifier = v7;
-
-    self->_currentItemHasChangedSinceArtworkLastSet = 1;
   }
 }
 
@@ -493,8 +497,7 @@ void __51__MRUActivityArtworkView_setCurrentImage_animated___block_invoke_2(uint
   if (v6 != self->_currentStateName && ([(NSString *)v6 isEqual:?]& 1) == 0)
   {
     objc_storeStrong(&self->_currentStateName, v7);
-    [(CCUICAPackageView *)self->_packageView setStateName:v7];
-    v8 = MCLogCategoryDefault();
+    v8 = MCLogCategoryDefault([(CCUICAPackageView *)self->_packageView setStateName:v7]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138543618;
@@ -509,7 +512,7 @@ void __51__MRUActivityArtworkView_setCurrentImage_animated___block_invoke_2(uint
 - (void)updatePackageAlphaAnimated:(BOOL)animated
 {
   animatedCopy = animated;
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if ([(MRUArtworkView *)self adjustsImageWhenHighlighted])
   {
     isHighlighted = [(MRUActivityArtworkView *)self isHighlighted];
@@ -542,31 +545,31 @@ void __51__MRUActivityArtworkView_setCurrentImage_animated___block_invoke_2(uint
 
   if (v10 > 2.22044605e-16)
   {
-    v11 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = MCLogCategoryDefault(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138544386;
       selfCopy = self;
-      v16 = 2048;
-      v17 = v7;
-      v18 = 1024;
-      v19 = animatedCopy;
-      v20 = 1024;
+      v17 = 2048;
+      v18 = v7;
+      v19 = 1024;
+      v20 = animatedCopy;
+      v21 = 1024;
       isLoading = [(MRUActivityArtworkView *)self isLoading];
-      v22 = 1024;
+      v23 = 1024;
       isHighlighted2 = [(MRUActivityArtworkView *)self isHighlighted];
-      _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_INFO, "%{public}@ - Changing package alpha to: %f animated:%{BOOL}u. highlighted:%{BOOL}u loading:%{BOOL}u", buf, 0x28u);
+      _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_INFO, "%{public}@ - Changing package alpha to: %f animated:%{BOOL}u. highlighted:%{BOOL}u loading:%{BOOL}u", buf, 0x28u);
     }
 
     if (animatedCopy)
     {
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __53__MRUActivityArtworkView_updatePackageAlphaAnimated___block_invoke;
-      v13[3] = &unk_1E7663CE0;
-      v13[4] = self;
-      *&v13[5] = v7;
-      [MEMORY[0x1E69DD250] animateWithDuration:4 delay:v13 options:0 animations:0.25 completion:0.0];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __53__MRUActivityArtworkView_updatePackageAlphaAnimated___block_invoke;
+      v14[3] = &unk_1E7663CE0;
+      v14[4] = self;
+      *&v14[5] = v7;
+      [MEMORY[0x1E69DD250] animateWithDuration:4 delay:v14 options:0 animations:0.25 completion:0.0];
     }
 
     else

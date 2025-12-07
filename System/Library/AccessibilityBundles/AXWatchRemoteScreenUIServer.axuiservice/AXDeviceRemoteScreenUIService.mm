@@ -33,7 +33,7 @@
 - (void)stopTwiceRemoteScreen
 {
   selfCopy = self;
-  sub_1ED0();
+  sub_1ED0(selfCopy, v2);
 }
 
 - (void)restartTwiceRemoteScreen
@@ -84,11 +84,9 @@
   v2 = *(&self->super.isa + OBJC_IVAR____TtC27AXWatchRemoteScreenUIServer29AXDeviceRemoteScreenUIService_rootViewController);
   if (v2)
   {
-    v4 = *&self->displayManager[OBJC_IVAR____TtC27AXWatchRemoteScreenUIServer29AXDeviceRemoteScreenUIService_rootViewController];
-    v5 = *(&self->super.isa + OBJC_IVAR____TtC27AXWatchRemoteScreenUIServer29AXDeviceRemoteScreenUIService_rootViewController);
     swift_getObjectType();
     selfCopy = self;
-    v6 = v2;
+    v4 = v2;
     sub_42D4();
   }
 }

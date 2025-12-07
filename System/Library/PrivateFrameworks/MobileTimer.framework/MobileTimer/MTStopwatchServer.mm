@@ -61,11 +61,11 @@
 
 - (MTStopwatchServer)initWithStorage:(id)storage
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
-  v16.receiver = self;
-  v16.super_class = MTStopwatchServer;
-  v5 = [(MTStopwatchServer *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = MTStopwatchServer;
+  v5 = [(MTStopwatchServer *)&v15 init];
   v6 = v5;
   if (v5)
   {
@@ -74,14 +74,14 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138543618;
-      v18 = v6;
-      v19 = 2114;
-      v20 = storageCopy;
+      v17 = v6;
+      v18 = 2114;
+      v19 = storageCopy;
       _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_INFO, "%{public}@ initialized with storage: %{public}@ ", buf, 0x16u);
     }
 
     v8 = MTStopwatchClientInterface();
-    v9 = MTStopwatchServerInterface();
+    v9 = MTStopwatchServerInterface(v8);
     v10 = [MTXPCConnectionInfo infoForMachServiceName:@"com.apple.MobileTimer.stopwatchserver" remoteObjectInterface:v8 exportedObject:v6 exportedObjectInterface:v9 lifecycleNotification:@"com.apple.MTStopwatchServer.wakeup" requiredEntitlement:@"com.apple.private.mobiletimerd" options:0];
 
     v11 = [MTXPCConnectionListenerProvider providerWithConnectionInfo:v10 errorHandler:0];
@@ -94,43 +94,40 @@
     [storageCopy registerObserver:v6];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)startListening
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(5);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_INFO, "%{public}@ startListening", &v5, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_INFO, "%{public}@ startListening", &v4, 0xCu);
   }
 
   [(MTXPCConnectionListenerProvider *)self->_connectionListenerProvider startListening];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopListening
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(5);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_INFO, "%{public}@ stopListening", &v5, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_INFO, "%{public}@ stopListening", &v4, 0xCu);
   }
 
   [(MTXPCConnectionListenerProvider *)self->_connectionListenerProvider stopListening];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSystemReady
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(5);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -146,8 +143,6 @@
   block[3] = &unk_1E7B0C9D8;
   block[4] = self;
   dispatch_sync(serializerQueue, block);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __38__MTStopwatchServer_handleSystemReady__block_invoke(uint64_t a1)
@@ -180,7 +175,7 @@ void __38__MTStopwatchServer_handleSystemReady__block_invoke(uint64_t a1)
 
 void __39__MTStopwatchServer_testStopwatchWrite__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MTLogForCategory(5);
   v5 = v4;
@@ -195,12 +190,10 @@ void __39__MTStopwatchServer_testStopwatchWrite__block_invoke(uint64_t a1, void 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ wrote to stopwatch store successfully supposedly", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ wrote to stopwatch store successfully supposedly", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isSystemReady
@@ -239,14 +232,14 @@ void __39__MTStopwatchServer_testStopwatchWrite__block_invoke(uint64_t a1, void 
 
 - (void)getStopwatchesWithCompletion:(id)completion
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = MTLogForCategory(5);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ getStopwatchesWithCompletion", &v8, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_INFO, "%{public}@ getStopwatchesWithCompletion", &v7, 0xCu);
   }
 
   if ([(MTStopwatchServer *)self _isSystemReady])
@@ -266,24 +259,22 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createStopwatch:(id)stopwatch withCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   completionCopy = completion;
   v8 = MTLogForCategory(5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     identifier = [stopwatchCopy identifier];
-    v13 = 138543618;
+    v12 = 138543618;
     selfCopy = self;
-    v15 = 2114;
-    v16 = identifier;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ createStopwatch with id: %{public}@", &v13, 0x16u);
+    v14 = 2114;
+    v15 = identifier;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ createStopwatch with id: %{public}@", &v12, 0x16u);
   }
 
   if ([(MTStopwatchServer *)self _isSystemReady])
@@ -304,24 +295,22 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateStopwatch:(id)stopwatch withCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   completionCopy = completion;
   v8 = MTLogForCategory(5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     identifier = [stopwatchCopy identifier];
-    v13 = 138543618;
+    v12 = 138543618;
     selfCopy = self;
-    v15 = 2114;
-    v16 = identifier;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ updateStopwatch with id: %{public}@", &v13, 0x16u);
+    v14 = 2114;
+    v15 = identifier;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ updateStopwatch with id: %{public}@", &v12, 0x16u);
   }
 
   if ([(MTStopwatchServer *)self _isSystemReady])
@@ -342,24 +331,22 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteStopwatch:(id)stopwatch withCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   completionCopy = completion;
   v8 = MTLogForCategory(5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     identifier = [stopwatchCopy identifier];
-    v13 = 138543618;
+    v12 = 138543618;
     selfCopy = self;
-    v15 = 2114;
-    v16 = identifier;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ deleteStopwatch with id: %{public}@", &v13, 0x16u);
+    v14 = 2114;
+    v15 = identifier;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ deleteStopwatch with id: %{public}@", &v12, 0x16u);
   }
 
   if ([(MTStopwatchServer *)self _isSystemReady])
@@ -380,26 +367,24 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didAddLap:(id)lap forStopwatch:(id)stopwatch withCompletion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   lapCopy = lap;
   stopwatchCopy = stopwatch;
   completionCopy = completion;
   v11 = MTLogForCategory(5);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v15 = 138543874;
+    v14 = 138543874;
     selfCopy = self;
-    v17 = 2114;
-    v18 = lapCopy;
-    v19 = 2114;
-    v20 = stopwatchCopy;
-    _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_INFO, "%{public}@ didAddLap lap: %{public}@ for stopwatch: %{public}@", &v15, 0x20u);
+    v16 = 2114;
+    v17 = lapCopy;
+    v18 = 2114;
+    v19 = stopwatchCopy;
+    _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_INFO, "%{public}@ didAddLap lap: %{public}@ for stopwatch: %{public}@", &v14, 0x20u);
   }
 
   if ([(MTStopwatchServer *)self _isSystemReady])
@@ -420,23 +405,21 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didClearAllLapsForStopwatch:(id)stopwatch withCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   completionCopy = completion;
   v8 = MTLogForCategory(5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543618;
+    v11 = 138543618;
     selfCopy = self;
-    v14 = 2114;
-    v15 = stopwatchCopy;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ didClearAllLapsForStopwatch for stopwatch: %{public}@", &v12, 0x16u);
+    v13 = 2114;
+    v14 = stopwatchCopy;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ didClearAllLapsForStopwatch for stopwatch: %{public}@", &v11, 0x16u);
   }
 
   if ([(MTStopwatchServer *)self _isSystemReady])
@@ -457,23 +440,21 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didStartLapTimerForStopwatch:(id)stopwatch withCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   completionCopy = completion;
   v8 = MTLogForCategory(5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543618;
+    v11 = 138543618;
     selfCopy = self;
-    v14 = 2114;
-    v15 = stopwatchCopy;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ didStartLapTimerForStopwatch for stopwatch: %{public}@", &v12, 0x16u);
+    v13 = 2114;
+    v14 = stopwatchCopy;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ didStartLapTimerForStopwatch for stopwatch: %{public}@", &v11, 0x16u);
   }
 
   if ([(MTStopwatchServer *)self _isSystemReady])
@@ -494,23 +475,21 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didPauseLapTimerForStopwatch:(id)stopwatch withCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   completionCopy = completion;
   v8 = MTLogForCategory(5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543618;
+    v11 = 138543618;
     selfCopy = self;
-    v14 = 2114;
-    v15 = stopwatchCopy;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ didPauseLapTimerForStopwatch for stopwatch: %{public}@", &v12, 0x16u);
+    v13 = 2114;
+    v14 = stopwatchCopy;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ didPauseLapTimerForStopwatch for stopwatch: %{public}@", &v11, 0x16u);
   }
 
   if ([(MTStopwatchServer *)self _isSystemReady])
@@ -531,23 +510,21 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didLapLapTimerForStopwatch:(id)stopwatch withCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   completionCopy = completion;
   v8 = MTLogForCategory(5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543618;
+    v11 = 138543618;
     selfCopy = self;
-    v14 = 2114;
-    v15 = stopwatchCopy;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ didLapLapTimerForStopwatch for stopwatch: %{public}@", &v12, 0x16u);
+    v13 = 2114;
+    v14 = stopwatchCopy;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ didLapLapTimerForStopwatch for stopwatch: %{public}@", &v11, 0x16u);
   }
 
   if ([(MTStopwatchServer *)self _isSystemReady])
@@ -568,23 +545,21 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didResetLapTimerForStopwatch:(id)stopwatch withCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   completionCopy = completion;
   v8 = MTLogForCategory(5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543618;
+    v11 = 138543618;
     selfCopy = self;
-    v14 = 2114;
-    v15 = stopwatchCopy;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ didResetLapTimerForStopwatch for stopwatch: %{public}@", &v12, 0x16u);
+    v13 = 2114;
+    v14 = stopwatchCopy;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ didResetLapTimerForStopwatch for stopwatch: %{public}@", &v11, 0x16u);
   }
 
   if ([(MTStopwatchServer *)self _isSystemReady])
@@ -605,23 +580,21 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didResumeLapTimerForStopwatch:(id)stopwatch withCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stopwatchCopy = stopwatch;
   completionCopy = completion;
   v8 = MTLogForCategory(5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543618;
+    v11 = 138543618;
     selfCopy = self;
-    v14 = 2114;
-    v15 = stopwatchCopy;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ didResumeLapTimerForStopwatch for stopwatch: %{public}@", &v12, 0x16u);
+    v13 = 2114;
+    v14 = stopwatchCopy;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ didResumeLapTimerForStopwatch for stopwatch: %{public}@", &v11, 0x16u);
   }
 
   if ([(MTStopwatchServer *)self _isSystemReady])
@@ -642,8 +615,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didCreateStopWatch:(id)watch source:(id)source
@@ -791,23 +762,21 @@ LABEL_8:
 
 void __39__MTStopwatchServer_testStopwatchWrite__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ recieved stopwatch write error: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ recieved stopwatch write error: %{public}@", &v4, 0x16u);
 }
 
 - (void)_systemNotReadyError
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ System isn't ready...", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@ System isn't ready...", &v2, 0xCu);
 }
 
 @end

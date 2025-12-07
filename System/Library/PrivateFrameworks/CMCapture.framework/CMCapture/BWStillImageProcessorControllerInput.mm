@@ -45,9 +45,9 @@
 - (BOOL)isMaster
 {
   portType = [(BWStillImageCaptureStreamSettings *)self->_captureStreamSettings portType];
-  masterPortType = [(BWStillImageCaptureSettings *)[(BWStillImageSettings *)self->_settings captureSettings] masterPortType];
+  [(BWStillImageCaptureSettings *)[(BWStillImageSettings *)self->_settings captureSettings] masterPortType];
 
-  return [(NSString *)portType isEqualToString:masterPortType];
+  return objc_msgSend_isEqualToString_(portType);
 }
 
 - (id)outputSampleBufferRouterForBufferType:(unint64_t)type

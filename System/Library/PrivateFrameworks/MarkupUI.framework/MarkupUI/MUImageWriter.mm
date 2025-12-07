@@ -88,12 +88,12 @@ LABEL_10:
     v18 = @"model";
   }
 
-  v88 = v17;
+  v89 = v17;
   name = v18;
   modelController = [controllerCopy modelController];
   pageModelControllers = [modelController pageModelControllers];
 
-  v91 = pageModelControllers;
+  v92 = pageModelControllers;
   firstObject = [pageModelControllers firstObject];
   annotations = [firstObject annotations];
   v21 = +[MUImageWriter outputTypesSupportingHDR];
@@ -135,8 +135,8 @@ LABEL_10:
     goto LABEL_93;
   }
 
-  v81 = v30;
-  v79 = privateMetadataCopy;
+  v82 = v30;
+  v80 = privateMetadataCopy;
   if ([(_MUBaseImage *)v23 imageOptions])
   {
     muDeepMutableCopy = [(__CFDictionary *)[(_MUBaseImage *)v23 imageOptions] muDeepMutableCopy];
@@ -170,15 +170,15 @@ LABEL_10:
     CGImageMetadataRemoveTagWithPath(v36, 0, name);
   }
 
-  v82 = v36;
-  if ([v91 count] >= 2)
+  v83 = v36;
+  if ([v92 count] >= 2)
   {
     NSLog(&cfstr_Pagemodelcontr_0.isa, "[MUImageWriter writeUsingBaseImage:withAnnotationsFromController:asImageOfType:toConsumer:embedSourceImageAndAnnotationsAsMetadata:encryptPrivateMetadata:error:]");
   }
 
   typeCopy = v34;
   cf = CGImageDestinationCreateWithDataConsumer(consumer, v34, 1uLL, 0);
-  v38 = v82;
+  v38 = v83;
   if (cf)
   {
     if (!metadataCopy)
@@ -187,37 +187,38 @@ LABEL_54:
       modifiedImageDescription = [controllerCopy modifiedImageDescription];
       if (modifiedImageDescription)
       {
-        v92 = 0;
-        v95 = 0;
-        v96 = &v95;
-        v97 = 0x2020000000;
+        v93 = 0;
+        v96 = 0;
+        v97 = &v96;
+        v98 = 0x2020000000;
         v64 = getMAImageCaptioningSetCaptionIntoMetadataSymbolLoc_ptr;
-        v98 = getMAImageCaptioningSetCaptionIntoMetadataSymbolLoc_ptr;
+        v99 = getMAImageCaptioningSetCaptionIntoMetadataSymbolLoc_ptr;
         if (!getMAImageCaptioningSetCaptionIntoMetadataSymbolLoc_ptr)
         {
-          v94[0] = MEMORY[0x277D85DD0];
-          v94[1] = 3221225472;
-          v94[2] = __getMAImageCaptioningSetCaptionIntoMetadataSymbolLoc_block_invoke;
-          v94[3] = &unk_27986E268;
-          v94[4] = &v95;
-          __getMAImageCaptioningSetCaptionIntoMetadataSymbolLoc_block_invoke(v94);
-          v64 = v96[3];
+          v95[0] = MEMORY[0x277D85DD0];
+          v95[1] = 3221225472;
+          v95[2] = __getMAImageCaptioningSetCaptionIntoMetadataSymbolLoc_block_invoke;
+          v95[3] = &unk_27986E268;
+          v95[4] = &v96;
+          __getMAImageCaptioningSetCaptionIntoMetadataSymbolLoc_block_invoke(v95);
+          v64 = v97[3];
         }
 
-        _Block_object_dispose(&v95, 8);
+        _Block_object_dispose(&v96, 8);
         if (!v64)
         {
-          v73 = +[MUImageReader imageDescriptionFromSourceContent:];
-          _Block_object_dispose(&v95, 8);
-          _Unwind_Resume(v73);
+          +[MUImageReader imageDescriptionFromSourceContent:];
+          v74 = v73;
+          _Block_object_dispose(&v96, 8);
+          _Unwind_Resume(v74);
         }
 
-        if ((v64(v38, modifiedImageDescription, &v92) & 1) == 0)
+        if ((v64(v38, modifiedImageDescription, &v93) & 1) == 0)
         {
-          if (v92)
+          if (v93)
           {
-            v65 = CFErrorCopyDescription(v92);
-            CFRelease(v92);
+            v65 = CFErrorCopyDescription(v93);
+            CFRelease(v93);
           }
 
           else
@@ -232,7 +233,7 @@ LABEL_54:
 
           else
           {
-            NSLog(&cfstr_SErrorSettingI.isa, "[MUImageWriter writeUsingBaseImage:withAnnotationsFromController:asImageOfType:toConsumer:embedSourceImageAndAnnotationsAsMetadata:encryptPrivateMetadata:error:]", v74);
+            NSLog(&cfstr_SErrorSettingI.isa, "[MUImageWriter writeUsingBaseImage:withAnnotationsFromController:asImageOfType:toConsumer:embedSourceImageAndAnnotationsAsMetadata:encryptPrivateMetadata:error:]", v75);
           }
         }
       }
@@ -248,7 +249,7 @@ LABEL_54:
         v67 = 0;
       }
 
-      if (v81 && (v68 = [(MUImageWriter *)self _renderImageForBaseImage:v23 controller:controllerCopy wantsHDR:1 opaque:v66]) != 0)
+      if (v82 && (v68 = [(MUImageWriter *)self _renderImageForBaseImage:v23 controller:controllerCopy wantsHDR:1 opaque:v66]) != 0)
       {
         v69 = v68;
         [(MUImageWriter *)self addGainMapImageToImageDestination:cf sdrImage:v67 hdrImage:v68 imageMetadata:v38 imageOptions:options];
@@ -287,27 +288,27 @@ LABEL_54:
       goto LABEL_85;
     }
 
-    v77 = imageCopy;
+    v78 = imageCopy;
     context = objc_autoreleasePoolPush();
-    v39 = [(MUImageWriter *)self encodedModelFromAnnotationsController:controllerCopy encrypt:v79];
+    v39 = [(MUImageWriter *)self encodedModelFromAnnotationsController:controllerCopy encrypt:v80];
     v40 = [v39 base64EncodedStringWithOptions:0];
     v41 = CGImageMetadataTagCreate(kMetadataNamespaceAnnotationKit, kMetadataPrefixAnnotationKit, name, kCGImageMetadataTypeString, v40);
     if (v41)
     {
       v42 = v41;
       name2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", kMetadataPrefixAnnotationKit, name];
-      CGImageMetadataSetTagWithPath(v82, 0, name2, v42);
+      CGImageMetadataSetTagWithPath(v83, 0, name2, v42);
       CFRelease(v42);
     }
 
     objc_autoreleasePoolPop(context);
-    v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", kMetadataPrefixAnnotationKit, v88];
-    v45 = CGImageMetadataCopyTagWithPath(v82, 0, v44);
-    v38 = v82;
+    v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", kMetadataPrefixAnnotationKit, v89];
+    v45 = CGImageMetadataCopyTagWithPath(v83, 0, v44);
+    v38 = v83;
     if (v45)
     {
       CFRelease(v45);
-      imageCopy = v77;
+      imageCopy = v78;
       typeCopy = v34;
 LABEL_53:
 
@@ -316,18 +317,18 @@ LABEL_53:
 
     data = [MEMORY[0x277CBEB28] data];
     v47 = data;
-    imageCopy = v77;
+    imageCopy = v78;
     typeCopy = v34;
     if (imageSourceRef)
     {
       Type = CGImageSourceGetType(imageSourceRef);
       v49 = CGImageDestinationCreateWithData(v47, Type, 1uLL, 0);
-      v50 = v79;
+      v50 = v80;
       if (v49)
       {
         v51 = v49;
-        v94[0] = 0;
-        if (CGImageDestinationCopyImageSource(v49, imageSourceRef, 0, v94))
+        v95[0] = 0;
+        if (CGImageDestinationCopyImageSource(v49, imageSourceRef, 0, v95))
         {
           CFRelease(v51);
 LABEL_42:
@@ -346,27 +347,27 @@ LABEL_42:
           if (v57)
           {
             v58 = [(__CFData *)v57 base64EncodedStringWithOptions:0];
-            v80 = v55;
+            v81 = v55;
             v59 = v47;
-            v60 = CGImageMetadataTagCreate(kMetadataNamespaceAnnotationKit, kMetadataPrefixAnnotationKit, v88, kCGImageMetadataTypeString, v58);
-            v38 = v82;
-            v61 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", kMetadataPrefixAnnotationKit, v88];
+            v60 = CGImageMetadataTagCreate(kMetadataNamespaceAnnotationKit, kMetadataPrefixAnnotationKit, v89, kCGImageMetadataTypeString, v58);
+            v38 = v83;
+            v61 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", kMetadataPrefixAnnotationKit, v89];
 
-            CGImageMetadataSetTagWithPath(v82, 0, v61, v60);
+            CGImageMetadataSetTagWithPath(v83, 0, v61, v60);
             v62 = v60;
-            imageCopy = v77;
+            imageCopy = v78;
             CFRelease(v62);
 
             v44 = v61;
             v47 = v59;
-            v55 = v80;
+            v55 = v81;
           }
 
           objc_autoreleasePoolPop(v55);
           goto LABEL_52;
         }
 
-        NSLog(&cfstr_Cgimagedestina.isa, v94[0]);
+        NSLog(&cfstr_Cgimagedestina.isa, v95[0]);
         CFRelease(v51);
       }
 
@@ -382,7 +383,7 @@ LABEL_52:
       goto LABEL_53;
     }
 
-    v50 = v79;
+    v50 = v80;
     contexta = data;
     if (hdrImage)
     {

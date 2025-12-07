@@ -28,7 +28,7 @@
 
 void __53__RadioTermsCheckRequest_startWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 stringForBagKey:@"terms-check"];
   if ([v4 length])
@@ -46,7 +46,7 @@ void __53__RadioTermsCheckRequest_startWithCompletionHandler___block_invoke(uint
   {
     v7 = [v5 absoluteString];
     *buf = 138412290;
-    v28 = v7;
+    v27 = v7;
     _os_log_impl(&dword_261792000, v6, OS_LOG_TYPE_INFO, "[RadioTermsCheckRequest] Terms check URL: %@", buf, 0xCu);
   }
 
@@ -54,15 +54,15 @@ void __53__RadioTermsCheckRequest_startWithCompletionHandler___block_invoke(uint
   v9 = MEMORY[0x277CCAAA0];
   if (*(*(a1 + 32) + 80))
   {
-    v25[0] = @"accepted";
+    v24[0] = @"accepted";
     v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:?];
-    v25[1] = @"context";
-    v26[0] = v10;
-    v26[1] = @"radio";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
-    v24 = 0;
-    v12 = [v9 dataWithJSONObject:v11 options:0 error:&v24];
-    v13 = v24;
+    v24[1] = @"context";
+    v25[0] = v10;
+    v25[1] = @"radio";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v23 = 0;
+    v12 = [v9 dataWithJSONObject:v11 options:0 error:&v23];
+    v13 = v23;
 
     if (v12)
     {
@@ -75,7 +75,7 @@ void __53__RadioTermsCheckRequest_startWithCompletionHandler___block_invoke(uint
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v28 = v13;
+        v27 = v13;
         _os_log_impl(&dword_261792000, v14, OS_LOG_TYPE_INFO, "[RadioTermsCheckRequest] Error: Unable to serialize JSON body data (%@)", buf, 0xCu);
       }
     }
@@ -95,20 +95,18 @@ void __53__RadioTermsCheckRequest_startWithCompletionHandler___block_invoke(uint
 
   v19 = *(a1 + 32);
   v20 = *(v19 + 72);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __53__RadioTermsCheckRequest_startWithCompletionHandler___block_invoke_21;
-  v22[3] = &unk_279AEAED8;
-  v22[4] = v19;
-  v23 = *(a1 + 48);
-  [v20 startWithConnectionResponseBlock:v22];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __53__RadioTermsCheckRequest_startWithCompletionHandler___block_invoke_21;
+  v21[3] = &unk_279AEAED8;
+  v21[4] = v19;
+  v22 = *(a1 + 48);
+  [v20 startWithConnectionResponseBlock:v21];
 }
 
 void __53__RadioTermsCheckRequest_startWithCompletionHandler___block_invoke_21(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -128,7 +126,7 @@ void __53__RadioTermsCheckRequest_startWithCompletionHandler___block_invoke_21(u
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v41 = v8;
+    v40 = v8;
     _os_log_impl(&dword_261792000, v11, OS_LOG_TYPE_INFO, "[RadioTermsCheckRequest] Status code: %lli", buf, 0xCu);
   }
 
@@ -151,9 +149,9 @@ void __53__RadioTermsCheckRequest_startWithCompletionHandler___block_invoke_21(u
       goto LABEL_44;
     }
 
-    v39 = 0;
-    v15 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v14 options:0 error:&v39];
-    v16 = v39;
+    v38 = 0;
+    v15 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v14 options:0 error:&v38];
+    v16 = v38;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -173,7 +171,7 @@ LABEL_44:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v41 = v16;
+        v40 = v16;
         _os_log_impl(&dword_261792000, v23, OS_LOG_TYPE_INFO, "[RadioTermsCheckRequest] Error: Unable to unserialize JSON body data (%@)", buf, 0xCu);
       }
 
@@ -189,12 +187,12 @@ LABEL_42:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v41 = v15;
+      v40 = v15;
       _os_log_impl(&dword_261792000, v17, OS_LOG_TYPE_INFO, "[RadioTermsCheckRequest] Terms response: %@", buf, 0xCu);
     }
 
     v18 = [v15 objectForKey:@"status"];
-    v32 = v18;
+    v31 = v18;
     if (objc_opt_respondsToSelector())
     {
       if (![v18 integerValue])
@@ -210,10 +208,10 @@ LABEL_42:
           v22 = 0;
         }
 
-        v28 = [v15 objectForKey:@"isCurrent"];
+        v27 = [v15 objectForKey:@"isCurrent"];
         if (objc_opt_respondsToSelector())
         {
-          v21 = [v28 BOOLValue];
+          v21 = [v27 BOOLValue];
         }
 
         else
@@ -221,13 +219,13 @@ LABEL_42:
           v21 = 0;
         }
 
-        v31 = v28;
-        v29 = [v15 objectForKey:@"termsContentText"];
+        v30 = v27;
+        v28 = [v15 objectForKey:@"termsContentText"];
         objc_opt_class();
-        v30 = v29;
+        v29 = v28;
         if (objc_opt_isKindOfClass())
         {
-          v20 = [v29 copy];
+          v20 = [v28 copy];
         }
 
         else
@@ -255,7 +253,7 @@ LABEL_42:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v41 = v18;
+        v40 = v18;
         _os_log_impl(&dword_261792000, v19, OS_LOG_TYPE_INFO, "[RadioTermsCheckRequest] Error: Status object doesn't response to integerValue (%@)", buf, 0xCu);
       }
     }
@@ -265,7 +263,7 @@ LABEL_42:
     v22 = 0;
 LABEL_38:
 
-    v23 = v32;
+    v23 = v31;
     goto LABEL_42;
   }
 
@@ -273,7 +271,7 @@ LABEL_38:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v41 = v7;
+    v40 = v7;
     _os_log_impl(&dword_261792000, v12, OS_LOG_TYPE_ERROR, "Error: Unable to fetch terms (%@)", buf, 0xCu);
   }
 
@@ -316,16 +314,14 @@ LABEL_45:
   block[1] = 3221225472;
   block[2] = __53__RadioTermsCheckRequest_startWithCompletionHandler___block_invoke_44;
   block[3] = &unk_279AEADE8;
-  v36 = *(a1 + 40);
-  v37 = v22;
-  v38 = v21;
+  v35 = *(a1 + 40);
+  v36 = v22;
+  v37 = v21;
   v25 = *(a1 + 32);
-  v34 = v20;
-  v35 = v25;
+  v33 = v20;
+  v34 = v25;
   v26 = v20;
   dispatch_async(v24, block);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __53__RadioTermsCheckRequest_startWithCompletionHandler___block_invoke_44(uint64_t a1)

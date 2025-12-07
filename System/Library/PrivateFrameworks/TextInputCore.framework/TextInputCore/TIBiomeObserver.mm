@@ -6,7 +6,7 @@
 
 - (void)sessionDidEnd:(id)end aligned:(id)aligned
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   endCopy = end;
   endTime = [endCopy endTime];
 
@@ -49,12 +49,12 @@
         goto LABEL_9;
       }
 
-      v26 = MEMORY[0x277CCACA8];
+      v25 = MEMORY[0x277CCACA8];
       startTime4 = [endCopy startTime];
       endTime4 = [endCopy endTime];
-      v15 = [v26 stringWithFormat:@"%s Session startTime:%@ is later than endTime:%@", "-[TIBiomeObserver sessionDidEnd:aligned:]", startTime4, endTime4];
+      v15 = [v25 stringWithFormat:@"%s Session startTime:%@ is later than endTime:%@", "-[TIBiomeObserver sessionDidEnd:aligned:]", startTime4, endTime4];
       *buf = 138412290;
-      v28 = v15;
+      v27 = v15;
       _os_log_error_impl(&dword_22CA55000, inputSession, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
   }
@@ -69,12 +69,11 @@
 
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Session has nil endTime", "-[TIBiomeObserver sessionDidEnd:aligned:]"];
     *buf = 138412290;
-    v28 = v15;
+    v27 = v15;
     _os_log_error_impl(&dword_22CA55000, inputSession, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
 
 LABEL_9:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

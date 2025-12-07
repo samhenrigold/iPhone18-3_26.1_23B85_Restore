@@ -95,40 +95,40 @@ LABEL_15:
   width = size.width;
   v9 = size.width * scale;
   v10 = size.height * scale;
-  SRGB = _CUIColorSpaceGetSRGB();
-  v14 = CUICGBitmapContextCreate(v9, v10, 8uLL, 0, SRGB, 8194, v12, v13);
-  if (v14)
+  SRGB = _CUIColorSpaceGetSRGB(self, a2);
+  v12 = CUICGBitmapContextCreate(v9, v10, 8uLL, 0, SRGB, 0x2002u);
+  if (v12)
   {
-    v15 = v14;
-    CGContextScaleCTM(v14, scale, scale);
+    v13 = v12;
+    CGContextScaleCTM(v12, scale, scale);
     if ([(CUIShapeEffectStack *)self hasInnerGradient])
     {
       innerGlowCount = [(CUIShapeEffectStack *)self innerGlowCount];
       if (innerGlowCount)
       {
-        v17 = 0;
+        v15 = 0;
         do
         {
-          components.a = *([(CUIShapeEffectStack *)self innerGradient:v28]+ v17 + 4);
-          components.b = *([(CUIShapeEffectStack *)self innerGradient]+ v17 + 8);
-          components.c = *([(CUIShapeEffectStack *)self innerGradient]+ v17 + 12);
-          components.d = *([(CUIShapeEffectStack *)self innerGradient]+ v17 + 28);
-          components.tx = *([(CUIShapeEffectStack *)self innerGradient]+ v17 + 16);
-          components.ty = *([(CUIShapeEffectStack *)self innerGradient]+ v17 + 20);
-          v32 = *([(CUIShapeEffectStack *)self innerGradient]+ v17 + 24);
-          v33 = *([(CUIShapeEffectStack *)self innerGradient]+ v17 + 28);
-          v18 = CGGradientCreateWithColorComponents(SRGB, &components.a, 0, 2uLL);
-          v29 = 0u;
-          v30 = 0u;
+          components.a = *([(CUIShapeEffectStack *)self innerGradient:v26]+ v15 + 4);
+          components.b = *([(CUIShapeEffectStack *)self innerGradient]+ v15 + 8);
+          components.c = *([(CUIShapeEffectStack *)self innerGradient]+ v15 + 12);
+          components.d = *([(CUIShapeEffectStack *)self innerGradient]+ v15 + 28);
+          components.tx = *([(CUIShapeEffectStack *)self innerGradient]+ v15 + 16);
+          components.ty = *([(CUIShapeEffectStack *)self innerGradient]+ v15 + 20);
+          v30 = *([(CUIShapeEffectStack *)self innerGradient]+ v15 + 24);
+          v31 = *([(CUIShapeEffectStack *)self innerGradient]+ v15 + 28);
+          v16 = CGGradientCreateWithColorComponents(SRGB, &components.a, 0, 2uLL);
+          v27 = 0u;
           v28 = 0u;
+          v26 = 0u;
           CGContextGetBaseCTM();
-          v34.x = 0.0;
-          v35.x = 0.0;
-          v35.y = 0.0;
-          v34.y = height;
-          CGContextDrawLinearGradient(v15, v18, v34, v35, 3u);
-          CGGradientRelease(v18);
-          v17 += 32;
+          v32.x = 0.0;
+          v33.x = 0.0;
+          v33.y = 0.0;
+          v32.y = height;
+          CGContextDrawLinearGradient(v13, v16, v32, v33, 3u);
+          CGGradientRelease(v16);
+          v15 += 32;
           --innerGlowCount;
         }
 
@@ -136,59 +136,59 @@ LABEL_15:
       }
     }
 
-    if ([(CUIShapeEffectStack *)self hasColorOverlay:v28])
+    if ([(CUIShapeEffectStack *)self hasColorOverlay:v26])
     {
       colorOverlayCount = [(CUIShapeEffectStack *)self colorOverlayCount];
       if (colorOverlayCount)
       {
-        v22 = colorOverlayCount;
-        v23 = 0;
+        v20 = colorOverlayCount;
+        v21 = 0;
         do
         {
-          components.a = *([(CUIShapeEffectStack *)self colorOverlay]+ v23 + 4);
-          components.b = *([(CUIShapeEffectStack *)self colorOverlay]+ v23 + 8);
-          components.c = *([(CUIShapeEffectStack *)self colorOverlay]+ v23 + 12);
-          components.d = *([(CUIShapeEffectStack *)self colorOverlay]+ v23 + 16);
-          CGContextSetFillColorSpace(v15, SRGB);
-          CGContextSetFillColor(v15, &components.a);
-          v36.origin.x = 0.0;
-          v36.origin.y = 0.0;
-          v36.size.width = width;
-          v36.size.height = height;
-          CGContextFillRect(v15, v36);
-          v23 += 24;
-          --v22;
+          components.a = *([(CUIShapeEffectStack *)self colorOverlay]+ v21 + 4);
+          components.b = *([(CUIShapeEffectStack *)self colorOverlay]+ v21 + 8);
+          components.c = *([(CUIShapeEffectStack *)self colorOverlay]+ v21 + 12);
+          components.d = *([(CUIShapeEffectStack *)self colorOverlay]+ v21 + 16);
+          CGContextSetFillColorSpace(v13, SRGB);
+          CGContextSetFillColor(v13, &components.a);
+          v34.origin.x = 0.0;
+          v34.origin.y = 0.0;
+          v34.size.width = width;
+          v34.size.height = height;
+          CGContextFillRect(v13, v34);
+          v21 += 24;
+          --v20;
         }
 
-        while (v22);
+        while (v20);
       }
     }
 
-    Image = CGBitmapContextCreateImage(v15);
+    Image = CGBitmapContextCreateImage(v13);
     memset(&components, 0, sizeof(components));
     CGAffineTransformMakeScale(&components, 1.0 / scale, 1.0 / scale);
-    *(&v28 + 1) = *&components.b;
-    v29 = *&components.c;
-    v30 = *&components.tx;
-    v25 = CGPatternCreateWithImage2();
+    *(&v26 + 1) = *&components.b;
+    v27 = *&components.c;
+    v28 = *&components.tx;
+    v23 = CGPatternCreateWithImage2();
     Pattern = CGColorSpaceCreatePattern(0);
-    *&v28 = 0x3FF0000000000000;
-    v20 = CGColorCreateWithPattern(Pattern, v25, &v28);
+    *&v26 = 0x3FF0000000000000;
+    v18 = CGColorCreateWithPattern(Pattern, v23, &v26);
     CGColorSpaceRelease(Pattern);
-    CGPatternRelease(v25);
+    CGPatternRelease(v23);
     CGImageRelease(Image);
-    CGContextRelease(v15);
+    CGContextRelease(v13);
   }
 
   else
   {
     DeviceGray = CGColorSpaceCreateDeviceGray();
     *&components.a = xmmword_18E021E70;
-    v20 = CGColorCreate(DeviceGray, &components.a);
+    v18 = CGColorCreate(DeviceGray, &components.a);
     CGColorSpaceRelease(DeviceGray);
   }
 
-  return v20;
+  return v18;
 }
 
 - (CGContext)newGlyphMaskContextForBounds:(CGRect)bounds fromContext:(CGContext *)context withScale:(double)scale
@@ -211,8 +211,8 @@ LABEL_15:
   v11 = v33.origin.y;
   v12 = v33.size.width;
   v13 = v33.size.height;
-  SRGB = _CUIColorSpaceGetSRGB();
-  v17 = CUICGBitmapContextCreate(v12, v13, 8uLL, vcvtd_n_u64_f64(v12, 2uLL), SRGB, 8194, v15, v16);
+  SRGB = _CUIColorSpaceGetSRGB(v14, v15);
+  v17 = CUICGBitmapContextCreate(v12, v13, 8uLL, vcvtd_n_u64_f64(v12, 2uLL), SRGB, 0x2002u);
   memset(&v27, 0, sizeof(v27));
   CGAffineTransformMakeTranslation(&v27, -v10, -v11);
   t1 = v28;
@@ -317,7 +317,7 @@ LABEL_15:
 
 - (void)_drawShadow:(id *)shadow forGlyphs:(const unsigned __int16 *)glyphs inContext:(CGContext *)context usingFont:(__CTFont *)font withAdvances:(const CGSize *)advances count:(unint64_t)count
 {
-  SRGB = _CUIColorSpaceGetSRGB();
+  SRGB = _CUIColorSpaceGetSRGB(self, a2);
   v12 = vcvtq_f64_f32(*&shadow->var0);
   v13 = vcvtq_f64_f32(*&shadow->var2);
   *components = v12;
@@ -511,7 +511,7 @@ LABEL_15:
 
 - (void)_drawShadow:(id *)shadow forGlyphs:(const unsigned __int16 *)glyphs inContext:(CGContext *)context usingFont:(__CTFont *)font atPositions:(const CGPoint *)positions count:(unint64_t)count
 {
-  SRGB = _CUIColorSpaceGetSRGB();
+  SRGB = _CUIColorSpaceGetSRGB(self, a2);
   v12 = vcvtq_f64_f32(*&shadow->var2);
   *components = vcvtq_f64_f32(*&shadow->var0);
   v26 = v12;
@@ -768,7 +768,7 @@ LABEL_9:
 
 - (void)_drawShadow:(id *)shadow usingQuartz:(id)quartz inContext:(CGContext *)context
 {
-  SRGB = _CUIColorSpaceGetSRGB();
+  SRGB = _CUIColorSpaceGetSRGB(self, a2);
   *components = vcvtq_f64_f32(*&shadow->var0);
   var2 = shadow->var2;
   v15 = 0u;

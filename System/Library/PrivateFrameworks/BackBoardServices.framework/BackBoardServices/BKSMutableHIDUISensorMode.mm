@@ -12,9 +12,9 @@
 
 - (id)copy
 {
-  v3 = [BKSHIDUISensorMode alloc];
+  v2 = [BKSHIDUISensorMode alloc];
 
-  return [(BKSHIDUISensorMode *)v3 _initCopyFrom:self];
+  return [(BKSHIDUISensorMode *)v2 _initCopyFrom:?];
 }
 
 - (void)_setMultitouchSettingKey:(id)key enabled:(BOOL)enabled
@@ -24,14 +24,15 @@
   multitouchHostStateKeys = self->super._multitouchHostStateKeys;
   if (enabledCopy)
   {
+    v11 = keyCopy;
     if (multitouchHostStateKeys)
     {
-      [(NSSet *)multitouchHostStateKeys setByAddingObject:keyCopy];
+      [(NSSet *)multitouchHostStateKeys setByAddingObject:?];
     }
 
     else
     {
-      [MEMORY[0x1E695DFD8] setWithObject:keyCopy];
+      [MEMORY[0x1E695DFD8] setWithObject:?];
     }
     v10 = ;
     goto LABEL_10;
@@ -40,7 +41,9 @@
   if (multitouchHostStateKeys)
   {
     v11 = keyCopy;
-    if ([(NSSet *)multitouchHostStateKeys containsObject:keyCopy])
+    multitouchHostStateKeys = [(NSSet *)multitouchHostStateKeys containsObject:?];
+    keyCopy = v11;
+    if (multitouchHostStateKeys)
     {
       v8 = [(NSSet *)self->super._multitouchHostStateKeys count];
       v9 = self->super._multitouchHostStateKeys;
@@ -50,11 +53,12 @@
 LABEL_11:
         self->super._multitouchHostStateKeys = v10;
 
+        keyCopy = v11;
         goto LABEL_12;
       }
 
       v10 = [(NSSet *)v9 mutableCopy];
-      [(NSSet *)v10 removeObject:v11];
+      [(NSSet *)v10 removeObject:?];
 LABEL_10:
       v9 = self->super._multitouchHostStateKeys;
       goto LABEL_11;
@@ -63,7 +67,7 @@ LABEL_10:
 
 LABEL_12:
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](multitouchHostStateKeys, keyCopy);
 }
 
 - (void)setProximityHostStateKeys:(id)keys
@@ -74,7 +78,7 @@ LABEL_12:
     proximityHostStateKeys = self->super._proximityHostStateKeys;
     self->super._proximityHostStateKeys = v5;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v5, proximityHostStateKeys);
   }
 }
 
@@ -82,12 +86,13 @@ LABEL_12:
 {
   v26 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
+  v6 = keysCopy;
   if (self->super._multitouchHostStateKeys != keysCopy)
   {
     v13 = keysCopy;
-    if (![(BKSHIDUISensorMode *)self _settingKeysAllowed:keysCopy])
+    if (![(BKSHIDUISensorMode *)self _settingKeysAllowed:?])
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[self _settingKeysAllowed:multitouchHostStateKeys]"];
+      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[self _settingKeysAllowed:multitouchHostStateKeys]"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         v10 = NSStringFromSelector(a2);
@@ -114,48 +119,48 @@ LABEL_12:
       JUMPOUT(0x1863B0280);
     }
 
-    v6 = [(NSSet *)v13 copy];
+    v7 = [(NSSet *)v13 copy];
     multitouchHostStateKeys = self->super._multitouchHostStateKeys;
-    self->super._multitouchHostStateKeys = v6;
+    self->super._multitouchHostStateKeys = v7;
+
+    v6 = v13;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](keysCopy, v6);
 }
 
 - (void)setReason:(id)reason
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   v5 = MEMORY[0x1E696AEC0];
   v6 = objc_opt_class();
   if (!reasonCopy)
   {
-    v10 = NSStringFromClass(v6);
-    v11 = [v5 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"reason", v10];
+    v9 = NSStringFromClass(v6);
+    v10 = [v5 stringWithFormat:@"reason", v9];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(a2);
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v11 = NSStringFromSelector(a2);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138544642;
-      v26 = v12;
-      v27 = 2114;
-      v28 = v14;
-      v29 = 2048;
+      v25 = v11;
+      v26 = 2114;
+      v27 = v13;
+      v28 = 2048;
       selfCopy2 = self;
-      v31 = 2114;
-      v32 = @"BKSHIDUISensorMode.m";
-      v33 = 1024;
-      v34 = 634;
-      v35 = 2114;
-      v36 = v11;
+      v30 = 2114;
+      v31 = @"BKSHIDUISensorMode.m";
+      v32 = 1024;
+      v33 = 634;
+      v34 = 2114;
+      v35 = v10;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v11 UTF8String];
+    [v10 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B047CLL);
@@ -163,39 +168,39 @@ LABEL_12:
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v15 = MEMORY[0x1E696AEC0];
+    v14 = MEMORY[0x1E696AEC0];
     classForCoder = [reasonCopy classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v17 = NSStringFromClass(classForCoder);
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
-    v20 = [v15 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"reason", v17, v19];
+    v16 = NSStringFromClass(classForCoder);
+    v17 = objc_opt_class();
+    v18 = NSStringFromClass(v17);
+    v19 = [v14 stringWithFormat:@"reason", v16, v18];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v21 = NSStringFromSelector(a2);
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v20 = NSStringFromSelector(a2);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
       *buf = 138544642;
-      v26 = v21;
-      v27 = 2114;
-      v28 = v23;
-      v29 = 2048;
+      v25 = v20;
+      v26 = 2114;
+      v27 = v22;
+      v28 = 2048;
       selfCopy2 = self;
-      v31 = 2114;
-      v32 = @"BKSHIDUISensorMode.m";
-      v33 = 1024;
-      v34 = 634;
-      v35 = 2114;
-      v36 = v20;
+      v30 = 2114;
+      v31 = @"BKSHIDUISensorMode.m";
+      v32 = 1024;
+      v33 = 634;
+      v34 = 2114;
+      v35 = v19;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v20 UTF8String];
+    [v19 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B05B4);
@@ -204,15 +209,13 @@ LABEL_12:
   v7 = [reasonCopy copy];
   reason = self->super._reason;
   self->super._reason = v7;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [BKSHIDUISensorMode alloc];
+  v3 = [BKSHIDUISensorMode alloc];
 
-  return [(BKSHIDUISensorMode *)v4 _initCopyFrom:self];
+  return [(BKSHIDUISensorMode *)v3 _initCopyFrom:?];
 }
 
 - (BKSMutableHIDUISensorMode)initWithReason:(id)reason
@@ -224,7 +227,7 @@ LABEL_12:
   v6 = _init;
   if (_init)
   {
-    [(BKSMutableHIDUISensorMode *)_init setReason:reasonCopy];
+    [(BKSMutableHIDUISensorMode *)_init setReason:?];
   }
 
   return v6;

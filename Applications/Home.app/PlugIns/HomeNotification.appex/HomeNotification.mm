@@ -860,16 +860,16 @@ id HomeNotificationActionOperationErrorWithContext(void *a1, void *a2)
   return v7;
 }
 
-void sub_100007B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100007B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100007D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100007D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1051,15 +1051,15 @@ id sub_10000891C(uint64_t a1, void *a2)
     sub_10000CA00(v3, v4);
   }
 
-  v5 = HomeNotificationBundle();
-  v6 = [v5 localizedStringForKey:@"HONActionErrorCameraNotResponding" value:&stru_100019130 table:@"HONLocalizable"];
-  v7 = HomeNotificationActionOperationErrorWithContext(v6, v3);
-  [*(a1 + 32) setError:v7];
+  v6 = HomeNotificationBundle(v5);
+  v7 = [v6 localizedStringForKey:@"HONActionErrorCameraNotResponding" value:&stru_100019130 table:@"HONLocalizable"];
+  v8 = HomeNotificationActionOperationErrorWithContext(v7, v3);
+  [*(a1 + 32) setError:v8];
 
-  v8 = [*(a1 + 32) error];
-  v9 = [NAFuture futureWithError:v8];
+  v9 = [*(a1 + 32) error];
+  v10 = [NAFuture futureWithError:v9];
 
-  return v9;
+  return v10;
 }
 
 BOOL sub_100008BBC(id a1, HFItem *a2)
@@ -1084,7 +1084,7 @@ id sub_100008C08(uint64_t a1)
   }
 
   v3 = v2;
-  v4 = HomeNotificationBundle();
+  v4 = HomeNotificationBundle(v3);
   v5 = [*(a1 + 40) count];
   v6 = v3;
   if (v5 >= 2)
@@ -1107,7 +1107,7 @@ id sub_100008C08(uint64_t a1)
 id sub_100008D08(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = HomeNotificationBundle();
+  v4 = HomeNotificationBundle(v3);
   if ([*(a1 + 32) count] <= 1)
   {
     v6 = [v4 localizedStringForKey:@"HONActionErrorLightNotResponding" value:&stru_100019130 table:@"HONLocalizable"];
@@ -1208,52 +1208,54 @@ BOOL sub_100009334(id a1, HFItem *a2)
 
 NAFuture *sub_1000093E8(id *a1)
 {
-  if ([a1[4] count] && objc_msgSend(a1[5], "count"))
+  if ([a1[4] count] && (v2 = objc_msgSend(a1[5], "count")) != 0)
   {
-    v2 = HomeNotificationBundle();
-    v3 = [a1[4] count];
-    if (v3 >= 2)
+    v3 = HomeNotificationBundle(v2);
+    v4 = [a1[4] count];
+    if (v4 >= 2)
     {
-      v4 = @"HONActionLockUnlockedAndSecuritySystemDisarmed";
+      v5 = @"HONActionLockUnlockedAndSecuritySystemDisarmed";
 LABEL_8:
-      v5 = [(__CFString *)v4 stringByAppendingString:@"Plural"];
+      v7 = [(__CFString *)v5 stringByAppendingString:@"Plural"];
       goto LABEL_13;
     }
 
-    v5 = @"HONActionLockUnlockedAndSecuritySystemDisarmed";
+    v7 = @"HONActionLockUnlockedAndSecuritySystemDisarmed";
   }
 
   else
   {
-    if (![a1[4] count])
+    v6 = [a1[4] count];
+    if (!v6)
     {
-      if (![a1[5] count])
+      v8 = [a1[5] count];
+      if (!v8)
       {
         goto LABEL_16;
       }
 
-      v2 = HomeNotificationBundle();
-      v5 = [v2 localizedStringForKey:@"HONActionSecuritySystemDisarmed" value:&stru_100019130 table:@"HONLocalizable"];
-      [a1[6] setResultString:v5];
+      v3 = HomeNotificationBundle(v8);
+      v7 = [v3 localizedStringForKey:@"HONActionSecuritySystemDisarmed" value:&stru_100019130 table:@"HONLocalizable"];
+      [a1[6] setResultString:v7];
       goto LABEL_14;
     }
 
-    v2 = HomeNotificationBundle();
-    v3 = [a1[4] count];
-    if (v3 >= 2)
+    v3 = HomeNotificationBundle(v6);
+    v4 = [a1[4] count];
+    if (v4 >= 2)
     {
-      v4 = @"HONActionLockUnlocked";
+      v5 = @"HONActionLockUnlocked";
       goto LABEL_8;
     }
 
-    v5 = @"HONActionLockUnlocked";
+    v7 = @"HONActionLockUnlocked";
   }
 
 LABEL_13:
-  v6 = [v2 localizedStringForKey:v5 value:&stru_100019130 table:@"HONLocalizable"];
-  [a1[6] setResultString:v6];
+  v9 = [v3 localizedStringForKey:v7 value:&stru_100019130 table:@"HONLocalizable"];
+  [a1[6] setResultString:v9];
 
-  if (v3 > 1)
+  if (v4 > 1)
   {
 LABEL_14:
   }
@@ -1267,69 +1269,75 @@ id sub_100009564(id *a1, void *a2)
 {
   v3 = a1[4];
   v4 = a2;
-  if ([v3 count] && objc_msgSend(a1[5], "count"))
+  if ([v3 count])
   {
-    v5 = HomeNotificationBundle();
-    v6 = [a1[4] count];
-    v7 = &v6[[a1[5] count]];
-    if (v7 < 2)
+    v5 = [a1[5] count];
+    if (v5)
     {
-      v8 = @"HONActionErrorAccessoryNotResponding";
+      v6 = HomeNotificationBundle(v5);
+      v7 = [a1[4] count];
+      v8 = &v7[[a1[5] count]];
+      if (v8 < 2)
+      {
+        v9 = @"HONActionErrorAccessoryNotResponding";
+      }
+
+      else
+      {
+        v9 = [@"HONActionErrorAccessoryNotResponding" stringByAppendingString:@"Plural"];
+      }
+
+      v14 = [v6 localizedStringForKey:v9 value:&stru_100019130 table:@"HONLocalizable"];
+      if (v8 >= 2)
+      {
+      }
+
+      goto LABEL_16;
+    }
+  }
+
+  v10 = [a1[4] count];
+  if (v10)
+  {
+    v6 = HomeNotificationBundle(v10);
+    v11 = [a1[4] count];
+    if (v11 < 2)
+    {
+      v12 = @"HONActionErrorLockNotResponding";
     }
 
     else
     {
-      v8 = [@"HONActionErrorAccessoryNotResponding" stringByAppendingString:@"Plural"];
+      v12 = [@"HONActionErrorLockNotResponding" stringByAppendingString:@"Plural"];
     }
 
-    v11 = [v5 localizedStringForKey:v8 value:&stru_100019130 table:@"HONLocalizable"];
-    if (v7 >= 2)
+    v14 = [v6 localizedStringForKey:v12 value:&stru_100019130 table:@"HONLocalizable"];
+    if (v11 >= 2)
     {
     }
 
     goto LABEL_16;
   }
 
-  if ([a1[4] count])
+  v13 = [a1[5] count];
+  if (v13)
   {
-    v5 = HomeNotificationBundle();
-    v9 = [a1[4] count];
-    if (v9 < 2)
-    {
-      v10 = @"HONActionErrorLockNotResponding";
-    }
-
-    else
-    {
-      v10 = [@"HONActionErrorLockNotResponding" stringByAppendingString:@"Plural"];
-    }
-
-    v11 = [v5 localizedStringForKey:v10 value:&stru_100019130 table:@"HONLocalizable"];
-    if (v9 >= 2)
-    {
-    }
-
-    goto LABEL_16;
-  }
-
-  if ([a1[5] count])
-  {
-    v5 = HomeNotificationBundle();
-    v11 = [v5 localizedStringForKey:@"HONActionErrorSecuritySystemNotResponding" value:&stru_100019130 table:@"HONLocalizable"];
+    v6 = HomeNotificationBundle(v13);
+    v14 = [v6 localizedStringForKey:@"HONActionErrorSecuritySystemNotResponding" value:&stru_100019130 table:@"HONLocalizable"];
 LABEL_16:
 
     goto LABEL_17;
   }
 
   NSLog(@"Action failed despite not writing any values!");
-  v11 = 0;
+  v14 = 0;
 LABEL_17:
-  v12 = HomeNotificationActionOperationErrorWithContext(v11, v4);
-  [a1[6] setError:v12];
+  v15 = HomeNotificationActionOperationErrorWithContext(v14, v4);
+  [a1[6] setError:v15];
 
-  v13 = [NAFuture futureWithError:v4];
+  v16 = [NAFuture futureWithError:v4];
 
-  return v13;
+  return v16;
 }
 
 id sub_100009900(uint64_t a1, void *a2)
@@ -1370,16 +1378,16 @@ void sub_10000A950(uint64_t a1)
   [WeakRetained _updateStatusText:v2 accessoryImage:v3 animated:*(a1 + 48)];
 }
 
-id sub_10000B33C()
+id sub_10000B33C(uint64_t a1)
 {
   if (qword_10001EA00 != -1)
   {
     sub_10000CA78();
   }
 
-  v1 = qword_10001EA08;
+  v2 = qword_10001EA08;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000B380(id a1)

@@ -56,16 +56,16 @@
 
 - (id)hf_errorWithOperationType:()HFErrorHandlerAdditions failedItemName:
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = v6;
   if (v6)
   {
-    v15 = @"HFErrorHandlerOptionFailedItemName";
-    v16[0] = v6;
+    v14 = @"HFErrorHandlerOptionFailedItemName";
+    v15[0] = v6;
     v8 = MEMORY[0x277CBEAC0];
     v9 = a3;
-    v10 = [v8 dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v10 = [v8 dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v11 = [self hf_errorWithOperationType:v9 options:v10];
   }
 
@@ -74,8 +74,6 @@
     v12 = a3;
     v11 = [self hf_errorWithOperationType:v12 options:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

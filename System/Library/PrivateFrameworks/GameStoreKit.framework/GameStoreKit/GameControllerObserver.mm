@@ -55,14 +55,14 @@ LABEL_3:
   {
 LABEL_4:
     type metadata accessor for NSKeyValueChangeKey(0);
-    sub_24F733018(&qword_27F2126D0, type metadata accessor for NSKeyValueChangeKey);
+    sub_24F733018(&qword_27F2126D0, type metadata accessor for NSKeyValueChangeKey, &unk_24F93906C);
     sub_24F92AE38();
   }
 
 LABEL_7:
   _s12GameStoreKit0A18ControllerObserverC12observeValue10forKeyPath2of6change7contextySSSg_ypSgSDySo05NSKeyg6ChangeI0aypGSgSvSgtF_0(v9, v11, v16);
 
-  sub_24E601704(v16, &qword_27F2129B0);
+  sub_24E601704(v16, &qword_27F2129B0, &unk_24F945320);
 }
 
 @end

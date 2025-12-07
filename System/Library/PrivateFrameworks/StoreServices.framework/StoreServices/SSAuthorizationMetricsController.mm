@@ -137,7 +137,7 @@ LABEL_13:
         [v6 setObject:@"authenticate" forKeyedSubscript:@"actionType"];
         [v7 setObject:@"invalidCredentials" forKeyedSubscript:@"reason"];
         v28 = SSMetricsDialogEventResultFailure;
-        goto LABEL_27;
+        goto LABEL_28;
       case 0x20uLL:
         v10 = SSMetricsDialogEventActionTypeCancelHomeButton;
         break;
@@ -147,7 +147,7 @@ LABEL_13:
 
     [v6 setObject:*v10 forKeyedSubscript:@"actionType"];
     v9 = SSMetricsDialogEventTargetIdCancel;
-    goto LABEL_28;
+    goto LABEL_29;
   }
 
   if (state != 1)
@@ -158,10 +158,10 @@ LABEL_13:
       {
         [v6 setObject:@"enterPassword" forKeyedSubscript:@"actionType"];
         v9 = SSMetricsDialogEventTargetIdEnterPassword;
-LABEL_28:
+LABEL_29:
         v11 = *v9;
         v12 = @"targetId";
-        goto LABEL_29;
+        goto LABEL_30;
       }
 
 LABEL_13:
@@ -174,16 +174,21 @@ LABEL_13:
       shouldLog = [v13 shouldLog];
       if ([v13 shouldLogToDisk])
       {
-        v15 = shouldLog | 2;
+        LODWORD(v15) = shouldLog | 2;
       }
 
       else
       {
-        v15 = shouldLog;
+        LODWORD(v15) = shouldLog;
       }
 
       oSLogObject = [v13 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v15 = v15;
+      }
+
+      else
       {
         v15 &= 2u;
       }
@@ -198,40 +203,38 @@ LABEL_13:
         v59 = v17;
         v60 = 2114;
         v61 = v20;
-        LODWORD(v57) = 22;
-        v55 = &v58;
-        v21 = _os_log_send_and_compose_impl();
+        v21 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Unknown match state: %{public}@", &v58, 22);
 
         v8 = 0x1E696A000;
         if (!v21)
         {
-LABEL_24:
+LABEL_25:
 
-          goto LABEL_30;
+          goto LABEL_31;
         }
 
-        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, &v58, v57}];
+        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
         free(v21);
         SSFileLog(v13, @"%@", v22, v23, v24, v25, v26, v27, oSLogObject);
       }
 
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
     [v6 setObject:@"authenticate" forKeyedSubscript:@"actionType"];
     v28 = SSMetricsDialogEventResultSuccess;
-LABEL_27:
+LABEL_28:
     [v7 setObject:*v28 forKeyedSubscript:@"result"];
     v9 = SSMetricsDialogEventTargetIdBiometrics;
-    goto LABEL_28;
+    goto LABEL_29;
   }
 
   [v6 setObject:@"error" forKeyedSubscript:@"reason"];
   v11 = @"failure";
   v12 = @"result";
-LABEL_29:
-  [v7 setObject:v11 forKeyedSubscript:v12];
 LABEL_30:
+  [v7 setObject:v11 forKeyedSubscript:v12];
+LABEL_31:
   v29 = +[SSDevice currentDevice];
   deviceBiometricStyle = [v29 deviceBiometricStyle];
 
@@ -240,20 +243,20 @@ LABEL_30:
     if (deviceBiometricStyle == 3)
     {
       v31 = @"faceId";
-LABEL_35:
+LABEL_36:
       [v7 setObject:v31 forKey:@"biometricType"];
       if (!lockoutCopy)
       {
-        goto LABEL_37;
+        goto LABEL_38;
       }
 
-      goto LABEL_36;
+      goto LABEL_37;
     }
 
     if (deviceBiometricStyle == 2)
     {
       v31 = @"touchId";
-      goto LABEL_35;
+      goto LABEL_36;
     }
 
     v40 = +[SSLogConfig sharediTunesStoreConfig];
@@ -265,24 +268,35 @@ LABEL_35:
     shouldLog2 = [v40 shouldLog];
     if ([v40 shouldLogToDisk])
     {
-      v45 = shouldLog2 | 2;
+      LODWORD(v48) = shouldLog2 | 2;
     }
 
     else
     {
-      v45 = shouldLog2;
+      LODWORD(v48) = shouldLog2;
     }
 
     oSLogObject2 = [v40 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v45 &= 2u;
+      v48 = v48;
     }
 
-    if (!v45)
+    else
     {
-      goto LABEL_59;
+      v48 &= 2u;
     }
+
+    if (!v48)
+    {
+      goto LABEL_63;
+    }
+
+    v49 = objc_opt_class();
+    v58 = 138543362;
+    v59 = v49;
+    v45 = v49;
+    LODWORD(v57) = 12;
   }
 
   else
@@ -296,52 +310,57 @@ LABEL_35:
     shouldLog3 = [v40 shouldLog];
     if ([v40 shouldLogToDisk])
     {
-      v42 = shouldLog3 | 2;
+      LODWORD(v42) = shouldLog3 | 2;
     }
 
     else
     {
-      v42 = shouldLog3;
+      LODWORD(v42) = shouldLog3;
     }
 
     oSLogObject2 = [v40 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v42 = v42;
+    }
+
+    else
     {
       v42 &= 2u;
     }
 
     if (!v42)
     {
-      goto LABEL_59;
+      goto LABEL_63;
     }
+
+    v44 = objc_opt_class();
+    v58 = 138543362;
+    v59 = v44;
+    v45 = v44;
+    LODWORD(v57) = 12;
   }
 
-  v46 = objc_opt_class();
-  v58 = 138543362;
-  v59 = v46;
-  v47 = v46;
-  LODWORD(v57) = 12;
-  v56 = &v58;
-  v48 = _os_log_send_and_compose_impl();
+  v50 = v46;
 
-  if (!v48)
+  if (!v50)
   {
-    goto LABEL_60;
+    goto LABEL_64;
   }
 
-  oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v48 encoding:{4, &v58, v57}];
-  free(v48);
-  SSFileLog(v40, @"%@", v49, v50, v51, v52, v53, v54, oSLogObject2);
-LABEL_59:
+  oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v50 encoding:4];
+  free(v50);
+  SSFileLog(v40, @"%@", v51, v52, v53, v54, v55, v56, oSLogObject2);
+LABEL_63:
 
-LABEL_60:
+LABEL_64:
   if (lockoutCopy)
   {
-LABEL_36:
-    [v7 setObject:MEMORY[0x1E695E118] forKeyedSubscript:{@"bioLockout", v56}];
+LABEL_37:
+    [v7 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"bioLockout"];
   }
 
-LABEL_37:
+LABEL_38:
   date = [MEMORY[0x1E695DF00] date];
   [date timeIntervalSince1970];
   v34 = v33;
@@ -467,7 +486,7 @@ LABEL_22:
 
 + (id)_dialogEventForBiometricAuthorizationWithDialogId:(id)id buyParams:(id)params matchState:(int64_t)state topicName:(id)name userAgent:(id)agent
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   nameCopy = name;
   agentCopy = agent;
@@ -484,9 +503,9 @@ LABEL_22:
 
   if (paramsCopy)
   {
-    v44 = @"buyParams";
-    v45[0] = paramsCopy;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+    v45 = @"buyParams";
+    v46[0] = paramsCopy;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
     [(SSMetricsDialogEvent *)v16 setDetails:v18];
   }
 
@@ -574,26 +593,27 @@ LABEL_22:
 
   if (!shouldLog)
   {
-    v30 = oSLogObject;
+    v31 = oSLogObject;
     goto LABEL_37;
   }
 
-  HIDWORD(v37) = shouldLog;
+  HIDWORD(v38) = shouldLog;
   v27 = objc_opt_class();
   v28 = MEMORY[0x1E696AD98];
-  v38 = v27;
-  [v28 numberWithInteger:state];
-  v40 = 138543618;
-  v41 = v27;
-  v43 = v42 = 2114;
-  LODWORD(v37) = 22;
-  v29 = _os_log_send_and_compose_impl();
+  v39 = v27;
+  v29 = [v28 numberWithInteger:state];
+  v41 = 138543618;
+  v42 = v27;
+  v43 = 2114;
+  v44 = v29;
+  LODWORD(v38) = 22;
+  v30 = _os_log_send_and_compose_impl(HIDWORD(v38), 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to instrument metrics dialog with match: %{public}@", &v41, v38);
 
-  if (v29)
+  if (v30)
   {
-    v30 = [MEMORY[0x1E696AEC0] stringWithCString:v29 encoding:{4, &v40, v37}];
-    free(v29);
-    SSFileLog(v25, @"%@", v31, v32, v33, v34, v35, v36, v30);
+    v31 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:4];
+    free(v30);
+    SSFileLog(v25, @"%@", v32, v33, v34, v35, v36, v37, v31);
 LABEL_37:
   }
 
@@ -818,7 +838,7 @@ LABEL_10:
 
 + (id)_clientIDForAccount:(id)account orUserID:(id)d
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   dCopy = d;
   v7 = +[SSLogConfig sharediTunesStoreConfig];
@@ -854,11 +874,10 @@ LABEL_10:
 
     if (v26)
     {
-      v65 = 138543362;
-      v66 = objc_opt_class();
-      v27 = v66;
-      LODWORD(v60) = 12;
-      v28 = _os_log_send_and_compose_impl();
+      v64 = 138543362;
+      v65 = objc_opt_class();
+      v27 = v65;
+      v28 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "%{public}@: Lookup clientID failed with no userID", &v64, 12);
 
       if (!v28)
       {
@@ -867,7 +886,7 @@ LABEL_28:
         goto LABEL_53;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:{4, &v65, v60}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
       free(v28);
       SSFileLog(v8, @"%@", v29, v30, v31, v32, v33, v34, oSLogObject);
     }
@@ -907,18 +926,16 @@ LABEL_28:
     goto LABEL_13;
   }
 
-  v65 = 138543618;
-  v66 = objc_opt_class();
-  v67 = 2112;
-  v68 = dCopy;
-  v13 = v66;
-  LODWORD(v60) = 22;
-  v59 = &v65;
-  v14 = _os_log_send_and_compose_impl();
+  v64 = 138543618;
+  v65 = objc_opt_class();
+  v66 = 2112;
+  v67 = dCopy;
+  v13 = v65;
+  v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 1, "%{public}@: Lookup clientID for userID: %@", &v64, 22);
 
   if (v14)
   {
-    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v65, v60}];
+    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
     free(v14);
     SSFileLog(v8, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject2);
 LABEL_13:
@@ -937,26 +954,26 @@ LABEL_13:
   }
   v36 = ;
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v8 = v36;
-  v37 = [v8 countByEnumeratingWithState:&v61 objects:v71 count:16];
+  v37 = [v8 countByEnumeratingWithState:&v60 objects:v70 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v62;
+    v39 = *v61;
 LABEL_32:
     v40 = 0;
     while (1)
     {
-      if (*v62 != v39)
+      if (*v61 != v39)
       {
         objc_enumerationMutation(v8);
       }
 
-      v41 = *(*(&v61 + 1) + 8 * v40);
+      v41 = *(*(&v60 + 1) + 8 * v40);
       name = [v41 name];
       v43 = [name isEqualToString:@"xp_ci"];
 
@@ -967,7 +984,7 @@ LABEL_32:
 
       if (v38 == ++v40)
       {
-        v38 = [v8 countByEnumeratingWithState:&v61 objects:v71 count:16];
+        v38 = [v8 countByEnumeratingWithState:&v60 objects:v70 count:16];
         if (v38)
         {
           goto LABEL_32;
@@ -1015,22 +1032,22 @@ LABEL_32:
     if (v48)
     {
       v49 = objc_opt_class();
-      v65 = 138543874;
-      v66 = v49;
-      v67 = 2114;
-      v68 = value;
-      v69 = 2112;
-      v70 = dCopy;
+      v64 = 138543874;
+      v65 = v49;
+      v66 = 2114;
+      v67 = value;
+      v68 = 2112;
+      v69 = dCopy;
       v50 = v49;
-      LODWORD(v60) = 32;
-      v51 = _os_log_send_and_compose_impl();
+      LODWORD(v59) = 32;
+      v51 = _os_log_send_and_compose_impl(v48, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 1, "%{public}@: Found clientID: %{public}@, userID: %@", &v64, v59);
 
       if (!v51)
       {
         goto LABEL_52;
       }
 
-      oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v51 encoding:{4, &v65, v60}];
+      oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v51 encoding:4];
       free(v51);
       SSFileLog(v44, @"%@", v52, v53, v54, v55, v56, v57, oSLogObject3);
     }

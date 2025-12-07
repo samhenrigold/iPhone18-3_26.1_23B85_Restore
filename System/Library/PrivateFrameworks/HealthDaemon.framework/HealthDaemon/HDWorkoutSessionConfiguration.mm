@@ -17,21 +17,21 @@
   v25 = [(HDWorkoutSessionConfiguration *)&v37 init];
   if (v25)
   {
-    v26 = [identifierCopy copy];
+    v26 = objc_msgSend_copy(identifierCopy);
     sessionIdentifier = v25->_sessionIdentifier;
     v25->_sessionIdentifier = v26;
 
-    v28 = [configurationCopy copy];
+    v28 = objc_msgSend_copy(configurationCopy);
     workoutConfiguration = v25->_workoutConfiguration;
     v25->_workoutConfiguration = v28;
 
     v25->_sessionType = type;
     objc_storeStrong(&v25->_client, client);
-    v30 = [bundleIdentifierCopy copy];
+    v30 = objc_msgSend_copy(bundleIdentifierCopy);
     clientProcessBundleIdentifier = v25->_clientProcessBundleIdentifier;
     v25->_clientProcessBundleIdentifier = v30;
 
-    v32 = [applicationIdentifierCopy copy];
+    v32 = objc_msgSend_copy(applicationIdentifierCopy);
     clientApplicationIdentifier = v25->_clientApplicationIdentifier;
     v25->_clientApplicationIdentifier = v32;
 
@@ -39,7 +39,7 @@
     v25->_supportsAppRelaunchForRecovery = recovery;
     v25->_supports3rdPartyAOT = t;
     v25->_enableWorkoutChangeDetection = detection;
-    v34 = [configurationsCopy copy];
+    v34 = objc_msgSend_copy(configurationsCopy);
     activityConfigurations = v25->_activityConfigurations;
     v25->_activityConfigurations = v34;
   }

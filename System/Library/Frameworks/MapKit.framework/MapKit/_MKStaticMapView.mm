@@ -1890,7 +1890,7 @@ LABEL_14:
   v10 = v3;
   _viewportMode = [(MKMapSnapshotOptions *)self->_snapshotOptions _viewportMode];
   v13 = MEMORY[0x1E69DDCE0];
-  if (_viewportMode || ([(MKMapSnapshotOptions *)self->_snapshotOptions region], vabdd_f64(v10, v17) >= 0.00000000999999994) || vabdd_f64(v9, v14) >= 0.00000000999999994 || vabdd_f64(v8, v15) >= 0.00000000999999994 || vabdd_f64(v7, v16) >= 0.00000000999999994 || (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&self->_additionalEdgeInsets.top, *v13), vceqq_f64(*&self->_additionalEdgeInsets.bottom, v13[1])))) & 1) == 0)
+  if (_viewportMode || (objc_msgSend_region(self->_snapshotOptions), vabdd_f64(v10, v17) >= 0.00000000999999994) || vabdd_f64(v9, v14) >= 0.00000000999999994 || vabdd_f64(v8, v15) >= 0.00000000999999994 || vabdd_f64(v7, v16) >= 0.00000000999999994 || (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&self->_additionalEdgeInsets.top, *v13), vceqq_f64(*&self->_additionalEdgeInsets.bottom, v13[1])))) & 1) == 0)
   {
     [(MKMapSnapshotOptions *)self->_snapshotOptions setRegion:v10, v9, v8, v7];
     v18 = v13[1];

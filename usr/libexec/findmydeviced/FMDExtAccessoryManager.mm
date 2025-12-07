@@ -71,37 +71,38 @@
 
 - (BOOL)_cbPoweredOff
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 1;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 1;
   v3 = dispatch_group_create();
   dispatch_group_enter(v3);
   btController = [(FMDExtAccessoryManager *)self btController];
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1001AD468;
-  v10[3] = &unk_1002CFCC8;
-  v12 = &v13;
-  v10[4] = self;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1001AD468;
+  v11[3] = &unk_1002CFCC8;
+  v13 = &v14;
+  v11[4] = self;
   v5 = v3;
-  v11 = v5;
-  [btController getControllerInfoWithCompletion:v10];
+  v12 = v5;
+  [btController getControllerInfoWithCompletion:v11];
 
   v6 = dispatch_time(0, 10000000000);
-  if (dispatch_group_wait(v5, v6))
+  v7 = dispatch_group_wait(v5, v6);
+  if (v7)
   {
-    v7 = sub_10000BE38();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_10000BE38(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10022D0EC();
     }
   }
 
-  v8 = *(v14 + 24);
+  v9 = *(v15 + 24);
 
-  _Block_object_dispose(&v13, 8);
-  return v8;
+  _Block_object_dispose(&v14, 8);
+  return v9;
 }
 
 - (void)startMonitoringAccessories
@@ -144,24 +145,24 @@
 - (void)updateNotificationReceived:(id)received
 {
   receivedCopy = received;
-  v5 = sub_10000BE38();
+  v5 = sub_10000BE38(receivedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = receivedCopy;
+    v16 = receivedCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Accessory Information changed notification received = %@", buf, 0xCu);
   }
 
   v6 = +[NSDate date];
   v7 = v6;
-  if (qword_100314990 && ([v6 timeIntervalSinceDate:?], v8 < 1.0))
+  if (qword_100314990 && (v8 = [v6 timeIntervalSinceDate:?], v9 < 1.0))
   {
-    name = sub_10000BE38();
+    name = sub_10000BE38(v8);
     if (os_log_type_enabled(name, OS_LOG_TYPE_DEFAULT))
     {
       [v7 timeIntervalSinceDate:qword_100314990];
       *buf = 134217984;
-      v15 = v10;
+      v16 = v11;
       _os_log_impl(&_mh_execute_header, name, OS_LOG_TYPE_DEFAULT, "Not updating because time between this and last = %f < 1", buf, 0xCu);
     }
   }
@@ -170,9 +171,9 @@
   {
     objc_storeStrong(&qword_100314990, v7);
     name = [receivedCopy name];
-    v13[1] = name;
-    v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:&v12 count:2];
-    [(FMDExtAccessoryManager *)self updateAccessoriesDatabaseWithContext:v11];
+    v14[1] = name;
+    v12 = [NSDictionary dictionaryWithObjects:v14 forKeys:&v13 count:2];
+    [(FMDExtAccessoryManager *)self updateAccessoriesDatabaseWithContext:v12];
   }
 }
 
@@ -181,38 +182,38 @@
   nameCopy = name;
   v6 = +[NSDate date];
   v7 = v6;
-  if (qword_100314998 && ([v6 timeIntervalSinceDate:?], v8 < 1.0))
+  if (qword_100314998 && (v8 = [v6 timeIntervalSinceDate:?], v9 < 1.0))
   {
-    v9 = sub_10000BE38();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_10000BE38(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       [v7 timeIntervalSinceDate:qword_100314998];
       *buf = 134217984;
-      v14 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not updating because time between this and last = %f < 1", buf, 0xCu);
+      v15 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Not updating because time between this and last = %f < 1", buf, 0xCu);
     }
   }
 
   else
   {
     objc_storeStrong(&qword_100314998, v7);
-    v11[0] = @"context";
-    v11[1] = @"notificationName";
-    v12[0] = @"receivedNotificaiton";
-    v12[1] = nameCopy;
-    v9 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:2];
-    [(FMDExtAccessoryManager *)self updateAccessoriesDatabaseWithContext:v9];
+    v12[0] = @"context";
+    v12[1] = @"notificationName";
+    v13[0] = @"receivedNotificaiton";
+    v13[1] = nameCopy;
+    v10 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:2];
+    [(FMDExtAccessoryManager *)self updateAccessoriesDatabaseWithContext:v10];
   }
 }
 
 - (void)updateAccessoriesDatabaseWithContext:(id)context
 {
   contextCopy = context;
-  v3 = sub_10000BE38();
+  v3 = sub_10000BE38(contextCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = contextCopy;
+    v28 = contextCopy;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "updateAccessoriesDatabase called with context %@", buf, 0xCu);
   }
 
@@ -221,69 +222,69 @@
 
   if (unlockState == 1)
   {
-    v6 = sub_100002880();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100002880(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FMDExtAccessoryManager skipping updateAccessoriesDatabase before first unlock", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FMDExtAccessoryManager skipping updateAccessoriesDatabase before first unlock", buf, 2u);
     }
   }
 
   else
   {
-    v7 = +[FMDExtExtensionHelper getAllExtensions];
-    v8 = sub_10000BE38();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = +[FMDExtExtensionHelper getAllExtensions];
+    v9 = sub_10000BE38(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v27 = v7;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "extension IDList = %@", buf, 0xCu);
+      v28 = v8;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "extension IDList = %@", buf, 0xCu);
     }
 
     accessoryRegistry = [(FMDExtAccessoryManager *)self accessoryRegistry];
-    v10 = sub_10000BE38();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_10000BE38(accessoryRegistry);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v27 = accessoryRegistry;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "ext: Registry %@", buf, 0xCu);
+      v28 = accessoryRegistry;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "ext: Registry %@", buf, 0xCu);
     }
 
-    v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v6 = v7;
-    v11 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v11)
+    v23 = 0u;
+    v7 = v8;
+    v12 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v22;
+      v13 = v12;
+      v14 = *v23;
       do
       {
-        for (i = 0; i != v12; i = i + 1)
+        for (i = 0; i != v13; i = i + 1)
         {
-          if (*v22 != v13)
+          if (*v23 != v14)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v15 = *(*(&v21 + 1) + 8 * i);
-          v16 = [FMDExtExtensionHelper getAccessoryProxyForId:v15 withDelegate:0];
-          v19[0] = _NSConcreteStackBlock;
-          v19[1] = 3221225472;
-          v19[2] = sub_1001AE3F8;
-          v19[3] = &unk_1002D07C8;
-          v19[4] = v15;
-          v19[5] = self;
-          v20 = accessoryRegistry;
-          [v16 fetchAllAccessoriesInfoWithInfo:contextCopy withCompletion:v19];
+          v16 = *(*(&v22 + 1) + 8 * i);
+          v17 = [FMDExtExtensionHelper getAccessoryProxyForId:v16 withDelegate:0];
+          v20[0] = _NSConcreteStackBlock;
+          v20[1] = 3221225472;
+          v20[2] = sub_1001AE3F8;
+          v20[3] = &unk_1002D07C8;
+          v20[4] = v16;
+          v20[5] = self;
+          v21 = accessoryRegistry;
+          [v17 fetchAllAccessoriesInfoWithInfo:contextCopy withCompletion:v20];
         }
 
-        v12 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
   }
 }

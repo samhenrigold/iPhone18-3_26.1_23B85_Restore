@@ -22,7 +22,7 @@
 - (void)layoutSubviews
 {
   v12.receiver = self;
-  v12.super_class = type metadata accessor for FeaturedMaterialCell();
+  v12.super_class = type metadata accessor for FeaturedMaterialCell(0);
   v2 = v12.receiver;
   [(VerticalLockupCollectionViewCell *)&v12 layoutSubviews];
   contentView = [v2 contentView];

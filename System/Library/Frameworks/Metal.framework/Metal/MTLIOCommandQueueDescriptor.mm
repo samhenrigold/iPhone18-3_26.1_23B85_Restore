@@ -76,37 +76,35 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v15[12] = *MEMORY[0x1E69E9840];
+  v14[12] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = MEMORY[0x1E696AEC0];
-  v14.receiver = self;
-  v14.super_class = MTLIOCommandQueueDescriptor;
-  v6 = [(MTLIOCommandQueueDescriptor *)&v14 description];
-  v15[0] = v4;
-  v15[1] = @"maxCommandBufferCount =";
+  v13.receiver = self;
+  v13.super_class = MTLIOCommandQueueDescriptor;
+  v6 = [(MTLIOCommandQueueDescriptor *)&v13 description];
+  v14[0] = v4;
+  v14[1] = @"maxCommandBufferCount =";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_maxCommandBufferCount];
   v8 = 0;
-  v15[2] = v7;
-  v15[3] = v4;
-  v15[4] = @"priority =";
+  v14[2] = v7;
+  v14[3] = v4;
+  v14[4] = @"priority =";
   priority = self->_priority;
   if (priority <= 2)
   {
     v8 = off_1E6EEBF20[priority];
   }
 
-  v15[5] = v8;
-  v15[6] = v4;
+  v14[5] = v8;
+  v14[6] = v4;
   scratchBufferAllocator = self->_scratchBufferAllocator;
   type = self->_type;
-  v15[7] = @"scratchBufferAllocator =";
-  v15[8] = scratchBufferAllocator;
-  v15[9] = v4;
-  v15[10] = @"type =";
-  v15[11] = [MEMORY[0x1E696AD98] numberWithInteger:type];
-  result = [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 12), "componentsJoinedByString:", @" "];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  v14[7] = @"scratchBufferAllocator =";
+  v14[8] = scratchBufferAllocator;
+  v14[9] = v4;
+  v14[10] = @"type =";
+  v14[11] = [MEMORY[0x1E696AD98] numberWithInteger:type];
+  return [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v14, 12), "componentsJoinedByString:", @" "];
 }
 
 - (void)dealloc

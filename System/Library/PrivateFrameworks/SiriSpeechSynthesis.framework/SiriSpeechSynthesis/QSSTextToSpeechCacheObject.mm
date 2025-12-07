@@ -39,71 +39,71 @@ flatbuffers::DetachedBuffer *__42__QSSTextToSpeechCacheObject_flatbuffData__bloc
 
 - (Offset<siri::speech::schema_fb::TextToSpeechCacheObject>)addObjectToBuffer:(void *)buffer
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3812000000;
-  v29 = __Block_byref_object_copy__645;
-  v30 = __Block_byref_object_dispose__646;
-  v31 = &unk_26916BD4D;
-  v32 = 0;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __48__QSSTextToSpeechCacheObject_addObjectToBuffer___block_invoke;
-  v25[3] = &unk_279C4C2C8;
-  v25[4] = &v26;
-  v25[5] = buffer;
-  [(QSSTextToSpeechCacheObject *)self audio:v25];
-  memset(&v24, 0, sizeof(v24));
+  v33 = *MEMORY[0x277D85DE8];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3812000000;
+  v28 = __Block_byref_object_copy__645;
+  v29 = __Block_byref_object_dispose__646;
+  v30 = &unk_26916BD4D;
+  v31 = 0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __48__QSSTextToSpeechCacheObject_addObjectToBuffer___block_invoke;
+  v24[3] = &unk_279C4C2C8;
+  v24[4] = &v25;
+  v24[5] = buffer;
+  [(QSSTextToSpeechCacheObject *)self audio:v24];
+  memset(&v23, 0, sizeof(v23));
   word_timing_info = [(QSSTextToSpeechCacheObject *)self word_timing_info];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v24, [word_timing_info count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v23, [word_timing_info count]);
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   word_timing_info2 = [(QSSTextToSpeechCacheObject *)self word_timing_info];
-  v7 = [word_timing_info2 countByEnumeratingWithState:&v20 objects:v33 count:16];
+  v7 = [word_timing_info2 countByEnumeratingWithState:&v19 objects:v32 count:16];
   if (v7)
   {
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(word_timing_info2);
         }
 
-        v19 = [*(*(&v20 + 1) + 8 * i) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v24, &v19);
+        v18 = [*(*(&v19 + 1) + 8 * i) addObjectToBuffer:buffer];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v23, &v18);
       }
 
-      v7 = [word_timing_info2 countByEnumeratingWithState:&v20 objects:v33 count:16];
+      v7 = [word_timing_info2 countByEnumeratingWithState:&v19 objects:v32 count:16];
     }
 
     while (v7);
   }
 
-  begin = v24.__begin_;
-  if (v24.__end_ == v24.__begin_)
+  begin = v23.__begin_;
+  if (v23.__end_ == v23.__begin_)
   {
     v11 = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::WordTimingInfo>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::WordTimingInfo>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::WordTimingInfo>> const&)::t;
   }
 
   else
   {
-    v11 = v24.__begin_;
+    v11 = v23.__begin_;
   }
 
-  v12 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v11, v24.__end_ - v24.__begin_);
+  v12 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v11, v23.__end_ - v23.__begin_);
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v13 = *(buffer + 8);
   v14 = *(buffer + 12);
   v15 = *(buffer + 10);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, *(v27 + 12));
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, *(v26 + 12));
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, v12);
   v16.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v13 - v14 + v15);
   if (begin)
@@ -111,8 +111,7 @@ flatbuffers::DetachedBuffer *__42__QSSTextToSpeechCacheObject_flatbuffData__bloc
     operator delete(begin);
   }
 
-  _Block_object_dispose(&v26, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
   return v16;
 }
 
@@ -164,11 +163,7 @@ uint64_t __48__QSSTextToSpeechCacheObject_addObjectToBuffer___block_invoke(uint6
 
 - (void)audio:(id)audio
 {
-  root = self->_root;
-  v5 = &root[-*root->var0];
   audioCopy = audio;
-  v7 = *root[*v5[4].var0 + *root[*v5[4].var0].var0].var0;
-  v8 = audioCopy;
   (*(audio + 2))();
 }
 

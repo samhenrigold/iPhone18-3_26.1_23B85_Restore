@@ -114,17 +114,16 @@
 
 - (void)fetchAdditionsHighWaterMarkWithPeer:(id)peer highPriority:(BOOL)priority completion:(id)completion
 {
-  v12 = OUTLINED_FUNCTION_29_0(self, a2, peer);
-  v7 = v5;
-  v8 = OUTLINED_FUNCTION_40();
-  if (v8)
+  v10 = OUTLINED_FUNCTION_29_0(self, a2, peer);
+  v6 = v5;
+  v7 = OUTLINED_FUNCTION_40();
+  if (v7)
   {
-    OUTLINED_FUNCTION_59(v8, v9);
-    v10 = *(v6 + 8);
+    OUTLINED_FUNCTION_59(v7, v8);
   }
 
   OUTLINED_FUNCTION_18_0();
-  [v11 fetchAdditionsHighWaterMarkWithPeer:? highPriority:? completion:?];
+  [v9 fetchAdditionsHighWaterMarkWithPeer:? highPriority:? completion:?];
 }
 
 - (void)fetchDeletedEventIDsFromPeer:(id)peer sinceDate:(id)date streamNames:(id)names limit:(unint64_t)limit highPriority:(BOOL)priority completion:(id)completion
@@ -145,32 +144,30 @@
 
 - (void)fetchDeletionsHighWaterMarkWithPeer:(id)peer highPriority:(BOOL)priority completion:(id)completion
 {
-  v12 = OUTLINED_FUNCTION_29_0(self, a2, peer);
-  v7 = v5;
-  v8 = OUTLINED_FUNCTION_40();
-  if (v8)
+  v10 = OUTLINED_FUNCTION_29_0(self, a2, peer);
+  v6 = v5;
+  v7 = OUTLINED_FUNCTION_40();
+  if (v7)
   {
-    OUTLINED_FUNCTION_59(v8, v9);
-    v10 = *(v6 + 8);
+    OUTLINED_FUNCTION_59(v7, v8);
   }
 
   OUTLINED_FUNCTION_18_0();
-  [v11 fetchDeletionsHighWaterMarkWithPeer:? highPriority:? completion:?];
+  [v9 fetchDeletionsHighWaterMarkWithPeer:? highPriority:? completion:?];
 }
 
 - (void)fetchSourceDeviceIDFromPeer:(id)peer highPriority:(BOOL)priority completion:(id)completion
 {
-  v12 = OUTLINED_FUNCTION_29_0(self, a2, peer);
-  v7 = v5;
-  v8 = OUTLINED_FUNCTION_40();
-  if (v8)
+  v10 = OUTLINED_FUNCTION_29_0(self, a2, peer);
+  v6 = v5;
+  v7 = OUTLINED_FUNCTION_40();
+  if (v7)
   {
-    OUTLINED_FUNCTION_59(v8, v9);
-    v10 = *(v6 + 8);
+    OUTLINED_FUNCTION_59(v7, v8);
   }
 
   OUTLINED_FUNCTION_18_0();
-  [v11 fetchSourceDeviceIDFromPeer:? highPriority:? completion:?];
+  [v9 fetchSourceDeviceIDFromPeer:? highPriority:? completion:?];
 }
 
 - (void)updateStorageWithAddedEvents:(id)events deletedEventIDs:(id)ds highPriority:(BOOL)priority completion:(id)completion

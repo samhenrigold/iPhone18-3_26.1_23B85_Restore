@@ -51,28 +51,24 @@
 
 - (void)fetchPrescriptionRecordsWithCompletion:(id)completion
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v4 = [[CRXUDispatchGroup alloc] initWithName:@"PrescriptionRecordCollectorGroup"];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   array3 = [MEMORY[0x277CBEB18] array];
-  v106[0] = 0;
-  v106[1] = v106;
-  v106[2] = 0x3032000000;
-  v106[3] = __Block_byref_object_copy__0;
-  v106[4] = __Block_byref_object_dispose__0;
-  v107 = 0;
-  v104[0] = 0;
-  v104[1] = v104;
-  v104[2] = 0x3032000000;
-  v104[3] = __Block_byref_object_copy__0;
-  v104[4] = __Block_byref_object_dispose__0;
-  v105 = 0;
+  v105[0] = 0;
+  v105[1] = v105;
+  v105[2] = 0x3032000000;
+  v105[3] = __Block_byref_object_copy__0;
+  v105[4] = __Block_byref_object_dispose__0;
+  v106 = 0;
   v103[0] = 0;
   v103[1] = v103;
-  v103[2] = 0x2020000000;
-  v103[3] = 0;
+  v103[2] = 0x3032000000;
+  v103[3] = __Block_byref_object_copy__0;
+  v103[4] = __Block_byref_object_dispose__0;
+  v104 = 0;
   v102[0] = 0;
   v102[1] = v102;
   v102[2] = 0x2020000000;
@@ -81,17 +77,21 @@
   v101[1] = v101;
   v101[2] = 0x2020000000;
   v101[3] = 0;
+  v100[0] = 0;
+  v100[1] = v100;
+  v100[2] = 0x2020000000;
+  v100[3] = 0;
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSinceReferenceDate];
   v10 = v9;
 
   serialQueue = self->_serialQueue;
-  v100[0] = MEMORY[0x277D85DD0];
-  v100[1] = 3221225472;
-  v100[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke;
-  v100[3] = &unk_278EA0680;
-  v100[4] = self;
-  [(CRXUDispatchQueue *)serialQueue dispatchSync:v100];
+  v99[0] = MEMORY[0x277D85DD0];
+  v99[1] = 3221225472;
+  v99[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke;
+  v99[3] = &unk_278EA0680;
+  v99[4] = self;
+  [(CRXUDispatchQueue *)serialQueue dispatchSync:v99];
   [(CRXUDispatchGroup *)v4 enter];
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
@@ -100,17 +100,17 @@
 
   healthDataProvider = self->_healthDataProvider;
   v13 = self->_serialQueue;
-  v96[0] = MEMORY[0x277D85DD0];
-  v96[1] = 3221225472;
-  v96[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_348;
-  v96[3] = &unk_278EA06D0;
-  v96[4] = self;
+  v95[0] = MEMORY[0x277D85DD0];
+  v95[1] = 3221225472;
+  v95[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_348;
+  v95[3] = &unk_278EA06D0;
+  v95[4] = self;
   v14 = array2;
-  v97 = v14;
-  v99 = v106;
+  v96 = v14;
+  v98 = v105;
   v15 = v4;
-  v98 = v15;
-  [(CRXFHealthDataProvider *)healthDataProvider listPrescriptionsWithCompletionQueue:v13 completion:v96];
+  v97 = v15;
+  [(CRXFHealthDataProvider *)healthDataProvider listPrescriptionsWithCompletionQueue:v13 completion:v95];
   [(CRXUDispatchGroup *)v15 enter];
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
@@ -118,58 +118,58 @@
   }
 
   keychainAccess = self->_keychainAccess;
-  v92[0] = MEMORY[0x277D85DD0];
-  v92[1] = 3221225472;
-  v92[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_355;
-  v92[3] = &unk_278EA06D0;
-  v92[4] = self;
+  v91[0] = MEMORY[0x277D85DD0];
+  v91[1] = 3221225472;
+  v91[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_355;
+  v91[3] = &unk_278EA06D0;
+  v91[4] = self;
   v17 = array3;
-  v93 = v17;
-  v95 = v104;
+  v92 = v17;
+  v94 = v103;
   v18 = v15;
-  v94 = v18;
-  [(CRXFKeychainAccess *)keychainAccess fetchASAKeysWithCompletion:v92];
+  v93 = v18;
+  [(CRXFKeychainAccess *)keychainAccess fetchASAKeysWithCompletion:v91];
   [(CRXUDispatchGroup *)v18 waitFor:1.0];
-  v55 = v18;
+  v54 = v18;
   array4 = [MEMORY[0x277CBEB18] array];
   array5 = [MEMORY[0x277CBEB18] array];
   v19 = array;
   objc_sync_enter(v19);
   [array4 addObjectsFromArray:v19];
   objc_sync_exit(v19);
-  v49 = v19;
+  v48 = v19;
 
   v20 = v17;
   objc_sync_enter(v20);
   [array5 addObjectsFromArray:v20];
   objc_sync_exit(v20);
-  v48 = v20;
+  v47 = v20;
 
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x2020000000;
-  v91 = 0;
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x2020000000;
+  v90 = 0;
+  v83 = 0u;
   v84 = 0u;
   v85 = 0u;
   v86 = 0u;
-  v87 = 0u;
   obj = v14;
-  v21 = [obj countByEnumeratingWithState:&v84 objects:v117 count:16];
+  v21 = [obj countByEnumeratingWithState:&v83 objects:v116 count:16];
   v22 = 0;
   if (v21)
   {
-    v23 = *v85;
+    v23 = *v84;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v85 != v23)
+        if (*v84 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v84 + 1) + 8 * i);
-        [(CRXUDispatchGroup *)v55 enter];
+        v25 = *(*(&v83 + 1) + 8 * i);
+        [(CRXUDispatchGroup *)v54 enter];
         v26 = self->_log;
         if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
@@ -178,74 +178,74 @@
           [(CRXFCorePrescriptionServiceClient *)self->_serviceClient timeout];
           v29 = [v28 numberWithDouble:?];
           *buf = 136315906;
-          v110 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]";
-          v111 = 1024;
-          v112 = 258;
-          v113 = 2114;
-          v114 = v27;
-          v115 = 2114;
-          v116 = v29;
+          v109 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]";
+          v110 = 1024;
+          v111 = 258;
+          v112 = 2114;
+          v113 = v27;
+          v114 = 2114;
+          v115 = v29;
           _os_log_impl(&dword_24732C000, v26, OS_LOG_TYPE_INFO, "%s @%d: Downloading calibration for health record #%{public}@ with timeout %{public}@", buf, 0x26u);
         }
 
         serviceClient = self->_serviceClient;
         accPayload = [v25 accPayload];
         v32 = self->_serialQueue;
-        v78[0] = MEMORY[0x277D85DD0];
-        v78[1] = 3221225472;
-        v78[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_356;
-        v78[3] = &unk_278EA06F8;
+        v77[0] = MEMORY[0x277D85DD0];
+        v77[1] = 3221225472;
+        v77[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_356;
+        v77[3] = &unk_278EA06F8;
+        v79 = v100;
         v80 = v101;
         v81 = v102;
-        v82 = v103;
-        v83 = v22;
-        v78[4] = self;
-        v78[5] = v25;
-        v79 = v55;
-        [(CRXFCorePrescriptionServiceClient *)serviceClient downloadCalibrationDataForACCPayload:accPayload completionQueue:v32 completion:v78];
+        v82 = v22;
+        v77[4] = self;
+        v77[5] = v25;
+        v78 = v54;
+        [(CRXFCorePrescriptionServiceClient *)serviceClient downloadCalibrationDataForACCPayload:accPayload completionQueue:v32 completion:v77];
 
         ++v22;
       }
 
-      v21 = [obj countByEnumeratingWithState:&v84 objects:v117 count:16];
+      v21 = [obj countByEnumeratingWithState:&v83 objects:v116 count:16];
     }
 
     while (v21);
   }
 
-  v89[3] = v22;
+  v88[3] = v22;
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
     [CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:];
   }
 
-  v77[0] = 0;
-  v77[1] = v77;
-  v77[2] = 0x2020000000;
-  v77[3] = 0;
+  v76[0] = 0;
+  v76[1] = v76;
+  v76[2] = 0x2020000000;
+  v76[3] = 0;
   if (array5)
   {
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
     v74 = 0u;
+    v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
     v33 = array5;
-    v34 = [v33 countByEnumeratingWithState:&v73 objects:v108 count:16];
+    v34 = [v33 countByEnumeratingWithState:&v72 objects:v107 count:16];
     if (v34)
     {
       v35 = 0;
-      v54 = *v74;
+      v53 = *v73;
       do
       {
         for (j = 0; j != v34; ++j)
         {
-          if (*v74 != v54)
+          if (*v73 != v53)
           {
             objc_enumerationMutation(v33);
           }
 
-          v37 = *(*(&v73 + 1) + 8 * j);
-          [(CRXUDispatchGroup *)v55 enter];
+          v37 = *(*(&v72 + 1) + 8 * j);
+          [(CRXUDispatchGroup *)v54 enter];
           v38 = self->_log;
           if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
           {
@@ -254,37 +254,37 @@
             [(CRXFCorePrescriptionServiceClient *)self->_serviceClient timeout];
             v41 = [v40 numberWithDouble:?];
             *buf = 136315906;
-            v110 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]";
-            v111 = 1024;
-            v112 = 299;
-            v113 = 2114;
-            v114 = v39;
-            v115 = 2114;
-            v116 = v41;
+            v109 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]";
+            v110 = 1024;
+            v111 = 299;
+            v112 = 2114;
+            v113 = v39;
+            v114 = 2114;
+            v115 = v41;
             _os_log_impl(&dword_24732C000, v38, OS_LOG_TYPE_INFO, "%s @%d: Downloading calibration for ASA key #%{public}@ with timeout %{public}@", buf, 0x26u);
           }
 
           v42 = self->_serviceClient;
           privateKey = [v37 privateKey];
           v44 = self->_serialQueue;
-          v66[0] = MEMORY[0x277D85DD0];
-          v66[1] = 3221225472;
-          v66[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_358;
-          v66[3] = &unk_278EA0720;
+          v65[0] = MEMORY[0x277D85DD0];
+          v65[1] = 3221225472;
+          v65[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_358;
+          v65[3] = &unk_278EA0720;
+          v67 = v100;
           v68 = v101;
-          v69 = v102;
-          v66[4] = self;
-          v66[5] = v37;
-          v70 = v77;
-          v71 = v103;
-          v72 = v35;
-          v67 = v55;
-          [(CRXFCorePrescriptionServiceClient *)v42 downloadCalibrationDataForASAKey:privateKey completionQueue:v44 completion:v66];
+          v65[4] = self;
+          v65[5] = v37;
+          v69 = v76;
+          v70 = v102;
+          v71 = v35;
+          v66 = v54;
+          [(CRXFCorePrescriptionServiceClient *)v42 downloadCalibrationDataForASAKey:privateKey completionQueue:v44 completion:v65];
 
           ++v35;
         }
 
-        v34 = [v33 countByEnumeratingWithState:&v73 objects:v108 count:16];
+        v34 = [v33 countByEnumeratingWithState:&v72 objects:v107 count:16];
       }
 
       while (v34);
@@ -297,55 +297,51 @@
   }
 
   v45 = self->_serialQueue;
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_359;
-  v56[3] = &unk_278EA0748;
-  v65 = v10;
-  v56[4] = self;
-  v58 = v102;
-  v59 = v101;
-  v60 = v106;
-  v61 = v104;
-  v62 = &v88;
-  v63 = v77;
-  v64 = v103;
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_359;
+  v55[3] = &unk_278EA0748;
+  v64 = v10;
+  v55[4] = self;
+  v57 = v101;
+  v58 = v100;
+  v59 = v105;
+  v60 = v103;
+  v61 = &v87;
+  v62 = v76;
+  v63 = v102;
   v46 = completionCopy;
-  v57 = v46;
-  [(CRXUDispatchGroup *)v55 notifyOnQueue:v45 withBlock:v56];
+  v56 = v46;
+  [(CRXUDispatchGroup *)v54 notifyOnQueue:v45 withBlock:v55];
 
-  _Block_object_dispose(v77, 8);
-  _Block_object_dispose(&v88, 8);
+  _Block_object_dispose(v76, 8);
+  _Block_object_dispose(&v87, 8);
 
+  _Block_object_dispose(v100, 8);
   _Block_object_dispose(v101, 8);
   _Block_object_dispose(v102, 8);
   _Block_object_dispose(v103, 8);
-  _Block_object_dispose(v104, 8);
 
-  _Block_object_dispose(v106, 8);
-  v47 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v105, 8);
 }
 
 uint64_t __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CBEB18] array];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 56);
-  *(v3 + 56) = v2;
+  *(*(a1 + 32) + 56) = [MEMORY[0x277CBEB18] array];
 
   return MEMORY[0x2821F96F8]();
 }
 
 void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_348(uint64_t a1, void *a2, void *a3)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5)
   {
-    v35 = v6;
-    v38 = a1;
+    v34 = v6;
+    v37 = a1;
     v8 = *(*(a1 + 32) + 8);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
@@ -353,34 +349,34 @@ void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletio
     }
 
     v9 = [MEMORY[0x277CBEB38] dictionary];
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v37 = v5;
+    v36 = v5;
     v10 = v5;
     v11 = v9;
     obj = v10;
-    v12 = [v10 countByEnumeratingWithState:&v44 objects:v54 count:16];
+    v12 = [v10 countByEnumeratingWithState:&v43 objects:v53 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v45;
+      v14 = *v44;
       v15 = *MEMORY[0x277CCE120];
       v16 = *MEMORY[0x277CCC4A8];
-      v39 = v9;
+      v38 = v9;
       do
       {
         v17 = 0;
-        v40 = v13;
+        v39 = v13;
         do
         {
-          if (*v45 != v14)
+          if (*v44 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v44 + 1) + 8 * v17);
+          v18 = *(*(&v43 + 1) + 8 * v17);
           v19 = [v18 metadata];
           v20 = [v19 crxu_dataForKey:v15];
 
@@ -404,23 +400,23 @@ void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletio
               v28 = [v18 _creationDate];
               v29 = [v27 crxu_isBefore:v28];
 
-              v11 = v39;
+              v11 = v38;
               if (v29)
               {
-                v30 = *(*(v38 + 32) + 8);
+                v30 = *(*(v37 + 32) + 8);
                 if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
                 {
                   v31 = v30;
                   v32 = [v20 crxu_asHexString];
                   *buf = 136315650;
-                  v49 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]_block_invoke";
-                  v50 = 1024;
-                  v51 = 180;
-                  v52 = 2112;
-                  v53 = v32;
+                  v48 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]_block_invoke";
+                  v49 = 1024;
+                  v50 = 180;
+                  v51 = 2112;
+                  v52 = v32;
                   _os_log_debug_impl(&dword_24732C000, v31, OS_LOG_TYPE_DEBUG, "%s @%d: Discarding health record with duplicate ACC %@", buf, 0x1Cu);
 
-                  v11 = v39;
+                  v11 = v38;
                 }
 
 LABEL_15:
@@ -429,7 +425,7 @@ LABEL_15:
 
               v14 = v24;
               v16 = v23;
-              v13 = v40;
+              v13 = v39;
             }
           }
 
@@ -437,24 +433,24 @@ LABEL_15:
         }
 
         while (v13 != v17);
-        v13 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
+        v13 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
       }
 
       while (v13);
     }
 
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_351;
-    v42[3] = &unk_278EA06A8;
-    a1 = v38;
-    v33 = *(v38 + 40);
-    v42[4] = *(v38 + 32);
-    v43 = v33;
-    [v11 enumerateKeysAndObjectsUsingBlock:v42];
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_351;
+    v41[3] = &unk_278EA06A8;
+    a1 = v37;
+    v33 = *(v37 + 40);
+    v41[4] = *(v37 + 32);
+    v42 = v33;
+    [v11 enumerateKeysAndObjectsUsingBlock:v41];
 
-    v7 = v36;
-    v5 = v37;
+    v7 = v35;
+    v5 = v36;
   }
 
   else
@@ -462,13 +458,11 @@ LABEL_15:
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), a3);
     if (os_log_type_enabled(*(*(a1 + 32) + 8), OS_LOG_TYPE_DEBUG))
     {
-      __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_348_cold_2(a1 + 56);
+      __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_348_cold_2();
     }
   }
 
   [*(a1 + 48) leave];
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_351(uint64_t a1, void *a2, void *a3)
@@ -513,7 +507,7 @@ void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletio
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), a3);
     if (os_log_type_enabled(*(*(a1 + 32) + 8), OS_LOG_TYPE_ERROR))
     {
-      __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_355_cold_2(a1 + 56);
+      __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_355_cold_2();
     }
   }
 
@@ -522,7 +516,7 @@ void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletio
 
 void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_356(uint64_t a1, void *a2, void *a3, double a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = *(a1 + 32);
@@ -537,13 +531,13 @@ void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletio
         v12 = *(a1 + 80);
         v13 = v10;
         v14 = [v11 numberWithUnsignedInteger:v12];
-        v19 = 136315650;
-        v20 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]_block_invoke";
-        v21 = 1024;
-        v22 = 268;
-        v23 = 2114;
-        v24 = v14;
-        _os_log_impl(&dword_24732C000, v13, OS_LOG_TYPE_INFO, "%s @%d: Calibration download for health record #%{public}@ completed", &v19, 0x1Cu);
+        v18 = 136315650;
+        v19 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]_block_invoke";
+        v20 = 1024;
+        v21 = 268;
+        v22 = 2114;
+        v23 = v14;
+        _os_log_impl(&dword_24732C000, v13, OS_LOG_TYPE_INFO, "%s @%d: Calibration download for health record #%{public}@ completed", &v18, 0x1Cu);
       }
 
       ++*(*(*(a1 + 56) + 8) + 24);
@@ -567,13 +561,11 @@ void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletio
   }
 
   [*(a1 + 48) leave];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_358(uint64_t a1, void *a2, void *a3, double a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = *(a1 + 32);
@@ -588,13 +580,13 @@ void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletio
         v12 = *(a1 + 88);
         v13 = v10;
         v14 = [v11 numberWithUnsignedInteger:v12];
-        v23 = 136315650;
-        v24 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]_block_invoke";
-        v25 = 1024;
-        v26 = 309;
-        v27 = 2114;
-        v28 = v14;
-        _os_log_impl(&dword_24732C000, v13, OS_LOG_TYPE_INFO, "%s @%d: Calibration download for ASA key #%{public}@ completed", &v23, 0x1Cu);
+        v22 = 136315650;
+        v23 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]_block_invoke";
+        v24 = 1024;
+        v25 = 309;
+        v26 = 2114;
+        v27 = v14;
+        _os_log_impl(&dword_24732C000, v13, OS_LOG_TYPE_INFO, "%s @%d: Calibration download for ASA key #%{public}@ completed", &v22, 0x1Cu);
       }
 
       ++*(*(*(a1 + 56) + 8) + 24);
@@ -628,8 +620,6 @@ void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletio
   }
 
   [*(a1 + 48) leave];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_359(uint64_t a1)
@@ -708,163 +698,144 @@ void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletio
 
 id __80__CRXFPrescriptionRecordCollector_addRecordFetchAnalyticsEventWithFetchSummary___block_invoke(uint64_t a1)
 {
-  v13[5] = *MEMORY[0x277D85DE8];
-  v12[0] = @"totalFetchTime";
+  v12[5] = *MEMORY[0x277D85DE8];
+  v11[0] = @"totalFetchTime";
   v2 = MEMORY[0x277CCABB0];
   [*(a1 + 32) totalFetchTime];
   v3 = [v2 numberWithDouble:?];
-  v13[0] = v3;
-  v12[1] = @"meanDownloadTime";
+  v12[0] = v3;
+  v11[1] = @"meanDownloadTime";
   v4 = MEMORY[0x277CCABB0];
   [*(a1 + 32) meanCalibrationDataDownloadTime];
   v5 = [v4 numberWithDouble:?];
-  v13[1] = v5;
-  v12[2] = @"healthRecordCount";
+  v12[1] = v5;
+  v11[2] = @"healthRecordCount";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "healthRecordCount")}];
-  v13[2] = v6;
-  v12[3] = @"asaKeyCount";
+  v12[2] = v6;
+  v11[3] = @"asaKeyCount";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "asaKeyCount")}];
-  v13[3] = v7;
-  v12[4] = @"downloadFailureCount";
+  v12[3] = v7;
+  v11[4] = @"downloadFailureCount";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "calibrationDataDownloadFailureCount")}];
-  v13[4] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:5];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[4] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
 
   return v9;
 }
 
 - (void)fetchPrescriptionRecordsWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_0(&dword_24732C000, v0, v1, "%s @%d: Fetching health records", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_24732C000, v0, v1, "%s @%d: Fetching health records", v2, v3, v4, v5, v6);
 }
 
 - (void)fetchPrescriptionRecordsWithCompletion:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_0(&dword_24732C000, v0, v1, "%s @%d: Fetching ASA keys", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_24732C000, v0, v1, "%s @%d: Fetching ASA keys", v2, v3, v4, v5, v6);
 }
 
 - (void)fetchPrescriptionRecordsWithCompletion:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_0(&dword_24732C000, v0, v1, "%s @%d: Done processing health records", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_24732C000, v0, v1, "%s @%d: Done processing health records", v2, v3, v4, v5, v6);
 }
 
 - (void)fetchPrescriptionRecordsWithCompletion:.cold.4()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_0(&dword_24732C000, v0, v1, "%s @%d: Done processing ASA keys", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_24732C000, v0, v1, "%s @%d: Done processing ASA keys", v2, v3, v4, v5, v6);
 }
 
 void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_348_cold_1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithUnsignedInteger:{objc_msgSend(a2, "count")}];
+  v12 = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6_0(&dword_24732C000, v6, v7, "%s @%d: Fetched %{public}@ health records", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_0(&dword_24732C000, v6, v7, "%s @%d: Fetched %{public}@ health records", v8, v9, v10, v11, v12);
 }
 
-void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_348_cold_2(uint64_t a1)
+void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_348_cold_2()
 {
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x277D85DE8]);
-  v3 = 136315650;
-  v4 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]_block_invoke_2";
-  v5 = 1024;
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
+  v1 = 136315650;
+  v2 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]_block_invoke_2";
+  v3 = 1024;
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(&dword_24732C000, v1, OS_LOG_TYPE_DEBUG, "%s @%d: Failed to fetch health records: %{public}@", &v3, 0x1Cu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24732C000, v0, OS_LOG_TYPE_DEBUG, "%s @%d: Failed to fetch health records: %{public}@", &v1, 0x1Cu);
 }
 
 void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_355_cold_1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithUnsignedInteger:{objc_msgSend(a2, "count")}];
-  v7[0] = 136315650;
+  v6[0] = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_24732C000, v4, OS_LOG_TYPE_DEBUG, "%s @%d: Fetched %{public}@ ASA keys", v7, 0x1Cu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24732C000, v4, OS_LOG_TYPE_DEBUG, "%s @%d: Fetched %{public}@ ASA keys", v6, 0x1Cu);
 }
 
-void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_355_cold_2(uint64_t a1)
+void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_355_cold_2()
 {
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x277D85DE8]);
-  v3 = 136315650;
-  v4 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]_block_invoke";
-  v5 = 1024;
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x277D85DE8]);
+  v1 = 136315650;
+  v2 = "[CRXFPrescriptionRecordCollector fetchPrescriptionRecordsWithCompletion:]_block_invoke";
+  v3 = 1024;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_24732C000, v1, OS_LOG_TYPE_ERROR, "%s @%d: Failed to fetch ASA keys: %{public}@", &v3, 0x1Cu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24732C000, v0, OS_LOG_TYPE_ERROR, "%s @%d: Failed to fetch ASA keys: %{public}@", &v1, 0x1Cu);
 }
 
 void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_356_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCABB0];
   v3 = *(a1 + 80);
   v4 = a2;
   v5 = [v2 numberWithUnsignedInteger:v3];
+  v12 = 136315906;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5_0(&dword_24732C000, v6, v7, "%s @%d: Calibration download for health record #%{public}@ failed: %{public}@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_0(&dword_24732C000, v6, v7, "%s @%d: Calibration download for health record #%{public}@ failed: %{public}@", v8, v9, v10, v11, v12);
 }
 
 void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_358_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCABB0];
   v3 = *(a1 + 88);
   v4 = a2;
   v5 = [v2 numberWithUnsignedInteger:v3];
+  v12 = 136315906;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5_0(&dword_24732C000, v6, v7, "%s @%d: Calibration download for ASA key #%{public}@ failed: %{public}@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_0(&dword_24732C000, v6, v7, "%s @%d: Calibration download for ASA key #%{public}@ failed: %{public}@", v8, v9, v10, v11, v12);
 }
 
 void __74__CRXFPrescriptionRecordCollector_fetchPrescriptionRecordsWithCompletion___block_invoke_359_cold_1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithUnsignedInteger:{objc_msgSend(a2, "count")}];
+  v12 = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6_0(&dword_24732C000, v6, v7, "%s @%d: %{public}@ enrollment records collected", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6_0(&dword_24732C000, v6, v7, "%s @%d: %{public}@ enrollment records collected", v8, v9, v10, v11, v12);
 }
 
 - (void)prescriptionRecordWithEnrollmentName:enrollmentDate:accPayload:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315650;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315650;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_24732C000, v0, OS_LOG_TYPE_ERROR, "%s @%d: Failed to decode ACC: %{public}@", v2, 0x1Cu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24732C000, v0, OS_LOG_TYPE_ERROR, "%s @%d: Failed to decode ACC: %{public}@", v1, 0x1Cu);
 }
 
 @end

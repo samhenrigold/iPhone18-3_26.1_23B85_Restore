@@ -399,14 +399,14 @@
 
 - (NSArray)trailingSidebarButtonItems
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA7DCF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA7DCF0, &unk_215A96A70);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_215A96980;
   selfCopy = self;
   *(v3 + 32) = [(BrowserSplitViewController *)selfCopy sidebarButtonItem];
   *(v3 + 40) = [(BrowserSplitViewController *)selfCopy newTabGroupButtonItem];
 
-  sub_2159F7DA8(0, &qword_2811A22B8);
+  sub_2159F7DA8(0, &qword_2811A22B8, 0x277D751E0);
   v5 = sub_215A705D0();
 
   return v5;
@@ -437,7 +437,7 @@
 
   selfCopy = self;
   sub_2159F6E08(sidebar, v6, v7);
-  sub_21584BA0C(v6);
+  sub_21584BA0C(v6, v7);
 }
 
 - (void)sidebarVisibilityWillChangeWithCompletion:(id)completion
@@ -459,13 +459,13 @@
 
   selfCopy = self;
   sub_2159F7050(v7, v6);
-  sub_21584BA0C(v7);
+  sub_21584BA0C(v7, v6);
 }
 
 - (void)updateAdditionalSafeAreaInsetsFor:(int64_t)for isCollapsed:(BOOL)collapsed
 {
   selfCopy = self;
-  sub_2159F74C4();
+  sub_2159F74C4(for, collapsed);
 }
 
 - (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion
@@ -486,7 +486,7 @@
   controllerCopy = controller;
   selfCopy = self;
   BrowserSplitViewController.present(_:animated:completion:)(controllerCopy, animated, v8, v9);
-  sub_21584BA0C(v8);
+  sub_21584BA0C(v8, v9);
 }
 
 - (BrowserSplitViewController)initWithNibName:(id)name bundle:(id)bundle

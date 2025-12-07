@@ -82,7 +82,7 @@
 
   if (isUpdating)
   {
-    sub_295703ECC();
+    sub_295703ECC(isUpdating);
 LABEL_7:
     v25 = 0;
     goto LABEL_8;
@@ -93,7 +93,7 @@ LABEL_7:
 
   if (v24)
   {
-    sub_295703F44();
+    sub_295703F44(v24);
     goto LABEL_7;
   }
 
@@ -111,7 +111,7 @@ LABEL_8:
 
   if (isUpdating)
   {
-    sub_295703FBC();
+    sub_295703FBC(isUpdating);
   }
 
   else
@@ -121,7 +121,7 @@ LABEL_8:
 
     if (isUpdating)
     {
-      sub_295704034();
+      sub_295704034(isUpdating);
     }
   }
 

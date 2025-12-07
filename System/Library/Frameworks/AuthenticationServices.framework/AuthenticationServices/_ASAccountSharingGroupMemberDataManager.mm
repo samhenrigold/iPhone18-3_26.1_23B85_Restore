@@ -201,7 +201,7 @@
 
 - (id)nameForOriginalContributorParticipantID:(id)d inGroupID:(id)iD
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   mEMORY[0x1E69C88E8] = [MEMORY[0x1E69C88E8] sharedProvider];
@@ -210,26 +210,26 @@
   if (v9)
   {
     participants = [v9 participants];
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = __93___ASAccountSharingGroupMemberDataManager_nameForOriginalContributorParticipantID_inGroupID___block_invoke;
-    v26 = &unk_1E7AF7D08;
-    v27 = dCopy;
-    v11 = [participants safari_firstObjectPassingTest:&v23];
+    v26 = MEMORY[0x1E69E9820];
+    v27 = 3221225472;
+    v28 = __93___ASAccountSharingGroupMemberDataManager_nameForOriginalContributorParticipantID_inGroupID___block_invoke;
+    v29 = &unk_1E7AF7D08;
+    v30 = dCopy;
+    v13 = [participants safari_firstObjectPassingTest:&v26];
 
-    if (v11)
+    if (v13)
     {
-      v28[0] = v11;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
-      v13 = [(_ASAccountSharingGroupMemberDataManager *)self groupMemberDataForGroupParticipants:v12];
-      firstObject = [v13 firstObject];
+      v31[0] = v13;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+      v17 = [(_ASAccountSharingGroupMemberDataManager *)self groupMemberDataForGroupParticipants:v16];
+      firstObject = [v17 firstObject];
 
       if ([firstObject isMeParticipant])
       {
-        v15 = MEMORY[0x1E696AEC0];
-        v16 = _WBSLocalizedString();
+        v19 = MEMORY[0x1E696AEC0];
+        v20 = _WBSLocalizedString();
         displayName = [firstObject displayName];
-        displayName2 = [v15 localizedStringWithFormat:v16, displayName, v23, v24, v25, v26];
+        displayName2 = [v19 localizedStringWithFormat:v20, displayName, v26, v27, v28, v29];
       }
 
       else
@@ -240,8 +240,8 @@
 
     else
     {
-      v20 = WBS_LOG_CHANNEL_PREFIXPasswordManager();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v24 = WBS_LOG_CHANNEL_PREFIXPasswordManager(v14, v15);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [_ASAccountSharingGroupMemberDataManager nameForOriginalContributorParticipantID:inGroupID:];
       }
@@ -252,8 +252,8 @@
 
   else
   {
-    v19 = WBS_LOG_CHANNEL_PREFIXPasswordManager();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v23 = WBS_LOG_CHANNEL_PREFIXPasswordManager(v10, v11);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [_ASAccountSharingGroupMemberDataManager nameForOriginalContributorParticipantID:inGroupID:];
     }
@@ -261,88 +261,85 @@
     displayName2 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return displayName2;
 }
 
 - (id)fetchContactForUserHandle:(id)handle
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   if ([handleCopy length])
   {
     if ([MEMORY[0x1E69967B0] isStringPhoneNumber:handleCopy])
     {
-      v5 = MEMORY[0x1E695CD58];
-      v6 = [MEMORY[0x1E695CF50] phoneNumberWithStringValue:handleCopy];
-      v7 = [v5 predicateForContactsMatchingPhoneNumber:v6];
+      v6 = MEMORY[0x1E695CD58];
+      v7 = [MEMORY[0x1E695CF50] phoneNumberWithStringValue:handleCopy];
+      v8 = [v6 predicateForContactsMatchingPhoneNumber:v7];
     }
 
     else
     {
-      v10 = [MEMORY[0x1E69966C8] isStringEmailAddress:handleCopy];
-      v11 = MEMORY[0x1E695CD58];
-      if (v10)
+      v11 = [MEMORY[0x1E69966C8] isStringEmailAddress:handleCopy];
+      v12 = MEMORY[0x1E695CD58];
+      if (v11)
       {
-        v12 = [MEMORY[0x1E695CD58] predicateForContactsMatchingEmailAddress:handleCopy];
+        v13 = [MEMORY[0x1E695CD58] predicateForContactsMatchingEmailAddress:handleCopy];
 LABEL_11:
-        v13 = [(NSCache *)self->_contactsCache objectForKey:v12];
-        v14 = v13;
-        if (v13)
+        v14 = [(NSCache *)self->_contactsCache objectForKey:v13];
+        v15 = v14;
+        if (v14)
         {
-          firstObject = v13;
+          firstObject = v14;
         }
 
         else
         {
           contactStore = self->_contactStore;
           descriptorForRequiredKeys = [MEMORY[0x1E695D148] descriptorForRequiredKeys];
-          v24 = descriptorForRequiredKeys;
-          v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
-          v23 = 0;
-          v18 = [(CNContactStore *)contactStore unifiedContactsMatchingPredicate:v12 keysToFetch:v17 error:&v23];
-          v19 = v23;
+          v26 = descriptorForRequiredKeys;
+          v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+          v25 = 0;
+          v19 = [(CNContactStore *)contactStore unifiedContactsMatchingPredicate:v13 keysToFetch:v18 error:&v25];
+          v20 = v25;
 
-          if ([v18 count] >= 2)
+          v21 = [v19 count];
+          if (v21 >= 2)
           {
-            v20 = WBS_LOG_CHANNEL_PREFIXPasswordManager();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v23 = WBS_LOG_CHANNEL_PREFIXPasswordManager(v21, v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               [_ASAccountSharingGroupMemberDataManager fetchContactForUserHandle:];
             }
           }
 
-          firstObject = [v18 firstObject];
+          firstObject = [v19 firstObject];
           if (firstObject)
           {
-            [(NSCache *)self->_contactsCache setObject:firstObject forKey:v12];
+            [(NSCache *)self->_contactsCache setObject:firstObject forKey:v13];
           }
         }
 
         goto LABEL_20;
       }
 
-      v25[0] = handleCopy;
-      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
-      v7 = [v11 predicateForContactsMatchingHandleStrings:v6];
+      v27[0] = handleCopy;
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+      v8 = [v12 predicateForContactsMatchingHandleStrings:v7];
     }
 
-    v12 = v7;
+    v13 = v8;
 
     goto LABEL_11;
   }
 
-  v8 = WBS_LOG_CHANNEL_PREFIXPasswordManager();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = WBS_LOG_CHANNEL_PREFIXPasswordManager(0, v5);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [_ASAccountSharingGroupMemberDataManager fetchContactForUserHandle:];
   }
 
   firstObject = 0;
 LABEL_20:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -394,7 +391,7 @@ LABEL_20:
 
 - (id)avatarImageForPrimaryAccountOwnerWithDiameter:(double)diameter
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   profilePictureForAccountOwnerWithoutMonogramFallback = [(AAUIProfilePictureStore *)self->_profilePictureStore profilePictureForAccountOwnerWithoutMonogramFallback];
   v6 = profilePictureForAccountOwnerWithoutMonogramFallback;
   if (profilePictureForAccountOwnerWithoutMonogramFallback)
@@ -411,12 +408,10 @@ LABEL_20:
 
     v12 = [(_ASAccountSharingGroupMemberDataManager *)self _renderingScopeForDiameter:diameter];
     avatarImageRenderer = self->_avatarImageRenderer;
-    v17[0] = v11;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = v11;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     v7 = [(CNAvatarImageRenderer *)avatarImageRenderer avatarImageForContacts:v14 scope:v12];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -439,14 +434,14 @@ LABEL_20:
 
 - (id)avatarImageForContact:(id)contact diameter:(double)diameter
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   if (contact)
   {
     contactCopy = contact;
     v7 = [(_ASAccountSharingGroupMemberDataManager *)self _renderingScopeForDiameter:diameter];
     avatarImageRenderer = self->_avatarImageRenderer;
-    v17[0] = contactCopy;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = contactCopy;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     v10 = [(CNAvatarImageRenderer *)avatarImageRenderer avatarImageForContacts:v9 scope:v7];
   }
 
@@ -459,8 +454,6 @@ LABEL_20:
     [(_ASAccountSharingGroupMemberDataManager *)self _screenScale];
     v10 = [placeholderImageProvider imageForSize:diameter scale:{diameter, v14}];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -503,34 +496,34 @@ LABEL_20:
   {
     if ([MEMORY[0x1E69967B0] isStringPhoneNumber:addressCopy])
     {
-      v4 = MEMORY[0x1E69967B0];
-      v5 = [MEMORY[0x1E69967B0] countryCodeForNumber:addressCopy];
-      v6 = [v4 internationalizedFormattedNumber:addressCopy countryCode:v5];
+      v5 = MEMORY[0x1E69967B0];
+      v6 = [MEMORY[0x1E69967B0] countryCodeForNumber:addressCopy];
+      v7 = [v5 internationalizedFormattedNumber:addressCopy countryCode:v6];
     }
 
     else
     {
-      v6 = addressCopy;
+      v7 = addressCopy;
     }
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXPasswordManager();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXPasswordManager(0, v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [_ASAccountSharingGroupMemberDataManager _formattedAddressForAddress:];
     }
 
-    v6 = &stru_1F28DE020;
+    v7 = &stru_1F28DE020;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)_contactForCurrentUser
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   contactForCurrentUser = self->_contactForCurrentUser;
   if (contactForCurrentUser)
   {
@@ -541,27 +534,25 @@ LABEL_20:
   {
     contactStore = self->_contactStore;
     descriptorForRequiredKeys = [MEMORY[0x1E695D148] descriptorForRequiredKeys];
-    v15[0] = descriptorForRequiredKeys;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
-    v14 = 0;
-    v8 = [(CNContactStore *)contactStore _ios_meContactWithKeysToFetch:v7 error:&v14];
-    v9 = v14;
+    v16[0] = descriptorForRequiredKeys;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15 = 0;
+    v8 = [(CNContactStore *)contactStore _ios_meContactWithKeysToFetch:v7 error:&v15];
+    v9 = v15;
     v10 = self->_contactForCurrentUser;
     self->_contactForCurrentUser = v8;
 
     if (v9)
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXPasswordManager();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXPasswordManager(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [(_ASAccountSharingGroupMemberDataManager *)v11 _contactForCurrentUser];
+        [(_ASAccountSharingGroupMemberDataManager *)v13 _contactForCurrentUser];
       }
     }
 
     v3 = self->_contactForCurrentUser;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -578,40 +569,32 @@ LABEL_20:
 
 - (void)nameForOriginalContributorParticipantID:inGroupID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)nameForOriginalContributorParticipantID:inGroupID:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchContactForUserHandle:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_contactForCurrentUser
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   safari_privacyPreservingDescription = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_1B1C8D000, selfCopy, OS_LOG_TYPE_ERROR, "Failed to get contact for current user with error: %{public}@", v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B1C8D000, selfCopy, OS_LOG_TYPE_ERROR, "Failed to get contact for current user with error: %{public}@", v5, 0xCu);
 }
 
 @end

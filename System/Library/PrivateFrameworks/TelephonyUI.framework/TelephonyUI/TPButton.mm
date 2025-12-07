@@ -1,15 +1,107 @@
 @interface TPButton
 - (CGSize)intrinsicContentSize;
+- (TPButton)initWithTitle:(id)title icon:(id)icon color:(int)color frame:(CGRect)frame;
 - (void)_animationDidEnd;
 - (void)_animationWillBegin;
 - (void)layoutSubviews;
 - (void)setBlursBackground:(BOOL)background;
 - (void)setButtonColor:(int)color;
+- (void)setEnabled:(BOOL)enabled;
+- (void)setHighlighted:(BOOL)highlighted;
 - (void)setImage:(id)image forState:(unint64_t)state;
+- (void)setRoundsCorners:(BOOL)corners;
+- (void)setSelected:(BOOL)selected;
 - (void)setUsesOverlayBlendingForContents:(BOOL)contents;
 @end
 
 @implementation TPButton
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  v9.receiver = self;
+  v9.super_class = TPButton;
+  [(TPButton *)&v9 setHighlighted:highlighted];
+  if ([(TPButton *)self isEnabled])
+  {
+    inputSettings = [(_UIBackdropView *)self->_backdropView inputSettings];
+    [inputSettings setHighlighted:{-[TPButton isHighlighted](self, "isHighlighted")}];
+
+    outputSettings = [(_UIBackdropView *)self->_backdropView outputSettings];
+    inputSettings2 = [(_UIBackdropView *)self->_backdropView inputSettings];
+    [outputSettings computeOutputSettingsUsingModel:inputSettings2];
+
+    backdropView = self->_backdropView;
+    outputSettings2 = [(_UIBackdropView *)backdropView outputSettings];
+    [(_UIBackdropView *)backdropView applySettings:outputSettings2];
+  }
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  v19.receiver = self;
+  v19.super_class = TPButton;
+  [(TPButton *)&v19 setEnabled:enabled];
+  inputSettings = [(_UIBackdropView *)self->_backdropView inputSettings];
+  [inputSettings setEnabled:{-[TPButton isEnabled](self, "isEnabled")}];
+
+  inputSettings2 = [(_UIBackdropView *)self->_backdropView inputSettings];
+  [inputSettings2 setHighlighted:0];
+
+  outputSettings = [(_UIBackdropView *)self->_backdropView outputSettings];
+  inputSettings3 = [(_UIBackdropView *)self->_backdropView inputSettings];
+  [outputSettings computeOutputSettingsUsingModel:inputSettings3];
+
+  backdropView = self->_backdropView;
+  outputSettings2 = [(_UIBackdropView *)backdropView outputSettings];
+  [(_UIBackdropView *)backdropView applySettings:outputSettings2];
+
+  if (!self->_blursBackground)
+  {
+    [(_UIBackdropView *)self->_backdropView _setBlursBackground:0];
+  }
+
+  if (self->_usesOverlayBlendingForContents)
+  {
+    imageView = [(TPButton *)self imageView];
+    [imageView setAlpha:0.400000006];
+
+    imageView2 = [(TPButton *)self imageView];
+    layer = [imageView2 layer];
+    v13 = *MEMORY[0x1E6979CE8];
+    v14 = [MEMORY[0x1E6979378] filterWithType:*MEMORY[0x1E6979CE8]];
+    [layer setCompositingFilter:v14];
+
+    titleLabel = [(TPButton *)self titleLabel];
+    [titleLabel setAlpha:0.400000006];
+
+    titleLabel2 = [(TPButton *)self titleLabel];
+    layer2 = [titleLabel2 layer];
+    v18 = [MEMORY[0x1E6979378] filterWithType:v13];
+    [layer2 setCompositingFilter:v18];
+  }
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  v9.receiver = self;
+  v9.super_class = TPButton;
+  [(TPButton *)&v9 setSelected:selected];
+  inputSettings = [(_UIBackdropView *)self->_backdropView inputSettings];
+  [inputSettings setSelected:{-[TPButton isSelected](self, "isSelected")}];
+
+  outputSettings = [(_UIBackdropView *)self->_backdropView outputSettings];
+  inputSettings2 = [(_UIBackdropView *)self->_backdropView inputSettings];
+  [outputSettings computeOutputSettingsUsingModel:inputSettings2];
+
+  backdropView = self->_backdropView;
+  outputSettings2 = [(_UIBackdropView *)backdropView outputSettings];
+  [(_UIBackdropView *)backdropView applySettings:outputSettings2];
+
+  if (!self->_blursBackground)
+  {
+    [(_UIBackdropView *)self->_backdropView _setBlursBackground:0];
+  }
+}
 
 - (void)setButtonColor:(int)color
 {
@@ -84,6 +176,64 @@ LABEL_13:
   self->_color = color;
 }
 
+- (TPButton)initWithTitle:(id)title icon:(id)icon color:(int)color frame:(CGRect)frame
+{
+  height = frame.size.height;
+  width = frame.size.width;
+  y = frame.origin.y;
+  x = frame.origin.x;
+  v10 = *&color;
+  titleCopy = title;
+  iconCopy = icon;
+  v27.receiver = self;
+  v27.super_class = TPButton;
+  v15 = [(TPButton *)&v27 init];
+  v16 = v15;
+  if (v15)
+  {
+    v15->_color = -1;
+    v15->_usesOverlayBlendingForContents = 0;
+    v15->_blursBackground = 1;
+    [(TPButton *)v15 setOpaque:0];
+    [(TPButton *)v16 setFrame:x, y, width, height];
+    [(TPButton *)v16 setTitle:titleCopy forState:0];
+    if (iconCopy)
+    {
+      [(TPButton *)v16 setImage:iconCopy forState:0];
+      whiteColor = [MEMORY[0x1E69DC888] whiteColor];
+      v18 = [iconCopy _flatImageWithColor:whiteColor];
+
+      [(TPButton *)v16 setImage:v18 forState:1];
+      [(TPButton *)v16 setImage:v18 forState:4];
+    }
+
+    titleLabel = [(TPButton *)v16 titleLabel];
+    v20 = [MEMORY[0x1E69DB878] systemFontOfSize:28.0];
+    [titleLabel setFont:v20];
+
+    [(TPButton *)v16 setTitleEdgeInsets:0.0, 0.0, 1.0, 0.0];
+    titleLabel2 = [(TPButton *)v16 titleLabel];
+    [titleLabel2 setAdjustsFontSizeToFitWidth:1];
+
+    titleLabel3 = [(TPButton *)v16 titleLabel];
+    [titleLabel3 setMinimumScaleFactor:0.5];
+
+    [(TPButton *)v16 setButtonColor:v10];
+    layer = [(TPButton *)v16 layer];
+    [layer setAllowsGroupOpacity:0];
+
+    layer2 = [(TPButton *)v16 layer];
+    [layer2 setAllowsGroupBlending:0];
+
+    v16->_roundsCorners = 1;
+    [(TPButton *)v16 setClipsToBounds:1];
+    layer3 = [(TPButton *)v16 layer];
+    [layer3 setCornerRadius:5.0];
+  }
+
+  return v16;
+}
+
 - (CGSize)intrinsicContentSize
 {
   +[TPButton defaultHeight];
@@ -146,6 +296,34 @@ LABEL_13:
   }
 
   self->_blursBackground = background;
+}
+
+- (void)setRoundsCorners:(BOOL)corners
+{
+  if (self->_roundsCorners != corners)
+  {
+    cornersCopy = corners;
+    backdropView = self->_backdropView;
+    if (corners)
+    {
+      v6 = 5.0;
+    }
+
+    else
+    {
+      v6 = 0.0;
+    }
+
+    [(_UIBackdropView *)backdropView setClipsToBounds:?];
+    layer = [(_UIBackdropView *)self->_backdropView layer];
+    [layer setCornerRadius:v6];
+
+    [(TPButton *)self setClipsToBounds:cornersCopy];
+    layer2 = [(TPButton *)self layer];
+    [layer2 setCornerRadius:v6];
+
+    self->_roundsCorners = cornersCopy;
+  }
 }
 
 - (void)setUsesOverlayBlendingForContents:(BOOL)contents

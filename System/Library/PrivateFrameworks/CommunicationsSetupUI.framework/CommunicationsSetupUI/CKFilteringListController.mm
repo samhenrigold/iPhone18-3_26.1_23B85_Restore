@@ -25,6 +25,9 @@
 - (void)showPrivacyAccessWarningAndChangeSpamAppIfNeeded:(id)needed completion:(id)completion;
 - (void)showPrivacyLegalVC;
 - (void)userChangedSpamFilteringSettings;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CKFilteringListController
@@ -66,6 +69,32 @@
   }
 
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CKFilteringListController;
+  [(CKFilteringListController *)&v4 viewWillAppear:appear];
+  [(CKFilteringListController *)self setIsSpamFilteringDefaultEnabled];
+  [(CKFilteringListController *)self findSpamExtensions];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CKFilteringListController;
+  [(CKFilteringListController *)&v4 viewDidAppear:appear];
+  [(CKFilteringListController *)self findSpamExtensions];
+  self->_showingParentViewController = 0;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CKFilteringListController;
+  [(CKFilteringListController *)&v4 viewDidDisappear:disappear];
+  [(CKFilteringListController *)self endMatchingExtensions];
 }
 
 - (void)dealloc
@@ -515,7 +544,7 @@ LABEL_8:
 
 - (void)_checkAndUpdateExtensionIDArray
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -536,20 +565,20 @@ LABEL_8:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v14 = v4;
-    v15 = 2112;
-    v16 = v5;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v5;
     _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "currentExtensionIDArray:%@, newExtensionIDArray:%@", buf, 0x16u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v11 = v4;
-    v12 = v5;
+    v10 = v4;
+    v11 = v5;
     IMLogString();
   }
 
-  if (([v6 isEqualToSet:{v7, v11, v12}] & 1) == 0)
+  if (([v6 isEqualToSet:{v7, v10, v11}] & 1) == 0)
   {
     v9 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -566,72 +595,63 @@ LABEL_8:
     [(CKFilteringListController *)self setExtensionIDArray:v5];
     [(CKFilteringListController *)self reloadSpecifiers];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)verifyCurrentExtensionIDValidity
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if (self->_spamFilterState == 1)
+  v17 = *MEMORY[0x277D85DE8];
+  if (self->_spamFilterState != 1)
   {
-    getDefaultExtension = [(CKFilteringListController *)self getDefaultExtension];
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v4 = self->_extensionIDArray;
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v5)
+    return 1;
+  }
+
+  getDefaultExtension = [(CKFilteringListController *)self getDefaultExtension];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v4 = self->_extensionIDArray;
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v13;
+    while (2)
     {
-      v6 = v5;
-      v7 = *v14;
-      while (2)
+      v8 = 0;
+      do
       {
-        v8 = 0;
-        do
+        if (*v13 != v7)
         {
-          if (*v14 != v7)
-          {
-            objc_enumerationMutation(v4);
-          }
-
-          identifier = [*(*(&v13 + 1) + 8 * v8) identifier];
-          v10 = [identifier isEqualToString:self->_currentExtensionID];
-
-          if (v10)
-          {
-
-            goto LABEL_12;
-          }
-
-          ++v8;
+          objc_enumerationMutation(v4);
         }
 
-        while (v6 != v8);
-        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-        if (v6)
+        identifier = [*(*(&v12 + 1) + 8 * v8) identifier];
+        v10 = [identifier isEqualToString:self->_currentExtensionID];
+
+        if (v10)
         {
-          continue;
+
+          return 1;
         }
 
-        break;
+        ++v8;
       }
+
+      while (v6 != v8);
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
     }
-
-    [(CKFilteringListController *)self disableSpamFiltering];
-    [(CKFilteringListController *)self reloadSpecifiers];
-    result = 0;
   }
 
-  else
-  {
-LABEL_12:
-    result = 1;
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  [(CKFilteringListController *)self disableSpamFiltering];
+  [(CKFilteringListController *)self reloadSpecifiers];
+  return 0;
 }
 
 - (void)appendAboutWiFiCallingFooterToGroupSpecifier:(id)specifier

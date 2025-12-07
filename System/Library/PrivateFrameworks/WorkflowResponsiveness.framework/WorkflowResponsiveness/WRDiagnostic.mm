@@ -148,12 +148,12 @@
 
 + (id)diagnosticsForWorkflowName:(void *)name signpostName:(void *)signpostName diagnosticDicts:(int)dicts diagnosticsEnabled:(int)enabled checkForOverrides:(uint64_t *)overrides error:
 {
-  v168 = *MEMORY[0x277D85DE8];
-  v140 = a2;
+  v175 = *MEMORY[0x277D85DE8];
+  v147 = a2;
   nameCopy = name;
   signpostNameCopy = signpostName;
   objc_opt_self();
-  v155 = 0;
+  v162 = 0;
   if (overrides)
   {
     *overrides = 0;
@@ -161,12 +161,12 @@
 
   else
   {
-    overrides = &v155;
+    overrides = &v162;
   }
 
   if ([signpostNameCopy count] == 1)
   {
-    v14 = v140;
+    v14 = v147;
     if (nameCopy)
     {
       v14 = nameCopy;
@@ -181,34 +181,34 @@
   }
 
   v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v151 = 0u;
-  v152 = 0u;
-  v153 = 0u;
-  v154 = 0u;
+  v158 = 0u;
+  v159 = 0u;
+  v160 = 0u;
+  v161 = 0u;
   v17 = signpostNameCopy;
-  v18 = [v17 countByEnumeratingWithState:&v151 objects:v167 count:16];
-  v138 = v15;
-  v139 = v16;
-  v137 = v17;
+  v18 = [v17 countByEnumeratingWithState:&v158 objects:v174 count:16];
+  v145 = v15;
+  v146 = v16;
+  v144 = v17;
   if (v18)
   {
     v19 = v18;
     v20 = 0x279EE3000uLL;
-    v21 = *v152;
-    v134 = *v152;
+    v21 = *v159;
+    v141 = *v159;
     do
     {
       v22 = 0;
       do
       {
-        if (*v152 != v21)
+        if (*v159 != v21)
         {
           v23 = v22;
           objc_enumerationMutation(v17);
           v22 = v23;
         }
 
-        v136 = v22;
+        v143 = v22;
         v24 = [(WRDiagnostic *)*(v20 + 104) diagnosticsWithDict:v15 backupName:overrides error:?];
         v25 = v24;
         if (!v24)
@@ -232,51 +232,51 @@
           goto LABEL_112;
         }
 
-        v130 = v19;
+        v137 = v19;
         dictsCopy = dicts;
         enabledCopy = enabled;
-        v149 = 0u;
-        v150 = 0u;
-        v147 = 0u;
-        v148 = 0u;
+        v156 = 0u;
+        v157 = 0u;
+        v154 = 0u;
+        v155 = 0u;
         v27 = v16;
-        v28 = [v27 countByEnumeratingWithState:&v147 objects:v166 count:16];
+        v28 = [v27 countByEnumeratingWithState:&v154 objects:v173 count:16];
         if (!v28)
         {
           goto LABEL_27;
         }
 
         v29 = v28;
-        v30 = *v148;
+        v30 = *v155;
         do
         {
           for (i = 0; i != v29; ++i)
           {
-            if (*v148 != v30)
+            if (*v155 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            name = [*(*(&v147 + 1) + 8 * i) name];
+            name = [*(*(&v154 + 1) + 8 * i) name];
             name2 = [v25 name];
             v34 = [name isEqualToString:name2];
 
             if (v34)
             {
               name3 = [v25 name];
-              *overrides = WRMakeError(8, @"Multiple diagnostics with name %@", v117, v118, v119, v120, v121, v122, name3);
+              *overrides = WRMakeError(8, @"Multiple diagnostics with name %@", v125, v126, v127, v128, v129, v130, name3);
 
-              v15 = v138;
-              v16 = v139;
-              v17 = v137;
+              v15 = v145;
+              v16 = v146;
+              v17 = v144;
 LABEL_112:
 
-              v123 = 0;
+              v131 = 0;
               goto LABEL_118;
             }
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v147 objects:v166 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v154 objects:v173 count:16];
         }
 
         while (v29);
@@ -302,90 +302,91 @@ LABEL_36:
         name4 = [v25 name];
         if (nameCopy)
         {
-          v146 = 0;
-          v36 = &v146;
-          WROverrideDiagnosticForSignpost(v140, nameCopy, name4, &v146);
+          v153 = 0;
+          v36 = &v153;
+          WROverrideDiagnosticForSignpost(v147, nameCopy, name4, &v153);
         }
 
         else
         {
-          v145 = 0;
-          v36 = &v145;
-          WROverrideDiagnosticForWorkflow(v140, name4, &v145);
+          v152 = 0;
+          v36 = &v152;
+          WROverrideDiagnosticForWorkflow(v147, name4, &v152);
         }
         v37 = ;
         v38 = *v36;
 
         if (v37)
         {
-          v48 = [v25 copy];
-          v144 = v38;
-          v49 = [(WRDiagnostic *)v48 applyDict:v37 error:&v144];
-          v50 = v144;
+          v49 = [v25 copy];
+          v151 = v38;
+          v50 = [(WRDiagnostic *)v49 applyDict:v37 error:&v151];
+          v51 = v151;
 
-          if (!v49)
+          if (!v50)
           {
-            v128 = v50;
-            v51 = nameCopy;
-            v52 = *__error();
-            v53 = _wrlog();
-            v54 = os_log_type_enabled(v53, OS_LOG_TYPE_FAULT);
+            v135 = v51;
+            v52 = nameCopy;
+            v53 = __error();
+            v54 = *v53;
+            v55 = _wrlog(v53);
+            v56 = os_log_type_enabled(v55, OS_LOG_TYPE_FAULT);
             if (nameCopy)
             {
-              if (v54)
+              if (v56)
               {
                 [v25 name];
-                v55 = v126 = v48;
-                v56 = [v128 description];
+                v57 = v133 = v49;
+                v58 = [v135 description];
                 *buf = 138544386;
-                v157 = v140;
-                v158 = 2114;
-                v159 = nameCopy;
-                v160 = 2114;
-                v161 = v55;
-                v162 = 2114;
-                v163 = v56;
-                v164 = 2114;
-                v165 = v37;
-                v57 = v53;
-                v58 = "%{public}@: %{public}@: diagnostic %{public}@: invalid override dict: %{public}@\n%{public}@";
-                v59 = 52;
+                v164 = v147;
+                v165 = 2114;
+                v166 = nameCopy;
+                v167 = 2114;
+                v168 = v57;
+                v169 = 2114;
+                v170 = v58;
+                v171 = 2114;
+                v172 = v37;
+                v59 = v55;
+                v60 = "%{public}@: %{public}@: diagnostic %{public}@: invalid override dict: %{public}@\n%{public}@";
+                v61 = 52;
                 goto LABEL_68;
               }
             }
 
-            else if (v54)
+            else if (v56)
             {
               [v25 name];
-              v55 = v126 = v48;
-              v56 = [v128 description];
+              v57 = v133 = v49;
+              v58 = [v135 description];
               *buf = 138544130;
-              v157 = v140;
-              v158 = 2114;
-              v159 = v55;
-              v160 = 2114;
-              v161 = v56;
-              v162 = 2114;
-              v163 = v37;
-              v57 = v53;
-              v58 = "%{public}@: diagnostic %{public}@: invalid override dict: %{public}@\n%{public}@";
-              v59 = 42;
+              v164 = v147;
+              v165 = 2114;
+              v166 = v57;
+              v167 = 2114;
+              v168 = v58;
+              v169 = 2114;
+              v170 = v37;
+              v59 = v55;
+              v60 = "%{public}@: diagnostic %{public}@: invalid override dict: %{public}@\n%{public}@";
+              v61 = 42;
 LABEL_68:
-              _os_log_fault_impl(&dword_2746E5000, v57, OS_LOG_TYPE_FAULT, v58, buf, v59);
+              _os_log_fault_impl(&dword_2746E5000, v59, OS_LOG_TYPE_FAULT, v60, buf, v61);
 
               enabled = enabledCopy;
-              v48 = v126;
+              v49 = v133;
             }
 
-            *__error() = v52;
-            v60 = 0;
+            *__error() = v54;
+            v62 = 0;
 LABEL_52:
-            v38 = v128;
+            v38 = v135;
 LABEL_53:
 
-            v25 = v60;
+            v25 = v62;
 LABEL_38:
-            v19 = v130;
+            v19 = v137;
             if (v25)
             {
               [v27 addObject:v25];
@@ -396,41 +397,42 @@ LABEL_38:
 
           if (nameCopy)
           {
-            isValidForSignpost = [(WRDiagnostic *)v48 isValidForSignpost];
+            isValidForSignpost = [(WRDiagnostic *)v49 isValidForSignpost];
 
             if (!isValidForSignpost)
             {
-              v62 = v48;
-              v90 = nameCopy;
-              v129 = *__error();
-              v63 = _wrlog();
-              if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+              v64 = v49;
+              v95 = nameCopy;
+              v96 = __error();
+              v136 = *v96;
+              v66 = _wrlog(v96);
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
               {
                 name5 = [v25 name];
-                v65 = [v25 debugDescription];
-                v66 = [v62 debugDescription];
+                v68 = [v25 debugDescription];
+                v69 = [v64 debugDescription];
                 *buf = 138544386;
-                v157 = v140;
-                v158 = 2114;
-                v159 = nameCopy;
-                v160 = 2114;
-                v161 = name5;
-                v162 = 2114;
-                v163 = v65;
-                v164 = 2114;
-                v165 = v66;
-                v67 = v63;
-                v68 = "%{public}@: %{public}@: diagnostic %{public}@: applied override: %{public}@ -> %{public}@";
-                v69 = 52;
+                v164 = v147;
+                v165 = 2114;
+                v166 = nameCopy;
+                v167 = 2114;
+                v168 = name5;
+                v169 = 2114;
+                v170 = v68;
+                v171 = 2114;
+                v172 = v69;
+                v70 = v66;
+                v71 = "%{public}@: %{public}@: diagnostic %{public}@: applied override: %{public}@ -> %{public}@";
+                v72 = 52;
 LABEL_75:
-                _os_log_impl(&dword_2746E5000, v67, OS_LOG_TYPE_INFO, v68, buf, v69);
+                _os_log_impl(&dword_2746E5000, v70, OS_LOG_TYPE_INFO, v71, buf, v72);
               }
 
 LABEL_76:
 
-              *__error() = v129;
-              v48 = v62;
-              v60 = v62;
+              *__error() = v136;
+              v49 = v64;
+              v62 = v64;
               v38 = 0;
               enabled = enabledCopy;
               goto LABEL_53;
@@ -439,29 +441,30 @@ LABEL_76:
 
           else
           {
-            isValidForSignpost = [(WRDiagnostic *)v48 isValidForWorkflow];
+            isValidForSignpost = [(WRDiagnostic *)v49 isValidForWorkflow];
 
             if (!isValidForSignpost)
             {
-              v62 = v48;
-              v129 = *__error();
-              v63 = _wrlog();
-              if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+              v64 = v49;
+              v65 = __error();
+              v136 = *v65;
+              v66 = _wrlog(v65);
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
               {
                 name5 = [v25 name];
-                v65 = [v25 debugDescription];
-                v66 = [v62 debugDescription];
+                v68 = [v25 debugDescription];
+                v69 = [v64 debugDescription];
                 *buf = 138544130;
-                v157 = v140;
-                v158 = 2114;
-                v159 = name5;
-                v160 = 2114;
-                v161 = v65;
-                v162 = 2114;
-                v163 = v66;
-                v67 = v63;
-                v68 = "%{public}@: diagnostic %{public}@: applied override: %{public}@ -> %{public}@";
-                v69 = 42;
+                v164 = v147;
+                v165 = 2114;
+                v166 = name5;
+                v167 = 2114;
+                v168 = v68;
+                v169 = 2114;
+                v170 = v69;
+                v70 = v66;
+                v71 = "%{public}@: diagnostic %{public}@: applied override: %{public}@ -> %{public}@";
+                v72 = 42;
                 goto LABEL_75;
               }
 
@@ -469,116 +472,118 @@ LABEL_76:
             }
           }
 
-          v70 = isValidForSignpost;
+          v73 = isValidForSignpost;
           domain = [isValidForSignpost domain];
-          v128 = v70;
+          v135 = v73;
           if (![domain isEqualToString:@"WorkflowResponsivenessError"])
           {
 
             goto LABEL_70;
           }
 
-          v72 = v48;
-          code = [v70 code];
+          v75 = v49;
+          code = [v73 code];
 
-          v74 = code == 3;
-          v48 = v72;
-          if (!v74)
+          v77 = code == 3;
+          v49 = v75;
+          if (!v77)
           {
 LABEL_70:
-            v82 = *__error();
-            v83 = _wrlog();
-            v84 = os_log_type_enabled(v83, OS_LOG_TYPE_FAULT);
+            v86 = __error();
+            v87 = *v86;
+            v88 = _wrlog(v86);
+            v89 = os_log_type_enabled(v88, OS_LOG_TYPE_FAULT);
             if (nameCopy)
             {
-              if (v84)
+              if (v89)
               {
                 [v25 name];
-                v85 = v127 = v48;
-                v86 = [v128 description];
+                v90 = v134 = v49;
+                v91 = [v135 description];
                 *buf = 138544386;
-                v157 = v140;
-                v158 = 2114;
-                v159 = nameCopy;
-                v160 = 2114;
-                v161 = v85;
-                v162 = 2114;
-                v163 = v86;
-                v164 = 2114;
-                v165 = v37;
-                v87 = v83;
-                v88 = "%{public}@: %{public}@: diagnostic %{public}@: invalid override dict: %{public}@\n%{public}@";
-                v89 = 52;
+                v164 = v147;
+                v165 = 2114;
+                v166 = nameCopy;
+                v167 = 2114;
+                v168 = v90;
+                v169 = 2114;
+                v170 = v91;
+                v171 = 2114;
+                v172 = v37;
+                v92 = v88;
+                v93 = "%{public}@: %{public}@: diagnostic %{public}@: invalid override dict: %{public}@\n%{public}@";
+                v94 = 52;
                 goto LABEL_84;
               }
             }
 
-            else if (v84)
+            else if (v89)
             {
               [v25 name];
-              v85 = v127 = v48;
-              v86 = [v128 description];
+              v90 = v134 = v49;
+              v91 = [v135 description];
               *buf = 138544130;
-              v157 = v140;
-              v158 = 2114;
-              v159 = v85;
-              v160 = 2114;
-              v161 = v86;
-              v162 = 2114;
-              v163 = v37;
-              v87 = v83;
-              v88 = "%{public}@: diagnostic %{public}@: invalid override dict: %{public}@\n%{public}@";
-              v89 = 42;
+              v164 = v147;
+              v165 = 2114;
+              v166 = v90;
+              v167 = 2114;
+              v168 = v91;
+              v169 = 2114;
+              v170 = v37;
+              v92 = v88;
+              v93 = "%{public}@: diagnostic %{public}@: invalid override dict: %{public}@\n%{public}@";
+              v94 = 42;
 LABEL_84:
-              _os_log_fault_impl(&dword_2746E5000, v87, OS_LOG_TYPE_FAULT, v88, buf, v89);
+              _os_log_fault_impl(&dword_2746E5000, v92, OS_LOG_TYPE_FAULT, v93, buf, v94);
 
-              v48 = v127;
+              v49 = v134;
             }
 
-            v60 = 0;
-            *__error() = v82;
+            v62 = 0;
+            *__error() = v87;
             goto LABEL_52;
           }
 
-          v75 = *__error();
-          v76 = _wrlog();
-          v77 = os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT);
+          v78 = __error();
+          v79 = *v78;
+          v80 = _wrlog(v78);
+          v81 = os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT);
           if (nameCopy)
           {
-            if (v77)
+            if (v81)
             {
               name6 = [v25 name];
               *buf = 138543874;
-              v157 = v140;
-              v158 = 2114;
-              v159 = nameCopy;
-              v160 = 2114;
-              v161 = name6;
-              v79 = v76;
-              v80 = "%{public}@: %{public}@: diagnostic %{public}@: disabled via override";
-              v81 = 32;
+              v164 = v147;
+              v165 = 2114;
+              v166 = nameCopy;
+              v167 = 2114;
+              v168 = name6;
+              v83 = v80;
+              v84 = "%{public}@: %{public}@: diagnostic %{public}@: disabled via override";
+              v85 = 32;
               goto LABEL_81;
             }
           }
 
-          else if (v77)
+          else if (v81)
           {
             name6 = [v25 name];
             *buf = 138543618;
-            v157 = v140;
-            v158 = 2114;
-            v159 = name6;
-            v79 = v76;
-            v80 = "%{public}@: diagnostic %{public}@: disabled via override";
-            v81 = 22;
+            v164 = v147;
+            v165 = 2114;
+            v166 = name6;
+            v83 = v80;
+            v84 = "%{public}@: diagnostic %{public}@: disabled via override";
+            v85 = 22;
 LABEL_81:
-            _os_log_impl(&dword_2746E5000, v79, OS_LOG_TYPE_DEFAULT, v80, buf, v81);
+            _os_log_impl(&dword_2746E5000, v83, OS_LOG_TYPE_DEFAULT, v84, buf, v85);
           }
 
-          v60 = 0;
-          *__error() = v75;
+          v62 = 0;
+          *__error() = v79;
           enabled = enabledCopy;
-          v48 = v72;
+          v49 = v75;
           goto LABEL_52;
         }
 
@@ -588,71 +593,72 @@ LABEL_81:
         }
 
         v39 = nameCopy;
-        v40 = *__error();
-        v41 = _wrlog();
-        v42 = os_log_type_enabled(v41, OS_LOG_TYPE_FAULT);
+        v40 = __error();
+        v41 = *v40;
+        v42 = _wrlog(v40);
+        v43 = os_log_type_enabled(v42, OS_LOG_TYPE_FAULT);
         if (nameCopy)
         {
-          if (v42)
+          if (v43)
           {
             name7 = [v25 name];
-            v44 = [v38 description];
+            v45 = [v38 description];
             *buf = 138544130;
-            v157 = v140;
-            v158 = 2114;
-            v159 = nameCopy;
-            v160 = 2114;
-            v161 = name7;
-            v162 = 2114;
-            v163 = v44;
-            v45 = v41;
-            v46 = "%{public}@: %{public}@: diagnostic %{public}@: invalid override settings: %{public}@";
-            v47 = 42;
+            v164 = v147;
+            v165 = 2114;
+            v166 = nameCopy;
+            v167 = 2114;
+            v168 = name7;
+            v169 = 2114;
+            v170 = v45;
+            v46 = v42;
+            v47 = "%{public}@: %{public}@: diagnostic %{public}@: invalid override settings: %{public}@";
+            v48 = 42;
             goto LABEL_55;
           }
         }
 
-        else if (v42)
+        else if (v43)
         {
           name7 = [v25 name];
-          v44 = [v38 description];
+          v45 = [v38 description];
           *buf = 138543874;
-          v157 = v140;
-          v158 = 2114;
-          v159 = name7;
-          v160 = 2114;
-          v161 = v44;
-          v45 = v41;
-          v46 = "%{public}@: diagnostic %{public}@: invalid override settings: %{public}@";
-          v47 = 32;
+          v164 = v147;
+          v165 = 2114;
+          v166 = name7;
+          v167 = 2114;
+          v168 = v45;
+          v46 = v42;
+          v47 = "%{public}@: diagnostic %{public}@: invalid override settings: %{public}@";
+          v48 = 32;
 LABEL_55:
-          _os_log_fault_impl(&dword_2746E5000, v45, OS_LOG_TYPE_FAULT, v46, buf, v47);
+          _os_log_fault_impl(&dword_2746E5000, v46, OS_LOG_TYPE_FAULT, v47, buf, v48);
 
           enabled = enabledCopy;
         }
 
-        *__error() = v40;
+        *__error() = v41;
         v25 = 0;
 LABEL_43:
         v37 = 0;
-        v19 = v130;
+        v19 = v137;
 LABEL_44:
 
-        v22 = v136 + 1;
-        v15 = v138;
-        v16 = v139;
-        v17 = v137;
+        v22 = v143 + 1;
+        v15 = v145;
+        v16 = v146;
+        v17 = v144;
         dicts = dictsCopy;
         v20 = 0x279EE3000;
-        v21 = v134;
+        v21 = v141;
       }
 
-      while (v136 + 1 != v19);
-      v91 = [v137 countByEnumeratingWithState:&v151 objects:v167 count:16];
-      v19 = v91;
+      while (v143 + 1 != v19);
+      v97 = [v144 countByEnumeratingWithState:&v158 objects:v174 count:16];
+      v19 = v97;
     }
 
-    while (v91);
+    while (v97);
   }
 
   if (!enabled)
@@ -660,169 +666,169 @@ LABEL_44:
     goto LABEL_114;
   }
 
-  v92 = 1;
-  v93 = 0x277CCA000uLL;
+  v98 = 1;
+  v99 = 0x277CCA000uLL;
   while (1)
   {
-    v94 = [objc_alloc(*(v93 + 3240)) initWithFormat:@"%u", v92];
+    v100 = [objc_alloc(*(v99 + 3240)) initWithFormat:@"%u", v98];
     if (nameCopy)
     {
-      v143 = 0;
-      v95 = &v143;
-      WROverrideDiagnosticForSignpost(v140, nameCopy, v94, &v143);
+      v150 = 0;
+      v101 = &v150;
+      WROverrideDiagnosticForSignpost(v147, nameCopy, v100, &v150);
     }
 
     else
     {
-      v142 = 0;
-      v95 = &v142;
-      WROverrideDiagnosticForWorkflow(v140, v94, &v142);
+      v149 = 0;
+      v101 = &v149;
+      WROverrideDiagnosticForWorkflow(v147, v100, &v149);
     }
-    v96 = ;
-    v97 = *v95;
-    v98 = v97;
-    if (!v96)
+    v102 = ;
+    v103 = *v101;
+    v104 = v103;
+    if (!v102)
     {
       break;
     }
 
-    v141 = v97;
-    v99 = [WRDiagnostic diagnosticsWithDict:v96 backupName:v94 error:&v141];
-    v108 = v141;
+    v148 = v103;
+    v105 = [WRDiagnostic diagnosticsWithDict:v102 backupName:v100 error:&v148];
+    v115 = v148;
 
-    if (!v99)
+    if (!v105)
     {
-      v109 = v93;
-      v133 = nameCopy;
-      v110 = *__error();
-      v111 = _wrlog();
-      v112 = os_log_type_enabled(v111, OS_LOG_TYPE_FAULT);
+      v116 = v99;
+      v140 = nameCopy;
+      v117 = __error();
+      v118 = *v117;
+      v119 = _wrlog(v117);
+      v120 = os_log_type_enabled(v119, OS_LOG_TYPE_FAULT);
       if (nameCopy)
       {
-        if (v112)
+        if (v120)
         {
-          v131 = [v108 description];
+          v138 = [v115 description];
           *buf = 138544386;
-          v157 = v140;
-          v158 = 2114;
-          v159 = nameCopy;
-          v160 = 2114;
-          v161 = v94;
-          v162 = 2114;
-          v163 = v131;
-          v164 = 2114;
-          v165 = v96;
-          v113 = v111;
-          v114 = "%{public}@: %{public}@: diagnostic %{public}@: invalid new dict: %{public}@\n%{public}@";
-          v115 = 52;
+          v164 = v147;
+          v165 = 2114;
+          v166 = nameCopy;
+          v167 = 2114;
+          v168 = v100;
+          v169 = 2114;
+          v170 = v138;
+          v171 = 2114;
+          v172 = v102;
+          v121 = v119;
+          v122 = "%{public}@: %{public}@: diagnostic %{public}@: invalid new dict: %{public}@\n%{public}@";
+          v123 = 52;
           goto LABEL_110;
         }
       }
 
-      else if (v112)
+      else if (v120)
       {
-        v131 = [v108 description];
+        v138 = [v115 description];
         *buf = 138544130;
-        v157 = v140;
-        v158 = 2114;
-        v159 = v94;
-        v160 = 2114;
-        v161 = v131;
-        v162 = 2114;
-        v163 = v96;
-        v113 = v111;
-        v114 = "%{public}@: diagnostic %{public}@: invalid new dict: %{public}@\n%{public}@";
-        v115 = 42;
+        v164 = v147;
+        v165 = 2114;
+        v166 = v100;
+        v167 = 2114;
+        v168 = v138;
+        v169 = 2114;
+        v170 = v102;
+        v121 = v119;
+        v122 = "%{public}@: diagnostic %{public}@: invalid new dict: %{public}@\n%{public}@";
+        v123 = 42;
 LABEL_110:
-        _os_log_fault_impl(&dword_2746E5000, v113, OS_LOG_TYPE_FAULT, v114, buf, v115);
+        _os_log_fault_impl(&dword_2746E5000, v121, OS_LOG_TYPE_FAULT, v122, buf, v123);
       }
 
-      *__error() = v110;
-      v93 = v109;
+      *__error() = v118;
+      v99 = v116;
       goto LABEL_98;
     }
 
-    [v139 addObject:v99];
+    [v146 addObject:v105];
 LABEL_98:
 
-    v92 = (v92 + 1);
-    if (v92 == 100)
+    v98 = (v98 + 1);
+    if (v98 == 100)
     {
       goto LABEL_114;
     }
   }
 
-  if (v97)
+  if (v103)
   {
-    v99 = nameCopy;
-    v100 = *__error();
-    v101 = _wrlog();
-    v102 = os_log_type_enabled(v101, OS_LOG_TYPE_FAULT);
+    v105 = nameCopy;
+    v106 = __error();
+    v107 = *v106;
+    v108 = _wrlog(v106);
+    v109 = os_log_type_enabled(v108, OS_LOG_TYPE_FAULT);
     if (nameCopy)
     {
-      if (v102)
+      if (v109)
       {
-        [v98 description];
-        v104 = v103 = v93;
+        [v104 description];
+        v111 = v110 = v99;
         *buf = 138544130;
-        v157 = v140;
-        v158 = 2114;
-        v159 = nameCopy;
-        v160 = 2114;
-        v161 = v94;
-        v162 = 2114;
-        v163 = v104;
-        v105 = v101;
-        v106 = "%{public}@: %{public}@: diagnostic %{public}@: invalid new settings: %{public}@";
-        v107 = 42;
+        v164 = v147;
+        v165 = 2114;
+        v166 = nameCopy;
+        v167 = 2114;
+        v168 = v100;
+        v169 = 2114;
+        v170 = v111;
+        v112 = v108;
+        v113 = "%{public}@: %{public}@: diagnostic %{public}@: invalid new settings: %{public}@";
+        v114 = 42;
 LABEL_106:
-        _os_log_fault_impl(&dword_2746E5000, v105, OS_LOG_TYPE_FAULT, v106, buf, v107);
+        _os_log_fault_impl(&dword_2746E5000, v112, OS_LOG_TYPE_FAULT, v113, buf, v114);
 
-        v93 = v103;
+        v99 = v110;
       }
     }
 
-    else if (v102)
+    else if (v109)
     {
-      [v98 description];
-      v104 = v103 = v93;
+      [v104 description];
+      v111 = v110 = v99;
       *buf = 138543874;
-      v157 = v140;
-      v158 = 2114;
-      v159 = v94;
-      v160 = 2114;
-      v161 = v104;
-      v105 = v101;
-      v106 = "%{public}@: diagnostic %{public}@: invalid new settings: %{public}@";
-      v107 = 32;
+      v164 = v147;
+      v165 = 2114;
+      v166 = v100;
+      v167 = 2114;
+      v168 = v111;
+      v112 = v108;
+      v113 = "%{public}@: diagnostic %{public}@: invalid new settings: %{public}@";
+      v114 = 32;
       goto LABEL_106;
     }
 
-    *__error() = v100;
-    v108 = v98;
+    *__error() = v107;
+    v115 = v104;
     goto LABEL_98;
   }
 
 LABEL_114:
-  v16 = v139;
-  if ([v139 count])
+  v16 = v146;
+  if ([v146 count])
   {
-    [v139 sortUsingComparator:&__block_literal_global_3];
-    v123 = [v139 copy];
+    [v146 sortUsingComparator:&__block_literal_global_3];
+    v131 = [v146 copy];
   }
 
   else
   {
-    v123 = 0;
+    v131 = 0;
   }
 
-  v17 = v137;
-  v15 = v138;
+  v17 = v144;
+  v15 = v145;
 LABEL_118:
 
-  v124 = *MEMORY[0x277D85DE8];
-
-  return v123;
+  return v131;
 }
 
 uint64_t __115__WRDiagnostic_diagnosticsForWorkflowName_signpostName_diagnosticDicts_diagnosticsEnabled_checkForOverrides_error___block_invoke(uint64_t a1, void *a2, void *a3)

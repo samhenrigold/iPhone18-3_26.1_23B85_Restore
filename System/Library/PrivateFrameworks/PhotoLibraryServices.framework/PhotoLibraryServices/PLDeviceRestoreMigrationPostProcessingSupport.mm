@@ -361,7 +361,7 @@ void __100__PLDeviceRestoreMigrationPostProcessingSupport_writeBackgroundRestore
   v31[4] = v13;
   v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:5];
 
-  if ([*(*(a1[6] + 8) + 40) count])
+  if (objc_msgSend_count(*(*(a1[6] + 8) + 40)))
   {
     v14 = v24;
     v15 = [v24 mutableCopy];
@@ -369,7 +369,7 @@ void __100__PLDeviceRestoreMigrationPostProcessingSupport_writeBackgroundRestore
     [v16 removeObjectForKey:@"History"];
     v17 = [MEMORY[0x1E695DF70] array];
     v18 = [*(*(a1[6] + 8) + 40) objectForKeyedSubscript:@"History"];
-    if ([v18 count])
+    if (objc_msgSend_count(v18))
     {
       [v17 addObjectsFromArray:v18];
     }

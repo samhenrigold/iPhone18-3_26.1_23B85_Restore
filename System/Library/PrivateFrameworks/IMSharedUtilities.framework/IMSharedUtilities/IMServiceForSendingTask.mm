@@ -69,7 +69,7 @@
   v10 = v9;
   v11 = sub_1A88C82E8();
   v13 = v12;
-  sub_1A85E9718(0, &qword_1EB3006E8);
+  sub_1A85E9718(0, &qword_1EB3006E8, off_1E7824B68);
   v14 = sub_1A88C85F8();
   v15 = swift_allocObject();
   *(v15 + 16) = v7;

@@ -949,22 +949,22 @@ LABEL_39:
 
 - (void)printWithLogFile:(void *)file prefix:(id)prefix
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v31 = 0;
-  v6 = [(VCMediaNegotiationBlobV2StreamGroup *)self getStreamGroupConfig:&v31];
+  v43 = *MEMORY[0x1E69E9840];
+  v24 = 0;
+  v6 = [(VCMediaNegotiationBlobV2StreamGroup *)self getStreamGroupConfig:&v24];
   prefixCopy = prefix;
   prefix = [MEMORY[0x1E696AD60] stringWithFormat:@"[%lu] %@Stream Group: ", objc_msgSend(-[VCMediaNegotiationBlobV2StreamGroup data](self, "data"), "length"), prefix];
-  if (v31)
+  if (v24)
   {
-    v9 = FourccToCStr([v31 groupID]);
-    v10 = FourccToCStr([v31 mediaType]);
-    [prefix appendFormat:@"groupID='%s' mediaType='%s' subtype='%s'", v9, v10, FourccToCStr(objc_msgSend(v31, "mediaSubtype"))];
-    if ([v31 syncGroupID])
+    v9 = FourccToCStr([v24 groupID]);
+    v10 = FourccToCStr([v24 mediaType]);
+    [prefix appendFormat:@"groupID='%s' mediaType='%s' subtype='%s'", v9, v10, FourccToCStr(objc_msgSend(v24, "mediaSubtype"))];
+    if ([v24 syncGroupID])
     {
-      [prefix appendFormat:@" syncGroupID='%s'", FourccToCStr(objc_msgSend(v31, "syncGroupID"))];
+      [prefix appendFormat:@" syncGroupID='%s'", FourccToCStr(objc_msgSend(v24, "syncGroupID"))];
     }
 
-    [prefix appendFormat:@" encodeDecodeFeatures=%@", objc_msgSend(objc_msgSend(v31, "u1Config"), "videoFeatureStringsFixedPosition")];
+    [prefix appendFormat:@" encodeDecodeFeatures=%@", objc_msgSend(objc_msgSend(v24, "u1Config"), "videoFeatureStringsFixedPosition")];
   }
 
   else
@@ -972,82 +972,81 @@ LABEL_39:
     [prefix appendFormat:@"Skipping (result=%x)", v6];
   }
 
-  uTF8String = [prefix UTF8String];
-  VRLogfilePrintWithTimestamp(file, "%s\n", v12, v13, v14, v15, v16, v17, uTF8String);
+  VRLogfilePrintWithTimestamp(file, "%s\n", [prefix UTF8String]);
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v18 = VRTraceErrorLogLevelToCSTR();
-    v19 = *MEMORY[0x1E6986650];
+    v11 = VRTraceErrorLogLevelToCSTR();
+    v12 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v43 = v18;
-      v44 = 2080;
-      v45 = "[VCMediaNegotiationBlobV2StreamGroup(Utils) printWithLogFile:prefix:]";
-      v46 = 1024;
-      v47 = 236;
-      v48 = 2112;
-      v49 = prefix;
-      _os_log_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
+      v36 = v11;
+      v37 = 2080;
+      v38 = "[VCMediaNegotiationBlobV2StreamGroup(Utils) printWithLogFile:prefix:]";
+      v39 = 1024;
+      v40 = 236;
+      v41 = 2112;
+      v42 = prefix;
+      _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
     }
   }
 
-  if (v31)
+  if (v24)
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    streamConfigs = [v31 streamConfigs];
-    v21 = [streamConfigs countByEnumeratingWithState:&v38 objects:v37 count:16];
-    if (v21)
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    streamConfigs = [v24 streamConfigs];
+    v14 = [streamConfigs countByEnumeratingWithState:&v31 objects:v30 count:16];
+    if (v14)
     {
-      v22 = v21;
-      v23 = *v39;
+      v15 = v14;
+      v16 = *v32;
       do
       {
-        for (i = 0; i != v22; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v39 != v23)
+          if (*v32 != v16)
           {
             objc_enumerationMutation(streamConfigs);
           }
 
-          +[VCMediaNegotiationBlobV2StreamGroupStream printWithLogFile:prefix:streamConfig:](VCMediaNegotiationBlobV2StreamGroupStream, "printWithLogFile:prefix:streamConfig:", file, [MEMORY[0x1E696AEC0] stringWithFormat:@"%@  ", prefixCopy], *(*(&v38 + 1) + 8 * i));
+          +[VCMediaNegotiationBlobV2StreamGroupStream printWithLogFile:prefix:streamConfig:](VCMediaNegotiationBlobV2StreamGroupStream, "printWithLogFile:prefix:streamConfig:", file, [MEMORY[0x1E696AEC0] stringWithFormat:@"%@  ", prefixCopy], *(*(&v31 + 1) + 8 * i));
         }
 
-        v22 = [streamConfigs countByEnumeratingWithState:&v38 objects:v37 count:16];
+        v15 = [streamConfigs countByEnumeratingWithState:&v31 objects:v30 count:16];
       }
 
-      while (v22);
+      while (v15);
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    codecConfigs = [v31 codecConfigs];
-    v26 = [codecConfigs countByEnumeratingWithState:&v33 objects:v32 count:16];
-    if (v26)
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    codecConfigs = [v24 codecConfigs];
+    v19 = [codecConfigs countByEnumeratingWithState:&v26 objects:v25 count:16];
+    if (v19)
     {
-      v27 = v26;
-      v28 = *v34;
+      v20 = v19;
+      v21 = *v27;
       do
       {
-        for (j = 0; j != v27; ++j)
+        for (j = 0; j != v20; ++j)
         {
-          if (*v34 != v28)
+          if (*v27 != v21)
           {
             objc_enumerationMutation(codecConfigs);
           }
 
-          +[VCMediaNegotiationBlobV2StreamGroupPayload printWithLogFile:prefix:payloadConfig:](VCMediaNegotiationBlobV2StreamGroupPayload, "printWithLogFile:prefix:payloadConfig:", file, [MEMORY[0x1E696AEC0] stringWithFormat:@"%@  ", prefixCopy], *(*(&v33 + 1) + 8 * j));
+          +[VCMediaNegotiationBlobV2StreamGroupPayload printWithLogFile:prefix:payloadConfig:](VCMediaNegotiationBlobV2StreamGroupPayload, "printWithLogFile:prefix:payloadConfig:", file, [MEMORY[0x1E696AEC0] stringWithFormat:@"%@  ", prefixCopy], *(*(&v26 + 1) + 8 * j));
         }
 
-        v27 = [codecConfigs countByEnumeratingWithState:&v33 objects:v32 count:16];
+        v20 = [codecConfigs countByEnumeratingWithState:&v26 objects:v25 count:16];
       }
 
-      while (v27);
+      while (v20);
     }
   }
 }

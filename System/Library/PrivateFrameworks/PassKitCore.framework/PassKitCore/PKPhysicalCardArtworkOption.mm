@@ -36,19 +36,19 @@
       goto LABEL_12;
     }
 
-    v14 = [(__CFString *)lowercaseString isEqualToString:@"days"];
+    isEqualToString = objc_msgSend_isEqualToString_(lowercaseString);
 
-    if ((v14 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v15 = v12;
-      if (v15 == @"weeks" || (v16 = v15, v17 = [(__CFString *)v15 isEqualToString:@"weeks"], v16, (v17 & 1) != 0))
+      if (v15 == @"weeks" || (v16 = v15, v17 = objc_msgSend_isEqualToString_(v15), v16, (v17 & 1) != 0))
       {
         v13 = 1;
         goto LABEL_12;
       }
 
       v18 = v16;
-      if (v18 == @"months" || (v19 = v18, v20 = [(__CFString *)v18 isEqualToString:@"months"], v19, v20))
+      if (v18 == @"months" || (v19 = v18, v20 = objc_msgSend_isEqualToString_(v18), v19, v20))
       {
         v13 = 2;
         goto LABEL_12;

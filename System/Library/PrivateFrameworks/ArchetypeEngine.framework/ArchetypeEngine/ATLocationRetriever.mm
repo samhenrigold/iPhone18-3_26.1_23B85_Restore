@@ -8,7 +8,6 @@
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC15ArchetypeEngine19ATLocationRetriever_semaphore);
   selfCopy = self;
   sub_240FD460C();
 }

@@ -1,1860 +1,3 @@
-uint64_t compare_sop_num(unsigned int a1, int a2)
-{
-  if (a1 >= 0x10000)
-  {
-    v6 = 0;
-    memset(v5, 0, sizeof(v5));
-    kdu_error::kdu_error(v5, "Kakadu Core Error:\n");
-    (*(*&v5[0] + 16))(v5, "Assert ");
-    (*(*&v5[0] + 16))(v5, "(sop_num >= 0) && (sop_num < (1<<16))");
-    (*(*&v5[0] + 16))(v5, " FAILED");
-    kdu_error::~kdu_error(v5);
-  }
-
-  v2 = a1 - a2;
-  if (a1 == a2)
-  {
-    return 0;
-  }
-
-  if ((a1 - a2) >= 0x8001u && (a1 - a2) <= 0)
-  {
-    return v2 - 0x10000;
-  }
-
-  else
-  {
-    return v2;
-  }
-}
-
-uint64_t kd_precinct::handle_corrupt_packet(kd_precinct *this)
-{
-  if (*(this + 18) == 1)
-  {
-    v27 = 0;
-    v25 = 0u;
-    v26 = 0u;
-    kdu_error::kdu_error(&v25, "Kakadu Core Error:\n");
-    (*(v25 + 16))(&v25, "Encountered a corrupted packet while using packet length information to access the compressed data source in a random access fashion.  To process corrupted code-streams in an error resilient manner, you must disable seeking on the compressed data source (i.e., force sequential access) as well as enabling the resilient parsing mode.");
-    kdu_error::~kdu_error(&v25);
-  }
-
-  v2 = *(*(*this + 8) + 8);
-  v3 = *v2;
-  v4 = *(*v2 + 413) ^ 1;
-  *(this + 16) = 1;
-  v5 = v4;
-  if ((*(v2 + 316) & 1) == 0)
-  {
-    goto LABEL_35;
-  }
-
-  v6 = *(v2 + 80);
-  v7 = *(v2 + 78);
-  if (v6 >= 0x10000)
-  {
-    v27 = 0;
-    v25 = 0u;
-    v26 = 0u;
-    kdu_error::kdu_error(&v25, "Kakadu Core Error:\n");
-    (*(v25 + 16))(&v25, "Assert ");
-    (*(v25 + 16))(&v25, "(sop_num >= 0) && (sop_num < (1<<16))");
-    (*(v25 + 16))(&v25, " FAILED");
-    kdu_error::~kdu_error(&v25);
-  }
-
-LABEL_6:
-  v8 = v6 - v7;
-  v9 = v4;
-  if (v6 == v7)
-  {
-    goto LABEL_42;
-  }
-
-  if ((v6 - v7) >= 0x8001u && v8 <= 0)
-  {
-    v8 -= 0x10000;
-  }
-
-  v9 = v4;
-  if (v8 < 1)
-  {
-LABEL_42:
-    *(v2 + 316) = 0;
-    v5 = v9;
-    goto LABEL_35;
-  }
-
-  v11 = *(v2 + 80);
-  v12 = *(v2 + 78);
-  if (v11 >= 0x10000)
-  {
-    v27 = 0;
-    v25 = 0u;
-    v26 = 0u;
-    kdu_error::kdu_error(&v25, "Kakadu Core Error:\n");
-    (*(v25 + 16))(&v25, "Assert ");
-    (*(v25 + 16))(&v25, "(sop_num >= 0) && (sop_num < (1<<16))");
-    (*(v25 + 16))(&v25, " FAILED");
-    kdu_error::~kdu_error(&v25);
-  }
-
-  v13 = v11 - v12;
-  if (v11 != v12)
-  {
-    if ((v11 - v12) >= 0x8001u && v13 <= 0)
-    {
-      v13 -= 0x10000;
-    }
-
-    if (!((v13 < 4) | v5 & 1))
-    {
-      v9 = 1;
-      goto LABEL_42;
-    }
-  }
-
-  v15 = *(v2 + 80);
-  v16 = *(v2 + 48) * *(v2 + 51);
-  if (v15 >= 0x10000)
-  {
-    v27 = 0;
-    v25 = 0u;
-    v26 = 0u;
-    kdu_error::kdu_error(&v25, "Kakadu Core Error:\n");
-    (*(v25 + 16))(&v25, "Assert ");
-    (*(v25 + 16))(&v25, "(sop_num >= 0) && (sop_num < (1<<16))");
-    (*(v25 + 16))(&v25, " FAILED");
-    kdu_error::~kdu_error(&v25);
-  }
-
-  v17 = v15 - v16;
-  v9 = v4;
-  if (v15 == v16)
-  {
-    goto LABEL_42;
-  }
-
-  if ((v15 - v16) >= 0x8001u && v17 <= 0)
-  {
-    v17 -= 0x10000;
-  }
-
-  v9 = v4;
-  if ((v17 & 0x80000000) == 0)
-  {
-    goto LABEL_42;
-  }
-
-  if (*(v2 + 316))
-  {
-    v24 = *(this + 8);
-    if (v24 >= *(v2 + 48))
-    {
-      v27 = 0;
-      v25 = 0u;
-      v26 = 0u;
-      kdu_error::kdu_error(&v25, "Kakadu Core Error:\n");
-      (*(v25 + 16))(&v25, "Assert ");
-      (*(v25 + 16))(&v25, "num_packets_read < tile->num_layers");
-      (*(v25 + 16))(&v25, " FAILED");
-      kdu_error::~kdu_error(&v25);
-    }
-
-    *(this + 8) = v24 + 1;
-    return 1;
-  }
-
-LABEL_35:
-  v19 = v3[4];
-  while ((kd_marker::read(v19, 1, 1) & 1) != 0)
-  {
-    v19 = v3[4];
-    v20 = *(v19 + 16);
-    if (v20 == 65425)
-    {
-      v21 = *(v19 + 32);
-      v22 = *v21;
-      *(v2 + 80) = v22 << 8;
-      v6 = v21[1] | (v22 << 8);
-      *(v2 + 80) = v6;
-      *(v2 + 316) = 1;
-      v7 = *(v2 + 78);
-      goto LABEL_6;
-    }
-
-    if (v20 == 65424)
-    {
-      v3[55] = 0;
-      kd_tile::adjust_unloadability(v2);
-      return 0;
-    }
-  }
-
-  if ((*(v3[1] + 544) & 1) == 0)
-  {
-    v27 = 0;
-    v25 = 0u;
-    v26 = 0u;
-    kdu_error::kdu_error(&v25, "Kakadu Core Error:\n");
-    (*(v25 + 16))(&v25, "Assert ");
-    (*(v25 + 16))(&v25, "codestream->in->failed()");
-    (*(v25 + 16))(&v25, " FAILED");
-    kdu_error::~kdu_error(&v25);
-  }
-
-  kd_tile::finished_reading(v2);
-  return 0;
-}
-
-uint64_t kd_compressed_input::set_suspend(uint64_t this, int a2)
-{
-  if ((*(this + 608) & 1) == 0)
-  {
-    v2 = *(this + 592);
-    if (v2)
-    {
-      v3 = 1;
-    }
-
-    else
-    {
-      v3 = a2 == 0;
-    }
-
-    if (v3)
-    {
-      if (v2)
-      {
-        if ((a2 & 1) == 0)
-        {
-          v4 = *(this + 528);
-          v5 = v4 - v2 + *(this + 584);
-          *(this + 584) = v5;
-          *(this + 592) = 0;
-          v6 = *(this + 568) + v5 - *(this + 560);
-          v7 = *(this + 536);
-          v8 = v7 - this - 14;
-          v9 = v6 < v8;
-          v10 = v6 - v8;
-          if (v9)
-          {
-            *(this + 600) = v7;
-            v11 = v7 + v10;
-            *(this + 536) = v11;
-            if (v11 < v4)
-            {
-              *(this + 544) = 1;
-              *(this + 584) = v5 - v4 + v11;
-              *(this + 536) = v4;
-            }
-          }
-        }
-      }
-    }
-
-    else
-    {
-      *(this + 592) = *(this + 528);
-      v12 = *(this + 600);
-      if (v12)
-      {
-        if (v12 <= *(this + 536))
-        {
-          kd_compressed_input::set_suspend();
-        }
-
-        *(this + 536) = v12;
-        *(this + 600) = 0;
-      }
-    }
-  }
-
-  return this;
-}
-
-uint64_t kd_header_in::get_bit(kd_header_in *this)
-{
-  v2 = *(this + 3);
-  if (!v2)
-  {
-    if (*(this + 8) == 255)
-    {
-      v3 = 7;
-    }
-
-    else
-    {
-      v3 = 8;
-    }
-
-    *(this + 3) = v3;
-    if (!kd_input::get(*this, this + 8))
-    {
-      exception = __cxa_allocate_exception(8uLL);
-      *exception = this;
-    }
-
-    v2 = *(this + 3);
-  }
-
-  v4 = v2 - 1;
-  *(this + 3) = v4;
-  return (*(this + 8) >> v4) & 1;
-}
-
-uint64_t kd_header_in::finish(uint64_t this)
-{
-  if (!*(this + 12))
-  {
-    v1 = this;
-    if (*(this + 8) == 255)
-    {
-      *(this + 12) = 7;
-      this = kd_input::get(*this, (this + 8));
-      if ((this & 1) == 0)
-      {
-        exception = __cxa_allocate_exception(8uLL);
-        *exception = v1;
-      }
-    }
-  }
-
-  return this;
-}
-
-uint64_t kd_input::get(kd_input *this, unsigned __int8 *a2)
-{
-  if (*(this + 544))
-  {
-    return 0;
-  }
-
-  v5 = *(this + 66);
-  if (v5 == *(this + 67))
-  {
-    result = (*(*this + 24))(this);
-    if (!result)
-    {
-      return result;
-    }
-
-    v5 = *(this + 66);
-  }
-
-  *(this + 66) = v5 + 1;
-  v6 = *v5;
-  *a2 = v6;
-  if (*(this + 545) == 1)
-  {
-    if (*(this + 546) == 1 && v6 >= 0x90)
-    {
-      kd_input::process_unexpected_marker(this, v6);
-      v6 = *a2;
-    }
-
-    *(this + 546) = v6 == 255;
-  }
-
-  return 1;
-}
-
-uint64_t kd_input::putback(uint64_t this, char a2)
-{
-  if (*(this + 544) == 1)
-  {
-    kd_input::putback();
-  }
-
-  if (*(this + 545) == 1)
-  {
-    kd_input::putback();
-  }
-
-  v2 = *(this + 528);
-  if (v2 <= this + 8)
-  {
-    kd_input::putback();
-  }
-
-  *(this + 528) = v2 - 1;
-  *(v2 - 1) = a2;
-  return this;
-}
-
-uint64_t kd_precinct::simulate_packet(kd_precinct *this, uint64_t *a2, int a3, unsigned int a4, int a5, char a6, uint64_t a7, int a8)
-{
-  v10 = a2;
-  v12 = *(this + 6);
-  v50 = *(*(*this + 8) + 8);
-  if (v12 != *(v50 + 192))
-  {
-    v59 = 0;
-    v57 = 0u;
-    v58 = 0u;
-    kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
-    (*(v57 + 16))(&v57, "Assert ");
-    (*(v57 + 16))(&v57, "required_layers == tile->num_layers");
-    (*(v57 + 16))(&v57, " FAILED");
-    kdu_error::~kdu_error(&v57);
-  }
-
-  v13 = *(**this + 48);
-  if (v12 <= a3)
-  {
-    v59 = 0;
-    v57 = 0u;
-    v58 = 0u;
-    kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
-    (*(v57 + 16))(&v57, "Assert ");
-    (*(v57 + 16))(&v57, "layer_idx < required_layers");
-    (*(v57 + 16))(&v57, " FAILED");
-    kdu_error::~kdu_error(&v57);
-  }
-
-  if (*(this + 9))
-  {
-    v59 = 0;
-    v57 = 0u;
-    v58 = 0u;
-    kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
-    (*(v57 + 16))(&v57, "You may not currently flush compressed code-stream data without completing the compression of all code-blocks in all precincts of all tiles.");
-    kdu_error::~kdu_error(&v57);
-  }
-
-  v14 = *(this + 5);
-  if (!v14)
-  {
-    if (a3)
-    {
-      v59 = 0;
-      v57 = 0u;
-      v58 = 0u;
-      kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
-      (*(v57 + 16))(&v57, "Assert ");
-      (*(v57 + 16))(&v57, "layer_idx == 0");
-      (*(v57 + 16))(&v57, " FAILED");
-      kdu_error::~kdu_error(&v57);
-    }
-
-    operator new[]();
-  }
-
-  if (!a3)
-  {
-    v15 = *(this + 6);
-    if (v15 >= 1)
-    {
-      v16 = 0;
-      v17 = 3;
-      if (!*(v50 + 285))
-      {
-        v17 = 1;
-      }
-
-      v18 = 8 * v15;
-      do
-      {
-        *(*(this + 5) + v16) = v17;
-        v16 += 8;
-      }
-
-      while (v18 != v16);
-      v14 = *(this + 5);
-    }
-  }
-
-  *(v14 + 8 * a3) = 0;
-  if (a8)
-  {
-    if (!a5 || (a6 & 1) == 0)
-    {
-      v59 = 0;
-      v57 = 0u;
-      v58 = 0u;
-      kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
-      (*(v57 + 16))(&v57, "Assert ");
-      (*(v57 + 16))(&v57, "last_layer && finalize_layer");
-      (*(v57 + 16))(&v57, " FAILED");
-      kdu_error::~kdu_error(&v57);
-    }
-
-    v19 = *this;
-    if (*(*this + 222))
-    {
-      v20 = 0;
-      do
-      {
-        v21 = *(this + 6) + 32 * v20;
-        v22 = *(v21 + 16) * *(v21 + 20);
-        if (v22 >= 1)
-        {
-          v23 = 0;
-          v24 = 40 * v22;
-          do
-          {
-            kd_block::trim_data((*(v21 + 24) + v23), a4, v13);
-            v23 += 40;
-          }
-
-          while (v24 != v23);
-          v19 = *this;
-        }
-
-        ++v20;
-      }
-
-      while (v20 < *(v19 + 222));
-      v25 = *(v19 + 222);
-      v10 = a2;
-    }
-
-    else
-    {
-      v25 = 0;
-    }
-  }
-
-  else
-  {
-    v25 = *(*this + 222);
-  }
-
-  v26 = 0;
-  while (1)
-  {
-    v27 = 7;
-    if (!*(v50 + 284))
-    {
-      v27 = 1;
-    }
-
-    *v10 = v27;
-    if (*(v50 + 285) == 1)
-    {
-      *v10 = v27 + 2;
-    }
-
-    v51 = v25;
-    if (*(*this + 222))
-    {
-      break;
-    }
-
-    v29 = 0;
-LABEL_58:
-    v56[0] = 0x800000000;
-    v56[1] = 0;
-    v56[2] = 0;
-    kd_header_out::put_bit(v56, 1u);
-    v39 = *this;
-    if (*(*this + 222))
-    {
-      v40 = 0;
-      do
-      {
-        v41 = *(this + 6) + 32 * v40;
-        v42 = *(v41 + 16) * *(v41 + 20);
-        if (v42 >= 1)
-        {
-          v43 = 0;
-          v44 = 40 * v42;
-          do
-          {
-            kd_block::write_packet_header((*(v41 + 24) + v43), v56, a3, 1);
-            v43 += 40;
-          }
-
-          while (v44 != v43);
-          v39 = *this;
-        }
-
-        ++v40;
-      }
-
-      while (v40 < *(v39 + 222));
-    }
-
-    v10 = a2;
-    v45 = *a2 + (kd_header_out::finish(v56) - 1);
-    *a2 = v45;
-    result = v45 + v29;
-    if (v45 + v29 <= a7)
-    {
-      v25 = v51;
-      if (!a5 || !*(*this + 222))
-      {
-        goto LABEL_80;
-      }
-
-      v47 = 0;
-      v48 = 0;
-      do
-      {
-        kd_block::save_output_tree(*(*(this + 6) + v47 + 24), *(*(this + 6) + v47 + 16));
-        ++v48;
-        v47 += 32;
-      }
-
-      while (v48 < *(*this + 222));
-    }
-
-    else
-    {
-      v25 = v51;
-      if (!a5)
-      {
-        return result;
-      }
-
-      if (!a8)
-      {
-        v59 = 0;
-        v57 = 0u;
-        v58 = 0u;
-        kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
-        (*(v57 + 16))(&v57, "Assert ");
-        (*(v57 + 16))(&v57, "trim_to_limit");
-        (*(v57 + 16))(&v57, " FAILED");
-        kdu_error::~kdu_error(&v57);
-      }
-
-      do
-      {
-        while (1)
-        {
-          v46 = *(this + 6) + 32 * v25;
-          if (v26)
-          {
-            break;
-          }
-
-          if (v25 <= 0)
-          {
-            v59 = 0;
-            v57 = 0u;
-            v58 = 0u;
-            kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
-            (*(v57 + 16))(&v57, "Assert ");
-            (*(v57 + 16))(&v57, "last_trimmed_subband >= 0");
-            (*(v57 + 16))(&v57, " FAILED");
-            kdu_error::~kdu_error(&v57);
-          }
-
-          v25 = (v25 - 1);
-          v26 = *(v46 - 16) * *(v46 - 12);
-        }
-
-        --v26;
-      }
-
-      while ((kd_block::trim_data((*(v46 + 24) + 40 * v26), (a4 + 1), v13) & 1) == 0);
-    }
-
-    v10 = a2;
-LABEL_80:
-    v49 = *v10 + v29;
-    if (v49 <= a7)
-    {
-      *(*(this + 5) + 8 * a3) = v49;
-      return *v10 + v29;
-    }
-  }
-
-  v28 = 0;
-  v29 = 0;
-  while (1)
-  {
-    v30 = *(this + 6) + 32 * v28;
-    v32 = *(v30 + 16);
-    v31 = *(v30 + 24);
-    if (a3)
-    {
-      kd_block::restore_output_tree(v31, v32);
-    }
-
-    else
-    {
-      kd_block::reset_output_tree(v31, v32);
-    }
-
-    v33 = *(v30 + 16) * *(v30 + 20);
-    if (v33 >= 1)
-    {
-      v34 = 0;
-      v35 = 40 * v33;
-      do
-      {
-        v29 += kd_block::start_packet((*(v30 + 24) + v34), a3, a4);
-        v34 += 40;
-      }
-
-      while (v35 != v34);
-    }
-
-    result = *a2 + v29;
-    v37 = a5 ^ 1;
-    if (result <= a7)
-    {
-      v37 = 1;
-    }
-
-    if ((v37 & 1) == 0 && (a8 & 1) == 0)
-    {
-      v59 = 0;
-      v57 = 0u;
-      v58 = 0u;
-      kdu_error::kdu_error(&v57, "Kakadu Core Error:\n");
-      (*(v57 + 16))(&v57, "Assert ");
-      (*(v57 + 16))(&v57, "trim_to_limit");
-      (*(v57 + 16))(&v57, " FAILED");
-      kdu_error::~kdu_error(&v57);
-    }
-
-    if (result > a7 && a5 == 0)
-    {
-      return result;
-    }
-
-    if (++v28 >= *(*this + 222))
-    {
-      goto LABEL_58;
-    }
-  }
-}
-
-unsigned __int8 *kd_header_out::put_bit(unsigned __int8 *this, unsigned int a2)
-{
-  if (a2 >= 2)
-  {
-    kd_header_out::put_bit();
-  }
-
-  v2 = a2;
-  v3 = this;
-  v4 = *(this + 1);
-  if (v4)
-  {
-    v5 = 2 * *this;
-  }
-
-  else
-  {
-    this = *(this + 2);
-    if (this)
-    {
-      this = kdu_output::put(this, *v3);
-    }
-
-    v5 = 0;
-    ++*(v3 + 2);
-    if (*v3 == 255)
-    {
-      v4 = 7;
-    }
-
-    else
-    {
-      v4 = 8;
-    }
-  }
-
-  *v3 = v5 | v2;
-  *(v3 + 1) = v4 - 1;
-  return this;
-}
-
-uint64_t kd_header_out::finish(kd_header_out *this)
-{
-  v2 = *(this + 1);
-  if (v2 >= 8)
-  {
-    return *(this + 2);
-  }
-
-  v3 = *this << v2;
-  *this = v3;
-  v4 = *(this + 2);
-  if (v4)
-  {
-    kdu_output::put(v4, v3);
-    LOBYTE(v3) = *this;
-  }
-
-  result = (*(this + 2) + 1);
-  *(this + 2) = result;
-  if (v3 == 0xFF)
-  {
-    if (*(this + 2))
-    {
-      kdu_output::put(*(this + 2), 0);
-      LODWORD(result) = *(this + 2);
-    }
-
-    result = (result + 1);
-    *(this + 2) = result;
-  }
-
-  return result;
-}
-
-uint64_t *kd_precinct_ref::close(uint64_t *this)
-{
-  v1 = *this;
-  if (*this)
-  {
-    v2 = (*this & 1) == 0;
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  if (v2)
-  {
-    v3 = this;
-    if (*(v1 + 8) != this)
-    {
-      v6 = 0;
-      memset(v5, 0, sizeof(v5));
-      kdu_error::kdu_error(v5, "Kakadu Core Error:\n");
-      (*(*&v5[0] + 16))(v5, "Assert ");
-      (*(*&v5[0] + 16))(v5, "precinct->ref == this");
-      (*(*&v5[0] + 16))(v5, " FAILED");
-      kdu_error::~kdu_error(v5);
-    }
-
-    *(v1 + 8) = 0;
-    kd_precinct::closing(v1);
-    if (*(v1 + 18) == 1)
-    {
-      v4 = (2 * *(v1 + 40)) | 1;
-    }
-
-    else
-    {
-      v4 = 3;
-    }
-
-    *v3 = v4;
-    return kd_precinct_size_class::release(*(v1 + 72), v1);
-  }
-
-  return this;
-}
-
-void *kd_precinct_size_class::augment_free_list(kd_precinct_size_class *this)
-{
-  v2 = *(this + 6);
-  if (v2 < 0)
-  {
-    v7 = 0;
-    v5 = 0u;
-    v6 = 0u;
-    kdu_error::kdu_error(&v5, "Kakadu Core Error:\n");
-    (*(v5 + 16))(&v5, "Heap exhausted.  Unable to allocate memory for code-block state information.");
-    kdu_error::~kdu_error(&v5);
-  }
-
-  result = malloc_type_malloc(v2, 0x103204094352379uLL);
-  if (!result)
-  {
-    v7 = 0;
-    v5 = 0u;
-    v6 = 0u;
-    kdu_error::kdu_error(&v5, "Kakadu Core Error:\n");
-    (*(v5 + 16))(&v5, "Heap exhausted.  Unable to allocate sufficient memory for code-block state information.");
-    kdu_error::~kdu_error(&v5);
-  }
-
-  result[9] = this;
-  result[7] = *(this + 4);
-  *(this + 4) = result;
-  v4 = *(this + 6);
-  ++*(this + 7);
-  *(*this + 8) += v4;
-  return result;
-}
-
-uint64_t *kd_precinct_size_class::move_to_inactive_list(uint64_t *this, kd_precinct *a2)
-{
-  if (*(a2 + 8) || *(a2 + 7) || *(a2 + 20) == 1)
-  {
-    v6 = 0;
-    memset(v5, 0, sizeof(v5));
-    kdu_error::kdu_error(v5, "Kakadu Core Error:\n");
-    (*(*&v5[0] + 16))(v5, "Assert ");
-    (*(*&v5[0] + 16))(v5, "(precinct->prev == NULL) && (precinct->next == NULL) && !precinct->inactive");
-    (*(*&v5[0] + 16))(v5, " FAILED");
-    kdu_error::~kdu_error(v5);
-  }
-
-  *(a2 + 20) = 1;
-  v2 = *this;
-  v3 = *(*this + 24);
-  *(a2 + 8) = v3;
-  if (v3)
-  {
-    v4 = (v3 + 56);
-  }
-
-  else
-  {
-    v4 = (v2 + 16);
-  }
-
-  *v4 = a2;
-  *(v2 + 24) = a2;
-  return this;
-}
-
-uint64_t kd_precinct_size_class::withdraw_from_inactive_list(uint64_t this, kd_precinct *a2)
-{
-  if ((*(a2 + 20) & 1) == 0)
-  {
-    v6 = 0;
-    v4 = 0u;
-    v5 = 0u;
-    kdu_error::kdu_error(&v4, "Kakadu Core Error:\n");
-    (*(v4 + 16))(&v4, "Assert ");
-    (*(v4 + 16))(&v4, "precinct->inactive");
-    (*(v4 + 16))(&v4, " FAILED");
-    kdu_error::~kdu_error(&v4);
-  }
-
-  v2 = *(a2 + 8);
-  if (v2)
-  {
-    v3 = *(a2 + 7);
-    *(v2 + 56) = v3;
-    if (v3)
-    {
-LABEL_5:
-      *(v3 + 64) = *(a2 + 8);
-      goto LABEL_12;
-    }
-  }
-
-  else
-  {
-    if (*(*this + 16) != a2)
-    {
-      v6 = 0;
-      v4 = 0u;
-      v5 = 0u;
-      kdu_error::kdu_error(&v4, "Kakadu Core Error:\n");
-      (*(v4 + 16))(&v4, "Assert ");
-      (*(v4 + 16))(&v4, "precinct == server->inactive_head");
-      (*(v4 + 16))(&v4, " FAILED");
-      kdu_error::~kdu_error(&v4);
-    }
-
-    v3 = *(a2 + 7);
-    *(*this + 16) = v3;
-    if (v3)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  if (*(*this + 24) != a2)
-  {
-    v6 = 0;
-    v4 = 0u;
-    v5 = 0u;
-    kdu_error::kdu_error(&v4, "Kakadu Core Error:\n");
-    (*(v4 + 16))(&v4, "Assert ");
-    (*(v4 + 16))(&v4, "precinct == server->inactive_tail");
-    (*(v4 + 16))(&v4, " FAILED");
-    kdu_error::~kdu_error(&v4);
-  }
-
-  *(*this + 24) = *(a2 + 8);
-LABEL_12:
-  *(a2 + 20) = 0;
-  *(a2 + 7) = 0;
-  *(a2 + 8) = 0;
-  return this;
-}
-
-uint64_t kd_precinct_server::get(kd_precinct_server *this, int a2, int a3)
-{
-  v4 = *this;
-  if (!*this)
-  {
-LABEL_5:
-    operator new();
-  }
-
-  while (*(v4 + 16) != a2 || *(v4 + 20) != a3)
-  {
-    v4 = *(v4 + 40);
-    if (!v4)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  for (i = *(this + 2); i; i = *(this + 2))
-  {
-    if (*(*(this + 4) + 56) >= *(*(this + 4) + 40) + 220 * *(*(this + 4) + 24))
-    {
-      break;
-    }
-
-    if (*(i + 19) != 1 || (*(i + 20) & 1) == 0)
-    {
-      v8 = 0;
-      memset(v7, 0, sizeof(v7));
-      kdu_error::kdu_error(v7, "Kakadu Core Error:\n");
-      (*(*&v7[0] + 16))(v7, "Assert ");
-      (*(*&v7[0] + 16))(v7, "tmp->released && tmp->inactive");
-      (*(*&v7[0] + 16))(v7, " FAILED");
-      kdu_error::~kdu_error(v7);
-    }
-
-    kd_precinct_ref::close(*(i + 8));
-  }
-
-  return kd_precinct_size_class::get(v4);
-}
-
-uint64_t kd_precinct_size_class::get(kd_precinct_size_class *this)
-{
-  v2 = *(this + 4);
-  if (!v2)
-  {
-    kd_precinct_size_class::augment_free_list(this);
-    v2 = *(this + 4);
-  }
-
-  *(this + 4) = *(v2 + 56);
-  *(v2 + 56) = 0;
-  *(v2 + 64) = 0;
-  kd_buf_server::augment_structure_bytes(*(this + 1), *(this + 6));
-  return v2;
-}
-
-uint64_t kd_precinct_ref::instantiate_precinct(uint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  v6 = kd_precinct_server::get(*(*a2 + 80), *(a2 + 216), *(a2 + 222));
-  kd_precinct::initialize(v6, a2, a3);
-  *(v6 + 8) = a1;
-  v7 = *a1;
-  if (*a1)
-  {
-    *(v6 + 18) = 1;
-    *(v6 + 40) = v7 >> 1;
-    *a1 = v6;
-    if (v6)
-    {
-      v18 = 0;
-      v16 = 0u;
-      v17 = 0u;
-      kdu_error::kdu_error(&v16, "Kakadu Core Error:\n");
-      (*(v16 + 16))(&v16, "Assert ");
-      (*(v16 + 16))(&v16, "!(state & 1)");
-      (*(v16 + 16))(&v16, " FAILED");
-      kdu_error::~kdu_error(&v16);
-    }
-
-    if ((*(*a2 + 415) & 1) == 0)
-    {
-      if (*(v6 + 36) <= 0)
-      {
-        v18 = 0;
-        v16 = 0u;
-        v17 = 0u;
-        kdu_error::kdu_error(&v16, "Kakadu Core Error:\n");
-        (*(v16 + 16))(&v16, "Assert ");
-        (*(v16 + 16))(&v16, "result->num_outstanding_blocks > 0");
-        (*(v16 + 16))(&v16, " FAILED");
-        kdu_error::~kdu_error(&v16);
-      }
-
-      *(v6 + 17) = 1;
-      v10 = *(*(a2 + 8) + 8);
-      goto LABEL_19;
-    }
-  }
-
-  else
-  {
-    if (v7)
-    {
-      v18 = 0;
-      v16 = 0u;
-      v17 = 0u;
-      kdu_error::kdu_error(&v16, "Kakadu Core Error:\n");
-      (*(v16 + 16))(&v16, "Assert ");
-      (*(v16 + 16))(&v16, "state == 0");
-      (*(v16 + 16))(&v16, " FAILED");
-      kdu_error::~kdu_error(&v16);
-    }
-
-    *a1 = v6;
-    if (v6)
-    {
-      v18 = 0;
-      v16 = 0u;
-      v17 = 0u;
-      kdu_error::kdu_error(&v16, "Kakadu Core Error:\n");
-      (*(v16 + 16))(&v16, "Assert ");
-      (*(v16 + 16))(&v16, "!(state & 1)");
-      (*(v16 + 16))(&v16, " FAILED");
-      kdu_error::~kdu_error(&v16);
-    }
-
-    v8 = *a2;
-    if ((*(*a2 + 418) & 1) != 0 || *(v8 + 415) == 1)
-    {
-      v9 = *(a2 + 8);
-      v10 = *(v9 + 8);
-      v11 = HIDWORD(a3) + *(a2 + 196) * a3;
-      if (*(a2 + 24))
-      {
-        v12 = 704 * *(a2 + 24);
-        v13 = (a2 - v12 + 196);
-        do
-        {
-          v11 += *(v13 - 1) * *v13;
-          v13 += 176;
-          v12 -= 704;
-        }
-
-        while (v12);
-      }
-
-      v14 = v10[2] + (*(v9 + 24) + v11 * v10[47]) * *(v8 + 224) * *(v8 + 220);
-      *(v6 + 18) = 1;
-      *(v6 + 40) = ~v14;
-      if ((*(*a2 + 415) & 1) == 0)
-      {
-        *(v6 + 17) = 1;
-LABEL_19:
-        *(v6 + 28) = v10[48];
-      }
-    }
-  }
-
-  return v6;
-}
-
-uint64_t kd_precinct_size_class::release(kd_precinct_size_class *this, kd_precinct *a2)
-{
-  if (*(a2 + 20) == 1)
-  {
-    kd_precinct_size_class::withdraw_from_inactive_list(this, a2);
-  }
-
-  *(a2 + 7) = *(this + 4);
-  *(this + 4) = a2;
-  v4 = *(this + 1);
-  v5 = -*(this + 6);
-
-  return kd_buf_server::augment_structure_bytes(v4, v5);
-}
-
-BOOL kd_precinct_ref::set_address(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if (a4 <= 0)
-  {
-    v16 = 0;
-    v14 = 0u;
-    v15 = 0u;
-    kdu_error::kdu_error(&v14, "Kakadu Core Error:\n");
-    (*(v14 + 16))(&v14, "Assert ");
-    (*(v14 + 16))(&v14, "seek_address > 0");
-    (*(v14 + 16))(&v14, " FAILED");
-    kdu_error::~kdu_error(&v14);
-  }
-
-  v4 = *(a2 + 8);
-  v5 = *(v4 + 8);
-  v6 = *a1;
-  if (*a1)
-  {
-    v7 = (*a1 & 1) == 0;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  if (!v7)
-  {
-    v8 = *v5;
-    *a1 = (2 * a4) | 1;
-    if ((*(v8 + 417) & 1) == 0)
-    {
-      if (*(v4 + 72) < *(a2 + 24))
-      {
-        return *(v5 + 77) != *(v5 + 52) || (kd_tile::finished_reading(v5) & 1) == 0;
-      }
-
-      if (*(v4 + 184) != 1)
-      {
-        return *(v5 + 77) != *(v5 + 52) || (kd_tile::finished_reading(v5) & 1) == 0;
-      }
-
-      v9 = *(a2 + 188) + HIDWORD(a3);
-      v10 = *(a2 + 204);
-      if (v9 < v10)
-      {
-        return *(v5 + 77) != *(v5 + 52) || (kd_tile::finished_reading(v5) & 1) == 0;
-      }
-
-      v11 = *(a2 + 184) + a3;
-      v12 = *(a2 + 200);
-      if (v11 < v12 || v9 >= *(a2 + 212) + v10 || v11 >= *(a2 + 208) + v12)
-      {
-        return *(v5 + 77) != *(v5 + 52) || (kd_tile::finished_reading(v5) & 1) == 0;
-      }
-    }
-
-LABEL_18:
-    *(v5 + 77) += *(v5 + 50);
-    return *(v5 + 77) != *(v5 + 52) || (kd_tile::finished_reading(v5) & 1) == 0;
-  }
-
-  if (*(v6 + 28))
-  {
-    v16 = 0;
-    v14 = 0u;
-    v15 = 0u;
-    kdu_error::kdu_error(&v14, "Kakadu Core Error:\n");
-    (*(v14 + 16))(&v14, "Assert ");
-    (*(v14 + 16))(&v14, "precinct->next_layer_idx == 0");
-    (*(v14 + 16))(&v14, " FAILED");
-    kdu_error::~kdu_error(&v14);
-  }
-
-  *(v6 + 28) = *(v5 + 48);
-  *(v6 + 18) = 1;
-  *(v6 + 40) = a4;
-  kd_precinct::finished_desequencing(v6);
-  if (*(v6 + 21))
-  {
-    goto LABEL_18;
-  }
-
-  return *(v5 + 77) != *(v5 + 52) || (kd_tile::finished_reading(v5) & 1) == 0;
-}
-
-uint64_t *kd_precinct_pointer_server::disable(uint64_t *this)
-{
-  if (*this)
-  {
-    for (i = this; ; this = kd_buf_server::release(*i, v2))
-    {
-      v2 = i[1];
-      i[2] = v2;
-      if (!v2)
-      {
-        break;
-      }
-
-      i[1] = *v2;
-    }
-
-    *i = 0;
-  }
-
-  return this;
-}
-
-void kd_mct_stage::~kd_mct_stage(kd_mct_stage *this)
-{
-  v2 = *(this + 1);
-  if (v2)
-  {
-    MEMORY[0x186602830](v2, 0x1000C8052888210);
-  }
-
-  v3 = *(this + 3);
-  if (v3)
-  {
-    MEMORY[0x186602830](v3, 0x1020C806B39A6A2);
-  }
-
-  v4 = *(this + 5);
-  if (v4)
-  {
-    v5 = v4 - 16;
-    v6 = *(v4 - 8);
-    if (v6)
-    {
-      v7 = (v4 + 152 * v6 - 152);
-      v8 = -152 * v6;
-      do
-      {
-        kd_mct_block::~kd_mct_block(v7);
-        v7 = (v9 - 152);
-        v8 += 152;
-      }
-
-      while (v8);
-    }
-
-    MEMORY[0x186602830](v5, 0x10B0C80C861A3ACLL);
-  }
-}
-
-void kd_mct_block::~kd_mct_block(kd_mct_block *this)
-{
-  v2 = *(this + 2);
-  if (v2)
-  {
-    MEMORY[0x186602830](v2, 0x1000C8052888210);
-  }
-
-  v3 = *(this + 3);
-  if (v3)
-  {
-    MEMORY[0x186602830](v3, 0x1000C8077774924);
-  }
-
-  v4 = *(this + 5);
-  if (v4)
-  {
-    MEMORY[0x186602830](v4, 0x1000C8052888210);
-  }
-
-  v5 = *(this + 13);
-  if (v5)
-  {
-    MEMORY[0x186602830](v5, 0x1000C80451B5BE8);
-  }
-
-  v6 = *(this + 14);
-  if (v6)
-  {
-    MEMORY[0x186602830](v6, 0x1000C8052888210);
-  }
-
-  v7 = *(this + 18);
-  if (v7)
-  {
-    MEMORY[0x186602830](v7, 0x1000C8052888210);
-  }
-
-  v8 = *(this + 6);
-  if (v8)
-  {
-    v11 = *(v8 - 8);
-    v10 = v8 - 8;
-    v9 = v11;
-    if (v11)
-    {
-      v12 = 24 * v9;
-      do
-      {
-        v13 = *(v10 + v12);
-        if (v13)
-        {
-          MEMORY[0x186602830](v13, 0x1000C8052888210);
-        }
-
-        v12 -= 24;
-      }
-
-      while (v12);
-    }
-
-    MEMORY[0x186602830](v10 - 8, 0x1080C80C4643742);
-  }
-}
-
-void kd_resolution::~kd_resolution(kd_resolution *this)
-{
-  v2 = *(this + 20);
-  if (v2)
-  {
-    MEMORY[0x186602830](v2, 0x1000C8052888210);
-  }
-
-  v3 = *(this + 223);
-  if (*(this + 223))
-  {
-    v4 = 0;
-    v5 = 128;
-    do
-    {
-      v6 = *(*(this + 28) + v5);
-      if (v6)
-      {
-        MEMORY[0x186602830](v6, 0x1000C8052888210);
-        v3 = *(this + 223);
-      }
-
-      ++v4;
-      v5 += 136;
-    }
-
-    while (v4 < v3);
-  }
-
-  v7 = *(this + 29);
-  if (v7)
-  {
-    v8 = v7 - 16;
-    v9 = *(v7 - 8);
-    if (v9)
-    {
-      v10 = (v7 + 8 * v9 - 8);
-      v11 = -8 * v9;
-      do
-      {
-        kd_precinct_ref::~kd_precinct_ref(v10);
-        v10 = (v12 - 8);
-        v11 += 8;
-      }
-
-      while (v11);
-    }
-
-    MEMORY[0x186602830](v8, 0x1000C8000313F17);
-  }
-
-  v13 = *(this + 31);
-  if (v13)
-  {
-    MEMORY[0x186602830](v13, 0x1020C8068AD3B9FLL);
-  }
-
-  v14 = *(this + 28);
-  if (v14)
-  {
-    MEMORY[0x186602830](v14, 0x10A0C80A1ACF372);
-  }
-}
-
-void kd_precinct_ref::~kd_precinct_ref(kd_precinct_ref *this)
-{
-  if (*this)
-  {
-    v1 = (*this & 1) == 0;
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  if (v1)
-  {
-    kd_precinct_ref::close(this);
-  }
-}
-
-void sub_185F250A0(void *a1)
-{
-  __cxa_begin_catch(a1);
-  __cxa_end_catch();
-  JUMPOUT(0x185F25090);
-}
-
-void *_cg_JP2TearDownJP2Storage(void *result)
-{
-  v1 = result[7];
-  if (v1)
-  {
-    v2 = v1[1];
-    if (v2)
-    {
-      jp2_family_src::close(v2);
-    }
-
-    v3 = v1[2];
-    if (v3)
-    {
-      (*(*v3 + 8))(v3);
-    }
-
-    if (*v1)
-    {
-      (*(**v1 + 8))(*v1);
-    }
-
-    v4 = v1[3];
-    if (v4)
-    {
-      (*(*v4 + 8))(v4);
-    }
-
-    result = v1[1];
-    if (result)
-    {
-      v5 = *(*result + 8);
-
-      return v5();
-    }
-  }
-
-  return result;
-}
-
-uint64_t JP2SetOptimalScalingFactor(void *a1)
-{
-  v2 = a1[7];
-  v3 = 1.0;
-  kdu_region_compositor::set_scale(*(v2 + 24), 0, 0, 0, 1.0);
-  v12 = 0uLL;
-  kdu_region_compositor::get_total_composition_dims(*(v2 + 24), &v12);
-  v4 = a1[20];
-  v5 = a1[21];
-  if (v5 >= 2)
-  {
-    do
-    {
-      v3 = v3 * 0.5;
-      v6 = v5 > 3;
-      v5 >>= 1;
-    }
-
-    while (v6);
-  }
-
-  if (v4 >= 0x10)
-  {
-    v7 = v4;
-    while ((v3 * SHIDWORD(v12)) * 0.5 >= v7 || (v3 * SDWORD2(v12)) * 0.5 >= v7)
-    {
-      v3 = v3 * 0.5;
-    }
-  }
-
-  v9 = 0.015625;
-  if (v3 >= 0.015625)
-  {
-    v9 = v3;
-  }
-
-  *(v2 + 48) = v9;
-  while (1)
-  {
-    kdu_region_compositor::set_scale(*(v2 + 24), 0, 0, 0, v9);
-    total_composition_dims = kdu_region_compositor::get_total_composition_dims(*(v2 + 24), (v2 + 32));
-    if (total_composition_dims)
-    {
-      break;
-    }
-
-    v9 = *(v2 + 48) + *(v2 + 48);
-    *(v2 + 48) = v9;
-    if (v9 > 1.0)
-    {
-      *(v2 + 32) = v12;
-      fwrite("get_total_composition_dims never succeeded\n", 0x2BuLL, 1uLL, *MEMORY[0x1E69E9848]);
-      return total_composition_dims;
-    }
-  }
-
-  return total_composition_dims;
-}
-
-void sub_185F258BC(void *a1)
-{
-  __cxa_begin_catch(a1);
-  jp2_family_src::close(*(v1 + 8));
-  __cxa_end_catch();
-  JUMPOUT(0x185F25884);
-}
-
-uint64_t _cg_JP2DecompressBlock(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, int a5)
-{
-  v10 = *(a1 + 56);
-  BytePtr = *(a1 + 152);
-  if (!BytePtr)
-  {
-    v22 = *(a1 + 144);
-    if (!v22)
-    {
-      goto LABEL_20;
-    }
-
-    BytePtr = CFDataGetBytePtr(v22);
-    if (!BytePtr)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v12 = *(a1 + 128);
-  v24[0] = 0;
-  v24[1] = 0;
-  if ((a2 & 0x80000000) != 0 || (v13 = *(a1 + 64), v13 < a4 + a2))
-  {
-    v15 = "origin_x >= 0 && origin_x + size_x <= info->width";
-    v16 = 692;
-    goto LABEL_25;
-  }
-
-  if ((a3 & 0x80000000) != 0 || (v14 = *(a1 + 72), v14 < (a5 + a3)))
-  {
-    v15 = "origin_y >= 0 && origin_y + size_y <= info->height";
-    v16 = 693;
-    goto LABEL_25;
-  }
-
-  v15 = "size_x > 0 && size_x <= info->width";
-  v16 = 694;
-  if (a4 < 1 || v13 < a4)
-  {
-LABEL_25:
-    __assert_rtn("_cg_JP2DecompressBlock", "JP2LibDecompress.cpp", v16, v15);
-  }
-
-  if (a5 < 1 || v14 < a5)
-  {
-    v15 = "size_y > 0 && size_y <= info->height";
-    v16 = 695;
-    goto LABEL_25;
-  }
-
-  if (!v10)
-  {
-    abort();
-  }
-
-  v17 = v12 >> 3;
-  v18 = *(v10 + 24);
-  *(v18 + 536) = BytePtr;
-  *(v18 + 548) = a4;
-  *(v18 + 544) = v17;
-  kdu_region_compositor::set_buffer_surface(v18, a3 | (a2 << 32), a5 | (a4 << 32), -1);
-  *(a1 + 184) = 0;
-  *(a1 + 48) = 0;
-  v19 = (v17 * a5 * a4);
-  while (1)
-  {
-    v20 = *(v10 + 24);
-    if (v20[428] == 1 && v20[429] != 1)
-    {
-      break;
-    }
-
-    if (((*(*v20 + 32))(v20, v19, v24) & 1) == 0)
-    {
-      break;
-    }
-
-    if (*(a1 + 178) == 1 && *(a1 + 48))
-    {
-      v21 = 0xFFFFFFFFLL;
-      goto LABEL_21;
-    }
-  }
-
-LABEL_20:
-  v21 = 0;
-LABEL_21:
-  kdu_region_compositor::reset(*(v10 + 24));
-  *(*(v10 + 24) + 536) = 0u;
-  return v21;
-}
-
-void sub_185F25B08(void *a1)
-{
-  __cxa_begin_catch(a1);
-  __cxa_end_catch();
-  JUMPOUT(0x185F25A6CLL);
-}
-
-void _cg_JP2TearDownDecompressor(void *a1)
-{
-  v2 = a1[7];
-  if (v2)
-  {
-    _cg_JP2TearDownJP2Storage(a1);
-    free(v2);
-  }
-
-  v3 = a1[18];
-  if (v3)
-  {
-
-    CFRelease(v3);
-  }
-}
-
-void *_cg_JP2GetPalette(uint64_t a1, int a2, _DWORD *a3, int *a4)
-{
-  *a3 = 0;
-  *a4 = 0;
-  if (!a1)
-  {
-    return 0;
-  }
-
-  if (*(a1 + 179) != 1)
-  {
-    return 0;
-  }
-
-  v4 = *(a1 + 56);
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v15 = jpx_source::access_codestream(*(v4 + 16), 0, 1);
-  if (!v15)
-  {
-    return 0;
-  }
-
-  v14 = jpx_codestream_source::access_palette(&v15);
-  if (!v14)
-  {
-    return 0;
-  }
-
-  num_entries = jp2_palette::get_num_entries(&v14);
-  num_luts = jp2_palette::get_num_luts(&v14);
-  if (num_luts >= a2)
-  {
-    v10 = a2;
-  }
-
-  else
-  {
-    v10 = num_luts;
-  }
-
-  if (v10 >= 1)
-  {
-    v11 = 0;
-    while (jp2_palette::get_bit_depth(&v14, v11) <= 8)
-    {
-      if (v10 == ++v11)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    return 0;
-  }
-
-LABEL_13:
-  *a3 = num_entries;
-  *a4 = v10;
-  v12 = malloc_type_malloc(v10 * num_entries, 0x100004077774924uLL);
-  if (v12)
-  {
-    operator new[]();
-  }
-
-  return v12;
-}
-
-void MyJP2Source::~MyJP2Source(MyJP2Source *this)
-{
-  *this = &unk_1EF4D2658;
-}
-
-{
-  *this = &unk_1EF4D2658;
-  JUMPOUT(0x186602850);
-}
-
-uint64_t MyJP2Source::read(MyJP2Source *this, unsigned __int8 *a2, int a3)
-{
-  v5 = *(this + 1);
-  *(this + 2) += a3;
-  result = (*(v5 + 24))(*v5, a2, a3);
-  if (result < a3)
-  {
-    *(*(this + 1) + 48) = -1;
-  }
-
-  return result;
-}
-
-uint64_t MyJP2Source::seek(MyJP2Source *this, uint64_t a2)
-{
-  *(this + 2) = a2;
-  (*(*(this + 1) + 32))(**(this + 1), *(*(this + 1) + 16) + a2);
-  return 1;
-}
-
-void jp2_family_src::~jp2_family_src(jp2_family_src *this)
-{
-  jp2_family_src::~jp2_family_src(this);
-
-  JUMPOUT(0x186602850);
-}
-
-{
-  *this = &unk_1EF4D26B0;
-  jp2_family_src::close(this);
-}
-
-void MyRegionCompositor::~MyRegionCompositor(MyRegionCompositor *this)
-{
-  MyRegionCompositor::~MyRegionCompositor(this);
-
-  JUMPOUT(0x186602850);
-}
-
-{
-  *this = &unk_1EF4D26F0;
-  kdu_region_compositor::pre_destroy(this);
-  *(this + 536) = 0u;
-
-  kdu_region_compositor::~kdu_region_compositor(this);
-}
-
-uint64_t MyRegionCompositor::allocate_buffer(uint64_t a1)
-{
-  if (*(a1 + 536))
-  {
-    operator new();
-  }
-
-  return 0;
-}
-
-uint64_t MyRegionCompositor::delete_buffer(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    return (*(*a2 + 8))(a2);
-  }
-
-  return result;
-}
-
-void kdu_region_compositor::~kdu_region_compositor(kdu_region_compositor *this)
-{
-  *this = &unk_1EF4D3CC0;
-  off_1EF4D3CD0(this);
-  jpx_input_box::~jpx_input_box((this + 32));
-}
-
-{
-  kdu_region_compositor::~kdu_region_compositor(this);
-
-  JUMPOUT(0x186602850);
-}
-
-void jpx_input_box::~jpx_input_box(jpx_input_box *this)
-{
-  *this = &unk_1EF4D3D28;
-  off_1EF4D3D38(this);
-
-  jp2_input_box::~jp2_input_box(this);
-}
-
-{
-  jpx_input_box::~jpx_input_box(this);
-
-  JUMPOUT(0x186602850);
-}
-
 void MyCompositorBuf::~MyCompositorBuf(MyCompositorBuf *this)
 {
   *(this + 4) = 0;
@@ -1940,8 +83,8 @@ double kd_thread_group::release_queues(kd_thread_group *a1, uint64_t a2, char a3
 {
   for (i = *(a2 + 48); i; i = *(a2 + 48))
   {
-    *(a2 + 48) = *(i + 4);
-    kd_thread_group::release_queues(a1, i, 0);
+    *(a2 + 48) = *(i + 32);
+    result = kd_thread_group::release_queues(a1, i, 0);
   }
 
   if ((a3 & 1) == 0)
@@ -3009,9 +1152,9 @@ LABEL_64:
   return this;
 }
 
-uint64_t kdu_thread_entity::synchronize(kdu_thread_entity *this, kdu_thread_queue *a2)
+uint64_t kdu_thread_entity::synchronize(uint64_t this, kdu_thread_queue *a2)
 {
-  v2 = *(this + 4);
+  v2 = *(this + 32);
   if (v2)
   {
     if (*(v2 + 5752) >= 1)
@@ -3023,7 +1166,7 @@ uint64_t kdu_thread_entity::synchronize(kdu_thread_entity *this, kdu_thread_queu
         if (*(*(v2 + 5760) + v6) == this)
         {
           (*(*this + 32))(this, 0);
-          v2 = *(this + 4);
+          v2 = *(this + 32);
         }
 
         ++v5;
@@ -3038,7 +1181,7 @@ uint64_t kdu_thread_entity::synchronize(kdu_thread_entity *this, kdu_thread_queu
       if (!*(v2 + 1224))
       {
 LABEL_32:
-        v17 = **(this + 5) ^ 1;
+        v17 = **(this + 40) ^ 1;
         return v17 & 1;
       }
 
@@ -3055,16 +1198,16 @@ LABEL_32:
       kdu_thread_entity::synchronize();
     }
 
-    if (kdu_thread_queue::install_synchronization_point(a2, 0, 0, *(this + 2)))
+    if (kdu_thread_queue::install_synchronization_point(a2, 0, 0, *(this + 8)))
     {
-      v7 = *(this + 4);
+      v7 = *(this + 32);
       if (*(v7 + 2160) == 1)
       {
         pthread_mutex_unlock((v7 + 2096));
       }
 
       v8 = kdu_thread_entity::process_jobs(this, a2, 1, 0);
-      v9 = *(this + 4);
+      v9 = *(this + 32);
       if (*(v9 + 2160) == 1)
       {
         pthread_mutex_lock((v9 + 2096));
@@ -3073,7 +1216,7 @@ LABEL_32:
       v10 = *(a2 + 29);
       if (v8)
       {
-        if (v10 < 1 || (v11 = *(a2 + 33), v11 != *(this + 2)) || !kdu_thread_queue::check_condition(a2, 1, v11))
+        if (v10 < 1 || (v11 = *(a2 + 33), v11 != *(this + 8)) || !kdu_thread_queue::check_condition(a2, 1, v11))
         {
           kdu_thread_entity::synchronize();
         }
@@ -3099,13 +1242,13 @@ LABEL_32:
         }
       }
 
-      else if (v10 && *(a2 + 33) == *(this + 2))
+      else if (v10 && *(a2 + 33) == *(this + 8))
       {
         kdu_thread_entity::synchronize();
       }
     }
 
-    v18 = *(this + 4);
+    v18 = *(this + 32);
     if (*(v18 + 2160) == 1)
     {
       pthread_mutex_unlock((v18 + 2096));
@@ -3118,10 +1261,10 @@ LABEL_32:
   return v17 & 1;
 }
 
-uint64_t kdu_thread_entity::process_jobs(kdu_thread_entity *this, kdu_thread_queue *a2, int a3, int a4)
+uint64_t kdu_thread_entity::process_jobs(uint64_t this, kdu_thread_queue *a2, int a3, int a4)
 {
-  v8 = *(this + 4);
-  if (!a2 && v8 && !*(this + 2))
+  v8 = *(this + 32);
+  if (!a2 && v8 && !*(this + 8))
   {
     kdu_thread_entity::process_jobs();
   }
@@ -3162,7 +1305,7 @@ uint64_t kdu_thread_entity::process_jobs(kdu_thread_entity *this, kdu_thread_que
     v15 = v13 ? v13 : a2;
     if (!v15)
     {
-      v15 = *(this + 8);
+      v15 = *(this + 64);
       if (!v15)
       {
         break;
@@ -3175,22 +1318,22 @@ uint64_t kdu_thread_entity::process_jobs(kdu_thread_entity *this, kdu_thread_que
     }
 
 LABEL_18:
-    if (**(this + 5) == 1 && (a4 & 1) != 0)
+    if (**(this + 40) == 1 && (a4 & 1) != 0)
     {
 LABEL_179:
-      kdu_mutex::unlock((*(this + 4) + 2096));
+      kdu_mutex::unlock((*(this + 32) + 2096));
       goto LABEL_180;
     }
 
-    if (a2 || (v24 = *(this + 4), v25 = *(v24 + 1560), v25 < 1) || *(v24 + 8 * *(this + 2) + 656) != 1)
+    if (a2 || (v24 = *(this + 32), v25 = *(v24 + 1560), v25 < 1) || *(v24 + 8 * *(this + 8) + 656) != 1)
     {
       if (!v14)
       {
         goto LABEL_156;
       }
 
-      v16 = *(this + 4);
-      v17 = *(this + 2);
+      v16 = *(this + 32);
+      v17 = *(this + 8);
       if (*(v16 + 656 + 8 * v17) == v14)
       {
         v23 = *(v14 + 24);
@@ -3201,7 +1344,7 @@ LABEL_179:
 
         *(v14 + 24) = -1;
         *(v16 + 656 + 8 * v17) = 1;
-        v16 = *(this + 4);
+        v16 = *(this + 32);
       }
 
       else
@@ -3236,14 +1379,14 @@ LABEL_179:
       }
 
       (*(**(v14 + 8) + 16))();
-      v28 = *(this + 4);
+      v28 = *(this + 32);
       if (*(v28 + 2160) == 1)
       {
         pthread_mutex_lock((v28 + 2096));
       }
 
       v29 = *(v14 + 19);
-      if (**(this + 5) == 1)
+      if (**(this + 40) == 1)
       {
         if (v29)
         {
@@ -3305,21 +1448,21 @@ LABEL_45:
               goto LABEL_103;
             }
 
-            v30 = *(this + 4);
+            v30 = *(this + 32);
             if (*(v30 + 2160) == 1)
             {
               pthread_mutex_unlock((v30 + 2096));
             }
 
-            (*(*this + 40))(this, **(this + 5));
-            v31 = *(this + 4);
+            (*(*this + 40))(this, **(this + 40));
+            v31 = *(this + 32);
             if (*(v31 + 2160) == 1)
             {
               pthread_mutex_lock((v31 + 2096));
             }
 
             v29 = *(v14 + 19);
-            if (**(this + 5) == 1)
+            if (**(this + 40) == 1)
             {
               if (v29)
               {
@@ -3427,16 +1570,16 @@ LABEL_116:
 
           if (!(*(v14 + 22) + *(v14 + 19)))
           {
-            if (v59 == *(this + 2))
+            if (v59 == *(this + 8))
             {
               kdu_thread_entity::process_jobs();
             }
 
-            kdu_event::set((*(this + 4) + 56 * v59 + 2168));
+            kdu_event::set((*(this + 32) + 56 * v59 + 2168));
           }
         }
 
-        if (a2 && kdu_thread_queue::check_condition(a2, a3, *(this + 2)))
+        if (a2 && kdu_thread_queue::check_condition(a2, a3, *(this + 8)))
         {
           if (v32)
           {
@@ -3459,7 +1602,7 @@ LABEL_116:
           }
         }
 
-        *(this + 8) = v14;
+        *(this + 64) = v14;
         v13 = v14;
         v14 = v32;
       }
@@ -3484,7 +1627,7 @@ LABEL_116:
         do
         {
           *(v24 + 8 * v60 + 1568) = *(v24 + 8 * v60 + 1576);
-          v24 = *(this + 4);
+          v24 = *(this + 32);
           v61 = *(v24 + 1560);
           v62 = v60 + 2;
           ++v60;
@@ -3502,13 +1645,13 @@ LABEL_116:
 
       if ((*(*this + 48))(this))
       {
-        (*(*this + 40))(this, **(this + 5));
+        (*(*this + 40))(this, **(this + 40));
       }
 
       (*(*v26 + 16))(v26, this, 0xFFFFFFFFLL);
       v13 = 0;
       v14 = 0;
-      v63 = *(this + 4);
+      v63 = *(this + 32);
       if (*(v63 + 2160) == 1)
       {
         pthread_mutex_lock((v63 + 2096));
@@ -3518,7 +1661,7 @@ LABEL_116:
     }
   }
 
-  v15 = (*(this + 4) + 1176);
+  v15 = (*(this + 32) + 1176);
   if (v14)
   {
     goto LABEL_18;
@@ -3529,7 +1672,7 @@ LABEL_116:
 LABEL_64:
     if (!a2)
     {
-      if (*(*(this + 4) + 1560))
+      if (*(*(this + 32) + 1560))
       {
         v14 = 0;
         goto LABEL_18;
@@ -3538,21 +1681,21 @@ LABEL_64:
       goto LABEL_68;
     }
 
-    if (kdu_thread_queue::check_condition(a2, a3, *(this + 2)))
+    if (kdu_thread_queue::check_condition(a2, a3, *(this + 8)))
     {
       break;
     }
 
 LABEL_68:
-    unassigned_job = kdu_thread_queue::find_unassigned_job(v15, *(this + 2));
+    unassigned_job = kdu_thread_queue::find_unassigned_job(v15, *(this + 8));
     if (unassigned_job)
     {
       v14 = unassigned_job;
       goto LABEL_18;
     }
 
-    v37 = *(this + 4);
-    if ((*(v37 + 2089) & 1) != 0 || ((v33 = **(this + 5), v33 == 1) ? (v38 = a4 == 0) : (v38 = 1), !v38))
+    v37 = *(this + 32);
+    if ((*(v37 + 2089) & 1) != 0 || ((v33 = **(this + 40), v33 == 1) ? (v38 = a4 == 0) : (v38 = 1), !v38))
     {
       if (*(v37 + 2160) == 1)
       {
@@ -3566,7 +1709,7 @@ LABEL_68:
 
 LABEL_180:
       exception = __cxa_allocate_exception(4uLL);
-      *exception = *(*(this + 5) + 4);
+      *exception = *(*(this + 40) + 4);
       __cxa_throw(exception, MEMORY[0x1E69E5478], 0);
     }
 
@@ -3574,7 +1717,7 @@ LABEL_180:
     {
       if (a3)
       {
-        if (*(a2 + 29) < 1 || (v39 = *(a2 + 33), v39 != *(this + 2)))
+        if (*(a2 + 29) < 1 || (v39 = *(a2 + 33), v39 != *(this + 8)))
         {
           kdu_thread_entity::process_jobs();
         }
@@ -3588,7 +1731,7 @@ LABEL_180:
 
       else
       {
-        v50 = *(this + 2);
+        v50 = *(this + 8);
         *(a2 + 95) = v50;
         v51 = v37 + 56 * v50;
         *(v51 + 2216) = 0;
@@ -3602,15 +1745,15 @@ LABEL_180:
       if (*(v37 + 2160) == 1)
       {
         pthread_mutex_unlock((v37 + 2096));
-        LOBYTE(v33) = **(this + 5);
+        LOBYTE(v33) = **(this + 40);
       }
 
       (*(*this + 56))(this, v33 & 1);
-      v34 = *(this + 4);
+      v34 = *(this + 32);
       if (*(v34 + 2160) == 1)
       {
         pthread_mutex_lock((v34 + 2096));
-        v34 = *(this + 4);
+        v34 = *(this + 32);
       }
 
       *(this + 72) = 1;
@@ -3619,7 +1762,7 @@ LABEL_180:
       if (v35 == *(v34 + 128))
       {
         kdu_event::set((v34 + 2168));
-        v34 = *(this + 4);
+        v34 = *(this + 32);
       }
 
       v15 = (v34 + 1176);
@@ -3627,7 +1770,7 @@ LABEL_180:
 
     else
     {
-      v41 = *(this + 2);
+      v41 = *(this + 8);
       if (!v41)
       {
         kdu_thread_entity::process_jobs();
@@ -3640,13 +1783,13 @@ LABEL_180:
 
       ++*(v37 + 648);
       *(v37 + 656 + 8 * v41) = 0;
-      v42 = *(this + 4);
+      v42 = *(this + 32);
       v43 = v42 + 56 * v41;
       *(v43 + 2216) = 0;
       kdu_event::wait((v43 + 2168), (v42 + 2096));
-      v44 = *(this + 4);
+      v44 = *(this + 32);
       v45 = v44 + 656;
-      v46 = *(this + 2);
+      v46 = *(this + 8);
       v14 = *(v44 + 656 + 8 * v46);
       if (v14)
       {
@@ -3676,7 +1819,7 @@ LABEL_180:
         }
 
         *(v45 + 8 * v46) = 1;
-        v47 = *(this + 4);
+        v47 = *(this + 32);
         --*(v47 + 648);
         v48 = *(v47 + 2088);
         v49 = (v47 + 1176);
@@ -3688,13 +1831,13 @@ LABEL_180:
     }
   }
 
-  if (**(this + 5) == 1 && a4 != 0)
+  if (**(this + 40) == 1 && a4 != 0)
   {
     goto LABEL_179;
   }
 
 LABEL_156:
-  v66 = *(this + 4);
+  v66 = *(this + 32);
   if (*(v66 + 2160) == 1)
   {
     pthread_mutex_unlock((v66 + 2096));
@@ -3702,7 +1845,7 @@ LABEL_156:
 
   if ((*(*this + 48))(this))
   {
-    (*(*this + 40))(this, **(this + 5));
+    (*(*this + 40))(this, **(this + 40));
   }
 
   return 1;
@@ -3975,7 +2118,7 @@ LABEL_8:
   return jp2_colour_converter::clear(this + 6);
 }
 
-_DWORD *kdu_channel_mapping::set_num_channels(_DWORD *this, int a2)
+unsigned int *kdu_channel_mapping::set_num_channels(unsigned int *this, int a2)
 {
   if (a2 < 0)
   {
@@ -4045,21 +2188,21 @@ uint64_t kdu_channel_mapping::configure(kdu_channel_mapping *a1, kd_codestream *
   return 1;
 }
 
-void kdu_channel_mapping::configure(j2_colour_converter **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void kdu_channel_mapping::configure(j2_colour_converter **a1, j2_colour *a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6)
 {
-  v9 = a3;
-  v7 = a6;
-  v8 = a5;
+  v10 = a3;
+  v8 = a6;
+  v9 = a5;
   kdu_channel_mapping::clear(a1);
-  jp2_colour_converter::init(a1 + 6);
+  jp2_colour_converter::init(a1 + 6, a2, 0, 0);
 }
 
 uint64_t kdu_channel_mapping::add_alpha_to_configuration(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, char a6)
 {
-  v27 = a4;
-  v28 = a2;
-  v26 = a5;
-  num_colours = jp2_channels::get_num_colours(&v28);
+  v28 = a4;
+  v29 = a2;
+  v27 = a5;
+  num_colours = jp2_channels::get_num_colours(&v29, a2);
   kdu_channel_mapping::set_num_channels(a1, *(a1 + 4));
   if (num_colours < 1)
   {
@@ -4072,19 +2215,19 @@ uint64_t kdu_channel_mapping::add_alpha_to_configuration(uint64_t a1, uint64_t a
   do
   {
     v13 = v12;
-    *v25 = 0;
+    *v26 = 0;
     v14 = v11;
-    v24 = 0;
+    v25 = 0;
     v12 = -1;
-    if (jp2_channels::get_opacity_mapping(&v28, v10, v25, &v25[1], &v24))
+    if (jp2_channels::get_opacity_mapping(&v29, v10, v26, &v26[1], &v25))
     {
       v11 = -1;
-      if (v24 == a3)
+      if (v25 == a3)
       {
-        v12 = v25[0];
+        v12 = v26[0];
         if (v10)
         {
-          v15 = v13 == v25[0] || v14 == v25[1];
+          v15 = v13 == v26[0] || v14 == v26[1];
           if (v15)
           {
             v12 = v13;
@@ -4108,7 +2251,7 @@ uint64_t kdu_channel_mapping::add_alpha_to_configuration(uint64_t a1, uint64_t a
 
         else
         {
-          v11 = v25[1];
+          v11 = v26[1];
         }
       }
     }
@@ -4126,18 +2269,18 @@ uint64_t kdu_channel_mapping::add_alpha_to_configuration(uint64_t a1, uint64_t a
   {
     for (i = 0; i != num_colours; ++i)
     {
-      *v25 = 0;
-      v24 = 0;
+      *v26 = 0;
+      v25 = 0;
       v17 = -1;
-      if (jp2_channels::get_premult_mapping(&v28, i, v25, &v25[1], &v24))
+      if (jp2_channels::get_premult_mapping(&v29, i, v26, &v26[1], &v25))
       {
         v18 = -1;
-        if (v24 == a3)
+        if (v25 == a3)
         {
-          v17 = v25[0];
+          v17 = v26[0];
           if (i)
           {
-            v19 = v12 == v25[0] || v11 == v25[1];
+            v19 = v12 == v26[0] || v11 == v26[1];
             if (v19)
             {
               v17 = v12;
@@ -4161,7 +2304,7 @@ uint64_t kdu_channel_mapping::add_alpha_to_configuration(uint64_t a1, uint64_t a
 
           else
           {
-            v18 = v25[1];
+            v18 = v26[1];
           }
         }
       }
@@ -4192,22 +2335,22 @@ uint64_t kdu_channel_mapping::add_alpha_to_configuration(uint64_t a1, uint64_t a
 
 LABEL_37:
   kdu_channel_mapping::set_num_channels(a1, *(a1 + 4) + 1);
-  v20 = *(a1 + 4);
-  *(*(a1 + 8) + 4 * v20) = v17;
+  v21 = *(a1 + 4);
+  *(*(a1 + 8) + 4 * v21) = v17;
   if ((v18 & 0x80000000) == 0)
   {
-    num_entries = jp2_palette::get_num_entries(&v27);
+    num_entries = jp2_palette::get_num_entries(&v28, v20);
     if (num_entries <= 1024)
     {
-      v22 = 0;
+      v23 = 0;
       do
       {
-        ++v22;
+        ++v23;
       }
 
-      while (1 << v22 < num_entries);
-      *(a1 + 32) = v22;
-      if (!*(*(a1 + 40) + 8 * v20))
+      while (1 << v23 < num_entries);
+      *(a1 + 32) = v23;
+      if (!*(*(a1 + 40) + 8 * v21))
       {
         operator new[]();
       }
@@ -4218,8 +2361,8 @@ LABEL_37:
     kdu_channel_mapping::add_alpha_to_configuration();
   }
 
-  *(*(a1 + 16) + 4 * v20) = jp2_dimensions::get_bit_depth(&v26, v17);
-  *(*(a1 + 24) + v20) = jp2_dimensions::get_signed(&v26, v17);
+  *(*(a1 + 16) + 4 * v21) = jp2_dimensions::get_bit_depth(&v27, v17);
+  *(*(a1 + 24) + v21) = jp2_dimensions::get_signed(&v27, v17);
   return 1;
 }
 
@@ -4581,8 +2724,10 @@ LABEL_24:
   return v16 | (v7 << 32);
 }
 
-uint64_t kdu_region_decompressor::start(kdu_region_decompressor *this, kd_codestream *a2, int *a3, int a4, int a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, int a12, char a13, uint64_t a14, char *a15)
+uint64_t kdu_region_decompressor::start(kdu_region_decompressor *this, kd_codestream *a2, int *a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, int a12, char a13, uint64_t a14, char *a15)
 {
+  v15 = a6;
+  v16 = a5;
   v21 = a14;
   *(&v94 + 1) = a8;
   v95[0] = a2;
@@ -4601,7 +2746,7 @@ uint64_t kdu_region_decompressor::start(kdu_region_decompressor *this, kd_codest
   *(this + 82) = a13;
   *(this + 80) = 0;
   *(this + 120) = 0;
-  *(this + 54) = a5;
+  *(this + 54) = v16;
   *(this + 48) = 0;
   *(this + 92) = 0;
   *(this + 22) = 0;
@@ -4709,7 +2854,7 @@ uint64_t kdu_region_decompressor::start(kdu_region_decompressor *this, kd_codest
   }
 
   v35 = a12;
-  kdu_codestream::apply_input_restrictions(v95, *(this + 48), *(this + 26), a5, a6, 0, a12);
+  kdu_codestream::apply_input_restrictions(v95, *(this + 48), *(this + 26), v16, v15, 0, a12);
   v36 = **(this + 21);
   v89 = 0;
   v90 = 0;
@@ -4720,7 +2865,7 @@ uint64_t kdu_region_decompressor::start(kdu_region_decompressor *this, kd_codest
   if (v39 >= 1)
   {
     v83 = v36;
-    v84 = a5;
+    v84 = v16;
     v40 = 0;
     v41 = 104;
     do
@@ -4810,7 +2955,7 @@ uint64_t kdu_region_decompressor::start(kdu_region_decompressor *this, kd_codest
     }
 
     while (v40 < v39);
-    a5 = v84;
+    v16 = v84;
     v22 = (this + 140);
     v35 = a12;
     v36 = v83;
@@ -4865,7 +3010,7 @@ uint64_t kdu_region_decompressor::start(kdu_region_decompressor *this, kd_codest
     while (v54);
   }
 
-  kdu_codestream::apply_input_restrictions(v95, v39, *(this + 26), a5, a6, 0, v35);
+  kdu_codestream::apply_input_restrictions(v95, v39, *(this + 26), v16, v15, 0, v35);
   kdu_codestream::get_dims(v95, v36->i32[0], v36 + 4, 1);
   *(this + 140) = find_render_dims(v36[4].i64[0], v36[4].i64[1], v36[5].i64[0], v36[5].i64[1]);
   *(this + 148) = v64;
@@ -5001,7 +3146,7 @@ LABEL_94:
 LABEL_91:
   v91 = 0uLL;
   kdu_codestream::map_region(v95, v36->i32[0], (v75 - 2 * v37 / v90) | ((v68 - 2 * v38 / SHIDWORD(v90)) << 32), (2 * v37 / v90 - (v75 - 2 * v37 / v90) + v79) | ((2 * v38 / SHIDWORD(v90) - (v68 - 2 * v38 / SHIDWORD(v90)) + v70) << 32), &v91, 1);
-  kdu_codestream::apply_input_restrictions(v95, *(this + 48), *(this + 26), a5, a6, &v91, v35);
+  kdu_codestream::apply_input_restrictions(v95, *(this + 48), *(this + 26), v16, v15, &v91, v35);
   kdu_codestream::get_valid_tiles(v95, (this + 84));
   *(this + 100) = *(this + 84);
   *(this + 120) = 0;
@@ -5137,7 +3282,7 @@ uint64_t *kdu_region_decompressor::open_tile(kdu_region_decompressor *this)
       while (v6 < *(this + 48));
     }
 
-    kdu_multi_synthesis::create();
+    kdu_multi_synthesis::create(this + 4);
   }
 
   v8 = *(this + 2);
@@ -5145,7 +3290,7 @@ uint64_t *kdu_region_decompressor::open_tile(kdu_region_decompressor *this)
   return kdu_tile::close(this + 14, v8);
 }
 
-uint64_t kdu_line_buf::pre_create(kdu_line_buf *this, kdu_sample_allocator *a2, int a3, char a4, int a5, unsigned __int8 a6, char a7)
+uint64_t kdu_line_buf::pre_create(kdu_line_buf *this, kdu_sample_allocator *a2, int a3, char a4, uint64_t a5, unsigned __int8 a6, char a7)
 {
   if ((*(this + 7) & 1) != 0 || *(this + 1))
   {
@@ -5333,7 +3478,7 @@ uint64_t kdu_multi_synthesis::destroy(uint64_t *a1)
   return result;
 }
 
-uint64_t kdu_region_decompressor::process(uint64_t a1, uint64_t a2, unsigned __int8 a3, int a4, uint64_t a5, int a6, int a7, int a8, int *a9, uint64_t a10, int a11, char a12)
+uint64_t kdu_region_decompressor::process(uint64_t a1, uint64_t a2, unsigned __int8 a3, int a4, uint64_t a5, int a6, int a7, int a8, int *a9, uint64_t a10, unsigned int a11, unsigned __int8 a12)
 {
   if (((*(a1 + 164) == 1) & a3) != 0)
   {
@@ -5396,7 +3541,7 @@ uint64_t kdu_region_decompressor::process(uint64_t a1, uint64_t a2, unsigned __i
   return kdu_region_decompressor::process_generic(a1, 1, a4, a5, v18 * a6, a7, a8, a9, a10, a11, 0);
 }
 
-uint64_t kdu_region_decompressor::process_generic(kdu_region_decompressor *this, int a2, int a3, uint64_t a4, int a5, int a6, int a7, int *a8, uint64_t a9, int a10, unsigned __int8 a11)
+uint64_t kdu_region_decompressor::process_generic(kdu_region_decompressor *this, int a2, int a3, uint64_t a4, int a5, int a6, int a7, int *a8, uint64_t a9, unsigned int a10, char a11)
 {
   v11 = a9;
   *(a9 + 8) = 0;
@@ -8689,10 +6834,10 @@ uint64_t kdu_region_decompressor::process(kdu_region_decompressor *this, uint64_
     v13 = 0;
   }
 
-  return kdu_region_decompressor::process_generic(this, 1, a4, a3, a5 * a4, a6, a7, a8, a9, 8, v13);
+  return kdu_region_decompressor::process_generic(this, 1, a4, a3, a5 * a4, a6, a7, a8, a9, 8u, v13);
 }
 
-uint64_t transfer_fixed_point(uint64_t result, int a2, int a3, _BYTE *a4, int a5, int a6)
+uint64_t transfer_fixed_point(uint64_t result, int a2, int a3, _BYTE *a4, unsigned int a5, int a6)
 {
   if (*result < a2)
   {
@@ -8993,7 +7138,7 @@ LABEL_85:
   return result;
 }
 
-uint64_t transfer_fixed_point(uint64_t result, int a2, int a3, _WORD *a4, int a5, int a6)
+uint64_t transfer_fixed_point(uint64_t result, int a2, int a3, _WORD *a4, unsigned int a5, int a6)
 {
   if (*result < a2)
   {
@@ -9342,7 +7487,7 @@ LABEL_98:
   return result;
 }
 
-uint64_t kdu_sample_allocator::pre_alloc(uint64_t this, int a2, int a3, int a4, int a5)
+uint64_t kdu_sample_allocator::pre_alloc(uint64_t this, uint64_t a2, int a3, int a4, int a5)
 {
   if ((*this & 1) == 0)
   {
@@ -9459,7 +7604,7 @@ void kdu_block::~kdu_block(kdu_block *this)
   }
 }
 
-uint64_t kdu_block::set_max_passes(uint64_t this, int a2, int a3)
+uint64_t kdu_block::set_max_passes(uint64_t this, int a2, uint64_t a3)
 {
   v3 = *(this + 88);
   if (v3 < a2)
@@ -9483,13 +7628,13 @@ uint64_t kdu_block::set_max_passes(uint64_t this, int a2, int a3)
     v6 = *(this + 56);
     if (v6)
     {
-      MEMORY[0x186602830](v6, 0x1000C8052888210);
+      MEMORY[0x186602830](v6, 0x1000C8052888210, a3);
     }
 
     v7 = *(v4 + 64);
     if (v7)
     {
-      MEMORY[0x186602830](v7, 0x1000C80BDFB0063);
+      MEMORY[0x186602830](v7, 0x1000C80BDFB0063, a3);
     }
 
     operator new[]();
@@ -9498,7 +7643,7 @@ uint64_t kdu_block::set_max_passes(uint64_t this, int a2, int a3)
   return this;
 }
 
-uint64_t kdu_block::set_max_bytes(uint64_t this, int a2, int a3)
+uint64_t kdu_block::set_max_bytes(uint64_t this, int a2, uint64_t a3)
 {
   v3 = *(this + 92);
   if (v3 < a2)
@@ -9521,7 +7666,7 @@ uint64_t kdu_block::set_max_bytes(uint64_t this, int a2, int a3)
     v5 = *(this + 72);
     if (v5)
     {
-      MEMORY[0x186602830](v5 - 1, 0x1000C8077774924);
+      MEMORY[0x186602830](v5 - 1, 0x1000C8077774924, a3);
     }
 
     operator new[]();
@@ -9794,7 +7939,7 @@ LABEL_53:
   {
     kd_block::start_buffering(this, a3);
 LABEL_56:
-    kd_block::put_byte(this, SHIBYTE(a4), a3);
+    kd_block::put_byte(this, HIBYTE(a4), a3);
     kd_block::put_byte(this, a4, a3);
   }
 
@@ -9906,7 +8051,7 @@ LABEL_57:
           v47 = bits | 0x8000;
         }
 
-        kd_block::put_byte(this, SHIBYTE(v47), a3);
+        kd_block::put_byte(this, HIBYTE(v47), a3);
         kd_block::put_byte(this, v47, a3);
         kd_block::put_byte(this, v41, a3);
       }
@@ -9932,4 +8077,1803 @@ LABEL_89:
   }
 
   return *(this + 13);
+}
+
+uint64_t kd_block::start_buffering(kd_block *this, kd_buf_server *a2)
+{
+  if (*this)
+  {
+    kd_block::start_buffering();
+  }
+
+  result = kd_buf_server::get(a2);
+  *this = result;
+  *(this + 1) = result;
+  *(this + 16) = 0;
+  return result;
+}
+
+uint64_t kd_block::put_byte(kd_block *this, uint64_t a2, kd_buf_server *a3)
+{
+  result = *(this + 1);
+  if (!result)
+  {
+    kd_block::put_byte();
+  }
+
+  v5 = a2;
+  v6 = *(this + 16);
+  if (v6 == 55)
+  {
+    *(this + 16) = 0;
+    result = kd_buf_server::get(a3);
+    **(this + 1) = result;
+    *(this + 1) = result;
+    v6 = *(this + 16);
+  }
+
+  *(this + 16) = v6 + 1;
+  *(result + v6 + 9) = v5;
+  return result;
+}
+
+uint64_t kd_header_in::get_bits(kd_header_in *this, int a2)
+{
+  if (a2 < 1)
+  {
+    return 0;
+  }
+
+  v2 = a2;
+  LODWORD(v4) = 0;
+  v6 = this + 8;
+  v5 = *(this + 8);
+  v7 = *(this + 3);
+  do
+  {
+    if (!v7)
+    {
+      if (v5 == 255)
+      {
+        v8 = 7;
+      }
+
+      else
+      {
+        v8 = 8;
+      }
+
+      *(this + 3) = v8;
+      if (!kd_input::get(*this, v6))
+      {
+        exception = __cxa_allocate_exception(8uLL);
+        *exception = this;
+      }
+
+      v7 = *(this + 3);
+      v5 = *(this + 8);
+    }
+
+    if (v2 >= v7)
+    {
+      v9 = v7;
+    }
+
+    else
+    {
+      v9 = v2;
+    }
+
+    v7 -= v9;
+    *(this + 3) = v7;
+    v4 = (v5 >> v7) & ~(255 << v9) | (v4 << v9);
+    v10 = __OFSUB__(v2, v9);
+    v2 -= v9;
+  }
+
+  while (!((v2 < 0) ^ v10 | (v2 == 0)));
+  return v4;
+}
+
+uint64_t kd_block::read_body_bytes(uint64_t this, kd_input *a2, kd_buf_server *a3)
+{
+  v3 = *(this + 26);
+  *(this + 26) = 0;
+  if (v3)
+  {
+    v6 = this;
+    if (*(this + 18) == 255)
+    {
+      if (*this)
+      {
+        exception = __cxa_allocate_exception(4uLL);
+        *exception = -1;
+        __cxa_throw(exception, MEMORY[0x1E69E5478], 0);
+      }
+
+      v12 = kd_buf_server::get(a3);
+      do
+      {
+        if (*(a2 + 544))
+        {
+          break;
+        }
+
+        v13 = v3 >= 0x37 ? 55 : v3;
+        kd_input::read(a2, (v12 + 9), v13);
+        v11 = __OFSUB__(v3, v13);
+        v3 -= v13;
+      }
+
+      while (!((v3 < 0) ^ v11 | (v3 == 0)));
+
+      return kd_buf_server::release(a3, v12);
+    }
+
+    else
+    {
+      LOBYTE(v7) = *(this + 16);
+      do
+      {
+        if (v7 == 55)
+        {
+          v8 = kd_buf_server::get(a3);
+          v7 = 0;
+          **(v6 + 8) = v8;
+          *(v6 + 8) = v8;
+          *(v6 + 16) = 0;
+          v9 = 55;
+        }
+
+        else
+        {
+          v9 = 55 - v7;
+          v8 = *(v6 + 8);
+          v7 = v7;
+        }
+
+        if (v3 >= v9)
+        {
+          v10 = v9;
+        }
+
+        else
+        {
+          v10 = v3;
+        }
+
+        this = kd_input::read(a2, (v8 + v7 + 9), v10);
+        if (!this)
+        {
+          break;
+        }
+
+        LOBYTE(v7) = *(v6 + 16) + this;
+        *(v6 + 16) = v7;
+        *(v6 + 22) += this;
+        v11 = __OFSUB__(v3, this);
+        v3 -= this;
+      }
+
+      while (!((v3 < 0) ^ v11 | (v3 == 0)));
+    }
+  }
+
+  return this;
+}
+
+uint64_t kd_block::retrieve_data(kd_block *this, kdu_block *a2, int a3)
+{
+  v3 = *(this + 18);
+  if (v3 == 255)
+  {
+    exception = __cxa_allocate_exception(4uLL);
+    *exception = 1;
+    __cxa_throw(exception, MEMORY[0x1E69E5478], 0);
+  }
+
+  *(a2 + 11) = *(this + 17);
+  *(a2 + 12) = 0;
+  if (!*(this + 24))
+  {
+    return 0;
+  }
+
+  v7 = *(this + 11);
+  if (v7 + 2 > *(a2 + 23))
+  {
+    kdu_block::set_max_bytes(a2, v7 + 4096, 0);
+    v3 = *(this + 18);
+  }
+
+  if (*(a2 + 22) < v3)
+  {
+    kdu_block::set_max_passes(a2, v3 + 32, 0);
+    v3 = *(this + 18);
+  }
+
+  v8 = *(this + 11);
+  v9 = *(a2 + 9);
+  v28[0] = *this;
+  v28[1] = 0;
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v10 = 0;
+  v11 = 0;
+  while (2)
+  {
+    byte = kd_block_reader::get_byte(v28);
+    v13 = kd_block_reader::get_byte(v28) | (byte << 8);
+    if (v13 >= a3)
+    {
+      return 0;
+    }
+
+    v14 = v11;
+    if (*(a2 + 12) != v10)
+    {
+      kd_block::retrieve_data();
+    }
+
+    do
+    {
+      v15 = kd_block_reader::get_byte(v28);
+      v16 = kd_block_reader::get_byte(v28);
+      v17 = kd_block_reader::get_byte(v28);
+      if (v17)
+      {
+        v18 = v16 & 0xFFFF00FF | (v15 << 8);
+        if (v15 >= 0)
+        {
+          v19 = v18;
+        }
+
+        else
+        {
+          v19 = v18 & 0x7FFF;
+        }
+
+        v14 = v14;
+        if (v14 <= *(this + 18))
+        {
+          v20 = *(this + 18);
+        }
+
+        else
+        {
+          v20 = v14;
+        }
+
+        v21 = v17 + 1;
+        while (v20 != v14)
+        {
+          v22 = *(a2 + 8);
+          *(*(a2 + 7) + 4 * v14) = v19;
+          *(v22 + 2 * v14++) = 0;
+          --v21;
+          v19 = 0;
+          if (v21 <= 1)
+          {
+            goto LABEL_21;
+          }
+        }
+
+        return 0xFFFFFFFFLL;
+      }
+
+LABEL_21:
+      ;
+    }
+
+    while (v15 < 0);
+    if (!v14)
+    {
+      kd_block::retrieve_data();
+    }
+
+    *(*(a2 + 8) + 2 * v14 - 2) = ~v13;
+    if (v11 < v14)
+    {
+      while (1)
+      {
+        v23 = *(*(a2 + 7) + 4 * v11);
+        v24 = __OFSUB__(v8, v23);
+        v8 -= v23;
+        if (v8 < 0 != v24)
+        {
+          return 0;
+        }
+
+        *(a2 + 12) = v11 + 1;
+        if (v23 >= 1)
+        {
+          do
+          {
+            bytes = kd_block_reader::get_bytes(v28, v9, v23);
+            v9 += bytes;
+            v24 = __OFSUB__(v23, bytes);
+            v23 -= bytes;
+          }
+
+          while (!((v23 < 0) ^ v24 | (v23 == 0)));
+        }
+
+        LOBYTE(v11) = v11 + 1;
+        if (v11 >= v14)
+        {
+          v11 = v14;
+          break;
+        }
+      }
+    }
+
+    result = 0;
+    v10 = v11;
+    if (v11 < *(this + 18))
+    {
+      continue;
+    }
+
+    return result;
+  }
+}
+
+uint64_t kd_block_reader::get_byte(kd_block_reader *this)
+{
+  v1 = *(this + 2);
+  v2 = *this;
+  if (v1 == 55)
+  {
+    *(this + 2) = 0;
+    v2 = *v2;
+    *this = v2;
+    if (!v2)
+    {
+      exception = __cxa_allocate_exception(4uLL);
+      *exception = -1;
+      __cxa_throw(exception, MEMORY[0x1E69E5478], 0);
+    }
+
+    v1 = 0;
+  }
+
+  *(this + 2) = v1 + 1;
+  return *(v2 + v1 + 9);
+}
+
+uint64_t kd_block_reader::get_bytes(uint64_t **this, unsigned __int8 *a2, int a3)
+{
+  v3 = *(this + 2);
+  if (v3 == 55)
+  {
+    v3 = 0;
+    *(this + 2) = 0;
+    v4 = **this;
+    *this = v4;
+    if (!v4)
+    {
+      exception = __cxa_allocate_exception(4uLL);
+      *exception = -1;
+      __cxa_throw(exception, MEMORY[0x1E69E5478], 0);
+    }
+  }
+
+  v5 = v3 + a3;
+  if (v3 + a3 >= 55)
+  {
+    v5 = 55;
+  }
+
+  if (v3 >= v5)
+  {
+    v7 = v3;
+  }
+
+  else
+  {
+    v6 = v3 + 9;
+    do
+    {
+      *a2++ = *(*this + v6++);
+    }
+
+    while (v6 - v5 != 9);
+    v3 = *(this + 2);
+    v7 = v5;
+  }
+
+  *(this + 2) = v7;
+  return (v5 - v3);
+}
+
+uint64_t kd_block::store_data(kd_block *this, kdu_block *a2, kd_buf_server *a3)
+{
+  if (*(a2 + 7) != *(this + 25))
+  {
+    kd_block::store_data();
+  }
+
+  v4 = *(a2 + 11);
+  if (v4 >= 255)
+  {
+    kd_block::store_data();
+  }
+
+  if (*(a2 + 12) > 255)
+  {
+    kd_block::store_data();
+  }
+
+  if (*this)
+  {
+    kd_block::store_data();
+  }
+
+  *(this + 17) = v4;
+  result = kd_block::start_buffering(this, a3);
+  v8 = *(a2 + 12);
+  *(this + 18) = v8;
+  if (v8 < 1)
+  {
+    if ((*(a2 + 23) & 0x80000000) == 0)
+    {
+      goto LABEL_23;
+    }
+
+LABEL_29:
+    kd_block::store_data();
+  }
+
+  v9 = 0;
+  v10 = 0;
+  do
+  {
+    v11 = *(*(a2 + 8) + 2 * v9);
+    kd_block::put_byte(this, v11 >> 8, a3);
+    kd_block::put_byte(this, v11, a3);
+    v12 = *(*(a2 + 7) + 4 * v9);
+    if (v12 >= 0x10000)
+    {
+      kd_block::store_data();
+    }
+
+    v10 += v12;
+    kd_block::put_byte(this, BYTE1(v12), a3);
+    result = kd_block::put_byte(this, v12, a3);
+    ++v9;
+  }
+
+  while (v9 < *(a2 + 12));
+  if (v10 > *(a2 + 23))
+  {
+    goto LABEL_29;
+  }
+
+  if (v10 >= 1)
+  {
+    v13 = *(a2 + 9);
+    do
+    {
+      v14 = *(this + 16);
+      if (v14 == 55)
+      {
+        result = kd_buf_server::get(a3);
+        **(this + 1) = result;
+        *(this + 1) = result;
+        *(this + 16) = 0;
+        v15 = 55;
+      }
+
+      else
+      {
+        v15 = 55 - v14;
+      }
+
+      if (v15 >= v10)
+      {
+        v15 = v10;
+      }
+
+      if (v15)
+      {
+        v16 = v15;
+        do
+        {
+          v17 = *v13++;
+          v18 = *(this + 16);
+          v19 = *(this + 1) + v18;
+          *(this + 16) = v18 + 1;
+          *(v19 + 9) = v17;
+          --v16;
+        }
+
+        while (v16);
+      }
+
+      v10 -= v15;
+    }
+
+    while (v10 >= 1);
+  }
+
+LABEL_23:
+  *(this + 1) = *this;
+  *(this + 16) = 0;
+  return result;
+}
+
+uint64_t *kd_block::store_data(kd_block *this, kdu_block *a2, kd_thread_buf_server *a3)
+{
+  v3 = *(a2 + 11);
+  if (v3 >= 255)
+  {
+    kd_block::store_data();
+  }
+
+  if (*(a2 + 12) > 255)
+  {
+    kd_block::store_data();
+  }
+
+  if (*this)
+  {
+    kd_block::store_data();
+  }
+
+  *(this + 17) = v3;
+  result = kd_block::start_buffering(this, a3);
+  v8 = *(a2 + 12);
+  *(this + 18) = v8;
+  if (v8 < 1)
+  {
+    if ((*(a2 + 23) & 0x80000000) == 0)
+    {
+      goto LABEL_22;
+    }
+
+LABEL_27:
+    kd_block::store_data();
+  }
+
+  v9 = 0;
+  v10 = 0;
+  do
+  {
+    v11 = *(*(a2 + 8) + 2 * v9);
+    kd_block::put_byte(this, v11 >> 8, a3);
+    kd_block::put_byte(this, v11, a3);
+    v12 = *(*(a2 + 7) + 4 * v9);
+    if (v12 >= 0x10000)
+    {
+      kd_block::store_data();
+    }
+
+    v10 += v12;
+    kd_block::put_byte(this, BYTE1(v12), a3);
+    result = kd_block::put_byte(this, v12, a3);
+    ++v9;
+  }
+
+  while (v9 < *(a2 + 12));
+  if (v10 > *(a2 + 23))
+  {
+    goto LABEL_27;
+  }
+
+  if (v10 >= 1)
+  {
+    v13 = *(a2 + 9);
+    do
+    {
+      v14 = *(this + 16);
+      if (v14 == 55)
+      {
+        result = kd_thread_buf_server::get(a3);
+        **(this + 1) = result;
+        *(this + 1) = result;
+        *(this + 16) = 0;
+        v15 = 55;
+      }
+
+      else
+      {
+        v15 = 55 - v14;
+      }
+
+      if (v15 >= v10)
+      {
+        v15 = v10;
+      }
+
+      if (v15)
+      {
+        v16 = v15;
+        do
+        {
+          v17 = *v13++;
+          v18 = *(this + 16);
+          v19 = *(this + 1) + v18;
+          *(this + 16) = v18 + 1;
+          *(v19 + 9) = v17;
+          --v16;
+        }
+
+        while (v16);
+      }
+
+      v10 -= v15;
+    }
+
+    while (v10 >= 1);
+  }
+
+LABEL_22:
+  *(this + 1) = *this;
+  *(this + 16) = 0;
+  return result;
+}
+
+uint64_t *kd_block::start_buffering(kd_block *this, kd_thread_buf_server *a2)
+{
+  if (*this)
+  {
+    kd_block::start_buffering();
+  }
+
+  result = kd_thread_buf_server::get(a2);
+  *this = result;
+  *(this + 1) = result;
+  *(this + 16) = 0;
+  return result;
+}
+
+uint64_t *kd_block::put_byte(kd_block *this, uint64_t a2, kd_thread_buf_server *a3)
+{
+  result = *(this + 1);
+  if (!result)
+  {
+    kd_block::put_byte();
+  }
+
+  v5 = a2;
+  v6 = *(this + 16);
+  if (v6 == 55)
+  {
+    *(this + 16) = 0;
+    result = kd_thread_buf_server::get(a3);
+    **(this + 1) = result;
+    *(this + 1) = result;
+    v6 = *(this + 16);
+  }
+
+  *(this + 16) = v6 + 1;
+  *(result + v6 + 9) = v5;
+  return result;
+}
+
+uint64_t *kd_thread_buf_server::get(kd_thread_buf_server *this)
+{
+  result = *(this + 3);
+  if (!result)
+  {
+    kd_thread_buf_server::augment_local_store(this, 0);
+    result = *(this + 3);
+  }
+
+  v3 = *result;
+  *(this + 3) = *result;
+  if (!v3)
+  {
+    *(this + 4) = 0;
+  }
+
+  *result = 0;
+  --*(this + 3);
+  return result;
+}
+
+uint64_t kd_block::trim_data(kd_block *this, uint64_t a2, kd_buf_server *a3)
+{
+  if (!*(this + 18))
+  {
+    return 0;
+  }
+
+  v4 = a2;
+  v5 = this;
+  v6 = 0;
+  v7 = 0;
+  v8 = 0;
+  v9 = 0;
+  v27 = *(this + 16);
+  v10 = *(this + 1);
+  *(this + 1) = *this;
+  *(this + 16) = 0;
+  while (1)
+  {
+    byte = kd_block::get_byte(v5, a2);
+    v14 = kd_block::get_byte(v5, v12) | (byte << 8);
+    if (v14 - 1 < v4)
+    {
+      break;
+    }
+
+    v15 = kd_block::get_byte(v5, v13);
+    v7 += kd_block::get_byte(v5, v16) + (v15 << 8);
+    v17 = v6 + 1;
+    if (v14)
+    {
+      v9 = v7;
+      v8 = v6 + 1;
+    }
+
+    v18 = *(v5 + 18);
+    ++v6;
+    if (v17 >= v18)
+    {
+      v6 = v17;
+      goto LABEL_10;
+    }
+  }
+
+  v18 = *(v5 + 18);
+LABEL_10:
+  *(v5 + 1) = v10;
+  *(v5 + 16) = v27;
+  if (v6 == v18)
+  {
+    return 0;
+  }
+
+  v20 = 4 * v8 + 55;
+  v21 = v5;
+  do
+  {
+    v21 = *v21;
+    v20 -= 55;
+  }
+
+  while (v20 > 55);
+  if (4 * (v18 - v8))
+  {
+    v22 = 4 * v8 - 4 * v18;
+    do
+    {
+      if (v20 == 55)
+      {
+        v20 = 0;
+        v21 = *v21;
+      }
+
+      v23 = v21 + v20++;
+      v23[9] = 0;
+    }
+
+    while (!__CFADD__(v22++, 1));
+    v18 = *(v5 + 18);
+  }
+
+  v25 = v9 + 4 * v18 + 55;
+  do
+  {
+    v5 = *v5;
+    v25 -= 55;
+  }
+
+  while (v25 > 55);
+  while (1)
+  {
+    v26 = *v5;
+    if (!*v5)
+    {
+      break;
+    }
+
+    *v5 = *v26;
+    kd_buf_server::release(a3, v26);
+  }
+
+  return 1;
+}
+
+uint64_t kd_block::get_byte(kd_block *this, uint64_t a2)
+{
+  v2 = *(this + 16);
+  if (v2 == 55)
+  {
+    *(this + 16) = 0;
+    v3 = *(this + 1);
+    v4 = *v3;
+    *(this + 1) = *v3;
+    if (!v4)
+    {
+      kd_block::get_byte();
+    }
+
+    v2 = 0;
+  }
+
+  else
+  {
+    v4 = *(this + 1);
+  }
+
+  *(this + 16) = v2 + 1;
+  return *(v4 + v2 + 9);
+}
+
+uint64_t kd_block::start_packet(kd_block *this, uint64_t a2, unsigned int a3)
+{
+  v4 = a2;
+  if (a2)
+  {
+    LODWORD(v6) = *(this + 19);
+    v7 = *(this + 18);
+  }
+
+  else
+  {
+    *(this + 19) = 0;
+    *(this + 1) = *this;
+    *(this + 16) = 0;
+    *(this + 10) = -1;
+    v7 = *(this + 18);
+    if (!*(this + 18))
+    {
+      *(this + 17) = -1;
+    }
+
+    v6 = *(this + 4);
+    if (v6)
+    {
+      while (1)
+      {
+        v20 = *(this + 17);
+        if (*(v6 + 17) <= v20)
+        {
+          break;
+        }
+
+        *(v6 + 17) = v20;
+        v6 = *(v6 + 32);
+        if (!v6)
+        {
+          goto LABEL_3;
+        }
+      }
+
+      LODWORD(v6) = 0;
+    }
+  }
+
+LABEL_3:
+  *(this + 22) = 0;
+  *(this + 13) = 0;
+  v8 = v7 - v6;
+  if (v7 == v6)
+  {
+    result = 0;
+    *(this + 10) = -1;
+  }
+
+  else
+  {
+    v10 = *(this + 1);
+    v11 = *(this + 16);
+    if (v8 >= 1)
+    {
+      v12 = 0;
+      v13 = 1;
+      do
+      {
+        byte = kd_block::get_byte(this, a2);
+        v17 = kd_block::get_byte(this, v15) | (byte << 8);
+        if (v17 - 1 < a3)
+        {
+          break;
+        }
+
+        v18 = kd_block::get_byte(this, v16);
+        v12 += kd_block::get_byte(this, v19) + (v18 << 8);
+        if (v17)
+        {
+          *(this + 22) = v13;
+          if (v12 >= 0x10000)
+          {
+            kd_block::start_packet();
+          }
+
+          *(this + 13) = v12;
+        }
+
+        ++v13;
+        --v8;
+      }
+
+      while (v8);
+      LODWORD(v6) = *(this + 19);
+    }
+
+    *(this + 1) = v10;
+    *(this + 16) = v11;
+    if (!v6)
+    {
+      if (*(this + 22))
+      {
+        *(this + 10) = v4;
+        for (i = *(this + 4); i; i = *(i + 32))
+        {
+          v22 = *(this + 10);
+          if (*(i + 20) <= v22)
+          {
+            break;
+          }
+
+          *(i + 20) = v22;
+        }
+      }
+
+      else
+      {
+        *(this + 10) = -1;
+      }
+    }
+
+    return *(this + 13);
+  }
+
+  return result;
+}
+
+uint64_t kd_block::write_packet_header(uint64_t this, kd_header_out *a2, __int16 a3, int a4)
+{
+  v5 = this;
+  v6 = *(this + 22);
+  if (*(this + 19))
+  {
+    this = kd_header_out::put_bit(a2, v6 != 0);
+    if (!v6)
+    {
+      return this;
+    }
+
+    goto LABEL_21;
+  }
+
+  if ((v6 != 0) == (*(this + 20) == -1))
+  {
+    kd_block::write_packet_header();
+  }
+
+  *(this + 22) = a3;
+  v7 = *(this + 32);
+  if (v7)
+  {
+    v8 = 0;
+    v9 = this;
+    do
+    {
+      v10 = v9;
+      v9 = v7;
+      *(v10 + 32) = v8;
+      v7 = *(v7 + 32);
+      v8 = v10;
+    }
+
+    while (v7);
+  }
+
+  else
+  {
+    v10 = 0;
+    v9 = this;
+  }
+
+  v11 = 0;
+  LOWORD(v12) = 0;
+  *(v9 + 32) = v10;
+  v13 = *(this + 22) + 1;
+  do
+  {
+    v14 = v11;
+    v11 = v9;
+    v15 = *(v9 + 22);
+    if (v15 < v12)
+    {
+      *(v11 + 22) = v12;
+      LOWORD(v15) = v12;
+    }
+
+    v12 = *(v11 + 20);
+    if (v12 >= v15 && v15 < v13)
+    {
+      do
+      {
+        *(v11 + 22) = v15 + 1;
+        this = kd_header_out::put_bit(a2, v12 <= v15);
+        v12 = *(v11 + 20);
+        v15 = *(v11 + 22);
+      }
+
+      while (v12 >= v15 && v15 < v13);
+    }
+
+    if (v12 >= v15)
+    {
+      LOWORD(v12) = v15;
+    }
+
+    v9 = *(v11 + 32);
+    *(v11 + 32) = v14;
+  }
+
+  while (v9);
+  *(v5 + 22) = v6;
+  if (v6)
+  {
+LABEL_21:
+    if (!*(v5 + 19))
+    {
+      *(v5 + 24) = 0;
+      do
+      {
+        v16 = *(v5 + 32);
+        if (v16)
+        {
+          v17 = 0;
+          v18 = v5;
+          do
+          {
+            v19 = v18;
+            v18 = v16;
+            *(v19 + 32) = v17;
+            v16 = *(v16 + 32);
+            v17 = v19;
+          }
+
+          while (v16);
+        }
+
+        else
+        {
+          v19 = 0;
+          v18 = v5;
+        }
+
+        LOBYTE(v20) = 0;
+        v21 = 0;
+        *(v18 + 32) = v19;
+        v22 = *(v5 + 24) + 1;
+        do
+        {
+          v23 = *(v18 + 24);
+          if (v23 < v20)
+          {
+            *(v18 + 24) = v20;
+            LOBYTE(v23) = v20;
+          }
+
+          v20 = *(v18 + 17);
+          if (v20 >= v23 && v23 < v22)
+          {
+            do
+            {
+              *(v18 + 24) = v23 + 1;
+              kd_header_out::put_bit(a2, v20 <= v23);
+              v20 = *(v18 + 17);
+              v23 = *(v18 + 24);
+            }
+
+            while (v20 >= v23 && v23 < v22);
+          }
+
+          if (v20 >= v23)
+          {
+            LOBYTE(v20) = v23;
+          }
+
+          v24 = *(v18 + 32);
+          *(v18 + 32) = v21;
+          v21 = v18;
+          v18 = v24;
+        }
+
+        while (v24);
+      }
+
+      while (*(v5 + 24) <= *(v5 + 17));
+      *(v5 + 24) = 3;
+    }
+
+    v25 = *(v5 + 22) - 1;
+    if (v25 >= 1)
+    {
+      v26 = 1;
+    }
+
+    else
+    {
+      v26 = *(v5 + 22) - 1;
+    }
+
+    v27 = v25 - v26;
+    kd_header_out::put_bit(a2, v26);
+    if (v25)
+    {
+      if (v27 >= 1)
+      {
+        v29 = 1;
+      }
+
+      else
+      {
+        v29 = v27;
+      }
+
+      v30 = v27 - v29;
+      kd_header_out::put_bit(a2, v29);
+      if (v27)
+      {
+        v31 = 3;
+        if (v30 >= 3)
+        {
+          v32 = 3;
+        }
+
+        else
+        {
+          v32 = v30;
+        }
+
+        do
+        {
+          kd_header_out::put_bit(a2, (v32 >> (v31-- - 2)) & 1);
+        }
+
+        while (v31 > 1);
+        v27 = v30 - v32;
+        if (v30 >= 3)
+        {
+          v33 = v27 >= 31 ? 31 : v27;
+          for (i = 6; i > 1; --i)
+          {
+            kd_header_out::put_bit(a2, (v33 >> (i - 2)) & 1);
+          }
+
+          v35 = v27 - v33;
+          v36 = v27 < 31;
+          v27 = v35;
+          if (!v36)
+          {
+            if (v35 >= 127)
+            {
+              v37 = 127;
+            }
+
+            else
+            {
+              v37 = v35;
+            }
+
+            for (j = 8; j > 1; --j)
+            {
+              kd_header_out::put_bit(a2, (v37 >> (j - 2)) & 1);
+            }
+
+            v27 = v35 - v37;
+          }
+        }
+      }
+
+      else
+      {
+        v27 = v30;
+      }
+    }
+
+    if (v27)
+    {
+      kd_block::write_packet_header();
+    }
+
+    v39 = *(v5 + 25);
+    v78 = *(v5 + 8);
+    v77 = *(v5 + 16);
+    v40 = *(v5 + 22);
+    v89 = *(v5 + 25);
+    v41 = 0;
+    if (*(v5 + 22))
+    {
+      v42 = *(v5 + 19);
+      v81 = ((v39 & 4) == 0) & v39;
+      do
+      {
+        if ((v39 & 4) != 0)
+        {
+          v43 = 1;
+        }
+
+        else
+        {
+          v43 = v40;
+        }
+
+        v87 = v41;
+        if (v81)
+        {
+          if ((-1431655765 * (v42 - 10)) >= 0x55555556)
+          {
+            v44 = 1;
+          }
+
+          else
+          {
+            v44 = 2;
+          }
+
+          if (v42 <= 9)
+          {
+            v44 = 10 - v42;
+          }
+
+          if (v44 >= v40)
+          {
+            v43 = v40;
+          }
+
+          else
+          {
+            v43 = v44;
+          }
+        }
+
+        v45 = 0;
+        v46 = -2;
+        do
+        {
+          v47 = v45;
+          v48 = 1 << (v46 + 2);
+          ++v46;
+          ++v45;
+        }
+
+        while (v48 <= v43);
+        v83 = *(v5 + 24);
+        v85 = v42;
+        if (v43 < 1)
+        {
+          v49 = 0;
+        }
+
+        else
+        {
+          v49 = 0;
+          v50 = v43 + 1;
+          do
+          {
+            kd_block::get_byte(v5, v28);
+            kd_block::get_byte(v5, v51);
+            byte = kd_block::get_byte(v5, v52);
+            v49 += kd_block::get_byte(v5, v54) + (byte << 8);
+            --v50;
+          }
+
+          while (v50 > 1);
+        }
+
+        if (v49 >= 1 << (v83 + v46))
+        {
+          v55 = v83 + v47;
+          do
+          {
+            kd_header_out::put_bit(a2, 1u);
+            ++*(v5 + 24);
+            v56 = 1 << v55++;
+          }
+
+          while (v49 >= v56);
+        }
+
+        v41 = v49 + v87;
+        v42 = v43 + v85;
+        v57 = __OFSUB__(v40, v43);
+        v40 -= v43;
+        LOBYTE(v39) = v89;
+      }
+
+      while (!((v40 < 0) ^ v57 | (v40 == 0)));
+    }
+
+    if (v41 != *(v5 + 26))
+    {
+      kd_block::write_packet_header();
+    }
+
+    this = kd_header_out::put_bit(a2, 0);
+    *(v5 + 8) = v78;
+    *(v5 + 16) = v77;
+    v59 = *(v5 + 22);
+    if (*(v5 + 22))
+    {
+      v60 = 0;
+      v61 = *(v5 + 19);
+      v80 = ((v39 & 4) == 0) & v39;
+      do
+      {
+        if ((v39 & 4) != 0)
+        {
+          v62 = 1;
+        }
+
+        else
+        {
+          v62 = v59;
+        }
+
+        v86 = v60;
+        if (v80)
+        {
+          if ((-1431655765 * (v61 - 10)) >= 0x55555556)
+          {
+            v63 = 1;
+          }
+
+          else
+          {
+            v63 = 2;
+          }
+
+          if (v61 <= 9)
+          {
+            v63 = 10 - v61;
+          }
+
+          if (v63 >= v59)
+          {
+            v62 = v59;
+          }
+
+          else
+          {
+            v62 = v63;
+          }
+        }
+
+        v64 = 0;
+        v65 = -2;
+        do
+        {
+          v66 = v65;
+          v67 = v64;
+          v68 = 1 << (v65++ + 2);
+          ++v64;
+        }
+
+        while (v68 <= v62);
+        v88 = *(v5 + 24);
+        v82 = v61;
+        v84 = v59;
+        v39 = 0;
+        if (v62 >= 1)
+        {
+          v69 = v62 + 1;
+          do
+          {
+            kd_block::get_byte(v5, v58);
+            kd_block::get_byte(v5, v70);
+            v72 = kd_block::get_byte(v5, v71);
+            this = kd_block::get_byte(v5, v73);
+            v39 += this + (v72 << 8);
+            --v69;
+          }
+
+          while (v69 > 1);
+        }
+
+        if (v39 >= 1 << (v88 + v65))
+        {
+          kd_block::write_packet_header();
+        }
+
+        if (v88 + v65 >= 1)
+        {
+          v74 = v88 + v67;
+          v75 = v88 + v66;
+          do
+          {
+            this = kd_header_out::put_bit(a2, (v39 >> v75) & 1);
+            --v74;
+            --v75;
+          }
+
+          while (v74 > 1);
+        }
+
+        v60 = v39 + v86;
+        v61 = v62 + v82;
+        v59 = v84 - v62;
+        LOBYTE(v39) = v89;
+      }
+
+      while (v84 > v62);
+    }
+
+    else
+    {
+      v60 = 0;
+    }
+
+    if (v60 != *(v5 + 26))
+    {
+      kd_block::write_packet_header();
+    }
+
+    if (a4)
+    {
+      *(v5 + 8) = v78;
+      *(v5 + 16) = v77;
+    }
+
+    else
+    {
+      v76 = *(v5 + 19);
+      if (!v76)
+      {
+        *(v5 + 20) = 4 * *(v5 + 18);
+      }
+
+      *(v5 + 19) = *(v5 + 22) + v76;
+      *(v5 + 22) = 0;
+    }
+  }
+
+  return this;
+}
+
+_DWORD *kd_block::write_body_bytes(_DWORD *this, kdu_output *a2)
+{
+  v2 = *(this + 13);
+  if (*(this + 13))
+  {
+    v4 = this;
+    v5 = *(this + 10);
+    v6 = *this;
+    v7 = (v5 - 55 * ((((v5 - ((10725 * v5) >> 16)) >> 1) + ((10725 * v5) >> 16)) >> 5));
+    v8 = v5 + 55;
+    while (1)
+    {
+      v8 -= 55;
+      if (v8 < 55)
+      {
+        break;
+      }
+
+      v6 = *v6;
+      if (!v6)
+      {
+        kd_block::write_body_bytes();
+      }
+    }
+
+    *(this + 10) = v5 + v2;
+    *(this + 13) = 0;
+    do
+    {
+      if (!v6)
+      {
+        kd_block::write_body_bytes();
+      }
+
+      if (55 - v7 >= v2)
+      {
+        v9 = v2;
+      }
+
+      else
+      {
+        v9 = 55 - v7;
+      }
+
+      v2 -= v9;
+      this = kdu_output::write(a2, &v6[v7 + 9], v9);
+      v7 = 0;
+      v6 = *v6;
+    }
+
+    while (v2 > 0);
+    *(v4 + 22) = 0;
+  }
+
+  return this;
+}
+
+_DWORD *kdu_output::write(_DWORD *this, char *a2, int a3)
+{
+  if (a3 >= 1)
+  {
+    v3 = a3;
+    v5 = this;
+    do
+    {
+      v6 = v5[132] - v5[130];
+      if (!v6)
+      {
+        this = (*(*v5 + 16))(v5);
+        v6 = v5[132] - v5[130];
+      }
+
+      if (v3 < v6)
+      {
+        v6 = v3;
+      }
+
+      if (v6)
+      {
+        v7 = v6;
+        do
+        {
+          v8 = *a2++;
+          v9 = *(v5 + 65);
+          *(v5 + 65) = v9 + 1;
+          *v9 = v8;
+          --v7;
+        }
+
+        while (v7);
+      }
+
+      v3 -= v6;
+    }
+
+    while (v3 >= 1);
+  }
+
+  return this;
+}
+
+char *kd_block::build_tree(unint64_t a1, char **a2, uint64_t a3)
+{
+  v3 = a1;
+  v4 = HIDWORD(a1);
+  v5 = HIDWORD(a1) * a1;
+  if (HIDWORD(a1) * a1 < 0)
+  {
+    kd_block::build_tree();
+  }
+
+  v6 = 1;
+  if (v5 >= 2)
+  {
+    v7 = a1;
+    v8 = HIDWORD(a1);
+    do
+    {
+      LODWORD(v8) = (v8 + 1) >> 1;
+      v7 = (v7 + 1) >> 1;
+      v5 += v7 * v8;
+      ++v6;
+    }
+
+    while (v7 * v8 > 1);
+  }
+
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v9 = *a2;
+  *a2 += 40 * v5;
+  if (40 * v5 > a3)
+  {
+    exception = __cxa_allocate_exception(4uLL);
+    *exception = -1;
+    __cxa_throw(exception, MEMORY[0x1E69E5478], 0);
+  }
+
+  bzero(v9, 40 * v5);
+  v10 = 0;
+  v11 = v9;
+  do
+  {
+    if (v3 >= 1)
+    {
+      v12 = 0;
+      v13 = &v11[40 * v3 * v4];
+      do
+      {
+        if (v4 >= 1)
+        {
+          v14 = 0;
+          do
+          {
+            *(v11 + 4) = &v13[40 * (v12 >> 1) * ((v4 + 1) >> 1) + 40 * (v14 >> 1)];
+            if (v10 == v6 - 1)
+            {
+              if (v14 | v12)
+              {
+                kd_block::build_tree();
+              }
+
+              *(v11 + 4) = 0;
+            }
+
+            ++v14;
+            v11 += 40;
+          }
+
+          while (v4 != v14);
+        }
+
+        ++v12;
+      }
+
+      while (v12 != v3);
+    }
+
+    v3 = (v3 + 1) >> 1;
+    ++v10;
+    LODWORD(v4) = (v4 + 1) >> 1;
+  }
+
+  while (v10 != v6);
+  if (v11 != &v9[40 * v5])
+  {
+    kd_block::build_tree();
+  }
+
+  return v9;
+}
+
+uint64_t kd_block::reset_output_tree(uint64_t result, unint64_t a2)
+{
+  v2 = HIDWORD(a2);
+  if (HIDWORD(a2) && a2)
+  {
+    v3 = 0;
+    v4 = 1;
+    while ((v4 & 1) == 0)
+    {
+      if (a2 >= 1)
+      {
+        v5 = 0;
+        do
+        {
+          if (v2 >= 1)
+          {
+            v6 = v2;
+            do
+            {
+              *(result + 24) = 0;
+              *(result + 17) = -1;
+              *(result + 20) = 0xFFFF;
+              result += 40;
+              --v6;
+            }
+
+            while (v6);
+          }
+
+          ++v5;
+        }
+
+        while (v5 != a2);
+        v3 = v2 & ~(v2 >> 31);
+        goto LABEL_13;
+      }
+
+      v7 = 0;
+LABEL_14:
+      v4 = 0;
+      LODWORD(a2) = (a2 + 1) >> 1;
+      LODWORD(v2) = (v2 + 1) >> 1;
+      if (v3 <= 1 && v7 <= 1)
+      {
+        return result;
+      }
+    }
+
+    result += 40 * a2 * v2;
+    v3 = v2;
+LABEL_13:
+    v7 = a2;
+    goto LABEL_14;
+  }
+
+  return result;
+}
+
+uint64_t kd_block::save_output_tree(uint64_t result, unint64_t a2)
+{
+  v2 = HIDWORD(a2);
+  if (HIDWORD(a2) && a2)
+  {
+    v3 = 0;
+    v4 = 1;
+    do
+    {
+      if (a2 < 1)
+      {
+        v12 = 0;
+      }
+
+      else
+      {
+        v5 = 0;
+        v3 = v2 & ~(v2 >> 31);
+        do
+        {
+          if (v2 >= 1)
+          {
+            v6 = 0;
+            do
+            {
+              if (v4)
+              {
+                v7 = *(result + 22);
+                v8 = *(result + 16) + 4 * v7;
+                if (v8 < 0x38)
+                {
+                  v10 = *(result + 16) + 4 * v7;
+                }
+
+                else
+                {
+                  v9 = *(result + 8);
+                  do
+                  {
+                    v9 = *v9;
+                    *(result + 8) = v9;
+                    if (!v9)
+                    {
+                      kd_block::save_output_tree();
+                    }
+
+                    v10 = v8 - 55;
+                    v11 = v8 <= 110;
+                    v8 -= 55;
+                  }
+
+                  while (!v11);
+                }
+
+                *(result + 16) = v10;
+                *(result + 19) += v7;
+                *(result + 22) = 0;
+                *(result + 20) = *(result + 24);
+              }
+
+              else
+              {
+                *result = *(result + 20);
+                *(result + 8) = *(result + 22);
+                *(result + 16) = *(result + 24);
+              }
+
+              ++v6;
+              result += 40;
+            }
+
+            while (v6 != v2);
+          }
+
+          ++v5;
+        }
+
+        while (v5 != a2);
+        v12 = a2 != 1;
+      }
+
+      v4 = 0;
+      LODWORD(a2) = (a2 + 1) >> 1;
+      LODWORD(v2) = (v2 + 1) >> 1;
+    }
+
+    while (v3 > 1 || v12);
+  }
+
+  return result;
 }

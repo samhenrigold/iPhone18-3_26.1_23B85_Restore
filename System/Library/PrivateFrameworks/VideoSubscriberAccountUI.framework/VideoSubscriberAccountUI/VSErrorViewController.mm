@@ -11,13 +11,13 @@
 
 - (VSErrorViewController)initWithNibName:(id)name bundle:(id)bundle
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   nameCopy = name;
   VSRequireMainThread();
-  v15.receiver = self;
-  v15.super_class = VSErrorViewController;
-  v8 = [(VSErrorViewController *)&v15 initWithNibName:nameCopy bundle:bundleCopy];
+  v14.receiver = self;
+  v14.super_class = VSErrorViewController;
+  v8 = [(VSErrorViewController *)&v14 initWithNibName:nameCopy bundle:bundleCopy];
 
   if (v8)
   {
@@ -25,12 +25,11 @@
     fontCenter = v8->_fontCenter;
     v8->_fontCenter = v9;
 
-    v16[0] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     v12 = [(VSErrorViewController *)v8 registerForTraitChanges:v11 withHandler:&__block_literal_global];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -31,7 +31,6 @@
 
 - (void)raceWithTimeout:(double)timeout queue:(id)queue
 {
-  v6 = *(&self->super.isa + OBJC_IVAR____TtC12APFoundation15APPromiseBridge_promise);
   queueCopy = queue;
   selfCopy = self;
   sub_1BAF63460(queue);
@@ -39,7 +38,6 @@
 
 - (void)resolve
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC12APFoundation15APPromiseBridge_promise);
   selfCopy = self;
   sub_1BAF631D0();
 }

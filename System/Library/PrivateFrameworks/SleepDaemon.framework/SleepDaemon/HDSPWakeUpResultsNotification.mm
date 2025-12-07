@@ -158,22 +158,22 @@ LABEL_22:
 
 - (NSDictionary)userInfo
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB38]);
-  v16[0] = *MEMORY[0x277D62360];
+  v15[0] = *MEMORY[0x277D62360];
   v4 = HDSPWakeUpResultsCategoryIdentifier(self->_category);
-  v17[0] = v4;
-  v16[1] = *MEMORY[0x277D62370];
+  v16[0] = v4;
+  v15[1] = *MEMORY[0x277D62370];
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:self->_endMorningIndex];
-  v17[1] = v5;
-  v16[2] = *MEMORY[0x277D62388];
+  v16[1] = v5;
+  v15[2] = *MEMORY[0x277D62388];
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:self->_notificationVariant];
-  v17[2] = v6;
+  v16[2] = v6;
   v7 = [objc_opt_class() goalAchievedUserInfoKeyForCategory:self->_category];
-  v16[3] = v7;
+  v15[3] = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HDSPWakeUpResultsNotification goalAchievedUserInfoValue](self, "goalAchievedUserInfoValue")}];
-  v17[3] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
   v10 = [v3 initWithDictionary:v9];
 
   userFirstName = [(HDSPWakeUpResultsNotification *)self userFirstName];
@@ -185,8 +185,6 @@ LABEL_22:
   }
 
   v13 = [v10 copy];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

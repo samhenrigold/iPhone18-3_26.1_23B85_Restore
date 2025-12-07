@@ -41,7 +41,7 @@
   selfCopy = self;
   sub_1C3C330F8(requestCopy, sub_1C3C34674, v7);
 
-  sub_1C3C27CB4(0, &qword_1EC080DD8);
+  sub_1C3C27CB4(0, &qword_1EC080DD8, 0x1E696C378);
   v10 = sub_1C3D202A4();
 
   return v10;

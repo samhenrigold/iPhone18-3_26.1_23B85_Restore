@@ -67,34 +67,34 @@
 
 + (id)prioritizeUserInput:(id)input key:(id)key overField:(id)field
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   inputCopy = input;
   keyCopy = key;
   fieldCopy = field;
   v10 = fieldCopy;
   if (inputCopy)
   {
-    v22 = fieldCopy;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
+    v21 = fieldCopy;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v11 = inputCopy;
-    v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v24;
+      v14 = *v23;
 LABEL_4:
       v15 = 0;
       while (1)
       {
-        if (*v24 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v23 + 1) + 8 * v15);
+        v16 = *(*(&v22 + 1) + 8 * v15);
         v17 = [v16 objectForKey:@"UUID"];
         v18 = [v17 isEqualToString:keyCopy];
 
@@ -105,7 +105,7 @@ LABEL_4:
 
         if (v13 == ++v15)
         {
-          v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v13)
           {
             goto LABEL_4;
@@ -117,7 +117,7 @@ LABEL_4:
 
       v19 = [v16 objectForKey:@"response"];
 
-      v10 = v22;
+      v10 = v21;
       if (v19)
       {
         goto LABEL_13;
@@ -128,14 +128,12 @@ LABEL_4:
     {
 LABEL_10:
 
-      v10 = v22;
+      v10 = v21;
     }
   }
 
   v19 = v10;
 LABEL_13:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

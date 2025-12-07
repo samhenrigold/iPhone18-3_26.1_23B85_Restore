@@ -69,7 +69,7 @@ void __42__DMMigrationPluginWrapperConnection_init__block_invoke(uint64_t a1, vo
 
 - (void)runPluginAtPath:(id)path withIdentifier:(id)identifier parameters:(id)parameters completion:(id)completion
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v69[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   parametersCopy = parameters;
   completionCopy = completion;
@@ -171,30 +171,28 @@ void __42__DMMigrationPluginWrapperConnection_init__block_invoke(uint64_t a1, vo
     xpc_dictionary_set_string(v13, "backupDeviceUUID", [backupDeviceUUID2 UTF8String]);
   }
 
-  _DMLogFunc(v57, 7, @"DMMigrationPluginWrapperConnection will sendMessageSync:");
-  v50 = [(DMXPCConnection *)self->_connection sendMessageSync:v13];
+  _DMLogFunc(v66, 7, @"DMMigrationPluginWrapperConnection will sendMessageSync:", v49, v50, v51, v52, v53, v65);
+  v55 = [(DMXPCConnection *)self->_connection sendMessageSync:v13];
   if (MEMORY[0x2318EDE00]() == MEMORY[0x277D86480])
   {
-    string = xpc_dictionary_get_string(v50, *MEMORY[0x277D86400]);
-    _DMLogFunc(v57, 6, @"MigrationPluginWrapper -runPluginAtPath: %@ withParameters: XPC error: %s");
-    v53 = MEMORY[0x277CCA9B8];
-    v59 = *MEMORY[0x277CCA450];
-    v60[0] = @"migrationpluginwrapper xpc error";
-    v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:&v59 count:{1, pathCopy, string}];
-    v52 = [v53 errorWithDomain:@"com.apple.datamigrator" code:0 userInfo:v54];
+    xpc_dictionary_get_string(v55, *MEMORY[0x277D86400]);
+    _DMLogFunc(v66, 6, @"MigrationPluginWrapper -runPluginAtPath: %@ withParameters: XPC error: %s", v58, v59, v60, v61, v62, pathCopy);
+    v63 = MEMORY[0x277CCA9B8];
+    v68 = *MEMORY[0x277CCA450];
+    v69[0] = @"migrationpluginwrapper xpc error";
+    v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:&v68 count:1];
+    v57 = [v63 errorWithDomain:@"com.apple.datamigrator" code:0 userInfo:v64];
 
-    v51 = 0;
+    v56 = 0;
   }
 
   else
   {
-    v51 = xpc_dictionary_get_BOOL(v50, "migrationResult");
-    v52 = 0;
+    v56 = xpc_dictionary_get_BOOL(v55, "migrationResult");
+    v57 = 0;
   }
 
-  completionCopy[2](completionCopy, v51, v52);
-
-  v55 = *MEMORY[0x277D85DE8];
+  completionCopy[2](completionCopy, v56, v57);
 }
 
 - (void)handleMessage:(id)message
@@ -210,8 +208,8 @@ void __42__DMMigrationPluginWrapperConnection_init__block_invoke(uint64_t a1, vo
     int64 = xpc_dictionary_get_int64(xdict, "pid");
     v7 = [MEMORY[0x277CCABB0] numberWithLongLong:0];
     v8 = [MEMORY[0x277CCABB0] numberWithInt:int64];
-    v9 = [MEMORY[0x277CCABB0] numberWithInt:{-[DMMigrationPluginWrapperConnection _pid](selfCopy, "_pid")}];
-    _DMLogFunc(v3, 7, @"DMMigrationPluginWrapperConnection handling event %p msgID %@ containing pid %@ from peer pid %@");
+    v14 = [MEMORY[0x277CCABB0] numberWithInt:{-[DMMigrationPluginWrapperConnection _pid](selfCopy, "_pid")}];
+    _DMLogFunc(v3, 7, @"DMMigrationPluginWrapperConnection handling event %p msgID %@ containing pid %@ from peer pid %@", v9, v10, v11, v12, v13, xdict);
   }
 }
 

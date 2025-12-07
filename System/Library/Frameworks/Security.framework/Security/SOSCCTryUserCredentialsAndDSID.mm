@@ -3,40 +3,40 @@
 
 @implementation SOSCCTryUserCredentialsAndDSID
 
-uint64_t __SOSCCTryUserCredentialsAndDSID_internal_block_invoke(uint64_t a1)
+uint64_t __SOSCCTryUserCredentialsAndDSID_internal_block_invoke(void *a1)
 {
   if (gSecurityd)
   {
     v1 = *(gSecurityd + 200);
     if (v1)
     {
-      v2 = *(a1 + 40);
-      v3 = *(a1 + 48);
-      v4 = *(a1 + 56);
-      v5 = *(a1 + 32);
+      v2 = a1[5];
+      v3 = a1[6];
+      v4 = a1[7];
+      v5 = a1[4];
 
       return v1(v5, v2, v3, v4);
     }
   }
 
-  v7 = *(a1 + 32);
+  v7 = a1[4];
   if (!v7)
   {
-    SOSErrorCreate(1045, *(a1 + 56), 0, @"user_label is nil");
+    SOSErrorCreate(1045, a1[7], 0, @"user_label is nil");
     return 0;
   }
 
-  v8 = *(a1 + 40);
+  v8 = a1[5];
   if (!v8)
   {
-    SOSErrorCreate(1045, *(a1 + 56), 0, @"user_password is nil");
+    SOSErrorCreate(1045, a1[7], 0, @"user_password is nil");
     return 0;
   }
 
-  v9 = *(a1 + 56);
-  if (*(a1 + 48))
+  v9 = a1[7];
+  if (a1[6])
   {
-    v10 = *(a1 + 48);
+    v10 = a1[6];
   }
 
   else

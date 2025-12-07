@@ -118,7 +118,7 @@ void __44__CRKSynchronizeIDSFirewallOperation_cancel__block_invoke(uint64_t a1)
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        [CRKSynchronizeIDSFirewallOperation operationToFetchAppleIDsDidFinish:];
+        [CRKSynchronizeIDSFirewallOperation operationToFetchAppleIDsDidFinish:error2];
       }
 
       localStorage = [(CRKSynchronizeIDSFirewallOperation *)self localStorage];
@@ -273,30 +273,31 @@ uint64_t __69__CRKSynchronizeIDSFirewallOperation_operationToFetchAllowedAppleID
 
 void __68__CRKSynchronizeIDSFirewallOperation_operationToAddAllowedAppleIDs___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  if ([*(a1 + 32) count])
+  v7 = [*(a1 + 32) count];
+  if (v7)
   {
-    v7 = _CRKLogASM_1();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _CRKLogASM_1(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [*(a1 + 32) crk_stableDescription];
+      v9 = [*(a1 + 32) crk_stableDescription];
       *buf = 138543362;
-      v16 = v8;
-      _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, "Adding %{public}@ to IDS firewall.", buf, 0xCu);
+      v17 = v9;
+      _os_log_impl(&dword_243550000, v8, OS_LOG_TYPE_DEFAULT, "Adding %{public}@ to IDS firewall.", buf, 0xCu);
     }
 
-    v11 = a1 + 32;
-    v9 = *(a1 + 32);
-    v10 = *(v11 + 8);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __68__CRKSynchronizeIDSFirewallOperation_operationToAddAllowedAppleIDs___block_invoke_32;
-    v12[3] = &unk_278DC1168;
-    v13 = v6;
-    v14 = v5;
-    [v10 addAllowedAppleIDsToFirewall:v9 completion:v12];
+    v12 = a1 + 32;
+    v10 = *(a1 + 32);
+    v11 = *(v12 + 8);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __68__CRKSynchronizeIDSFirewallOperation_operationToAddAllowedAppleIDs___block_invoke_32;
+    v13[3] = &unk_278DC1168;
+    v14 = v6;
+    v15 = v5;
+    [v11 addAllowedAppleIDsToFirewall:v10 completion:v13];
   }
 
   else
@@ -339,30 +340,31 @@ uint64_t __68__CRKSynchronizeIDSFirewallOperation_operationToAddAllowedAppleIDs_
 
 void __71__CRKSynchronizeIDSFirewallOperation_operationToRemoveAllowedAppleIDs___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  if ([*(a1 + 32) count])
+  v7 = [*(a1 + 32) count];
+  if (v7)
   {
-    v7 = _CRKLogASM_1();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _CRKLogASM_1(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [*(a1 + 32) crk_stableDescription];
+      v9 = [*(a1 + 32) crk_stableDescription];
       *buf = 138543362;
-      v16 = v8;
-      _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, "Removing %{public}@ from IDS firewall.", buf, 0xCu);
+      v17 = v9;
+      _os_log_impl(&dword_243550000, v8, OS_LOG_TYPE_DEFAULT, "Removing %{public}@ from IDS firewall.", buf, 0xCu);
     }
 
-    v11 = a1 + 32;
-    v9 = *(a1 + 32);
-    v10 = *(v11 + 8);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __71__CRKSynchronizeIDSFirewallOperation_operationToRemoveAllowedAppleIDs___block_invoke_34;
-    v12[3] = &unk_278DC1168;
-    v13 = v6;
-    v14 = v5;
-    [v10 removeAllowedAppleIDsFromFirewall:v9 completion:v12];
+    v12 = a1 + 32;
+    v10 = *(a1 + 32);
+    v11 = *(v12 + 8);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __71__CRKSynchronizeIDSFirewallOperation_operationToRemoveAllowedAppleIDs___block_invoke_34;
+    v13[3] = &unk_278DC1168;
+    v14 = v6;
+    v15 = v5;
+    [v11 removeAllowedAppleIDsFromFirewall:v10 completion:v13];
   }
 
   else
@@ -386,15 +388,15 @@ uint64_t __71__CRKSynchronizeIDSFirewallOperation_operationToRemoveAllowedAppleI
   return (*(v2 + 16))();
 }
 
-- (void)operationToFetchAppleIDsDidFinish:.cold.1()
+- (void)operationToFetchAppleIDsDidFinish:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v5 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKSynchronizeIDSFirewallOperation operationToFetchAppleIDsDidFinish:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [v5 handleFailureInFunction:v0 file:@"CRKSynchronizeIDSFirewallOperation.m" lineNumber:113 description:{@"expected %@, got %@", v2, v4}];
+  v6 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKSynchronizeIDSFirewallOperation operationToFetchAppleIDsDidFinish:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [v6 handleFailureInFunction:v1 file:@"CRKSynchronizeIDSFirewallOperation.m" lineNumber:113 description:{@"expected %@, got %@", v3, v5}];
 }
 
 - (void)finishWithError:.cold.1()

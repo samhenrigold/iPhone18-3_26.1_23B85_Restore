@@ -80,17 +80,18 @@ LABEL_6:
   dataCopy = data;
   requestCopy = request;
   endpointCopy = endpoint;
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_10007C558;
-  v22[3] = &unk_10016B6D8;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_10007C558;
+  v23[3] = &unk_10016B6D8;
   v12 = requestCopy;
-  v23 = v12;
-  v13 = objc_retainBlock(v22);
-  if (([v12 isValid] & 1) == 0)
+  v24 = v12;
+  v13 = objc_retainBlock(v23);
+  isValid = [v12 isValid];
+  if ((isValid & 1) == 0)
   {
-    v15 = sub_100063A54();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100063A54(isValid);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_1000DC538(v12);
     }
@@ -100,44 +101,45 @@ LABEL_6:
 
   if (dataCopy)
   {
-    getPostData = [v12 getPostData];
-    if (!getPostData)
+    isValid = [v12 getPostData];
+    v15 = isValid;
+    if (!isValid)
     {
-      v15 = sub_100063A54();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = sub_100063A54(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_1000DC6C4(v12);
       }
 
 LABEL_14:
-      getPostData = 0;
+      v15 = 0;
       goto LABEL_19;
     }
   }
 
   else
   {
-    getPostData = 0;
+    v15 = 0;
   }
 
   if (endpointCopy)
   {
-    v16 = [(MSDServer *)self taskInfoFromCommandRequest:v12];
-    if (v16)
+    v17 = [(MSDServer *)self taskInfoFromCommandRequest:v12];
+    if (v17)
     {
-      completion2 = v16;
-      [v16 setEndpoint:endpointCopy];
+      completion2 = v17;
+      [v17 setEndpoint:endpointCopy];
       [completion2 setMaxRetry:retry];
-      [completion2 setPostData:getPostData];
+      [completion2 setPostData:v15];
       [completion2 setHandler:v13];
       session = [(MSDServer *)self session];
       [(MSDServerResponse *)session launchTaskWithInfo:completion2];
-      v19 = 0;
+      v20 = 0;
       goto LABEL_10;
     }
 
-    v15 = sub_100063A54();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100063A54(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_1000DC5BC(v12);
     }
@@ -145,8 +147,8 @@ LABEL_14:
 
   else
   {
-    v15 = sub_100063A54();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100063A54(isValid);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_1000DC640(v12);
     }
@@ -154,9 +156,9 @@ LABEL_14:
 
 LABEL_19:
 
-  v21 = 0;
-  sub_1000C1390(&v21, 3727744769, @"Input is invalid");
-  v19 = v21;
+  v22 = 0;
+  sub_1000C1390(&v22, 3727744769, @"Input is invalid");
+  v20 = v22;
   completion = [v12 completion];
 
   if (!completion)
@@ -165,7 +167,7 @@ LABEL_19:
   }
 
   completion2 = [v12 completion];
-  session = [[MSDServerResponse alloc] initWithError:v19];
+  session = [[MSDServerResponse alloc] initWithError:v20];
   (completion2)[2](completion2, session);
 LABEL_10:
 

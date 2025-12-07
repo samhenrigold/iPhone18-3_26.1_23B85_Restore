@@ -59,18 +59,18 @@
 
 - (id)flatten
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:{@", :"}];;
   v4 = [MEMORY[0x277CBEB58] set];
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __21___ICContact_flatten__block_invoke;
-  v39[3] = &unk_2797ADB30;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __21___ICContact_flatten__block_invoke;
+  v38[3] = &unk_2797ADB30;
   v5 = v3;
-  v40 = v5;
+  v39 = v5;
   v6 = v4;
-  v41 = v6;
-  v7 = MEMORY[0x259C27030](v39);
+  v40 = v6;
+  v7 = MEMORY[0x259C27030](v38);
   lastName = [(_ICContact *)self lastName];
   (v7)[2](v7, lastName);
 
@@ -94,31 +94,31 @@
 
   if (v15)
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     relations2 = [(_ICContact *)self relations];
-    v17 = [relations2 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v17 = [relations2 countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v36;
+      v19 = *v35;
       do
       {
         v20 = 0;
         do
         {
-          if (*v36 != v19)
+          if (*v35 != v19)
           {
             objc_enumerationMutation(relations2);
           }
 
-          v7[2](v7, *(*(&v35 + 1) + 8 * v20++));
+          v7[2](v7, *(*(&v34 + 1) + 8 * v20++));
         }
 
         while (v18 != v20);
-        v18 = [relations2 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v18 = [relations2 countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v18);
@@ -130,31 +130,31 @@
 
   if (v22)
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     cities2 = [(_ICContact *)self cities];
-    v24 = [cities2 countByEnumeratingWithState:&v31 objects:v42 count:16];
+    v24 = [cities2 countByEnumeratingWithState:&v30 objects:v41 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v32;
+      v26 = *v31;
       do
       {
         v27 = 0;
         do
         {
-          if (*v32 != v26)
+          if (*v31 != v26)
           {
             objc_enumerationMutation(cities2);
           }
 
-          v7[2](v7, *(*(&v31 + 1) + 8 * v27++));
+          v7[2](v7, *(*(&v30 + 1) + 8 * v27++));
         }
 
         while (v25 != v27);
-        v25 = [cities2 countByEnumeratingWithState:&v31 objects:v42 count:16];
+        v25 = [cities2 countByEnumeratingWithState:&v30 objects:v41 count:16];
       }
 
       while (v25);
@@ -163,7 +163,6 @@
 
   v28 = v6;
 
-  v29 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

@@ -5,8 +5,8 @@
 - (UIResponder)nextResponder;
 - (id)application:(id)application configurationForConnectingSceneSession:(id)session options:(id)options;
 - (id)application:(id)application handlerForIntent:(id)intent;
-- (uint64_t)userNotificationCenter:openSettingsForNotification:;
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(id)handler;
+- (void)userNotificationCenter:openSettingsForNotification:;
 @end
 
 @implementation ApplicationDelegate
@@ -16,7 +16,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_10035EAC8(&qword_101180898, type metadata accessor for LaunchOptionsKey);
+    sub_10035EAC8(&qword_101180898, type metadata accessor for LaunchOptionsKey, &unk_100EBC318);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -42,11 +42,11 @@
 {
   v7 = type metadata accessor for URL();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for OpenURLOptionsKey(0);
-  sub_10035EAC8(&qword_1011808A8, type metadata accessor for OpenURLOptionsKey);
+  sub_10035EAC8(&qword_1011808A8, type metadata accessor for OpenURLOptionsKey, &unk_100EBC35C);
   v11 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   applicationCopy = application;
   selfCopy = self;
@@ -58,31 +58,31 @@
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(id)handler
 {
-  v9 = sub_10010FC20(&unk_101181520);
-  __chkstk_darwin(v9 - 8);
-  v11 = &v20 - v10;
-  v12 = _Block_copy(handler);
-  v13 = swift_allocObject();
-  v13[2] = center;
-  v13[3] = notification;
-  v13[4] = v12;
-  v13[5] = self;
-  v14 = type metadata accessor for TaskPriority();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  sub_10010FC20(&unk_101181520, &qword_100EBCC60);
+  __chkstk_darwin();
+  v10 = &v19 - v9;
+  v11 = _Block_copy(handler);
+  v12 = swift_allocObject();
+  v12[2] = center;
+  v12[3] = notification;
+  v12[4] = v11;
+  v12[5] = self;
+  v13 = type metadata accessor for TaskPriority();
+  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_100EC7B78;
+  v14[5] = v12;
   v15 = swift_allocObject();
   v15[2] = 0;
   v15[3] = 0;
-  v15[4] = &unk_100EC7B78;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_100EC7B88;
-  v16[5] = v15;
+  v15[4] = &unk_100EC7B88;
+  v15[5] = v14;
   centerCopy = center;
   notificationCopy = notification;
   selfCopy = self;
-  sub_10035E0F8(0, 0, v11, &unk_100EC7B98, v16);
+  sub_10035E0F8(0, 0, v10, &unk_100EC7B98, v15);
 }
 
 - (UIResponder)nextResponder
@@ -105,80 +105,80 @@
   return v4;
 }
 
-- (uint64_t)userNotificationCenter:openSettingsForNotification:
+- (void)userNotificationCenter:openSettingsForNotification:
 {
-  v0 = sub_10010FC20(&qword_101183A20);
-  __chkstk_darwin(v0 - 8);
-  v2 = &v19[-v1];
-  v3 = type metadata accessor for URL();
-  v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = &v19[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v7);
-  v9 = &v19[-v8];
+  sub_10010FC20(&qword_101183A20, &unk_100EBCF80);
+  __chkstk_darwin();
+  v1 = &v16[-v0];
+  v2 = type metadata accessor for URL();
+  v3 = *(v2 - 8);
+  __chkstk_darwin();
+  v5 = &v16[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin();
+  v7 = &v16[-v6];
   sharedApplication = [objc_opt_self() sharedApplication];
   connectedScenes = [sharedApplication connectedScenes];
-  sub_100009F78(0, &qword_1011839F0);
+  sub_100009F78(0, &qword_1011839F0, UIScene_ptr);
   sub_100061F5C();
-  v12 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
-  sub_100061FC4(v12);
-  v14 = v13;
+  sub_100061FC4(v10);
+  v12 = v11;
 
-  if (v14 >> 62)
+  if (v12 >> 62)
   {
-    result = _CocoaArrayWrapper.endIndex.getter();
-    if (result)
+    if (_CocoaArrayWrapper.endIndex.getter())
     {
       goto LABEL_3;
     }
 
 LABEL_11:
+
+    return;
   }
 
-  result = *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (!result)
+  if (!*((v12 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
     goto LABEL_11;
   }
 
 LABEL_3:
-  if ((v14 & 0xC000000000000001) != 0)
+  if ((v12 & 0xC000000000000001) != 0)
   {
-    v16 = sub_1007E90D4(0, v14);
+    v13 = sub_1007E90D4(0, v12);
   }
 
   else
   {
-    if (!*((v14 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (!*((v12 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       __break(1u);
-      return result;
+      return;
     }
 
-    v16 = *(v14 + 32);
+    v13 = *(v12 + 32);
   }
 
-  v17 = v16;
+  v14 = v13;
 
   URL.init(string:)();
-  if ((*(v4 + 48))(v2, 1, v3) == 1)
+  if ((*(v3 + 48))(v1, 1, v2) == 1)
   {
 
-    return sub_1000095E8(v2, &qword_101183A20);
+    sub_1000095E8(v1, &qword_101183A20, &unk_100EBCF80);
   }
 
   else
   {
-    (*(v4 + 32))(v9, v2, v3);
-    (*(v4 + 16))(v6, v9, v3);
+    (*(v3 + 32))(v7, v1, v2);
+    (*(v3 + 16))(v5, v7, v2);
     type metadata accessor for LaunchOptions(0);
     swift_allocObject();
-    v18 = v17;
-    sub_1002B8D68(v6, 0, v18);
+    v15 = v14;
+    sub_1002B8D68(v5, 0, v15);
     sub_1002C5A04();
 
-    return (*(v4 + 8))(v9, v3);
+    (*(v3 + 8))(v7, v2);
   }
 }
 

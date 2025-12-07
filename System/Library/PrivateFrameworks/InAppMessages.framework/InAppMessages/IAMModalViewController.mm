@@ -3,6 +3,7 @@
 - (IAMModalViewController)init;
 - (IAMViewControllerMetricsDelegate)metricsDelegate;
 - (id)_presentationControllerForPresentedController:(id)controller presentingController:(id)presentingController sourceController:(id)sourceController;
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion;
 - (void)presentationControllerWillDismiss:(id)dismiss;
 - (void)viewDidLoad;
 @end
@@ -25,10 +26,10 @@
 
 - (void)viewDidLoad
 {
-  v35[4] = *MEMORY[0x277D85DE8];
-  v34.receiver = self;
-  v34.super_class = IAMModalViewController;
-  [(IAMModalViewController *)&v34 viewDidLoad];
+  v34[4] = *MEMORY[0x277D85DE8];
+  v33.receiver = self;
+  v33.super_class = IAMModalViewController;
+  [(IAMModalViewController *)&v33 viewDidLoad];
   [(IAMModalViewController *)self setNeedsStatusBarAppearanceUpdate];
   contentViewController = [(IAMModalViewController *)self contentViewController];
   [(IAMModalViewController *)self addChildViewController:contentViewController];
@@ -47,38 +48,53 @@
   contentView3 = [(IAMModalViewController *)self contentView];
   [view2 addSubview:contentView3];
 
-  v24 = MEMORY[0x277CCAAD0];
+  v23 = MEMORY[0x277CCAAD0];
   contentView4 = [(IAMModalViewController *)self contentView];
   topAnchor = [contentView4 topAnchor];
   view3 = [(IAMModalViewController *)self view];
   topAnchor2 = [view3 topAnchor];
-  v29 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v35[0] = v29;
+  v28 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v34[0] = v28;
   contentView5 = [(IAMModalViewController *)self contentView];
   leftAnchor = [contentView5 leftAnchor];
   view4 = [(IAMModalViewController *)self view];
   leftAnchor2 = [view4 leftAnchor];
-  v23 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v35[1] = v23;
+  v22 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+  v34[1] = v22;
   contentView6 = [(IAMModalViewController *)self contentView];
   rightAnchor = [contentView6 rightAnchor];
   view5 = [(IAMModalViewController *)self view];
   rightAnchor2 = [view5 rightAnchor];
   v12 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v35[2] = v12;
+  v34[2] = v12;
   contentView7 = [(IAMModalViewController *)self contentView];
   bottomAnchor = [contentView7 bottomAnchor];
   view6 = [(IAMModalViewController *)self view];
   bottomAnchor2 = [view6 bottomAnchor];
   v17 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v35[3] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:4];
-  [v24 activateConstraints:v18];
+  v34[3] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:4];
+  [v23 activateConstraints:v18];
 
   contentViewController3 = [(IAMModalViewController *)self contentViewController];
   [contentViewController3 didMoveToParentViewController:self];
+}
 
-  v20 = *MEMORY[0x277D85DE8];
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  viewControllerWillDismissBlock = [(IAMModalViewController *)self viewControllerWillDismissBlock];
+
+  if (viewControllerWillDismissBlock)
+  {
+    viewControllerWillDismissBlock2 = [(IAMModalViewController *)self viewControllerWillDismissBlock];
+    viewControllerWillDismissBlock2[2]();
+  }
+
+  v9.receiver = self;
+  v9.super_class = IAMModalViewController;
+  [(IAMModalViewController *)&v9 dismissViewControllerAnimated:animatedCopy completion:completionCopy];
 }
 
 - (BOOL)shouldAutorotate
@@ -91,7 +107,7 @@
 
 - (id)_presentationControllerForPresentedController:(id)controller presentingController:(id)presentingController sourceController:(id)sourceController
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v8 = MEMORY[0x277D75FA8];
   presentingControllerCopy = presentingController;
@@ -118,17 +134,17 @@
 
   else
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __110__IAMModalViewController__presentationControllerForPresentedController_presentingController_sourceController___block_invoke;
-    v19[3] = &__block_descriptor_33_e16_d16__0__UIView_8l;
-    v20 = v13;
-    _largeDetent = [MEMORY[0x277D76238] _detentWithContainerViewBlock:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __110__IAMModalViewController__presentationControllerForPresentedController_presentingController_sourceController___block_invoke;
+    v18[3] = &__block_descriptor_33_e16_d16__0__UIView_8l;
+    v19 = v13;
+    _largeDetent = [MEMORY[0x277D76238] _detentWithContainerViewBlock:v18];
   }
 
   v15 = _largeDetent;
-  v21[0] = _largeDetent;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = _largeDetent;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   [v10 _setDetents:v16];
 
   if (!v13)
@@ -136,8 +152,6 @@
     [v10 _setWantsBottomAttachedInCompactHeight:1];
     [v10 _setWidthFollowsPreferredContentSizeWhenBottomAttached:1];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

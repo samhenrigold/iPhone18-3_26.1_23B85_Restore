@@ -84,13 +84,13 @@ void __32__HMFAssertion_bundleIdentifier__block_invoke()
   {
     v3 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v5 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = HMFGetOSLogHandle(selfCopy, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = HMFGetLogIdentifier(selfCopy);
+      v7 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@Invalidating during deallocation", buf, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Invalidating during deallocation", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -100,7 +100,6 @@ void __32__HMFAssertion_bundleIdentifier__block_invoke()
   v8.receiver = self;
   v8.super_class = HMFAssertion;
   [(HMFAssertion *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)uniqueDescription
@@ -120,20 +119,19 @@ void __32__HMFAssertion_bundleIdentifier__block_invoke()
   {
     v4 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = HMFGetOSLogHandle(selfCopy, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v7 = HMFGetLogIdentifier(selfCopy);
+      v8 = HMFGetLogIdentifier(selfCopy);
       v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Acquiring", &v10, 0xCu);
+      v11 = v8;
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Acquiring", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     selfCopy->_valid = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -144,20 +142,18 @@ void __32__HMFAssertion_bundleIdentifier__block_invoke()
   {
     v3 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v5 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = HMFGetOSLogHandle(selfCopy, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v6 = HMFGetLogIdentifier(selfCopy);
+      v7 = HMFGetLogIdentifier(selfCopy);
       v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Invalidating", &v8, 0xCu);
+      v9 = v7;
+      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Invalidating", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
     selfCopy->_valid = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -174,25 +170,25 @@ void __32__HMFAssertion_bundleIdentifier__block_invoke()
 
 uint64_t __27__HMFAssertion_logCategory__block_invoke()
 {
-  qword_280AFC618 = HMFCreateOSLogHandle(@"Assertion", @"com.apple.HMFoundation");
+  v0 = HMFCreateOSLogHandle(@"Assertion", @"com.apple.HMFoundation");
+  v1 = qword_280AFC618;
+  qword_280AFC618 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   name = [(HMFAssertion *)self name];
   v5 = [(HMFAttributeDescription *)v3 initWithName:@"Name" value:name];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = [HMFAttributeDescription alloc];
   v7 = HMFBooleanToString([(HMFAssertion *)self isValid]);
   v8 = [(HMFAttributeDescription *)v6 initWithName:@"Valid" value:v7];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }

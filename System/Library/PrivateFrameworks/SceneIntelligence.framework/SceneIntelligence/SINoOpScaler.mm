@@ -9,7 +9,7 @@
 {
   if (image)
   {
-    [SINoOpScaler scaleImage:outputBuffer:];
+    [SINoOpScaler scaleImage:? outputBuffer:?];
   }
 
   return 0;
@@ -17,53 +17,59 @@
 
 - (__CVBuffer)createScaledImage:(__CVBuffer *)image
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (image)
   {
-    if (![(SIBaseScaler *)self _imageConformsToOutput:?])
+    v4 = [(SIBaseScaler *)self _imageConformsToOutput:?];
+    if (!v4)
     {
-      [SINoOpScaler createScaledImage:];
+      [SINoOpScaler createScaledImage:v4];
     }
-
-    v4 = *MEMORY[0x277D85DE8];
 
     return CVPixelBufferRetain(image);
   }
 
   else
   {
-    v6 = __SceneIntelligenceLogSharedInstance();
+    v6 = __SceneIntelligenceLogSharedInstance(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136380931;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Scaler/SINoOpScaler.m";
-      v10 = 1025;
-      v11 = 27;
-      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Error! Scaler gets nil input. ***", &v8, 0x12u);
+      v7 = 136380931;
+      v8 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Scaler/SINoOpScaler.m";
+      v9 = 1025;
+      v10 = 27;
+      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Error! Scaler gets nil input. ***", &v7, 0x12u);
     }
 
-    v7 = *MEMORY[0x277D85DE8];
     return 0;
   }
 }
 
-- (void)scaleImage:outputBuffer:.cold.1()
+- (void)scaleImage:(uint64_t)a1 outputBuffer:.cold.1(uint64_t a1)
 {
-  v0 = __SceneIntelligenceLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __SceneIntelligenceLogSharedInstance(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0_0(&dword_21DE0D000, v1, v2, " %{private}s:%{private}d *** Scaling not implemented. ***", v3, v4, v5, v6, 3u);
+    *v8 = 136380931;
+    *&v8[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Scaler/SINoOpScaler.m";
+    *&v8[12] = 1025;
+    *&v8[14] = 20;
+    OUTLINED_FUNCTION_0_0(&dword_21DE0D000, v2, v3, " %{private}s:%{private}d *** Scaling not implemented. ***", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
   }
 
   abort();
 }
 
-- (void)createScaledImage:.cold.1()
+- (void)createScaledImage:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = __SceneIntelligenceLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = __SceneIntelligenceLogSharedInstance(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0_0(&dword_21DE0D000, v1, v2, " %{private}s:%{private}d *** Image scaling not supported. ***", v3, v4, v5, v6, 3u);
+    *v8 = 136380931;
+    *&v8[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/Scaler/SINoOpScaler.m";
+    *&v8[12] = 1025;
+    *&v8[14] = 34;
+    OUTLINED_FUNCTION_0_0(&dword_21DE0D000, v2, v3, " %{private}s:%{private}d *** Image scaling not supported. ***", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
   }
 
   abort();

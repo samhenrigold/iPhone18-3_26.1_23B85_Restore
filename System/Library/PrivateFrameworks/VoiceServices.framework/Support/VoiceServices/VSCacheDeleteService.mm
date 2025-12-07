@@ -1,6 +1,9 @@
 @interface VSCacheDeleteService
 + (id)sharedService;
+- (id)periodic:(id)periodic urgency:(int)urgency;
+- (id)purge:(id)purge urgency:(int)urgency;
 - (id)purgeImpl:(id)impl urgency:(int)urgency;
+- (id)purgeable:(id)purgeable urgency:(int)urgency;
 - (id)purgeableAssetsWithInfo:(id)info urgency:(int)urgency;
 - (int64_t)totalSizeOfAssets:(id)assets;
 @end
@@ -9,35 +12,29 @@
 
 - (id)purgeImpl:(id)impl urgency:(int)urgency
 {
-  v41 = *MEMORY[0x277D85DE8];
   implCopy = impl;
   v6 = [VSCacheDeleteService purgeableAssetsWithInfo:"purgeableAssetsWithInfo:urgency:" urgency:?];
-  v32 = [(VSCacheDeleteService *)self totalSizeOfAssets:v6];
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
+  v27 = [(VSCacheDeleteService *)self totalSizeOfAssets:?];
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
   if (v8)
   {
     v9 = v8;
-    v10 = *v35;
+    v10 = MEMORY[0];
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v9; i = (i + 1))
       {
-        if (*v35 != v10)
+        if (MEMORY[0] != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v34 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           mEMORY[0x277D79950] = [MEMORY[0x277D79950] sharedManager];
-          v14 = [mEMORY[0x277D79950] purgeAsset:v12];
+          v13 = [mEMORY[0x277D79950] purgeAsset:?];
         }
 
         else
@@ -49,11 +46,11 @@
           }
 
           mEMORY[0x277D79950] = [MEMORY[0x277D79950] sharedManager];
-          [mEMORY[0x277D79950] removeVoiceResource:v12 completion:0];
+          [mEMORY[0x277D79950] removeVoiceResource:? completion:?];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v9 = [v7 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v9);
@@ -61,78 +58,160 @@
 
   if (urgency < 2)
   {
-    v20 = v32;
-    v17 = implCopy;
+    v16 = implCopy;
   }
 
   else
   {
-    v15 = +[VSSpeechCache defaultCacheStore];
-    dirPath = [v15 dirPath];
-    v17 = implCopy;
-    v18 = [implCopy objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
-    v19 = [dirPath hasPrefix:v18];
+    v14 = +[VSSpeechCache defaultCacheStore];
+    dirPath = [v14 dirPath];
+    v16 = implCopy;
+    v17 = [implCopy objectForKeyedSubscript:?];
+    v18 = [dirPath hasPrefix:?];
 
-    v20 = v32;
-    if (v19)
+    if (v18)
     {
-      v21 = +[VSSpeechCache defaultCacheStore];
-      v20 = [v21 totalCacheSize] + v32;
+      v19 = +[VSSpeechCache defaultCacheStore];
+      [v19 totalCacheSize];
 
-      v22 = +[VSSpeechCache defaultCacheStore];
-      [v22 deleteCache];
+      v20 = +[VSSpeechCache defaultCacheStore];
+      [v20 deleteCache];
     }
 
-    v23 = [implCopy objectForKeyedSubscript:{@"CACHE_DELETE_VOLUME", v32}];
-    v24 = [@"/private/var/mobile/" hasPrefix:v23];
+    v21 = [implCopy objectForKeyedSubscript:v27];
+    v22 = [@"/private/var/mobile/" hasPrefix:?];
 
-    if (v24)
+    if (v22)
     {
-      v25 = +[VSDiagnosticService defaultService];
-      v20 += [v25 totalDiagnosticFileSize];
+      v23 = +[VSDiagnosticService defaultService];
+      [v23 totalDiagnosticFileSize];
 
-      v26 = +[VSDiagnosticService defaultService];
-      [v26 removeDirectory];
+      v24 = +[VSDiagnosticService defaultService];
+      [v24 removeDirectory];
     }
   }
 
-  v38[0] = @"CACHE_DELETE_VOLUME";
-  v27 = [v17 objectForKeyedSubscript:v32];
-  v38[1] = @"CACHE_DELETE_AMOUNT";
-  v39[0] = v27;
-  v28 = [MEMORY[0x277CCABB0] numberWithLongLong:v20];
-  v39[1] = v28;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+  v29 = [v16 objectForKeyedSubscript:v27];
+  v30 = [MEMORY[0x277CCABB0] numberWithLongLong:?];
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-  v30 = *MEMORY[0x277D85DE8];
+  return v25;
+}
 
-  return v29;
+- (id)periodic:(id)periodic urgency:(int)urgency
+{
+  v15 = *MEMORY[0x277D85DE8];
+  periodicCopy = periodic;
+  v7 = VSGetLogDefault();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v10[0] = 67109634;
+    v10[1] = urgency;
+    v11 = 1024;
+    v12 = 4;
+    v13 = 2112;
+    v14 = periodicCopy;
+    _os_log_impl(&dword_2727E4000, v7, OS_LOG_TYPE_DEFAULT, "#CacheDelete periodic purge, urgency: %d / %d, info: %@", v10, 0x18u);
+  }
+
+  v8 = [VSCacheDeleteService purgeImpl:"purgeImpl:urgency:" urgency:?];
+
+  return v8;
+}
+
+- (id)purge:(id)purge urgency:(int)urgency
+{
+  v15 = *MEMORY[0x277D85DE8];
+  purgeCopy = purge;
+  v7 = VSGetLogDefault();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v10[0] = 67109634;
+    v10[1] = urgency;
+    v11 = 1024;
+    v12 = 4;
+    v13 = 2112;
+    v14 = purgeCopy;
+    _os_log_impl(&dword_2727E4000, v7, OS_LOG_TYPE_DEFAULT, "#CacheDelete purge, urgency: %d / %d, info: %@", v10, 0x18u);
+  }
+
+  v8 = [VSCacheDeleteService purgeImpl:"purgeImpl:urgency:" urgency:?];
+
+  return v8;
+}
+
+- (id)purgeable:(id)purgeable urgency:(int)urgency
+{
+  v27 = *MEMORY[0x277D85DE8];
+  purgeableCopy = purgeable;
+  v7 = VSGetLogDefault();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109634;
+    urgencyCopy = urgency;
+    v23 = 1024;
+    v24 = 4;
+    v25 = 2112;
+    v26 = purgeableCopy;
+    _os_log_impl(&dword_2727E4000, v7, OS_LOG_TYPE_DEFAULT, "#CacheDelete query purgeable size, urgency: %d / %d, info: %@", buf, 0x18u);
+  }
+
+  v8 = [VSCacheDeleteService purgeableAssetsWithInfo:"purgeableAssetsWithInfo:urgency:" urgency:?];
+  [(VSCacheDeleteService *)self totalSizeOfAssets:?];
+  if (urgency >= 2)
+  {
+    v9 = +[VSSpeechCache defaultCacheStore];
+    dirPath = [v9 dirPath];
+    v11 = [purgeableCopy objectForKeyedSubscript:?];
+    v12 = [dirPath hasPrefix:?];
+
+    if (v12)
+    {
+      v13 = +[VSSpeechCache defaultCacheStore];
+      [v13 totalCacheSize];
+    }
+
+    v14 = [purgeableCopy objectForKeyedSubscript:?];
+    v15 = [@"/private/var/mobile/" hasPrefix:?];
+
+    if (v15)
+    {
+      v16 = +[VSDiagnosticService defaultService];
+      [v16 totalDiagnosticFileSize];
+    }
+  }
+
+  v19 = [purgeableCopy objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
+  v20 = [MEMORY[0x277CCABB0] numberWithLongLong:?];
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+
+  return v17;
 }
 
 - (int64_t)totalSizeOfAssets:(id)assets
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [assetsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [assetsCopy countByEnumeratingWithState:0 objects:? count:?];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v5; i = (i + 1))
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(assetsCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -140,7 +219,7 @@
         }
       }
 
-      v5 = [assetsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [assetsCopy countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v5);
@@ -151,13 +230,12 @@
     v6 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)purgeableAssetsWithInfo:(id)info urgency:(int)urgency
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   if (urgency <= 3)
   {
@@ -170,7 +248,7 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v94) = urgency;
+        LODWORD(v75) = urgency;
         _os_log_impl(&dword_2727E4000, v9, OS_LOG_TYPE_DEFAULT, "#CacheDelete asset cleaning is disabled in internal setting. Skip purgeable assets for urgency %d", buf, 8u);
       }
 
@@ -180,11 +258,11 @@
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v11 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
+  v11 = [infoCopy objectForKeyedSubscript:?];
 
   if (v11)
   {
-    v12 = [infoCopy objectForKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
+    v12 = [infoCopy objectForKeyedSubscript:?];
     longLongValue = [v12 longLongValue];
   }
 
@@ -193,57 +271,53 @@
     longLongValue = -1;
   }
 
-  v88[0] = MEMORY[0x277D85DD0];
-  v88[1] = 3221225472;
-  v88[2] = __56__VSCacheDeleteService_purgeableAssetsWithInfo_urgency___block_invoke;
-  v88[3] = &unk_279E4B7F0;
-  v64 = infoCopy;
-  v89 = infoCopy;
-  v14 = MEMORY[0x2743CD880](v88);
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v71[2] = __56__VSCacheDeleteService_purgeableAssetsWithInfo_urgency___block_invoke;
+  v71[3] = &unk_279E4B7F0;
+  v63 = infoCopy;
+  v72 = infoCopy;
+  v14 = MEMORY[0x2743CD880](v71);
   mEMORY[0x277D79950] = [MEMORY[0x277D79950] sharedManager];
   activeVoiceAssets = [mEMORY[0x277D79950] activeVoiceAssets];
   v17 = (*(v14 + 16))(v14, activeVoiceAssets);
 
   mEMORY[0x277D79950]2 = [MEMORY[0x277D79950] sharedManager];
   inactiveVoiceAssets = [mEMORY[0x277D79950]2 inactiveVoiceAssets];
-  v63 = v14;
-  v66 = (*(v14 + 16))(v14, inactiveVoiceAssets);
+  v62 = v14;
+  v65 = (*(v14 + 16))(v14, inactiveVoiceAssets);
 
   v20 = [MEMORY[0x277CBEB58] set];
-  v84 = 0u;
-  v85 = 0u;
-  v86 = 0u;
-  v87 = 0u;
   obj = v17;
-  v21 = [obj countByEnumeratingWithState:&v84 objects:v96 count:16];
+  v21 = [obj countByEnumeratingWithState:? objects:? count:?];
   if (v21)
   {
     v22 = v21;
-    v23 = *v85;
+    v23 = MEMORY[0];
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v22; i = (i + 1))
       {
-        if (*v85 != v23)
+        if (MEMORY[0] != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        voiceData = [*(*(&v84 + 1) + 8 * i) voiceData];
+        voiceData = [*(8 * i) voiceData];
         languages = [voiceData languages];
-        [v20 addObjectsFromArray:languages];
+        [v20 addObjectsFromArray:?];
       }
 
-      v22 = [obj countByEnumeratingWithState:&v84 objects:v96 count:16];
+      v22 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v22);
   }
 
-  v67 = [MEMORY[0x277CBEB58] set];
-  v27 = [(VSCacheDeleteService *)self totalSizeOfAssets:v66];
+  v66 = [MEMORY[0x277CBEB58] set];
+  v27 = [(VSCacheDeleteService *)self totalSizeOfAssets:?];
   v10 = array;
-  v69 = v20;
+  v68 = v20;
   if ((urgency - 1) < 3)
   {
     goto LABEL_17;
@@ -253,81 +327,73 @@
   {
     if (longLongValue == -1 || longLongValue > v27)
     {
-      [array addObjectsFromArray:obj];
-      v82 = 0u;
-      v83 = 0u;
-      v80 = 0u;
-      v81 = 0u;
-      v53 = obj;
-      v54 = [v53 countByEnumeratingWithState:&v80 objects:v95 count:16];
-      if (v54)
+      [array addObjectsFromArray:?];
+      v52 = obj;
+      v53 = [v52 countByEnumeratingWithState:? objects:? count:?];
+      if (v53)
       {
-        v55 = v54;
-        v56 = *v81;
+        v54 = v53;
+        v55 = MEMORY[0];
         do
         {
-          for (j = 0; j != v55; ++j)
+          for (j = 0; j != v54; j = (j + 1))
           {
-            if (*v81 != v56)
+            if (MEMORY[0] != v55)
             {
-              objc_enumerationMutation(v53);
+              objc_enumerationMutation(v52);
             }
 
-            v58 = *(*(&v80 + 1) + 8 * j);
-            v59 = VSGetLogDefault();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+            v57 = *(8 * j);
+            v58 = VSGetLogDefault();
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
             {
-              descriptiveKey = [v58 descriptiveKey];
+              descriptiveKey = [v57 descriptiveKey];
               *buf = 138412290;
-              v94 = descriptiveKey;
-              _os_log_impl(&dword_2727E4000, v59, OS_LOG_TYPE_INFO, "#CacheDelete purgeable active voice asset: %@", buf, 0xCu);
+              v75 = descriptiveKey;
+              _os_log_impl(&dword_2727E4000, v58, OS_LOG_TYPE_INFO, "#CacheDelete purgeable active voice asset: %@", buf, 0xCu);
             }
 
-            voiceData2 = [v58 voiceData];
+            voiceData2 = [v57 voiceData];
             languages2 = [voiceData2 languages];
-            [v67 addObjectsFromArray:languages2];
+            [v66 addObjectsFromArray:?];
           }
 
-          v55 = [v53 countByEnumeratingWithState:&v80 objects:v95 count:16];
+          v54 = [v52 countByEnumeratingWithState:? objects:? count:?];
         }
 
-        while (v55);
+        while (v54);
       }
 
       v10 = array;
     }
 
 LABEL_17:
-    [v10 addObjectsFromArray:v66];
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
-    v77 = 0u;
-    v68 = v66;
-    v28 = [v68 countByEnumeratingWithState:&v76 objects:v92 count:16];
+    [v10 addObjectsFromArray:?];
+    v67 = v65;
+    v28 = [v67 countByEnumeratingWithState:? objects:? count:?];
     if (!v28)
     {
       goto LABEL_30;
     }
 
     v29 = v28;
-    v71 = *v77;
+    v70 = MEMORY[0];
     while (1)
     {
-      for (k = 0; k != v29; ++k)
+      for (k = 0; k != v29; k = (k + 1))
       {
-        if (*v77 != v71)
+        if (MEMORY[0] != v70)
         {
-          objc_enumerationMutation(v68);
+          objc_enumerationMutation(v67);
         }
 
-        v31 = *(*(&v76 + 1) + 8 * k);
+        v31 = *(8 * k);
         v32 = VSGetLogDefault();
         if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
           descriptiveKey2 = [v31 descriptiveKey];
           *buf = 138412290;
-          v94 = descriptiveKey2;
+          v75 = descriptiveKey2;
           _os_log_impl(&dword_2727E4000, v32, OS_LOG_TYPE_INFO, "#CacheDelete purgeable inactive voice asset: %@", buf, 0xCu);
         }
 
@@ -340,7 +406,7 @@ LABEL_17:
           voiceData4 = [v31 voiceData];
           languages4 = [voiceData4 languages];
           firstObject2 = [languages4 firstObject];
-          v41 = [v69 containsObject:firstObject2];
+          v41 = [v68 containsObject:?];
 
           if (v41)
           {
@@ -350,11 +416,11 @@ LABEL_17:
           voiceData3 = [v31 voiceData];
           languages3 = [voiceData3 languages];
           firstObject3 = [languages3 firstObject];
-          [v67 addObject:firstObject3];
+          [v66 addObject:?];
         }
       }
 
-      v29 = [v68 countByEnumeratingWithState:&v76 objects:v92 count:16];
+      v29 = [v67 countByEnumeratingWithState:? objects:? count:?];
       if (!v29)
       {
 LABEL_30:
@@ -365,93 +431,79 @@ LABEL_30:
     }
   }
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  v43 = v67;
-  v44 = [v43 countByEnumeratingWithState:&v72 objects:v91 count:16];
+  v43 = v66;
+  v44 = [v43 countByEnumeratingWithState:? objects:? count:?];
   if (v44)
   {
     v45 = v44;
-    v46 = *v73;
+    v46 = MEMORY[0];
     do
     {
-      for (m = 0; m != v45; ++m)
+      for (m = 0; m != v45; m = (m + 1))
       {
-        if (*v73 != v46)
+        if (MEMORY[0] != v46)
         {
           objc_enumerationMutation(v43);
         }
 
-        v48 = *(*(&v72 + 1) + 8 * m);
+        v48 = *(8 * m);
         v49 = objc_alloc_init(MEMORY[0x277D799D8]);
-        v90 = v48;
-        v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v90 count:1];
-        [v49 setLanguages:v50];
+        v73 = v48;
+        v50 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+        [v49 setLanguages:?];
 
-        [v10 addObject:v49];
+        [v10 addObject:?];
       }
 
-      v45 = [v43 countByEnumeratingWithState:&v72 objects:v91 count:16];
+      v45 = [v43 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v45);
   }
 
-  v9 = v89;
-  infoCopy = v64;
+  v9 = v72;
+  infoCopy = v63;
 LABEL_39:
-
-  v51 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 id __56__VSCacheDeleteService_purgeableAssetsWithInfo_urgency___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v15 = [MEMORY[0x277CBEB18] array];
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
+  v13 = [MEMORY[0x277CBEB18] array];
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:? objects:? count:?];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = MEMORY[0];
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v6; i = (i + 1))
       {
-        if (*v17 != v7)
+        if (MEMORY[0] != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
-        v10 = [v9 voicePath];
-        v11 = [*(a1 + 32) objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
-        v12 = [v10 hasPrefix:v11];
+        v9 = [*(8 * i) voicePath];
+        v10 = [*(a1 + 32) objectForKeyedSubscript:?];
+        v11 = [v9 hasPrefix:?];
 
-        if (v12)
+        if (v11)
         {
-          [v15 addObject:v9];
+          [v13 addObject:?];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v6);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v13;
 }
 
 + (id)sharedService

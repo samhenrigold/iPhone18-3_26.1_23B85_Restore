@@ -28,6 +28,7 @@
 - (void)deleteOnlineAuthEntryNoThrowWithCdHash:(id)hash;
 - (void)deleteOnlineAuthEntryNoThrowWithProfileUUID:(id)d cdHash:(id)hash;
 - (void)recordIndeterminateEntryNoThrowWithProfileUUID:(id)d cdHash:(id)hash onConflictDoNothing:(BOOL)nothing;
+- (void)setGracePeriodNoThrowWithProfileUUID:(id)d gracePeriod:(int)period;
 @end
 
 @implementation MISDBManager
@@ -77,7 +78,7 @@
 
   v16 = [objc_allocWithZone(MISTrustedTeamIDEntry) initWithTeamID:d signature:v13];
 
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v17);
   sub_1B9DB3874(sub_1B9D9DE64);
 
   sub_1B9D9D520(signatureCopy, v12);
@@ -100,7 +101,7 @@
     v10 = 0xF000000000000000;
   }
 
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](selfCopy);
   sub_1B9DB3874(sub_1B9D9DE4C);
 
   sub_1B9D9D520(signature, v10);
@@ -210,6 +211,15 @@
   sub_1B9DB3518(0xD000000000000038, 0x80000001B9DDE440, sub_1B9DB2D10, v10, 0, 0);
 
   return 1;
+}
+
+- (void)setGracePeriodNoThrowWithProfileUUID:(id)d gracePeriod:(int)period
+{
+  v4 = *&period;
+  v6 = sub_1B9DD2998();
+  v8 = v7;
+  selfCopy = self;
+  sub_1B9DAF878(v6, v8, v4);
 }
 
 - (BOOL)rejectEntryWithProfileUUID:(id)d cdHash:(id)hash isRejectedByWholeProfile:(BOOL)profile error:(id *)error

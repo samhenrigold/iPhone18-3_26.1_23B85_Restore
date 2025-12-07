@@ -159,7 +159,7 @@
 
 - (void)device:(id)device stateChanged:(unint64_t)changed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -167,22 +167,21 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543874;
-    v13 = v10;
-    v14 = 2112;
-    v15 = deviceCopy;
-    v16 = 2048;
+    v11 = 138543874;
+    v12 = v10;
+    v13 = 2112;
+    v14 = deviceCopy;
+    v15 = 2048;
     changedCopy = changed;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Device: %@, received state change to: %ld", &v12, 0x20u);
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Device: %@, received state change to: %ld", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)device:(id)device receivedEventReport:(id)report
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   reportCopy = report;
   v8 = objc_autoreleasePoolPush();
@@ -191,22 +190,21 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543874;
-    v14 = v11;
-    v15 = 2112;
-    v16 = deviceCopy;
-    v17 = 2112;
-    v18 = reportCopy;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Device: %@, received event report: %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v11;
+    v14 = 2112;
+    v15 = deviceCopy;
+    v16 = 2112;
+    v17 = reportCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Device: %@, received event report: %@", &v12, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)device:(id)device receivedAttributeReport:(id)report
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   reportCopy = report;
   v8 = objc_autoreleasePoolPush();
@@ -220,40 +218,40 @@
     *&buf[12] = 2112;
     *&buf[14] = deviceCopy;
     *&buf[22] = 2112;
-    v63 = reportCopy;
+    v62 = reportCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Device: %@, received attribute report: %@", buf, 0x20u);
   }
 
-  v50 = deviceCopy;
+  v49 = deviceCopy;
 
   objc_autoreleasePoolPop(v8);
   context = objc_autoreleasePoolPush();
-  v51 = [MEMORY[0x277CBEB58] set];
+  v50 = [MEMORY[0x277CBEB58] set];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   obj = reportCopy;
-  v12 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+  v12 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v58;
+    v14 = *v57;
     v15 = *MEMORY[0x277CD50B8];
-    v54 = *MEMORY[0x277CD50D8];
-    v52 = selfCopy;
+    v53 = *MEMORY[0x277CD50D8];
+    v51 = selfCopy;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v58 != v14)
+        if (*v57 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v57 + 1) + 8 * i);
+        v17 = *(*(&v56 + 1) + 8 * i);
         v18 = [v17 objectForKeyedSubscript:v15];
-        if (v18 && (v19 = v18, [v17 objectForKeyedSubscript:v54], v20 = objc_claimAutoreleasedReturnValue(), v20, v19, v20))
+        if (v18 && (v19 = v18, [v17 objectForKeyedSubscript:v53], v20 = objc_claimAutoreleasedReturnValue(), v20, v19, v20))
         {
           v21 = [v17 objectForKeyedSubscript:v15];
           objc_opt_class();
@@ -271,7 +269,7 @@
 
           if (v23)
           {
-            [v51 addObject:v23];
+            [v50 addObject:v23];
           }
 
           else
@@ -292,7 +290,7 @@
             }
 
             objc_autoreleasePoolPop(v30);
-            selfCopy = v52;
+            selfCopy = v51;
           }
         }
 
@@ -310,21 +308,21 @@
             *&buf[14] = v17;
             _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Malformed attribute report. Ignoring report: %@", buf, 0x16u);
 
-            selfCopy = v52;
+            selfCopy = v51;
           }
 
           objc_autoreleasePoolPop(v24);
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v13 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
     }
 
     while (v13);
   }
 
-  nodeID = [v50 nodeID];
-  v35 = v51;
+  nodeID = [v49 nodeID];
+  v35 = v50;
   v36 = nodeID;
   if (selfCopy)
   {
@@ -336,14 +334,14 @@
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __66__HMDWidgetTimelineRefresher_relevantWidgetsForAttributes_nodeID___block_invoke;
-    v63 = &unk_278674E18;
-    v64 = v36;
-    v65 = v35;
+    v62 = &unk_278674E18;
+    v63 = v36;
+    v64 = v35;
     v40 = v38;
-    v66 = v40;
+    v65 = v40;
     [monitoredMTRAttributesByWidget enumerateKeysAndObjectsUsingBlock:buf];
 
-    v41 = v66;
+    v41 = v65;
     v42 = v40;
   }
 
@@ -355,13 +353,13 @@
   v43 = [v42 mutableCopy];
   if ([v43 count])
   {
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __61__HMDWidgetTimelineRefresher_device_receivedAttributeReport___block_invoke;
-    v55[3] = &unk_2786811A0;
-    v55[4] = selfCopy;
-    v56 = v43;
-    [(HMDWidgetTimelineRefresher *)selfCopy cleanUpRemovedWidgetsFromWidgets:v56 completion:v55];
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __61__HMDWidgetTimelineRefresher_device_receivedAttributeReport___block_invoke;
+    v54[3] = &unk_2786811A0;
+    v54[4] = selfCopy;
+    v55 = v43;
+    [(HMDWidgetTimelineRefresher *)selfCopy cleanUpRemovedWidgetsFromWidgets:v55 completion:v54];
   }
 
   else
@@ -381,12 +379,11 @@
   }
 
   objc_autoreleasePoolPop(context);
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDWidgetTimelineRefresher_device_receivedAttributeReport___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) workQueue];
   dispatch_assert_queue_V2(v4);
@@ -405,11 +402,11 @@ void __61__HMDWidgetTimelineRefresher_device_receivedAttributeReport___block_inv
         v9 = HMFGetLogIdentifier();
         v10 = [v5 allObjects];
         v11 = [v10 componentsJoinedByString:{@", "}];
-        v17 = 138543618;
-        v18 = v9;
-        v19 = 2112;
-        v20 = v11;
-        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Refreshing timeline for widget kinds: %@ due to attribute report", &v17, 0x16u);
+        v16 = 138543618;
+        v17 = v9;
+        v18 = 2112;
+        v19 = v11;
+        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Refreshing timeline for widget kinds: %@ due to attribute report", &v16, 0x16u);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -425,15 +422,13 @@ void __61__HMDWidgetTimelineRefresher_device_receivedAttributeReport___block_inv
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v15;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@All relevant widgets for attribute report have been removed", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@All relevant widgets for attribute report have been removed", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanUpRemovedWidgetsFromWidgets:(void *)widgets completion:
@@ -476,7 +471,7 @@ void __74__HMDWidgetTimelineRefresher_cleanUpRemovedWidgetsFromWidgets_completio
 
 void __74__HMDWidgetTimelineRefresher_cleanUpRemovedWidgetsFromWidgets_completion___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = *(a1 + 56);
@@ -484,13 +479,13 @@ void __74__HMDWidgetTimelineRefresher_cleanUpRemovedWidgetsFromWidgets_completio
     v4 = [v2 na_setByRemovingObjectsFromSet:v3];
 
     v5 = *(a1 + 40);
-    v20 = v4;
+    v18 = v4;
     if (v5)
     {
       v6 = [v5 workQueue];
       dispatch_assert_queue_V2(v6);
 
-      if ([v20 count])
+      if ([v18 count])
       {
         v7 = objc_autoreleasePoolPush();
         v8 = v5;
@@ -501,7 +496,7 @@ void __74__HMDWidgetTimelineRefresher_cleanUpRemovedWidgetsFromWidgets_completio
           *buf = 138543618;
           *&buf[4] = v10;
           *&buf[12] = 2112;
-          *&buf[14] = v20;
+          *&buf[14] = v18;
           _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Removing old widgets and updating monitored characteristics and action sets: %@", buf, 0x16u);
         }
 
@@ -509,39 +504,36 @@ void __74__HMDWidgetTimelineRefresher_cleanUpRemovedWidgetsFromWidgets_completio
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __51__HMDWidgetTimelineRefresher_handleRemovedWidgets___block_invoke;
-        v22 = &unk_27868A750;
-        v23 = v8;
-        v24 = v20;
+        v20 = &unk_27868A750;
+        v21 = v8;
+        v22 = v18;
         [v8 updateMonitoredScenesAccessoriesAndCharacteristicsWithQOS:33 afterChangesFromBlock:buf];
       }
     }
 
     (*(*(a1 + 64) + 16))();
-    v11 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v12 = objc_autoreleasePoolPush();
-    v13 = *(a1 + 40);
-    v14 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v11 = objc_autoreleasePoolPush();
+    v12 = *(a1 + 40);
+    v13 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = HMFGetLogIdentifier();
-      v16 = *(a1 + 48);
+      v14 = HMFGetLogIdentifier();
+      v15 = *(a1 + 48);
       *buf = 138543618;
-      *&buf[4] = v15;
+      *&buf[4] = v14;
       *&buf[12] = 2112;
-      *&buf[14] = v16;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch configured widgets with error: %@", buf, 0x16u);
+      *&buf[14] = v15;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch configured widgets with error: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v12);
-    v17 = *(a1 + 64);
-    v18 = [MEMORY[0x277CBEB98] set];
-    (*(v17 + 16))(v17, v18);
-
-    v19 = *MEMORY[0x277D85DE8];
+    objc_autoreleasePoolPop(v11);
+    v16 = *(a1 + 64);
+    v17 = [MEMORY[0x277CBEB98] set];
+    (*(v16 + 16))(v16, v17);
   }
 }
 
@@ -563,7 +555,7 @@ void __51__HMDWidgetTimelineRefresher_handleRemovedWidgets___block_invoke(uint64
 
 - (void)refreshTimelineForWidgetKinds:(void *)kinds withReason:(int)reason shouldCoalesce:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v7 = a2;
   kindsCopy = kinds;
   if (self)
@@ -591,13 +583,13 @@ LABEL_11:
         v13 = HMFGetLogIdentifier();
         allObjects = [v7 allObjects];
         v15 = [allObjects componentsJoinedByString:{@", "}];
-        v26 = 138543874;
-        v27 = v13;
-        v28 = 2112;
-        v29 = kindsCopy;
-        v30 = 2112;
-        v31 = v15;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Coalescing and delaying widget refresh due to %@ for kinds: %@", &v26, 0x20u);
+        v25 = 138543874;
+        v26 = v13;
+        v27 = 2112;
+        v28 = kindsCopy;
+        v29 = 2112;
+        v30 = v15;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Coalescing and delaying widget refresh due to %@ for kinds: %@", &v25, 0x20u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -615,9 +607,9 @@ LABEL_11:
         if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
           v22 = HMFGetLogIdentifier();
-          v26 = 138543362;
-          v27 = v22;
-          _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Starting coalescing timer", &v26, 0xCu);
+          v25 = 138543362;
+          v26 = v22;
+          _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Starting coalescing timer", &v25, 0xCu);
         }
 
         objc_autoreleasePoolPop(v19);
@@ -631,13 +623,11 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshTimelineForWidgetKinds:(void *)kinds withReason:
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   kindsCopy = kinds;
   if (self)
@@ -664,11 +654,11 @@ LABEL_12:
       allObjects = [v5 allObjects];
       v16 = [allObjects componentsJoinedByString:{@", "}];
       *buf = 138543874;
-      v24 = v14;
-      v25 = 2112;
-      v26 = kindsCopy;
-      v27 = 2112;
-      v28 = v16;
+      v23 = v14;
+      v24 = 2112;
+      v25 = kindsCopy;
+      v26 = 2112;
+      v27 = v16;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Refreshing widget due to %@ for kinds: %@", buf, 0x20u);
     }
 
@@ -678,40 +668,38 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = __72__HMDWidgetTimelineRefresher__refreshTimelineForWidgetKinds_withReason___block_invoke;
     block[3] = &unk_27868A010;
-    v20 = v5;
-    v21 = selfCopy;
-    v22 = kindsCopy;
+    v19 = v5;
+    v20 = selfCopy;
+    v21 = kindsCopy;
     dispatch_async(workQueue, block);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HMDWidgetTimelineRefresher__refreshTimelineForWidgetKinds_withReason___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v2 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
   if (v2)
   {
     v4 = v2;
-    v5 = *v25;
+    v5 = *v24;
     *&v3 = 138543874;
-    v22 = v3;
+    v21 = v3;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v25 != v5)
+        if (*v24 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v24 + 1) + 8 * i);
+        v7 = *(*(&v23 + 1) + 8 * i);
         v8 = [*(a1 + 40) timelineController];
         v9 = [v8 reloadTimelineWithExtensionBundleIdentifier:@"com.apple.Home.HomeWidget.Interactive" kind:v7 reason:*(a1 + 48)];
 
@@ -727,12 +715,12 @@ void __72__HMDWidgetTimelineRefresher__refreshTimelineForWidgetKinds_withReason_
           }
 
           v14 = HMFGetLogIdentifier();
-          *buf = v22;
-          v29 = v14;
-          v30 = 2114;
-          v31 = v7;
-          v32 = 2112;
-          v33 = v9;
+          *buf = v21;
+          v28 = v14;
+          v29 = 2114;
+          v30 = v7;
+          v31 = 2112;
+          v32 = v9;
           v15 = v13;
           v16 = OS_LOG_TYPE_ERROR;
           v17 = "%{public}@Failed reload of timeline for '%{public}@': %@";
@@ -747,12 +735,12 @@ void __72__HMDWidgetTimelineRefresher__refreshTimelineForWidgetKinds_withReason_
 
           v14 = HMFGetLogIdentifier();
           v18 = *(a1 + 48);
-          *buf = v22;
-          v29 = v14;
-          v30 = 2114;
-          v31 = v7;
-          v32 = 2114;
-          v33 = v18;
+          *buf = v21;
+          v28 = v14;
+          v29 = 2114;
+          v30 = v7;
+          v31 = 2114;
+          v32 = v18;
           v15 = v13;
           v16 = OS_LOG_TYPE_DEFAULT;
           v17 = "%{public}@Successfully reloaded timeline for '%{public}@' due to %{public}@";
@@ -767,13 +755,11 @@ LABEL_12:
         [v19 submitLogEvent:v20 error:v9];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v4 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
     }
 
     while (v4);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HMDWidgetTimelineRefresher_relevantWidgetsForAttributes_nodeID___block_invoke(id *a1, void *a2, void *a3)
@@ -822,7 +808,7 @@ uint64_t __66__HMDWidgetTimelineRefresher_relevantWidgetsForAttributes_nodeID___
 
 - (void)handleTimerFiredForActionSet:(id)set
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   setCopy = set;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -831,9 +817,9 @@ uint64_t __66__HMDWidgetTimelineRefresher_relevantWidgetsForAttributes_nodeID___
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v21 = v8;
-    v22 = 2112;
-    v23 = setCopy;
+    v20 = v8;
+    v21 = 2112;
+    v22 = setCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Clearing cached error for action set: %@", buf, 0x16u);
   }
 
@@ -847,23 +833,22 @@ uint64_t __66__HMDWidgetTimelineRefresher_relevantWidgetsForAttributes_nodeID___
 
   v12 = [MEMORY[0x277CBEB58] set];
   monitoredActionSetsMapByWidget = [(HMDWidgetTimelineRefresher *)selfCopy monitoredActionSetsMapByWidget];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __59__HMDWidgetTimelineRefresher_handleTimerFiredForActionSet___block_invoke;
-  v17[3] = &unk_278674F00;
-  v18 = v12;
-  v19 = setCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __59__HMDWidgetTimelineRefresher_handleTimerFiredForActionSet___block_invoke;
+  v16[3] = &unk_278674F00;
+  v17 = v12;
+  v18 = setCopy;
   v14 = setCopy;
   v15 = v12;
-  [monitoredActionSetsMapByWidget enumerateKeysAndObjectsUsingBlock:v17];
+  [monitoredActionSetsMapByWidget enumerateKeysAndObjectsUsingBlock:v16];
 
   [(HMDWidgetTimelineRefresher *)selfCopy refreshTimelineForWidgetKinds:v15 withReason:@"Action Set Error Cleared" shouldCoalesce:1];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HMDWidgetTimelineRefresher_handleTimerFiredForActionSet___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = *(a1 + 32);
@@ -872,26 +857,26 @@ void __59__HMDWidgetTimelineRefresher_handleTimerFiredForActionSet___block_invok
 
   if ((v9 & 1) == 0)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          if ([*(*(&v19 + 1) + 8 * i) isEqual:{*(a1 + 40), v19}])
+          if ([*(*(&v18 + 1) + 8 * i) isEqual:{*(a1 + 40), v18}])
           {
             v16 = *(a1 + 32);
             v17 = [v7 kind];
@@ -902,7 +887,7 @@ void __59__HMDWidgetTimelineRefresher_handleTimerFiredForActionSet___block_invok
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v13)
         {
           continue;
@@ -914,13 +899,11 @@ void __59__HMDWidgetTimelineRefresher_handleTimerFiredForActionSet___block_invok
 
 LABEL_12:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerManager:(id)manager didFireForTimerContext:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   contextCopy = context;
   workQueue = [(HMDWidgetTimelineRefresher *)self workQueue];
@@ -937,9 +920,9 @@ LABEL_12:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v17;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Widget refresh coalescing timer fired.", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v17;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Widget refresh coalescing timer fired.", &v24, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -982,11 +965,11 @@ LABEL_12:
       {
         v22 = HMFGetLogIdentifier();
         object2 = [contextCopy object];
-        v25 = 138543618;
-        v26 = v22;
-        v27 = 2112;
-        v28 = object2;
-        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Timer manager fired with object that is unexpected: %@", &v25, 0x16u);
+        v24 = 138543618;
+        v25 = v22;
+        v26 = 2112;
+        v27 = object2;
+        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Timer manager fired with object that is unexpected: %@", &v24, 0x16u);
       }
 
       objc_autoreleasePoolPop(v19);
@@ -999,28 +982,26 @@ LABEL_15:
 
   [(HMDWidgetTimelineRefresher *)self _clearExpiredActionSetPrimaryStateUpdates];
 LABEL_16:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshWidgetsIfActionSetsHaveChanged:(id)changed
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   workQueue = [(HMDWidgetTimelineRefresher *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   v6 = [MEMORY[0x277CBEB58] set];
   monitoredActionSetsMapByWidget = [(HMDWidgetTimelineRefresher *)self monitoredActionSetsMapByWidget];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __69__HMDWidgetTimelineRefresher__refreshWidgetsIfActionSetsHaveChanged___block_invoke;
-  v19[3] = &unk_278674E18;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __69__HMDWidgetTimelineRefresher__refreshWidgetsIfActionSetsHaveChanged___block_invoke;
+  v18[3] = &unk_278674E18;
   v8 = changedCopy;
-  v20 = v8;
+  v19 = v8;
   selfCopy = self;
-  v22 = v6;
-  [monitoredActionSetsMapByWidget enumerateKeysAndObjectsUsingBlock:v19];
+  v21 = v6;
+  [monitoredActionSetsMapByWidget enumerateKeysAndObjectsUsingBlock:v18];
 
   v9 = [v6 count];
   v10 = objc_autoreleasePoolPush();
@@ -1033,23 +1014,23 @@ LABEL_16:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v24 = v14;
-      v25 = 2112;
-      v26 = v8;
-      v27 = 2112;
-      v28 = v6;
+      v23 = v14;
+      v24 = 2112;
+      v25 = v8;
+      v26 = 2112;
+      v27 = v6;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Handling action set change (%@) and refreshing timeline for widgets: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __69__HMDWidgetTimelineRefresher__refreshWidgetsIfActionSetsHaveChanged___block_invoke_391;
-    v17[3] = &unk_278674EB0;
-    v17[4] = selfCopy2;
-    v17[5] = v6;
-    v18 = v8;
-    [(HMDWidgetTimelineRefresher *)selfCopy2 cleanUpRemovedWidgetsFromWidgets:v6 completion:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __69__HMDWidgetTimelineRefresher__refreshWidgetsIfActionSetsHaveChanged___block_invoke_391;
+    v16[3] = &unk_278674EB0;
+    v16[4] = selfCopy2;
+    v16[5] = v6;
+    v17 = v8;
+    [(HMDWidgetTimelineRefresher *)selfCopy2 cleanUpRemovedWidgetsFromWidgets:v6 completion:v16];
   }
 
   else
@@ -1058,53 +1039,51 @@ LABEL_16:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v15;
-      v25 = 2112;
-      v26 = v8;
+      v23 = v15;
+      v24 = 2112;
+      v25 = v8;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@No widgets need to be refreshed from this action set change: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HMDWidgetTimelineRefresher__refreshWidgetsIfActionSetsHaveChanged___block_invoke(id *a1, void *a2, void *a3, _BYTE *a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __69__HMDWidgetTimelineRefresher__refreshWidgetsIfActionSetsHaveChanged___block_invoke_2;
-  v27[3] = &unk_27867AF28;
-  v28 = a1[4];
-  v9 = [v8 na_any:v27];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __69__HMDWidgetTimelineRefresher__refreshWidgetsIfActionSetsHaveChanged___block_invoke_2;
+  v26[3] = &unk_27867AF28;
+  v27 = a1[4];
+  v9 = [v8 na_any:v26];
 
   if (v9)
   {
-    v22 = a4;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
+    v21 = a4;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v24;
+      v13 = *v23;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v23 + 1) + 8 * i);
+          v15 = *(*(&v22 + 1) + 8 * i);
           v16 = [a1[5] cachedIsOnStateByActionSet];
           v17 = [v16 objectForKey:v15];
 
@@ -1116,13 +1095,13 @@ void __69__HMDWidgetTimelineRefresher__refreshWidgetsIfActionSetsHaveChanged___b
             [v19 setObject:v20 forKey:v15];
 
             [a1[6] addObject:v7];
-            *v22 = 1;
+            *v21 = 1;
 
             goto LABEL_13;
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
         if (v12)
         {
           continue;
@@ -1134,13 +1113,11 @@ void __69__HMDWidgetTimelineRefresher__refreshWidgetsIfActionSetsHaveChanged___b
 
 LABEL_13:
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HMDWidgetTimelineRefresher__refreshWidgetsIfActionSetsHaveChanged___block_invoke_391(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) workQueue];
   dispatch_assert_queue_V2(v4);
@@ -1154,20 +1131,18 @@ void __69__HMDWidgetTimelineRefresher__refreshWidgetsIfActionSetsHaveChanged___b
     v8 = HMFGetLogIdentifier();
     v10 = *(a1 + 40);
     v9 = *(a1 + 48);
-    v13 = 138543874;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v9;
-    v17 = 2112;
-    v18 = v10;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Refreshing timeline due to action set (%@) change for configured widgets: %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v9;
+    v16 = 2112;
+    v17 = v10;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Refreshing timeline due to action set (%@) change for configured widgets: %@", &v12, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
   v11 = [*(a1 + 40) na_map:&__block_literal_global_394_60424];
   [(HMDWidgetTimelineRefresher *)*(a1 + 32) refreshTimelineForWidgetKinds:v11 withReason:@"Action set state changed" shouldCoalesce:0];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __69__HMDWidgetTimelineRefresher__refreshWidgetsIfActionSetsHaveChanged___block_invoke_2(uint64_t a1, void *a2)
@@ -1242,16 +1217,16 @@ void __64__HMDWidgetTimelineRefresher_didUpdateStateActionSetUUID_state___block_
 
 void __72__HMDWidgetTimelineRefresher_handleRestrictedGuestScheduleEventForUser___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Refreshing all Home widgets because of current user RG schedule changes", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Refreshing all Home widgets because of current user RG schedule changes", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -1260,7 +1235,6 @@ void __72__HMDWidgetTimelineRefresher_handleRestrictedGuestScheduleEventForUser_
   (v6)[2](v6, v7);
 
   [(HMDWidgetTimelineRefresher *)*(a1 + 32) refreshTimelineForConfiguredWidgetsWithReason:?];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshTimelineForConfiguredWidgetsWithReason:(void *)reason
@@ -1301,36 +1275,34 @@ void __76__HMDWidgetTimelineRefresher_refreshTimelineForConfiguredWidgetsWithRea
 
 void __76__HMDWidgetTimelineRefresher_refreshTimelineForConfiguredWidgetsWithReason___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
     v3 = MEMORY[0x277CBEB98];
     v4 = [v2 na_map:&__block_literal_global_381];
-    v12 = [v3 setWithArray:v4];
+    v10 = [v3 setWithArray:v4];
 
-    [(HMDWidgetTimelineRefresher *)*(a1 + 40) refreshTimelineForWidgetKinds:v12 withReason:*(a1 + 56) shouldCoalesce:0];
-    v5 = *MEMORY[0x277D85DE8];
+    [(HMDWidgetTimelineRefresher *)*(a1 + 40) refreshTimelineForWidgetKinds:v10 withReason:*(a1 + 56) shouldCoalesce:0];
   }
 
   else
   {
-    v6 = objc_autoreleasePoolPush();
-    v7 = *(a1 + 40);
-    v8 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v5 = objc_autoreleasePoolPush();
+    v6 = *(a1 + 40);
+    v7 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = HMFGetLogIdentifier();
-      v10 = *(a1 + 48);
+      v8 = HMFGetLogIdentifier();
+      v9 = *(a1 + 48);
       *buf = 138543618;
+      v12 = v8;
+      v13 = 2112;
       v14 = v9;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch configured widgets to refresh with error: %@", buf, 0x16u);
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch configured widgets to refresh with error: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v6);
-    v11 = *MEMORY[0x277D85DE8];
+    objc_autoreleasePoolPop(v5);
   }
 }
 
@@ -1398,34 +1370,34 @@ void __76__HMDWidgetTimelineRefresher_refreshTimelineForConfiguredWidgetsWithRea
 
 void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged___block_invoke(uint64_t a1)
 {
-  v85 = *MEMORY[0x277D85DE8];
-  v50 = [MEMORY[0x277CBEB58] set];
-  v51 = [MEMORY[0x277CBEB58] set];
+  v83 = *MEMORY[0x277D85DE8];
+  v48 = [MEMORY[0x277CBEB58] set];
+  v49 = [MEMORY[0x277CBEB58] set];
+  v69 = 0u;
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v73 = 0u;
-  v74 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v71 objects:v84 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v69 objects:v82 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v72;
+    v5 = *v70;
     v6 = 0x277CCA000;
-    v52 = *v72;
-    v53 = v2;
+    v50 = *v70;
+    v51 = v2;
     do
     {
       v7 = 0;
-      v54 = v4;
+      v52 = v4;
       do
       {
-        if (*v72 != v5)
+        if (*v70 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v71 + 1) + 8 * v7);
+        v8 = *(*(&v69 + 1) + 8 * v7);
         v9 = *(a1 + 40);
         v10 = [v8 home];
         if (v9)
@@ -1442,7 +1414,7 @@ void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged
           v14 = [v8 uuid];
           v15 = [v13 objectForKeyedSubscript:v14];
 
-          v56 = v15;
+          v54 = v15;
           if (v15)
           {
             v16 = [v15 BOOLValue];
@@ -1456,114 +1428,113 @@ void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged
           v17 = [*(a1 + 40) reachabilityMonitor];
           v18 = [v17 isAccessoryReachable:v8];
 
-          v64 = v18;
+          v62 = v18;
           if (v16 != v18)
           {
-            v55 = v7;
-            v19 = *(a1 + 40);
-            v20 = objc_opt_class();
-            v21 = [*(a1 + 40) activeAutoBahnWidgetKinds];
-            v61 = [v20 fetchSpecificationsForWidgetKinds:v21];
+            v53 = v7;
+            v19 = objc_opt_class();
+            v20 = [*(a1 + 40) activeAutoBahnWidgetKinds];
+            v59 = [v19 fetchSpecificationsForWidgetKinds:v20];
 
-            v69 = 0u;
-            v70 = 0u;
             v67 = 0u;
             v68 = 0u;
+            v65 = 0u;
+            v66 = 0u;
             obj = [*(a1 + 40) monitoredCharacteristics];
-            v22 = [obj countByEnumeratingWithState:&v67 objects:v83 count:16];
-            if (v22)
+            v21 = [obj countByEnumeratingWithState:&v65 objects:v81 count:16];
+            if (v21)
             {
-              v23 = v22;
-              v24 = *v68;
-              v25 = v50;
-              if (!v64)
+              v22 = v21;
+              v23 = *v66;
+              v24 = v48;
+              if (!v62)
               {
-                v25 = v51;
+                v24 = v49;
               }
 
-              v59 = v25;
-              v60 = *v68;
+              v57 = v24;
+              v58 = *v66;
               do
               {
-                v26 = 0;
-                v62 = v23;
+                v25 = 0;
+                v60 = v22;
                 do
                 {
-                  if (*v68 != v24)
+                  if (*v66 != v23)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v27 = *(*(&v67 + 1) + 8 * v26);
-                  v28 = [v27 accessory];
-                  v29 = [v28 isEqual:v8];
+                  v26 = *(*(&v65 + 1) + 8 * v25);
+                  v27 = [v26 accessory];
+                  v28 = [v27 isEqual:v8];
 
-                  if (v29)
+                  if (v28)
                   {
-                    v30 = v59;
-                    v31 = [*(a1 + 40) widgetKindsToUpdateFromFetchSpecifications:v61 assumingChangedCharacteristic:v27];
-                    [v30 unionSet:v31];
+                    v29 = v57;
+                    v30 = [*(a1 + 40) widgetKindsToUpdateFromFetchSpecifications:v59 assumingChangedCharacteristic:v26];
+                    [v29 unionSet:v30];
 
-                    v32 = objc_autoreleasePoolPush();
-                    v33 = *(a1 + 40);
-                    v34 = HMFGetOSLogHandle();
-                    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+                    v31 = objc_autoreleasePoolPush();
+                    v32 = *(a1 + 40);
+                    v33 = HMFGetOSLogHandle();
+                    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
                     {
                       HMFGetLogIdentifier();
-                      v35 = v57 = v32;
-                      v36 = [v8 home];
-                      [v36 name];
-                      v58 = v30;
-                      v38 = v37 = v8;
-                      v39 = [v37 name];
+                      v34 = v55 = v31;
+                      v35 = [v8 home];
+                      [v35 name];
+                      v56 = v29;
+                      v37 = v36 = v8;
+                      v38 = [v36 name];
                       HMFBooleanToString();
-                      v41 = v40 = a1;
+                      v40 = v39 = a1;
                       *buf = 138544130;
-                      v76 = v35;
+                      v74 = v34;
+                      v75 = 2112;
+                      v76 = v37;
                       v77 = 2112;
                       v78 = v38;
                       v79 = 2112;
-                      v80 = v39;
-                      v81 = 2112;
-                      v82 = v41;
-                      _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Accessory '%@:%@' reachability changed to %@.", buf, 0x2Au);
+                      v80 = v40;
+                      _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Accessory '%@:%@' reachability changed to %@.", buf, 0x2Au);
 
-                      v8 = v37;
-                      v30 = v58;
+                      v8 = v36;
+                      v29 = v56;
 
-                      a1 = v40;
+                      a1 = v39;
                       v6 = 0x277CCA000uLL;
 
-                      v32 = v57;
+                      v31 = v55;
                     }
 
-                    objc_autoreleasePoolPop(v32);
-                    v42 = [*(v6 + 2992) numberWithBool:v64];
-                    v43 = [*(a1 + 40) accessoryIsReachableByUUID];
-                    v44 = [v8 uuid];
-                    [v43 setObject:v42 forKeyedSubscript:v44];
+                    objc_autoreleasePoolPop(v31);
+                    v41 = [*(v6 + 2992) numberWithBool:v62];
+                    v42 = [*(a1 + 40) accessoryIsReachableByUUID];
+                    v43 = [v8 uuid];
+                    [v42 setObject:v41 forKeyedSubscript:v43];
 
-                    v24 = v60;
-                    v23 = v62;
+                    v23 = v58;
+                    v22 = v60;
                   }
 
-                  ++v26;
+                  ++v25;
                 }
 
-                while (v23 != v26);
-                v23 = [obj countByEnumeratingWithState:&v67 objects:v83 count:16];
+                while (v22 != v25);
+                v22 = [obj countByEnumeratingWithState:&v65 objects:v81 count:16];
               }
 
-              while (v23);
+              while (v22);
             }
 
-            v5 = v52;
-            v2 = v53;
-            v4 = v54;
-            v7 = v55;
+            v5 = v50;
+            v2 = v51;
+            v4 = v52;
+            v7 = v53;
           }
 
-          v10 = v56;
+          v10 = v54;
         }
 
 LABEL_28:
@@ -1571,35 +1542,33 @@ LABEL_28:
       }
 
       while (v7 != v4);
-      v4 = [v2 countByEnumeratingWithState:&v71 objects:v84 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v69 objects:v82 count:16];
     }
 
     while (v4);
   }
 
-  if ([v50 count])
+  if ([v48 count])
   {
-    v45 = dispatch_time(0, [*(a1 + 40) reachabilityUpdateDispatchDelayNs]);
-    v46 = [*(a1 + 40) workQueue];
+    v44 = dispatch_time(0, [*(a1 + 40) reachabilityUpdateDispatchDelayNs]);
+    v45 = [*(a1 + 40) workQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged___block_invoke_386;
     block[3] = &unk_27868A750;
     block[4] = *(a1 + 40);
-    v66 = v50;
-    dispatch_after(v45, v46, block);
+    v64 = v48;
+    dispatch_after(v44, v45, block);
   }
 
-  v47 = v51;
-  if ([v51 count])
+  v46 = v49;
+  if ([v49 count])
   {
-    v48 = [*(a1 + 40) forceUpdateAutobahnTimelineHandler];
-    (v48)[2](v48, v51);
+    v47 = [*(a1 + 40) forceUpdateAutobahnTimelineHandler];
+    (v47)[2](v47, v49);
 
-    v47 = v51;
+    v46 = v49;
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged___block_invoke_386(uint64_t a1)
@@ -1610,7 +1579,7 @@ void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged
 
 - (void)handleNotificationOfPossibleNewWidget:(id)widget
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   widgetCopy = widget;
   name = [widgetCopy name];
   activeAutoBahnWidgetKinds = [(HMDWidgetTimelineRefresher *)self activeAutoBahnWidgetKinds];
@@ -1627,11 +1596,11 @@ void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged
       v12 = HMFGetLogIdentifier();
       object = [widgetCopy object];
       *buf = 138543874;
-      v19 = v12;
-      v20 = 2112;
-      v21 = name;
-      v22 = 2112;
-      v23 = object;
+      v18 = v12;
+      v19 = 2112;
+      v20 = name;
+      v21 = 2112;
+      v22 = object;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Duplicate widget '%@' with payload '%@' ignored", buf, 0x20u);
     }
 
@@ -1645,29 +1614,27 @@ void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged
       v14 = HMFGetLogIdentifier();
       object2 = [widgetCopy object];
       *buf = 138543874;
-      v19 = v14;
-      v20 = 2112;
-      v21 = name;
-      v22 = 2112;
-      v23 = object2;
+      v18 = v14;
+      v19 = 2112;
+      v20 = name;
+      v21 = 2112;
+      v22 = object2;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@New widget '%@' has been spotted, with payload '%@'", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __68__HMDWidgetTimelineRefresher_handleNotificationOfPossibleNewWidget___block_invoke;
-    v17[3] = &unk_27868A728;
-    v17[4] = selfCopy;
-    [(HMDWidgetTimelineRefresher *)selfCopy fetchAndStoreActiveAutoBahnWidgetKindsWithCompletion:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __68__HMDWidgetTimelineRefresher_handleNotificationOfPossibleNewWidget___block_invoke;
+    v16[3] = &unk_27868A728;
+    v16[4] = selfCopy;
+    [(HMDWidgetTimelineRefresher *)selfCopy fetchAndStoreActiveAutoBahnWidgetKindsWithCompletion:v16];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleResidentDeviceAddedOrRemovedNotification:(id)notification
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"HMDResidentDeviceManagerHomeUUIDNotificationKey"];
@@ -1694,22 +1661,20 @@ void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged
     homeManager = [(HMDWidgetTimelineRefresher *)selfCopy homeManager];
     v14 = [homeManager _homeWithUUID:v8];
     name = [v14 name];
-    v17 = 138543618;
-    v18 = v12;
-    v19 = 2112;
-    v20 = name;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Resident was added or removed for home %@, resetting all characteristic notifications", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v12;
+    v18 = 2112;
+    v19 = name;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Resident was added or removed for home %@, resetting all characteristic notifications", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   [(HMDWidgetTimelineRefresher *)selfCopy updateMonitoredCharacteristicsAndRefreshWidgetTimelines];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleResidentDeviceChangedNotification:(id)notification
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"HMDResidentDeviceManagerResidentDeviceNotificationKey"];
@@ -1753,33 +1718,31 @@ void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged
     homeManager = [(HMDWidgetTimelineRefresher *)selfCopy homeManager];
     v19 = [homeManager _homeWithUUID:v12];
     [v19 name];
-    v25 = notificationCopy;
+    v24 = notificationCopy;
     v20 = v12;
     v21 = v13;
     v23 = v22 = v8;
     *buf = 138543874;
-    v27 = v16;
-    v28 = 2112;
-    v29 = name;
-    v30 = 2112;
-    v31 = v23;
+    v26 = v16;
+    v27 = 2112;
+    v28 = name;
+    v29 = 2112;
+    v30 = v23;
     _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Resident has changed to %@ for home %@, resetting all characteristic notifications", buf, 0x20u);
 
     v8 = v22;
     v13 = v21;
     v12 = v20;
-    notificationCopy = v25;
+    notificationCopy = v24;
   }
 
   objc_autoreleasePoolPop(v13);
   [(HMDWidgetTimelineRefresher *)selfCopy updateMonitoredCharacteristicsAndRefreshWidgetTimelines];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryRemovedNotification:(id)notification
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"HMDAccessoryNotificationKey"];
@@ -1819,24 +1782,22 @@ void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged
     v15 = HMFGetLogIdentifier();
     name = [v11 name];
     name2 = [v8 name];
-    v19 = 138543874;
-    v20 = v15;
-    v21 = 2112;
-    v22 = name;
-    v23 = 2112;
-    v24 = name2;
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Accessory '%@:%@' was removed, resetting all characteristic notifications", &v19, 0x20u);
+    v18 = 138543874;
+    v19 = v15;
+    v20 = 2112;
+    v21 = name;
+    v22 = 2112;
+    v23 = name2;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Accessory '%@:%@' was removed, resetting all characteristic notifications", &v18, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
   [(HMDWidgetTimelineRefresher *)selfCopy updateMonitoredCharacteristicsAndRefreshWidgetTimelines];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryAddedNotification:(id)notification
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"HMDNotificationAddedAccessoryKey"];
@@ -1876,24 +1837,22 @@ void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged
     v15 = HMFGetLogIdentifier();
     name = [v11 name];
     name2 = [v8 name];
-    v19 = 138543874;
-    v20 = v15;
-    v21 = 2112;
-    v22 = name;
-    v23 = 2112;
-    v24 = name2;
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Accessory '%@:%@' was added, resetting all characteristic notifications", &v19, 0x20u);
+    v18 = 138543874;
+    v19 = v15;
+    v20 = 2112;
+    v21 = name;
+    v22 = 2112;
+    v23 = name2;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Accessory '%@:%@' was added, resetting all characteristic notifications", &v18, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
   [(HMDWidgetTimelineRefresher *)selfCopy updateMonitoredCharacteristicsAndRefreshWidgetTimelines];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeRemovedNotification:(id)notification
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"HMDHomeNotificationKey"];
@@ -1918,22 +1877,20 @@ void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged
   {
     v12 = HMFGetLogIdentifier();
     shortDescription = [v8 shortDescription];
-    v15 = 138543618;
-    v16 = v12;
-    v17 = 2112;
-    v18 = shortDescription;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Home '%@' was removed, resetting all characteristic notifications", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v12;
+    v16 = 2112;
+    v17 = shortDescription;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Home '%@' was removed, resetting all characteristic notifications", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   [(HMDWidgetTimelineRefresher *)selfCopy updateMonitoredCharacteristicsAndRefreshWidgetTimelines];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeAddedNotification:(id)notification
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"HMDHomeNotificationKey"];
@@ -1958,22 +1915,20 @@ void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged
   {
     v12 = HMFGetLogIdentifier();
     shortDescription = [v8 shortDescription];
-    v15 = 138543618;
-    v16 = v12;
-    v17 = 2112;
-    v18 = shortDescription;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Home '%@' was added, resetting all characteristic notifications", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v12;
+    v16 = 2112;
+    v17 = shortDescription;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Home '%@' was added, resetting all characteristic notifications", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   [(HMDWidgetTimelineRefresher *)selfCopy updateMonitoredCharacteristicsAndRefreshWidgetTimelines];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCurrentOrPrimaryHomeChangedNotification:(id)notification
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   name = [notificationCopy name];
   v6 = [name isEqualToString:@"HMDNotificationCurrentHomeDidChange"];
@@ -2025,21 +1980,21 @@ void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v20 = *buf;
+      v19 = *buf;
       *buf = 0;
       *&buf[8] = 0;
       [primaryHomeUUID getUUIDBytes:buf];
-      v19 = *buf;
+      v18 = *buf;
       *buf = 138544386;
       *&buf[4] = v15;
       *&buf[12] = 1040;
       *&buf[14] = 16;
-      v22 = 2096;
-      v23 = &v20;
-      v24 = 1040;
-      v25 = 16;
-      v26 = 2096;
-      v27 = &v19;
+      v21 = 2096;
+      v22 = &v19;
+      v23 = 1040;
+      v24 = 16;
+      v25 = 2096;
+      v26 = &v18;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Current home changed from %{uuid_t}.16P to %{uuid_t}.16P, resetting all characteristic notifications", buf, 0x2Cu);
     }
 
@@ -2049,8 +2004,6 @@ void __73__HMDWidgetTimelineRefresher_handleAutobahnAccessoryReachabilityChanged
   }
 
 LABEL_13:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_value:(id)_value isApproximatelyEqualToValue:(id)value forMinimumValue:(id)minimumValue maximumValue:(id)maximumValue
@@ -2151,30 +2104,30 @@ LABEL_22:
 
 - (BOOL)actionSetIsOn:(id)on
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   onCopy = on;
   home = [onCopy home];
-  v28 = [(HMDWidgetTimelineRefresher *)self evaluateActionSetStateOnPrimaryEnabledForHome:?];
+  v27 = [(HMDWidgetTimelineRefresher *)self evaluateActionSetStateOnPrimaryEnabledForHome:?];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v26 = onCopy;
+  v25 = onCopy;
   obj = [onCopy actions];
-  v30 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
-  if (v30)
+  v29 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  if (v29)
   {
-    v29 = *v33;
+    v28 = *v32;
     while (2)
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v33 != v29)
+        if (*v32 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v32 + 1) + 8 * i);
+        v6 = *(*(&v31 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -2197,22 +2150,22 @@ LABEL_22:
           minimumValue = [metadata minimumValue];
           metadata2 = [characteristic metadata];
           maximumValue = [metadata2 maximumValue];
-          v31 = [(HMDWidgetTimelineRefresher *)self _value:value isApproximatelyEqualToValue:targetValue forMinimumValue:minimumValue maximumValue:maximumValue]|| v28;
+          v30 = [(HMDWidgetTimelineRefresher *)self _value:value isApproximatelyEqualToValue:targetValue forMinimumValue:minimumValue maximumValue:maximumValue]|| v27;
 
           accessory = [characteristic accessory];
-          if ((v31 & 1) == 0 || (-[HMDWidgetTimelineRefresher reachabilityMonitor](self, "reachabilityMonitor"), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v17 isAccessoryReachable:accessory], v17, (v18 & 1) == 0))
+          if ((v30 & 1) == 0 || (-[HMDWidgetTimelineRefresher reachabilityMonitor](self, "reachabilityMonitor"), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v17 isAccessoryReachable:accessory], v17, (v18 & 1) == 0))
           {
 
             v22 = 0;
             v19 = home;
-            v21 = v26;
+            v21 = v25;
             goto LABEL_18;
           }
         }
       }
 
-      v30 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
-      if (v30)
+      v29 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      if (v29)
       {
         continue;
       }
@@ -2221,12 +2174,12 @@ LABEL_22:
     }
   }
 
-  if (v28)
+  if (v27)
   {
     v19 = home;
     actionSetStateSubscriptionManager = [home actionSetStateSubscriptionManager];
-    v21 = v26;
-    uuid = [v26 uuid];
+    v21 = v25;
+    uuid = [v25 uuid];
     obj = actionSetStateSubscriptionManager;
     v22 = [actionSetStateSubscriptionManager isActionSetOn:uuid];
 LABEL_18:
@@ -2236,10 +2189,9 @@ LABEL_18:
   {
     v22 = 1;
     v19 = home;
-    v21 = v26;
+    v21 = v25;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -2327,29 +2279,29 @@ LABEL_17:
 
 - (id)actionSetsByHome:(id)home
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = homeCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         home = [v10 home];
         if (home)
         {
@@ -2366,14 +2318,13 @@ LABEL_17:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
 
-  v15 = [strongToStrongObjectsMapTable copy];
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = objc_msgSend_copy(strongToStrongObjectsMapTable);
 
   return v15;
 }
@@ -2446,27 +2397,27 @@ id __65__HMDWidgetTimelineRefresher_accessoriesMonitoredForReachability__block_i
 
 void __64__HMDWidgetTimelineRefresher_characteristicsMonitoredForWidgets__block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) actionSetsByHome:?];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v2 objectForKey:v7];
         if (([*(a1 + 32) evaluateActionSetStateOnPrimaryEnabledForHome:v7] & 1) == 0)
         {
@@ -2477,13 +2428,11 @@ void __64__HMDWidgetTimelineRefresher_characteristicsMonitoredForWidgets__block_
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)characteristicsFromActionSets:(void *)sets
@@ -2550,54 +2499,54 @@ id __59__HMDWidgetTimelineRefresher_characteristicsFromActionSet___block_invoke(
 
 - (void)updateMonitoredScenesAccessoriesAndCharacteristicsWithQOS:(int64_t)s afterChangesFromBlock:(id)block
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   characteristicsMonitoredForWidgets = [(HMDWidgetTimelineRefresher *)self characteristicsMonitoredForWidgets];
   actionSetsMonitoredForWidgets = [(HMDWidgetTimelineRefresher *)self actionSetsMonitoredForWidgets];
   accessoriesMonitoredForReachability = [(HMDWidgetTimelineRefresher *)self accessoriesMonitoredForReachability];
   attributesMonitoredForWidgets = [(HMDWidgetTimelineRefresher *)self attributesMonitoredForWidgets];
-  v45 = blockCopy;
+  v44 = blockCopy;
   (*(blockCopy + 2))(blockCopy);
   characteristicsMonitoredForWidgets2 = [(HMDWidgetTimelineRefresher *)self characteristicsMonitoredForWidgets];
   actionSetsMonitoredForWidgets2 = [(HMDWidgetTimelineRefresher *)self actionSetsMonitoredForWidgets];
   accessoriesMonitoredForReachability2 = [(HMDWidgetTimelineRefresher *)self accessoriesMonitoredForReachability];
   attributesMonitoredForWidgets2 = [(HMDWidgetTimelineRefresher *)self attributesMonitoredForWidgets];
-  v42 = attributesMonitoredForWidgets;
+  v41 = attributesMonitoredForWidgets;
   [(HMDWidgetTimelineRefresher *)self updateNotificationRegistrationWithPreviousAttributes:attributesMonitoredForWidgets currentAttributes:attributesMonitoredForWidgets2];
   v10 = actionSetsMonitoredForWidgets;
   v11 = actionSetsMonitoredForWidgets2;
-  v46 = v10;
+  v45 = v10;
   if (self)
   {
     v12 = [v10 na_setByRemovingObjectsFromSet:v11];
-    v39 = [v11 na_setByRemovingObjectsFromSet:v10];
+    v38 = [v11 na_setByRemovingObjectsFromSet:v10];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v57 objects:v63 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v56 objects:v62 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v58;
+      v16 = *v57;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v58 != v16)
+          if (*v57 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v57 + 1) + 8 * i);
+          v18 = *(*(&v56 + 1) + 8 * i);
           home = [v18 home];
           actionSetStateSubscriptionManager = [home actionSetStateSubscriptionManager];
           uuid = [v18 uuid];
           [actionSetStateSubscriptionManager stopMonitoringActionSetUUID:uuid observer:self];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v57 objects:v63 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v56 objects:v62 count:16];
       }
 
       while (v15);
@@ -2605,75 +2554,73 @@ id __59__HMDWidgetTimelineRefresher_characteristicsFromActionSet___block_invoke(
 
     sCopy = s;
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
-    v22 = v39;
-    v23 = [v22 countByEnumeratingWithState:&v53 objects:v62 count:16];
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v22 = v38;
+    v23 = [v22 countByEnumeratingWithState:&v52 objects:v61 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v54;
+      v25 = *v53;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v54 != v25)
+          if (*v53 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v53 + 1) + 8 * j);
+          v27 = *(*(&v52 + 1) + 8 * j);
           home2 = [v27 home];
           actionSetStateSubscriptionManager2 = [home2 actionSetStateSubscriptionManager];
           uuid2 = [v27 uuid];
           [actionSetStateSubscriptionManager2 startMonitoringActionSetUUID:uuid2 observer:self];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v53 objects:v62 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v52 objects:v61 count:16];
       }
 
       while (v24);
     }
 
-    v10 = v46;
+    v10 = v45;
     s = sCopy;
   }
 
   [(HMDWidgetTimelineRefresher *)self updateNotificationRegistrationWithPreviousCharacteristics:characteristicsMonitoredForWidgets currentCharacteristics:characteristicsMonitoredForWidgets2 updateRequestQualityOfService:s];
   [(HMDWidgetTimelineRefresher *)self updateReachabilityMonitorWithPreviousAccessories:accessoriesMonitoredForReachability currentAccessories:accessoriesMonitoredForReachability2 completion:&__block_literal_global_349];
   v31 = [v10 na_setByRemovingObjectsFromSet:v11];
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v32 = [v31 countByEnumeratingWithState:&v49 objects:v61 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v48 objects:v60 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v50;
+    v34 = *v49;
     do
     {
       for (k = 0; k != v33; ++k)
       {
-        if (*v50 != v34)
+        if (*v49 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = *(*(&v49 + 1) + 8 * k);
+        v36 = *(*(&v48 + 1) + 8 * k);
         cachedIsOnStateByActionSet = [(HMDWidgetTimelineRefresher *)self cachedIsOnStateByActionSet];
         [cachedIsOnStateByActionSet removeObjectForKey:v36];
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v49 objects:v61 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v48 objects:v60 count:16];
     }
 
     while (v33);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)actionSetsMonitoredForWidgets
@@ -2718,78 +2665,78 @@ id __59__HMDWidgetTimelineRefresher_characteristicsFromActionSet___block_invoke(
 
 - (void)updateNotificationRegistrationWithPreviousAttributes:(void *)attributes currentAttributes:
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   v5 = a2;
   attributesCopy = attributes;
   if (self)
   {
     v7 = [v5 na_setByRemovingObjectsFromSet:attributesCopy];
-    v68 = [attributesCopy na_setByRemovingObjectsFromSet:v5];
-    v76 = v7;
-    if ([v7 count] || objc_msgSend(v68, "count"))
+    v67 = [attributesCopy na_setByRemovingObjectsFromSet:v5];
+    v75 = v7;
+    if ([v7 count] || objc_msgSend(v67, "count"))
     {
-      v67 = [attributesCopy na_setByIntersectingWithSet:v5];
-      v63 = v5;
+      v66 = [attributesCopy na_setByIntersectingWithSet:v5];
+      v62 = v5;
       v8 = [v5 na_map:&__block_literal_global_272_60472];
-      v62 = attributesCopy;
+      v61 = attributesCopy;
       [attributesCopy na_map:&__block_literal_global_274];
-      v70 = v61 = v8;
+      v69 = v60 = v8;
       [v8 na_setByRemovingObjectsFromSet:?];
+      v97 = 0u;
       v98 = 0u;
       v99 = 0u;
-      v100 = 0u;
-      obj = v101 = 0u;
-      v77 = [obj countByEnumeratingWithState:&v98 objects:v109 count:16];
-      if (v77)
+      obj = v100 = 0u;
+      v76 = [obj countByEnumeratingWithState:&v97 objects:v108 count:16];
+      if (v76)
       {
-        v74 = *v99;
+        v73 = *v98;
         do
         {
-          for (i = 0; i != v77; ++i)
+          for (i = 0; i != v76; ++i)
           {
-            if (*v99 != v74)
+            if (*v98 != v73)
             {
               objc_enumerationMutation(obj);
             }
 
-            v10 = *(*(&v98 + 1) + 8 * i);
+            v10 = *(*(&v97 + 1) + 8 * i);
             deviceControllersByID = [self deviceControllersByID];
             v12 = [deviceControllersByID objectForKey:v10];
 
             if (v12)
             {
-              v97[0] = MEMORY[0x277D85DD0];
-              v97[1] = 3221225472;
-              v97[2] = __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousAttributes_currentAttributes___block_invoke_275;
-              v97[3] = &unk_278674D30;
-              v79 = v10;
-              v97[4] = v10;
-              v13 = [v76 na_map:v97];
+              v96[0] = MEMORY[0x277D85DD0];
+              v96[1] = 3221225472;
+              v96[2] = __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousAttributes_currentAttributes___block_invoke_275;
+              v96[3] = &unk_278674D30;
+              v78 = v10;
+              v96[4] = v10;
+              v13 = [v75 na_map:v96];
+              v92 = 0u;
               v93 = 0u;
               v94 = 0u;
               v95 = 0u;
-              v96 = 0u;
               v14 = v13;
-              v15 = [v14 countByEnumeratingWithState:&v93 objects:v104 count:16];
+              v15 = [v14 countByEnumeratingWithState:&v92 objects:v103 count:16];
               if (v15)
               {
                 v16 = v15;
-                v17 = *v94;
+                v17 = *v93;
                 do
                 {
                   for (j = 0; j != v16; ++j)
                   {
-                    if (*v94 != v17)
+                    if (*v93 != v17)
                     {
                       objc_enumerationMutation(v14);
                     }
 
-                    v19 = *(*(&v93 + 1) + 8 * j);
+                    v19 = *(*(&v92 + 1) + 8 * j);
                     v20 = [MEMORY[0x277CBEB98] set];
                     [self monitorDeviceNodeID:v19 controller:v12 attributes:v20];
                   }
 
-                  v16 = [v14 countByEnumeratingWithState:&v93 objects:v104 count:16];
+                  v16 = [v14 countByEnumeratingWithState:&v92 objects:v103 count:16];
                 }
 
                 while (v16);
@@ -2803,15 +2750,15 @@ id __59__HMDWidgetTimelineRefresher_characteristicsFromActionSet___block_invoke(
               {
                 v24 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v106 = v24;
-                v107 = 2112;
-                v108 = v79;
+                v105 = v24;
+                v106 = 2112;
+                v107 = v78;
                 _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Removing controller for id: %@", buf, 0x16u);
               }
 
               objc_autoreleasePoolPop(v21);
               deviceControllersByID2 = [selfCopy deviceControllersByID];
-              [deviceControllersByID2 removeObjectForKey:v79];
+              [deviceControllersByID2 removeObjectForKey:v78];
 
               devicesByController = [selfCopy devicesByController];
               [devicesByController removeObjectForKey:v12];
@@ -2826,9 +2773,9 @@ id __59__HMDWidgetTimelineRefresher_characteristicsFromActionSet___block_invoke(
               {
                 v30 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v106 = v30;
-                v107 = 2112;
-                v108 = v10;
+                v105 = v30;
+                v106 = 2112;
+                v107 = v10;
                 _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Removed unknown controller id %@", buf, 0x16u);
               }
 
@@ -2836,64 +2783,64 @@ id __59__HMDWidgetTimelineRefresher_characteristicsFromActionSet___block_invoke(
             }
           }
 
-          v77 = [obj countByEnumeratingWithState:&v98 objects:v109 count:16];
+          v76 = [obj countByEnumeratingWithState:&v97 objects:v108 count:16];
         }
 
-        while (v77);
+        while (v76);
       }
 
-      v91 = 0u;
-      v92 = 0u;
-      v89 = 0u;
       v90 = 0u;
-      v64 = v70;
-      v69 = [v64 countByEnumeratingWithState:&v89 objects:v103 count:16];
-      if (v69)
+      v91 = 0u;
+      v88 = 0u;
+      v89 = 0u;
+      v63 = v69;
+      v68 = [v63 countByEnumeratingWithState:&v88 objects:v102 count:16];
+      if (v68)
       {
-        v66 = *v90;
+        v65 = *v89;
         do
         {
           v31 = 0;
           do
           {
-            if (*v90 != v66)
+            if (*v89 != v65)
             {
-              objc_enumerationMutation(v64);
+              objc_enumerationMutation(v63);
             }
 
-            v32 = *(*(&v89 + 1) + 8 * v31);
+            v32 = *(*(&v88 + 1) + 8 * v31);
             v33 = objc_autoreleasePoolPush();
-            v88[0] = MEMORY[0x277D85DD0];
-            v88[1] = 3221225472;
-            v88[2] = __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousAttributes_currentAttributes___block_invoke_277;
-            v88[3] = &unk_278674D58;
-            v88[4] = v32;
-            v34 = [v68 na_filter:v88];
             v87[0] = MEMORY[0x277D85DD0];
             v87[1] = 3221225472;
-            v87[2] = __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousAttributes_currentAttributes___block_invoke_2_279;
+            v87[2] = __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousAttributes_currentAttributes___block_invoke_277;
             v87[3] = &unk_278674D58;
             v87[4] = v32;
-            v35 = [v76 na_filter:v87];
+            v34 = [v67 na_filter:v87];
             v86[0] = MEMORY[0x277D85DD0];
             v86[1] = 3221225472;
-            v86[2] = __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousAttributes_currentAttributes___block_invoke_3;
+            v86[2] = __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousAttributes_currentAttributes___block_invoke_2_279;
             v86[3] = &unk_278674D58;
             v86[4] = v32;
-            v80 = [v67 na_filter:v86];
+            v35 = [v75 na_filter:v86];
+            v85[0] = MEMORY[0x277D85DD0];
+            v85[1] = 3221225472;
+            v85[2] = __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousAttributes_currentAttributes___block_invoke_3;
+            v85[3] = &unk_278674D58;
+            v85[4] = v32;
+            v79 = [v66 na_filter:v85];
             if ([v34 count] || objc_msgSend(v35, "count"))
             {
               v36 = [v34 setByAddingObjectsFromSet:v35];
               v37 = [v36 na_map:&__block_literal_global_281_60475];
 
-              v78 = v37;
+              v77 = v37;
               if ([v37 count])
               {
-                v71 = v35;
-                v72 = v34;
-                v73 = v33;
-                v75 = v31;
-                v38 = [v34 setByAddingObjectsFromSet:v80];
+                v70 = v35;
+                v71 = v34;
+                v72 = v33;
+                v74 = v31;
+                v38 = [v34 setByAddingObjectsFromSet:v79];
                 deviceControllersByID3 = [self deviceControllersByID];
                 v40 = [deviceControllersByID3 objectForKey:v32];
 
@@ -2909,9 +2856,9 @@ id __59__HMDWidgetTimelineRefresher_characteristicsFromActionSet___block_invoke(
                 {
                   v44 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v106 = v44;
-                  v107 = 2112;
-                  v108 = v32;
+                  v105 = v44;
+                  v106 = 2112;
+                  v107 = v32;
                   _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Creating and caching controller for id: %@", buf, 0x16u);
                 }
 
@@ -2927,36 +2874,36 @@ id __59__HMDWidgetTimelineRefresher_characteristicsFromActionSet___block_invoke(
 
                   v40 = v46;
 LABEL_38:
-                  v84 = 0u;
-                  v85 = 0u;
-                  v82 = 0u;
                   v83 = 0u;
-                  v48 = v78;
-                  v49 = [v48 countByEnumeratingWithState:&v82 objects:v102 count:16];
+                  v84 = 0u;
+                  v81 = 0u;
+                  v82 = 0u;
+                  v48 = v77;
+                  v49 = [v48 countByEnumeratingWithState:&v81 objects:v101 count:16];
                   if (v49)
                   {
                     v50 = v49;
-                    v51 = *v83;
+                    v51 = *v82;
                     do
                     {
                       for (k = 0; k != v50; ++k)
                       {
-                        if (*v83 != v51)
+                        if (*v82 != v51)
                         {
                           objc_enumerationMutation(v48);
                         }
 
-                        v53 = *(*(&v82 + 1) + 8 * k);
-                        v81[0] = MEMORY[0x277D85DD0];
-                        v81[1] = 3221225472;
-                        v81[2] = __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousAttributes_currentAttributes___block_invoke_282;
-                        v81[3] = &unk_278674DA0;
-                        v81[4] = v53;
-                        v54 = [v38 na_flatMap:v81];
+                        v53 = *(*(&v81 + 1) + 8 * k);
+                        v80[0] = MEMORY[0x277D85DD0];
+                        v80[1] = 3221225472;
+                        v80[2] = __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousAttributes_currentAttributes___block_invoke_282;
+                        v80[3] = &unk_278674DA0;
+                        v80[4] = v53;
+                        v54 = [v38 na_flatMap:v80];
                         [self monitorDeviceNodeID:v53 controller:v40 attributes:v54];
                       }
 
-                      v50 = [v48 countByEnumeratingWithState:&v82 objects:v102 count:16];
+                      v50 = [v48 countByEnumeratingWithState:&v81 objects:v101 count:16];
                     }
 
                     while (v50);
@@ -2972,19 +2919,19 @@ LABEL_38:
                   {
                     v58 = HMFGetLogIdentifier();
                     *buf = 138543618;
-                    v106 = v58;
-                    v107 = 2112;
-                    v108 = v32;
+                    v105 = v58;
+                    v106 = 2112;
+                    v107 = v32;
                     _os_log_impl(&dword_229538000, v57, OS_LOG_TYPE_ERROR, "%{public}@No controller for ID: %@", buf, 0x16u);
                   }
 
                   objc_autoreleasePoolPop(v55);
                 }
 
-                v33 = v73;
-                v31 = v75;
-                v35 = v71;
-                v34 = v72;
+                v33 = v72;
+                v31 = v74;
+                v35 = v70;
+                v34 = v71;
               }
             }
 
@@ -2992,107 +2939,105 @@ LABEL_38:
             ++v31;
           }
 
-          while (v31 != v69);
-          v59 = [v64 countByEnumeratingWithState:&v89 objects:v103 count:16];
-          v69 = v59;
+          while (v31 != v68);
+          v59 = [v63 countByEnumeratingWithState:&v88 objects:v102 count:16];
+          v68 = v59;
         }
 
         while (v59);
       }
 
-      attributesCopy = v62;
-      v5 = v63;
+      attributesCopy = v61;
+      v5 = v62;
     }
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateNotificationRegistrationWithPreviousCharacteristics:(void *)characteristics currentCharacteristics:(uint64_t)currentCharacteristics updateRequestQualityOfService:
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   v6 = a2;
   characteristicsCopy = characteristics;
   if (self)
   {
-    v95 = characteristicsCopy;
+    v94 = characteristicsCopy;
     v8 = characteristicsCopy;
-    v96 = v6;
+    v95 = v6;
     v9 = [v6 na_map:&__block_literal_global_352];
-    v98 = v8;
+    v97 = v8;
     v10 = [v8 na_map:&__block_literal_global_354];
     v11 = [v9 na_setByRemovingObjectsFromSet:v10];
     v12 = [v10 na_setByRemovingObjectsFromSet:v9];
+    v112 = 0u;
     v113 = 0u;
     v114 = 0u;
     v115 = 0u;
-    v116 = 0u;
     v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v113 objects:buf count:16];
+    v14 = [v13 countByEnumeratingWithState:&v112 objects:buf count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v114;
+      v16 = *v113;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v114 != v16)
+          if (*v113 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v113 + 1) + 8 * i);
+          v18 = *(*(&v112 + 1) + 8 * i);
           clientIdentifierForExplicitlyMonitoredCharacteristics = [self clientIdentifierForExplicitlyMonitoredCharacteristics];
           [v18 registerForAccessoryReachabilityNotifications:0 registrationIdentifier:clientIdentifierForExplicitlyMonitoredCharacteristics];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v113 objects:buf count:16];
+        v15 = [v13 countByEnumeratingWithState:&v112 objects:buf count:16];
       }
 
       while (v15);
     }
 
-    v111 = 0u;
-    v112 = 0u;
-    v109 = 0u;
     v110 = 0u;
+    v111 = 0u;
+    v108 = 0u;
+    v109 = 0u;
     v20 = v12;
-    v21 = [v20 countByEnumeratingWithState:&v109 objects:v125 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v108 objects:v124 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v110;
+      v23 = *v109;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v110 != v23)
+          if (*v109 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v109 + 1) + 8 * j);
+          v25 = *(*(&v108 + 1) + 8 * j);
           clientIdentifierForExplicitlyMonitoredCharacteristics2 = [self clientIdentifierForExplicitlyMonitoredCharacteristics];
           [v25 registerForAccessoryReachabilityNotifications:1 registrationIdentifier:clientIdentifierForExplicitlyMonitoredCharacteristics2];
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v109 objects:v125 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v108 objects:v124 count:16];
       }
 
       while (v22);
     }
 
-    v6 = v96;
-    v27 = [v96 na_map:&__block_literal_global_357];
-    v28 = [v98 na_map:&__block_literal_global_357];
+    v6 = v95;
+    v27 = [v95 na_map:&__block_literal_global_357];
+    v28 = [v97 na_map:&__block_literal_global_357];
     v29 = [v27 na_setByRemovingObjectsFromSet:v28];
-    v94 = v28;
+    v93 = v28;
     v30 = [v28 na_setByRemovingObjectsFromSet:v27];
     if ([v29 count] || objc_msgSend(v30, "count"))
     {
-      v92 = v30;
-      v93 = v27;
+      v91 = v30;
+      v92 = v27;
       if ([v29 count])
       {
         v31 = objc_autoreleasePoolPush();
@@ -3102,9 +3047,9 @@ LABEL_38:
         {
           v34 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v127 = v34;
-          v128 = 2112;
-          v129 = v29;
+          v126 = v34;
+          v127 = 2112;
+          v128 = v29;
           _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Disabling notifications and removing cached value for characteristics: %@", buf, 0x16u);
         }
 
@@ -3112,45 +3057,45 @@ LABEL_38:
         clientIdentifierForExplicitlyMonitoredCharacteristics3 = [selfCopy clientIdentifierForExplicitlyMonitoredCharacteristics];
         [(HMDWidgetTimelineRefresher *)selfCopy setNotificationEnabled:v29 forCharacteristics:clientIdentifierForExplicitlyMonitoredCharacteristics3 clientIdentifier:?];
 
-        v107 = 0u;
-        v108 = 0u;
-        v105 = 0u;
         v106 = 0u;
+        v107 = 0u;
+        v104 = 0u;
+        v105 = 0u;
         v36 = v29;
         v37 = v29;
-        v38 = [v37 countByEnumeratingWithState:&v105 objects:v118 count:16];
+        v38 = [v37 countByEnumeratingWithState:&v104 objects:v117 count:16];
         if (v38)
         {
           v39 = v38;
-          v40 = *v106;
+          v40 = *v105;
           do
           {
             for (k = 0; k != v39; ++k)
             {
-              if (*v106 != v40)
+              if (*v105 != v40)
               {
                 objc_enumerationMutation(v37);
               }
 
-              v42 = *(*(&v105 + 1) + 8 * k);
+              v42 = *(*(&v104 + 1) + 8 * k);
               cachedValueByCharacteristic = [selfCopy cachedValueByCharacteristic];
               [cachedValueByCharacteristic removeObjectForKey:v42];
             }
 
-            v39 = [v37 countByEnumeratingWithState:&v105 objects:v118 count:16];
+            v39 = [v37 countByEnumeratingWithState:&v104 objects:v117 count:16];
           }
 
           while (v39);
         }
 
         v29 = v36;
-        v30 = v92;
-        v27 = v93;
+        v30 = v91;
+        v27 = v92;
       }
 
       if ([v30 count])
       {
-        v91 = v29;
+        v90 = v29;
         v44 = objc_autoreleasePoolPush();
         selfCopy2 = self;
         v46 = HMFGetOSLogHandle();
@@ -3158,39 +3103,39 @@ LABEL_38:
         {
           v47 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v127 = v47;
-          v128 = 2112;
-          v129 = v30;
+          v126 = v47;
+          v127 = 2112;
+          v128 = v30;
           _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_INFO, "%{public}@Enabling notifications and storing cached value for characteristics: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v44);
-        v103 = 0u;
-        v104 = 0u;
-        v101 = 0u;
         v102 = 0u;
+        v103 = 0u;
+        v100 = 0u;
+        v101 = 0u;
         v48 = v30;
-        v49 = [v48 countByEnumeratingWithState:&v101 objects:v117 count:16];
+        v49 = [v48 countByEnumeratingWithState:&v100 objects:v116 count:16];
         if (v49)
         {
           v50 = v49;
-          v51 = *v102;
+          v51 = *v101;
           do
           {
             for (m = 0; m != v50; ++m)
             {
-              if (*v102 != v51)
+              if (*v101 != v51)
               {
                 objc_enumerationMutation(v48);
               }
 
-              v53 = *(*(&v101 + 1) + 8 * m);
+              v53 = *(*(&v100 + 1) + 8 * m);
               cachedValueByCharacteristic2 = [selfCopy2 cachedValueByCharacteristic];
               value = [v53 value];
               [cachedValueByCharacteristic2 setObject:value forKey:v53];
             }
 
-            v50 = [v48 countByEnumeratingWithState:&v101 objects:v117 count:16];
+            v50 = [v48 countByEnumeratingWithState:&v100 objects:v116 count:16];
           }
 
           while (v50);
@@ -3207,35 +3152,35 @@ LABEL_38:
         {
           v61 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v127 = v61;
-          v128 = 2112;
-          v129 = v57;
+          v126 = v61;
+          v127 = 2112;
+          v128 = v57;
           _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_INFO, "%{public}@Reading characteristics: %@", buf, 0x16u);
         }
 
-        v97 = v59;
+        v96 = v59;
         objc_autoreleasePoolPop(v58);
         strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
+        v112 = 0u;
         v113 = 0u;
         v114 = 0u;
         v115 = 0u;
-        v116 = 0u;
         v63 = v57;
-        v64 = [v63 countByEnumeratingWithState:&v113 objects:buf count:16];
+        v64 = [v63 countByEnumeratingWithState:&v112 objects:buf count:16];
         if (v64)
         {
           v65 = v64;
-          v66 = *v114;
+          v66 = *v113;
           do
           {
             for (n = 0; n != v65; ++n)
             {
-              if (*v114 != v66)
+              if (*v113 != v66)
               {
                 objc_enumerationMutation(v63);
               }
 
-              v68 = *(*(&v113 + 1) + 8 * n);
+              v68 = *(*(&v112 + 1) + 8 * n);
               accessory = [v68 accessory];
               home = [accessory home];
 
@@ -3257,35 +3202,35 @@ LABEL_38:
               }
             }
 
-            v65 = [v63 countByEnumeratingWithState:&v113 objects:buf count:16];
+            v65 = [v63 countByEnumeratingWithState:&v112 objects:buf count:16];
           }
 
           while (v65);
         }
 
-        v90 = v63;
+        v89 = v63;
 
-        v111 = 0u;
-        v112 = 0u;
-        v109 = 0u;
         v110 = 0u;
+        v111 = 0u;
+        v108 = 0u;
+        v109 = 0u;
         v74 = strongToStrongObjectsMapTable;
-        v75 = [v74 countByEnumeratingWithState:&v109 objects:v125 count:16];
-        v76 = v97;
+        v75 = [v74 countByEnumeratingWithState:&v108 objects:v124 count:16];
+        v76 = v96;
         if (v75)
         {
           v77 = v75;
-          v99 = *v110;
+          v98 = *v109;
           do
           {
             for (ii = 0; ii != v77; ++ii)
             {
-              if (*v110 != v99)
+              if (*v109 != v98)
               {
                 objc_enumerationMutation(v74);
               }
 
-              v79 = *(*(&v109 + 1) + 8 * ii);
+              v79 = *(*(&v108 + 1) + 8 * ii);
               v80 = [v74 objectForKey:v79];
               allObjects = [v80 allObjects];
               v82 = [allObjects na_map:&__block_literal_global_377];
@@ -3297,15 +3242,15 @@ LABEL_38:
               {
                 v86 = HMFGetLogIdentifier();
                 v87 = [v82 count];
-                *v119 = 138543874;
-                v120 = v86;
-                v121 = 2112;
-                v122 = v79;
-                v123 = 2048;
-                v124 = v87;
-                _os_log_impl(&dword_229538000, v85, OS_LOG_TYPE_INFO, "%{public}@Reading characteristic for each home: %@, count %lu", v119, 0x20u);
+                *v118 = 138543874;
+                v119 = v86;
+                v120 = 2112;
+                v121 = v79;
+                v122 = 2048;
+                v123 = v87;
+                _os_log_impl(&dword_229538000, v85, OS_LOG_TYPE_INFO, "%{public}@Reading characteristic for each home: %@, count %lu", v118, 0x20u);
 
-                v76 = v97;
+                v76 = v96;
               }
 
               objc_autoreleasePoolPop(v83);
@@ -3313,58 +3258,56 @@ LABEL_38:
               [v79 readCharacteristicValues:v82 source:1210 sourceForLogging:v88 qualityOfService:currentCharacteristics withCompletionHandler:0];
             }
 
-            v77 = [v74 countByEnumeratingWithState:&v109 objects:v125 count:16];
+            v77 = [v74 countByEnumeratingWithState:&v108 objects:v124 count:16];
           }
 
           while (v77);
         }
 
-        v6 = v96;
-        v30 = v92;
-        v27 = v93;
-        v29 = v91;
+        v6 = v95;
+        v30 = v91;
+        v27 = v92;
+        v29 = v90;
       }
     }
 
-    characteristicsCopy = v95;
+    characteristicsCopy = v94;
   }
-
-  v89 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNotificationEnabled:(void *)enabled forCharacteristics:(void *)characteristics clientIdentifier:
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   characteristicsCopy = characteristics;
   v8 = characteristicsCopy;
   selfCopy = self;
   if (self)
   {
-    v35 = characteristicsCopy;
+    v34 = characteristicsCopy;
     strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
     strongToStrongObjectsMapTable2 = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
-    v36 = enabledCopy;
+    v35 = enabledCopy;
     obj = enabledCopy;
-    v10 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+    v10 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v46;
+      v12 = *v45;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v46 != v12)
+          if (*v45 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v45 + 1) + 8 * i);
+          v14 = *(*(&v44 + 1) + 8 * i);
           accessory = [v14 accessory];
           if (accessory)
           {
@@ -3412,51 +3355,49 @@ LABEL_38:
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+        v11 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
       }
 
       while (v11);
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v24 = strongToStrongObjectsMapTable;
-    v25 = [v24 countByEnumeratingWithState:&v41 objects:v49 count:16];
-    v8 = v35;
+    v25 = [v24 countByEnumeratingWithState:&v40 objects:v48 count:16];
+    v8 = v34;
     if (v25)
     {
       v26 = v25;
-      v27 = *v42;
+      v27 = *v41;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v42 != v27)
+          if (*v41 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v41 + 1) + 8 * j);
+          v29 = *(*(&v40 + 1) + 8 * j);
           v30 = [v24 objectForKey:v29];
           v31 = [strongToStrongObjectsMapTable2 objectForKey:v29];
-          v32 = [v31 copy];
+          v32 = objc_msgSend_copy(v31);
 
           allObjects = [v30 allObjects];
-          [v29 setNotificationsEnabled:a2 forCharacteristics:allObjects notificationChangeThresholds:v32 clientIdentifier:v35];
+          [v29 setNotificationsEnabled:a2 forCharacteristics:allObjects notificationChangeThresholds:v32 clientIdentifier:v34];
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v41 objects:v49 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v40 objects:v48 count:16];
       }
 
       while (v26);
     }
 
-    enabledCopy = v36;
+    enabledCopy = v35;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 id __101__HMDWidgetTimelineRefresher_updateMonitoredHomesWithPreviousCharacteristics_currentCharacteristics___block_invoke_2(uint64_t a1, void *a2)
@@ -3559,7 +3500,7 @@ id __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousA
 
 - (void)handleSelectedHomeChangedNotification
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDWidgetTimelineRefresher *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -3569,19 +3510,18 @@ id __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousA
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Handling selected home changed notification. Refreshing timeline for configured widgets", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Handling selected home changed notification. Refreshing timeline for configured widgets", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   [(HMDWidgetTimelineRefresher *)selfCopy refreshTimelineForConfiguredWidgetsWithReason:?];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeSensingChangedNotification
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDWidgetTimelineRefresher *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -3591,14 +3531,13 @@ id __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousA
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Handling home sensing changed notification. Refreshing timeline for configured widgets", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Handling home sensing changed notification. Refreshing timeline for configured widgets", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   [(HMDWidgetTimelineRefresher *)selfCopy refreshTimelineForConfiguredWidgetsWithReason:?];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleNotifiedXPCClientsOfHomeConfigurationChangeNotification:(id)notification
@@ -3617,7 +3556,7 @@ id __101__HMDWidgetTimelineRefresher_updateNotificationRegistrationWithPreviousA
 
 void __92__HMDWidgetTimelineRefresher_handleNotifiedXPCClientsOfHomeConfigurationChangeNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -3626,18 +3565,17 @@ void __92__HMDWidgetTimelineRefresher_handleNotifiedXPCClientsOfHomeConfiguratio
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 40) name];
     v7 = [*(a1 + 32) homeManager];
-    v9 = 138543874;
-    v10 = v5;
-    v11 = 2114;
-    v12 = v6;
-    v13 = 2048;
-    v14 = [v7 generationCounter];
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Handling %{public}@. Generation counter: %lu. Refreshing timeline for configured widgets", &v9, 0x20u);
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
+    v12 = 2048;
+    v13 = [v7 generationCounter];
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Handling %{public}@. Generation counter: %lu. Refreshing timeline for configured widgets", &v8, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
   [(HMDWidgetTimelineRefresher *)*(a1 + 32) refreshTimelineForConfiguredWidgetsWithReason:?];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCurrentHomeChangeNotification:(id)notification
@@ -3656,7 +3594,7 @@ void __92__HMDWidgetTimelineRefresher_handleNotifiedXPCClientsOfHomeConfiguratio
 
 void __66__HMDWidgetTimelineRefresher_handleCurrentHomeChangeNotification___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -3681,7 +3619,7 @@ void __66__HMDWidgetTimelineRefresher_handleCurrentHomeChangeNotification___bloc
       *buf = *MEMORY[0x277D0F960];
     }
 
-    v17 = *buf;
+    v16 = *buf;
     *buf = 0;
     *&buf[8] = 0;
     v11 = [*(a1 + 40) userInfo];
@@ -3699,25 +3637,24 @@ void __66__HMDWidgetTimelineRefresher_handleCurrentHomeChangeNotification___bloc
       *buf = *MEMORY[0x277D0F960];
     }
 
-    v16 = *buf;
+    v15 = *buf;
     *buf = 138544642;
     *&buf[4] = v5;
     *&buf[12] = 2114;
     *&buf[14] = v6;
-    v19 = 1040;
-    v20 = 16;
-    v21 = 2096;
-    v22 = &v17;
-    v23 = 1040;
-    v24 = 16;
-    v25 = 2096;
-    v26 = &v16;
+    v18 = 1040;
+    v19 = 16;
+    v20 = 2096;
+    v21 = &v16;
+    v22 = 1040;
+    v23 = 16;
+    v24 = 2096;
+    v25 = &v15;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Handling %{public}@. Previous: %{uuid_t}.16P, Current %{uuid_t}.16P. Refreshing timeline for configured widgets", buf, 0x36u);
   }
 
   objc_autoreleasePoolPop(v2);
   [(HMDWidgetTimelineRefresher *)*(a1 + 32) refreshTimelineForConfiguredWidgetsWithReason:?];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryReachabilityChanged:(id)changed
@@ -3736,29 +3673,29 @@ void __66__HMDWidgetTimelineRefresher_handleCurrentHomeChangeNotification___bloc
 
 void __65__HMDWidgetTimelineRefresher_handleAccessoryReachabilityChanged___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = *(a1 + 32);
-  v3 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
+  v3 = [obj countByEnumeratingWithState:&v25 objects:v32 count:16];
   if (v3)
   {
     v4 = v3;
-    v23 = *v27;
+    v22 = *v26;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v27 != v23)
+        if (*v26 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
         v6 = *(a1 + 40);
-        v7 = *(*(&v26 + 1) + 8 * i);
+        v7 = *(*(&v25 + 1) + 8 * i);
         if (v6)
         {
           v8 = [v6 workQueue];
@@ -3766,35 +3703,35 @@ void __65__HMDWidgetTimelineRefresher_handleAccessoryReachabilityChanged___block
 
           v9 = [MEMORY[0x277CBEB58] set];
           v10 = [v6 monitoredCharacteristicsMapByWidget];
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __58__HMDWidgetTimelineRefresher_relevantWidgetsForAccessory___block_invoke;
-          v30[3] = &unk_278674F00;
+          v29[0] = MEMORY[0x277D85DD0];
+          v29[1] = 3221225472;
+          v29[2] = __58__HMDWidgetTimelineRefresher_relevantWidgetsForAccessory___block_invoke;
+          v29[3] = &unk_278674F00;
           v11 = v7;
-          v31 = v11;
+          v30 = v11;
           v12 = v9;
-          v32 = v12;
-          [v10 enumerateKeysAndObjectsUsingBlock:v30];
+          v31 = v12;
+          [v10 enumerateKeysAndObjectsUsingBlock:v29];
 
           v13 = [v6 monitoredActionSetsMapByWidget];
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __58__HMDWidgetTimelineRefresher_relevantWidgetsForAccessory___block_invoke_2;
-          v35 = &unk_278674E18;
-          v36 = v6;
-          v37 = v11;
+          v34 = &unk_278674E18;
+          v35 = v6;
+          v36 = v11;
           v14 = v12;
-          v38 = v14;
+          v37 = v14;
           [v13 enumerateKeysAndObjectsUsingBlock:buf];
 
-          v15 = v38;
+          v15 = v37;
           v6 = v14;
         }
 
         [v2 unionSet:v6];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
+      v4 = [obj countByEnumeratingWithState:&v25 objects:v32 count:16];
     }
 
     while (v4);
@@ -3817,22 +3754,20 @@ void __65__HMDWidgetTimelineRefresher_handleAccessoryReachabilityChanged___block
 
     objc_autoreleasePoolPop(v16);
     v20 = *(a1 + 40);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __65__HMDWidgetTimelineRefresher_handleAccessoryReachabilityChanged___block_invoke_325;
-    v24[3] = &unk_278674EB0;
-    v24[4] = v20;
-    v24[5] = v2;
-    v25 = *(a1 + 32);
-    [(HMDWidgetTimelineRefresher *)v20 cleanUpRemovedWidgetsFromWidgets:v2 completion:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __65__HMDWidgetTimelineRefresher_handleAccessoryReachabilityChanged___block_invoke_325;
+    v23[3] = &unk_278674EB0;
+    v23[4] = v20;
+    v23[5] = v2;
+    v24 = *(a1 + 32);
+    [(HMDWidgetTimelineRefresher *)v20 cleanUpRemovedWidgetsFromWidgets:v2 completion:v23];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HMDWidgetTimelineRefresher_handleAccessoryReachabilityChanged___block_invoke_325(id *a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1[4] workQueue];
   dispatch_assert_queue_V2(v4);
@@ -3846,13 +3781,13 @@ void __65__HMDWidgetTimelineRefresher_handleAccessoryReachabilityChanged___block
     v8 = HMFGetLogIdentifier();
     v9 = [a1[6] count];
     v10 = a1[5];
-    v19 = 138543874;
-    v20 = v8;
-    v21 = 2048;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v10;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Refreshing timeline due to %ld accessory reachability changes for configured widgets: %@", &v19, 0x20u);
+    v18 = 138543874;
+    v19 = v8;
+    v20 = 2048;
+    v21 = v9;
+    v22 = 2112;
+    v23 = v10;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Refreshing timeline due to %ld accessory reachability changes for configured widgets: %@", &v18, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -3867,44 +3802,42 @@ void __65__HMDWidgetTimelineRefresher_handleAccessoryReachabilityChanged___block
       v15 = HMFGetLogIdentifier();
       v16 = [v11 allObjects];
       v17 = [v16 componentsJoinedByString:{@", "}];
-      v19 = 138543618;
-      v20 = v15;
-      v21 = 2112;
-      v22 = v17;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Handling reachability changed. Refreshing timeline for widget kinds: %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v15;
+      v20 = 2112;
+      v21 = v17;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Handling reachability changed. Refreshing timeline for widget kinds: %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     [(HMDWidgetTimelineRefresher *)a1[4] refreshTimelineForWidgetKinds:v11 withReason:@"Accessory Reachability Changed" shouldCoalesce:0];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HMDWidgetTimelineRefresher_relevantWidgetsForAccessory___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = a3;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v15 + 1) + 8 * i) characteristic];
+        v11 = [*(*(&v14 + 1) + 8 * i) characteristic];
         v12 = [v11 accessory];
         v13 = [v12 isEqual:*(a1 + 32)];
 
@@ -3915,7 +3848,7 @@ void __58__HMDWidgetTimelineRefresher_relevantWidgetsForAccessory___block_invoke
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -3926,74 +3859,72 @@ void __58__HMDWidgetTimelineRefresher_relevantWidgetsForAccessory___block_invoke
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HMDWidgetTimelineRefresher_relevantWidgetsForAccessory___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   [*(a1 + 32) actionSetsByHome:a3];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v6 = v32 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v6 = v31 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
-    v24 = v5;
-    v22 = *v30;
+    v9 = *v29;
+    v23 = v5;
+    v21 = *v29;
     do
     {
       v10 = 0;
-      v23 = v8;
+      v22 = v8;
       do
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * v10);
+        v11 = *(*(&v28 + 1) + 8 * v10);
         v12 = [v6 objectForKey:v11];
         if (([*(a1 + 32) evaluateActionSetStateOnPrimaryEnabledForHome:v11] & 1) == 0)
         {
           v13 = [(HMDWidgetTimelineRefresher *)*(a1 + 32) characteristicsFromActionSets:v12];
+          v24 = 0u;
           v25 = 0u;
           v26 = 0u;
           v27 = 0u;
-          v28 = 0u;
           v14 = v13;
-          v15 = [v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v26;
+            v17 = *v25;
             while (2)
             {
               for (i = 0; i != v16; ++i)
               {
-                if (*v26 != v17)
+                if (*v25 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v19 = [*(*(&v25 + 1) + 8 * i) accessory];
+                v19 = [*(*(&v24 + 1) + 8 * i) accessory];
                 v20 = [v19 isEqual:*(a1 + 40)];
 
                 if (v20)
                 {
-                  v5 = v24;
-                  [*(a1 + 48) addObject:v24];
+                  v5 = v23;
+                  [*(a1 + 48) addObject:v23];
 
                   goto LABEL_20;
                 }
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
               if (v16)
               {
                 continue;
@@ -4003,29 +3934,27 @@ void __58__HMDWidgetTimelineRefresher_relevantWidgetsForAccessory___block_invoke
             }
           }
 
-          v9 = v22;
-          v8 = v23;
+          v9 = v21;
+          v8 = v22;
         }
 
         ++v10;
       }
 
       while (v10 != v8);
-      v8 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
-      v5 = v24;
+      v8 = [v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v5 = v23;
     }
 
     while (v8);
   }
 
 LABEL_20:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryCharacteristicsChangedNotification:(id)notification
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = [(HMDWidgetTimelineRefresher *)self modifiedCharacteristicsFromNotification:notificationCopy];
   if ([v5 count])
@@ -4037,7 +3966,7 @@ LABEL_20:
     block[3] = &unk_27868A010;
     block[4] = self;
     block[5] = v5;
-    v14 = notificationCopy;
+    v13 = notificationCopy;
     dispatch_async(workQueue, block);
   }
 
@@ -4051,21 +3980,19 @@ LABEL_20:
       v10 = HMFGetLogIdentifier();
       userInfo = [notificationCopy userInfo];
       *buf = 138543618;
-      v16 = v10;
-      v17 = 2112;
-      v18 = userInfo;
+      v15 = v10;
+      v16 = 2112;
+      v17 = userInfo;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Characteristics changed notification does not include modified characteristics: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotification___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   if (v2)
@@ -4079,31 +4006,31 @@ void __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotif
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __91__HMDWidgetTimelineRefresher_relevantWidgetsForCharacteristics_outRelevantCharacteristics___block_invoke;
-    v37 = &unk_278674ED8;
-    v38 = v2;
+    v36 = &unk_278674ED8;
+    v37 = v2;
     v8 = v3;
-    v39 = v8;
+    v38 = v8;
     v9 = v5;
-    v40 = v9;
+    v39 = v9;
     v10 = v6;
-    v41 = v10;
+    v40 = v10;
     [v7 enumerateKeysAndObjectsUsingBlock:buf];
 
     v11 = [v2 monitoredActionSetsMapByWidget];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __91__HMDWidgetTimelineRefresher_relevantWidgetsForCharacteristics_outRelevantCharacteristics___block_invoke_2;
-    v32[3] = &unk_278674ED8;
-    v32[4] = v2;
-    v33 = v8;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __91__HMDWidgetTimelineRefresher_relevantWidgetsForCharacteristics_outRelevantCharacteristics___block_invoke_2;
+    v31[3] = &unk_278674ED8;
+    v31[4] = v2;
+    v32 = v8;
     v12 = v9;
-    v34 = v12;
-    v35 = v10;
+    v33 = v12;
+    v34 = v10;
     v13 = v10;
-    [v11 enumerateKeysAndObjectsUsingBlock:v32];
+    [v11 enumerateKeysAndObjectsUsingBlock:v31];
 
     v14 = v13;
-    v15 = v35;
+    v15 = v34;
     v2 = v12;
   }
 
@@ -4132,17 +4059,17 @@ void __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotif
 
     objc_autoreleasePoolPop(v18);
     v23 = *(a1 + 32);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotification___block_invoke_317;
-    v27[3] = &unk_278674E88;
-    v27[4] = v23;
-    v28 = v16;
-    v29 = v2;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotification___block_invoke_317;
+    v26[3] = &unk_278674E88;
+    v26[4] = v23;
+    v27 = v16;
+    v28 = v2;
     v24 = *(a1 + 48);
-    v30 = *(a1 + 40);
-    v31 = v24;
-    [(HMDWidgetTimelineRefresher *)v23 cleanUpRemovedWidgetsFromWidgets:v2 completion:v27];
+    v29 = *(a1 + 40);
+    v30 = v24;
+    [(HMDWidgetTimelineRefresher *)v23 cleanUpRemovedWidgetsFromWidgets:v2 completion:v26];
   }
 
   else
@@ -4157,48 +4084,46 @@ void __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotif
 
     objc_autoreleasePoolPop(v18);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotification___block_invoke_317(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) workQueue];
   dispatch_assert_queue_V2(v4);
 
   v5 = [MEMORY[0x277CBEB58] set];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotification___block_invoke_2;
-  v24[3] = &unk_278687EB0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotification___block_invoke_2;
+  v23[3] = &unk_278687EB0;
   v6 = *(a1 + 40);
-  v24[4] = *(a1 + 32);
-  v7 = [v6 na_filter:v24];
+  v23[4] = *(a1 + 32);
+  v7 = [v6 na_filter:v23];
   if ([v7 count])
   {
     v8 = [*(a1 + 32) monitoredCharacteristicsMapByWidget];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotification___block_invoke_3;
-    v23[3] = &unk_278674E18;
-    v23[4] = *(a1 + 32);
-    v23[5] = v7;
-    v23[6] = v5;
-    [v8 enumerateKeysAndObjectsUsingBlock:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotification___block_invoke_3;
+    v22[3] = &unk_278674E18;
+    v22[4] = *(a1 + 32);
+    v22[5] = v7;
+    v22[6] = v5;
+    [v8 enumerateKeysAndObjectsUsingBlock:v22];
   }
 
   v9 = [*(a1 + 32) monitoredActionSetsMapByWidget];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotification___block_invoke_4;
-  v22[3] = &unk_278674E18;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotification___block_invoke_4;
+  v21[3] = &unk_278674E18;
   v10 = *(a1 + 32);
-  v22[4] = *(a1 + 48);
-  v22[5] = v10;
-  v22[6] = v5;
-  [v9 enumerateKeysAndObjectsUsingBlock:v22];
+  v21[4] = *(a1 + 48);
+  v21[5] = v10;
+  v21[6] = v5;
+  [v9 enumerateKeysAndObjectsUsingBlock:v21];
 
   v11 = [v5 count];
   v12 = objc_autoreleasePoolPush();
@@ -4212,13 +4137,13 @@ void __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotif
       v16 = HMFGetLogIdentifier();
       v17 = [*(a1 + 64) name];
       *buf = 138544130;
-      v26 = v16;
-      v27 = 2114;
-      v28 = v17;
-      v29 = 2112;
-      v30 = v7;
-      v31 = 2112;
-      v32 = v5;
+      v25 = v16;
+      v26 = 2114;
+      v27 = v17;
+      v28 = 2112;
+      v29 = v7;
+      v30 = 2112;
+      v31 = v5;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Handling %{public}@ and refreshing timeline. Updated characteristics: %@, for widgets: %@", buf, 0x2Au);
     }
 
@@ -4234,16 +4159,14 @@ void __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotif
       v19 = HMFGetLogIdentifier();
       v20 = *(a1 + 56);
       *buf = 138543618;
-      v26 = v19;
-      v27 = 2112;
-      v28 = v20;
+      v25 = v19;
+      v26 = 2112;
+      v27 = v20;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@No widgets need to be refreshed from this characteristics changed notification: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotification___block_invoke_2(uint64_t a1, void *a2)
@@ -4284,32 +4207,32 @@ void __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotif
 
 void __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotification___block_invoke_4(id *a1, void *a2, void *a3, _BYTE *a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   if ([a1[4] containsObject:v7])
   {
-    v21 = a4;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v20 = a4;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v23;
+      v12 = *v22;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v22 + 1) + 8 * i);
+          v14 = *(*(&v21 + 1) + 8 * i);
           v15 = [a1[5] cachedIsOnStateByActionSet];
           v16 = [v15 objectForKey:v14];
 
@@ -4321,13 +4244,13 @@ void __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotif
             [v18 setObject:v19 forKey:v14];
 
             [a1[6] addObject:v7];
-            *v21 = 1;
+            *v20 = 1;
 
             goto LABEL_13;
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v11)
         {
           continue;
@@ -4339,8 +4262,6 @@ void __80__HMDWidgetTimelineRefresher_handleAccessoryCharacteristicsChangedNotif
 
 LABEL_13:
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)characteristicsForMonitoredCharacteristics:(void *)characteristics
@@ -4369,29 +4290,29 @@ void __91__HMDWidgetTimelineRefresher_relevantWidgetsForCharacteristics_outRelev
 
 void __91__HMDWidgetTimelineRefresher_relevantWidgetsForCharacteristics_outRelevantCharacteristics___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   [*(a1 + 32) actionSetsByHome:a3];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v6 = v19 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = v18 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
-        v12 = [v6 objectForKey:{v11, v16}];
+        v11 = *(*(&v15 + 1) + 8 * i);
+        v12 = [v6 objectForKey:{v11, v15}];
         if (([*(a1 + 32) evaluateActionSetStateOnPrimaryEnabledForHome:v11] & 1) == 0)
         {
           v13 = [(HMDWidgetTimelineRefresher *)*(a1 + 32) characteristicsFromActionSets:v12];
@@ -4407,7 +4328,7 @@ void __91__HMDWidgetTimelineRefresher_relevantWidgetsForCharacteristics_outRelev
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -4418,8 +4339,6 @@ void __91__HMDWidgetTimelineRefresher_relevantWidgetsForCharacteristics_outRelev
   }
 
 LABEL_13:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modifiedCharacteristicsFromNotification:(id)notification
@@ -4445,7 +4364,7 @@ LABEL_13:
       [v8 addObjectsFromArray:v7];
     }
 
-    v9 = [v8 copy];
+    v9 = objc_msgSend_copy(v8);
   }
 
   else
@@ -4474,19 +4393,17 @@ LABEL_13:
 
 - (void)_setPendingRequestValue:(id)value forUUID:(id)d messageIdentifier:(id)identifier
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v16[0] = value;
+  v15[0] = value;
   v8 = MEMORY[0x277CBEAC0];
   identifierCopy2 = identifier;
   dCopy = d;
   valueCopy = value;
-  v12 = [v8 dictionaryWithObjects:v16 forKeys:&identifierCopy count:1];
+  v12 = [v8 dictionaryWithObjects:v15 forKeys:&identifierCopy count:1];
 
   pendingRequestValueByUUID = [(HMDWidgetTimelineRefresher *)self pendingRequestValueByUUID];
   [pendingRequestValueByUUID setObject:v12 forKey:dCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getPendingWriteValueForUUID:(id)d
@@ -4503,83 +4420,83 @@ LABEL_13:
 
 - (id)_firstErrorFromCharacteristicWriteResponsePayload:(id)payload
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   if (payloadCopy)
   {
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
     v59 = 0u;
-    v39 = payloadCopy;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
+    v38 = payloadCopy;
     obj = payloadCopy;
-    v5 = [obj countByEnumeratingWithState:&v58 objects:v76 count:16];
+    v5 = [obj countByEnumeratingWithState:&v57 objects:v75 count:16];
     if (v5)
     {
-      v6 = *v59;
+      v6 = *v58;
       v7 = *MEMORY[0x277CD2128];
       selfCopy = self;
-      v33 = *v59;
-      v45 = *MEMORY[0x277CD2128];
+      v32 = *v58;
+      v44 = *MEMORY[0x277CD2128];
       do
       {
         v8 = 0;
-        v32 = v5;
+        v31 = v5;
         do
         {
-          if (*v59 != v6)
+          if (*v58 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v41 = *(*(&v58 + 1) + 8 * v8);
-          v9 = [obj hmf_dictionaryForKey:v32];
+          v40 = *(*(&v57 + 1) + 8 * v8);
+          v9 = [obj hmf_dictionaryForKey:v31];
+          v53 = 0u;
           v54 = 0u;
           v55 = 0u;
           v56 = 0u;
-          v57 = 0u;
           v10 = v9;
-          v36 = [v10 countByEnumeratingWithState:&v54 objects:v75 count:16];
-          if (v36)
+          v35 = [v10 countByEnumeratingWithState:&v53 objects:v74 count:16];
+          if (v35)
           {
-            v11 = *v55;
-            v34 = *v55;
-            v35 = v8;
-            v38 = v10;
+            v11 = *v54;
+            v33 = *v54;
+            v34 = v8;
+            v37 = v10;
             do
             {
               v12 = 0;
               do
               {
-                if (*v55 != v11)
+                if (*v54 != v11)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v37 = v12;
-                v42 = *(*(&v54 + 1) + 8 * v12);
+                v36 = v12;
+                v41 = *(*(&v53 + 1) + 8 * v12);
                 v13 = [v10 hmf_dictionaryForKey:?];
+                v49 = 0u;
                 v50 = 0u;
                 v51 = 0u;
                 v52 = 0u;
-                v53 = 0u;
                 v14 = v13;
-                v48 = [v14 countByEnumeratingWithState:&v50 objects:v74 count:16];
-                if (v48)
+                v47 = [v14 countByEnumeratingWithState:&v49 objects:v73 count:16];
+                if (v47)
                 {
-                  v15 = *v51;
-                  v46 = *v51;
-                  v47 = v14;
+                  v15 = *v50;
+                  v45 = *v50;
+                  v46 = v14;
                   while (2)
                   {
-                    for (i = 0; i != v48; ++i)
+                    for (i = 0; i != v47; ++i)
                     {
-                      if (*v51 != v15)
+                      if (*v50 != v15)
                       {
                         objc_enumerationMutation(v14);
                       }
 
-                      v17 = *(*(&v50 + 1) + 8 * i);
+                      v17 = *(*(&v49 + 1) + 8 * i);
                       v18 = [v14 hmf_dictionaryForKey:v17];
                       v19 = [v18 hmf_dataForKey:v7];
                       if (v19)
@@ -4587,9 +4504,9 @@ LABEL_13:
                         v20 = v19;
                         v21 = MEMORY[0x277CCAAC8];
                         v22 = objc_opt_class();
-                        v49 = 0;
-                        v23 = [v21 unarchivedObjectOfClass:v22 fromData:v20 error:&v49];
-                        v24 = v49;
+                        v48 = 0;
+                        v23 = [v21 unarchivedObjectOfClass:v22 fromData:v20 error:&v48];
+                        v24 = v48;
                         if (v24)
                         {
                           v25 = objc_autoreleasePoolPush();
@@ -4599,37 +4516,37 @@ LABEL_13:
                           {
                             v28 = HMFGetLogIdentifier();
                             *buf = 138544642;
-                            v63 = v28;
-                            v64 = 2112;
-                            v65 = v24;
-                            v66 = 2112;
-                            v67 = v41;
-                            v68 = 2112;
-                            v69 = v42;
-                            v70 = 2112;
-                            v71 = v17;
-                            v72 = 2112;
-                            v73 = obj;
+                            v62 = v28;
+                            v63 = 2112;
+                            v64 = v24;
+                            v65 = 2112;
+                            v66 = v40;
+                            v67 = 2112;
+                            v68 = v41;
+                            v69 = 2112;
+                            v70 = v17;
+                            v71 = 2112;
+                            v72 = obj;
                             _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Error deserializing NSError: %@, for accessoryUUID: %@, serviceID: %@, characteristicID: %@, in payload: %@", buf, 0x3Eu);
 
                             self = selfCopy;
                           }
 
                           objc_autoreleasePoolPop(v25);
-                          v7 = v45;
-                          v15 = v46;
-                          v14 = v47;
+                          v7 = v44;
+                          v15 = v45;
+                          v14 = v46;
                         }
 
                         else
                         {
-                          v43 = v23;
+                          v42 = v23;
                         }
 
                         if (!v24)
                         {
 
-                          v29 = v43;
+                          v29 = v42;
                           goto LABEL_35;
                         }
                       }
@@ -4639,8 +4556,8 @@ LABEL_13:
                       }
                     }
 
-                    v48 = [v14 countByEnumeratingWithState:&v50 objects:v74 count:16];
-                    if (v48)
+                    v47 = [v14 countByEnumeratingWithState:&v49 objects:v73 count:16];
+                    if (v47)
                     {
                       continue;
                     }
@@ -4649,26 +4566,26 @@ LABEL_13:
                   }
                 }
 
-                v12 = v37 + 1;
-                v11 = v34;
-                v8 = v35;
-                v10 = v38;
+                v12 = v36 + 1;
+                v11 = v33;
+                v8 = v34;
+                v10 = v37;
               }
 
-              while (v37 + 1 != v36);
-              v36 = [v38 countByEnumeratingWithState:&v54 objects:v75 count:16];
+              while (v36 + 1 != v35);
+              v35 = [v37 countByEnumeratingWithState:&v53 objects:v74 count:16];
             }
 
-            while (v36);
+            while (v35);
           }
 
           ++v8;
-          v6 = v33;
+          v6 = v32;
         }
 
-        while (v8 != v32);
-        v5 = [obj countByEnumeratingWithState:&v58 objects:v76 count:16];
-        v6 = v33;
+        while (v8 != v31);
+        v5 = [obj countByEnumeratingWithState:&v57 objects:v75 count:16];
+        v6 = v32;
         v29 = 0;
       }
 
@@ -4682,7 +4599,7 @@ LABEL_13:
 
 LABEL_35:
 
-    payloadCopy = v39;
+    payloadCopy = v38;
   }
 
   else
@@ -4690,38 +4607,36 @@ LABEL_35:
     v29 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 - (void)_clearExpiredActionSetPrimaryStateUpdates
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDWidgetTimelineRefresher *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   actionSetsPendingPrimaryResidentStateUpdates = [(HMDWidgetTimelineRefresher *)self actionSetsPendingPrimaryResidentStateUpdates];
-  v5 = [actionSetsPendingPrimaryResidentStateUpdates countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [actionSetsPendingPrimaryResidentStateUpdates countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(actionSetsPendingPrimaryResidentStateUpdates);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v13 + 1) + 8 * v8);
         zeroUUID = [MEMORY[0x277CCAD78] zeroUUID];
         [(HMDWidgetTimelineRefresher *)self _removePendingRequestValueForUUID:v9 messageIdentifier:zeroUUID];
 
@@ -4729,7 +4644,7 @@ LABEL_35:
       }
 
       while (v6 != v8);
-      v6 = [actionSetsPendingPrimaryResidentStateUpdates countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [actionSetsPendingPrimaryResidentStateUpdates countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -4740,8 +4655,6 @@ LABEL_35:
 
   actionSetsPendingPrimaryResidentStateUpdates3 = [(HMDWidgetTimelineRefresher *)self actionSetsPendingPrimaryResidentStateUpdates];
   [actionSetsPendingPrimaryResidentStateUpdates3 removeAllObjects];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startActionSetPrimaryStateUpdateCoalesceTimerContextForActionSetUUID:(id)d expectedState:(id)state
@@ -4764,107 +4677,107 @@ LABEL_35:
 
 - (void)writeCharacteristicsWithWriteValueBySPIClientIdentifier:(id)identifier widgetKind:(id)kind message:(id)message completionGroup:(id)group completion:(id)completion
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   kindCopy = kind;
   messageCopy = message;
   group = group;
   completionCopy = completion;
+  v83 = 0u;
   v84 = 0u;
   v85 = 0u;
   v86 = 0u;
-  v87 = 0u;
   homeManager = [(HMDWidgetTimelineRefresher *)self homeManager];
   homes = [homeManager homes];
 
   obj = homes;
-  v62 = [homes countByEnumeratingWithState:&v84 objects:v102 count:16];
-  if (v62)
+  v61 = [homes countByEnumeratingWithState:&v83 objects:v101 count:16];
+  if (v61)
   {
-    v60 = *v85;
+    v59 = *v84;
     *&v15 = 138544130;
-    v55 = v15;
-    v66 = messageCopy;
+    v54 = v15;
+    v65 = messageCopy;
     do
     {
       v16 = 0;
       do
       {
-        if (*v85 != v60)
+        if (*v84 != v59)
         {
           objc_enumerationMutation(obj);
         }
 
-        v63 = v16;
-        v17 = *(*(&v84 + 1) + 8 * v16);
+        v62 = v16;
+        v17 = *(*(&v83 + 1) + 8 * v16);
         v18 = identifierCopy;
         v19 = v17;
-        v64 = v19;
+        v63 = v19;
         if (self)
         {
           array = [MEMORY[0x277CBEB18] array];
+          v95 = 0u;
           v96 = 0u;
           v97 = 0u;
           v98 = 0u;
-          v99 = 0u;
           hapAccessories = [v19 hapAccessories];
-          v68 = [hapAccessories countByEnumeratingWithState:&v96 objects:buf count:16];
-          if (v68)
+          v67 = [hapAccessories countByEnumeratingWithState:&v95 objects:buf count:16];
+          if (v67)
           {
-            v67 = *v97;
+            v66 = *v96;
             do
             {
               v21 = 0;
               do
               {
-                if (*v97 != v67)
+                if (*v96 != v66)
                 {
                   objc_enumerationMutation(hapAccessories);
                 }
 
-                v69 = v21;
-                v22 = *(*(&v96 + 1) + 8 * v21);
+                v68 = v21;
+                v22 = *(*(&v95 + 1) + 8 * v21);
+                v91 = 0u;
                 v92 = 0u;
                 v93 = 0u;
                 v94 = 0u;
-                v95 = 0u;
                 services = [v22 services];
-                v72 = [services countByEnumeratingWithState:&v92 objects:v104 count:16];
-                if (v72)
+                v71 = [services countByEnumeratingWithState:&v91 objects:v103 count:16];
+                if (v71)
                 {
-                  v71 = *v93;
+                  v70 = *v92;
                   do
                   {
                     v23 = 0;
                     do
                     {
-                      if (*v93 != v71)
+                      if (*v92 != v70)
                       {
                         objc_enumerationMutation(services);
                       }
 
-                      v73 = v23;
-                      v24 = *(*(&v92 + 1) + 8 * v23);
+                      v72 = v23;
+                      v24 = *(*(&v91 + 1) + 8 * v23);
+                      v87 = 0u;
                       v88 = 0u;
                       v89 = 0u;
                       v90 = 0u;
-                      v91 = 0u;
                       characteristics = [v24 characteristics];
-                      v26 = [characteristics countByEnumeratingWithState:&v88 objects:v103 count:16];
+                      v26 = [characteristics countByEnumeratingWithState:&v87 objects:v102 count:16];
                       if (v26)
                       {
                         v27 = v26;
-                        v28 = *v89;
+                        v28 = *v88;
                         do
                         {
                           for (i = 0; i != v27; ++i)
                           {
-                            if (*v89 != v28)
+                            if (*v88 != v28)
                             {
                               objc_enumerationMutation(characteristics);
                             }
 
-                            v30 = *(*(&v88 + 1) + 8 * i);
+                            v30 = *(*(&v87 + 1) + 8 * i);
                             spiClientIdentifier = [v30 spiClientIdentifier];
                             v32 = [v18 objectForKeyedSubscript:spiClientIdentifier];
 
@@ -4875,34 +4788,34 @@ LABEL_35:
                             }
                           }
 
-                          v27 = [characteristics countByEnumeratingWithState:&v88 objects:v103 count:16];
+                          v27 = [characteristics countByEnumeratingWithState:&v87 objects:v102 count:16];
                         }
 
                         while (v27);
                       }
 
-                      v23 = v73 + 1;
+                      v23 = v72 + 1;
                     }
 
-                    while (v73 + 1 != v72);
-                    v72 = [services countByEnumeratingWithState:&v92 objects:v104 count:16];
+                    while (v72 + 1 != v71);
+                    v71 = [services countByEnumeratingWithState:&v91 objects:v103 count:16];
                   }
 
-                  while (v72);
+                  while (v71);
                 }
 
-                v21 = v69 + 1;
+                v21 = v68 + 1;
               }
 
-              while (v69 + 1 != v68);
-              v68 = [hapAccessories countByEnumeratingWithState:&v96 objects:buf count:16];
+              while (v68 + 1 != v67);
+              v67 = [hapAccessories countByEnumeratingWithState:&v95 objects:buf count:16];
             }
 
-            while (v68);
+            while (v67);
           }
 
-          messageCopy = v66;
-          v19 = v64;
+          messageCopy = v65;
+          v19 = v63;
         }
 
         else
@@ -4933,48 +4846,48 @@ LABEL_35:
               *buf = *MEMORY[0x277D0F960];
             }
 
-            v101 = *buf;
-            *buf = v55;
+            v100 = *buf;
+            *buf = v54;
             *&buf[4] = v37;
             *&buf[12] = 1040;
             *&buf[14] = 16;
-            v106 = 2096;
-            v107 = &v101;
-            v108 = 2112;
-            v109 = array;
+            v105 = 2096;
+            v106 = &v100;
+            v107 = 2112;
+            v108 = array;
             _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Writing characteristics: %@", buf, 0x26u);
           }
 
           v40 = selfCopy;
           objc_autoreleasePoolPop(v34);
-          v82 = 0u;
-          v83 = 0u;
-          v80 = 0u;
           v81 = 0u;
-          v74 = array;
-          v41 = [v74 countByEnumeratingWithState:&v80 objects:v100 count:16];
+          v82 = 0u;
+          v79 = 0u;
+          v80 = 0u;
+          v73 = array;
+          v41 = [v73 countByEnumeratingWithState:&v79 objects:v99 count:16];
           if (v41)
           {
             v42 = v41;
-            v43 = *v81;
+            v43 = *v80;
             do
             {
               for (j = 0; j != v42; ++j)
               {
-                if (*v81 != v43)
+                if (*v80 != v43)
                 {
-                  objc_enumerationMutation(v74);
+                  objc_enumerationMutation(v73);
                 }
 
-                v45 = *(*(&v80 + 1) + 8 * j);
+                v45 = *(*(&v79 + 1) + 8 * j);
                 value = [v45 value];
                 characteristic = [v45 characteristic];
                 spiClientIdentifier2 = [characteristic spiClientIdentifier];
-                identifier3 = [v66 identifier];
+                identifier3 = [v65 identifier];
                 [(HMDWidgetTimelineRefresher *)v40 _setPendingRequestValue:value forUUID:spiClientIdentifier2 messageIdentifier:identifier3];
               }
 
-              v42 = [v74 countByEnumeratingWithState:&v80 objects:v100 count:16];
+              v42 = [v73 countByEnumeratingWithState:&v79 objects:v99 count:16];
             }
 
             while (v42);
@@ -4986,29 +4899,27 @@ LABEL_35:
           aBlock[2] = __132__HMDWidgetTimelineRefresher_writeCharacteristicsWithWriteValueBySPIClientIdentifier_widgetKind_message_completionGroup_completion___block_invoke;
           aBlock[3] = &unk_278688A90;
           aBlock[4] = v40;
-          v50 = v74;
-          v76 = v50;
-          messageCopy = v66;
-          v51 = v66;
-          v77 = v51;
-          v78 = kindCopy;
-          v79 = completionCopy;
+          v50 = v73;
+          v75 = v50;
+          messageCopy = v65;
+          v51 = v65;
+          v76 = v51;
+          v77 = kindCopy;
+          v78 = completionCopy;
           v52 = _Block_copy(aBlock);
-          [v64 writeCharacteristicValues:v50 message:v51 withCompletionHandler:v52];
+          [v63 writeCharacteristicValues:v50 message:v51 withCompletionHandler:v52];
         }
 
-        v16 = v63 + 1;
+        v16 = v62 + 1;
       }
 
-      while (v63 + 1 != v62);
-      v53 = [obj countByEnumeratingWithState:&v84 objects:v102 count:16];
-      v62 = v53;
+      while (v62 + 1 != v61);
+      v53 = [obj countByEnumeratingWithState:&v83 objects:v101 count:16];
+      v61 = v53;
     }
 
     while (v53);
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 void __132__HMDWidgetTimelineRefresher_writeCharacteristicsWithWriteValueBySPIClientIdentifier_widgetKind_message_completionGroup_completion___block_invoke(id *a1, void *a2)
@@ -5033,29 +4944,29 @@ void __132__HMDWidgetTimelineRefresher_writeCharacteristicsWithWriteValueBySPICl
 
 uint64_t __132__HMDWidgetTimelineRefresher_writeCharacteristicsWithWriteValueBySPIClientIdentifier_widgetKind_message_completionGroup_completion___block_invoke_2(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
+  v28 = 0u;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v30 objects:v43 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v28 objects:v41 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v31;
+    v5 = *v29;
     do
     {
       v6 = 0;
       do
       {
-        if (*v31 != v5)
+        if (*v29 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [*(*(&v30 + 1) + 8 * v6) characteristic];
+        v8 = [*(*(&v28 + 1) + 8 * v6) characteristic];
         v9 = [v8 spiClientIdentifier];
         v10 = [*(a1 + 48) identifier];
         [v7 _removePendingRequestValueForUUID:v9 messageIdentifier:v10];
@@ -5064,7 +4975,7 @@ uint64_t __132__HMDWidgetTimelineRefresher_writeCharacteristicsWithWriteValueByS
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v30 objects:v43 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v28 objects:v41 count:16];
     }
 
     while (v4);
@@ -5095,19 +5006,19 @@ uint64_t __132__HMDWidgetTimelineRefresher_writeCharacteristicsWithWriteValueByS
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v35 = *buf;
+      v33 = *buf;
       v22 = *(a1 + 32);
       v23 = *(a1 + 56);
       *buf = 138544386;
       *&buf[4] = v16;
       *&buf[12] = 1040;
       *&buf[14] = 16;
-      v37 = 2096;
-      v38 = &v35;
+      v35 = 2096;
+      v36 = &v33;
+      v37 = 2112;
+      v38 = v22;
       v39 = 2112;
-      v40 = v22;
-      v41 = 2112;
-      v42 = v23;
+      v40 = v23;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Failed to write characteristics: %@, with error: %@", buf, 0x30u);
     }
 
@@ -5137,31 +5048,28 @@ uint64_t __132__HMDWidgetTimelineRefresher_writeCharacteristicsWithWriteValueByS
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v34 = *buf;
+      v32 = *buf;
       v26 = *(a1 + 32);
       *buf = 138544130;
       *&buf[4] = v19;
       *&buf[12] = 1040;
       *&buf[14] = 16;
-      v37 = 2096;
-      v38 = &v34;
-      v39 = 2112;
-      v40 = v26;
+      v35 = 2096;
+      v36 = &v32;
+      v37 = 2112;
+      v38 = v26;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Successfully wrote characteristics: %@", buf, 0x26u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
 
-  v27 = *(a1 + 56);
-  result = (*(*(a1 + 72) + 16))();
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 72) + 16))();
 }
 
 - (BOOL)_getRequestsFromMessage:(id)message outCharacteristicWriteValueByUUUIDs:(id *)ds outExecuteActionSetUUUIDs:(id *)iDs outExecuteTurnOffActionSetUUIDs:(id *)uIDs
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if (!ds)
   {
@@ -5190,54 +5098,54 @@ LABEL_61:
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
   obj = [v11 arrayForKey:*MEMORY[0x277CD1550]];
-  v14 = [obj countByEnumeratingWithState:&v79 objects:v95 count:16];
+  v14 = [obj countByEnumeratingWithState:&v78 objects:v94 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v80;
+    v16 = *v79;
     v17 = *MEMORY[0x277CD1548];
     v18 = *MEMORY[0x277CD14F0];
     v19 = *MEMORY[0x277CD1510];
     v20 = *MEMORY[0x277CD1518];
-    v72 = v11;
-    v74 = array;
-    v75 = dictionary;
+    v71 = v11;
+    v73 = array;
+    v74 = dictionary;
 LABEL_6:
     v21 = 0;
     while (1)
     {
-      if (*v80 != v16)
+      if (*v79 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v79 + 1) + 8 * v21);
-      v78 = 0;
-      v23 = [v22 hmf_integerForKey:v17 error:&v78];
-      v24 = v78;
+      v22 = *(*(&v78 + 1) + 8 * v21);
+      v77 = 0;
+      v23 = [v22 hmf_integerForKey:v17 error:&v77];
+      v24 = v77;
       if (v24)
       {
         v37 = v24;
         v38 = objc_autoreleasePoolPush();
         v39 = selfCopy;
         v40 = HMFGetOSLogHandle();
-        v11 = v72;
-        dictionary = v75;
+        v11 = v71;
+        dictionary = v74;
         if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           v41 = HMFGetLogIdentifier();
           *buf = 0;
           *&buf[8] = 0;
-          identifier = [v72 identifier];
+          identifier = [v71 identifier];
 
           if (identifier)
           {
-            identifier2 = [v72 identifier];
+            identifier2 = [v71 identifier];
             [identifier2 getUUIDBytes:buf];
           }
 
@@ -5246,22 +5154,22 @@ LABEL_6:
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v94 = *buf;
-          messagePayload = [v72 messagePayload];
+          v93 = *buf;
+          messagePayload = [v71 messagePayload];
           *buf = 138544130;
           *&buf[4] = v41;
           *&buf[12] = 1040;
           *&buf[14] = 16;
-          v85 = 2096;
-          v86 = &v94;
-          v87 = 2112;
-          v88 = messagePayload;
+          v84 = 2096;
+          v85 = &v93;
+          v86 = 2112;
+          v87 = messagePayload;
           _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] request type is not set in payload: %@", buf, 0x26u);
         }
 
         objc_autoreleasePoolPop(v38);
         v25 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
-        [v72 respondWithError:v25];
+        [v71 respondWithError:v25];
 LABEL_56:
         v34 = array2;
         goto LABEL_57;
@@ -5280,19 +5188,19 @@ LABEL_56:
           v44 = objc_autoreleasePoolPush();
           v45 = selfCopy;
           v46 = HMFGetOSLogHandle();
-          v11 = v72;
-          dictionary = v75;
+          v11 = v71;
+          dictionary = v74;
           v34 = array2;
           if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             v47 = HMFGetLogIdentifier();
             *buf = 0;
             *&buf[8] = 0;
-            identifier3 = [v72 identifier];
+            identifier3 = [v71 identifier];
 
             if (identifier3)
             {
-              identifier4 = [v72 identifier];
+              identifier4 = [v71 identifier];
               [identifier4 getUUIDBytes:buf];
             }
 
@@ -5301,16 +5209,16 @@ LABEL_56:
               *buf = *MEMORY[0x277D0F960];
             }
 
-            v92 = *buf;
-            messagePayload2 = [v72 messagePayload];
+            v91 = *buf;
+            messagePayload2 = [v71 messagePayload];
             *buf = 138544130;
             *&buf[4] = v47;
             *&buf[12] = 1040;
             *&buf[14] = 16;
-            v85 = 2096;
-            v86 = &v92;
-            v87 = 2112;
-            v88 = messagePayload2;
+            v84 = 2096;
+            v85 = &v91;
+            v86 = 2112;
+            v87 = messagePayload2;
             v62 = "%{public}@[%{uuid_t}.16P] execute request missing UUID: %@";
             goto LABEL_50;
           }
@@ -5319,7 +5227,7 @@ LABEL_56:
         }
 
         v25 = v29;
-        v30 = v74;
+        v30 = v73;
 LABEL_22:
         [v30 addObject:v25];
         goto LABEL_23;
@@ -5330,19 +5238,19 @@ LABEL_22:
         v44 = objc_autoreleasePoolPush();
         v45 = selfCopy;
         v46 = HMFGetOSLogHandle();
-        v11 = v72;
-        dictionary = v75;
+        v11 = v71;
+        dictionary = v74;
         v34 = array2;
         if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           v47 = HMFGetLogIdentifier();
           *buf = 0;
           *&buf[8] = 0;
-          identifier5 = [v72 identifier];
+          identifier5 = [v71 identifier];
 
           if (identifier5)
           {
-            identifier6 = [v72 identifier];
+            identifier6 = [v71 identifier];
             [identifier6 getUUIDBytes:buf];
           }
 
@@ -5351,18 +5259,18 @@ LABEL_22:
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v83 = *buf;
-          messagePayload2 = [v72 messagePayload];
+          v82 = *buf;
+          messagePayload2 = [v71 messagePayload];
           *buf = 138544386;
           *&buf[4] = v47;
           *&buf[12] = 1040;
           *&buf[14] = 16;
-          v85 = 2096;
-          v86 = &v83;
-          v87 = 2048;
-          v88 = v23;
-          v89 = 2112;
-          v90 = messagePayload2;
+          v84 = 2096;
+          v85 = &v82;
+          v86 = 2048;
+          v87 = v23;
+          v88 = 2112;
+          v89 = messagePayload2;
           v62 = "%{public}@[%{uuid_t}.16P] unknown request type (%ld) in payload: %@";
           v63 = v46;
           v64 = 48;
@@ -5390,18 +5298,18 @@ LABEL_22:
         v54 = objc_autoreleasePoolPush();
         v55 = selfCopy;
         v56 = HMFGetOSLogHandle();
-        v11 = v72;
-        dictionary = v75;
+        v11 = v71;
+        dictionary = v74;
         if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           v57 = HMFGetLogIdentifier();
           *buf = 0;
           *&buf[8] = 0;
-          identifier7 = [v72 identifier];
+          identifier7 = [v71 identifier];
 
           if (identifier7)
           {
-            identifier8 = [v72 identifier];
+            identifier8 = [v71 identifier];
             [identifier8 getUUIDBytes:buf];
           }
 
@@ -5410,36 +5318,36 @@ LABEL_22:
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v93 = *buf;
-          messagePayload3 = [v72 messagePayload];
+          v92 = *buf;
+          messagePayload3 = [v71 messagePayload];
           *buf = 138544130;
           *&buf[4] = v57;
           *&buf[12] = 1040;
           *&buf[14] = 16;
-          v85 = 2096;
-          v86 = &v93;
-          v87 = 2112;
-          v88 = messagePayload3;
+          v84 = 2096;
+          v85 = &v92;
+          v86 = 2112;
+          v87 = messagePayload3;
           _os_log_impl(&dword_229538000, v56, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] characteristic write request missing UUID or write value: %@", buf, 0x26u);
         }
 
         objc_autoreleasePoolPop(v54);
         v66 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
-        [v72 respondWithError:v66];
+        [v71 respondWithError:v66];
 
         v37 = 0;
         goto LABEL_56;
       }
 
-      [v75 setObject:v26 forKeyedSubscript:v25];
+      [v74 setObject:v26 forKeyedSubscript:v25];
 
 LABEL_23:
       if (v15 == ++v21)
       {
-        v15 = [obj countByEnumeratingWithState:&v79 objects:v95 count:16];
-        v11 = v72;
-        array = v74;
-        dictionary = v75;
+        v15 = [obj countByEnumeratingWithState:&v78 objects:v94 count:16];
+        v11 = v71;
+        array = v73;
+        dictionary = v74;
         if (v15)
         {
           goto LABEL_6;
@@ -5455,19 +5363,19 @@ LABEL_23:
       v44 = objc_autoreleasePoolPush();
       v45 = selfCopy;
       v46 = HMFGetOSLogHandle();
-      v11 = v72;
-      dictionary = v75;
+      v11 = v71;
+      dictionary = v74;
       v34 = array2;
       if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         v47 = HMFGetLogIdentifier();
         *buf = 0;
         *&buf[8] = 0;
-        identifier9 = [v72 identifier];
+        identifier9 = [v71 identifier];
 
         if (identifier9)
         {
-          identifier10 = [v72 identifier];
+          identifier10 = [v71 identifier];
           [identifier10 getUUIDBytes:buf];
         }
 
@@ -5476,16 +5384,16 @@ LABEL_23:
           *buf = *MEMORY[0x277D0F960];
         }
 
-        v91 = *buf;
-        messagePayload2 = [v72 messagePayload];
+        v90 = *buf;
+        messagePayload2 = [v71 messagePayload];
         *buf = 138544130;
         *&buf[4] = v47;
         *&buf[12] = 1040;
         *&buf[14] = 16;
-        v85 = 2096;
-        v86 = &v91;
-        v87 = 2112;
-        v88 = messagePayload2;
+        v84 = 2096;
+        v85 = &v90;
+        v86 = 2112;
+        v87 = messagePayload2;
         v62 = "%{public}@[%{uuid_t}.16P] execute off request missing UUID: %@";
 LABEL_50:
         v63 = v46;
@@ -5503,7 +5411,7 @@ LABEL_52:
 LABEL_57:
 
       v36 = 0;
-      array = v74;
+      array = v73;
       goto LABEL_58;
     }
 
@@ -5524,37 +5432,36 @@ LABEL_25:
   v36 = 1;
 LABEL_58:
 
-  v67 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
 - (id)reachabilityByAccessorySPIClientIdentifierForCharacteristics:(id)characteristics
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   v4 = [characteristicsCopy na_map:&__block_literal_global_288_60538];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = v4;
-  v28 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
+  if (v27)
   {
-    v6 = *v30;
-    v25 = *v30;
+    v6 = *v29;
+    v24 = *v29;
     selfCopy = self;
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v27; ++i)
       {
-        if (*v30 != v6)
+        if (*v29 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v29 + 1) + 8 * i);
+        v8 = *(*(&v28 + 1) + 8 * i);
         reachabilityMonitor = [(HMDWidgetTimelineRefresher *)self reachabilityMonitor];
         v10 = [reachabilityMonitor isAccessoryReachable:v8];
 
@@ -5580,23 +5487,23 @@ LABEL_58:
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v33 = *buf;
+          v32 = *buf;
           name = [v8 name];
           v19 = HMFBooleanToString();
           *buf = 138544386;
           *&buf[4] = v15;
           *&buf[12] = 1040;
           *&buf[14] = 16;
-          v35 = 2096;
-          v36 = &v33;
-          v37 = 2112;
-          v38 = name;
-          v39 = 2112;
-          v40 = v19;
+          v34 = 2096;
+          v35 = &v32;
+          v36 = 2112;
+          v37 = name;
+          v38 = 2112;
+          v39 = v19;
           _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Accessory spiClientIdentifier %{uuid_t}.16P, Name: %@, isRemotelyReachable: %@", buf, 0x30u);
 
           dictionary = v14;
-          v6 = v25;
+          v6 = v24;
           self = selfCopy;
         }
 
@@ -5606,46 +5513,44 @@ LABEL_58:
         [dictionary setObject:v20 forKeyedSubscript:spiClientIdentifier3];
       }
 
-      v28 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v27 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (id)valueByCharacteristicSPIClientIdentifierForCharacteristics:(id)characteristics
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = characteristicsCopy;
-  v34 = [obj countByEnumeratingWithState:&v35 objects:v53 count:16];
-  if (v34)
+  v33 = [obj countByEnumeratingWithState:&v34 objects:v52 count:16];
+  if (v33)
   {
-    v7 = *v36;
+    v7 = *v35;
     *&v6 = 138545154;
-    v25 = v6;
+    v24 = v6;
     selfCopy = self;
-    v28 = dictionary;
-    v26 = *v36;
+    v27 = dictionary;
+    v25 = *v35;
     do
     {
-      for (i = 0; i != v34; ++i)
+      for (i = 0; i != v33; ++i)
       {
-        if (*v36 != v7)
+        if (*v35 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v35 + 1) + 8 * i);
+        v9 = *(*(&v34 + 1) + 8 * i);
         spiClientIdentifier = [v9 spiClientIdentifier];
         v11 = [(HMDWidgetTimelineRefresher *)self _getPendingWriteValueForUUID:spiClientIdentifier];
 
@@ -5654,8 +5559,8 @@ LABEL_58:
         v14 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
-          v33 = v12;
-          v32 = HMFGetLogIdentifier();
+          v32 = v12;
+          v31 = HMFGetLogIdentifier();
           *buf = 0;
           *&buf[8] = 0;
           spiClientIdentifier2 = [v9 spiClientIdentifier];
@@ -5671,34 +5576,34 @@ LABEL_58:
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v39 = *buf;
+          v38 = *buf;
           instanceID = [v9 instanceID];
           type = [v9 type];
           v18 = HAPShortUUIDType();
           characteristicTypeDescription = [v9 characteristicTypeDescription];
           value = [v9 value];
-          *buf = v25;
-          *&buf[4] = v32;
+          *buf = v24;
+          *&buf[4] = v31;
           *&buf[12] = 1040;
           *&buf[14] = 16;
-          v41 = 2096;
-          v42 = &v39;
-          v43 = 2112;
-          v44 = instanceID;
-          v45 = 2112;
-          v46 = v18;
-          v47 = 2112;
-          v48 = characteristicTypeDescription;
-          v49 = 2112;
-          v50 = value;
-          v51 = 2112;
-          v52 = v11;
+          v40 = 2096;
+          v41 = &v38;
+          v42 = 2112;
+          v43 = instanceID;
+          v44 = 2112;
+          v45 = v18;
+          v46 = 2112;
+          v47 = characteristicTypeDescription;
+          v48 = 2112;
+          v49 = value;
+          v50 = 2112;
+          v51 = v11;
           _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Characteristic spiClientIdentifier: %{uuid_t}.16P, IID: %@, Type/Desc: %@/%@, value: %@, pendingWriteValue: %@", buf, 0x4Eu);
 
           self = selfCopy;
-          dictionary = v28;
-          v7 = v26;
-          v12 = v33;
+          dictionary = v27;
+          v7 = v25;
+          v12 = v32;
         }
 
         objc_autoreleasePoolPop(v12);
@@ -5706,7 +5611,7 @@ LABEL_58:
         if (!v11)
         {
           value2 = [v9 value];
-          v30 = value2;
+          v29 = value2;
         }
 
         spiClientIdentifier4 = [v9 spiClientIdentifier];
@@ -5717,13 +5622,11 @@ LABEL_58:
         }
       }
 
-      v34 = [obj countByEnumeratingWithState:&v35 objects:v53 count:16];
+      v33 = [obj countByEnumeratingWithState:&v34 objects:v52 count:16];
     }
 
-    while (v34);
+    while (v33);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -5801,7 +5704,7 @@ uint64_t __72__HMDWidgetTimelineRefresher_monitorDeviceNodeID_controller_attribu
 
 - (void)updateMonitoredMTRAttributes:(id)attributes forWidget:(id)widget
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   widgetCopy = widget;
   monitoredMTRAttributesByWidget = [(HMDWidgetTimelineRefresher *)self monitoredMTRAttributesByWidget];
@@ -5829,11 +5732,11 @@ uint64_t __72__HMDWidgetTimelineRefresher_monitorDeviceNodeID_controller_attribu
     if (v17)
     {
       v18 = HMFGetLogIdentifier();
-      v24 = 138543618;
-      v25 = v18;
-      v26 = 2112;
-      v27 = widgetCopy;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Monitored attributes did not change for widget %@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v18;
+      v25 = 2112;
+      v26 = widgetCopy;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Monitored attributes did not change for widget %@", &v23, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -5844,13 +5747,13 @@ uint64_t __72__HMDWidgetTimelineRefresher_monitorDeviceNodeID_controller_attribu
     if (v17)
     {
       v19 = HMFGetLogIdentifier();
-      v24 = 138543874;
-      v25 = v19;
-      v26 = 2112;
-      v27 = widgetCopy;
-      v28 = 2112;
-      v29 = attributesCopy;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Monitored attributes changed for widget %@ to %@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v19;
+      v25 = 2112;
+      v26 = widgetCopy;
+      v27 = 2112;
+      v28 = attributesCopy;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Monitored attributes changed for widget %@ to %@", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -5861,13 +5764,11 @@ uint64_t __72__HMDWidgetTimelineRefresher_monitorDeviceNodeID_controller_attribu
     attributesMonitoredForWidgets2 = [(HMDWidgetTimelineRefresher *)selfCopy attributesMonitoredForWidgets];
     [(HMDWidgetTimelineRefresher *)selfCopy updateNotificationRegistrationWithPreviousAttributes:attributesMonitoredForWidgets currentAttributes:attributesMonitoredForWidgets2];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMonitorMTRAttributes:(id)attributes
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   v5 = objc_autoreleasePoolPush();
   v6 = [attributesCopy stringForKey:*MEMORY[0x277CD1558]];
@@ -5894,14 +5795,14 @@ uint64_t __72__HMDWidgetTimelineRefresher_monitorDeviceNodeID_controller_attribu
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v50 = *buf;
+      v49 = *buf;
       messagePayload = [attributesCopy messagePayload];
       *buf = 138544130;
       *&buf[4] = v21;
       *&buf[12] = 1040;
       *&buf[14] = 16;
       *&buf[18] = 2096;
-      *&buf[20] = &v50;
+      *&buf[20] = &v49;
       *&buf[28] = 2112;
       *&buf[30] = messagePayload;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Could not find widget identifier in mtr attribute message payload: %@", buf, 0x26u);
@@ -5938,14 +5839,14 @@ uint64_t __72__HMDWidgetTimelineRefresher_monitorDeviceNodeID_controller_attribu
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v49 = *buf;
+      v48 = *buf;
       messagePayload2 = [attributesCopy messagePayload];
       *buf = 138544130;
       *&buf[4] = v27;
       *&buf[12] = 1040;
       *&buf[14] = 16;
       *&buf[18] = 2096;
-      *&buf[20] = &v49;
+      *&buf[20] = &v48;
       *&buf[28] = 2112;
       *&buf[30] = messagePayload2;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Could not find widget kind in mtr attribute message payload: %@", buf, 0x26u);
@@ -5982,14 +5883,14 @@ uint64_t __72__HMDWidgetTimelineRefresher_monitorDeviceNodeID_controller_attribu
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v48 = *buf;
+      v47 = *buf;
       messagePayload3 = [attributesCopy messagePayload];
       *buf = 138544130;
       *&buf[4] = v33;
       *&buf[12] = 1040;
       *&buf[14] = 16;
       *&buf[18] = 2096;
-      *&buf[20] = &v48;
+      *&buf[20] = &v47;
       *&buf[28] = 2112;
       *&buf[30] = messagePayload3;
       _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Could not find attributes data in mtr attribute message payload: %@", buf, 0x26u);
@@ -6007,9 +5908,9 @@ LABEL_36:
   }
 
   v11 = v10;
-  v47 = 0;
-  v12 = [MEMORY[0x277CCAAC8] unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:v10 error:&v47];
-  v13 = v47;
+  v46 = 0;
+  v12 = [MEMORY[0x277CCAAC8] unarchivedArrayOfObjectsOfClass:objc_opt_class() fromData:v10 error:&v46];
+  v13 = v46;
   if (v13)
   {
     v14 = 1;
@@ -6021,7 +5922,7 @@ LABEL_36:
   }
 
   v15 = !v14;
-  v46 = v15;
+  v45 = v15;
   if (v14)
   {
     v36 = objc_autoreleasePoolPush();
@@ -6030,7 +5931,7 @@ LABEL_36:
     if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v39 = v45 = v36;
+      v39 = v44 = v36;
       *buf = 138543874;
       *&buf[4] = v39;
       *&buf[12] = 2112;
@@ -6039,7 +5940,7 @@ LABEL_36:
       *&buf[24] = v13;
       _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode attributes for widget: %@ with error: %@", buf, 0x20u);
 
-      v36 = v45;
+      v36 = v44;
     }
 
     objc_autoreleasePoolPop(v36);
@@ -6055,19 +5956,17 @@ LABEL_36:
   }
 
   objc_autoreleasePoolPop(v5);
-  if (v46)
+  if (v45)
   {
     [attributesCopy respondWithSuccess];
   }
 
 LABEL_37:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchStateForActionSets:(id)sets
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   setsCopy = sets;
   v5 = [setsCopy arrayForKey:*MEMORY[0x277CD14F8]];
   if (v5)
@@ -6094,27 +5993,27 @@ LABEL_37:
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v39 = *buf;
+      v38 = *buf;
       *buf = 138544130;
       *&buf[4] = v10;
       *&buf[12] = 1040;
       *&buf[14] = 16;
       *&buf[18] = 2096;
-      *&buf[20] = &v39;
-      v33 = 2112;
-      v34 = v6;
+      *&buf[20] = &v38;
+      v32 = 2112;
+      v33 = v6;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Received message to fetch action sets for: %@", buf, 0x26u);
     }
 
     objc_autoreleasePoolPop(v7);
     [(HMDWidgetTimelineRefresher *)selfCopy updateCachedIsOnStateForActionSets:v6];
-    v37[0] = *MEMORY[0x277CD1508];
+    v36[0] = *MEMORY[0x277CD1508];
     v19 = [(HMDWidgetTimelineRefresher *)selfCopy cachedIsOnStateBySPIClientIdentifierForActionSets:v6];
-    v38[0] = v19;
-    v37[1] = *MEMORY[0x277CD1500];
+    v37[0] = v19;
+    v36[1] = *MEMORY[0x277CD1500];
     v20 = [(HMDWidgetTimelineRefresher *)selfCopy didExecuteFailBySPIClientIdentifierForActionSets:v6];
-    v38[1] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
+    v37[1] = v20;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
 
     v22 = objc_autoreleasePoolPush();
     v23 = selfCopy;
@@ -6138,17 +6037,17 @@ LABEL_37:
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v31 = *buf;
+      v30 = *buf;
       *buf = 138544386;
       *&buf[4] = v25;
       *&buf[12] = 2112;
       *&buf[14] = name;
       *&buf[22] = 1040;
       *&buf[24] = 16;
-      v33 = 2096;
-      v34 = &v31;
-      v35 = 2112;
-      v36 = v21;
+      v32 = 2096;
+      v33 = &v30;
+      v34 = 2112;
+      v35 = v21;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@[%@] Responding to %{uuid_t}.16P with payload: %@", buf, 0x30u);
     }
 
@@ -6179,16 +6078,16 @@ LABEL_37:
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v40 = *buf;
+      v39 = *buf;
       messagePayload = [setsCopy messagePayload];
       *buf = 138544130;
       *&buf[4] = v16;
       *&buf[12] = 1040;
       *&buf[14] = 16;
       *&buf[18] = 2096;
-      *&buf[20] = &v40;
-      v33 = 2112;
-      v34 = messagePayload;
+      *&buf[20] = &v39;
+      v32 = 2112;
+      v33 = messagePayload;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Could not find action set UUIDs in message payload: %@", buf, 0x26u);
     }
 
@@ -6196,8 +6095,6 @@ LABEL_37:
     v6 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [setsCopy respondWithError:v6];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)actionSetsFromSPIClientIdentifiers:(void *)identifiers
@@ -6222,31 +6119,31 @@ LABEL_37:
 
 - (void)updateCachedIsOnStateForActionSets:(void *)sets
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (sets)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
-    v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         v8 = 0;
         do
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * v8);
+          v9 = *(*(&v12 + 1) + 8 * v8);
           cachedIsOnStateByActionSet = [sets cachedIsOnStateByActionSet];
           v11 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(sets, "actionSetIsOn:", v9)}];
           [cachedIsOnStateByActionSet setObject:v11 forKey:v9];
@@ -6255,45 +6152,43 @@ LABEL_37:
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cachedIsOnStateBySPIClientIdentifierForActionSets:(void *)sets
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v24 = v3;
+  v23 = v3;
   if (sets)
   {
     v4 = v3;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     obj = v4;
-    v28 = [obj countByEnumeratingWithState:&v29 objects:v46 count:16];
-    if (v28)
+    v27 = [obj countByEnumeratingWithState:&v28 objects:v45 count:16];
+    if (v27)
     {
-      v27 = *v30;
-      v25 = dictionary;
+      v26 = *v29;
+      v24 = dictionary;
       do
       {
-        for (i = 0; i != v28; ++i)
+        for (i = 0; i != v27; ++i)
         {
-          if (*v30 != v27)
+          if (*v29 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v29 + 1) + 8 * i);
+          v7 = *(*(&v28 + 1) + 8 * i);
           uuid = [v7 uuid];
           v9 = [sets _getPendingWriteValueForUUID:uuid];
 
@@ -6321,7 +6216,7 @@ LABEL_37:
               *buf = *MEMORY[0x277D0F960];
             }
 
-            v34 = *buf;
+            v33 = *buf;
             *buf = 0;
             *&buf[8] = 0;
             uuid2 = [v7 uuid];
@@ -6337,24 +6232,24 @@ LABEL_37:
               *buf = *MEMORY[0x277D0F960];
             }
 
-            v33 = *buf;
+            v32 = *buf;
             *buf = 138544898;
             *&buf[4] = v15;
             *&buf[12] = 1040;
             *&buf[14] = 16;
-            v36 = 2096;
-            v37 = &v34;
-            v38 = 1040;
-            v39 = 16;
-            v40 = 2096;
-            v41 = &v33;
-            v42 = 2112;
-            v43 = v9;
-            v44 = 2112;
-            v45 = v11;
+            v35 = 2096;
+            v36 = &v33;
+            v37 = 1040;
+            v38 = 16;
+            v39 = 2096;
+            v40 = &v32;
+            v41 = 2112;
+            v42 = v9;
+            v43 = 2112;
+            v44 = v11;
             _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Action Set spiClientIdentifier: %{uuid_t}.16P, UUID: %{uuid_t}.16P, pendingState: %@, cachedState: %@", buf, 0x40u);
 
-            dictionary = v25;
+            dictionary = v24;
           }
 
           objc_autoreleasePoolPop(v12);
@@ -6372,10 +6267,10 @@ LABEL_37:
           [dictionary setObject:v20 forKeyedSubscript:spiClientIdentifier3];
         }
 
-        v28 = [obj countByEnumeratingWithState:&v29 objects:v46 count:16];
+        v27 = [obj countByEnumeratingWithState:&v28 objects:v45 count:16];
       }
 
-      while (v28);
+      while (v27);
     }
   }
 
@@ -6384,40 +6279,38 @@ LABEL_37:
     dictionary = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (id)didExecuteFailBySPIClientIdentifierForActionSets:(void *)sets
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v18 = v3;
+  v17 = v3;
   if (sets)
   {
     v4 = v3;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v19;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v18 + 1) + 8 * i);
           cachedActionSetExecuteErrorByUUID = [sets cachedActionSetExecuteErrorByUUID];
           uuid = [v11 uuid];
           v14 = [cachedActionSetExecuteErrorByUUID objectForKeyedSubscript:uuid];
@@ -6429,7 +6322,7 @@ LABEL_37:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v8);
@@ -6440,8 +6333,6 @@ LABEL_37:
   {
     dictionary = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -6470,7 +6361,7 @@ uint64_t __65__HMDWidgetTimelineRefresher_actionSetsFromSPIClientIdentifiers___b
 
 - (void)handleMonitorActionSetsForWidget:(id)widget
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   widgetCopy = widget;
   v5 = [widgetCopy stringForKey:*MEMORY[0x277CD1558]];
   if (v5)
@@ -6488,7 +6379,7 @@ uint64_t __65__HMDWidgetTimelineRefresher_actionSetsFromSPIClientIdentifiers___b
         v12 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          v52 = v9;
+          v51 = v9;
           v13 = HMFGetLogIdentifier();
           *buf = 0;
           *&buf[8] = 0;
@@ -6505,18 +6396,18 @@ uint64_t __65__HMDWidgetTimelineRefresher_actionSetsFromSPIClientIdentifiers___b
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v57 = *buf;
+          v56 = *buf;
           *buf = 138544130;
           *&buf[4] = v13;
           *&buf[12] = 1040;
           *&buf[14] = 16;
           *&buf[18] = 2096;
-          *&buf[20] = &v57;
+          *&buf[20] = &v56;
           *&buf[28] = 2112;
           *&buf[30] = v8;
           _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Received message to update action sets for widget: %@", buf, 0x26u);
 
-          v9 = v52;
+          v9 = v51;
         }
 
         objc_autoreleasePoolPop(v10);
@@ -6533,28 +6424,28 @@ uint64_t __65__HMDWidgetTimelineRefresher_actionSetsFromSPIClientIdentifiers___b
           *&buf[16] = __96__HMDWidgetTimelineRefresher_updateMonitoredActionSets_forWidget_updateRequestQualityOfService___block_invoke;
           *&buf[24] = &unk_27868A010;
           *&buf[32] = selfCopy;
-          v62 = v35;
-          v63 = v36;
+          v61 = v35;
+          v62 = v36;
           [(HMDWidgetTimelineRefresher *)selfCopy updateMonitoredScenesAccessoriesAndCharacteristicsWithQOS:33 afterChangesFromBlock:buf];
         }
 
         [(HMDWidgetTimelineRefresher *)selfCopy updateCachedIsOnStateForActionSets:v35];
-        v55[0] = *MEMORY[0x277CD1508];
+        v54[0] = *MEMORY[0x277CD1508];
         v38 = [(HMDWidgetTimelineRefresher *)selfCopy cachedIsOnStateBySPIClientIdentifierForActionSets:v35];
-        v56[0] = v38;
-        v55[1] = *MEMORY[0x277CD1500];
+        v55[0] = v38;
+        v54[1] = *MEMORY[0x277CD1500];
         v39 = [(HMDWidgetTimelineRefresher *)selfCopy didExecuteFailBySPIClientIdentifierForActionSets:v35];
-        v56[1] = v39;
-        v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
+        v55[1] = v39;
+        v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:2];
 
         v41 = objc_autoreleasePoolPush();
         v42 = selfCopy;
         v43 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
         {
-          v51 = v41;
-          v53 = v7;
-          v50 = HMFGetLogIdentifier();
+          v50 = v41;
+          v52 = v7;
+          v49 = HMFGetLogIdentifier();
           name = [widgetCopy name];
           *buf = 0;
           *&buf[8] = 0;
@@ -6571,21 +6462,21 @@ uint64_t __65__HMDWidgetTimelineRefresher_actionSetsFromSPIClientIdentifiers___b
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v54 = *buf;
+          v53 = *buf;
           *buf = 138544386;
-          *&buf[4] = v50;
+          *&buf[4] = v49;
           *&buf[12] = 2112;
           *&buf[14] = name;
           *&buf[22] = 1040;
           *&buf[24] = 16;
           *&buf[28] = 2096;
-          *&buf[30] = &v54;
+          *&buf[30] = &v53;
           *&buf[38] = 2112;
-          v62 = v40;
+          v61 = v40;
           _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@[%@] Responding to %{uuid_t}.16P with payload: %@", buf, 0x30u);
 
-          v41 = v51;
-          v7 = v53;
+          v41 = v50;
+          v7 = v52;
         }
 
         objc_autoreleasePoolPop(v41);
@@ -6615,14 +6506,14 @@ uint64_t __65__HMDWidgetTimelineRefresher_actionSetsFromSPIClientIdentifiers___b
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v58 = *buf;
+          v57 = *buf;
           messagePayload = [widgetCopy messagePayload];
           *buf = 138544130;
           *&buf[4] = v31;
           *&buf[12] = 1040;
           *&buf[14] = 16;
           *&buf[18] = 2096;
-          *&buf[20] = &v58;
+          *&buf[20] = &v57;
           *&buf[28] = 2112;
           *&buf[30] = messagePayload;
           _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Could not find action set UUIDs in message payload: %@", buf, 0x26u);
@@ -6657,14 +6548,14 @@ uint64_t __65__HMDWidgetTimelineRefresher_actionSetsFromSPIClientIdentifiers___b
           *buf = *MEMORY[0x277D0F960];
         }
 
-        v59 = *buf;
+        v58 = *buf;
         messagePayload2 = [widgetCopy messagePayload];
         *buf = 138544130;
         *&buf[4] = v25;
         *&buf[12] = 1040;
         *&buf[14] = 16;
         *&buf[18] = 2096;
-        *&buf[20] = &v59;
+        *&buf[20] = &v58;
         *&buf[28] = 2112;
         *&buf[30] = messagePayload2;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Could not find widget kind in message payload: %@", buf, 0x26u);
@@ -6699,14 +6590,14 @@ uint64_t __65__HMDWidgetTimelineRefresher_actionSetsFromSPIClientIdentifiers___b
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v60 = *buf;
+      v59 = *buf;
       messagePayload3 = [widgetCopy messagePayload];
       *buf = 138544130;
       *&buf[4] = v19;
       *&buf[12] = 1040;
       *&buf[14] = 16;
       *&buf[18] = 2096;
-      *&buf[20] = &v60;
+      *&buf[20] = &v59;
       *&buf[28] = 2112;
       *&buf[30] = messagePayload3;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Could not find widget identifier in message payload: %@", buf, 0x26u);
@@ -6716,8 +6607,6 @@ uint64_t __65__HMDWidgetTimelineRefresher_actionSetsFromSPIClientIdentifiers___b
     v6 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [widgetCopy respondWithError:v6];
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __96__HMDWidgetTimelineRefresher_updateMonitoredActionSets_forWidget_updateRequestQualityOfService___block_invoke(uint64_t a1)
@@ -6731,27 +6620,27 @@ void __96__HMDWidgetTimelineRefresher_updateMonitoredActionSets_forWidget_update
 
 - (void)handlePerformRequests:(id)requests
 {
-  v176 = *MEMORY[0x277D85DE8];
-  v138 = 0;
-  v139 = 0;
+  v175 = *MEMORY[0x277D85DE8];
   v137 = 0;
+  v138 = 0;
+  v136 = 0;
   requestsCopy = requests;
   v4 = [HMDWidgetTimelineRefresher _getRequestsFromMessage:"_getRequestsFromMessage:outCharacteristicWriteValueByUUUIDs:outExecuteActionSetUUUIDs:outExecuteTurnOffActionSetUUIDs:" outCharacteristicWriteValueByUUUIDs:? outExecuteActionSetUUUIDs:? outExecuteTurnOffActionSetUUIDs:?];
+  v100 = 0;
   v101 = 0;
-  v102 = 0;
   v5 = 0;
   if (!v4)
   {
     goto LABEL_110;
   }
 
-  v99 = v5;
-  v100 = [requestsCopy stringForKey:*MEMORY[0x277CD1560]];
+  v98 = v5;
+  v99 = [requestsCopy stringForKey:*MEMORY[0x277CD1560]];
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
   v8 = v7;
-  if (!v100)
+  if (!v99)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
@@ -6771,22 +6660,22 @@ void __96__HMDWidgetTimelineRefresher_updateMonitoredActionSets_forWidget_update
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v146 = *buf;
+      v145 = *buf;
       messagePayload = [requestsCopy messagePayload];
       *buf = 138544130;
       *&buf[4] = v12;
       *&buf[12] = 1040;
       *&buf[14] = 16;
-      v170 = 2096;
-      v171 = &v146;
-      v172 = 2112;
-      v173 = messagePayload;
+      v169 = 2096;
+      v170 = &v145;
+      v171 = 2112;
+      v172 = messagePayload;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Could not find widget kind in message payload: %@", buf, 0x26u);
     }
 
     objc_autoreleasePoolPop(v6);
-    v106 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
-    [requestsCopy respondWithError:v106];
+    v105 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
+    [requestsCopy respondWithError:v105];
     goto LABEL_109;
   }
 
@@ -6808,71 +6697,71 @@ void __96__HMDWidgetTimelineRefresher_updateMonitoredActionSets_forWidget_update
       *buf = *MEMORY[0x277D0F960];
     }
 
-    v145 = *buf;
+    v144 = *buf;
     *buf = 138544130;
     *&buf[4] = v9;
     *&buf[12] = 1040;
     *&buf[14] = 16;
-    v170 = 2096;
-    v171 = &v145;
-    v172 = 2112;
-    v173 = v100;
+    v169 = 2096;
+    v170 = &v144;
+    v171 = 2112;
+    v172 = v99;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Received message to perform requests for kind: %@", buf, 0x26u);
   }
 
   objc_autoreleasePoolPop(v6);
   v15 = dispatch_group_create();
-  v135[0] = 0;
-  v135[1] = v135;
-  v135[2] = 0x3032000000;
-  v135[3] = __Block_byref_object_copy__60566;
-  v135[4] = __Block_byref_object_dispose__60567;
-  v136 = 0;
-  v133[0] = 0;
-  v133[1] = v133;
-  v133[2] = 0x2020000000;
-  v134 = 0;
+  v134[0] = 0;
+  v134[1] = v134;
+  v134[2] = 0x3032000000;
+  v134[3] = __Block_byref_object_copy__60566;
+  v134[4] = __Block_byref_object_dispose__60567;
+  v135 = 0;
+  v132[0] = 0;
+  v132[1] = v132;
+  v132[2] = 0x2020000000;
+  v133 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __52__HMDWidgetTimelineRefresher_handlePerformRequests___block_invoke;
   aBlock[3] = &unk_278674CC0;
   v16 = v15;
-  v130 = v16;
-  v131 = v135;
-  v132 = v133;
+  v129 = v16;
+  v130 = v134;
+  v131 = v132;
   v17 = _Block_copy(aBlock);
   v18 = selfCopy;
-  [(HMDWidgetTimelineRefresher *)selfCopy writeCharacteristicsWithWriteValueBySPIClientIdentifier:v101 widgetKind:v100 message:requestsCopy completionGroup:v16 completion:v17];
-  v111 = v102;
-  v117 = v100;
+  [(HMDWidgetTimelineRefresher *)selfCopy writeCharacteristicsWithWriteValueBySPIClientIdentifier:v100 widgetKind:v99 message:requestsCopy completionGroup:v16 completion:v17];
+  v110 = v101;
+  v116 = v99;
   v19 = requestsCopy;
   group = v16;
-  v115 = v17;
+  v114 = v17;
   if (selfCopy)
   {
-    v109 = [(HMDWidgetTimelineRefresher *)selfCopy actionSetsFromSPIClientIdentifiers:v111];
-    if ([v109 count])
+    v108 = [(HMDWidgetTimelineRefresher *)selfCopy actionSetsFromSPIClientIdentifiers:v110];
+    if ([v108 count])
     {
-      v142 = 0u;
-      v143 = 0u;
-      v140 = 0u;
       v141 = 0u;
-      obj = v109;
-      v20 = [obj countByEnumeratingWithState:&v140 objects:buf count:16];
+      v142 = 0u;
+      v139 = 0u;
+      v140 = 0u;
+      obj = v108;
+      v20 = [obj countByEnumeratingWithState:&v139 objects:buf count:16];
       if (v20)
       {
-        v123 = *v141;
+        v122 = *v140;
         v21 = *MEMORY[0x277CCF1A0];
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v141 != v123)
+            if (*v140 != v122)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = *(*(&v140 + 1) + 8 * i);
+            v23 = *(*(&v139 + 1) + 8 * i);
             type = [v23 type];
             v25 = [type isEqualToString:v21];
 
@@ -6885,31 +6774,31 @@ void __96__HMDWidgetTimelineRefresher_updateMonitoredActionSets_forWidget_update
               if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 v30 = HMFGetLogIdentifier();
-                *v174 = 0;
-                *&v174[8] = 0;
+                *v173 = 0;
+                *&v173[8] = 0;
                 identifier5 = [v19 identifier];
 
                 if (identifier5)
                 {
                   identifier6 = [v19 identifier];
-                  [identifier6 getUUIDBytes:v174];
+                  [identifier6 getUUIDBytes:v173];
                 }
 
                 else
                 {
-                  *v174 = *MEMORY[0x277D0F960];
+                  *v173 = *MEMORY[0x277D0F960];
                 }
 
-                v161 = *v174;
-                *v174 = 138544130;
-                *&v174[4] = v30;
-                *&v174[12] = 1040;
-                *&v174[14] = 16;
-                *&v174[18] = 2096;
-                *&v174[20] = &v161;
-                *&v174[28] = 2112;
-                *&v174[30] = v23;
-                _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] We can't execute trigger-owned action set: %@", v174, 0x26u);
+                v160 = *v173;
+                *v173 = 138544130;
+                *&v173[4] = v30;
+                *&v173[12] = 1040;
+                *&v173[14] = 16;
+                *&v173[18] = 2096;
+                *&v173[20] = &v160;
+                *&v173[28] = 2112;
+                *&v173[30] = v23;
+                _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] We can't execute trigger-owned action set: %@", v173, 0x26u);
               }
 
               objc_autoreleasePoolPop(v26);
@@ -6920,31 +6809,31 @@ void __96__HMDWidgetTimelineRefresher_updateMonitoredActionSets_forWidget_update
               if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
               {
                 v33 = HMFGetLogIdentifier();
-                *v174 = 0;
-                *&v174[8] = 0;
+                *v173 = 0;
+                *&v173[8] = 0;
                 identifier7 = [v19 identifier];
 
                 if (identifier7)
                 {
                   identifier8 = [v19 identifier];
-                  [identifier8 getUUIDBytes:v174];
+                  [identifier8 getUUIDBytes:v173];
                 }
 
                 else
                 {
-                  *v174 = *MEMORY[0x277D0F960];
+                  *v173 = *MEMORY[0x277D0F960];
                 }
 
-                v147 = *v174;
-                *v174 = 138544130;
-                *&v174[4] = v33;
-                *&v174[12] = 1040;
-                *&v174[14] = 16;
-                *&v174[18] = 2096;
-                *&v174[20] = &v147;
-                *&v174[28] = 2112;
-                *&v174[30] = v23;
-                _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Executing action set: %@", v174, 0x26u);
+                v146 = *v173;
+                *v173 = 138544130;
+                *&v173[4] = v33;
+                *&v173[12] = 1040;
+                *&v173[14] = 16;
+                *&v173[18] = 2096;
+                *&v173[20] = &v146;
+                *&v173[28] = 2112;
+                *&v173[30] = v23;
+                _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Executing action set: %@", v173, 0x26u);
               }
 
               objc_autoreleasePoolPop(v26);
@@ -6955,21 +6844,21 @@ void __96__HMDWidgetTimelineRefresher_updateMonitoredActionSets_forWidget_update
               [(HMDWidgetTimelineRefresher *)v27 _clearCachedErrorForActionSet:v23];
               dispatch_group_enter(group);
               v38 = [v19 mutableCopy];
-              v157[0] = MEMORY[0x277D85DD0];
-              v157[1] = 3221225472;
-              v157[2] = __118__HMDWidgetTimelineRefresher_executeActionSetsWithSPIClientIdentifiers_widgetKind_message_completionGroup_completion___block_invoke;
-              v157[3] = &unk_278688A90;
-              v157[4] = v27;
-              v157[5] = v23;
-              v158 = v19;
-              v159 = v117;
-              v160 = v115;
-              [v38 setResponseHandler:v157];
+              v156[0] = MEMORY[0x277D85DD0];
+              v156[1] = 3221225472;
+              v156[2] = __118__HMDWidgetTimelineRefresher_executeActionSetsWithSPIClientIdentifiers_widgetKind_message_completionGroup_completion___block_invoke;
+              v156[3] = &unk_278688A90;
+              v156[4] = v27;
+              v156[5] = v23;
+              v157 = v19;
+              v158 = v116;
+              v159 = v114;
+              [v38 setResponseHandler:v156];
               [v23 execute:v38];
             }
           }
 
-          v20 = [obj countByEnumeratingWithState:&v140 objects:buf count:16];
+          v20 = [obj countByEnumeratingWithState:&v139 objects:buf count:16];
         }
 
         while (v20);
@@ -6979,49 +6868,49 @@ void __96__HMDWidgetTimelineRefresher_updateMonitoredActionSets_forWidget_update
     v18 = selfCopy;
   }
 
-  v98 = v99;
-  v104 = v117;
-  v112 = v19;
-  v106 = group;
-  v105 = v115;
+  v97 = v98;
+  v103 = v116;
+  v111 = v19;
+  v105 = group;
+  v104 = v114;
   if (!v18)
   {
     goto LABEL_105;
   }
 
-  v97 = [(HMDWidgetTimelineRefresher *)selfCopy actionSetsFromSPIClientIdentifiers:v98];
-  if (![v97 count])
+  v96 = [(HMDWidgetTimelineRefresher *)selfCopy actionSetsFromSPIClientIdentifiers:v97];
+  if (![v96 count])
   {
     goto LABEL_104;
   }
 
-  v163 = 0u;
-  v164 = 0u;
-  v161 = 0u;
   v162 = 0u;
-  v107 = v97;
-  v113 = [v107 countByEnumeratingWithState:&v161 objects:v157 count:16];
-  if (!v113)
+  v163 = 0u;
+  v160 = 0u;
+  v161 = 0u;
+  v106 = v96;
+  v112 = [v106 countByEnumeratingWithState:&v160 objects:v156 count:16];
+  if (!v112)
   {
     goto LABEL_103;
   }
 
-  v108 = *MEMORY[0x277CCF1A0];
-  v110 = *v162;
-  v124 = *MEMORY[0x277CFE698];
+  v107 = *MEMORY[0x277CCF1A0];
+  v109 = *v161;
+  v123 = *MEMORY[0x277CFE698];
   obja = *MEMORY[0x277CFE5B0];
   do
   {
-    for (j = 0; j != v113; ++j)
+    for (j = 0; j != v112; ++j)
     {
-      if (*v162 != v110)
+      if (*v161 != v109)
       {
-        objc_enumerationMutation(v107);
+        objc_enumerationMutation(v106);
       }
 
-      v39 = *(*(&v161 + 1) + 8 * j);
+      v39 = *(*(&v160 + 1) + 8 * j);
       type2 = [v39 type];
-      v41 = [type2 isEqualToString:v108];
+      v41 = [type2 isEqualToString:v107];
 
       if (v41)
       {
@@ -7033,11 +6922,11 @@ void __96__HMDWidgetTimelineRefresher_updateMonitoredActionSets_forWidget_update
           v45 = HMFGetLogIdentifier();
           *&buf[8] = 0;
           *buf = 0;
-          identifier10 = [v112 identifier];
+          identifier10 = [v111 identifier];
 
           if (identifier10)
           {
-            identifier11 = [v112 identifier];
+            identifier11 = [v111 identifier];
             [identifier11 getUUIDBytes:buf];
           }
 
@@ -7046,15 +6935,15 @@ void __96__HMDWidgetTimelineRefresher_updateMonitoredActionSets_forWidget_update
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v156 = *buf;
+          v155 = *buf;
           *buf = 138544130;
           *&buf[4] = v45;
           *&buf[12] = 1040;
           *&buf[14] = 16;
-          v170 = 2096;
-          v171 = &v156;
-          v172 = 2112;
-          v173 = v39;
+          v169 = 2096;
+          v170 = &v155;
+          v171 = 2112;
+          v172 = v39;
           _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] We can't execute trigger-owned action set: %@", buf, 0x26u);
         }
 
@@ -7074,11 +6963,11 @@ LABEL_80:
           v76 = HMFGetLogIdentifier();
           *&buf[8] = 0;
           *buf = 0;
-          identifier12 = [v112 identifier];
+          identifier12 = [v111 identifier];
 
           if (identifier12)
           {
-            identifier13 = [v112 identifier];
+            identifier13 = [v111 identifier];
             [identifier13 getUUIDBytes:buf];
           }
 
@@ -7087,43 +6976,43 @@ LABEL_80:
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v155 = *buf;
+          v154 = *buf;
           *buf = 138544130;
           *&buf[4] = v76;
           *&buf[12] = 1040;
           *&buf[14] = 16;
-          v170 = 2096;
-          v171 = &v155;
-          v172 = 2112;
-          v173 = v39;
+          v169 = 2096;
+          v170 = &v154;
+          v171 = 2112;
+          v172 = v39;
           _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Action set cannot be turned off because it's not active: %@", buf, 0x26u);
         }
 
         goto LABEL_80;
       }
 
-      v114 = v39;
+      v113 = v39;
       groupa = [MEMORY[0x277CBEB18] array];
-      v175 = 0u;
-      memset(v174, 0, sizeof(v174));
-      actions = [v114 actions];
-      v49 = [actions countByEnumeratingWithState:v174 objects:buf count:16];
+      v174 = 0u;
+      memset(v173, 0, sizeof(v173));
+      actions = [v113 actions];
+      v49 = [actions countByEnumeratingWithState:v173 objects:buf count:16];
       if (!v49)
       {
         goto LABEL_70;
       }
 
-      v50 = **&v174[16];
+      v50 = **&v173[16];
       do
       {
         for (k = 0; k != v49; ++k)
         {
-          if (**&v174[16] != v50)
+          if (**&v173[16] != v50)
           {
             objc_enumerationMutation(actions);
           }
 
-          v52 = *(*&v174[8] + 8 * k);
+          v52 = *(*&v173[8] + 8 * k);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -7141,7 +7030,7 @@ LABEL_80:
           {
             characteristic = [v54 characteristic];
             type3 = [characteristic type];
-            if ([type3 isEqual:v124])
+            if ([type3 isEqual:v123])
             {
 
 LABEL_59:
@@ -7174,11 +7063,11 @@ LABEL_59:
                 if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
                 {
                   v67 = HMFGetLogIdentifier();
-                  *v165 = 138543618;
-                  v166 = v67;
-                  v167 = 2112;
-                  v168 = v54;
-                  _os_log_impl(&dword_229538000, v66, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring characteristic write action for turning off because target value is NO: %@", v165, 0x16u);
+                  *v164 = 138543618;
+                  v165 = v67;
+                  v166 = 2112;
+                  v167 = v54;
+                  _os_log_impl(&dword_229538000, v66, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring characteristic write action for turning off because target value is NO: %@", v164, 0x16u);
                 }
 
                 objc_autoreleasePoolPop(v64);
@@ -7198,7 +7087,7 @@ LABEL_59:
           }
         }
 
-        v49 = [actions countByEnumeratingWithState:v174 objects:buf count:16];
+        v49 = [actions countByEnumeratingWithState:v173 objects:buf count:16];
       }
 
       while (v49);
@@ -7206,7 +7095,7 @@ LABEL_70:
 
       if ([groupa count])
       {
-        home = [v114 home];
+        home = [v113 home];
         v69 = objc_autoreleasePoolPush();
         v70 = selfCopy;
         v71 = HMFGetOSLogHandle();
@@ -7218,11 +7107,11 @@ LABEL_70:
             v73 = HMFGetLogIdentifier();
             *&buf[8] = 0;
             *buf = 0;
-            identifier14 = [v112 identifier];
+            identifier14 = [v111 identifier];
 
             if (identifier14)
             {
-              identifier15 = [v112 identifier];
+              identifier15 = [v111 identifier];
               [identifier15 getUUIDBytes:buf];
             }
 
@@ -7231,44 +7120,44 @@ LABEL_70:
               *buf = *MEMORY[0x277D0F960];
             }
 
-            v152 = *buf;
+            v151 = *buf;
             *buf = 138544130;
             *&buf[4] = v73;
             *&buf[12] = 1040;
             *&buf[14] = 16;
-            v170 = 2096;
-            v171 = &v152;
-            v172 = 2112;
-            v173 = v114;
+            v169 = 2096;
+            v170 = &v151;
+            v171 = 2112;
+            v172 = v113;
             _os_log_impl(&dword_229538000, v72, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Executing turning off action set: %@", buf, 0x26u);
           }
 
           objc_autoreleasePoolPop(v69);
-          uuid2 = [v114 uuid];
-          identifier16 = [v112 identifier];
+          uuid2 = [v113 uuid];
+          identifier16 = [v111 identifier];
           [(HMDWidgetTimelineRefresher *)v70 _setPendingRequestValue:&unk_283E72308 forUUID:uuid2 messageIdentifier:identifier16];
 
-          [(HMDWidgetTimelineRefresher *)v70 _clearCachedErrorForActionSet:v114];
-          dispatch_group_enter(v106);
-          *&v140 = MEMORY[0x277D85DD0];
-          *(&v140 + 1) = 3221225472;
-          *&v141 = __127__HMDWidgetTimelineRefresher_executeActionSetsToTurnOffWithSPIClientIdentifiers_widgetKind_message_completionGroup_completion___block_invoke;
-          *(&v141 + 1) = &unk_2786862E8;
-          *&v142 = v70;
-          *(&v142 + 1) = v114;
-          v90 = v112;
-          *&v143 = v90;
-          *(&v143 + 1) = v104;
-          v144 = v105;
-          v91 = _Block_copy(&v140);
-          *&v147 = MEMORY[0x277D85DD0];
-          *(&v147 + 1) = 3221225472;
-          v148 = __127__HMDWidgetTimelineRefresher_executeActionSetsToTurnOffWithSPIClientIdentifiers_widgetKind_message_completionGroup_completion___block_invoke_313;
-          v149 = &unk_278685AF8;
-          v150 = v70;
-          v151 = v91;
+          [(HMDWidgetTimelineRefresher *)v70 _clearCachedErrorForActionSet:v113];
+          dispatch_group_enter(v105);
+          *&v139 = MEMORY[0x277D85DD0];
+          *(&v139 + 1) = 3221225472;
+          *&v140 = __127__HMDWidgetTimelineRefresher_executeActionSetsToTurnOffWithSPIClientIdentifiers_widgetKind_message_completionGroup_completion___block_invoke;
+          *(&v140 + 1) = &unk_2786862E8;
+          *&v141 = v70;
+          *(&v141 + 1) = v113;
+          v90 = v111;
+          *&v142 = v90;
+          *(&v142 + 1) = v103;
+          v143 = v104;
+          v91 = _Block_copy(&v139);
+          *&v146 = MEMORY[0x277D85DD0];
+          *(&v146 + 1) = 3221225472;
+          v147 = __127__HMDWidgetTimelineRefresher_executeActionSetsToTurnOffWithSPIClientIdentifiers_widgetKind_message_completionGroup_completion___block_invoke_313;
+          v148 = &unk_278685AF8;
+          v149 = v70;
+          v150 = v91;
           v92 = v91;
-          v93 = _Block_copy(&v147);
+          v93 = _Block_copy(&v146);
           [home writeCharacteristicValues:groupa message:v90 withCompletionHandler:v93];
         }
 
@@ -7279,11 +7168,11 @@ LABEL_70:
             v85 = HMFGetLogIdentifier();
             *&buf[8] = 0;
             *buf = 0;
-            identifier17 = [v112 identifier];
+            identifier17 = [v111 identifier];
 
             if (identifier17)
             {
-              identifier18 = [v112 identifier];
+              identifier18 = [v111 identifier];
               [identifier18 getUUIDBytes:buf];
             }
 
@@ -7292,15 +7181,15 @@ LABEL_70:
               *buf = *MEMORY[0x277D0F960];
             }
 
-            v153 = *buf;
+            v152 = *buf;
             *buf = 138544130;
             *&buf[4] = v85;
             *&buf[12] = 1040;
             *&buf[14] = 16;
-            v170 = 2096;
-            v171 = &v153;
-            v172 = 2112;
-            v173 = v114;
+            v169 = 2096;
+            v170 = &v152;
+            v171 = 2112;
+            v172 = v113;
             _os_log_impl(&dword_229538000, v72, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Home is nil for action set: %@", buf, 0x26u);
           }
 
@@ -7318,11 +7207,11 @@ LABEL_70:
           v82 = HMFGetLogIdentifier();
           *&buf[8] = 0;
           *buf = 0;
-          identifier19 = [v112 identifier];
+          identifier19 = [v111 identifier];
 
           if (identifier19)
           {
-            identifier20 = [v112 identifier];
+            identifier20 = [v111 identifier];
             [identifier20 getUUIDBytes:buf];
           }
 
@@ -7331,15 +7220,15 @@ LABEL_70:
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v154 = *buf;
+          v153 = *buf;
           *buf = 138544130;
           *&buf[4] = v82;
           *&buf[12] = 1040;
           *&buf[14] = 16;
-          v170 = 2096;
-          v171 = &v154;
-          v172 = 2112;
-          v173 = v114;
+          v169 = 2096;
+          v170 = &v153;
+          v171 = 2112;
+          v172 = v113;
           _os_log_impl(&dword_229538000, v81, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Action set doesn't contain actions that can be turned off: %@", buf, 0x26u);
         }
 
@@ -7347,10 +7236,10 @@ LABEL_70:
       }
     }
 
-    v113 = [v107 countByEnumeratingWithState:&v161 objects:v157 count:16];
+    v112 = [v106 countByEnumeratingWithState:&v160 objects:v156 count:16];
   }
 
-  while (v113);
+  while (v112);
 LABEL_103:
 
 LABEL_104:
@@ -7361,20 +7250,18 @@ LABEL_105:
   block[1] = 3221225472;
   block[2] = __52__HMDWidgetTimelineRefresher_handlePerformRequests___block_invoke_2;
   block[3] = &unk_2786869D8;
-  v127 = v135;
+  v126 = v134;
   block[4] = selfCopy;
-  v126 = v112;
-  v128 = v133;
-  dispatch_group_notify(v106, workQueue, block);
+  v125 = v111;
+  v127 = v132;
+  dispatch_group_notify(v105, workQueue, block);
 
-  _Block_object_dispose(v133, 8);
-  _Block_object_dispose(v135, 8);
+  _Block_object_dispose(v132, 8);
+  _Block_object_dispose(v134, 8);
 
 LABEL_109:
-  v5 = v99;
+  v5 = v98;
 LABEL_110:
-
-  v96 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HMDWidgetTimelineRefresher_handlePerformRequests___block_invoke(void *a1, void *a2)
@@ -7398,7 +7285,7 @@ void __52__HMDWidgetTimelineRefresher_handlePerformRequests___block_invoke(void 
 
 uint64_t __52__HMDWidgetTimelineRefresher_handlePerformRequests___block_invoke_2(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (*(*(*(a1 + 48) + 8) + 40))
   {
     v2 = objc_autoreleasePoolPush();
@@ -7422,16 +7309,16 @@ uint64_t __52__HMDWidgetTimelineRefresher_handlePerformRequests___block_invoke_2
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v24 = *buf;
+      v23 = *buf;
       v14 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138544130;
       *&buf[4] = v5;
       *&buf[12] = 1040;
       *&buf[14] = 16;
-      v26 = 2096;
-      v27 = &v24;
-      v28 = 2112;
-      v29 = v14;
+      v25 = 2096;
+      v26 = &v23;
+      v27 = 2112;
+      v28 = v14;
       v15 = "%{public}@[%{uuid_t}.16P] Failed with error: %@";
       v16 = v4;
       v17 = OS_LOG_TYPE_ERROR;
@@ -7469,13 +7356,13 @@ LABEL_17:
           *buf = *MEMORY[0x277D0F960];
         }
 
-        v22 = *buf;
+        v21 = *buf;
         *buf = 138543874;
         *&buf[4] = v5;
         *&buf[12] = 1040;
         *&buf[14] = 16;
-        v26 = 2096;
-        v27 = &v22;
+        v25 = 2096;
+        v26 = &v21;
         v15 = "%{public}@[%{uuid_t}.16P] Successfully completed requests";
         v16 = v4;
         v17 = OS_LOG_TYPE_INFO;
@@ -7502,16 +7389,16 @@ LABEL_17:
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v23 = *buf;
-      v21 = [*(a1 + 40) messagePayload];
+      v22 = *buf;
+      v20 = [*(a1 + 40) messagePayload];
       *buf = 138544130;
       *&buf[4] = v5;
       *&buf[12] = 1040;
       *&buf[14] = 16;
-      v26 = 2096;
-      v27 = &v23;
-      v28 = 2112;
-      v29 = v21;
+      v25 = 2096;
+      v26 = &v22;
+      v27 = 2112;
+      v28 = v20;
       _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Did not execute any request from payload: %@", buf, 0x26u);
 
       goto LABEL_17;
@@ -7519,9 +7406,7 @@ LABEL_17:
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 40) respondWithPayload:0 error:*(*(*(a1 + 48) + 8) + 40)];
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) respondWithPayload:0 error:*(*(*(a1 + 48) + 8) + 40)];
 }
 
 - (void)_clearCachedErrorForActionSet:(void *)set
@@ -7545,7 +7430,7 @@ LABEL_17:
 
 void __127__HMDWidgetTimelineRefresher_executeActionSetsToTurnOffWithSPIClientIdentifiers_widgetKind_message_completionGroup_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) workQueue];
   dispatch_assert_queue_V2(v4);
@@ -7579,18 +7464,18 @@ void __127__HMDWidgetTimelineRefresher_executeActionSetsToTurnOffWithSPIClientId
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v25 = *buf;
+      v24 = *buf;
       v18 = *(a1 + 40);
       *buf = 138544386;
       *&buf[4] = v12;
       *&buf[12] = 1040;
       *&buf[14] = 16;
-      v27 = 2096;
-      v28 = &v25;
-      v29 = 2112;
-      v30 = v18;
-      v31 = 2112;
-      v32 = v3;
+      v26 = 2096;
+      v27 = &v24;
+      v28 = 2112;
+      v29 = v18;
+      v30 = 2112;
+      v31 = v3;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Failed to turn off action set: %@, with error: %@", buf, 0x30u);
     }
 
@@ -7621,16 +7506,16 @@ void __127__HMDWidgetTimelineRefresher_executeActionSetsToTurnOffWithSPIClientId
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v24 = *buf;
+      v23 = *buf;
       v21 = *(a1 + 40);
       *buf = 138544130;
       *&buf[4] = v15;
       *&buf[12] = 1040;
       *&buf[14] = 16;
-      v27 = 2096;
-      v28 = &v24;
-      v29 = 2112;
-      v30 = v21;
+      v26 = 2096;
+      v27 = &v23;
+      v28 = 2112;
+      v29 = v21;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Successfully turned off action set: %@", buf, 0x26u);
     }
 
@@ -7641,7 +7526,6 @@ void __127__HMDWidgetTimelineRefresher_executeActionSetsToTurnOffWithSPIClientId
   }
 
   (*(*(a1 + 64) + 16))();
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __127__HMDWidgetTimelineRefresher_executeActionSetsToTurnOffWithSPIClientIdentifiers_widgetKind_message_completionGroup_completion___block_invoke_313(uint64_t a1, void *a2, void *a3)
@@ -7719,7 +7603,7 @@ void __118__HMDWidgetTimelineRefresher_executeActionSetsWithSPIClientIdentifiers
 
 uint64_t __118__HMDWidgetTimelineRefresher_executeActionSetsWithSPIClientIdentifiers_widgetKind_message_completionGroup_completion___block_invoke_2(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) uuid];
   v4 = [*(a1 + 48) identifier];
@@ -7750,19 +7634,19 @@ uint64_t __118__HMDWidgetTimelineRefresher_executeActionSetsWithSPIClientIdentif
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v26 = *buf;
+      v24 = *buf;
       v16 = *(a1 + 40);
       v17 = *(a1 + 56);
       *buf = 138544386;
       *&buf[4] = v10;
       *&buf[12] = 1040;
       *&buf[14] = 16;
-      v28 = 2096;
-      v29 = &v26;
+      v26 = 2096;
+      v27 = &v24;
+      v28 = 2112;
+      v29 = v16;
       v30 = 2112;
-      v31 = v16;
-      v32 = 2112;
-      v33 = v17;
+      v31 = v17;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Failed to execute action set: %@, with error: %@", buf, 0x30u);
     }
 
@@ -7793,16 +7677,16 @@ uint64_t __118__HMDWidgetTimelineRefresher_executeActionSetsWithSPIClientIdentif
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v25 = *buf;
+      v23 = *buf;
       v20 = *(a1 + 40);
       *buf = 138544130;
       *&buf[4] = v13;
       *&buf[12] = 1040;
       *&buf[14] = 16;
-      v28 = 2096;
-      v29 = &v25;
-      v30 = 2112;
-      v31 = v20;
+      v26 = 2096;
+      v27 = &v23;
+      v28 = 2112;
+      v29 = v20;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Successfully executed action set: %@", buf, 0x26u);
     }
 
@@ -7812,15 +7696,12 @@ uint64_t __118__HMDWidgetTimelineRefresher_executeActionSetsWithSPIClientIdentif
     [v21 _startActionSetPrimaryStateUpdateCoalesceTimerContextForActionSetUUID:v19 expectedState:&unk_283E722F0];
   }
 
-  v22 = *(a1 + 56);
-  result = (*(*(a1 + 72) + 16))();
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 72) + 16))();
 }
 
 - (void)handleFetchState:(id)state
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v5 = *MEMORY[0x277CD1520];
   v6 = [stateCopy arrayForKey:*MEMORY[0x277CD1520]];
@@ -7848,24 +7729,24 @@ uint64_t __118__HMDWidgetTimelineRefresher_executeActionSetsWithSPIClientIdentif
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v35 = *buf;
+      v34 = *buf;
       *buf = 138544130;
       *&buf[4] = v11;
       *&buf[12] = 1040;
       *&buf[14] = 16;
       *&buf[18] = 2096;
-      *&buf[20] = &v35;
-      v29 = 2112;
-      v30 = v6;
+      *&buf[20] = &v34;
+      v28 = 2112;
+      v29 = v6;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Received message to fetch state for: %@", buf, 0x26u);
     }
 
     objc_autoreleasePoolPop(v7);
     v16 = [(HMDWidgetTimelineRefresher *)selfCopy characteristicsFromSPIClientIdentifiers:v6];
-    v33 = v5;
+    v32 = v5;
     v17 = [(HMDWidgetTimelineRefresher *)selfCopy valueByCharacteristicSPIClientIdentifierForCharacteristics:v16];
-    v34 = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v33 = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
 
     v19 = objc_autoreleasePoolPush();
     v20 = selfCopy;
@@ -7889,17 +7770,17 @@ uint64_t __118__HMDWidgetTimelineRefresher_executeActionSetsWithSPIClientIdentif
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v27 = *buf;
+      v26 = *buf;
       *buf = 138544386;
       *&buf[4] = v22;
       *&buf[12] = 2112;
       *&buf[14] = name;
       *&buf[22] = 1040;
       *&buf[24] = 16;
-      v29 = 2096;
-      v30 = &v27;
-      v31 = 2112;
-      v32 = v18;
+      v28 = 2096;
+      v29 = &v26;
+      v30 = 2112;
+      v31 = v18;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@[%@] Responding to %{uuid_t}.16P with payload: %@", buf, 0x30u);
     }
 
@@ -7924,62 +7805,60 @@ uint64_t __118__HMDWidgetTimelineRefresher_executeActionSetsWithSPIClientIdentif
     v16 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [stateCopy respondWithError:v16];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)characteristicsFromSPIClientIdentifiers:(void *)identifiers
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (identifiers)
   {
     v4 = [MEMORY[0x277CBEB58] set];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     homeManager = [identifiers homeManager];
     homes = [homeManager homes];
 
-    v7 = [homes countByEnumeratingWithState:&v57 objects:v64 count:16];
+    v7 = [homes countByEnumeratingWithState:&v56 objects:v63 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v58;
-      v38 = homes;
-      v33 = *v58;
+      v9 = *v57;
+      v37 = homes;
+      v32 = *v57;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v58 != v9)
+          if (*v57 != v9)
           {
             objc_enumerationMutation(homes);
           }
 
-          v11 = *(*(&v57 + 1) + 8 * i);
+          v11 = *(*(&v56 + 1) + 8 * i);
+          v52 = 0u;
           v53 = 0u;
           v54 = 0u;
           v55 = 0u;
-          v56 = 0u;
           accessories = [v11 accessories];
-          v44 = [accessories countByEnumeratingWithState:&v53 objects:v63 count:16];
-          if (v44)
+          v43 = [accessories countByEnumeratingWithState:&v52 objects:v62 count:16];
+          if (v43)
           {
-            v13 = *v54;
-            v34 = i;
-            v35 = v8;
+            v13 = *v53;
+            v33 = i;
+            v34 = v8;
             do
             {
-              for (j = 0; j != v44; ++j)
+              for (j = 0; j != v43; ++j)
               {
-                if (*v54 != v13)
+                if (*v53 != v13)
                 {
                   objc_enumerationMutation(accessories);
                 }
 
-                v15 = *(*(&v53 + 1) + 8 * j);
+                v15 = *(*(&v52 + 1) + 8 * j);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
@@ -7995,52 +7874,52 @@ uint64_t __118__HMDWidgetTimelineRefresher_executeActionSetsWithSPIClientIdentif
 
                 if (v17)
                 {
-                  v51 = 0u;
-                  v52 = 0u;
-                  v49 = 0u;
                   v50 = 0u;
+                  v51 = 0u;
+                  v48 = 0u;
+                  v49 = 0u;
                   services = [v15 services];
-                  v39 = [services countByEnumeratingWithState:&v49 objects:v62 count:16];
-                  if (v39)
+                  v38 = [services countByEnumeratingWithState:&v48 objects:v61 count:16];
+                  if (v38)
                   {
-                    v19 = *v50;
-                    v42 = v17;
-                    v43 = accessories;
-                    v36 = *v50;
-                    v37 = v13;
-                    v41 = services;
+                    v19 = *v49;
+                    v41 = v17;
+                    v42 = accessories;
+                    v35 = *v49;
+                    v36 = v13;
+                    v40 = services;
                     do
                     {
                       v20 = 0;
                       do
                       {
-                        if (*v50 != v19)
+                        if (*v49 != v19)
                         {
                           objc_enumerationMutation(services);
                         }
 
-                        v40 = v20;
-                        v21 = *(*(&v49 + 1) + 8 * v20);
+                        v39 = v20;
+                        v21 = *(*(&v48 + 1) + 8 * v20);
+                        v44 = 0u;
                         v45 = 0u;
                         v46 = 0u;
                         v47 = 0u;
-                        v48 = 0u;
                         characteristics = [v21 characteristics];
-                        v23 = [characteristics countByEnumeratingWithState:&v45 objects:v61 count:16];
+                        v23 = [characteristics countByEnumeratingWithState:&v44 objects:v60 count:16];
                         if (v23)
                         {
                           v24 = v23;
-                          v25 = *v46;
+                          v25 = *v45;
                           while (2)
                           {
                             for (k = 0; k != v24; ++k)
                             {
-                              if (*v46 != v25)
+                              if (*v45 != v25)
                               {
                                 objc_enumerationMutation(characteristics);
                               }
 
-                              v27 = *(*(&v45 + 1) + 8 * k);
+                              v27 = *(*(&v44 + 1) + 8 * k);
                               spiClientIdentifier = [v27 spiClientIdentifier];
                               v29 = [v3 containsObject:spiClientIdentifier];
 
@@ -8051,13 +7930,13 @@ uint64_t __118__HMDWidgetTimelineRefresher_executeActionSetsWithSPIClientIdentif
                                 if (v30 == [v3 count])
                                 {
 
-                                  homes = v38;
+                                  homes = v37;
                                   goto LABEL_39;
                                 }
                               }
                             }
 
-                            v24 = [characteristics countByEnumeratingWithState:&v45 objects:v61 count:16];
+                            v24 = [characteristics countByEnumeratingWithState:&v44 objects:v60 count:16];
                             if (v24)
                             {
                               continue;
@@ -8067,35 +7946,35 @@ uint64_t __118__HMDWidgetTimelineRefresher_executeActionSetsWithSPIClientIdentif
                           }
                         }
 
-                        v20 = v40 + 1;
-                        v17 = v42;
-                        accessories = v43;
-                        v19 = v36;
-                        v13 = v37;
-                        services = v41;
+                        v20 = v39 + 1;
+                        v17 = v41;
+                        accessories = v42;
+                        v19 = v35;
+                        v13 = v36;
+                        services = v40;
                       }
 
-                      while (v40 + 1 != v39);
-                      v39 = [v41 countByEnumeratingWithState:&v49 objects:v62 count:16];
+                      while (v39 + 1 != v38);
+                      v38 = [v40 countByEnumeratingWithState:&v48 objects:v61 count:16];
                     }
 
-                    while (v39);
+                    while (v38);
                   }
                 }
               }
 
-              homes = v38;
-              v9 = v33;
-              i = v34;
-              v8 = v35;
-              v44 = [accessories countByEnumeratingWithState:&v53 objects:v63 count:16];
+              homes = v37;
+              v9 = v32;
+              i = v33;
+              v8 = v34;
+              v43 = [accessories countByEnumeratingWithState:&v52 objects:v62 count:16];
             }
 
-            while (v44);
+            while (v43);
           }
         }
 
-        v8 = [homes countByEnumeratingWithState:&v57 objects:v64 count:16];
+        v8 = [homes countByEnumeratingWithState:&v56 objects:v63 count:16];
       }
 
       while (v8);
@@ -8109,14 +7988,12 @@ LABEL_39:
     v4 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)handleMonitorCharacteristicsForWidget:(id)widget
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   widgetCopy = widget;
   v5 = [widgetCopy stringForKey:*MEMORY[0x277CD1558]];
   if (v5)
@@ -8131,30 +8008,30 @@ LABEL_39:
         if (v8)
         {
           v9 = [widgetCopy numberForKey:*MEMORY[0x277CD1540]];
-          v87 = v9;
+          v86 = v9;
           if (v9)
           {
             v10 = v9;
-            v88 = v8;
+            v87 = v8;
             v11 = [widgetCopy uuidForKey:*MEMORY[0x277CD1528]];
-            v91 = v5;
+            v90 = v5;
             v12 = [[HMDWidget alloc] initWithIdentifier:v5 kind:v6];
             v13 = [(HMDWidgetTimelineRefresher *)self characteristicsFromSPIClientIdentifiers:v7];
-            v103[0] = MEMORY[0x277D85DD0];
-            v103[1] = 3221225472;
-            v103[2] = __68__HMDWidgetTimelineRefresher_handleMonitorCharacteristicsForWidget___block_invoke;
-            v103[3] = &unk_278674C98;
+            v102[0] = MEMORY[0x277D85DD0];
+            v102[1] = 3221225472;
+            v102[2] = __68__HMDWidgetTimelineRefresher_handleMonitorCharacteristicsForWidget___block_invoke;
+            v102[3] = &unk_278674C98;
             v14 = v10;
-            v104 = v14;
-            v89 = [v13 na_map:v103];
+            v103 = v14;
+            v88 = [v13 na_map:v102];
             context = objc_autoreleasePoolPush();
             selfCopy = self;
             v16 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
-              v83 = v12;
+              v82 = v12;
               v17 = v11;
-              v81 = HMFGetLogIdentifier();
+              v80 = HMFGetLogIdentifier();
               *buf = 0;
               *&buf[8] = 0;
               identifier = [widgetCopy identifier];
@@ -8170,7 +8047,7 @@ LABEL_39:
                 *buf = *MEMORY[0x277D0F960];
               }
 
-              v106 = *buf;
+              v105 = *buf;
               *buf = 0;
               *&buf[8] = 0;
               v11 = v17;
@@ -8184,50 +8061,50 @@ LABEL_39:
                 *buf = *MEMORY[0x277D0F960];
               }
 
-              v105 = *buf;
+              v104 = *buf;
               *buf = 138544898;
-              v12 = v83;
-              *&buf[4] = v81;
+              v12 = v82;
+              *&buf[4] = v80;
               *&buf[12] = 1040;
               *&buf[14] = 16;
               *&buf[18] = 2096;
-              *&buf[20] = &v106;
+              *&buf[20] = &v105;
               *&buf[28] = 2112;
-              *&buf[30] = v83;
+              *&buf[30] = v82;
               *&buf[38] = 2112;
-              v108 = v88;
-              v109 = 1040;
-              v110 = 16;
-              v111 = 2096;
-              v112 = &v105;
+              v107 = v87;
+              v108 = 1040;
+              v109 = 16;
+              v110 = 2096;
+              v111 = &v104;
               _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@[%{uuid_t}.16P] Received message to update characteristics for widget: %@, generation counter: %@, current home: %{uuid_t}.16P", buf, 0x40u);
             }
 
             objc_autoreleasePoolPop(context);
             [v14 BOOLValue];
             qualityOfService = [widgetCopy qualityOfService];
-            v94[0] = MEMORY[0x277D85DD0];
-            v94[1] = 3221225472;
-            v79 = qualityOfService;
-            v95 = __68__HMDWidgetTimelineRefresher_handleMonitorCharacteristicsForWidget___block_invoke_258;
-            v96 = &unk_278683598;
-            v97 = selfCopy;
-            v98 = v88;
-            v99 = v6;
-            v100 = v11;
-            v101 = v13;
-            v102 = widgetCopy;
+            v93[0] = MEMORY[0x277D85DD0];
+            v93[1] = 3221225472;
+            v78 = qualityOfService;
+            v94 = __68__HMDWidgetTimelineRefresher_handleMonitorCharacteristicsForWidget___block_invoke_258;
+            v95 = &unk_278683598;
+            v96 = selfCopy;
+            v97 = v87;
+            v98 = v6;
+            v99 = v11;
+            v100 = v13;
+            v101 = widgetCopy;
             v54 = v13;
             contexta = v11;
-            v90 = v89;
+            v89 = v88;
             v55 = v12;
-            v56 = v94;
+            v56 = v93;
             v57 = v56;
-            v5 = v91;
+            v5 = v90;
             if (selfCopy)
             {
-              v82 = v56;
-              v84 = v54;
+              v81 = v56;
+              v83 = v54;
               workQueue = [(HMDWidgetTimelineRefresher *)selfCopy workQueue];
               dispatch_assert_queue_V2(workQueue);
 
@@ -8246,8 +8123,8 @@ LABEL_39:
 
               v63 = v62;
 
-              v80 = v63;
-              LODWORD(v63) = [v90 isEqualToSet:v63];
+              v79 = v63;
+              LODWORD(v63) = [v89 isEqualToSet:v63];
               v64 = objc_autoreleasePoolPush();
               v65 = selfCopy;
               v66 = HMFGetOSLogHandle();
@@ -8265,8 +8142,8 @@ LABEL_39:
                 }
 
                 objc_autoreleasePoolPop(v64);
-                v57 = v82;
-                v95(v82);
+                v57 = v81;
+                v94(v81);
               }
 
               else
@@ -8279,7 +8156,7 @@ LABEL_39:
                   *&buf[12] = 2112;
                   *&buf[14] = v55;
                   *&buf[22] = 2112;
-                  *&buf[24] = v90;
+                  *&buf[24] = v89;
                   _os_log_impl(&dword_229538000, v66, OS_LOG_TYPE_INFO, "%{public}@Monitored characteristics changed for widget %@ to %@", buf, 0x20u);
                 }
 
@@ -8287,29 +8164,29 @@ LABEL_39:
                 characteristicsMonitoredForWidgets = [(HMDWidgetTimelineRefresher *)v65 characteristicsMonitoredForWidgets];
                 accessoriesMonitoredForReachability = [(HMDWidgetTimelineRefresher *)v65 accessoriesMonitoredForReachability];
                 monitoredCharacteristicsMapByWidget2 = [(HMDWidgetTimelineRefresher *)v65 monitoredCharacteristicsMapByWidget];
-                [monitoredCharacteristicsMapByWidget2 setObject:v90 forKeyedSubscript:v55];
+                [monitoredCharacteristicsMapByWidget2 setObject:v89 forKeyedSubscript:v55];
 
                 characteristicsMonitoredForWidgets2 = [(HMDWidgetTimelineRefresher *)v65 characteristicsMonitoredForWidgets];
                 accessoriesMonitoredForReachability2 = [(HMDWidgetTimelineRefresher *)v65 accessoriesMonitoredForReachability];
-                [(HMDWidgetTimelineRefresher *)v65 updateNotificationRegistrationWithPreviousCharacteristics:characteristicsMonitoredForWidgets currentCharacteristics:characteristicsMonitoredForWidgets2 updateRequestQualityOfService:v79];
+                [(HMDWidgetTimelineRefresher *)v65 updateNotificationRegistrationWithPreviousCharacteristics:characteristicsMonitoredForWidgets currentCharacteristics:characteristicsMonitoredForWidgets2 updateRequestQualityOfService:v78];
                 *buf = MEMORY[0x277D85DD0];
                 *&buf[8] = 3221225472;
                 *&buf[16] = __146__HMDWidgetTimelineRefresher_internalUpdateMonitoredCharacteristics_shouldMonitorReachability_forWidget_updateRequestQualityOfService_completion___block_invoke;
                 *&buf[24] = &unk_27868A7A0;
                 *&buf[32] = v65;
-                v108 = v82;
+                v107 = v81;
                 [(HMDWidgetTimelineRefresher *)v65 updateReachabilityMonitorWithPreviousAccessories:accessoriesMonitoredForReachability currentAccessories:accessoriesMonitoredForReachability2 completion:buf];
 
-                v57 = v82;
+                v57 = v81;
               }
 
-              v5 = v91;
+              v5 = v90;
 
-              v54 = v84;
+              v54 = v83;
             }
 
-            v75 = v87;
-            v8 = v88;
+            v75 = v86;
+            v8 = v87;
           }
 
           else
@@ -8319,7 +8196,7 @@ LABEL_39:
             v47 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
             {
-              v93 = v5;
+              v92 = v5;
               v48 = HMFGetLogIdentifier();
               *buf = 0;
               *&buf[8] = 0;
@@ -8336,19 +8213,19 @@ LABEL_39:
                 *buf = *MEMORY[0x277D0F960];
               }
 
-              v113 = *buf;
+              v112 = *buf;
               messagePayload = [widgetCopy messagePayload];
               *buf = 138544130;
               *&buf[4] = v48;
               *&buf[12] = 1040;
               *&buf[14] = 16;
               *&buf[18] = 2096;
-              *&buf[20] = &v113;
+              *&buf[20] = &v112;
               *&buf[28] = 2112;
               *&buf[30] = messagePayload;
               _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Could not find reachability registration value in message payload: %@", buf, 0x26u);
 
-              v5 = v93;
+              v5 = v92;
             }
 
             objc_autoreleasePoolPop(v45);
@@ -8365,7 +8242,7 @@ LABEL_39:
           v40 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
-            v92 = v5;
+            v91 = v5;
             v41 = HMFGetLogIdentifier();
             *buf = 0;
             *&buf[8] = 0;
@@ -8382,19 +8259,19 @@ LABEL_39:
               *buf = *MEMORY[0x277D0F960];
             }
 
-            v114 = *buf;
+            v113 = *buf;
             messagePayload2 = [widgetCopy messagePayload];
             *buf = 138544130;
             *&buf[4] = v41;
             *&buf[12] = 1040;
             *&buf[14] = 16;
             *&buf[18] = 2096;
-            *&buf[20] = &v114;
+            *&buf[20] = &v113;
             *&buf[28] = 2112;
             *&buf[30] = messagePayload2;
             _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Could not find generation counter in message payload: %@", buf, 0x26u);
 
-            v5 = v92;
+            v5 = v91;
           }
 
           objc_autoreleasePoolPop(v38);
@@ -8426,14 +8303,14 @@ LABEL_39:
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v115 = *buf;
+          v114 = *buf;
           messagePayload3 = [widgetCopy messagePayload];
           *buf = 138544130;
           *&buf[4] = v35;
           *&buf[12] = 1040;
           *&buf[14] = 16;
           *&buf[18] = 2096;
-          *&buf[20] = &v115;
+          *&buf[20] = &v114;
           *&buf[28] = 2112;
           *&buf[30] = messagePayload3;
           _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Could not find characteristic UUIDs in message payload: %@", buf, 0x26u);
@@ -8468,14 +8345,14 @@ LABEL_39:
           *buf = *MEMORY[0x277D0F960];
         }
 
-        v116 = *buf;
+        v115 = *buf;
         messagePayload4 = [widgetCopy messagePayload];
         *buf = 138544130;
         *&buf[4] = v29;
         *&buf[12] = 1040;
         *&buf[14] = 16;
         *&buf[18] = 2096;
-        *&buf[20] = &v116;
+        *&buf[20] = &v115;
         *&buf[28] = 2112;
         *&buf[30] = messagePayload4;
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Could not find widget kind in message payload: %@", buf, 0x26u);
@@ -8510,14 +8387,14 @@ LABEL_39:
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v117 = *buf;
+      v116 = *buf;
       messagePayload5 = [widgetCopy messagePayload];
       *buf = 138544130;
       *&buf[4] = v23;
       *&buf[12] = 1040;
       *&buf[14] = 16;
       *&buf[18] = 2096;
-      *&buf[20] = &v117;
+      *&buf[20] = &v116;
       *&buf[28] = 2112;
       *&buf[30] = messagePayload5;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@[%{uuid_t}.16P] Could not find widget identifier in message payload: %@", buf, 0x26u);
@@ -8527,8 +8404,6 @@ LABEL_39:
     v6 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [widgetCopy respondWithError:v6];
   }
-
-  v78 = *MEMORY[0x277D85DE8];
 }
 
 HMDWidgetMonitoredCharacteristic *__68__HMDWidgetTimelineRefresher_handleMonitorCharacteristicsForWidget___block_invoke(uint64_t a1, void *a2)
@@ -8541,7 +8416,7 @@ HMDWidgetMonitoredCharacteristic *__68__HMDWidgetTimelineRefresher_handleMonitor
 
 void __68__HMDWidgetTimelineRefresher_handleMonitorCharacteristicsForWidget___block_invoke_258(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) unsignedIntValue];
   if (!v2)
@@ -8599,7 +8474,7 @@ LABEL_10:
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v42 = *buf;
+          v41 = *buf;
           *buf = 0;
           *&buf[8] = 0;
           if (v19)
@@ -8612,17 +8487,17 @@ LABEL_10:
             *buf = *MEMORY[0x277D0F960];
           }
 
-          v41 = *buf;
+          v40 = *buf;
           *buf = 138544386;
           *&buf[4] = v23;
           *&buf[12] = 1040;
           *&buf[14] = 16;
           *&buf[18] = 2096;
-          *&buf[20] = &v42;
+          *&buf[20] = &v41;
           *&buf[28] = 1040;
           *&buf[30] = 16;
           *&buf[34] = 2096;
-          *&buf[36] = &v41;
+          *&buf[36] = &v40;
           _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Refreshing timeline because client's currentHome UUID is different. Client: %{uuid_t}.16P, homed: %{uuid_t}.16P", buf, 0x2Cu);
         }
 
@@ -8658,13 +8533,13 @@ LABEL_23:
   [(HMDWidgetTimelineRefresher *)v24 refreshTimelineForWidgetKinds:v25 withReason:v15 shouldCoalesce:1];
 
 LABEL_24:
-  v39[0] = *MEMORY[0x277CD1520];
+  v38[0] = *MEMORY[0x277CD1520];
   v26 = [*(a1 + 32) valueByCharacteristicSPIClientIdentifierForCharacteristics:*(a1 + 64)];
-  v40[0] = v26;
-  v39[1] = *MEMORY[0x277CD1540];
+  v39[0] = v26;
+  v38[1] = *MEMORY[0x277CD1540];
   v27 = [*(a1 + 32) reachabilityByAccessorySPIClientIdentifierForCharacteristics:*(a1 + 64)];
-  v40[1] = v27;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
+  v39[1] = v27;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
 
   v29 = objc_autoreleasePoolPush();
   v30 = *(a1 + 32);
@@ -8688,7 +8563,7 @@ LABEL_24:
       *buf = *MEMORY[0x277D0F960];
     }
 
-    v37 = *buf;
+    v36 = *buf;
     *buf = 138544386;
     *&buf[4] = v32;
     *&buf[12] = 2112;
@@ -8696,7 +8571,7 @@ LABEL_24:
     *&buf[22] = 1040;
     *&buf[24] = 16;
     *&buf[28] = 2096;
-    *&buf[30] = &v37;
+    *&buf[30] = &v36;
     *&buf[38] = 2112;
     *&buf[40] = v28;
     _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@[%@] Responding to %{uuid_t}.16P with payload: %@", buf, 0x30u);
@@ -8704,8 +8579,6 @@ LABEL_24:
 
   objc_autoreleasePoolPop(v29);
   [*(a1 + 72) respondWithPayload:v28];
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __146__HMDWidgetTimelineRefresher_internalUpdateMonitoredCharacteristics_shouldMonitorReachability_forWidget_updateRequestQualityOfService_completion___block_invoke(uint64_t a1)
@@ -8721,7 +8594,7 @@ void __146__HMDWidgetTimelineRefresher_internalUpdateMonitoredCharacteristics_sh
 
 - (void)fetchAndStoreActiveAutoBahnWidgetKindsWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -8730,22 +8603,20 @@ void __146__HMDWidgetTimelineRefresher_internalUpdateMonitoredCharacteristics_sh
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v15 = v8;
+    v14 = v8;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Reloading widgets from Chronod", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   widgetConfigurationReader = [(HMDWidgetTimelineRefresher *)selfCopy widgetConfigurationReader];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __83__HMDWidgetTimelineRefresher_fetchAndStoreActiveAutoBahnWidgetKindsWithCompletion___block_invoke;
-  v12[3] = &unk_278687158;
-  v12[4] = selfCopy;
-  v13 = completionCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __83__HMDWidgetTimelineRefresher_fetchAndStoreActiveAutoBahnWidgetKindsWithCompletion___block_invoke;
+  v11[3] = &unk_278687158;
+  v11[4] = selfCopy;
+  v12 = completionCopy;
   v10 = completionCopy;
-  [widgetConfigurationReader fetchAutoBahnWidgetsWithCompletion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [widgetConfigurationReader fetchAutoBahnWidgetsWithCompletion:v11];
 }
 
 void __83__HMDWidgetTimelineRefresher_fetchAndStoreActiveAutoBahnWidgetKindsWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -8767,7 +8638,7 @@ void __83__HMDWidgetTimelineRefresher_fetchAndStoreActiveAutoBahnWidgetKindsWith
 
 void __83__HMDWidgetTimelineRefresher_fetchAndStoreActiveAutoBahnWidgetKindsWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
   v3 = [*(a1 + 32) na_map:&__block_literal_global_252];
   v4 = [v2 setWithArray:v3];
@@ -8780,18 +8651,16 @@ void __83__HMDWidgetTimelineRefresher_fetchAndStoreActiveAutoBahnWidgetKindsWith
     v8 = HMFGetLogIdentifier();
     v9 = [v4 allObjects];
     v10 = [v9 componentsJoinedByString:{@", "}];
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Active widgets are: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Active widgets are: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [*(a1 + 40) setActiveAutoBahnWidgetKinds:v4];
   (*(*(a1 + 48) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forceUpdateTimelineForWidgetKinds:(id)kinds
@@ -8812,7 +8681,7 @@ void __83__HMDWidgetTimelineRefresher_fetchAndStoreActiveAutoBahnWidgetKindsWith
 
 void __64__HMDWidgetTimelineRefresher_forceUpdateTimelineForWidgetKinds___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) widgetKindsToUpdate];
   LOBYTE(v2) = [v2 isSubsetOfSet:v3];
@@ -8837,9 +8706,9 @@ void __64__HMDWidgetTimelineRefresher_forceUpdateTimelineForWidgetKinds___block_
       v14 = [v13 sortedArrayUsingComparator:&__block_literal_global_60614];
       v15 = [v14 componentsJoinedByString:{@", "}];
       *buf = 138543618;
-      v21 = v11;
-      v22 = 2112;
-      v23 = v15;
+      v20 = v11;
+      v21 = 2112;
+      v22 = v15;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@More kinds to reload: %@", buf, 0x16u);
     }
 
@@ -8856,35 +8725,33 @@ void __64__HMDWidgetTimelineRefresher_forceUpdateTimelineForWidgetKinds___block_
       dispatch_after(v16, v17, block);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMDWidgetTimelineRefresher_forceUpdateTimelineForWidgetKinds___block_invoke_245(uint64_t a1)
 {
   v1 = a1;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [*(a1 + 32) widgetKindsToUpdate];
-  v2 = [obj countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v2 = [obj countByEnumeratingWithState:&v21 objects:v31 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v23;
-    v20 = v1;
+    v4 = *v22;
+    v19 = v1;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v23 != v4)
+        if (*v22 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v22 + 1) + 8 * i);
+        v6 = *(*(&v21 + 1) + 8 * i);
         v7 = [objc_alloc(MEMORY[0x277CFA320]) initWithExtensionBundleIdentifier:@"com.apple.Home.HomeWidget" kind:v6];
         v8 = [v7 reloadTimelineWithReason:@"new data"];
         v9 = objc_autoreleasePoolPush();
@@ -8900,11 +8767,11 @@ void __64__HMDWidgetTimelineRefresher_forceUpdateTimelineForWidgetKinds___block_
 
           v13 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v27 = v13;
-          v28 = 2112;
-          v29 = v6;
-          v30 = 2112;
-          v31 = v8;
+          v26 = v13;
+          v27 = 2112;
+          v28 = v6;
+          v29 = 2112;
+          v30 = v8;
           v14 = v12;
           v15 = OS_LOG_TYPE_ERROR;
           v16 = "%{public}@Failed reload of timeline for '%@': %@";
@@ -8920,9 +8787,9 @@ void __64__HMDWidgetTimelineRefresher_forceUpdateTimelineForWidgetKinds___block_
 
           v13 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v27 = v13;
-          v28 = 2112;
-          v29 = v6;
+          v26 = v13;
+          v27 = 2112;
+          v28 = v6;
           v14 = v12;
           v15 = OS_LOG_TYPE_DEFAULT;
           v16 = "%{public}@Successfully reloaded timeline for '%@'";
@@ -8931,13 +8798,13 @@ void __64__HMDWidgetTimelineRefresher_forceUpdateTimelineForWidgetKinds___block_
 
         _os_log_impl(&dword_229538000, v14, v15, v16, buf, v17);
 
-        v1 = v20;
+        v1 = v19;
 LABEL_12:
 
         objc_autoreleasePoolPop(v9);
       }
 
-      v3 = [obj countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v3 = [obj countByEnumeratingWithState:&v21 objects:v31 count:16];
     }
 
     while (v3);
@@ -8945,43 +8812,41 @@ LABEL_12:
 
   v18 = [MEMORY[0x277CBEB98] set];
   [*(v1 + 32) setWidgetKindsToUpdate:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)widgetKindsToUpdateFromFetchSpecifications:(id)specifications assumingChangedCharacteristic:(id)characteristic
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   specificationsCopy = specifications;
   characteristicCopy = characteristic;
-  v32 = [MEMORY[0x277CBEB58] set];
-  v34 = characteristicCopy;
+  v31 = [MEMORY[0x277CBEB58] set];
+  v33 = characteristicCopy;
   service = [characteristicCopy service];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = specificationsCopy;
-  v8 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v8 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v40;
+    v11 = *v39;
     *&v9 = 138543618;
-    v30 = v9;
-    v33 = *v40;
+    v29 = v9;
+    v32 = *v39;
     do
     {
       v12 = 0;
-      v35 = v10;
+      v34 = v10;
       do
       {
-        if (*v40 != v11)
+        if (*v39 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v39 + 1) + 8 * v12);
+        v13 = *(*(&v38 + 1) + 8 * v12);
         serviceTypes = [v13 serviceTypes];
         type = [service type];
         if (![serviceTypes containsObject:type])
@@ -8996,7 +8861,7 @@ LABEL_12:
         {
           associatedServiceTypes2 = [v13 associatedServiceTypes];
           associatedServiceType = [service associatedServiceType];
-          v38 = associatedServiceTypes2;
+          v37 = associatedServiceTypes2;
           if (![associatedServiceTypes2 containsObject:?])
           {
             v22 = 0;
@@ -9006,15 +8871,15 @@ LABEL_12:
 
         v19 = service;
         characteristicTypes = [v13 characteristicTypes];
-        type2 = [v34 type];
+        type2 = [v33 type];
         v22 = [characteristicTypes containsObject:type2];
 
         if ((hmf_isEmpty & 1) == 0)
         {
           service = v19;
-          v11 = v33;
+          v11 = v32;
 LABEL_15:
-          v10 = v35;
+          v10 = v34;
 
           if ((v22 & 1) == 0)
           {
@@ -9029,24 +8894,24 @@ LABEL_16:
           {
             v26 = HMFGetLogIdentifier();
             affectedWidgetKinds = [v13 affectedWidgetKinds];
-            *buf = v30;
-            v44 = v26;
-            v45 = 2112;
-            v46 = affectedWidgetKinds;
+            *buf = v29;
+            v43 = v26;
+            v44 = 2112;
+            v45 = affectedWidgetKinds;
             _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@...must reload widget kinds: %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v23);
           serviceTypes = [v13 affectedWidgetKinds];
-          [v32 unionSet:serviceTypes];
+          [v31 unionSet:serviceTypes];
 LABEL_19:
 
           goto LABEL_20;
         }
 
         service = v19;
-        v11 = v33;
-        v10 = v35;
+        v11 = v32;
+        v10 = v34;
         if (v22)
         {
           goto LABEL_16;
@@ -9057,20 +8922,18 @@ LABEL_20:
       }
 
       while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v10 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
     }
 
     while (v10);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v31;
 }
 
 - (id)widgetKindsToUpdateFromFetchSpecifications:(id)specifications changedCharacteristics:(id)characteristics
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   specificationsCopy = specifications;
   characteristicsCopy = characteristics;
   v7 = objc_autoreleasePoolPush();
@@ -9080,39 +8943,39 @@ LABEL_20:
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v101 = v10;
-    v102 = 2082;
-    v103 = "[HMDWidgetTimelineRefresher widgetKindsToUpdateFromFetchSpecifications:changedCharacteristics:]";
+    v100 = v10;
+    v101 = 2082;
+    v102 = "[HMDWidgetTimelineRefresher widgetKindsToUpdateFromFetchSpecifications:changedCharacteristics:]";
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@%{public}s", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v75 = [MEMORY[0x277CBEB58] set];
+  v74 = [MEMORY[0x277CBEB58] set];
+  v95 = 0u;
   v96 = 0u;
   v97 = 0u;
   v98 = 0u;
-  v99 = 0u;
   obj = characteristicsCopy;
-  v11 = [obj countByEnumeratingWithState:&v96 objects:v114 count:16];
+  v11 = [obj countByEnumeratingWithState:&v95 objects:v113 count:16];
   if (v11)
   {
     v13 = v11;
-    v95 = *v97;
+    v94 = *v96;
     *&v12 = 138544898;
-    v66 = v12;
-    v88 = selfCopy;
+    v65 = v12;
+    v87 = selfCopy;
     do
     {
       v14 = 0;
-      v89 = v13;
+      v88 = v13;
       do
       {
-        if (*v97 != v95)
+        if (*v96 != v94)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v96 + 1) + 8 * v14);
+        v15 = *(*(&v95 + 1) + 8 * v14);
         accessory = [v15 accessory];
         home = [accessory home];
         v18 = home;
@@ -9137,7 +9000,7 @@ LABEL_20:
               v26 = HMFGetOSLogHandle();
               if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
               {
-                v69 = HMFGetLogIdentifier();
+                v68 = HMFGetLogIdentifier();
                 characteristicType = [v15 characteristicType];
                 v27 = HAPShortUUIDType();
                 characteristicTypeDescription = [v15 characteristicTypeDescription];
@@ -9149,24 +9012,24 @@ LABEL_20:
                 name2 = [v30 name];
                 value2 = [v15 value];
                 *buf = 138544642;
-                v101 = v69;
-                v102 = 2112;
-                v103 = v27;
+                v100 = v68;
+                v101 = 2112;
+                v102 = v27;
                 v33 = v27;
-                v104 = 2112;
-                v105 = characteristicTypeDescription;
-                v106 = 2112;
-                v107 = name;
-                v108 = 2112;
-                v109 = name2;
-                v110 = 2112;
-                v111 = value2;
+                v103 = 2112;
+                v104 = characteristicTypeDescription;
+                v105 = 2112;
+                v106 = name;
+                v107 = 2112;
+                v108 = name2;
+                v109 = 2112;
+                v110 = value2;
                 _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@...ignoring redundant characteristic [%@] (%@) from '%@:%@', value '%@'", buf, 0x3Eu);
 
                 v24 = contexta;
-                v13 = v89;
+                v13 = v88;
 
-                selfCopy = v88;
+                selfCopy = v87;
               }
 
               objc_autoreleasePoolPop(v24);
@@ -9176,7 +9039,7 @@ LABEL_20:
             else
             {
               v34 = [(HMDWidgetTimelineRefresher *)selfCopy widgetKindsToUpdateFromFetchSpecifications:specificationsCopy assumingChangedCharacteristic:v15];
-              [v75 unionSet:v34];
+              [v74 unionSet:v34];
               v35 = [v34 count];
               context = objc_autoreleasePoolPush();
               v36 = selfCopy;
@@ -9187,7 +9050,7 @@ LABEL_20:
                 if (v38)
                 {
                   HMFGetLogIdentifier();
-                  v39 = v82 = v34;
+                  v39 = v81 = v34;
                   characteristicType2 = [v15 characteristicType];
                   v40 = HAPShortUUIDType();
                   [v15 characteristicTypeDescription];
@@ -9199,29 +9062,29 @@ LABEL_20:
                   name4 = [accessory4 name];
                   [v15 value];
                   v45 = v44 = v22;
-                  *buf = v66;
-                  v101 = v39;
-                  v102 = 2112;
-                  v103 = v40;
-                  v104 = 2112;
-                  v105 = v41;
-                  v106 = 2112;
-                  v107 = name3;
-                  v108 = 2112;
-                  v109 = name4;
-                  v110 = 2112;
-                  v111 = v45;
-                  v112 = 2112;
-                  v113 = v44;
+                  *buf = v65;
+                  v100 = v39;
+                  v101 = 2112;
+                  v102 = v40;
+                  v103 = 2112;
+                  v104 = v41;
+                  v105 = 2112;
+                  v106 = name3;
+                  v107 = 2112;
+                  v108 = name4;
+                  v109 = 2112;
+                  v110 = v45;
+                  v111 = 2112;
+                  v112 = v44;
                   _os_log_impl(&dword_229538000, loga, OS_LOG_TYPE_INFO, "%{public}@...updating characteristic [%@] (%@) from '%@:%@', value '%@' was '%@'", buf, 0x48u);
 
                   v22 = v44;
-                  selfCopy = v88;
+                  selfCopy = v87;
 
-                  v13 = v89;
+                  v13 = v88;
                   v37 = loga;
 
-                  v34 = v82;
+                  v34 = v81;
                 }
 
                 objc_autoreleasePoolPop(context);
@@ -9235,9 +9098,9 @@ LABEL_20:
               {
                 if (v38)
                 {
-                  v83 = HMFGetLogIdentifier();
+                  v82 = HMFGetLogIdentifier();
                   characteristicType3 = [v15 characteristicType];
-                  v68 = HAPShortUUIDType();
+                  v67 = HAPShortUUIDType();
                   characteristicTypeDescription2 = [v15 characteristicTypeDescription];
                   accessory5 = [v15 accessory];
                   home4 = [accessory5 home];
@@ -9247,23 +9110,23 @@ LABEL_20:
                   v52 = logb = v22;
                   value4 = [v15 value];
                   *buf = 138544642;
-                  v101 = v83;
-                  v102 = 2112;
-                  v103 = v68;
-                  v104 = 2112;
-                  v105 = characteristicTypeDescription2;
-                  v106 = 2112;
-                  v107 = name5;
-                  v108 = 2112;
-                  v109 = v52;
-                  v110 = 2112;
-                  v111 = value4;
+                  v100 = v82;
+                  v101 = 2112;
+                  v102 = v67;
+                  v103 = 2112;
+                  v104 = characteristicTypeDescription2;
+                  v105 = 2112;
+                  v106 = name5;
+                  v107 = 2112;
+                  v108 = v52;
+                  v109 = 2112;
+                  v110 = value4;
                   _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@...ignoring irrelevant characteristic [%@] (%@) from '%@:%@', value '%@'", buf, 0x3Eu);
 
                   v22 = logb;
-                  v13 = v89;
+                  v13 = v88;
 
-                  selfCopy = v88;
+                  selfCopy = v87;
                 }
 
                 objc_autoreleasePoolPop(context);
@@ -9295,23 +9158,23 @@ LABEL_20:
           name7 = [v61 name];
           value5 = [v15 value];
           *buf = 138544642;
-          v101 = v57;
-          v102 = 2112;
-          v103 = v58;
-          v104 = 2112;
-          v105 = characteristicTypeDescription3;
-          v106 = 2112;
-          v107 = name6;
-          v108 = 2112;
-          v109 = name7;
-          v110 = 2112;
-          v111 = value5;
+          v100 = v57;
+          v101 = 2112;
+          v102 = v58;
+          v103 = 2112;
+          v104 = characteristicTypeDescription3;
+          v105 = 2112;
+          v106 = name6;
+          v107 = 2112;
+          v108 = name7;
+          v109 = 2112;
+          v110 = value5;
           _os_log_impl(&dword_229538000, v56, OS_LOG_TYPE_INFO, "%{public}@...No resident. Ignoring characteristic [%@] (%@) from '%@:%@', value '%@'", buf, 0x3Eu);
 
           v54 = logc;
-          selfCopy = v88;
+          selfCopy = v87;
 
-          v13 = v89;
+          v13 = v88;
         }
 
         objc_autoreleasePoolPop(v54);
@@ -9320,20 +9183,18 @@ LABEL_27:
       }
 
       while (v13 != v14);
-      v13 = [obj countByEnumeratingWithState:&v96 objects:v114 count:16];
+      v13 = [obj countByEnumeratingWithState:&v95 objects:v113 count:16];
     }
 
     while (v13);
   }
 
-  v64 = *MEMORY[0x277D85DE8];
-
-  return v75;
+  return v74;
 }
 
 - (void)internalProcessChangedCharacteristics:(id)characteristics activeAutoBahnWidgetKinds:(id)kinds
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   kindsCopy = kinds;
   v8 = objc_autoreleasePoolPush();
@@ -9342,11 +9203,11 @@ LABEL_27:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v16 = 138543618;
-    v17 = v11;
-    v18 = 2080;
-    v19 = "[HMDWidgetTimelineRefresher internalProcessChangedCharacteristics:activeAutoBahnWidgetKinds:]";
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@%s", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v11;
+    v17 = 2080;
+    v18 = "[HMDWidgetTimelineRefresher internalProcessChangedCharacteristics:activeAutoBahnWidgetKinds:]";
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@%s", &v15, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -9354,8 +9215,6 @@ LABEL_27:
   v13 = [(HMDWidgetTimelineRefresher *)selfCopy widgetKindsToUpdateFromFetchSpecifications:v12 changedCharacteristics:characteristicsCopy];
   forceUpdateAutobahnTimelineHandler = [(HMDWidgetTimelineRefresher *)selfCopy forceUpdateAutobahnTimelineHandler];
   (forceUpdateAutobahnTimelineHandler)[2](forceUpdateAutobahnTimelineHandler, v13);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processCharacteristicsChangedNotification:(id)notification
@@ -9375,16 +9234,16 @@ LABEL_27:
 
 void __72__HMDWidgetTimelineRefresher_processCharacteristicsChangedNotification___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Processing characteristics changed notification", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Processing characteristics changed notification", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -9392,21 +9251,19 @@ void __72__HMDWidgetTimelineRefresher_processCharacteristicsChangedNotification_
   v7 = *(a1 + 32);
   v8 = [v7 activeAutoBahnWidgetKinds];
   [v7 internalProcessChangedCharacteristics:v6 activeAutoBahnWidgetKinds:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoringOldCharacteristics
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
-  v44 = selfCopy;
+  v43 = selfCopy;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    monitoredCharacteristics = [(HMDWidgetTimelineRefresher *)v44 monitoredCharacteristics];
+    monitoredCharacteristics = [(HMDWidgetTimelineRefresher *)v43 monitoredCharacteristics];
     v8 = [monitoredCharacteristics count];
     v9 = &stru_283CF9D50;
     if (!v8)
@@ -9415,42 +9272,42 @@ void __72__HMDWidgetTimelineRefresher_processCharacteristicsChangedNotification_
     }
 
     *buf = 138543618;
-    v59 = v6;
-    v60 = 2112;
-    v61 = v9;
+    v58 = v6;
+    v59 = 2112;
+    v60 = v9;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stop monitoring previous accessories: %@", buf, 0x16u);
 
-    selfCopy = v44;
+    selfCopy = v43;
   }
 
   objc_autoreleasePoolPop(v3);
-  v47 = objc_opt_new();
+  v46 = objc_opt_new();
   v10 = objc_opt_new();
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   monitoredCharacteristics2 = [(HMDWidgetTimelineRefresher *)selfCopy monitoredCharacteristics];
-  v12 = [monitoredCharacteristics2 countByEnumeratingWithState:&v52 objects:v57 count:16];
+  v12 = [monitoredCharacteristics2 countByEnumeratingWithState:&v51 objects:v56 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v53;
+    v14 = *v52;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v53 != v14)
+        if (*v52 != v14)
         {
           objc_enumerationMutation(monitoredCharacteristics2);
         }
 
-        v16 = *(*(&v52 + 1) + 8 * i);
+        v16 = *(*(&v51 + 1) + 8 * i);
         accessory = [v16 accessory];
         uuid = [accessory uuid];
         if (uuid)
         {
-          [v47 setObject:accessory forKeyedSubscript:uuid];
+          [v46 setObject:accessory forKeyedSubscript:uuid];
           v19 = [v10 objectForKeyedSubscript:uuid];
           v20 = v19;
           if (v19)
@@ -9467,38 +9324,38 @@ void __72__HMDWidgetTimelineRefresher_processCharacteristicsChangedNotification_
         }
       }
 
-      v13 = [monitoredCharacteristics2 countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v13 = [monitoredCharacteristics2 countByEnumeratingWithState:&v51 objects:v56 count:16];
     }
 
     while (v13);
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
-  obj = [v47 allKeys];
-  v22 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
-  v24 = v44;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  obj = [v46 allKeys];
+  v22 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+  v24 = v43;
   if (v22)
   {
     v25 = v22;
     *&v23 = 138543618;
-    v43 = v23;
-    v26 = *v49;
+    v42 = v23;
+    v26 = *v48;
     do
     {
       v27 = 0;
-      v45 = v25;
+      v44 = v25;
       do
       {
-        if (*v49 != v26)
+        if (*v48 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v48 + 1) + 8 * v27);
-        v29 = [v47 objectForKeyedSubscript:{v28, v43}];
+        v28 = *(*(&v47 + 1) + 8 * v27);
+        v29 = [v46 objectForKeyedSubscript:{v28, v42}];
         v30 = [v10 objectForKeyedSubscript:v28];
         v31 = v30;
         if (v29)
@@ -9525,17 +9382,17 @@ void __72__HMDWidgetTimelineRefresher_processCharacteristicsChangedNotification_
             [v29 shortDescription];
             v38 = v10;
             v40 = v39 = v26;
-            *buf = v43;
-            v59 = v37;
-            v60 = 2112;
-            v61 = v40;
+            *buf = v42;
+            v58 = v37;
+            v59 = 2112;
+            v60 = v40;
             _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@- stopped monitoring accessory: %@", buf, 0x16u);
 
             v26 = v39;
             v10 = v38;
-            v25 = v45;
+            v25 = v44;
 
-            v24 = v44;
+            v24 = v43;
           }
 
           objc_autoreleasePoolPop(v34);
@@ -9545,7 +9402,7 @@ void __72__HMDWidgetTimelineRefresher_processCharacteristicsChangedNotification_
       }
 
       while (v25 != v27);
-      v25 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v25 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
     while (v25);
@@ -9553,46 +9410,44 @@ void __72__HMDWidgetTimelineRefresher_processCharacteristicsChangedNotification_
 
   v41 = objc_opt_new();
   [(HMDWidgetTimelineRefresher *)v24 setMonitoredCharacteristics:v41];
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (id)monitorCharacteristicsForHome:(id)home fetchSpecifications:(id)specifications
 {
-  v128 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   specificationsCopy = specifications;
   array = [MEMORY[0x277CBEB18] array];
+  v109 = 0u;
   v110 = 0u;
   v111 = 0u;
   v112 = 0u;
-  v113 = 0u;
   obj = specificationsCopy;
-  v9 = [obj countByEnumeratingWithState:&v110 objects:v127 count:16];
+  v9 = [obj countByEnumeratingWithState:&v109 objects:v126 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v111;
+    v11 = *v110;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v111 != v11)
+        if (*v110 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        name = [*(*(&v110 + 1) + 8 * i) name];
+        name = [*(*(&v109 + 1) + 8 * i) name];
         [array addObject:name];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v110 objects:v127 count:16];
+      v10 = [obj countByEnumeratingWithState:&v109 objects:v126 count:16];
     }
 
     while (v10);
   }
 
-  v68 = array;
+  v67 = array;
 
   v14 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -9604,86 +9459,86 @@ void __72__HMDWidgetTimelineRefresher_processCharacteristicsChangedNotification_
     shortDescription = [homeCopy shortDescription];
     v20 = [array componentsJoinedByString:{@", "}];
     *buf = 138544130;
-    v120 = v17;
-    v121 = 2112;
-    v122 = name2;
-    v123 = 2112;
-    v124 = shortDescription;
-    v125 = 2112;
-    v126 = v20;
+    v119 = v17;
+    v120 = 2112;
+    v121 = name2;
+    v122 = 2112;
+    v123 = shortDescription;
+    v124 = 2112;
+    v125 = v20;
     _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@monitorCharacteristicsForHome: '%@' [%@], fetch specifications: %@", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v14);
-  v72 = objc_opt_new();
+  v71 = objc_opt_new();
+  v105 = 0u;
   v106 = 0u;
   v107 = 0u;
   v108 = 0u;
-  v109 = 0u;
-  v67 = homeCopy;
+  v66 = homeCopy;
   hapAccessories = [homeCopy hapAccessories];
-  v73 = [hapAccessories countByEnumeratingWithState:&v106 objects:v118 count:16];
-  if (v73)
+  v72 = [hapAccessories countByEnumeratingWithState:&v105 objects:v117 count:16];
+  if (v72)
   {
-    v71 = *v107;
-    v70 = selfCopy;
+    v70 = *v106;
+    v69 = selfCopy;
     do
     {
       v21 = 0;
       do
       {
-        if (*v107 != v71)
+        if (*v106 != v70)
         {
           objc_enumerationMutation(hapAccessories);
         }
 
-        v75 = v21;
-        v78 = *(*(&v106 + 1) + 8 * v21);
+        v74 = v21;
+        v77 = *(*(&v105 + 1) + 8 * v21);
         v22 = [MEMORY[0x277CBEB58] set];
+        v101 = 0u;
         v102 = 0u;
         v103 = 0u;
         v104 = 0u;
-        v105 = 0u;
-        v76 = obj;
-        v80 = [v76 countByEnumeratingWithState:&v102 objects:v117 count:16];
-        if (v80)
+        v75 = obj;
+        v79 = [v75 countByEnumeratingWithState:&v101 objects:v116 count:16];
+        if (v79)
         {
-          v77 = *v103;
+          v76 = *v102;
           do
           {
             v23 = 0;
             do
             {
-              if (*v103 != v77)
+              if (*v102 != v76)
               {
-                objc_enumerationMutation(v76);
+                objc_enumerationMutation(v75);
               }
 
-              v82 = v23;
-              v24 = *(*(&v102 + 1) + 8 * v23);
+              v81 = v23;
+              v24 = *(*(&v101 + 1) + 8 * v23);
+              v97 = 0u;
               v98 = 0u;
               v99 = 0u;
               v100 = 0u;
-              v101 = 0u;
-              services = [v78 services];
-              v26 = [services countByEnumeratingWithState:&v98 objects:v116 count:16];
+              services = [v77 services];
+              v26 = [services countByEnumeratingWithState:&v97 objects:v115 count:16];
               if (v26)
               {
                 v27 = v26;
-                v28 = *v99;
-                v84 = *v99;
+                v28 = *v98;
+                v83 = *v98;
                 do
                 {
                   v29 = 0;
-                  v88 = v27;
+                  v87 = v27;
                   do
                   {
-                    if (*v99 != v28)
+                    if (*v98 != v28)
                     {
                       objc_enumerationMutation(services);
                     }
 
-                    v30 = *(*(&v98 + 1) + 8 * v29);
+                    v30 = *(*(&v97 + 1) + 8 * v29);
                     serviceTypes = [v24 serviceTypes];
                     type = [v30 type];
                     if ([serviceTypes containsObject:type])
@@ -9699,51 +9554,51 @@ void __72__HMDWidgetTimelineRefresher_processCharacteristicsChangedNotification_
                         v34 = v24;
                         v36 = v35 = services;
                         associatedServiceType = [v30 associatedServiceType];
-                        v86 = [v36 containsObject:associatedServiceType];
+                        v85 = [v36 containsObject:associatedServiceType];
 
-                        v28 = v84;
+                        v28 = v83;
                         services = v35;
                         v24 = v34;
-                        v27 = v88;
+                        v27 = v87;
 
-                        if (!v86)
+                        if (!v85)
                         {
                           goto LABEL_41;
                         }
                       }
 
-                      v96 = 0u;
-                      v97 = 0u;
-                      v94 = 0u;
                       v95 = 0u;
+                      v96 = 0u;
+                      v93 = 0u;
+                      v94 = 0u;
                       serviceTypes = [v24 characteristicTypes];
-                      v38 = [serviceTypes countByEnumeratingWithState:&v94 objects:v115 count:16];
+                      v38 = [serviceTypes countByEnumeratingWithState:&v93 objects:v114 count:16];
                       if (v38)
                       {
                         v39 = v38;
-                        v40 = *v95;
+                        v40 = *v94;
                         do
                         {
                           for (j = 0; j != v39; ++j)
                           {
-                            if (*v95 != v40)
+                            if (*v94 != v40)
                             {
                               objc_enumerationMutation(serviceTypes);
                             }
 
-                            v42 = [v30 findCharacteristicWithType:*(*(&v94 + 1) + 8 * j)];
+                            v42 = [v30 findCharacteristicWithType:*(*(&v93 + 1) + 8 * j)];
                             if (v42)
                             {
                               [v22 addObject:v42];
                             }
                           }
 
-                          v39 = [serviceTypes countByEnumeratingWithState:&v94 objects:v115 count:16];
+                          v39 = [serviceTypes countByEnumeratingWithState:&v93 objects:v114 count:16];
                         }
 
                         while (v39);
-                        v28 = v84;
-                        v27 = v88;
+                        v28 = v83;
+                        v27 = v87;
                       }
                     }
 
@@ -9756,68 +9611,68 @@ LABEL_41:
                   }
 
                   while (v29 != v27);
-                  v27 = [services countByEnumeratingWithState:&v98 objects:v116 count:16];
+                  v27 = [services countByEnumeratingWithState:&v97 objects:v115 count:16];
                 }
 
                 while (v27);
               }
 
-              v23 = v82 + 1;
+              v23 = v81 + 1;
             }
 
-            while (v82 + 1 != v80);
-            v80 = [v76 countByEnumeratingWithState:&v102 objects:v117 count:16];
+            while (v81 + 1 != v79);
+            v79 = [v75 countByEnumeratingWithState:&v101 objects:v116 count:16];
           }
 
-          while (v80);
+          while (v79);
         }
 
         if ([v22 count])
         {
           v43 = objc_autoreleasePoolPush();
-          v89 = v70;
+          v88 = v69;
           v44 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
           {
             v45 = HMFGetLogIdentifier();
-            home = [v78 home];
+            home = [v77 home];
             name3 = [home name];
-            name4 = [v78 name];
+            name4 = [v77 name];
             *buf = 138543874;
-            v120 = v45;
-            v121 = 2112;
-            v122 = name3;
-            v123 = 2112;
-            v124 = name4;
+            v119 = v45;
+            v120 = 2112;
+            v121 = name3;
+            v122 = 2112;
+            v123 = name4;
             _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@Monitoring accessory: '%@:%@'", buf, 0x20u);
           }
 
           objc_autoreleasePoolPop(v43);
-          v92 = 0u;
-          v93 = 0u;
-          v90 = 0u;
           v91 = 0u;
-          v83 = v22;
-          v49 = [v83 countByEnumeratingWithState:&v90 objects:v114 count:16];
+          v92 = 0u;
+          v89 = 0u;
+          v90 = 0u;
+          v82 = v22;
+          v49 = [v82 countByEnumeratingWithState:&v89 objects:v113 count:16];
           if (v49)
           {
             v50 = v49;
-            v51 = *v91;
-            v79 = *v91;
+            v51 = *v90;
+            v78 = *v90;
             do
             {
               v52 = 0;
-              v81 = v50;
+              v80 = v50;
               do
               {
-                if (*v91 != v51)
+                if (*v90 != v51)
                 {
-                  objc_enumerationMutation(v83);
+                  objc_enumerationMutation(v82);
                 }
 
-                v53 = *(*(&v90 + 1) + 8 * v52);
+                v53 = *(*(&v89 + 1) + 8 * v52);
                 v54 = objc_autoreleasePoolPush();
-                v55 = v89;
+                v55 = v88;
                 v56 = HMFGetOSLogHandle();
                 if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
                 {
@@ -9827,22 +9682,22 @@ LABEL_41:
                   v59 = HAPShortUUIDType();
                   characteristicType = [v53 characteristicType];
                   HAPShortUUIDType();
-                  v61 = v87 = v54;
+                  v61 = v86 = v54;
                   characteristicTypeDescription = [v53 characteristicTypeDescription];
                   *buf = 138544130;
-                  v120 = v57;
-                  v121 = 2112;
-                  v122 = v59;
-                  v123 = 2112;
-                  v124 = v61;
-                  v125 = 2112;
-                  v126 = characteristicTypeDescription;
+                  v119 = v57;
+                  v120 = 2112;
+                  v121 = v59;
+                  v122 = 2112;
+                  v123 = v61;
+                  v124 = 2112;
+                  v125 = characteristicTypeDescription;
                   _os_log_impl(&dword_229538000, v56, OS_LOG_TYPE_INFO, "%{public}@+ monitoring service: '%@', characteristic: '[%@] (%@)'", buf, 0x2Au);
 
-                  v51 = v79;
-                  v50 = v81;
+                  v51 = v78;
+                  v50 = v80;
 
-                  v54 = v87;
+                  v54 = v86;
                 }
 
                 objc_autoreleasePoolPop(v54);
@@ -9850,37 +9705,36 @@ LABEL_41:
               }
 
               while (v50 != v52);
-              v50 = [v83 countByEnumeratingWithState:&v90 objects:v114 count:16];
+              v50 = [v82 countByEnumeratingWithState:&v89 objects:v113 count:16];
             }
 
             while (v50);
           }
 
-          clientIdentifier = [(HMDWidgetTimelineRefresher *)v89 clientIdentifier];
-          [(HMDWidgetTimelineRefresher *)v89 setNotificationEnabled:v83 forCharacteristics:clientIdentifier clientIdentifier:?];
+          clientIdentifier = [(HMDWidgetTimelineRefresher *)v88 clientIdentifier];
+          [(HMDWidgetTimelineRefresher *)v88 setNotificationEnabled:v82 forCharacteristics:clientIdentifier clientIdentifier:?];
         }
 
-        [v72 unionSet:v22];
+        [v71 unionSet:v22];
 
-        v21 = v75 + 1;
+        v21 = v74 + 1;
       }
 
-      while (v75 + 1 != v73);
-      v73 = [hapAccessories countByEnumeratingWithState:&v106 objects:v118 count:16];
+      while (v74 + 1 != v72);
+      v72 = [hapAccessories countByEnumeratingWithState:&v105 objects:v117 count:16];
     }
 
-    while (v73);
+    while (v72);
   }
 
-  v64 = [v72 copy];
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = objc_msgSend_copy(v71);
 
   return v64;
 }
 
 - (id)internalMonitorCharacteristicsForCurrentHome:(id)home activeAutoBahnWidgetKinds:(id)kinds
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   kindsCopy = kinds;
   v8 = objc_opt_new();
@@ -9896,9 +9750,9 @@ LABEL_41:
         v12 = HMFGetLogIdentifier();
         shortDescription = [homeCopy shortDescription];
         *buf = 138543618;
-        v40 = v12;
-        v41 = 2112;
-        v42 = shortDescription;
+        v39 = v12;
+        v40 = 2112;
+        v41 = shortDescription;
         _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating monitored characteristics for current home: %@", buf, 0x16u);
       }
 
@@ -9918,9 +9772,9 @@ LABEL_41:
         v19 = HMFGetLogIdentifier();
         shortDescription2 = [homeCopy shortDescription];
         *buf = 138543618;
-        v40 = v19;
-        v41 = 2112;
-        v42 = shortDescription2;
+        v39 = v19;
+        v40 = 2112;
+        v41 = shortDescription2;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Not updating monitored characteristics for current home: %@ because there is no resident", buf, 0x16u);
       }
 
@@ -9930,29 +9784,29 @@ LABEL_41:
 
   if ([kindsCopy containsObject:@"com.apple.Home.widget.security.singleAccessory"])
   {
-    v33 = kindsCopy;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
+    v32 = kindsCopy;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     homeManager = [(HMDWidgetTimelineRefresher *)self homeManager];
     homes = [homeManager homes];
 
-    v23 = [homes countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v23 = [homes countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v35;
+      v25 = *v34;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v35 != v25)
+          if (*v34 != v25)
           {
             objc_enumerationMutation(homes);
           }
 
-          v27 = *(*(&v34 + 1) + 8 * i);
+          v27 = *(*(&v33 + 1) + 8 * i);
           v28 = HMFEqualObjects();
           if (self && (v28 & 1) == 0 && [v27 hasAnyResident])
           {
@@ -9963,16 +9817,14 @@ LABEL_41:
           }
         }
 
-        v24 = [homes countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v24 = [homes countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v24);
     }
 
-    kindsCopy = v33;
+    kindsCopy = v32;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -9991,7 +9843,7 @@ LABEL_41:
 void __85__HMDWidgetTimelineRefresher_updateMonitoredCharacteristicsAndRefreshWidgetTimelines__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) monitoredCharacteristics];
-  v3 = [v2 copy];
+  v3 = objc_msgSend_copy(v2);
 
   v4 = [*(a1 + 32) accessoriesMonitoredForReachability];
   [*(a1 + 32) stopMonitoringOldCharacteristics];
@@ -10031,7 +9883,7 @@ void __85__HMDWidgetTimelineRefresher_updateMonitoredCharacteristicsAndRefreshWi
 
 void __85__HMDWidgetTimelineRefresher_updateMonitoredCharacteristicsAndRefreshWidgetTimelines__block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) monitoredCharacteristics];
   LOBYTE(v2) = [v2 isEqualToSet:v3];
@@ -10044,9 +9896,9 @@ void __85__HMDWidgetTimelineRefresher_updateMonitoredCharacteristicsAndRefreshWi
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Refreshing all Home widgets because of major changes / daemon restart", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Refreshing all Home widgets because of major changes / daemon restart", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -10054,22 +9906,20 @@ void __85__HMDWidgetTimelineRefresher_updateMonitoredCharacteristicsAndRefreshWi
     v9 = [*(a1 + 40) activeAutoBahnWidgetKinds];
     (v8)[2](v8, v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForDarwinNotifications
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   darwinNotificationProvider = [(HMDWidgetTimelineRefresher *)self darwinNotificationProvider];
   workQueue = [(HMDWidgetTimelineRefresher *)self workQueue];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __60__HMDWidgetTimelineRefresher_registerForDarwinNotifications__block_invoke;
-  v20[3] = &unk_278682DC8;
-  objc_copyWeak(&v21, &location);
-  v5 = [darwinNotificationProvider notifyRegisterDispatch:"com.apple.Home.homeSensingChanged" outToken:&self->_homeSensingChangedNotificationToken queue:workQueue handler:v20];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __60__HMDWidgetTimelineRefresher_registerForDarwinNotifications__block_invoke;
+  v19[3] = &unk_278682DC8;
+  objc_copyWeak(&v20, &location);
+  v5 = [darwinNotificationProvider notifyRegisterDispatch:"com.apple.Home.homeSensingChanged" outToken:&self->_homeSensingChangedNotificationToken queue:workQueue handler:v19];
 
   if (v5)
   {
@@ -10080,11 +9930,11 @@ void __85__HMDWidgetTimelineRefresher_updateMonitoredCharacteristicsAndRefreshWi
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v24 = v9;
-      v25 = 2080;
-      v26 = "com.apple.Home.homeSensingChanged";
-      v27 = 1024;
-      v28 = v5;
+      v23 = v9;
+      v24 = 2080;
+      v25 = "com.apple.Home.homeSensingChanged";
+      v26 = 1024;
+      v27 = v5;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to register notification for %s with error: %d", buf, 0x1Cu);
     }
 
@@ -10093,12 +9943,12 @@ void __85__HMDWidgetTimelineRefresher_updateMonitoredCharacteristicsAndRefreshWi
 
   darwinNotificationProvider2 = [(HMDWidgetTimelineRefresher *)self darwinNotificationProvider];
   workQueue2 = [(HMDWidgetTimelineRefresher *)self workQueue];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __60__HMDWidgetTimelineRefresher_registerForDarwinNotifications__block_invoke_233;
-  v18[3] = &unk_278682DC8;
-  objc_copyWeak(&v19, &location);
-  v12 = [darwinNotificationProvider2 notifyRegisterDispatch:"com.apple.Home.selectedHomeChanged" outToken:&self->_selectedHomeChangedNotificationToken queue:workQueue2 handler:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __60__HMDWidgetTimelineRefresher_registerForDarwinNotifications__block_invoke_233;
+  v17[3] = &unk_278682DC8;
+  objc_copyWeak(&v18, &location);
+  v12 = [darwinNotificationProvider2 notifyRegisterDispatch:"com.apple.Home.selectedHomeChanged" outToken:&self->_selectedHomeChangedNotificationToken queue:workQueue2 handler:v17];
 
   if (v12)
   {
@@ -10109,21 +9959,20 @@ void __85__HMDWidgetTimelineRefresher_updateMonitoredCharacteristicsAndRefreshWi
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v24 = v16;
-      v25 = 2080;
-      v26 = "com.apple.Home.selectedHomeChanged";
-      v27 = 1024;
-      v28 = v12;
+      v23 = v16;
+      v24 = 2080;
+      v25 = "com.apple.Home.selectedHomeChanged";
+      v26 = 1024;
+      v27 = v12;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to register notification for %s with error: %d", buf, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v13);
   }
 
-  objc_destroyWeak(&v19);
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMDWidgetTimelineRefresher_registerForDarwinNotifications__block_invoke(uint64_t a1)
@@ -10140,11 +9989,11 @@ void __60__HMDWidgetTimelineRefresher_registerForDarwinNotifications__block_invo
 
 - (void)registerForMessagesWithMessageDispatcher:(id)dispatcher
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   dispatcherCopy = dispatcher;
   v5 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v8[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   [dispatcherCopy registerForMessage:*MEMORY[0x277CD1580] receiver:self policies:v6 selector:sel_handleMonitorCharacteristicsForWidget_];
   [dispatcherCopy registerForMessage:*MEMORY[0x277CD1568] receiver:self policies:v6 selector:sel_handleFetchState_];
@@ -10152,13 +10001,11 @@ void __60__HMDWidgetTimelineRefresher_registerForDarwinNotifications__block_invo
   [dispatcherCopy registerForMessage:*MEMORY[0x277CD1578] receiver:self policies:v6 selector:sel_handleMonitorActionSetsForWidget_];
   [dispatcherCopy registerForMessage:*MEMORY[0x277CD1570] receiver:self policies:v6 selector:sel_handleFetchStateForActionSets_];
   [dispatcherCopy registerForMessage:*MEMORY[0x277CD1588] receiver:self policies:v6 selector:sel_handleMonitorMTRAttributes_];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   homeManager = [(HMDWidgetTimelineRefresher *)self homeManager];
   if (homeManager)
   {
@@ -10202,30 +10049,30 @@ void __60__HMDWidgetTimelineRefresher_registerForDarwinNotifications__block_invo
     notificationCenter13 = [(HMDWidgetTimelineRefresher *)self notificationCenter];
     [notificationCenter13 addObserver:self selector:sel_handleRestrictedGuestScheduleEndedNotification_ name:@"HMDUserRestrictedGuestScheduleEndedNotification" object:0];
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v16 = +[HMDWidgetFetchSpecification allHomeLockScreenWidgetKinds];
-    v17 = [v16 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v17)
     {
-      v18 = *v38;
+      v18 = *v37;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v38 != v18)
+          if (*v37 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v37 + 1) + 8 * i);
+          v20 = *(*(&v36 + 1) + 8 * i);
           defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
           [defaultCenter addObserver:self selector:sel_handleNotificationOfPossibleNewWidget_ name:v20 object:0 suspensionBehavior:4];
         }
 
-        v17 = [v16 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v17);
@@ -10253,13 +10100,13 @@ void __60__HMDWidgetTimelineRefresher_registerForDarwinNotifications__block_invo
     handler[1] = 3221225472;
     handler[2] = __39__HMDWidgetTimelineRefresher_configure__block_invoke_2;
     handler[3] = &unk_278686B80;
-    objc_copyWeak(&v35, location);
+    objc_copyWeak(&v34, location);
     dispatch_source_set_event_handler(widgetRefreshDispatchTimer2, handler);
 
     widgetRefreshDispatchTimer3 = [(HMDWidgetTimelineRefresher *)self widgetRefreshDispatchTimer];
     dispatch_activate(widgetRefreshDispatchTimer3);
 
-    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v34);
     objc_destroyWeak(location);
   }
 
@@ -10273,15 +10120,13 @@ void __60__HMDWidgetTimelineRefresher_registerForDarwinNotifications__block_invo
       v31 = HMFGetLogIdentifier();
       *location = 138543618;
       *&location[4] = v31;
-      v43 = 2080;
-      v44 = "[HMDWidgetTimelineRefresher configure]";
+      v42 = 2080;
+      v43 = "[HMDWidgetTimelineRefresher configure]";
       _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil during %s, no widgets configured.", location, 0x16u);
     }
 
     objc_autoreleasePoolPop(v28);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __39__HMDWidgetTimelineRefresher_configure__block_invoke_2(uint64_t a1)
@@ -10316,13 +10161,13 @@ void __39__HMDWidgetTimelineRefresher_configure__block_invoke_2(uint64_t a1)
 
 - (HMDWidgetTimelineRefresher)initWithHomeManager:(id)manager queue:(id)queue dataSource:(id)source reachabilityUpdateDispatchDelayNs:(int64_t)ns forceUpdateTimelineDispatchDelayNs:(int64_t)delayNs
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   queueCopy = queue;
   sourceCopy = source;
-  v89.receiver = self;
-  v89.super_class = HMDWidgetTimelineRefresher;
-  v14 = [(HMDWidgetTimelineRefresher *)&v89 init];
+  v88.receiver = self;
+  v88.super_class = HMDWidgetTimelineRefresher;
+  v14 = [(HMDWidgetTimelineRefresher *)&v88 init];
   v15 = v14;
   if (v14)
   {
@@ -10495,7 +10340,7 @@ void __39__HMDWidgetTimelineRefresher_configure__block_invoke_2(uint64_t a1)
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v91 = *buf;
+      v90 = *buf;
       *buf = 0;
       *&buf[8] = 0;
       currentHomeUUID2 = [managerCopy currentHomeUUID];
@@ -10511,17 +10356,17 @@ void __39__HMDWidgetTimelineRefresher_configure__block_invoke_2(uint64_t a1)
         *buf = *MEMORY[0x277D0F960];
       }
 
-      v90 = *buf;
+      v89 = *buf;
       *buf = 138544386;
       *&buf[4] = v76;
       *&buf[12] = 1040;
       *&buf[14] = 16;
-      v93 = 2096;
-      v94 = &v91;
-      v95 = 1040;
-      v96 = 16;
-      v97 = 2096;
-      v98 = &v90;
+      v92 = 2096;
+      v93 = &v90;
+      v94 = 1040;
+      v95 = 16;
+      v96 = 2096;
+      v97 = &v89;
       _os_log_impl(&dword_229538000, v75, OS_LOG_TYPE_INFO, "%{public}@primary home is %{uuid_t}.16P, current home is %{uuid_t}.16P", buf, 0x2Cu);
     }
 
@@ -10531,18 +10376,17 @@ void __39__HMDWidgetTimelineRefresher_configure__block_invoke_2(uint64_t a1)
     aBlock[1] = 3221225472;
     aBlock[2] = __136__HMDWidgetTimelineRefresher_initWithHomeManager_queue_dataSource_reachabilityUpdateDispatchDelayNs_forceUpdateTimelineDispatchDelayNs___block_invoke;
     aBlock[3] = &unk_278674C30;
-    objc_copyWeak(&v88, buf);
+    objc_copyWeak(&v87, buf);
     v81 = _Block_copy(aBlock);
     forceUpdateAutobahnTimelineHandler = v74->_forceUpdateAutobahnTimelineHandler;
     v74->_forceUpdateAutobahnTimelineHandler = v81;
 
     [(HMDWidgetTimelineRefresher *)v74 initSwiftExtensions];
     v83 = v74;
-    objc_destroyWeak(&v88);
+    objc_destroyWeak(&v87);
     objc_destroyWeak(buf);
   }
 
-  v84 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -10580,10 +10424,9 @@ void __136__HMDWidgetTimelineRefresher_initWithHomeManager_queue_dataSource_reac
 
 void __41__HMDWidgetTimelineRefresher_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v150;
-  logCategory__hmf_once_v150 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v150;
+  logCategory__hmf_once_v150 = v0;
 }
 
 + (id)fetchSpecificationsForWidgetKinds:(id)kinds
@@ -10617,7 +10460,7 @@ void __41__HMDWidgetTimelineRefresher_logCategory__block_invoke()
     [v4 unionSet:v9];
   }
 
-  v10 = [v4 copy];
+  v10 = objc_msgSend_copy(v4);
 
   return v10;
 }

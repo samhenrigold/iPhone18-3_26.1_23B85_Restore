@@ -22,7 +22,7 @@
         colorSpace = [output colorSpace];
         if (output)
         {
-          [output heliumRef];
+          objc_msgSend_heliumRef(output);
         }
 
         else

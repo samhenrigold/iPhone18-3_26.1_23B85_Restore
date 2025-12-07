@@ -859,14 +859,15 @@ void __119__PKAccountBillPaymentController_performBillPaymentActionWithAmount_sc
       v8 = *v25;
       while (2)
       {
-        for (i = 0; i != v7; ++i)
+        v9 = 0;
+        do
         {
           if (*v25 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          identifier = [*(*(&v24 + 1) + 8 * i) identifier];
+          identifier = [*(*(&v24 + 1) + 8 * v9) identifier];
           identifier2 = [necessaryCopy identifier];
           v12 = identifier;
           v13 = identifier2;
@@ -893,15 +894,18 @@ void __119__PKAccountBillPaymentController_performBillPaymentActionWithAmount_sc
 
           else
           {
-            v16 = [(PKAccountPaymentFundingSource *)v12 isEqualToString:v13];
+            isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-            if (v16)
+            if (isEqualToString)
             {
               goto LABEL_20;
             }
           }
+
+          ++v9;
         }
 
+        while (v7 != v9);
         v7 = [(NSArray *)v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v7)
         {

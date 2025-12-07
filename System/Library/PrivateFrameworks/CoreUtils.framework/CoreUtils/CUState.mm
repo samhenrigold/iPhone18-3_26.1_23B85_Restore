@@ -31,39 +31,39 @@
 {
   if (self->_eventHandler || self->_lcaMap || self->_parent)
   {
-    FatalErrorF("State %@: invalidate not called", a2, v2, v3, v4, v5, v6, v7, self->_name);
+    FatalErrorF("State %@: invalidate not called", a2, self->_name);
   }
 
   name = self->_name;
   self->_name = 0;
 
-  v10.receiver = self;
-  v10.super_class = CUState;
-  [(CUState *)&v10 dealloc];
+  v4.receiver = self;
+  v4.super_class = CUState;
+  [(CUState *)&v4 dealloc];
 }
 
 - (CUState)initWithName:(id)name parent:(id)parent
 {
   nameCopy = name;
   parentCopy = parent;
-  v22.receiver = self;
-  v22.super_class = CUState;
-  v8 = [(CUState *)&v22 init];
+  v15.receiver = self;
+  v15.super_class = CUState;
+  v8 = [(CUState *)&v15 init];
   if (!v8)
   {
-    FatalErrorF("init failed", v9, v10, v11, v12, v13, v14, v15, v22.receiver);
+    FatalErrorF("init failed");
   }
 
-  v16 = v8;
-  v17 = [nameCopy copy];
-  name = v16->_name;
-  v16->_name = v17;
+  v9 = v8;
+  v10 = [nameCopy copy];
+  name = v9->_name;
+  v9->_name = v10;
 
-  v19 = parentCopy;
-  parent = v16->_parent;
-  v16->_parent = v19;
+  v12 = parentCopy;
+  parent = v9->_parent;
+  v9->_parent = v12;
 
-  return v16;
+  return v9;
 }
 
 @end

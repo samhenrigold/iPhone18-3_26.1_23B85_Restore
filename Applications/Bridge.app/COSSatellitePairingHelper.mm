@@ -311,32 +311,32 @@ LABEL_24:
   setupController = [UIApp setupController];
   navigationController = [setupController navigationController];
 
-  v29 = navigationController;
+  v28 = navigationController;
   viewControllers = [navigationController viewControllers];
   v6 = [viewControllers mutableCopy];
 
   setupController2 = [UIApp setupController];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   buddyControllers = [setupController2 buddyControllers];
-  v9 = [buddyControllers countByEnumeratingWithState:&v35 objects:v42 count:16];
+  v9 = [buddyControllers countByEnumeratingWithState:&v34 objects:v41 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v36;
+    v12 = *v35;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v36 != v12)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(buddyControllers);
         }
 
-        v14 = *(*(&v35 + 1) + 8 * i);
+        v14 = *(*(&v34 + 1) + 8 * i);
         v15 = objc_opt_class();
         if ([v15 isEqual:objc_opt_class()])
         {
@@ -346,7 +346,7 @@ LABEL_24:
         }
       }
 
-      v10 = [buddyControllers countByEnumeratingWithState:&v35 objects:v42 count:16];
+      v10 = [buddyControllers countByEnumeratingWithState:&v34 objects:v41 count:16];
     }
 
     while (v10);
@@ -357,41 +357,40 @@ LABEL_24:
     v11 = 0;
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   reverseObjectEnumerator = [v6 reverseObjectEnumerator];
-  v18 = [reverseObjectEnumerator countByEnumeratingWithState:&v31 objects:v41 count:16];
+  v18 = [reverseObjectEnumerator countByEnumeratingWithState:&v30 objects:v40 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v32;
-    v28 = setupController2;
+    v20 = *v31;
+    v27 = setupController2;
     while (2)
     {
-      for (j = 0; j != v19; j = j + 1)
+      for (j = 0; j != v19; ++j)
       {
-        if (*v32 != v20)
+        if (*v31 != v20)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v22 = *(*(&v31 + 1) + 8 * j);
-        v23 = objc_opt_class();
-        if ([v23 isEqual:objc_opt_class()])
+        v22 = objc_opt_class();
+        if ([v22 isEqual:objc_opt_class()])
         {
-          setupController2 = v28;
-          [v11 setDelegate:v28];
-          [v6 removeObject:v22];
+          setupController2 = v27;
+          [v11 setDelegate:v27];
+          objc_msgSend_removeObject_(v6);
           goto LABEL_22;
         }
 
-        [v6 removeObject:v22];
+        objc_msgSend_removeObject_(v6);
       }
 
-      v19 = [reverseObjectEnumerator countByEnumeratingWithState:&v31 objects:v41 count:16];
-      setupController2 = v28;
+      v19 = [reverseObjectEnumerator countByEnumeratingWithState:&v30 objects:v40 count:16];
+      setupController2 = v27;
       if (v19)
       {
         continue;
@@ -406,27 +405,27 @@ LABEL_22:
   if (v11)
   {
     viewController = [v11 viewController];
-    v25 = pbb_accountsignin_log();
-    v26 = controllerCopy;
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v24 = pbb_accountsignin_log();
+    v25 = controllerCopy;
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v40 = viewController;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "sign in vc: %@", buf, 0xCu);
+      v39 = viewController;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "sign in vc: %@", buf, 0xCu);
     }
 
     [v6 addObject:viewController];
-    [v29 setViewControllers:v6 animated:1];
+    [v28 setViewControllers:v6 animated:1];
   }
 
   else
   {
-    v27 = pbb_accountsignin_log();
-    v26 = controllerCopy;
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v26 = pbb_accountsignin_log();
+    v25 = controllerCopy;
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "COSTinkeriCloudLoginViewController not in navstack.  Pushing to it", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "COSTinkeriCloudLoginViewController not in navstack.  Pushing to it", buf, 2u);
     }
 
     viewController = [controllerCopy delegate];

@@ -12,7 +12,7 @@
   swift_unknownObjectRetain();
   controllerCopy = controller;
   swift_unknownObjectRetain();
-  return CKBackgroundMotionEventsManager.init(managedMotionEventsGenerator:viewController:delegate:)(generator, controllerCopy);
+  return CKBackgroundMotionEventsManager.init(managedMotionEventsGenerator:viewController:delegate:)(generator, controllerCopy, delegate);
 }
 
 - (void)configureIfNeeded

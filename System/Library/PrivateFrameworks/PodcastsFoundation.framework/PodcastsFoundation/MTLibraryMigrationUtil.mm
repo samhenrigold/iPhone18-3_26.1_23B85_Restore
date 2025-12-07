@@ -1,4 +1,5 @@
 @interface MTLibraryMigrationUtil
++ (BOOL)createPersistentStoreForModel:(id)model attemptMigration:(BOOL)migration;
 + (BOOL)isMomCompatible:(id)compatible;
 + (BOOL)isNewInstall;
 + (BOOL)needsCoreDataMigration;
@@ -6,6 +7,7 @@
 + (BOOL)needsImageStoreMigration;
 + (id)_fallbackCoreDataChecksumFromLibraryFile;
 + (id)libraryImageStoreType;
++ (id)storeOptionsWithUpgrade:(BOOL)upgrade;
 + (void)setLibraryImageStoreType:(id)type;
 @end
 
@@ -49,7 +51,7 @@
 
 + (BOOL)needsImageStoreMigration
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = +[MTImageStoreConstants deprecatedImageStoreURL];
   path = [v2 path];
 
@@ -62,16 +64,15 @@
   v9 = _MTLogCategoryDatabase();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12[0] = 67109634;
-    v12[1] = v5;
-    v13 = 2112;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v7;
-    _os_log_impl(&dword_1D8CEC000, v9, OS_LOG_TYPE_DEFAULT, "Needs image store migration: oldDirectoryExists:%d currentType: %@ targetType: %@", v12, 0x1Cu);
+    v11[0] = 67109634;
+    v11[1] = v5;
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v7;
+    _os_log_impl(&dword_1D8CEC000, v9, OS_LOG_TYPE_DEFAULT, "Needs image store migration: oldDirectoryExists:%d currentType: %@ targetType: %@", v11, 0x1Cu);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5 & 1 | ((v8 & 1) == 0);
 }
 
@@ -100,19 +101,19 @@
 
 + (id)_fallbackCoreDataChecksumFromLibraryFile
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = +[MTDB libraryPath];
   v3 = *MEMORY[0x1E695D4A8];
-  v10 = 0;
-  v4 = [MEMORY[0x1E695D6C0] metadataForPersistentStoreOfType:v3 URL:v2 options:0 error:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [MEMORY[0x1E695D6C0] metadataForPersistentStoreOfType:v3 URL:v2 options:0 error:&v9];
+  v5 = v9;
   if (v5)
   {
     v6 = _MTLogCategoryDatabase();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v5;
+      v11 = v5;
       _os_log_impl(&dword_1D8CEC000, v6, OS_LOG_TYPE_ERROR, "Could not manually load checksum for persistent store due to error: %@.", buf, 0xCu);
     }
 
@@ -126,12 +127,10 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = v7;
+      v11 = v7;
       _os_log_impl(&dword_1D8CEC000, v6, OS_LOG_TYPE_DEFAULT, "Retrieved checksum from persistent store: %@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -162,6 +161,86 @@
   }
 
   return v5;
+}
+
++ (id)storeOptionsWithUpgrade:(BOOL)upgrade
+{
+  upgradeCopy = upgrade;
+  v4 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{@"WAL", @"journal_mode", 0}];
+  v5 = objc_alloc(MEMORY[0x1E695DF20]);
+  v6 = *MEMORY[0x1E695D4A0];
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:upgradeCopy];
+  v8 = *MEMORY[0x1E695D380];
+  v9 = [MEMORY[0x1E696AD98] numberWithBool:upgradeCopy];
+  v10 = [v5 initWithObjectsAndKeys:{v4, v6, v7, v8, v9, *MEMORY[0x1E695D318], *MEMORY[0x1E696A3A8], *MEMORY[0x1E695D3F8], MEMORY[0x1E695E118], *MEMORY[0x1E695D3C0], MEMORY[0x1E695E118], *MEMORY[0x1E695D430], MEMORY[0x1E695E118], *MEMORY[0x1E695D448], 0}];
+
+  return v10;
+}
+
++ (BOOL)createPersistentStoreForModel:(id)model attemptMigration:(BOOL)migration
+{
+  migrationCopy = migration;
+  v29 = *MEMORY[0x1E69E9840];
+  modelCopy = model;
+  v7 = +[MTDB libraryPath];
+  v8 = [self storeOptionsWithUpgrade:migrationCopy];
+  defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  path = [v7 path];
+  v11 = [defaultManager fileExistsAtPath:path];
+
+  v12 = [objc_alloc(MEMORY[0x1E695D6C0]) initWithManagedObjectModel:modelCopy];
+  if (migrationCopy)
+  {
+    v13 = _MTLogCategoryDatabase();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = +[MTDB coreDataChecksum];
+      versionChecksum = [modelCopy versionChecksum];
+      *buf = 138412546;
+      v26 = v14;
+      v27 = 2112;
+      v28 = versionChecksum;
+      _os_log_impl(&dword_1D8CEC000, v13, OS_LOG_TYPE_DEFAULT, "[Migration] (CoreData) Migrating. Current CoreData version is %@. New version will be %@", buf, 0x16u);
+    }
+  }
+
+  v16 = *MEMORY[0x1E695D4A8];
+  v17 = +[MTDB libraryPath];
+  v24 = 0;
+  v18 = [v12 addPersistentStoreWithType:v16 configuration:0 URL:v17 options:v8 error:&v24];
+  v19 = v24;
+
+  if (v18)
+  {
+    if ((v11 & 1) == 0)
+    {
+      +[MTDBExtensionAccess postDatabaseCreatedNotification];
+    }
+
+    v20 = _MTLogCategoryDatabase();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1D8CEC000, v20, OS_LOG_TYPE_DEFAULT, "[Migration] (CoreData) added persistent store.", buf, 2u);
+    }
+  }
+
+  else
+  {
+    v20 = _MTLogCategoryDatabase();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      v21 = +[MTDB libraryPath];
+      localizedDescription = [v19 localizedDescription];
+      *buf = 138412546;
+      v26 = v21;
+      v27 = 2112;
+      v28 = localizedDescription;
+      _os_log_impl(&dword_1D8CEC000, v20, OS_LOG_TYPE_ERROR, "[Migration] (CoreData) Could not create persistend store for library (%@) %@", buf, 0x16u);
+    }
+  }
+
+  return v18 != 0;
 }
 
 @end

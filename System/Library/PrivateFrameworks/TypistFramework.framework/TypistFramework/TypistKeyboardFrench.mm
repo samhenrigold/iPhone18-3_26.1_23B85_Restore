@@ -127,7 +127,7 @@ LABEL_12:
 
 - (id)addAccentKeyAction:(id)action
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   postfixedKeys = [(TypistKeyboardFrench *)self postfixedKeys];
   v6 = [postfixedKeys objectForKeyedSubscript:actionCopy];
@@ -140,7 +140,7 @@ LABEL_12:
       v8 = accentKey;
       mainScreen = [MEMORY[0x277D759A0] mainScreen];
       [mainScreen _referenceBounds];
-      if (CGRectGetHeight(v18) <= 1194.0)
+      if (CGRectGetHeight(v17) <= 1194.0)
       {
 
         goto LABEL_8;
@@ -148,7 +148,7 @@ LABEL_12:
 
       mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
       [mainScreen2 _referenceBounds];
-      if (CGRectGetHeight(v19) > 1194.0)
+      if (CGRectGetHeight(v18) > 1194.0)
       {
         isFloating = [(TypistKeyboard *)self isFloating];
 
@@ -159,8 +159,8 @@ LABEL_12:
 
 LABEL_8:
         accentKey2 = [(TypistKeyboardFrench *)self accentKey];
-        v16[0] = accentKey2;
-        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+        v15[0] = accentKey2;
+        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
 
         goto LABEL_13;
       }
@@ -170,7 +170,6 @@ LABEL_8:
 LABEL_12:
   v13 = 0;
 LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

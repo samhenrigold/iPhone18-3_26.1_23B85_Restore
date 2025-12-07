@@ -12,16 +12,16 @@
 
 + (void)setRemotePresentationEnabled:(BOOL)enabled
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (SYIsPhone())
   {
     SYRemotePresentationEnabled = enabled;
     v5 = os_log_create("com.apple.synapse", "");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7[0] = 67109120;
-      v7[1] = SYRemotePresentationEnabled;
-      _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_INFO, "System Paper remote presentation enabled: %d", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = SYRemotePresentationEnabled;
+      _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_INFO, "System Paper remote presentation enabled: %d", v6, 8u);
     }
   }
 
@@ -33,8 +33,6 @@
       [(SYNotesActivationCommand *)a2 setRemotePresentationEnabled:v5];
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)activateWithMetaActivity:(id)activity completion:(id)completion
@@ -54,30 +52,15 @@
 
 + (Class)_iOSImpl
 {
-  if (SYIsPhone())
+  if (SYIsPhone() && (SYRemotePresentationEnabled & 1) == 0)
   {
-    v2 = off_27856B040;
-    if ((SYRemotePresentationEnabled & 1) == 0)
-    {
-      standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-      v4 = [standardUserDefaults BOOLForKey:@"SYEnableSystemPaperRemoteAlert"];
-
-      if (!v4)
-      {
-        v2 = off_27856B030;
-      }
-    }
+    standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+    [standardUserDefaults BOOLForKey:@"SYEnableSystemPaperRemoteAlert"];
   }
 
-  else
-  {
-    v2 = off_27856B038;
-  }
+  v3 = objc_opt_class();
 
-  v5 = *v2;
-  v6 = objc_opt_class();
-
-  return v6;
+  return v3;
 }
 
 - (SYNotesActivationCommand)init
@@ -167,27 +150,24 @@
 
 uint64_t __51__SYNotesActivationCommand_activateWithCompletion___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = os_log_create("com.apple.synapse", "NotesActivation");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = [v3 activityType];
     v5 = *(a1 + 40);
-    v9 = 134218498;
-    v10 = v3;
+    v7 = 134218498;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
     v11 = 2112;
-    v12 = v4;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_225901000, v2, OS_LOG_TYPE_INFO, "Performing Notes activation with meta activity: %p:%@, userInfo: %@", &v9, 0x20u);
+    v12 = v5;
+    _os_log_impl(&dword_225901000, v2, OS_LOG_TYPE_INFO, "Performing Notes activation with meta activity: %p:%@, userInfo: %@", &v7, 0x20u);
   }
 
   [*(a1 + 32) setUserInfo:*(a1 + 40)];
-  v6 = *(a1 + 48);
-  result = [objc_opt_class() activateWithMetaActivity:*(a1 + 32) completion:*(a1 + 56)];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [objc_opt_class() activateWithMetaActivity:*(a1 + 32) completion:*(a1 + 56)];
 }
 
 void __51__SYNotesActivationCommand_activateWithCompletion___block_invoke_14(uint64_t a1, void *a2)
@@ -248,35 +228,35 @@ uint64_t __51__SYNotesActivationCommand_activateWithCompletion___block_invoke_2(
 
 void __65__SYNotesActivationCommand__loadDataFromFileURLs_withCompletion___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v15 = a1;
+  v14 = a1;
   obj = *(a1 + 32);
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         v8 = os_log_create("com.apple.synapse", "NotesActivation");
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           v9 = [v7 path];
           *buf = 138412290;
-          v22 = v9;
+          v21 = v9;
           _os_log_impl(&dword_225901000, v8, OS_LOG_TYPE_INFO, "Loading image data from file URL: %@", buf, 0xCu);
         }
 
@@ -287,28 +267,24 @@ void __65__SYNotesActivationCommand__loadDataFromFileURLs_withCompletion___block
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v4 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v4);
   }
 
-  v11 = *(v15 + 40);
+  v11 = *(v14 + 40);
   v12 = v2;
   v13 = [v2 copy];
   (*(v11 + 16))(v11, v13);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setRemotePresentationEnabled:(const char *)a1 .cold.1(const char *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
-  v5 = 138412290;
-  v6 = v3;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
 }
 
 - (void)_loadDataFromFileURLs:(uint64_t)a1 withCompletion:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

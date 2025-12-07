@@ -10,92 +10,96 @@
 - (CEServerRecommendations)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v28.receiver = self;
-  v28.super_class = CEServerRecommendations;
-  v5 = [(CEServerRecommendations *)&v28 init];
+  v32.receiver = self;
+  v32.super_class = CEServerRecommendations;
+  v5 = [(CEServerRecommendations *)&v32 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"recommendations"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __46__CEServerRecommendations_initWithDictionary___block_invoke;
-      v26[3] = &unk_278DE02C0;
-      v27 = v7;
-      v8 = v7;
-      [v6 enumerateObjectsUsingBlock:v26];
-      v9 = [v8 copy];
+      v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __46__CEServerRecommendations_initWithDictionary___block_invoke;
+      v30[3] = &unk_278DE02C0;
+      v31 = v8;
+      v9 = v8;
+      [v6 enumerateObjectsUsingBlock:v30];
+      v10 = [v9 copy];
       recommendations = v5->_recommendations;
-      v5->_recommendations = v9;
+      v5->_recommendations = v10;
     }
 
     else
     {
-      v8 = _CELogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = _CELogSystem(isKindOfClass);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        [CEServerRecommendations initWithDictionary:];
+        [(CEServerRecommendations *)v5 initWithDictionary:v6];
       }
     }
 
-    v11 = [dictionaryCopy objectForKeyedSubscript:@"sections"];
+    v12 = [dictionaryCopy objectForKeyedSubscript:@"sections"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v13 = objc_opt_isKindOfClass();
+    if (v13)
     {
-      v12 = [v11 objectForKeyedSubscript:@"sectionDetails"];
+      v14 = [v12 objectForKeyedSubscript:@"sectionDetails"];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v15 = objc_opt_isKindOfClass();
+      if (v15)
       {
-        v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        v21 = MEMORY[0x277D85DD0];
-        v22 = 3221225472;
-        v23 = __46__CEServerRecommendations_initWithDictionary___block_invoke_23;
-        v24 = &unk_278DE02C0;
-        v25 = v13;
-        v14 = v13;
-        [v12 enumerateObjectsUsingBlock:&v21];
-        v15 = [v14 copy:v21];
+        v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v25 = MEMORY[0x277D85DD0];
+        v26 = 3221225472;
+        v27 = __46__CEServerRecommendations_initWithDictionary___block_invoke_23;
+        v28 = &unk_278DE02C0;
+        v29 = v16;
+        v17 = v16;
+        [v14 enumerateObjectsUsingBlock:&v25];
+        v18 = [v17 copy:v25];
         sections = v5->_sections;
-        v5->_sections = v15;
+        v5->_sections = v18;
       }
 
       else
       {
-        v14 = _CELogSystem();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v17 = _CELogSystem(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          [CEServerRecommendations initWithDictionary:];
+          [(CEServerRecommendations *)v5 initWithDictionary:v14];
         }
       }
 
-      v17 = [v11 objectForKeyedSubscript:@"sectionHeader"];
+      v20 = [v12 objectForKeyedSubscript:@"sectionHeader"];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v21 = objc_opt_isKindOfClass();
+      if (v21)
       {
-        v18 = [[CERecommendationPage alloc] initWithDictionary:v17];
+        v22 = [[CERecommendationPage alloc] initWithDictionary:v20];
         p_super = &v5->_page->super;
-        v5->_page = v18;
+        v5->_page = v22;
       }
 
       else
       {
-        p_super = _CELogSystem();
+        p_super = _CELogSystem(v21);
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
         {
-          [CEServerRecommendations initWithDictionary:];
+          [CEServerRecommendations initWithDictionary:v5];
         }
       }
     }
 
     else
     {
-      v12 = _CELogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v14 = _CELogSystem(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        [CEServerRecommendations initWithDictionary:];
+        [(CEServerRecommendations *)v5 initWithDictionary:v12];
       }
     }
   }
@@ -107,20 +111,21 @@ void __46__CEServerRecommendations_initWithDictionary___block_invoke(uint64_t a1
 {
   v3 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v4 = v3;
-    v5 = [[CERecommendation alloc] initWithDictionary:v4];
+    v5 = v3;
+    v6 = [[CERecommendation alloc] initWithDictionary:v5];
 
-    [*(a1 + 32) addObject:v5];
+    [*(a1 + 32) addObject:v6];
   }
 
   else
   {
-    v6 = _CELogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CELogSystem(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __46__CEServerRecommendations_initWithDictionary___block_invoke_cold_1();
+      __46__CEServerRecommendations_initWithDictionary___block_invoke_cold_1(v3);
     }
   }
 }
@@ -129,20 +134,21 @@ void __46__CEServerRecommendations_initWithDictionary___block_invoke_23(uint64_t
 {
   v3 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v4 = v3;
-    v5 = [[CERecommendationSection alloc] initWithDictionary:v4];
+    v5 = v3;
+    v6 = [[CERecommendationSection alloc] initWithDictionary:v5];
 
-    [*(a1 + 32) addObject:v5];
+    [*(a1 + 32) addObject:v6];
   }
 
   else
   {
-    v6 = _CELogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CELogSystem(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __46__CEServerRecommendations_initWithDictionary___block_invoke_23_cold_1();
+      __46__CEServerRecommendations_initWithDictionary___block_invoke_23_cold_1(v3);
     }
   }
 }
@@ -158,17 +164,17 @@ void __46__CEServerRecommendations_initWithDictionary___block_invoke_23(uint64_t
 
 - (CEServerRecommendations)initWithCoder:(id)coder
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v20.receiver = self;
-  v20.super_class = CEServerRecommendations;
-  v5 = [(CEServerRecommendations *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = CEServerRecommendations;
+  v5 = [(CEServerRecommendations *)&v19 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"recommendations"];
@@ -176,9 +182,9 @@ void __46__CEServerRecommendations_initWithDictionary___block_invoke_23(uint64_t
     v5->_recommendations = v9;
 
     v11 = MEMORY[0x277CBEB98];
-    v21[0] = objc_opt_class();
-    v21[1] = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[0] = objc_opt_class();
+    v20[1] = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
     v13 = [v11 setWithArray:v12];
 
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"sections"];
@@ -190,7 +196,6 @@ void __46__CEServerRecommendations_initWithDictionary___block_invoke_23(uint64_t
     v5->_page = v16;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -203,68 +208,54 @@ void __46__CEServerRecommendations_initWithDictionary___block_invoke_23(uint64_t
   return v4;
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_1_1(v3);
+  OUTLINED_FUNCTION_0_2();
+  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
+}
+
+- (void)initWithDictionary:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_1_1(v3);
+  OUTLINED_FUNCTION_0_2();
+  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
+}
+
+- (void)initWithDictionary:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_1_1(v3);
+  OUTLINED_FUNCTION_0_2();
+  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
+}
+
+- (void)initWithDictionary:(uint64_t)a1 .cold.4(uint64_t a1)
+{
   v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_1_1(v1);
   OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-- (void)initWithDictionary:.cold.2()
+void __46__CEServerRecommendations_initWithDictionary___block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_1_1(v1);
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_2(&dword_2439E1000, v2, v3, "Expected recommendation object to be a dictionary, instead found a %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-- (void)initWithDictionary:.cold.3()
+void __46__CEServerRecommendations_initWithDictionary___block_invoke_23_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_1_1(v1);
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDictionary:.cold.4()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __46__CEServerRecommendations_initWithDictionary___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_2(&dword_2439E1000, v1, v2, "Expected recommendation object to be a dictionary, instead found a %@", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __46__CEServerRecommendations_initWithDictionary___block_invoke_23_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_2(&dword_2439E1000, v1, v2, "Expected section object to be a dictionary, instead found a %@", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_2(&dword_2439E1000, v2, v3, "Expected section object to be a dictionary, instead found a %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

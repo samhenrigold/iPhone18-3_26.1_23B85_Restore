@@ -1,6 +1,6 @@
 @interface OUObjectCompleteness
 - (BOOL)checkBoxFaceCompleteness:(uint64_t)completeness faceIndex:(int)index boxType:(void *)type pointCloud:(void *)cloud;
-- (uint64_t)isPointInCameraView:(simd_float4)view cameraPose:(simd_float4)pose camera:(simd_float4)camera marginRatio:(float)ratio;
+- (BOOL)isPointInCameraView:(simd_float4)view cameraPose:(simd_float4)pose camera:(simd_float4)camera marginRatio:(float)ratio;
 - (void)updateRawCornersStatus:(float32x4_t)status withOldObjects:(float32x4_t)objects cameraPose:(double)pose camera:(uint64_t)camera;
 - (void)updateRawCornersStatusNoTimer:(float32x4_t)timer withOldObjects:(float32x4_t)objects cameraPose:(double)pose camera:(uint64_t)camera;
 - (void)updateRawFacesStatus:(double)status withOldObjects:(double)objects pointCloud:(double)cloud cameraPose:(uint64_t)pose camera:(void *)camera;
@@ -8,7 +8,7 @@
 
 @implementation OUObjectCompleteness
 
-- (uint64_t)isPointInCameraView:(simd_float4)view cameraPose:(simd_float4)pose camera:(simd_float4)camera marginRatio:(float)ratio
+- (BOOL)isPointInCameraView:(simd_float4)view cameraPose:(simd_float4)pose camera:(simd_float4)camera marginRatio:(float)ratio
 {
   v29.columns[2] = pose;
   v29.columns[3] = camera;
@@ -17,43 +17,37 @@
   v10 = a9;
   v36 = __invert_f4(v29);
   v35 = vaddq_f32(v36.columns[3], vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v36.columns[0], self.f32[0]), v36.columns[1], *self.f32, 1), v36.columns[2], self, 2));
-  if (v35.f32[2] <= 0.01)
+  v27 = 0;
+  if (v35.f32[2] > 0.01)
   {
-    goto LABEL_9;
-  }
-
-  [v10 intrinsics];
-  v33 = v11;
-  [v10 intrinsics];
-  v32 = v12;
-  [v10 intrinsics];
-  v31 = v13;
-  [v10 intrinsics];
-  [v10 imageResolution];
-  v16 = v15;
-  [v10 imageResolution];
-  v18 = v17;
-  v19 = (vmuls_n_f32(v35.f32[0], v33) / v35.f32[2]) + v32;
-  ratioCopy = ratio;
-  v21 = v16 * ratio;
-  if (v19 < v21)
-  {
-    goto LABEL_9;
-  }
-
-  [v10 imageResolution];
-  v22 = (vmuls_lane_f32(v35.f32[1], v31, 1) / v35.f32[2]) + v30;
-  v23 = v18 * ratioCopy;
-  v25 = v24 - v21 <= v19 || v22 < v23;
-  if (v25 || ([v10 imageResolution], v26 - v23 <= v22))
-  {
-LABEL_9:
-    v27 = 0;
-  }
-
-  else
-  {
-    v27 = 1;
+    [v10 intrinsics];
+    v33 = v11;
+    [v10 intrinsics];
+    v32 = v12;
+    [v10 intrinsics];
+    v31 = v13;
+    [v10 intrinsics];
+    [v10 imageResolution];
+    v16 = v15;
+    [v10 imageResolution];
+    v18 = v17;
+    v19 = (vmuls_n_f32(v35.f32[0], v33) / v35.f32[2]) + v32;
+    ratioCopy = ratio;
+    v21 = v16 * ratio;
+    if (v19 >= v21)
+    {
+      [v10 imageResolution];
+      v22 = (vmuls_lane_f32(v35.f32[1], v31, 1) / v35.f32[2]) + v30;
+      v23 = v18 * ratioCopy;
+      if (v24 - v21 > v19 && v22 >= v23)
+      {
+        [v10 imageResolution];
+        if (v26 - v23 > v22)
+        {
+          v27 = 1;
+        }
+      }
+    }
   }
 
   return v27;
@@ -227,7 +221,7 @@ LABEL_9:
 
 - (void)updateRawCornersStatus:(float32x4_t)status withOldObjects:(float32x4_t)objects cameraPose:(double)pose camera:(uint64_t)camera
 {
-  v67 = a7;
+  v69 = a7;
   v11 = a8;
   v12 = a9;
   v13 = vaddq_f32(objects, vmlaq_f32(vmulq_f32(a2, 0), 0, status)).u64[0];
@@ -240,8 +234,8 @@ LABEL_9:
   *&v16.i32[3] = -*(&pose + 1);
   v17 = vzip2q_s32(v15, xmmword_25D277BC0);
   v18 = vzip2q_s32(v16, xmmword_25D277B90);
-  v79 = vzip1q_s32(v17, v18);
-  v72 = vzip2q_s32(v17, v18);
+  v81 = vzip1q_s32(v17, v18);
+  v74 = vzip2q_s32(v17, v18);
   v21 = __sincosf_stret(v14);
   *v20.i32 = v21.__cosval;
   *v19.i8 = v21;
@@ -252,137 +246,137 @@ LABEL_9:
   v25 = vzip1q_s32(v23, v24);
   v26 = vzip2q_s32(v23, v24);
   *buf = xmmword_25D277BA0;
-  v87 = xmmword_25D277BB0;
-  v88 = v79;
-  v89 = v72;
+  v89 = xmmword_25D277BB0;
+  v90 = v81;
+  v91 = v74;
   do
   {
-    v81.columns[v22 / 0x10] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v25, COERCE_FLOAT(*&buf[v22])), v26, *&buf[v22], 1), xmmword_25D277BC0, *&buf[v22], 2), xmmword_25D277B90, *&buf[v22], 3);
+    v83.columns[v22 / 0x10] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v25, COERCE_FLOAT(*&buf[v22])), v26, *&buf[v22], 1), xmmword_25D277BC0, *&buf[v22], 2), xmmword_25D277B90, *&buf[v22], 3);
     v22 += 16;
   }
 
   while (v22 != 64);
-  v71 = v81.columns[1];
-  v73 = v81.columns[0];
-  v69 = v81.columns[3];
-  v70 = v81.columns[2];
-  __invert_f4(v81);
-  v64 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v11, "count")}];
-  v65 = v11;
-  for (i = 0; [v65 count] > i; ++i)
+  v73 = v83.columns[1];
+  v75 = v83.columns[0];
+  v71 = v83.columns[3];
+  v72 = v83.columns[2];
+  __invert_f4(v83);
+  v66 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v11, "count")}];
+  v67 = v11;
+  for (i = 0; [v67 count] > i; ++i)
   {
-    v28 = [v65 objectAtIndexedSubscript:i];
-    v29 = [v65 objectAtIndexedSubscript:i];
+    v28 = [v67 objectAtIndexedSubscript:i];
+    v29 = [v67 objectAtIndexedSubscript:i];
     identifier = [v29 identifier];
-    [v64 setObject:v28 forKey:identifier];
+    [v66 setObject:v28 forKey:identifier];
   }
 
   v31 = 0;
   v32 = MEMORY[0x277CBEC28];
   v33 = MEMORY[0x277CBEC38];
-  v34 = v65;
-  while ([v67 count] > v31)
+  v34 = v67;
+  while ([v69 count] > v31)
   {
-    v35 = [v67 objectAtIndexedSubscript:v31];
+    v35 = [v69 objectAtIndexedSubscript:v31];
     identifier2 = [v35 identifier];
-    v66 = [v64 objectForKey:identifier2];
+    v68 = [v66 objectForKey:identifier2];
 
-    v68 = [v67 objectAtIndexedSubscript:v31];
-    boxesDict = [v68 boxesDict];
+    v70 = [v69 objectAtIndexedSubscript:v31];
+    boxesDict = [v70 boxesDict];
     v38 = [boxesDict objectForKey:@"rawdetection"];
 
     if (v38)
     {
-      if (v66)
+      if (v68)
       {
-        corners_history = [v66 corners_history];
-        v40 = [corners_history copy];
-        [v68 setCorners_history:v40];
+        corners_history = [v68 corners_history];
+        v42 = [corners_history copy];
+        [v70 setCorners_history:v42];
       }
 
+      v86 = 0u;
+      v87 = 0u;
       v84 = 0u;
       v85 = 0u;
-      v82 = 0u;
-      v83 = 0u;
-      memset(&v81, 0, sizeof(v81));
-      boxesDict2 = [v68 boxesDict];
-      v42 = [boxesDict2 objectForKeyedSubscript:@"rawdetection"];
-      box3dFromNSArray(v42, &v81);
+      memset(&v83, 0, sizeof(v83));
+      boxesDict2 = [v70 boxesDict];
+      v44 = [boxesDict2 objectForKeyedSubscript:@"rawdetection"];
+      box3dFromNSArray(v44, &v83);
 
-      corners_history2 = [v68 corners_history];
-      v44 = [corners_history2 mutableCopy];
+      corners_history2 = [v70 corners_history];
+      v46 = [corners_history2 mutableCopy];
 
       date = [MEMORY[0x277CBEAA8] date];
       [date timeIntervalSince1970];
-      v47 = v46;
-      v63 = v31;
+      v49 = v48;
+      v65 = v31;
 
-      v48 = objc_opt_new();
-      v50 = 0;
-      v51 = &v81;
+      v50 = objc_opt_new();
+      v52 = 0;
+      v53 = &v83;
       do
       {
         if (v12)
         {
-          LODWORD(v49) = 0.125;
-          v52 = [self isPointInCameraView:v12 cameraPose:*v51 camera:*a2.i64 marginRatio:{*status.i64, *objects.i64, pose, v49}];
+          LODWORD(v51) = 0.125;
+          v54 = [self isPointInCameraView:v12 cameraPose:*v53 camera:*a2.i64 marginRatio:{*status.i64, *objects.i64, pose, v51}];
         }
 
         else
         {
-          v53 = vaddq_f32(v69, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v73, COERCE_FLOAT(*v51->f32)), v71, *v51, 1), v70, *v51->f32, 2)).u64[0];
-          v52 = fabsf(*&v53 / *(&v53 + 1)) < 0.483 && *(&v53 + 1) > 0.0;
+          v55 = vaddq_f32(v71, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v75, COERCE_FLOAT(*v53->f32)), v73, *v53, 1), v72, *v53->f32, 2)).u64[0];
+          v54 = fabsf(*&v55 / *(&v55 + 1)) < 0.483 && *(&v55 + 1) > 0.0;
         }
 
-        if (v52)
+        if (v54)
         {
-          v55 = v33;
+          v57 = v33;
         }
 
         else
         {
-          v55 = v32;
+          v57 = v32;
         }
 
-        v56 = [v44 objectAtIndexedSubscript:v50];
-        v80 = *v51->f32;
-        v57 = [MEMORY[0x277CCABB0] numberWithDouble:v47];
-        [v56 addCornerStatus:v55 inView:v57 timestamp:*&v80];
+        v58 = [v46 objectAtIndexedSubscript:v52];
+        v82 = *v53->f32;
+        v59 = [MEMORY[0x277CCABB0] numberWithDouble:v49];
+        [v58 addCornerStatus:v57 inView:v59 timestamp:*&v82];
 
-        v58 = [v44 objectAtIndexedSubscript:v50];
-        if ([v58 isCompleted])
+        v60 = [v46 objectAtIndexedSubscript:v52];
+        if ([v60 isCompleted])
         {
-          v59 = v33;
+          v61 = v33;
         }
 
         else
         {
-          v59 = v32;
+          v61 = v32;
         }
 
-        [v48 addObject:v59];
+        [v50 addObject:v61];
 
-        ++v50;
-        v51 += 2;
+        ++v52;
+        v53 += 2;
       }
 
-      while (v50 != 8);
-      v31 = v63;
-      v60 = [v48 copy];
-      [v68 setCorners_status:v60];
+      while (v52 != 8);
+      v31 = v65;
+      v62 = [v50 copy];
+      [v70 setCorners_status:v62];
 
-      v61 = [v44 copy];
-      [v68 setCorners_history:v61];
+      v63 = [v46 copy];
+      [v70 setCorners_history:v63];
 
-      v34 = v65;
+      v34 = v67;
     }
 
     else
     {
-      v62 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+      v64 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v39, v40);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
       {
-        [OUObjectCompleteness updateRawCornersStatus:buf withOldObjects:&buf[1] cameraPose:v62 camera:?];
+        [OUObjectCompleteness updateRawCornersStatus:buf withOldObjects:&buf[1] cameraPose:v64 camera:?];
       }
     }
 
@@ -393,16 +387,16 @@ LABEL_9:
 - (void)updateRawFacesStatus:(double)status withOldObjects:(double)objects pointCloud:(double)cloud cameraPose:(uint64_t)pose camera:(void *)camera
 {
   cameraCopy = camera;
-  v67 = a8;
-  v69 = a9;
-  v77 = a10;
-  v66 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v67, "count")}];
-  for (i = 0; [v67 count] > i; ++i)
+  v69 = a8;
+  v71 = a9;
+  v79 = a10;
+  v68 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v69, "count")}];
+  for (i = 0; [v69 count] > i; ++i)
   {
-    v15 = [v67 objectAtIndexedSubscript:i];
-    v16 = [v67 objectAtIndexedSubscript:i];
+    v15 = [v69 objectAtIndexedSubscript:i];
+    v16 = [v69 objectAtIndexedSubscript:i];
     identifier = [v16 identifier];
-    [v66 setObject:v15 forKey:identifier];
+    [v68 setObject:v15 forKey:identifier];
   }
 
   v18 = 0;
@@ -411,16 +405,16 @@ LABEL_9:
   {
     v20 = [cameraCopy objectAtIndexedSubscript:v18];
     identifier2 = [v20 identifier];
-    v71 = [v66 objectForKey:identifier2];
+    v73 = [v68 objectForKey:identifier2];
 
-    v78 = [cameraCopy objectAtIndexedSubscript:v18];
-    type = [v78 type];
+    v80 = [cameraCopy objectAtIndexedSubscript:v18];
+    type = [v80 type];
     if ([type isEqualToString:@"Cabinet"])
     {
       goto LABEL_9;
     }
 
-    type2 = [v78 type];
+    type2 = [v80 type];
     if ([type2 isEqualToString:@"Sofa"])
     {
 
@@ -428,117 +422,118 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    type3 = [v78 type];
-    v65 = [type3 isEqualToString:@"Table"];
+    type3 = [v80 type];
+    v67 = [type3 isEqualToString:@"Table"];
 
-    if ((v65 & 1) == 0)
+    if ((v67 & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_10:
-    boxesDict = [v78 boxesDict];
+    boxesDict = [v80 boxesDict];
     v25 = [boxesDict objectForKey:@"rawdetection"];
 
     if (v25)
     {
-      v93 = 0u;
+      v96 = 0u;
+      v97 = 0u;
       v94 = 0u;
-      v91 = 0u;
+      v95 = 0u;
       v92 = 0u;
-      v89 = 0u;
+      v93 = 0u;
       v90 = 0u;
-      v87 = 0u;
-      v88 = 0u;
-      boxesDict2 = [v78 boxesDict];
-      v27 = [boxesDict2 objectForKeyedSubscript:@"rawdetection"];
-      box3dFromNSArray(v27, &v87);
+      v91 = 0u;
+      boxesDict2 = [v80 boxesDict];
+      v29 = [boxesDict2 objectForKeyedSubscript:@"rawdetection"];
+      box3dFromNSArray(v29, &v90);
 
-      v28.i32[0] = 1017370378;
-      box3dEnlarge(&v87, v28, 0.02, 0.02, __p);
+      v30.i32[0] = 1017370378;
+      box3dEnlarge(__p, &v90, v30, 0.02, 0.02);
+      v94 = v86;
+      v95 = v87;
+      v96 = v88;
+      v97 = v89;
+      v90 = *__p;
       v91 = v83;
       v92 = v84;
       v93 = v85;
-      v94 = v86;
-      v87 = *__p;
-      v88 = v80;
-      v89 = v81;
-      v90 = v82;
-      v72 = objc_opt_new();
-      v30 = 0;
-      v70 = v18;
+      v74 = objc_opt_new();
+      v32 = 0;
+      v72 = v18;
       while (1)
       {
-        if (!v71)
+        if (!v73)
         {
           goto LABEL_17;
         }
 
-        faces_status = [v71 faces_status];
+        faces_status = [v73 faces_status];
         if ([faces_status count] != 6)
         {
           break;
         }
 
-        faces_status2 = [v71 faces_status];
-        v33 = [faces_status2 objectAtIndexedSubscript:v30];
-        bOOLValue = [v33 BOOLValue];
+        faces_status2 = [v73 faces_status];
+        v35 = [faces_status2 objectAtIndexedSubscript:v32];
+        bOOLValue = [v35 BOOLValue];
 
         if (!bOOLValue)
         {
           goto LABEL_17;
         }
 
-        [v72 addObject:MEMORY[0x277CBEC38]];
+        [v74 addObject:MEMORY[0x277CBEC38]];
 LABEL_33:
-        if (++v30 == 6)
+        if (++v32 == 6)
         {
-          std::vector<int>::vector[abi:ne200100](__p, 0xCuLL);
+          v81 = 0;
+          std::vector<int>::vector[abi:ne200100](__p, 0xCuLL, &v81);
           for (j = 0; j != 6; ++j)
           {
-            v51 = [v72 objectAtIndexedSubscript:j];
-            bOOLValue2 = [v51 BOOLValue];
+            v53 = [v74 objectAtIndexedSubscript:j];
+            bOOLValue2 = [v53 BOOLValue];
 
             if (bOOLValue2)
             {
-              v53 = kFaceEdgeIndicesMap + 24 * j;
-              v54 = *v53;
-              v55 = *(v53 + 8);
-              if (v54 != v55)
+              v55 = kFaceEdgeIndicesMap + 24 * j;
+              v56 = *v55;
+              v57 = *(v55 + 8);
+              if (v56 != v57)
               {
-                v56 = __p[0];
+                v58 = __p[0];
                 do
                 {
-                  v57 = *v54++;
-                  ++v56[v57];
+                  v59 = *v56++;
+                  ++v58[v59];
                 }
 
-                while (v54 != v55);
+                while (v56 != v57);
               }
             }
           }
 
-          v58 = objc_opt_new();
+          v60 = objc_opt_new();
           for (k = 0; k != 48; k += 4)
           {
             if (*(__p[0] + k) <= 1)
             {
-              v60 = v19;
+              v62 = v19;
             }
 
             else
             {
-              v60 = MEMORY[0x277CBEC38];
+              v62 = MEMORY[0x277CBEC38];
             }
 
-            [v58 addObject:v60];
+            [v60 addObject:v62];
           }
 
-          v61 = [v72 copy];
-          [v78 setFaces_status:v61];
+          v63 = [v74 copy];
+          [v80 setFaces_status:v63];
 
-          v62 = [v58 copy];
-          [v78 setEdges_status:v62];
+          v64 = [v60 copy];
+          [v80 setEdges_status:v64];
 
           if (__p[0])
           {
@@ -551,75 +546,75 @@ LABEL_33:
       }
 
 LABEL_17:
-      v35 = kFaceCornerIndicesMap + 24 * v30;
-      v36 = *v35;
-      v37 = *(v35 + 8);
-      if (*v35 == v37)
+      v37 = kFaceCornerIndicesMap + 24 * v32;
+      v38 = *v37;
+      v39 = *(v37 + 8);
+      if (*v37 == v39)
       {
         goto LABEL_28;
       }
 
-      v38 = 0;
-      v39 = 0;
+      v40 = 0;
+      v41 = 0;
       do
       {
-        v40 = *v36;
-        LODWORD(v29) = 1011666125;
-        v41 = [self isPointInCameraView:v77 cameraPose:*&v87.i64[2 * v40] camera:a2 marginRatio:{status, objects, cloud, v29}];
-        corners_status = [v78 corners_status];
-        v43 = [corners_status objectAtIndexedSubscript:v40];
-        bOOLValue3 = [v43 BOOLValue];
-        v39 += v41;
+        v42 = *v38;
+        LODWORD(v31) = 1011666125;
+        v43 = [self isPointInCameraView:v79 cameraPose:*&v90.i64[2 * v42] camera:a2 marginRatio:{status, objects, cloud, v31}];
+        corners_status = [v80 corners_status];
+        v45 = [corners_status objectAtIndexedSubscript:v42];
+        bOOLValue3 = [v45 BOOLValue];
+        v41 += v43;
 
-        v38 += bOOLValue3;
-        ++v36;
+        v40 += bOOLValue3;
+        ++v38;
       }
 
-      while (v36 != v37);
-      v45 = v39 && v38 > 1;
-      v46 = v45;
-      v45 = v39 > 3;
-      v18 = v70;
+      while (v38 != v39);
+      v47 = v41 && v40 > 1;
+      v48 = v47;
+      v47 = v41 > 3;
+      v18 = v72;
       v19 = MEMORY[0x277CBEC28];
-      if (v45 || v46)
+      if (v47 || v48)
       {
+        v86 = v94;
+        v87 = v95;
+        v88 = v96;
+        v89 = v97;
+        *__p = v90;
         v83 = v91;
         v84 = v92;
         v85 = v93;
-        v86 = v94;
-        *__p = v87;
-        v80 = v88;
-        v81 = v89;
-        v82 = v90;
-        type4 = [v78 type];
-        v48 = [self checkBoxFaceCompleteness:__p faceIndex:v30 boxType:type4 pointCloud:v69];
+        type4 = [v80 type];
+        v50 = [self checkBoxFaceCompleteness:__p faceIndex:v32 boxType:type4 pointCloud:v71];
 
-        if (v48)
+        if (v50)
         {
-          v49 = MEMORY[0x277CBEC38];
+          v51 = MEMORY[0x277CBEC38];
         }
 
         else
         {
-          v49 = v19;
+          v51 = v19;
         }
 
-        [v72 addObject:v49];
+        [v74 addObject:v51];
       }
 
       else
       {
 LABEL_28:
-        [v72 addObject:v19];
+        [v74 addObject:v19];
       }
 
       goto LABEL_33;
     }
 
-    v63 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
+    v65 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v26, v27);
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
     {
-      [OUObjectCompleteness updateRawCornersStatus:v96 withOldObjects:v63 cameraPose:? camera:?];
+      [OUObjectCompleteness updateRawCornersStatus:v99 withOldObjects:v65 cameraPose:? camera:?];
     }
 
 LABEL_52:

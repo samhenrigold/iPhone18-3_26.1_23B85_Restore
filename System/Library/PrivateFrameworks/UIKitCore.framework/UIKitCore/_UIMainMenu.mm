@@ -98,7 +98,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    LOBYTE(v12) = 1;
+    LOBYTE(isEqual) = 1;
   }
 
   else
@@ -119,15 +119,15 @@
 
       else
       {
-        LOBYTE(v12) = 0;
+        LOBYTE(isEqual) = 0;
         if (!v9 || !v10)
         {
           goto LABEL_22;
         }
 
-        v12 = [(_UIMainMenuIdentifier *)v9 isEqual:v10];
+        isEqual = objc_msgSend_isEqual_(v9);
 
-        if (!v12)
+        if (!isEqual)
         {
           goto LABEL_23;
         }
@@ -148,27 +148,27 @@ LABEL_17:
         v11 = v17;
         if (v9 == v17)
         {
-          LOBYTE(v12) = 1;
+          LOBYTE(isEqual) = 1;
         }
 
         else
         {
-          LOBYTE(v12) = 0;
+          LOBYTE(isEqual) = 0;
           if (v9 && v17)
           {
-            LOBYTE(v12) = [(_UIMainMenuIdentifier *)v9 isEqual:v17];
+            LOBYTE(isEqual) = objc_msgSend_isEqual_(v9);
           }
         }
 
         goto LABEL_22;
       }
 
-      LOBYTE(v12) = 0;
+      LOBYTE(isEqual) = 0;
       if (v9 && v14)
       {
-        v12 = [(_UIMainMenuIdentifier *)v9 isEqual:v14];
+        isEqual = objc_msgSend_isEqual_(v9);
 
-        if (!v12)
+        if (!isEqual)
         {
           goto LABEL_23;
         }
@@ -182,12 +182,12 @@ LABEL_23:
       goto LABEL_24;
     }
 
-    LOBYTE(v12) = 0;
+    LOBYTE(isEqual) = 0;
   }
 
 LABEL_24:
 
-  return v12;
+  return isEqual;
 }
 
 - (unint64_t)hash

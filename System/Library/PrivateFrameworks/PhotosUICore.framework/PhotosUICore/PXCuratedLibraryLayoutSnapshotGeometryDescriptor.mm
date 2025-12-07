@@ -82,7 +82,7 @@ void __63__PXCuratedLibraryLayoutSnapshotGeometryDescriptor_description__block_i
   v4 = a3;
   if (a2)
   {
-    [a2 px_simpleIndexPathValue];
+    objc_msgSend_px_simpleIndexPathValue(a2);
   }
 
   PXSimpleIndexPathDescription();
@@ -506,7 +506,7 @@ LABEL_34:
     v30 = vnegq_f64(v25);
     [MEMORY[0x1E696B098] px_valueWithSimpleIndexPath:&buf];
     v26 = [v8 objectForKeyedSubscript:objc_claimAutoreleasedReturnValue()];
-    __101__PXCuratedLibraryLayoutSnapshotGeometryDescriptor_extrapolateSectionsBetween_and_withAnchorSection___block_invoke(v26);
+    __101__PXCuratedLibraryLayoutSnapshotGeometryDescriptor_extrapolateSectionsBetween_and_withAnchorSection___block_invoke(v26, 1);
   }
 
   v17 = PLCuratedLibraryGetLog();
@@ -545,7 +545,7 @@ LABEL_34:
         v10 = *(*(&v13 + 1) + 8 * i);
         if (v10)
         {
-          [v10 px_simpleIndexPathValue];
+          objc_msgSend_px_simpleIndexPathValue(v10);
         }
 
         if (!dataSourceIdentifier)
@@ -615,7 +615,7 @@ LABEL_34:
     v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
     if (libraryBodyLayout)
     {
-      [libraryBodyLayout orientedContentTransform];
+      objc_msgSend_orientedContentTransform(libraryBodyLayout);
     }
 
     else

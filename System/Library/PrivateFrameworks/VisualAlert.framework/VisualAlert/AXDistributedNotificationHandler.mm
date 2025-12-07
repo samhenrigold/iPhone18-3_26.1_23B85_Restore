@@ -24,7 +24,7 @@
 
 + (void)postDistributedNotificationWithName:(id)name
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
   ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
@@ -42,7 +42,7 @@
       if (os_log_type_enabled(v7, v8))
       {
         *buf = 138543362;
-        v14 = v10;
+        v13 = v10;
         _os_log_impl(&dword_27102A000, v7, v8, "%{public}@", buf, 0xCu);
       }
     }
@@ -50,8 +50,6 @@
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, nameCopy, 0, 0, 1u);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

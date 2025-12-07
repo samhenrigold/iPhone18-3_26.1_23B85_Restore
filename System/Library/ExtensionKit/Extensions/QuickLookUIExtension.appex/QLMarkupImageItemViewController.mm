@@ -13,6 +13,11 @@
 - (void)buttonPressedWithIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
 - (void)performFirstTimeAppearanceActions:(unint64_t)actions;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
+- (void)previewWillAppear:(BOOL)appear;
+- (void)previewWillDisappear:(BOOL)disappear;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)transitionWillFinish:(BOOL)finish didComplete:(BOOL)complete;
 @end
 
@@ -30,6 +35,95 @@
   v8.super_class = QLMarkupImageItemViewController;
   v7 = handlerCopy;
   [(QLMarkupItemViewController *)&v8 loadPreviewControllerWithContents:contents context:context completionHandler:v9];
+}
+
+- (void)previewWillAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = QLMarkupImageItemViewController;
+  [(QLMarkupItemViewController *)&v10 previewWillAppear:appear];
+  v4 = QLMarkupImageItemViewControllerMarkupImageViewAccessibilityIdentifier;
+  view = [(QLMarkupImageItemViewController *)self view];
+  [view setAccessibilityIdentifier:v4];
+
+  if (!self->_isVisible)
+  {
+    scrollView = [(QLMarkupImageItemViewController *)self scrollView];
+    [scrollView minimumZoomScale];
+    v8 = v7;
+    scrollView2 = [(QLMarkupImageItemViewController *)self scrollView];
+    [scrollView2 setZoomScale:v8];
+  }
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  markupViewController = [(QLMarkupItemViewController *)self markupViewController];
+  [markupViewController setupAndStartImageAnalysisIfNeeded];
+
+  v7.receiver = self;
+  v7.super_class = QLMarkupImageItemViewController;
+  [(QLMarkupItemViewController *)&v7 previewDidAppear:appearCopy];
+  self->_isVisible = 1;
+  markupViewController2 = [(QLMarkupItemViewController *)self markupViewController];
+  [markupViewController2 shouldHideMarkupOverlays:0 animated:0];
+}
+
+- (void)previewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = QLMarkupImageItemViewController;
+  [(QLMarkupItemViewController *)&v5 previewWillDisappear:disappear];
+  markupViewController = [(QLMarkupItemViewController *)self markupViewController];
+  [markupViewController shouldHideMarkupOverlays:1 animated:0];
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  markupViewController = [(QLMarkupItemViewController *)self markupViewController];
+  [markupViewController stopImageAnalysis];
+
+  v6.receiver = self;
+  v6.super_class = QLMarkupImageItemViewController;
+  [(QLMarkupItemViewController *)&v6 previewDidDisappear:disappearCopy];
+  self->_isVisible = 0;
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  appearanceCopy = appearance;
+  appearance = [(QLMarkupImageItemViewController *)self appearance];
+  v13.receiver = self;
+  v13.super_class = QLMarkupImageItemViewController;
+  [(QLMarkupItemViewController *)&v13 setAppearance:appearanceCopy animated:animatedCopy];
+
+  presentationMode = [appearance presentationMode];
+  appearance2 = [(QLMarkupImageItemViewController *)self appearance];
+  presentationMode2 = [appearance2 presentationMode];
+
+  if (presentationMode != presentationMode2)
+  {
+    if ((presentationMode2 - 1) < 2)
+    {
+      v11 = 0;
+LABEL_6:
+      markupViewController = [(QLMarkupItemViewController *)self markupViewController];
+      [markupViewController setPresentationMode:v11];
+
+      goto LABEL_7;
+    }
+
+    if ((presentationMode2 - 3) <= 2)
+    {
+      v11 = 1;
+      goto LABEL_6;
+    }
+  }
+
+LABEL_7:
 }
 
 - (id)toolbarButtonsForTraitCollection:(id)collection

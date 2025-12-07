@@ -5,38 +5,38 @@
 
 void __39___DPPeriodicTaskManager_registerTask___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   state = xpc_activity_get_state(v3);
   if (state)
   {
     if (state == 2)
     {
-      *&v33 = 0;
-      *(&v33 + 1) = &v33;
-      v34 = 0x2020000000;
-      v35 = xpc_activity_set_state(v3, 4);
+      *&v32 = 0;
+      *(&v32 + 1) = &v32;
+      v33 = 0x2020000000;
+      v34 = xpc_activity_set_state(v3, 4);
       v5 = +[_DPLog framework];
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v6 = [*(a1 + 32) name];
-        v7 = *(*(&v33 + 1) + 24);
+        v7 = *(*(&v32 + 1) + 24);
         *buf = 138412546;
-        v30 = v6;
-        v31 = 1024;
-        v32 = v7;
+        v29 = v6;
+        v30 = 1024;
+        v31 = v7;
         _os_log_impl(&dword_22622D000, v5, OS_LOG_TYPE_INFO, "Running activity %@, extended=%d", buf, 0x12u);
       }
 
       v8 = +[_DPCoreAnalyticsCollector sharedInstance];
-      v28[0] = &unk_283976048;
-      v27[0] = @"duration";
-      v27[1] = @"activityName";
+      v27[0] = &unk_283976048;
+      v26[0] = @"duration";
+      v26[1] = @"activityName";
       v9 = [*(a1 + 32) name];
-      v27[2] = @"activityState";
-      v28[1] = v9;
-      v28[2] = &unk_283976060;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+      v26[2] = @"activityState";
+      v27[1] = v9;
+      v27[2] = &unk_283976060;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
       [v8 reportMetricsForEvent:@"com.apple.DifferentialPrivacy.MaintenanceActivity" withMetrics:v10];
 
       v11 = [MEMORY[0x277CCAC38] processInfo];
@@ -44,17 +44,17 @@ void __39___DPPeriodicTaskManager_registerTask___block_invoke(uint64_t a1, void 
       v13 = v12;
 
       v14 = [*(a1 + 32) queue];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __39___DPPeriodicTaskManager_registerTask___block_invoke_50;
-      v22[3] = &unk_27858AE58;
-      v23 = *(a1 + 32);
-      v24 = v3;
-      v25 = &v33;
-      v26 = v13;
-      dispatch_async(v14, v22);
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __39___DPPeriodicTaskManager_registerTask___block_invoke_50;
+      v21[3] = &unk_27858AE58;
+      v22 = *(a1 + 32);
+      v23 = v3;
+      v24 = &v32;
+      v25 = v13;
+      dispatch_async(v14, v21);
 
-      _Block_object_dispose(&v33, 8);
+      _Block_object_dispose(&v32, 8);
     }
   }
 
@@ -64,9 +64,9 @@ void __39___DPPeriodicTaskManager_registerTask___block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = [*(a1 + 32) name];
-      LODWORD(v33) = 138412290;
-      *(&v33 + 4) = v16;
-      _os_log_impl(&dword_22622D000, v15, OS_LOG_TYPE_INFO, "Checking-in activity %@", &v33, 0xCu);
+      LODWORD(v32) = 138412290;
+      *(&v32 + 4) = v16;
+      _os_log_impl(&dword_22622D000, v15, OS_LOG_TYPE_INFO, "Checking-in activity %@", &v32, 0xCu);
     }
 
     v17 = xpc_activity_copy_criteria(v3);
@@ -76,13 +76,11 @@ void __39___DPPeriodicTaskManager_registerTask___block_invoke(uint64_t a1, void 
       xpc_activity_set_criteria(v3, v20);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __39___DPPeriodicTaskManager_registerTask___block_invoke_50(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   getpid();
   proc_set_cpumon_params();
   v2 = [*(a1 + 32) name];
@@ -105,9 +103,9 @@ void __39___DPPeriodicTaskManager_registerTask___block_invoke_50(uint64_t a1)
       v7 = [*(a1 + 32) name];
       v8 = *(*(*(a1 + 48) + 8) + 24);
       *buf = 138412546;
-      v20 = v7;
-      v21 = 1024;
-      v22 = v8;
+      v19 = v7;
+      v20 = 1024;
+      v21 = v8;
       _os_log_impl(&dword_22622D000, v6, OS_LOG_TYPE_INFO, "Done running activity %@, extended=%d", buf, 0x12u);
     }
 
@@ -117,17 +115,15 @@ void __39___DPPeriodicTaskManager_registerTask___block_invoke_50(uint64_t a1)
 
     v12 = +[_DPCoreAnalyticsCollector sharedInstance];
     v13 = [MEMORY[0x277CCABB0] numberWithDouble:{v11 - *(a1 + 56), @"duration"}];
-    v18[0] = v13;
-    v17[1] = @"activityName";
+    v17[0] = v13;
+    v16[1] = @"activityName";
     v14 = [*(a1 + 32) name];
-    v17[2] = @"activityState";
-    v18[1] = v14;
-    v18[2] = &unk_283976078;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+    v16[2] = @"activityState";
+    v17[1] = v14;
+    v17[2] = &unk_283976078;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
     [v12 reportMetricsForEvent:@"com.apple.DifferentialPrivacy.MaintenanceActivity" withMetrics:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -9,12 +9,10 @@
 
 - (NSString)sourceProperty
 {
-  v2 = *(self + OBJC_IVAR___FASettingsPresetPropertyCondition_sourceProperty);
-  v3 = *(self + OBJC_IVAR___FASettingsPresetPropertyCondition_sourceProperty + 8);
 
-  v4 = sub_1B715E070();
+  v2 = sub_1B715E070();
 
-  return v4;
+  return v2;
 }
 
 - (FASettingsPresetPropertyCondition)initWithSourceProperty:(id)property operand:(id)operand result:(id)result

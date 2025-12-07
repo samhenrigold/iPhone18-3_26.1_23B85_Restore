@@ -1,4 +1,4 @@
-uint64_t sub_100001198()
+uint64_t sub_100001198(uint64_t a1, uint64_t a2)
 {
   if (qword_100015A78 != -1)
   {
@@ -216,10 +216,11 @@ LABEL_50:
 LABEL_39:
 }
 
-void sub_1000022F0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000022F0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100002980(_Unwind_Exception *a1)
@@ -301,37 +302,36 @@ void sub_100003588(uint64_t a1, uint64_t a2, void *a3)
   v7 = [v6 objectForKeyedSubscript:@"PublicIdentities"];
 
   v8 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v7, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * v13);
-        v15 = PCSPublicIdentityCreateWithPublicKeyInfo();
-        v16 = PCSPublicIdentityCopyPublicKey();
-        CFRelease(v15);
-        [v8 addObject:{v16, v17}];
+        v14 = PCSPublicIdentityCreateWithPublicKeyInfo();
+        v15 = PCSPublicIdentityCopyPublicKey();
+        CFRelease(v14);
+        [v8 addObject:{v15, v16}];
 
-        v13 = v13 + 1;
+        ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
@@ -440,26 +440,23 @@ void sub_100004F60(uint64_t a1)
   v2 = objc_autoreleasePoolPush();
   if (os_variant_has_internal_diagnostics())
   {
-    v3 = *(a1 + 32);
-    if ([objc_opt_class() isRateLimited:v3])
+    if ([objc_opt_class() isRateLimited:*(a1 + 32)])
     {
-      v4 = CloudServicesLog();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v3 = CloudServicesLog();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v5 = [*(a1 + 32) alert];
-        v8 = 138412290;
-        v9 = v5;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Not showing ttr due to ratelimiting: %@", &v8, 0xCu);
+        v4 = [*(a1 + 32) alert];
+        v5 = 138412290;
+        v6 = v4;
+        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Not showing ttr due to ratelimiting: %@", &v5, 0xCu);
       }
     }
 
     else
     {
-      v6 = *(a1 + 32);
-      if ([objc_opt_class() askUserIfTTR:v6])
+      if ([objc_opt_class() askUserIfTTR:*(a1 + 32)])
       {
-        v7 = *(a1 + 32);
-        [objc_opt_class() triggerTapToRadar:v7];
+        [objc_opt_class() triggerTapToRadar:*(a1 + 32)];
       }
 
       [*(a1 + 32) updateRetryTimestamp];
@@ -517,6 +514,20 @@ uint64_t start()
   return 0;
 }
 
+void sub_100007AD0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "void prompt(EscrowSecurityAlertType)";
+  sub_1000022F0(&_mh_execute_header, a1, a3, "%s: unexpected xpc transaction count", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100007B48(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "void cancelAlert(void)";
+  sub_1000022F0(&_mh_execute_header, a1, a3, "%s: unexpected xpc transaction count", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100007BC0(uint64_t a1, uint64_t a2, os_log_t log)
 {
   v3 = 138412546;
@@ -524,6 +535,13 @@ void sub_100007BC0(uint64_t a1, uint64_t a2, os_log_t log)
   v5 = 2112;
   v6 = a2;
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "could not open %@: %@", &v3, 0x16u);
+}
+
+void sub_100007C48(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "void response(CFUserNotificationRef, CFOptionFlags)";
+  sub_1000022F0(&_mh_execute_header, a1, a3, "%s: unexpected xpc transaction count", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100007F34(unsigned int *a1, NSObject *a2)

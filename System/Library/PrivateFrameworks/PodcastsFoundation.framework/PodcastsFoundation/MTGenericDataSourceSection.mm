@@ -31,7 +31,6 @@
   *(v5 + 16) = v4;
   v6 = (self + OBJC_IVAR___MTGenericDataSourceSection_shouldIncludeSeeAllBlock);
   swift_beginAccess();
-  v7 = v6[1];
   *v6 = sub_1D90474F8;
   v6[1] = v5;
 }

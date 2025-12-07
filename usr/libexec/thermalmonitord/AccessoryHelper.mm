@@ -2,6 +2,7 @@
 - (AccessoryHelper)initWithProduct:(id)product;
 - (__CFString)copyFieldCurrentValueForIndex:(int)index;
 - (__CFString)copyHeaderForIndex:(int)index;
+- (void)accessoryEndpointAttached:(id)attached transportType:(int)type protocol:(int)protocol properties:(id)properties forConnection:(id)connection;
 - (void)accessoryEndpointDetached:(id)detached forConnection:(id)connection;
 - (void)applyUpdatedAccessoryState:(int)state;
 - (void)handleAccessoryEventForEndpointUUID:(id)d andAttachedState:(BOOL)state;
@@ -252,6 +253,31 @@ LABEL_9:
   if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
   {
     sub_100056FF4(d, v16);
+  }
+}
+
+- (void)accessoryEndpointAttached:(id)attached transportType:(int)type protocol:(int)protocol properties:(id)properties forConnection:(id)connection
+{
+  v9 = *&type;
+  v12 = qword_1000AB718;
+  if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = 138412802;
+    connectionCopy = connection;
+    v16 = 2112;
+    attachedCopy = attached;
+    v18 = 2112;
+    propertiesCopy = properties;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "<Notice> Accessory attached: %@, %@, %@", &v14, 0x20u);
+  }
+
+  if ((v9 - 14) >= 0xFFFFFFFE)
+  {
+    v13 = +[NSMutableDictionary dictionary];
+    [v13 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKeyedSubscript:{"numberWithUnsignedInt:", v9), @"EndpointType"}];
+    [v13 setObject:objc_msgSend(properties forKeyedSubscript:{"objectForKeyedSubscript:", kACCProperties_Endpoint_NFC_Type), @"AccessoryType"}];
+    [(NSMutableDictionary *)[(AccessoryHelper *)self connectedEndpoints] setObject:v13 forKeyedSubscript:attached];
+    [(AccessoryHelper *)self handleAccessoryEventForEndpointUUID:attached andAttachedState:1];
   }
 }
 

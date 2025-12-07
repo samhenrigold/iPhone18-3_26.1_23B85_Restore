@@ -1,4 +1,6 @@
 @interface MRDSendCommandToOutputDevicesRequest
++ (void)sendCommand:(unsigned int)command withOptions:(id)options toEachEndpointContainingOutputDeviceUIDs:(id)ds timeout:(double)timeout details:(id)details completion:(id)completion;
++ (void)sendCommand:(unsigned int)command withOptions:(id)options toNewEndpointContainingOutputDeviceUIDs:(id)ds playerPath:(id)path timeout:(double)timeout details:(id)details completion:(id)completion;
 - (BOOL)_doesRequestContainLocalDeviceUID:(id)d;
 - (BOOL)_isRequestForCompanionOrigin:(id)origin;
 - (BOOL)_isRequestForCurrentCongifuration:(id)congifuration;
@@ -8,6 +10,43 @@
 @end
 
 @implementation MRDSendCommandToOutputDevicesRequest
+
++ (void)sendCommand:(unsigned int)command withOptions:(id)options toNewEndpointContainingOutputDeviceUIDs:(id)ds playerPath:(id)path timeout:(double)timeout details:(id)details completion:(id)completion
+{
+  v14 = *&command;
+  completionCopy = completion;
+  detailsCopy = details;
+  pathCopy = path;
+  dsCopy = ds;
+  optionsCopy = options;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_1001A290C;
+  v22[3] = &unk_1004C0D88;
+  v23 = objc_alloc_init(MRDSendCommandToOutputDevicesRequest);
+  v24 = completionCopy;
+  v20 = completionCopy;
+  v21 = v23;
+  [(MRDSendCommandToOutputDevicesRequest *)v21 _sendCommand:v14 withOptions:optionsCopy toNewEndpointContainingOutputDeviceUIDs:dsCopy playerPath:pathCopy timeout:detailsCopy details:v22 completion:timeout];
+}
+
++ (void)sendCommand:(unsigned int)command withOptions:(id)options toEachEndpointContainingOutputDeviceUIDs:(id)ds timeout:(double)timeout details:(id)details completion:(id)completion
+{
+  v12 = *&command;
+  completionCopy = completion;
+  detailsCopy = details;
+  dsCopy = ds;
+  optionsCopy = options;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_1001A2A40;
+  v19[3] = &unk_1004C0DB0;
+  v20 = objc_alloc_init(MRDSendCommandToOutputDevicesRequest);
+  v21 = completionCopy;
+  v17 = completionCopy;
+  v18 = v20;
+  [(MRDSendCommandToOutputDevicesRequest *)v18 _sendCommand:v12 withOptions:optionsCopy toEachEndpointContainingOutputDeviceUIDs:dsCopy timeout:detailsCopy details:v19 completion:timeout];
+}
 
 - (void)_sendCommand:(unsigned int)command withOptions:(id)options toNewEndpointContainingOutputDeviceUIDs:(id)ds playerPath:(id)path timeout:(double)timeout details:(id)details completion:(id)completion
 {

@@ -150,7 +150,7 @@
 
 - (void)loadLNPropertyImageWithCompletion:(id)completion
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   lnPropertyIdentifier = [(WFContextualActionIcon *)self lnPropertyIdentifier];
 
@@ -163,11 +163,11 @@
     if (v8)
     {
       v9 = [objc_alloc(MEMORY[0x1E69ACDC8]) initWithOptions:2];
-      v26[0] = v8;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
-      v25 = 0;
-      v11 = [v9 propertiesForIdentifiers:v10 error:&v25];
-      v12 = v25;
+      v25[0] = v8;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+      v24 = 0;
+      v11 = [v9 propertiesForIdentifiers:v10 error:&v24];
+      v12 = v24;
 
       if (v12)
       {
@@ -180,7 +180,7 @@
         v14 = v13;
         if (v13)
         {
-          v22 = v13;
+          v21 = v13;
           value = [v13 value];
           displayRepresentation = [value displayRepresentation];
           image = [displayRepresentation image];
@@ -189,13 +189,13 @@
           if (inImage)
           {
             displayStyle = [(WFContextualActionIcon *)self displayStyle];
-            v23[0] = MEMORY[0x1E69E9820];
-            v23[1] = 3221225472;
-            v23[2] = __60__WFContextualActionIcon_loadLNPropertyImageWithCompletion___block_invoke;
-            v23[3] = &unk_1E7B02740;
-            v24 = completionCopy;
-            [WFContextualActionIcon iconWithINImage:inImage displayStyle:displayStyle completion:v23];
-            v20 = v24;
+            v22[0] = MEMORY[0x1E69E9820];
+            v22[1] = 3221225472;
+            v22[2] = __60__WFContextualActionIcon_loadLNPropertyImageWithCompletion___block_invoke;
+            v22[3] = &unk_1E7B02740;
+            v23 = completionCopy;
+            [WFContextualActionIcon iconWithINImage:inImage displayStyle:displayStyle completion:v22];
+            v20 = v23;
           }
 
           else
@@ -204,7 +204,7 @@
             completionCopy[2](completionCopy, 0, v20);
           }
 
-          v14 = v22;
+          v14 = v21;
         }
 
         else
@@ -227,8 +227,6 @@
     v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFContextualActionIconErrorDomain" code:0 userInfo:0];
     completionCopy[2](completionCopy, 0, v8);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (double)imageScale
@@ -638,7 +636,7 @@ void __66__WFContextualActionIcon_iconWithINImage_displayStyle_completion___bloc
   if (a2)
   {
     v3 = [a2 _imageData];
-    v9 = v3;
+    v8 = v3;
     if (v3)
     {
       v4 = [WFContextualActionIcon iconWithImageData:v3 scale:0 displayStyle:0.0];
@@ -647,9 +645,9 @@ void __66__WFContextualActionIcon_iconWithINImage_displayStyle_completion___bloc
 
     else
     {
-      v8 = *(a1 + 32);
+      v7 = *(a1 + 32);
       v4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFContextualActionIconErrorDomain" code:3 userInfo:0];
-      v5 = *(v8 + 16);
+      v5 = *(v7 + 16);
     }
 
     v5();
@@ -657,10 +655,9 @@ void __66__WFContextualActionIcon_iconWithINImage_displayStyle_completion___bloc
 
   else
   {
-    v6 = *(a1 + 32);
-    v7 = *(*(a1 + 32) + 16);
+    v6 = *(*(a1 + 32) + 16);
 
-    v7();
+    v6();
   }
 }
 

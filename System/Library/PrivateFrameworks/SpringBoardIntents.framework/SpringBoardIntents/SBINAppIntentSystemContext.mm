@@ -36,7 +36,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v10 = 1;
+    v8 = 1;
   }
 
   else
@@ -47,26 +47,24 @@
     if (isKindOfClass)
     {
       v7 = equalCopy;
-      preciseTimestamp = self->_preciseTimestamp;
-      v9 = v7->_preciseTimestamp;
       if (BSEqualObjects())
       {
-        v10 = self->_actionSource == v7->_actionSource;
+        v8 = self->_actionSource == v7->_actionSource;
       }
 
       else
       {
-        v10 = 0;
+        v8 = 0;
       }
     }
 
     else
     {
-      v10 = 0;
+      v8 = 0;
     }
   }
 
-  return v10;
+  return v8;
 }
 
 @end

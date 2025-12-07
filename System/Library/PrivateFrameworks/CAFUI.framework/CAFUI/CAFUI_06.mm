@@ -27,7 +27,7 @@ void closure #1 in CAFUITileDataSource.updated(setting:)(uint64_t *a1, uint64_t 
       v16 = (*(v7 + 80) + 32) & ~*(v7 + 80);
       v17 = *(v7 + 72);
       (*(v7 + 16))(v11, v12 + v16 + v17 * v14, v6);
-      if (CAFUITileDataSource.validate(indexPath:)())
+      if (CAFUITileDataSource.validate(indexPath:)(v11))
       {
         v18 = *v36;
         (*v36)(v38, v11, v6);
@@ -43,7 +43,7 @@ void closure #1 in CAFUITileDataSource.updated(setting:)(uint64_t *a1, uint64_t 
         v20 = *(v15 + 24);
         if (v21 >= v20 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v20 > 1, v21 + 1, 1);
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v21 + 1, 1);
           v15 = v39;
         }
 
@@ -116,8 +116,8 @@ void CAFUITileDataSource.automakerSettingService(_:didUpdateProminenceInfo:)(voi
   MEMORY[0x245D0D240](v3, v5);
 
   MEMORY[0x245D0D240](0xD00000000000001ALL, 0x800000024242C1C0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFProminenceInformationCSgMd);
-  lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFProminenceInformation and conformance NSObject, &lazy cache variable for type metadata for CAFProminenceInformation);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFProminenceInformationCSgMd, &_sSo24CAFProminenceInformationCSgMR);
+  lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFProminenceInformation and conformance NSObject, &lazy cache variable for type metadata for CAFProminenceInformation, 0x277CF85A8, MEMORY[0x277CC9E10]);
   v6 = Optional<A>.description.getter();
   MEMORY[0x245D0D240](v6);
 
@@ -312,13 +312,13 @@ void closure #1 in CAFUITileDataSource.listItems.didset(void *a1, uint64_t a2)
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
   v8 = swift_allocObject();
   *(v8 + 16) = xmmword_2424235A0;
   *(v8 + 32) = a2;
   v12[1] = v8;
-  lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x277CC9A28]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
+  lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexSet and conformance IndexSet, MEMORY[0x277CC9A28], MEMORY[0x277CC9A58]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
   lazy protocol witness table accessor for type [Int] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   IndexSet._bridgeToObjectiveC()(v9);
@@ -327,7 +327,7 @@ void closure #1 in CAFUITileDataSource.listItems.didset(void *a1, uint64_t a2)
   [a1 reloadSections_];
 }
 
-void CAFUIProminentAncestorObserver.observeAncestors(_:)(int64_t a1)
+void CAFUIProminentAncestorObserver.observeAncestors(_:)(uint64_t a1)
 {
   v2 = v1;
   v4 = *(v1 + OBJC_IVAR____TtC5CAFUIP33_0E4D121C5C9C3A69D68EDC06FF2740D730CAFUIProminentAncestorObserver_observedAncestors);
@@ -337,8 +337,8 @@ void CAFUIProminentAncestorObserver.observeAncestors(_:)(int64_t a1)
 
     swift_unknownObjectRetain();
     __CocoaSet.makeIterator()();
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
-    lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFAutomakerSetting and conformance NSObject, &lazy cache variable for type metadata for CAFAutomakerSetting);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
+    lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFAutomakerSetting and conformance NSObject, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328, MEMORY[0x277D85378]);
     Set.Iterator.init(_cocoa:)();
     v6 = v35;
     v5 = v36;
@@ -391,7 +391,7 @@ LABEL_12:
     if (!v18)
     {
 LABEL_18:
-      outlined consume of Set<CAFAutomakerSetting>.Iterator._Variant();
+      outlined consume of Set<CAFAutomakerSetting>.Iterator._Variant(v6);
 
       *(v2 + v33) = a1;
 
@@ -400,8 +400,8 @@ LABEL_18:
 
         swift_unknownObjectRetain();
         __CocoaSet.makeIterator()();
-        type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
-        lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFAutomakerSetting and conformance NSObject, &lazy cache variable for type metadata for CAFAutomakerSetting);
+        type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
+        lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFAutomakerSetting and conformance NSObject, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328, MEMORY[0x277D85378]);
         Set.Iterator.init(_cocoa:)();
         a1 = v40;
         v20 = v41;
@@ -453,7 +453,7 @@ LABEL_29:
         if (!v32)
         {
 LABEL_35:
-          outlined consume of Set<CAFAutomakerSetting>.Iterator._Variant();
+          outlined consume of Set<CAFAutomakerSetting>.Iterator._Variant(a1);
           return;
         }
 
@@ -471,7 +471,7 @@ LABEL_35:
 LABEL_31:
           if (__CocoaSet.Iterator.next()())
           {
-            type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
+            type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
             swift_dynamicCast();
             v32 = v34;
             v30 = v22;
@@ -524,7 +524,7 @@ LABEL_14:
       if (v19)
       {
         v34 = v19;
-        type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
+        type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
         swift_dynamicCast();
         v18 = v40;
         v16 = v7;
@@ -565,7 +565,7 @@ LABEL_37:
   __break(1u);
 }
 
-void @objc CAFUIProminentAncestorObserver.automakerSettingService(_:didUpdateDisabled:)(void *a1, uint64_t a2, void *a3, uint64_t a4, void (*a5)(id))
+void @objc CAFUIProminentAncestorObserver.automakerSettingService(_:didUpdateDisabled:)(char *a1, uint64_t a2, void *a3, uint64_t a4, void (*a5)(id))
 {
   if (swift_unknownObjectWeakLoadStrong())
   {
@@ -576,10 +576,10 @@ void @objc CAFUIProminentAncestorObserver.automakerSettingService(_:didUpdateDis
   }
 }
 
-id CAFUITileDataSource.__deallocating_deinit(uint64_t a1, uint64_t (*a2)(void))
+id CAFUITileDataSource.__deallocating_deinit(uint64_t a1, uint64_t (*a2)(uint64_t))
 {
   v4.receiver = v2;
-  v4.super_class = a2();
+  v4.super_class = a2(a1);
   return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
@@ -783,7 +783,7 @@ LABEL_23:
 
 void closure #1 in CAFUITileDataSource.updated(setting:)(void *a1, uint64_t a2, uint64_t a3)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd, &_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMR);
   type metadata accessor for IndexPath();
   *(swift_allocObject() + 16) = xmmword_2424235A0;
   MEMORY[0x245D0BE30](a2, a3);
@@ -806,7 +806,7 @@ uint64_t protocol witness for CAFUITileIdentifiable.identifier.getter in conform
   return v6;
 }
 
-void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(int64_t *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v6 = a3[1];
   if (v6 < 1)
@@ -1433,7 +1433,7 @@ LABEL_10:
         }
 
         v45 = v44 >> 3;
-        if (v8 < v21 || v8 >= v21 + (v44 & 0xFFFFFFFFFFFFFFF8))
+        if (v8 < v21 || v8 >= (v21 + (v44 & 0xFFFFFFFFFFFFFFF8)))
         {
           memmove(v8, v21, 8 * v45);
           return 1;
@@ -1457,7 +1457,7 @@ LABEL_10:
       }
 
       v17 = v21;
-      a4 = v21 + 8;
+      a4 = (v21 + 1);
       v7 = v19;
       if (v8 != v21)
       {
@@ -1499,10 +1499,10 @@ LABEL_12:
   if (v12 < 8 || v7 <= v8)
   {
 LABEL_50:
-    v46 = &v16[-a4 + 7];
-    if (&v16[-a4] >= 0)
+    v46 = v16 - a4 + 7;
+    if ((v16 - a4) >= 0)
     {
-      v46 = &v16[-a4];
+      v46 = v16 - a4;
     }
 
     if (v7 < a4 || v7 >= a4 + (v46 & 0xFFFFFFFFFFFFFFF8) || v7 != a4)
@@ -1524,13 +1524,12 @@ LABEL_56:
 LABEL_25:
   v50 = v7;
   v29 = v7 - 1;
-  v30 = &v16[v28];
+  v30 = v16 + v28;
   --v6;
   v31 = v16;
   while (1)
   {
-    v32 = *(v31 - 1);
-    v31 -= 8;
+    v32 = *--v31;
     v53 = v32;
     v33 = v29;
     v52 = *v29;
@@ -1545,7 +1544,7 @@ LABEL_25:
 
     v38 = v37;
 
-    v39 = (v6 + 1);
+    v39 = v6 + 1;
     if (v38)
     {
       if (v39 != v50)
@@ -1593,7 +1592,7 @@ LABEL_25:
 
   v41 = v50;
   v42 = v51;
-  if (v50 < v51 || v50 >= &v51[v40 & 0xFFFFFFFFFFFFFFF8] || v50 != v51)
+  if (v50 < v51 || v50 >= v51 + (v40 & 0xFFFFFFFFFFFFFFF8) || v50 != v51)
   {
     v43 = 8 * (v40 >> 3);
     goto LABEL_56;
@@ -1632,7 +1631,7 @@ uint64_t specialized Array.remove(at:)(unint64_t a1)
   return result;
 }
 
-uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2)
+uint64_t specialized Set._Variant.insert(_:)(uint64_t *a1, void *a2)
 {
   v3 = v2;
   v6 = *v2;
@@ -1655,10 +1654,10 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2)
     if (v9)
     {
 
-      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
+      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
       swift_dynamicCast();
       result = 0;
-      *a1 = v22;
+      *a1 = v23;
       return result;
     }
 
@@ -1670,9 +1669,10 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2)
     }
 
     v19 = _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfCSo19CAFAutomakerSettingC_Tt1g5(v7, result + 1);
-    if (v19[3] <= v19[2])
+    v20 = v19[2];
+    if (v19[3] <= v20)
     {
-      specialized _NativeSet.resize(capacity:)();
+      specialized _NativeSet.resize(capacity:)(v20 + 1);
     }
 
     v18 = v8;
@@ -1682,7 +1682,7 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2)
     goto LABEL_16;
   }
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
   v11 = NSObject._rawHashValue(seed:)(*(v6 + 40));
   v12 = -1 << *(v6 + 32);
   v13 = v11 & ~v12;
@@ -1690,10 +1690,10 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2)
   {
 LABEL_11:
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v23 = *v3;
+    v24 = *v3;
     v18 = a2;
     specialized _NativeSet.insertNew(_:at:isUnique:)(v18, v13, isUniquelyReferenced_nonNull_native);
-    *v3 = v23;
+    *v3 = v24;
 LABEL_16:
     *a1 = v18;
     return 1;
@@ -1717,9 +1717,9 @@ LABEL_16:
     }
   }
 
-  v20 = *(*(v6 + 48) + 8 * v13);
-  *a1 = v20;
-  v21 = v20;
+  v21 = *(*(v6 + 48) + 8 * v13);
+  *a1 = v21;
+  v22 = v21;
   return 0;
 }
 
@@ -1731,7 +1731,7 @@ uint64_t specialized Set._Variant.insert(_:)(uint64_t a1, char *a2)
   MEMORY[0x28223BE20](v6);
   v9 = v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = *v2;
-  lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8]);
+  lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8], MEMORY[0x277CC9B08]);
   v33 = a2;
   v11 = dispatch thunk of Hashable._rawHashValue(seed:)();
   v12 = v10 + 56;
@@ -1755,7 +1755,7 @@ uint64_t specialized Set._Variant.insert(_:)(uint64_t a1, char *a2)
     {
       v20 = v15;
       v15(v9, *(v32 + 48) + v18 * v14, v6);
-      lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8]);
+      lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8], MEMORY[0x277CC9B18]);
       v21 = dispatch thunk of static Equatable.== infix(_:_:)();
       v22 = *v19;
       (*v19)(v9, v6);
@@ -1799,61 +1799,62 @@ Swift::Int _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfCSo19CAFAutomakerS
 {
   if (a2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo19CAFAutomakerSettingCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo19CAFAutomakerSettingCGMd, &_ss11_SetStorageCySo19CAFAutomakerSettingCGMR);
     v2 = static _SetStorage.convert(_:capacity:)();
-    v14 = v2;
+    v15 = v2;
     __CocoaSet.makeIterator()();
     if (__CocoaSet.Iterator.next()())
     {
-      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
+      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
       do
       {
         swift_dynamicCast();
-        if (*(v2 + 24) <= *(v2 + 16))
+        v9 = *(v2 + 16);
+        if (*(v2 + 24) <= v9)
         {
-          specialized _NativeSet.resize(capacity:)();
+          specialized _NativeSet.resize(capacity:)(v9 + 1);
         }
 
-        v2 = v14;
-        result = NSObject._rawHashValue(seed:)(*(v14 + 40));
-        v4 = v14 + 56;
-        v5 = -1 << *(v14 + 32);
+        v2 = v15;
+        result = NSObject._rawHashValue(seed:)(*(v15 + 40));
+        v4 = v15 + 56;
+        v5 = -1 << *(v15 + 32);
         v6 = result & ~v5;
         v7 = v6 >> 6;
-        if (((-1 << v6) & ~*(v14 + 56 + 8 * (v6 >> 6))) != 0)
+        if (((-1 << v6) & ~*(v15 + 56 + 8 * (v6 >> 6))) != 0)
         {
-          v8 = __clz(__rbit64((-1 << v6) & ~*(v14 + 56 + 8 * (v6 >> 6)))) | v6 & 0x7FFFFFFFFFFFFFC0;
+          v8 = __clz(__rbit64((-1 << v6) & ~*(v15 + 56 + 8 * (v6 >> 6)))) | v6 & 0x7FFFFFFFFFFFFFC0;
         }
 
         else
         {
-          v9 = 0;
-          v10 = (63 - v5) >> 6;
+          v10 = 0;
+          v11 = (63 - v5) >> 6;
           do
           {
-            if (++v7 == v10 && (v9 & 1) != 0)
+            if (++v7 == v11 && (v10 & 1) != 0)
             {
               __break(1u);
               return result;
             }
 
-            v11 = v7 == v10;
-            if (v7 == v10)
+            v12 = v7 == v11;
+            if (v7 == v11)
             {
               v7 = 0;
             }
 
-            v9 |= v11;
-            v12 = *(v4 + 8 * v7);
+            v10 |= v12;
+            v13 = *(v4 + 8 * v7);
           }
 
-          while (v12 == -1);
-          v8 = __clz(__rbit64(~v12)) + (v7 << 6);
+          while (v13 == -1);
+          v8 = __clz(__rbit64(~v13)) + (v7 << 6);
         }
 
         *(v4 + ((v8 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v8;
-        *(*(v14 + 48) + 8 * v8) = v13;
-        ++*(v14 + 16);
+        *(*(v15 + 48) + 8 * v8) = v14;
+        ++*(v15 + 16);
       }
 
       while (__CocoaSet.Iterator.next()());
@@ -1869,58 +1870,58 @@ Swift::Int _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfCSo19CAFAutomakerS
   return v2;
 }
 
-uint64_t specialized _NativeSet.resize(capacity:)()
+Swift::Int specialized _NativeSet.resize(capacity:)(uint64_t a1)
 {
-  v1 = v0;
-  v2 = *v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo19CAFAutomakerSettingCGMd);
+  v2 = v1;
+  v3 = *v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo19CAFAutomakerSettingCGMd, &_ss11_SetStorageCySo19CAFAutomakerSettingCGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v4 = result;
-  if (*(v2 + 16))
+  v5 = result;
+  if (*(v3 + 16))
   {
-    v5 = 0;
-    v6 = (v2 + 56);
-    v7 = 1 << *(v2 + 32);
-    if (v7 < 64)
+    v6 = 0;
+    v7 = (v3 + 56);
+    v8 = 1 << *(v3 + 32);
+    if (v8 < 64)
     {
-      v8 = ~(-1 << v7);
+      v9 = ~(-1 << v8);
     }
 
     else
     {
-      v8 = -1;
+      v9 = -1;
     }
 
-    v9 = v8 & *(v2 + 56);
-    v10 = (v7 + 63) >> 6;
-    v11 = result + 56;
-    while (v9)
+    v10 = v9 & *(v3 + 56);
+    v11 = (v8 + 63) >> 6;
+    v12 = result + 56;
+    while (v10)
     {
-      v13 = __clz(__rbit64(v9));
-      v9 &= v9 - 1;
+      v14 = __clz(__rbit64(v10));
+      v10 &= v10 - 1;
 LABEL_15:
-      v16 = *(*(v2 + 48) + 8 * (v13 | (v5 << 6)));
-      result = NSObject._rawHashValue(seed:)(*(v4 + 40));
-      v17 = -1 << *(v4 + 32);
-      v18 = result & ~v17;
-      v19 = v18 >> 6;
-      if (((-1 << v18) & ~*(v11 + 8 * (v18 >> 6))) == 0)
+      v17 = *(*(v3 + 48) + 8 * (v14 | (v6 << 6)));
+      result = NSObject._rawHashValue(seed:)(*(v5 + 40));
+      v18 = -1 << *(v5 + 32);
+      v19 = result & ~v18;
+      v20 = v19 >> 6;
+      if (((-1 << v19) & ~*(v12 + 8 * (v19 >> 6))) == 0)
       {
-        v20 = 0;
-        v21 = (63 - v17) >> 6;
-        while (++v19 != v21 || (v20 & 1) == 0)
+        v21 = 0;
+        v22 = (63 - v18) >> 6;
+        while (++v20 != v22 || (v21 & 1) == 0)
         {
-          v22 = v19 == v21;
-          if (v19 == v21)
+          v23 = v20 == v22;
+          if (v20 == v22)
           {
-            v19 = 0;
+            v20 = 0;
           }
 
-          v20 |= v22;
-          v23 = *(v11 + 8 * v19);
-          if (v23 != -1)
+          v21 |= v23;
+          v24 = *(v12 + 8 * v20);
+          if (v24 != -1)
           {
-            v12 = __clz(__rbit64(~v23)) + (v19 << 6);
+            v13 = __clz(__rbit64(~v24)) + (v20 << 6);
             goto LABEL_7;
           }
         }
@@ -1930,119 +1931,120 @@ LABEL_30:
         return result;
       }
 
-      v12 = __clz(__rbit64((-1 << v18) & ~*(v11 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
+      v13 = __clz(__rbit64((-1 << v19) & ~*(v12 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
 LABEL_7:
-      *(v11 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v12;
-      *(*(v4 + 48) + 8 * v12) = v16;
-      ++*(v4 + 16);
+      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      *(*(v5 + 48) + 8 * v13) = v17;
+      ++*(v5 + 16);
     }
 
-    v14 = v5;
+    v15 = v6;
     while (1)
     {
-      v5 = v14 + 1;
-      if (__OFADD__(v14, 1))
+      v6 = v15 + 1;
+      if (__OFADD__(v15, 1))
       {
         __break(1u);
         goto LABEL_30;
       }
 
-      if (v5 >= v10)
+      if (v6 >= v11)
       {
         break;
       }
 
-      v15 = v6[v5];
-      ++v14;
-      if (v15)
+      v16 = v7[v6];
+      ++v15;
+      if (v16)
       {
-        v13 = __clz(__rbit64(v15));
-        v9 = (v15 - 1) & v15;
+        v14 = __clz(__rbit64(v16));
+        v10 = (v16 - 1) & v16;
         goto LABEL_15;
       }
     }
 
-    v24 = 1 << *(v2 + 32);
-    if (v24 >= 64)
+    v25 = 1 << *(v3 + 32);
+    if (v25 >= 64)
     {
-      bzero((v2 + 56), ((v24 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero((v3 + 56), ((v25 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v6 = -1 << v24;
+      *v7 = -1 << v25;
     }
 
-    *(v2 + 16) = 0;
+    *(v3 + 16) = 0;
   }
 
-  *v1 = v4;
+  *v2 = v5;
   return result;
 }
 
+uint64_t specialized _NativeSet.resize(capacity:)(uint64_t a1)
 {
-  v1 = v0;
-  v35 = type metadata accessor for IndexPath();
-  v2 = *(v35 - 8);
-  MEMORY[0x28223BE20](v35);
-  v34 = &v28 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = *v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation9IndexPathVGMd);
+  v2 = v1;
+  v36 = type metadata accessor for IndexPath();
+  v3 = *(v36 - 8);
+  MEMORY[0x28223BE20](v36);
+  v35 = &v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = *v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation9IndexPathVGMd, &_ss11_SetStorageCy10Foundation9IndexPathVGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
-  if (*(v4 + 16))
+  v7 = result;
+  if (*(v5 + 16))
   {
-    v29 = v0;
-    v30 = v4;
-    v7 = 0;
-    v8 = (v4 + 56);
-    v9 = 1 << *(v4 + 32);
-    if (v9 < 64)
+    v30 = v1;
+    v31 = v5;
+    v8 = 0;
+    v9 = (v5 + 56);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v10 = ~(-1 << v9);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v10 = -1;
+      v11 = -1;
     }
 
-    v11 = v10 & *(v4 + 56);
-    v12 = (v9 + 63) >> 6;
-    v33 = v2 + 32;
-    v13 = result + 56;
-    while (v11)
+    v12 = v11 & *(v5 + 56);
+    v13 = (v10 + 63) >> 6;
+    v34 = v3 + 32;
+    v14 = result + 56;
+    while (v12)
     {
-      v15 = __clz(__rbit64(v11));
-      v11 &= v11 - 1;
+      v16 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
 LABEL_15:
-      v18 = *(v4 + 48) + *(v2 + 72) * (v15 | (v7 << 6));
-      v19 = *(v2 + 32);
-      v31 = *(v2 + 72);
-      v32 = v19;
-      v19(v34, v18, v35);
-      lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8]);
+      v19 = *(v5 + 48) + *(v3 + 72) * (v16 | (v8 << 6));
+      v20 = *(v3 + 32);
+      v32 = *(v3 + 72);
+      v33 = v20;
+      v20(v35, v19, v36);
+      lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8], MEMORY[0x277CC9B08]);
       result = dispatch thunk of Hashable._rawHashValue(seed:)();
-      v20 = -1 << *(v6 + 32);
-      v21 = result & ~v20;
-      v22 = v21 >> 6;
-      if (((-1 << v21) & ~*(v13 + 8 * (v21 >> 6))) == 0)
+      v21 = -1 << *(v7 + 32);
+      v22 = result & ~v21;
+      v23 = v22 >> 6;
+      if (((-1 << v22) & ~*(v14 + 8 * (v22 >> 6))) == 0)
       {
-        v23 = 0;
-        v24 = (63 - v20) >> 6;
-        while (++v22 != v24 || (v23 & 1) == 0)
+        v24 = 0;
+        v25 = (63 - v21) >> 6;
+        while (++v23 != v25 || (v24 & 1) == 0)
         {
-          v25 = v22 == v24;
-          if (v22 == v24)
+          v26 = v23 == v25;
+          if (v23 == v25)
           {
-            v22 = 0;
+            v23 = 0;
           }
 
-          v23 |= v25;
-          v26 = *(v13 + 8 * v22);
-          if (v26 != -1)
+          v24 |= v26;
+          v27 = *(v14 + 8 * v23);
+          if (v27 != -1)
           {
-            v14 = __clz(__rbit64(~v26)) + (v22 << 6);
+            v15 = __clz(__rbit64(~v27)) + (v23 << 6);
             goto LABEL_7;
           }
         }
@@ -2052,55 +2054,55 @@ LABEL_30:
         return result;
       }
 
-      v14 = __clz(__rbit64((-1 << v21) & ~*(v13 + 8 * (v21 >> 6)))) | v21 & 0x7FFFFFFFFFFFFFC0;
+      v15 = __clz(__rbit64((-1 << v22) & ~*(v14 + 8 * (v22 >> 6)))) | v22 & 0x7FFFFFFFFFFFFFC0;
 LABEL_7:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      result = v32(*(v6 + 48) + v14 * v31, v34, v35);
-      ++*(v6 + 16);
-      v4 = v30;
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      result = v33(*(v7 + 48) + v15 * v32, v35, v36);
+      ++*(v7 + 16);
+      v5 = v31;
     }
 
-    v16 = v7;
+    v17 = v8;
     while (1)
     {
-      v7 = v16 + 1;
-      if (__OFADD__(v16, 1))
+      v8 = v17 + 1;
+      if (__OFADD__(v17, 1))
       {
         __break(1u);
         goto LABEL_30;
       }
 
-      if (v7 >= v12)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v17 = v8[v7];
-      ++v16;
-      if (v17)
+      v18 = v9[v8];
+      ++v17;
+      if (v18)
       {
-        v15 = __clz(__rbit64(v17));
-        v11 = (v17 - 1) & v17;
+        v16 = __clz(__rbit64(v18));
+        v12 = (v18 - 1) & v18;
         goto LABEL_15;
       }
     }
 
-    v27 = 1 << *(v4 + 32);
-    if (v27 >= 64)
+    v28 = 1 << *(v5 + 32);
+    if (v28 >= 64)
     {
-      bzero(v8, ((v27 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero(v9, ((v28 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v8 = -1 << v27;
+      *v9 = -1 << v28;
     }
 
-    v1 = v29;
-    *(v4 + 16) = 0;
+    v2 = v30;
+    *(v5 + 16) = 0;
   }
 
-  *v1 = v6;
+  *v2 = v7;
   return result;
 }
 
@@ -2125,7 +2127,7 @@ void specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, unint64_t a2,
 
   if (a3)
   {
-    specialized _NativeSet.resize(capacity:)();
+    specialized _NativeSet.resize(capacity:)(v6 + 1);
   }
 
   else
@@ -2136,7 +2138,7 @@ void specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, unint64_t a2,
       goto LABEL_12;
     }
 
-    specialized _NativeSet.copyAndResize(capacity:)();
+    specialized _NativeSet.copyAndResize(capacity:)(v6 + 1);
   }
 
   v8 = *v3;
@@ -2146,7 +2148,7 @@ void specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, unint64_t a2,
   if ((*(v8 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
   {
     v11 = ~v10;
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
     do
     {
       v12 = *(*(v8 + 48) + 8 * a2);
@@ -2200,7 +2202,7 @@ uint64_t specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, unint64_t
 
   if (a3)
   {
-    specialized _NativeSet.resize(capacity:)();
+    specialized _NativeSet.resize(capacity:)(v10 + 1);
   }
 
   else
@@ -2211,11 +2213,11 @@ uint64_t specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, unint64_t
       goto LABEL_12;
     }
 
-    specialized _NativeSet.copyAndResize(capacity:)();
+    specialized _NativeSet.copyAndResize(capacity:)(v10 + 1);
   }
 
   v12 = *v3;
-  lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8]);
+  lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8], MEMORY[0x277CC9B08]);
   v13 = dispatch thunk of Hashable._rawHashValue(seed:)();
   v14 = v12 + 56;
   v30 = v12;
@@ -2231,7 +2233,7 @@ uint64_t specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, unint64_t
     do
     {
       v17(v9, *(v30 + 48) + v20 * a2, v6);
-      lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8]);
+      lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8], MEMORY[0x277CC9B18]);
       v21 = dispatch thunk of static Equatable.== infix(_:_:)();
       (*(v18 - 8))(v9, v6);
       if (v21)
@@ -2269,7 +2271,7 @@ LABEL_15:
 id specialized _NativeSet.copy()()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo19CAFAutomakerSettingCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo19CAFAutomakerSettingCGMd, &_ss11_SetStorageCySo19CAFAutomakerSettingCGMR);
   v2 = *v0;
   v3 = static _SetStorage.copy(original:)();
   v4 = v3;
@@ -2354,7 +2356,7 @@ void *specialized _NativeSet.copy()()
   v3 = *(v2 - 8);
   MEMORY[0x28223BE20](v2);
   v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation9IndexPathVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation9IndexPathVGMd, &_ss11_SetStorageCy10Foundation9IndexPathVGMR);
   v6 = *v0;
   v7 = static _SetStorage.copy(original:)();
   v8 = v7;
@@ -2429,59 +2431,59 @@ LABEL_18:
   return result;
 }
 
-uint64_t specialized _NativeSet.copyAndResize(capacity:)()
+Swift::Int specialized _NativeSet.copyAndResize(capacity:)(uint64_t a1)
 {
-  v1 = v0;
-  v2 = *v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo19CAFAutomakerSettingCGMd);
+  v2 = v1;
+  v3 = *v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo19CAFAutomakerSettingCGMd, &_ss11_SetStorageCySo19CAFAutomakerSettingCGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v4 = result;
-  if (*(v2 + 16))
+  v5 = result;
+  if (*(v3 + 16))
   {
-    v24 = v0;
-    v5 = 0;
-    v6 = 1 << *(v2 + 32);
-    if (v6 < 64)
+    v25 = v1;
+    v6 = 0;
+    v7 = 1 << *(v3 + 32);
+    if (v7 < 64)
     {
-      v7 = ~(-1 << v6);
+      v8 = ~(-1 << v7);
     }
 
     else
     {
-      v7 = -1;
+      v8 = -1;
     }
 
-    v8 = v7 & *(v2 + 56);
-    v9 = (v6 + 63) >> 6;
-    v10 = result + 56;
-    while (v8)
+    v9 = v8 & *(v3 + 56);
+    v10 = (v7 + 63) >> 6;
+    v11 = result + 56;
+    while (v9)
     {
-      v12 = __clz(__rbit64(v8));
-      v8 &= v8 - 1;
+      v13 = __clz(__rbit64(v9));
+      v9 &= v9 - 1;
 LABEL_15:
-      v15 = *(v4 + 40);
-      v16 = *(*(v2 + 48) + 8 * (v12 | (v5 << 6)));
-      result = NSObject._rawHashValue(seed:)(v15);
-      v17 = -1 << *(v4 + 32);
-      v18 = result & ~v17;
-      v19 = v18 >> 6;
-      if (((-1 << v18) & ~*(v10 + 8 * (v18 >> 6))) == 0)
+      v16 = *(v5 + 40);
+      v17 = *(*(v3 + 48) + 8 * (v13 | (v6 << 6)));
+      result = NSObject._rawHashValue(seed:)(v16);
+      v18 = -1 << *(v5 + 32);
+      v19 = result & ~v18;
+      v20 = v19 >> 6;
+      if (((-1 << v19) & ~*(v11 + 8 * (v19 >> 6))) == 0)
       {
-        v20 = 0;
-        v21 = (63 - v17) >> 6;
-        while (++v19 != v21 || (v20 & 1) == 0)
+        v21 = 0;
+        v22 = (63 - v18) >> 6;
+        while (++v20 != v22 || (v21 & 1) == 0)
         {
-          v22 = v19 == v21;
-          if (v19 == v21)
+          v23 = v20 == v22;
+          if (v20 == v22)
           {
-            v19 = 0;
+            v20 = 0;
           }
 
-          v20 |= v22;
-          v23 = *(v10 + 8 * v19);
-          if (v23 != -1)
+          v21 |= v23;
+          v24 = *(v11 + 8 * v20);
+          if (v24 != -1)
           {
-            v11 = __clz(__rbit64(~v23)) + (v19 << 6);
+            v12 = __clz(__rbit64(~v24)) + (v20 << 6);
             goto LABEL_7;
           }
         }
@@ -2489,35 +2491,35 @@ LABEL_15:
         goto LABEL_28;
       }
 
-      v11 = __clz(__rbit64((-1 << v18) & ~*(v10 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
+      v12 = __clz(__rbit64((-1 << v19) & ~*(v11 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
 LABEL_7:
-      *(v10 + ((v11 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v11;
-      *(*(v4 + 48) + 8 * v11) = v16;
-      ++*(v4 + 16);
+      *(v11 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v12;
+      *(*(v5 + 48) + 8 * v12) = v17;
+      ++*(v5 + 16);
     }
 
-    v13 = v5;
+    v14 = v6;
     while (1)
     {
-      v5 = v13 + 1;
-      if (__OFADD__(v13, 1))
+      v6 = v14 + 1;
+      if (__OFADD__(v14, 1))
       {
         break;
       }
 
-      if (v5 >= v9)
+      if (v6 >= v10)
       {
 
-        v1 = v24;
+        v2 = v25;
         goto LABEL_26;
       }
 
-      v14 = *(v2 + 56 + 8 * v5);
-      ++v13;
-      if (v14)
+      v15 = *(v3 + 56 + 8 * v6);
+      ++v14;
+      if (v15)
       {
-        v12 = __clz(__rbit64(v14));
-        v8 = (v14 - 1) & v14;
+        v13 = __clz(__rbit64(v15));
+        v9 = (v15 - 1) & v15;
         goto LABEL_15;
       }
     }
@@ -2531,74 +2533,75 @@ LABEL_28:
   {
 
 LABEL_26:
-    *v1 = v4;
+    *v2 = v5;
   }
 
   return result;
 }
 
+uint64_t specialized _NativeSet.copyAndResize(capacity:)(uint64_t a1)
 {
-  v1 = v0;
-  v32 = type metadata accessor for IndexPath();
-  v2 = *(v32 - 8);
-  MEMORY[0x28223BE20](v32);
-  v4 = &v27 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = *v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation9IndexPathVGMd);
-  v6 = static _SetStorage.resize(original:capacity:move:)();
-  result = v5;
-  if (*(v5 + 16))
+  v2 = v1;
+  v33 = type metadata accessor for IndexPath();
+  v3 = *(v33 - 8);
+  MEMORY[0x28223BE20](v33);
+  v5 = &v28 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation9IndexPathVGMd, &_ss11_SetStorageCy10Foundation9IndexPathVGMR);
+  v7 = static _SetStorage.resize(original:capacity:move:)();
+  result = v6;
+  if (*(v6 + 16))
   {
-    v27 = v0;
-    v8 = 0;
-    v9 = v5 + 56;
-    v10 = 1 << *(v5 + 32);
-    if (v10 < 64)
+    v28 = v1;
+    v9 = 0;
+    v10 = v6 + 56;
+    v11 = 1 << *(v6 + 32);
+    if (v11 < 64)
     {
-      v11 = ~(-1 << v10);
+      v12 = ~(-1 << v11);
     }
 
     else
     {
-      v11 = -1;
+      v12 = -1;
     }
 
-    v12 = v11 & *(v5 + 56);
-    v13 = (v10 + 63) >> 6;
-    v30 = v2 + 16;
-    v31 = v2;
-    v14 = v6 + 56;
-    v28 = (v2 + 32);
-    v29 = result;
-    while (v12)
+    v13 = v12 & *(v6 + 56);
+    v14 = (v11 + 63) >> 6;
+    v31 = v3 + 16;
+    v32 = v3;
+    v15 = v7 + 56;
+    v29 = (v3 + 32);
+    v30 = result;
+    while (v13)
     {
-      v16 = __clz(__rbit64(v12));
-      v12 &= v12 - 1;
+      v17 = __clz(__rbit64(v13));
+      v13 &= v13 - 1;
 LABEL_15:
-      v19 = *(v31 + 72);
-      (*(v31 + 16))(v4, *(result + 48) + v19 * (v16 | (v8 << 6)), v32);
-      lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8]);
+      v20 = *(v32 + 72);
+      (*(v32 + 16))(v5, *(result + 48) + v20 * (v17 | (v9 << 6)), v33);
+      lazy protocol witness table accessor for type IndexSet and conformance IndexSet(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8], MEMORY[0x277CC9B08]);
       result = dispatch thunk of Hashable._rawHashValue(seed:)();
-      v20 = -1 << *(v6 + 32);
-      v21 = result & ~v20;
-      v22 = v21 >> 6;
-      if (((-1 << v21) & ~*(v14 + 8 * (v21 >> 6))) == 0)
+      v21 = -1 << *(v7 + 32);
+      v22 = result & ~v21;
+      v23 = v22 >> 6;
+      if (((-1 << v22) & ~*(v15 + 8 * (v22 >> 6))) == 0)
       {
-        v23 = 0;
-        v24 = (63 - v20) >> 6;
-        while (++v22 != v24 || (v23 & 1) == 0)
+        v24 = 0;
+        v25 = (63 - v21) >> 6;
+        while (++v23 != v25 || (v24 & 1) == 0)
         {
-          v25 = v22 == v24;
-          if (v22 == v24)
+          v26 = v23 == v25;
+          if (v23 == v25)
           {
-            v22 = 0;
+            v23 = 0;
           }
 
-          v23 |= v25;
-          v26 = *(v14 + 8 * v22);
-          if (v26 != -1)
+          v24 |= v26;
+          v27 = *(v15 + 8 * v23);
+          if (v27 != -1)
           {
-            v15 = __clz(__rbit64(~v26)) + (v22 << 6);
+            v16 = __clz(__rbit64(~v27)) + (v23 << 6);
             goto LABEL_7;
           }
         }
@@ -2606,36 +2609,36 @@ LABEL_15:
         goto LABEL_28;
       }
 
-      v15 = __clz(__rbit64((-1 << v21) & ~*(v14 + 8 * (v21 >> 6)))) | v21 & 0x7FFFFFFFFFFFFFC0;
+      v16 = __clz(__rbit64((-1 << v22) & ~*(v15 + 8 * (v22 >> 6)))) | v22 & 0x7FFFFFFFFFFFFFC0;
 LABEL_7:
-      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
-      (*v28)(*(v6 + 48) + v15 * v19, v4, v32);
-      ++*(v6 + 16);
-      result = v29;
+      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
+      (*v29)(*(v7 + 48) + v16 * v20, v5, v33);
+      ++*(v7 + 16);
+      result = v30;
     }
 
-    v17 = v8;
+    v18 = v9;
     while (1)
     {
-      v8 = v17 + 1;
-      if (__OFADD__(v17, 1))
+      v9 = v18 + 1;
+      if (__OFADD__(v18, 1))
       {
         break;
       }
 
-      if (v8 >= v13)
+      if (v9 >= v14)
       {
 
-        v1 = v27;
+        v2 = v28;
         goto LABEL_26;
       }
 
-      v18 = *(v9 + 8 * v8);
-      ++v17;
-      if (v18)
+      v19 = *(v10 + 8 * v9);
+      ++v18;
+      if (v19)
       {
-        v16 = __clz(__rbit64(v18));
-        v12 = (v18 - 1) & v18;
+        v17 = __clz(__rbit64(v19));
+        v13 = (v19 - 1) & v19;
         goto LABEL_15;
       }
     }
@@ -2649,13 +2652,13 @@ LABEL_28:
   {
 
 LABEL_26:
-    *v1 = v6;
+    *v2 = v7;
   }
 
   return result;
 }
 
-uint64_t outlined copy of CAFUISettingsCache?(uint64_t result)
+uint64_t outlined copy of CAFUISettingsCache?(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (result)
   {
@@ -2780,13 +2783,13 @@ LABEL_22:
     a2 = v82;
     if (v35 >= v34 >> 1)
     {
-      v36 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v34 > 1, v35 + 1, 1, v33);
+      v36 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v34 > 1), v35 + 1, 1, v33);
     }
 
     v7 = v81;
 
     v4 = v36;
-    *(v36 + 16) = v35 + 1;
+    v36[2] = v35 + 1;
     (*(v78 + 32))(v36 + ((*(v78 + 80) + 32) & ~*(v78 + 80)) + *(v78 + 72) * v35, v32, v77);
     v16 = v75;
   }
@@ -2923,7 +2926,7 @@ LABEL_45:
   v51 = v4[3];
   if (v52 >= v51 >> 1)
   {
-    v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v51 > 1, v52 + 1, 1, v4);
+    v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v51 > 1), v52 + 1, 1, v4);
   }
 
   v4[2] = v52 + 1;
@@ -3087,7 +3090,7 @@ LABEL_82:
           v69 = v4[3];
           if (v7 >= v69 >> 1)
           {
-            v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v69 > 1, v7 + 1, 1, v4);
+            v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v69 > 1), v7 + 1, 1, v4);
           }
 
           v4[2] = v7 + 1;
@@ -3128,8 +3131,8 @@ uint64_t _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSo19CAFAutomakerSettingC_SayA
 
   for (i = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = __CocoaSet.count.getter())
   {
-    v4 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
-    v5 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFAutomakerSetting and conformance NSObject, &lazy cache variable for type metadata for CAFAutomakerSetting);
+    v4 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
+    v5 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFAutomakerSetting and conformance NSObject, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328, MEMORY[0x277D85378]);
     result = MEMORY[0x245D0D3B0](i, v4, v5);
     v13 = result;
     if (v2)
@@ -3232,7 +3235,7 @@ void specialized Sequence.forEach(_:)(unint64_t a1)
       v7 = CAFUISettingsCache.ancestors(of:)(v4);
       v8 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSo19CAFAutomakerSettingC_SayAEGTt0g5Tf4g_n(v7);
 
-      specialized Set.formUnion<A>(_:)(v8);
+      specialized Set.formUnion<A>(_:)(v8, v9);
 
       if (v6 == i)
       {
@@ -3345,7 +3348,7 @@ LABEL_14:
   return a2;
 }
 
-uint64_t outlined consume of CAFUISettingsCache?(uint64_t result)
+uint64_t outlined consume of CAFUISettingsCache?(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (result)
   {
@@ -3523,7 +3526,7 @@ LABEL_28:
   return __CocoaSet.count.getter();
 }
 
-uint64_t lazy protocol witness table accessor for type IndexSet and conformance IndexSet(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type IndexSet and conformance IndexSet(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3609,11 +3612,13 @@ uint64_t sub_2423F56A0()
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
-uint64_t block_copy_helper_6(uint64_t a1, uint64_t a2)
+double block_copy_helper_6(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type [Int] and conformance [A]()
@@ -3621,7 +3626,7 @@ unint64_t lazy protocol witness table accessor for type [Int] and conformance [A
   result = lazy protocol witness table cache variable for type [Int] and conformance [A];
   if (!lazy protocol witness table cache variable for type [Int] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySiGMd, &_sSaySiGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [Int] and conformance [A]);
   }
@@ -3747,7 +3752,7 @@ LABEL_8:
     v14 = v10;
     [v9 setBackgroundColor_];
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v15 = swift_allocObject();
     *(v15 + 16) = xmmword_242423B90;
     v16 = [v1 topAnchor];
@@ -3888,7 +3893,7 @@ id CAFUITableViewController.__allocating_init(nibName:bundle:)(uint64_t a1, uint
   v4 = v3;
   if (a2)
   {
-    v6 = MEMORY[0x245D0D180]();
+    v6 = MEMORY[0x245D0D180](a1);
   }
 
   else
@@ -4212,7 +4217,7 @@ uint64_t CAFUITileViewController.settingsCache.getter@<X0>(uint64_t *a1@<X8>)
   a1[4] = v6;
   a1[5] = v7;
   a1[6] = v8;
-  return outlined copy of CAFUISettingsCache?(v2);
+  return outlined copy of CAFUISettingsCache?(v2, v3, v4, v5, v6, v7, v8);
 }
 
 uint64_t key path setter for CAFUITileViewController.assetManager : CAFUITileViewController(uint64_t *a1, uint64_t *a2)
@@ -4222,6 +4227,13 @@ uint64_t key path setter for CAFUITileViewController.assetManager : CAFUITileVie
   v4 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager;
   swift_beginAccess();
   *(v3 + v4) = v2;
+}
+
+double CAFUITileViewController.assetManager.getter()
+{
+  swift_beginAccess();
+
+  return result;
 }
 
 uint64_t CAFUITileViewController.assetManager.setter(uint64_t a1)
@@ -4270,7 +4282,7 @@ void CAFUITileViewController.init(coder:)()
   __break(1u);
 }
 
-char *CAFUITileViewController.__allocating_init(carSession:prominentCategories:listItems:settingsSections:settingsCache:assetManager:requestContentManager:preventVolumeNotification:)(void *a1, char *a2, unint64_t a3, int64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, char a8)
+char *CAFUITileViewController.__allocating_init(carSession:prominentCategories:listItems:settingsSections:settingsCache:assetManager:requestContentManager:preventVolumeNotification:)(void *a1, char *a2, unint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, char a8)
 {
   v12 = objc_allocWithZone(v8);
   v14 = *a5;
@@ -4306,7 +4318,7 @@ char *CAFUITileViewController.__allocating_init(carSession:prominentCategories:l
   v51[6] = v19;
   objc_allocWithZone(type metadata accessor for CAFUITileDataSource());
   v44 = a1;
-  outlined copy of CAFUISettingsCache?(v14);
+  outlined copy of CAFUISettingsCache?(v14, v13, v15, v16, v17, v18, v19);
 
   v22 = CAFUITileDataSource.init(prominentCategories:listItems:settingsSections:settingsCache:)(a2, a3, a4, v51);
   v23 = 0;
@@ -4359,7 +4371,7 @@ char *CAFUITileViewController.__allocating_init(carSession:prominentCategories:l
   return v27;
 }
 
-char *CAFUITileViewController.init(carSession:prominentCategories:listItems:settingsSections:settingsCache:assetManager:requestContentManager:preventVolumeNotification:)(void *a1, char *a2, unint64_t a3, int64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, char a8)
+char *CAFUITileViewController.init(carSession:prominentCategories:listItems:settingsSections:settingsCache:assetManager:requestContentManager:preventVolumeNotification:)(void *a1, char *a2, unint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, char a8)
 {
   v9 = v8;
   v10 = *a5;
@@ -4395,7 +4407,7 @@ char *CAFUITileViewController.init(carSession:prominentCategories:listItems:sett
   v46[6] = v16;
   objc_allocWithZone(type metadata accessor for CAFUITileDataSource());
   v44 = a1;
-  outlined copy of CAFUISettingsCache?(v10);
+  outlined copy of CAFUISettingsCache?(v10, v11, v13, v12, v14, v15, v16);
 
   v19 = CAFUITileDataSource.init(prominentCategories:listItems:settingsSections:settingsCache:)(a2, a3, a4, v46);
   v20 = 0;
@@ -4494,7 +4506,7 @@ Swift::Void __swiftcall CAFUITileViewController.viewDidLoad()()
   v12 = [v11 rightHandDrive];
 
   v13 = *&v1[v2];
-  v14 = specialized static CAFUITileViewController.compositionalLayout(isRHD:dataSource:)(v12);
+  v14 = specialized static CAFUITileViewController.compositionalLayout(isRHD:dataSource:)(v12, v13);
 
   v15 = [objc_allocWithZone(MEMORY[0x277D752A0]) initWithFrame:v14 collectionViewLayout:{0.0, 0.0, 0.0, 0.0}];
   v16 = v15;
@@ -4531,7 +4543,7 @@ LABEL_15:
   v25 = v24;
   [v24 addSubview_];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v26 = swift_allocObject();
   *(v26 + 16) = xmmword_242423B90;
   v27 = [v18 topAnchor];
@@ -4591,7 +4603,7 @@ LABEL_18:
     v49 = [v43 constraintEqualToAnchor_];
 
     *(v26 + 56) = v49;
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x277CCAAD0);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v46 activateConstraints_];
@@ -4690,24 +4702,25 @@ Swift::Void __swiftcall CAFUITileViewController.setListItems(_:)(Swift::OpaquePo
   CAFUITileDataSource.listItems.didset(v6);
 }
 
-unint64_t CAFUITileViewController.listItem(at:)()
+uint64_t CAFUITileViewController.listItem(at:)(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource;
+  v3 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource;
   swift_beginAccess();
-  v2 = *(v0 + v1);
-  v3 = CAFUITileDataSource.listItem(at:)();
+  v4 = *(v1 + v3);
+  CAFUITileDataSource.listItem(at:)(a1);
+  v6 = v5;
 
-  return v3;
+  return v6;
 }
 
-uint64_t CAFUITileViewController.validate(indexPath:)()
+uint64_t CAFUITileViewController.validate(indexPath:)(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource;
+  v3 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource;
   swift_beginAccess();
-  v2 = *(v0 + v1);
-  v3 = CAFUITileDataSource.validate(indexPath:)();
+  v4 = *(v1 + v3);
+  LOBYTE(a1) = CAFUITileDataSource.validate(indexPath:)(a1);
 
-  return v3 & 1;
+  return a1 & 1;
 }
 
 Swift::Void __swiftcall CAFUITileViewController.reloadListItem(item:)(Swift::Int item)
@@ -4771,7 +4784,7 @@ Swift::Void __swiftcall CAFUITileViewController.reloadListItem(item:)(Swift::Int
 
     if (v19 > v29)
     {
-      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
       v20 = v15;
       v21 = v10;
       v22 = static OS_dispatch_queue.main.getter();
@@ -4792,8 +4805,8 @@ Swift::Void __swiftcall CAFUITileViewController.reloadListItem(item:)(Swift::Int
 
       static DispatchQoS.unspecified.getter();
       aBlock[0] = MEMORY[0x277D84F90];
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
       lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
       dispatch thunk of SetAlgebra.init<A>(_:)();
       MEMORY[0x245D0D520](0, v7, v4, v26);
@@ -4842,7 +4855,7 @@ void closure #1 in closure #1 in CAFUITileViewController.reloadListItem(item:)(u
   if (Strong)
   {
     v6 = Strong;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd, &_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMR);
     type metadata accessor for IndexPath();
     *(swift_allocObject() + 16) = xmmword_2424235A0;
     MEMORY[0x245D0BE30](a2, a3);
@@ -4865,7 +4878,7 @@ uint64_t one-time initialization function for interCell()
   return result;
 }
 
-uint64_t closure #1 in static CAFUITileViewController.compositionalLayout(isRHD:dataSource:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, int a5)
+char *closure #1 in static CAFUITileViewController.compositionalLayout(isRHD:dataSource:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, int a5)
 {
   LODWORD(v75) = a5;
   v77 = a2;
@@ -5044,7 +5057,7 @@ LABEL_22:
     outlined consume of CAFUIAutomakerSettingsSection?(v75, v63, v65, v64, v66, v62);
   }
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSCollectionLayoutSection);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSCollectionLayoutSection, 0x277CFB868);
   v67 = static NSCollectionLayoutSection.list(using:layoutEnvironment:)();
   if (one-time initialization token for interCell != -1)
   {
@@ -5066,7 +5079,7 @@ void CAFUITileViewController.setupSettingsObserver(settings:)(uint64_t a1)
   {
     swift_unknownObjectRetain();
     __CocoaSet.makeIterator()();
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
     lazy protocol witness table accessor for type CAFAutomakerSetting and conformance NSObject();
     Set.Iterator.init(_cocoa:)();
     v3 = v21;
@@ -5120,7 +5133,7 @@ LABEL_12:
     if (!v16)
     {
 LABEL_18:
-      outlined consume of Set<CAFAutomakerSetting>.Iterator._Variant();
+      outlined consume of Set<CAFAutomakerSetting>.Iterator._Variant(v3);
       return;
     }
 
@@ -5140,7 +5153,7 @@ LABEL_14:
       if (v17)
       {
         v19 = v17;
-        type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
+        type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
         swift_dynamicCast();
         v16 = v20;
         v14 = v6;
@@ -5313,7 +5326,7 @@ id CAFUITileViewController.__allocating_init(nibName:bundle:)(uint64_t a1, uint6
   v4 = v3;
   if (a2)
   {
-    v6 = MEMORY[0x245D0D180]();
+    v6 = MEMORY[0x245D0D180](a1);
   }
 
   else
@@ -5332,7 +5345,7 @@ void CAFUITileViewController.collectionView(_:didSelectItemAt:)(void *a1, uint64
   v6 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource;
   swift_beginAccess();
   v7 = *&v2[v6];
-  v8 = CAFUITileDataSource.validate(indexPath:)();
+  v8 = CAFUITileDataSource.validate(indexPath:)(a2);
 
   if ((v8 & 1) == 0)
   {
@@ -5390,8 +5403,8 @@ void CAFUITileViewController.collectionView(_:didSelectItemAt:)(void *a1, uint64
   {
     _StringGuts.grow(_:)(47);
 
-    *&v85 = 0xD00000000000002CLL;
-    *(&v85 + 1) = 0x800000024242A5D0;
+    *&v86 = 0xD00000000000002CLL;
+    *(&v86 + 1) = 0x800000024242A5D0;
     v18 = v15;
     v19 = [v17 description];
     v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -5452,29 +5465,30 @@ LABEL_23:
 
 LABEL_31:
       v33 = *&v3[v6];
-      v34 = CAFUITileDataSource.listItem(at:)();
+      CAFUITileDataSource.listItem(at:)(a2);
+      v35 = v34;
 
-      if (v34)
+      if (v35)
       {
-        v35 = (*(*v34 + 344))();
-        v35(&v85);
-        v36 = *(&v85 + 1);
-        v28 = v85;
-        if (v86 > 1u)
+        v36 = (*(*v35 + 344))();
+        v36(&v86);
+        v37 = *(&v86 + 1);
+        v28 = v86;
+        if (v87 > 1u)
         {
-          if (v86 != 3)
+          if (v87 != 3)
           {
-            outlined consume of CAFUICellSelectionAction(v85, *(&v85 + 1), 2u);
+            outlined consume of CAFUICellSelectionAction(v86, *(&v86 + 1), 2u);
             goto LABEL_84;
           }
 
-          if (v85 == 0)
+          if (v86 == 0)
           {
 
             return;
           }
 
-          if (v85 ^ 2 | *(&v85 + 1))
+          if (v86 ^ 2 | *(&v86 + 1))
           {
             while (1)
             {
@@ -5482,40 +5496,40 @@ LABEL_84:
               _assertionFailure(_:_:file:line:flags:)();
               __break(1u);
 LABEL_85:
-              outlined consume of CAFUICellSelectionAction(v28, v36, 1u);
+              outlined consume of CAFUICellSelectionAction(v28, v37, 1u);
             }
           }
 
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd);
-          v64 = type metadata accessor for IndexPath();
-          v65 = *(v64 - 8);
-          v66 = (*(v65 + 80) + 32) & ~*(v65 + 80);
-          v67 = swift_allocObject();
-          *(v67 + 16) = xmmword_2424235A0;
-          (*(v65 + 16))(v67 + v66, a2, v64);
-          v68 = Array._bridgeToObjectiveC()().super.isa;
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd, &_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMR);
+          v65 = type metadata accessor for IndexPath();
+          v66 = *(v65 - 8);
+          v67 = (*(v66 + 80) + 32) & ~*(v66 + 80);
+          v68 = swift_allocObject();
+          *(v68 + 16) = xmmword_2424235A0;
+          (*(v66 + 16))(v68 + v67, a2, v65);
+          v69 = Array._bridgeToObjectiveC()().super.isa;
 
           [a1 reloadItemsAtIndexPaths_];
         }
 
         else
         {
-          if (v86)
+          if (v87)
           {
             goto LABEL_85;
           }
 
-          v37 = [v3 navigationController];
-          if (v37)
+          v38 = [v3 navigationController];
+          if (v38)
           {
-            v38 = v37;
-            [v37 pushViewController:v28 animated:1];
-            outlined consume of CAFUICellSelectionAction(v28, v36, 0);
+            v39 = v38;
+            [v38 pushViewController:v28 animated:1];
+            outlined consume of CAFUICellSelectionAction(v28, v37, 0);
           }
 
           else
           {
-            outlined consume of CAFUICellSelectionAction(v28, v36, 0);
+            outlined consume of CAFUICellSelectionAction(v28, v37, 0);
           }
         }
 
@@ -5537,80 +5551,80 @@ LABEL_85:
   }
 
 LABEL_36:
-  v39 = *&v3[v6];
-  v36 = CAFUITileDataSource.setting(at:)(a2);
+  v40 = *&v3[v6];
+  v37 = CAFUITileDataSource.setting(at:)(a2);
 
-  if (v36)
+  if (v37)
   {
-    v84 = v13;
+    v85 = v13;
     ObjectType = swift_getObjectType();
-    v41 = swift_conformsToProtocol2();
-    if (!v41)
+    v42 = swift_conformsToProtocol2();
+    if (!v42)
     {
       goto LABEL_84;
     }
 
-    v42 = v41;
-    v43 = *(v41 + 40);
-    v44 = v36;
-    if (v43(ObjectType, v42))
+    v43 = v42;
+    v44 = *(v42 + 40);
+    v45 = v37;
+    if (v44(ObjectType, v43))
     {
       _StringGuts.grow(_:)(32);
 
-      *&v85 = 0xD00000000000001ELL;
-      *(&v85 + 1) = 0x800000024242C970;
-      v45 = (*(v42 + 16))(ObjectType, v42);
-      MEMORY[0x245D0D240](v45);
+      *&v86 = 0xD00000000000001ELL;
+      *(&v86 + 1) = 0x800000024242C970;
+      v46 = (*(v43 + 16))(ObjectType, v43);
+      MEMORY[0x245D0D240](v46);
 
       specialized static CAFUILogger.default(_:function:file:line:)(0xD00000000000001ELL, 0x800000024242C970, 0xD000000000000022, 0x800000024242BA50, 450);
 
-      v46 = &v3[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache];
+      v47 = &v3[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache];
       v28 = *&v3[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache];
       if (v28)
       {
-        v82 = *(v46 + 5);
-        v83 = *(v46 + 6);
-        v81 = *(v46 + 4);
-        v80 = *(v46 + 3);
-        v47 = *(v46 + 1);
-        v48 = *(v46 + 2);
-        (*(v42 + 96))(&v85, ObjectType, v42);
-        v49 = v85;
-        if (v86 <= 1u)
+        v83 = *(v47 + 5);
+        v84 = *(v47 + 6);
+        v82 = *(v47 + 4);
+        v81 = *(v47 + 3);
+        v48 = *(v47 + 1);
+        v49 = *(v47 + 2);
+        (*(v43 + 96))(&v86, ObjectType, v43);
+        v50 = v86;
+        if (v87 <= 1u)
         {
-          if (!v86)
+          if (!v87)
           {
 
-            v50 = [v3 navigationController];
-            if (v50)
+            v51 = [v3 navigationController];
+            if (v51)
             {
-              v51 = v50;
-              [v50 pushViewController:v49 animated:1];
-              outlined consume of CAFUICellSelectionAction(v49, *(&v49 + 1), 0);
+              v52 = v51;
+              [v51 pushViewController:v50 animated:1];
+              outlined consume of CAFUICellSelectionAction(v50, *(&v50 + 1), 0);
 
               return;
             }
 
-            v72 = *(&v49 + 1);
-            v71 = v49;
-            v73 = 0;
+            v73 = *(&v50 + 1);
+            v72 = v50;
+            v74 = 0;
             goto LABEL_75;
           }
 
-          *&v85 = v28;
-          *(&v85 + 1) = v47;
-          v86 = v48;
-          v87 = v80;
+          *&v86 = v28;
+          *(&v86 + 1) = v48;
+          v87 = v49;
           v88 = v81;
           v89 = v82;
           v90 = v83;
-          v69 = CAFUISettingsCache.visibleChildren(of:)(v44);
+          v91 = v84;
+          v70 = CAFUISettingsCache.visibleChildren(of:)(v45);
 
-          if (v69 >> 62)
+          if (v70 >> 62)
           {
-            v79 = __CocoaSet.count.getter();
+            v80 = __CocoaSet.count.getter();
 
-            if (!v79)
+            if (!v80)
             {
               goto LABEL_67;
             }
@@ -5618,70 +5632,70 @@ LABEL_36:
 
           else
           {
-            v70 = *((v69 & 0xFFFFFFFFFFFFFF8) + 0x10);
+            v71 = *((v70 & 0xFFFFFFFFFFFFFF8) + 0x10);
 
-            if (!v70)
+            if (!v71)
             {
 LABEL_67:
-              v72 = *(&v49 + 1);
-              v71 = v49;
-              v73 = 1;
+              v73 = *(&v50 + 1);
+              v72 = v50;
+              v74 = 1;
 LABEL_75:
-              outlined consume of CAFUICellSelectionAction(v71, v72, v73);
+              outlined consume of CAFUICellSelectionAction(v72, v73, v74);
 
               return;
             }
           }
 
-          CAFUITileViewController.showChildren(_:isProminent:)(v49, v84);
+          CAFUITileViewController.showChildren(_:isProminent:)(v50, v85);
           goto LABEL_67;
         }
 
-        if (v86 == 2)
+        if (v87 == 2)
         {
-          specialized static CAFUIRequestContentManager.inputStreamIdentifier(from:)();
-          v55 = v54;
-          if (v54)
+          specialized static CAFUIRequestContentManager.inputStreamIdentifier(from:)(v86, *(&v86 + 1));
+          v56 = v55;
+          if (v55)
           {
           }
 
           objc_opt_self();
           if (swift_dynamicCastObjCClass())
           {
-            v56 = v44;
-            v57 = CAFDeepLinkSetting.requestContentManager.getter();
-            if (!v57)
+            v57 = v45;
+            v58 = CAFDeepLinkSetting.requestContentManager.getter();
+            if (!v58)
             {
               specialized static CAFUILogger.error(_:function:file:line:)(0xD00000000000002FLL, 0x800000024242CA10, 0xD000000000000022, 0x800000024242BA50, 470);
 
 LABEL_80:
-              outlined consume of CAFUICellSelectionAction(v49, *(&v49 + 1), 2u);
+              outlined consume of CAFUICellSelectionAction(v50, *(&v50 + 1), 2u);
 
               return;
             }
 
-            v36 = v57;
-            v58 = [v3 view];
-            if (v58)
+            v37 = v58;
+            v59 = [v3 view];
+            if (v59)
             {
-              v59 = v58;
-              v60 = [v58 window];
+              v60 = v59;
+              v61 = [v59 window];
 
-              if (v60)
+              if (v61)
               {
-                v61 = [v60 windowScene];
+                v62 = [v61 windowScene];
 
-                if (v61)
+                if (v62)
                 {
 
-                  v62 = v3;
-                  outlined copy of CAFUICellSelectionAction(v49, *(&v49 + 1), 2u);
-                  specialized CAFUIRequestContentManager.open(contentURLString:in:completion:)(v49, *(&v49 + 1), v61, v36, v55 != 0, v62, v49, *(&v49 + 1));
-                  outlined consume of CAFUICellSelectionAction(v49, *(&v49 + 1), 2u);
+                  v63 = v3;
+                  outlined copy of CAFUICellSelectionAction(v50, *(&v50 + 1), 2u);
+                  specialized CAFUIRequestContentManager.open(contentURLString:in:completion:)(v50, *(&v50 + 1), v62, v37, v56 != 0, v63, v50, *(&v50 + 1));
+                  outlined consume of CAFUICellSelectionAction(v50, *(&v50 + 1), 2u);
 
-                  v63 = v36[2];
-                  [v63 addObserver_];
-                  outlined consume of CAFUICellSelectionAction(v49, *(&v49 + 1), 2u);
+                  v64 = v37[2];
+                  [v64 addObserver_];
+                  outlined consume of CAFUICellSelectionAction(v50, *(&v50 + 1), 2u);
 
                   return;
                 }
@@ -5697,31 +5711,31 @@ LABEL_80:
           }
 
           specialized static CAFUILogger.error(_:function:file:line:)(0xD00000000000003ALL, 0x800000024242C9D0, 0xD000000000000022, 0x800000024242BA50, 465);
-          outlined consume of CAFUICellSelectionAction(v49, *(&v49 + 1), 2u);
+          outlined consume of CAFUICellSelectionAction(v50, *(&v50 + 1), 2u);
         }
 
-        else if (v85 != 0)
+        else if (v86 != 0)
         {
-          if (v85 ^ 1 | *(&v85 + 1))
+          if (v86 ^ 1 | *(&v86 + 1))
           {
 
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd);
-            v74 = type metadata accessor for IndexPath();
-            v75 = *(v74 - 8);
-            v76 = (*(v75 + 80) + 32) & ~*(v75 + 80);
-            v77 = swift_allocObject();
-            *(v77 + 16) = xmmword_2424235A0;
-            (*(v75 + 16))(v77 + v76, a2, v74);
-            v78 = Array._bridgeToObjectiveC()().super.isa;
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd, &_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMR);
+            v75 = type metadata accessor for IndexPath();
+            v76 = *(v75 - 8);
+            v77 = (*(v76 + 80) + 32) & ~*(v76 + 80);
+            v78 = swift_allocObject();
+            *(v78 + 16) = xmmword_2424235A0;
+            (*(v76 + 16))(v78 + v77, a2, v75);
+            v79 = Array._bridgeToObjectiveC()().super.isa;
 
             [a1 reconfigureItemsAtIndexPaths_];
 
             return;
           }
 
-          if (v84)
+          if (v85)
           {
-            CAFUITileViewController.showSettingAndSiblings(_:)(v44);
+            CAFUITileViewController.showSettingAndSiblings(_:)(v45);
           }
         }
       }
@@ -5736,10 +5750,10 @@ LABEL_80:
 
     _StringGuts.grow(_:)(40);
 
-    *&v85 = 0x206D657449;
-    *(&v85 + 1) = 0xE500000000000000;
-    v53 = (*(v42 + 16))(ObjectType, v42);
-    MEMORY[0x245D0D240](v53);
+    *&v86 = 0x206D657449;
+    *(&v86 + 1) = 0xE500000000000000;
+    v54 = (*(v43 + 16))(ObjectType, v43);
+    MEMORY[0x245D0D240](v54);
 
     MEMORY[0x245D0D240](0xD000000000000021, 0x800000024242C940);
     specialized static CAFUILogger.default(_:function:file:line:)(0x206D657449, 0xE500000000000000, 0xD000000000000022, 0x800000024242BA50, 446);
@@ -5750,9 +5764,9 @@ LABEL_80:
     _StringGuts.grow(_:)(43);
 
     type metadata accessor for IndexPath();
-    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8]);
-    v52 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x245D0D240](v52);
+    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8], MEMORY[0x277CC9B38]);
+    v53 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x245D0D240](v53);
 
     specialized static CAFUILogger.error(_:function:file:line:)(0xD000000000000029, 0x800000024242C8D0, 0xD000000000000022, 0x800000024242BA50, 437);
   }
@@ -5810,7 +5824,7 @@ void CAFUITileViewController.showSettingAndSiblings(_:)(char *a1)
   v14 = v13;
   v56 = v10;
   v15 = [v13 viewControllers];
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController, 0x277D75D28);
   v16 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v60 = v14;
@@ -5841,7 +5855,7 @@ LABEL_15:
       v21 = [v2 viewControllers];
       v22 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-      v65 = v22;
+      v65[0] = v22;
       specialized Array.append<A>(contentsOf:)(v3);
       isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -6153,7 +6167,7 @@ LABEL_21:
     v64 = v15;
     v70 = v10;
     v15 = [v69 viewControllers];
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController, 0x277D75D28);
     v16 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     v60 = v6;
@@ -6323,7 +6337,7 @@ LABEL_25:
   v81 = v13;
   objc_allocWithZone(type metadata accessor for CAFUITileDataSource());
 
-  outlined copy of CAFUISettingsCache?(v6);
+  outlined copy of CAFUISettingsCache?(v6, v7, v8, v68, v35, v67, v13);
 
   v39 = v63;
   *&v36[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource] = CAFUITileDataSource.init(prominentCategories:listItems:settingsSections:settingsCache:)(MEMORY[0x277D84F90], MEMORY[0x277D84F90], v66, &v75);
@@ -6390,16 +6404,16 @@ void CAFUITileViewController.resetAndReload()()
     return;
   }
 
-  v2 = v0 + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache;
+  v2 = (v0 + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache);
   v3 = *(v0 + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache);
   if (!v3)
   {
     goto LABEL_14;
   }
 
-  v29 = *(v2 + 24);
-  v31 = *(v2 + 40);
-  v27 = *(v2 + 8);
+  v29 = *(v2 + 3);
+  v31 = *(v2 + 5);
+  v27 = *(v2 + 1);
   v4 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource;
   swift_beginAccess();
   v5 = *(*(v1 + v4) + OBJC_IVAR____TtC5CAFUI19CAFUITileDataSource_settingsSections);
@@ -6457,12 +6471,12 @@ LABEL_15:
     v12 = OBJC_IVAR____TtC5CAFUI19CAFUITileDataSource_listItems;
     swift_beginAccess();
     v13 = *(v10 + v12);
-    v14 = *(v2 + 8);
-    v15 = *(v2 + 16);
-    v16 = *(v2 + 24);
-    v17 = *(v2 + 32);
-    v18 = *(v2 + 40);
-    v19 = *(v2 + 48);
+    v14 = v2[1];
+    v15 = v2[2];
+    v16 = v2[3];
+    v17 = v2[4];
+    v18 = v2[5];
+    v19 = v2[6];
     v33 = *v2;
     *&v34 = v14;
     *(&v34 + 1) = v15;
@@ -6473,7 +6487,7 @@ LABEL_15:
     objc_allocWithZone(type metadata accessor for CAFUITileDataSource());
     v26 = v11;
 
-    outlined copy of CAFUISettingsCache?(v33);
+    outlined copy of CAFUISettingsCache?(v33, v14, v15, v16, v17, v18, v19);
     v20 = CAFUITileDataSource.init(prominentCategories:listItems:settingsSections:settingsCache:)(v25, v13, v32, &v33);
     v21 = *(v30 + v28);
     *(v30 + v28) = v20;
@@ -6497,7 +6511,7 @@ uint64_t CAFUITileViewController.popNavigationControllerToSelf()()
   {
     v2 = v1;
     v3 = [v1 viewControllers];
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController, 0x277D75D28);
     v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     if (v4 >> 62)
@@ -6621,7 +6635,7 @@ LABEL_84:
   v16 = v15;
   v17 = [v15 viewControllers];
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController, 0x277D75D28);
   v18 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v111 = v3;
@@ -6980,9 +6994,9 @@ LABEL_66:
         v133 = v114;
         objc_allocWithZone(type metadata accessor for CAFUITileDataSource());
 
-        outlined copy of CAFUISettingsCache?(v111);
+        outlined copy of CAFUISettingsCache?(v111, v117, v116, v115, v109, v113, v114);
 
-        outlined copy of CAFUISettingsCache?(v111);
+        outlined copy of CAFUISettingsCache?(v111, v117, v116, v115, v109, v113, v114);
         v76 = v122;
 
         *&v73[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource] = CAFUITileDataSource.init(prominentCategories:listItems:settingsSections:settingsCache:)(MEMORY[0x277D84F90], MEMORY[0x277D84F90], v118, &v127);
@@ -7115,7 +7129,7 @@ void CAFUITileViewController.handleSettingHiddenDisabled(_:)(uint64_t a1)
   v11 = v9;
   v12 = [v9 viewControllers];
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController, 0x277D75D28);
   v13 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v13 >> 62)
@@ -7402,7 +7416,7 @@ uint64_t CAFUITileViewController.updateForLimitUIChanged()()
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = aBlock - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
   v8 = static OS_dispatch_queue.main.getter();
   v9 = swift_allocObject();
   swift_unknownObjectWeakInit();
@@ -7416,8 +7430,8 @@ uint64_t CAFUITileViewController.updateForLimitUIChanged()()
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = MEMORY[0x277D84F90];
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   MEMORY[0x245D0D520](0, v7, v3, v10);
@@ -7427,7 +7441,7 @@ uint64_t CAFUITileViewController.updateForLimitUIChanged()()
   return (*(v5 + 8))(v7, v4);
 }
 
-void closure #1 in CAFUITileViewController.updateForLimitUIChanged()()
+void closure #1 in CAFUITileViewController.updateForLimitUIChanged()(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -7436,114 +7450,114 @@ void closure #1 in CAFUITileViewController.updateForLimitUIChanged()()
     return;
   }
 
-  v1 = Strong;
-  v2 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource;
+  v2 = Strong;
+  v3 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource;
   swift_beginAccess();
-  v3 = *(*&v1[v2] + OBJC_IVAR____TtC5CAFUI19CAFUITileDataSource_collectionView);
-  if (!v3)
+  v4 = *(*&v2[v3] + OBJC_IVAR____TtC5CAFUI19CAFUITileDataSource_collectionView);
+  if (!v4)
   {
-    v8 = v1;
+    v9 = v2;
     goto LABEL_64;
   }
 
-  v4 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting;
-  v5 = v1[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting];
-  v6 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession;
-  v7 = *&v1[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession];
-  v8 = v3;
-  v9 = [v7 limitUserInterfaces];
-  v10 = &selRef_systemImageNamed_withConfiguration_;
-  if (!v9 || (v11 = v9, v12 = [v9 BOOLValue], v11, !v12))
+  v5 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting;
+  v6 = v2[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting];
+  v7 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession;
+  v8 = *&v2[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession];
+  v9 = v4;
+  v10 = [v8 limitUserInterfaces];
+  v11 = &selRef_systemImageNamed_withConfiguration_;
+  if (!v10 || (v12 = v10, v13 = [v10 BOOLValue], v12, !v13))
   {
-    if (v5)
+    if (v6)
     {
       goto LABEL_6;
     }
 
 LABEL_10:
-    v21 = MEMORY[0x277D84FA0];
+    v22 = MEMORY[0x277D84FA0];
     goto LABEL_43;
   }
 
-  v13 = [*&v1[v6] configuration];
-  v14 = [v13 limitableUserInterfaces];
+  v14 = [*&v2[v7] configuration];
+  v15 = [v14 limitableUserInterfaces];
 
-  if ((v5 ^ ((v14 & 0x20) == 0)))
+  if ((v6 ^ ((v15 & 0x20) == 0)))
   {
     goto LABEL_10;
   }
 
 LABEL_6:
-  v15 = [*&v1[v6] limitUserInterfaces];
-  if (v15 && (v16 = v15, v17 = [v15 BOOLValue], v16, v17))
+  v16 = [*&v2[v7] limitUserInterfaces];
+  if (v16 && (v17 = v16, v18 = [v16 BOOLValue], v17, v18))
   {
-    v18 = [*&v1[v6] configuration];
-    v19 = [v18 limitableUserInterfaces];
+    v19 = [*&v2[v7] configuration];
+    v20 = [v19 limitableUserInterfaces];
 
-    v20 = (v19 >> 5) & 1;
+    v21 = (v20 >> 5) & 1;
   }
 
   else
   {
-    LOBYTE(v20) = 0;
+    LOBYTE(v21) = 0;
   }
 
-  v1[v4] = v20;
+  v2[v5] = v21;
   _StringGuts.grow(_:)(48);
 
-  v73 = 0xD000000000000019;
-  v74 = 0x800000024242CFA0;
-  if (v1[v4])
+  v74 = 0xD000000000000019;
+  v75 = 0x800000024242CFA0;
+  if (v2[v5])
   {
-    v22 = 1702195828;
+    v23 = 1702195828;
   }
 
   else
   {
-    v22 = 0x65736C6166;
+    v23 = 0x65736C6166;
   }
 
-  if (v1[v4])
+  if (v2[v5])
   {
-    v23 = 0xE400000000000000;
+    v24 = 0xE400000000000000;
   }
 
   else
   {
-    v23 = 0xE500000000000000;
+    v24 = 0xE500000000000000;
   }
 
-  MEMORY[0x245D0D240](v22, v23);
+  MEMORY[0x245D0D240](v23, v24);
 
   MEMORY[0x245D0D240](0xD000000000000015, 0x800000024242CF60);
-  specialized static CAFUILogger.default(_:function:file:line:)(v73, v74, 0xD000000000000019, 0x800000024242CF80, 729);
+  specialized static CAFUILogger.default(_:function:file:line:)(v74, v75, 0xD000000000000019, 0x800000024242CF80, 729);
 
-  v24 = *&v1[v2];
-  v21 = CAFUITileDataSource.limitableIndexPaths.getter();
+  v25 = *&v2[v3];
+  v22 = CAFUITileDataSource.limitableIndexPaths.getter();
 
-  if (v1[v4] != 1)
+  if (v2[v5] != 1)
   {
     goto LABEL_43;
   }
 
-  v25 = v1;
-  v26 = [v25 navigationController];
-  if (!v26)
+  v26 = v2;
+  v27 = [v26 navigationController];
+  if (!v27)
   {
 
     goto LABEL_43;
   }
 
-  v27 = v26;
-  v28 = [v26 viewControllers];
+  v28 = v27;
+  v29 = [v27 viewControllers];
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController);
-  v29 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController, 0x277D75D28);
+  v30 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  if (!(v29 >> 62))
+  if (!(v30 >> 62))
   {
-    v30 = *((v29 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v30)
+    v31 = *((v30 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v31)
     {
       goto LABEL_23;
     }
@@ -7553,49 +7567,49 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  v30 = __CocoaSet.count.getter();
-  if (!v30)
+  v31 = __CocoaSet.count.getter();
+  if (!v31)
   {
     goto LABEL_42;
   }
 
 LABEL_23:
-  v31 = __OFSUB__(v30, 1);
-  v32 = v30 - 1;
-  if (v31)
+  v32 = __OFSUB__(v31, 1);
+  v33 = v31 - 1;
+  if (v32)
   {
     goto LABEL_67;
   }
 
-  if ((v29 & 0xC000000000000001) != 0)
+  if ((v30 & 0xC000000000000001) != 0)
   {
     goto LABEL_68;
   }
 
-  if ((v32 & 0x8000000000000000) != 0)
+  if ((v33 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_70;
   }
 
-  if (v32 >= *((v29 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (v33 >= *((v30 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
 LABEL_70:
     __break(1u);
     return;
   }
 
-  for (i = *(v29 + 8 * v32 + 32); ; i = MEMORY[0x245D0D9A0](v32, v29))
+  for (i = *(v30 + 8 * v33 + 32); ; i = MEMORY[0x245D0D9A0](v33, v30))
   {
-    v34 = i;
+    v35 = i;
 
     type metadata accessor for CAFUIPickerViewController();
-    v35 = swift_dynamicCastClass();
-    if (v35 && (v36 = *(v35 + OBJC_IVAR____TtC5CAFUI25CAFUIPickerViewController_representable + 8), v37 = swift_getObjectType(), v38 = *(v36 + 8), v72 = v21, v39 = v25, v40 = v34, v41 = v34, swift_unknownObjectRetain(), v42 = v38, v10 = &selRef_systemImageNamed_withConfiguration_, LOBYTE(v37) = CAFListContentRepresentable.isLimitedUI.getter(v37, v42), v71 = v41, v41, v34 = v40, v25 = v39, v21 = v72, swift_unknownObjectRelease(), (v37 & 1) != 0))
+    v36 = swift_dynamicCastClass();
+    if (v36 && (v37 = *(v36 + OBJC_IVAR____TtC5CAFUI25CAFUIPickerViewController_representable + 8), v38 = swift_getObjectType(), v39 = *(v37 + 8), v73 = v22, v40 = v26, v41 = v35, v42 = v35, swift_unknownObjectRetain(), v43 = v39, v11 = &selRef_systemImageNamed_withConfiguration_, LOBYTE(v38) = CAFListContentRepresentable.isLimitedUI.getter(v38, v43), v72 = v42, v42, v35 = v41, v26 = v40, v22 = v73, swift_unknownObjectRelease(), (v38 & 1) != 0))
     {
-      v43 = [v25 navigationController];
+      v44 = [v26 navigationController];
 
-      if (v43)
+      if (v44)
       {
       }
     }
@@ -7603,21 +7617,21 @@ LABEL_70:
     else
     {
       type metadata accessor for CAFUICollectionViewController();
-      v44 = swift_dynamicCastClass();
-      if (v44)
+      v45 = swift_dynamicCastClass();
+      if (v45)
       {
-        v45 = *(v44 + OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_setting + 8);
+        v46 = *(v45 + OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_setting + 8);
         ObjectType = swift_getObjectType();
-        v47 = *(v45 + 8);
+        v48 = *(v46 + 8);
         swift_unknownObjectRetain();
-        LOBYTE(v47) = CAFListContentRepresentable.isLimitedUI.getter(ObjectType, v47);
+        LOBYTE(v48) = CAFListContentRepresentable.isLimitedUI.getter(ObjectType, v48);
         swift_unknownObjectRelease();
-        if (v47)
+        if (v48)
         {
-          v48 = [v25 navigationController];
+          v49 = [v26 navigationController];
 
-          v10 = &selRef_systemImageNamed_withConfiguration_;
-          if (v48)
+          v11 = &selRef_systemImageNamed_withConfiguration_;
+          if (v49)
           {
           }
         }
@@ -7625,7 +7639,7 @@ LABEL_70:
         else
         {
 
-          v10 = &selRef_systemImageNamed_withConfiguration_;
+          v11 = &selRef_systemImageNamed_withConfiguration_;
         }
       }
 
@@ -7635,76 +7649,76 @@ LABEL_70:
     }
 
 LABEL_43:
-    v49 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting;
-    v50 = v1[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting];
-    v51 = [*&v1[v6] limitUserInterfaces];
-    if (v51 && (v52 = v51, v53 = [v51 v10[210]], v52, v53))
+    v50 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting;
+    v51 = v2[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting];
+    v52 = [*&v2[v7] limitUserInterfaces];
+    if (v52 && (v53 = v52, v54 = [v52 v11[210]], v53, v54))
     {
-      v54 = [*&v1[v6] configuration];
-      v55 = [v54 limitableUserInterfaces];
+      v55 = [*&v2[v7] configuration];
+      v56 = [v55 limitableUserInterfaces];
 
-      if ((v50 ^ ((v55 & 0x100) == 0)))
+      if ((v51 ^ ((v56 & 0x100) == 0)))
       {
         goto LABEL_50;
       }
     }
 
-    else if (!v50)
+    else if (!v51)
     {
 LABEL_50:
-      v62 = MEMORY[0x277D84FA0];
+      v63 = MEMORY[0x277D84FA0];
       goto LABEL_59;
     }
 
-    v56 = [*&v1[v6] limitUserInterfaces];
-    if (v56 && (v57 = v56, v58 = [v56 v10[210]], v57, v58))
+    v57 = [*&v2[v7] limitUserInterfaces];
+    if (v57 && (v58 = v57, v59 = [v57 v11[210]], v58, v59))
     {
-      v59 = [*&v1[v6] configuration];
-      v60 = [v59 limitableUserInterfaces];
+      v60 = [*&v2[v7] configuration];
+      v61 = [v60 limitableUserInterfaces];
 
-      v61 = (v60 >> 8) & 1;
+      v62 = (v61 >> 8) & 1;
     }
 
     else
     {
-      LOBYTE(v61) = 0;
+      LOBYTE(v62) = 0;
     }
 
-    v1[v49] = v61;
-    v73 = 0;
-    v74 = 0xE000000000000000;
+    v2[v50] = v62;
+    v74 = 0;
+    v75 = 0xE000000000000000;
     _StringGuts.grow(_:)(63);
-    v6 = 0xD000000000000019;
+    v7 = 0xD000000000000019;
     MEMORY[0x245D0D240](0xD000000000000028, 0x800000024242CF30);
-    v63 = v1[v49] ? 1702195828 : 0x65736C6166;
-    v64 = v1[v49] ? 0xE400000000000000 : 0xE500000000000000;
-    MEMORY[0x245D0D240](v63, v64);
+    v64 = v2[v50] ? 1702195828 : 0x65736C6166;
+    v65 = v2[v50] ? 0xE400000000000000 : 0xE500000000000000;
+    MEMORY[0x245D0D240](v64, v65);
 
     MEMORY[0x245D0D240](0xD000000000000015, 0x800000024242CF60);
-    specialized static CAFUILogger.default(_:function:file:line:)(v73, v74, 0xD000000000000019, 0x800000024242CF80, 747);
+    specialized static CAFUILogger.default(_:function:file:line:)(v74, v75, 0xD000000000000019, 0x800000024242CF80, 747);
 
-    v65 = *&v1[v2];
-    v66 = CAFUITileDataSource.infoButtonLimitableIndexPaths.getter();
+    v66 = *&v2[v3];
+    v67 = CAFUITileDataSource.infoButtonLimitableIndexPaths.getter();
 
-    v62 = v66;
+    v63 = v67;
 LABEL_59:
-    v67 = specialized Set.union<A>(_:)(v62, v21);
-    v68 = v67;
-    v21 = *(v67 + 16);
-    if (!v21)
+    v68 = specialized Set.union<A>(_:)(v63, v22);
+    v69 = v68;
+    v22 = *(v68 + 16);
+    if (!v22)
     {
       break;
     }
 
-    v29 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC10Foundation9IndexPathV_Tt1g5(*(v67 + 16), 0);
-    v25 = type metadata accessor for IndexPath();
-    v69 = specialized Sequence._copySequenceContents(initializing:)(&v73, (v29 + ((*(*(v25 - 1) + 80) + 32) & ~*(*(v25 - 1) + 80))), v21, v68);
-    v32 = outlined consume of Set<CAFAutomakerSetting>.Iterator._Variant();
-    if (v69 == v21)
+    v30 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC10Foundation9IndexPathV_Tt1g5(*(v68 + 16), 0);
+    v26 = type metadata accessor for IndexPath();
+    v70 = specialized Sequence._copySequenceContents(initializing:)(&v74, (v30 + ((*(*(v26 - 1) + 80) + 32) & ~*(*(v26 - 1) + 80))), v22, v69);
+    v33 = outlined consume of Set<CAFAutomakerSetting>.Iterator._Variant(v74);
+    if (v70 == v22)
     {
       isa = Array._bridgeToObjectiveC()().super.isa;
 
-      [v8 reloadItemsAtIndexPaths_];
+      [v9 reloadItemsAtIndexPaths_];
 
       goto LABEL_63;
     }
@@ -7752,7 +7766,7 @@ void CAFUITileViewController.automakerSettingService(_:didUpdateHidden:)(void *a
     {
       v26 = v9;
       v10 = [v9 viewControllers];
-      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController);
+      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIViewController, 0x277D75D28);
       v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
       if (v11 >> 62)
@@ -7963,150 +7977,150 @@ LABEL_4:
       }
     }
 
-    outlined consume of CAFUISettingsCache?(v6);
+    outlined consume of CAFUISettingsCache?(v6, v7, v8, v10, v9, v12, v37);
   }
 }
 
-void closure #1 in CAFUITileViewController.createGeneralListItem()(void *a1@<X1>, unsigned __int8 a2@<W2>, uint64_t a3@<X8>)
+void closure #1 in CAFUITileViewController.createGeneralListItem()(void *a2@<X1>, unsigned __int8 a3@<W2>, uint64_t a4@<X8>)
 {
-  v6 = *a1;
-  v7 = a1[1];
-  v8 = a1[2];
-  v9 = a1[3];
-  v11 = a1[4];
-  v10 = a1[5];
-  v53 = a1[6];
+  v7 = *a2;
+  v8 = a2[1];
+  v9 = a2[2];
+  v10 = a2[3];
+  v12 = a2[4];
+  v11 = a2[5];
+  v54 = a2[6];
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v52 = a3;
-    v13 = *(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession);
-    v14 = *(a1 + 1);
-    v56 = *a1;
-    v57 = v14;
-    v58 = *(a1 + 2);
-    v59 = a1[6];
-    v15 = Strong;
-    v48 = v10;
-    v16 = v6;
-    v17 = v13;
-    v50 = CAFUISettingsCache.categorySettings(for:)(a2);
-    v18 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager;
+    v53 = a4;
+    v14 = *(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession);
+    v15 = *(a2 + 1);
+    v57 = *a2;
+    v58 = v15;
+    v59 = *(a2 + 2);
+    v60 = a2[6];
+    v16 = Strong;
+    v49 = v11;
+    v17 = v7;
+    v18 = v14;
+    v51 = CAFUISettingsCache.categorySettings(for:)(a3);
+    v19 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager;
     swift_beginAccess();
-    v19 = *&v15[v18];
-    v51 = v15;
-    v20 = *&v15[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager];
-    v49 = type metadata accessor for CAFUITileViewController();
-    v21 = objc_allocWithZone(v49);
-    v22 = &v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_presentedPTIdentifier];
-    *v22 = 0;
-    v22[1] = 0;
-    v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = 0;
-    v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = 0;
-    v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_punchThroughState] = 0;
-    *&v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession] = v17;
-    v23 = &v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache];
-    *v23 = v16;
-    v23[1] = v7;
-    v23[2] = v8;
-    v23[3] = v9;
-    v23[4] = v11;
-    v23[5] = v48;
-    v23[6] = v53;
-    *&v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager] = v20;
-    *&v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager] = v19;
-    *&v56 = v16;
-    *(&v56 + 1) = v7;
-    *&v57 = v8;
-    *(&v57 + 1) = v9;
-    *&v58 = v11;
-    *(&v58 + 1) = v48;
-    v59 = v53;
-    v24 = objc_allocWithZone(type metadata accessor for CAFUITileDataSource());
+    v20 = *&v16[v19];
+    v52 = v16;
+    v21 = *&v16[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager];
+    v50 = type metadata accessor for CAFUITileViewController();
+    v22 = objc_allocWithZone(v50);
+    v23 = &v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_presentedPTIdentifier];
+    *v23 = 0;
+    v23[1] = 0;
+    v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = 0;
+    v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = 0;
+    v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_punchThroughState] = 0;
+    *&v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession] = v18;
+    v24 = &v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache];
+    *v24 = v17;
+    v24[1] = v8;
+    v24[2] = v9;
+    v24[3] = v10;
+    v24[4] = v12;
+    v24[5] = v49;
+    v24[6] = v54;
+    *&v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager] = v21;
+    *&v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager] = v20;
+    *&v57 = v17;
+    *(&v57 + 1) = v8;
+    *&v58 = v9;
+    *(&v58 + 1) = v10;
+    *&v59 = v12;
+    *(&v59 + 1) = v49;
+    v60 = v54;
+    v25 = objc_allocWithZone(type metadata accessor for CAFUITileDataSource());
 
-    outlined init with copy of CAFUISettingsCache(a1, v55);
+    outlined init with copy of CAFUISettingsCache(a2, v56);
 
-    v25 = v17;
+    v26 = v18;
 
-    outlined init with copy of CAFUISettingsCache(a1, v55);
+    outlined init with copy of CAFUISettingsCache(a2, v56);
 
-    *&v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource] = CAFUITileDataSource.init(prominentCategories:listItems:settingsSections:settingsCache:)(MEMORY[0x277D84F90], MEMORY[0x277D84F90], v50, &v56);
-    *&v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_volumeNotificationAssertion] = 0;
-    v54.receiver = v21;
-    v54.super_class = v49;
-    v26 = objc_msgSendSuper2(&v54, sel_initWithNibName_bundle_, 0, 0);
-    v27 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession;
-    v28 = *&v26[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession];
-    v29 = v26;
-    v30 = [v28 limitUserInterfaces];
-    if (v30 && (v31 = v30, v32 = [v30 BOOLValue], v31, v32))
+    *&v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource] = CAFUITileDataSource.init(prominentCategories:listItems:settingsSections:settingsCache:)(MEMORY[0x277D84F90], MEMORY[0x277D84F90], v51, &v57);
+    *&v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_volumeNotificationAssertion] = 0;
+    v55.receiver = v22;
+    v55.super_class = v50;
+    v27 = objc_msgSendSuper2(&v55, sel_initWithNibName_bundle_, 0, 0);
+    v28 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession;
+    v29 = *&v27[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession];
+    v30 = v27;
+    v31 = [v29 limitUserInterfaces];
+    if (v31 && (v32 = v31, v33 = [v31 BOOLValue], v32, v33))
     {
-      v33 = [*&v26[v27] configuration];
-      v34 = [v33 limitableUserInterfaces];
+      v34 = [*&v27[v28] configuration];
+      v35 = [v34 limitableUserInterfaces];
 
-      v35 = (v34 >> 5) & 1;
+      v36 = (v35 >> 5) & 1;
     }
 
     else
     {
-      LOBYTE(v35) = 0;
+      LOBYTE(v36) = 0;
     }
 
-    v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = v35;
-    v36 = [*&v26[v27] limitUserInterfaces];
-    if (v36)
+    v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = v36;
+    v37 = [*&v27[v28] limitUserInterfaces];
+    if (v37)
     {
-      v37 = v36;
-      v38 = [v36 BOOLValue];
+      v38 = v37;
+      v39 = [v37 BOOLValue];
 
-      v39 = v52;
-      if (v38)
+      v40 = v53;
+      if (v39)
       {
-        v40 = [*&v26[v27] configuration];
-        v41 = [v40 limitableUserInterfaces];
+        v41 = [*&v27[v28] configuration];
+        v42 = [v41 limitableUserInterfaces];
 
-        v42 = (v41 >> 8) & 1;
+        v43 = (v42 >> 8) & 1;
       }
 
       else
       {
-        LOBYTE(v42) = 0;
+        LOBYTE(v43) = 0;
       }
     }
 
     else
     {
-      LOBYTE(v42) = 0;
-      v39 = v52;
+      LOBYTE(v43) = 0;
+      v40 = v53;
     }
 
-    v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = v42;
-    v43 = [objc_opt_self() defaultCenter];
-    [v43 addObserver:v29 selector:sel_updateForLimitUIChanged name:*MEMORY[0x277CF8928] object:0];
+    v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = v43;
+    v44 = [objc_opt_self() defaultCenter];
+    [v44 addObserver:v30 selector:sel_updateForLimitUIChanged name:*MEMORY[0x277CF8928] object:0];
 
-    v44 = v29;
-    v45 = MEMORY[0x245D0D180](0xD000000000000010, 0x8000000242429930);
-    v46 = CAFUILocalizedStringForKey(v45);
+    v45 = v30;
+    v46 = MEMORY[0x245D0D180](0xD000000000000010, 0x8000000242429930);
+    v47 = CAFUILocalizedStringForKey(v46);
 
-    if (!v46)
+    if (!v47)
     {
-      v47 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v46 = MEMORY[0x245D0D180](v47);
+      v48 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v47 = MEMORY[0x245D0D180](v48);
     }
 
-    [v44 setTitle_];
+    [v45 setTitle_];
 
-    *v39 = v44;
-    *(v39 + 8) = 0;
-    *(v39 + 16) = 0;
+    *v40 = v45;
+    *(v40 + 8) = 0;
+    *(v40 + 16) = 0;
   }
 
   else
   {
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 3;
+    *a4 = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) = 3;
   }
 }
 
@@ -8142,7 +8156,7 @@ void CAFUITileViewController.createAudioListItem(audioSettings:)(void *a1)
     }
 
     v10 = [v7 volumes];
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFVolume);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFVolume, 0x277CF87B0);
     v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     v12 = CAFUITileViewController.createVolumeListItem(volumes:)(v11);
@@ -8254,7 +8268,7 @@ LABEL_43:
     }
 
 LABEL_29:
-    outlined consume of CAFUISettingsCache?(v49);
+    outlined consume of CAFUISettingsCache?(v49, v17, v48, v47, v46, v45, v44);
   }
 
   if (!(v15 >> 62))
@@ -8462,7 +8476,7 @@ uint64_t CAFUITileViewController.createVolumeListItem(volumes:)(unint64_t a1)
       if (v36)
       {
         v6 = v36;
-        v42 = MEMORY[0x277D84F90];
+        v42[0] = MEMORY[0x277D84F90];
         specialized ContiguousArray.reserveCapacity(_:)();
         if ((v6 & 0x8000000000000000) == 0)
         {
@@ -8537,7 +8551,7 @@ LABEL_4:
           }
 
           while (v9 != v7);
-          v21 = v42;
+          v21 = v42[0];
           goto LABEL_10;
         }
 
@@ -8604,7 +8618,7 @@ LABEL_10:
     v6 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
     if (v6)
     {
-      v42 = MEMORY[0x277D84F90];
+      v42[0] = MEMORY[0x277D84F90];
       specialized ContiguousArray.reserveCapacity(_:)();
       goto LABEL_4;
     }
@@ -8615,185 +8629,185 @@ LABEL_10:
   return result;
 }
 
-void specialized closure #1 in CAFUITileViewController.createAudioListItem(audioSettings:)(unint64_t a1@<X1>, unsigned __int8 a2@<W2>, uint64_t a3@<X8>)
+void specialized closure #1 in CAFUITileViewController.createAudioListItem(audioSettings:)(unint64_t a2@<X1>, unsigned __int8 a3@<W2>, uint64_t a4@<X8>)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v7 = Strong;
-    v58 = a1;
-    v61 = a3;
-    v8 = *(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession);
-    v9 = (Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache);
-    v10 = *(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache);
-    v63 = v8;
-    if (v10)
+    v8 = Strong;
+    v59 = a2;
+    v62 = a4;
+    v9 = *(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession);
+    v10 = (Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache);
+    v11 = *(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache);
+    v64 = v9;
+    if (v11)
     {
-      v12 = v9[5];
-      v11 = v9[6];
-      v14 = v9[3];
-      v13 = v9[4];
-      v16 = v9[1];
-      v15 = v9[2];
-      v65 = *(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache);
-      *&v66 = v16;
-      *(&v66 + 1) = v15;
-      *&v67 = v14;
-      *(&v67 + 1) = v13;
-      *&v68 = v12;
-      *(&v68 + 1) = v11;
-      v17 = v8;
-      outlined copy of CAFUISettingsCache?(v10);
-      v57 = CAFUISettingsCache.categorySettings(for:)(a2);
+      v13 = v10[5];
+      v12 = v10[6];
+      v15 = v10[3];
+      v14 = v10[4];
+      v17 = v10[1];
+      v16 = v10[2];
+      v66 = *(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache);
+      *&v67 = v17;
+      *(&v67 + 1) = v16;
+      *&v68 = v15;
+      *(&v68 + 1) = v14;
+      *&v69 = v13;
+      *(&v69 + 1) = v12;
+      v18 = v9;
+      outlined copy of CAFUISettingsCache?(v11, v17, v16, v15, v14, v13, v12);
+      v58 = CAFUISettingsCache.categorySettings(for:)(a3);
 
-      v18 = *v9;
+      v19 = *v10;
     }
 
     else
     {
-      v19 = v8;
-      v18 = 0;
-      v57 = MEMORY[0x277D84F90];
+      v20 = v9;
+      v19 = 0;
+      v58 = MEMORY[0x277D84F90];
     }
 
-    v21 = v9[1];
-    v20 = v9[2];
-    v22 = v9[3];
-    v23 = v9[4];
-    v24 = v9[5];
-    v25 = v9[6];
-    v62 = v9;
-    v26 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager;
+    v22 = v10[1];
+    v21 = v10[2];
+    v23 = v10[3];
+    v24 = v10[4];
+    v25 = v10[5];
+    v26 = v10[6];
+    v63 = v10;
+    v27 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager;
     swift_beginAccess();
-    v27 = *&v7[v26];
-    v60 = v7;
-    v28 = *&v7[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager];
-    v56 = type metadata accessor for CAFUITileViewController();
-    v29 = objc_allocWithZone(v56);
-    v30 = &v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_presentedPTIdentifier];
-    *v30 = 0;
-    v30[1] = 0;
-    v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = 0;
-    v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = 0;
-    v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_punchThroughState] = 0;
-    *&v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession] = v63;
-    v31 = &v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache];
-    *v31 = v18;
-    v31[1] = v21;
-    v31[2] = v20;
-    v31[3] = v22;
-    v31[4] = v23;
-    v31[5] = v24;
-    v31[6] = v25;
-    *&v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager] = v28;
-    *&v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager] = v27;
-    v65 = v18;
-    *&v66 = v21;
-    *(&v66 + 1) = v20;
+    v28 = *&v8[v27];
+    v61 = v8;
+    v29 = *&v8[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager];
+    v57 = type metadata accessor for CAFUITileViewController();
+    v30 = objc_allocWithZone(v57);
+    v31 = &v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_presentedPTIdentifier];
+    *v31 = 0;
+    v31[1] = 0;
+    v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = 0;
+    v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = 0;
+    v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_punchThroughState] = 0;
+    *&v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession] = v64;
+    v32 = &v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache];
+    *v32 = v19;
+    v32[1] = v22;
+    v32[2] = v21;
+    v32[3] = v23;
+    v32[4] = v24;
+    v32[5] = v25;
+    v32[6] = v26;
+    *&v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager] = v29;
+    *&v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager] = v28;
+    v66 = v19;
     *&v67 = v22;
-    *(&v67 + 1) = v23;
-    *&v68 = v24;
-    *(&v68 + 1) = v25;
+    *(&v67 + 1) = v21;
+    *&v68 = v23;
+    *(&v68 + 1) = v24;
+    *&v69 = v25;
+    *(&v69 + 1) = v26;
     objc_allocWithZone(type metadata accessor for CAFUITileDataSource());
 
-    outlined copy of CAFUISettingsCache?(v18);
+    outlined copy of CAFUISettingsCache?(v19, v22, v21, v23, v24, v25, v26);
 
-    v59 = v63;
+    v60 = v64;
 
-    outlined copy of CAFUISettingsCache?(v18);
+    outlined copy of CAFUISettingsCache?(v19, v22, v21, v23, v24, v25, v26);
 
-    *&v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource] = CAFUITileDataSource.init(prominentCategories:listItems:settingsSections:settingsCache:)(MEMORY[0x277D84F90], v58, v57, &v65);
-    *&v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_volumeNotificationAssertion] = 0;
-    v64.receiver = v29;
-    v64.super_class = v56;
-    v32 = objc_msgSendSuper2(&v64, sel_initWithNibName_bundle_, 0, 0);
-    v33 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession;
-    v34 = *&v32[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession];
-    v35 = v32;
-    v36 = [v34 limitUserInterfaces];
-    if (v36 && (v37 = v36, v38 = [v36 BOOLValue], v37, v38))
+    *&v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource] = CAFUITileDataSource.init(prominentCategories:listItems:settingsSections:settingsCache:)(MEMORY[0x277D84F90], v59, v58, &v66);
+    *&v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_volumeNotificationAssertion] = 0;
+    v65.receiver = v30;
+    v65.super_class = v57;
+    v33 = objc_msgSendSuper2(&v65, sel_initWithNibName_bundle_, 0, 0);
+    v34 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession;
+    v35 = *&v33[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession];
+    v36 = v33;
+    v37 = [v35 limitUserInterfaces];
+    if (v37 && (v38 = v37, v39 = [v37 BOOLValue], v38, v39))
     {
-      v39 = [*&v32[v33] configuration];
-      v40 = [v39 limitableUserInterfaces];
+      v40 = [*&v33[v34] configuration];
+      v41 = [v40 limitableUserInterfaces];
 
-      v41 = (v40 >> 5) & 1;
+      v42 = (v41 >> 5) & 1;
     }
 
     else
     {
-      LOBYTE(v41) = 0;
+      LOBYTE(v42) = 0;
     }
 
-    v42 = v62;
-    v35[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = v41;
-    v43 = [*&v32[v33] limitUserInterfaces];
-    if (v43)
+    v43 = v63;
+    v36[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = v42;
+    v44 = [*&v33[v34] limitUserInterfaces];
+    if (v44)
     {
-      v44 = v43;
-      v45 = [v43 BOOLValue];
+      v45 = v44;
+      v46 = [v44 BOOLValue];
 
-      if (v45)
+      if (v46)
       {
-        v46 = [*&v32[v33] configuration];
-        v47 = [v46 limitableUserInterfaces];
+        v47 = [*&v33[v34] configuration];
+        v48 = [v47 limitableUserInterfaces];
 
-        v48 = (v47 >> 8) & 1;
+        v49 = (v48 >> 8) & 1;
       }
 
       else
       {
-        LOBYTE(v48) = 0;
+        LOBYTE(v49) = 0;
       }
 
-      v42 = v62;
+      v43 = v63;
     }
 
     else
     {
-      LOBYTE(v48) = 0;
+      LOBYTE(v49) = 0;
     }
 
-    v35[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = v48;
-    v49 = [objc_opt_self() defaultCenter];
-    [v49 addObserver:v35 selector:sel_updateForLimitUIChanged name:*MEMORY[0x277CF8928] object:0];
+    v36[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = v49;
+    v50 = [objc_opt_self() defaultCenter];
+    [v50 addObserver:v36 selector:sel_updateForLimitUIChanged name:*MEMORY[0x277CF8928] object:0];
 
-    v50 = v35;
-    v51 = MEMORY[0x245D0D180](0x53474E4954544553, 0xEE004F494455415FLL);
-    v52 = CAFUILocalizedStringForKey(v51);
+    v51 = v36;
+    v52 = MEMORY[0x245D0D180](0x53474E4954544553, 0xEE004F494455415FLL);
+    v53 = CAFUILocalizedStringForKey(v52);
 
-    if (!v52)
+    if (!v53)
     {
-      v53 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v52 = MEMORY[0x245D0D180](v53);
+      v54 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v53 = MEMORY[0x245D0D180](v54);
     }
 
-    [v50 setTitle_];
+    [v51 setTitle_];
 
-    v54 = [v50 navigationItem];
-    if (*v42 && (v65 = *v42, v66 = *(v42 + 1), v67 = *(v42 + 3), v68 = *(v42 + 5), CAFUISettingsCache.hasShowAudioLogo.getter()))
+    v55 = [v51 navigationItem];
+    if (*v43 && (v66 = *v43, v67 = *(v43 + 1), v68 = *(v43 + 3), v69 = *(v43 + 5), CAFUISettingsCache.hasShowAudioLogo.getter()))
     {
 
-      v55 = CAUAssetLibraryManager.createAudioLogoBarButton()();
+      v56 = CAUAssetLibraryManager.createAudioLogoBarButton()();
     }
 
     else
     {
-      v55 = 0;
+      v56 = 0;
     }
 
-    [v54 setRightBarButtonItem_];
+    [v55 setRightBarButtonItem_];
 
-    *v61 = v50;
-    *(v61 + 8) = 0;
-    *(v61 + 16) = 0;
+    *v62 = v51;
+    *(v62 + 8) = 0;
+    *(v62 + 16) = 0;
   }
 
   else
   {
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 3;
+    *a4 = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) = 3;
   }
 }
 
@@ -8939,130 +8953,272 @@ LABEL_4:
       }
     }
 
-    outlined consume of CAFUISettingsCache?(v6);
+    outlined consume of CAFUISettingsCache?(v6, v7, v8, v10, v9, v12, v37);
   }
 }
 
-void closure #1 in CAFUITileViewController.createRadioListItem()(void *a1@<X1>, unsigned __int8 a2@<W2>, uint64_t a3@<X8>)
+void closure #1 in CAFUITileViewController.createRadioListItem()(void *a2@<X1>, unsigned __int8 a3@<W2>, uint64_t a4@<X8>)
 {
-  v6 = *a1;
-  v7 = a1[1];
-  v8 = a1[2];
-  v9 = a1[3];
-  v11 = a1[4];
-  v10 = a1[5];
-  v52 = a1[6];
+  v7 = *a2;
+  v8 = a2[1];
+  v9 = a2[2];
+  v10 = a2[3];
+  v12 = a2[4];
+  v11 = a2[5];
+  v53 = a2[6];
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v51 = a3;
-    v13 = *(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession);
-    v14 = *(a1 + 1);
-    v55 = *a1;
-    v56 = v14;
-    v57 = *(a1 + 2);
-    v58 = a1[6];
-    v15 = Strong;
-    v47 = v10;
-    v16 = v6;
-    v17 = v13;
-    v49 = CAFUISettingsCache.categorySettings(for:)(a2);
-    v18 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager;
+    v52 = a4;
+    v14 = *(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession);
+    v15 = *(a2 + 1);
+    v56 = *a2;
+    v57 = v15;
+    v58 = *(a2 + 2);
+    v59 = a2[6];
+    v16 = Strong;
+    v48 = v11;
+    v17 = v7;
+    v18 = v14;
+    v50 = CAFUISettingsCache.categorySettings(for:)(a3);
+    v19 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager;
     swift_beginAccess();
-    v19 = *&v15[v18];
-    v50 = v15;
-    v20 = *&v15[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager];
-    v48 = type metadata accessor for CAFUITileViewController();
-    v21 = objc_allocWithZone(v48);
-    v22 = &v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_presentedPTIdentifier];
-    *v22 = 0;
-    v22[1] = 0;
-    v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = 0;
-    v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = 0;
-    v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_punchThroughState] = 0;
-    *&v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession] = v17;
-    v23 = &v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache];
-    *v23 = v16;
-    v23[1] = v7;
-    v23[2] = v8;
-    v23[3] = v9;
-    v23[4] = v11;
-    v23[5] = v47;
-    v23[6] = v52;
-    *&v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager] = v20;
-    *&v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager] = v19;
-    *&v55 = v16;
-    *(&v55 + 1) = v7;
-    *&v56 = v8;
-    *(&v56 + 1) = v9;
-    *&v57 = v11;
-    *(&v57 + 1) = v47;
-    v58 = v52;
-    v24 = objc_allocWithZone(type metadata accessor for CAFUITileDataSource());
+    v20 = *&v16[v19];
+    v51 = v16;
+    v21 = *&v16[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager];
+    v49 = type metadata accessor for CAFUITileViewController();
+    v22 = objc_allocWithZone(v49);
+    v23 = &v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_presentedPTIdentifier];
+    *v23 = 0;
+    v23[1] = 0;
+    v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = 0;
+    v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = 0;
+    v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_punchThroughState] = 0;
+    *&v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession] = v18;
+    v24 = &v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache];
+    *v24 = v17;
+    v24[1] = v8;
+    v24[2] = v9;
+    v24[3] = v10;
+    v24[4] = v12;
+    v24[5] = v48;
+    v24[6] = v53;
+    *&v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager] = v21;
+    *&v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager] = v20;
+    *&v56 = v17;
+    *(&v56 + 1) = v8;
+    *&v57 = v9;
+    *(&v57 + 1) = v10;
+    *&v58 = v12;
+    *(&v58 + 1) = v48;
+    v59 = v53;
+    v25 = objc_allocWithZone(type metadata accessor for CAFUITileDataSource());
 
-    outlined init with copy of CAFUISettingsCache(a1, v54);
+    outlined init with copy of CAFUISettingsCache(a2, v55);
 
-    v25 = v17;
+    v26 = v18;
 
-    outlined init with copy of CAFUISettingsCache(a1, v54);
+    outlined init with copy of CAFUISettingsCache(a2, v55);
 
-    *&v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource] = CAFUITileDataSource.init(prominentCategories:listItems:settingsSections:settingsCache:)(MEMORY[0x277D84F90], MEMORY[0x277D84F90], v49, &v55);
-    *&v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_volumeNotificationAssertion] = 0;
-    v53.receiver = v21;
-    v53.super_class = v48;
-    v26 = objc_msgSendSuper2(&v53, sel_initWithNibName_bundle_, 0, 0);
-    v27 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession;
-    v28 = *&v26[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession];
-    v29 = v26;
-    v30 = [v28 limitUserInterfaces];
-    if (v30 && (v31 = v30, v32 = [v30 BOOLValue], v31, v32))
+    *&v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource] = CAFUITileDataSource.init(prominentCategories:listItems:settingsSections:settingsCache:)(MEMORY[0x277D84F90], MEMORY[0x277D84F90], v50, &v56);
+    *&v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_volumeNotificationAssertion] = 0;
+    v54.receiver = v22;
+    v54.super_class = v49;
+    v27 = objc_msgSendSuper2(&v54, sel_initWithNibName_bundle_, 0, 0);
+    v28 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession;
+    v29 = *&v27[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession];
+    v30 = v27;
+    v31 = [v29 limitUserInterfaces];
+    if (v31 && (v32 = v31, v33 = [v31 BOOLValue], v32, v33))
     {
-      v33 = [*&v26[v27] configuration];
-      v34 = [v33 limitableUserInterfaces];
+      v34 = [*&v27[v28] configuration];
+      v35 = [v34 limitableUserInterfaces];
 
-      v35 = (v34 >> 5) & 1;
+      v36 = (v35 >> 5) & 1;
     }
 
     else
     {
-      LOBYTE(v35) = 0;
+      LOBYTE(v36) = 0;
     }
 
-    v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = v35;
-    v36 = [*&v26[v27] limitUserInterfaces];
-    if (v36 && (v37 = v36, v38 = [v36 BOOLValue], v37, v38))
+    v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = v36;
+    v37 = [*&v27[v28] limitUserInterfaces];
+    if (v37 && (v38 = v37, v39 = [v37 BOOLValue], v38, v39))
     {
-      v39 = [*&v26[v27] configuration];
-      v40 = [v39 limitableUserInterfaces];
+      v40 = [*&v27[v28] configuration];
+      v41 = [v40 limitableUserInterfaces];
 
-      v41 = (v40 >> 8) & 1;
+      v42 = (v41 >> 8) & 1;
     }
 
     else
     {
-      LOBYTE(v41) = 0;
+      LOBYTE(v42) = 0;
     }
 
-    v29[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = v41;
-    v42 = [objc_opt_self() defaultCenter];
-    [v42 addObserver:v29 selector:sel_updateForLimitUIChanged name:*MEMORY[0x277CF8928] object:0];
+    v30[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = v42;
+    v43 = [objc_opt_self() defaultCenter];
+    [v43 addObserver:v30 selector:sel_updateForLimitUIChanged name:*MEMORY[0x277CF8928] object:0];
 
-    v43 = v29;
-    v44 = MEMORY[0x245D0D180](0x53474E4954544553, 0xEE00414944454D5FLL);
-    v45 = CAFUILocalizedStringForKey(v44);
+    v44 = v30;
+    v45 = MEMORY[0x245D0D180](0x53474E4954544553, 0xEE00414944454D5FLL);
+    v46 = CAFUILocalizedStringForKey(v45);
 
-    if (!v45)
+    if (!v46)
     {
-      v46 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v45 = MEMORY[0x245D0D180](v46);
+      v47 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v46 = MEMORY[0x245D0D180](v47);
     }
 
-    [v43 setTitle_];
+    [v44 setTitle_];
 
-    *v51 = v43;
-    *(v51 + 8) = 0;
-    *(v51 + 16) = 0;
+    *v52 = v44;
+    *(v52 + 8) = 0;
+    *(v52 + 16) = 0;
+  }
+
+  else
+  {
+    *a4 = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) = 3;
+  }
+}
+
+void closure #2 in CAFUITileViewController.createVolumeListItem(volumes:)(unint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    v6 = Strong;
+    v7 = *(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession);
+    v50 = a3;
+    v51 = v7;
+    if (a2 >> 62)
+    {
+      type metadata accessor for CAFUIDataListItem();
+      v43 = v7;
+
+      v44 = _bridgeCocoaArray<A>(_:)();
+
+      v47 = v44;
+    }
+
+    else
+    {
+      v8 = v7;
+
+      v47 = a2;
+      dispatch thunk of __ContiguousArrayStorageBase.staticElementType.getter();
+      type metadata accessor for CAFUIDataListItem();
+    }
+
+    v9 = *&v6[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache];
+    v45 = *&v6[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache + 8];
+    v11 = *&v6[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache + 16];
+    v10 = *&v6[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache + 24];
+    v12 = *&v6[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache + 32];
+    v13 = *&v6[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache + 40];
+    v14 = *&v6[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache + 48];
+    v15 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager;
+    swift_beginAccess();
+    v16 = *&v6[v15];
+    v49 = v6;
+    v17 = *&v6[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager];
+    v46 = type metadata accessor for CAFUITileViewController();
+    v18 = objc_allocWithZone(v46);
+    v19 = &v18[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_presentedPTIdentifier];
+    *v19 = 0;
+    v19[1] = 0;
+    v18[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = 0;
+    v18[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = 0;
+    v18[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_punchThroughState] = 0;
+    *&v18[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession] = v51;
+    v20 = &v18[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache];
+    *v20 = v9;
+    v20[1] = v45;
+    v20[2] = v11;
+    v20[3] = v10;
+    v20[4] = v12;
+    v20[5] = v13;
+    v20[6] = v14;
+    *&v18[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager] = v17;
+    *&v18[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager] = v16;
+    v53[0] = v9;
+    v53[1] = v45;
+    v53[2] = v11;
+    v53[3] = v10;
+    v53[4] = v12;
+    v53[5] = v13;
+    v53[6] = v14;
+    objc_allocWithZone(type metadata accessor for CAFUITileDataSource());
+
+    outlined copy of CAFUISettingsCache?(v9, v45, v11, v10, v12, v13, v14);
+
+    v48 = v51;
+
+    outlined copy of CAFUISettingsCache?(v9, v45, v11, v10, v12, v13, v14);
+
+    *&v18[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource] = CAFUITileDataSource.init(prominentCategories:listItems:settingsSections:settingsCache:)(MEMORY[0x277D84F90], v47, MEMORY[0x277D84F90], v53);
+    v21 = [objc_allocWithZone(MEMORY[0x277CF9380]) init];
+    *&v18[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_volumeNotificationAssertion] = v21;
+    v52.receiver = v18;
+    v52.super_class = v46;
+    v22 = objc_msgSendSuper2(&v52, sel_initWithNibName_bundle_, 0, 0);
+    v23 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession;
+    v24 = *&v22[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession];
+    v25 = v22;
+    v26 = [v24 limitUserInterfaces];
+    if (v26 && (v27 = v26, v28 = [v26 BOOLValue], v27, v28))
+    {
+      v29 = [*&v22[v23] configuration];
+      v30 = [v29 limitableUserInterfaces];
+
+      v31 = (v30 >> 5) & 1;
+    }
+
+    else
+    {
+      LOBYTE(v31) = 0;
+    }
+
+    v25[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = v31;
+    v32 = [*&v22[v23] limitUserInterfaces];
+    if (v32 && (v33 = v32, v34 = [v32 BOOLValue], v33, v34))
+    {
+      v35 = [*&v22[v23] configuration];
+      v36 = [v35 limitableUserInterfaces];
+
+      v37 = (v36 >> 8) & 1;
+    }
+
+    else
+    {
+      LOBYTE(v37) = 0;
+    }
+
+    v25[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = v37;
+    v38 = [objc_opt_self() defaultCenter];
+    [v38 addObserver:v25 selector:sel_updateForLimitUIChanged name:*MEMORY[0x277CF8928] object:0];
+
+    v39 = v25;
+    v40 = MEMORY[0x245D0D180](0x53474E4954544553, 0xEF454D554C4F565FLL);
+    v41 = CAFUILocalizedStringForKey(v40);
+
+    if (!v41)
+    {
+      v42 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v41 = MEMORY[0x245D0D180](v42);
+    }
+
+    [v39 setTitle_];
+
+    *v50 = v39;
+    *(v50 + 8) = 0;
+    *(v50 + 16) = 0;
   }
 
   else
@@ -9073,168 +9229,26 @@ void closure #1 in CAFUITileViewController.createRadioListItem()(void *a1@<X1>, 
   }
 }
 
-void closure #2 in CAFUITileViewController.createVolumeListItem(volumes:)(unint64_t a1@<X1>, uint64_t a2@<X8>)
-{
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v5 = Strong;
-    v6 = *(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession);
-    v49 = a2;
-    v50 = v6;
-    if (a1 >> 62)
-    {
-      type metadata accessor for CAFUIDataListItem();
-      v42 = v6;
-
-      v43 = _bridgeCocoaArray<A>(_:)();
-
-      v46 = v43;
-    }
-
-    else
-    {
-      v7 = v6;
-
-      v46 = a1;
-      dispatch thunk of __ContiguousArrayStorageBase.staticElementType.getter();
-      type metadata accessor for CAFUIDataListItem();
-    }
-
-    v8 = *&v5[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache];
-    v44 = *&v5[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache + 8];
-    v10 = *&v5[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache + 16];
-    v9 = *&v5[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache + 24];
-    v11 = *&v5[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache + 32];
-    v12 = *&v5[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache + 40];
-    v13 = *&v5[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache + 48];
-    v14 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager;
-    swift_beginAccess();
-    v15 = *&v5[v14];
-    v48 = v5;
-    v16 = *&v5[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager];
-    v45 = type metadata accessor for CAFUITileViewController();
-    v17 = objc_allocWithZone(v45);
-    v18 = &v17[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_presentedPTIdentifier];
-    *v18 = 0;
-    v18[1] = 0;
-    v17[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = 0;
-    v17[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = 0;
-    v17[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_punchThroughState] = 0;
-    *&v17[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession] = v50;
-    v19 = &v17[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache];
-    *v19 = v8;
-    v19[1] = v44;
-    v19[2] = v10;
-    v19[3] = v9;
-    v19[4] = v11;
-    v19[5] = v12;
-    v19[6] = v13;
-    *&v17[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_requestContentManager] = v16;
-    *&v17[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_assetManager] = v15;
-    v52[0] = v8;
-    v52[1] = v44;
-    v52[2] = v10;
-    v52[3] = v9;
-    v52[4] = v11;
-    v52[5] = v12;
-    v52[6] = v13;
-    objc_allocWithZone(type metadata accessor for CAFUITileDataSource());
-
-    outlined copy of CAFUISettingsCache?(v8);
-
-    v47 = v50;
-
-    outlined copy of CAFUISettingsCache?(v8);
-
-    *&v17[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_dataSource] = CAFUITileDataSource.init(prominentCategories:listItems:settingsSections:settingsCache:)(MEMORY[0x277D84F90], v46, MEMORY[0x277D84F90], v52);
-    v20 = [objc_allocWithZone(MEMORY[0x277CF9380]) init];
-    *&v17[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_volumeNotificationAssertion] = v20;
-    v51.receiver = v17;
-    v51.super_class = v45;
-    v21 = objc_msgSendSuper2(&v51, sel_initWithNibName_bundle_, 0, 0);
-    v22 = OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession;
-    v23 = *&v21[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession];
-    v24 = v21;
-    v25 = [v23 limitUserInterfaces];
-    if (v25 && (v26 = v25, v27 = [v25 BOOLValue], v26, v27))
-    {
-      v28 = [*&v21[v22] configuration];
-      v29 = [v28 limitableUserInterfaces];
-
-      v30 = (v29 >> 5) & 1;
-    }
-
-    else
-    {
-      LOBYTE(v30) = 0;
-    }
-
-    v24[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_limiting] = v30;
-    v31 = [*&v21[v22] limitUserInterfaces];
-    if (v31 && (v32 = v31, v33 = [v31 BOOLValue], v32, v33))
-    {
-      v34 = [*&v21[v22] configuration];
-      v35 = [v34 limitableUserInterfaces];
-
-      v36 = (v35 >> 8) & 1;
-    }
-
-    else
-    {
-      LOBYTE(v36) = 0;
-    }
-
-    v24[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_infoButtonlimiting] = v36;
-    v37 = [objc_opt_self() defaultCenter];
-    [v37 addObserver:v24 selector:sel_updateForLimitUIChanged name:*MEMORY[0x277CF8928] object:0];
-
-    v38 = v24;
-    v39 = MEMORY[0x245D0D180](0x53474E4954544553, 0xEF454D554C4F565FLL);
-    v40 = CAFUILocalizedStringForKey(v39);
-
-    if (!v40)
-    {
-      v41 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v40 = MEMORY[0x245D0D180](v41);
-    }
-
-    [v38 setTitle_];
-
-    *v49 = v38;
-    *(v49 + 8) = 0;
-    *(v49 + 16) = 0;
-  }
-
-  else
-  {
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 3;
-  }
-}
-
-void closure #1 in CAFUITileViewController.createSoundItem(audioSettings:)(void *a1@<X1>, uint64_t a2@<X8>)
+void closure #1 in CAFUITileViewController.createSoundItem(audioSettings:)(void *a2@<X1>, uint64_t a3@<X8>)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (!Strong)
   {
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 3;
+    *a3 = 0;
+    *(a3 + 8) = 0;
+    *(a3 + 16) = 3;
     return;
   }
 
-  v5 = Strong;
-  v6 = [*(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession) configuration];
-  v7 = [v6 screens];
+  v6 = Strong;
+  v7 = [*(Strong + OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_carSession) configuration];
+  v8 = [v7 screens];
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CARScreenInfo);
-  v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CARScreenInfo, 0x277CF89D8);
+  v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  if (v8 >> 62)
+  if (v9 >> 62)
   {
     if (__CocoaSet.count.getter())
     {
@@ -9243,57 +9257,57 @@ void closure #1 in CAFUITileViewController.createSoundItem(audioSettings:)(void 
 
 LABEL_10:
 
-    LOBYTE(v12) = 0;
+    LOBYTE(v13) = 0;
     goto LABEL_11;
   }
 
-  if (!*((v8 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (!*((v9 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
     goto LABEL_10;
   }
 
 LABEL_4:
-  if ((v8 & 0xC000000000000001) != 0)
+  if ((v9 & 0xC000000000000001) != 0)
   {
-    v9 = MEMORY[0x245D0D9A0](0, v8);
+    v10 = MEMORY[0x245D0D9A0](0, v9);
   }
 
   else
   {
-    if (!*((v8 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (!*((v9 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       __break(1u);
       return;
     }
 
-    v9 = *(v8 + 32);
+    v10 = *(v9 + 32);
   }
 
-  v10 = v9;
+  v11 = v10;
 
-  v11 = [v10 availableInteractionModels];
+  v12 = [v11 availableInteractionModels];
 
-  v12 = (v11 >> 2) & 1;
+  v13 = (v12 >> 2) & 1;
 LABEL_11:
-  if (*&v5[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache] && CAFUISettingsCache.hasShowAudioLogo.getter())
+  if (*&v6[OBJC_IVAR____TtC5CAFUI23CAFUITileViewController_settingsCache] && CAFUISettingsCache.hasShowAudioLogo.getter())
   {
     swift_beginAccess();
 
-    v13 = CAUAssetLibraryManager.createAudioLogoBarButton()();
+    v14 = CAUAssetLibraryManager.createAudioLogoBarButton()();
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  v14 = objc_allocWithZone(type metadata accessor for CAFUISoundSettingsViewController());
-  v15 = a1;
-  v16 = specialized CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)(v12, v15, v13);
+  v15 = objc_allocWithZone(type metadata accessor for CAFUISoundSettingsViewController());
+  v16 = a2;
+  v17 = specialized CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)(v13, v16, v14);
 
-  *a2 = v16;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  *a3 = v17;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
 }
 
 UIBarButtonItem_optional __swiftcall CAFUITileViewController.createAudioLogoBarButton()()
@@ -9345,10 +9359,10 @@ id CAFUITileViewCompositionalLayout.collectionViewContentSize.getter()
   return result;
 }
 
-id CAFUITileViewController.__deallocating_deinit(uint64_t a1, uint64_t (*a2)(void))
+id CAFUITileViewController.__deallocating_deinit(uint64_t a1, uint64_t (*a2)(uint64_t))
 {
   v4.receiver = v2;
-  v4.super_class = a2();
+  v4.super_class = a2(a1);
   return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
@@ -9359,7 +9373,7 @@ uint64_t CAFUITileViewCollectionViewData.__deallocating_deinit()
   return MEMORY[0x2821FE8D8](v0, 40, 7);
 }
 
-size_t _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC10Foundation9IndexPathV_Tt1g5(uint64_t a1, uint64_t a2)
+void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC10Foundation9IndexPathV_Tt1g5(uint64_t a1, uint64_t a2)
 {
   if (a2 <= a1)
   {
@@ -9376,7 +9390,7 @@ size_t _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd, &_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMR);
   v4 = *(type metadata accessor for IndexPath() - 8);
   v5 = *(v4 + 72);
   v6 = (*(v4 + 80) + 32) & ~*(v4 + 80);
@@ -9384,7 +9398,7 @@ size_t _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi
   result = _swift_stdlib_malloc_size(v7);
   if (v5)
   {
-    if (result - v6 != 0x8000000000000000 || v5 != -1)
+    if ((result - v6) != 0x8000000000000000 || v5 != -1)
     {
       v7[2] = a1;
       v7[3] = 2 * ((result - v6) / v5);
@@ -9418,7 +9432,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -9435,48 +9449,48 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
   return result;
 }
 
-id specialized Sequence._copySequenceContents(initializing:)(id result, void *a2, uint64_t a3, uint64_t a4)
+void *specialized Sequence._copySequenceContents(initializing:)(void *result, void *a2, uint64_t a3, uint64_t a4, __n128 a5)
 {
-  v4 = a4;
-  v7 = result;
+  v5 = a4;
+  v8 = result;
   if ((a4 & 0xC000000000000001) == 0)
   {
 LABEL_21:
-    v10 = 0;
-    v18 = -1 << *(v4 + 32);
-    v8 = v4 + 56;
-    v9 = ~v18;
-    v19 = -v18;
-    if (v19 < 64)
+    v11 = 0;
+    v19 = -1 << *(v5 + 32);
+    v9 = v5 + 56;
+    v10 = ~v19;
+    v20 = -v19;
+    if (v20 < 64)
     {
-      v20 = ~(-1 << v19);
+      v21 = ~(-1 << v20);
     }
 
     else
     {
-      v20 = -1;
+      v21 = -1;
     }
 
-    v11 = v20 & *(v4 + 56);
+    v12 = v21 & *(v5 + 56);
     if (a2)
     {
       goto LABEL_3;
     }
 
 LABEL_25:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_32;
   }
 
   __CocoaSet.makeIterator()();
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
   lazy protocol witness table accessor for type CAFAutomakerSetting and conformance NSObject();
   result = Set.Iterator.init(_cocoa:)();
-  v4 = v25;
-  v8 = v26;
+  v5 = v26;
   v9 = v27;
   v10 = v28;
   v11 = v29;
+  v12 = v30;
   if (!a2)
   {
     goto LABEL_25;
@@ -9485,7 +9499,7 @@ LABEL_25:
 LABEL_3:
   if (!a3)
   {
-    v12 = 0;
+    v13 = 0;
     goto LABEL_32;
   }
 
@@ -9496,24 +9510,24 @@ LABEL_35:
     return result;
   }
 
-  v22 = v9;
-  v23 = v7;
-  v12 = 0;
-  v13 = (v9 + 64) >> 6;
-  v7 = 1;
+  v23 = v10;
+  v24 = v8;
+  v13 = 0;
+  v14 = (v10 + 64) >> 6;
+  v8 = 1;
   while (1)
   {
-    if (v4 < 0)
+    if (v5 < 0)
     {
       if (!__CocoaSet.Iterator.next()())
       {
         goto LABEL_30;
       }
 
-      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
+      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
       swift_dynamicCast();
-      result = v24;
-      if (!v24)
+      result = v25;
+      if (!v25)
       {
         goto LABEL_30;
       }
@@ -9521,17 +9535,17 @@ LABEL_35:
       goto LABEL_17;
     }
 
-    v14 = v10;
-    if (!v11)
+    v15 = v11;
+    if (!v12)
     {
       break;
     }
 
-    v15 = v10;
+    v16 = v11;
 LABEL_13:
-    v16 = __clz(__rbit64(v11));
-    v11 &= v11 - 1;
-    result = *(*(v4 + 48) + ((v15 << 9) | (8 * v16)));
+    v17 = __clz(__rbit64(v12));
+    v12 &= v12 - 1;
+    result = *(*(v5 + 48) + ((v16 << 9) | (8 * v17)));
     if (!result)
     {
       goto LABEL_30;
@@ -9539,15 +9553,15 @@ LABEL_13:
 
 LABEL_17:
     *a2 = result;
-    if (v7 == a3)
+    if (v8 == a3)
     {
-      v12 = a3;
+      v13 = a3;
       goto LABEL_30;
     }
 
     ++a2;
-    v12 = v7;
-    if (__OFADD__(v7++, 1))
+    v13 = v8;
+    if (__OFADD__(v8++, 1))
     {
       __break(1u);
       goto LABEL_21;
@@ -9556,49 +9570,49 @@ LABEL_17:
 
   while (1)
   {
-    v15 = v14 + 1;
-    if (__OFADD__(v14, 1))
+    v16 = v15 + 1;
+    if (__OFADD__(v15, 1))
     {
       __break(1u);
       goto LABEL_35;
     }
 
-    if (v15 >= v13)
+    if (v16 >= v14)
     {
       break;
     }
 
-    v11 = *(v8 + 8 * v15);
-    ++v14;
-    if (v11)
+    v12 = *(v9 + 8 * v16);
+    ++v15;
+    if (v12)
     {
-      v10 = v15;
+      v11 = v16;
       goto LABEL_13;
     }
   }
 
-  v11 = 0;
-  if (v13 <= v10 + 1)
+  v12 = 0;
+  if (v14 <= v11 + 1)
   {
-    v21 = v10 + 1;
+    v22 = v11 + 1;
   }
 
   else
   {
-    v21 = v13;
+    v22 = v14;
   }
 
-  v10 = v21 - 1;
+  v11 = v22 - 1;
 LABEL_30:
-  v9 = v22;
-  v7 = v23;
+  v10 = v23;
+  v8 = v24;
 LABEL_32:
-  *v7 = v4;
-  *(v7 + 8) = v8;
-  *(v7 + 16) = v9;
-  *(v7 + 24) = v10;
-  *(v7 + 32) = v11;
-  return v12;
+  *v8 = v5;
+  *(v8 + 8) = v9;
+  *(v8 + 16) = v10;
+  *(v8 + 24) = v11;
+  *(v8 + 32) = v12;
+  return v13;
 }
 
 uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
@@ -9960,7 +9974,7 @@ LABEL_54:
 
     __break(1u);
 LABEL_57:
-    v93 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v31 > 1, v13, 1, v93);
+    v93 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v31 > 1), v13, 1, v93);
 LABEL_25:
     v4 = v87;
 
@@ -10058,7 +10072,7 @@ LABEL_43:
   v51 = v93[3];
   if (v52 >= v51 >> 1)
   {
-    v93 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v51 > 1, v52 + 1, 1, v93);
+    v93 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v51 > 1), v52 + 1, 1, v93);
   }
 
   v53 = v93;
@@ -10222,7 +10236,7 @@ LABEL_92:
           a2 = v94;
           if (v81 >= v80 >> 1)
           {
-            v93 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v80 > 1, v81 + 1, 1, v93);
+            v93 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v80 > 1), v81 + 1, 1, v93);
           }
 
           v63 = v93;

@@ -96,12 +96,11 @@ uint64_t __34__TPSCommonDefines_sharedInstance__block_invoke()
 
 uint64_t __43__TPSCommonDefines_tipsCoreFrameworkBundle__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v3 = tipsCoreFrameworkBundle_gTipsCoreFrameworkBundle;
-  tipsCoreFrameworkBundle_gTipsCoreFrameworkBundle = v2;
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v2 = tipsCoreFrameworkBundle_gTipsCoreFrameworkBundle;
+  tipsCoreFrameworkBundle_gTipsCoreFrameworkBundle = v1;
 
-  return MEMORY[0x1EEE66BB8](v2, v3);
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (BOOL)isPhoneUI
@@ -154,7 +153,7 @@ uint64_t __43__TPSCommonDefines_tipsCoreFrameworkBundle__block_invoke(uint64_t a
   return isCellularChinaSKUDevice_deviceIsCellularChinaSKU;
 }
 
-uint64_t __44__TPSCommonDefines_isCellularChinaSKUDevice__block_invoke()
+uint64_t __44__TPSCommonDefines_isCellularChinaSKUDevice__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = MGGetBoolAnswer();
   isCellularChinaSKUDevice_deviceIsCellularChinaSKU = result;
@@ -390,9 +389,8 @@ LABEL_8:
   return supportsOpenSensitiveURL_gSupportsSensitiveURL;
 }
 
-uint64_t __44__TPSCommonDefines_supportsOpenSensitiveURL__block_invoke(uint64_t a1)
+void *__44__TPSCommonDefines_supportsOpenSensitiveURL__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = [objc_opt_class() supportsEntitlement:@"com.apple.springboard.opensensitiveurl"];
   supportsOpenSensitiveURL_gSupportsSensitiveURL = result;
   return result;
@@ -432,10 +430,10 @@ uint64_t __44__TPSCommonDefines_supportsOpenSensitiveURL__block_invoke(uint64_t 
 
 - (TPSCommonDefines)init
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v39.receiver = self;
-  v39.super_class = TPSCommonDefines;
-  v2 = [(TPSCommonDefines *)&v39 init];
+  v43 = *MEMORY[0x1E69E9840];
+  v38.receiver = self;
+  v38.super_class = TPSCommonDefines;
+  v2 = [(TPSCommonDefines *)&v38 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -470,7 +468,7 @@ uint64_t __44__TPSCommonDefines_supportsOpenSensitiveURL__block_invoke(uint64_t 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v41 = v13;
+      v40 = v13;
       _os_log_impl(&dword_1C00A7000, v14, OS_LOG_TYPE_DEFAULT, "App group path %@", buf, 0xCu);
     }
 
@@ -539,9 +537,9 @@ LABEL_17:
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
-        v41 = v30;
-        v42 = 2048;
-        v43 = maxVersion;
+        v40 = v30;
+        v41 = 2048;
+        v42 = maxVersion;
         _os_log_impl(&dword_1C00A7000, v32, OS_LOG_TYPE_DEFAULT, "Clean up app group defaults as major version changed from version %zd to %zd", buf, 0x16u);
       }
 
@@ -582,7 +580,6 @@ LABEL_25:
 LABEL_26:
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -857,19 +854,19 @@ uint64_t __70__TPSCommonDefines_collectionIdentifierToUseForCollectionIdentifier
 
 - (void)updateCollectionStatus:(unint64_t)status collections:(id)collections
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   collectionsCopy = collections;
   if (![collectionsCopy count])
   {
     goto LABEL_27;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = collectionsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (!v8)
   {
 
@@ -877,20 +874,20 @@ uint64_t __70__TPSCommonDefines_collectionIdentifierToUseForCollectionIdentifier
   }
 
   v9 = v8;
-  v20 = collectionsCopy;
-  v21 = 0;
-  v10 = *v23;
+  v19 = collectionsCopy;
+  v20 = 0;
+  v10 = *v22;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v23 != v10)
+      if (*v22 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v22 + 1) + 8 * i);
-      v13 = [(TPSCommonDefines *)self dateForCollectionIdentifier:v12 dateType:status, v20];
+      v12 = *(*(&v21 + 1) + 8 * i);
+      v13 = [(TPSCommonDefines *)self dateForCollectionIdentifier:v12 dateType:status, v19];
       if (v13)
       {
         date = v13;
@@ -938,7 +935,7 @@ uint64_t __70__TPSCommonDefines_collectionIdentifierToUseForCollectionIdentifier
           {
             [v15 setFirstViewedDate:date];
 LABEL_20:
-            v21 = 1;
+            v20 = 1;
           }
         }
       }
@@ -953,20 +950,18 @@ LABEL_21:
 LABEL_22:
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   }
 
   while (v9);
 
-  collectionsCopy = v20;
-  if (v21)
+  collectionsCopy = v19;
+  if (v20)
   {
     [(TPSCommonDefines *)self syncCollectionStatusMap];
   }
 
 LABEL_27:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetCollectionStatusMap
@@ -1163,28 +1158,27 @@ void __61__TPSCommonDefines_appBundleIDForInstalledAppWithIdentifier___block_inv
       *(v11 + 40) = v10;
     }
 
-    v12 = *(a1 + 32);
     if ([objc_opt_class() isAppValidWithBundleIdentifier:*(*(*(a1 + 48) + 8) + 40)])
     {
-      v13 = [*(a1 + 32) syncQueue];
+      v12 = [*(a1 + 32) syncQueue];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __61__TPSCommonDefines_appBundleIDForInstalledAppWithIdentifier___block_invoke_2;
       block[3] = &unk_1E8102408;
-      v14 = *(a1 + 40);
+      v13 = *(a1 + 40);
       block[4] = *(a1 + 32);
-      v15 = v14;
-      v16 = *(a1 + 48);
+      v14 = v13;
+      v15 = *(a1 + 48);
+      v19 = v14;
       v20 = v15;
-      v21 = v16;
-      dispatch_async(v13, block);
+      dispatch_async(v12, block);
     }
 
     else
     {
-      v17 = *(*(a1 + 48) + 8);
-      v18 = *(v17 + 40);
-      *(v17 + 40) = 0;
+      v16 = *(*(a1 + 48) + 8);
+      v17 = *(v16 + 40);
+      *(v16 + 40) = 0;
     }
   }
 }
@@ -1287,60 +1281,60 @@ void __28__TPSCommonDefines_userType__block_invoke()
 
 - (id)archivedTipStatuses
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   _tipStatusArchivalURL = [objc_opt_class() _tipStatusArchivalURL];
   if (_tipStatusArchivalURL)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     v4 = *MEMORY[0x1E695DB78];
-    v37[0] = *MEMORY[0x1E695DC30];
-    v37[1] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
-    v22 = _tipStatusArchivalURL;
+    v36[0] = *MEMORY[0x1E695DC30];
+    v36[1] = v4;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
+    v21 = _tipStatusArchivalURL;
     v6 = [defaultManager enumeratorAtURL:_tipStatusArchivalURL includingPropertiesForKeys:v5 options:4 errorHandler:&__block_literal_global_242];
 
-    v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     obj = v6;
-    v7 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v7 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v29;
+      v10 = *v28;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v28 + 1) + 8 * i);
-          v27 = 0;
-          [v12 getResourceValue:&v27 forKey:v4 error:0];
-          v13 = v27;
+          v12 = *(*(&v27 + 1) + 8 * i);
+          v26 = 0;
+          [v12 getResourceValue:&v26 forKey:v4 error:0];
+          v13 = v26;
           if (([v13 BOOLValue] & 1) == 0)
           {
-            v26 = v9;
-            v14 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v12 options:1 error:&v26];
-            v15 = v26;
+            v25 = v9;
+            v14 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v12 options:1 error:&v25];
+            v15 = v25;
 
             if (v14)
             {
               v16 = MEMORY[0x1E696ACD0];
               v17 = objc_opt_class();
-              v25 = v15;
-              v18 = [v16 unarchivedObjectOfClass:v17 fromData:v14 error:&v25];
-              v9 = v25;
+              v24 = v15;
+              v18 = [v16 unarchivedObjectOfClass:v17 fromData:v14 error:&v24];
+              v9 = v24;
 
               if (v18)
               {
-                [v23 addObject:v18];
+                [v22 addObject:v18];
               }
 
               else
@@ -1348,7 +1342,7 @@ void __28__TPSCommonDefines_userType__block_invoke()
                 v19 = +[TPSLogger default];
                 if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
                 {
-                  [(TPSCommonDefines *)v34 archivedTipStatuses:v12];
+                  [(TPSCommonDefines *)v33 archivedTipStatuses:v12];
                 }
               }
             }
@@ -1359,7 +1353,7 @@ void __28__TPSCommonDefines_userType__block_invoke()
               if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v33 = v15;
+                v32 = v15;
                 _os_log_error_impl(&dword_1C00A7000, v18, OS_LOG_TYPE_ERROR, "Failed to unarchive tip status. Error: %@", buf, 0xCu);
               }
 
@@ -1368,7 +1362,7 @@ void __28__TPSCommonDefines_userType__block_invoke()
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v8 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v8);
@@ -1379,17 +1373,15 @@ void __28__TPSCommonDefines_userType__block_invoke()
       v9 = 0;
     }
 
-    _tipStatusArchivalURL = v22;
+    _tipStatusArchivalURL = v21;
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v22;
 }
 
 uint64_t __39__TPSCommonDefines_archivedTipStatuses__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1410,11 +1402,10 @@ uint64_t __39__TPSCommonDefines_archivedTipStatuses__block_invoke(uint64_t a1, v
 
 - (void)deleteTipStatusArchivalDirectory
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_ERROR, "Failed to remove item with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_ERROR, "Failed to remove item with error: %@", &v2, 0xCu);
 }
 
 + (id)_tipStatusArchivalURL
@@ -1524,24 +1515,22 @@ LABEL_6:
 
 void __44__TPSCommonDefines_callerIsTipsdWithSource___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_1C00A7000, log, OS_LOG_TYPE_DEBUG, "%@: Caller is not tipsd. Caller is: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_1C00A7000, log, OS_LOG_TYPE_DEBUG, "%@: Caller is not tipsd. Caller is: %@", &v4, 0x16u);
 }
 
 void __44__TPSCommonDefines_callerIsTipsdWithSource___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_DEBUG, "%@: Caller is tipsd.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_DEBUG, "%@: Caller is tipsd.", &v3, 0xCu);
 }
 
 - (void)archivedTipStatuses
@@ -1554,13 +1543,12 @@ void __44__TPSCommonDefines_callerIsTipsdWithSource___block_invoke_cold_2(uint64
 
 void __39__TPSCommonDefines_archivedTipStatuses__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1C00A7000, log, OS_LOG_TYPE_ERROR, "Error enumerating archived tip status directory. URL: %@ Error: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1C00A7000, log, OS_LOG_TYPE_ERROR, "Error enumerating archived tip status directory. URL: %@ Error: %{public}@", &v3, 0x16u);
 }
 
 @end

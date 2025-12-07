@@ -36,39 +36,39 @@
   return v2;
 }
 
-void __45__PREditorColorPalette_standardPaletteColors__block_invoke()
+void __45__PREditorColorPalette_standardPaletteColors__block_invoke(uint64_t a1)
 {
-  v16[12] = *MEMORY[0x1E69E9840];
-  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v15 = [MEMORY[0x1E69DC888] colorNamed:@"lightBlue" inBundle:v0 compatibleWithTraitCollection:0];
-  v16[0] = v15;
-  v14 = [MEMORY[0x1E69DC888] colorNamed:@"darkBlue" inBundle:v0 compatibleWithTraitCollection:0];
-  v16[1] = v14;
-  v13 = [MEMORY[0x1E69DC888] colorNamed:@"plum" inBundle:v0 compatibleWithTraitCollection:0];
-  v16[2] = v13;
-  v12 = [MEMORY[0x1E69DC888] colorNamed:@"magenta" inBundle:v0 compatibleWithTraitCollection:0];
-  v16[3] = v12;
-  v1 = [MEMORY[0x1E69DC888] colorNamed:@"pink" inBundle:v0 compatibleWithTraitCollection:0];
-  v16[4] = v1;
-  v2 = [MEMORY[0x1E69DC888] colorNamed:@"coral" inBundle:v0 compatibleWithTraitCollection:0];
-  v16[5] = v2;
-  v3 = [MEMORY[0x1E69DC888] colorNamed:@"orange" inBundle:v0 compatibleWithTraitCollection:0];
-  v16[6] = v3;
-  v4 = [MEMORY[0x1E69DC888] colorNamed:@"peach" inBundle:v0 compatibleWithTraitCollection:0];
-  v16[7] = v4;
-  v5 = [MEMORY[0x1E69DC888] colorNamed:@"yellow" inBundle:v0 compatibleWithTraitCollection:0];
-  v16[8] = v5;
-  v6 = [MEMORY[0x1E69DC888] colorNamed:@"greenYellow" inBundle:v0 compatibleWithTraitCollection:0];
-  v16[9] = v6;
-  v7 = [MEMORY[0x1E69DC888] colorNamed:@"lightGreen" inBundle:v0 compatibleWithTraitCollection:0];
-  v16[10] = v7;
-  v8 = [MEMORY[0x1E69DC888] colorNamed:@"green" inBundle:v0 compatibleWithTraitCollection:0];
-  v16[11] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:12];
+  v17[12] = *MEMORY[0x1E69E9840];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v16 = [MEMORY[0x1E69DC888] colorNamed:@"lightBlue" inBundle:v1 compatibleWithTraitCollection:0];
+  v17[0] = v16;
+  v15 = [MEMORY[0x1E69DC888] colorNamed:@"darkBlue" inBundle:v1 compatibleWithTraitCollection:0];
+  v17[1] = v15;
+  v14 = [MEMORY[0x1E69DC888] colorNamed:@"plum" inBundle:v1 compatibleWithTraitCollection:0];
+  v17[2] = v14;
+  v13 = [MEMORY[0x1E69DC888] colorNamed:@"magenta" inBundle:v1 compatibleWithTraitCollection:0];
+  v17[3] = v13;
+  v2 = [MEMORY[0x1E69DC888] colorNamed:@"pink" inBundle:v1 compatibleWithTraitCollection:0];
+  v17[4] = v2;
+  v3 = [MEMORY[0x1E69DC888] colorNamed:@"coral" inBundle:v1 compatibleWithTraitCollection:0];
+  v17[5] = v3;
+  v4 = [MEMORY[0x1E69DC888] colorNamed:@"orange" inBundle:v1 compatibleWithTraitCollection:0];
+  v17[6] = v4;
+  v5 = [MEMORY[0x1E69DC888] colorNamed:@"peach" inBundle:v1 compatibleWithTraitCollection:0];
+  v17[7] = v5;
+  v6 = [MEMORY[0x1E69DC888] colorNamed:@"yellow" inBundle:v1 compatibleWithTraitCollection:0];
+  v17[8] = v6;
+  v7 = [MEMORY[0x1E69DC888] colorNamed:@"greenYellow" inBundle:v1 compatibleWithTraitCollection:0];
+  v17[9] = v7;
+  v8 = [MEMORY[0x1E69DC888] colorNamed:@"lightGreen" inBundle:v1 compatibleWithTraitCollection:0];
+  v17[10] = v8;
+  v9 = [MEMORY[0x1E69DC888] colorNamed:@"green" inBundle:v1 compatibleWithTraitCollection:0];
+  v17[11] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:12];
 
-  v10 = [v9 bs_map:&__block_literal_global_18];
-  v11 = standardPaletteColors_posterColors;
-  standardPaletteColors_posterColors = v10;
+  v11 = [v10 bs_map:&__block_literal_global_18];
+  v12 = standardPaletteColors_posterColors;
+  standardPaletteColors_posterColors = v11;
 }
 
 PRPosterColor *__45__PREditorColorPalette_standardPaletteColors__block_invoke_2(uint64_t a1, void *a2)
@@ -96,33 +96,33 @@ PRPosterColor *__45__PREditorColorPalette_standardPaletteColors__block_invoke_2(
   return v2;
 }
 
-void __46__PREditorColorPalette_condensedPaletteColors__block_invoke()
+void __46__PREditorColorPalette_condensedPaletteColors__block_invoke(uint64_t a1)
 {
-  v13[9] = *MEMORY[0x1E69E9840];
-  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v12 = [MEMORY[0x1E69DC888] colorNamed:@"lightBlue" inBundle:v0 compatibleWithTraitCollection:0];
-  v13[0] = v12;
-  v1 = [MEMORY[0x1E69DC888] colorNamed:@"darkBlue" inBundle:v0 compatibleWithTraitCollection:0];
-  v13[1] = v1;
-  v2 = [MEMORY[0x1E69DC888] colorNamed:@"plum" inBundle:v0 compatibleWithTraitCollection:0];
-  v13[2] = v2;
-  v3 = [MEMORY[0x1E69DC888] colorNamed:@"magenta" inBundle:v0 compatibleWithTraitCollection:0];
-  v13[3] = v3;
-  v4 = [MEMORY[0x1E69DC888] colorNamed:@"coral" inBundle:v0 compatibleWithTraitCollection:0];
-  v13[4] = v4;
-  v5 = [MEMORY[0x1E69DC888] colorNamed:@"peach" inBundle:v0 compatibleWithTraitCollection:0];
-  v13[5] = v5;
-  v6 = [MEMORY[0x1E69DC888] colorNamed:@"yellow" inBundle:v0 compatibleWithTraitCollection:0];
-  v13[6] = v6;
-  v7 = [MEMORY[0x1E69DC888] colorNamed:@"lightGreen" inBundle:v0 compatibleWithTraitCollection:0];
-  v13[7] = v7;
-  v8 = [MEMORY[0x1E69DC888] colorNamed:@"green" inBundle:v0 compatibleWithTraitCollection:0];
-  v13[8] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:9];
+  v14[9] = *MEMORY[0x1E69E9840];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v13 = [MEMORY[0x1E69DC888] colorNamed:@"lightBlue" inBundle:v1 compatibleWithTraitCollection:0];
+  v14[0] = v13;
+  v2 = [MEMORY[0x1E69DC888] colorNamed:@"darkBlue" inBundle:v1 compatibleWithTraitCollection:0];
+  v14[1] = v2;
+  v3 = [MEMORY[0x1E69DC888] colorNamed:@"plum" inBundle:v1 compatibleWithTraitCollection:0];
+  v14[2] = v3;
+  v4 = [MEMORY[0x1E69DC888] colorNamed:@"magenta" inBundle:v1 compatibleWithTraitCollection:0];
+  v14[3] = v4;
+  v5 = [MEMORY[0x1E69DC888] colorNamed:@"coral" inBundle:v1 compatibleWithTraitCollection:0];
+  v14[4] = v5;
+  v6 = [MEMORY[0x1E69DC888] colorNamed:@"peach" inBundle:v1 compatibleWithTraitCollection:0];
+  v14[5] = v6;
+  v7 = [MEMORY[0x1E69DC888] colorNamed:@"yellow" inBundle:v1 compatibleWithTraitCollection:0];
+  v14[6] = v7;
+  v8 = [MEMORY[0x1E69DC888] colorNamed:@"lightGreen" inBundle:v1 compatibleWithTraitCollection:0];
+  v14[7] = v8;
+  v9 = [MEMORY[0x1E69DC888] colorNamed:@"green" inBundle:v1 compatibleWithTraitCollection:0];
+  v14[8] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:9];
 
-  v10 = [v9 bs_map:&__block_literal_global_40];
-  v11 = condensedPaletteColors_posterColors;
-  condensedPaletteColors_posterColors = v10;
+  v11 = [v10 bs_map:&__block_literal_global_40];
+  v12 = condensedPaletteColors_posterColors;
+  condensedPaletteColors_posterColors = v11;
 }
 
 PRPosterColor *__46__PREditorColorPalette_condensedPaletteColors__block_invoke_2(uint64_t a1, void *a2)
@@ -150,27 +150,27 @@ PRPosterColor *__46__PREditorColorPalette_condensedPaletteColors__block_invoke_2
   return v2;
 }
 
-void __58__PREditorColorPalette_additionalColorsForExtendedPalette__block_invoke()
+void __58__PREditorColorPalette_additionalColorsForExtendedPalette__block_invoke(uint64_t a1)
 {
-  v10[6] = *MEMORY[0x1E69E9840];
-  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v1 = [MEMORY[0x1E69DC888] colorNamed:@"desaturatedGreen" inBundle:v0 compatibleWithTraitCollection:0];
-  v10[0] = v1;
-  v2 = [MEMORY[0x1E69DC888] colorNamed:@"desaturatedBlue" inBundle:v0 compatibleWithTraitCollection:0];
-  v10[1] = v2;
-  v3 = [MEMORY[0x1E69DC888] colorNamed:@"desaturatedPurple" inBundle:v0 compatibleWithTraitCollection:0];
-  v10[2] = v3;
-  v4 = [MEMORY[0x1E69DC888] colorNamed:@"desaturatedBrown" inBundle:v0 compatibleWithTraitCollection:0];
-  v10[3] = v4;
-  v5 = [MEMORY[0x1E69DC888] whiteColor];
-  v10[4] = v5;
-  v6 = [MEMORY[0x1E69DC888] blackColor];
-  v10[5] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
+  v11[6] = *MEMORY[0x1E69E9840];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v2 = [MEMORY[0x1E69DC888] colorNamed:@"desaturatedGreen" inBundle:v1 compatibleWithTraitCollection:0];
+  v11[0] = v2;
+  v3 = [MEMORY[0x1E69DC888] colorNamed:@"desaturatedBlue" inBundle:v1 compatibleWithTraitCollection:0];
+  v11[1] = v3;
+  v4 = [MEMORY[0x1E69DC888] colorNamed:@"desaturatedPurple" inBundle:v1 compatibleWithTraitCollection:0];
+  v11[2] = v4;
+  v5 = [MEMORY[0x1E69DC888] colorNamed:@"desaturatedBrown" inBundle:v1 compatibleWithTraitCollection:0];
+  v11[3] = v5;
+  v6 = [MEMORY[0x1E69DC888] whiteColor];
+  v11[4] = v6;
+  v7 = [MEMORY[0x1E69DC888] blackColor];
+  v11[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
 
-  v8 = [v7 bs_map:&__block_literal_global_54_0];
-  v9 = additionalColorsForExtendedPalette_posterColors;
-  additionalColorsForExtendedPalette_posterColors = v8;
+  v9 = [v8 bs_map:&__block_literal_global_54_0];
+  v10 = additionalColorsForExtendedPalette_posterColors;
+  additionalColorsForExtendedPalette_posterColors = v9;
 }
 
 PRPosterColor *__58__PREditorColorPalette_additionalColorsForExtendedPalette__block_invoke_2(uint64_t a1, void *a2)

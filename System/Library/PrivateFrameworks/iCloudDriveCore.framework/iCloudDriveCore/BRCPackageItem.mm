@@ -39,7 +39,7 @@
 
 - (BOOL)updateContentSignature:(id)signature boundaryKey:(id)key error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   keyCopy = key;
   if (self->_type != 2)
@@ -58,12 +58,12 @@
     {
       *buf = 138413058;
       selfCopy2 = self;
-      v30 = 2112;
-      v31 = signatureCopy;
-      v32 = 2112;
-      v33 = br_errorFromErrno;
-      v34 = 2112;
-      v35 = v12;
+      v29 = 2112;
+      v30 = signatureCopy;
+      v31 = 2112;
+      v32 = br_errorFromErrno;
+      v33 = 2112;
+      v34 = v12;
       _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] %@ - Failed opening contents at '%@'. Error: %@%@", buf, 0x2Au);
     }
   }
@@ -71,9 +71,9 @@
   else
   {
     v11 = v10;
-    v27 = 0;
-    v12 = [MEMORY[0x277CBC6A8] br_signatureWithFileDescriptor:v10 boundaryKey:keyCopy error:&v27];
-    v13 = v27;
+    v26 = 0;
+    v12 = [MEMORY[0x277CBC6A8] br_signatureWithFileDescriptor:v10 boundaryKey:keyCopy error:&v26];
+    v13 = v26;
     br_errorFromErrno = v13;
     if (v12)
     {
@@ -95,12 +95,12 @@
       {
         *buf = 138413058;
         selfCopy2 = self;
-        v30 = 2112;
-        v31 = signatureCopy;
-        v32 = 2112;
-        v33 = br_errorFromErrno;
-        v34 = 2112;
-        v35 = contentSignature;
+        v29 = 2112;
+        v30 = signatureCopy;
+        v31 = 2112;
+        v32 = br_errorFromErrno;
+        v33 = 2112;
+        v34 = contentSignature;
         _os_log_error_impl(&dword_223E7A000, v19, 0x90u, "[ERROR] %@ - Failed calculating content signature at '%@'. Error: %@%@", buf, 0x2Au);
       }
     }
@@ -128,20 +128,20 @@ LABEL_20:
   v21 = brc_default_log();
   if (os_log_type_enabled(v21, 0x90u))
   {
-    v26 = "(passed to caller)";
+    v25 = "(passed to caller)";
     *buf = 136315906;
     selfCopy2 = "[BRCPackageItem(FPFSAdditions) updateContentSignature:boundaryKey:error:]";
-    v30 = 2080;
+    v29 = 2080;
     if (!error)
     {
-      v26 = "(ignored by caller)";
+      v25 = "(ignored by caller)";
     }
 
-    v31 = v26;
-    v32 = 2112;
-    v33 = v17;
-    v34 = 2112;
-    v35 = v20;
+    v30 = v25;
+    v31 = 2112;
+    v32 = v17;
+    v33 = 2112;
+    v34 = v20;
     _os_log_error_impl(&dword_223E7A000, v21, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
   }
 
@@ -153,19 +153,18 @@ LABEL_20:
 
 LABEL_21:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (id)_initWithURL:(id)l inPackage:(id)package forItem:(id)item error:(id *)error
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   lCopy = l;
   packageCopy = package;
   itemCopy = item;
-  v52.receiver = self;
-  v52.super_class = BRCPackageItem;
-  v13 = [(BRCPackageItem *)&v52 init];
+  v51.receiver = self;
+  v51.super_class = BRCPackageItem;
+  v13 = [(BRCPackageItem *)&v51 init];
   if (!v13)
   {
     goto LABEL_33;
@@ -186,12 +185,12 @@ LABEL_21:
     }
   }
 
-  v51 = 0;
+  v50 = 0;
   v16 = *MEMORY[0x277CBE7A0];
-  v17 = [packageCopy getResourceValue:&v51 forKey:*MEMORY[0x277CBE7A0] error:error];
-  v18 = v51;
+  v17 = [packageCopy getResourceValue:&v50 forKey:*MEMORY[0x277CBE7A0] error:error];
+  v18 = v50;
   v19 = 0;
-  if (!v17 || (v50 = 0, v20 = [lCopy getResourceValue:&v50 forKey:v16 error:error], v21 = v50, v19 = v21, (v20 & 1) == 0))
+  if (!v17 || (v49 = 0, v20 = [lCopy getResourceValue:&v49 forKey:v16 error:error], v21 = v49, v19 = v21, (v20 & 1) == 0))
   {
     v29 = brc_bread_crumbs();
     v30 = brc_default_log();
@@ -226,7 +225,7 @@ LABEL_13:
         goto LABEL_16;
       }
 
-      v48 = brc_bread_crumbs();
+      v47 = brc_bread_crumbs();
       v27 = brc_default_log();
       if (!os_log_type_enabled(v27, 0x90u))
       {
@@ -235,21 +234,21 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v47 = "(passed to caller)";
+      v46 = "(passed to caller)";
       *buf = 136315906;
-      *v54 = "[BRCPackageItem(FPFSAdditions) _initWithURL:inPackage:forItem:error:]";
-      *&v54[8] = 2080;
+      *v53 = "[BRCPackageItem(FPFSAdditions) _initWithURL:inPackage:forItem:error:]";
+      *&v53[8] = 2080;
       if (!error)
       {
-        v47 = "(ignored by caller)";
+        v46 = "(ignored by caller)";
       }
 
 LABEL_46:
-      *&v54[10] = v47;
-      v55 = 2112;
-      v56 = v26;
-      v57 = 2112;
-      v58 = v48;
+      *&v53[10] = v46;
+      v54 = 2112;
+      v55 = v26;
+      v56 = 2112;
+      v57 = v47;
       _os_log_error_impl(&dword_223E7A000, v27, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       goto LABEL_12;
     }
@@ -264,12 +263,12 @@ LABEL_46:
     if (xattrs)
     {
       [(BRCImportObject *)v25 xattrs];
-      v35 = v49 = v25;
+      v35 = v48 = v25;
       session2 = [itemCopy session];
       xattrStager = [session2 xattrStager];
       [(BRCPackageItem *)v13 _setXattrs:v35 xattrStager:xattrStager];
 
-      v25 = v49;
+      v25 = v48;
     }
 
     v13->_mtime = [(BRCImportObject *)v25 modificationTime];
@@ -301,16 +300,16 @@ LABEL_46:
 
       if (![(BRCImportObject *)v25 isSymLink])
       {
-        v44 = brc_bread_crumbs();
-        v45 = brc_default_log();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v43 = brc_bread_crumbs();
+        v44 = brc_default_log();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
           fileType = [(BRCImportObject *)v25 fileType];
           *buf = 67109378;
-          *v54 = fileType;
-          *&v54[4] = 2112;
-          *&v54[6] = v44;
-          _os_log_impl(&dword_223E7A000, v45, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't determine item type %d%@", buf, 0x12u);
+          *v53 = fileType;
+          *&v53[4] = 2112;
+          *&v53[6] = v43;
+          _os_log_impl(&dword_223E7A000, v44, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't determine item type %d%@", buf, 0x12u);
         }
 
         v26 = [MEMORY[0x277CCA9B8] brc_errorItemIneligibleFromSyncForInode:0 localizedDescription:0];
@@ -319,20 +318,20 @@ LABEL_46:
           goto LABEL_13;
         }
 
-        v48 = brc_bread_crumbs();
+        v47 = brc_bread_crumbs();
         v27 = brc_default_log();
         if (!os_log_type_enabled(v27, 0x90u))
         {
           goto LABEL_12;
         }
 
-        v47 = "(passed to caller)";
+        v46 = "(passed to caller)";
         *buf = 136315906;
-        *v54 = "[BRCPackageItem(FPFSAdditions) _initWithURL:inPackage:forItem:error:]";
-        *&v54[8] = 2080;
+        *v53 = "[BRCPackageItem(FPFSAdditions) _initWithURL:inPackage:forItem:error:]";
+        *&v53[8] = 2080;
         if (!error)
         {
-          v47 = "(ignored by caller)";
+          v46 = "(ignored by caller)";
         }
 
         goto LABEL_46;
@@ -359,7 +358,6 @@ LABEL_20:
   v31 = 0;
 LABEL_34:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -374,7 +372,7 @@ LABEL_34:
 
 + (id)packageItemsForItemRowID:(unint64_t)d order:(unint64_t)order db:(id)db
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dbCopy = db;
   v8 = brc_bread_crumbs();
   v9 = brc_default_log();
@@ -382,10 +380,10 @@ LABEL_34:
   {
     *buf = 134218498;
     dCopy = d;
-    v17 = 2048;
+    v16 = 2048;
     orderCopy = order;
-    v19 = 2112;
-    v20 = v8;
+    v18 = 2112;
+    v19 = v8;
     _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_INFO, "[INFO] packageItemsFor itemRowID [%llu] order [%lu]%@", buf, 0x20u);
   }
 
@@ -407,8 +405,6 @@ LABEL_7:
 LABEL_9:
   v12 = [v11 enumerateObjects:&__block_literal_global_39];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
@@ -422,7 +418,7 @@ id __67__BRCPackageItem_FPFSAdditions__packageItemsForItemRowID_order_db___block
 
 - (BOOL)saveToDBWithSession:(id)session
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   if (!self->_assetRank)
   {
@@ -437,9 +433,9 @@ id __67__BRCPackageItem_FPFSAdditions__packageItemsForItemRowID_order_db___block
     {
       if (type == 2)
       {
-        v7 = v38;
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
+        v7 = v37;
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
         v8 = __55__BRCPackageItem_DatabaseMethods__saveToDBWithSession___block_invoke;
         goto LABEL_16;
       }
@@ -452,13 +448,13 @@ LABEL_17:
       sqliteErrorHandler = [clientDB sqliteErrorHandler];
 
       clientDB2 = [sessionCopy clientDB];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __55__BRCPackageItem_DatabaseMethods__saveToDBWithSession___block_invoke_35;
-      v34[3] = &unk_2784FFB58;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __55__BRCPackageItem_DatabaseMethods__saveToDBWithSession___block_invoke_35;
+      v33[3] = &unk_2784FFB58;
       v12 = sqliteErrorHandler;
-      v35 = v12;
-      LOBYTE(sqliteErrorHandler) = (v11)[2](v11, clientDB2, v34);
+      v34 = v12;
+      LOBYTE(sqliteErrorHandler) = (v11)[2](v11, clientDB2, v33);
 
       if (sqliteErrorHandler)
       {
@@ -480,19 +476,19 @@ LABEL_17:
       {
         *buf = 138412546;
         selfCopy3 = self;
-        v41 = 2112;
-        v42 = v20;
+        v40 = 2112;
+        v41 = v20;
         _os_log_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEFAULT, "[NOTICE] Overriding an already declared item %@%@", buf, 0x16u);
       }
 
       clientDB4 = [sessionCopy clientDB];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __55__BRCPackageItem_DatabaseMethods__saveToDBWithSession___block_invoke_37;
-      v32[3] = &unk_2785046D0;
-      v32[4] = self;
-      v33 = v11;
-      v23 = [clientDB4 groupInTransaction:v32];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __55__BRCPackageItem_DatabaseMethods__saveToDBWithSession___block_invoke_37;
+      v31[3] = &unk_2785046D0;
+      v31[4] = self;
+      v32 = v11;
+      v23 = [clientDB4 groupInTransaction:v31];
 
       if (v23)
       {
@@ -511,10 +507,10 @@ LABEL_23:
           lastError2 = [clientDB5 lastError];
           *buf = 138412802;
           selfCopy3 = self;
-          v41 = 2112;
-          v42 = lastError2;
-          v43 = 2112;
-          v44 = v24;
+          v40 = 2112;
+          v41 = lastError2;
+          v42 = 2112;
+          v43 = v24;
           _os_log_error_impl(&dword_223E7A000, v25, 0x90u, "[ERROR] failed to save item %@ to DB: %@%@", buf, 0x20u);
         }
 
@@ -531,9 +527,9 @@ LABEL_23:
       goto LABEL_29;
     }
 
-    v7 = v37;
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
+    v7 = v36;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
     v8 = __55__BRCPackageItem_DatabaseMethods__saveToDBWithSession___block_invoke_2;
 LABEL_16:
     v7[2] = v8;
@@ -550,9 +546,9 @@ LABEL_16:
 
   if (type == 3)
   {
-    v7 = v36;
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
+    v7 = v35;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
     v8 = __55__BRCPackageItem_DatabaseMethods__saveToDBWithSession___block_invoke_3;
     goto LABEL_16;
   }
@@ -568,8 +564,8 @@ LABEL_16:
   {
     *buf = 138412546;
     selfCopy3 = self;
-    v41 = 2112;
-    v42 = v9;
+    v40 = 2112;
+    v41 = v9;
     _os_log_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEFAULT, "[NOTICE] Ignoring tombstone pkg item %@%@", buf, 0x16u);
   }
 
@@ -583,7 +579,6 @@ LABEL_16:
   v13 = 1;
 LABEL_29:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -667,7 +662,7 @@ uint64_t __55__BRCPackageItem_DatabaseMethods__saveToDBWithSession___block_invok
 
 + (BOOL)dumpSession:(id)session toContext:(id)context db:(id)db error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   contextCopy = context;
   dbCopy = db;
@@ -700,20 +695,20 @@ uint64_t __55__BRCPackageItem_DatabaseMethods__saveToDBWithSession___block_invok
       v18 = brc_default_log();
       if (os_log_type_enabled(v18, 0x90u))
       {
-        v22 = "(passed to caller)";
+        v21 = "(passed to caller)";
         *buf = 136315906;
-        v24 = "+[BRCPackageItem(DatabaseMethods) dumpSession:toContext:db:error:]";
-        v25 = 2080;
+        v23 = "+[BRCPackageItem(DatabaseMethods) dumpSession:toContext:db:error:]";
+        v24 = 2080;
         if (!error)
         {
-          v22 = "(ignored by caller)";
+          v21 = "(ignored by caller)";
         }
 
-        v26 = v22;
-        v27 = 2112;
-        v28 = error2;
-        v29 = 2112;
-        v30 = v17;
+        v25 = v21;
+        v26 = 2112;
+        v27 = error2;
+        v28 = 2112;
+        v29 = v17;
         _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -725,7 +720,6 @@ uint64_t __55__BRCPackageItem_DatabaseMethods__saveToDBWithSession___block_invok
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return error == 0;
 }
 
@@ -768,8 +762,7 @@ uint64_t __55__BRCPackageItem_DatabaseMethods__saveToDBWithSession___block_invok
   }
 
   fp_obfuscatedPath = [(NSString *)self->_pathInPackage fp_obfuscatedPath];
-  assetRank = self->_assetRank;
-  [v3 appendFormat:@"pkg:%lld%s p:'%@' rank:%lld ino:%lld", itemRowID, v5, fp_obfuscatedPath, assetRank, self->_fileID];
+  [v3 appendFormat:@"pkg:%lld%s p:'%@' rank:%lld ino:%lld", itemRowID, v5, fp_obfuscatedPath, self->_assetRank, self->_fileID];
 
   type = self->_type;
   if (type > 2)
@@ -788,8 +781,8 @@ uint64_t __55__BRCPackageItem_DatabaseMethods__saveToDBWithSession___block_invok
       }
 
       fp_obfuscatedPath2 = brc_bread_crumbs();
-      v17 = brc_default_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v16 = brc_default_log();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         [(BRCPackageItem *)fp_obfuscatedPath2 description];
       }
@@ -809,15 +802,15 @@ uint64_t __55__BRCPackageItem_DatabaseMethods__saveToDBWithSession___block_invok
     generationID = self->_generationID;
     mtime = self->_mtime;
     size = self->_size;
-    v22[0] = 114;
+    v21[0] = 114;
     mode = self->_mode;
-    v13 = (mode & 1) != 0 ? 119 : 45;
-    v22[1] = v13;
-    v14 = (mode & 2) != 0 ? 120 : 45;
-    v22[2] = v14;
-    v22[3] = (mode << 29 >> 31) & 0x4C;
-    v22[4] = 0;
-    [v3 appendFormat:@" file gen:%@ size:%llu mtime:%llu mode:%s", generationID, size, mtime, v22];
+    v12 = (mode & 1) != 0 ? 119 : 45;
+    v21[1] = v12;
+    v13 = (mode & 2) != 0 ? 120 : 45;
+    v21[2] = v13;
+    v21[3] = (mode << 29 >> 31) & 0x4C;
+    v21[4] = 0;
+    [v3 appendFormat:@" file gen:%@ size:%llu mtime:%llu mode:%s", generationID, size, mtime, v21];
     contentSignature = self->_contentSignature;
     if (contentSignature)
     {
@@ -860,26 +853,24 @@ LABEL_23:
 
 + (id)packageItemsForItem:(id)item order:(unint64_t)order
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412802;
-    v15 = itemCopy;
-    v16 = 2048;
+    v13 = 138412802;
+    v14 = itemCopy;
+    v15 = 2048;
     dbRowID = [itemCopy dbRowID];
-    v18 = 2112;
-    v19 = v7;
-    _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_INFO, "[INFO] calling packageItemsForItem %@ item_rowid %llu%@", &v14, 0x20u);
+    v17 = 2112;
+    v18 = v7;
+    _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_INFO, "[INFO] calling packageItemsForItem %@ item_rowid %llu%@", &v13, 0x20u);
   }
 
   dbRowID2 = [itemCopy dbRowID];
   v10 = [itemCopy db];
   v11 = [self packageItemsForItemRowID:dbRowID2 order:order db:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

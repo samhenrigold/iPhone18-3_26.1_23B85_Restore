@@ -24,37 +24,37 @@
 
 + (id)authorizationStatusesForBundleIdentifier:(id)identifier types:(id)types profile:(id)profile error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = [self authorizationRecordsByTypeForBundleIdentifier:identifier types:types profile:profile error:error];
   if (v6)
   {
     v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
-          v14 = [v8 objectForKeyedSubscript:{v13, v18}];
+          v13 = *(*(&v17 + 1) + 8 * i);
+          v14 = [v8 objectForKeyedSubscript:{v13, v17}];
           v15 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v14, "status")}];
           [v7 setObject:v15 forKeyedSubscript:v13];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -65,45 +65,43 @@
   {
     v7 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)authorizationRequestsForBundleIdentifier:(id)identifier types:(id)types profile:(id)profile error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = [self authorizationRecordsByTypeForBundleIdentifier:identifier types:types profile:profile error:error];
   if (v6)
   {
     v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
-          v14 = [v8 objectForKeyedSubscript:{v13, v18}];
+          v13 = *(*(&v17 + 1) + 8 * i);
+          v14 = [v8 objectForKeyedSubscript:{v13, v17}];
           v15 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v14, "request")}];
           [v7 setObject:v15 forKeyedSubscript:v13];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -114,8 +112,6 @@
   {
     v7 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -133,7 +129,7 @@
     v12 = v7;
     v8 = v7;
     [v6 enumerateKeysAndObjectsUsingBlock:v11];
-    v9 = [v8 copy];
+    v9 = objc_msgSend_copy(v8);
   }
 
   else
@@ -153,7 +149,7 @@ void __91__HDAuthorizationEntity_authorizationRecordsByTypeForBundleIdentifier_t
 
 + (id)readAuthorizationStatusesByTypeForBundleIdentifier:(id)identifier types:(id)types profile:(id)profile error:(id *)error
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   typesCopy = types;
   profileCopy = profile;
@@ -170,15 +166,15 @@ void __91__HDAuthorizationEntity_authorizationRecordsByTypeForBundleIdentifier_t
   {
     if ([v15 count])
     {
-      v57 = profileCopy;
-      v58 = identifierCopy;
-      v56 = typesCopy;
+      v56 = profileCopy;
+      v57 = identifierCopy;
+      v55 = typesCopy;
       v16 = [MEMORY[0x277CCD720] _typesIncludingParentTypes:typesCopy];
       allObjects = [v15 allObjects];
       v18 = [allObjects hk_map:&__block_literal_global_245];
       v19 = [v18 componentsJoinedByString:{@", "}];
 
-      v55 = v19;
+      v54 = v19;
       v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ in (%@)", @"source_id", v19];
       if ([v16 count])
       {
@@ -193,46 +189,46 @@ void __91__HDAuthorizationEntity_authorizationRecordsByTypeForBundleIdentifier_t
 
       v25 = MEMORY[0x277CCACA8];
       disambiguatedDatabaseTable = [self disambiguatedDatabaseTable];
-      v54 = v20;
+      v53 = v20;
       v27 = [v25 stringWithFormat:@"SELECT %@, %@, %@, %@, %@, %@, %@ FROM %@ WHERE %@ ORDER BY %@ ASC, %@ DESC, %@ DESC, %@ DESC", @"object_type", @"status", @"request", @"mode", @"deleted_object_anchor", @"object_limit_anchor", @"object_limit_modified", disambiguatedDatabaseTable, v20, @"object_type", @"modification_epoch", @"date_modified", @"status"];
 
       v28 = objc_alloc_init(MEMORY[0x277CBEB38]);
       database = [profileCopy database];
-      v63[0] = MEMORY[0x277D85DD0];
-      v63[1] = 3221225472;
-      v63[2] = __96__HDAuthorizationEntity_readAuthorizationStatusesByTypeForBundleIdentifier_types_profile_error___block_invoke_3;
-      v63[3] = &unk_278625F78;
+      v62[0] = MEMORY[0x277D85DD0];
+      v62[1] = 3221225472;
+      v62[2] = __96__HDAuthorizationEntity_readAuthorizationStatusesByTypeForBundleIdentifier_types_profile_error___block_invoke_3;
+      v62[3] = &unk_278625F78;
       selfCopy = self;
-      v53 = v27;
-      v64 = v53;
-      v65 = v15;
-      v52 = v16;
-      v66 = v52;
+      v52 = v27;
+      v63 = v52;
+      v64 = v15;
+      v51 = v16;
+      v65 = v51;
       v30 = v28;
-      v67 = v30;
-      v68 = v58;
-      v51 = [self performReadTransactionWithHealthDatabase:database error:error block:v63];
+      v66 = v30;
+      v67 = v57;
+      v50 = [self performReadTransactionWithHealthDatabase:database error:error block:v62];
 
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
       v60 = 0u;
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
       allKeys = [v30 allKeys];
-      v32 = [allKeys countByEnumeratingWithState:&v59 objects:v70 count:16];
+      v32 = [allKeys countByEnumeratingWithState:&v58 objects:v69 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v60;
+        v34 = *v59;
         do
         {
           for (i = 0; i != v33; ++i)
           {
-            if (*v60 != v34)
+            if (*v59 != v34)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v36 = *(*(&v59 + 1) + 8 * i);
+            v36 = *(*(&v58 + 1) + 8 * i);
             parentType = [v36 parentType];
 
             if (parentType)
@@ -267,13 +263,13 @@ void __91__HDAuthorizationEntity_authorizationRecordsByTypeForBundleIdentifier_t
             }
           }
 
-          v33 = [allKeys countByEnumeratingWithState:&v59 objects:v70 count:16];
+          v33 = [allKeys countByEnumeratingWithState:&v58 objects:v69 count:16];
         }
 
         while (v33);
       }
 
-      if (v51)
+      if (v50)
       {
         v46 = v30;
       }
@@ -285,9 +281,9 @@ void __91__HDAuthorizationEntity_authorizationRecordsByTypeForBundleIdentifier_t
 
       v47 = v46;
 
-      profileCopy = v57;
-      identifierCopy = v58;
-      typesCopy = v56;
+      profileCopy = v56;
+      identifierCopy = v57;
+      typesCopy = v55;
     }
 
     else
@@ -300,8 +296,6 @@ void __91__HDAuthorizationEntity_authorizationRecordsByTypeForBundleIdentifier_t
   {
     v47 = 0;
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return v47;
 }
@@ -330,17 +324,17 @@ uint64_t __96__HDAuthorizationEntity_readAuthorizationStatusesByTypeForBundleIde
 
 void __96__HDAuthorizationEntity_readAuthorizationStatusesByTypeForBundleIdentifier_types_profile_error___block_invoke_4(uint64_t a1, sqlite3_stmt *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     v8 = 1;
     do
     {
@@ -348,17 +342,17 @@ void __96__HDAuthorizationEntity_readAuthorizationStatusesByTypeForBundleIdentif
       v10 = v8;
       do
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
         v8 = v10 + 1;
-        sqlite3_bind_int64(a2, v10++, [*(*(&v22 + 1) + 8 * v9++) persistentID]);
+        sqlite3_bind_int64(a2, v10++, [*(*(&v21 + 1) + 8 * v9++) persistentID]);
       }
 
       while (v6 != v9);
-      v6 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v6);
@@ -369,39 +363,37 @@ void __96__HDAuthorizationEntity_readAuthorizationStatusesByTypeForBundleIdentif
     v8 = 1;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v11 = *(a1 + 40);
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       v15 = 0;
       v16 = v8;
       do
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
         v8 = v16 + 1;
-        sqlite3_bind_int64(a2, v16++, [*(*(&v18 + 1) + 8 * v15++) code]);
+        sqlite3_bind_int64(a2, v16++, [*(*(&v17 + 1) + 8 * v15++) code]);
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __96__HDAuthorizationEntity_readAuthorizationStatusesByTypeForBundleIdentifier_types_profile_error___block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -513,25 +505,24 @@ LABEL_3:
 uint64_t __76__HDAuthorizationEntity_modificationDateForSourceEntity_type_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = [a2 databaseForEntityClass:*(a1 + 56)];
-  v6 = *(a1 + 56);
-  v7 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 32)];
-  v8 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 40)];
-  v9 = v7;
-  v10 = objc_opt_self();
-  v11 = [(HDAuthorizationEntity *)v10 _predicateForSourceEntities:v9];
+  v6 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 32)];
+  v7 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 40)];
+  v8 = v6;
+  v9 = objc_opt_self();
+  v10 = [(HDAuthorizationEntity *)v9 _predicateForSourceEntities:v8];
 
-  v12 = [(HDAuthorizationEntity *)v10 _predicateForTypes:v8];
+  v11 = [(HDAuthorizationEntity *)v9 _predicateForTypes:v7];
 
-  v13 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v12 otherPredicate:v11];
+  v12 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v11 otherPredicate:v10];
 
-  v14 = [*(a1 + 56) anyInDatabase:v5 predicate:v13 error:a3];
-  v15 = v14;
-  if (v14)
+  v13 = [*(a1 + 56) anyInDatabase:v5 predicate:v12 error:a3];
+  v14 = v13;
+  if (v13)
   {
-    v16 = [v14 dateForProperty:@"date_modified" database:v5];
-    v17 = *(*(a1 + 48) + 8);
-    v18 = *(v17 + 40);
-    *(v17 + 40) = v16;
+    v15 = [v13 dateForProperty:@"date_modified" database:v5];
+    v16 = *(*(a1 + 48) + 8);
+    v17 = *(v16 + 40);
+    *(v16 + 40) = v15;
   }
 
   return 1;
@@ -638,9 +629,9 @@ LABEL_5:
 
 uint64_t __126__HDAuthorizationEntity_setAuthorizationStatuses_authorizationRequests_authorizationModes_sourceEntity_options_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v122 = *MEMORY[0x277D85DE8];
-  v80 = a2;
-  v79 = [v80 databaseForEntityClass:*(a1 + 80)];
+  v120 = *MEMORY[0x277D85DE8];
+  v78 = a2;
+  v77 = [v78 databaseForEntityClass:*(a1 + 80)];
   if (![*(a1 + 32) existsInDatabase:?])
   {
     [MEMORY[0x277CCA9B8] hk_assignError:a3 code:3 format:{@"Source %lld does not exist", objc_msgSend(*(a1 + 32), "persistentID")}];
@@ -651,124 +642,123 @@ uint64_t __126__HDAuthorizationEntity_setAuthorizationStatuses_authorizationRequ
   if (!v5)
   {
 LABEL_66:
-    v62 = 0;
+    v61 = 0;
     goto LABEL_85;
   }
 
-  v77 = v5;
-  v78 = a3;
-  v6 = *(a1 + 80);
-  v7 = a1;
-  v8 = *(a1 + 48);
-  v9 = v7[7];
-  v10 = v7[8];
-  v11 = v7[4];
-  v12 = v7[9];
-  v13 = [v5 longLongValue];
-  v89 = v7[11];
-  v90 = v13;
-  v75 = v7;
-  v14 = v7[5];
-  v15 = v8;
-  v94 = v9;
-  v100 = v10;
-  v16 = v11;
-  v93 = v12;
-  v17 = v14;
-  v92 = v79;
-  v76 = v80;
-  v91 = objc_opt_self();
-  if (!v16)
+  v75 = v5;
+  v76 = a3;
+  v6 = a1;
+  v7 = *(a1 + 48);
+  v8 = v6[7];
+  v9 = v6[8];
+  v10 = v6[4];
+  v11 = v6[9];
+  v12 = [v5 longLongValue];
+  v87 = v6[11];
+  v88 = v12;
+  v73 = v6;
+  v13 = v6[5];
+  v14 = v7;
+  v92 = v8;
+  v98 = v9;
+  v15 = v10;
+  v91 = v11;
+  v16 = v13;
+  v90 = v77;
+  v74 = v78;
+  v89 = objc_opt_self();
+  if (!v15)
   {
-    v70 = [MEMORY[0x277CCA890] currentHandler];
-    [v70 handleFailureInMethod:sel__setAuthorizationStatuses_authorizationRequests_authorizationModes_sourceEntity_dateModified_syncProvenance_objectAnchor_options_profile_database_transaction_error_ object:v91 file:@"HDAuthorizationEntity.m" lineNumber:874 description:{@"Invalid parameter not satisfying: %@", @"sourceEntity != nil"}];
+    v68 = [MEMORY[0x277CCA890] currentHandler];
+    [v68 handleFailureInMethod:sel__setAuthorizationStatuses_authorizationRequests_authorizationModes_sourceEntity_dateModified_syncProvenance_objectAnchor_options_profile_database_transaction_error_ object:v89 file:@"HDAuthorizationEntity.m" lineNumber:874 description:{@"Invalid parameter not satisfying: %@", @"sourceEntity != nil"}];
 
-    if (v15)
+    if (v14)
     {
       goto LABEL_5;
     }
 
 LABEL_87:
-    v71 = [MEMORY[0x277CCA890] currentHandler];
-    [v71 handleFailureInMethod:sel__setAuthorizationStatuses_authorizationRequests_authorizationModes_sourceEntity_dateModified_syncProvenance_objectAnchor_options_profile_database_transaction_error_ object:v91 file:@"HDAuthorizationEntity.m" lineNumber:875 description:{@"Invalid parameter not satisfying: %@", @"authorizationStatuses != nil"}];
+    v69 = [MEMORY[0x277CCA890] currentHandler];
+    [v69 handleFailureInMethod:sel__setAuthorizationStatuses_authorizationRequests_authorizationModes_sourceEntity_dateModified_syncProvenance_objectAnchor_options_profile_database_transaction_error_ object:v89 file:@"HDAuthorizationEntity.m" lineNumber:875 description:{@"Invalid parameter not satisfying: %@", @"authorizationStatuses != nil"}];
 
     goto LABEL_5;
   }
 
-  if (!v15)
+  if (!v14)
   {
     goto LABEL_87;
   }
 
 LABEL_5:
-  v18 = v94;
-  if (!v94)
+  v17 = v92;
+  if (!v92)
   {
-    v72 = [MEMORY[0x277CCA890] currentHandler];
-    [v72 handleFailureInMethod:sel__setAuthorizationStatuses_authorizationRequests_authorizationModes_sourceEntity_dateModified_syncProvenance_objectAnchor_options_profile_database_transaction_error_ object:v91 file:@"HDAuthorizationEntity.m" lineNumber:876 description:{@"Invalid parameter not satisfying: %@", @"authorizationRequests != nil"}];
+    v70 = [MEMORY[0x277CCA890] currentHandler];
+    [v70 handleFailureInMethod:sel__setAuthorizationStatuses_authorizationRequests_authorizationModes_sourceEntity_dateModified_syncProvenance_objectAnchor_options_profile_database_transaction_error_ object:v89 file:@"HDAuthorizationEntity.m" lineNumber:876 description:{@"Invalid parameter not satisfying: %@", @"authorizationRequests != nil"}];
   }
 
-  if (!v100)
+  if (!v98)
   {
-    v73 = [MEMORY[0x277CCA890] currentHandler];
-    [v73 handleFailureInMethod:sel__setAuthorizationStatuses_authorizationRequests_authorizationModes_sourceEntity_dateModified_syncProvenance_objectAnchor_options_profile_database_transaction_error_ object:v91 file:@"HDAuthorizationEntity.m" lineNumber:877 description:{@"Invalid parameter not satisfying: %@", @"authorizationModes != nil"}];
+    v71 = [MEMORY[0x277CCA890] currentHandler];
+    [v71 handleFailureInMethod:sel__setAuthorizationStatuses_authorizationRequests_authorizationModes_sourceEntity_dateModified_syncProvenance_objectAnchor_options_profile_database_transaction_error_ object:v89 file:@"HDAuthorizationEntity.m" lineNumber:877 description:{@"Invalid parameter not satisfying: %@", @"authorizationModes != nil"}];
   }
 
-  v19 = [MEMORY[0x277CBEB58] set];
-  v20 = [v15 allKeys];
-  [v19 addObjectsFromArray:v20];
+  v18 = [MEMORY[0x277CBEB58] set];
+  v19 = [v14 allKeys];
+  [v18 addObjectsFromArray:v19];
 
-  v21 = [v94 allKeys];
-  [v19 addObjectsFromArray:v21];
+  v20 = [v92 allKeys];
+  [v18 addObjectsFromArray:v20];
 
-  v22 = [v100 allKeys];
-  [v19 addObjectsFromArray:v22];
+  v21 = [v98 allKeys];
+  [v18 addObjectsFromArray:v21];
 
-  v23 = [v17 sourceManager];
-  v24 = [v23 clientSourceForSourceEntity:v16 error:v78];
+  v22 = [v16 sourceManager];
+  v23 = [v22 clientSourceForSourceEntity:v15 error:v76];
 
-  v25 = v24;
-  if (v24)
+  v24 = v23;
+  if (v23)
   {
-    v74 = v24;
-    v26 = [v24 bundleIdentifier];
-    v99 = [v91 readAuthorizationStatusesByTypeForBundleIdentifier:v26 types:v19 profile:v17 error:v78];
+    v72 = v23;
+    v25 = [v23 bundleIdentifier];
+    v97 = [v89 readAuthorizationStatusesByTypeForBundleIdentifier:v25 types:v18 profile:v16 error:v76];
 
+    v112 = 0u;
+    v113 = 0u;
     v114 = 0u;
     v115 = 0u;
-    v116 = 0u;
-    v117 = 0u;
-    obj = [v19 copy];
-    v87 = v16;
-    v88 = v15;
-    v105 = v17;
-    v82 = v19;
-    v97 = [obj countByEnumeratingWithState:&v114 objects:v121 count:16];
-    if (v97)
+    obj = objc_msgSend_copy(v18);
+    v85 = v15;
+    v86 = v14;
+    v103 = v16;
+    v80 = v18;
+    v95 = [obj countByEnumeratingWithState:&v112 objects:v119 count:16];
+    if (v95)
     {
-      v95 = *v115;
+      v93 = *v113;
 LABEL_12:
-      v27 = 0;
+      v26 = 0;
       while (1)
       {
-        if (*v115 != v95)
+        if (*v113 != v93)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v114 + 1) + 8 * v27);
-        v29 = [v99 objectForKeyedSubscript:v28];
-        if (v29)
+        v27 = *(*(&v112 + 1) + 8 * v26);
+        v28 = [v97 objectForKeyedSubscript:v27];
+        if (v28)
         {
           break;
         }
 
 LABEL_37:
-        if (v97 == ++v27)
+        if (v95 == ++v26)
         {
-          v45 = [obj countByEnumeratingWithState:&v114 objects:v121 count:16];
-          v97 = v45;
-          if (v45)
+          v44 = [obj countByEnumeratingWithState:&v112 objects:v119 count:16];
+          v95 = v44;
+          if (v44)
           {
             goto LABEL_12;
           }
@@ -777,99 +767,99 @@ LABEL_37:
         }
       }
 
-      v30 = v29;
-      v31 = [v15 objectForKeyedSubscript:v28];
-      if (v31 || ([v18 objectForKeyedSubscript:v28], (v31 = objc_claimAutoreleasedReturnValue()) != 0))
+      v29 = v28;
+      v30 = [v14 objectForKeyedSubscript:v27];
+      if (v30 || ([v17 objectForKeyedSubscript:v27], (v30 = objc_claimAutoreleasedReturnValue()) != 0))
       {
       }
 
       else
       {
-        v44 = [v100 objectForKeyedSubscript:v28];
+        v43 = [v98 objectForKeyedSubscript:v27];
 
-        if (!v44)
+        if (!v43)
         {
-          v33 = 0;
+          v32 = 0;
           goto LABEL_20;
         }
       }
 
-      v32 = [v17 syncIdentityManager];
-      v33 = [v32 currentSyncIdentity];
+      v31 = [v16 syncIdentityManager];
+      v32 = [v31 currentSyncIdentity];
 
 LABEL_20:
-      v106 = v33;
-      v103 = [v16 persistentID];
-      v101 = [v28 code];
-      v34 = [v15 objectForKeyedSubscript:v28];
-      if (v34)
+      v104 = v32;
+      v101 = [v15 persistentID];
+      v99 = [v27 code];
+      v33 = [v14 objectForKeyedSubscript:v27];
+      if (v33)
       {
-        v86 = [v15 objectForKeyedSubscript:v28];
-        v35 = [v86 intValue];
+        v84 = [v14 objectForKeyedSubscript:v27];
+        v34 = [v84 intValue];
       }
 
       else
       {
-        v35 = 100;
+        v34 = 100;
       }
 
-      v36 = [v18 objectForKeyedSubscript:v28];
-      if (v36)
+      v35 = [v17 objectForKeyedSubscript:v27];
+      if (v35)
       {
-        v85 = [v18 objectForKeyedSubscript:v28];
-        v37 = [v85 intValue];
-      }
-
-      else
-      {
-        v37 = [v30 authorizationRequest];
-      }
-
-      v38 = [v100 objectForKeyedSubscript:v28];
-      if (v38)
-      {
-        v83 = [v100 objectForKeyedSubscript:v28];
-        v39 = [v83 intValue];
+        v83 = [v17 objectForKeyedSubscript:v27];
+        v36 = [v83 intValue];
       }
 
       else
       {
-        v39 = [v30 authorizationMode];
+        v36 = [v29 authorizationRequest];
       }
 
-      v40 = [v106 entity];
-      v41 = [v40 persistentID];
-      v113 = 0;
-      v42 = [(HDAuthorizationEntity *)v91 _insertAuthorizationWithSourceIdentifier:v103 dataTypeCode:v101 authorizationStatus:v35 authorizationRequest:v37 authorizationMode:v39 modificationDate:v93 currentDate:v93 syncProvenance:0 syncIdentity:v41 objectAnchor:v90 modificationEpoch:0 options:v89 profile:v105 database:v92 error:&v113];
-      v43 = v113;
+      v37 = [v98 objectForKeyedSubscript:v27];
+      if (v37)
+      {
+        v81 = [v98 objectForKeyedSubscript:v27];
+        v38 = [v81 intValue];
+      }
 
-      if (v38)
+      else
+      {
+        v38 = [v29 authorizationMode];
+      }
+
+      v39 = [v104 entity];
+      v40 = [v39 persistentID];
+      v111 = 0;
+      v41 = [(HDAuthorizationEntity *)v89 _insertAuthorizationWithSourceIdentifier:v101 dataTypeCode:v99 authorizationStatus:v34 authorizationRequest:v36 authorizationMode:v38 modificationDate:v91 currentDate:v91 syncProvenance:0 syncIdentity:v40 objectAnchor:v88 modificationEpoch:0 options:v87 profile:v103 database:v90 error:&v111];
+      v42 = v111;
+
+      if (v37)
       {
       }
 
-      v15 = v88;
-      v18 = v94;
-      if (v36)
+      v14 = v86;
+      v17 = v92;
+      if (v35)
       {
       }
 
-      if (v34)
+      if (v33)
       {
       }
 
-      v16 = v87;
-      if ((v42 & 1) == 0)
+      v15 = v85;
+      if ((v41 & 1) == 0)
       {
-        v63 = v43;
-        v48 = v63;
-        v17 = v105;
-        v19 = v82;
-        if (v63)
+        v62 = v42;
+        v47 = v62;
+        v16 = v103;
+        v18 = v80;
+        if (v62)
         {
-          if (v78)
+          if (v76)
           {
-            v64 = v63;
-            *v78 = v48;
+            v63 = v62;
+            *v76 = v47;
           }
 
           else
@@ -878,104 +868,104 @@ LABEL_20:
           }
         }
 
-        v84 = obj;
-        v65 = v106;
+        v82 = obj;
+        v64 = v104;
 LABEL_80:
 
-        v62 = 0;
+        v61 = 0;
         goto LABEL_81;
       }
 
-      v19 = v82;
-      [v82 removeObject:v28];
+      v18 = v80;
+      [v80 removeObject:v27];
 
-      v17 = v105;
+      v16 = v103;
       goto LABEL_37;
     }
 
 LABEL_42:
 
-    v111 = 0u;
-    v112 = 0u;
     v109 = 0u;
     v110 = 0u;
-    v84 = v19;
-    v98 = [v84 countByEnumeratingWithState:&v109 objects:v120 count:16];
-    if (v98)
+    v107 = 0u;
+    v108 = 0u;
+    v82 = v18;
+    v96 = [v82 countByEnumeratingWithState:&v107 objects:v118 count:16];
+    if (v96)
     {
-      v96 = *v110;
+      v94 = *v108;
       while (2)
       {
-        for (i = 0; i != v98; ++i)
+        for (i = 0; i != v96; ++i)
         {
-          if (*v110 != v96)
+          if (*v108 != v94)
           {
-            objc_enumerationMutation(v84);
+            objc_enumerationMutation(v82);
           }
 
-          v47 = *(*(&v109 + 1) + 8 * i);
-          v48 = [v18 objectForKeyedSubscript:v47];
-          if (v48)
+          v46 = *(*(&v107 + 1) + 8 * i);
+          v47 = [v17 objectForKeyedSubscript:v46];
+          if (v47)
           {
-            v107 = [v16 persistentID];
-            v104 = [v47 code];
-            v49 = [v15 objectForKeyedSubscript:v47];
-            if (v49)
+            v105 = [v15 persistentID];
+            v102 = [v46 code];
+            v48 = [v14 objectForKeyedSubscript:v46];
+            if (v48)
             {
-              v86 = [v15 objectForKeyedSubscript:v47];
-              v50 = [v86 intValue];
+              v84 = [v14 objectForKeyedSubscript:v46];
+              v49 = [v84 intValue];
             }
 
             else
             {
-              v50 = 100;
+              v49 = 100;
             }
 
-            v102 = v50;
-            v53 = [v48 intValue];
-            v54 = [v100 objectForKeyedSubscript:v47];
-            if (v54)
+            v100 = v49;
+            v52 = [v47 intValue];
+            v53 = [v98 objectForKeyedSubscript:v46];
+            if (v53)
             {
-              v85 = [v100 objectForKeyedSubscript:v47];
-              v55 = [v85 intValue];
+              v83 = [v98 objectForKeyedSubscript:v46];
+              v54 = [v83 intValue];
             }
 
             else
             {
-              v55 = 0;
+              v54 = 0;
             }
 
-            v56 = v53;
-            v57 = [v105 syncIdentityManager];
-            v58 = [v57 currentSyncIdentity];
-            v59 = [v58 entity];
-            v60 = [v59 persistentID];
-            v108 = 0;
-            v61 = [(HDAuthorizationEntity *)v91 _insertAuthorizationWithSourceIdentifier:v107 dataTypeCode:v104 authorizationStatus:v102 authorizationRequest:v56 authorizationMode:v55 modificationDate:v93 currentDate:v93 syncProvenance:0 syncIdentity:v60 objectAnchor:v90 modificationEpoch:0 options:v89 profile:v105 database:v92 error:&v108];
-            v52 = v108;
+            v55 = v52;
+            v56 = [v103 syncIdentityManager];
+            v57 = [v56 currentSyncIdentity];
+            v58 = [v57 entity];
+            v59 = [v58 persistentID];
+            v106 = 0;
+            v60 = [(HDAuthorizationEntity *)v89 _insertAuthorizationWithSourceIdentifier:v105 dataTypeCode:v102 authorizationStatus:v100 authorizationRequest:v55 authorizationMode:v54 modificationDate:v91 currentDate:v91 syncProvenance:0 syncIdentity:v59 objectAnchor:v88 modificationEpoch:0 options:v87 profile:v103 database:v90 error:&v106];
+            v51 = v106;
 
-            if (v54)
+            if (v53)
             {
             }
 
-            v18 = v94;
-            v16 = v87;
-            if (v49)
+            v17 = v92;
+            v15 = v85;
+            if (v48)
             {
             }
 
-            v15 = v88;
-            if ((v61 & 1) == 0)
+            v14 = v86;
+            if ((v60 & 1) == 0)
             {
-              v65 = v52;
-              if (v65)
+              v64 = v51;
+              if (v64)
               {
-                v17 = v105;
-                v19 = v82;
-                if (v78)
+                v16 = v103;
+                v18 = v80;
+                if (v76)
                 {
-                  v66 = v65;
-                  *v78 = v65;
+                  v65 = v64;
+                  *v76 = v64;
                 }
 
                 else
@@ -983,14 +973,14 @@ LABEL_42:
                   _HKLogDroppedError();
                 }
 
-                v30 = v65;
+                v29 = v64;
               }
 
               else
               {
-                v30 = 0;
-                v17 = v105;
-                v19 = v82;
+                v29 = 0;
+                v16 = v103;
+                v18 = v80;
               }
 
               goto LABEL_80;
@@ -1000,21 +990,21 @@ LABEL_42:
           else
           {
             _HKInitializeLogging();
-            v51 = HKLogAuthorization();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+            v50 = HKLogAuthorization();
+            if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v119 = v47;
-              _os_log_error_impl(&dword_228986000, v51, OS_LOG_TYPE_ERROR, "Not creating an auth row for %{public}@ since an authorization request was not passed", buf, 0xCu);
+              v117 = v46;
+              _os_log_error_impl(&dword_228986000, v50, OS_LOG_TYPE_ERROR, "Not creating an auth row for %{public}@ since an authorization request was not passed", buf, 0xCu);
             }
 
-            v52 = 0;
+            v51 = 0;
           }
         }
 
-        v62 = 1;
-        v98 = [v84 countByEnumeratingWithState:&v109 objects:v120 count:16];
-        if (v98)
+        v61 = 1;
+        v96 = [v82 countByEnumeratingWithState:&v107 objects:v118 count:16];
+        if (v96)
         {
           continue;
         }
@@ -1022,40 +1012,39 @@ LABEL_42:
         break;
       }
 
-      v17 = v105;
-      v19 = v82;
+      v16 = v103;
+      v18 = v80;
     }
 
     else
     {
-      v62 = 1;
+      v61 = 1;
     }
 
 LABEL_81:
 
-    v25 = v74;
+    v24 = v72;
   }
 
   else
   {
-    [MEMORY[0x277CCA9B8] hk_assignError:v78 code:100 format:{@"Unable to find client source for entity: %@", v16}];
-    v62 = 0;
+    [MEMORY[0x277CCA9B8] hk_assignError:v76 code:100 format:{@"Unable to find client source for entity: %@", v15}];
+    v61 = 0;
   }
 
-  if (v62)
+  if (v61)
   {
-    v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"Authorization status changed for source %lld", objc_msgSend(v75[4], "persistentID")];
-    HDSetHealthInUseDefaultWithReason(v67);
+    v66 = [MEMORY[0x277CCACA8] stringWithFormat:@"Authorization status changed for source %lld", objc_msgSend(v73[4], "persistentID")];
+    HDSetHealthInUseDefaultWithReason(v66);
   }
 
 LABEL_85:
-  v68 = *MEMORY[0x277D85DE8];
-  return v62;
+  return v61;
 }
 
 + (id)authorizationRecordsBySourceForType:(id)type profile:(id)profile error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   profileCopy = profile;
   if (!typeCopy)
@@ -1069,28 +1058,28 @@ LABEL_85:
 
   if (v11)
   {
-    v28 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v27 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v26 = v11;
+    v25 = v11;
     obj = v11;
-    v12 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v31;
+      v14 = *v30;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v31 != v14)
+          if (*v30 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v30 + 1) + 8 * i);
+          v16 = *(*(&v29 + 1) + 8 * i);
           bundleIdentifier = [v16 bundleIdentifier];
           v18 = [MEMORY[0x277CBEB98] setWithObject:typeCopy];
           v19 = [self authorizationRecordsByTypeForBundleIdentifier:bundleIdentifier types:v18 profile:profileCopy error:error];
@@ -1099,18 +1088,18 @@ LABEL_85:
           {
 
             v22 = 0;
-            v21 = v28;
+            v21 = v27;
             goto LABEL_16;
           }
 
           v20 = [v19 objectForKeyedSubscript:typeCopy];
           if (v20)
           {
-            [v28 setObject:v20 forKeyedSubscript:v16];
+            [v27 setObject:v20 forKeyedSubscript:v16];
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v13 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v13)
         {
           continue;
@@ -1120,19 +1109,17 @@ LABEL_85:
       }
     }
 
-    v21 = v28;
-    v22 = v28;
+    v21 = v27;
+    v22 = v27;
 LABEL_16:
 
-    v11 = v26;
+    v11 = v25;
   }
 
   else
   {
     v22 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -1181,21 +1168,21 @@ LABEL_16:
 
 BOOL __86__HDAuthorizationEntity__allSourcesRequestingTypes_additionalPredicate_profile_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v5 = [(HDAuthorizationEntity *)*(a1 + 64) _predicateForTypes:?];
   v6 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v5 otherPredicate:*(a1 + 40)];
   v7 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v8 = *(a1 + 64);
-  v22[0] = @"source_id";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = @"source_id";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v10 = [*(a1 + 48) database];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __86__HDAuthorizationEntity__allSourcesRequestingTypes_additionalPredicate_profile_error___block_invoke_2;
-  v20[3] = &unk_278615128;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __86__HDAuthorizationEntity__allSourcesRequestingTypes_additionalPredicate_profile_error___block_invoke_2;
+  v19[3] = &unk_278615128;
   v11 = v7;
-  v21 = v11;
-  LODWORD(v8) = [v8 enumerateProperties:v9 withPredicate:v6 healthDatabase:v10 error:a3 enumerationHandler:v20];
+  v20 = v11;
+  LODWORD(v8) = [v8 enumerateProperties:v9 withPredicate:v6 healthDatabase:v10 error:a3 enumerationHandler:v19];
 
   if (v8)
   {
@@ -1214,42 +1201,41 @@ BOOL __86__HDAuthorizationEntity__allSourcesRequestingTypes_additionalPredicate_
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 + (id)_predicateForTypes:(uint64_t)types
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   if ([v2 count])
   {
     v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "code", v13)}];
+          v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "code", v12)}];
           [v3 addObject:v9];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -1263,15 +1249,13 @@ BOOL __86__HDAuthorizationEntity__allSourcesRequestingTypes_additionalPredicate_
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
-uint64_t __86__HDAuthorizationEntity__allSourcesRequestingTypes_additionalPredicate_profile_error___block_invoke_2(uint64_t a1)
+uint64_t __86__HDAuthorizationEntity__allSourcesRequestingTypes_additionalPredicate_profile_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = HDSQLiteColumnWithNameAsNumber();
-  [*(a1 + 32) addObject:v2];
+  v5 = HDSQLiteColumnWithNameAsNumber();
+  [*(a1 + 32) addObject:v5];
 
   return 1;
 }
@@ -1368,41 +1352,38 @@ uint64_t __86__HDAuthorizationEntity__allSourcesRequestingTypes_additionalPredic
 
 uint64_t __102__HDAuthorizationEntity__insertCodableSourceAuthorizations_overwriteExisting_syncStore_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v17 = [v5 databaseForEntityClass:*(a1 + 56)];
+  v16 = [v5 databaseForEntityClass:*(a1 + 56)];
   v6 = [MEMORY[0x277CBEAA8] date];
   v7 = [(HDAuthorizationEntity *)*(a1 + 56) _maxObjectPersistentIDForProfile:a3 error:?];
   if (v7)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     obj = *(a1 + 40);
-    v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v28;
+      v10 = *v24;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v28 != v10)
+          if (*v24 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v27 + 1) + 8 * i);
-          v25 = *(a1 + 56);
-          v19 = *(a1 + 48);
-          v20 = *(a1 + 32);
-          v21 = v17;
-          v26 = *(a1 + 64);
-          v22 = v7;
-          v23 = v6;
-          v24 = v5;
+          v17 = *(a1 + 48);
+          v18 = *(a1 + 32);
+          v19 = v16;
+          v20 = v7;
+          v21 = v6;
+          v22 = v5;
           v12 = HKWithAutoreleasePool();
 
           if (!v12)
@@ -1412,7 +1393,7 @@ uint64_t __102__HDAuthorizationEntity__insertCodableSourceAuthorizations_overwri
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v9)
         {
           continue;
@@ -1431,360 +1412,353 @@ LABEL_12:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t __102__HDAuthorizationEntity__insertCodableSourceAuthorizations_overwriteExisting_syncStore_profile_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v144 = *MEMORY[0x277D85DE8];
-  v117 = [*(a1 + 32) decodedSourceUUID];
-  v3 = *(a1 + 88);
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 56);
-  v130 = 0;
+  v137 = *MEMORY[0x277D85DE8];
+  v110 = [*(a1 + 32) decodedSourceUUID];
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v5 = *(a1 + 48);
+  v6 = *(a1 + 56);
+  v123 = 0;
+  v7 = v3;
   v8 = v4;
   v9 = v5;
   v10 = v6;
-  v11 = v7;
   objc_opt_self();
-  v12 = [v8 decodedSourceUUID];
-  v13 = v12;
-  if (!v12)
+  v11 = [v7 decodedSourceUUID];
+  v12 = v11;
+  if (!v11)
   {
-    [MEMORY[0x277CCA9B8] hk_assignError:&v130 code:100 description:@"Missing source UUID on codable source authorization"];
-    v15 = 0;
+    [MEMORY[0x277CCA9B8] hk_assignError:&v123 code:100 description:@"Missing source UUID on codable source authorization"];
+    v14 = 0;
     goto LABEL_13;
   }
 
-  v14 = HDSourceEntityPredicateForSourceWithUUID(v12, 0);
-  *v139 = 0;
-  v15 = [HDSourceEntity firstSourceWithPredicate:v14 database:v11 error:v139];
-  v16 = *v139;
-  v17 = v16;
-  if (!v15)
+  v13 = HDSourceEntityPredicateForSourceWithUUID(v11, 0);
+  *v132 = 0;
+  v14 = [HDSourceEntity firstSourceWithPredicate:v13 database:v10 error:v132];
+  v15 = *v132;
+  v16 = v15;
+  if (!v14)
   {
-    if (v16)
+    if (v15)
     {
-      v18 = v16;
-      v15 = 0;
-      v130 = v17;
+      v17 = v15;
+      v14 = 0;
+      v123 = v16;
     }
 
     else
     {
-      if ([v8 hasSource])
+      if ([v7 hasSource])
       {
-        LOBYTE(v133) = 0;
-        v125 = [v10 sourceManager];
-        v19 = [v8 source];
-        v15 = [v125 sourceForCodableSource:v19 provenance:objc_msgSend(v9 createIfNecessary:"syncProvenance") isDeleted:1 error:{&v133, &v130}];
+        LOBYTE(v126) = 0;
+        v118 = [v9 sourceManager];
+        v18 = [v7 source];
+        v14 = [v118 sourceForCodableSource:v18 provenance:objc_msgSend(v8 createIfNecessary:"syncProvenance") isDeleted:1 error:{&v126, &v123}];
 
-        if (!v15 || v133 != 1)
+        if (!v14 || v126 != 1)
         {
           goto LABEL_12;
         }
 
-        v122 = v15;
-        v20 = MEMORY[0x277CCA9B8];
-        v21 = [v13 UUIDString];
-        [v20 hk_assignError:&v130 code:100 format:{@"Source %@ is deleted", v21}];
+        v115 = v14;
+        v19 = MEMORY[0x277CCA9B8];
+        v20 = [v12 UUIDString];
+        [v19 hk_assignError:&v123 code:100 format:{@"Source %@ is deleted", v20}];
       }
 
       else
       {
-        v22 = MEMORY[0x277CCA9B8];
-        v23 = [v13 UUIDString];
-        [v22 hk_assignError:&v130 code:100 format:{@"Failed to find source for UUID %@", v23}];
+        v21 = MEMORY[0x277CCA9B8];
+        v22 = [v12 UUIDString];
+        [v21 hk_assignError:&v123 code:100 format:{@"Failed to find source for UUID %@", v22}];
       }
 
-      v15 = 0;
+      v14 = 0;
     }
   }
 
 LABEL_12:
 
 LABEL_13:
-  v24 = v130;
-  v25 = v24;
-  v123 = v15;
-  if (!v15)
+  v23 = v123;
+  v24 = v23;
+  v116 = v14;
+  if (!v14)
   {
     _HKInitializeLogging();
-    v67 = *MEMORY[0x277CCC2A0];
-    v68 = v117;
+    v65 = *MEMORY[0x277CCC2A0];
+    v66 = v110;
     if (!os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
 LABEL_61:
-      v66 = 1;
+      v64 = 1;
       goto LABEL_79;
     }
 
-    v91 = *(a1 + 88);
-    v92 = v67;
-    v93 = objc_opt_class();
-    v94 = v93;
-    v95 = [v117 UUIDString];
-    *v139 = 138543874;
-    *&v139[4] = v93;
-    v140 = 2114;
-    v141 = v95;
-    v142 = 2114;
-    v143 = v25;
-    v96 = "%{public}@: Failed to find source for UUID %{public}@: %{public}@";
+    v88 = v65;
+    v89 = objc_opt_class();
+    v90 = v89;
+    v91 = [v110 UUIDString];
+    *v132 = 138543874;
+    *&v132[4] = v89;
+    v133 = 2114;
+    v134 = v91;
+    v135 = 2114;
+    v136 = v24;
+    v92 = "%{public}@: Failed to find source for UUID %{public}@: %{public}@";
 LABEL_81:
-    _os_log_error_impl(&dword_228986000, v92, OS_LOG_TYPE_ERROR, v96, v139, 0x20u);
+    _os_log_error_impl(&dword_228986000, v88, OS_LOG_TYPE_ERROR, v92, v132, 0x20u);
 
     goto LABEL_61;
   }
 
   if ((*(a1 + 96) & 1) == 0)
   {
-    v69 = *(a1 + 56);
-    v129 = v24;
-    v70 = [v15 sourceBundleIdentifierInDatabase:v69 error:&v129];
-    v71 = v129;
-    v72 = v25;
-    v25 = v71;
+    v67 = *(a1 + 56);
+    v122 = v23;
+    v68 = [v14 sourceBundleIdentifierInDatabase:v67 error:&v122];
+    v69 = v122;
+    v70 = v24;
+    v24 = v69;
 
-    if (v70)
+    if (v68)
     {
-      v73 = *(a1 + 88);
-      v74 = *(a1 + 48);
-      v128 = v25;
-      v75 = [(HDAuthorizationEntity *)v73 _predicateForBundleIdentifier:v70 profile:v74 error:&v128];
-      v76 = v128;
+      v71 = *(a1 + 88);
+      v72 = *(a1 + 48);
+      v121 = v24;
+      v73 = [(HDAuthorizationEntity *)v71 _predicateForBundleIdentifier:v68 profile:v72 error:&v121];
+      v74 = v121;
 
-      if (v75)
+      if (v73)
       {
-        v77 = MEMORY[0x277D10B18];
-        v78 = [*(a1 + 88) propertyForSyncProvenance];
-        v79 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(a1 + 40), "syncProvenance")}];
-        v80 = [v77 predicateWithProperty:v78 notEqualToValue:v79];
+        v75 = MEMORY[0x277D10B18];
+        v76 = [*(a1 + 88) propertyForSyncProvenance];
+        v77 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(a1 + 40), "syncProvenance")}];
+        v78 = [v75 predicateWithProperty:v76 notEqualToValue:v77];
 
-        v81 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v75 otherPredicate:v80];
-        v82 = *(a1 + 88);
-        v83 = *(a1 + 56);
-        v127 = v76;
-        v84 = [v82 anyInDatabase:v83 predicate:v81 error:&v127];
-        v85 = v127;
+        v79 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v73 otherPredicate:v78];
+        v80 = *(a1 + 88);
+        v81 = *(a1 + 56);
+        v120 = v74;
+        v82 = [v80 anyInDatabase:v81 predicate:v79 error:&v120];
+        v83 = v120;
 
-        if (!v84)
+        if (!v82)
         {
-          if (!v85)
+          if (!v83)
           {
 
-            v108 = 0;
+            v101 = 0;
             goto LABEL_16;
           }
 
           _HKInitializeLogging();
-          v86 = *MEMORY[0x277CCC2A0];
+          v84 = *MEMORY[0x277CCC2A0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
-            v103 = *(a1 + 88);
-            v104 = v86;
-            v105 = objc_opt_class();
-            *v139 = 138543874;
-            *&v139[4] = v105;
-            v140 = 2114;
-            v141 = v70;
-            v142 = 2114;
-            v143 = v85;
-            v106 = v105;
-            _os_log_error_impl(&dword_228986000, v104, OS_LOG_TYPE_ERROR, "%{public}@: Failed to look up existing authorizations for %{public}@: %{public}@", v139, 0x20u);
+            v97 = v84;
+            v98 = objc_opt_class();
+            *v132 = 138543874;
+            *&v132[4] = v98;
+            v133 = 2114;
+            v134 = v68;
+            v135 = 2114;
+            v136 = v83;
+            v99 = v98;
+            _os_log_error_impl(&dword_228986000, v97, OS_LOG_TYPE_ERROR, "%{public}@: Failed to look up existing authorizations for %{public}@: %{public}@", v132, 0x20u);
           }
         }
 
-        v66 = 1;
-        v68 = v117;
-        v25 = v85;
+        v64 = 1;
+        v66 = v110;
+        v24 = v83;
         goto LABEL_79;
       }
 
       _HKInitializeLogging();
-      v88 = *MEMORY[0x277CCC2A0];
+      v86 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        v99 = *(a1 + 88);
-        v100 = v88;
-        v101 = objc_opt_class();
-        *v139 = 138543874;
-        *&v139[4] = v101;
-        v140 = 2114;
-        v141 = v70;
-        v142 = 2114;
-        v143 = v76;
-        v102 = v101;
-        _os_log_error_impl(&dword_228986000, v100, OS_LOG_TYPE_ERROR, "%{public}@: Failed to create source authorization predicate for %{public}@: %{public}@", v139, 0x20u);
+        v94 = v86;
+        v95 = objc_opt_class();
+        *v132 = 138543874;
+        *&v132[4] = v95;
+        v133 = 2114;
+        v134 = v68;
+        v135 = 2114;
+        v136 = v74;
+        v96 = v95;
+        _os_log_error_impl(&dword_228986000, v94, OS_LOG_TYPE_ERROR, "%{public}@: Failed to create source authorization predicate for %{public}@: %{public}@", v132, 0x20u);
       }
 
-      v66 = 1;
-      v25 = v76;
+      v64 = 1;
+      v24 = v74;
 LABEL_78:
-      v68 = v117;
+      v66 = v110;
       goto LABEL_79;
     }
 
     _HKInitializeLogging();
-    v87 = *MEMORY[0x277CCC2A0];
+    v85 = *MEMORY[0x277CCC2A0];
     if (!os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v66 = 1;
+      v64 = 1;
       goto LABEL_78;
     }
 
-    v97 = *(a1 + 88);
-    v92 = v87;
-    v98 = objc_opt_class();
-    v94 = v98;
-    v68 = v117;
-    v95 = [v117 UUIDString];
-    *v139 = 138543874;
-    *&v139[4] = v98;
-    v140 = 2114;
-    v141 = v95;
-    v142 = 2114;
-    v143 = v25;
-    v96 = "%{public}@: Failed to get source bundle identifier for UUID %{public}@: %{public}@";
+    v88 = v85;
+    v93 = objc_opt_class();
+    v90 = v93;
+    v66 = v110;
+    v91 = [v110 UUIDString];
+    *v132 = 138543874;
+    *&v132[4] = v93;
+    v133 = 2114;
+    v134 = v91;
+    v135 = 2114;
+    v136 = v24;
+    v92 = "%{public}@: Failed to get source bundle identifier for UUID %{public}@: %{public}@";
     goto LABEL_81;
   }
 
-  v108 = v24;
+  v101 = v23;
 LABEL_16:
-  v26 = *(a1 + 88);
-  v27 = [*(a1 + 32) authorizations];
-  v115 = [*(a1 + 40) syncProvenance];
-  v114 = [*(a1 + 64) longLongValue];
-  v28 = *(a1 + 48);
-  v29 = *(a1 + 56);
-  v30 = *(a1 + 72);
-  v31 = *(a1 + 80);
-  v32 = v27;
-  v33 = v123;
-  v120 = v30;
-  v126 = v28;
-  v119 = v29;
-  v110 = v31;
-  v34 = objc_opt_self();
-  v112 = [v33 persistentID];
-  v113 = v34;
-  v107 = v33;
-  v35 = [v34 _shouldSkipAuthorizationInsertionForBloodPressureMismatch:v32 sourceEntity:v33];
-  v133 = 0u;
-  v134 = 0u;
-  v135 = 0u;
-  v136 = 0u;
-  v36 = v32;
-  v37 = [v36 countByEnumeratingWithState:&v133 objects:v139 count:16];
-  if (!v37)
+  v25 = [*(a1 + 32) authorizations];
+  v108 = [*(a1 + 40) syncProvenance];
+  v107 = [*(a1 + 64) longLongValue];
+  v26 = *(a1 + 48);
+  v27 = *(a1 + 56);
+  v28 = *(a1 + 72);
+  v29 = *(a1 + 80);
+  v30 = v25;
+  v31 = v116;
+  v113 = v28;
+  v119 = v26;
+  v112 = v27;
+  v103 = v29;
+  v32 = objc_opt_self();
+  v105 = [v31 persistentID];
+  v106 = v32;
+  v100 = v31;
+  v33 = [v32 _shouldSkipAuthorizationInsertionForBloodPressureMismatch:v30 sourceEntity:v31];
+  v126 = 0u;
+  v127 = 0u;
+  v128 = 0u;
+  v129 = 0u;
+  v34 = v30;
+  v35 = [v34 countByEnumeratingWithState:&v126 objects:v132 count:16];
+  if (!v35)
   {
-    v66 = 1;
+    v64 = 1;
     goto LABEL_72;
   }
 
-  v38 = v37;
-  v39 = *v134;
-  v111 = v36;
-  v116 = v35;
-  v121 = *v134;
+  v36 = v35;
+  v37 = *v127;
+  v104 = v34;
+  v109 = v33;
+  v114 = *v127;
   while (2)
   {
-    v40 = 0;
-    v118 = v38;
+    v38 = 0;
+    v111 = v36;
     do
     {
-      if (*v134 != v39)
+      if (*v127 != v37)
       {
-        objc_enumerationMutation(v36);
+        objc_enumerationMutation(v34);
       }
 
-      v41 = *(*(&v133 + 1) + 8 * v40);
-      if (((([v41 _dataTypeCode] & 0xFFFFFFFFFFFFFFFELL) == 16) & v35) == 0)
+      v39 = *(*(&v126 + 1) + 8 * v38);
+      if (((([v39 _dataTypeCode] & 0xFFFFFFFFFFFFFFFELL) == 16) & v33) == 0)
       {
-        v42 = v41;
-        v43 = [v42 hasObjectType] && (objc_msgSend(v42, "_dataTypeCode"), _HKValidDataTypeCode()) && objc_msgSend(v42, "hasAuthorizationStatus") && objc_msgSend(v42, "_authorizationStatus") >= 100 && objc_msgSend(v42, "_authorizationStatus") <= 104 && objc_msgSend(v42, "hasAuthorizationRequest") && objc_msgSend(v42, "_authorizationRequest") >= 201 && objc_msgSend(v42, "_authorizationRequest") < 204;
-        if ([v42 hasAuthorizationMode])
+        v40 = v39;
+        v41 = [v40 hasObjectType] && (objc_msgSend(v40, "_dataTypeCode"), _HKValidDataTypeCode()) && objc_msgSend(v40, "hasAuthorizationStatus") && objc_msgSend(v40, "_authorizationStatus") >= 100 && objc_msgSend(v40, "_authorizationStatus") <= 104 && objc_msgSend(v40, "hasAuthorizationRequest") && objc_msgSend(v40, "_authorizationRequest") >= 201 && objc_msgSend(v40, "_authorizationRequest") < 204;
+        if ([v40 hasAuthorizationMode])
         {
-          if (!v43 || [v42 _authorizationMode] < 0 || objc_msgSend(v42, "_authorizationMode") >= 2)
+          if (!v41 || [v40 _authorizationMode] < 0 || objc_msgSend(v40, "_authorizationMode") >= 2)
           {
 LABEL_69:
-            [MEMORY[0x277CCA9B8] hk_assignError:a2 code:3 format:{@"Invalid codable authorization %@", v42}];
-            v46 = v42;
+            [MEMORY[0x277CCA9B8] hk_assignError:a2 code:3 format:{@"Invalid codable authorization %@", v40}];
+            v44 = v40;
 LABEL_70:
 
-            v66 = 0;
+            v64 = 0;
             goto LABEL_72;
           }
         }
 
-        else if (!v43)
+        else if (!v41)
         {
           goto LABEL_69;
         }
 
-        if (([v42 hasModificationDate] & 1) == 0)
+        if (([v40 hasModificationDate] & 1) == 0)
         {
           goto LABEL_69;
         }
 
-        if ([v42 hasAuthorizationMode])
+        if ([v40 hasAuthorizationMode])
         {
-          v44 = [v42 _authorizationMode];
+          v42 = [v40 _authorizationMode];
         }
 
         else
         {
-          v44 = 0;
+          v42 = 0;
         }
 
-        v45 = [v126 syncIdentityManager];
-        v46 = [v45 legacySyncIdentity];
+        v43 = [v119 syncIdentityManager];
+        v44 = [v43 legacySyncIdentity];
 
-        if (![v42 hasSyncIdentity])
+        if (![v40 hasSyncIdentity])
         {
           goto LABEL_45;
         }
 
-        v47 = [v42 syncIdentity];
-        v132 = 0;
-        v48 = [HDSyncIdentity syncIdentityWithCodable:v47 error:&v132];
-        v49 = v132;
+        v45 = [v40 syncIdentity];
+        v125 = 0;
+        v46 = [HDSyncIdentity syncIdentityWithCodable:v45 error:&v125];
+        v47 = v125;
 
-        if (v48)
+        if (v46)
         {
-          v50 = [v126 syncIdentityManager];
-          v131 = v49;
-          v51 = [v50 concreteIdentityForIdentity:v48 shouldCreate:1 transaction:v110 error:&v131];
-          v52 = v131;
+          v48 = [v119 syncIdentityManager];
+          v124 = v47;
+          v49 = [v48 concreteIdentityForIdentity:v46 shouldCreate:1 transaction:v103 error:&v124];
+          v50 = v124;
 
-          if (v51)
+          if (v49)
           {
 
-            v46 = v51;
+            v44 = v49;
 LABEL_45:
-            v53 = [v42 _dataTypeCode];
-            v54 = [v42 _authorizationStatus];
-            v55 = [v42 _authorizationRequest];
-            [v42 modificationDate];
-            v56 = HDDecodeDateForValue();
-            v57 = [v46 entity];
-            v58 = [v57 persistentID];
-            if ([v42 hasModificationEpoch])
+            v51 = [v40 _dataTypeCode];
+            v52 = [v40 _authorizationStatus];
+            v53 = [v40 _authorizationRequest];
+            [v40 modificationDate];
+            v54 = HDDecodeDateForValue();
+            v55 = [v44 entity];
+            v56 = [v55 persistentID];
+            if ([v40 hasModificationEpoch])
             {
-              v109 = v46;
-              v59 = v44;
-              v60 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v42, "modificationEpoch")}];
-              v61 = v59;
-              v46 = v109;
-              v62 = [(HDAuthorizationEntity *)v113 _insertAuthorizationWithSourceIdentifier:v112 dataTypeCode:v53 authorizationStatus:v54 authorizationRequest:v55 authorizationMode:v61 modificationDate:v56 currentDate:v120 syncProvenance:v115 syncIdentity:v58 objectAnchor:v114 modificationEpoch:v60 options:0 profile:v126 database:v119 error:a2];
+              v102 = v44;
+              v57 = v42;
+              v58 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v40, "modificationEpoch")}];
+              v59 = v57;
+              v44 = v102;
+              v60 = [(HDAuthorizationEntity *)v106 _insertAuthorizationWithSourceIdentifier:v105 dataTypeCode:v51 authorizationStatus:v52 authorizationRequest:v53 authorizationMode:v59 modificationDate:v54 currentDate:v113 syncProvenance:v108 syncIdentity:v56 objectAnchor:v107 modificationEpoch:v58 options:0 profile:v119 database:v112 error:a2];
 
+              v34 = v104;
+              v33 = v109;
               v36 = v111;
-              v35 = v116;
-              v38 = v118;
-              if ((v62 & 1) == 0)
+              if ((v60 & 1) == 0)
               {
                 goto LABEL_70;
               }
@@ -1792,12 +1766,12 @@ LABEL_45:
 
             else
             {
-              v63 = [(HDAuthorizationEntity *)v113 _insertAuthorizationWithSourceIdentifier:v112 dataTypeCode:v53 authorizationStatus:v54 authorizationRequest:v55 authorizationMode:v44 modificationDate:v56 currentDate:v120 syncProvenance:v115 syncIdentity:v58 objectAnchor:v114 modificationEpoch:0 options:0 profile:v126 database:v119 error:a2];
+              v61 = [(HDAuthorizationEntity *)v106 _insertAuthorizationWithSourceIdentifier:v105 dataTypeCode:v51 authorizationStatus:v52 authorizationRequest:v53 authorizationMode:v42 modificationDate:v54 currentDate:v113 syncProvenance:v108 syncIdentity:v56 objectAnchor:v107 modificationEpoch:0 options:0 profile:v119 database:v112 error:a2];
 
+              v34 = v104;
+              v33 = v109;
               v36 = v111;
-              v35 = v116;
-              v38 = v118;
-              if (!v63)
+              if (!v61)
               {
                 goto LABEL_70;
               }
@@ -1807,43 +1781,43 @@ LABEL_45:
           }
 
           _HKInitializeLogging();
-          v65 = *MEMORY[0x277CCC2A0];
-          v38 = v118;
+          v63 = *MEMORY[0x277CCC2A0];
+          v36 = v111;
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
           {
             *buf = 138543362;
-            v138 = v52;
-            _os_log_fault_impl(&dword_228986000, v65, OS_LOG_TYPE_FAULT, "ConcreteSyncIdentity from received codable is nil %{public}@", buf, 0xCu);
+            v131 = v50;
+            _os_log_fault_impl(&dword_228986000, v63, OS_LOG_TYPE_FAULT, "ConcreteSyncIdentity from received codable is nil %{public}@", buf, 0xCu);
           }
 
-          v46 = 0;
-          v49 = v52;
-          v35 = v116;
+          v44 = 0;
+          v47 = v50;
+          v33 = v109;
         }
 
         else
         {
           _HKInitializeLogging();
-          v64 = *MEMORY[0x277CCC2A0];
+          v62 = *MEMORY[0x277CCC2A0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
           {
             *buf = 138543362;
-            v138 = v49;
-            _os_log_fault_impl(&dword_228986000, v64, OS_LOG_TYPE_FAULT, "SyncIdentity from received codable is nil %{public}@", buf, 0xCu);
+            v131 = v47;
+            _os_log_fault_impl(&dword_228986000, v62, OS_LOG_TYPE_FAULT, "SyncIdentity from received codable is nil %{public}@", buf, 0xCu);
           }
         }
 
 LABEL_56:
-        v39 = v121;
+        v37 = v114;
       }
 
-      ++v40;
+      ++v38;
     }
 
-    while (v38 != v40);
-    v38 = [v36 countByEnumeratingWithState:&v133 objects:v139 count:16];
-    v66 = 1;
-    if (v38)
+    while (v36 != v38);
+    v36 = [v34 countByEnumeratingWithState:&v126 objects:v132 count:16];
+    v64 = 1;
+    if (v36)
     {
       continue;
     }
@@ -1853,40 +1827,39 @@ LABEL_56:
 
 LABEL_72:
 
-  v68 = v117;
-  v25 = v108;
+  v66 = v110;
+  v24 = v101;
 LABEL_79:
 
-  v89 = *MEMORY[0x277D85DE8];
-  return v66;
+  return v64;
 }
 
 + (BOOL)_shouldSkipAuthorizationInsertionForBloodPressureMismatch:(id)mismatch sourceEntity:(id)entity
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   mismatchCopy = mismatch;
   entityCopy = entity;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v7 = [mismatchCopy countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v7 = [mismatchCopy countByEnumeratingWithState:&v23 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
     v10 = 0;
-    v11 = *v25;
+    v11 = *v24;
     while (1)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(mismatchCopy);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         _dataTypeCode = [v13 _dataTypeCode];
         if (_dataTypeCode == 16)
         {
@@ -1908,7 +1881,7 @@ LABEL_79:
         v16 = v13;
       }
 
-      v8 = [mismatchCopy countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v8 = [mismatchCopy countByEnumeratingWithState:&v23 objects:v33 count:16];
       if (!v8)
       {
         goto LABEL_15;
@@ -1927,11 +1900,11 @@ LABEL_15:
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      v29 = v17;
-      v30 = 2048;
-      v31 = v20;
-      v32 = 2112;
-      v33 = entityCopy;
+      v28 = v17;
+      v29 = 2048;
+      v30 = v20;
+      v31 = 2112;
+      v32 = entityCopy;
       _os_log_impl(&dword_228986000, v21, OS_LOG_TYPE_DEFAULT, "Skipping authorization insertion: systolic (%ld) and diastolic (%ld) authorization statuses don't match for source %@", buf, 0x20u);
     }
 
@@ -1943,7 +1916,6 @@ LABEL_15:
     v19 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -2130,23 +2102,21 @@ uint64_t __257__HDAuthorizationEntity__insertAuthorizationWithSourceIdentifier_d
 
 id __257__HDAuthorizationEntity__insertAuthorizationWithSourceIdentifier_dataTypeCode_authorizationStatus_authorizationRequest_authorizationMode_modificationDate_currentDate_syncProvenance_syncIdentity_objectAnchor_modificationEpoch_options_profile_database_error___block_invoke_4(uint64_t a1)
 {
-  v6[12] = *MEMORY[0x277D85DE8];
-  v6[0] = @"source_id";
-  v6[1] = @"object_type";
-  v6[2] = @"status";
-  v6[3] = @"request";
-  v6[4] = @"mode";
-  v6[5] = @"date_modified";
-  v6[6] = @"provenance";
-  v6[7] = @"sync_identity";
-  v6[8] = @"deleted_object_anchor";
-  v6[9] = @"object_limit_anchor";
-  v6[10] = @"object_limit_modified";
-  v6[11] = @"modification_epoch";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:12];
+  v5[12] = *MEMORY[0x277D85DE8];
+  v5[0] = @"source_id";
+  v5[1] = @"object_type";
+  v5[2] = @"status";
+  v5[3] = @"request";
+  v5[4] = @"mode";
+  v5[5] = @"date_modified";
+  v5[6] = @"provenance";
+  v5[7] = @"sync_identity";
+  v5[8] = @"deleted_object_anchor";
+  v5[9] = @"object_limit_anchor";
+  v5[10] = @"object_limit_modified";
+  v5[11] = @"modification_epoch";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:12];
   v3 = [*(a1 + 32) insertSQLForProperties:v2 shouldReplace:1];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -2164,26 +2134,25 @@ uint64_t __257__HDAuthorizationEntity__insertAuthorizationWithSourceIdentifier_d
   sqlite3_bind_int64(a2, 8, *(a1 + 112));
   sqlite3_bind_int64(a2, 9, *(a1 + 120));
   sqlite3_bind_int64(a2, 10, *(*(*(a1 + 48) + 8) + 24));
-  v5 = *(*(*(a1 + 56) + 8) + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v6 = [*(a1 + 40) longLongValue];
+  v5 = [*(a1 + 40) longLongValue];
 
-  return sqlite3_bind_int64(a2, 12, v6);
+  return sqlite3_bind_int64(a2, 12, v5);
 }
 
 uint64_t __95__HDAuthorizationEntity__nextModificationEpochForSourceIdentifier_type_profile_database_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     v8 = 1;
     do
     {
@@ -2191,17 +2160,17 @@ uint64_t __95__HDAuthorizationEntity__nextModificationEpochForSourceIdentifier_t
       v10 = v8;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
         v8 = v10 + 1;
-        sqlite3_bind_int64(a2, v10++, [*(*(&v13 + 1) + 8 * v9++) persistentID]);
+        sqlite3_bind_int64(a2, v10++, [*(*(&v12 + 1) + 8 * v9++) persistentID]);
       }
 
       while (v6 != v9);
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -2212,9 +2181,7 @@ uint64_t __95__HDAuthorizationEntity__nextModificationEpochForSourceIdentifier_t
     v8 = 1;
   }
 
-  result = sqlite3_bind_int64(a2, v8, *(a1 + 40));
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return sqlite3_bind_int64(a2, v8, *(a1 + 40));
 }
 
 uint64_t __95__HDAuthorizationEntity__nextModificationEpochForSourceIdentifier_type_profile_database_error___block_invoke_3(uint64_t a1, uint64_t a2)
@@ -2229,17 +2196,17 @@ uint64_t __95__HDAuthorizationEntity__nextModificationEpochForSourceIdentifier_t
 
 uint64_t __80__HDAuthorizationEntity__resetAuthorizationStatusesWithPredicate_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25[3] = *MEMORY[0x277D85DE8];
+  v24[3] = *MEMORY[0x277D85DE8];
   v5 = [a2 databaseForEntityClass:*(a1 + 48)];
   v6 = [MEMORY[0x277CBEAA8] date];
-  v25[0] = @"source_id";
-  v25[1] = @"object_type";
-  v25[2] = @"request";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+  v24[0] = @"source_id";
+  v24[1] = @"object_type";
+  v24[2] = @"request";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
   v8 = *(a1 + 48);
-  v24 = 0;
-  v9 = [v8 maxPersistentIDWithPredicate:0 database:v5 error:&v24];
-  v10 = v24;
+  v23 = 0;
+  v9 = [v8 maxPersistentIDWithPredicate:0 database:v5 error:&v23];
+  v10 = v23;
   v11 = v10;
   if (v9)
   {
@@ -2253,22 +2220,22 @@ LABEL_2:
     v12 = [MEMORY[0x277D10B18] predicateWithProperty:*MEMORY[0x277D10A40] lessThanOrEqualToValue:v9];
     v13 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v12 otherPredicate:*(a1 + 32)];
     v14 = [*(a1 + 48) queryWithDatabase:v5 predicate:v13];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __80__HDAuthorizationEntity__resetAuthorizationStatusesWithPredicate_profile_error___block_invoke_2;
-    v19[3] = &unk_27862FE58;
-    v23 = *(a1 + 48);
-    v20 = v6;
-    v21 = *(a1 + 40);
-    v22 = v5;
-    v15 = [v14 enumeratePersistentIDsAndProperties:v7 error:a3 enumerationHandler:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __80__HDAuthorizationEntity__resetAuthorizationStatusesWithPredicate_profile_error___block_invoke_2;
+    v18[3] = &unk_27862FE58;
+    v22 = *(a1 + 48);
+    v19 = v6;
+    v20 = *(a1 + 40);
+    v21 = v5;
+    v15 = [v14 enumeratePersistentIDsAndProperties:v7 error:a3 enumerationHandler:v18];
 
     goto LABEL_3;
   }
 
   if (a3)
   {
-    v18 = v10;
+    v17 = v10;
     v15 = 0;
     *a3 = v11;
   }
@@ -2281,7 +2248,6 @@ LABEL_2:
 
 LABEL_3:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -2314,24 +2280,21 @@ uint64_t __53__HDAuthorizationEntity__predicateForSourceEntities___block_invoke(
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"source_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"source_id";
   v2 = +[(HDHealthEntity *)HDSourceEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"source_id";
-  v5[1] = @"object_type";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"source_id";
+  v4[1] = @"object_type";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }

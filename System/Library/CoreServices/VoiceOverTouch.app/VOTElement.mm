@@ -404,6 +404,7 @@
 - (void)applyRowHeadersToRequest:(id)request;
 - (void)applyTableDimension:(id)dimension language:(id)language;
 - (void)applyTextEditingInformation:(id)information request:(id)request options:(unint64_t)options;
+- (void)clearElementForGesturedTextInput;
 - (void)clearSelectedScribbleElement;
 - (void)decreaseWebSelection:(int64_t)selection;
 - (void)deleteCharacterAtCursorWithSource:(int64_t)source;
@@ -642,9 +643,11 @@ LABEL_13:
 
 + (void)setElementAtPointIntercept:(id)intercept
 {
-  qword_1001FEA50 = objc_retainBlock(intercept);
+  v3 = objc_retainBlock(intercept);
+  v4 = qword_1001FEA50;
+  qword_1001FEA50 = v3;
 
-  _objc_release_x1();
+  _objc_release_x1(v3, v4);
 }
 
 - (id)initApplicationWithPid:(int)pid
@@ -5788,6 +5791,13 @@ LABEL_5:
   }
 }
 
+- (void)clearElementForGesturedTextInput
+{
+  elementForGesturedTextInput = self->_elementForGesturedTextInput;
+  self->_elementForGesturedTextInput = 0;
+  _objc_release_x1(self, elementForGesturedTextInput);
+}
+
 - (VOTElement)elementForGesturedTextInput
 {
   elementForGesturedTextInput = self->_elementForGesturedTextInput;
@@ -9700,7 +9710,7 @@ LABEL_145:
 
   if (v7)
   {
-    v6 = sub_100037AA8();
+    v6 = sub_100037AA8(v9);
     v9 = [languageCopy rangeOfCharacterFromSet:v6];
     v10 = v9 != 0x7FFFFFFFFFFFFFFFLL;
     if (v9 != 0x7FFFFFFFFFFFFFFFLL || ((v8 ^ 1) & 1) != 0)
@@ -9715,7 +9725,7 @@ LABEL_145:
     goto LABEL_9;
   }
 
-  v11 = sub_100037A1C();
+  v11 = sub_100037A1C(v9);
   v10 = [languageCopy rangeOfCharacterFromSet:v11] != 0x7FFFFFFFFFFFFFFFLL;
 
   if (v7)

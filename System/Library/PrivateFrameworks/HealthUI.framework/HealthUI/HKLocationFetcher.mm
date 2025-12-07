@@ -707,41 +707,41 @@ void __64__HKLocationFetcher__requeryRoutesForWorkout_withUpdateHandler___block_
   dispatch_async(v10, block);
 }
 
-void __64__HKLocationFetcher__requeryRoutesForWorkout_withUpdateHandler___block_invoke_2(uint64_t a1)
+void __64__HKLocationFetcher__requeryRoutesForWorkout_withUpdateHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   _HKInitializeLogging();
-  v2 = *MEMORY[0x1E696B9A8];
+  v3 = *MEMORY[0x1E696B9A8];
   if (os_log_type_enabled(*MEMORY[0x1E696B9A8], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = [v3 count];
-    v6 = [*(a1 + 40) UUID];
-    v13 = 134218242;
-    v14 = v5;
-    v15 = 2114;
-    v16 = v6;
-    _os_log_impl(&dword_1C3942000, v4, OS_LOG_TYPE_DEFAULT, "[routes] Found %lu routes via associations for workout %{public}@", &v13, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = v3;
+    v6 = [v4 count];
+    v7 = [*(a1 + 40) UUID];
+    v14 = 134218242;
+    v15 = v6;
+    v16 = 2114;
+    v17 = v7;
+    _os_log_impl(&dword_1C3942000, v5, OS_LOG_TYPE_DEFAULT, "[routes] Found %lu routes via associations for workout %{public}@", &v14, 0x16u);
   }
 
   if ([*(a1 + 32) count])
   {
-    v7 = *(a1 + 48);
-    v8 = [MEMORY[0x1E695DFD8] setWithArray:*(a1 + 32)];
-    [v7 unionSet:v8];
+    v8 = *(a1 + 48);
+    v9 = [MEMORY[0x1E695DFD8] setWithArray:*(a1 + 32)];
+    [v8 unionSet:v9];
   }
 
-  v9 = *(*(a1 + 72) + 8);
-  v12 = *(v9 + 40);
-  v10 = (v9 + 40);
-  v11 = v12;
-  if (!v12)
+  v10 = *(*(a1 + 72) + 8);
+  v13 = *(v10 + 40);
+  v11 = (v10 + 40);
+  v12 = v13;
+  if (!v13)
   {
-    v11 = *(a1 + 56);
+    v12 = *(a1 + 56);
   }
 
-  objc_storeStrong(v10, v11);
+  objc_storeStrong(v11, v12);
   dispatch_group_leave(*(a1 + 64));
 }
 
@@ -766,41 +766,41 @@ void __64__HKLocationFetcher__requeryRoutesForWorkout_withUpdateHandler___block_
   dispatch_async(v10, block);
 }
 
-void __64__HKLocationFetcher__requeryRoutesForWorkout_withUpdateHandler___block_invoke_2_315(uint64_t a1)
+void __64__HKLocationFetcher__requeryRoutesForWorkout_withUpdateHandler___block_invoke_2_315(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   _HKInitializeLogging();
-  v2 = *MEMORY[0x1E696B9A8];
+  v3 = *MEMORY[0x1E696B9A8];
   if (os_log_type_enabled(*MEMORY[0x1E696B9A8], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = [v3 count];
-    v6 = [*(a1 + 40) UUID];
-    v13 = 134218242;
-    v14 = v5;
-    v15 = 2114;
-    v16 = v6;
-    _os_log_impl(&dword_1C3942000, v4, OS_LOG_TYPE_DEFAULT, "[routes] Found %lu routes via metadata for workout %{public}@", &v13, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = v3;
+    v6 = [v4 count];
+    v7 = [*(a1 + 40) UUID];
+    v14 = 134218242;
+    v15 = v6;
+    v16 = 2114;
+    v17 = v7;
+    _os_log_impl(&dword_1C3942000, v5, OS_LOG_TYPE_DEFAULT, "[routes] Found %lu routes via metadata for workout %{public}@", &v14, 0x16u);
   }
 
   if ([*(a1 + 32) count])
   {
-    v7 = *(a1 + 48);
-    v8 = [MEMORY[0x1E695DFD8] setWithArray:*(a1 + 32)];
-    [v7 unionSet:v8];
+    v8 = *(a1 + 48);
+    v9 = [MEMORY[0x1E695DFD8] setWithArray:*(a1 + 32)];
+    [v8 unionSet:v9];
   }
 
-  v9 = *(*(a1 + 72) + 8);
-  v12 = *(v9 + 40);
-  v10 = (v9 + 40);
-  v11 = v12;
-  if (!v12)
+  v10 = *(*(a1 + 72) + 8);
+  v13 = *(v10 + 40);
+  v11 = (v10 + 40);
+  v12 = v13;
+  if (!v13)
   {
-    v11 = *(a1 + 56);
+    v12 = *(a1 + 56);
   }
 
-  objc_storeStrong(v10, v11);
+  objc_storeStrong(v11, v12);
   dispatch_group_leave(*(a1 + 64));
 }
 

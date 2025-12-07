@@ -41,7 +41,7 @@
     v10 = v9;
 
     v11 = sub_1BE04AAB4();
-    sub_1BD1245AC(v8, v10);
+    sub_1BD1245AC(v8, v10, v12, v13, v14, v15, v16, v17);
   }
 
   else
@@ -63,6 +63,8 @@
   sub_1BD3CD324(v6, v8, selfCopy, v5);
   _Block_release(v5);
   _Block_release(v5);
+
+  v8, v10, v11, v12, v13, v14, v15, v16;
 }
 
 @end

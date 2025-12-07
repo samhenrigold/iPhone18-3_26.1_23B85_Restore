@@ -9,22 +9,21 @@
 {
   v5 = sub_1000268A0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100026890();
-  v10 = sub_100026CC0();
-  v12 = v11;
-  (*(v6 + 16))(self + OBJC_IVAR____TtC35com_apple_dt_DTMLModelRunnerService13ModelLocation_tempFolderGuid, v9, v5);
-  v13 = (self + OBJC_IVAR____TtC35com_apple_dt_DTMLModelRunnerService13ModelLocation_fileName);
-  *v13 = v10;
-  v13[1] = v12;
-  v14 = type metadata accessor for ModelLocation();
-  v17.receiver = self;
-  v17.super_class = v14;
-  v15 = [(ModelLocation *)&v17 init];
-  (*(v6 + 8))(v9, v5);
-  return v15;
+  v9 = sub_100026CC0();
+  v11 = v10;
+  (*(v6 + 16))(self + OBJC_IVAR____TtC35com_apple_dt_DTMLModelRunnerService13ModelLocation_tempFolderGuid, v8, v5);
+  v12 = (self + OBJC_IVAR____TtC35com_apple_dt_DTMLModelRunnerService13ModelLocation_fileName);
+  *v12 = v9;
+  v12[1] = v11;
+  v13 = type metadata accessor for ModelLocation(0);
+  v16.receiver = self;
+  v16.super_class = v13;
+  v14 = [(ModelLocation *)&v16 init];
+  (*(v6 + 8))(v8, v5);
+  return v14;
 }
 
 - (_TtC35com_apple_dt_DTMLModelRunnerService13ModelLocation)init

@@ -371,35 +371,35 @@ LABEL_13:
 
 + (BOOL)containValidDPConfigInMetadata:(id)metadata error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = [metadata objectForKeyedSubscript:@"DediscoTaskConfig"];
   v6 = [v5 objectForKeyedSubscript:@"DPConfig"];
 
   if (v6)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    v26[0] = @"LocalEpsilon";
-    v26[1] = @"TargetCentralEpsilon";
-    v26[2] = @"TargetCentralDelta";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v25[0] = @"LocalEpsilon";
+    v25[1] = @"TargetCentralEpsilon";
+    v25[2] = @"TargetCentralDelta";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+    v8 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           v13 = [v6 objectForKeyedSubscript:v12];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
@@ -426,7 +426,7 @@ LABEL_13:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
         if (v9)
         {
           continue;
@@ -445,38 +445,37 @@ LABEL_16:
     v15 = 1;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 + (BOOL)isMetadataValid:(id)valid plistParameters:(id)parameters error:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   validCopy = valid;
   parametersCopy = parameters;
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v51[0] = @"MaxCentralEpsilon";
-  v51[1] = @"MaxCentralDelta";
-  v51[2] = @"epsilon";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:3];
-  v9 = [v8 countByEnumeratingWithState:&v47 objects:v52 count:16];
+  v50[0] = @"MaxCentralEpsilon";
+  v50[1] = @"MaxCentralDelta";
+  v50[2] = @"epsilon";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:3];
+  v9 = [v8 countByEnumeratingWithState:&v46 objects:v51 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v48;
+    v11 = *v47;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v48 != v11)
+      if (*v47 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v47 + 1) + 8 * v12);
+      v13 = *(*(&v46 + 1) + 8 * v12);
       v14 = [parametersCopy objectForKeyedSubscript:v13];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
@@ -488,7 +487,7 @@ LABEL_3:
 
       if (v10 == ++v12)
       {
-        v10 = [v8 countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v46 objects:v51 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -526,18 +525,18 @@ LABEL_9:
 
   if ((v18 & 1) == 0)
   {
-    v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Malformed parameter (%@) in metadata, expected a dictionary.", @"DediscoTaskConfig"];
-    v8 = _DPPrivacyBudgetError(8, v34);
+    v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"Malformed parameter (%@) in metadata, expected a dictionary.", @"DediscoTaskConfig"];
+    v8 = _DPPrivacyBudgetError(8, v33);
 
-    v35 = +[_DPLog framework];
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v34 = +[_DPLog framework];
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       +[_DPBudgetAuditor budgetAuditorFromMetadata:plistParameters:isInternalBuild:error:];
     }
 
     if (error)
     {
-      v36 = v8;
+      v35 = v8;
       v28 = 0;
       *error = v8;
       goto LABEL_24;
@@ -553,10 +552,10 @@ LABEL_9:
 
   if ((v20 & 1) == 0)
   {
-    v37 = MEMORY[0x277CCACA8];
-    v38 = [v8 objectForKeyedSubscript:@"MinBatchSize"];
-    v39 = [v37 stringWithFormat:@"Malformed parameter (%@.%@) in metadata, expected numbers, got=%@", @"DediscoTaskConfig", @"MinBatchSize", v38];
-    v24 = _DPPrivacyBudgetError(8, v39);
+    v36 = MEMORY[0x277CCACA8];
+    v37 = [v8 objectForKeyedSubscript:@"MinBatchSize"];
+    v38 = [v36 stringWithFormat:@"Malformed parameter (%@.%@) in metadata, expected numbers, got=%@", @"DediscoTaskConfig", @"MinBatchSize", v37];
+    v24 = _DPPrivacyBudgetError(8, v38);
 
     v30 = +[_DPLog framework];
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
@@ -589,8 +588,8 @@ LABEL_20:
 
   if ((v23 & 1) == 0)
   {
-    v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"Malformed parameter (%@.%@) in metadata, expected a dictionary.", @"DediscoTaskConfig", @"DPConfig"];
-    v24 = _DPPrivacyBudgetError(8, v40);
+    v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"Malformed parameter (%@.%@) in metadata, expected a dictionary.", @"DediscoTaskConfig", @"DPConfig"];
+    v24 = _DPPrivacyBudgetError(8, v39);
 
     v30 = +[_DPLog framework];
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
@@ -608,23 +607,23 @@ LABEL_20:
     v26 = v25;
     v27 = [v24 objectForKeyedSubscript:@"Mechanism"];
     objc_opt_class();
-    v45 = objc_opt_isKindOfClass();
+    v44 = objc_opt_isKindOfClass();
 
-    if ((v45 & 1) == 0)
+    if ((v44 & 1) == 0)
     {
-      v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"Malformed parameter (%@.%@.%@) in metadata, expected a string.", @"DediscoTaskConfig", @"DPConfig", @"Mechanism"];
-      v42 = _DPPrivacyBudgetError(8, v41);
+      v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"Malformed parameter (%@.%@.%@) in metadata, expected a string.", @"DediscoTaskConfig", @"DPConfig", @"Mechanism"];
+      v41 = _DPPrivacyBudgetError(8, v40);
 
-      v43 = +[_DPLog framework];
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v42 = +[_DPLog framework];
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         +[_DPBudgetAuditor budgetAuditorFromMetadata:plistParameters:isInternalBuild:error:];
       }
 
       if (error)
       {
-        v44 = v42;
-        *error = v42;
+        v43 = v41;
+        *error = v41;
       }
 
 LABEL_22:
@@ -639,30 +638,21 @@ LABEL_17:
 LABEL_24:
 
 LABEL_25:
-  v32 = *MEMORY[0x277D85DE8];
   return v28;
-}
-
-+ (void)budgetAuditorFromMetadata:plistParameters:isInternalBuild:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_22622D000, v0, v1, "%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)targetApproximateDPFromDPConfig:(uint64_t)a3 error:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_22622D000, a1, a3, "%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Malformed target central DP parameters in metadata.";
+  OUTLINED_FUNCTION_0(&dword_22622D000, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)maxApproximateDPFromPlist:(uint64_t)a3 error:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_22622D000, a1, a3, "%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Malformed max central DP parameters in plist.";
+  OUTLINED_FUNCTION_0(&dword_22622D000, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

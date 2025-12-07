@@ -35,7 +35,7 @@
 {
   createCopy = create;
   nameCopy = name;
-  if (([nameCopy isEqualToString:@"com.apple.UIKit.pboard.find"] & 1) != 0 || objc_msgSend(nameCopy, "isEqualToString:", @"com.apple.UIKit.pboard.print"))
+  if ((objc_msgSend_isEqualToString_(nameCopy) & 1) != 0 || objc_msgSend_isEqualToString_(nameCopy))
   {
     v6 = objc_alloc_init(UIPasteboard);
   }

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -15,7 +16,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   if (*(fromCopy + 44))
@@ -26,7 +27,7 @@
 
   characteristicWriteAction = self->_characteristicWriteAction;
   v7 = v5[1];
-  v24 = v5;
+  v23 = v5;
   if (characteristicWriteAction)
   {
     if (!v7)
@@ -47,7 +48,7 @@
     [(HMPBActionContainer *)self setCharacteristicWriteAction:?];
   }
 
-  v5 = v24;
+  v5 = v23;
 LABEL_9:
   mediaPlaybackAction = self->_mediaPlaybackAction;
   v9 = v5[2];
@@ -65,21 +66,21 @@ LABEL_9:
       objc_storeStrong(&mediaPlaybackAction->_actionUUID, v11);
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v12 = *(v10 + 3);
-    v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v26;
+      v15 = *v25;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(v12);
           }
@@ -87,7 +88,7 @@ LABEL_9:
           [(HMPBMediaPlaybackAction *)mediaPlaybackAction addMediaProfiles:?];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v14);
@@ -122,7 +123,7 @@ LABEL_9:
     [(HMPBActionContainer *)self setMediaPlaybackAction:?];
   }
 
-  v5 = v24;
+  v5 = v23;
 LABEL_30:
   naturalLightingAction = self->_naturalLightingAction;
   v20 = v5[4];
@@ -146,7 +147,7 @@ LABEL_30:
     [(HMPBActionContainer *)self setNaturalLightingAction:?];
   }
 
-  v5 = v24;
+  v5 = v23;
 LABEL_36:
   matterCommandAction = self->_matterCommandAction;
   v22 = v5[3];
@@ -170,9 +171,8 @@ LABEL_36:
     matterCommandAction = [(HMPBActionContainer *)self setMatterCommandAction:?];
   }
 
-  v5 = v24;
+  v5 = v23;
 LABEL_42:
-  v23 = *MEMORY[0x1E69E9840];
 
   MEMORY[0x1EEE66BB8](matterCommandAction, v5);
 }
@@ -203,7 +203,6 @@ LABEL_42:
     goto LABEL_15;
   }
 
-  v5 = *(equalCopy + 44);
   if (*&self->_has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_type != *(equalCopy + 10))
@@ -215,7 +214,7 @@ LABEL_42:
   else if (*(equalCopy + 44))
   {
 LABEL_15:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
@@ -246,17 +245,17 @@ LABEL_15:
   matterCommandAction = self->_matterCommandAction;
   if (matterCommandAction | *(equalCopy + 3))
   {
-    v10 = [(HMPBMatterCommandAction *)matterCommandAction isEqual:?];
+    v9 = [(HMPBMatterCommandAction *)matterCommandAction isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -326,36 +325,35 @@ LABEL_16:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_characteristicWriteAction)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_mediaPlaybackAction)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_naturalLightingAction)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_matterCommandAction)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -447,6 +445,21 @@ LABEL_16:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E754DE50[string - 1];
   }
 
   return v4;

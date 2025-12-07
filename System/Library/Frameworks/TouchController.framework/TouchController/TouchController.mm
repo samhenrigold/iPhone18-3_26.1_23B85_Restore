@@ -1,15 +1,13 @@
 id JSONDictionaryFromCGSize(double a1, double a2)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"width";
-  v3 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-  v8[1] = @"height";
-  v9[0] = v3;
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"width";
+  v3 = [MEMORY[0x277CCABB0] numberWithDouble:a1];
+  v7[1] = @"height";
+  v8[0] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:a2];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -29,16 +27,14 @@ double CGSizeFromJSONDictionary(void *a1)
 
 id JSONDictionaryFromCGPoint(double a1, double a2)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"x";
-  v3 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-  v8[1] = @"y";
-  v9[0] = v3;
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"x";
+  v3 = [MEMORY[0x277CCABB0] numberWithDouble:a1];
+  v7[1] = @"y";
+  v8[0] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:a2];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -71,7 +67,7 @@ void __destructor_8_s0_s48_s56_s64(uint64_t a1)
   v2 = *(a1 + 64);
 }
 
-uint64_t tc_isInternalBuild()
+uint64_t tc_isInternalBuild(uint64_t a1, uint64_t a2)
 {
   if (tc_isInternalBuild_onceToken != -1)
   {
@@ -88,16 +84,16 @@ uint64_t __tc_isInternalBuild_block_invoke()
   return result;
 }
 
-id getTCLogger()
+id getTCLogger(uint64_t a1)
 {
   if (getTCLogger_onceToken != -1)
   {
     getTCLogger_cold_1();
   }
 
-  v1 = tcLogger;
+  v2 = tcLogger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __getTCLogger_block_invoke()
@@ -111,5 +107,15 @@ __n128 matrix_make_rows(double a1, double a2, double a3, double a4, float a5, ui
 {
   result.n128_f32[1] = a5;
   result.n128_u64[1] = __PAIR64__(a16, a14);
+  return result;
+}
+
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x2821115C8](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
   return result;
 }

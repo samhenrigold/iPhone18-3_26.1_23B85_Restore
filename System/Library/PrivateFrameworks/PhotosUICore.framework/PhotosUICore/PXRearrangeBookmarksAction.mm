@@ -26,7 +26,7 @@
 {
   v4 = _Block_copy(action);
   _Block_copy(v4);
-  sub_1A3E7A614(self);
+  sub_1A3E7A614(self, v4);
 }
 
 - (PXRearrangeBookmarksAction)initWithPhotoLibrary:(id)library

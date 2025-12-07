@@ -44,27 +44,27 @@
 
 - (void)markCellRefAsDirty:(const TSCECellRef *)dirty
 {
-  v9 = objc_msgSend_calcEngine(self->_formulasToSet, a2, dirty, v3, v4);
-  objc_msgSend_markCellRefAsDirty_(v9, v6, dirty, v7, v8);
+  v7 = objc_msgSend_calcEngine(self->_formulasToSet, a2, dirty, v3);
+  objc_msgSend_markCellRefAsDirty_(v7, v5, dirty, v6);
 }
 
 - (void)markRangeRefAsDirty:(const TSCERangeRef *)dirty
 {
-  v9 = objc_msgSend_calcEngine(self->_formulasToSet, a2, dirty, v3, v4);
-  objc_msgSend_markRangeRefAsDirty_(v9, v6, dirty, v7, v8);
+  v7 = objc_msgSend_calcEngine(self->_formulasToSet, a2, dirty, v3);
+  objc_msgSend_markRangeRefAsDirty_(v7, v5, dirty, v6);
 }
 
 - (void)flushAllChanges
 {
-  v38 = objc_msgSend_calcEngine(self->_formulasToSet, a2, v2, v3, v4);
-  objc_msgSend_beginSuppressingWillModifyCalls(v38, v6, v7, v8, v9);
-  objc_msgSend_beginBatchingGroupCellDirtying(v38, v10, v11, v12, v13);
-  objc_msgSend_flushRemoveFormulas(self->_formulasToSet, v14, v15, v16, v17);
-  objc_msgSend_flushResetFormulas(self->_formulasToSet, v18, v19, v20, v21);
-  objc_msgSend_flushReplaceFormulas(self->_formulasToSet, v22, v23, v24, v25);
-  objc_msgSend_willClose(self->_formulasToSet, v26, v27, v28, v29);
-  objc_msgSend_endBatchingGroupCellDirtying(v38, v30, v31, v32, v33);
-  objc_msgSend_endSuppressingWillModifyCalls(v38, v34, v35, v36, v37);
+  v29 = objc_msgSend_calcEngine(self->_formulasToSet, a2, v2, v3);
+  objc_msgSend_beginSuppressingWillModifyCalls(v29, v5, v6, v7);
+  objc_msgSend_beginBatchingGroupCellDirtying(v29, v8, v9, v10);
+  objc_msgSend_flushRemoveFormulas(self->_formulasToSet, v11, v12, v13);
+  objc_msgSend_flushResetFormulas(self->_formulasToSet, v14, v15, v16);
+  objc_msgSend_flushReplaceFormulas(self->_formulasToSet, v17, v18, v19);
+  objc_msgSend_willClose(self->_formulasToSet, v20, v21, v22);
+  objc_msgSend_endBatchingGroupCellDirtying(v29, v23, v24, v25);
+  objc_msgSend_endSuppressingWillModifyCalls(v29, v26, v27, v28);
 }
 
 @end

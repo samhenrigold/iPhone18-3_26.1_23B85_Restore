@@ -37,7 +37,7 @@
 {
   length = range.length;
   location = range.location;
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   hashtagCopy = hashtag;
   if (!hashtagCopy)
   {
@@ -70,33 +70,31 @@
     [(TTREMHashtag *)v10 setObjectIdentifier:objectIdentifier];
 
     mergeableString2 = [(REMMutableCRMergeableStringDocument *)self mergeableString];
-    v26 = @"_TTREMHashtag";
-    v27[0] = v10;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v25 = @"_TTREMHashtag";
+    v26[0] = v10;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
     [mergeableString2 setAttributes:v13 range:{location, length}];
 
     v14 = +[REMLog crdt];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       replicaIDSource = [(REMMutableCRMergeableStringDocument *)self replicaIDSource];
-      v28.location = location;
-      v28.length = length;
-      v16 = NSStringFromRange(v28);
-      v18 = 134218754;
+      v27.location = location;
+      v27.length = length;
+      v16 = NSStringFromRange(v27);
+      v17 = 134218754;
       selfCopy = self;
-      v20 = 2112;
-      v21 = replicaIDSource;
-      v22 = 2112;
-      v23 = v10;
-      v24 = 2112;
-      v25 = v16;
-      _os_log_impl(&dword_19A0DB000, v14, OS_LOG_TYPE_INFO, "Added TTREMHashtag to this REMMutableCRMergeableStringDocument {self: %p, replicaID: %@, value: %@, range: %@}", &v18, 0x2Au);
+      v19 = 2112;
+      v20 = replicaIDSource;
+      v21 = 2112;
+      v22 = v10;
+      v23 = 2112;
+      v24 = v16;
+      _os_log_impl(&dword_19A0DB000, v14, OS_LOG_TYPE_INFO, "Added TTREMHashtag to this REMMutableCRMergeableStringDocument {self: %p, replicaID: %@, value: %@, range: %@}", &v17, 0x2Au);
     }
 
 LABEL_12:
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeHashtagInRange:(_NSRange)range
@@ -130,7 +128,7 @@ LABEL_12:
 
 void __70__REMMutableCRMergeableStringDocument_Hashtags__removeHashtagInRange___block_invoke(uint64_t a1, void *a2, NSUInteger a3, NSUInteger a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = [v7 objectForKeyedSubscript:@"_TTREMHashtag"];
 
@@ -148,22 +146,20 @@ void __70__REMMutableCRMergeableStringDocument_Hashtags__removeHashtagInRange___
     {
       v14 = *(a1 + 40);
       v15 = [v14 replicaIDSource];
-      v27.location = a3;
-      v27.length = a4;
-      v16 = NSStringFromRange(v27);
-      v18 = 134218754;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v9;
-      v24 = 2112;
-      v25 = v16;
-      _os_log_impl(&dword_19A0DB000, v13, OS_LOG_TYPE_INFO, "Removed TTREMHashtag from this REMMutableCRMergeableStringDocument {self: %p, replicaID: %@, value: %@, range: %@}", &v18, 0x2Au);
+      v26.location = a3;
+      v26.length = a4;
+      v16 = NSStringFromRange(v26);
+      v17 = 134218754;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v9;
+      v23 = 2112;
+      v24 = v16;
+      _os_log_impl(&dword_19A0DB000, v13, OS_LOG_TYPE_INFO, "Removed TTREMHashtag from this REMMutableCRMergeableStringDocument {self: %p, replicaID: %@, value: %@, range: %@}", &v17, 0x2Au);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (REMMutableCRMergeableStringDocument)initWithReplicaIDSource:(id)source

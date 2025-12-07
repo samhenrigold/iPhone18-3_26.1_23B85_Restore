@@ -4371,7 +4371,7 @@ LABEL_32:
 
           if (photoIrisProperties)
           {
-            [photoIrisProperties photoIrisVideoDuration];
+            objc_msgSend_photoIrisVideoDuration(photoIrisProperties);
             Seconds = CMTimeGetSeconds(&buf);
             v32 = @"DurationOfLivePhotosAnalyzedFullResource";
             if (!v14)

@@ -27,14 +27,15 @@
   context = [(MSDOperation *)self context];
   identifier = [context identifier];
 
-  if ([MSDProvisioningProfileUtils isProvisioningProfileInstalled:identifier])
+  v5 = [MSDProvisioningProfileUtils isProvisioningProfileInstalled:identifier];
+  if (v5)
   {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100063A54(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
-      v8 = identifier;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Provisioning profile with UUID already installed: %{public}@", &v7, 0xCu);
+      v8 = 138543362;
+      v9 = identifier;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Provisioning profile with UUID already installed: %{public}@", &v8, 0xCu);
     }
 
     [(MSDOperation *)self setSkipped:1];

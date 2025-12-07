@@ -94,28 +94,26 @@ LABEL_12:
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([(SAModelExecution *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v11 = *__error();
-    v12 = _sa_logt();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v10 = *__error();
+    v11 = _sa_logt();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = [(SAModelExecution *)self debugDescription];
+      v12 = [(SAModelExecution *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v13 UTF8String];
-      v24 = 2048;
+      uTF8String = [v12 UTF8String];
+      v16 = 2048;
       sizeInBytesForSerializedVersion = [(SAModelExecution *)self sizeInBytesForSerializedVersion];
-      v26 = 2048;
+      v18 = 2048;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1E0E2F000, v12, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v11, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v11;
-    v14 = [(SAModelExecution *)self debugDescription];
-    uTF8String2 = [v14 UTF8String];
-    [(SAModelExecution *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(432, "%s: size %lu != buffer length %lu", v16, v17, v18, v19, v20, v21, uTF8String2);
+    *__error() = v10;
+    v13 = [(SAModelExecution *)self debugDescription];
+    _SASetCrashLogMessage(432, "%s: size %lu != buffer length %lu", [v13 UTF8String], -[SAModelExecution sizeInBytesForSerializedVersion](self, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
@@ -127,7 +125,6 @@ LABEL_12:
   *(&buffer->var3 + 2) = SASerializableIndexForPointerFromSerializationDictionary(self->_endTime, dictionary);
   *(&buffer->var4 + 2) = SASerializableIndexForPointerFromSerializationDictionary(self->_useCaseID, dictionary);
   *(&buffer->var5 + 2) = self->_instructions;
-  v9 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -149,7 +146,7 @@ LABEL_12:
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (*buffer >= 4u)
   {
     goto LABEL_7;
@@ -157,35 +154,34 @@ LABEL_12:
 
   if (length <= 0x21)
   {
-    v8 = *__error();
-    v9 = _sa_logt();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = *__error();
+    v8 = _sa_logt();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy = length;
-      v19 = 2048;
-      v20 = 34;
-      _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAModelExecution struct %lu", buf, 0x16u);
+      v12 = 2048;
+      v13 = 34;
+      _os_log_error_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAModelExecution struct %lu", buf, 0x16u);
     }
 
-    *__error() = v8;
-    _SASetCrashLogMessage(462, "bufferLength %lu < serialized SAModelExecution struct %lu", v10, v11, v12, v13, v14, v15, length);
+    *__error() = v7;
+    _SASetCrashLogMessage(462, "bufferLength %lu < serialized SAModelExecution struct %lu", length, 34);
     _os_crash();
     __break(1u);
 LABEL_7:
-    v16 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAModelExecution version" userInfo:0];
-    objc_exception_throw(v16);
+    v9 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAModelExecution version" userInfo:0];
+    objc_exception_throw(v9);
   }
 
   result = objc_alloc_init(SAModelExecution);
   *(result + 5) = *(buffer + 26);
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (*buffer >= 4u)
   {
     goto LABEL_15;
@@ -193,38 +189,38 @@ LABEL_7:
 
   if (length <= 0x21)
   {
+    v27 = *__error();
+    v28 = _sa_logt();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218240;
+      lengthCopy2 = length;
+      v34 = 2048;
+      v35 = 34;
+      _os_log_error_impl(&dword_1E0E2F000, v28, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAModelExecution struct %lu", buf, 0x16u);
+    }
+
+    *__error() = v27;
+    _SASetCrashLogMessage(475, "bufferLength %lu < serialized SAModelExecution struct %lu", length, 34);
+    _os_crash();
+    __break(1u);
+LABEL_12:
     v29 = *__error();
     v30 = _sa_logt();
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      *buf = 134218240;
+      *buf = 134217984;
       lengthCopy2 = length;
-      v48 = 2048;
-      v49 = 34;
-      _os_log_error_impl(&dword_1E0E2F000, v30, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAModelExecution struct %lu", buf, 0x16u);
+      _os_log_error_impl(&dword_1E0E2F000, v30, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAModelExecution v2 struct", buf, 0xCu);
     }
 
     *__error() = v29;
-    _SASetCrashLogMessage(475, "bufferLength %lu < serialized SAModelExecution struct %lu", v31, v32, v33, v34, v35, v36, length);
-    _os_crash();
-    __break(1u);
-LABEL_12:
-    v37 = *__error();
-    v38 = _sa_logt();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134217984;
-      lengthCopy2 = length;
-      _os_log_error_impl(&dword_1E0E2F000, v38, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAModelExecution v2 struct", buf, 0xCu);
-    }
-
-    *__error() = v37;
-    _SASetCrashLogMessage(484, "bufferLength %lu < serialized SAModelExecution v2 struct", v39, v40, v41, v42, v43, v44, length);
+    _SASetCrashLogMessage(484, "bufferLength %lu < serialized SAModelExecution v2 struct", length);
     _os_crash();
     __break(1u);
 LABEL_15:
-    v45 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAModelExecution version" userInfo:0];
-    objc_exception_throw(v45);
+    v31 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAModelExecution version" userInfo:0];
+    objc_exception_throw(v31);
   }
 
   v11 = *(buffer + 2);
@@ -247,7 +243,6 @@ LABEL_15:
 
   if (*(buffer + 1) < 3u)
   {
-    v28 = *MEMORY[0x1E69E9840];
     return;
   }
 
@@ -261,7 +256,6 @@ LABEL_15:
   v25 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v23, dictionary, bufferDictionary, v24, 0);
   useCaseID = self->_useCaseID;
   self->_useCaseID = v25;
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 @end

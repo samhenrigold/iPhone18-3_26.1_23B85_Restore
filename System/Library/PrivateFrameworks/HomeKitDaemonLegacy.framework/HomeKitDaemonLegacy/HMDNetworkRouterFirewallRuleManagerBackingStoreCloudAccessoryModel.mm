@@ -69,56 +69,54 @@
 
 void __83__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudAccessoryModel_hmbProperties__block_invoke()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"networkDeclarationsData";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"networkDeclarationsData";
   v0 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v5[1] = @"pairedMetadataData";
-  v6[0] = v0;
+  v4[1] = @"pairedMetadataData";
+  v5[0] = v0;
   v1 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
   v3 = hmbProperties_properties_137676;
   hmbProperties_properties_137676 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)modelIDForRecordID:(id)d
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   recordName = [dCopy recordName];
-  v26[0] = recordName;
+  v25[0] = recordName;
   zoneID = [dCopy zoneID];
   zoneName = [zoneID zoneName];
-  v26[1] = zoneName;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[1] = zoneName;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
 
   data = [MEMORY[0x277CBEB28] data];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v21 + 1) + 8 * i) dataUsingEncoding:{4, v21}];
+        v15 = [*(*(&v20 + 1) + 8 * i) dataUsingEncoding:{4, v20}];
         [data appendData:v15];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v12);
@@ -127,8 +125,6 @@ void __83__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudAccessoryModel_hm
   v16 = MEMORY[0x277CCAD78];
   namespaceID = [self namespaceID];
   v18 = [v16 hmf_UUIDWithNamespace:namespaceID data:data];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -168,12 +164,11 @@ uint64_t __81__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudAccessoryMode
 
 uint64_t __81__HMDNetworkRouterFirewallRuleManagerBackingStoreCloudAccessoryModel_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_137697;
-  logCategory__hmf_once_v1_137697 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_137697;
+  logCategory__hmf_once_v1_137697 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -7,13 +7,12 @@
 
 - (void)pulseAnimationDidFinish
 {
-  v2 = *&self->_TtCs12_SwiftObject_opaque[OBJC_IVAR____TtC11AegirPoster25AegirRenderingCoordinator_tokenManager];
-  v3 = qword_1000470F0;
-  v4 = off_1000470F8;
+  v2 = qword_1000470F0;
+  v3 = off_1000470F8;
 
-  v6._countAndFlagsBits = v3;
-  v6._object = v4;
-  sub_100034684(v6);
+  v5._countAndFlagsBits = v2;
+  v5._object = v3;
+  sub_100034684(v5);
 
   sub_100012108(0);
 }
@@ -22,20 +21,19 @@
 {
   v0 = sub_100034874();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100034834();
-  v5 = sub_100034854();
-  v6 = sub_100034C64();
-  if (os_log_type_enabled(v5, v6))
+  v4 = sub_100034854();
+  v5 = sub_100034C64();
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, v6, "astronomyVistaViewContentsAnimationFinished", v7, 2u);
+    v6 = swift_slowAlloc();
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, v5, "astronomyVistaViewContentsAnimationFinished", v6, 2u);
   }
 
-  return (*(v1 + 8))(v4, v0);
+  return (*(v1 + 8))(v3, v0);
 }
 
 @end

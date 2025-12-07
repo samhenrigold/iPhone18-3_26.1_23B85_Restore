@@ -23,47 +23,46 @@
 
 - (APOdmlAssetManagerCoordinator)init
 {
-  v35.receiver = self;
-  v35.super_class = APOdmlAssetManagerCoordinator;
-  v2 = [(APOdmlAssetManagerCoordinator *)&v35 init];
+  v22.receiver = self;
+  v22.super_class = APOdmlAssetManagerCoordinator;
+  v2 = [(APOdmlAssetManagerCoordinator *)&v22 init];
   if (v2)
   {
-    v3 = [APOdmlUnfairLock alloc];
-    v5 = objc_msgSend_initWithOptions_(v3, v4, 1);
+    v3 = [[APOdmlUnfairLock alloc] initWithOptions:1];
     refreshTrialLock = v2->_refreshTrialLock;
-    v2->_refreshTrialLock = v5;
+    v2->_refreshTrialLock = v3;
 
-    v8 = objc_msgSend_clientWithIdentifier_(MEMORY[0x277D73660], v7, 238);
+    v5 = [MEMORY[0x277D73660] clientWithIdentifier:238];
     trialClient = v2->_trialClient;
-    v2->_trialClient = v8;
+    v2->_trialClient = v5;
 
-    objc_msgSend_setUpdateHandlerForNamespace_(v2, v10, @"AD_PLATFORMS_ODML");
-    objc_msgSend_setUpdateHandlerForNamespace_(v2, v11, @"SEARCH_ADS_COUNTERFACTUAL");
+    [(APOdmlAssetManagerCoordinator *)v2 setUpdateHandlerForNamespace:@"AD_PLATFORMS_ODML"];
+    [(APOdmlAssetManagerCoordinator *)v2 setUpdateHandlerForNamespace:@"SEARCH_ADS_COUNTERFACTUAL"];
     v2->_respondToRefreshNotification = 1;
-    v14 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v12, v13);
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
     assetManagers = v2->_assetManagers;
-    v2->_assetManagers = v14;
+    v2->_assetManagers = dictionary;
 
-    v16 = MEMORY[0x277CBEA60];
-    v18 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v17, 0);
-    v20 = objc_msgSend_arrayWithObjects_(v16, v19, v18, 0);
-    objc_msgSend_initializeAssetManagersforPlacementTypes_(v2, v21, v20);
+    v9 = MEMORY[0x277CBEA60];
+    v10 = [MEMORY[0x277CCABB0] numberWithInt:0];
+    v11 = [v9 arrayWithObjects:{v10, 0}];
+    [(APOdmlAssetManagerCoordinator *)v2 initializeAssetManagersforPlacementTypes:v11];
 
-    v22 = objc_alloc_init(MEMORY[0x277CCABD8]);
+    v12 = objc_alloc_init(MEMORY[0x277CCABD8]);
     refreshClientQueue = v2->_refreshClientQueue;
-    v2->_refreshClientQueue = v22;
+    v2->_refreshClientQueue = v12;
 
-    v26 = objc_msgSend_defaultCenter(MEMORY[0x277CCA9A0], v24, v25);
-    v27 = v2->_refreshClientQueue;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = sub_260ECE07C;
-    v33[3] = &unk_279AC5F00;
-    v28 = v2;
-    v34 = v28;
-    v30 = objc_msgSend_addObserverForName_object_queue_usingBlock_(v26, v29, @"kAPODMLDeviceKnowledgeManagerRanNotification", 0, v27, v33);
-    refreshClientNotificationObserver = v28->_refreshClientNotificationObserver;
-    v28->_refreshClientNotificationObserver = v30;
+    defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
+    v15 = v2->_refreshClientQueue;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = sub_260ECE07C;
+    v20[3] = &unk_279AC5F00;
+    v16 = v2;
+    v21 = v16;
+    v17 = [defaultCenter addObserverForName:@"kAPODMLDeviceKnowledgeManagerRanNotification" object:0 queue:v15 usingBlock:v20];
+    refreshClientNotificationObserver = v16->_refreshClientNotificationObserver;
+    v16->_refreshClientNotificationObserver = v17;
   }
 
   return v2;
@@ -71,99 +70,93 @@
 
 - (id)assetManagerForPlacementType:(unint64_t)type assetManagerType:(unint64_t)managerType
 {
-  v23[1] = *MEMORY[0x277D85DE8];
-  v7 = objc_msgSend_trialClient(self, a2, type);
+  v15[1] = *MEMORY[0x277D85DE8];
+  trialClient = [(APOdmlAssetManagerCoordinator *)self trialClient];
 
-  if (!v7)
+  if (!trialClient)
   {
-    v10 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v8, type);
-    v23[0] = v10;
-    v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, v23, 1);
-    objc_msgSend_refreshTrialClientForPlacementTypes_(self, v13, v12);
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
+    v15[0] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    [(APOdmlAssetManagerCoordinator *)self refreshTrialClientForPlacementTypes:v9];
   }
 
-  v14 = objc_msgSend_assetManagers(self, v8, v9);
-  v16 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x277CCABB0], v15, type);
-  v18 = objc_msgSend_objectForKey_(v14, v17, v16);
-  v20 = objc_msgSend_assetManagerForType_(v18, v19, managerType);
+  assetManagers = [(APOdmlAssetManagerCoordinator *)self assetManagers];
+  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:type];
+  v12 = [assetManagers objectForKey:v11];
+  v13 = [v12 assetManagerForType:managerType];
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v13;
 }
 
 - (void)refreshTrialClientForPlacementTypes:(id)types
 {
   typesCopy = types;
-  v7 = objc_msgSend_refreshTrialLock(self, v5, v6);
-  objc_msgSend_lock(v7, v8, v9);
+  refreshTrialLock = [(APOdmlAssetManagerCoordinator *)self refreshTrialLock];
+  [refreshTrialLock lock];
 
-  v11 = objc_msgSend_clientWithIdentifier_(MEMORY[0x277D73660], v10, 238);
-  objc_msgSend_setTrialClient_(self, v12, v11);
+  v6 = [MEMORY[0x277D73660] clientWithIdentifier:238];
+  [(APOdmlAssetManagerCoordinator *)self setTrialClient:v6];
 
-  objc_msgSend_setUpdateHandlerForNamespace_(self, v13, @"AD_PLATFORMS_ODML");
-  objc_msgSend_setUpdateHandlerForNamespace_(self, v14, @"SEARCH_ADS_COUNTERFACTUAL");
-  objc_msgSend_initializeAssetManagersforPlacementTypes_(self, v15, typesCopy);
+  [(APOdmlAssetManagerCoordinator *)self setUpdateHandlerForNamespace:@"AD_PLATFORMS_ODML"];
+  [(APOdmlAssetManagerCoordinator *)self setUpdateHandlerForNamespace:@"SEARCH_ADS_COUNTERFACTUAL"];
+  [(APOdmlAssetManagerCoordinator *)self initializeAssetManagersforPlacementTypes:typesCopy];
 
-  v20 = objc_msgSend_refreshTrialLock(self, v16, v17);
-  objc_msgSend_unlock(v20, v18, v19);
+  refreshTrialLock2 = [(APOdmlAssetManagerCoordinator *)self refreshTrialLock];
+  [refreshTrialLock2 unlock];
 }
 
 - (void)initializeAssetManagersforPlacementTypes:(id)types
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   typesCopy = types;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(typesCopy, v5, &v20, v24, 16);
-  if (v6)
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v5 = [typesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v21;
+    v6 = v5;
+    v7 = *v12;
     do
     {
-      v9 = 0;
+      v8 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(typesCopy);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * v9);
-        v11 = [APOdmlAssetManagersForPlacement alloc];
-        v14 = objc_msgSend_unsignedIntegerValue(v10, v12, v13);
-        v16 = objc_msgSend_initWithPlacementType_trialClient_(v11, v15, v14, self->_trialClient);
-        objc_msgSend_setObject_forKey_(self->_assetManagers, v17, v16, v10);
+        v9 = *(*(&v11 + 1) + 8 * v8);
+        v10 = -[APOdmlAssetManagersForPlacement initWithPlacementType:trialClient:]([APOdmlAssetManagersForPlacement alloc], "initWithPlacementType:trialClient:", [v9 unsignedIntegerValue], self->_trialClient);
+        [(NSMutableDictionary *)self->_assetManagers setObject:v10 forKey:v9];
 
-        ++v9;
+        ++v8;
       }
 
-      while (v7 != v9);
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(typesCopy, v18, &v20, v24, 16);
+      while (v6 != v8);
+      v6 = [typesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpdateHandlerForNamespace:(id)namespace
 {
   namespaceCopy = namespace;
   objc_initWeak(&location, self);
-  v7 = objc_msgSend_trialClient(self, v5, v6);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_260ECE558;
-  v10[3] = &unk_279AC5F28;
-  objc_copyWeak(&v11, &location);
-  v9 = objc_msgSend_addUpdateHandlerForNamespaceName_usingBlock_(v7, v8, namespaceCopy, v10);
+  trialClient = [(APOdmlAssetManagerCoordinator *)self trialClient];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = sub_260ECE558;
+  v7[3] = &unk_279AC5F28;
+  objc_copyWeak(&v8, &location);
+  v6 = [trialClient addUpdateHandlerForNamespaceName:namespaceCopy usingBlock:v7];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
 }
 

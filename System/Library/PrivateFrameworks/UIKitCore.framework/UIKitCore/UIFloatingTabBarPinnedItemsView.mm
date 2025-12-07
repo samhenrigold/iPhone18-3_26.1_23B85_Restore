@@ -16,19 +16,19 @@ uint64_t __54___UIFloatingTabBarPinnedItemsView_setItems_animated___block_invoke
   v11 = v10;
   if (v9 == v10)
   {
-    v12 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v12 = 0;
+    isEqual = 0;
     if (v9 && v10)
     {
-      v12 = [v9 isEqual:v10];
+      isEqual = objc_msgSend_isEqual_(v9);
     }
   }
 
-  return v12;
+  return isEqual;
 }
 
 BOOL __63___UIFloatingTabBarPinnedItemsView_itemIndexForItemAtLocation___block_invoke(uint64_t a1, void *a2)

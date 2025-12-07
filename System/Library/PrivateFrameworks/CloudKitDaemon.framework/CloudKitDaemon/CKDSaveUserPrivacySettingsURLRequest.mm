@@ -42,17 +42,16 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
 
 - (id)generateRequestOperations
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_operationType(self, a2, v2);
   v6 = objc_msgSend_operationRequestWithType_(self, v5, v4);
   v7 = objc_opt_new();
@@ -71,10 +70,8 @@
     objc_msgSend_setDiscoverable_(v24, v25, v18);
   }
 
-  v29[0] = v6;
-  v26 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v16, v29, 1);
-
-  v27 = *MEMORY[0x277D85DE8];
+  v28[0] = v6;
+  v26 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v16, v28, 1);
 
   return v26;
 }

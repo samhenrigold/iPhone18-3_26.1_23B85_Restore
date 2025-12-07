@@ -16,7 +16,7 @@
 
 - (id)locationInformationForLocationNode:(id)node locationMask:(unint64_t)mask
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   uUID = [nodeCopy UUID];
   if (uUID || ([nodeCopy name], (uUID = objc_claimAutoreleasedReturnValue()) != 0))
@@ -31,22 +31,20 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = nodeCopy;
-      _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Cannot get unique UUID for node %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = nodeCopy;
+      _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Cannot get unique UUID for node %@", &v13, 0xCu);
     }
 
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (void)setLocationInformation:(id)information forLocationNode:(id)node locationMask:(unint64_t)mask
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   informationCopy = information;
   nodeCopy = node;
   uUID = [nodeCopy UUID];
@@ -66,12 +64,10 @@
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v15 = 138412290;
-    v16 = nodeCopy;
-    _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Cannot get unique UUID for node %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = nodeCopy;
+    _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Cannot get unique UUID for node %@", &v14, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)curationInformationForNode:(id)node
@@ -98,7 +94,7 @@
 
 - (void)setCurationInformation:(id)information forNode:(id)node
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   informationCopy = information;
   nodeCopy = node;
   uUID = [nodeCopy UUID];
@@ -110,43 +106,41 @@
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v11 = 138412290;
-    v12 = nodeCopy;
-    _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Cannot get unique UUID for node %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = nodeCopy;
+    _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Cannot get unique UUID for node %@", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)momentAssetPairs:(id)pairs areValidWithAssociatedMomentUUIDs:(id)ds
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   pairsCopy = pairs;
   dsCopy = ds;
   if ([pairsCopy count] && objc_msgSend(dsCopy, "count"))
   {
     selfCopy = self;
     v8 = [MEMORY[0x277CBEB58] set];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v9 = pairsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v28;
+      v12 = *v27;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v28 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v27 + 1) + 8 * i);
+          v14 = *(*(&v26 + 1) + 8 * i);
           momentUUID = [v14 momentUUID];
           v16 = [dsCopy containsObject:momentUUID];
 
@@ -157,7 +151,7 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v11);
@@ -168,8 +162,8 @@
       v18 = [MEMORY[0x277CCAC30] predicateWithFormat:@"uuid IN %@", v8];
       librarySpecificFetchOptions = [(PHPhotoLibrary *)selfCopy->_photoLibrary librarySpecificFetchOptions];
       [librarySpecificFetchOptions setInternalPredicate:v18];
-      v31 = *MEMORY[0x277CD9AA8];
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+      v30 = *MEMORY[0x277CD9AA8];
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
       [librarySpecificFetchOptions setFetchPropertySets:v20];
 
       [librarySpecificFetchOptions setShouldPrefetchCount:1];
@@ -190,7 +184,6 @@
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -270,17 +263,17 @@ LABEL_11:
 
 - (void)save
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = *&self->_momentAssetPairsByNodeUUID;
-  v13[0] = @"thumbnails";
-  v13[1] = @"curations";
-  v14 = v3;
-  v13[2] = @"locations";
+  v12[0] = @"thumbnails";
+  v12[1] = @"curations";
+  v13 = v3;
+  v12[2] = @"locations";
   locationInformationByNodeUUID = self->_locationInformationByNodeUUID;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:v13 count:3];
-  v10 = 0;
-  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v4 requiringSecureCoding:1 error:&v10];
-  v6 = v10;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:v12 count:3];
+  v9 = 0;
+  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v4 requiringSecureCoding:1 error:&v9];
+  v6 = v9;
   if (v5)
   {
     [v5 writeToURL:self->_persistentStoreURL atomically:1];
@@ -294,22 +287,20 @@ LABEL_11:
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v6;
+      v11 = v6;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Error writing zero keyword cache error: %@", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (PGSearchComputationCache)initWithPersistentStoreURL:(id)l photoLibrary:(id)library
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   lCopy = l;
   libraryCopy = library;
-  v44.receiver = self;
-  v44.super_class = PGSearchComputationCache;
-  v9 = [(PGSearchComputationCache *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = PGSearchComputationCache;
+  v9 = [(PGSearchComputationCache *)&v43 init];
   v10 = v9;
   if (v9)
   {
@@ -319,9 +310,9 @@ LABEL_11:
     v12 = 0x277CBE000uLL;
     if (v11)
     {
-      v41 = libraryCopy;
-      v42 = lCopy;
-      v40 = MEMORY[0x277CCAAC8];
+      v40 = libraryCopy;
+      v41 = lCopy;
+      v39 = MEMORY[0x277CCAAC8];
       v13 = MEMORY[0x277CBEB98];
       v14 = objc_opt_class();
       v15 = objc_opt_class();
@@ -329,11 +320,11 @@ LABEL_11:
       v17 = objc_opt_class();
       v18 = objc_opt_class();
       v19 = objc_opt_class();
-      v39 = objc_opt_class();
-      v20 = [v13 setWithObjects:{v14, v15, v16, v17, v18, v19, v39, objc_opt_class(), 0}];
-      v43 = 0;
-      v21 = [v40 unarchivedObjectOfClasses:v20 fromData:v11 error:&v43];
-      v22 = v43;
+      v38 = objc_opt_class();
+      v20 = [v13 setWithObjects:{v14, v15, v16, v17, v18, v19, v38, objc_opt_class(), 0}];
+      v42 = 0;
+      v21 = [v39 unarchivedObjectOfClasses:v20 fromData:v11 error:&v42];
+      v22 = v42;
 
       if (v22)
       {
@@ -343,13 +334,13 @@ LABEL_11:
         if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v46 = v22;
+          v45 = v22;
           _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Error loading the search computation cache error: %@", buf, 0xCu);
         }
       }
 
-      libraryCopy = v41;
-      lCopy = v42;
+      libraryCopy = v40;
+      lCopy = v41;
       v12 = 0x277CBE000;
     }
 
@@ -404,7 +395,6 @@ LABEL_11:
     v10->_locationInformationByNodeUUID = dictionary3;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

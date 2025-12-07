@@ -20,7 +20,7 @@
 - (BOOL)isImmediatelyReachable
 {
   selfCopy = self;
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   hostFlags = self->_hostFlags;
   ipFlags = self->_ipFlags;
   if ((hostFlags & 2) != 0)
@@ -52,21 +52,21 @@
       v10 = selfCopy->_hostFlags;
       v11 = selfCopy->_ipFlags;
       isSleeping = selfCopy->_isSleeping;
-      v30 = 138413826;
-      v31 = selfCopy;
-      v32 = 1024;
-      v33 = v5;
-      v34 = 1024;
-      v35 = v10;
-      v36 = 1024;
-      v37 = v11;
-      v38 = 1024;
-      v39 = isSleeping;
-      v40 = 1024;
-      v41 = v8;
-      v42 = 1024;
-      v43 = (ipFlags >> 5) & 1;
-      _os_log_impl(&dword_195988000, v9, OS_LOG_TYPE_DEFAULT, "[%@ isImmediatelyReachable] = %d.  Host:0x%06x IP:0x%06x Sleeping:%d ConnectionRequired:%d OnDemand:%d", &v30, 0x30u);
+      v29 = 138413826;
+      v30 = selfCopy;
+      v31 = 1024;
+      v32 = v5;
+      v33 = 1024;
+      v34 = v10;
+      v35 = 1024;
+      v36 = v11;
+      v37 = 1024;
+      v38 = isSleeping;
+      v39 = 1024;
+      v40 = v8;
+      v41 = 1024;
+      v42 = (ipFlags >> 5) & 1;
+      _os_log_impl(&dword_195988000, v9, OS_LOG_TYPE_DEFAULT, "[%@ isImmediatelyReachable] = %d.  Host:0x%06x IP:0x%06x Sleeping:%d ConnectionRequired:%d OnDemand:%d", &v29, 0x30u);
     }
   }
 
@@ -77,26 +77,26 @@
     {
       v22 = selfCopy->_hostFlags;
       v23 = selfCopy->_isSleeping;
-      v30 = 138413570;
-      v31 = selfCopy;
-      v32 = 1024;
-      v33 = v5;
-      v34 = 1024;
-      v35 = v22;
-      v36 = 1024;
-      v37 = v23;
-      v38 = 1024;
-      v39 = v8;
-      v40 = 1024;
-      v41 = (hostFlags >> 5) & 1;
-      _os_log_impl(&dword_195988000, v9, OS_LOG_TYPE_DEFAULT, "[%@ isImmediatelyReachable] = %d.  Host:0x%06x IP:nil Sleeping:%d ConnectionRequired:%d OnDemand:%d", &v30, 0x2Au);
+      v29 = 138413570;
+      v30 = selfCopy;
+      v31 = 1024;
+      v32 = v5;
+      v33 = 1024;
+      v34 = v22;
+      v35 = 1024;
+      v36 = v23;
+      v37 = 1024;
+      v38 = v8;
+      v39 = 1024;
+      v40 = (hostFlags >> 5) & 1;
+      _os_log_impl(&dword_195988000, v9, OS_LOG_TYPE_DEFAULT, "[%@ isImmediatelyReachable] = %d.  Host:0x%06x IP:nil Sleeping:%d ConnectionRequired:%d OnDemand:%d", &v29, 0x2Au);
     }
   }
 
   if (!v5)
   {
     LOBYTE(selfCopy) = 0;
-    goto LABEL_34;
+    return selfCopy;
   }
 
   v15 = selfCopy->_hostFlags;
@@ -114,9 +114,9 @@
         v27 = @"YES";
       }
 
-      v30 = 138412290;
-      v31 = v27;
-      _os_log_impl(&dword_195988000, v20, OS_LOG_TYPE_DEFAULT, "  => We're on WWAN for ip reachability, checking data active: %@", &v30, 0xCu);
+      v29 = 138412290;
+      v30 = v27;
+      _os_log_impl(&dword_195988000, v20, OS_LOG_TYPE_DEFAULT, "  => We're on WWAN for ip reachability, checking data active: %@", &v29, 0xCu);
     }
 
     goto LABEL_24;
@@ -138,22 +138,20 @@
         v21 = @"YES";
       }
 
-      v30 = 138412290;
-      v31 = v21;
-      _os_log_impl(&dword_195988000, v20, OS_LOG_TYPE_DEFAULT, "  => We're on WWAN for host reachability, checking data active: %@", &v30, 0xCu);
+      v29 = 138412290;
+      v30 = v21;
+      _os_log_impl(&dword_195988000, v20, OS_LOG_TYPE_DEFAULT, "  => We're on WWAN for host reachability, checking data active: %@", &v29, 0xCu);
     }
 
 LABEL_24:
   }
 
-LABEL_34:
-  v28 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = OSLogHandleForIDSCategory("IMConnectionMonitor");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -170,10 +168,9 @@ LABEL_34:
 
   objc_msgSend__clearReachability_flags_(self, v12, &self->_ipReachability, &self->_ipFlags);
   objc_msgSend__clearReachability_flags_(self, v13, &self->_hostReachability, &self->_hostFlags);
-  v15.receiver = self;
-  v15.super_class = IMNetworkConnectionMonitor;
-  [(IMNetworkConnectionMonitor *)&v15 dealloc];
-  v14 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = IMNetworkConnectionMonitor;
+  [(IMNetworkConnectionMonitor *)&v14 dealloc];
 }
 
 - (void)_clearReachability:(id *)reachability flags:(unint64_t *)flags
@@ -187,36 +184,33 @@ LABEL_34:
 
 - (void)_doCallbackNow
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = OSLogHandleForIDSCategory("IMConnectionMonitor");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
+    v10 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "[%@ _doCallbackNow]", &v11, 0xCu);
+    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "[%@ _doCallbackNow]", &v10, 0xCu);
   }
 
   objc_msgSend_cancelPendingExecutions(self->_performCallbackTask, v4, v5);
   v8 = objc_msgSend_delegate(self, v6, v7);
   objc_msgSend_connectionMonitorDidUpdate_(v8, v9, self);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_doCallbackLater
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = OSLogHandleForIDSCategory("IMConnectionMonitor");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
+    v7 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "[%@ _doCallbackLater]", &v8, 0xCu);
+    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "[%@ _doCallbackLater]", &v7, 0xCu);
   }
 
   objc_msgSend_cancelPendingExecutions(self->_performCallbackTask, v4, v5);
   objc_msgSend_enqueueExecutionWithTarget_afterDelay_(self->_performCallbackTask, v6, self, 0.001);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupReachability
@@ -244,7 +238,7 @@ LABEL_34:
 
 - (void)reachabilityDidChange:(id)change
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   v7 = objc_msgSend_flags(changeCopy, v5, v6);
   v8 = v7;
@@ -257,13 +251,13 @@ LABEL_34:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v12 = *p_hostFlags;
-        v16 = 138412802;
+        v15 = 138412802;
         selfCopy2 = self;
-        v18 = 1024;
-        v19 = v12;
-        v20 = 1024;
-        v21 = v8;
-        _os_log_impl(&dword_195988000, v10, OS_LOG_TYPE_DEFAULT, "[%@ reachabilityDidChange:].  _hostFlags: 0x%06x -> 0x%06x", &v16, 0x18u);
+        v17 = 1024;
+        v18 = v12;
+        v19 = 1024;
+        v20 = v8;
+        _os_log_impl(&dword_195988000, v10, OS_LOG_TYPE_DEFAULT, "[%@ reachabilityDidChange:].  _hostFlags: 0x%06x -> 0x%06x", &v15, 0x18u);
       }
 
       goto LABEL_10;
@@ -279,13 +273,13 @@ LABEL_34:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v11 = *p_hostFlags;
-        v16 = 138412802;
+        v15 = 138412802;
         selfCopy2 = self;
-        v18 = 1024;
-        v19 = v11;
-        v20 = 1024;
-        v21 = v8;
-        _os_log_impl(&dword_195988000, v10, OS_LOG_TYPE_DEFAULT, "[%@ reachabilityDidChange:].  _ipFlags: 0x%06x -> 0x%06x", &v16, 0x18u);
+        v17 = 1024;
+        v18 = v11;
+        v19 = 1024;
+        v20 = v8;
+        _os_log_impl(&dword_195988000, v10, OS_LOG_TYPE_DEFAULT, "[%@ reachabilityDidChange:].  _ipFlags: 0x%06x -> 0x%06x", &v15, 0x18u);
       }
 
 LABEL_10:
@@ -294,22 +288,20 @@ LABEL_10:
       objc_msgSend__doCallbackLater(self, v13, v14);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)systemWillSleep
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = OSLogHandleForIDSCategory("IMConnectionMonitor");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     isSleeping = self->_isSleeping;
-    v8 = 138412546;
+    v7 = 138412546;
     selfCopy = self;
-    v10 = 1024;
-    v11 = isSleeping;
-    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "[%@ systemWillSleep].  _isSleeping: %d -> 1", &v8, 0x12u);
+    v9 = 1024;
+    v10 = isSleeping;
+    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "[%@ systemWillSleep].  _isSleeping: %d -> 1", &v7, 0x12u);
   }
 
   if (!self->_isSleeping)
@@ -317,22 +309,20 @@ LABEL_10:
     self->_isSleeping = 1;
     objc_msgSend__doCallbackNow(self, v5, v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)systemDidWake
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = OSLogHandleForIDSCategory("IMConnectionMonitor");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     isSleeping = self->_isSleeping;
-    v8 = 138412546;
+    v7 = 138412546;
     selfCopy = self;
-    v10 = 1024;
-    v11 = isSleeping;
-    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "[%@ systemDidWake].  _isSleeping: %d -> 0", &v8, 0x12u);
+    v9 = 1024;
+    v10 = isSleeping;
+    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "[%@ systemDidWake].  _isSleeping: %d -> 0", &v7, 0x12u);
   }
 
   if (self->_isSleeping)
@@ -340,24 +330,21 @@ LABEL_10:
     self->_isSleeping = 0;
     objc_msgSend__doCallbackLater(self, v5, v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_networkManagedUpdated:(id)updated
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   v5 = OSLogHandleForIDSCategory("IMConnectionMonitor");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
+    v8 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "[%@ _networkManagedUpdated].", &v9, 0xCu);
+    _os_log_impl(&dword_195988000, v5, OS_LOG_TYPE_DEFAULT, "[%@ _networkManagedUpdated].", &v8, 0xCu);
   }
 
   objc_msgSend__doCallbackLater(self, v6, v7);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setup
@@ -380,22 +367,22 @@ LABEL_10:
 
 - (void)goConnectedWithLocalSocketAddress:(id)address remoteSocketAddress:(id)socketAddress
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   socketAddressCopy = socketAddress;
   v8 = OSLogHandleForIDSCategory("IMConnectionMonitor");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     isConnected = self->_isConnected;
-    v16 = 138413058;
+    v15 = 138413058;
     selfCopy = self;
-    v18 = 1024;
-    v19 = isConnected;
-    v20 = 2112;
-    v21 = addressCopy;
-    v22 = 2112;
-    v23 = socketAddressCopy;
-    _os_log_impl(&dword_195988000, v8, OS_LOG_TYPE_DEFAULT, "[%@ goConnectedWithLocalSocketAddress]._isConnected: %d -> 1\n    localSocketAddress: %@\n    remoteSocketAddress: %@", &v16, 0x26u);
+    v17 = 1024;
+    v18 = isConnected;
+    v19 = 2112;
+    v20 = addressCopy;
+    v21 = 2112;
+    v22 = socketAddressCopy;
+    _os_log_impl(&dword_195988000, v8, OS_LOG_TYPE_DEFAULT, "[%@ goConnectedWithLocalSocketAddress]._isConnected: %d -> 1\n    localSocketAddress: %@\n    remoteSocketAddress: %@", &v15, 0x26u);
   }
 
   if (!self->_isConnected)
@@ -407,22 +394,20 @@ LABEL_10:
     ipReachability = self->_ipReachability;
     self->_ipReachability = v13;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)goDisconnected
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = OSLogHandleForIDSCategory("IMConnectionMonitor");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     isConnected = self->_isConnected;
-    v7 = 138412546;
+    v6 = 138412546;
     selfCopy = self;
-    v9 = 1024;
-    v10 = isConnected;
-    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "[%@ goDisconnected].  _isConnected: %d -> 0", &v7, 0x12u);
+    v8 = 1024;
+    v9 = isConnected;
+    _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "[%@ goDisconnected].  _isConnected: %d -> 0", &v6, 0x12u);
   }
 
   if (self->_isConnected)
@@ -430,8 +415,6 @@ LABEL_10:
     self->_isConnected = 0;
     objc_msgSend__clearReachability_flags_(self, v5, &self->_ipReachability, &self->_ipFlags);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clear

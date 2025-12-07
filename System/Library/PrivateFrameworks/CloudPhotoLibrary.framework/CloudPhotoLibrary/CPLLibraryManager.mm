@@ -31,6 +31,7 @@
 - (void)_configurationDidChange;
 - (void)_fetchBoundaryKeyIfNecessaryWithSource:(id)source completionHandler:(id)handler;
 - (void)_fetchBoundaryKeyIfNecessaryWithSourceLocked:(id)locked completionHandler:(id)handler;
+- (void)_getMappedIdentifiersForIdentifiers:(id)identifiers inAreLocalIdentifiers:(BOOL)localIdentifiers completionHandler:(id)handler;
 - (void)_getMappedScopedIdentifiersForScopedIdentifiers:(id)identifiers inAreLocalIdentifiers:(BOOL)localIdentifiers completionHandler:(id)handler;
 - (void)_setCurrentSession:(id)session;
 - (void)_setLibraryVersion:(id)version;
@@ -46,6 +47,7 @@
 - (void)addStatusChangesForRecordsWithScopedIdentifiers:(id)identifiers persist:(BOOL)persist;
 - (void)attachComputeStates:(id)states completionHandler:(id)handler;
 - (void)barrier;
+- (void)beginDownloadForResource:(id)resource clientBundleID:(id)d highPriority:(BOOL)priority proposedTaskIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)beginDownloadForResource:(id)resource clientBundleID:(id)d intent:(unint64_t)intent proposedTaskIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)beginDownloadForResource:(id)resource clientBundleID:(id)d options:(id)options proposedTaskIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)beginInMemoryDownloadOfResource:(id)resource clientBundleID:(id)d completionHandler:(id)handler;
@@ -834,7 +836,7 @@ void __61__CPLLibraryManager_deleteResourcesIfSafe_completionHandler___block_inv
 
 - (void)checkResourcesAreSafeToPrune:(id)prune checkServerIfNecessary:(BOOL)necessary completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   pruneCopy = prune;
   handlerCopy = handler;
   if (__CPLShouldLogQOS_onceToken != -1)
@@ -858,27 +860,25 @@ void __61__CPLLibraryManager_deleteResourcesIfSafe_completionHandler___block_inv
   }
 
   queue = self->_queue;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __91__CPLLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNecessary_completionHandler___block_invoke;
-  v21[3] = &unk_1E861ADE8;
-  v22 = pruneCopy;
-  v23 = handlerCopy;
-  v21[4] = self;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __91__CPLLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNecessary_completionHandler___block_invoke;
+  v20[3] = &unk_1E861ADE8;
+  v21 = pruneCopy;
+  v22 = handlerCopy;
+  v20[4] = self;
   necessaryCopy = necessary;
-  v15 = v21;
+  v15 = v20;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v26 = &unk_1E861B4E0;
-  v27 = v15;
+  v25 = &unk_1E861B4E0;
+  v26 = v15;
   v16 = queue;
   v17 = pruneCopy;
   v18 = handlerCopy;
   v19 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v16, v19);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __91__CPLLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNecessary_completionHandler___block_invoke(uint64_t a1)
@@ -912,7 +912,7 @@ void __91__CPLLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNecessary
 
 - (void)deleteResources:(id)resources checkServerIfNecessary:(BOOL)necessary completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   resourcesCopy = resources;
   handlerCopy = handler;
   if (__CPLShouldLogQOS_onceToken != -1)
@@ -936,27 +936,25 @@ void __91__CPLLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNecessary
   }
 
   queue = self->_queue;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __78__CPLLibraryManager_deleteResources_checkServerIfNecessary_completionHandler___block_invoke;
-  v21[3] = &unk_1E861ADE8;
-  v22 = resourcesCopy;
-  v23 = handlerCopy;
-  v21[4] = self;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __78__CPLLibraryManager_deleteResources_checkServerIfNecessary_completionHandler___block_invoke;
+  v20[3] = &unk_1E861ADE8;
+  v21 = resourcesCopy;
+  v22 = handlerCopy;
+  v20[4] = self;
   necessaryCopy = necessary;
-  v15 = v21;
+  v15 = v20;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v26 = &unk_1E861B4E0;
-  v27 = v15;
+  v25 = &unk_1E861B4E0;
+  v26 = v15;
   v16 = queue;
   v17 = resourcesCopy;
   v18 = handlerCopy;
   v19 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v16, v19);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __78__CPLLibraryManager_deleteResources_checkServerIfNecessary_completionHandler___block_invoke(uint64_t a1)
@@ -990,7 +988,7 @@ void __78__CPLLibraryManager_deleteResources_checkServerIfNecessary_completionHa
 
 - (void)markLibraryManagerAsInvalid
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   platformObject = [(CPLLibraryManager *)self platformObject];
   if (objc_opt_respondsToSelector())
   {
@@ -1003,18 +1001,16 @@ void __78__CPLLibraryManager_deleteResources_checkServerIfNecessary_completionHa
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = NSStringFromSelector(a2);
-      v8 = 138412802;
-      v9 = v5;
-      v10 = 2112;
-      v11 = objc_opt_class();
-      v12 = 2048;
-      v13 = platformObject;
-      v6 = v11;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Trying to call %@ while <%@ %p> does not support it", &v8, 0x20u);
+      v7 = 138412802;
+      v8 = v5;
+      v9 = 2112;
+      v10 = objc_opt_class();
+      v11 = 2048;
+      v12 = platformObject;
+      v6 = v10;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Trying to call %@ while <%@ %p> does not support it", &v7, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getTargetsForRecordsWithScopedIdentifiers:(id)identifiers completionHandler:(id)handler
@@ -1181,7 +1177,7 @@ void __36__CPLLibraryManager_disableMingling__block_invoke(uint64_t a1)
 
 void __82__CPLLibraryManager_getScopeStatusCountsForScopeWithIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -1190,9 +1186,9 @@ void __82__CPLLibraryManager_getScopeStatusCountsForScopeWithIdentifier_completi
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
       {
         v3 = NSStringFromSelector(*(a1 + 56));
-        v9 = 138412290;
-        v10 = v3;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = v3;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v8, 0xCu);
       }
     }
 
@@ -1208,9 +1204,9 @@ void __82__CPLLibraryManager_getScopeStatusCountsForScopeWithIdentifier_completi
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         v6 = NSStringFromSelector(*(a1 + 56));
-        v9 = 138412290;
-        v10 = v6;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to call %@ while the library is not open", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = v6;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to call %@ while the library is not open", &v8, 0xCu);
       }
     }
 
@@ -1218,8 +1214,6 @@ void __82__CPLLibraryManager_getScopeStatusCountsForScopeWithIdentifier_completi
     v4 = [CPLErrors incorrectMachineStateErrorWithReason:@"Trying to get status counts while library is not open"];
     (*(v7 + 16))(v7, 0, v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addStatusChangesForRecordsWithScopedIdentifiers:(id)identifiers persist:(BOOL)persist
@@ -1248,7 +1242,7 @@ void __82__CPLLibraryManager_getScopeStatusCountsForScopeWithIdentifier_completi
 
 void __77__CPLLibraryManager_addStatusChangesForRecordsWithScopedIdentifiers_persist___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -1257,35 +1251,32 @@ void __77__CPLLibraryManager_addStatusChangesForRecordsWithScopedIdentifiers_per
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
       {
         v3 = NSStringFromSelector(*(a1 + 48));
-        v7 = 138412290;
-        v8 = v3;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v7, 0xCu);
+        v6 = 138412290;
+        v7 = v3;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v6, 0xCu);
       }
     }
 
     v4 = [*(a1 + 32) platformObject];
     [v4 addStatusChangesForRecordsWithScopedIdentifiers:*(a1 + 40) persist:*(a1 + 56)];
-LABEL_10:
-
-    goto LABEL_11;
   }
 
-  if ((_CPLSilentLogging & 1) == 0)
+  else
   {
+    if (_CPLSilentLogging)
+    {
+      return;
+    }
+
     v4 = __CPLManagerOSLogDomain_0();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = NSStringFromSelector(*(a1 + 48));
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Trying to call %@ while the library is not open", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Trying to call %@ while the library is not open", &v6, 0xCu);
     }
-
-    goto LABEL_10;
   }
-
-LABEL_11:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)acknowledgeChangedStatuses:(id)statuses
@@ -1313,7 +1304,7 @@ LABEL_11:
 
 void __48__CPLLibraryManager_acknowledgeChangedStatuses___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -1322,33 +1313,30 @@ void __48__CPLLibraryManager_acknowledgeChangedStatuses___block_invoke(uint64_t 
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
       {
         v3 = NSStringFromSelector(*(a1 + 48));
-        v6 = 138412290;
-        v7 = v3;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v6, 0xCu);
+        v5 = 138412290;
+        v6 = v3;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v5, 0xCu);
       }
     }
 
     v4 = [*(a1 + 32) platformObject];
     [v4 acknowledgeChangedStatuses:*(a1 + 40)];
-LABEL_10:
-
-    goto LABEL_11;
   }
 
-  if ((_CPLSilentLogging & 1) == 0)
+  else
   {
+    if (_CPLSilentLogging)
+    {
+      return;
+    }
+
     v4 = __CPLManagerOSLogDomain_0();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v6) = 0;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Trying to check record statuses while the library is not open", &v6, 2u);
+      LOWORD(v5) = 0;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Trying to check record statuses while the library is not open", &v5, 2u);
     }
-
-    goto LABEL_10;
   }
-
-LABEL_11:
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getChangedStatusesWithCompletionHandler:(id)handler
@@ -1376,7 +1364,7 @@ LABEL_11:
 
 void __61__CPLLibraryManager_getChangedStatusesWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -1385,9 +1373,9 @@ void __61__CPLLibraryManager_getChangedStatusesWithCompletionHandler___block_inv
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
       {
         v3 = NSStringFromSelector(*(a1 + 48));
-        v8 = 138412290;
-        v9 = v3;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v3;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v7, 0xCu);
       }
     }
 
@@ -1402,8 +1390,8 @@ void __61__CPLLibraryManager_getChangedStatusesWithCompletionHandler___block_inv
       v5 = __CPLManagerOSLogDomain_0();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v8) = 0;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to check record statuses while the library is not open", &v8, 2u);
+        LOWORD(v7) = 0;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to check record statuses while the library is not open", &v7, 2u);
       }
     }
 
@@ -1411,8 +1399,6 @@ void __61__CPLLibraryManager_getChangedStatusesWithCompletionHandler___block_inv
     v4 = +[CPLErrors libraryClosedError];
     (*(v6 + 16))(v6, 0, v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getStatusForRecordsWithIdentifiers:(id)identifiers completionHandler:(id)handler
@@ -1467,7 +1453,7 @@ void __74__CPLLibraryManager_getStatusForRecordsWithIdentifiers_completionHandle
 
 void __80__CPLLibraryManager_getStatusForRecordsWithScopedIdentifiers_completionHandler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -1476,9 +1462,9 @@ void __80__CPLLibraryManager_getStatusForRecordsWithScopedIdentifiers_completion
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
       {
         v3 = NSStringFromSelector(*(a1 + 56));
-        v8 = 138412290;
-        v9 = v3;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v3;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v7, 0xCu);
       }
     }
 
@@ -1493,8 +1479,8 @@ void __80__CPLLibraryManager_getStatusForRecordsWithScopedIdentifiers_completion
       v5 = __CPLManagerOSLogDomain_0();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v8) = 0;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to check record statuses while the library is not open", &v8, 2u);
+        LOWORD(v7) = 0;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to check record statuses while the library is not open", &v7, 2u);
       }
     }
 
@@ -1502,8 +1488,6 @@ void __80__CPLLibraryManager_getStatusForRecordsWithScopedIdentifiers_completion
     v4 = +[CPLErrors libraryClosedError];
     (*(v6 + 16))(v6, 0, v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkHasBackgroundDownloadOperationsWithCompletionHandler:(id)handler
@@ -1531,7 +1515,7 @@ void __80__CPLLibraryManager_getStatusForRecordsWithScopedIdentifiers_completion
 
 void __79__CPLLibraryManager_checkHasBackgroundDownloadOperationsWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -1541,20 +1525,20 @@ void __79__CPLLibraryManager_checkHasBackgroundDownloadOperationsWithCompletionH
       {
         v3 = NSStringFromSelector(*(a1 + 48));
         *buf = 138412290;
-        v12 = v3;
+        v11 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
     v4 = [*(a1 + 32) platformObject];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __79__CPLLibraryManager_checkHasBackgroundDownloadOperationsWithCompletionHandler___block_invoke_470;
-    v9[3] = &unk_1E861D8B8;
-    v10 = *(a1 + 40);
-    [v4 checkHasBackgroundDownloadOperationsWithCompletionHandler:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __79__CPLLibraryManager_checkHasBackgroundDownloadOperationsWithCompletionHandler___block_invoke_470;
+    v8[3] = &unk_1E861D8B8;
+    v9 = *(a1 + 40);
+    [v4 checkHasBackgroundDownloadOperationsWithCompletionHandler:v8];
 
-    v5 = v10;
+    v5 = v9;
   }
 
   else
@@ -1573,8 +1557,6 @@ void __79__CPLLibraryManager_checkHasBackgroundDownloadOperationsWithCompletionH
     v5 = +[CPLErrors libraryClosedError];
     (*(v7 + 16))(v7, 0, v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)noteClientIsEndingSignificantWork
@@ -1845,24 +1827,24 @@ void __66__CPLLibraryManager_noteClientReceivedNotificationOfServerChanges__bloc
 
 - (void)startSyncSession
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   platformObject = [(CPLLibraryManager *)self platformObject];
   v4 = objc_opt_respondsToSelector();
 
   if (v4)
   {
     queue = self->_queue;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __37__CPLLibraryManager_startSyncSession__block_invoke;
-    v11[3] = &unk_1E861A940;
-    v11[4] = self;
-    v6 = v11;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __37__CPLLibraryManager_startSyncSession__block_invoke;
+    v10[3] = &unk_1E861A940;
+    v10[4] = self;
+    v6 = v10;
     *&block = MEMORY[0x1E69E9820];
     *(&block + 1) = 3221225472;
-    v13 = __cpl_dispatch_async_block_invoke_12172;
-    v14 = &unk_1E861B4E0;
-    v15 = v6;
+    v12 = __cpl_dispatch_async_block_invoke_12172;
+    v13 = &unk_1E861B4E0;
+    v14 = v6;
     v7 = queue;
     v8 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &block);
     dispatch_async(v7, v8);
@@ -1878,29 +1860,25 @@ void __66__CPLLibraryManager_noteClientReceivedNotificationOfServerChanges__bloc
       _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "%@ does not support forcing a sync session", &block, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __37__CPLLibraryManager_startSyncSession__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLManagerOSLogDomain_0();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       v3 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ forcing a sync session", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ forcing a sync session", &v5, 0xCu);
     }
   }
 
   v4 = [*(a1 + 32) platformObject];
   [v4 startSyncSession];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetStatus
@@ -1911,15 +1889,17 @@ void __37__CPLLibraryManager_startSyncSession__block_invoke(uint64_t a1)
 
 - (void)_setSizeOfResourcesToUpload:(unint64_t)upload sizeOfOriginalResourcesToUpload:(unint64_t)toUpload numberOfImages:(unint64_t)images numberOfVideos:(unint64_t)videos numberOfOtherItems:(unint64_t)items
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (self->_sizeOfResourcesToUpload == upload && self->_sizeOfOriginalResourcesToUpload == toUpload && self->_numberOfImagesToUpload == images && self->_numberOfVideosToUpload == videos && self->_numberOfOtherItemsToUpload == items)
   {
     if (self->_sizeOfResourcesToUploadIsSet)
     {
-      goto LABEL_16;
+      return;
     }
 
-    goto LABEL_15;
+LABEL_15:
+    self->_sizeOfResourcesToUploadIsSet = 1;
+    return;
   }
 
   self->_sizeOfResourcesToUpload = upload;
@@ -1929,9 +1909,7 @@ void __37__CPLLibraryManager_startSyncSession__block_invoke(uint64_t a1)
   self->_numberOfOtherItemsToUpload = items;
   if (!self->_sizeOfResourcesToUploadIsSet)
   {
-LABEL_15:
-    self->_sizeOfResourcesToUploadIsSet = 1;
-    goto LABEL_16;
+    goto LABEL_15;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
@@ -1940,9 +1918,9 @@ LABEL_15:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sizeOfResourcesToUpload = self->_sizeOfResourcesToUpload;
-      v14 = 134217984;
-      v15 = sizeOfResourcesToUpload;
-      _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Size of resources to upload changed to %llu bytes", &v14, 0xCu);
+      v13 = 134217984;
+      v14 = sizeOfResourcesToUpload;
+      _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Size of resources to upload changed to %llu bytes", &v13, 0xCu);
     }
   }
 
@@ -1954,9 +1932,6 @@ LABEL_15:
     v12 = objc_loadWeakRetained(&self->_resourceProgressDelegate);
     [v12 sizeOfResourcesToUploadDidChangeForLibraryManager:self];
   }
-
-LABEL_16:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_setStatus:(unint64_t)status andError:(id)error
@@ -2031,7 +2006,7 @@ LABEL_11:
 
 void __94__CPLLibraryManager_resolveLocalScopedIdentifiersForCloudScopedIdentifiers_completionHandler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -2040,9 +2015,9 @@ void __94__CPLLibraryManager_resolveLocalScopedIdentifiersForCloudScopedIdentifi
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
       {
         v3 = NSStringFromSelector(*(a1 + 56));
-        v8 = 138412290;
-        v9 = v3;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v3;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v7, 0xCu);
       }
     }
 
@@ -2057,8 +2032,8 @@ void __94__CPLLibraryManager_resolveLocalScopedIdentifiersForCloudScopedIdentifi
       v5 = __CPLManagerOSLogDomain_0();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v8) = 0;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to get real cloudIdentifier while the library is not open", &v8, 2u);
+        LOWORD(v7) = 0;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to get real cloudIdentifier while the library is not open", &v7, 2u);
       }
     }
 
@@ -2066,8 +2041,21 @@ void __94__CPLLibraryManager_resolveLocalScopedIdentifiersForCloudScopedIdentifi
     v4 = [CPLErrors incorrectMachineStateErrorWithReason:@"Trying to get real cloudIdentifier while the library is not open"];
     (*(v6 + 16))(v6, 0, v4);
   }
+}
 
-  v7 = *MEMORY[0x1E69E9840];
+- (void)_getMappedIdentifiersForIdentifiers:(id)identifiers inAreLocalIdentifiers:(BOOL)localIdentifiers completionHandler:(id)handler
+{
+  localIdentifiersCopy = localIdentifiers;
+  handlerCopy = handler;
+  v9 = [CPLScopedIdentifier scopedIdentifiersFromArrayOfUnknownIdentifiers:identifiers];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __97__CPLLibraryManager__getMappedIdentifiersForIdentifiers_inAreLocalIdentifiers_completionHandler___block_invoke;
+  v11[3] = &unk_1E861B448;
+  v11[4] = self;
+  v12 = handlerCopy;
+  v10 = handlerCopy;
+  [(CPLLibraryManager *)self _getMappedScopedIdentifiersForScopedIdentifiers:v9 inAreLocalIdentifiers:localIdentifiersCopy completionHandler:v11];
 }
 
 void __97__CPLLibraryManager__getMappedIdentifiersForIdentifiers_inAreLocalIdentifiers_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -2145,7 +2133,7 @@ void __69__CPLLibraryManager__mappedUnscopedIdentifiersFromScopedIdentifiers___b
 
 void __109__CPLLibraryManager__getMappedScopedIdentifiersForScopedIdentifiers_inAreLocalIdentifiers_completionHandler___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -2162,9 +2150,9 @@ void __109__CPLLibraryManager__getMappedScopedIdentifiersForScopedIdentifiers_in
         }
 
         *buf = 138412546;
-        v13 = v3;
-        v14 = 2080;
-        v15 = v5;
+        v12 = v3;
+        v13 = 2080;
+        v14 = v5;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ (%s) called", buf, 0x16u);
       }
     }
@@ -2191,7 +2179,7 @@ void __109__CPLLibraryManager__getMappedScopedIdentifiersForScopedIdentifiers_in
         }
 
         *buf = 136315138;
-        v13 = v8;
+        v12 = v8;
         _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Trying to get %s identifiers while the library is not open", buf, 0xCu);
       }
     }
@@ -2210,13 +2198,11 @@ void __109__CPLLibraryManager__getMappedScopedIdentifiersForScopedIdentifiers_in
     v6 = [CPLErrors incorrectMachineStateErrorWithReason:@"Trying to get %s identifiers while the library is not open", v10];
     (*(v9 + 16))(v9, 0, v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forceSynchronizingScopeWithIdentifiers:(id)identifiers completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   handlerCopy = handler;
   if (__CPLShouldLogQOS_onceToken != -1)
@@ -2240,32 +2226,30 @@ void __109__CPLLibraryManager__getMappedScopedIdentifiersForScopedIdentifiers_in
   }
 
   queue = self->_queue;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __78__CPLLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHandler___block_invoke;
-  v19[3] = &unk_1E861AFA0;
-  v21 = handlerCopy;
-  v22 = a2;
-  v19[4] = self;
-  v20 = identifiersCopy;
-  v13 = v19;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __78__CPLLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHandler___block_invoke;
+  v18[3] = &unk_1E861AFA0;
+  v20 = handlerCopy;
+  v21 = a2;
+  v18[4] = self;
+  v19 = identifiersCopy;
+  v13 = v18;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v24 = &unk_1E861B4E0;
-  v25 = v13;
+  v23 = &unk_1E861B4E0;
+  v24 = v13;
   v14 = queue;
   v15 = identifiersCopy;
   v16 = handlerCopy;
   v17 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v14, v17);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __78__CPLLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHandler___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -2275,19 +2259,19 @@ void __78__CPLLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHa
       {
         v3 = NSStringFromSelector(*(a1 + 56));
         *buf = 138412290;
-        v11 = v3;
+        v10 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
     v4 = [*(a1 + 32) platformObject];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __78__CPLLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHandler___block_invoke_448;
-    v8[3] = &unk_1E861D868;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __78__CPLLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHandler___block_invoke_448;
+    v7[3] = &unk_1E861D868;
     v5 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    [v4 forceSynchronizingScopeWithIdentifiers:v5 completionHandler:v8];
+    v8 = *(a1 + 48);
+    [v4 forceSynchronizingScopeWithIdentifiers:v5 completionHandler:v7];
   }
 
   else
@@ -2304,8 +2288,6 @@ void __78__CPLLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHa
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryUserIdentitiesWithParticipants:(id)participants completionHandler:(id)handler
@@ -2341,7 +2323,7 @@ void __75__CPLLibraryManager_queryUserIdentitiesWithParticipants_completionHandl
 
 - (void)queryUserDetailsForShareParticipants:(id)participants completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   participantsCopy = participants;
   handlerCopy = handler;
   v9 = objc_opt_class();
@@ -2349,9 +2331,9 @@ void __75__CPLLibraryManager_queryUserIdentitiesWithParticipants_completionHandl
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = ___CPLProgressForAsyncCall_block_invoke;
-  v28 = &__block_descriptor_48_e5_v8__0lu32l8;
-  v29 = v9;
-  v30 = a2;
+  v27 = &__block_descriptor_48_e5_v8__0lu32l8;
+  v28 = v9;
+  v29 = a2;
   [v10 setCancellationHandler:buf];
   if (__CPLShouldLogQOS_onceToken != -1)
   {
@@ -2374,34 +2356,32 @@ void __75__CPLLibraryManager_queryUserIdentitiesWithParticipants_completionHandl
   }
 
   queue = self->_queue;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __76__CPLLibraryManager_queryUserDetailsForShareParticipants_completionHandler___block_invoke;
-  v22[3] = &unk_1E861B5C8;
-  v22[4] = self;
-  v23 = v10;
-  v25 = handlerCopy;
-  v26 = a2;
-  v24 = participantsCopy;
-  v15 = v22;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __76__CPLLibraryManager_queryUserDetailsForShareParticipants_completionHandler___block_invoke;
+  v21[3] = &unk_1E861B5C8;
+  v21[4] = self;
+  v22 = v10;
+  v24 = handlerCopy;
+  v25 = a2;
+  v23 = participantsCopy;
+  v15 = v21;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v28 = &unk_1E861B4E0;
-  v29 = v15;
+  v27 = &unk_1E861B4E0;
+  v28 = v15;
   v16 = queue;
   v17 = participantsCopy;
   v18 = v10;
   v19 = handlerCopy;
   v20 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v16, v20);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __76__CPLLibraryManager_queryUserDetailsForShareParticipants_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -2411,26 +2391,26 @@ void __76__CPLLibraryManager_queryUserDetailsForShareParticipants_completionHand
       {
         v3 = NSStringFromSelector(*(a1 + 64));
         *buf = 138412290;
-        v18 = v3;
+        v17 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __76__CPLLibraryManager_queryUserDetailsForShareParticipants_completionHandler___block_invoke_445;
-    v14[3] = &unk_1E861AE38;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __76__CPLLibraryManager_queryUserDetailsForShareParticipants_completionHandler___block_invoke_445;
+    v13[3] = &unk_1E861AE38;
     v4 = *(a1 + 40);
-    v13 = *(a1 + 32);
+    v12 = *(a1 + 32);
     v5 = *(a1 + 48);
     v6 = *(a1 + 56);
     *&v7 = *(a1 + 40);
     *(&v7 + 1) = v6;
-    *&v8 = v13;
+    *&v8 = v12;
     *(&v8 + 1) = v5;
-    v15 = v8;
-    v16 = v7;
-    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v14];
+    v14 = v8;
+    v15 = v7;
+    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v13];
   }
 
   else
@@ -2454,8 +2434,6 @@ void __76__CPLLibraryManager_queryUserDetailsForShareParticipants_completionHand
 
     [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount")}];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __76__CPLLibraryManager_queryUserDetailsForShareParticipants_completionHandler___block_invoke_445(uint64_t a1)
@@ -2576,7 +2554,7 @@ void __58__CPLLibraryManager_publishMomentShare_completionHandler___block_invoke
 
 - (void)fetchExistingSharedLibraryScopeWithCompletionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -2593,9 +2571,9 @@ void __58__CPLLibraryManager_publishMomentShare_completionHandler___block_invoke
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = ___CPLProgressForAsyncCall_block_invoke;
-  v24 = &__block_descriptor_48_e5_v8__0lu32l8;
-  v25 = v7;
-  v26 = a2;
+  v23 = &__block_descriptor_48_e5_v8__0lu32l8;
+  v24 = v7;
+  v25 = a2;
   [v8 setCancellationHandler:buf];
   if (__CPLShouldLogQOS_onceToken != -1)
   {
@@ -2618,32 +2596,30 @@ void __58__CPLLibraryManager_publishMomentShare_completionHandler___block_invoke
   }
 
   queue = self->_queue;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __74__CPLLibraryManager_fetchExistingSharedLibraryScopeWithCompletionHandler___block_invoke;
-  v19[3] = &unk_1E861AFA0;
-  v19[4] = self;
-  v20 = v8;
-  v21 = handlerCopy;
-  v22 = a2;
-  v13 = v19;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __74__CPLLibraryManager_fetchExistingSharedLibraryScopeWithCompletionHandler___block_invoke;
+  v18[3] = &unk_1E861AFA0;
+  v18[4] = self;
+  v19 = v8;
+  v20 = handlerCopy;
+  v21 = a2;
+  v13 = v18;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v24 = &unk_1E861B4E0;
-  v25 = v13;
+  v23 = &unk_1E861B4E0;
+  v24 = v13;
   v14 = queue;
   v15 = v8;
   v16 = handlerCopy;
   v17 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v14, v17);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __74__CPLLibraryManager_fetchExistingSharedLibraryScopeWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -2653,20 +2629,20 @@ void __74__CPLLibraryManager_fetchExistingSharedLibraryScopeWithCompletionHandle
       {
         v3 = NSStringFromSelector(*(a1 + 56));
         *buf = 138412290;
-        v13 = v3;
+        v12 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __74__CPLLibraryManager_fetchExistingSharedLibraryScopeWithCompletionHandler___block_invoke_440;
-    v9[3] = &unk_1E861ABE0;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __74__CPLLibraryManager_fetchExistingSharedLibraryScopeWithCompletionHandler___block_invoke_440;
+    v8[3] = &unk_1E861ABE0;
     v4 = *(a1 + 40);
-    v9[4] = *(a1 + 32);
-    v11 = *(a1 + 48);
-    v10 = *(a1 + 40);
-    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v9];
+    v8[4] = *(a1 + 32);
+    v10 = *(a1 + 48);
+    v9 = *(a1 + 40);
+    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v8];
   }
 
   else
@@ -2690,8 +2666,6 @@ void __74__CPLLibraryManager_fetchExistingSharedLibraryScopeWithCompletionHandle
 
     [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount")}];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __74__CPLLibraryManager_fetchExistingSharedLibraryScopeWithCompletionHandler___block_invoke_440(id *a1)
@@ -2722,7 +2696,7 @@ uint64_t __74__CPLLibraryManager_fetchExistingSharedLibraryScopeWithCompletionHa
 
 - (void)acceptSharedScope:(id)scope completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   handlerCopy = handler;
   if ((_CPLSilentLogging & 1) == 0)
@@ -2744,9 +2718,9 @@ uint64_t __74__CPLLibraryManager_fetchExistingSharedLibraryScopeWithCompletionHa
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = ___CPLProgressForAsyncCall_block_invoke;
-  v30 = &__block_descriptor_48_e5_v8__0lu32l8;
-  v31 = v11;
-  v32 = a2;
+  v29 = &__block_descriptor_48_e5_v8__0lu32l8;
+  v30 = v11;
+  v31 = a2;
   [v12 setCancellationHandler:buf];
   if (__CPLShouldLogQOS_onceToken != -1)
   {
@@ -2769,34 +2743,32 @@ uint64_t __74__CPLLibraryManager_fetchExistingSharedLibraryScopeWithCompletionHa
   }
 
   queue = self->_queue;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __57__CPLLibraryManager_acceptSharedScope_completionHandler___block_invoke;
-  v24[3] = &unk_1E861B5C8;
-  v24[4] = self;
-  v25 = v12;
-  v27 = handlerCopy;
-  v28 = a2;
-  v26 = scopeCopy;
-  v17 = v24;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __57__CPLLibraryManager_acceptSharedScope_completionHandler___block_invoke;
+  v23[3] = &unk_1E861B5C8;
+  v23[4] = self;
+  v24 = v12;
+  v26 = handlerCopy;
+  v27 = a2;
+  v25 = scopeCopy;
+  v17 = v23;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v30 = &unk_1E861B4E0;
-  v31 = v17;
+  v29 = &unk_1E861B4E0;
+  v30 = v17;
   v18 = queue;
   v19 = scopeCopy;
   v20 = v12;
   v21 = handlerCopy;
   v22 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v18, v22);
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __57__CPLLibraryManager_acceptSharedScope_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -2806,26 +2778,26 @@ void __57__CPLLibraryManager_acceptSharedScope_completionHandler___block_invoke(
       {
         v3 = NSStringFromSelector(*(a1 + 64));
         *buf = 138412290;
-        v18 = v3;
+        v17 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __57__CPLLibraryManager_acceptSharedScope_completionHandler___block_invoke_436;
-    v14[3] = &unk_1E861AE38;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __57__CPLLibraryManager_acceptSharedScope_completionHandler___block_invoke_436;
+    v13[3] = &unk_1E861AE38;
     v4 = *(a1 + 40);
-    v13 = *(a1 + 32);
+    v12 = *(a1 + 32);
     v5 = *(a1 + 48);
     v6 = *(a1 + 56);
     *&v7 = *(a1 + 40);
     *(&v7 + 1) = v6;
-    *&v8 = v13;
+    *&v8 = v12;
     *(&v8 + 1) = v5;
-    v15 = v8;
-    v16 = v7;
-    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v14];
+    v14 = v8;
+    v15 = v7;
+    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v13];
   }
 
   else
@@ -2849,8 +2821,6 @@ void __57__CPLLibraryManager_acceptSharedScope_completionHandler___block_invoke(
 
     [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount")}];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __57__CPLLibraryManager_acceptSharedScope_completionHandler___block_invoke_436(uint64_t a1)
@@ -2882,7 +2852,7 @@ uint64_t __57__CPLLibraryManager_acceptSharedScope_completionHandler___block_inv
 
 - (void)fetchSharedScopeFromShareURL:(id)l completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   lCopy = l;
   handlerCopy = handler;
   if ((_CPLSilentLogging & 1) == 0)
@@ -2901,40 +2871,38 @@ uint64_t __57__CPLLibraryManager_acceptSharedScope_completionHandler___block_inv
   v12 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:1];
   *&buf = MEMORY[0x1E69E9820];
   *(&buf + 1) = 3221225472;
-  v27 = ___CPLProgressForAsyncCall_block_invoke;
-  v28 = &__block_descriptor_48_e5_v8__0lu32l8;
-  v29 = v11;
-  v30 = a2;
+  v26 = ___CPLProgressForAsyncCall_block_invoke;
+  v27 = &__block_descriptor_48_e5_v8__0lu32l8;
+  v28 = v11;
+  v29 = a2;
   [v12 setCancellationHandler:&buf];
   queue = self->_queue;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __68__CPLLibraryManager_fetchSharedScopeFromShareURL_completionHandler___block_invoke;
-  v21[3] = &unk_1E861B5C8;
-  v21[4] = self;
-  v22 = v12;
-  v24 = handlerCopy;
-  v25 = a2;
-  v23 = lCopy;
-  v14 = v21;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __68__CPLLibraryManager_fetchSharedScopeFromShareURL_completionHandler___block_invoke;
+  v20[3] = &unk_1E861B5C8;
+  v20[4] = self;
+  v21 = v12;
+  v23 = handlerCopy;
+  v24 = a2;
+  v22 = lCopy;
+  v14 = v20;
   *&buf = MEMORY[0x1E69E9820];
   *(&buf + 1) = 3221225472;
-  v27 = __cpl_dispatch_async_block_invoke_12172;
-  v28 = &unk_1E861B4E0;
-  v29 = v14;
+  v26 = __cpl_dispatch_async_block_invoke_12172;
+  v27 = &unk_1E861B4E0;
+  v28 = v14;
   v15 = queue;
   v16 = lCopy;
   v17 = v12;
   v18 = handlerCopy;
   v19 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
   dispatch_async(v15, v19);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __68__CPLLibraryManager_fetchSharedScopeFromShareURL_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -2944,26 +2912,26 @@ void __68__CPLLibraryManager_fetchSharedScopeFromShareURL_completionHandler___bl
       {
         v3 = NSStringFromSelector(*(a1 + 64));
         *buf = 138412290;
-        v18 = v3;
+        v17 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __68__CPLLibraryManager_fetchSharedScopeFromShareURL_completionHandler___block_invoke_432;
-    v14[3] = &unk_1E861AE38;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __68__CPLLibraryManager_fetchSharedScopeFromShareURL_completionHandler___block_invoke_432;
+    v13[3] = &unk_1E861AE38;
     v4 = *(a1 + 40);
-    v13 = *(a1 + 32);
+    v12 = *(a1 + 32);
     v5 = *(a1 + 48);
     v6 = *(a1 + 56);
     *&v7 = *(a1 + 40);
     *(&v7 + 1) = v6;
-    *&v8 = v13;
+    *&v8 = v12;
     *(&v8 + 1) = v5;
-    v15 = v8;
-    v16 = v7;
-    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v14];
+    v14 = v8;
+    v15 = v7;
+    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v13];
   }
 
   else
@@ -2987,8 +2955,6 @@ void __68__CPLLibraryManager_fetchSharedScopeFromShareURL_completionHandler___bl
 
     [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount")}];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __68__CPLLibraryManager_fetchSharedScopeFromShareURL_completionHandler___block_invoke_432(uint64_t a1)
@@ -3007,7 +2973,7 @@ void __68__CPLLibraryManager_fetchSharedScopeFromShareURL_completionHandler___bl
 
 void __68__CPLLibraryManager_fetchSharedScopeFromShareURL_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -3024,10 +2990,10 @@ void __68__CPLLibraryManager_fetchSharedScopeFromShareURL_completionHandler___bl
     }
 
     v8 = [*(a1 + 32) cpl_redactedShareURL];
-    *v14 = 138412546;
-    *&v14[4] = v8;
-    *&v14[12] = 2112;
-    *&v14[14] = v5;
+    *v13 = 138412546;
+    *&v13[4] = v8;
+    *&v13[12] = 2112;
+    *&v13[14] = v5;
     v9 = "Fetched share info at %@: %@";
     v10 = v7;
     v11 = OS_LOG_TYPE_DEFAULT;
@@ -3043,15 +3009,15 @@ void __68__CPLLibraryManager_fetchSharedScopeFromShareURL_completionHandler___bl
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v8 = [*(a1 + 32) cpl_redactedShareURL];
-    *v14 = 138412546;
-    *&v14[4] = v8;
-    *&v14[12] = 2112;
-    *&v14[14] = v6;
+    *v13 = 138412546;
+    *&v13[4] = v8;
+    *&v13[12] = 2112;
+    *&v13[14] = v6;
     v9 = "Failed to fetch share info at %@: %@";
     v10 = v7;
     v11 = OS_LOG_TYPE_ERROR;
 LABEL_8:
-    _os_log_impl(&dword_1DC05A000, v10, v11, v9, v14, 0x16u);
+    _os_log_impl(&dword_1DC05A000, v10, v11, v9, v13, 0x16u);
   }
 
 LABEL_9:
@@ -3063,9 +3029,7 @@ LABEL_10:
     (*(v12 + 16))(v12, v5, v6);
   }
 
-  [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount", *v14, *&v14[16], v15)}];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount", *v13, *&v13[8], v14)}];
 }
 
 - (void)getStatusForPendingRecordsSharedToScopeWithIdentifier:(id)identifier maximumCount:(unint64_t)count completionHandler:(id)handler
@@ -3097,7 +3061,7 @@ LABEL_10:
 
 void __106__CPLLibraryManager_getStatusForPendingRecordsSharedToScopeWithIdentifier_maximumCount_completionHandler___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -3106,9 +3070,9 @@ void __106__CPLLibraryManager_getStatusForPendingRecordsSharedToScopeWithIdentif
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
       {
         v3 = NSStringFromSelector(*(a1 + 56));
-        v9 = 138412290;
-        v10 = v3;
-        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = v3;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", &v8, 0xCu);
       }
     }
 
@@ -3123,9 +3087,9 @@ void __106__CPLLibraryManager_getStatusForPendingRecordsSharedToScopeWithIdentif
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = *(a1 + 40);
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to fetch record status for pending shared records in %{public}@ while the library is not open", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to fetch record status for pending shared records in %{public}@ while the library is not open", &v8, 0xCu);
     }
   }
 
@@ -3136,13 +3100,11 @@ void __106__CPLLibraryManager_getStatusForPendingRecordsSharedToScopeWithIdentif
     (*(v7 + 16))(v7, 0, v4);
 LABEL_13:
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sharedLibraryRampCheckWithCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (__CPLShouldLogQOS_onceToken != -1)
   {
@@ -3169,37 +3131,35 @@ LABEL_13:
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = ___CPLProgressForAsyncCall_block_invoke;
-  v23 = &__block_descriptor_48_e5_v8__0lu32l8;
-  v24 = v9;
-  v25 = a2;
+  v22 = &__block_descriptor_48_e5_v8__0lu32l8;
+  v23 = v9;
+  v24 = a2;
   [v10 setCancellationHandler:buf];
   queue = self->_queue;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __65__CPLLibraryManager_sharedLibraryRampCheckWithCompletionHandler___block_invoke;
-  v18[3] = &unk_1E861AFA0;
-  v18[4] = self;
-  v19 = v10;
-  v20 = handlerCopy;
-  v21 = a2;
-  v12 = v18;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __65__CPLLibraryManager_sharedLibraryRampCheckWithCompletionHandler___block_invoke;
+  v17[3] = &unk_1E861AFA0;
+  v17[4] = self;
+  v18 = v10;
+  v19 = handlerCopy;
+  v20 = a2;
+  v12 = v17;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v23 = &unk_1E861B4E0;
-  v24 = v12;
+  v22 = &unk_1E861B4E0;
+  v23 = v12;
   v13 = queue;
   v14 = v10;
   v15 = handlerCopy;
   v16 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v13, v16);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __65__CPLLibraryManager_sharedLibraryRampCheckWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -3209,20 +3169,20 @@ void __65__CPLLibraryManager_sharedLibraryRampCheckWithCompletionHandler___block
       {
         v3 = NSStringFromSelector(*(a1 + 56));
         *buf = 138412290;
-        v13 = v3;
+        v12 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __65__CPLLibraryManager_sharedLibraryRampCheckWithCompletionHandler___block_invoke_427;
-    v9[3] = &unk_1E861ABE0;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __65__CPLLibraryManager_sharedLibraryRampCheckWithCompletionHandler___block_invoke_427;
+    v8[3] = &unk_1E861ABE0;
     v4 = *(a1 + 40);
-    v9[4] = *(a1 + 32);
-    v11 = *(a1 + 48);
-    v10 = *(a1 + 40);
-    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v9];
+    v8[4] = *(a1 + 32);
+    v10 = *(a1 + 48);
+    v9 = *(a1 + 40);
+    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v8];
   }
 
   else
@@ -3246,8 +3206,6 @@ void __65__CPLLibraryManager_sharedLibraryRampCheckWithCompletionHandler___block
 
     [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount")}];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __65__CPLLibraryManager_sharedLibraryRampCheckWithCompletionHandler___block_invoke_427(id *a1)
@@ -3278,7 +3236,7 @@ uint64_t __65__CPLLibraryManager_sharedLibraryRampCheckWithCompletionHandler___b
 
 - (void)removeParticipants:(id)participants fromSharedScopeWithIdentifier:(id)identifier retentionPolicy:(int64_t)policy exitSource:(int64_t)source completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   participantsCopy = participants;
   identifierCopy = identifier;
   handlerCopy = handler;
@@ -3304,24 +3262,24 @@ uint64_t __65__CPLLibraryManager_sharedLibraryRampCheckWithCompletionHandler___b
 
   v19 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:1];
   queue = self->_queue;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __115__CPLLibraryManager_removeParticipants_fromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke;
-  v29[3] = &unk_1E861D7F0;
-  v29[4] = self;
-  v30 = identifierCopy;
-  v33 = handlerCopy;
-  v34 = a2;
-  v31 = v19;
-  v32 = participantsCopy;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __115__CPLLibraryManager_removeParticipants_fromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke;
+  v28[3] = &unk_1E861D7F0;
+  v28[4] = self;
+  v29 = identifierCopy;
+  v32 = handlerCopy;
+  v33 = a2;
+  v30 = v19;
+  v31 = participantsCopy;
   policyCopy = policy;
   sourceCopy = source;
-  v21 = v29;
+  v21 = v28;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v38 = &unk_1E861B4E0;
-  v39 = v21;
+  v37 = &unk_1E861B4E0;
+  v38 = v21;
   v22 = queue;
   v23 = participantsCopy;
   v24 = v19;
@@ -3329,13 +3287,11 @@ uint64_t __65__CPLLibraryManager_sharedLibraryRampCheckWithCompletionHandler___b
   v26 = identifierCopy;
   v27 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v22, v27);
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __115__CPLLibraryManager_removeParticipants_fromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -3345,22 +3301,22 @@ void __115__CPLLibraryManager_removeParticipants_fromSharedScopeWithIdentifier_r
       {
         v3 = NSStringFromSelector(*(a1 + 72));
         *buf = 138412290;
-        v16 = v3;
+        v15 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __115__CPLLibraryManager_removeParticipants_fromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke_423;
-    v10[3] = &unk_1E861AF28;
-    v10[4] = *(a1 + 32);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __115__CPLLibraryManager_removeParticipants_fromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke_423;
+    v9[3] = &unk_1E861AF28;
+    v9[4] = *(a1 + 32);
     v4 = *(a1 + 48);
-    v11 = *(a1 + 56);
-    v12 = *(a1 + 40);
-    v14 = *(a1 + 80);
-    v13 = *(a1 + 64);
-    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v10];
+    v10 = *(a1 + 56);
+    v11 = *(a1 + 40);
+    v13 = *(a1 + 80);
+    v12 = *(a1 + 64);
+    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v9];
   }
 
   else
@@ -3372,7 +3328,7 @@ void __115__CPLLibraryManager_removeParticipants_fromSharedScopeWithIdentifier_r
       {
         v6 = *(a1 + 40);
         *buf = 138543362;
-        v16 = v6;
+        v15 = v6;
         _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Trying to remove participant from shared library %{public}@ while the library is not open", buf, 0xCu);
       }
     }
@@ -3384,8 +3340,6 @@ void __115__CPLLibraryManager_removeParticipants_fromSharedScopeWithIdentifier_r
       (*(v7 + 16))(v7, 0, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __115__CPLLibraryManager_removeParticipants_fromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke_423(uint64_t a1)
@@ -3407,7 +3361,7 @@ void __115__CPLLibraryManager_removeParticipants_fromSharedScopeWithIdentifier_r
 
 void __115__CPLLibraryManager_removeParticipants_fromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke_2(void *a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v7 = a3;
   if (v7)
@@ -3418,15 +3372,15 @@ void __115__CPLLibraryManager_removeParticipants_fromSharedScopeWithIdentifier_r
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         v9 = a1[4];
-        v16 = 138543618;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v7;
+        v15 = 138543618;
+        v16 = v9;
+        v17 = 2112;
+        v18 = v7;
         v10 = "Failed to remove participant from shared library %{public}@: %@";
         v11 = v8;
         v12 = OS_LOG_TYPE_ERROR;
 LABEL_8:
-        _os_log_impl(&dword_1DC05A000, v11, v12, v10, &v16, 0x16u);
+        _os_log_impl(&dword_1DC05A000, v11, v12, v10, &v15, 0x16u);
         goto LABEL_9;
       }
 
@@ -3441,10 +3395,10 @@ LABEL_8:
     {
       v14 = a1[4];
       v13 = a1[5];
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2114;
-      v19 = v14;
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2114;
+      v18 = v14;
       v10 = "Successfully removed participants %{public}@ from shared library %{public}@";
       v11 = v8;
       v12 = OS_LOG_TYPE_DEFAULT;
@@ -3455,13 +3409,11 @@ LABEL_9:
   }
 
   (*(a1[6] + 16))(a1[6], v5, v7, v6);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startExitFromSharedScopeWithIdentifier:(id)identifier retentionPolicy:(int64_t)policy exitSource:(int64_t)source completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   if (__CPLShouldLogQOS_onceToken != -1)
@@ -3486,36 +3438,34 @@ LABEL_9:
 
   v16 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:1];
   queue = self->_queue;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __105__CPLLibraryManager_startExitFromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke;
-  v25[3] = &unk_1E861D7A0;
-  v25[4] = self;
-  v26 = identifierCopy;
-  v27 = v16;
-  v28 = handlerCopy;
-  v29 = a2;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __105__CPLLibraryManager_startExitFromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke;
+  v24[3] = &unk_1E861D7A0;
+  v24[4] = self;
+  v25 = identifierCopy;
+  v26 = v16;
+  v27 = handlerCopy;
+  v28 = a2;
   policyCopy = policy;
   sourceCopy = source;
-  v18 = v25;
+  v18 = v24;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v33 = &unk_1E861B4E0;
-  v34 = v18;
+  v32 = &unk_1E861B4E0;
+  v33 = v18;
   v19 = queue;
   v20 = v16;
   v21 = handlerCopy;
   v22 = identifierCopy;
   v23 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v19, v23);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __105__CPLLibraryManager_startExitFromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -3525,22 +3475,22 @@ void __105__CPLLibraryManager_startExitFromSharedScopeWithIdentifier_retentionPo
       {
         v3 = NSStringFromSelector(*(a1 + 64));
         *buf = 138412290;
-        v16 = v3;
+        v15 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __105__CPLLibraryManager_startExitFromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke_418;
-    v11[3] = &unk_1E861AED8;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __105__CPLLibraryManager_startExitFromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke_418;
+    v10[3] = &unk_1E861AED8;
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v11[4] = *(a1 + 32);
-    v12 = v4;
-    v14 = *(a1 + 72);
-    v13 = *(a1 + 56);
-    [v5 performAsCurrentWithPendingUnitCount:1 usingBlock:v11];
+    v10[4] = *(a1 + 32);
+    v11 = v4;
+    v13 = *(a1 + 72);
+    v12 = *(a1 + 56);
+    [v5 performAsCurrentWithPendingUnitCount:1 usingBlock:v10];
   }
 
   else
@@ -3552,7 +3502,7 @@ void __105__CPLLibraryManager_startExitFromSharedScopeWithIdentifier_retentionPo
       {
         v7 = *(a1 + 40);
         *buf = 138543362;
-        v16 = v7;
+        v15 = v7;
         _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Trying to start exit from shared library %{public}@ while the library is not open", buf, 0xCu);
       }
     }
@@ -3564,8 +3514,6 @@ void __105__CPLLibraryManager_startExitFromSharedScopeWithIdentifier_retentionPo
       (*(v8 + 16))(v8, 0, v9);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __105__CPLLibraryManager_startExitFromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke_418(uint64_t a1)
@@ -3585,7 +3533,7 @@ void __105__CPLLibraryManager_startExitFromSharedScopeWithIdentifier_retentionPo
 
 void __105__CPLLibraryManager_startExitFromSharedScopeWithIdentifier_retentionPolicy_exitSource_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v7 = a3;
   if (v7)
@@ -3596,16 +3544,16 @@ void __105__CPLLibraryManager_startExitFromSharedScopeWithIdentifier_retentionPo
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         v9 = *(a1 + 32);
-        v16 = 138543618;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v7;
+        v15 = 138543618;
+        v16 = v9;
+        v17 = 2112;
+        v18 = v7;
         v10 = "Failed to exit from shared library %{public}@: %@";
         v11 = v8;
         v12 = OS_LOG_TYPE_ERROR;
         v13 = 22;
 LABEL_8:
-        _os_log_impl(&dword_1DC05A000, v11, v12, v10, &v16, v13);
+        _os_log_impl(&dword_1DC05A000, v11, v12, v10, &v15, v13);
         goto LABEL_9;
       }
 
@@ -3619,8 +3567,8 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v14 = *(a1 + 32);
-      v16 = 138543362;
-      v17 = v14;
+      v15 = 138543362;
+      v16 = v14;
       v10 = "Successfully started exit from %{public}@";
       v11 = v8;
       v12 = OS_LOG_TYPE_DEFAULT;
@@ -3632,8 +3580,6 @@ LABEL_9:
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v5, v7, v6);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createOwnedLibraryShareScopeWithShare:(id)share title:(id)title completionHandler:(id)handler
@@ -3650,7 +3596,7 @@ LABEL_9:
 
 - (void)refreshScopeWithIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   if ((_CPLSilentLogging & 1) == 0)
@@ -3689,39 +3635,37 @@ LABEL_9:
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = ___CPLProgressForAsyncCall_block_invoke;
-  v29 = &__block_descriptor_48_e5_v8__0lu32l8;
-  v30 = v13;
-  v31 = a2;
+  v28 = &__block_descriptor_48_e5_v8__0lu32l8;
+  v29 = v13;
+  v30 = a2;
   [v14 setCancellationHandler:buf];
   queue = self->_queue;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __66__CPLLibraryManager_refreshScopeWithIdentifier_completionHandler___block_invoke;
-  v23[3] = &unk_1E861B1A0;
-  v23[4] = self;
-  v24 = identifierCopy;
-  v25 = v14;
-  v26 = handlerCopy;
-  v27 = a2;
-  v16 = v23;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __66__CPLLibraryManager_refreshScopeWithIdentifier_completionHandler___block_invoke;
+  v22[3] = &unk_1E861B1A0;
+  v22[4] = self;
+  v23 = identifierCopy;
+  v24 = v14;
+  v25 = handlerCopy;
+  v26 = a2;
+  v16 = v22;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v29 = &unk_1E861B4E0;
-  v30 = v16;
+  v28 = &unk_1E861B4E0;
+  v29 = v16;
   v17 = queue;
   v18 = v14;
   v19 = handlerCopy;
   v20 = identifierCopy;
   v21 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v17, v21);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __66__CPLLibraryManager_refreshScopeWithIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -3731,24 +3675,24 @@ void __66__CPLLibraryManager_refreshScopeWithIdentifier_completionHandler___bloc
       {
         v3 = NSStringFromSelector(*(a1 + 64));
         *buf = 138412290;
-        v18 = v3;
+        v17 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
     v4 = *(a1 + 48);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __66__CPLLibraryManager_refreshScopeWithIdentifier_completionHandler___block_invoke_365;
-    v14[3] = &unk_1E861AE38;
-    v13 = *(a1 + 32);
-    v5 = *(&v13 + 1);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __66__CPLLibraryManager_refreshScopeWithIdentifier_completionHandler___block_invoke_365;
+    v13[3] = &unk_1E861AE38;
+    v12 = *(a1 + 32);
+    v5 = *(&v12 + 1);
     v6 = *(a1 + 56);
     *&v7 = *(a1 + 48);
     *(&v7 + 1) = v6;
-    v15 = v13;
-    v16 = v7;
-    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v14];
+    v14 = v12;
+    v15 = v7;
+    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v13];
   }
 
   else
@@ -3760,7 +3704,7 @@ void __66__CPLLibraryManager_refreshScopeWithIdentifier_completionHandler___bloc
       {
         v9 = *(a1 + 40);
         *buf = 138543362;
-        v18 = v9;
+        v17 = v9;
         _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Trying to refresh %{public}@ while the library is not open", buf, 0xCu);
       }
     }
@@ -3774,8 +3718,6 @@ void __66__CPLLibraryManager_refreshScopeWithIdentifier_completionHandler___bloc
 
     [*(a1 + 48) setCompletedUnitCount:{objc_msgSend(*(a1 + 48), "totalUnitCount")}];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __66__CPLLibraryManager_refreshScopeWithIdentifier_completionHandler___block_invoke_365(uint64_t a1)
@@ -3794,7 +3736,7 @@ void __66__CPLLibraryManager_refreshScopeWithIdentifier_completionHandler___bloc
 
 void __66__CPLLibraryManager_refreshScopeWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -3810,8 +3752,8 @@ void __66__CPLLibraryManager_refreshScopeWithIdentifier_completionHandler___bloc
       goto LABEL_9;
     }
 
-    *v15 = 138412290;
-    *&v15[4] = v5;
+    *v14 = 138412290;
+    *&v14[4] = v5;
     v8 = "Successfully updated %@";
     v9 = v7;
     v10 = OS_LOG_TYPE_DEFAULT;
@@ -3828,16 +3770,16 @@ void __66__CPLLibraryManager_refreshScopeWithIdentifier_completionHandler___bloc
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v12 = *(a1 + 32);
-    *v15 = 138412546;
-    *&v15[4] = v12;
-    *&v15[12] = 2112;
-    *&v15[14] = v6;
+    *v14 = 138412546;
+    *&v14[4] = v12;
+    *&v14[12] = 2112;
+    *&v14[14] = v6;
     v8 = "Failed to update %@: %@";
     v9 = v7;
     v10 = OS_LOG_TYPE_ERROR;
     v11 = 22;
 LABEL_8:
-    _os_log_impl(&dword_1DC05A000, v9, v10, v8, v15, v11);
+    _os_log_impl(&dword_1DC05A000, v9, v10, v8, v14, v11);
   }
 
 LABEL_9:
@@ -3849,15 +3791,13 @@ LABEL_10:
     (*(v13 + 16))(v13, v5, v6);
   }
 
-  [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount", *v15, *&v15[16], v16)}];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount", *v14, *&v14[8], v15)}];
 }
 
 - (void)deleteScopeWithIdentifier:(id)identifier forced:(BOOL)forced completionHandler:(id)handler
 {
   forcedCopy = forced;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   if ((_CPLSilentLogging & 1) == 0)
@@ -3901,35 +3841,33 @@ LABEL_10:
 
   v16 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:1];
   queue = self->_queue;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __72__CPLLibraryManager_deleteScopeWithIdentifier_forced_completionHandler___block_invoke;
-  v25[3] = &unk_1E861D750;
-  v25[4] = self;
-  v26 = identifierCopy;
-  v28 = handlerCopy;
-  v29 = a2;
-  v27 = v16;
-  v30 = forcedCopy;
-  v18 = v25;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __72__CPLLibraryManager_deleteScopeWithIdentifier_forced_completionHandler___block_invoke;
+  v24[3] = &unk_1E861D750;
+  v24[4] = self;
+  v25 = identifierCopy;
+  v27 = handlerCopy;
+  v28 = a2;
+  v26 = v16;
+  v29 = forcedCopy;
+  v18 = v24;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v32 = &unk_1E861B4E0;
-  v33 = v18;
+  v31 = &unk_1E861B4E0;
+  v32 = v18;
   v19 = queue;
   v20 = v16;
   v21 = handlerCopy;
   v22 = identifierCopy;
   v23 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v19, v23);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __72__CPLLibraryManager_deleteScopeWithIdentifier_forced_completionHandler___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -3939,22 +3877,22 @@ void __72__CPLLibraryManager_deleteScopeWithIdentifier_forced_completionHandler_
       {
         v3 = NSStringFromSelector(*(a1 + 64));
         *buf = 138412290;
-        v16 = v3;
+        v15 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __72__CPLLibraryManager_deleteScopeWithIdentifier_forced_completionHandler___block_invoke_361;
-    v11[3] = &unk_1E861B090;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __72__CPLLibraryManager_deleteScopeWithIdentifier_forced_completionHandler___block_invoke_361;
+    v10[3] = &unk_1E861B090;
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v11[4] = *(a1 + 32);
-    v12 = v4;
-    v14 = *(a1 + 72);
-    v13 = *(a1 + 56);
-    [v5 performAsCurrentWithPendingUnitCount:1 usingBlock:v11];
+    v10[4] = *(a1 + 32);
+    v11 = v4;
+    v13 = *(a1 + 72);
+    v12 = *(a1 + 56);
+    [v5 performAsCurrentWithPendingUnitCount:1 usingBlock:v10];
   }
 
   else
@@ -3966,7 +3904,7 @@ void __72__CPLLibraryManager_deleteScopeWithIdentifier_forced_completionHandler_
       {
         v7 = *(a1 + 40);
         *buf = 138543362;
-        v16 = v7;
+        v15 = v7;
         _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Trying to delete %{public}@ while the library is not open", buf, 0xCu);
       }
     }
@@ -3978,8 +3916,6 @@ void __72__CPLLibraryManager_deleteScopeWithIdentifier_forced_completionHandler_
       (*(v8 + 16))(v8, v9);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __72__CPLLibraryManager_deleteScopeWithIdentifier_forced_completionHandler___block_invoke_361(uint64_t a1)
@@ -3998,7 +3934,7 @@ void __72__CPLLibraryManager_deleteScopeWithIdentifier_forced_completionHandler_
 
 void __72__CPLLibraryManager_deleteScopeWithIdentifier_forced_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (v5)
   {
@@ -4008,16 +3944,16 @@ void __72__CPLLibraryManager_deleteScopeWithIdentifier_forced_completionHandler_
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         v7 = *(a1 + 32);
-        v14 = 138543618;
-        v15 = v7;
-        v16 = 2112;
-        v17 = v5;
+        v13 = 138543618;
+        v14 = v7;
+        v15 = 2112;
+        v16 = v5;
         v8 = "Failed to delete %{public}@: %@";
         v9 = v6;
         v10 = OS_LOG_TYPE_ERROR;
         v11 = 22;
 LABEL_8:
-        _os_log_impl(&dword_1DC05A000, v9, v10, v8, &v14, v11);
+        _os_log_impl(&dword_1DC05A000, v9, v10, v8, &v13, v11);
         goto LABEL_9;
       }
 
@@ -4031,8 +3967,8 @@ LABEL_8:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 32);
-      v14 = 138543362;
-      v15 = v12;
+      v13 = 138543362;
+      v14 = v12;
       v8 = "Successfully deleted %{public}@";
       v9 = v6;
       v10 = OS_LOG_TYPE_DEFAULT;
@@ -4044,13 +3980,11 @@ LABEL_9:
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v5, v3, v4);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateShareForScope:(id)scope completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   handlerCopy = handler;
   if ((_CPLSilentLogging & 1) == 0)
@@ -4092,39 +4026,37 @@ LABEL_9:
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = ___CPLProgressForAsyncCall_block_invoke;
-  v30 = &__block_descriptor_48_e5_v8__0lu32l8;
-  v31 = v14;
-  v32 = a2;
+  v29 = &__block_descriptor_48_e5_v8__0lu32l8;
+  v30 = v14;
+  v31 = a2;
   [v15 setCancellationHandler:buf];
   queue = self->_queue;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __59__CPLLibraryManager_updateShareForScope_completionHandler___block_invoke;
-  v24[3] = &unk_1E861B1A0;
-  v24[4] = self;
-  v25 = scopeCopy;
-  v26 = v15;
-  v27 = handlerCopy;
-  v28 = a2;
-  v17 = v24;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __59__CPLLibraryManager_updateShareForScope_completionHandler___block_invoke;
+  v23[3] = &unk_1E861B1A0;
+  v23[4] = self;
+  v24 = scopeCopy;
+  v25 = v15;
+  v26 = handlerCopy;
+  v27 = a2;
+  v17 = v23;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v30 = &unk_1E861B4E0;
-  v31 = v17;
+  v29 = &unk_1E861B4E0;
+  v30 = v17;
   v18 = queue;
   v19 = v15;
   v20 = handlerCopy;
   v21 = scopeCopy;
   v22 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v18, v22);
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CPLLibraryManager_updateShareForScope_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -4134,24 +4066,24 @@ void __59__CPLLibraryManager_updateShareForScope_completionHandler___block_invok
       {
         v3 = NSStringFromSelector(*(a1 + 64));
         *buf = 138412290;
-        v18 = v3;
+        v17 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
     v4 = *(a1 + 48);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __59__CPLLibraryManager_updateShareForScope_completionHandler___block_invoke_350;
-    v14[3] = &unk_1E861AE38;
-    v13 = *(a1 + 32);
-    v5 = *(&v13 + 1);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __59__CPLLibraryManager_updateShareForScope_completionHandler___block_invoke_350;
+    v13[3] = &unk_1E861AE38;
+    v12 = *(a1 + 32);
+    v5 = *(&v12 + 1);
     v6 = *(a1 + 56);
     *&v7 = *(a1 + 48);
     *(&v7 + 1) = v6;
-    v15 = v13;
-    v16 = v7;
-    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v14];
+    v14 = v12;
+    v15 = v7;
+    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v13];
   }
 
   else
@@ -4163,7 +4095,7 @@ void __59__CPLLibraryManager_updateShareForScope_completionHandler___block_invok
       {
         v9 = *(a1 + 40);
         *buf = 138543362;
-        v18 = v9;
+        v17 = v9;
         _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Trying to update %{public}@ while the library is not open", buf, 0xCu);
       }
     }
@@ -4177,8 +4109,6 @@ void __59__CPLLibraryManager_updateShareForScope_completionHandler___block_invok
 
     [*(a1 + 48) setCompletedUnitCount:{objc_msgSend(*(a1 + 48), "totalUnitCount")}];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CPLLibraryManager_updateShareForScope_completionHandler___block_invoke_350(uint64_t a1)
@@ -4197,7 +4127,7 @@ void __59__CPLLibraryManager_updateShareForScope_completionHandler___block_invok
 
 void __59__CPLLibraryManager_updateShareForScope_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -4213,8 +4143,8 @@ void __59__CPLLibraryManager_updateShareForScope_completionHandler___block_invok
       goto LABEL_9;
     }
 
-    *v15 = 138412290;
-    *&v15[4] = v5;
+    *v14 = 138412290;
+    *&v14[4] = v5;
     v8 = "Successfully updated %@";
     v9 = v7;
     v10 = OS_LOG_TYPE_DEFAULT;
@@ -4231,16 +4161,16 @@ void __59__CPLLibraryManager_updateShareForScope_completionHandler___block_invok
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v12 = *(a1 + 32);
-    *v15 = 138412546;
-    *&v15[4] = v12;
-    *&v15[12] = 2112;
-    *&v15[14] = v6;
+    *v14 = 138412546;
+    *&v14[4] = v12;
+    *&v14[12] = 2112;
+    *&v14[14] = v6;
     v8 = "Failed to update %@: %@";
     v9 = v7;
     v10 = OS_LOG_TYPE_ERROR;
     v11 = 22;
 LABEL_8:
-    _os_log_impl(&dword_1DC05A000, v9, v10, v8, v15, v11);
+    _os_log_impl(&dword_1DC05A000, v9, v10, v8, v14, v11);
   }
 
 LABEL_9:
@@ -4252,14 +4182,12 @@ LABEL_10:
     (*(v13 + 16))(v13, v5, v6);
   }
 
-  [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount", *v15, *&v15[16], v16)}];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount", *v14, *&v14[8], v15)}];
 }
 
 - (void)createScope:(id)scope completionHandler:(id)handler
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   handlerCopy = handler;
   if ((_CPLSilentLogging & 1) == 0)
@@ -4298,39 +4226,37 @@ LABEL_10:
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = ___CPLProgressForAsyncCall_block_invoke;
-  v29 = &__block_descriptor_48_e5_v8__0lu32l8;
-  v30 = v13;
-  v31 = a2;
+  v28 = &__block_descriptor_48_e5_v8__0lu32l8;
+  v29 = v13;
+  v30 = a2;
   [v14 setCancellationHandler:buf];
   queue = self->_queue;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __51__CPLLibraryManager_createScope_completionHandler___block_invoke;
-  v23[3] = &unk_1E861B1A0;
-  v23[4] = self;
-  v24 = scopeCopy;
-  v25 = v14;
-  v26 = handlerCopy;
-  v27 = a2;
-  v16 = v23;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __51__CPLLibraryManager_createScope_completionHandler___block_invoke;
+  v22[3] = &unk_1E861B1A0;
+  v22[4] = self;
+  v23 = scopeCopy;
+  v24 = v14;
+  v25 = handlerCopy;
+  v26 = a2;
+  v16 = v22;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v29 = &unk_1E861B4E0;
-  v30 = v16;
+  v28 = &unk_1E861B4E0;
+  v29 = v16;
   v17 = queue;
   v18 = v14;
   v19 = handlerCopy;
   v20 = scopeCopy;
   v21 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v17, v21);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __51__CPLLibraryManager_createScope_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -4340,24 +4266,24 @@ void __51__CPLLibraryManager_createScope_completionHandler___block_invoke(uint64
       {
         v3 = NSStringFromSelector(*(a1 + 64));
         *buf = 138412290;
-        v18 = v3;
+        v17 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
     v4 = *(a1 + 48);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __51__CPLLibraryManager_createScope_completionHandler___block_invoke_348;
-    v14[3] = &unk_1E861AE38;
-    v13 = *(a1 + 32);
-    v5 = *(&v13 + 1);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __51__CPLLibraryManager_createScope_completionHandler___block_invoke_348;
+    v13[3] = &unk_1E861AE38;
+    v12 = *(a1 + 32);
+    v5 = *(&v12 + 1);
     v6 = *(a1 + 56);
     *&v7 = *(a1 + 48);
     *(&v7 + 1) = v6;
-    v15 = v13;
-    v16 = v7;
-    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v14];
+    v14 = v12;
+    v15 = v7;
+    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v13];
   }
 
   else
@@ -4369,7 +4295,7 @@ void __51__CPLLibraryManager_createScope_completionHandler___block_invoke(uint64
       {
         v9 = *(a1 + 40);
         *buf = 138412290;
-        v18 = v9;
+        v17 = v9;
         _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Trying to create %@ while the library is not open", buf, 0xCu);
       }
     }
@@ -4383,8 +4309,6 @@ void __51__CPLLibraryManager_createScope_completionHandler___block_invoke(uint64
 
     [*(a1 + 48) setCompletedUnitCount:{objc_msgSend(*(a1 + 48), "totalUnitCount")}];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __51__CPLLibraryManager_createScope_completionHandler___block_invoke_348(uint64_t a1)
@@ -4403,7 +4327,7 @@ void __51__CPLLibraryManager_createScope_completionHandler___block_invoke_348(ui
 
 void __51__CPLLibraryManager_createScope_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -4419,8 +4343,8 @@ void __51__CPLLibraryManager_createScope_completionHandler___block_invoke_2(uint
       goto LABEL_9;
     }
 
-    *v15 = 138412290;
-    *&v15[4] = v5;
+    *v14 = 138412290;
+    *&v14[4] = v5;
     v8 = "Successfully created %@";
     v9 = v7;
     v10 = OS_LOG_TYPE_DEFAULT;
@@ -4437,16 +4361,16 @@ void __51__CPLLibraryManager_createScope_completionHandler___block_invoke_2(uint
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v12 = *(a1 + 32);
-    *v15 = 138412546;
-    *&v15[4] = v12;
-    *&v15[12] = 2112;
-    *&v15[14] = v6;
+    *v14 = 138412546;
+    *&v14[4] = v12;
+    *&v14[12] = 2112;
+    *&v14[14] = v6;
     v8 = "Failed to create %@: %@";
     v9 = v7;
     v10 = OS_LOG_TYPE_ERROR;
     v11 = 22;
 LABEL_8:
-    _os_log_impl(&dword_1DC05A000, v9, v10, v8, v15, v11);
+    _os_log_impl(&dword_1DC05A000, v9, v10, v8, v14, v11);
   }
 
 LABEL_9:
@@ -4458,9 +4382,7 @@ LABEL_10:
     (*(v13 + 16))(v13, v5, v6);
   }
 
-  [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount", *v15, *&v15[16], v16)}];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount", *v14, *&v14[8], v15)}];
 }
 
 - (void)beginInMemoryDownloadOfResource:(id)resource clientBundleID:(id)d completionHandler:(id)handler
@@ -4494,7 +4416,7 @@ LABEL_10:
 
 void __86__CPLLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_completionHandler___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -4504,7 +4426,7 @@ void __86__CPLLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_comp
       {
         v3 = NSStringFromSelector(*(a1 + 64));
         *buf = 138412290;
-        v13 = v3;
+        v12 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
@@ -4512,12 +4434,12 @@ void __86__CPLLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_comp
     v4 = [*(a1 + 32) platformObject];
     v5 = *(a1 + 40);
     v6 = *(a1 + 48);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __86__CPLLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_completionHandler___block_invoke_344;
-    v10[3] = &unk_1E861D688;
-    v11 = *(a1 + 56);
-    [v4 beginInMemoryDownloadOfResource:v5 clientBundleID:v6 completionHandler:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __86__CPLLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_completionHandler___block_invoke_344;
+    v9[3] = &unk_1E861D688;
+    v10 = *(a1 + 56);
+    [v4 beginInMemoryDownloadOfResource:v5 clientBundleID:v6 completionHandler:v9];
   }
 
   else
@@ -4538,8 +4460,6 @@ void __86__CPLLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_comp
       (*(v8 + 16))(v8, 0);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __86__CPLLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_completionHandler___block_invoke_344(uint64_t a1)
@@ -4555,7 +4475,7 @@ uint64_t __86__CPLLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_
 
 - (void)rampingRequestForResourceType:(unint64_t)type numRequested:(unint64_t)requested completionHandler:(id)handler
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (__CPLShouldLogQOS_onceToken != -1)
   {
@@ -4582,39 +4502,37 @@ uint64_t __86__CPLLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = ___CPLProgressForAsyncCall_block_invoke;
-  v29 = &__block_descriptor_48_e5_v8__0lu32l8;
-  v30 = v13;
-  v31 = a2;
+  v28 = &__block_descriptor_48_e5_v8__0lu32l8;
+  v29 = v13;
+  v30 = a2;
   [v14 setCancellationHandler:buf];
   queue = self->_queue;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __82__CPLLibraryManager_rampingRequestForResourceType_numRequested_completionHandler___block_invoke;
-  v22[3] = &unk_1E861D700;
-  v22[4] = self;
-  v23 = v14;
-  v24 = handlerCopy;
-  v25 = a2;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __82__CPLLibraryManager_rampingRequestForResourceType_numRequested_completionHandler___block_invoke;
+  v21[3] = &unk_1E861D700;
+  v21[4] = self;
+  v22 = v14;
+  v23 = handlerCopy;
+  v24 = a2;
   typeCopy = type;
   requestedCopy = requested;
-  v16 = v22;
+  v16 = v21;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v29 = &unk_1E861B4E0;
-  v30 = v16;
+  v28 = &unk_1E861B4E0;
+  v29 = v16;
   v17 = queue;
   v18 = v14;
   v19 = handlerCopy;
   v20 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v17, v20);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __82__CPLLibraryManager_rampingRequestForResourceType_numRequested_completionHandler___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -4624,21 +4542,21 @@ void __82__CPLLibraryManager_rampingRequestForResourceType_numRequested_completi
       {
         v3 = NSStringFromSelector(*(a1 + 56));
         *buf = 138412290;
-        v14 = v3;
+        v13 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __82__CPLLibraryManager_rampingRequestForResourceType_numRequested_completionHandler___block_invoke_342;
-    v9[3] = &unk_1E861AD48;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __82__CPLLibraryManager_rampingRequestForResourceType_numRequested_completionHandler___block_invoke_342;
+    v8[3] = &unk_1E861AD48;
     v4 = *(a1 + 40);
-    v9[4] = *(a1 + 32);
-    v12 = *(a1 + 64);
-    v11 = *(a1 + 48);
-    v10 = *(a1 + 40);
-    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v9];
+    v8[4] = *(a1 + 32);
+    v11 = *(a1 + 64);
+    v10 = *(a1 + 48);
+    v9 = *(a1 + 40);
+    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v8];
   }
 
   else
@@ -4659,8 +4577,6 @@ void __82__CPLLibraryManager_rampingRequestForResourceType_numRequested_completi
 
     [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount")}];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __82__CPLLibraryManager_rampingRequestForResourceType_numRequested_completionHandler___block_invoke_342(uint64_t a1)
@@ -4677,12 +4593,12 @@ void __82__CPLLibraryManager_rampingRequestForResourceType_numRequested_completi
   [v2 rampingRequestForResourceType:v3 numRequested:v4 completionHandler:v5];
 }
 
-uint64_t __82__CPLLibraryManager_rampingRequestForResourceType_numRequested_completionHandler___block_invoke_2(uint64_t a1)
+void (**__82__CPLLibraryManager_rampingRequestForResourceType_numRequested_completionHandler___block_invoke_2(uint64_t a1))(void)
 {
   result = *(a1 + 40);
   if (result)
   {
-    (*(result + 16))();
+    result[2]();
     v3 = [*(a1 + 32) totalUnitCount];
     v4 = *(a1 + 32);
 
@@ -4694,7 +4610,7 @@ uint64_t __82__CPLLibraryManager_rampingRequestForResourceType_numRequested_comp
 
 - (void)getStreamingURLOrMediaMakerDataForResource:(id)resource intent:(unint64_t)intent hints:(id)hints timeRange:(id *)range clientBundleID:(id)d completionHandler:(id)handler
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
   hintsCopy = hints;
   dCopy = d;
@@ -4724,33 +4640,33 @@ uint64_t __82__CPLLibraryManager_rampingRequestForResourceType_numRequested_comp
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = ___CPLProgressForAsyncCall_block_invoke;
-  v47 = &__block_descriptor_48_e5_v8__0lu32l8;
-  v48 = v20;
-  v49 = a2;
+  v46 = &__block_descriptor_48_e5_v8__0lu32l8;
+  v47 = v20;
+  v48 = a2;
   [v21 setCancellationHandler:buf];
   queue = self->_queue;
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __120__CPLLibraryManager_getStreamingURLOrMediaMakerDataForResource_intent_hints_timeRange_clientBundleID_completionHandler___block_invoke;
-  v35[3] = &unk_1E861D6D8;
-  v35[4] = self;
-  v36 = v21;
-  v41 = a2;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __120__CPLLibraryManager_getStreamingURLOrMediaMakerDataForResource_intent_hints_timeRange_clientBundleID_completionHandler___block_invoke;
+  v34[3] = &unk_1E861D6D8;
+  v34[4] = self;
+  v35 = v21;
+  v40 = a2;
   intentCopy = intent;
-  v37 = resourceCopy;
-  v38 = hintsCopy;
+  v36 = resourceCopy;
+  v37 = hintsCopy;
   v23 = *&range->var0.var3;
-  v43 = *&range->var0.var0;
-  v44 = v23;
-  v45 = *&range->var1.var1;
-  v39 = dCopy;
-  v40 = handlerCopy;
-  v24 = v35;
+  v42 = *&range->var0.var0;
+  v43 = v23;
+  v44 = *&range->var1.var1;
+  v38 = dCopy;
+  v39 = handlerCopy;
+  v24 = v34;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v47 = &unk_1E861B4E0;
-  v48 = v24;
+  v46 = &unk_1E861B4E0;
+  v47 = v24;
   v25 = queue;
   v26 = dCopy;
   v27 = hintsCopy;
@@ -4759,13 +4675,11 @@ uint64_t __82__CPLLibraryManager_rampingRequestForResourceType_numRequested_comp
   v30 = handlerCopy;
   v31 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v25, v31);
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __120__CPLLibraryManager_getStreamingURLOrMediaMakerDataForResource_intent_hints_timeRange_clientBundleID_completionHandler___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -4775,30 +4689,30 @@ void __120__CPLLibraryManager_getStreamingURLOrMediaMakerDataForResource_intent_
       {
         v3 = NSStringFromSelector(*(a1 + 80));
         *buf = 138412290;
-        v23 = v3;
+        v22 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
 
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __120__CPLLibraryManager_getStreamingURLOrMediaMakerDataForResource_intent_hints_timeRange_clientBundleID_completionHandler___block_invoke_338;
-    v12[3] = &unk_1E861ACD0;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __120__CPLLibraryManager_getStreamingURLOrMediaMakerDataForResource_intent_hints_timeRange_clientBundleID_completionHandler___block_invoke_338;
+    v11[3] = &unk_1E861ACD0;
     v4 = *(a1 + 40);
-    v12[4] = *(a1 + 32);
+    v11[4] = *(a1 + 32);
     v5 = *(a1 + 48);
     v6 = *(a1 + 88);
-    v13 = v5;
-    v18 = v6;
-    v14 = *(a1 + 56);
+    v12 = v5;
+    v17 = v6;
+    v13 = *(a1 + 56);
     v7 = *(a1 + 112);
-    v19 = *(a1 + 96);
-    v20 = v7;
-    v21 = *(a1 + 128);
-    v15 = *(a1 + 64);
-    v17 = *(a1 + 72);
-    v16 = *(a1 + 40);
-    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v12];
+    v18 = *(a1 + 96);
+    v19 = v7;
+    v20 = *(a1 + 128);
+    v14 = *(a1 + 64);
+    v16 = *(a1 + 72);
+    v15 = *(a1 + 40);
+    [v4 performAsCurrentWithPendingUnitCount:1 usingBlock:v11];
   }
 
   else
@@ -4819,8 +4733,6 @@ void __120__CPLLibraryManager_getStreamingURLOrMediaMakerDataForResource_intent_
 
     [*(a1 + 40) setCompletedUnitCount:{objc_msgSend(*(a1 + 40), "totalUnitCount")}];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __120__CPLLibraryManager_getStreamingURLOrMediaMakerDataForResource_intent_hints_timeRange_clientBundleID_completionHandler___block_invoke_338(uint64_t a1)
@@ -4879,7 +4791,7 @@ uint64_t __120__CPLLibraryManager_getStreamingURLOrMediaMakerDataForResource_int
 
 - (void)beginDownloadForResource:(id)resource clientBundleID:(id)d options:(id)options proposedTaskIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
   dCopy = d;
   optionsCopy = options;
@@ -4902,29 +4814,29 @@ uint64_t __120__CPLLibraryManager_getStreamingURLOrMediaMakerDataForResource_int
       *&buf[12] = 2112;
       *&buf[14] = optionsCopy;
       *&buf[22] = 2112;
-      v39 = v20;
+      v38 = v20;
       _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_DEFAULT, "Running %@(%@) at %@ QOS", buf, 0x20u);
     }
   }
 
   queue = self->_queue;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __110__CPLLibraryManager_beginDownloadForResource_clientBundleID_options_proposedTaskIdentifier_completionHandler___block_invoke;
-  v31[3] = &unk_1E861F960;
-  v36 = handlerCopy;
-  v37 = a2;
-  v31[4] = self;
-  v32 = resourceCopy;
-  v33 = dCopy;
-  v34 = optionsCopy;
-  v35 = identifierCopy;
-  v22 = v31;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __110__CPLLibraryManager_beginDownloadForResource_clientBundleID_options_proposedTaskIdentifier_completionHandler___block_invoke;
+  v30[3] = &unk_1E861F960;
+  v35 = handlerCopy;
+  v36 = a2;
+  v30[4] = self;
+  v31 = resourceCopy;
+  v32 = dCopy;
+  v33 = optionsCopy;
+  v34 = identifierCopy;
+  v22 = v30;
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 3221225472;
   *&buf[16] = __cpl_dispatch_async_block_invoke_12172;
-  v39 = &unk_1E861B4E0;
-  v40 = v22;
+  v38 = &unk_1E861B4E0;
+  v39 = v22;
   v23 = queue;
   v24 = identifierCopy;
   v25 = optionsCopy;
@@ -4933,13 +4845,11 @@ uint64_t __120__CPLLibraryManager_getStreamingURLOrMediaMakerDataForResource_int
   v28 = handlerCopy;
   v29 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   dispatch_async(v23, v29);
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __110__CPLLibraryManager_beginDownloadForResource_clientBundleID_options_proposedTaskIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state] == 2)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -4949,7 +4859,7 @@ void __110__CPLLibraryManager_beginDownloadForResource_clientBundleID_options_pr
       {
         v3 = NSStringFromSelector(*(a1 + 80));
         *buf = 138412290;
-        v14 = v3;
+        v13 = v3;
         _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
       }
     }
@@ -4959,12 +4869,12 @@ void __110__CPLLibraryManager_beginDownloadForResource_clientBundleID_options_pr
     v6 = *(a1 + 48);
     v7 = *(a1 + 56);
     v8 = *(a1 + 64);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __110__CPLLibraryManager_beginDownloadForResource_clientBundleID_options_proposedTaskIdentifier_completionHandler___block_invoke_332;
-    v11[3] = &unk_1E861D688;
-    v12 = *(a1 + 72);
-    [v4 beginDownloadForResource:v5 clientBundleID:v6 options:v7 proposedTaskIdentifier:v8 completionHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __110__CPLLibraryManager_beginDownloadForResource_clientBundleID_options_proposedTaskIdentifier_completionHandler___block_invoke_332;
+    v10[3] = &unk_1E861D688;
+    v11 = *(a1 + 72);
+    [v4 beginDownloadForResource:v5 clientBundleID:v6 options:v7 proposedTaskIdentifier:v8 completionHandler:v10];
   }
 
   else
@@ -4981,8 +4891,6 @@ void __110__CPLLibraryManager_beginDownloadForResource_clientBundleID_options_pr
 
     (*(*(a1 + 72) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginDownloadForResource:(id)resource clientBundleID:(id)d intent:(unint64_t)intent proposedTaskIdentifier:(id)identifier completionHandler:(id)handler
@@ -4995,9 +4903,20 @@ void __110__CPLLibraryManager_beginDownloadForResource_clientBundleID_options_pr
   [(CPLLibraryManager *)self beginDownloadForResource:resourceCopy clientBundleID:dCopy options:v16 proposedTaskIdentifier:identifierCopy completionHandler:handlerCopy];
 }
 
+- (void)beginDownloadForResource:(id)resource clientBundleID:(id)d highPriority:(BOOL)priority proposedTaskIdentifier:(id)identifier completionHandler:(id)handler
+{
+  priorityCopy = priority;
+  handlerCopy = handler;
+  identifierCopy = identifier;
+  dCopy = d;
+  resourceCopy = resource;
+  v16 = [[CPLResourceTransferTaskOptions alloc] initWithHighPriority:priorityCopy];
+  [(CPLLibraryManager *)self beginDownloadForResource:resourceCopy clientBundleID:dCopy options:v16 proposedTaskIdentifier:identifierCopy completionHandler:handlerCopy];
+}
+
 - (void)_beginPullChangeSessionWithKnownLibraryVersion:(id)version resetTracker:(id)tracker completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   trackerCopy = tracker;
   handlerCopy = handler;
@@ -5008,7 +4927,7 @@ void __110__CPLLibraryManager_beginDownloadForResource_clientBundleID_options_pr
     {
       v13 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v25 = v13;
+      v24 = v13;
       _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
     }
   }
@@ -5018,17 +4937,17 @@ void __110__CPLLibraryManager_beginDownloadForResource_clientBundleID_options_pr
   {
     if (!currentSession)
     {
-      v20 = [(CPLChangeSession *)[CPLPullChangeSession alloc] initWithLibraryManager:self];
-      [(CPLLibraryManager *)self _setCurrentSession:v20];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __99__CPLLibraryManager__beginPullChangeSessionWithKnownLibraryVersion_resetTracker_completionHandler___block_invoke;
-      v21[3] = &unk_1E861D660;
-      v21[4] = self;
-      v22 = v20;
-      v23 = handlerCopy;
-      v18 = v20;
-      [(CPLChangeSession *)v18 beginSessionWithKnownLibraryVersion:versionCopy resetTracker:trackerCopy completionHandler:v21];
+      v19 = [(CPLChangeSession *)[CPLPullChangeSession alloc] initWithLibraryManager:self];
+      [(CPLLibraryManager *)self _setCurrentSession:v19];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __99__CPLLibraryManager__beginPullChangeSessionWithKnownLibraryVersion_resetTracker_completionHandler___block_invoke;
+      v20[3] = &unk_1E861D660;
+      v20[4] = self;
+      v21 = v19;
+      v22 = handlerCopy;
+      v18 = v19;
+      [(CPLChangeSession *)v18 beginSessionWithKnownLibraryVersion:versionCopy resetTracker:trackerCopy completionHandler:v20];
 
       goto LABEL_18;
     }
@@ -5039,7 +4958,7 @@ void __110__CPLLibraryManager_beginDownloadForResource_clientBundleID_options_pr
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v25 = currentSession;
+        v24 = currentSession;
         _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Trying to begin a pull session while %@ is already in place", buf, 0xCu);
       }
     }
@@ -5065,8 +4984,6 @@ void __110__CPLLibraryManager_beginDownloadForResource_clientBundleID_options_pr
   v18 = [CPLErrors incorrectMachineStateErrorWithReason:v16];
   (*(handlerCopy + 2))(handlerCopy, 0, v18);
 LABEL_18:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __99__CPLLibraryManager__beginPullChangeSessionWithKnownLibraryVersion_resetTracker_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -5096,25 +5013,22 @@ void __99__CPLLibraryManager__beginPullChangeSessionWithKnownLibraryVersion_rese
 
 void __99__CPLLibraryManager__beginPullChangeSessionWithKnownLibraryVersion_resetTracker_completionHandler___block_invoke_2(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a1[4];
   v2 = a1[5];
   if (v3)
   {
     [v2 discardCurrentSession];
-    v4 = a1[4];
-    v5 = *(a1[7] + 16);
-    v6 = *MEMORY[0x1E69E9840];
+    v4 = *(a1[7] + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v7 = [v2 currentSession];
-    if (v7)
+    v5 = [v2 currentSession];
+    if (v5)
     {
-      v8 = a1[6];
       (*(a1[7] + 16))();
     }
 
@@ -5122,22 +5036,20 @@ void __99__CPLLibraryManager__beginPullChangeSessionWithKnownLibraryVersion_rese
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v9 = __CPLManagerOSLogDomain_0();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v6 = __CPLManagerOSLogDomain_0();
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
-          v10 = a1[6];
-          v14 = 138412290;
-          v15 = v10;
-          _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "%@ was discarded before it was returned", &v14, 0xCu);
+          v7 = a1[6];
+          v10 = 138412290;
+          v11 = v7;
+          _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEBUG, "%@ was discarded before it was returned", &v10, 0xCu);
         }
       }
 
-      v11 = a1[7];
-      v12 = +[CPLErrors libraryClosedError];
-      (*(v11 + 16))(v11, 0, v12);
+      v8 = a1[7];
+      v9 = +[CPLErrors libraryClosedError];
+      (*(v8 + 16))(v8, 0, v9);
     }
-
-    v13 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -5175,7 +5087,7 @@ uint64_t __98__CPLLibraryManager_beginPullChangeSessionWithKnownLibraryVersion_r
 
 - (void)_beginPushChangeSessionWithKnownLibraryVersion:(id)version resetTracker:(id)tracker completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   trackerCopy = tracker;
   handlerCopy = handler;
@@ -5187,7 +5099,7 @@ uint64_t __98__CPLLibraryManager_beginPullChangeSessionWithKnownLibraryVersion_r
     {
       v13 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v25 = v13;
+      v24 = v13;
       _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEBUG, "%@ called", buf, 0xCu);
     }
   }
@@ -5197,17 +5109,17 @@ uint64_t __98__CPLLibraryManager_beginPullChangeSessionWithKnownLibraryVersion_r
   {
     if (!currentSession)
     {
-      v20 = [[CPLPushChangeSession alloc] initWithLibraryManager:self];
-      [(CPLLibraryManager *)self _setCurrentSession:v20];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __99__CPLLibraryManager__beginPushChangeSessionWithKnownLibraryVersion_resetTracker_completionHandler___block_invoke;
-      v21[3] = &unk_1E861D660;
-      v21[4] = self;
-      v22 = v20;
-      v23 = handlerCopy;
-      v18 = v20;
-      [(CPLChangeSession *)v18 beginSessionWithKnownLibraryVersion:versionCopy resetTracker:trackerCopy completionHandler:v21];
+      v19 = [[CPLPushChangeSession alloc] initWithLibraryManager:self];
+      [(CPLLibraryManager *)self _setCurrentSession:v19];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __99__CPLLibraryManager__beginPushChangeSessionWithKnownLibraryVersion_resetTracker_completionHandler___block_invoke;
+      v20[3] = &unk_1E861D660;
+      v20[4] = self;
+      v21 = v19;
+      v22 = handlerCopy;
+      v18 = v19;
+      [(CPLChangeSession *)v18 beginSessionWithKnownLibraryVersion:versionCopy resetTracker:trackerCopy completionHandler:v20];
 
       goto LABEL_18;
     }
@@ -5218,7 +5130,7 @@ uint64_t __98__CPLLibraryManager_beginPullChangeSessionWithKnownLibraryVersion_r
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v25 = currentSession;
+        v24 = currentSession;
         _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Trying to begin a push session while %@ is already in place", buf, 0xCu);
       }
     }
@@ -5244,8 +5156,6 @@ uint64_t __98__CPLLibraryManager_beginPullChangeSessionWithKnownLibraryVersion_r
   v18 = [CPLErrors incorrectMachineStateErrorWithReason:v16];
   (*(handlerCopy + 2))(handlerCopy, 0, v18);
 LABEL_18:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __99__CPLLibraryManager__beginPushChangeSessionWithKnownLibraryVersion_resetTracker_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -5275,25 +5185,22 @@ void __99__CPLLibraryManager__beginPushChangeSessionWithKnownLibraryVersion_rese
 
 void __99__CPLLibraryManager__beginPushChangeSessionWithKnownLibraryVersion_resetTracker_completionHandler___block_invoke_2(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a1[4];
   v2 = a1[5];
   if (v3)
   {
     [v2 discardCurrentSession];
-    v4 = a1[4];
-    v5 = *(a1[7] + 16);
-    v6 = *MEMORY[0x1E69E9840];
+    v4 = *(a1[7] + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v7 = [v2 currentSession];
-    if (v7)
+    v5 = [v2 currentSession];
+    if (v5)
     {
-      v8 = a1[6];
       (*(a1[7] + 16))();
     }
 
@@ -5301,22 +5208,20 @@ void __99__CPLLibraryManager__beginPushChangeSessionWithKnownLibraryVersion_rese
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v9 = __CPLManagerOSLogDomain_0();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v6 = __CPLManagerOSLogDomain_0();
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
-          v10 = a1[6];
-          v14 = 138412290;
-          v15 = v10;
-          _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "%@ was discarded before it was returned", &v14, 0xCu);
+          v7 = a1[6];
+          v10 = 138412290;
+          v11 = v7;
+          _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEBUG, "%@ was discarded before it was returned", &v10, 0xCu);
         }
       }
 
-      v11 = a1[7];
-      v12 = +[CPLErrors libraryClosedError];
-      (*(v11 + 16))(v11, 0, v12);
+      v8 = a1[7];
+      v9 = +[CPLErrors libraryClosedError];
+      (*(v8 + 16))(v8, 0, v9);
     }
-
-    v13 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -5441,7 +5346,7 @@ LABEL_6:
 
 void *__42__CPLLibraryManager_discardCurrentSession__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   result = *(*(a1 + 32) + 8);
   if (result)
   {
@@ -5451,9 +5356,9 @@ void *__42__CPLLibraryManager_discardCurrentSession__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
         v4 = *(*(a1 + 32) + 8);
-        v8 = 138412290;
-        v9 = v4;
-        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEBUG, "Discarding current session %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v4;
+        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEBUG, "Discarding current session %@", &v7, 0xCu);
       }
 
       result = *(*(a1 + 32) + 8);
@@ -5464,10 +5369,9 @@ void *__42__CPLLibraryManager_discardCurrentSession__block_invoke(uint64_t a1)
     v6 = *(v5 + 8);
     *(v5 + 8) = 0;
 
-    result = [CPLTransaction endTransactionWithIdentifier:@"cpl.client.session"];
+    return [CPLTransaction endTransactionWithIdentifier:@"cpl.client.session"];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5726,22 +5630,21 @@ void __75__CPLLibraryManager_boostPriorityForScopeWithIdentifier_completionHandl
   if ([*(a1 + 32) state] == 2)
   {
     v2 = [*(a1 + 32) platformObject];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __75__CPLLibraryManager_boostPriorityForScopeWithIdentifier_completionHandler___block_invoke_2;
-    v8[3] = &unk_1E861B618;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __75__CPLLibraryManager_boostPriorityForScopeWithIdentifier_completionHandler___block_invoke_2;
+    v7[3] = &unk_1E861B618;
     v3 = *(a1 + 40);
-    v8[4] = *(a1 + 32);
-    v9 = *(a1 + 48);
-    [v2 boostPriorityForScopeWithIdentifier:v3 completionHandler:v8];
+    v7[4] = *(a1 + 32);
+    v8 = *(a1 + 48);
+    [v2 boostPriorityForScopeWithIdentifier:v3 completionHandler:v7];
   }
 
   else
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = [objc_opt_class() stateDescriptionForState:{objc_msgSend(v4, "state")}];
-    v7 = [CPLErrors incorrectMachineStateErrorWithReason:@"Can't boost priority for %@ in state %@", v5, v6];
+    v4 = *(a1 + 40);
+    v5 = [objc_opt_class() stateDescriptionForState:{objc_msgSend(*(a1 + 32), "state")}];
+    v6 = [CPLErrors incorrectMachineStateErrorWithReason:@"Can't boost priority for %@ in state %@", v4, v5];
 
     (*(*(a1 + 48) + 16))();
   }
@@ -5800,21 +5703,20 @@ void __69__CPLLibraryManager_deactivateScopeWithIdentifier_completionHandler___b
   if ([*(a1 + 32) state] == 2)
   {
     v2 = [*(a1 + 32) platformObject];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __69__CPLLibraryManager_deactivateScopeWithIdentifier_completionHandler___block_invoke_2;
-    v7[3] = &unk_1E861B618;
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __69__CPLLibraryManager_deactivateScopeWithIdentifier_completionHandler___block_invoke_2;
+    v6[3] = &unk_1E861B618;
     v3 = *(a1 + 40);
-    v7[4] = *(a1 + 32);
-    v8 = *(a1 + 48);
-    [v2 deactivateScopeWithIdentifier:v3 completionHandler:v7];
+    v6[4] = *(a1 + 32);
+    v7 = *(a1 + 48);
+    [v2 deactivateScopeWithIdentifier:v3 completionHandler:v6];
   }
 
   else
   {
-    v4 = *(a1 + 32);
-    v5 = [objc_opt_class() stateDescriptionForState:{objc_msgSend(v4, "state")}];
-    v6 = [CPLErrors incorrectMachineStateErrorWithReason:@"Can't disable PrimarySync in state %@", v5];
+    v4 = [objc_opt_class() stateDescriptionForState:{objc_msgSend(*(a1 + 32), "state")}];
+    v5 = [CPLErrors incorrectMachineStateErrorWithReason:@"Can't disable PrimarySync in state %@", v4];
 
     (*(*(a1 + 48) + 16))();
   }
@@ -5873,22 +5775,21 @@ void __67__CPLLibraryManager_activateScopeWithIdentifier_completionHandler___blo
   if ([*(a1 + 32) state] == 2)
   {
     v2 = [*(a1 + 32) platformObject];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __67__CPLLibraryManager_activateScopeWithIdentifier_completionHandler___block_invoke_2;
-    v8[3] = &unk_1E861B618;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __67__CPLLibraryManager_activateScopeWithIdentifier_completionHandler___block_invoke_2;
+    v7[3] = &unk_1E861B618;
     v3 = *(a1 + 40);
-    v8[4] = *(a1 + 32);
-    v9 = *(a1 + 48);
-    [v2 activateScopeWithIdentifier:v3 completionHandler:v8];
+    v7[4] = *(a1 + 32);
+    v8 = *(a1 + 48);
+    [v2 activateScopeWithIdentifier:v3 completionHandler:v7];
   }
 
   else
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = [objc_opt_class() stateDescriptionForState:{objc_msgSend(v4, "state")}];
-    v7 = [CPLErrors incorrectMachineStateErrorWithReason:@"Can't enable %@ in state %@", v5, v6];
+    v4 = *(a1 + 40);
+    v5 = [objc_opt_class() stateDescriptionForState:{objc_msgSend(*(a1 + 32), "state")}];
+    v6 = [CPLErrors incorrectMachineStateErrorWithReason:@"Can't enable %@ in state %@", v4, v5];
 
     (*(*(a1 + 48) + 16))();
   }
@@ -5953,43 +5854,42 @@ void __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke
     block[4] = v2;
     dispatch_sync(v3, block);
     [*(a1 + 32) setState:3];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke_3;
-    v19[3] = &unk_1E861F2E8;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke_3;
+    v18[3] = &unk_1E861F2E8;
     v4 = *(a1 + 40);
-    v19[4] = *(a1 + 32);
-    v20 = v4;
-    v21 = *(a1 + 48);
-    v5 = MEMORY[0x1E128EBA0](v19);
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
-    v18 = 1;
+    v18[4] = *(a1 + 32);
+    v19 = v4;
+    v20 = *(a1 + 48);
+    v5 = MEMORY[0x1E128EBA0](v18);
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
+    v17 = 1;
     v6 = *(a1 + 32);
     v7 = *(v6 + 24);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke_217;
-    v12[3] = &unk_1E861AB40;
-    v12[4] = v6;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke_217;
+    v11[3] = &unk_1E861AB40;
+    v11[4] = v6;
     v8 = v5;
-    v13 = v8;
-    v14 = &v15;
-    dispatch_sync(v7, v12);
-    if (*(v16 + 24) == 1)
+    v12 = v8;
+    v13 = &v14;
+    dispatch_sync(v7, v11);
+    if (*(v15 + 24) == 1)
     {
       v8[2](v8);
     }
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v14, 8);
   }
 
   else
   {
-    v9 = *(a1 + 32);
-    v10 = [objc_opt_class() stateDescriptionForState:{objc_msgSend(v9, "state")}];
-    v11 = [CPLErrors incorrectMachineStateErrorWithReason:@"Can't close a cloud library in state %@", v10];
+    v9 = [objc_opt_class() stateDescriptionForState:{objc_msgSend(*(a1 + 32), "state")}];
+    v10 = [CPLErrors incorrectMachineStateErrorWithReason:@"Can't close a cloud library in state %@", v9];
 
     (*(*(a1 + 40) + 16))();
   }
@@ -6022,7 +5922,7 @@ void __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke
 
 void __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLManagerOSLogDomain_0();
@@ -6030,20 +5930,20 @@ void __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke
     {
       v3 = *(a1 + 32);
       *buf = 138412290;
-      v17 = v3;
+      v16 = v3;
       _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@ closing", buf, 0xCu);
     }
   }
 
   dispatch_suspend(*(*(a1 + 32) + 16));
-  v10 = MEMORY[0x1E69E9820];
-  v11 = 3221225472;
-  v12 = __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke_216;
-  v13 = &unk_1E861B618;
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke_216;
+  v12 = &unk_1E861B618;
   v4 = *(a1 + 40);
-  v14 = *(a1 + 32);
-  v15 = v4;
-  v5 = MEMORY[0x1E128EBA0](&v10);
+  v13 = *(a1 + 32);
+  v14 = v4;
+  v5 = MEMORY[0x1E128EBA0](&v9);
   v6 = *(a1 + 48);
   v7 = [*(a1 + 32) platformObject];
   v8 = v7;
@@ -6056,13 +5956,11 @@ void __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke
   {
     [v7 closeWithCompletionHandler:v5];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke_217(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(v1 + 8);
   if (v2)
@@ -6075,9 +5973,9 @@ void __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke
         v5 = *(a1 + 32);
         v6 = *(v5 + 8);
         *buf = 138412546;
-        v17 = v5;
-        v18 = 2112;
-        v19 = v6;
+        v16 = v5;
+        v17 = 2112;
+        v18 = v6;
         _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "%@ is closing in the middle of %@", buf, 0x16u);
       }
 
@@ -6085,26 +5983,24 @@ void __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke
       v2 = *(v1 + 8);
     }
 
-    v10 = MEMORY[0x1E69E9820];
-    v11 = 3221225472;
-    v12 = __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke_218;
-    v13 = &unk_1E861AA50;
-    v14 = v1;
-    v15 = *(a1 + 40);
-    [v2 tearDownWithCompletionHandler:&v10];
+    v9 = MEMORY[0x1E69E9820];
+    v10 = 3221225472;
+    v11 = __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke_218;
+    v12 = &unk_1E861AA50;
+    v13 = v1;
+    v14 = *(a1 + 40);
+    [v2 tearDownWithCompletionHandler:&v9];
     v7 = *(a1 + 32);
     v8 = *(v7 + 8);
     if (v8)
     {
       *(v7 + 8) = 0;
 
-      [CPLTransaction endTransactionWithIdentifier:@"cpl.client.session", v10, v11, v12, v13, v14];
+      [CPLTransaction endTransactionWithIdentifier:@"cpl.client.session", v9, v10, v11, v12, v13];
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke_218(uint64_t a1)
@@ -6128,7 +6024,7 @@ void __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke
 
 void __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke_216(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) setState:0];
   if ((_CPLSilentLogging & 1) == 0)
@@ -6137,16 +6033,14 @@ void __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "%@ closed", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "%@ closed", &v6, 0xCu);
     }
   }
 
   (*(*(a1 + 40) + 16))();
   dispatch_resume(*(*(a1 + 32) + 16));
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)openWithCompletionHandler:(id)handler
@@ -6173,15 +6067,13 @@ void __58__CPLLibraryManager__closeDeactivating_completionHandler___block_invoke
 
 void __47__CPLLibraryManager_openWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) state])
   {
-    v2 = *(a1 + 32);
-    v3 = [objc_opt_class() stateDescriptionForState:{objc_msgSend(v2, "state")}];
-    v10 = [CPLErrors incorrectMachineStateErrorWithReason:@"Can't open a cloud library in state %@", v3];
+    v2 = [objc_opt_class() stateDescriptionForState:{objc_msgSend(*(a1 + 32), "state")}];
+    v7 = [CPLErrors incorrectMachineStateErrorWithReason:@"Can't open a cloud library in state %@", v2];
 
     (*(*(a1 + 40) + 16))();
-    v4 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -6189,34 +6081,32 @@ void __47__CPLLibraryManager_openWithCompletionHandler___block_invoke(uint64_t a
     [*(a1 + 32) setState:1];
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = __CPLManagerOSLogDomain_0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v3 = __CPLManagerOSLogDomain_0();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
-        v6 = *(a1 + 32);
+        v4 = *(a1 + 32);
         *buf = 138412290;
-        v14 = v6;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "%@ opening", buf, 0xCu);
+        v11 = v4;
+        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEBUG, "%@ opening", buf, 0xCu);
       }
     }
 
     dispatch_suspend(*(*(a1 + 32) + 16));
-    v7 = [*(a1 + 32) platformObject];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __47__CPLLibraryManager_openWithCompletionHandler___block_invoke_204;
-    v11[3] = &unk_1E861AAA0;
-    v8 = *(a1 + 40);
-    v11[4] = *(a1 + 32);
-    v12 = v8;
-    [v7 openWithCompletionHandler:v11];
-
-    v9 = *MEMORY[0x1E69E9840];
+    v5 = [*(a1 + 32) platformObject];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __47__CPLLibraryManager_openWithCompletionHandler___block_invoke_204;
+    v8[3] = &unk_1E861AAA0;
+    v6 = *(a1 + 40);
+    v8[4] = *(a1 + 32);
+    v9 = v6;
+    [v5 openWithCompletionHandler:v8];
   }
 }
 
 void __47__CPLLibraryManager_openWithCompletionHandler___block_invoke_204(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v11 = a2;
   v12 = a3;
   v13 = a4;
@@ -6229,7 +6119,7 @@ void __47__CPLLibraryManager_openWithCompletionHandler___block_invoke_204(uint64
     {
       v17 = *(a1 + 32);
       *buf = 138412290;
-      v43 = v17;
+      v42 = v17;
       _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_DEBUG, "%@ opened", buf, 0xCu);
     }
   }
@@ -6243,9 +6133,9 @@ void __47__CPLLibraryManager_openWithCompletionHandler___block_invoke_204(uint64
       {
         v19 = *(a1 + 32);
         *buf = 138412546;
-        v43 = v19;
-        v44 = 2112;
-        v45 = v11;
+        v42 = v19;
+        v43 = 2112;
+        v44 = v11;
         _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_DEBUG, "%@ failed opening with error %@", buf, 0x16u);
       }
     }
@@ -6286,9 +6176,9 @@ LABEL_19:
       {
         v26 = *(*(a1 + 32) + 112);
         *buf = 138412546;
-        v43 = v26;
-        v44 = 2112;
-        v45 = v13;
+        v42 = v26;
+        v43 = 2112;
+        v44 = v13;
         _os_log_impl(&dword_1DC05A000, v25, OS_LOG_TYPE_ERROR, "Unexpected implementation library identifier. Found '%@', expected '%@'", buf, 0x16u);
       }
 
@@ -6327,15 +6217,15 @@ LABEL_19:
       v36 = *(v35 + 160);
       v37 = *(v35 + 168);
       *buf = 138413314;
-      v43 = v35;
-      v44 = 2112;
-      v45 = v13;
-      v46 = 2112;
-      v47 = v12;
-      v48 = 2048;
-      v49 = v36;
-      v50 = 2048;
-      v51 = v37;
+      v42 = v35;
+      v43 = 2112;
+      v44 = v13;
+      v45 = 2112;
+      v46 = v12;
+      v47 = 2048;
+      v48 = v36;
+      v49 = 2048;
+      v50 = v37;
       _os_log_impl(&dword_1DC05A000, v34, OS_LOG_TYPE_DEBUG, "%@ opened with identifier %@ and version %@. Size of resources to upload is %llu (%llu) bytes", buf, 0x34u);
     }
   }
@@ -6358,13 +6248,11 @@ LABEL_29:
 
   (*(*(a1 + 40) + 16))();
   dispatch_resume(*(*(a1 + 32) + 16));
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchBoundaryKeyIfNecessaryWithSourceLocked:(id)locked completionHandler:(id)handler
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   lockedCopy = locked;
   handlerCopy = handler;
   if ([(CPLLibraryManager *)self state]== 2)
@@ -6378,16 +6266,16 @@ LABEL_29:
     {
       _fingerprintContext = [(CPLLibraryManager *)self _fingerprintContext];
       libraryIdentifier = [(CPLLibraryManager *)self libraryIdentifier];
-      v17[0] = libraryIdentifier;
-      v17[1] = lockedCopy;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __84__CPLLibraryManager__fetchBoundaryKeyIfNecessaryWithSourceLocked_completionHandler___block_invoke;
-      v14[3] = &unk_1E861B618;
-      v14[4] = self;
-      v15 = handlerCopy;
-      [_fingerprintContext refreshBoundaryKeyWithSource:v13 completionHandler:v14];
+      v16[0] = libraryIdentifier;
+      v16[1] = lockedCopy;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __84__CPLLibraryManager__fetchBoundaryKeyIfNecessaryWithSourceLocked_completionHandler___block_invoke;
+      v13[3] = &unk_1E861B618;
+      v13[4] = self;
+      v14 = handlerCopy;
+      [_fingerprintContext refreshBoundaryKeyWithSource:v12 completionHandler:v13];
     }
   }
 
@@ -6406,8 +6294,6 @@ LABEL_29:
     v9 = +[CPLErrors libraryClosedError];
     (handlerCopy)[2](handlerCopy, v9);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __84__CPLLibraryManager__fetchBoundaryKeyIfNecessaryWithSourceLocked_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -6484,27 +6370,27 @@ uint64_t __84__CPLLibraryManager__fetchBoundaryKeyIfNecessaryWithSourceLocked_co
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (self->_state)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = __CPLManagerOSLogDomain_0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v4 = __CPLManagerOSLogDomain_0();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v6 = [objc_opt_class() stateDescriptionForState:self->_state];
+        v5 = [objc_opt_class() stateDescriptionForState:self->_state];
         *buf = 138412546;
         selfCopy = self;
-        v14 = 2112;
-        v15 = v6;
-        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "at dealloc time, %@ should not be in state %@", buf, 0x16u);
+        v13 = 2112;
+        v14 = v5;
+        _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "at dealloc time, %@ should not be in state %@", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLLibraryManager.m"];
-    v9 = [objc_opt_class() stateDescriptionForState:self->_state];
-    [currentHandler handleFailureInMethod:a2 object:self file:v8 lineNumber:349 description:{@"at dealloc time, %@ should not be in state %@", self, v9}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLLibraryManager.m"];
+    v8 = [objc_opt_class() stateDescriptionForState:self->_state];
+    [currentHandler handleFailureInMethod:a2 object:self file:v7 lineNumber:349 description:{@"at dealloc time, %@ should not be in state %@", self, v8}];
 
 LABEL_14:
     abort();
@@ -6514,24 +6400,23 @@ LABEL_14:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = __CPLManagerOSLogDomain_0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = __CPLManagerOSLogDomain_0();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Current session not finished", buf, 2u);
+        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Current session not finished", buf, 2u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLLibraryManager.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v8 lineNumber:350 description:@"Current session not finished"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLLibraryManager.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v7 lineNumber:350 description:@"Current session not finished"];
     goto LABEL_14;
   }
 
-  v11.receiver = self;
-  v11.super_class = CPLLibraryManager;
-  [(CPLLibraryManager *)&v11 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = CPLLibraryManager;
+  [(CPLLibraryManager *)&v10 dealloc];
 }
 
 - (void)barrier
@@ -6542,7 +6427,7 @@ LABEL_14:
 
 - (CPLLibraryManager)initWithClientLibraryBaseURL:(id)l cloudLibraryStateStorageURL:(id)rL cloudLibraryResourceStorageURL:(id)uRL libraryIdentifier:(id)identifier mainScopeIdentifier:(id)scopeIdentifier options:(unint64_t)options
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   uRLCopy = uRL;
@@ -6553,15 +6438,15 @@ LABEL_14:
   block[2] = __155__CPLLibraryManager_initWithClientLibraryBaseURL_cloudLibraryStateStorageURL_cloudLibraryResourceStorageURL_libraryIdentifier_mainScopeIdentifier_options___block_invoke;
   block[3] = &unk_1E861A940;
   selfCopy = self;
-  v57 = selfCopy;
+  v56 = selfCopy;
   if (initWithClientLibraryBaseURL_cloudLibraryStateStorageURL_cloudLibraryResourceStorageURL_libraryIdentifier_mainScopeIdentifier_options__onceToken != -1)
   {
     dispatch_once(&initWithClientLibraryBaseURL_cloudLibraryStateStorageURL_cloudLibraryResourceStorageURL_libraryIdentifier_mainScopeIdentifier_options__onceToken, block);
   }
 
-  v55.receiver = selfCopy;
-  v55.super_class = CPLLibraryManager;
-  v21 = [(CPLLibraryManager *)&v55 init];
+  v54.receiver = selfCopy;
+  v54.super_class = CPLLibraryManager;
+  v21 = [(CPLLibraryManager *)&v54 init];
   v22 = v21;
   if (v21)
   {
@@ -6620,20 +6505,20 @@ LABEL_14:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v50 = __CPLManagerOSLogDomain_0();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+        v49 = __CPLManagerOSLogDomain_0();
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
-          v51 = objc_opt_class();
+          v50 = objc_opt_class();
           *buf = 138412290;
-          v59 = v51;
-          v52 = v51;
-          _os_log_impl(&dword_1DC05A000, v50, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
+          v58 = v50;
+          v51 = v50;
+          _os_log_impl(&dword_1DC05A000, v49, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v54 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLLibraryManager.m"];
-      [currentHandler handleFailureInMethod:a2 object:v22 file:v54 lineNumber:302 description:{@"No platform object specified for %@", objc_opt_class()}];
+      v53 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLLibraryManager.m"];
+      [currentHandler handleFailureInMethod:a2 object:v22 file:v53 lineNumber:302 description:{@"No platform object specified for %@", objc_opt_class()}];
 
       abort();
     }
@@ -6644,33 +6529,31 @@ LABEL_14:
       if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v59 = v22;
+        v58 = v22;
         _os_log_impl(&dword_1DC05A000, v47, OS_LOG_TYPE_DEBUG, "Initializing %@", buf, 0xCu);
       }
     }
   }
 
-  v48 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 void __155__CPLLibraryManager_initWithClientLibraryBaseURL_cloudLibraryStateStorageURL_cloudLibraryResourceStorageURL_libraryIdentifier_mainScopeIdentifier_options___block_invoke(uint64_t a1)
 {
-  v2 = +[CPLPlatform defaultPlatform];
+  v1 = +[CPLPlatform defaultPlatform];
 
-  if (!v2)
+  if (!v1)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v3 = __CPLManagerOSLogDomain_0();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      v2 = __CPLManagerOSLogDomain_0();
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
       {
-        *v5 = 0;
-        _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEBUG, "No platform has been currently selected. Automatically picking the appropriate one", v5, 2u);
+        *v3 = 0;
+        _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "No platform has been currently selected. Automatically picking the appropriate one", v3, 2u);
       }
     }
 
-    v4 = *(a1 + 32);
     [objc_opt_class() useCloudPhotoDaemonImplementation];
   }
 }
@@ -6832,32 +6715,32 @@ void __45__CPLLibraryManager_mappingRetentionPolicies__block_invoke(uint64_t a1)
 
 + (unint64_t)optionsFromDescription:(id)description
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   _reverseMappingForLibraryOptions = [self _reverseMappingForLibraryOptions];
   v6 = [descriptionCopy componentsSeparatedByString:@"|"];
   whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = [*(*(&v21 + 1) + 8 * i) stringByTrimmingCharactersInSet:{whitespaceAndNewlineCharacterSet, v21}];
+        v14 = [*(*(&v20 + 1) + 8 * i) stringByTrimmingCharactersInSet:{whitespaceAndNewlineCharacterSet, v20}];
         v15 = [_reverseMappingForLibraryOptions objectForKeyedSubscript:v14];
         v16 = v15;
         if (v15)
@@ -6874,7 +6757,7 @@ void __45__CPLLibraryManager_mappingRetentionPolicies__block_invoke(uint64_t a1)
         v11 |= unsignedIntegerValue;
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
@@ -6885,7 +6768,6 @@ void __45__CPLLibraryManager_mappingRetentionPolicies__block_invoke(uint64_t a1)
     v11 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -6981,24 +6863,22 @@ void __53__CPLLibraryManager__reverseMappingForLibraryOptions__block_invoke(uint
 
 void __45__CPLLibraryManager_mappingForLibraryOptions__block_invoke()
 {
-  v4[6] = *MEMORY[0x1E69E9840];
-  v3[0] = &unk_1F57EF4E8;
-  v3[1] = &unk_1F57EF500;
-  v4[0] = @"primary-scope-management";
-  v4[1] = @"library-scope-sync";
-  v3[2] = &unk_1F57EF518;
-  v3[3] = &unk_1F57EF530;
-  v4[2] = @"cmm-scope-sync";
-  v4[3] = @"share-scope-sync";
-  v3[4] = &unk_1F57EF548;
-  v3[5] = &unk_1F57EF560;
-  v4[4] = @"collection-share-scope-sync";
-  v4[5] = @"inactive-scope-sync";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:6];
+  v3[6] = *MEMORY[0x1E69E9840];
+  v2[0] = &unk_1F57EF4E8;
+  v2[1] = &unk_1F57EF500;
+  v3[0] = @"primary-scope-management";
+  v3[1] = @"library-scope-sync";
+  v2[2] = &unk_1F57EF518;
+  v2[3] = &unk_1F57EF530;
+  v3[2] = @"cmm-scope-sync";
+  v3[3] = @"share-scope-sync";
+  v2[4] = &unk_1F57EF548;
+  v2[5] = &unk_1F57EF560;
+  v3[4] = @"collection-share-scope-sync";
+  v3[5] = @"inactive-scope-sync";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:6];
   v1 = mappingForLibraryOptions_mapping;
   mappingForLibraryOptions_mapping = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unblockEngineElementOnce:(id)once
@@ -7238,48 +7118,45 @@ void __119__CPLLibraryManager_CPLManagement__getCloudCacheRecordsWithLocalScoped
 
 - (void)getCloudCacheForRecordWithScopedIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
-  v15[0] = identifierCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __97__CPLLibraryManager_CPLManagement__getCloudCacheForRecordWithScopedIdentifier_completionHandler___block_invoke;
-  v12[3] = &unk_1E861B448;
-  v13 = identifierCopy;
-  v14 = handlerCopy;
+  v14[0] = identifierCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __97__CPLLibraryManager_CPLManagement__getCloudCacheForRecordWithScopedIdentifier_completionHandler___block_invoke;
+  v11[3] = &unk_1E861B448;
+  v12 = identifierCopy;
+  v13 = handlerCopy;
   v9 = identifierCopy;
   v10 = handlerCopy;
-  [(CPLLibraryManager *)self getCloudCacheRecordsWithLocalScopedIdentifiers:v8 desiredProperties:0 completionHandler:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(CPLLibraryManager *)self getCloudCacheRecordsWithLocalScopedIdentifiers:v8 desiredProperties:0 completionHandler:v11];
 }
 
 void __97__CPLLibraryManager_CPLManagement__getCloudCacheForRecordWithScopedIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = [a2 objectForKeyedSubscript:*(a1 + 32)];
-    v7 = *(a1 + 40);
-    v9 = v6;
-    if (v6)
+    v5 = [a2 objectForKeyedSubscript:*(a1 + 32)];
+    v6 = *(a1 + 40);
+    v8 = v5;
+    if (v5)
     {
-      (*(v7 + 16))(v7, v6, 0);
+      (*(v6 + 16))(v6, v5, 0);
     }
 
     else
     {
-      v8 = [CPLErrors cplErrorWithCode:25 description:@"record %@ is not known to cloud cache", *(a1 + 32)];
-      (*(v7 + 16))(v7, 0, v8);
+      v7 = [CPLErrors cplErrorWithCode:25 description:@"record %@ is not known to cloud cache", *(a1 + 32)];
+      (*(v6 + 16))(v6, 0, v7);
     }
   }
 }

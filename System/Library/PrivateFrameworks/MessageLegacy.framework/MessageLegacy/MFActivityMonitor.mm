@@ -44,6 +44,7 @@
 - (void)setPrimaryTarget:(id)target;
 - (void)setShouldCancel:(BOOL)cancel;
 - (void)setStatusMessage:(id)message;
+- (void)setStatusMessage:(id)message percentDone:(double)done withKey:(int)key;
 - (void)setStatusMessage:(id)message withKey:(int)key;
 - (void)setTaskName:(id)name;
 - (void)startActivity;
@@ -323,10 +324,9 @@ LABEL_7:
   descriptionString = self->_descriptionString;
   if (!descriptionString)
   {
-    target = self->_target;
     if ((objc_opt_respondsToSelector() & 1) != 0 && [objc_msgSend(self->_target "displayName")])
     {
-      v5 = objc_alloc(MEMORY[0x277CCACA8]);
+      v4 = objc_alloc(MEMORY[0x277CCACA8]);
       displayName = [self->_target displayName];
       taskName = self->_taskName;
       if (!taskName)
@@ -334,27 +334,27 @@ LABEL_7:
         taskName = &stru_2869ED3E0;
       }
 
-      descriptionString = [v5 initWithFormat:@"[%@] %@", displayName, taskName];
+      descriptionString = [v4 initWithFormat:@"[%@] %@", displayName, taskName];
     }
 
     else
     {
-      v8 = self->_taskName;
-      if (!v8)
+      v7 = self->_taskName;
+      if (!v7)
       {
-        v8 = &stru_2869ED3E0;
+        v7 = &stru_2869ED3E0;
       }
 
-      descriptionString = v8;
+      descriptionString = v7;
     }
 
     self->_descriptionString = descriptionString;
   }
 
-  v9 = descriptionString;
+  v8 = descriptionString;
   +[MFActivityMonitor mf_unlock];
 
-  return v9;
+  return v8;
 }
 
 - (id)taskName
@@ -445,7 +445,6 @@ LABEL_7:
 
 - (BOOL)_lockedAddActivityTarget:(id)target
 {
-  target = self->_target;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -454,9 +453,9 @@ LABEL_7:
     self->_descriptionString = 0;
   }
 
-  v6 = self->_target;
+  target = self->_target;
 
-  return [v6 addActivityTarget:target];
+  return [target addActivityTarget:target];
 }
 
 - (void)addActivityTarget:(id)target
@@ -487,32 +486,32 @@ LABEL_7:
 
 - (void)addActivityTargets:(id)targets
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   +[MFActivityMonitor mf_lock];
   target = self->_target;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v6 = [targets countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [targets countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(targets);
         }
 
-        v8 |= [(MFActivityMonitor *)self _lockedAddActivityTarget:*(*(&v14 + 1) + 8 * i)];
+        v8 |= [(MFActivityMonitor *)self _lockedAddActivityTarget:*(*(&v13 + 1) + 8 * i)];
       }
 
-      v7 = [targets countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [targets countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -548,21 +547,18 @@ LABEL_7:
 
     +[MFActivityMonitor mf_unlock];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeActivityTarget:(id)target
 {
   targetCopy = target;
   +[MFActivityMonitor mf_lock];
-  target = self->_target;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = [self->_target removeActivityTarget:target];
+    v5 = [self->_target removeActivityTarget:target];
     +[MFActivityMonitor mf_unlock];
-    if (v6)
+    if (v5)
     {
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
       [defaultCenter postNotificationName:@"MonitoredActivityDidRemoveActivityTarget" object:self userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjectsAndKeys:", target, @"RemovedTarget", 0)}];
@@ -578,7 +574,6 @@ LABEL_7:
 - (void)setPrimaryTarget:(id)target
 {
   +[MFActivityMonitor mf_lock];
-  target = self->_target;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -589,7 +584,7 @@ LABEL_7:
     +[MFActivityMonitor mf_unlock];
     if (primaryTarget)
     {
-      v6 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{primaryTarget, @"MonitoredActivityOldPrimaryTarget", target, @"MonitoredActivityNewPrimaryTarget", 0}];
+      v5 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{primaryTarget, @"MonitoredActivityOldPrimaryTarget", target, @"MonitoredActivityNewPrimaryTarget", 0}];
       goto LABEL_6;
     }
   }
@@ -599,7 +594,7 @@ LABEL_7:
     +[MFActivityMonitor mf_unlock];
   }
 
-  v6 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{target, @"MonitoredActivityNewPrimaryTarget", 0, @"MonitoredActivityOldPrimaryTarget", 0}];
+  v5 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{target, @"MonitoredActivityNewPrimaryTarget", 0, @"MonitoredActivityOldPrimaryTarget", 0}];
   primaryTarget = 0;
 LABEL_6:
   [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];
@@ -608,7 +603,6 @@ LABEL_6:
 - (id)primaryTarget
 {
   +[MFActivityMonitor mf_lock];
-  target = self->_target;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -628,7 +622,6 @@ LABEL_6:
 - (id)activityTargets
 {
   +[MFActivityMonitor mf_lock];
-  target = self->_target;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -790,6 +783,14 @@ LABEL_6:
   }
 
   +[MFActivityMonitor mf_unlock];
+}
+
+- (void)setStatusMessage:(id)message percentDone:(double)done withKey:(int)key
+{
+  v5 = *&key;
+  [(MFActivityMonitor *)self setStatusMessage:message withKey:?];
+
+  [(MFActivityMonitor *)self setPercentDone:v5 withKey:done];
 }
 
 - (void)setStatusMessage:(id)message withKey:(int)key

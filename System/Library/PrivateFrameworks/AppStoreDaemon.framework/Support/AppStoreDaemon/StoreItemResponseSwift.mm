@@ -12,7 +12,7 @@
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
   v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = sub_100085D40(&qword_10059BC50);
+  v12 = sub_100085D40(&qword_10059BC50, &qword_100434708);
   __chkstk_darwin(v12 - 8);
   v14 = &v21 - v13;
   swift_getObjCClassMetadata();
@@ -39,7 +39,7 @@
   v12 = *(v11 - 8);
   __chkstk_darwin(v11);
   v14 = &v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = sub_100085D40(&qword_10059BC50);
+  v15 = sub_100085D40(&qword_10059BC50, &qword_100434708);
   __chkstk_darwin(v15 - 8);
   v17 = &v25 - v16;
   v18 = _Block_copy(factor);

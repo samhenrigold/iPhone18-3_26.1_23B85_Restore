@@ -118,7 +118,7 @@ void __26__TRIDServer_sharedServer__block_invoke(uint64_t a1)
 
 void __37__TRIDServer__asyncStartWithMetrics___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2[2])
   {
@@ -140,7 +140,7 @@ void __37__TRIDServer__asyncStartWithMetrics___block_invoke(uint64_t a1)
       }
 
       *buf = 138543362;
-      v12 = v6;
+      v11 = v6;
       _os_log_impl(&dword_26F567000, v3, OS_LOG_TYPE_DEFAULT, "Device is in the %{public}@ population", buf, 0xCu);
     }
 
@@ -160,13 +160,11 @@ void __37__TRIDServer__asyncStartWithMetrics___block_invoke(uint64_t a1)
       _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Server context not initialized. Skipping _asyncStartWithMetrics", buf, 2u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   client = [MEMORY[0x277D73660] client];
   if ([MEMORY[0x277D73660] requiresLogging])
@@ -198,27 +196,27 @@ void __37__TRIDServer__asyncStartWithMetrics___block_invoke(uint64_t a1)
     }
 
     *buf = 138412290;
-    v32 = v9;
+    v31 = v9;
     _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "registered xpc service endpoints - device is %@", buf, 0xCu);
   }
 
-  v25 = MEMORY[0x277D85DD0];
-  v26 = 3221225472;
-  v27 = __19__TRIDServer_start__block_invoke;
-  v28 = &unk_279DDF7A0;
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 3221225472;
+  v26 = __19__TRIDServer_start__block_invoke;
+  v27 = &unk_279DDF7A0;
   selfCopy = self;
-  v30 = client;
+  v29 = client;
   v10 = client;
-  [(TRIDServer *)self _dispatchWhenUnlocked:&v25];
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __19__TRIDServer_start__block_invoke_376;
-  v22 = &unk_279DDEE68;
+  [(TRIDServer *)self _dispatchWhenUnlocked:&v24];
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __19__TRIDServer_start__block_invoke_376;
+  v21 = &unk_279DDEE68;
   selfCopy2 = self;
-  v24 = a2;
+  v23 = a2;
   if (start__pasOnceToken21 != -1)
   {
-    dispatch_once(&start__pasOnceToken21, &v19);
+    dispatch_once(&start__pasOnceToken21, &v18);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -242,12 +240,11 @@ void __37__TRIDServer__asyncStartWithMetrics___block_invoke(uint64_t a1)
   }
 
   self->_isRunning = 0;
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __19__TRIDServer_start__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   if (([v2 prepareTrialStorage] & 1) == 0)
   {
@@ -258,11 +255,11 @@ void __19__TRIDServer_start__block_invoke(uint64_t a1)
     }
 
     v27 = [MEMORY[0x277D737A8] hostingProcessName];
-    v31 = 138412290;
-    v32 = v27;
+    v30 = 138412290;
+    v31 = v27;
     v28 = "%@ failed to prepare storage";
 LABEL_17:
-    _os_log_fault_impl(&dword_26F567000, v26, OS_LOG_TYPE_FAULT, v28, &v31, 0xCu);
+    _os_log_fault_impl(&dword_26F567000, v26, OS_LOG_TYPE_FAULT, v28, &v30, 0xCu);
 
     goto LABEL_12;
   }
@@ -280,8 +277,8 @@ LABEL_17:
     v8 = TRILogCategory_Server();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v31) = 0;
-      _os_log_impl(&dword_26F567000, v8, OS_LOG_TYPE_DEFAULT, "Initialized server context", &v31, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_26F567000, v8, OS_LOG_TYPE_DEFAULT, "Initialized server context", &v30, 2u);
     }
 
     [*(*(a1 + 32) + 16) setUseCKNative:1];
@@ -305,8 +302,8 @@ LABEL_17:
     v17 = TRILogCategory_Server();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v31) = 0;
-      _os_log_impl(&dword_26F567000, v17, OS_LOG_TYPE_DEFAULT, "fullfilling server context ready promise", &v31, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_26F567000, v17, OS_LOG_TYPE_DEFAULT, "fullfilling server context ready promise", &v30, 2u);
     }
 
     [*(*(a1 + 32) + 32) fullfillWithContext:*(*(a1 + 32) + 16) taskQueue:*(*(a1 + 32) + 24)];
@@ -332,8 +329,8 @@ LABEL_17:
   if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
   {
     v27 = [MEMORY[0x277D737A8] hostingProcessName];
-    v31 = 138412290;
-    v32 = v27;
+    v30 = 138412290;
+    v31 = v27;
     v28 = "%@ failed to initialize server context";
     goto LABEL_17;
   }
@@ -343,44 +340,40 @@ LABEL_12:
   v29 = TRILogCategory_Server();
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v31) = 0;
-    _os_log_impl(&dword_26F567000, v29, OS_LOG_TYPE_DEFAULT, "rejecting server context ready promise", &v31, 2u);
+    LOWORD(v30) = 0;
+    _os_log_impl(&dword_26F567000, v29, OS_LOG_TYPE_DEFAULT, "rejecting server context ready promise", &v30, 2u);
   }
 
   [*(*(a1 + 32) + 32) reject];
   dispatch_async(*(*(a1 + 32) + 8), &__block_literal_global_49);
 LABEL_15:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __19__TRIDServer_start__block_invoke_375()
+uint64_t __19__TRIDServer_start__block_invoke_375(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v0 = TRILogCategory_Server();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = TRILogCategory_Server();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     v3 = [MEMORY[0x277D737A8] hostingProcessName];
     v4 = 138412290;
     v5 = v3;
-    _os_log_fault_impl(&dword_26F567000, v0, OS_LOG_TYPE_FAULT, "%@ failed to initialize - exiting", &v4, 0xCu);
+    _os_log_fault_impl(&dword_26F567000, v1, OS_LOG_TYPE_FAULT, "%@ failed to initialize - exiting", &v4, 0xCu);
   }
 
-  result = xpc_transaction_exit_clean();
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return xpc_transaction_exit_clean();
 }
 
 void __19__TRIDServer_start__block_invoke_376(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = TRILogCategory_Server();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [MEMORY[0x277D737A8] hostingProcessName];
     *buf = 138412290;
-    v23 = v4;
+    v22 = v4;
     _os_log_impl(&dword_26F567000, v3, OS_LOG_TYPE_DEFAULT, "%@ launched", buf, 0xCu);
   }
 
@@ -392,11 +385,11 @@ void __19__TRIDServer_start__block_invoke_376(uint64_t a1)
   v7 = sTermSource;
   if (!sTermSource)
   {
-    v15 = [MEMORY[0x277CCA890] currentHandler];
-    v17 = *(a1 + 32);
-    v16 = *(a1 + 40);
-    v18 = [MEMORY[0x277D737A8] hostingProcessName];
-    [v15 handleFailureInMethod:v16 object:v17 file:@"TRIDServer.m" lineNumber:330 description:{@"%@ failed listening for SIGTERM", v18}];
+    v14 = [MEMORY[0x277CCA890] currentHandler];
+    v16 = *(a1 + 32);
+    v15 = *(a1 + 40);
+    v17 = [MEMORY[0x277D737A8] hostingProcessName];
+    [v14 handleFailureInMethod:v15 object:v16 file:@"TRIDServer.m" lineNumber:330 description:{@"%@ failed listening for SIGTERM", v17}];
 
     v7 = sTermSource;
   }
@@ -418,8 +411,8 @@ void __19__TRIDServer_start__block_invoke_376(uint64_t a1)
   v11 = *(*(a1 + 32) + 40);
   if (!v11)
   {
-    v19 = [MEMORY[0x277CCA890] currentHandler];
-    [v19 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"TRIDServer.m" lineNumber:371 description:@"XPC Activity Manager not initialized"];
+    v18 = [MEMORY[0x277CCA890] currentHandler];
+    [v18 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"TRIDServer.m" lineNumber:371 description:@"XPC Activity Manager not initialized"];
 
     v11 = *(*(a1 + 32) + 40);
   }
@@ -427,25 +420,24 @@ void __19__TRIDServer_start__block_invoke_376(uint64_t a1)
   [v11 registerActivities];
   v12 = *(a1 + 32);
   v13 = *(v12 + 8);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __19__TRIDServer_start__block_invoke_392;
-  v20[3] = &unk_279DDEEE0;
-  v20[4] = v12;
-  dispatch_async(v13, v20);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __19__TRIDServer_start__block_invoke_392;
+  v19[3] = &unk_279DDEEE0;
+  v19[4] = v12;
+  dispatch_async(v13, v19);
   [*(a1 + 32) _logMetrics:v8];
 
   objc_autoreleasePoolPop(v2);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-void __19__TRIDServer_start__block_invoke_380()
+void __19__TRIDServer_start__block_invoke_380(uint64_t a1)
 {
-  v0 = TRILogCategory_Server();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = TRILogCategory_Server();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_26F567000, v0, OS_LOG_TYPE_DEFAULT, "received SIGTERM, exiting", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_26F567000, v1, OS_LOG_TYPE_DEFAULT, "received SIGTERM, exiting", v2, 2u);
   }
 
   exit(0);
@@ -603,14 +595,14 @@ void __36__TRIDServer__dispatchWhenUnlocked___block_invoke(uint64_t a1)
 
 void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v35[0] = 0;
-  v35[1] = v35;
-  v35[2] = 0x3032000000;
-  v35[3] = __Block_byref_object_copy__63;
-  v35[4] = __Block_byref_object_dispose__63;
-  v36 = os_transaction_create();
+  v34[0] = 0;
+  v34[1] = v34;
+  v34[2] = 0x3032000000;
+  v34[3] = __Block_byref_object_copy__63;
+  v34[4] = __Block_byref_object_dispose__63;
+  v35 = os_transaction_create();
   string = xpc_dictionary_get_string(v3, *MEMORY[0x277D86430]);
   if (string)
   {
@@ -619,7 +611,7 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke(uint64_t a1, 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v38 = v5;
+      v37 = v5;
       _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "received xpc event %{public}@", buf, 0xCu);
     }
 
@@ -632,15 +624,15 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke(uint64_t a1, 
       {
         objc_initWeak(buf, *(a1 + 32));
         v8 = *(a1 + 32);
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_409;
-        v32[3] = &unk_279DE5820;
-        v32[4] = v8;
-        v33 = v5;
-        objc_copyWeak(&v34, buf);
-        [v8 _dispatchWhenUnlocked:v32];
-        objc_destroyWeak(&v34);
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_409;
+        v31[3] = &unk_279DE5820;
+        v31[4] = v8;
+        v32 = v5;
+        objc_copyWeak(&v33, buf);
+        [v8 _dispatchWhenUnlocked:v31];
+        objc_destroyWeak(&v33);
 
         objc_destroyWeak(buf);
       }
@@ -648,27 +640,27 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke(uint64_t a1, 
       if ([v5 containsString:@"com.apple.ManagedConfiguration.profileListChanged"])
       {
         v9 = *(a1 + 32);
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_419;
-        v31[3] = &unk_279DDEEE0;
-        v31[4] = v9;
-        [v9 _dispatchWhenUnlocked:v31];
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_419;
+        v30[3] = &unk_279DDEEE0;
+        v30[4] = v9;
+        [v9 _dispatchWhenUnlocked:v30];
       }
 
       if ([v5 isEqual:@"com.apple.gms.availability.notification"])
       {
         objc_initWeak(buf, *(a1 + 32));
         v10 = *(a1 + 32);
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_426;
-        v28[3] = &unk_279DE5820;
-        v28[4] = v10;
-        v29 = v5;
-        objc_copyWeak(&v30, buf);
-        [v10 _dispatchWhenUnlocked:v28];
-        objc_destroyWeak(&v30);
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_426;
+        v27[3] = &unk_279DE5820;
+        v27[4] = v10;
+        v28 = v5;
+        objc_copyWeak(&v29, buf);
+        [v10 _dispatchWhenUnlocked:v27];
+        objc_destroyWeak(&v29);
 
         objc_destroyWeak(buf);
       }
@@ -676,28 +668,28 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke(uint64_t a1, 
       if ([v5 isEqualToString:@"com.apple.GeoServices.countryCodeChanged"])
       {
         v11 = *(a1 + 32);
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_432;
-        v26[3] = &unk_279DDF7A0;
-        v26[4] = v11;
-        v27 = v5;
-        [v11 _dispatchWhenUnlocked:v26];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_432;
+        v25[3] = &unk_279DDF7A0;
+        v25[4] = v11;
+        v26 = v5;
+        [v11 _dispatchWhenUnlocked:v25];
       }
 
       if ([v5 isEqual:@"com.apple.GeoServices.experimentsChanged"])
       {
         objc_initWeak(buf, *(a1 + 32));
         v12 = *(a1 + 32);
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_437;
-        v23[3] = &unk_279DE5820;
-        v23[4] = v12;
-        v24 = v5;
-        objc_copyWeak(&v25, buf);
-        [v12 _dispatchWhenUnlocked:v23];
-        objc_destroyWeak(&v25);
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_437;
+        v22[3] = &unk_279DE5820;
+        v22[4] = v12;
+        v23 = v5;
+        objc_copyWeak(&v24, buf);
+        [v12 _dispatchWhenUnlocked:v22];
+        objc_destroyWeak(&v24);
 
         objc_destroyWeak(buf);
       }
@@ -708,32 +700,32 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke(uint64_t a1, 
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v38 = v5;
+          v37 = v5;
           _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "Received LaunchEvent: %@, adjusting opt-out status", buf, 0xCu);
         }
 
         v14 = *(a1 + 32);
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_450;
-        v22[3] = &unk_279DDEEE0;
-        v22[4] = v14;
-        [v14 _dispatchWhenUnlocked:v22];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_450;
+        v21[3] = &unk_279DDEEE0;
+        v21[4] = v14;
+        [v14 _dispatchWhenUnlocked:v21];
       }
 
       if ([&unk_287FC5110 containsObject:v5])
       {
         v15 = *(*(a1 + 32) + 8);
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_3;
-        v18[3] = &unk_279DE0148;
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_3;
+        v17[3] = &unk_279DE0148;
         v5 = v5;
         v16 = *(a1 + 32);
-        v19 = v5;
-        v20 = v16;
-        v21 = v35;
-        dispatch_async(v15, v18);
+        v18 = v5;
+        v19 = v16;
+        v20 = v34;
+        dispatch_async(v15, v17);
       }
     }
   }
@@ -748,8 +740,7 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke(uint64_t a1, 
     }
   }
 
-  _Block_object_dispose(v35, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v34, 8);
 }
 
 void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_409(uint64_t a1)
@@ -767,7 +758,7 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_409(uint64_t 
 
 void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -777,9 +768,9 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2(uint64_t a1
 
     if (!v8)
     {
-      v25 = [MEMORY[0x277CCA890] currentHandler];
-      v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIDServer _registerXpcStreamEventHandler]_block_invoke"];
-      [v25 handleFailureInFunction:v26 file:@"TRIDServer.m" lineNumber:458 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
+      v24 = [MEMORY[0x277CCA890] currentHandler];
+      v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIDServer _registerXpcStreamEventHandler]_block_invoke"];
+      [v24 handleFailureInFunction:v25 file:@"TRIDServer.m" lineNumber:458 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -858,12 +849,10 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2(uint64_t a1
     {
       v22 = *(a1 + 32);
       *buf = 138412290;
-      v28 = v22;
+      v27 = v22;
       _os_log_error_impl(&dword_26F567000, WeakRetained, OS_LOG_TYPE_ERROR, "failed to process %@ - triald failed initialization", buf, 0xCu);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2_420(uint64_t a1, void *a2)
@@ -896,7 +885,7 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_426(uint64_t 
 
 void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2_427(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -906,9 +895,9 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2_427(uint64_
 
     if (!v8)
     {
-      v24 = [MEMORY[0x277CCA890] currentHandler];
-      v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIDServer _registerXpcStreamEventHandler]_block_invoke"];
-      [v24 handleFailureInFunction:v25 file:@"TRIDServer.m" lineNumber:529 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
+      v23 = [MEMORY[0x277CCA890] currentHandler];
+      v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIDServer _registerXpcStreamEventHandler]_block_invoke"];
+      [v23 handleFailureInFunction:v24 file:@"TRIDServer.m" lineNumber:529 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -960,14 +949,12 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2_427(uint64_
     WeakRetained = TRILogCategory_Server();
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
     {
-      v23 = *(a1 + 32);
+      v22 = *(a1 + 32);
       *buf = 138412290;
-      v27 = v23;
+      v26 = v22;
       _os_log_error_impl(&dword_26F567000, WeakRetained, OS_LOG_TYPE_ERROR, "failed to process %@ - triald failed initialization", buf, 0xCu);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_432(uint64_t a1)
@@ -983,7 +970,7 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_432(uint64_t 
 
 void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2_433(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -993,9 +980,9 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2_433(uint64_
 
     if (!v8)
     {
-      v21 = [MEMORY[0x277CCA890] currentHandler];
-      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIDServer _registerXpcStreamEventHandler]_block_invoke"];
-      [v21 handleFailureInFunction:v22 file:@"TRIDServer.m" lineNumber:576 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
+      v20 = [MEMORY[0x277CCA890] currentHandler];
+      v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIDServer _registerXpcStreamEventHandler]_block_invoke"];
+      [v20 handleFailureInFunction:v21 file:@"TRIDServer.m" lineNumber:576 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
     }
 
     v9 = [v5 keyValueStore];
@@ -1014,9 +1001,9 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2_433(uint64_
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v24 = v11;
-        v25 = 2112;
-        v26 = v15;
+        v23 = v11;
+        v24 = 2112;
+        v25 = v15;
         _os_log_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEFAULT, "TRIDServer: Maps Country Code changed, queueing retargeting (%@ -> %@)", buf, 0x16u);
       }
 
@@ -1031,14 +1018,12 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2_433(uint64_
     v10 = TRILogCategory_Server();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v20 = *(a1 + 32);
+      v19 = *(a1 + 32);
       *buf = 138412290;
-      v24 = v20;
+      v23 = v19;
       _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "failed to process %@ - triald failed initialization", buf, 0xCu);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_437(uint64_t a1)
@@ -1056,7 +1041,7 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_437(uint64_t 
 
 void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2_438(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1066,9 +1051,9 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2_438(uint64_
 
     if (!v8)
     {
-      v19 = [MEMORY[0x277CCA890] currentHandler];
-      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIDServer _registerXpcStreamEventHandler]_block_invoke"];
-      [v19 handleFailureInFunction:v20 file:@"TRIDServer.m" lineNumber:603 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
+      v18 = [MEMORY[0x277CCA890] currentHandler];
+      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIDServer _registerXpcStreamEventHandler]_block_invoke"];
+      [v18 handleFailureInFunction:v19 file:@"TRIDServer.m" lineNumber:603 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1091,9 +1076,9 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2_438(uint64_
 
         if (!v17)
         {
-          v21 = [MEMORY[0x277CCA890] currentHandler];
-          v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIDServer _registerXpcStreamEventHandler]_block_invoke"];
-          [v21 handleFailureInFunction:v22 file:@"TRIDServer.m" lineNumber:623 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
+          v20 = [MEMORY[0x277CCA890] currentHandler];
+          v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIDServer _registerXpcStreamEventHandler]_block_invoke"];
+          [v20 handleFailureInFunction:v21 file:@"TRIDServer.m" lineNumber:623 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
         }
 
         [TRIMapsBucketIdChangeProcessor processMapsBucketIdChangeIfNecessaryForBucketId:v14 withServerContext:v5 withTaskQueue:v7];
@@ -1120,36 +1105,34 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_2_438(uint64_
     {
       v16 = *(a1 + 32);
       *buf = 138412290;
-      v24 = v16;
+      v23 = v16;
       _os_log_error_impl(&dword_26F567000, WeakRetained, OS_LOG_TYPE_ERROR, "failed to process %@ - triald failed initialization", buf, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_3(uint64_t a1)
 {
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_4;
-  v11[3] = &unk_279DE5870;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_4;
+  v10[3] = &unk_279DE5870;
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v12 = v2;
-  v13 = v3;
-  v4 = MEMORY[0x2743948D0](v11);
+  v11 = v2;
+  v12 = v3;
+  v4 = MEMORY[0x2743948D0](v10);
   v5 = [MEMORY[0x277D42598] isClassCLocked];
   v6 = *(a1 + 40);
   if (v5)
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_483;
-    v9[3] = &unk_279DE57D0;
-    v9[4] = v6;
-    v10 = v4;
-    [v6 _dispatchWhenUnlocked:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_483;
+    v8[3] = &unk_279DE57D0;
+    v8[4] = v6;
+    v9 = v4;
+    [v6 _dispatchWhenUnlocked:v8];
   }
 
   else
@@ -1157,13 +1140,12 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_3(uint64_t a1
     [v6[4] addBlockToExecuteAfterPromiseFullfillment:v4];
   }
 
-  v7 = *(*(*(a1 + 48) + 8) + 40);
-  v8 = objc_opt_self();
+  v7 = objc_opt_self();
 }
 
 void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1173,9 +1155,9 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_4(uint64_t a1
 
     if (!v8)
     {
-      v31 = [MEMORY[0x277CCA890] currentHandler];
-      v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIDServer _registerXpcStreamEventHandler]_block_invoke"];
-      [v31 handleFailureInFunction:v32 file:@"TRIDServer.m" lineNumber:665 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
+      v30 = [MEMORY[0x277CCA890] currentHandler];
+      v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TRIDServer _registerXpcStreamEventHandler]_block_invoke"];
+      [v30 handleFailureInFunction:v31 file:@"TRIDServer.m" lineNumber:665 description:{@"Invalid parameter not satisfying: %@", @"serverContext.keyValueStore"}];
     }
 
     if ([&unk_287FC5128 containsObject:*(a1 + 32)] && !objc_msgSend(*(a1 + 40), "_handleUserSettingsNotificationWithContext:", v5))
@@ -1183,9 +1165,9 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_4(uint64_t a1
       v11 = TRILogCategory_Server();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = *(a1 + 32);
+        v27 = *(a1 + 32);
         *buf = 138543362;
-        v35 = v28;
+        v34 = v27;
         _os_log_impl(&dword_26F567000, v11, OS_LOG_TYPE_DEFAULT, "Ignoring xpc event: %{public}@, no relevant change found for notification", buf, 0xCu);
       }
     }
@@ -1197,7 +1179,7 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_4(uint64_t a1
       {
         v10 = *(a1 + 32);
         *buf = 138543362;
-        v35 = v10;
+        v34 = v10;
         _os_log_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEFAULT, "Adding xpc event: %{public}@", buf, 0xCu);
       }
 
@@ -1226,11 +1208,11 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_4(uint64_t a1
 
       v19 = [v15 userSettingsSiriLocale];
       *buf = 138543874;
-      v35 = v17;
-      v36 = 2114;
-      v37 = v18;
-      v38 = 2114;
-      v39 = v19;
+      v34 = v17;
+      v35 = 2114;
+      v36 = v18;
+      v37 = 2114;
+      v38 = v19;
       _os_log_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEFAULT, "Xpc event: %{public}@, Siri is %{public}@, Siri Locale is: %{public}@", buf, 0x20u);
     }
 
@@ -1250,9 +1232,9 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_4(uint64_t a1
             _os_log_impl(&dword_26F567000, v22, OS_LOG_TYPE_DEFAULT, "Inside the OOBE flow with a possibility of triggering setup-assistant-fetch flow.", buf, 2u);
           }
 
-          v33 = 0;
-          v23 = [TRISetupAssistantFetchUtils stopSetupAssistantFetchWithServerContext:v5 namespaceNames:0 error:&v33];
-          v24 = v33;
+          v32 = 0;
+          v23 = [TRISetupAssistantFetchUtils stopSetupAssistantFetchWithServerContext:v5 namespaceNames:0 error:&v32];
+          v24 = v32;
           v25 = v24;
           if (v23)
           {
@@ -1276,7 +1258,7 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_4(uint64_t a1
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v35 = v25;
+              v34 = v25;
               _os_log_error_impl(&dword_26F567000, v26, OS_LOG_TYPE_ERROR, "Error checking if the setup-assistant-fetch activity is needed to run in OOBE flow: %{public}@", buf, 0xCu);
             }
           }
@@ -1290,48 +1272,44 @@ void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_4(uint64_t a1
     v15 = TRILogCategory_Server();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v29 = *(a1 + 32);
-      v30 = [MEMORY[0x277D737A8] hostingProcessName];
+      v28 = *(a1 + 32);
+      v29 = [MEMORY[0x277D737A8] hostingProcessName];
       *buf = 138412546;
-      v35 = v29;
-      v36 = 2112;
-      v37 = v30;
+      v34 = v28;
+      v35 = 2112;
+      v36 = v29;
       _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "failed to process %@ - %@ failed initialization", buf, 0x16u);
     }
   }
 
 LABEL_25:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_486(uint64_t a1, void *a2, int a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = TRILogCategory_Server();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v12 = v5;
-    v13 = 1024;
-    v14 = a3;
+    v11 = v5;
+    v12 = 1024;
+    v13 = a3;
     _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Received account change event for: %@, with change type: %d", buf, 0x12u);
   }
 
   objc_initWeak(buf, *(a1 + 32));
   v7 = *(a1 + 32);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_487;
-  v9[3] = &unk_279DE58C0;
-  v9[4] = v7;
-  objc_copyWeak(&v10, buf);
-  [v7 _dispatchWhenUnlocked:v9];
-  objc_destroyWeak(&v10);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_487;
+  v8[3] = &unk_279DE58C0;
+  v8[4] = v7;
+  objc_copyWeak(&v9, buf);
+  [v7 _dispatchWhenUnlocked:v8];
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __44__TRIDServer__registerXpcStreamEventHandler__block_invoke_487(uint64_t a1)
@@ -1396,14 +1374,14 @@ void __49__TRIDServer__registerExternalParamChangeHandler__block_invoke(uint64_t
 
 - (void)_registerSetupAssistantFetchActivityOnce
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   context = self->_context;
   if (context)
   {
     keyValueStore = [(TRIServerContext *)context keyValueStore];
-    v18 = 0;
-    v5 = [TRISetupAssistantFetchUtils getValueInKeyValueStore:keyValueStore key:@"setup-assistant-fetch-activity-deadline-date" error:&v18];
-    v6 = v18;
+    v17 = 0;
+    v5 = [TRISetupAssistantFetchUtils getValueInKeyValueStore:keyValueStore key:@"setup-assistant-fetch-activity-deadline-date" error:&v17];
+    v6 = v17;
 
     if (v5)
     {
@@ -1411,7 +1389,7 @@ void __49__TRIDServer__registerExternalParamChangeHandler__block_invoke(uint64_t
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v20 = v5;
+        v19 = v5;
         _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "Deadline timestamp  for setup-assistant-fetch activity is: %@", buf, 0xCu);
       }
     }
@@ -1422,9 +1400,9 @@ void __49__TRIDServer__registerExternalParamChangeHandler__block_invoke(uint64_t
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v20 = @"setup-assistant-fetch-activity-deadline-date";
-        v21 = 2114;
-        v22 = v6;
+        v19 = @"setup-assistant-fetch-activity-deadline-date";
+        v20 = 2114;
+        v21 = v6;
         _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Error reading data for %@ key in TRIKVStore: %{public}@. Not proceeding further", buf, 0x16u);
       }
     }
@@ -1437,9 +1415,9 @@ void __49__TRIDServer__registerExternalParamChangeHandler__block_invoke(uint64_t
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
-        v20 = 21600;
-        v21 = 2112;
-        v22 = v8;
+        v19 = 21600;
+        v20 = 2112;
+        v21 = v8;
         _os_log_impl(&dword_26F567000, v9, OS_LOG_TYPE_DEFAULT, "Setting deadline for setup-assistant-fetch activity to be %lld seconds from now, new deadline is at %@", buf, 0x16u);
       }
 
@@ -1447,9 +1425,9 @@ void __49__TRIDServer__registerExternalParamChangeHandler__block_invoke(uint64_t
       v11 = v10;
       keyValueStore2 = [(TRIServerContext *)self->_context keyValueStore];
       v13 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
-      v17 = 0;
-      v14 = [TRISetupAssistantFetchUtils setValueInKeyValueStore:keyValueStore2 key:@"setup-assistant-fetch-activity-deadline-date" value:v13 error:&v17];
-      v6 = v17;
+      v16 = 0;
+      v14 = [TRISetupAssistantFetchUtils setValueInKeyValueStore:keyValueStore2 key:@"setup-assistant-fetch-activity-deadline-date" value:v13 error:&v16];
+      v6 = v16;
 
       if (v14)
       {
@@ -1462,9 +1440,9 @@ void __49__TRIDServer__registerExternalParamChangeHandler__block_invoke(uint64_t
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v20 = @"setup-assistant-fetch-activity-deadline-date";
-          v21 = 2114;
-          v22 = v6;
+          v19 = @"setup-assistant-fetch-activity-deadline-date";
+          v20 = 2114;
+          v21 = v6;
           _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "Error writing data for %@ key in TRIKVStore: %{public}@. Not proceeding further", buf, 0x16u);
         }
       }
@@ -1480,20 +1458,18 @@ void __49__TRIDServer__registerExternalParamChangeHandler__block_invoke(uint64_t
       _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Can't register setup assistant activity (once), server context not available.", buf, 2u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_handleUserSettingsNotificationWithContext:(id)context
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (!contextCopy)
   {
     __assert_rtn("[TRIDServer _handleUserSettingsNotificationWithContext:]", "TRIDServer.m", 817, "context");
   }
 
-  v32 = contextCopy;
+  v31 = contextCopy;
   keyValueStore = [contextCopy keyValueStore];
   v5 = [TRIPersistentUserSettings settingsWithKeyValueStore:keyValueStore];
 
@@ -1522,7 +1498,7 @@ void __49__TRIDServer__registerExternalParamChangeHandler__block_invoke(uint64_t
     v11 = 2;
   }
 
-  v31 = v8;
+  v30 = v8;
   activeDictationLocales = [(TRISystemConfiguration *)v8 activeDictationLocales];
   persistedSiriLocale = [v5 persistedSiriLocale];
   v14 = [persistedSiriLocale isEqual:v10];
@@ -1572,17 +1548,16 @@ void __49__TRIDServer__registerExternalParamChangeHandler__block_invoke(uint64_t
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109888;
-    v34 = v27;
-    v35 = 1024;
-    v36 = v23;
-    v37 = 1024;
-    v38 = v25;
-    v39 = 1024;
-    v40 = v22 ^ 1;
+    v33 = v27;
+    v34 = 1024;
+    v35 = v23;
+    v36 = 1024;
+    v37 = v25;
+    v38 = 1024;
+    v39 = v22 ^ 1;
     _os_log_impl(&dword_26F567000, v28, OS_LOG_TYPE_DEFAULT, "User Settings notification relevancy: %d. Siri locale changed: %d, Siri enablement changed: %d Dictation: %d", buf, 0x1Au);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

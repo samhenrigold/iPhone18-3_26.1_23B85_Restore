@@ -2,6 +2,7 @@
 + (id)requestViewControllerWithConnectionHandler:(id)handler;
 - (HUCCRemoteDashboardDelegate)delegate;
 - (void)authorizeIfLocked;
+- (void)quickControlsPresentationDidUpdate:(BOOL)update;
 - (void)requestDismissal;
 - (void)viewServiceDidTerminateWithError:(id)error;
 @end
@@ -27,6 +28,13 @@
 {
   delegate = [(HUCCRemoteDashboardViewController *)self delegate];
   [delegate requestLockAuthenticationForRemoteDashboard:self];
+}
+
+- (void)quickControlsPresentationDidUpdate:(BOOL)update
+{
+  updateCopy = update;
+  delegate = [(HUCCRemoteDashboardViewController *)self delegate];
+  [delegate quickControlsPresentationDidUpdate:updateCopy];
 }
 
 - (void)requestDismissal

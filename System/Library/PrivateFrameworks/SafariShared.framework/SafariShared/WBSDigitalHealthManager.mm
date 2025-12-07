@@ -353,29 +353,30 @@ LABEL_7:
   dispatch_async(v4, block);
 }
 
-void __70__WBSDigitalHealthManager_deleteAllUsageHistoryWithProfileIdentifier___block_invoke(uint64_t a1)
+void __70__WBSDigitalHealthManager_deleteAllUsageHistoryWithProfileIdentifier___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXDigitalHealth();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXDigitalHealth(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __70__WBSDigitalHealthManager_deleteAllUsageHistoryWithProfileIdentifier___block_invoke_cold_1(a1, v2);
+    __70__WBSDigitalHealthManager_deleteAllUsageHistoryWithProfileIdentifier___block_invoke_cold_1(a1, v3);
   }
 
-  v3 = +[WBSDigitalHealthManager _webUsageController];
-  v4 = [MEMORY[0x1E696AAE8] safari_safariApplicationPlatformBundleIdentifier];
-  v5 = convertSafariProfileIdentifierToScreenTimeProfileIdentifier(*(a1 + 32));
-  [v3 deleteAllWebHistoryForApplication:v4 profileIdentifier:v5 completionHandler:&__block_literal_global_23];
+  v4 = +[WBSDigitalHealthManager _webUsageController];
+  v5 = [MEMORY[0x1E696AAE8] safari_safariApplicationPlatformBundleIdentifier];
+  v6 = convertSafariProfileIdentifierToScreenTimeProfileIdentifier(*(a1 + 32));
+  [v4 deleteAllWebHistoryForApplication:v5 profileIdentifier:v6 completionHandler:&__block_literal_global_23];
 }
 
 void __70__WBSDigitalHealthManager_deleteAllUsageHistoryWithProfileIdentifier___block_invoke_20(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXDigitalHealth();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXDigitalHealth(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __70__WBSDigitalHealthManager_deleteAllUsageHistoryWithProfileIdentifier___block_invoke_20_cold_1(v3);
+      __70__WBSDigitalHealthManager_deleteAllUsageHistoryWithProfileIdentifier___block_invoke_20_cold_1(v5);
     }
   }
 }
@@ -400,30 +401,31 @@ void __70__WBSDigitalHealthManager_deleteAllUsageHistoryWithProfileIdentifier___
   dispatch_async(v12, v15);
 }
 
-void __79__WBSDigitalHealthManager_deleteUsageHistoryFromDate_toDate_profileIdentifier___block_invoke(uint64_t a1)
+void __79__WBSDigitalHealthManager_deleteUsageHistoryFromDate_toDate_profileIdentifier___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXDigitalHealth();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXDigitalHealth(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __79__WBSDigitalHealthManager_deleteUsageHistoryFromDate_toDate_profileIdentifier___block_invoke_cold_1(a1, v2);
+    __79__WBSDigitalHealthManager_deleteUsageHistoryFromDate_toDate_profileIdentifier___block_invoke_cold_1(a1, v3);
   }
 
-  v3 = +[WBSDigitalHealthManager _webUsageController];
-  v4 = [MEMORY[0x1E696AAE8] safari_safariApplicationPlatformBundleIdentifier];
-  v5 = *(a1 + 40);
-  v6 = convertSafariProfileIdentifierToScreenTimeProfileIdentifier(*(a1 + 32));
-  [v3 deleteWebHistoryDuringInterval:v5 application:v4 profileIdentifier:v6 completionHandler:&__block_literal_global_27_0];
+  v4 = +[WBSDigitalHealthManager _webUsageController];
+  v5 = [MEMORY[0x1E696AAE8] safari_safariApplicationPlatformBundleIdentifier];
+  v6 = *(a1 + 40);
+  v7 = convertSafariProfileIdentifierToScreenTimeProfileIdentifier(*(a1 + 32));
+  [v4 deleteWebHistoryDuringInterval:v6 application:v5 profileIdentifier:v7 completionHandler:&__block_literal_global_27_0];
 }
 
 void __79__WBSDigitalHealthManager_deleteUsageHistoryFromDate_toDate_profileIdentifier___block_invoke_25(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXDigitalHealth();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXDigitalHealth(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __79__WBSDigitalHealthManager_deleteUsageHistoryFromDate_toDate_profileIdentifier___block_invoke_25_cold_1(v3);
+      __79__WBSDigitalHealthManager_deleteUsageHistoryFromDate_toDate_profileIdentifier___block_invoke_25_cold_1(v5);
     }
   }
 }
@@ -466,127 +468,129 @@ void __46__WBSDigitalHealthManager__webUsageController__block_invoke()
   dispatch_async(v10, block);
 }
 
-void __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke(void **a1)
+void __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke(void **a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXDigitalHealth();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v25 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXDigitalHealth(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke_cold_1(a1, v2);
+    __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke_cold_1(a1, v3);
   }
 
-  v3 = +[WBSDigitalHealthManager _webUsageController];
-  v4 = [MEMORY[0x1E696AAE8] safari_safariApplicationPlatformBundleIdentifier];
+  v4 = +[WBSDigitalHealthManager _webUsageController];
+  v5 = [MEMORY[0x1E696AAE8] safari_safariApplicationPlatformBundleIdentifier];
   if (objc_opt_respondsToSelector())
   {
-    v5 = a1[5];
-    v6 = convertSafariProfileIdentifierToScreenTimeProfileIdentifier(a1[4]);
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke_33;
-    v21[3] = &unk_1E7FB8300;
-    v22 = a1[6];
-    [v3 deleteWebHistoryForURLs:v5 application:v4 profileIdentifier:v6 completionHandler:v21];
+    v6 = a1[5];
+    v7 = convertSafariProfileIdentifierToScreenTimeProfileIdentifier(a1[4]);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke_33;
+    v22[3] = &unk_1E7FB8300;
+    v23 = a1[6];
+    [v4 deleteWebHistoryForURLs:v6 application:v5 profileIdentifier:v7 completionHandler:v22];
 
-    v7 = v22;
+    v8 = v23;
   }
 
   else
   {
-    v8 = v3;
+    v9 = v4;
     if (a1[6])
     {
-      v7 = dispatch_group_create();
+      v8 = dispatch_group_create();
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
-    v19 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
+    v19 = 0u;
     obj = a1[5];
-    v9 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
-    if (v9)
+    v10 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v18;
+      v11 = v10;
+      v12 = *v19;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v11)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
-          if (v7)
+          v14 = *(*(&v18 + 1) + 8 * i);
+          if (v8)
           {
-            dispatch_group_enter(v7);
+            dispatch_group_enter(v8);
           }
 
-          v15[0] = MEMORY[0x1E69E9820];
-          v15[1] = 3221225472;
-          v15[2] = __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke_34;
-          v15[3] = &unk_1E7FB8278;
-          v16 = v7;
-          [v8 deleteWebHistoryForURL:v13 application:v4 completionHandler:v15];
+          v16[0] = MEMORY[0x1E69E9820];
+          v16[1] = 3221225472;
+          v16[2] = __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke_34;
+          v16[3] = &unk_1E7FB8278;
+          v17 = v8;
+          [v9 deleteWebHistoryForURL:v14 application:v5 completionHandler:v16];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v11 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
     if (a1[6])
     {
-      dispatch_group_notify(v7, MEMORY[0x1E69E96A0], a1[6]);
+      dispatch_group_notify(v8, MEMORY[0x1E69E96A0], a1[6]);
     }
 
-    v3 = v8;
+    v4 = v9;
   }
 }
 
 void __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke_33(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXDigitalHealth();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXDigitalHealth(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke_33_cold_1(v4);
+      __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke_33_cold_1(v6);
     }
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    (*(v5 + 16))();
+    (*(v7 + 16))();
   }
 }
 
 void __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke_34(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXDigitalHealth();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXDigitalHealth(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke_33_cold_1(v4);
+      __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke_33_cold_1(v6);
     }
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    dispatch_group_leave(v5);
+    dispatch_group_leave(v7);
   }
 }
 
@@ -610,19 +614,20 @@ void __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_c
 void __104__WBSDigitalHealthManager__updateWebpageUsage_withDigitalHealthManagerUsageState_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXDigitalHealth();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXDigitalHealth(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __104__WBSDigitalHealthManager__updateWebpageUsage_withDigitalHealthManagerUsageState_withCompletionHandler___block_invoke_cold_1(v4);
+      __104__WBSDigitalHealthManager__updateWebpageUsage_withDigitalHealthManagerUsageState_withCompletionHandler___block_invoke_cold_1(v6);
     }
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    (*(v5 + 16))();
+    (*(v7 + 16))();
   }
 }
 
@@ -647,7 +652,7 @@ void __70__WBSDigitalHealthManager_deleteAllUsageHistoryWithProfileIdentifier___
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Unable to delete all Digital Health usage history: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Unable to delete all Digital Health usage history: %{public}@", v6, v7, v8, v9);
 }
 
 void __79__WBSDigitalHealthManager_deleteUsageHistoryFromDate_toDate_profileIdentifier___block_invoke_cold_1(uint64_t a1, NSObject *a2)
@@ -667,7 +672,7 @@ void __79__WBSDigitalHealthManager_deleteUsageHistoryFromDate_toDate_profileIden
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Unable to delete Digital Health usage history over time range: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Unable to delete Digital Health usage history over time range: %{public}@", v6, v7, v8, v9);
 }
 
 void __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
@@ -687,7 +692,7 @@ void __89__WBSDigitalHealthManager_deleteUsageHistoryForURLs_profileIdentifier_c
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Unable to delete URL-specific Digital Health usage history: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Unable to delete URL-specific Digital Health usage history: %{public}@", v6, v7, v8, v9);
 }
 
 void __104__WBSDigitalHealthManager__updateWebpageUsage_withDigitalHealthManagerUsageState_withCompletionHandler___block_invoke_cold_1(void *a1)
@@ -695,7 +700,7 @@ void __104__WBSDigitalHealthManager__updateWebpageUsage_withDigitalHealthManager
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Unable to update Digital Health usage state: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Unable to update Digital Health usage state: %{public}@", v6, v7, v8, v9);
 }
 
 @end

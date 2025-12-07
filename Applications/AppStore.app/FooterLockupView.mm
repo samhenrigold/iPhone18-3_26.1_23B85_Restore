@@ -28,11 +28,12 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8AppStore16FooterLockupView_clickActionHandler);
   if (v2)
   {
+    v3 = *&self->lockupView[OBJC_IVAR____TtC8AppStore16FooterLockupView_clickActionHandler];
     selfCopy = self;
-    v4 = sub_10000827C(v2);
-    v2(v4);
+    v5 = sub_10000827C(v2, v3);
+    v2(v5);
 
-    sub_10001F63C(v2);
+    sub_10001F63C(v2, v3);
   }
 }
 

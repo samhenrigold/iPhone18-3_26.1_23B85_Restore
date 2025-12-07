@@ -16,61 +16,57 @@
 
 + (id)indices
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D10B40]);
   v3 = objc_opt_class();
-  v9[0] = @"udc_id";
-  v9[1] = @"property_type";
-  v9[2] = @"version";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
+  v8[0] = @"udc_id";
+  v8[1] = @"property_type";
+  v8[2] = @"version";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
   v5 = [v2 initWithEntity:v3 name:@"udc_property_version" columns:v4];
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v6;
 }
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"udc_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"udc_id";
   v2 = +[HDUserDomainConceptEntity defaultForeignKey];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (BOOL)insertDataForUserDomainConcept:(id)concept userDomainConceptID:(int64_t)d transaction:(id)transaction error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   propertyCollection = [concept propertyCollection];
   allBasicProperties = [propertyCollection allBasicProperties];
 
-  v13 = [allBasicProperties countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v13 = [allBasicProperties countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     while (2)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(allBasicProperties);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * i);
+        v17 = *(*(&v20 + 1) + 8 * i);
         [v17 type];
         if ((HKIsDeprecatedPropertyType() & 1) == 0 && ![(HDUserDomainConceptPropertyEntity *)self _insertUserDomainConceptProperty:v17 propertyCategory:1 userDomainConceptID:d transaction:transactionCopy error:error])
         {
@@ -79,7 +75,7 @@
         }
       }
 
-      v14 = [allBasicProperties countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [allBasicProperties countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v14)
       {
         continue;
@@ -92,7 +88,6 @@
   v18 = 1;
 LABEL_12:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -160,60 +155,60 @@ LABEL_12:
   return error;
 }
 
-uint64_t __100__HDUserDomainConceptPropertyEntity_addPropertyDataToCodable_userDomainConceptID_transaction_error___block_invoke(uint64_t a1)
+uint64_t __100__HDUserDomainConceptPropertyEntity_addPropertyDataToCodable_userDomainConceptID_transaction_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_alloc_init(HDCodableUserDomainConceptProperty);
-  [(HDCodableUserDomainConceptProperty *)v2 setType:HDSQLiteColumnWithNameAsInt64()];
-  [(HDCodableUserDomainConceptProperty *)v2 setVersion:HDSQLiteColumnWithNameAsInt64()];
+  v3 = objc_alloc_init(HDCodableUserDomainConceptProperty);
+  [(HDCodableUserDomainConceptProperty *)v3 setType:HDSQLiteColumnWithNameAsInt64()];
+  [(HDCodableUserDomainConceptProperty *)v3 setVersion:HDSQLiteColumnWithNameAsInt64()];
   HDSQLiteColumnWithNameAsDouble();
-  [(HDCodableUserDomainConceptProperty *)v2 setTimestamp:?];
-  v3 = HDSQLiteColumnWithNameAsInt64();
-  [(HDCodableUserDomainConceptProperty *)v2 setValueType:v3];
-  v4 = v2;
-  if (v3 > 3)
+  [(HDCodableUserDomainConceptProperty *)v3 setTimestamp:?];
+  v4 = HDSQLiteColumnWithNameAsInt64();
+  [(HDCodableUserDomainConceptProperty *)v3 setValueType:v4];
+  v5 = v3;
+  if (v4 > 3)
   {
-    if (v3 <= 5)
+    if (v4 <= 5)
     {
-      if (v3 != 4)
+      if (v4 != 4)
       {
         goto LABEL_16;
       }
 
-      [(HDCodableUserDomainConceptProperty *)v4 setBoolValue:HDSQLiteColumnWithNameAsBoolean()];
+      [(HDCodableUserDomainConceptProperty *)v5 setBoolValue:HDSQLiteColumnWithNameAsBoolean()];
       goto LABEL_17;
     }
 
-    if (v3 != 6 && v3 != 7)
+    if (v4 != 6 && v4 != 7)
     {
       goto LABEL_17;
     }
 
-    v5 = HDSQLiteColumnWithNameAsData();
-    [(HDCodableUserDomainConceptProperty *)v4 setDataValue:v5];
+    v6 = HDSQLiteColumnWithNameAsData();
+    [(HDCodableUserDomainConceptProperty *)v5 setDataValue:v6];
 LABEL_15:
 
     goto LABEL_17;
   }
 
-  switch(v3)
+  switch(v4)
   {
     case 1:
-      v5 = HDSQLiteColumnWithNameAsString();
-      [(HDCodableUserDomainConceptProperty *)v4 setStringValue:v5];
+      v6 = HDSQLiteColumnWithNameAsString();
+      [(HDCodableUserDomainConceptProperty *)v5 setStringValue:v6];
       goto LABEL_15;
     case 2:
 LABEL_16:
       HDSQLiteColumnWithNameAsDouble();
-      [(HDCodableUserDomainConceptProperty *)v4 setDoubleValue:?];
+      [(HDCodableUserDomainConceptProperty *)v5 setDoubleValue:?];
       break;
     case 3:
-      [(HDCodableUserDomainConceptProperty *)v4 setIntegerValue:HDSQLiteColumnWithNameAsInt64()];
+      [(HDCodableUserDomainConceptProperty *)v5 setIntegerValue:HDSQLiteColumnWithNameAsInt64()];
       break;
   }
 
 LABEL_17:
 
-  [*(a1 + 32) addProperties:v4];
+  [*(a1 + 32) addProperties:v5];
   return 1;
 }
 
@@ -406,41 +401,41 @@ uint64_t __144__HDUserDomainConceptPropertyEntity__enumerateConceptPropertyRowsW
   return sqlite3_bind_int64(a2, 2, v4);
 }
 
-uint64_t __142__HDUserDomainConceptPropertyEntity__enumerateConceptPropertiesWithUserDomainConceptID_propertyCategory_transaction_error_enumerationHandler___block_invoke(uint64_t a1)
+uint64_t __142__HDUserDomainConceptPropertyEntity__enumerateConceptPropertiesWithUserDomainConceptID_propertyCategory_transaction_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnWithNameAsInt64();
   v3 = HDSQLiteColumnWithNameAsInt64();
+  v4 = HDSQLiteColumnWithNameAsInt64();
   HDSQLiteColumnWithNameAsDouble();
-  v5 = v4;
-  v6 = HDSQLiteColumnWithNameAsInt64();
-  v7 = [MEMORY[0x277CBEB68] null];
-  if (v6 <= 3)
+  v6 = v5;
+  v7 = HDSQLiteColumnWithNameAsInt64();
+  v8 = [MEMORY[0x277CBEB68] null];
+  if (v7 <= 3)
   {
-    switch(v6)
+    switch(v7)
     {
       case 1:
-        v8 = HDSQLiteColumnWithNameAsString();
+        v9 = HDSQLiteColumnWithNameAsString();
         goto LABEL_17;
       case 2:
-        v9 = MEMORY[0x277CCABB0];
+        v10 = MEMORY[0x277CCABB0];
         HDSQLiteColumnWithNameAsDouble();
-        v8 = [v9 numberWithDouble:?];
+        v9 = [v10 numberWithDouble:?];
         goto LABEL_17;
       case 3:
-        v8 = [MEMORY[0x277CCABB0] numberWithInteger:HDSQLiteColumnWithNameAsInt64()];
+        v9 = [MEMORY[0x277CCABB0] numberWithInteger:HDSQLiteColumnWithNameAsInt64()];
 LABEL_17:
-        v10 = v8;
+        v11 = v9;
 
-        v7 = v10;
+        v8 = v11;
         break;
     }
   }
 
   else
   {
-    if (v6 <= 5)
+    if (v7 <= 5)
     {
-      if (v6 == 4)
+      if (v7 == 4)
       {
         [MEMORY[0x277CCABB0] numberWithBool:HDSQLiteColumnWithNameAsBoolean()];
       }
@@ -449,27 +444,27 @@ LABEL_17:
       {
         HDSQLiteColumnWithNameAsDate();
       }
-      v8 = ;
+      v9 = ;
       goto LABEL_17;
     }
 
-    if (v6 == 6)
+    if (v7 == 6)
     {
-      v8 = HDSQLiteColumnWithNameAsUUID();
+      v9 = HDSQLiteColumnWithNameAsUUID();
       goto LABEL_17;
     }
 
-    if (v6 == 7)
+    if (v7 == 7)
     {
-      v8 = HDSQLiteColumnWithNameAsData();
+      v9 = HDSQLiteColumnWithNameAsData();
       goto LABEL_17;
     }
   }
 
-  v11 = [objc_alloc(MEMORY[0x277CCDAF8]) initWithType:v2 version:v3 timestamp:v6 valueType:v7 value:v5];
-  v12 = (*(*(a1 + 32) + 16))();
+  v12 = [objc_alloc(MEMORY[0x277CCDAF8]) initWithType:v3 version:v4 timestamp:v7 valueType:v8 value:v6];
+  v13 = (*(*(a1 + 32) + 16))();
 
-  return v12;
+  return v13;
 }
 
 @end

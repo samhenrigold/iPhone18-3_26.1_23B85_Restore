@@ -41,9 +41,9 @@
   {
     v1 = result;
     os_unfair_lock_lock_with_options();
-    Copy = CFSetCreateCopy(&__kCFAllocatorSystemDefault, *(v1 + 24));
+    Copy = CFSetCreateCopy(&__kCFAllocatorSystemDefault, *(v1 + 3));
     [(_CFPrefsSynchronizer *)v1 clear_alreadyLocked];
-    os_unfair_lock_unlock((v1 + 32));
+    os_unfair_lock_unlock(v1 + 8);
     return Copy;
   }
 
@@ -65,10 +65,10 @@
 
 - (_CFPrefsSynchronizer)init
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = _CFPrefsSynchronizer;
-  v2 = [(_CFPrefsSynchronizer *)&v9 init];
+  v9 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = _CFPrefsSynchronizer;
+  v2 = [(_CFPrefsSynchronizer *)&v8 init];
   v3 = v2;
   if (v2)
   {
@@ -82,7 +82,6 @@
     dispatch_source_set_event_handler(v6, &__block_literal_global_3_0);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

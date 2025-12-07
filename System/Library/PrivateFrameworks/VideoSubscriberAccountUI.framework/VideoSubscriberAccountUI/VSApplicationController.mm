@@ -145,7 +145,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = VSDefaultLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -155,10 +155,9 @@
   }
 
   VSRequireMainThread();
-  v5.receiver = self;
-  v5.super_class = VSApplicationController;
-  [(VSApplicationController *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = VSApplicationController;
+  [(VSApplicationController *)&v4 dealloc];
 }
 
 - (void)transitionToWaitingForBootUrlState
@@ -214,21 +213,19 @@ void __61__VSApplicationController_transitionToWaitingForBootUrlState__block_inv
 
 void __61__VSApplicationController_transitionToWaitingForBootUrlState__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = VSDefaultLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "Fetched boot URL %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "Fetched boot URL %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) setFetchedURL:v3];
   v5 = [*(a1 + 32) stateMachine];
   [v5 enqueueEvent:@"Boot URL received"];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __61__VSApplicationController_transitionToWaitingForBootUrlState__block_invoke_147(uint64_t a1, void *a2)
@@ -262,24 +259,24 @@ void __61__VSApplicationController_transitionToWaitingForBootUrlState__block_inv
 
 void __73__VSApplicationController_transitionToWaitingForBothLaunchCallbacksState__block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
+  v47 = *MEMORY[0x277D85DE8];
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
   v2 = [*(a1 + 32) result];
   v3 = [v2 forceUnwrapObject];
 
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __73__VSApplicationController_transitionToWaitingForBothLaunchCallbacksState__block_invoke_2;
-  v41[3] = &unk_279E19C10;
-  v41[4] = &v42;
-  [v3 unwrapObject:v41 error:&__block_literal_global_9];
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __73__VSApplicationController_transitionToWaitingForBothLaunchCallbacksState__block_invoke_2;
+  v40[3] = &unk_279E19C10;
+  v40[4] = &v41;
+  [v3 unwrapObject:v40 error:&__block_literal_global_9];
   v4 = [*(a1 + 40) _bootURL];
   v5 = [v4 forceUnwrapObject];
 
-  if (*(v43 + 24) == 1 && ([*(a1 + 40) identityProvider], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isDeveloper"), v6, v7))
+  if (*(v42 + 24) == 1 && ([*(a1 + 40) identityProvider], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isDeveloper"), v6, v7))
   {
     v8 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:v5 resolvingAgainstBaseURL:0];
     v9 = v8;
@@ -327,7 +324,7 @@ void __73__VSApplicationController_transitionToWaitingForBothLaunchCallbacksStat
         {
           v25 = [v16 absoluteString];
           *buf = 138412290;
-          v47 = v25;
+          v46 = v25;
           _os_log_impl(&dword_270DD4000, v24, OS_LOG_TYPE_DEFAULT, "New URL with cachebuster is %@", buf, 0xCu);
         }
       }
@@ -370,14 +367,14 @@ void __73__VSApplicationController_transitionToWaitingForBothLaunchCallbacksStat
   v31 = [*(a1 + 40) identityProvider];
   v32 = [v31 uniqueID];
 
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __73__VSApplicationController_transitionToWaitingForBothLaunchCallbacksState__block_invoke_170;
-  v39[3] = &unk_279E19598;
-  v39[4] = *(a1 + 40);
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __73__VSApplicationController_transitionToWaitingForBothLaunchCallbacksState__block_invoke_170;
+  v38[3] = &unk_279E19598;
+  v38[4] = *(a1 + 40);
   v33 = v26;
-  v40 = v33;
-  [v32 conditionallyUnwrapObject:v39];
+  v39 = v33;
+  [v32 conditionallyUnwrapObject:v38];
   v34 = [*(a1 + 40) identityProvider];
   v35 = [v34 isDeveloper];
 
@@ -396,11 +393,10 @@ void __73__VSApplicationController_transitionToWaitingForBothLaunchCallbacksStat
   [(VSApplication *)v33 start];
   [*(a1 + 40) setApplication:v33];
 
-  _Block_object_dispose(&v42, 8);
-  v38 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v41, 8);
 }
 
-uint64_t __73__VSApplicationController_transitionToWaitingForBothLaunchCallbacksState__block_invoke_2(uint64_t a1, void *a2)
+void *__73__VSApplicationController_transitionToWaitingForBothLaunchCallbacksState__block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 cacheBusterEnabled];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -495,7 +491,7 @@ uint64_t __68__VSApplicationController_transitionToNotifyingOfLaunchFailureState
 
 void __68__VSApplicationController_transitionToNotifyingOfLaunchFailureState__block_invoke_2(uint64_t a1)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegateError];
   v3 = [*(a1 + 32) onLaunchError];
   v4 = v3;
@@ -552,14 +548,14 @@ LABEL_17:
 
   else
   {
-    v16[0] = v2;
-    v16[1] = v3;
-    v12 = MEMORY[0x277CBEA60];
-    v13 = v2;
-    v14 = [v12 arrayWithObjects:v16 count:2];
-    v15 = VSPublicErrorWithDetailedErrors();
+    v15[0] = v2;
+    v15[1] = v3;
+    v11 = MEMORY[0x277CBEA60];
+    v12 = v2;
+    v13 = [v11 arrayWithObjects:v15 count:2];
+    v14 = VSPublicErrorWithDetailedErrors();
 
-    [*(a1 + 32) _notifyStartDidFailWithError:v15];
+    [*(a1 + 32) _notifyStartDidFailWithError:v14];
   }
 
 LABEL_18:
@@ -567,19 +563,17 @@ LABEL_18:
   [*(a1 + 32) setOnLaunchError:0];
   v10 = [*(a1 + 32) stateMachine];
   [v10 enqueueEvent:@"Finished notifying of launch failure"];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transitionToInvalidState
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = VSDefaultLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[VSApplicationController transitionToInvalidState]";
-    _os_log_impl(&dword_270DD4000, v3, OS_LOG_TYPE_DEFAULT, "Entering %s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[VSApplicationController transitionToInvalidState]";
+    _os_log_impl(&dword_270DD4000, v3, OS_LOG_TYPE_DEFAULT, "Entering %s", &v5, 0xCu);
   }
 
   application = [(VSApplicationController *)self application];
@@ -587,8 +581,6 @@ LABEL_18:
   [application stop];
   [(VSApplicationController *)self setApplication:0];
   CFRelease(self);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -599,19 +591,17 @@ LABEL_18:
 
 - (void)stop
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = VSDefaultLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[VSApplicationController stop]";
-    _os_log_impl(&dword_270DD4000, v3, OS_LOG_TYPE_DEFAULT, "Entering %s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[VSApplicationController stop]";
+    _os_log_impl(&dword_270DD4000, v3, OS_LOG_TYPE_DEFAULT, "Entering %s", &v5, 0xCu);
   }
 
   stateMachine = [(VSApplicationController *)self stateMachine];
   [stateMachine enqueueEvent:@"Stop app controller"];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendErrorMessage:(id)message
@@ -623,7 +613,7 @@ LABEL_18:
 
 - (void)showAuthenticationUserInterfaceWithAuthenticationToken:(id)token
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   v5 = VSDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -641,42 +631,40 @@ LABEL_18:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v20 = 0x2020000000;
-  v21 = 0;
+  v19 = 0x2020000000;
+  v20 = 0;
   objc_initWeak(&location, self);
   application = [(VSApplicationController *)self application];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __82__VSApplicationController_showAuthenticationUserInterfaceWithAuthenticationToken___block_invoke;
-  v14[3] = &unk_279E19C38;
-  p_buf = &buf;
-  objc_copyWeak(&v17, &location);
-  v11 = v9;
-  v15 = v11;
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
-  v13[2] = __82__VSApplicationController_showAuthenticationUserInterfaceWithAuthenticationToken___block_invoke_196;
-  v13[3] = &unk_279E19C60;
-  v13[4] = self;
-  v13[5] = &buf;
-  [application evaluate:v14 completionHandler:v13];
+  v13[2] = __82__VSApplicationController_showAuthenticationUserInterfaceWithAuthenticationToken___block_invoke;
+  v13[3] = &unk_279E19C38;
+  p_buf = &buf;
+  objc_copyWeak(&v16, &location);
+  v11 = v9;
+  v14 = v11;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __82__VSApplicationController_showAuthenticationUserInterfaceWithAuthenticationToken___block_invoke_196;
+  v12[3] = &unk_279E19C60;
+  v12[4] = self;
+  v12[5] = &buf;
+  [application evaluate:v13 completionHandler:v12];
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
   _Block_object_dispose(&buf, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __82__VSApplicationController_showAuthenticationUserInterfaceWithAuthenticationToken___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = VSDefaultLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v13 = "[VSApplicationController showAuthenticationUserInterfaceWithAuthenticationToken:]_block_invoke";
+    v12 = "[VSApplicationController showAuthenticationUserInterfaceWithAuthenticationToken:]_block_invoke";
     _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "Beginning evaluation of JavaScript in %s", buf, 0xCu);
   }
 
@@ -695,23 +683,21 @@ void __82__VSApplicationController_showAuthenticationUserInterfaceWithAuthentica
       [v7 setObject:*(a1 + 32) forKey:@"currentAuthentication"];
     }
 
-    v11 = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+    v10 = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
     v9 = [v5 invokeMethod:@"onShowUserInterface" withArguments:v8];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __82__VSApplicationController_showAuthenticationUserInterfaceWithAuthenticationToken___block_invoke_196(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = VSDefaultLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[VSApplicationController showAuthenticationUserInterfaceWithAuthenticationToken:]_block_invoke";
-    _os_log_impl(&dword_270DD4000, v2, OS_LOG_TYPE_DEFAULT, "Finished evaluation of JavaScript in %s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[VSApplicationController showAuthenticationUserInterfaceWithAuthenticationToken:]_block_invoke";
+    _os_log_impl(&dword_270DD4000, v2, OS_LOG_TYPE_DEFAULT, "Finished evaluation of JavaScript in %s", &v6, 0xCu);
   }
 
   v3 = *(a1 + 32);
@@ -721,8 +707,6 @@ void __82__VSApplicationController_showAuthenticationUserInterfaceWithAuthentica
     v5 = [v3 application];
     [v5 sendErrorWithMessage:@"The App.onShowUserInterface function must be defined."];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitRequest:(id)request
@@ -781,7 +765,7 @@ void __41__VSApplicationController_submitRequest___block_invoke(uint64_t a1, voi
 
 void __81__VSApplicationController_applicationStartSelfValidationWithAuthenticationToken___block_invoke(uint64_t a1, void *a2)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKeyedSubscript:@"App"];
   v4 = v3;
   if (v3 && [v3 hasProperty:@"onValidate"])
@@ -819,229 +803,225 @@ void __81__VSApplicationController_applicationStartSelfValidationWithAuthenticat
       [v14 setObject:v13 forKey:@"currentAuthentication"];
     }
 
-    v18[0] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17[0] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
     v16 = [v4 invokeMethod:@"onValidate" withArguments:v15];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-void __81__VSApplicationController_applicationStartSelfValidationWithAuthenticationToken___block_invoke_2()
+void __81__VSApplicationController_applicationStartSelfValidationWithAuthenticationToken___block_invoke_2(uint64_t a1)
 {
-  v0 = VSDefaultLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = VSDefaultLogObject();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_270DD4000, v0, OS_LOG_TYPE_DEFAULT, "Finished invoking onSubmit callback.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_270DD4000, v1, OS_LOG_TYPE_DEFAULT, "Finished invoking onSubmit callback.", v2, 2u);
   }
 }
 
 - (void)application:(id)application evaluateAppJavascriptInContext:(id)context
 {
-  v78[4] = *MEMORY[0x277D85DE8];
+  v77[4] = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   contextCopy = context;
-  v39 = [contextCopy objectForKeyedSubscript:@"App"];
+  v38 = [contextCopy objectForKeyedSubscript:@"App"];
   objc_initWeak(&location, self);
-  v76[0] = *MEMORY[0x277CD4630];
-  v6 = v76[0];
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __70__VSApplicationController_application_evaluateAppJavascriptInContext___block_invoke;
-  v52[3] = &unk_279E19CF8;
-  objc_copyWeak(&v53, &location);
-  v7 = MEMORY[0x2743B6E40](v52);
+  v75[0] = *MEMORY[0x277CD4630];
+  v6 = v75[0];
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __70__VSApplicationController_application_evaluateAppJavascriptInContext___block_invoke;
+  v51[3] = &unk_279E19CF8;
+  objc_copyWeak(&v52, &location);
+  v7 = MEMORY[0x2743B6E40](v51);
   v8 = *MEMORY[0x277CD4638];
   v9 = MEMORY[0x277CBEC28];
-  v78[0] = v7;
-  v78[1] = MEMORY[0x277CBEC28];
+  v77[0] = v7;
+  v77[1] = MEMORY[0x277CBEC28];
   v10 = *MEMORY[0x277CD4618];
-  v76[1] = v8;
-  v76[2] = v10;
-  v77 = *MEMORY[0x277CD4610];
-  v11 = v77;
-  v78[2] = MEMORY[0x277CBEC28];
-  v78[3] = MEMORY[0x277CBEC28];
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v76 count:4];
-  [v39 defineProperty:@"presentDocument" descriptor:v12];
+  v75[1] = v8;
+  v75[2] = v10;
+  v76 = *MEMORY[0x277CD4610];
+  v11 = v76;
+  v77[2] = MEMORY[0x277CBEC28];
+  v77[3] = MEMORY[0x277CBEC28];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v75 count:4];
+  [v38 defineProperty:@"presentDocument" descriptor:v12];
 
-  v74[0] = v6;
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __70__VSApplicationController_application_evaluateAppJavascriptInContext___block_invoke_2;
-  v50[3] = &unk_279E19D20;
-  objc_copyWeak(&v51, &location);
-  v13 = MEMORY[0x2743B6E40](v50);
-  v75[0] = v13;
-  v75[1] = v9;
-  v74[1] = v8;
-  v74[2] = v10;
-  v74[3] = v11;
-  v75[2] = v9;
-  v75[3] = v9;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:4];
-  [v39 defineProperty:@"presentAlert" descriptor:v14];
+  v73[0] = v6;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __70__VSApplicationController_application_evaluateAppJavascriptInContext___block_invoke_2;
+  v49[3] = &unk_279E19D20;
+  objc_copyWeak(&v50, &location);
+  v13 = MEMORY[0x2743B6E40](v49);
+  v74[0] = v13;
+  v74[1] = v9;
+  v73[1] = v8;
+  v73[2] = v10;
+  v73[3] = v11;
+  v74[2] = v9;
+  v74[3] = v9;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:4];
+  [v38 defineProperty:@"presentAlert" descriptor:v14];
 
-  v72[0] = v6;
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __70__VSApplicationController_application_evaluateAppJavascriptInContext___block_invoke_3;
-  v48[3] = &unk_279E19CF8;
-  objc_copyWeak(&v49, &location);
-  v15 = MEMORY[0x2743B6E40](v48);
-  v73[0] = v15;
-  v73[1] = v9;
-  v72[1] = v8;
-  v72[2] = v10;
-  v72[3] = v11;
-  v73[2] = v9;
-  v73[3] = v9;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:4];
-  [v39 defineProperty:@"beginAuthentication" descriptor:v16];
+  v71[0] = v6;
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __70__VSApplicationController_application_evaluateAppJavascriptInContext___block_invoke_3;
+  v47[3] = &unk_279E19CF8;
+  objc_copyWeak(&v48, &location);
+  v15 = MEMORY[0x2743B6E40](v47);
+  v72[0] = v15;
+  v72[1] = v9;
+  v71[1] = v8;
+  v71[2] = v10;
+  v71[3] = v11;
+  v72[2] = v9;
+  v72[3] = v9;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:4];
+  [v38 defineProperty:@"beginAuthentication" descriptor:v16];
 
-  v70[0] = v6;
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __70__VSApplicationController_application_evaluateAppJavascriptInContext___block_invoke_4;
-  v46[3] = &unk_279E19D48;
-  objc_copyWeak(&v47, &location);
-  v17 = MEMORY[0x2743B6E40](v46);
-  v71[0] = v17;
-  v71[1] = v9;
-  v70[1] = v8;
-  v70[2] = v10;
-  v70[3] = v11;
-  v71[2] = v9;
-  v71[3] = v9;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:4];
-  [v39 defineProperty:@"cancelValidation" descriptor:v18];
+  v69[0] = v6;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __70__VSApplicationController_application_evaluateAppJavascriptInContext___block_invoke_4;
+  v45[3] = &unk_279E19D48;
+  objc_copyWeak(&v46, &location);
+  v17 = MEMORY[0x2743B6E40](v45);
+  v70[0] = v17;
+  v70[1] = v9;
+  v69[1] = v8;
+  v69[2] = v10;
+  v69[3] = v11;
+  v70[2] = v9;
+  v70[3] = v9;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:4];
+  [v38 defineProperty:@"cancelValidation" descriptor:v18];
 
-  v68[0] = v6;
-  v69[0] = objc_opt_class();
-  v69[1] = v9;
-  v68[1] = v8;
-  v68[2] = v10;
-  v68[3] = v11;
-  v69[2] = v9;
-  v69[3] = v9;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:4];
-  [v39 defineProperty:@"ResponsePayload" descriptor:v19];
+  v67[0] = v6;
+  v68[0] = objc_opt_class();
+  v68[1] = v9;
+  v67[1] = v8;
+  v67[2] = v10;
+  v67[3] = v11;
+  v68[2] = v9;
+  v68[3] = v9;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:4];
+  [v38 defineProperty:@"ResponsePayload" descriptor:v19];
 
-  v66[0] = v6;
-  v67[0] = objc_opt_class();
-  v67[1] = v9;
-  v66[1] = v8;
-  v66[2] = v10;
-  v66[3] = v11;
-  v67[2] = v9;
-  v67[3] = v9;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:4];
-  [v39 defineProperty:@"Subscription" descriptor:v20];
+  v65[0] = v6;
+  v66[0] = objc_opt_class();
+  v66[1] = v9;
+  v65[1] = v8;
+  v65[2] = v10;
+  v65[3] = v11;
+  v66[2] = v9;
+  v66[3] = v9;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:4];
+  [v38 defineProperty:@"Subscription" descriptor:v20];
 
-  v64[0] = v6;
-  v65[0] = objc_opt_class();
-  v65[1] = v9;
-  v64[1] = v8;
-  v64[2] = v10;
-  v64[3] = v11;
-  v65[2] = v9;
-  v65[3] = v9;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:4];
-  [v39 defineProperty:@"UserAccount" descriptor:v21];
+  v63[0] = v6;
+  v64[0] = objc_opt_class();
+  v64[1] = v9;
+  v63[1] = v8;
+  v63[2] = v10;
+  v63[3] = v11;
+  v64[2] = v9;
+  v64[3] = v9;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:4];
+  [v38 defineProperty:@"UserAccount" descriptor:v21];
 
-  v62[0] = v6;
-  v63[0] = objc_opt_class();
-  v63[1] = v9;
-  v62[1] = v8;
-  v62[2] = v10;
-  v62[3] = v11;
-  v63[2] = v9;
-  v63[3] = v9;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:4];
-  [v39 defineProperty:@"AppleSubscription" descriptor:v22];
+  v61[0] = v6;
+  v62[0] = objc_opt_class();
+  v62[1] = v9;
+  v61[1] = v8;
+  v61[2] = v10;
+  v61[3] = v11;
+  v62[2] = v9;
+  v62[3] = v9;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:4];
+  [v38 defineProperty:@"AppleSubscription" descriptor:v22];
 
-  v60[0] = v6;
-  v61[0] = objc_opt_class();
-  v61[1] = v9;
-  v60[1] = v8;
-  v60[2] = v10;
-  v60[3] = v11;
-  v61[2] = v9;
-  v61[3] = v9;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:4];
-  [v39 defineProperty:@"Alert" descriptor:v23];
+  v59[0] = v6;
+  v60[0] = objc_opt_class();
+  v60[1] = v9;
+  v59[1] = v8;
+  v59[2] = v10;
+  v59[3] = v11;
+  v60[2] = v9;
+  v60[3] = v9;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:4];
+  [v38 defineProperty:@"Alert" descriptor:v23];
 
-  v58[0] = v6;
-  v59[0] = objc_opt_class();
-  v59[1] = v9;
-  v58[1] = v8;
-  v58[2] = v10;
-  v58[3] = v11;
-  v59[2] = v9;
-  v59[3] = v9;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:4];
-  [v39 defineProperty:@"AlertAction" descriptor:v24];
+  v57[0] = v6;
+  v58[0] = objc_opt_class();
+  v58[1] = v9;
+  v57[1] = v8;
+  v57[2] = v10;
+  v57[3] = v11;
+  v58[2] = v9;
+  v58[3] = v9;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:4];
+  [v38 defineProperty:@"AlertAction" descriptor:v24];
 
   VSExportCompressionToContext(contextCopy);
   v25 = VSScriptMessageSupportInjection(1);
   v26 = [contextCopy evaluateScript:v25];
 
   v27 = MEMORY[0x277CD4658];
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __70__VSApplicationController_application_evaluateAppJavascriptInContext___block_invoke_5;
-  v44[3] = &unk_279E19D70;
-  objc_copyWeak(&v45, &location);
-  v28 = MEMORY[0x2743B6E40](v44);
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __70__VSApplicationController_application_evaluateAppJavascriptInContext___block_invoke_5;
+  v43[3] = &unk_279E19D70;
+  objc_copyWeak(&v44, &location);
+  v28 = MEMORY[0x2743B6E40](v43);
   v29 = [v27 valueWithObject:v28 inContext:contextCopy];
 
   [(VSApplicationController *)self setApplicationReadyCallback:v29];
   globalObject = [contextCopy globalObject];
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
-  v31 = [&unk_2880D26F8 countByEnumeratingWithState:&v40 objects:v57 count:16];
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v31 = [&unk_2880D26F8 countByEnumeratingWithState:&v39 objects:v56 count:16];
   if (v31)
   {
-    v32 = *v41;
+    v32 = *v40;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v41 != v32)
+        if (*v40 != v32)
         {
           objc_enumerationMutation(&unk_2880D26F8);
         }
 
-        v34 = *(*(&v40 + 1) + 8 * i);
+        v34 = *(*(&v39 + 1) + 8 * i);
         if ([globalObject deleteProperty:v34])
         {
           v35 = VSErrorLogObject();
           if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v56 = v34;
+            v55 = v34;
             _os_log_error_impl(&dword_270DD4000, v35, OS_LOG_TYPE_ERROR, "Unable to delete %@ property.", buf, 0xCu);
           }
         }
       }
 
-      v31 = [&unk_2880D26F8 countByEnumeratingWithState:&v40 objects:v57 count:16];
+      v31 = [&unk_2880D26F8 countByEnumeratingWithState:&v39 objects:v56 count:16];
     }
 
     while (v31);
   }
 
-  objc_destroyWeak(&v45);
-  objc_destroyWeak(&v47);
-  objc_destroyWeak(&v49);
-  objc_destroyWeak(&v51);
-  objc_destroyWeak(&v53);
+  objc_destroyWeak(&v44);
+  objc_destroyWeak(&v46);
+  objc_destroyWeak(&v48);
+  objc_destroyWeak(&v50);
+  objc_destroyWeak(&v52);
   objc_destroyWeak(&location);
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __70__VSApplicationController_application_evaluateAppJavascriptInContext___block_invoke(uint64_t a1, void *a2)
@@ -1124,18 +1104,17 @@ void __70__VSApplicationController_application_evaluateAppJavascriptInContext___
 
 - (void)appDocumentController:(id)controller didUpdateViewModel:(id)model
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v6 = VSDefaultLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = modelCopy;
-    _os_log_impl(&dword_270DD4000, v6, OS_LOG_TYPE_DEFAULT, "Document controller did update view model: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = modelCopy;
+    _os_log_impl(&dword_270DD4000, v6, OS_LOG_TYPE_DEFAULT, "Document controller did update view model: %@", &v7, 0xCu);
   }
 
   [(VSApplicationController *)self _notifyDidReceiveViewModel:modelCopy];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appDocumentController:(id)controller didFailToUpdateViewModelWithError:(id)error
@@ -1152,23 +1131,22 @@ void __70__VSApplicationController_application_evaluateAppJavascriptInContext___
 
 - (void)appDocumentController:(id)controller didUpdateLogoViewModel:(id)model
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v6 = VSDefaultLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = modelCopy;
-    _os_log_impl(&dword_270DD4000, v6, OS_LOG_TYPE_DEFAULT, "Document controller did update logo view model: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = modelCopy;
+    _os_log_impl(&dword_270DD4000, v6, OS_LOG_TYPE_DEFAULT, "Document controller did update logo view model: %@", &v7, 0xCu);
   }
 
   [(VSApplicationController *)self _notifyDidUpdateLogoViewModel:modelCopy];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentDocument:(id)document
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   documentCopy = document;
   if ([(VSApplicationController *)self allowUI])
   {
@@ -1179,20 +1157,20 @@ void __70__VSApplicationController_application_evaluateAppJavascriptInContext___
       v8 = NSStringFromClass(v7);
       v9 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
       _os_log_impl(&dword_270DD4000, v6, OS_LOG_TYPE_DEFAULT, "Will create app document in [%@ %@]", buf, 0x16u);
     }
 
     application = [(VSApplicationController *)self application];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __44__VSApplicationController__presentDocument___block_invoke;
-    v14[3] = &unk_279E19D98;
-    v14[4] = self;
-    v14[5] = a2;
-    [application appDocumentForDocument:documentCopy completionHandler:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __44__VSApplicationController__presentDocument___block_invoke;
+    v13[3] = &unk_279E19D98;
+    v13[4] = self;
+    v13[5] = a2;
+    [application appDocumentForDocument:documentCopy completionHandler:v13];
   }
 
   else
@@ -1206,35 +1184,29 @@ void __70__VSApplicationController_application_evaluateAppJavascriptInContext___
     application2 = [(VSApplicationController *)self application];
     [application2 sendErrorWithMessage:@"The App.presentDocument function cannot be called in the current context."];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __44__VSApplicationController__presentDocument___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = VSDefaultLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = NSStringFromSelector(*(a1 + 40));
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = NSStringFromSelector(*(a1 + 40));
     *buf = 138412802;
-    v13 = v3;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
     _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "Did create app document [%@] in [%@ %@]", buf, 0x20u);
   }
 
-  v11 = *(a1 + 32);
-  v9 = v3;
+  v8 = v3;
   VSPerformBlockOnMainThread();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __44__VSApplicationController__presentDocument___block_invoke_235(uint64_t a1)
@@ -1353,7 +1325,7 @@ void __44__VSApplicationController__cancelValidation__block_invoke(uint64_t a1)
 
 - (void)_submitJavascriptRequest:(id)request forApplicationControllerRequest:(id)controllerRequest
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   controllerRequestCopy = controllerRequest;
   v8 = VSDefaultLogObject();
@@ -1367,47 +1339,45 @@ void __44__VSApplicationController__cancelValidation__block_invoke(uint64_t a1)
   v9 = [requestCopy copy];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v25 = 0x2020000000;
+  v26 = 0;
   objc_initWeak(&location, self);
   application = [(VSApplicationController *)self application];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __84__VSApplicationController__submitJavascriptRequest_forApplicationControllerRequest___block_invoke;
-  v19[3] = &unk_279E19E10;
-  objc_copyWeak(&v23, &location);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __84__VSApplicationController__submitJavascriptRequest_forApplicationControllerRequest___block_invoke;
+  v18[3] = &unk_279E19E10;
+  objc_copyWeak(&v22, &location);
   v11 = controllerRequestCopy;
-  v20 = v11;
+  v19 = v11;
   v12 = v9;
-  v21 = v12;
+  v20 = v12;
   p_buf = &buf;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __84__VSApplicationController__submitJavascriptRequest_forApplicationControllerRequest___block_invoke_2;
-  v15[3] = &unk_279E19E38;
-  objc_copyWeak(&v18, &location);
-  v17 = &buf;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __84__VSApplicationController__submitJavascriptRequest_forApplicationControllerRequest___block_invoke_2;
+  v14[3] = &unk_279E19E38;
+  objc_copyWeak(&v17, &location);
+  v16 = &buf;
   v13 = v11;
-  v16 = v13;
-  [application evaluate:v19 completionHandler:v15];
+  v15 = v13;
+  [application evaluate:v18 completionHandler:v14];
 
-  objc_destroyWeak(&v18);
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
   _Block_object_dispose(&buf, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __84__VSApplicationController__submitJavascriptRequest_forApplicationControllerRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = VSDefaultLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v21 = "[VSApplicationController _submitJavascriptRequest:forApplicationControllerRequest:]_block_invoke";
+    v20 = "[VSApplicationController _submitJavascriptRequest:forApplicationControllerRequest:]_block_invoke";
     _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "Beginning evaluation of JavaScript in %s", buf, 0xCu);
   }
 
@@ -1415,30 +1385,28 @@ void __84__VSApplicationController__submitJavascriptRequest_forApplicationContro
   if ([v5 hasProperty:@"onRequest"])
   {
     v6 = MEMORY[0x277CD4658];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __84__VSApplicationController__submitJavascriptRequest_forApplicationControllerRequest___block_invoke_252;
-    v14[3] = &unk_279E19DE8;
-    objc_copyWeak(&v16, (a1 + 56));
-    v15 = *(a1 + 32);
-    v7 = MEMORY[0x2743B6E40](v14);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __84__VSApplicationController__submitJavascriptRequest_forApplicationControllerRequest___block_invoke_252;
+    v13[3] = &unk_279E19DE8;
+    objc_copyWeak(&v15, (a1 + 56));
+    v14 = *(a1 + 32);
+    v7 = MEMORY[0x2743B6E40](v13);
     v8 = [v6 valueWithObject:v7 inContext:v3];
 
     v9 = *(a1 + 40);
-    v18[0] = @"request";
-    v18[1] = @"callback";
-    v19[0] = v9;
-    v19[1] = v8;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v17[0] = @"request";
+    v17[1] = @"callback";
+    v18[0] = v9;
+    v18[1] = v8;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
     *(*(*(a1 + 48) + 8) + 24) = 1;
-    v17 = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v16 = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
     v12 = [v5 invokeMethod:@"onRequest" withArguments:v11];
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __84__VSApplicationController__submitJavascriptRequest_forApplicationControllerRequest___block_invoke_252(uint64_t a1, void *a2, void *a3)
@@ -1451,13 +1419,13 @@ void __84__VSApplicationController__submitJavascriptRequest_forApplicationContro
 
 void __84__VSApplicationController__submitJavascriptRequest_forApplicationControllerRequest___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = VSDefaultLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[VSApplicationController _submitJavascriptRequest:forApplicationControllerRequest:]_block_invoke_2";
-    _os_log_impl(&dword_270DD4000, v2, OS_LOG_TYPE_DEFAULT, "Finished evaluation of JavaScript in %s", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[VSApplicationController _submitJavascriptRequest:forApplicationControllerRequest:]_block_invoke_2";
+    _os_log_impl(&dword_270DD4000, v2, OS_LOG_TYPE_DEFAULT, "Finished evaluation of JavaScript in %s", &v10, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -1473,8 +1441,6 @@ void __84__VSApplicationController__submitJavascriptRequest_forApplicationContro
     v9 = [MEMORY[0x277CE2250] failableWithError:v7];
     [v4 _completeRequest:v8 withResult:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_applicationReadyWithSuccess:(BOOL)success javascriptErrorValue:(id)value
@@ -1654,26 +1620,24 @@ void __55__VSApplicationController__completeRequest_withResult___block_invoke_2(
 
 void __55__VSApplicationController__completeRequest_withResult___block_invoke_265(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = VSDefaultLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "Will notify request did fail: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "Will notify request did fail: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) _notifyRequest:*(a1 + 40) didFailWithError:v3];
   v5 = VSDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "Did notify request did fail: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "Did notify request did fail: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyRequest:(id)request didCompleteWithResponse:(id)response
@@ -1845,7 +1809,7 @@ void __56__VSApplicationController__notifyStartDidFailWithError___block_invoke(u
 
 - (id)_applicationLaunchParams
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   identityProvider = [(VSApplicationController *)self identityProvider];
   authenticationURL = [identityProvider authenticationURL];
@@ -1899,11 +1863,11 @@ void __56__VSApplicationController__notifyStartDidFailWithError___block_invoke(u
     {
       identityProvider5 = [(VSApplicationController *)self identityProvider];
       providerID = [identityProvider5 providerID];
-      v25 = 138412546;
-      v26 = userToken3;
-      v27 = 2112;
-      v28 = providerID;
-      _os_log_impl(&dword_270DD4000, v18, OS_LOG_TYPE_DEFAULT, "Add userToken %@ in %@'s js launch params", &v25, 0x16u);
+      v24 = 138412546;
+      v25 = userToken3;
+      v26 = 2112;
+      v27 = providerID;
+      _os_log_impl(&dword_270DD4000, v18, OS_LOG_TYPE_DEFAULT, "Add userToken %@ in %@'s js launch params", &v24, 0x16u);
     }
 
     [v3 setObject:userToken3 forKey:@"userToken"];
@@ -1917,44 +1881,42 @@ void __56__VSApplicationController__notifyStartDidFailWithError___block_invoke(u
 
   v22 = [v3 copy];
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (id)_applicationControllerAlertForJavascriptAlert:(id)alert
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   alertCopy = alert;
-  v18 = objc_alloc_init(VSApplicationControllerAlert);
+  v17 = objc_alloc_init(VSApplicationControllerAlert);
   title = [alertCopy title];
-  [(VSApplicationControllerAlert *)v18 setTitle:title];
+  [(VSApplicationControllerAlert *)v17 setTitle:title];
 
   message = [alertCopy message];
-  [(VSApplicationControllerAlert *)v18 setMessage:message];
+  [(VSApplicationControllerAlert *)v17 setMessage:message];
 
   objc_initWeak(&location, self);
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   actions = [alertCopy actions];
-  v8 = [actions countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v8 = [actions countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v8)
   {
-    v9 = *v23;
+    v9 = *v22;
     obj = actions;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         v12 = objc_alloc_init(VSApplicationControllerAlertAction);
         title2 = [v11 title];
         [(VSApplicationControllerAlertAction *)v12 setTitle:title2];
@@ -1962,30 +1924,28 @@ void __56__VSApplicationController__notifyStartDidFailWithError___block_invoke(u
         style = [v11 style];
         [(VSApplicationControllerAlertAction *)v12 setStyle:[VSApplicationControllerAlertAction styleFromString:style]];
 
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __73__VSApplicationController__applicationControllerAlertForJavascriptAlert___block_invoke;
-        v20[3] = &unk_279E19618;
-        objc_copyWeak(&v21, &location);
-        v20[4] = v11;
-        [(VSApplicationControllerAlertAction *)v12 setCallback:v20];
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __73__VSApplicationController__applicationControllerAlertForJavascriptAlert___block_invoke;
+        v19[3] = &unk_279E19618;
+        objc_copyWeak(&v20, &location);
+        v19[4] = v11;
+        [(VSApplicationControllerAlertAction *)v12 setCallback:v19];
         [v6 addObject:v12];
-        objc_destroyWeak(&v21);
+        objc_destroyWeak(&v20);
       }
 
       actions = obj;
-      v8 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v8 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v8);
   }
 
-  [(VSApplicationControllerAlert *)v18 setActions:v6];
+  [(VSApplicationControllerAlert *)v17 setActions:v6];
   objc_destroyWeak(&location);
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v17;
 }
 
 void __73__VSApplicationController__applicationControllerAlertForJavascriptAlert___block_invoke(uint64_t a1)
@@ -2010,13 +1970,13 @@ void __73__VSApplicationController__applicationControllerAlertForJavascriptAlert
   v1 = [v2 callWithArguments:MEMORY[0x277CBEBF8]];
 }
 
-void __73__VSApplicationController__applicationControllerAlertForJavascriptAlert___block_invoke_3()
+void __73__VSApplicationController__applicationControllerAlertForJavascriptAlert___block_invoke_3(uint64_t a1)
 {
-  v0 = VSDefaultLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = VSDefaultLogObject();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_270DD4000, v0, OS_LOG_TYPE_DEFAULT, "Did execute callback for alert action.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_270DD4000, v1, OS_LOG_TYPE_DEFAULT, "Did execute callback for alert action.", v2, 2u);
   }
 }
 
@@ -2140,7 +2100,7 @@ LABEL_13:
 
 - (id)_errorForJavascriptErrorValueValue:(id)value withRequest:(id)request
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   requestCopy = request;
   v7 = requestCopy;
@@ -2161,9 +2121,9 @@ LABEL_13:
     v10 = VSDefaultLogObject();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138412290;
-      v27 = valueCopy;
-      _os_log_impl(&dword_270DD4000, v10, OS_LOG_TYPE_DEFAULT, "Application passed an error object: %@", &v26, 0xCu);
+      v25 = 138412290;
+      v26 = valueCopy;
+      _os_log_impl(&dword_270DD4000, v10, OS_LOG_TYPE_DEFAULT, "Application passed an error object: %@", &v25, 0xCu);
     }
 
     v11 = objc_alloc_init(VSJSError);
@@ -2237,12 +2197,12 @@ LABEL_22:
       if (v8)
       {
 LABEL_34:
-        v25 = VSPrivateError();
+        v24 = VSPrivateError();
         goto LABEL_40;
       }
 
-      v24 = VSErrorLogObject();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v23 = VSErrorLogObject();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [VSApplicationController _errorForJavascriptErrorValueValue:withRequest:];
       }
@@ -2256,8 +2216,8 @@ LABEL_34:
     }
 
 LABEL_31:
-    v24 = VSErrorLogObject();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v23 = VSErrorLogObject();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [VSApplicationController _errorForJavascriptErrorValueValue:withRequest:];
     }
@@ -2269,7 +2229,7 @@ LABEL_38:
 
   if (code == 3)
   {
-    v25 = VSInvalidVerificationTokenError();
+    v24 = VSInvalidVerificationTokenError();
     goto LABEL_40;
   }
 
@@ -2279,9 +2239,9 @@ LABEL_38:
   }
 
 LABEL_39:
-  v25 = VSPublicServiceTemporarilyUnavailableError();
+  v24 = VSPublicServiceTemporarilyUnavailableError();
 LABEL_40:
-  v21 = v25;
+  v21 = v24;
 
   if (!v21)
   {
@@ -2290,8 +2250,6 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -2315,29 +2273,23 @@ LABEL_26:
 
 void __61__VSApplicationController_transitionToWaitingForBootUrlState__block_invoke_147_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __73__VSApplicationController_transitionToWaitingForBothLaunchCallbacksState__block_invoke_3_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appDocumentController:didFailToUpdateViewModelWithError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentDocument:.cold.1()
@@ -2349,20 +2301,16 @@ void __73__VSApplicationController_transitionToWaitingForBothLaunchCallbacksStat
 
 void __44__VSApplicationController__presentDocument___block_invoke_235_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __44__VSApplicationController__presentDocument___block_invoke_235_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentAlert:.cold.1()
@@ -2374,28 +2322,16 @@ void __44__VSApplicationController__presentDocument___block_invoke_235_cold_2()
 
 - (void)_applicationReadyWithSuccess:javascriptErrorValue:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_completeRequest:withJavascriptResponse:javascriptErrorValue:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_errorForJavascriptErrorValueValue:withRequest:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_errorForJavascriptErrorValueValue:withRequest:.cold.2()
@@ -2403,14 +2339,6 @@ void __44__VSApplicationController__presentDocument___block_invoke_235_cold_2()
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)_errorForJavascriptErrorValueValue:withRequest:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_errorForJavascriptErrorValueValue:withRequest:.cold.4()

@@ -5,7 +5,7 @@
 
 void __HDMILatencyMgr_UpdateMeasuredHDMILatency_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (dword_1EB75E238)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -26,23 +26,22 @@ void __HDMILatencyMgr_UpdateMeasuredHDMILatency_block_invoke(uint64_t a1)
     CFRelease(v3);
   }
 
-  v5 = *(a1 + 32);
-  FigCFDictionaryGetDoubleIfPresent();
-  BYTE9(xmmword_1ED6D2F70) = 0;
+  v9 = 0.0;
+  DoubleIfPresent = FigCFDictionaryGetDoubleIfPresent();
+  v7 = v9 != 0.0 && DoubleIfPresent != 0;
+  BYTE9(xmmword_1ED6D2F70) = v7;
   updateMeasuredHDMILatencyOnCoreAnimationAndHAL();
   writeMeasuredHDMILatencyToDisk(xmmword_1ED6D2F50);
-  v6 = *(a1 + 32);
-  if (v6)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    CFRelease(v6);
+    CFRelease(v8);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __HDMILatencyMgr_UpdateCurrentRefreshRate_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (dword_1EB75E238)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -52,9 +51,7 @@ uint64_t __HDMILatencyMgr_UpdateCurrentRefreshRate_block_invoke(uint64_t a1)
 
   qword_1ED6D2F60 = *(a1 + 32);
   updateMeasuredHDMILatencyOnCoreAnimationAndHAL();
-  result = writeMeasuredHDMILatencyToDisk(xmmword_1ED6D2F50);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return writeMeasuredHDMILatencyToDisk(xmmword_1ED6D2F50);
 }
 
 CFDictionaryRef __HDMILatencyMgr_CopyMeasuredHDMILatency_block_invoke(uint64_t a1)

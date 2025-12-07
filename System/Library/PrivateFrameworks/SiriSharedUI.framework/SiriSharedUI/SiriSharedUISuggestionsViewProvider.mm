@@ -86,7 +86,7 @@
 - (_TtC12SiriSharedUI35SiriSharedUISuggestionsViewProvider)init
 {
   v3 = OBJC_IVAR____TtC12SiriSharedUI35SiriSharedUISuggestionsViewProvider_suggestionsDataModel;
-  type metadata accessor for SiriSharedUISuggestionsDataModel();
+  type metadata accessor for SiriSharedUISuggestionsDataModel(0);
   swift_allocObject();
   *(&self->super.isa + v3) = sub_21E456670();
   v4 = (&self->super.isa + OBJC_IVAR____TtC12SiriSharedUI35SiriSharedUISuggestionsViewProvider_suggestionsView);

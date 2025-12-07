@@ -856,7 +856,7 @@ LABEL_9:
     [_valueBackground setCenter:v8 * 0.5];
     if (_valueLabel)
     {
-      [_valueLabel transform];
+      objc_msgSend_transform(_valueLabel);
     }
 
     else
@@ -942,7 +942,7 @@ LABEL_9:
     [_titleBackground2 setCenter:?];
     if (_titleLabel)
     {
-      [_titleLabel transform];
+      objc_msgSend_transform(_titleLabel);
     }
 
     else
@@ -962,7 +962,7 @@ LABEL_9:
     [_valueBackground setCenter:?];
     if (_valueLabel)
     {
-      [_valueLabel transform];
+      objc_msgSend_transform(_valueLabel);
     }
 
     else
@@ -1469,13 +1469,14 @@ LABEL_24:
 - (void)_updateFonts
 {
   fontStyle = [(CEKDiscreteSlider *)self fontStyle];
-  v4 = CEKFontOfSizeAndStyle(fontStyle, 14.0);
+  v4.n128_u64[0] = 14.0;
+  v5 = CEKFontOfSizeAndStyle(fontStyle, v4);
   _titleLabel = [(CEKDiscreteSlider *)self _titleLabel];
-  [_titleLabel setFont:v4];
+  [_titleLabel setFont:v5];
 
-  v7 = CEKMonospacedStylisticNumeralFontOfSizeAndStyle(fontStyle, 14.0);
+  v8 = CEKMonospacedStylisticNumeralFontOfSizeAndStyle(fontStyle, 14.0);
   _valueLabel = [(CEKDiscreteSlider *)self _valueLabel];
-  [_valueLabel setFont:v7];
+  [_valueLabel setFont:v8];
 }
 
 - (void)performWaveAnimation
@@ -1620,22 +1621,22 @@ LABEL_16:
 LABEL_24:
 }
 
-uint64_t __132__CEKDiscreteSlider__setSelectedIndex_shouldDelegate_wantsFeedbackEmitted_shouldScroll_scrollDuration_scrollCurve_scrollCompletion___block_invoke(uint64_t a1, double a2)
+uint64_t __132__CEKDiscreteSlider__setSelectedIndex_shouldDelegate_wantsFeedbackEmitted_shouldScroll_scrollDuration_scrollCurve_scrollCompletion___block_invoke(uint64_t a1, uint64_t a2, double a3)
 {
-  v2 = a2;
-  v4 = *(a1 + 32);
-  if (v4)
+  v3 = a3;
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    *&a2 = a2;
-    [v4 _solveForInput:a2];
-    v2 = v5;
+    *&a3 = a3;
+    [v5 _solveForInput:a3];
+    v3 = v6;
   }
 
-  v6 = *(a1 + 56);
-  v7 = CEKInterpolate(*(a1 + 48), *(a1 + 64), v2);
-  v8 = *(a1 + 40);
+  v7 = *(a1 + 56);
+  v8 = CEKInterpolate(*(a1 + 48), *(a1 + 64), v3);
+  v9 = *(a1 + 40);
 
-  return [v8 setContentOffset:{v7, v6}];
+  return [v9 setContentOffset:{v8, v7}];
 }
 
 uint64_t __132__CEKDiscreteSlider__setSelectedIndex_shouldDelegate_wantsFeedbackEmitted_shouldScroll_scrollDuration_scrollCurve_scrollCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -2311,7 +2312,7 @@ LABEL_27:
         magneticIndexes = v61;
         if (v44)
         {
-          [(CEKDiscreteSlider *)v40 contactEndedWithAction:v45, v46, v47, v48, v49, v50, v51];
+          [(CEKDiscreteSlider *)v40 contactEndedWithAction:v45, v46, v47, v48, v49, v50, v51, v7];
         }
       }
 
@@ -2452,7 +2453,7 @@ LABEL_57:
 LABEL_61:
 }
 
-uint64_t __44__CEKDiscreteSlider_contactEndedWithAction___block_invoke(uint64_t a1)
+void *__44__CEKDiscreteSlider_contactEndedWithAction___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isScrollExternallyAnimating];
   if ((result & 1) == 0)
@@ -2642,6 +2643,13 @@ void __58__CEKDiscreteSlider__createExternalScrollAnimatorIfNeeded__block_invoke
   WeakRetained = objc_loadWeakRetained(&self->_contactObserver);
 
   return WeakRetained;
+}
+
+- (void)contactEndedWithAction:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_0(&dword_1B7E93000, a1, a3, "ScrollDiagnostic: Not decelerating to magnetic value (velocity %.3f)", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 - (void)contactEndedWithAction:.cold.4()

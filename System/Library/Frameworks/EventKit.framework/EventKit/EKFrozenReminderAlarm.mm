@@ -141,27 +141,27 @@
 
 - (void)_setTimeAndLocationAlarms:(id)alarms
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   alarmsCopy = alarms;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v5 = [alarmsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [alarmsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(alarmsCopy);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [(EKFrozenReminderAlarm *)self _setTimeOrLocationAlarm:v9];
         v11 = v10;
         if (v10)
@@ -179,12 +179,12 @@
           v13 = +[EKReminderStore log];
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            [(EKFrozenReminderAlarm *)&v16 _setTimeAndLocationAlarms:v17, v13];
+            [(EKFrozenReminderAlarm *)&v15 _setTimeAndLocationAlarms:v16, v13];
           }
         }
       }
 
-      v6 = [alarmsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [alarmsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
@@ -198,8 +198,6 @@
       [EKFrozenReminderAlarm _setTimeAndLocationAlarms:alarmsCopy];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_setTimeOrLocationAlarm:(id)alarm
@@ -225,7 +223,7 @@
         v11 = +[EKReminderStore log];
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          [EKFrozenReminderAlarm _setTimeOrLocationAlarm:];
+          [(EKFrozenReminderAlarm *)trigger _setTimeOrLocationAlarm:v11];
         }
 
         v9 = 0;
@@ -250,16 +248,16 @@ LABEL_8:
 
 - (NSArray)alarms
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   locationAlarm = self->_locationAlarm;
   if (self->_timeAlarm)
   {
     if (locationAlarm)
     {
-      v11[0] = self->_timeAlarm;
-      v11[1] = locationAlarm;
+      v10[0] = self->_timeAlarm;
+      v10[1] = locationAlarm;
       v3 = MEMORY[0x1E695DEC8];
-      p_timeAlarm = v11;
+      p_timeAlarm = v10;
       v5 = 2;
 LABEL_8:
       v6 = [v3 arrayWithObjects:p_timeAlarm count:v5];
@@ -276,15 +274,14 @@ LABEL_7:
 
   if (locationAlarm)
   {
-    v9 = self->_locationAlarm;
+    v8 = self->_locationAlarm;
     v3 = MEMORY[0x1E695DEC8];
-    p_timeAlarm = &v9;
+    p_timeAlarm = &v8;
     goto LABEL_7;
   }
 
   v6 = 0;
 LABEL_9:
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -487,7 +484,7 @@ id __35__EKFrozenReminderAlarm_externalID__block_invoke(uint64_t a1)
 
 - (id)_remStructuredLocation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   modifiedStructuredLocation = [(EKFrozenReminderAlarm *)self modifiedStructuredLocation];
   v4 = modifiedStructuredLocation;
   if (modifiedStructuredLocation)
@@ -516,20 +513,18 @@ id __35__EKFrozenReminderAlarm_externalID__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         locationAlarm = self->_locationAlarm;
-        v12 = 138412802;
+        v11 = 138412802;
         selfCopy = self;
-        v14 = 2112;
-        v15 = locationAlarm;
-        v16 = 2112;
-        v17 = trigger;
-        _os_log_error_impl(&dword_1A805E000, v8, OS_LOG_TYPE_ERROR, "Frozen reminder alarm being committed has a location alarm without a location alarm trigger. EKFrozenReminderAlarm=%@; _locationAlarm=%@, _locationAlarm.trigger=%@", &v12, 0x20u);
+        v13 = 2112;
+        v14 = locationAlarm;
+        v15 = 2112;
+        v16 = trigger;
+        _os_log_error_impl(&dword_1A805E000, v8, OS_LOG_TYPE_ERROR, "Frozen reminder alarm being committed has a location alarm without a location alarm trigger. EKFrozenReminderAlarm=%@; _locationAlarm=%@, _locationAlarm.trigger=%@", &v11, 0x20u);
       }
 
       updatedStructuredLocation = 0;
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return updatedStructuredLocation;
 }
@@ -579,7 +574,7 @@ id __35__EKFrozenReminderAlarm_externalID__block_invoke(uint64_t a1)
 
 - (BOOL)_applyChanges:(id)changes error:(id *)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   externalID = [(EKFrozenReminderAlarm *)self externalID];
   if (self->_timeAlarm)
@@ -600,26 +595,26 @@ id __35__EKFrozenReminderAlarm_externalID__block_invoke(uint64_t a1)
     }
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   triggers = [(EKFrozenReminderAlarm *)self triggers];
-  v12 = [triggers countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [triggers countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(triggers);
         }
 
-        v16 = [changesCopy addAlarmWithTrigger:*(*(&v22 + 1) + 8 * i)];
+        v16 = [changesCopy addAlarmWithTrigger:*(*(&v21 + 1) + 8 * i)];
         [v16 setAlarmUID:externalID];
         acknowledgedDate = [(EKFrozenReminderAlarm *)self acknowledgedDate];
         [v16 setAcknowledgedDate:acknowledgedDate];
@@ -629,13 +624,12 @@ id __35__EKFrozenReminderAlarm_externalID__block_invoke(uint64_t a1)
         [v16 setOriginalAlarmUID:externalID2];
       }
 
-      v13 = [triggers countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [triggers countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -776,7 +770,7 @@ LABEL_7:
     v21 = +[EKReminderStore log];
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      +[EKFrozenReminderAlarm semanticIdentifierFromREMAlarm:];
+      [(EKFrozenReminderAlarm *)trigger semanticIdentifierFromREMAlarm:alarmCopy];
     }
   }
 
@@ -920,7 +914,7 @@ id __41__EKFrozenReminderAlarm_acknowledgedDate__block_invoke(uint64_t a1)
 
 EKFrozenReminderAlarm *__38__EKFrozenReminderAlarm_originalAlarm__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _effectiveAlarm];
   v3 = [v2 originalAlarmUID];
 
@@ -931,34 +925,34 @@ EKFrozenReminderAlarm *__38__EKFrozenReminderAlarm_originalAlarm__block_invoke(u
 
     v6 = [*(a1 + 32) path];
     v7 = [v6 firstObject];
-    v30 = 0;
-    v8 = [v5 fetchReminderWithObjectID:v7 error:&v30];
-    v9 = v30;
+    v29 = 0;
+    v8 = [v5 fetchReminderWithObjectID:v7 error:&v29];
+    v9 = v29;
 
     if (v8)
     {
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v10 = [v8 alarms];
-      v11 = [v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v11)
       {
         v12 = v11;
-        v24 = v9;
-        v25 = v5;
-        v13 = *v27;
+        v23 = v9;
+        v24 = v5;
+        v13 = *v26;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v27 != v13)
+            if (*v26 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v26 + 1) + 8 * i);
+            v15 = *(*(&v25 + 1) + 8 * i);
             v16 = [v15 alarmUID];
             v17 = [v16 isEqualToString:v3];
 
@@ -974,7 +968,7 @@ EKFrozenReminderAlarm *__38__EKFrozenReminderAlarm_originalAlarm__block_invoke(u
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
           if (v12)
           {
             continue;
@@ -985,8 +979,8 @@ EKFrozenReminderAlarm *__38__EKFrozenReminderAlarm_originalAlarm__block_invoke(u
 
         v18 = 0;
 LABEL_14:
-        v9 = v24;
-        v5 = v25;
+        v9 = v23;
+        v5 = v24;
       }
 
       else
@@ -1005,8 +999,6 @@ LABEL_14:
   {
     v18 = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -1028,50 +1020,41 @@ LABEL_14:
 
 - (void)_setTimeAndLocationAlarms:(void *)a1 .cold.2(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 count];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_21();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-- (void)_setTimeOrLocationAlarm:.cold.1()
+- (void)_setTimeOrLocationAlarm:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_21();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
 - (void)_applyChangesToSaveRequest:error:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1A805E000, v0, OS_LOG_TYPE_ERROR, "Couldn't fetch reminder to be saved: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A805E000, v0, OS_LOG_TYPE_ERROR, "Couldn't fetch reminder to be saved: %@", v1, 0xCu);
 }
 
 - (void)_applyChangesToSaveRequest:error:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1A805E000, v0, OS_LOG_TYPE_ERROR, "Alarm to be saved doesn't have a parent reminder: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A805E000, v0, OS_LOG_TYPE_ERROR, "Alarm to be saved doesn't have a parent reminder: %@", v1, 0xCu);
 }
 
-+ (void)semanticIdentifierFromREMAlarm:.cold.1()
++ (void)semanticIdentifierFromREMAlarm:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_21();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 @end

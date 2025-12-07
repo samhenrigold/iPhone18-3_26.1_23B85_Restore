@@ -50,63 +50,60 @@
 
 - (void)takeAccessibilityAssertionIfNeeded
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_accessibilityAssertion)
   {
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     database = [WeakRetained database];
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v19 = 0;
-    v8 = [database takeAccessibilityAssertionWithOwnerIdentifier:v7 timeout:&v19 error:600.0];
-    v9 = v19;
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v17 = 0;
+    v7 = [database takeAccessibilityAssertionWithOwnerIdentifier:v6 timeout:&v17 error:600.0];
+    v8 = v17;
     accessibilityAssertion = self->_accessibilityAssertion;
-    self->_accessibilityAssertion = v8;
+    self->_accessibilityAssertion = v7;
 
     if (!self->_accessibilityAssertion)
     {
-      hk_isDatabaseAccessibilityError = [v9 hk_isDatabaseAccessibilityError];
+      hk_isDatabaseAccessibilityError = [v8 hk_isDatabaseAccessibilityError];
       _HKInitializeLogging();
+      v11 = *MEMORY[0x277CCC330];
       v12 = *MEMORY[0x277CCC330];
-      v13 = *MEMORY[0x277CCC330];
       if (hk_isDatabaseAccessibilityError)
       {
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          v14 = v12;
-          v15 = objc_opt_class();
+          v13 = v11;
+          v14 = objc_opt_class();
           *buf = 138543618;
-          v21 = v15;
-          v22 = 2114;
-          v23 = v9;
-          v16 = v15;
-          _os_log_debug_impl(&dword_228986000, v14, OS_LOG_TYPE_DEBUG, "%{public}@: Failed to acquire accessibility assertion with error=%{public}@", buf, 0x16u);
+          v19 = v14;
+          v20 = 2114;
+          v21 = v8;
+          v15 = v14;
+          _os_log_debug_impl(&dword_228986000, v13, OS_LOG_TYPE_DEBUG, "%{public}@: Failed to acquire accessibility assertion with error=%{public}@", buf, 0x16u);
 LABEL_12:
         }
       }
 
-      else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v14 = v12;
-        v18 = objc_opt_class();
+        v13 = v11;
+        v16 = objc_opt_class();
         *buf = 138543618;
-        v21 = v18;
-        v22 = 2114;
-        v23 = v9;
-        v16 = v18;
-        _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "%{public}@: Failed to acquire accessibility assertion with error=%{public}@", buf, 0x16u);
+        v19 = v16;
+        v20 = 2114;
+        v21 = v8;
+        v15 = v16;
+        _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "%{public}@: Failed to acquire accessibility assertion with error=%{public}@", buf, 0x16u);
         goto LABEL_12;
       }
     }
 
     os_unfair_lock_unlock(&self->_lock);
 
-    v17 = *MEMORY[0x277D85DE8];
     return;
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   os_unfair_lock_unlock(&self->_lock);
 }
@@ -249,7 +246,7 @@ BOOL __56__HDWorkoutClusterManager_workoutCountWithFilter_error___block_invoke(v
       *newAnchor = [MEMORY[0x277CCD840] _anchorWithRowid:v29[3]];
     }
 
-    v22 = [v21 copy];
+    v22 = objc_msgSend_copy(v21);
   }
 
   else
@@ -297,7 +294,7 @@ uint64_t __75__HDWorkoutClusterManager_workoutsWithFilter_anchor_limit_newAnchor
   v24 = v20;
   if ([v16 enumerateWithError:error handler:v23])
   {
-    v21 = [v20 copy];
+    v21 = objc_msgSend_copy(v20);
   }
 
   else
@@ -335,97 +332,55 @@ uint64_t __75__HDWorkoutClusterManager_workoutsWithFilter_anchor_limit_newAnchor
 
 uint64_t __95__HDWorkoutClusterManager_enumerateRouteLocationsForWorkoutUUID_startDate_limit_error_handler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v55[2] = *MEMORY[0x277D85DE8];
-  v37 = a2;
-  v35 = [HDWorkoutClusterEntity workoutEntityForUUID:"workoutEntityForUUID:transaction:error:" transaction:*(a1 + 32) error:?];
-  if (v35)
+  v54[2] = *MEMORY[0x277D85DE8];
+  v36 = a2;
+  v34 = [HDWorkoutClusterEntity workoutEntityForUUID:"workoutEntityForUUID:transaction:error:" transaction:*(a1 + 32) error:?];
+  if (v34)
   {
-    v34 = [v37 databaseForEntityClass:objc_opt_class()];
-    if (!*(a1 + 40))
+    v33 = [v36 databaseForEntityClass:objc_opt_class()];
+    if (*(a1 + 40) && ((v4 = MEMORY[0x277CBEB18], v5 = v33, v6 = v34, v7 = objc_alloc_init(v4), v8 = objc_alloc_init(MEMORY[0x277D10B80]), [MEMORY[0x277CCD920] workoutRouteType], v9 = objc_claimAutoreleasedReturnValue(), HDSampleEntityPredicateForDataType(v9), v10 = objc_claimAutoreleasedReturnValue(), v9, v11 = objc_msgSend(v6, "persistentID"), v6, HDAssociationEntityPredicateForChildObjectsAssociatedWithParentObject(v11), v12 = objc_claimAutoreleasedReturnValue(), v13 = MEMORY[0x277D10B20], v54[0] = v10, v54[1] = v12, objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v54, 2), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "predicateMatchingAllPredicates:", v14), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "setPredicate:", v15), v15, v14, objc_msgSend(v8, "setEntityClass:", objc_opt_class()), objc_msgSend(MEMORY[0x277D10B68], "orderingTermWithProperty:entityClass:ascending:", @"start_date", objc_opt_class(), 1), v16 = objc_claimAutoreleasedReturnValue(), v53 = v16, objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v53, 1), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "setOrderingTerms:", v17), v17, v16, v18 = objc_msgSend(objc_alloc(MEMORY[0x277D10B78]), "initWithDatabase:descriptor:", v5, v8), v5, v52 = @"hfd_key", objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v52, 1), v19 = objc_claimAutoreleasedReturnValue(), v46 = MEMORY[0x277D85DD0], v47 = 3221225472, v48 = __76__HDWorkoutClusterManager__routeSeriesIdentifiersForWorkout_database_error___block_invoke, v49 = &unk_27861E4C0, v50 = v7, v20 = v7, LODWORD(v7) = objc_msgSend(v18, "enumerateProperties:error:enumerationHandler:", v19, a3, &v46), v19, !v7) ? (v21 = 0) : (v21 = v20), v22 = v21, v50, v20, v18, v12, v10, v8, v22))
     {
-      goto LABEL_19;
-    }
-
-    v4 = MEMORY[0x277CBEB18];
-    v5 = v34;
-    v6 = v35;
-    v7 = objc_alloc_init(v4);
-    v8 = objc_alloc_init(MEMORY[0x277D10B80]);
-    v9 = [MEMORY[0x277CCD920] workoutRouteType];
-    v10 = HDSampleEntityPredicateForDataType(v9);
-
-    v11 = [v6 persistentID];
-    v12 = HDAssociationEntityPredicateForChildObjectsAssociatedWithParentObject(v11);
-    v13 = MEMORY[0x277D10B20];
-    v55[0] = v10;
-    v55[1] = v12;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
-    v15 = [v13 predicateMatchingAllPredicates:v14];
-    [v8 setPredicate:v15];
-
-    [v8 setEntityClass:objc_opt_class()];
-    v16 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"start_date" entityClass:objc_opt_class() ascending:1];
-    v54 = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
-    [v8 setOrderingTerms:v17];
-
-    v18 = [objc_alloc(MEMORY[0x277D10B78]) initWithDatabase:v5 descriptor:v8];
-    v53 = @"hfd_key";
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
-    v47 = MEMORY[0x277D85DD0];
-    v48 = 3221225472;
-    v49 = __76__HDWorkoutClusterManager__routeSeriesIdentifiersForWorkout_database_error___block_invoke;
-    v50 = &unk_27861E4C0;
-    v51 = v7;
-    v20 = v7;
-    LODWORD(v7) = [v18 enumerateProperties:v19 error:a3 enumerationHandler:&v47];
-
-    v21 = v7 ? v20 : 0;
-    v22 = v21;
-
-    if (v22)
-    {
-      v47 = 0;
-      v48 = &v47;
-      v49 = 0x2020000000;
-      v50 = 0;
+      v46 = 0;
+      v47 = &v46;
+      v48 = 0x2020000000;
+      v49 = 0;
+      v42 = 0u;
       v43 = 0u;
       v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
       v23 = v22;
-      v24 = [v23 countByEnumeratingWithState:&v43 objects:v52 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v42 objects:v51 count:16];
       if (v24)
       {
-        v25 = *v44;
+        v25 = *v43;
         while (2)
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v44 != v25)
+            if (*v43 != v25)
             {
               objc_enumerationMutation(v23);
             }
 
-            v27 = *(*(&v43 + 1) + 8 * i);
+            v27 = *(*(&v42 + 1) + 8 * i);
             v28 = *(a1 + 48);
-            v38[0] = MEMORY[0x277D85DD0];
-            v38[1] = 3221225472;
-            v38[2] = __95__HDWorkoutClusterManager_enumerateRouteLocationsForWorkoutUUID_startDate_limit_error_handler___block_invoke_2;
-            v38[3] = &unk_278625668;
+            v37[0] = MEMORY[0x277D85DD0];
+            v37[1] = 3221225472;
+            v37[2] = __95__HDWorkoutClusterManager_enumerateRouteLocationsForWorkoutUUID_startDate_limit_error_handler___block_invoke_2;
+            v37[3] = &unk_278625668;
             v29 = v28;
-            v39 = v29;
-            v40 = *(a1 + 56);
-            v41 = &v47;
-            v42 = *(a1 + 64);
-            if (![HDLocationSeriesSampleEntity enumerateLocationDataWithTransaction:v37 HFDKey:v27 startDate:v29 error:a3 handler:v38])
+            v38 = v29;
+            v39 = *(a1 + 56);
+            v40 = &v46;
+            v41 = *(a1 + 64);
+            if (![HDLocationSeriesSampleEntity enumerateLocationDataWithTransaction:v36 HFDKey:v27 startDate:v29 error:a3 handler:v37])
             {
 
               v31 = 0;
               goto LABEL_21;
             }
 
-            v30 = *(v48 + 24) < *(a1 + 64);
+            v30 = *(v47 + 24) < *(a1 + 64);
 
             if (!v30)
             {
@@ -433,7 +388,7 @@ uint64_t __95__HDWorkoutClusterManager_enumerateRouteLocationsForWorkoutUUID_sta
             }
           }
 
-          v24 = [v23 countByEnumeratingWithState:&v43 objects:v52 count:16];
+          v24 = [v23 countByEnumeratingWithState:&v42 objects:v51 count:16];
           v31 = 1;
           if (v24)
           {
@@ -452,12 +407,11 @@ LABEL_18:
 
 LABEL_21:
 
-      _Block_object_dispose(&v47, 8);
+      _Block_object_dispose(&v46, 8);
     }
 
     else
     {
-LABEL_19:
       v23 = 0;
       v31 = 0;
     }
@@ -468,7 +422,6 @@ LABEL_19:
     v31 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -494,11 +447,11 @@ BOOL __95__HDWorkoutClusterManager_enumerateRouteLocationsForWorkoutUUID_startDa
   return v7;
 }
 
-uint64_t __76__HDWorkoutClusterManager__routeSeriesIdentifiersForWorkout_database_error___block_invoke(uint64_t a1)
+uint64_t __76__HDWorkoutClusterManager__routeSeriesIdentifiersForWorkout_database_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
-  [v1 addObject:v2];
+  v3 = *(a1 + 32);
+  v4 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnAsInt64()];
+  [v3 addObject:v4];
 
   return 1;
 }

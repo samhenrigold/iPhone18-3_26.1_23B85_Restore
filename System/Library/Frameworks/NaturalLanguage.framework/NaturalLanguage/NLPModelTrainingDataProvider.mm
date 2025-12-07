@@ -26,10 +26,9 @@
 
 - (id)instanceAtIndex:(unint64_t)index
 {
-  v41 = *MEMORY[0x1E69E9840];
-  dataSource = self->_dataSource;
-  v6 = (*(self->_instanceDataProvider + 2))();
-  if (!v6)
+  v37 = *MEMORY[0x1E69E9840];
+  v5 = (*(self->_instanceDataProvider + 2))();
+  if (!v5)
   {
     goto LABEL_26;
   }
@@ -47,17 +46,17 @@
   {
     if (!type)
     {
-      v9 = [v6 objectForKey:kNLPStringKey];
-      v10 = [v6 objectForKey:kNLPLabelKey];
-      if (v9)
+      v8 = [v5 objectForKey:kNLPStringKey];
+      v9 = [v5 objectForKey:kNLPLabelKey];
+      if (v8)
       {
         objc_opt_class();
-        v11 = 0;
-        if ((objc_opt_isKindOfClass() & 1) == 0 || !v10)
+        v10 = 0;
+        if ((objc_opt_isKindOfClass() & 1) == 0 || !v9)
         {
 LABEL_25:
 
-          if (v11)
+          if (v10)
           {
             goto LABEL_27;
           }
@@ -68,70 +67,69 @@ LABEL_25:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v11 = [[NLClassifierModelDataInstance alloc] initWithString:v9 label:v10 tokenizer:[(NLDataProvider *)self tokenizer]];
+          v10 = [[NLClassifierModelDataInstance alloc] initWithString:v8 label:v9 tokenizer:[(NLDataProvider *)self tokenizer]];
           goto LABEL_25;
         }
       }
 
-      v11 = 0;
+      v10 = 0;
       goto LABEL_25;
     }
 
 LABEL_26:
     NSLog(&cfstr_SkippingInvali.isa, index);
-    v11 = 0;
+    v10 = 0;
     goto LABEL_27;
   }
 
-  v12 = [v6 objectForKey:kNLPTokenArrayKey];
-  v13 = [v6 objectForKey:kNLPLabelArrayKey];
-  if (!v12)
+  v11 = [v5 objectForKey:kNLPTokenArrayKey];
+  v12 = [v5 objectForKey:kNLPLabelArrayKey];
+  if (!v11)
   {
 LABEL_42:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_43;
   }
 
   objc_opt_class();
-  v11 = 0;
-  if ((objc_opt_isKindOfClass() & 1) != 0 && v13)
+  v10 = 0;
+  if ((objc_opt_isKindOfClass() & 1) != 0 && v12)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = [v12 count];
-      if (v14 == [v13 count])
+      v13 = [v11 count];
+      if (v13 == [v12 count])
       {
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
-        v36 = 0u;
-        v15 = v12;
-        v16 = [v15 countByEnumeratingWithState:&v35 objects:v40 count:16];
-        if (v16)
+        v33 = 0u;
+        v34 = 0u;
+        v31 = 0u;
+        v32 = 0u;
+        v14 = v11;
+        v15 = [v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        if (v15)
         {
-          v17 = v16;
-          v18 = *v36;
+          v16 = v15;
+          v17 = *v32;
           while (2)
           {
-            for (i = 0; i != v17; ++i)
+            for (i = 0; i != v16; ++i)
             {
-              if (*v36 != v18)
+              if (*v32 != v17)
               {
-                objc_enumerationMutation(v15);
+                objc_enumerationMutation(v14);
               }
 
-              v20 = *(*(&v35 + 1) + 8 * i);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v30 = 0;
+                v26 = 0;
                 goto LABEL_31;
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v35 objects:v40 count:16];
-            if (v17)
+            v16 = [v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
+            if (v16)
             {
               continue;
             }
@@ -140,30 +138,29 @@ LABEL_42:
           }
         }
 
-        v30 = 1;
+        v26 = 1;
 LABEL_31:
-        v29 = v15;
+        v25 = v14;
 
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
-        v32 = 0u;
-        v23 = v13;
-        v24 = [v23 countByEnumeratingWithState:&v31 objects:v39 count:16];
-        if (v24)
+        v29 = 0u;
+        v30 = 0u;
+        v27 = 0u;
+        v28 = 0u;
+        v20 = v12;
+        v21 = [v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        if (v21)
         {
-          v25 = v24;
-          v26 = *v32;
+          v22 = v21;
+          v23 = *v28;
           while (2)
           {
-            for (j = 0; j != v25; ++j)
+            for (j = 0; j != v22; ++j)
             {
-              if (*v32 != v26)
+              if (*v28 != v23)
               {
-                objc_enumerationMutation(v23);
+                objc_enumerationMutation(v20);
               }
 
-              v28 = *(*(&v31 + 1) + 8 * j);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -172,8 +169,8 @@ LABEL_31:
               }
             }
 
-            v25 = [v23 countByEnumeratingWithState:&v31 objects:v39 count:16];
-            if (v25)
+            v22 = [v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
+            if (v22)
             {
               continue;
             }
@@ -182,9 +179,9 @@ LABEL_31:
           }
         }
 
-        if (v30)
+        if (v26)
         {
-          v11 = [[NLSequenceModelDataInstance alloc] initWithTokens:v29 labels:v23];
+          v10 = [[NLSequenceModelDataInstance alloc] initWithTokens:v25 labels:v20];
           goto LABEL_43;
         }
       }
@@ -195,16 +192,14 @@ LABEL_31:
 
 LABEL_43:
 
-  if (!v11)
+  if (!v10)
   {
     goto LABEL_26;
   }
 
 LABEL_27:
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v11;
+  return v10;
 }
 
 @end

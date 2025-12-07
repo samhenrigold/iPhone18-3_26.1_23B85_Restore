@@ -11,7 +11,7 @@
 
 - (NSArray)categories
 {
-  sub_232B4AE2C();
+  sub_232B4AE2C(self);
   type metadata accessor for DUCategoryResult();
   v2 = sub_232CE9FD0();
 
@@ -28,7 +28,7 @@
 
 - (_TtC21DocumentUnderstanding11DUDebugInfo)responseDebugInfo
 {
-  v2 = sub_232B4AFD4();
+  v2 = sub_232B4AFD4(self);
 
   return v2;
 }

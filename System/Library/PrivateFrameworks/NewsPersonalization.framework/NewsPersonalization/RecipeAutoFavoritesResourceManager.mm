@@ -9,11 +9,10 @@
 
 - (FCPersonalizationWhitelist)allowlist
 {
-  v2 = *self->lazyAllowlist;
 
   sub_1C6D781A0();
 
-  return v4;
+  return v3;
 }
 
 - (unint64_t)allowlistLevelForTagID:(id)d
@@ -28,20 +27,18 @@
 
 - (FCPersonalizationBundleIDMapping)bundleIDMapping
 {
-  v2 = *self->lazyBundleIdMapping;
 
   sub_1C6D781A0();
 
-  return v4;
+  return v3;
 }
 
 - (FCPersonalizationURLMapping)urlMapping
 {
-  v2 = *self->lazyUrlMapping;
 
   sub_1C6D781A0();
 
-  return v4;
+  return v3;
 }
 
 @end

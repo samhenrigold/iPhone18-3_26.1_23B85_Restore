@@ -108,7 +108,7 @@
   v27 = v26;
   v29 = v28;
   [starCopy rectangle];
-  [AKGeometryHelper ellipseToCenteredCircleTransform:?];
+  objc_msgSend_ellipseToCenteredCircleTransform_(AKGeometryHelper);
   [starCopy rectangle];
   [AKGeometryHelper radiusOfCenteredCircleFor:?];
   v31 = hypot(v29 * 0.0 + 0.0 * v27 + 0.0, v29 * 0.0 + 0.0 * v27 + 0.0) / v30;
@@ -149,7 +149,7 @@
   v28 = v27;
   v30 = v29;
 
-  [AKGeometryHelper ellipseToCenteredCircleTransform:v24, v26, v28, v30];
+  objc_msgSend_ellipseToCenteredCircleTransform_(AKGeometryHelper, v24, v26, v28, v30);
   [AKGeometryHelper normalizeVectorPoint:vaddq_f64(0, vmlaq_n_f64(vmulq_n_f64(0, v37), 0, v38))];
   v33 = (v31 * (y * 0.0 + 0.0 * x + 0.0) + (y * 0.0 + 0.0 * x + 0.0) * v32) / v22;
   v34 = 1.0;

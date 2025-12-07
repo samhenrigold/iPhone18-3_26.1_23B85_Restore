@@ -36,11 +36,11 @@
 
 - (BOOL)shouldProcessScope:(id)scope inTransaction:(id)transaction
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
-  v23.receiver = self;
-  v23.super_class = CPLMingleChangesTask;
-  if (![(CPLEngineMultiscopeSyncTask *)&v23 shouldProcessScope:scopeCopy inTransaction:transaction])
+  v22.receiver = self;
+  v22.super_class = CPLMingleChangesTask;
+  if (![(CPLEngineMultiscopeSyncTask *)&v22 shouldProcessScope:scopeCopy inTransaction:transaction])
   {
     scopes = [(CPLEngineMultiscopeSyncTask *)self scopes];
     goto LABEL_9;
@@ -64,7 +64,7 @@ LABEL_9:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v25 = scopeCopy;
+        v24 = scopeCopy;
         _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring mingling for %@", buf, 0xCu);
       }
     }
@@ -77,8 +77,8 @@ LABEL_9:
     goto LABEL_21;
   }
 
-  v16 = [scopes transientSyncAnchorForScope:scopeCopy];
-  if (v16)
+  v15 = [scopes transientSyncAnchorForScope:scopeCopy];
+  if (v15)
   {
 
 LABEL_21:
@@ -88,19 +88,19 @@ LABEL_21:
 
   engineStore = [scopes engineStore];
   transientPullRepository = [engineStore transientPullRepository];
-  v19 = [transientPullRepository hasUnmingledChangesForScope:scopeCopy];
+  v18 = [transientPullRepository hasUnmingledChangesForScope:scopeCopy];
 
-  if (v19)
+  if (v18)
   {
     goto LABEL_21;
   }
 
-  v20 = [scopes sharingScopeForScope:scopeCopy];
-  if (v20)
+  v19 = [scopes sharingScopeForScope:scopeCopy];
+  if (v19)
   {
     engineStore2 = [scopes engineStore];
     transientPullRepository2 = [engineStore2 transientPullRepository];
-    v11 = [transientPullRepository2 hasUnmingledChangesForScope:v20];
+    v11 = [transientPullRepository2 hasUnmingledChangesForScope:v19];
   }
 
   else
@@ -121,14 +121,13 @@ LABEL_10:
       }
 
       *buf = 138412546;
-      v25 = scopeCopy;
-      v26 = 2112;
-      v27 = v13;
+      v24 = scopeCopy;
+      v25 = 2112;
+      v26 = v13;
       _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "Should mingle changes for %@: %@", buf, 0x16u);
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

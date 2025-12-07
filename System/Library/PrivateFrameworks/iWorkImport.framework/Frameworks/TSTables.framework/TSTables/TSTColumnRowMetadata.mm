@@ -19,7 +19,7 @@
 + (id)metadataWithUid:(const TSKUIDStruct *)uid
 {
   v4 = objc_opt_class();
-  result = objc_msgSend_metadata(v4, v5, v6, v7, v8);
+  result = objc_msgSend_metadata(v4, v5, v6, v7);
   *(result + 8) = *uid;
   return result;
 }
@@ -60,36 +60,36 @@
 - (BOOL)migrateStylesToDocument:(id)document
 {
   documentCopy = document;
-  v8 = documentCopy;
+  v7 = documentCopy;
   cellStyle = self->_cellStyle;
   if (cellStyle)
   {
-    v10 = objc_msgSend_migratedStyleForStyle_(documentCopy, v5, cellStyle, v6, v7);
-    v11 = self->_cellStyle;
-    v12 = v10 != v11;
-    if (v10 != v11)
+    v9 = objc_msgSend_migratedStyleForStyle_(documentCopy, v5, cellStyle, v6);
+    v10 = self->_cellStyle;
+    v11 = v9 != v10;
+    if (v9 != v10)
     {
-      objc_storeStrong(&self->_cellStyle, v10);
+      objc_storeStrong(&self->_cellStyle, v9);
     }
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   textStyle = self->_textStyle;
   if (textStyle)
   {
-    v14 = objc_msgSend_migratedStyleForStyle_(v8, v5, textStyle, v6, v7);
-    if (v14 != self->_textStyle)
+    v13 = objc_msgSend_migratedStyleForStyle_(v7, v5, textStyle, v6);
+    if (v13 != self->_textStyle)
     {
-      objc_storeStrong(&self->_textStyle, v14);
-      v12 = 1;
+      objc_storeStrong(&self->_textStyle, v13);
+      v11 = 1;
     }
   }
 
-  return v12;
+  return v11;
 }
 
 - (TSKUIDStruct)columnRowUID

@@ -15,19 +15,19 @@
 
 + (id)changeTokenFromData:(id)data
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = dataCopy;
   if (dataCopy)
   {
+    v9 = 0;
     v10 = 0;
-    v11 = 0;
     if ([dataCopy length] == 16)
     {
-      [v4 getBytes:&v10 length:16];
+      [v4 getBytes:&v9 length:16];
       v5 = objc_opt_new();
-      [v5 setNotifRank:v10];
-      [v5 setDatabaseID:v11];
+      [v5 setNotifRank:v9];
+      [v5 setDatabaseID:v10];
       goto LABEL_8;
     }
 
@@ -36,17 +36,15 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v13 = v4;
-      v14 = 2112;
-      v15 = v6;
+      v12 = v4;
+      v13 = 2112;
+      v14 = v6;
       _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] invalid change token format: %@%@", buf, 0x16u);
     }
   }
 
   v5 = 0;
 LABEL_8:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

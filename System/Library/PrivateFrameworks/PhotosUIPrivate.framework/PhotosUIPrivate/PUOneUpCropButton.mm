@@ -105,12 +105,11 @@
     [(PUOneUpCropButton *)self _aspectRatioSizeForAspectRatio:3];
     v8 = PULocalizedString(@"PHOTOEDIT_QUICK_CROP_WIDESCREEN_TITLE");
     v9 = PXLocalizedStringFromInteger();
-    PXLocalizedStringFromInteger();
-    v22 = v21 = v9;
-    v7 = PUStringWithValidatedFormat();
+    v27 = PXLocalizedStringFromInteger();
+    v7 = PUStringWithValidatedFormat(v8, @"%@ %@", v10, v11, v12, v13, v14, v15, v9);
 
-    v10 = @"rectangle.ratio.16.to.9";
-    v11 = @"rectangle.ratio.9.to.16";
+    v16 = @"rectangle.ratio.16.to.9";
+    v17 = @"rectangle.ratio.9.to.16";
   }
 
   else
@@ -133,56 +132,56 @@
 
     if (userInterfaceIdiom)
     {
-      v10 = @"ipad.landscape";
-      v11 = @"ipad";
+      v16 = @"ipad.landscape";
+      v17 = @"ipad";
     }
 
     else
     {
-      v10 = @"iphone.landscape";
-      v11 = @"iphone";
+      v16 = @"iphone.landscape";
+      v17 = @"iphone";
     }
   }
 
   if (_portrait)
   {
-    v10 = v11;
+    v16 = v17;
   }
 
-  v6 = v10;
+  v6 = v16;
 LABEL_15:
-  v14 = [MEMORY[0x1E69DCAB8] systemImageNamed:{v6, v21, v22}];
-  v15 = v14;
-  if (v14)
+  v20 = [MEMORY[0x1E69DCAB8] systemImageNamed:v6];
+  v21 = v20;
+  if (v20)
   {
-    v16 = v14;
+    v22 = v20;
   }
 
   else
   {
-    v16 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"rectangle.portrait"];
+    v22 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"rectangle.portrait"];
   }
 
-  v17 = v16;
+  v23 = v22;
 
   objc_initWeak(&location, self);
-  v18 = MEMORY[0x1E69DC628];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __43__PUOneUpCropButton__actionForAspectRatio___block_invoke;
-  v23[3] = &unk_1E7B808E0;
-  objc_copyWeak(v24, &location);
-  v24[1] = ratio;
-  v19 = [v18 actionWithTitle:v7 image:v17 identifier:0 handler:v23];
+  v24 = MEMORY[0x1E69DC628];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __43__PUOneUpCropButton__actionForAspectRatio___block_invoke;
+  v28[3] = &unk_1E7B808E0;
+  objc_copyWeak(v29, &location);
+  v29[1] = ratio;
+  v25 = [v24 actionWithTitle:v7 image:v23 identifier:0 handler:v28];
   if ([(PUOneUpCropButton *)self _defaultAspectRatio]== ratio)
   {
-    [v19 setState:1];
+    [v25 setState:1];
   }
 
-  objc_destroyWeak(v24);
+  objc_destroyWeak(v29);
   objc_destroyWeak(&location);
 
-  return v19;
+  return v25;
 }
 
 void __43__PUOneUpCropButton__actionForAspectRatio___block_invoke(uint64_t a1)

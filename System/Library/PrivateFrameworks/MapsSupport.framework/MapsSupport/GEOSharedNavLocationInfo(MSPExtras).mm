@@ -1,14 +1,14 @@
 @interface GEOSharedNavLocationInfo(MSPExtras)
 - (__CFString)mspDescription;
-- (uint64_t)clearMatchedCoordinate;
-- (uint64_t)hasMatchedCoordinate;
 - (uint64_t)setMatchedCoordinate:()MSPExtras;
 - (unint64_t)matchedCoordinate;
+- (void)clearMatchedCoordinate;
+- (void)hasMatchedCoordinate;
 @end
 
 @implementation GEOSharedNavLocationInfo(MSPExtras)
 
-- (uint64_t)hasMatchedCoordinate
+- (void)hasMatchedCoordinate
 {
   result = [self hasMatchedCoordinateIndex];
   if (result)
@@ -46,7 +46,7 @@
   return [self setMatchedCoordinateOffset:v5];
 }
 
-- (uint64_t)clearMatchedCoordinate
+- (void)clearMatchedCoordinate
 {
   result = [self hasMatchedCoordinate];
   if (result)

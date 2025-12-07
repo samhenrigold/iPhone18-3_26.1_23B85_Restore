@@ -20,7 +20,7 @@
 
 + (id)objectWithName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = [ConfigurationHandler objectForName:nameCopy];
   if (!v4)
@@ -50,22 +50,20 @@ LABEL_8:
   {
     v6 = nameCopy;
     v7 = v5;
-    v12 = 136315138;
+    v11 = 136315138;
     uTF8String = [nameCopy UTF8String];
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Attempted reuse of name %s", &v12, 0xCu);
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Attempted reuse of name %s", &v11, 0xCu);
   }
 
   v8 = 0;
 LABEL_9:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)configureClass:(id)class
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   classCopy = class;
   v5 = [classCopy objectForKey:@"SIGNATURE_NAME"];
   if (v5)
@@ -90,22 +88,20 @@ LABEL_9:
     {
       v10 = v9;
       v11 = [classCopy description];
-      v14 = 136315138;
+      v13 = 136315138;
       uTF8String = [v11 UTF8String];
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Can't find name in configuration directory %s", &v14, 0xCu);
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Can't find name in configuration directory %s", &v13, 0xCu);
     }
 
     v8 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (int)configureInstance:(id)instance
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   instanceCopy = instance;
   v5 = [instanceCopy objectForKey:@"SYNDROME_NAME"];
   if (v5)
@@ -229,63 +225,62 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
   conditionsToCheck = self->_conditionsToCheck;
-  self->_conditionsToCheck = v28;
+  self->_conditionsToCheck = v27;
 
-  v30 = [instanceCopy objectForKey:@"REQUIRED_ITEMS"];
-  v11 = v30;
-  if (!v30 || ![v30 count])
+  v29 = [instanceCopy objectForKey:@"REQUIRED_ITEMS"];
+  v11 = v29;
+  if (!v29 || ![v29 count])
   {
     goto LABEL_25;
   }
 
-  v39 = v8;
-  v40 = v9;
-  v41 = v5;
-  v31 = 0;
+  v38 = v8;
+  v39 = v9;
+  v40 = v5;
+  v30 = 0;
   v12 = 0;
   do
   {
-    v32 = [v11 objectAtIndex:v31];
-    v33 = [SimpleRuleCondition configureClass:v32];
-    if (v33)
+    v31 = [v11 objectAtIndex:v30];
+    v32 = [SimpleRuleCondition configureClass:v31];
+    if (v32)
     {
-      [(NSMutableArray *)self->_conditionsToCheck addObject:v33];
+      [(NSMutableArray *)self->_conditionsToCheck addObject:v32];
     }
 
     else
     {
-      v34 = configurationLogHandle;
+      v33 = configurationLogHandle;
       if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v35 = v34;
-        v36 = [v32 description];
-        uTF8String2 = [v36 UTF8String];
+        v34 = v33;
+        v35 = [v31 description];
+        uTF8String2 = [v35 UTF8String];
         *buf = 136315138;
-        v43 = uTF8String2;
-        _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_ERROR, "Configuration failure to configure condition %s", buf, 0xCu);
+        v42 = uTF8String2;
+        _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_ERROR, "Configuration failure to configure condition %s", buf, 0xCu);
       }
 
       v12 = -1;
     }
 
-    ++v31;
+    ++v30;
   }
 
-  while ([v11 count] > v31);
-  v9 = v40;
-  v5 = v41;
-  v8 = v39;
+  while ([v11 count] > v30);
+  v9 = v39;
+  v5 = v40;
+  v8 = v38;
 LABEL_26:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)evaluateSignatureForEvent:(id)event
 {
-  *&v28[5] = *MEMORY[0x277D85DE8];
+  *&v27[5] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = evaluationLogHandle;
@@ -293,9 +288,9 @@ LABEL_26:
   {
     v7 = v6;
     v8 = [eventCopy description];
-    v27 = 136315138;
-    *v28 = [v8 UTF8String];
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "evaluateSignatureForEvent: Entry, event %s", &v27, 0xCu);
+    v26 = 136315138;
+    *v27 = [v8 UTF8String];
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "evaluateSignatureForEvent: Entry, event %s", &v26, 0xCu);
   }
 
   if (![(NSMutableArray *)self->_conditionsToCheck count])
@@ -303,8 +298,8 @@ LABEL_26:
     v12 = evaluationLogHandle;
     if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v27) = 0;
-      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "evaluateSignatureForEvent: no conditions to satisfy", &v27, 2u);
+      LOWORD(v26) = 0;
+      _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "evaluateSignatureForEvent: no conditions to satisfy", &v26, 2u);
     }
 
     v13 = [DecisionDetails alloc];
@@ -341,9 +336,9 @@ LABEL_26:
   {
     if (v19)
     {
-      v27 = 67109120;
-      v28[0] = v10;
-      _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "evaluateSignatureForEvent: satisfied %d conditions", &v27, 8u);
+      v26 = 67109120;
+      v27[0] = v10;
+      _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "evaluateSignatureForEvent: satisfied %d conditions", &v26, 8u);
     }
 
     v13 = [DecisionDetails alloc];
@@ -381,15 +376,13 @@ LABEL_16:
     conditionsToCheck = self->_conditionsToCheck;
     v20 = v18;
     v24 = [(NSMutableArray *)conditionsToCheck count];
-    v27 = 67109376;
-    v28[0] = v10;
-    LOWORD(v28[1]) = 2048;
-    *(&v28[1] + 2) = v24;
-    _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "evaluateSignatureForEvent: only satisfied %d conditions, needed %ld", &v27, 0x12u);
+    v26 = 67109376;
+    v27[0] = v10;
+    LOWORD(v27[1]) = 2048;
+    *(&v27[1] + 2) = v24;
+    _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEBUG, "evaluateSignatureForEvent: only satisfied %d conditions, needed %ld", &v26, 0x12u);
 LABEL_26:
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 @end

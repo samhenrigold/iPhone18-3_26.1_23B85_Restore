@@ -67,39 +67,39 @@ uint64_t __43__WirelessTechnologyProfile_sharedInstance__block_invoke()
     handler[3] = &unk_278CF09E0;
     objc_copyWeak(&v20, &location);
     v11 = notify_register_dispatch(uTF8String, &out_token, v10, handler);
+    v12 = v11;
     if (v11)
     {
-      v12 = symptomsLogHandle();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = symptomsLogHandle(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v25 = v11;
-        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "Failed to register for regulatory domain update notification: %u", buf, 8u);
+        v25 = v12;
+        _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_ERROR, "Failed to register for regulatory domain update notification: %u", buf, 8u);
       }
     }
 
     v2->_regulatoryDomainUpdateNotificationToken = out_token;
-    v13 = +[WirelessTechnologyProfile fetchRegulatoryDomainCountry];
-    [(WirelessTechnologyProfile *)v2 setRegulatoryDomainCountry:v13];
+    v14 = +[WirelessTechnologyProfile fetchRegulatoryDomainCountry];
+    [(WirelessTechnologyProfile *)v2 setRegulatoryDomainCountry:v14];
 
-    v14 = +[CoreTelephonyShim sharedInstance];
-    [v14 addDelegate:v2];
+    v15 = +[CoreTelephonyShim sharedInstance];
+    [v15 addDelegate:v2];
 
     fetchHomeCarrier = [(WirelessTechnologyProfile *)v2 fetchHomeCarrier];
     [(WirelessTechnologyProfile *)v2 setHomeCarrier:fetchHomeCarrier];
 
-    v16 = v2;
+    v17 = v2;
     objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void __33__WirelessTechnologyProfile_init__block_invoke(uint64_t a1)
 {
-  v2 = symptomsLogHandle();
+  v2 = symptomsLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -144,55 +144,55 @@ void __33__WirelessTechnologyProfile_init__block_invoke(uint64_t a1)
 
     if (countryCode)
     {
-      v7 = [fetchRegulatoryDomainCountry_enUSLocale localizedStringForCountryCode:countryCode];
-      v8 = v7;
-      if (v7)
+      v8 = [fetchRegulatoryDomainCountry_enUSLocale localizedStringForCountryCode:countryCode];
+      v9 = v8;
+      if (v8)
       {
-        v8 = v7;
         v9 = v8;
+        v10 = v9;
 LABEL_16:
 
         goto LABEL_17;
       }
 
-      v10 = symptomsLogHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = symptomsLogHandle(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "Error while fetching regulatory domain country: no localized string", v12, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_ERROR, "Error while fetching regulatory domain country: no localized string", v13, 2u);
       }
     }
 
     else
     {
-      v8 = symptomsLogHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = symptomsLogHandle(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "Error while fetching regulatory domain country: no ISO code", v13, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_ERROR, "Error while fetching regulatory domain country: no ISO code", v14, 2u);
       }
     }
 
-    v9 = @"Unknown";
+    v10 = @"Unknown";
     goto LABEL_16;
   }
 
-  countryCode = symptomsLogHandle();
+  countryCode = symptomsLogHandle(0);
   if (os_log_type_enabled(countryCode, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
     _os_log_impl(&dword_241804000, countryCode, OS_LOG_TYPE_ERROR, "Error while fetching regulatory domain country: no estimates", buf, 2u);
   }
 
-  v9 = @"Unknown";
+  v10 = @"Unknown";
 LABEL_17:
 
-  return v9;
+  return v10;
 }
 
 + (id)fetchFormattedHomeCarrierNameForContext:(id)context
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (!fetchFormattedHomeCarrierNameForContext__sInvalidCarrierNames)
   {
@@ -203,129 +203,137 @@ LABEL_17:
 
   v6 = +[CoreTelephonyShim sharedInstance];
   v7 = [objc_alloc(MEMORY[0x277CC3620]) initWithBundleType:1];
-  v25 = 0;
-  v8 = [v6 copyCarrierBundleValue:contextCopy key:@"CarrierName" bundleType:v7 error:&v25];
-  v9 = v25;
+  v30 = 0;
+  v8 = [v6 copyCarrierBundleValue:contextCopy key:@"CarrierName" bundleType:v7 error:&v30];
+  v9 = v30;
 
   if (!v9)
   {
     if (v8)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v10 = +[CoreTelephonyShim sharedInstance];
-        v24 = 0;
-        v11 = [v10 getEnglishCarrierNameFor:v8 error:&v24];
-        v9 = v24;
+        v11 = +[CoreTelephonyShim sharedInstance];
+        v29 = 0;
+        v12 = [v11 getEnglishCarrierNameFor:v8 error:&v29];
+        v9 = v29;
 
-        if (v9 || !v11)
+        if (v9 || !v12)
         {
-          v12 = symptomsLogHandle();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v15 = symptomsLogHandle(v13);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v27 = v9;
-            _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "Error fetching english carrier name: %@", buf, 0xCu);
+            v32 = v9;
+            _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_ERROR, "Error fetching english carrier name: %@", buf, 0xCu);
           }
-        }
-
-        else if ([fetchFormattedHomeCarrierNameForContext__sInvalidCarrierNames containsObject:v11])
-        {
-          v12 = symptomsLogHandle();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
-          {
-            *buf = 138412290;
-            v27 = v11;
-            _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_INFO, "Carrier name invalid: %@", buf, 0xCu);
-          }
-
-          v9 = 0;
         }
 
         else
         {
-          v14 = +[CoreTelephonyShim sharedInstance];
-          v15 = [objc_alloc(MEMORY[0x277CC3620]) initWithBundleType:5];
-          v23 = 0;
-          v12 = [v14 copyCarrierBundleValue:contextCopy key:@"ISOAlpha2CountryCode" bundleType:v15 error:&v23];
-          v9 = v23;
-
-          if (!v9)
+          v14 = [fetchFormattedHomeCarrierNameForContext__sInvalidCarrierNames containsObject:v12];
+          if (v14)
           {
-            if (v12)
+            v15 = symptomsLogHandle(v14);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
             {
-              objc_opt_class();
-              if (objc_opt_isKindOfClass())
+              *buf = 138412290;
+              v32 = v12;
+              _os_log_impl(&dword_241804000, v15, OS_LOG_TYPE_INFO, "Carrier name invalid: %@", buf, 0xCu);
+            }
+
+            v9 = 0;
+          }
+
+          else
+          {
+            v17 = +[CoreTelephonyShim sharedInstance];
+            v18 = [objc_alloc(MEMORY[0x277CC3620]) initWithBundleType:5];
+            v28 = 0;
+            v15 = [v17 copyCarrierBundleValue:contextCopy key:@"ISOAlpha2CountryCode" bundleType:v18 error:&v28];
+            v9 = v28;
+
+            if (!v9)
+            {
+              if (v15)
               {
-                v12 = v12;
-                if ([v12 count])
+                objc_opt_class();
+                v19 = objc_opt_isKindOfClass();
+                if (v19)
                 {
-                  v16 = [v12 objectAtIndexedSubscript:0];
-                  objc_opt_class();
-                  if (objc_opt_isKindOfClass())
+                  v15 = v15;
+                  if ([v15 count])
                   {
-                    v17 = v16;
-                    if ([v17 length]== 2)
+                    v20 = [v15 objectAtIndexedSubscript:0];
+                    objc_opt_class();
+                    v21 = objc_opt_isKindOfClass();
+                    if (v21)
                     {
-                      v18 = objc_alloc(MEMORY[0x277CCACA8]);
-                      uppercaseString = [v17 uppercaseString];
-                      v13 = [v18 initWithFormat:@"%@ %@", v11, uppercaseString];
+                      v22 = v20;
+                      v23 = [v22 length];
+                      if (v23 == 2)
+                      {
+                        v24 = objc_alloc(MEMORY[0x277CCACA8]);
+                        uppercaseString = [v22 uppercaseString];
+                        v16 = [v24 initWithFormat:@"%@ %@", v12, uppercaseString];
+                      }
+
+                      else
+                      {
+                        uppercaseString = symptomsLogHandle(v23);
+                        if (os_log_type_enabled(uppercaseString, OS_LOG_TYPE_ERROR))
+                        {
+                          *buf = 0;
+                          _os_log_impl(&dword_241804000, uppercaseString, OS_LOG_TYPE_ERROR, "Country code has unexpected length", buf, 2u);
+                        }
+
+                        v16 = 0;
+                      }
                     }
 
                     else
                     {
-                      uppercaseString = symptomsLogHandle();
-                      if (os_log_type_enabled(uppercaseString, OS_LOG_TYPE_ERROR))
+                      v22 = symptomsLogHandle(v21);
+                      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 0;
-                        _os_log_impl(&dword_241804000, uppercaseString, OS_LOG_TYPE_ERROR, "Country code has unexpected length", buf, 2u);
+                        _os_log_impl(&dword_241804000, v22, OS_LOG_TYPE_ERROR, "Country code is not a string", buf, 2u);
                       }
 
-                      v13 = 0;
+                      v16 = 0;
                     }
                   }
 
                   else
                   {
-                    v17 = symptomsLogHandle();
-                    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+                    v20 = symptomsLogHandle(0);
+                    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 0;
-                      _os_log_impl(&dword_241804000, v17, OS_LOG_TYPE_ERROR, "Country code is not a string", buf, 2u);
+                      _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_ERROR, "Country codes from bundle are empty", buf, 2u);
                     }
 
-                    v13 = 0;
-                  }
-                }
-
-                else
-                {
-                  v16 = symptomsLogHandle();
-                  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-                  {
-                    *buf = 0;
-                    _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_ERROR, "Country codes from bundle are empty", buf, 2u);
+                    v16 = 0;
                   }
 
-                  v13 = 0;
+                  goto LABEL_28;
                 }
-
-                goto LABEL_28;
               }
             }
-          }
 
-          v20 = symptomsLogHandle();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 138412290;
-            v27 = v9;
-            _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_ERROR, "Error fetching country code from bundle: %@", buf, 0xCu);
+            v26 = symptomsLogHandle(v19);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 138412290;
+              v32 = v9;
+              _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_ERROR, "Error fetching country code from bundle: %@", buf, 0xCu);
+            }
           }
         }
 
-        v13 = 0;
+        v16 = 0;
 LABEL_28:
 
         goto LABEL_29;
@@ -333,80 +341,76 @@ LABEL_28:
     }
   }
 
-  v11 = symptomsLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = symptomsLogHandle(isKindOfClass);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v27 = v9;
-    _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_ERROR, "Error fetching carrier name from bundle: %@", buf, 0xCu);
+    v32 = v9;
+    _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "Error fetching carrier name from bundle: %@", buf, 0xCu);
   }
 
-  v13 = 0;
+  v16 = 0;
 LABEL_29:
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v16;
 }
 
 + (id)fetchMCCMNCHomeCarrierNameForContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v4 = +[CoreTelephonyShim sharedInstance];
-  v15 = 0;
-  v5 = [v4 copyMobileCountryCode:contextCopy error:&v15];
-  v6 = v15;
+  v16 = 0;
+  v5 = [v4 copyMobileCountryCode:contextCopy error:&v16];
+  v6 = v16;
 
   if (v6)
   {
-    v7 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v7 = v5 == 0;
+    v8 = v5 == 0;
   }
 
-  if (v7)
+  if (v8)
   {
-    v9 = symptomsLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = symptomsLogHandle(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v6;
-      _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_ERROR, "Failed to fetch MCC: %@", buf, 0xCu);
+      v18 = v6;
+      _os_log_impl(&dword_241804000, v10, OS_LOG_TYPE_ERROR, "Failed to fetch MCC: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v8 = +[CoreTelephonyShim sharedInstance];
-    v14 = 0;
-    v9 = [v8 copyMobileNetworkCode:contextCopy error:&v14];
-    v6 = v14;
+    v9 = +[CoreTelephonyShim sharedInstance];
+    v15 = 0;
+    v10 = [v9 copyMobileNetworkCode:contextCopy error:&v15];
+    v6 = v15;
 
-    if (!v6 && v9)
+    if (!v6 && v10)
     {
-      v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unknown (mcc=%@, mnc=%@)", v5, v9];
+      v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unknown (mcc=%@, mnc=%@)", v5, v10];
       goto LABEL_15;
     }
 
-    v11 = symptomsLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = symptomsLogHandle(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v6;
-      _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_ERROR, "Failed to fetch MNC: %@", buf, 0xCu);
+      v18 = v6;
+      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_ERROR, "Failed to fetch MNC: %@", buf, 0xCu);
     }
   }
 
-  v10 = 0;
+  v12 = 0;
 LABEL_15:
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v12;
 }
 
 - (id)fetchHomeCarrier
@@ -416,25 +420,25 @@ LABEL_15:
   if (dataContext)
   {
 LABEL_5:
-    v6 = [WirelessTechnologyProfile fetchFormattedHomeCarrierNameForContext:dataContext];
-    v5 = v6;
-    if (v6)
+    v7 = [WirelessTechnologyProfile fetchFormattedHomeCarrierNameForContext:dataContext];
+    v5 = v7;
+    if (v7)
     {
-      v5 = v6;
-      v7 = v5;
+      v5 = v7;
+      v8 = v5;
     }
 
     else
     {
-      v8 = [WirelessTechnologyProfile fetchMCCMNCHomeCarrierNameForContext:dataContext];
-      v9 = v8;
-      v10 = @"Unknown";
-      if (v8)
+      v9 = [WirelessTechnologyProfile fetchMCCMNCHomeCarrierNameForContext:dataContext];
+      v10 = v9;
+      v11 = @"Unknown";
+      if (v9)
       {
-        v10 = v8;
+        v11 = v9;
       }
 
-      v7 = v10;
+      v8 = v11;
     }
 
     goto LABEL_13;
@@ -451,25 +455,23 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v11 = symptomsLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = symptomsLogHandle(v6);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
     v16 = v5;
-    _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_ERROR, "Error while fetching data context: %@", buf, 0xCu);
+    _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "Error while fetching data context: %@", buf, 0xCu);
   }
 
-  v7 = @"Unknown";
+  v8 = @"Unknown";
 LABEL_13:
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 - (void)updateHomeCarrier
 {
-  v3 = symptomsLogHandle();
+  v3 = symptomsLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -488,21 +490,21 @@ LABEL_13:
   v4 = [v3 getCurrentDataSubscriptionContextSync:&v16];
   v5 = v16;
 
-  v6 = symptomsLogHandle();
-  v7 = v6;
+  v7 = symptomsLogHandle(v6);
+  v8 = v7;
   if (v5)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       v18 = v5;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "Error while fetching data context: %@", buf, 0xCu);
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "Error while fetching data context: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       dataContext = [(WirelessTechnologyProfile *)self dataContext];
       uuid = [dataContext uuid];
@@ -511,7 +513,7 @@ LABEL_13:
       v18 = uuid;
       v19 = 2112;
       v20 = uuid2;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_INFO, "subscriptionInfoDidChange: %@ -> %@", buf, 0x16u);
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "subscriptionInfoDidChange: %@ -> %@", buf, 0x16u);
     }
 
     if (v4)
@@ -534,25 +536,23 @@ LABEL_13:
       [(WirelessTechnologyProfile *)self setHomeCarrier:@"Unknown"];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)currentDataSimChanged:(id)changed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
-  v5 = symptomsLogHandle();
+  v5 = symptomsLogHandle(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     dataContext = [(WirelessTechnologyProfile *)self dataContext];
     uuid = [dataContext uuid];
     uuid2 = [changedCopy uuid];
-    v14 = 138412546;
-    v15 = uuid;
-    v16 = 2112;
-    v17 = uuid2;
-    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "currentDataSimChanged: %@ -> %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = uuid;
+    v15 = 2112;
+    v16 = uuid2;
+    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "currentDataSimChanged: %@ -> %@", &v13, 0x16u);
   }
 
   if (changedCopy)
@@ -568,21 +568,19 @@ LABEL_13:
       [(WirelessTechnologyProfile *)self updateHomeCarrier];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)carrierBundleChange:(id)change
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   changeCopy = change;
-  v5 = symptomsLogHandle();
+  v5 = symptomsLogHandle(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     uuid = [changeCopy uuid];
-    v12 = 138412290;
-    v13 = uuid;
-    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "carrierBundleChange: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = uuid;
+    _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_INFO, "carrierBundleChange: %@", &v11, 0xCu);
   }
 
   uuid2 = [changeCopy uuid];
@@ -594,8 +592,6 @@ LABEL_13:
   {
     [(WirelessTechnologyProfile *)self updateHomeCarrier];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

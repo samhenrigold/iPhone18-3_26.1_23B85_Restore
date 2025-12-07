@@ -329,7 +329,7 @@ void __67__LNClientConnection_updateProperties_withQuery_completionHandler___blo
     v13 = xpcConnection;
     if (xpcConnection)
     {
-      [xpcConnection auditToken];
+      objc_msgSend_auditToken(xpcConnection);
     }
 
     else
@@ -439,7 +439,7 @@ void __86__LNClientConnection_getListenerEndpointForBundleIdentifier_action_comp
     v11 = processInfo;
     if (processInfo)
     {
-      [processInfo if_auditToken];
+      objc_msgSend_if_auditToken(processInfo);
     }
 
     else
@@ -616,7 +616,7 @@ void __55__LNClientConnection_fetchEntityURL_completionHandler___block_invoke(ui
   v13 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
   else
@@ -1357,7 +1357,7 @@ void __86__LNClientConnection_fetchDestinationMDMAccountIdentifierForAction_comp
   v10 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
   else
@@ -1406,7 +1406,7 @@ void __89__LNClientConnection_performAllEntitiesQueryWithEntityMangledTypeName_c
   v10 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
   else
@@ -1455,7 +1455,7 @@ void __95__LNClientConnection_performSuggestedEntitiesQueryWithEntityMangledType
   v10 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
   else
@@ -1504,7 +1504,7 @@ void __83__LNClientConnection_performSuggestedResultsQueryWithEntityType_complet
   v10 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
   else
@@ -1553,7 +1553,7 @@ void __65__LNClientConnection_performConfigurableQuery_completionHandler___block
   v10 = xpcConnection;
   if (xpcConnection)
   {
-    [xpcConnection auditToken];
+    objc_msgSend_auditToken(xpcConnection);
   }
 
   else

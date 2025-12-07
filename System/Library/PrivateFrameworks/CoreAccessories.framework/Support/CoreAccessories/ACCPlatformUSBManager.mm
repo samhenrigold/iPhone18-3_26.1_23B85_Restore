@@ -2,6 +2,7 @@
 + (id)sharedManager;
 - (ACCPlatformUSBManager)init;
 - (BOOL)sendUSBNotificationForEndpointUUID:(id)d withMode:(id)mode andFault:(id)fault force:(BOOL)force;
+- (BOOL)setUSBFaultMonitoringForEndpointUUID:(id)d withState:(BOOL)state;
 - (BOOL)setUSBModeForEndpointUUID:(id)d newMode:(int)mode;
 - (BOOL)setUSBModeMonitoringForEndpointUUID:(id)d withState:(BOOL)state;
 - (int)getCachedUSBFaultForEndpointUUID:(id)d;
@@ -506,6 +507,35 @@ void __59__ACCPlatformUSBManager_setUSBModeForEndpointUUID_newMode___block_invok
   return 1;
 }
 
+- (BOOL)setUSBFaultMonitoringForEndpointUUID:(id)d withState:(BOOL)state
+{
+  stateCopy = state;
+  dCopy = d;
+  v7 = _getUSBFaultPluginInstance();
+  v8 = v7;
+  if (v7)
+  {
+    [v7 usbFaultMonitor:stateCopy forUUID:dCopy];
+    v9 = +[NSNotificationCenter defaultCenter];
+    v10 = +[ACCPlatformUSBManager sharedManager];
+    if (stateCopy)
+    {
+      [v9 addObserver:v10 selector:"usbFaultOccurredHandler:" name:ACCPlatformUSBFaultPlugin_USBFaultNotification object:0];
+
+      [(ACCPlatformUSBManager *)self addSubscriberForEndpointUUID:dCopy andFeature:@"USBFaultSubscribers"];
+    }
+
+    else
+    {
+      [v9 removeObserver:v10 name:ACCPlatformUSBFaultPlugin_USBFaultNotification object:0];
+
+      [(ACCPlatformUSBManager *)self removeSubscriberForEndpointUUID:dCopy andFeature:@"USBFaultSubscribers"];
+    }
+  }
+
+  return v8 != 0;
+}
+
 - (void)usbModeChangedHandler:(id)handler
 {
   handlerCopy = handler;
@@ -542,21 +572,21 @@ void __59__ACCPlatformUSBManager_setUSBModeForEndpointUUID_newMode___block_invok
     v4 = +[ACCPlatformUSBManager sharedManager];
     usbModeSubscribers = [v4 usbModeSubscribers];
 
-    v14 = OUTLINED_FUNCTION_0_20(v6, v7, v8, v9, v10, v11, v12, v13, 0, 0, 0, 0, 0, 0, 0, 0, v40, v42);
+    v14 = OUTLINED_FUNCTION_0_20(v6, v7, v8, v9, v10, v11, v12, v13, v32, 0, 0, 0, 0, 0, 0, 0, v41);
     if (v14)
     {
       v15 = v14;
-      v16 = *v34;
+      v16 = *v35;
       while (2)
       {
         for (i = 0; i != v15; i = i + 1)
         {
-          if (*v34 != v16)
+          if (*v35 != v16)
           {
             objc_enumerationMutation(usbModeSubscribers);
           }
 
-          v18 = [*(v33 + 8 * i) objectForKey:dCopy];
+          v18 = [*(v34 + 8 * i) objectForKey:dCopy];
           v19 = v18;
           if (v18)
           {
@@ -571,7 +601,7 @@ void __59__ACCPlatformUSBManager_setUSBModeForEndpointUUID_newMode___block_invok
           }
         }
 
-        v15 = OUTLINED_FUNCTION_0_20(v21, v22, v23, v24, v25, v26, v27, v28, v32, v33, v34, v35, v36, v37, v38, v39, v41, v43);
+        v15 = OUTLINED_FUNCTION_0_20(v21, v22, v23, v24, v25, v26, v27, v28, v33, v34, v35, v36, v37, v38, v39, v40, v42);
         if (v15)
         {
           continue;
@@ -601,20 +631,20 @@ LABEL_13:
     v4 = +[ACCPlatformUSBManager sharedManager];
     usbModeSubscribers = [v4 usbModeSubscribers];
 
-    v14 = OUTLINED_FUNCTION_0_20(v6, v7, v8, v9, v10, v11, v12, v13, 0, 0, 0, 0, 0, 0, 0, 0, v38, v40);
+    v14 = OUTLINED_FUNCTION_0_20(v6, v7, v8, v9, v10, v11, v12, v13, v30, 0, 0, 0, 0, 0, 0, 0, v39);
     if (v14)
     {
-      v15 = *v32;
+      v15 = *v33;
       while (2)
       {
         for (i = 0; i != v14; i = i + 1)
         {
-          if (*v32 != v15)
+          if (*v33 != v15)
           {
             objc_enumerationMutation(usbModeSubscribers);
           }
 
-          v17 = [*(v31 + 8 * i) objectForKey:dCopy];
+          v17 = [*(v32 + 8 * i) objectForKey:dCopy];
           v18 = v17;
           if (v17)
           {
@@ -629,7 +659,7 @@ LABEL_13:
           }
         }
 
-        v14 = OUTLINED_FUNCTION_0_20(v20, v21, v22, v23, v24, v25, v26, v27, v30, v31, v32, v33, v34, v35, v36, v37, v39, v41);
+        v14 = OUTLINED_FUNCTION_0_20(v20, v21, v22, v23, v24, v25, v26, v27, v31, v32, v33, v34, v35, v36, v37, v38, v40);
         if (v14)
         {
           continue;

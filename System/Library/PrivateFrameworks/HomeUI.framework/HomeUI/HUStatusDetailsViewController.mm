@@ -35,7 +35,7 @@
 {
   itemCopy = item;
   swift_unknownObjectRetain();
-  return StatusDetailsViewController.init(statusItem:delegate:)(itemCopy);
+  return StatusDetailsViewController.init(statusItem:delegate:)(itemCopy, delegate);
 }
 
 - (void)viewDidLoad
@@ -128,7 +128,7 @@
   (*(v7 + 8))(v9, v6);
   if (shouldUseTitleDescriptionStyleForItem_)
   {
-    sub_20CECF940(0, &unk_27C821B08);
+    sub_20CECF940(0, &unk_27C821B08, off_277DB15C8);
   }
 
   else
@@ -159,7 +159,7 @@
 
 - (void)accessoryControlViewControllerFor:(HFAccessoryRepresentableItem *)for tileItem:(HFItem *)item completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -241,7 +241,7 @@
 
   if (!v7)
   {
-    sub_20CECF940(0, &qword_281120AC0);
+    sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
     sub_20D567A78();
     v7 = sub_20D567A58();
   }

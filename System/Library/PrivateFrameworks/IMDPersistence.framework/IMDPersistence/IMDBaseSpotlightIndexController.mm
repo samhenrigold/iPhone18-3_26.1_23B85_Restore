@@ -13,100 +13,100 @@
 
 - (void)searchableIndex:(id)index reindexAllSearchableItemsWithAcknowledgementHandler:(id)handler
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   indexCopy = index;
   handlerCopy = handler;
-  v9 = objc_msgSend_needsIndexing(MEMORY[0x1E69A7FF8], v7, v8);
-  v12 = sub_1B7BAB53C();
-  if (v12)
+  v10 = objc_msgSend_needsIndexing(MEMORY[0x1E69A7FF8], v7, v8, v9);
+  v14 = sub_1B7BAB53C();
+  if (v14)
   {
-    v13 = objc_msgSend_date(MEMORY[0x1E695DF00], v10, v11);
-    objc_msgSend_timeIntervalSinceDate_(v13, v14, v12);
-    v16 = fabs(v15);
+    v15 = objc_msgSend_date(MEMORY[0x1E695DF00], v11, v12, v13);
+    objc_msgSend_timeIntervalSinceDate_(v15, v16, v14, v17);
+    v19 = fabs(v18);
 
-    if (v16 < 10800.0)
+    if (v19 < 10800.0)
     {
 
-      v17 = 1;
+      v20 = 1;
       goto LABEL_15;
     }
   }
 
-  if (v9)
+  if (v10)
   {
-    v17 = 0;
+    v20 = 0;
 LABEL_15:
     if (IMOSLoggingEnabled())
     {
-      v38 = OSLogHandleForIMEventCategory();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+      v47 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
       {
-        v39 = sub_1B7BAB53C();
-        v40 = v39;
-        v41 = @"NO";
-        if (v17)
+        v48 = sub_1B7BAB53C();
+        v49 = v48;
+        v50 = @"NO";
+        if (v20)
         {
-          v42 = @"YES";
+          v51 = @"YES";
         }
 
         else
         {
-          v42 = @"NO";
+          v51 = @"NO";
         }
 
-        *v48 = 138412802;
-        if (v9)
+        *v58 = 138412802;
+        if (v10)
         {
-          v41 = @"YES";
+          v50 = @"YES";
         }
 
-        *&v48[4] = v41;
-        v49 = 2112;
-        v50 = v42;
-        v51 = 2112;
-        v52 = v39;
-        _os_log_impl(&dword_1B7AD5000, v38, OS_LOG_TYPE_INFO, "Spotlight requesting full reindex, scheduling deferred indexing. Index in progress %@ rerequestWithinInterval %@ lastRequestDate %@", v48, 0x20u);
+        *&v58[4] = v50;
+        v59 = 2112;
+        v60 = v51;
+        v61 = 2112;
+        v62 = v48;
+        _os_log_impl(&dword_1B7AD5000, v47, OS_LOG_TYPE_INFO, "Spotlight requesting full reindex, scheduling deferred indexing. Index in progress %@ rerequestWithinInterval %@ lastRequestDate %@", v58, 0x20u);
       }
     }
 
-    v43 = objc_msgSend_sharedNotifier(IMSpotlightEventNotifier, v36, v37, *v48);
-    objc_msgSend_deferredReindexScheduled(v43, v44, v45);
+    v52 = objc_msgSend_sharedNotifier(IMSpotlightEventNotifier, v44, v45, v46, *v58);
+    objc_msgSend_deferredReindexScheduled(v52, v53, v54, v55);
 
     sub_1B7BAB424(2);
-    objc_msgSend_setNeedsDeferredIndexing_(MEMORY[0x1E69A7FF8], v46, 1);
+    objc_msgSend_setNeedsDeferredIndexing_(MEMORY[0x1E69A7FF8], v56, 1, v57);
     goto LABEL_25;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v20 = OSLogHandleForIMEventCategory();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v24 = OSLogHandleForIMEventCategory();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      *v48 = 0;
-      _os_log_impl(&dword_1B7AD5000, v20, OS_LOG_TYPE_INFO, "Spotlight requesting full reindex, fullfilling request", v48, 2u);
+      *v58 = 0;
+      _os_log_impl(&dword_1B7AD5000, v24, OS_LOG_TYPE_INFO, "Spotlight requesting full reindex, fullfilling request", v58, 2u);
     }
   }
 
-  v21 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v18, v19);
-  isSpotlightReindexRefactorEnabled = objc_msgSend_isSpotlightReindexRefactorEnabled(v21, v22, v23);
+  v25 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v21, v22, v23);
+  isSpotlightReindexRefactorEnabled = objc_msgSend_isSpotlightReindexRefactorEnabled(v25, v26, v27, v28);
 
   if ((isSpotlightReindexRefactorEnabled & 1) == 0)
   {
     sub_1B7BAB424(1);
   }
 
-  v27 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v25, v26);
-  v29 = objc_msgSend_contextWithReason_(IMDIndexingContext, v28, 6);
-  objc_msgSend_setNeedsMessageReindexingWithContext_completion_(v27, v30, v29, &unk_1F2FA0470);
+  v33 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v30, v31, v32);
+  v36 = objc_msgSend_contextWithReason_(IMDIndexingContext, v34, 6, v35);
+  objc_msgSend_setNeedsMessageReindexingWithContext_completion_(v33, v37, v36, &unk_1F2FA0470);
 
-  v33 = objc_msgSend_date(MEMORY[0x1E695DF00], v31, v32);
-  v34 = CPCopySharedResourcesPreferencesDomainForDomain();
-  v35 = v34;
-  if (v34)
+  v41 = objc_msgSend_date(MEMORY[0x1E695DF00], v38, v39, v40);
+  v42 = CPCopySharedResourcesPreferencesDomainForDomain();
+  v43 = v42;
+  if (v42)
   {
-    CFPreferencesAppSynchronize(v34);
-    CFPreferencesSetAppValue(@"IMDCoreSpotlightLastFullReindexRequestTime", v33, v35);
-    CFRelease(v35);
+    CFPreferencesAppSynchronize(v42);
+    CFPreferencesSetAppValue(@"IMDCoreSpotlightLastFullReindexRequestTime", v41, v43);
+    CFRelease(v43);
   }
 
 LABEL_25:
@@ -114,38 +114,36 @@ LABEL_25:
   {
     handlerCopy[2](handlerCopy);
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (void)searchableIndex:(id)index reindexSearchableItemsWithIdentifiers:(id)identifiers acknowledgementHandler:(id)handler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   indexCopy = index;
   identifiersCopy = identifiers;
   handlerCopy = handler;
   if (IMOSLoggingEnabled())
   {
-    v12 = OSLogHandleForIMEventCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = OSLogHandleForIMEventCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v27 = 134217984;
-      v28 = objc_msgSend_count(identifiersCopy, v13, v14);
-      _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "Got the callback for reindexSearchableItemsWithIdentifiers with %lu identifiers", &v27, 0xCu);
+      v31 = 134217984;
+      v32 = objc_msgSend_count(identifiersCopy, v14, v15, v16);
+      _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "Got the callback for reindexSearchableItemsWithIdentifiers with %lu identifiers", &v31, 0xCu);
     }
   }
 
-  v15 = objc_msgSend_count(identifiersCopy, v10, v11) == 0;
-  v16 = IMOSLoggingEnabled();
-  if (v15)
+  v17 = objc_msgSend_count(identifiersCopy, v10, v11, v12) == 0;
+  v18 = IMOSLoggingEnabled();
+  if (v17)
   {
-    if (v16)
+    if (v18)
     {
-      v25 = OSLogHandleForIMEventCategory();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v30 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v27) = 0;
-        _os_log_impl(&dword_1B7AD5000, v25, OS_LOG_TYPE_INFO, "Not reindexing, we were asked to index 0 items", &v27, 2u);
+        LOWORD(v31) = 0;
+        _os_log_impl(&dword_1B7AD5000, v30, OS_LOG_TYPE_INFO, "Not reindexing, we were asked to index 0 items", &v31, 2u);
       }
     }
 
@@ -157,75 +155,71 @@ LABEL_25:
 
   else
   {
-    if (v16)
+    if (v18)
     {
-      v17 = OSLogHandleForIMEventCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v19 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v20 = objc_msgSend_count(identifiersCopy, v18, v19);
-        v27 = 134217984;
-        v28 = v20;
-        _os_log_impl(&dword_1B7AD5000, v17, OS_LOG_TYPE_INFO, "Spotlight requesting reindexing of %lu identifiers, fullfilling request", &v27, 0xCu);
+        v23 = objc_msgSend_count(identifiersCopy, v20, v21, v22);
+        v31 = 134217984;
+        v32 = v23;
+        _os_log_impl(&dword_1B7AD5000, v19, OS_LOG_TYPE_INFO, "Spotlight requesting reindexing of %lu identifiers, fullfilling request", &v31, 0xCu);
       }
     }
 
-    v21 = [IMDCoreSpotlightSelectiveReindexingJob alloc];
-    v23 = objc_msgSend_initWithItemIdentifiers_(v21, v22, identifiersCopy);
-    objc_msgSend_runWithAcknowledgementHandler_(v23, v24, handlerCopy);
+    v24 = [IMDCoreSpotlightSelectiveReindexingJob alloc];
+    v27 = objc_msgSend_initWithItemIdentifiers_(v24, v25, identifiersCopy, v26);
+    objc_msgSend_runWithAcknowledgementHandler_(v27, v28, handlerCopy, v29);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_createErrorFromSyncError:(id)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (errorCopy)
   {
-    v7 = objc_msgSend_errorAnalyzer(self, v4, v5);
-    v28 = &unk_1F2FCA308;
-    v9 = objc_msgSend_responseForError_attempt_retryInterval_(v7, v8, errorCopy, 0, &v28);
-    v10 = v28;
+    v8 = objc_msgSend_errorAnalyzer(self, v4, v5, v6);
+    v30 = &unk_1F2FCA308;
+    v10 = objc_msgSend_responseForError_attempt_retryInterval_(v8, v9, errorCopy, 0, &v30);
+    v11 = v30;
 
-    v11 = *MEMORY[0x1E696AA08];
-    v29[0] = *MEMORY[0x1E69A6A68];
-    v29[1] = v11;
-    v30[0] = v10;
-    v12 = MEMORY[0x1E696ABC0];
-    v15 = objc_msgSend_domain(errorCopy, v13, v14);
-    v18 = objc_msgSend_code(errorCopy, v16, v17);
-    v20 = objc_msgSend_errorWithDomain_code_userInfo_(v12, v19, v15, v18, 0);
-    v30[1] = v20;
-    v22 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v21, v30, v29, 2);
+    v12 = *MEMORY[0x1E696AA08];
+    v31[0] = *MEMORY[0x1E69A6A68];
+    v31[1] = v12;
+    v32[0] = v11;
+    v13 = MEMORY[0x1E696ABC0];
+    v17 = objc_msgSend_domain(errorCopy, v14, v15, v16);
+    v21 = objc_msgSend_code(errorCopy, v18, v19, v20);
+    v23 = objc_msgSend_errorWithDomain_code_userInfo_(v13, v22, v17, v21, 0);
+    v32[1] = v23;
+    v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v24, v32, v31, 2);
 
-    v24 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v23, @"com.apple.messages.IndexRequestHandler", v9, v22);
+    v27 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v26, @"com.apple.messages.IndexRequestHandler", v10, v25);
   }
 
   else
   {
     if (IMOSLoggingEnabled())
     {
-      v25 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v28 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v32 = "[IMDBaseSpotlightIndexController _createErrorFromSyncError:]";
-        _os_log_impl(&dword_1B7AD5000, v25, OS_LOG_TYPE_INFO, "%s originalError was nil, returning nil", buf, 0xCu);
+        v34 = "[IMDBaseSpotlightIndexController _createErrorFromSyncError:]";
+        _os_log_impl(&dword_1B7AD5000, v28, OS_LOG_TYPE_INFO, "%s originalError was nil, returning nil", buf, 0xCu);
       }
     }
 
-    v24 = 0;
+    v27 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v24;
+  return v27;
 }
 
 - (id)fileURLForSearchableIndex:(id)index itemIdentifier:(id)identifier typeIdentifier:(id)typeIdentifier options:(int64_t)options error:(id *)error
 {
-  v138 = *MEMORY[0x1E69E9840];
+  v142 = *MEMORY[0x1E69E9840];
   indexCopy = index;
   identifierCopy = identifier;
   typeIdentifierCopy = typeIdentifier;
@@ -242,637 +236,635 @@ LABEL_25:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v134 = 0x3032000000;
-  v135 = sub_1B7AE1AD0;
-  v136 = sub_1B7AE2570;
+  v138 = 0x3032000000;
+  v139 = sub_1B7AE1AD0;
+  v140 = sub_1B7AE2570;
   v15 = identifierCopy;
-  v137 = v15;
-  v117 = 0;
-  v118 = &v117;
-  v119 = 0x3032000000;
-  v120 = sub_1B7AE1AD0;
-  v121 = sub_1B7AE2570;
-  v122 = 0;
-  v111 = 0;
-  v112 = &v111;
-  v113 = 0x3032000000;
-  v114 = sub_1B7AE1AD0;
-  v115 = sub_1B7AE2570;
-  v116 = 0;
-  v105 = 0;
-  v106 = &v105;
-  v107 = 0x3032000000;
-  v108 = sub_1B7AE1AD0;
-  v109 = sub_1B7AE2570;
-  v110 = 0;
-  v99 = 0;
-  v100 = &v99;
-  v101 = 0x3032000000;
-  v102 = sub_1B7AE1AD0;
-  v103 = sub_1B7AE2570;
-  v104 = 0;
+  v141 = v15;
+  v121 = 0;
+  v122 = &v121;
+  v123 = 0x3032000000;
+  v124 = sub_1B7AE1AD0;
+  v125 = sub_1B7AE2570;
+  v126 = 0;
+  v115 = 0;
+  v116 = &v115;
+  v117 = 0x3032000000;
+  v118 = sub_1B7AE1AD0;
+  v119 = sub_1B7AE2570;
+  v120 = 0;
+  v109 = 0;
+  v110 = &v109;
+  v111 = 0x3032000000;
+  v112 = sub_1B7AE1AD0;
+  v113 = sub_1B7AE2570;
+  v114 = 0;
+  v103 = 0;
+  v104 = &v103;
+  v105 = 0x3032000000;
+  v106 = sub_1B7AE1AD0;
+  v107 = sub_1B7AE2570;
+  v108 = 0;
   if (IMOSLoggingEnabled())
   {
     v16 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = *(*(&buf + 1) + 40);
-      *v126 = 138412290;
-      v127 = v17;
-      _os_log_impl(&dword_1B7AD5000, v16, OS_LOG_TYPE_INFO, "Starting download of file transfer with GUID %@", v126, 0xCu);
+      *v130 = 138412290;
+      v131 = v17;
+      _os_log_impl(&dword_1B7AD5000, v16, OS_LOG_TYPE_INFO, "Starting download of file transfer with GUID %@", v130, 0xCu);
     }
   }
 
   v18 = dispatch_group_create();
   dispatch_group_enter(v18);
-  v21 = objc_msgSend_delegate(self, v19, v20);
-  v132 = *(*(&buf + 1) + 40);
-  v23 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v22, &v132, 1);
-  v92[0] = MEMORY[0x1E69E9820];
-  v92[1] = 3221225472;
-  v92[2] = sub_1B7BAC5C8;
-  v92[3] = &unk_1E7CBBF98;
-  v95 = &v99;
-  v96 = &v111;
-  v97 = &v117;
-  v98 = &v105;
+  v22 = objc_msgSend_delegate(self, v19, v20, v21);
+  v136 = *(*(&buf + 1) + 40);
+  v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v23, &v136, 1);
+  v96[0] = MEMORY[0x1E69E9820];
+  v96[1] = 3221225472;
+  v96[2] = sub_1B7BAC5C8;
+  v96[3] = &unk_1E7CBBF98;
+  v99 = &v103;
+  v100 = &v115;
+  v101 = &v121;
+  v102 = &v109;
   p_buf = &buf;
-  v92[4] = self;
-  v24 = v18;
-  v93 = v24;
-  objc_msgSend_retrieveLocalFileURLForFileTransferWithGUIDs_options_completion_(v21, v25, v23, options, v92);
+  v96[4] = self;
+  v25 = v18;
+  v97 = v25;
+  objc_msgSend_retrieveLocalFileURLForFileTransferWithGUIDs_options_completion_(v22, v26, v24, options, v96);
 
   if (IMOSLoggingEnabled())
   {
-    v26 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    v27 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
-      *v126 = 0;
-      _os_log_impl(&dword_1B7AD5000, v26, OS_LOG_TYPE_INFO, "Beginning blocking index extension on file transfer download.", v126, 2u);
+      *v130 = 0;
+      _os_log_impl(&dword_1B7AD5000, v27, OS_LOG_TYPE_INFO, "Beginning blocking index extension on file transfer download.", v130, 2u);
     }
   }
 
-  v27 = dispatch_time(0, 180000000000);
-  v28 = dispatch_group_wait(v24, v27);
+  v28 = dispatch_time(0, 180000000000);
+  v29 = dispatch_group_wait(v25, v28);
   if (IMOSLoggingEnabled())
   {
-    v31 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v33 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
-      *v126 = 0;
-      _os_log_impl(&dword_1B7AD5000, v31, OS_LOG_TYPE_INFO, "Finished blocking index extension on file transfer download.", v126, 2u);
+      *v130 = 0;
+      _os_log_impl(&dword_1B7AD5000, v33, OS_LOG_TYPE_INFO, "Finished blocking index extension on file transfer download.", v130, 2u);
     }
   }
 
-  v32 = v112[5];
-  if (v32 || !v28)
+  v34 = v116[5];
+  if (v34 || !v29)
   {
-    if (!v32)
+    if (!v34)
     {
-      v53 = v118[5];
-      if (v53)
+      v56 = v122[5];
+      if (v56)
       {
-        if ((objc_msgSend_isEqualToString_(*(*(&buf + 1) + 40), v29, v53) & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(*(*(&buf + 1) + 40), v30, v56, v32) & 1) == 0)
         {
           if (IMOSLoggingEnabled())
           {
-            v54 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+            v57 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
             {
-              v55 = *(*(&buf + 1) + 40);
-              v56 = v118[5];
-              *v126 = 138412546;
-              v127 = v55;
-              v128 = 2112;
-              v129 = v56;
-              _os_log_impl(&dword_1B7AD5000, v54, OS_LOG_TYPE_INFO, "Requested download of file transfer with GUID %@ failed, but was able to derive a suggested retry GUID %@", v126, 0x16u);
+              v58 = *(*(&buf + 1) + 40);
+              v59 = v122[5];
+              *v130 = 138412546;
+              v131 = v58;
+              v132 = 2112;
+              v133 = v59;
+              _os_log_impl(&dword_1B7AD5000, v57, OS_LOG_TYPE_INFO, "Requested download of file transfer with GUID %@ failed, but was able to derive a suggested retry GUID %@", v130, 0x16u);
             }
           }
 
-          v57 = dispatch_group_create();
-          dispatch_group_enter(v57);
-          v60 = objc_msgSend_delegate(self, v58, v59);
-          v125 = v118[5];
-          v62 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v61, &v125, 1);
-          v87[0] = MEMORY[0x1E69E9820];
-          v87[1] = 3221225472;
-          v87[2] = sub_1B7BAC8F0;
-          v87[3] = &unk_1E7CBBFC0;
-          v89 = &v117;
-          v90 = &v99;
-          v91 = &v111;
-          v63 = v57;
-          v88 = v63;
-          objc_msgSend_retrieveLocalFileURLForFileTransferWithGUIDs_options_completion_(v60, v64, v62, options, v87);
+          v60 = dispatch_group_create();
+          dispatch_group_enter(v60);
+          v64 = objc_msgSend_delegate(self, v61, v62, v63);
+          v129 = v122[5];
+          v66 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v65, &v129, 1);
+          v91[0] = MEMORY[0x1E69E9820];
+          v91[1] = 3221225472;
+          v91[2] = sub_1B7BAC8F0;
+          v91[3] = &unk_1E7CBBFC0;
+          v93 = &v121;
+          v94 = &v103;
+          v95 = &v115;
+          v67 = v60;
+          v92 = v67;
+          objc_msgSend_retrieveLocalFileURLForFileTransferWithGUIDs_options_completion_(v64, v68, v66, options, v91);
 
           if (IMOSLoggingEnabled())
           {
-            v65 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+            v69 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
             {
-              *v126 = 0;
-              _os_log_impl(&dword_1B7AD5000, v65, OS_LOG_TYPE_INFO, "Beginning blocking index extension on secondary file transfer download.", v126, 2u);
+              *v130 = 0;
+              _os_log_impl(&dword_1B7AD5000, v69, OS_LOG_TYPE_INFO, "Beginning blocking index extension on secondary file transfer download.", v130, 2u);
             }
           }
 
-          v66 = dispatch_time(0, 180000000000);
-          dispatch_group_wait(v63, v66);
+          v70 = dispatch_time(0, 180000000000);
+          dispatch_group_wait(v67, v70);
           if (IMOSLoggingEnabled())
           {
-            v67 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+            v71 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
             {
-              *v126 = 0;
-              _os_log_impl(&dword_1B7AD5000, v67, OS_LOG_TYPE_INFO, "Finished blocking index extension on secondary file transfer download.", v126, 2u);
+              *v130 = 0;
+              _os_log_impl(&dword_1B7AD5000, v71, OS_LOG_TYPE_INFO, "Finished blocking index extension on secondary file transfer download.", v130, 2u);
             }
           }
         }
       }
     }
 
-    v49 = v112[5];
-    if (v49 || error && (v68 = v106[5]) != 0 && (*error = v68, (v49 = v112[5]) != 0))
+    v52 = v116[5];
+    if (v52 || error && (v72 = v110[5]) != 0 && (*error = v72, (v52 = v116[5]) != 0))
     {
-      v50 = v100[5];
       if (!IMUTITypeIsSupportedByPhotos())
       {
-        v70 = MEMORY[0x1E696ABC0];
-        v123[0] = *MEMORY[0x1E696A578];
-        v71 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v51, v52);
-        v73 = objc_msgSend_localizedStringForKey_value_table_(v71, v72, @"File URL fetch operation was unsuccessful.", &stru_1F2FA9728, 0);
-        v124[0] = v73;
-        v123[1] = *MEMORY[0x1E696A588];
-        v75 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v74, @"File transfer had an unsupported UTI %@", v100[5], indexCopy);
-        v124[1] = v75;
-        v77 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v76, v124, v123, 2);
-        v79 = objc_msgSend_errorWithDomain_code_userInfo_(v70, v78, *MEMORY[0x1E69A83D0], 256, v77);
+        v74 = MEMORY[0x1E696ABC0];
+        v127[0] = *MEMORY[0x1E696A578];
+        v75 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v53, v54, v55);
+        v77 = objc_msgSend_localizedStringForKey_value_table_(v75, v76, @"File URL fetch operation was unsuccessful.", &stru_1F2FA9728, 0);
+        v128[0] = v77;
+        v127[1] = *MEMORY[0x1E696A588];
+        v80 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v78, @"File transfer had an unsupported UTI %@", v79, v104[5], indexCopy);
+        v128[1] = v80;
+        v82 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v81, v128, v127, 2);
+        v84 = objc_msgSend_errorWithDomain_code_userInfo_(v74, v83, *MEMORY[0x1E69A83D0], 256, v82);
 
         if (error)
         {
-          v80 = v79;
-          *error = v79;
+          v85 = v84;
+          *error = v84;
         }
 
         if (IMOSLoggingEnabled())
         {
-          v81 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
+          v86 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
           {
-            v82 = *(*(&buf + 1) + 40);
-            v83 = v100[5];
-            *v126 = 138412546;
-            v127 = v82;
-            v128 = 2112;
-            v129 = v83;
-            _os_log_impl(&dword_1B7AD5000, v81, OS_LOG_TYPE_INFO, "File transfer with GUID %@ had unsupported UTI type %@", v126, 0x16u);
+            v87 = *(*(&buf + 1) + 40);
+            v88 = v104[5];
+            *v130 = 138412546;
+            v131 = v87;
+            v132 = 2112;
+            v133 = v88;
+            _os_log_impl(&dword_1B7AD5000, v86, OS_LOG_TYPE_INFO, "File transfer with GUID %@ had unsupported UTI type %@", v130, 0x16u);
           }
         }
 
         goto LABEL_56;
       }
 
-      v49 = v112[5];
+      v52 = v116[5];
     }
 
-    v69 = v49;
+    v73 = v52;
     goto LABEL_57;
   }
 
-  v33 = MEMORY[0x1E696ABC0];
-  v130[0] = *MEMORY[0x1E696A578];
-  v34 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v29, v30);
-  v36 = objc_msgSend_localizedStringForKey_value_table_(v34, v35, @"File URL fetch operation was unsuccessful.", &stru_1F2FA9728, 0);
-  v131[0] = v36;
-  v130[1] = *MEMORY[0x1E696A588];
-  v39 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v37, v38);
-  v41 = objc_msgSend_localizedStringForKey_value_table_(v39, v40, @"Timed out while downloading file transfer.", &stru_1F2FA9728, 0);
-  v131[1] = v41;
-  v43 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v42, v131, v130, 2);
-  v45 = objc_msgSend_errorWithDomain_code_userInfo_(v33, v44, *MEMORY[0x1E69A83D0], 257, v43);
+  v35 = MEMORY[0x1E696ABC0];
+  v134[0] = *MEMORY[0x1E696A578];
+  v36 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v30, v31, v32);
+  v38 = objc_msgSend_localizedStringForKey_value_table_(v36, v37, @"File URL fetch operation was unsuccessful.", &stru_1F2FA9728, 0);
+  v135[0] = v38;
+  v134[1] = *MEMORY[0x1E696A588];
+  v42 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v39, v40, v41);
+  v44 = objc_msgSend_localizedStringForKey_value_table_(v42, v43, @"Timed out while downloading file transfer.", &stru_1F2FA9728, 0);
+  v135[1] = v44;
+  v46 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v45, v135, v134, 2);
+  v48 = objc_msgSend_errorWithDomain_code_userInfo_(v35, v47, *MEMORY[0x1E69A83D0], 257, v46);
 
   if (error)
   {
-    v46 = v45;
-    *error = v45;
+    v49 = v48;
+    *error = v48;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v47 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+    v50 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
     {
-      v48 = *(*(&buf + 1) + 40);
-      *v126 = 138412290;
-      v127 = v48;
-      _os_log_impl(&dword_1B7AD5000, v47, OS_LOG_TYPE_INFO, "Timed out while downloading file transfer with GUID %@", v126, 0xCu);
+      v51 = *(*(&buf + 1) + 40);
+      *v130 = 138412290;
+      v131 = v51;
+      _os_log_impl(&dword_1B7AD5000, v50, OS_LOG_TYPE_INFO, "Timed out while downloading file transfer with GUID %@", v130, 0xCu);
     }
   }
 
 LABEL_56:
-  v69 = 0;
+  v73 = 0;
 LABEL_57:
 
-  _Block_object_dispose(&v99, 8);
-  _Block_object_dispose(&v105, 8);
+  _Block_object_dispose(&v103, 8);
+  _Block_object_dispose(&v109, 8);
 
-  _Block_object_dispose(&v111, 8);
-  _Block_object_dispose(&v117, 8);
+  _Block_object_dispose(&v115, 8);
+  _Block_object_dispose(&v121, 8);
 
   _Block_object_dispose(&buf, 8);
-  v84 = *MEMORY[0x1E69E9840];
 
-  return v69;
+  return v73;
 }
 
 - (id)fileURLsForSearchableIndex:(id)index itemIdentifiers:(id)identifiers typeIdentifier:(id)identifier options:(int64_t)options error:(id *)error
 {
-  v201 = *MEMORY[0x1E69E9840];
+  v222 = *MEMORY[0x1E69E9840];
   indexCopy = index;
   identifiersCopy = identifiers;
   identifierCopy = identifier;
   if (IMOSLoggingEnabled())
   {
-    v11 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = identifiersCopy;
-      _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_INFO, "Spotlight requesting fileURL for item identifiers %@", &buf, 0xCu);
+      _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "Spotlight requesting fileURL for item identifiers %@", &buf, 0xCu);
     }
   }
 
-  if (objc_msgSend_count(identifiersCopy, v9, v10))
+  if (objc_msgSend_count(identifiersCopy, v9, v10, v11))
   {
-    v128 = identifiersCopy;
+    v149 = identifiersCopy;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v197 = 0x3032000000;
-    v198 = sub_1B7AE1AD0;
-    v199 = sub_1B7AE2570;
-    v200 = objc_opt_new();
-    v179 = 0;
-    v180 = &v179;
-    v181 = 0x3032000000;
-    v182 = sub_1B7AE1AD0;
-    v183 = sub_1B7AE2570;
-    v184 = objc_opt_new();
-    v173 = 0;
-    v174 = &v173;
-    v175 = 0x3032000000;
-    v176 = sub_1B7AE1AD0;
-    v177 = sub_1B7AE2570;
-    v178 = objc_opt_new();
-    v167 = 0;
-    v168 = &v167;
-    v169 = 0x3032000000;
-    v170 = sub_1B7AE1AD0;
-    v171 = sub_1B7AE2570;
-    v172 = objc_opt_new();
-    v161 = 0;
-    v162 = &v161;
-    v163 = 0x3032000000;
-    v164 = sub_1B7AE1AD0;
-    v165 = sub_1B7AE2570;
-    v166 = objc_opt_new();
+    v218 = 0x3032000000;
+    v219 = sub_1B7AE1AD0;
+    v220 = sub_1B7AE2570;
+    v221 = objc_opt_new();
+    v200 = 0;
+    v201 = &v200;
+    v202 = 0x3032000000;
+    v203 = sub_1B7AE1AD0;
+    v204 = sub_1B7AE2570;
+    v205 = objc_opt_new();
+    v194 = 0;
+    v195 = &v194;
+    v196 = 0x3032000000;
+    v197 = sub_1B7AE1AD0;
+    v198 = sub_1B7AE2570;
+    v199 = objc_opt_new();
+    v188 = 0;
+    v189 = &v188;
+    v190 = 0x3032000000;
+    v191 = sub_1B7AE1AD0;
+    v192 = sub_1B7AE2570;
+    v193 = objc_opt_new();
+    v182 = 0;
+    v183 = &v182;
+    v184 = 0x3032000000;
+    v185 = sub_1B7AE1AD0;
+    v186 = sub_1B7AE2570;
+    v187 = objc_opt_new();
     if (IMOSLoggingEnabled())
     {
-      v12 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        *v192 = 138412290;
-        v193 = v128;
-        _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "Starting download of file transfer with GUIDs %@", v192, 0xCu);
+        *v213 = 138412290;
+        v214 = v149;
+        _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "Starting download of file transfer with GUIDs %@", v213, 0xCu);
       }
     }
 
-    v15 = dispatch_group_create();
-    for (i = 0; i < objc_msgSend_count(v128, v13, v14); ++i)
+    v17 = dispatch_group_create();
+    for (i = 0; i < objc_msgSend_count(v149, v14, v15, v16); ++i)
     {
-      dispatch_group_enter(v15);
+      dispatch_group_enter(v17);
     }
 
-    v19 = objc_msgSend_delegate(self, v17, v18);
-    v154[0] = MEMORY[0x1E69E9820];
-    v154[1] = 3221225472;
-    v154[2] = sub_1B7BADCA8;
-    v154[3] = &unk_1E7CBBFE8;
-    v157 = &v179;
+    v22 = objc_msgSend_delegate(self, v19, v20, v21);
+    v175[0] = MEMORY[0x1E69E9820];
+    v175[1] = 3221225472;
+    v175[2] = sub_1B7BADCA8;
+    v175[3] = &unk_1E7CBBFE8;
+    v178 = &v200;
     p_buf = &buf;
-    v156 = &v167;
-    v154[4] = self;
-    v159 = &v173;
-    v160 = &v161;
-    group = v15;
-    v155 = group;
-    objc_msgSend_retrieveLocalFileURLForFileTransferWithGUIDs_options_completion_(v19, v20, v128, options, v154);
+    v177 = &v188;
+    v175[4] = self;
+    v180 = &v194;
+    v181 = &v182;
+    group = v17;
+    v176 = group;
+    objc_msgSend_retrieveLocalFileURLForFileTransferWithGUIDs_options_completion_(v22, v23, v149, options, v175);
 
-    if (IMOSLoggingEnabled())
-    {
-      v21 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
-      {
-        *v192 = 0;
-        _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_INFO, "Beginning blocking index extension on file transfer download.", v192, 2u);
-      }
-    }
-
-    v22 = dispatch_time(0, 180000000000);
-    v23 = dispatch_group_wait(group, v22);
     if (IMOSLoggingEnabled())
     {
       v24 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        *v192 = 0;
-        _os_log_impl(&dword_1B7AD5000, v24, OS_LOG_TYPE_INFO, "Finished blocking index extension on file transfer download.", v192, 2u);
+        *v213 = 0;
+        _os_log_impl(&dword_1B7AD5000, v24, OS_LOG_TYPE_INFO, "Beginning blocking index extension on file transfer download.", v213, 2u);
       }
     }
 
+    v25 = dispatch_time(0, 180000000000);
+    v26 = dispatch_group_wait(group, v25);
     if (IMOSLoggingEnabled())
     {
       v27 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
-        v28 = @"YES";
-        if (!v23)
-        {
-          v28 = @"NO";
-        }
-
-        *v192 = 138412546;
-        v193 = v28;
-        v194 = 2112;
-        v195 = v128;
-        _os_log_impl(&dword_1B7AD5000, v27, OS_LOG_TYPE_INFO, "Timed out: [%@] while downloading file transfer with GUIDs %@", v192, 0x16u);
+        *v213 = 0;
+        _os_log_impl(&dword_1B7AD5000, v27, OS_LOG_TYPE_INFO, "Finished blocking index extension on file transfer download.", v213, 2u);
       }
     }
 
-    if (v23)
+    if (IMOSLoggingEnabled())
     {
-      v29 = MEMORY[0x1E696ABC0];
-      v190[0] = *MEMORY[0x1E696A578];
-      v30 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v25, v26);
-      v32 = objc_msgSend_localizedStringForKey_value_table_(v30, v31, @"File URL fetch operation was unsuccessful.", &stru_1F2FA9728, 0);
-      v191[0] = v32;
-      v190[1] = *MEMORY[0x1E696A588];
-      v35 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v33, v34);
-      v37 = objc_msgSend_localizedStringForKey_value_table_(v35, v36, @"Timed out while downloading file transfer.", &stru_1F2FA9728, 0);
-      v191[1] = v37;
-      v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v38, v191, v190, 2);
-      v41 = objc_msgSend_errorWithDomain_code_userInfo_(v29, v40, *MEMORY[0x1E69A83D0], 257, v39);
-
-      v152 = 0u;
-      v153 = 0u;
-      v150 = 0u;
-      v151 = 0u;
-      v42 = v128;
-      v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v42, v43, &v150, v189, 16);
-      if (v45)
+      v31 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
-        v46 = *v151;
+        v32 = @"YES";
+        if (!v26)
+        {
+          v32 = @"NO";
+        }
+
+        *v213 = 138412546;
+        v214 = v32;
+        v215 = 2112;
+        v216 = v149;
+        _os_log_impl(&dword_1B7AD5000, v31, OS_LOG_TYPE_INFO, "Timed out: [%@] while downloading file transfer with GUIDs %@", v213, 0x16u);
+      }
+    }
+
+    if (v26)
+    {
+      v33 = MEMORY[0x1E696ABC0];
+      v211[0] = *MEMORY[0x1E696A578];
+      v34 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v28, v29, v30);
+      v36 = objc_msgSend_localizedStringForKey_value_table_(v34, v35, @"File URL fetch operation was unsuccessful.", &stru_1F2FA9728, 0);
+      v212[0] = v36;
+      v211[1] = *MEMORY[0x1E696A588];
+      v40 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v37, v38, v39);
+      v42 = objc_msgSend_localizedStringForKey_value_table_(v40, v41, @"Timed out while downloading file transfer.", &stru_1F2FA9728, 0);
+      v212[1] = v42;
+      v44 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v43, v212, v211, 2);
+      v46 = objc_msgSend_errorWithDomain_code_userInfo_(v33, v45, *MEMORY[0x1E69A83D0], 257, v44);
+
+      v173 = 0u;
+      v174 = 0u;
+      v171 = 0u;
+      v172 = 0u;
+      v47 = v149;
+      v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v48, &v171, v210, 16);
+      if (v51)
+      {
+        v52 = *v172;
         do
         {
-          for (j = 0; j != v45; ++j)
+          for (j = 0; j != v51; ++j)
           {
-            if (*v151 != v46)
+            if (*v172 != v52)
             {
-              objc_enumerationMutation(v42);
+              objc_enumerationMutation(v47);
             }
 
-            v48 = *(*(&v150 + 1) + 8 * j);
-            if ((objc_msgSend_containsObject_(v162[5], v44, v48) & 1) == 0)
+            v54 = *(*(&v171 + 1) + 8 * j);
+            if ((objc_msgSend_containsObject_(v183[5], v49, v54, v50) & 1) == 0)
             {
-              v49 = objc_msgSend_objectForKeyedSubscript_(v180[5], v44, v48);
-              v50 = v49 == 0;
+              v55 = objc_msgSend_objectForKeyedSubscript_(v201[5], v49, v54, v50);
+              v56 = v55 == 0;
 
-              if (v50)
+              if (v56)
               {
                 if (IMOSLoggingEnabled())
                 {
-                  v52 = OSLogHandleForIMFoundationCategory();
-                  if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+                  v58 = OSLogHandleForIMFoundationCategory();
+                  if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
                   {
-                    *v192 = 138412290;
-                    v193 = v48;
-                    _os_log_impl(&dword_1B7AD5000, v52, OS_LOG_TYPE_INFO, "Timed out while downloading file transfer with GUID %@", v192, 0xCu);
+                    *v213 = 138412290;
+                    v214 = v54;
+                    _os_log_impl(&dword_1B7AD5000, v58, OS_LOG_TYPE_INFO, "Timed out while downloading file transfer with GUID %@", v213, 0xCu);
                   }
                 }
 
-                objc_msgSend_setObject_forKeyedSubscript_(v174[5], v51, v41, v48);
+                objc_msgSend_setObject_forKeyedSubscript_(v195[5], v57, v46, v54);
               }
             }
           }
 
-          v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v42, v44, &v150, v189, 16);
+          v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v49, &v171, v210, 16);
         }
 
-        while (v45);
+        while (v51);
       }
 
       if (IMOSLoggingEnabled())
       {
-        v53 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+        v59 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
         {
-          *v192 = 138412290;
-          v193 = v41;
-          _os_log_impl(&dword_1B7AD5000, v53, OS_LOG_TYPE_INFO, "Timed out while downloading file transfers, error %@", v192, 0xCu);
+          *v213 = 138412290;
+          v214 = v46;
+          _os_log_impl(&dword_1B7AD5000, v59, OS_LOG_TYPE_INFO, "Timed out while downloading file transfers, error %@", v213, 0xCu);
         }
       }
 
       if (error)
       {
-        v54 = v41;
-        *error = v41;
+        v60 = v46;
+        *error = v46;
       }
     }
 
-    v134 = objc_opt_new();
-    v148 = 0u;
-    v149 = 0u;
-    v146 = 0u;
-    v147 = 0u;
-    v55 = v180[5];
-    v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v56, &v146, v188, 16);
-    if (v58)
+    v155 = objc_opt_new();
+    v169 = 0u;
+    v170 = 0u;
+    v167 = 0u;
+    v168 = 0u;
+    v61 = v201[5];
+    v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(v61, v62, &v167, v209, 16);
+    if (v65)
     {
-      v59 = *v147;
+      v66 = *v168;
       do
       {
-        for (k = 0; k != v58; ++k)
+        for (k = 0; k != v65; ++k)
         {
-          if (*v147 != v59)
+          if (*v168 != v66)
           {
-            objc_enumerationMutation(v55);
+            objc_enumerationMutation(v61);
           }
 
-          v61 = *(*(&v146 + 1) + 8 * k);
-          v62 = objc_msgSend_objectForKeyedSubscript_(*(*(&buf + 1) + 40), v57, v61);
-          v64 = objc_msgSend_objectForKeyedSubscript_(v180[5], v63, v61);
-          if (v64)
+          v68 = *(*(&v167 + 1) + 8 * k);
+          v69 = objc_msgSend_objectForKeyedSubscript_(*(*(&buf + 1) + 40), v63, v68, v64);
+          v72 = objc_msgSend_objectForKeyedSubscript_(v201[5], v70, v68, v71);
+          if (v72)
           {
-            v66 = 1;
-          }
-
-          else
-          {
-            v66 = v62 == 0;
-          }
-
-          if (v66)
-          {
+            v75 = 1;
           }
 
           else
           {
-            isEqualToString = objc_msgSend_isEqualToString_(v61, v65, v62);
+            v75 = v69 == 0;
+          }
+
+          if (v75)
+          {
+          }
+
+          else
+          {
+            isEqualToString = objc_msgSend_isEqualToString_(v68, v73, v69, v74);
             if ((isEqualToString & 1) == 0)
             {
               if (IMOSLoggingEnabled())
               {
-                v69 = OSLogHandleForIMFoundationCategory();
-                if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
+                v79 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
                 {
-                  *v192 = 138412546;
-                  v193 = v61;
-                  v194 = 2112;
-                  v195 = v62;
-                  _os_log_impl(&dword_1B7AD5000, v69, OS_LOG_TYPE_INFO, "Requested download of file transfer with GUID %@ failed, but was able to derive a suggested retry GUID %@", v192, 0x16u);
+                  *v213 = 138412546;
+                  v214 = v68;
+                  v215 = 2112;
+                  v216 = v69;
+                  _os_log_impl(&dword_1B7AD5000, v79, OS_LOG_TYPE_INFO, "Requested download of file transfer with GUID %@ failed, but was able to derive a suggested retry GUID %@", v213, 0x16u);
                 }
               }
 
-              objc_msgSend_addObject_(v134, v68, v62);
+              objc_msgSend_addObject_(v155, v77, v69, v78);
             }
           }
         }
 
-        v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v57, &v146, v188, 16);
+        v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(v61, v63, &v167, v209, 16);
       }
 
-      while (v58);
+      while (v65);
     }
 
-    if (objc_msgSend_count(v134, v70, v71))
+    if (objc_msgSend_count(v155, v80, v81, v82))
     {
-      v74 = dispatch_group_create();
-      for (m = 0; m < objc_msgSend_count(v134, v72, v73); ++m)
+      v86 = dispatch_group_create();
+      for (m = 0; m < objc_msgSend_count(v155, v83, v84, v85); ++m)
       {
-        dispatch_group_enter(v74);
+        dispatch_group_enter(v86);
       }
 
-      v78 = objc_msgSend_delegate(self, v76, v77);
-      v142[0] = MEMORY[0x1E69E9820];
-      v142[1] = 3221225472;
-      v142[2] = sub_1B7BAE018;
-      v142[3] = &unk_1E7CBC010;
-      v144 = &v167;
-      v145 = &v179;
-      v79 = v74;
-      v143 = v79;
-      objc_msgSend_retrieveLocalFileURLForFileTransferWithGUIDs_options_completion_(v78, v80, v134, options, v142);
+      v91 = objc_msgSend_delegate(self, v88, v89, v90);
+      v163[0] = MEMORY[0x1E69E9820];
+      v163[1] = 3221225472;
+      v163[2] = sub_1B7BAE018;
+      v163[3] = &unk_1E7CBC010;
+      v165 = &v188;
+      v166 = &v200;
+      v92 = v86;
+      v164 = v92;
+      objc_msgSend_retrieveLocalFileURLForFileTransferWithGUIDs_options_completion_(v91, v93, v155, options, v163);
 
       if (IMOSLoggingEnabled())
       {
-        v81 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
+        v94 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
         {
-          *v192 = 0;
-          _os_log_impl(&dword_1B7AD5000, v81, OS_LOG_TYPE_INFO, "Beginning blocking index extension on secondary file transfer download.", v192, 2u);
+          *v213 = 0;
+          _os_log_impl(&dword_1B7AD5000, v94, OS_LOG_TYPE_INFO, "Beginning blocking index extension on secondary file transfer download.", v213, 2u);
         }
       }
 
-      v82 = dispatch_time(0, 180000000000);
-      dispatch_group_wait(v79, v82);
+      v95 = dispatch_time(0, 180000000000);
+      dispatch_group_wait(v92, v95);
       if (IMOSLoggingEnabled())
       {
-        v83 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
+        v96 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
         {
-          *v192 = 0;
-          _os_log_impl(&dword_1B7AD5000, v83, OS_LOG_TYPE_INFO, "Finished blocking index extension on secondary file transfer download.", v192, 2u);
+          *v213 = 0;
+          _os_log_impl(&dword_1B7AD5000, v96, OS_LOG_TYPE_INFO, "Finished blocking index extension on secondary file transfer download.", v213, 2u);
         }
       }
     }
 
     if (NSClassFromString(&cfstr_Csfileurlbatch.isa))
     {
-      v137 = objc_opt_new();
-      v140 = 0u;
-      v141 = 0u;
-      v138 = 0u;
-      v139 = 0u;
-      obja = v128;
-      v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v84, &v138, v187, 16);
-      if (v86)
+      v158 = objc_opt_new();
+      v161 = 0u;
+      v162 = 0u;
+      v159 = 0u;
+      v160 = 0u;
+      obja = v149;
+      v100 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v97, &v159, v208, 16);
+      if (v100)
       {
-        v87 = *v139;
-        v129 = *MEMORY[0x1E69A83D0];
-        v132 = *MEMORY[0x1E696A578];
-        v130 = *MEMORY[0x1E696A588];
+        v101 = *v160;
+        v150 = *MEMORY[0x1E69A83D0];
+        v153 = *MEMORY[0x1E696A578];
+        v151 = *MEMORY[0x1E696A588];
         do
         {
-          for (n = 0; n != v86; ++n)
+          for (n = 0; n != v100; ++n)
           {
-            if (*v139 != v87)
+            if (*v160 != v101)
             {
               objc_enumerationMutation(obja);
             }
 
-            v89 = *(*(&v138 + 1) + 8 * n);
-            v90 = objc_msgSend_objectForKeyedSubscript_(v180[5], v85, v89);
+            v103 = *(*(&v159 + 1) + 8 * n);
+            v104 = objc_msgSend_objectForKeyedSubscript_(v201[5], v98, v103, v99);
 
-            if (v90)
+            if (v104)
             {
-              v92 = objc_msgSend_objectForKeyedSubscript_(v168[5], v91, v89);
+              v107 = objc_msgSend_objectForKeyedSubscript_(v189[5], v105, v103, v106);
               IsSupportedByPhotos = IMUTITypeIsSupportedByPhotos();
 
               if ((IsSupportedByPhotos & 1) == 0)
               {
-                v96 = MEMORY[0x1E696ABC0];
-                v185[0] = v132;
-                v97 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v94, v95);
-                v99 = objc_msgSend_localizedStringForKey_value_table_(v97, v98, @"File URL fetch operation was unsuccessful.", &stru_1F2FA9728, 0);
-                v186[0] = v99;
-                v185[1] = v130;
-                v100 = MEMORY[0x1E696AEC0];
-                v102 = objc_msgSend_objectForKeyedSubscript_(v168[5], v101, v89);
-                v104 = objc_msgSend_stringWithFormat_(v100, v103, @"File transfer had an unsupported UTI %@", v102);
-                v186[1] = v104;
-                v106 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v105, v186, v185, 2);
-                v108 = objc_msgSend_errorWithDomain_code_userInfo_(v96, v107, v129, 256, v106);
+                v112 = MEMORY[0x1E696ABC0];
+                v206[0] = v153;
+                v113 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], v109, v110, v111);
+                v115 = objc_msgSend_localizedStringForKey_value_table_(v113, v114, @"File URL fetch operation was unsuccessful.", &stru_1F2FA9728, 0);
+                v207[0] = v115;
+                v206[1] = v151;
+                v116 = MEMORY[0x1E696AEC0];
+                v119 = objc_msgSend_objectForKeyedSubscript_(v189[5], v117, v103, v118);
+                v122 = objc_msgSend_stringWithFormat_(v116, v120, @"File transfer had an unsupported UTI %@", v121, v119);
+                v207[1] = v122;
+                v124 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v123, v207, v206, 2);
+                v126 = objc_msgSend_errorWithDomain_code_userInfo_(v112, v125, v150, 256, v124);
 
-                objc_msgSend_setObject_forKeyedSubscript_(v174[5], v109, v108, v89);
+                objc_msgSend_setObject_forKeyedSubscript_(v195[5], v127, v126, v103);
                 if (IMOSLoggingEnabled())
                 {
-                  v110 = OSLogHandleForIMFoundationCategory();
-                  if (os_log_type_enabled(v110, OS_LOG_TYPE_INFO))
+                  v128 = OSLogHandleForIMFoundationCategory();
+                  if (os_log_type_enabled(v128, OS_LOG_TYPE_INFO))
                   {
-                    v112 = objc_msgSend_objectForKeyedSubscript_(v168[5], v111, v89);
-                    *v192 = 138412546;
-                    v193 = v89;
-                    v194 = 2112;
-                    v195 = v112;
-                    _os_log_impl(&dword_1B7AD5000, v110, OS_LOG_TYPE_INFO, "File transfer with GUID %@ had unsupported UTI type %@", v192, 0x16u);
+                    v131 = objc_msgSend_objectForKeyedSubscript_(v189[5], v129, v103, v130);
+                    *v213 = 138412546;
+                    v214 = v103;
+                    v215 = 2112;
+                    v216 = v131;
+                    _os_log_impl(&dword_1B7AD5000, v128, OS_LOG_TYPE_INFO, "File transfer with GUID %@ had unsupported UTI type %@", v213, 0x16u);
                   }
                 }
               }
             }
 
-            v113 = objc_alloc(MEMORY[0x1E6964E18]);
-            v115 = objc_msgSend_objectForKeyedSubscript_(v180[5], v114, v89);
-            v117 = objc_msgSend_objectForKeyedSubscript_(v174[5], v116, v89);
-            v119 = objc_msgSend_initWithFileURL_andError_(v113, v118, v115, v117);
+            v132 = objc_alloc(MEMORY[0x1E6964E18]);
+            v135 = objc_msgSend_objectForKeyedSubscript_(v201[5], v133, v103, v134);
+            v138 = objc_msgSend_objectForKeyedSubscript_(v195[5], v136, v103, v137);
+            v140 = objc_msgSend_initWithFileURL_andError_(v132, v139, v135, v138);
 
-            if (v119)
+            if (v140)
             {
-              objc_msgSend_addObject_(v137, v120, v119);
+              objc_msgSend_addObject_(v158, v141, v140, v142);
             }
           }
 
-          v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v85, &v138, v187, 16);
+          v100 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v98, &v159, v208, 16);
         }
 
-        while (v86);
+        while (v100);
       }
     }
 
@@ -880,39 +872,37 @@ LABEL_57:
     {
       if (IMOSLoggingEnabled())
       {
-        v121 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v121, OS_LOG_TYPE_INFO))
+        v143 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v143, OS_LOG_TYPE_INFO))
         {
-          *v192 = 0;
-          _os_log_impl(&dword_1B7AD5000, v121, OS_LOG_TYPE_INFO, "class CSFileURLBatchResult not found!", v192, 2u);
+          *v213 = 0;
+          _os_log_impl(&dword_1B7AD5000, v143, OS_LOG_TYPE_INFO, "class CSFileURLBatchResult not found!", v213, 2u);
         }
       }
 
-      v137 = 0;
+      v158 = 0;
     }
 
-    _Block_object_dispose(&v161, 8);
-    _Block_object_dispose(&v167, 8);
+    _Block_object_dispose(&v182, 8);
+    _Block_object_dispose(&v188, 8);
 
-    _Block_object_dispose(&v173, 8);
-    _Block_object_dispose(&v179, 8);
+    _Block_object_dispose(&v194, 8);
+    _Block_object_dispose(&v200, 8);
 
     _Block_object_dispose(&buf, 8);
   }
 
   else
   {
-    v137 = MEMORY[0x1E695E0F0];
+    v158 = MEMORY[0x1E695E0F0];
   }
 
-  v122 = *MEMORY[0x1E69E9840];
-
-  return v137;
+  return v158;
 }
 
 - (id)dataForSearchableIndex:(id)index itemIdentifier:(id)identifier typeIdentifier:(id)typeIdentifier error:(id *)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   indexCopy = index;
   identifierCopy = identifier;
   typeIdentifierCopy = typeIdentifier;
@@ -921,62 +911,60 @@ LABEL_57:
     v12 = OSLogHandleForIMEventCategory();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v23 = 138412546;
-      v24 = identifierCopy;
-      v25 = 2112;
-      v26 = typeIdentifierCopy;
-      _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "Spotlight requesting data for item %@ and type %@", &v23, 0x16u);
+      v24 = 138412546;
+      v25 = identifierCopy;
+      v26 = 2112;
+      v27 = typeIdentifierCopy;
+      _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "Spotlight requesting data for item %@ and type %@", &v24, 0x16u);
     }
   }
 
   v13 = identifierCopy;
-  if (objc_msgSend_length(v13, v14, v15))
+  if (objc_msgSend_length(v13, v14, v15, v16))
   {
-    v17 = objc_msgSend_dataProviderForIdentifier_(IMDSpotlightDataProvider, v16, typeIdentifierCopy);
-    if (v17)
+    v19 = objc_msgSend_dataProviderForIdentifier_(IMDSpotlightDataProvider, v17, typeIdentifierCopy, v18);
+    if (v19)
     {
-      v18 = objc_autoreleasePoolPush();
-      v20 = objc_msgSend_dataForGUID_error_(v17, v19, v13, error);
-      objc_autoreleasePoolPop(v18);
+      v20 = objc_autoreleasePoolPush();
+      v22 = objc_msgSend_dataForGUID_error_(v19, v21, v13, error);
+      objc_autoreleasePoolPop(v20);
     }
 
     else
     {
-      v20 = 0;
+      v22 = 0;
     }
   }
 
   else
   {
-    v20 = 0;
+    v22 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v22;
 }
 
 - (void)searchableItemsDidUpdate:(id)update mask:(int64_t)mask
 {
-  v145 = *MEMORY[0x1E69E9840];
+  v178 = *MEMORY[0x1E69E9840];
   updateCopy = update;
-  if (!objc_msgSend_count(updateCopy, v5, v6))
+  if (!objc_msgSend_count(updateCopy, v5, v6, v7))
   {
     if (IMOSLoggingEnabled())
     {
-      v16 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v20 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B7AD5000, v16, OS_LOG_TYPE_INFO, "searchableItemsDidUpdate called with no updated items, returning early.", buf, 2u);
+        _os_log_impl(&dword_1B7AD5000, v20, OS_LOG_TYPE_INFO, "searchableItemsDidUpdate called with no updated items, returning early.", buf, 2u);
       }
     }
 
     goto LABEL_85;
   }
 
-  v9 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v7, v8);
-  isPriorityMessagesEnabled = objc_msgSend_isPriorityMessagesEnabled(v9, v10, v11);
+  v11 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v8, v9, v10);
+  isPriorityMessagesEnabled = objc_msgSend_isPriorityMessagesEnabled(v11, v12, v13, v14);
 
   if (!isPriorityMessagesEnabled)
   {
@@ -987,12 +975,12 @@ LABEL_57:
         goto LABEL_85;
       }
 
-      v15 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v19 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
         maskCopy2 = mask;
-        _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "searchableItemsDidUpdate called with reason other than summaries (%ld), returning early.", buf, 0xCu);
+        _os_log_impl(&dword_1B7AD5000, v19, OS_LOG_TYPE_INFO, "searchableItemsDidUpdate called with reason other than summaries (%ld), returning early.", buf, 0xCu);
       }
 
       goto LABEL_7;
@@ -1004,50 +992,50 @@ LABEL_57:
   if ((mask & 9) != 0)
   {
 LABEL_13:
-    v126 = objc_msgSend_messageSummarizationEnabled(MEMORY[0x1E69A8090], v13, v14);
+    v160 = objc_msgSend_messageSummarizationEnabled(MEMORY[0x1E69A8090], v16, v17, v18);
     if (IMOSLoggingEnabled())
     {
-      v17 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v21 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        maskCopy2 = objc_msgSend_count(updateCopy, v18, v19);
-        _os_log_impl(&dword_1B7AD5000, v17, OS_LOG_TYPE_INFO, "Received searchableItemsDidUpdate callback with %llu items", buf, 0xCu);
+        maskCopy2 = objc_msgSend_count(updateCopy, v22, v23, v24);
+        _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_INFO, "Received searchableItemsDidUpdate callback with %llu items", buf, 0xCu);
       }
     }
 
-    v131 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v129 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v138 = 0u;
-    v139 = 0u;
-    v136 = 0u;
-    v137 = 0u;
+    v164 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v163 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v171 = 0u;
+    v172 = 0u;
+    v169 = 0u;
+    v170 = 0u;
     obj = updateCopy;
-    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v20, &v136, v144, 16);
-    if (!v23)
+    v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v25, &v169, v177, 16);
+    if (!v29)
     {
 LABEL_70:
 
-      if (objc_msgSend_count(v129, v111, v112))
+      if (objc_msgSend_count(v163, v140, v141, v142))
       {
         if (IMOSLoggingEnabled())
         {
-          v117 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
+          v149 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v149, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_1B7AD5000, v117, OS_LOG_TYPE_INFO, "Setting chats with time sensitive messages", buf, 2u);
+            _os_log_impl(&dword_1B7AD5000, v149, OS_LOG_TYPE_INFO, "Setting chats with time sensitive messages", buf, 2u);
           }
         }
 
-        v118 = objc_msgSend_delegate(self, v115, v116);
-        objc_msgSend_updateChatsUsingMessageGUIDsWithPriority_(v118, v119, v129);
+        v150 = objc_msgSend_delegate(self, v146, v147, v148);
+        objc_msgSend_updateChatsUsingMessageGUIDsWithPriority_(v150, v151, v163, v152);
       }
 
-      if (v126 && objc_msgSend_count(v131, v113, v114))
+      if (v160 && objc_msgSend_count(v164, v143, v144, v145))
       {
-        obja = objc_msgSend_delegate(self, v120, v121);
-        objc_msgSend_updateChatsUsingMessageGUIDsAndSummaries_(obja, v122, v131);
+        obja = objc_msgSend_delegate(self, v153, v154, v155);
+        objc_msgSend_updateChatsUsingMessageGUIDsAndSummaries_(obja, v156, v164, v157);
       }
 
 LABEL_84:
@@ -1055,134 +1043,132 @@ LABEL_84:
       goto LABEL_85;
     }
 
-    v134 = mask & v126;
-    v25 = &selRef_isReindexing;
-    v26 = *v137;
-    v135 = (mask >> 3) & 1;
-    *&v24 = 138412546;
-    v125 = v24;
+    v167 = mask & v160;
+    v31 = *v170;
+    v168 = (mask >> 3) & 1;
+    *&v30 = 138412546;
+    v159 = v30;
 LABEL_19:
-    v27 = 0;
-    v130 = v25[16];
+    v32 = 0;
     while (1)
     {
-      if (*v137 != v26)
+      if (*v170 != v31)
       {
         objc_enumerationMutation(obj);
       }
 
-      v28 = *(*(&v136 + 1) + 8 * v27);
-      v29 = objc_msgSend_uniqueIdentifier(v28, v21, v22, v125);
-      v32 = objc_msgSend_attributeSet(v28, v30, v31);
-      v35 = objc_msgSend_domainIdentifier(v32, v33, v34);
-      isEqualToString = objc_msgSend_isEqualToString_(v35, v36, @"attachmentDomain");
+      v33 = *(*(&v169 + 1) + 8 * v32);
+      v34 = objc_msgSend_uniqueIdentifier(v33, v26, v27, v28, v159);
+      v38 = objc_msgSend_attributeSet(v33, v35, v36, v37);
+      v42 = objc_msgSend_domainIdentifier(v38, v39, v40, v41);
+      isEqualToString = objc_msgSend_isEqualToString_(v42, v43, @"attachmentDomain", v44);
 
       if (isEqualToString)
       {
-        v40 = objc_msgSend_attributeSet(v28, v38, v39);
-        v43 = objc_msgSend_ownerIdentifier(v40, v41, v42);
+        v49 = objc_msgSend_attributeSet(v33, v46, v47, v48);
+        v53 = objc_msgSend_ownerIdentifier(v49, v50, v51, v52);
 
-        v29 = v43;
+        v34 = v53;
       }
 
-      if (!objc_msgSend_length(v29, v38, v39))
+      if (!objc_msgSend_length(v34, v46, v47, v48))
       {
         if (IMOSLoggingEnabled())
         {
-          v123 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v123, OS_LOG_TYPE_INFO))
+          v158 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v158, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            maskCopy2 = v28;
-            _os_log_impl(&dword_1B7AD5000, v123, OS_LOG_TYPE_INFO, "uniqueIdentifier not set for item: %@", buf, 0xCu);
+            maskCopy2 = v33;
+            _os_log_impl(&dword_1B7AD5000, v158, OS_LOG_TYPE_INFO, "uniqueIdentifier not set for item: %@", buf, 0xCu);
           }
         }
 
         goto LABEL_84;
       }
 
-      v44 = objc_alloc(MEMORY[0x1E69A8148]);
-      v46 = objc_msgSend_initWithEncodedMessagePartGUID_(v44, v45, v29);
-      v49 = objc_msgSend_messageGUID(v46, v47, v48);
+      v54 = objc_alloc(MEMORY[0x1E69A8148]);
+      v57 = objc_msgSend_initWithEncodedMessagePartGUID_(v54, v55, v34, v56);
+      v61 = objc_msgSend_messageGUID(v57, v58, v59, v60);
 
-      if (v49)
+      if (v61)
       {
-        v52 = objc_msgSend_messageGUID(v46, v50, v51);
+        v65 = objc_msgSend_messageGUID(v57, v62, v63, v64);
 
-        v29 = v52;
+        v34 = v65;
       }
 
-      v53 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v50, v51);
-      v56 = objc_msgSend_isPriorityMessagesEnabled(v53, v54, v55);
+      v66 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v62, v63, v64);
+      v70 = objc_msgSend_isPriorityMessagesEnabled(v66, v67, v68, v69);
 
-      if ((v135 & v56) == 1)
+      if ((v168 & v70) == 1)
       {
         break;
       }
 
 LABEL_40:
-      if (v134)
+      if (v167)
       {
-        v77 = objc_msgSend_attributeSet(v28, v57, v58);
-        v80 = objc_msgSend_summarizationStatus(v77, v78, v79) == 1;
+        v97 = objc_msgSend_attributeSet(v33, v71, v72, v73);
+        v101 = objc_msgSend_summarizationStatus(v97, v98, v99, v100) == 1;
 
-        if (v80)
+        if (v101)
         {
-          v83 = objc_msgSend_attributeSet(v28, v81, v82);
-          v86 = objc_msgSend_summarizationContentTopic(v83, v84, v85);
+          v105 = objc_msgSend_attributeSet(v33, v102, v103, v104);
+          v109 = objc_msgSend_summarizationContentTopic(v105, v106, v107, v108);
 
-          v89 = objc_msgSend_attributeSet(v28, v87, v88);
-          v92 = objc_msgSend_summarizationContentTopLine(v89, v90, v91);
+          v113 = objc_msgSend_attributeSet(v33, v110, v111, v112);
+          v117 = objc_msgSend_summarizationContentTopLine(v113, v114, v115, v116);
 
-          v95 = objc_msgSend_attributeSet(v28, v93, v94);
-          v98 = objc_msgSend_summarizationContentSynopsis(v95, v96, v97);
+          v121 = objc_msgSend_attributeSet(v33, v118, v119, v120);
+          v125 = objc_msgSend_summarizationContentSynopsis(v121, v122, v123, v124);
 
-          if (!v92)
+          if (!v117)
           {
-            if (v98)
+            if (v125)
             {
-              v99 = v98;
+              v126 = v125;
               if (!IMOSLoggingEnabled())
               {
                 goto LABEL_62;
               }
 
-              v101 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+              v128 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v128, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                maskCopy2 = v29;
-                _os_log_impl(&dword_1B7AD5000, v101, OS_LOG_TYPE_INFO, "Using synopsis as summary for item with GUID %@.", buf, 0xCu);
+                maskCopy2 = v34;
+                _os_log_impl(&dword_1B7AD5000, v128, OS_LOG_TYPE_INFO, "Using synopsis as summary for item with GUID %@.", buf, 0xCu);
               }
             }
 
             else
             {
-              if (!v86)
+              if (!v109)
               {
-                v99 = IMLogHandleForCategory();
-                if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+                v126 = IMLogHandleForCategory();
+                if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  maskCopy2 = v29;
-                  _os_log_error_impl(&dword_1B7AD5000, v99, OS_LOG_TYPE_ERROR, "Unexpectedly received nil summary for item with identifier (%@) while summarization status was successful.", buf, 0xCu);
+                  maskCopy2 = v34;
+                  _os_log_error_impl(&dword_1B7AD5000, v126, OS_LOG_TYPE_ERROR, "Unexpectedly received nil summary for item with identifier (%@) while summarization status was successful.", buf, 0xCu);
                 }
 
                 goto LABEL_63;
               }
 
-              v99 = v86;
+              v126 = v109;
               if (!IMOSLoggingEnabled())
               {
                 goto LABEL_62;
               }
 
-              v101 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+              v128 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v128, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                maskCopy2 = v29;
-                _os_log_impl(&dword_1B7AD5000, v101, OS_LOG_TYPE_INFO, "Using topic as summary for item with GUID %@.", buf, 0xCu);
+                maskCopy2 = v34;
+                _os_log_impl(&dword_1B7AD5000, v128, OS_LOG_TYPE_INFO, "Using topic as summary for item with GUID %@.", buf, 0xCu);
               }
             }
 
@@ -1191,22 +1177,22 @@ LABEL_61:
             goto LABEL_62;
           }
 
-          v99 = v92;
+          v126 = v117;
           if (IMOSLoggingEnabled())
           {
-            v101 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+            v128 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v128, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              maskCopy2 = v29;
-              _os_log_impl(&dword_1B7AD5000, v101, OS_LOG_TYPE_INFO, "Using topLine as summary for item with GUID %@.", buf, 0xCu);
+              maskCopy2 = v34;
+              _os_log_impl(&dword_1B7AD5000, v128, OS_LOG_TYPE_INFO, "Using topLine as summary for item with GUID %@.", buf, 0xCu);
             }
 
             goto LABEL_61;
           }
 
 LABEL_62:
-          objc_msgSend_setObject_forKey_(v131, v100, v99, v29);
+          objc_msgSend_setObject_forKey_(v164, v127, v126, v34);
 LABEL_63:
         }
 
@@ -1214,30 +1200,29 @@ LABEL_63:
         {
           if (IMOSLoggingEnabled())
           {
-            v102 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v102, OS_LOG_TYPE_INFO))
+            v129 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v129, OS_LOG_TYPE_INFO))
             {
-              v105 = objc_msgSend_attributeSet(v28, v103, v104);
-              v108 = objc_msgSend_summarizationStatus(v105, v106, v107);
-              *buf = v125;
-              maskCopy2 = v29;
-              v142 = 1024;
-              v143 = v108;
-              _os_log_impl(&dword_1B7AD5000, v102, OS_LOG_TYPE_INFO, "Item with identifier %@ has unsuccessful summarization status (%d). Will delete old summary.", buf, 0x12u);
+              v133 = objc_msgSend_attributeSet(v33, v130, v131, v132);
+              v137 = objc_msgSend_summarizationStatus(v133, v134, v135, v136);
+              *buf = v159;
+              maskCopy2 = v34;
+              v175 = 1024;
+              v176 = v137;
+              _os_log_impl(&dword_1B7AD5000, v129, OS_LOG_TYPE_INFO, "Item with identifier %@ has unsuccessful summarization status (%d). Will delete old summary.", buf, 0x12u);
             }
           }
 
-          v86 = objc_alloc_init(MEMORY[0x1E696AAB0]);
-          objc_msgSend_setObject_forKey_(v131, v109, v86, v29);
+          v109 = objc_alloc_init(MEMORY[0x1E696AAB0]);
+          objc_msgSend_setObject_forKey_(v164, v138, v109, v34);
         }
       }
 
-      if (v23 == ++v27)
+      if (v29 == ++v32)
       {
-        v110 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v136, v144, 16);
-        v23 = v110;
-        v25 = &selRef_isReindexing;
-        if (v110)
+        v139 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v26, &v169, v177, 16);
+        v29 = v139;
+        if (v139)
         {
           goto LABEL_19;
         }
@@ -1246,17 +1231,17 @@ LABEL_63:
       }
     }
 
-    v59 = objc_msgSend_attributeSet(v28, v57, v58);
-    v60 = objc_opt_respondsToSelector();
+    v74 = objc_msgSend_attributeSet(v33, v71, v72, v73);
+    v75 = objc_opt_respondsToSelector();
 
-    v63 = objc_msgSend_attributeSet(v28, v61, v62);
-    v66 = v63;
-    if (v60)
+    v79 = objc_msgSend_attributeSet(v33, v76, v77, v78);
+    v83 = v79;
+    if (v75)
     {
-      v67 = objc_msgSend_isTimeSensitive(v63, v64, v65);
-      v70 = objc_msgSend_BOOLValue(v67, v68, v69);
+      v84 = objc_msgSend_isTimeSensitive(v79, v80, v81, v82);
+      v88 = objc_msgSend_BOOLValue(v84, v85, v86, v87);
 
-      if (!v70)
+      if (!v88)
       {
         goto LABEL_40;
       }
@@ -1266,21 +1251,21 @@ LABEL_63:
         goto LABEL_39;
       }
 
-      v72 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+      v91 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        maskCopy2 = v28;
-        _os_log_impl(&dword_1B7AD5000, v72, OS_LOG_TYPE_INFO, "Time sensitive (isTimeSensitive) message set for item: %@", buf, 0xCu);
+        maskCopy2 = v33;
+        _os_log_impl(&dword_1B7AD5000, v91, OS_LOG_TYPE_INFO, "Time sensitive (isTimeSensitive) message set for item: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v73 = objc_msgSend_isPriority(v63, v64, v65);
-      v76 = objc_msgSend_BOOLValue(v73, v74, v75);
+      v92 = objc_msgSend_isPriority(v79, v80, v81, v82);
+      v96 = objc_msgSend_BOOLValue(v92, v93, v94, v95);
 
-      if (!v76)
+      if (!v96)
       {
         goto LABEL_40;
       }
@@ -1290,36 +1275,34 @@ LABEL_63:
         goto LABEL_39;
       }
 
-      v72 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+      v91 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        maskCopy2 = v28;
-        _os_log_impl(&dword_1B7AD5000, v72, OS_LOG_TYPE_INFO, "Time sensitive (isPriority) message set for item: %@", buf, 0xCu);
+        maskCopy2 = v33;
+        _os_log_impl(&dword_1B7AD5000, v91, OS_LOG_TYPE_INFO, "Time sensitive (isPriority) message set for item: %@", buf, 0xCu);
       }
     }
 
 LABEL_39:
-    objc_msgSend_addObject_(v129, v71, v29);
+    objc_msgSend_addObject_(v163, v89, v34, v90);
     goto LABEL_40;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v15 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v19 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
       maskCopy2 = mask;
-      _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "searchableItemsDidUpdate called with reason other than summaries or time sensitivity (%ld), returning early.", buf, 0xCu);
+      _os_log_impl(&dword_1B7AD5000, v19, OS_LOG_TYPE_INFO, "searchableItemsDidUpdate called with reason other than summaries or time sensitivity (%ld), returning early.", buf, 0xCu);
     }
 
 LABEL_7:
   }
 
 LABEL_85:
-
-  v124 = *MEMORY[0x1E69E9840];
 }
 
 - (IMDBaseSpotlightIndexControllerDelegate)delegate

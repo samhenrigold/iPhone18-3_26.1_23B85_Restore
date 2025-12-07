@@ -10,50 +10,48 @@
 
 - (void)outputToLog:(id)log
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     activityType = self->super._activityType;
     attributes = self->_attributes;
-    v8 = 138543618;
-    v9 = activityType;
-    v10 = 2114;
-    v11 = attributes;
-    _os_log_impl(&dword_24D764000, log, OS_LOG_TYPE_INFO, "%{public}@:\t%{public}@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = activityType;
+    v9 = 2114;
+    v10 = attributes;
+    _os_log_impl(&dword_24D764000, log, OS_LOG_TYPE_INFO, "%{public}@:\t%{public}@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)jsonObject
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v22[0] = self->super._activityType;
-  v21[0] = @"activityType";
-  v21[1] = @"attributes";
+  v23 = *MEMORY[0x277D85DE8];
+  v21[0] = self->super._activityType;
+  v20[0] = @"activityType";
+  v20[1] = @"attributes";
   v3 = self->_attributes;
   v4 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v3];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = v3;
-  v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        v11 = [(NSDictionary *)v5 objectForKeyedSubscript:v10, v17];
+        v10 = *(*(&v16 + 1) + 8 * i);
+        v11 = [(NSDictionary *)v5 objectForKeyedSubscript:v10, v16];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -61,22 +59,20 @@
         }
       }
 
-      v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v7);
   }
 
-  v22[1] = v4;
-  v21[2] = @"activityStartTime";
+  v21[1] = v4;
+  v20[2] = @"activityStartTime";
   v12 = [MEMORY[0x277CCABB0] numberWithDouble:*&time_scale * self->super._activityStartTime];
-  v22[2] = v12;
-  v21[3] = @"activityEndTime";
+  v21[2] = v12;
+  v20[3] = @"activityEndTime";
   v13 = [MEMORY[0x277CCABB0] numberWithDouble:*&time_scale * self->super._activityEndTime];
-  v22[3] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v21[3] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
 
   return v14;
 }

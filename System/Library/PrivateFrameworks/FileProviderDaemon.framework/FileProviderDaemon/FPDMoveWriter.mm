@@ -26,6 +26,7 @@
 - (void)performCopyOfItem:(id)item to:(id)to as:(id)as sourceMaterializeOption:(unint64_t)option targetMaterializeOption:(unint64_t)materializeOption completion:(id)completion;
 - (void)performCopyOfItem:(id)item to:(id)to as:(id)as sourceMaterializeOption:(unint64_t)option targetMaterializeOption:(unint64_t)materializeOption useDiskWriter:(BOOL)writer completion:(id)completion;
 - (void)performCreateFolder:(id)folder inside:(id)inside as:(id)as useDiskWriter:(BOOL)writer completion:(id)completion;
+- (void)performMoveOfFolder:(id)folder to:(id)to as:(id)as sourceMaterializeOption:(unint64_t)option targetMaterializeOption:(unint64_t)materializeOption atomically:(BOOL)atomically useDiskWriter:(BOOL)writer completion:(id)self0;
 - (void)performMoveOfItem:(id)item to:(id)to as:(id)as sourceMaterializeOption:(unint64_t)option targetMaterializeOption:(unint64_t)materializeOption useDiskWriter:(BOOL)writer completion:(id)completion;
 - (void)setProgress:(id)progress forRoot:(id)root;
 - (void)start;
@@ -94,12 +95,12 @@ void __27__FPDMoveWriter_initialize__block_invoke()
 
 - (FPDMoveWriter)initWithOperation:(id)operation queue:(id)queue
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   queueCopy = queue;
-  v67.receiver = self;
-  v67.super_class = FPDMoveWriter;
-  v8 = [(FPDMoveWriter *)&v67 init];
+  v66.receiver = self;
+  v66.super_class = FPDMoveWriter;
+  v8 = [(FPDMoveWriter *)&v66 init];
   v9 = v8;
   if (v8)
   {
@@ -178,34 +179,34 @@ void __27__FPDMoveWriter_initialize__block_invoke()
       asFPItem = [targetFolder2 asFPItem];
       [asFPItem setFileURL:0];
 
-      v65 = 0u;
-      v66 = 0u;
-      v63 = 0u;
       v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
       roots = [(FPMoveInfo *)v9->_info roots];
-      v48 = [roots countByEnumeratingWithState:&v63 objects:v68 count:16];
+      v48 = [roots countByEnumeratingWithState:&v62 objects:v67 count:16];
       if (v48)
       {
         v49 = v48;
-        v50 = *v64;
+        v50 = *v63;
         do
         {
           v51 = 0;
           do
           {
-            if (*v64 != v50)
+            if (*v63 != v50)
             {
               objc_enumerationMutation(roots);
             }
 
-            asFPItem2 = [*(*(&v63 + 1) + 8 * v51) asFPItem];
+            asFPItem2 = [*(*(&v62 + 1) + 8 * v51) asFPItem];
             [asFPItem2 setFileURL:0];
 
             ++v51;
           }
 
           while (v49 != v51);
-          v49 = [roots countByEnumeratingWithState:&v63 objects:v68 count:16];
+          v49 = [roots countByEnumeratingWithState:&v62 objects:v67 count:16];
         }
 
         while (v49);
@@ -216,18 +217,17 @@ void __27__FPDMoveWriter_initialize__block_invoke()
     targetFolder3 = [(FPMoveInfo *)v9->_info targetFolder];
     v55 = [roots2 arrayByAddingObject:targetFolder3];
 
-    v61[0] = MEMORY[0x1E69E9820];
-    v61[1] = 3221225472;
-    v61[2] = __41__FPDMoveWriter_initWithOperation_queue___block_invoke;
-    v61[3] = &unk_1E83C1538;
+    v60[0] = MEMORY[0x1E69E9820];
+    v60[1] = 3221225472;
+    v60[2] = __41__FPDMoveWriter_initWithOperation_queue___block_invoke;
+    v60[3] = &unk_1E83C1538;
     v56 = v9;
-    v62 = v56;
-    v57 = [v55 fp_map:v61];
+    v61 = v56;
+    v57 = [v55 fp_map:v60];
     accessTokens = v56->_accessTokens;
     v56->_accessTokens = v57;
   }
 
-  v59 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -385,11 +385,9 @@ void __53__FPDMoveWriter__performCopyOrMoveOfItem_completion___block_invoke_3(ui
 uint64_t __53__FPDMoveWriter__performCopyOrMoveOfItem_completion___block_invoke_4(uint64_t a1)
 {
   [*(a1 + 32) handleCreationForAtom:*(a1 + 40) result:*(a1 + 48)];
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 48);
-  v4 = *(*(a1 + 64) + 16);
+  v2 = *(*(a1 + 64) + 16);
 
-  return v4();
+  return v2();
 }
 
 - (void)_handleItem:(id)item completion:(id)completion
@@ -523,21 +521,21 @@ void __55__FPDMoveWriter__performCopyOrMoveOfFolder_completion___block_invoke(ui
 
 void __42__FPDMoveWriter__handleFolder_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   dispatch_assert_queue_V2(*(*(a1 + 32) + 112));
   v7 = fp_current_or_default_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v17 = *(a1 + 40);
-    v18 = 138412802;
-    v19 = v17;
-    v20 = 2112;
-    v21 = v5;
-    v22 = 2112;
-    v23 = v6;
-    _os_log_debug_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] move-writer: atom done %@: %@, error=%@", &v18, 0x20u);
+    v16 = *(a1 + 40);
+    v17 = 138412802;
+    v18 = v16;
+    v19 = 2112;
+    v20 = v5;
+    v21 = 2112;
+    v22 = v6;
+    _os_log_debug_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] move-writer: atom done %@: %@, error=%@", &v17, 0x20u);
   }
 
   v8 = *(*(a1 + 32) + 40);
@@ -563,7 +561,6 @@ void __42__FPDMoveWriter__handleFolder_completion___block_invoke(uint64_t a1, vo
   [v13 _handleCompletionOfAtom:v14 source:v15 result:v5 error:v6];
 
   (*(*(a1 + 48) + 16))();
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleCompletionOfAtom:(id)atom source:(id)source result:(id)result error:(id)error
@@ -769,15 +766,14 @@ uint64_t __39__FPDMoveWriter_handleAtom_completion___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __22__FPDMoveWriter__step__block_invoke(uint64_t a1)
+uint64_t __22__FPDMoveWriter__step__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
   if (*(a1 + 32))
   {
     v3 = fp_current_or_default_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __22__FPDMoveWriter__step__block_invoke_cold_1(v2);
+      __22__FPDMoveWriter__step__block_invoke_cold_1();
     }
 
     v5 = *(a1 + 32);
@@ -823,7 +819,7 @@ void __22__FPDMoveWriter__step__block_invoke_24(uint64_t a1)
 
 - (void)_finishWithError:(id)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_queue);
   if (!self->_cancelled)
@@ -844,31 +840,31 @@ void __22__FPDMoveWriter__step__block_invoke_24(uint64_t a1)
     }
 
     [(FPDCoordinator *)self->_coordinator stopAccessingAllURLs];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v8 = self->_accessTokens;
-    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         v12 = 0;
         do
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v19 + 1) + 8 * v12++) stopAccessing];
+          [*(*(&v18 + 1) + 8 * v12++) stopAccessing];
         }
 
         while (v10 != v12);
-        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -902,8 +898,6 @@ void __22__FPDMoveWriter__step__block_invoke_24(uint64_t a1)
       [(FPDMoveWriter *)self setCompletionBlock:0];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)failWithError:(id)error
@@ -1000,16 +994,15 @@ void __23__FPDMoveWriter_cancel__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __37__FPDMoveWriter_setProgress_forRoot___block_invoke(uint64_t a1)
+void *__37__FPDMoveWriter_setProgress_forRoot___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) completedUnitCount];
   if (result != *(*(*(a1 + 56) + 8) + 24))
   {
     *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 32) completedUnitCount];
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -1084,45 +1077,45 @@ uint64_t __37__FPDMoveWriter_setProgress_forRoot___block_invoke(uint64_t a1)
 
 void __52__FPDMoveWriter_waitForResultOfSourceID_root_error___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
   v3 = *v2;
   if (*(*v2 + 80))
   {
-    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ cannot have more than 1 waiter"];
-    v26 = fp_current_or_default_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ cannot have more than 1 waiter"];
+    v25 = fp_current_or_default_log();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       +[FPDVolume prettyNameForDomain:];
     }
 
-    v27 = v25;
-    __assert_rtn("-[FPDMoveWriter waitForResultOfSourceID:root:error:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/action operation engine/move/FPDMoveWriter.m", 547, [v25 UTF8String]);
+    v26 = v24;
+    __assert_rtn("-[FPDMoveWriter waitForResultOfSourceID:root:error:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/action operation engine/move/FPDMoveWriter.m", 547, [v24 UTF8String]);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v4 = *(v3 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v5)
   {
     v6 = 0;
-    v7 = *v33;
+    v7 = *v32;
     do
     {
       v8 = 0;
       do
       {
-        if (*v33 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
         v9 = *(a1 + 40);
-        v10 = [*(*(&v32 + 1) + 8 * v8) identifier];
+        v10 = [*(*(&v31 + 1) + 8 * v8) identifier];
         if ([v9 isEqual:v10])
         {
           v11 = [*(*(a1 + 32) + 48) objectAtIndexedSubscript:v6];
@@ -1150,7 +1143,7 @@ void __52__FPDMoveWriter_waitForResultOfSourceID_root_error___block_invoke(uint6
       }
 
       while (v5 != v8);
-      v5 = [v4 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v5);
@@ -1175,23 +1168,22 @@ void __52__FPDMoveWriter_waitForResultOfSourceID_root_error___block_invoke(uint6
   else
   {
     objc_storeStrong((*(a1 + 32) + 72), *(a1 + 40));
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __52__FPDMoveWriter_waitForResultOfSourceID_root_error___block_invoke_2;
-    v28[3] = &unk_1E83C15B0;
-    objc_copyWeak(&v31, &location);
-    v30 = *(a1 + 64);
-    v29 = *(a1 + 48);
-    v22 = _Block_copy(v28);
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __52__FPDMoveWriter_waitForResultOfSourceID_root_error___block_invoke_2;
+    v27[3] = &unk_1E83C15B0;
+    objc_copyWeak(&v30, &location);
+    v29 = *(a1 + 64);
+    v28 = *(a1 + 48);
+    v22 = _Block_copy(v27);
     v23 = *(*(a1 + 32) + 80);
     *(*(a1 + 32) + 80) = v22;
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v30);
   }
 
 LABEL_16:
   objc_destroyWeak(&location);
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __52__FPDMoveWriter_waitForResultOfSourceID_root_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1256,16 +1248,16 @@ void __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_comple
     v9 = *(a1 + 72);
     v10 = [v7 operation];
     v11 = [v10 request];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_completionHandler___block_invoke_39;
-    v18[3] = &unk_1E83C1600;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_completionHandler___block_invoke_39;
+    v17[3] = &unk_1E83C1600;
     v12 = *(a1 + 48);
-    v18[4] = *(a1 + 40);
-    v19 = v12;
-    v20 = *(a1 + 32);
-    v21 = *(a1 + 64);
-    [v8 coordinateAtURL:v5 recursively:v9 request:v11 handler:v18];
+    v17[4] = *(a1 + 40);
+    v18 = v12;
+    v19 = *(a1 + 32);
+    v20 = *(a1 + 64);
+    [v8 coordinateAtURL:v5 recursively:v9 request:v11 handler:v17];
 
     dispatch_group_leave(*(a1 + 56));
   }
@@ -1278,22 +1270,21 @@ void __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_comple
       __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_completionHandler___block_invoke_cold_1(a1, v6);
     }
 
-    v14 = *(a1 + 40);
     [objc_opt_class() releaseDownloadSlot:*(a1 + 48)];
     dispatch_group_leave(*(a1 + 56));
-    v15 = *(a1 + 64);
-    if (v15)
+    v14 = *(a1 + 64);
+    if (v14)
     {
       if (v6)
       {
-        (*(v15 + 16))(*(a1 + 64), v6);
+        (*(v14 + 16))(*(a1 + 64), v6);
       }
 
       else
       {
-        v16 = [*(a1 + 32) itemIdentifier];
-        v17 = FPItemNotFoundError();
-        (*(v15 + 16))(v15, v17);
+        v15 = [*(a1 + 32) itemIdentifier];
+        v16 = FPItemNotFoundError();
+        (*(v14 + 16))(v14, v16);
       }
     }
   }
@@ -1302,16 +1293,15 @@ void __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_comple
 void __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_completionHandler___block_invoke_39(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v6 = a3;
-  v7 = *(a1 + 32);
-  v8 = a4;
+  v7 = a4;
   [objc_opt_class() releaseDownloadSlot:*(a1 + 40)];
-  v8[2](v8);
+  v7[2](v7);
 
-  v9 = fp_current_or_default_log();
-  v10 = v9;
+  v8 = fp_current_or_default_log();
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_completionHandler___block_invoke_39_cold_1(a1, v6);
     }
@@ -1321,16 +1311,16 @@ void __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_comple
 
   else
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_completionHandler___block_invoke_39_cold_2(a1);
+      __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_completionHandler___block_invoke_39_cold_2();
     }
   }
 
-  v11 = *(a1 + 56);
-  if (v11)
+  v10 = *(a1 + 56);
+  if (v10)
   {
-    (*(v11 + 16))(v11, v6);
+    (*(v10 + 16))(v10, v6);
   }
 }
 
@@ -1519,6 +1509,39 @@ uint64_t __29__FPDMoveWriter_dumpStateTo___block_invoke(uint64_t a1)
   [diskWriter performMoveOfItem:itemCopy to:toCopy as:asCopy sourceMaterializeOption:option targetMaterializeOption:materializeOption completion:completionCopy];
 }
 
+- (void)performMoveOfFolder:(id)folder to:(id)to as:(id)as sourceMaterializeOption:(unint64_t)option targetMaterializeOption:(unint64_t)materializeOption atomically:(BOOL)atomically useDiskWriter:(BOOL)writer completion:(id)self0
+{
+  atomicallyCopy = atomically;
+  completionCopy = completion;
+  asCopy = as;
+  toCopy = to;
+  folderCopy = folder;
+  v21 = fp_current_or_default_log();
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG);
+  if (writer)
+  {
+    if (v22)
+    {
+      [FPDMoveWriter performMoveOfFolder:? to:? as:? sourceMaterializeOption:? targetMaterializeOption:? atomically:? useDiskWriter:? completion:?];
+    }
+
+    diskWriter = [(FPDMoveWriter *)self diskWriter];
+  }
+
+  else
+  {
+    if (v22)
+    {
+      [FPDMoveWriter performMoveOfFolder:to:as:sourceMaterializeOption:targetMaterializeOption:atomically:useDiskWriter:completion:];
+    }
+
+    diskWriter = [(FPDMoveWriter *)self defaultExecutor];
+  }
+
+  v24 = diskWriter;
+  [diskWriter performMoveOfFolder:folderCopy to:toCopy as:asCopy sourceMaterializeOption:option targetMaterializeOption:materializeOption atomically:atomicallyCopy completion:completionCopy];
+}
+
 - (void)performCreateFolder:(id)folder inside:(id)inside as:(id)as useDiskWriter:(BOOL)writer completion:(id)completion
 {
   writerCopy = writer;
@@ -1561,137 +1584,82 @@ uint64_t __29__FPDMoveWriter_dumpStateTo___block_invoke(uint64_t a1)
 
 - (void)initWithOperation:queue:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __22__FPDMoveWriter__step__block_invoke_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishWithError:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startDownloadOfItem:shouldMaterializeRecursively:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1CEFC7000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] move-writer starting download of item %@, shouldMaterializeRecursively %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1CEFC7000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] move-writer starting download of item %@, shouldMaterializeRecursively %@", v2, 0x16u);
 }
 
 void __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_completionHandler___block_invoke_39_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 48);
-  v3 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void __84__FPDMoveWriter_startDownloadOfItem_shouldMaterializeRecursively_completionHandler___block_invoke_39_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 48);
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)_removeRoot:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performCopyOfItem:(void *)a1 to:as:sourceMaterializeOption:targetMaterializeOption:useDiskWriter:completion:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 diskWriter];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performMoveOfItem:(void *)a1 to:as:sourceMaterializeOption:targetMaterializeOption:useDiskWriter:completion:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 diskWriter];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)performMoveOfFolder:to:as:sourceMaterializeOption:targetMaterializeOption:atomically:useDiskWriter:completion:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performMoveOfFolder:(void *)a1 to:as:sourceMaterializeOption:targetMaterializeOption:atomically:useDiskWriter:completion:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 diskWriter];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performCreateFolder:(void *)a1 inside:as:useDiskWriter:completion:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 diskWriter];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

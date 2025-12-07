@@ -12,79 +12,61 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   mach_port_mod_refs(*MEMORY[0x1E69E9A60], self->_eventPort, 0, -1);
-  v4.receiver = self;
-  v4.super_class = IOSurfaceSharedEvent;
-  [(IOSurfaceSharedEvent *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = IOSurfaceSharedEvent;
+  [(IOSurfaceSharedEvent *)&v3 dealloc];
 }
 
 - (IOSurfaceSharedEvent)initWithOptions:(unint64_t)options
 {
   output[2] = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = IOSurfaceSharedEvent;
-  v4 = [(IOSurfaceSharedEvent *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = IOSurfaceSharedEvent;
+  v4 = [(IOSurfaceSharedEvent *)&v14 init];
   if (v4)
   {
     input = options;
     outputCnt = 2;
     v5 = _ioSurfaceConnect();
-    if (IOConnectCallMethod(v5, 0x24u, &input, 1u, 0, 0, output, &outputCnt, 0, 0))
+    if (IOConnectCallMethod(v5, 0x24u, &input, 1u, 0, 0, output, &outputCnt, 0, 0) || (v6 = output[0], v7 = output[1], *(v4 + 2) = output[0], *(v4 + 2) = v7, v11 = v6, *v15 = 0u, v16 = 0u, v10 = 4, v8 = _ioSurfaceConnect(), IOConnectCallMethod(v8, 0x26u, &v11, 1u, 0, 0, v15, &v10, 0, 0)))
     {
-      goto LABEL_4;
-    }
 
-    v6 = output[0];
-    v7 = output[1];
-    *(v4 + 2) = output[0];
-    *(v4 + 2) = v7;
-    v12 = v6;
-    *v16 = 0u;
-    v17 = 0u;
-    v11 = 4;
-    v8 = _ioSurfaceConnect();
-    if (IOConnectCallMethod(v8, 0x26u, &v12, 1u, 0, 0, v16, &v11, 0, 0))
-    {
-LABEL_4:
-
-      v4 = 0;
+      return 0;
     }
 
     else
     {
-      *(v4 + 24) = v17;
+      *(v4 + 24) = v16;
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (IOSurfaceSharedEvent)initWithMachPort:(unsigned int)port
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   mach_port_mod_refs(*MEMORY[0x1E69E9A60], port, 0, 1);
   self->_eventPort = port;
   input = port;
   *output = 0u;
-  v11 = 0u;
+  v10 = 0u;
   outputCnt = 4;
   v5 = _ioSurfaceConnect();
   if (IOConnectCallMethod(v5, 0x26u, &input, 1u, 0, 0, output, &outputCnt, 0, 0))
   {
 
-    self = 0;
+    return 0;
   }
 
   else
   {
     self->_signaledValue = output[1];
-    *&self->_globalTraceObjectID = v11;
+    *&self->_globalTraceObjectID = v10;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -96,11 +78,10 @@ LABEL_4:
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"This object may only be encoded by an NSXPCCoder."];
   }
 
-  eventPort = self->_eventPort;
-  v6 = xpc_mach_send_create();
-  [coder encodeXPCObject:v6 forKey:@"IOSurface.port"];
+  v4 = xpc_mach_send_create();
+  [coder encodeXPCObject:v4 forKey:@"IOSurface.port"];
 
-  xpc_release(v6);
+  xpc_release(v4);
 }
 
 - (IOSurfaceSharedEvent)initWithCoder:(id)coder

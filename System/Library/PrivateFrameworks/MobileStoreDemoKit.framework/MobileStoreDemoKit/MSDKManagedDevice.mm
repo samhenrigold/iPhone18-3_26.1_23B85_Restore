@@ -100,9 +100,11 @@
 
 uint64_t __35__MSDKManagedDevice_sharedInstance__block_invoke()
 {
-  sharedInstance_device = objc_alloc_init(MSDKManagedDevice);
+  v0 = objc_alloc_init(MSDKManagedDevice);
+  v1 = sharedInstance_device;
+  sharedInstance_device = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)sharedInstance
@@ -119,37 +121,37 @@ uint64_t __35__MSDKManagedDevice_sharedInstance__block_invoke()
 
 - (MSDKManagedDevice)init
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = MSDKManagedDevice;
-  v2 = [(MSDKManagedDevice *)&v11 init];
+  v15 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = MSDKManagedDevice;
+  v2 = [(MSDKManagedDevice *)&v12 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = defaultLogHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = defaultLogHandle(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_259B7D000, v3, OS_LOG_TYPE_DEFAULT, &unk_259BB58B6, buf, 2u);
+      _os_log_impl(&dword_259B7D000, v4, OS_LOG_TYPE_DEFAULT, &unk_259BB58B6, buf, 2u);
     }
 
-    v4 = defaultLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       processInfo = [MEMORY[0x277CCAC38] processInfo];
       processName = [processInfo processName];
       *buf = 138543362;
-      v13 = processName;
-      _os_log_impl(&dword_259B7D000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ started to use MobileStoreDemoKit.", buf, 0xCu);
+      v14 = processName;
+      _os_log_impl(&dword_259B7D000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ started to use MobileStoreDemoKit.", buf, 0xCu);
     }
 
-    v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    [(MSDKManagedDevice *)v2 setXpc_cache:v7];
+    v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [(MSDKManagedDevice *)v3 setXpc_cache:v9];
 
-    v8 = v2;
+    v10 = v3;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v2;
+  return v3;
 }
 
 - (BOOL)isBetterTogetherDemoDevice
@@ -170,17 +172,17 @@ uint64_t __35__MSDKManagedDevice_sharedInstance__block_invoke()
       if (connection)
       {
         connection2 = [(MSDKManagedDevice *)self connection];
-        v7 = xpc_connection_send_message_with_reply_sync(connection2, v5);
+        v8 = xpc_connection_send_message_with_reply_sync(connection2, v5);
 
-        LOBYTE(connection2) = xpc_dictionary_get_BOOL(v7, [@"enable_better_together" UTF8String]);
+        LOBYTE(connection2) = xpc_dictionary_get_BOOL(v8, [@"enable_better_together" UTF8String]);
       }
 
       else
       {
-        v7 = defaultLogHandle();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = defaultLogHandle(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          [(MSDKManagedDevice *)v7 isBetterTogetherDemoDevice:v9];
+          [(MSDKManagedDevice *)v8 isBetterTogetherDemoDevice:v10];
         }
 
         LOBYTE(connection2) = 0;
@@ -217,14 +219,14 @@ uint64_t __35__MSDKManagedDevice_sharedInstance__block_invoke()
   if (v5)
   {
     path = [v5 path];
-    v8 = [path stringByAppendingPathComponent:@"MSDPersistentData"];
+    v9 = [path stringByAppendingPathComponent:@"MSDPersistentData"];
 
-    v9 = defaultLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = defaultLogHandle(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = v8;
-      _os_log_impl(&dword_259B7D000, v9, OS_LOG_TYPE_DEFAULT, "appDataFolderPath:  %{public}@", buf, 0xCu);
+      v15 = v9;
+      _os_log_impl(&dword_259B7D000, v11, OS_LOG_TYPE_DEFAULT, "appDataFolderPath:  %{public}@", buf, 0xCu);
     }
   }
 
@@ -232,43 +234,41 @@ uint64_t __35__MSDKManagedDevice_sharedInstance__block_invoke()
   {
     if (error)
     {
-      v10 = v6;
+      v7 = v6;
       *error = v6;
     }
 
-    v9 = defaultLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = defaultLogHandle(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice(PersistentStorage) *)v6 getAppDataFolderPathWithReturnError:v9];
+      [(MSDKManagedDevice(PersistentStorage) *)v6 getAppDataFolderPathWithReturnError:v11];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v9;
 }
 
 - (BOOL)preserveAppDataToPersistentStorageWithReturnError:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v5 = [(MSDKManagedDevice *)self getAppDataFolderPathWithReturnError:&v21];
-  v6 = v21;
+  v26 = *MEMORY[0x277D85DE8];
+  v23 = 0;
+  v5 = [(MSDKManagedDevice *)self getAppDataFolderPathWithReturnError:&v23];
+  v6 = v23;
   v7 = v6;
   if (!v5)
   {
     if (error)
     {
-      v14 = v6;
-      v13 = 0;
+      v15 = v6;
+      v14 = 0;
       *error = v7;
       goto LABEL_20;
     }
 
 LABEL_19:
-    v13 = 0;
+    v14 = 0;
     goto LABEL_20;
   }
 
@@ -280,11 +280,11 @@ LABEL_19:
 
   if (!connection)
   {
-    safeAssignErrorWithReason(error, 3727744774, @"Error preserving data to shelter.", @"Failed to setup XPC connection.");
-    v15 = defaultLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = safeAssignErrorWithReason(error, 3727744774, @"Error preserving data to shelter.", @"Failed to setup XPC connection.");
+    v17 = defaultLogHandle(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [MSDKManagedDevice(PersistentStorage) preserveAppDataToPersistentStorageWithReturnError:v15];
+      [MSDKManagedDevice(PersistentStorage) preserveAppDataToPersistentStorageWithReturnError:v17];
     }
 
     goto LABEL_18;
@@ -293,43 +293,43 @@ LABEL_19:
   connection2 = [(MSDKManagedDevice *)self connection];
   v11 = xpc_connection_send_message_with_reply_sync(connection2, v8);
 
-  if (!xpc_dictionary_get_BOOL(v11, "Result"))
+  v12 = xpc_dictionary_get_BOOL(v11, "Result");
+  if (!v12)
   {
     string = xpc_dictionary_get_string(v11, "ErrorMsg");
     if (string)
     {
-      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
+      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
     }
 
     else
     {
-      v17 = @"Error preserving data to shelter.";
+      v19 = @"Error preserving data to shelter.";
     }
 
-    safeAssignErrorWithReason(error, 3727744774, @"Error preserving data to shelter.", v17);
-    v18 = defaultLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = safeAssignErrorWithReason(error, 3727744774, @"Error preserving data to shelter.", v19);
+    v21 = defaultLogHandle(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice(PersistentStorage) *)v5 preserveAppDataToPersistentStorageWithReturnError:error, v18];
+      [(MSDKManagedDevice(PersistentStorage) *)v5 preserveAppDataToPersistentStorageWithReturnError:error, v21];
     }
 
 LABEL_18:
     goto LABEL_19;
   }
 
-  v12 = defaultLogHandle();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = defaultLogHandle(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v23 = v5;
-    _os_log_impl(&dword_259B7D000, v12, OS_LOG_TYPE_DEFAULT, "Successfully preserved app data from %{public}@ to persistent storage.", buf, 0xCu);
+    v25 = v5;
+    _os_log_impl(&dword_259B7D000, v13, OS_LOG_TYPE_DEFAULT, "Successfully preserved app data from %{public}@ to persistent storage.", buf, 0xCu);
   }
 
-  v13 = 1;
+  v14 = 1;
 LABEL_20:
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
 - (BOOL)closeRunningAppsExcept:(id)except
@@ -346,23 +346,23 @@ LABEL_20:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v9 = xpc_connection_send_message_with_reply_sync(connection2, v5);
+    v10 = xpc_connection_send_message_with_reply_sync(connection2, v5);
 
-    v10 = xpc_dictionary_get_BOOL(v9, "Result");
+    v11 = xpc_dictionary_get_BOOL(v10, "Result");
   }
 
   else
   {
-    v9 = defaultLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = defaultLogHandle(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [MSDKManagedDevice(CloseApps) closeRunningAppsExcept:v9];
+      [MSDKManagedDevice(CloseApps) closeRunningAppsExcept:v10];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)initializeAppSwitcherContent
@@ -375,23 +375,23 @@ LABEL_20:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v6 = xpc_connection_send_message_with_reply_sync(connection2, v3);
+    v7 = xpc_connection_send_message_with_reply_sync(connection2, v3);
 
-    v7 = xpc_dictionary_get_BOOL(v6, "Result");
+    v8 = xpc_dictionary_get_BOOL(v7, "Result");
   }
 
   else
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice(CloseApps) *)v6 initializeAppSwitcherContent];
+      [(MSDKManagedDevice(CloseApps) *)v7 initializeAppSwitcherContent];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)checkInWithCompletion:(id)completion
@@ -411,23 +411,24 @@ LABEL_20:
   v31[4] = __Block_byref_object_dispose__11;
   selfCopy = self;
   v32 = selfCopy;
-  if ([(MSDKManagedDevice *)selfCopy isDeviceClassSupported])
+  isDeviceClassSupported = [(MSDKManagedDevice *)selfCopy isDeviceClassSupported];
+  if (isDeviceClassSupported)
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = defaultLogHandle(isDeviceClassSupported);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v36 = "[MSDKManagedDevice(DemoUnitRequest) checkInWithCompletion:]";
-      _os_log_impl(&dword_259B7D000, v6, OS_LOG_TYPE_DEFAULT, "%s - making XPC call", buf, 0xCu);
+      _os_log_impl(&dword_259B7D000, v7, OS_LOG_TYPE_DEFAULT, "%s - making XPC call", buf, 0xCu);
     }
 
-    v7 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v7, "RequestOperation", "DeviceCheckIn");
+    v8 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v8, "RequestOperation", "DeviceCheckIn");
     [(MSDKManagedDevice *)selfCopy setupConnection];
     connection = [(MSDKManagedDevice *)selfCopy connection];
-    v9 = connection == 0;
+    v10 = connection == 0;
 
-    if (!v9)
+    if (!v10)
     {
       connection2 = [(MSDKManagedDevice *)selfCopy connection];
       v28[0] = MEMORY[0x277D85DD0];
@@ -436,16 +437,16 @@ LABEL_20:
       v28[3] = &unk_2798EF500;
       v28[4] = v31;
       v28[5] = v33;
-      xpc_connection_send_message_with_reply(connection2, v7, 0, v28);
+      xpc_connection_send_message_with_reply(connection2, v8, 0, v28);
 
-      v11 = 0;
+      v12 = 0;
       goto LABEL_6;
     }
 
     v29 = 0;
     safeAssignError(&v29, 3727741186, @"Failed to establish xpc connection to demod.");
-    v11 = v29;
-    v13 = defaultLogHandle();
+    v12 = v29;
+    v13 = defaultLogHandle(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(MSDKManagedDevice(DemoUnitRequest) *)v13 checkInWithCompletion:v21, v22, v23, v24, v25, v26, v27];
@@ -456,26 +457,25 @@ LABEL_20:
   {
     v30 = 0;
     safeAssignError(&v30, 3727741188, @"Device is unsupported by MobileStoreDemoKit.");
-    v11 = v30;
-    v13 = defaultLogHandle();
+    v12 = v30;
+    v13 = defaultLogHandle(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(MSDKManagedDevice(DemoUnitRequest) *)v13 checkInWithCompletion:v14, v15, v16, v17, v18, v19, v20];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   if (completionCopy)
   {
-    (*(completionCopy + 2))(completionCopy, 0, 0, v11);
+    (*(completionCopy + 2))(completionCopy, 0, 0, v12);
   }
 
 LABEL_6:
   _Block_object_dispose(v31, 8);
 
   _Block_object_dispose(v33, 8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markAsNotDemoWithCompletion:(id)completion
@@ -495,23 +495,24 @@ LABEL_6:
   v31[4] = __Block_byref_object_dispose__11;
   selfCopy = self;
   v32 = selfCopy;
-  if ([(MSDKManagedDevice *)selfCopy isDeviceClassSupported])
+  isDeviceClassSupported = [(MSDKManagedDevice *)selfCopy isDeviceClassSupported];
+  if (isDeviceClassSupported)
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = defaultLogHandle(isDeviceClassSupported);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v36 = "[MSDKManagedDevice(DemoUnitRequest) markAsNotDemoWithCompletion:]";
-      _os_log_impl(&dword_259B7D000, v6, OS_LOG_TYPE_DEFAULT, "%s - making XPC call", buf, 0xCu);
+      _os_log_impl(&dword_259B7D000, v7, OS_LOG_TYPE_DEFAULT, "%s - making XPC call", buf, 0xCu);
     }
 
-    v7 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v7, "RequestOperation", "MarkAsNotDemo");
+    v8 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v8, "RequestOperation", "MarkAsNotDemo");
     [(MSDKManagedDevice *)selfCopy setupConnection];
     connection = [(MSDKManagedDevice *)selfCopy connection];
-    v9 = connection == 0;
+    v10 = connection == 0;
 
-    if (!v9)
+    if (!v10)
     {
       connection2 = [(MSDKManagedDevice *)selfCopy connection];
       v28[0] = MEMORY[0x277D85DD0];
@@ -520,16 +521,16 @@ LABEL_6:
       v28[3] = &unk_2798EF500;
       v28[4] = v31;
       v28[5] = v33;
-      xpc_connection_send_message_with_reply(connection2, v7, 0, v28);
+      xpc_connection_send_message_with_reply(connection2, v8, 0, v28);
 
-      v11 = 0;
+      v12 = 0;
       goto LABEL_6;
     }
 
     v29 = 0;
     safeAssignError(&v29, 3727741186, @"Failed to establish xpc connection to demod.");
-    v11 = v29;
-    v13 = defaultLogHandle();
+    v12 = v29;
+    v13 = defaultLogHandle(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(MSDKManagedDevice(DemoUnitRequest) *)v13 markAsNotDemoWithCompletion:v21, v22, v23, v24, v25, v26, v27];
@@ -540,27 +541,25 @@ LABEL_6:
   {
     v30 = 0;
     safeAssignError(&v30, 3727741188, @"Device is unsupported by MobileStoreDemoKit.");
-    v11 = v30;
-    v13 = defaultLogHandle();
+    v12 = v30;
+    v13 = defaultLogHandle(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [(MSDKManagedDevice(DemoUnitRequest) *)v13 markAsNotDemoWithCompletion:v14, v15, v16, v17, v18, v19, v20];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy, 0, v11);
+    completionCopy[2](completionCopy, 0, v12);
   }
 
 LABEL_6:
 
   _Block_object_dispose(v31, 8);
   _Block_object_dispose(v33, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)searchStoreWithOptions:(id)options completion:(id)completion
@@ -581,14 +580,15 @@ LABEL_6:
   v35[4] = __Block_byref_object_dispose__11;
   selfCopy = self;
   v36 = selfCopy;
-  if ([(MSDKManagedDevice *)selfCopy isDeviceClassSupported])
+  isDeviceClassSupported = [(MSDKManagedDevice *)selfCopy isDeviceClassSupported];
+  if (isDeviceClassSupported)
   {
-    v9 = defaultLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = defaultLogHandle(isDeviceClassSupported);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v40 = "[MSDKManagedDevice(DemoUnitRequest) searchStoreWithOptions:completion:]";
-      _os_log_impl(&dword_259B7D000, v9, OS_LOG_TYPE_DEFAULT, "%s - making XPC call", buf, 0xCu);
+      _os_log_impl(&dword_259B7D000, v10, OS_LOG_TYPE_DEFAULT, "%s - making XPC call", buf, 0xCu);
     }
 
     if (optionsCopy)
@@ -601,13 +601,13 @@ LABEL_6:
       createXPCDictionary = xpc_dictionary_create(0, 0, 0);
     }
 
-    v11 = createXPCDictionary;
+    v12 = createXPCDictionary;
     xpc_dictionary_set_string(createXPCDictionary, "RequestOperation", "StoreSearch");
     [(MSDKManagedDevice *)selfCopy setupConnection];
     connection = [(MSDKManagedDevice *)selfCopy connection];
-    v13 = connection == 0;
+    v14 = connection == 0;
 
-    if (!v13)
+    if (!v14)
     {
       connection2 = [(MSDKManagedDevice *)selfCopy connection];
       v32[0] = MEMORY[0x277D85DD0];
@@ -616,16 +616,16 @@ LABEL_6:
       v32[3] = &unk_2798EF500;
       v32[4] = v35;
       v32[5] = v37;
-      xpc_connection_send_message_with_reply(connection2, v11, 0, v32);
+      xpc_connection_send_message_with_reply(connection2, v12, 0, v32);
 
-      v15 = 0;
+      v16 = 0;
       goto LABEL_9;
     }
 
     v33 = 0;
     safeAssignError(&v33, 3727741186, @"Failed to establish xpc connection to demod.");
-    v15 = v33;
-    v17 = defaultLogHandle();
+    v16 = v33;
+    v17 = defaultLogHandle(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [(MSDKManagedDevice(DemoUnitRequest) *)v17 searchStoreWithOptions:v25 completion:v26, v27, v28, v29, v30, v31];
@@ -636,42 +636,41 @@ LABEL_6:
   {
     v34 = 0;
     safeAssignError(&v34, 3727741188, @"Device is unsupported by MobileStoreDemoKit.");
-    v15 = v34;
-    v17 = defaultLogHandle();
+    v16 = v34;
+    v17 = defaultLogHandle(v16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [(MSDKManagedDevice(DemoUnitRequest) *)v17 searchStoreWithOptions:v18 completion:v19, v20, v21, v22, v23, v24];
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy, 0, v15);
+    completionCopy[2](completionCopy, 0, v16);
   }
 
 LABEL_9:
 
   _Block_object_dispose(v35, 8);
   _Block_object_dispose(v37, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCheckInXPCResponse:(id)response withCompletion:(id)completion
 {
   responseCopy = response;
   completionCopy = completion;
-  if (MEMORY[0x259CB0BB0](responseCopy) != MEMORY[0x277D86468])
+  v7 = MEMORY[0x259CB0BB0](responseCopy);
+  if (v7 != MEMORY[0x277D86468])
   {
-    [MSDKManagedDevice(DemoUnitRequest) _handleCheckInXPCResponse:withCompletion:];
+    [MSDKManagedDevice(DemoUnitRequest) _handleCheckInXPCResponse:v7 withCompletion:?];
 LABEL_7:
-    v10 = 0;
-    safeAssignError(&v10, 3727741189, @"Unexpected demod xpc response.");
-    v9 = v10;
-    v7 = 0;
+    v11 = 0;
+    safeAssignError(&v11, 3727741189, @"Unexpected demod xpc response.");
+    v10 = v11;
     v8 = 0;
+    v9 = 0;
     if (!completionCopy)
     {
       goto LABEL_5;
@@ -685,13 +684,13 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v7 = xpc_dictionary_get_BOOL(responseCopy, "Eligible");
-  v8 = xpc_dictionary_get_BOOL(responseCopy, "ShowUI");
-  v9 = 0;
+  v8 = xpc_dictionary_get_BOOL(responseCopy, "Eligible");
+  v9 = xpc_dictionary_get_BOOL(responseCopy, "ShowUI");
+  v10 = 0;
   if (completionCopy)
   {
 LABEL_4:
-    completionCopy[2](completionCopy, v7, v8, v9);
+    completionCopy[2](completionCopy, v8, v9, v10);
   }
 
 LABEL_5:
@@ -726,114 +725,116 @@ LABEL_6:
 
 - (void)_handleSearchXPCResponse:(id)response withCompletion:(id)completion
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   completionCopy = completion;
   length = 0;
-  if (MEMORY[0x259CB0BB0](responseCopy) != MEMORY[0x277D86468])
+  v7 = MEMORY[0x259CB0BB0](responseCopy);
+  if (v7 != MEMORY[0x277D86468])
   {
-    v15 = defaultLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = defaultLogHandle(v7);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice(DemoUnitRequest) *)v15 _handleSearchXPCResponse:v16 withCompletion:v17, v18, v19, v20, v21, v22];
+      [(MSDKManagedDevice(DemoUnitRequest) *)v18 _handleSearchXPCResponse:v19 withCompletion:v20, v21, v22, v23, v24, v25];
     }
 
     goto LABEL_18;
   }
 
-  if (!xpc_dictionary_get_BOOL(responseCopy, "Result"))
+  v8 = xpc_dictionary_get_BOOL(responseCopy, "Result");
+  if (!v8)
   {
-    v15 = defaultLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = defaultLogHandle(v8);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice(DemoUnitRequest) *)v15 _handleSearchXPCResponse:v23 withCompletion:v24, v25, v26, v27, v28, v29];
+      [(MSDKManagedDevice(DemoUnitRequest) *)v18 _handleSearchXPCResponse:v26 withCompletion:v27, v28, v29, v30, v31, v32];
     }
 
 LABEL_18:
-    v10 = 0;
+    v13 = 0;
+    v15 = 0;
     v11 = 0;
-    v9 = 0;
-    v8 = 0;
+    v10 = 0;
     goto LABEL_28;
   }
 
   data = xpc_dictionary_get_data(responseCopy, "ResultData", &length);
   if (data)
   {
-    v8 = [MEMORY[0x277CBEA90] dataWithBytes:data length:length];
-    v45 = 0;
-    v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v45];
-    v10 = v45;
-    if (v9)
+    v10 = [MEMORY[0x277CBEA90] dataWithBytes:data length:length];
+    v48 = 0;
+    v11 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v10 options:0 error:&v48];
+    v12 = v48;
+    v13 = v12;
+    if (v11)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v11 = 1;
+        v15 = 1;
         goto LABEL_7;
       }
 
-      v15 = defaultLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = defaultLogHandle(isKindOfClass);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [MSDKManagedDevice(DemoUnitRequest) _handleSearchXPCResponse:v9 withCompletion:v15];
+        [MSDKManagedDevice(DemoUnitRequest) _handleSearchXPCResponse:v11 withCompletion:v18];
       }
     }
 
     else
     {
-      v15 = defaultLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = defaultLogHandle(v12);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [(MSDKManagedDevice(DemoUnitRequest) *)v15 _handleSearchXPCResponse:v37 withCompletion:v38, v39, v40, v41, v42, v43];
+        [(MSDKManagedDevice(DemoUnitRequest) *)v18 _handleSearchXPCResponse:v40 withCompletion:v41, v42, v43, v44, v45, v46];
       }
 
-      v9 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v15 = defaultLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = defaultLogHandle(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice(DemoUnitRequest) *)v15 _handleSearchXPCResponse:v30 withCompletion:v31, v32, v33, v34, v35, v36];
+      [(MSDKManagedDevice(DemoUnitRequest) *)v18 _handleSearchXPCResponse:v33 withCompletion:v34, v35, v36, v37, v38, v39];
     }
 
+    v13 = 0;
+    v11 = 0;
     v10 = 0;
-    v9 = 0;
-    v8 = 0;
   }
 
-  v11 = 1;
+  v15 = 1;
 LABEL_28:
 
 LABEL_7:
-  v12 = defaultLogHandle();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v16 = defaultLogHandle(isKindOfClass);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v48 = "[MSDKManagedDevice(DemoUnitRequest) _handleSearchXPCResponse:withCompletion:]";
-    v49 = 2114;
-    v50 = v9;
-    _os_log_impl(&dword_259B7D000, v12, OS_LOG_TYPE_DEFAULT, "%s - Store Search return with result list - %{public}@", buf, 0x16u);
+    v51 = "[MSDKManagedDevice(DemoUnitRequest) _handleSearchXPCResponse:withCompletion:]";
+    v52 = 2114;
+    v53 = v11;
+    _os_log_impl(&dword_259B7D000, v16, OS_LOG_TYPE_DEFAULT, "%s - Store Search return with result list - %{public}@", buf, 0x16u);
   }
 
-  if ((v11 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
-    v44 = v10;
-    safeAssignError(&v44, 3727741189, @"Unexpected demod xpc response.");
-    v13 = v44;
+    v47 = v13;
+    safeAssignError(&v47, 3727741189, @"Unexpected demod xpc response.");
+    v17 = v47;
 
-    v10 = v13;
+    v13 = v17;
   }
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy, v9, v10);
+    completionCopy[2](completionCopy, v11, v13);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getCurrentAppUsageSessionUUID
@@ -848,45 +849,46 @@ LABEL_7:
     if (connection)
     {
       connection2 = [(MSDKManagedDevice *)self connection];
-      v6 = xpc_connection_send_message_with_reply_sync(connection2, v3);
+      v7 = xpc_connection_send_message_with_reply_sync(connection2, v3);
 
-      if (xpc_dictionary_get_BOOL(v6, "Result"))
+      v8 = xpc_dictionary_get_BOOL(v7, "Result");
+      if (v8)
       {
-        string = xpc_dictionary_get_string(v6, "SessionUUID");
+        string = xpc_dictionary_get_string(v7, "SessionUUID");
         if (string)
         {
-          v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
+          v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
 LABEL_7:
 
           goto LABEL_9;
         }
 
-        [MSDKManagedDevice(dataCollection) getCurrentAppUsageSessionUUID];
+        [(MSDKManagedDevice(dataCollection) *)0 getCurrentAppUsageSessionUUID];
       }
 
       else
       {
-        [MSDKManagedDevice(dataCollection) getCurrentAppUsageSessionUUID];
+        [(MSDKManagedDevice(dataCollection) *)v8 getCurrentAppUsageSessionUUID];
       }
     }
 
     else
     {
-      v6 = defaultLogHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = defaultLogHandle(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        [(MSDKManagedDevice(dataCollection) *)v6 getCurrentAppUsageSessionUUID];
+        [(MSDKManagedDevice(dataCollection) *)v7 getCurrentAppUsageSessionUUID];
       }
     }
 
-    v8 = 0;
+    v10 = 0;
     goto LABEL_7;
   }
 
-  v8 = 0;
+  v10 = 0;
 LABEL_9:
 
-  return v8;
+  return v10;
 }
 
 - (BOOL)collectAppUsageWithSessionStart:(id)start andEnd:(id)end
@@ -909,29 +911,29 @@ LABEL_9:
     if (connection)
     {
       connection2 = [(MSDKManagedDevice *)self connection];
-      v15 = xpc_connection_send_message_with_reply_sync(connection2, v12);
+      v16 = xpc_connection_send_message_with_reply_sync(connection2, v12);
 
-      v16 = xpc_dictionary_get_BOOL(v15, "Result");
+      v17 = xpc_dictionary_get_BOOL(v16, "Result");
     }
 
     else
     {
-      v15 = defaultLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = defaultLogHandle(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [MSDKManagedDevice(dataCollection) collectAppUsageWithSessionStart:v15 andEnd:?];
+        [MSDKManagedDevice(dataCollection) collectAppUsageWithSessionStart:v16 andEnd:?];
       }
 
-      v16 = 0;
+      v17 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  return v16;
+  return v17;
 }
 
 - (BOOL)sendAutoEnrollmentResult:(double)result withStoreId:(id)id withHelpMenuRowSelection:(id)selection
@@ -958,23 +960,23 @@ LABEL_9:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v13 = xpc_connection_send_message_with_reply_sync(connection2, v10);
+    v14 = xpc_connection_send_message_with_reply_sync(connection2, v10);
 
-    v14 = xpc_dictionary_get_BOOL(v13, "Result");
+    v15 = xpc_dictionary_get_BOOL(v14, "Result");
   }
 
   else
   {
-    v13 = defaultLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = defaultLogHandle(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [MSDKManagedDevice(AutoEnrollmentResult) sendAutoEnrollmentResult:v13 withStoreId:? withHelpMenuRowSelection:?];
+      [MSDKManagedDevice(AutoEnrollmentResult) sendAutoEnrollmentResult:v14 withStoreId:? withHelpMenuRowSelection:?];
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (BOOL)sendAutoEnrollmentAbortEvent:(id)event countryCode:(id)code
@@ -1001,23 +1003,23 @@ LABEL_9:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v11 = xpc_connection_send_message_with_reply_sync(connection2, v8);
+    v12 = xpc_connection_send_message_with_reply_sync(connection2, v8);
 
-    v12 = xpc_dictionary_get_BOOL(v11, "Result");
+    v13 = xpc_dictionary_get_BOOL(v12, "Result");
   }
 
   else
   {
-    v11 = defaultLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = defaultLogHandle(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [MSDKManagedDevice(AutoEnrollmentResult) sendAutoEnrollmentAbortEvent:v11 countryCode:?];
+      [MSDKManagedDevice(AutoEnrollmentResult) sendAutoEnrollmentAbortEvent:v12 countryCode:?];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)setLastShallowRefreshTime:(id)time
@@ -1037,23 +1039,23 @@ LABEL_9:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v11 = xpc_connection_send_message_with_reply_sync(connection2, v8);
+    v12 = xpc_connection_send_message_with_reply_sync(connection2, v8);
 
-    v12 = xpc_dictionary_get_BOOL(v11, "Result");
+    v13 = xpc_dictionary_get_BOOL(v12, "Result");
   }
 
   else
   {
-    v11 = defaultLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = defaultLogHandle(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [MSDKManagedDevice(SetLastShallowRefreshTime) setLastShallowRefreshTime:v11];
+      [MSDKManagedDevice(SetLastShallowRefreshTime) setLastShallowRefreshTime:v12];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (void)setDelegate:(id)delegate
@@ -1097,23 +1099,23 @@ LABEL_9:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v8 = xpc_connection_send_message_with_reply_sync(connection2, v5);
+    v9 = xpc_connection_send_message_with_reply_sync(connection2, v5);
 
-    v9 = xpc_dictionary_get_BOOL(v8, "Result");
+    v10 = xpc_dictionary_get_BOOL(v9, "Result");
   }
 
   else
   {
-    v8 = defaultLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = defaultLogHandle(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice *)v8 setSEPDemoMode:v11, v12, v13, v14, v15, v16, v17];
+      [(MSDKManagedDevice *)v9 setSEPDemoMode:v12, v13, v14, v15, v16, v17, v18];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)enterOfflineModeWithOptions:(id)options error:(id *)error
@@ -1165,12 +1167,12 @@ LABEL_6:
 
 - (BOOL)isOfflineMode:(id *)mode
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v5 = defaultLogHandle();
+  v24 = *MEMORY[0x277D85DE8];
+  v5 = defaultLogHandle(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v24 = "[MSDKManagedDevice isOfflineMode:]";
+    v23 = "[MSDKManagedDevice isOfflineMode:]";
     _os_log_impl(&dword_259B7D000, v5, OS_LOG_TYPE_DEFAULT, "%s - making XPC call", buf, 0xCu);
   }
 
@@ -1189,18 +1191,18 @@ LABEL_6:
 
   else
   {
-    v22 = 0;
-    safeAssignError(&v22, 3727741186, @"Failed to establish xpc connection to demod.");
-    v10 = v22;
-    v13 = defaultLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v21 = 0;
+    safeAssignError(&v21, 3727741186, @"Failed to establish xpc connection to demod.");
+    v10 = v21;
+    v12 = defaultLogHandle(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice *)v13 isOfflineMode:v14, v15, v16, v17, v18, v19, v20];
+      [(MSDKManagedDevice *)v12 isOfflineMode:v13, v14, v15, v16, v17, v18, v19];
     }
 
     if (v10)
     {
-      v21 = v10;
+      v20 = v10;
       *mode = v10;
 
       LOBYTE(v10) = 0;
@@ -1209,24 +1211,22 @@ LABEL_6:
     v9 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)prepareWithWiFi:(id)fi password:(id)password
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"SSID";
-  v12[1] = @"Password";
-  v13[0] = fi;
-  v13[1] = password;
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"SSID";
+  v11[1] = @"Password";
+  v12[0] = fi;
+  v12[1] = password;
   v6 = MEMORY[0x277CBEAC0];
   passwordCopy = password;
   fiCopy = fi;
-  v9 = [v6 dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v9 = [v6 dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   LOBYTE(fiCopy) = [(MSDKManagedDevice *)self _prepareWithOptions:v9];
-  v10 = *MEMORY[0x277D85DE8];
   return fiCopy;
 }
 
@@ -1234,7 +1234,7 @@ LABEL_6:
 {
   if (![(MSDKManagedDevice *)self isDeviceClassSupported])
   {
-    v6 = 0;
+    v7 = 0;
     v3 = 0;
 LABEL_6:
     int64 = 0;
@@ -1248,20 +1248,20 @@ LABEL_6:
 
   if (!int64)
   {
-    [MSDKManagedDevice getDemoInstallState];
-    v6 = 0;
+    [(MSDKManagedDevice *)v5 getDemoInstallState];
+    v7 = 0;
     goto LABEL_7;
   }
 
   connection = [(MSDKManagedDevice *)self connection];
-  v6 = xpc_connection_send_message_with_reply_sync(connection, v3);
+  v7 = xpc_connection_send_message_with_reply_sync(connection, v3);
 
-  if (!xpc_dictionary_get_BOOL(v6, "QueryDeviceInfoResult"))
+  if (!xpc_dictionary_get_BOOL(v7, "QueryDeviceInfoResult"))
   {
     goto LABEL_6;
   }
 
-  int64 = xpc_dictionary_get_int64(v6, "MSDDemoDeviceInstallState");
+  int64 = xpc_dictionary_get_int64(v7, "MSDDemoDeviceInstallState");
 LABEL_7:
 
   return int64;
@@ -1308,23 +1308,23 @@ LABEL_7:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v6 = xpc_connection_send_message_with_reply_sync(connection2, v3);
+    v7 = xpc_connection_send_message_with_reply_sync(connection2, v3);
 
-    v7 = xpc_dictionary_get_BOOL(v6, "Acknowledged");
+    v8 = xpc_dictionary_get_BOOL(v7, "Acknowledged");
   }
 
   else
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice *)v6 lockDemoContent:v9];
+      [(MSDKManagedDevice *)v7 lockDemoContent:v10];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)revertDemoContent
@@ -1342,23 +1342,23 @@ LABEL_7:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v6 = xpc_connection_send_message_with_reply_sync(connection2, v3);
+    v7 = xpc_connection_send_message_with_reply_sync(connection2, v3);
 
-    v7 = xpc_dictionary_get_BOOL(v6, "Acknowledged");
+    v8 = xpc_dictionary_get_BOOL(v7, "Acknowledged");
   }
 
   else
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice *)v6 revertDemoContent:v9];
+      [(MSDKManagedDevice *)v7 revertDemoContent:v10];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)commitNewDemoContent
@@ -1376,23 +1376,23 @@ LABEL_7:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v6 = xpc_connection_send_message_with_reply_sync(connection2, v3);
+    v7 = xpc_connection_send_message_with_reply_sync(connection2, v3);
 
-    v7 = xpc_dictionary_get_BOOL(v6, "Acknowledged");
+    v8 = xpc_dictionary_get_BOOL(v7, "Acknowledged");
   }
 
   else
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice *)v6 commitNewDemoContent:v9];
+      [(MSDKManagedDevice *)v7 commitNewDemoContent:v10];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)unenroll:(BOOL)unenroll
@@ -1446,12 +1446,12 @@ LABEL_7:
     if (connection)
     {
       connection2 = [(MSDKManagedDevice *)self connection];
-      v6 = xpc_connection_send_message_with_reply_sync(connection2, v3);
+      v7 = xpc_connection_send_message_with_reply_sync(connection2, v3);
 
-      v7 = xpc_dictionary_get_BOOL(v6, "QueryDeviceInfoResult");
-      string = xpc_dictionary_get_string(v6, "MSDFriendlyDeviceName");
+      v8 = xpc_dictionary_get_BOOL(v7, "QueryDeviceInfoResult");
+      string = xpc_dictionary_get_string(v7, "MSDFriendlyDeviceName");
       connection = 0;
-      if (v7 && string)
+      if (v8 && string)
       {
         connection = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
       }
@@ -1459,14 +1459,14 @@ LABEL_7:
 
     else
     {
-      [MSDKManagedDevice getFriendlyDeviceName];
-      v6 = 0;
+      [(MSDKManagedDevice *)v5 getFriendlyDeviceName];
+      v7 = 0;
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
     v3 = 0;
     connection = 0;
   }
@@ -1476,16 +1476,17 @@ LABEL_7:
 
 - (BOOL)setStoreOpenAt:(int64_t)at openMinute:(int64_t)minute closeHour:(int64_t)hour closeMinute:(int64_t)closeMinute
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v11 = defaultLogHandle();
+  v30 = *MEMORY[0x277D85DE8];
+  v11 = defaultLogHandle(self);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 136315138;
-    v26 = "[MSDKManagedDevice setStoreOpenAt:openMinute:closeHour:closeMinute:]";
-    _os_log_impl(&dword_259B7D000, v11, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: %s called.", &v25, 0xCu);
+    v28 = 136315138;
+    v29 = "[MSDKManagedDevice setStoreOpenAt:openMinute:closeHour:closeMinute:]";
+    _os_log_impl(&dword_259B7D000, v11, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: %s called.", &v28, 0xCu);
   }
 
-  if ([(MSDKManagedDevice *)self isDeviceClassSupported])
+  isDeviceClassSupported = [(MSDKManagedDevice *)self isDeviceClassSupported];
+  if (isDeviceClassSupported)
   {
     if (at < 0x18)
     {
@@ -1495,58 +1496,58 @@ LABEL_7:
         {
           if (closeMinute < 0x3C)
           {
-            v12 = xpc_dictionary_create(0, 0, 0);
-            xpc_dictionary_set_string(v12, "RequestOperation", "SetStoreHour");
-            xpc_dictionary_set_int64(v12, "OpenHour", at);
-            xpc_dictionary_set_int64(v12, "OpenMinute", minute);
-            xpc_dictionary_set_int64(v12, "CloseHour", hour);
-            xpc_dictionary_set_int64(v12, "CloseMinute", closeMinute);
+            v13 = xpc_dictionary_create(0, 0, 0);
+            xpc_dictionary_set_string(v13, "RequestOperation", "SetStoreHour");
+            xpc_dictionary_set_int64(v13, "OpenHour", at);
+            xpc_dictionary_set_int64(v13, "OpenMinute", minute);
+            xpc_dictionary_set_int64(v13, "CloseHour", hour);
+            xpc_dictionary_set_int64(v13, "CloseMinute", closeMinute);
             [(MSDKManagedDevice *)self setupConnection];
             connection = [(MSDKManagedDevice *)self connection];
 
-            v18 = defaultLogHandle();
-            v19 = v18;
+            v19 = defaultLogHandle(v18);
+            v20 = v19;
             if (connection)
             {
-              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
               {
-                LOWORD(v25) = 0;
-                _os_log_impl(&dword_259B7D000, v19, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: sending xpc...", &v25, 2u);
+                LOWORD(v28) = 0;
+                _os_log_impl(&dword_259B7D000, v20, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: sending xpc...", &v28, 2u);
               }
 
               connection2 = [(MSDKManagedDevice *)self connection];
-              v21 = xpc_connection_send_message_with_reply_sync(connection2, v12);
+              v22 = xpc_connection_send_message_with_reply_sync(connection2, v13);
 
-              v22 = defaultLogHandle();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+              v24 = defaultLogHandle(v23);
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
               {
-                LOWORD(v25) = 0;
-                _os_log_impl(&dword_259B7D000, v22, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: received response from xpc...", &v25, 2u);
+                LOWORD(v28) = 0;
+                _os_log_impl(&dword_259B7D000, v24, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: received response from xpc...", &v28, 2u);
               }
 
-              v23 = defaultLogHandle();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+              v26 = defaultLogHandle(v25);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
               {
-                v24 = MEMORY[0x259CB0A20](v21);
-                v25 = 136315138;
-                v26 = v24;
-                _os_log_impl(&dword_259B7D000, v23, OS_LOG_TYPE_DEFAULT, "xpc dictionary from reply: %s", &v25, 0xCu);
+                v27 = MEMORY[0x259CB0A20](v22);
+                v28 = 136315138;
+                v29 = v27;
+                _os_log_impl(&dword_259B7D000, v26, OS_LOG_TYPE_DEFAULT, "xpc dictionary from reply: %s", &v28, 0xCu);
               }
 
-              v14 = xpc_dictionary_get_BOOL(v21, "Result");
+              v15 = xpc_dictionary_get_BOOL(v22, "Result");
               goto LABEL_19;
             }
 
-            [MSDKManagedDevice setStoreOpenAt:v18 openMinute:? closeHour:? closeMinute:?];
+            [MSDKManagedDevice setStoreOpenAt:v19 openMinute:? closeHour:? closeMinute:?];
           }
 
           else
           {
-            v12 = defaultLogHandle();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+            v13 = defaultLogHandle(isDeviceClassSupported);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
-              LOWORD(v25) = 0;
-              v13 = "Close minute out of range.";
+              LOWORD(v28) = 0;
+              v14 = "Close minute out of range.";
               goto LABEL_17;
             }
           }
@@ -1554,11 +1555,11 @@ LABEL_7:
 
         else
         {
-          v12 = defaultLogHandle();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v13 = defaultLogHandle(isDeviceClassSupported);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v25) = 0;
-            v13 = "Open minute out of range.";
+            LOWORD(v28) = 0;
+            v14 = "Open minute out of range.";
             goto LABEL_17;
           }
         }
@@ -1566,11 +1567,11 @@ LABEL_7:
 
       else
       {
-        v12 = defaultLogHandle();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v13 = defaultLogHandle(isDeviceClassSupported);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v25) = 0;
-          v13 = "Close hour out of range.";
+          LOWORD(v28) = 0;
+          v14 = "Close hour out of range.";
           goto LABEL_17;
         }
       }
@@ -1578,97 +1579,90 @@ LABEL_7:
 
     else
     {
-      v12 = defaultLogHandle();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = defaultLogHandle(isDeviceClassSupported);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v25) = 0;
-        v13 = "Open hour out of range.";
+        LOWORD(v28) = 0;
+        v14 = "Open hour out of range.";
 LABEL_17:
-        _os_log_impl(&dword_259B7D000, v12, OS_LOG_TYPE_DEFAULT, v13, &v25, 2u);
+        _os_log_impl(&dword_259B7D000, v13, OS_LOG_TYPE_DEFAULT, v14, &v28, 2u);
       }
     }
 
-    v14 = 0;
+    v15 = 0;
 LABEL_19:
 
-    goto LABEL_20;
+    return v15;
   }
 
-  v14 = 0;
-LABEL_20:
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return 0;
 }
 
 - (BOOL)setIdleDelay:(int64_t)delay
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v5 = defaultLogHandle();
+  v28 = *MEMORY[0x277D85DE8];
+  v5 = defaultLogHandle(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 136315138;
-    v25 = "[MSDKManagedDevice setIdleDelay:]";
-    _os_log_impl(&dword_259B7D000, v5, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: %s called.", &v24, 0xCu);
+    v26 = 136315138;
+    v27 = "[MSDKManagedDevice setIdleDelay:]";
+    _os_log_impl(&dword_259B7D000, v5, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: %s called.", &v26, 0xCu);
   }
 
-  if ([(MSDKManagedDevice *)self isDeviceClassSupported])
+  if (![(MSDKManagedDevice *)self isDeviceClassSupported])
   {
-    v6 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v6, "RequestOperation", "SetScreenSaverIdleDelay");
-    xpc_dictionary_set_int64(v6, "IdleDelay", delay);
-    [(MSDKManagedDevice *)self setupConnection];
-    connection = [(MSDKManagedDevice *)self connection];
+    return 0;
+  }
 
-    v8 = defaultLogHandle();
-    v9 = v8;
-    if (connection)
+  v6 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v6, "RequestOperation", "SetScreenSaverIdleDelay");
+  xpc_dictionary_set_int64(v6, "IdleDelay", delay);
+  [(MSDKManagedDevice *)self setupConnection];
+  connection = [(MSDKManagedDevice *)self connection];
+
+  v9 = defaultLogHandle(v8);
+  v10 = v9;
+  if (connection)
+  {
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(v24) = 0;
-        _os_log_impl(&dword_259B7D000, v9, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: sending xpc...", &v24, 2u);
-      }
-
-      connection2 = [(MSDKManagedDevice *)self connection];
-      v9 = xpc_connection_send_message_with_reply_sync(connection2, v6);
-
-      v11 = defaultLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(v24) = 0;
-        _os_log_impl(&dword_259B7D000, v11, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: received response from xpc...", &v24, 2u);
-      }
-
-      v12 = defaultLogHandle();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-      {
-        v13 = MEMORY[0x259CB0A20](v9);
-        v24 = 136446210;
-        v25 = v13;
-        _os_log_impl(&dword_259B7D000, v12, OS_LOG_TYPE_DEFAULT, "xpc dictionary from reply: %{public}s", &v24, 0xCu);
-      }
-
-      v14 = xpc_dictionary_get_BOOL(v9, "Result");
+      LOWORD(v26) = 0;
+      _os_log_impl(&dword_259B7D000, v10, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: sending xpc...", &v26, 2u);
     }
 
-    else
-    {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-      {
-        [(MSDKManagedDevice *)v9 setIdleDelay:v17, v18, v19, v20, v21, v22, v23];
-      }
+    connection2 = [(MSDKManagedDevice *)self connection];
+    v10 = xpc_connection_send_message_with_reply_sync(connection2, v6);
 
-      v14 = 0;
+    v13 = defaultLogHandle(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v26) = 0;
+      _os_log_impl(&dword_259B7D000, v13, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: received response from xpc...", &v26, 2u);
     }
+
+    v15 = defaultLogHandle(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = MEMORY[0x259CB0A20](v10);
+      v26 = 136446210;
+      v27 = v16;
+      _os_log_impl(&dword_259B7D000, v15, OS_LOG_TYPE_DEFAULT, "xpc dictionary from reply: %{public}s", &v26, 0xCu);
+    }
+
+    v17 = xpc_dictionary_get_BOOL(v10, "Result");
   }
 
   else
   {
-    v14 = 0;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [(MSDKManagedDevice *)v10 setIdleDelay:v19, v20, v21, v22, v23, v24, v25];
+    }
+
+    v17 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v17;
 }
 
 - (BOOL)configureWiFi:(id)fi password:(id)password
@@ -1691,29 +1685,29 @@ LABEL_20:
     if (connection)
     {
       connection2 = [(MSDKManagedDevice *)self connection];
-      v11 = xpc_connection_send_message_with_reply_sync(connection2, v8);
+      v12 = xpc_connection_send_message_with_reply_sync(connection2, v8);
 
-      v12 = xpc_dictionary_get_BOOL(v11, "Result");
+      v13 = xpc_dictionary_get_BOOL(v12, "Result");
     }
 
     else
     {
-      v11 = defaultLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = defaultLogHandle(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [(MSDKManagedDevice *)v11 configureWiFi:v14 password:v15, v16, v17, v18, v19, v20];
+        [(MSDKManagedDevice *)v12 configureWiFi:v15 password:v16, v17, v18, v19, v20, v21];
       }
 
-      v12 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)disconnectAndForgetWiFi:(id *)fi
@@ -1739,7 +1733,7 @@ LABEL_5:
     v21 = 0;
     safeAssignError(&v21, 3727741186, @"Failed to establish xpc connection to demod.");
     v10 = v21;
-    v12 = defaultLogHandle();
+    v12 = defaultLogHandle(v10);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(MSDKManagedDevice *)v12 disconnectAndForgetWiFi:v13, v14, v15, v16, v17, v18, v19];
@@ -1784,35 +1778,35 @@ LABEL_6:
     if (connection)
     {
       connection2 = [(MSDKManagedDevice *)self connection];
-      v11 = xpc_connection_send_message_with_reply_sync(connection2, v8);
+      v12 = xpc_connection_send_message_with_reply_sync(connection2, v8);
 
-      v12 = xpc_dictionary_get_BOOL(v11, "Result");
+      v13 = xpc_dictionary_get_BOOL(v12, "Result");
     }
 
     else
     {
-      v11 = defaultLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = defaultLogHandle(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [(MSDKManagedDevice *)v11 setDeviceLanguage:v14 andRegion:v15, v16, v17, v18, v19, v20];
+        [(MSDKManagedDevice *)v12 setDeviceLanguage:v15 andRegion:v16, v17, v18, v19, v20, v21];
       }
 
-      v12 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)getDeviceLanguageandRegion
 {
   v24 = *MEMORY[0x277D85DE8];
-  v3 = defaultLogHandle();
+  v3 = defaultLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -1828,31 +1822,29 @@ LABEL_6:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v7 = xpc_connection_send_message_with_reply_sync(connection2, v4);
+    v8 = xpc_connection_send_message_with_reply_sync(connection2, v4);
 
-    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:{xpc_dictionary_get_string(v7, "languageIdentifier")}];
-    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:{xpc_dictionary_get_string(v7, "regionCode")}];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:{xpc_dictionary_get_string(v8, "languageIdentifier")}];
+    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:{xpc_dictionary_get_string(v8, "regionCode")}];
     v20[0] = @"languageIdentifier";
     v20[1] = @"regionCode";
-    v21[0] = v8;
-    v21[1] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v21[0] = v9;
+    v21[1] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
   }
 
   else
   {
-    v7 = defaultLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = defaultLogHandle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice *)v7 getDeviceLanguageandRegion:v13];
+      [(MSDKManagedDevice *)v8 getDeviceLanguageandRegion:v13];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 - (BOOL)saveBluetoothPairingInfo
@@ -1870,23 +1862,23 @@ LABEL_6:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v6 = xpc_connection_send_message_with_reply_sync(connection2, v3);
+    v7 = xpc_connection_send_message_with_reply_sync(connection2, v3);
 
-    v7 = xpc_dictionary_get_BOOL(v6, "Result");
+    v8 = xpc_dictionary_get_BOOL(v7, "Result");
   }
 
   else
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice *)v6 saveBluetoothPairingInfo:v9];
+      [(MSDKManagedDevice *)v7 saveBluetoothPairingInfo:v10];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)checkInBlockingUI
@@ -1899,23 +1891,23 @@ LABEL_6:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v6 = xpc_connection_send_message_with_reply_sync(connection2, v3);
+    v7 = xpc_connection_send_message_with_reply_sync(connection2, v3);
 
-    v7 = xpc_dictionary_get_BOOL(v6, "Acknowledged");
+    v8 = xpc_dictionary_get_BOOL(v7, "Acknowledged");
   }
 
   else
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice *)v6 checkInBlockingUI:v9];
+      [(MSDKManagedDevice *)v7 checkInBlockingUI:v10];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)cancelOperation
@@ -1928,23 +1920,23 @@ LABEL_6:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v6 = xpc_connection_send_message_with_reply_sync(connection2, v3);
+    v7 = xpc_connection_send_message_with_reply_sync(connection2, v3);
 
-    v7 = xpc_dictionary_get_BOOL(v6, "Acknowledged");
+    v8 = xpc_dictionary_get_BOOL(v7, "Acknowledged");
   }
 
   else
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice *)v6 cancelOperation:v9];
+      [(MSDKManagedDevice *)v7 cancelOperation:v10];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)isStoreOpen:(id)open withError:(id *)error
@@ -1967,7 +1959,7 @@ LABEL_6:
     v11 = xpc_connection_send_message_with_reply_sync(connection2, v7);
 
     v12 = xpc_dictionary_get_BOOL(v11, "ResultData");
-    v13 = defaultLogHandle();
+    v13 = defaultLogHandle(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [MSDKManagedDevice isStoreOpen:withError:];
@@ -1992,7 +1984,7 @@ LABEL_6:
       *error = v14;
       if (v14)
       {
-        v18 = defaultLogHandle();
+        v18 = defaultLogHandle(v17);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [MSDKManagedDevice isStoreOpen:error withError:?];
@@ -2001,7 +1993,7 @@ LABEL_6:
     }
 
     v11 = 0;
-    v12 = 0;
+    LOBYTE(v12) = 0;
   }
 
   return v12;
@@ -2035,7 +2027,7 @@ LABEL_6:
       if (v14)
       {
         v15 = v14;
-        v16 = defaultLogHandle();
+        v16 = defaultLogHandle(v14);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           [MSDKManagedDevice nextStoreOpenDate:withError:];
@@ -2077,7 +2069,7 @@ LABEL_6:
     *error = v17;
     if (v17)
     {
-      v20 = defaultLogHandle();
+      v20 = defaultLogHandle(v19);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [MSDKManagedDevice nextStoreOpenDate:error withError:?];
@@ -2119,7 +2111,7 @@ LABEL_11:
       if (v14)
       {
         v15 = v14;
-        v16 = defaultLogHandle();
+        v16 = defaultLogHandle(v14);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           [MSDKManagedDevice nextStoreCloseDate:withError:];
@@ -2161,7 +2153,7 @@ LABEL_11:
     *error = v17;
     if (v17)
     {
-      v20 = defaultLogHandle();
+      v20 = defaultLogHandle(v19);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [MSDKManagedDevice nextStoreCloseDate:error withError:?];
@@ -2194,7 +2186,8 @@ LABEL_11:
     connection2 = [(MSDKManagedDevice *)self connection];
     v14 = xpc_connection_send_message_with_reply_sync(connection2, v8);
 
-    if (xpc_dictionary_get_BOOL(v14, "Result"))
+    v15 = xpc_dictionary_get_BOOL(v14, "Result");
+    if (v15)
     {
       goto LABEL_6;
     }
@@ -2206,8 +2199,8 @@ LABEL_11:
     v14 = 0;
   }
 
-  v15 = defaultLogHandle();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = defaultLogHandle(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     [MSDKManagedDevice updateStoreHours:evaluateAgainstDate:];
   }
@@ -2226,18 +2219,19 @@ LABEL_6:
 
 - (BOOL)storeDataBlob:(id)blob
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blobCopy = blob;
-  if (![(MSDKManagedDevice *)self isDeviceClassSupported])
+  isDeviceClassSupported = [(MSDKManagedDevice *)self isDeviceClassSupported];
+  if (!isDeviceClassSupported)
   {
-    v11 = 0;
+    v13 = 0;
     goto LABEL_11;
   }
 
   if (!blobCopy)
   {
-    v7 = defaultLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = defaultLogHandle(isDeviceClassSupported);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [MSDKManagedDevice storeDataBlob:];
     }
@@ -2245,10 +2239,11 @@ LABEL_6:
     goto LABEL_19;
   }
 
-  if ([blobCopy length] > 0x400000)
+  v6 = [blobCopy length];
+  if (v6 > 0x400000)
   {
-    v7 = defaultLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = defaultLogHandle(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [MSDKManagedDevice storeDataBlob:blobCopy];
     }
@@ -2257,11 +2252,11 @@ LABEL_6:
   }
 
   getCacheIdentifier = [(MSDKManagedDevice *)self getCacheIdentifier];
-  v6 = defaultLogHandle();
-  v7 = v6;
+  v8 = defaultLogHandle(getCacheIdentifier);
+  v9 = v8;
   if (!getCacheIdentifier)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [MSDKManagedDevice storeDataBlob:];
     }
@@ -2269,19 +2264,19 @@ LABEL_6:
     goto LABEL_19;
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138543618;
-    v15 = getCacheIdentifier;
-    v16 = 2048;
-    v17 = [blobCopy length];
-    _os_log_impl(&dword_259B7D000, v7, OS_LOG_TYPE_DEFAULT, "uniqueIdentifier:%{public}@ %lu", &v14, 0x16u);
+    v15 = 138543618;
+    v16 = getCacheIdentifier;
+    v17 = 2048;
+    v18 = [blobCopy length];
+    _os_log_impl(&dword_259B7D000, v9, OS_LOG_TYPE_DEFAULT, "uniqueIdentifier:%{public}@ %lu", &v15, 0x16u);
   }
 
-  v7 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v7, "RequestOperation", "StoreDataBlob");
-  xpc_dictionary_set_string(v7, "ContainerUniqueIdentifier", [getCacheIdentifier UTF8String]);
-  xpc_dictionary_set_data(v7, "PersistentDataBlob", [blobCopy bytes], objc_msgSend(blobCopy, "length"));
+  v9 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v9, "RequestOperation", "StoreDataBlob");
+  xpc_dictionary_set_string(v9, "ContainerUniqueIdentifier", [getCacheIdentifier UTF8String]);
+  xpc_dictionary_set_data(v9, "PersistentDataBlob", [blobCopy bytes], objc_msgSend(blobCopy, "length"));
   [(MSDKManagedDevice *)self setupConnection];
   connection = [(MSDKManagedDevice *)self connection];
 
@@ -2289,26 +2284,25 @@ LABEL_6:
   {
     [MSDKManagedDevice storeDataBlob:getCacheIdentifier];
 LABEL_19:
-    v11 = 0;
+    v13 = 0;
     goto LABEL_9;
   }
 
   connection2 = [(MSDKManagedDevice *)self connection];
-  v10 = xpc_connection_send_message_with_reply_sync(connection2, v7);
+  v12 = xpc_connection_send_message_with_reply_sync(connection2, v9);
 
-  v11 = xpc_dictionary_get_BOOL(v10, "Acknowledged");
+  v13 = xpc_dictionary_get_BOOL(v12, "Acknowledged");
 LABEL_9:
 
 LABEL_11:
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v13;
 }
 
 - (id)retrieveDataBlob
 {
   if (![(MSDKManagedDevice *)self isDeviceClassSupported])
   {
-    v7 = 0;
+    v8 = 0;
     connection = 0;
     getCacheIdentifier = 0;
 LABEL_8:
@@ -2319,7 +2313,7 @@ LABEL_8:
   getCacheIdentifier = [(MSDKManagedDevice *)self getCacheIdentifier];
   if (!getCacheIdentifier)
   {
-    v7 = 0;
+    v8 = 0;
     connection = 0;
     goto LABEL_8;
   }
@@ -2333,29 +2327,29 @@ LABEL_8:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v7 = xpc_connection_send_message_with_reply_sync(connection2, v4);
+    v8 = xpc_connection_send_message_with_reply_sync(connection2, v4);
 
-    connection = xpc_dictionary_get_value(v7, "SavedDataBlob");
+    connection = xpc_dictionary_get_value(v8, "SavedDataBlob");
     bytes_ptr = xpc_data_get_bytes_ptr(connection);
     length = xpc_data_get_length(connection);
     if (length)
     {
-      v10 = [MEMORY[0x277CBEA90] dataWithBytes:bytes_ptr length:length];
+      v11 = [MEMORY[0x277CBEA90] dataWithBytes:bytes_ptr length:length];
       goto LABEL_10;
     }
   }
 
   else
   {
-    [MSDKManagedDevice retrieveDataBlob];
-    v7 = 0;
+    [(MSDKManagedDevice *)v6 retrieveDataBlob];
+    v8 = 0;
   }
 
 LABEL_9:
-  v10 = 0;
+  v11 = 0;
 LABEL_10:
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)deleteDataBlob
@@ -2381,32 +2375,32 @@ LABEL_10:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v8 = xpc_connection_send_message_with_reply_sync(connection2, v5);
+    v9 = xpc_connection_send_message_with_reply_sync(connection2, v5);
 
-    v9 = xpc_dictionary_get_BOOL(v8, "Acknowledged");
-    v10 = v4;
-    v4 = v8;
+    v10 = xpc_dictionary_get_BOOL(v9, "Acknowledged");
+    v11 = v4;
+    v4 = v9;
   }
 
   else
   {
-    v10 = defaultLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = defaultLogHandle(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice *)v10 deleteDataBlob:v12];
+      [(MSDKManagedDevice *)v11 deleteDataBlob:v13];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)getPersistentWiFiSsid
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v8[0] = @"PersistentWiFiSSID";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[1] = *MEMORY[0x277D85DE8];
+  v7[0] = @"PersistentWiFiSSID";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v4 = [(MSDKManagedDevice *)self _getCurrentNetworkInfoForKeys:v3 outError:0];
 
   if (v4)
@@ -2419,15 +2413,13 @@ LABEL_10:
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (BOOL)isDigitalSecurityEnabled
 {
   v13 = *MEMORY[0x277D85DE8];
-  v3 = defaultLogHandle();
+  v3 = defaultLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315138;
@@ -2436,40 +2428,40 @@ LABEL_10:
   }
 
   _readOwnershipWarningFromNvram = [(MSDKManagedDevice *)self _readOwnershipWarningFromNvram];
+  v5 = _readOwnershipWarningFromNvram;
   if (!_readOwnershipWarningFromNvram)
   {
     goto LABEL_9;
   }
 
-  v5 = defaultLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = defaultLogHandle(_readOwnershipWarningFromNvram);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315394;
     v10 = "[MSDKManagedDevice isDigitalSecurityEnabled]";
     v11 = 2114;
-    v12 = _readOwnershipWarningFromNvram;
-    _os_log_impl(&dword_259B7D000, v5, OS_LOG_TYPE_DEFAULT, "%s - ownershipWarning:  %{public}@", &v9, 0x16u);
+    v12 = v5;
+    _os_log_impl(&dword_259B7D000, v6, OS_LOG_TYPE_DEFAULT, "%s - ownershipWarning:  %{public}@", &v9, 0x16u);
   }
 
-  if ([_readOwnershipWarningFromNvram isEqualToString:@"1"] & 1) != 0 || (objc_msgSend(_readOwnershipWarningFromNvram, "isEqualToString:", @"2"))
+  if ([v5 isEqualToString:@"1"] & 1) != 0 || (objc_msgSend(v5, "isEqualToString:", @"2"))
   {
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
 LABEL_9:
-    v6 = 0;
+    v7 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (BOOL)clearOwnershipWarning
 {
   v22 = *MEMORY[0x277D85DE8];
-  v3 = defaultLogHandle();
+  v3 = defaultLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v20 = 136315138;
@@ -2486,57 +2478,56 @@ LABEL_9:
     [(MSDKManagedDevice *)self setupHelperConnection];
     helperConnection = [(MSDKManagedDevice *)self helperConnection];
 
-    v7 = defaultLogHandle();
-    v8 = v7;
+    v8 = defaultLogHandle(v7);
+    v9 = v8;
     if (helperConnection)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v20) = 0;
-        _os_log_impl(&dword_259B7D000, v8, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: sending xpc...", &v20, 2u);
+        _os_log_impl(&dword_259B7D000, v9, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: sending xpc...", &v20, 2u);
       }
 
       helperConnection2 = [(MSDKManagedDevice *)self helperConnection];
-      v8 = xpc_connection_send_message_with_reply_sync(helperConnection2, v5);
+      v9 = xpc_connection_send_message_with_reply_sync(helperConnection2, v5);
 
-      v10 = xpc_dictionary_get_BOOL(v8, "result");
+      v11 = xpc_dictionary_get_BOOL(v9, "result");
     }
 
     else
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(MSDKManagedDevice *)v8 clearOwnershipWarning:v13];
+        [(MSDKManagedDevice *)v9 clearOwnershipWarning:v13];
       }
 
-      v10 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v10 = 1;
+    v11 = 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (id)saveStoreHour:(id)hour
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   hourCopy = hour;
-  v4 = defaultLogHandle();
+  v4 = defaultLogHandle(hourCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v23 = "[MSDKManagedDevice saveStoreHour:]";
+    v22 = "[MSDKManagedDevice saveStoreHour:]";
     _os_log_impl(&dword_259B7D000, v4, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: %s called.", buf, 0xCu);
   }
 
   int64 = xpc_dictionary_get_int64(hourCopy, "OpenHour");
   v6 = xpc_dictionary_get_int64(hourCopy, "OpenMinute");
-  v21 = xpc_dictionary_get_int64(hourCopy, "CloseHour");
+  v20 = xpc_dictionary_get_int64(hourCopy, "CloseHour");
   v7 = xpc_dictionary_get_int64(hourCopy, "CloseMinute");
   v8 = [MEMORY[0x277CBEB38] dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.apple.MobileStoreDemo.ScreenSaverConfig.plist"];
   if (!v8)
@@ -2551,38 +2542,35 @@ LABEL_9:
 
   [v8 setObject:v12 forKey:@"StoreOpenAt"];
   v13 = MEMORY[0x277CBEAC0];
-  v14 = [MEMORY[0x277CCABB0] numberWithInteger:v21];
+  v14 = [MEMORY[0x277CCABB0] numberWithInteger:v20];
   v15 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
   v16 = [v13 dictionaryWithObjectsAndKeys:{v14, @"Hour", v15, @"Minute", 0}];
 
   [v8 setObject:v16 forKey:@"StoreCloseAt"];
-  [v8 writeToFile:@"/var/mobile/Library/Preferences/com.apple.MobileStoreDemo.ScreenSaverConfig.plist" atomically:1];
-  v17 = defaultLogHandle();
+  v17 = defaultLogHandle([v8 writeToFile:@"/var/mobile/Library/Preferences/com.apple.MobileStoreDemo.ScreenSaverConfig.plist" atomically:1]);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v23 = "[MSDKManagedDevice saveStoreHour:]";
+    v22 = "[MSDKManagedDevice saveStoreHour:]";
     _os_log_impl(&dword_259B7D000, v17, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: %s will return", buf, 0xCu);
   }
 
   reply = xpc_dictionary_create_reply(hourCopy);
   xpc_dictionary_set_BOOL(reply, "Result", 1);
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return reply;
 }
 
 - (id)saveScreenSaverIdleDelay:(id)delay
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   delayCopy = delay;
-  v4 = defaultLogHandle();
+  v4 = defaultLogHandle(delayCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315138;
-    v13 = "[MSDKManagedDevice saveScreenSaverIdleDelay:]";
-    _os_log_impl(&dword_259B7D000, v4, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: %s called.", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[MSDKManagedDevice saveScreenSaverIdleDelay:]";
+    _os_log_impl(&dword_259B7D000, v4, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: %s called.", &v11, 0xCu);
   }
 
   int64 = xpc_dictionary_get_int64(delayCopy, "IdleDelay");
@@ -2595,19 +2583,16 @@ LABEL_9:
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:int64];
   [v6 setObject:v7 forKey:@"IdleDelayInMinutes"];
 
-  [v6 writeToFile:@"/var/mobile/Library/Preferences/com.apple.MobileStoreDemo.ScreenSaverConfig.plist" atomically:1];
-  v8 = defaultLogHandle();
+  v8 = defaultLogHandle([v6 writeToFile:@"/var/mobile/Library/Preferences/com.apple.MobileStoreDemo.ScreenSaverConfig.plist" atomically:1]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315138;
-    v13 = "[MSDKManagedDevice saveScreenSaverIdleDelay:]";
-    _os_log_impl(&dword_259B7D000, v8, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: %s will return", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[MSDKManagedDevice saveScreenSaverIdleDelay:]";
+    _os_log_impl(&dword_259B7D000, v8, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: %s will return", &v11, 0xCu);
   }
 
   reply = xpc_dictionary_create_reply(delayCopy);
   xpc_dictionary_set_BOOL(reply, "Result", 1);
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return reply;
 }
@@ -2651,29 +2636,29 @@ void __53__MSDKManagedDevice_setupConnection_withMachService___block_invoke(uint
 {
   v3 = a2;
   v4 = MEMORY[0x259CB0BB0]();
-  v5 = defaultLogHandle();
+  v5 = defaultLogHandle(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __53__MSDKManagedDevice_setupConnection_withMachService___block_invoke_cold_1();
   }
 
-  v6 = defaultLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = defaultLogHandle(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __53__MSDKManagedDevice_setupConnection_withMachService___block_invoke_cold_2(v3, v6);
+    __53__MSDKManagedDevice_setupConnection_withMachService___block_invoke_cold_2(v3, v7);
   }
 
   if (v4 == MEMORY[0x277D86480])
   {
-    [*(a1 + 32) setValue:0 forKey:*(a1 + 40)];
+    v8 = [*(a1 + 32) setValue:0 forKey:*(a1 + 40)];
     if (v3 == MEMORY[0x277D863F8])
     {
-      v7 = defaultLogHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = defaultLogHandle(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v8 = "XPC_ERROR_CONNECTION_INVALID";
-        v9 = buf;
+        v10 = "XPC_ERROR_CONNECTION_INVALID";
+        v11 = buf;
         goto LABEL_14;
       }
     }
@@ -2685,14 +2670,14 @@ void __53__MSDKManagedDevice_setupConnection_withMachService___block_invoke(uint
         goto LABEL_16;
       }
 
-      v7 = defaultLogHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = defaultLogHandle(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 0;
-        v8 = "XPC_ERROR_CONNECTION_INTERRUPTED";
-        v9 = &v10;
+        v12 = 0;
+        v10 = "XPC_ERROR_CONNECTION_INTERRUPTED";
+        v11 = &v12;
 LABEL_14:
-        _os_log_impl(&dword_259B7D000, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
+        _os_log_impl(&dword_259B7D000, v9, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
       }
     }
 
@@ -2720,48 +2705,49 @@ LABEL_16:
 
 - (void)handleContentUpdateStatus:(const char *)status event:(id)event
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (!strncmp(status, "Error", 6uLL))
   {
-    v8 = [(MSDKManagedDevice *)self errorWithXPCDictionary:eventCopy];
-    v9 = defaultLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      userInfo = [v8 userInfo];
-      *buf = 138543362;
-      *&buf[4] = userInfo;
-      _os_log_impl(&dword_259B7D000, v9, OS_LOG_TYPE_DEFAULT, "Received an error: %{public}@", buf, 0xCu);
-    }
-
-    v11 = defaultLogHandle();
+    v10 = [(MSDKManagedDevice *)self errorWithXPCDictionary:eventCopy];
+    v11 = defaultLogHandle(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
+      userInfo = [v10 userInfo];
       *buf = 138543362;
-      *&buf[4] = v8;
-      _os_log_impl(&dword_259B7D000, v11, OS_LOG_TYPE_DEFAULT, "Will call didReceiveError with %{public}@", buf, 0xCu);
+      *&buf[4] = userInfo;
+      _os_log_impl(&dword_259B7D000, v11, OS_LOG_TYPE_DEFAULT, "Received an error: %{public}@", buf, 0xCu);
+    }
+
+    v14 = defaultLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      *&buf[4] = v10;
+      _os_log_impl(&dword_259B7D000, v14, OS_LOG_TYPE_DEFAULT, "Will call didReceiveError with %{public}@", buf, 0xCu);
     }
 
     delegate = [(MSDKManagedDevice *)self delegate];
-    v13 = objc_opt_respondsToSelector();
+    v16 = objc_opt_respondsToSelector();
 
-    if (v13)
+    if (v16)
     {
       delegate2 = [(MSDKManagedDevice *)self delegate];
-      [delegate2 didReceiveError:v8];
+      [delegate2 didReceiveError:v10];
     }
   }
 
   else
   {
-    if (!strncmp(status, "Progress", 9uLL))
+    v7 = strncmp(status, "Progress", 9uLL);
+    if (!v7)
     {
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v51 = 0;
-      v15 = defaultLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v56 = 0;
+      v18 = defaultLogHandle(v7);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         [MSDKManagedDevice handleContentUpdateStatus:event:];
       }
@@ -2771,20 +2757,20 @@ LABEL_16:
       applier[2] = __53__MSDKManagedDevice_handleContentUpdateStatus_event___block_invoke;
       applier[3] = &unk_2798EF900;
       applier[4] = buf;
-      xpc_dictionary_apply(eventCopy, applier);
-      v16 = defaultLogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v19 = xpc_dictionary_apply(eventCopy, applier);
+      v20 = defaultLogHandle(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = *(*&buf[8] + 24);
-        *v48 = 134217984;
-        v49 = v17;
-        _os_log_impl(&dword_259B7D000, v16, OS_LOG_TYPE_DEFAULT, "Will call didReceiveProgress with %td", v48, 0xCu);
+        v21 = *(*&buf[8] + 24);
+        *v53 = 134217984;
+        v54 = v21;
+        _os_log_impl(&dword_259B7D000, v20, OS_LOG_TYPE_DEFAULT, "Will call didReceiveProgress with %td", v53, 0xCu);
       }
 
       delegate3 = [(MSDKManagedDevice *)self delegate];
-      v19 = objc_opt_respondsToSelector();
+      v23 = objc_opt_respondsToSelector();
 
-      if (v19)
+      if (v23)
       {
         delegate4 = [(MSDKManagedDevice *)self delegate];
         [delegate4 didReceiveProgress:*(*&buf[8] + 24)];
@@ -2800,26 +2786,26 @@ LABEL_16:
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
-        LOBYTE(v51) = 0;
-        v46[0] = MEMORY[0x277D85DD0];
-        v46[1] = 3221225472;
-        v46[2] = __53__MSDKManagedDevice_handleContentUpdateStatus_event___block_invoke_195;
-        v46[3] = &unk_2798EF900;
-        v46[4] = buf;
-        xpc_dictionary_apply(eventCopy, v46);
-        v28 = defaultLogHandle();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        LOBYTE(v56) = 0;
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __53__MSDKManagedDevice_handleContentUpdateStatus_event___block_invoke_195;
+        v51[3] = &unk_2798EF900;
+        v51[4] = buf;
+        v32 = xpc_dictionary_apply(eventCopy, v51);
+        v33 = defaultLogHandle(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = *(*&buf[8] + 24);
-          *v48 = 67109120;
-          LODWORD(v49) = v29;
-          _os_log_impl(&dword_259B7D000, v28, OS_LOG_TYPE_DEFAULT, "Will call didReceiveAllowCancel with %d", v48, 8u);
+          v34 = *(*&buf[8] + 24);
+          *v53 = 67109120;
+          LODWORD(v54) = v34;
+          _os_log_impl(&dword_259B7D000, v33, OS_LOG_TYPE_DEFAULT, "Will call didReceiveAllowCancel with %d", v53, 8u);
         }
 
         delegate5 = [(MSDKManagedDevice *)self delegate];
-        v31 = objc_opt_respondsToSelector();
+        v36 = objc_opt_respondsToSelector();
 
-        if (v31)
+        if (v36)
         {
           delegate6 = [(MSDKManagedDevice *)self delegate];
           [delegate6 didReceiveAllowCancel:*(*&buf[8] + 24)];
@@ -2828,14 +2814,15 @@ LABEL_16:
 
       else
       {
-        if (strncmp(status, "ContentUpdateDisableIdleTimer", 0x1EuLL))
+        v8 = strncmp(status, "ContentUpdateDisableIdleTimer", 0x1EuLL);
+        if (v8)
         {
-          v7 = defaultLogHandle();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+          v9 = defaultLogHandle(v8);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136446210;
             *&buf[4] = status;
-            _os_log_impl(&dword_259B7D000, v7, OS_LOG_TYPE_DEFAULT, "Unknown message from xpc: %{public}s", buf, 0xCu);
+            _os_log_impl(&dword_259B7D000, v9, OS_LOG_TYPE_DEFAULT, "Unknown message from xpc: %{public}s", buf, 0xCu);
           }
 
           goto LABEL_35;
@@ -2844,26 +2831,26 @@ LABEL_16:
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
-        LOBYTE(v51) = 0;
-        v45[0] = MEMORY[0x277D85DD0];
-        v45[1] = 3221225472;
-        v45[2] = __53__MSDKManagedDevice_handleContentUpdateStatus_event___block_invoke_200;
-        v45[3] = &unk_2798EF900;
-        v45[4] = buf;
-        xpc_dictionary_apply(eventCopy, v45);
-        v33 = defaultLogHandle();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        LOBYTE(v56) = 0;
+        v50[0] = MEMORY[0x277D85DD0];
+        v50[1] = 3221225472;
+        v50[2] = __53__MSDKManagedDevice_handleContentUpdateStatus_event___block_invoke_200;
+        v50[3] = &unk_2798EF900;
+        v50[4] = buf;
+        v38 = xpc_dictionary_apply(eventCopy, v50);
+        v39 = defaultLogHandle(v38);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          v34 = *(*&buf[8] + 24);
-          *v48 = 67109120;
-          LODWORD(v49) = v34;
-          _os_log_impl(&dword_259B7D000, v33, OS_LOG_TYPE_DEFAULT, "Will call didReceiveDisableIdleTimer with %d", v48, 8u);
+          v40 = *(*&buf[8] + 24);
+          *v53 = 67109120;
+          LODWORD(v54) = v40;
+          _os_log_impl(&dword_259B7D000, v39, OS_LOG_TYPE_DEFAULT, "Will call didReceiveDisableIdleTimer with %d", v53, 8u);
         }
 
         delegate7 = [(MSDKManagedDevice *)self delegate];
-        v36 = objc_opt_respondsToSelector();
+        v42 = objc_opt_respondsToSelector();
 
-        if (v36)
+        if (v42)
         {
           delegate8 = [(MSDKManagedDevice *)self delegate];
           [delegate8 didReceiveDisableIdleTimer:*(*&buf[8] + 24)];
@@ -2873,36 +2860,36 @@ LABEL_16:
 LABEL_34:
       _Block_object_dispose(buf, 8);
 LABEL_35:
-      v8 = 0;
+      v10 = 0;
       goto LABEL_36;
     }
 
-    v8 = [(MSDKManagedDevice *)self errorWithXPCDictionary:eventCopy];
-    v21 = defaultLogHandle();
-    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-    if (!v8)
+    v10 = [(MSDKManagedDevice *)self errorWithXPCDictionary:eventCopy];
+    v25 = defaultLogHandle(v10);
+    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+    if (!v10)
     {
-      if (v22)
+      if (v26)
       {
         *buf = 0;
-        _os_log_impl(&dword_259B7D000, v21, OS_LOG_TYPE_DEFAULT, "Will call operationCompleted.", buf, 2u);
+        _os_log_impl(&dword_259B7D000, v25, OS_LOG_TYPE_DEFAULT, "Will call operationCompleted.", buf, 2u);
       }
 
       delegate9 = [(MSDKManagedDevice *)self delegate];
-      v40 = objc_opt_respondsToSelector();
+      v45 = objc_opt_respondsToSelector();
 
       delegate10 = [(MSDKManagedDevice *)self delegate];
-      v42 = delegate10;
-      if (v40)
+      v47 = delegate10;
+      if (v45)
       {
         [delegate10 blockingStateChanged:0];
       }
 
       else
       {
-        v43 = objc_opt_respondsToSelector();
+        v48 = objc_opt_respondsToSelector();
 
-        if (v43)
+        if (v48)
         {
           delegate11 = [(MSDKManagedDevice *)self delegate];
           [delegate11 operationCompleted];
@@ -2912,30 +2899,28 @@ LABEL_35:
       goto LABEL_35;
     }
 
-    if (v22)
+    if (v26)
     {
-      code = [v8 code];
-      localizedDescription = [v8 localizedDescription];
+      code = [v10 code];
+      localizedDescription = [v10 localizedDescription];
       *buf = 134218242;
       *&buf[4] = code;
       *&buf[12] = 2114;
       *&buf[14] = localizedDescription;
-      _os_log_impl(&dword_259B7D000, v21, OS_LOG_TYPE_DEFAULT, "Will call operationFailed: with error %tx:%{public}@.", buf, 0x16u);
+      _os_log_impl(&dword_259B7D000, v25, OS_LOG_TYPE_DEFAULT, "Will call operationFailed: with error %tx:%{public}@.", buf, 0x16u);
     }
 
     delegate12 = [(MSDKManagedDevice *)self delegate];
-    v26 = objc_opt_respondsToSelector();
+    v30 = objc_opt_respondsToSelector();
 
-    if (v26)
+    if (v30)
     {
       delegate13 = [(MSDKManagedDevice *)self delegate];
-      [delegate13 operationFailed:v8];
+      [delegate13 operationFailed:v10];
     }
   }
 
 LABEL_36:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__MSDKManagedDevice_handleContentUpdateStatus_event___block_invoke(uint64_t a1, char *__s1, void *a3)
@@ -3152,17 +3137,17 @@ LABEL_4:
 - (BOOL)_isEnrolled:(id *)enrolled checkDemo:(BOOL)demo
 {
   demoCopy = demo;
-  v45 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[MSDKManagedDevice _isEnrolled:checkDemo:]"];
   if (![(MSDKManagedDevice *)selfCopy isDeviceClassSupported])
   {
     safeAssignError(enrolled, 3727741188, @"Device is unsupported by MobileStoreDemoKit.");
-    v13 = 0;
-    v14 = 0;
     v15 = 0;
     v16 = 0;
+    v17 = 0;
+    v18 = 0;
     LOBYTE(enrolled) = 0;
     goto LABEL_7;
   }
@@ -3173,150 +3158,150 @@ LABEL_4:
   if (v9)
   {
     xpc_cache2 = [(MSDKManagedDevice *)selfCopy xpc_cache];
-    v11 = [xpc_cache2 objectForKey:v7];
-    LODWORD(enrolled) = [v11 BOOLValue];
+    v12 = [xpc_cache2 objectForKey:v7];
+    LODWORD(enrolled) = [v12 BOOLValue];
 
-    v12 = defaultLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = defaultLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v42 = "[MSDKManagedDevice _isEnrolled:checkDemo:]";
-      v43 = 1024;
+      v44 = "[MSDKManagedDevice _isEnrolled:checkDemo:]";
+      v45 = 1024;
       enrolledCopy3 = enrolled;
-      _os_log_impl(&dword_259B7D000, v12, OS_LOG_TYPE_DEFAULT, "%s - Found cached result: %d", buf, 0x12u);
+      _os_log_impl(&dword_259B7D000, v14, OS_LOG_TYPE_DEFAULT, "%s - Found cached result: %d", buf, 0x12u);
     }
 
-    v13 = 0;
-    v14 = 0;
     v15 = 0;
     v16 = 0;
+    v17 = 0;
+    v18 = 0;
     goto LABEL_7;
   }
 
   if (demoCopy)
   {
-    v19 = +[MSDKDemoState sharedInstance];
-    v40 = 0;
-    v20 = [v19 _isDeviceEnrolledWithDeKOTA:&v40];
-    v14 = v40;
+    v20 = +[MSDKDemoState sharedInstance];
+    v42 = 0;
+    v21 = [v20 _isDeviceEnrolledWithDeKOTA:&v42];
+    v16 = v42;
 
-    if (v14)
+    if (v16)
     {
-      v16 = 0;
+      v18 = 0;
 LABEL_20:
       if (enrolled)
       {
-        v33 = v14;
-        v13 = 0;
+        v34 = v16;
         v15 = 0;
+        v17 = 0;
         enrolledCopy2 = enrolled;
         LOBYTE(enrolled) = 0;
-        *enrolledCopy2 = v14;
+        *enrolledCopy2 = v16;
       }
 
       else
       {
-        v13 = 0;
         v15 = 0;
+        v17 = 0;
       }
 
       goto LABEL_7;
     }
 
-    if ((v20 & 1) == 0)
+    if ((v21 & 1) == 0)
     {
-      v35 = defaultLogHandle();
-      [MSDKManagedDevice _isEnrolled:v35 checkDemo:?];
-      v15 = 0;
-      v16 = 0;
+      v36 = defaultLogHandle(v10);
+      [MSDKManagedDevice _isEnrolled:v36 checkDemo:?];
+      v17 = 0;
+      v18 = 0;
       goto LABEL_24;
     }
   }
 
-  v21 = defaultLogHandle();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = defaultLogHandle(v10);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v42 = "[MSDKManagedDevice _isEnrolled:checkDemo:]";
-    _os_log_impl(&dword_259B7D000, v21, OS_LOG_TYPE_DEFAULT, "%s - making XPC call", buf, 0xCu);
+    v44 = "[MSDKManagedDevice _isEnrolled:checkDemo:]";
+    _os_log_impl(&dword_259B7D000, v22, OS_LOG_TYPE_DEFAULT, "%s - making XPC call", buf, 0xCu);
   }
 
-  v16 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v16, "QueryDeviceInfo", "MSDDemoDeviceManaged");
+  v18 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v18, "QueryDeviceInfo", "MSDDemoDeviceManaged");
   [(MSDKManagedDevice *)selfCopy setupConnection];
   connection = [(MSDKManagedDevice *)selfCopy connection];
-  v23 = connection == 0;
+  v24 = connection == 0;
 
-  if (v23)
+  if (v24)
   {
-    v39 = 0;
-    safeAssignError(&v39, 3727741186, @"Failed to establish xpc connection to demod.");
-    v14 = v39;
-    v25 = defaultLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v41 = 0;
+    safeAssignError(&v41, 3727741186, @"Failed to establish xpc connection to demod.");
+    v16 = v41;
+    v26 = defaultLogHandle(v16);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice *)v25 _isEnrolled:v26 checkDemo:v27, v28, v29, v30, v31, v32];
+      [(MSDKManagedDevice *)v26 _isEnrolled:v27 checkDemo:v28, v29, v30, v31, v32, v33];
     }
 
     goto LABEL_20;
   }
 
   connection2 = [(MSDKManagedDevice *)selfCopy connection];
-  v15 = xpc_connection_send_message_with_reply_sync(connection2, v16);
+  v17 = xpc_connection_send_message_with_reply_sync(connection2, v18);
 
-  if (!xpc_dictionary_get_BOOL(v15, "QueryDeviceInfoResult"))
+  if (!xpc_dictionary_get_BOOL(v17, "QueryDeviceInfoResult"))
   {
 LABEL_24:
     enrolled = 0;
     goto LABEL_25;
   }
 
-  enrolled = xpc_dictionary_get_BOOL(v15, "MSDDemoDeviceManaged");
+  enrolled = xpc_dictionary_get_BOOL(v17, "MSDDemoDeviceManaged");
 LABEL_25:
-  v13 = MAEGetActivationStateWithError();
-  v14 = 0;
-  if (!v14 && v13)
+  v15 = MAEGetActivationStateWithError();
+  v16 = 0;
+  if (!v16 && v15)
   {
-    if ([v13 isEqualToString:*MEMORY[0x277D288B0]])
+    v37 = [v15 isEqualToString:*MEMORY[0x277D288B0]];
+    if (v37)
     {
-      v36 = defaultLogHandle();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v38 = defaultLogHandle(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v42 = "[MSDKManagedDevice _isEnrolled:checkDemo:]";
-        v43 = 1024;
+        v44 = "[MSDKManagedDevice _isEnrolled:checkDemo:]";
+        v45 = 1024;
         enrolledCopy3 = enrolled;
-        _os_log_impl(&dword_259B7D000, v36, OS_LOG_TYPE_DEFAULT, "%s - caching value %d", buf, 0x12u);
+        _os_log_impl(&dword_259B7D000, v38, OS_LOG_TYPE_DEFAULT, "%s - caching value %d", buf, 0x12u);
       }
 
       xpc_cache3 = [(MSDKManagedDevice *)selfCopy xpc_cache];
-      v38 = [MEMORY[0x277CCABB0] numberWithBool:enrolled];
-      [xpc_cache3 setObject:v38 forKey:v7];
+      v40 = [MEMORY[0x277CCABB0] numberWithBool:enrolled];
+      [xpc_cache3 setObject:v40 forKey:v7];
     }
 
-    v14 = 0;
+    v16 = 0;
   }
 
 LABEL_7:
 
   objc_sync_exit(selfCopy);
-  v17 = *MEMORY[0x277D85DE8];
   return enrolled;
 }
 
 - (BOOL)_isContentFrozen_xpc:(id *)frozen_xpc checkDemo:(BOOL)demo
 {
   demoCopy = demo;
-  v43 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[MSDKManagedDevice _isContentFrozen_xpc:checkDemo:]"];
   if (![(MSDKManagedDevice *)selfCopy isDeviceClassSupported])
   {
     safeAssignError(frozen_xpc, 3727741188, @"Device is unsupported by MobileStoreDemoKit.");
-    v13 = 0;
-    v14 = 0;
     v15 = 0;
+    v16 = 0;
+    v17 = 0;
 LABEL_7:
     LOBYTE(frozen_xpc) = 0;
     goto LABEL_28;
@@ -3328,141 +3313,142 @@ LABEL_7:
   if (v9)
   {
     xpc_cache2 = [(MSDKManagedDevice *)selfCopy xpc_cache];
-    v11 = [xpc_cache2 objectForKey:v7];
-    LODWORD(frozen_xpc) = [v11 BOOLValue];
+    v12 = [xpc_cache2 objectForKey:v7];
+    LODWORD(frozen_xpc) = [v12 BOOLValue];
 
-    v12 = defaultLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = defaultLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v40 = "[MSDKManagedDevice _isContentFrozen_xpc:checkDemo:]";
-      v41 = 1024;
+      v42 = "[MSDKManagedDevice _isContentFrozen_xpc:checkDemo:]";
+      v43 = 1024;
       frozen_xpcCopy2 = frozen_xpc;
-      _os_log_impl(&dword_259B7D000, v12, OS_LOG_TYPE_DEFAULT, "%s - Found cached result: %d", buf, 0x12u);
+      _os_log_impl(&dword_259B7D000, v14, OS_LOG_TYPE_DEFAULT, "%s - Found cached result: %d", buf, 0x12u);
     }
 
-    v13 = 0;
-    v14 = 0;
     v15 = 0;
+    v16 = 0;
+    v17 = 0;
     goto LABEL_28;
   }
 
   if (demoCopy)
   {
-    v16 = +[MSDKDemoState sharedInstance];
-    v38 = 0;
-    v17 = [v16 _isDeviceEnrolledWithDeKOTA:&v38];
-    v13 = v38;
+    v18 = +[MSDKDemoState sharedInstance];
+    v40 = 0;
+    v19 = [v18 _isDeviceEnrolledWithDeKOTA:&v40];
+    v15 = v40;
 
-    if (v13)
+    if (v15)
     {
-      v15 = 0;
+      v17 = 0;
 LABEL_20:
       if (!frozen_xpc)
       {
-        v14 = 0;
+        v16 = 0;
         goto LABEL_28;
       }
 
-      v30 = v13;
-      v14 = 0;
-      *frozen_xpc = v13;
+      v33 = v15;
+      v16 = 0;
+      *frozen_xpc = v15;
       goto LABEL_7;
     }
 
-    if ((v17 & 1) == 0)
+    if ((v19 & 1) == 0)
     {
-      v31 = defaultLogHandle();
-      [MSDKManagedDevice _isContentFrozen_xpc:v31 checkDemo:?];
-      v14 = 0;
-      v15 = 0;
+      v34 = defaultLogHandle(v10);
+      [MSDKManagedDevice _isContentFrozen_xpc:v34 checkDemo:?];
+      v16 = 0;
+      v17 = 0;
       goto LABEL_24;
     }
   }
 
-  v18 = defaultLogHandle();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = defaultLogHandle(v10);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v40 = "[MSDKManagedDevice _isContentFrozen_xpc:checkDemo:]";
-    _os_log_impl(&dword_259B7D000, v18, OS_LOG_TYPE_DEFAULT, "%s - making XPC call", buf, 0xCu);
+    v42 = "[MSDKManagedDevice _isContentFrozen_xpc:checkDemo:]";
+    _os_log_impl(&dword_259B7D000, v20, OS_LOG_TYPE_DEFAULT, "%s - making XPC call", buf, 0xCu);
   }
 
-  v15 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v15, "QueryDeviceInfo", "MSDDemoDeviceFrozen");
+  v17 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v17, "QueryDeviceInfo", "MSDDemoDeviceFrozen");
   [(MSDKManagedDevice *)selfCopy setupConnection];
   connection = [(MSDKManagedDevice *)selfCopy connection];
-  v20 = connection == 0;
+  v22 = connection == 0;
 
-  if (v20)
+  if (v22)
   {
-    v37 = 0;
-    safeAssignError(&v37, 3727741186, @"Failed to establish xpc connection to demod.");
-    v13 = v37;
-    v22 = defaultLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v39 = 0;
+    safeAssignError(&v39, 3727741186, @"Failed to establish xpc connection to demod.");
+    v15 = v39;
+    v25 = defaultLogHandle(v15);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice *)v22 _isContentFrozen_xpc:v23 checkDemo:v24, v25, v26, v27, v28, v29];
+      [(MSDKManagedDevice *)v25 _isContentFrozen_xpc:v26 checkDemo:v27, v28, v29, v30, v31, v32];
     }
 
     goto LABEL_20;
   }
 
   connection2 = [(MSDKManagedDevice *)selfCopy connection];
-  v14 = xpc_connection_send_message_with_reply_sync(connection2, v15);
+  v16 = xpc_connection_send_message_with_reply_sync(connection2, v17);
 
-  if (!xpc_dictionary_get_BOOL(v14, "QueryDeviceInfoResult"))
+  v24 = xpc_dictionary_get_BOOL(v16, "QueryDeviceInfoResult");
+  if (!v24)
   {
 LABEL_24:
     frozen_xpc = 0;
     goto LABEL_25;
   }
 
-  frozen_xpc = xpc_dictionary_get_BOOL(v14, "MSDDemoDeviceFrozen");
+  v24 = xpc_dictionary_get_BOOL(v16, "MSDDemoDeviceFrozen");
+  frozen_xpc = v24;
 LABEL_25:
-  v32 = defaultLogHandle();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v35 = defaultLogHandle(v24);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v40 = "[MSDKManagedDevice _isContentFrozen_xpc:checkDemo:]";
-    v41 = 1024;
+    v42 = "[MSDKManagedDevice _isContentFrozen_xpc:checkDemo:]";
+    v43 = 1024;
     frozen_xpcCopy2 = frozen_xpc;
-    _os_log_impl(&dword_259B7D000, v32, OS_LOG_TYPE_DEFAULT, "%s - caching value %d", buf, 0x12u);
+    _os_log_impl(&dword_259B7D000, v35, OS_LOG_TYPE_DEFAULT, "%s - caching value %d", buf, 0x12u);
   }
 
   xpc_cache3 = [(MSDKManagedDevice *)selfCopy xpc_cache];
-  v34 = [MEMORY[0x277CCABB0] numberWithBool:frozen_xpc];
-  [xpc_cache3 setObject:v34 forKey:v7];
+  v37 = [MEMORY[0x277CCABB0] numberWithBool:frozen_xpc];
+  [xpc_cache3 setObject:v37 forKey:v7];
 
-  v13 = 0;
+  v15 = 0;
 LABEL_28:
 
   objc_sync_exit(selfCopy);
-  v35 = *MEMORY[0x277D85DE8];
   return frozen_xpc;
 }
 
 - (unint64_t)_typeOfDemoDevice:(id *)device checkDemo:(BOOL)demo
 {
   demoCopy = demo;
-  v42 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[MSDKManagedDevice _typeOfDemoDevice:checkDemo:]"];
-  v8 = defaultLogHandle();
+  v8 = defaultLogHandle(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v39 = "[MSDKManagedDevice _typeOfDemoDevice:checkDemo:]";
+    v41 = "[MSDKManagedDevice _typeOfDemoDevice:checkDemo:]";
     _os_log_impl(&dword_259B7D000, v8, OS_LOG_TYPE_DEFAULT, "MobileStoreDemoKit: %s called.", buf, 0xCu);
   }
 
   if (![(MSDKManagedDevice *)selfCopy isDeviceClassSupported])
   {
     safeAssignError(device, 3727741188, @"Device is unsupported by MobileStoreDemoKit.");
-    v16 = 0;
-    device = 0;
     v17 = 0;
+    device = 0;
+    v18 = 0;
     goto LABEL_9;
   }
 
@@ -3475,47 +3461,47 @@ LABEL_28:
     v12 = [xpc_cache2 objectForKey:v7];
     bOOLValue = [v12 BOOLValue];
 
-    v14 = defaultLogHandle();
+    v15 = defaultLogHandle(v14);
     uint64 = bOOLValue;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v39 = "[MSDKManagedDevice _typeOfDemoDevice:checkDemo:]";
-      v40 = 2048;
-      v41 = bOOLValue;
-      _os_log_impl(&dword_259B7D000, v14, OS_LOG_TYPE_DEFAULT, "%s - Found cached result: %lu", buf, 0x16u);
+      v41 = "[MSDKManagedDevice _typeOfDemoDevice:checkDemo:]";
+      v42 = 2048;
+      v43 = bOOLValue;
+      _os_log_impl(&dword_259B7D000, v15, OS_LOG_TYPE_DEFAULT, "%s - Found cached result: %lu", buf, 0x16u);
     }
 
-    v16 = 0;
-    device = 0;
     v17 = 0;
+    device = 0;
+    v18 = 0;
     goto LABEL_10;
   }
 
-  if (!demoCopy || (MGGetBoolAnswer() & 1) != 0)
+  if (!demoCopy || (v20 = MGGetBoolAnswer(), (v20 & 1) != 0))
   {
-    v17 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v17, "QueryDeviceInfo", "MSDTypeOfDemoDevice");
+    v18 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v18, "QueryDeviceInfo", "MSDTypeOfDemoDevice");
     [(MSDKManagedDevice *)selfCopy setupConnection];
     connection = [(MSDKManagedDevice *)selfCopy connection];
-    v21 = connection == 0;
+    v22 = connection == 0;
 
-    if (v21)
+    if (v22)
     {
-      v37 = 0;
-      safeAssignError(&v37, 3727741186, @"Failed to establish xpc connection to demod.");
-      v16 = v37;
-      v28 = defaultLogHandle();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v39 = 0;
+      safeAssignError(&v39, 3727741186, @"Failed to establish xpc connection to demod.");
+      v17 = v39;
+      v30 = defaultLogHandle(v17);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        [(MSDKManagedDevice *)v28 _typeOfDemoDevice:v29 checkDemo:v30, v31, v32, v33, v34, v35];
+        [(MSDKManagedDevice *)v30 _typeOfDemoDevice:v31 checkDemo:v32, v33, v34, v35, v36, v37];
       }
 
       if (device)
       {
-        v36 = v16;
+        v38 = v17;
         uint64 = 0;
-        *device = v16;
+        *device = v17;
         device = 0;
         goto LABEL_10;
       }
@@ -3524,21 +3510,21 @@ LABEL_28:
     else
     {
       connection2 = [(MSDKManagedDevice *)selfCopy connection];
-      device = xpc_connection_send_message_with_reply_sync(connection2, v17);
+      device = xpc_connection_send_message_with_reply_sync(connection2, v18);
 
       if (xpc_dictionary_get_BOOL(device, "QueryDeviceInfoResult"))
       {
         uint64 = xpc_dictionary_get_uint64(device, "MSDTypeOfDemoDevice");
         if (uint64 != 1)
         {
-          v16 = 0;
+          v17 = 0;
           goto LABEL_10;
         }
 
         goto LABEL_21;
       }
 
-      v16 = 0;
+      v17 = 0;
     }
 
 LABEL_9:
@@ -3546,41 +3532,47 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v23 = defaultLogHandle();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v24 = defaultLogHandle(v20);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v39 = "[MSDKManagedDevice _typeOfDemoDevice:checkDemo:]";
-    _os_log_impl(&dword_259B7D000, v23, OS_LOG_TYPE_DEFAULT, "%s - Device is not demo device", buf, 0xCu);
+    v41 = "[MSDKManagedDevice _typeOfDemoDevice:checkDemo:]";
+    _os_log_impl(&dword_259B7D000, v24, OS_LOG_TYPE_DEFAULT, "%s - Device is not demo device", buf, 0xCu);
   }
 
-  v17 = 0;
+  v18 = 0;
   device = 0;
 LABEL_21:
-  v24 = MAEGetActivationStateWithError();
-  v16 = 0;
-  if (!v16 && v24 && [v24 isEqualToString:*MEMORY[0x277D288B0]])
+  v25 = MAEGetActivationStateWithError();
+  v17 = 0;
+  if (!v17)
   {
-    v25 = defaultLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    if (v25)
     {
-      *buf = 136315394;
-      v39 = "[MSDKManagedDevice _typeOfDemoDevice:checkDemo:]";
-      v40 = 2048;
-      v41 = 1;
-      _os_log_impl(&dword_259B7D000, v25, OS_LOG_TYPE_DEFAULT, "%s - caching value %lu", buf, 0x16u);
-    }
+      v26 = [v25 isEqualToString:*MEMORY[0x277D288B0]];
+      if (v26)
+      {
+        v27 = defaultLogHandle(v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315394;
+          v41 = "[MSDKManagedDevice _typeOfDemoDevice:checkDemo:]";
+          v42 = 2048;
+          v43 = 1;
+          _os_log_impl(&dword_259B7D000, v27, OS_LOG_TYPE_DEFAULT, "%s - caching value %lu", buf, 0x16u);
+        }
 
-    xpc_cache3 = [(MSDKManagedDevice *)selfCopy xpc_cache];
-    v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-    [xpc_cache3 setObject:v27 forKey:v7];
+        xpc_cache3 = [(MSDKManagedDevice *)selfCopy xpc_cache];
+        v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
+        [xpc_cache3 setObject:v29 forKey:v7];
+      }
+    }
   }
 
   uint64 = 1;
 LABEL_10:
 
   objc_sync_exit(selfCopy);
-  v18 = *MEMORY[0x277D85DE8];
   return uint64;
 }
 
@@ -3732,16 +3724,16 @@ LABEL_11:
 - (id)_getDeviceOptions:(id *)options checkDemo:(BOOL)demo
 {
   demoCopy = demo;
-  buf[3] = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (![(MSDKManagedDevice *)self isDeviceClassSupported])
   {
     safeAssignError(options, 3727741188, @"Device is unsupported by MobileStoreDemoKit.");
 LABEL_9:
     v9 = 0;
-    v11 = 0;
     v12 = 0;
-LABEL_10:
     v13 = 0;
+LABEL_10:
+    v14 = 0;
     goto LABEL_19;
   }
 
@@ -3757,12 +3749,12 @@ LABEL_10:
 
   if (!v9 && (v8 & 1) == 0)
   {
-    v10 = defaultLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = defaultLogHandle(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(buf[0]) = 136315138;
-      *(buf + 4) = "[MSDKManagedDevice _getDeviceOptions:checkDemo:]";
-      _os_log_impl(&dword_259B7D000, v10, OS_LOG_TYPE_DEFAULT, "%s - Device is not demo device", buf, 0xCu);
+      *buf = 136315138;
+      *&buf[4] = "[MSDKManagedDevice _getDeviceOptions:checkDemo:]";
+      _os_log_impl(&dword_259B7D000, v11, OS_LOG_TYPE_DEFAULT, "%s - Device is not demo device", buf, 0xCu);
     }
 
     goto LABEL_9;
@@ -3770,30 +3762,30 @@ LABEL_10:
 
   if (v9)
   {
-    v11 = 0;
     v12 = 0;
+    v13 = 0;
   }
 
   else
   {
 LABEL_13:
-    v12 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v12, "RequestOperation", "GetDeviceOptions");
+    v13 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v13, "RequestOperation", "GetDeviceOptions");
     [(MSDKManagedDevice *)self setupConnection];
     connection = [(MSDKManagedDevice *)self connection];
 
     if (connection)
     {
       connection2 = [(MSDKManagedDevice *)self connection];
-      v11 = xpc_connection_send_message_with_reply_sync(connection2, v12);
+      v12 = xpc_connection_send_message_with_reply_sync(connection2, v13);
 
-      string = xpc_dictionary_get_string(v11, "device_options");
+      string = xpc_dictionary_get_string(v12, "device_options");
       v9 = string;
       if (string)
       {
-        v17 = [MEMORY[0x277CBEA90] dataWithBytes:string length:strlen(string)];
+        v18 = [MEMORY[0x277CBEA90] dataWithBytes:string length:strlen(string)];
         v21 = 0;
-        v13 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v17 options:0 error:&v21];
+        v14 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v18 options:0 error:&v21];
         v9 = v21;
 
         goto LABEL_19;
@@ -3803,8 +3795,8 @@ LABEL_13:
     else
     {
       [MSDKManagedDevice _getDeviceOptions:checkDemo:];
-      v11 = 0;
-      v9 = buf[0];
+      v12 = 0;
+      v9 = *buf;
     }
   }
 
@@ -3813,19 +3805,17 @@ LABEL_13:
     goto LABEL_10;
   }
 
-  v18 = v9;
-  v13 = 0;
+  v19 = v9;
+  v14 = 0;
   *options = v9;
 LABEL_19:
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v14;
 }
 
 - (id)_getCurrentNetworkInfoForKeys:(id)keys outError:(id *)error
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v7 = [MEMORY[0x277CBEB98] setWithObjects:{@"CurrentWiFiSSID", @"PersistentWiFiSSID", @"EmbeddedSIMInstalled", @"ActiveNetworkInterface", 0}];
   if ([(MSDKManagedDevice *)self isDeviceClassSupported])
@@ -3836,30 +3826,30 @@ LABEL_19:
       v10 = xpc_dictionary_create(0, 0, 0);
       xpc_dictionary_set_string(v10, "RequestOperation", "GetCurrentNetworkInfo");
       empty = xpc_array_create_empty();
-      v42 = 0u;
       v43 = 0u;
       v44 = 0u;
       v45 = 0u;
+      v46 = 0u;
       v12 = keysCopy;
-      v13 = [v12 countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v43 objects:v47 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v43;
+        v15 = *v44;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v43 != v15)
+            if (*v44 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = xpc_string_create([*(*(&v42 + 1) + 8 * i) UTF8String]);
+            v17 = xpc_string_create([*(*(&v43 + 1) + 8 * i) UTF8String]);
             xpc_array_append_value(empty, v17);
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v42 objects:v46 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v43 objects:v47 count:16];
         }
 
         while (v14);
@@ -3905,29 +3895,27 @@ LABEL_19:
 
     else
     {
-      safeAssignError(error, 3727744769, @"Input is invalid");
-      v10 = defaultLogHandle();
+      v25 = safeAssignError(error, 3727744769, @"Input is invalid");
+      v10 = defaultLogHandle(v25);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(MSDKManagedDevice *)v10 _getCurrentNetworkInfoForKeys:v25 outError:v26, v27, v28, v29, v30, v31];
+        [(MSDKManagedDevice *)v10 _getCurrentNetworkInfoForKeys:v26 outError:v27, v28, v29, v30, v31, v32];
       }
     }
   }
 
   else
   {
-    safeAssignError(error, 3727741188, @"Device is unsupported by MobileStoreDemoKit.");
-    v10 = defaultLogHandle();
+    v34 = safeAssignError(error, 3727741188, @"Device is unsupported by MobileStoreDemoKit.");
+    v10 = defaultLogHandle(v34);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice *)v10 _getCurrentNetworkInfoForKeys:v34 outError:v35, v36, v37, v38, v39, v40];
+      [(MSDKManagedDevice *)v10 _getCurrentNetworkInfoForKeys:v35 outError:v36, v37, v38, v39, v40, v41];
     }
   }
 
   v24 = 0;
 LABEL_20:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -3935,16 +3923,16 @@ LABEL_20:
 - (id)_getStoreID:(id *)d checkDemo:(BOOL)demo
 {
   demoCopy = demo;
-  buf[3] = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (![(MSDKManagedDevice *)self isDeviceClassSupported])
   {
     safeAssignError(d, 3727741188, @"Device is unsupported by MobileStoreDemoKit.");
 LABEL_9:
     v9 = 0;
-    v11 = 0;
     v12 = 0;
-LABEL_10:
     v13 = 0;
+LABEL_10:
+    v14 = 0;
     goto LABEL_19;
   }
 
@@ -3960,12 +3948,12 @@ LABEL_10:
 
   if (!v9 && (v8 & 1) == 0)
   {
-    v10 = defaultLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = defaultLogHandle(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(buf[0]) = 136315138;
-      *(buf + 4) = "[MSDKManagedDevice _getStoreID:checkDemo:]";
-      _os_log_impl(&dword_259B7D000, v10, OS_LOG_TYPE_DEFAULT, "%s - Device is not demo device", buf, 0xCu);
+      *buf = 136315138;
+      *&buf[4] = "[MSDKManagedDevice _getStoreID:checkDemo:]";
+      _os_log_impl(&dword_259B7D000, v11, OS_LOG_TYPE_DEFAULT, "%s - Device is not demo device", buf, 0xCu);
     }
 
     goto LABEL_9;
@@ -3973,8 +3961,8 @@ LABEL_10:
 
   if (v9)
   {
-    v11 = 0;
     v12 = 0;
+    v13 = 0;
     if (!d)
     {
       goto LABEL_10;
@@ -3984,21 +3972,21 @@ LABEL_10:
   else
   {
 LABEL_14:
-    v12 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v12, "RequestOperation", "GetDeviceOptions");
-    xpc_dictionary_set_string(v12, "SubKey", [@"store_id" UTF8String]);
+    v13 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v13, "RequestOperation", "GetDeviceOptions");
+    xpc_dictionary_set_string(v13, "SubKey", [@"store_id" UTF8String]);
     [(MSDKManagedDevice *)self setupConnection];
     connection = [(MSDKManagedDevice *)self connection];
 
     if (connection)
     {
       connection2 = [(MSDKManagedDevice *)self connection];
-      v11 = xpc_connection_send_message_with_reply_sync(connection2, v12);
+      v12 = xpc_connection_send_message_with_reply_sync(connection2, v13);
 
-      string = xpc_dictionary_get_string(v11, [@"store_id" UTF8String]);
+      string = xpc_dictionary_get_string(v12, [@"store_id" UTF8String]);
       if (string)
       {
-        v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
+        v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
         v9 = 0;
         goto LABEL_19;
       }
@@ -4013,8 +4001,8 @@ LABEL_14:
     else
     {
       [MSDKManagedDevice _getStoreID:checkDemo:];
-      v11 = 0;
-      v9 = buf[0];
+      v12 = 0;
+      v9 = *buf;
       if (!d)
       {
         goto LABEL_10;
@@ -4022,20 +4010,18 @@ LABEL_14:
     }
   }
 
-  v17 = v9;
-  v13 = 0;
+  v18 = v9;
+  v14 = 0;
   *d = v9;
 LABEL_19:
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v14;
 }
 
 - (BOOL)_needOwnershipWarning:(id *)warning error:(id *)error
 {
   v20 = *MEMORY[0x277D85DE8];
-  v7 = defaultLogHandle();
+  v7 = defaultLogHandle(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -4047,29 +4033,30 @@ LABEL_19:
   v9 = 0;
   if (!v9 && v8 && (([v8 isEqualToString:*MEMORY[0x277D288B0]] & 1) != 0 || (objc_msgSend(v8, "isEqualToString:", *MEMORY[0x277D288B8]) & 1) != 0))
   {
-    _readOwnershipWarningFromNvram = 0;
+    v10 = 0;
 LABEL_8:
     v11 = 0;
     goto LABEL_17;
   }
 
   _readOwnershipWarningFromNvram = [(MSDKManagedDevice *)self _readOwnershipWarningFromNvram];
+  v10 = _readOwnershipWarningFromNvram;
   if (!_readOwnershipWarningFromNvram)
   {
     goto LABEL_18;
   }
 
-  v12 = defaultLogHandle();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = defaultLogHandle(_readOwnershipWarningFromNvram);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     v17 = "[MSDKManagedDevice _needOwnershipWarning:error:]";
     v18 = 2114;
-    v19 = _readOwnershipWarningFromNvram;
-    _os_log_impl(&dword_259B7D000, v12, OS_LOG_TYPE_DEFAULT, "%s - ownershipWarning:  %{public}@", buf, 0x16u);
+    v19 = v10;
+    _os_log_impl(&dword_259B7D000, v13, OS_LOG_TYPE_DEFAULT, "%s - ownershipWarning:  %{public}@", buf, 0x16u);
   }
 
-  if (([_readOwnershipWarningFromNvram isEqualToString:@"1"] & 1) == 0 && !objc_msgSend(_readOwnershipWarningFromNvram, "isEqualToString:", @"2"))
+  if (([v10 isEqualToString:@"1"] & 1) == 0 && !objc_msgSend(v10, "isEqualToString:", @"2"))
   {
 LABEL_18:
     if (error)
@@ -4085,13 +4072,12 @@ LABEL_18:
 
   if (warning)
   {
-    *warning = [MSDLocalization getLocalizedOwnershipWarnings:_readOwnershipWarningFromNvram];
+    *warning = [MSDLocalization getLocalizedOwnershipWarnings:v10];
   }
 
   v11 = 1;
 LABEL_17:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -4111,23 +4097,23 @@ LABEL_17:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v8 = xpc_connection_send_message_with_reply_sync(connection2, v5);
+    v9 = xpc_connection_send_message_with_reply_sync(connection2, v5);
 
-    v9 = xpc_dictionary_get_BOOL(v8, "Result");
+    v10 = xpc_dictionary_get_BOOL(v9, "Result");
   }
 
   else
   {
-    v8 = defaultLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = defaultLogHandle(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [MSDKManagedDevice(Wallpaper) _manageWallpaperSettingsWithAction:v8];
+      [MSDKManagedDevice(Wallpaper) _manageWallpaperSettingsWithAction:v9];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)retrieveXPCConnectionToPeerService
@@ -4140,49 +4126,54 @@ LABEL_17:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v6 = xpc_connection_send_message_with_reply_sync(connection2, v3);
+    v7 = xpc_connection_send_message_with_reply_sync(connection2, v3);
 
-    if (MEMORY[0x259CB0BB0](v6) == MEMORY[0x277D86480])
+    v8 = MEMORY[0x259CB0BB0](v7);
+    if (v8 == MEMORY[0x277D86480])
     {
-      [MSDKManagedDevice(PeerService) retrieveXPCConnectionToPeerService];
-    }
-
-    else if (xpc_dictionary_get_BOOL(v6, "Result"))
-    {
-      v7 = xpc_dictionary_get_value(v6, "PeerServiceXPCEndpoint");
-      if (v7)
-      {
-        v8 = v7;
-        v9 = objc_alloc_init(MEMORY[0x277CCAEA0]);
-        [v9 _setEndpoint:v8];
-        v10 = [objc_alloc(MEMORY[0x277CCAE80]) initWithListenerEndpoint:v9];
-
-        v6 = v9;
-        goto LABEL_6;
-      }
-
-      [MSDKManagedDevice(PeerService) retrieveXPCConnectionToPeerService];
+      [(MSDKManagedDevice(PeerService) *)v8 retrieveXPCConnectionToPeerService];
     }
 
     else
     {
-      [MSDKManagedDevice(PeerService) retrieveXPCConnectionToPeerService];
+      v9 = xpc_dictionary_get_BOOL(v7, "Result");
+      if (v9)
+      {
+        v10 = xpc_dictionary_get_value(v7, "PeerServiceXPCEndpoint");
+        if (v10)
+        {
+          v11 = v10;
+          v12 = objc_alloc_init(MEMORY[0x277CCAEA0]);
+          [v12 _setEndpoint:v11];
+          v13 = [objc_alloc(MEMORY[0x277CCAE80]) initWithListenerEndpoint:v12];
+
+          v7 = v12;
+          goto LABEL_6;
+        }
+
+        [(MSDKManagedDevice(PeerService) *)0 retrieveXPCConnectionToPeerService];
+      }
+
+      else
+      {
+        [(MSDKManagedDevice(PeerService) *)v9 retrieveXPCConnectionToPeerService];
+      }
     }
   }
 
   else
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice(PeerService) *)v6 retrieveXPCConnectionToPeerService];
+      [(MSDKManagedDevice(PeerService) *)v7 retrieveXPCConnectionToPeerService];
     }
   }
 
-  v10 = 0;
+  v13 = 0;
 LABEL_6:
 
-  return v10;
+  return v13;
 }
 
 - (BOOL)isFeatureFlagEnabled:(id)enabled
@@ -4199,23 +4190,23 @@ LABEL_6:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v9 = xpc_connection_send_message_with_reply_sync(connection2, v5);
+    v10 = xpc_connection_send_message_with_reply_sync(connection2, v5);
 
-    v10 = xpc_dictionary_get_BOOL(v9, "Result");
+    v11 = xpc_dictionary_get_BOOL(v10, "Result");
   }
 
   else
   {
-    v9 = defaultLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = defaultLogHandle(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [MSDKManagedDevice(FeatureFlag) isFeatureFlagEnabled:v9];
+      [MSDKManagedDevice(FeatureFlag) isFeatureFlagEnabled:v10];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)refreshDeviceSettings
@@ -4228,23 +4219,23 @@ LABEL_6:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v6 = xpc_connection_send_message_with_reply_sync(connection2, v3);
+    v7 = xpc_connection_send_message_with_reply_sync(connection2, v3);
 
-    v7 = xpc_dictionary_get_BOOL(v6, "Result");
+    v8 = xpc_dictionary_get_BOOL(v7, "Result");
   }
 
   else
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice(RefreshSettings) *)v6 refreshDeviceSettings];
+      [(MSDKManagedDevice(RefreshSettings) *)v7 refreshDeviceSettings];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)initializeDeviceSettingsWithOverwrite:(BOOL)overwrite
@@ -4258,23 +4249,23 @@ LABEL_6:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v8 = xpc_connection_send_message_with_reply_sync(connection2, v5);
+    v9 = xpc_connection_send_message_with_reply_sync(connection2, v5);
 
-    v9 = xpc_dictionary_get_BOOL(v8, "Result");
+    v10 = xpc_dictionary_get_BOOL(v9, "Result");
   }
 
   else
   {
-    v8 = defaultLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = defaultLogHandle(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [MSDKManagedDevice(RefreshSettings) initializeDeviceSettingsWithOverwrite:v8];
+      [MSDKManagedDevice(RefreshSettings) initializeDeviceSettingsWithOverwrite:v9];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)launchApp:(id)app
@@ -4286,10 +4277,10 @@ LABEL_6:
 
   if (!connection)
   {
-    v7 = defaultLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = defaultLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice(Test) *)v7 launchApp:v8, v9, v10, v11, v12, v13, v14];
+      [(MSDKManagedDevice(Test) *)v8 launchApp:v9, v10, v11, v12, v13, v14, v15];
     }
   }
 
@@ -4309,18 +4300,18 @@ LABEL_6:
 
   if (!connection)
   {
-    v5 = defaultLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice(Test) *)v5 reloadDemodsPreferencesFile:v6];
+      [(MSDKManagedDevice(Test) *)v6 reloadDemodsPreferencesFile:v7];
     }
   }
 
   xpc_dictionary_set_string(v3, "RequestOperation", "ReloadDemodsPreferencesFile");
   connection2 = [(MSDKManagedDevice *)self connection];
-  v14 = xpc_connection_send_message_with_reply_sync(connection2, v3);
+  v15 = xpc_connection_send_message_with_reply_sync(connection2, v3);
 
-  LOBYTE(connection2) = xpc_dictionary_get_BOOL(v14, "Result");
+  LOBYTE(connection2) = xpc_dictionary_get_BOOL(v15, "Result");
   return connection2;
 }
 
@@ -4341,29 +4332,29 @@ LABEL_6:
     if (connection)
     {
       connection2 = [(MSDKManagedDevice *)self connection];
-      v11 = xpc_connection_send_message_with_reply_sync(connection2, v8);
+      v12 = xpc_connection_send_message_with_reply_sync(connection2, v8);
 
-      v12 = xpc_dictionary_get_BOOL(v11, "Result");
+      v13 = xpc_dictionary_get_BOOL(v12, "Result");
     }
 
     else
     {
-      v11 = defaultLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = defaultLogHandle(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [(MSDKManagedDevice(Test) *)v11 setDeviceLanguageWithoutSystemLanguageMatching:v14 andRegion:v15, v16, v17, v18, v19, v20];
+        [(MSDKManagedDevice(Test) *)v12 setDeviceLanguageWithoutSystemLanguageMatching:v15 andRegion:v16, v17, v18, v19, v20, v21];
       }
 
-      v12 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)clearCurrentSafariHistory
@@ -4376,23 +4367,23 @@ LABEL_6:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v6 = xpc_connection_send_message_with_reply_sync(connection2, v3);
+    v7 = xpc_connection_send_message_with_reply_sync(connection2, v3);
 
-    v7 = xpc_dictionary_get_BOOL(v6, "Result");
+    v8 = xpc_dictionary_get_BOOL(v7, "Result");
   }
 
   else
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = defaultLogHandle(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(MSDKManagedDevice(ClearSafariHistory) *)v6 clearCurrentSafariHistory];
+      [(MSDKManagedDevice(ClearSafariHistory) *)v7 clearCurrentSafariHistory];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)_prepareWithOptions:(id)options
@@ -4427,26 +4418,25 @@ LABEL_4:
   if (connection)
   {
     connection2 = [(MSDKManagedDevice *)self connection];
-    v9 = xpc_connection_send_message_with_reply_sync(connection2, createXPCDictionary);
+    v10 = xpc_connection_send_message_with_reply_sync(connection2, createXPCDictionary);
 
-    v6 = xpc_dictionary_get_BOOL(v9, "DemoPrepareAcknowledged");
+    v6 = xpc_dictionary_get_BOOL(v10, "DemoPrepareAcknowledged");
   }
 
   else
   {
-    v9 = defaultLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = defaultLogHandle(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v13 = 136315138;
       v14 = "[MSDKManagedDevice _prepareWithOptions:]";
-      OUTLINED_FUNCTION_3_1(&dword_259B7D000, v9, v12, "%s - Failed to setup XPC connection.", &v13);
+      OUTLINED_FUNCTION_3_1(&dword_259B7D000, v10, v12, "%s - Failed to setup XPC connection.", &v13);
     }
 
     v6 = 0;
   }
 
 LABEL_9:
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -4468,183 +4458,158 @@ LABEL_9:
 
 - (void)setSEPDemoMode:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s: Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice setSEPDemoMode:]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s: Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)enterOfflineModeWithOptions:error:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_8_0(v2);
-  OUTLINED_FUNCTION_4_3(v3, v4, @"Failed to establish xpc connection to demod.");
-  OUTLINED_FUNCTION_9_0();
-  v5 = defaultLogHandle();
+  v2 = OUTLINED_FUNCTION_8_0(v1);
+  OUTLINED_FUNCTION_4_3(v2, v3, @"Failed to establish xpc connection to demod.");
+  v4 = OUTLINED_FUNCTION_9_0();
+  v5 = defaultLogHandle(v4);
   if (OUTLINED_FUNCTION_5(v5))
   {
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+    _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isOfflineMode:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice isOfflineMode:]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getDemoInstallState
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = defaultLogHandle();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = defaultLogHandle(self);
+  if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_2();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lockDemoContent
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice lockDemoContent]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)revertDemoContent
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice revertDemoContent]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)commitNewDemoContent
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice commitNewDemoContent]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)isBetterTogetherDemoDevice
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice isBetterTogetherDemoDevice]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getFriendlyDeviceName
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = defaultLogHandle();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = defaultLogHandle(self);
+  if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_2();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setStoreOpenAt:(NSObject *)a1 openMinute:closeHour:closeMinute:.cold.1(NSObject *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setIdleDelay:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice setIdleDelay:]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)configureWiFi:(uint64_t)a3 password:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice configureWiFi:password:]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)disconnectAndForgetWiFi:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice disconnectAndForgetWiFi:]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setDeviceLanguage:(uint64_t)a3 andRegion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice setDeviceLanguage:andRegion:]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getDeviceLanguageandRegion
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice getDeviceLanguageandRegion]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)saveBluetoothPairingInfo
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice saveBluetoothPairingInfo]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)checkInBlockingUI
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice checkInBlockingUI]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)cancelOperation
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isStoreOpen:withError:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice cancelOperation]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)isStoreOpen:(id *)a1 withError:.cold.2(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 description];
   OUTLINED_FUNCTION_1_5();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nextStoreOpenDate:withError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_5();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nextStoreOpenDate:(void *)a1 withError:(void *)a2 .cold.2(void *a1, void *a2)
@@ -4657,33 +4622,25 @@ LABEL_9:
 
 - (void)nextStoreOpenDate:(id *)a1 withError:.cold.3(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 description];
   OUTLINED_FUNCTION_1_5();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nextStoreCloseDate:withError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_5();
   OUTLINED_FUNCTION_6_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nextStoreCloseDate:(id *)a1 withError:.cold.3(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 description];
   OUTLINED_FUNCTION_1_5();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateStoreHours:(id *)a1 evaluateAgainstDate:(uint64_t)a2 .cold.1(id *a1, uint64_t a2)
@@ -4694,69 +4651,53 @@ LABEL_9:
 
 - (void)storeDataBlob:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = defaultLogHandle();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = defaultLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[MSDKManagedDevice storeDataBlob:]";
-    OUTLINED_FUNCTION_3_1(&dword_259B7D000, v2, v3, "%s - Failed to setup XPC connection.", &v5);
+    v4 = 136315138;
+    v5 = "[MSDKManagedDevice storeDataBlob:]";
+    OUTLINED_FUNCTION_3_1(&dword_259B7D000, v2, v3, "%s - Failed to setup XPC connection.", &v4);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)storeDataBlob:(void *)a1 .cold.3(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 length];
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveDataBlob
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = defaultLogHandle();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = defaultLogHandle(self);
+  if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_2();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteDataBlob
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice deleteDataBlob]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)clearOwnershipWarning
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __53__MSDKManagedDevice_setupConnection_withMachService___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice clearOwnershipWarning]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, self, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __53__MSDKManagedDevice_setupConnection_withMachService___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 136446210;
-  v5 = MEMORY[0x259CB0A20]();
-  _os_log_debug_impl(&dword_259B7D000, a2, OS_LOG_TYPE_DEBUG, "description of xpc reply: %{public}s", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 136446210;
+  v4 = MEMORY[0x259CB0A20](a1);
+  _os_log_debug_impl(&dword_259B7D000, a2, OS_LOG_TYPE_DEBUG, "description of xpc reply: %{public}s", &v3, 0xCu);
 }
 
 - (void)handleContentUpdateStatus:event:.cold.1()
@@ -4768,172 +4709,152 @@ void __53__MSDKManagedDevice_setupConnection_withMachService___block_invoke_cold
 
 - (void)_isEnrolled:(NSObject *)a1 checkDemo:.cold.1(NSObject *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_13(&dword_259B7D000, v2, v3, "%s - Device is not demo device", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "[MSDKManagedDevice _isEnrolled:checkDemo:]";
+    OUTLINED_FUNCTION_13(&dword_259B7D000, v2, v3, "%s - Device is not demo device", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isEnrolled:(uint64_t)a3 checkDemo:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice _isEnrolled:checkDemo:]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_isContentFrozen_xpc:(NSObject *)a1 checkDemo:.cold.1(NSObject *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_13(&dword_259B7D000, v2, v3, "%s - Device is not demo device", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 136315138;
+    *(&v8 + 4) = "[MSDKManagedDevice _isContentFrozen_xpc:checkDemo:]";
+    OUTLINED_FUNCTION_13(&dword_259B7D000, v2, v3, "%s - Device is not demo device", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isContentFrozen_xpc:(uint64_t)a3 checkDemo:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice _isContentFrozen_xpc:checkDemo:]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_typeOfDemoDevice:(uint64_t)a3 checkDemo:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice _typeOfDemoDevice:checkDemo:]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Failed to setup XPC connection.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_unlockDemoContentWithOptions:outError:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_8_0(v2);
-  OUTLINED_FUNCTION_4_3(v3, v4, @"Failed to establish xpc connection to demod.");
-  OUTLINED_FUNCTION_9_0();
-  v5 = defaultLogHandle();
+  v2 = OUTLINED_FUNCTION_8_0(v1);
+  OUTLINED_FUNCTION_4_3(v2, v3, @"Failed to establish xpc connection to demod.");
+  v4 = OUTLINED_FUNCTION_9_0();
+  v5 = defaultLogHandle(v4);
   if (OUTLINED_FUNCTION_5(v5))
   {
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+    _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unenrollWithOptions:outError:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_8_0(v2);
-  OUTLINED_FUNCTION_4_3(v3, v4, @"Failed to establish xpc connection to demod.");
-  OUTLINED_FUNCTION_9_0();
-  v5 = defaultLogHandle();
+  v2 = OUTLINED_FUNCTION_8_0(v1);
+  OUTLINED_FUNCTION_4_3(v2, v3, @"Failed to establish xpc connection to demod.");
+  v4 = OUTLINED_FUNCTION_9_0();
+  v5 = defaultLogHandle(v4);
   if (OUTLINED_FUNCTION_5(v5))
   {
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+    _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getDeviceOptions:checkDemo:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_8_0(v2);
-  OUTLINED_FUNCTION_4_3(v3, v4, @"Failed to establish xpc connection to demod.");
-  OUTLINED_FUNCTION_9_0();
-  v5 = defaultLogHandle();
+  v2 = OUTLINED_FUNCTION_8_0(v1);
+  OUTLINED_FUNCTION_4_3(v2, v3, @"Failed to establish xpc connection to demod.");
+  v4 = OUTLINED_FUNCTION_9_0();
+  v5 = defaultLogHandle(v4);
   if (OUTLINED_FUNCTION_5(v5))
   {
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+    _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getCurrentNetworkInfoForKeys:(uint64_t)a3 outError:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Device class is not supported.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice _getCurrentNetworkInfoForKeys:outError:]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Device class is not supported.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_getCurrentNetworkInfoForKeys:(void *)a3 outError:.cold.2(void *a1, void *a2, void *a3)
 {
   v10 = *MEMORY[0x277D85DE8];
-  safeAssignError(a1, 3727741189, @"Unexpected demod xpc response.");
-  v5 = defaultLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v5 = safeAssignError(a1, 3727741189, @"Unexpected demod xpc response.");
+  v6 = defaultLogHandle(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v8 = 136315138;
     v9 = "[MSDKManagedDevice _getCurrentNetworkInfoForKeys:outError:]";
-    OUTLINED_FUNCTION_3_1(&dword_259B7D000, v5, v6, "%s - Failed to extract network info from XPC response.", &v8);
+    OUTLINED_FUNCTION_3_1(&dword_259B7D000, v6, v7, "%s - Failed to extract network info from XPC response.", &v8);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getCurrentNetworkInfoForKeys:(void *)a3 outError:.cold.3(void *a1, void *a2, void *a3)
 {
   v10 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_3(a1, a2, @"Failed to establish xpc connection to demod.");
-  v5 = defaultLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v5 = OUTLINED_FUNCTION_4_3(a1, a2, @"Failed to establish xpc connection to demod.");
+  v6 = defaultLogHandle(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v8 = 136315138;
     v9 = "[MSDKManagedDevice _getCurrentNetworkInfoForKeys:outError:]";
-    OUTLINED_FUNCTION_3_1(&dword_259B7D000, v5, v6, "%s - Failed to send XPC message.", &v8);
+    OUTLINED_FUNCTION_3_1(&dword_259B7D000, v6, v7, "%s - Failed to send XPC message.", &v8);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getCurrentNetworkInfoForKeys:(void *)a1 outError:(void *)a2 .cold.4(void *a1, void *a2)
 {
   v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_3(a1, a2, @"Failed to establish xpc connection to demod.");
-  v3 = defaultLogHandle();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v3 = OUTLINED_FUNCTION_4_3(a1, a2, @"Failed to establish xpc connection to demod.");
+  v4 = defaultLogHandle(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v6 = 136315138;
     v7 = "[MSDKManagedDevice _getCurrentNetworkInfoForKeys:outError:]";
-    OUTLINED_FUNCTION_3_1(&dword_259B7D000, v3, v4, "%s - Failed to setup XPC connection.", &v6);
+    OUTLINED_FUNCTION_3_1(&dword_259B7D000, v4, v5, "%s - Failed to setup XPC connection.", &v6);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getCurrentNetworkInfoForKeys:(uint64_t)a3 outError:(uint64_t)a4 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Received nil array or invalid key.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MSDKManagedDevice _getCurrentNetworkInfoForKeys:outError:]";
+  OUTLINED_FUNCTION_0_1(&dword_259B7D000, a1, a3, "%s - Received nil array or invalid key.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_getStoreID:checkDemo:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_8_0(v2);
-  OUTLINED_FUNCTION_4_3(v3, v4, @"Failed to establish xpc connection to demod.");
-  OUTLINED_FUNCTION_9_0();
-  v5 = defaultLogHandle();
+  v2 = OUTLINED_FUNCTION_8_0(v1);
+  OUTLINED_FUNCTION_4_3(v2, v3, @"Failed to establish xpc connection to demod.");
+  v4 = OUTLINED_FUNCTION_9_0();
+  v5 = defaultLogHandle(v4);
   if (OUTLINED_FUNCTION_5(v5))
   {
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+    _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

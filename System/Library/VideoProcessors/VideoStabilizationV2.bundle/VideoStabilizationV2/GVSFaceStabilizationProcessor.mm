@@ -1,7 +1,6 @@
 @interface GVSFaceStabilizationProcessor
 - (BOOL)updateBiasTrackingAndFaceCorrectionQuaternionWithFaceSmoothingArrays:(GVSFaceSmoothingArrays *)arrays biasTrackingSigma:(float)sigma centerFrameOffset:(int)offset;
 - (GVSFaceStabilizationProcessor)init;
-- (uint64_t)init;
 - (void)_convertFaceRectangleToFacePose:(double)pose withCameraPose:(double)cameraPose focalLength:(double)length imageCenter:(double)center;
 - (void)dealloc;
 - (void)reset;
@@ -87,14 +86,14 @@ LABEL_6:
 {
   if (!CGRectIsNull(*&self))
   {
-    v18.f32[0] = self + pose * 0.5;
-    v19 = a2 + cameraPose * 0.5;
-    v18.f32[1] = v19;
-    v20 = vsub_f32(v18, a18);
-    v22 = v20.f32[0];
-    *&v23 = -atanf(v20.f32[1] / a17);
-    v21 = atanf(v22 / a17);
-    GVSQuatfFromDeltaRotation(__PAIR64__(LODWORD(v21), v23), COERCE_DOUBLE(__PAIR64__(LODWORD(v21), v23)));
+    v22.f32[0] = self + pose * 0.5;
+    v23 = a2 + cameraPose * 0.5;
+    v22.f32[1] = v23;
+    v24 = vsub_f32(v22, a18);
+    v26 = v24.f32[0];
+    *&v27 = -atanf(v24.f32[1] / a17);
+    v25 = atanf(v26 / a17);
+    GVSQuatfFromDeltaRotation(__PAIR64__(LODWORD(v25), v27), COERCE_DOUBLE(__PAIR64__(LODWORD(v25), v27)));
   }
 }
 
@@ -253,13 +252,6 @@ LABEL_6:
   *v16.i8 = vadd_f32(*v16.i8, *&vextq_s8(v16, v16, 8uLL));
   *v16.i8 = vcgtz_f32(vadd_f32(vzip1_s32(*v16.i8, *v15.i8), vzip2_s32(*v16.i8, *v15.i8)));
   return v16.i8[4] & v16.i8[0] & 1;
-}
-
-- (uint64_t)init
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 @end

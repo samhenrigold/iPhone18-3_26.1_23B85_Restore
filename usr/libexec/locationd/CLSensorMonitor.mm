@@ -266,7 +266,7 @@
   {
     if (!type)
     {
-      [CLSensorMonitorSimulatedDataGenerator generateSimulatedPedometerData:payload];
+      objc_msgSend_generateSimulatedPedometerData_(CLSensorMonitorSimulatedDataGenerator);
       memcpy(v15, buf, 0x148uLL);
       v9 = v15;
       selfCopy2 = self;
@@ -291,7 +291,7 @@ LABEL_17:
       goto LABEL_19;
     }
 
-    [CLSensorMonitorSimulatedDataGenerator generateSimulatedOdometerData:payload];
+    objc_msgSend_generateSimulatedOdometerData_(CLSensorMonitorSimulatedDataGenerator);
     v15[8] = *&buf[128];
     v15[9] = *&buf[144];
     v15[10] = *&buf[160];
@@ -314,7 +314,7 @@ LABEL_26:
   switch(type)
   {
     case 3uLL:
-      [CLSensorMonitorSimulatedDataGenerator generateSimulatedElevationData:payload];
+      objc_msgSend_generateSimulatedElevationData_(CLSensorMonitorSimulatedDataGenerator);
       v15[8] = *&buf[128];
       v15[9] = *&buf[144];
       v15[10] = *&buf[160];
@@ -331,7 +331,7 @@ LABEL_26:
       v13 = 3;
       goto LABEL_26;
     case 4uLL:
-      [CLSensorMonitorSimulatedDataGenerator generateHighFrequencyHeartRateData:payload];
+      objc_msgSend_generateHighFrequencyHeartRateData_(CLSensorMonitorSimulatedDataGenerator);
       v15[8] = *&buf[128];
       v15[9] = *&buf[144];
       v15[10] = *&buf[160];
@@ -346,7 +346,7 @@ LABEL_26:
       [(CLSensorMonitor *)self onCatherineNotification:10 data:v15];
       return;
     case 5uLL:
-      [CLSensorMonitorSimulatedDataGenerator generateSimulatedPhysicalActivityEventsData:payload];
+      objc_msgSend_generateSimulatedPhysicalActivityEventsData_(CLSensorMonitorSimulatedDataGenerator);
       LODWORD(v15[0]) = 4;
       [(CLSensorMonitor *)self onMotionStateMediatorNotification:v15 data:buf];
       return;
@@ -411,29 +411,30 @@ LABEL_19:
 - (void)clearConfigurationsForUninstalledApps:(id)apps
 {
   v5 = +[NSMutableArray array];
-  v6 = sub_100E4F678();
-  sub_100E51600(v6, v5);
-  if (![(CLSensorMonitor *)self deferXpcActivityIfNecessary:apps])
+  v7 = sub_100E4F678(v5, v6);
+  sub_100E51600(v7, v5);
+  v8 = [(CLSensorMonitor *)self deferXpcActivityIfNecessary:apps];
+  if ((v8 & 1) == 0)
   {
-    sub_10001A3E8();
+    sub_10001A3E8(v8, v9);
     if (sub_10001CF3C() && [v5 count])
     {
-      v7 = 0;
+      v10 = 0;
       do
       {
-        [v5 setObject:objc_msgSend(objc_msgSend(v5 atIndexedSubscript:{"objectAtIndexedSubscript:", v7), "stringByAppendingPathExtension:", @"watchkitapp", v7}];
+        [v5 setObject:objc_msgSend(objc_msgSend(v5 atIndexedSubscript:{"objectAtIndexedSubscript:", v10), "stringByAppendingPathExtension:", @"watchkitapp", v10}];
         if (qword_1025D44B0 != -1)
         {
           sub_101922E08();
         }
 
-        v8 = qword_1025D44B8;
+        v11 = qword_1025D44B8;
         if (os_log_type_enabled(qword_1025D44B8, OS_LOG_TYPE_DEBUG))
         {
-          v9 = [v5 objectAtIndexedSubscript:v7];
+          v12 = [v5 objectAtIndexedSubscript:v10];
           *buf = 138543362;
-          v15 = v9;
-          _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEBUG, "Updated bundleId to %{public}@ for uninstall check", buf, 0xCu);
+          v22 = v12;
+          _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEBUG, "Updated bundleId to %{public}@ for uninstall check", buf, 0xCu);
         }
 
         if (sub_10000A100(121, 2))
@@ -444,28 +445,32 @@ LABEL_19:
             sub_101922E08();
           }
 
-          v12 = 138543362;
-          v13 = [v5 objectAtIndexedSubscript:v7];
-          v10 = _os_log_send_and_compose_impl();
-          sub_100152C7C("Generic", 1, 0, 2, "[CLSensorMonitor clearConfigurationsForUninstalledApps:]", "%s\n", v10);
-          if (v10 != buf)
+          v13 = qword_1025D44B8;
+          v14 = [v5 objectAtIndexedSubscript:v10];
+          v19 = 138543362;
+          v20 = v14;
+          LODWORD(v17) = 12;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v13, 2, "Updated bundleId to %{public}@ for uninstall check", &v19, v17);
+          v16 = v15;
+          sub_100152C7C("Generic", 1, 0, 2, "[CLSensorMonitor clearConfigurationsForUninstalledApps:]", "%s\n", v15);
+          if (v16 != buf)
           {
-            free(v10);
+            free(v16);
           }
         }
 
-        ++v7;
+        ++v10;
       }
 
-      while (v7 < [v5 count]);
+      while (v10 < [v5 count]);
     }
 
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100736008;
-    v11[3] = &unk_10246E0C0;
-    v11[4] = self;
-    v11[5] = apps;
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100736008;
+    v18[3] = &unk_10246E0C0;
+    v18[4] = self;
+    v18[5] = apps;
     [objc_msgSend(objc_msgSend(-[CLSensorMonitor universe](self "universe")];
   }
 }
@@ -546,11 +551,11 @@ LABEL_19:
       v22 = *(data + 8);
       v23 = *(data + 9);
       *buf = 134349568;
-      v45 = v21;
-      v46 = 1026;
-      v47 = v22;
-      v48 = 1026;
-      LODWORD(v49) = v23;
+      v80 = v21;
+      v81 = 1026;
+      v82 = v22;
+      v83 = 1026;
+      LODWORD(v84) = v23;
       _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_DEBUG, "CLSensorMonitor - OdometerSuitability values,startDate,%{public}.8f,suitableForRunning,%{public}d,suitableForWalking,%{public}d", buf, 0x18u);
     }
 
@@ -598,20 +603,20 @@ LABEL_19:
     v16 = *(data + 26);
     v17 = *(data + 14);
     v18 = *(data + 121);
-    v42 = *(data + 39);
-    v43 = *(data + 38);
-    v38 = *(data + 120);
-    v39 = *(data + 41);
-    v40 = *(data + 42);
-    v41 = *(data + 174);
+    v43 = *(data + 39);
+    v44 = *(data + 38);
+    v39 = *(data + 120);
+    v40 = *(data + 41);
+    v41 = *(data + 42);
+    v42 = *(data + 174);
     if (v17)
     {
-      v35 = [[NSUUID alloc] initWithUUIDString:v17];
+      v36 = [[NSUUID alloc] initWithUUIDString:v17];
     }
 
     else
     {
-      v35 = 0;
+      v36 = 0;
     }
 
     v26 = v18;
@@ -624,39 +629,39 @@ LABEL_19:
     if (os_log_type_enabled(qword_1025D4828, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134353152;
-      v45 = v8;
-      v46 = 1026;
-      v47 = v9;
-      v48 = 2050;
-      v49 = v10;
-      v50 = 1026;
-      v51 = v12;
-      v52 = 1026;
-      v53 = v11;
-      v54 = 1026;
-      v55 = v16;
-      v56 = 2050;
-      v57 = v14;
-      v58 = 2050;
-      v59 = v13;
-      v60 = 2050;
-      v61 = v7;
-      v62 = 2050;
-      v63 = v15;
-      v64 = 1026;
-      v65 = v38 & 1;
-      v66 = 1026;
-      v67 = v18 & 1;
-      v68 = 1026;
-      v69 = v43;
-      v70 = 1026;
-      v71 = v42;
-      v72 = 1026;
-      v73 = v39;
-      v74 = 1026;
-      v75 = v40;
-      v76 = 1026;
-      v77 = v41;
+      v80 = v8;
+      v81 = 1026;
+      v82 = v9;
+      v83 = 2050;
+      v84 = v10;
+      v85 = 1026;
+      v86 = v12;
+      v87 = 1026;
+      v88 = v11;
+      v89 = 1026;
+      v90 = v16;
+      v91 = 2050;
+      v92 = v14;
+      v93 = 2050;
+      v94 = v13;
+      v95 = 2050;
+      v96 = v7;
+      v97 = 2050;
+      v98 = v15;
+      v99 = 1026;
+      v100 = v39 & 1;
+      v101 = 1026;
+      v102 = v18 & 1;
+      v103 = 1026;
+      v104 = v44;
+      v105 = 1026;
+      v106 = v43;
+      v107 = 1026;
+      v108 = v40;
+      v109 = 1026;
+      v110 = v41;
+      v111 = 1026;
+      v112 = v42;
       _os_log_impl(dword_100000000, v27, OS_LOG_TYPE_DEBUG, "CLSensorMonitor - StepCount values,startDate,%{public}.8f,count,%{public}d,distance,%{public}.3f,floorsAscended,%{public}d,floorsDescended,%{public}d,recordId,%{public}d,currentPace,%{public}.3f,currentCadence,%{public}.3f,firstStepTime,%{public}.8f,activeTime,%{public}.8f,isOdometerDistance,%{public}d,isOdometerPace,%{public}d,pushCount,%{public}d,workoutType,%{public}d,elevationAscended,%{public}d,elevationDescended,%{public}d,distanceSource,%{public}d", buf, 0x80u);
     }
 
@@ -668,19 +673,54 @@ LABEL_19:
         sub_1019220E8();
       }
 
-      v33 = _os_log_send_and_compose_impl();
+      v45 = 134353152;
+      v46 = v8;
+      v47 = 1026;
+      v48 = v9;
+      v49 = 2050;
+      v50 = v10;
+      v51 = 1026;
+      v52 = v12;
+      v53 = 1026;
+      v54 = v11;
+      v55 = 1026;
+      v56 = v16;
+      v57 = 2050;
+      v58 = v14;
+      v59 = 2050;
+      v60 = v13;
+      v61 = 2050;
+      v62 = v7;
+      v63 = 2050;
+      v64 = v15;
+      v65 = 1026;
+      v66 = v39 & 1;
+      v67 = 1026;
+      v68 = v18 & 1;
+      v69 = 1026;
+      v70 = v44;
+      v71 = 1026;
+      v72 = v43;
+      v73 = 1026;
+      v74 = v40;
+      v75 = 1026;
+      v76 = v41;
+      v77 = 1026;
+      v78 = v42;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4828, 2, "CLSensorMonitor - StepCount values,startDate,%{public}.8f,count,%{public}d,distance,%{public}.3f,floorsAscended,%{public}d,floorsDescended,%{public}d,recordId,%{public}d,currentPace,%{public}.3f,currentCadence,%{public}.3f,firstStepTime,%{public}.8f,activeTime,%{public}.8f,isOdometerDistance,%{public}d,isOdometerPace,%{public}d,pushCount,%{public}d,workoutType,%{public}d,elevationAscended,%{public}d,elevationDescended,%{public}d,distanceSource,%{public}d", &v45, 128);
+      v34 = v33;
       sub_100152C7C("Generic", 1, 0, 2, "[CLSensorMonitor onStepNotification:data:]", "%s\n", v33);
-      if (v33 != buf)
+      if (v34 != buf)
       {
-        free(v33);
+        free(v34);
       }
 
       v26 = v18;
     }
 
-    v37 = v9;
+    v38 = v9;
     v28 = [CMPedometerData alloc];
-    v36 = [NSNumber numberWithUnsignedInt:v12];
+    v37 = [NSNumber numberWithUnsignedInt:v12];
     v29 = [NSNumber numberWithUnsignedInt:v11];
     if (v14 == 0.0)
     {
@@ -702,9 +742,9 @@ LABEL_19:
       v31 = [NSNumber numberWithDouble:v13];
     }
 
-    LODWORD(v34) = v41;
-    v19 = v35;
-    v24 = [v28 initWithStartDate:v37 endDate:v36 steps:v29 distance:v16 floorsAscended:v30 floorsDescended:v31 recordID:v8 currentPace:v8 currentCadence:v10 firstStepTime:v7 activeTime:+[NSNumber numberWithDouble:](NSNumber sourceId:"numberWithDouble:" isOdometerDistance:v15) isOdometerPace:v35 pushes:+[NSNumber numberWithBool:](NSNumber workoutType:"numberWithBool:" elevationAscended:v38 & 1) elevationDescended:+[NSNumber numberWithBool:](NSNumber distanceSource:{"numberWithBool:", v26 & 1), __PAIR64__(v42, v43), +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", v39), +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", v40), v34}];
+    LODWORD(v35) = v42;
+    v19 = v36;
+    v24 = [v28 initWithStartDate:v38 endDate:v37 steps:v29 distance:v16 floorsAscended:v30 floorsDescended:v31 recordID:v8 currentPace:v8 currentCadence:v10 firstStepTime:v7 activeTime:+[NSNumber numberWithDouble:](NSNumber sourceId:"numberWithDouble:" isOdometerDistance:v15) isOdometerPace:v36 pushes:+[NSNumber numberWithBool:](NSNumber workoutType:"numberWithBool:" elevationAscended:v39 & 1) elevationDescended:+[NSNumber numberWithBool:](NSNumber distanceSource:{"numberWithBool:", v26 & 1), __PAIR64__(v43, v44), +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", v40), +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", v41), v35}];
     [(SRSensorWriter *)self->_pedometerWriter provideSample:v24];
     if (qword_1025D4820 != -1)
     {
@@ -793,81 +833,83 @@ LABEL_19:
       goto LABEL_4;
     }
 
-    v41 = *(data + 1);
-    v16 = *(data + 5);
-    v18 = *(data + 6);
-    v17 = *(data + 7);
-    v19 = *(data + 8);
-    v47 = *(data + 9);
-    v20 = *(data + 21);
-    v48 = *(data + 20);
-    v21 = *(data + 11);
-    v22 = *(data + 13);
-    v39 = *(data + 4);
-    v40 = *(data + 12);
-    v45 = *(data + 7);
-    v46 = *(data + 8);
-    v23 = *(data + 18);
-    v24 = *(data + 19);
-    v43 = *(data + 10);
-    v44 = *(data + 11);
-    v42 = *data;
-    v25 = [NSDate dateWithTimeIntervalSinceReferenceDate:*data];
-    if (v20 == 2)
+    v16 = *data;
+    v50 = *(data + 1);
+    v17 = *(data + 4);
+    v18 = *(data + 5);
+    v20 = *(data + 6);
+    v19 = *(data + 7);
+    v21 = *(data + 8);
+    v79 = *(data + 9);
+    v22 = *(data + 21);
+    v80 = *(data + 20);
+    v23 = *(data + 11);
+    v24 = *(data + 13);
+    v48 = v17;
+    v49 = *(data + 12);
+    v54 = *(data + 7);
+    v55 = *(data + 8);
+    v25 = *(data + 18);
+    v26 = *(data + 19);
+    v52 = *(data + 10);
+    v53 = *(data + 11);
+    v51 = v16;
+    v27 = [NSDate dateWithTimeIntervalSinceReferenceDate:*&v16];
+    if (v22 == 2)
     {
-      v26 = 2;
+      v28 = 2;
     }
 
     else
     {
-      v26 = v20 == 1;
+      v28 = v22 == 1;
     }
 
     p_previousOdometerEntry = &self->_previousOdometerEntry;
     startTime = self->_previousOdometerEntry.startTime;
-    v37 = v25;
-    v38 = v21;
-    v36 = v26;
+    v46 = v27;
+    v47 = v23;
+    v45 = v28;
     if (startTime != 0.0)
     {
-      if (vabdd_f64(*&v42, startTime) < 1800.0)
+      if (vabdd_f64(*&v51, startTime) < 1800.0)
       {
-        v29 = [NSNumber numberWithDouble:v40 - self->_previousOdometerEntry.groundAltitude];
+        v31 = [NSNumber numberWithDouble:v49 - self->_previousOdometerEntry.groundAltitude];
 LABEL_29:
-        v14 = [[CMOdometerData alloc] initWithDeltaDistance:v37 startDate:v37 endDate:+[NSNumber numberWithDouble:](NSNumber accuracy:"numberWithDouble:" rawSpeed:*&v41) gpsSpeedAccuracy:+[NSNumber numberWithDouble:](NSNumber timestampGps:"numberWithDouble:" deltaGroundAltitude:v16) groundAltitudeUncertainty:+[NSNumber numberWithDouble:](NSNumber originDevice:"numberWithDouble:" slope:v17) maxAbsSlope:{+[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", v19), *(&v42 + 1), v29, +[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", v22), v36, +[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", v23), +[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", v24)}];
+        v14 = [[CMOdometerData alloc] initWithDeltaDistance:v46 startDate:v46 endDate:+[NSNumber numberWithDouble:](NSNumber accuracy:"numberWithDouble:" rawSpeed:*&v50) gpsSpeedAccuracy:+[NSNumber numberWithDouble:](NSNumber timestampGps:"numberWithDouble:" deltaGroundAltitude:v18) groundAltitudeUncertainty:+[NSNumber numberWithDouble:](NSNumber originDevice:"numberWithDouble:" slope:v19) maxAbsSlope:{+[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", v21), *(&v51 + 1), v31, +[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", v24), v45, +[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", v25), +[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", v26)}];
         if (qword_1025D4820 != -1)
         {
           sub_1019220E8();
         }
 
-        v32 = qword_1025D4828;
+        v34 = qword_1025D4828;
         if (os_log_type_enabled(qword_1025D4828, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134286337;
-          v50 = *(&v42 + 1);
-          v51 = 2050;
-          *v52 = v42;
-          *&v52[8] = 2049;
-          v53 = v39;
-          v54 = 2049;
-          v55 = v16;
-          v56 = 2049;
-          v57 = v17;
-          v58 = 2049;
-          v59 = v41;
-          v60 = 1025;
-          v61 = v20;
-          v62 = 2049;
-          v63 = v40;
-          v64 = 2049;
-          v65 = v22;
-          v66 = 2049;
-          v67 = v19;
-          v68 = 2049;
-          v69 = v23;
-          v70 = 2049;
-          v71 = v24;
-          _os_log_impl(dword_100000000, v32, OS_LOG_TYPE_DEBUG, "CLSensorMonitor - Odometer values,distance,%{private}.8f,startTime,%{public}.8f,speed,%{private}.8f,rawSpeed,%{private}.4f,gpsSpeedAccuracy,%{private}.4f,accuracy,%{private}.4f,originDevice,%{private}d,groundAltitude,%{private}.4f,groundAltitudeUncertainty,%{private}.4f,timestampGps,%{private}.4f,slope,%{private}.4f,maxAbsSlope,%{private}.4f", buf, 0x76u);
+          v82 = *(&v51 + 1);
+          v83 = 2050;
+          *v84 = v51;
+          *&v84[8] = 2049;
+          v85 = v48;
+          v86 = 2049;
+          v87 = v18;
+          v88 = 2049;
+          v89 = v19;
+          v90 = 2049;
+          v91 = v50;
+          v92 = 1025;
+          v93 = v22;
+          v94 = 2049;
+          v95 = v49;
+          v96 = 2049;
+          v97 = v24;
+          v98 = 2049;
+          v99 = v21;
+          v100 = 2049;
+          v101 = v25;
+          v102 = 2049;
+          v103 = v26;
+          _os_log_impl(dword_100000000, v34, OS_LOG_TYPE_DEBUG, "CLSensorMonitor - Odometer values,distance,%{private}.8f,startTime,%{public}.8f,speed,%{private}.8f,rawSpeed,%{private}.4f,gpsSpeedAccuracy,%{private}.4f,accuracy,%{private}.4f,originDevice,%{private}d,groundAltitude,%{private}.4f,groundAltitudeUncertainty,%{private}.4f,timestampGps,%{private}.4f,slope,%{private}.4f,maxAbsSlope,%{private}.4f", buf, 0x76u);
         }
 
         if (sub_10000A100(121, 2))
@@ -878,11 +920,37 @@ LABEL_29:
             sub_1019220E8();
           }
 
-          v35 = _os_log_send_and_compose_impl();
-          sub_100152C7C("Generic", 1, 0, 2, "[CLSensorMonitor onOdometerNotification:data:]", "%s\n", v35);
-          if (v35 != buf)
+          v56 = 134286337;
+          v57 = *(&v51 + 1);
+          v58 = 2050;
+          *v59 = v51;
+          *&v59[8] = 2049;
+          v60 = v48;
+          v61 = 2049;
+          v62 = v18;
+          v63 = 2049;
+          v64 = v19;
+          v65 = 2049;
+          v66 = v50;
+          v67 = 1025;
+          v68 = v22;
+          v69 = 2049;
+          v70 = v49;
+          v71 = 2049;
+          v72 = v24;
+          v73 = 2049;
+          v74 = v21;
+          v75 = 2049;
+          v76 = v25;
+          v77 = 2049;
+          v78 = v26;
+          LODWORD(v44) = 118;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4828, 2, "CLSensorMonitor - Odometer values,distance,%{private}.8f,startTime,%{public}.8f,speed,%{private}.8f,rawSpeed,%{private}.4f,gpsSpeedAccuracy,%{private}.4f,accuracy,%{private}.4f,originDevice,%{private}d,groundAltitude,%{private}.4f,groundAltitudeUncertainty,%{private}.4f,timestampGps,%{private}.4f,slope,%{private}.4f,maxAbsSlope,%{private}.4f", &v56, v44);
+          v43 = v42;
+          sub_100152C7C("Generic", 1, 0, 2, "[CLSensorMonitor onOdometerNotification:data:]", "%s\n", v42);
+          if (v43 != buf)
           {
-            free(v35);
+            free(v43);
           }
         }
 
@@ -892,11 +960,11 @@ LABEL_29:
           sub_1019220E8();
         }
 
-        v33 = qword_1025D4828;
+        v35 = qword_1025D4828;
         if (os_log_type_enabled(qword_1025D4828, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(dword_100000000, v33, OS_LOG_TYPE_DEBUG, "CLSensorMonitor - Odometer sample sent to SensorKit", buf, 2u);
+          _os_log_impl(dword_100000000, v35, OS_LOG_TYPE_DEBUG, "CLSensorMonitor - Odometer sample sent to SensorKit", buf, 2u);
         }
 
         if (sub_10000A100(121, 2))
@@ -904,25 +972,25 @@ LABEL_29:
           sub_101923864();
         }
 
-        *&p_previousOdometerEntry->startTime = v42;
-        *&self->_previousOdometerEntry.accuracy = v41;
-        self->_previousOdometerEntry.speed = v39;
-        self->_previousOdometerEntry.rawSpeed = v16;
-        self->_previousOdometerEntry.odometer = v18;
-        self->_previousOdometerEntry.gpsSpeedAccuracy = v17;
-        self->_previousOdometerEntry.timestampGps = v19;
-        self->_previousOdometerEntry.machContinuousTime = v47;
-        self->_previousOdometerEntry.quality = v48;
-        self->_previousOdometerEntry.originDevice = v20;
-        *&self->_previousOdometerEntry.type = v38;
-        self->_previousOdometerEntry.groundAltitude = v40;
-        self->_previousOdometerEntry.groundAltitudeUncertainty = v22;
-        *&self->_previousOdometerEntry.smoothedGPSAltitude = v45;
-        *&self->_previousOdometerEntry.gpsCourseRadians = v46;
-        self->_previousOdometerEntry.slope = v23;
-        self->_previousOdometerEntry.maxAbsSlope = v24;
-        *&self->_previousOdometerEntry.batchedLocationFixType = v43;
-        self->_previousOdometerEntry.trackProximityInfo = v44;
+        *&p_previousOdometerEntry->startTime = v51;
+        *&self->_previousOdometerEntry.accuracy = v50;
+        self->_previousOdometerEntry.speed = v48;
+        self->_previousOdometerEntry.rawSpeed = v18;
+        self->_previousOdometerEntry.odometer = v20;
+        self->_previousOdometerEntry.gpsSpeedAccuracy = v19;
+        self->_previousOdometerEntry.timestampGps = v21;
+        self->_previousOdometerEntry.machContinuousTime = v79;
+        self->_previousOdometerEntry.quality = v80;
+        self->_previousOdometerEntry.originDevice = v22;
+        *&self->_previousOdometerEntry.type = v47;
+        self->_previousOdometerEntry.groundAltitude = v49;
+        self->_previousOdometerEntry.groundAltitudeUncertainty = v24;
+        *&self->_previousOdometerEntry.smoothedGPSAltitude = v54;
+        *&self->_previousOdometerEntry.gpsCourseRadians = v55;
+        self->_previousOdometerEntry.slope = v25;
+        self->_previousOdometerEntry.maxAbsSlope = v26;
+        *&self->_previousOdometerEntry.batchedLocationFixType = v52;
+        self->_previousOdometerEntry.trackProximityInfo = v53;
         goto LABEL_41;
       }
 
@@ -931,24 +999,24 @@ LABEL_29:
         sub_1019229F4();
       }
 
-      v30 = qword_1025D4828;
+      v32 = qword_1025D4828;
       if (os_log_type_enabled(qword_1025D4828, OS_LOG_TYPE_DEBUG))
       {
-        v31 = p_previousOdometerEntry->startTime;
+        v33 = p_previousOdometerEntry->startTime;
         *buf = 134349312;
-        v50 = v42;
-        v51 = 2050;
-        *v52 = v31;
-        _os_log_impl(dword_100000000, v30, OS_LOG_TYPE_DEBUG, "Ignoring cached OdometerEntry due to significant time between entries (%{public}.2f) (%{public}.2f)", buf, 0x16u);
+        v82 = v51;
+        v83 = 2050;
+        *v84 = v33;
+        _os_log_impl(dword_100000000, v32, OS_LOG_TYPE_DEBUG, "Ignoring cached OdometerEntry due to significant time between entries (%{public}.2f) (%{public}.2f)", buf, 0x16u);
       }
 
       if (sub_10000A100(121, 2))
       {
-        sub_101923740(&self->_previousOdometerEntry, *&v42);
+        sub_101923740(&self->_previousOdometerEntry, *&v51);
       }
     }
 
-    v29 = 0;
+    v31 = 0;
     goto LABEL_29;
   }
 
@@ -968,13 +1036,13 @@ LABEL_4:
     v12 = *(data + 5);
     v13 = *(data + 10);
     *buf = 134349824;
-    v50 = v10;
-    v51 = 1026;
-    *v52 = v11;
-    *&v52[4] = 1026;
-    *&v52[6] = v12;
-    LOWORD(v53) = 1026;
-    *(&v53 + 2) = v13;
+    v82 = v10;
+    v83 = 1026;
+    *v84 = v11;
+    *&v84[4] = 1026;
+    *&v84[6] = v12;
+    LOWORD(v85) = 1026;
+    *(&v85 + 2) = v13;
     _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEBUG, "CLSensorMonitor - Elevation values,startTime,%{public}.8f,elevationAscended,%{public}d,elevationDescended,%{public}d,source,%{public}d", buf, 0x1Eu);
   }
 
@@ -986,11 +1054,24 @@ LABEL_4:
       sub_1019220E8();
     }
 
-    v34 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLSensorMonitor onOdometerNotification:data:]", "%s\n", v34);
-    if (v34 != buf)
+    v36 = *(data + 1);
+    v37 = *(data + 4);
+    v38 = *(data + 5);
+    v39 = *(data + 10);
+    v56 = 134349824;
+    v57 = v36;
+    v58 = 1026;
+    *v59 = v37;
+    *&v59[4] = 1026;
+    *&v59[6] = v38;
+    LOWORD(v60) = 1026;
+    *(&v60 + 2) = v39;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4828, 2, "CLSensorMonitor - Elevation values,startTime,%{public}.8f,elevationAscended,%{public}d,elevationDescended,%{public}d,source,%{public}d", &v56, 30);
+    v41 = v40;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLSensorMonitor onOdometerNotification:data:]", "%s\n", v40);
+    if (v41 != buf)
     {
-      free(v34);
+      free(v41);
     }
   }
 
@@ -1060,7 +1141,7 @@ LABEL_41:
 
     if (sub_10000A100(121, 2))
     {
-      sub_101923A1C(data + 40, data);
+      sub_101923A1C(data + 5, data);
     }
 
     if (*(data + 2) >= 0.4 && *data == 3)
@@ -1201,7 +1282,7 @@ LABEL_41:
 
 - (Class)classForSensorIdentifier:(id)identifier
 {
-  if (([identifier isEqualToString:off_1025D81A8()] & 1) == 0 && (objc_msgSend(identifier, "isEqualToString:", off_1025D81B0()) & 1) == 0 && (objc_msgSend(identifier, "isEqualToString:", off_1025D81B8()) & 1) == 0 && (objc_msgSend(identifier, "isEqualToString:", off_1025D81C0()) & 1) == 0 && (objc_msgSend(identifier, "isEqualToString:", off_1025D81C8()) & 1) == 0 && (objc_msgSend(identifier, "isEqualToString:", off_1025D81D0()) & 1) == 0 && !objc_msgSend(identifier, "isEqualToString:", off_1025D81D8()))
+  if (([identifier isEqualToString:{off_1025D81A8(self, a2)}] & 1) == 0 && (objc_msgSend(identifier, "isEqualToString:", off_1025D81B0()) & 1) == 0 && (objc_msgSend(identifier, "isEqualToString:", off_1025D81B8()) & 1) == 0 && (objc_msgSend(identifier, "isEqualToString:", off_1025D81C0()) & 1) == 0 && (objc_msgSend(identifier, "isEqualToString:", off_1025D81C8()) & 1) == 0 && (objc_msgSend(identifier, "isEqualToString:", off_1025D81D0()) & 1) == 0 && !objc_msgSend(identifier, "isEqualToString:", off_1025D81D8()))
   {
     return 0;
   }
@@ -1633,27 +1714,27 @@ LABEL_68:
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v5 = [requests countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(requests, a2, &v14, v22, 16);
   if (v5)
   {
-    v6 = v5;
-    v7 = *v15;
+    v7 = v5;
+    v8 = *v15;
     do
     {
-      v8 = 0;
+      v9 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(requests);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
-        v10 = sub_100E4F678();
-        v11 = sub_100E5081C(v10, v9);
-        if (v11 != 100)
+        v10 = *(*(&v14 + 1) + 8 * v9);
+        v11 = sub_100E4F678(v5, v6);
+        v5 = sub_100E5081C(v11, v10);
+        if (v5 != 100)
         {
-          v12 = v11;
+          v12 = v5;
           if (qword_1025D44B0 != -1)
           {
             sub_101922E08();
@@ -1667,20 +1748,22 @@ LABEL_68:
             _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "[Dynamic Config] Error on config insertion: %{public}d", buf, 8u);
           }
 
-          if (sub_10000A100(121, 2))
+          v5 = sub_10000A100(121, 2);
+          if (v5)
           {
             sub_101924D68(&v18, v12, v19);
           }
         }
 
-        v8 = v8 + 1;
+        ++v9;
       }
 
-      while (v6 != v8);
-      v6 = [requests countByEnumeratingWithState:&v14 objects:v22 count:16];
+      while (v7 != v9);
+      v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(requests);
+      v7 = v5;
     }
 
-    while (v6);
+    while (v5);
   }
 }
 

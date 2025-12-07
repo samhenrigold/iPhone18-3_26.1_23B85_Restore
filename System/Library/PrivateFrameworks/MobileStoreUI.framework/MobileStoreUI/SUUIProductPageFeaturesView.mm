@@ -22,10 +22,10 @@
     v3->_bottomBorderView = v4;
 
     v6 = v3->_bottomBorderView;
-    primaryTextColor = [(SUUIColorScheme *)v3->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v7 = objc_msgSend_primaryTextColor(v3->_colorScheme);
+    if (v7)
     {
-      [(UIView *)v6 setBackgroundColor:primaryTextColor];
+      [(UIView *)v6 setBackgroundColor:v7];
     }
 
     else
@@ -194,7 +194,7 @@
 {
   titleCopy = title;
   title = [(SUUIProductPageFeaturesView *)self title];
-  if (title != titleCopy && ([title isEqualToString:titleCopy] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(title) & 1) == 0)
   {
     v5 = [titleCopy length];
     titleLabel = self->_titleLabel;

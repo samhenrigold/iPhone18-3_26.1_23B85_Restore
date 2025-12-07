@@ -132,7 +132,7 @@ LABEL_8:
 
     else
     {
-      mediaSystem2 = [(HFItemBuilder *)self home];
+      mediaSystem2 = objc_msgSend_home(self);
       v7 = [v5 initWithHome:mediaSystem2];
     }
 
@@ -173,7 +173,7 @@ LABEL_8:
 
 - (void)addAccessory:(id)accessory
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   if (![(HFMediaSystemBuilder *)self shouldAllowAddingAccessory:accessoryCopy])
   {
@@ -181,9 +181,9 @@ LABEL_8:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       hf_prettyDescription = [accessoryCopy hf_prettyDescription];
-      v10 = 138412290;
-      v11 = hf_prettyDescription;
-      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Request to add an accessory that is not supported in this media system pair. We'll allow this to proceed (because there are no API restriction of what services can go into a pair; we just want to enforce restrictions in our UI). Accessory: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = hf_prettyDescription;
+      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Request to add an accessory that is not supported in this media system pair. We'll allow this to proceed (because there are no API restriction of what services can go into a pair; we just want to enforce restrictions in our UI). Accessory: %@", &v9, 0xCu);
     }
   }
 
@@ -194,13 +194,11 @@ LABEL_8:
   {
     objc_storeStrong(&self->_firstSetupSourceAccessory, accessory);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAccessory:(id)accessory role:(id)role
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   roleCopy = role;
   v9 = roleCopy;
@@ -234,7 +232,7 @@ LABEL_3:
     {
       hf_prettyDescription = [accessoryCopy hf_prettyDescription];
       *buf = 138412290;
-      v35 = hf_prettyDescription;
+      v34 = hf_prettyDescription;
       _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Request to add an accessory that is not supported in this media system pair. We'll allow this to proceed (because there are no API restriction of what services can go into a pair; we just want to enforce restrictions in our UI). Accessory: %@", buf, 0xCu);
     }
   }
@@ -276,8 +274,8 @@ LABEL_3:
     {
       v26 = [HFRoomBuilder alloc];
       room2 = [accessoryCopy room];
-      home = [accessoryCopy home];
-      v29 = [(HFRoomBuilder *)v26 initWithExistingObject:room2 inHome:home];
+      v28 = objc_msgSend_home(accessoryCopy);
+      v29 = [(HFRoomBuilder *)v26 initWithExistingObject:room2 inHome:v28];
       [(HFMediaSystemBuilder *)self setRoom:v29];
     }
 
@@ -292,8 +290,6 @@ LABEL_3:
       -[HFMediaSystemBuilder setIsFavorite:](self, "setIsFavorite:", [accessoryCopy hf_isFavorite]);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAccessory:(id)accessory
@@ -328,29 +324,29 @@ uint64_t __40__HFMediaSystemBuilder_removeAccessory___block_invoke(uint64_t a1, 
 
 - (id)accessoryForRole:(id)role
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   roleCopy = role;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   homeKitMediaSystemBuilder = [(HFMediaSystemBuilder *)self homeKitMediaSystemBuilder];
   components = [homeKitMediaSystemBuilder components];
 
-  accessory = [components countByEnumeratingWithState:&v15 objects:v19 count:16];
+  accessory = [components countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (accessory)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != accessory; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(components);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         role = [v10 role];
         if ([role isEqual:roleCopy])
         {
@@ -361,7 +357,7 @@ uint64_t __40__HFMediaSystemBuilder_removeAccessory___block_invoke(uint64_t a1, 
         }
       }
 
-      accessory = [components countByEnumeratingWithState:&v15 objects:v19 count:16];
+      accessory = [components countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (accessory)
       {
         continue;
@@ -373,36 +369,34 @@ uint64_t __40__HFMediaSystemBuilder_removeAccessory___block_invoke(uint64_t a1, 
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return accessory;
 }
 
 - (id)roleForAccessory:(id)accessory
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   homeKitMediaSystemBuilder = [(HFMediaSystemBuilder *)self homeKitMediaSystemBuilder];
   components = [homeKitMediaSystemBuilder components];
 
-  role = [components countByEnumeratingWithState:&v16 objects:v20 count:16];
+  role = [components countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (role)
   {
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != role; i = i + 1)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(components);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         mediaProfile = [v10 mediaProfile];
         accessory = [mediaProfile accessory];
         v13 = [accessory isEqual:accessoryCopy];
@@ -414,7 +408,7 @@ LABEL_11:
         }
       }
 
-      role = [components countByEnumeratingWithState:&v16 objects:v20 count:16];
+      role = [components countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (role)
       {
         continue;
@@ -425,8 +419,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return role;
 }
@@ -452,45 +444,45 @@ id __35__HFMediaSystemBuilder_accessories__block_invoke(uint64_t a1, void *a2)
 
 - (id)removeItemFromHome
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   mediaSystem = [(HFMediaSystemBuilder *)self mediaSystem];
-  home = [mediaSystem home];
+  v3 = objc_msgSend_home(mediaSystem);
   v4 = HFLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = mediaSystem;
-    v23 = 2112;
-    v24 = home;
+    v21 = mediaSystem;
+    v22 = 2112;
+    v23 = v3;
     _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Removing mediasystem '%@' from home '%@'", buf, 0x16u);
   }
 
   if (mediaSystem)
   {
     v5 = MEMORY[0x277D2C900];
-    if (home)
+    if (v3)
     {
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __42__HFMediaSystemBuilder_removeItemFromHome__block_invoke;
-      v19[3] = &unk_277DF2C68;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __42__HFMediaSystemBuilder_removeItemFromHome__block_invoke;
+      v18[3] = &unk_277DF2C68;
       v6 = mediaSystem;
-      v20 = v6;
-      v7 = [v5 futureWithErrorOnlyHandlerAdapterBlock:v19];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __42__HFMediaSystemBuilder_removeItemFromHome__block_invoke_2;
-      v16[3] = &unk_277DFA5C0;
-      v17 = home;
+      v19 = v6;
+      v7 = [v5 futureWithErrorOnlyHandlerAdapterBlock:v18];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __42__HFMediaSystemBuilder_removeItemFromHome__block_invoke_2;
+      v15[3] = &unk_277DFA5C0;
+      v16 = v3;
       v8 = v6;
-      v18 = v8;
-      v9 = [v7 flatMap:v16];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __42__HFMediaSystemBuilder_removeItemFromHome__block_invoke_4;
-      v14[3] = &unk_277DF5038;
-      v15 = v8;
-      futureWithNoResult = [v9 recover:v14];
+      v17 = v8;
+      v9 = [v7 flatMap:v15];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __42__HFMediaSystemBuilder_removeItemFromHome__block_invoke_4;
+      v13[3] = &unk_277DF5038;
+      v14 = v8;
+      futureWithNoResult = [v9 recover:v13];
     }
 
     else
@@ -505,8 +497,6 @@ id __35__HFMediaSystemBuilder_accessories__block_invoke(uint64_t a1, void *a2)
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return futureWithNoResult;
 }
 
@@ -514,7 +504,7 @@ void __42__HFMediaSystemBuilder_removeItemFromHome__block_invoke(uint64_t a1, vo
 {
   v3 = *(a1 + 32);
   v4 = a2;
-  v5 = [v3 home];
+  v5 = objc_msgSend_home(v3);
   [v5 removeMediaSystem:*(a1 + 32) completionHandler:v4];
 }
 
@@ -545,7 +535,7 @@ void __42__HFMediaSystemBuilder_removeItemFromHome__block_invoke_3(uint64_t a1, 
 
 id __42__HFMediaSystemBuilder_removeItemFromHome__block_invoke_4(uint64_t a1, void *a2)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 name];
@@ -558,16 +548,14 @@ id __42__HFMediaSystemBuilder_removeItemFromHome__block_invoke_4(uint64_t a1, vo
 
   v7 = v6;
 
-  v13[0] = @"HFErrorHandlerOptionFailedItemName";
-  v13[1] = @"HFErrorUserInfoOperationKey";
-  v14[0] = v7;
-  v14[1] = @"HFOperationRemoveMediaSystem";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v12[0] = @"HFErrorHandlerOptionFailedItemName";
+  v12[1] = @"HFErrorUserInfoOperationKey";
+  v13[0] = v7;
+  v13[1] = @"HFOperationRemoveMediaSystem";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   v9 = [v3 hf_errorWithAddedUserInfo:v8];
 
   v10 = [MEMORY[0x277D2C900] futureWithError:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -576,15 +564,15 @@ id __42__HFMediaSystemBuilder_removeItemFromHome__block_invoke_4(uint64_t a1, vo
 {
   accessoryCopy = accessory;
   hf_isHomePod = [accessoryCopy hf_isHomePod];
-  home = [(HFItemBuilder *)self home];
-  v7 = [home hf_mediaSystemForAccessory:accessoryCopy];
+  v6 = objc_msgSend_home(self);
+  v7 = [v6 hf_mediaSystemForAccessory:accessoryCopy];
 
   return (v7 == 0) & hf_isHomePod;
 }
 
 - (BOOL)stereoPairVersionMatchesForAccessory:(id)accessory
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   if (![accessoryCopy hf_isHomePod])
   {
@@ -607,10 +595,10 @@ LABEL_22:
     v19 = NSStringFromSelector(a2);
     *buf = 138412802;
     selfCopy2 = self;
-    v30 = 2112;
-    v31 = v19;
-    v32 = 2112;
-    v33 = accessoryCopy;
+    v29 = 2112;
+    v30 = v19;
+    v31 = 2112;
+    v32 = accessoryCopy;
     _os_log_error_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_ERROR, "%@:%@ Found no stereo pairing versions in accessory: %@", buf, 0x20u);
 LABEL_25:
 
@@ -629,26 +617,26 @@ LABEL_25:
     v9 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   accessories2 = [(HFMediaSystemBuilder *)self accessories];
-  v11 = [accessories2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [accessories2 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(accessories2);
         }
 
-        supportedStereoPairVersions2 = [*(*(&v23 + 1) + 8 * i) supportedStereoPairVersions];
+        supportedStereoPairVersions2 = [*(*(&v22 + 1) + 8 * i) supportedStereoPairVersions];
         if (v9)
         {
           v16 = v9;
@@ -662,7 +650,7 @@ LABEL_25:
         v9 = supportedStereoPairVersions2 & v16;
       }
 
-      v12 = [accessories2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [accessories2 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v12);
@@ -680,10 +668,10 @@ LABEL_25:
     accessories3 = [(HFMediaSystemBuilder *)self accessories];
     *buf = 138412802;
     selfCopy2 = self;
-    v30 = 2112;
-    v31 = v19;
-    v32 = 2112;
-    v33 = accessories3;
+    v29 = 2112;
+    v30 = v19;
+    v31 = 2112;
+    v32 = accessories3;
     _os_log_error_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_ERROR, "%@:%@ Found no stereo pairing versions in accessories: %@", buf, 0x20u);
 
     goto LABEL_25;
@@ -692,7 +680,6 @@ LABEL_25:
   v17 = (v9 & v7) != 0;
 LABEL_23:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -751,9 +738,9 @@ id __33__HFMediaSystemBuilder_swapRoles__block_invoke(uint64_t a1)
 
 - (id)commitItem
 {
-  v39 = *MEMORY[0x277D85DE8];
-  home = [(HFItemBuilder *)self home];
-  hf_currentUserIsAdministrator = [home hf_currentUserIsAdministrator];
+  v38 = *MEMORY[0x277D85DE8];
+  v4 = objc_msgSend_home(self);
+  hf_currentUserIsAdministrator = [v4 hf_currentUserIsAdministrator];
 
   if (hf_currentUserIsAdministrator)
   {
@@ -767,70 +754,70 @@ id __33__HFMediaSystemBuilder_swapRoles__block_invoke(uint64_t a1)
     v8 = *v7;
 
     _updateRoom = [(HFMediaSystemBuilder *)self _updateRoom];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke;
-    v34[3] = &unk_277DF2CE0;
-    v34[4] = self;
-    v22 = [_updateRoom flatMap:v34];
     v33[0] = MEMORY[0x277D85DD0];
     v33[1] = 3221225472;
-    v33[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_2;
-    v33[3] = &unk_277DF4748;
+    v33[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke;
+    v33[3] = &unk_277DF2CE0;
     v33[4] = self;
-    v33[5] = a2;
-    v9 = [v22 flatMap:v33];
+    v21 = [_updateRoom flatMap:v33];
     v32[0] = MEMORY[0x277D85DD0];
     v32[1] = 3221225472;
-    v32[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_58;
+    v32[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_2;
     v32[3] = &unk_277DF4748;
     v32[4] = self;
     v32[5] = a2;
-    v10 = [v9 flatMap:v32];
+    v9 = [v21 flatMap:v32];
     v31[0] = MEMORY[0x277D85DD0];
     v31[1] = 3221225472;
-    v31[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_60;
+    v31[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_58;
     v31[3] = &unk_277DF4748;
     v31[4] = self;
     v31[5] = a2;
-    v11 = [v10 flatMap:v31];
+    v10 = [v9 flatMap:v31];
     v30[0] = MEMORY[0x277D85DD0];
     v30[1] = 3221225472;
-    v30[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_61;
+    v30[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_60;
     v30[3] = &unk_277DF4748;
     v30[4] = self;
     v30[5] = a2;
-    v12 = [v11 flatMap:v30];
+    v11 = [v10 flatMap:v30];
     v29[0] = MEMORY[0x277D85DD0];
     v29[1] = 3221225472;
-    v29[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_62;
+    v29[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_61;
     v29[3] = &unk_277DF4748;
     v29[4] = self;
     v29[5] = a2;
-    v13 = [v12 flatMap:v29];
+    v12 = [v11 flatMap:v29];
     v28[0] = MEMORY[0x277D85DD0];
     v28[1] = 3221225472;
-    v28[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_67;
+    v28[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_62;
     v28[3] = &unk_277DF4748;
     v28[4] = self;
     v28[5] = a2;
-    v14 = [v13 flatMap:v28];
+    v13 = [v12 flatMap:v28];
     v27[0] = MEMORY[0x277D85DD0];
     v27[1] = 3221225472;
-    v27[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_68;
+    v27[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_67;
     v27[3] = &unk_277DF4748;
     v27[4] = self;
     v27[5] = a2;
-    v15 = [v14 flatMap:v27];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_69;
-    v24[3] = &unk_277DFAB40;
-    v25 = v8;
-    v26 = a2;
-    v24[4] = self;
+    v14 = [v13 flatMap:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_68;
+    v26[3] = &unk_277DF4748;
+    v26[4] = self;
+    v26[5] = a2;
+    v15 = [v14 flatMap:v26];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __34__HFMediaSystemBuilder_commitItem__block_invoke_69;
+    v23[3] = &unk_277DFAB40;
+    v24 = v8;
+    v25 = a2;
+    v23[4] = self;
     v16 = v8;
-    futureWithNoResult = [v15 recover:v24];
+    futureWithNoResult = [v15 recover:v23];
   }
 
   else
@@ -838,115 +825,108 @@ id __33__HFMediaSystemBuilder_swapRoles__block_invoke(uint64_t a1)
     v18 = HFLogForCategory(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v21 = NSStringFromSelector(a2);
+      v20 = NSStringFromSelector(a2);
       *buf = 138412546;
       selfCopy = self;
-      v37 = 2112;
-      v38 = v21;
+      v36 = 2112;
+      v37 = v20;
       _os_log_error_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_ERROR, "%@:%@ : Can't commit, user is NOT admin", buf, 0x16u);
     }
 
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return futureWithNoResult;
 }
 
 id __34__HFMediaSystemBuilder_commitItem__block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
-    v7 = NSStringFromSelector(*(a1 + 40));
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v7;
-    _os_log_debug_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEBUG, "%@:%@ : account arbitrator future succeeded... on to next", &v8, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = NSStringFromSelector(*(a1 + 40));
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_debug_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEBUG, "%@:%@ : account arbitrator future succeeded... on to next", &v7, 0x16u);
   }
 
   v3 = [*(a1 + 32) _commitChangesToMediaSystemBuilder];
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 id __34__HFMediaSystemBuilder_commitItem__block_invoke_58(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v9 = *(a1 + 32);
-    v10 = NSStringFromSelector(*(a1 + 40));
+    v8 = *(a1 + 32);
+    v9 = NSStringFromSelector(*(a1 + 40));
     *buf = 138412546;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v10;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v9;
     _os_log_debug_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEBUG, "%@:%@ : commit changes future succeeded... on to next", buf, 0x16u);
   }
 
   v3 = [*(a1 + 32) _updateValueForContextType:2];
   v4 = [*(a1 + 32) _updateValueForContextType:{3, v3}];
-  v11[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
 
   v6 = [MEMORY[0x277D2C900] combineAllFutures:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 id __34__HFMediaSystemBuilder_commitItem__block_invoke_60(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
-    v7 = NSStringFromSelector(*(a1 + 40));
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v7;
-    _os_log_debug_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEBUG, "%@:%@ : update favorite future succeeded... on to next", &v8, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = NSStringFromSelector(*(a1 + 40));
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_debug_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEBUG, "%@:%@ : update favorite future succeeded... on to next", &v7, 0x16u);
   }
 
   v3 = [*(a1 + 32) _updateAssistantAccessControl];
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 id __34__HFMediaSystemBuilder_commitItem__block_invoke_61(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
-    v7 = NSStringFromSelector(*(a1 + 40));
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v7;
-    _os_log_debug_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEBUG, "%@:%@ : update assistant access control succeeded... on to next", &v8, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = NSStringFromSelector(*(a1 + 40));
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_debug_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEBUG, "%@:%@ : update assistant access control succeeded... on to next", &v7, 0x16u);
   }
 
   v3 = [*(a1 + 32) _updatePreferredMediaUser];
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 id __34__HFMediaSystemBuilder_commitItem__block_invoke_62(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) accessories];
   v3 = [v2 na_all:&__block_literal_global_66_1];
 
@@ -958,11 +938,11 @@ id __34__HFMediaSystemBuilder_commitItem__block_invoke_62(uint64_t a1)
     {
       v6 = *(a1 + 32);
       v7 = NSStringFromSelector(*(a1 + 40));
-      v13 = 138412546;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@ : update audio analysis notification settings... on to next", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v6;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@ : update audio analysis notification settings... on to next", &v12, 0x16u);
     }
 
     v8 = [*(a1 + 32) _updateAudioAnalysisSoundNotificationSettings];
@@ -974,82 +954,77 @@ id __34__HFMediaSystemBuilder_commitItem__block_invoke_62(uint64_t a1)
     {
       v9 = *(a1 + 32);
       v10 = NSStringFromSelector(*(a1 + 40));
-      v13 = 138412546;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@ : audio analysis not supported. Skipping step... on to next", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@ : audio analysis not supported. Skipping step... on to next", &v12, 0x16u);
     }
 
     v8 = [MEMORY[0x277D2C900] futureWithNoResult];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 id __34__HFMediaSystemBuilder_commitItem__block_invoke_67(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
-    v7 = NSStringFromSelector(*(a1 + 40));
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v7;
-    _os_log_debug_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEBUG, "%@:%@ : update preferred media user succeeded... on to next", &v8, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = NSStringFromSelector(*(a1 + 40));
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_debug_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEBUG, "%@:%@ : update preferred media user succeeded... on to next", &v7, 0x16u);
   }
 
   v3 = [*(a1 + 32) _updateSiriLanguageOptionsManager];
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 id __34__HFMediaSystemBuilder_commitItem__block_invoke_68(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 32);
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v9;
-    _os_log_debug_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEBUG, "%@:%@ : update siri language options manager succeeded... on to next", &v10, 0x16u);
+    v7 = *(a1 + 32);
+    v8 = NSStringFromSelector(*(a1 + 40));
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_debug_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEBUG, "%@:%@ : update siri language options manager succeeded... on to next", &v9, 0x16u);
   }
 
   v3 = MEMORY[0x277D2C900];
   v4 = [*(a1 + 32) mediaSystem];
   v5 = [v3 futureWithResult:v4];
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 id __34__HFMediaSystemBuilder_commitItem__block_invoke_69(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 32);
-    v13 = NSStringFromSelector(*(a1 + 48));
-    v14 = 138412802;
-    v15 = v12;
-    v16 = 2112;
-    v17 = v13;
-    v18 = 2112;
-    v19 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "%@:%@ : One of the commit futures failed with error %@", &v14, 0x20u);
+    v11 = *(a1 + 32);
+    v12 = NSStringFromSelector(*(a1 + 48));
+    v13 = 138412802;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v12;
+    v17 = 2112;
+    v18 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "%@:%@ : One of the commit futures failed with error %@", &v13, 0x20u);
   }
 
   v5 = MEMORY[0x277D2C900];
@@ -1058,14 +1033,12 @@ id __34__HFMediaSystemBuilder_commitItem__block_invoke_69(uint64_t a1, void *a2)
   v8 = [v3 hf_errorWithOperationType:v6 failedItemName:v7];
   v9 = [v5 futureWithError:v8];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)_commitChangesToMediaSystemBuilder
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   mediaSystem = [(HFMediaSystemBuilder *)self mediaSystem];
   v5 = mediaSystem == 0;
 
@@ -1115,51 +1088,49 @@ id __34__HFMediaSystemBuilder_commitItem__block_invoke_69(uint64_t a1, void *a2)
     v21 = NSStringFromSelector(a2);
     *buf = 138413314;
     selfCopy = self;
-    v36 = 2112;
-    v37 = v21;
-    v38 = 1024;
-    v39 = v20;
-    v40 = 1024;
-    v41 = v10;
-    v42 = 1024;
-    v43 = v17;
+    v35 = 2112;
+    v36 = v21;
+    v37 = 1024;
+    v38 = v20;
+    v39 = 1024;
+    v40 = v10;
+    v41 = 1024;
+    v42 = v17;
     _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "%@:%@ : Creating New Media System: %{BOOL}d / Existing Media System: updating components %{BOOL}d/ updating name %{BOOL}d", buf, 0x28u);
   }
 
   if (v18)
   {
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke;
-    v33[3] = &unk_277DF29A0;
-    v33[4] = self;
-    v22 = [MEMORY[0x277D2C900] futureWithBlock:v33];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke_3;
-    v31[3] = &unk_277DFAB90;
-    v31[4] = self;
-    v31[5] = a2;
-    v32 = v5;
-    v23 = [v22 addFailureBlock:v31];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke_80;
-    v27[3] = &unk_277DFABE0;
-    v27[4] = self;
-    v27[5] = a2;
-    v28 = v10;
-    v29 = v17;
-    v30 = v5;
-    futureWithNoResult = [v23 addSuccessBlock:v27];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke;
+    v32[3] = &unk_277DF29A0;
+    v32[4] = self;
+    v22 = [MEMORY[0x277D2C900] futureWithBlock:v32];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke_3;
+    v30[3] = &unk_277DFAB90;
+    v30[4] = self;
+    v30[5] = a2;
+    v31 = v5;
+    v23 = [v22 addFailureBlock:v30];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke_80;
+    v26[3] = &unk_277DFABE0;
+    v26[4] = self;
+    v26[5] = a2;
+    v27 = v10;
+    v28 = v17;
+    v29 = v5;
+    futureWithNoResult = [v23 addSuccessBlock:v26];
   }
 
   else
   {
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
@@ -1200,20 +1171,20 @@ void __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke
 
 void __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke_3(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     v6 = NSStringFromSelector(*(a1 + 40));
-    v11 = 138412802;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@ : Commit Future FAILED with error %@", &v11, 0x20u);
+    v10 = 138412802;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@ : Commit Future FAILED with error %@", &v10, 0x20u);
   }
 
   v7 = +[HFErrorHandler sharedHandler];
@@ -1229,13 +1200,11 @@ void __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke
   }
 
   [v7 logError:v3 operationDescription:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke_80(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   v4 = v3;
@@ -1257,48 +1226,46 @@ void __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke
     v8 = *(a1 + 32);
     v9 = NSStringFromSelector(*(a1 + 40));
     *buf = 138412802;
-    v18 = v8;
-    v19 = 2112;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v6;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v6;
     _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "%@:%@ : Commit Future SUCCEED: %@", buf, 0x20u);
   }
 
   if (*(a1 + 48) == 1)
   {
     v10 = +[HFHomeKitDispatcher sharedDispatcher];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke_81;
-    v16[3] = &unk_277DFABB8;
-    v16[4] = *(a1 + 32);
-    [v10 dispatchMediaObjectObserverMessage:v16 sender:0];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke_81;
+    v15[3] = &unk_277DFABB8;
+    v15[4] = *(a1 + 32);
+    [v10 dispatchMediaObjectObserverMessage:v15 sender:0];
   }
 
   if (*(a1 + 49) == 1)
   {
     v11 = +[HFHomeKitDispatcher sharedDispatcher];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke_2_85;
-    v15[3] = &unk_277DFABB8;
-    v15[4] = *(a1 + 32);
-    [v11 dispatchMediaObjectObserverMessage:v15 sender:0];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke_2_85;
+    v14[3] = &unk_277DFABB8;
+    v14[4] = *(a1 + 32);
+    [v11 dispatchMediaObjectObserverMessage:v14 sender:0];
   }
 
   if (*(a1 + 50) == 1)
   {
     v12 = +[HFHomeKitDispatcher sharedDispatcher];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke_3_88;
-    v14[3] = &unk_277DF2CB8;
-    v14[4] = *(a1 + 32);
-    [v12 dispatchHomeObserverMessage:v14 sender:0];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke_3_88;
+    v13[3] = &unk_277DF2CB8;
+    v13[4] = *(a1 + 32);
+    [v12 dispatchHomeObserverMessage:v13 sender:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke_81(uint64_t a1, void *a2)
@@ -1330,7 +1297,7 @@ void __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke
   v5 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     v4 = [*(a1 + 32) mediaSystem];
     [v5 home:v3 didAddMediaSystem:v4];
   }
@@ -1356,7 +1323,7 @@ void __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke
 
 - (id)_setHomeTheaterSource:(id)source toDestination:(id)destination
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   hf_backingAccessory = [source hf_backingAccessory];
   audioDestinationController = [hf_backingAccessory audioDestinationController];
@@ -1365,60 +1332,56 @@ void __58__HFMediaSystemBuilder__commitChangesToMediaSystemBuilder__block_invoke
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v25 = "[HFMediaSystemBuilder _setHomeTheaterSource:toDestination:]";
-    v26 = 2112;
-    v27 = audioDestinationController;
-    v28 = 2112;
-    v29 = destinationCopy;
+    v24 = "[HFMediaSystemBuilder _setHomeTheaterSource:toDestination:]";
+    v25 = 2112;
+    v26 = audioDestinationController;
+    v27 = 2112;
+    v28 = destinationCopy;
     _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "(%s) setting Apple TV (%@) Home Theater destination to %@", buf, 0x20u);
   }
 
   v9 = MEMORY[0x277D2C900];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __60__HFMediaSystemBuilder__setHomeTheaterSource_toDestination___block_invoke;
-  v21[3] = &unk_277DF4150;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __60__HFMediaSystemBuilder__setHomeTheaterSource_toDestination___block_invoke;
+  v20[3] = &unk_277DF4150;
   v10 = audioDestinationController;
-  v22 = v10;
+  v21 = v10;
   v11 = destinationCopy;
-  v23 = v11;
-  v12 = [v9 futureWithErrorOnlyHandlerAdapterBlock:v21];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __60__HFMediaSystemBuilder__setHomeTheaterSource_toDestination___block_invoke_2;
-  v18[3] = &unk_277DF50B0;
-  v19 = v10;
-  v20 = v11;
+  v22 = v11;
+  v12 = [v9 futureWithErrorOnlyHandlerAdapterBlock:v20];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __60__HFMediaSystemBuilder__setHomeTheaterSource_toDestination___block_invoke_2;
+  v17[3] = &unk_277DF50B0;
+  v18 = v10;
+  v19 = v11;
   v13 = v11;
   v14 = v10;
-  v15 = [v12 addCompletionBlock:v18];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = [v12 addCompletionBlock:v17];
 
   return v15;
 }
 
 void __60__HFMediaSystemBuilder__setHomeTheaterSource_toDestination___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = HFLogForCategory(0x29uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
     v7 = *(a1 + 40);
-    v9 = 136315906;
-    v10 = "[HFMediaSystemBuilder _setHomeTheaterSource:toDestination:]_block_invoke_2";
-    v11 = 2112;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v4;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%s) After setting Apple TV (%@) Home Theater destination, it is %@ (w/ error %@)", &v9, 0x2Au);
+    v8 = 136315906;
+    v9 = "[HFMediaSystemBuilder _setHomeTheaterSource:toDestination:]_block_invoke_2";
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "(%s) After setting Apple TV (%@) Home Theater destination, it is %@ (w/ error %@)", &v8, 0x2Au);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_updateValueForContextType:(unint64_t)type
@@ -1499,46 +1462,44 @@ void __51__HFMediaSystemBuilder__updateValueForContextType___block_invoke(uint64
 
 id __51__HFMediaSystemBuilder__updateValueForContextType___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v13 = a2;
+  v19 = *MEMORY[0x277D85DE8];
+  v12 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = [*(a1 + 32) accessories];
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         v9 = +[HFHomeKitDispatcher sharedDispatcher];
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __51__HFMediaSystemBuilder__updateValueForContextType___block_invoke_3;
-        v14[3] = &unk_277DF27B8;
-        v14[4] = v8;
-        [v9 dispatchAccessoryObserverMessage:v14 sender:0];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __51__HFMediaSystemBuilder__updateValueForContextType___block_invoke_3;
+        v13[3] = &unk_277DF27B8;
+        v13[4] = v8;
+        [v9 dispatchAccessoryObserverMessage:v13 sender:0];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
 
-  v10 = [MEMORY[0x277D2C900] futureWithResult:v13];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [MEMORY[0x277D2C900] futureWithResult:v12];
 
   return v10;
 }
@@ -1554,7 +1515,7 @@ void __51__HFMediaSystemBuilder__updateValueForContextType___block_invoke_3(uint
 
 - (id)_updateRoom
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (![(HFMediaSystemBuilder *)self hasSetRoom])
   {
     v3 = [HFRoomBuilder alloc];
@@ -1566,31 +1527,31 @@ void __51__HFMediaSystemBuilder__updateValueForContextType___block_invoke_3(uint
     [(HFMediaSystemBuilder *)self setRoomBuilder:v8];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   accessories = [(HFMediaSystemBuilder *)self accessories];
-  v10 = [accessories countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [accessories countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         room = [(HFMediaSystemBuilder *)self room];
         [room addAccessory:v14];
       }
 
-      v11 = [accessories countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [accessories countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
@@ -1599,22 +1560,20 @@ void __51__HFMediaSystemBuilder__updateValueForContextType___block_invoke_3(uint
   room2 = [(HFMediaSystemBuilder *)self room];
   commitItem = [room2 commitItem];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return commitItem;
 }
 
 - (id)_updateAssistantAccessControl
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   isCreatingMediaSystem = [(HFMediaSystemBuilder *)self isCreatingMediaSystem];
   futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   if (isCreatingMediaSystem)
   {
-    home = [(HFItemBuilder *)self home];
-    currentUser = [home currentUser];
-    home2 = [(HFItemBuilder *)self home];
-    v8 = [currentUser assistantAccessControlForHome:home2];
+    v5 = objc_msgSend_home(self);
+    currentUser = [v5 currentUser];
+    v7 = objc_msgSend_home(self);
+    v8 = [currentUser assistantAccessControlForHome:v7];
     v9 = [v8 mutableCopy];
 
     accessories = [v9 accessories];
@@ -1623,12 +1582,12 @@ void __51__HFMediaSystemBuilder__updateValueForContextType___block_invoke_3(uint
     if (v11)
     {
       accessories2 = [v9 accessories];
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __53__HFMediaSystemBuilder__updateAssistantAccessControl__block_invoke;
-      v33[3] = &unk_277DF3888;
-      v33[4] = self;
-      v13 = [accessories2 na_filter:v33];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __53__HFMediaSystemBuilder__updateAssistantAccessControl__block_invoke;
+      v32[3] = &unk_277DF3888;
+      v32[4] = self;
+      v13 = [accessories2 na_filter:v32];
 
       accessories3 = [v9 accessories];
       v15 = [accessories3 count];
@@ -1644,27 +1603,27 @@ void __51__HFMediaSystemBuilder__updateValueForContextType___block_invoke_3(uint
         {
           mediaSystem = [(HFMediaSystemBuilder *)self mediaSystem];
           *buf = 138412290;
-          v35 = mediaSystem;
+          v34 = mediaSystem;
           _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "Mismatch between Personal Requests options for the media system %@", buf, 0xCu);
         }
 
         [v9 setAccessories:v13];
         v21 = MEMORY[0x277D2C900];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __53__HFMediaSystemBuilder__updateAssistantAccessControl__block_invoke_104;
-        v30[3] = &unk_277DF4150;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __53__HFMediaSystemBuilder__updateAssistantAccessControl__block_invoke_104;
+        v29[3] = &unk_277DF4150;
         v22 = v9;
-        v31 = v22;
+        v30 = v22;
         selfCopy = self;
-        v23 = [v21 futureWithErrorOnlyHandlerAdapterBlock:v30];
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __53__HFMediaSystemBuilder__updateAssistantAccessControl__block_invoke_105;
-        v28[3] = &unk_277DF7060;
-        v28[4] = self;
-        v29 = v22;
-        v24 = [v23 addSuccessBlock:v28];
+        v23 = [v21 futureWithErrorOnlyHandlerAdapterBlock:v29];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __53__HFMediaSystemBuilder__updateAssistantAccessControl__block_invoke_105;
+        v27[3] = &unk_277DF7060;
+        v27[4] = self;
+        v28 = v22;
+        v24 = [v23 addSuccessBlock:v27];
         v25 = [v24 addFailureBlock:&__block_literal_global_110_0];
 
         futureWithNoResult = v25;
@@ -1678,8 +1637,6 @@ void __51__HFMediaSystemBuilder__updateValueForContextType___block_invoke_3(uint
       futureWithNoResult = futureWithNoResult;
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
@@ -1696,27 +1653,25 @@ uint64_t __53__HFMediaSystemBuilder__updateAssistantAccessControl__block_invoke(
 
 void __53__HFMediaSystemBuilder__updateAssistantAccessControl__block_invoke_104(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     v6 = [*(a1 + 40) mediaSystem];
-    v12 = 138412546;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Updating Personal Requests %@ for media system %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Updating Personal Requests %@ for media system %@", &v11, 0x16u);
   }
 
-  v7 = [*(a1 + 40) home];
+  v7 = objc_msgSend_home(*(a1 + 40));
   v8 = [v7 currentUser];
   v9 = *(a1 + 32);
-  v10 = [*(a1 + 40) home];
+  v10 = objc_msgSend_home(*(a1 + 40));
   [v8 updateAssistantAccessControl:v9 forHome:v10 completionHandler:v3];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HFMediaSystemBuilder__updateAssistantAccessControl__block_invoke_105(uint64_t a1)
@@ -1737,10 +1692,10 @@ void __53__HFMediaSystemBuilder__updateAssistantAccessControl__block_invoke_2(ui
   v7 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     v4 = [v3 currentUser];
     v5 = *(a1 + 40);
-    v6 = [*(a1 + 32) home];
+    v6 = objc_msgSend_home(*(a1 + 32));
     [v7 user:v4 didUpdateAssistantAccessControl:v5 forHome:v6];
   }
 }
@@ -1767,48 +1722,48 @@ void __53__HFMediaSystemBuilder__updateAssistantAccessControl__block_invoke_3(ui
 
 - (id)_updatePreferredMediaUser
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([(HFMediaSystemBuilder *)self isCreatingMediaSystem])
   {
     v3 = objc_opt_new();
     preferredMediaUser = [(HFMediaSystemBuilder *)self preferredMediaUser];
     v5 = preferredMediaUser != 0;
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     accessories = [(HFMediaSystemBuilder *)self accessories];
-    v7 = [accessories countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [accessories countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(accessories);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           if ([v11 supportsPreferredMediaUser])
           {
-            v16[0] = MEMORY[0x277D85DD0];
-            v16[1] = 3221225472;
-            v16[2] = __49__HFMediaSystemBuilder__updatePreferredMediaUser__block_invoke;
-            v16[3] = &unk_277DFAC08;
-            v16[5] = self;
-            v16[6] = v5;
-            v16[4] = v11;
-            v12 = [MEMORY[0x277D2C900] futureWithBlock:v16];
+            v15[0] = MEMORY[0x277D85DD0];
+            v15[1] = 3221225472;
+            v15[2] = __49__HFMediaSystemBuilder__updatePreferredMediaUser__block_invoke;
+            v15[3] = &unk_277DFAC08;
+            v15[5] = self;
+            v15[6] = v5;
+            v15[4] = v11;
+            v12 = [MEMORY[0x277D2C900] futureWithBlock:v15];
             [v3 addObject:v12];
           }
         }
 
-        v8 = [accessories countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [accessories countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -1821,8 +1776,6 @@ void __53__HFMediaSystemBuilder__updateAssistantAccessControl__block_invoke_3(ui
   {
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
@@ -1845,7 +1798,7 @@ void __49__HFMediaSystemBuilder__updatePreferredMediaUser__block_invoke(uint64_t
 
 void __49__HFMediaSystemBuilder__updatePreferredMediaUser__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x39uLL);
   v5 = v4;
@@ -1853,12 +1806,12 @@ void __49__HFMediaSystemBuilder__updatePreferredMediaUser__block_invoke_2(uint64
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = 138412546;
-      v10 = v8;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Failed to update primary user for accessory %@ with error %@", &v9, 0x16u);
+      v7 = *(a1 + 32);
+      v8 = 138412546;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Failed to update primary user for accessory %@ with error %@", &v8, 0x16u);
     }
 
     [*(a1 + 40) finishWithError:v3];
@@ -1869,20 +1822,18 @@ void __49__HFMediaSystemBuilder__updatePreferredMediaUser__block_invoke_2(uint64
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully updated primary user setting for accessory %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully updated primary user setting for accessory %@", &v8, 0xCu);
     }
 
     [*(a1 + 40) finishWithNoResult];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_updateAudioAnalysisSoundNotificationSettings
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (![(HFMediaSystemBuilder *)self isCreatingMediaSystem])
   {
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
@@ -1910,8 +1861,8 @@ void __49__HFMediaSystemBuilder__updatePreferredMediaUser__block_invoke_2(uint64
     v8 = HFLogForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v34[0]) = 0;
-      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Unable to find accessories in media system", v34, 2u);
+      LOWORD(v33[0]) = 0;
+      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Unable to find accessories in media system", v33, 2u);
     }
 
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
@@ -1955,11 +1906,11 @@ void __49__HFMediaSystemBuilder__updatePreferredMediaUser__block_invoke_2(uint64
   v23 = HFLogForCategory(0);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v34[0] = 67109376;
-    v34[1] = areNotificationsEnabled;
-    v35 = 1024;
-    v36 = areNotificationsEnabled2;
-    _os_log_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_DEFAULT, "Is left notification settings enabled? %{BOOL}d Is right notification settings enabled? %{BOOL}d", v34, 0xEu);
+    v33[0] = 67109376;
+    v33[1] = areNotificationsEnabled;
+    v34 = 1024;
+    v35 = areNotificationsEnabled2;
+    _os_log_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_DEFAULT, "Is left notification settings enabled? %{BOOL}d Is right notification settings enabled? %{BOOL}d", v33, 0xEu);
   }
 
   if (areNotificationsEnabled)
@@ -1982,8 +1933,8 @@ void __49__HFMediaSystemBuilder__updatePreferredMediaUser__block_invoke_2(uint64
       v31 = HFLogForCategory(0);
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v34[0]) = 0;
-        _os_log_impl(&dword_20D9BF000, v31, OS_LOG_TYPE_DEFAULT, "Neither accessory has notification settings enabled. No action needed.", v34, 2u);
+        LOWORD(v33[0]) = 0;
+        _os_log_impl(&dword_20D9BF000, v31, OS_LOG_TYPE_DEFAULT, "Neither accessory has notification settings enabled. No action needed.", v33, 2u);
       }
 
       futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
@@ -2007,45 +1958,42 @@ LABEL_27:
 LABEL_28:
 
 LABEL_29:
-  v32 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
 
 - (id)_rooms
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA940] set];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   accessories = [(HFMediaSystemBuilder *)self accessories];
-  v5 = [accessories countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [accessories countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(accessories);
         }
 
-        room = [*(*(&v12 + 1) + 8 * i) room];
+        room = [*(*(&v11 + 1) + 8 * i) room];
         [v3 na_safeAddObject:room];
       }
 
-      v6 = [accessories countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [accessories countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -2072,27 +2020,27 @@ LABEL_29:
 
 - (id)_defaultName
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   accessories = [(HFMediaSystemBuilder *)self accessories];
-  v4 = [accessories countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [accessories countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         if ([v8 hf_isHomePod])
         {
           v10 = [HFNamingComponents namingComponentFromAccessory:v8];
@@ -2102,7 +2050,7 @@ LABEL_29:
         }
       }
 
-      v5 = [accessories countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [accessories countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -2116,8 +2064,6 @@ LABEL_29:
   defaultName = [accessories name];
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return defaultName;
 }
 
@@ -2127,8 +2073,8 @@ LABEL_11:
   if (!roomBuilder)
   {
     v4 = [HFRoomBuilder alloc];
-    home = [(HFItemBuilder *)self home];
-    v6 = [(HFItemBuilder *)v4 initWithHome:home];
+    v5 = objc_msgSend_home(self);
+    v6 = [(HFItemBuilder *)v4 initWithHome:v5];
     v7 = self->_roomBuilder;
     self->_roomBuilder = v6;
 
@@ -2148,7 +2094,7 @@ LABEL_11:
 
 - (id)_firstUnpopulatedRole
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB70];
   homeKitMediaSystemBuilder = [(HFMediaSystemBuilder *)self homeKitMediaSystemBuilder];
   components = [homeKitMediaSystemBuilder components];
@@ -2157,39 +2103,39 @@ LABEL_11:
 
   v7 = MEMORY[0x277CBEB70];
   leftRole = [MEMORY[0x277CD1C10] leftRole];
-  v24[0] = leftRole;
+  v23[0] = leftRole;
   rightRole = [MEMORY[0x277CD1C10] rightRole];
-  v24[1] = rightRole;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v23[1] = rightRole;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
   v11 = [v7 orderedSetWithArray:v10];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v13)
   {
-    v14 = *v20;
+    v14 = *v19;
     while (2)
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * i);
-        if (![v6 containsObject:{v16, v19}])
+        v16 = *(*(&v18 + 1) + 8 * i);
+        if (![v6 containsObject:{v16, v18}])
         {
           v13 = v16;
           goto LABEL_11;
         }
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v13)
       {
         continue;
@@ -2200,8 +2146,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

@@ -116,7 +116,7 @@
   if (videoPlayer)
   {
     v6 = videoPlayer;
-    [videoPlayer currentTime];
+    objc_msgSend_currentTime(videoPlayer);
     videoPlayer = v6;
   }
 
@@ -132,7 +132,7 @@
   if (videoPlayer)
   {
     v6 = videoPlayer;
-    [videoPlayer currentItemDuration];
+    objc_msgSend_currentItemDuration(videoPlayer);
     videoPlayer = v6;
   }
 
@@ -452,7 +452,7 @@ void __39__PUBrowsingIrisPlayer_setVideoPlayer___block_invoke(uint64_t a1, __int
   {
     self->_isValid.playerItemScrubbingPhotoTime = 1;
     player = [(PUBrowsingIrisPlayer *)self player];
-    [(PUBrowsingIrisPlayer *)self scrubbingPhotoTime];
+    objc_msgSend_scrubbingPhotoTime(self);
     seekCompletionHandler = [(PUBrowsingIrisPlayer *)self seekCompletionHandler];
     [player setSeekTime:v5 completion:seekCompletionHandler];
   }
@@ -494,16 +494,16 @@ void __39__PUBrowsingIrisPlayer_setVideoPlayer___block_invoke(uint64_t a1, __int
   [(PUViewModel *)self performChanges:v2];
 }
 
-uint64_t __48__PUBrowsingIrisPlayer__updateVitalityTransform__block_invoke(uint64_t a1)
+uint64_t __48__PUBrowsingIrisPlayer__updateVitalityTransform__block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  [v2[11] transform];
-  v9 = v4;
-  v10 = v3;
-  v8 = v5;
-  v6 = [*(*(a1 + 32) + 88) limitingAllowed];
+  v3 = *(a1 + 32);
+  objc_msgSend_transform(v3[11], a2);
+  v10 = v5;
+  v11 = v4;
+  v9 = v6;
+  v7 = [*(*(a1 + 32) + 88) limitingAllowed];
 
-  return [v2 setVitalityTransform:v6 limitingAllowed:{v10, v9, v8}];
+  return [v3 setVitalityTransform:v7 limitingAllowed:{v11, v10, v9}];
 }
 
 - (void)_updateVitalityTransformProducer
@@ -541,11 +541,11 @@ uint64_t __48__PUBrowsingIrisPlayer__updateVitalityTransform__block_invoke(uint6
       image = [livePhoto image];
       [image imageOrientation];
       v7 = PLExifOrientationFromImageOrientation();
-      [livePhoto photoTime];
+      objc_msgSend_photoTime(livePhoto);
       Seconds = 0.0;
       if ((v19 & 0x1D) == 1)
       {
-        [livePhoto photoTime];
+        objc_msgSend_photoTime(livePhoto);
         Seconds = CMTimeGetSeconds(&v18);
       }
 
@@ -1026,7 +1026,7 @@ void __46__PUBrowsingIrisPlayer__playerCreateIfNeeded___block_invoke(uint64_t a1
   if (videoPlayer)
   {
     v6 = videoPlayer;
-    [videoPlayer currentItemDuration];
+    objc_msgSend_currentItemDuration(videoPlayer);
     videoPlayer = v6;
   }
 
@@ -1045,7 +1045,7 @@ void __46__PUBrowsingIrisPlayer__playerCreateIfNeeded___block_invoke(uint64_t a1
   retstr->var0 = 0;
   *&retstr->var1 = 0;
   retstr->var3 = 0;
-  result = [(PUBrowsingIrisPlayer *)self scrubbingPhotoTime];
+  result = objc_msgSend_scrubbingPhotoTime(self, a3);
   if ((retstr->var2 & 1) == 0)
   {
     player = [(PUBrowsingIrisPlayer *)self player];
@@ -1054,7 +1054,7 @@ void __46__PUBrowsingIrisPlayer__playerCreateIfNeeded___block_invoke(uint64_t a1
     v9 = asset;
     if (asset)
     {
-      [asset photoCMTime];
+      objc_msgSend_photoCMTime(asset);
     }
 
     else

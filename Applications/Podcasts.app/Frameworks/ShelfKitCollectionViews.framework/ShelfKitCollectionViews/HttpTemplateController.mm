@@ -24,11 +24,12 @@
 {
   length = range.length;
   location = range.location;
-  sub_30C0D8();
+  v9 = sub_30C0D8();
+  v11 = v10;
   fieldCopy = field;
   selfCopy = self;
-  sub_25A4B8(fieldCopy, location, length);
-  LOBYTE(length) = v11;
+  sub_25A4B8(fieldCopy, location, length, v9, v11);
+  LOBYTE(length) = v14;
 
   return length & 1;
 }

@@ -388,7 +388,7 @@ LABEL_53:
     }
 
     objc_msgSend_model(self, v12, v13, v14);
-    sub_1D9DCCC78(*v59);
+    sub_1D9DCCC78(*v59, image);
   }
 
   v64 = 0;
@@ -414,6 +414,7 @@ LABEL_53:
       v70 = xmmword_1E858E000;
       v71 = 0;
       qword_1EE0005C0 = _sl_dlopen();
+      v16 = v68;
       if (!qword_1EE0005C0)
       {
         goto LABEL_31;
@@ -428,49 +429,50 @@ LABEL_53:
     *(v63[1] + 24) = objc_getClass("VNCreateSceneprintRequest");
     if (!*(v63[1] + 24))
     {
-      goto LABEL_31;
+      result = abort_report_np("Unable to find class %s", "VNCreateSceneprintRequest");
+      goto LABEL_35;
     }
 
     qword_1EE0005B8 = *(v63[1] + 24);
     v15 = v65[3];
   }
 
-  v16 = v15;
+  v17 = v15;
   _Block_object_dispose(&v64, 8);
-  v17 = objc_alloc_init(v15);
-  if (objc_msgSend_setRevision_error_(v17, v18, 3737841671, error))
+  v18 = objc_alloc_init(v15);
+  if (objc_msgSend_setRevision_error_(v18, v19, 3737841671, error))
   {
     v64 = 0;
     v65 = &v64;
     v66 = 0x2050000000;
-    v19 = qword_1EE0005C8;
+    v20 = qword_1EE0005C8;
     v67 = qword_1EE0005C8;
     if (qword_1EE0005C8)
     {
 LABEL_24:
-      v21 = v19;
+      v22 = v20;
       _Block_object_dispose(&v64, 8);
-      v22 = [v19 alloc];
-      v24 = objc_msgSend_initWithCVPixelBuffer_options_(v22, v23, image, MEMORY[0x1E695E0F8]);
-      v69 = v17;
-      v26 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v25, &v69, 1);
-      v28 = objc_msgSend_performRequests_error_(v24, v27, v26, error);
+      v23 = [v20 alloc];
+      v25 = objc_msgSend_initWithCVPixelBuffer_options_(v23, v24, image, MEMORY[0x1E695E0F8]);
+      v69 = v18;
+      v27 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v26, &v69, 1);
+      v29 = objc_msgSend_performRequests_error_(v25, v28, v27, error);
 
-      if (v28)
+      if (v29)
       {
-        v32 = objc_msgSend_results(v17, v29, v30, v31);
-        v36 = objc_msgSend_firstObject(v32, v33, v34, v35);
-        v40 = objc_msgSend_sceneprints(v36, v37, v38, v39);
-        v44 = objc_msgSend_firstObject(v40, v41, v42, v43);
+        v33 = objc_msgSend_results(v18, v30, v31, v32);
+        v37 = objc_msgSend_firstObject(v33, v34, v35, v36);
+        v41 = objc_msgSend_sceneprints(v37, v38, v39, v40);
+        v45 = objc_msgSend_firstObject(v41, v42, v43, v44);
 
-        v45 = [CVNLPCLIPEmbedding alloc];
-        v49 = objc_msgSend_descriptorData(v44, v46, v47, v48);
-        v20 = objc_msgSend_initWithData_(v45, v50, v49, v51);
+        v46 = [CVNLPCLIPEmbedding alloc];
+        v50 = objc_msgSend_descriptorData(v45, v47, v48, v49);
+        v21 = objc_msgSend_initWithData_(v46, v51, v50, v52);
       }
 
       else
       {
-        v20 = 0;
+        v21 = 0;
       }
 
       goto LABEL_28;
@@ -482,47 +484,51 @@ LABEL_24:
     v62 = &unk_1E858DFE0;
     v63 = &v64;
     v68 = 0;
-    if (!qword_1EE0005C0)
+    if (qword_1EE0005C0)
     {
-      *buf = MEMORY[0x1E69E9820];
-      v55 = 3221225472;
-      __p = sub_1D9D89B70;
-      v57 = &unk_1E858E018;
-      v58 = &v68;
-      v70 = xmmword_1E858E000;
-      v71 = 0;
-      qword_1EE0005C0 = _sl_dlopen();
-      if (!qword_1EE0005C0)
-      {
-        goto LABEL_31;
-      }
+      goto LABEL_22;
+    }
 
+    *buf = MEMORY[0x1E69E9820];
+    v55 = 3221225472;
+    __p = sub_1D9D89B70;
+    v57 = &unk_1E858E018;
+    v58 = &v68;
+    v70 = xmmword_1E858E000;
+    v71 = 0;
+    qword_1EE0005C0 = _sl_dlopen();
+    v16 = v68;
+    if (qword_1EE0005C0)
+    {
       if (v68)
       {
         free(v68);
       }
-    }
 
-    *(v63[1] + 24) = objc_getClass("VNImageRequestHandler");
-    if (*(v63[1] + 24))
-    {
-      qword_1EE0005C8 = *(v63[1] + 24);
-      v19 = v65[3];
-      goto LABEL_24;
+LABEL_22:
+      *(v63[1] + 24) = objc_getClass("VNImageRequestHandler");
+      if (*(v63[1] + 24))
+      {
+        qword_1EE0005C8 = *(v63[1] + 24);
+        v20 = v65[3];
+        goto LABEL_24;
+      }
+
+      result = abort_report_np("Unable to find class %s", "VNImageRequestHandler");
+LABEL_35:
+      __break(1u);
+      return result;
     }
 
 LABEL_31:
-    result = abort_report_np();
-    __break(1u);
-    return result;
+    result = abort_report_np("%s", v16);
+    goto LABEL_35;
   }
 
-  v20 = 0;
+  v21 = 0;
 LABEL_28:
 
-  v52 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v21;
 }
 
 - (id)encodeText:(id)text error:(id *)error
@@ -654,7 +660,7 @@ LABEL_28:
   }
 
   objc_msgSend_model(self, v22, v23, v24);
-  sub_1D9DCD4FC(v33);
+  sub_1D9DCD4FC();
 }
 
 - (shared_ptr<cvnlp::clip::CLIPModel>)model

@@ -14,15 +14,15 @@
     controllersCopy = sub_1A524CA34();
   }
 
-  v4 = sub_1A3DE7458(controllersCopy);
+  v5 = sub_1A3DE7458(controllersCopy, v3);
 
-  return v4;
+  return v5;
 }
 
 - (PXFullscreenOverlayViewControllerFactory)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FullscreenOverlayViewControllerFactory();
+  v3.super_class = type metadata accessor for FullscreenOverlayViewControllerFactory(self, a2);
   return [(PXFullscreenOverlayViewControllerFactory *)&v3 init];
 }
 

@@ -62,40 +62,40 @@
 - (BOOL)generateClassificationsWithCandiatesContainer:(id)container systemState:(id)state historyEventsContainer:(id)eventsContainer miloPrediction:(id)prediction nearbyDeviceContainer:(id)deviceContainer fillInspection:(BOOL)inspection date:(id)date
 {
   inspectionCopy = inspection;
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   stateCopy = state;
   eventsContainerCopy = eventsContainer;
   predictionCopy = prediction;
   dateCopy = date;
   deviceContainerCopy = deviceContainer;
-  v81 = containerCopy;
+  v80 = containerCopy;
   airplayOrUnknownCandidates = [containerCopy airplayOrUnknownCandidates];
   v21 = [airplayOrUnknownCandidates map:&__block_literal_global_13];
 
   v22 = dispatch_get_specific(*MEMORY[0x277D21308]);
   v23 = *MEMORY[0x277D21260];
-  v80 = predictionCopy;
+  v79 = predictionCopy;
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
-    v77 = eventsContainerCopy;
+    v76 = eventsContainerCopy;
     v24 = MEMORY[0x277CCABB0];
     v25 = v23;
-    candidates = [v81 candidates];
+    candidates = [v80 candidates];
     v27 = [v24 numberWithUnsignedInteger:{objc_msgSend(candidates, "count")}];
     v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSObject count](v21, "count")}];
     *buf = 136315906;
-    v91 = "#classification-generator, ";
-    v92 = 2112;
-    v93 = v22;
-    v94 = 2112;
-    v95 = v27;
-    v96 = 2112;
-    v97 = v28;
+    v90 = "#classification-generator, ";
+    v91 = 2112;
+    v92 = v22;
+    v93 = 2112;
+    v94 = v27;
+    v95 = 2112;
+    v96 = v28;
     _os_log_impl(&dword_25543D000, v25, OS_LOG_TYPE_INFO, "%s[%@], #totalCandidates=%@, #validCandidates=%@", buf, 0x2Au);
 
-    eventsContainerCopy = v77;
-    predictionCopy = v80;
+    eventsContainerCopy = v76;
+    predictionCopy = v79;
   }
 
   detectorSameSpace = [(IRClassificationGenerator *)self detectorSameSpace];
@@ -124,10 +124,10 @@
       [v34 setNominatedClassificationDesc:v40];
     }
 
-    v78 = v38;
+    v77 = v38;
     selector2 = [(IRClassificationGenerator *)self selector];
     historyEvents4 = [eventsContainerCopy historyEvents];
-    v76 = [selector2 adjustClassificationForCandidateBasedOnNegativeInputs:v34 withSystemState:stateCopy andHistoryEventsAsc:historyEvents4 andMiloPrediction:predictionCopy andDate:dateCopy];
+    v75 = [selector2 adjustClassificationForCandidateBasedOnNegativeInputs:v34 withSystemState:stateCopy andHistoryEventsAsc:historyEvents4 andMiloPrediction:predictionCopy andDate:dateCopy];
 
     v43 = dispatch_get_specific(*MEMORY[0x277D21308]);
     v44 = *MEMORY[0x277D21260];
@@ -141,60 +141,60 @@
       [v34 nominatedClassification];
       v46 = IRCandidateClassificationToString();
       [v34 nominatedClassificationDesc];
-      v74 = dateCopy;
+      v73 = dateCopy;
       v48 = v47 = eventsContainerCopy;
       *buf = 136316418;
-      v91 = "#classification-generator, ";
-      v92 = 2112;
-      v93 = v43;
-      v94 = 2112;
-      v95 = name;
-      v96 = 2112;
-      v97 = candidateIdentifier;
-      v98 = 2112;
-      v99 = v46;
-      v100 = 2112;
-      v101 = v48;
+      v90 = "#classification-generator, ";
+      v91 = 2112;
+      v92 = v43;
+      v93 = 2112;
+      v94 = name;
+      v95 = 2112;
+      v96 = candidateIdentifier;
+      v97 = 2112;
+      v98 = v46;
+      v99 = 2112;
+      v100 = v48;
       _os_log_impl(&dword_25543D000, log, OS_LOG_TYPE_INFO, "%s[%@], SelectedCandidate: name: %@, identifier: %@, classification: %@, desc: %@", buf, 0x3Eu);
 
       eventsContainerCopy = v47;
-      dateCopy = v74;
+      dateCopy = v73;
     }
   }
 
   else
   {
-    v76 = 0;
-    v78 = 0;
+    v75 = 0;
+    v77 = 0;
   }
 
   v49 = [MEMORY[0x277CBEB58] set];
   v50 = [MEMORY[0x277CBEB58] set];
-  v82[0] = MEMORY[0x277D85DD0];
-  v82[1] = 3221225472;
-  v82[2] = __167__IRClassificationGenerator_generateClassificationsWithCandiatesContainer_systemState_historyEventsContainer_miloPrediction_nearbyDeviceContainer_fillInspection_date___block_invoke_34;
-  v82[3] = &unk_2797E1C40;
-  v82[4] = self;
-  v83 = v34;
-  v84 = stateCopy;
-  v85 = dateCopy;
-  v86 = eventsContainerCopy;
-  v87 = v50;
-  v89 = inspectionCopy;
-  v88 = v49;
+  v81[0] = MEMORY[0x277D85DD0];
+  v81[1] = 3221225472;
+  v81[2] = __167__IRClassificationGenerator_generateClassificationsWithCandiatesContainer_systemState_historyEventsContainer_miloPrediction_nearbyDeviceContainer_fillInspection_date___block_invoke_34;
+  v81[3] = &unk_2797E1C40;
+  v81[4] = self;
+  v82 = v34;
+  v83 = stateCopy;
+  v84 = dateCopy;
+  v85 = eventsContainerCopy;
+  v86 = v50;
+  v88 = inspectionCopy;
+  v87 = v49;
   v51 = v49;
   v52 = v50;
-  v75 = eventsContainerCopy;
-  v73 = dateCopy;
+  v74 = eventsContainerCopy;
+  v72 = dateCopy;
   v53 = stateCopy;
   v54 = v34;
-  [v21 enumerateObjectsUsingBlock:v82];
+  [v21 enumerateObjectsUsingBlock:v81];
   internalContexts = [(IRClassificationGenerator *)self internalContexts];
   v56 = *MEMORY[0x277D21250];
   [internalContexts objectForKeyedSubscript:*MEMORY[0x277D21250]];
   v57 = loga = v21;
   candidateResults = [v57 candidateResults];
-  v69 = [v52 isEqual:candidateResults];
+  v68 = [v52 isEqual:candidateResults];
 
   v59 = objc_alloc(MEMORY[0x277D212A8]);
   appInFocusBundleID = [v53 appInFocusBundleID];
@@ -204,10 +204,9 @@
 
   candidate4 = [v54 candidate];
   candidateIdentifier2 = [candidate4 candidateIdentifier];
-  [(IRClassificationGenerator *)self _fillInspectionIfNeeded:inspectionCopy withCandidates:v51 selectedCandidate:candidateIdentifier2 negativeInputs:v76 stateMachineClassification:v78];
+  [(IRClassificationGenerator *)self _fillInspectionIfNeeded:inspectionCopy withCandidates:v51 selectedCandidate:candidateIdentifier2 negativeInputs:v75 stateMachineClassification:v77];
 
-  v65 = *MEMORY[0x277D85DE8];
-  return v69 ^ 1;
+  return v68 ^ 1;
 }
 
 IRCandidateWrapper *__167__IRClassificationGenerator_generateClassificationsWithCandiatesContainer_systemState_historyEventsContainer_miloPrediction_nearbyDeviceContainer_fillInspection_date___block_invoke(uint64_t a1, void *a2)
@@ -427,7 +426,7 @@ void __128__IRClassificationGenerator__fillInspectionIfNeeded_withCandidates_sel
 
 - (void)_setCallToActionForCandidate:(id)candidate withHistoryEventsAsc:(id)asc andSystemState:(id)state
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
   ascCopy = asc;
   stateCopy = state;
@@ -437,36 +436,36 @@ void __128__IRClassificationGenerator__fillInspectionIfNeeded_withCandidates_sel
 
     if (!isCallToAction)
     {
-      v44 = [IREventDO eventDOWithMediaType:11];
+      v43 = [IREventDO eventDOWithMediaType:11];
       v10 = MEMORY[0x277CBEB98];
       v11 = [IREventDO eventDOWithMediaType:9];
       v12 = [IREventDO eventDOWithMediaType:10];
       v13 = [IREventDO eventDOWithMediaType:8];
       v14 = [IREventDO eventDOWithMediaType:4];
-      v43 = [v10 setWithObjects:{v11, v12, v13, v14, 0}];
+      v42 = [v10 setWithObjects:{v11, v12, v13, v14, 0}];
 
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
       v48 = 0u;
-      v42 = ascCopy;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
+      v41 = ascCopy;
       obj = ascCopy;
-      v15 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+      v15 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
       if (v15)
       {
         v16 = v15;
         v17 = 0;
-        v18 = *v48;
+        v18 = *v47;
 LABEL_7:
         v19 = 0;
         while (1)
         {
-          if (*v48 != v18)
+          if (*v47 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v47 + 1) + 8 * v19);
+          v20 = *(*(&v46 + 1) + 8 * v19);
           candidate = [candidateCopy candidate];
           candidateIdentifier = [candidate candidateIdentifier];
           candidateIdentifier2 = [v20 candidateIdentifier];
@@ -482,7 +481,7 @@ LABEL_7:
             if (v28)
             {
               event2 = [v20 event];
-              v30 = [event2 isEqual:v44];
+              v30 = [event2 isEqual:v43];
 
               if (v30)
               {
@@ -506,7 +505,7 @@ LABEL_20:
               else
               {
                 event3 = [v20 event];
-                v35 = [v43 containsObject:event3];
+                v35 = [v42 containsObject:event3];
 
                 if (!v35)
                 {
@@ -519,7 +518,7 @@ LABEL_20:
 
           if (v16 == ++v19)
           {
-            v16 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+            v16 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
             if (v16)
             {
               goto LABEL_7;
@@ -537,11 +536,9 @@ LABEL_20:
       [candidateCopy setIsCallToAction:MEMORY[0x277CBEC38]];
 LABEL_21:
 
-      ascCopy = v42;
+      ascCopy = v41;
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setLockScreenControlForCandidate:(id)candidate

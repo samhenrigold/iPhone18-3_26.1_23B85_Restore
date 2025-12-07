@@ -79,24 +79,13 @@ LABEL_9:
   {
     v5 = [(MSMSPlatform *)self _accountForPersonID:dCopy];
     v6 = v5;
-    if (!v5)
-    {
-      goto LABEL_5;
-    }
-
-    v7 = MEMORY[0x277CBEBC0];
-    v8 = [v5 propertiesForDataclass:*MEMORY[0x277CB9118]];
-    v9 = [v8 objectForKey:@"url"];
-    v10 = [v7 URLWithString:v9];
-
-    if (v10)
+    if (v5 && (v7 = MEMORY[0x277CBEBC0], [v5 propertiesForDataclass:*MEMORY[0x277CB9118]], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "objectForKey:", @"url"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "URLWithString:", v9), v10 = objc_claimAutoreleasedReturnValue(), v9, v8, v10))
     {
       v11 = [v10 URLByAppendingPathComponent:dCopy];
     }
 
     else
     {
-LABEL_5:
       v11 = 0;
     }
   }
@@ -185,15 +174,14 @@ LABEL_7:
 {
   v2 = MEMORY[0x277CBEAC0];
   v3 = [MEMORY[0x277CCABB0] numberWithBool:1];
-  v4 = *MEMORY[0x277CBAE40];
-  v5 = [v2 dictionaryWithObjectsAndKeys:{v3, *MEMORY[0x277CBAE40], *MEMORY[0x277CBAD68], *MEMORY[0x277CBAD50], 0}];
+  v4 = [v2 dictionaryWithObjectsAndKeys:{v3, *MEMORY[0x277CBAE40], *MEMORY[0x277CBAD68], *MEMORY[0x277CBAD50], 0}];
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)_mayPerformFileTransfer
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = +[MSBatteryPowerMonitor defaultMonitor];
   if ([v2 isExternalPowerConnected])
   {
@@ -203,16 +191,16 @@ LABEL_7:
   else
   {
     [v2 batteryPercentRemaining];
-    v9 = v8;
+    v8 = v7;
     v3 = 1;
-    if (v8 != -1.0 && v8 < 0.2)
+    if (v7 != -1.0 && v7 < 0.2)
     {
       v3 = 0;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 134217984;
-        v11 = v9 * 100.0;
-        _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Battery level is too low to continue at %.1f%%.", &v10, 0xCu);
+        v9 = 134217984;
+        v10 = v8 * 100.0;
+        _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Battery level is too low to continue at %.1f%%.", &v9, 0xCu);
         v3 = 0;
       }
     }
@@ -221,7 +209,6 @@ LABEL_7:
   v4 = +[MSPauseManager sharedManager];
   isPaused = [v4 isPaused];
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3 & (isPaused ^ 1);
 }
 
@@ -292,20 +279,18 @@ uint64_t __30__MSMSPlatform_hardwareString__block_invoke()
 
 - (id)stringForSysctlKey:(id)key
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v6 = 256;
-  if (sysctlbyname([key UTF8String], v7, &v6, 0, 0))
+  v7 = *MEMORY[0x277D85DE8];
+  v5 = 256;
+  if (sysctlbyname([key UTF8String], v6, &v5, 0, 0))
   {
     v3 = @"UNKNOWN";
   }
 
   else
   {
-    v7[v6 - 1] = 0;
-    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
+    v6[v5 - 1] = 0;
+    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -339,48 +324,42 @@ uint64_t __20__MSMSPlatform_UDID__block_invoke()
 
 - (Class)deletePluginClass
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   pluginClass = [(MSMSPlatform *)self pluginClass];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138543362;
-    v6 = pluginClass;
-    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "deleterPluginClass principalClass %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = pluginClass;
+    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "deleterPluginClass principalClass %{public}@", &v4, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return pluginClass;
 }
 
 - (Class)subscriberPluginClass
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   pluginClass = [(MSMSPlatform *)self pluginClass];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138543362;
-    v6 = pluginClass;
-    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "subscriberPluginClass principalClass %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = pluginClass;
+    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "subscriberPluginClass principalClass %{public}@", &v4, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return pluginClass;
 }
 
 - (Class)publisherPluginClass
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   pluginClass = [(MSMSPlatform *)self pluginClass];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138543362;
-    v6 = pluginClass;
-    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "publisherPluginClass principalClass %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = pluginClass;
+    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "publisherPluginClass principalClass %{public}@", &v4, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return pluginClass;
 }
@@ -400,19 +379,17 @@ uint64_t __20__MSMSPlatform_UDID__block_invoke()
 
 void __27__MSMSPlatform_pluginClass__block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = [@"/System/Library/MediaStreamPlugins" stringByAppendingPathComponent:@"PhotoStreamsPlugin.mediastream"];
   v1 = pluginClass_pluginPath;
   pluginClass_pluginPath = v0;
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v3 = 138543362;
-    v4 = pluginClass_pluginPath;
-    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Loading Photo Streams plugin from %{public}@", &v3, 0xCu);
+    v2 = 138543362;
+    v3 = pluginClass_pluginPath;
+    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Loading Photo Streams plugin from %{public}@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pathMediaStreamDir
@@ -438,15 +415,13 @@ void __34__MSMSPlatform_pathMediaStreamDir__block_invoke()
 
 - (void)logFile:(const char *)file func:(const char *)func line:(int)line facility:(int)facility level:(int)level format:(id)format args:(char *)args
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
+    v10 = 138412290;
     formatCopy = format;
-    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unexpected call to legacy logging method, please switch to os_log(): %@", &v11, 0xCu);
+    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unexpected call to legacy logging method, please switch to os_log(): %@", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_rereadDefaults
@@ -486,15 +461,13 @@ void __34__MSMSPlatform_pathMediaStreamDir__block_invoke()
 
 - (void)logFacility:(int)facility level:(int)level format:(id)format args:(char *)args
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
+    v7 = 138412290;
     formatCopy = format;
-    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unexpected call to legacy logging method, please switch to os_log(): %@", &v8, 0xCu);
+    _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unexpected call to legacy logging method, please switch to os_log(): %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (__CFString)_facilityStringForFacility:(int)facility

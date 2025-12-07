@@ -47,17 +47,17 @@ LABEL_8:
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   if (!buffer || !dictionary || !bufferDictionary)
   {
-    v68 = @"Invalid args";
+    v67 = @"Invalid args";
     goto LABEL_79;
   }
 
   v9 = *(buffer + 1);
   if (v9 > 0xFFFFFFFFFFFFFFFDLL || *(buffer + 2) == -2)
   {
-    v68 = @"Invalid index found";
+    v67 = @"Invalid index found";
     goto LABEL_79;
   }
 
@@ -65,14 +65,14 @@ LABEL_8:
   v12 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v9, dictionary, bufferDictionary, v11, 0);
   if (!v12)
   {
-    v68 = @"Could not get time insensitive instance";
+    v67 = @"Could not get time insensitive instance";
     goto LABEL_79;
   }
 
   v13 = v12;
   v14 = *(buffer + 2);
   v15 = objc_opt_class();
-  v73 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v14, dictionary, bufferDictionary, v15, 0);
+  v72 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v14, dictionary, bufferDictionary, v15, 0);
   if (*buffer != 287454020)
   {
     if (*buffer == 287454021)
@@ -81,10 +81,10 @@ LABEL_8:
       goto LABEL_11;
     }
 
-    v68 = @"Bad SAPAStyleTaskData magic";
+    v67 = @"Bad SAPAStyleTaskData magic";
 LABEL_79:
-    v69 = [SAException exceptionWithName:@"Decoding failure" reason:v68 userInfo:0];
-    objc_exception_throw(v69);
+    v68 = [SAException exceptionWithName:@"Decoding failure" reason:v67 userInfo:0];
+    objc_exception_throw(v68);
   }
 
   v16 = 32;
@@ -93,25 +93,25 @@ LABEL_11:
   v18 = *(buffer + 3);
   v19 = objc_opt_class();
   v20 = SASerializableNewMutableArrayFromIndexList(v17, v18, dictionary, bufferDictionary, v19);
+  v81 = 0u;
   v82 = 0u;
   v83 = 0u;
   v84 = 0u;
-  v85 = 0u;
-  v21 = [v20 countByEnumeratingWithState:&v82 objects:v87 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v81 objects:v86 count:16];
   if (v21)
   {
     v23 = v21;
-    v24 = *v83;
+    v24 = *v82;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v83 != v24)
+        if (*v82 != v24)
         {
           objc_enumerationMutation(v20);
         }
 
-        v26 = *(*(&v82 + 1) + 8 * i);
+        v26 = *(*(&v81 + 1) + 8 * i);
         if ([(SATaskState *)self->_taskState isPidSuspended])
         {
           if (!v26)
@@ -145,7 +145,7 @@ LABEL_11:
         }
       }
 
-      v23 = [v20 countByEnumeratingWithState:&v82 objects:v87 count:16];
+      v23 = [v20 countByEnumeratingWithState:&v81 objects:v86 count:16];
     }
 
     while (v23);
@@ -176,10 +176,10 @@ LABEL_11:
     v31 = 0;
   }
 
-  v71 = v13;
+  v70 = v13;
   v35 = objc_getProperty(v13, v22, 8, 1);
-  v70 = v31;
-  v36 = [SATaskState stateWithPAStyleTaskPrivateData:v73 donatingUniquePids:v31];
+  v69 = v31;
+  v36 = [SATaskState stateWithPAStyleTaskPrivateData:v72 donatingUniquePids:v31];
   taskState = self->_taskState;
   self->_taskState = v36;
 
@@ -192,28 +192,28 @@ LABEL_11:
   selfCopy = self;
   v38 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v20, "count")}];
   v39 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v77 = 0u;
   v78 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
   obj = v20;
-  v77 = [obj countByEnumeratingWithState:&v78 objects:v86 count:16];
-  if (v77)
+  v76 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
+  if (v76)
   {
     v40 = 0x1E696A000uLL;
-    v76 = *v79;
-    v74 = v39;
+    v75 = *v78;
+    v73 = v39;
     do
     {
       v41 = 0;
       do
       {
-        if (*v79 != v76)
+        if (*v78 != v75)
         {
           objc_enumerationMutation(obj);
         }
 
-        v42 = *(*(&v78 + 1) + 8 * v41);
+        v42 = *(*(&v77 + 1) + 8 * v41);
         threads = [v35 threads];
         if (v42)
         {
@@ -307,7 +307,7 @@ LABEL_11:
               objc_storeWeak(v50 + 14, v57);
             }
 
-            v39 = v74;
+            v39 = v73;
           }
         }
 
@@ -339,9 +339,9 @@ LABEL_60:
         ++v41;
       }
 
-      while (v77 != v41);
-      v64 = [obj countByEnumeratingWithState:&v78 objects:v86 count:16];
-      v77 = v64;
+      while (v76 != v41);
+      v64 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
+      v76 = v64;
     }
 
     while (v64);
@@ -350,8 +350,6 @@ LABEL_60:
   v65 = [v38 copy];
   threadStates = selfCopy->_threadStates;
   selfCopy->_threadStates = v65;
-
-  v67 = *MEMORY[0x1E69E9840];
 }
 
 @end

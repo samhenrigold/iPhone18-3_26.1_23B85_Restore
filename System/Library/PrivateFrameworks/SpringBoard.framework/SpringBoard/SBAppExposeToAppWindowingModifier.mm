@@ -309,7 +309,7 @@ void __69__SBAppExposeToAppWindowingModifier_adjustedAppLayoutsForAppLayouts___b
 - (double)opacityForLayoutRole:(int64_t)role inAppLayout:(id)layout atIndex:(unint64_t)index
 {
   layoutCopy = layout;
-  if (-[SBWindowingModifier transitionPhase](self, "transitionPhase") != 1 || (visibleItemsInAppExpose = self->_visibleItemsInAppExpose, [layoutCopy itemForLayoutRole:role], v10 = objc_claimAutoreleasedReturnValue(), LODWORD(visibleItemsInAppExpose) = -[NSSet containsObject:](visibleItemsInAppExpose, "containsObject:", v10), v10, v11 = 0.0, visibleItemsInAppExpose))
+  if (-[SBWindowingModifier transitionPhase](self, "transitionPhase") != 1 || (visibleItemsInAppExpose = self->_visibleItemsInAppExpose, [layoutCopy itemForLayoutRole:role], v10 = objc_claimAutoreleasedReturnValue(), LODWORD(visibleItemsInAppExpose) = objc_msgSend_containsObject_(visibleItemsInAppExpose), v10, v11 = 0.0, visibleItemsInAppExpose))
   {
     v14.receiver = self;
     v14.super_class = SBAppExposeToAppWindowingModifier;
@@ -380,17 +380,17 @@ void __69__SBAppExposeToAppWindowingModifier_adjustedAppLayoutsForAppLayouts___b
   return result;
 }
 
-double __50__SBAppExposeToAppWindowingModifier_frameForItem___block_invoke(void *a1)
+double __50__SBAppExposeToAppWindowingModifier_frameForItem___block_invoke(void *a1, const char *a2)
 {
-  [*(a1[4] + 200) frameForItem:a1[5]];
-  v2 = *(a1[6] + 8);
-  v2[4] = v6;
-  v2[5] = v7;
-  v2[6] = v8;
-  v2[7] = v9;
-  result = *&v4;
-  v2[2] = v4;
-  v2[3] = v5;
+  objc_msgSend_frameForItem_(*(a1[4] + 200), a2, a1[5]);
+  v3 = *(a1[6] + 8);
+  v3[4] = v7;
+  v3[5] = v8;
+  v3[6] = v9;
+  v3[7] = v10;
+  result = *&v5;
+  v3[2] = v5;
+  v3[3] = v6;
   return result;
 }
 
@@ -440,7 +440,7 @@ double __50__SBAppExposeToAppWindowingModifier_frameForItem___block_invoke(void 
   return result;
 }
 
-uint64_t __61__SBAppExposeToAppWindowingModifier_perspectiveAngleForItem___block_invoke(void *a1)
+void *__61__SBAppExposeToAppWindowingModifier_perspectiveAngleForItem___block_invoke(void *a1)
 {
   result = [*(a1[4] + 200) perspectiveAngleForItem:a1[5]];
   v3 = *(a1[6] + 8);
@@ -513,7 +513,7 @@ uint64_t __61__SBAppExposeToAppWindowingModifier_perspectiveAngleForItem___block
   return result;
 }
 
-uint64_t __82__SBAppExposeToAppWindowingModifier_adjustedSpaceAccessoryViewFrame_forAppLayout___block_invoke(uint64_t a1)
+void *__82__SBAppExposeToAppWindowingModifier_adjustedSpaceAccessoryViewFrame_forAppLayout___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 200) adjustedSpaceAccessoryViewFrame:*(a1 + 40) forAppLayout:{*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
   v3 = *(*(a1 + 48) + 8);
@@ -561,7 +561,7 @@ uint64_t __82__SBAppExposeToAppWindowingModifier_adjustedSpaceAccessoryViewFrame
   return v8;
 }
 
-uint64_t __82__SBAppExposeToAppWindowingModifier_adjustedSpaceAccessoryViewScale_forAppLayout___block_invoke(uint64_t a1)
+void *__82__SBAppExposeToAppWindowingModifier_adjustedSpaceAccessoryViewScale_forAppLayout___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 200) adjustedSpaceAccessoryViewScale:*(a1 + 40) forAppLayout:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = v3;
@@ -618,7 +618,7 @@ uint64_t __82__SBAppExposeToAppWindowingModifier_adjustedSpaceAccessoryViewScale
   return result;
 }
 
-uint64_t __88__SBAppExposeToAppWindowingModifier_adjustedSpaceAccessoryViewAnchorPoint_forAppLayout___block_invoke(uint64_t a1)
+void *__88__SBAppExposeToAppWindowingModifier_adjustedSpaceAccessoryViewAnchorPoint_forAppLayout___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 200) adjustedSpaceAccessoryViewAnchorPoint:*(a1 + 40) forAppLayout:{*(a1 + 56), *(a1 + 64)}];
   v3 = *(*(a1 + 48) + 8);
@@ -677,7 +677,7 @@ uint64_t __88__SBAppExposeToAppWindowingModifier_adjustedSpaceAccessoryViewAncho
   return result;
 }
 
-uint64_t __93__SBAppExposeToAppWindowingModifier_adjustedSpaceAccessoryViewPerspectiveAngle_forAppLayout___block_invoke(uint64_t a1)
+void *__93__SBAppExposeToAppWindowingModifier_adjustedSpaceAccessoryViewPerspectiveAngle_forAppLayout___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 200) adjustedSpaceAccessoryViewPerspectiveAngle:*(a1 + 40) forAppLayout:{*(a1 + 56), *(a1 + 64)}];
   v3 = *(*(a1 + 48) + 8);
@@ -733,14 +733,14 @@ uint64_t __93__SBAppExposeToAppWindowingModifier_adjustedSpaceAccessoryViewPersp
   return result;
 }
 
-double __52__SBAppExposeToAppWindowingModifier_cornersForItem___block_invoke(void *a1)
+double __52__SBAppExposeToAppWindowingModifier_cornersForItem___block_invoke(void *a1, const char *a2)
 {
-  [*(a1[4] + 200) cornersForItem:a1[5]];
-  v2 = *(a1[6] + 8);
-  result = *&v4;
-  *(v2 + 32) = v4;
-  *(v2 + 48) = v5;
-  *(v2 + 64) = v6;
+  objc_msgSend_cornersForItem_(*(a1[4] + 200), a2, a1[5]);
+  v3 = *(a1[6] + 8);
+  result = *&v5;
+  *(v3 + 32) = v5;
+  *(v3 + 48) = v6;
+  *(v3 + 64) = v7;
   return result;
 }
 
@@ -791,14 +791,14 @@ double __52__SBAppExposeToAppWindowingModifier_cornersForItem___block_invoke(voi
   return result;
 }
 
-double __55__SBAppExposeToAppWindowingModifier_titleStyleForItem___block_invoke(void *a1)
+double __55__SBAppExposeToAppWindowingModifier_titleStyleForItem___block_invoke(void *a1, const char *a2)
 {
-  [*(a1[4] + 200) titleStyleForItem:a1[5]];
-  v2 = *(a1[6] + 8);
-  result = *&v4;
-  *(v2 + 32) = v4;
-  *(v2 + 48) = v5;
-  *(v2 + 64) = v6;
+  objc_msgSend_titleStyleForItem_(*(a1[4] + 200), a2, a1[5]);
+  v3 = *(a1[6] + 8);
+  result = *&v5;
+  *(v3 + 32) = v5;
+  *(v3 + 48) = v6;
+  *(v3 + 64) = v7;
   return result;
 }
 
@@ -867,7 +867,7 @@ double __55__SBAppExposeToAppWindowingModifier_titleStyleForItem___block_invoke(
   return result;
 }
 
-uint64_t __79__SBAppExposeToAppWindowingModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
+void *__79__SBAppExposeToAppWindowingModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 200) frameForLayoutRole:*(a1 + 56) inAppLayout:*(a1 + 40) withBounds:{*(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88)}];
   v3 = *(*(a1 + 48) + 8);
@@ -915,7 +915,7 @@ uint64_t __79__SBAppExposeToAppWindowingModifier_frameForLayoutRole_inAppLayout_
   return v8;
 }
 
-uint64_t __68__SBAppExposeToAppWindowingModifier_scaleForLayoutRole_inAppLayout___block_invoke(void *a1)
+void *__68__SBAppExposeToAppWindowingModifier_scaleForLayoutRole_inAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 200) scaleForLayoutRole:a1[7] inAppLayout:a1[5]];
   *(*(a1[6] + 8) + 24) = v3;
@@ -928,7 +928,7 @@ uint64_t __68__SBAppExposeToAppWindowingModifier_scaleForLayoutRole_inAppLayout_
   v9 = [attributes mutableCopy];
   v10 = [layoutCopy itemForLayoutRole:role];
 
-  if ([(NSSet *)self->_visibleItemsInAppExpose containsObject:v10])
+  if (objc_msgSend_containsObject_(self->_visibleItemsInAppExpose))
   {
     [v9 setUpdateMode:3];
     [v9 setLayoutUpdateMode:3];

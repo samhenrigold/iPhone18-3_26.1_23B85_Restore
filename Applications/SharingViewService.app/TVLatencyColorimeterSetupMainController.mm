@@ -37,7 +37,7 @@
 {
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController showTryAgainUI]", 30, "TryAgain UI\n");
   }
 
   vcTryAgain = self->_vcTryAgain;
@@ -60,7 +60,7 @@
 {
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController showProgressUI]", 30, "Show progress UI\n");
   }
 
   vcProgress = self->_vcProgress;
@@ -83,7 +83,7 @@
 {
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController showPreparingUI]", 30, "Show preparing UI\n");
   }
 
   vcPreparing = self->_vcPreparing;
@@ -109,8 +109,7 @@
   iCopy = i;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    v12 = iCopy;
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController showDoneUI:final:completed:]", 30, "Show done UI: %{error}\n", iCopy);
   }
 
   if (self->_vcDone)
@@ -139,7 +138,7 @@
 
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController showDoneUI:final:completed:]", 30, "Invalidating session\n");
   }
 
   [(SFDeviceSetupTVColorCalibratorSession *)self->_colorCalibratorSetupSession invalidate];
@@ -165,7 +164,7 @@ LABEL_14:
   {
     if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController showAuthUIWithFlags:throttleSeconds:]", 30, "Show auth UI\n");
     }
 
     v6 = [(UIStoryboard *)self->_storyboard instantiateViewControllerWithIdentifier:@"AuthUI"];
@@ -202,7 +201,7 @@ LABEL_14:
       {
         if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController _sessionHandleProgress:info:]", 30, "Remote user stop setup\n");
         }
 
         [(TVLatencyColorimeterSetupMainController *)self dismiss:17];
@@ -222,8 +221,7 @@ LABEL_14:
       v6 = CFDictionaryGetTypedValue();
       if (dword_1001BEA68 <= 60 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
       {
-        v7 = v6;
-        LogPrintF();
+        LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController _sessionHandleProgress:info:]", 60, "### Setup failed: %{error}\n", v6);
       }
 
       [(TVLatencyColorimeterSetupMainController *)self showTryAgainUI];
@@ -233,7 +231,7 @@ LABEL_14:
 LABEL_17:
       if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController _sessionHandleProgress:info:]", 30, "Setup completed\n");
       }
 
       [(TVLatencyColorimeterSetupMainController *)self showDoneUI:0 completed:infoCopy != 0];
@@ -298,7 +296,7 @@ LABEL_26:
         {
           if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController handleButtonActions:]", 30, "Home button\n");
           }
 
           [(TVLatencyColorimeterSetupMainController *)self dismiss:4];
@@ -366,7 +364,7 @@ LABEL_26:
   disappearCopy = disappear;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController viewDidDisappear:]", 30, "Main ViewDidDisappear\n");
   }
 
   _remoteViewControllerProxy = [(TVLatencyColorimeterSetupMainController *)self _remoteViewControllerProxy];
@@ -376,7 +374,7 @@ LABEL_26:
   {
     if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController viewDidDisappear:]", 30, "Main disappeared without dismiss (device locked?)...dismissing UI\n");
     }
 
     [(TVLatencyColorimeterSetupMainController *)self dismiss:21];
@@ -426,7 +424,7 @@ LABEL_26:
   appearCopy = appear;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController viewDidAppear:]", 30, "Main ViewDidAppear\n");
   }
 
   v12.receiver = self;
@@ -483,7 +481,7 @@ LABEL_26:
 
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController configureWithContext:completion:]", 30, "Main configuration: %@\n", self->super._userInfo);
   }
 
   CFStringGetTypeID();
@@ -505,7 +503,7 @@ LABEL_26:
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy);
+    completionCopy[2]();
   }
 }
 

@@ -84,7 +84,7 @@
     v11 = +[NSUserDefaults standardUserDefaults];
     [v11 setObject:v7 forKey:@"osVersionStringKey"];
 
-    v10 = sub_1001C13C8();
+    v10 = sub_1001C13C8(ODRBackgroundMaintenance);
     sub_1001C15E8(v10);
 LABEL_11:
 

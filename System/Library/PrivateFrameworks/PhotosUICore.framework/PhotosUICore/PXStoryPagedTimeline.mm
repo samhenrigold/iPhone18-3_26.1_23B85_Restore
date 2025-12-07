@@ -36,18 +36,18 @@
 - (CGRect)frameForSegmentWithIdentifier:(int64_t)identifier
 {
   v4 = [(PXStoryDerivedTimeline *)self indexOfSegmentWithIdentifier:identifier];
-  [(PXStoryPagedTimeline *)self keyPageMix];
+  objc_msgSend_keyPageMix(self);
   v5 = &v16;
   if (v15 <= 0.5)
   {
-    v5 = &v14;
+    v5 = v14;
   }
 
   if (*v5)
   {
-    [(PXStoryPagedTimeline *)self keyPageMix];
+    objc_msgSend_keyPageMix(self, v15);
     v6 = [(PXStoryDerivedTimeline *)self indexOfSegmentWithIdentifier:v13];
-    [(PXStoryPagedTimeline *)self keyPageMix];
+    objc_msgSend_keyPageMix(self);
     v7 = [(PXStoryDerivedTimeline *)self indexOfSegmentWithIdentifier:v12];
   }
 
@@ -61,7 +61,7 @@
   {
     if (v4 == v6 || v4 == v7)
     {
-      [(PXStoryPagedTimeline *)self keyPageMix];
+      objc_msgSend_keyPageMix(self);
     }
 
     PXClamp();
@@ -211,7 +211,7 @@ double __66__PXStoryPagedTimeline_enumerateClipsInTimeRange_rect_usingBlock___bl
   memset(__src, 0, 512);
   if (v4)
   {
-    [v4 info];
+    objc_msgSend_info(v4);
   }
 
   else
@@ -439,7 +439,7 @@ LABEL_11:
       memset(&v29, 0, sizeof(v29));
       if (originalTimeline)
       {
-        [originalTimeline timeRangeForSegmentWithIdentifier:v14];
+        objc_msgSend_timeRangeForSegmentWithIdentifier_(originalTimeline);
       }
 
       [(PXStoryPagedTimeline *)self frameForSegmentWithIdentifier:v14];
@@ -481,7 +481,7 @@ LABEL_11:
   [spec2 regularInterpageSpacing];
   v10 = v7 + v9;
 
-  [(PXStoryPagedTimeline *)self keyPageMix];
+  objc_msgSend_keyPageMix(self);
   v11 = &v26;
   if (v25 <= 0.5)
   {
@@ -493,7 +493,7 @@ LABEL_11:
     return (x / v10);
   }
 
-  [(PXStoryPagedTimeline *)self keyPageMix];
+  objc_msgSend_keyPageMix(self, v25);
   v12 = *&v24[16 * (v25 > 0.5)];
   [(PXStoryPagedTimeline *)self frameForSegmentWithIdentifier:v12, v25];
   x = v27.origin.x;

@@ -51,101 +51,102 @@
 
   if ([recordName length])
   {
-    v16 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyItemWithServerId:recordName database:self->_databaseRef];
-    v17 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
-    if (v16)
+    v17 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyItemWithServerId:recordName database:self->_databaseRef];
+    v19 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v17, v18);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
+    if (v17)
     {
-      if (v18)
+      if (v20)
       {
         *buf = 138544130;
-        v32 = recordName;
-        v33 = 2114;
-        v34 = generationCopy;
-        v35 = 2114;
-        v36 = attributeCopy;
+        v36 = recordName;
         v37 = 2114;
-        v38 = nameCopy;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Did find referenced record: %{public}@ generation: %{public}@ for attribute: %{public}@ in record: %{public}@", buf, 0x2Au);
+        v38 = generationCopy;
+        v39 = 2114;
+        v40 = attributeCopy;
+        v41 = 2114;
+        v42 = nameCopy;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Did find referenced record: %{public}@ generation: %{public}@ for attribute: %{public}@ in record: %{public}@", buf, 0x2Au);
       }
 
-      CFRelease(v16);
-      v19 = 1;
+      CFRelease(v17);
+      v21 = 1;
     }
 
     else
     {
-      if (v18)
+      if (v20)
       {
         *buf = 138544130;
-        v32 = recordName;
-        v33 = 2114;
-        v34 = generationCopy;
-        v35 = 2114;
-        v36 = attributeCopy;
+        v36 = recordName;
         v37 = 2114;
-        v38 = nameCopy;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Could not find referenced record: %{public}@ generation: %{public}@ for attribute: %{public}@ in record: %{public}@", buf, 0x2Au);
+        v38 = generationCopy;
+        v39 = 2114;
+        v40 = attributeCopy;
+        v41 = 2114;
+        v42 = nameCopy;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Could not find referenced record: %{public}@ generation: %{public}@ for attribute: %{public}@ in record: %{public}@", buf, 0x2Au);
       }
 
-      v21 = [(NSMutableDictionary *)self->_pendingReferences objectForKeyedSubscript:nameCopy];
-      if (!v21)
+      v23 = [(NSMutableDictionary *)self->_pendingReferences objectForKeyedSubscript:nameCopy];
+      if (!v23)
       {
-        v21 = +[NSMutableDictionary dictionary];
-        [(NSMutableDictionary *)self->_pendingReferences setObject:v21 forKeyedSubscript:nameCopy];
+        v23 = +[NSMutableDictionary dictionary];
+        [(NSMutableDictionary *)self->_pendingReferences setObject:v23 forKeyedSubscript:nameCopy];
       }
 
-      v22 = [v21 objectForKeyedSubscript:attributeCopy];
-      if (v22)
+      v24 = [v23 objectForKeyedSubscript:attributeCopy];
+      v26 = v24;
+      if (v24)
       {
-        v23 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v27 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v24, v25);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          v26 = v23;
-          first = [v22 first];
+          v30 = v27;
+          first = [v26 first];
           recordID2 = [first recordID];
           recordName2 = [recordID2 recordName];
-          second = [v22 second];
+          second = [v26 second];
           *buf = 138544642;
-          v32 = recordName2;
-          v33 = 2114;
-          v34 = second;
-          v35 = 2114;
-          v36 = recordName;
+          v36 = recordName2;
           v37 = 2114;
-          v38 = generationCopy;
+          v38 = second;
           v39 = 2114;
-          v40 = attributeCopy;
+          v40 = recordName;
           v41 = 2114;
-          v42 = nameCopy;
-          _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Overriding previous referenced record : %{public}@ generation: %{public}@ with referenced record: %{public}@ generation: %{public}@ for attribute: %{public}@ in record: %{public}@", buf, 0x3Eu);
+          v42 = generationCopy;
+          v43 = 2114;
+          v44 = attributeCopy;
+          v45 = 2114;
+          v46 = nameCopy;
+          _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Overriding previous referenced record : %{public}@ generation: %{public}@ with referenced record: %{public}@ generation: %{public}@ for attribute: %{public}@ in record: %{public}@", buf, 0x3Eu);
         }
       }
 
-      v24 = [[WBSPair alloc] initWithFirst:referenceCopy second:generationCopy];
-      [v21 setObject:v24 forKeyedSubscript:attributeCopy];
+      v28 = [[WBSPair alloc] initWithFirst:referenceCopy second:generationCopy];
+      [v23 setObject:v28 forKeyedSubscript:attributeCopy];
 
-      v19 = 0;
+      v21 = 0;
     }
   }
 
   else
   {
-    v20 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    v19 = 1;
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v22 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v16);
+    v21 = 1;
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 138543874;
-      v32 = generationCopy;
-      v33 = 2114;
-      v34 = attributeCopy;
-      v35 = 2114;
-      v36 = nameCopy;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Clearing referenced record with generation: %{public}@ for attribute: %{public}@ in record: %{public}@", buf, 0x20u);
+      v36 = generationCopy;
+      v37 = 2114;
+      v38 = attributeCopy;
+      v39 = 2114;
+      v40 = nameCopy;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Clearing referenced record with generation: %{public}@ for attribute: %{public}@ in record: %{public}@", buf, 0x20u);
     }
   }
 
-  return v19;
+  return v21;
 }
 
 - (void)applyAllPendingReferencesWithUpdater:(id)updater

@@ -28,9 +28,9 @@
   }
 
   contextCopy = context;
-  v6 = [(TUILayout *)self box];
+  v6 = objc_msgSend_box(self);
   v7 = -[_TUIVisualEffectBoxStyler initWithBlurStyle:]([_TUIVisualEffectBoxStyler alloc], "initWithBlurStyle:", [v6 blurStyle]);
-  v8 = [(TUILayout *)self box];
+  v8 = objc_msgSend_box(self);
   identifier = [v8 identifier];
   v10 = [TUIStyledView renderModelWithStyle:v7 identifier:identifier];
 

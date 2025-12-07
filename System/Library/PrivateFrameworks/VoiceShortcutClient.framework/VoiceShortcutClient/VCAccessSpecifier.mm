@@ -65,27 +65,29 @@ void __53__VCAccessSpecifier_accessSpecifierForCurrentProcess__block_invoke(uint
     v7 = v6;
     if (v6)
     {
-      [v6 if_auditToken];
+      objc_msgSend_if_auditToken(v6);
     }
 
     else
     {
-      memset(v11, 0, sizeof(v11));
+      memset(v13, 0, sizeof(v13));
     }
 
-    v8 = [v5 tokenFromAuditToken:v11];
-    v9 = [v3 accessSpecifierForTask:v4 auditToken:v8 sandboxCapabilities:0];
-    v10 = accessSpecifierForCurrentProcess_accessSpecifier;
-    accessSpecifierForCurrentProcess_accessSpecifier = v9;
+    v10 = [v5 tokenFromAuditToken:v13];
+    v11 = [v3 accessSpecifierForTask:v4 auditToken:v10 sandboxCapabilities:0];
+    v12 = accessSpecifierForCurrentProcess_accessSpecifier;
+    accessSpecifierForCurrentProcess_accessSpecifier = v11;
 
     CFRelease(v4);
   }
 
   else
   {
-    accessSpecifierForCurrentProcess_accessSpecifier = [*(a1 + 32) accessSpecifierWithNoAccess];
+    v8 = [*(a1 + 32) accessSpecifierWithNoAccess];
+    v9 = accessSpecifierForCurrentProcess_accessSpecifier;
+    accessSpecifierForCurrentProcess_accessSpecifier = v8;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v8, v9);
   }
 }
 
@@ -104,50 +106,48 @@ void __53__VCAccessSpecifier_accessSpecifierForCurrentProcess__block_invoke(uint
 
 - (id)description
 {
-  v21[12] = *MEMORY[0x1E69E9840];
+  v20[12] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   entitlements = [(VCAccessSpecifier *)self entitlements];
-  v20[0] = &unk_1F292CB20;
-  v20[1] = &unk_1F292CB38;
-  v21[0] = @"unrestricted";
-  v21[1] = @"library-read";
-  v20[2] = &unk_1F292CB50;
-  v20[3] = &unk_1F292CB68;
-  v21[2] = @"home-resident";
-  v21[3] = @"import-shortcuts";
-  v20[4] = &unk_1F292CB80;
-  v20[5] = &unk_1F292CB98;
-  v21[4] = @"on-screen-content-service";
-  v21[5] = @"automation-confirmation-reset";
-  v20[6] = &unk_1F292CBB0;
-  v20[7] = &unk_1F292CBC8;
-  v21[6] = @"background-runner";
-  v21[7] = @"test-harness-runner";
-  v20[8] = &unk_1F292CBE0;
-  v20[9] = &unk_1F292CBF8;
-  v21[8] = @"droplet-creation";
-  v21[9] = @"stepwise-execution";
-  v20[10] = &unk_1F292CC10;
-  v20[11] = &unk_1F292CC28;
-  v21[10] = @"variable-injection";
-  v21[11] = @"file-bookmarks";
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:12];
+  v19[0] = &unk_1F292CB20;
+  v19[1] = &unk_1F292CB38;
+  v20[0] = @"unrestricted";
+  v20[1] = @"library-read";
+  v19[2] = &unk_1F292CB50;
+  v19[3] = &unk_1F292CB68;
+  v20[2] = @"home-resident";
+  v20[3] = @"import-shortcuts";
+  v19[4] = &unk_1F292CB80;
+  v19[5] = &unk_1F292CB98;
+  v20[4] = @"on-screen-content-service";
+  v20[5] = @"automation-confirmation-reset";
+  v19[6] = &unk_1F292CBB0;
+  v19[7] = &unk_1F292CBC8;
+  v20[6] = @"background-runner";
+  v20[7] = @"test-harness-runner";
+  v19[8] = &unk_1F292CBE0;
+  v19[9] = &unk_1F292CBF8;
+  v20[8] = @"droplet-creation";
+  v20[9] = @"stepwise-execution";
+  v19[10] = &unk_1F292CC10;
+  v19[11] = &unk_1F292CC28;
+  v20[10] = @"variable-injection";
+  v20[11] = @"file-bookmarks";
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:12];
   v8 = objc_opt_new();
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __VCDescriptionOfEntitlements_block_invoke;
-  v17 = &unk_1E7B00358;
-  v18 = v8;
-  v19 = entitlements;
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __VCDescriptionOfEntitlements_block_invoke;
+  v16 = &unk_1E7B00358;
+  v17 = v8;
+  v18 = entitlements;
   v9 = v8;
-  [v7 enumerateKeysAndObjectsUsingBlock:&v14];
+  [v7 enumerateKeysAndObjectsUsingBlock:&v13];
   v10 = [v9 componentsJoinedByString:@" "];
 
-  v11 = [v3 stringWithFormat:@"<%@: %p entitlements=%@>", v5, self, v10, v14, v15, v16, v17];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = [v3 stringWithFormat:@"<%@: %p entitlements=%@>", v5, self, v10, v13, v14, v15, v16];
 
   return v11;
 }
@@ -259,17 +259,17 @@ void __53__VCAccessSpecifier_accessSpecifierForCurrentProcess__block_invoke(uint
 
   else
   {
-    auditToken = [(VCAccessSpecifier *)self auditToken];
+    v6 = objc_msgSend_auditToken(self);
 
-    if (auditToken)
+    if (v6)
     {
       descriptor = [MEMORY[0x1E69C7630] descriptor];
       [descriptor setValues:1];
       v8 = MEMORY[0x1E69C7618];
       v9 = MEMORY[0x1E69C7610];
       v10 = MEMORY[0x1E69C7640];
-      auditToken2 = [(VCAccessSpecifier *)self auditToken];
-      v12 = [v10 targetWithPid:{objc_msgSend(auditToken2, "pid")}];
+      v11 = objc_msgSend_auditToken(self);
+      v12 = [v10 targetWithPid:{objc_msgSend(v11, "pid")}];
       v13 = [v9 predicateMatchingTarget:v12];
       v14 = [v8 statesForPredicate:v13 withDescriptor:descriptor error:0];
 
@@ -370,13 +370,13 @@ void __53__VCAccessSpecifier_accessSpecifierForCurrentProcess__block_invoke(uint
 
 - (id)associatedAppBundleIdentifierFromBundleRecord
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   bundleIdentifier = [(VCAccessSpecifier *)self bundleIdentifier];
   if (bundleIdentifier)
   {
-    v9 = 0;
-    v3 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:bundleIdentifier allowPlaceholder:0 error:&v9];
-    v4 = v9;
+    v8 = 0;
+    v3 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:bundleIdentifier allowPlaceholder:0 error:&v8];
+    v4 = v8;
     if (v3)
     {
       v5 = VCAppBundleIdentifierForBundleRecord(v3);
@@ -388,9 +388,9 @@ void __53__VCAccessSpecifier_accessSpecifierForCurrentProcess__block_invoke(uint
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v11 = "[VCAccessSpecifier associatedAppBundleIdentifierFromBundleRecord]";
-        v12 = 2114;
-        v13 = v4;
+        v10 = "[VCAccessSpecifier associatedAppBundleIdentifierFromBundleRecord]";
+        v11 = 2114;
+        v12 = v4;
         _os_log_impl(&dword_1B1DE3000, v6, OS_LOG_TYPE_INFO, "%s Couldn't get LSBundleRecord from task, leaving associated app bundle identifier as nil (%{public}@)", buf, 0x16u);
       }
 
@@ -402,8 +402,6 @@ void __53__VCAccessSpecifier_accessSpecifierForCurrentProcess__block_invoke(uint
   {
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -549,29 +547,29 @@ LABEL_7:
 
 + (id)accessSpecifierForTask:(__SecTask *)task auditToken:(id)token sandboxCapabilities:(int64_t)capabilities
 {
-  v88[16] = *MEMORY[0x1E69E9840];
-  v88[0] = @"com.apple.siri.VoiceShortcuts.xpc";
-  v88[1] = @"com.apple.shortcuts.library-read-access";
+  v87[16] = *MEMORY[0x1E69E9840];
+  v87[0] = @"com.apple.siri.VoiceShortcuts.xpc";
+  v87[1] = @"com.apple.shortcuts.library-read-access";
   v6 = *MEMORY[0x1E696E578];
-  v88[2] = @"com.apple.shortcuts.home-resident";
-  v88[3] = v6;
-  v88[4] = @"com.apple.shortcuts.health-access";
-  v88[5] = @"com.apple.shortcuts.background-running";
-  v88[6] = @"com.apple.shortcuts.contextual-actions-client";
-  v88[7] = @"com.apple.shortcuts.import-shortcuts";
-  v88[8] = @"com.apple.rootless.storage.shortcuts";
-  v88[9] = @"com.apple.shortcuts.on-screen-content-service";
-  v88[10] = @"com.apple.shortcuts.background-runner";
-  v88[11] = @"com.apple.shortcuts.test-harness-runner";
-  v88[12] = @"com.apple.shortcuts.droplet-creation";
-  v88[13] = @"com.apple.shortcuts.stepwise-execution";
-  v88[14] = @"com.apple.shortcuts.variable-injection";
-  v88[15] = @"com.apple.shortcuts.file-bookmarks";
+  v87[2] = @"com.apple.shortcuts.home-resident";
+  v87[3] = v6;
+  v87[4] = @"com.apple.shortcuts.health-access";
+  v87[5] = @"com.apple.shortcuts.background-running";
+  v87[6] = @"com.apple.shortcuts.contextual-actions-client";
+  v87[7] = @"com.apple.shortcuts.import-shortcuts";
+  v87[8] = @"com.apple.rootless.storage.shortcuts";
+  v87[9] = @"com.apple.shortcuts.on-screen-content-service";
+  v87[10] = @"com.apple.shortcuts.background-runner";
+  v87[11] = @"com.apple.shortcuts.test-harness-runner";
+  v87[12] = @"com.apple.shortcuts.droplet-creation";
+  v87[13] = @"com.apple.shortcuts.stepwise-execution";
+  v87[14] = @"com.apple.shortcuts.variable-injection";
+  v87[15] = @"com.apple.shortcuts.file-bookmarks";
   v7 = MEMORY[0x1E695DEC8];
   tokenCopy = token;
-  [v7 arrayWithObjects:v88 count:16];
-  v83 = v86 = task;
-  v8 = SecTaskCopyValuesForEntitlements(task, v83, 0);
+  [v7 arrayWithObjects:v87 count:16];
+  v82 = v85 = task;
+  v8 = SecTaskCopyValuesForEntitlements(task, v82, 0);
   v9 = [(__CFDictionary *)v8 objectForKeyedSubscript:@"com.apple.siri.VoiceShortcuts.xpc"];
   if (v9)
   {
@@ -1054,8 +1052,7 @@ LABEL_7:
     v70 = v67;
   }
 
-  v71 = [[self alloc] initWithSecTask:v86 auditToken:tokenCopy bundleIdentifier:0 associatedAppBundleIdentifier:0 entitlements:v70 sandboxCapabilities:capabilities];
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = [[self alloc] initWithSecTask:v85 auditToken:tokenCopy bundleIdentifier:0 associatedAppBundleIdentifier:0 entitlements:v70 sandboxCapabilities:capabilities];
 
   return v71;
 }
@@ -1090,7 +1087,7 @@ LABEL_7:
 {
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection, a2);
   }
 
   else

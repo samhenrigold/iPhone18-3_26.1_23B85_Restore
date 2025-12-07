@@ -69,29 +69,29 @@ uint64_t __30__MTAHTSupport_sharedInstance__block_invoke(uint64_t a1)
 
 + (id)getDeviceInServiceTree:(unsigned int)tree
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = +[MTAHTSupport allDevices];
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v20;
+    v8 = *v19;
 LABEL_3:
     v9 = 0;
     v10 = v7;
     while (1)
     {
-      if (*v20 != v8)
+      if (*v19 != v8)
       {
         objc_enumerationMutation(v4);
       }
 
-      v7 = *(*(&v19 + 1) + 8 * v9);
+      v7 = *(*(&v18 + 1) + 8 * v9);
 
       parent = tree;
       treeCopy = tree;
@@ -99,10 +99,10 @@ LABEL_3:
       {
         do
         {
-          v17 = 0;
+          v16 = 0;
           IORegistryEntryGetParentEntry(treeCopy, "IOService", &parent);
-          IORegistryEntryGetRegistryEntryID(parent, &v17);
-          v12 = v17;
+          IORegistryEntryGetRegistryEntryID(parent, &v16);
+          v12 = v16;
           registryID = [v7 registryID];
           treeCopy = parent;
         }
@@ -118,7 +118,7 @@ LABEL_3:
       v10 = v7;
       if (v9 == v6)
       {
-        v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -134,8 +134,6 @@ LABEL_3:
 LABEL_16:
     v7 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -150,29 +148,29 @@ LABEL_16:
 
 + (id)getInterfaceInServiceTree:(unsigned int)tree
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = +[MTAHTSupport allInterfaces];
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v20;
+    v8 = *v19;
 LABEL_3:
     v9 = 0;
     v10 = v7;
     while (1)
     {
-      if (*v20 != v8)
+      if (*v19 != v8)
       {
         objc_enumerationMutation(v4);
       }
 
-      v7 = *(*(&v19 + 1) + 8 * v9);
+      v7 = *(*(&v18 + 1) + 8 * v9);
 
       parent = tree;
       treeCopy = tree;
@@ -180,10 +178,10 @@ LABEL_3:
       {
         do
         {
-          v17 = 0;
+          v16 = 0;
           IORegistryEntryGetParentEntry(treeCopy, "IOService", &parent);
-          IORegistryEntryGetRegistryEntryID(parent, &v17);
-          v12 = v17;
+          IORegistryEntryGetRegistryEntryID(parent, &v16);
+          v12 = v16;
           registryID = [v7 registryID];
           treeCopy = parent;
         }
@@ -199,7 +197,7 @@ LABEL_3:
       v10 = v7;
       if (v9 == v6)
       {
-        v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -215,8 +213,6 @@ LABEL_3:
 LABEL_16:
     v7 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

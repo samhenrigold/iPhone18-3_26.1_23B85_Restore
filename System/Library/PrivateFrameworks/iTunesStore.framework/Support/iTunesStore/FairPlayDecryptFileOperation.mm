@@ -42,14 +42,14 @@
   self->_dpInfo = 0;
   if (v3)
   {
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v25 = sub_100102CDC;
-    v26 = &unk_100327350;
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v28 = sub_100102CDC;
+    v29 = &unk_100327350;
     selfCopy = self;
-    v28 = v3;
-    HIDWORD(v23) = 0;
-    v4 = IOPMAssertionCreateWithDescription(@"PreventUserIdleSystemSleep", [(FairPlayDecryptSession *)v3 identifier], 0, @"itunesstored FairPlay asset decryption", 0, 900.0, @"TimeoutActionRelease", &v23 + 1);
+    v31 = v3;
+    HIDWORD(v26) = 0;
+    v4 = IOPMAssertionCreateWithDescription(@"PreventUserIdleSystemSleep", [(FairPlayDecryptSession *)v3 identifier], 0, @"itunesstored FairPlay asset decryption", 0, 900.0, @"TimeoutActionRelease", &v26 + 1);
     v5 = +[SSLogConfig sharedDaemonConfig];
     v6 = v5;
     if (v4)
@@ -62,33 +62,39 @@
       shouldLog = [v6 shouldLog];
       if ([v6 shouldLogToDisk])
       {
-        v8 = shouldLog | 2;
+        LODWORD(v8) = shouldLog | 2;
       }
 
       else
       {
-        v8 = shouldLog;
+        LODWORD(v8) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject = [v6 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+      {
+        v8 = v8;
+      }
+
+      else
       {
         v8 &= 2u;
       }
 
       if (v8)
       {
-        v9 = objc_opt_class();
-        v29 = 138412546;
-        v30 = v9;
-        v31 = 1024;
-        LODWORD(v32) = v4;
-        LODWORD(v23) = 18;
-        v10 = _os_log_send_and_compose_impl();
-        if (v10)
+        v10 = objc_opt_class();
+        v32 = 138412546;
+        v33 = v10;
+        v34 = 1024;
+        LODWORD(v35) = v4;
+        LODWORD(v26) = 18;
+        v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Power assertion failed with error: %d", &v32, v26);
+        if (v11)
         {
-          v11 = v10;
-          [NSString stringWithCString:v10 encoding:4, &v29, v23];
-          free(v11);
+          v12 = v11;
+          [NSString stringWithCString:v11 encoding:4];
+          free(v12);
           SSFileLog();
         }
       }
@@ -107,78 +113,90 @@
       shouldLog2 = [v6 shouldLog];
       if ([v6 shouldLogToDisk])
       {
-        v18 = shouldLog2 | 2;
+        LODWORD(v20) = shouldLog2 | 2;
       }
 
       else
       {
-        v18 = shouldLog2;
+        LODWORD(v20) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject2 = [v6 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
       {
-        v18 &= 2u;
+        v20 = v20;
       }
 
-      if (v18)
+      else
       {
-        v19 = objc_opt_class();
+        v20 &= 2u;
+      }
+
+      if (v20)
+      {
+        v22 = objc_opt_class();
         identifier = [(FairPlayDecryptSession *)v3 identifier];
-        v29 = 138412546;
-        v30 = v19;
-        v31 = 2112;
-        v32 = identifier;
-        LODWORD(v23) = 22;
-        v21 = _os_log_send_and_compose_impl();
-        if (v21)
+        v32 = 138412546;
+        v33 = v22;
+        v34 = 2112;
+        v35 = identifier;
+        LODWORD(v26) = 22;
+        v24 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Took power assertion: %@", &v32, v26);
+        if (v24)
         {
-          v22 = v21;
-          [NSString stringWithCString:v21 encoding:4, &v29, v23];
-          free(v22);
+          v25 = v24;
+          [NSString stringWithCString:v24 encoding:4];
+          free(v25);
           SSFileLog();
         }
       }
 
-      v25(v24);
-      IOPMAssertionRelease(HIDWORD(v23));
+      v28(v27);
+      IOPMAssertionRelease(HIDWORD(v26));
     }
   }
 
   else
   {
-    v12 = +[SSLogConfig sharedDaemonConfig];
-    if (!v12)
+    v13 = +[SSLogConfig sharedDaemonConfig];
+    if (!v13)
     {
-      v12 = +[SSLogConfig sharedConfig];
+      v13 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v12 shouldLog];
-    if ([v12 shouldLogToDisk])
+    shouldLog3 = [v13 shouldLog];
+    if ([v13 shouldLogToDisk])
     {
-      v14 = shouldLog3 | 2;
+      LODWORD(v15) = shouldLog3 | 2;
     }
 
     else
     {
-      v14 = shouldLog3;
+      LODWORD(v15) = shouldLog3;
     }
 
-    if (!os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject3 = [v13 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v14 &= 2u;
+      v15 = v15;
     }
 
-    if (v14)
+    else
     {
-      v29 = 138412290;
-      v30 = objc_opt_class();
-      LODWORD(v23) = 12;
-      v15 = _os_log_send_and_compose_impl();
-      if (v15)
+      v15 &= 2u;
+    }
+
+    if (v15)
+    {
+      v32 = 138412290;
+      v33 = objc_opt_class();
+      LODWORD(v26) = 12;
+      v17 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Could not begin decrypt", &v32, v26);
+      if (v17)
       {
-        v16 = v15;
-        [NSString stringWithCString:v15 encoding:4, &v29, v23];
-        free(v16);
+        v18 = v17;
+        [NSString stringWithCString:v17 encoding:4];
+        free(v18);
         SSFileLog();
       }
     }
@@ -208,8 +226,8 @@
         break;
       }
 
-      v30 = 0;
-      v13 = [session decryptBytes:v10 error:&v30];
+      v31 = 0;
+      v13 = [session decryptBytes:v10 error:&v31];
       if (v13)
       {
         [(NSFileHandle *)v8 seekToFileOffset:[(NSFileHandle *)v8 offsetInFile]- [(NSData *)v10 length]];
@@ -228,72 +246,72 @@
         shouldLog = [v14 shouldLog];
         shouldLogToDisk = [v14 shouldLogToDisk];
         oSLogObject = [v14 OSLogObject];
+        v18 = oSLogObject;
         if (shouldLogToDisk)
         {
-          v18 = shouldLog | 2;
+          v19 = shouldLog | 2;
         }
 
         else
         {
-          v18 = shouldLog;
+          v19 = shouldLog;
         }
 
         if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = v18;
+          v20 = v19;
         }
 
         else
         {
-          v19 = v18 & 2;
+          v20 = v19 & 2;
         }
 
-        if (v19)
+        if (v20)
         {
-          v20 = objc_opt_class();
-          v31 = 138412546;
-          v32 = v20;
-          v33 = 2112;
-          v34 = v30;
-          LODWORD(v28) = 22;
-          v27 = &v31;
-          v21 = _os_log_send_and_compose_impl();
-          if (v21)
+          v21 = objc_opt_class();
+          v32 = 138412546;
+          v33 = v21;
+          v34 = 2112;
+          v35 = v31;
+          LODWORD(v29) = 22;
+          v22 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, v18, 0, "%@: Decrypt failed [%@]", &v32, v29);
+          if (v22)
           {
-            v22 = v21;
-            v23 = [NSString stringWithCString:v21 encoding:4, &v31, v28];
-            free(v22);
-            v27 = v23;
+            v23 = v22;
+            v24 = [NSString stringWithCString:v22 encoding:4];
+            free(v23);
+            v28 = v24;
             SSFileLog();
           }
         }
 
-        v24 = v30;
-        if (v24)
+        v25 = v31;
+        if (v25)
         {
           goto LABEL_21;
         }
       }
     }
 
-    v24 = 0;
+    v25 = 0;
 LABEL_21:
     [(NSFileHandle *)v8 synchronizeFile];
     error = errorCopy;
     [(NSFileHandle *)v8 closeFile];
     [v9 drain];
-    v25 = v24;
+    v26 = v25;
   }
 
   else
   {
-    v24 = ISError();
+    v25 = ISError();
     v12 = 0;
   }
 
   if (error)
   {
-    *error = v24;
+    *error = v25;
   }
 
   return v12;

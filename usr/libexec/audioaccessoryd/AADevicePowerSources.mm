@@ -24,94 +24,111 @@
 
 - (id)description
 {
-  NSAppendPrintF();
-  v3 = 0;
+  v37 = 0;
+  NSAppendPrintF(&v37, "AADevicePowerSource, Batteries: ");
+  v3 = v37;
   if ([(AADevicePowerSources *)self powerSourceCaseID])
   {
-    NSAppendPrintF();
-    v4 = v3;
+    v36 = v3;
+    NSAppendPrintF(&v36, "C, ");
+    v4 = v36;
 
     v3 = v4;
   }
 
   if ([(AADevicePowerSources *)self powerSourceCombinedLeftRightID])
   {
-    NSAppendPrintF();
-    v5 = v3;
+    v35 = v3;
+    NSAppendPrintF(&v35, "LR, ");
+    v5 = v35;
 
     v3 = v5;
   }
 
   if ([(AADevicePowerSources *)self powerSourceLeftID])
   {
-    NSAppendPrintF();
-    v6 = v3;
+    v34 = v3;
+    NSAppendPrintF(&v34, "L, ");
+    v6 = v34;
 
     v3 = v6;
   }
 
   if ([(AADevicePowerSources *)self powerSourceRightID])
   {
-    NSAppendPrintF();
-    v7 = v3;
+    v33 = v3;
+    NSAppendPrintF(&v33, "R, ");
+    v7 = v33;
 
     v3 = v7;
   }
 
   if ([(AADevicePowerSources *)self powerSourceMainID])
   {
-    NSAppendPrintF();
-    v8 = v3;
+    v32 = v3;
+    NSAppendPrintF(&v32, "M, ");
+    v8 = v32;
 
     v3 = v8;
   }
 
-  NSAppendPrintF();
-  v9 = v3;
+  v31 = v3;
+  NSAppendPrintF(&v31, "\nDetails:");
+  v9 = v31;
 
   powerSourceCaseDetails = [(AADevicePowerSources *)self powerSourceCaseDetails];
+  v11 = powerSourceCaseDetails;
   if (powerSourceCaseDetails)
   {
-    NSAppendPrintF();
-    v11 = v9;
+    v30 = v9;
+    NSAppendPrintF(&v30, "\nCase: %@", powerSourceCaseDetails);
+    v12 = v30;
 
-    v9 = v11;
+    v9 = v12;
   }
 
   powerSourceCombinedLeftRightDetails = [(AADevicePowerSources *)self powerSourceCombinedLeftRightDetails];
+  v14 = powerSourceCombinedLeftRightDetails;
   if (powerSourceCombinedLeftRightDetails)
   {
-    NSAppendPrintF();
-    v13 = v9;
-
-    v9 = v13;
-  }
-
-  powerSourceLeftDetails = [(AADevicePowerSources *)self powerSourceLeftDetails];
-  if (powerSourceLeftDetails)
-  {
-    NSAppendPrintF();
-    v15 = v9;
+    v29 = v9;
+    NSAppendPrintF(&v29, "\nLeftRight: %@", powerSourceCombinedLeftRightDetails);
+    v15 = v29;
 
     v9 = v15;
   }
 
+  powerSourceLeftDetails = [(AADevicePowerSources *)self powerSourceLeftDetails];
+  v17 = powerSourceLeftDetails;
+  if (powerSourceLeftDetails)
+  {
+    v28 = v9;
+    NSAppendPrintF(&v28, "\nLeft: %@", powerSourceLeftDetails);
+    v18 = v28;
+
+    v9 = v18;
+  }
+
   powerSourceRightDetails = [(AADevicePowerSources *)self powerSourceRightDetails];
+  v20 = powerSourceRightDetails;
   if (powerSourceRightDetails)
   {
-    NSAppendPrintF();
-    v17 = v9;
+    v27 = v9;
+    NSAppendPrintF(&v27, "\nRight: %@", powerSourceRightDetails);
+    v21 = v27;
 
-    v9 = v17;
+    v9 = v21;
   }
 
   powerSourceMainDetails = [(AADevicePowerSources *)self powerSourceMainDetails];
+  v23 = powerSourceMainDetails;
   if (powerSourceMainDetails)
   {
-    NSAppendPrintF();
-    v19 = v9;
+    v26 = v9;
+    NSAppendPrintF(&v26, "\nMain: %@", powerSourceMainDetails);
+    v24 = v26;
 
-    v9 = v19;
+    v9 = v24;
   }
 
   return v9;
@@ -698,7 +715,7 @@ LABEL_95:
     {
       if (dword_1002F6C58 <= 10 && (dword_1002F6C58 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001F12E4();
+        sub_1001F12E4(v17);
       }
 
       v26 = v17;
@@ -719,7 +736,7 @@ LABEL_95:
     {
       if (dword_1002F6C58 != -1 || _LogCategory_Initialize())
       {
-        sub_1001F1324();
+        sub_1001F1324(v17);
       }
 
       v22 = 1;
@@ -742,7 +759,7 @@ LABEL_95:
 
   if (dword_1002F6C58 <= 10 && (dword_1002F6C58 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F1364();
+    sub_1001F1364(v7, v10);
   }
 
   v11 = +[NSMutableArray array];
@@ -792,7 +809,7 @@ LABEL_95:
 
   if (dword_1002F6C58 <= 30 && (dword_1002F6C58 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F14DC(type);
+    sub_1001F14DC(type, detailsCopy);
   }
 
   [(AADevicePowerSources *)self _setPowerSource:_createPowerSource details:detailsCopy];
@@ -877,7 +894,7 @@ LABEL_95:
   {
     if (dword_1002F6C58 != -1 || (detailsCopy = _LogCategory_Initialize(), v7 = v8, detailsCopy))
     {
-      detailsCopy = sub_1001F15FC(type);
+      detailsCopy = sub_1001F15FC(type, v7);
       v7 = v8;
     }
   }
@@ -1084,7 +1101,7 @@ LABEL_14:
       {
         if (dword_1002F6C58 != -1 || (detailsCopy = _LogCategory_Initialize(), v6 = v7, detailsCopy))
         {
-          detailsCopy = sub_1001F1880();
+          detailsCopy = sub_1001F1880(v6);
           goto LABEL_14;
         }
       }

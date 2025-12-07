@@ -24,7 +24,7 @@
   sub_100315CC0(session);
 
   swift_unknownObjectRelease();
-  sub_100003540(0, &qword_10076BAC0);
+  sub_100003540(0, &qword_10076BAC0, UIDragItem_ptr);
   v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;

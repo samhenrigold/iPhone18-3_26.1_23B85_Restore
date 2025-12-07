@@ -7,7 +7,7 @@
 
 - (BOOL)sendToDestinations:(id)destinations options:(id)options error:(id *)error
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   optionsCopy = options;
   if (!destinationsCopy)
@@ -19,9 +19,9 @@
   [(WFRemoteExecutionSession *)self setState:100];
   v11 = objc_alloc_init(MEMORY[0x1E69C65C0]);
   request = [(WFRemoteExecutionSession *)self request];
-  v37 = 0;
-  v13 = [request writeTo:v11 error:&v37];
-  v14 = v37;
+  v36 = 0;
+  v13 = [request writeTo:v11 error:&v36];
+  v14 = v36;
 
   if (v13)
   {
@@ -36,18 +36,18 @@
       request2 = [(WFRemoteExecutionSession *)self request];
       identifier = [request2 identifier];
       *buf = 136315394;
-      v39 = "[WFRemoteExecutionOutgoingStopSession sendToDestinations:options:error:]";
-      v40 = 2114;
+      v38 = "[WFRemoteExecutionOutgoingStopSession sendToDestinations:options:error:]";
+      v39 = 2114;
       selfCopy = identifier;
       _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_INFO, "%s <%{public}@> sending stop request", buf, 0x16u);
     }
 
     service = [(WFRemoteExecutionSession *)self service];
+    v34 = 0;
     v35 = 0;
-    v36 = 0;
-    v22 = [service sendProtobuf:v17 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v36 error:&v35];
-    v23 = v36;
-    v24 = v35;
+    v22 = [service sendProtobuf:v17 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v35 error:&v34];
+    v23 = v35;
+    v24 = v34;
 
     if (v22)
     {
@@ -61,11 +61,11 @@
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v39 = "[WFRemoteExecutionOutgoingStopSession sendToDestinations:options:error:]";
-        v40 = 2114;
+        v38 = "[WFRemoteExecutionOutgoingStopSession sendToDestinations:options:error:]";
+        v39 = 2114;
         selfCopy = self;
-        v42 = 2114;
-        v43 = v24;
+        v41 = 2114;
+        v42 = v24;
         _os_log_impl(&dword_1CA256000, v29, OS_LOG_TYPE_ERROR, "%s %{public}@ failed to send with error: %{public}@", buf, 0x20u);
       }
 
@@ -88,11 +88,11 @@
       request3 = [(WFRemoteExecutionSession *)self request];
       identifier2 = [request3 identifier];
       *buf = 136315650;
-      v39 = "[WFRemoteExecutionOutgoingStopSession sendToDestinations:options:error:]";
-      v40 = 2114;
+      v38 = "[WFRemoteExecutionOutgoingStopSession sendToDestinations:options:error:]";
+      v39 = 2114;
       selfCopy = identifier2;
-      v42 = 2114;
-      v43 = v14;
+      v41 = 2114;
+      v42 = v14;
       _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_FAULT, "%s <%{public}@> failed to write protobuf with error: %{public}@", buf, 0x20u);
     }
 
@@ -107,7 +107,6 @@
     v22 = 0;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v22;
 }
 

@@ -2,7 +2,7 @@
 - (CUINamedRecognitionObject)initWithName:(id)name usingRenditionKey:(id)key fromTheme:(unint64_t)theme;
 - (NSData)objectData;
 - (id)description;
-- (id)referenceOriginTransformation;
+- (void)referenceOriginTransformation;
 @end
 
 @implementation CUINamedRecognitionObject
@@ -28,7 +28,7 @@
   return [(CUIThemeRendition *)_rendition data];
 }
 
-- (id)referenceOriginTransformation
+- (void)referenceOriginTransformation
 {
   _rendition = [self _rendition];
 

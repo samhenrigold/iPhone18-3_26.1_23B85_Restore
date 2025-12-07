@@ -26,7 +26,7 @@
   if (platform > 0x20)
   {
 LABEL_7:
-    v4 = _ISDefaultLog();
+    v4 = _ISDefaultLog(platform);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(ISIconStackComposer *)v4 segmentationIdiom];
@@ -683,7 +683,7 @@ LABEL_79:
       goto LABEL_24;
   }
 
-  v47 = _ISDefaultLog();
+  v47 = _ISDefaultLog(v21);
   if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
   {
     [ISIconStackComposer iconStackForSize:appearance scale:v47 desiredAssetAppearance:? returningGenerationReport:?];
@@ -698,11 +698,10 @@ LABEL_127:
 
 - (void)iconStackForSize:(uint64_t)a1 scale:(NSObject *)a2 desiredAssetAppearance:returningGenerationReport:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_ERROR, "Failed to compose icon stack for unknown appearance: %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_ERROR, "Failed to compose icon stack for unknown appearance: %lu", &v2, 0xCu);
 }
 
 @end

@@ -267,9 +267,9 @@ LABEL_11:
 
   if (v13 && v9)
   {
-    v10 = [(NSArray *)v13 isEqual:v9];
+    isEqual = objc_msgSend_isEqual_(v13);
 
-    if (v10)
+    if (isEqual)
     {
       goto LABEL_12;
     }
@@ -477,9 +477,9 @@ LABEL_12:
 
       v10 = *(*(&v16 + 1) + 8 * i);
       _identifier = [v10 _identifier];
-      v12 = [_identifier isEqualToString:identifierCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(_identifier);
 
-      if (v12)
+      if (isEqualToString)
       {
         v13 = v10;
       }

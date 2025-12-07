@@ -184,142 +184,138 @@ void __74__WBSAutoFillAssociatedDomainsManager_domainsToConsiderIdenticalToDomai
 
 - (void)_updateDomainToDomainsWithAssociatedCredentials
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   domainToDomainsWithAssociatedCredentials = self->_domainToDomainsWithAssociatedCredentials;
   self->_domainToDomainsWithAssociatedCredentials = dictionary;
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = self->_domainsWithAssociatedCredentials;
-  v5 = [(NSArray *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v5 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * i);
+        v9 = *(*(&v22 + 1) + 8 * i);
         v10 = [MEMORY[0x1E695DFD8] setWithArray:v9];
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         v11 = v9;
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v20;
+          v14 = *v19;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v19 + 1) + 8 * j);
+              v16 = *(*(&v18 + 1) + 8 * j);
               if ([v16 length])
               {
                 [(NSMutableDictionary *)self->_domainToDomainsWithAssociatedCredentials setObject:v10 forKeyedSubscript:v16];
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v13);
         }
       }
 
-      v6 = [(NSArray *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v6 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateDomainToDomainsToConsiderIdentical
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   domainsToDomainsToConsiderIdentical = self->_domainsToDomainsToConsiderIdentical;
   self->_domainsToDomainsToConsiderIdentical = dictionary;
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = self->_domainsToConsiderIdentical;
-  v5 = [(NSArray *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v5 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * i);
+        v9 = *(*(&v22 + 1) + 8 * i);
         v10 = [MEMORY[0x1E695DFD8] setWithArray:v9];
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         v11 = v9;
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v20;
+          v14 = *v19;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v19 + 1) + 8 * j);
+              v16 = *(*(&v18 + 1) + 8 * j);
               if ([v16 length])
               {
                 [(NSMutableDictionary *)self->_domainsToDomainsToConsiderIdentical setObject:v10 forKeyedSubscript:v16];
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v13);
         }
       }
 
-      v6 = [(NSArray *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v6 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

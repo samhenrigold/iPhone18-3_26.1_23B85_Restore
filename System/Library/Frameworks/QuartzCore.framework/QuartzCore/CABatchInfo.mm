@@ -60,7 +60,7 @@ LABEL_3:
 {
   os_unfair_lock_lock(&self->_lock);
   port = self->_port;
-  if (port + 1 < 2 || self->_invalidated)
+  if ((port + 1) < 2 || self->_invalidated)
   {
     v4 = 0;
   }

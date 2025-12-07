@@ -21,36 +21,34 @@
     return 0;
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
-  transfer = [(SDAirDropHandler *)self transfer];
-  completedURLs = [transfer completedURLs];
+  v14 = 0u;
+  v12 = 0u;
+  v3 = [(SDAirDropHandler *)self transfer:0];
+  completedURLs = [v3 completedURLs];
 
-  v5 = [completedURLs countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [completedURLs countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
-      for (i = 0; i != v6; i = i + 1)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(completedURLs);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
         if (!SFIsiCloudFamilyLink())
         {
-          v10 = 0;
+          v9 = 0;
           goto LABEL_13;
         }
       }
 
-      v6 = [completedURLs countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [completedURLs countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -60,10 +58,10 @@
     }
   }
 
-  v10 = 1;
+  v9 = 1;
 LABEL_13:
 
-  return v10;
+  return v9;
 }
 
 - (int64_t)transferTypes

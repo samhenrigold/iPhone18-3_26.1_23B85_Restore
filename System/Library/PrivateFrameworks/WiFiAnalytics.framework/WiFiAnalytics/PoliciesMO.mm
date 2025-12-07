@@ -6,7 +6,7 @@
 
 - (BOOL)setRelationOn:(id)on to:(id)to withError:(id *)error
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   onCopy = on;
   toCopy = to;
   entity = [(PoliciesMO *)self entity];
@@ -21,15 +21,15 @@
       goto LABEL_4;
     }
 
-    v22 = MEMORY[0x1E696ABC0];
-    v40 = *MEMORY[0x1E696A588];
-    v23 = MEMORY[0x1E696AEC0];
+    v21 = MEMORY[0x1E696ABC0];
+    v39 = *MEMORY[0x1E696A588];
+    v22 = MEMORY[0x1E696AEC0];
     entity2 = [(PoliciesMO *)self entity];
     name = [entity2 name];
-    v26 = [v23 stringWithFormat:@"relationship %@ does not exist in entity %@", onCopy, name];
-    v41[0] = v26;
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
-    *error = [v22 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9043 userInfo:v27];
+    v25 = [v22 stringWithFormat:@"relationship %@ does not exist in entity %@", onCopy, name];
+    v40[0] = v25;
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    *error = [v21 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9043 userInfo:v26];
 
 LABEL_9:
     LOBYTE(error) = 0;
@@ -50,19 +50,19 @@ LABEL_9:
       goto LABEL_4;
     }
 
-    v36 = MEMORY[0x1E696ABC0];
-    v38 = *MEMORY[0x1E696A588];
-    v28 = MEMORY[0x1E696AEC0];
+    v35 = MEMORY[0x1E696ABC0];
+    v37 = *MEMORY[0x1E696A588];
+    v27 = MEMORY[0x1E696AEC0];
     entity5 = [toCopy entity];
     name2 = [entity5 name];
     entity6 = [(PoliciesMO *)self entity];
     relationshipsByName3 = [entity6 relationshipsByName];
-    v32 = [relationshipsByName3 objectForKeyedSubscript:onCopy];
-    destinationEntity2 = [v32 destinationEntity];
-    v34 = [v28 stringWithFormat:@"obj %@(%@) is not of expected entity (%@)", toCopy, name2, destinationEntity2];
-    v39 = v34;
-    v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-    *error = [v36 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9043 userInfo:v35];
+    v31 = [relationshipsByName3 objectForKeyedSubscript:onCopy];
+    destinationEntity2 = [v31 destinationEntity];
+    v33 = [v27 stringWithFormat:@"obj %@(%@) is not of expected entity (%@)", toCopy, name2, destinationEntity2];
+    v38 = v33;
+    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    *error = [v35 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9043 userInfo:v34];
 
     goto LABEL_9;
   }
@@ -71,7 +71,6 @@ LABEL_9:
   LOBYTE(error) = 1;
 LABEL_4:
 
-  v20 = *MEMORY[0x1E69E9840];
   return error;
 }
 

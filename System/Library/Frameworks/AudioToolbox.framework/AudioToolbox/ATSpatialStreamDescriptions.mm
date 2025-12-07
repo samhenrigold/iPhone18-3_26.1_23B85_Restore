@@ -16,11 +16,11 @@
 
 - (ATSpatialStreamDescriptions)initWithFlatIOFormat:(id)format type:(int64_t)type
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   formatCopy = format;
-  v54.receiver = self;
-  v54.super_class = ATSpatialStreamDescriptions;
-  v8 = [(ATSpatialStreamDescriptions *)&v54 init];
+  v53.receiver = self;
+  v53.super_class = ATSpatialStreamDescriptions;
+  v8 = [(ATSpatialStreamDescriptions *)&v53 init];
   v9 = v8;
   if (!v8)
   {
@@ -99,66 +99,66 @@ LABEL_49:
     __break(1u);
   }
 
-  streamDescription = [(AVAudioFormat *)v9->_flatFormat streamDescription];
-  v19 = *streamDescription;
-  v20 = *(streamDescription + 16);
-  v53 = *(streamDescription + 32);
-  v51 = v19;
-  v52 = v20;
+  v18 = objc_msgSend_streamDescription(v9->_flatFormat);
+  v19 = *v18;
+  v20 = *(v18 + 16);
+  v52 = *(v18 + 32);
+  v50 = v19;
+  v51 = v20;
   if (v17 >= 2)
   {
-    if ((BYTE12(v51) & 0x20) != 0)
+    if ((BYTE12(v50) & 0x20) != 0)
     {
       v21 = 1;
     }
 
     else
     {
-      v21 = HIDWORD(v52);
-      if (!HIDWORD(v52))
+      v21 = HIDWORD(v51);
+      if (!HIDWORD(v51))
       {
-        v22 = (v53 + 7) >> 3;
+        v22 = (v52 + 7) >> 3;
 LABEL_24:
-        *(&v52 + 1) = v22 | 0x100000000;
-        *&v52 = *(&v52 + 1);
-        v55 = 0;
-        v56 = &v55;
-        v57 = 0x2050000000;
+        *(&v51 + 1) = v22 | 0x100000000;
+        *&v51 = *(&v51 + 1);
+        v54 = 0;
+        v55 = &v54;
+        v56 = 0x2050000000;
         v25 = getAVAudioChannelLayoutClass::softClass;
-        v58 = getAVAudioChannelLayoutClass::softClass;
+        v57 = getAVAudioChannelLayoutClass::softClass;
         if (!getAVAudioChannelLayoutClass::softClass)
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __getAVAudioChannelLayoutClass_block_invoke;
           *&buf[24] = &unk_1E7ED08E8;
-          *&buf[32] = &v55;
+          *&buf[32] = &v54;
           __getAVAudioChannelLayoutClass_block_invoke(buf);
-          v25 = v56[3];
+          v25 = v55[3];
         }
 
         v26 = v25;
-        _Block_object_dispose(&v55, 8);
-        v24 = [[v26 alloc] initWithLayoutTag:{6553601, v51, v52}];
-        v55 = 0;
-        v56 = &v55;
-        v57 = 0x2050000000;
+        _Block_object_dispose(&v54, 8);
+        v24 = [[v26 alloc] initWithLayoutTag:{6553601, v50, v51}];
+        v54 = 0;
+        v55 = &v54;
+        v56 = 0x2050000000;
         v27 = getAVAudioFormatClass::softClass;
-        v58 = getAVAudioFormatClass::softClass;
+        v57 = getAVAudioFormatClass::softClass;
         if (!getAVAudioFormatClass::softClass)
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __getAVAudioFormatClass_block_invoke;
           *&buf[24] = &unk_1E7ED08E8;
-          *&buf[32] = &v55;
+          *&buf[32] = &v54;
           __getAVAudioFormatClass_block_invoke(buf);
-          v27 = v56[3];
+          v27 = v55[3];
         }
 
         v28 = v27;
-        _Block_object_dispose(&v55, 8);
-        v29 = [[v28 alloc] initWithStreamDescription:&v51 channelLayout:v24];
+        _Block_object_dispose(&v54, 8);
+        v29 = [[v28 alloc] initWithStreamDescription:&v50 channelLayout:v24];
         streamFormat = v9->_streamFormat;
         v9->_streamFormat = v29;
 
@@ -166,7 +166,7 @@ LABEL_24:
       }
     }
 
-    v22 = DWORD2(v52) / v21;
+    v22 = DWORD2(v51) / v21;
     goto LABEL_24;
   }
 
@@ -268,17 +268,16 @@ LABEL_48:
     *&buf[30] = v37;
     *&buf[34] = 2080;
     *&buf[36] = uTF8String2;
-    v60 = 2080;
-    v61 = uTF8String3;
-    v62 = 1024;
-    v63 = v14;
+    v59 = 2080;
+    v60 = uTF8String3;
+    v61 = 1024;
+    v62 = v14;
     _os_log_impl(&dword_1B9A08000, p_super, OS_LOG_TYPE_DEBUG, "%25s:%-5d streamdescs@%p: type %d, flat format %s, stream format %s, #streams %d", buf, 0x3Cu);
   }
 
 LABEL_43:
 
 LABEL_44:
-  v49 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

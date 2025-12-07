@@ -30,7 +30,7 @@
 - (_TtC29managedsettingsdiagnoticstool38ManagedSettingsDiagnosticsToolDelegate)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ManagedSettingsDiagnosticsToolDelegate();
+  v3.super_class = type metadata accessor for ManagedSettingsDiagnosticsToolDelegate(self, a2);
   return [(ManagedSettingsDiagnosticsToolDelegate *)&v3 init];
 }
 

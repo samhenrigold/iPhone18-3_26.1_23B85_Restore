@@ -37,6 +37,7 @@
 - (void)invitationWithGUID:(id)d personID:(id)iD completionBlock:(id)block;
 - (void)isAssetCollectionWithGUID:(id)d markedAsUnviewedPersonID:(id)iD completionBlock:(id)block;
 - (void)isInRetryStateHandler:(id)handler;
+- (void)markAlbumGUIDAsViewed:(id)viewed personID:(id)d moveLastViewedAssetCollectionMarker:(BOOL)marker info:(id)info;
 - (void)markAsSpamAlbumWithGUID:(id)d personID:(id)iD completionBlock:(id)block;
 - (void)markAsSpamInvitationWithGUID:(id)d personID:(id)iD completionBlock:(id)block;
 - (void)markAsSpamInvitationWithToken:(id)token personID:(id)d completionBlock:(id)block;
@@ -45,9 +46,13 @@
 - (void)nextActivityDateHandler:(id)handler;
 - (void)pingForeground;
 - (void)refreshAccessControlListForAlbumWithGUID:(id)d personID:(id)iD info:(id)info;
+- (void)refreshCommentsForAssetCollectionWithGUID:(id)d resetSync:(BOOL)sync personID:(id)iD info:(id)info;
+- (void)refreshContentOfAlbumWithGUID:(id)d resetSync:(BOOL)sync personID:(id)iD info:(id)info;
+- (void)refreshResetSync:(BOOL)sync personID:(id)d info:(id)info;
 - (void)rejectInvitationWithGUID:(id)d personID:(id)iD info:(id)info;
 - (void)removeAccessControlEntryWithGUID:(id)d personID:(id)iD info:(id)info;
 - (void)retrieveAssets:(id)assets inAlbumWithGUID:(id)d personID:(id)iD;
+- (void)retrieveAssetsFromAssetCollectionsWithGUIDs:(id)ds assetTypeFlags:(int)flags personID:(id)d;
 - (void)retryOutstandingActivities;
 - (void)retryOutstandingActivitiesForPersonID:(id)d;
 - (void)serverSideConfigurationDictionaryForPersonID:(id)d completionBlock:(id)block;
@@ -57,8 +62,13 @@
 - (void)setFocusAssetCollectionGUID:(id)d forPersonID:(id)iD;
 - (void)setIsUIForeground:(BOOL)foreground forPersonID:(id)d;
 - (void)setMigrationMarker:(id)marker personID:(id)d;
+- (void)setMultipleContributorsEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD completionBlock:(id)block;
+- (void)setMultipleContributorsEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD info:(id)info completionBlock:(id)block;
+- (void)setPublicAccessEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD completionBlock:(id)block;
+- (void)setPublicAccessEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD info:(id)info completionBlock:(id)block;
 - (void)subscribeToAlbumWithGUID:(id)d personID:(id)iD info:(id)info;
 - (void)timerPingQueueForegroundPingTimerExpiredContext:(id)context personID:(id)d;
+- (void)timerPingQueueSendSetUIForeground:(BOOL)foreground personID:(id)d;
 - (void)unsubscribeFromAlbumWithGUID:(id)d personID:(id)iD info:(id)info;
 - (void)videoURLForAssetCollectionWithGUID:(id)d personID:(id)iD completionBlock:(id)block;
 - (void)videoURLsForAssetCollectionWithGUID:(id)d forMediaAssetType:(unint64_t)type personID:(id)iD completionBlock:(id)block;
@@ -73,6 +83,23 @@
     *v4 = 0;
     _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSASConnection received an unexpected request. Ignoring.", v4, 2u);
   }
+}
+
+- (void)retrieveAssetsFromAssetCollectionsWithGUIDs:(id)ds assetTypeFlags:(int)flags personID:(id)d
+{
+  v5 = *&flags;
+  v8 = MEMORY[0x277CBEAC0];
+  v9 = *MEMORY[0x277D001F0];
+  v10 = *MEMORY[0x277D00098];
+  v11 = *MEMORY[0x277D00270];
+  v12 = *MEMORY[0x277D00038];
+  v13 = MEMORY[0x277CCABB0];
+  dCopy = d;
+  dsCopy = ds;
+  v17 = [v13 numberWithInt:v5];
+  v16 = [v8 dictionaryWithObjectsAndKeys:{v9, v10, dCopy, v11, dsCopy, v12, v17, *MEMORY[0x277D00048], 0}];
+
+  [(MSASConnection *)self _sendMessageReliably:v16];
 }
 
 - (void)retrieveAssets:(id)assets inAlbumWithGUID:(id)d personID:(id)iD
@@ -267,31 +294,29 @@ LABEL_7:
 
 - (void)markAsSpamAlbumWithGUID:(id)d personID:(id)iD completionBlock:(id)block
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v9 = *MEMORY[0x277D00198];
   v10 = *MEMORY[0x277D00270];
-  v20[0] = *MEMORY[0x277D00098];
-  v20[1] = v10;
-  v21[0] = v9;
-  v21[1] = iD;
-  v20[2] = *MEMORY[0x277CFFFF0];
-  v21[2] = d;
+  v19[0] = *MEMORY[0x277D00098];
+  v19[1] = v10;
+  v20[0] = v9;
+  v20[1] = iD;
+  v19[2] = *MEMORY[0x277CFFFF0];
+  v20[2] = d;
   v11 = MEMORY[0x277CBEAC0];
   iDCopy = iD;
   dCopy = d;
-  v14 = [v11 dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v14 = [v11 dictionaryWithObjects:v20 forKeys:v19 count:3];
   connection = [(MSASConnection *)self connection];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __67__MSASConnection_markAsSpamAlbumWithGUID_personID_completionBlock___block_invoke;
-  v18[3] = &unk_2798A4FD8;
-  v18[4] = self;
-  v19 = blockCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __67__MSASConnection_markAsSpamAlbumWithGUID_personID_completionBlock___block_invoke;
+  v17[3] = &unk_2798A4FD8;
+  v17[4] = self;
+  v18 = blockCopy;
   v16 = blockCopy;
-  [connection sendMessageReliably:v14 data:0 maxRetryCount:5 withHandler:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [connection sendMessageReliably:v14 data:0 maxRetryCount:5 withHandler:v17];
 }
 
 void __67__MSASConnection_markAsSpamAlbumWithGUID_personID_completionBlock___block_invoke(uint64_t a1, int a2, void *a3)
@@ -327,31 +352,29 @@ LABEL_7:
 
 - (void)markAsSpamInvitationWithGUID:(id)d personID:(id)iD completionBlock:(id)block
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v9 = *MEMORY[0x277D001A0];
   v10 = *MEMORY[0x277D00270];
-  v20[0] = *MEMORY[0x277D00098];
-  v20[1] = v10;
-  v21[0] = v9;
-  v21[1] = iD;
-  v20[2] = *MEMORY[0x277D000A8];
-  v21[2] = d;
+  v19[0] = *MEMORY[0x277D00098];
+  v19[1] = v10;
+  v20[0] = v9;
+  v20[1] = iD;
+  v19[2] = *MEMORY[0x277D000A8];
+  v20[2] = d;
   v11 = MEMORY[0x277CBEAC0];
   iDCopy = iD;
   dCopy = d;
-  v14 = [v11 dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v14 = [v11 dictionaryWithObjects:v20 forKeys:v19 count:3];
   connection = [(MSASConnection *)self connection];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __72__MSASConnection_markAsSpamInvitationWithGUID_personID_completionBlock___block_invoke;
-  v18[3] = &unk_2798A4FD8;
-  v18[4] = self;
-  v19 = blockCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __72__MSASConnection_markAsSpamInvitationWithGUID_personID_completionBlock___block_invoke;
+  v17[3] = &unk_2798A4FD8;
+  v17[4] = self;
+  v18 = blockCopy;
   v16 = blockCopy;
-  [connection sendMessageReliably:v14 data:0 maxRetryCount:5 withHandler:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [connection sendMessageReliably:v14 data:0 maxRetryCount:5 withHandler:v17];
 }
 
 void __72__MSASConnection_markAsSpamInvitationWithGUID_personID_completionBlock___block_invoke(uint64_t a1, int a2, void *a3)
@@ -387,31 +410,29 @@ LABEL_7:
 
 - (void)markAsSpamInvitationWithToken:(id)token personID:(id)d completionBlock:(id)block
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v9 = *MEMORY[0x277D001A8];
   v10 = *MEMORY[0x277D00270];
-  v20[0] = *MEMORY[0x277D00098];
-  v20[1] = v10;
-  v21[0] = v9;
-  v21[1] = d;
-  v20[2] = *MEMORY[0x277D000B0];
-  v21[2] = token;
+  v19[0] = *MEMORY[0x277D00098];
+  v19[1] = v10;
+  v20[0] = v9;
+  v20[1] = d;
+  v19[2] = *MEMORY[0x277D000B0];
+  v20[2] = token;
   v11 = MEMORY[0x277CBEAC0];
   dCopy = d;
   tokenCopy = token;
-  v14 = [v11 dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v14 = [v11 dictionaryWithObjects:v20 forKeys:v19 count:3];
   connection = [(MSASConnection *)self connection];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __73__MSASConnection_markAsSpamInvitationWithToken_personID_completionBlock___block_invoke;
-  v18[3] = &unk_2798A4FD8;
-  v18[4] = self;
-  v19 = blockCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __73__MSASConnection_markAsSpamInvitationWithToken_personID_completionBlock___block_invoke;
+  v17[3] = &unk_2798A4FD8;
+  v17[4] = self;
+  v18 = blockCopy;
   v16 = blockCopy;
-  [connection sendMessageReliably:v14 data:0 maxRetryCount:5 withHandler:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [connection sendMessageReliably:v14 data:0 maxRetryCount:5 withHandler:v17];
 }
 
 void __73__MSASConnection_markAsSpamInvitationWithToken_personID_completionBlock___block_invoke(uint64_t a1, int a2, void *a3)
@@ -457,6 +478,35 @@ LABEL_7:
   [(MSASConnection *)self _sendMessageReliably:v6];
 }
 
+- (void)setMultipleContributorsEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD info:(id)info completionBlock:(id)block
+{
+  enabledCopy = enabled;
+  infoCopy = info;
+  blockCopy = block;
+  v24 = MEMORY[0x277CBEAC0];
+  v12 = *MEMORY[0x277D00220];
+  v13 = *MEMORY[0x277D00098];
+  v14 = *MEMORY[0x277D00270];
+  v15 = *MEMORY[0x277CFFFF0];
+  v16 = MEMORY[0x277CCABB0];
+  iDCopy = iD;
+  dCopy = d;
+  v19 = [v16 numberWithBool:enabledCopy];
+  v20 = [v24 dictionaryWithObjectsAndKeys:{v12, v13, iDCopy, v14, dCopy, v15, v19, *MEMORY[0x277D00078], infoCopy, *MEMORY[0x277D000A0], 0}];
+
+  connection = [(MSASConnection *)self connection];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __96__MSASConnection_setMultipleContributorsEnabled_forAlbumWithGUID_personID_info_completionBlock___block_invoke;
+  v27[3] = &unk_2798A4FB0;
+  selfCopy = self;
+  v30 = blockCopy;
+  v28 = infoCopy;
+  v22 = infoCopy;
+  v23 = blockCopy;
+  [connection sendMessageReliably:v20 data:0 maxRetryCount:5 withHandler:v27];
+}
+
 void __96__MSASConnection_setMultipleContributorsEnabled_forAlbumWithGUID_personID_info_completionBlock___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
@@ -477,6 +527,48 @@ void __96__MSASConnection_setMultipleContributorsEnabled_forAlbumWithGUID_person
   }
 }
 
+- (void)setMultipleContributorsEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD completionBlock:(id)block
+{
+  enabledCopy = enabled;
+  blockCopy = block;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __91__MSASConnection_setMultipleContributorsEnabled_forAlbumWithGUID_personID_completionBlock___block_invoke;
+  v12[3] = &unk_2798A4F88;
+  v13 = blockCopy;
+  v11 = blockCopy;
+  [(MSASConnection *)self setMultipleContributorsEnabled:enabledCopy forAlbumWithGUID:d personID:iD info:0 completionBlock:v12];
+}
+
+- (void)setPublicAccessEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD info:(id)info completionBlock:(id)block
+{
+  enabledCopy = enabled;
+  infoCopy = info;
+  blockCopy = block;
+  v24 = MEMORY[0x277CBEAC0];
+  v12 = *MEMORY[0x277D00228];
+  v13 = *MEMORY[0x277D00098];
+  v14 = *MEMORY[0x277D00270];
+  v15 = *MEMORY[0x277CFFFF0];
+  v16 = MEMORY[0x277CCABB0];
+  iDCopy = iD;
+  dCopy = d;
+  v19 = [v16 numberWithBool:enabledCopy];
+  v20 = [v24 dictionaryWithObjectsAndKeys:{v12, v13, iDCopy, v14, dCopy, v15, v19, *MEMORY[0x277D00078], infoCopy, *MEMORY[0x277D000A0], 0}];
+
+  connection = [(MSASConnection *)self connection];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __88__MSASConnection_setPublicAccessEnabled_forAlbumWithGUID_personID_info_completionBlock___block_invoke;
+  v27[3] = &unk_2798A4FB0;
+  selfCopy = self;
+  v30 = blockCopy;
+  v28 = infoCopy;
+  v22 = infoCopy;
+  v23 = blockCopy;
+  [connection sendMessageReliably:v20 data:0 maxRetryCount:5 withHandler:v27];
+}
+
 void __88__MSASConnection_setPublicAccessEnabled_forAlbumWithGUID_personID_info_completionBlock___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
@@ -495,6 +587,37 @@ void __88__MSASConnection_setPublicAccessEnabled_forAlbumWithGUID_personID_info_
     v7 = [*(a1 + 40) _communicationFailureError];
     (*(v6 + 16))(v6, v9, v7);
   }
+}
+
+- (void)setPublicAccessEnabled:(BOOL)enabled forAlbumWithGUID:(id)d personID:(id)iD completionBlock:(id)block
+{
+  enabledCopy = enabled;
+  blockCopy = block;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __83__MSASConnection_setPublicAccessEnabled_forAlbumWithGUID_personID_completionBlock___block_invoke;
+  v12[3] = &unk_2798A4F88;
+  v13 = blockCopy;
+  v11 = blockCopy;
+  [(MSASConnection *)self setPublicAccessEnabled:enabledCopy forAlbumWithGUID:d personID:iD info:0 completionBlock:v12];
+}
+
+- (void)markAlbumGUIDAsViewed:(id)viewed personID:(id)d moveLastViewedAssetCollectionMarker:(BOOL)marker info:(id)info
+{
+  markerCopy = marker;
+  v9 = MEMORY[0x277CBEAC0];
+  v10 = *MEMORY[0x277D00190];
+  v11 = *MEMORY[0x277D00098];
+  v12 = *MEMORY[0x277D00270];
+  v13 = *MEMORY[0x277CFFFF0];
+  v14 = MEMORY[0x277CCABB0];
+  infoCopy = info;
+  dCopy = d;
+  viewedCopy = viewed;
+  v19 = [v14 numberWithBool:markerCopy];
+  v18 = [v9 dictionaryWithObjectsAndKeys:{v10, v11, dCopy, v12, viewedCopy, v13, v19, *MEMORY[0x277D00250], infoCopy, *MEMORY[0x277D000A0], 0}];
+
+  [(MSASConnection *)self _sendMessageReliably:v18];
 }
 
 - (void)deleteAlbumWithGUID:(id)d personID:(id)iD info:(id)info
@@ -538,10 +661,60 @@ void __88__MSASConnection_setPublicAccessEnabled_forAlbumWithGUID_personID_info_
   [(MSASConnection *)self _sendMessageReliably:v6];
 }
 
+- (void)refreshCommentsForAssetCollectionWithGUID:(id)d resetSync:(BOOL)sync personID:(id)iD info:(id)info
+{
+  syncCopy = sync;
+  v9 = MEMORY[0x277CBEAC0];
+  v10 = *MEMORY[0x277D001C8];
+  v11 = *MEMORY[0x277D00098];
+  v12 = *MEMORY[0x277D00270];
+  v13 = *MEMORY[0x277D00030];
+  v14 = MEMORY[0x277CCABB0];
+  infoCopy = info;
+  iDCopy = iD;
+  dCopy = d;
+  v19 = [v14 numberWithBool:syncCopy];
+  v18 = [v9 dictionaryWithObjectsAndKeys:{v10, v11, iDCopy, v12, dCopy, v13, v19, *MEMORY[0x277D00288], infoCopy, *MEMORY[0x277D000A0], 0}];
+
+  [(MSASConnection *)self _sendMessageReliably:v18];
+}
+
 - (void)refreshAccessControlListForAlbumWithGUID:(id)d personID:(id)iD info:(id)info
 {
   v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{*MEMORY[0x277D001C0], *MEMORY[0x277D00098], iD, *MEMORY[0x277D00270], d, *MEMORY[0x277CFFFF0], info, *MEMORY[0x277D000A0], 0}];
   [(MSASConnection *)self _sendMessageReliably:v6];
+}
+
+- (void)refreshContentOfAlbumWithGUID:(id)d resetSync:(BOOL)sync personID:(id)iD info:(id)info
+{
+  syncCopy = sync;
+  v10 = MEMORY[0x277CBEAC0];
+  v11 = *MEMORY[0x277D001D0];
+  v12 = *MEMORY[0x277D00098];
+  v13 = *MEMORY[0x277D00270];
+  v14 = MEMORY[0x277CCABB0];
+  infoCopy = info;
+  iDCopy = iD;
+  dCopy = d;
+  v19 = [v14 numberWithBool:syncCopy];
+  v18 = [v10 dictionaryWithObjectsAndKeys:{v11, v12, iDCopy, v13, v19, *MEMORY[0x277D00288], dCopy, *MEMORY[0x277CFFFF0], infoCopy, *MEMORY[0x277D000A0], 0}];
+
+  [(MSASConnection *)self _sendMessageReliably:v18];
+}
+
+- (void)refreshResetSync:(BOOL)sync personID:(id)d info:(id)info
+{
+  syncCopy = sync;
+  v8 = MEMORY[0x277CBEAC0];
+  v9 = *MEMORY[0x277D001D8];
+  v10 = *MEMORY[0x277D00098];
+  v11 = MEMORY[0x277CCABB0];
+  infoCopy = info;
+  dCopy = d;
+  v15 = [v11 numberWithBool:syncCopy];
+  v14 = [v8 dictionaryWithObjectsAndKeys:{v9, v10, v15, *MEMORY[0x277D00288], dCopy, *MEMORY[0x277D00270], infoCopy, *MEMORY[0x277D000A0], 0}];
+
+  [(MSASConnection *)self _sendMessageReliably:v14];
 }
 
 - (void)clientOrgKeyForRecordID:(id)d zoneName:(id)name ownerUserID:(id)iD personID:(id)personID completionBlock:(id)block
@@ -641,19 +814,19 @@ void __88__MSASConnection_clientOrgKeyForRecordID_zoneName_ownerUserID_personID_
 
 void __79__MSASConnection_serverSideConfigurationDictionaryForPersonID_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKey:*MEMORY[0x277D002A0]];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v8 = 138543874;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v7;
-    v12 = 2114;
-    v13 = v3;
-    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retrieved server side config for personID %@: %{public}@", &v8, 0x20u);
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v7 = 138543874;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v3;
+    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retrieved server side config for personID %@: %{public}@", &v7, 0x20u);
     if (!v3)
     {
       goto LABEL_4;
@@ -671,27 +844,23 @@ LABEL_3:
 
 LABEL_4:
   (*(*(a1 + 48) + 16))();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __79__MSASConnection_serverSideConfigurationDictionaryForPersonID_completionBlock___block_invoke_31(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = 138543618;
-    v7 = v4;
-    v8 = 2112;
-    v9 = v5;
-    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not retrieve server side config for person ID %@", &v6, 0x16u);
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not retrieve server side config for person ID %@", &v5, 0x16u);
   }
 
-  result = (*(a1[6] + 16))();
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 - (void)commentWithGUID:(id)d personID:(id)iD completionBlock:(id)block
@@ -1047,16 +1216,16 @@ void __56__MSASConnection_albumGUIDsForPersonID_completionBlock___block_invoke(u
 
 - (void)setFocusAssetCollectionGUID:(id)d forPersonID:(id)iD
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   v8 = _timerPingQueue();
   block = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __58__MSASConnection_setFocusAssetCollectionGUID_forPersonID___block_invoke;
-  v15 = &unk_2798A5260;
+  v12 = 3221225472;
+  v13 = __58__MSASConnection_setFocusAssetCollectionGUID_forPersonID___block_invoke;
+  v14 = &unk_2798A5260;
   selfCopy = self;
-  v17 = iDCopy;
+  v16 = iDCopy;
   v9 = iDCopy;
   dispatch_async(v8, &block);
 
@@ -1064,29 +1233,27 @@ void __56__MSASConnection_albumGUIDsForPersonID_completionBlock___block_invoke(u
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v20 = 2114;
-    v21 = dCopy;
+    v19 = 2114;
+    v20 = dCopy;
     _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Setting focus asset collection GUID to %{public}@", buf, 0x16u);
   }
 
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{*MEMORY[0x277D00210], *MEMORY[0x277D00098], v9, *MEMORY[0x277D00270], dCopy, *MEMORY[0x277D00030], 0, block, v13, v14, v15, selfCopy}];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{*MEMORY[0x277D00210], *MEMORY[0x277D00098], v9, *MEMORY[0x277D00270], dCopy, *MEMORY[0x277D00030], 0, block, v12, v13, v14, selfCopy}];
   [(MSASConnection *)self _sendMessageReliably:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFocusAlbumGUID:(id)d forPersonID:(id)iD
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   v8 = _timerPingQueue();
   block = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __48__MSASConnection_setFocusAlbumGUID_forPersonID___block_invoke;
-  v15 = &unk_2798A5260;
+  v12 = 3221225472;
+  v13 = __48__MSASConnection_setFocusAlbumGUID_forPersonID___block_invoke;
+  v14 = &unk_2798A5260;
   selfCopy = self;
-  v17 = iDCopy;
+  v16 = iDCopy;
   v9 = iDCopy;
   dispatch_async(v8, &block);
 
@@ -1094,15 +1261,13 @@ void __56__MSASConnection_albumGUIDsForPersonID_completionBlock___block_invoke(u
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v20 = 2114;
-    v21 = dCopy;
+    v19 = 2114;
+    v20 = dCopy;
     _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Setting focus album GUID to %{public}@", buf, 0x16u);
   }
 
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{*MEMORY[0x277D002B0], *MEMORY[0x277D00098], v9, *MEMORY[0x277D00270], dCopy, *MEMORY[0x277CFFFF0], 0, block, v13, v14, v15, selfCopy}];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{*MEMORY[0x277D002B0], *MEMORY[0x277D00098], v9, *MEMORY[0x277D00270], dCopy, *MEMORY[0x277CFFFF0], 0, block, v12, v13, v14, selfCopy}];
   [(MSASConnection *)self _sendMessageReliably:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFocusAlbum:(id)album forPersonID:(id)d
@@ -1220,6 +1385,24 @@ void __48__MSASConnection_setIsUIForeground_forPersonID___block_invoke(uint64_t 
   dispatch_async(v3, block);
 }
 
+- (void)timerPingQueueSendSetUIForeground:(BOOL)foreground personID:(id)d
+{
+  foregroundCopy = foreground;
+  dCopy = d;
+  v6 = MEMORY[0x277CBEB38];
+  v7 = *MEMORY[0x277D002B8];
+  v8 = *MEMORY[0x277D00098];
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:foregroundCopy];
+  v10 = [v6 dictionaryWithObjectsAndKeys:{v7, v8, v9, *MEMORY[0x277D000C0], 0}];
+
+  if (dCopy)
+  {
+    [v10 setObject:dCopy forKey:*MEMORY[0x277D00270]];
+  }
+
+  [(MSASConnection *)self _sendMessageReliably:v10];
+}
+
 - (void)activityIsThrottledByLackOfDiskSpacePersonID:(id)d completionBlock:(id)block
 {
   blockCopy = block;
@@ -1247,29 +1430,27 @@ void __79__MSASConnection_activityIsThrottledByLackOfDiskSpacePersonID_completio
 
 - (void)handlePushNotificationForPersonID:(id)d
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = dCopy;
   if (dCopy)
   {
     v6 = *MEMORY[0x277D00278];
     v7 = *MEMORY[0x277D00270];
-    v12[0] = *MEMORY[0x277D00098];
-    v12[1] = v7;
-    v13[0] = v6;
-    v13[1] = dCopy;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v11[0] = *MEMORY[0x277D00098];
+    v11[1] = v7;
+    v12[0] = v6;
+    v12[1] = dCopy;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
     [(MSASConnection *)self _sendMessageReliably:v8];
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v10 = 138543362;
+    v9 = 138543362;
     selfCopy = self;
-    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Missing person ID for push notification, ignoring.", &v10, 0xCu);
+    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Missing person ID for push notification, ignoring.", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelActivitiesForPersonID:(id)d
@@ -1280,45 +1461,41 @@ void __79__MSASConnection_activityIsThrottledByLackOfDiskSpacePersonID_completio
 
 - (void)retryOutstandingActivitiesForPersonID:(id)d
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = *MEMORY[0x277D00298];
   v6 = *MEMORY[0x277D00270];
-  v12[0] = *MEMORY[0x277D00098];
-  v12[1] = v6;
-  v13[0] = v5;
-  v13[1] = dCopy;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __56__MSASConnection_retryOutstandingActivitiesForPersonID___block_invoke;
-  v10[3] = &unk_2798A4EC0;
-  v10[4] = self;
-  v11 = dCopy;
+  v11[0] = *MEMORY[0x277D00098];
+  v11[1] = v6;
+  v12[0] = v5;
+  v12[1] = dCopy;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __56__MSASConnection_retryOutstandingActivitiesForPersonID___block_invoke;
+  v9[3] = &unk_2798A4EC0;
+  v9[4] = self;
+  v10 = dCopy;
   v8 = dCopy;
-  [(MSASConnection *)self _sendMessageReliably:v7 data:0 successHandler:v10 failureHandler:&__block_literal_global_25];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(MSASConnection *)self _sendMessageReliably:v7 data:0 successHandler:v9 failureHandler:&__block_literal_global_25];
 }
 
 void __56__MSASConnection_retryOutstandingActivitiesForPersonID___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [a2 objectForKey:*MEMORY[0x277D00080]];
   if (v3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = 138543874;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v3;
-    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to send message to retry outstanding activities for personID %@. Error: %{public}@", &v7, 0x20u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = 138543874;
+    v7 = v4;
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v3;
+    _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to send message to retry outstanding activities for personID %@. Error: %{public}@", &v6, 0x20u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __56__MSASConnection_retryOutstandingActivitiesForPersonID___block_invoke_23()
@@ -1500,7 +1677,7 @@ void __44__MSASConnection__communicationFailureError__block_invoke()
 
 - (void)_sendMessageReliably:(id)reliably data:(id)data successHandler:(id)handler failureHandler:(id)failureHandler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   reliablyCopy = reliably;
   handlerCopy = handler;
   failureHandlerCopy = failureHandler;
@@ -1509,31 +1686,29 @@ void __44__MSASConnection__communicationFailureError__block_invoke()
 
   if (!connection && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v20 = [reliablyCopy objectForKey:*MEMORY[0x277D00098]];
+    v19 = [reliablyCopy objectForKey:*MEMORY[0x277D00098]];
     *buf = 138543362;
-    v26 = v20;
+    v25 = v19;
     _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "XPCNSClientConnection is nil. Failed to send XPC command: %{public}@", buf, 0xCu);
   }
 
   connection2 = [(MSASConnection *)self connection];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __74__MSASConnection__sendMessageReliably_data_successHandler_failureHandler___block_invoke;
-  v21[3] = &unk_2798A4E48;
-  v22 = reliablyCopy;
-  v23 = handlerCopy;
-  v24 = failureHandlerCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __74__MSASConnection__sendMessageReliably_data_successHandler_failureHandler___block_invoke;
+  v20[3] = &unk_2798A4E48;
+  v21 = reliablyCopy;
+  v22 = handlerCopy;
+  v23 = failureHandlerCopy;
   v16 = failureHandlerCopy;
   v17 = reliablyCopy;
   v18 = handlerCopy;
-  [connection2 sendMessageReliably:v17 data:dataCopy maxRetryCount:5 withHandler:v21];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [connection2 sendMessageReliably:v17 data:dataCopy maxRetryCount:5 withHandler:v20];
 }
 
 void __74__MSASConnection__sendMessageReliably_data_successHandler_failureHandler___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -1544,9 +1719,9 @@ void __74__MSASConnection__sendMessageReliably_data_successHandler_failureHandle
       block[1] = 3221225472;
       block[2] = __74__MSASConnection__sendMessageReliably_data_successHandler_failureHandler___block_invoke_2;
       block[3] = &unk_2798A5170;
-      v7 = &v15;
-      v15 = v6;
-      v14 = v5;
+      v7 = &v14;
+      v14 = v6;
+      v13 = v5;
       dispatch_async(MEMORY[0x277D85CD0], block);
 
 LABEL_8:
@@ -1557,27 +1732,25 @@ LABEL_8:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v10 = [*(a1 + 32) objectForKey:*MEMORY[0x277D00098]];
+      v9 = [*(a1 + 32) objectForKey:*MEMORY[0x277D00098]];
       *buf = 138543362;
-      v17 = v10;
+      v16 = v9;
       _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to send XPC command: %{public}@", buf, 0xCu);
     }
 
     v8 = *(a1 + 48);
     if (v8)
     {
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __74__MSASConnection__sendMessageReliably_data_successHandler_failureHandler___block_invoke_8;
-      v11[3] = &unk_2798A4E20;
-      v7 = &v12;
-      v12 = v8;
-      dispatch_async(MEMORY[0x277D85CD0], v11);
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __74__MSASConnection__sendMessageReliably_data_successHandler_failureHandler___block_invoke_8;
+      v10[3] = &unk_2798A4E20;
+      v7 = &v11;
+      v11 = v8;
+      dispatch_async(MEMORY[0x277D85CD0], v10);
       goto LABEL_8;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (NSMutableDictionary)serverSideConfigurationDictionaryByPersonID
@@ -1642,10 +1815,10 @@ LABEL_8:
 
 - (MSASConnection)init
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = MSASConnection;
-  v2 = [(MSASConnection *)&v14 init];
+  v16 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = MSASConnection;
+  v2 = [(MSASConnection *)&v13 init];
   if (v2)
   {
     if (_initializePlatform_onceToken != -1)
@@ -1663,34 +1836,33 @@ LABEL_8:
     out_token = 0;
     uTF8String = [*MEMORY[0x277D002A8] UTF8String];
     v7 = dispatch_get_global_queue(0, 0);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __22__MSASConnection_init__block_invoke;
-    v11[3] = &unk_2798A4DF8;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __22__MSASConnection_init__block_invoke;
+    v10[3] = &unk_2798A4DF8;
     v8 = v2;
-    v12 = v8;
-    LODWORD(uTF8String) = notify_register_dispatch(uTF8String, &out_token, v7, v11);
+    v11 = v8;
+    LODWORD(uTF8String) = notify_register_dispatch(uTF8String, &out_token, v7, v10);
 
     if (uTF8String && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v16 = v8;
+      v15 = v8;
       _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not register for server-side configuration change notification.", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void __22__MSASConnection_init__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v2 = *(a1 + 32);
     *buf = 138412290;
-    v10 = v2;
+    v9 = v2;
     _os_log_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: Server side configuration changed. Purging local cache.", buf, 0xCu);
   }
 
@@ -1700,12 +1872,10 @@ void __22__MSASConnection_init__block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __22__MSASConnection_init__block_invoke_4;
   block[3] = &unk_2798A5010;
-  v8 = v3;
+  v7 = v3;
   dispatch_barrier_sync(v4, block);
   v5 = [MEMORY[0x277CCAB98] defaultCenter];
   [v5 postNotificationName:*MEMORY[0x277D002A8] object:*(a1 + 32)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __22__MSASConnection_init__block_invoke_4(uint64_t a1)

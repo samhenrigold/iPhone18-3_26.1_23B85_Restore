@@ -11,6 +11,7 @@
 + (NSArray)controllers;
 + (id)snapshotWithProfile:(id)profile;
 + (void)_startWirelessControllerDiscoveryWithBTClassic:(BOOL)classic btle:(BOOL)btle completionHandler:(id)handler;
++ (void)setShouldMonitorBackgroundEvents:(BOOL)shouldMonitorBackgroundEvents;
 + (void)stopWirelessControllerDiscovery;
 - (BOOL)_legacy_isAttachedToDevice;
 - (BOOL)displayTrueSiriRemoteName;
@@ -159,33 +160,33 @@
 
 - (void)setComponents:(id)components
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   componentsCopy = components;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v5 = [(NSArray *)self->_components differenceFromArray:componentsCopy];
   removals = [v5 removals];
 
-  v7 = [removals countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v7 = [removals countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v7)
   {
-    v8 = *v39;
+    v8 = *v38;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v39 != v8)
+        if (*v38 != v8)
         {
           objc_enumerationMutation(removals);
         }
 
-        object = [*(*(&v38 + 1) + 8 * i) object];
+        object = [*(*(&v37 + 1) + 8 * i) object];
         [object setController:0];
       }
 
-      v7 = [removals countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v7 = [removals countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v7);
@@ -195,25 +196,25 @@
   components = self->_components;
   self->_components = v11;
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = componentsCopy;
-  v13 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v13 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v13)
   {
-    v14 = *v35;
+    v14 = *v34;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v35 != v14)
+        if (*v34 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v34 + 1) + 8 * j);
+        v16 = *(*(&v33 + 1) + 8 * j);
         [v16 setController:self];
         if ([v16 conformsToProtocol:&unk_1F4EA0998])
         {
@@ -306,7 +307,7 @@
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v13 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v13);
@@ -316,12 +317,12 @@
   {
     objc_initWeak(&location, self);
     settings = self->_settings;
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __30__GCController_setComponents___block_invoke;
-    v31[3] = &unk_1E841A4C0;
-    objc_copyWeak(&v32, &location);
-    [(GCControllerSettingsComponent *)settings setChangedHandler:v31];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __30__GCController_setComponents___block_invoke;
+    v30[3] = &unk_1E841A4C0;
+    objc_copyWeak(&v31, &location);
+    [(GCControllerSettingsComponent *)settings setChangedHandler:v30];
     physicalInput = self->_physicalInput;
     settingsProfile = [(GCControllerSettingsComponent *)self->_settings settingsProfile];
     [(GCPhysicalInputProfile *)physicalInput setSettingsProfile:settingsProfile];
@@ -330,11 +331,9 @@
     settingsProfile2 = [(GCControllerSettingsComponent *)self->_settings settingsProfile];
     [(_GCControllerInputComponent *)input setSettingsProfile:settingsProfile2];
 
-    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(&location);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __30__GCController_setComponents___block_invoke(uint64_t a1)
@@ -369,27 +368,27 @@ void __30__GCController_setComponents___block_invoke(uint64_t a1)
 
 - (id)componentForProtocol:(id)protocol
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   protocolCopy = protocol;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = [(NSArray *)self->_components mutableCopy];
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9 conformsToProtocol:protocolCopy])
         {
           v6 = v9;
@@ -397,7 +396,7 @@ void __30__GCController_setComponents___block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -409,34 +408,32 @@ void __30__GCController_setComponents___block_invoke(uint64_t a1)
 
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (id)componentForClass:(Class)class
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = [(NSArray *)self->_components mutableCopy];
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           v9 = v8;
@@ -444,7 +441,7 @@ LABEL_11:
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -457,55 +454,51 @@ LABEL_11:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (void)setHandlerQueue:(id)queue
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (self->_handlerQueue != queueCopy)
   {
     objc_storeStrong(&self->_handlerQueue, queue);
     if (self->_components)
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       components = [(GCController *)self components];
-      v7 = [components countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [components countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v14;
+        v9 = *v13;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v14 != v9)
+            if (*v13 != v9)
             {
               objc_enumerationMutation(components);
             }
 
-            v11 = *(*(&v13 + 1) + 8 * i);
+            v11 = *(*(&v12 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
               [v11 setDispatchQueue:queueCopy];
             }
           }
 
-          v8 = [components countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v8 = [components countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
         while (v8);
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)vendorName
@@ -599,19 +592,18 @@ LABEL_11:
 
 - (NSString)persistentIdentifier
 {
-  identifier = self->_identifier;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->_identifier;
+    v3 = self->_identifier;
   }
 
   else
   {
-    v4 = @"controller";
+    v3 = @"controller";
   }
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)isAttachedToDevice
@@ -753,7 +745,6 @@ LABEL_11:
   [(GCController *)self _legacy_noteInputProfileAccess:v2];
   if (self->_components)
   {
-    physicalInput = self->_physicalInput;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -779,9 +770,8 @@ LABEL_11:
   [(GCController *)self _legacy_noteInputProfileAccess:v2];
   if (self->_components)
   {
-    physicalInput = self->_physicalInput;
     objc_opt_class();
-    if (objc_opt_isKindOfClass() & 1) != 0 || (v5 = self->_physicalInput, objc_opt_class(), (objc_opt_isKindOfClass()))
+    if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
     {
       _legacy_gamepad = self->_physicalInput;
     }
@@ -805,9 +795,8 @@ LABEL_11:
   [(GCController *)self _legacy_noteInputProfileAccess:v2];
   if (self->_components)
   {
-    physicalInput = self->_physicalInput;
     objc_opt_class();
-    if (objc_opt_isKindOfClass() & 1) != 0 || (v5 = self->_physicalInput, objc_opt_class(), (objc_opt_isKindOfClass()) || (v6 = self->_physicalInput, objc_opt_class(), (objc_opt_isKindOfClass()))
+    if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
     {
       _legacy_microGamepad = self->_physicalInput;
     }
@@ -910,6 +899,14 @@ LABEL_11:
   return currentController;
 }
 
++ (void)setShouldMonitorBackgroundEvents:(BOOL)shouldMonitorBackgroundEvents
+{
+  v3 = shouldMonitorBackgroundEvents;
+  v5 = +[_GCLegacyDeviceSession sharedInstance];
+  configuration = [v5 configuration];
+  [configuration setMonitorControllerEventsInBackground:v3];
+}
+
 + (BOOL)shouldMonitorBackgroundEvents
 {
   v2 = +[_GCLegacyDeviceSession sharedInstance];
@@ -958,7 +955,7 @@ LABEL_11:
 
 + (BOOL)_settingsSupportedForBLEDevice:(id)device settingsStore:(id)store
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   identifier = [device identifier];
   lowercaseString = [identifier lowercaseString];
@@ -966,25 +963,25 @@ LABEL_11:
   if (lowercaseString)
   {
     +[GCController controllers];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v8 = v32 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v8 = v31 = 0u;
+    v9 = [v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v30;
+      v11 = *v29;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v30 != v11)
+          if (*v29 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v29 + 1) + 8 * i);
+          v13 = *(*(&v28 + 1) + 8 * i);
           persistentIdentifier = [v13 persistentIdentifier];
           if (__80__GCController_BluetoothSettings___settingsSupportedForBLEDevice_settingsStore___block_invoke(persistentIdentifier, persistentIdentifier, lowercaseString))
           {
@@ -1003,33 +1000,33 @@ LABEL_11:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v10);
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     controllers = [storeCopy controllers];
     values = [controllers values];
 
-    v21 = [values countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v21 = [values countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v21)
     {
-      v17 = *v26;
+      v17 = *v25;
       while (2)
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(values);
           }
 
-          persistentIdentifier2 = [*(*(&v25 + 1) + 8 * j) persistentIdentifier];
+          persistentIdentifier2 = [*(*(&v24 + 1) + 8 * j) persistentIdentifier];
           v20 = __80__GCController_BluetoothSettings___settingsSupportedForBLEDevice_settingsStore___block_invoke(persistentIdentifier2, persistentIdentifier2, lowercaseString);
 
           if (v20)
@@ -1039,7 +1036,7 @@ LABEL_11:
           }
         }
 
-        v21 = [values countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v21 = [values countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v21)
         {
           continue;
@@ -1057,7 +1054,6 @@ LABEL_24:
     LOBYTE(v21) = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -1072,62 +1068,63 @@ uint64_t __80__GCController_BluetoothSettings___settingsSupportedForBLEDevice_se
 
 + (BOOL)_settingsSupportedForBTClassicDevice:(id)device settingsStore:(id)store
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   btAddressData = [device btAddressData];
   v7 = btAddressData;
   if (btAddressData)
   {
-    if ([btAddressData length] == 6)
+    v8 = [btAddressData length];
+    if (v8 == 6)
     {
       bytes = [v7 bytes];
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%02X-%02X-%02X-%02X-%02X-%02X", *bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
-      v10 = +[GCController controllers];
-      v43 = 0;
-      v11 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})" options:1 error:&v43];
-      v12 = v43;
-      if (v12)
+      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%02X-%02X-%02X-%02X-%02X-%02X", *bytes, bytes[1], bytes[2], bytes[3], bytes[4], bytes[5]];
+      v12 = +[GCController controllers];
+      v45 = 0;
+      v13 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})" options:1 error:&v45];
+      v14 = v45;
+      if (v14)
       {
-        LOBYTE(v13) = 0;
+        LOBYTE(v15) = 0;
       }
 
       else
       {
-        v32 = storeCopy;
+        v34 = storeCopy;
         aBlock[0] = MEMORY[0x1E69E9820];
         aBlock[1] = 3221225472;
         aBlock[2] = __86__GCController_BluetoothSettings___settingsSupportedForBTClassicDevice_settingsStore___block_invoke;
         aBlock[3] = &unk_1E841A4E8;
-        v30 = v11;
-        v42 = v11;
-        v14 = _Block_copy(aBlock);
-        v37 = 0u;
-        v38 = 0u;
+        v32 = v13;
+        v44 = v13;
+        v17 = _Block_copy(aBlock);
         v39 = 0u;
         v40 = 0u;
-        v31 = v10;
-        values = v10;
-        v16 = [values countByEnumeratingWithState:&v37 objects:v45 count:16];
-        if (v16)
+        v41 = 0u;
+        v42 = 0u;
+        v33 = v12;
+        values = v12;
+        v19 = [values countByEnumeratingWithState:&v39 objects:v47 count:16];
+        if (v19)
         {
-          v17 = v16;
-          v18 = *v38;
+          v20 = v19;
+          v21 = *v40;
           do
           {
-            for (i = 0; i != v17; ++i)
+            for (i = 0; i != v20; ++i)
             {
-              if (*v38 != v18)
+              if (*v40 != v21)
               {
                 objc_enumerationMutation(values);
               }
 
-              v20 = *(*(&v37 + 1) + 8 * i);
-              persistentIdentifier = [v20 persistentIdentifier];
-              if (v14[2](v14, persistentIdentifier, v9))
+              v23 = *(*(&v39 + 1) + 8 * i);
+              persistentIdentifier = [v23 persistentIdentifier];
+              if (v17[2](v17, persistentIdentifier, v11))
               {
-                v22 = v20[10];
+                v25 = v23[10];
 
-                if (v22)
+                if (v25)
                 {
                   goto LABEL_27;
                 }
@@ -1138,45 +1135,45 @@ uint64_t __80__GCController_BluetoothSettings___settingsSupportedForBLEDevice_se
               }
             }
 
-            v17 = [values countByEnumeratingWithState:&v37 objects:v45 count:16];
+            v20 = [values countByEnumeratingWithState:&v39 objects:v47 count:16];
           }
 
-          while (v17);
+          while (v20);
         }
 
+        v37 = 0u;
+        v38 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v33 = 0u;
-        v34 = 0u;
-        storeCopy = v32;
-        controllers = [v32 controllers];
+        storeCopy = v34;
+        controllers = [v34 controllers];
         values = [controllers values];
 
-        v13 = [values countByEnumeratingWithState:&v33 objects:v44 count:16];
-        if (v13)
+        v15 = [values countByEnumeratingWithState:&v35 objects:v46 count:16];
+        if (v15)
         {
-          v24 = *v34;
+          v27 = *v36;
 LABEL_20:
-          v25 = 0;
+          v28 = 0;
           while (1)
           {
-            if (*v34 != v24)
+            if (*v36 != v27)
             {
               objc_enumerationMutation(values);
             }
 
-            persistentIdentifier2 = [*(*(&v33 + 1) + 8 * v25) persistentIdentifier];
-            v27 = v14[2](v14, persistentIdentifier2, v9);
+            persistentIdentifier2 = [*(*(&v35 + 1) + 8 * v28) persistentIdentifier];
+            v30 = v17[2](v17, persistentIdentifier2, v11);
 
-            if (v27)
+            if (v30)
             {
               break;
             }
 
-            if (v13 == ++v25)
+            if (v15 == ++v28)
             {
-              v13 = [values countByEnumeratingWithState:&v33 objects:v44 count:16];
-              if (v13)
+              v15 = [values countByEnumeratingWithState:&v35 objects:v46 count:16];
+              if (v15)
               {
                 goto LABEL_20;
               }
@@ -1186,39 +1183,39 @@ LABEL_20:
           }
 
 LABEL_27:
-          LOBYTE(v13) = 1;
+          LOBYTE(v15) = 1;
 LABEL_28:
-          storeCopy = v32;
+          storeCopy = v34;
         }
 
-        v11 = v30;
-        v10 = v31;
-        v12 = 0;
+        v13 = v32;
+        v12 = v33;
+        v14 = 0;
       }
 
       goto LABEL_31;
     }
 
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(v8, v9);
+    if (isInternalBuild)
     {
-      v9 = getGCLogger();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = getGCLogger(isInternalBuild);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [GCController(BluetoothSettings) _settingsSupportedForBTClassicDevice:v7 settingsStore:v9];
+        [GCController(BluetoothSettings) _settingsSupportedForBTClassicDevice:v7 settingsStore:v11];
       }
 
-      LOBYTE(v13) = 0;
+      LOBYTE(v15) = 0;
 LABEL_31:
 
       goto LABEL_32;
     }
   }
 
-  LOBYTE(v13) = 0;
+  LOBYTE(v15) = 0;
 LABEL_32:
 
-  v28 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v15;
 }
 
 BOOL __86__GCController_BluetoothSettings___settingsSupportedForBTClassicDevice_settingsStore___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1358,9 +1355,9 @@ void __68__GCController_Legacy____openXPC_and_CBApplicationDidBecomeActive____bl
 - (GCController)initWithProfile:(id)profile
 {
   profileCopy = profile;
-  v13.receiver = self;
-  v13.super_class = GCController;
-  v6 = [(GCController *)&v13 init];
+  v19.receiver = self;
+  v19.super_class = GCController;
+  v6 = [(GCController *)&v19 init];
   v7 = v6;
   if (v6)
   {
@@ -1374,18 +1371,20 @@ void __68__GCController_Legacy____openXPC_and_CBApplicationDidBecomeActive____bl
     [(GCController *)v7 setPhysicalDeviceUniqueID:uUIDString];
 
     objc_storeStrong(&v7->_profile, profile);
-    [(GCNamedProfile *)v7->_profile setController:v7];
-    if (gc_isInternalBuild())
+    v12 = [(GCNamedProfile *)v7->_profile setController:v7];
+    isInternalBuild = gc_isInternalBuild(v12, v13);
+    if (isInternalBuild)
     {
       [GCController(Legacy) initWithProfile:v7];
     }
 
-    if (gc_isInternalBuild())
+    v16 = gc_isInternalBuild(isInternalBuild, v15);
+    if (v16)
     {
       [GCController(Legacy) initWithProfile:v7];
     }
 
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v16, v17))
     {
       [GCController(Legacy) initWithProfile:v7];
     }
@@ -1397,9 +1396,9 @@ void __68__GCController_Legacy____openXPC_and_CBApplicationDidBecomeActive____bl
 - (GCController)initWithProfileClass:(Class)class service:(id)service
 {
   serviceCopy = service;
-  v29.receiver = self;
-  v29.super_class = GCController;
-  v7 = [(GCController *)&v29 init];
+  v39.receiver = self;
+  v39.super_class = GCController;
+  v7 = [(GCController *)&v39 init];
   if (!v7)
   {
     goto LABEL_26;
@@ -1419,7 +1418,7 @@ void __68__GCController_Legacy____openXPC_and_CBApplicationDidBecomeActive____bl
   v12 = [serviceCopy stringPropertyForKey:@"SerialNumber"];
   [(GCController *)v7 setUniqueIdentifier:v12];
 
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v13, v14))
   {
     [GCController(Legacy) initWithProfileClass:serviceCopy service:v7];
     if (class)
@@ -1431,7 +1430,7 @@ LABEL_25:
     objc_storeStrong(&v7->_handlerQueue, MEMORY[0x1E69E96A0]);
     [(GCController *)v7 setPlayerIndex:-1];
 LABEL_26:
-    v27 = v7;
+    v34 = v7;
     goto LABEL_27;
   }
 
@@ -1441,45 +1440,49 @@ LABEL_26:
   }
 
 LABEL_4:
-  v13 = [[class alloc] initWithController:v7];
+  v15 = [[class alloc] initWithController:v7];
   profile = v7->_profile;
-  v7->_profile = v13;
+  v7->_profile = v15;
 
-  v15 = v7->_profile;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [(GCNamedProfile *)v7->_profile conformsToProtocol:&unk_1F4E9C418])
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v24 = [serviceCopy numberPropertyForKey:@"ProductID"];
-      unsignedIntValue = [v24 unsignedIntValue];
-
-      if ((unsignedIntValue & 0xFFFFFFFE) == 0x314)
+      isKindOfClass = [(GCNamedProfile *)v7->_profile conformsToProtocol:&unk_1F4E9C418];
+      if (isKindOfClass)
       {
-        v26 = 5;
-      }
+        v27 = [serviceCopy numberPropertyForKey:@"ProductID"];
+        unsignedIntValue = [v27 unsignedIntValue];
 
-      else
-      {
-        v26 = 4;
-      }
+        if ((unsignedIntValue & 0xFFFFFFFE) == 0x314)
+        {
+          v29 = 5;
+        }
 
-      [(GCNamedProfile *)v7->_profile setDeviceType:v26];
+        else
+        {
+          v29 = 4;
+        }
+
+        isKindOfClass = [(GCNamedProfile *)v7->_profile setDeviceType:v29];
+      }
     }
 
     goto LABEL_19;
   }
 
-  v16 = v7->_profile;
-  v17 = [serviceCopy numberPropertyForKey:@"VendorID"];
-  unsignedIntValue2 = [v17 unsignedIntValue];
+  v17 = v7->_profile;
+  v18 = [serviceCopy numberPropertyForKey:@"VendorID"];
+  unsignedIntValue2 = [v18 unsignedIntValue];
 
-  v19 = [serviceCopy numberPropertyForKey:@"ProductID"];
-  unsignedIntValue3 = [v19 unsignedIntValue];
+  v20 = [serviceCopy numberPropertyForKey:@"ProductID"];
+  unsignedIntValue3 = [v20 unsignedIntValue];
 
-  v21 = [serviceCopy stringPropertyForKey:@"Transport"];
-  v22 = v21;
+  v22 = [serviceCopy stringPropertyForKey:@"Transport"];
+  v23 = v22;
   if (unsignedIntValue2 != 76)
   {
     goto LABEL_16;
@@ -1487,7 +1490,7 @@ LABEL_4:
 
   if (unsignedIntValue3 == 621)
   {
-    v23 = 2;
+    v24 = 2;
     goto LABEL_15;
   }
 
@@ -1496,17 +1499,19 @@ LABEL_4:
 LABEL_16:
 
 LABEL_19:
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(isKindOfClass, v26);
+    if (isInternalBuild)
     {
       [GCController(Legacy) initWithProfileClass:v7 service:?];
     }
 
-    if (gc_isInternalBuild())
+    v32 = gc_isInternalBuild(isInternalBuild, v31);
+    if (v32)
     {
       [GCController(Legacy) initWithProfile:v7];
     }
 
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v32, v33))
     {
       [GCController(Legacy) initWithProfile:v7];
     }
@@ -1514,37 +1519,39 @@ LABEL_19:
     goto LABEL_25;
   }
 
-  if ([v21 isEqualToString:@"Rapport"])
+  if ([v22 isEqualToString:@"Rapport"])
   {
-    v23 = 3;
+    v24 = 3;
 LABEL_15:
-    [(GCNamedProfile *)v16 setDeviceType:v23];
+    [(GCNamedProfile *)v17 setDeviceType:v24];
     goto LABEL_16;
   }
 
-  if ([v22 isEqualToString:@"BluetoothLowEnergy"])
+  v36 = [v23 isEqualToString:@"BluetoothLowEnergy"];
+  if (v36)
   {
-    v23 = 1;
+    v24 = 1;
     goto LABEL_15;
   }
 
-  if (gc_isInternalBuild())
+  v38 = gc_isInternalBuild(v36, v37);
+  if (v38)
   {
-    [GCController(Legacy) initWithProfileClass:service:];
+    [GCController(Legacy) initWithProfileClass:v38 service:?];
   }
 
-  v27 = 0;
+  v34 = 0;
 LABEL_27:
 
-  return v27;
+  return v34;
 }
 
 - (GCController)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = GCController;
-  v5 = [(GCController *)&v18 init];
+  v24.receiver = self;
+  v24.super_class = GCController;
+  v5 = [(GCController *)&v24 init];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -1558,42 +1565,44 @@ LABEL_27:
     vendorName = v5->_vendorName;
     v5->_vendorName = v10;
 
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(v12, v13);
+    if (isInternalBuild)
     {
       [GCController(Legacy) initWithProfileClass:v5 service:?];
     }
 
-    if (gc_isInternalBuild())
+    v16 = gc_isInternalBuild(isInternalBuild, v15);
+    if (v16)
     {
       [GCController(Legacy) initWithProfile:v5];
     }
 
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v16, v17))
     {
       [GCController(Legacy) initWithProfile:v5];
     }
 
     objc_storeStrong(&v5->_handlerQueue, MEMORY[0x1E69E96A0]);
-    v12 = off_1E84180F0;
+    v18 = off_1E84180F0;
     if (!v8)
     {
-      v12 = off_1E8418110;
+      v18 = off_1E8418110;
     }
 
-    v13 = [objc_alloc(*v12) initWithController:v5];
+    v19 = [objc_alloc(*v18) initWithController:v5];
     profile = v5->_profile;
-    v5->_profile = v13;
+    v5->_profile = v19;
 
     if (v9 && [(GCNamedProfile *)v5->_profile conformsToProtocol:&unk_1F4E94D18])
     {
-      v15 = v5->_profile;
-      v16 = [[GCMotion alloc] initWithController:v5];
+      v21 = v5->_profile;
+      v22 = [[GCMotion alloc] initWithController:v5];
       if ([coderCopy decodeBoolForKey:@"hasCompass"])
       {
-        [(GCMotion *)v16 _setCompassEnabled:1];
+        [(GCMotion *)v22 _setCompassEnabled:1];
       }
 
-      [(GCNamedProfile *)v15 set_motion:v16];
+      [(GCNamedProfile *)v21 set_motion:v22];
     }
 
     -[GCController setPlayerIndex:](v5, "setPlayerIndex:", [coderCopy decodeIntegerForKey:@"playerIndex"]);
@@ -1708,9 +1717,9 @@ void __39__GCController_Legacy___legacy_dealloc__block_invoke(uint64_t a1)
         if ((isKindOfClass & 1) == 0)
         {
 LABEL_15:
-          if (gc_isInternalBuild())
+          if (gc_isInternalBuild(v12, v13))
           {
-            [GCController(Legacy) deviceHash];
+            [(GCController(Legacy) *)v9 deviceHash];
           }
 
           self->_deviceHash = [v9 hash];
@@ -1724,29 +1733,29 @@ LABEL_15:
           hidServices2 = [(GCController *)self hidServices];
           firstObject = [hidServices2 firstObject];
           registryID = [firstObject registryID];
-          v16 = [registryID description];
+          v18 = [registryID description];
 
-          v9 = v16;
+          v9 = v18;
         }
       }
 
       else
       {
-        v17 = [v6 stringPropertyForKey:@"PhysicalDeviceUniqueID"];
-        profile3 = v17;
-        if (v17)
+        v19 = [v6 stringPropertyForKey:@"PhysicalDeviceUniqueID"];
+        profile3 = v19;
+        if (v19)
         {
-          profile3 = v17;
+          profile3 = v19;
           v9 = profile3;
         }
 
         else
         {
-          v18 = [v6 numberPropertyForKey:@"LocationID"];
-          v19 = [v6 numberPropertyForKey:@"VendorID"];
-          v20 = [v6 numberPropertyForKey:@"ProductID"];
+          v20 = [v6 numberPropertyForKey:@"LocationID"];
+          v21 = [v6 numberPropertyForKey:@"VendorID"];
+          v22 = [v6 numberPropertyForKey:@"ProductID"];
           registryID2 = [v6 registryID];
-          v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@ %@ %@", v19, v20, v18, registryID2];
+          v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@ %@ %@", v21, v22, v20, registryID2];
         }
       }
 
@@ -1973,28 +1982,28 @@ LABEL_7:
 
 - (void)addServiceRefs:(id)refs
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   hidServices = [refs hidServices];
-  v5 = [hidServices countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [hidServices countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(hidServices);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * v8);
+        v9 = *(*(&v11 + 1) + 8 * v8);
         hidServices2 = [(GCController *)self hidServices];
         [hidServices2 addObject:v9];
 
@@ -2002,13 +2011,11 @@ LABEL_7:
       }
 
       while (v6 != v8);
-      v6 = [hidServices countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [hidServices countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addServiceRef:(id)ref
@@ -2020,34 +2027,34 @@ LABEL_7:
 
 - (BOOL)hasServiceRef:(__IOHIDServiceClient *)ref
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   hidServices = [(GCController *)self hidServices];
-  v5 = [hidServices countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [hidServices countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(hidServices);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) service] == ref)
+        if ([*(*(&v11 + 1) + 8 * i) service] == ref)
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [hidServices countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [hidServices countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -2060,38 +2067,37 @@ LABEL_7:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (void)removeServiceRef:(__IOHIDServiceClient *)ref
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([(GCController *)self hasServiceRef:?])
   {
     hidServices = [(GCController *)self hidServices];
     v6 = [hidServices copy];
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * i);
           if ([v12 service] == ref)
           {
             hidServices2 = [(GCController *)self hidServices];
@@ -2099,14 +2105,12 @@ LABEL_11:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearServiceRef
@@ -2159,16 +2163,16 @@ LABEL_11:
 
 - (void)_legacy_noteInputProfileAccess:(void *)access
 {
-  if (!GCCallerAddressIsGameControllerFramework())
+  if (!GCCallerAddressIsGameControllerFramework(access))
   {
-    v4 = +[_GCLegacyDeviceSession weakSharedInstance];
-    [(_GCLegacyDeviceSession *)v4 noteInputProfileAccessOnController:?];
+    v3 = +[_GCLegacyDeviceSession weakSharedInstance];
+    [_GCLegacyDeviceSession noteInputProfileAccessOnController:];
   }
 }
 
 - (id)_legacy_input
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   legacy_input = self->_legacy_input;
   if (legacy_input)
   {
@@ -2197,9 +2201,9 @@ LABEL_11:
 
       v17 = [_GCControllerInputComponent alloc];
       uUID = [MEMORY[0x1E696AFB0] UUID];
-      v26[0] = v13;
-      v26[1] = v16;
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+      v25[0] = v13;
+      v25[1] = v16;
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
       v20 = [(_GCDevicePhysicalInputComponent *)v17 initWithIdentifier:uUID physicalInputs:v19];
       v21 = self->_legacy_input;
       self->_legacy_input = v20;
@@ -2210,8 +2214,6 @@ LABEL_11:
     defaultPhysicalInput2 = [(_GCDevicePhysicalInputComponent *)&self->_legacy_input->super.super.isa defaultPhysicalInput];
     facade = [(_GCDevicePhysicalInputBase *)defaultPhysicalInput2 facade];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return facade;
 }
@@ -2226,36 +2228,34 @@ LABEL_11:
 
 - (id)_legacy_gamepad
 {
-  profile = self->_profile;
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v4 = self->_profile, objc_opt_class(), (objc_opt_isKindOfClass()))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
-    v5 = self->_profile;
+    v3 = self->_profile;
   }
 
   else
   {
-    v5 = 0;
+    v3 = 0;
   }
 
-  return v5;
+  return v3;
 }
 
 - (id)_legacy_microGamepad
 {
-  profile = self->_profile;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v5 = self->_profile;
+  profile = self->_profile;
   if (isKindOfClass)
   {
     goto LABEL_5;
   }
 
   objc_opt_class();
-  v6 = objc_opt_isKindOfClass();
-  v5 = self->_profile;
-  if (v6)
+  v5 = objc_opt_isKindOfClass();
+  profile = self->_profile;
+  if (v5)
   {
     goto LABEL_5;
   }
@@ -2263,49 +2263,47 @@ LABEL_11:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = self->_profile;
+    profile = self->_profile;
 LABEL_5:
-    v7 = v5;
+    v6 = profile;
     goto LABEL_6;
   }
 
-  v7 = 0;
+  v6 = 0;
 LABEL_6:
 
-  return v7;
+  return v6;
 }
 
 - (id)_legacy_extendedGamepad
 {
-  profile = self->_profile;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->_profile;
+    v3 = self->_profile;
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (id)_legacy_motion
 {
-  profile = self->_profile;
   if (objc_opt_respondsToSelector())
   {
-    v4 = [(GCNamedProfile *)self->_profile performSelector:sel__motion];
+    v3 = [(GCNamedProfile *)self->_profile performSelector:sel__motion];
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (GCController)capture
@@ -2415,9 +2413,10 @@ LABEL_6:
   btleCopy = btle;
   classicCopy = classic;
   handlerCopy = handler;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(handlerCopy, v8);
+  if (isInternalBuild)
   {
-    +[GCController(Discovery) _startWirelessControllerDiscoveryWithBTClassic:btle:completionHandler:];
+    [GCController(Discovery) _startWirelessControllerDiscoveryWithBTClassic:? btle:? completionHandler:?];
   }
 
   if (_startWirelessControllerDiscoveryWithBTClassic_btle_completionHandler__onceToken != -1)
@@ -2425,52 +2424,52 @@ LABEL_6:
     +[GCController(Discovery) _startWirelessControllerDiscoveryWithBTClassic:btle:completionHandler:];
   }
 
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3020000000;
-  v23 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3020000000;
+  v25 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __97__GCController_Discovery___startWirelessControllerDiscoveryWithBTClassic_btle_completionHandler___block_invoke_2;
   aBlock[3] = &unk_1E841B188;
-  v19 = &v20;
-  v8 = handlerCopy;
-  v18 = v8;
-  v9 = _Block_copy(aBlock);
-  v10 = v9;
+  v21 = &v22;
+  v10 = handlerCopy;
+  v20 = v10;
+  v11 = _Block_copy(aBlock);
+  v12 = v11;
   if (classicCopy)
   {
-    ++*(v21 + 10);
+    ++*(v23 + 10);
   }
 
   if (btleCopy)
   {
-    ++*(v21 + 10);
+    ++*(v23 + 10);
   }
 
   if (classicCopy)
   {
-    v11 = s_cbDelegateQueue;
+    v13 = s_cbDelegateQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __97__GCController_Discovery___startWirelessControllerDiscoveryWithBTClassic_btle_completionHandler___block_invoke_3;
     block[3] = &unk_1E8419198;
-    v16 = v9;
-    dispatch_async(v11, block);
+    v18 = v11;
+    dispatch_async(v13, block);
   }
 
   if (btleCopy)
   {
-    v12 = s_cbDelegateQueue;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __97__GCController_Discovery___startWirelessControllerDiscoveryWithBTClassic_btle_completionHandler___block_invoke_4;
-    v13[3] = &unk_1E8419198;
-    v14 = v10;
-    dispatch_async(v12, v13);
+    v14 = s_cbDelegateQueue;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __97__GCController_Discovery___startWirelessControllerDiscoveryWithBTClassic_btle_completionHandler___block_invoke_4;
+    v15[3] = &unk_1E8419198;
+    v16 = v12;
+    dispatch_async(v14, v15);
   }
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v22, 8);
 }
 
 void __97__GCController_Discovery___startWirelessControllerDiscoveryWithBTClassic_btle_completionHandler___block_invoke()
@@ -2514,34 +2513,31 @@ uint64_t __97__GCController_Discovery___startWirelessControllerDiscoveryWithBTCl
 
 void __97__GCController_Discovery___startWirelessControllerDiscoveryWithBTClassic_btle_completionHandler___block_invoke_4(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   if (s_cbDelegate)
   {
     [s_cbDelegate setCompletionHandler:*(a1 + 32)];
     v2 = s_cbDelegate;
-    v3 = *MEMORY[0x1E69E9840];
 
     [v2 startScan];
   }
 
   else
   {
-    v4 = objc_opt_new();
-    v5 = s_cbDelegate;
-    s_cbDelegate = v4;
+    v3 = objc_opt_new();
+    v4 = s_cbDelegate;
+    s_cbDelegate = v3;
 
-    v6 = objc_alloc(MEMORY[0x1E695D258]);
-    v7 = s_cbDelegate;
-    v8 = s_cbDelegateQueue;
-    v12 = *MEMORY[0x1E695D218];
-    v13[0] = MEMORY[0x1E695E110];
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-    v10 = [v6 initWithDelegate:v7 queue:v8 options:v9];
+    v5 = objc_alloc(MEMORY[0x1E695D258]);
+    v6 = s_cbDelegate;
+    v7 = s_cbDelegateQueue;
+    v10 = *MEMORY[0x1E695D218];
+    v11[0] = MEMORY[0x1E695E110];
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = [v5 initWithDelegate:v6 queue:v7 options:v8];
 
-    [s_cbDelegate setCentralManager:v10];
+    [s_cbDelegate setCentralManager:v9];
     [s_cbDelegate setCompletionHandler:*(a1 + 32)];
-
-    v11 = *MEMORY[0x1E69E9840];
   }
 }
 

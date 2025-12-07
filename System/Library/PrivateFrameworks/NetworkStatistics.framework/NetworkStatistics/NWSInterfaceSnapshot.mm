@@ -699,7 +699,7 @@
 - (id)description
 {
   __ret = 0;
-  v3 = printf_domain();
+  v3 = printf_domain(self, a2);
   asxprintf(&__ret, v3, 0, "NWStatisticsInterfaceSnapshot %I", self->_descriptor.ifindex);
   if (__ret)
   {

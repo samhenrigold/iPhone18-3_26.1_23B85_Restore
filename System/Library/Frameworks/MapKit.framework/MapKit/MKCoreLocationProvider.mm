@@ -98,7 +98,7 @@ void __45__MKCoreLocationProvider__authStatusReceived__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __47__MKCoreLocationProvider_accuracyAuthorization__block_invoke(uint64_t a1)
+void *__47__MKCoreLocationProvider_accuracyAuthorization__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _accuracyAuthorizationOnQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -124,7 +124,7 @@ uint64_t __47__MKCoreLocationProvider_accuracyAuthorization__block_invoke(uint64
   return v3;
 }
 
-uint64_t __45__MKCoreLocationProvider_authorizationStatus__block_invoke(uint64_t a1)
+void *__45__MKCoreLocationProvider_authorizationStatus__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _authorizationStatusOnQueue];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -966,7 +966,7 @@ void __59__MKCoreLocationProvider_locationManager_didUpdateHeading___block_invok
     memset(buf, 0, sizeof(buf));
     if (lastObject)
     {
-      [lastObject clientLocation];
+      objc_msgSend_clientLocation(lastObject);
     }
 
     *&buf[4] = v21;
@@ -1013,18 +1013,18 @@ void __59__MKCoreLocationProvider_locationManager_didUpdateHeading___block_invok
   _Block_object_dispose(v53, 8);
 }
 
-uint64_t __61__MKCoreLocationProvider_locationManager_didUpdateLocations___block_invoke(uint64_t result)
+double *__61__MKCoreLocationProvider_locationManager_didUpdateLocations___block_invoke(double *result)
 {
-  v1 = *(result + 56);
-  v2 = *(result + 32);
+  v1 = result[7];
+  v2 = *(result + 4);
   if (v1 != *(v2 + 112))
   {
     v3 = result;
     *(v2 + 112) = v1;
-    v4 = *(result + 32);
+    v4 = *(result + 4);
     v5 = v4[4];
-    result = [v4 _updateAccuracyAuthorizationOnQueue:v3[5]];
-    *(*(v3[6] + 8) + 24) = *(v3[4] + 32) != v5;
+    result = [v4 _updateAccuracyAuthorizationOnQueue:*(v3 + 5)];
+    *(*(*(v3 + 6) + 8) + 24) = *(*(v3 + 4) + 32) != v5;
   }
 
   return result;

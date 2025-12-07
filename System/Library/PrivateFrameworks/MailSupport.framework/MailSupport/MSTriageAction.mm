@@ -158,7 +158,7 @@ void __21__MSTriageAction_log__block_invoke(uint64_t a1)
 
 + (void)_performAction:(id)action undoManager:(id)manager actionName:(id)name
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   managerCopy = manager;
   nameCopy = name;
@@ -166,9 +166,9 @@ void __21__MSTriageAction_log__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v24 = actionCopy;
-    v25 = 2114;
-    v26 = nameCopy;
+    v23 = actionCopy;
+    v24 = 2114;
+    v25 = nameCopy;
     _os_log_impl(&dword_257F8E000, v11, OS_LOG_TYPE_DEFAULT, "%@: Request to perform action: %{public}@", buf, 0x16u);
   }
 
@@ -184,28 +184,28 @@ void __21__MSTriageAction_log__block_invoke(uint64_t a1)
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v24 = actionCopy;
-          v25 = 2114;
-          v26 = nameCopy;
+          v23 = actionCopy;
+          v24 = 2114;
+          v25 = nameCopy;
           _os_log_impl(&dword_257F8E000, v14, OS_LOG_TYPE_DEFAULT, "%@: Register undo change action: %{public}@", buf, 0x16u);
         }
 
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __56__MSTriageAction__performAction_undoManager_actionName___block_invoke;
-        v19[3] = &unk_27985BB58;
-        v20 = v13;
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __56__MSTriageAction__performAction_undoManager_actionName___block_invoke;
+        v18[3] = &unk_27985BB58;
+        v19 = v13;
         v15 = managerCopy;
-        v21 = v15;
+        v20 = v15;
         v16 = nameCopy;
-        v22 = v16;
-        [v15 registerUndoWithTarget:self handler:v19];
+        v21 = v16;
+        [v15 registerUndoWithTarget:self handler:v18];
         if (v16 && ([v15 isUndoing] & 1) == 0)
         {
           [v15 setActionName:v16];
         }
 
-        v17 = v20;
+        v17 = v19;
       }
 
       else
@@ -227,8 +227,6 @@ void __21__MSTriageAction_log__block_invoke(uint64_t a1)
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_performAction:(id)action actionName:(id)name
@@ -267,7 +265,7 @@ void __21__MSTriageAction_log__block_invoke(uint64_t a1)
 
 void __44__MSTriageAction__performAction_actionName___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[MSTriageAction log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -275,13 +273,13 @@ void __44__MSTriageAction__performAction_actionName___block_invoke(uint64_t a1, 
     v6 = *(a1 + 32);
     v5 = *(a1 + 40);
     v7 = [v3 ef_publicDescription];
-    v12 = 138412802;
-    v13 = v6;
-    v14 = 2114;
-    v15 = v5;
-    v16 = 2114;
-    v17 = v7;
-    _os_log_impl(&dword_257F8E000, v4, OS_LOG_TYPE_DEFAULT, "%@: Performing change action: %{public}@ (%{public}@)", &v12, 0x20u);
+    v11 = 138412802;
+    v12 = v6;
+    v13 = 2114;
+    v14 = v5;
+    v15 = 2114;
+    v16 = v7;
+    _os_log_impl(&dword_257F8E000, v4, OS_LOG_TYPE_DEFAULT, "%@: Performing change action: %{public}@ (%{public}@)", &v11, 0x20u);
   }
 
   v8 = [*(a1 + 32) isUndoSupported];
@@ -296,23 +294,19 @@ void __44__MSTriageAction__performAction_actionName___block_invoke(uint64_t a1, 
   {
     [v9 performMessageChangeAction:v3];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __44__MSTriageAction__performAction_actionName___block_invoke_19(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[MSTriageAction log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
     v6 = [v3 ef_publicDescription];
-    __44__MSTriageAction__performAction_actionName___block_invoke_19_cold_1(v5, v6, v8, v4);
+    __44__MSTriageAction__performAction_actionName___block_invoke_19_cold_1(v5, v6, v7, v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (MSTriageActionDelegate)delegate
@@ -320,22 +314,6 @@ void __44__MSTriageAction__performAction_actionName___block_invoke_19(uint64_t a
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-+ (void)_performAction:undoManager:actionName:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_257F8E000, v0, v1, "%@: Unable to register undo action (%{public}@) - undo action is invalid");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_performAction:undoManager:actionName:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_257F8E000, v0, v1, "%@: Unable to register undo action (%{public}@) - undo manager is nil");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __44__MSTriageAction__performAction_actionName___block_invoke_19_cold_1(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)

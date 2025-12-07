@@ -53,7 +53,6 @@
   if (self->_whichContextevent == 1)
   {
     self->_whichContextevent = 0;
-    started = self->_started;
     self->_started = 0;
     MEMORY[0x2821F96F8]();
   }
@@ -93,7 +92,6 @@
   if (self->_whichContextevent == 2)
   {
     self->_whichContextevent = 0;
-    ended = self->_ended;
     self->_ended = 0;
     MEMORY[0x2821F96F8]();
   }
@@ -139,7 +137,6 @@
   if (self->_whichContextevent == 3)
   {
     self->_whichContextevent = 0;
-    step = self->_step;
     self->_step = 0;
     MEMORY[0x2821F96F8]();
   }

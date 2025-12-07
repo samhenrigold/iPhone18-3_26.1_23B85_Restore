@@ -172,10 +172,7 @@ LABEL_9:
 
 uint64_t __85__PSGExperimentResolver_getResponseSuggestionsExperimentConfig_shouldDownloadAssets___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectForKey:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [a2 objectForKey:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -219,10 +216,7 @@ void __85__PSGExperimentResolver_getResponseSuggestionsExperimentConfig_shouldDo
 
 uint64_t __85__PSGExperimentResolver_getResponseSuggestionsExperimentConfig_shouldDownloadAssets___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectForKey:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [a2 objectForKey:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -330,10 +324,7 @@ LABEL_9:
 
 uint64_t __89__PSGExperimentResolver_getWordBoundarySuggestionsExperimentConfig_shouldDownloadAssets___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectForKey:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [a2 objectForKey:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -378,10 +369,7 @@ void __89__PSGExperimentResolver_getWordBoundarySuggestionsExperimentConfig_shou
 
 uint64_t __89__PSGExperimentResolver_getWordBoundarySuggestionsExperimentConfig_shouldDownloadAssets___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectForKey:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [a2 objectForKey:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -395,10 +383,10 @@ uint64_t __89__PSGExperimentResolver_getWordBoundarySuggestionsExperimentConfig_
 
 - (PSGExperimentResolver)init
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v50.receiver = self;
-  v50.super_class = PSGExperimentResolver;
-  v2 = [(PSGExperimentResolver *)&v50 init];
+  v57 = *MEMORY[0x277D85DE8];
+  v49.receiver = self;
+  v49.super_class = PSGExperimentResolver;
+  v2 = [(PSGExperimentResolver *)&v49 init];
   if (v2)
   {
     v3 = [MEMORY[0x277D73660] clientWithIdentifier:103];
@@ -413,31 +401,31 @@ uint64_t __89__PSGExperimentResolver_getWordBoundarySuggestionsExperimentConfig_
       _os_log_impl(&dword_260D36000, v5, OS_LOG_TYPE_DEFAULT, "PSGExperimentResolver -- setting up trial client for client id %d", buf, 8u);
     }
 
-    v55[0] = @"en";
-    v55[1] = @"zh-Hans";
-    v56[0] = @"QUICK_TYPE_ZKW_EN";
-    v56[1] = @"QUICK_TYPE_ZKW_ZH_HANS";
-    v55[2] = @"ja";
-    v55[3] = @"es";
-    v56[2] = @"QUICK_TYPE_ZKW_JP";
-    v56[3] = @"QUICK_TYPE_ZKW_ES";
-    v55[4] = @"fr";
-    v56[4] = @"QUICK_TYPE_ZKW_FR";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:5];
+    v54[0] = @"en";
+    v54[1] = @"zh-Hans";
+    v55[0] = @"QUICK_TYPE_ZKW_EN";
+    v55[1] = @"QUICK_TYPE_ZKW_ZH_HANS";
+    v54[2] = @"ja";
+    v54[3] = @"es";
+    v55[2] = @"QUICK_TYPE_ZKW_JP";
+    v55[3] = @"QUICK_TYPE_ZKW_ES";
+    v54[4] = @"fr";
+    v55[4] = @"QUICK_TYPE_ZKW_FR";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:5];
     zkwLangAndNamespaces = v2->_zkwLangAndNamespaces;
     v2->_zkwLangAndNamespaces = v6;
 
-    v53[0] = @"en";
-    v53[1] = @"zh-Hans";
-    v54[0] = @"QUICK_TYPE_WB_EN";
-    v54[1] = @"QUICK_TYPE_WB_ZH_HANS";
-    v53[2] = @"ja";
-    v53[3] = @"es";
-    v54[2] = @"QUICK_TYPE_WB_JP";
-    v54[3] = @"QUICK_TYPE_WB_ES";
-    v53[4] = @"fr";
-    v54[4] = @"QUICK_TYPE_WB_FR";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:5];
+    v52[0] = @"en";
+    v52[1] = @"zh-Hans";
+    v53[0] = @"QUICK_TYPE_WB_EN";
+    v53[1] = @"QUICK_TYPE_WB_ZH_HANS";
+    v52[2] = @"ja";
+    v52[3] = @"es";
+    v53[2] = @"QUICK_TYPE_WB_JP";
+    v53[3] = @"QUICK_TYPE_WB_ES";
+    v52[4] = @"fr";
+    v53[4] = @"QUICK_TYPE_WB_FR";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:5];
     wordBoundaryLangAndNamespaces = v2->_wordBoundaryLangAndNamespaces;
     v2->_wordBoundaryLangAndNamespaces = v8;
 
@@ -454,77 +442,77 @@ uint64_t __89__PSGExperimentResolver_getWordBoundarySuggestionsExperimentConfig_
     v2->_wordBoundaryConfigLock = v16;
 
     objc_initWeak(buf, v2);
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     allKeys = [(NSDictionary *)v2->_zkwLangAndNamespaces allKeys];
-    v19 = [allKeys countByEnumeratingWithState:&v46 objects:v52 count:16];
+    v19 = [allKeys countByEnumeratingWithState:&v45 objects:v51 count:16];
     if (v19)
     {
-      v20 = *v47;
+      v20 = *v46;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v47 != v20)
+          if (*v46 != v20)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v22 = *(*(&v46 + 1) + 8 * i);
+          v22 = *(*(&v45 + 1) + 8 * i);
           v23 = [(NSDictionary *)v2->_zkwLangAndNamespaces objectForKeyedSubscript:v22];
           v24 = v2->_trialClient;
-          v42[0] = MEMORY[0x277D85DD0];
-          v42[1] = 3221225472;
-          v42[2] = __29__PSGExperimentResolver_init__block_invoke;
-          v42[3] = &unk_279ABE228;
-          objc_copyWeak(&v45, buf);
+          v41[0] = MEMORY[0x277D85DD0];
+          v41[1] = 3221225472;
+          v41[2] = __29__PSGExperimentResolver_init__block_invoke;
+          v41[3] = &unk_279ABE228;
+          objc_copyWeak(&v44, buf);
           v25 = v23;
-          v43 = v25;
-          v44 = v22;
-          v26 = [(TRIClient *)v24 addUpdateHandlerForNamespaceName:v25 usingBlock:v42];
+          v42 = v25;
+          v43 = v22;
+          v26 = [(TRIClient *)v24 addUpdateHandlerForNamespaceName:v25 usingBlock:v41];
 
-          objc_destroyWeak(&v45);
+          objc_destroyWeak(&v44);
         }
 
-        v19 = [allKeys countByEnumeratingWithState:&v46 objects:v52 count:16];
+        v19 = [allKeys countByEnumeratingWithState:&v45 objects:v51 count:16];
       }
 
       while (v19);
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     allValues = [(NSDictionary *)v2->_wordBoundaryLangAndNamespaces allValues];
-    v28 = [allValues countByEnumeratingWithState:&v38 objects:v51 count:16];
+    v28 = [allValues countByEnumeratingWithState:&v37 objects:v50 count:16];
     if (v28)
     {
-      v29 = *v39;
+      v29 = *v38;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v39 != v29)
+          if (*v38 != v29)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v31 = *(*(&v38 + 1) + 8 * j);
+          v31 = *(*(&v37 + 1) + 8 * j);
           v32 = v2->_trialClient;
-          v36[0] = MEMORY[0x277D85DD0];
-          v36[1] = 3221225472;
-          v36[2] = __29__PSGExperimentResolver_init__block_invoke_5;
-          v36[3] = &unk_279ABE278;
-          objc_copyWeak(&v37, buf);
-          v36[4] = v31;
-          v33 = [(TRIClient *)v32 addUpdateHandlerForNamespaceName:v31 usingBlock:v36];
-          objc_destroyWeak(&v37);
+          v35[0] = MEMORY[0x277D85DD0];
+          v35[1] = 3221225472;
+          v35[2] = __29__PSGExperimentResolver_init__block_invoke_5;
+          v35[3] = &unk_279ABE278;
+          objc_copyWeak(&v36, buf);
+          v35[4] = v31;
+          v33 = [(TRIClient *)v32 addUpdateHandlerForNamespaceName:v31 usingBlock:v35];
+          objc_destroyWeak(&v36);
         }
 
-        v28 = [allValues countByEnumeratingWithState:&v38 objects:v51 count:16];
+        v28 = [allValues countByEnumeratingWithState:&v37 objects:v50 count:16];
       }
 
       while (v28);
@@ -533,7 +521,6 @@ uint64_t __89__PSGExperimentResolver_getWordBoundarySuggestionsExperimentConfig_
     objc_destroyWeak(buf);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -654,13 +641,12 @@ void __48__PSGExperimentResolver_sharedWordBoundaryQueue__block_invoke()
 
 void __39__PSGExperimentResolver_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult;
-  sharedInstance__pasExprOnceResult = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult;
+  sharedInstance__pasExprOnceResult = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

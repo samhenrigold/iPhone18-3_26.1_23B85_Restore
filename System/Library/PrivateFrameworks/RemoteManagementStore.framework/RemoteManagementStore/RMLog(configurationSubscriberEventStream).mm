@@ -11,9 +11,9 @@
     +[RMLog(configurationSubscriberEventStream) configurationSubscriberEventStream];
   }
 
-  v1 = configurationSubscriberEventStream_result;
+  v2 = configurationSubscriberEventStream_result;
 
-  return v1;
+  return v2;
 }
 
 @end

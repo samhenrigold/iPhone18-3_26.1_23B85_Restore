@@ -628,7 +628,7 @@ LABEL_12:
       v61 = 0u;
       if (appearanceCopy)
       {
-        [appearanceCopy topLevelTransform];
+        objc_msgSend_topLevelTransform(appearanceCopy);
       }
 
       vars0 = v62;
@@ -714,7 +714,7 @@ LABEL_12:
       {
         v123 = *&time->var0;
         *&v124.f64[0] = time->var3;
-        [appearanceCopy transformAtTime:&v123 forcePosterFrame:1 includeTransformAnimation:0 includePlayableAspectScale:1 relativeTo:1 basisOrigin:{v19, v21, v23, v25}];
+        objc_msgSend_transformAtTime_forcePosterFrame_includeTransformAnimation_includePlayableAspectScale_relativeTo_basisOrigin_(appearanceCopy, v19, v21, v23, v25);
       }
 
       trackingProps2 = [appearanceCopy trackingProps];
@@ -741,7 +741,7 @@ LABEL_12:
       {
         v115 = *&time->var0;
         *&v116.f64[0] = time->var3;
-        [appearanceCopy transformAtTime:&v115 forcePosterFrame:1 includeTransformAnimation:0 includePlayableAspectScale:1 relativeTo:1 basisOrigin:{v19, v21, v23, v25}];
+        objc_msgSend_transformAtTime_forcePosterFrame_includeTransformAnimation_includePlayableAspectScale_relativeTo_basisOrigin_(appearanceCopy, v19, v21, v23, v25);
         v36 = 0uLL;
         v37 = *&STACK[0x6B0];
         v38 = *&STACK[0x6D0];
@@ -814,7 +814,7 @@ LABEL_12:
 
       if (appearanceCopy)
       {
-        [appearanceCopy topLevelTransform];
+        objc_msgSend_topLevelTransform(appearanceCopy);
       }
 
       else
@@ -897,7 +897,7 @@ LABEL_12:
       *&STACK[0x710] = 0u;
       if (appearanceCopy)
       {
-        [appearanceCopy topLevelTransform];
+        objc_msgSend_topLevelTransform(appearanceCopy);
       }
 
       if (type == 1)
@@ -1079,7 +1079,7 @@ LABEL_34:
     v27 = height;
     if (height)
     {
-      [height cornerPoints];
+      objc_msgSend_cornerPoints(height);
     }
 
     else
@@ -1224,9 +1224,7 @@ LABEL_35:
     memset(&v20[1], 0, sizeof(PVCGPointQuad));
     if (effectCopy)
     {
-      v20[0].a = *&time->var0;
-      *&v20[0].b.x = time->var3;
-      [effectCopy cornersAtTime:v20 forcePosterFrame:1 includeDropShadow:1 scale:1 relativeTo:1.0 basisOrigin:{1.0, x, y, width, height}];
+      objc_msgSend_cornersAtTime_forcePosterFrame_includeDropShadow_scale_relativeTo_basisOrigin_(effectCopy, 1.0, 1.0, x, y, width, height, time->var0, *&time->var1, time->var3);
     }
 
     v20[0] = v20[1];
@@ -1250,7 +1248,6 @@ LABEL_35:
 
 + (void)addTransformToEffect:(id)effect transform:(CGAffineTransform *)transform relativeToBounds:(CGRect)bounds time:(id *)time restrictToBounds:(BOOL)toBounds
 {
-  toBoundsCopy = toBounds;
   height = bounds.size.height;
   width = bounds.size.width;
   y = bounds.origin.y;
@@ -1259,24 +1256,22 @@ LABEL_35:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = effectCopy;
-    v17 = v16;
-    if (v16)
+    v15 = effectCopy;
+    v16 = v15;
+    if (v15)
     {
-      v25 = 0u;
-      v26 = 0u;
-      v18 = *&transform->c;
-      v21 = *&transform->a;
-      v22 = v18;
-      v23 = *&transform->tx;
-      v24 = 0u;
-      v19 = *&time->var0;
-      var3 = time->var3;
-      [v16 addTransform:&v21 withComponentTime:&v19 relativeTo:1 basisOrigin:toBoundsCopy restrictToBounds:{x, y, width, height}];
-      v21 = v24;
-      v22 = v25;
-      v23 = v26;
-      [self JFX_ApplyTextFlipIfNeeded:v17 transform:&v21];
+      v22 = 0u;
+      v23 = 0u;
+      v17 = *&transform->c;
+      v18 = *&transform->a;
+      v19 = v17;
+      v20 = *&transform->tx;
+      v21 = 0u;
+      objc_msgSend_addTransform_withComponentTime_relativeTo_basisOrigin_restrictToBounds_(v15, x, y, width, height, time->var0, *&time->var1, time->var3);
+      v18 = v21;
+      v19 = v22;
+      v20 = v23;
+      [self JFX_ApplyTextFlipIfNeeded:v16 transform:&v18];
     }
   }
 }
@@ -1378,30 +1373,34 @@ LABEL_24:
 {
   emptyCopy = empty;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  v4 = emptyCopy;
+  if (isKindOfClass)
   {
-    v3 = emptyCopy;
-    strings = [v3 strings];
+    v5 = emptyCopy;
+    strings = [v5 strings];
     firstObject = [strings firstObject];
     string = [firstObject string];
 
     whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
-    v8 = [string stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
-    v9 = [v8 length];
+    v10 = [string stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
+    v11 = [v10 length];
 
-    if (!v9)
+    if (!v11)
     {
-      v10 = [v3 defaultAttributedString:0];
-      v11 = v10;
-      if (v10)
+      v12 = [v5 defaultAttributedString:0];
+      v13 = v12;
+      if (v12)
       {
-        string2 = [v10 string];
-        [v3 setString:string2 atIndex:0];
+        string2 = [v12 string];
+        [v5 setString:string2 atIndex:0];
       }
     }
+
+    v4 = emptyCopy;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](isKindOfClass, v4);
 }
 
 + (id)textForEffect:(id)effect
@@ -1595,7 +1594,7 @@ LABEL_24:
           v12 = renderEffect;
           if (renderEffect)
           {
-            [renderEffect effectRange];
+            objc_msgSend_effectRange(renderEffect);
           }
 
           else
@@ -1879,8 +1878,8 @@ LABEL_44:
     v52 = 0u;
     v53 = 0u;
     v51 = 0u;
-    v57.x = v19 * 0.5;
-    v57.y = v21 * 0.5;
+    v57.n128_f64[0] = v19 * 0.5;
+    v57.n128_f64[1] = v21 * 0.5;
     v50 = v54;
     CGAffineTransformFromPointWithPVAnimInfo(&v51, &v50, v57);
     *&v50.time.value = v51;

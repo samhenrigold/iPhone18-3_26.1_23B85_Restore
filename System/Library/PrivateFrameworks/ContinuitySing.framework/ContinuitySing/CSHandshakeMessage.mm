@@ -42,7 +42,7 @@
     v19 = processInfo;
     if (processInfo)
     {
-      [processInfo operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(processInfo);
     }
 
     else

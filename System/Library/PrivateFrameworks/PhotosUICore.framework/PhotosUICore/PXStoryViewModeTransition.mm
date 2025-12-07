@@ -112,19 +112,19 @@ uint64_t __58__PXStoryViewModeTransition_observable_didChange_context___block_in
     {
       [(PXStoryViewModeTransition *)self progressAnimator];
       [objc_claimAutoreleasedReturnValue() presentationValue];
-      PXFloatApproximatelyEqualToFloat();
+      PXFloatApproximatelyEqualToFloat(v4);
     }
 
-    v4 = v3;
-    v5 = [[off_1E77217D0 alloc] initWithValue:1.0];
+    v5 = v3;
+    v6 = [[off_1E77217D0 alloc] initWithValue:1.0];
     fadeoutAnimator = self->_fadeoutAnimator;
-    self->_fadeoutAnimator = v5;
+    self->_fadeoutAnimator = v6;
 
-    [(PXNumberAnimator *)self->_fadeoutAnimator performChangesWithDuration:1 curve:&__block_literal_global_19 changes:v4];
-    v7 = self->_fadeoutAnimator;
-    v8 = FadeoutAnimatorObservationContext;
+    [(PXNumberAnimator *)self->_fadeoutAnimator performChangesWithDuration:1 curve:&__block_literal_global_19 changes:v5];
+    v8 = self->_fadeoutAnimator;
+    v9 = FadeoutAnimatorObservationContext;
 
-    [(PXNumberAnimator *)v7 registerChangeObserver:self context:v8];
+    [(PXNumberAnimator *)v8 registerChangeObserver:self context:v9];
   }
 }
 
@@ -188,11 +188,11 @@ uint64_t __58__PXStoryViewModeTransition_observable_didChange_context___block_in
   progressAnimator = [(PXStoryViewModeTransition *)self progressAnimator];
   if (([progressAnimator isAnimating] & 1) == 0 && (-[PXNumberAnimator isAnimating](self->_fadeoutAnimator, "isAnimating") & 1) == 0)
   {
-    [(PXStoryViewModeTransition *)self swipeDownInteractionState];
-    if (PXStorySwipeDownInteractionStateEqualsState(v5, &PXStorySwipeDownInteractionStateNull))
+    objc_msgSend_swipeDownInteractionState(self);
+    if (PXStorySwipeDownInteractionStateEqualsState(v6, &PXStorySwipeDownInteractionStateNull))
     {
       [progressAnimator presentationValue];
-      PXFloatApproximatelyEqualToFloat();
+      PXFloatApproximatelyEqualToFloat(v4);
     }
   }
 

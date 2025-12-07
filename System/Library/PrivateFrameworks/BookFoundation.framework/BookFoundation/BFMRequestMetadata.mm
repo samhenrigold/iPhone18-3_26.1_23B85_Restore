@@ -20,12 +20,10 @@
 
 - (NSString)fileID
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___BFMRequestMetadata_impl);
-  v3 = *&self->impl[OBJC_IVAR___BFMRequestMetadata_impl];
 
-  v4 = sub_241CF9008();
+  v2 = sub_241CF9008();
 
-  return v4;
+  return v2;
 }
 
 - (BFMRequestMetadata)init

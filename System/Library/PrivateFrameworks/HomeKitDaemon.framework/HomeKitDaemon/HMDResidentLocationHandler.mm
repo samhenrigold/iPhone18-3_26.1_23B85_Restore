@@ -30,7 +30,7 @@
 
 - (void)_handleDetermineResidentLocationMessage:(id)message
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDResidentLocationHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -54,26 +54,26 @@
       {
         v16 = HMFGetLogIdentifier();
         StringFromHMDResidentLocation(v11);
-        v17 = v30 = v13;
+        v17 = v29 = v13;
         [remoteSourceDevice shortDescription];
-        v18 = v31 = v11;
+        v18 = v30 = v11;
         *buf = 138543874;
-        v35 = v16;
-        v36 = 2112;
-        v37 = v17;
-        v38 = 2112;
-        v39 = v18;
+        v34 = v16;
+        v35 = 2112;
+        v36 = v17;
+        v37 = 2112;
+        v38 = v18;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@We are the elector, determined location of: %@ for resident device: %@", buf, 0x20u);
 
-        v11 = v31;
-        v13 = v30;
+        v11 = v30;
+        v13 = v29;
       }
 
       objc_autoreleasePoolPop(v13);
-      v32 = @"drl.dl";
+      v31 = @"drl.dl";
       v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v11];
-      v33 = v19;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+      v32 = v19;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
       [messageCopy respondWithPayload:v20];
     }
 
@@ -86,14 +86,14 @@
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v35 = v28;
+        v34 = v28;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Home location is nil when handling determine resident location message", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v25);
-      v40 = @"drl.dl";
-      v41 = &unk_283E74708;
-      remoteSourceDevice = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+      v39 = @"drl.dl";
+      v40 = &unk_283E74708;
+      remoteSourceDevice = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
       [messageCopy respondWithPayload:remoteSourceDevice];
     }
   }
@@ -107,48 +107,44 @@
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v24;
-      v36 = 2112;
-      v37 = messagePayload;
+      v34 = v24;
+      v35 = 2112;
+      v36 = messagePayload;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Determine resident location message payload: %@ did not contain resident location", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
-    v42 = @"drl.dl";
-    v43[0] = &unk_283E74708;
-    location = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+    v41 = @"drl.dl";
+    v42[0] = &unk_283E74708;
+    location = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
     [messageCopy respondWithPayload:location];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendResidentLocationMessageToElector:(id)elector location:(id)location completion:(id)completion
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   electorCopy = elector;
   v9 = encodeRootObject();
-  v21 = @"drl.el";
-  v22[0] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v20 = @"drl.el";
+  v21[0] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   v11 = [HMDRemoteDeviceMessageDestination alloc];
   messageTargetUUID = [(HMDResidentLocationHandler *)self messageTargetUUID];
   device = [electorCopy device];
 
   v14 = [(HMDRemoteDeviceMessageDestination *)v11 initWithTarget:messageTargetUUID device:device];
   v15 = [[HMDRemoteMessage alloc] initWithName:@"HMDDetermineResidentDeviceLocationMessage" qualityOfService:25 destination:v14 payload:v10 type:0 timeout:1 secure:30.0 restriction:-1];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __88__HMDResidentLocationHandler__sendResidentLocationMessageToElector_location_completion___block_invoke;
-  v19[3] = &unk_2786818D0;
-  v20 = completionCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __88__HMDResidentLocationHandler__sendResidentLocationMessageToElector_location_completion___block_invoke;
+  v18[3] = &unk_2786818D0;
+  v19 = completionCopy;
   v16 = completionCopy;
-  [(HMDRemoteMessage *)v15 setResponseHandler:v19];
+  [(HMDRemoteMessage *)v15 setResponseHandler:v18];
   messageDispatcher = [(HMDResidentLocationHandler *)self messageDispatcher];
   [messageDispatcher sendMessage:v15 completionHandler:0];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HMDResidentLocationHandler__sendResidentLocationMessageToElector_location_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -160,7 +156,7 @@ void __88__HMDResidentLocationHandler__sendResidentLocationMessageToElector_loca
 
 - (void)_determineHomeOrAwayUsingElector:(id)elector location:(id)location withCompletion:(id)completion
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   electorCopy = elector;
   locationCopy = location;
   completionCopy = completion;
@@ -175,11 +171,11 @@ void __88__HMDResidentLocationHandler__sendResidentLocationMessageToElector_loca
     v15 = HMFGetLogIdentifier();
     shortDescription = [electorCopy shortDescription];
     *buf = 138543874;
-    v41 = v15;
-    v42 = 2112;
-    v43 = shortDescription;
-    v44 = 2112;
-    v45 = locationCopy;
+    v40 = v15;
+    v41 = 2112;
+    v42 = shortDescription;
+    v43 = 2112;
+    v44 = locationCopy;
     _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Determining resident home/away using elector: %@ location: %@", buf, 0x20u);
   }
 
@@ -207,9 +203,9 @@ void __88__HMDResidentLocationHandler__sendResidentLocationMessageToElector_loca
         v26 = HMFGetLogIdentifier();
         v27 = StringFromHMDResidentLocation(v20);
         *buf = 138543618;
-        v41 = v26;
-        v42 = 2112;
-        v43 = v27;
+        v40 = v26;
+        v41 = 2112;
+        v42 = v27;
         _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@We are the elector, determined we are: %@", buf, 0x16u);
       }
 
@@ -231,7 +227,7 @@ void __88__HMDResidentLocationHandler__sendResidentLocationMessageToElector_loca
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v41 = v33;
+        v40 = v33;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@We are the elector, home location is nil, defaulting to unknown", buf, 0xCu);
       }
 
@@ -249,17 +245,15 @@ void __88__HMDResidentLocationHandler__sendResidentLocationMessageToElector_loca
 
   else
   {
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __87__HMDResidentLocationHandler__determineHomeOrAwayUsingElector_location_withCompletion___block_invoke;
-    v37[3] = &unk_2786818A8;
-    v37[4] = selfCopy;
-    v38 = electorCopy;
-    v39 = completionCopy;
-    [(HMDResidentLocationHandler *)selfCopy _sendResidentLocationMessageToElector:v38 location:locationCopy completion:v37];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __87__HMDResidentLocationHandler__determineHomeOrAwayUsingElector_location_withCompletion___block_invoke;
+    v36[3] = &unk_2786818A8;
+    v36[4] = selfCopy;
+    v37 = electorCopy;
+    v38 = completionCopy;
+    [(HMDResidentLocationHandler *)selfCopy _sendResidentLocationMessageToElector:v37 location:locationCopy completion:v36];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __87__HMDResidentLocationHandler__determineHomeOrAwayUsingElector_location_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -286,7 +280,7 @@ void __87__HMDResidentLocationHandler__determineHomeOrAwayUsingElector_location_
 
 void __87__HMDResidentLocationHandler__determineHomeOrAwayUsingElector_location_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -322,11 +316,11 @@ void __87__HMDResidentLocationHandler__determineHomeOrAwayUsingElector_location_
     {
       v10 = HMFGetLogIdentifier();
       v11 = [*(a1 + 48) shortDescription];
-      v15 = 138543618;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v11;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Did not receive a determined resident location back from elector: %@, defaulting to unknown", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v11;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Did not receive a determined resident location back from elector: %@, defaulting to unknown", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -341,13 +335,11 @@ LABEL_11:
   {
     (*(v12 + 2))(v12, *(a1 + 56));
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_residentLocationFromHomeLocation:(id)location location:(id)a4
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   v7 = a4;
   [locationCopy distanceFromLocation:v7];
@@ -369,27 +361,26 @@ LABEL_11:
   {
     v14 = HMFGetLogIdentifier();
     v15 = StringFromHMDResidentLocation(v10);
-    v18 = 138544386;
-    v19 = v14;
-    v20 = 2112;
-    v21 = v15;
-    v22 = 2112;
-    v23 = locationCopy;
-    v24 = 2112;
-    v25 = v7;
-    v26 = 2048;
-    v27 = v9;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Resident is: %@ homeLocation: %@ location: %@ distance: %f", &v18, 0x34u);
+    v17 = 138544386;
+    v18 = v14;
+    v19 = 2112;
+    v20 = v15;
+    v21 = 2112;
+    v22 = locationCopy;
+    v23 = 2112;
+    v24 = v7;
+    v25 = 2048;
+    v26 = v9;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Resident is: %@ homeLocation: %@ location: %@ distance: %f", &v17, 0x34u);
   }
 
   objc_autoreleasePoolPop(v11);
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)_updateToUnknownIfNoCachedLocation
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _cachedResidentLocationRawValue = [(HMDResidentLocationHandler *)self _cachedResidentLocationRawValue];
   if ([_cachedResidentLocationRawValue unsignedIntegerValue] == 100)
   {
@@ -404,30 +395,28 @@ LABEL_11:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = _cachedResidentLocationRawValue;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Not updating to unknown, cached location exists: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = _cachedResidentLocationRawValue;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Not updating to unknown, cached location exists: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cacheResidentLocationRawValue:(id)value
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v5 = +[HMDResidentLocationHandler cachedResidentLocationPath];
   if (v5)
   {
     stringValue = [valueCopy stringValue];
-    v14 = 0;
-    [stringValue writeToFile:v5 atomically:1 encoding:4 error:&v14];
-    v7 = v14;
+    v13 = 0;
+    [stringValue writeToFile:v5 atomically:1 encoding:4 error:&v13];
+    v7 = v13;
     v8 = objc_autoreleasePoolPush();
     selfCopy = self;
     v10 = HMFGetOSLogHandle();
@@ -436,25 +425,23 @@ LABEL_11:
       v11 = HMFGetLogIdentifier();
       v12 = HMFBooleanToString();
       *buf = 138544130;
-      v16 = v11;
-      v17 = 2112;
-      v18 = valueCopy;
-      v19 = 2112;
-      v20 = v12;
-      v21 = 2112;
-      v22 = v7;
+      v15 = v11;
+      v16 = 2112;
+      v17 = valueCopy;
+      v18 = 2112;
+      v19 = v12;
+      v20 = 2112;
+      v21 = v7;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Caching resident location: %@ succeeded: %@ with error: %@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_cachedResidentLocationRawValue
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = +[HMDResidentLocationHandler cachedResidentLocationPath];
   if (v3)
   {
@@ -469,11 +456,11 @@ LABEL_11:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = HMFGetLogIdentifier();
-        v13 = 138543618;
-        v14 = v10;
-        v15 = 2112;
-        v16 = v6;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Loaded cached resident location: %@", &v13, 0x16u);
+        v12 = 138543618;
+        v13 = v10;
+        v14 = 2112;
+        v15 = v6;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Loaded cached resident location: %@", &v12, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -489,8 +476,6 @@ LABEL_11:
   {
     v6 = &unk_283E74708;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -514,7 +499,7 @@ LABEL_11:
 
 - (void)determineHomeOrAwayUsingElector:(id)elector withCompletion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   electorCopy = elector;
   completionCopy = completion;
   if (electorCopy)
@@ -526,20 +511,20 @@ LABEL_11:
     residentLocationProvider = [(HMDResidentLocationHandler *)self residentLocationProvider];
     locationUpdatedFuture = [residentLocationProvider locationUpdatedFuture];
 
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCompletion___block_invoke;
-    v22[3] = &unk_278681880;
-    v22[4] = self;
-    v24 = completionCopy;
-    v23 = electorCopy;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCompletion___block_invoke_100;
-    v20[3] = &unk_2786850B8;
-    v20[4] = self;
-    v21 = v24;
-    v13 = [locationUpdatedFuture inContext:v10 then:v22 orRecover:v20];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCompletion___block_invoke;
+    v21[3] = &unk_278681880;
+    v21[4] = self;
+    v23 = completionCopy;
+    v22 = electorCopy;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCompletion___block_invoke_100;
+    v19[3] = &unk_2786850B8;
+    v19[4] = self;
+    v20 = v23;
+    v13 = [locationUpdatedFuture inContext:v10 then:v21 orRecover:v19];
   }
 
   else
@@ -551,7 +536,7 @@ LABEL_11:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v17;
+      v25 = v17;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@No elector, defaulting to unknown", buf, 0xCu);
     }
 
@@ -565,13 +550,11 @@ LABEL_11:
       (*(v18 + 2))(v18, v10);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -579,9 +562,9 @@ uint64_t __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCo
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v18 = 138543362;
-    v19 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Resident location request resolved", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Resident location request resolved", &v17, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -601,9 +584,9 @@ uint64_t __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCo
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v13;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Resident location is nil, defaulting to Unknown", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Resident location is nil, defaulting to Unknown", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -616,13 +599,12 @@ uint64_t __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCo
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCompletion___block_invoke_100(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -630,11 +612,11 @@ uint64_t __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCo
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Resident location request encountered error: %@, defaulting to Unknown", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Resident location request encountered error: %@, defaulting to Unknown", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -646,7 +628,6 @@ uint64_t __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCo
     (*(v8 + 2))(v8, v3);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -658,18 +639,18 @@ uint64_t __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCo
 
 - (void)configure
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v3 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
   [v3 setRequiresSecureMessage:1];
   [v3 setRoles:{objc_msgSend(v3, "roles") | 4}];
-  v4 = [v3 copy];
+  v4 = objc_msgSend_copy(v3);
   home = [(HMDResidentLocationHandler *)self home];
   v6 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:3 remoteAccessRequired:0];
 
   messageDispatcher = [(HMDResidentLocationHandler *)self messageDispatcher];
-  v11[0] = v4;
-  v11[1] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[0] = v4;
+  v10[1] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   [messageDispatcher registerForMessage:@"HMDDetermineResidentDeviceLocationMessage" receiver:self policies:v8 selector:sel__handleDetermineResidentLocationMessage_];
 
   _cachedResidentLocationRawValue = [(HMDResidentLocationHandler *)self _cachedResidentLocationRawValue];
@@ -677,8 +658,6 @@ uint64_t __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCo
   {
     [(HMDResidentLocationHandler *)self setResidentLocationRawValue:_cachedResidentLocationRawValue];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDResidentLocationHandler)initWithHome:(id)home queue:(id)queue messageDispatcher:(id)dispatcher locationProvider:(id)provider
@@ -730,22 +709,21 @@ uint64_t __77__HMDResidentLocationHandler_determineHomeOrAwayUsingElector_withCo
 
 void __41__HMDResidentLocationHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v12_223011;
-  logCategory__hmf_once_v12_223011 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v12_223011;
+  logCategory__hmf_once_v12_223011 = v0;
 }
 
 + (void)deleteCachedResidentLocation
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = +[HMDResidentLocationHandler cachedResidentLocationPath];
   if (v2)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v10 = 0;
-    [defaultManager removeItemAtPath:v2 error:&v10];
-    v4 = v10;
+    v9 = 0;
+    [defaultManager removeItemAtPath:v2 error:&v9];
+    v4 = v9;
 
     v5 = objc_autoreleasePoolPush();
     v6 = HMFGetOSLogHandle();
@@ -754,25 +732,23 @@ void __41__HMDResidentLocationHandler_logCategory__block_invoke()
       v7 = HMFGetLogIdentifier();
       v8 = HMFBooleanToString();
       *buf = 138544130;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v2;
-      v15 = 2112;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v4;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v2;
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v4;
       _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Removing cache file: %@ succeeded: %@ with error: %@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)cachedResidentLocationPath
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = determineHomeKitDaemonRootStorePath();
   v3 = v2;
   if (v2)
@@ -787,16 +763,14 @@ void __41__HMDResidentLocationHandler_logCategory__block_invoke()
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to get HomeKit daemon root store path!", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to get HomeKit daemon root store path!", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
     v4 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

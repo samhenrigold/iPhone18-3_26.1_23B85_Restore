@@ -66,88 +66,90 @@
 - (id)initLegacyAlgorithmUsingSynchronizedUltrawideWhenAvailable:(BOOL)available
 {
   availableCopy = available;
-  v17 = *MEMORY[0x1E69E9840];
-  v5 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.semanticSegmentationTechnique");
-  v12.receiver = self;
-  v12.super_class = ARSISemanticSegmentationTechnique;
-  v6 = [(ARMLImageProcessingTechnique *)&v12 initWithDispatchQueue:v5 networkInputScaleBeforeRotation:1 delegateInference:256.0, 192.0];
+  v20 = *MEMORY[0x1E69E9840];
+  v5 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.semanticSegmentationTechnique", 4294967285);
+  v15.receiver = self;
+  v15.super_class = ARSISemanticSegmentationTechnique;
+  v6 = [(ARMLImageProcessingTechnique *)&v15 initWithDispatchQueue:v5 networkInputScaleBeforeRotation:1 delegateInference:256.0, 192.0];
+  v7 = v6;
   if (v6)
   {
-    v7 = _ARLogTechnique_13();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = _ARLogTechnique_13(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138543618;
-      v14 = v9;
-      v15 = 2048;
-      v16 = v6;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Running scene segmentation technique legacy by SceneIntelligence", buf, 0x16u);
+      v17 = v10;
+      v18 = 2048;
+      v19 = v7;
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Running scene segmentation technique legacy by SceneIntelligence", buf, 0x16u);
     }
 
-    v6->_numClasses = 12;
-    v6->_lastResultPushTimestamp = 0.0;
+    v7->_numClasses = 12;
+    v7->_lastResultPushTimestamp = 0.0;
     if (availableCopy)
     {
-      v10 = ARDeviceSupportsUltraWideCamera();
+      v13 = ARDeviceSupportsUltraWideCamera(v11, v12);
     }
 
     else
     {
-      v10 = 0;
+      v13 = 0;
     }
 
-    v6->_shouldUseSynchronizedUltraWide = v10;
-    v6->_isLegacyModel = 1;
+    v7->_shouldUseSynchronizedUltraWide = v13;
+    v7->_isLegacyModel = 1;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)initUsingSynchronizedUltrawideWhenAvailable:(BOOL)available
 {
   availableCopy = available;
-  v17 = *MEMORY[0x1E69E9840];
-  v5 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.semanticSegmentationTechnique");
-  v12.receiver = self;
-  v12.super_class = ARSISemanticSegmentationTechnique;
-  v6 = [(ARMLImageProcessingTechnique *)&v12 initWithDispatchQueue:v5 networkInputScaleBeforeRotation:1 delegateInference:256.0, 192.0];
+  v20 = *MEMORY[0x1E69E9840];
+  v5 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.semanticSegmentationTechnique", 4294967285);
+  v15.receiver = self;
+  v15.super_class = ARSISemanticSegmentationTechnique;
+  v6 = [(ARMLImageProcessingTechnique *)&v15 initWithDispatchQueue:v5 networkInputScaleBeforeRotation:1 delegateInference:256.0, 192.0];
+  v7 = v6;
   if (v6)
   {
-    v7 = _ARLogTechnique_13();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = _ARLogTechnique_13(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138543618;
-      v14 = v9;
-      v15 = 2048;
-      v16 = v6;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Running scene segmentation technique by SceneIntelligence", buf, 0x16u);
+      v17 = v10;
+      v18 = 2048;
+      v19 = v7;
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Running scene segmentation technique by SceneIntelligence", buf, 0x16u);
     }
 
-    v6->_numClasses = 34;
-    v6->_lastResultPushTimestamp = 0.0;
+    v7->_numClasses = 34;
+    v7->_lastResultPushTimestamp = 0.0;
     if (availableCopy)
     {
-      v10 = ARDeviceSupportsUltraWideCamera();
+      v13 = ARDeviceSupportsUltraWideCamera(v11, v12);
     }
 
     else
     {
-      v10 = 0;
+      v13 = 0;
     }
 
-    v6->_shouldUseSynchronizedUltraWide = v10;
-    v6->_isLegacyModel = 0;
+    v7->_shouldUseSynchronizedUltraWide = v13;
+    v7->_isLegacyModel = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)_prepareOnce:(BOOL)once
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if (self->_isLegacyModel)
   {
     v4 = objc_alloc(MEMORY[0x1E69C9CE8]);
@@ -166,46 +168,46 @@
       [ARSISemanticSegmentationTechnique _prepareOnce:];
     }
 
-    v7 = ARShouldUseLogTypeError_internalOSVersion_17;
-    v8 = _ARLogGeneral_7();
-    v9 = v8;
-    if (v7 == 1)
+    v8 = ARShouldUseLogTypeError_internalOSVersion_17;
+    v9 = _ARLogGeneral_7(v7);
+    v10 = v9;
+    if (v8 == 1)
     {
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_17;
       }
 
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138543618;
-      v36 = v11;
-      v37 = 2048;
+      v39 = v12;
+      v40 = 2048;
       selfCopy4 = self;
-      v12 = "%{public}@ <%p>: SISceneUnderstandingAlgorithm could not be initialized!";
-      v13 = v9;
-      v14 = OS_LOG_TYPE_ERROR;
+      v13 = "%{public}@ <%p>: SISceneUnderstandingAlgorithm could not be initialized!";
+      v14 = v10;
+      v15 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         goto LABEL_17;
       }
 
-      v29 = objc_opt_class();
-      v11 = NSStringFromClass(v29);
+      v31 = objc_opt_class();
+      v12 = NSStringFromClass(v31);
       *buf = 138543618;
-      v36 = v11;
-      v37 = 2048;
+      v39 = v12;
+      v40 = 2048;
       selfCopy4 = self;
-      v12 = "Error: %{public}@ <%p>: SISceneUnderstandingAlgorithm could not be initialized!";
-      v13 = v9;
-      v14 = OS_LOG_TYPE_INFO;
+      v13 = "Error: %{public}@ <%p>: SISceneUnderstandingAlgorithm could not be initialized!";
+      v14 = v10;
+      v15 = OS_LOG_TYPE_INFO;
     }
 
-    _os_log_impl(&dword_1C241C000, v13, v14, v12, buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v14, v15, v13, buf, 0x16u);
 
 LABEL_17:
     if (ARSkipCrashOnCrash_onceToken_0 != -1)
@@ -215,19 +217,19 @@ LABEL_17:
 
     if ((ARSkipCrashOnCrash_skipCrashOnCrash_0 & 1) == 0)
     {
-      v30 = MEMORY[0x1E696AEC0];
-      v31 = @"SISceneUnderstandingAlgorithm could not be initialized!";
+      v32 = MEMORY[0x1E696AEC0];
+      v33 = @"SISceneUnderstandingAlgorithm could not be initialized!";
 LABEL_28:
-      v33 = [v30 stringWithFormat:v31];
-      v34 = [v30 stringWithFormat:@"ARCrash: %@", v33];
+      v35 = [v32 stringWithFormat:v33];
+      v36 = [v32 stringWithFormat:@"ARCrash: %@", v35];
 
-      qword_1EBF41A28 = strdup([v34 UTF8String]);
-      if ((ARInternalOSBuild() & 1) == 0)
+      qword_1EBF41A28 = strdup([v36 UTF8String]);
+      if ((ARInternalOSBuild(qword_1EBF41A28, v37) & 1) == 0)
       {
         abort();
       }
 
-      ARAbortWithError(v34);
+      ARAbortWithError(v36);
 
       return;
     }
@@ -236,12 +238,12 @@ LABEL_28:
   }
 
   [ARKitUserDefaults floatForKey:@"com.apple.arkit.semanticSegmentation.uncertaintyThreshold"];
-  v16 = v15;
-  v17 = objc_alloc(MEMORY[0x1E69C9CE0]);
-  LODWORD(v18) = v16;
-  v19 = [v17 initWithComputeEngine:1 andNetworkConfiguration:0 uncertaintyThreshold:v18];
+  v17 = v16;
+  v18 = objc_alloc(MEMORY[0x1E69C9CE0]);
+  LODWORD(v19) = v17;
+  v20 = [v18 initWithComputeEngine:1 andNetworkConfiguration:0 uncertaintyThreshold:v19];
   sceneSegmentationAlgorithm = self->_sceneSegmentationAlgorithm;
-  self->_sceneSegmentationAlgorithm = v19;
+  self->_sceneSegmentationAlgorithm = v20;
 
   if (self->_sceneSegmentationAlgorithm)
   {
@@ -253,46 +255,46 @@ LABEL_28:
     [ARSISemanticSegmentationTechnique _prepareOnce:];
   }
 
-  v21 = ARShouldUseLogTypeError_internalOSVersion_17;
-  v22 = _ARLogGeneral_7();
-  v23 = v22;
-  if (v21 == 1)
+  v23 = ARShouldUseLogTypeError_internalOSVersion_17;
+  v24 = _ARLogGeneral_7(v22);
+  v25 = v24;
+  if (v23 == 1)
   {
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_24;
     }
 
-    v24 = objc_opt_class();
-    v25 = NSStringFromClass(v24);
+    v26 = objc_opt_class();
+    v27 = NSStringFromClass(v26);
     *buf = 138543618;
-    v36 = v25;
-    v37 = 2048;
+    v39 = v27;
+    v40 = 2048;
     selfCopy4 = self;
-    v26 = "%{public}@ <%p>: SISceneSegmentationAlgorithm could not be initialized!";
-    v27 = v23;
-    v28 = OS_LOG_TYPE_ERROR;
+    v28 = "%{public}@ <%p>: SISceneSegmentationAlgorithm could not be initialized!";
+    v29 = v25;
+    v30 = OS_LOG_TYPE_ERROR;
   }
 
   else
   {
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       goto LABEL_24;
     }
 
-    v32 = objc_opt_class();
-    v25 = NSStringFromClass(v32);
+    v34 = objc_opt_class();
+    v27 = NSStringFromClass(v34);
     *buf = 138543618;
-    v36 = v25;
-    v37 = 2048;
+    v39 = v27;
+    v40 = 2048;
     selfCopy4 = self;
-    v26 = "Error: %{public}@ <%p>: SISceneSegmentationAlgorithm could not be initialized!";
-    v27 = v23;
-    v28 = OS_LOG_TYPE_INFO;
+    v28 = "Error: %{public}@ <%p>: SISceneSegmentationAlgorithm could not be initialized!";
+    v29 = v25;
+    v30 = OS_LOG_TYPE_INFO;
   }
 
-  _os_log_impl(&dword_1C241C000, v27, v28, v26, buf, 0x16u);
+  _os_log_impl(&dword_1C241C000, v29, v30, v28, buf, 0x16u);
 
 LABEL_24:
   if (ARSkipCrashOnCrash_onceToken_0 != -1)
@@ -302,8 +304,8 @@ LABEL_24:
 
   if ((ARSkipCrashOnCrash_skipCrashOnCrash_0 & 1) == 0)
   {
-    v30 = MEMORY[0x1E696AEC0];
-    v31 = @"SISceneSegmentationAlgorithm could not be initialized!";
+    v32 = MEMORY[0x1E696AEC0];
+    v33 = @"SISceneSegmentationAlgorithm could not be initialized!";
     goto LABEL_28;
   }
 }
@@ -376,7 +378,7 @@ LABEL_24:
 {
   height = interest.height;
   width = interest.width;
-  v88 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   imageDataCopy = imageData;
   if (self->_sceneSegmentationAlgorithm)
@@ -407,7 +409,7 @@ LABEL_10:
   }
 
 LABEL_3:
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   [(ARSISemanticSegmentationTechnique *)self _startMLRunNetworkSignpostWithTimestamp:?];
   if (self->_isLegacyModel)
   {
@@ -439,61 +441,62 @@ LABEL_3:
     }
   }
 
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x2020000000;
-  v82 = ARCreateCVPixelBufferFromPool(&self->_outputSegmentationPixelBufferPool, 1278226488, self, @"segmentation output label", v14, v16);
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x2020000000;
-  v78 = ARCreateCVPixelBufferFromPool(&self->_outputConfidencePixelBufferPool, 1278226534, self, @"segmentation output confidence", v14, v16);
-  v71 = 0;
-  v72 = &v71;
-  v73 = 0x2020000000;
-  v74 = ARCreateCVPixelBufferFromPool(&self->_outputNormalPixelBufferPool, 1380410945, self, @"segmentation output normal", v14, v16);
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x2020000000;
-  v70 = ARCreateCVPixelBufferFromPool(&self->_outputUncertaintyPixelBufferPool, 1278226534, self, @"segmentation output uncertainty", v14, v16);
-  v60[1] = 3221225472;
-  v60[0] = MEMORY[0x1E69E9820];
-  v61 = __125__ARSISemanticSegmentationTechnique_runNeuralNetworkWithImageData_originalImageData_regionOfInterest_rotationOfResultTensor___block_invoke;
-  v62 = &unk_1E817C790;
-  v63 = &v79;
-  v64 = &v75;
-  v65 = &v67;
-  v66 = &v71;
-  if (!v80[3] || !v76[3] || !v68[3] || self->_isLegacyModel && !v72[3])
+  v84 = 0;
+  v85 = &v84;
+  v86 = 0x2020000000;
+  v87 = ARCreateCVPixelBufferFromPool(&self->_outputSegmentationPixelBufferPool, 1278226488, self, @"segmentation output label", v14, v16);
+  v80 = 0;
+  v81 = &v80;
+  v82 = 0x2020000000;
+  v83 = ARCreateCVPixelBufferFromPool(&self->_outputConfidencePixelBufferPool, 1278226534, self, @"segmentation output confidence", v14, v16);
+  v76 = 0;
+  v77 = &v76;
+  v78 = 0x2020000000;
+  v79 = ARCreateCVPixelBufferFromPool(&self->_outputNormalPixelBufferPool, 1380410945, self, @"segmentation output normal", v14, v16);
+  v72 = 0;
+  v73 = &v72;
+  v74 = 0x2020000000;
+  v21 = ARCreateCVPixelBufferFromPool(&self->_outputUncertaintyPixelBufferPool, 1278226534, self, @"segmentation output uncertainty", v14, v16);
+  v75 = v21;
+  v65[1] = 3221225472;
+  v65[0] = MEMORY[0x1E69E9820];
+  v66 = __125__ARSISemanticSegmentationTechnique_runNeuralNetworkWithImageData_originalImageData_regionOfInterest_rotationOfResultTensor___block_invoke;
+  v67 = &unk_1E817C790;
+  v68 = &v84;
+  v69 = &v80;
+  v70 = &v72;
+  v71 = &v76;
+  if (!v85[3] || !v81[3] || !v73[3] || self->_isLegacyModel && !v77[3])
   {
     if (ARShouldUseLogTypeError_onceToken_17 != -1)
     {
       [ARSISemanticSegmentationTechnique runNeuralNetworkWithImageData:originalImageData:regionOfInterest:rotationOfResultTensor:];
     }
 
-    v32 = ARShouldUseLogTypeError_internalOSVersion_17;
-    v33 = _ARLogTechnique_13();
-    tensor = v33;
-    if (v32 == 1)
+    v34 = ARShouldUseLogTypeError_internalOSVersion_17;
+    v35 = _ARLogTechnique_13(v21);
+    tensor = v35;
+    if (v34 == 1)
     {
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = objc_opt_class();
-        v36 = NSStringFromClass(v35);
+        v37 = objc_opt_class();
+        v38 = NSStringFromClass(v37);
         *buf = 138543618;
-        v85 = v36;
-        v86 = 2048;
+        v90 = v38;
+        v91 = 2048;
         selfCopy6 = self;
         _os_log_impl(&dword_1C241C000, tensor, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Pixelbuffer is nil. Returning empty result.", buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
-      v37 = objc_opt_class();
-      v38 = NSStringFromClass(v37);
+      v39 = objc_opt_class();
+      v40 = NSStringFromClass(v39);
       *buf = 138543618;
-      v85 = v38;
-      v86 = 2048;
+      v90 = v40;
+      v91 = 2048;
       selfCopy6 = self;
       _os_log_impl(&dword_1C241C000, tensor, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Pixelbuffer is nil. Returning empty result.", buf, 0x16u);
     }
@@ -502,48 +505,49 @@ LABEL_3:
     goto LABEL_36;
   }
 
-  v21 = [(ARMLImageProcessingTechnique *)self getDeviceOrientationFromImageData:imageDataCopy];
-  v22 = v21;
+  v22 = [(ARMLImageProcessingTechnique *)self getDeviceOrientationFromImageData:imageDataCopy];
+  v23 = v22;
   if (self->_isLegacyModel)
   {
     sceneUnderstandingAlgorithm = self->_sceneUnderstandingAlgorithm;
     pixelBuffer2 = [dataCopy pixelBuffer];
-    IOSurface = CVPixelBufferGetIOSurface(v80[3]);
-    v26 = CVPixelBufferGetIOSurface(v76[3]);
-    [(SISceneUnderstandingAlgorithm *)sceneUnderstandingAlgorithm runWithInput:pixelBuffer2 output:IOSurface confidenceOutput:v26 normalsOutput:CVPixelBufferGetIOSurface(v72[3]) orientation:[(ARSISemanticSegmentationTechnique *)self _mapUIDeviceOrientation:v22]];
-    if (![(ARSISemanticSegmentationTechnique *)self _scaleOutputBuffersIfNeededForTargetResolution:v80 + 3 segmentationPixelBuffer:v76 + 3 confidencePixelBuffer:v72 + 3 normalPixelBuffer:0 uncertaintyPixelBuffer:width, height])
+    IOSurface = CVPixelBufferGetIOSurface(v85[3]);
+    v27 = CVPixelBufferGetIOSurface(v81[3]);
+    [(SISceneUnderstandingAlgorithm *)sceneUnderstandingAlgorithm runWithInput:pixelBuffer2 output:IOSurface confidenceOutput:v27 normalsOutput:CVPixelBufferGetIOSurface(v77[3]) orientation:[(ARSISemanticSegmentationTechnique *)self _mapUIDeviceOrientation:v23]];
+    height = [(ARSISemanticSegmentationTechnique *)self _scaleOutputBuffersIfNeededForTargetResolution:v85 + 3 segmentationPixelBuffer:v81 + 3 confidencePixelBuffer:v77 + 3 normalPixelBuffer:0 uncertaintyPixelBuffer:width, height];
+    if ((height & 1) == 0)
     {
       if (ARShouldUseLogTypeError_onceToken_17 != -1)
       {
         [ARSISemanticSegmentationTechnique runNeuralNetworkWithImageData:originalImageData:regionOfInterest:rotationOfResultTensor:];
       }
 
-      v27 = ARShouldUseLogTypeError_internalOSVersion_17;
-      v28 = _ARLogGeneral_7();
-      v29 = v28;
-      if (v27 == 1)
+      v29 = ARShouldUseLogTypeError_internalOSVersion_17;
+      v30 = _ARLogGeneral_7(height);
+      v31 = v30;
+      if (v29 == 1)
       {
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          v30 = objc_opt_class();
-          v31 = NSStringFromClass(v30);
+          v32 = objc_opt_class();
+          v33 = NSStringFromClass(v32);
           *buf = 138543618;
-          v85 = v31;
-          v86 = 2048;
+          v90 = v33;
+          v91 = 2048;
           selfCopy6 = self;
-          _os_log_impl(&dword_1C241C000, v29, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Output buffer scaling failed. (legacy)", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Output buffer scaling failed. (legacy)", buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
-        v50 = objc_opt_class();
-        v51 = NSStringFromClass(v50);
+        v53 = objc_opt_class();
+        v54 = NSStringFromClass(v53);
         *buf = 138543618;
-        v85 = v51;
-        v86 = 2048;
+        v90 = v54;
+        v91 = 2048;
         selfCopy6 = self;
-        _os_log_impl(&dword_1C241C000, v29, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Output buffer scaling failed. (legacy)", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Output buffer scaling failed. (legacy)", buf, 0x16u);
       }
 
       if (ARSkipCrashOnCrash_onceToken_0 != -1)
@@ -553,13 +557,13 @@ LABEL_3:
 
       if ((ARSkipCrashOnCrash_skipCrashOnCrash_0 & 1) == 0)
       {
-        v52 = MEMORY[0x1E696AEC0];
-        v53 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Output buffer scaling failed. (legacy)"];
-        tensor = [v52 stringWithFormat:@"ARCrash: %@", v53];
+        v55 = MEMORY[0x1E696AEC0];
+        v56 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Output buffer scaling failed. (legacy)"];
+        tensor = [v55 stringWithFormat:@"ARCrash: %@", v56];
 
-        v54 = tensor;
+        v57 = tensor;
         qword_1EBF41A28 = strdup([tensor UTF8String]);
-        if (ARInternalOSBuild())
+        if (ARInternalOSBuild(qword_1EBF41A28, v58))
         {
           goto LABEL_66;
         }
@@ -573,100 +577,104 @@ LABEL_3:
 
   else
   {
-    if ((v21 - 3) < 2)
+    if ((v22 - 3) < 2)
     {
-      v40 = 1;
+      v42 = 1;
     }
 
     else
     {
-      v40 = 2 * ((v21 - 1) < 2);
+      v42 = 2 * ((v22 - 1) < 2);
     }
 
     sceneSegmentationAlgorithm = self->_sceneSegmentationAlgorithm;
     pixelBuffer3 = [dataCopy pixelBuffer];
-    v43 = CVPixelBufferGetIOSurface(v80[3]);
-    v44 = CVPixelBufferGetIOSurface(v76[3]);
-    [(SISceneSegmentationAlgorithm *)sceneSegmentationAlgorithm runWithInput:pixelBuffer3 output:v43 confidenceOutput:v44 uncertaintyOutput:CVPixelBufferGetIOSurface(v68[3]) resampleOutput:1 networkConfiguration:v40];
-    if (!self->_shouldUseSynchronizedUltraWide && ![(ARSISemanticSegmentationTechnique *)self _scaleOutputBuffersIfNeededForTargetResolution:v80 + 3 segmentationPixelBuffer:v76 + 3 confidencePixelBuffer:0 normalPixelBuffer:v68 + 3 uncertaintyPixelBuffer:width, height])
+    v45 = CVPixelBufferGetIOSurface(v85[3]);
+    v46 = CVPixelBufferGetIOSurface(v81[3]);
+    [(SISceneSegmentationAlgorithm *)sceneSegmentationAlgorithm runWithInput:pixelBuffer3 output:v45 confidenceOutput:v46 uncertaintyOutput:CVPixelBufferGetIOSurface(v73[3]) resampleOutput:1 networkConfiguration:v42];
+    if (!self->_shouldUseSynchronizedUltraWide)
     {
-      if (ARShouldUseLogTypeError_onceToken_17 != -1)
+      height2 = [(ARSISemanticSegmentationTechnique *)self _scaleOutputBuffersIfNeededForTargetResolution:v85 + 3 segmentationPixelBuffer:v81 + 3 confidencePixelBuffer:0 normalPixelBuffer:v73 + 3 uncertaintyPixelBuffer:width, height];
+      if ((height2 & 1) == 0)
       {
-        [ARSISemanticSegmentationTechnique runNeuralNetworkWithImageData:originalImageData:regionOfInterest:rotationOfResultTensor:];
-      }
-
-      v45 = ARShouldUseLogTypeError_internalOSVersion_17;
-      v46 = _ARLogGeneral_7();
-      v47 = v46;
-      if (v45 == 1)
-      {
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        if (ARShouldUseLogTypeError_onceToken_17 != -1)
         {
-          v48 = objc_opt_class();
-          v49 = NSStringFromClass(v48);
+          [ARSISemanticSegmentationTechnique runNeuralNetworkWithImageData:originalImageData:regionOfInterest:rotationOfResultTensor:];
+        }
+
+        v48 = ARShouldUseLogTypeError_internalOSVersion_17;
+        v49 = _ARLogGeneral_7(height2);
+        v50 = v49;
+        if (v48 == 1)
+        {
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          {
+            v51 = objc_opt_class();
+            v52 = NSStringFromClass(v51);
+            *buf = 138543618;
+            v90 = v52;
+            v91 = 2048;
+            selfCopy6 = self;
+            _os_log_impl(&dword_1C241C000, v50, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Output buffer scaling failed. (Non-legacy)", buf, 0x16u);
+          }
+        }
+
+        else if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+        {
+          v59 = objc_opt_class();
+          v60 = NSStringFromClass(v59);
           *buf = 138543618;
-          v85 = v49;
-          v86 = 2048;
+          v90 = v60;
+          v91 = 2048;
           selfCopy6 = self;
-          _os_log_impl(&dword_1C241C000, v47, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Output buffer scaling failed. (Non-legacy)", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v50, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Output buffer scaling failed. (Non-legacy)", buf, 0x16u);
         }
-      }
 
-      else if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
-      {
-        v55 = objc_opt_class();
-        v56 = NSStringFromClass(v55);
-        *buf = 138543618;
-        v85 = v56;
-        v86 = 2048;
-        selfCopy6 = self;
-        _os_log_impl(&dword_1C241C000, v47, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Output buffer scaling failed. (Non-legacy)", buf, 0x16u);
-      }
-
-      if (ARSkipCrashOnCrash_onceToken_0 != -1)
-      {
-        [ARSISemanticSegmentationTechnique _prepareOnce:];
-      }
-
-      if ((ARSkipCrashOnCrash_skipCrashOnCrash_0 & 1) == 0)
-      {
-        v57 = MEMORY[0x1E696AEC0];
-        v58 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Output buffer scaling failed. (Non-legacy)"];
-        tensor = [v57 stringWithFormat:@"ARCrash: %@", v58];
-
-        v59 = tensor;
-        qword_1EBF41A28 = strdup([tensor UTF8String]);
-        if (ARInternalOSBuild())
+        if (ARSkipCrashOnCrash_onceToken_0 != -1)
         {
-LABEL_66:
-          ARAbortWithError(tensor);
-          v18 = 0;
-          goto LABEL_36;
+          [ARSISemanticSegmentationTechnique _prepareOnce:];
         }
+
+        if ((ARSkipCrashOnCrash_skipCrashOnCrash_0 & 1) == 0)
+        {
+          v61 = MEMORY[0x1E696AEC0];
+          v62 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Output buffer scaling failed. (Non-legacy)"];
+          tensor = [v61 stringWithFormat:@"ARCrash: %@", v62];
+
+          v63 = tensor;
+          qword_1EBF41A28 = strdup([tensor UTF8String]);
+          if (ARInternalOSBuild(qword_1EBF41A28, v64))
+          {
+LABEL_66:
+            ARAbortWithError(tensor);
+            v18 = 0;
+            goto LABEL_36;
+          }
 
 LABEL_67:
-        abort();
-      }
+          abort();
+        }
 
 LABEL_64:
-      v18 = 0;
-      goto LABEL_37;
+        v18 = 0;
+        goto LABEL_37;
+      }
     }
   }
 
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   [(ARSISemanticSegmentationTechnique *)self _endMLRunNetworkSignpostWithTimestamp:?];
-  tensor = [(ARSISemanticSegmentationTechnique *)self createResultDataFromOutputSegmentation:v80[3] outputConfidence:v76[3] outputNormalize:v72[3] outputUncertainty:v68[3] inputImageData:imageDataCopy originalData:dataCopy rotationNeeded:width regionOfInterest:height, tensor];
-  v83 = tensor;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v83 count:1];
+  tensor = [(ARSISemanticSegmentationTechnique *)self createResultDataFromOutputSegmentation:v85[3] outputConfidence:v81[3] outputNormalize:v77[3] outputUncertainty:v73[3] inputImageData:imageDataCopy originalData:dataCopy rotationNeeded:width regionOfInterest:height, tensor];
+  v88 = tensor;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v88 count:1];
 LABEL_36:
 
 LABEL_37:
-  v61(v60);
-  _Block_object_dispose(&v67, 8);
-  _Block_object_dispose(&v71, 8);
-  _Block_object_dispose(&v75, 8);
-  _Block_object_dispose(&v79, 8);
+  v66(v65);
+  _Block_object_dispose(&v72, 8);
+  _Block_object_dispose(&v76, 8);
+  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v84, 8);
 LABEL_38:
 
   return v18;
@@ -712,7 +720,7 @@ void __125__ARSISemanticSegmentationTechnique_runNeuralNetworkWithImageData_orig
 {
   height = resolution.height;
   width = resolution.width;
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   if (buffer)
   {
@@ -721,23 +729,24 @@ void __125__ARSISemanticSegmentationTechnique_runNeuralNetworkWithImageData_orig
     if (v11)
     {
       v12 = v11;
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v26 = __92__ARSISemanticSegmentationTechnique__scalePixelOutputBuffer_toTargetResolution_description___block_invoke;
-      v27 = &__block_descriptor_40_e5_v8__0l;
-      v28 = v11;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v27 = __92__ARSISemanticSegmentationTechnique__scalePixelOutputBuffer_toTargetResolution_description___block_invoke;
+      v28 = &__block_descriptor_40_e5_v8__0l;
+      v29 = v11;
       IOSurface = CVPixelBufferGetIOSurface(*buffer);
       if (IOSurface)
       {
         BytesPerElement = IOSurfaceGetBytesPerElement(IOSurface);
         v15 = ARResizeBufferWithNearestNeighbors(*buffer, v12, BytesPerElement);
+        v16 = v15;
         if (!v15)
         {
           CVPixelBufferRelease(*buffer);
           *buffer = CVPixelBufferRetain(v12);
-          v21 = 1;
+          v22 = 1;
 LABEL_17:
-          v26(v25);
+          v27(v26);
           goto LABEL_18;
         }
 
@@ -746,52 +755,52 @@ LABEL_17:
           [ARSISemanticSegmentationTechnique runNeuralNetworkWithImageData:originalImageData:regionOfInterest:rotationOfResultTensor:];
         }
 
-        v16 = ARShouldUseLogTypeError_internalOSVersion_17;
-        v17 = _ARLogTechnique_13();
-        v18 = v17;
-        if (v16 == 1)
+        v17 = ARShouldUseLogTypeError_internalOSVersion_17;
+        v18 = _ARLogTechnique_13(v15);
+        v19 = v18;
+        if (v17 == 1)
         {
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            v19 = objc_opt_class();
-            v20 = NSStringFromClass(v19);
+            v20 = objc_opt_class();
+            v21 = NSStringFromClass(v20);
             *buf = 138544130;
-            v30 = v20;
-            v31 = 2048;
+            v31 = v21;
+            v32 = 2048;
             selfCopy2 = self;
-            v33 = 2112;
-            v34 = descriptionCopy;
-            v35 = 1024;
-            v36 = v15;
-            _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to resample pixel buffer (%@): %i", buf, 0x26u);
+            v34 = 2112;
+            v35 = descriptionCopy;
+            v36 = 1024;
+            v37 = v16;
+            _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to resample pixel buffer (%@): %i", buf, 0x26u);
           }
         }
 
-        else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          v22 = objc_opt_class();
-          v23 = NSStringFromClass(v22);
+          v23 = objc_opt_class();
+          v24 = NSStringFromClass(v23);
           *buf = 138544130;
-          v30 = v23;
-          v31 = 2048;
+          v31 = v24;
+          v32 = 2048;
           selfCopy2 = self;
-          v33 = 2112;
-          v34 = descriptionCopy;
-          v35 = 1024;
-          v36 = v15;
-          _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to resample pixel buffer (%@): %i", buf, 0x26u);
+          v34 = 2112;
+          v35 = descriptionCopy;
+          v36 = 1024;
+          v37 = v16;
+          _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to resample pixel buffer (%@): %i", buf, 0x26u);
         }
       }
 
-      v21 = 0;
+      v22 = 0;
       goto LABEL_17;
     }
   }
 
-  v21 = 0;
+  v22 = 0;
 LABEL_18:
 
-  return v21;
+  return v22;
 }
 
 - (id)createResultDataFromOutputSegmentation:(__CVBuffer *)segmentation outputConfidence:(__CVBuffer *)confidence outputNormalize:(__CVBuffer *)normalize outputUncertainty:(__CVBuffer *)uncertainty inputImageData:(id)data originalData:(id)originalData rotationNeeded:(int64_t)needed regionOfInterest:(CGSize)self0
@@ -819,7 +828,7 @@ LABEL_18:
   if (!uncertainty || self->_isLegacyModel)
   {
     v31 = [ARSegmentationData alloc];
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     v30 = -[ARSegmentationData initWithTimestamp:segmentationBuffer:confidenceBuffer:source:](v31, "initWithTimestamp:segmentationBuffer:confidenceBuffer:source:", [v23 pixelBuffer], objc_msgSend(v46, "pixelBuffer"), 2, v32);
   }
 
@@ -833,7 +842,7 @@ LABEL_18:
     v25 = v16;
     v27 = v26 = dataCopy;
     v28 = [ARSegmentationData alloc];
-    [v26 timestamp];
+    objc_msgSend_timestamp(v26);
     v30 = -[ARSegmentationData initWithTimestamp:segmentationBuffer:confidenceBuffer:uncertaintyBuffer:source:](v28, "initWithTimestamp:segmentationBuffer:confidenceBuffer:uncertaintyBuffer:source:", [v23 pixelBuffer], objc_msgSend(v46, "pixelBuffer"), objc_msgSend(v27, "pixelBuffer"), 2, v29);
 
     dataCopy = v26;
@@ -863,7 +872,7 @@ LABEL_18:
   [(ARSegmentationData *)v30 setSourceImageData:originalImage];
 
   sourceImageData = [(ARSegmentationData *)v30 sourceImageData];
-  [sourceImageData timestamp];
+  objc_msgSend_timestamp(sourceImageData);
   sourceImageData2 = [(ARSegmentationData *)v30 sourceImageData];
   cameraType = [sourceImageData2 cameraType];
   [cameraType isEqualToString:*MEMORY[0x1E6986948]];
@@ -889,7 +898,7 @@ LABEL_18:
 
 - (id)_rotateImageData:(id)data withRotationTechnique:(id)technique rotationNeeded:(int64_t)needed
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v9 = [technique processData:dataCopy];
 
@@ -900,44 +909,44 @@ LABEL_18:
       [ARSISemanticSegmentationTechnique _prepareOnce:];
     }
 
-    v10 = ARShouldUseLogTypeError_internalOSVersion_17;
-    v11 = _ARLogTechnique_13();
-    v12 = v11;
-    if (v10 == 1)
+    v11 = ARShouldUseLogTypeError_internalOSVersion_17;
+    v12 = _ARLogTechnique_13(v10);
+    v13 = v12;
+    if (v11 == 1)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v22 = 138543618;
-        v23 = v14;
-        v24 = 2048;
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v23 = 138543618;
+        v24 = v15;
+        v25 = 2048;
         selfCopy2 = self;
-        v15 = "%{public}@ <%p>: Could not rotate image data.";
-        v16 = v12;
-        v17 = OS_LOG_TYPE_ERROR;
+        v16 = "%{public}@ <%p>: Could not rotate image data.";
+        v17 = v13;
+        v18 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-        _os_log_impl(&dword_1C241C000, v16, v17, v15, &v22, 0x16u);
+        _os_log_impl(&dword_1C241C000, v17, v18, v16, &v23, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v18 = objc_opt_class();
-      v14 = NSStringFromClass(v18);
-      v22 = 138543618;
-      v23 = v14;
-      v24 = 2048;
+      v19 = objc_opt_class();
+      v15 = NSStringFromClass(v19);
+      v23 = 138543618;
+      v24 = v15;
+      v25 = 2048;
       selfCopy2 = self;
-      v15 = "Error: %{public}@ <%p>: Could not rotate image data.";
-      v16 = v12;
-      v17 = OS_LOG_TYPE_INFO;
+      v16 = "Error: %{public}@ <%p>: Could not rotate image data.";
+      v17 = v13;
+      v18 = OS_LOG_TYPE_INFO;
       goto LABEL_10;
     }
 
     delegate = [(ARTechnique *)self delegate];
-    v20 = ARErrorWithCodeAndUserInfo(151, 0);
-    [delegate technique:self didFailWithError:v20];
+    v21 = ARErrorWithCodeAndUserInfo(151, 0);
+    [delegate technique:self didFailWithError:v21];
   }
 
   return v9;

@@ -173,7 +173,7 @@
     v64 = [(MediaSocialPostOperation *)self loadedURLBagWithContext:v7 returningError:0];
     if (!v64)
     {
-      goto LABEL_46;
+      goto LABEL_49;
     }
 
     v9 = [v64 valueForKey:SSVURLBagKeyMusicConnect];
@@ -216,21 +216,26 @@
             v16 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog = [v16 shouldLog];
+          LODWORD(v17) = [v16 shouldLog];
           shouldLogToDisk = [v16 shouldLogToDisk];
           oSLogObject = [v16 OSLogObject];
           v20 = oSLogObject;
           if (shouldLogToDisk)
           {
-            shouldLog |= 2u;
+            LODWORD(v17) = v17 | 2;
           }
 
-          if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
           {
-            shouldLog &= 2u;
+            v17 = v17;
           }
 
-          if (shouldLog)
+          else
+          {
+            v17 &= 2u;
+          }
+
+          if (v17)
           {
             v21 = objc_opt_class();
             postIdentifier = self->_postIdentifier;
@@ -239,35 +244,33 @@
             v71 = 2048;
             v72 = postIdentifier;
             v23 = v21;
-            LODWORD(v54) = 22;
-            v53 = &v69;
-            v24 = _os_log_send_and_compose_impl();
+            v24 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, v20, 1, "%@: Sending post with identifier: %lld", &v69, 22);
 
             if (!v24)
             {
-              goto LABEL_16;
+              goto LABEL_17;
             }
 
-            v20 = [NSString stringWithCString:v24 encoding:4, &v69, v54];
+            v20 = [NSString stringWithCString:v24 encoding:4];
             free(v24);
             v53 = v20;
             SSFileLog();
           }
 
-LABEL_16:
+LABEL_17:
           v66 = v5;
           v25 = [(MediaSocialPostOperation *)self runSubOperation:v63 returningError:&v66];
           v26 = v66;
 
           if (!v25)
           {
-LABEL_33:
+LABEL_35:
 
             v5 = v62;
-LABEL_57:
+LABEL_61:
 
             v5 = v26;
-            goto LABEL_58;
+            goto LABEL_62;
           }
 
           dataProvider = [v63 dataProvider];
@@ -276,21 +279,21 @@ LABEL_57:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-LABEL_32:
+LABEL_34:
 
-            goto LABEL_33;
+            goto LABEL_35;
           }
 
           v59 = [output objectForKey:@"status"];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0 || ![v59 isEqualToString:@"error"])
           {
-LABEL_31:
+LABEL_33:
             response = [v63 response];
             -[MediaSocialPostResponse setStatusCode:](v65, "setStatusCode:", [response itunes_statusCode]);
 
             [(MediaSocialPostResponse *)v65 setValuesWithResponseDictionary:output];
-            goto LABEL_32;
+            goto LABEL_34;
           }
 
           v58 = [output objectForKey:@"error"];
@@ -300,22 +303,27 @@ LABEL_31:
             v29 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog2 = [v29 shouldLog];
+          LODWORD(v30) = [v29 shouldLog];
           shouldLogToDisk2 = [v29 shouldLogToDisk];
           v57 = v29;
           oSLogObject2 = [v29 OSLogObject];
           v32 = oSLogObject2;
           if (shouldLogToDisk2)
           {
-            shouldLog2 |= 2u;
+            LODWORD(v30) = v30 | 2;
           }
 
-          if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
           {
-            shouldLog2 &= 2u;
+            v30 = v30;
           }
 
-          if (shouldLog2)
+          else
+          {
+            v30 &= 2u;
+          }
+
+          if (v30)
           {
             v33 = objc_opt_class();
             v69 = 138412546;
@@ -324,77 +332,80 @@ LABEL_31:
             v72 = v58;
             v56 = v33;
             LODWORD(v54) = 22;
-            v53 = &v69;
-            v34 = _os_log_send_and_compose_impl();
+            v34 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, v32, 0, "%@: Post failed with error: %@", &v69, v54);
 
             if (!v34)
             {
-LABEL_30:
+LABEL_32:
 
               v35 = SSError();
 
               v26 = v35;
-              goto LABEL_31;
+              goto LABEL_33;
             }
 
-            v32 = [NSString stringWithCString:v34 encoding:4, &v69, v54];
+            v32 = [NSString stringWithCString:v34 encoding:4];
             free(v34);
             v53 = v32;
             SSFileLog();
           }
 
-          goto LABEL_30;
+          goto LABEL_32;
         }
 
-LABEL_46:
+LABEL_49:
         v43 = +[SSLogConfig sharedDaemonConfig];
         if (!v43)
         {
           v43 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog3 = [v43 shouldLog];
+        LODWORD(v44) = [v43 shouldLog];
         shouldLogToDisk3 = [v43 shouldLogToDisk];
         oSLogObject3 = [v43 OSLogObject];
         v47 = oSLogObject3;
         if (shouldLogToDisk3)
         {
-          shouldLog3 |= 2u;
+          LODWORD(v44) = v44 | 2;
         }
 
-        if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
         {
-          shouldLog3 &= 2u;
+          v44 = v44;
         }
 
-        if (shouldLog3)
+        else
+        {
+          v44 &= 2u;
+        }
+
+        if (v44)
         {
           v48 = objc_opt_class();
           v69 = 138412290;
           v70 = v48;
           v49 = v48;
-          LODWORD(v54) = 12;
-          v50 = _os_log_send_and_compose_impl();
+          v50 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &_mh_execute_header, v47, 0, "%@: No URL to create social post", &v69, 12);
 
           if (!v50)
           {
-LABEL_56:
+LABEL_60:
 
             v26 = SSError();
             v25 = 0;
-            goto LABEL_57;
+            goto LABEL_61;
           }
 
-          v47 = [NSString stringWithCString:v50 encoding:4, &v69, v54];
+          v47 = [NSString stringWithCString:v50 encoding:4];
           free(v50);
           SSFileLog();
         }
 
-        goto LABEL_56;
+        goto LABEL_60;
       }
     }
 
-    goto LABEL_46;
+    goto LABEL_49;
   }
 
   userAgent = +[SSLogConfig sharedDaemonConfig];
@@ -403,27 +414,32 @@ LABEL_56:
     userAgent = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog4 = [userAgent shouldLog];
+  LODWORD(v37) = [userAgent shouldLog];
   shouldLogToDisk4 = [userAgent shouldLogToDisk];
   oSLogObject4 = [userAgent OSLogObject];
   v7 = oSLogObject4;
   if (shouldLogToDisk4)
   {
-    shouldLog4 |= 2u;
+    LODWORD(v37) = v37 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
   {
-    shouldLog4 &= 2u;
+    v37 = v37;
   }
 
-  if (!shouldLog4)
+  else
   {
-LABEL_43:
+    v37 &= 2u;
+  }
+
+  if (!v37)
+  {
+LABEL_46:
     v25 = 0;
-LABEL_58:
+LABEL_62:
 
-    goto LABEL_59;
+    goto LABEL_63;
   }
 
   v40 = objc_opt_class();
@@ -432,19 +448,18 @@ LABEL_58:
   v71 = 2112;
   v72 = v5;
   v41 = v40;
-  LODWORD(v54) = 22;
-  v42 = _os_log_send_and_compose_impl();
+  v42 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &_mh_execute_header, v7, 0, "%@: Could not encode message: %@", &v69, 22);
 
   if (v42)
   {
-    v7 = [NSString stringWithCString:v42 encoding:4, &v69, v54];
+    v7 = [NSString stringWithCString:v42 encoding:4];
     free(v42);
     SSFileLog();
-    goto LABEL_43;
+    goto LABEL_46;
   }
 
   v25 = 0;
-LABEL_59:
+LABEL_63:
 
   [(MediaSocialPostOperation *)self setError:v5];
   [(MediaSocialPostOperation *)self setSuccess:v25];

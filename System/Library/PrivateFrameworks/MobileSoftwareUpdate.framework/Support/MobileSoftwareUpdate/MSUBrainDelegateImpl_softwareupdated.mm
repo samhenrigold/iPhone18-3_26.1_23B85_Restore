@@ -34,7 +34,7 @@
 
 - (void)connectionInterrupted
 {
-  v2 = msuSharedLogger();
+  v2 = msuSharedLogger(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [(MSUBrainDelegateImpl_softwareupdated *)v2 connectionInterrupted];
@@ -43,7 +43,7 @@
 
 - (void)connectionInvalidated
 {
-  v2 = msuSharedLogger();
+  v2 = msuSharedLogger(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [(MSUBrainDelegateImpl_softwareupdated *)v2 connectionInvalidated];

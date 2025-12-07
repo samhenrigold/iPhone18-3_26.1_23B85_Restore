@@ -195,7 +195,7 @@
 - (void)setTargetedPreview:(id)preview
 {
   previewCopy = preview;
-  if (([previewCopy isEqual:self->_targetedPreview] & 1) == 0)
+  if ((objc_msgSend_isEqual_(previewCopy) & 1) == 0)
   {
     targetedPreview = self->_targetedPreview;
     if (!targetedPreview || (-[UITargetedPreview view](targetedPreview, "view"), v5 = objc_claimAutoreleasedReturnValue(), [previewCopy view], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v5 == v6))
@@ -313,7 +313,7 @@
 - (void)setTintViewShape:(id)shape
 {
   shapeCopy = shape;
-  if (([shapeCopy isEqual:self->_tintViewShape] & 1) == 0)
+  if ((objc_msgSend_isEqual_(shapeCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_tintViewShape, shape);
     [(_UIPointerEffectPlatterView *)self _layoutTintView];

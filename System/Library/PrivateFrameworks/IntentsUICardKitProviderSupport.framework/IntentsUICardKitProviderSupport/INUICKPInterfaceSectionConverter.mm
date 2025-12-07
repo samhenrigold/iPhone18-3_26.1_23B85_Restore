@@ -8,29 +8,29 @@
 
 + (id)generateInterfaceSectionsFromCard:(id)card
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   cardCopy = card;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = [cardCopy cardSections];
-  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           v11 = [self _interactionMatchingCardSection:v10 inCard:cardCopy];
@@ -47,14 +47,13 @@
         [v5 addObject:v13];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
 
   v14 = [v5 copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -69,45 +68,45 @@
 
 + (unint64_t)_intrinsicInteractiveBehaviorForCardSection:(id)section
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   inuickp_interactiveBehaviorPrecedenceOrder = [objc_opt_class() inuickp_interactiveBehaviorPrecedenceOrder];
-  v21 = [inuickp_interactiveBehaviorPrecedenceOrder count];
+  v20 = [inuickp_interactiveBehaviorPrecedenceOrder count];
   inuickp_intrinsicInteractiveBehavior = [sectionCopy inuickp_intrinsicInteractiveBehavior];
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:inuickp_intrinsicInteractiveBehavior];
-  v22 = inuickp_interactiveBehaviorPrecedenceOrder;
+  v21 = inuickp_interactiveBehaviorPrecedenceOrder;
   v7 = [inuickp_interactiveBehaviorPrecedenceOrder indexOfObject:v6];
 
   if (objc_opt_respondsToSelector())
   {
-    v20 = sectionCopy;
+    v19 = sectionCopy;
     actionCommands = [sectionCopy actionCommands];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v9 = [actionCommands countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v9 = [actionCommands countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = v21 - v7;
-      v12 = *v24;
+      v11 = v20 - v7;
+      v12 = *v23;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(actionCommands);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * i);
+          v14 = *(*(&v22 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             inuickp_intrinsicInteractiveBehavior2 = [v14 inuickp_intrinsicInteractiveBehavior];
             v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:inuickp_intrinsicInteractiveBehavior2];
-            v17 = v21 - [v22 indexOfObject:v16];
+            v17 = v20 - [v21 indexOfObject:v16];
 
             if (v17 > v11)
             {
@@ -117,16 +116,15 @@
           }
         }
 
-        v10 = [actionCommands countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v10 = [actionCommands countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v10);
     }
 
-    sectionCopy = v20;
+    sectionCopy = v19;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return inuickp_intrinsicInteractiveBehavior;
 }
 

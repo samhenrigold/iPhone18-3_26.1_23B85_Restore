@@ -39,7 +39,7 @@ LABEL_30:
       sub_1001D2BCC();
     }
 
-    if (direction == JavaNioIoVec_DirectionEnum_values_)
+    if (direction == JavaNioIoVec_DirectionEnum_values_[0])
     {
       if (!v8)
       {
@@ -136,7 +136,7 @@ LABEL_27:
     objc_opt_class();
   }
 
-  v6 = JavaNioIoVec_DirectionEnum_values_;
+  v6 = JavaNioIoVec_DirectionEnum_values_[0];
   explicit = atomic_load_explicit(LibcoreIoLibcore__initialized, memory_order_acquire);
   if (direction == v6)
   {

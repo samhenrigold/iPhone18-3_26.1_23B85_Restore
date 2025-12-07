@@ -4,6 +4,7 @@
 - (CADInMemoryChangeTimestamp)initWithCoder:(id)coder;
 - (CADInMemoryChangeTimestamp)initWithTimestamps:(id)timestamps;
 - (id)redactedDescription;
+- (id)timestampForDatabase:(int)database;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -67,9 +68,27 @@
   [coderCopy encodeObject:self->_timestamps forKey:@"timestamps"];
 }
 
+- (id)timestampForDatabase:(int)database
+{
+  universalTimestamp = self->_universalTimestamp;
+  if (universalTimestamp)
+  {
+    v4 = universalTimestamp;
+  }
+
+  else
+  {
+    timestamps = self->_timestamps;
+    v6 = [MEMORY[0x277CCABB0] numberWithInt:*&database];
+    v4 = [(NSDictionary *)timestamps objectForKeyedSubscript:v6];
+  }
+
+  return v4;
+}
+
 - (id)redactedDescription
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   universalTimestamp = self->_universalTimestamp;
   if (universalTimestamp)
   {
@@ -79,26 +98,26 @@
   else
   {
     v4 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"["];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v5 = self->_timestamps;
-    v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           if ([v4 length] >= 2)
           {
             [v4 appendString:{@", "}];
@@ -108,43 +127,41 @@
           [v4 appendFormat:@"%@={.self=%llu, .others=%llu}", v10, objc_msgSend(v11, "myself"), objc_msgSend(v11, "others")];
         }
 
-        v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 + (BOOL)doesTimestamp:(id)timestamp includeAllChangesVisibleToTimestamp:(id)toTimestamp
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   timestampCopy = timestamp;
   toTimestampCopy = toTimestamp;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   timestamps = [timestampCopy timestamps];
-  v8 = [timestamps countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [timestamps countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(timestamps);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * i);
+        v12 = *(*(&v21 + 1) + 8 * i);
         timestamps2 = [timestampCopy timestamps];
         v14 = [timestamps2 objectForKeyedSubscript:v12];
 
@@ -161,7 +178,7 @@
         }
       }
 
-      v9 = [timestamps countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [timestamps countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v9)
       {
         continue;
@@ -174,7 +191,6 @@
   v19 = 1;
 LABEL_11:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

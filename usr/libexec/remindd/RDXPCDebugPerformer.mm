@@ -50,9 +50,10 @@
 {
   v3 = _Block_copy(version);
   Double.description.getter();
-  v4 = String._bridgeToObjectiveC()();
-
-  v3[2](v3, v4);
+  v5 = v4;
+  v6 = String._bridgeToObjectiveC()();
+  v5, v7, v8, v9, v10, v11, v12, v13;
+  v3[2](v3, v6);
 
   _Block_release(v3);
 }
@@ -64,9 +65,10 @@
   [processInfo processIdentifier];
 
   dispatch thunk of CustomStringConvertible.description.getter();
-  v5 = String._bridgeToObjectiveC()();
-
-  v3[2](v3, v5);
+  v6 = v5;
+  v7 = String._bridgeToObjectiveC()();
+  v6, v8, v9, v10, v11, v12, v13, v14;
+  v3[2](v3, v7);
 
   _Block_release(v3);
 }
@@ -78,79 +80,80 @@
   v10 = v9;
   if (value && (v11 = static String._unconditionallyBridgeFromObjectiveC(_:)(), v12))
   {
-    *(&v15 + 1) = &type metadata for String;
-    *&v14 = v11;
-    *(&v14 + 1) = v12;
+    *(&v22 + 1) = &type metadata for String;
+    *&v21 = v11;
+    *(&v21 + 1) = v12;
   }
 
   else
   {
-    v14 = 0u;
-    v15 = 0u;
+    v21 = 0u;
+    v22 = 0u;
   }
 
   _Block_copy(v7);
   selfCopy = self;
-  sub_10017D808(v8, v10, &v14, v7);
+  sub_10017D808(v8, v10, &v21, v7);
 
+  v10, v14, v15, v16, v17, v18, v19, v20;
   _Block_release(v7);
   _Block_release(v7);
-  sub_1000050A4(&v14, &qword_100939ED0, &qword_100791B10);
+  sub_1000050A4(&v21, &qword_100939ED0, &qword_100791B10);
 }
 
 - (void)writeUbKVSWithKey:(id)key dateValue:(id)value completion:(id)completion
 {
   v8 = sub_1000F5104(&unk_100938850, qword_100795AE0);
-  v9 = *(*(v8 - 8) + 64);
-  v10 = __chkstk_darwin(v8 - 8);
-  v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v14 = &v24 - v13;
-  v15 = _Block_copy(completion);
-  v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v18 = v17;
+  __chkstk_darwin(v8 - 8, v9);
+  v11 = &v32 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v12, v13);
+  v15 = &v32 - v14;
+  v16 = _Block_copy(completion);
+  v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v19 = v18;
   if (value)
   {
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
-    v19 = type metadata accessor for Date();
-    (*(*(v19 - 8) + 56))(v14, 0, 1, v19);
+    v20 = type metadata accessor for Date();
+    (*(*(v20 - 8) + 56))(v15, 0, 1, v20);
   }
 
   else
   {
-    v19 = type metadata accessor for Date();
-    (*(*(v19 - 8) + 56))(v14, 1, 1, v19);
+    v20 = type metadata accessor for Date();
+    (*(*(v20 - 8) + 56))(v15, 1, 1, v20);
   }
 
-  sub_100010364(v14, v12, &unk_100938850, qword_100795AE0);
+  sub_100010364(v15, v11, &unk_100938850, qword_100795AE0);
   type metadata accessor for Date();
-  v20 = *(v19 - 8);
-  if ((*(v20 + 48))(v12, 1, v19) == 1)
+  v21 = *(v20 - 8);
+  if ((*(v21 + 48))(v11, 1, v20) == 1)
   {
-    _Block_copy(v15);
+    _Block_copy(v16);
     selfCopy = self;
-    sub_1000050A4(v12, &unk_100938850, qword_100795AE0);
-    v24 = 0u;
-    v25 = 0u;
+    sub_1000050A4(v11, &unk_100938850, qword_100795AE0);
+    v32 = 0u;
+    v33 = 0u;
   }
 
   else
   {
-    *(&v25 + 1) = v19;
-    v22 = sub_1000103CC(&v24);
-    (*(v20 + 32))(v22, v12, v19);
-    _Block_copy(v15);
+    *(&v33 + 1) = v20;
+    v23 = sub_1000103CC(&v32);
+    (*(v21 + 32))(v23, v11, v20);
+    _Block_copy(v16);
     selfCopy2 = self;
   }
 
-  _Block_copy(v15);
-  sub_10017D808(v16, v18, &v24, v15);
-  _Block_release(v15);
+  _Block_copy(v16);
+  sub_10017D808(v17, v19, &v32, v16);
+  _Block_release(v16);
 
-  _Block_release(v15);
-  _Block_release(v15);
-  sub_1000050A4(v14, &unk_100938850, qword_100795AE0);
-  sub_1000050A4(&v24, &qword_100939ED0, &qword_100791B10);
+  v19, v25, v26, v27, v28, v29, v30, v31;
+  _Block_release(v16);
+  _Block_release(v16);
+  sub_1000050A4(v15, &unk_100938850, qword_100795AE0);
+  sub_1000050A4(&v32, &qword_100939ED0, &qword_100791B10);
 }
 
 - (void)removeFromUbKVSForKey:(id)key completion:(id)completion
@@ -163,12 +166,14 @@
   sub_10017DA8C(v6, v8, v5);
   _Block_release(v5);
   _Block_release(v5);
+
+  v8, v10, v11, v12, v13, v14, v15, v16;
 }
 
 - (void)fireDebugNotificationWithText:(id)text identifier:(id)identifier categoryIdentifier:(id)categoryIdentifier reference:(id)reference isRemove:(BOOL)remove completion:(id)completion
 {
   v12 = _Block_copy(completion);
-  v24 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v52 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v14 = v13;
   if (identifier)
   {
@@ -213,7 +218,14 @@ LABEL_8:
   selfCopy = self;
   v23 = swift_allocObject();
   *(v23 + 16) = v12;
-  sub_1001649E4(v24, v14, v15, identifier, v17, v19, v20, reference, remove, sub_10003FE60, v23);
+  sub_1001649E4(v52, v14, v15, identifier, v17, v19, v20, reference, remove, sub_10003FE60, v23);
+
+  v14, v24, v25, v26, v27, v28, v29, v30;
+
+  reference, v31, v32, v33, v34, v35, v36, v37;
+  v19, v38, v39, v40, v41, v42, v43, v44;
+
+  identifier, v45, v46, v47, v48, v49, v50, v51;
 }
 
 - (void)fetchGeofencesWithCompletion:(id)completion
@@ -229,8 +241,7 @@ LABEL_8:
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
+  __chkstk_darwin(v6, v8);
   v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
@@ -245,8 +256,7 @@ LABEL_8:
 - (void)addGeofenceWithLatitude:(double)latitude longitude:(double)longitude radius:(double)radius uuid:(id)uuid completion:(id)completion
 {
   v13 = sub_1000F5104(&unk_100939D90, "8\n\r");
-  v14 = *(*(v13 - 8) + 64);
-  __chkstk_darwin(v13 - 8);
+  __chkstk_darwin(v13 - 8, v14);
   v16 = &v22 - v15;
   v17 = _Block_copy(completion);
   if (uuid)
@@ -279,6 +289,8 @@ LABEL_8:
   *(v9 + 16) = v5;
   selfCopy = self;
   sub_100166628(v6, v8, sub_10018ADB4, v9, &unk_1008E7818, sub_100189790, &unk_1008E7830);
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 }
 
 - (void)simulateCoreLocationExitRegionWithIdentifier:(id)identifier completion:(id)completion
@@ -290,6 +302,8 @@ LABEL_8:
   *(v9 + 16) = v5;
   selfCopy = self;
   sub_100166628(v6, v8, sub_100189728, v9, &unk_1008E77A0, sub_100189730, &unk_1008E77B8);
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 }
 
 - (void)purgeDeletedObjectsWithCompletionHandler:(id)handler
@@ -342,10 +356,10 @@ LABEL_8:
   *(inited + 72) = &type metadata for String;
   *(inited + 48) = v3;
   *(inited + 56) = v5;
-  sub_1001F67C8(inited);
-
-  sub_1001F67C8(_swiftEmptyArrayStorage);
-  sub_10054573C("RDXPCDebugPerformer called crash {message: %@}", 46, 2);
+  v8 = sub_1001F67C8(inited);
+  inited, v9, v10, v11, v12, v13, v14, v15;
+  v16 = sub_1001F67C8(&_swiftEmptyArrayStorage);
+  sub_10054573C("RDXPCDebugPerformer called crash {message: %@}", 46, 2, v8, v16);
   __break(1u);
 }
 
@@ -368,6 +382,8 @@ LABEL_8:
   sub_1001810A8(v7, matching, v6);
   _Block_release(v6);
   _Block_release(v6);
+
+  matching, v10, v11, v12, v13, v14, v15, v16;
 }
 
 - (void)destroyIsolatedStoreContainerWithToken:(id)token completion:(id)completion
@@ -398,6 +414,8 @@ LABEL_8:
   *(v9 + 16) = v5;
   selfCopy = self;
   sub_100181A0C(v6, v8, sub_10003FE60, v9, &unk_1008E7480, sub_1001894A0, &unk_1008E7498);
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 }
 
 - (void)resetBabysitterWithRestrictedAccountID:(id)d completion:(id)completion
@@ -409,6 +427,8 @@ LABEL_8:
   *(v9 + 16) = v5;
   selfCopy = self;
   sub_100181A0C(v6, v8, sub_10003FE60, v9, &unk_1008E7408, sub_10018944C, &unk_1008E7420);
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 }
 
 - (void)downloadContainerWithAccountID:(id)d completion:(id)completion
@@ -430,15 +450,16 @@ LABEL_8:
   sub_100181D10(v7, d, selfCopy, v6);
   _Block_release(v6);
   _Block_release(v6);
+
+  d, v10, v11, v12, v13, v14, v15, v16;
 }
 
 - (void)purgeCKRecordWithRecordType:(id)type identifier:(id)identifier completion:(id)completion
 {
   v7 = type metadata accessor for UUID();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7, v9);
+  v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = _Block_copy(completion);
   v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v15 = v14;
@@ -449,14 +470,14 @@ LABEL_8:
   _Block_release(v12);
   _Block_release(v12);
 
+  v15, v17, v18, v19, v20, v21, v22, v23;
   (*(v8 + 8))(v11, v7);
 }
 
 - (void)fetchAllManualSortHintsWithDetails:(BOOL)details completion:(id)completion
 {
   Request = type metadata accessor for RDXPCDebugPerformer.ManualSortHintFetchRequest(0);
-  v8 = *(*(Request - 8) + 64);
-  __chkstk_darwin(Request);
+  __chkstk_darwin(Request, v8);
   v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = _Block_copy(completion);
   swift_storeEnumTagMultiPayload();
@@ -472,8 +493,7 @@ LABEL_8:
 - (void)resetAllManualSortHintsWithCompletion:(id)completion
 {
   Request = type metadata accessor for RDXPCDebugPerformer.ManualSortHintFetchRequest(0);
-  v6 = *(*(Request - 8) + 64);
-  __chkstk_darwin(Request);
+  __chkstk_darwin(Request, v6);
   v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = _Block_copy(completion);
   swift_storeEnumTagMultiPayload();
@@ -489,13 +509,11 @@ LABEL_8:
 - (void)resetManualSortHintWithIdentifier:(id)identifier completion:(id)completion
 {
   Request = type metadata accessor for RDXPCDebugPerformer.ManualSortHintFetchRequest(0);
-  v7 = *(*(Request - 8) + 64);
-  __chkstk_darwin(Request);
+  __chkstk_darwin(Request, v7);
   v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for UUID();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
+  __chkstk_darwin(v10, v12);
   v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
@@ -514,13 +532,11 @@ LABEL_8:
 - (void)resetManualSortHintBeforeLastAccessed:(id)accessed completion:(id)completion
 {
   Request = type metadata accessor for RDXPCDebugPerformer.ManualSortHintFetchRequest(0);
-  v7 = *(*(Request - 8) + 64);
-  __chkstk_darwin(Request);
+  __chkstk_darwin(Request, v7);
   v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for Date();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
+  __chkstk_darwin(v10, v12);
   v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = _Block_copy(completion);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
@@ -540,13 +556,11 @@ LABEL_8:
 {
   v7 = type metadata accessor for Date();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7);
+  __chkstk_darwin(v7, v9);
   v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for UUID();
   v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
+  __chkstk_darwin(v12, v14);
   v16 = &v19 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
@@ -605,6 +619,8 @@ LABEL_8:
 
   selfCopy = self;
   sub_100183F38(v4);
+
+  v4, v6, v7, v8, v9, v10, v11, v12;
 }
 
 - (void)immediatelyCreateOrUpdatePublicLinkOfTemplateWithTemplateObjectID:(id)d configuration:(id)configuration completion:(id)completion
@@ -629,6 +645,8 @@ LABEL_8:
   sub_10018427C(v6, selfCopy, v5);
   _Block_release(v5);
   _Block_release(v5);
+
+  v6, v8, v9, v10, v11, v12, v13, v14;
 }
 
 - (void)updateMinimumSupportedVersionWithObjectID:(id)d minimumSupportedVersion:(int64_t)version completion:(id)completion

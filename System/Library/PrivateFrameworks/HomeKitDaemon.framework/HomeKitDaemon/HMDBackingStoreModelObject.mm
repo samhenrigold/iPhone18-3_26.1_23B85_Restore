@@ -52,6 +52,7 @@
 - (id)valueForKey:(id)key;
 - (unint64_t)hash;
 - (void)cd_populateParentRelationshipInContext:(id)context error:(id *)error;
+- (void)dumpWithVerbosity:(BOOL)verbosity prefix:(id)prefix logType:(unsigned __int8)type;
 - (void)setBsoIgnoredBefore:(id)before;
 - (void)setParentUUIDIfNotNil:(id)nil;
 - (void)setPropertyIfNotNil:(id)nil named:(id)named;
@@ -62,7 +63,7 @@
 
 - (id)convertToLegacyV4
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [HMDLegacyV4Model hmbModelClassForHMDModelClass:objc_opt_class()];
   parentUUID = [(HMDBackingStoreModelObject *)self parentUUID];
   if (!parentUUID)
@@ -73,11 +74,11 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v8;
-      v17 = 2112;
-      v18 = selfCopy;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Generating random parent UUID for %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v8;
+      v16 = 2112;
+      v17 = selfCopy;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Generating random parent UUID for %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -90,8 +91,6 @@
 
   v12 = [(NSMutableDictionary *)self->_reserved mutableCopy];
   [v11 setHmbReserved:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -233,9 +232,9 @@ void __79__HMDBackingStoreModelObject_CoreData__cd_childrenExcluding_fromContext
 
 - (id)cd_currentManagedObjectInContext:(id)context error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v22 = 0;
+  v21 = 0;
   if (error)
   {
     errorCopy = error;
@@ -243,7 +242,7 @@ void __79__HMDBackingStoreModelObject_CoreData__cd_childrenExcluding_fromContext
 
   else
   {
-    errorCopy = &v22;
+    errorCopy = &v21;
   }
 
   v8 = [(HMDBackingStoreModelObject *)self cd_fetchManagedObjectInContext:contextCopy error:errorCopy];
@@ -282,13 +281,13 @@ void __79__HMDBackingStoreModelObject_CoreData__cd_childrenExcluding_fromContext
       uuid2 = [(HMDBackingStoreModelObject *)selfCopy uuid];
       v19 = *errorCopy;
       *buf = 138544130;
-      v24 = v16;
-      v25 = 2112;
-      v26 = bsoType;
-      v27 = 2112;
-      v28 = uuid2;
-      v29 = 2112;
-      v30 = v19;
+      v23 = v16;
+      v24 = 2112;
+      v25 = bsoType;
+      v26 = 2112;
+      v27 = uuid2;
+      v28 = 2112;
+      v29 = v19;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch existing managed object for %@.%@: %@", buf, 0x2Au);
     }
 
@@ -298,14 +297,12 @@ void __79__HMDBackingStoreModelObject_CoreData__cd_childrenExcluding_fromContext
   managedObject = 0;
 LABEL_13:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return managedObject;
 }
 
 - (id)cd_fetchManagedObjectInContext:(id)context error:(id *)error
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   managedObject = [(HMDBackingStoreModelObject *)self managedObject];
   if (managedObject)
@@ -323,15 +320,15 @@ LABEL_13:
         v13 = HMFGetLogIdentifier();
         uuid = [(HMDBackingStoreModelObject *)selfCopy uuid];
         parentUUID = [(HMDBackingStoreModelObject *)selfCopy parentUUID];
-        v33 = 138544130;
-        v34 = v13;
-        v35 = 2112;
-        v36 = firstObject;
-        v37 = 2112;
-        v38 = uuid;
-        v39 = 2112;
-        v40 = parentUUID;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_FAULT, "%{public}@Managed object context appears to be reset on this object %@, someone did something very bad: %@/%@", &v33, 0x2Au);
+        v32 = 138544130;
+        v33 = v13;
+        v34 = 2112;
+        v35 = firstObject;
+        v36 = 2112;
+        v37 = uuid;
+        v38 = 2112;
+        v39 = parentUUID;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_FAULT, "%{public}@Managed object context appears to be reset on this object %@, someone did something very bad: %@/%@", &v32, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -342,10 +339,10 @@ LABEL_13:
   {
     v16 = [objc_msgSend(objc_opt_class() "cd_entityClass")];
     fetchByModelID = [objc_opt_class() fetchByModelID];
-    v41 = @"MODELID";
+    v40 = @"MODELID";
     uuid2 = [(HMDBackingStoreModelObject *)self uuid];
-    v42[0] = uuid2;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v41[0] = uuid2;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
     v20 = [fetchByModelID predicateWithSubstitutionVariables:v19];
     [v16 setPredicate:v20];
 
@@ -374,15 +371,15 @@ LABEL_13:
         v28 = cd_entityClass;
         uuid3 = [(HMDBackingStoreModelObject *)selfCopy2 uuid];
         v30 = *error;
-        v33 = 138544130;
-        v34 = v26;
-        v35 = 2112;
-        v36 = cd_entityClass;
-        v37 = 2112;
-        v38 = uuid3;
-        v39 = 2112;
-        v40 = v30;
-        _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Fetch of model %@.%@ failed: %@", &v33, 0x2Au);
+        v32 = 138544130;
+        v33 = v26;
+        v34 = 2112;
+        v35 = cd_entityClass;
+        v36 = 2112;
+        v37 = uuid3;
+        v38 = 2112;
+        v39 = v30;
+        _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Fetch of model %@.%@ failed: %@", &v32, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v23);
@@ -390,14 +387,12 @@ LABEL_13:
     }
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 - (id)cd_fetchParentForManagedObjectUsingParentReferenceName:(id)name error:(id *)error
 {
-  v73[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   parentUUID = [(HMDBackingStoreModelObject *)self parentUUID];
   if (parentUUID)
@@ -424,9 +419,9 @@ LABEL_22:
     v22 = [v19 fetchRequestWithEntityName:name];
 
     v23 = +[HMDBackingStoreModelObject fetchByModelID];
-    v72 = @"MODELID";
-    v73[0] = parentUUID;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
+    v71 = @"MODELID";
+    v72[0] = parentUUID;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
     v25 = [v23 predicateWithSubstitutionVariables:v24];
     [v22 setPredicate:v25];
 
@@ -443,26 +438,26 @@ LABEL_22:
           v30 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            v58 = HMFGetLogIdentifier();
+            v57 = HMFGetLogIdentifier();
             managedObject3 = [(HMDBackingStoreModelObject *)selfCopy managedObject];
             entity2 = [managedObject3 entity];
             [entity2 name];
-            v31 = v61 = v18;
-            [v61 destinationEntity];
-            v32 = v55 = v28;
+            v31 = v60 = v18;
+            [v60 destinationEntity];
+            v32 = v54 = v28;
             name2 = [v32 name];
             *buf = 138544130;
-            v65 = v58;
-            v66 = 2112;
-            v67 = v31;
-            v68 = 2112;
-            v69 = parentUUID;
-            v70 = 2112;
-            v71 = name2;
+            v64 = v57;
+            v65 = 2112;
+            v66 = v31;
+            v67 = 2112;
+            v68 = parentUUID;
+            v69 = 2112;
+            v70 = name2;
             _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Found multiple parent models of %@.%@ (%@) (using first)", buf, 0x2Au);
 
-            v28 = v55;
-            v18 = v61;
+            v28 = v54;
+            v18 = v60;
           }
 
           objc_autoreleasePoolPop(v28);
@@ -481,27 +476,27 @@ LABEL_22:
       v44 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
-        v60 = HMFGetLogIdentifier();
+        v59 = HMFGetLogIdentifier();
         managedObject4 = [(HMDBackingStoreModelObject *)selfCopy2 managedObject];
         entity3 = [managedObject4 entity];
         name3 = [entity3 name];
         [(HMDBackingStoreModelObject *)selfCopy2 parentUUID];
-        v46 = v63 = v18;
-        destinationEntity2 = [v63 destinationEntity];
+        v46 = v62 = v18;
+        destinationEntity2 = [v62 destinationEntity];
         [destinationEntity2 name];
-        v47 = v57 = v42;
+        v47 = v56 = v42;
         *buf = 138544130;
-        v65 = v60;
-        v66 = 2112;
-        v67 = name3;
-        v68 = 2112;
-        v69 = v46;
-        v70 = 2112;
-        v71 = v47;
+        v64 = v59;
+        v65 = 2112;
+        v66 = name3;
+        v67 = 2112;
+        v68 = v46;
+        v69 = 2112;
+        v70 = v47;
         _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_ERROR, "%{public}@Unable to find parent model of %@.%@ (%@)", buf, 0x2Au);
 
-        v42 = v57;
-        v18 = v63;
+        v42 = v56;
+        v18 = v62;
       }
 
       v41 = v42;
@@ -515,26 +510,26 @@ LABEL_22:
       if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v37 = v56 = v22;
+        v37 = v55 = v22;
         [v18 destinationEntity];
-        v38 = v59 = v34;
+        v38 = v58 = v34;
         [v38 name];
-        v39 = v62 = v18;
+        v39 = v61 = v18;
         v40 = *error;
         *buf = 138544130;
-        v65 = v37;
-        v66 = 2112;
-        v67 = v39;
-        v68 = 2112;
-        v69 = parentUUID;
-        v70 = 2112;
-        v71 = v40;
+        v64 = v37;
+        v65 = 2112;
+        v66 = v39;
+        v67 = 2112;
+        v68 = parentUUID;
+        v69 = 2112;
+        v70 = v40;
         _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_ERROR, "%{public}@Fetch of parentModel model %@.%@ failed: %@", buf, 0x2Au);
 
-        v18 = v62;
-        v34 = v59;
+        v18 = v61;
+        v34 = v58;
 
-        v22 = v56;
+        v22 = v55;
       }
 
       v41 = v34;
@@ -554,17 +549,15 @@ LABEL_21:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v65 = v14;
-    v66 = 2112;
-    v67 = selfCopy4;
+    v64 = v14;
+    v65 = 2112;
+    v66 = selfCopy4;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@ParentUUID is null for %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
   firstObject = 0;
 LABEL_23:
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -650,27 +643,25 @@ LABEL_9:
 
 void __78__HMDBackingStoreModelObject_CoreData__cd_updateManagedObjectInContext_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v5 = a2;
-  v6 = *(a1 + 40);
-  v10 = v5;
-  v7 = [*(a1 + 32) cd_generateValueForProperty:a3 managedObjectField:? context:?];
-  if (v7)
+  v8 = a2;
+  v5 = [*(a1 + 32) cd_generateValueForProperty:a3 managedObjectField:? context:?];
+  if (v5)
   {
-    v8 = v7;
-    if (*MEMORY[0x277CBEEE8] == v7)
+    v6 = v5;
+    if (*MEMORY[0x277CBEEE8] == v5)
     {
 
-      v8 = 0;
+      v6 = 0;
     }
 
-    v9 = [*(a1 + 32) managedObject];
-    [v9 setValue:v8 forKey:v10];
+    v7 = [*(a1 + 32) managedObject];
+    [v7 setValue:v6 forKey:v8];
   }
 }
 
 - (id)cd_uuidValueFromStringModelObjectField:(id)field
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   fieldCopy = field;
   if ([(HMDBackingStoreModelObject *)self propertyWasSet:fieldCopy])
   {
@@ -700,15 +691,15 @@ void __78__HMDBackingStoreModelObject_CoreData__cd_updateManagedObjectInContext_
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           v14 = HMFGetLogIdentifier();
-          v17 = 138544130;
-          v18 = v14;
-          v19 = 2112;
-          v20 = objc_opt_class();
-          v21 = 2112;
-          v22 = fieldCopy;
-          v23 = 2112;
-          v24 = v7;
-          _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Model field %@.%@ is not a valid UUID string: '%@'", &v17, 0x2Au);
+          v16 = 138544130;
+          v17 = v14;
+          v18 = 2112;
+          v19 = objc_opt_class();
+          v20 = 2112;
+          v21 = fieldCopy;
+          v22 = 2112;
+          v23 = v7;
+          _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Model field %@.%@ is not a valid UUID string: '%@'", &v16, 0x2Au);
         }
 
         objc_autoreleasePoolPop(v12);
@@ -726,8 +717,6 @@ void __78__HMDBackingStoreModelObject_CoreData__cd_updateManagedObjectInContext_
   {
     null = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return null;
 }
@@ -817,7 +806,7 @@ LABEL_10:
 
 void __75__HMDBackingStoreModelObject_CoreData__cd_populateFromManagedObject_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (([objc_msgSend(v6 "classObj")] & 1) == 0)
@@ -845,15 +834,15 @@ void __75__HMDBackingStoreModelObject_CoreData__cd_populateFromManagedObject_err
             v12 = HMFGetLogIdentifier();
             v13 = objc_opt_class();
             v14 = v13;
-            v16 = 138544130;
-            v17 = v12;
-            v18 = 2112;
-            v19 = v5;
-            v20 = 2112;
-            v21 = v13;
-            v22 = 2112;
-            v23 = [v6 classObj];
-            _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Value from managed object field %@ is of unexpected type %@ (expected %@)", &v16, 0x2Au);
+            v15 = 138544130;
+            v16 = v12;
+            v17 = 2112;
+            v18 = v5;
+            v19 = 2112;
+            v20 = v13;
+            v21 = 2112;
+            v22 = [v6 classObj];
+            _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Value from managed object field %@ is of unexpected type %@ (expected %@)", &v15, 0x2Au);
           }
 
           objc_autoreleasePoolPop(v9);
@@ -865,13 +854,10 @@ void __75__HMDBackingStoreModelObject_CoreData__cd_populateFromManagedObject_err
 LABEL_10:
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cd_generateValueForModelObjectFromManagedObject:(id)object modelObjectField:(id)field modelFieldInfo:(id)info
 {
-  v19 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   fieldCopy = field;
   infoCopy = info;
@@ -897,14 +883,12 @@ LABEL_10:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (HMDBackingStoreModelObject)initWithManagedObject:(id)object changeType:(unint64_t)type detached:(BOOL)detached error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v11 = objc_opt_class();
   if ((HMDModelClassIsCDRepresentable(v11) & 1) == 0)
@@ -926,9 +910,9 @@ LABEL_10:
 
     v26 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v36 = v26;
-    v37 = 2112;
-    v38 = objc_opt_class();
+    v35 = v26;
+    v36 = 2112;
+    v37 = objc_opt_class();
     v27 = "%{public}@Unable to determine modelID for %@";
     goto LABEL_21;
   }
@@ -951,9 +935,9 @@ LABEL_10:
 
     v26 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v36 = v26;
-    v37 = 2112;
-    v38 = objc_opt_class();
+    v35 = v26;
+    v36 = 2112;
+    v37 = objc_opt_class();
     v27 = "%{public}@Unable to determine parentModelID for %@";
 LABEL_21:
     _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, v27, buf, 0x16u);
@@ -986,9 +970,9 @@ LABEL_8:
   v19 = v18;
   if (!((v18 == 0) | isDeleted & 1))
   {
-    v34 = 0;
-    v20 = [(HMDBackingStoreModelObject *)v18 cd_populateFromManagedObject:objectCopy error:&v34];
-    v21 = v34;
+    v33 = 0;
+    v20 = [(HMDBackingStoreModelObject *)v18 cd_populateFromManagedObject:objectCopy error:&v33];
+    v21 = v33;
     if (v20)
     {
       [(HMDBackingStoreModelObject *)v19 setManagedObject:objectCopy];
@@ -1003,11 +987,11 @@ LABEL_8:
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v36 = v30;
-      v37 = 2112;
-      v38 = objectCopy;
-      v39 = 2112;
-      v40 = v21;
+      v35 = v30;
+      v36 = 2112;
+      v37 = objectCopy;
+      v38 = 2112;
+      v39 = v21;
       _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Unable to populate properties from managed object %@: %@", buf, 0x20u);
     }
 
@@ -1029,37 +1013,36 @@ LABEL_11:
   v23 = selfCopy2;
 LABEL_25:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 + (BOOL)cd_addChildren:(id)children excluding:(id)excluding toSet:(id)set error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   childrenCopy = children;
   excludingCopy = excluding;
   setCopy = set;
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v13 = childrenCopy;
-  v14 = [v13 countByEnumeratingWithState:&v34 objects:v44 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v33 objects:v43 count:16];
   if (v14)
   {
     v15 = v14;
     errorCopy = error;
-    v16 = *v35;
+    v16 = *v34;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v35 != v16)
+        if (*v34 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = HMDCastIfManagedObjectBSORepresentable(*(*(&v34 + 1) + 8 * i));
+        v18 = HMDCastIfManagedObjectBSORepresentable(*(*(&v33 + 1) + 8 * i));
         v19 = v18;
         if (v18)
         {
@@ -1068,9 +1051,9 @@ LABEL_25:
 
           if ((v21 & 1) == 0)
           {
-            v33 = 0;
-            v22 = [v19 hmd_modelsWithChangeType:0 detached:0 error:&v33];
-            v23 = v33;
+            v32 = 0;
+            v22 = [v19 hmd_modelsWithChangeType:0 detached:0 error:&v32];
+            v23 = v32;
             if (!v22)
             {
               v25 = objc_autoreleasePoolPush();
@@ -1080,11 +1063,11 @@ LABEL_25:
               {
                 v28 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                v39 = v28;
-                v40 = 2112;
-                v41 = v19;
-                v42 = 2112;
-                v43 = v23;
+                v38 = v28;
+                v39 = 2112;
+                v40 = v19;
+                v41 = 2112;
+                v42 = v23;
                 _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unable to create model from %@: %@", buf, 0x20u);
               }
 
@@ -1104,7 +1087,7 @@ LABEL_25:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v33 objects:v43 count:16];
       if (v15)
       {
         continue;
@@ -1117,7 +1100,6 @@ LABEL_25:
   v24 = 1;
 LABEL_18:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -1220,7 +1202,7 @@ void __54__HMDBackingStoreModelObject_CoreData__fetchByModelID__block_invoke()
 - (id)debugString:(BOOL)string prefix:(id)prefix
 {
   stringCopy = string;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   prefixCopy = prefix;
   string = [MEMORY[0x277CCAB68] string];
   typeNameForDebug = [(HMDBackingStoreModelObject *)self typeNameForDebug];
@@ -1253,60 +1235,60 @@ void __54__HMDBackingStoreModelObject_CoreData__fetchByModelID__block_invoke()
       [string appendFormat:@"\n  ignore before: %@", bsoIgnoredBefore];
     }
 
-    v39 = v17;
-    v40 = prefixCopy;
+    v38 = v17;
+    v39 = prefixCopy;
     [string appendString:@"\n  dependents:"];
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     dependentUUIDs = [(HMDBackingStoreModelObject *)self dependentUUIDs];
-    v19 = [dependentUUIDs countByEnumeratingWithState:&v48 objects:v53 count:16];
+    v19 = [dependentUUIDs countByEnumeratingWithState:&v47 objects:v52 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v49;
+      v21 = *v48;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v49 != v21)
+          if (*v48 != v21)
           {
             objc_enumerationMutation(dependentUUIDs);
           }
 
-          uUIDString3 = [*(*(&v48 + 1) + 8 * i) UUIDString];
+          uUIDString3 = [*(*(&v47 + 1) + 8 * i) UUIDString];
           [string appendFormat:@" %@", uUIDString3];
         }
 
-        v20 = [dependentUUIDs countByEnumeratingWithState:&v48 objects:v53 count:16];
+        v20 = [dependentUUIDs countByEnumeratingWithState:&v47 objects:v52 count:16];
       }
 
       while (v20);
     }
 
     properties = [objc_opt_class() properties];
-    v41 = shouldLogPrivateInformation();
+    v40 = shouldLogPrivateInformation();
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     obj = properties;
-    v25 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+    v25 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
     if (v25)
     {
       v26 = v25;
-      v43 = *v45;
+      v42 = *v44;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v45 != v43)
+          if (*v44 != v42)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v44 + 1) + 8 * j);
+          v28 = *(*(&v43 + 1) + 8 * j);
           properties2 = [objc_opt_class() properties];
           v30 = [properties2 objectForKey:v28];
 
@@ -1340,7 +1322,7 @@ void __54__HMDBackingStoreModelObject_CoreData__fetchByModelID__block_invoke()
             v35 = &stru_283CF9D50;
           }
 
-          if ([v30 logging] == 3 || (v41 & 1) == 0 && (!v30 || !objc_msgSend(v30, "logging")))
+          if ([v30 logging] == 3 || (v40 & 1) == 0 && (!v30 || !objc_msgSend(v30, "logging")))
           {
             v36 = @"...";
 
@@ -1352,18 +1334,38 @@ void __54__HMDBackingStoreModelObject_CoreData__fetchByModelID__block_invoke()
 LABEL_31:
         }
 
-        v26 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+        v26 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
       }
 
       while (v26);
     }
 
-    prefixCopy = v40;
+    prefixCopy = v39;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-
   return string;
+}
+
+- (void)dumpWithVerbosity:(BOOL)verbosity prefix:(id)prefix logType:(unsigned __int8)type
+{
+  verbosityCopy = verbosity;
+  v18 = *MEMORY[0x277D85DE8];
+  prefixCopy = prefix;
+  v9 = [(HMDBackingStoreModelObject *)self debugString:verbosityCopy prefix:prefixCopy];
+  v10 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v12 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v12, type))
+  {
+    v13 = HMFGetLogIdentifier();
+    v14 = 138543618;
+    v15 = v13;
+    v16 = 2112;
+    v17 = v9;
+    _os_log_impl(&dword_229538000, v12, type, "%{public}@HMDBackingStoreModelObject %@", &v14, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v10);
 }
 
 - (NSString)description
@@ -1380,7 +1382,7 @@ LABEL_31:
 
 - (id)defaultValueForPropertyNamed:(id)named isSet:(BOOL *)set
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   namedCopy = named;
   properties = [objc_opt_class() properties];
   v8 = [properties objectForKey:namedCopy];
@@ -1404,27 +1406,25 @@ LABEL_31:
     {
       v13 = HMFGetLogIdentifier();
       typeNameForDebug = [(HMDBackingStoreModelObject *)selfCopy typeNameForDebug];
-      v17 = 138543874;
-      v18 = v13;
-      v19 = 2112;
-      v20 = namedCopy;
-      v21 = 2112;
-      v22 = typeNameForDebug;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to get default value of property %@ from type %@ (no such property exists)", &v17, 0x20u);
+      v16 = 138543874;
+      v17 = v13;
+      v18 = 2112;
+      v19 = namedCopy;
+      v20 = 2112;
+      v21 = typeNameForDebug;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to get default value of property %@ from type %@ (no such property exists)", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
     defaultValue = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return defaultValue;
 }
 
 - (void)setPropertyIfNotNil:(id)nil named:(id)named
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   nilCopy = nil;
   namedCopy = named;
   properties = [objc_opt_class() properties];
@@ -1441,14 +1441,14 @@ LABEL_31:
       typeNameForDebug = [(HMDBackingStoreModelObject *)selfCopy4 typeNameForDebug];
       v18 = objc_opt_class();
       v16 = NSStringFromClass(v18);
-      v26 = 138544130;
-      v27 = v13;
-      v28 = 2112;
-      v29 = namedCopy;
-      v30 = 2112;
-      v31 = typeNameForDebug;
-      v32 = 2112;
-      v33 = v16;
+      v25 = 138544130;
+      v26 = v13;
+      v27 = 2112;
+      v28 = namedCopy;
+      v29 = 2112;
+      v30 = typeNameForDebug;
+      v31 = 2112;
+      v32 = v16;
       v17 = "%{public}@Unable to set property %@ of %@ from type %@ (no such property exists)";
       goto LABEL_10;
     }
@@ -1470,14 +1470,14 @@ LABEL_12:
       typeNameForDebug = [(HMDBackingStoreModelObject *)selfCopy4 typeNameForDebug];
       v19 = objc_opt_class();
       v16 = NSStringFromClass(v19);
-      v26 = 138544130;
-      v27 = v13;
-      v28 = 2112;
-      v29 = namedCopy;
-      v30 = 2112;
-      v31 = typeNameForDebug;
-      v32 = 2112;
-      v33 = v16;
+      v25 = 138544130;
+      v26 = v13;
+      v27 = 2112;
+      v28 = namedCopy;
+      v29 = 2112;
+      v30 = typeNameForDebug;
+      v31 = 2112;
+      v32 = v16;
       v17 = "%{public}@Unable to set property %@ of %@ from type %@ (property is unavailable)";
       goto LABEL_10;
     }
@@ -1496,17 +1496,17 @@ LABEL_12:
       typeNameForDebug = [(HMDBackingStoreModelObject *)selfCopy4 typeNameForDebug];
       v15 = objc_opt_class();
       v16 = NSStringFromClass(v15);
-      v26 = 138544130;
-      v27 = v13;
-      v28 = 2112;
-      v29 = namedCopy;
-      v30 = 2112;
-      v31 = typeNameForDebug;
-      v32 = 2112;
-      v33 = v16;
+      v25 = 138544130;
+      v26 = v13;
+      v27 = 2112;
+      v28 = namedCopy;
+      v29 = 2112;
+      v30 = typeNameForDebug;
+      v31 = 2112;
+      v32 = v16;
       v17 = "%{public}@Unable to set property %@ of %@ from type %@ (property is read-only)";
 LABEL_10:
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, v17, &v26, 0x2Au);
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, v17, &v25, 0x2Au);
 LABEL_11:
 
       goto LABEL_12;
@@ -1534,20 +1534,20 @@ LABEL_11:
 
     v13 = HMFGetLogIdentifier();
     typeNameForDebug = [(HMDBackingStoreModelObject *)selfCopy4 typeNameForDebug];
-    v24 = objc_opt_class();
-    v16 = NSStringFromClass(v24);
-    v25 = NSStringFromClass([v9 classObj]);
-    v26 = 138544386;
-    v27 = v13;
-    v28 = 2112;
-    v29 = namedCopy;
-    v30 = 2112;
-    v31 = typeNameForDebug;
-    v32 = 2112;
-    v33 = v16;
-    v34 = 2112;
-    v35 = v25;
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to set property %@ of %@ from type %@ (does not match the expected type %@)", &v26, 0x34u);
+    v23 = objc_opt_class();
+    v16 = NSStringFromClass(v23);
+    v24 = NSStringFromClass([v9 classObj]);
+    v25 = 138544386;
+    v26 = v13;
+    v27 = 2112;
+    v28 = namedCopy;
+    v29 = 2112;
+    v30 = typeNameForDebug;
+    v31 = 2112;
+    v32 = v16;
+    v33 = 2112;
+    v34 = v24;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to set property %@ of %@ from type %@ (does not match the expected type %@)", &v25, 0x34u);
 
     goto LABEL_11;
   }
@@ -1555,47 +1555,45 @@ LABEL_11:
   reserved = self->_reserved;
   if (!reserved)
   {
-    v22 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
-    v23 = self->_reserved;
-    self->_reserved = v22;
+    v21 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
+    v22 = self->_reserved;
+    self->_reserved = v21;
 
     reserved = self->_reserved;
   }
 
   [(NSMutableDictionary *)reserved setObject:nilCopy forKey:namedCopy];
 LABEL_13:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)diff:(id)diff differingFields:(id *)fields
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   diffCopy = diff;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     obj = [diffCopy setProperties];
-    v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v7)
     {
       v8 = v7;
       array = 0;
-      v10 = *v20;
+      v10 = *v19;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
+          v12 = *(*(&v18 + 1) + 8 * i);
           v13 = [(NSMutableDictionary *)self->_reserved objectForKey:v12];
           v14 = [diffCopy[1] objectForKey:v12];
           if ((isEqualDeepCompare(v13, v14) & 1) == 0)
@@ -1615,7 +1613,7 @@ LABEL_13:
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v8)
         {
           continue;
@@ -1655,7 +1653,6 @@ LABEL_22:
     LOBYTE(fields) = 1;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return fields;
 }
 
@@ -1675,7 +1672,7 @@ LABEL_22:
 
 - (id)merge:(id)merge from:(unint64_t)from
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   mergeCopy = merge;
   v6 = mergeCopy;
   if (mergeCopy == self)
@@ -1700,11 +1697,11 @@ LABEL_22:
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v29 = v22;
-        v30 = 2112;
-        v31 = v16;
-        v32 = 2112;
-        v33 = v14;
+        v28 = v22;
+        v29 = 2112;
+        v30 = v16;
+        v31 = 2112;
+        v32 = v14;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot merge from model class, %@, to model class, %@", buf, 0x20u);
       }
 
@@ -1718,15 +1715,15 @@ LABEL_22:
     }
 
     reserved = v6->_reserved;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __41__HMDBackingStoreModelObject_merge_from___block_invoke;
-    v25[3] = &unk_278680540;
-    v25[4] = self;
-    v26 = v6;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __41__HMDBackingStoreModelObject_merge_from___block_invoke;
+    v24[3] = &unk_278680540;
+    v24[4] = self;
+    v25 = v6;
     v19 = dictionary;
-    v27 = v19;
-    [(NSMutableDictionary *)reserved enumerateKeysAndObjectsUsingBlock:v25];
+    v26 = v19;
+    [(NSMutableDictionary *)reserved enumerateKeysAndObjectsUsingBlock:v24];
     if ([v19 count])
     {
       objc_storeStrong(&self->_reserved, dictionary);
@@ -1746,13 +1743,13 @@ LABEL_12:
     v11 = +[HMDBackingStoreSingleton dataVersion];
     bsoIgnoredBefore = [(HMDBackingStoreModelObject *)v6 bsoIgnoredBefore];
     *buf = 138544130;
-    v29 = v10;
-    v30 = 2112;
-    v31 = v6;
-    v32 = 2112;
-    v33 = v11;
-    v34 = 2112;
-    v35 = bsoIgnoredBefore;
+    v28 = v10;
+    v29 = 2112;
+    v30 = v6;
+    v31 = 2112;
+    v32 = v11;
+    v33 = 2112;
+    v34 = bsoIgnoredBefore;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Dropping merge merge from model %@ (our version less than ignore before version %@ <= %@)", buf, 0x2Au);
   }
 
@@ -1761,14 +1758,12 @@ LABEL_16:
   v20 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCFD28] code:19 userInfo:0];
 LABEL_17:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 void __41__HMDBackingStoreModelObject_merge_from___block_invoke(id *a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 characterAtIndex:0];
@@ -1838,15 +1833,15 @@ LABEL_12:
       v14 = HMFGetLogIdentifier();
       v15 = [a1[4] bsoType];
       v16 = [a1[4] bsoDataVersion];
-      v22 = 138544130;
-      v23 = v14;
-      v24 = 2112;
-      v25 = v5;
-      v26 = 2112;
-      v27 = v15;
-      v28 = 2112;
-      v29 = v16;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to merge %@ property of model class %@ (marked readonly for %@).", &v22, 0x2Au);
+      v21 = 138544130;
+      v22 = v14;
+      v23 = 2112;
+      v24 = v5;
+      v25 = 2112;
+      v26 = v15;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to merge %@ property of model class %@ (marked readonly for %@).", &v21, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -1859,8 +1854,6 @@ LABEL_12:
     [v17 setObject:v6 forKey:v9];
 LABEL_20:
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)propertyIsAvailable:(id)available
@@ -1961,84 +1954,82 @@ LABEL_20:
 
 - (id)setProperties
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] setWithCapacity:{-[NSMutableDictionary count](self->_reserved, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_reserved;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
-        if ([v9 characterAtIndex:{0, v12}] != 95)
+        v9 = *(*(&v11 + 1) + 8 * i);
+        if ([v9 characterAtIndex:{0, v11}] != 95)
         {
           [v3 addObject:v9];
         }
       }
 
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)setParentUUIDIfNotNil:(id)nil
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   nilCopy = nil;
   if (!self->_parentUUID)
   {
     goto LABEL_2;
   }
 
-  v7 = objc_autoreleasePoolPush();
+  v6 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v9 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+  v8 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
-    v10 = HMFGetLogIdentifier();
-    v17 = 138543362;
-    v18 = v10;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Parent identifier is already present for this object", &v17, 0xCu);
+    v9 = HMFGetLogIdentifier();
+    v16 = 138543362;
+    v17 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Parent identifier is already present for this object", &v16, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v7);
-  v11 = [[HMDAssertionLogEvent alloc] initWithReason:@"Parent identifier is already present for this object"];
-  v12 = +[HMDMetricsManager sharedLogEventSubmitter];
-  [v12 submitLogEvent:v11];
+  objc_autoreleasePoolPop(v6);
+  v10 = [[HMDAssertionLogEvent alloc] initWithReason:@"Parent identifier is already present for this object"];
+  v11 = +[HMDMetricsManager sharedLogEventSubmitter];
+  [v11 submitLogEvent:v10];
 
   if (self->_parentUUID)
   {
-    v13 = objc_autoreleasePoolPush();
-    v14 = selfCopy;
-    v15 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v12 = objc_autoreleasePoolPush();
+    v13 = selfCopy;
+    v14 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v16 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v16;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Parent identifier is already present for this object", &v17, 0xCu);
+      v15 = HMFGetLogIdentifier();
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Parent identifier is already present for this object", &v16, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v13);
+    objc_autoreleasePoolPop(v12);
   }
 
   else
@@ -2046,8 +2037,6 @@ LABEL_20:
 LABEL_2:
     objc_storeStrong(&self->_parentUUID, nil);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -2166,7 +2155,7 @@ LABEL_7:
 
 - (id)encodeAsNSDictionaryFor:(unint64_t)for error:(id *)error
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   if (error)
   {
     *error = 0;
@@ -2179,12 +2168,12 @@ LABEL_7:
     if (error)
     {
       [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D0F1A0] code:3 userInfo:&unk_283E76570];
-      *error = v50 = 0;
+      *error = v49 = 0;
     }
 
     else
     {
-      v50 = 0;
+      v49 = 0;
     }
 
     goto LABEL_69;
@@ -2221,10 +2210,10 @@ LABEL_7:
   v18 = [(NSMutableDictionary *)self->_reserved hmf_dictionaryForKey:@"_R"];
   v19 = [v18 mutableCopy];
 
-  v73 = v19;
+  v71 = v19;
   if (!v19)
   {
-    v73 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(properties, "count")}];
+    v71 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(properties, "count")}];
   }
 
   selfCopy = self;
@@ -2236,14 +2225,14 @@ LABEL_7:
     v21 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(properties, "count")}];
   }
 
-  v76 = v21;
-  v84 = 0u;
-  v85 = 0u;
+  v74 = v21;
   v82 = 0u;
   v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
   v22 = properties;
-  v23 = [v22 countByEnumeratingWithState:&v82 objects:v93 count:16];
-  v24 = v73;
+  v23 = [v22 countByEnumeratingWithState:&v80 objects:v91 count:16];
+  v24 = v71;
   v25 = errorCopy;
   if (!v23)
   {
@@ -2251,19 +2240,19 @@ LABEL_7:
   }
 
   v26 = v23;
-  v77 = *v83;
-  v72 = v8;
+  v75 = *v81;
+  v70 = v8;
   do
   {
     v27 = 0;
     do
     {
-      if (*v83 != v77)
+      if (*v81 != v75)
       {
         objc_enumerationMutation(v22);
       }
 
-      v28 = *(*(&v82 + 1) + 8 * v27);
+      v28 = *(*(&v80 + 1) + 8 * v27);
       v29 = v22;
       v30 = [v22 valueForKey:v28];
       readOnly = [v30 readOnly];
@@ -2279,7 +2268,7 @@ LABEL_7:
       if (unavailable)
       {
         unavailable2 = [v30 unavailable];
-        [v76 setObject:unavailable2 forKey:v28];
+        [v74 setObject:unavailable2 forKey:v28];
       }
 
       v35 = [v8 valueForKey:v28];
@@ -2300,37 +2289,36 @@ LABEL_7:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v80 = 0u;
-          v81 = 0u;
           v78 = 0u;
           v79 = 0u;
+          v76 = 0u;
+          v77 = 0u;
           v38 = +[HMDBackingStore allowedTypes];
-          v39 = [v38 countByEnumeratingWithState:&v78 objects:v92 count:16];
+          v39 = [v38 countByEnumeratingWithState:&v76 objects:v90 count:16];
           if (v39)
           {
             v40 = v39;
-            v41 = *v79;
+            v41 = *v77;
             while (2)
             {
               for (i = 0; i != v40; ++i)
               {
-                if (*v79 != v41)
+                if (*v77 != v41)
                 {
                   objc_enumerationMutation(v38);
                 }
 
-                v43 = *(*(&v78 + 1) + 8 * i);
                 if (objc_opt_isKindOfClass())
                 {
 
-                  v8 = v72;
-                  v24 = v73;
+                  v8 = v70;
+                  v24 = v71;
                   v25 = errorCopy;
                   goto LABEL_23;
                 }
               }
 
-              v40 = [v38 countByEnumeratingWithState:&v78 objects:v92 count:16];
+              v40 = [v38 countByEnumeratingWithState:&v76 objects:v90 count:16];
               v25 = errorCopy;
               if (v40)
               {
@@ -2341,24 +2329,24 @@ LABEL_7:
             }
           }
 
-          v8 = v72;
+          v8 = v70;
           if ([objc_msgSend(v30 "classObj")])
           {
-            v24 = v73;
+            v24 = v71;
             if (v25)
             {
-              v57 = MEMORY[0x277CCA9B8];
-              v58 = *MEMORY[0x277D0F1A0];
-              v90 = @"message";
-              v59 = MEMORY[0x277CCACA8];
-              v60 = objc_opt_class();
-              v61 = NSStringFromClass(v60);
-              v62 = [v59 stringWithFormat:@"/%@ (Cannot encode non-standard type %@ as NSObject generic)", v28, v61];
-              v91 = v62;
-              v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
-              v64 = v58;
-              v8 = v72;
-              *v25 = [v57 errorWithDomain:v64 code:3 userInfo:v63];
+              v56 = MEMORY[0x277CCA9B8];
+              v57 = *MEMORY[0x277D0F1A0];
+              v88 = @"message";
+              v58 = MEMORY[0x277CCACA8];
+              v59 = objc_opt_class();
+              v60 = NSStringFromClass(v59);
+              v61 = [v58 stringWithFormat:@"/%@ (Cannot encode non-standard type %@ as NSObject generic)", v28, v60];
+              v89 = v61;
+              v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+              v63 = v57;
+              v8 = v70;
+              *v25 = [v56 errorWithDomain:v63 code:3 userInfo:v62];
             }
 
 LABEL_65:
@@ -2368,53 +2356,53 @@ LABEL_66:
 LABEL_67:
             v22 = v29;
 
-            v50 = 0;
-            v46 = v76;
+            v49 = 0;
+            v45 = v74;
             goto LABEL_68;
           }
 
-          v24 = v73;
+          v24 = v71;
           if (![objc_opt_class() conformsToProtocol:&unk_283E85EF8] || (objc_msgSend(objc_opt_class(), "supportsSecureCoding") & 1) == 0)
           {
             if (v25)
             {
-              v52 = MEMORY[0x277CCA9B8];
-              v53 = *MEMORY[0x277D0F1A0];
-              v88 = @"message";
-              v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"/%@ (property does not support secureCoding)", v28];
-              v89 = v54;
-              v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
-              v56 = v53;
-              v8 = v72;
-              *v25 = [v52 errorWithDomain:v56 code:3 userInfo:v55];
+              v51 = MEMORY[0x277CCA9B8];
+              v52 = *MEMORY[0x277D0F1A0];
+              v86 = @"message";
+              v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"/%@ (property does not support secureCoding)", v28];
+              v87 = v53;
+              v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+              v55 = v52;
+              v8 = v70;
+              *v25 = [v51 errorWithDomain:v55 code:3 userInfo:v54];
             }
 
             goto LABEL_65;
           }
 
-          v44 = encodeRootObjectForRemoteDeviceOnSameAccountMigrateToHH2(v35, 1, 0);
+          v43 = encodeRootObjectForRemoteDeviceOnSameAccountMigrateToHH2(v35, 1, 0);
 
-          if (!v44)
+          if (!v43)
           {
             if (v25)
             {
-              v65 = MEMORY[0x277CCA9B8];
-              v66 = *MEMORY[0x277D0F1A0];
-              v86 = @"message";
-              v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"/%@ (property could not be encoded as NSData)", v28];
-              v87 = v67;
-              v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
-              v69 = v66;
-              v8 = v72;
-              *v25 = [v65 errorWithDomain:v69 code:3 userInfo:v68];
+              v64 = MEMORY[0x277CCA9B8];
+              v65 = *MEMORY[0x277D0F1A0];
+              v84 = @"message";
+              v66 = [MEMORY[0x277CCACA8] stringWithFormat:@"/%@ (property could not be encoded as NSData)", v28];
+              v85 = v66;
+              v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+              v68 = v65;
+              v8 = v70;
+              *v25 = [v64 errorWithDomain:v68 code:3 userInfo:v67];
             }
 
             v35 = 0;
             goto LABEL_65;
           }
 
-          [v72 setValue:v44 forKey:v28];
-          v35 = v44;
+          [v70 setValue:v43 forKey:v28];
+          v35 = v43;
 LABEL_23:
 
           goto LABEL_29;
@@ -2425,7 +2413,7 @@ LABEL_23:
       v37 = v36;
       if (v25 && v36)
       {
-        v51 = v36;
+        v50 = v36;
         *v25 = v37;
         goto LABEL_66;
       }
@@ -2441,11 +2429,11 @@ LABEL_29:
     }
 
     while (v27 != v26);
-    v45 = [v29 countByEnumeratingWithState:&v82 objects:v93 count:16];
-    v26 = v45;
+    v44 = [v29 countByEnumeratingWithState:&v80 objects:v91 count:16];
+    v26 = v44;
   }
 
-  while (v45);
+  while (v44);
 LABEL_46:
 
   if ([v24 count])
@@ -2453,30 +2441,29 @@ LABEL_46:
     [v8 setObject:v24 forKey:@"_R"];
   }
 
-  v46 = v76;
-  if ([v76 count])
+  v45 = v74;
+  if ([v74 count])
   {
-    [v8 setObject:v76 forKey:@"_U"];
+    [v8 setObject:v74 forKey:@"_U"];
   }
 
   genericRepresentation = [objc_opt_class() genericRepresentation];
   if (genericRepresentation)
   {
-    v48 = genericRepresentation;
+    v47 = genericRepresentation;
     if (([(objc_class *)genericRepresentation isEqual:objc_opt_class()]& 1) == 0)
     {
-      v49 = NSStringFromClass(v48);
-      [v8 setObject:v49 forKey:@"_G"];
+      v48 = NSStringFromClass(v47);
+      [v8 setObject:v48 forKey:@"_G"];
     }
   }
 
-  v50 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v8 requiringSecureCoding:1 error:0];
+  v49 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v8 requiringSecureCoding:1 error:0];
 LABEL_68:
 
 LABEL_69:
-  v70 = *MEMORY[0x277D85DE8];
 
-  return v50;
+  return v49;
 }
 
 - (id)prepareFor:(unint64_t)for
@@ -2497,11 +2484,11 @@ LABEL_69:
 
 - (id)validateType:(id)type path:(id)path
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v33 = 0;
-  LODWORD(self) = [(HMDBackingStoreModelObject *)self _validateType:type error:&v33];
-  v7 = v33;
+  v32 = 0;
+  LODWORD(self) = [(HMDBackingStoreModelObject *)self _validateType:type error:&v32];
+  v7 = v32;
   v8 = v7;
   v9 = 0;
   if (self)
@@ -2512,29 +2499,29 @@ LABEL_69:
 
     string = [MEMORY[0x277CCAB68] string];
     [v12 addObject:pathCopy];
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     reverseObjectEnumerator = [v12 reverseObjectEnumerator];
-    v15 = [reverseObjectEnumerator countByEnumeratingWithState:&v29 objects:v36 count:16];
+    v15 = [reverseObjectEnumerator countByEnumeratingWithState:&v28 objects:v35 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v30;
+      v17 = *v29;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v30 != v17)
+          if (*v29 != v17)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          [string appendFormat:@"/%@", *(*(&v29 + 1) + 8 * i)];
+          [string appendFormat:@"/%@", *(*(&v28 + 1) + 8 * i)];
         }
 
-        v16 = [reverseObjectEnumerator countByEnumeratingWithState:&v29 objects:v36 count:16];
+        v16 = [reverseObjectEnumerator countByEnumeratingWithState:&v28 objects:v35 count:16];
       }
 
       while (v16);
@@ -2551,87 +2538,84 @@ LABEL_69:
     v23 = MEMORY[0x277CCA9B8];
     domain = [v8 domain];
     code = [v8 code];
-    v34 = @"message";
-    v35 = string;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v33 = @"message";
+    v34 = string;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     v9 = [v23 errorWithDomain:domain code:code userInfo:v26];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (BOOL)_validateType:(id)type error:(id *)error
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   if (error)
   {
     *error = 0;
   }
 
-  v56 = 0u;
-  v57 = 0u;
   v54 = 0u;
   v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v7 = +[HMDBackingStore allowedTypes];
-  v8 = [v7 countByEnumeratingWithState:&v54 objects:v64 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v52 objects:v62 count:16];
   if (!v8)
   {
     goto LABEL_11;
   }
 
   v9 = v8;
-  v10 = *v55;
+  v10 = *v53;
   while (2)
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v55 != v10)
+      if (*v53 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v54 + 1) + 8 * i);
       if (objc_opt_isKindOfClass())
       {
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v52 = 0u;
-          v53 = 0u;
           v50 = 0u;
           v51 = 0u;
+          v48 = 0u;
+          v49 = 0u;
           string = typeCopy;
-          v22 = [string countByEnumeratingWithState:&v50 objects:v61 count:16];
-          if (v22)
+          v21 = [string countByEnumeratingWithState:&v48 objects:v59 count:16];
+          if (v21)
           {
-            v23 = v22;
-            v24 = 0;
-            v25 = *v51;
+            v22 = v21;
+            v23 = 0;
+            v24 = *v49;
 LABEL_16:
-            v26 = 0;
-            v27 = v24;
-            v24 += v23;
+            v25 = 0;
+            v26 = v23;
+            v23 += v22;
             while (1)
             {
-              if (*v51 != v25)
+              if (*v49 != v24)
               {
                 objc_enumerationMutation(string);
               }
 
-              if ([(HMDBackingStoreModelObject *)self _validateType:*(*(&v50 + 1) + 8 * v26) error:error])
+              if ([(HMDBackingStoreModelObject *)self _validateType:*(*(&v48 + 1) + 8 * v25) error:error])
               {
                 break;
               }
 
-              ++v27;
-              if (v23 == ++v26)
+              ++v26;
+              if (v22 == ++v25)
               {
-                v23 = [string countByEnumeratingWithState:&v50 objects:v61 count:16];
-                if (v23)
+                v22 = [string countByEnumeratingWithState:&v48 objects:v59 count:16];
+                if (v22)
                 {
                   goto LABEL_16;
                 }
@@ -2647,9 +2631,9 @@ LABEL_16:
 
             userInfo = [*error userInfo];
             userInfo2 = [userInfo objectForKey:@"pathStack"];
-            v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%lu]", v27];
-            v34 = userInfo2;
-            v35 = v20;
+            v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%lu]", v26];
+            v33 = userInfo2;
+            v34 = v19;
             goto LABEL_36;
           }
         }
@@ -2659,30 +2643,30 @@ LABEL_16:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v33 = 0;
+            v32 = 0;
             goto LABEL_41;
           }
 
-          v48 = 0u;
-          v49 = 0u;
           v46 = 0u;
           v47 = 0u;
+          v44 = 0u;
+          v45 = 0u;
           string = typeCopy;
-          v28 = [string countByEnumeratingWithState:&v46 objects:v60 count:16];
-          if (v28)
+          v27 = [string countByEnumeratingWithState:&v44 objects:v58 count:16];
+          if (v27)
           {
-            v29 = v28;
-            v30 = *v47;
+            v28 = v27;
+            v29 = *v45;
 LABEL_26:
-            v31 = 0;
+            v30 = 0;
             while (1)
             {
-              if (*v47 != v30)
+              if (*v45 != v29)
               {
                 objc_enumerationMutation(string);
               }
 
-              v32 = *(*(&v46 + 1) + 8 * v31);
+              v31 = *(*(&v44 + 1) + 8 * v30);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -2691,38 +2675,38 @@ LABEL_26:
                   goto LABEL_39;
                 }
 
-                v45 = MEMORY[0x277CCA9B8];
-                v38 = *MEMORY[0x277D0F1A0];
-                v58[0] = @"message";
+                v43 = MEMORY[0x277CCA9B8];
+                v36 = *MEMORY[0x277D0F1A0];
+                v56[0] = @"message";
                 userInfo = [MEMORY[0x277CCAB68] string];
-                v59[0] = userInfo;
-                v58[1] = @"pathStack";
-                v39 = MEMORY[0x277CBEB18];
-                userInfo2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v32];
-                v20 = [v39 arrayWithObject:userInfo2];
-                v59[1] = v20;
-                v58[2] = @"errorText";
-                v40 = MEMORY[0x277CCACA8];
-                v41 = objc_opt_class();
-                v42 = NSStringFromClass(v41);
-                v43 = [v40 stringWithFormat:@"(key must be of string type (is %@))", v42];
-                v59[2] = v43;
-                v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:3];
-                *error = [v45 errorWithDomain:v38 code:3 userInfo:v44];
+                v57[0] = userInfo;
+                v56[1] = @"pathStack";
+                v37 = MEMORY[0x277CBEB18];
+                userInfo2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v31];
+                v19 = [v37 arrayWithObject:userInfo2];
+                v57[1] = v19;
+                v56[2] = @"errorText";
+                v38 = MEMORY[0x277CCACA8];
+                v39 = objc_opt_class();
+                v40 = NSStringFromClass(v39);
+                v41 = [v38 stringWithFormat:@"(key must be of string type (is %@))", v40];
+                v57[2] = v41;
+                v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:3];
+                *error = [v43 errorWithDomain:v36 code:3 userInfo:v42];
 
                 goto LABEL_37;
               }
 
-              userInfo = [string objectForKey:v32];
+              userInfo = [string objectForKey:v31];
               if ([(HMDBackingStoreModelObject *)self _validateType:userInfo error:error])
               {
                 break;
               }
 
-              if (v29 == ++v31)
+              if (v28 == ++v30)
               {
-                v29 = [string countByEnumeratingWithState:&v46 objects:v60 count:16];
-                if (v29)
+                v28 = [string countByEnumeratingWithState:&v44 objects:v58 count:16];
+                if (v28)
                 {
                   goto LABEL_26;
                 }
@@ -2737,16 +2721,16 @@ LABEL_26:
             }
 
             userInfo2 = [*error userInfo];
-            v34 = [userInfo2 objectForKey:@"pathStack"];
-            v20 = v34;
-            v35 = v32;
+            v33 = [userInfo2 objectForKey:@"pathStack"];
+            v19 = v33;
+            v34 = v31;
 LABEL_36:
-            [v34 addObject:v35];
+            [v33 addObject:v34];
 LABEL_37:
 
 LABEL_38:
 LABEL_39:
-            v33 = 1;
+            v32 = 1;
 LABEL_40:
 
             goto LABEL_41;
@@ -2754,12 +2738,12 @@ LABEL_40:
         }
 
 LABEL_33:
-        v33 = 0;
+        v32 = 0;
         goto LABEL_40;
       }
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v54 objects:v64 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v52 objects:v62 count:16];
     if (v9)
     {
       continue;
@@ -2772,31 +2756,30 @@ LABEL_11:
 
   if (error)
   {
-    v13 = MEMORY[0x277CCA9B8];
-    v14 = *MEMORY[0x277D0F1A0];
-    v62[0] = @"message";
+    v12 = MEMORY[0x277CCA9B8];
+    v13 = *MEMORY[0x277D0F1A0];
+    v60[0] = @"message";
     string = [MEMORY[0x277CCAB68] string];
-    v63[0] = string;
-    v62[1] = @"pathStack";
+    v61[0] = string;
+    v60[1] = @"pathStack";
     userInfo = [MEMORY[0x277CBEB18] array];
-    v63[1] = userInfo;
-    v62[2] = @"errorText";
-    v17 = MEMORY[0x277CCACA8];
-    v18 = objc_opt_class();
-    userInfo2 = NSStringFromClass(v18);
-    v20 = [v17 stringWithFormat:@"(%@ not a valid type within an aggregate type)", userInfo2];
-    v63[2] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:3];
-    *error = [v13 errorWithDomain:v14 code:3 userInfo:v21];
+    v61[1] = userInfo;
+    v60[2] = @"errorText";
+    v16 = MEMORY[0x277CCACA8];
+    v17 = objc_opt_class();
+    userInfo2 = NSStringFromClass(v17);
+    v19 = [v16 stringWithFormat:@"(%@ not a valid type within an aggregate type)", userInfo2];
+    v61[2] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:3];
+    *error = [v12 errorWithDomain:v13 code:3 userInfo:v20];
 
     goto LABEL_37;
   }
 
-  v33 = 1;
+  v32 = 1;
 LABEL_41:
 
-  v36 = *MEMORY[0x277D85DE8];
-  return v33;
+  return v32;
 }
 
 - (NSSet)dependentUUIDs
@@ -3010,15 +2993,14 @@ LABEL_41:
 
 void __41__HMDBackingStoreModelObject_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v20_209923;
-  logCategory__hmf_once_v20_209923 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v20_209923;
+  logCategory__hmf_once_v20_209923 = v0;
 }
 
 + (id)formatValue:(id)value
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -3047,17 +3029,17 @@ LABEL_8:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = MEMORY[0x277CCAAC8];
-    v9 = +[HMDBackingStore allowedTypes];
-    v27 = 0;
-    v10 = [v8 _strictlyUnarchivedObjectOfClasses:v9 fromData:valueCopy error:&v27];
+    v7 = MEMORY[0x277CCAAC8];
+    v8 = +[HMDBackingStore allowedTypes];
+    v25 = 0;
+    v9 = [v7 _strictlyUnarchivedObjectOfClasses:v8 fromData:valueCopy error:&v25];
 
-    v11 = MEMORY[0x277CCACA8];
-    if (v10)
+    v10 = MEMORY[0x277CCACA8];
+    if (v9)
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v4 = [v11 stringWithFormat:@"<%@ / NSData: %lu bytes>", v13, objc_msgSend(valueCopy, "length")];
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v4 = [v10 stringWithFormat:@"<%@ / NSData: %lu bytes>", v12, objc_msgSend(valueCopy, "length")];
     }
 
     else
@@ -3068,26 +3050,25 @@ LABEL_8:
 
   else
   {
-    v25 = 0u;
-    v26 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v14 = +[HMDBackingStore allowedTypes];
-    v15 = [v14 countByEnumeratingWithState:&v23 objects:v28 count:16];
-    if (v15)
+    v21 = 0u;
+    v22 = 0u;
+    v13 = +[HMDBackingStore allowedTypes];
+    v14 = [v13 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    if (v14)
     {
-      v16 = v15;
-      v17 = *v24;
+      v15 = v14;
+      v16 = *v22;
       while (2)
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v17)
+          if (*v22 != v16)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v13);
           }
 
-          v19 = *(*(&v23 + 1) + 8 * i);
           if (objc_opt_isKindOfClass())
           {
 
@@ -3096,8 +3077,8 @@ LABEL_8:
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v23 objects:v28 count:16];
-        if (v16)
+        v15 = [v13 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        if (v15)
         {
           continue;
         }
@@ -3106,15 +3087,13 @@ LABEL_8:
       }
     }
 
-    v20 = MEMORY[0x277CCACA8];
-    v21 = objc_opt_class();
-    v22 = NSStringFromClass(v21);
-    v4 = [v20 stringWithFormat:@"<%@>", v22];
+    v18 = MEMORY[0x277CCACA8];
+    v19 = objc_opt_class();
+    v20 = NSStringFromClass(v19);
+    v4 = [v18 stringWithFormat:@"<%@>", v20];
   }
 
 LABEL_9:
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -3187,25 +3166,11 @@ LABEL_9:
 
 + (id)objectFromData:(id)data encoding:(unint64_t)encoding record:(id)record error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   recordCopy = record;
   v12 = [HMDBackingStoreModelObject objectFromData:dataCopy encoding:encoding error:error];
-  if (!v12)
-  {
-    goto LABEL_8;
-  }
-
-  v13 = objc_autoreleasePoolPush();
-  v26 = 0;
-  v14 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:recordCopy error:&v26];
-  v15 = v26;
-  v16 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithCoder:v14];
-  v17 = v12[10];
-  v12[10] = v16;
-
-  objc_autoreleasePoolPop(v13);
-  if (v15)
+  if (v12 && (v13 = objc_autoreleasePoolPush(), v25 = 0, v14 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:recordCopy error:&v25], v15 = v25, v16 = objc_msgSend(objc_alloc(MEMORY[0x277CBC5A0]), "initWithCoder:", v14), v17 = v12[10], v12[10] = v16, v17, v14, objc_autoreleasePoolPop(v13), v15))
   {
     v18 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -3214,11 +3179,11 @@ LABEL_9:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v28 = v21;
-      v29 = 2112;
-      v30 = v12;
-      v31 = 2112;
-      v32 = v15;
+      v27 = v21;
+      v28 = 2112;
+      v29 = v12;
+      v30 = 2112;
+      v31 = v15;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to unarchive CKRecord for BSO (%@): %@", buf, 0x20u);
     }
 
@@ -3234,11 +3199,8 @@ LABEL_9:
 
   else
   {
-LABEL_8:
     v23 = v12;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -3298,7 +3260,7 @@ LABEL_10:
 
 + (id)objectFromDictionaryData:(id)data type:(id)type error:(id *)error
 {
-  v141[1] = *MEMORY[0x277D85DE8];
+  v139[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   typeCopy = type;
   if (error)
@@ -3315,17 +3277,17 @@ LABEL_10:
   v10 = objc_autoreleasePoolPush();
   v11 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:dataCopy error:0];
   v12 = +[HMDBackingStore internalAllowedTypes];
-  v112 = *MEMORY[0x277CCA308];
+  v110 = *MEMORY[0x277CCA308];
   v13 = [v11 decodeObjectOfClasses:v12 forKey:?];
 
-  v111 = v13;
+  v109 = v13;
   if (!v13)
   {
     v36 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D0F1A0] code:2 userInfo:0];
     goto LABEL_77;
   }
 
-  v109 = v11;
+  v107 = v11;
   selfCopy = self;
   if (!typeCopy)
   {
@@ -3333,43 +3295,43 @@ LABEL_10:
     if (!typeCopy)
     {
       v36 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:8];
-      v73 = objc_autoreleasePoolPush();
+      v72 = objc_autoreleasePoolPush();
       selfCopy2 = self;
-      v75 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+      v74 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v77 = v76 = v10;
+        v76 = v75 = v10;
         *buf = 138543618;
-        v126 = v77;
-        v127 = 2112;
-        v128 = v13;
-        _os_log_impl(&dword_229538000, v75, OS_LOG_TYPE_ERROR, "%{public}@Received an object with a dictionary missing the kType key: %@", buf, 0x16u);
+        v124 = v76;
+        v125 = 2112;
+        v126 = v13;
+        _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_ERROR, "%{public}@Received an object with a dictionary missing the kType key: %@", buf, 0x16u);
 
-        v10 = v76;
-        v11 = v109;
+        v10 = v75;
+        v11 = v107;
       }
 
-      objc_autoreleasePoolPop(v73);
-      v78 = objc_autoreleasePoolPush();
-      v79 = selfCopy2;
-      v80 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v80, OS_LOG_TYPE_FAULT))
+      objc_autoreleasePoolPop(v72);
+      v77 = objc_autoreleasePoolPush();
+      v78 = selfCopy2;
+      v79 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
       {
         HMFGetLogIdentifier();
-        v82 = v81 = v10;
+        v81 = v80 = v10;
         *buf = 138543362;
-        v126 = v82;
-        _os_log_impl(&dword_229538000, v80, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Received a model missing a critical field.", buf, 0xCu);
+        v124 = v81;
+        _os_log_impl(&dword_229538000, v79, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Received a model missing a critical field.", buf, 0xCu);
 
-        v10 = v81;
-        v11 = v109;
+        v10 = v80;
+        v11 = v107;
       }
 
-      objc_autoreleasePoolPop(v78);
-      v83 = [[HMDAssertionLogEvent alloc] initWithReason:@"Received a model missing a critical field."];
-      v84 = +[HMDMetricsManager sharedLogEventSubmitter];
-      [v84 submitLogEvent:v83];
+      objc_autoreleasePoolPop(v77);
+      v82 = [[HMDAssertionLogEvent alloc] initWithReason:@"Received a model missing a critical field."];
+      v83 = +[HMDMetricsManager sharedLogEventSubmitter];
+      [v83 submitLogEvent:v82];
 
       v13 = 0;
       typeCopy = 0;
@@ -3386,40 +3348,40 @@ LABEL_10:
     v17 = NSClassFromString(typeCopy);
     if (!v17)
     {
-      v85 = [v13 valueForKey:@"_G"];
+      v84 = [v13 valueForKey:@"_G"];
 
-      v106 = v85;
-      if (!v85 || (v86 = NSClassFromString(v85)) == 0)
+      v104 = v84;
+      if (!v84 || (v85 = NSClassFromString(v84)) == 0)
       {
-        v86 = objc_opt_class();
+        v85 = objc_opt_class();
       }
 
-      v16 = v86;
+      v16 = v85;
       goto LABEL_11;
     }
 
     v16 = v17;
   }
 
-  v106 = typeCopy;
+  v104 = typeCopy;
 LABEL_11:
-  v107 = v10;
+  v105 = v10;
   if (([(objc_class *)v16 isSubclassOfClass:objc_opt_class()]& 1) == 0)
   {
     v37 = MEMORY[0x277CCA9B8];
     v38 = *MEMORY[0x277D0F1A0];
-    v140 = @"message";
+    v138 = @"message";
     v39 = MEMORY[0x277CCACA8];
     v40 = NSStringFromClass(v16);
     v41 = [v39 stringWithFormat:@"remapped (or explicit map) is not a subclass of HMDBackingStoreModelObject (%@ is not a sub-class of HMDBackingStoreModelObject)", v40];
-    v141[0] = v41;
-    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v141 forKeys:&v140 count:1];
+    v139[0] = v41;
+    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v139 forKeys:&v138 count:1];
     v36 = [v37 errorWithDomain:v38 code:3 userInfo:v42];
 
     v13 = 0;
-    typeCopy = v106;
-    v10 = v107;
-    v11 = v109;
+    typeCopy = v104;
+    v10 = v105;
+    v11 = v107;
     goto LABEL_77;
   }
 
@@ -3427,30 +3389,30 @@ LABEL_11:
   uUID = [MEMORY[0x277CCAD78] UUID];
   v13 = [v18 initWithVersion:0 changeType:0 uuid:uUID parentUUID:0];
 
-  v20 = [v111 mutableCopy];
+  v20 = [v109 mutableCopy];
   v21 = *(v13 + 8);
   *(v13 + 8) = v20;
 
   v22 = MEMORY[0x277D0F890];
-  v23 = [v111 valueForKey:@"_u"];
+  v23 = [v109 valueForKey:@"_u"];
   v24 = [v22 hmf_cachedInstanceForNSString:v23];
   v25 = *(v13 + 24);
   *(v13 + 24) = v24;
 
   v26 = MEMORY[0x277D0F890];
-  v27 = [v111 valueForKey:@"_P"];
+  v27 = [v109 valueForKey:@"_P"];
   v28 = [v26 hmf_cachedInstanceForNSString:v27];
   v29 = *(v13 + 32);
   *(v13 + 32) = v28;
 
   v30 = MEMORY[0x277D0F888];
-  v31 = [v111 valueForKey:@"_t"];
+  v31 = [v109 valueForKey:@"_t"];
   v32 = [v30 hmf_cachedInstanceForString:v31];
   v33 = *(v13 + 48);
   *(v13 + 48) = v32;
 
-  v34 = [v111 hmf_stringForKey:@"_V"];
-  v104 = v34;
+  v34 = [v109 hmf_stringForKey:@"_V"];
+  v102 = v34;
   if (v34)
   {
     v35 = [[HMDHomeKitVersion alloc] initWithString:v34];
@@ -3458,74 +3420,74 @@ LABEL_11:
 
   else
   {
-    v43 = [v111 valueForKey:@"_v"];
+    v43 = [v109 valueForKey:@"_v"];
 
     if (!v43)
     {
-      v99 = MEMORY[0x277CCA9B8];
-      v100 = *MEMORY[0x277D0F1A0];
-      v138 = @"message";
+      v97 = MEMORY[0x277CCA9B8];
+      v98 = *MEMORY[0x277D0F1A0];
+      v136 = @"message";
       properties = [MEMORY[0x277CCACA8] stringWithFormat:@"expecting a versioning key named %@ but one does not exist", @"_v"];
-      v139 = properties;
-      v115 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
-      v36 = [v99 errorWithDomain:v100 code:3 userInfo:?];
-      v103 = v13;
+      v137 = properties;
+      v113 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v137 forKeys:&v136 count:1];
+      v36 = [v97 errorWithDomain:v98 code:3 userInfo:?];
+      v101 = v13;
       v13 = 0;
-      v10 = v107;
-      v11 = v109;
+      v10 = v105;
+      v11 = v107;
       goto LABEL_76;
     }
 
     v35 = +[HMDHomeKitVersion version4];
   }
 
-  v11 = v109;
-  v103 = v35;
+  v11 = v107;
+  v101 = v35;
   objc_storeStrong((v13 + 64), v35);
   v44 = *(v13 + 8);
-  v137[0] = @"_P";
-  v137[1] = @"_u";
-  v137[2] = @"_v";
-  v137[3] = @"_t";
-  v137[4] = @"_T";
-  v137[5] = @"_d";
-  v137[6] = @"_G";
-  v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v137 count:7];
+  v135[0] = @"_P";
+  v135[1] = @"_u";
+  v135[2] = @"_v";
+  v135[3] = @"_t";
+  v135[4] = @"_T";
+  v135[5] = @"_d";
+  v135[6] = @"_G";
+  v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v135 count:7];
   [v44 removeObjectsForKeys:v45];
 
   properties = [objc_opt_class() properties];
-  v115 = +[HMDBackingStore allowedTypes];
+  v113 = +[HMDBackingStore allowedTypes];
+  v119 = 0u;
+  v120 = 0u;
   v121 = 0u;
   v122 = 0u;
-  v123 = 0u;
-  v124 = 0u;
   obj = [*(v13 + 8) allKeys];
-  v47 = [obj countByEnumeratingWithState:&v121 objects:v136 count:16];
+  v47 = [obj countByEnumeratingWithState:&v119 objects:v134 count:16];
   if (!v47)
   {
     v36 = 0;
-    v10 = v107;
+    v10 = v105;
     goto LABEL_75;
   }
 
   v48 = v47;
   errorCopy = error;
-  v102 = dataCopy;
-  v49 = *v122;
+  v100 = dataCopy;
+  v49 = *v120;
   v50 = obj;
-  v114 = *v122;
+  v112 = *v120;
   while (2)
   {
     v51 = 0;
-    v116 = v48;
+    v114 = v48;
     do
     {
-      if (*v122 != v49)
+      if (*v120 != v49)
       {
         objc_enumerationMutation(v50);
       }
 
-      v52 = *(*(&v121 + 1) + 8 * v51);
+      v52 = *(*(&v119 + 1) + 8 * v51);
       v53 = [properties valueForKey:v52];
       v54 = [*(v13 + 8) valueForKey:v52];
       v55 = v54;
@@ -3545,31 +3507,30 @@ LABEL_11:
         {
           [*(v13 + 8) removeObjectForKey:v52];
 LABEL_57:
-          v48 = v116;
+          v48 = v114;
           goto LABEL_58;
         }
 
-        v119 = 0u;
-        v120 = 0u;
         v117 = 0u;
         v118 = 0u;
-        v57 = v115;
-        v58 = [v57 countByEnumeratingWithState:&v117 objects:v135 count:16];
+        v115 = 0u;
+        v116 = 0u;
+        v57 = v113;
+        v58 = [v57 countByEnumeratingWithState:&v115 objects:v133 count:16];
         if (v58)
         {
           v59 = v13;
           v60 = properties;
-          v61 = *v118;
+          v61 = *v116;
           while (2)
           {
             for (i = 0; i != v58; ++i)
             {
-              if (*v118 != v61)
+              if (*v116 != v61)
               {
                 objc_enumerationMutation(v57);
               }
 
-              v63 = *(*(&v117 + 1) + 8 * i);
               if (objc_opt_isKindOfClass())
               {
                 LODWORD(v58) = 1;
@@ -3577,7 +3538,7 @@ LABEL_57:
               }
             }
 
-            v58 = [v57 countByEnumeratingWithState:&v117 objects:v135 count:16];
+            v58 = [v57 countByEnumeratingWithState:&v115 objects:v133 count:16];
             if (v58)
             {
               continue;
@@ -3600,51 +3561,51 @@ LABEL_40:
           {
             if (![objc_msgSend(v53 "classObj")])
             {
-              v64 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v55 error:0];
-              [v64 _allowDecodingCyclesInSecureMode];
+              v63 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v55 error:0];
+              [v63 _allowDecodingCyclesInSecureMode];
               if ([objc_msgSend(v53 "classObj")])
               {
                 decodeClasses = [v53 decodeClasses];
-                v66 = [v64 decodeObjectOfClasses:decodeClasses forKey:v112];
+                v65 = [v63 decodeObjectOfClasses:decodeClasses forKey:v110];
 
-                v55 = v66;
+                v55 = v65;
                 v50 = obj;
               }
 
               else
               {
-                [v64 decodeObjectOfClass:objc_msgSend(v53 forKey:{"classObj"), v112}];
+                [v63 decodeObjectOfClass:objc_msgSend(v53 forKey:{"classObj"), v110}];
                 v55 = decodeClasses = v55;
               }
 
-              [v64 finishDecoding];
+              [v63 finishDecoding];
               [*(v13 + 8) removeObjectForKey:v52];
               if (v55)
               {
-                v67 = [MEMORY[0x277D0F888] hmf_cachedInstanceForString:v52];
-                [*(v13 + 8) setObject:v55 forKey:v67];
+                v66 = [MEMORY[0x277D0F888] hmf_cachedInstanceForString:v52];
+                [*(v13 + 8) setObject:v55 forKey:v66];
               }
 
               else
               {
                 context = objc_autoreleasePoolPush();
-                v68 = selfCopy;
-                v69 = HMFGetOSLogHandle();
-                if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+                v67 = selfCopy;
+                v68 = HMFGetOSLogHandle();
+                if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
                 {
                   HMFGetLogIdentifier();
-                  v70 = v105 = v68;
-                  error = [v64 error];
+                  v69 = v103 = v67;
+                  error = [v63 error];
                   *buf = 138543874;
-                  v126 = v70;
+                  v124 = v69;
+                  v125 = 2112;
+                  v126 = v52;
                   v127 = 2112;
-                  v128 = v52;
-                  v129 = 2112;
-                  v130 = error;
-                  v72 = error;
-                  _os_log_impl(&dword_229538000, v69, OS_LOG_TYPE_ERROR, "%{public}@failed to unarchive implicitly archived property %@: %@", buf, 0x20u);
+                  v128 = error;
+                  v71 = error;
+                  _os_log_impl(&dword_229538000, v68, OS_LOG_TYPE_ERROR, "%{public}@failed to unarchive implicitly archived property %@: %@", buf, 0x20u);
 
-                  v68 = v105;
+                  v67 = v103;
                 }
 
                 objc_autoreleasePoolPop(context);
@@ -3654,39 +3615,39 @@ LABEL_40:
               goto LABEL_56;
             }
 
-            v94 = MEMORY[0x277CCA9B8];
-            v95 = *MEMORY[0x277D0F1A0];
-            v131 = @"message";
-            v91 = [MEMORY[0x277CCACA8] stringWithFormat:@"should not have a internally handled type of NSObject (but we hit one for key %@)", v52];
-            v132 = v91;
-            v92 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
-            v36 = [v94 errorWithDomain:v95 code:3 userInfo:v92];
+            v93 = MEMORY[0x277CCA9B8];
+            v94 = *MEMORY[0x277D0F1A0];
+            v129 = @"message";
+            v90 = [MEMORY[0x277CCACA8] stringWithFormat:@"should not have a internally handled type of NSObject (but we hit one for key %@)", v52];
+            v130 = v90;
+            v91 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v130 forKeys:&v129 count:1];
+            v36 = [v93 errorWithDomain:v94 code:3 userInfo:v91];
           }
 
           else
           {
-            v87 = MEMORY[0x277CCA9B8];
-            v88 = *MEMORY[0x277D0F1A0];
-            v133 = @"message";
-            v89 = MEMORY[0x277CCACA8];
-            v90 = objc_opt_class();
-            v91 = NSStringFromClass(v90);
-            v92 = [v89 stringWithFormat:@"expecting internal storage to be a NSData, but it's a %@", v91];
-            v134 = v92;
-            v93 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
-            v36 = [v87 errorWithDomain:v88 code:3 userInfo:v93];
+            v86 = MEMORY[0x277CCA9B8];
+            v87 = *MEMORY[0x277D0F1A0];
+            v131 = @"message";
+            v88 = MEMORY[0x277CCACA8];
+            v89 = objc_opt_class();
+            v90 = NSStringFromClass(v89);
+            v91 = [v88 stringWithFormat:@"expecting internal storage to be a NSData, but it's a %@", v90];
+            v132 = v91;
+            v92 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
+            v36 = [v86 errorWithDomain:v87 code:3 userInfo:v92];
           }
 
           v13 = 0;
           goto LABEL_74;
         }
 
-        v64 = [MEMORY[0x277D0F888] hmf_cachedInstanceForString:v52];
+        v63 = [MEMORY[0x277D0F888] hmf_cachedInstanceForString:v52];
         [*(v13 + 8) removeObjectForKey:v52];
-        [*(v13 + 8) setObject:v55 forKey:v64];
+        [*(v13 + 8) setObject:v55 forKey:v63];
 LABEL_56:
 
-        v49 = v114;
+        v49 = v112;
         goto LABEL_57;
       }
 
@@ -3696,7 +3657,7 @@ LABEL_58:
     }
 
     while (v51 != v48);
-    v48 = [v50 countByEnumeratingWithState:&v121 objects:v136 count:16];
+    v48 = [v50 countByEnumeratingWithState:&v119 objects:v134 count:16];
     if (v48)
     {
       continue;
@@ -3708,24 +3669,23 @@ LABEL_58:
   v36 = 0;
 LABEL_74:
   error = errorCopy;
-  dataCopy = v102;
-  v10 = v107;
-  v11 = v109;
+  dataCopy = v100;
+  v10 = v105;
+  v11 = v107;
 LABEL_75:
 
 LABEL_76:
-  typeCopy = v106;
+  typeCopy = v104;
 
 LABEL_77:
   objc_autoreleasePoolPop(v10);
   if (error)
   {
-    v96 = v36;
+    v95 = v36;
     *error = v36;
   }
 
 LABEL_80:
-  v97 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -3746,7 +3706,7 @@ LABEL_80:
 
   v8 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"551E3F88-0C11-4402-A486-6D1EB759AADD"];
   v9 = MEMORY[0x277CCAD78];
-  v10 = [array copy];
+  v10 = objc_msgSend_copy(array);
   v11 = [v9 hm_deriveUUIDFromBaseUUID:v8 withSalts:v10];
   uUIDString = [v11 UUIDString];
 

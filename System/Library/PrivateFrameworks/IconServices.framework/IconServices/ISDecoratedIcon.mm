@@ -12,7 +12,7 @@
 
 - (ISDecoratedIcon)initWithIcon:(id)icon decorations:(id)decorations
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   iconCopy = icon;
   decorationsCopy = decorations;
   v9 = objc_opt_new();
@@ -23,39 +23,39 @@
     [v9 addObject:digest];
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v11 = decorationsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        uuid = [*(*(&v26 + 1) + 8 * i) uuid];
+        uuid = [*(*(&v25 + 1) + 8 * i) uuid];
         [v9 addObject:uuid];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v13);
   }
 
   v17 = [MEMORY[0x1E696AFB0] _IF_UUIDByXORingUUIDs:v9];
-  v25.receiver = self;
-  v25.super_class = ISDecoratedIcon;
-  v18 = [(ISConcreteIcon *)&v25 initWithDigest:v17];
+  v24.receiver = self;
+  v24.super_class = ISDecoratedIcon;
+  v18 = [(ISConcreteIcon *)&v24 initWithDigest:v17];
   v19 = v18;
   if (v18)
   {
@@ -75,7 +75,6 @@
     objc_storeStrong(&v19->_decorations, v22);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -106,25 +105,22 @@
 
 void __33__ISDecoratedIcon_initWithCoder___block_invoke()
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
   v2 = [v0 setWithArray:v1];
   v3 = initWithCoder__classes;
   initWithCoder__classes = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v6.receiver = self;
-  v6.super_class = ISDecoratedIcon;
-  [(ISConcreteIcon *)&v6 encodeWithCoder:coderCopy];
-  icon = self->_icon;
+  v5.receiver = self;
+  v5.super_class = ISDecoratedIcon;
+  [(ISConcreteIcon *)&v5 encodeWithCoder:coderCopy];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -176,10 +172,10 @@ void __33__ISDecoratedIcon_initWithCoder___block_invoke()
 
 - (id)makeResourceProvider
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   icon = [(ISDecoratedIcon *)self icon];
   objc_opt_class();
-  v27 = icon;
+  v26 = icon;
   if (objc_opt_isKindOfClass())
   {
     makeResourceProvider = [icon makeResourceProvider];
@@ -190,32 +186,32 @@ void __33__ISDecoratedIcon_initWithCoder___block_invoke()
     makeResourceProvider = 0;
   }
 
-  v28 = objc_opt_new();
+  v27 = objc_opt_new();
   v5 = objc_alloc(MEMORY[0x1E695DF88]);
-  v26 = makeResourceProvider;
+  v25 = makeResourceProvider;
   resourceToken = [makeResourceProvider resourceToken];
   v7 = [v5 initWithData:resourceToken];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   decorations = [(ISDecoratedIcon *)self decorations];
-  v9 = [decorations countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v9 = [decorations countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v30;
+    v11 = *v29;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v30 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(decorations);
         }
 
-        v13 = *(*(&v29 + 1) + 8 * i);
+        v13 = *(*(&v28 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -249,26 +245,24 @@ LABEL_14:
             [v7 appendData:persistentIdentifier];
 
             uuid = [v13 uuid];
-            [v28 setObject:v20 forKey:uuid];
+            [v27 setObject:v20 forKey:uuid];
           }
 
           continue;
         }
       }
 
-      v10 = [decorations countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v10 = [decorations countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v10);
   }
 
-  [v26 setDecorationResources:v28];
+  [v25 setDecorationResources:v27];
   v23 = [v7 copy];
-  [v26 setResourceToken:v23];
+  [v25 setResourceToken:v23];
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v26;
+  return v25;
 }
 
 @end

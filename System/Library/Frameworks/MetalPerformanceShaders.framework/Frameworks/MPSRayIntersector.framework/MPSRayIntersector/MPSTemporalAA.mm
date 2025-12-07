@@ -4,6 +4,7 @@
 - (MPSTemporalAA)initWithDevice:(id)device;
 - (MPSTemporalAAFunctionHash)getHashForKernelID:(unint64_t)d haveMotionVectorTexture:(BOOL)texture haveDepthTexture:(BOOL)depthTexture;
 - (id)description;
+- (id)getPipelineForFunctionName:(id)name kernelID:(unint64_t)d haveMotionVectorTexture:(BOOL)texture haveDepthTexture:(BOOL)depthTexture;
 - (unint64_t)channelCount:(id)count;
 - (void)dealloc;
 - (void)encodeToCommandBuffer:(id)commandBuffer sourceTexture:(id)sourceTexture previousTexture:(id)previousTexture destinationTexture:(id)destinationTexture motionVectorTexture:(id)motionVectorTexture depthTexture:(id)depthTexture;
@@ -17,7 +18,7 @@
 {
   if (blendFactor < 0.0 || blendFactor > 1.0)
   {
-    sub_239E21F18();
+    sub_239E21F18(self, a2);
   }
 
   self->_blendFactor = blendFactor;
@@ -38,24 +39,24 @@
 
 - (MPSTemporalAA)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v13.receiver = self;
-  v13.super_class = MPSTemporalAA;
-  v5 = [(MPSKernel *)&v13 initWithCoder:aDecoder device:device];
-  v9 = v5;
+  v11.receiver = self;
+  v11.super_class = MPSTemporalAA;
+  v5 = [(MPSKernel *)&v11 initWithCoder:aDecoder device:device];
+  v7 = v5;
   if (v5)
   {
     if (*(&v5->super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
     {
-      objc_msgSend_decodeFloatForKey_(aDecoder, v6, @"MPSTemporalAAKeyBlendFactor", v7, v8);
-      v9->_blendFactor = v10;
+      objc_msgSend_decodeFloatForKey_(aDecoder, v6, @"MPSTemporalAAKeyBlendFactor");
+      v7->_blendFactor = v8;
     }
 
     else
     {
       if (MTLReportFailureTypeEnabled())
       {
-        v11 = objc_opt_class();
-        NSStringFromClass(v11);
+        v9 = objc_opt_class();
+        NSStringFromClass(v9);
         MTLReportFailure();
       }
 
@@ -63,7 +64,7 @@
     }
   }
 
-  return v9;
+  return v7;
 }
 
 - (void)dealloc
@@ -76,20 +77,20 @@
 - (void)encodeWithCoder:(NSCoder *)coder
 {
   *(&self->super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v9.receiver = self;
-  v9.super_class = MPSTemporalAA;
-  [(MPSKernel *)&v9 encodeWithCoder:?];
+  v7.receiver = self;
+  v7.super_class = MPSTemporalAA;
+  [(MPSKernel *)&v7 encodeWithCoder:?];
   *&v5 = self->_blendFactor;
-  objc_msgSend_encodeFloat_forKey_(coder, v6, @"MPSTemporalAAKeyBlendFactor", v7, v8, v5);
+  objc_msgSend_encodeFloat_forKey_(coder, v6, @"MPSTemporalAAKeyBlendFactor", v5);
 }
 
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v9.receiver = self;
-  v9.super_class = MPSTemporalAA;
-  v4 = [(MPSTemporalAA *)&v9 description];
-  return objc_msgSend_stringWithFormat_(v3, v5, @"%@\n\tblend factor: %f", v6, v7, v4, self->_blendFactor);
+  v7.receiver = self;
+  v7.super_class = MPSTemporalAA;
+  v4 = [(MPSTemporalAA *)&v7 description];
+  return objc_msgSend_stringWithFormat_(v3, v5, @"%@\n\tblend factor: %f", v4, self->_blendFactor);
 }
 
 - (MPSTemporalAA)copyWithZone:(NSZone *)zone device:(id)device
@@ -123,11 +124,20 @@
   return (v6 | v7);
 }
 
+- (id)getPipelineForFunctionName:(id)name kernelID:(unint64_t)d haveMotionVectorTexture:(BOOL)texture haveDepthTexture:(BOOL)depthTexture
+{
+  haveDepthTexture = objc_msgSend_getHashForKernelID_haveMotionVectorTexture_haveDepthTexture_(self, a2, d, texture, depthTexture);
+  v9 = (*(&self->super.super.isa + *MEMORY[0x277CD7350]))[2];
+  v10 = *(&self->super.super.isa + *MEMORY[0x277CD7370]);
+
+  return sub_239DF1D00(name, v9, v10, haveDepthTexture, sub_239DF1EA0);
+}
+
 - (unint64_t)channelCount:(id)count
 {
-  v5 = *(&self->super.super.isa + *MEMORY[0x277CD7350]);
-  v6 = objc_msgSend_pixelFormat(count, a2, count, v3, v4);
-  PixelInfo = MPSDevice::GetPixelInfo(v5, v6, MPSImageFeatureChannelFormatNone);
+  v3 = *(&self->super.super.isa + *MEMORY[0x277CD7350]);
+  v4 = objc_msgSend_pixelFormat(count, a2, count);
+  PixelInfo = MPSDevice::GetPixelInfo(v3, v4, MPSImageFeatureChannelFormatNone);
   if ((PixelInfo & 0xE000000) != 0)
   {
     return HIBYTE(PixelInfo) & 0xF;
@@ -141,6 +151,7 @@
 
 - (void)encodeToCommandBuffer:(id)commandBuffer sourceTexture:(id)sourceTexture previousTexture:(id)previousTexture destinationTexture:(id)destinationTexture motionVectorTexture:(id)motionVectorTexture depthTexture:(id)depthTexture
 {
+  selfCopy = self;
   if (*(&self->super.super.isa + *MEMORY[0x277CD7378]))
   {
     goto LABEL_9;
@@ -156,7 +167,7 @@
 
   else
   {
-    sub_239E21FD8();
+    self = sub_239E21FD8(self, a2);
     if (sourceTexture)
     {
 LABEL_4:
@@ -169,7 +180,7 @@ LABEL_4:
     }
   }
 
-  sub_239E22028();
+  self = sub_239E22028(self, a2);
   if (previousTexture)
   {
 LABEL_5:
@@ -179,7 +190,7 @@ LABEL_5:
     }
 
 LABEL_22:
-    sub_239E220C8();
+    sub_239E220C8(self, a2);
     if (!motionVectorTexture)
     {
       goto LABEL_9;
@@ -189,7 +200,7 @@ LABEL_22:
   }
 
 LABEL_21:
-  sub_239E22078();
+  self = sub_239E22078(self, a2);
   if (!destinationTexture)
   {
     goto LABEL_22;
@@ -202,65 +213,65 @@ LABEL_6:
   }
 
 LABEL_7:
-  objc_msgSend_channelCount_(self, a2, motionVectorTexture, sourceTexture, previousTexture);
-  if (objc_msgSend_channelCount_(self, v15, motionVectorTexture, v16, v17) <= 1)
+  objc_msgSend_channelCount_(selfCopy, a2, motionVectorTexture);
+  if (objc_msgSend_channelCount_(selfCopy, v15, motionVectorTexture) <= 1)
   {
-    sub_239E22118(self, motionVectorTexture);
+    sub_239E22118(selfCopy, motionVectorTexture);
   }
 
 LABEL_9:
-  if (objc_msgSend_retainedReferences(commandBuffer, a2, commandBuffer, sourceTexture, previousTexture))
+  if (objc_msgSend_retainedReferences(commandBuffer, a2, commandBuffer))
   {
-    v19 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
   }
 
-  haveDepthTexture = objc_msgSend_getPipelineForFunctionName_kernelID_haveMotionVectorTexture_haveDepthTexture_(self, v18, @"TAAKernel", 0, motionVectorTexture != 0, depthTexture != 0);
-  v77 = commandBuffer;
-  v25 = objc_msgSend_computeCommandEncoder(commandBuffer, v21, v22, v23, v24);
-  objc_msgSend_setLabel_(v25, v26, @"MPSTemporalAA", v27, v28);
-  objc_msgSend_setComputePipelineState_(v25, v29, haveDepthTexture, v30, v31);
-  objc_msgSend_params(self, v32, v33, v34, v35);
-  v82 = v36;
-  objc_msgSend_setBytes_length_atIndex_(v25, v37, &v82, 4, 0);
-  objc_msgSend_setTexture_atIndex_(v25, v38, previousTexture, 0, v39);
-  objc_msgSend_setTexture_atIndex_(v25, v40, destinationTexture, 1, v41);
-  objc_msgSend_setTexture_atIndex_(v25, v42, sourceTexture, 2, v43);
-  objc_msgSend_setTexture_atIndex_(v25, v44, motionVectorTexture, 3, v45);
-  objc_msgSend_setTexture_atIndex_(v25, v46, depthTexture, 4, v47);
-  v81[0] = (objc_msgSend_width(destinationTexture, v48, v49, v50, v51) + 7) >> 3;
-  v81[1] = (objc_msgSend_height(destinationTexture, v52, v53, v54, v55) + 7) >> 3;
-  v81[2] = 1;
-  v79 = vdupq_n_s64(8uLL);
-  v80 = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v25, v56, v81, &v79, v57);
-  objc_msgSend_endEncoding(v25, v58, v59, v60, v61);
-  if (v19)
+  haveDepthTexture = objc_msgSend_getPipelineForFunctionName_kernelID_haveMotionVectorTexture_haveDepthTexture_(selfCopy, v16, @"TAAKernel", 0, motionVectorTexture != 0, depthTexture != 0);
+  v45 = commandBuffer;
+  v21 = objc_msgSend_computeCommandEncoder(commandBuffer, v19, v20);
+  objc_msgSend_setLabel_(v21, v22, @"MPSTemporalAA");
+  objc_msgSend_setComputePipelineState_(v21, v23, haveDepthTexture);
+  objc_msgSend_params(selfCopy, v24, v25);
+  v50 = v26;
+  objc_msgSend_setBytes_length_atIndex_(v21, v27, &v50, 4, 0);
+  objc_msgSend_setTexture_atIndex_(v21, v28, previousTexture, 0);
+  objc_msgSend_setTexture_atIndex_(v21, v29, destinationTexture, 1);
+  objc_msgSend_setTexture_atIndex_(v21, v30, sourceTexture, 2);
+  objc_msgSend_setTexture_atIndex_(v21, v31, motionVectorTexture, 3);
+  objc_msgSend_setTexture_atIndex_(v21, v32, depthTexture, 4);
+  v49[0] = (objc_msgSend_width(destinationTexture, v33, v34) + 7) >> 3;
+  v49[1] = (objc_msgSend_height(destinationTexture, v35, v36) + 7) >> 3;
+  v49[2] = 1;
+  v47 = vdupq_n_s64(8uLL);
+  v48 = 1;
+  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v21, v37, v49, &v47);
+  objc_msgSend_endEncoding(v21, v38, v39);
+  if (v17)
   {
-    objc_msgSend_addObject_(v19, v62, haveDepthTexture, v63, v64);
-    objc_msgSend_addObject_(v19, v65, previousTexture, v66, v67);
-    objc_msgSend_addObject_(v19, v68, sourceTexture, v69, v70);
-    objc_msgSend_addObject_(v19, v71, destinationTexture, v72, v73);
+    objc_msgSend_addObject_(v17, v40, haveDepthTexture);
+    objc_msgSend_addObject_(v17, v41, previousTexture);
+    objc_msgSend_addObject_(v17, v42, sourceTexture);
+    objc_msgSend_addObject_(v17, v43, destinationTexture);
     if (motionVectorTexture)
     {
-      objc_msgSend_addObject_(v19, v74, motionVectorTexture, v75, v76);
+      objc_msgSend_addObject_(v17, v44, motionVectorTexture);
     }
 
     if (depthTexture)
     {
-      objc_msgSend_addObject_(v19, v74, depthTexture, v75, v76);
+      objc_msgSend_addObject_(v17, v44, depthTexture);
     }
 
-    v78[0] = MEMORY[0x277D85DD0];
-    v78[1] = 3221225472;
-    v78[2] = sub_239DF2468;
-    v78[3] = &unk_278B3B370;
-    v78[4] = v19;
-    objc_msgSend_addCompletedHandler_(v77, v74, v78, v75, v76);
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = sub_239DF2468;
+    v46[3] = &unk_278B3B370;
+    v46[4] = v17;
+    objc_msgSend_addCompletedHandler_(v45, v44, v46);
   }
 }
 

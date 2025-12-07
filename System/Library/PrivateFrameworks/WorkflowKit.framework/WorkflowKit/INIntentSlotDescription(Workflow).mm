@@ -10,7 +10,7 @@
 
 - (id)wf_updatedParameterDefinition:()Workflow parameterClass:localizer:
 {
-  v47[3] = *MEMORY[0x1E69E9840];
+  v46[3] = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a5;
   resolveSelectorStrings = [self resolveSelectorStrings];
@@ -30,47 +30,47 @@ LABEL_11:
   }
 
   valueType = [self valueType];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__61954;
-  v40 = __Block_byref_object_dispose__61955;
-  v41 = v8;
-  v46[0] = @"Class";
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__61954;
+  v39 = __Block_byref_object_dispose__61955;
+  v40 = v8;
+  v45[0] = @"Class";
   v13 = NSStringFromClass(a4);
-  v47[0] = v13;
-  v46[1] = @"Key";
+  v46[0] = v13;
+  v45[1] = @"Key";
   name = [self name];
-  v47[1] = name;
-  v46[2] = @"Label";
+  v46[1] = name;
+  v45[2] = @"Label";
   name2 = [self name];
   v16 = WFAddSpacesToCamelCaseName(name2);
   v17 = WFCapitalizeFirstLetter(v16);
-  v47[2] = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:3];
+  v46[2] = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:3];
 
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __92__INIntentSlotDescription_Workflow__wf_updatedParameterDefinition_parameterClass_localizer___block_invoke;
-  v35[3] = &unk_1E837D4A8;
-  v35[4] = &v36;
-  [v18 enumerateKeysAndObjectsUsingBlock:v35];
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __92__INIntentSlotDescription_Workflow__wf_updatedParameterDefinition_parameterClass_localizer___block_invoke;
+  v34[3] = &unk_1E837D4A8;
+  v34[4] = &v35;
+  [v18 enumerateKeysAndObjectsUsingBlock:v34];
   if ([(objc_class *)a4 isEqual:objc_opt_class()])
   {
-    v19 = v37[5];
-    v44 = @"AllowsDecimalNumbers";
+    v19 = v36[5];
+    v43 = @"AllowsDecimalNumbers";
     v20 = [MEMORY[0x1E696AD98] numberWithBool:(valueType < 0x36) & (0x20000000200018uLL >> valueType)];
-    v45 = v20;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+    v44 = v20;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
     v22 = [v19 definitionByAddingEntriesInDictionary:v21];
-    v23 = v37[5];
-    v37[5] = v22;
+    v23 = v36[5];
+    v36[5] = v22;
   }
 
   if ([(objc_class *)a4 isEqual:objc_opt_class()])
   {
     v24 = [MEMORY[0x1E695DFB8] orderedSetWithObjects:{@"Variable", @"ExtensionInput", @"ActionOutput", @"CurrentDate", @"Clipboard", 0}];
-    v25 = [v37[5] objectForKey:@"DisallowedVariableTypes"];
+    v25 = [v36[5] objectForKey:@"DisallowedVariableTypes"];
     if (v25)
     {
       v26 = [v24 orderedSetByAddingObjectsFromArray:v25];
@@ -78,22 +78,20 @@ LABEL_11:
       v24 = v26;
     }
 
-    v27 = v37[5];
-    v42 = @"DisallowedVariableTypes";
+    v27 = v36[5];
+    v41 = @"DisallowedVariableTypes";
     array = [v24 array];
-    v43 = array;
-    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    v42 = array;
+    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
     v30 = [v27 definitionByAddingEntriesInDictionary:v29];
-    v31 = v37[5];
-    v37[5] = v30;
+    v31 = v36[5];
+    v36[5] = v30;
   }
 
-  v32 = v37[5];
+  v32 = v36[5];
 
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v35, 8);
 LABEL_12:
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
@@ -104,110 +102,51 @@ LABEL_12:
   v2 = 0;
   if (valueType > 26)
   {
-    if ((valueType - 98) <= 0x33 && ((1 << (valueType - 98)) & 0x82000DFC70001) != 0)
+    if (((valueType - 98) > 0x33 || ((1 << (valueType - 98)) & 0x82000DFC70001) == 0) && ((valueType - 30) > 0x37 || ((1 << (valueType - 30)) & 0xC0054618000000) == 0 && valueType != 30 && valueType != 53) && (valueType - 27) >= 2)
     {
-      goto LABEL_6;
+      goto LABEL_26;
     }
 
-    if ((valueType - 30) > 0x37)
-    {
-LABEL_30:
-      if ((valueType - 27) < 2)
-      {
-        v3 = off_1E836EB40;
-        goto LABEL_26;
-      }
-
-      goto LABEL_27;
-    }
-
-    if (((1 << (valueType - 30)) & 0xC0054618000000) != 0)
-    {
-LABEL_6:
-      v3 = off_1E836F368;
-LABEL_26:
-      v4 = *v3;
-      v2 = objc_opt_class();
-      goto LABEL_27;
-    }
-
-    if (valueType != 30)
-    {
-      if (valueType == 53)
-      {
-        goto LABEL_25;
-      }
-
-      goto LABEL_30;
-    }
-
-LABEL_32:
-    v3 = off_1E836F388;
-    goto LABEL_26;
+    goto LABEL_25;
   }
 
   if (valueType <= 7)
   {
-    if ((valueType - 3) >= 4)
+    if ((valueType - 3) < 4 || valueType == 1 || valueType == 7)
     {
-      if (valueType == 1)
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+    if (valueType <= 15)
+    {
+      if ((valueType - 8) >= 2 && (valueType - 10) >= 2)
       {
-        v3 = off_1E836F358;
         goto LABEL_26;
       }
 
-      if (valueType != 7)
-      {
-        goto LABEL_27;
-      }
-
-      goto LABEL_32;
-    }
-
-    goto LABEL_25;
-  }
-
-  if (valueType <= 15)
-  {
-    if ((valueType - 8) >= 2)
-    {
-      if ((valueType - 10) >= 2)
-      {
-        goto LABEL_27;
-      }
-
-LABEL_19:
-      v3 = off_1E836E040;
-      goto LABEL_26;
-    }
-
 LABEL_25:
-    v3 = off_1E836EC08;
-    goto LABEL_26;
-  }
-
-  if (valueType <= 20)
-  {
-    if (valueType == 16)
-    {
-      v3 = off_1E836E1E8;
+      v2 = objc_opt_class();
       goto LABEL_26;
     }
 
-    if (valueType != 18)
+    if (valueType > 20)
     {
-      goto LABEL_27;
+      if (valueType == 21 || valueType == 24)
+      {
+        goto LABEL_25;
+      }
     }
 
-    goto LABEL_19;
+    else if (valueType == 16 || valueType == 18)
+    {
+      goto LABEL_25;
+    }
   }
 
-  if (valueType == 21 || valueType == 24)
-  {
-    goto LABEL_25;
-  }
-
-LABEL_27:
+LABEL_26:
 
   return v2;
 }

@@ -203,8 +203,8 @@ LABEL_13:
     }
 
 LABEL_15:
-    cacheStore3 = [(APCacheGarbageCollector *)self cacheStore];
-    [cacheStore3 evictObjectFromMemoryCacheForKey:keyCopy];
+    v16 = [(APCacheGarbageCollector *)self cacheStore:*v17];
+    [v16 evictObjectFromMemoryCacheForKey:keyCopy];
 
     goto LABEL_16;
   }

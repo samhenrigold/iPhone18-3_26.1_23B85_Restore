@@ -1,8 +1,10 @@
 void sub_1360(id a1)
 {
-  qword_1A3E0 = objc_alloc_init(NTKParameciumFaceComplicationDescriptor);
+  v1 = objc_alloc_init(NTKParameciumFaceComplicationDescriptor);
+  v2 = qword_1A3E0;
+  qword_1A3E0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_2494(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -103,9 +105,11 @@ double computeShortestAngle(double a1, double a2)
 
 void sub_395C(id a1)
 {
-  qword_1A3F0 = objc_alloc_init(NSCache);
+  v1 = objc_alloc_init(NSCache);
+  v2 = qword_1A3F0;
+  qword_1A3F0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 double sub_3A78(uint64_t a1, void *a2)
@@ -151,39 +155,28 @@ double sub_3B40(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-uint64_t sub_5438(uint64_t a1, unint64_t a2)
+void sub_5438(uint64_t a1, unint64_t a2)
 {
   v3 = 0;
-  v4 = *(a1 + 40) + vcvts_n_f32_u64(a2, 7uLL) * *(a1 + 56);
-  v5 = a2 << 9;
+  v4 = a2 << 9;
   do
   {
-    v6 = *(a1 + 32) + vcvts_n_f32_u32(v3, 7uLL) * *(a1 + 48);
-    v7 = *(a1 + 72);
-    v8 = *(a1 + 76);
+    pnoise3();
+    v6 = ((v5 + 1.0) * 0.5 * 255.0);
+    pnoise3();
+    v8 = ((v7 + 1.0) * 0.5 * 255.0);
     pnoise3();
     v10 = ((v9 + 1.0) * 0.5 * 255.0);
-    v11 = *(a1 + 72);
-    v12 = *(a1 + 76);
     pnoise3();
-    v14 = ((v13 + 1.0) * 0.5 * 255.0);
-    v15 = *(a1 + 72);
-    v16 = *(a1 + 76);
-    pnoise3();
-    v18 = ((v17 + 1.0) * 0.5 * 255.0);
-    v19 = *(a1 + 72);
-    v20 = *(a1 + 76);
-    result = pnoise3();
-    *(*(a1 + 64) + v5) = v10;
-    *(*(a1 + 64) + v5 + 1) = v14;
-    *(*(a1 + 64) + v5 + 2) = v18;
-    *(*(a1 + 64) + v5 + 3) = ((v22 + 1.0) * 0.5 * 255.0);
+    *(*(a1 + 64) + v4) = v6;
+    *(*(a1 + 64) + v4 + 1) = v8;
+    *(*(a1 + 64) + v4 + 2) = v10;
+    *(*(a1 + 64) + v4 + 3) = ((v11 + 1.0) * 0.5 * 255.0);
     ++v3;
-    v5 += 4;
+    v4 += 4;
   }
 
   while (v3 != 128);
-  return result;
 }
 
 void *sub_55B4(uint64_t a1, void *a2)

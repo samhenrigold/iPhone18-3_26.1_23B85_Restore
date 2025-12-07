@@ -35,8 +35,7 @@
 
 uint64_t __55__ContinuityCaptureRemoteUISystemStatus_sharedInstance__block_invoke()
 {
-  v0 = [ContinuityCaptureRemoteUISystemStatus alloc];
-  _systemStatus = [(ContinuityCaptureRemoteUISystemStatus *)v0 initWithQueue:MEMORY[0x277D85CD0]];
+  _systemStatus = [[ContinuityCaptureRemoteUISystemStatus alloc] initWithQueue:?];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -77,23 +76,23 @@ void __55__ContinuityCaptureRemoteUISystemStatus_initWithQueue___block_invoke(ui
     [_systemStatus invalidate];
     v2 = _systemStatus;
 
-    [v2 setInvalidated:1];
+    [v2 setInvalidated:?];
   }
 }
 
 - (void)invalidate
 {
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter removeObserver:self name:*MEMORY[0x277D6EFF0] object:0];
+  [defaultCenter removeObserver:? name:? object:?];
 
   defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter2 removeObserver:self name:*MEMORY[0x277D6F038] object:0];
+  [defaultCenter2 removeObserver:? name:? object:?];
 
   defaultCenter3 = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter3 removeObserver:self name:*MEMORY[0x277D26D40] object:0];
+  [defaultCenter3 removeObserver:? name:? object:?];
 
   defaultCenter4 = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter4 removeObserver:self name:*MEMORY[0x277D26B50] object:0];
+  [defaultCenter4 removeObserver:? name:? object:?];
 }
 
 - (unint64_t)activeCallCountOnMainQueue
@@ -120,38 +119,38 @@ void __55__ContinuityCaptureRemoteUISystemStatus_initWithQueue___block_invoke(ui
 
 void __67__ContinuityCaptureRemoteUISystemStatus_activeCallCountOnMainQueue__block_invoke(uint64_t a1)
 {
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v2 = [MEMORY[0x277D6EDF8] sharedInstance];
   v3 = [v2 currentAudioAndVideoCalls];
 
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v8 count:16];
+  v4 = [v3 countByEnumeratingWithState:? objects:? count:?];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if ([*(*(&v9 + 1) + 8 * v7) status] == 1)
+        if ([*(*(&v8 + 1) + 8 * v7) status] == 1)
         {
           ++*(*(*(a1 + 32) + 8) + 24);
         }
 
-        ++v7;
+        v7 = (v7 + 1);
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v8 count:16];
+      v5 = [v3 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v5);
@@ -166,46 +165,46 @@ void __67__ContinuityCaptureRemoteUISystemStatus_activeCallCountOnMainQueue__blo
   {
     *buf = 138412802;
     selfCopy3 = self;
-    v16 = 2080;
-    *v17 = "[ContinuityCaptureRemoteUISystemStatus holdIdleSleepAssertionForReason:]";
-    *&v17[8] = 2112;
-    *&v17[10] = reasonCopy;
+    v17 = 2080;
+    *v18 = "[ContinuityCaptureRemoteUISystemStatus holdIdleSleepAssertionForReason:]";
+    *&v18[8] = 2112;
+    *&v18[10] = reasonCopy;
     _os_log_impl(&dword_242545000, v5, OS_LOG_TYPE_DEFAULT, "%@: %s %@", buf, 0x20u);
   }
 
   dispatch_assert_queue_V2(self->_queue);
   if (!self->_preventSystemSleepAssertionID)
   {
-    v13 = 1;
-    reasonCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"idleSleepPreventionSystemActivityForContinuityCapture(%d)_%@", getpid(), reasonCopy];
+    v14 = 1;
+    reasonCopy = [MEMORY[0x277CCACA8] stringWithFormat:getpid(), reasonCopy];
     v7 = IOPMAssertionDeclareSystemActivity();
     v8 = CMContinuityCaptureLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
       selfCopy3 = self;
-      v16 = 1024;
-      *v17 = v7;
-      *&v17[4] = 1024;
-      *&v17[6] = v13;
+      v17 = 1024;
+      *v18 = v7;
+      *&v18[4] = 1024;
+      *&v18[6] = v14;
       _os_log_impl(&dword_242545000, v8, OS_LOG_TYPE_DEFAULT, "%@ IOPMAssertionDeclareSystemActivity returned %x systemState %d", buf, 0x18u);
     }
 
     if (!v7)
     {
-      v12[0] = @"audio-in";
-      v12[1] = @"Camera";
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+      v12 = @"audio-in";
+      v13 = @"Camera";
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
       v10 = IOPMAssertionSetProperty(self->_preventSystemSleepAssertionID, @"ResourcesUsed", v9);
       v11 = CMContinuityCaptureLog(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
         selfCopy3 = self;
-        v16 = 1024;
-        *v17 = v10;
-        *&v17[4] = 2112;
-        *&v17[6] = v9;
+        v17 = 1024;
+        *v18 = v10;
+        *&v18[4] = 2112;
+        *&v18[6] = v9;
         _os_log_impl(&dword_242545000, v11, OS_LOG_TYPE_DEFAULT, "%@ IOPMAssertionSetProperty returned %x for setting kIOPMAssertionResourcesUsed: %@", buf, 0x1Cu);
       }
     }
@@ -235,7 +234,7 @@ void __67__ContinuityCaptureRemoteUISystemStatus_activeCallCountOnMainQueue__blo
   }
 
   dispatch_assert_queue_V2(self->_queue);
-  [(NSHashTable *)self->_observers addObject:observerCopy];
+  [(NSHashTable *)self->_observers addObject:?];
 }
 
 - (void)removeObserver:(id)observer
@@ -252,7 +251,7 @@ void __67__ContinuityCaptureRemoteUISystemStatus_activeCallCountOnMainQueue__blo
     _os_log_impl(&dword_242545000, v5, OS_LOG_TYPE_DEFAULT, "%@: %@", &v6, 0x16u);
   }
 
-  [(NSHashTable *)self->_observers removeObject:observerCopy];
+  [(NSHashTable *)self->_observers removeObject:?];
 }
 
 - (void)_handleCallStatusChangedNotification:(id)notification
@@ -271,13 +270,13 @@ void __67__ContinuityCaptureRemoteUISystemStatus_activeCallCountOnMainQueue__blo
   objc_initWeak(&location, self);
   dispatch_assert_queue_V2(self->_queue);
   name = [notificationCopy name];
-  if ([name isEqualToString:*MEMORY[0x277D6EFF0]])
+  if ([name isEqualToString:?])
   {
     goto LABEL_6;
   }
 
   name2 = [notificationCopy name];
-  if ([name2 isEqualToString:*MEMORY[0x277D6F038]])
+  if ([name2 isEqualToString:?])
   {
 
 LABEL_6:
@@ -285,7 +284,7 @@ LABEL_6:
   }
 
   name3 = [notificationCopy name];
-  v12 = [name3 isEqualToString:*MEMORY[0x277D26B50]];
+  v12 = [name3 isEqualToString:?];
 
   if ((v12 & 1) == 0)
   {
@@ -308,7 +307,7 @@ LABEL_7:
   {
     v9 = v8;
     object = [notificationCopy object];
-    [v9 _handleCall:object];
+    [v9 _handleCall:?];
 
 LABEL_9:
   }
@@ -325,10 +324,10 @@ LABEL_9:
 
   v5 = self->_avSystemController;
   v6 = *MEMORY[0x277D26B50];
-  v14[0] = *MEMORY[0x277D26D40];
-  v14[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-  [(AVSystemController *)v5 setAttribute:v7 forKey:*MEMORY[0x277D26DD0] error:0];
+  v14 = *MEMORY[0x277D26D40];
+  v15 = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  [AVSystemController setAttribute:v5 forKey:"setAttribute:forKey:error:" error:?];
 
   v8 = CMContinuityCaptureLog(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -402,7 +401,7 @@ void __83__ContinuityCaptureRemoteUISystemStatus__handleCallAudioSessionActiveNo
   if (WeakRetained)
   {
     v3 = [*(a1 + 32) userInfo];
-    v4 = [v3 objectForKeyedSubscript:*MEMORY[0x277D26B58]];
+    v4 = [v3 objectForKeyedSubscript:?];
     v5 = [v4 BOOLValue];
 
     if (WeakRetained[96] != v5)
@@ -451,45 +450,39 @@ void __83__ContinuityCaptureRemoteUISystemStatus__handleCallAudioSessionActiveNo
       hasActiveCallAudioSession = self->_hasActiveCallAudioSession;
       *buf = 138413314;
       selfCopy = self;
-      v20 = 1024;
-      v21 = v6;
-      v22 = 1024;
-      v23 = hasActiveCallAudioSession;
-      v24 = 1024;
-      v25 = v4;
-      v26 = 1024;
-      v27 = v3;
+      v15 = 1024;
+      v16 = v6;
+      v17 = 1024;
+      v18 = hasActiveCallAudioSession;
+      v19 = 1024;
+      v20 = v4;
+      v21 = 1024;
+      v22 = v3;
       _os_log_impl(&dword_242545000, v5, OS_LOG_TYPE_DEFAULT, "%@ #ofActiveCalls %d callAudioSessionActive %d callState %d -> %d", buf, 0x24u);
     }
 
-    [(ContinuityCaptureRemoteUISystemStatus *)self willChangeValueForKey:@"callState"];
+    [(ContinuityCaptureRemoteUISystemStatus *)self willChangeValueForKey:?];
     atomic_store(v3, &self->_callState);
-    [(ContinuityCaptureRemoteUISystemStatus *)self didChangeValueForKey:@"callState"];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
+    [(ContinuityCaptureRemoteUISystemStatus *)self didChangeValueForKey:?];
     v8 = self->_observers;
-    v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v14 objects:v13 count:16];
+    v9 = [NSHashTable countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:?];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = MEMORY[0];
       do
       {
-        v12 = 0;
-        do
+        for (i = 0; i != v10; i = (i + 1))
         {
-          if (*v15 != v11)
+          if (MEMORY[0] != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v14 + 1) + 8 * v12++) callActive:v3 == 0];
+          [*(8 * i) callActive:?];
         }
 
-        while (v10 != v12);
-        v10 = [(NSHashTable *)v8 countByEnumeratingWithState:&v14 objects:v13 count:16];
+        v10 = [NSHashTable countByEnumeratingWithState:v8 objects:"countByEnumeratingWithState:objects:count:" count:?];
       }
 
       while (v10);
@@ -509,36 +502,30 @@ void __83__ContinuityCaptureRemoteUISystemStatus__handleCallAudioSessionActiveNo
   self->_callCenterNeighborhoodActivityConduit = neighborhoodActivityConduit;
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter addObserver:self selector:sel__handleCallStatusChangedNotification_ name:*MEMORY[0x277D6EFF0] object:0];
+  [defaultCenter addObserver:? selector:? name:? object:?];
 
   defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter2 addObserver:self selector:sel__handleCallStatusChangedNotification_ name:*MEMORY[0x277D6F038] object:0];
+  [defaultCenter2 addObserver:? selector:? name:? object:?];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
   currentAudioAndVideoCalls = [(TUCallCenter *)self->_callCenter currentAudioAndVideoCalls];
-  v10 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v17 objects:v16 count:16];
+  v10 = [currentAudioAndVideoCalls countByEnumeratingWithState:? objects:? count:?];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = MEMORY[0];
     do
     {
-      v13 = 0;
-      do
+      for (i = 0; i != v11; i = (i + 1))
       {
-        if (*v18 != v12)
+        if (MEMORY[0] != v12)
         {
           objc_enumerationMutation(currentAudioAndVideoCalls);
         }
 
-        [(ContinuityCaptureRemoteUISystemStatus *)self _handleCall:*(*(&v17 + 1) + 8 * v13++)];
+        [(ContinuityCaptureRemoteUISystemStatus *)self _handleCall:?];
       }
 
-      while (v11 != v13);
-      v11 = [currentAudioAndVideoCalls countByEnumeratingWithState:&v17 objects:v16 count:16];
+      v11 = [currentAudioAndVideoCalls countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v11);
@@ -546,39 +533,36 @@ void __83__ContinuityCaptureRemoteUISystemStatus__handleCallAudioSessionActiveNo
 
   [(ContinuityCaptureRemoteUISystemStatus *)self _setupAVSystemController];
   defaultCenter3 = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter3 addObserver:self selector:sel__avSystemControllerProcessDied name:*MEMORY[0x277D26D40] object:0];
+  [defaultCenter3 addObserver:? selector:? name:? object:?];
 
   defaultCenter4 = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter4 addObserver:self selector:sel__handleCallAudioSessionActiveNotification_ name:*MEMORY[0x277D26B50] object:0];
+  [defaultCenter4 addObserver:? selector:? name:? object:?];
 }
 
 - (void)_handleCall:(id)call
 {
   callCopy = call;
-  if ([callCopy status] == 4 && (v5 = self->_incomingCallIDs, objc_msgSend(callCopy, "uniqueProxyIdentifier"), v6 = objc_claimAutoreleasedReturnValue(), LOBYTE(v5) = -[NSMutableSet containsObject:](v5, "containsObject:", v6), v6, (v5 & 1) == 0))
+  if ([callCopy status] == 4 && (v5 = self->_incomingCallIDs, objc_msgSend(callCopy, "uniqueProxyIdentifier"), v6 = objc_claimAutoreleasedReturnValue(), LOBYTE(v5) = -[NSMutableSet containsObject:](v5, "containsObject:"), v6, (v5 & 1) == 0))
   {
     v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
     provider = [callCopy provider];
     if ([provider isFaceTimeProvider])
     {
-      v11 = [(TUNeighborhoodActivityConduit *)self->_callCenterNeighborhoodActivityConduit isRingingFaceTimeCallsOnConnectedTVDevice]^ 1;
+      [(TUNeighborhoodActivityConduit *)self->_callCenterNeighborhoodActivityConduit isRingingFaceTimeCallsOnConnectedTVDevice];
     }
 
-    else
-    {
-      v11 = 1;
-    }
-
-    v12 = 0x277CCA000uLL;
-    v13 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(callCopy, "service")}];
-    [v9 setObject:v13 forKeyedSubscript:@"kCMContinuityCaptureCallService"];
+    v11 = 0x277CCA000uLL;
+    v12 = MEMORY[0x277CCABB0];
+    [callCopy service];
+    v13 = [v12 numberWithInt:?];
+    [v9 setObject:? forKeyedSubscript:?];
 
     provider2 = [callCopy provider];
     localizedName = [provider2 localizedName];
-    [v9 setObject:localizedName forKeyedSubscript:@"kCMContinuityCaptureCallProvider"];
+    [v9 setObject:? forKeyedSubscript:?];
 
     displayName = [callCopy displayName];
-    [v9 setObject:displayName forKeyedSubscript:@"kCMContinuityCaptureCallerName"];
+    [v9 setObject:? forKeyedSubscript:?];
 
     handle = [callCopy handle];
     type = [handle type];
@@ -589,54 +573,55 @@ void __83__ContinuityCaptureRemoteUISystemStatus__handleCallAudioSessionActiveNo
     {
       isoCountryCode = [callCopy isoCountryCode];
       v22 = TUFormattedPhoneNumber();
-      [v9 setObject:v22 forKeyedSubscript:@"kCMContinuityCaptureCallerHandle"];
+      [v9 setObject:? forKeyedSubscript:?];
 
-      v12 = 0x277CCA000;
+      v11 = 0x277CCA000;
     }
 
     else
     {
-      [v9 setObject:value forKeyedSubscript:@"kCMContinuityCaptureCallerHandle"];
+      [v9 setObject:? forKeyedSubscript:?];
     }
 
     callUUID = [callCopy callUUID];
-    [v9 setObject:callUUID forKeyedSubscript:@"kCMContinuityCaptureCallUUID"];
+    [v9 setObject:? forKeyedSubscript:?];
 
     callGroupUUID = [callCopy callGroupUUID];
     uUIDString = [callGroupUUID UUIDString];
-    [v9 setObject:uUIDString forKeyedSubscript:@"kCMContinuityCaptureCallGroupUUID"];
+    [v9 setObject:? forKeyedSubscript:?];
 
     uniqueProxyIdentifier = [callCopy uniqueProxyIdentifier];
-    [v9 setObject:uniqueProxyIdentifier forKeyedSubscript:@"kCMContinuityCaptureCallUniqueProxyIdentifier"];
+    [v9 setObject:? forKeyedSubscript:?];
 
-    v27 = *(v12 + 2992);
+    v27 = *(v11 + 2992);
     provider3 = [callCopy provider];
-    v29 = [v27 numberWithBool:{objc_msgSend(provider3, "isFaceTimeProvider")}];
-    [v9 setObject:v29 forKeyedSubscript:@"kCMContinuityCaptureIsFaceTime"];
+    [provider3 isFaceTimeProvider];
+    v29 = [v27 numberWithBool:?];
+    [v9 setObject:? forKeyedSubscript:?];
 
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
-    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
     v30 = self->_observers;
-    v31 = [(NSHashTable *)v30 countByEnumeratingWithState:&v84 objects:v83 count:16];
+    v31 = [NSHashTable countByEnumeratingWithState:v30 objects:"countByEnumeratingWithState:objects:count:" count:?];
     if (v31)
     {
       v32 = v31;
-      v33 = *v85;
+      v33 = *v81;
       do
       {
-        for (i = 0; i != v32; ++i)
+        for (i = 0; i != v32; i = (i + 1))
         {
-          if (*v85 != v33)
+          if (*v81 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          [*(*(&v84 + 1) + 8 * i) incomingCall:1 data:v9 shouldDisplayNotification:v11];
+          [*(*(&v80 + 1) + 8 * i) incomingCall:? data:? shouldDisplayNotification:?];
         }
 
-        v32 = [(NSHashTable *)v30 countByEnumeratingWithState:&v84 objects:v83 count:16];
+        v32 = [NSHashTable countByEnumeratingWithState:v30 objects:"countByEnumeratingWithState:objects:count:" count:?];
       }
 
       while (v32);
@@ -644,93 +629,93 @@ void __83__ContinuityCaptureRemoteUISystemStatus__handleCallAudioSessionActiveNo
 
     incomingCallIDs = self->_incomingCallIDs;
     uniqueProxyIdentifier2 = [callCopy uniqueProxyIdentifier];
-    [(NSMutableSet *)incomingCallIDs addObject:uniqueProxyIdentifier2];
+    [(NSMutableSet *)incomingCallIDs addObject:?];
   }
 
   else if ([callCopy status] != 4)
   {
     v7 = self->_incomingCallIDs;
     uniqueProxyIdentifier3 = [callCopy uniqueProxyIdentifier];
-    [(NSMutableSet *)v7 removeObject:uniqueProxyIdentifier3];
+    [(NSMutableSet *)v7 removeObject:?];
   }
 
   if ([callCopy status] == 1)
   {
     activeCallIds = self->_activeCallIds;
     uniqueProxyIdentifier4 = [callCopy uniqueProxyIdentifier];
-    [(NSMutableSet *)activeCallIds addObject:uniqueProxyIdentifier4];
+    [(NSMutableSet *)activeCallIds addObject:?];
 
     v39 = objc_alloc_init(MEMORY[0x277CBEB38]);
     uniqueProxyIdentifier5 = [callCopy uniqueProxyIdentifier];
-    [v39 setObject:uniqueProxyIdentifier5 forKeyedSubscript:@"kCMContinuityCaptureCallUniqueProxyIdentifier"];
+    [v39 setObject:? forKeyedSubscript:?];
 
-    v81 = 0u;
-    v82 = 0u;
+    v78 = 0u;
     v79 = 0u;
-    v80 = 0u;
+    v76 = 0u;
+    v77 = 0u;
     v41 = self->_observers;
-    v42 = [(NSHashTable *)v41 countByEnumeratingWithState:&v79 objects:v78 count:16];
+    v42 = [NSHashTable countByEnumeratingWithState:v41 objects:"countByEnumeratingWithState:objects:count:" count:?];
     if (v42)
     {
       v43 = v42;
-      v44 = *v80;
+      v44 = *v77;
       do
       {
-        for (j = 0; j != v43; ++j)
+        for (j = 0; j != v43; j = (j + 1))
         {
-          if (*v80 != v44)
+          if (*v77 != v44)
           {
             objc_enumerationMutation(v41);
           }
 
-          [*(*(&v79 + 1) + 8 * j) incomingCall:1 data:v39 shouldDisplayNotification:0];
+          [*(*(&v76 + 1) + 8 * j) incomingCall:? data:? shouldDisplayNotification:?];
         }
 
-        v43 = [(NSHashTable *)v41 countByEnumeratingWithState:&v79 objects:v78 count:16];
+        v43 = [NSHashTable countByEnumeratingWithState:v41 objects:"countByEnumeratingWithState:objects:count:" count:?];
       }
 
       while (v43);
     }
 
-LABEL_27:
+LABEL_26:
 
-LABEL_28:
-    goto LABEL_29;
+LABEL_27:
+    goto LABEL_28;
   }
 
   if ([callCopy status] == 6)
   {
     v49 = self->_activeCallIds;
     uniqueProxyIdentifier6 = [callCopy uniqueProxyIdentifier];
-    [(NSMutableSet *)v49 removeObject:uniqueProxyIdentifier6];
+    [(NSMutableSet *)v49 removeObject:?];
 
     v39 = objc_alloc_init(MEMORY[0x277CBEB38]);
     uniqueProxyIdentifier7 = [callCopy uniqueProxyIdentifier];
-    [v39 setObject:uniqueProxyIdentifier7 forKeyedSubscript:@"kCMContinuityCaptureCallUniqueProxyIdentifier"];
+    [v39 setObject:? forKeyedSubscript:?];
 
-    v76 = 0u;
-    v77 = 0u;
     v74 = 0u;
     v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
     v52 = self->_observers;
-    v53 = [(NSHashTable *)v52 countByEnumeratingWithState:&v74 objects:v73 count:16];
+    v53 = [NSHashTable countByEnumeratingWithState:v52 objects:"countByEnumeratingWithState:objects:count:" count:?];
     if (v53)
     {
       v54 = v53;
-      v55 = *v75;
+      v55 = *v73;
       do
       {
-        for (k = 0; k != v54; ++k)
+        for (k = 0; k != v54; k = (k + 1))
         {
-          if (*v75 != v55)
+          if (*v73 != v55)
           {
             objc_enumerationMutation(v52);
           }
 
-          [*(*(&v74 + 1) + 8 * k) incomingCall:0 data:v39 shouldDisplayNotification:0];
+          [*(*(&v72 + 1) + 8 * k) incomingCall:? data:? shouldDisplayNotification:?];
         }
 
-        v54 = [(NSHashTable *)v52 countByEnumeratingWithState:&v74 objects:v73 count:16];
+        v54 = [NSHashTable countByEnumeratingWithState:v52 objects:"countByEnumeratingWithState:objects:count:" count:?];
       }
 
       while (v54);
@@ -738,52 +723,52 @@ LABEL_28:
 
     if ([callCopy disconnectedReason] == 2)
     {
-      [(ContinuityCaptureRemoteUISystemStatus *)self willChangeValueForKey:@"callState"];
+      [(ContinuityCaptureRemoteUISystemStatus *)self willChangeValueForKey:?];
       atomic_store(2uLL, &self->_callState);
-      [(ContinuityCaptureRemoteUISystemStatus *)self didChangeValueForKey:@"callState"];
+      [(ContinuityCaptureRemoteUISystemStatus *)self didChangeValueForKey:?];
     }
 
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
   if ([callCopy status] == 2)
   {
     v39 = objc_alloc_init(MEMORY[0x277CBEB38]);
     uniqueProxyIdentifier8 = [callCopy uniqueProxyIdentifier];
-    [v39 setObject:uniqueProxyIdentifier8 forKeyedSubscript:@"kCMContinuityCaptureCallUniqueProxyIdentifier"];
+    [v39 setObject:? forKeyedSubscript:?];
 
-    v71 = 0u;
-    v72 = 0u;
-    v69 = 0u;
     v70 = 0u;
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
     v41 = self->_observers;
-    v58 = [(NSHashTable *)v41 countByEnumeratingWithState:&v69 objects:v68 count:16];
+    v58 = [NSHashTable countByEnumeratingWithState:v41 objects:"countByEnumeratingWithState:objects:count:" count:?];
     if (v58)
     {
       v59 = v58;
-      v60 = *v70;
+      v60 = *v69;
       do
       {
-        for (m = 0; m != v59; ++m)
+        for (m = 0; m != v59; m = (m + 1))
         {
-          if (*v70 != v60)
+          if (*v69 != v60)
           {
             objc_enumerationMutation(v41);
           }
 
-          [*(*(&v69 + 1) + 8 * m) incomingCall:0 data:v39 shouldDisplayNotification:0];
+          [*(*(&v68 + 1) + 8 * m) incomingCall:? data:? shouldDisplayNotification:?];
         }
 
-        v59 = [(NSHashTable *)v41 countByEnumeratingWithState:&v69 objects:v68 count:16];
+        v59 = [NSHashTable countByEnumeratingWithState:v41 objects:"countByEnumeratingWithState:objects:count:" count:?];
       }
 
       while (v59);
     }
 
-    goto LABEL_27;
+    goto LABEL_26;
   }
 
-LABEL_29:
+LABEL_28:
   v46 = CMContinuityCaptureLog(0);
   if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
   {

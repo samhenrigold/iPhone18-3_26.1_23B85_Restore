@@ -5,16 +5,16 @@ os_log_t define_nph_log(char *category)
   return v1;
 }
 
-id nph_general_log()
+id nph_general_log(uint64_t a1)
 {
   if (qword_8008 != -1)
   {
     sub_764();
   }
 
-  v1 = qword_8000;
+  v2 = qword_8000;
 
-  return v1;
+  return v2;
 }
 
 void sub_610(id a1)
@@ -24,16 +24,16 @@ void sub_610(id a1)
   _objc_release_x1();
 }
 
-id nph_sos_general_log()
+id nph_sos_general_log(uint64_t a1)
 {
   if (qword_8018 != -1)
   {
     sub_778();
   }
 
-  v1 = qword_8010;
+  v2 = qword_8010;
 
-  return v1;
+  return v2;
 }
 
 void sub_698(id a1)
@@ -43,16 +43,16 @@ void sub_698(id a1)
   _objc_release_x1();
 }
 
-id nph_sos_newton_log()
+id nph_sos_newton_log(uint64_t a1)
 {
   if (qword_8028 != -1)
   {
     sub_78C();
   }
 
-  v1 = qword_8020;
+  v2 = qword_8020;
 
-  return v1;
+  return v2;
 }
 
 void sub_720(id a1)

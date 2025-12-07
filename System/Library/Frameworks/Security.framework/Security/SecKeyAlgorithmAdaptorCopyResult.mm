@@ -9,7 +9,7 @@ BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPKCS1v15SHA1_bl
   CFDataGetBytePtr(theData);
   CFDataGetLength(*(a1 + 32));
   CFDataGetBytePtr(*(a1 + 32));
-  v4 = *(ccsha1_di() + 32);
+  ccsha1_di();
   return ccrsa_emsa_pkcs1v15_verify() == 0;
 }
 
@@ -19,7 +19,7 @@ BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPKCS1v15SHA256_
   CFDataGetBytePtr(theData);
   CFDataGetLength(*(a1 + 32));
   CFDataGetBytePtr(*(a1 + 32));
-  v4 = *(ccsha256_di() + 32);
+  ccsha256_di();
   return ccrsa_emsa_pkcs1v15_verify() == 0;
 }
 
@@ -29,7 +29,7 @@ BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPKCS1v15SHA384_
   CFDataGetBytePtr(theData);
   CFDataGetLength(*(a1 + 32));
   CFDataGetBytePtr(*(a1 + 32));
-  v4 = *(ccsha384_di() + 32);
+  ccsha384_di();
   return ccrsa_emsa_pkcs1v15_verify() == 0;
 }
 
@@ -39,14 +39,14 @@ BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPSSSHA512_block
   v5 = [(__CFDictionary *)v4 objectForKeyedSubscript:@"bsiz"];
   ccsha512_di();
   ccsha512_di();
-  v6 = *ccsha512_di();
+  ccsha512_di();
   CFDataGetLength(*(a1 + 40));
   CFDataGetBytePtr(*(a1 + 40));
   [v5 integerValue];
   CFDataGetBytePtr(a2);
-  v7 = ccrsa_emsa_pss_decode() == 0;
+  v6 = ccrsa_emsa_pss_decode() == 0;
 
-  return v7;
+  return v6;
 }
 
 BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPSSSHA384_block_invoke(uint64_t a1, const __CFData *a2)
@@ -55,14 +55,14 @@ BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPSSSHA384_block
   v5 = [(__CFDictionary *)v4 objectForKeyedSubscript:@"bsiz"];
   ccsha384_di();
   ccsha384_di();
-  v6 = *ccsha384_di();
+  ccsha384_di();
   CFDataGetLength(*(a1 + 40));
   CFDataGetBytePtr(*(a1 + 40));
   [v5 integerValue];
   CFDataGetBytePtr(a2);
-  v7 = ccrsa_emsa_pss_decode() == 0;
+  v6 = ccrsa_emsa_pss_decode() == 0;
 
-  return v7;
+  return v6;
 }
 
 BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPSSSHA256_block_invoke(uint64_t a1, const __CFData *a2)
@@ -71,14 +71,14 @@ BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPSSSHA256_block
   v5 = [(__CFDictionary *)v4 objectForKeyedSubscript:@"bsiz"];
   ccsha256_di();
   ccsha256_di();
-  v6 = *ccsha256_di();
+  ccsha256_di();
   CFDataGetLength(*(a1 + 40));
   CFDataGetBytePtr(*(a1 + 40));
   [v5 integerValue];
   CFDataGetBytePtr(a2);
-  v7 = ccrsa_emsa_pss_decode() == 0;
+  v6 = ccrsa_emsa_pss_decode() == 0;
 
-  return v7;
+  return v6;
 }
 
 BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPSSSHA224_block_invoke(uint64_t a1, const __CFData *a2)
@@ -87,14 +87,14 @@ BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPSSSHA224_block
   v5 = [(__CFDictionary *)v4 objectForKeyedSubscript:@"bsiz"];
   ccsha224_di();
   ccsha224_di();
-  v6 = *ccsha224_di();
+  ccsha224_di();
   CFDataGetLength(*(a1 + 40));
   CFDataGetBytePtr(*(a1 + 40));
   [v5 integerValue];
   CFDataGetBytePtr(a2);
-  v7 = ccrsa_emsa_pss_decode() == 0;
+  v6 = ccrsa_emsa_pss_decode() == 0;
 
-  return v7;
+  return v6;
 }
 
 BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPSSSHA1_block_invoke(uint64_t a1, const __CFData *a2)
@@ -103,14 +103,14 @@ BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPSSSHA1_block_i
   v5 = [(__CFDictionary *)v4 objectForKeyedSubscript:@"bsiz"];
   ccsha1_di();
   ccsha1_di();
-  v6 = *ccsha1_di();
+  ccsha1_di();
   CFDataGetLength(*(a1 + 40));
   CFDataGetBytePtr(*(a1 + 40));
   [v5 integerValue];
   CFDataGetBytePtr(a2);
-  v7 = ccrsa_emsa_pss_decode() == 0;
+  v6 = ccrsa_emsa_pss_decode() == 0;
 
-  return v7;
+  return v6;
 }
 
 BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPKCS1v15MD5_block_invoke(uint64_t a1, CFDataRef theData)
@@ -119,7 +119,7 @@ BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPKCS1v15MD5_blo
   CFDataGetBytePtr(theData);
   CFDataGetLength(*(a1 + 32));
   CFDataGetBytePtr(*(a1 + 32));
-  v4 = *(ccmd5_di() + 32);
+  ccmd5_di();
   return ccrsa_emsa_pkcs1v15_verify() == 0;
 }
 
@@ -138,7 +138,7 @@ BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPKCS1v15SHA512_
   CFDataGetBytePtr(theData);
   CFDataGetLength(*(a1 + 32));
   CFDataGetBytePtr(*(a1 + 32));
-  v4 = *(ccsha512_di() + 32);
+  ccsha512_di();
   return ccrsa_emsa_pkcs1v15_verify() == 0;
 }
 
@@ -148,7 +148,7 @@ BOOL __SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureDigestPKCS1v15SHA224_
   CFDataGetBytePtr(theData);
   CFDataGetLength(*(a1 + 32));
   CFDataGetBytePtr(*(a1 + 32));
-  v4 = *(ccsha224_di() + 32);
+  ccsha224_di();
   return ccrsa_emsa_pkcs1v15_verify() == 0;
 }
 

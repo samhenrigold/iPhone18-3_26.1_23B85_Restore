@@ -9,14 +9,14 @@
 
 + (id)graphWithConfiguration:(id)configuration
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   configurationCopy = configuration;
   dspItems = [configurationCopy dspItems];
-  v4 = [dspItems countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v4 = [dspItems countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (!v4)
   {
     goto LABEL_28;
@@ -24,17 +24,17 @@
 
   v5 = v4;
   v6 = 0;
-  v7 = *v32;
+  v7 = *v31;
   while (2)
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v32 != v7)
+      if (*v31 != v7)
       {
         objc_enumerationMutation(dspItems);
       }
 
-      v9 = *(*(&v31 + 1) + 8 * i);
+      v9 = *(*(&v30 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -108,7 +108,7 @@ LABEL_28:
       }
     }
 
-    v5 = [dspItems countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v5 = [dspItems countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v5)
     {
       continue;
@@ -118,8 +118,6 @@ LABEL_28:
   }
 
 LABEL_29:
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -166,18 +164,18 @@ LABEL_6:
 
 + (BOOL)applyAUStrip:(id)strip toGraph:(id)graph
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   stripCopy = strip;
   graphCopy = graph;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     value = [stripCopy value];
     path = [stripCopy path];
-    v26 = 138412546;
-    v27 = value;
-    v28 = 2112;
-    v29 = path;
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AUStripInfo value:%@ path:%@", &v26, 0x16u);
+    v25 = 138412546;
+    v26 = value;
+    v27 = 2112;
+    v28 = path;
+    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AUStripInfo value:%@ path:%@", &v25, 0x16u);
   }
 
   value2 = [stripCopy value];
@@ -213,7 +211,6 @@ LABEL_6:
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -259,24 +256,20 @@ LABEL_6:
 
 + (void)graphWithConfiguration:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 path];
   v4 = [a2 name];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Applying PropertyStrip %@ to graph %@ failed", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Applying PropertyStrip %@ to graph %@ failed", v5, 0x16u);
 }
 
 + (void)graphWithConfiguration:(void *)a1 .cold.3(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 path];
   v4 = [a2 name];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Applying AUStrip %@ to graph %@ failed", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Applying AUStrip %@ to graph %@ failed", v5, 0x16u);
 }
 
 @end

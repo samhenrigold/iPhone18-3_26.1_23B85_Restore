@@ -50,25 +50,25 @@
 
 - (void)requestProductsWithMessage:(id)message connection:(id)connection
 {
-  objc_opt_class();
-  v7 = sub_1001FA208(message, "1");
-  v8 = [[LoadMicroPaymentProductsOperation alloc] initWithProductIdentifiers:v7];
-  if ((SSXPCConnectionHasEntitlement() & 1) == 0 && !SSXPCConnectionHasEntitlement() || (v9 = objc_alloc(sub_1001FA240()), (v10 = [v9 initWithXPCEncoding:{xpc_dictionary_get_value(message, "2")}]) == 0) || (v11 = v10, v12 = objc_alloc_init(StoreKitClientIdentity), -[StoreKitClientIdentity setValuesWithPaymentQueueClient:](v12, "setValuesWithPaymentQueueClient:", v11), v11, !v12))
+  v7 = objc_opt_class();
+  v8 = sub_1001FA208(message, "1", v7);
+  v9 = [[LoadMicroPaymentProductsOperation alloc] initWithProductIdentifiers:v8];
+  if ((SSXPCConnectionHasEntitlement() & 1) == 0 && !SSXPCConnectionHasEntitlement() || (v10 = objc_alloc(sub_1001FA240()), (v11 = [v10 initWithXPCEncoding:{xpc_dictionary_get_value(message, "2")}]) == 0) || (v12 = v11, v13 = objc_alloc_init(StoreKitClientIdentity), -[StoreKitClientIdentity setValuesWithPaymentQueueClient:](v13, "setValuesWithPaymentQueueClient:", v12), v12, !v13))
   {
-    v13 = [[XPCClient alloc] initWithInputConnection:connection];
-    v12 = objc_alloc_init(StoreKitClientIdentity);
-    [(StoreKitClientIdentity *)v12 setBundleIdentifier:[(XPCClient *)v13 clientIdentifier]];
-    [(StoreKitClientIdentity *)v12 setSandboxed:[(XPCClient *)v13 isAppleSigned]^ 1];
+    v14 = [[XPCClient alloc] initWithInputConnection:connection];
+    v13 = objc_alloc_init(StoreKitClientIdentity);
+    [(StoreKitClientIdentity *)v13 setBundleIdentifier:[(XPCClient *)v14 clientIdentifier]];
+    [(StoreKitClientIdentity *)v13 setSandboxed:[(XPCClient *)v14 isAppleSigned]^ 1];
   }
 
-  [(LoadMicroPaymentProductsOperation *)v8 setClientIdentity:v12];
+  [(LoadMicroPaymentProductsOperation *)v9 setClientIdentity:v13];
 
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_1000D2328;
-  v14[3] = &unk_100328218;
-  v14[4] = v8;
-  [(StoreKitRequestQueue *)self addOperation:v8 forMessage:message connection:connection replyBlock:v14];
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_1000D2328;
+  v15[3] = &unk_100328218;
+  v15[4] = v9;
+  [(StoreKitRequestQueue *)self addOperation:v9 forMessage:message connection:connection replyBlock:v15];
 }
 
 - (void)addOperation:(id)operation forClient:(id)client withMessageBlock:(id)block

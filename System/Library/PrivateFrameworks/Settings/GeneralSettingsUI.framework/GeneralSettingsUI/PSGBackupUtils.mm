@@ -172,31 +172,31 @@ LABEL_21:
 
 void __70__PSGBackupUtils_fetchBackupDisabledAppsWithBackupManager_completion___block_invoke(id *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] disabledDomainInfos];
-  v19 = objc_opt_new();
+  v17 = objc_opt_new();
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v24;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = a1[7];
         v12 = [v10 bundleID];
         LOBYTE(v11) = [v11 shouldIgnoreBundleId:v12];
@@ -218,14 +218,14 @@ void __70__PSGBackupUtils_fetchBackupDisabledAppsWithBackupManager_completion___
             v13 = [a1[7] displayNameForDomainInfo:v10];
             if (v13)
             {
-              [v19 addObject:v13];
+              [v17 addObject:v13];
               ++v7;
             }
           }
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v5);
@@ -238,18 +238,16 @@ void __70__PSGBackupUtils_fetchBackupDisabledAppsWithBackupManager_completion___
   }
 
   [a1[5] setBackupDisabledAppCount:v7];
-  [a1[5] setBackupDisabledAppsForDisplay:v19];
-  [a1[5] setIncludePhoto:v6 & 1];
-  v14 = _PSGLoggingFacility();
+  [a1[5] setBackupDisabledAppsForDisplay:v17];
+  v14 = _PSGLoggingFacility([a1[5] setIncludePhoto:v6 & 1]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = a1[7];
-    v16 = objc_opt_class();
-    v17 = NSStringFromClass(v16);
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
     *buf = 138543618;
-    v28 = v17;
-    v29 = 1024;
-    v30 = v7;
+    v26 = v16;
+    v27 = 1024;
+    v28 = v7;
     _os_log_impl(&dword_21CF20000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Backup disabled app count: %d", buf, 0x12u);
   }
 
@@ -257,11 +255,9 @@ void __70__PSGBackupUtils_fetchBackupDisabledAppsWithBackupManager_completion___
   block[1] = 3221225472;
   block[2] = __70__PSGBackupUtils_fetchBackupDisabledAppsWithBackupManager_completion___block_invoke_63;
   block[3] = &unk_2783256A0;
-  v22 = a1[6];
-  v21 = a1[5];
+  v20 = a1[6];
+  v19 = a1[5];
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (id)displayNameForDomainInfo:(id)info
@@ -441,18 +437,16 @@ LABEL_8:
 
 void __38__PSGBackupUtils_isDomainWhitelisted___block_invoke()
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D3FDE0];
-  v5[0] = *MEMORY[0x277D3FDE8];
-  v5[1] = v0;
+  v4[0] = *MEMORY[0x277D3FDE8];
+  v4[1] = v0;
   v1 = *MEMORY[0x277D3FDD0];
-  v5[2] = *MEMORY[0x277D3FDC8];
-  v5[3] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
+  v4[2] = *MEMORY[0x277D3FDC8];
+  v4[3] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
   v3 = isDomainWhitelisted__whitelist;
   isDomainWhitelisted__whitelist = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isDomainNameIgnored:(id)ignored

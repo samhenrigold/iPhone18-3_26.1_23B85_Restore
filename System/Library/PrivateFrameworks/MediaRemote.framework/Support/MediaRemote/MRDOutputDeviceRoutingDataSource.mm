@@ -1,5 +1,6 @@
 @interface MRDOutputDeviceRoutingDataSource
 - (BOOL)currentRouteSupportsVolumeControl;
+- (BOOL)resetPickedRouteForSource:(unsigned int)source;
 - (BOOL)setPickedSystemRoute:(id)route withPassword:(id)password forSource:(unsigned int)source;
 - (BOOL)unpickAirPlayRoutes;
 - (MRDOutputDeviceRoutingDataSource)init;
@@ -249,6 +250,14 @@ LABEL_22:
 LABEL_23:
 
   return v19;
+}
+
+- (BOOL)resetPickedRouteForSource:(unsigned int)source
+{
+  _activeSystemContext = [(MRDOutputDeviceRoutingDataSource *)self _activeSystemContext];
+  [_activeSystemContext setOutputDevice:0 options:0];
+
+  return 1;
 }
 
 - (BOOL)unpickAirPlayRoutes

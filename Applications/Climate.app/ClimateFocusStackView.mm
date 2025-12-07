@@ -10,14 +10,14 @@
   selfCopy = self;
   arrangedSubviews = [(ClimateFocusStackView *)selfCopy arrangedSubviews];
   sub_100005AA0();
-  v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  sub_1000C5884(v4);
+  sub_1000C5884();
 
-  sub_1000040E8(&unk_1001150F0);
-  v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  sub_1000040E8(&unk_1001150F0, &qword_1000D5F10);
+  v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v4.super.isa;
 }
 
 - (_TtC7Climate21ClimateFocusStackView)initWithCoder:(id)coder

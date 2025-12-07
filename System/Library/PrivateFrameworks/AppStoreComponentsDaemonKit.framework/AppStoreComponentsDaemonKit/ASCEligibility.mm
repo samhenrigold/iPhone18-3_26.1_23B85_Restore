@@ -21,32 +21,32 @@
 
 + (void)assertCurrentProcessEligibility
 {
-  objc_opt_self();
-  if ((+[ASCEligibility currentClientIsEligibleToUseASC]& 1) == 0)
+  v1 = objc_opt_self();
+  if ((+[(ASCEligibility *)v1]& 1) == 0)
   {
 
-    +[ASCEligibility abortExecution];
+    +[(ASCEligibility *)v1];
   }
 }
 
 + (uint64_t)currentClientIsEligibleToUseASC
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
-  if (([(ASCEligibility *)v0 clientWithBundleIDIsEligibleToUseASC:bundleIdentifier]& 1) != 0)
+  if (([(ASCEligibility *)v1 clientWithBundleIDIsEligibleToUseASC:bundleIdentifier]& 1) != 0)
   {
-    v3 = 1;
+    v4 = 1;
   }
 
   else
   {
     processInfo = [MEMORY[0x277CCAC38] processInfo];
     processName = [processInfo processName];
-    v3 = [(ASCEligibility *)v0 clientWithProcessNameIsEligibleToUseASC:processName];
+    v4 = [(ASCEligibility *)v1 clientWithProcessNameIsEligibleToUseASC:processName];
   }
 
-  return v3;
+  return v4;
 }
 
 + (uint64_t)clientWithBundleIDIsEligibleToUseASC:(uint64_t)c

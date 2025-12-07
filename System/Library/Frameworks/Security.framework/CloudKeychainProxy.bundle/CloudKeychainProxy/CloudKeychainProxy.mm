@@ -15,13 +15,14 @@ void sub_10000108C(uint64_t a1)
   [WeakRetained _onqueueRecheck];
 }
 
-BOOL sub_100001278(int a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+BOOL sub_100001278(int a1, CFErrorRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (a1 && a2)
   {
-    v10 = *a2;
+    v9 = *a2;
     *a2 = 0;
-    sub_10000B908(a1, kCFErrorDomainMach, v10, a2, @"aks_get_lock_state failed: %x", &a9);
+    sub_10000B908(a1, kCFErrorDomainMach, v9, a2, @"aks_get_lock_state failed: %x", va);
   }
 
   return a1 == 0;
@@ -246,14 +247,11 @@ uint64_t sub_10000369C(uint64_t a1)
   {
     v2 = [*(a1 + 40) lockMonitor];
     [v2 recheck];
-
-    v3 = *(a1 + 32);
   }
 
-  v4 = *(a1 + 48);
-  v5 = *(*(a1 + 56) + 16);
+  v3 = *(*(a1 + 56) + 16);
 
-  return v5();
+  return v3();
 }
 
 void sub_1000037AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7)
@@ -379,17 +377,14 @@ uint64_t sub_100003DB0(void *a1)
     {
       v3 = a1[5];
       v4 = a1[6];
-      v8 = 138412546;
-      v9 = v3;
-      v10 = 2112;
-      v11 = v4;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ ensurePeerRegistration failed: %@", &v8, 0x16u);
+      v6 = 138412546;
+      v7 = v3;
+      v8 = 2112;
+      v9 = v4;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@ ensurePeerRegistration failed: %@", &v6, 0x16u);
     }
-
-    v5 = a1[4];
   }
 
-  v6 = a1[6];
   return (*(a1[7] + 16))();
 }
 
@@ -443,13 +438,14 @@ void sub_100003F38(uint64_t a1)
   _Block_object_dispose(&v23, 8);
 }
 
-void sub_10000416C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_10000416C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 144), 8);
-  _Block_object_dispose((v33 - 96), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 144), 8);
+  _Block_object_dispose((v32 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -492,10 +488,7 @@ uint64_t sub_1000041CC(uint64_t a1)
   v17 = *(v16 + 128);
   *(v16 + 128) = v15;
 
-  v18 = +[NSMutableSet set];
-  v19 = *(a1 + 32);
-  v20 = *(v19 + 144);
-  *(v19 + 144) = v18;
+  *(*(a1 + 32) + 144) = +[NSMutableSet set];
 
   return _objc_release_x1();
 }
@@ -958,9 +951,9 @@ void sub_1000080B8(uint64_t a1, void *a2)
   xpc_connection_send_message(*(a1 + 40), xdict);
 }
 
-void sub_1000082D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000082D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1188,9 +1181,9 @@ id sub_100009388(uint64_t a1)
   return v4;
 }
 
-void sub_1000094E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000094E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1241,9 +1234,9 @@ void sub_100009600(uint64_t a1)
   (*(v2 + 16))(v2, v10);
 }
 
-void sub_100009A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100009A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1419,9 +1412,9 @@ void *sub_10000A1A8(uint64_t a1)
   return result;
 }
 
-void sub_10000A430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000A430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1602,11 +1595,11 @@ uint64_t sub_10000AEE4(const __CFDictionary *a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10000AF4C(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t sub_10000AF4C(uint64_t result, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*a3 == 1)
   {
-    result = sub_10000AF9C(result, a2, *(a3 + 16));
+    result = sub_10000AF9C(result, a2, *(a3 + 16), a4, a5);
     if (result)
     {
       *(a3 + 8) += result;
@@ -1621,9 +1614,9 @@ uint64_t sub_10000AF4C(uint64_t result, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t sub_10000AF9C(uint64_t a1, uint64_t a2, CFTypeRef *a3)
+uint64_t sub_10000AF9C(const void *a1, const void *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5)
 {
-  if (sub_10000BC8C(a1, a3) && sub_10000BC8C(a2, a3))
+  if (sub_10000BC8C(a1, a3, a3, a4, a5) && sub_10000BC8C(a2, a3, v8, v9, v10))
   {
 
     return ccder_sizeof();
@@ -1631,21 +1624,21 @@ uint64_t sub_10000AF9C(uint64_t a1, uint64_t a2, CFTypeRef *a3)
 
   else
   {
-    sub_10000BBBC(-6, v5, v6, a3, v7, @"null input");
+    sub_10000BBBC(-6, v7, v8, a3, v10, @"null input");
     return 0;
   }
 }
 
-uint64_t sub_10000B02C(const __CFDictionary *a1, CFTypeRef *a2, char a3)
+uint64_t sub_10000B02C(const __CFDictionary *a1, CFErrorRef *a2, char a3, uint64_t a4, uint64_t a5)
 {
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v14[0] = 0xAAAAAAAAAAAAAA01;
-  v14[1] = a2;
-  BYTE1(v14[0]) = a3;
-  v14[2] = Mutable;
-  v14[3] = 0;
-  CFDictionaryApplyFunction(a1, sub_10000B264, v14);
-  if ((v14[0] & 1) == 0)
+  v16[0] = 0xAAAAAAAAAAAAAA01;
+  v16[1] = a2;
+  BYTE1(v16[0]) = a3;
+  v16[2] = Mutable;
+  v16[3] = 0;
+  CFDictionaryApplyFunction(a1, sub_10000B264, v16);
+  if ((v16[0] & 1) == 0)
   {
     if (Mutable)
     {
@@ -1655,23 +1648,23 @@ uint64_t sub_10000B02C(const __CFDictionary *a1, CFTypeRef *a2, char a3)
     return 0;
   }
 
-  v15.length = CFArrayGetCount(Mutable);
-  v15.location = 0;
-  CFArraySortValues(Mutable, v15, sub_10000B1A8, 0);
+  v17.length = CFArrayGetCount(Mutable);
+  v17.location = 0;
+  CFArraySortValues(Mutable, v17, sub_10000B1A8, 0);
   Count = CFArrayGetCount(Mutable);
   if (Count >= 1)
   {
-    v8 = Count + 1;
+    v10 = Count + 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v8 - 2);
+      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v10 - 2);
       CFDataGetLength(ValueAtIndex);
       CFDataGetBytePtr(ValueAtIndex);
       ccder_encode_body();
-      --v8;
+      --v10;
     }
 
-    while (v8 > 1);
+    while (v10 > 1);
   }
 
   if (Mutable)
@@ -1682,7 +1675,7 @@ uint64_t sub_10000B02C(const __CFDictionary *a1, CFTypeRef *a2, char a3)
   result = ccder_encode_constructed_tl();
   if (!result)
   {
-    sub_10000BBBC(-7, v11, v12, a2, v13, @"ccder failed to encode");
+    sub_10000BBBC(-7, v13, v14, a2, v15, @"ccder failed to encode");
     return 0;
   }
 
@@ -1755,31 +1748,31 @@ uint64_t sub_10000B1A8(const __CFData *a1, const __CFData *a2)
   }
 }
 
-void sub_10000B264(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_10000B264(const void *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*a3 == 1)
   {
-    v6 = sub_10000AF9C(a1, a2, *(a3 + 8));
-    if (!v6)
+    v8 = sub_10000AF9C(a1, a2, *(a3 + 8), a4, a5);
+    if (!v8)
     {
       *a3 = 0;
       return;
     }
 
-    v7 = v6;
-    Mutable = CFDataCreateMutable(*(a3 + 24), v6);
-    CFDataSetLength(Mutable, v7);
+    v9 = v8;
+    Mutable = CFDataCreateMutable(*(a3 + 24), v8);
+    CFDataSetLength(Mutable, v9);
     MutableBytePtr = CFDataGetMutableBytePtr(Mutable);
-    v10 = *(a3 + 8);
-    v11 = *(a3 + 1);
-    v12 = sub_10000BF20(a2, v10, v11, MutableBytePtr, &MutableBytePtr[v7]);
-    sub_10000BF20(a1, v10, v11, MutableBytePtr, v12);
-    v13 = ccder_encode_constructed_tl();
-    if (v13)
+    v12 = *(a3 + 8);
+    v13 = *(a3 + 1);
+    v14 = sub_10000BF20(a2, v12, v13, MutableBytePtr, &MutableBytePtr[v9]);
+    sub_10000BF20(a1, v12, v13, MutableBytePtr, v14);
+    v15 = ccder_encode_constructed_tl();
+    if (v15)
     {
-      v18.length = v13 - MutableBytePtr;
-      v18.location = 0;
-      CFDataDeleteBytes(Mutable, v18);
+      v20.length = v15 - MutableBytePtr;
+      v20.location = 0;
+      CFDataDeleteBytes(Mutable, v20);
       CFArrayAppendValue(*(a3 + 16), Mutable);
       if (!Mutable)
       {
@@ -1789,7 +1782,7 @@ void sub_10000B264(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      sub_10000BBBC(-7, v14, v15, v10, v16, @"ccder failed to encode");
+      sub_10000BBBC(-7, v16, v17, v12, v18, @"ccder failed to encode");
       *a3 = 0;
       if (!Mutable)
       {
@@ -1886,7 +1879,7 @@ uint64_t sub_10000B69C(uint64_t a1, CFCalendarRef calendar)
   return result;
 }
 
-uint64_t sub_10000B700(const __CFNumber *a1, CFTypeRef *a2)
+uint64_t sub_10000B700(const __CFNumber *a1, CFErrorRef *a2)
 {
   valuePtr = 0xAAAAAAAAAAAAAAAALL;
   if (CFNumberGetValue(a1, kCFNumberLongLongType, &valuePtr))
@@ -1920,7 +1913,7 @@ uint64_t sub_10000B700(const __CFNumber *a1, CFTypeRef *a2)
   }
 }
 
-uint64_t sub_10000B7D0(const __CFNumber *a1, CFTypeRef *a2, uint64_t a3, uint64_t a4)
+uint64_t sub_10000B7D0(const __CFNumber *a1, CFErrorRef *a2, uint64_t a3, uint64_t a4)
 {
   valuePtr = 0xAAAAAAAAAAAAAAAALL;
   if (!CFNumberGetValue(a1, kCFNumberLongLongType, &valuePtr))
@@ -2011,7 +2004,7 @@ LABEL_22:
   return result;
 }
 
-void sub_10000B908(CFIndex a1, const __CFString *a2, __CFString *cf, CFTypeRef *a4, CFStringRef format, va_list arguments)
+void sub_10000B908(CFIndex a1, const __CFString *a2, __CFString *cf, CFErrorRef *a4, CFStringRef format, va_list arguments)
 {
   if (!a4)
   {
@@ -2146,28 +2139,29 @@ LABEL_44:
   }
 }
 
-void sub_10000BBF8(uint64_t a1, __CFString **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_10000BBF8(uint64_t a1, __CFString **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   cf = 0;
   if (a2)
   {
-    sub_10000B908(-1, kCFErrorDomainOSStatus, *a2, &cf, @"Invalid date: %i, %i, %i, %i, %i, %i, %i", &a9);
+    sub_10000B908(-1, kCFErrorDomainOSStatus, *a2, &cf, @"Invalid date: %i, %i, %i, %i, %i, %i, %i", va);
     *a2 = cf;
   }
 
   else
   {
-    sub_10000B908(-1, kCFErrorDomainOSStatus, 0, &cf, @"Invalid date: %i, %i, %i, %i, %i, %i, %i", &a9);
-    v10 = cf;
+    sub_10000B908(-1, kCFErrorDomainOSStatus, 0, &cf, @"Invalid date: %i, %i, %i, %i, %i, %i, %i", va);
+    v9 = cf;
     if (cf)
     {
       cf = 0;
-      CFRelease(v10);
+      CFRelease(v9);
     }
   }
 }
 
-uint64_t sub_10000BC8C(const __CFString *a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_10000BC8C(const __CFString *a1, CFErrorRef *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!a1)
   {
@@ -2186,7 +2180,7 @@ uint64_t sub_10000BC8C(const __CFString *a1, CFTypeRef *a2, uint64_t a3, uint64_
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(a1, v10 - 2);
-        v9 += sub_10000BC8C(ValueAtIndex, a2);
+        v9 += sub_10000BC8C(ValueAtIndex, a2, v12, v13, v14);
         --v10;
       }
 
@@ -2243,14 +2237,14 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    sub_10000BBBC(-5, v14, v15, a2, v16, @"Unsupported CFType");
+    sub_10000BBBC(-5, v17, v18, a2, v19, @"Unsupported CFType");
     return 0;
   }
 
   return sub_10000B700(a1, a2);
 }
 
-uint64_t sub_10000BF20(const __CFString *a1, CFTypeRef *a2, uint64_t a3, UInt8 *a4, unint64_t a5)
+uint64_t sub_10000BF20(const __CFString *a1, CFErrorRef *a2, uint64_t a3, UInt8 *a4, unint64_t a5)
 {
   if (!a1)
   {
@@ -2399,7 +2393,7 @@ LABEL_14:
 
     v41 = HIDWORD(v69);
     v42 = HIDWORD(v68);
-    if (v68 > 61 || SHIDWORD(v68) > 59 || v69 > 23 || (v70 - 13) < 0xFFFFFFF4 || (HIDWORD(v69) - 32) < 0xFFFFFFE1 || v70 == 2 && (v35 | 0x1Cu) < HIDWORD(v69))
+    if (v68 > 61 || SHIDWORD(v68) > 59 || v69 > 23 || (v70 - 13) < 0xFFFFFFF4 || (HIDWORD(v69) - 32) < 0xFFFFFFE1 || v70 == 2 && (v35 | 0x1C) < HIDWORD(v69))
     {
       goto LABEL_54;
     }
@@ -2413,9 +2407,9 @@ LABEL_14:
     if (dword_100010B28[v70] - dword_100010B28[(v70 - 1)] < SHIDWORD(v69))
     {
 LABEL_54:
-      sub_10000BBF8(v25, block, v26, v27, v28, v29, v30, v31, SBYTE4(v70));
+      sub_10000BBF8(v25, block, v26, v27, v28, v29, v30, v31, HIDWORD(v70), v70, HIDWORD(v69), v69, HIDWORD(v68), v68, v35);
       v43 = CFErrorCopyDescription(block[0]);
-      sub_10000D7D0(v43, 1405091842);
+      sub_10000D7D0(v43, 0x53C00002u);
       if (v43)
       {
         CFRelease(v43);
@@ -2549,41 +2543,7 @@ LABEL_68:
 
 LABEL_92:
     __freedtoa();
-    if (!v47)
-    {
-      goto LABEL_100;
-    }
-
-    v63 = (a4 + 2);
-    if ((a4 + 2) > v47)
-    {
-      goto LABEL_100;
-    }
-
-    *(v47 - 2) = v67 / 10 + 48;
-    *(v47 - 1) = v67 % 10 + 48;
-    if (v63 > v47 - 2)
-    {
-      goto LABEL_100;
-    }
-
-    *(v47 - 4) = v42 / 10 + 48;
-    *(v47 - 3) = v42 % 10 + 48;
-    if (v63 > v47 - 4)
-    {
-      goto LABEL_100;
-    }
-
-    *(v47 - 6) = v66 / 10 + 48;
-    *(v47 - 5) = v66 % 10 + 48;
-    if (v63 > v47 - 6)
-    {
-      goto LABEL_100;
-    }
-
-    *(v47 - 8) = v41 / 10 + 48;
-    *(v47 - 7) = v41 % 10 + 48;
-    if (v63 <= v47 - 8 && (*(v47 - 10) = v34 / 10 + 48, *(v47 - 9) = v34 % 10 + 48, v63 <= v47 - 10) && (v64 = (((103 * (v33 % 100)) >> 15) & 1) + ((103 * (v33 % 100)) >> 10), *(v47 - 12) = v64 + 48, *(v47 - 11) = v33 % 100 - 10 * v64 + 48, v63 <= v47 - 12))
+    if (v47 && (v63 = (a4 + 2), (a4 + 2) <= v47) && (*(v47 - 2) = v67 / 10 + 48, *(v47 - 1) = v67 % 10 + 48, v63 <= v47 - 2) && (*(v47 - 4) = v42 / 10 + 48, *(v47 - 3) = v42 % 10 + 48, v63 <= v47 - 4) && (*(v47 - 6) = v66 / 10 + 48, *(v47 - 5) = v66 % 10 + 48, v63 <= v47 - 6) && (*(v47 - 8) = v41 / 10 + 48, *(v47 - 7) = v41 % 10 + 48, v63 <= v47 - 8) && (*(v47 - 10) = v34 / 10 + 48, *(v47 - 9) = v34 % 10 + 48, v63 <= v47 - 10) && (v64 = (((103 * (v33 % 100)) >> 15) & 1) + ((103 * (v33 % 100)) >> 10), *(v47 - 12) = v64 + 48, *(v47 - 11) = v33 % 100 - 10 * v64 + 48, v63 <= v47 - 12))
     {
       *(v47 - 14) = v33 / 1000 + 48;
       *(v47 - 13) = v33 / 100 % 10 + 48;
@@ -2591,7 +2551,6 @@ LABEL_92:
 
     else
     {
-LABEL_100:
       sub_10000BBBC(-7, v60, v61, a2, v62, @"ccder failed to encode");
     }
 
@@ -2601,13 +2560,13 @@ LABEL_100:
   if (CFDictionaryGetTypeID() == v10)
   {
 
-    return sub_10000B02C(a1, a2, a3);
+    return sub_10000B02C(a1, a2, a3, a4, a5);
   }
 
   if (CFSetGetTypeID() == v10)
   {
 
-    return sub_10000D4B0(a1, a2, a3);
+    return sub_10000D4B0(a1, a2, a3, a4, a5);
   }
 
   if (CFStringGetTypeID() == v10)
@@ -2642,7 +2601,7 @@ uint64_t sub_10000CA18(const __CFString *a1)
   return ccder_sizeof();
 }
 
-uint64_t sub_10000CA98(const __CFString *a1, CFTypeRef *a2, UInt8 *a3, uint64_t a4, uint64_t a5)
+uint64_t sub_10000CA98(const __CFString *a1, CFErrorRef *a2, UInt8 *a3, uint64_t a4, uint64_t a5)
 {
   if (a4)
   {
@@ -2702,9 +2661,9 @@ void sub_10000CD20(uint64_t a1, void *a2)
   [*(a1 + 32) insertObject:v4 atIndex:0];
 }
 
-void sub_10000CEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000CEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2745,7 +2704,7 @@ void sub_10000D078(uint64_t a1, void *a2, void *a3)
   [v9 addObject:v10];
 }
 
-uint64_t sub_10000D3A4(CFTypeRef *a1)
+uint64_t sub_10000D3A4(CFErrorRef *a1)
 {
   v5 = ccder_encode_tl();
   if (!v5)
@@ -2772,11 +2731,11 @@ uint64_t sub_10000D3F8(const __CFSet *a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10000D460(uint64_t result, uint64_t a2)
+uint64_t sub_10000D460(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*a2 == 1)
   {
-    result = sub_10000BC8C(result, *(a2 + 16));
+    result = sub_10000BC8C(result, *(a2 + 16), a3, a4, a5);
     if (result)
     {
       *(a2 + 8) += result;
@@ -2791,16 +2750,16 @@ uint64_t sub_10000D460(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_10000D4B0(const __CFSet *a1, CFTypeRef *a2, char a3)
+uint64_t sub_10000D4B0(const __CFSet *a1, CFErrorRef *a2, char a3, uint64_t a4, uint64_t a5)
 {
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
-  v14[0] = 0xAAAAAAAAAAAAAA01;
-  v14[1] = a2;
-  BYTE1(v14[0]) = a3;
-  v14[2] = Mutable;
-  v14[3] = 0;
-  CFSetApplyFunction(a1, sub_10000D6E8, v14);
-  if ((v14[0] & 1) == 0)
+  v16[0] = 0xAAAAAAAAAAAAAA01;
+  v16[1] = a2;
+  BYTE1(v16[0]) = a3;
+  v16[2] = Mutable;
+  v16[3] = 0;
+  CFSetApplyFunction(a1, sub_10000D6E8, v16);
+  if ((v16[0] & 1) == 0)
   {
     if (Mutable)
     {
@@ -2810,23 +2769,23 @@ uint64_t sub_10000D4B0(const __CFSet *a1, CFTypeRef *a2, char a3)
     return 0;
   }
 
-  v15.length = CFArrayGetCount(Mutable);
-  v15.location = 0;
-  CFArraySortValues(Mutable, v15, sub_10000D62C, 0);
+  v17.length = CFArrayGetCount(Mutable);
+  v17.location = 0;
+  CFArraySortValues(Mutable, v17, sub_10000D62C, 0);
   Count = CFArrayGetCount(Mutable);
   if (Count >= 1)
   {
-    v8 = Count + 1;
+    v10 = Count + 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v8 - 2);
+      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v10 - 2);
       CFDataGetLength(ValueAtIndex);
       CFDataGetBytePtr(ValueAtIndex);
       ccder_encode_body();
-      --v8;
+      --v10;
     }
 
-    while (v8 > 1);
+    while (v10 > 1);
   }
 
   if (Mutable)
@@ -2837,7 +2796,7 @@ uint64_t sub_10000D4B0(const __CFSet *a1, CFTypeRef *a2, char a3)
   result = ccder_encode_constructed_tl();
   if (!result)
   {
-    sub_10000BBBC(-7, v11, v12, a2, v13, @"ccder failed to encode");
+    sub_10000BBBC(-7, v13, v14, a2, v15, @"ccder failed to encode");
     return 0;
   }
 
@@ -2951,7 +2910,7 @@ void sub_10000D6E8(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4, 
   }
 }
 
-uint64_t sub_10000D7D0(uint64_t a1, int a2)
+uint64_t sub_10000D7D0(uint64_t a1, unsigned int a2)
 {
   v4 = sub_10000AE54("SecError");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))

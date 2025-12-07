@@ -7,13 +7,13 @@
 + (id)sharedAutoupdatingCurrentCalendar;
 - (BOOL)dateIsFirstOfMonth:()CalClassAdditions;
 - (BOOL)dateIsFirstOfYear:()CalClassAdditions;
+- (char)calendarDaysFromDate:()CalClassAdditions toDate:;
 - (id)CalDateBySubtractingComponents:()CalClassAdditions fromDate:;
 - (id)CalDateFromComponents:()CalClassAdditions inTimeZone:;
 - (id)CalOccurrencesForBirthday:()CalClassAdditions inDateRange:;
 - (id)dateBySanityCheckingDateRoundedToDay:()CalClassAdditions;
 - (id)mapDatesFromDate:()CalClassAdditions stepSize:range:mapBlock:;
 - (uint64_t)cal_isMultidayEventForUIWithStartDate:()CalClassAdditions endDate:;
-- (uint64_t)calendarDaysFromDate:()CalClassAdditions toDate:;
 - (uint64_t)daysInWeek;
 - (uint64_t)hoursInDay;
 - (uint64_t)minutesInHour;
@@ -45,9 +45,9 @@
     +[NSCalendar(CalClassAdditions) CalGregorianGMTCalendar];
   }
 
-  v1 = CalGregorianGMTCalendar_gregorianGMTCalendar;
+  v2 = CalGregorianGMTCalendar_gregorianGMTCalendar;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)secondsInMinute
@@ -116,9 +116,9 @@
     +[NSCalendar(CalClassAdditions) CalYearlessDateThreshold];
   }
 
-  v1 = CalYearlessDateThreshold_s_threshold;
+  v2 = CalYearlessDateThreshold_s_threshold;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)monthsInYearForDate:()CalClassAdditions
@@ -158,7 +158,7 @@
 
 - (id)dateBySanityCheckingDateRoundedToDay:()CalClassAdditions
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [v4 hourInCalendar:self];
   if (v5)
@@ -179,38 +179,36 @@
       v10 = +[CalFoundationLogSubsystem defaultCategory];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v13 = [MEMORY[0x1E696AB78] localizedStringFromDate:v8 dateStyle:1 timeStyle:1];
+        v12 = [MEMORY[0x1E696AB78] localizedStringFromDate:v8 dateStyle:1 timeStyle:1];
         timeZone = [self timeZone];
-        v14 = [timeZone descriptionForDate:v8];
-        v15 = [MEMORY[0x1E696AB78] localizedStringFromDate:v4 dateStyle:1 timeStyle:1];
+        v13 = [timeZone descriptionForDate:v8];
+        v14 = [MEMORY[0x1E696AB78] localizedStringFromDate:v4 dateStyle:1 timeStyle:1];
         timeZone2 = [self timeZone];
-        v16 = [timeZone2 descriptionForDate:v4];
+        v15 = [timeZone2 descriptionForDate:v4];
         calendarIdentifier = [self calendarIdentifier];
         locale = [self locale];
         localeIdentifier = [locale localeIdentifier];
         *buf = 138413570;
-        v23 = v13;
-        v24 = 2112;
-        v25 = v14;
-        v26 = 2112;
-        v27 = v15;
-        v28 = 2112;
-        v29 = v16;
-        v30 = 2112;
-        v31 = calendarIdentifier;
-        v32 = 2112;
-        v33 = localeIdentifier;
+        v22 = v12;
+        v23 = 2112;
+        v24 = v13;
+        v25 = 2112;
+        v26 = v14;
+        v27 = 2112;
+        v28 = v15;
+        v29 = 2112;
+        v30 = calendarIdentifier;
+        v31 = 2112;
+        v32 = localeIdentifier;
         _os_log_error_impl(&dword_1B990D000, v10, OS_LOG_TYPE_ERROR, "ERROR: The given date could not be rounded to midnight. This date & time may not exist in the active calendar.\n\tInitial Start Date = %@ in %@;\n\tRevised Start Date = %@ in %@;\n\tCalendar/Locale = %@/%@;", buf, 0x3Eu);
       }
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
-- (uint64_t)calendarDaysFromDate:()CalClassAdditions toDate:
+- (char)calendarDaysFromDate:()CalClassAdditions toDate:
 {
   v6 = a3;
   v7 = a4;

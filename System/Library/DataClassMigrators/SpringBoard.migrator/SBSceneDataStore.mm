@@ -191,7 +191,6 @@ LABEL_4:
 - (void)_invalidate
 {
   self->_invalidated = 1;
-  handler = self->_handler;
   self->_handler = 0;
   _objc_release_x1();
 }

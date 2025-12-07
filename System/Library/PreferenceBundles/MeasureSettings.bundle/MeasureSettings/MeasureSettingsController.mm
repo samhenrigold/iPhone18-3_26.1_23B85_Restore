@@ -6,6 +6,7 @@
 - (void)emitNavigationEvent;
 - (void)setAppPolicy;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation MeasureSettingsController
@@ -30,9 +31,7 @@
 
 - (void)setAppPolicy
 {
-  v3 = [[PSSystemPolicyForApp alloc] initWithBundleIdentifier:@"com.apple.measure"];
-  policy = self->_policy;
-  self->_policy = v3;
+  self->_policy = [[PSSystemPolicyForApp alloc] initWithBundleIdentifier:@"com.apple.measure"];
 
   _objc_release_x1();
 }
@@ -102,6 +101,14 @@ LABEL_6:
   v11 = [(MeasureSettingsController *)self specifierAtIndex:v10];
   v12 = [v11 propertyForKey:PSValueKey];
   [(MeasureSettingsController *)self setPreferenceValue:v12 specifier:v9];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MeasureSettingsController;
+  [(MeasureSettingsController *)&v4 viewDidAppear:appear];
+  [(MeasureSettingsController *)self emitNavigationEvent];
 }
 
 - (void)emitNavigationEvent

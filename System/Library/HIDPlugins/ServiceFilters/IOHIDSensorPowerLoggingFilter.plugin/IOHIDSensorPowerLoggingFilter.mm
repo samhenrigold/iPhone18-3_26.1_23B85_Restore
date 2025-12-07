@@ -116,9 +116,7 @@ LABEL_13:
 
 - (void)setCancelHandler:(id)handler
 {
-  v4 = objc_retainBlock(handler);
-  cancelHandler = self->_cancelHandler;
-  self->_cancelHandler = v4;
+  self->_cancelHandler = objc_retainBlock(handler);
 
   _objc_release_x1();
 }

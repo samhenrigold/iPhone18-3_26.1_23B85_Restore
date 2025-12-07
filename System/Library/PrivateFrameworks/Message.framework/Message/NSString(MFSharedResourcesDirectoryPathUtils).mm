@@ -161,7 +161,7 @@ LABEL_18:
 
 - (id)mf_stringByAbbreviatingSharedResourcesDirectoryWithTildeInPath
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v2 = [selfCopy length];
   v3 = v2;
@@ -171,8 +171,8 @@ LABEL_18:
   }
 
   MEMORY[0x1EEE9AC00](v2);
-  v5 = (&v22 - v4);
-  memset(&v22 - v4, 170, v6);
+  v5 = (&v21 - v4);
+  memset(&v21 - v4, 170, v6);
   if (v3 >= 0x101)
   {
     v5 = malloc_type_malloc(2 * v3, 0x1000040BDFB0063uLL);
@@ -209,7 +209,7 @@ LABEL_11:
     v12 = v7 - v10;
     if (v7 >= v10)
     {
-      v22 = &v22;
+      v21 = &v21;
       if (v10 <= 1)
       {
         v13 = 1;
@@ -221,8 +221,8 @@ LABEL_11:
       }
 
       MEMORY[0x1EEE9AC00](v10);
-      v15 = &v22 - v14;
-      memset(&v22 - v14, 170, v16);
+      v15 = &v21 - v14;
+      memset(&v21 - v14, 170, v16);
       if (v11 >= 0x101)
       {
         v15 = malloc_type_malloc(2 * v13, 0x1000040BDFB0063uLL);
@@ -233,7 +233,7 @@ LABEL_11:
         bzero(v15, 2 * v13);
       }
 
-      [v9 getCharacters:v15 range:{0, v11, v22, v23}];
+      [v9 getCharacters:v15 range:{0, v11, v21, v22}];
       if (v11 < 1)
       {
         v17 = 0;
@@ -285,7 +285,6 @@ LABEL_11:
 
   selfCopy = v19;
 LABEL_35:
-  v20 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }

@@ -36,7 +36,7 @@
   v3[1] = 0;
   *(&self->super.isa + OBJC_IVAR____TtC19ProximityDaemonCore22AONSenseSampleProvider__aonSense) = 0;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for AONSenseSampleProvider();
+  v5.super_class = type metadata accessor for AONSenseSampleProvider(0);
   return [(AONSenseSampleProvider *)&v5 init];
 }
 

@@ -62,7 +62,7 @@
 
 - (void)_updateContainerMetadataFromRecord:(id)record appLibrary:(id)library stripIcons:(BOOL)icons
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   libraryCopy = library;
   clientReadWriteDatabaseFacade = [(BRCSessionContext *)self->super._sessionContext clientReadWriteDatabaseFacade];
@@ -77,15 +77,15 @@
       {
 LABEL_16:
         objc_initWeak(buf, libraryCopy);
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __98__BRCContainerMetadataSyncDownOperation__updateContainerMetadataFromRecord_appLibrary_stripIcons___block_invoke_3;
-        v22[3] = &unk_2784FFDF8;
-        objc_copyWeak(&v24, buf);
-        v23 = recordCopy;
-        dispatch_async(serialQueue, v22);
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __98__BRCContainerMetadataSyncDownOperation__updateContainerMetadataFromRecord_appLibrary_stripIcons___block_invoke_3;
+        v21[3] = &unk_2784FFDF8;
+        objc_copyWeak(&v23, buf);
+        v22 = recordCopy;
+        dispatch_async(serialQueue, v21);
 
-        objc_destroyWeak(&v24);
+        objc_destroyWeak(&v23);
         objc_destroyWeak(buf);
         goto LABEL_17;
       }
@@ -116,9 +116,9 @@ LABEL_16:
         block[1] = 3221225472;
         block[2] = __98__BRCContainerMetadataSyncDownOperation__updateContainerMetadataFromRecord_appLibrary_stripIcons___block_invoke;
         block[3] = &unk_2784FF400;
-        objc_copyWeak(&v26, buf);
+        objc_copyWeak(&v25, buf);
         dispatch_async(serialQueue, block);
-        objc_destroyWeak(&v26);
+        objc_destroyWeak(&v25);
         objc_destroyWeak(buf);
       }
     }
@@ -130,9 +130,9 @@ LABEL_16:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v28 = recordCopy;
-        v29 = 2112;
-        v30 = brc_containerMetadataIconPaths;
+        v27 = recordCopy;
+        v28 = 2112;
+        v29 = brc_containerMetadataIconPaths;
         _os_log_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEFAULT, "[WARNING] no data in record %@%@", buf, 0x16u);
       }
     }
@@ -145,12 +145,11 @@ LABEL_16:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = brc_containerMetadataPropertiesData;
+    v27 = brc_containerMetadataPropertiesData;
     _os_log_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] Serial queue is nil%@", buf, 0xCu);
   }
 
 LABEL_17:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __98__BRCContainerMetadataSyncDownOperation__updateContainerMetadataFromRecord_appLibrary_stripIcons___block_invoke(uint64_t a1)
@@ -168,16 +167,16 @@ void __98__BRCContainerMetadataSyncDownOperation__updateContainerMetadataFromRec
 
 - (void)performAfterFetchingRecordChanges:(id)changes
 {
-  v75[1] = *MEMORY[0x277D85DE8];
+  v74[1] = *MEMORY[0x277D85DE8];
   changesCopy = changes;
-  v69[0] = 0;
-  v69[1] = v69;
-  v69[2] = 0x2020000000;
-  v70 = 0;
-  v67[0] = 0;
-  v67[1] = v67;
-  v67[2] = 0x2020000000;
-  v68 = 0;
+  v68[0] = 0;
+  v68[1] = v68;
+  v68[2] = 0x2020000000;
+  v69 = 0;
+  v66[0] = 0;
+  v66[1] = v66;
+  v66[2] = 0x2020000000;
+  v67 = 0;
   group = [(_BRCOperation *)self group];
   name = [group name];
   br_syncDownPeriodic = [MEMORY[0x277CBC4F8] br_syncDownPeriodic];
@@ -208,11 +207,11 @@ void __98__BRCContainerMetadataSyncDownOperation__updateContainerMetadataFromRec
   [v13 setPreviousServerChangeToken:serverChangeToken];
 
   v19 = objc_alloc(MEMORY[0x277CBC3B8]);
-  v75[0] = brc_containerMetadataZoneID;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:1];
-  v73 = brc_containerMetadataZoneID;
-  v74 = v13;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+  v74[0] = brc_containerMetadataZoneID;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:1];
+  v72 = brc_containerMetadataZoneID;
+  v73 = v13;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
   v22 = [v19 initWithRecordZoneIDs:v20 optionsByRecordZoneID:v21];
 
   v23 = objc_opt_new();
@@ -222,74 +221,74 @@ void __98__BRCContainerMetadataSyncDownOperation__updateContainerMetadataFromRec
   [configuration setSourceApplicationBundleIdentifier:*MEMORY[0x277CFAD58]];
 
   [v22 setShouldFetchAssetContents:0];
-  v63 = 0uLL;
-  v64 = 0;
-  __brc_create_section(0, "[BRCContainerMetadataSyncDownOperation performAfterFetchingRecordChanges:]", 150, 0, &v63);
+  v62 = 0uLL;
+  v63 = 0;
+  __brc_create_section(0, "[BRCContainerMetadataSyncDownOperation performAfterFetchingRecordChanges:]", 150, 0, &v62);
   v25 = brc_bread_crumbs();
   v26 = brc_default_log();
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    *&buf[4] = v63;
+    *&buf[4] = v62;
     *&buf[12] = 2112;
     *&buf[14] = v22;
     *&buf[22] = 2112;
-    v72 = v25;
+    v71 = v25;
     _os_log_debug_impl(&dword_223E7A000, v26, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx starting fetch container-metadata changes operation %@%@", buf, 0x20u);
   }
 
+  v64 = v62;
   v65 = v63;
-  v66 = v64;
   [v22 setFetchAllChanges:0];
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke;
-  v59[3] = &unk_278502690;
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke;
+  v58[3] = &unk_278502690;
+  v59 = v64;
+  v61 = v9;
+  v58[4] = self;
+  v58[5] = v66;
   v60 = v65;
-  v62 = v9;
-  v59[4] = self;
-  v59[5] = v67;
-  v61 = v66;
-  v59[6] = v69;
-  [v22 setRecordChangedBlock:v59];
+  v58[6] = v68;
+  [v22 setRecordChangedBlock:v58];
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LOBYTE(v72) = 0;
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke_18;
-  v52[3] = &unk_2785026E0;
+  LOBYTE(v71) = 0;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke_18;
+  v51[3] = &unk_2785026E0;
+  v56 = v64;
   v57 = v65;
-  v58 = v66;
-  v55 = buf;
-  v52[4] = self;
+  v54 = buf;
+  v51[4] = self;
   v27 = brc_containerMetadataZoneID;
-  v53 = v27;
-  v56 = v69;
+  v52 = v27;
+  v55 = v68;
   v28 = changesCopy;
-  v54 = v28;
-  [v22 setRecordZoneFetchCompletionBlock:v52];
-  v40 = MEMORY[0x277D85DD0];
-  v41 = 3221225472;
-  v42 = __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke_2;
-  v43 = &unk_278502708;
+  v53 = v28;
+  [v22 setRecordZoneFetchCompletionBlock:v51];
+  v39 = MEMORY[0x277D85DD0];
+  v40 = 3221225472;
+  v41 = __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke_2;
+  v42 = &unk_278502708;
+  v48 = v64;
   v49 = v65;
-  v50 = v66;
-  v51 = v9;
-  v47 = v67;
+  v50 = v9;
+  v46 = v66;
   selfCopy = self;
   v29 = v27;
-  v45 = v29;
-  v48 = buf;
+  v44 = v29;
+  v47 = buf;
   v30 = v28;
-  v46 = v30;
-  [v22 setFetchRecordZoneChangesCompletionBlock:&v40];
+  v45 = v30;
+  [v22 setFetchRecordZoneChangesCompletionBlock:&v39];
   array = [MEMORY[0x277CBEB18] array];
   recordIDsForDesiredAssets = self->_recordIDsForDesiredAssets;
   self->_recordIDsForDesiredAssets = array;
 
-  v33 = [MEMORY[0x277CBEB18] arrayWithObjects:{@"infoPlist", 0, v40, v41, v42, v43, selfCopy}];
+  v33 = [MEMORY[0x277CBEB18] arrayWithObjects:{@"infoPlist", 0, v39, v40, v41, v42, selfCopy}];
   desiredKeysForDesiredAssets = self->_desiredKeysForDesiredAssets;
   self->_desiredKeysForDesiredAssets = v33;
 
@@ -304,39 +303,37 @@ void __98__BRCContainerMetadataSyncDownOperation__updateContainerMetadataFromRec
   [(_BRCOperation *)self addSubOperation:v22];
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(v67, 8);
-  _Block_object_dispose(v69, 8);
-
-  v39 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v66, 8);
+  _Block_object_dispose(v68, 8);
 }
 
 void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke(uint64_t a1, void *a2)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v57 = *(a1 + 56);
-  v58 = *(a1 + 72);
+  v56 = *(a1 + 56);
+  v57 = *(a1 + 72);
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
-  v50 = v3;
+  v49 = v3;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v40 = [v3 recordID];
-    v41 = [v3 allKeys];
-    v42 = [v3 recordChangeTag];
-    v43 = [v3 modifiedByDevice];
+    v39 = [v3 recordID];
+    v40 = [v3 allKeys];
+    v41 = [v3 recordChangeTag];
+    v42 = [v3 modifiedByDevice];
     *buf = 134219266;
-    v61 = v57;
-    v62 = 2112;
-    v63 = v40;
-    v64 = 2112;
-    v65 = v41;
-    v66 = 2112;
-    v67 = v42;
-    v68 = 2112;
-    v69 = v43;
-    v70 = 2112;
-    v71 = v4;
+    v60 = v56;
+    v61 = 2112;
+    v62 = v39;
+    v63 = 2112;
+    v64 = v40;
+    v65 = 2112;
+    v66 = v41;
+    v67 = 2112;
+    v68 = v42;
+    v69 = 2112;
+    v70 = v4;
     _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx got container-metadata changes for %@ keys:%@ changeTag:%@ modified:%@%@", buf, 0x3Eu);
   }
 
@@ -348,23 +345,23 @@ void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChang
     [v6 addEditingDevice:v7];
   }
 
-  v8 = [v50 recordID];
-  v49 = [v8 recordName];
+  v8 = [v49 recordID];
+  v48 = [v8 recordName];
 
-  v9 = v49;
-  if ([MEMORY[0x277CFAE60] validateContainerID:v49])
+  v9 = v48;
+  if ([MEMORY[0x277CFAE60] validateContainerID:v48])
   {
-    v48 = [objc_alloc(MEMORY[0x277CFAE60]) initWithAppLibraryName:v49];
-    v56 = 0;
+    v47 = [objc_alloc(MEMORY[0x277CFAE60]) initWithAppLibraryName:v48];
+    v55 = 0;
     v10 = [*(*(a1 + 32) + 256) zoneAppRetriever];
-    v11 = [v10 getOrCreateAppLibraryAndPrivateZonesIfNecessary:v48 appLibraryExists:&v56];
+    v11 = [v10 getOrCreateAppLibraryAndPrivateZonesIfNecessary:v47 appLibraryExists:&v55];
 
-    *(*(*(a1 + 48) + 8) + 24) = v56 ^ 1;
+    *(*(*(a1 + 48) + 8) + 24) = v55 ^ 1;
     if (!v11)
     {
 LABEL_21:
 
-      v9 = v49;
+      v9 = v48;
       goto LABEL_22;
     }
 
@@ -372,96 +369,96 @@ LABEL_21:
     v13 = [v11 appLibraryID];
     [v12 addObject:v13];
 
-    v14 = [v50 brc_containerMetadataPropertiesData];
-    v46 = v14;
+    v14 = [v49 brc_containerMetadataPropertiesData];
+    v45 = v14;
     if (v14)
     {
-      v55 = 0;
-      v47 = [MEMORY[0x277CCAC58] propertyListWithData:v14 options:0 format:0 error:{&v55, v14}];
-      v15 = v55;
+      v54 = 0;
+      v46 = [MEMORY[0x277CCAC58] propertyListWithData:v14 options:0 format:0 error:{&v54, v14}];
+      v15 = v54;
       if (!v15)
       {
-        v23 = brc_bread_crumbs();
-        v24 = brc_default_log();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+        v22 = brc_bread_crumbs();
+        v23 = brc_default_log();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412802;
-          v61 = v47;
-          v62 = 2112;
-          v63 = v48;
-          v64 = 2112;
-          v65 = v23;
-          _os_log_debug_impl(&dword_223E7A000, v24, OS_LOG_TYPE_DEBUG, "[DEBUG] received container-metadata properties plist %@ for %@%@", buf, 0x20u);
+          v60 = v46;
+          v61 = 2112;
+          v62 = v47;
+          v63 = 2112;
+          v64 = v22;
+          _os_log_debug_impl(&dword_223E7A000, v23, OS_LOG_TYPE_DEBUG, "[DEBUG] received container-metadata properties plist %@ for %@%@", buf, 0x20u);
         }
 
-        if (![MEMORY[0x277CFAE20] isDocumentScopePublicWithProperties:v47 mangledID:v48])
+        if (![MEMORY[0x277CFAE20] isDocumentScopePublicWithProperties:v46 mangledID:v47])
         {
           v19 = 1;
           goto LABEL_17;
         }
 
-        v53 = 0u;
-        v54 = 0u;
-        v51 = 0u;
         v52 = 0u;
-        v16 = [v50 brc_containerMetadataIconNames];
+        v53 = 0u;
+        v50 = 0u;
+        v51 = 0u;
+        v16 = [v49 brc_containerMetadataIconNames];
         v19 = 0;
-        v25 = [v16 countByEnumeratingWithState:&v51 objects:v59 count:16];
-        if (v25)
+        v24 = [v16 countByEnumeratingWithState:&v50 objects:v58 count:16];
+        if (v24)
         {
-          v26 = *v52;
+          v25 = *v51;
           do
           {
-            for (i = 0; i != v25; ++i)
+            for (i = 0; i != v24; ++i)
             {
-              if (*v52 != v26)
+              if (*v51 != v25)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v28 = *(*(&v51 + 1) + 8 * i);
-              v29 = [v11 containerMetadata];
-              v30 = [v29 hasIconWithName:v28];
+              v27 = *(*(&v50 + 1) + 8 * i);
+              v28 = [v11 containerMetadata];
+              v29 = [v28 hasIconWithName:v27];
 
-              if ((v30 & 1) == 0)
+              if ((v29 & 1) == 0)
               {
                 v19 = brc_bread_crumbs();
-                v31 = brc_default_log();
-                if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+                v30 = brc_default_log();
+                if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
                 {
-                  v34 = [v11 appLibraryID];
+                  v33 = [v11 appLibraryID];
                   *buf = 138412802;
-                  v61 = v28;
-                  v62 = 2112;
-                  v63 = v34;
-                  v64 = 2112;
-                  v65 = v19;
-                  _os_log_debug_impl(&dword_223E7A000, v31, OS_LOG_TYPE_DEBUG, "[DEBUG] we'll download icon %@ for container %@%@", buf, 0x20u);
+                  v60 = v27;
+                  v61 = 2112;
+                  v62 = v33;
+                  v63 = 2112;
+                  v64 = v19;
+                  _os_log_debug_impl(&dword_223E7A000, v30, OS_LOG_TYPE_DEBUG, "[DEBUG] we'll download icon %@ for container %@%@", buf, 0x20u);
                 }
 
-                v32 = *(*(a1 + 32) + 520);
-                v33 = BRContainerIconCKAssetKeyForName();
-                [v32 addObject:v33];
+                v31 = *(*(a1 + 32) + 520);
+                v32 = BRContainerIconCKAssetKeyForName();
+                [v31 addObject:v32];
 
                 LOBYTE(v19) = 1;
               }
             }
 
-            v25 = [v16 countByEnumeratingWithState:&v51 objects:v59 count:16];
+            v24 = [v16 countByEnumeratingWithState:&v50 objects:v58 count:16];
           }
 
-          while (v25);
+          while (v24);
 
           if (v19)
           {
-            v35 = *(*(a1 + 32) + 512);
-            v36 = [v50 recordID];
-            [v35 addObject:v36];
+            v34 = *(*(a1 + 32) + 512);
+            v35 = [v49 recordID];
+            [v34 addObject:v35];
 
-            v37 = *(*(a1 + 32) + 528);
-            v38 = [v50 etag];
-            v39 = [v50 recordID];
-            [v37 setObject:v38 forKey:v39];
+            v36 = *(*(a1 + 32) + 528);
+            v37 = [v49 etag];
+            v38 = [v49 recordID];
+            [v36 setObject:v37 forKey:v38];
 
 LABEL_20:
             goto LABEL_21;
@@ -473,18 +470,18 @@ LABEL_17:
           v21 = brc_default_log();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
-            v44 = [v50 recordID];
-            v45 = [v50 recordChangeTag];
+            v43 = [v49 recordID];
+            v44 = [v49 recordChangeTag];
             *buf = 138412802;
-            v61 = v44;
-            v62 = 2112;
-            v63 = v45;
-            v64 = 2112;
-            v65 = v20;
+            v60 = v43;
+            v61 = 2112;
+            v62 = v44;
+            v63 = 2112;
+            v64 = v20;
             _os_log_debug_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEBUG, "[DEBUG] updating container-metadata %@ at etag:%@ (no asset downloaded)%@", buf, 0x20u);
           }
 
-          [*(a1 + 32) _updateContainerMetadataFromRecord:v50 appLibrary:v11 stripIcons:v19];
+          [*(a1 + 32) _updateContainerMetadataFromRecord:v49 appLibrary:v11 stripIcons:v19];
           goto LABEL_20;
         }
 
@@ -499,11 +496,11 @@ LABEL_16:
       if (os_log_type_enabled(v18, 0x90u))
       {
         *buf = 138412802;
-        v61 = v49;
-        v62 = 2112;
-        v63 = v16;
-        v64 = 2112;
-        v65 = v17;
+        v60 = v48;
+        v61 = 2112;
+        v62 = v16;
+        v63 = 2112;
+        v64 = v17;
         _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] failed parsing container-metadata plist for container %@: %@%@", buf, 0x20u);
       }
     }
@@ -517,7 +514,7 @@ LABEL_16:
         __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke_cold_1();
       }
 
-      v47 = 0;
+      v46 = 0;
     }
 
     v19 = 1;
@@ -526,46 +523,45 @@ LABEL_16:
 
 LABEL_22:
 
-  __brc_leave_section(&v57);
-  v22 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(&v56);
 }
 
 void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke_18(uint64_t a1, void *a2, void *a3, void *a4, int a5, void *a6)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v11 = a2;
   v12 = a3;
   v13 = a4;
   v14 = a6;
   *(*(*(a1 + 56) + 8) + 24) = 1;
-  v31 = *(a1 + 72);
-  v32 = *(a1 + 88);
+  v30 = *(a1 + 72);
+  v31 = *(a1 + 88);
   v15 = brc_bread_crumbs();
   v16 = brc_default_log();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134219266;
-    v34 = v31;
+    v33 = v30;
     if (a5)
     {
-      v24 = "no";
+      v23 = "no";
     }
 
     else
     {
-      v24 = "yes";
+      v23 = "yes";
     }
 
-    v35 = 2112;
-    v36 = v12;
-    v37 = 2080;
-    v38 = v24;
-    v39 = 2112;
-    v40 = v13;
-    v41 = 2112;
-    v42 = v14;
-    v43 = 2112;
-    v44 = v15;
+    v34 = 2112;
+    v35 = v12;
+    v36 = 2080;
+    v37 = v23;
+    v38 = 2112;
+    v39 = v13;
+    v40 = 2112;
+    v41 = v14;
+    v42 = 2112;
+    v43 = v15;
     _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx container-metadata receieved server change token %@, caught-up:%s client change token %@ error:%@%@", buf, 0x3Eu);
   }
 
@@ -573,41 +569,33 @@ void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChang
   v17 = [v14 brc_cloudKitErrorForZone:*(a1 + 40)];
   v18 = *(a1 + 32);
   v19 = *(v18 + 256);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke_21;
-  v25[3] = &unk_2785026B8;
-  v30 = *(a1 + 64);
-  v25[4] = v18;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke_21;
+  v24[3] = &unk_2785026B8;
+  v29 = *(a1 + 64);
+  v24[4] = v18;
   v20 = v13;
-  v26 = v20;
-  v29 = *(a1 + 48);
+  v25 = v20;
+  v28 = *(a1 + 48);
   v21 = v12;
-  v27 = v21;
+  v26 = v21;
   v22 = v17;
-  v28 = v22;
-  [v19 performAsyncOnClientReadWriteDatabaseWorkloop:v25];
+  v27 = v22;
+  [v19 performAsyncOnClientReadWriteDatabaseWorkloop:v24];
 
-  __brc_leave_section(&v31);
-  v23 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(&v30);
 }
 
 void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke_21(uint64_t a1, void *a2)
 {
-  v7 = a2;
+  v3 = a2;
   if (*(*(*(a1 + 72) + 8) + 24) == 1)
   {
     [*(*(a1 + 32) + 544) recievedNewNonExistingAppLibraryCallback];
   }
 
-  v3 = [*(a1 + 40) bytes];
-  if (v3)
-  {
-    v4 = *v3;
-  }
-
-  v5 = *(a1 + 56);
-  v6 = *(a1 + 48);
+  [*(a1 + 40) bytes];
   (*(*(a1 + 64) + 16))();
 }
 
@@ -620,7 +608,7 @@ void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChang
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke_2_cold_1(&v8);
+    __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke_2_cold_1();
   }
 
   if (!v3 && *(a1 + 96) == 1 && (*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
@@ -640,52 +628,52 @@ void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChang
 
 - (void)performAfterFetchingAssetContents:(id)contents
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   contentsCopy = contents;
   v5 = [objc_alloc(MEMORY[0x277CBC3E0]) initWithRecordIDs:self->_recordIDsForDesiredAssets];
   [v5 setRecordIDsToVersionETags:self->_recordIDsToVersionETagsForDesiredAssets];
   [v5 setDesiredKeys:self->_desiredKeysForDesiredAssets];
   operationID = [v5 operationID];
-  v27 = 0uLL;
-  v28 = 0;
-  __brc_create_section(0, "[BRCContainerMetadataSyncDownOperation performAfterFetchingAssetContents:]", 256, 0, &v27);
+  v26 = 0uLL;
+  v27 = 0;
+  __brc_create_section(0, "[BRCContainerMetadataSyncDownOperation performAfterFetchingAssetContents:]", 256, 0, &v26);
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     recordIDsForDesiredAssets = self->_recordIDsForDesiredAssets;
     *buf = 134218754;
-    *&buf[4] = v27;
+    *&buf[4] = v26;
     *&buf[12] = 2112;
     *&buf[14] = v5;
     *&buf[22] = 2112;
-    v30 = recordIDsForDesiredAssets;
-    v31 = 2112;
-    v32 = v7;
+    v29 = recordIDsForDesiredAssets;
+    v30 = 2112;
+    v31 = v7;
     _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx adding sub-operation to fetch asset contents: %@ for records: %@%@", buf, 0x2Au);
   }
 
-  *&buf[16] = v28;
-  *buf = v27;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingAssetContents___block_invoke;
-  v24[3] = &unk_278502730;
+  *&buf[16] = v27;
+  *buf = v26;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingAssetContents___block_invoke;
+  v23[3] = &unk_278502730;
+  v24 = v26;
   v25 = v27;
-  v26 = v28;
-  v24[4] = self;
-  [v5 setPerRecordCompletionBlock:v24];
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingAssetContents___block_invoke_31;
-  v19 = &unk_278502758;
-  v22 = *buf;
-  v23 = *&buf[16];
-  v20 = operationID;
-  v21 = contentsCopy;
+  v23[4] = self;
+  [v5 setPerRecordCompletionBlock:v23];
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingAssetContents___block_invoke_31;
+  v18 = &unk_278502758;
+  v21 = *buf;
+  v22 = *&buf[16];
+  v19 = operationID;
+  v20 = contentsCopy;
   v9 = contentsCopy;
   v10 = operationID;
-  [v5 setFetchRecordsCompletionBlock:&v16];
+  [v5 setFetchRecordsCompletionBlock:&v15];
   v11 = self->_recordIDsForDesiredAssets;
   self->_recordIDsForDesiredAssets = 0;
 
@@ -695,30 +683,29 @@ void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChang
   recordIDsToVersionETagsForDesiredAssets = self->_recordIDsToVersionETagsForDesiredAssets;
   self->_recordIDsToVersionETagsForDesiredAssets = 0;
 
-  [(_BRCOperation *)self addSubOperation:v5, v16, v17, v18, v19];
-  v14 = *MEMORY[0x277D85DE8];
+  [(_BRCOperation *)self addSubOperation:v5, v15, v16, v17, v18];
 }
 
 void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingAssetContents___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v33 = *(a1 + 40);
-  v34 = *(a1 + 56);
+  v32 = *(a1 + 40);
+  v33 = *(a1 + 56);
   v10 = brc_bread_crumbs();
   v11 = brc_default_log();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218754;
-    v36 = v33;
-    v37 = 2112;
-    v38 = v8;
-    v39 = 2112;
-    v40 = v9;
-    v41 = 2112;
-    v42 = v10;
+    v35 = v32;
+    v36 = 2112;
+    v37 = v8;
+    v38 = 2112;
+    v39 = v9;
+    v40 = 2112;
+    v41 = v10;
     _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx per record callback: %@ - %@%@", buf, 0x2Au);
   }
 
@@ -757,14 +744,14 @@ void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingAssetConten
       v27 = brc_default_log();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
-        v31 = [v7 recordID];
-        v32 = [v7 recordChangeTag];
+        v30 = [v7 recordID];
+        v31 = [v7 recordChangeTag];
         *buf = 138412802;
-        v36 = v31;
-        v37 = 2112;
-        v38 = v32;
-        v39 = 2112;
-        v40 = v26;
+        v35 = v30;
+        v36 = 2112;
+        v37 = v31;
+        v38 = 2112;
+        v39 = v26;
         _os_log_debug_impl(&dword_223E7A000, v27, OS_LOG_TYPE_DEBUG, "[DEBUG] updating container metadata %@ at etag:%@ (after asset download)%@", buf, 0x20u);
       }
 
@@ -782,29 +769,27 @@ void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingAssetConten
     }
   }
 
-  __brc_leave_section(&v33);
-
-  v30 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(&v32);
 }
 
 void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingAssetContents___block_invoke_31(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v14 = *(a1 + 48);
-  v15 = *(a1 + 64);
+  v13 = *(a1 + 48);
+  v14 = *(a1 + 64);
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v13 = *(a1 + 32);
+    v12 = *(a1 + 32);
     *buf = 134218498;
-    v17 = v14;
-    v18 = 2112;
-    v19 = v13;
-    v20 = 2112;
-    v21 = v7;
+    v16 = v13;
+    v17 = 2112;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v7;
     _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx finished %@%@", buf, 0x20u);
   }
 
@@ -814,18 +799,16 @@ void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingAssetConten
   {
     v11 = [v5 count];
     *buf = 134218498;
-    v17 = v11;
-    v18 = 2112;
-    v19 = v6;
-    v20 = 2112;
-    v21 = v9;
+    v16 = v11;
+    v17 = 2112;
+    v18 = v6;
+    v19 = 2112;
+    v20 = v9;
     _os_log_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEFAULT, "[NOTICE] fetched %lu containers metadata from the cloud - %@%@", buf, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  __brc_leave_section(&v14);
-
-  v12 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(&v13);
 }
 
 - (BOOL)shouldRetryForError:(id)error
@@ -878,29 +861,29 @@ void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingAssetConten
 
 void __83__BRCContainerMetadataSyncDownOperation__completedWithServerChangeToken_requestID___block_invoke(void *a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v20 = a2;
+  v32 = *MEMORY[0x277D85DE8];
+  v19 = a2;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v3 = *(a1[4] + 536);
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v31 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       v7 = 0;
       do
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * v7);
+        v8 = *(*(&v21 + 1) + 8 * v7);
         v9 = objc_autoreleasePoolPush();
         v10 = [*(a1[4] + 256) zoneAppRetriever];
         v11 = [v10 appLibraryByID:v8];
@@ -918,42 +901,41 @@ void __83__BRCContainerMetadataSyncDownOperation__completedWithServerChangeToken
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v21 objects:v31 count:16];
     }
 
     while (v5);
   }
 
   v14 = [*(a1[4] + 256) zoneAppRetriever];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __83__BRCContainerMetadataSyncDownOperation__completedWithServerChangeToken_requestID___block_invoke_2;
-  v21[3] = &__block_descriptor_40_e23_B16__0__BRCAppLibrary_8l;
-  v21[4] = a1[7];
-  [v14 enumerateAppLibraries:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __83__BRCContainerMetadataSyncDownOperation__completedWithServerChangeToken_requestID___block_invoke_2;
+  v20[3] = &__block_descriptor_40_e23_B16__0__BRCAppLibrary_8l;
+  v20[4] = a1[7];
+  [v14 enumerateAppLibraries:v20];
 
   v15 = brc_bread_crumbs();
   v16 = brc_default_log();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v18 = a1[5];
-    v19 = a1[7];
+    v17 = a1[5];
+    v18 = a1[7];
     *buf = 138412802;
-    v27 = v18;
-    v28 = 2048;
-    v29 = v19;
-    v30 = 2112;
-    v31 = v15;
+    v26 = v17;
+    v27 = 2048;
+    v28 = v18;
+    v29 = 2112;
+    v30 = v15;
     _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] remembering container-metadata server change token %@ requestID %llu%@", buf, 0x20u);
   }
 
   [*(a1[4] + 504) updateWithServerChangeToken:a1[5] requestID:a1[7]];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __83__BRCContainerMetadataSyncDownOperation__completedWithServerChangeToken_requestID___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 containerMetadataSyncRequestID];
   if (v4)
@@ -978,22 +960,21 @@ uint64_t __83__BRCContainerMetadataSyncDownOperation__completedWithServerChangeT
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = *(a1 + 32);
-        v13 = 138413058;
-        v14 = v3;
-        v15 = 2048;
-        v16 = v5;
-        v17 = 2048;
-        v18 = v10;
-        v19 = 2112;
-        v20 = v8;
-        _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] Sync up of app library container metdata failed for %@ because requestIDs differ %lld vs %lld%@", &v13, 0x2Au);
+        v12 = 138413058;
+        v13 = v3;
+        v14 = 2048;
+        v15 = v5;
+        v16 = 2048;
+        v17 = v10;
+        v18 = 2112;
+        v19 = v8;
+        _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] Sync up of app library container metdata failed for %@ because requestIDs differ %lld vs %lld%@", &v12, 0x2Au);
       }
     }
 
     [v3 setContainerMetadataSyncRequestID:0];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1012,11 +993,22 @@ uint64_t __83__BRCContainerMetadataSyncDownOperation__completedWithServerChangeT
 
 - (void)main
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *self;
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v2, v3, "[DEBUG] ┏%llx Sync: syncing down container metadata%@");
-  v4 = *MEMORY[0x277D85DE8];
+  memset(v6, 0, sizeof(v6));
+  __brc_create_section(0, "[BRCContainerMetadataSyncDownOperation main]", 366, 0, v6);
+  v3 = brc_bread_crumbs();
+  v4 = brc_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCContainerMetadataSyncDownOperation main];
+  }
+
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __45__BRCContainerMetadataSyncDownOperation_main__block_invoke;
+  v5[3] = &unk_2784FF540;
+  v5[4] = self;
+  [(BRCContainerMetadataSyncDownOperation *)self performAfterCreatingZoneIfNeeded:v5];
+  __brc_leave_section(v6);
 }
 
 uint64_t __45__BRCContainerMetadataSyncDownOperation_main__block_invoke(uint64_t a1, uint64_t a2)
@@ -1095,45 +1087,11 @@ LABEL_3:
 LABEL_6:
 }
 
-void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] containerID %@ had no properties plist%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingRecordChanges___block_invoke_2_cold_1(uint64_t *a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v2, v3, "[DEBUG] ┳%llx finished operation%@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingAssetContents___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] got asset contents for %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 void __75__BRCContainerMetadataSyncDownOperation_performAfterFetchingAssetContents___block_invoke_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] unknown container %@%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void __83__BRCContainerMetadataSyncDownOperation__completedWithServerChangeToken_requestID___block_invoke_2_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Sync up of app library container metdata succeeded for %@%@");
   v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1();
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] unknown container %@%@", v1, 0x16u);
 }
 
 @end

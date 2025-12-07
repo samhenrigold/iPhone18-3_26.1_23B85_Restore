@@ -388,24 +388,24 @@ LABEL_33:
   if (self->_linkTap == recognizer)
   {
     name = [gestureRecognizerCopy name];
-    if ([name isEqualToString:0x1EFBA76B0])
+    if (objc_msgSend_isEqualToString_(name))
     {
-      v8 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
       name2 = [v7 name];
-      v8 = [name2 isEqualToString:0x1EFBA76D0];
+      isEqualToString = objc_msgSend_isEqualToString_(name2);
     }
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (void)_gestureRecognizerFailed:(id)failed

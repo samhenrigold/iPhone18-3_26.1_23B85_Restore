@@ -19,7 +19,7 @@
 {
   reasonCopy = reason;
 
-  sub_1C5D95C90();
+  sub_1C5D95C90(reasonCopy);
 }
 
 @end

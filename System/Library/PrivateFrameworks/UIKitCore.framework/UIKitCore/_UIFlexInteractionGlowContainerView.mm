@@ -20,7 +20,7 @@
   swift_unknownObjectRetain();
   sub_18A4A7DE8();
   swift_unknownObjectRelease();
-  __swift_destroy_boxed_opaque_existential_0Tm(&v4);
+  __swift_destroy_boxed_opaque_existential_0Tm(v4);
 }
 
 @end

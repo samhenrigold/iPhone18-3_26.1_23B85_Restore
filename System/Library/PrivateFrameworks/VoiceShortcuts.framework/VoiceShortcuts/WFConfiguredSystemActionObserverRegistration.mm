@@ -19,7 +19,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v8 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA300]];
   if (v8)
@@ -44,7 +44,7 @@
   v10 = v9;
 
   v11 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
-  v26 = changeCopy;
+  v25 = changeCopy;
   if (v11)
   {
     objc_opt_class();
@@ -76,7 +76,7 @@
     v14 = 0;
   }
 
-  v25 = v10;
+  v24 = v10;
   if (v13)
   {
     v15 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v13 error:{0, v10, changeCopy}];
@@ -91,45 +91,43 @@
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v33 = "[WFConfiguredSystemActionObserverRegistration observeValueForKeyPath:ofObject:change:context:]";
-    v34 = 2112;
-    v35 = v14;
-    v36 = 2112;
-    v37 = v15;
+    v32 = "[WFConfiguredSystemActionObserverRegistration observeValueForKeyPath:ofObject:change:context:]";
+    v33 = 2112;
+    v34 = v14;
+    v35 = 2112;
+    v36 = v15;
     _os_log_impl(&dword_23103C000, v16, OS_LOG_TYPE_INFO, "%s Configured system action changed from: %@ to %@.", buf, 0x20u);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   observers = [(WFConfiguredSystemActionObserverRegistration *)self observers];
-  v18 = [observers countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v18 = [observers countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v28;
+    v20 = *v27;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v28 != v20)
+        if (*v27 != v20)
         {
           objc_enumerationMutation(observers);
         }
 
-        v22 = *(*(&v27 + 1) + 8 * i);
+        v22 = *(*(&v26 + 1) + 8 * i);
         actionType = [(WFConfiguredSystemActionObserverRegistration *)self actionType];
         [v22 configuredSystemActionChangedForType:actionType oldAction:v14 newAction:v15];
       }
 
-      v19 = [observers countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v19 = [observers countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v19);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (WFConfiguredSystemActionObserverRegistration)initWithUserDefaults:(id)defaults userDefaultsKey:(id)key actionType:(id)type

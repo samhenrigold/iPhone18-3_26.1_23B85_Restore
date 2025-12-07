@@ -77,20 +77,20 @@
 
 void __94__STAppRatingChangedUserNotificationContext_customizeNotificationContent_withCompletionBlock___block_invoke(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = [*(a1 + 40) regionRatingLimit];
-  v15[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   v5 = [v2 localizedUserNotificationStringForKey:@"AppRatingChangedNotificationTitleFormat" arguments:v4];
   [*(a1 + 32) setTitle:v5];
 
-  v14 = 0;
-  sysctlbyname("hw.machine", 0, &v14, 0, 0);
-  if (v14)
+  v13 = 0;
+  sysctlbyname("hw.machine", 0, &v13, 0, 0);
+  if (v13)
   {
     v6 = [MEMORY[0x1E695DF88] dataWithLength:?];
-    sysctlbyname("hw.machine", [v6 mutableBytes], &v14, 0, 0);
+    sysctlbyname("hw.machine", [v6 mutableBytes], &v13, 0, 0);
     v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{objc_msgSend(v6, "bytes")}];
   }
 
@@ -124,8 +124,6 @@ void __94__STAppRatingChangedUserNotificationContext_customizeNotificationConten
   [*(a1 + 32) setShouldSuppressScreenLightUp:1];
   [*(a1 + 32) setCategoryIdentifier:@"com.apple.screentime.enabled"];
   (*(*(a1 + 48) + 16))();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

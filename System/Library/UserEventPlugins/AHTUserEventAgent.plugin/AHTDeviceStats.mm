@@ -8,6 +8,9 @@
 - (int)getAuthStatus:(id *)status withAGMDecisionEnum:(unsigned int)enum;
 - (int)getFirstInputReceived:(BOOL *)received;
 - (unsigned)checkChildrenForMatches:(unsigned int)matches matchingFunc:(id)func depth:(int)depth;
+- (unsigned)copyEntryWithClass:(id)class withParentName:(id)name depth:(int)depth;
+- (unsigned)copyEntryWithName:(id)name withParentName:(id)parentName depth:(int)depth;
+- (unsigned)copyEntryWithParentName:(id)name matchingFunc:(id)func depth:(int)depth;
 - (unsigned)getAGMEntry;
 - (void)agmStackChoiceStatsCollection;
 - (void)collectRepairHistoryInvalidationStat;
@@ -192,6 +195,38 @@ LABEL_3:
   criticalErrorTimer = self->_criticalErrorTimer;
   v6 = dispatch_time(0, 1000000000 * timer);
   dispatch_source_set_timer(criticalErrorTimer, v6, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+}
+
+- (unsigned)copyEntryWithName:(id)name withParentName:(id)parentName depth:(int)depth
+{
+  v5 = *&depth;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_3280;
+  v12[3] = &unk_C440;
+  nameCopy = name;
+  v8 = nameCopy;
+  parentNameCopy = parentName;
+  v10 = objc_retainBlock(v12);
+  LODWORD(v5) = [(AHTDeviceStats *)self copyEntryWithParentName:parentNameCopy matchingFunc:v10 depth:v5];
+
+  return v5;
+}
+
+- (unsigned)copyEntryWithClass:(id)class withParentName:(id)name depth:(int)depth
+{
+  v5 = *&depth;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_66A0;
+  v12[3] = &unk_C440;
+  classCopy = class;
+  v8 = classCopy;
+  nameCopy = name;
+  v10 = objc_retainBlock(v12);
+  LODWORD(v5) = [(AHTDeviceStats *)self copyEntryWithParentName:nameCopy matchingFunc:v10 depth:v5];
+
+  return v5;
 }
 
 - (void)dailyStatsCollection
@@ -664,7 +699,7 @@ LABEL_7:
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v19 = "[AHTDeviceStats startDailyCollectionTimer]";
+    v17 = "[AHTDeviceStats startDailyCollectionTimer]";
     _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -680,19 +715,17 @@ LABEL_7:
       v6 = self->_dailyCollectionTimer;
       selfCopy = self;
       dispatch_set_context(v6, selfCopy);
-      v8 = self->_dailyCollectionTimer;
       sub_4514();
-      v14 = 3221225472;
-      v15 = sub_2E70;
-      v16 = &unk_C418;
-      v17 = selfCopy;
-      dispatch_source_set_event_handler(v9, handler);
-      v10 = self->_dailyCollectionTimer;
+      v12 = 3221225472;
+      v13 = sub_2E70;
+      v14 = &unk_C418;
+      v15 = selfCopy;
+      dispatch_source_set_event_handler(v8, handler);
       sub_44EC();
-      v12[2] = sub_2E78;
-      v12[3] = &unk_C418;
-      v12[4] = selfCopy;
-      dispatch_source_set_cancel_handler(v11, v12);
+      v10[2] = sub_2E78;
+      v10[3] = &unk_C418;
+      v10[4] = selfCopy;
+      dispatch_source_set_cancel_handler(v9, v10);
       [(AHTDeviceStats *)selfCopy restartDailyCollectionTimer:0];
       dispatch_resume(self->_dailyCollectionTimer);
     }
@@ -704,7 +737,7 @@ LABEL_7:
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[AHTDeviceStats startCriticalErrorCollectionTimer]";
+    v15 = "[AHTDeviceStats startCriticalErrorCollectionTimer]";
     _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -717,23 +750,68 @@ LABEL_7:
       criticalErrorTimer = self->_criticalErrorTimer;
       self->_criticalErrorTimer = v4;
 
-      v6 = self->_criticalErrorTimer;
       sub_4514();
-      v12 = 3221225472;
-      v13 = sub_2F24;
-      v14 = &unk_C418;
+      v10 = 3221225472;
+      v11 = sub_2F24;
+      v12 = &unk_C418;
       selfCopy = self;
-      dispatch_source_set_event_handler(v7, handler);
-      v8 = self->_criticalErrorTimer;
+      dispatch_source_set_event_handler(v6, handler);
       sub_44EC();
-      v10[2] = sub_2F2C;
-      v10[3] = &unk_C418;
-      v10[4] = self;
-      dispatch_source_set_cancel_handler(v9, v10);
+      v8[2] = sub_2F2C;
+      v8[3] = &unk_C418;
+      v8[4] = self;
+      dispatch_source_set_cancel_handler(v7, v8);
       [(AHTDeviceStats *)self restartCriticalErrorCollectionTimer:0];
       dispatch_resume(self->_criticalErrorTimer);
     }
   }
+}
+
+- (unsigned)copyEntryWithParentName:(id)name matchingFunc:(id)func depth:(int)depth
+{
+  v5 = *&depth;
+  funcCopy = func;
+  existing = 0;
+  v9 = IOServiceNameMatching([name UTF8String]);
+  v10 = v9;
+  if (v9 && !IOServiceGetMatchingServices(0, v9, &existing))
+  {
+    if (!existing)
+    {
+      v13 = 0;
+      goto LABEL_11;
+    }
+
+    if (IOIteratorIsValid(existing))
+    {
+      while (1)
+      {
+        v11 = IOIteratorNext(existing);
+        if (!v11)
+        {
+          break;
+        }
+
+        v12 = [(AHTDeviceStats *)self checkChildrenForMatches:v11 matchingFunc:funcCopy depth:v5];
+        if (v12)
+        {
+          v13 = v12;
+          goto LABEL_9;
+        }
+      }
+    }
+  }
+
+  v13 = 0;
+LABEL_9:
+  if (existing)
+  {
+    IOObjectRelease(existing);
+  }
+
+LABEL_11:
+
+  return v13;
 }
 
 - (unsigned)checkChildrenForMatches:(unsigned int)matches matchingFunc:(id)func depth:(int)depth
@@ -810,7 +888,7 @@ LABEL_17:
     _os_log_impl(v5, v6, v7, v8, v9, v10);
   }
 
-  v11 = [(AHTDeviceStats *)self copyEntryWithClass:@"AppleHIDTransportBootloader" withParentName:@"multi-touch" depth:2, *v25];
+  v11 = [(AHTDeviceStats *)self copyEntryWithClass:@"AppleHIDTransportBootloader" withParentName:@"multi-touch" depth:2, *v25, *&v25[8]];
   if (!v11)
   {
     return 0;

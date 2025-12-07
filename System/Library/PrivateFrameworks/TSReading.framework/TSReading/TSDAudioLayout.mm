@@ -44,7 +44,7 @@
   geometry = [(TSDAbstractLayout *)self geometry];
   if (geometry)
   {
-    [(TSDLayoutGeometry *)geometry fullTransform];
+    objc_msgSend_fullTransform(geometry);
     if (!rootCopy)
     {
       goto LABEL_10;
@@ -65,7 +65,7 @@
     parent = [(TSDAbstractLayout *)self parent];
     if (parent)
     {
-      [(TSDAbstractLayout *)parent transformInRoot];
+      objc_msgSend_transformInRoot(parent);
     }
 
     else

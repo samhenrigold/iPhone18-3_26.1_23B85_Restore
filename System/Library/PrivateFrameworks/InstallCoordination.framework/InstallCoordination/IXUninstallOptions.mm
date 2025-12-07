@@ -78,7 +78,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   if (self == equalCopy)
   {
@@ -97,12 +97,12 @@
         v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 136315394;
-          v20 = "[IXUninstallOptions isEqual:]";
-          v21 = 2080;
-          v22 = "requestUserConfirmation";
+          v18 = 136315394;
+          v19 = "[IXUninstallOptions isEqual:]";
+          v20 = 2080;
+          v21 = "requestUserConfirmation";
 LABEL_32:
-          _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Property %s did not match", &v19, 0x16u);
+          _os_log_impl(&dword_1DA47A000, v7, OS_LOG_TYPE_DEFAULT, "%s: Property %s did not match", &v18, 0x16u);
         }
 
 LABEL_33:
@@ -122,10 +122,10 @@ LABEL_34:
           v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
           if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = 136315394;
-            v20 = "[IXUninstallOptions isEqual:]";
-            v21 = 2080;
-            v22 = "showArchiveOption";
+            v18 = 136315394;
+            v19 = "[IXUninstallOptions isEqual:]";
+            v20 = 2080;
+            v21 = "showArchiveOption";
             goto LABEL_32;
           }
 
@@ -138,10 +138,10 @@ LABEL_34:
           v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
           if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = 136315394;
-            v20 = "[IXUninstallOptions isEqual:]";
-            v21 = 2080;
-            v22 = "showDemotionOption";
+            v18 = 136315394;
+            v19 = "[IXUninstallOptions isEqual:]";
+            v20 = 2080;
+            v21 = "showDemotionOption";
             goto LABEL_32;
           }
 
@@ -170,10 +170,10 @@ LABEL_34:
                 v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
                 if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
                 {
-                  v19 = 136315394;
-                  v20 = "[IXUninstallOptions isEqual:]";
-                  v21 = 2080;
-                  v22 = "ignoreAppProtection";
+                  v18 = 136315394;
+                  v19 = "[IXUninstallOptions isEqual:]";
+                  v20 = 2080;
+                  v21 = "ignoreAppProtection";
                   goto LABEL_32;
                 }
               }
@@ -183,10 +183,10 @@ LABEL_34:
                 v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
                 if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
                 {
-                  v19 = 136315394;
-                  v20 = "[IXUninstallOptions isEqual:]";
-                  v21 = 2080;
-                  v22 = "ignoreRestrictions";
+                  v18 = 136315394;
+                  v19 = "[IXUninstallOptions isEqual:]";
+                  v20 = 2080;
+                  v21 = "ignoreRestrictions";
                   goto LABEL_32;
                 }
               }
@@ -197,10 +197,10 @@ LABEL_34:
               v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
               if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
               {
-                v19 = 136315394;
-                v20 = "[IXUninstallOptions isEqual:]";
-                v21 = 2080;
-                v22 = "ignoreRemovability";
+                v18 = 136315394;
+                v19 = "[IXUninstallOptions isEqual:]";
+                v20 = 2080;
+                v21 = "ignoreRemovability";
                 goto LABEL_32;
               }
             }
@@ -211,10 +211,10 @@ LABEL_34:
             v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
             if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
             {
-              v19 = 136315394;
-              v20 = "[IXUninstallOptions isEqual:]";
-              v21 = 2080;
-              v22 = "systemAppNotAllowed";
+              v18 = 136315394;
+              v19 = "[IXUninstallOptions isEqual:]";
+              v20 = 2080;
+              v21 = "systemAppNotAllowed";
               goto LABEL_32;
             }
           }
@@ -238,10 +238,10 @@ LABEL_34:
         }
       }
 
-      v19 = 136315394;
-      v20 = "[IXUninstallOptions isEqual:]";
-      v21 = 2080;
-      v22 = "waitForDeletion";
+      v18 = 136315394;
+      v19 = "[IXUninstallOptions isEqual:]";
+      v20 = 2080;
+      v21 = "waitForDeletion";
       goto LABEL_32;
     }
 
@@ -250,7 +250,6 @@ LABEL_34:
 
 LABEL_35:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

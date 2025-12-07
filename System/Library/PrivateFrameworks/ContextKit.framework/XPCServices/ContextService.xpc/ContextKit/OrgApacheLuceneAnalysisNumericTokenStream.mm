@@ -45,7 +45,7 @@
     JreThrowNullPointerException();
   }
 
-  v5 = OrgApacheLuceneUtilNumericUtils_doubleToSortableLongWithDouble_(double);
+  v5 = OrgApacheLuceneUtilNumericUtils_doubleToSortableLongWithDouble_(self, a2, double);
   self->valSize_ = 64;
   [(OrgApacheLuceneAnalysisNumericTokenStream_NumericTermAttribute *)numericAtt init__WithLong:v5 withInt:64 withInt:self->precisionStep_ withInt:-self->precisionStep_];
   return self;
@@ -59,7 +59,7 @@
     JreThrowNullPointerException();
   }
 
-  v5 = OrgApacheLuceneUtilNumericUtils_floatToSortableIntWithFloat_(float);
+  v5 = OrgApacheLuceneUtilNumericUtils_floatToSortableIntWithFloat_(self, a2, float);
   self->valSize_ = 32;
   [(OrgApacheLuceneAnalysisNumericTokenStream_NumericTermAttribute *)numericAtt init__WithLong:v5 withInt:32 withInt:self->precisionStep_ withInt:-self->precisionStep_];
   return self;
@@ -133,10 +133,9 @@ LABEL_8:
     JreThrowNullPointerException();
   }
 
-  precisionStep = self->precisionStep_;
   [(OrgApacheLuceneAnalysisNumericTokenStream_NumericTermAttribute *)numericAtt getValueSize];
   [(OrgApacheLuceneAnalysisNumericTokenStream_NumericTermAttribute *)self->numericAtt_ getShift];
-  return JreStrcat("$$I$I$IC", v6, v7, v8, v9, v10, v11, v12, v3);
+  return JreStrcat("$$I$I$IC", v5, v6, v7, v8, v9, v10, v11, v3);
 }
 
 - (void)dealloc

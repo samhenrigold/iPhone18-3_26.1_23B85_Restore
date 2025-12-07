@@ -4,8 +4,11 @@
 - (int)checkFilesAndFoldersAccess:(id)access shouldPrompt:(BOOL)prompt;
 - (int)checkTetheringAccess:(id)access shouldPrompt:(BOOL)prompt;
 - (void)addRemoteManagerConnection:(id)connection;
+- (void)addSelectorToInterface:(id)interface selectorString:(id)string origin:(BOOL)origin;
 - (void)dealloc;
 - (void)removeRemoteManagerConnectionWithProcessIdentifier:(int)identifier;
+- (void)requestContentsAuthorizationStatusShouldPrompt:(BOOL)prompt withReply:(id)reply;
+- (void)requestControlAuthorizationStatusShouldPrompt:(BOOL)prompt withReply:(id)reply;
 - (void)requestGoodNewsStatusWithReply:(id)reply;
 - (void)resetContentsAuthorizationStatusWithReply:(id)reply;
 - (void)resetControlAuthorizationStatusWithReply:(id)reply;
@@ -177,6 +180,20 @@ id __50__ICRemotePrefManager_addRemoteManagerConnection___block_invoke(id result
   os_unfair_lock_unlock(&self->_remoteManagerConnectionsLock);
 }
 
+- (void)addSelectorToInterface:(id)interface selectorString:(id)string origin:(BOOL)origin
+{
+  originCopy = origin;
+  if (addSelectorToInterface_selectorString_origin__onceToken != -1)
+  {
+    [ICRemotePrefManager addSelectorToInterface:selectorString:origin:];
+  }
+
+  v8 = addSelectorToInterface_selectorString_origin__incomingClasses;
+  v9 = NSSelectorFromString(string);
+
+  [interface setClasses:v8 forSelector:v9 argumentIndex:0 ofReply:originCopy];
+}
+
 void __68__ICRemotePrefManager_addSelectorToInterface_selectorString_origin___block_invoke(id a1)
 {
   v11 = [NSSet alloc];
@@ -270,7 +287,7 @@ LABEL_2:
     memset(&buf, 0, sizeof(buf));
     if (access)
     {
-      [access auditToken];
+      objc_msgSend_auditToken(access);
     }
 
     token = buf;
@@ -284,7 +301,7 @@ LABEL_2:
     tcc_service_singleton_for_name();
     if (access)
     {
-      [access auditToken];
+      objc_msgSend_auditToken(access);
     }
 
     else
@@ -403,7 +420,7 @@ LABEL_47:
   memset(&buf, 0, sizeof(buf));
   if (access)
   {
-    [access auditToken];
+    objc_msgSend_auditToken(access);
   }
 
   token = buf;
@@ -708,79 +725,107 @@ LABEL_89:
   return v55;
 }
 
-void __63__ICRemotePrefManager_checkFilesAndFoldersAccess_shouldPrompt___block_invoke(uint64_t a1)
+void __63__ICRemotePrefManager_checkFilesAndFoldersAccess_shouldPrompt___block_invoke(uint64_t a1, uint64_t a2)
 {
   *(*(*(a1 + 32) + 8) + 24) = tcc_authorization_record_get_authorization_right();
   __ICOSLogCreate();
-  v2 = @"☀️ TCC";
+  v3 = @"☀️ TCC";
   if ([@"☀️ TCC" length] >= 0x15)
   {
-    v2 = [objc_msgSend(@"☀️ TCC" substringWithRange:{0, 18), "stringByAppendingString:", @".."}];
+    v3 = [objc_msgSend(@"☀️ TCC" substringWithRange:{0, 18), "stringByAppendingString:", @".."}];
   }
 
-  v3 = [NSString stringWithFormat:@"(check) Authorization Right: %llu", *(*(*(a1 + 32) + 8) + 24)];
-  v4 = _gICOSLog;
+  v4 = [NSString stringWithFormat:@"(check) Authorization Right: %llu", *(*(*(a1 + 32) + 8) + 24)];
+  v5 = _gICOSLog;
   if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v6 = [(__CFString *)v2 UTF8String];
-    v7 = 2114;
-    v8 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    v7 = [(__CFString *)v3 UTF8String];
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 }
 
-void __63__ICRemotePrefManager_checkFilesAndFoldersAccess_shouldPrompt___block_invoke_89(uint64_t a1)
+void __63__ICRemotePrefManager_checkFilesAndFoldersAccess_shouldPrompt___block_invoke_89(uint64_t a1, uint64_t a2)
 {
   authorization_right = tcc_authorization_record_get_authorization_right();
   if (authorization_right == 4 || authorization_right == 2)
   {
     __ICOSLogCreate();
-    v3 = @"☀️ TCC";
+    v4 = @"☀️ TCC";
     if ([@"☀️ TCC" length] >= 0x15)
     {
-      v3 = [objc_msgSend(@"☀️ TCC" substringWithRange:{0, 18), "stringByAppendingString:", @".."}];
+      v4 = [objc_msgSend(@"☀️ TCC" substringWithRange:{0, 18), "stringByAppendingString:", @".."}];
     }
 
-    v4 = [NSString stringWithFormat:@"(prompt) Granted %@ access to *contents* on external device", *(a1 + 32)];
-    v5 = _gICOSLog;
-    v6 = os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT);
-    v7 = 0;
-    if (v6)
+    v5 = [NSString stringWithFormat:@"(prompt) Granted %@ access to *contents* on external device", *(a1 + 32)];
+    v6 = _gICOSLog;
+    v7 = os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT);
+    v8 = 0;
+    if (v7)
     {
       *buf = 136446466;
-      v12 = [(__CFString *)v3 UTF8String];
-      v13 = 2114;
-      v14 = v4;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
-      v7 = 0;
+      v13 = [(__CFString *)v4 UTF8String];
+      v14 = 2114;
+      v15 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      v8 = 0;
     }
   }
 
   else
   {
     __ICOSLogCreate();
-    v8 = @"☀️ TCC";
+    v9 = @"☀️ TCC";
     if ([@"☀️ TCC" length] >= 0x15)
     {
-      v8 = [objc_msgSend(@"☀️ TCC" substringWithRange:{0, 18), "stringByAppendingString:", @".."}];
+      v9 = [objc_msgSend(@"☀️ TCC" substringWithRange:{0, 18), "stringByAppendingString:", @".."}];
     }
 
-    v9 = [NSString stringWithFormat:@"(prompt) User denied or disabled %@ access to *contents* on external device", *(a1 + 32)];
-    v10 = _gICOSLog;
+    v10 = [NSString stringWithFormat:@"(prompt) User denied or disabled %@ access to *contents* on external device", *(a1 + 32)];
+    v11 = _gICOSLog;
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v12 = [(__CFString *)v8 UTF8String];
-      v13 = 2114;
-      v14 = v9;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      v13 = [(__CFString *)v9 UTF8String];
+      v14 = 2114;
+      v15 = v10;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
-    v7 = 1;
+    v8 = 1;
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = v7;
+  *(*(*(a1 + 40) + 8) + 24) = v8;
+}
+
+- (void)requestContentsAuthorizationStatusShouldPrompt:(BOOL)prompt withReply:(id)reply
+{
+  promptCopy = prompt;
+  v7 = +[NSXPCConnection currentConnection];
+  v8 = +[NSMutableDictionary dictionary];
+  v9 = [(ICRemotePrefManager *)self checkFilesAndFoldersAccess:v7 shouldPrompt:promptCopy];
+  v10 = @"ICAuthorizationStatusAuthorized";
+  if (v9 == 2)
+  {
+    v10 = @"ICAuthorizationStatusNotDetermined";
+  }
+
+  if (v9 == 1)
+  {
+    v11 = @"ICAuthorizationStatusDenied";
+  }
+
+  else
+  {
+    v11 = v10;
+  }
+
+  [v8 setObject:v11 forKeyedSubscript:@"ICAuthorizationStatus"];
+  v12 = *(reply + 2);
+
+  v12(reply, v8);
 }
 
 - (int)checkTetheringAccess:(id)access shouldPrompt:(BOOL)prompt
@@ -788,7 +833,7 @@ void __63__ICRemotePrefManager_checkFilesAndFoldersAccess_shouldPrompt___block_i
   promptCopy = prompt;
   if (access)
   {
-    [access auditToken];
+    objc_msgSend_auditToken(access, a2);
   }
 
   memset(buf, 0, 32);
@@ -901,6 +946,233 @@ void __63__ICRemotePrefManager_checkFilesAndFoldersAccess_shouldPrompt___block_i
   return v5;
 }
 
+- (void)requestControlAuthorizationStatusShouldPrompt:(BOOL)prompt withReply:(id)reply
+{
+  promptCopy = prompt;
+  v7 = +[NSXPCConnection currentConnection];
+  v8 = +[NSMutableDictionary dictionary];
+  if (ICRemotePrefManagerEvaluatePrivateEntitlement(v7))
+  {
+    v9 = @"ICAuthorizationStatusAuthorized";
+LABEL_7:
+    [v8 setObject:v9 forKeyedSubscript:@"ICAuthorizationStatus"];
+    goto LABEL_8;
+  }
+
+  v10 = [(ICRemotePrefManager *)self checkTetheringAccess:v7 shouldPrompt:promptCopy];
+  if (v10 == 2)
+  {
+    v9 = @"ICAuthorizationStatusNotDetermined";
+    goto LABEL_7;
+  }
+
+  if (v10 == 1)
+  {
+    v9 = @"ICAuthorizationStatusDenied";
+    goto LABEL_7;
+  }
+
+  __ICOSLogCreate();
+  v11 = @"TCC";
+  if ([@"TCC" length] >= 0x15)
+  {
+    v11 = [objc_msgSend(@"TCC" substringWithRange:{0, 18), "stringByAppendingString:", @".."}];
+  }
+
+  v12 = [NSString stringWithFormat:@"kTCCServiceCamera also grants *control* on external device, checking if user has been informed (once)"];
+  v13 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+    buf.val[0] = 136446466;
+    *&buf.val[1] = [(__CFString *)v11 UTF8String];
+    LOWORD(buf.val[3]) = 2114;
+    *(&buf.val[3] + 2) = v12;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &buf, 0x16u);
+  }
+
+  [v8 setObject:@"ICAuthorizationStatusAuthorized" forKeyedSubscript:@"ICAuthorizationStatus"];
+  memset(&buf, 0, sizeof(buf));
+  if (v7)
+  {
+    objc_msgSend_auditToken(v7);
+  }
+
+  token = buf;
+  v14 = SecTaskCreateWithAuditToken(0, &token);
+  v15 = SecTaskCopySigningIdentifier(v14, 0);
+  if (v14)
+  {
+    CFRelease(v14);
+  }
+
+  v16 = +[ICDeviceAccessManager sharedAccessManager];
+  if (!v16)
+  {
+    goto LABEL_44;
+  }
+
+  v17 = v16;
+  v45 = 0;
+  localizedName = v15;
+  if (([(__CFString *)v15 containsString:@"com.apple"]& 1) == 0)
+  {
+    v19 = [[LSApplicationRecord alloc] initWithBundleIdentifier:v15 allowPlaceholder:0 error:&v45];
+    v20 = v19;
+    if (!v19 || v45)
+    {
+      __ICOSLogCreate();
+      v21 = @"kTCCServiceCamera";
+      if ([@"kTCCServiceCamera" length] >= 0x15)
+      {
+        v21 = [objc_msgSend(@"kTCCServiceCamera" substringWithRange:{0, 18), "stringByAppendingString:", @".."}];
+      }
+
+      v22 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"LSAppRecord missing, suppressing frobtboard notification with error: %@", [v45 description]);
+      v23 = _gICOSLog;
+      if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+      {
+        uTF8String = [(__CFString *)v21 UTF8String];
+        token.val[0] = 136446466;
+        *&token.val[1] = uTF8String;
+        LOWORD(token.val[3]) = 2114;
+        *(&token.val[3] + 2) = v22;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &token, 0x16u);
+      }
+
+      if (!v20)
+      {
+        goto LABEL_33;
+      }
+
+      localizedName = 0;
+    }
+
+    else
+    {
+      localizedName = [v19 localizedName];
+    }
+  }
+
+  if (!localizedName)
+  {
+LABEL_33:
+    __ICOSLogCreate();
+    v30 = @"kTCCServiceCamera";
+    if ([@"kTCCServiceCamera" length] >= 0x15)
+    {
+      v30 = [objc_msgSend(@"kTCCServiceCamera" substringWithRange:{0, 18), "stringByAppendingString:", @".."}];
+    }
+
+    v31 = [NSString stringWithFormat:@"LSApp Proxy authorization has no application name, suppressing frobtboard notification"];
+    v32 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      uTF8String2 = [(__CFString *)v30 UTF8String];
+      token.val[0] = 136446466;
+      *&token.val[1] = uTF8String2;
+      LOWORD(token.val[3]) = 2114;
+      *(&token.val[3] + 2) = v31;
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &token, 0x16u);
+    }
+
+LABEL_43:
+    v39 = dispatch_semaphore_create(0);
+    v40 = objc_alloc_init(FBSOpenApplicationService);
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = __79__ICRemotePrefManager_requestControlAuthorizationStatusShouldPrompt_withReply___block_invoke;
+    v44[3] = &unk_100008358;
+    v44[4] = v39;
+    [v40 openApplication:@"com.apple.Preferences" withOptions:0 completion:v44];
+    dispatch_semaphore_wait(v39, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_release(v39);
+
+    goto LABEL_44;
+  }
+
+  v46[0] = kCFUserNotificationAlertHeaderKey;
+  v47[0] = [NSString stringWithFormat:ICLocalizedString(), localizedName];
+  v46[1] = kCFUserNotificationAlertMessageKey;
+  v47[1] = [NSString stringWithFormat:ICLocalizedString(), localizedName];
+  v46[2] = kCFUserNotificationDefaultButtonTitleKey;
+  v47[2] = ICLocalizedString();
+  v46[3] = kCFUserNotificationAlternateButtonTitleKey;
+  v47[3] = ICLocalizedString();
+  v46[4] = kCFUserNotificationAlertTopMostKey;
+  v47[4] = [NSNumber numberWithBool:1];
+  v46[5] = SBUserNotificationDontDismissOnUnlock;
+  v47[5] = [NSNumber numberWithBool:1];
+  v25 = [NSDictionary dictionaryWithObjects:v47 forKeys:v46 count:6];
+  v26 = ICAccessTypeControlInformed;
+  v27 = [v17 bundleIdentifier:v15 stateForAccessType:ICAccessTypeControlInformed];
+  __ICOSLogCreate();
+  v28 = [@"TCC" length];
+  if (v27 > 1)
+  {
+    if (v28 < 0x15)
+    {
+      v34 = @"TCC";
+    }
+
+    else
+    {
+      v34 = [objc_msgSend(@"TCC" substringWithRange:{0, 18), "stringByAppendingString:", @".."}];
+    }
+
+    v41 = [NSString stringWithFormat:@"%@ has already notified about *control* on external device", localizedName];
+    v42 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      uTF8String3 = [(__CFString *)v34 UTF8String];
+      token.val[0] = 136446466;
+      *&token.val[1] = uTF8String3;
+      LOWORD(token.val[3]) = 2114;
+      *(&token.val[3] + 2) = v41;
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &token, 0x16u);
+    }
+
+    goto LABEL_44;
+  }
+
+  if (v28 < 0x15)
+  {
+    v29 = @"TCC";
+  }
+
+  else
+  {
+    v29 = [objc_msgSend(@"TCC" substringWithRange:{0, 18), "stringByAppendingString:", @".."}];
+  }
+
+  v35 = [NSString stringWithFormat:@"%@ is notifying user that kTCCServiceCamera also grants *control* on external device", localizedName];
+  v36 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+    uTF8String4 = [(__CFString *)v29 UTF8String];
+    token.val[0] = 136446466;
+    *&token.val[1] = uTF8String4;
+    LOWORD(token.val[3]) = 2114;
+    *(&token.val[3] + 2) = v35;
+    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", &token, 0x16u);
+  }
+
+  v38 = [v17 captureUserIntentForBundleIdentifier:v15 withNotification:v25];
+  [v17 updateBundleIdentifier:v15 accessType:v26 withState:2];
+  if ((v38 & 1) == 0)
+  {
+    goto LABEL_43;
+  }
+
+LABEL_44:
+  if (v15)
+  {
+    CFRelease(v15);
+  }
+
+LABEL_8:
+  (*(reply + 2))(reply, v8);
+}
+
 intptr_t __79__ICRemotePrefManager_requestControlAuthorizationStatusShouldPrompt_withReply___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
@@ -942,7 +1214,7 @@ intptr_t __79__ICRemotePrefManager_requestControlAuthorizationStatusShouldPrompt
     memset(&v10[1], 0, sizeof(audit_token_t));
     if (v4)
     {
-      [(NSXPCConnection *)v4 auditToken];
+      objc_msgSend_auditToken(v4);
     }
 
     v10[0] = v10[1];
@@ -979,7 +1251,7 @@ intptr_t __79__ICRemotePrefManager_requestControlAuthorizationStatusShouldPrompt
   v14 = 0u;
   if (v4)
   {
-    [(NSXPCConnection *)v4 auditToken];
+    objc_msgSend_auditToken(v4);
   }
 
   memset(&token, 0, sizeof(token));
@@ -1038,7 +1310,7 @@ intptr_t __79__ICRemotePrefManager_requestControlAuthorizationStatusShouldPrompt
   memset(&v9[1], 0, sizeof(audit_token_t));
   if (v4)
   {
-    [(NSXPCConnection *)v4 auditToken];
+    objc_msgSend_auditToken(v4);
   }
 
   v9[0] = v9[1];

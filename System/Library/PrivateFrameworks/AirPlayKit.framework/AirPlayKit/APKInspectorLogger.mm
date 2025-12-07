@@ -23,17 +23,15 @@ uint64_t __37__APKInspectorLogger_inspectorLogger__block_invoke()
 
 + (void)log:(id)log
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   logCopy = log;
   inspectorLogger = [objc_opt_class() inspectorLogger];
   if (os_log_type_enabled(inspectorLogger, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = logCopy;
-    _os_log_impl(&dword_23E879000, inspectorLogger, OS_LOG_TYPE_INFO, "%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = logCopy;
+    _os_log_impl(&dword_23E879000, inspectorLogger, OS_LOG_TYPE_INFO, "%@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -21,7 +21,7 @@
   if (result)
   {
 
-    return CAMediaTimingFunctionFromC3DTimingFunction(result);
+    return CAMediaTimingFunctionFromC3DTimingFunction(result, v3);
   }
 
   return result;
@@ -163,50 +163,52 @@
     object = [object scene];
   }
 
-  if (objc_opt_respondsToSelector())
+  v8 = objc_opt_respondsToSelector();
+  if (v8)
   {
     sceneRef = [object sceneRef];
     if (!sceneRef)
     {
-      v9 = scn_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v12 = scn_default_log(0, v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
-        [SCNTransaction enqueueCommandForObject:v9 immediateTransactionBlock:?];
+        [SCNTransaction enqueueCommandForObject:v12 immediateTransactionBlock:?];
       }
     }
 
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __68__SCNTransaction_enqueueCommandForObject_immediateTransactionBlock___block_invoke;
-    v11[3] = &unk_278300670;
-    v11[4] = block;
-    v11[5] = a2;
-    [self postCommandWithContext:sceneRef object:object applyBlock:v11];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __68__SCNTransaction_enqueueCommandForObject_immediateTransactionBlock___block_invoke;
+    v14[3] = &unk_278300670;
+    v14[4] = block;
+    v14[5] = a2;
+    [self postCommandWithContext:sceneRef object:object applyBlock:v14];
   }
 
   else
   {
-    v10 = scn_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = scn_default_log(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      +[SCNTransaction enqueueCommandForObject:immediateTransactionBlock:];
+      [SCNTransaction enqueueCommandForObject:object immediateTransactionBlock:?];
     }
   }
 }
 
 uint64_t __68__SCNTransaction_enqueueCommandForObject_immediateTransactionBlock___block_invoke(uint64_t a1)
 {
-  if (+[SCNTransaction immediateMode])
+  v2 = +[SCNTransaction immediateMode];
+  if (v2)
   {
-    v2 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    return v2();
+    return v4();
   }
 
   else
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = scn_default_log(v2, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __68__SCNTransaction_enqueueCommandForObject_immediateTransactionBlock___block_invoke_cold_1(a1);
     }
@@ -220,18 +222,18 @@ uint64_t __68__SCNTransaction_enqueueCommandForObject_immediateTransactionBlock_
 + (void)performPresentationInstanceQueriesInScene:(id)scene usingBlock:(id)block
 {
   sceneRef = [scene sceneRef];
-  v7 = sceneRef;
+  v9 = sceneRef;
   if (sceneRef)
   {
-    v6 = sceneRef;
-    C3DSceneLock(sceneRef);
-    (*(block + 2))(block, &v7);
-    C3DSceneUnlock(v6);
+    v7 = sceneRef;
+    C3DSceneLock(sceneRef, v6);
+    (*(block + 2))(block, &v9);
+    C3DSceneUnlock(v7, v8);
   }
 
   else
   {
-    (*(block + 2))(block, &v7);
+    (*(block + 2))(block, &v9);
   }
 }
 
@@ -246,11 +248,12 @@ uint64_t __68__SCNTransaction_enqueueCommandForObject_immediateTransactionBlock_
   [SCNTransaction setAnimationTimingFunction:function];
 }
 
-+ (void)enqueueCommandForObject:immediateTransactionBlock:.cold.1()
++ (void)enqueueCommandForObject:(uint64_t)a1 immediateTransactionBlock:.cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  NSStringFromClass(v0);
-  OUTLINED_FUNCTION_1_7(&dword_21BEF7000, v1, v2, "Unreachable code: Unsupported class %@", v3, v4, v5, v6, 2u);
+  v1 = objc_opt_class();
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = NSStringFromClass(v1);
+  OUTLINED_FUNCTION_1_7(&dword_21BEF7000, v2, v3, "Unreachable code: Unsupported class %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 + (void)enqueueCommandForObject:(os_log_t)log immediateTransactionBlock:.cold.2(os_log_t log)
@@ -259,6 +262,13 @@ uint64_t __68__SCNTransaction_enqueueCommandForObject_immediateTransactionBlock_
   v1 = 136315138;
   v2 = "sceneRef";
   _os_log_fault_impl(&dword_21BEF7000, log, OS_LOG_TYPE_FAULT, "Assertion '%s' failed. Null argument", &v1, 0xCu);
+}
+
+void __68__SCNTransaction_enqueueCommandForObject_immediateTransactionBlock___block_invoke_cold_1(uint64_t a1)
+{
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = NSStringFromSelector(*(a1 + 40));
+  OUTLINED_FUNCTION_1_7(&dword_21BEF7000, v1, v2, "Unreachable code: Command enqueued by %@ was expected to be run in immediate mode", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

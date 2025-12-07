@@ -209,15 +209,15 @@ LABEL_6:
 {
   domains = self->_domains;
   commandCopy = command;
-  v7 = [(NSDictionary *)domains objectForKey:domain];
-  v8 = [v7 objectForKey:commandCopy];
+  v6 = objc_msgSend_objectForKey_(domains);
+  v7 = objc_msgSend_objectForKey_(v6);
 
-  return v8 != 0;
+  return v7 != 0;
 }
 
 - (id)commandsForDomain:(id)domain
 {
-  v3 = [(NSDictionary *)self->_domains objectForKey:domain];
+  v3 = objc_msgSend_objectForKey_(self->_domains, a2, domain);
   allKeys = [v3 allKeys];
 
   return allKeys;
@@ -237,7 +237,7 @@ LABEL_6:
     path = v11->_path;
     v11->_path = v12;
 
-    v14 = [dictionaryCopy objectForKey:kCFBundleIdentifierKey];
+    v14 = objc_msgSend_objectForKey_(dictionaryCopy);
     v15 = contextCopy;
     if (!contextCopy)
     {
@@ -305,14 +305,14 @@ LABEL_6:
       v16 = *v22;
       while (2)
       {
-        for (i = 0; i != v6; i = i + 1)
+        for (i = 0; i != v6; ++i)
         {
           if (*v22 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [v4 objectForKey:*(*(&v21 + 1) + 8 * i)];
+          v9 = objc_msgSend_objectForKey_(v4);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
@@ -392,7 +392,7 @@ LABEL_24:
 - (void)_parseInfoDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v5 = [dictionaryCopy objectForKey:@"AssistantDomains"];
+  v5 = objc_msgSend_objectForKey_(dictionaryCopy);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -444,7 +444,7 @@ LABEL_4:
       objc_enumerationMutation(v6);
     }
 
-    v10 = [v6 objectForKey:{*(*(&v105 + 1) + 8 * v9), v82}];
+    v10 = objc_msgSend_objectForKey_(v6, v82);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -471,14 +471,14 @@ LABEL_4:
       selfCopy = self;
       while (2)
       {
-        for (i = 0; i != v12; i = i + 1)
+        for (i = 0; i != v12; ++i)
         {
           if (*v102 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [v10 objectForKey:*(*(&v101 + 1) + 8 * i)];
+          v15 = objc_msgSend_objectForKey_(v10);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
@@ -501,7 +501,7 @@ LABEL_4:
       }
     }
 
-    v9 = v9 + 1;
+    ++v9;
     v8 = v82;
     if (v9 == v83)
     {
@@ -545,7 +545,7 @@ LABEL_26:
 
 LABEL_31:
 
-  v22 = [dictionaryCopy objectForKey:@"AssistantFirstUnlockRestrictedDomains"];
+  v22 = objc_msgSend_objectForKey_(dictionaryCopy);
   if (v22)
   {
     if ([(ADBundleService *)self _isValidRestrictionsDomainInfo:v22])
@@ -580,7 +580,7 @@ LABEL_31:
     }
   }
 
-  v26 = [dictionaryCopy objectForKey:@"AssistantLockRestrictedDomains"];
+  v26 = objc_msgSend_objectForKey_(dictionaryCopy);
   if (v26)
   {
     if ([(ADBundleService *)self _isValidRestrictionsDomainInfo:v26])
@@ -617,7 +617,7 @@ LABEL_31:
     }
   }
 
-  v32 = [dictionaryCopy objectForKey:@"AssistantControlCenterLockRestrictedDomains"];
+  v32 = objc_msgSend_objectForKey_(dictionaryCopy);
   if (v32)
   {
     if ([(ADBundleService *)self _isValidRestrictionsDomainInfo:v32])
@@ -652,7 +652,7 @@ LABEL_31:
     }
   }
 
-  v36 = [dictionaryCopy objectForKey:@"AssistantManagedStorageDomains"];
+  v36 = objc_msgSend_objectForKey_(dictionaryCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -739,7 +739,7 @@ LABEL_63:
 
 LABEL_65:
 
-  v47 = [dictionaryCopy objectForKey:@"AssistantSyncAnchorKeys"];
+  v47 = objc_msgSend_objectForKey_(dictionaryCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -756,14 +756,14 @@ LABEL_65:
       v51 = *v88;
       while (2)
       {
-        for (k = 0; k != v50; k = k + 1)
+        for (k = 0; k != v50; ++k)
         {
           if (*v88 != v51)
           {
             objc_enumerationMutation(v48);
           }
 
-          v53 = [v48 objectForKey:*(*(&v87 + 1) + 8 * k)];
+          v53 = objc_msgSend_objectForKey_(v48);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
@@ -830,7 +830,7 @@ LABEL_83:
 
 LABEL_85:
 
-  v60 = [dictionaryCopy objectForKey:@"AssistantClearsDomainObjects"];
+  v60 = objc_msgSend_objectForKey_(dictionaryCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -879,7 +879,7 @@ LABEL_92:
 
 LABEL_94:
 
-  v67 = [dictionaryCopy objectForKey:@"AssistantMaintenance"];
+  v67 = objc_msgSend_objectForKey_(dictionaryCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -921,7 +921,7 @@ LABEL_101:
   maintenanceClassName = self->_maintenanceClassName;
   self->_maintenanceClassName = v70;
 
-  v72 = [dictionaryCopy objectForKey:@"AssistantRequiresBootMaintenance"];
+  v72 = objc_msgSend_objectForKey_(dictionaryCopy);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {

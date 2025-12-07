@@ -151,18 +151,19 @@
 
 - (void)p_setupWhenUnfilteredContentIsAvailable
 {
-  v3 = [THBundle() localizedStringForKey:@"To view your study cards\\U002C tap View All Cards\\U002C\nor tap the gear icon for more options." value:&stru_471858 table:0];
-  -[THNoteCardEmptyLayer p_setupHeadingLabel:bodyLabel:](self, "p_setupHeadingLabel:bodyLabel:", [THBundle() localizedStringForKey:@"You\\U2019ve hidden all study cards." value:&stru_471858 table:0], v3);
-  self->_viewAllCardsButton = objc_alloc_init(THInteractiveButtonLayer);
-  v4 = [THBundle() localizedStringForKey:@"View All Cards" value:&stru_471858 table:0];
-  v5 = [TSUFont systemFontOfSize:14.0];
-  [v4 sizeWithAttributes:{+[NSDictionary dictionaryWithObjectsAndKeys:](NSDictionary, "dictionaryWithObjectsAndKeys:", objc_msgSend(v5, "platformFont"), NSFontAttributeName, 0)}];
-  self->_buttonSize.width = ceil(v6) + 34.0;
+  v3 = [THBundle(self a2)];
+  -[THNoteCardEmptyLayer p_setupHeadingLabel:bodyLabel:](self, "p_setupHeadingLabel:bodyLabel:", [THBundle(v3 v4)], v3);
+  v5 = objc_alloc_init(THInteractiveButtonLayer);
+  self->_viewAllCardsButton = v5;
+  v7 = [THBundle(v5 v6)];
+  v8 = [TSUFont systemFontOfSize:14.0];
+  v9 = [v7 sizeWithAttributes:{+[NSDictionary dictionaryWithObjectsAndKeys:](NSDictionary, "dictionaryWithObjectsAndKeys:", objc_msgSend(v8, "platformFont"), NSFontAttributeName, 0)}];
+  self->_buttonSize.width = ceil(v10) + 34.0;
   self->_buttonSize.height = 35.0;
-  -[THInteractiveButtonLayer setNormalBackgroundImage:](self->_viewAllCardsButton, "setNormalBackgroundImage:", [+[TSUImage imageNamed:inBundle:](TSUImage imageNamed:@"NoNotes-Button-N" inBundle:{THBundle()), "stretchedImageOfSize:leftCapWidth:rightCapWidth:topCapHeight:bottomCapHeight:", self->_buttonSize.width, self->_buttonSize.height, 10.0, 10.0, 10.0, 10.0}]);
-  -[THInteractiveButtonLayer setPressedBackgroundImage:](self->_viewAllCardsButton, "setPressedBackgroundImage:", [+[TSUImage imageNamed:inBundle:](TSUImage imageNamed:@"NoNotes-Button-P" inBundle:{THBundle()), "stretchedImageOfSize:leftCapWidth:rightCapWidth:topCapHeight:bottomCapHeight:", self->_buttonSize.width, self->_buttonSize.height, 10.0, 10.0, 10.0, 10.0}]);
-  [(THInteractiveButtonLayer *)self->_viewAllCardsButton setTitle:v4];
-  [(THInteractiveButtonLayer *)self->_viewAllCardsButton setTitleFont:v5];
+  v12 = -[THInteractiveButtonLayer setNormalBackgroundImage:](self->_viewAllCardsButton, "setNormalBackgroundImage:", [+[TSUImage imageNamed:inBundle:](TSUImage imageNamed:@"NoNotes-Button-N" inBundle:{THBundle(v9, v11)), "stretchedImageOfSize:leftCapWidth:rightCapWidth:topCapHeight:bottomCapHeight:", self->_buttonSize.width, self->_buttonSize.height, 10.0, 10.0, 10.0, 10.0}]);
+  -[THInteractiveButtonLayer setPressedBackgroundImage:](self->_viewAllCardsButton, "setPressedBackgroundImage:", [+[TSUImage imageNamed:inBundle:](TSUImage imageNamed:@"NoNotes-Button-P" inBundle:{THBundle(v12, v13)), "stretchedImageOfSize:leftCapWidth:rightCapWidth:topCapHeight:bottomCapHeight:", self->_buttonSize.width, self->_buttonSize.height, 10.0, 10.0, 10.0, 10.0}]);
+  [(THInteractiveButtonLayer *)self->_viewAllCardsButton setTitle:v7];
+  [(THInteractiveButtonLayer *)self->_viewAllCardsButton setTitleFont:v8];
   [(THInteractiveButtonLayer *)self->_viewAllCardsButton setTitleColor:[TSUColor colorWithRed:0.57254902 green:0.57254902 blue:0.57254902 alpha:1.0]];
   [(THInteractiveButtonLayer *)self->_viewAllCardsButton setTitleShadowColor:[TSUColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5]];
   [(THInteractiveButtonLayer *)self->_viewAllCardsButton setTitleShadowOffset:0.0, -1.0];
@@ -177,10 +178,10 @@
 
 - (void)p_setupWhenUnfilteredContentIsNotAvailable
 {
-  v3 = [THBundle() localizedStringForKey:@"This chapter doesn\\U2019t have study cards." value:&stru_471858 table:0];
-  v4 = [THBundle() localizedStringForKey:@"Study cards are only available for chapters with\nhighlights\\U002C notes\\U002C or glossary terms." value:&stru_471858 table:0];
+  v3 = [THBundle(self a2)];
+  v5 = [THBundle(v3 v4)];
 
-  [(THNoteCardEmptyLayer *)self p_setupHeadingLabel:v3 bodyLabel:v4];
+  [(THNoteCardEmptyLayer *)self p_setupHeadingLabel:v3 bodyLabel:v5];
 }
 
 - (void)p_setupHeadingLabel:(id)label bodyLabel:(id)bodyLabel

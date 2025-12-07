@@ -379,7 +379,7 @@ LABEL_16:
     v44 = 0u;
     v45 = 0u;
     v43 = 0u;
-    readAffineTransform(*from, &v43);
+    readAffineTransform(&v43, *from);
     v42[0] = v43;
     v42[1] = v44;
     v42[2] = v45;
@@ -706,7 +706,7 @@ LABEL_26:
     }
 
     v21 = in_size - 40;
-    readAffineTransform(brush + 16, &v60);
+    readAffineTransform(&v60, brush + 16);
     v25 = 40;
   }
 
@@ -2519,7 +2519,7 @@ LABEL_16:
     if (!v24)
     {
       v36 = v67;
-      readAffineTransform(&v32[8 * v25], &transform.a);
+      readAffineTransform(&transform.a, &v32[8 * v25]);
       a = transform.a;
       c = transform.c;
       v69.a = transform.a;
@@ -2661,7 +2661,7 @@ LABEL_37:
   v9 = 0u;
   v10 = 0u;
   v8 = 0u;
-  v5 = [(MFPGraphics *)self->mGraphics currentState:readAffineTransform(transform];
+  v5 = [(MFPGraphics *)self->mGraphics currentState:readAffineTransform(&v8];
   v7[0] = v8;
   v7[1] = v9;
   v7[2] = v10;
@@ -2688,7 +2688,7 @@ LABEL_37:
   v11 = 0u;
   v9 = 0u;
   v5 = (in_flags >> 13) & 1;
-  v6 = [(MFPGraphics *)self->mGraphics currentState:readAffineTransform(transform];
+  v6 = [(MFPGraphics *)self->mGraphics currentState:readAffineTransform(&v9];
   v8[0] = v9;
   v8[1] = v10;
   v8[2] = v11;
@@ -2745,23 +2745,22 @@ LABEL_37:
 
 - (int)playSetPageTransform:(const char *)transform in_size:(unsigned int)in_size in_flags:(unsigned __int16)in_flags
 {
-  in_flagsCopy = in_flags;
   [MFByteUtils readFloat32FromByteArray:transform in_offset:0];
-  v12 = 0u;
-  v13 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v10 = 0u;
   mGraphics = self->mGraphics;
   if (mGraphics)
   {
-    [(MFPGraphics *)mGraphics pageTransformWithScale:in_flagsCopy unit:?];
+    objc_msgSend_pageTransformWithScale_unit_(mGraphics);
     mGraphics = self->mGraphics;
   }
 
   currentState = [(MFPGraphics *)mGraphics currentState];
-  v10[0] = v11;
-  v10[1] = v12;
-  v10[2] = v13;
-  [currentState setPageTransform:v10];
+  v9[0] = v10;
+  v9[1] = v11;
+  v9[2] = v12;
+  [currentState setPageTransform:v9];
 
   return 0;
 }

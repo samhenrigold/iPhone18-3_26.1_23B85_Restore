@@ -42,7 +42,7 @@
 {
   *(&self->super.super.super.isa + OBJC_IVAR___NTKEsterbrookSceneDialView_tritiumProgress) = progress;
   selfCopy = self;
-  sub_23BDE7788();
+  sub_23BDE7788(selfCopy);
 }
 
 - (NTKEsterbrookSceneDialView)initWithFrame:(CGRect)frame

@@ -1363,7 +1363,7 @@ LABEL_7:
   v7 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000CBC40(v7);
+    sub_1000CBC40(v7, event, region);
   }
 
   if (region == 1)
@@ -1989,9 +1989,11 @@ LABEL_7:
 {
   if (!self->_bugReportingPresenter)
   {
-    self->_bugReportingPresenter = AFUICreateBugReportPresentingWithDelegate();
+    v4 = AFUICreateBugReportPresentingWithDelegate();
+    bugReportingPresenter = self->_bugReportingPresenter;
+    self->_bugReportingPresenter = v4;
 
-    _objc_release_x1();
+    _objc_release_x1(v4, bugReportingPresenter);
   }
 }
 

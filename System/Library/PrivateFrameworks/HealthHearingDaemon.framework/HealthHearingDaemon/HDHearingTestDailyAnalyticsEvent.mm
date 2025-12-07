@@ -7,12 +7,10 @@
 
 - (NSString)eventName
 {
-  v2 = *(self + OBJC_IVAR____TtC19HealthHearingDaemon32HDHearingTestDailyAnalyticsEvent_eventName);
-  v3 = *(self + OBJC_IVAR____TtC19HealthHearingDaemon32HDHearingTestDailyAnalyticsEvent_eventName + 8);
 
-  v4 = sub_2517877E8();
+  v2 = sub_2517877E8();
 
-  return v4;
+  return v2;
 }
 
 - (_TtC19HealthHearingDaemon32HDHearingTestDailyAnalyticsEvent)init

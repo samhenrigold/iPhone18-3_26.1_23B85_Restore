@@ -22,16 +22,18 @@
 
 - (void)transmissionStatusService:(id)service didUpdateTransmissionMode:(unsigned __int8)mode
 {
+  modeCopy = mode;
   serviceCopy = service;
   selfCopy = self;
-  CAFTransmissionStatusObservable.transmissionStatusService(_:didUpdateTransmissionMode:)(selfCopy, mode);
+  CAFTransmissionStatusObservable.transmissionStatusService(_:didUpdateTransmissionMode:)(selfCopy, modeCopy);
 }
 
 - (void)transmissionStatusService:(id)service didUpdateGearPosition:(unsigned __int8)position
 {
+  positionCopy = position;
   serviceCopy = service;
   selfCopy = self;
-  CAFTransmissionStatusObservable.transmissionStatusService(_:didUpdateGearPosition:)(selfCopy, position);
+  CAFTransmissionStatusObservable.transmissionStatusService(_:didUpdateGearPosition:)(selfCopy, positionCopy);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

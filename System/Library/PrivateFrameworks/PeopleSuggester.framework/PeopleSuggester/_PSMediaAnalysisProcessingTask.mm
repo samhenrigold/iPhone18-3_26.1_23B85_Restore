@@ -102,17 +102,17 @@
 
 - (void)executeTaskWithCompletionHandler:(id)handler
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v30 = [(NSXPCConnection *)self->_connection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_45];
-  v27 = [MEMORY[0x1E696AE18] predicateWithFormat:@"startDate > %@ AND direction == %@ AND mechanism IN %@", self->_bookmark, &unk_1F2D8BDC0, &unk_1F2D8C648];
+  v29 = [(NSXPCConnection *)self->_connection synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_45];
+  v26 = [MEMORY[0x1E696AE18] predicateWithFormat:@"startDate > %@ AND direction == %@ AND mechanism IN %@", self->_bookmark, &unk_1F2D8BDC0, &unk_1F2D8C648];
   interactionStore = self->_interactionStore;
   v5 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:1];
-  v40[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
-  v29 = [(_CDInteractionStore *)interactionStore queryInteractionsUsingPredicate:v27 sortDescriptors:v6 limit:-1 offset:0 error:0];
+  v39[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+  v28 = [(_CDInteractionStore *)interactionStore queryInteractionsUsingPredicate:v26 sortDescriptors:v6 limit:-1 offset:0 error:0];
 
-  v7 = [v29 count] == 0;
+  v7 = [v28 count] == 0;
   v8 = +[_PSLogging mediaAnalysisChannel];
   v9 = v8;
   if (v7)
@@ -135,7 +135,7 @@
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v10 = [v29 count];
+    v10 = [v28 count];
     v11 = self->_bookmark;
     *buf = 134218242;
     *&buf[4] = v10;
@@ -144,28 +144,28 @@
     _os_log_impl(&dword_1B5ED1000, v9, OS_LOG_TYPE_INFO, "Fetched %tu interactions for media analysis (Interval: %{public}@ - now)", buf, 0x16u);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
-  v12 = v29;
-  v13 = [v12 countByEnumeratingWithState:&v32 objects:v39 count:16];
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v12 = v28;
+  v13 = [v12 countByEnumeratingWithState:&v31 objects:v38 count:16];
   if (!v13)
   {
     goto LABEL_26;
   }
 
-  v14 = *v33;
+  v14 = *v32;
   while (2)
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v33 != v14)
+      if (*v32 != v14)
       {
         objc_enumerationMutation(v12);
       }
 
-      v16 = *(*(&v32 + 1) + 8 * i);
+      v16 = *(*(&v31 + 1) + 8 * i);
       if (([v16 forcePersistInteraction] & 1) == 0)
       {
         [v16 setForcePersistInteraction:1];
@@ -191,16 +191,16 @@
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
-        v38 = 0;
-        v36 = v16;
-        v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __67___PSMediaAnalysisProcessingTask_executeTaskWithCompletionHandler___block_invoke_239;
-        v31[3] = &unk_1E7C27010;
-        v31[4] = v16;
-        v31[5] = buf;
-        [v30 updateInteractions:v20 enforceDataLimits:0 enforcePrivacy:0 reply:v31];
+        v37 = 0;
+        v35 = v16;
+        v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __67___PSMediaAnalysisProcessingTask_executeTaskWithCompletionHandler___block_invoke_239;
+        v30[3] = &unk_1E7C27010;
+        v30[4] = v16;
+        v30[5] = buf;
+        [v29 updateInteractions:v20 enforceDataLimits:0 enforcePrivacy:0 reply:v30];
 
         if ((*(*&buf[8] + 24) & 1) == 0)
         {
@@ -220,7 +220,7 @@
 LABEL_19:
     }
 
-    v13 = [v12 countByEnumeratingWithState:&v32 objects:v39 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v31 objects:v38 count:16];
     if (v13)
     {
       continue;
@@ -236,29 +236,27 @@ LABEL_27:
   {
     handlerCopy[2]();
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (id)updatedAttachmentsWithPeopleIdForAttachments:(id)attachments forBundleID:(id)d
 {
-  v125 = *MEMORY[0x1E69E9840];
+  v124 = *MEMORY[0x1E69E9840];
   attachmentsCopy = attachments;
   dCopy = d;
   v7 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v90 = objc_opt_new();
-  v83 = objc_opt_new();
-  v111 = 0;
-  v77 = dCopy;
-  v79 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:dCopy allowPlaceholder:0 error:&v111];
-  v78 = v111;
-  v8 = v79;
-  if (!v79)
+  v89 = objc_opt_new();
+  v82 = objc_opt_new();
+  v110 = 0;
+  v76 = dCopy;
+  v78 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:dCopy allowPlaceholder:0 error:&v110];
+  v77 = v110;
+  v8 = v78;
+  if (!v78)
   {
     v9 = +[_PSLogging mediaAnalysisChannel];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(_PSMediaAnalysisProcessingTask *)v78 updatedAttachmentsWithPeopleIdForAttachments:v9 forBundleID:v10, v11, v12, v13, v14, v15];
+      [(_PSMediaAnalysisProcessingTask *)v77 updatedAttachmentsWithPeopleIdForAttachments:v9 forBundleID:v10, v11, v12, v13, v14, v15];
     }
 
     v8 = 0;
@@ -276,38 +274,38 @@ LABEL_27:
     _os_log_impl(&dword_1B5ED1000, v17, OS_LOG_TYPE_INFO, "Attachments %@, isFirstParty: %@", buf, 0x16u);
   }
 
-  v109 = 0u;
-  v110 = 0u;
-  v107 = 0u;
   v108 = 0u;
+  v109 = 0u;
+  v106 = 0u;
+  v107 = 0u;
   obj = attachmentsCopy;
-  v85 = [obj countByEnumeratingWithState:&v107 objects:v121 count:16];
-  if (!v85)
+  v84 = [obj countByEnumeratingWithState:&v106 objects:v120 count:16];
+  if (!v84)
   {
 
     goto LABEL_69;
   }
 
-  v76 = 0;
-  v84 = *v108;
+  v75 = 0;
+  v83 = *v107;
   do
   {
-    for (i = 0; i != v85; ++i)
+    for (i = 0; i != v84; ++i)
     {
-      if (*v108 != v84)
+      if (*v107 != v83)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v107 + 1) + 8 * i);
-      [v90 addObject:v19];
+      v19 = *(*(&v106 + 1) + 8 * i);
+      [v89 addObject:v19];
       photoLocalIdentifier = [v19 photoLocalIdentifier];
       v21 = photoLocalIdentifier == 0;
 
       if (!v21)
       {
         photoLocalIdentifier2 = [v19 photoLocalIdentifier];
-        v23 = [v83 containsObject:photoLocalIdentifier2];
+        v23 = [v82 containsObject:photoLocalIdentifier2];
 
         if ((v23 & 1) == 0)
         {
@@ -326,9 +324,9 @@ LABEL_27:
             v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&personIdentificationRequest count:1];
             contentURL2 = [v19 contentURL];
             photoLocalIdentifier3 = [v19 photoLocalIdentifier];
-            v106 = 0;
-            v32 = [service performRequests:v29 onImageURL:contentURL2 withIdentifier:photoLocalIdentifier3 error:&v106];
-            v81 = v106;
+            v105 = 0;
+            v32 = [service performRequests:v29 onImageURL:contentURL2 withIdentifier:photoLocalIdentifier3 error:&v105];
+            v80 = v105;
 
             if ((v32 & 1) == 0)
             {
@@ -341,7 +339,7 @@ LABEL_28:
             if (photoLocalIdentifier4)
             {
               photoLocalIdentifier5 = [v19 photoLocalIdentifier];
-              [v83 addObject:photoLocalIdentifier5];
+              [v82 addObject:photoLocalIdentifier5];
             }
 
             results = [(MADPersonIdentificationRequest *)self->_personIdentificationRequest results];
@@ -357,34 +355,34 @@ LABEL_28:
               _os_log_impl(&dword_1B5ED1000, v48, OS_LOG_TYPE_INFO, "For PhotoId: %@, fetched %tu photo results", buf, 0x16u);
             }
 
-            v103 = 0u;
-            v104 = 0u;
-            v101 = 0u;
             v102 = 0u;
+            v103 = 0u;
+            v100 = 0u;
+            v101 = 0u;
             oslog = results;
-            v89 = [oslog countByEnumeratingWithState:&v101 objects:v118 count:16];
-            if (v89)
+            v88 = [oslog countByEnumeratingWithState:&v100 objects:v117 count:16];
+            if (v88)
             {
-              v88 = *v102;
+              v87 = *v101;
               do
               {
                 v51 = 0;
                 do
                 {
-                  if (*v102 != v88)
+                  if (*v101 != v87)
                   {
                     v52 = v51;
                     objc_enumerationMutation(oslog);
                     v51 = v52;
                   }
 
-                  v91 = v51;
-                  v92 = *(*(&v101 + 1) + 8 * v51);
+                  v90 = v51;
+                  v91 = *(*(&v100 + 1) + 8 * v51);
                   v53 = +[_PSLogging mediaAnalysisChannel];
                   if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
                   {
                     photoLocalIdentifier7 = [v19 photoLocalIdentifier];
-                    resultItems = [v92 resultItems];
+                    resultItems = [v91 resultItems];
                     v56 = [resultItems count];
                     *buf = 138412546;
                     *&buf[4] = photoLocalIdentifier7;
@@ -393,25 +391,25 @@ LABEL_28:
                     _os_log_impl(&dword_1B5ED1000, v53, OS_LOG_TYPE_INFO, "PhotoId: %@ has %tu personId", buf, 0x16u);
                   }
 
-                  v99 = 0u;
-                  v100 = 0u;
-                  v97 = 0u;
                   v98 = 0u;
-                  resultItems2 = [v92 resultItems];
-                  v58 = [resultItems2 countByEnumeratingWithState:&v97 objects:v117 count:16];
+                  v99 = 0u;
+                  v96 = 0u;
+                  v97 = 0u;
+                  resultItems2 = [v91 resultItems];
+                  v58 = [resultItems2 countByEnumeratingWithState:&v96 objects:v116 count:16];
                   if (v58)
                   {
-                    v59 = *v98;
+                    v59 = *v97;
                     do
                     {
                       for (j = 0; j != v58; ++j)
                       {
-                        if (*v98 != v59)
+                        if (*v97 != v59)
                         {
                           objc_enumerationMutation(resultItems2);
                         }
 
-                        personIdentifier = [*(*(&v97 + 1) + 8 * j) personIdentifier];
+                        personIdentifier = [*(*(&v96 + 1) + 8 * j) personIdentifier];
                         if (personIdentifier)
                         {
                           [v7 addObject:personIdentifier];
@@ -428,20 +426,20 @@ LABEL_28:
                         }
                       }
 
-                      v58 = [resultItems2 countByEnumeratingWithState:&v97 objects:v117 count:16];
+                      v58 = [resultItems2 countByEnumeratingWithState:&v96 objects:v116 count:16];
                     }
 
                     while (v58);
                   }
 
-                  v51 = v91 + 1;
+                  v51 = v90 + 1;
                 }
 
-                while (v91 + 1 != v89);
-                v89 = [oslog countByEnumeratingWithState:&v101 objects:v118 count:16];
+                while (v90 + 1 != v88);
+                v88 = [oslog countByEnumeratingWithState:&v100 objects:v117 count:16];
               }
 
-              while (v89);
+              while (v88);
             }
 
             v64 = +[_PSLogging mediaAnalysisChannel];
@@ -457,40 +455,40 @@ LABEL_28:
 
             if ([v7 count])
             {
-              v95 = 0u;
-              v96 = 0u;
-              v93 = 0u;
               v94 = 0u;
+              v95 = 0u;
+              v92 = 0u;
+              v93 = 0u;
               v66 = v7;
-              v67 = [v66 countByEnumeratingWithState:&v93 objects:v116 count:16];
+              v67 = [v66 countByEnumeratingWithState:&v92 objects:v115 count:16];
               if (v67)
               {
-                v68 = *v94;
+                v68 = *v93;
                 do
                 {
                   for (k = 0; k != v67; ++k)
                   {
-                    if (*v94 != v68)
+                    if (*v93 != v68)
                     {
                       objc_enumerationMutation(v66);
                     }
 
-                    v70 = *(*(&v93 + 1) + 8 * k);
+                    v70 = *(*(&v92 + 1) + 8 * k);
                     v71 = [v19 copy];
                     [v71 setPersonInPhoto:v70];
                     photoLocalIdentifier10 = [v19 photoLocalIdentifier];
                     [v71 setPhotoLocalIdentifier:photoLocalIdentifier10];
 
-                    [v90 addObject:v71];
+                    [v89 addObject:v71];
                   }
 
-                  v67 = [v66 countByEnumeratingWithState:&v93 objects:v116 count:16];
+                  v67 = [v66 countByEnumeratingWithState:&v92 objects:v115 count:16];
                 }
 
                 while (v67);
               }
 
-              v76 = 1;
+              v75 = 1;
             }
           }
 
@@ -513,31 +511,31 @@ LABEL_28:
             }
 
             service2 = [getMADServiceClass() service];
-            v119 = self->_personIdentificationRequest;
-            v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v119 count:1];
+            v118 = self->_personIdentificationRequest;
+            v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v118 count:1];
             photoLocalIdentifier13 = [v19 photoLocalIdentifier];
-            v112 = 0;
-            v113 = &v112;
-            v114 = 0x2050000000;
+            v111 = 0;
+            v112 = &v111;
+            v113 = 0x2050000000;
             v41 = getPHPhotoLibraryClass_softClass_2;
-            v115 = getPHPhotoLibraryClass_softClass_2;
+            v114 = getPHPhotoLibraryClass_softClass_2;
             if (!getPHPhotoLibraryClass_softClass_2)
             {
               *buf = MEMORY[0x1E69E9820];
               *&buf[8] = 3221225472;
               *&buf[16] = __getPHPhotoLibraryClass_block_invoke_2;
-              v123 = &unk_1E7C23BF0;
-              v124 = &v112;
+              v122 = &unk_1E7C23BF0;
+              v123 = &v111;
               __getPHPhotoLibraryClass_block_invoke_2(buf);
-              v41 = v113[3];
+              v41 = v112[3];
             }
 
             v42 = v41;
-            _Block_object_dispose(&v112, 8);
+            _Block_object_dispose(&v111, 8);
             systemPhotoLibraryURL = [v41 systemPhotoLibraryURL];
-            v105 = 0;
-            v44 = [service2 performRequests:v39 assetLocalIdentifier:photoLocalIdentifier13 photoLibraryURL:systemPhotoLibraryURL error:&v105];
-            v81 = v105;
+            v104 = 0;
+            v44 = [service2 performRequests:v39 assetLocalIdentifier:photoLocalIdentifier13 photoLibraryURL:systemPhotoLibraryURL error:&v104];
+            v80 = v104;
 
             if (v44)
             {
@@ -545,7 +543,7 @@ LABEL_28:
             }
 
 LABEL_19:
-            if (!v81)
+            if (!v80)
             {
               continue;
             }
@@ -554,7 +552,7 @@ LABEL_19:
             if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
             {
               photoLocalIdentifier14 = [v19 photoLocalIdentifier];
-              localizedDescription = [v81 localizedDescription];
+              localizedDescription = [v80 localizedDescription];
               *buf = 138412546;
               *&buf[4] = photoLocalIdentifier14;
               *&buf[12] = 2112;
@@ -568,14 +566,14 @@ LABEL_19:
       }
     }
 
-    v85 = [obj countByEnumeratingWithState:&v107 objects:v121 count:16];
+    v84 = [obj countByEnumeratingWithState:&v106 objects:v120 count:16];
   }
 
-  while (v85);
+  while (v84);
 
-  if (v76)
+  if (v75)
   {
-    v73 = v90;
+    v73 = v89;
     goto LABEL_70;
   }
 
@@ -583,38 +581,36 @@ LABEL_69:
   v73 = MEMORY[0x1E695E0F0];
 LABEL_70:
 
-  v74 = *MEMORY[0x1E69E9840];
-
   return v73;
 }
 
 - (BOOL)skipAttachmentProcessing:(id)processing
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   processingCopy = processing;
   v4 = processingCopy;
   if (processingCopy && [processingCopy count])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          photoLocalIdentifier = [*(*(&v14 + 1) + 8 * i) photoLocalIdentifier];
+          photoLocalIdentifier = [*(*(&v13 + 1) + 8 * i) photoLocalIdentifier];
 
           if (photoLocalIdentifier)
           {
@@ -623,7 +619,7 @@ LABEL_70:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           continue;
@@ -642,16 +638,14 @@ LABEL_14:
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)saveBookmark
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*self);
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, a2, a3, "Could not update plist file for bookmark: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, a2, a3, "Could not update plist file for bookmark: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (BOOL)updatePlistWithDict:(id)dict
@@ -680,20 +674,18 @@ LABEL_14:
 
 - (void)updatedAttachmentsWithPeopleIdForAttachments:(uint64_t)a3 forBundleID:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, a2, a3, "appRecord lookup failed with error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1B5ED1000, a2, a3, "appRecord lookup failed with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)updatePlistWithDict:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Error encountered while updating plist: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Error encountered while updating plist: %@", &v4, 0xCu);
 }
 
 @end

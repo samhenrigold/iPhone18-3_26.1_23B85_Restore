@@ -9,8 +9,8 @@
 {
   v2 = *MEMORY[0x277CBECE8];
   v3 = WiFiManagerClientCreate();
-  v4 = *MEMORY[0x277D29800];
-  v5 = WiFiManagerClientCopyProperty();
+  v4 = WiFiManagerClientCopyProperty();
+  v5 = v4;
   if (v3)
   {
     CFRelease(v3);
@@ -18,7 +18,7 @@
 
   if (!v5 || (BytePtr = CFDataGetBytePtr(v5), v7 = CFStringCreateWithFormat(v2, 0, @"%x:%x:%x:%x:%x:%x", *BytePtr, BytePtr[1], BytePtr[2], BytePtr[3], BytePtr[4], BytePtr[5]), CFRelease(v5), !v7))
   {
-    v8 = _initWSKLOG();
+    v8 = _initWSKLOG(v4);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[(MobileWiFiUtilities *)v8];
@@ -32,12 +32,11 @@
 
 + (BOOL)getPowerModificationState
 {
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = WiFiManagerClientCreate();
+  v2 = WiFiManagerClientCreate();
   IsPowerModificationDisabled = WiFiManagerClientIsPowerModificationDisabled();
-  if (v3)
+  if (v2)
   {
-    CFRelease(v3);
+    CFRelease(v2);
   }
 
   return IsPowerModificationDisabled == 0;

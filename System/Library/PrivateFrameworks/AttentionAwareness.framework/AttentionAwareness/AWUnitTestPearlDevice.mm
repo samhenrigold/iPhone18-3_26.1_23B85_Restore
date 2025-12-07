@@ -9,13 +9,19 @@
 - (void)getStatsWithBlock:(id)block;
 - (void)resetStats;
 - (void)setCarPlayConnected:(BOOL)connected;
+- (void)setCarPlayConnected:(BOOL)connected reply:(id)reply;
 - (void)setCarplayStateChangedCallback:(id)callback;
 - (void)setDisplayCallback:(id)callback;
 - (void)setDisplayState:(BOOL)state;
+- (void)setDisplayState:(BOOL)state reply:(id)reply;
 - (void)setPearlErrorState:(BOOL)state;
+- (void)setPearlErrorState:(BOOL)state reply:(id)reply;
 - (void)setSampleState:(BOOL)state deliverEvent:(BOOL)event;
+- (void)setSampleState:(BOOL)state deliverEvent:(BOOL)event reply:(id)reply;
+- (void)setSampleState:(BOOL)state reply:(id)reply;
 - (void)setSmartCoverCallback:(id)callback;
 - (void)setSmartCoverClosed:(BOOL)closed;
+- (void)setSmartCoverClosed:(BOOL)closed reply:(id)reply;
 @end
 
 @implementation AWUnitTestPearlDevice
@@ -27,10 +33,18 @@
   return WeakRetained;
 }
 
+- (void)setPearlErrorState:(BOOL)state reply:(id)reply
+{
+  stateCopy = state;
+  replyCopy = reply;
+  [(AWUnitTestPearlDevice *)self setPearlErrorState:stateCopy];
+  replyCopy[2](replyCopy, 0);
+}
+
 - (void)setPearlErrorState:(BOOL)state
 {
   stateCopy = state;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v5 = _AALog();
@@ -54,9 +68,9 @@
       }
 
       *buf = 134218242;
-      v22 = v7;
-      v23 = 2080;
-      *v24 = v12;
+      v21 = v7;
+      v22 = 2080;
+      *v23 = v12;
       v13 = "%13.5f: UNIT TEST: %s SAMPLER ERROR";
       v14 = v5;
       v15 = 22;
@@ -97,18 +111,18 @@
 
         v16 = "clear";
         *buf = 136315906;
-        v22 = *&v8;
-        v23 = 1024;
+        v21 = *&v8;
+        v22 = 1024;
         if (stateCopy)
         {
           v16 = "set";
         }
 
-        *v24 = 922;
-        *&v24[4] = 2048;
-        *&v24[6] = v11;
-        v25 = 2080;
-        v26 = v16;
+        *v23 = 922;
+        *&v23[4] = 2048;
+        *&v23[6] = v11;
+        v24 = 2080;
+        v25 = v16;
         v13 = "%30s:%-4d: %13.5f: UNIT TEST: %s SAMPLER ERROR";
         v14 = v5;
         v15 = 38;
@@ -122,14 +136,13 @@ LABEL_24:
   }
 
   awQueue = self->_awQueue;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __44__AWUnitTestPearlDevice_setPearlErrorState___block_invoke;
-  v19[3] = &unk_1E7F37FC8;
-  v19[4] = self;
-  v20 = stateCopy;
-  dispatch_sync(awQueue, v19);
-  v18 = *MEMORY[0x1E69E9840];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __44__AWUnitTestPearlDevice_setPearlErrorState___block_invoke;
+  v18[3] = &unk_1E7F37FC8;
+  v18[4] = self;
+  v19 = stateCopy;
+  dispatch_sync(awQueue, v18);
 }
 
 uint64_t __44__AWUnitTestPearlDevice_setPearlErrorState___block_invoke(uint64_t a1)
@@ -173,7 +186,7 @@ void __56__AWUnitTestPearlDevice_setCarplayStateChangedCallback___block_invoke(u
 - (void)setCarPlayConnected:(BOOL)connected
 {
   connectedCopy = connected;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v5 = _AALog();
@@ -197,9 +210,9 @@ void __56__AWUnitTestPearlDevice_setCarplayStateChangedCallback___block_invoke(u
       }
 
       *buf = 134218242;
-      v22 = v7;
-      v23 = 2080;
-      *v24 = v12;
+      v21 = v7;
+      v22 = 2080;
+      *v23 = v12;
       v13 = "%13.5f: UNIT TEST: set CarPlay connected state: %s";
       v14 = v5;
       v15 = 22;
@@ -240,18 +253,18 @@ void __56__AWUnitTestPearlDevice_setCarplayStateChangedCallback___block_invoke(u
 
         v16 = "DISCONNECTED";
         *buf = 136315906;
-        v22 = *&v8;
-        v23 = 1024;
+        v21 = *&v8;
+        v22 = 1024;
         if (connectedCopy)
         {
           v16 = "CONNECTED";
         }
 
-        *v24 = 898;
-        *&v24[4] = 2048;
-        *&v24[6] = v11;
-        v25 = 2080;
-        v26 = v16;
+        *v23 = 898;
+        *&v23[4] = 2048;
+        *&v23[6] = v11;
+        v24 = 2080;
+        v25 = v16;
         v13 = "%30s:%-4d: %13.5f: UNIT TEST: set CarPlay connected state: %s";
         v14 = v5;
         v15 = 38;
@@ -265,64 +278,69 @@ LABEL_24:
   }
 
   awQueue = self->_awQueue;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __45__AWUnitTestPearlDevice_setCarPlayConnected___block_invoke;
-  v19[3] = &unk_1E7F37FC8;
-  v19[4] = self;
-  v20 = connectedCopy;
-  dispatch_sync(awQueue, v19);
-  v18 = *MEMORY[0x1E69E9840];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __45__AWUnitTestPearlDevice_setCarPlayConnected___block_invoke;
+  v18[3] = &unk_1E7F37FC8;
+  v18[4] = self;
+  v19 = connectedCopy;
+  dispatch_sync(awQueue, v18);
 }
 
 void __45__AWUnitTestPearlDevice_setCarPlayConnected___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = *(*(a1 + 32) + 64);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (*(*(&v14 + 1) + 8 * v6))
+        if (*(*(&v13 + 1) + 8 * v6))
         {
           v7 = MEMORY[0x1BFB0D030]();
           v8 = dispatch_get_global_queue(0, 0);
-          v11[0] = MEMORY[0x1E69E9820];
-          v11[1] = 3221225472;
-          v11[2] = __45__AWUnitTestPearlDevice_setCarPlayConnected___block_invoke_2;
-          v11[3] = &unk_1E7F37B48;
-          v12 = v7;
-          v13 = *(a1 + 40);
+          v10[0] = MEMORY[0x1E69E9820];
+          v10[1] = 3221225472;
+          v10[2] = __45__AWUnitTestPearlDevice_setCarPlayConnected___block_invoke_2;
+          v10[3] = &unk_1E7F37B48;
+          v11 = v7;
+          v12 = *(a1 + 40);
           v9 = v7;
-          dispatch_async(v8, v11);
+          dispatch_async(v8, v10);
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)setCarPlayConnected:(BOOL)connected reply:(id)reply
+{
+  connectedCopy = connected;
+  replyCopy = reply;
+  [(AWUnitTestPearlDevice *)self setCarPlayConnected:connectedCopy];
+  replyCopy[2](replyCopy, 0);
 }
 
 - (void)setSmartCoverCallback:(id)callback
@@ -346,10 +364,18 @@ void __47__AWUnitTestPearlDevice_setSmartCoverCallback___block_invoke(uint64_t a
   [v1 addObject:v2];
 }
 
+- (void)setSmartCoverClosed:(BOOL)closed reply:(id)reply
+{
+  closedCopy = closed;
+  replyCopy = reply;
+  [(AWUnitTestPearlDevice *)self setSmartCoverClosed:closedCopy];
+  replyCopy[2](replyCopy, 0);
+}
+
 - (void)setSmartCoverClosed:(BOOL)closed
 {
   closedCopy = closed;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v5 = _AALog();
@@ -373,9 +399,9 @@ void __47__AWUnitTestPearlDevice_setSmartCoverCallback___block_invoke(uint64_t a
       }
 
       *buf = 134218242;
-      v22 = v7;
-      v23 = 2080;
-      *v24 = v12;
+      v21 = v7;
+      v22 = 2080;
+      *v23 = v12;
       v13 = "%13.5f: UNIT TEST: set SMART COVER %s";
       v14 = v5;
       v15 = 22;
@@ -416,18 +442,18 @@ void __47__AWUnitTestPearlDevice_setSmartCoverCallback___block_invoke(uint64_t a
 
         v16 = "OPEN";
         *buf = 136315906;
-        v22 = *&v8;
-        v23 = 1024;
+        v21 = *&v8;
+        v22 = 1024;
         if (closedCopy)
         {
           v16 = "CLOSED";
         }
 
-        *v24 = 860;
-        *&v24[4] = 2048;
-        *&v24[6] = v11;
-        v25 = 2080;
-        v26 = v16;
+        *v23 = 860;
+        *&v23[4] = 2048;
+        *&v23[6] = v11;
+        v24 = 2080;
+        v25 = v16;
         v13 = "%30s:%-4d: %13.5f: UNIT TEST: set SMART COVER %s";
         v14 = v5;
         v15 = 38;
@@ -441,64 +467,61 @@ LABEL_24:
   }
 
   awQueue = self->_awQueue;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __45__AWUnitTestPearlDevice_setSmartCoverClosed___block_invoke;
-  v19[3] = &unk_1E7F37FC8;
-  v19[4] = self;
-  v20 = closedCopy;
-  dispatch_sync(awQueue, v19);
-  v18 = *MEMORY[0x1E69E9840];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __45__AWUnitTestPearlDevice_setSmartCoverClosed___block_invoke;
+  v18[3] = &unk_1E7F37FC8;
+  v18[4] = self;
+  v19 = closedCopy;
+  dispatch_sync(awQueue, v18);
 }
 
 void __45__AWUnitTestPearlDevice_setSmartCoverClosed___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = *(*(a1 + 32) + 56);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (*(*(&v14 + 1) + 8 * v6))
+        if (*(*(&v13 + 1) + 8 * v6))
         {
           v7 = MEMORY[0x1BFB0D030]();
           v8 = dispatch_get_global_queue(0, 0);
-          v11[0] = MEMORY[0x1E69E9820];
-          v11[1] = 3221225472;
-          v11[2] = __45__AWUnitTestPearlDevice_setSmartCoverClosed___block_invoke_2;
-          v11[3] = &unk_1E7F37B48;
-          v12 = v7;
-          v13 = *(a1 + 40);
+          v10[0] = MEMORY[0x1E69E9820];
+          v10[1] = 3221225472;
+          v10[2] = __45__AWUnitTestPearlDevice_setSmartCoverClosed___block_invoke_2;
+          v10[3] = &unk_1E7F37B48;
+          v11 = v7;
+          v12 = *(a1 + 40);
           v9 = v7;
-          dispatch_async(v8, v11);
+          dispatch_async(v8, v10);
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDisplayCallback:(id)callback
@@ -522,10 +545,18 @@ void __44__AWUnitTestPearlDevice_setDisplayCallback___block_invoke(uint64_t a1)
   [v1 addObject:v2];
 }
 
+- (void)setDisplayState:(BOOL)state reply:(id)reply
+{
+  stateCopy = state;
+  replyCopy = reply;
+  [(AWUnitTestPearlDevice *)self setDisplayState:stateCopy];
+  replyCopy[2](replyCopy, 0);
+}
+
 - (void)setDisplayState:(BOOL)state
 {
   stateCopy = state;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v5 = _AALog();
@@ -549,9 +580,9 @@ void __44__AWUnitTestPearlDevice_setDisplayCallback___block_invoke(uint64_t a1)
       }
 
       *buf = 134218242;
-      v22 = v7;
-      v23 = 2080;
-      *v24 = v12;
+      v21 = v7;
+      v22 = 2080;
+      *v23 = v12;
       v13 = "%13.5f: UNIT TEST: set %s";
       v14 = v5;
       v15 = 22;
@@ -592,18 +623,18 @@ void __44__AWUnitTestPearlDevice_setDisplayCallback___block_invoke(uint64_t a1)
 
         v16 = "DISPLAY OFF";
         *buf = 136315906;
-        v22 = *&v8;
-        v23 = 1024;
+        v21 = *&v8;
+        v22 = 1024;
         if (stateCopy)
         {
           v16 = "DISPLAY ON";
         }
 
-        *v24 = 829;
-        *&v24[4] = 2048;
-        *&v24[6] = v11;
-        v25 = 2080;
-        v26 = v16;
+        *v23 = 829;
+        *&v23[4] = 2048;
+        *&v23[6] = v11;
+        v24 = 2080;
+        v25 = v16;
         v13 = "%30s:%-4d: %13.5f: UNIT TEST: set %s";
         v14 = v5;
         v15 = 38;
@@ -617,70 +648,76 @@ LABEL_24:
   }
 
   awQueue = self->_awQueue;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __41__AWUnitTestPearlDevice_setDisplayState___block_invoke;
-  v19[3] = &unk_1E7F37FC8;
-  v19[4] = self;
-  v20 = stateCopy;
-  dispatch_sync(awQueue, v19);
-  v18 = *MEMORY[0x1E69E9840];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __41__AWUnitTestPearlDevice_setDisplayState___block_invoke;
+  v18[3] = &unk_1E7F37FC8;
+  v18[4] = self;
+  v19 = stateCopy;
+  dispatch_sync(awQueue, v18);
 }
 
 void __41__AWUnitTestPearlDevice_setDisplayState___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = *(*(a1 + 32) + 48);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (*(*(&v14 + 1) + 8 * v6))
+        if (*(*(&v13 + 1) + 8 * v6))
         {
           v7 = MEMORY[0x1BFB0D030]();
           v8 = dispatch_get_global_queue(0, 0);
-          v11[0] = MEMORY[0x1E69E9820];
-          v11[1] = 3221225472;
-          v11[2] = __41__AWUnitTestPearlDevice_setDisplayState___block_invoke_2;
-          v11[3] = &unk_1E7F37B48;
-          v12 = v7;
-          v13 = *(a1 + 40);
+          v10[0] = MEMORY[0x1E69E9820];
+          v10[1] = 3221225472;
+          v10[2] = __41__AWUnitTestPearlDevice_setDisplayState___block_invoke_2;
+          v10[3] = &unk_1E7F37B48;
+          v11 = v7;
+          v12 = *(a1 + 40);
           v9 = v7;
-          dispatch_async(v8, v11);
+          dispatch_async(v8, v10);
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)setSampleState:(BOOL)state deliverEvent:(BOOL)event reply:(id)reply
+{
+  eventCopy = event;
+  stateCopy = state;
+  replyCopy = reply;
+  [(AWUnitTestPearlDevice *)self setSampleState:stateCopy deliverEvent:eventCopy];
+  replyCopy[2](replyCopy, 0);
 }
 
 - (void)setSampleState:(BOOL)state deliverEvent:(BOOL)event
 {
   stateCopy = state;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v7 = _AALog();
@@ -704,9 +741,9 @@ void __41__AWUnitTestPearlDevice_setDisplayState___block_invoke(uint64_t a1)
       }
 
       *buf = 134218242;
-      v25 = v9;
-      v26 = 2080;
-      *v27 = v14;
+      v24 = v9;
+      v25 = 2080;
+      *v26 = v14;
       v15 = "%13.5f: UNIT TEST: set %s";
       v16 = v7;
       v17 = 22;
@@ -747,18 +784,18 @@ void __41__AWUnitTestPearlDevice_setDisplayState___block_invoke(uint64_t a1)
 
         v18 = "FACE NOT FOUND";
         *buf = 136315906;
-        v25 = *&v10;
-        v26 = 1024;
+        v24 = *&v10;
+        v25 = 1024;
         if (stateCopy)
         {
           v18 = "FACE FOUND";
         }
 
-        *v27 = 809;
-        *&v27[4] = 2048;
-        *&v27[6] = v13;
-        v28 = 2080;
-        v29 = v18;
+        *v26 = 809;
+        *&v26[4] = 2048;
+        *&v26[6] = v13;
+        v27 = 2080;
+        v28 = v18;
         v15 = "%30s:%-4d: %13.5f: UNIT TEST: set %s";
         v16 = v7;
         v17 = 38;
@@ -772,27 +809,34 @@ LABEL_24:
   }
 
   awQueue = self->_awQueue;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __53__AWUnitTestPearlDevice_setSampleState_deliverEvent___block_invoke;
-  v21[3] = &unk_1E7F37B20;
-  v21[4] = self;
-  v22 = stateCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __53__AWUnitTestPearlDevice_setSampleState_deliverEvent___block_invoke;
+  v20[3] = &unk_1E7F37B20;
+  v20[4] = self;
+  v21 = stateCopy;
   eventCopy = event;
-  dispatch_sync(awQueue, v21);
-  v20 = *MEMORY[0x1E69E9840];
+  dispatch_sync(awQueue, v20);
 }
 
-uint64_t __53__AWUnitTestPearlDevice_setSampleState_deliverEvent___block_invoke(uint64_t result)
+void *__53__AWUnitTestPearlDevice_setSampleState_deliverEvent___block_invoke(void *result)
 {
-  *(*(result + 32) + 80) = *(result + 40);
-  v1 = *(result + 32);
+  *(result[4] + 80) = *(result + 40);
+  v1 = result[4];
   if ((*(v1 + 81) & 1) == 0 && *(v1 + 80) == 1 && *(result + 41) == 1)
   {
     return [*(v1 + 40) awSetFaceFound];
   }
 
   return result;
+}
+
+- (void)setSampleState:(BOOL)state reply:(id)reply
+{
+  stateCopy = state;
+  replyCopy = reply;
+  [(AWUnitTestPearlDevice *)self setSampleState:stateCopy];
+  replyCopy[2](replyCopy, 0);
 }
 
 - (void)resetStats
@@ -854,7 +898,7 @@ uint64_t __43__AWUnitTestPearlDevice_getStatsWithBlock___block_invoke(uint64_t a
 
 void __49__AWUnitTestPearlDevice_deliverPearlDeviceState___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v2 = _AALog();
@@ -872,15 +916,15 @@ void __49__AWUnitTestPearlDevice_deliverPearlDeviceState___block_invoke(uint64_t
       }
 
       DeviceStateDescription = getDeviceStateDescription(*(a1 + 40));
-      *v19 = 134218242;
-      *&v19[4] = v4;
-      *&v19[12] = 2080;
-      *&v19[14] = DeviceStateDescription;
+      *v18 = 134218242;
+      *&v18[4] = v4;
+      *&v18[12] = 2080;
+      *&v18[14] = DeviceStateDescription;
       v10 = "%13.5f: UNIT TEST: delivering %s state";
       v11 = v2;
       v12 = 22;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v11, OS_LOG_TYPE_DEFAULT, v10, v19, v12);
+      _os_log_impl(&dword_1BB2EF000, v11, OS_LOG_TYPE_DEFAULT, v10, v18, v12);
     }
   }
 
@@ -916,14 +960,14 @@ LABEL_19:
           }
 
           v13 = getDeviceStateDescription(*(a1 + 40));
-          *v19 = 136315906;
-          *&v19[4] = v5;
-          *&v19[12] = 1024;
-          *&v19[14] = 771;
-          *&v19[18] = 2048;
-          *&v19[20] = v8;
-          *&v19[28] = 2080;
-          *&v19[30] = v13;
+          *v18 = 136315906;
+          *&v18[4] = v5;
+          *&v18[12] = 1024;
+          *&v18[14] = 771;
+          *&v18[18] = 2048;
+          *&v18[20] = v8;
+          *&v18[28] = 2080;
+          *&v18[30] = v13;
           v10 = "%30s:%-4d: %13.5f: UNIT TEST: delivering %s state";
           v11 = v2;
           v12 = 38;
@@ -943,8 +987,6 @@ LABEL_21:
     v17 = +[AWUnitTestPearlDevice sharedDevice];
     [v16 device:v17 pearlStateChanged:*(a1 + 40)];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deliverPearlDeviceEvent:(int64_t)event
@@ -961,7 +1003,7 @@ LABEL_21:
 
 void __49__AWUnitTestPearlDevice_deliverPearlDeviceEvent___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v2 = _AALog();
@@ -982,19 +1024,19 @@ void __49__AWUnitTestPearlDevice_deliverPearlDeviceEvent___block_invoke(uint64_t
       v10 = *(a1 + 32);
       v11 = v10[12];
       v12 = [v10 delegate];
-      *v24 = 134218754;
-      *&v24[4] = v4;
-      *&v24[12] = 2080;
-      *&v24[14] = DeviceEventDescription;
-      *&v24[22] = 2112;
-      *&v24[24] = v11;
-      *&v24[32] = 2112;
-      *&v24[34] = v12;
+      *v23 = 134218754;
+      *&v23[4] = v4;
+      *&v23[12] = 2080;
+      *&v23[14] = DeviceEventDescription;
+      *&v23[22] = 2112;
+      *&v23[24] = v11;
+      *&v23[32] = 2112;
+      *&v23[34] = v12;
       v13 = "%13.5f: UNIT TEST: delivering %s event on queue %@ to %@";
       v14 = v2;
       v15 = 42;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, v24, v15);
+      _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, v23, v15);
     }
   }
 
@@ -1033,18 +1075,18 @@ LABEL_19:
           v17 = *(a1 + 32);
           v18 = v17[12];
           v12 = [v17 delegate];
-          *v24 = 136316418;
-          *&v24[4] = v5;
-          *&v24[12] = 1024;
-          *&v24[14] = 760;
-          *&v24[18] = 2048;
-          *&v24[20] = v8;
-          *&v24[28] = 2080;
-          *&v24[30] = v16;
-          *&v24[38] = 2112;
-          *&v24[40] = v18;
-          LOWORD(v25) = 2112;
-          *(&v25 + 2) = v12;
+          *v23 = 136316418;
+          *&v23[4] = v5;
+          *&v23[12] = 1024;
+          *&v23[14] = 760;
+          *&v23[18] = 2048;
+          *&v23[20] = v8;
+          *&v23[28] = 2080;
+          *&v23[30] = v16;
+          *&v23[38] = 2112;
+          *&v23[40] = v18;
+          LOWORD(v24) = 2112;
+          *(&v24 + 2) = v12;
           v13 = "%30s:%-4d: %13.5f: UNIT TEST: delivering %s event on queue %@ to %@";
           v14 = v2;
           v15 = 58;
@@ -1064,8 +1106,6 @@ LABEL_21:
     v22 = +[AWUnitTestPearlDevice sharedDevice];
     [v21 device:v22 pearlEventOccurred:*(a1 + 40)];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)createPresenceDetectOperationWithError:(id *)error

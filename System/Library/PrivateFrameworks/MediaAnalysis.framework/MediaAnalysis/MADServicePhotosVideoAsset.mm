@@ -204,26 +204,26 @@ LABEL_30:
 
 - (int)_downloadAssetResourceURLWithCancelBlock:(id)block progressHandler:(id)handler
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   handlerCopy = handler;
-  v8 = VCPSignPostLog();
+  v8 = VCPSignPostLog(handlerCopy);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = VCPSignPostLog();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = VCPSignPostLog(v10);
+  v12 = v11;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "MADServicePhotosVideoAsset_downloadAssetResource", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "MADServicePhotosVideoAsset_downloadAssetResource", "", buf, 2u);
   }
 
   resources = [(MADServicePhotosVideoAsset *)self resources];
-  v13 = [resources vcp_movieResourcesSorted:{-[PHAsset vcp_hasAdjustments](self->_photosAsset, "vcp_hasAdjustments")}];
-  if ([v13 count])
+  v14 = [resources vcp_movieResourcesSorted:{-[PHAsset vcp_hasAdjustments](self->_photosAsset, "vcp_hasAdjustments")}];
+  if ([v14 count])
   {
     spid = v9;
-    v35 = v9 - 1;
+    v36 = v9 - 1;
     vcp_smallMovieDerivativeResource = [resources vcp_smallMovieDerivativeResource];
     if (!vcp_smallMovieDerivativeResource)
     {
@@ -231,85 +231,89 @@ LABEL_30:
       {
         localIdentifier = [(PHAsset *)self->_photosAsset localIdentifier];
         *buf = 138412290;
-        v40 = localIdentifier;
+        v41 = localIdentifier;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] No small video derivative, trying the original resource...", buf, 0xCu);
       }
 
-      vcp_smallMovieDerivativeResource = [v13 objectAtIndexedSubscript:0];
+      vcp_smallMovieDerivativeResource = [v14 objectAtIndexedSubscript:0];
     }
 
     if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       [(PHAsset *)self->_photosAsset localIdentifier];
-      v16 = v36 = v13;
-      v17 = blockCopy;
+      v17 = v37 = v14;
+      v18 = blockCopy;
       type = [vcp_smallMovieDerivativeResource type];
-      v19 = handlerCopy;
+      v20 = handlerCopy;
       pixelWidth = [vcp_smallMovieDerivativeResource pixelWidth];
       pixelHeight = [vcp_smallMovieDerivativeResource pixelHeight];
       *buf = 138413058;
-      v40 = v16;
-      v41 = 1024;
-      v42 = type;
-      blockCopy = v17;
-      v43 = 1024;
-      v44 = pixelWidth;
-      handlerCopy = v19;
-      v45 = 1024;
-      v46 = pixelHeight;
+      v41 = v17;
+      v42 = 1024;
+      v43 = type;
+      blockCopy = v18;
+      v44 = 1024;
+      v45 = pixelWidth;
+      handlerCopy = v20;
+      v46 = 1024;
+      v47 = pixelHeight;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Video resource to download (Type: %d Resolution: %dx%d)", buf, 0x1Eu);
 
-      v13 = v36;
+      v14 = v37;
     }
 
     if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       localIdentifier2 = [(PHAsset *)self->_photosAsset localIdentifier];
       *buf = 138412290;
-      v40 = localIdentifier2;
+      v41 = localIdentifier2;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Downloading video resource.", buf, 0xCu);
     }
 
-    v37 = handlerCopy;
-    v38 = 0;
-    v23 = blockCopy;
-    v24 = [MEMORY[0x1E69786E8] vcp_requestFileURLForAssetResource:vcp_smallMovieDerivativeResource withTaskID:0 toResourceURL:&v38 progressHandler:handlerCopy cancel:blockCopy];
-    v25 = v38;
-    v26 = v38;
-    v27 = MediaAnalysisLogLevel();
-    if (v26)
+    v38 = handlerCopy;
+    v39 = 0;
+    v24 = blockCopy;
+    v25 = [MEMORY[0x1E69786E8] vcp_requestFileURLForAssetResource:vcp_smallMovieDerivativeResource withTaskID:0 toResourceURL:&v39 progressHandler:handlerCopy cancel:blockCopy];
+    v26 = v39;
+    v27 = v39;
+    v28 = MediaAnalysisLogLevel();
+    if (v27)
     {
-      if (v27 >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+      if (v28 >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
         localIdentifier3 = [(PHAsset *)self->_photosAsset localIdentifier];
         *buf = 138412290;
-        v40 = localIdentifier3;
+        v41 = localIdentifier3;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Downloaded video resource", buf, 0xCu);
       }
 
-      objc_storeStrong(&self->_downloadedVideoURL, v25);
+      objc_storeStrong(&self->_downloadedVideoURL, v26);
     }
 
-    else if (v27 >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    else if (v28 >= 3)
     {
-      localIdentifier4 = [(PHAsset *)self->_photosAsset localIdentifier];
-      *buf = 138412546;
-      v40 = localIdentifier4;
-      v41 = 1024;
-      v42 = v24;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to download video resource, err:%d", buf, 0x12u);
+      v28 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      if (v28)
+      {
+        localIdentifier4 = [(PHAsset *)self->_photosAsset localIdentifier];
+        *buf = 138412546;
+        v41 = localIdentifier4;
+        v42 = 1024;
+        v43 = v25;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] Failed to download video resource, err:%d", buf, 0x12u);
+      }
     }
 
-    v31 = VCPSignPostLog();
-    v32 = v31;
-    if (v35 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+    v32 = VCPSignPostLog(v28);
+    v33 = v32;
+    if (v36 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_END, spid, "MADServicePhotosVideoAsset_downloadAssetResource", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v33, OS_SIGNPOST_INTERVAL_END, spid, "MADServicePhotosVideoAsset_downloadAssetResource", "", buf, 2u);
     }
 
-    blockCopy = v23;
-    handlerCopy = v37;
+    blockCopy = v24;
+    handlerCopy = v38;
   }
 
   else
@@ -318,14 +322,14 @@ LABEL_30:
     {
       localIdentifier5 = [(PHAsset *)self->_photosAsset localIdentifier];
       *buf = 138412290;
-      v40 = localIdentifier5;
+      v41 = localIdentifier5;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] No available video resource; skipping", buf, 0xCu);
     }
 
-    v24 = -18;
+    v25 = -18;
   }
 
-  return v24;
+  return v25;
 }
 
 - (id)videoURLWithAllowDownload:(BOOL)download progressHandler:(id)handler cancelBlock:(id)block
@@ -392,7 +396,7 @@ LABEL_30:
   if (photoIrisProperties)
   {
     v6 = photoIrisProperties;
-    [photoIrisProperties photoIrisStillDisplayTime];
+    objc_msgSend_photoIrisStillDisplayTime(photoIrisProperties);
     photoIrisProperties = v6;
   }
 

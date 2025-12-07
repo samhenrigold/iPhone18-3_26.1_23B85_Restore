@@ -522,7 +522,6 @@ LABEL_21:
     -[JavaLangStringBuilder appendWithNSString:](v2, "appendWithNSString:", [v12 lowercaseStringWithJRELocale:JavaUtilLocale_US_]);
     if (*(self + 56) != -1)
     {
-      v24 = *(self + 56);
       v20 = JreStrcat("CI", v13, v14, v15, v16, v17, v18, v19, 58);
 LABEL_16:
       [(JavaLangStringBuilder *)v2 appendWithNSString:v20];
@@ -589,7 +588,6 @@ LABEL_7:
   v9 = new_JavaLangStringBuilder_init();
   if (*(self + 32))
   {
-    v12 = *(self + 32);
     [(JavaLangStringBuilder *)v9 appendWithNSString:JreStrcat("$$", v2, v3, v4, v5, v6, v7, v8, @"//")];
   }
 
@@ -601,7 +599,6 @@ LABEL_7:
 
   if (*(self + 72))
   {
-    v13 = *(self + 72);
     [(JavaLangStringBuilder *)v9 appendWithNSString:JreStrcat("C$", v2, v10, v4, v5, v6, v7, v8, 63)];
   }
 
@@ -769,7 +766,6 @@ LABEL_20:
     if ((isEmpty & 1) == 0)
     {
       v13 = [(NSString *)self->path_ substring:0 endIndex:[(__CFString *)path lastIndexOf:47]+ 1];
-      v25 = *(i + 8);
       path = JreStrcat("$$", v14, v15, v16, v17, v18, v19, v20, v13);
     }
   }
@@ -932,7 +928,7 @@ LABEL_13:
     v6 = sub_10024F9F8(@"?/[]@");
     JreStrongAssignAndConsume(&JavaNetURI_ALL_LEGAL_ENCODER_, v6);
     v7 = [JavaNetURI__1 alloc];
-    LibcoreNetUriCodec_init(v7, v8);
+    LibcoreNetUriCodec_init();
     JreStrongAssignAndConsume(&qword_1005553F8, v7);
     atomic_store(1u, JavaNetURI__initialized);
   }

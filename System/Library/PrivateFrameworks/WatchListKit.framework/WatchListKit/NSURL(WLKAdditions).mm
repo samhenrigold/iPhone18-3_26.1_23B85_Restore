@@ -8,7 +8,7 @@
 
 + (id)wlk_URLWithServerConfig:()WLKAdditions routeName:queryParameters:suppressParameterEncoding:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a4;
   v12 = a5;
@@ -59,22 +59,20 @@
     v24 = WLKNetworkingLogObject();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 138412290;
-      v29 = v11;
-      _os_log_impl(&dword_272A0F000, v24, OS_LOG_TYPE_DEFAULT, "NSURL-WLKAdditions: Could not construct url with route name: %@", &v28, 0xCu);
+      v27 = 138412290;
+      v28 = v11;
+      _os_log_impl(&dword_272A0F000, v24, OS_LOG_TYPE_DEFAULT, "NSURL-WLKAdditions: Could not construct url with route name: %@", &v27, 0xCu);
     }
 
     v25 = 0;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
 
 + (id)wlk_URLWithServerConfig:()WLKAdditions endpoint:relativeToBaseURL:queryParameters:suppressParameterEncoding:ignoreUserLocation:
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v14 = a3;
   v15 = a4;
   v16 = a6;
@@ -84,8 +82,8 @@
     v18 = 0;
     if (v17)
     {
-      v32[0] = v15;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+      v31[0] = v15;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
       v20 = [v17 wlk_stringByAppendingPathComponents:v19];
     }
 
@@ -95,7 +93,7 @@
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = v18;
+        v30 = v18;
         _os_log_impl(&dword_272A0F000, v19, OS_LOG_TYPE_DEFAULT, "NSURL-WLKAdditions: Failed to fetch baseURL: %@", buf, 0xCu);
       }
 
@@ -118,7 +116,7 @@ LABEL_19:
       if (os_log_type_enabled(dictionary, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = v15;
+        v30 = v15;
         _os_log_impl(&dword_272A0F000, dictionary, OS_LOG_TYPE_DEFAULT, "NSURL-WLKAdditions: Could not construct url with endpoint: %@", buf, 0xCu);
       }
 
@@ -169,41 +167,40 @@ LABEL_8:
   v27 = [v26 URL];
 
 LABEL_22:
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
 
 + (id)wlk_sortedQueryItemsFromDictionary:()WLKAdditions
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a3;
   array = [MEMORY[0x277CBEB18] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   allKeys = [v3 allKeys];
   v5 = [allKeys sortedArrayUsingSelector:sel_caseInsensitiveCompare_];
 
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v22;
+    v9 = *v21;
     *&v7 = 138412290;
-    v19 = v7;
+    v18 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
-        v12 = [v3 objectForKey:{v11, v19}];
+        v11 = *(*(&v20 + 1) + 8 * i);
+        v12 = [v3 objectForKey:{v11, v18}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -246,21 +243,19 @@ LABEL_19:
         v14 = WLKNetworkingLogObject();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v19;
-          v26 = v12;
+          *buf = v18;
+          v25 = v12;
           _os_log_impl(&dword_272A0F000, v14, OS_LOG_TYPE_DEFAULT, "NSURL-WLKAdditions: Invalid query param: %@", buf, 0xCu);
         }
 
 LABEL_21:
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v8);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return array;
 }

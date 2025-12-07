@@ -11,7 +11,7 @@
   v5 = sub_10076341C();
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = OBJC_IVAR____TtC20ProductPageExtension38ProductEditorsChoiceCollectionViewCell_editorsChoiceView;
-  type metadata accessor for ProductEditorsChoiceView();
+  type metadata accessor for ProductEditorsChoiceView(0);
   *(&self->super.super.super.super.super.isa + v6) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   result = sub_10077156C();
   __break(1u);

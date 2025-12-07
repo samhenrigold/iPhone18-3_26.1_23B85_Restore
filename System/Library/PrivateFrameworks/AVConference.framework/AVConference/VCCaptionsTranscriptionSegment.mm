@@ -147,11 +147,11 @@
     return 0;
   }
 
-  range = [equal range];
+  v6 = objc_msgSend_range(equal);
   v8 = v7;
-  range2 = [(VCCaptionsTranscriptionSegment *)self range];
+  v10 = objc_msgSend_range(self);
   result = 0;
-  if (range == range2 && v8 == v9)
+  if (v6 == v10 && v8 == v9)
   {
     text = [equal text];
     text2 = [(VCCaptionsTranscriptionSegment *)self text];
@@ -180,7 +180,7 @@
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode update number", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode update number", v2, v3, v4, v5);
     }
   }
 }
@@ -194,7 +194,7 @@
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode is local", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode is local", v2, v3, v4, v5);
     }
   }
 }
@@ -208,7 +208,7 @@
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode is local", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode is local", v2, v3, v4, v5);
     }
   }
 }
@@ -222,7 +222,7 @@
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode segment text", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode segment text", v2, v3, v4, v5);
     }
   }
 }

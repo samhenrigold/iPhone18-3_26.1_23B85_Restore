@@ -242,15 +242,15 @@ LABEL_17:
 
 - (void)executeDecode
 {
-  v3 = VCPSignPostLog();
+  v3 = VCPSignPostLog(self);
   v4 = os_signpost_id_generate(v3);
 
-  v5 = VCPSignPostLog();
-  v6 = v5;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = VCPSignPostLog(v5);
+  v7 = v6;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "VCPVideoAnalysisPipelineManager_ExecuteDecode", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "VCPVideoAnalysisPipelineManager_ExecuteDecode", "", buf, 2u);
   }
 
   if (!atomic_load(&self->_err))
@@ -273,9 +273,10 @@ LABEL_17:
       {
         lastFrameResource = [(VCPVideoAnalysisPipelineManager *)self lastFrameResource];
         nextFrameResource = [(VCPVideoAnalysisPipelineManager *)self nextFrameResource];
-        if (nextFrameResource && (v12 = [(VCPVideoAnalysisPipelineManager *)self addFrameResource:nextFrameResource]) != 0)
+        v13 = nextFrameResource;
+        if (nextFrameResource && (nextFrameResource = [(VCPVideoAnalysisPipelineManager *)self addFrameResource:nextFrameResource], nextFrameResource))
         {
-          atomic_store(v12, &self->_err);
+          atomic_store(nextFrameResource, &self->_err);
         }
 
         else
@@ -283,23 +284,23 @@ LABEL_17:
           if (lastFrameResource)
           {
             group = self->_group;
-            v14 = [(NSMutableArray *)self->_pipelineQueues objectAtIndex:0];
+            v15 = [(NSMutableArray *)self->_pipelineQueues objectAtIndex:0];
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
             block[2] = __48__VCPVideoAnalysisPipelineManager_executeDecode__block_invoke;
             block[3] = &unk_1E834D020;
             block[4] = self;
-            v18 = lastFrameResource;
-            v19 = nextFrameResource;
-            dispatch_group_async(group, v14, block);
+            v19 = lastFrameResource;
+            v20 = v13;
+            dispatch_group_async(group, v15, block);
           }
 
-          v15 = VCPSignPostLog();
-          v16 = v15;
-          if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+          v16 = VCPSignPostLog(nextFrameResource);
+          v17 = v16;
+          if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v4, "VCPVideoAnalysisPipelineManager_ExecuteDecode", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_END, v4, "VCPVideoAnalysisPipelineManager_ExecuteDecode", "", buf, 2u);
           }
         }
       }
@@ -327,18 +328,18 @@ uint64_t __48__VCPVideoAnalysisPipelineManager_executeDecode__block_invoke(void 
 
 - (void)executePipelineStageAt:(unint64_t)at currentFrameResource:(id)resource nextFrameSample:(opaqueCMSampleBuffer *)sample
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
-  v9 = VCPSignPostLog();
+  v9 = VCPSignPostLog(resourceCopy);
   v10 = os_signpost_id_generate(v9);
 
-  v11 = VCPSignPostLog();
-  v12 = v11;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v12 = VCPSignPostLog(v11);
+  v13 = v12;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 67109120;
     atCopy2 = at;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "VCPVideoAnalysisPipelineManager_ExecuteStage", "-%u", buf, 8u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "VCPVideoAnalysisPipelineManager_ExecuteStage", "-%u", buf, 8u);
   }
 
   if (!atomic_load(&self->_err))
@@ -351,50 +352,50 @@ uint64_t __48__VCPVideoAnalysisPipelineManager_executeDecode__block_invoke(void 
 
     else
     {
-      v15 = [(NSArray *)self->_pipelineBlocks objectAtIndex:at];
-      v16 = (v15)[2](v15, resourceCopy, sample);
+      v16 = [(NSArray *)self->_pipelineBlocks objectAtIndex:at];
+      v17 = (v16)[2](v16, resourceCopy, sample);
 
-      if (v16)
+      if (v17)
       {
-        atomic_store(v16, &self->_err);
+        atomic_store(v17, &self->_err);
       }
 
       else
       {
-        v17 = (at + 1) % [(NSArray *)self->_pipelineBlocks count];
+        v18 = (at + 1) % [(NSArray *)self->_pipelineBlocks count];
         group = self->_group;
-        if (v17)
+        if (v18)
         {
-          v19 = [(NSMutableArray *)self->_pipelineQueues objectAtIndex:v17];
+          v20 = [(NSMutableArray *)self->_pipelineQueues objectAtIndex:v18];
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __95__VCPVideoAnalysisPipelineManager_executePipelineStageAt_currentFrameResource_nextFrameSample___block_invoke_2;
           block[3] = &unk_1E8350720;
           block[4] = self;
-          v25 = v17;
-          v24 = resourceCopy;
+          v27 = v18;
+          v26 = resourceCopy;
           sampleCopy = sample;
-          dispatch_group_async(group, v19, block);
+          dispatch_group_async(group, v20, block);
         }
 
         else
         {
           decodeQueue = self->_decodeQueue;
-          v27[0] = MEMORY[0x1E69E9820];
-          v27[1] = 3221225472;
-          v27[2] = __95__VCPVideoAnalysisPipelineManager_executePipelineStageAt_currentFrameResource_nextFrameSample___block_invoke;
-          v27[3] = &unk_1E834BDC0;
-          v27[4] = self;
-          dispatch_group_async(group, decodeQueue, v27);
+          v29[0] = MEMORY[0x1E69E9820];
+          v29[1] = 3221225472;
+          v29[2] = __95__VCPVideoAnalysisPipelineManager_executePipelineStageAt_currentFrameResource_nextFrameSample___block_invoke;
+          v29[3] = &unk_1E834BDC0;
+          v29[4] = self;
+          dispatch_group_async(group, decodeQueue, v29);
         }
 
-        v21 = VCPSignPostLog();
-        v22 = v21;
-        if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+        v23 = VCPSignPostLog(v21);
+        v24 = v23;
+        if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
         {
           *buf = 67109120;
           atCopy2 = at;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_END, v10, "VCPVideoAnalysisPipelineManager_ExecuteStage", "-%u", buf, 8u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v10, "VCPVideoAnalysisPipelineManager_ExecuteStage", "-%u", buf, 8u);
         }
       }
     }
@@ -557,16 +558,16 @@ LABEL_34:
 
 - (int)run
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v3 = VCPSignPostLog();
+  v26 = *MEMORY[0x1E69E9840];
+  v3 = VCPSignPostLog(self);
   v4 = os_signpost_id_generate(v3);
 
-  v5 = VCPSignPostLog();
-  v6 = v5;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = VCPSignPostLog(v5);
+  v7 = v6;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "VCPVideoAnalysisPipelineManager_Run", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "VCPVideoAnalysisPipelineManager_Run", "", buf, 2u);
   }
 
   if ([objc_opt_class() shouldUseGraphProcessing])
@@ -582,22 +583,22 @@ LABEL_34:
   {
     if (self->_maxBufferedFrames)
     {
-      v8 = 0;
-      v9 = MEMORY[0x1E69E9820];
+      v9 = 0;
+      v10 = MEMORY[0x1E69E9820];
       do
       {
         group = self->_group;
         decodeQueue = self->_decodeQueue;
-        block[0] = v9;
+        block[0] = v10;
         block[1] = 3221225472;
         block[2] = __38__VCPVideoAnalysisPipelineManager_run__block_invoke;
         block[3] = &unk_1E834BDC0;
         block[4] = self;
         dispatch_group_async(group, decodeQueue, block);
-        ++v8;
+        ++v9;
       }
 
-      while (v8 < self->_maxBufferedFrames);
+      while (v9 < self->_maxBufferedFrames);
     }
 
     dispatch_group_wait(self->_group, 0xFFFFFFFFFFFFFFFFLL);
@@ -605,14 +606,14 @@ LABEL_34:
 
   if (atomic_load(&self->_err))
   {
-    v13 = atomic_load(&self->_err);
+    v14 = atomic_load(&self->_err);
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       logPrefix = self->_logPrefix;
       *buf = 138412546;
-      v22 = logPrefix;
-      v23 = 1024;
-      v24 = v13;
+      v23 = logPrefix;
+      v24 = 1024;
+      v25 = v14;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Pipeline execution err: %d.", buf, 0x12u);
     }
   }
@@ -621,21 +622,20 @@ LABEL_34:
   {
     if (!self->_decodeDone && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v15 = self->_logPrefix;
+      v16 = self->_logPrefix;
       *buf = 138412290;
-      v22 = v15;
+      v23 = v16;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ decoding was not done after group finished", buf, 0xCu);
     }
 
     if ([(VCPVideoTrackDecoder *)self->_decoder status]== 2)
     {
-      [(VCPVideoAnalysisPipelineManager *)self flushFrameResources];
-      v16 = VCPSignPostLog();
-      v17 = v16;
-      if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+      v17 = VCPSignPostLog([(VCPVideoAnalysisPipelineManager *)self flushFrameResources]);
+      v18 = v17;
+      if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_END, v4, "VCPVideoAnalysisPipelineManager_Run", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_END, v4, "VCPVideoAnalysisPipelineManager_Run", "", buf, 2u);
       }
 
       return 0;
@@ -645,9 +645,9 @@ LABEL_34:
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v18 = self->_logPrefix;
+        v19 = self->_logPrefix;
         *buf = 138412290;
-        v22 = v18;
+        v23 = v19;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ video decoder read err.", buf, 0xCu);
       }
 
@@ -655,7 +655,7 @@ LABEL_34:
     }
   }
 
-  return v13;
+  return v14;
 }
 
 @end

@@ -142,41 +142,41 @@ LABEL_12:
     switch(value)
     {
       case 3:
-        v7 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
+        v8 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
         if (scope == 6)
         {
-          v8 = @"STAGES_OVERLAY_CONTEXT_CORE";
+          v9 = @"STAGES_OVERLAY_CONTEXT_CORE";
         }
 
         else
         {
-          v8 = @"STAGES_OVERLAY_CONTEXT_AVERAGE_CORE";
+          v9 = @"STAGES_OVERLAY_CONTEXT_AVERAGE_CORE";
         }
 
         break;
       case 4:
-        v7 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
+        v8 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
         if (scope == 6)
         {
-          v8 = @"STAGES_OVERLAY_CONTEXT_DEEP";
+          v9 = @"STAGES_OVERLAY_CONTEXT_DEEP";
         }
 
         else
         {
-          v8 = @"STAGES_OVERLAY_CONTEXT_AVERAGE_DEEP";
+          v9 = @"STAGES_OVERLAY_CONTEXT_AVERAGE_DEEP";
         }
 
         break;
       case 5:
-        v7 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
+        v8 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
         if (scope == 6)
         {
-          v8 = @"STAGES_OVERLAY_CONTEXT_REM";
+          v9 = @"STAGES_OVERLAY_CONTEXT_REM";
         }
 
         else
         {
-          v8 = @"STAGES_OVERLAY_CONTEXT_AVERAGE_REM";
+          v9 = @"STAGES_OVERLAY_CONTEXT_AVERAGE_REM";
         }
 
         break;
@@ -185,7 +185,7 @@ LABEL_12:
     }
 
 LABEL_22:
-    v4 = [v7 localizedStringForKey:v8 value:&stru_1F42FFBE0 table:@"HealthUI-Localizable-Acacia"];
+    v4 = [v8 localizedStringForKey:v9 value:&stru_1F42FFBE0 table:@"HealthUI-Localizable-Acacia"];
 
     goto LABEL_23;
   }
@@ -197,25 +197,25 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v7 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
+    v8 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.HealthUI"];
     if (scope == 6)
     {
-      v8 = @"STAGES_OVERLAY_CONTEXT_AWAKE";
+      v9 = @"STAGES_OVERLAY_CONTEXT_AWAKE";
     }
 
     else
     {
-      v8 = @"STAGES_OVERLAY_CONTEXT_AVERAGE_AWAKE";
+      v9 = @"STAGES_OVERLAY_CONTEXT_AVERAGE_AWAKE";
     }
 
     goto LABEL_22;
   }
 
   _HKInitializeLogging();
-  v6 = *MEMORY[0x1E696B998];
+  v7 = *MEMORY[0x1E696B998];
   if (os_log_type_enabled(*MEMORY[0x1E696B998], OS_LOG_TYPE_ERROR))
   {
-    [HKSleepUtilities sleepStageContextTitleForSleepValue:v6 timeScope:?];
+    [HKSleepUtilities sleepStageContextTitleForSleepValue:v7 timeScope:self];
   }
 
   v4 = &stru_1F42FFBE0;
@@ -1190,15 +1190,15 @@ LABEL_8:
   return v3;
 }
 
-+ (void)sleepStageContextTitleForSleepValue:(void *)a1 timeScope:.cold.1(void *a1)
++ (void)sleepStageContextTitleForSleepValue:(void *)a1 timeScope:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = 138543362;
-  v5 = v3;
-  _os_log_error_impl(&dword_1C3942000, v1, OS_LOG_TYPE_ERROR, "%{public}@: Can't create stage context title for unsupported sleep category value", &v4, 0xCu);
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_1C3942000, v2, OS_LOG_TYPE_ERROR, "%{public}@: Can't create stage context title for unsupported sleep category value", &v5, 0xCu);
 }
 
 + (void)sleepDisplayTypesWithHealthStore:(uint64_t)a1 sleepDisplayType:(uint64_t)a2 unitController:displayTypeController:chartCacheController:sleepChartFormatter:sleepSeriesType:sleepChartCaches:customSleepSeriesMapping:isStackedChart:.cold.1(uint64_t a1, uint64_t a2)

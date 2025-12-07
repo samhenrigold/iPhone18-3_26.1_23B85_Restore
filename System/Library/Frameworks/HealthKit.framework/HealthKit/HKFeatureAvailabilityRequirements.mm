@@ -5,15 +5,26 @@
 + (id)ageIsPresent;
 + (id)bloodOxygenRecordingsAreEnabled;
 + (id)capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:(id)identifier;
++ (id)capabilityIsSupportedOnActiveWatchForFeatureWithIdentifier:(id)identifier supportedOnLocalDevice:(BOOL)device;
++ (id)capabilityIsSupportedOnAnyWatch:(id)watch supportedOnLocalDevice:(BOOL)device;
 + (id)countryCodeIsPresentForFeatureWithIdentifier:(id)identifier;
++ (id)countryIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:(id)identifier isSupportedIfCountryListMissing:(BOOL)missing;
++ (id)countryIsSupportedOnLocalDeviceAndPhoneForFeatureWithIdentifier:(id)identifier isSupportedIfCountryListMissing:(BOOL)missing;
 + (id)countryIsSupportedOnLocalDeviceForFeatureWithIdentifier:(id)identifier;
++ (id)countryIsSupportedOnWatchForFeatureWithIdentifier:(id)identifier isSupportedIfCountryListMissing:(BOOL)missing;
 + (id)countryListIsPresentOnActiveRemoteDeviceForFeatureWithIdentifier:(id)identifier;
 + (id)currentCountryCodeIsPresentForFeatureWithIdentifier:(id)identifier;
++ (id)currentCountryIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:(id)identifier isSupportedIfCountryListMissing:(BOOL)missing;
 + (id)currentCountryIsSupportedOnLocalDeviceForFeatureWithIdentifier:(id)identifier;
 + (id)defaultHelpTileRequirementsForBackgroundDeliveredFeatureWithFeatureIdentifier:(id)identifier isAgeGatedUserDefaultsKey:(id)key;
 + (id)defaultOnboardingEligibilityRequirementsForFeatureIdentifier:(id)identifier;
 + (id)defaultTipsAppVisibilityRequirementsForBackgroundDeliveredFeatureWithFeatureIdentifier:(id)identifier isAgeGatedUserDefaultsKey:(id)key;
++ (id)featureFlagIsEnabled:(BOOL)enabled;
 + (id)featureIsNotRemotelyDisabledWithIdentifier:(id)identifier;
++ (id)featureIsOffWithIdentifier:(id)identifier isOffIfSettingIsAbsent:(BOOL)absent;
++ (id)featureIsOffWithIdentifier:(id)identifier settingsKey:(id)key isOffIfSettingIsAbsent:(BOOL)absent;
++ (id)featureIsOnWithIdentifier:(id)identifier isOnIfSettingIsAbsent:(BOOL)absent;
++ (id)featureIsOnWithIdentifier:(id)identifier settingsKey:(id)key isOnIfSettingIsAbsent:(BOOL)absent;
 + (id)fitnessTrackingIsEnabledInPrivacy;
 + (id)healthAppIsNotHidden;
 + (id)hearingAidCapabilityIsSupportedOnAnyPairedAirPods;
@@ -91,12 +102,39 @@
   return v4;
 }
 
++ (id)capabilityIsSupportedOnActiveWatchForFeatureWithIdentifier:(id)identifier supportedOnLocalDevice:(BOOL)device
+{
+  deviceCopy = device;
+  identifierCopy = identifier;
+  v6 = [[HKFeatureAvailabilityRequirementCapabilityIsSupportedOnActiveWatch alloc] initWithFeatureIdentifier:identifierCopy supportedOnLocalDevice:deviceCopy];
+
+  return v6;
+}
+
++ (id)capabilityIsSupportedOnAnyWatch:(id)watch supportedOnLocalDevice:(BOOL)device
+{
+  deviceCopy = device;
+  watchCopy = watch;
+  v6 = [[HKFeatureAvailabilityRequirementCapabilityIsSupportedOnAnyWatch alloc] initWithNanoRegistryCapability:watchCopy supportedOnLocalDevice:deviceCopy];
+
+  return v6;
+}
+
 + (id)countryCodeIsPresentForFeatureWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
   v4 = [(HKFeatureAvailabilityOnboardingEligibilityRequirement *)[HKFeatureAvailabilityRequirementCountryCodeIsPresent alloc] initWithFeatureIdentifier:identifierCopy];
 
   return v4;
+}
+
++ (id)countryIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:(id)identifier isSupportedIfCountryListMissing:(BOOL)missing
+{
+  missingCopy = missing;
+  identifierCopy = identifier;
+  v6 = [(_HKFeatureAvailabilityRequirementCountryIsSupportedOnActiveRemoteDevice *)[HKFeatureAvailabilityRequirementCountryIsSupportedOnActiveRemoteDevice alloc] initWithFeatureIdentifier:identifierCopy isSupportedIfCountryListMissing:missingCopy];
+
+  return v6;
 }
 
 + (id)countryIsSupportedOnLocalDeviceForFeatureWithIdentifier:(id)identifier
@@ -123,6 +161,15 @@
   return v4;
 }
 
++ (id)currentCountryIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:(id)identifier isSupportedIfCountryListMissing:(BOOL)missing
+{
+  missingCopy = missing;
+  identifierCopy = identifier;
+  v6 = [(_HKFeatureAvailabilityRequirementCountryIsSupportedOnActiveRemoteDevice *)[HKFeatureAvailabilityRequirementCurrentCountryIsSupportedOnActiveRemoteDevice alloc] initWithFeatureIdentifier:identifierCopy isSupportedIfCountryListMissing:missingCopy];
+
+  return v6;
+}
+
 + (id)currentCountryIsSupportedOnLocalDeviceForFeatureWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
@@ -131,12 +178,57 @@
   return v4;
 }
 
++ (id)featureFlagIsEnabled:(BOOL)enabled
+{
+  v3 = [(HKFeatureAvailabilityMustBeTrueRequirement *)[HKFeatureAvailabilityRequirementFeatureFlagIsEnabled alloc] initWithWhatMustBeTrue:enabled];
+
+  return v3;
+}
+
 + (id)featureIsNotRemotelyDisabledWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
   v4 = [(HKFeatureAvailabilityOnboardingEligibilityRequirement *)[HKFeatureAvailabilityRequirementFeatureIsNotRemotelyDisabled alloc] initWithFeatureIdentifier:identifierCopy];
 
   return v4;
+}
+
++ (id)featureIsOffWithIdentifier:(id)identifier isOffIfSettingIsAbsent:(BOOL)absent
+{
+  absentCopy = absent;
+  identifierCopy = identifier;
+  v6 = [[HKFeatureAvailabilityRequirementFeatureIsOff alloc] initWithFeatureIdentifier:identifierCopy isOffWhenSettingIsAbsent:absentCopy];
+
+  return v6;
+}
+
++ (id)featureIsOffWithIdentifier:(id)identifier settingsKey:(id)key isOffIfSettingIsAbsent:(BOOL)absent
+{
+  absentCopy = absent;
+  keyCopy = key;
+  identifierCopy = identifier;
+  v9 = [[HKFeatureAvailabilityRequirementFeatureIsOff alloc] initWithFeatureIdentifier:identifierCopy settingsOffKey:keyCopy isOffWhenSettingIsAbsent:absentCopy];
+
+  return v9;
+}
+
++ (id)featureIsOnWithIdentifier:(id)identifier isOnIfSettingIsAbsent:(BOOL)absent
+{
+  absentCopy = absent;
+  identifierCopy = identifier;
+  v6 = [[HKFeatureAvailabilityRequirementFeatureIsOn alloc] initWithFeatureIdentifier:identifierCopy isOnWhenSettingIsAbsent:absentCopy];
+
+  return v6;
+}
+
++ (id)featureIsOnWithIdentifier:(id)identifier settingsKey:(id)key isOnIfSettingIsAbsent:(BOOL)absent
+{
+  absentCopy = absent;
+  keyCopy = key;
+  identifierCopy = identifier;
+  v9 = [[HKFeatureAvailabilityRequirementFeatureIsOn alloc] initWithFeatureIdentifier:identifierCopy settingsOnKey:keyCopy isOnWhenSettingIsAbsent:absentCopy];
+
+  return v9;
 }
 
 + (id)fitnessTrackingIsEnabledInPrivacy
@@ -413,32 +505,77 @@
   return v2;
 }
 
++ (id)countryIsSupportedOnWatchForFeatureWithIdentifier:(id)identifier isSupportedIfCountryListMissing:(BOOL)missing
+{
+  missingCopy = missing;
+  identifierCopy = identifier;
+  v6 = +[_HKBehavior sharedBehavior];
+  isAppleWatch = [v6 isAppleWatch];
+
+  if (isAppleWatch)
+  {
+    [HKFeatureAvailabilityRequirements countryIsSupportedOnLocalDeviceForFeatureWithIdentifier:identifierCopy];
+  }
+
+  else
+  {
+    [HKFeatureAvailabilityRequirements countryIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:identifierCopy isSupportedIfCountryListMissing:missingCopy];
+  }
+  v8 = ;
+
+  return v8;
+}
+
++ (id)countryIsSupportedOnLocalDeviceAndPhoneForFeatureWithIdentifier:(id)identifier isSupportedIfCountryListMissing:(BOOL)missing
+{
+  missingCopy = missing;
+  v13[1] = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  v6 = [HKFeatureAvailabilityRequirements countryIsSupportedOnLocalDeviceForFeatureWithIdentifier:identifierCopy];
+  v13[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+
+  v8 = +[_HKBehavior sharedBehavior];
+  isAppleWatch = [v8 isAppleWatch];
+
+  if (isAppleWatch)
+  {
+    v10 = [HKFeatureAvailabilityRequirements countryIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:identifierCopy isSupportedIfCountryListMissing:missingCopy];
+    v11 = [v7 arrayByAddingObject:v10];
+  }
+
+  else
+  {
+    v11 = v7;
+  }
+
+  return v11;
+}
+
 + (id)defaultOnboardingEligibilityRequirementsForFeatureIdentifier:(id)identifier
 {
-  v17[9] = *MEMORY[0x1E69E9840];
+  v16[9] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v16 = [self currentCountryCodeIsPresentForFeatureWithIdentifier:identifierCopy];
-  v17[0] = v16;
+  v15 = [self currentCountryCodeIsPresentForFeatureWithIdentifier:identifierCopy];
+  v16[0] = v15;
   v5 = [self activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:identifierCopy];
-  v17[1] = v5;
+  v16[1] = v5;
   v6 = [self capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:identifierCopy];
-  v17[2] = v6;
+  v16[2] = v6;
   v7 = [self someRegionIsSupportedForFeatureWithIdentifier:identifierCopy];
-  v17[3] = v7;
+  v16[3] = v7;
   v8 = [self currentCountryIsSupportedOnLocalDeviceForFeatureWithIdentifier:identifierCopy];
-  v17[4] = v8;
+  v16[4] = v8;
   v9 = [self countryListIsPresentOnActiveRemoteDeviceForFeatureWithIdentifier:identifierCopy];
-  v17[5] = v9;
+  v16[5] = v9;
   v10 = [self currentCountryIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:identifierCopy isSupportedIfCountryListMissing:0];
-  v17[6] = v10;
+  v16[6] = v10;
   v11 = [self featureIsNotRemotelyDisabledWithIdentifier:identifierCopy];
-  v17[7] = v11;
+  v16[7] = v11;
   v12 = [self seedIsNotExpiredForFeatureWithIdentifier:identifierCopy];
 
-  v17[8] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:9];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v16[8] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:9];
 
   return v13;
 }
@@ -456,24 +593,22 @@
 
 + (id)defaultTipsAppVisibilityRequirementsForBackgroundDeliveredFeatureWithFeatureIdentifier:(id)identifier isAgeGatedUserDefaultsKey:(id)key
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   identifierCopy = identifier;
   v7 = [HKFeatureAvailabilityRequirements onboardingRecordIsPresentForFeatureWithIdentifier:identifierCopy];
-  v18[0] = v7;
+  v17[0] = v7;
   v8 = [HKFeatureAvailabilityRequirements featureIsNotRemotelyDisabledWithIdentifier:identifierCopy];
-  v18[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
   v10 = [HKFeatureAvailabilityRequirements countryIsSupportedOnLocalDeviceAndPhoneForFeatureWithIdentifier:identifierCopy isSupportedIfCountryListMissing:1];
 
   v11 = [v9 arrayByAddingObjectsFromArray:v10];
   v12 = [HKFeatureAvailabilityRequirements notAgeGatedForUserDefaultsKey:keyCopy];
 
-  v17 = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
+  v16 = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
   v14 = [v11 arrayByAddingObjectsFromArray:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

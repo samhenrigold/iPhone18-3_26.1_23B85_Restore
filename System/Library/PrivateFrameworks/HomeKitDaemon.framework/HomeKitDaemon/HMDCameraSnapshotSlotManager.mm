@@ -1,13 +1,16 @@
 @interface HMDCameraSnapshotSlotManager
 + (HMDCameraSnapshotSlotManager)sharedManager;
 + (id)logCategory;
+- (BOOL)_fillSlotWithIdentifier:(unsigned int)identifier filePath:(id)path error:(id *)error;
 - (BOOL)fillSlotWithIdentifier:(id)identifier filePath:(id)path error:(id *)error;
 - (CGImage)_createSnapshotCGImageRefFromFileWithPath:(id)path error:(id *)error;
 - (HMDCameraSnapshotSlotManager)init;
 - (id)createSlot;
 - (unsigned)_createSlot;
 - (void)_backboardServicesRelaunched;
+- (void)_clearSlotWithIdentifier:(unsigned int)identifier;
 - (void)_createSnapshotContext;
+- (void)_deleteSlotWithIdentifier:(unsigned int)identifier;
 - (void)clearSlotWithIdentifier:(id)identifier;
 - (void)deleteSlotWithIdentifier:(id)identifier;
 @end
@@ -16,15 +19,15 @@
 
 - (CGImage)_createSnapshotCGImageRefFromFileWithPath:(id)path error:(id *)error
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v7 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy];
   v8 = *MEMORY[0x277CD3610];
-  v28[0] = *MEMORY[0x277CD3618];
-  v28[1] = v8;
-  v29[0] = MEMORY[0x277CBEC28];
-  v29[1] = MEMORY[0x277CBEC38];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v27[0] = *MEMORY[0x277CD3618];
+  v27[1] = v8;
+  v28[0] = MEMORY[0x277CBEC28];
+  v28[1] = MEMORY[0x277CBEC38];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
   v10 = CGImageSourceCreateWithURL(v7, v9);
   if (!v10)
   {
@@ -34,11 +37,11 @@
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v21 = HMFGetLogIdentifier();
-      v24 = 138543618;
-      v25 = v21;
-      v26 = 2112;
-      v27 = pathCopy;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to create CGImageRef: CGImageSourceCreateWithURL() returned NULL for path: %@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v21;
+      v25 = 2112;
+      v26 = pathCopy;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to create CGImageRef: CGImageSourceCreateWithURL() returned NULL for path: %@", &v23, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -64,11 +67,11 @@ LABEL_12:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v24 = 138543618;
-      v25 = v16;
-      v26 = 2112;
-      v27 = pathCopy;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to create CGImageRef: CGImageSourceCreateImageAtIndex() returned NULL for image source created from path: %@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v16;
+      v25 = 2112;
+      v26 = pathCopy;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to create CGImageRef: CGImageSourceCreateImageAtIndex() returned NULL for image source created from path: %@", &v23, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -86,13 +89,121 @@ LABEL_11:
 
 LABEL_13:
 
-  v22 = *MEMORY[0x277D85DE8];
   return ImageAtIndex;
+}
+
+- (void)_deleteSlotWithIdentifier:(unsigned int)identifier
+{
+  v3 = *&identifier;
+  v15 = *MEMORY[0x277D85DE8];
+  clientQueue = [(HMDCameraSnapshotSlotManager *)self clientQueue];
+  dispatch_assert_queue_V2(clientQueue);
+
+  v6 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v8 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    v9 = HMFGetLogIdentifier();
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 1024;
+    v14 = v3;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Deleting snapshot slot: %u", &v11, 0x12u);
+  }
+
+  objc_autoreleasePoolPop(v6);
+  snapshotContext = [(HMDCameraSnapshotSlotManager *)selfCopy snapshotContext];
+  [snapshotContext deleteSlot:v3];
+}
+
+- (void)_clearSlotWithIdentifier:(unsigned int)identifier
+{
+  v3 = *&identifier;
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v7 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8 = HMFGetLogIdentifier();
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 1024;
+    v13 = v3;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Clearing snapshot slot: %u", &v10, 0x12u);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  snapshotContext = [(HMDCameraSnapshotSlotManager *)selfCopy snapshotContext];
+  [snapshotContext setObject:0 forSlot:v3];
+}
+
+- (BOOL)_fillSlotWithIdentifier:(unsigned int)identifier filePath:(id)path error:(id *)error
+{
+  v6 = *&identifier;
+  v29 = *MEMORY[0x277D85DE8];
+  pathCopy = path;
+  v20 = 0;
+  v9 = [(HMDCameraSnapshotSlotManager *)self _createSnapshotCGImageRefFromFileWithPath:pathCopy error:&v20];
+  v10 = v20;
+  v11 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v13 = HMFGetOSLogHandle();
+  v14 = v13;
+  if (v9)
+  {
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      v15 = HMFGetLogIdentifier();
+      *buf = 138544130;
+      v22 = v15;
+      v23 = 1024;
+      v24 = v6;
+      v25 = 2112;
+      v26 = pathCopy;
+      v27 = 2112;
+      v28 = v9;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Filling snapshot slot %u for file %@ with image %@", buf, 0x26u);
+    }
+
+    objc_autoreleasePoolPop(v11);
+    snapshotContext = [(HMDCameraSnapshotSlotManager *)selfCopy snapshotContext];
+    [snapshotContext setObject:v9 forSlot:v6];
+
+    CFRelease(v9);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v17 = HMFGetLogIdentifier();
+      *buf = 138544130;
+      v22 = v17;
+      v23 = 1024;
+      v24 = v6;
+      v25 = 2112;
+      v26 = pathCopy;
+      v27 = 2112;
+      v28 = v10;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to fill slot %u for file %@: %@", buf, 0x26u);
+    }
+
+    objc_autoreleasePoolPop(v11);
+    if (error)
+    {
+      v18 = v10;
+      *error = v10;
+    }
+  }
+
+  return v9 != 0;
 }
 
 - (unsigned)_createSlot
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   snapshotContext = [(HMDCameraSnapshotSlotManager *)self snapshotContext];
   createSlot = [snapshotContext createSlot];
 
@@ -102,15 +213,14 @@ LABEL_13:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 1024;
-    v14 = createSlot;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Created snapshot slot: %u", &v11, 0x12u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 1024;
+    v13 = createSlot;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Created snapshot slot: %u", &v10, 0x12u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
   return createSlot;
 }
 
@@ -203,16 +313,16 @@ uint64_t __42__HMDCameraSnapshotSlotManager_createSlot__block_invoke(uint64_t a1
 
 - (void)_backboardServicesRelaunched
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Backboard services relaunched", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Backboard services relaunched", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -221,7 +331,6 @@ uint64_t __42__HMDCameraSnapshotSlotManager_createSlot__block_invoke(uint64_t a1
   [defaultCenter postNotificationName:@"HMDBackboardServicesRelaunchNotification" object:selfCopy];
 
   __createBackboardWatcher(selfCopy);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createSnapshotContext
@@ -271,10 +380,9 @@ uint64_t __42__HMDCameraSnapshotSlotManager_createSlot__block_invoke(uint64_t a1
 
 void __43__HMDCameraSnapshotSlotManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_65910;
-  logCategory__hmf_once_v14_65910 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_65910;
+  logCategory__hmf_once_v14_65910 = v0;
 }
 
 + (HMDCameraSnapshotSlotManager)sharedManager

@@ -31,7 +31,7 @@
 
 - (id)createRowActionsWithStyle:(unint64_t)style
 {
-  if (_s6MapsUI28TransitLineItemActionManagerC19createFooterActionsSaySo011MKPlaceCardfE0CGSgyF_0())
+  if (_s6MapsUI28TransitLineItemActionManagerC19createFooterActionsSaySo011MKPlaceCardfE0CGSgyF_0(self))
   {
     sub_1C577AFF8();
     v3 = sub_1C584F750();
@@ -55,19 +55,25 @@
 
   if (v8)
   {
-    *(swift_allocObject() + 16) = v8;
+    v9 = swift_allocObject();
+    *(v9 + 16) = v8;
     v8 = sub_1C5742978;
+  }
+
+  else
+  {
+    v9 = 0;
   }
 
   actionCopy = action;
   selfCopy = self;
-  TransitLineItemActionManager.performAction(_:options:completion:)(action, options, v8);
-  sub_1C5632FA8(v8);
+  TransitLineItemActionManager.performAction(_:options:completion:)(action, options, v8, v9);
+  sub_1C5632FA8(v8, v9);
 }
 
 - (id)createFooterActions
 {
-  if (_s6MapsUI28TransitLineItemActionManagerC19createFooterActionsSaySo011MKPlaceCardfE0CGSgyF_0())
+  if (_s6MapsUI28TransitLineItemActionManagerC19createFooterActionsSaySo011MKPlaceCardfE0CGSgyF_0(self))
   {
     sub_1C577AFF8();
     v2 = sub_1C584F750();

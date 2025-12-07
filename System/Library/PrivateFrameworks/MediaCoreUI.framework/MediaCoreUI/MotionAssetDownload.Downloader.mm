@@ -17,7 +17,7 @@
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1930A0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1930A0, &qword_1C5BD7440);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v22 - v9;
   v11 = sub_1C5BCB214();
@@ -35,7 +35,7 @@
   }
 
   v19 = qword_1EC19A688;
-  v20 = sub_1C59F832C(&qword_1EC1930A8, type metadata accessor for MotionCacheActor);
+  v20 = sub_1C59F832C(&qword_1EC1930A8, type metadata accessor for MotionCacheActor, &protocol conformance descriptor for MotionCacheActor);
   v21 = swift_allocObject();
   v21[2] = v19;
   v21[3] = v20;

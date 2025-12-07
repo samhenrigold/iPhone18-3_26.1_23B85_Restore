@@ -20,7 +20,7 @@
 
 + (id)valueFromSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v6 = objc_opt_class();
   v7 = representationCopy;
@@ -29,16 +29,16 @@
     v9 = getWFGeneralLogObject();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v13 = 136315906;
-      v14 = "WFEnforceClass";
-      v15 = 2114;
-      v16 = v7;
-      v17 = 2114;
-      v18 = objc_opt_class();
-      v19 = 2114;
-      v20 = v6;
-      v10 = v18;
-      _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v13, 0x2Au);
+      v12 = 136315906;
+      v13 = "WFEnforceClass";
+      v14 = 2114;
+      v15 = v7;
+      v16 = 2114;
+      v17 = objc_opt_class();
+      v18 = 2114;
+      v19 = v6;
+      v10 = v17;
+      _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v12, 0x2Au);
     }
 
     v8 = 0;
@@ -48,8 +48,6 @@
   {
     v8 = v7;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -83,7 +83,7 @@
   return selfCopy->_isDCPBasedAODSupported;
 }
 
-uint64_t __28__CBAODState_sharedInstance__block_invoke(uint64_t a1)
+void *__28__CBAODState_sharedInstance__block_invoke(uint64_t a1)
 {
   v4 = a1;
   v3 = a1;
@@ -179,7 +179,6 @@ uint64_t __28__CBAODState_sharedInstance__block_invoke(uint64_t a1)
     [(CBAODState *)selfCopy checkBootArgsConfiguration];
   }
 
-  *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -839,8 +838,6 @@ uint64_t __28__CBAODState_sharedInstance__block_invoke(uint64_t a1)
       self->_AODTransitionTargetAlgoOptimised_dimmingThreshold = v11;
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)enableAODLiveON
@@ -863,16 +860,16 @@ uint64_t __28__CBAODState_sharedInstance__block_invoke(uint64_t a1)
   return selfCopy->_enableAODLiveON;
 }
 
-void __29__CBAODState_enableAODLiveON__block_invoke(uint64_t a1)
+double __29__CBAODState_enableAODLiveON__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = [*(a1 + 32) copyNumberFromPrefsForKey:@"CBSupportsAlwaysOnOverride"];
-  if (v5)
+  v8 = *MEMORY[0x1E69E9840];
+  v6 = [*(a1 + 32) copyNumberFromPrefsForKey:@"CBSupportsAlwaysOnOverride"];
+  if (v6)
   {
-    *(*(a1 + 32) + 32) = [v5 BOOLValue];
+    *(*(a1 + 32) + 32) = [v6 BOOLValue];
     if (*(*(a1 + 32) + 16))
     {
-      v3 = *(*(a1 + 32) + 16);
+      v4 = *(*(a1 + 32) + 16);
     }
 
     else
@@ -887,29 +884,29 @@ void __29__CBAODState_enableAODLiveON__block_invoke(uint64_t a1)
         inited = init_default_corebrightness_log();
       }
 
-      v3 = inited;
+      v4 = inited;
     }
 
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       if (*(*(a1 + 32) + 32))
       {
-        v1 = "enabled";
+        v2 = "enabled";
       }
 
       else
       {
-        v1 = "disabled";
+        v2 = "disabled";
       }
 
-      __os_log_helper_16_2_1_8_32(v6, v1);
-      _os_log_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_DEFAULT, "AOD live-on %s by defaults config.", v6, 0xCu);
+      __os_log_helper_16_2_1_8_32(v7, v2);
+      _os_log_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEFAULT, "AOD live-on %s by defaults config.", v7, 0xCu);
     }
 
-    MEMORY[0x1E69E5920](v5);
+    *&result = MEMORY[0x1E69E5920](v6).n128_u64[0];
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 - (BOOL)isAODSupported
@@ -1035,7 +1032,6 @@ BOOL __36__CBAODState_isDCPBasedAODSupported__block_invoke(uint64_t a1)
   }
 
   [(CBAODState *)self checkDefaultsConfiguration];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)checkBootArgsConfiguration
@@ -1070,8 +1066,6 @@ BOOL __36__CBAODState_isDCPBasedAODSupported__block_invoke(uint64_t a1)
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setProperty:(id)property forKey:(id)key
@@ -1161,7 +1155,6 @@ BOOL __36__CBAODState_isDCPBasedAODSupported__block_invoke(uint64_t a1)
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1184,7 +1177,7 @@ BOOL __36__CBAODState_isDCPBasedAODSupported__block_invoke(uint64_t a1)
       dword_1ECDDDF48 = v5;
       [v7 enumerateObjectsUsingBlock:&__block_literal_global_5];
       [v6 enumerateObjectsUsingBlock:&__block_literal_global_137];
-      memcpy(&selfCopy->_curve, &handleAODCurveUpdate__newCurve, sizeof(selfCopy->_curve));
+      memcpy(&selfCopy->_curve, handleAODCurveUpdate__newCurve, sizeof(selfCopy->_curve));
       v9 = 1;
     }
 
@@ -1195,14 +1188,14 @@ BOOL __36__CBAODState_isDCPBasedAODSupported__block_invoke(uint64_t a1)
   return v9 & 1;
 }
 
-uint64_t __35__CBAODState_handleAODCurveUpdate___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__35__CBAODState_handleAODCurveUpdate___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 floatValue];
   handleAODCurveUpdate__newCurve[a3] = v4;
   return result;
 }
 
-uint64_t __35__CBAODState_handleAODCurveUpdate___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void *__35__CBAODState_handleAODCurveUpdate___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 floatValue];
   handleAODCurveUpdate__newCurve[a3 + 20] = v4;
@@ -1224,7 +1217,7 @@ uint64_t __35__CBAODState_handleAODCurveUpdate___block_invoke_2(uint64_t a1, voi
     dword_1ECDDDFEC = v5;
     [v7 enumerateObjectsUsingBlock:&__block_literal_global_142];
     [v6 enumerateObjectsUsingBlock:&__block_literal_global_144];
-    memcpy(&selfCopy->_darkerCurve, &handleAODDarkerCurveUpdate__newCurve, sizeof(selfCopy->_darkerCurve));
+    memcpy(&selfCopy->_darkerCurve, handleAODDarkerCurveUpdate__newCurve, sizeof(selfCopy->_darkerCurve));
     v8 = 1;
     memcpy(__dst, &selfCopy->_darkerCurve, 0xA4uLL);
     [(CBAODState *)selfCopy logAODCurve:__dst name:@"DarkerCurve"];
@@ -1233,14 +1226,14 @@ uint64_t __35__CBAODState_handleAODCurveUpdate___block_invoke_2(uint64_t a1, voi
   return v8 & 1;
 }
 
-uint64_t __41__CBAODState_handleAODDarkerCurveUpdate___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__41__CBAODState_handleAODDarkerCurveUpdate___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 floatValue];
   handleAODDarkerCurveUpdate__newCurve[a3] = v4;
   return result;
 }
 
-uint64_t __41__CBAODState_handleAODDarkerCurveUpdate___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void *__41__CBAODState_handleAODDarkerCurveUpdate___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 floatValue];
   handleAODDarkerCurveUpdate__newCurve[a3 + 20] = v4;
@@ -1310,8 +1303,6 @@ uint64_t __41__CBAODState_handleAODDarkerCurveUpdate___block_invoke_2(uint64_t a
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)acquirePowerAssertion
@@ -1366,8 +1357,6 @@ void __35__CBAODState_acquirePowerAssertion__block_invoke(uint64_t a1, char a2, 
     __os_log_helper_16_2_4_4_0_8_66_8_66_8_0(v10, a2 & 1, a4, a3, *(*(a1 + 32) + 24));
     _os_log_debug_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_DEBUG, "[Power Assertion] Acquired=%d (details:%{public}@ error:%{public}@ assertionObj=%p)", v10, 0x26u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)releasePowerAssertion
@@ -1411,7 +1400,6 @@ void __35__CBAODState_acquirePowerAssertion__block_invoke(uint64_t a1, char a2, 
   }
 
   objc_sync_exit(self);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

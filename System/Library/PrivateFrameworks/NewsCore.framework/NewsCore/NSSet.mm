@@ -17,7 +17,7 @@ uint64_t __59__NSSet_FCAdditions__fc_mutableSetByTransformingWithBlock___block_i
   return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
-uint64_t __50__NSSet_FCAdditions__fc_containsAnyObjectInArray___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__50__NSSet_FCAdditions__fc_containsAnyObjectInArray___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) containsObject:a2];
   *(*(*(a1 + 40) + 8) + 24) = result;

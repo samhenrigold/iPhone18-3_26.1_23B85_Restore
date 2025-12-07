@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    isStart = self->_isStart;
     PBDataWriterWriteBOOLField();
   }
 }

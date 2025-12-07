@@ -80,74 +80,72 @@ void __53__FPUIAuthenticationVolumeMountViewController__done___block_invoke(uint
 
 - (void)setupTableViewSections
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v22 = objc_opt_new();
-  v10 = FPUILoc(@"SELECT_VOLUMES_TO_MOUNT", v3, v4, v5, v6, v7, v8, v9, v21);
-  [v22 setHeaderTitle:v10];
+  v35 = *MEMORY[0x277D85DE8];
+  v21 = objc_opt_new();
+  v10 = FPUILoc(@"SELECT_VOLUMES_TO_MOUNT", v3, v4, v5, v6, v7, v8, v9, v20);
+  [v21 setHeaderTitle:v10];
 
-  [v22 setHeaderHeight:*MEMORY[0x277D76F30]];
+  [v21 setHeaderHeight:*MEMORY[0x277D76F30]];
   v11 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = self->_allVolumeRepresentations;
-  v12 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v35 count:16];
+  v12 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v34 count:16];
   if (v12)
   {
-    v13 = *v29;
+    v13 = *v28;
     v14 = MEMORY[0x277D85DD0];
     do
     {
       v15 = 0;
       do
       {
-        if (*v29 != v13)
+        if (*v28 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v28 + 1) + 8 * v15);
+        v16 = *(*(&v27 + 1) + 8 * v15);
         v17 = objc_opt_new();
-        v27[0] = v14;
-        v27[1] = 3221225472;
-        v27[2] = __69__FPUIAuthenticationVolumeMountViewController_setupTableViewSections__block_invoke;
-        v27[3] = &unk_278A513E8;
-        v27[4] = v16;
-        v27[5] = self;
-        [v17 setCellCustomizationHandler:v27];
+        v26[0] = v14;
+        v26[1] = 3221225472;
+        v26[2] = __69__FPUIAuthenticationVolumeMountViewController_setupTableViewSections__block_invoke;
+        v26[3] = &unk_278A513E8;
+        v26[4] = v16;
+        v26[5] = self;
+        [v17 setCellCustomizationHandler:v26];
         objc_initWeak(&location, self);
-        v24[0] = v14;
-        v24[1] = 3221225472;
-        v24[2] = __69__FPUIAuthenticationVolumeMountViewController_setupTableViewSections__block_invoke_2;
-        v24[3] = &unk_278A51410;
-        objc_copyWeak(&v25, &location);
-        v24[4] = self;
-        [v17 setSelectionHandler:v24];
+        v23[0] = v14;
+        v23[1] = 3221225472;
+        v23[2] = __69__FPUIAuthenticationVolumeMountViewController_setupTableViewSections__block_invoke_2;
+        v23[3] = &unk_278A51410;
+        objc_copyWeak(&v24, &location);
+        v23[4] = self;
+        [v17 setSelectionHandler:v23];
         [v11 addObject:v17];
-        objc_destroyWeak(&v25);
+        objc_destroyWeak(&v24);
         objc_destroyWeak(&location);
 
         ++v15;
       }
 
       while (v12 != v15);
-      v12 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v35 count:16];
+      v12 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v34 count:16];
     }
 
     while (v12);
   }
 
-  v34 = v22;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+  v33 = v21;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
   [(FPUIAuthenticationTableViewController *)self setSectionDescriptors:v18];
 
-  v32 = &unk_284B1D608;
-  v33 = v11;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+  v31 = &unk_284B1D608;
+  v32 = v11;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
   [(FPUIAuthenticationTableViewController *)self setRowDescriptors:v19];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __69__FPUIAuthenticationVolumeMountViewController_setupTableViewSections__block_invoke(uint64_t a1, void *a2, void *a3)

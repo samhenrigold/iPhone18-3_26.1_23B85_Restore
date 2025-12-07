@@ -8,13 +8,13 @@
 
 - (ASDAudioDeviceDSPConfiguration)initWithDictionary:(id)dictionary resourcePath:(id)path name:(id)name
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   pathCopy = path;
   nameCopy = name;
-  v92.receiver = self;
-  v92.super_class = ASDAudioDeviceDSPConfiguration;
-  v11 = [(ASDAudioDeviceDSPConfiguration *)&v92 init];
+  v91.receiver = self;
+  v91.super_class = ASDAudioDeviceDSPConfiguration;
+  v11 = [(ASDAudioDeviceDSPConfiguration *)&v91 init];
   v12 = v11;
   if (!v11)
   {
@@ -26,12 +26,12 @@
   v14 = [MEMORY[0x277CBEB58] set];
   obj = [MEMORY[0x277CBEB18] array];
   array = [MEMORY[0x277CBEB18] array];
+  v87 = 0u;
   v88 = 0u;
   v89 = 0u;
   v90 = 0u;
-  v91 = 0u;
   v16 = dictionaryCopy;
-  v17 = [v16 countByEnumeratingWithState:&v88 objects:v96 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v87 objects:v95 count:16];
   if (!v17)
   {
 
@@ -45,30 +45,30 @@ LABEL_63:
   }
 
   v18 = v17;
-  v74 = v14;
-  v75 = v13;
-  v64 = v12;
-  v65 = nameCopy;
-  v66 = dictionaryCopy;
+  v73 = v14;
+  v74 = v13;
+  v63 = v12;
+  v64 = nameCopy;
+  v65 = dictionaryCopy;
   v19 = 1;
-  v72 = array;
-  v73 = *v89;
+  v71 = array;
+  v72 = *v88;
   v20 = obj;
-  v71 = v16;
-  v68 = pathCopy;
+  v70 = v16;
+  v67 = pathCopy;
   do
   {
     v21 = 0;
-    v69 = v18;
+    v68 = v18;
     do
     {
-      if (*v89 != v73)
+      if (*v88 != v72)
       {
         objc_enumerationMutation(v16);
       }
 
-      v22 = *(*(&v88 + 1) + 8 * v21);
-      if (([v22 isEqualToString:{@"UnderlyingDeviceProperties", v64, v65, v66}] & 1) != 0 || objc_msgSend(v22, "isEqualToString:", @"DSPDeviceProperties"))
+      v22 = *(*(&v87 + 1) + 8 * v21);
+      if (([v22 isEqualToString:{@"UnderlyingDeviceProperties", v63, v64, v65}] & 1) != 0 || objc_msgSend(v22, "isEqualToString:", @"DSPDeviceProperties"))
       {
         v23 = [v16 objectForKeyedSubscript:v22];
         objc_opt_class();
@@ -77,27 +77,27 @@ LABEL_63:
           goto LABEL_58;
         }
 
-        v86 = 0u;
-        v87 = 0u;
-        v84 = 0u;
         v85 = 0u;
+        v86 = 0u;
+        v83 = 0u;
+        v84 = 0u;
         v24 = v23;
-        v25 = [v24 countByEnumeratingWithState:&v84 objects:v95 count:16];
+        v25 = [v24 countByEnumeratingWithState:&v83 objects:v94 count:16];
         if (v25)
         {
           v26 = v25;
-          v67 = v19;
-          v27 = *v85;
+          v66 = v19;
+          v27 = *v84;
           while (2)
           {
             for (i = 0; i != v26; ++i)
             {
-              if (*v85 != v27)
+              if (*v84 != v27)
               {
                 objc_enumerationMutation(v24);
               }
 
-              v29 = *(*(&v84 + 1) + 8 * i);
+              v29 = *(*(&v83 + 1) + 8 * i);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -115,22 +115,22 @@ LABEL_63:
 
 LABEL_25:
                 v19 = 0;
-                pathCopy = v68;
-                v18 = v69;
+                pathCopy = v67;
+                v18 = v68;
                 v20 = obj;
-                v16 = v71;
+                v16 = v70;
                 goto LABEL_26;
               }
 
               v37 = [v22 isEqualToString:@"UnderlyingDeviceProperties"];
-              v38 = v75;
-              if (v37 & 1) != 0 || (v39 = [v22 isEqualToString:@"DSPDeviceProperties"], v38 = v74, (v39))
+              v38 = v74;
+              if (v37 & 1) != 0 || (v39 = [v22 isEqualToString:@"DSPDeviceProperties"], v38 = v73, (v39))
               {
                 [v38 addObject:v33];
               }
             }
 
-            v26 = [v24 countByEnumeratingWithState:&v84 objects:v95 count:16];
+            v26 = [v24 countByEnumeratingWithState:&v83 objects:v94 count:16];
             if (v26)
             {
               continue;
@@ -139,11 +139,11 @@ LABEL_25:
             break;
           }
 
-          pathCopy = v68;
-          v18 = v69;
+          pathCopy = v67;
+          v18 = v68;
           v20 = obj;
-          v16 = v71;
-          v19 = v67;
+          v16 = v70;
+          v19 = v66;
         }
 
         goto LABEL_26;
@@ -158,27 +158,27 @@ LABEL_25:
           goto LABEL_58;
         }
 
-        v82 = 0u;
-        v83 = 0u;
-        v80 = 0u;
         v81 = 0u;
+        v82 = 0u;
+        v79 = 0u;
+        v80 = 0u;
         v24 = v23;
-        v40 = [v24 countByEnumeratingWithState:&v80 objects:v94 count:16];
+        v40 = [v24 countByEnumeratingWithState:&v79 objects:v93 count:16];
         if (v40)
         {
           v41 = v40;
           v42 = v19;
-          v43 = *v81;
+          v43 = *v80;
 LABEL_33:
           v44 = 0;
           while (1)
           {
-            if (*v81 != v43)
+            if (*v80 != v43)
             {
               objc_enumerationMutation(v24);
             }
 
-            v45 = *(*(&v80 + 1) + 8 * v44);
+            v45 = *(*(&v79 + 1) + 8 * v44);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -195,7 +195,7 @@ LABEL_33:
 
             if (v41 == ++v44)
             {
-              v41 = [v24 countByEnumeratingWithState:&v80 objects:v94 count:16];
+              v41 = [v24 countByEnumeratingWithState:&v79 objects:v93 count:16];
               if (v41)
               {
                 goto LABEL_33;
@@ -217,36 +217,36 @@ LABEL_33:
         {
 LABEL_58:
 
-          nameCopy = v65;
-          dictionaryCopy = v66;
-          v12 = v64;
-          v14 = v74;
-          v13 = v75;
-          array = v72;
+          nameCopy = v64;
+          dictionaryCopy = v65;
+          v12 = v63;
+          v14 = v73;
+          v13 = v74;
+          array = v71;
           goto LABEL_59;
         }
 
-        v78 = 0u;
-        v79 = 0u;
-        v76 = 0u;
         v77 = 0u;
+        v78 = 0u;
+        v75 = 0u;
+        v76 = 0u;
         v24 = v23;
-        v46 = [v24 countByEnumeratingWithState:&v76 objects:v93 count:16];
+        v46 = [v24 countByEnumeratingWithState:&v75 objects:v92 count:16];
         if (v46)
         {
           v47 = v46;
           v42 = v19;
-          v48 = *v77;
+          v48 = *v76;
 LABEL_45:
           v49 = 0;
           while (1)
           {
-            if (*v77 != v48)
+            if (*v76 != v48)
             {
               objc_enumerationMutation(v24);
             }
 
-            v50 = *(*(&v76 + 1) + 8 * v49);
+            v50 = *(*(&v75 + 1) + 8 * v49);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -259,18 +259,18 @@ LABEL_45:
               goto LABEL_54;
             }
 
-            [v72 addObject:v19];
+            [v71 addObject:v19];
 
             if (v47 == ++v49)
             {
-              v47 = [v24 countByEnumeratingWithState:&v76 objects:v93 count:16];
+              v47 = [v24 countByEnumeratingWithState:&v75 objects:v92 count:16];
               if (v47)
               {
                 goto LABEL_45;
               }
 
 LABEL_52:
-              v16 = v71;
+              v16 = v70;
               v19 = v42;
               goto LABEL_26;
             }
@@ -279,7 +279,7 @@ LABEL_52:
 LABEL_53:
           v19 = 0;
 LABEL_54:
-          v16 = v71;
+          v16 = v70;
         }
 
 LABEL_26:
@@ -289,19 +289,19 @@ LABEL_26:
     }
 
     while (v21 != v18);
-    v51 = [v16 countByEnumeratingWithState:&v88 objects:v96 count:16];
+    v51 = [v16 countByEnumeratingWithState:&v87 objects:v95 count:16];
     v18 = v51;
   }
 
   while (v51);
 
   v52 = v19;
-  nameCopy = v65;
-  dictionaryCopy = v66;
-  v12 = v64;
-  v14 = v74;
-  v13 = v75;
-  array = v72;
+  nameCopy = v64;
+  dictionaryCopy = v65;
+  v12 = v63;
+  v14 = v73;
+  v13 = v74;
+  array = v71;
   if (v52)
   {
     goto LABEL_63;
@@ -319,7 +319,6 @@ LABEL_59:
 LABEL_64:
 
 LABEL_65:
-  v62 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

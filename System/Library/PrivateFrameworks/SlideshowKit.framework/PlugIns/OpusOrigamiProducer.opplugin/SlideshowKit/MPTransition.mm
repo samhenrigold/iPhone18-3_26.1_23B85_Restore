@@ -77,7 +77,7 @@
 - (id)description
 {
   v3 = [[[NSString stringWithFormat:?]stringByAppendingFormat:@"\t                 Transition ID: %@\n", [(MPTransition *)self transitionID]], "stringByAppendingFormat:", @"\t                     Preset ID: %@\n", [(MPTransition *)self presetID]];
-  [(MPTransition *)self duration];
+  objc_msgSend_duration(self);
   return [[(NSString *)v3 stringByAppendingFormat:@"\t           Transition Duration: %f\n" stringByAppendingFormat:"stringByAppendingFormat:", @"\t                    Attributes: %@\n", [(MPTransition *)self transitionAttributes]];
 }
 
@@ -169,13 +169,13 @@
       }
     }
 
-    [(MPTransition *)self duration];
+    objc_msgSend_duration(self);
     v10 = v9;
     self->_duration = durationCopy;
     parent = self->_parent;
     if (((parent != 0) & isKindOfClass) == 1)
     {
-      [(MPTransition *)self duration];
+      objc_msgSend_duration(self);
       [parent adjustPhasesWithDuration:?];
     }
 
@@ -185,7 +185,7 @@
       if ([v12 parentLayer])
       {
         parentLayer = [self->_parent parentLayer];
-        [objc_msgSend(self->_parent "parentLayer")];
+        objc_msgSend_duration([self->_parent parentLayer]);
         [parentLayer setDuration:v14 - (durationCopy - v10)];
       }
 
@@ -296,18 +296,18 @@
   v9 = self->_parent;
   if (v7 == v8)
   {
-    [v9 duration];
+    objc_msgSend_duration(v9);
     v6 = v10;
   }
 
   else
   {
     v11 = [v4 objectAtIndex:{objc_msgSend(v9, "index") + 1}];
-    [self->_parent duration];
+    objc_msgSend_duration(self->_parent);
     v6 = v12;
     if (v11)
     {
-      [v11 duration];
+      objc_msgSend_duration(v11);
       if (v6 >= v13)
       {
         v6 = v13;
@@ -315,9 +315,9 @@
 
       if ([v11 transition])
       {
-        [v11 duration];
+        objc_msgSend_duration(v11);
         v15 = v14;
-        [objc_msgSend(v11 "transition")];
+        objc_msgSend_duration([v11 transition]);
         v17 = v15 - v16;
         if (v6 >= v17)
         {
@@ -331,9 +331,9 @@
   {
     if ([v5 transition])
     {
-      [self->_parent duration];
+      objc_msgSend_duration(self->_parent);
       v19 = v18;
-      [objc_msgSend(v5 "transition")];
+      objc_msgSend_duration([v5 transition]);
       v21 = v19 - v20;
       if (v6 >= v21)
       {
@@ -400,7 +400,7 @@
       if ([self->_parent isTransitionConnected])
       {
         [objc_msgSend(self->_parent "plug")];
-        [(MPTransition *)self duration];
+        objc_msgSend_duration(self);
         [objc_msgSend(self->_parent "plug")];
       }
     }
@@ -414,7 +414,7 @@
       }
 
       [objc_msgSend(self->_parent "container")];
-      [(MPTransition *)self duration];
+      objc_msgSend_duration(self);
       [objc_msgSend(self->_parent "container")];
     }
 

@@ -46,8 +46,7 @@
 - (NSDate)lastLocationReceivedDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
+  MEMORY[0x28223BE20](v3 - 8, v4);
   v6 = &v14 - v5;
   v7 = OBJC_IVAR___WOCoreLocationManager_lastLocationReceivedDate;
   swift_beginAccess();
@@ -69,8 +68,7 @@
 - (void)setLastLocationReceivedDate:(id)date
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v13 - v7;
   if (date)
   {
@@ -95,9 +93,10 @@
 - (int64_t)currentState
 {
   selfCopy = self;
-  v3 = LocationManager.currentState.getter();
+  LocationManager.currentState.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (void)requestSingleLocationUpdateWithTimeout:(double)timeout requestedAccuracy:(double)accuracy acceptableAccuracy:(double)acceptableAccuracy completion:(id)completion

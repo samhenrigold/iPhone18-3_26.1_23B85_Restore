@@ -304,33 +304,33 @@ LABEL_40:
     goto LABEL_6;
   }
 
-  v19 = 0;
-  v18 = 0;
-  v17 = 0;
-  if (sscanf(d, "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx-%hhu", &v18, &v18 + 1, &v18 + 2, &v18 + 3, &v19, &v19 + 1, &v17) != 7)
+  v14 = 0;
+  v13 = 0;
+  v12 = 0;
+  if (sscanf(d, "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx-%hhu", &v13, &v13 + 1, &v13 + 2, &v13 + 3, &v14, &v14 + 1, &v12) != 7)
   {
     if (error)
     {
-      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "Bad peer ID: '%s'", v7, v8, v9, v10, v11, d);
-      *error = v15 = 0;
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "Bad peer ID: '%s'", d);
+      *error = v10 = 0;
       goto LABEL_7;
     }
 
 LABEL_6:
-    v15 = 0;
+    v10 = 0;
     goto LABEL_7;
   }
 
-  v6->_instanceID = v17;
-  v12 = objc_alloc(getWiFiMACAddressClass[0]());
-  v13 = [v12 initWithAddress:v18 | (v19 << 32)];
+  v6->_instanceID = v12;
+  v7 = objc_alloc(getWiFiMACAddressClass());
+  v8 = [v7 initWithAddress:v13 | (v14 << 32)];
   macAddress = v6->_macAddress;
-  v6->_macAddress = v13;
+  v6->_macAddress = v8;
 
-  v15 = v6;
+  v10 = v6;
 LABEL_7:
 
-  return v15;
+  return v10;
 }
 
 @end

@@ -261,85 +261,85 @@ void __107__TLKTitleContainerView_updateResultWithTitle_secondaryTitle_image_det
   [v48 setContentHuggingPriority:0 forAxis:v49];
 }
 
-void __107__TLKTitleContainerView_updateResultWithTitle_secondaryTitle_image_detached_useCompactMode_truncateMiddle___block_invoke_2(uint64_t a1)
+void __107__TLKTitleContainerView_updateResultWithTitle_secondaryTitle_image_detached_useCompactMode_truncateMiddle___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() hasNonBoldFormattingInRichText:*(a1 + 40)];
-  v3 = *(a1 + 48);
-  v4 = +[TLKUtilities isMacOS];
-  if (v3 != 1)
+  v3 = [objc_opt_class() hasNonBoldFormattingInRichText:*(a1 + 40)];
+  v4 = *(a1 + 48);
+  v5 = +[TLKUtilities isMacOS];
+  if (v4 != 1)
   {
-    if (!v4)
+    if (!v5)
     {
-      v6 = *MEMORY[0x1E69DDCF8];
-      v7 = v2 ^ 1u;
+      v7 = *MEMORY[0x1E69DDCF8];
+      v8 = v3 ^ 1u;
       goto LABEL_10;
     }
 
     goto LABEL_6;
   }
 
-  if (v4)
-  {
-LABEL_6:
-    v8 = TLKSpotlightPlusUIEnabled();
-    v9 = MEMORY[0x1E69DDDC0];
-    if (!v8)
-    {
-      v9 = MEMORY[0x1E69DDCF8];
-    }
-
-    v10 = [TLKFontUtilities cachedFontForMacTextStyle:*v9];
-    goto LABEL_12;
-  }
-
-  v5 = TLKBiggerSuggestionsLayoutEnabled();
-  v6 = *MEMORY[0x1E69DDCF8];
   if (v5)
   {
-    v7 = 1;
-LABEL_10:
-    v10 = [TLKFontUtilities cachedFontForTextStyle:v6 isShort:0 isBold:v7];
+LABEL_6:
+    v9 = TLKSpotlightPlusUIEnabled();
+    v10 = MEMORY[0x1E69DDDC0];
+    if (!v9)
+    {
+      v10 = MEMORY[0x1E69DDCF8];
+    }
+
+    v11 = [TLKFontUtilities cachedFontForMacTextStyle:*v10];
     goto LABEL_12;
   }
 
-  v10 = [TLKFontUtilities cachedFontForTextStyle:v6 isShort:0 fontWeight:*MEMORY[0x1E69DB970]];
-LABEL_12:
-  v20 = v10;
-  v11 = [*(a1 + 32) titleLabel];
-  [v11 setAttributedText:0];
+  v6 = TLKBiggerSuggestionsLayoutEnabled();
+  v7 = *MEMORY[0x1E69DDCF8];
+  if (v6)
+  {
+    v8 = 1;
+LABEL_10:
+    v11 = [TLKFontUtilities cachedFontForTextStyle:v7 isShort:0 isBold:v8];
+    goto LABEL_12;
+  }
 
+  v11 = [TLKFontUtilities cachedFontForTextStyle:v7 isShort:0 fontWeight:*MEMORY[0x1E69DB970]];
+LABEL_12:
+  v21 = v11;
   v12 = [*(a1 + 32) titleLabel];
-  [v12 setFont:v20];
+  [v12 setAttributedText:0];
+
+  v13 = [*(a1 + 32) titleLabel];
+  [v13 setFont:v21];
 
   if (*(a1 + 49))
   {
-    v13 = 5;
+    v14 = 5;
   }
 
   else
   {
-    v13 = 4;
+    v14 = 4;
   }
 
-  v14 = [*(a1 + 32) titleField];
-  v15 = [v14 textLabel];
-  [v15 setLineBreakMode:v13];
+  v15 = [*(a1 + 32) titleField];
+  v16 = [v15 textLabel];
+  [v16 setLineBreakMode:v14];
 
-  v16 = +[TLKLayoutUtilities isSuperLargeAccessibilitySize];
-  if (*(a1 + 50) & 1) != 0 || !v16 && (*(a1 + 48))
+  v17 = +[TLKLayoutUtilities isSuperLargeAccessibilitySize];
+  if (*(a1 + 50) & 1) != 0 || !v17 && (*(a1 + 48))
   {
-    v17 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v17 = [*(a1 + 40) maxLines];
+    v18 = [*(a1 + 40) maxLines];
   }
 
-  [*(a1 + 40) setMaxLines:v17];
-  v18 = *(a1 + 40);
-  v19 = [*(a1 + 32) titleField];
-  [v19 setRichText:v18];
+  [*(a1 + 40) setMaxLines:v18];
+  v19 = *(a1 + 40);
+  v20 = [*(a1 + 32) titleField];
+  [v20 setRichText:v19];
 }
 
 + (BOOL)hasNonBoldFormattingInRichText:(id)text

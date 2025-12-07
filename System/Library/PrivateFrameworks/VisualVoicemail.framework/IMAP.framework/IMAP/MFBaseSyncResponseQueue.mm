@@ -270,7 +270,7 @@ id __39__MFBaseSyncResponseQueue_handleItems___block_invoke(uint64_t a1)
 
 - (id)sequenceIdentifierForItem:(id)item
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -278,25 +278,25 @@ id __39__MFBaseSyncResponseQueue_handleItems___block_invoke(uint64_t a1)
     __assert_rtn("[MFBaseSyncResponseQueue sequenceIdentifierForItem:]", "IMAP_LibraryIMAPStore.mm", 533, "[item isKindOfClass:[NSArray class]]");
   }
 
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = itemCopy;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
 LABEL_4:
     v7 = 0;
     while (1)
     {
-      if (*v14 != v6)
+      if (*v13 != v6)
       {
         objc_enumerationMutation(v4);
       }
 
-      v8 = *(*(&v13 + 1) + 8 * v7);
+      v8 = *(*(&v12 + 1) + 8 * v7);
       if ([v8 type] == 11)
       {
         break;
@@ -304,7 +304,7 @@ LABEL_4:
 
       if (v5 == ++v7)
       {
-        v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v5)
         {
           goto LABEL_4;
@@ -331,8 +331,6 @@ LABEL_10:
 LABEL_12:
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

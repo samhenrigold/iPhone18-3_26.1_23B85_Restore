@@ -127,7 +127,7 @@ void __39__SHRemoteConfiguration_sharedInstance__block_invoke()
 
 - (void)populateRemoteConfiguration
 {
-  v3 = shcore_log_object();
+  v3 = shcore_log_object(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *v15 = 0;
@@ -262,7 +262,7 @@ void __61__SHRemoteConfiguration_shazamOfferAPIURLPathWithCompletion___block_inv
 - (void)hapticsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = shcore_log_object();
+  v5 = shcore_log_object(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -281,30 +281,28 @@ void __61__SHRemoteConfiguration_shazamOfferAPIURLPathWithCompletion___block_inv
 
 void __47__SHRemoteConfiguration_hapticsWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
-  v8 = shcore_log_object();
+  v8 = shcore_log_object(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412546;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "HapticsEndpoints fetch complete with value %@ error %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "HapticsEndpoints fetch complete with value %@ error %@", &v11, 0x16u);
   }
 
   v9 = *(a1 + 32);
   v10 = [[SHHapticsConfiguration alloc] initWithConfiguration:v6];
   (*(v9 + 16))(v9, v10, v7);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endpointsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = shcore_log_object();
+  v5 = shcore_log_object(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     LOWORD(buf[0]) = 0;
@@ -351,17 +349,17 @@ void __49__SHRemoteConfiguration_endpointsWithCompletion___block_invoke(uint64_t
 
 void __49__SHRemoteConfiguration_endpointsWithCompletion___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
-  v8 = shcore_log_object();
+  v8 = shcore_log_object(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412546;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Endpoint fetch complete with value %@ error %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Endpoint fetch complete with value %@ error %@", &v11, 0x16u);
   }
 
   v9 = *(a1 + 40);
@@ -375,14 +373,12 @@ void __49__SHRemoteConfiguration_endpointsWithCompletion___block_invoke_2(uint64
   {
     (*(v9 + 16))(*(a1 + 40), 0, v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hostForClientType:(int64_t)type completion:(id)completion
 {
   completionCopy = completion;
-  v7 = shcore_log_object();
+  v7 = shcore_log_object(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -418,17 +414,17 @@ LABEL_9:
 
 void __54__SHRemoteConfiguration_hostForClientType_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
-  v8 = shcore_log_object();
+  v8 = shcore_log_object(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412546;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Host fetch complete with value %@ error %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Host fetch complete with value %@ error %@", &v11, 0x16u);
   }
 
   v9 = *(a1 + 32);
@@ -442,14 +438,12 @@ void __54__SHRemoteConfiguration_hostForClientType_completion___block_invoke(uin
   {
     (*(v9 + 16))(v9, 0, v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)campaignTokenWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = shcore_log_object();
+  v5 = shcore_log_object(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -468,17 +462,17 @@ void __54__SHRemoteConfiguration_hostForClientType_completion___block_invoke(uin
 
 void __53__SHRemoteConfiguration_campaignTokenWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
-  v8 = shcore_log_object();
+  v8 = shcore_log_object(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412546;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Campaign tokens fetch complete with value %@ error %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Campaign tokens fetch complete with value %@ error %@", &v11, 0x16u);
   }
 
   v9 = *(a1 + 32);
@@ -492,14 +486,12 @@ void __53__SHRemoteConfiguration_campaignTokenWithCompletion___block_invoke(uint
   {
     (*(v9 + 16))(v9, 0, v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)defaultValuesWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = shcore_log_object();
+  v5 = shcore_log_object(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -518,17 +510,17 @@ void __53__SHRemoteConfiguration_campaignTokenWithCompletion___block_invoke(uint
 
 void __53__SHRemoteConfiguration_defaultValuesWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
-  v8 = shcore_log_object();
+  v8 = shcore_log_object(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412546;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Default values fetch complete with value %@ error %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Default values fetch complete with value %@ error %@", &v11, 0x16u);
   }
 
   v9 = *(a1 + 32);
@@ -542,14 +534,12 @@ void __53__SHRemoteConfiguration_defaultValuesWithCompletion___block_invoke(uint
   {
     (*(v9 + 16))(v9, 0, v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)featureFlagsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = shcore_log_object();
+  v5 = shcore_log_object(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -568,17 +558,17 @@ void __53__SHRemoteConfiguration_defaultValuesWithCompletion___block_invoke(uint
 
 void __52__SHRemoteConfiguration_featureFlagsWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
-  v8 = shcore_log_object();
+  v8 = shcore_log_object(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412546;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Feature flags fetch complete with value %@ error %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Feature flags fetch complete with value %@ error %@", &v11, 0x16u);
   }
 
   v9 = *(a1 + 32);
@@ -592,14 +582,12 @@ void __52__SHRemoteConfiguration_featureFlagsWithCompletion___block_invoke(uint6
   {
     (*(v9 + 16))(v9, 0, v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cacheValuesWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = shcore_log_object();
+  v5 = shcore_log_object(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -618,17 +606,17 @@ void __52__SHRemoteConfiguration_featureFlagsWithCompletion___block_invoke(uint6
 
 void __51__SHRemoteConfiguration_cacheValuesWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
-  v8 = shcore_log_object();
+  v8 = shcore_log_object(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412546;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Cache values fetch complete with value %@ error %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Cache values fetch complete with value %@ error %@", &v11, 0x16u);
   }
 
   v9 = *(a1 + 32);
@@ -642,8 +630,6 @@ void __51__SHRemoteConfiguration_cacheValuesWithCompletion___block_invoke(uint64
   {
     (*(v9 + 16))(v9, 0, v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)offerValuesWithCompletion:(id)completion
@@ -661,21 +647,20 @@ void __51__SHRemoteConfiguration_cacheValuesWithCompletion___block_invoke(uint64
 
 void __51__SHRemoteConfiguration_offerValuesWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = shcore_log_object();
+  v7 = shcore_log_object(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_231025000, v7, OS_LOG_TYPE_DEBUG, "Shazam campaign offers fetch complete with value %@ error %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_231025000, v7, OS_LOG_TYPE_DEBUG, "Shazam campaign offers fetch complete with value %@ error %@", &v8, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)streamingProviderValuesWithCompletion:(id)completion
@@ -693,27 +678,26 @@ void __51__SHRemoteConfiguration_offerValuesWithCompletion___block_invoke(uint64
 
 void __63__SHRemoteConfiguration_streamingProviderValuesWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = shcore_log_object();
+  v7 = shcore_log_object(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_231025000, v7, OS_LOG_TYPE_DEBUG, "Third party streaming providers fetch complete with value %@ error %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_231025000, v7, OS_LOG_TYPE_DEBUG, "Third party streaming providers fetch complete with value %@ error %@", &v8, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recorderConfigurationWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = shcore_log_object();
+  v5 = shcore_log_object(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -732,17 +716,17 @@ void __63__SHRemoteConfiguration_streamingProviderValuesWithCompletion___block_i
 
 void __61__SHRemoteConfiguration_recorderConfigurationWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
-  v8 = shcore_log_object();
+  v8 = shcore_log_object(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412546;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Recorder configuration with value %@ error %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Recorder configuration with value %@ error %@", &v11, 0x16u);
   }
 
   v9 = *(a1 + 32);
@@ -756,14 +740,12 @@ void __61__SHRemoteConfiguration_recorderConfigurationWithCompletion___block_inv
   {
     (*(v9 + 16))(v9, 0, v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)musicalFeaturesBagConfigurationWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = shcore_log_object();
+  v5 = shcore_log_object(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -782,17 +764,17 @@ void __61__SHRemoteConfiguration_recorderConfigurationWithCompletion___block_inv
 
 void __71__SHRemoteConfiguration_musicalFeaturesBagConfigurationWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
-  v8 = shcore_log_object();
+  v8 = shcore_log_object(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412546;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Musical features models configuration values fetch complete with value %@ error %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_231025000, v8, OS_LOG_TYPE_DEBUG, "Musical features models configuration values fetch complete with value %@ error %@", &v11, 0x16u);
   }
 
   v9 = *(a1 + 32);
@@ -806,8 +788,6 @@ void __71__SHRemoteConfiguration_musicalFeaturesBagConfigurationWithCompletion__
   {
     (*(v9 + 16))(v9, 0, v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)musicalFeaturesBagConfigurationWithPromise

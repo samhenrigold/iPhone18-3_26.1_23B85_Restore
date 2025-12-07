@@ -220,7 +220,7 @@ LABEL_11:
 
 - (BOOL)shouldCollectMetrics
 {
-  v2 = sub_1003BBF50();
+  v2 = sub_1003BBF50(Device);
   if ([v2 isHRNMode])
   {
     v3 = 0;
@@ -228,7 +228,7 @@ LABEL_11:
 
   else
   {
-    v3 = sub_10030B548();
+    v3 = sub_10030B548(Restrictions);
   }
 
   return v3;
@@ -237,7 +237,7 @@ LABEL_11:
 - (void)_recordCrashEventsSinceDate:(id)date
 {
   v4 = [(MetricsHandler *)self getCrashEventsSinceDate:date];
-  v5 = sub_10036C90C();
+  v5 = sub_10036C90C(AppUsageDatabaseStore);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_10025DD40;

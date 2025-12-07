@@ -24,84 +24,78 @@
 
 + (id)entryEventForwardDefinitions
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"Status";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"Status";
   v2 = +[PLSmartConnectorAgent entryEventForwardDefinitionStatus];
-  v7[1] = @"EAStatus";
-  v8[0] = v2;
+  v6[1] = @"EAStatus";
+  v7[0] = v2;
   v3 = +[PLSmartConnectorAgent entryEventForwardDefinitionEAStatus];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
 
 + (id)entryEventForwardDefinitionStatus
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1C3B8;
-  v15[1] = MEMORY[0x277CBEC28];
-  v14[2] = *MEMORY[0x277D3F558];
-  v15[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"ConnectState";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1C3B8;
+  v14[1] = MEMORY[0x277CBEC28];
+  v13[2] = *MEMORY[0x277D3F558];
+  v14[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"ConnectState";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v12[1] = @"AccessoryID";
-  v13[0] = commonTypeDict_BoolFormat;
+  v11[1] = @"AccessoryID";
+  v12[0] = commonTypeDict_BoolFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v13[1] = commonTypeDict_IntegerFormat;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_IntegerFormat;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
 
 + (id)entryEventForwardDefinitionEAStatus
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] isiPad])
   {
-    v16[0] = *MEMORY[0x277D3F4E8];
+    v15[0] = *MEMORY[0x277D3F4E8];
     v2 = *MEMORY[0x277D3F550];
-    v14[0] = *MEMORY[0x277D3F568];
-    v14[1] = v2;
-    v15[0] = &unk_282C1C3C8;
-    v15[1] = MEMORY[0x277CBEC28];
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-    v17[0] = v3;
-    v16[1] = *MEMORY[0x277D3F540];
-    v12[0] = @"ConnectState";
+    v13[0] = *MEMORY[0x277D3F568];
+    v13[1] = v2;
+    v14[0] = &unk_282C1C3C8;
+    v14[1] = MEMORY[0x277CBEC28];
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v16[0] = v3;
+    v15[1] = *MEMORY[0x277D3F540];
+    v11[0] = @"ConnectState";
     mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-    v12[1] = @"AccessoryID";
-    v13[0] = commonTypeDict_BoolFormat;
+    v11[1] = @"AccessoryID";
+    v12[0] = commonTypeDict_BoolFormat;
     mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
     commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-    v13[1] = commonTypeDict_IntegerFormat;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-    v17[1] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v12[1] = commonTypeDict_IntegerFormat;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v16[1] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
   }
 
   else
   {
     v9 = MEMORY[0x277CBEC10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -149,7 +143,7 @@
 
 void __29__PLSmartConnectorAgent_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) timer];
 
   if (v4)
@@ -164,12 +158,12 @@ void __29__PLSmartConnectorAgent_init__block_invoke(uint64_t a1, uint64_t a2)
   v6 = objc_alloc(MEMORY[0x277D3F250]);
   v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.8];
   v8 = [*(a1 + 32) workQueue];
-  v23 = MEMORY[0x277D85DD0];
-  v24 = 3221225472;
-  v25 = __29__PLSmartConnectorAgent_init__block_invoke_2;
-  v26 = &unk_27825A810;
-  objc_copyWeak(&v27, &location);
-  v9 = [v6 initWithFireDate:v7 withInterval:0 withTolerance:0 repeats:v8 withUserInfo:&v23 withQueue:0.0 withBlock:0.0];
+  v22 = MEMORY[0x277D85DD0];
+  v23 = 3221225472;
+  v24 = __29__PLSmartConnectorAgent_init__block_invoke_2;
+  v25 = &unk_27825A810;
+  objc_copyWeak(&v26, &location);
+  v9 = [v6 initWithFireDate:v7 withInterval:0 withTolerance:0 repeats:v8 withUserInfo:&v22 withQueue:0.0 withBlock:0.0];
   v10 = *(a1 + 32);
   v11 = *(v10 + 56);
   *(v10 + 56) = v9;
@@ -196,19 +190,18 @@ void __29__PLSmartConnectorAgent_init__block_invoke(uint64_t a1, uint64_t a2)
     v20 = [*(a1 + 32) curVersion];
     v21 = [*(a1 + 32) curName];
     *buf = 138413058;
-    v30 = v18;
-    v31 = 2112;
-    v32 = v19;
-    v33 = 2112;
-    v34 = v20;
-    v35 = 2112;
-    v36 = v21;
+    v29 = v18;
+    v30 = 2112;
+    v31 = v19;
+    v32 = 2112;
+    v33 = v20;
+    v34 = 2112;
+    v35 = v21;
     _os_log_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEFAULT, "Update from accessory state: %@, model: %@, version: %@, name: %@", buf, 0x2Au);
   }
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __29__PLSmartConnectorAgent_init__block_invoke_2(uint64_t a1)
@@ -254,22 +247,20 @@ void __29__PLSmartConnectorAgent_init__block_invoke_2(uint64_t a1)
 
 void __52__PLSmartConnectorAgent_externalAccessoryConnected___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = PLLogCommon();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) userInfo];
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "[SC]: received connection notification, %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "[SC]: received connection notification, %@", &v7, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [*(a1 + 32) userInfo];
   v6 = [v5 objectForKeyedSubscript:*MEMORY[0x277CC5E98]];
   [v4 logEventForwardEAAccessory:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)externalAccessoryDisconnected:(id)disconnected
@@ -288,22 +279,20 @@ void __52__PLSmartConnectorAgent_externalAccessoryConnected___block_invoke(uint6
 
 void __55__PLSmartConnectorAgent_externalAccessoryDisconnected___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = PLLogCommon();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) userInfo];
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "[SC]: received disconnection notification, %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEFAULT, "[SC]: received disconnection notification, %@", &v7, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [*(a1 + 32) userInfo];
   v6 = [v5 objectForKeyedSubscript:*MEMORY[0x277CC5E98]];
   [v4 logEventForwardEAAccessory:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)log
@@ -445,7 +434,7 @@ LABEL_28:
 
 - (void)logEventForwardEAAccessory:(id)accessory
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   if (!accessoryCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -455,12 +444,12 @@ LABEL_28:
       goto LABEL_20;
     }
 
-    LOWORD(v26) = 0;
+    LOWORD(v25) = 0;
     v16 = "[SC]: EAAccessory is nil";
     v17 = v15;
     v18 = 2;
 LABEL_12:
-    _os_log_error_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_ERROR, v16, &v26, v18);
+    _os_log_error_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_ERROR, v16, &v25, v18);
     goto LABEL_20;
   }
 
@@ -473,8 +462,8 @@ LABEL_12:
       goto LABEL_20;
     }
 
-    v26 = 138412290;
-    v27 = accessoryCopy;
+    v25 = 138412290;
+    v26 = accessoryCopy;
     v16 = "[SC]: EAAccessory missing info, %@";
     v17 = v15;
     v18 = 12;
@@ -513,8 +502,8 @@ LABEL_12:
     v15 = PLLogCommon();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEFAULT, "[SC]: Skip matching the accessory", &v26, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEFAULT, "[SC]: Skip matching the accessory", &v25, 2u);
     }
 
 LABEL_20:
@@ -534,8 +523,6 @@ LABEL_7:
 
   [(PLOperator *)self logEntry:v12];
 LABEL_21:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -333,10 +333,10 @@ void __49__CDXPCService__servicePeriodic_info_replyBlock___block_invoke_2(id *a1
   dispatch_async(v4, block);
 }
 
-uint64_t __49__CDXPCService__servicePeriodic_info_replyBlock___block_invoke_3(void *a1)
+uint64_t __49__CDXPCService__servicePeriodic_info_replyBlock___block_invoke_3(uint64_t a1)
 {
-  v2 = (*(a1[5] + 16))();
-  result = a1[6];
+  v2 = (*(*(a1 + 40) + 16))();
+  result = *(a1 + 48);
   if (result)
   {
     v4 = v2 == 0;
@@ -349,10 +349,9 @@ uint64_t __49__CDXPCService__servicePeriodic_info_replyBlock___block_invoke_3(vo
 
   if (!v4)
   {
-    v5 = a1[4];
-    v6 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v6();
+    return v5();
   }
 
   return result;
@@ -685,21 +684,19 @@ void __36__CDXPCService_doWithProxy_failure___block_invoke(uint64_t a1, void *a2
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       v30 = [*(a1 + 32) ID];
-      v31 = *(a1 + 32);
-      v32 = objc_opt_class();
-      v33 = NSStringFromClass(v32);
-      *v51 = 138412546;
-      *&v51[4] = v30;
-      *&v51[12] = 2112;
-      *&v51[14] = v33;
-      _os_log_fault_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, "%@: obtainXPCConnection callback fired more than once for %@!", v51, 0x16u);
+      v31 = objc_opt_class();
+      v32 = NSStringFromClass(v31);
+      *v49 = 138412546;
+      *&v49[4] = v30;
+      *&v49[12] = 2112;
+      *&v49[14] = v32;
+      _os_log_fault_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, "%@: obtainXPCConnection callback fired more than once for %@!", v49, 0x16u);
     }
 
     v10 = [*(a1 + 32) ID];
-    v11 = *(a1 + 32);
-    v12 = objc_opt_class();
-    v35 = NSStringFromClass(v12);
-    _CacheDeleteAbortWithMessage();
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
+    _CacheDeleteAbortWithMessage("%@: obtainXPCConnection callback fired more than once for %@!", v10, v12);
   }
 
   else
@@ -710,12 +707,12 @@ void __36__CDXPCService_doWithProxy_failure___block_invoke(uint64_t a1, void *a2
       v26 = CDGetLogHandle();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        v34 = [*(a1 + 32) ID];
-        *v51 = 138412546;
-        *&v51[4] = v34;
-        *&v51[12] = 2112;
-        *&v51[14] = v7;
-        _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%@: obtainXPCConnection failed to get a connection: %@", v51, 0x16u);
+        v33 = [*(a1 + 32) ID];
+        *v49 = 138412546;
+        *&v49[4] = v33;
+        *&v49[12] = 2112;
+        *&v49[14] = v7;
+        _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%@: obtainXPCConnection failed to get a connection: %@", v49, 0x16u);
       }
 
       v27 = *(a1 + 32);
@@ -741,18 +738,18 @@ void __36__CDXPCService_doWithProxy_failure___block_invoke(uint64_t a1, void *a2
     else
     {
       [*(a1 + 32) setXpcConnection:v5];
-      *v51 = 0;
-      *&v51[8] = v51;
-      *&v51[16] = 0x2020000000;
-      v52 = 0;
-      v47[0] = 0;
-      v47[1] = v47;
-      v47[2] = 0x2020000000;
-      v48 = 0;
+      *v49 = 0;
+      *&v49[8] = v49;
+      *&v49[16] = 0x2020000000;
+      v50 = 0;
       v45[0] = 0;
       v45[1] = v45;
       v45[2] = 0x2020000000;
       v46 = 0;
+      v43[0] = 0;
+      v43[1] = v43;
+      v43[2] = 0x2020000000;
+      v44 = 0;
       objc_initWeak(&location, *(a1 + 32));
       v13 = [*(a1 + 32) serviceQueue];
       v14 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v13);
@@ -768,7 +765,7 @@ void __36__CDXPCService_doWithProxy_failure___block_invoke(uint64_t a1, void *a2
       handler[2] = __36__CDXPCService_doWithProxy_failure___block_invoke_20;
       handler[3] = &unk_100060DD0;
       handler[4] = *(a1 + 32);
-      handler[5] = v47;
+      handler[5] = v45;
       dispatch_source_set_event_handler(v17, handler);
 
       v18 = [*(a1 + 32) watchdog_timer];
@@ -781,7 +778,7 @@ void __36__CDXPCService_doWithProxy_failure___block_invoke(uint64_t a1, void *a2
         {
           v20 = [*(a1 + 32) ID];
           *buf = 138412290;
-          v50 = v20;
+          v48 = v20;
           _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Connecting to %@", buf, 0xCu);
         }
 
@@ -794,33 +791,33 @@ void __36__CDXPCService_doWithProxy_failure___block_invoke(uint64_t a1, void *a2
       }
 
       v23 = [*(a1 + 32) xpcConnection];
-      v38[0] = _NSConcreteStackBlock;
-      v38[1] = 3221225472;
-      v38[2] = __36__CDXPCService_doWithProxy_failure___block_invoke_35;
-      v38[3] = &unk_100061F48;
-      objc_copyWeak(&v42, &location);
-      v40 = v51;
-      v41 = v45;
-      v39 = *(a1 + 40);
-      v24 = [v23 remoteObjectProxyWithErrorHandler:v38];
-
-      v25 = *(a1 + 48);
       v36[0] = _NSConcreteStackBlock;
       v36[1] = 3221225472;
-      v36[2] = __36__CDXPCService_doWithProxy_failure___block_invoke_37;
-      v36[3] = &unk_100061F70;
-      objc_copyWeak(&v37, &location);
-      v36[4] = v45;
-      v36[5] = v51;
-      v36[6] = v47;
-      (*(v25 + 16))(v25, v24, v5, v36);
-      objc_destroyWeak(&v37);
+      v36[2] = __36__CDXPCService_doWithProxy_failure___block_invoke_35;
+      v36[3] = &unk_100061F48;
+      objc_copyWeak(&v40, &location);
+      v38 = v49;
+      v39 = v43;
+      v37 = *(a1 + 40);
+      v24 = [v23 remoteObjectProxyWithErrorHandler:v36];
 
-      objc_destroyWeak(&v42);
+      v25 = *(a1 + 48);
+      v34[0] = _NSConcreteStackBlock;
+      v34[1] = 3221225472;
+      v34[2] = __36__CDXPCService_doWithProxy_failure___block_invoke_37;
+      v34[3] = &unk_100061F70;
+      objc_copyWeak(&v35, &location);
+      v34[4] = v43;
+      v34[5] = v49;
+      v34[6] = v45;
+      (*(v25 + 16))(v25, v24, v5, v34);
+      objc_destroyWeak(&v35);
+
+      objc_destroyWeak(&v40);
       objc_destroyWeak(&location);
+      _Block_object_dispose(v43, 8);
       _Block_object_dispose(v45, 8);
-      _Block_object_dispose(v47, 8);
-      _Block_object_dispose(v51, 8);
+      _Block_object_dispose(v49, 8);
     }
   }
 }
@@ -869,12 +866,12 @@ void __36__CDXPCService_doWithProxy_failure___block_invoke_2(uint64_t a1)
     v2 = CDGetLogHandle();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v5 = [*(a1 + 40) ID];
-      v6 = *(a1 + 32);
+      v6 = [*(a1 + 40) ID];
+      v7 = *(a1 + 32);
       *buf = 138412546;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v6;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
       _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%@: remoteObjectProxyWithErrorHandler error: %@", buf, 0x16u);
     }
   }
@@ -884,25 +881,24 @@ void __36__CDXPCService_doWithProxy_failure___block_invoke_2(uint64_t a1)
     v3 = CDGetLogHandle();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      v7 = [*(a1 + 40) ID];
-      v8 = *(a1 + 32);
+      v8 = [*(a1 + 40) ID];
+      v9 = *(a1 + 32);
       *buf = 138412546;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v8;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
       _os_log_fault_impl(&_mh_execute_header, v3, OS_LOG_TYPE_FAULT, "%@: Received an error after the request succeeded! error: %@", buf, 0x16u);
     }
 
-    v9 = [*(a1 + 40) ID];
-    v10 = *(a1 + 32);
-    _CacheDeleteAbortWithMessage();
+    v4 = [*(a1 + 40) ID];
+    _CacheDeleteAbortWithMessage("%@: Received an error after the request succeeded! error: %@", v4, *(a1 + 32));
   }
 
-  v4 = *(*(a1 + 64) + 8);
-  if ((*(v4 + 24) & 1) == 0)
+  v5 = *(*(a1 + 64) + 8);
+  if ((*(v5 + 24) & 1) == 0)
   {
-    *(v4 + 24) = 1;
-    (*(*(a1 + 48) + 16))(*(a1 + 48), *(a1 + 32));
+    *(v5 + 24) = 1;
+    (*(*(a1 + 48) + 16))();
     [*(a1 + 40) invalidateConnection];
   }
 }
@@ -914,7 +910,7 @@ uint64_t __36__CDXPCService_doWithProxy_failure___block_invoke_37(uint64_t a1)
   if (!WeakRetained)
   {
 LABEL_7:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_11;
   }
 
@@ -929,18 +925,17 @@ LABEL_7:
       v6 = CDGetLogHandle();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        v11 = [v3 ID];
-        v12 = *(*(*(a1 + 40) + 8) + 24);
+        v12 = [v3 ID];
+        v13 = *(*(*(a1 + 40) + 8) + 24);
         *buf = 138412546;
-        v16 = v11;
-        v17 = 1024;
-        v18 = v12;
+        v15 = v12;
+        v16 = 1024;
+        v17 = v13;
         _os_log_fault_impl(&_mh_execute_header, v6, OS_LOG_TYPE_FAULT, "%@: Received completion after we sent a callback! Success = %d", buf, 0x12u);
       }
 
-      v13 = [v3 ID];
-      v14 = *(*(*(a1 + 40) + 8) + 24);
-      _CacheDeleteAbortWithMessage();
+      v7 = [v3 ID];
+      _CacheDeleteAbortWithMessage("%@: Received completion after we sent a callback! Success = %d", v7, *(*(*(a1 + 40) + 8) + 24));
     }
 
     goto LABEL_7;
@@ -948,20 +943,20 @@ LABEL_7:
 
   *(v5 + 24) = 1;
   *(*(*(a1 + 40) + 8) + 24) = 1;
-  v8 = CDGetLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = CDGetLogHandle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [v3 ID];
+    v10 = [v3 ID];
     *buf = 138412290;
-    v16 = v9;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@: Successful Request", buf, 0xCu);
+    v15 = v10;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@: Successful Request", buf, 0xCu);
   }
 
   [v3 invalidateConnection];
-  v7 = 1;
+  v8 = 1;
 LABEL_11:
 
-  return v7;
+  return v8;
 }
 
 - (void)obtainXPCConnection:(id)connection

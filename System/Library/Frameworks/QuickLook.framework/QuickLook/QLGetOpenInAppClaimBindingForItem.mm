@@ -5,7 +5,7 @@
 
 void ___QLGetOpenInAppClaimBindingForItem_block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) previewItemURL];
   if (v2)
   {
@@ -46,25 +46,23 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v13 = MEMORY[0x277D43EF8];
-  v14 = *MEMORY[0x277D43EF8];
+  v12 = MEMORY[0x277D43EF8];
+  v13 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
   {
     QLSInitLogging();
-    v14 = *v13;
+    v13 = *v12;
   }
 
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v15 = *(a1 + 32);
-    v16 = 138412290;
-    v17 = v15;
-    _os_log_impl(&dword_23A714000, v14, OS_LOG_TYPE_INFO, "No Open In app for item: %@ #Generic", &v16, 0xCu);
+    v14 = *(a1 + 32);
+    v15 = 138412290;
+    v16 = v14;
+    _os_log_impl(&dword_23A714000, v13, OS_LOG_TYPE_INFO, "No Open In app for item: %@ #Generic", &v15, 0xCu);
   }
 
 LABEL_8:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -864,7 +864,7 @@ LABEL_87:
   if (is_internal_build())
   {
     v73 = formatURLRequest(v34);
-    v74 = copy_log_directory_path();
+    v74 = copy_log_directory_path(v73);
     v75 = [v74 stringByAppendingPathComponent:@"recert_request.txt"];
     [(NSMutableString *)v73 writeToFile:v75 atomically:0 encoding:4 error:0];
   }
@@ -878,7 +878,7 @@ LABEL_87:
   if (is_internal_build())
   {
     v76 = formatURLResponse(v35, v126, v108);
-    v77 = copy_log_directory_path();
+    v77 = copy_log_directory_path(v76);
     v78 = [v77 stringByAppendingPathComponent:@"recert_response.txt"];
     [(NSMutableString *)v76 writeToFile:v78 atomically:0 encoding:4 error:0];
   }

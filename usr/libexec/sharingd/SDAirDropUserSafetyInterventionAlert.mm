@@ -8,23 +8,22 @@
 - (void)showInterventionWithIsSend:(BOOL)send completion:(id)completion
 {
   v7 = sub_10028088C(&qword_100976160, &qword_1007F8770);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v16 - v9;
-  v11 = _Block_copy(completion);
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
-  v13 = type metadata accessor for TaskPriority();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
-  v14 = swift_allocObject();
-  *(v14 + 16) = 0;
-  *(v14 + 24) = 0;
-  *(v14 + 32) = send;
-  *(v14 + 40) = self;
-  *(v14 + 48) = sub_1004B2790;
-  *(v14 + 56) = v12;
+  v9 = &v15 - v8;
+  v10 = _Block_copy(completion);
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
+  v12 = type metadata accessor for TaskPriority();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  *(v13 + 16) = 0;
+  *(v13 + 24) = 0;
+  *(v13 + 32) = send;
+  *(v13 + 40) = self;
+  *(v13 + 48) = sub_1004B2790;
+  *(v13 + 56) = v11;
   selfCopy = self;
-  sub_1002B3098(0, 0, v10, &unk_100805FF8, v14);
+  sub_1002B3098(0, 0, v9, &unk_100805FF8, v13);
 }
 
 - (_TtC16DaemoniOSLibrary36SDAirDropUserSafetyInterventionAlert)init

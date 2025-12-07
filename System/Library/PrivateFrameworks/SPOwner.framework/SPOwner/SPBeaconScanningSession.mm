@@ -57,13 +57,13 @@
 
 - (void)interruptionHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = LogCategory_AccessoryDiscovery();
+  v5 = LogCategory_AccessoryDiscovery(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = handlerCopy;
+    v10 = handlerCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPBeaconScanningSession: interruptionHandler %@", buf, 0xCu);
   }
 
@@ -79,8 +79,6 @@
     block[4] = self;
     dispatch_sync(callbackQueue, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __47__SPBeaconScanningSession_interruptionHandler___block_invoke(uint64_t a1)
@@ -91,13 +89,13 @@ void __47__SPBeaconScanningSession_interruptionHandler___block_invoke(uint64_t a
 
 - (void)invalidationHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = LogCategory_AccessoryDiscovery();
+  v5 = LogCategory_AccessoryDiscovery(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = handlerCopy;
+    v10 = handlerCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPBeaconScanningSession: invalidationHandler %@", buf, 0xCu);
   }
 
@@ -114,8 +112,6 @@ void __47__SPBeaconScanningSession_interruptionHandler___block_invoke(uint64_t a
     block[4] = self;
     dispatch_sync(callbackQueue, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __47__SPBeaconScanningSession_invalidationHandler___block_invoke(uint64_t a1)
@@ -139,14 +135,14 @@ void __47__SPBeaconScanningSession_invalidationHandler___block_invoke(uint64_t a
     v7 = [v5 initWithServiceDescription:serviceDescription];
     [(SPBeaconScanningSession *)self setSession:v7];
 
-    v8 = LogCategory_AccessoryDiscovery();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LogCategory_AccessoryDiscovery(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       serviceDescription2 = [(SPBeaconScanningSession *)self serviceDescription];
       machService = [serviceDescription2 machService];
       v16 = 138412290;
       v17 = machService;
-      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPBeaconScanningSession: Establishing XPC connection to %@", &v16, 0xCu);
+      _os_log_impl(&dword_2643D0000, v9, OS_LOG_TYPE_DEFAULT, "SPBeaconScanningSession: Establishing XPC connection to %@", &v16, 0xCu);
     }
 
     session2 = [(SPBeaconScanningSession *)self session];
@@ -155,8 +151,6 @@ void __47__SPBeaconScanningSession_invalidationHandler___block_invoke(uint64_t a
 
   session3 = [(SPBeaconScanningSession *)self session];
   proxy = [session3 proxy];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return proxy;
 }
@@ -212,26 +206,24 @@ uint64_t __42__SPBeaconScanningSession_remoteInterface__block_invoke()
 
 void __70__SPBeaconScanningSession_startScanningIncludeServiceCharacteristics___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = LogCategory_BeaconScanning();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
     *buf = 67109120;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "[SPBeaconScanningSession startScanningIncludeServiceCharacteristics:%d]", buf, 8u);
   }
 
   v4 = [*(a1 + 32) queue];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __70__SPBeaconScanningSession_startScanningIncludeServiceCharacteristics___block_invoke_64;
-  v6[3] = &unk_279B58CC0;
-  v6[4] = *(a1 + 32);
-  v7 = *(a1 + 40);
-  dispatch_sync(v4, v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __70__SPBeaconScanningSession_startScanningIncludeServiceCharacteristics___block_invoke_64;
+  v5[3] = &unk_279B58CC0;
+  v5[4] = *(a1 + 32);
+  v6 = *(a1 + 40);
+  dispatch_sync(v4, v5);
 }
 
 void __70__SPBeaconScanningSession_startScanningIncludeServiceCharacteristics___block_invoke_64(uint64_t a1)
@@ -243,7 +235,7 @@ void __70__SPBeaconScanningSession_startScanningIncludeServiceCharacteristics___
 void __70__SPBeaconScanningSession_startScanningIncludeServiceCharacteristics___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = LogCategory_BeaconScanning();
+  v3 = LogCategory_BeaconScanning(v2);
   v4 = v3;
   if (v2)
   {
@@ -272,7 +264,7 @@ void __70__SPBeaconScanningSession_startScanningIncludeServiceCharacteristics___
 
 void __39__SPBeaconScanningSession_stopScanning__block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_BeaconScanning();
+  v2 = LogCategory_BeaconScanning(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -297,7 +289,7 @@ void __39__SPBeaconScanningSession_stopScanning__block_invoke_68(uint64_t a1)
 void __39__SPBeaconScanningSession_stopScanning__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = LogCategory_BeaconScanning();
+  v3 = LogCategory_BeaconScanning(v2);
   v4 = v3;
   if (v2)
   {
@@ -343,20 +335,18 @@ void __39__SPBeaconScanningSession_stopScanning__block_invoke_2(uint64_t a1, voi
 
 void __70__SPBeaconScanningSession_startScanningIncludeServiceCharacteristics___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "[SPAccessoryDiscoverySession startScanningIncludeServiceCharacteristics:] completion. Error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "[SPAccessoryDiscoverySession startScanningIncludeServiceCharacteristics:] completion. Error %@", &v2, 0xCu);
 }
 
 void __39__SPBeaconScanningSession_stopScanning__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "[SPAccessoryDiscoverySession stopScanning] completion. Error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "[SPAccessoryDiscoverySession stopScanning] completion. Error %@", &v2, 0xCu);
 }
 
 @end

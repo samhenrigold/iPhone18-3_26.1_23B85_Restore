@@ -21,22 +21,21 @@
 {
   controllerCopy = controller;
 
-  sub_100002458();
+  sub_100002458(error);
 }
 
 - (void)feedbackDraftViewController:(id)controller didFailToAttachURL:(id)l error:(int64_t)error
 {
-  v6 = type metadata accessor for URL();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin();
+  v7 = type metadata accessor for URL();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
   v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
 
-  sub_1000026A0(v10);
+  sub_1000026A0(v10, error);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)feedbackDraftViewControllerDidCancel:(id)cancel

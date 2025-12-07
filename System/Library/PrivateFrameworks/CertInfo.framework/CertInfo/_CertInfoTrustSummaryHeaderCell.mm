@@ -9,6 +9,7 @@
 - (id)_trustedLabel;
 - (void)_layoutSubviewsWithActionButtonSize:(CGSize)size;
 - (void)layoutSubviews;
+- (void)setActionButtonTitle:(id)title destructive:(BOOL)destructive animated:(BOOL)animated;
 - (void)setExpired:(BOOL)expired;
 - (void)setTrustSubtitle:(id)subtitle;
 - (void)setTrustTitle:(id)title;
@@ -118,6 +119,53 @@
   v4 = v3 + 5.0 + 6.0;
 
   return v4;
+}
+
+- (void)setActionButtonTitle:(id)title destructive:(BOOL)destructive animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  destructiveCopy = destructive;
+  titleCopy = title;
+  actionButton = [(_CertInfoTrustSummaryHeaderCell *)self actionButton];
+  v10 = actionButton;
+  if (titleCopy)
+  {
+    [actionButton setHidden:0];
+    [v10 setTitle:titleCopy destructive:destructiveCopy];
+    if (animatedCopy)
+    {
+      [v10 sizeThatFits:{*MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)}];
+      v12 = v11;
+      v14 = v13;
+      [v10 setTitle:&stru_28561D260 destructive:destructiveCopy];
+      v15 = MEMORY[0x277D75D18];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __77___CertInfoTrustSummaryHeaderCell_setActionButtonTitle_destructive_animated___block_invoke;
+      v20[3] = &unk_278DB1420;
+      v20[4] = self;
+      v20[5] = v12;
+      v20[6] = v14;
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __77___CertInfoTrustSummaryHeaderCell_setActionButtonTitle_destructive_animated___block_invoke_2;
+      v16[3] = &unk_278DB1448;
+      v17 = v10;
+      v18 = titleCopy;
+      v19 = destructiveCopy;
+      [v15 animateWithDuration:v20 animations:v16 completion:0.200000003];
+    }
+
+    else
+    {
+      [(_CertInfoTrustSummaryHeaderCell *)self setNeedsLayout];
+    }
+  }
+
+  else
+  {
+    [actionButton setHidden:1];
+  }
 }
 
 - (void)layoutSubviews

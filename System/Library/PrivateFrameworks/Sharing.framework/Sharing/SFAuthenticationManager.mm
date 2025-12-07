@@ -78,18 +78,55 @@
 
 - (void)_registerForNotifications
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  objc_initWeak(&location, self);
+  uTF8String = [@"com.apple.sharing.authentication.enabled-devices-changed" UTF8String];
+  queue = self->_queue;
+  handler[0] = MEMORY[0x1E69E9820];
+  handler[1] = 3221225472;
+  handler[2] = __52__SFAuthenticationManager__registerForNotifications__block_invoke;
+  handler[3] = &unk_1E788D120;
+  objc_copyWeak(&v11, &location);
+  notify_register_dispatch(uTF8String, &self->_hasEnabledTypesToken, queue, handler);
+  state64 = 0;
+  state = notify_get_state(self->_hasEnabledTypesToken, &state64);
+  if (state)
+  {
+    v6 = authentications_log(state);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      [SFAuthenticationManager _registerForNotifications];
+    }
+  }
+
+  else
+  {
+    v7 = state64;
+    v8 = authentications_log(state);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      v14 = state64;
+      _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "_hasEnabledTypesToken state %llu", buf, 0xCu);
+    }
+
+    if (v7)
+    {
+      [(SFAuthenticationManager *)self _handleEnabledDevicesChanged];
+    }
+  }
+
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(&location);
 }
 
 void __52__SFAuthenticationManager__registerForNotifications__block_invoke(uint64_t a1, int token)
 {
   state64 = 0;
-  if (notify_get_state(token, &state64))
+  state = notify_get_state(token, &state64);
+  if (state)
   {
-    WeakRetained = authentications_log();
+    WeakRetained = authentications_log(state);
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
     {
       __52__SFAuthenticationManager__registerForNotifications__block_invoke_cold_1();
@@ -105,7 +142,7 @@ void __52__SFAuthenticationManager__registerForNotifications__block_invoke(uint6
 
 - (void)_handleEnabledDevicesChanged
 {
-  v3 = authentications_log();
+  v3 = authentications_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -126,7 +163,7 @@ void __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke(ui
   if (a2)
   {
     v3 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_23];
-    v4 = authentications_log();
+    v4 = authentications_log(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -143,7 +180,7 @@ void __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke(ui
 
   else
   {
-    v3 = authentications_log();
+    v3 = authentications_log(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
@@ -154,7 +191,7 @@ void __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke(ui
 void __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -163,37 +200,36 @@ void __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2(
 
 void __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_461(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = authentications_log();
+  v4 = authentications_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Got enabled types %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Got enabled types %@", &v7, 0xCu);
   }
 
   v5 = *(a1 + 32);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEnabledForType:(unint64_t)type
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
+  v32 = *MEMORY[0x1E69E9840];
   v26 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__5;
-  v21 = __Block_byref_object_dispose__5;
-  v5 = 0;
-  v22 = dispatch_semaphore_create(0);
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__5;
+  v24 = __Block_byref_object_dispose__5;
+  v5 = dispatch_semaphore_create(0);
+  v7 = 0;
+  v25 = v5;
   if (type > 4)
   {
     if (type > 0xE)
@@ -205,81 +241,83 @@ void __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_46
     {
       if (((1 << type) & 0x7000) != 0)
       {
-        v6 = [(NSSet *)self->_cachedEnabledTypes containsObject:&unk_1F1D7CDC0];
+        v8 = [(NSSet *)self->_cachedEnabledTypes containsObject:&unk_1F1D7CDC0];
 LABEL_26:
-        v5 = v6;
+        v7 = v8;
         goto LABEL_31;
       }
 
       if (((1 << type) & 0xA00) != 0)
       {
-        v6 = [(NSSet *)self->_cachedEnabledTypes containsObject:&unk_1F1D7CDA8];
+        v8 = [(NSSet *)self->_cachedEnabledTypes containsObject:&unk_1F1D7CDA8];
         goto LABEL_26;
       }
 
       goto LABEL_31;
     }
 
-    v7 = +[SFCompanionXPCManager sharedManager];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __44__SFAuthenticationManager_isEnabledForType___block_invoke;
-    v16[3] = &unk_1E788D198;
-    v16[4] = &v23;
-    v16[5] = &v17;
-    v16[6] = type;
-    [v7 unlockManagerWithCompletionHandler:v16];
+    v9 = +[SFCompanionXPCManager sharedManager];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __44__SFAuthenticationManager_isEnabledForType___block_invoke;
+    v19[3] = &unk_1E788D198;
+    v19[4] = &v26;
+    v19[5] = &v20;
+    v19[6] = type;
+    [v9 unlockManagerWithCompletionHandler:v19];
 
-    v8 = v18[5];
-    v9 = dispatch_time(0, 7000000000);
-    if (!dispatch_semaphore_wait(v8, v9))
+    v10 = v21[5];
+    v11 = dispatch_time(0, 7000000000);
+    v12 = dispatch_semaphore_wait(v10, v11);
+    if (!v12)
     {
-      v11 = authentications_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v15 = authentications_log(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        if (*(v24 + 24))
+        if (*(v27 + 24))
         {
-          v12 = "yes";
+          v16 = "yes";
         }
 
         else
         {
-          v12 = "no";
+          v16 = "no";
         }
 
         *buf = 136315138;
-        v28 = v12;
-        _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_DEFAULT, "Returning Oneness enabled: %s", buf, 0xCu);
+        v31 = v16;
+        _os_log_impl(&dword_1A9662000, v15, OS_LOG_TYPE_DEFAULT, "Returning Oneness enabled: %s", buf, 0xCu);
       }
 
-      v5 = *(v24 + 24);
+      v7 = *(v27 + 24);
       goto LABEL_31;
     }
 
-    v10 = authentications_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = authentications_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SFAuthenticationManager isEnabledForType:];
     }
 
 LABEL_30:
-    v5 = 0;
+    v7 = 0;
     goto LABEL_31;
   }
 
   if (type - 3 < 2)
   {
-    if (_os_feature_enabled_impl())
+    v14 = _os_feature_enabled_impl();
+    if (v14)
     {
-      v6 = [(SFAuthenticationManager *)self checkDynamicStoreForType:type];
+      v8 = [(SFAuthenticationManager *)self checkDynamicStoreForType:type];
       goto LABEL_26;
     }
 
-    v13 = authentications_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v17 = authentications_log(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "feature flag is disabled", buf, 2u);
+      _os_log_impl(&dword_1A9662000, v17, OS_LOG_TYPE_DEFAULT, "feature flag is disabled", buf, 2u);
     }
 
     goto LABEL_30;
@@ -287,9 +325,9 @@ LABEL_30:
 
   if (type == 1)
   {
-    if (SFDeviceSupportsSiriWatchAuth())
+    if (SFDeviceSupportsSiriWatchAuth(v5, v6))
     {
-      v6 = +[SFAutoUnlockManager autoUnlockEnabled];
+      v8 = +[SFAutoUnlockManager autoUnlockEnabled];
       goto LABEL_26;
     }
 
@@ -298,16 +336,15 @@ LABEL_30:
 
   if (type == 2)
   {
-    v6 = [(SFAuthenticationManager *)self isSupportedForType:2];
+    v8 = [(SFAuthenticationManager *)self isSupportedForType:2];
     goto LABEL_26;
   }
 
 LABEL_31:
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v20, 8);
 
-  _Block_object_dispose(&v23, 8);
-  v14 = *MEMORY[0x1E69E9840];
-  return v5 & 1;
+  _Block_object_dispose(&v26, 8);
+  return v7 & 1;
 }
 
 void __44__SFAuthenticationManager_isEnabledForType___block_invoke(uint64_t a1, void *a2)
@@ -315,7 +352,7 @@ void __44__SFAuthenticationManager_isEnabledForType___block_invoke(uint64_t a1, 
   if (a2)
   {
     v3 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_466];
-    v4 = authentications_log();
+    v4 = authentications_log(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       __44__SFAuthenticationManager_isEnabledForType___block_invoke_cold_1();
@@ -332,7 +369,7 @@ void __44__SFAuthenticationManager_isEnabledForType___block_invoke(uint64_t a1, 
 
   else
   {
-    v6 = authentications_log();
+    v6 = authentications_log(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
@@ -345,7 +382,7 @@ void __44__SFAuthenticationManager_isEnabledForType___block_invoke(uint64_t a1, 
 void __44__SFAuthenticationManager_isEnabledForType___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -354,44 +391,45 @@ void __44__SFAuthenticationManager_isEnabledForType___block_invoke_2(uint64_t a1
 
 void __44__SFAuthenticationManager_isEnabledForType___block_invoke_467(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = authentications_log();
+  v4 = authentications_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Got Devices, Checking to see if any are enabled", buf, 2u);
   }
 
-  v15 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
+  v15 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v6)
   {
-    v7 = v6;
-    v8 = *v14;
+    v8 = v6;
+    v9 = *v15;
     while (2)
     {
-      v9 = 0;
+      v10 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
-        if (SFDeviceClassCodeGet() != 1 && ([v10 canUnlockDevice] & 1) != 0 || SFDeviceClassCodeGet() == 1 && objc_msgSend(v10, "unlockEnabled"))
+        v11 = *(*(&v14 + 1) + 8 * v10);
+        v6 = SFDeviceClassCodeGet(v6, v7);
+        if (v6 != 1 && (v6 = [v11 canUnlockDevice], (v6 & 1) != 0) || (v6 = SFDeviceClassCodeGet(v6, v12), v6 == 1) && (v6 = objc_msgSend(v11, "unlockEnabled"), v6))
         {
-          v11 = authentications_log();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v13 = authentications_log(v6);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v18 = v10;
-            _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_DEFAULT, "Found device that is eligible, returning true, device: %@", buf, 0xCu);
+            v19 = v11;
+            _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "Found device that is eligible, returning true, device: %@", buf, 0xCu);
           }
 
           *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -400,12 +438,13 @@ void __44__SFAuthenticationManager_isEnabledForType___block_invoke_467(uint64_t 
           goto LABEL_18;
         }
 
-        ++v9;
+        ++v10;
       }
 
-      while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
-      if (v7)
+      while (v8 != v10);
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v8 = v6;
+      if (v6)
       {
         continue;
       }
@@ -416,8 +455,6 @@ void __44__SFAuthenticationManager_isEnabledForType___block_invoke_467(uint64_t 
 
   dispatch_semaphore_signal(*(*(*(a1 + 40) + 8) + 40));
 LABEL_18:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dynamicStorePathForType:(unint64_t)type
@@ -446,16 +483,16 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v4 = SCDynamicStoreCopyValue(0, v3);
-  v5 = v4;
-  if (!v4 || (v6 = CFGetTypeID(v4), v6 != CFDictionaryGetTypeID()))
+  TypeID = SCDynamicStoreCopyValue(0, v3);
+  v5 = TypeID;
+  if (!TypeID || (v6 = CFGetTypeID(TypeID), TypeID = CFDictionaryGetTypeID(), v6 != TypeID))
   {
-    v13 = authentications_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = authentications_log(TypeID);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v18 = v3;
-      _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "No value at path: %@", buf, 0xCu);
+      _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "No value at path: %@", buf, 0xCu);
     }
 
     if (v5)
@@ -466,7 +503,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v7 = authentications_log();
+  v7 = authentications_log(TypeID);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -481,8 +518,8 @@ LABEL_12:
 
   if (isKindOfClass)
   {
-    v11 = [(__CFString *)v5 objectForKeyedSubscript:v8];
-    bOOLValue = [v11 BOOLValue];
+    v12 = [(__CFString *)v5 objectForKeyedSubscript:v8];
+    bOOLValue = [v12 BOOLValue];
   }
 
   else
@@ -490,7 +527,7 @@ LABEL_12:
     bOOLValue = 0;
   }
 
-  v16 = authentications_log();
+  v16 = authentications_log(v11);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
@@ -503,7 +540,6 @@ LABEL_12:
   }
 
 LABEL_13:
-  v14 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
@@ -515,17 +551,17 @@ LABEL_13:
     {
       if (((1 << type) & 0xE0) != 0)
       {
-        return SFDeviceSupportsMacUnlockPhonePairing();
+        return SFDeviceSupportsMacUnlockPhonePairing(self, a2);
       }
 
       if (((1 << type) & 0x7000) != 0)
       {
-        return SFDeviceSupportsVisionUnlockiOSPairing();
+        return SFDeviceSupportsVisionUnlockiOSPairing(self, a2);
       }
 
       if (((1 << type) & 0xA00) != 0)
       {
-        return SFDeviceSupportsGuestModeUnlockPairing();
+        return SFDeviceSupportsGuestModeUnlockPairing(self, a2);
       }
     }
 
@@ -534,75 +570,74 @@ LABEL_13:
 
   if (type - 3 < 2)
   {
-    return SFDeviceSupportsUnlockClassC();
+    return SFDeviceSupportsUnlockClassC(self, a2);
   }
 
   if (type != 1)
   {
     if (type == 2)
     {
-      return SFDeviceSupportsNanoWallet();
+      return SFDeviceSupportsNanoWallet(self, a2);
     }
 
     return 0;
   }
 
-  return SFDeviceSupportsSiriWatchAuth();
+  return SFDeviceSupportsSiriWatchAuth(self, a2);
 }
 
 - (void)listEligibleDevicesForType:(unint64_t)type completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v7 = authentications_log();
+  v7 = authentications_log(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = SFAuthenticationTypeToString(type);
     *buf = 138412290;
-    v18 = v8;
+    v19 = v8;
     _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "List eligible devices for %@", buf, 0xCu);
   }
 
   if (handlerCopy)
   {
-    if ([(SFAuthenticationManager *)self isSupportedForType:type])
+    v10 = [(SFAuthenticationManager *)self isSupportedForType:type];
+    if (v10)
     {
-      v9 = +[SFCompanionXPCManager sharedManager];
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __72__SFAuthenticationManager_listEligibleDevicesForType_completionHandler___block_invoke;
-      v14[3] = &unk_1E788D1E8;
+      v11 = +[SFCompanionXPCManager sharedManager];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __72__SFAuthenticationManager_listEligibleDevicesForType_completionHandler___block_invoke;
+      v15[3] = &unk_1E788D1E8;
       typeCopy = type;
-      v15 = handlerCopy;
-      [v9 unlockManagerWithCompletionHandler:v14];
+      v16 = handlerCopy;
+      [v11 unlockManagerWithCompletionHandler:v15];
 
-      v10 = v15;
+      v12 = v16;
     }
 
     else
     {
-      v11 = authentications_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = authentications_log(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [SFAuthenticationManager listEligibleDevicesForType:type completionHandler:?];
       }
 
-      v10 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
-      v12 = [MEMORY[0x1E695DFD8] set];
-      (*(handlerCopy + 2))(handlerCopy, v12, v10);
+      v12 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
+      v14 = [MEMORY[0x1E695DFD8] set];
+      (*(handlerCopy + 2))(handlerCopy, v14, v12);
     }
   }
 
   else
   {
-    v10 = authentications_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = authentications_log(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SFAuthenticationManager listEligibleDevicesForType:completionHandler:];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __72__SFAuthenticationManager_listEligibleDevicesForType_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -621,7 +656,7 @@ void __72__SFAuthenticationManager_listEligibleDevicesForType_completionHandler_
 
   else
   {
-    v3 = authentications_log();
+    v3 = authentications_log(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
@@ -632,7 +667,7 @@ void __72__SFAuthenticationManager_listEligibleDevicesForType_completionHandler_
 void __72__SFAuthenticationManager_listEligibleDevicesForType_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -641,57 +676,56 @@ void __72__SFAuthenticationManager_listEligibleDevicesForType_completionHandler_
 
 - (void)listCandidateDevicesForType:(unint64_t)type completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v7 = authentications_log();
+  v7 = authentications_log(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = SFAuthenticationTypeToString(type);
     *buf = 138412290;
-    v18 = v8;
+    v19 = v8;
     _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "List candidate devices for %@", buf, 0xCu);
   }
 
   if (handlerCopy)
   {
-    if ([(SFAuthenticationManager *)self isSupportedForType:type])
+    v10 = [(SFAuthenticationManager *)self isSupportedForType:type];
+    if (v10)
     {
-      v9 = +[SFCompanionXPCManager sharedManager];
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __73__SFAuthenticationManager_listCandidateDevicesForType_completionHandler___block_invoke;
-      v14[3] = &unk_1E788D1E8;
+      v11 = +[SFCompanionXPCManager sharedManager];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __73__SFAuthenticationManager_listCandidateDevicesForType_completionHandler___block_invoke;
+      v15[3] = &unk_1E788D1E8;
       typeCopy = type;
-      v15 = handlerCopy;
-      [v9 unlockManagerWithCompletionHandler:v14];
+      v16 = handlerCopy;
+      [v11 unlockManagerWithCompletionHandler:v15];
 
-      v10 = v15;
+      v12 = v16;
     }
 
     else
     {
-      v11 = authentications_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = authentications_log(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [SFAuthenticationManager listEligibleDevicesForType:type completionHandler:?];
       }
 
-      v10 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
-      v12 = [MEMORY[0x1E695DFD8] set];
-      (*(handlerCopy + 2))(handlerCopy, v12, v10);
+      v12 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
+      v14 = [MEMORY[0x1E695DFD8] set];
+      (*(handlerCopy + 2))(handlerCopy, v14, v12);
     }
   }
 
   else
   {
-    v10 = authentications_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = authentications_log(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SFAuthenticationManager listEligibleDevicesForType:completionHandler:];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __73__SFAuthenticationManager_listCandidateDevicesForType_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -710,7 +744,7 @@ void __73__SFAuthenticationManager_listCandidateDevicesForType_completionHandler
 
   else
   {
-    v3 = authentications_log();
+    v3 = authentications_log(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
@@ -721,7 +755,7 @@ void __73__SFAuthenticationManager_listCandidateDevicesForType_completionHandler
 void __73__SFAuthenticationManager_listCandidateDevicesForType_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -730,102 +764,92 @@ void __73__SFAuthenticationManager_listCandidateDevicesForType_completionHandler
 
 void __73__SFAuthenticationManager_listCandidateDevicesForType_completionHandler___block_invoke_484(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x1E695DFA8] set];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * v12);
+        v13 = *(*(&v16 + 1) + 8 * v12);
         v14 = [SFAuthenticationDevice alloc];
-        v15 = [(SFAuthenticationDevice *)v14 initWith:v13, v17];
+        v15 = [(SFAuthenticationDevice *)v14 initWith:v13, v16];
         [v7 addObject:v15];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   (*(*(a1 + 32) + 16))();
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)osFeatureEnabledForType:(unint64_t)type
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   result = 1;
-  if (type > 6)
+  if (type <= 6)
   {
-    if (type == 7)
+    if (type - 3 >= 2 && type - 5 >= 2)
     {
-      v6 = *MEMORY[0x1E69E9840];
-      goto LABEL_12;
+      return result;
     }
 
-    if (type == 9 || type == 11)
+    goto LABEL_10;
+  }
+
+  if (type == 7)
+  {
+LABEL_10:
+
+    return _os_feature_enabled_impl();
+  }
+
+  if (type == 9 || type == 11)
+  {
+    v4 = _os_feature_enabled_impl();
+    if (v4)
     {
-      if (_os_feature_enabled_impl())
-      {
-        result = 1;
-      }
-
-      else
-      {
-        v7 = authentications_log();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-        {
-          v9 = 138412290;
-          v10 = @"DeviceSharing/GuestUserHandover";
-          _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "FeatureFlag %@ is not enabled", &v9, 0xCu);
-        }
-
-        result = 0;
-      }
+      return 1;
     }
 
-    goto LABEL_18;
+    else
+    {
+      v5 = authentications_log(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        v6 = 138412290;
+        v7 = @"DeviceSharing/GuestUserHandover";
+        _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "FeatureFlag %@ is not enabled", &v6, 0xCu);
+      }
+
+      return 0;
+    }
   }
 
-  if (type - 3 < 2)
-  {
-    v5 = *MEMORY[0x1E69E9840];
-    goto LABEL_12;
-  }
-
-  if (type - 5 >= 2)
-  {
-LABEL_18:
-    v8 = *MEMORY[0x1E69E9840];
-    return result;
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-LABEL_12:
-
-  return _os_feature_enabled_impl();
+  return result;
 }
 
 - (id)enableForType:(unint64_t)type device:(id)device passcode:(id)passcode
@@ -860,7 +884,7 @@ LABEL_12:
   v30 = *MEMORY[0x1E69E9840];
   dCopy = d;
   refCopy = ref;
-  v10 = authentications_log();
+  v10 = authentications_log(refCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = SFAuthenticationTypeToString(type);
@@ -872,9 +896,10 @@ LABEL_12:
   }
 
   uUID = [MEMORY[0x1E696AFB0] UUID];
-  if ([(SFAuthenticationManager *)self osFeatureEnabledForType:type])
+  v13 = [(SFAuthenticationManager *)self osFeatureEnabledForType:type];
+  if (v13)
   {
-    v13 = +[SFCompanionXPCManager sharedManager];
+    v14 = +[SFCompanionXPCManager sharedManager];
     v21[0] = MEMORY[0x1E69E9820];
     v21[1] = 3221225472;
     v21[2] = __69__SFAuthenticationManager_enableForType_withIDSDeviceID_passcodeRef___block_invoke;
@@ -883,27 +908,25 @@ LABEL_12:
     typeCopy = type;
     v22 = dCopy;
     v23 = refCopy;
-    v14 = uUID;
-    v24 = v14;
-    [v13 unlockManagerWithCompletionHandler:v21];
+    v15 = uUID;
+    v24 = v15;
+    [v14 unlockManagerWithCompletionHandler:v21];
 
-    v15 = v14;
+    v16 = v15;
   }
 
   else
   {
-    v16 = authentications_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = authentications_log(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [SFAuthenticationManager enableForType:withIDSDeviceID:passcodeRef:];
     }
 
-    v17 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
-    [(SFAuthenticationManager *)self failedToEnableDeviceForSessionID:uUID error:v17];
-    v18 = uUID;
+    v18 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
+    [(SFAuthenticationManager *)self failedToEnableDeviceForSessionID:uUID error:v18];
+    v19 = uUID;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return uUID;
 }
@@ -911,28 +934,29 @@ LABEL_12:
 void __69__SFAuthenticationManager_enableForType_withIDSDeviceID_passcodeRef___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_496];
-    [v6 enableUsingClientProxy:*(a1 + 32) authenticationType:*(a1 + 64) device:*(a1 + 40) passcode:*(a1 + 48) sessionID:*(a1 + 56)];
+    v7 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_496];
+    [v7 enableUsingClientProxy:*(a1 + 32) authenticationType:*(a1 + 64) device:*(a1 + 40) passcode:*(a1 + 48) sessionID:*(a1 + 56)];
   }
 
   else
   {
-    v7 = authentications_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = authentications_log(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
     }
 
-    [*(a1 + 32) failedToEnableDeviceForSessionID:*(a1 + 56) error:v5];
+    [*(a1 + 32) failedToEnableDeviceForSessionID:*(a1 + 56) error:v6];
   }
 }
 
 void __69__SFAuthenticationManager_enableForType_withIDSDeviceID_passcodeRef___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -951,7 +975,7 @@ void __69__SFAuthenticationManager_enableForType_withIDSDeviceID_passcodeRef___b
 {
   v26 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v7 = authentications_log();
+  v7 = authentications_log(dCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = SFAuthenticationTypeToString(type);
@@ -963,9 +987,10 @@ void __69__SFAuthenticationManager_enableForType_withIDSDeviceID_passcodeRef___b
   }
 
   uUID = [MEMORY[0x1E696AFB0] UUID];
-  if ([(SFAuthenticationManager *)self osFeatureEnabledForType:type])
+  v10 = [(SFAuthenticationManager *)self osFeatureEnabledForType:type];
+  if (v10)
   {
-    v10 = +[SFCompanionXPCManager sharedManager];
+    v11 = +[SFCompanionXPCManager sharedManager];
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
     v18[2] = __68__SFAuthenticationManager_requestEnablementForType_withIDSDeviceID___block_invoke;
@@ -973,27 +998,25 @@ void __69__SFAuthenticationManager_enableForType_withIDSDeviceID_passcodeRef___b
     v18[4] = self;
     typeCopy = type;
     v19 = dCopy;
-    v11 = uUID;
-    v20 = v11;
-    [v10 unlockManagerWithCompletionHandler:v18];
+    v12 = uUID;
+    v20 = v12;
+    [v11 unlockManagerWithCompletionHandler:v18];
 
-    v12 = v11;
+    v13 = v12;
   }
 
   else
   {
-    v13 = authentications_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = authentications_log(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SFAuthenticationManager requestEnablementForType:withIDSDeviceID:];
     }
 
-    v14 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
-    [(SFAuthenticationManager *)self failedToEnableDeviceForSessionID:uUID error:v14];
-    v15 = uUID;
+    v15 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
+    [(SFAuthenticationManager *)self failedToEnableDeviceForSessionID:uUID error:v15];
+    v16 = uUID;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return uUID;
 }
@@ -1001,28 +1024,29 @@ void __69__SFAuthenticationManager_enableForType_withIDSDeviceID_passcodeRef___b
 void __68__SFAuthenticationManager_requestEnablementForType_withIDSDeviceID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_498];
-    [v6 requestEnablementUsingClientProxy:*(a1 + 32) authenticationType:*(a1 + 56) device:*(a1 + 40) sessionID:*(a1 + 48)];
+    v7 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_498];
+    [v7 requestEnablementUsingClientProxy:*(a1 + 32) authenticationType:*(a1 + 56) device:*(a1 + 40) sessionID:*(a1 + 48)];
   }
 
   else
   {
-    v7 = authentications_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = authentications_log(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
     }
 
-    [*(a1 + 32) failedToEnableDeviceForSessionID:*(a1 + 48) error:v5];
+    [*(a1 + 32) failedToEnableDeviceForSessionID:*(a1 + 48) error:v6];
   }
 }
 
 void __68__SFAuthenticationManager_requestEnablementForType_withIDSDeviceID___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -1041,7 +1065,7 @@ void __68__SFAuthenticationManager_requestEnablementForType_withIDSDeviceID___bl
 {
   v26 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v7 = authentications_log();
+  v7 = authentications_log(dCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = SFAuthenticationTypeToString(type);
@@ -1053,9 +1077,10 @@ void __68__SFAuthenticationManager_requestEnablementForType_withIDSDeviceID___bl
   }
 
   uUID = [MEMORY[0x1E696AFB0] UUID];
-  if ([(SFAuthenticationManager *)self osFeatureEnabledForType:type])
+  v10 = [(SFAuthenticationManager *)self osFeatureEnabledForType:type];
+  if (v10)
   {
-    v10 = +[SFCompanionXPCManager sharedManager];
+    v11 = +[SFCompanionXPCManager sharedManager];
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
     v18[2] = __58__SFAuthenticationManager_disableForType_withIDSDeviceID___block_invoke;
@@ -1063,27 +1088,25 @@ void __68__SFAuthenticationManager_requestEnablementForType_withIDSDeviceID___bl
     v18[4] = self;
     typeCopy = type;
     v19 = dCopy;
-    v11 = uUID;
-    v20 = v11;
-    [v10 unlockManagerWithCompletionHandler:v18];
+    v12 = uUID;
+    v20 = v12;
+    [v11 unlockManagerWithCompletionHandler:v18];
 
-    v12 = v11;
+    v13 = v12;
   }
 
   else
   {
-    v13 = authentications_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = authentications_log(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SFAuthenticationManager requestEnablementForType:withIDSDeviceID:];
     }
 
-    v14 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
-    [(SFAuthenticationManager *)self failedAuthenticationSessionWithID:uUID error:v14];
-    v15 = uUID;
+    v15 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
+    [(SFAuthenticationManager *)self failedAuthenticationSessionWithID:uUID error:v15];
+    v16 = uUID;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return uUID;
 }
@@ -1091,28 +1114,29 @@ void __68__SFAuthenticationManager_requestEnablementForType_withIDSDeviceID___bl
 void __58__SFAuthenticationManager_disableForType_withIDSDeviceID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_500];
-    [v6 disableUsingClientProxy:*(a1 + 32) authenticationType:*(a1 + 56) device:*(a1 + 40) sessionID:*(a1 + 48)];
+    v7 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_500];
+    [v7 disableUsingClientProxy:*(a1 + 32) authenticationType:*(a1 + 56) device:*(a1 + 40) sessionID:*(a1 + 48)];
   }
 
   else
   {
-    v7 = authentications_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = authentications_log(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
     }
 
-    [*(a1 + 32) failedAuthenticationSessionWithID:*(a1 + 48) error:v5];
+    [*(a1 + 32) failedAuthenticationSessionWithID:*(a1 + 48) error:v6];
   }
 }
 
 void __58__SFAuthenticationManager_disableForType_withIDSDeviceID___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -1132,7 +1156,7 @@ void __58__SFAuthenticationManager_disableForType_withIDSDeviceID___block_invoke
   v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   uUID = [MEMORY[0x1E696AFB0] UUID];
-  v8 = authentications_log();
+  v8 = authentications_log(uUID);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = SFAuthenticationTypeToString(type);
@@ -1141,12 +1165,13 @@ void __58__SFAuthenticationManager_disableForType_withIDSDeviceID___block_invoke
     _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Begin authentication for %@", buf, 0xCu);
   }
 
-  if ([(SFAuthenticationManager *)self osFeatureEnabledForType:type])
+  v10 = [(SFAuthenticationManager *)self osFeatureEnabledForType:type];
+  if (v10)
   {
-    v10 = _os_feature_enabled_impl();
-    if (type != 1 || (v10 & 1) != 0)
+    v11 = _os_feature_enabled_impl();
+    if (type != 1 || (v11 & 1) != 0)
     {
-      v14 = +[SFCompanionXPCManager sharedManager];
+      v15 = +[SFCompanionXPCManager sharedManager];
       v17[0] = MEMORY[0x1E69E9820];
       v17[1] = 3221225472;
       v17[2] = __59__SFAuthenticationManager_authenticateForType_withOptions___block_invoke;
@@ -1155,7 +1180,7 @@ void __58__SFAuthenticationManager_disableForType_withIDSDeviceID___block_invoke
       typeCopy = type;
       v18 = uUID;
       v19 = optionsCopy;
-      [v14 unlockManagerWithCompletionHandler:v17];
+      [v15 unlockManagerWithCompletionHandler:v17];
     }
 
     else
@@ -1167,18 +1192,16 @@ void __58__SFAuthenticationManager_disableForType_withIDSDeviceID___block_invoke
 
   else
   {
-    v12 = authentications_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = authentications_log(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_DEFAULT, "Feature Flag disabled", buf, 2u);
+      _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "Feature Flag disabled", buf, 2u);
     }
 
-    v13 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
-    [(SFAuthenticationManager *)self failedAuthenticationSessionWithID:uUID error:v13];
+    v14 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
+    [(SFAuthenticationManager *)self failedAuthenticationSessionWithID:uUID error:v14];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return uUID;
 }
@@ -1186,28 +1209,29 @@ void __58__SFAuthenticationManager_disableForType_withIDSDeviceID___block_invoke
 void __59__SFAuthenticationManager_authenticateForType_withOptions___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_503];
-    [v6 authenticateUsingClientProxy:*(a1 + 32) type:*(a1 + 56) sessionID:*(a1 + 40) options:*(a1 + 48)];
+    v7 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_503];
+    [v7 authenticateUsingClientProxy:*(a1 + 32) type:*(a1 + 56) sessionID:*(a1 + 40) options:*(a1 + 48)];
   }
 
   else
   {
-    v7 = authentications_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = authentications_log(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
     }
 
-    [*(a1 + 32) failedAuthenticationSessionWithID:*(a1 + 40) error:v5];
+    [*(a1 + 32) failedAuthenticationSessionWithID:*(a1 + 40) error:v6];
   }
 }
 
 void __59__SFAuthenticationManager_authenticateForType_withOptions___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -1237,7 +1261,7 @@ void __59__SFAuthenticationManager_authenticateForType_withOptions___block_invok
 {
   v26 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v7 = authentications_log();
+  v7 = authentications_log(optionsCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = SFAuthenticationTypeToString(type);
@@ -1249,9 +1273,10 @@ void __59__SFAuthenticationManager_authenticateForType_withOptions___block_invok
   }
 
   uUID = [MEMORY[0x1E696AFB0] UUID];
-  if ([(SFAuthenticationManager *)self osFeatureEnabledForType:type])
+  v10 = [(SFAuthenticationManager *)self osFeatureEnabledForType:type];
+  if (v10)
   {
-    v10 = +[SFCompanionXPCManager sharedManager];
+    v11 = +[SFCompanionXPCManager sharedManager];
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
     v18[2] = __62__SFAuthenticationManager_canAuthenticateForType_withOptions___block_invoke;
@@ -1259,27 +1284,25 @@ void __59__SFAuthenticationManager_authenticateForType_withOptions___block_invok
     v18[4] = self;
     typeCopy = type;
     v19 = optionsCopy;
-    v11 = uUID;
-    v20 = v11;
-    [v10 unlockManagerWithCompletionHandler:v18];
+    v12 = uUID;
+    v20 = v12;
+    [v11 unlockManagerWithCompletionHandler:v18];
 
-    v12 = v11;
+    v13 = v12;
   }
 
   else
   {
-    v13 = authentications_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = authentications_log(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SFAuthenticationManager requestEnablementForType:withIDSDeviceID:];
     }
 
-    v14 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
-    [(SFAuthenticationManager *)self failedAuthenticationSessionWithID:uUID error:v14];
-    v15 = uUID;
+    v15 = [MEMORY[0x1E696ABC0] errorWithDomain:SFAuthenticationErrorCodeDomain code:19 userInfo:0];
+    [(SFAuthenticationManager *)self failedAuthenticationSessionWithID:uUID error:v15];
+    v16 = uUID;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return uUID;
 }
@@ -1287,28 +1310,29 @@ void __59__SFAuthenticationManager_authenticateForType_withOptions___block_invok
 void __62__SFAuthenticationManager_canAuthenticateForType_withOptions___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_505];
-    [v6 canAuthenticateUsingClientProxy:*(a1 + 32) authenticationType:*(a1 + 56) options:*(a1 + 40) sessionID:*(a1 + 48)];
+    v7 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_505];
+    [v7 canAuthenticateUsingClientProxy:*(a1 + 32) authenticationType:*(a1 + 56) options:*(a1 + 40) sessionID:*(a1 + 48)];
   }
 
   else
   {
-    v7 = authentications_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = authentications_log(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
     }
 
-    [*(a1 + 32) failedAuthenticationSessionWithID:*(a1 + 48) error:v5];
+    [*(a1 + 32) failedAuthenticationSessionWithID:*(a1 + 48) error:v6];
   }
 }
 
 void __62__SFAuthenticationManager_canAuthenticateForType_withOptions___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -1346,7 +1370,7 @@ void __61__SFAuthenticationManager_cancelAuthenticationSessionWithID___block_inv
 
   else
   {
-    v3 = authentications_log();
+    v3 = authentications_log(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
@@ -1357,7 +1381,7 @@ void __61__SFAuthenticationManager_cancelAuthenticationSessionWithID___block_inv
 void __61__SFAuthenticationManager_cancelAuthenticationSessionWithID___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -1367,27 +1391,28 @@ void __61__SFAuthenticationManager_cancelAuthenticationSessionWithID___block_inv
 - (void)waitForApprovalRequestsForType:(unint64_t)type
 {
   v5 = [(SFAuthenticationManager *)self osFeatureEnabledForType:?];
-  v6 = authentications_log();
-  v7 = v6;
-  if (v5)
+  v6 = v5;
+  v7 = authentications_log(v5);
+  v8 = v7;
+  if (v6)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "Client registered for approval requests", buf, 2u);
+      _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Client registered for approval requests", buf, 2u);
     }
 
-    v7 = +[SFCompanionXPCManager sharedManager];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __58__SFAuthenticationManager_waitForApprovalRequestsForType___block_invoke;
-    v8[3] = &unk_1E788D260;
-    v8[4] = self;
-    v8[5] = type;
-    [v7 unlockManagerWithCompletionHandler:v8];
+    v8 = +[SFCompanionXPCManager sharedManager];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __58__SFAuthenticationManager_waitForApprovalRequestsForType___block_invoke;
+    v9[3] = &unk_1E788D260;
+    v9[4] = self;
+    v9[5] = type;
+    [v8 unlockManagerWithCompletionHandler:v9];
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [SFAuthenticationManager waitForApprovalRequestsForType:];
   }
@@ -1403,7 +1428,7 @@ void __58__SFAuthenticationManager_waitForApprovalRequestsForType___block_invoke
 
   else
   {
-    v3 = authentications_log();
+    v3 = authentications_log(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
@@ -1414,7 +1439,7 @@ void __58__SFAuthenticationManager_waitForApprovalRequestsForType___block_invoke
 void __58__SFAuthenticationManager_waitForApprovalRequestsForType___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -1453,7 +1478,7 @@ void __77__SFAuthenticationManager_startObservingForAuthenticationStateChanges_q
 
   else
   {
-    v5 = authentications_log();
+    v5 = authentications_log(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
@@ -1464,7 +1489,7 @@ void __77__SFAuthenticationManager_startObservingForAuthenticationStateChanges_q
 void __77__SFAuthenticationManager_startObservingForAuthenticationStateChanges_queue___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -1500,7 +1525,7 @@ void __69__SFAuthenticationManager_stopObservingForAuthenticationStateChanges__b
 
   else
   {
-    v3 = authentications_log();
+    v3 = authentications_log(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
@@ -1511,7 +1536,7 @@ void __69__SFAuthenticationManager_stopObservingForAuthenticationStateChanges__b
 void __69__SFAuthenticationManager_stopObservingForAuthenticationStateChanges__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -1520,17 +1545,16 @@ void __69__SFAuthenticationManager_stopObservingForAuthenticationStateChanges__b
 
 - (BOOL)declinedToEnableForType:(unint64_t)type
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = authentications_log();
+  v9 = *MEMORY[0x1E69E9840];
+  v4 = authentications_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = SFAuthenticationTypeToString(type);
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Stub for declinedToEnableForType:%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Stub for declinedToEnableForType:%@", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -1627,27 +1651,25 @@ void __58__SFAuthenticationManager_manager_failedAttemptWithError___block_invoke
 
 - (void)enabledAuthenticationSessionWithID:(id)d
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v5 = authentications_log();
+  v5 = authentications_log(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = dCopy;
+    v11 = dCopy;
     _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Notifying client authentication enablement completed for %@", buf, 0xCu);
   }
 
   queue = [(SFAuthenticationManager *)self queue];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __62__SFAuthenticationManager_enabledAuthenticationSessionWithID___block_invoke;
-  v9[3] = &unk_1E788A658;
-  v9[4] = self;
-  v10 = dCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __62__SFAuthenticationManager_enabledAuthenticationSessionWithID___block_invoke;
+  v8[3] = &unk_1E788A658;
+  v8[4] = self;
+  v9 = dCopy;
   v7 = dCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v8);
 }
 
 void __62__SFAuthenticationManager_enabledAuthenticationSessionWithID___block_invoke(uint64_t a1)
@@ -1664,16 +1686,16 @@ void __62__SFAuthenticationManager_enabledAuthenticationSessionWithID___block_in
 
 - (void)failedToEnableDeviceForSessionID:(id)d error:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   errorCopy = error;
-  v8 = authentications_log();
+  v8 = authentications_log(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = dCopy;
-    v18 = 2112;
-    v19 = errorCopy;
+    v16 = dCopy;
+    v17 = 2112;
+    v18 = errorCopy;
     _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Notifying client enablement for authentication failed for %@ error: %@", buf, 0x16u);
   }
 
@@ -1683,13 +1705,11 @@ void __62__SFAuthenticationManager_enabledAuthenticationSessionWithID___block_in
   block[2] = __66__SFAuthenticationManager_failedToEnableDeviceForSessionID_error___block_invoke;
   block[3] = &unk_1E788BD88;
   block[4] = self;
-  v14 = dCopy;
-  v15 = errorCopy;
+  v13 = dCopy;
+  v14 = errorCopy;
   v10 = errorCopy;
   v11 = dCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __66__SFAuthenticationManager_failedToEnableDeviceForSessionID_error___block_invoke(uint64_t a1)
@@ -1706,27 +1726,25 @@ void __66__SFAuthenticationManager_failedToEnableDeviceForSessionID_error___bloc
 
 - (void)disabledAuthenticationSessionWithID:(id)d
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v5 = authentications_log();
+  v5 = authentications_log(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = dCopy;
+    v11 = dCopy;
     _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Notifying client authentication disablement completed for %@", buf, 0xCu);
   }
 
   queue = [(SFAuthenticationManager *)self queue];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __63__SFAuthenticationManager_disabledAuthenticationSessionWithID___block_invoke;
-  v9[3] = &unk_1E788A658;
-  v9[4] = self;
-  v10 = dCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __63__SFAuthenticationManager_disabledAuthenticationSessionWithID___block_invoke;
+  v8[3] = &unk_1E788A658;
+  v8[4] = self;
+  v9 = dCopy;
   v7 = dCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v8);
 }
 
 void __63__SFAuthenticationManager_disabledAuthenticationSessionWithID___block_invoke(uint64_t a1)
@@ -1743,16 +1761,16 @@ void __63__SFAuthenticationManager_disabledAuthenticationSessionWithID___block_i
 
 - (void)failedToDisableDeviceForSessionID:(id)d error:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   errorCopy = error;
-  v8 = authentications_log();
+  v8 = authentications_log(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = dCopy;
-    v18 = 2112;
-    v19 = errorCopy;
+    v16 = dCopy;
+    v17 = 2112;
+    v18 = errorCopy;
     _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Notifying client disablement for authentication failed for %@ error: %@", buf, 0x16u);
   }
 
@@ -1762,13 +1780,11 @@ void __63__SFAuthenticationManager_disabledAuthenticationSessionWithID___block_i
   block[2] = __67__SFAuthenticationManager_failedToDisableDeviceForSessionID_error___block_invoke;
   block[3] = &unk_1E788BD88;
   block[4] = self;
-  v14 = dCopy;
-  v15 = errorCopy;
+  v13 = dCopy;
+  v14 = errorCopy;
   v10 = errorCopy;
   v11 = dCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __67__SFAuthenticationManager_failedToDisableDeviceForSessionID_error___block_invoke(uint64_t a1)
@@ -1785,27 +1801,25 @@ void __67__SFAuthenticationManager_failedToDisableDeviceForSessionID_error___blo
 
 - (void)startedAuthenticationSessionWithID:(id)d
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v5 = authentications_log();
+  v5 = authentications_log(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = dCopy;
+    v11 = dCopy;
     _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Notifying client authentication started for %@", buf, 0xCu);
   }
 
   queue = [(SFAuthenticationManager *)self queue];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __62__SFAuthenticationManager_startedAuthenticationSessionWithID___block_invoke;
-  v9[3] = &unk_1E788A658;
-  v9[4] = self;
-  v10 = dCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __62__SFAuthenticationManager_startedAuthenticationSessionWithID___block_invoke;
+  v8[3] = &unk_1E788A658;
+  v8[4] = self;
+  v9 = dCopy;
   v7 = dCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v8);
 }
 
 void __62__SFAuthenticationManager_startedAuthenticationSessionWithID___block_invoke(uint64_t a1)
@@ -1822,27 +1836,25 @@ void __62__SFAuthenticationManager_startedAuthenticationSessionWithID___block_in
 
 - (void)completedAuthenticationSessionWithID:(id)d
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v5 = authentications_log();
+  v5 = authentications_log(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = dCopy;
+    v11 = dCopy;
     _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Notifying client authentication completed for %@", buf, 0xCu);
   }
 
   queue = [(SFAuthenticationManager *)self queue];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __64__SFAuthenticationManager_completedAuthenticationSessionWithID___block_invoke;
-  v9[3] = &unk_1E788A658;
-  v9[4] = self;
-  v10 = dCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __64__SFAuthenticationManager_completedAuthenticationSessionWithID___block_invoke;
+  v8[3] = &unk_1E788A658;
+  v8[4] = self;
+  v9 = dCopy;
   v7 = dCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v8);
 }
 
 void __64__SFAuthenticationManager_completedAuthenticationSessionWithID___block_invoke(uint64_t a1)
@@ -1861,7 +1873,7 @@ void __64__SFAuthenticationManager_completedAuthenticationSessionWithID___block_
 {
   dCopy = d;
   errorCopy = error;
-  v8 = authentications_log();
+  v8 = authentications_log(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [SFAuthenticationManager failedAuthenticationSessionWithID:error:];
@@ -1894,17 +1906,17 @@ void __67__SFAuthenticationManager_failedAuthenticationSessionWithID_error___blo
 
 - (void)receivedApproveRequestForSessionID:(id)d info:(id)info
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   infoCopy = info;
-  v8 = authentications_log();
+  v8 = authentications_log(infoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     bundleID = [infoCopy bundleID];
     *buf = 138412546;
-    v18 = dCopy;
-    v19 = 2112;
-    v20 = bundleID;
+    v17 = dCopy;
+    v18 = 2112;
+    v19 = bundleID;
     _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Notifying client of incoming approve request for sessionID %@ for %@", buf, 0x16u);
   }
 
@@ -1914,13 +1926,11 @@ void __67__SFAuthenticationManager_failedAuthenticationSessionWithID_error___blo
   block[2] = __67__SFAuthenticationManager_receivedApproveRequestForSessionID_info___block_invoke;
   block[3] = &unk_1E788BD88;
   block[4] = self;
-  v15 = dCopy;
-  v16 = infoCopy;
+  v14 = dCopy;
+  v15 = infoCopy;
   v11 = infoCopy;
   v12 = dCopy;
   dispatch_async(queue, block);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __67__SFAuthenticationManager_receivedApproveRequestForSessionID_info___block_invoke(uint64_t a1)
@@ -1993,7 +2003,7 @@ void __67__SFAuthenticationManager_receivedApproveRequestForSessionID_info___blo
 
   else
   {
-    v3 = authentications_log();
+    v3 = authentications_log(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
@@ -2004,7 +2014,7 @@ void __67__SFAuthenticationManager_receivedApproveRequestForSessionID_info___blo
 void __67__SFAuthenticationManager_receivedApproveRequestForSessionID_info___block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -2046,7 +2056,7 @@ void __67__SFAuthenticationManager_receivedApproveRequestForSessionID_info___blo
 
   else
   {
-    v4 = authentications_log();
+    v4 = authentications_log(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1();
@@ -2057,7 +2067,7 @@ void __67__SFAuthenticationManager_receivedApproveRequestForSessionID_info___blo
 void __67__SFAuthenticationManager_receivedApproveRequestForSessionID_info___block_invoke_3_539(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = authentications_log();
+  v3 = authentications_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1();
@@ -2066,16 +2076,16 @@ void __67__SFAuthenticationManager_receivedApproveRequestForSessionID_info___blo
 
 - (void)failedApproveSessionWithID:(id)d error:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   errorCopy = error;
-  v8 = authentications_log();
+  v8 = authentications_log(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = dCopy;
-    v18 = 2112;
-    v19 = errorCopy;
+    v16 = dCopy;
+    v17 = 2112;
+    v18 = errorCopy;
     _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Notifying client approve failed for %@ error: %@", buf, 0x16u);
   }
 
@@ -2085,13 +2095,11 @@ void __67__SFAuthenticationManager_receivedApproveRequestForSessionID_info___blo
   block[2] = __60__SFAuthenticationManager_failedApproveSessionWithID_error___block_invoke;
   block[3] = &unk_1E788BD88;
   block[4] = self;
-  v14 = dCopy;
-  v15 = errorCopy;
+  v13 = dCopy;
+  v14 = errorCopy;
   v10 = errorCopy;
   v11 = dCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __60__SFAuthenticationManager_failedApproveSessionWithID_error___block_invoke(uint64_t a1)
@@ -2106,14 +2114,6 @@ void __60__SFAuthenticationManager_failedApproveSessionWithID_error___block_invo
   }
 }
 
-void __52__SFAuthenticationManager__registerForNotifications__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4_1();
@@ -2123,11 +2123,9 @@ void __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_co
 
 void __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isEnabledForType:.cold.1()
@@ -2139,12 +2137,9 @@ void __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_
 
 - (void)listEligibleDevicesForType:(unint64_t)a1 completionHandler:.cold.1(unint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = SFAuthenticationTypeToString(a1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1A9662000, v2, v3, "%@ is unsupported, not calling into sharing", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1A9662000, v2, v3, "%@ is unsupported, not calling into sharing", v4, v5, v6, v7);
 }
 
 - (void)listEligibleDevicesForType:completionHandler:.cold.2()
@@ -2177,12 +2172,11 @@ void __55__SFAuthenticationManager__handleEnabledDevicesChanged__block_invoke_2_
 
 - (void)failedAuthenticationSessionWithID:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1A9662000, v1, OS_LOG_TYPE_ERROR, "Notifying client authentication failed for %@ error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1A9662000, v1, OS_LOG_TYPE_ERROR, "Notifying client authentication failed for %@ error: %@", v2, 0x16u);
 }
 
 @end

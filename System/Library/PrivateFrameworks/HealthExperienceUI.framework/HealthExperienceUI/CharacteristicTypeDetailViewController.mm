@@ -318,21 +318,21 @@ void __65__CharacteristicTypeDetailViewController_setFirstName_specifier___block
   }
 }
 
-void __65__CharacteristicTypeDetailViewController_setFirstName_specifier___block_invoke_2(uint64_t a1)
+void __65__CharacteristicTypeDetailViewController_setFirstName_specifier___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 64) == 1)
   {
-    v2 = *(a1 + 40);
-    v3 = (*(a1 + 32) + 1488);
+    v4 = *(a1 + 40);
+    v5 = (*(a1 + 32) + 1488);
 
-    objc_storeStrong(v3, v2);
+    objc_storeStrong(v5, v4);
   }
 
   else
   {
     _HKInitializeLogging();
-    v4 = HKLogWellnessDashboard();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = HKLogWellnessDashboard();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __65__CharacteristicTypeDetailViewController_setFirstName_specifier___block_invoke_2_cold_1();
     }
@@ -400,21 +400,21 @@ void __64__CharacteristicTypeDetailViewController_setLastName_specifier___block_
   }
 }
 
-void __64__CharacteristicTypeDetailViewController_setLastName_specifier___block_invoke_2(uint64_t a1)
+void __64__CharacteristicTypeDetailViewController_setLastName_specifier___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 64) == 1)
   {
-    v2 = *(a1 + 40);
-    v3 = (*(a1 + 32) + 1496);
+    v4 = *(a1 + 40);
+    v5 = (*(a1 + 32) + 1496);
 
-    objc_storeStrong(v3, v2);
+    objc_storeStrong(v5, v4);
   }
 
   else
   {
     _HKInitializeLogging();
-    v4 = HKLogWellnessDashboard();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = HKLogWellnessDashboard();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __65__CharacteristicTypeDetailViewController_setFirstName_specifier___block_invoke_2_cold_1();
     }

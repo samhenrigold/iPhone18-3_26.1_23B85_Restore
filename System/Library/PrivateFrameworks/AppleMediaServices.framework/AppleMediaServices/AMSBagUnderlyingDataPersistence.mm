@@ -18,11 +18,12 @@
 
 - (id)underlyingDataFor:(id)for error:(id *)error
 {
-  sub_192F967CC();
+  v5 = sub_192F967CC();
+  v7 = v6;
   selfCopy = self;
-  v6 = BagUnderlyingDataPersistence.underlyingData(for:)();
+  v9 = BagUnderlyingDataPersistence.underlyingData(for:)(v5, v7);
 
-  return v6;
+  return v9;
 }
 
 - (BOOL)persist:(id)persist error:(id *)error

@@ -3,10 +3,12 @@
 - (RPDaemonXPCConnection)initWithDaemon:(id)daemon xpcConnection:(id)connection;
 - (void)_invalidateAssertions;
 - (void)activateAssertionWithIdentifier:(id)identifier;
+- (void)addOrUpdateIdentity:(id)identity source:(int)source completion:(id)completion;
 - (void)connectionInvalidated;
 - (void)diagnosticCommand:(id)command params:(id)params completion:(id)completion;
 - (void)diagnosticLogControl:(id)control completion:(id)completion;
 - (void)diagnosticShow:(id)show level:(int)level completion:(id)completion;
+- (void)getIdentitiesWithFlags:(unsigned int)flags completion:(id)completion;
 - (void)primaryAccountSignedInWithCompletion:(id)completion;
 - (void)primaryAccountSignedOutWithCompletion:(id)completion;
 - (void)regenerateSelfIdentity:(id)identity withCompletion:(id)completion;
@@ -15,6 +17,7 @@
 - (void)removeSessionPairedIdentity:(id)identity completion:(id)completion;
 - (void)serverCreateDeviceMappingInternal:(int)internal applicationService:(id)service deviceID:(id)d endpointID:(id)iD completion:(id)completion;
 - (void)serverExchangeQUICPublicKeyFor:(id)for publicKey:(id)key completion:(id)completion;
+- (void)serverSetAutoMappingInternal:(BOOL)internal completion:(id)completion;
 @end
 
 @implementation RPDaemonXPCConnection
@@ -64,7 +67,7 @@
       goto LABEL_11;
     }
 
-    v11 = RPErrorF();
+    v17 = RPErrorF(4294896128, "Missing entitlement '%@' for %@", v11, v12, v13, v14, v15, v16, @"com.apple.rapport.Client");
     if (dword_1001D3730 <= 60 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
     {
       sub_1001174E8(p_xpcCnx);
@@ -82,8 +85,8 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v12 = v11;
-    *error = v11;
+    v18 = v17;
+    *error = v17;
     goto LABEL_10;
   }
 
@@ -108,8 +111,10 @@ LABEL_11:
       {
         if (dword_1001D3730 > 30 || dword_1001D3730 == -1 && !_LogCategory_Initialize())
         {
-          goto LABEL_21;
+          goto LABEL_22;
         }
+
+        v7 = "Ignoring duplicate assertion '%@'\n";
       }
 
       else
@@ -117,90 +122,113 @@ LABEL_11:
         assertions = self->_assertions;
         if (!assertions)
         {
-          v8 = objc_alloc_init(NSMutableSet);
-          v9 = self->_assertions;
-          self->_assertions = v8;
+          v9 = objc_alloc_init(NSMutableSet);
+          v10 = self->_assertions;
+          self->_assertions = v9;
 
           assertions = self->_assertions;
         }
 
         [(NSMutableSet *)assertions addObject:v6];
-        v10 = [(NSCountedSet *)self->_daemon->_assertions countForObject:v6];
-        v11 = self->_daemon->_assertions;
-        if (!v11)
+        v11 = [(NSCountedSet *)self->_daemon->_assertions countForObject:v6];
+        v12 = self->_daemon->_assertions;
+        if (!v12)
         {
-          v12 = objc_alloc_init(NSCountedSet);
+          v13 = objc_alloc_init(NSCountedSet);
           daemon = self->_daemon;
-          v14 = daemon->_assertions;
-          daemon->_assertions = v12;
+          v15 = daemon->_assertions;
+          daemon->_assertions = v13;
 
-          v11 = self->_daemon->_assertions;
+          v12 = self->_daemon->_assertions;
         }
 
-        [(NSCountedSet *)v11 addObject:v6];
+        [(NSCountedSet *)v12 addObject:v6];
         if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001D3730, "[RPDaemonXPCConnection activateAssertionWithIdentifier:]", 30, "Activate assertion '%@': %d -> %d\n", v6, v11, (v11 + 1));
         }
 
-        if (v10 || ([v6 isEqual:@"com.apple.rapport.KeepAlive"] & 1) != 0 || dword_1001D3730 > 30 || dword_1001D3730 == -1 && !_LogCategory_Initialize())
+        if (v11 || ([v6 isEqual:@"com.apple.rapport.KeepAlive"] & 1) != 0 || dword_1001D3730 > 30 || dword_1001D3730 == -1 && !_LogCategory_Initialize())
         {
-          goto LABEL_21;
+          goto LABEL_22;
         }
+
+        v7 = "Ignoring add unknown assertion '%@'\n";
       }
 
-      sub_100117534();
+      sub_100117534(v7, v6);
     }
 
-LABEL_21:
+LABEL_22:
 
     v5 = identifierCopy;
   }
 }
 
+- (void)addOrUpdateIdentity:(id)identity source:(int)source completion:(id)completion
+{
+  v6 = *&source;
+  identityCopy = identity;
+  completionCopy = completion;
+  v15 = 0;
+  v10 = [(RPDaemonXPCConnection *)self _entitledForLabel:@"AddOrUpdateIdentity" error:&v15];
+  v11 = v15;
+  if (v10)
+  {
+    v12 = +[RPPeopleDaemon sharedPeopleDaemon];
+    v14 = v11;
+    [v12 addOrUpdateIdentity:identityCopy source:v6 error:&v14];
+    v13 = v14;
+
+    v11 = v13;
+  }
+
+  if (completionCopy)
+  {
+    completionCopy[2](completionCopy, v11);
+  }
+}
+
 - (void)_invalidateAssertions
 {
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   v3 = self->_assertions;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * v7);
-        v9 = [(NSCountedSet *)self->_daemon->_assertions countForObject:v8, v11, v12, v13];
+        v8 = *(*(&v11 + 1) + 8 * v7);
+        v9 = [(NSCountedSet *)self->_daemon->_assertions countForObject:v8];
         [(NSCountedSet *)self->_daemon->_assertions removeObject:v8];
         if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
         {
-          v11 = v8;
-          v12 = v9;
-          v13 = (v9 - 1);
-          LogPrintF();
+          LogPrintF(&dword_1001D3730, "[RPDaemonXPCConnection _invalidateAssertions]", 30, "Invalidate assertion '%@': %d -> %d\n", v8, v9, (v9 - 1));
         }
 
         if (v9 == 1 && ([v8 isEqual:@"com.apple.rapport.KeepAlive"] & 1) == 0 && dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
         {
-          sub_100117570();
+          sub_100117570(v8);
         }
 
         v7 = v7 + 1;
       }
 
       while (v5 != v7);
-      v10 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       v5 = v10;
     }
 
@@ -216,14 +244,14 @@ LABEL_21:
   paramsCopy = params;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v22 = 0;
-  [(RPDaemonXPCConnection *)self _entitledForLabel:@"DiagnosticCommand" error:&v22];
-  v11 = v22;
-  if (v11)
+  v35 = 0;
+  [(RPDaemonXPCConnection *)self _entitledForLabel:@"DiagnosticCommand" error:&v35];
+  v17 = v35;
+  if (v17)
   {
     if (completionCopy)
     {
-      completionCopy[2](completionCopy, 0, v11);
+      completionCopy[2](completionCopy, 0, v17);
     }
 
     goto LABEL_19;
@@ -236,37 +264,38 @@ LABEL_21:
       goto LABEL_19;
     }
 
-    goto LABEL_21;
+    RPErrorF(4294960589, "Null command", v11, v12, v13, v14, v15, v16, v30);
+    goto LABEL_22;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v12 = self->_daemon->_subDaemons;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v23 count:16];
-  if (v13)
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v18 = self->_daemon->_subDaemons;
+  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  if (v19)
   {
-    v14 = v13;
-    v15 = *v19;
+    v20 = v19;
+    v21 = *v32;
     while (2)
     {
-      for (i = 0; i != v14; i = i + 1)
+      for (i = 0; i != v20; i = i + 1)
       {
-        if (*v19 != v15)
+        if (*v32 != v21)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v18);
         }
 
-        if ([*(*(&v18 + 1) + 8 * i) diagnosticCommand:commandCopy params:paramsCopy])
+        if ([*(*(&v31 + 1) + 8 * i) diagnosticCommand:commandCopy params:paramsCopy])
         {
 
           goto LABEL_17;
         }
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v23 count:16];
-      if (v14)
+      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      if (v20)
       {
         continue;
       }
@@ -282,9 +311,9 @@ LABEL_21:
       goto LABEL_19;
     }
 
-LABEL_21:
-    v17 = RPErrorF();
-    completionCopy[2](completionCopy, 0, v17);
+    RPErrorF(4294960561, "Unsupported command '%@'", v23, v24, v25, v26, v27, v28, commandCopy);
+    v29 = LABEL_22:;
+    completionCopy[2](completionCopy, 0, v29);
 
     goto LABEL_19;
   }
@@ -303,39 +332,44 @@ LABEL_19:
   controlCopy = control;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v10 = 0;
-  [(RPDaemonXPCConnection *)self _entitledForLabel:@"DiagnosticLogControl" error:&v10];
-  v8 = v10;
+  v13 = 0;
+  [(RPDaemonXPCConnection *)self _entitledForLabel:@"DiagnosticLogControl" error:&v13];
+  v8 = v13;
+  v9 = v8;
   if (!v8)
   {
-    if (controlCopy && ([controlCopy UTF8String], LogControl()))
+    if (controlCopy && ([controlCopy UTF8String], v11 = LogControl(), v11))
     {
       if (!completionCopy)
       {
-        goto LABEL_4;
+        goto LABEL_5;
       }
+
+      NSPrintF("### Control error: %#m\n", v11);
     }
 
     else
     {
-      LogShow();
+      v12 = LogShow();
       if (!completionCopy)
       {
-        goto LABEL_4;
+        goto LABEL_5;
       }
+
+      NSPrintF("### Show error: %#m\n", v12);
     }
 
-    goto LABEL_3;
+    goto LABEL_4;
   }
 
   if (completionCopy)
   {
-LABEL_3:
-    v9 = NSPrintF();
-    completionCopy[2](completionCopy, v9);
+    NSPrintF("### Error: %{error}\n", v8);
+    v10 = LABEL_4:;
+    completionCopy[2](completionCopy, v10);
   }
 
-LABEL_4:
+LABEL_5:
 }
 
 - (void)diagnosticShow:(id)show level:(int)level completion:(id)completion
@@ -343,15 +377,16 @@ LABEL_4:
   showCopy = show;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v13 = 0;
-  [(RPDaemonXPCConnection *)self _entitledForLabel:@"DiagnosticShow" error:&v13];
-  v9 = v13;
+  v14 = 0;
+  [(RPDaemonXPCConnection *)self _entitledForLabel:@"DiagnosticShow" error:&v14];
+  v9 = v14;
+  v10 = v9;
   if (!v9)
   {
     if (showCopy && [showCopy rangeOfString:@"ident" options:9] != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v11 = +[RPIdentityDaemon sharedIdentityDaemon];
-      v10 = CUDescriptionWithLevel();
+      v12 = +[RPIdentityDaemon sharedIdentityDaemon];
+      v11 = CUDescriptionWithLevel();
 
       if (!completionCopy)
       {
@@ -370,22 +405,22 @@ LABEL_4:
       {
         CUDescriptionWithLevel();
       }
-      v10 = ;
+      v11 = ;
       if (!completionCopy)
       {
         goto LABEL_15;
       }
     }
 
-    if (v10)
+    if (v11)
     {
-      completionCopy[2](completionCopy, v10);
+      completionCopy[2](completionCopy, v11);
     }
 
     else
     {
-      v12 = NSPrintF();
-      completionCopy[2](completionCopy, v12);
+      v13 = NSPrintF("### Generate output failed\n");
+      completionCopy[2](completionCopy, v13);
     }
 
     goto LABEL_15;
@@ -393,9 +428,31 @@ LABEL_4:
 
   if (completionCopy)
   {
-    v10 = NSPrintF();
-    completionCopy[2](completionCopy, v10);
+    v11 = NSPrintF("### Error: %{error}\n", v9);
+    completionCopy[2](completionCopy, v11);
 LABEL_15:
+  }
+}
+
+- (void)getIdentitiesWithFlags:(unsigned int)flags completion:(id)completion
+{
+  v4 = *&flags;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  v10 = 0;
+  [(RPDaemonXPCConnection *)self _entitledForLabel:@"GetIdentities" error:&v10];
+  v7 = v10;
+  if (v7)
+  {
+    completionCopy[2](completionCopy, 0, v7);
+  }
+
+  else
+  {
+    v8 = +[RPIdentityDaemon sharedIdentityDaemon];
+    v9 = [v8 getIdentitiesWithFlags:v4];
+
+    (completionCopy)[2](completionCopy, v9, 0);
   }
 }
 
@@ -410,21 +467,21 @@ LABEL_15:
 
   if (v10)
   {
-    v11 = +[RPPeopleDaemon sharedPeopleDaemon];
-    [v11 regenerateSelfIdentity:identityCopy];
+    v17 = +[RPPeopleDaemon sharedPeopleDaemon];
+    [v17 regenerateSelfIdentity:identityCopy];
 
     completionCopy[2](completionCopy, 0);
   }
 
   else
   {
-    v12 = RPErrorF();
+    v18 = RPErrorF(4294896128, "Missing entitlement '%@' for %@", v11, v12, v13, v14, v15, v16, @"com.apple.rapport.RegenerateIdentity");
     if (dword_1001D3730 <= 60 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
     {
       sub_1001175B0(p_xpcCnx);
     }
 
-    (completionCopy)[2](completionCopy, v12);
+    (completionCopy)[2](completionCopy, v18);
   }
 }
 
@@ -438,21 +495,21 @@ LABEL_15:
 
   if (v7)
   {
-    v8 = +[RPIdentityDaemon sharedIdentityDaemon];
-    [v8 regenerateTemporarySelfIdentity];
+    v14 = +[RPIdentityDaemon sharedIdentityDaemon];
+    [v14 regenerateTemporarySelfIdentity];
 
     completionCopy[2](completionCopy, 0);
   }
 
   else
   {
-    v9 = RPErrorF();
+    v15 = RPErrorF(4294896128, "Missing entitlement '%@' for %@", v8, v9, v10, v11, v12, v13, @"com.apple.rapport.RegenerateIdentity");
     if (dword_1001D3730 <= 60 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
     {
       sub_1001175FC(p_xpcCnx);
     }
 
-    (completionCopy)[2](completionCopy, v9);
+    (completionCopy)[2](completionCopy, v15);
   }
 }
 
@@ -472,21 +529,21 @@ LABEL_15:
       sub_100117694(p_xpcCnx);
     }
 
-    v8 = +[RPDaemon sharedDaemon];
-    [v8 postDaemonInfoChanges:64];
+    v14 = +[RPDaemon sharedDaemon];
+    [v14 postDaemonInfoChanges:64];
 
     completionCopy[2](completionCopy, 0);
   }
 
   else
   {
-    v9 = RPErrorF();
+    v15 = RPErrorF(4294896128, "Missing entitlement '%@' for %@", v8, v9, v10, v11, v12, v13, @"com.apple.rapport.Client");
     if (dword_1001D3730 <= 60 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
     {
       sub_100117648(p_xpcCnx);
     }
 
-    (completionCopy)[2](completionCopy, v9);
+    (completionCopy)[2](completionCopy, v15);
   }
 }
 
@@ -506,90 +563,90 @@ LABEL_15:
       sub_100117728(p_xpcCnx);
     }
 
-    v9 = objc_alloc_init(CUKeychainItem);
-    [v9 setAccessGroup:@"com.apple.rapport"];
-    [v9 setSyncType:3];
-    v10 = objc_alloc_init(CUKeychainManager);
-    v31 = 0;
-    v25 = v9;
-    v11 = [v10 copyItemsMatchingItem:v9 flags:10 error:&v31];
-    v12 = v31;
-    if (v12 && dword_1001D3730 <= 90 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
+    v15 = objc_alloc_init(CUKeychainItem);
+    [v15 setAccessGroup:@"com.apple.rapport"];
+    [v15 setSyncType:3];
+    v16 = objc_alloc_init(CUKeychainManager);
+    v37 = 0;
+    v31 = v15;
+    v17 = [v16 copyItemsMatchingItem:v15 flags:10 error:&v37];
+    v18 = v37;
+    if (v18 && dword_1001D3730 <= 90 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
     {
-      sub_100117770();
+      sub_100117770(v18);
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
-    if (v14)
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v19 = v17;
+    v20 = [v19 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    if (v20)
     {
-      v15 = v14;
-      v16 = *v28;
+      v21 = v20;
+      v22 = *v34;
       do
       {
-        v17 = 0;
+        v23 = 0;
         do
         {
-          if (*v28 != v16)
+          if (*v34 != v22)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v19);
           }
 
-          v18 = *(*(&v27 + 1) + 8 * v17);
+          v24 = *(*(&v33 + 1) + 8 * v23);
           if (dword_1001D3730 <= 30 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001177B0();
+            sub_1001177B0(v24);
           }
 
-          v26 = 0;
-          v19 = [v10 removeItemMatchingItem:v18 error:&v26];
-          v20 = v26;
-          v12 = v20;
-          if (v19)
+          v32 = 0;
+          v25 = [v16 removeItemMatchingItem:v24 error:&v32];
+          v26 = v32;
+          v18 = v26;
+          if (v25)
           {
-            v21 = v20 == 0;
+            v27 = v26 == 0;
           }
 
           else
           {
-            v21 = 0;
+            v27 = 0;
           }
 
-          if (!v21 && dword_1001D3730 <= 90 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
+          if (!v27 && dword_1001D3730 <= 90 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001D3730, "[RPDaemonXPCConnection primaryAccountSignedOutWithCompletion:]", 90, "### Remove failed: %@, %{error}\n", v24, v18);
           }
 
-          v17 = v17 + 1;
+          v23 = v23 + 1;
         }
 
-        while (v15 != v17);
-        v22 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
-        v15 = v22;
+        while (v21 != v23);
+        v28 = [v19 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v21 = v28;
       }
 
-      while (v22);
+      while (v28);
     }
 
-    v23 = +[RPDaemon sharedDaemon];
-    [v23 postDaemonInfoChanges:16];
+    v29 = +[RPDaemon sharedDaemon];
+    [v29 postDaemonInfoChanges:16];
 
     completionCopy[2](completionCopy, 0);
   }
 
   else
   {
-    v24 = RPErrorF();
+    v30 = RPErrorF(4294896128, "Missing entitlement '%@' for %@", v9, v10, v11, v12, v13, v14, @"com.apple.rapport.Client");
     if (dword_1001D3730 <= 60 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
     {
       sub_1001176DC(p_xpcCnx);
     }
 
-    (completionCopy)[2](completionCopy, v24);
+    (completionCopy)[2](completionCopy, v30);
   }
 }
 
@@ -600,9 +657,9 @@ LABEL_15:
   iDCopy = iD;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v27 = 0;
-  v16 = [(RPDaemonXPCConnection *)self _entitledForLabel:@"createDeviceMapping" error:&v27];
-  v17 = v27;
+  v41 = 0;
+  v16 = [(RPDaemonXPCConnection *)self _entitledForLabel:@"createDeviceMapping" error:&v41];
+  v17 = v41;
   if (v16)
   {
     v18 = +[RPCompanionLinkDaemon sharedCompanionLinkDaemon];
@@ -616,57 +673,57 @@ LABEL_15:
           [RPNWListener queryDeviceToApplicationServiceMapping:serviceCopy device:v19 completion:completionCopy];
           break;
         case 1:
-          v25 = [RPNWListener addDeviceToApplicationServiceMapping:serviceCopy device:v19 completion:completionCopy];
+          v38 = [RPNWListener addDeviceToApplicationServiceMapping:serviceCopy device:v19 completion:completionCopy];
           break;
         case 0:
-          v20 = +[RPNWEndpoint dduiEndpointsKey];
-          v21 = [RPNWEndpoint addEndpointMapping:v19 endpointID:iDCopy applicationService:serviceCopy discoverySessionID:v20 shouldAutomapListener:0];
+          v26 = +[RPNWEndpoint dduiEndpointsKey];
+          v27 = [RPNWEndpoint addEndpointMapping:v19 endpointID:iDCopy applicationService:serviceCopy discoverySessionID:v26 shouldAutomapListener:0];
 
-          if ((v21 & 1) == 0)
+          if ((v27 & 1) == 0)
           {
-            v22 = RPErrorF();
+            v34 = RPErrorF(4294960569, "Failed to add endpoint mapping", v28, v29, v30, v31, v32, v33, v40);
 
-            v17 = v22;
+            v17 = v34;
           }
 
           if (completionCopy)
           {
-            v23 = +[RPNWNetworkAgent sharedNetworkAgent];
-            networkAgentID = [v23 networkAgentID];
+            v35 = +[RPNWNetworkAgent sharedNetworkAgent];
+            networkAgentID = [v35 networkAgentID];
             completionCopy[2](completionCopy, networkAgentID, v17);
           }
 
           break;
         default:
-          goto LABEL_19;
-      }
-    }
-
-    else
-    {
-      if (dword_1001D3730 <= 90 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
-      {
-        sub_1001177F0();
-        if (!completionCopy)
-        {
+          v37 = "Invalid mapping type";
           goto LABEL_20;
-        }
-
-        goto LABEL_19;
       }
 
-      if (completionCopy)
-      {
-LABEL_19:
-        v26 = RPErrorF();
+LABEL_21:
 
-        completionCopy[2](completionCopy, 0, v26);
-        v17 = v26;
+      goto LABEL_22;
+    }
+
+    if (dword_1001D3730 <= 90 && (dword_1001D3730 != -1 || _LogCategory_Initialize()))
+    {
+      sub_1001177F0(dCopy);
+      if (!completionCopy)
+      {
+        goto LABEL_21;
       }
     }
 
-LABEL_20:
+    else if (!completionCopy)
+    {
+      goto LABEL_21;
+    }
 
+    v37 = "Failed to find device for mapping";
+LABEL_20:
+    v39 = RPErrorF(4294960569, v37, v20, v21, v22, v23, v24, v25, v40);
+
+    completionCopy[2](completionCopy, 0, v39);
+    v17 = v39;
     goto LABEL_21;
   }
 
@@ -675,7 +732,7 @@ LABEL_20:
     completionCopy[2](completionCopy, 0, v17);
   }
 
-LABEL_21:
+LABEL_22:
 }
 
 - (void)serverExchangeQUICPublicKeyFor:(id)for publicKey:(id)key completion:(id)completion
@@ -696,6 +753,19 @@ LABEL_21:
   else if (completionCopy)
   {
     (*(completionCopy + 2))(completionCopy, 0, 0, v12);
+  }
+}
+
+- (void)serverSetAutoMappingInternal:(BOOL)internal completion:(id)completion
+{
+  internalCopy = internal;
+  completionCopy = completion;
+  [RPNWListener setAutoMapping:internalCopy];
+  v5 = completionCopy;
+  if (completionCopy)
+  {
+    (*(completionCopy + 2))(completionCopy, 0);
+    v5 = completionCopy;
   }
 }
 

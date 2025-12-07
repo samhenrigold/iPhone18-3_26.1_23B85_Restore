@@ -8,6 +8,8 @@
 - (void)reloadSpecs;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation STStorageFPFSController
@@ -19,6 +21,23 @@
   [(STStorageFPFSController *)&v4 viewDidLoad];
   table = [(STStorageFPFSController *)self table];
   [table setAllowsMultipleSelectionDuringEditing:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = STStorageFPFSController;
+  [(STStorageFPFSController *)&v4 viewWillAppear:appear];
+  [(FPItemCollection *)self->_collection startObserving];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(FPItemCollection *)self->_collection stopObserving];
+  v5.receiver = self;
+  v5.super_class = STStorageFPFSController;
+  [(STStorageFPFSController *)&v5 viewWillDisappear:disappearCopy];
 }
 
 - (id)specifiers

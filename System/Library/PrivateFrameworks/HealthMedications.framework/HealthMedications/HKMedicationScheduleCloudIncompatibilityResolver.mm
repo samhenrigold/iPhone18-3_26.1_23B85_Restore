@@ -120,7 +120,7 @@
 
 void __95__HKMedicationScheduleCloudIncompatibilityResolver_resolveIncompatibleSchedulesWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
@@ -129,24 +129,22 @@ void __95__HKMedicationScheduleCloudIncompatibilityResolver_resolveIncompatibleS
   v8 = HKLogMedication();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
-    v11 = *(*(*(a1 + 56) + 8) + 40);
-    v12 = v10;
-    v14 = 138543618;
-    v15 = v10;
-    v16 = 2048;
-    v17 = [v11 count];
-    _os_log_impl(&dword_2517E7000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Found %ld cloud devices to evaluate", &v14, 0x16u);
+    v9 = objc_opt_class();
+    v10 = *(*(*(a1 + 56) + 8) + 40);
+    v11 = v9;
+    v12 = 138543618;
+    v13 = v9;
+    v14 = 2048;
+    v15 = [v10 count];
+    _os_log_impl(&dword_2517E7000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Found %ld cloud devices to evaluate", &v12, 0x16u);
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __95__HKMedicationScheduleCloudIncompatibilityResolver_resolveIncompatibleSchedulesWithCompletion___block_invoke_328(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
@@ -155,19 +153,17 @@ void __95__HKMedicationScheduleCloudIncompatibilityResolver_resolveIncompatibleS
   v8 = HKLogMedication();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
-    v11 = *(*(*(a1 + 56) + 8) + 40);
-    v12 = v10;
-    v14 = 138543618;
-    v15 = v10;
-    v16 = 2048;
-    v17 = [v11 count];
-    _os_log_impl(&dword_2517E7000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Found %ld schedules to evaluate", &v14, 0x16u);
+    v9 = objc_opt_class();
+    v10 = *(*(*(a1 + 56) + 8) + 40);
+    v11 = v9;
+    v12 = 138543618;
+    v13 = v9;
+    v14 = 2048;
+    v15 = [v10 count];
+    _os_log_impl(&dword_2517E7000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Found %ld schedules to evaluate", &v12, 0x16u);
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkIncompatibilityForSchedule:(id)schedule completion:(id)completion
@@ -190,21 +186,19 @@ void __95__HKMedicationScheduleCloudIncompatibilityResolver_resolveIncompatibleS
 
 void __95__HKMedicationScheduleCloudIncompatibilityResolver_checkIncompatibilityForSchedule_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
-  v13[0] = *(a1 + 40);
+  v12[0] = *(a1 + 40);
   v6 = MEMORY[0x277CBEA60];
   v7 = a3;
   v8 = a2;
-  v9 = [v6 arrayWithObjects:v13 count:1];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __95__HKMedicationScheduleCloudIncompatibilityResolver_checkIncompatibilityForSchedule_completion___block_invoke_2;
-  v11[3] = &unk_2796C9FA0;
-  v12 = *(a1 + 48);
-  [v5 _resolveIncompatibleScheduleResultsFromSchedules:v9 scheduleError:0 devices:v8 deviceError:v7 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = [v6 arrayWithObjects:v12 count:1];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __95__HKMedicationScheduleCloudIncompatibilityResolver_checkIncompatibilityForSchedule_completion___block_invoke_2;
+  v10[3] = &unk_2796C9FA0;
+  v11 = *(a1 + 48);
+  [v5 _resolveIncompatibleScheduleResultsFromSchedules:v9 scheduleError:0 devices:v8 deviceError:v7 completion:v10];
 }
 
 void __95__HKMedicationScheduleCloudIncompatibilityResolver_checkIncompatibilityForSchedule_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)

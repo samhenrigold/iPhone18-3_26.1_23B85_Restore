@@ -19,7 +19,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_231046250();
+  sub_231046250(delegate);
 }
 
 - (WFSessionKitAssertion)toastedSession

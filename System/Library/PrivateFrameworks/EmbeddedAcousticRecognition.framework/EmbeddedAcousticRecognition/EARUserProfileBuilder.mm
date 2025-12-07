@@ -11,11 +11,11 @@ void __144___EARUserProfileBuilder_initWithConfig_language_overrides_textNormali
   v8 = *(*(a1 + 32) + 56);
   if (v5)
   {
-    [v5 ear_toString];
+    objc_msgSend_ear_toString(v5);
     if (v7)
     {
 LABEL_3:
-      [v7 ear_toString];
+      objc_msgSend_ear_toString(v7);
       goto LABEL_6;
     }
   }

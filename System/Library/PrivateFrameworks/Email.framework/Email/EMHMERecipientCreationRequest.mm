@@ -70,36 +70,34 @@ void __36__EMHMERecipientCreationRequest_log__block_invoke(uint64_t a1)
 
 - (id)urlString
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = [(ACAccount *)self->_account propertiesForDataclass:@"com.apple.Dataclass.PremiumMailSettings"];
   v3 = [v2 objectForKeyedSubscript:@"hmeGetReplyToAddress"];
 
   v4 = +[EMHMERecipientCreationRequest log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1C6655000, v4, OS_LOG_TYPE_DEFAULT, "HME replyTo URL %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1C6655000, v4, OS_LOG_TYPE_DEFAULT, "HME replyTo URL %@", &v6, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)_httpBody
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   hmeAddress = self->_hmeAddress;
-  v11[0] = @"hme";
-  v11[1] = @"recipientEmail";
+  v10[0] = @"hme";
+  v10[1] = @"recipientEmail";
   recipient = self->_recipient;
-  v12[0] = hmeAddress;
-  v12[1] = recipient;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v10 = 0;
-  v5 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v4 options:1 error:&v10];
-  v6 = v10;
+  v11[0] = hmeAddress;
+  v11[1] = recipient;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9 = 0;
+  v5 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v4 options:1 error:&v9];
+  v6 = v9;
   if (v6)
   {
     v7 = +[EMHMERecipientCreationRequest log];
@@ -108,8 +106,6 @@ void __36__EMHMERecipientCreationRequest_log__block_invoke(uint64_t a1)
       [(EMHMERecipientCreationRequest *)v6 _httpBody];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -144,11 +140,10 @@ void __36__EMHMERecipientCreationRequest_log__block_invoke(uint64_t a1)
 
 - (void)_httpBody
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "JSONSerialization error for body %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "JSONSerialization error for body %@", &v2, 0xCu);
 }
 
 @end

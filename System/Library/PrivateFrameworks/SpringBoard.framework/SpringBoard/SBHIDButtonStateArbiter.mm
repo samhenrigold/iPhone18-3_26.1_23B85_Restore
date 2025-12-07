@@ -2,7 +2,7 @@
 - (BOOL)_canIncrementRepeatedPressCount;
 - (SBHIDButtonStateArbiter)init;
 - (SBHIDButtonStateDelegate)delegate;
-- (uint64_t)_repeatedPressTimeoutDidOccur;
+- (id)_repeatedPressTimeoutDidOccur;
 - (void)_invalidateLongPressTimer;
 - (void)_invalidateRepeatedPressTimer;
 - (void)_longPressTimeoutDidOccur;
@@ -128,7 +128,7 @@ void __63__SBHIDButtonStateArbiter__startRepeatedPressTimerWithTimeout___block_i
       BSMonotonicReferencedTimeFromMachTime();
       if (v9 > repeatedPressTimeoutAtUpEvent)
       {
-        [(SBHIDButtonStateArbiter *)self _repeatedPressTimeoutDidOccur];
+        [(SBHIDButtonStateArbiter *)&self->super.isa _repeatedPressTimeoutDidOccur];
       }
 
       [(SBHIDButtonStateArbiter *)self reset];
@@ -262,14 +262,14 @@ LABEL_19:
   }
 }
 
-- (uint64_t)_repeatedPressTimeoutDidOccur
+- (id)_repeatedPressTimeoutDidOccur
 {
   if (result)
   {
     v1 = result;
-    if (*(result + 32))
+    if (result[4])
     {
-      WeakRetained = objc_loadWeakRetained((result + 120));
+      WeakRetained = objc_loadWeakRetained(result + 15);
       [WeakRetained performActionsForButtonUp:v1];
 
       v1[14] = 0;

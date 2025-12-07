@@ -5,13 +5,13 @@
 + (id)_wl_encodableSetFromSet:()WelcomeKit;
 + (id)wl_encodableErrorSupportedClasses;
 + (uint64_t)_wl_objectIsKindOfNonCollectionPlistClass:()WelcomeKit;
+- (BOOL)wk_representsTransientConnectivityIssueForAttempt:()WelcomeKit;
 - (id)wl_encodableError;
-- (uint64_t)wk_representsTransientConnectivityIssueForAttempt:()WelcomeKit;
 @end
 
 @implementation NSError(WelcomeKit)
 
-- (uint64_t)wk_representsTransientConnectivityIssueForAttempt:()WelcomeKit
+- (BOOL)wk_representsTransientConnectivityIssueForAttempt:()WelcomeKit
 {
   if (a3 <= 2)
   {
@@ -86,9 +86,9 @@ LABEL_11:
     +[NSError(WelcomeKit) wl_encodableErrorSupportedClasses];
   }
 
-  v1 = wl_encodableErrorSupportedClasses_supportedClasses;
+  v2 = wl_encodableErrorSupportedClasses_supportedClasses;
 
-  return v1;
+  return v2;
 }
 
 + (id)_wl_encodableObjectFromObject:()WelcomeKit
@@ -138,84 +138,80 @@ LABEL_12:
 
 + (id)_wl_encodableArrayFromArray:()WelcomeKit
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [self _wl_encodableObjectFromObject:{*(*(&v14 + 1) + 8 * i), v14}];
+        v11 = [self _wl_encodableObjectFromObject:{*(*(&v13 + 1) + 8 * i), v13}];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (id)_wl_encodableSetFromSet:()WelcomeKit
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v4, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [self _wl_encodableObjectFromObject:{*(*(&v14 + 1) + 8 * i), v14}];
+        v11 = [self _wl_encodableObjectFromObject:{*(*(&v13 + 1) + 8 * i), v13}];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -239,32 +235,31 @@ LABEL_12:
 
 + (uint64_t)_wl_objectIsKindOfNonCollectionPlistClass:()WelcomeKit
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if (_wl_objectIsKindOfNonCollectionPlistClass__onceToken != -1)
   {
     +[NSError(WelcomeKit) _wl_objectIsKindOfNonCollectionPlistClass:];
   }
 
-  v13 = 0u;
-  v14 = 0u;
   v11 = 0u;
   v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = _wl_objectIsKindOfNonCollectionPlistClass__nonCollectionPlistClasses;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           v5 = 1;
@@ -272,7 +267,7 @@ LABEL_12:
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -284,7 +279,6 @@ LABEL_12:
 
 LABEL_13:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

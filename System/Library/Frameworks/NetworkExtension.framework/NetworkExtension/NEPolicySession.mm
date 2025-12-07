@@ -11,6 +11,7 @@
 - (BOOL)removePolicyWithID:(unint64_t)d;
 - (NEPolicySession)initWithSessionName:(id)name;
 - (NEPolicySession)initWithSocket:(int)socket;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)dumpDomainTries;
 - (id)dumpKernelPolicies;
 - (id)initFromPrivilegedProcess;
@@ -19,6 +20,7 @@
 - (int64_t)priority;
 - (unint64_t)addDomainFilterWithData:(id)data;
 - (unint64_t)addDomainTrieWithData:(id)data;
+- (unint64_t)addPolicy:(id)policy storeLocally:(BOOL)locally;
 - (void)dealloc;
 - (void)setPriority:(int64_t)priority;
 @end
@@ -27,7 +29,7 @@
 
 - (BOOL)removeAllPolicies
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (!self)
   {
     if (necp_session_action())
@@ -38,43 +40,38 @@
     Property = 0;
 LABEL_9:
     [Property removeAllObjects];
-    result = 1;
-    goto LABEL_10;
+    return 1;
   }
 
-  sessionFD = self->_sessionFD;
   if (!necp_session_action())
   {
-    Property = objc_getProperty(self, v4, 32, 1);
+    Property = objc_getProperty(self, v3, 32, 1);
     goto LABEL_9;
   }
 
 LABEL_3:
-  v5 = *__error();
-  if (strerror_r(v5, __strerrbuf, 0x80uLL))
+  v4 = *__error();
+  if (strerror_r(v4, __strerrbuf, 0x80uLL))
   {
     __strerrbuf[0] = 0;
   }
 
-  v6 = ne_log_obj();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+  v5 = ne_log_obj();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v10[0] = 67109378;
-    v10[1] = v5;
-    v11 = 2080;
-    v12 = __strerrbuf;
-    _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "Failed to delete all policies: [%d] %s", v10, 0x12u);
+    v8[0] = 67109378;
+    v8[1] = v4;
+    v9 = 2080;
+    v10 = __strerrbuf;
+    _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "Failed to delete all policies: [%d] %s", v8, 0x12u);
   }
 
-  result = 0;
-LABEL_10:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (BOOL)removePolicyWithID:(unint64_t)d
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!self)
   {
@@ -85,45 +82,40 @@ LABEL_10:
 
     Property = 0;
 LABEL_9:
-    v11 = MEMORY[0x1E696AD98];
-    v12 = Property;
-    v13 = [v11 numberWithUnsignedInteger:d];
-    [v12 removeObjectForKey:v13];
+    v10 = MEMORY[0x1E696AD98];
+    v11 = Property;
+    v12 = [v10 numberWithUnsignedInteger:d];
+    [v11 removeObjectForKey:v12];
 
-    result = 1;
-    goto LABEL_10;
+    return 1;
   }
 
-  sessionFD = self->_sessionFD;
   if (!necp_session_action())
   {
-    Property = objc_getProperty(self, v6, 32, 1);
+    Property = objc_getProperty(self, v5, 32, 1);
     goto LABEL_9;
   }
 
 LABEL_3:
-  v7 = *__error();
-  if (strerror_r(v7, __strerrbuf, 0x80uLL))
+  v6 = *__error();
+  if (strerror_r(v6, __strerrbuf, 0x80uLL))
   {
     __strerrbuf[0] = 0;
   }
 
-  v8 = ne_log_obj();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+  v7 = ne_log_obj();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     *buf = 67109634;
-    v17 = dCopy;
-    v18 = 1024;
-    v19 = v7;
-    v20 = 2080;
-    v21 = __strerrbuf;
-    _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "Failed to delete policy %u: [%d] %s", buf, 0x18u);
+    v15 = dCopy;
+    v16 = 1024;
+    v17 = v6;
+    v18 = 2080;
+    v19 = __strerrbuf;
+    _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, "Failed to delete policy %u: [%d] %s", buf, 0x18u);
   }
 
-  result = 0;
-LABEL_10:
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (id)policyWithID:(unint64_t)d
@@ -143,47 +135,207 @@ LABEL_10:
 
 - (BOOL)apply
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (self)
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = necp_session_action();
+  if (v2)
   {
-    sessionFD = self->_sessionFD;
-  }
-
-  v3 = necp_session_action();
-  if (v3)
-  {
-    v4 = *__error();
-    if (strerror_r(v4, __strerrbuf, 0x80uLL))
+    v3 = *__error();
+    if (strerror_r(v3, __strerrbuf, 0x80uLL))
     {
       __strerrbuf[0] = 0;
     }
 
-    v5 = ne_log_obj();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = ne_log_obj();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v8[0] = 67109378;
-      v8[1] = v4;
-      v9 = 2080;
-      v10 = __strerrbuf;
-      _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "Failed to apply policies: [%d] %s", v8, 0x12u);
+      v6[0] = 67109378;
+      v6[1] = v3;
+      v7 = 2080;
+      v8 = __strerrbuf;
+      _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "Failed to apply policies: [%d] %s", v6, 0x12u);
     }
   }
 
-  result = v3 == 0;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v2 == 0;
 }
 
 - (id)dumpDomainTries
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v3 = 800;
-  v4 = malloc_type_malloc(0x320uLL, 0x73504546uLL);
-  if (!v4)
+  v33 = *MEMORY[0x1E69E9840];
+  v2 = 800;
+  v3 = malloc_type_malloc(0x320uLL, 0x73504546uLL);
+  if (!v3)
   {
-    v3 = 400;
-    v4 = malloc_type_malloc(0x190uLL, 0x76B5BE94uLL);
-    if (!v4)
+    v2 = 400;
+    v3 = malloc_type_malloc(0x190uLL, 0x76B5BE94uLL);
+    if (!v3)
+    {
+      v14 = *__error();
+      if (strerror_r(v14, __strerrbuf, 0x80uLL))
+      {
+        __strerrbuf[0] = 0;
+      }
+
+      v15 = ne_log_obj();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      {
+        *buf = 134218498;
+        *v29 = 400;
+        *&v29[8] = 1024;
+        *&v29[10] = v14;
+        v30 = 2080;
+        v31 = __strerrbuf;
+        _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "Failed to allocate memory for trie dump (%zu bytes): [%d] %s", buf, 0x1Cu);
+      }
+
+      return 0;
+    }
+  }
+
+  v4 = v3;
+  __memset_chk();
+  if (necp_session_action())
+  {
+    v5 = __error();
+    v6 = *v5;
+    if (*v5 != 12)
+    {
+      if (v6 != 2)
+      {
+        if (strerror_r(*v5, __strerrbuf, 0x80uLL))
+        {
+          __strerrbuf[0] = 0;
+        }
+
+        v7 = ne_log_obj();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+        {
+          *buf = 67109378;
+          *v29 = v6;
+          *&v29[4] = 2080;
+          *&v29[6] = __strerrbuf;
+          _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, "Failed to dump all tries: [%d] %s", buf, 0x12u);
+        }
+
+        goto LABEL_20;
+      }
+
+      goto LABEL_15;
+    }
+
+    if (strerror_r(12, __strerrbuf, 0x80uLL))
+    {
+      __strerrbuf[0] = 0;
+    }
+
+    v10 = ne_log_obj();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+LABEL_19:
+
+LABEL_20:
+      free(v4);
+      return 0;
+    }
+
+    *buf = 67109378;
+    *v29 = 12;
+    *&v29[4] = 2080;
+    *&v29[6] = __strerrbuf;
+    v11 = "Failed to dump all tries: [%d] %s";
+    v12 = buf;
+LABEL_36:
+    _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, v11, v12, 0x12u);
+    goto LABEL_19;
+  }
+
+  v8 = *v4;
+  if (!v8)
+  {
+LABEL_15:
+    free(v4);
+    return @"No domain trie entry";
+  }
+
+  v9 = v2 - 4;
+  if (40 * v8 > v9)
+  {
+    v10 = ne_log_obj();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_19;
+    }
+
+    *__strerrbuf = 67109376;
+    *&__strerrbuf[4] = v8;
+    *&__strerrbuf[8] = 2048;
+    *&__strerrbuf[10] = v9;
+    v11 = "Received trie count <%d> invalid with buffer size <%zu>";
+    v12 = __strerrbuf;
+    goto LABEL_36;
+  }
+
+  *&__strerrbuf[16] = 0x1400000014;
+  *__strerrbuf = xmmword_1BAA4FA2C;
+  v13 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v13 appendToStringAtColumnWithContent:__strerrbuf column:0 content:"ID" appendAsNewLine:0 addNewLine:0];
+  [v13 appendToStringAtColumnWithContent:__strerrbuf column:1 content:"MEMORY" appendAsNewLine:0 addNewLine:0];
+  [v13 appendToStringAtColumnWithContent:__strerrbuf column:2 content:"NODES(MEM:COUNT)" appendAsNewLine:0 addNewLine:0];
+  [v13 appendToStringAtColumnWithContent:__strerrbuf column:3 content:"MAPS(MEM:COUNT)" appendAsNewLine:0 addNewLine:0];
+  [v13 appendToStringAtColumnWithContent:__strerrbuf column:4 content:"BYTES(MEM:COUNT)" appendAsNewLine:0 addNewLine:0];
+  [v13 appendToStringAtColumnWithContent:__strerrbuf column:5 content:"FLAGS" appendAsNewLine:0 addNewLine:1];
+  v26 = v4;
+  v17 = v4 + 5;
+  do
+  {
+    context = objc_autoreleasePoolPush();
+    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%u", *(v17 - 4)];
+    [v13 appendToStringAtColumnWithContent:__strerrbuf column:0 content:objc_msgSend(v18 appendAsNewLine:"UTF8String") addNewLine:{0, 0}];
+    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%u", *(v17 - 3)];
+    [v13 appendToStringAtColumnWithContent:__strerrbuf column:1 content:objc_msgSend(v19 appendAsNewLine:"UTF8String") addNewLine:{0, 0}];
+    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%u : %u", *(v17 - 2), v17[1]];
+    [v13 appendToStringAtColumnWithContent:__strerrbuf column:2 content:objc_msgSend(v20 appendAsNewLine:"UTF8String") addNewLine:{0, 0}];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%u : %u", *(v17 - 1), v17[2]];
+    [v13 appendToStringAtColumnWithContent:__strerrbuf column:3 content:objc_msgSend(v21 appendAsNewLine:"UTF8String") addNewLine:{0, 0}];
+    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%u : %u", *v17, v17[3]];
+    [v13 appendToStringAtColumnWithContent:__strerrbuf column:4 content:objc_msgSend(v22 appendAsNewLine:"UTF8String") addNewLine:{0, 0}];
+    v23 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"[ "];
+    v24 = v23;
+    v25 = v17[5];
+    if (v25)
+    {
+      [v23 appendFormat:@"R|"];
+      v25 = v17[5];
+    }
+
+    if ((v25 & 2) != 0)
+    {
+      [v24 appendFormat:@"P|"];
+    }
+
+    v17 += 10;
+    [v24 appendFormat:@" ]"];
+    [v13 appendToStringAtColumnWithContent:__strerrbuf column:5 content:objc_msgSend(v24 appendAsNewLine:"UTF8String") addNewLine:{0, 1}];
+
+    objc_autoreleasePoolPop(context);
+    --v8;
+  }
+
+  while (v8);
+  free(v26);
+  return v13;
+}
+
+- (id)dumpKernelPolicies
+{
+  v143 = *MEMORY[0x1E69E9840];
+  v2 = 0x80000;
+  v3 = malloc_type_malloc(0x80000uLL, 0x680F73ACuLL);
+  if (!v3)
+  {
+    v2 = 0x40000;
+    v3 = malloc_type_malloc(0x40000uLL, 0xC79C673FuLL);
+    if (!v3)
     {
       v16 = *__error();
       if (strerror_r(v16, __strerrbuf, 0x80uLL))
@@ -195,224 +347,42 @@ LABEL_10:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         *buf = 134218498;
-        *v32 = 400;
-        *&v32[8] = 1024;
-        *&v32[10] = v16;
-        v33 = 2080;
-        v34 = __strerrbuf;
-        _os_log_fault_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_FAULT, "Failed to allocate memory for trie dump (%zu bytes): [%d] %s", buf, 0x1Cu);
-      }
-
-      goto LABEL_28;
-    }
-  }
-
-  v5 = v4;
-  __memset_chk();
-  if (self)
-  {
-    sessionFD = self->_sessionFD;
-  }
-
-  if (necp_session_action())
-  {
-    v7 = __error();
-    v8 = *v7;
-    if (*v7 != 12)
-    {
-      if (v8 != 2)
-      {
-        if (strerror_r(*v7, __strerrbuf, 0x80uLL))
-        {
-          __strerrbuf[0] = 0;
-        }
-
-        v9 = ne_log_obj();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
-        {
-          *buf = 67109378;
-          *v32 = v8;
-          *&v32[4] = 2080;
-          *&v32[6] = __strerrbuf;
-          _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "Failed to dump all tries: [%d] %s", buf, 0x12u);
-        }
-
-        goto LABEL_22;
-      }
-
-      goto LABEL_17;
-    }
-
-    if (strerror_r(12, __strerrbuf, 0x80uLL))
-    {
-      __strerrbuf[0] = 0;
-    }
-
-    v12 = ne_log_obj();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-LABEL_21:
-
-LABEL_22:
-      free(v5);
-LABEL_28:
-      v15 = 0;
-      goto LABEL_29;
-    }
-
-    *buf = 67109378;
-    *v32 = 12;
-    *&v32[4] = 2080;
-    *&v32[6] = __strerrbuf;
-    v13 = "Failed to dump all tries: [%d] %s";
-    v14 = buf;
-LABEL_38:
-    _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, v13, v14, 0x12u);
-    goto LABEL_21;
-  }
-
-  v10 = *v5;
-  if (!v10)
-  {
-LABEL_17:
-    free(v5);
-    v15 = @"No domain trie entry";
-    goto LABEL_29;
-  }
-
-  v11 = v3 - 4;
-  if (40 * v10 > v11)
-  {
-    v12 = ne_log_obj();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_21;
-    }
-
-    *__strerrbuf = 67109376;
-    *&__strerrbuf[4] = v10;
-    *&__strerrbuf[8] = 2048;
-    *&__strerrbuf[10] = v11;
-    v13 = "Received trie count <%d> invalid with buffer size <%zu>";
-    v14 = __strerrbuf;
-    goto LABEL_38;
-  }
-
-  *&__strerrbuf[16] = 0x1400000014;
-  *__strerrbuf = xmmword_1BAA4FA2C;
-  v15 = objc_alloc_init(MEMORY[0x1E696AD60]);
-  [(__CFString *)v15 appendToStringAtColumnWithContent:__strerrbuf column:0 content:"ID" appendAsNewLine:0 addNewLine:0];
-  [(__CFString *)v15 appendToStringAtColumnWithContent:__strerrbuf column:1 content:"MEMORY" appendAsNewLine:0 addNewLine:0];
-  [(__CFString *)v15 appendToStringAtColumnWithContent:__strerrbuf column:2 content:"NODES(MEM:COUNT)" appendAsNewLine:0 addNewLine:0];
-  [(__CFString *)v15 appendToStringAtColumnWithContent:__strerrbuf column:3 content:"MAPS(MEM:COUNT)" appendAsNewLine:0 addNewLine:0];
-  [(__CFString *)v15 appendToStringAtColumnWithContent:__strerrbuf column:4 content:"BYTES(MEM:COUNT)" appendAsNewLine:0 addNewLine:0];
-  [(__CFString *)v15 appendToStringAtColumnWithContent:__strerrbuf column:5 content:"FLAGS" appendAsNewLine:0 addNewLine:1];
-  v29 = v5;
-  v20 = v5 + 5;
-  do
-  {
-    context = objc_autoreleasePoolPush();
-    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%u", *(v20 - 4)];
-    -[__CFString appendToStringAtColumnWithContent:column:content:appendAsNewLine:addNewLine:](v15, "appendToStringAtColumnWithContent:column:content:appendAsNewLine:addNewLine:", __strerrbuf, 0, [v21 UTF8String], 0, 0);
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%u", *(v20 - 3)];
-    -[__CFString appendToStringAtColumnWithContent:column:content:appendAsNewLine:addNewLine:](v15, "appendToStringAtColumnWithContent:column:content:appendAsNewLine:addNewLine:", __strerrbuf, 1, [v22 UTF8String], 0, 0);
-    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%u : %u", *(v20 - 2), v20[1]];
-    -[__CFString appendToStringAtColumnWithContent:column:content:appendAsNewLine:addNewLine:](v15, "appendToStringAtColumnWithContent:column:content:appendAsNewLine:addNewLine:", __strerrbuf, 2, [v23 UTF8String], 0, 0);
-    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%u : %u", *(v20 - 1), v20[2]];
-    -[__CFString appendToStringAtColumnWithContent:column:content:appendAsNewLine:addNewLine:](v15, "appendToStringAtColumnWithContent:column:content:appendAsNewLine:addNewLine:", __strerrbuf, 3, [v24 UTF8String], 0, 0);
-    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%u : %u", *v20, v20[3]];
-    -[__CFString appendToStringAtColumnWithContent:column:content:appendAsNewLine:addNewLine:](v15, "appendToStringAtColumnWithContent:column:content:appendAsNewLine:addNewLine:", __strerrbuf, 4, [v25 UTF8String], 0, 0);
-    v26 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"[ "];
-    v27 = v26;
-    v28 = v20[5];
-    if (v28)
-    {
-      [v26 appendFormat:@"R|"];
-      v28 = v20[5];
-    }
-
-    if ((v28 & 2) != 0)
-    {
-      [v27 appendFormat:@"P|"];
-    }
-
-    v20 += 10;
-    [v27 appendFormat:@" ]"];
-    -[__CFString appendToStringAtColumnWithContent:column:content:appendAsNewLine:addNewLine:](v15, "appendToStringAtColumnWithContent:column:content:appendAsNewLine:addNewLine:", __strerrbuf, 5, [v27 UTF8String], 0, 1);
-
-    objc_autoreleasePoolPop(context);
-    --v10;
-  }
-
-  while (v10);
-  free(v29);
-LABEL_29:
-  v18 = *MEMORY[0x1E69E9840];
-  return v15;
-}
-
-- (id)dumpKernelPolicies
-{
-  v156 = *MEMORY[0x1E69E9840];
-  v3 = 0x80000;
-  v4 = malloc_type_malloc(0x80000uLL, 0x680F73ACuLL);
-  if (!v4)
-  {
-    v3 = 0x40000;
-    v4 = malloc_type_malloc(0x40000uLL, 0xC79C673FuLL);
-    if (!v4)
-    {
-      v19 = *__error();
-      if (strerror_r(v19, __strerrbuf, 0x80uLL))
-      {
-        __strerrbuf[0] = 0;
-      }
-
-      v20 = ne_log_obj();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
-      {
-        *buf = 134218498;
         *&buf[4] = 0x40000;
         *&buf[12] = 1024;
-        *&buf[14] = v19;
+        *&buf[14] = v16;
         *&buf[18] = 2080;
-        v153 = __strerrbuf;
-        _os_log_fault_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_FAULT, "Failed to allocate memory for policy dump (%zu bytes): [%d] %s", buf, 0x1Cu);
+        v140 = __strerrbuf;
+        _os_log_fault_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_FAULT, "Failed to allocate memory for policy dump (%zu bytes): [%d] %s", buf, 0x1Cu);
       }
 
-      goto LABEL_26;
+      return 0;
     }
   }
 
-  v5 = v4;
+  v4 = v3;
   __memset_chk();
-  if (self)
-  {
-    sessionFD = self->_sessionFD;
-  }
-
   if (necp_session_action())
   {
-    v7 = __error();
-    v8 = *v7;
-    if (*v7 != 12)
+    v5 = __error();
+    v6 = *v5;
+    if (*v5 != 12)
     {
-      if (strerror_r(*v7, __strerrbuf, 0x80uLL))
+      if (strerror_r(*v5, __strerrbuf, 0x80uLL))
       {
         __strerrbuf[0] = 0;
       }
 
-      v15 = ne_log_obj();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v13 = ne_log_obj();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         *buf = 67109378;
-        *&buf[4] = v8;
+        *&buf[4] = v6;
         *&buf[8] = 2080;
         *&buf[10] = __strerrbuf;
-        _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "Failed to dump all policies: [%d] %s", buf, 0x12u);
+        _os_log_fault_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_FAULT, "Failed to dump all policies: [%d] %s", buf, 0x12u);
       }
 
-      goto LABEL_25;
+      goto LABEL_23;
     }
 
     if (strerror_r(12, __strerrbuf, 0x80uLL))
@@ -420,688 +390,676 @@ LABEL_29:
       __strerrbuf[0] = 0;
     }
 
-    v9 = ne_log_obj();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = ne_log_obj();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109378;
       *&buf[4] = 12;
       *&buf[8] = 2080;
       *&buf[10] = __strerrbuf;
-      v10 = "Failed to dump all policies: [%d] %s";
-      v11 = buf;
-      v12 = v9;
-      v13 = 18;
-LABEL_23:
-      _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, v10, v11, v13);
+      v8 = "Failed to dump all policies: [%d] %s";
+      v9 = buf;
+      v10 = v7;
+      v11 = 18;
+LABEL_21:
+      _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, v8, v9, v11);
     }
 
-LABEL_24:
-
-LABEL_25:
-    free(v5);
-LABEL_26:
-    v16 = 0;
-    goto LABEL_27;
-  }
-
-  v14 = *v5;
-  if (v14 <= 3)
-  {
-    v9 = ne_log_obj();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_24;
-    }
-
-    *__strerrbuf = 0;
-    v10 = "Dump TLV size too small, ignoring";
 LABEL_22:
-    v11 = __strerrbuf;
-    v12 = v9;
-    v13 = 2;
-    goto LABEL_23;
+
+LABEL_23:
+    free(v4);
+    return 0;
   }
 
-  if (v3 - 4 < v14)
+  v12 = *v4;
+  if (v12 <= 3)
   {
-    v9 = ne_log_obj();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = ne_log_obj();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_24;
+      goto LABEL_22;
     }
 
     *__strerrbuf = 0;
-    v10 = "Dump TLV size too large, ignoring";
-    goto LABEL_22;
+    v8 = "Dump TLV size too small, ignoring";
+LABEL_20:
+    v9 = __strerrbuf;
+    v10 = v7;
+    v11 = 2;
+    goto LABEL_21;
   }
 
-  v21 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v5 + 1 length:v14];
-  free(v5);
+  if (v2 - 4 < v12)
+  {
+    v7 = ne_log_obj();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_22;
+    }
+
+    *__strerrbuf = 0;
+    v8 = "Dump TLV size too large, ignoring";
+    goto LABEL_20;
+  }
+
+  v18 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v4 + 1 length:v12];
+  free(v4);
   *buf = xmmword_1BAA4FA18;
   *&buf[16] = 20;
-  v22 = objc_alloc_init(MEMORY[0x1E696AD60]);
-  [v22 appendToStringAtColumnWithContent:buf column:0 content:"PROCESS" appendAsNewLine:0 addNewLine:0];
-  [v22 appendToStringAtColumnWithContent:buf column:1 content:"SESSION ORDER" appendAsNewLine:0 addNewLine:0];
-  [v22 appendToStringAtColumnWithContent:buf column:2 content:"POLICY ORDER" appendAsNewLine:0 addNewLine:0];
-  [v22 appendToStringAtColumnWithContent:buf column:3 content:"CONDITIONS" appendAsNewLine:0 addNewLine:0];
-  [v22 appendToStringAtColumnWithContent:buf column:4 content:"RESULTS" appendAsNewLine:0 addNewLine:1];
-  v23 = 0x1E7F04000uLL;
-  v24 = v21;
-  v16 = v22;
+  v19 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v19 appendToStringAtColumnWithContent:buf column:0 content:"PROCESS" appendAsNewLine:0 addNewLine:0];
+  [v19 appendToStringAtColumnWithContent:buf column:1 content:"SESSION ORDER" appendAsNewLine:0 addNewLine:0];
+  [v19 appendToStringAtColumnWithContent:buf column:2 content:"POLICY ORDER" appendAsNewLine:0 addNewLine:0];
+  [v19 appendToStringAtColumnWithContent:buf column:3 content:"CONDITIONS" appendAsNewLine:0 addNewLine:0];
+  [v19 appendToStringAtColumnWithContent:buf column:4 content:"RESULTS" appendAsNewLine:0 addNewLine:1];
+  v20 = 0x1E7F04000uLL;
+  v21 = v18;
+  v14 = v19;
   objc_opt_self();
-  bytes = [v24 bytes];
-  v136 = v24;
-  v26 = 0;
-  v142 = [v24 length];
-  v143 = bytes;
-  v27 = bytes + v142;
-  v28 = bytes;
-  v140 = v16;
-  v141 = bytes + v142;
+  bytes = [v21 bytes];
+  v124 = v21;
+  v23 = 0;
+  v129 = [v21 length];
+  v130 = bytes;
+  v24 = bytes + v129;
+  v25 = bytes;
+  v127 = v14;
+  v128 = bytes + v129;
   while (1)
   {
-    v29 = objc_autoreleasePoolPush();
+    v26 = objc_autoreleasePoolPush();
     objc_opt_self();
     objc_opt_self();
-    if (v27 <= v28)
+    if (v24 <= v25)
     {
-      v124 = ne_log_obj();
-      if (!os_log_type_enabled(v124, OS_LOG_TYPE_INFO))
+      v117 = ne_log_obj();
+      if (!os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
       {
-        goto LABEL_220;
+        goto LABEL_218;
       }
 
       *__strerrbuf = 0;
-      v125 = "Reached end of TLV Buffer";
-      v126 = v124;
-      v127 = 2;
-      goto LABEL_219;
+      v118 = "Reached end of TLV Buffer";
+      v119 = v117;
+      v120 = 2;
+      goto LABEL_217;
     }
 
-    v30 = *(v28 + 1);
-    if (&v28[v30 + 5] > v27)
+    v27 = *(v25 + 1);
+    if (&v25[v27 + 5] > v24)
     {
       break;
     }
 
-    v31 = [NEPolicySession copyTLVForBytes:v143 messageLength:v142 type:101 includeHeaderOffset:v26 n:0 hasFlags:?];
-    if (!v31)
+    v28 = [NEPolicySession copyTLVForBytes:v130 messageLength:v129 type:101 includeHeaderOffset:v23 n:0 hasFlags:?];
+    if (!v28)
     {
-      goto LABEL_221;
+      goto LABEL_219;
     }
 
-    v32 = v31;
-    v148 = v26;
-    v145 = v28;
-    v146 = v29;
-    v147 = [v31 length];
-    v33 = *(v23 + 3448);
-    v34 = v32;
+    v29 = v28;
+    v135 = v23;
+    v132 = v25;
+    v133 = v26;
+    v134 = [v28 length];
+    v30 = v29;
     objc_opt_self();
-    v144 = objc_alloc_init(MEMORY[0x1E696AD60]);
-    v35 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v149 = v34;
-    v151 = v35;
-    if ([v34 length])
+    v131 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    v31 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v136 = v30;
+    v138 = v31;
+    if ([v30 length])
     {
-      v36 = 0;
-      v37 = 0;
+      v32 = 0;
+      v33 = 0;
       do
       {
-        v38 = *(v23 + 3448);
-        bytes2 = [v34 bytes];
+        bytes2 = [v30 bytes];
         objc_opt_self();
         if (!bytes2)
         {
           break;
         }
 
-        v40 = bytes2 + v36;
-        v41 = *(bytes2 + v36);
-        if (!v41)
+        v35 = bytes2 + v32;
+        v36 = *(bytes2 + v32);
+        if (!v36)
         {
           break;
         }
 
-        v150 = *(v40 + 1);
-        v42 = +[NEPolicySession copyTLVForBytes:messageLength:type:includeHeaderOffset:n:hasFlags:](*(v23 + 3448), [v34 bytes] + v36, objc_msgSend(v34, "length"), v41, 0, 0);
-        v43 = objc_alloc_init(MEMORY[0x1E696AD60]);
-        if (v42 && [v42 bytes])
+        v137 = *(v35 + 1);
+        v37 = +[NEPolicySession copyTLVForBytes:messageLength:type:includeHeaderOffset:n:hasFlags:](*(v20 + 3448), [v30 bytes] + v32, objc_msgSend(v30, "length"), v36, 0, 0);
+        v38 = objc_alloc_init(MEMORY[0x1E696AD60]);
+        if (v37 && [v37 bytes])
         {
-          if (v41 > 99)
+          if (v36 > 99)
           {
-            if (v41 == 100 || v41 == 102)
+            if (v36 == 100 || v36 == 102)
             {
-              [v43 appendFormat:@"%s", objc_msgSend(v42, "bytes"), bytes4];
+              [v38 appendFormat:@"%s", objc_msgSend(v37, "bytes"), bytes4];
             }
 
-            else if (v41 == 103)
+            else if (v36 == 103)
             {
-              v45 = *[v42 bytes];
-              v46 = "unknown";
-              if ((v45 / 1000) <= 0xA)
+              v40 = *[v37 bytes];
+              v41 = "unknown";
+              if ((v40 / 1000) <= 0xA)
               {
-                v46 = off_1E7F0A608[v45 / 1000];
+                v41 = off_1E7F0A608[v40 / 1000];
               }
 
-              [v43 appendFormat:@"%s (%u)", v46, v45];
+              [v38 appendFormat:@"%s (%u)", v41, v40];
             }
           }
 
           else
           {
-            switch(v41)
+            switch(v36)
             {
               case 2:
-                goto LABEL_47;
+                goto LABEL_45;
               case 3:
-                if ([v42 length])
+                if ([v37 length])
                 {
-                  v47 = 0;
-                  v48 = 0;
+                  v42 = 0;
+                  v43 = 0;
                   while (1)
                   {
-                    v49 = v23;
-                    v50 = *(v23 + 3448);
-                    bytes3 = [v42 bytes];
+                    v44 = v20;
+                    bytes3 = [v37 bytes];
                     objc_opt_self();
                     if (bytes3)
                     {
-                      v48 += *(bytes3 + v47 + 1) + 6;
-                      v52 = *(bytes3 + v47 + 5);
-                      v53 = *(bytes3 + v47);
+                      v43 += *(bytes3 + v42 + 1) + 6;
+                      v46 = *(bytes3 + v42 + 5);
+                      v47 = *(bytes3 + v42);
                     }
 
                     else
                     {
-                      v52 = 0;
-                      v53 = 0;
+                      v46 = 0;
+                      v47 = 0;
                     }
 
-                    v54 = +[NEPolicySession copyTLVForBytes:messageLength:type:includeHeaderOffset:n:hasFlags:](*(v49 + 3448), [v42 bytes] + v47, objc_msgSend(v42, "length"), v53, 0, 1);
-                    v55 = objc_alloc_init(MEMORY[0x1E696AD60]);
-                    v56 = [v151 objectForKey:&unk_1F38BA5F8];
-                    if (!v56)
+                    v48 = +[NEPolicySession copyTLVForBytes:messageLength:type:includeHeaderOffset:n:hasFlags:](*(v44 + 3448), [v37 bytes] + v42, objc_msgSend(v37, "length"), v47, 0, 1);
+                    v49 = objc_alloc_init(MEMORY[0x1E696AD60]);
+                    v50 = [v138 objectForKey:&unk_1F38BA5F8];
+                    if (!v50)
                     {
-                      v56 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                      v50 = objc_alloc_init(MEMORY[0x1E695DF70]);
                     }
 
-                    switch(v53)
+                    switch(v47)
                     {
                       case 0:
-                        v57 = v55;
-                        v58 = @"default ";
-                        goto LABEL_130;
+                        v51 = v49;
+                        v52 = @"default ";
+                        goto LABEL_128;
                       case 1:
                         memset(__strerrbuf, 0, 37);
-                        uuid_unparse([v54 bytes], __strerrbuf);
-                        v78 = "!";
-                        if ((v52 & 1) == 0)
+                        uuid_unparse([v48 bytes], __strerrbuf);
+                        v71 = "!";
+                        if ((v46 & 1) == 0)
                         {
-                          v78 = "";
+                          v71 = "";
                         }
 
                         bytes4 = __strerrbuf;
-                        [v55 appendFormat:@"%seffective-application:%s ", v78];
-                        goto LABEL_131;
+                        [v49 appendFormat:@"%seffective-application:%s ", v71];
+                        goto LABEL_129;
                       case 2:
                         memset(__strerrbuf, 0, 37);
-                        uuid_unparse([v54 bytes], __strerrbuf);
-                        v77 = "!";
-                        if ((v52 & 1) == 0)
+                        uuid_unparse([v48 bytes], __strerrbuf);
+                        v70 = "!";
+                        if ((v46 & 1) == 0)
                         {
-                          v77 = "";
+                          v70 = "";
                         }
 
                         bytes4 = __strerrbuf;
-                        [v55 appendFormat:@"%sreal-application:%s ", v77];
-                        goto LABEL_131;
+                        [v49 appendFormat:@"%sreal-application:%s ", v70];
+                        goto LABEL_129;
                       case 3:
-                        if (v52)
+                        if (v46)
                         {
-                          v69 = "!";
+                          v63 = "!";
                         }
 
                         else
                         {
-                          v69 = "";
+                          v63 = "";
                         }
 
-                        if ((v52 & 2) != 0)
+                        if ((v46 & 2) != 0)
                         {
-                          v70 = "fqdn";
+                          v64 = "fqdn";
                         }
 
                         else
                         {
-                          v70 = "domain";
+                          v64 = "domain";
                         }
 
-                        bytes4 = v70;
-                        [v54 bytes];
-                        [v55 appendFormat:@"%s%s:%s ", v69];
-                        goto LABEL_131;
+                        bytes4 = v64;
+                        [v48 bytes];
+                        [v49 appendFormat:@"%s%s:%s ", v63];
+                        goto LABEL_129;
                       case 4:
-                        if (v52)
+                        if (v46)
                         {
-                          v61 = "!";
+                          v55 = "!";
                         }
 
                         else
                         {
-                          v61 = "";
+                          v55 = "";
                         }
 
-                        bytes4 = [v54 bytes];
-                        [v55 appendFormat:@"%saccount-identifier:%s ", v61];
-                        goto LABEL_131;
+                        bytes4 = [v48 bytes];
+                        [v49 appendFormat:@"%saccount-identifier:%s ", v55];
+                        goto LABEL_129;
                       case 5:
-                        if (v54 && [v54 length])
+                        if (v48 && [v48 length])
                         {
-                          if (v52)
+                          if (v46)
                           {
-                            v67 = "!";
+                            v61 = "!";
                           }
 
                           else
                           {
-                            v67 = "";
+                            v61 = "";
                           }
 
-                          bytes4 = [v54 bytes];
-                          [v55 appendFormat:@"%scustom-entitlement:%s ", v67];
+                          bytes4 = [v48 bytes];
+                          [v49 appendFormat:@"%scustom-entitlement:%s ", v61];
                         }
 
                         else
                         {
-                          v83 = "!";
-                          if ((v52 & 1) == 0)
+                          v76 = "!";
+                          if ((v46 & 1) == 0)
                           {
-                            v83 = "";
+                            v76 = "";
                           }
 
-                          v129 = v83;
-                          v57 = v55;
-                          v58 = @"%sentitlement ";
-LABEL_130:
-                          [v57 appendFormat:v58, v129];
+                          v122 = v76;
+                          v51 = v49;
+                          v52 = @"%sentitlement ";
+LABEL_128:
+                          [v51 appendFormat:v52, v122];
                         }
 
-                        goto LABEL_131;
+                        goto LABEL_129;
                       case 6:
-                        if (v52)
+                        if (v46)
                         {
-                          v79 = "!";
+                          v72 = "!";
                         }
 
                         else
                         {
-                          v79 = "";
+                          v72 = "";
                         }
 
-                        [v55 appendFormat:@"%seffective-pid:%u ", v79, *objc_msgSend(v54, "bytes")];
-                        v23 = v49;
-                        v35 = v151;
-                        if ([v54 length] >= 8)
+                        [v49 appendFormat:@"%seffective-pid:%u ", v72, *objc_msgSend(v48, "bytes")];
+                        v20 = v44;
+                        v31 = v138;
+                        if ([v48 length] >= 8)
                         {
-                          bytes4 = *([v54 bytes] + 4);
-                          [v55 appendFormat:@"%sversion:%d ", v79];
+                          bytes4 = *([v48 bytes] + 4);
+                          [v49 appendFormat:@"%sversion:%d ", v72];
                         }
 
-                        goto LABEL_132;
+                        goto LABEL_130;
                       case 7:
-                        if (v52)
+                        if (v46)
                         {
-                          v80 = "!";
+                          v73 = "!";
                         }
 
                         else
                         {
-                          v80 = "";
+                          v73 = "";
                         }
 
-                        bytes4 = *[v54 bytes];
-                        [v55 appendFormat:@"%suid:%u ", v80];
-                        goto LABEL_131;
+                        bytes4 = *[v48 bytes];
+                        [v49 appendFormat:@"%suid:%u ", v73];
+                        goto LABEL_129;
                       case 8:
-                        v82 = "!";
-                        if ((v52 & 1) == 0)
+                        v75 = "!";
+                        if ((v46 & 1) == 0)
                         {
-                          v82 = "";
+                          v75 = "";
                         }
 
-                        [v55 appendFormat:@"%sall-interfaces ", v82];
-                        goto LABEL_131;
+                        [v49 appendFormat:@"%sall-interfaces ", v75];
+                        goto LABEL_129;
                       case 9:
-                        if (v52)
+                        if (v46)
                         {
-                          v81 = "!";
+                          v74 = "!";
                         }
 
                         else
                         {
-                          v81 = "";
+                          v74 = "";
                         }
 
-                        bytes4 = [v54 bytes];
-                        [v55 appendFormat:@"%sscoped-interface:%s ", v81];
-                        goto LABEL_131;
+                        bytes4 = [v48 bytes];
+                        [v49 appendFormat:@"%sscoped-interface:%s ", v74];
+                        goto LABEL_129;
                       case 10:
-                        bytes5 = [v54 bytes];
+                        bytes5 = [v48 bytes];
+                        v54 = "!";
+                        if ((v46 & 1) == 0)
+                        {
+                          v54 = "";
+                        }
+
+                        bytes4 = *bytes5;
+                        [v49 appendFormat:@"%straffic-class-range:%u-%u ", v54];
+                        goto LABEL_129;
+                      case 11:
+                        if (v46)
+                        {
+                          v62 = "!";
+                        }
+
+                        else
+                        {
+                          v62 = "";
+                        }
+
+                        bytes4 = *[v48 bytes];
+                        [v49 appendFormat:@"%sip-protocol:%u ", v62];
+                        goto LABEL_129;
+                      case 16:
+                        v142 = 0u;
+                        memset(__strerrbuf, 0, sizeof(__strerrbuf));
+                        bytes6 = [v48 bytes];
+                        v57 = bytes6[3];
+                        v59 = *bytes6;
+                        v58 = bytes6[1];
+                        *&__strerrbuf[32] = bytes6[2];
+                        v142 = v57;
+                        *__strerrbuf = v59;
+                        *&__strerrbuf[16] = v58;
                         v60 = "!";
-                        if ((v52 & 1) == 0)
+                        if ((v46 & 1) == 0)
                         {
                           v60 = "";
                         }
 
-                        bytes4 = *bytes5;
-                        v131 = bytes5[1];
-                        [v55 appendFormat:@"%straffic-class-range:%u-%u ", v60];
-                        goto LABEL_131;
-                      case 11:
-                        if (v52)
-                        {
-                          v68 = "!";
-                        }
-
-                        else
-                        {
-                          v68 = "";
-                        }
-
-                        bytes4 = *[v54 bytes];
-                        [v55 appendFormat:@"%sip-protocol:%u ", v68];
-                        goto LABEL_131;
-                      case 16:
-                        v155 = 0u;
-                        memset(__strerrbuf, 0, sizeof(__strerrbuf));
-                        bytes6 = [v54 bytes];
-                        v63 = bytes6[3];
-                        v65 = *bytes6;
-                        v64 = bytes6[1];
-                        *&__strerrbuf[32] = bytes6[2];
-                        v155 = v63;
-                        *__strerrbuf = v65;
-                        *&__strerrbuf[16] = v64;
-                        v66 = "!";
-                        if ((v52 & 1) == 0)
-                        {
-                          v66 = "";
-                        }
-
                         bytes4 = __strerrbuf;
-                        [v55 appendFormat:@"%sagent-domain:%s/agent-type:%s", v66];
-                        goto LABEL_131;
+                        [v49 appendFormat:@"%sagent-domain:%s/agent-type:%s", v60];
+                        goto LABEL_129;
                       default:
-                        if ((v53 & 0xFE) == 0xE)
+                        if ((v47 & 0xFE) == 0xE)
                         {
-                          bytes7 = [v54 bytes];
-                          v139 = NECreateAddressString(bytes7);
-                          v84 = NECreateAddressString((bytes7 + 28));
-                          v85 = "!";
-                          if ((v52 & 1) == 0)
+                          bytes7 = [v48 bytes];
+                          v126 = NECreateAddressString(bytes7);
+                          v77 = NECreateAddressString((bytes7 + 28));
+                          v78 = "!";
+                          if ((v46 & 1) == 0)
                           {
-                            v85 = "";
+                            v78 = "";
                           }
 
-                          if (v139)
+                          if (v126)
                           {
-                            v86 = v139;
-                          }
-
-                          else
-                          {
-                            v86 = @"<nil>";
-                          }
-
-                          v87 = v84;
-                          if (v53 == 14)
-                          {
-                            v88 = @"%slocal-address-range:%@-%@";
+                            v79 = v126;
                           }
 
                           else
                           {
-                            v88 = @"%sremote-address-range:%@-%@";
+                            v79 = @"<nil>";
                           }
 
-                          bytes4 = v86;
-                          [v55 appendFormat:v88, v85];
+                          v80 = v77;
+                          if (v47 == 14)
+                          {
+                            v81 = @"%slocal-address-range:%@-%@";
+                          }
 
-                          goto LABEL_131;
+                          else
+                          {
+                            v81 = @"%sremote-address-range:%@-%@";
+                          }
+
+                          bytes4 = v79;
+                          [v49 appendFormat:v81, v78];
+
+                          goto LABEL_129;
                         }
 
-                        if ((v53 & 0xFE) == 0xC)
+                        if ((v47 & 0xFE) == 0xC)
                         {
-                          bytes8 = [v54 bytes];
-                          v71 = NECreateAddressStringWithPort((bytes8 + 1));
-                          v72 = "!";
-                          if ((v52 & 1) == 0)
+                          v65 = NECreateAddressStringWithPort([v48 bytes] + 1);
+                          v66 = "!";
+                          if ((v46 & 1) == 0)
                           {
-                            v72 = "";
+                            v66 = "";
                           }
 
-                          v73 = @"<nil>";
-                          if (v71)
+                          v67 = @"<nil>";
+                          if (v65)
                           {
-                            v73 = v71;
+                            v67 = v65;
                           }
 
-                          v74 = v71;
-                          v75 = *bytes8;
-                          if (v53 == 12)
+                          v68 = v65;
+                          if (v47 == 12)
                           {
-                            v76 = @"%slocal-address:%@/%u";
+                            v69 = @"%slocal-address:%@/%u";
                           }
 
                           else
                           {
-                            v76 = @"%sremote-address:%@/%u";
+                            v69 = @"%sremote-address:%@/%u";
                           }
 
-                          bytes4 = v73;
-                          [v55 appendFormat:v76, v72];
+                          bytes4 = v67;
+                          [v49 appendFormat:v69, v66];
 
-LABEL_131:
-                          v23 = v49;
-                          v35 = v151;
-                          goto LABEL_132;
+LABEL_129:
+                          v20 = v44;
+                          v31 = v138;
+                          goto LABEL_130;
                         }
 
-                        v89 = v53 - 17;
-                        v23 = v49;
-                        v35 = v151;
-                        switch(v89)
+                        v82 = v47 - 17;
+                        v20 = v44;
+                        v31 = v138;
+                        switch(v82)
                         {
                           case 0:
-                            v90 = "!";
-                            if ((v52 & 1) == 0)
+                            v83 = "!";
+                            if ((v46 & 1) == 0)
+                            {
+                              v83 = "";
+                            }
+
+                            [v49 appendFormat:@"%smodern-network-api", v83];
+                            break;
+                          case 1:
+                            if (v46)
+                            {
+                              v90 = "!";
+                            }
+
+                            else
                             {
                               v90 = "";
                             }
 
-                            [v55 appendFormat:@"%smodern-network-api", v90];
-                            break;
-                          case 1:
-                            if (v52)
-                            {
-                              v97 = "!";
-                            }
-
-                            else
-                            {
-                              v97 = "";
-                            }
-
-                            bytes4 = *[v54 bytes];
-                            [v55 appendFormat:@"%slocal-networks:%u", v97];
+                            bytes4 = *[v48 bytes];
+                            [v49 appendFormat:@"%slocal-networks:%u", v90];
                             break;
                           case 7:
-                            if (v52)
+                            if (v46)
                             {
-                              v94 = "!";
+                              v87 = "!";
                             }
 
                             else
                             {
-                              v94 = "";
+                              v87 = "";
                             }
 
-                            bytes4 = *[v54 bytes];
-                            [v55 appendFormat:@"%sclient-flags:%u", v94];
+                            bytes4 = *[v48 bytes];
+                            [v49 appendFormat:@"%sclient-flags:%u", v87];
                             break;
                           case 8:
-                            v103 = "!";
-                            if ((v52 & 1) == 0)
-                            {
-                              v103 = "";
-                            }
-
-                            [v55 appendFormat:@"%slocal-address-empty", v103];
-                            break;
-                          case 9:
-                            v104 = "!";
-                            if ((v52 & 1) == 0)
-                            {
-                              v104 = "";
-                            }
-
-                            [v55 appendFormat:@"%sremote-address-empty", v104];
-                            break;
-                          case 10:
-                            v95 = "!";
-                            if ((v52 & 1) == 0)
-                            {
-                              v95 = "";
-                            }
-
-                            [v55 appendFormat:@"%splatform-binary", v95];
-                            break;
-                          case 11:
-                            bytes9 = [v54 bytes];
-                            v99 = "!";
-                            if ((v52 & 1) == 0)
-                            {
-                              v99 = "";
-                            }
-
-                            v132 = bytes9[2];
-                            v134 = bytes9[1];
-                            bytes4 = *bytes9;
-                            [v55 appendFormat:@"%splatform:%u/sdk-version:%u/min-sdk-version:%u", v99];
-                            break;
-                          case 12:
-                            if (v54 && [v54 length])
-                            {
-                              if (v52)
-                              {
-                                v100 = "!";
-                              }
-
-                              else
-                              {
-                                v100 = "";
-                              }
-
-                              bytes4 = [v54 bytes];
-                              [v55 appendFormat:@"%ssigning-identifier:%s ", v100];
-                            }
-
-                            else
-                            {
-                              v107 = "!";
-                              if ((v52 & 1) == 0)
-                              {
-                                v107 = "";
-                              }
-
-                              [v55 appendFormat:@"%ssigning-identifier ", v107];
-                            }
-
-                            break;
-                          case 13:
-                            if (v52)
-                            {
-                              v106 = "!";
-                            }
-
-                            else
-                            {
-                              v106 = "";
-                            }
-
-                            bytes4 = *[v54 bytes];
-                            [v55 appendFormat:@"%spacket-filter-tags:%u", v106];
-                            break;
-                          case 14:
-                            v105 = "!";
-                            if ((v52 & 1) == 0)
-                            {
-                              v105 = "";
-                            }
-
-                            [v55 appendFormat:@"%sis-loopback", v105];
-                            break;
-                          case 15:
-                            v92 = "!";
-                            if ((v52 & 1) == 0)
-                            {
-                              v92 = "";
-                            }
-
-                            [v55 appendFormat:@"%sdelegate-is-platform-binary", v92];
-                            break;
-                          case 20:
-                            if (v52)
-                            {
-                              v96 = "!";
-                            }
-
-                            else
+                            v96 = "!";
+                            if ((v46 & 1) == 0)
                             {
                               v96 = "";
                             }
 
-                            bytes4 = (bswap32(*[v54 bytes]) >> 16);
-                            [v55 appendFormat:@"%sscheme-port:%u", v96];
+                            [v49 appendFormat:@"%slocal-address-empty", v96];
                             break;
-                          case 21:
-                            if (v52)
+                          case 9:
+                            v97 = "!";
+                            if ((v46 & 1) == 0)
                             {
-                              v93 = "!";
+                              v97 = "";
+                            }
+
+                            [v49 appendFormat:@"%sremote-address-empty", v97];
+                            break;
+                          case 10:
+                            v88 = "!";
+                            if ((v46 & 1) == 0)
+                            {
+                              v88 = "";
+                            }
+
+                            [v49 appendFormat:@"%splatform-binary", v88];
+                            break;
+                          case 11:
+                            bytes8 = [v48 bytes];
+                            v92 = "!";
+                            if ((v46 & 1) == 0)
+                            {
+                              v92 = "";
+                            }
+
+                            bytes4 = *bytes8;
+                            [v49 appendFormat:@"%splatform:%u/sdk-version:%u/min-sdk-version:%u", v92];
+                            break;
+                          case 12:
+                            if (v48 && [v48 length])
+                            {
+                              if (v46)
+                              {
+                                v93 = "!";
+                              }
+
+                              else
+                              {
+                                v93 = "";
+                              }
+
+                              bytes4 = [v48 bytes];
+                              [v49 appendFormat:@"%ssigning-identifier:%s ", v93];
                             }
 
                             else
                             {
-                              v93 = "";
-                            }
-
-                            bytes4 = *[v54 bytes];
-                            [v55 appendFormat:@"%sdomain-filter:%u ", v93];
-                            break;
-                          case 22:
-                            v91 = "!";
-                            if ((v52 & 1) == 0)
-                            {
-                              v91 = "";
-                            }
-
-                            [v55 appendFormat:@"%ssigned-result", v91];
-                            break;
-                          case 26:
-                            if ([v54 length] >= 0xC)
-                            {
-                              bytes10 = [v54 bytes];
-                              v102 = "!";
-                              if ((v52 & 1) == 0)
+                              v100 = "!";
+                              if ((v46 & 1) == 0)
                               {
-                                v102 = "";
+                                v100 = "";
                               }
 
-                              v133 = bytes10[1];
-                              v135 = bytes10[2];
-                              bytes4 = *bytes10;
-                              [v55 appendFormat:@"%sscoped-interface-flags: %X, eflags %X, xflags %X", v102];
+                              [v49 appendFormat:@"%ssigning-identifier ", v100];
+                            }
+
+                            break;
+                          case 13:
+                            if (v46)
+                            {
+                              v99 = "!";
+                            }
+
+                            else
+                            {
+                              v99 = "";
+                            }
+
+                            bytes4 = *[v48 bytes];
+                            [v49 appendFormat:@"%spacket-filter-tags:%u", v99];
+                            break;
+                          case 14:
+                            v98 = "!";
+                            if ((v46 & 1) == 0)
+                            {
+                              v98 = "";
+                            }
+
+                            [v49 appendFormat:@"%sis-loopback", v98];
+                            break;
+                          case 15:
+                            v85 = "!";
+                            if ((v46 & 1) == 0)
+                            {
+                              v85 = "";
+                            }
+
+                            [v49 appendFormat:@"%sdelegate-is-platform-binary", v85];
+                            break;
+                          case 20:
+                            if (v46)
+                            {
+                              v89 = "!";
+                            }
+
+                            else
+                            {
+                              v89 = "";
+                            }
+
+                            bytes4 = (bswap32(*[v48 bytes]) >> 16);
+                            [v49 appendFormat:@"%sscheme-port:%u", v89];
+                            break;
+                          case 21:
+                            if (v46)
+                            {
+                              v86 = "!";
+                            }
+
+                            else
+                            {
+                              v86 = "";
+                            }
+
+                            bytes4 = *[v48 bytes];
+                            [v49 appendFormat:@"%sdomain-filter:%u ", v86];
+                            break;
+                          case 22:
+                            v84 = "!";
+                            if ((v46 & 1) == 0)
+                            {
+                              v84 = "";
+                            }
+
+                            [v49 appendFormat:@"%ssigned-result", v84];
+                            break;
+                          case 26:
+                            if ([v48 length] >= 0xC)
+                            {
+                              bytes9 = [v48 bytes];
+                              v95 = "!";
+                              if ((v46 & 1) == 0)
+                              {
+                                v95 = "";
+                              }
+
+                              bytes4 = *bytes9;
+                              [v49 appendFormat:@"%sscoped-interface-flags: %X, eflags %X, xflags %X", v95];
                             }
 
                             break;
@@ -1109,14 +1067,14 @@ LABEL_131:
                             break;
                         }
 
-LABEL_132:
-                        [v56 addObject:v55];
-                        [v35 setObject:v56 forKey:&unk_1F38BA5F8];
+LABEL_130:
+                        [v50 addObject:v49];
+                        [v31 setObject:v50 forKey:&unk_1F38BA5F8];
 
-                        v47 = v48;
-                        if ([v42 length] <= v48)
+                        v42 = v43;
+                        if ([v37 length] <= v43)
                         {
-                          goto LABEL_50;
+                          goto LABEL_48;
                         }
 
                         break;
@@ -1124,10 +1082,10 @@ LABEL_132:
                   }
                 }
 
-                goto LABEL_50;
+                goto LABEL_48;
               case 5:
-LABEL_47:
-                [v43 appendFormat:@"%u", *objc_msgSend(v42, "bytes"), bytes4];
+LABEL_45:
+                [v38 appendFormat:@"%u", *objc_msgSend(v37, "bytes"), bytes4];
                 break;
             }
           }
@@ -1135,133 +1093,131 @@ LABEL_47:
 
         else
         {
-          [v43 appendFormat:@"N/A", v129, bytes4];
+          [v38 appendFormat:@"N/A", v122, bytes4];
         }
 
-        v44 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:v41];
-        [v35 setObject:v43 forKey:v44];
+        v39 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:v36];
+        [v31 setObject:v38 forKey:v39];
 
-LABEL_50:
-        v36 = (v37 + v150 + 5);
+LABEL_48:
+        v32 = (v33 + v137 + 5);
 
-        v34 = v149;
-        v37 = v36;
+        v30 = v136;
+        v33 = v32;
       }
 
-      while ([v149 length] > v36);
+      while ([v136 length] > v32);
     }
 
-    if ([v35 count])
+    if ([v31 count])
     {
       *&__strerrbuf[16] = 20;
       *__strerrbuf = xmmword_1BAA4FA18;
-      v108 = [v35 objectForKey:&unk_1F38BA610];
-      v109 = v144;
-      [v144 appendToStringAtColumnWithContent:__strerrbuf column:0 content:objc_msgSend(v108 appendAsNewLine:"UTF8String") addNewLine:{0, 0}];
+      v101 = [v31 objectForKey:&unk_1F38BA610];
+      v102 = v131;
+      [v131 appendToStringAtColumnWithContent:__strerrbuf column:0 content:objc_msgSend(v101 appendAsNewLine:"UTF8String") addNewLine:{0, 0}];
 
-      v110 = [v35 objectForKey:&unk_1F38BA628];
-      [v144 appendToStringAtColumnWithContent:__strerrbuf column:1 content:objc_msgSend(v110 appendAsNewLine:"UTF8String") addNewLine:{0, 0}];
+      v103 = [v31 objectForKey:&unk_1F38BA628];
+      [v131 appendToStringAtColumnWithContent:__strerrbuf column:1 content:objc_msgSend(v103 appendAsNewLine:"UTF8String") addNewLine:{0, 0}];
 
-      v111 = [v35 objectForKey:&unk_1F38BA640];
-      [v144 appendToStringAtColumnWithContent:__strerrbuf column:2 content:objc_msgSend(v111 appendAsNewLine:"UTF8String") addNewLine:{0, 0}];
+      v104 = [v31 objectForKey:&unk_1F38BA640];
+      [v131 appendToStringAtColumnWithContent:__strerrbuf column:2 content:objc_msgSend(v104 appendAsNewLine:"UTF8String") addNewLine:{0, 0}];
 
-      v112 = [v35 objectForKey:&unk_1F38BA5F8];
-      v16 = v140;
-      v113 = v145;
-      if (v112 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v114 = [v112 count]) != 0)
+      v105 = [v31 objectForKey:&unk_1F38BA5F8];
+      v14 = v127;
+      v106 = v132;
+      if (v105 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (v107 = [v105 count]) != 0)
       {
-        v115 = v114;
-        v116 = 0;
-        v117 = v148;
-        v27 = v141;
+        v108 = v107;
+        v109 = 0;
+        v110 = v135;
+        v24 = v128;
         do
         {
-          v118 = [v112 objectAtIndex:v116];
-          [v144 appendToStringAtColumnWithContent:__strerrbuf column:3 content:objc_msgSend(v118 appendAsNewLine:"UTF8String") addNewLine:{v116 != 0, --v115 != 0}];
+          v111 = [v105 objectAtIndex:v109];
+          [v131 appendToStringAtColumnWithContent:__strerrbuf column:3 content:objc_msgSend(v111 appendAsNewLine:"UTF8String") addNewLine:{v109 != 0, --v108 != 0}];
 
-          ++v116;
+          ++v109;
         }
 
-        while (v115);
+        while (v108);
       }
 
       else
       {
-        [v144 appendToStringAtColumnWithContent:__strerrbuf column:3 content:"--" appendAsNewLine:0 addNewLine:0];
-        v117 = v148;
-        v27 = v141;
+        [v131 appendToStringAtColumnWithContent:__strerrbuf column:3 content:"--" appendAsNewLine:0 addNewLine:0];
+        v110 = v135;
+        v24 = v128;
       }
 
-      v119 = v151;
-      v120 = [v151 objectForKey:&unk_1F38BA658];
-      [v144 appendToStringAtColumnWithContent:__strerrbuf column:4 content:objc_msgSend(v120 appendAsNewLine:"UTF8String") addNewLine:{0, 1}];
+      v112 = v138;
+      v113 = [v138 objectForKey:&unk_1F38BA658];
+      [v131 appendToStringAtColumnWithContent:__strerrbuf column:4 content:objc_msgSend(v113 appendAsNewLine:"UTF8String") addNewLine:{0, 1}];
 
-      v121 = v144;
-      v34 = v149;
-      v122 = v146;
+      v114 = v131;
+      v30 = v136;
+      v115 = v133;
     }
 
     else
     {
-      v121 = @"NO DATA";
-      v16 = v140;
-      v27 = v141;
-      v113 = v145;
-      v122 = v146;
-      v119 = v35;
-      v117 = v148;
-      v109 = v144;
+      v114 = @"NO DATA";
+      v14 = v127;
+      v24 = v128;
+      v106 = v132;
+      v115 = v133;
+      v112 = v31;
+      v110 = v135;
+      v102 = v131;
     }
 
-    v28 = &v113[v147 + 5];
-    v26 = v117 + 1;
+    v25 = &v106[v134 + 5];
+    v23 = v110 + 1;
 
-    if (v121)
+    if (v114)
     {
-      v123 = v121;
+      v116 = v114;
     }
 
     else
     {
-      v123 = @"nil";
+      v116 = @"nil";
     }
 
-    [v16 appendString:v123];
+    [v14 appendString:v116];
 
-    objc_autoreleasePoolPop(v122);
+    objc_autoreleasePoolPop(v115);
   }
 
-  v128 = *v28;
-  v124 = ne_log_obj();
-  if (!os_log_type_enabled(v124, OS_LOG_TYPE_INFO))
+  v121 = *v25;
+  v117 = ne_log_obj();
+  if (!os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
   {
-    goto LABEL_220;
+    goto LABEL_218;
   }
 
   *__strerrbuf = 134218496;
-  *&__strerrbuf[4] = &v28[-v143];
+  *&__strerrbuf[4] = &v25[-v130];
   *&__strerrbuf[12] = 1024;
-  *&__strerrbuf[14] = v128;
+  *&__strerrbuf[14] = v121;
   *&__strerrbuf[18] = 1024;
-  *&__strerrbuf[20] = v30;
-  v125 = "TLV buffer truncated: cursor - start: %zu, type: %d, length: %u";
-  v126 = v124;
-  v127 = 24;
-LABEL_219:
-  _os_log_impl(&dword_1BA83C000, v126, OS_LOG_TYPE_INFO, v125, __strerrbuf, v127);
-LABEL_220:
+  *&__strerrbuf[20] = v27;
+  v118 = "TLV buffer truncated: cursor - start: %zu, type: %d, length: %u";
+  v119 = v117;
+  v120 = 24;
+LABEL_217:
+  _os_log_impl(&dword_1BA83C000, v119, OS_LOG_TYPE_INFO, v118, __strerrbuf, v120);
+LABEL_218:
 
-LABEL_221:
-  if (&v28[-v143] != v142)
+LABEL_219:
+  if (&v25[-v130] != v129)
   {
-    [v16 appendString:@"\nMISSING POLICY INFORMATION!\n"];
+    [v14 appendString:@"\nMISSING POLICY INFORMATION!\n"];
   }
 
-  objc_autoreleasePoolPop(v29);
+  objc_autoreleasePoolPop(v26);
 
-LABEL_27:
-  v17 = *MEMORY[0x1E69E9840];
-  return v16;
+  return v14;
 }
 
 + (uint64_t)copyTLVForBytes:(uint64_t)bytes messageLength:(uint64_t)length type:(unint64_t)type includeHeaderOffset:(int)offset n:(int)n hasFlags:(int)flags
@@ -1312,6 +1268,1287 @@ LABEL_7:
   return [v16 initWithBytes:v13 + v15 length:v17];
 }
 
+- (unint64_t)addPolicy:(id)policy storeLocally:(BOOL)locally
+{
+  locallyCopy = locally;
+  v169 = *MEMORY[0x1E69E9840];
+  policyCopy = policy;
+  v7 = policyCopy;
+  if (!policyCopy)
+  {
+    goto LABEL_309;
+  }
+
+  v8 = policyCopy[2];
+  if (!v8)
+  {
+    goto LABEL_309;
+  }
+
+  v9 = *(v8 + 4);
+  if (v9 <= 7)
+  {
+    if ((v9 - 1) < 4)
+    {
+      goto LABEL_30;
+    }
+
+    if ((v9 - 5) < 2)
+    {
+      if (!*(v8 + 6))
+      {
+        v12 = ne_log_obj();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        {
+          *v158 = 0;
+          _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "Invalid policy result, missing interface name", v158, 2u);
+        }
+
+        if (!*(v8 + 6))
+        {
+          goto LABEL_309;
+        }
+      }
+
+      goto LABEL_30;
+    }
+
+    if (v9 == 7)
+    {
+      goto LABEL_30;
+    }
+
+    goto LABEL_128;
+  }
+
+  if (v9 <= 11)
+  {
+    switch(v9)
+    {
+      case 8:
+        goto LABEL_24;
+      case 9:
+        if ([*(v8 + 10) count])
+        {
+          v167 = 0u;
+          v168 = 0u;
+          v165 = 0u;
+          v166 = 0u;
+          v10 = *(v8 + 10);
+          v56 = [v10 countByEnumeratingWithState:&v165 objects:buf count:16];
+          if (!v56)
+          {
+            goto LABEL_155;
+          }
+
+          v57 = v56;
+          v58 = *v166;
+          while (1)
+          {
+            v59 = locallyCopy;
+            for (i = 0; i != v57; ++i)
+            {
+              if (*v166 != v58)
+              {
+                objc_enumerationMutation(v10);
+              }
+
+              v61 = *(*(&v165 + 1) + 8 * i);
+              if (!v61)
+              {
+                goto LABEL_308;
+              }
+
+              v62 = *(v61 + 24);
+              if ((v62 - 8) <= 0xFFFFFFFFFFFFFFF8)
+              {
+                v135 = ne_log_obj();
+                if (!os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+                {
+                  goto LABEL_307;
+                }
+
+                v129 = *(v61 + 24);
+                *v158 = 67109120;
+                *&v158[4] = v129;
+                v130 = "Invalid route rule action: %d";
+                goto LABEL_296;
+              }
+
+              v63 = *(v61 + 48);
+              if (v63 >= 9)
+              {
+                v135 = ne_log_obj();
+                if (!os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+                {
+                  goto LABEL_307;
+                }
+
+                v131 = *(v61 + 48);
+                *v158 = 67109120;
+                *&v158[4] = v131;
+                v130 = "Invalid route rule type: %d";
+LABEL_296:
+                v132 = v135;
+                v133 = 8;
+LABEL_306:
+                _os_log_error_impl(&dword_1BA83C000, v132, OS_LOG_TYPE_ERROR, v130, v158, v133);
+                goto LABEL_307;
+              }
+
+              if (*(v61 + 32))
+              {
+                if (v63)
+                {
+                  goto LABEL_297;
+                }
+              }
+
+              else
+              {
+                if (v63)
+                {
+                  v64 = *(v61 + 40) == 0;
+                }
+
+                else
+                {
+                  v64 = 1;
+                }
+
+                if (!v64)
+                {
+LABEL_297:
+                  v135 = ne_log_obj();
+                  if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+                  {
+                    *v158 = 0;
+                    v130 = "Invalid match conditions";
+                    goto LABEL_305;
+                  }
+
+LABEL_307:
+
+LABEL_308:
+LABEL_309:
+                  v49 = 0;
+                  goto LABEL_310;
+                }
+              }
+
+              v65 = *(v61 + 16);
+              if ((v62 - 5) > 1)
+              {
+                if (v65)
+                {
+                  v135 = ne_log_obj();
+                  if (!os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+                  {
+                    goto LABEL_307;
+                  }
+
+                  *v158 = 0;
+                  v130 = "Invalid route rule, unexpectedly includes network agent UUID";
+                  goto LABEL_305;
+                }
+
+                if (v62 == 7 && !*(v61 + 8))
+                {
+                  v135 = ne_log_obj();
+                  if (!os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+                  {
+                    goto LABEL_307;
+                  }
+
+                  *v158 = 0;
+                  v130 = "Invalid route rule, missing flow divert control unit";
+                  goto LABEL_305;
+                }
+              }
+
+              else if (!v65)
+              {
+                v135 = ne_log_obj();
+                if (!os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+                {
+                  goto LABEL_307;
+                }
+
+                *v158 = 0;
+                v130 = "Invalid route rule, missing network agent UUID";
+LABEL_305:
+                v132 = v135;
+                v133 = 2;
+                goto LABEL_306;
+              }
+            }
+
+            v57 = [v10 countByEnumeratingWithState:&v165 objects:buf count:16];
+            locallyCopy = v59;
+            if (!v57)
+            {
+LABEL_155:
+
+              goto LABEL_30;
+            }
+          }
+        }
+
+        v10 = ne_log_obj();
+        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_308;
+        }
+
+        *v158 = 0;
+        v11 = "Invalid policy result, missing route rules";
+        goto LABEL_163;
+      case 11:
+        goto LABEL_24;
+    }
+
+LABEL_128:
+    v10 = ne_log_obj();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_308;
+    }
+
+    v53 = *(v8 + 4);
+    *v158 = 67109120;
+    *&v158[4] = v53;
+    v11 = "Invalid policy result %d";
+    v54 = v10;
+    v55 = 8;
+    goto LABEL_164;
+  }
+
+  if ((v9 - 12) < 3)
+  {
+    goto LABEL_30;
+  }
+
+  if (v9 == 15)
+  {
+LABEL_24:
+    if (!*(v8 + 7))
+    {
+      v13 = ne_log_obj();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        *v158 = 0;
+        _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "Invalid policy result, missing agent UUID", v158, 2u);
+      }
+
+      if (!*(v8 + 7))
+      {
+        goto LABEL_309;
+      }
+    }
+
+    goto LABEL_30;
+  }
+
+  if (v9 != 16)
+  {
+    goto LABEL_128;
+  }
+
+  if ((![*(v8 + 8) length] || objc_msgSend(*(v8 + 8), "length") >= 0x21) && (!objc_msgSend(*(v8 + 9), "length") || objc_msgSend(*(v8 + 9), "length") >= 0x21))
+  {
+    v10 = ne_log_obj();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_308;
+    }
+
+    *v158 = 0;
+    v11 = "Invalid policy result, missing agent domain and type";
+LABEL_163:
+    v54 = v10;
+    v55 = 2;
+LABEL_164:
+    _os_log_error_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_ERROR, v11, v158, v55);
+    goto LABEL_308;
+  }
+
+LABEL_30:
+  v141 = locallyCopy;
+  selfCopy = self;
+  v143 = v7;
+  v148 = 0u;
+  v149 = 0u;
+  v146 = 0u;
+  v147 = 0u;
+  v14 = v7[3];
+  v15 = [v14 countByEnumeratingWithState:&v146 objects:v154 count:16];
+  if (v15)
+  {
+    v16 = v15;
+    v17 = *v147;
+    do
+    {
+      v18 = 0;
+      do
+      {
+        if (*v147 != v17)
+        {
+          objc_enumerationMutation(v14);
+        }
+
+        v19 = *(*(&v146 + 1) + 8 * v18);
+        if (!v19)
+        {
+LABEL_159:
+
+          v49 = 0;
+          goto LABEL_310;
+        }
+
+        switch(*(v19 + 72))
+        {
+          case 1:
+          case 2:
+            if (!*(v19 + 80))
+            {
+              v22 = ne_log_obj();
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_ERROR, "Invalid policy condition, missing application UUID", buf, 2u);
+              }
+
+              if (!*(v19 + 80))
+              {
+                goto LABEL_159;
+              }
+            }
+
+            break;
+          case 3:
+          case 4:
+          case 7:
+          case 0xALL:
+          case 0xFLL:
+          case 0x11:
+          case 0x12:
+          case 0x13:
+          case 0x18:
+          case 0x19:
+          case 0x1ALL:
+          case 0x1BLL:
+          case 0x1CLL:
+          case 0x1FLL:
+          case 0x20:
+          case 0x27:
+          case 0x28:
+            break;
+          case 5:
+            if (!*(v19 + 88))
+            {
+              v34 = ne_log_obj();
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_ERROR, "Invalid policy condition, missing account identifier", buf, 2u);
+              }
+
+              if (!*(v19 + 88))
+              {
+                goto LABEL_159;
+              }
+            }
+
+            break;
+          case 6:
+            if (!*(v19 + 96))
+            {
+              v28 = ne_log_obj();
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "Invalid policy condition, missing domain", buf, 2u);
+              }
+
+              if (!*(v19 + 96))
+              {
+                goto LABEL_159;
+              }
+            }
+
+            break;
+          case 8:
+            if (!*(v19 + 112))
+            {
+              v27 = ne_log_obj();
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_ERROR, "Invalid policy condition, missing interface name", buf, 2u);
+              }
+
+              if (!*(v19 + 112))
+              {
+                goto LABEL_159;
+              }
+            }
+
+            break;
+          case 9:
+            v31 = *(v19 + 48);
+            v32 = *(v19 + 52);
+            if (v31 > v32)
+            {
+              v33 = ne_log_obj();
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_ERROR, "Invalid policy condition, invalid traffic class range", buf, 2u);
+              }
+
+              v31 = *(v19 + 48);
+              v32 = *(v19 + 52);
+            }
+
+            if (v31 > v32)
+            {
+              goto LABEL_159;
+            }
+
+            break;
+          case 0xBLL:
+          case 0xDLL:
+          case 0x14:
+          case 0x16:
+            if (!*(v19 + 120))
+            {
+              v20 = ne_log_obj();
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_ERROR, "Invalid policy condition, missing start address", buf, 2u);
+              }
+
+              if (!*(v19 + 120))
+              {
+                goto LABEL_159;
+              }
+            }
+
+            break;
+          case 0xCLL:
+          case 0xELL:
+          case 0x15:
+          case 0x17:
+            if (!*(v19 + 120) || !*(v19 + 128))
+            {
+              v21 = ne_log_obj();
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, "Invalid policy condition, missing address", buf, 2u);
+              }
+
+              if (!*(v19 + 120) || !*(v19 + 128))
+              {
+                goto LABEL_159;
+              }
+            }
+
+            break;
+          case 0x10:
+            if (!*(v19 + 144) || !*(v19 + 152))
+            {
+              v30 = ne_log_obj();
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_ERROR, "Invalid policy condition, missing agent type", buf, 2u);
+              }
+
+              if (!*(v19 + 144) || !*(v19 + 152))
+              {
+                goto LABEL_159;
+              }
+            }
+
+            break;
+          case 0x1DLL:
+            if (!*(v19 + 160))
+            {
+              v23 = ne_log_obj();
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, "Invalid policy condition, missing signing identifier", buf, 2u);
+              }
+
+              if (!*(v19 + 160))
+              {
+                goto LABEL_159;
+              }
+            }
+
+            break;
+          case 0x1ELL:
+            if (!*(v19 + 14))
+            {
+              v35 = ne_log_obj();
+              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_ERROR, "Invalid policy condition, missing packet filter tags", buf, 2u);
+              }
+
+              if (!*(v19 + 14))
+              {
+                goto LABEL_159;
+              }
+            }
+
+            break;
+          case 0x25:
+            if (!*(v19 + 16))
+            {
+              v25 = ne_log_obj();
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_ERROR, "Invalid policy condition, missing port", buf, 2u);
+              }
+
+              if (!*(v19 + 16))
+              {
+                goto LABEL_159;
+              }
+            }
+
+            break;
+          case 0x26:
+            if (!*(v19 + 32))
+            {
+              v24 = ne_log_obj();
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_ERROR, "Invalid policy condition, missing domain filter", buf, 2u);
+              }
+
+              if (!*(v19 + 32))
+              {
+                goto LABEL_159;
+              }
+            }
+
+            break;
+          case 0x2ALL:
+            if (!*(v19 + 104))
+            {
+              v26 = ne_log_obj();
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_ERROR, "Invalid policy condition, missing URL", buf, 2u);
+              }
+
+              if (!*(v19 + 104))
+              {
+                goto LABEL_159;
+              }
+            }
+
+            break;
+          case 0x2BLL:
+            if (!*(v19 + 36) && !*(v19 + 40) && !*(v19 + 44))
+            {
+              v29 = ne_log_obj();
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 0;
+                _os_log_error_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_ERROR, "Invalid policy condition, missing flags", buf, 2u);
+              }
+
+              if (!*(v19 + 36) && !*(v19 + 40) && !*(v19 + 44))
+              {
+                goto LABEL_159;
+              }
+            }
+
+            break;
+          default:
+            v66 = ne_log_obj();
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+            {
+              v137 = *(v19 + 72);
+              *buf = 67109120;
+              *&buf[4] = v137;
+              _os_log_error_impl(&dword_1BA83C000, v66, OS_LOG_TYPE_ERROR, "Invalid policy condition %d", buf, 8u);
+            }
+
+            goto LABEL_159;
+        }
+
+        ++v18;
+      }
+
+      while (v16 != v18);
+      v36 = [v14 countByEnumeratingWithState:&v146 objects:v154 count:16];
+      v16 = v36;
+    }
+
+    while (v36);
+  }
+
+  v37 = objc_alloc_init(MEMORY[0x1E695DF88]);
+  v38 = v37;
+  if (!v37)
+  {
+    v48 = ne_log_obj();
+    if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    {
+LABEL_124:
+
+      v49 = 0;
+      goto LABEL_283;
+    }
+
+    *buf = 0;
+    v128 = "Failed to create add message";
+LABEL_291:
+    _os_log_error_impl(&dword_1BA83C000, v48, OS_LOG_TYPE_ERROR, v128, buf, 2u);
+    goto LABEL_124;
+  }
+
+  v39 = v37;
+  v40 = v7;
+  [NEPolicySession addTLVToMessage:v39 type:2 length:4 value:(v7 + 1)];
+  v41 = v7[2];
+  v42 = v39;
+  v43 = v42;
+  if (!v41)
+  {
+    v140 = v38;
+
+LABEL_312:
+    v48 = ne_log_obj();
+    v7 = v143;
+    v38 = v140;
+    if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_124;
+    }
+
+    *buf = 0;
+    v128 = "Failed to add TLVs to message";
+    goto LABEL_291;
+  }
+
+  v44 = objc_alloc_init(MEMORY[0x1E695DF88]);
+  v45 = v44;
+  v46 = *(v41 + 4) - 1;
+  if (v46 > 0xF)
+  {
+    v47 = 0;
+  }
+
+  else
+  {
+    v47 = byte_1BAA4E640[v46];
+  }
+
+  v150 = v47;
+  [v44 appendBytes:&v150 length:1];
+  switch(*(v41 + 4))
+  {
+    case 1:
+      v50 = (v41 + 12);
+      goto LABEL_216;
+    case 2:
+      v50 = (v41 + 8);
+      goto LABEL_216;
+    case 3:
+      v91 = *(v41 + 4);
+      v90 = (v41 + 16);
+      if (!v91)
+      {
+        goto LABEL_219;
+      }
+
+      v51 = v45;
+      v50 = v90;
+      goto LABEL_217;
+    case 4:
+    case 7:
+      v50 = (v41 + 20);
+      goto LABEL_216;
+    case 5:
+      v88 = [*(v41 + 6) dataUsingEncoding:1];
+      [v45 appendData:v88];
+      LOBYTE(v165) = 0;
+      v89 = &v165;
+      goto LABEL_289;
+    case 6:
+      v125 = *(v41 + 5) - 1;
+      if (v125 > 0xF)
+      {
+        v126 = 0;
+      }
+
+      else
+      {
+        v126 = byte_1BAA4E640[v125];
+      }
+
+      LODWORD(v165) = v126;
+      [v45 appendBytes:&v165 length:4];
+      v88 = [*(v41 + 6) dataUsingEncoding:1];
+      [v45 appendData:v88];
+      v153 = 0;
+      v89 = &v153;
+LABEL_289:
+      [v45 appendBytes:v89 length:1];
+
+      goto LABEL_219;
+    case 8:
+    case 0xBLL:
+    case 0xFLL:
+      v165 = 0uLL;
+      [*(v41 + 7) getUUIDBytes:&v165];
+      v50 = &v165;
+      v51 = v45;
+      v52 = 16;
+      goto LABEL_218;
+    case 9:
+      v144 = v45;
+      v139 = v38;
+      v148 = 0u;
+      v149 = 0u;
+      v146 = 0u;
+      v147 = 0u;
+      v67 = *(v41 + 10);
+      v68 = [v67 countByEnumeratingWithState:&v146 objects:buf count:16];
+      if (!v68)
+      {
+        goto LABEL_204;
+      }
+
+      v69 = v68;
+      v70 = *v147;
+      break;
+    case 0xELL:
+      LODWORD(v165) = -1;
+      v50 = &v165;
+LABEL_216:
+      v51 = v45;
+LABEL_217:
+      v52 = 4;
+      goto LABEL_218;
+    case 0x10:
+      v167 = 0u;
+      v168 = 0u;
+      v165 = 0u;
+      v166 = 0u;
+      if ([*(v41 + 8) length])
+      {
+        [*(v41 + 8) UTF8String];
+        __strlcpy_chk();
+      }
+
+      if ([*(v41 + 9) length])
+      {
+        [*(v41 + 9) UTF8String];
+        __strlcpy_chk();
+      }
+
+      v50 = &v165;
+      v51 = v45;
+      v52 = 64;
+LABEL_218:
+      [v51 appendBytes:v50 length:v52];
+      goto LABEL_219;
+    default:
+      goto LABEL_219;
+  }
+
+  do
+  {
+    for (j = 0; j != v69; ++j)
+    {
+      if (*v147 != v70)
+      {
+        objc_enumerationMutation(v67);
+      }
+
+      v72 = *(*(&v146 + 1) + 8 * j);
+      if (v72)
+      {
+        v73 = MEMORY[0x1E695DF88];
+        v74 = v43;
+        v75 = objc_alloc_init(v73);
+        v76 = v75;
+        v77 = *(v72 + 24);
+        if (v77 > 3)
+        {
+          if (v77 < 8)
+          {
+            goto LABEL_182;
+          }
+
+LABEL_177:
+          LOBYTE(v77) = 0;
+          goto LABEL_182;
+        }
+
+        if (v77 == 1)
+        {
+          LOBYTE(v77) = 2;
+          goto LABEL_182;
+        }
+
+        if (v77 != 2)
+        {
+          if (v77 == 3)
+          {
+            goto LABEL_182;
+          }
+
+          goto LABEL_177;
+        }
+
+        if (*(v72 + 12))
+        {
+          LOBYTE(v77) = 8;
+        }
+
+        else
+        {
+          LOBYTE(v77) = 1;
+        }
+
+LABEL_182:
+        v153 = v77;
+        [v75 appendBytes:&v153 length:1];
+        if (*(v72 + 40))
+        {
+          LOBYTE(v78) = 0x80;
+        }
+
+        else
+        {
+          v79 = *(v72 + 48) - 1;
+          v80 = v79 > 7;
+          v78 = 0x9040201004020108 >> (8 * v79);
+          if (v80)
+          {
+            LOBYTE(v78) = 0;
+          }
+        }
+
+        v152 = v78;
+        [v76 appendBytes:&v152 length:1];
+        v82 = *(v72 + 24);
+        if ((v82 - 5) < 2)
+        {
+          v165 = 0uLL;
+          [*(v72 + 16) getUUIDBytes:&v165];
+          v81 = &v165;
+          v83 = v76;
+          v84 = 16;
+        }
+
+        else
+        {
+          if (v82 != 2)
+          {
+            if (v82 == 7)
+            {
+              v81 = (v72 + 8);
+              goto LABEL_192;
+            }
+
+LABEL_194:
+            v85 = *(v72 + 40);
+            if (*(v72 + 32))
+            {
+              if (v85)
+              {
+                v165 = 0uLL;
+                [v85 getUUIDBytes:&v165];
+                [v76 appendBytes:&v165 length:16];
+                v86 = [*(v72 + 32) dataUsingEncoding:1];
+                [v76 appendData:v86];
+                v151 = 0;
+                v87 = &v151;
+              }
+
+              else
+              {
+                v86 = [*(v72 + 32) dataUsingEncoding:1];
+                [v76 appendData:v86];
+                LOBYTE(v165) = 0;
+                v87 = &v165;
+              }
+
+              [v76 appendBytes:v87 length:1];
+            }
+
+            else if (v85)
+            {
+              v165 = 0uLL;
+              [v85 getUUIDBytes:&v165];
+              [v76 appendBytes:&v165 length:16];
+            }
+
+            +[NEPolicySession addTLVToMessage:type:length:value:](NEPolicySession, v74, 10, [v76 length], objc_msgSend(v76, "bytes"));
+
+            continue;
+          }
+
+          v81 = (v72 + 12);
+          if (!*(v72 + 12))
+          {
+            goto LABEL_194;
+          }
+
+LABEL_192:
+          v83 = v76;
+          v84 = 4;
+        }
+
+        [v83 appendBytes:v81 length:v84];
+        goto LABEL_194;
+      }
+    }
+
+    v69 = [v67 countByEnumeratingWithState:&v146 objects:buf count:16];
+  }
+
+  while (v69);
+LABEL_204:
+
+  v40 = v143;
+  v45 = v144;
+  v38 = v139;
+LABEL_219:
+  +[NEPolicySession addTLVToMessage:type:length:value:](NEPolicySession, v43, 4, [v45 length], objc_msgSend(v45, "bytes"));
+
+  v160 = 0u;
+  v161 = 0u;
+  *v158 = 0u;
+  v159 = 0u;
+  v92 = v40[3];
+  v93 = [v92 countByEnumeratingWithState:v158 objects:v154 count:16];
+  if (v93)
+  {
+    v94 = v93;
+    v140 = v38;
+    v95 = *v159;
+    while (2)
+    {
+      v96 = 0;
+      v145 = v94;
+      do
+      {
+        if (*v159 != v95)
+        {
+          objc_enumerationMutation(v92);
+        }
+
+        v97 = *(*&v158[8] + 8 * v96);
+        if (!v97)
+        {
+
+          goto LABEL_312;
+        }
+
+        v98 = MEMORY[0x1E695DF88];
+        v99 = v43;
+        v100 = objc_alloc_init(v98);
+        v101 = v100;
+        v102 = *(v97 + 72) - 1;
+        if (v102 > 0x2A)
+        {
+          v103 = 0;
+        }
+
+        else
+        {
+          v103 = byte_1BAA4FA44[v102];
+        }
+
+        LOBYTE(v165) = v103;
+        [v100 appendBytes:&v165 length:1];
+        v104 = *(v97 + 8);
+        LOBYTE(v146) = v104;
+        if (*(v97 + 9) == 1)
+        {
+          LOBYTE(v146) = v104 | 2;
+        }
+
+        [v101 appendBytes:&v146 length:1];
+        switch(*(v97 + 72))
+        {
+          case 1:
+          case 2:
+            *buf = 0;
+            *&buf[8] = 0;
+            [*(v97 + 80) getUUIDBytes:buf];
+            v109 = buf;
+            v110 = v101;
+            v111 = 16;
+            goto LABEL_263;
+          case 3:
+            v115 = *(v97 + 20);
+            goto LABEL_256;
+          case 4:
+          case 0x28:
+            v109 = (v97 + 28);
+            goto LABEL_262;
+          case 5:
+            v114 = *(v97 + 88);
+            goto LABEL_260;
+          case 6:
+            v114 = *(v97 + 96);
+            goto LABEL_260;
+          case 8:
+            v114 = *(v97 + 112);
+            goto LABEL_260;
+          case 9:
+            v115 = *(v97 + 48);
+LABEL_256:
+            *buf = v115;
+            v109 = buf;
+            v110 = v101;
+            v111 = 8;
+            goto LABEL_263;
+          case 0xALL:
+          case 0x13:
+            v109 = (v97 + 12);
+            goto LABEL_254;
+          case 0xBLL:
+          case 0xDLL:
+          case 0x14:
+          case 0x16:
+            memset(&buf[1], 0, 28);
+            buf[0] = *(v97 + 10);
+            addressData = [*(v97 + 120) addressData];
+            [addressData getBytes:&buf[1] length:28];
+
+            addressFamily = [*(v97 + 120) addressFamily];
+            if (addressFamily == 30)
+            {
+              if (buf[0] >= 0x81u)
+              {
+                buf[0] = 0x80;
+              }
+            }
+
+            else if (addressFamily == 2 && buf[0] >= 0x21u)
+            {
+              buf[0] = 32;
+            }
+
+            [v101 appendBytes:buf length:29];
+            v94 = v145;
+            break;
+          case 0xCLL:
+          case 0xELL:
+          case 0x15:
+          case 0x17:
+            *&v164 = 0;
+            v163 = 0u;
+            memset(buf, 0, sizeof(buf));
+            addressData2 = [*(v97 + 120) addressData];
+            [addressData2 getBytes:buf length:28];
+
+            addressData3 = [*(v97 + 128) addressData];
+            [addressData3 getBytes:&buf[28] length:28];
+
+            v109 = buf;
+            v110 = v101;
+            v111 = 56;
+            goto LABEL_263;
+          case 0xFLL:
+            v114 = *(v97 + 136);
+            if (v114)
+            {
+              goto LABEL_260;
+            }
+
+            break;
+          case 0x10:
+            v163 = 0u;
+            v164 = 0u;
+            memset(buf, 0, sizeof(buf));
+            [*(v97 + 144) getCString:buf maxLength:32 encoding:4];
+            [*(v97 + 152) getCString:&v163 maxLength:32 encoding:4];
+            v109 = buf;
+            v110 = v101;
+            v111 = 64;
+            goto LABEL_263;
+          case 0x12:
+            v109 = (v97 + 11);
+            v110 = v101;
+            v111 = 1;
+            goto LABEL_263;
+          case 0x18:
+            v109 = (v97 + 56);
+            goto LABEL_262;
+          case 0x1CLL:
+            v113 = *(v97 + 64);
+            v112 = *(v97 + 68);
+            *buf = *(v97 + 60);
+            *&buf[4] = v112;
+            *&buf[8] = v113;
+            v109 = buf;
+            v110 = v101;
+            v111 = 12;
+            goto LABEL_263;
+          case 0x1DLL:
+            v114 = *(v97 + 160);
+            if (!v114)
+            {
+              break;
+            }
+
+            goto LABEL_260;
+          case 0x1ELL:
+            v109 = (v97 + 14);
+            goto LABEL_254;
+          case 0x25:
+            v109 = (v97 + 16);
+LABEL_254:
+            v110 = v101;
+            v111 = 2;
+            goto LABEL_263;
+          case 0x26:
+            v109 = (v97 + 32);
+            goto LABEL_262;
+          case 0x2ALL:
+            v114 = *(v97 + 104);
+LABEL_260:
+            v116 = [v114 dataUsingEncoding:1];
+            [v101 appendData:v116];
+            buf[0] = 0;
+            [v101 appendBytes:buf length:1];
+
+            break;
+          case 0x2BLL:
+            [v101 appendBytes:v97 + 36 length:4];
+            [v101 appendBytes:v97 + 40 length:4];
+            v109 = (v97 + 44);
+LABEL_262:
+            v110 = v101;
+            v111 = 4;
+LABEL_263:
+            [v110 appendBytes:v109 length:v111];
+            break;
+          default:
+            break;
+        }
+
+        +[NEPolicySession addTLVToMessage:type:length:value:](NEPolicySession, v99, 3, [v101 length], objc_msgSend(v101, "bytes"));
+
+        ++v96;
+      }
+
+      while (v94 != v96);
+      v94 = [v92 countByEnumeratingWithState:v158 objects:v154 count:16];
+      if (v94)
+      {
+        continue;
+      }
+
+      break;
+    }
+
+    v38 = v140;
+  }
+
+  else
+  {
+
+    *buf = 0;
+    [NEPolicySession addTLVToMessage:v43 type:3 length:2 value:buf];
+  }
+
+  [v43 bytes];
+  [v43 length];
+  LODWORD(v165) = 0;
+  if (necp_session_action())
+  {
+    v117 = *__error();
+    if (strerror_r(v117, buf, 0x80uLL))
+    {
+      buf[0] = 0;
+    }
+
+    v118 = ne_log_obj();
+    v7 = v143;
+    if (os_log_type_enabled(v118, OS_LOG_TYPE_FAULT))
+    {
+      *v154 = 67109378;
+      v155 = v117;
+      v156 = 2080;
+      v157 = buf;
+      _os_log_fault_impl(&dword_1BA83C000, v118, OS_LOG_TYPE_FAULT, "Failed to add policy: [%d] %s", v154, 0x12u);
+    }
+
+    v119 = ne_log_obj();
+    if (os_log_type_enabled(v119, OS_LOG_TYPE_DEBUG))
+    {
+      v127 = [v43 length];
+      *buf = 134217984;
+      *&buf[4] = v127;
+      _os_log_debug_impl(&dword_1BA83C000, v119, OS_LOG_TYPE_DEBUG, "Failed to add policy with tlv message of length %zu", buf, 0xCu);
+    }
+
+    v49 = 0;
+LABEL_282:
+  }
+
+  else
+  {
+    v120 = ne_log_obj();
+    if (os_log_type_enabled(v120, OS_LOG_TYPE_DEBUG))
+    {
+      v134 = [v43 length];
+      *buf = 134217984;
+      *&buf[4] = v134;
+      _os_log_debug_impl(&dword_1BA83C000, v120, OS_LOG_TYPE_DEBUG, "Added policy with tlv message of length %zu", buf, 0xCu);
+    }
+
+    v49 = v165;
+    if (v141)
+    {
+      v7 = v143;
+      if (selfCopy)
+      {
+        Property = objc_getProperty(selfCopy, v121, 32, 1);
+      }
+
+      else
+      {
+        Property = 0;
+      }
+
+      v123 = MEMORY[0x1E696AD98];
+      v124 = Property;
+      v119 = [v123 numberWithUnsignedInteger:v49];
+      [v124 setObject:v143 forKeyedSubscript:v119];
+
+      goto LABEL_282;
+    }
+
+    v7 = v143;
+  }
+
+LABEL_283:
+
+LABEL_310:
+  return v49;
+}
+
 + (void)addTLVToMessage:(char)message type:(uint64_t)type length:(uint64_t)length value:
 {
   messageCopy = message;
@@ -1325,179 +2562,178 @@ LABEL_7:
 
 - (BOOL)removeAllDomainTries
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (self)
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = necp_session_action();
+  if (v2)
   {
-    sessionFD = self->_sessionFD;
-  }
-
-  v3 = necp_session_action();
-  if (v3)
-  {
-    v4 = *__error();
-    if (strerror_r(v4, __strerrbuf, 0x80uLL))
+    v3 = *__error();
+    if (strerror_r(v3, __strerrbuf, 0x80uLL))
     {
       __strerrbuf[0] = 0;
     }
 
-    v5 = ne_log_obj();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = ne_log_obj();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v8[0] = 67109378;
-      v8[1] = v4;
-      v9 = 2080;
-      v10 = __strerrbuf;
-      _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "Failed to remove all domain tries: [%d] %s", v8, 0x12u);
+      v6[0] = 67109378;
+      v6[1] = v3;
+      v7 = 2080;
+      v8 = __strerrbuf;
+      _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "Failed to remove all domain tries: [%d] %s", v6, 0x12u);
     }
   }
 
   else
   {
-    v5 = ne_log_obj();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v4 = ne_log_obj();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *__strerrbuf = 0;
-      _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "Deleted all domain tries", __strerrbuf, 2u);
+      _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_INFO, "Deleted all domain tries", __strerrbuf, 2u);
     }
   }
 
-  result = v3 == 0;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v2 == 0;
 }
 
 - (BOOL)removeDomainTrieWithID:(unint64_t)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  if (self)
-  {
-    sessionFD = self->_sessionFD;
-  }
-
   if (!necp_session_action())
   {
-    v7 = ne_log_obj();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v6 = ne_log_obj();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *__strerrbuf = 67109120;
-      v17 = dCopy;
-      _os_log_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_INFO, "Deleted domain trie - ID %u", __strerrbuf, 8u);
+      v15 = dCopy;
+      _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_INFO, "Deleted domain trie - ID %u", __strerrbuf, 8u);
     }
 
-    goto LABEL_13;
+    return 1;
   }
 
   if (*__error() == 2)
   {
-LABEL_13:
-    result = 1;
-    goto LABEL_14;
+    return 1;
   }
 
-  v4 = *__error();
-  if (strerror_r(v4, __strerrbuf, 0x80uLL))
+  v3 = *__error();
+  if (strerror_r(v3, __strerrbuf, 0x80uLL))
   {
     __strerrbuf[0] = 0;
   }
 
-  v5 = ne_log_obj();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v4 = ne_log_obj();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     *buf = 67109634;
-    v11 = dCopy;
-    v12 = 1024;
-    v13 = v4;
-    v14 = 2080;
-    v15 = __strerrbuf;
-    _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "Failed to remove domain trie %u: [%d] %s", buf, 0x18u);
+    v9 = dCopy;
+    v10 = 1024;
+    v11 = v3;
+    v12 = 2080;
+    v13 = __strerrbuf;
+    _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "Failed to remove domain trie %u: [%d] %s", buf, 0x18u);
   }
 
-  result = 0;
-LABEL_14:
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (unint64_t)addDomainTrieWithData:(id)data
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v6 = dataCopy;
+  v5 = dataCopy;
   if (!data)
   {
-    v9 = ne_log_obj();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v7 = ne_log_obj();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_8;
+      goto LABEL_6;
     }
 
     *__strerrbuf = 136315138;
-    v22 = "[NEPolicySession addDomainTrieWithData:]";
-    v13 = "%s called with null trieData";
-    v14 = __strerrbuf;
-    v15 = v9;
-    v16 = 12;
-LABEL_14:
-    _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, v13, v14, v16);
-LABEL_8:
+    v19 = "[NEPolicySession addDomainTrieWithData:]";
+    v10 = "%s called with null trieData";
+    v11 = __strerrbuf;
+    v12 = v7;
+    v13 = 12;
+LABEL_12:
+    _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, v10, v11, v13);
+LABEL_6:
 
-    goto LABEL_12;
+    goto LABEL_10;
   }
 
   [dataCopy bytes];
-  [v6 length];
-  if (self)
-  {
-    sessionFD = self->_sessionFD;
-  }
-
+  [v5 length];
   if (necp_session_action())
   {
-    v8 = *__error();
-    if (strerror_r(v8, __strerrbuf, 0x80uLL))
+    v6 = *__error();
+    if (strerror_r(v6, __strerrbuf, 0x80uLL))
     {
       __strerrbuf[0] = 0;
     }
 
-    v9 = ne_log_obj();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v7 = ne_log_obj();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_8;
+      goto LABEL_6;
     }
 
     *buf = 67109378;
-    v18 = v8;
-    v19 = 2080;
-    v20 = __strerrbuf;
-    v13 = "Failed to add domain trie: [%d] %s";
-    v14 = buf;
-    v15 = v9;
-    v16 = 18;
-    goto LABEL_14;
+    v15 = v6;
+    v16 = 2080;
+    v17 = __strerrbuf;
+    v10 = "Failed to add domain trie: [%d] %s";
+    v11 = buf;
+    v12 = v7;
+    v13 = 18;
+    goto LABEL_12;
   }
 
-  v10 = ne_log_obj();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v8 = ne_log_obj();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *__strerrbuf = 67109120;
-    LODWORD(v22) = 0;
-    _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_INFO, "Added domain trie - ID %u", __strerrbuf, 8u);
+    LODWORD(v19) = 0;
+    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_INFO, "Added domain trie - ID %u", __strerrbuf, 8u);
   }
 
-LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
+LABEL_10:
   return 0;
 }
 
 - (BOOL)removeAllDomainFilters
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (self)
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = necp_session_action();
+  if (v2)
   {
-    sessionFD = self->_sessionFD;
+    v3 = *__error();
+    if (strerror_r(v3, __strerrbuf, 0x80uLL))
+    {
+      __strerrbuf[0] = 0;
+    }
+
+    v4 = ne_log_obj();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    {
+      v6[0] = 67109378;
+      v6[1] = v3;
+      v7 = 2080;
+      v8 = __strerrbuf;
+      _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "Failed to remove all domain filters: [%d] %s", v6, 0x12u);
+    }
   }
 
+  return v2 == 0;
+}
+
+- (BOOL)removeDomainFilterWithID:(unint64_t)d
+{
+  v15 = *MEMORY[0x1E69E9840];
+  dCopy = d;
   v3 = necp_session_action();
   if (v3)
   {
@@ -1510,160 +2746,111 @@ LABEL_12:
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v8[0] = 67109378;
-      v8[1] = v4;
-      v9 = 2080;
-      v10 = __strerrbuf;
-      _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "Failed to remove all domain filters: [%d] %s", v8, 0x12u);
-    }
-  }
-
-  result = v3 == 0;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)removeDomainFilterWithID:(unint64_t)d
-{
-  v17 = *MEMORY[0x1E69E9840];
-  dCopy = d;
-  if (self)
-  {
-    sessionFD = self->_sessionFD;
-  }
-
-  v4 = necp_session_action();
-  if (v4)
-  {
-    v5 = *__error();
-    if (strerror_r(v5, __strerrbuf, 0x80uLL))
-    {
-      __strerrbuf[0] = 0;
-    }
-
-    v6 = ne_log_obj();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-    {
       *buf = 67109634;
-      v11 = dCopy;
-      v12 = 1024;
-      v13 = v5;
-      v14 = 2080;
-      v15 = __strerrbuf;
-      _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "Failed to remove domain filter %u: [%d] %s", buf, 0x18u);
+      v9 = dCopy;
+      v10 = 1024;
+      v11 = v4;
+      v12 = 2080;
+      v13 = __strerrbuf;
+      _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "Failed to remove domain filter %u: [%d] %s", buf, 0x18u);
     }
   }
 
-  result = v4 == 0;
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 == 0;
 }
 
 - (unint64_t)addDomainFilterWithData:(id)data
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v6 = dataCopy;
+  v5 = dataCopy;
   if (data)
   {
     [dataCopy bytes];
-    v7 = [v6 length];
-    if (self)
-    {
-      sessionFD = self->_sessionFD;
-    }
-
+    v6 = [v5 length];
     if (necp_session_action())
     {
-      v9 = *__error();
-      if (strerror_r(v9, __strerrbuf, 0x80uLL))
+      v7 = *__error();
+      if (strerror_r(v7, __strerrbuf, 0x80uLL))
       {
         __strerrbuf[0] = 0;
       }
 
-      v10 = ne_log_obj();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v8 = ne_log_obj();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         *buf = 67109378;
-        v17 = v9;
-        v18 = 2080;
-        v19 = __strerrbuf;
-        _os_log_fault_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_FAULT, "Failed to add domain filter: [%d] %s", buf, 0x12u);
+        v14 = v7;
+        v15 = 2080;
+        v16 = __strerrbuf;
+        _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "Failed to add domain filter: [%d] %s", buf, 0x12u);
       }
 
-      v11 = ne_log_obj();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v9 = ne_log_obj();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *__strerrbuf = 134217984;
-        v21 = v7;
-        _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, "Failed to add domain filter of length %zu", __strerrbuf, 0xCu);
+        v18 = v6;
+        _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "Failed to add domain filter of length %zu", __strerrbuf, 0xCu);
       }
     }
 
     else
     {
-      v12 = ne_log_obj();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v10 = ne_log_obj();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *__strerrbuf = 134217984;
-        v21 = v7;
-        _os_log_debug_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_DEBUG, "Added domain filter of length %zu", __strerrbuf, 0xCu);
+        v18 = v6;
+        _os_log_debug_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEBUG, "Added domain filter of length %zu", __strerrbuf, 0xCu);
       }
     }
   }
 
   else
   {
-    v15 = ne_log_obj();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v12 = ne_log_obj();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       *__strerrbuf = 136315138;
-      v21 = "[NEPolicySession addDomainFilterWithData:]";
-      _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "%s called with null filterData", __strerrbuf, 0xCu);
+      v18 = "[NEPolicySession addDomainFilterWithData:]";
+      _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, "%s called with null filterData", __strerrbuf, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (BOOL)lockSessionToCurrentProcess
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (self)
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = necp_session_action();
+  if (v2)
   {
-    sessionFD = self->_sessionFD;
-  }
-
-  v3 = necp_session_action();
-  if (v3)
-  {
-    v4 = *__error();
-    if (strerror_r(v4, __strerrbuf, 0x80uLL))
+    v3 = *__error();
+    if (strerror_r(v3, __strerrbuf, 0x80uLL))
     {
       __strerrbuf[0] = 0;
     }
 
-    v5 = ne_log_obj();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = ne_log_obj();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v8[0] = 67109378;
-      v8[1] = v4;
-      v9 = 2080;
-      v10 = __strerrbuf;
-      _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "Failed to lock session to process: [%d] %s", v8, 0x12u);
+      v6[0] = 67109378;
+      v6[1] = v3;
+      v7 = 2080;
+      v8 = __strerrbuf;
+      _os_log_fault_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_FAULT, "Failed to lock session to process: [%d] %s", v6, 0x12u);
     }
   }
 
-  result = v3 == 0;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v2 == 0;
 }
 
 - (void)setPriority:(int64_t)priority
 {
   priorityCopy = priority;
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = priority - 1;
   if ((priority - 1) <= 9)
   {
@@ -1800,45 +2987,41 @@ LABEL_16:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
     *__strerrbuf = 67109120;
-    v16 = priorityCopy;
+    v14 = priorityCopy;
     _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "Unknown priority level %u", __strerrbuf, 8u);
   }
 
 LABEL_40:
   if (self)
   {
-    sessionFD = self->_sessionFD;
     if (!necp_session_action())
     {
       self->_internalPriority = priorityCopy;
       self->_convertToLegacyPriority = v5 < 0xA;
-      goto LABEL_48;
+      return;
     }
   }
 
   else if (!necp_session_action())
   {
-    goto LABEL_48;
+    return;
   }
 
-  v8 = *__error();
-  if (strerror_r(v8, __strerrbuf, 0x80uLL))
+  v7 = *__error();
+  if (strerror_r(v7, __strerrbuf, 0x80uLL))
   {
     __strerrbuf[0] = 0;
   }
 
-  v9 = ne_log_obj();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+  v8 = ne_log_obj();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     *buf = 67109378;
-    v12 = v8;
-    v13 = 2080;
-    v14 = __strerrbuf;
-    _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "Failed to set priority: [%d] %s", buf, 0x12u);
+    v10 = v7;
+    v11 = 2080;
+    v12 = __strerrbuf;
+    _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, "Failed to set priority: [%d] %s", buf, 0x12u);
   }
-
-LABEL_48:
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)priority
@@ -1924,6 +3107,102 @@ LABEL_48:
   }
 }
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  [v7 appendString:@"{"];
+  if (self)
+  {
+    internalPriority = self->_internalPriority;
+    if (internalPriority <= 300)
+    {
+      if (internalPriority <= 100)
+      {
+        if (!internalPriority)
+        {
+          v9 = @"default";
+          goto LABEL_27;
+        }
+
+        if (internalPriority == 100)
+        {
+          v9 = @"control";
+          goto LABEL_27;
+        }
+      }
+
+      else
+      {
+        switch(internalPriority)
+        {
+          case 101:
+            v9 = @"control1";
+            goto LABEL_27;
+          case 200:
+            v9 = @"privileged-tunnel";
+            goto LABEL_27;
+          case 300:
+            v9 = @"high";
+LABEL_27:
+            v10 = v9;
+            [v7 appendPrettyObject:v10 withName:@"priority" andIndent:v5 options:options];
+
+            Property = objc_getProperty(self, v11, 32, 1);
+            goto LABEL_28;
+        }
+      }
+    }
+
+    else
+    {
+      if (internalPriority <= 303)
+      {
+        if (internalPriority == 301)
+        {
+          v9 = @"high1";
+        }
+
+        else if (internalPriority == 302)
+        {
+          v9 = @"high2";
+        }
+
+        else
+        {
+          v9 = @"high3";
+        }
+
+        goto LABEL_27;
+      }
+
+      switch(internalPriority)
+      {
+        case 304:
+          v9 = @"high4";
+          goto LABEL_27;
+        case 400:
+          v9 = @"HighRestricted";
+          goto LABEL_27;
+        case 500:
+          v9 = @"low";
+          goto LABEL_27;
+      }
+    }
+
+    v9 = @"unknown";
+    goto LABEL_27;
+  }
+
+  [v7 appendPrettyObject:0 withName:@"priority" andIndent:v5 options:options];
+  Property = 0;
+LABEL_28:
+  [v7 appendPrettyObject:Property withName:@"policies" andIndent:v5 options:options];
+  [v7 appendString:@"\n}"];
+
+  return v7;
+}
+
 - (void)dealloc
 {
   selfCopy = self;
@@ -2000,7 +3279,7 @@ uint64_t __39__NEPolicySession_initWithSessionName___block_invoke(uint64_t a1, v
 {
   v3 = a2;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && ([v3 name], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isEqualToString:", *(a1 + 32)), v4, v5))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && ([v3 name], v4 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v4), v4, isEqualToString))
   {
     v6 = [v3 handle];
     *(*(*(a1 + 40) + 8) + 24) = dup([v6 fileDescriptor]);
@@ -2018,25 +3297,25 @@ uint64_t __39__NEPolicySession_initWithSessionName___block_invoke(uint64_t a1, v
 
 uint64_t __39__NEPolicySession_initWithSessionName___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = [v3 name];
-    v5 = [v4 isEqualToString:*(a1 + 32)];
+    v3 = [v2 name];
+    isEqualToString = objc_msgSend_isEqualToString_(v3);
   }
 
   else
   {
-    v5 = 0;
+    isEqualToString = 0;
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (id)initFromPrivilegedProcess
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = necp_session_open();
   if ((v3 & 0x80000000) != 0)
   {
@@ -2049,11 +3328,11 @@ uint64_t __39__NEPolicySession_initWithSessionName___block_invoke_2(uint64_t a1,
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v9[0] = 67109378;
-      v9[1] = v5;
-      v10 = 2080;
-      v11 = __strerrbuf;
-      _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "Failed to open NECP session fd: [%d] %s", v9, 0x12u);
+      v8[0] = 67109378;
+      v8[1] = v5;
+      v9 = 2080;
+      v10 = __strerrbuf;
+      _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "Failed to open NECP session fd: [%d] %s", v8, 0x12u);
     }
 
     selfCopy = 0;
@@ -2065,16 +3344,15 @@ uint64_t __39__NEPolicySession_initWithSessionName___block_invoke_2(uint64_t a1,
     selfCopy = self;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (NEPolicySession)initWithSocket:(int)socket
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = NEPolicySession;
-  v4 = [(NEPolicySession *)&v17 init];
+  v22 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = NEPolicySession;
+  v4 = [(NEPolicySession *)&v16 init];
   v5 = v4;
   if (v4)
   {
@@ -2112,8 +3390,8 @@ LABEL_11:
       goto LABEL_11;
     }
 
-    v16 = *__error();
-    if (strerror_r(v16, __strerrbuf, 0x80uLL))
+    v15 = *__error();
+    if (strerror_r(v15, __strerrbuf, 0x80uLL))
     {
       __strerrbuf[0] = 0;
     }
@@ -2122,9 +3400,9 @@ LABEL_11:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109378;
-      v19 = v16;
-      v20 = 2080;
-      v21 = __strerrbuf;
+      v18 = v15;
+      v19 = 2080;
+      v20 = __strerrbuf;
       _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, "Failed to open NECP session fd: [%d] %s", buf, 0x12u);
     }
   }
@@ -2142,7 +3420,6 @@ LABEL_11:
   v12 = 0;
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

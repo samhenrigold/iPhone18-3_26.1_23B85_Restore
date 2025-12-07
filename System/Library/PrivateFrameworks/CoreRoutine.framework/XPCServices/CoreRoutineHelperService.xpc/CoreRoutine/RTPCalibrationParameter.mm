@@ -234,7 +234,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    lowThresholdBeforeCalibration = self->_lowThresholdBeforeCalibration;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -254,7 +253,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  highThresholdBeforeCalibration = self->_highThresholdBeforeCalibration;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -269,7 +267,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  lowThresholdAfterCalibration = self->_lowThresholdAfterCalibration;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -284,12 +281,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  highThresholdAfterCalibration = self->_highThresholdAfterCalibration;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_6:
-    highestScore = self->_highestScore;
     PBDataWriterWriteDoubleField();
   }
 

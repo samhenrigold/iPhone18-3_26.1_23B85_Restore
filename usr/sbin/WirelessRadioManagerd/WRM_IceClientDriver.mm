@@ -97,14 +97,14 @@
 {
   AriSdk::ARI_IBICallPsStartBandwidthEstimationReq_SDK::ARI_IBICallPsStartBandwidthEstimationReq_SDK(v5);
   v4 = sub_100087E60(estimation);
-  sub_10001B2B0();
+  sub_10001B2B0(&v6, &v4);
 }
 
 - (void)stopBandwidthEstimation:(int64_t)estimation
 {
   AriSdk::ARI_IBICallPsStopBandwidthEstimationReq_SDK::ARI_IBICallPsStopBandwidthEstimationReq_SDK(v5);
   v4 = sub_100087E60(estimation);
-  sub_10001B2B0();
+  sub_10001B2B0(&v6, &v4);
 }
 
 - (void)notifyBBLockState:(int64_t)state :(unsigned __int8)a4
@@ -112,23 +112,22 @@
   v4 = a4;
   AriSdk::ARI_IBICallPsWrmSdmInfoReq_V2_SDK::ARI_IBICallPsWrmSdmInfoReq_V2_SDK(v6);
   v5 = v4;
-  sub_10001B2B0();
+  sub_10001B2B0(v7, &v5);
 }
 
 - (void)notifyBBCallState:(int64_t)state :(unsigned __int8)a4 :(unsigned __int8)a5 :(unsigned __int8)a6 :(unsigned __int8)a7
 {
-  AriSdk::ARI_IBICallPsWrmSdmInfoReq_V2_SDK::ARI_IBICallPsWrmSdmInfoReq_V2_SDK(v9);
-  v7 = 0;
-  v8 = 0;
-  sub_10001BA2C();
+  AriSdk::ARI_IBICallPsWrmSdmInfoReq_V2_SDK::ARI_IBICallPsWrmSdmInfoReq_V2_SDK(v8);
+  v7 = 0uLL;
+  sub_10001BA2C(v9, &v7);
 }
 
 - (void)notifyAVStatus:(int64_t)status :(unsigned __int8)a4 :(unsigned __int16)a5
 {
-  AriSdk::ARI_IBICallPsWrmSdmInfoReq_V2_SDK::ARI_IBICallPsWrmSdmInfoReq_V2_SDK(v7);
-  v5 = 0;
-  v6 = 0;
-  sub_10005E688();
+  AriSdk::ARI_IBICallPsWrmSdmInfoReq_V2_SDK::ARI_IBICallPsWrmSdmInfoReq_V2_SDK(v6);
+  LODWORD(v5) = 0;
+  WORD2(v5) = 0;
+  sub_10005E688(&v7, &v5);
 }
 
 - (void)notifyFTDupelicationState:(int64_t)state :(unsigned __int8)a4
@@ -136,7 +135,7 @@
   v4 = a4;
   AriSdk::ARI_IBICallPsWrmSdmInfoReq_V2_SDK::ARI_IBICallPsWrmSdmInfoReq_V2_SDK(v6);
   v5 = v4;
-  sub_10001B2B0();
+  sub_10001B2B0(v7, &v5);
 }
 
 - (void)notifyStreamingEBHState:(int64_t)state :(unsigned __int8)a4
@@ -144,7 +143,7 @@
   v4 = a4;
   AriSdk::ARI_IBICallPsWrmSdmInfoReq_V2_SDK::ARI_IBICallPsWrmSdmInfoReq_V2_SDK(v6);
   v5 = v4;
-  sub_10001B2B0();
+  sub_10001B2B0(&v7, &v5);
 }
 
 - (void)setBBSAState:(int64_t)state :(BOOL)a4 :(unsigned __int8)a5
@@ -154,7 +153,7 @@
     *(&self->mLocationDbInfo.sadcCellInfoList.__cap_ + state + 7) = a4;
     AriSdk::ARI_IBICallPsWrmSAInfoReq_SDK::ARI_IBICallPsWrmSAInfoReq_SDK(v7);
     v6 = sub_100087E60(state);
-    sub_10001B2B0();
+    sub_10001B2B0(&v8, &v6);
   }
 }
 
@@ -575,7 +574,7 @@ LABEL_50:
 {
   AriSdk::ARI_IBICallPsWrmSdmLocationDBInfoRegReq_SDK::ARI_IBICallPsWrmSdmLocationDBInfoRegReq_SDK(v5);
   v4 = sub_100087E60(reg);
-  sub_10001B2B0();
+  sub_10001B2B0(&v6, &v4);
 }
 
 - (void)setWrmSdmLocationDbPushOneEntryForCellType:(int64_t)type cellType:(int)cellType anchorCellBandwidth:(unsigned int)bandwidth mmWavePresent:(BOOL)present downlinkThroughput:(unsigned int)throughput sampleCount:(unsigned int)count deploymentCount:(unsigned int)deploymentCount

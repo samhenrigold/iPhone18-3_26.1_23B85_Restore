@@ -305,7 +305,7 @@ void __71__PXHorizontalFeedLayoutGenerator__addColumnWithContiguousTiles_count__
 
 - (BOOL)_hasLeftSuboptimalColumn
 {
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v3 = objc_msgSend_scanState(self, a2);
   if ([(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:0])
   {
     isAtEnd = [(PXFeedLayoutGenerator *)self isAtEnd];
@@ -316,7 +316,7 @@ void __71__PXHorizontalFeedLayoutGenerator__addColumnWithContiguousTiles_count__
     isAtEnd = 0;
   }
 
-  [(PXFeedLayoutGenerator *)self setScanState:scanState];
+  [(PXFeedLayoutGenerator *)self setScanState:v3];
 
   return isAtEnd;
 }
@@ -330,12 +330,12 @@ void __71__PXHorizontalFeedLayoutGenerator__addColumnWithContiguousTiles_count__
     [currentHandler handleFailureInMethod:a2 object:self file:@"PXHorizontalFeedLayoutGenerator.m" lineNumber:461 description:{@"Invalid parameter not satisfying: %@", @"count >= 2"}];
   }
 
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v8 = objc_msgSend_scanState(self);
   v15 = 0;
   if (![(PXFeedLayoutGenerator *)self scanTile:sequence type:&v15]|| (v15 - 5) > 0xFFFFFFFFFFFFFFFDLL)
   {
 LABEL_13:
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v8];
     v11 = 0;
     goto LABEL_14;
   }
@@ -365,7 +365,7 @@ LABEL_14:
 
 - (BOOL)_scanSpecialSequenceColumn:(PXTileInfo *)column count:(int64_t *)count
 {
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v7 = objc_msgSend_scanState(self, a2);
   if ([(PXFeedLayoutGenerator *)self scanTile:column ofType:4])
   {
     v8 = 1;
@@ -373,7 +373,7 @@ LABEL_14:
 
   else
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v7];
     if ([(PXHorizontalFeedLayoutGenerator *)self _scanNonPanoramaSequence:column count:3]&& ![(PXHorizontalFeedLayoutGenerator *)self _hasLeftSuboptimalColumn])
     {
       v8 = 3;
@@ -381,10 +381,10 @@ LABEL_14:
 
     else
     {
-      [(PXFeedLayoutGenerator *)self setScanState:scanState];
+      [(PXFeedLayoutGenerator *)self setScanState:v7];
       if (![(PXHorizontalFeedLayoutGenerator *)self _scanNonPanoramaSequence:column count:2]|| [(PXHorizontalFeedLayoutGenerator *)self _hasLeftSuboptimalColumn])
       {
-        [(PXFeedLayoutGenerator *)self setScanState:scanState];
+        [(PXFeedLayoutGenerator *)self setScanState:v7];
         v9 = 0;
         goto LABEL_11;
       }
@@ -412,24 +412,24 @@ LABEL_11:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PXHorizontalFeedLayoutGenerator.m" lineNumber:300 description:{@"Invalid parameter not satisfying: %@", @"tileInfos != NULL"}];
   }
 
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v5 = objc_msgSend_scanState(self, a2);
   if ([(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:lead]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn])
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn]
+    || ([(PXFeedLayoutGenerator *)self setScanState:v5], [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:lead]) && [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[1]]&& [(PXFeedLayoutGenerator *)self scanTileWithSquareImage:&lead[2]]&& [(PXHorizontalFeedLayoutGenerator *)self _isAtEndOfColumn])
   {
     v6 = 1;
   }
 
   else
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v5];
     v6 = 0;
   }
 
@@ -439,10 +439,10 @@ LABEL_11:
 - (BOOL)_parseSpecialSubsequenceWithColumnRequired:(BOOL)required columnParsed:(BOOL *)parsed
 {
   v15 = *MEMORY[0x1E69E9840];
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v7 = objc_msgSend_scanState(self, a2);
   if ([(PXHorizontalFeedLayoutGenerator *)self _scanSpecialSequenceBlock:v14])
   {
-    scanState2 = [(PXFeedLayoutGenerator *)self scanState];
+    v8 = objc_msgSend_scanState(self);
     v12 = 0;
     if ([(PXHorizontalFeedLayoutGenerator *)self _scanSpecialSequenceColumn:v13 count:&v12])
     {
@@ -455,7 +455,7 @@ LABEL_11:
 
         else
         {
-          [(PXFeedLayoutGenerator *)self setScanState:scanState2];
+          [(PXFeedLayoutGenerator *)self setScanState:v8];
           v9 = 0;
         }
 
@@ -494,7 +494,7 @@ LABEL_15:
 LABEL_16:
   if (!v10)
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v7];
   }
 
   return v10;
@@ -530,7 +530,7 @@ LABEL_16:
 - (BOOL)_parseSpecialTileTriplet
 {
   v8[8] = *MEMORY[0x1E69E9840];
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v3 = objc_msgSend_scanState(self, a2);
   v4 = [(PXHorizontalFeedLayoutGenerator *)self _scanTripletWithLargeLead:v6];
   if (v4)
   {
@@ -544,7 +544,7 @@ LABEL_16:
 
   else
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v3];
   }
 
   return v4;
@@ -553,18 +553,18 @@ LABEL_16:
 - (BOOL)_parseTileTriplet
 {
   v65[8] = *MEMORY[0x1E69E9840];
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v3 = objc_msgSend_scanState(self, a2);
   if ([(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v63]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v64]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v65]&& ![(PXHorizontalFeedLayoutGenerator *)self _hasLeftSuboptimalColumn]&& ([(PXFeedLayoutGenerator *)self interTileSpacing], v5 = v4, v7 = v6, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v9 = v8 - v7, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:(v8 - v7) * 0.75 * 0.5], v11 = v10 + v10, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:v9 * 0.5], v51 = 0, v52 = 0, v53 = v11 * 0.5, v54 = (v12 + v12) * 0.5, v55 = v5 + v11 * 0.5, v56 = 0.0, v57 = v11 * 0.5, v58 = v54, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v59 = 0.0, v60 = v7 + v54, v61 = v5 + v11, v62 = v13 - (v7 + v54), [(PXHorizontalFeedLayoutGenerator *)self _addColumnWithTiles:v63 imageFrames:&v51 count:3])
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v63]) && [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v64]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v65]&& ![(PXHorizontalFeedLayoutGenerator *)self _hasLeftSuboptimalColumn]&& ([(PXFeedLayoutGenerator *)self interTileSpacing], v15 = v14, v17 = v16, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v19 = v18 - v17, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:(v18 - v17) * 0.75 * 0.5], v21 = v20 + v20, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:v19 * 0.5], v51 = 0, v52 = 0, v53 = v15 + v21, v54 = (v22 + v22) * 0.5, v23 = v17 + v54, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v55 = 0.0, v56 = v23, v57 = v21 * 0.5, v58 = v24 - v23, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v59 = v15 + v21 * 0.5, v60 = v23, v61 = v21 * 0.5, v62 = v25 - v23, [(PXHorizontalFeedLayoutGenerator *)self _addColumnWithTiles:v63 imageFrames:&v51 count:3])
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v63]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v64]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v65]&& ![(PXHorizontalFeedLayoutGenerator *)self _hasLeftSuboptimalColumn]&& ([(PXFeedLayoutGenerator *)self interTileSpacing], v27 = v26, v29 = v28, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v31 = v30 - v29, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:(v30 - v29) * 0.75 * 0.5], v33 = v32 + v32, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:v31 * 0.5], v35 = (v34 + v34) * 0.5, v51 = 0, v52 = 0, v53 = v33 * 0.5, v54 = v35, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v55 = 0.0, v56 = v29 + v35, v57 = v27 + v33, v58 = v36 - (v29 + v35), v59 = v27 + v33 * 0.5, v60 = 0.0, v61 = v33 * 0.5, v62 = v35, [(PXHorizontalFeedLayoutGenerator *)self _addColumnWithTiles:v63 imageFrames:&v51 count:3])
-    || ([(PXFeedLayoutGenerator *)self setScanState:scanState], [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v63]) && [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v64]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v65]&& ![(PXHorizontalFeedLayoutGenerator *)self _hasLeftSuboptimalColumn]&& ([(PXFeedLayoutGenerator *)self interTileSpacing], v38 = v37, v40 = v39, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v42 = v41 - v40, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:(v41 - v40) * 1.33333337 * 0.5], v44 = v43 + v43, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:v42 * 0.5], v46 = v45 + v45, v51 = 0, v52 = 0, v53 = v44 * 0.5, v54 = (v45 + v45) * 0.5, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v55 = v38 + v44 * 0.5, v56 = 0.0, v57 = v44 * 0.5, v58 = v47, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v59 = 0.0, v60 = v40 + v46 * 0.5, v61 = v44 * 0.5, v62 = v48 - v60, [(PXHorizontalFeedLayoutGenerator *)self _addColumnWithTiles:v63 imageFrames:&v51 count:3]))
+    || ([(PXFeedLayoutGenerator *)self setScanState:v3], [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v63]) && [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v64]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v65]&& ![(PXHorizontalFeedLayoutGenerator *)self _hasLeftSuboptimalColumn]&& ([(PXFeedLayoutGenerator *)self interTileSpacing], v15 = v14, v17 = v16, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v19 = v18 - v17, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:(v18 - v17) * 0.75 * 0.5], v21 = v20 + v20, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:v19 * 0.5], v51 = 0, v52 = 0, v53 = v15 + v21, v54 = (v22 + v22) * 0.5, v23 = v17 + v54, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v55 = 0.0, v56 = v23, v57 = v21 * 0.5, v58 = v24 - v23, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v59 = v15 + v21 * 0.5, v60 = v23, v61 = v21 * 0.5, v62 = v25 - v23, [(PXHorizontalFeedLayoutGenerator *)self _addColumnWithTiles:v63 imageFrames:&v51 count:3])
+    || ([(PXFeedLayoutGenerator *)self setScanState:v3], [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v63]) && [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v64]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v65]&& ![(PXHorizontalFeedLayoutGenerator *)self _hasLeftSuboptimalColumn]&& ([(PXFeedLayoutGenerator *)self interTileSpacing], v27 = v26, v29 = v28, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v31 = v30 - v29, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:(v30 - v29) * 0.75 * 0.5], v33 = v32 + v32, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:v31 * 0.5], v35 = (v34 + v34) * 0.5, v51 = 0, v52 = 0, v53 = v33 * 0.5, v54 = v35, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v55 = 0.0, v56 = v29 + v35, v57 = v27 + v33, v58 = v36 - (v29 + v35), v59 = v27 + v33 * 0.5, v60 = 0.0, v61 = v33 * 0.5, v62 = v35, [(PXHorizontalFeedLayoutGenerator *)self _addColumnWithTiles:v63 imageFrames:&v51 count:3])
+    || ([(PXFeedLayoutGenerator *)self setScanState:v3], [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v63]) && [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v64]&& [(PXFeedLayoutGenerator *)self scanTileWithLandscapeImage:v65]&& ![(PXHorizontalFeedLayoutGenerator *)self _hasLeftSuboptimalColumn]&& ([(PXFeedLayoutGenerator *)self interTileSpacing], v38 = v37, v40 = v39, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v42 = v41 - v40, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:(v41 - v40) * 1.33333337 * 0.5], v44 = v43 + v43, [(PXFeedLayoutGenerator *)self valueByRounding:0 usingMagneticGuidelines:v42 * 0.5], v46 = v45 + v45, v51 = 0, v52 = 0, v53 = v44 * 0.5, v54 = (v45 + v45) * 0.5, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v55 = v38 + v44 * 0.5, v56 = 0.0, v57 = v44 * 0.5, v58 = v47, [(PXHorizontalFeedLayoutGenerator *)self referenceHeight], v59 = 0.0, v60 = v40 + v46 * 0.5, v61 = v44 * 0.5, v62 = v48 - v60, [(PXHorizontalFeedLayoutGenerator *)self _addColumnWithTiles:v63 imageFrames:&v51 count:3]))
   {
     v49 = 1;
   }
 
   else
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v3];
     v49 = 0;
   }
 
@@ -574,7 +574,7 @@ LABEL_16:
 - (BOOL)_parseTilePair
 {
   v7[8] = *MEMORY[0x1E69E9840];
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v3 = objc_msgSend_scanState(self, a2);
   if (![(PXFeedLayoutGenerator *)self scanLocation]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v6]&& [(PXFeedLayoutGenerator *)self scanTileWithPortraitImage:v7]&& [(PXFeedLayoutGenerator *)self isAtEnd])
   {
     v4 = 1;
@@ -584,7 +584,7 @@ LABEL_16:
 
   else
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v3];
     if ([(PXFeedLayoutGenerator *)self scanAnyTile:v6]&& [(PXFeedLayoutGenerator *)self scanAnyTile:v7]&& [(PXHorizontalFeedLayoutGenerator *)self _addColumnWithContiguousTiles:v6 count:2])
     {
       v4 = 1;
@@ -592,7 +592,7 @@ LABEL_16:
 
     else
     {
-      [(PXFeedLayoutGenerator *)self setScanState:scanState];
+      [(PXFeedLayoutGenerator *)self setScanState:v3];
       v4 = 0;
     }
   }
@@ -602,7 +602,7 @@ LABEL_16:
 
 - (BOOL)_parseSingleTile
 {
-  scanState = [(PXFeedLayoutGenerator *)self scanState];
+  v3 = objc_msgSend_scanState(self, a2);
   v12 = 0u;
   v13 = 0u;
   v10 = 0u;
@@ -622,7 +622,7 @@ LABEL_16:
 
   else
   {
-    [(PXFeedLayoutGenerator *)self setScanState:scanState];
+    [(PXFeedLayoutGenerator *)self setScanState:v3];
   }
 
   return v4;

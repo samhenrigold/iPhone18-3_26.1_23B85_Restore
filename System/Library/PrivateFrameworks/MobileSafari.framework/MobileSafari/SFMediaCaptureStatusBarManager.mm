@@ -151,16 +151,17 @@
 void __73__SFMediaCaptureStatusBarManager__acquireStatusBarOverrideWithAudioOnly___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXMediaCapture();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXMediaCapture(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __73__SFMediaCaptureStatusBarManager__acquireStatusBarOverrideWithAudioOnly___block_invoke_cold_1(v4, v3);
+      __73__SFMediaCaptureStatusBarManager__acquireStatusBarOverrideWithAudioOnly___block_invoke_cold_1(v6, v5);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v6 = WeakRetained;
+    v8 = WeakRetained;
     if (WeakRetained)
     {
       if (WeakRetained[24] == 1)
@@ -168,7 +169,7 @@ void __73__SFMediaCaptureStatusBarManager__acquireStatusBarOverrideWithAudioOnly
         [WeakRetained _releaseStatusBarOverride];
       }
 
-      [v6 _didInvalidateStatusBarOverride];
+      [v8 _didInvalidateStatusBarOverride];
     }
   }
 }
@@ -185,7 +186,7 @@ void __73__SFMediaCaptureStatusBarManager__acquireStatusBarOverrideWithAudioOnly
 - (void)_didAcquireStatusBarOverrideSuccessfully:(BOOL)successfully
 {
   successfullyCopy = successfully;
-  v5 = WBS_LOG_CHANNEL_PREFIXMediaCapture();
+  v5 = WBS_LOG_CHANNEL_PREFIXMediaCapture(self, a2);
   v6 = v5;
   if (successfullyCopy)
   {
@@ -214,7 +215,7 @@ void __73__SFMediaCaptureStatusBarManager__acquireStatusBarOverrideWithAudioOnly
 
 - (void)_didInvalidateStatusBarOverride
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXMediaCapture();
+  v3 = WBS_LOG_CHANNEL_PREFIXMediaCapture(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(SFMediaCaptureStatusBarManager *)v3 _didInvalidateStatusBarOverride];
@@ -251,17 +252,17 @@ void __73__SFMediaCaptureStatusBarManager__acquireStatusBarOverrideWithAudioOnly
 
 - (void)statusBarCoordinator:(id)coordinator invalidatedRegistrationWithError:(id)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   WeakRetained = objc_loadWeakRetained(&self->_recordingDocument);
-  v7 = WBS_LOG_CHANNEL_PREFIXMediaCapture();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = WBS_LOG_CHANNEL_PREFIXMediaCapture(WeakRetained, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = v7;
+    v9 = v8;
     safari_privacyPreservingDescription = [errorCopy safari_privacyPreservingDescription];
-    v10 = 138543362;
-    v11 = safari_privacyPreservingDescription;
-    _os_log_impl(&dword_18B7AC000, v8, OS_LOG_TYPE_DEFAULT, "Status bar coordinator invalidated: %{public}@", &v10, 0xCu);
+    v11 = 138543362;
+    v12 = safari_privacyPreservingDescription;
+    _os_log_impl(&dword_18B7AC000, v9, OS_LOG_TYPE_DEFAULT, "Status bar coordinator invalidated: %{public}@", &v11, 0xCu);
   }
 
   if (WeakRetained)

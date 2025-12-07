@@ -36,7 +36,7 @@
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          sub_10004B66C(buf);
+          sub_10004B66C();
         }
 
         v14 = [NSError errorWithDomain:NSPOSIXErrorDomain code:*buf userInfo:0];

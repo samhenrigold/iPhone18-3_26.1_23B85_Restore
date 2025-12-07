@@ -120,38 +120,39 @@
 
 - (void)didFindLocalContentWithOptions:(unint64_t)options forURL:(id)l
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   lCopy = l;
+  v8 = lCopy;
   if ((options & 0xFFFFFFFFFFFFFF9FLL) != 0)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(lCopy, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(WBSBrowsingAssistantController *)lCopy didFindLocalContentWithOptions:options forURL:v7];
+      [(WBSBrowsingAssistantController *)v8 didFindLocalContentWithOptions:options forURL:v9];
     }
   }
 
-  v8 = [(WBSBrowsingAssistantController *)self _currentResultForURL:lCopy];
-  [v8 updateForLocalContentWithOptions:options];
+  v10 = [(WBSBrowsingAssistantController *)self _currentResultForURL:v8];
+  [v10 updateForLocalContentWithOptions:options];
 
-  if (-[WBSBrowsingAssistantResult remoteContentState](self->_result, "remoteContentState") <= 1 && [objc_opt_class() hasUserConsent])
+  if (-[WBSBrowsingAssistantResult remoteContentState](self->_result, "remoteContentState") <= 1 && (v11 = [objc_opt_class() hasUserConsent], v11))
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v13 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       result = self->_result;
-      v11 = v9;
-      v12 = 134349312;
+      v15 = v13;
+      v16 = 134349312;
       optionsCopy = options;
-      v14 = 2050;
+      v18 = 2050;
       remoteContentState = [(WBSBrowsingAssistantResult *)result remoteContentState];
-      _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "Discarding content options: %{public}ld, due to remote content state: %{public}ld", &v12, 0x16u);
+      _os_log_impl(&dword_1BB6F3000, v15, OS_LOG_TYPE_INFO, "Discarding content options: %{public}ld, due to remote content state: %{public}ld", &v16, 0x16u);
     }
   }
 
   else
   {
-    [(WBSBrowsingAssistantController *)self _foundContentOptions:options fromURL:lCopy];
+    [(WBSBrowsingAssistantController *)self _foundContentOptions:options fromURL:v8];
   }
 }
 
@@ -237,35 +238,35 @@ void __73__WBSBrowsingAssistantController__registerForUserDefaultObserverIfNeede
     {
       if (userConsentState != 2)
       {
-        v8 = [WBSBrowsingAssistantContentProvider assistantEnabledForLocale:localeCopy];
+        v9 = [WBSBrowsingAssistantContentProvider assistantEnabledForLocale:localeCopy];
         goto LABEL_10;
       }
 
-      v6 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(2, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Don't check URL for assistant content since User has declined.", buf, 2u);
+        _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Don't check URL for assistant content since User has declined.", buf, 2u);
       }
     }
 
     else
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(0, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Don't check URL for assistant content since user hasn't given consent yet.", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Don't check URL for assistant content since user hasn't given consent yet.", v11, 2u);
       }
 
       [(WBSBrowsingAssistantController *)self _registerForUserDefaultObserverIfNeeded];
     }
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_10:
 
-  return v8;
+  return v9;
 }
 
 - (void)checkForAssistantContentFromPegasusForURL:(id)l locale:(id)locale
@@ -302,9 +303,9 @@ LABEL_7:
   {
 LABEL_12:
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v15 = [WeakRetained browsingAssistantControllerShouldCheckRemoteContent:self];
+    v16 = [WeakRetained browsingAssistantControllerShouldCheckRemoteContent:self];
 
-    if (!v15)
+    if (!v16)
     {
       goto LABEL_8;
     }
@@ -312,8 +313,8 @@ LABEL_12:
     [(WBSBrowsingAssistantResult *)self->_result setRemoteContentState:1];
     if (![(NSString *)self->_previousWebpageIdentifier isEqualToString:self->_webpageIdentifier])
     {
-      v16 = +[WBSBiomeDonationManager sharedManager];
-      [v16 donateBrowsingAssistantWebPageStartedEventWithWebPageID:self->_webpageIdentifier];
+      v17 = +[WBSBiomeDonationManager sharedManager];
+      [v17 donateBrowsingAssistantWebPageStartedEventWithWebPageID:self->_webpageIdentifier];
 
       objc_storeStrong(&self->_previousWebpageIdentifier, self->_webpageIdentifier);
     }
@@ -321,29 +322,29 @@ LABEL_12:
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
 
-    v19 = +[WBSBiomeDonationManager sharedManager];
-    [v19 donateBrowsingAssistantServerRequestStartedEventWithWebPageID:self->_webpageIdentifier requestIdentifier:uUIDString requestType:1];
+    v20 = +[WBSBiomeDonationManager sharedManager];
+    [v20 donateBrowsingAssistantServerRequestStartedEventWithWebPageID:self->_webpageIdentifier requestIdentifier:uUIDString requestType:1];
 
     contentProvider = self->_contentProvider;
     webpageIdentifier = self->_webpageIdentifier;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __83__WBSBrowsingAssistantController_checkForAssistantContentFromPegasusForURL_locale___block_invoke;
-    v22[3] = &unk_1E7FB7180;
-    v22[4] = self;
-    v23 = lCopy;
-    v24 = uUIDString;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __83__WBSBrowsingAssistantController_checkForAssistantContentFromPegasusForURL_locale___block_invoke;
+    v23[3] = &unk_1E7FB7180;
+    v23[4] = self;
+    v24 = lCopy;
+    v25 = uUIDString;
     v12 = uUIDString;
-    [(WBSBrowsingAssistantContentProvider *)contentProvider checkContentAvailabilityForURL:v23 locale:localeCopy webpageIdentifier:webpageIdentifier completion:v22];
+    [(WBSBrowsingAssistantContentProvider *)contentProvider checkContentAvailabilityForURL:v24 locale:localeCopy webpageIdentifier:webpageIdentifier completion:v23];
 
     goto LABEL_7;
   }
 
-  v13 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(1, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "We already have a URL checking on fly, don't continue.", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_INFO, "We already have a URL checking on fly, don't continue.", buf, 2u);
   }
 
 LABEL_8:
@@ -496,7 +497,7 @@ uint64_t __95__WBSBrowsingAssistantController_fetchAssistantContentFromPegasusFo
 
 - (BOOL)_shouldContinueFetchingRemoteContent:(id)content
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   contentCopy = content;
   if ([objc_opt_class() userConsentState] == 1)
   {
@@ -505,47 +506,47 @@ uint64_t __95__WBSBrowsingAssistantController_fetchAssistantContentFromPegasusFo
 
     if (v6)
     {
-      if (-[WBSBrowsingAssistantResult remoteContentAvailableForFetching](self->_result, "remoteContentAvailableForFetching") || (-[WBSBrowsingAssistantController result](self, "result"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 tableOfContentsAvailable], v7, (v8 & 1) != 0))
+      if (-[WBSBrowsingAssistantResult remoteContentAvailableForFetching](self->_result, "remoteContentAvailableForFetching") || (-[WBSBrowsingAssistantController result](self, "result"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 tableOfContentsAvailable], v9, (v10 & 1) != 0))
       {
         if ([(WBSBrowsingAssistantResult *)self->_result remoteContentState]!= 3)
         {
-          v11 = 1;
+          v16 = 1;
           goto LABEL_11;
         }
 
-        v9 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v14 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(3, v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          [(WBSBrowsingAssistantController *)contentCopy _shouldContinueFetchingRemoteContent:v9];
+          [(WBSBrowsingAssistantController *)contentCopy _shouldContinueFetchingRemoteContent:v14];
         }
       }
 
       else
       {
-        v13 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v18 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(v11, v12);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          v14 = 138739971;
-          v15 = contentCopy;
-          _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Don't fetch assistant content since first hop check says there is no remote content for %{sensitive}@.", &v14, 0xCu);
+          v19 = 138739971;
+          v20 = contentCopy;
+          _os_log_impl(&dword_1BB6F3000, v18, OS_LOG_TYPE_INFO, "Don't fetch assistant content since first hop check says there is no remote content for %{sensitive}@.", &v19, 0xCu);
         }
       }
     }
 
     else
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v15 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(v7, v8);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(WBSBrowsingAssistantController *)contentCopy _shouldContinueFetchingRemoteContent:v10];
+        [(WBSBrowsingAssistantController *)contentCopy _shouldContinueFetchingRemoteContent:v15];
       }
     }
   }
 
-  v11 = 0;
+  v16 = 0;
 LABEL_11:
 
-  return v11;
+  return v16;
 }
 
 - (void)updateAssistantContentForURL:(id)l completionHandler:(id)handler

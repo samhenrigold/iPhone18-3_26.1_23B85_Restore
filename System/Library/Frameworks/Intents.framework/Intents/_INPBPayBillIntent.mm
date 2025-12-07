@@ -1,6 +1,7 @@
 @interface _INPBPayBillIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBPayBillIntent)initWithCoder:(id)coder;
+- (id)billTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsBillType:(id)type;
@@ -365,7 +366,6 @@ LABEL_42:
 
   if ([(_INPBPayBillIntent *)self hasBillType])
   {
-    billType = self->_billType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -411,13 +411,13 @@ LABEL_42:
 
   transactionScheduledDate = [(_INPBPayBillIntent *)self transactionScheduledDate];
 
-  v18 = toCopy;
+  v17 = toCopy;
   if (transactionScheduledDate)
   {
     transactionScheduledDate2 = [(_INPBPayBillIntent *)self transactionScheduledDate];
     PBDataWriterWriteSubmessage();
 
-    v18 = toCopy;
+    v17 = toCopy;
   }
 }
 
@@ -537,6 +537,21 @@ LABEL_42:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)billTypeAsString:(int)string
+{
+  if ((string - 1) >= 0x16)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72819B8[string - 1];
   }
 
   return v4;

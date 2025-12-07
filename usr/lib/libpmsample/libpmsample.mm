@@ -106,14 +106,13 @@ intptr_t sub_299828C24()
   qword_2A197CD50 = dispatch_queue_create("netstats sample queue", 0);
   qword_2A197CD30 = dispatch_queue_create("netstats update queue", 0);
   qword_2A197CD38 = CFDictionaryCreateMutable(0, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  v0 = *MEMORY[0x29EDB8ED8];
   qword_2A197CD88 = NStatManagerCreate();
   NStatManagerAddAllTCP();
   NStatManagerAddAllUDP();
   NStatManagerQueryAllSources();
-  v1 = qword_2A197CD90;
+  v0 = qword_2A197CD90;
 
-  return dispatch_semaphore_wait(v1, 0xFFFFFFFFFFFFFFFFLL);
+  return dispatch_semaphore_wait(v0, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 uint64_t sub_299828D2C(int a1, CFTypeRef cf)
@@ -126,88 +125,86 @@ uint64_t sub_299828D2C(int a1, CFTypeRef cf)
 
 void sub_299828E50(uint64_t a1, const __CFDictionary *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = NStatSourceCopyCounts();
-  if (v4)
+  v3 = NStatSourceCopyCounts();
+  if (v3)
   {
-    v5 = v4;
-    v17 = 0;
+    v4 = v3;
+    v16 = 0;
     *buffer = 0u;
-    v16 = 0u;
+    v15 = 0u;
     valuePtr = 0;
     Value = CFDictionaryGetValue(a2, *MEMORY[0x29EDC5E60]);
     if (Value)
     {
-      v7 = Value;
-      v8 = CFDictionaryGetValue(qword_2A197CD38, Value);
-      if (v8)
+      v6 = Value;
+      v7 = CFDictionaryGetValue(qword_2A197CD38, Value);
+      if (v7)
       {
-        v18.location = 0;
-        v18.length = 40;
-        CFDataGetBytes(v8, v18, buffer);
+        v17.location = 0;
+        v17.length = 40;
+        CFDataGetBytes(v7, v17, buffer);
       }
 
       else
       {
-        v17 = 0;
+        v16 = 0;
         *buffer = 0u;
-        v16 = 0u;
+        v15 = 0u;
       }
 
-      CFNumberGetValue(v7, kCFNumberIntType, buffer);
-      v9 = CFDictionaryGetValue(v5, *MEMORY[0x29EDC5E70]);
-      CFNumberGetValue(v9, kCFNumberLongLongType, &valuePtr);
+      CFNumberGetValue(v6, kCFNumberIntType, buffer);
+      v8 = CFDictionaryGetValue(v4, *MEMORY[0x29EDC5E70]);
+      CFNumberGetValue(v8, kCFNumberLongLongType, &valuePtr);
       if (valuePtr > *&buffer[8])
       {
         *&buffer[8] = valuePtr;
       }
 
-      v10 = CFDictionaryGetValue(v5, *MEMORY[0x29EDC5E68]);
-      CFNumberGetValue(v10, kCFNumberLongLongType, &valuePtr);
-      if (valuePtr > *(&v16 + 1))
+      v9 = CFDictionaryGetValue(v4, *MEMORY[0x29EDC5E68]);
+      CFNumberGetValue(v9, kCFNumberLongLongType, &valuePtr);
+      if (valuePtr > *(&v15 + 1))
       {
-        *(&v16 + 1) = valuePtr;
+        *(&v15 + 1) = valuePtr;
       }
 
-      v11 = CFDictionaryGetValue(v5, *MEMORY[0x29EDC5E80]);
+      v10 = CFDictionaryGetValue(v4, *MEMORY[0x29EDC5E80]);
+      CFNumberGetValue(v10, kCFNumberLongLongType, &valuePtr);
+      if (valuePtr > v15)
+      {
+        *&v15 = valuePtr;
+      }
+
+      v11 = CFDictionaryGetValue(v4, *MEMORY[0x29EDC5E78]);
       CFNumberGetValue(v11, kCFNumberLongLongType, &valuePtr);
       if (valuePtr > v16)
       {
-        *&v16 = valuePtr;
+        v16 = valuePtr;
       }
 
-      v12 = CFDictionaryGetValue(v5, *MEMORY[0x29EDC5E78]);
-      CFNumberGetValue(v12, kCFNumberLongLongType, &valuePtr);
-      if (valuePtr > v17)
-      {
-        v17 = valuePtr;
-      }
-
-      v13 = CFDataCreate(0, buffer, 40);
+      v12 = CFDataCreate(0, buffer, 40);
       dispatch_semaphore_wait(qword_2A197CD40, 0xFFFFFFFFFFFFFFFFLL);
-      CFDictionarySetValue(qword_2A197CD38, v7, v13);
+      CFDictionarySetValue(qword_2A197CD38, v6, v12);
       dispatch_semaphore_signal(qword_2A197CD40);
-      CFRelease(v13);
+      CFRelease(v12);
     }
 
-    CFRelease(v5);
+    CFRelease(v4);
   }
 }
 
 void sub_299829024(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = NStatSourceCopyProperties();
-  if (v3)
+  v2 = NStatSourceCopyProperties();
+  if (v2)
   {
-    v4 = v3;
+    v3 = v2;
     (*(*(a1 + 32) + 16))();
-    CFRelease(v4);
+    CFRelease(v3);
   }
 
-  v5 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  CFRelease(v5);
+  CFRelease(v4);
 }
 
 uint64_t sub_2998290AC()
@@ -219,7 +216,7 @@ uint64_t sub_2998290AC()
   v8 = v7;
   v10 = v9;
   v11 = v0;
-  v71 = *MEMORY[0x29EDCA608];
+  v70 = *MEMORY[0x29EDCA608];
   v12 = 456;
   if (v1 == 2)
   {
@@ -239,12 +236,13 @@ uint64_t sub_2998290AC()
   bzero(v0, v13);
   tn = 0;
   *task_info_out = 0u;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v40 = 0;
+  v39 = 0;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
@@ -259,8 +257,8 @@ uint64_t sub_2998290AC()
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
-  memset(v58, 0, sizeof(v58));
+  memset(v57, 0, sizeof(v57));
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
@@ -272,7 +270,6 @@ uint64_t sub_2998290AC()
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   task_info_outCnt = 0;
   *v11 = v6;
   if (v8)
@@ -283,8 +280,8 @@ uint64_t sub_2998290AC()
       if (v14 <= 0)
       {
         v22 = *MEMORY[0x29EDCA610];
-        v31 = v6;
-        v32 = v14;
+        v30 = v6;
+        v31 = v14;
         v20 = "proc_pidpath %u failed(%u)\n";
         goto LABEL_32;
       }
@@ -305,20 +302,20 @@ uint64_t sub_2998290AC()
       if (v23)
       {
         v18 = *MEMORY[0x29EDCA610];
-        v31 = v23;
-        v32 = mach_error_string(v23);
+        v30 = v23;
+        v31 = mach_error_string(v23);
         v20 = "task_name_for_pid failed %u %s\n";
         goto LABEL_26;
       }
     }
 
-    v40 = 0;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
+    v39 = 0;
     v37 = 0u;
-    *task_info_out = 0u;
+    v38 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    *task_info_out = 0u;
+    v34 = 0u;
     task_info_outCnt = 26;
     v16 = task_info(*p_tn, 0x1Au, task_info_out, &task_info_outCnt);
     v17 = v16;
@@ -328,16 +325,15 @@ uint64_t sub_2998290AC()
       {
 LABEL_15:
         v18 = *MEMORY[0x29EDCA610];
-        v31 = v17;
-        v32 = mach_error_string(v17);
+        v30 = v17;
+        v31 = mach_error_string(v17);
 LABEL_20:
         v20 = "task_info failed %u %s\n";
 LABEL_26:
         v24 = v18;
 LABEL_33:
-        fprintf(v24, v20, v31, v32);
-        result = 0xFFFFFFFFLL;
-        goto LABEL_52;
+        fprintf(v24, v20, v30, v31);
+        return 0xFFFFFFFFLL;
       }
     }
 
@@ -352,17 +348,17 @@ LABEL_33:
 
     if ((v8 & 4) != 0)
     {
-      v26 = v35;
+      v26 = v34;
       *(v11 + 132) = *task_info_out;
       *(v11 + 148) = v26;
-      v27 = v39;
-      *(v11 + 164) = v36;
+      v27 = v38;
+      *(v11 + 164) = v35;
       *(v11 + 23) = v27;
-      *(v11 + 48) = v40;
+      *(v11 + 48) = v39;
       if ((v8 & 0x20) != 0)
       {
 LABEL_35:
-        *(v11 + 42) = v37;
+        *(v11 + 42) = v36;
       }
     }
 
@@ -384,48 +380,48 @@ LABEL_35:
     if (v19)
     {
       v18 = *MEMORY[0x29EDCA610];
-      v31 = v19;
-      v32 = mach_error_string(v19);
+      v30 = v19;
+      v31 = mach_error_string(v19);
       goto LABEL_20;
     }
   }
 
   if ((v8 & 0x16) != 0)
   {
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
     v68 = 0u;
-    v65 = 0u;
+    v69 = 0u;
     v66 = 0u;
-    v63 = 0u;
+    v67 = 0u;
     v64 = 0u;
-    v61 = 0u;
+    v65 = 0u;
     v62 = 0u;
-    v59 = 0u;
+    v63 = 0u;
     v60 = 0u;
-    memset(v58, 0, sizeof(v58));
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    memset(v57, 0, sizeof(v57));
     v55 = 0u;
-    v52 = 0u;
+    v56 = 0u;
     v53 = 0u;
-    v50 = 0u;
+    v54 = 0u;
     v51 = 0u;
-    v48 = 0u;
+    v52 = 0u;
     v49 = 0u;
-    v46 = 0u;
+    v50 = 0u;
     v47 = 0u;
-    v44 = 0u;
+    v48 = 0u;
     v45 = 0u;
+    v46 = 0u;
     v43 = 0u;
-    v21 = proc_pid_rusage(v6, 6, &v43);
+    v44 = 0u;
+    v42 = 0u;
+    v21 = proc_pid_rusage(v6, 6, &v42);
     if (v21)
     {
       v22 = *MEMORY[0x29EDCA610];
-      v31 = v6;
-      v32 = v21;
+      v30 = v6;
+      v31 = v21;
       v20 = "proc_pid_rusage %u failed(%u)\n";
 LABEL_32:
       v24 = v22;
@@ -434,23 +430,23 @@ LABEL_32:
 
     if ((v8 & 4) != 0)
     {
-      v28 = v54;
-      *(v11 + 16) = v53;
+      v28 = v53;
+      *(v11 + 16) = v52;
       *(v11 + 17) = v28;
-      *(v11 + 18) = v55;
-      *(v11 + 38) = v56;
+      *(v11 + 18) = v54;
+      *(v11 + 38) = v55;
       if (v2 >= 2)
       {
-        v29 = v62;
-        *(v11 + 408) = *&v58[1];
+        v29 = v61;
+        *(v11 + 408) = *&v57[1];
         *(v11 + 424) = v29;
       }
     }
 
     if ((v8 & 0x10) != 0)
     {
-      *(v11 + 312) = v52;
-      *(v11 + 41) = v46;
+      *(v11 + 312) = v51;
+      *(v11 + 41) = v45;
     }
 
     if ((v8 & 2) != 0)
@@ -460,7 +456,7 @@ LABEL_32:
         v10 = mach_absolute_time();
       }
 
-      *(v11 + 49) = v10 - v48;
+      *(v11 + 49) = v10 - v47;
     }
   }
 
@@ -479,10 +475,7 @@ LABEL_32:
     sub_2998288C8(v6, v11 + 184, v10);
   }
 
-  result = 0;
-LABEL_52:
-  v30 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 uint64_t pm_sample_task_version(mach_port_name_t a1)
@@ -566,7 +559,7 @@ uint64_t sub_2998296E4(uint64_t a1)
   if (dword_2A197CD80)
   {
     v3 = 0;
-    for (i = &unk_2A197CD64; ; ++i)
+    for (i = dword_2A197CD64; ; ++i)
     {
       result = host_processor_set_priv(dword_2A197CD48, *(qword_2A197CD58 + 4 * v3), i);
       if (result)
@@ -613,9 +606,9 @@ void pm_samples_destroy_version(int *a1)
   free(a1);
 }
 
-uint64_t pm_samples_get_version(uint64_t a1, unsigned int a2)
+uint64_t pm_samples_get_version(uint64_t a1, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || *a1 <= a2)
+  if (a2 < 0 || *a1 <= a2)
   {
     return 0;
   }
@@ -626,9 +619,9 @@ uint64_t pm_samples_get_version(uint64_t a1, unsigned int a2)
   }
 }
 
-uint64_t pm_samples_get(uint64_t a1, unsigned int a2)
+uint64_t pm_samples_get(uint64_t a1, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0 || *a1 <= a2)
+  if (a2 < 0 || *a1 <= a2)
   {
     return 0;
   }
@@ -641,16 +634,16 @@ uint64_t pm_samples_get(uint64_t a1, unsigned int a2)
 
 uint64_t pm_samples_sample_version(uint64_t a1)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   if (!dword_2A197CD80)
   {
     sub_299829FFC();
   }
 
   v2 = 0;
-  v24 = *(a1 + 8);
+  v22 = *(a1 + 8);
   *task_list = 0u;
-  v26 = 0u;
+  v24 = 0u;
   v3 = task_listCnt;
   v4 = task_list;
   do
@@ -658,10 +651,10 @@ uint64_t pm_samples_sample_version(uint64_t a1)
     v5 = processor_set_tasks_with_flavor(dword_2A197CD64[v2], 2u, v4, v3);
     if (v5)
     {
-      v23 = v5;
+      v21 = v5;
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
-        sub_299829F38(v23);
+        sub_299829F38(v21);
       }
 
       goto LABEL_38;
@@ -742,7 +735,6 @@ LABEL_18:
         v16 = 0;
         do
         {
-          v17 = *(a1 + 16) + 456 * v15;
           if ((pm_sample_task_version(task_list[v14][v16]) & 0x80000000) != 0)
           {
             *(*(a1 + 16) + 456 * v15) = -1;
@@ -752,11 +744,11 @@ LABEL_18:
 
           else
           {
-            v18 = *(a1 + 24);
-            if (v18)
+            v17 = *(a1 + 24);
+            if (v17)
             {
-              *(v18 + 4 * v15) = task_list[v14][v16];
-              *(*(a1 + 16) + 456 * v15 + 400) = v18 + 4 * v15;
+              *(v17 + 4 * v15) = task_list[v14][v16];
+              *(*(a1 + 16) + 456 * v15 + 400) = v17 + 4 * v15;
             }
 
             else
@@ -768,32 +760,31 @@ LABEL_18:
           }
 
           ++v16;
-          v19 = task_listCnt[v14];
+          v18 = task_listCnt[v14];
         }
 
-        while (v16 < v19);
-        v20 = 4 * v19;
+        while (v16 < v18);
+        v19 = 4 * v18;
       }
 
       else
       {
-        v20 = 0;
+        v19 = 0;
       }
 
-      mach_vm_deallocate(*MEMORY[0x29EDCA6B0], task_list[v14++], v20);
+      mach_vm_deallocate(*MEMORY[0x29EDCA6B0], task_list[v14++], v19);
     }
 
     while (v14 < dword_2A197CD80);
   }
 
   qsort_b(*(a1 + 16), v7, 0x1C8uLL, &unk_2A1F8D760);
-  if ((v24 & 8) != 0)
+  if ((v22 & 8) != 0)
   {
     sub_299828A44(*(a1 + 16), v7);
   }
 
   *a1 = v7;
-  v21 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
@@ -855,7 +846,6 @@ int *pm_samples_delta_version(int *result, uint64_t a2, uint64_t a3)
       {
         if (*result == v12)
         {
-          v13 = *(a3 + 16) + 456 * v10;
           result = pm_task_subtract_version();
           ++v10;
         }
@@ -907,28 +897,16 @@ uint64_t sub_299829DC8(uint64_t a1, int *a2, _DWORD *a3)
   }
 }
 
-void sub_299829E3C()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  sub_299829DF4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
 void sub_299829EB8(mach_error_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
   mach_error_string(a1);
   sub_299829DF4();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void sub_299829F38(mach_error_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
   mach_error_string(a1);
   sub_299829DF4();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x29EDCA608];
 }

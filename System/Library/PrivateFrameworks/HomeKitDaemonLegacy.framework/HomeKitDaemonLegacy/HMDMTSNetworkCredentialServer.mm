@@ -2,6 +2,7 @@
 + (id)logCategory;
 - (HMDMTSNetworkCredentialServer)initWithSystemCommissionerPairingManager:(id)manager;
 - (void)retrievePreferredThreadCredentialsOrCreateWithDataset:(id)dataset completionHandler:(id)handler;
+- (void)updateThreadCredentialManagementEnabled:(BOOL)enabled forSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler;
 @end
 
 @implementation HMDMTSNetworkCredentialServer
@@ -12,6 +13,15 @@
   datasetCopy = dataset;
   systemCommissionerPairingManager = [(HMDMTSNetworkCredentialServer *)self systemCommissionerPairingManager];
   [systemCommissionerPairingManager retrievePreferredThreadCredentialsOrCreateWithDataset:datasetCopy completionHandler:handlerCopy];
+}
+
+- (void)updateThreadCredentialManagementEnabled:(BOOL)enabled forSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  dCopy = d;
+  systemCommissionerPairingManager = [(HMDMTSNetworkCredentialServer *)self systemCommissionerPairingManager];
+  [systemCommissionerPairingManager updateThreadCredentialManagementEnabled:enabledCopy forSystemCommissionerPairingUUID:dCopy completionHandler:handlerCopy];
 }
 
 - (HMDMTSNetworkCredentialServer)initWithSystemCommissionerPairingManager:(id)manager
@@ -50,12 +60,11 @@
 
 uint64_t __44__HMDMTSNetworkCredentialServer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_179276;
-  logCategory__hmf_once_v1_179276 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_179276;
+  logCategory__hmf_once_v1_179276 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -1325,7 +1325,7 @@ LABEL_55:
   renderScale4 = [(NURenderJob *)self renderScale];
   v58 = v57;
   v59 = [NUImageGeometry alloc];
-  [v55 extent];
+  objc_msgSend_extent(v55);
   orientation = [v55 orientation];
   resolvedSpaceMap = [(NURenderJob *)self resolvedSpaceMap];
   v62 = -[NUImageGeometry initWithExtent:renderScale:orientation:spaceMap:roundingPolicy:](v59, "initWithExtent:renderScale:orientation:spaceMap:roundingPolicy:", buf, renderScale4, v58, orientation, resolvedSpaceMap, [v55 roundingPolicy]);
@@ -2235,7 +2235,7 @@ void __20__NURenderJob_pause__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __34__NURenderJob__cancelCoalescedJob__block_invoke(uint64_t a1)
+void *__34__NURenderJob__cancelCoalescedJob__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 65);
@@ -2292,7 +2292,7 @@ uint64_t __34__NURenderJob__cancelCoalescedJob__block_invoke(uint64_t a1)
   return request;
 }
 
-uint64_t __33__NURenderJob_cancelCoalescedJob__block_invoke(uint64_t a1)
+void *__33__NURenderJob_cancelCoalescedJob__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _cancelCoalescedJob];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2354,7 +2354,7 @@ uint64_t __33__NURenderJob_cancelCoalescedJob__block_invoke(uint64_t a1)
   _Block_object_dispose(&v9, 8);
 }
 
-uint64_t __22__NURenderJob__cancel__block_invoke(uint64_t a1)
+void *__22__NURenderJob__cancel__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   if (_NULogOnceToken != -1)
@@ -2695,7 +2695,7 @@ LABEL_25:
   _Block_object_dispose(&v9, 8);
 }
 
-uint64_t __21__NURenderJob_didRun__block_invoke(uint64_t a1)
+id *__21__NURenderJob_didRun__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 64) = 0;
   if (([*(a1 + 32) _shouldWaitForDependentJobs] & 1) == 0)
@@ -2704,7 +2704,7 @@ uint64_t __21__NURenderJob_didRun__block_invoke(uint64_t a1)
   }
 
   result = *(a1 + 32);
-  if (*(result + 72) == 1)
+  if (result[9] == 1)
   {
     [result _didPrepare];
     result = *(a1 + 32);
@@ -2712,7 +2712,7 @@ uint64_t __21__NURenderJob_didRun__block_invoke(uint64_t a1)
 
   if (*(result + 48) == 1)
   {
-    result = [*(result + 80) shouldCoalesceUpdates];
+    result = [result[10] shouldCoalesceUpdates];
     *(*(*(a1 + 40) + 8) + 24) = result ^ 1;
 LABEL_9:
     v3 = 48;
@@ -2727,7 +2727,7 @@ LABEL_10:
     goto LABEL_9;
   }
 
-  v4 = [result _nextStageForStage:*(result + 72)];
+  v4 = [result _nextStageForStage:result[9]];
   result = [*(a1 + 32) _setCurrentStage:v4];
   if (v4 == 6)
   {
@@ -2757,14 +2757,22 @@ LABEL_11:
 
   renderNode = [(NURenderJob *)self renderNode];
 
-  if (renderNode && [(NURenderJob *)self wantsRenderNodeCached])
+  v7 = renderNode;
+  if (renderNode)
   {
-    request2 = [(NURenderJob *)self request];
-    renderContext2 = [request2 renderContext];
-    [renderContext2 setLastRenderNode:renderNode];
+    wantsRenderNodeCached = [(NURenderJob *)self wantsRenderNodeCached];
+    v7 = renderNode;
+    if (wantsRenderNodeCached)
+    {
+      request2 = [(NURenderJob *)self request];
+      renderContext2 = [request2 renderContext];
+      [renderContext2 setLastRenderNode:renderNode];
+
+      v7 = renderNode;
+    }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](wantsRenderNodeCached, v7);
 }
 
 - (int64_t)willRun
@@ -3447,10 +3455,10 @@ LABEL_7:
 
   if (request)
   {
-    [request time];
+    objc_msgSend_time(request);
     if (v39)
     {
-      [request time];
+      objc_msgSend_time(request);
       *buf = v37;
       *&buf[16] = v38;
       [(NURenderPipelineState *)v6 setTime:buf];
@@ -4041,7 +4049,7 @@ LABEL_61:
     v172 = v30;
     v165 = v26;
     [v20 applyAttachmentsToCVPixelBuffer:allocator];
-    [v31 extent];
+    objc_msgSend_extent(v31);
     *buf = v32;
     *&buf[8] = v33;
     *&buf[16] = v34;
@@ -4207,7 +4215,7 @@ LABEL_40:
       v42 = MEMORY[0x1E696AEC0];
       v43 = MEMORY[0x1E696B098];
       v44 = v40;
-      [v31 extent];
+      objc_msgSend_extent(v31);
       v185[0] = v45;
       v185[1] = v46;
       v185[2] = v47;
@@ -4257,7 +4265,7 @@ LABEL_26:
 
 LABEL_32:
       v61 = MEMORY[0x1E696B098];
-      [v31 extent];
+      objc_msgSend_extent(v31);
       v184[0] = v62;
       v184[1] = v63;
       v184[2] = v64;
@@ -4359,7 +4367,7 @@ LABEL_63:
     v81 = 0u;
     if (v18)
     {
-      [v18 bounds];
+      objc_msgSend_bounds(v18);
       v19 = *(&v80 + 1);
       v20 = v80;
       v21 = *(&v81 + 1);
@@ -5177,9 +5185,11 @@ LABEL_71:
 
 uint64_t __49__NURenderJob_DebugAdditions__renderJobDebugInit__block_invoke()
 {
-  jobCounts = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v1 = jobCounts;
+  jobCounts = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)shouldWriteCanceledJob

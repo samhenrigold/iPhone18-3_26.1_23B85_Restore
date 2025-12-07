@@ -16,9 +16,9 @@
     swift_once();
   }
 
-  v5 = type metadata accessor for ScreenshotDisplayConfiguration();
+  v5 = type metadata accessor for ScreenshotDisplayConfiguration(0);
   v6 = sub_1000056A8(v5, qword_1009D2FE8);
-  sub_1001BAB00(v6, self + v4);
+  sub_1001BAB00(v6, self + v4, v7);
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;
@@ -39,7 +39,7 @@
   v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = self + OBJC_IVAR____TtC8AppStore22BorderedScreenshotView_displayConfiguration;
   swift_beginAccess();
-  v10 = type metadata accessor for ScreenshotDisplayConfiguration();
+  v10 = type metadata accessor for ScreenshotDisplayConfiguration(0);
   (*(v6 + 16))(v8, &v9[*(v10 + 40)], v5);
   AspectRatio.width(fromHeight:)();
   v12 = v11;

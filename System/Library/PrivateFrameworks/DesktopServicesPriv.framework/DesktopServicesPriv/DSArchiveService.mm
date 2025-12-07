@@ -4,6 +4,7 @@
 - (id)archiveItemsWithURLs:(id)ls compressionFormat:(unint64_t)format destinationFolderURL:(id)l completionHandler:(id)handler;
 - (id)archiveItemsWithURLs:(id)ls passphrase:(id)passphrase addToKeychain:(BOOL)keychain compressionFormat:(unint64_t)format destinationFolderURL:(id)l completionHandler:(id)handler;
 - (id)unarchiveItemAtURL:(id)l passphrase:(id)passphrase destinationFolderURL:(id)rL completionHandler:(id)handler;
+- (id)unarchiveItemAtURL:(id)l passphrases:(id)passphrases addToKeychain:(BOOL)keychain destinationFolderURL:(id)rL acceptedFormats:(unint64_t)formats completionHandler:(id)handler;
 - (id)unarchiveItemAtURL:(id)l passphrases:(id)passphrases destinationFolderURL:(id)rL acceptedFormats:(unint64_t)formats completionHandler:(id)handler;
 - (id)unarchiveItemAtURL:(id)l passphrases:(id)passphrases destinationFolderURL:(id)rL completionHandler:(id)handler;
 - (id)unarchiveItemAtURL:(id)l toURL:(id)rL options:(unint64_t)options acceptedFormats:(unint64_t)formats passphrases:(id)passphrases completionHandler:(id)handler;
@@ -16,14 +17,14 @@
 
 - (void)itemDescriptorsForItemAtURL:(id)l passphrase:(id)passphrase completionHandler:(id)handler
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   passphraseCopy = passphrase;
   handlerCopy = handler;
   if (passphraseCopy)
   {
-    v13[0] = passphraseCopy;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = passphraseCopy;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   }
 
   else
@@ -35,27 +36,25 @@
   if (passphraseCopy)
   {
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)itemDescriptorsForItemAtURL:(id)l passphrases:(id)passphrases completionHandler:(id)handler
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   passphrasesCopy = passphrases;
   handlerCopy = handler;
   v10 = archiveServiceConnection(0);
   [v10 resume];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __78__DSArchiveService_itemDescriptorsForItemAtURL_passphrases_completionHandler___block_invoke;
-  v21[3] = &unk_1E877EB60;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __78__DSArchiveService_itemDescriptorsForItemAtURL_passphrases_completionHandler___block_invoke;
+  v20[3] = &unk_1E877EB60;
   v11 = handlerCopy;
-  v23 = v11;
+  v22 = v11;
   v12 = v10;
-  v22 = v12;
-  v13 = [v12 remoteObjectProxyWithErrorHandler:v21];
+  v21 = v12;
+  v13 = [v12 remoteObjectProxyWithErrorHandler:v20];
   if (lCopy)
   {
     v14 = [objc_alloc(MEMORY[0x1E696AE98]) initWithURL:lCopy readonly:1];
@@ -67,9 +66,9 @@
     else
     {
       v16 = MEMORY[0x1E696ABC0];
-      v24 = *MEMORY[0x1E696A998];
-      v25[0] = lCopy;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v23 = *MEMORY[0x1E696A998];
+      v24[0] = lCopy;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
       v18 = [v16 errorWithDomain:*MEMORY[0x1E696A250] code:257 userInfo:v17];
 
       (*(v11 + 2))(v11, 0, v18);
@@ -83,15 +82,13 @@
     v15 = LogObj(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_1E5674000, v15, OS_LOG_TYPE_ERROR, "itemDescriptorsForItemAtURL: url is nil", v20, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_1E5674000, v15, OS_LOG_TYPE_ERROR, "itemDescriptorsForItemAtURL: url is nil", v19, 2u);
     }
 
     (*(v11 + 2))(v11, 0, v14);
     [v12 invalidate];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __78__DSArchiveService_itemDescriptorsForItemAtURL_passphrases_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -103,54 +100,54 @@ void __78__DSArchiveService_itemDescriptorsForItemAtURL_passphrases_completionHa
 
 - (id)archiveItemsAtURLs:(id)ls toURL:(id)l options:(unint64_t)options compressionFormat:(unint64_t)format passphrase:(id)passphrase completionHandler:(id)handler
 {
-  v75[1] = *MEMORY[0x1E69E9840];
+  v74[1] = *MEMORY[0x1E69E9840];
   lsCopy = ls;
   lCopy = l;
   passphraseCopy = passphrase;
   handlerCopy = handler;
-  v54 = lsCopy;
+  v53 = lsCopy;
   v14 = [lsCopy count];
   if (lCopy && v14)
   {
-    v67 = 0;
+    v66 = 0;
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     path = [lCopy path];
-    v17 = [defaultManager fileExistsAtPath:path isDirectory:&v67];
-    v18 = v67;
+    v17 = [defaultManager fileExistsAtPath:path isDirectory:&v66];
+    v18 = v66;
 
     if (v17 & v18)
     {
-      v19 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v54, "count")}];
-      v65 = 0u;
-      v66 = 0u;
-      v63 = 0u;
+      v19 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v53, "count")}];
       v64 = 0u;
-      v20 = v54;
-      v21 = [v20 countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v20 = v53;
+      v21 = [v20 countByEnumeratingWithState:&v62 objects:v70 count:16];
       if (v21)
       {
-        v22 = *v64;
+        v22 = *v63;
         while (2)
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v64 != v22)
+            if (*v63 != v22)
             {
               objc_enumerationMutation(v20);
             }
 
-            v24 = *(*(&v63 + 1) + 8 * i);
+            v24 = *(*(&v62 + 1) + 8 * i);
             v25 = objc_opt_class();
-            v62 = 0;
-            v26 = [v25 wrapperWithURL:v24 readonly:1 error:&v62];
-            v27 = v62;
+            v61 = 0;
+            v26 = [v25 wrapperWithURL:v24 readonly:1 error:&v61];
+            v27 = v61;
             if (!v26)
             {
               v42 = LogObj(0);
               if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v73 = v27;
+                v72 = v27;
                 _os_log_impl(&dword_1E5674000, v42, OS_LOG_TYPE_ERROR, "archiveItemsWithURLs: Couldn't get url wrapper: %@", buf, 0xCu);
               }
 
@@ -161,7 +158,7 @@ void __78__DSArchiveService_itemDescriptorsForItemAtURL_passphrases_completionHa
             [v19 addObject:v26];
           }
 
-          v21 = [v20 countByEnumeratingWithState:&v63 objects:v71 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v62 objects:v70 count:16];
           if (v21)
           {
             continue;
@@ -174,51 +171,51 @@ void __78__DSArchiveService_itemDescriptorsForItemAtURL_passphrases_completionHa
       v20 = [objc_alloc(MEMORY[0x1E696AE98]) initWithURL:lCopy readonly:0];
       if (v20)
       {
-        v48 = archiveServiceConnection(0);
-        [v48 resume];
-        v59[0] = MEMORY[0x1E69E9820];
-        v59[1] = 3221225472;
-        v59[2] = __100__DSArchiveService_archiveItemsAtURLs_toURL_options_compressionFormat_passphrase_completionHandler___block_invoke;
-        v59[3] = &unk_1E877EB60;
+        v47 = archiveServiceConnection(0);
+        [v47 resume];
+        v58[0] = MEMORY[0x1E69E9820];
+        v58[1] = 3221225472;
+        v58[2] = __100__DSArchiveService_archiveItemsAtURLs_toURL_options_compressionFormat_passphrase_completionHandler___block_invoke;
+        v58[3] = &unk_1E877EB60;
         v28 = handlerCopy;
-        v61 = v28;
-        v29 = v48;
-        v60 = v29;
-        v50 = [v29 remoteObjectProxyWithErrorHandler:v59];
-        v49 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.ArchiveService" name:@"BackgroundArchive"];
+        v60 = v28;
+        v29 = v47;
+        v59 = v29;
+        v49 = [v29 remoteObjectProxyWithErrorHandler:v58];
+        v48 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.ArchiveService" name:@"BackgroundArchive"];
         v30 = objc_alloc(MEMORY[0x1E69C7548]);
         currentProcess = [MEMORY[0x1E69C7640] currentProcess];
-        v68 = v49;
-        v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v68 count:1];
+        v67 = v48;
+        v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
         v33 = [v30 initWithExplanation:@"ArchiveServices archive operation" target:currentProcess attributes:v32];
 
         [v33 acquireWithInvalidationHandler:&__block_literal_global];
-        v55[0] = MEMORY[0x1E69E9820];
-        v55[1] = 3221225472;
-        v55[2] = __100__DSArchiveService_archiveItemsAtURLs_toURL_options_compressionFormat_passphrase_completionHandler___block_invoke_60;
-        v55[3] = &unk_1E877EBA8;
-        v58 = v28;
+        v54[0] = MEMORY[0x1E69E9820];
+        v54[1] = 3221225472;
+        v54[2] = __100__DSArchiveService_archiveItemsAtURLs_toURL_options_compressionFormat_passphrase_completionHandler___block_invoke_60;
+        v54[3] = &unk_1E877EBA8;
+        v57 = v28;
         v34 = v33;
-        v56 = v34;
+        v55 = v34;
         v27 = v29;
-        v57 = v27;
-        v35 = [v50 archiveItemsWithURLWrappers:v19 toURLWrapper:v20 options:options compressionFormat:format passphrase:passphraseCopy completionHandler:v55];
+        v56 = v27;
+        v35 = [v49 archiveItemsWithURLWrappers:v19 toURLWrapper:v20 options:options compressionFormat:format passphrase:passphraseCopy completionHandler:v54];
       }
 
       else
       {
-        v45 = MEMORY[0x1E696ABC0];
-        v69 = *MEMORY[0x1E696A998];
-        v70 = lCopy;
-        v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-        v27 = [v45 errorWithDomain:*MEMORY[0x1E696A250] code:257 userInfo:v46];
+        v44 = MEMORY[0x1E696ABC0];
+        v68 = *MEMORY[0x1E696A998];
+        v69 = lCopy;
+        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+        v27 = [v44 errorWithDomain:*MEMORY[0x1E696A250] code:257 userInfo:v45];
 
-        v47 = LogObj(0);
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v46 = LogObj(0);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v73 = v27;
-          _os_log_impl(&dword_1E5674000, v47, OS_LOG_TYPE_ERROR, "archiveItemsAtURLs: Couldn't get url wrapper for destination: %@", buf, 0xCu);
+          v72 = v27;
+          _os_log_impl(&dword_1E5674000, v46, OS_LOG_TYPE_ERROR, "archiveItemsAtURLs: Couldn't get url wrapper for destination: %@", buf, 0xCu);
         }
 
         handlerCopy[2](handlerCopy, 0, v27);
@@ -230,16 +227,16 @@ LABEL_29:
     else
     {
       v39 = MEMORY[0x1E696ABC0];
-      v74 = *MEMORY[0x1E696A998];
-      v75[0] = lCopy;
-      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:&v74 count:1];
+      v73 = *MEMORY[0x1E696A998];
+      v74[0] = lCopy;
+      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:&v73 count:1];
       v19 = [v39 errorWithDomain:*MEMORY[0x1E696A250] code:4 userInfo:v40];
 
       v41 = LogObj(0);
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v73 = v19;
+        v72 = v19;
         _os_log_impl(&dword_1E5674000, v41, OS_LOG_TYPE_ERROR, "archiveItemsAtURLs: destination doesn't exist or isn't a directory: %@", buf, 0xCu);
       }
 
@@ -276,8 +273,6 @@ LABEL_29:
     v35 = 0;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
-
   return v35;
 }
 
@@ -290,17 +285,15 @@ void __100__DSArchiveService_archiveItemsAtURLs_toURL_options_compressionFormat_
 
 void __100__DSArchiveService_archiveItemsAtURLs_toURL_options_compressionFormat_passphrase_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = LogObj(2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E5674000, v4, OS_LOG_TYPE_ERROR, "Archive Service archive assertion invalidated with error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E5674000, v4, OS_LOG_TYPE_ERROR, "Archive Service archive assertion invalidated with error: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __100__DSArchiveService_archiveItemsAtURLs_toURL_options_compressionFormat_passphrase_completionHandler___block_invoke_60(uint64_t a1, void *a2, void *a3)
@@ -314,7 +307,7 @@ void __100__DSArchiveService_archiveItemsAtURLs_toURL_options_compressionFormat_
 
 - (id)unarchiveItemAtURL:(id)l toURL:(id)rL options:(unint64_t)options acceptedFormats:(unint64_t)formats passphrases:(id)passphrases completionHandler:(id)handler
 {
-  v74[1] = *MEMORY[0x1E69E9840];
+  v73[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   passphrasesCopy = passphrases;
@@ -333,25 +326,25 @@ void __100__DSArchiveService_archiveItemsAtURLs_toURL_options_compressionFormat_
 
   if (lCopy && rLCopy)
   {
-    v67 = 0;
+    v66 = 0;
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     path = [rLCopy path];
-    v20 = [defaultManager fileExistsAtPath:path isDirectory:&v67];
-    v21 = v67;
+    v20 = [defaultManager fileExistsAtPath:path isDirectory:&v66];
+    v21 = v66;
 
     if (v20 & v21)
     {
-      v66 = 0;
-      v22 = [objc_opt_class() wrapperWithURL:lCopy readonly:0 error:&v66];
-      v23 = v66;
+      v65 = 0;
+      v22 = [objc_opt_class() wrapperWithURL:lCopy readonly:0 error:&v65];
+      v23 = v65;
       v24 = v23;
-      v54 = v22;
+      v53 = v22;
       if (v22)
       {
-        v52 = v23;
+        v51 = v23;
 LABEL_23:
-        v53 = [objc_alloc(MEMORY[0x1E696AE98]) initWithURL:rLCopy readonly:0];
-        if (v53)
+        v52 = [objc_alloc(MEMORY[0x1E696AE98]) initWithURL:rLCopy readonly:0];
+        if (v52)
         {
           if (unarchivingDelegate)
           {
@@ -365,49 +358,49 @@ LABEL_23:
 
           v35 = archiveServiceConnection(selfCopy);
           [v35 resume];
-          v62[0] = MEMORY[0x1E69E9820];
-          v62[1] = 3221225472;
-          v62[2] = __99__DSArchiveService_unarchiveItemAtURL_toURL_options_acceptedFormats_passphrases_completionHandler___block_invoke;
-          v62[3] = &unk_1E877EB60;
+          v61[0] = MEMORY[0x1E69E9820];
+          v61[1] = 3221225472;
+          v61[2] = __99__DSArchiveService_unarchiveItemAtURL_toURL_options_acceptedFormats_passphrases_completionHandler___block_invoke;
+          v61[3] = &unk_1E877EB60;
           v36 = handlerCopy;
-          v64 = v36;
+          v63 = v36;
           v37 = v35;
-          v63 = v37;
-          v50 = [v37 remoteObjectProxyWithErrorHandler:v62];
-          v51 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.ArchiveService" name:@"BackgroundArchive"];
+          v62 = v37;
+          v49 = [v37 remoteObjectProxyWithErrorHandler:v61];
+          v50 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.ArchiveService" name:@"BackgroundArchive"];
           v38 = objc_alloc(MEMORY[0x1E69C7548]);
           currentProcess = [MEMORY[0x1E69C7640] currentProcess];
-          v68 = v51;
-          v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v68 count:1];
+          v67 = v50;
+          v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
           v41 = [v38 initWithExplanation:@"ArchiveServices unarchive operation" target:currentProcess attributes:v40];
 
           [v41 acquireWithInvalidationHandler:&__block_literal_global_66];
-          v57[0] = MEMORY[0x1E69E9820];
-          v57[1] = 3221225472;
-          v57[2] = __99__DSArchiveService_unarchiveItemAtURL_toURL_options_acceptedFormats_passphrases_completionHandler___block_invoke_67;
-          v57[3] = &unk_1E877EBD0;
-          v58 = lCopy;
-          v61 = v36;
+          v56[0] = MEMORY[0x1E69E9820];
+          v56[1] = 3221225472;
+          v56[2] = __99__DSArchiveService_unarchiveItemAtURL_toURL_options_acceptedFormats_passphrases_completionHandler___block_invoke_67;
+          v56[3] = &unk_1E877EBD0;
+          v57 = lCopy;
+          v60 = v36;
           v42 = v41;
-          v59 = v42;
+          v58 = v42;
           v43 = v37;
-          v60 = v43;
-          v28 = [v50 unarchiveItemWithURLWrapper:v54 toURLWrapper:v53 options:optionsCopy passphrases:passphrasesCopy acceptedFormats:formats completionHandler:v57];
+          v59 = v43;
+          v28 = [v49 unarchiveItemWithURLWrapper:v53 toURLWrapper:v52 options:optionsCopy passphrases:passphrasesCopy acceptedFormats:formats completionHandler:v56];
         }
 
         else
         {
           v44 = MEMORY[0x1E696ABC0];
-          v69 = *MEMORY[0x1E696A998];
-          v70 = rLCopy;
-          v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+          v68 = *MEMORY[0x1E696A998];
+          v69 = rLCopy;
+          v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
           v43 = [v44 errorWithDomain:*MEMORY[0x1E696A250] code:257 userInfo:v45];
 
           v46 = LogObj(0);
           if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v72 = v43;
+            v71 = v43;
             _os_log_impl(&dword_1E5674000, v46, OS_LOG_TYPE_ERROR, "unarchiveItemAtURL: Couldn't get url wrapper for destination: %@", buf, 0xCu);
           }
 
@@ -415,44 +408,44 @@ LABEL_23:
           (*(handlerCopy + 2))(handlerCopy, 0, v43);
         }
 
-        v33 = v52;
+        v33 = v51;
         goto LABEL_32;
       }
 
-      v65 = v23;
-      v54 = [objc_opt_class() wrapperWithURL:lCopy readonly:1 error:&v65];
-      v52 = v65;
+      v64 = v23;
+      v53 = [objc_opt_class() wrapperWithURL:lCopy readonly:1 error:&v64];
+      v51 = v64;
 
-      if (v54)
+      if (v53)
       {
         goto LABEL_23;
       }
 
-      v49 = LogObj(0);
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v48 = LogObj(0);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v72 = v52;
-        _os_log_impl(&dword_1E5674000, v49, OS_LOG_TYPE_ERROR, "unarchiveItemAtURL: Couldn't get url wrapper for item: %@", buf, 0xCu);
+        v71 = v51;
+        _os_log_impl(&dword_1E5674000, v48, OS_LOG_TYPE_ERROR, "unarchiveItemAtURL: Couldn't get url wrapper for item: %@", buf, 0xCu);
       }
 
-      v33 = v52;
-      (*(handlerCopy + 2))(handlerCopy, 0, v52);
+      v33 = v51;
+      (*(handlerCopy + 2))(handlerCopy, 0, v51);
     }
 
     else
     {
       v29 = MEMORY[0x1E696ABC0];
-      v73 = *MEMORY[0x1E696A998];
-      v74[0] = rLCopy;
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:&v73 count:1];
+      v72 = *MEMORY[0x1E696A998];
+      v73[0] = rLCopy;
+      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:&v72 count:1];
       v31 = [v29 errorWithDomain:*MEMORY[0x1E696A250] code:4 userInfo:v30];
 
       v32 = LogObj(0);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v72 = v31;
+        v71 = v31;
         _os_log_impl(&dword_1E5674000, v32, OS_LOG_TYPE_ERROR, "unarchiveItemAtURL: destination doesn't exist or isn't a directory: %@", buf, 0xCu);
       }
 
@@ -492,8 +485,6 @@ LABEL_32:
   v28 = 0;
 LABEL_33:
 
-  v47 = *MEMORY[0x1E69E9840];
-
   return v28;
 }
 
@@ -506,17 +497,15 @@ void __99__DSArchiveService_unarchiveItemAtURL_toURL_options_acceptedFormats_pas
 
 void __99__DSArchiveService_unarchiveItemAtURL_toURL_options_acceptedFormats_passphrases_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = LogObj(2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E5674000, v4, OS_LOG_TYPE_ERROR, "Archive Service unarchive assertion invalidated with error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E5674000, v4, OS_LOG_TYPE_ERROR, "Archive Service unarchive assertion invalidated with error: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __99__DSArchiveService_unarchiveItemAtURL_toURL_options_acceptedFormats_passphrases_completionHandler___block_invoke_67(uint64_t a1, void *a2, void *a3)
@@ -534,7 +523,7 @@ void __99__DSArchiveService_unarchiveItemAtURL_toURL_options_acceptedFormats_pas
       v10 = [v6 userInfo];
       v11 = [v9 dictionaryWithDictionary:v10];
 
-      TCFURLInfo::LocalizedStringWithFileName(@"ArchiveEnterPassword", *(a1 + 32), &v15);
+      TCFURLInfo::LocalizedStringWithFileName(&v15, @"ArchiveEnterPassword", *(a1 + 32));
       [v11 setObject:v15.fString.fRef forKeyedSubscript:*MEMORY[0x1E696A598]];
       TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v15.fString.fRef);
       v12 = MEMORY[0x1E696ABC0];
@@ -564,58 +553,58 @@ void __99__DSArchiveService_unarchiveItemAtURL_toURL_options_acceptedFormats_pas
 - (id)archiveItemsWithURLs:(id)ls passphrase:(id)passphrase addToKeychain:(BOOL)keychain compressionFormat:(unint64_t)format destinationFolderURL:(id)l completionHandler:(id)handler
 {
   keychainCopy = keychain;
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   lsCopy = ls;
   passphraseCopy = passphrase;
   lCopy = l;
   handlerCopy = handler;
-  v33 = archiveServiceConnection(0);
-  [v33 resume];
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = __123__DSArchiveService_archiveItemsWithURLs_passphrase_addToKeychain_compressionFormat_destinationFolderURL_completionHandler___block_invoke;
-  v47[3] = &unk_1E877EB60;
+  v32 = archiveServiceConnection(0);
+  [v32 resume];
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = __123__DSArchiveService_archiveItemsWithURLs_passphrase_addToKeychain_compressionFormat_destinationFolderURL_completionHandler___block_invoke;
+  v46[3] = &unk_1E877EB60;
   v13 = handlerCopy;
-  v49 = v13;
-  v14 = v33;
-  v48 = v14;
-  v36 = [v14 remoteObjectProxyWithErrorHandler:v47];
+  v48 = v13;
+  v14 = v32;
+  v47 = v14;
+  v35 = [v14 remoteObjectProxyWithErrorHandler:v46];
   v15 = [lsCopy count];
   if (lCopy && v15)
   {
-    v31 = keychainCopy;
+    v30 = keychainCopy;
     formatCopy = format;
     v16 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(lsCopy, "count")}];
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v17 = lsCopy;
-    v18 = [v17 countByEnumeratingWithState:&v43 objects:v52 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v42 objects:v51 count:16];
     if (v18)
     {
-      v19 = *v44;
+      v19 = *v43;
       while (2)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v44 != v19)
+          if (*v43 != v19)
           {
             objc_enumerationMutation(v17);
           }
 
-          v21 = *(*(&v43 + 1) + 8 * i);
+          v21 = *(*(&v42 + 1) + 8 * i);
           v22 = objc_opt_class();
-          v42 = 0;
-          v23 = [v22 wrapperWithURL:v21 readonly:1 error:&v42];
-          v24 = v42;
+          v41 = 0;
+          v23 = [v22 wrapperWithURL:v21 readonly:1 error:&v41];
+          v24 = v41;
           if (!v23)
           {
             v28 = LogObj(0);
             if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v51 = v24;
+              v50 = v24;
               _os_log_impl(&dword_1E5674000, v28, OS_LOG_TYPE_ERROR, "archiveItemsWithURLs: Couldn't get url wrapper: %@", buf, 0xCu);
             }
 
@@ -628,7 +617,7 @@ void __99__DSArchiveService_unarchiveItemAtURL_toURL_options_acceptedFormats_pas
           [v16 addObject:v23];
         }
 
-        v18 = [v17 countByEnumeratingWithState:&v43 objects:v52 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v42 objects:v51 count:16];
         if (v18)
         {
           continue;
@@ -639,15 +628,15 @@ void __99__DSArchiveService_unarchiveItemAtURL_toURL_options_acceptedFormats_pas
     }
 
     v17 = [objc_alloc(MEMORY[0x1E696AE98]) initWithURL:lCopy readonly:0];
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __123__DSArchiveService_archiveItemsWithURLs_passphrase_addToKeychain_compressionFormat_destinationFolderURL_completionHandler___block_invoke_72;
-    v39[3] = &unk_1E877EBF8;
-    v41 = v13;
-    v40 = v14;
-    v25 = [v36 archiveItemsWithURLWrappers:v16 passphrase:passphraseCopy addToKeychain:v31 compressionFormat:formatCopy destinationFolderURLWrapper:v17 usePlaceholder:0 completionHandler:v39];
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __123__DSArchiveService_archiveItemsWithURLs_passphrase_addToKeychain_compressionFormat_destinationFolderURL_completionHandler___block_invoke_72;
+    v38[3] = &unk_1E877EBF8;
+    v40 = v13;
+    v39 = v14;
+    v25 = [v35 archiveItemsWithURLWrappers:v16 passphrase:passphraseCopy addToKeychain:v30 compressionFormat:formatCopy destinationFolderURLWrapper:v17 usePlaceholder:0 completionHandler:v38];
 
-    v24 = v41;
+    v24 = v40;
 LABEL_24:
   }
 
@@ -679,8 +668,6 @@ LABEL_24:
     v25 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
@@ -705,15 +692,15 @@ void __123__DSArchiveService_archiveItemsWithURLs_passphrase_addToKeychain_compr
 
 - (id)unarchiveItemAtURL:(id)l passphrase:(id)passphrase destinationFolderURL:(id)rL completionHandler:(id)handler
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   passphraseCopy = passphrase;
   rLCopy = rL;
   handlerCopy = handler;
   if (passphraseCopy)
   {
-    v18[0] = passphraseCopy;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v17[0] = passphraseCopy;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   }
 
   else
@@ -725,8 +712,6 @@ void __123__DSArchiveService_archiveItemsWithURLs_passphrase_addToKeychain_compr
   if (passphraseCopy)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -743,6 +728,141 @@ void __123__DSArchiveService_archiveItemsWithURLs_passphrase_addToKeychain_compr
   v7 = [(DSArchiveService *)self unarchiveItemAtURL:l passphrases:passphrases addToKeychain:0 destinationFolderURL:rL acceptedFormats:formats completionHandler:handler];
 
   return v7;
+}
+
+- (id)unarchiveItemAtURL:(id)l passphrases:(id)passphrases addToKeychain:(BOOL)keychain destinationFolderURL:(id)rL acceptedFormats:(unint64_t)formats completionHandler:(id)handler
+{
+  keychainCopy = keychain;
+  v53 = *MEMORY[0x1E69E9840];
+  lCopy = l;
+  passphrasesCopy = passphrases;
+  rLCopy = rL;
+  handlerCopy = handler;
+  unarchivingDelegate = [(DSArchiveService *)self unarchivingDelegate];
+
+  if (unarchivingDelegate)
+  {
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  v36 = archiveServiceConnection(selfCopy);
+  [v36 resume];
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = __120__DSArchiveService_unarchiveItemAtURL_passphrases_addToKeychain_destinationFolderURL_acceptedFormats_completionHandler___block_invoke;
+  v46[3] = &unk_1E877EB60;
+  v19 = handlerCopy;
+  v48 = v19;
+  v20 = v36;
+  v47 = v20;
+  v39 = [v20 remoteObjectProxyWithErrorHandler:v46];
+  if (!lCopy || !rLCopy)
+  {
+    v24 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    if (!lCopy)
+    {
+      v25 = LogObj(0);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1E5674000, v25, OS_LOG_TYPE_ERROR, "unarchiveItemAtURL: url is nil", buf, 2u);
+      }
+    }
+
+    if (!rLCopy)
+    {
+      v26 = LogObj(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1E5674000, v26, OS_LOG_TYPE_ERROR, "unarchiveItemAtURL: destination is nil", buf, 2u);
+      }
+    }
+
+    (*(v19 + 2))(v19, 0, v24);
+    [v20 invalidate];
+    goto LABEL_17;
+  }
+
+  v45 = 0;
+  v21 = [objc_opt_class() wrapperWithURL:lCopy readonly:0 error:&v45];
+  v22 = v45;
+  v23 = v22;
+  if (!v21)
+  {
+    v44 = v22;
+    v21 = [objc_opt_class() wrapperWithURL:lCopy readonly:1 error:&v44];
+    v37 = v44;
+
+    if (v21)
+    {
+      goto LABEL_19;
+    }
+
+    v34 = LogObj(0);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v52 = v37;
+      _os_log_impl(&dword_1E5674000, v34, OS_LOG_TYPE_ERROR, "unarchiveItemAtURL: Couldn't get url wrapper for item: %@", buf, 0xCu);
+    }
+
+    v24 = v37;
+    (*(v19 + 2))(v19, 0, v37);
+    [v20 invalidate];
+LABEL_17:
+    v27 = 0;
+    goto LABEL_25;
+  }
+
+  v37 = v22;
+LABEL_19:
+  v28 = [objc_alloc(MEMORY[0x1E696AE98]) initWithURL:rLCopy readonly:0];
+  if (v28)
+  {
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __120__DSArchiveService_unarchiveItemAtURL_passphrases_addToKeychain_destinationFolderURL_acceptedFormats_completionHandler___block_invoke_74;
+    v40[3] = &unk_1E877EC20;
+    v41 = lCopy;
+    v43 = v19;
+    v42 = v20;
+    LOBYTE(v35) = 0;
+    v27 = [v39 unarchiveItemWithURLWrapper:v21 passphrases:passphrasesCopy addToKeychain:keychainCopy destinationFolderURLWrapper:v28 acceptedFormats:formats exportsStreamingReceiver:unarchivingDelegate != 0 usePlaceholder:v35 completionHandler:v40];
+
+    v29 = v41;
+  }
+
+  else
+  {
+    v30 = MEMORY[0x1E696ABC0];
+    v49 = *MEMORY[0x1E696A998];
+    v50 = rLCopy;
+    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+    v29 = [v30 errorWithDomain:*MEMORY[0x1E696A250] code:257 userInfo:v31];
+
+    v32 = LogObj(0);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v52 = v29;
+      _os_log_impl(&dword_1E5674000, v32, OS_LOG_TYPE_ERROR, "unarchiveItemAtURL: Couldn't get url wrapper for destination: %@", buf, 0xCu);
+    }
+
+    (*(v19 + 2))(v19, 0, v29);
+    [v20 invalidate];
+    v27 = 0;
+  }
+
+  v24 = v37;
+LABEL_25:
+
+  return v27;
 }
 
 void __120__DSArchiveService_unarchiveItemAtURL_passphrases_addToKeychain_destinationFolderURL_acceptedFormats_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -767,7 +887,7 @@ void __120__DSArchiveService_unarchiveItemAtURL_passphrases_addToKeychain_destin
       v10 = [v6 userInfo];
       v11 = [v9 dictionaryWithDictionary:v10];
 
-      TCFURLInfo::LocalizedStringWithFileName(@"ArchiveEnterPassword", *(a1 + 32), &v16);
+      TCFURLInfo::LocalizedStringWithFileName(&v16, @"ArchiveEnterPassword", *(a1 + 32));
       [v11 setObject:v16.fString.fRef forKeyedSubscript:*MEMORY[0x1E696A598]];
       TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v16.fString.fRef);
       v12 = MEMORY[0x1E696ABC0];

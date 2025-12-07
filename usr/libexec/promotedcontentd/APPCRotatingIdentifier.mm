@@ -45,9 +45,9 @@
 - (APPCRotatingIdentifier)initWithRotatingIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v4 = sub_100384890();
+  v5 = sub_100384890(identifierCopy, v4);
 
-  return v4;
+  return v5;
 }
 
 - (APPCRotatingIdentifier)init

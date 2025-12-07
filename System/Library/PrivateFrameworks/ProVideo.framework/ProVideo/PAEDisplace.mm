@@ -56,7 +56,7 @@
   v10 = v9;
   v29 = 0;
   v27 = 0;
-  v28 = 0;
+  v28 = 0.0;
   [v9 getFloatValue:&v28 fromParm:3 atFxTime:info->var0.var1];
   [v10 getFloatValue:&v27 fromParm:4 atFxTime:info->var0.var1];
   [v10 getBoolValue:&v29 fromParm:5 atFxTime:info->var0.var1];
@@ -83,7 +83,7 @@
     [(PAESharedDefaultBase *)self getHeliumImage:&v26 layerOffsetX:0 layerOffsetY:0 requestInfo:v25 fromParm:1 atTime:info->var0.var1];
     if (v26)
     {
-      [v26 heliumRef];
+      objc_msgSend_heliumRef(v26);
       v16 = *&v25[0];
       width = [v26 width];
       height = [v26 height];
@@ -96,11 +96,11 @@
       height = 0;
     }
 
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
-    [(PAESharedDefaultBase *)self getInversePixelTransformForImage:input];
+    objc_msgSend_getPixelTransformForImage_(self);
+    objc_msgSend_getInversePixelTransformForImage_(self);
     if (v16 && width && height)
     {
-      [(PAESharedDefaultBase *)self getImageBoundary:input];
+      objc_msgSend_getImageBoundary_(self);
       v19 = *(&v25[0] + 1);
       HGTransform::HGTransform(v25);
       v20 = width / info->var3;
@@ -113,7 +113,7 @@
       (*(*v22 + 136))(v22, 0, 32);
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       v23 = HGObject::operator new(0x1A0uLL);
@@ -122,7 +122,7 @@
 
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     else

@@ -27,7 +27,7 @@
 {
   v26 = *MEMORY[0x277D85DE8];
   utterancesCopy = utterances;
-  v6 = sos_voice_log();
+  v6 = sos_voice_log(utterancesCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     routeDescription = [(SOSVoiceUtterer *)self routeDescription];
@@ -85,31 +85,28 @@
 
   else
   {
-    v15 = sos_voice_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sos_voice_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(SOSVoiceUtterer *)v9 speakUtterances:v15];
+      [(SOSVoiceUtterer *)v9 speakUtterances:v16];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopSpeaking
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = sos_voice_log();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = sos_voice_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     routeDescription = [(SOSVoiceUtterer *)self routeDescription];
-    v6 = 138543362;
-    v7 = routeDescription;
-    _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "Stopping speaking utterances to %{public}@...", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = routeDescription;
+    _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "Stopping speaking utterances to %{public}@...", &v5, 0xCu);
   }
 
   [(SOSVoiceUtterer *)self _forgetUtterancesBeingSpoken];
   [(AVSpeechSynthesizer *)self->_voiceSynthesizer stopSpeakingAtBoundary:0];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_forgetUtterancesBeingSpoken
@@ -141,31 +138,29 @@
 
 - (void)_speakAVUtterance:(id)utterance
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   utteranceCopy = utterance;
-  v5 = sos_voice_log();
+  v5 = sos_voice_log(utteranceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     routeDescription = [(SOSVoiceUtterer *)self routeDescription];
-    v9 = 138543618;
-    v10 = routeDescription;
-    v11 = 2112;
-    v12 = utteranceCopy;
-    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "Speaking avUtterance in %{public}@ audio: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = routeDescription;
+    v10 = 2112;
+    v11 = utteranceCopy;
+    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "Speaking avUtterance in %{public}@ audio: %@", &v8, 0x16u);
   }
 
   voiceSynthesizer = [(SOSVoiceUtterer *)self voiceSynthesizer];
   [voiceSynthesizer speakUtterance:utteranceCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_speakUtteranceAtIndex:(unint64_t)index
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   p_avUtterancesBeingSpoken = &self->_avUtterancesBeingSpoken;
   v6 = [(NSArray *)self->_avUtterancesBeingSpoken count];
-  v7 = sos_voice_log();
+  v7 = sos_voice_log(v6);
   v8 = v7;
   if (v6 <= index)
   {
@@ -180,11 +175,11 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [(NSArray *)*p_avUtterancesBeingSpoken count];
-      v14 = 134218240;
+      v13 = 134218240;
       indexCopy = index;
-      v16 = 2048;
-      v17 = v9;
-      _os_log_impl(&dword_264323000, v8, OS_LOG_TYPE_DEFAULT, "_speakUtteranceAtIndex:%tu / %tu", &v14, 0x16u);
+      v15 = 2048;
+      v16 = v9;
+      _os_log_impl(&dword_264323000, v8, OS_LOG_TYPE_DEFAULT, "_speakUtteranceAtIndex:%tu / %tu", &v13, 0x16u);
     }
 
     delegate = [(SOSVoiceUtterer *)self delegate];
@@ -199,8 +194,6 @@
     v8 = [(NSArray *)self->_avUtterancesBeingSpoken objectAtIndexedSubscript:index];
     [(SOSVoiceUtterer *)self _speakAVUtterance:v8];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)routeDescription
@@ -230,35 +223,35 @@
 
 - (void)speechSynthesizer:(id)synthesizer didFinishSpeechUtterance:(id)utterance
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   utteranceCopy = utterance;
   v6 = [(NSArray *)self->_avUtterancesBeingSpoken indexOfObject:utteranceCopy];
-  v7 = sos_voice_log();
+  v7 = sos_voice_log(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     avUtterancesBeingSpoken = self->_avUtterancesBeingSpoken;
-    v19 = 138412802;
+    v20 = 138412802;
     selfCopy4 = utteranceCopy;
-    v21 = 2112;
-    v22 = avUtterancesBeingSpoken;
-    v23 = 2114;
+    v22 = 2112;
+    v23 = avUtterancesBeingSpoken;
+    v24 = 2114;
     selfCopy5 = self;
-    _os_log_impl(&dword_264323000, v7, OS_LOG_TYPE_INFO, "didFinishSpeechUtterance, utterance:%@, _avUtterancesBeingSpoken:%@ [%{public}@]", &v19, 0x20u);
+    _os_log_impl(&dword_264323000, v7, OS_LOG_TYPE_INFO, "didFinishSpeechUtterance, utterance:%@, _avUtterancesBeingSpoken:%@ [%{public}@]", &v20, 0x20u);
   }
 
   if (v6 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    sosUtterancesBeingSpoken = sos_voice_log();
+    sosUtterancesBeingSpoken = sos_voice_log(v9);
     if (os_log_type_enabled(sosUtterancesBeingSpoken, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = self->_avUtterancesBeingSpoken;
-      v19 = 138412802;
+      v11 = self->_avUtterancesBeingSpoken;
+      v20 = 138412802;
       selfCopy4 = utteranceCopy;
-      v21 = 2112;
-      v22 = v10;
-      v23 = 2114;
+      v22 = 2112;
+      v23 = v11;
+      v24 = 2114;
       selfCopy5 = self;
-      _os_log_impl(&dword_264323000, sosUtterancesBeingSpoken, OS_LOG_TYPE_DEFAULT, "didFinishSpeechUtterance, utteranceIndex not found => NOP; utterance:%@, _avUtterancesBeingSpoken:%@ [%{public}@]", &v19, 0x20u);
+      _os_log_impl(&dword_264323000, sosUtterancesBeingSpoken, OS_LOG_TYPE_DEFAULT, "didFinishSpeechUtterance, utteranceIndex not found => NOP; utterance:%@, _avUtterancesBeingSpoken:%@ [%{public}@]", &v20, 0x20u);
     }
 
 LABEL_17:
@@ -266,16 +259,16 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v11 = [(NSArray *)self->_avUtterancesBeingSpoken count];
-  v12 = sos_voice_log();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-  if (v6 + 1 >= v11)
+  v12 = [(NSArray *)self->_avUtterancesBeingSpoken count];
+  v13 = sos_voice_log(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  if (v6 + 1 >= v12)
   {
-    if (v13)
+    if (v14)
     {
-      v19 = 138543362;
+      v20 = 138543362;
       selfCopy4 = self;
-      _os_log_impl(&dword_264323000, v12, OS_LOG_TYPE_DEFAULT, "didFinishSpeechUtterance called, completed utterances [%{public}@]", &v19, 0xCu);
+      _os_log_impl(&dword_264323000, v13, OS_LOG_TYPE_DEFAULT, "didFinishSpeechUtterance called, completed utterances [%{public}@]", &v20, 0xCu);
     }
 
     sosUtterancesBeingSpoken = [(SOSVoiceUtterer *)self sosUtterancesBeingSpoken];
@@ -284,12 +277,12 @@ LABEL_17:
 
     if (delegate)
     {
-      v16 = sos_voice_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = sos_voice_log(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138543362;
+        v20 = 138543362;
         selfCopy4 = self;
-        _os_log_impl(&dword_264323000, v16, OS_LOG_TYPE_DEFAULT, "didFinishSpeechUtterance called, completed utterances; notifying delegate [%{public}@]", &v19, 0xCu);
+        _os_log_impl(&dword_264323000, v18, OS_LOG_TYPE_DEFAULT, "didFinishSpeechUtterance called, completed utterances; notifying delegate [%{public}@]", &v20, 0xCu);
       }
 
       delegate2 = [(SOSVoiceUtterer *)self delegate];
@@ -299,16 +292,16 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  if (v13)
+  if (v14)
   {
-    v14 = [(NSArray *)self->_avUtterancesBeingSpoken count];
-    v19 = 134218498;
+    v15 = [(NSArray *)self->_avUtterancesBeingSpoken count];
+    v20 = 134218498;
     selfCopy4 = v6;
-    v21 = 2048;
-    v22 = v14;
-    v23 = 2114;
+    v22 = 2048;
+    v23 = v15;
+    v24 = 2114;
     selfCopy5 = self;
-    _os_log_impl(&dword_264323000, v12, OS_LOG_TYPE_DEFAULT, "didFinishSpeechUtterance, _avUtterancesBeingSpoken index: %lu out of: %lu [%{public}@]", &v19, 0x20u);
+    _os_log_impl(&dword_264323000, v13, OS_LOG_TYPE_DEFAULT, "didFinishSpeechUtterance, _avUtterancesBeingSpoken index: %lu out of: %lu [%{public}@]", &v20, 0x20u);
   }
 
   if (self->_voiceSynthesizer)
@@ -317,8 +310,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (SOSVoiceUttererDelegate)delegate
@@ -330,23 +321,21 @@ LABEL_18:
 
 - (void)speakUtterances:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_264323000, a2, OS_LOG_TYPE_ERROR, "No avUtterancesToSpeak; speakUtterances: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_264323000, a2, OS_LOG_TYPE_ERROR, "No avUtterancesToSpeak; speakUtterances: %@", &v2, 0xCu);
 }
 
 - (void)_speakUtteranceAtIndex:(NSObject *)a3 .cold.1(id *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [*a1 count];
-  v7 = 134218240;
-  v8 = a2;
-  v9 = 2048;
-  v10 = v5;
-  _os_log_error_impl(&dword_264323000, a3, OS_LOG_TYPE_ERROR, "_speakUtteranceAtIndex asked to use out of range index:%tu of %tu", &v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218240;
+  v7 = a2;
+  v8 = 2048;
+  v9 = v5;
+  _os_log_error_impl(&dword_264323000, a3, OS_LOG_TYPE_ERROR, "_speakUtteranceAtIndex asked to use out of range index:%tu of %tu", &v6, 0x16u);
 }
 
 @end

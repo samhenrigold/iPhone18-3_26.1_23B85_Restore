@@ -53,17 +53,17 @@
       [(AVMetadataObjectInternal *)v19->_objectInternal setInput:input];
       if (dict)
       {
-        v23 = [dict objectForKeyedSubscript:*MEMORY[0x1E6990E60]];
+        v23 = objc_msgSend_objectForKeyedSubscript_(dict);
         if (v23)
         {
           -[AVMetadataObjectInternal setGroupID:](v19->_objectInternal, "setGroupID:", [v23 integerValue]);
         }
 
-        v24 = [dict objectForKeyedSubscript:*MEMORY[0x1E6990E68]];
+        v24 = objc_msgSend_objectForKeyedSubscript_(dict);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v25 = [dict objectForKeyedSubscript:*MEMORY[0x1E6990FF0]];
+          v25 = objc_msgSend_objectForKeyedSubscript_(dict);
           if (v25)
           {
             v24 = v25;
@@ -75,7 +75,7 @@
           -[AVMetadataObjectInternal setObjectID:](v19->_objectInternal, "setObjectID:", [v24 integerValue]);
         }
 
-        v26 = [dict objectForKeyedSubscript:*MEMORY[0x1E6990C68]];
+        v26 = objc_msgSend_objectForKeyedSubscript_(dict);
         if (v26)
         {
           bOOLValue = [v26 BOOLValue];
@@ -105,7 +105,7 @@
           [(AVMetadataObjectInternal *)v19->_objectInternal setCinematicVideoFocusMode:v31];
         }
 
-        v32 = [dict objectForKeyedSubscript:*MEMORY[0x1E6990C60]];
+        v32 = objc_msgSend_objectForKeyedSubscript_(dict);
         if (!v32)
         {
           goto LABEL_26;
@@ -173,11 +173,11 @@ LABEL_26:
 {
   if (self)
   {
-    [(AVMetadataObject *)self time];
+    objc_msgSend_time(self, a2);
     if (equal)
     {
 LABEL_3:
-      [equal time];
+      objc_msgSend_time(equal);
       goto LABEL_6;
     }
   }
@@ -202,11 +202,11 @@ LABEL_13:
 
   if (self)
   {
-    [(AVMetadataObject *)self duration];
+    objc_msgSend_duration(self);
     if (equal)
     {
 LABEL_9:
-      [equal duration];
+      objc_msgSend_duration(equal, v24.value, *&v24.timescale, v24.epoch, time1.value, *&time1.timescale, time1.epoch);
       goto LABEL_12;
     }
   }
@@ -290,7 +290,7 @@ LABEL_12:
   result = self->_objectInternal;
   if (result)
   {
-    return [(CMTime *)result time];
+    return objc_msgSend_time(result, a3);
   }
 
   retstr->value = 0;
@@ -304,7 +304,7 @@ LABEL_12:
   result = self->_objectInternal;
   if (result)
   {
-    return [(CMTime *)result duration];
+    return objc_msgSend_duration(result, a3);
   }
 
   retstr->value = 0;

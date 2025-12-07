@@ -146,22 +146,22 @@
 - (void)_populateAppActivityStream
 {
   v2 = 0;
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   do
   {
     context = objc_autoreleasePoolPush();
     v3 = [MEMORY[0x1E696AE18] predicateWithValue:1];
     v4 = +[_DKSystemEventStreams appActivityStream];
-    v37[0] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
-    v29 = v2;
+    v36[0] = v4;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
+    v28 = v2;
     v6 = [_DKEventQuery eventQueryWithPredicate:v3 eventStreams:v5 offset:v2 limit:100 sortDescriptors:0];
 
     knowledgeStore = self->_knowledgeStore;
-    v35 = 0;
-    v27 = v6;
-    v8 = [(_DKKnowledgeQuerying *)knowledgeStore executeQuery:v6 error:&v35];
-    v25 = v35;
+    v34 = 0;
+    v26 = v6;
+    v8 = [(_DKKnowledgeQuerying *)knowledgeStore executeQuery:v6 error:&v34];
+    v24 = v34;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     v10 = 0;
@@ -170,27 +170,27 @@
       v10 = v8;
     }
 
-    v26 = v8;
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
+    v25 = v8;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v32;
+      v14 = *v31;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v32 != v14)
+          if (*v31 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v31 + 1) + 8 * i);
+          v16 = *(*(&v30 + 1) + 8 * i);
           source = [v16 source];
           sourceID = [source sourceID];
           source2 = [v16 source];
@@ -200,45 +200,42 @@
           [(_CDUserActivityCache *)self addSourceID:sourceID bundleID:bundleID itemID:itemID];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v13);
     }
 
-    v2 = v29 + 100;
+    v2 = v28 + 100;
 
     v23 = [v11 count];
     objc_autoreleasePoolPop(context);
   }
 
   while (v23 > 0x63);
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_populateAppLocationActivityStream
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AE18] predicateWithValue:1];
   v4 = +[_DKSystemEventStreams appLocationActivityStream];
-  v15[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   v6 = [_DKEventQuery eventQueryWithPredicate:v3 eventStreams:v5 offset:0 limit:0 sortDescriptors:0];
 
   v7 = [[_DKBiomeQuery alloc] initWithDKEventQuery:v6];
-  v14 = 0;
-  v8 = [(_DKBiomeQuery *)v7 publisherForQueryWithError:&v14];
-  v9 = v14;
+  v13 = 0;
+  v8 = [(_DKBiomeQuery *)v7 publisherForQueryWithError:&v13];
+  v9 = v13;
   v10 = objc_autoreleasePoolPush();
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __58___CDUserActivityCache__populateAppLocationActivityStream__block_invoke_2;
-  v13[3] = &unk_1E7369AD8;
-  v13[4] = self;
-  v11 = [v8 sinkWithCompletion:&__block_literal_global_49 receiveInput:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __58___CDUserActivityCache__populateAppLocationActivityStream__block_invoke_2;
+  v12[3] = &unk_1E7369AD8;
+  v12[4] = self;
+  v11 = [v8 sinkWithCompletion:&__block_literal_global_49 receiveInput:v12];
   objc_autoreleasePoolPop(v10);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)populateCache

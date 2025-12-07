@@ -7,7 +7,7 @@
 
 - (id)outputImage
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   [(NSNumber *)self->inputWidth floatValue];
   v4 = v3;
   [(NSNumber *)self->inputScale floatValue];
@@ -19,128 +19,129 @@
   }
 
   v8 = v7;
-  v82 = v6;
+  v84 = v6;
   v9 = v4 * 0.25;
   [(CIVector *)self->inputExtent CGRectValue];
-  if (CGRectIsEmpty(v88))
+  IsEmpty = CGRectIsEmpty(v90);
+  if (IsEmpty)
   {
-    v10 = ci_logger_filter();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = ci_logger_filter(IsEmpty, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v86 = [objc_opt_class() description];
-      _os_log_impl(&dword_19CC36000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: inputExtent is nil or empty.\n", buf, 0xCu);
+      v88 = [objc_opt_class() description];
+      _os_log_impl(&dword_19CC36000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: inputExtent is nil or empty.\n", buf, 0xCu);
     }
   }
 
   [(CIVector *)self->inputCenter X];
-  v12 = v11;
-  [(CIVector *)self->inputCenter Y];
   v14 = v13;
-  [(CIVector *)self->inputExtent X];
+  [(CIVector *)self->inputCenter Y];
   v16 = v15;
-  [(CIVector *)self->inputExtent Y];
+  [(CIVector *)self->inputExtent X];
   v18 = v17;
+  [(CIVector *)self->inputExtent Y];
+  v20 = v19;
   [(CIVector *)self->inputExtent Z];
-  v20 = v19 + v16;
-  [(CIVector *)self->inputExtent W];
   v22 = v21 + v18;
-  v23 = v16 - v12;
-  v24 = (v18 - v14) * (v18 - v14);
-  v25 = sqrtf(v24 + (v23 * v23));
-  v26 = v20 - v12;
-  v27 = sqrtf(v24 + (v26 * v26));
-  if (v27 <= v25)
-  {
-    v27 = v25;
-  }
-
-  v28 = (v22 - v14) * (v22 - v14);
-  v29 = sqrtf(v28 + (v23 * v23));
+  [(CIVector *)self->inputExtent W];
+  v24 = v23 + v20;
+  v25 = v18 - v14;
+  v26 = (v20 - v16) * (v20 - v16);
+  v27 = sqrtf(v26 + (v25 * v25));
+  v28 = v22 - v14;
+  v29 = sqrtf(v26 + (v28 * v28));
   if (v29 <= v27)
   {
     v29 = v27;
   }
 
-  v30 = sqrtf(v28 + (v26 * v26));
-  if (v30 <= v29)
+  v30 = (v24 - v16) * (v24 - v16);
+  v31 = sqrtf(v30 + (v25 * v25));
+  if (v31 <= v29)
   {
-    v30 = v29;
+    v31 = v29;
   }
 
-  v31 = v9 * -9.0 + v8 * (v30 + v9 * 9.0);
-  v79 = v31;
+  v32 = sqrtf(v30 + (v28 * v28));
+  if (v32 <= v31)
+  {
+    v32 = v31;
+  }
+
+  v33 = v9 * -9.0 + v8 * (v32 + v9 * 9.0);
+  v81 = v33;
   [(CIImage *)self->inputShadingImage extent];
-  v80 = v33;
-  v81 = v32;
+  v82 = v35;
+  v83 = v34;
   [(CIImage *)self->inputImage extent];
-  v35 = v34;
   v37 = v36;
   v39 = v38;
   v41 = v40;
+  v43 = v42;
   [(CIImage *)self->inputTargetImage extent];
-  v93.origin.x = v42;
-  v93.origin.y = v43;
-  v93.size.width = v44;
-  v93.size.height = v45;
-  v89.origin.x = v35;
-  v89.origin.y = v37;
-  v89.size.width = v39;
-  v89.size.height = v41;
-  v90 = CGRectUnion(v89, v93);
-  x = v90.origin.x;
-  y = v90.origin.y;
-  width = v90.size.width;
-  height = v90.size.height;
+  v95.origin.x = v44;
+  v95.origin.y = v45;
+  v95.size.width = v46;
+  v95.size.height = v47;
+  v91.origin.x = v37;
+  v91.origin.y = v39;
+  v91.size.width = v41;
+  v91.size.height = v43;
+  v92 = CGRectUnion(v91, v95);
+  x = v92.origin.x;
+  y = v92.origin.y;
+  width = v92.size.width;
+  height = v92.size.height;
   [(CIVector *)self->inputExtent X];
-  v51 = v50;
-  [(CIVector *)self->inputExtent Y];
   v53 = v52;
-  [(CIVector *)self->inputExtent Z];
+  [(CIVector *)self->inputExtent Y];
   v55 = v54;
+  [(CIVector *)self->inputExtent Z];
+  v57 = v56;
   [(CIVector *)self->inputExtent W];
-  v94.size.height = v56;
-  v91.origin.x = x;
-  v91.origin.y = y;
-  v91.size.width = width;
-  v91.size.height = height;
-  v94.origin.x = v51;
-  v94.origin.y = v53;
-  v94.size.width = v55;
-  v92 = CGRectUnion(v91, v94);
-  v57 = v92.origin.x;
-  v58 = v92.origin.y;
-  v59 = v92.size.width;
-  v60 = v92.size.height;
+  v96.size.height = v58;
+  v93.origin.x = x;
+  v93.origin.y = y;
+  v93.size.width = width;
+  v93.size.height = height;
+  v96.origin.x = v53;
+  v96.origin.y = v55;
+  v96.size.width = v57;
+  v94 = CGRectUnion(v93, v96);
+  v59 = v94.origin.x;
+  v60 = v94.origin.y;
+  v61 = v94.size.width;
+  v62 = v94.size.height;
   [(CIImage *)self->inputShadingImage extent];
-  v62 = v61;
   v64 = v63;
-  v65 = MEMORY[0x1E695DEC8];
+  v66 = v65;
+  v67 = MEMORY[0x1E695DEC8];
   inputScale = self->inputScale;
-  *&v51 = v67;
-  LODWORD(v67) = LODWORD(v51);
-  v68 = [MEMORY[0x1E696AD98] numberWithFloat:v67];
-  LODWORD(v69) = LODWORD(v51);
+  *&v53 = v69;
+  LODWORD(v69) = LODWORD(v53);
   v70 = [MEMORY[0x1E696AD98] numberWithFloat:v69];
-  *&v71 = v62;
+  LODWORD(v71) = LODWORD(v53);
   v72 = [MEMORY[0x1E696AD98] numberWithFloat:v71];
   *&v73 = v64;
-  v74 = [v65 arrayWithObjects:{inputScale, v68, v70, v72, objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v73), 0}];
+  v74 = [MEMORY[0x1E696AD98] numberWithFloat:v73];
+  *&v75 = v66;
+  v76 = [v67 arrayWithObjects:{inputScale, v70, v72, v74, objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v75), 0}];
   _CIRippleTransition = [(CIRippleTransition *)self _CIRippleTransition];
-  v83[0] = MEMORY[0x1E69E9820];
-  v83[1] = 3221225472;
-  v83[2] = __33__CIRippleTransition_outputImage__block_invoke;
-  v83[3] = &unk_1E75C24D8;
+  v85[0] = MEMORY[0x1E69E9820];
+  v85[1] = 3221225472;
+  v85[2] = __33__CIRippleTransition_outputImage__block_invoke;
+  v85[3] = &unk_1E75C24D8;
   inputImage = self->inputImage;
-  v83[4] = v74;
-  v84[0] = inputImage;
+  v85[4] = v76;
+  v86[0] = inputImage;
   inputShadingImage = self->inputShadingImage;
-  v84[1] = self->inputTargetImage;
-  v84[2] = inputShadingImage;
-  v84[3] = self->inputCenter;
-  v84[4] = [CIVector vectorWithX:v79 Y:(1.0 / v9) Z:0.333333343 W:v82];
-  v84[5] = [CIVector vectorWithX:v81 Y:v80];
-  return [_CIRippleTransition applyWithExtent:v83 roiCallback:objc_msgSend(MEMORY[0x1E695DEC8] arguments:{"arrayWithObjects:count:", v84, 6), v57, v58, v59, v60}];
+  v86[1] = self->inputTargetImage;
+  v86[2] = inputShadingImage;
+  v86[3] = self->inputCenter;
+  v86[4] = [CIVector vectorWithX:v81 Y:(1.0 / v9) Z:0.333333343 W:v84];
+  v86[5] = [CIVector vectorWithX:v83 Y:v82];
+  return [_CIRippleTransition applyWithExtent:v85 roiCallback:objc_msgSend(MEMORY[0x1E695DEC8] arguments:{"arrayWithObjects:count:", v86, 6), v59, v60, v61, v62}];
 }
 
 double __33__CIRippleTransition_outputImage__block_invoke(uint64_t a1, unsigned int a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
@@ -150,7 +151,7 @@ double __33__CIRippleTransition_outputImage__block_invoke(uint64_t a1, unsigned 
   {
     if (a2 == 2)
     {
-      [objc_msgSend(*(a1 + 32) objectAtIndex:{1), "floatValue"}];
+      [objc_msgSend(*(a1 + 32) objectAtIndex:{1, a3, a4, a5, a6), "floatValue"}];
       v6 = v14;
       [objc_msgSend(v7 objectAtIndex:{2), "floatValue"}];
       [objc_msgSend(v7 objectAtIndex:{3), "floatValue"}];

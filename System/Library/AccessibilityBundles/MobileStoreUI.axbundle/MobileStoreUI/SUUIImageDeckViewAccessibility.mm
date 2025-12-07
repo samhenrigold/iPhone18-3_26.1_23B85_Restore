@@ -6,19 +6,19 @@
 
 - (id)accessibilityLabel
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v2 = [(SUUIImageDeckViewAccessibility *)self safeValueForKey:@"_imageViews"];
   v3 = __UIAccessibilitySafeClass();
 
-  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     v7 = &stru_2A2230BA8;
     do
     {
@@ -26,13 +26,13 @@
       v9 = v7;
       do
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        accessibilityLabel = [*(*(&v17 + 1) + 8 * v8) accessibilityLabel];
-        v16 = @"__AXStringForVariablesSentinel";
+        accessibilityLabel = [*(*(&v16 + 1) + 8 * v8) accessibilityLabel];
+        v15 = @"__AXStringForVariablesSentinel";
         v7 = __UIAXStringForVariables();
 
         ++v8;
@@ -40,7 +40,7 @@
       }
 
       while (v5 != v8);
-      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:{16, accessibilityLabel, @"__AXStringForVariablesSentinel"}];
+      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:{16, accessibilityLabel, @"__AXStringForVariablesSentinel"}];
     }
 
     while (v5);
@@ -62,8 +62,6 @@
   {
     v12 = accessibilityLocalizedString(@"collection.deck.no.album.labels");
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 
   return v12;
 }

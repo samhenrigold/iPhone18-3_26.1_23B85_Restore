@@ -418,9 +418,9 @@ LABEL_8:
 {
   itemCopy = item;
   v7 = [self _currentFocusItemForClient:client];
-  v8 = [itemCopy isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(itemCopy);
 
-  if (v8)
+  if (isEqual)
   {
     manager = [self manager];
     [manager _updateFocusLayerFrames];
@@ -637,9 +637,9 @@ LABEL_12:
   [v12 cornerRadius];
   v23 = v26;
   cornerCurve = [v12 cornerCurve];
-  v28 = [cornerCurve isEqualToString:*MEMORY[0x1E69796E8]];
+  isEqualToString = objc_msgSend_isEqualToString_(cornerCurve);
 
-  if (!v28)
+  if (!isEqualToString)
   {
     goto LABEL_12;
   }

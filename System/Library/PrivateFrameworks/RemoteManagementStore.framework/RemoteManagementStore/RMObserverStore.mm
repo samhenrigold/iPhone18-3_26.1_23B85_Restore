@@ -111,7 +111,7 @@ void __53__RMObserverStore_storesWithScope_completionHandler___block_invoke(uint
 
 void __53__RMObserverStore_storesWithScope_completionHandler___block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -132,29 +132,29 @@ void __53__RMObserverStore_storesWithScope_completionHandler___block_invoke_5(ui
       _os_log_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Fetched stores", buf, 2u);
     }
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v14 + 1) + 8 * i) setXpcConnection:{*(a1 + 32), v14}];
+          [*(*(&v13 + 1) + 8 * i) setXpcConnection:{*(a1 + 32), v13}];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v10);
@@ -164,8 +164,6 @@ void __53__RMObserverStore_storesWithScope_completionHandler___block_invoke_5(ui
   }
 
   v7();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)displayPropertiesForConfigurationsWithCompletionHandler:(id)handler
@@ -205,7 +203,7 @@ void __75__RMObserverStore_displayPropertiesForConfigurationsWithCompletionHandl
 
 void __75__RMObserverStore_displayPropertiesForConfigurationsWithCompletionHandler___block_invoke_7(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -222,9 +220,9 @@ void __75__RMObserverStore_displayPropertiesForConfigurationsWithCompletionHandl
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
-      v10 = [v5 count];
-      _os_log_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Fetched configuration UIs: %lu", &v9, 0xCu);
+      v8 = 134217984;
+      v9 = [v5 count];
+      _os_log_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Fetched configuration UIs: %lu", &v8, 0xCu);
     }
 
     v7 = *(*(a1 + 40) + 16);
@@ -232,8 +230,6 @@ void __75__RMObserverStore_displayPropertiesForConfigurationsWithCompletionHandl
 
   v7();
   [*(a1 + 32) xpcConnection];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)displayableProfileConfigurationsWithCompletionHandler:(id)handler
@@ -273,7 +269,7 @@ void __73__RMObserverStore_displayableProfileConfigurationsWithCompletionHandler
 
 void __73__RMObserverStore_displayableProfileConfigurationsWithCompletionHandler___block_invoke_8(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -290,9 +286,9 @@ void __73__RMObserverStore_displayableProfileConfigurationsWithCompletionHandler
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
-      v10 = [v5 count];
-      _os_log_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Fetched profile configurations: %lu", &v9, 0xCu);
+      v8 = 134217984;
+      v9 = [v5 count];
+      _os_log_impl(&dword_261E36000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Fetched profile configurations: %lu", &v8, 0xCu);
     }
 
     v7 = *(*(a1 + 40) + 16);
@@ -300,8 +296,6 @@ void __73__RMObserverStore_displayableProfileConfigurationsWithCompletionHandler
 
   v7();
   [*(a1 + 32) xpcConnection];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -326,70 +320,6 @@ void __73__RMObserverStore_displayableProfileConfigurationsWithCompletionHandler
   v4.receiver = self;
   v4.super_class = RMObserverStore;
   return [(RMBaseStore *)&v4 isEqualToStore:store];
-}
-
-void __63__RMObserverStore_storeWithIdentifier_scope_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while fetching store: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __63__RMObserverStore_storeWithIdentifier_scope_completionHandler___block_invoke_3_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to fetch store: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __53__RMObserverStore_storesWithScope_completionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while fetching stores: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __53__RMObserverStore_storesWithScope_completionHandler___block_invoke_5_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to fetch stores: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __75__RMObserverStore_displayPropertiesForConfigurationsWithCompletionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while fetching configuration UIs: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __75__RMObserverStore_displayPropertiesForConfigurationsWithCompletionHandler___block_invoke_7_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to fetch configuration UIs: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __73__RMObserverStore_displayableProfileConfigurationsWithCompletionHandler___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed XPC connection while fetching profile configurations: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __73__RMObserverStore_displayableProfileConfigurationsWithCompletionHandler___block_invoke_8_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, MEMORY[0x277D86220], v0, "Failed to fetch profile configurations: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -20,6 +20,7 @@
 - (void)_checkPrioritiesWithFetchCache:(id)cache;
 - (void)_clearUploadBatch;
 - (void)_deleteGeneratedResourcesAfterError:(id)error;
+- (void)_didFinishTaskWithKey:(id)key error:(BOOL)error cancelled:(BOOL)cancelled;
 - (void)_didStartTaskWithKey:(id)key recordCount:(unint64_t)count;
 - (void)_discardGenerateDerivativesProgress;
 - (void)_excludeScopeFromMingling;
@@ -45,25 +46,25 @@
 
 - (BOOL)isCloudRecordWithScopedIdentifierShared:(id)shared
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   sharedCopy = shared;
   v6 = [(CPLRecordTargetMapping *)self->_targetMapping targetForRecordWithScopedIdentifier:sharedCopy];
   if (!v6)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = __CPLTaskOSLogDomain_24274();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = __CPLTaskOSLogDomain_24274();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = sharedCopy;
-        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Trying to know shared state for %@ but it was not requested to access", buf, 0xCu);
+        v14 = sharedCopy;
+        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Trying to know shared state for %@ but it was not requested to access", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v13 lineNumber:1900 description:{@"Trying to know shared state for %@ but it was not requested to access", sharedCopy}];
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v12 lineNumber:1900 description:{@"Trying to know shared state for %@ but it was not requested to access", sharedCopy}];
 
     abort();
   }
@@ -71,7 +72,6 @@
   v7 = v6;
   shouldUploadToOtherRecord = [v6 shouldUploadToOtherRecord];
 
-  v9 = *MEMORY[0x1E69E9840];
   return shouldUploadToOtherRecord;
 }
 
@@ -87,27 +87,27 @@
 
 - (id)willUploadCloudResource:(id)resource localResource:(id)localResource error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
   localResourceCopy = localResource;
   if (!self->_transactionDuringItemsPreparation)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v25 = __CPLTaskOSLogDomain_24274();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = __CPLTaskOSLogDomain_24274();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        v26 = NSStringFromSelector(a2);
+        v25 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v32 = v26;
-        _os_log_impl(&dword_1DC05A000, v25, OS_LOG_TYPE_ERROR, "%@ should only be called during initial batch preparation", buf, 0xCu);
+        v31 = v25;
+        _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_ERROR, "%@ should only be called during initial batch preparation", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
-    v29 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:v28 lineNumber:1860 description:{@"%@ should only be called during initial batch preparation", v29}];
+    v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
+    v28 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:v27 lineNumber:1860 description:{@"%@ should only be called during initial batch preparation", v28}];
 
     abort();
   }
@@ -126,13 +126,13 @@
       self->_preparedUploadResourceTasks = v15;
 
       transactionDuringItemsPreparation = self->_transactionDuringItemsPreparation;
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __74__CPLUploadPushedChangesTask_willUploadCloudResource_localResource_error___block_invoke;
-      v30[3] = &unk_1E8620A88;
-      v30[4] = self;
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __74__CPLUploadPushedChangesTask_willUploadCloudResource_localResource_error___block_invoke;
+      v29[3] = &unk_1E8620A88;
+      v29[4] = self;
       v18 = transactionDuringItemsPreparation;
-      [(CPLEngineStoreTransaction *)v18 addCleanupBlock:v30];
+      [(CPLEngineStoreTransaction *)v18 addCleanupBlock:v29];
     }
 
     v19 = [CPLEngineResourceUploadTask alloc];
@@ -144,41 +144,39 @@
     [(NSMutableArray *)self->_preparedUploadResourceTasks addObject:v22];
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 void __74__CPLUploadPushedChangesTask_willUploadCloudResource_localResource_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
     v3 = [*(a1 + 32) engineLibrary];
     objc_storeStrong((*(a1 + 32) + 208), *(*(a1 + 32) + 256));
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v4 = *(*(a1 + 32) + 208);
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [v3 notifyAttachedObjectsUploadTaskDidStart:{*(*(&v12 + 1) + 8 * i), v12}];
+          [v3 notifyAttachedObjectsUploadTaskDidStart:{*(*(&v11 + 1) + 8 * i), v11}];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
@@ -188,32 +186,30 @@ void __74__CPLUploadPushedChangesTask_willUploadCloudResource_localResource_erro
   v9 = *(a1 + 32);
   v10 = *(v9 + 256);
   *(v9 + 256) = 0;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)availableResourceTypesToUploadForChange:(id)change
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   if (!self->_transactionDuringItemsPreparation)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = __CPLTaskOSLogDomain_24274();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = __CPLTaskOSLogDomain_24274();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v13 = NSStringFromSelector(a2);
+        v12 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v18 = v13;
-        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "%@ should only be called during initial batch preparation", buf, 0xCu);
+        v17 = v12;
+        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "%@ should only be called during initial batch preparation", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
-    v16 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:1855 description:{@"%@ should only be called during initial batch preparation", v16}];
+    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
+    v15 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:v14 lineNumber:1855 description:{@"%@ should only be called during initial batch preparation", v15}];
 
     abort();
   }
@@ -223,33 +219,31 @@ void __74__CPLUploadPushedChangesTask_willUploadCloudResource_localResource_erro
   outgoingResources = [store outgoingResources];
   v9 = [outgoingResources resourceTypesToUploadForChange:v6];
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (BOOL)willNeedToAccessRecordWithScopedIdentifier:(id)identifier error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!self->_transactionDuringItemsPreparation)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v18 = __CPLTaskOSLogDomain_24274();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = __CPLTaskOSLogDomain_24274();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v19 = NSStringFromSelector(a2);
+        v18 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v24 = v19;
-        _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_ERROR, "%@ should only be called during initial batch preparation", buf, 0xCu);
+        v23 = v18;
+        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "%@ should only be called during initial batch preparation", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
-    v22 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:v21 lineNumber:1838 description:{@"%@ should only be called during initial batch preparation", v22}];
+    v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
+    v21 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:v20 lineNumber:1838 description:{@"%@ should only be called during initial batch preparation", v21}];
 
     abort();
   }
@@ -278,14 +272,13 @@ void __74__CPLUploadPushedChangesTask_willUploadCloudResource_localResource_erro
   v15 = 1;
 LABEL_6:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (BOOL)_willNeedToAccessScopeWithIdentifier:(id)identifier primaryScope:(BOOL)scope error:(id *)error
 {
   scopeCopy = scope;
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v9 = [(CPLEngineScopeStorage *)self->_scopes scopeWithIdentifier:identifierCopy];
   if (!v9)
@@ -296,7 +289,7 @@ LABEL_6:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v30 = identifierCopy;
+        v29 = identifierCopy;
         _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Additional requested scope %{public}@ is unknown", buf, 0xCu);
       }
     }
@@ -325,9 +318,9 @@ LABEL_18:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v30 = identifierCopy;
-        v31 = 2112;
-        v32 = v10;
+        v29 = identifierCopy;
+        v30 = 2112;
+        v31 = v10;
         _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "Additional requested scope %{public}@ is invalid scope: flags are %@", buf, 0x16u);
       }
     }
@@ -347,12 +340,12 @@ LABEL_18:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v30 = identifierCopy;
+        v29 = identifierCopy;
         _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_ERROR, "Transport scope for additional requested scope %{public}@ has not yet been determined", buf, 0xCu);
       }
     }
 
-    [CPLErrors cplErrorWithCode:32 description:@"missing transport scope", v27];
+    [CPLErrors cplErrorWithCode:32 description:@"missing transport scope", v26];
     goto LABEL_30;
   }
 
@@ -362,9 +355,9 @@ LABEL_18:
   {
     v17 = v16;
     scopeIdentifier = [v16 scopeIdentifier];
-    v28 = 0;
-    v19 = [(CPLUploadPushedChangesTask *)self _willNeedToAccessScopeWithIdentifier:scopeIdentifier primaryScope:0 error:&v28];
-    v13 = v28;
+    v27 = 0;
+    v19 = [(CPLUploadPushedChangesTask *)self _willNeedToAccessScopeWithIdentifier:scopeIdentifier primaryScope:0 error:&v27];
+    v13 = v27;
 
     if (!v19)
     {
@@ -392,9 +385,9 @@ LABEL_32:
     {
       v23 = [(CPLTransportScopeMapping *)self->_transportScopeMapping objectForKeyedSubscript:identifierCopy];
       *buf = 138543618;
-      v30 = identifierCopy;
-      v31 = 2112;
-      v32 = v23;
+      v29 = identifierCopy;
+      v30 = 2112;
+      v31 = v23;
       _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEFAULT, "Will access %{public}@ with concrete scope %@", buf, 0x16u);
     }
   }
@@ -402,7 +395,6 @@ LABEL_32:
   v21 = 1;
 LABEL_33:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -473,7 +465,7 @@ LABEL_33:
 
 - (void)_uploadTaskDidFinishWithError:(id)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   [(CPLUploadPushedChangesTask *)self _finishReportingDerivativesIsNecessary];
   [(CPLEngineSyncTask *)self setPhaseDescription:@"cleaning"];
@@ -493,27 +485,25 @@ LABEL_33:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__24318;
-  v16 = __Block_byref_object_dispose__24319;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__24318;
+  v15 = __Block_byref_object_dispose__24319;
   v8 = errorCopy;
-  v17 = v8;
-  v11[5] = &buf;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __60__CPLUploadPushedChangesTask__uploadTaskDidFinishWithError___block_invoke;
-  v12[3] = &unk_1E8620A60;
-  v12[4] = self;
-  v12[5] = &buf;
+  v16 = v8;
+  v10[5] = &buf;
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
-  v11[2] = __60__CPLUploadPushedChangesTask__uploadTaskDidFinishWithError___block_invoke_200;
+  v11[2] = __60__CPLUploadPushedChangesTask__uploadTaskDidFinishWithError___block_invoke;
   v11[3] = &unk_1E8620A60;
   v11[4] = self;
-  v9 = [store performWriteTransactionWithBlock:v12 completionHandler:v11];
+  v11[5] = &buf;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __60__CPLUploadPushedChangesTask__uploadTaskDidFinishWithError___block_invoke_200;
+  v10[3] = &unk_1E8620A60;
+  v10[4] = self;
+  v9 = [store performWriteTransactionWithBlock:v11 completionHandler:v10];
   _Block_object_dispose(&buf, 8);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __60__CPLUploadPushedChangesTask__uploadTaskDidFinishWithError___block_invoke(uint64_t a1, void *a2)
@@ -551,27 +541,19 @@ void __60__CPLUploadPushedChangesTask__uploadTaskDidFinishWithError___block_invo
 void __60__CPLUploadPushedChangesTask__uploadTaskDidFinishWithError___block_invoke_200(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v8 = v3;
-  if (*(*(*(a1 + 40) + 8) + 40))
+  v7 = v3;
+  if (*(*(*(a1 + 40) + 8) + 40) || ([v3 error], v4 = objc_claimAutoreleasedReturnValue(), v4, !v4))
   {
-    goto LABEL_2;
-  }
-
-  v4 = [v3 error];
-
-  if (!v4)
-  {
-    v7 = *(*(*(a1 + 40) + 8) + 40);
-LABEL_2:
     [*(a1 + 32) taskDidFinishWithError:?];
-    goto LABEL_5;
   }
 
-  v5 = *(a1 + 32);
-  v6 = [v8 error];
-  [v5 taskDidFinishWithError:v6];
+  else
+  {
+    v5 = *(a1 + 32);
+    v6 = [v7 error];
+    [v5 taskDidFinishWithError:v6];
+  }
 
-LABEL_5:
   [*(a1 + 32) _clearUploadBatch];
 }
 
@@ -600,7 +582,7 @@ uint64_t __60__CPLUploadPushedChangesTask__uploadTaskDidFinishWithError___block_
 uint64_t __60__CPLUploadPushedChangesTask__uploadTaskDidFinishWithError___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v3 = a1;
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v4 = *(*(*(a1 + 48) + 8) + 40);
   if (v4)
   {
@@ -616,44 +598,44 @@ uint64_t __60__CPLUploadPushedChangesTask__uploadTaskDidFinishWithError___block_
 
       if (v10)
       {
-        v35 = v8;
-        v37 = a2;
-        v39 = objc_alloc_init(CPLRejectedRecords);
-        v38 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v10, "count")}];
+        v34 = v8;
+        v36 = a2;
+        v38 = objc_alloc_init(CPLRejectedRecords);
+        v37 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v10, "count")}];
+        v44 = 0u;
         v45 = 0u;
         v46 = 0u;
         v47 = 0u;
-        v48 = 0u;
-        v36 = v3;
+        v35 = v3;
         v11 = [*(v3 + 40) batch];
-        v12 = [v11 countByEnumeratingWithState:&v45 objects:v52 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v44 objects:v51 count:16];
         if (!v12)
         {
           goto LABEL_18;
         }
 
         v13 = v12;
-        v14 = *v46;
+        v14 = *v45;
         while (1)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v46 != v14)
+            if (*v45 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v45 + 1) + 8 * i);
+            v16 = *(*(&v44 + 1) + 8 * i);
             v17 = [v16 scopedIdentifier];
-            v44 = 0;
-            v18 = [v7 cloudScopedIdentifierForLocalScopedIdentifier:v17 isFinal:&v44];
+            v43 = 0;
+            v18 = [v7 cloudScopedIdentifierForLocalScopedIdentifier:v17 isFinal:&v43];
             if (v18)
             {
               v19 = [v10 objectForKeyedSubscript:v18];
               if (v19)
               {
-                [(CPLRejectedRecords *)v39 setObject:v19 forKeyedSubscript:v16];
-                [v38 addObject:v17];
+                [(CPLRejectedRecords *)v38 setObject:v19 forKeyedSubscript:v16];
+                [v37 addObject:v17];
               }
             }
 
@@ -668,7 +650,7 @@ uint64_t __60__CPLUploadPushedChangesTask__uploadTaskDidFinishWithError___block_
               if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v51 = v17;
+                v50 = v17;
                 _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_ERROR, "Failed to remap local identifier %@ to a cloud identifier after records have been rejected", buf, 0xCu);
               }
             }
@@ -677,25 +659,25 @@ LABEL_16:
             [v16 _setShouldNotTrustCloudCache:1];
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v45 objects:v52 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v44 objects:v51 count:16];
           if (!v13)
           {
 LABEL_18:
 
-            v8 = v35;
-            v20 = [v35 mutableCopy];
+            v8 = v34;
+            v20 = [v34 mutableCopy];
             [v20 removeObjectForKey:@"CPLErrorRejectedRecordIdentifiersAndReasons"];
-            [v20 setObject:v38 forKeyedSubscript:@"CPLErrorRejectedRecordIdentifiers"];
+            [v20 setObject:v37 forKeyedSubscript:@"CPLErrorRejectedRecordIdentifiers"];
             v21 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v3 = v36;
-            v22 = [*(*(*(v36 + 48) + 8) + 40) domain];
-            v23 = [v21 initWithDomain:v22 code:objc_msgSend(*(*(*(v36 + 48) + 8) + 40) userInfo:{"code"), v20}];
-            v24 = *(*(v36 + 48) + 8);
+            v3 = v35;
+            v22 = [*(*(*(v35 + 48) + 8) + 40) domain];
+            v23 = [v21 initWithDomain:v22 code:objc_msgSend(*(*(*(v35 + 48) + 8) + 40) userInfo:{"code"), v20}];
+            v24 = *(*(v35 + 48) + 8);
             v25 = *(v24 + 40);
             *(v24 + 40) = v23;
 
-            a2 = v37;
-            v26 = v39;
+            a2 = v36;
+            v26 = v38;
             goto LABEL_32;
           }
         }
@@ -717,29 +699,29 @@ LABEL_32:
 
   if ([*(v3 + 32) _shouldNotTrustCloudCacheAfterError:v27])
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v7 = [*(v3 + 40) batch];
-    v28 = [v7 countByEnumeratingWithState:&v40 objects:v49 count:16];
+    v28 = [v7 countByEnumeratingWithState:&v39 objects:v48 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v41;
+      v30 = *v40;
       do
       {
         for (j = 0; j != v29; ++j)
         {
-          if (*v41 != v30)
+          if (*v40 != v30)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v40 + 1) + 8 * j) _setShouldNotTrustCloudCache:1];
+          [*(*(&v39 + 1) + 8 * j) _setShouldNotTrustCloudCache:1];
         }
 
-        v29 = [v7 countByEnumeratingWithState:&v40 objects:v49 count:16];
+        v29 = [v7 countByEnumeratingWithState:&v39 objects:v48 count:16];
       }
 
       while (v29);
@@ -755,7 +737,6 @@ LABEL_33:
 LABEL_34:
   v32 = [*(v3 + 32) _reenqueueExtractedBatchWithRejectedRecords:v26 extractedBatch:*(v3 + 40) error:a2];
 
-  v33 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
@@ -830,28 +811,9 @@ LABEL_34:
 void __37__CPLUploadPushedChangesTask_cancel___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (v2[36] || v2[37] || v2[40])
+  if (*(v2 + 288) == 0 && !*(v2 + 320))
   {
-    v9.receiver = *(a1 + 32);
-    v9.super_class = CPLUploadPushedChangesTask;
-    objc_msgSendSuper2(&v9, sel_cancel);
-    [*(*(a1 + 32) + 288) cancel];
-    [*(*(a1 + 32) + 296) cancel];
-    if (*(*(a1 + 32) + 320))
-    {
-      v3 = [MEMORY[0x1E695E000] standardUserDefaults];
-      v4 = [v3 BOOLForKey:@"CPLAllowCancellingDerivativesGeneration"];
-
-      if (v4)
-      {
-        (*(*(*(a1 + 32) + 320) + 16))();
-      }
-    }
-  }
-
-  else
-  {
-    v5 = v2[38];
+    v5 = *(v2 + 304);
     if (v5)
     {
       if ([v5 foreground])
@@ -879,6 +841,25 @@ void __37__CPLUploadPushedChangesTask_cancel___block_invoke(uint64_t a1)
       }
     }
   }
+
+  else
+  {
+    v9.receiver = *(a1 + 32);
+    v9.super_class = CPLUploadPushedChangesTask;
+    objc_msgSendSuper2(&v9, sel_cancel);
+    [*(*(a1 + 32) + 288) cancel];
+    [*(*(a1 + 32) + 296) cancel];
+    if (*(*(a1 + 32) + 320))
+    {
+      v3 = [MEMORY[0x1E695E000] standardUserDefaults];
+      v4 = [v3 BOOLForKey:@"CPLAllowCancellingDerivativesGeneration"];
+
+      if (v4)
+      {
+        (*(*(*(a1 + 32) + 320) + 16))();
+      }
+    }
+  }
 }
 
 uint64_t __37__CPLUploadPushedChangesTask_cancel___block_invoke_193(uint64_t a1)
@@ -900,10 +881,10 @@ uint64_t __37__CPLUploadPushedChangesTask_cancel___block_invoke_193(uint64_t a1)
 
 - (void)launch
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = CPLUploadPushedChangesTask;
-  [(CPLEngineSyncTask *)&v11 launch];
+  v15 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = CPLUploadPushedChangesTask;
+  [(CPLEngineSyncTask *)&v10 launch];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v3 = __CPLTaskOSLogDomain_24274();
@@ -912,27 +893,25 @@ uint64_t __37__CPLUploadPushedChangesTask_cancel___block_invoke_193(uint64_t a1)
       scopeIdentifier = self->_scopeIdentifier;
       pushRepositoryPriority = self->_pushRepositoryPriority;
       *buf = 138543618;
-      v13 = scopeIdentifier;
-      v14 = 2048;
-      v15 = pushRepositoryPriority;
+      v12 = scopeIdentifier;
+      v13 = 2048;
+      v14 = pushRepositoryPriority;
       _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Launching changes upload for %{public}@ (priority %lu)", buf, 0x16u);
     }
   }
 
   store = [(CPLEngineScopedTask *)self store];
-  v9[4] = self;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __36__CPLUploadPushedChangesTask_launch__block_invoke;
-  v10[3] = &unk_1E86205E0;
-  v10[4] = self;
+  v8[4] = self;
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
-  v9[2] = __36__CPLUploadPushedChangesTask_launch__block_invoke_3;
+  v9[2] = __36__CPLUploadPushedChangesTask_launch__block_invoke;
   v9[3] = &unk_1E86205E0;
-  v7 = [store performWriteTransactionWithBlock:v10 completionHandler:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = self;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __36__CPLUploadPushedChangesTask_launch__block_invoke_3;
+  v8[3] = &unk_1E86205E0;
+  v7 = [store performWriteTransactionWithBlock:v9 completionHandler:v8];
 }
 
 uint64_t __36__CPLUploadPushedChangesTask_launch__block_invoke(uint64_t a1, void *a2)
@@ -1050,7 +1029,7 @@ void __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke(ui
 
 void __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_2(uint64_t a1, void *a2)
 {
-  v129 = *MEMORY[0x1E69E9840];
+  v128 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -1090,12 +1069,12 @@ void __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_2(
     v10 = a1 + 32;
     *(*(a1 + 32) + 384) += v9;
     v11 = *(a1 + 32);
-    v84[0] = MEMORY[0x1E69E9820];
-    v84[1] = 3221225472;
-    v84[2] = __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_167;
-    v84[3] = &__block_descriptor_40_e35_v16__0__CPLSyncThroughputReporter_8l;
-    v84[4] = v9;
-    [v11 withThroughputReporter:v84];
+    v83[0] = MEMORY[0x1E69E9820];
+    v83[1] = 3221225472;
+    v83[2] = __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_167;
+    v83[3] = &__block_descriptor_40_e35_v16__0__CPLSyncThroughputReporter_8l;
+    v83[4] = v9;
+    [v11 withThroughputReporter:v83];
     v12 = [*(*v10 + 496) countOfChangesInScopeWithIdentifier:*(*v10 + 128)];
     v14 = *(a1 + 32);
     v15 = 100 * *(*v10 + 384) / (*(*v10 + 384) + v12);
@@ -1111,33 +1090,33 @@ void __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_2(
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v71 = __CPLTaskOSLogDomain_24274();
-        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+        v70 = __CPLTaskOSLogDomain_24274();
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
         {
           LOWORD(buf) = 0;
-          _os_log_impl(&dword_1DC05A000, v71, OS_LOG_TYPE_ERROR, "We should have a batch to commit here", &buf, 2u);
+          _os_log_impl(&dword_1DC05A000, v70, OS_LOG_TYPE_ERROR, "We should have a batch to commit here", &buf, 2u);
         }
       }
 
-      v72 = [MEMORY[0x1E696AAA8] currentHandler];
-      v73 = *(a1 + 64);
-      v74 = *(a1 + 32);
-      v75 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
-      [v72 handleFailureInMethod:v73 object:v74 file:v75 lineNumber:1446 description:@"We should have a batch to commit here"];
+      v71 = [MEMORY[0x1E696AAA8] currentHandler];
+      v72 = *(a1 + 64);
+      v73 = *(a1 + 32);
+      v74 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
+      [v71 handleFailureInMethod:v72 object:v73 file:v74 lineNumber:1446 description:@"We should have a batch to commit here"];
 
       abort();
     }
 
-    v80[0] = MEMORY[0x1E69E9820];
-    v80[1] = 3221225472;
-    v80[2] = __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_174;
-    v80[3] = &unk_1E8620968;
-    v80[4] = v14;
-    v81 = v3;
-    v82 = *(a1 + 40);
-    v83 = v7;
+    v79[0] = MEMORY[0x1E69E9820];
+    v79[1] = 3221225472;
+    v79[2] = __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_174;
+    v79[3] = &unk_1E8620968;
+    v79[4] = v14;
+    v80 = v3;
+    v81 = *(a1 + 40);
+    v82 = v7;
     v16 = v7;
-    [v81 do:v80];
+    [v80 do:v79];
     [*(a1 + 32) _clearUploadBatch];
 
     v5 = *(a1 + 32);
@@ -1206,83 +1185,83 @@ LABEL_31:
   }
 
   *(*(a1 + 32) + 392) = CFAbsoluteTimeGetCurrent();
-  v29 = *(a1 + 32);
-  v28 = *(a1 + 40);
-  v30 = v3;
-  v78 = v28;
-  if (!v29 || ([v29 isCancelled] & 1) != 0)
+  v28 = *(a1 + 32);
+  v27 = *(a1 + 40);
+  v29 = v3;
+  v77 = v27;
+  if (!v28 || ([v28 isCancelled] & 1) != 0)
   {
     goto LABEL_102;
   }
 
-  v77 = [v78 cloudCache];
-  v76 = [v78 idMapping];
-  v104 = 0;
-  v105 = &v104;
-  v106 = 0x2020000000;
-  v107 = 0;
-  v102[0] = 0;
-  v102[1] = v102;
-  v102[2] = 0x3032000000;
-  v102[3] = __Block_byref_object_copy__24318;
-  v102[4] = __Block_byref_object_dispose__24319;
-  v103 = [MEMORY[0x1E695DF00] now];
+  v76 = [v77 cloudCache];
+  v75 = [v77 idMapping];
+  v103 = 0;
+  v104 = &v103;
+  v105 = 0x2020000000;
+  v106 = 0;
+  v101[0] = 0;
+  v101[1] = v101;
+  v101[2] = 0x3032000000;
+  v101[3] = __Block_byref_object_copy__24318;
+  v101[4] = __Block_byref_object_dispose__24319;
+  v102 = [MEMORY[0x1E695DF00] now];
   do
   {
-    v31 = [v30 error];
-    v32 = v31 == 0;
+    v30 = [v29 error];
+    v31 = v30 == 0;
 
-    if (!v32)
+    if (!v31)
     {
       break;
     }
 
-    v33 = objc_autoreleasePoolPush();
-    v96 = 0;
-    v97 = &v96;
-    v98 = 0x3032000000;
-    v99 = __Block_byref_object_copy__24318;
-    v100 = __Block_byref_object_dispose__24319;
-    v101 = 0;
-    if (*(v29 + 434) == 1 && (v34 = *(v29 + 168)) != 0)
+    v32 = objc_autoreleasePoolPush();
+    v95 = 0;
+    v96 = &v95;
+    v97 = 0x3032000000;
+    v98 = __Block_byref_object_copy__24318;
+    v99 = __Block_byref_object_dispose__24319;
+    v100 = 0;
+    if (*(v28 + 434) == 1 && (v33 = *(v28 + 168)) != 0)
     {
-      v35 = [v34 name];
-      v36 = *(v29 + 168);
-      *(v29 + 168) = 0;
+      v34 = [v33 name];
+      v35 = *(v28 + 168);
+      *(v28 + 168) = 0;
 
-      *(v29 + 434) = 0;
+      *(v28 + 434) = 0;
     }
 
     else
     {
-      v35 = 0;
+      v34 = 0;
     }
 
-    if (!*(v29 + 168))
+    if (!*(v28 + 168))
     {
-      v37 = *(v29 + 136);
-      v38 = [v29 scope];
-      *(v29 + 433) = [v37 valueForFlag:2 forScope:v38];
+      v36 = *(v28 + 136);
+      v37 = [v28 scope];
+      *(v28 + 433) = [v36 valueForFlag:2 forScope:v37];
 
-      if (*(v29 + 433) == 1)
+      if (*(v28 + 433) == 1)
       {
-        if (!*(v29 + 488))
+        if (!*(v28 + 488))
         {
-          v39 = *(v29 + 136);
-          v40 = [v29 scope];
-          *(v29 + 467) = [v39 shouldCheckAssetsWithServerWhenOverQuotaForScope:v40];
+          v38 = *(v28 + 136);
+          v39 = [v28 scope];
+          *(v28 + 467) = [v38 shouldCheckAssetsWithServerWhenOverQuotaForScope:v39];
 
-          if (*(v29 + 467) == 1)
+          if (*(v28 + 467) == 1)
           {
             if ((_CPLSilentLogging & 1) == 0)
             {
-              v41 = __CPLTaskOSLogDomain_24274();
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+              v40 = __CPLTaskOSLogDomain_24274();
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
               {
-                v42 = [v29 scope];
-                *v125 = 138412290;
-                *&v125[4] = v42;
-                _os_log_impl(&dword_1DC05A000, v41, OS_LOG_TYPE_DEFAULT, "Will check assets of %@ with server when over-quota", v125, 0xCu);
+                v41 = [v28 scope];
+                *v124 = 138412290;
+                *&v124[4] = v41;
+                _os_log_impl(&dword_1DC05A000, v40, OS_LOG_TYPE_DEFAULT, "Will check assets of %@ with server when over-quota", v124, 0xCu);
               }
 
               goto LABEL_52;
@@ -1291,85 +1270,85 @@ LABEL_31:
 
           else if ((_CPLSilentLogging & 1) == 0)
           {
-            v41 = __CPLTaskOSLogDomain_24274();
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+            v40 = __CPLTaskOSLogDomain_24274();
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
             {
-              v44 = [v29 scope];
-              *v125 = 138412290;
-              *&v125[4] = v44;
-              _os_log_impl(&dword_1DC05A000, v41, OS_LOG_TYPE_DEFAULT, "Will check assets of %@ only against cloud cache when over-quota", v125, 0xCu);
+              v43 = [v28 scope];
+              *v124 = 138412290;
+              *&v124[4] = v43;
+              _os_log_impl(&dword_1DC05A000, v40, OS_LOG_TYPE_DEFAULT, "Will check assets of %@ only against cloud cache when over-quota", v124, 0xCu);
             }
 
 LABEL_52:
           }
         }
 
-        v43 = [CPLBatchExtractionStrategy overQuotaStrategyWithStorage:*(v29 + 160) coveringScopeIdentifier:*(v29 + 128)];
+        v42 = [CPLBatchExtractionStrategy overQuotaStrategyWithStorage:*(v28 + 160) coveringScopeIdentifier:*(v28 + 128)];
       }
 
       else
       {
-        v43 = [CPLBatchExtractionStrategy usualStrategyWithStorage:*(v29 + 160) coveringScopeIdentifier:*(v29 + 128)];
+        v42 = [CPLBatchExtractionStrategy usualStrategyWithStorage:*(v28 + 160) coveringScopeIdentifier:*(v28 + 128)];
       }
 
-      v45 = *(v29 + 168);
-      *(v29 + 168) = v43;
+      v44 = *(v28 + 168);
+      *(v28 + 168) = v42;
 
-      [*(v29 + 168) setMaximumRecordCountPerBatch:*(v29 + 480)];
-      if (v35)
+      [*(v28 + 168) setMaximumRecordCountPerBatch:*(v28 + 480)];
+      if (v34)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v46 = __CPLTaskOSLogDomain_24274();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+          v45 = __CPLTaskOSLogDomain_24274();
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
           {
-            v47 = [*(v29 + 168) name];
-            *v125 = 138412546;
-            *&v125[4] = v35;
-            *&v125[12] = 2112;
-            *&v125[14] = v47;
-            _os_log_impl(&dword_1DC05A000, v46, OS_LOG_TYPE_DEFAULT, "Changing extraction strategy from %@ to %@", v125, 0x16u);
+            v46 = [*(v28 + 168) name];
+            *v124 = 138412546;
+            *&v124[4] = v34;
+            *&v124[12] = 2112;
+            *&v124[14] = v46;
+            _os_log_impl(&dword_1DC05A000, v45, OS_LOG_TYPE_DEFAULT, "Changing extraction strategy from %@ to %@", v124, 0x16u);
           }
 
           goto LABEL_62;
         }
 
 LABEL_67:
-        [*(v29 + 496) setExtractionStrategy:*(v29 + 168)];
+        [*(v28 + 496) setExtractionStrategy:*(v28 + 168)];
         goto LABEL_68;
       }
 
-      v48 = _CPLSilentLogging;
-      if (*(v29 + 433) == 1)
+      v47 = _CPLSilentLogging;
+      if (*(v28 + 433) == 1)
       {
         if (_CPLSilentLogging)
         {
           goto LABEL_67;
         }
 
-        v46 = __CPLTaskOSLogDomain_24274();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+        v45 = __CPLTaskOSLogDomain_24274();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
         {
-          v49 = [*(v29 + 168) name];
-          *v125 = 138412290;
-          *&v125[4] = v49;
-          _os_log_impl(&dword_1DC05A000, v46, OS_LOG_TYPE_DEFAULT, "Will use extraction strategy %@", v125, 0xCu);
+          v48 = [*(v28 + 168) name];
+          *v124 = 138412290;
+          *&v124[4] = v48;
+          _os_log_impl(&dword_1DC05A000, v45, OS_LOG_TYPE_DEFAULT, "Will use extraction strategy %@", v124, 0xCu);
         }
 
 LABEL_62:
 
-        v48 = _CPLSilentLogging;
+        v47 = _CPLSilentLogging;
       }
 
-      if ((v48 & 1) == 0)
+      if ((v47 & 1) == 0)
       {
-        v50 = __CPLTaskOSLogDomain_24274();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+        v49 = __CPLTaskOSLogDomain_24274();
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
         {
-          v51 = [*(v29 + 168) stepsDescription];
-          *v125 = 138412290;
-          *&v125[4] = v51;
-          _os_log_impl(&dword_1DC05A000, v50, OS_LOG_TYPE_DEBUG, "Strategy steps: %@", v125, 0xCu);
+          v50 = [*(v28 + 168) stepsDescription];
+          *v124 = 138412290;
+          *&v124[4] = v50;
+          _os_log_impl(&dword_1DC05A000, v49, OS_LOG_TYPE_DEBUG, "Strategy steps: %@", v124, 0xCu);
         }
       }
 
@@ -1377,195 +1356,193 @@ LABEL_62:
     }
 
 LABEL_68:
-    v95[0] = MEMORY[0x1E69E9820];
-    v95[1] = 3221225472;
-    v95[2] = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke;
-    v95[3] = &unk_1E8620568;
-    v95[4] = v29;
-    v95[5] = &v96;
-    [v30 do:v95];
-    *v125 = 0;
-    *&v125[8] = v125;
-    *&v125[16] = 0x3032000000;
-    v126 = __Block_byref_object_copy__24318;
-    v127 = __Block_byref_object_dispose__24319;
-    v128 = [*(v97 + 40) batch];
-    if (*(*&v125[8] + 40))
+    v94[0] = MEMORY[0x1E69E9820];
+    v94[1] = 3221225472;
+    v94[2] = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke;
+    v94[3] = &unk_1E8620568;
+    v94[4] = v28;
+    v94[5] = &v95;
+    [v29 do:v94];
+    *v124 = 0;
+    *&v124[8] = v124;
+    *&v124[16] = 0x3032000000;
+    v125 = __Block_byref_object_copy__24318;
+    v126 = __Block_byref_object_dispose__24319;
+    v127 = [*(v96 + 40) batch];
+    if (*(*&v124[8] + 40))
     {
-      v94 = 0;
       v93 = 0;
-      v52 = v30;
-      v53 = [v29 delegate];
-      v54 = [v53 task:v29 shouldUploadBatchesWithDropReason:&v93 shouldQuarantineRecords:&v94 inTransaction:v52];
+      v92 = 0;
+      v51 = v29;
+      v52 = [v28 delegate];
+      v53 = [v52 task:v28 shouldUploadBatchesWithDropReason:&v92 shouldQuarantineRecords:&v93 inTransaction:v51];
 
-      v55 = v93;
-      if (v54)
+      v54 = v92;
+      if (v53)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v56 = __CPLTaskOSLogDomain_24274();
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+          v55 = __CPLTaskOSLogDomain_24274();
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
           {
-            v57 = *(*&v125[8] + 40);
-            *v119 = 138412290;
-            v120 = v57;
-            _os_log_impl(&dword_1DC05A000, v56, OS_LOG_TYPE_DEBUG, "Translating local batch to cloud batch: %@", v119, 0xCu);
+            v56 = *(*&v124[8] + 40);
+            *v118 = 138412290;
+            v119 = v56;
+            _os_log_impl(&dword_1DC05A000, v55, OS_LOG_TYPE_DEBUG, "Translating local batch to cloud batch: %@", v118, 0xCu);
           }
         }
 
-        v87[0] = MEMORY[0x1E69E9820];
-        v87[1] = 3221225472;
-        v87[2] = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_81;
-        v87[3] = &unk_1E86206C8;
-        v87[4] = v29;
-        v88 = v77;
-        v90 = v125;
-        v89 = v76;
-        [v52 do:v87];
-        v58 = *(v29 + 176);
-        if (v58)
+        v86[0] = MEMORY[0x1E69E9820];
+        v86[1] = 3221225472;
+        v86[2] = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_81;
+        v86[3] = &unk_1E86206C8;
+        v86[4] = v28;
+        v87 = v76;
+        v89 = v124;
+        v88 = v75;
+        [v51 do:v86];
+        v57 = *(v28 + 176);
+        if (v57)
         {
-          if ([v58 count] || CFAbsoluteTimeGetCurrent() - *(v29 + 392) > 3.0 || (objc_msgSend(v29, "session"), v59 = objc_claimAutoreleasedReturnValue(), v60 = objc_msgSend(v59, "shouldDefer"), v59, v60))
+          if ([v57 count] || CFAbsoluteTimeGetCurrent() - *(v28 + 392) > 3.0 || (objc_msgSend(v28, "session"), v58 = objc_claimAutoreleasedReturnValue(), v59 = objc_msgSend(v58, "shouldDefer"), v58, v59))
           {
             if ((_CPLSilentLogging & 1) == 0)
             {
-              v61 = __CPLTaskOSLogDomain_24274();
-              if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+              v60 = __CPLTaskOSLogDomain_24274();
+              if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
               {
-                v62 = *(v29 + 176);
-                *v119 = 138412290;
-                v120 = v62;
-                _os_log_impl(&dword_1DC05A000, v61, OS_LOG_TYPE_DEBUG, "Cloud batch is: %@", v119, 0xCu);
+                v61 = *(v28 + 176);
+                *v118 = 138412290;
+                v119 = v61;
+                _os_log_impl(&dword_1DC05A000, v60, OS_LOG_TYPE_DEBUG, "Cloud batch is: %@", v118, 0xCu);
               }
             }
 
-            v86[0] = MEMORY[0x1E69E9820];
-            v86[1] = 3221225472;
-            v86[2] = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_82;
-            v86[3] = &unk_1E8620568;
-            v86[4] = v29;
-            v86[5] = &v96;
-            [v52 do:v86];
+            v85[0] = MEMORY[0x1E69E9820];
+            v85[1] = 3221225472;
+            v85[2] = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_82;
+            v85[3] = &unk_1E8620568;
+            v85[4] = v28;
+            v85[5] = &v95;
+            [v51 do:v85];
 LABEL_83:
-            v63 = 0;
-            LODWORD(v64) = 3;
+            v62 = 0;
+            LODWORD(v63) = 3;
 LABEL_92:
 
-            if (v63)
+            if (v62)
             {
 LABEL_93:
-              LODWORD(v64) = 0;
+              LODWORD(v63) = 0;
             }
 
-            v65 = v64 == 0;
+            v64 = v63 == 0;
             goto LABEL_95;
           }
 
-          v85[0] = MEMORY[0x1E69E9820];
-          v85[1] = 3221225472;
-          v85[2] = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_2_83;
-          v85[3] = &unk_1E8620568;
-          v85[4] = v29;
-          v85[5] = &v96;
-          [v52 do:v85];
-          v64 = [v52 error];
+          v84[0] = MEMORY[0x1E69E9820];
+          v84[1] = 3221225472;
+          v84[2] = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_2_83;
+          v84[3] = &unk_1E8620568;
+          v84[4] = v28;
+          v84[5] = &v95;
+          [v51 do:v84];
+          v63 = [v51 error];
 
-          if (v64)
+          if (v63)
           {
-            [v29 _clearUploadBatch];
+            [v28 _clearUploadBatch];
             goto LABEL_83;
           }
         }
 
         else
         {
-          LODWORD(v64) = 0;
+          LODWORD(v63) = 0;
         }
 
-        v63 = 1;
+        v62 = 1;
         goto LABEL_92;
       }
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v66 = __CPLTaskOSLogDomain_24274();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+        v65 = __CPLTaskOSLogDomain_24274();
+        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
         {
-          v67 = *(v29 + 128);
-          v68 = *(*&v125[8] + 40);
-          *v119 = 138543874;
-          v120 = v67;
-          v121 = 2112;
-          v122 = v55;
-          v123 = 2112;
-          v124 = v68;
-          _os_log_impl(&dword_1DC05A000, v66, OS_LOG_TYPE_DEFAULT, "Discarding batch to push because %{public}@ is read-only (%@): %@", v119, 0x20u);
+          v66 = *(v28 + 128);
+          v67 = *(*&v124[8] + 40);
+          *v118 = 138543874;
+          v119 = v66;
+          v120 = 2112;
+          v121 = v54;
+          v122 = 2112;
+          v123 = v67;
+          _os_log_impl(&dword_1DC05A000, v65, OS_LOG_TYPE_DEFAULT, "Discarding batch to push because %{public}@ is read-only (%@): %@", v118, 0x20u);
         }
       }
 
-      v91[0] = MEMORY[0x1E69E9820];
-      v91[1] = 3221225472;
-      v91[2] = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_76;
-      v91[3] = &unk_1E8620478;
-      v69 = v78;
-      v92 = v69;
-      [v52 do:v91];
+      v90[0] = MEMORY[0x1E69E9820];
+      v90[1] = 3221225472;
+      v90[2] = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_76;
+      v90[3] = &unk_1E8620478;
+      v68 = v77;
+      v91 = v68;
+      [v51 do:v90];
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v109 = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_2;
-      v110 = &unk_1E86206A0;
-      v114 = v125;
-      v111 = v29;
-      v118 = v94;
-      v112 = v69;
-      v113 = v55;
-      v115 = &v104;
-      v116 = &v96;
-      v117 = v102;
-      [v52 do:&buf];
+      v108 = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_2;
+      v109 = &unk_1E86206A0;
+      v113 = v124;
+      v110 = v28;
+      v117 = v93;
+      v111 = v68;
+      v112 = v54;
+      v114 = &v103;
+      v115 = &v95;
+      v116 = v101;
+      [v51 do:&buf];
 
       goto LABEL_93;
     }
 
-    v65 = 0;
+    v64 = 0;
 LABEL_95:
-    _Block_object_dispose(v125, 8);
+    _Block_object_dispose(v124, 8);
 
-    _Block_object_dispose(&v96, 8);
-    objc_autoreleasePoolPop(v33);
+    _Block_object_dispose(&v95, 8);
+    objc_autoreleasePoolPop(v32);
   }
 
-  while (v65);
-  if (v105[3])
+  while (v64);
+  if (v104[3])
   {
-    v96 = MEMORY[0x1E69E9820];
-    v97 = 3221225472;
-    v98 = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_3_84;
-    v99 = &unk_1E8620678;
-    v100 = &v104;
-    [v29 withThroughputReporter:&v96];
+    v95 = MEMORY[0x1E69E9820];
+    v96 = 3221225472;
+    v97 = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_3_84;
+    v98 = &unk_1E8620678;
+    v99 = &v103;
+    [v28 withThroughputReporter:&v95];
   }
 
-  _Block_object_dispose(v102, 8);
+  _Block_object_dispose(v101, 8);
 
-  _Block_object_dispose(&v104, 8);
+  _Block_object_dispose(&v103, 8);
 LABEL_102:
 
-  v70 = *(a1 + 32);
-  if ((*(v70 + 432) & 1) == 0)
+  v69 = *(a1 + 32);
+  if ((*(v69 + 432) & 1) == 0)
   {
-    *(v70 + 432) = 1;
-    v79[0] = MEMORY[0x1E69E9820];
-    v79[1] = 3221225472;
-    v79[2] = __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_176;
-    v79[3] = &unk_1E8620478;
-    v79[4] = *(a1 + 32);
-    [v30 do:v79];
+    *(v69 + 432) = 1;
+    v78[0] = MEMORY[0x1E69E9820];
+    v78[1] = 3221225472;
+    v78[2] = __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_176;
+    v78[3] = &unk_1E8620478;
+    v78[4] = *(a1 + 32);
+    [v29 do:v78];
   }
 
 LABEL_32:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_177(uint64_t a1, void *a2)
@@ -1604,7 +1581,7 @@ void __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_17
 
 void __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_178(uint64_t a1)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 152) willRunEngineElement:CPLEngineElementUpload];
   v2 = [*(a1 + 40) error];
 
@@ -1616,9 +1593,8 @@ LABEL_5:
     v6 = v4;
     v7 = v3;
 LABEL_6:
-    v28 = v6;
+    v23 = v6;
     [v7 _uploadTaskDidFinishWithError:?];
-    v8 = *MEMORY[0x1E69E9840];
 
     return;
   }
@@ -1631,16 +1607,16 @@ LABEL_6:
     goto LABEL_5;
   }
 
-  v9 = [*(a1 + 32) session];
-  v10 = [v9 shouldDefer];
+  v8 = [*(a1 + 32) session];
+  v9 = [v8 shouldDefer];
 
-  if (v10)
+  if (v9)
   {
-    v11 = *(a1 + 32);
-    v12 = +[CPLErrors sessionHasBeenDeferredError];
+    v10 = *(a1 + 32);
+    v11 = +[CPLErrors sessionHasBeenDeferredError];
 LABEL_11:
-    v6 = v12;
-    v7 = v11;
+    v6 = v11;
+    v7 = v10;
     goto LABEL_6;
   }
 
@@ -1648,37 +1624,35 @@ LABEL_11:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = __CPLTaskOSLogDomain_24274();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v12 = __CPLTaskOSLogDomain_24274();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, "Requesting retry immediately", buf, 2u);
+        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "Requesting retry immediately", buf, 2u);
       }
     }
 
-    v14 = *(a1 + 32);
-    v15 = [CPLErrors cplErrorWithCode:10000 description:@"Need to restart push-to-transport immediately"];
-    v16 = v14;
+    v13 = *(a1 + 32);
+    v14 = [CPLErrors cplErrorWithCode:10000 description:@"Need to restart push-to-transport immediately"];
+    v15 = v13;
     goto LABEL_18;
   }
 
-  v18 = *(a1 + 32);
-  if (v18[22])
+  v16 = *(a1 + 32);
+  if (v16[22])
   {
-    v19 = [v18[22] count];
-    v20 = *(a1 + 32);
-    if (v19)
+    v17 = [v16[22] count];
+    v18 = *(a1 + 32);
+    if (v17)
     {
-      v21 = *MEMORY[0x1E69E9840];
 
-      [v20 _prepareUploadBatch];
+      [v18 _prepareUploadBatch];
     }
 
     else
     {
-      v25 = *MEMORY[0x1E69E9840];
 
-      [v20 _extractAndUploadOneBatch];
+      [v18 _extractAndUploadOneBatch];
     }
   }
 
@@ -1686,42 +1660,39 @@ LABEL_11:
   {
     if (*(*(*(a1 + 56) + 8) + 24) == 1)
     {
-      v22 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v23 = *MEMORY[0x1E696A250];
-      v30 = *MEMORY[0x1E696A578];
-      v31[0] = @"Not enough disk space";
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
-      v15 = [v22 initWithDomain:v23 code:640 userInfo:v24];
+      v19 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v20 = *MEMORY[0x1E696A250];
+      v25 = *MEMORY[0x1E696A578];
+      v26[0] = @"Not enough disk space";
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v14 = [v19 initWithDomain:v20 code:640 userInfo:v21];
 
-      v16 = *(a1 + 32);
+      v15 = *(a1 + 32);
 LABEL_18:
-      [v16 _uploadTaskDidFinishWithError:v15];
+      [v15 _uploadTaskDidFinishWithError:v14];
 
-      v17 = *MEMORY[0x1E69E9840];
       return;
     }
 
-    v26 = [v18 isCancelled];
-    v11 = *(a1 + 32);
-    if (v26)
+    v22 = [v16 isCancelled];
+    v10 = *(a1 + 32);
+    if (v22)
     {
-      v12 = +[CPLErrors operationCancelledError];
+      v11 = +[CPLErrors operationCancelledError];
       goto LABEL_11;
     }
 
-    v27 = *MEMORY[0x1E69E9840];
-
-    [v11 _uploadTaskDidFinishWithError:0];
+    [v10 _uploadTaskDidFinishWithError:0];
   }
 }
 
-uint64_t __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_174(uint64_t a1, uint64_t a2)
+void *__55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_174(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) _markUploadedTasksDidFinishWithError:0 transaction:*(a1 + 40) error:a2];
   if (!result)
   {
-    goto LABEL_32;
+    return result;
   }
 
   if ([*(*(a1 + 32) + 184) count])
@@ -1731,37 +1702,35 @@ uint64_t __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invok
 
     if (!v6)
     {
-LABEL_31:
-      result = 0;
-      goto LABEL_32;
+      return 0;
     }
   }
 
   v7 = [*(a1 + 48) statusCenter];
   v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v9 = [*(a1 + 56) batch];
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (!v10)
   {
     goto LABEL_28;
   }
 
   v11 = v10;
-  v12 = *v20;
+  v12 = *v19;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v20 != v12)
+      if (*v19 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v19 + 1) + 8 * i);
+      v14 = *(*(&v18 + 1) + 8 * i);
       if ([v14 supportsResources] && objc_msgSend(v14, "hasChangeType:", 8))
       {
         if (![v7 notifyStatusForRecordHasChanged:v14 persist:1 error:a2])
@@ -1788,7 +1757,7 @@ LABEL_14:
             {
 
 LABEL_30:
-              goto LABEL_31;
+              return 0;
             }
 
             [v8 addObject:v15];
@@ -1815,7 +1784,7 @@ LABEL_30:
       }
     }
 
-    v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
       continue;
@@ -1826,10 +1795,7 @@ LABEL_30:
 
 LABEL_28:
 
-  result = [*(a1 + 32) _discardUploadedExtractedBatch:*(a1 + 56) error:a2];
-LABEL_32:
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _discardUploadedExtractedBatch:*(a1 + 56) error:a2];
 }
 
 uint64_t __55__CPLUploadPushedChangesTask__extractAndUploadOneBatch__block_invoke_176(uint64_t a1, uint64_t a2)
@@ -1899,7 +1865,7 @@ uint64_t __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore_
 
 uint64_t __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if ([*(*(*(a1 + 56) + 8) + 40) count])
   {
     v4 = *(a1 + 32);
@@ -1909,33 +1875,33 @@ uint64_t __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore_
 
     if (!v5)
     {
-      goto LABEL_26;
+      return 0;
     }
 
     v7 = *(a1 + 40);
     if (*(a1 + 88) == 1)
     {
       v8 = [v7 quarantinedRecords];
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
       v9 = *(*(*(a1 + 56) + 8) + 40);
-      v10 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v36;
+        v12 = *v35;
 LABEL_6:
         v13 = 0;
         while (1)
         {
-          if (*v36 != v12)
+          if (*v35 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v35 + 1) + 8 * v13);
+          v14 = *(*(&v34 + 1) + 8 * v13);
           if (([v14 isDelete] & 1) == 0)
           {
             v15 = [v14 scopedIdentifier];
@@ -1949,7 +1915,7 @@ LABEL_6:
 
           if (v11 == ++v13)
           {
-            v11 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
             if (v11)
             {
               goto LABEL_6;
@@ -1968,26 +1934,26 @@ LABEL_27:
     else
     {
       v8 = [v7 pushRepository];
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
       v9 = *(*(*(a1 + 56) + 8) + 40);
-      v17 = [v9 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v17 = [v9 countByEnumeratingWithState:&v30 objects:v38 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v32;
+        v19 = *v31;
 LABEL_16:
         v20 = 0;
         while (1)
         {
-          if (*v32 != v19)
+          if (*v31 != v19)
           {
             objc_enumerationMutation(v9);
           }
 
-          v21 = [*(*(&v31 + 1) + 8 * v20) scopedIdentifier];
+          v21 = [*(*(&v30 + 1) + 8 * v20) scopedIdentifier];
           v22 = [v8 discardChangeWithScopedIdentifier:v21 error:a2];
 
           if (!v22)
@@ -1997,7 +1963,7 @@ LABEL_16:
 
           if (v18 == ++v20)
           {
-            v18 = [v9 countByEnumeratingWithState:&v31 objects:v39 count:16];
+            v18 = [v9 countByEnumeratingWithState:&v30 objects:v38 count:16];
             if (v18)
             {
               goto LABEL_16;
@@ -2027,12 +1993,12 @@ LABEL_22:
     }
 
     v25 = *(a1 + 32);
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_3;
-    v30[3] = &unk_1E8620678;
-    v30[4] = *(a1 + 64);
-    [v25 withThroughputReporter:v30];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_3;
+    v29[3] = &unk_1E8620678;
+    v29[4] = *(a1 + 64);
+    [v25 withThroughputReporter:v29];
     *(*(*(a1 + 64) + 8) + 24) = 0;
     v26 = *(*(a1 + 80) + 8);
     v8 = v8;
@@ -2042,14 +2008,10 @@ LABEL_22:
 LABEL_28:
 
 LABEL_30:
-    goto LABEL_31;
+    return v27;
   }
 
-LABEL_26:
-  v27 = 0;
-LABEL_31:
-  v28 = *MEMORY[0x1E69E9840];
-  return v27;
+  return 0;
 }
 
 BOOL __68__CPLUploadPushedChangesTask__extractBatchWithTransaction_andStore___block_invoke_81(uint64_t a1, uint64_t a2)
@@ -2387,7 +2349,7 @@ void __90__CPLUploadPushedChangesTask__generateNeededDerivativesWithFetchCache_f
 
 - (void)_uploadBatchWithFetchCache:(uint64_t)cache
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (cache)
   {
@@ -2413,7 +2375,7 @@ void __90__CPLUploadPushedChangesTask__generateNeededDerivativesWithFetchCache_f
           if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v43 = batchToUpload;
+            v42 = batchToUpload;
             _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "Launching transport upload task for %@", buf, 0xCu);
           }
         }
@@ -2425,29 +2387,29 @@ void __90__CPLUploadPushedChangesTask__generateNeededDerivativesWithFetchCache_f
         scope = [cache scope];
         v11 = *(cache + 272);
         v12 = *(cache + 264);
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = __57__CPLUploadPushedChangesTask__uploadBatchWithFetchCache___block_invoke_100;
-        v38[3] = &unk_1E8620780;
-        v38[4] = cache;
-        v39 = v5;
-        v40 = v6;
-        v41 = batchToUpload;
-        v28 = MEMORY[0x1E69E9820];
-        v29 = 3221225472;
-        v30 = __57__CPLUploadPushedChangesTask__uploadBatchWithFetchCache___block_invoke_3;
-        v31 = &unk_1E86207D0;
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __57__CPLUploadPushedChangesTask__uploadBatchWithFetchCache___block_invoke_100;
+        v37[3] = &unk_1E8620780;
+        v37[4] = cache;
+        v38 = v5;
+        v39 = v6;
+        v40 = batchToUpload;
+        v27 = MEMORY[0x1E69E9820];
+        v28 = 3221225472;
+        v29 = __57__CPLUploadPushedChangesTask__uploadBatchWithFetchCache___block_invoke_3;
+        v30 = &unk_1E86207D0;
         cacheCopy = cache;
-        v27 = v39;
-        v33 = v27;
-        v13 = v40;
-        v34 = v13;
-        v37 = Current;
+        v26 = v38;
+        v32 = v26;
+        v13 = v39;
+        v33 = v13;
+        v36 = Current;
         v14 = v3;
-        v35 = v14;
-        v15 = v41;
-        v36 = v15;
-        v16 = [v9 uploadBatchTaskForBatch:v15 scope:scope targetMapping:v11 transportScopeMapping:v12 progressHandler:v38 completionHandler:&v28];
+        v34 = v14;
+        v15 = v40;
+        v35 = v15;
+        v16 = [v9 uploadBatchTaskForBatch:v15 scope:scope targetMapping:v11 transportScopeMapping:v12 progressHandler:v37 completionHandler:&v27];
         v17 = *(cache + 304);
         *(cache + 304) = v16;
 
@@ -2490,9 +2452,9 @@ void __90__CPLUploadPushedChangesTask__generateNeededDerivativesWithFetchCache_f
               }
 
               *buf = 138412546;
-              v43 = v15;
-              v44 = 2080;
-              v45 = v23;
+              v42 = v15;
+              v43 = 2080;
+              v44 = v23;
               _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEBUG, "Starting to upload %@%s", buf, 0x16u);
             }
           }
@@ -2511,12 +2473,12 @@ void __90__CPLUploadPushedChangesTask__generateNeededDerivativesWithFetchCache_f
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v43 = v15;
+              v42 = v15;
               _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_ERROR, "Can't create a transport upload task for %@", buf, 0xCu);
             }
           }
 
-          v25 = [CPLErrors underlyingErrorWithReason:@"Can't create an upload task for %@", v15, v27, v28, v29, v30, v31, cacheCopy, v33, v34, v35];
+          v25 = [CPLErrors underlyingErrorWithReason:@"Can't create an upload task for %@", v15, v26, v27, v28, v29, v30, cacheCopy, v32, v33, v34];
           [cache _uploadTaskDidFinishWithError:v25];
         }
       }
@@ -2527,8 +2489,6 @@ void __90__CPLUploadPushedChangesTask__generateNeededDerivativesWithFetchCache_f
       }
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __57__CPLUploadPushedChangesTask__uploadBatchWithFetchCache___block_invoke_100(uint64_t a1, void *a2, float a3)
@@ -2603,7 +2563,7 @@ void __57__CPLUploadPushedChangesTask__uploadBatchWithFetchCache___block_invoke_
 
 uint64_t __57__CPLUploadPushedChangesTask__uploadBatchWithFetchCache___block_invoke_4(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLTaskOSLogDomain_24274();
@@ -2639,28 +2599,28 @@ uint64_t __57__CPLUploadPushedChangesTask__uploadBatchWithFetchCache___block_inv
   {
     if (v5)
     {
-      v27 = 0;
-      v28 = &v27;
-      v29 = 0x2020000000;
-      v30 = 0;
+      v26 = 0;
+      v27 = &v26;
+      v28 = 0x2020000000;
+      v29 = 0;
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __110__CPLUploadPushedChangesTask__reportRemainingUploadSizeWithReportedUploadedSizes_totalSizesPerRecord_success___block_invoke;
-      v32 = &unk_1E8620710;
-      *&v33 = v9;
-      *(&v33 + 1) = &v27;
+      v31 = &unk_1E8620710;
+      *&v32 = v9;
+      *(&v32 + 1) = &v26;
       [v8 enumerateKeysAndObjectsUsingBlock:buf];
-      if (v28[3])
+      if (v27[3])
       {
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __110__CPLUploadPushedChangesTask__reportRemainingUploadSizeWithReportedUploadedSizes_totalSizesPerRecord_success___block_invoke_2;
-        v26[3] = &unk_1E8620678;
-        v26[4] = &v27;
-        [v6 withThroughputReporter:v26];
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __110__CPLUploadPushedChangesTask__reportRemainingUploadSizeWithReportedUploadedSizes_totalSizesPerRecord_success___block_invoke_2;
+        v25[3] = &unk_1E8620678;
+        v25[4] = &v26;
+        [v6 withThroughputReporter:v25];
       }
 
-      _Block_object_dispose(&v27, 8);
+      _Block_object_dispose(&v26, 8);
     }
 
     [v6 withThroughputReporter:&__block_literal_global_91];
@@ -2694,7 +2654,7 @@ uint64_t __57__CPLUploadPushedChangesTask__uploadBatchWithFetchCache___block_inv
       [v16 _didFinishTaskWithKey:@"upload" error:1 cancelled:0];
     }
 
-    result = [*(a1 + 32) _uploadTaskDidFinishWithError:*(a1 + 40)];
+    return [*(a1 + 32) _uploadTaskDidFinishWithError:*(a1 + 40)];
   }
 
   else
@@ -2722,9 +2682,9 @@ uint64_t __57__CPLUploadPushedChangesTask__uploadBatchWithFetchCache___block_inv
         *&buf[12] = 2048;
         *&buf[14] = v20;
         *&buf[22] = 2114;
-        v32 = v21;
-        LOWORD(v33) = 2112;
-        *(&v33 + 2) = v22;
+        v31 = v21;
+        LOWORD(v32) = 2112;
+        *(&v32 + 2) = v22;
         _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEFAULT, "Transport successfully uploaded in %.2fs (%lu resources uploaded) - cache: %{public}@: %@", buf, 0x2Au);
       }
     }
@@ -2732,17 +2692,14 @@ uint64_t __57__CPLUploadPushedChangesTask__uploadBatchWithFetchCache___block_inv
     v23 = *(a1 + 32);
     if (v23[38])
     {
-      result = [v23 _popNextBatchAndContinue];
+      return [v23 _popNextBatchAndContinue];
     }
 
     else
     {
-      result = [v23 _uploadTaskDidFinishWithError:0];
+      return [v23 _uploadTaskDidFinishWithError:0];
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void __110__CPLUploadPushedChangesTask__reportRemainingUploadSizeWithReportedUploadedSizes_totalSizesPerRecord_success___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2760,7 +2717,7 @@ void __110__CPLUploadPushedChangesTask__reportRemainingUploadSizeWithReportedUpl
 
 void __57__CPLUploadPushedChangesTask__uploadBatchWithFetchCache___block_invoke_2(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 72);
   v4 = *(a1 + 48);
@@ -2838,37 +2795,37 @@ LABEL_16:
       }
     }
 
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __148__CPLUploadPushedChangesTask__reportUploadSizeForRecordWithScopedIdentifier_uploadProgress_reportedUploadedSizes_totalSizesPerRecord_batchToUpload___block_invoke;
-    v39[3] = &__block_descriptor_40_e35_v16__0__CPLSyncThroughputReporter_8l;
-    v39[4] = v18;
-    [v2 withThroughputReporter:v39];
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __148__CPLUploadPushedChangesTask__reportUploadSizeForRecordWithScopedIdentifier_uploadProgress_reportedUploadedSizes_totalSizesPerRecord_batchToUpload___block_invoke;
+    v38[3] = &__block_descriptor_40_e35_v16__0__CPLSyncThroughputReporter_8l;
+    v38[4] = v18;
+    [v2 withThroughputReporter:v38];
     goto LABEL_16;
   }
 
 LABEL_18:
 
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v23 = *(*(a1 + 32) + 208);
-  v24 = [v23 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v36;
+    v26 = *v35;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v36 != v26)
+        if (*v35 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v35 + 1) + 8 * i);
+        v28 = *(*(&v34 + 1) + 8 * i);
         v29 = [v28 resource];
         v30 = [v29 itemScopedIdentifier];
         if ([v30 isEqual:*(a1 + 40)])
@@ -2890,15 +2847,13 @@ LABEL_18:
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v25);
   }
 
 LABEL_29:
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __90__CPLUploadPushedChangesTask__generateNeededDerivativesWithFetchCache_fingerprintContext___block_invoke_3(void *a1)
@@ -2924,7 +2879,7 @@ uint64_t __90__CPLUploadPushedChangesTask__generateNeededDerivativesWithFetchCac
 
 - (void)_generateDerivativesForNextRecord:(id)record usingDerivativesCache:(id)cache fetchCache:(id)fetchCache fingerprintContext:(id)context
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   cacheCopy = cache;
   fetchCacheCopy = fetchCache;
@@ -2955,93 +2910,93 @@ LABEL_5:
   if (nextObject)
   {
     [(CPLEngineSyncTask *)self withThroughputReporter:&__block_literal_global_133];
-    v35 = [CPLTransaction newTransactionWithIdentifier:@"cpl.generatederivatives" description:@"generating derivatives" keepPower:1];
-    v63[0] = 0;
-    v63[1] = v63;
-    v63[2] = 0x2020000000;
-    v64 = 0;
+    v34 = [CPLTransaction newTransactionWithIdentifier:@"cpl.generatederivatives" description:@"generating derivatives" keepPower:1];
+    v62[0] = 0;
+    v62[1] = v62;
+    v62[2] = 0x2020000000;
+    v63 = 0;
     block = 0;
     p_block = &block;
-    v59 = 0x3032000000;
-    v60 = __Block_byref_object_copy__24318;
-    v61 = __Block_byref_object_dispose__24319;
-    v62 = 0;
-    v20 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:1];
-    [v20 addObserver:self forKeyPath:@"fractionCompleted" options:0 context:0];
-    objc_storeStrong(&self->_generateDerivativesProgress, v20);
+    v58 = 0x3032000000;
+    v59 = __Block_byref_object_copy__24318;
+    v60 = __Block_byref_object_dispose__24319;
+    v61 = 0;
+    v19 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:1];
+    [v19 addObserver:self forKeyPath:@"fractionCompleted" options:0 context:0];
+    objc_storeStrong(&self->_generateDerivativesProgress, v19);
     objc_storeStrong(&self->_generateDerivativesChange, nextObject);
     self->_generateDerivativesTotalSize = [nextObject totalResourceSize];
     self->_generateDerivativesLastFractionCompleted = 0.0;
-    v52[0] = MEMORY[0x1E69E9820];
-    v52[1] = 3221225472;
-    v52[2] = __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_2;
-    v52[3] = &unk_1E8620898;
-    v52[4] = self;
-    v33 = v20;
-    v53 = v33;
-    v55 = v63;
-    v21 = cacheCopy;
-    v54 = v21;
-    v56 = &block;
-    [(CPLUploadPushedChangesTask *)self _installGenerateDerivativesCancellationHandler:v52];
-    v22 = [nextObject fingerprintSchemeWithContext:contextCopy];
-    isValid = [v22 isValid];
+    v51[0] = MEMORY[0x1E69E9820];
+    v51[1] = 3221225472;
+    v51[2] = __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_2;
+    v51[3] = &unk_1E8620898;
+    v51[4] = self;
+    v32 = v19;
+    v52 = v32;
+    v54 = v62;
+    v20 = cacheCopy;
+    v53 = v20;
+    v55 = &block;
+    [(CPLUploadPushedChangesTask *)self _installGenerateDerivativesCancellationHandler:v51];
+    v21 = [nextObject fingerprintSchemeWithContext:contextCopy];
+    isValid = [v21 isValid];
     if (isValid)
     {
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_2_154;
-      v38[3] = &unk_1E8620918;
-      v39 = v21;
-      v40 = nextObject;
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_2_154;
+      v37[3] = &unk_1E8620918;
+      v38 = v20;
+      v39 = nextObject;
       selfCopy = self;
-      v42 = v22;
-      v47 = &block;
-      v48 = v63;
-      v43 = recordCopy;
-      v44 = fetchCacheCopy;
-      v45 = contextCopy;
-      v46 = v35;
-      [v33 performAsCurrentWithPendingUnitCount:1 usingBlock:v38];
+      v41 = v21;
+      v46 = &block;
+      v47 = v62;
+      v42 = recordCopy;
+      v43 = fetchCacheCopy;
+      v44 = contextCopy;
+      v45 = v34;
+      [v32 performAsCurrentWithPendingUnitCount:1 usingBlock:v37];
     }
 
     else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v27 = __CPLTaskOSLogDomain_24274();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v26 = __CPLTaskOSLogDomain_24274();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           relatedIdentifier = [nextObject relatedIdentifier];
           *buf = 138412546;
           *&buf[4] = nextObject;
           *&buf[12] = 2114;
           *&buf[14] = relatedIdentifier;
-          _os_log_impl(&dword_1DC05A000, v27, OS_LOG_TYPE_ERROR, "Invalid fingerprint scheme for %@ (related identifier '%{public}@')", buf, 0x16u);
+          _os_log_impl(&dword_1DC05A000, v26, OS_LOG_TYPE_ERROR, "Invalid fingerprint scheme for %@ (related identifier '%{public}@')", buf, 0x16u);
         }
       }
 
       lock = self->_lock;
-      v49[0] = MEMORY[0x1E69E9820];
-      v49[1] = 3221225472;
-      v49[2] = __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_146;
-      v49[3] = &unk_1E861B1C8;
-      v49[4] = self;
-      v50 = nextObject;
-      v51 = v35;
-      v30 = v49;
+      v48[0] = MEMORY[0x1E69E9820];
+      v48[1] = 3221225472;
+      v48[2] = __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_146;
+      v48[3] = &unk_1E861B1C8;
+      v48[4] = self;
+      v49 = nextObject;
+      v50 = v34;
+      v29 = v48;
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __cpl_dispatch_async_block_invoke_24326;
-      v66 = &unk_1E861B4E0;
-      v67 = v30;
-      v31 = lock;
-      v32 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
-      dispatch_async(v31, v32);
+      v65 = &unk_1E861B4E0;
+      v66 = v29;
+      v30 = lock;
+      v31 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
+      dispatch_async(v30, v31);
     }
 
     _Block_object_dispose(&block, 8);
-    _Block_object_dispose(v63, 8);
+    _Block_object_dispose(v62, 8);
 
     if ((isValid & 1) == 0)
     {
@@ -3052,29 +3007,28 @@ LABEL_5:
 
   else
   {
-    v23 = self->_lock;
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_5;
-    v36[3] = &unk_1E861B290;
-    v36[4] = self;
-    v37 = fetchCacheCopy;
-    v24 = v36;
+    v22 = self->_lock;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_5;
+    v35[3] = &unk_1E861B290;
+    v35[4] = self;
+    v36 = fetchCacheCopy;
+    v23 = v35;
     block = MEMORY[0x1E69E9820];
     p_block = 3221225472;
-    v59 = __cpl_dispatch_async_block_invoke_24326;
-    v60 = &unk_1E861B4E0;
-    v61 = v24;
-    v25 = v23;
-    v26 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &block);
-    dispatch_async(v25, v26);
+    v58 = __cpl_dispatch_async_block_invoke_24326;
+    v59 = &unk_1E861B4E0;
+    v60 = v23;
+    v24 = v22;
+    v25 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &block);
+    dispatch_async(v24, v25);
   }
 
 LABEL_6:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_2(uint64_t a1)
+void *__116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_2(uint64_t a1)
 {
   dispatch_assert_queue_V2(*(*(a1 + 32) + 120));
   result = [*(a1 + 40) cancel];
@@ -3117,23 +3071,21 @@ uint64_t __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usi
 
 void __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_146(id *a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   [a1[4] _didFinishTaskWithKey:@"derivatives" error:1 cancelled:0];
   v2 = [a1[5] scopedIdentifier];
-  v10 = v2;
-  v11[0] = @"Invalid fingerprint scheme";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = v2;
+  v10[0] = @"Invalid fingerprint scheme";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
-  v8 = @"CPLErrorRejectedRecordIdentifiersAndReasons";
-  v9 = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v7 = @"CPLErrorRejectedRecordIdentifiersAndReasons";
+  v8 = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
   v5 = [a1[5] scopedIdentifier];
   v6 = [CPLErrors cplErrorWithCode:18 underlyingError:0 userInfo:v4 description:@"%@ has an invalid fingerprint scheme", v5];
 
   [a1[4] _uploadTaskDidFinishWithError:v6];
   [a1[6] endTransaction];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_2_154(uint64_t a1)
@@ -3164,7 +3116,7 @@ void __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDe
 
 void __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_5(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _finishReportingDerivativesIsNecessary];
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -3174,17 +3126,16 @@ void __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDe
       v3 = [*(*(a1 + 32) + 240) recordsNeedingGeneratedDerivatives];
       v4 = [v3 count];
       v5 = CFAbsoluteTimeGetCurrent() - *(*(a1 + 32) + 400);
-      v7 = 134218240;
-      v8 = v4;
-      v9 = 2048;
-      v10 = v5;
-      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "Successfully generated derivatives for %lu records in %.2fs. Starting upload.", &v7, 0x16u);
+      v6 = 134218240;
+      v7 = v4;
+      v8 = 2048;
+      v9 = v5;
+      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEFAULT, "Successfully generated derivatives for %lu records in %.2fs. Starting upload.", &v6, 0x16u);
     }
   }
 
   [*(a1 + 32) _didFinishTaskWithKey:@"derivatives" error:0 cancelled:0];
   [(CPLUploadPushedChangesTask *)*(a1 + 32) _uploadBatchWithFetchCache:?];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDerivativesCache_fetchCache_fingerprintContext___block_invoke_3_155(uint64_t a1, void *a2, void *a3, void *a4)
@@ -3300,27 +3251,27 @@ void __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDe
 
 - (void)_discardGenerateDerivativesProgress
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_lock);
   generateDerivativesProgress = self->_generateDerivativesProgress;
   if (!generateDerivativesProgress)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = __CPLTaskOSLogDomain_24274();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = __CPLTaskOSLogDomain_24274();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v12 = NSStringFromSelector(a2);
+        v11 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v17 = v12;
-        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "%@ called twice", buf, 0xCu);
+        v16 = v11;
+        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "%@ called twice", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
-    v15 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:v14 lineNumber:1138 description:{@"%@ called twice", v15}];
+    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
+    v14 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:v13 lineNumber:1138 description:{@"%@ called twice", v14}];
 
     abort();
   }
@@ -3348,7 +3299,6 @@ void __116__CPLUploadPushedChangesTask__generateDerivativesForNextRecord_usingDe
 
   self->_generateDerivativesTotalSize = 0;
   self->_generateDerivativesLastFractionCompleted = 0.0;
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -3398,7 +3348,7 @@ void *__77__CPLUploadPushedChangesTask_observeValueForKeyPath_ofObject_change_co
 
 - (void)_generatingDerivativesForChange:(id)change fractionCompleted:(double)completed chunkLength:(unint64_t)length
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -3407,11 +3357,11 @@ void *__77__CPLUploadPushedChangesTask_observeValueForKeyPath_ofObject_change_co
     {
       v10 = [MEMORY[0x1E696AAF0] stringFromByteCount:length countStyle:0];
       *buf = 138412802;
-      v19 = changeCopy;
-      v20 = 2048;
-      v21 = completed * 100.0;
-      v22 = 2112;
-      v23 = v10;
+      v18 = changeCopy;
+      v19 = 2048;
+      v20 = completed * 100.0;
+      v21 = 2112;
+      v22 = v10;
       _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "Generating derivatives for %@: %.0f%% (chunk length: %@)", buf, 0x20u);
     }
   }
@@ -3435,8 +3385,6 @@ void *__77__CPLUploadPushedChangesTask_observeValueForKeyPath_ofObject_change_co
     dispatch_source_set_event_handler(v15, handler);
     dispatch_activate(self->_derivativesSizeReportTimer);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __92__CPLUploadPushedChangesTask__generatingDerivativesForChange_fractionCompleted_chunkLength___block_invoke(uint64_t a1)
@@ -3459,39 +3407,39 @@ void __92__CPLUploadPushedChangesTask__generatingDerivativesForChange_fractionCo
 
 - (void)_installGenerateDerivativesCancellationHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   dispatch_assert_queue_V2(self->_lock);
   if (self->_generateDerivativesCancellationHandler)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v16 = __CPLTaskOSLogDomain_24274();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v15 = __CPLTaskOSLogDomain_24274();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v17 = NSStringFromSelector(a2);
+        v16 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v26 = v17;
-        _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_ERROR, "%@ called twice", buf, 0xCu);
+        v25 = v16;
+        _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "%@ called twice", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
-    v20 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:v19 lineNumber:1086 description:{@"%@ called twice", v20}];
+    v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
+    v19 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:v18 lineNumber:1086 description:{@"%@ called twice", v19}];
 
     abort();
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __77__CPLUploadPushedChangesTask__installGenerateDerivativesCancellationHandler___block_invoke;
-  v23[3] = &unk_1E861AA50;
-  v23[4] = self;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __77__CPLUploadPushedChangesTask__installGenerateDerivativesCancellationHandler___block_invoke;
+  v22[3] = &unk_1E861AA50;
+  v22[4] = self;
   v6 = handlerCopy;
-  v24 = v6;
-  v7 = MEMORY[0x1E128EBA0](v23);
+  v23 = v6;
+  v7 = MEMORY[0x1E128EBA0](v22);
   v8 = [v7 copy];
   generateDerivativesCancellationHandler = self->_generateDerivativesCancellationHandler;
   self->_generateDerivativesCancellationHandler = v8;
@@ -3502,17 +3450,15 @@ void __92__CPLUploadPushedChangesTask__generatingDerivativesForChange_fractionCo
   if (v11)
   {
     session = [(CPLEngineSyncTask *)self session];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __77__CPLUploadPushedChangesTask__installGenerateDerivativesCancellationHandler___block_invoke_3;
-    v21[3] = &unk_1E8620820;
-    v22 = v7;
-    v13 = [session addDeferHandler:v21];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __77__CPLUploadPushedChangesTask__installGenerateDerivativesCancellationHandler___block_invoke_3;
+    v20[3] = &unk_1E8620820;
+    v21 = v7;
+    v13 = [session addDeferHandler:v20];
     generateDerivativesDeferredHandler = self->_generateDerivativesDeferredHandler;
     self->_generateDerivativesDeferredHandler = v13;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __77__CPLUploadPushedChangesTask__installGenerateDerivativesCancellationHandler___block_invoke(uint64_t a1)
@@ -3581,7 +3527,7 @@ void __77__CPLUploadPushedChangesTask__installGenerateDerivativesCancellationHan
 
 uint64_t __93__CPLUploadPushedChangesTask__copyResourceChangeFromChange_toChange_fingerprintScheme_error___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -3613,59 +3559,59 @@ LABEL_7:
 
   if ([v9 isEqualToString:@"resources"])
   {
-    v38 = v9;
-    v39 = v8;
-    v16 = [v8 resources];
-    v17 = [v16 cplDeepCopy];
+    v37 = v9;
+    v38 = v8;
+    v15 = [v8 resources];
+    v16 = [v15 cplDeepCopy];
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
-    v18 = v17;
-    v19 = [v18 countByEnumeratingWithState:&v41 objects:v45 count:16];
-    if (v19)
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v17 = v16;
+    v18 = [v17 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    if (v18)
     {
-      v20 = v19;
-      v21 = *v42;
+      v19 = v18;
+      v20 = *v41;
       do
       {
-        v22 = 0;
+        v21 = 0;
         do
         {
-          if (*v42 != v21)
+          if (*v41 != v20)
           {
-            objc_enumerationMutation(v18);
+            objc_enumerationMutation(v17);
           }
 
-          v23 = *(*(&v41 + 1) + 8 * v22);
-          v24 = [v23 identity];
-          v25 = [v24 stableHash];
-          if (v25)
+          v22 = *(*(&v40 + 1) + 8 * v21);
+          v23 = [v22 identity];
+          v24 = [v23 stableHash];
+          if (v24)
           {
           }
 
           else
           {
-            v26 = [v24 fileURL];
-            if (v26)
+            v25 = [v23 fileURL];
+            if (v25)
             {
-              v27 = v26;
-              v28 = [v7 requiresStableHashForResourceType:{objc_msgSend(v23, "resourceType")}];
+              v26 = v25;
+              v27 = [v7 requiresStableHashForResourceType:{objc_msgSend(v22, "resourceType")}];
 
-              if (v28)
+              if (v27)
               {
-                v29 = *(a1 + 48);
-                v30 = [v24 fileURL];
-                v31 = *(*(a1 + 64) + 8);
-                obj = *(v31 + 40);
-                v32 = [v29 fingerPrintForFileAtURL:v30 error:&obj];
-                objc_storeStrong((v31 + 40), obj);
-                [v24 setStableHash:v32];
+                v28 = *(a1 + 48);
+                v29 = [v23 fileURL];
+                v30 = *(*(a1 + 64) + 8);
+                obj = *(v30 + 40);
+                v31 = [v28 fingerPrintForFileAtURL:v29 error:&obj];
+                objc_storeStrong((v30 + 40), obj);
+                [v23 setStableHash:v31];
 
-                v33 = [v24 stableHash];
+                v32 = [v23 stableHash];
 
-                if (!v33)
+                if (!v32)
                 {
                   *(*(*(a1 + 56) + 8) + 24) = 0;
                   goto LABEL_31;
@@ -3674,11 +3620,11 @@ LABEL_7:
                 if ([*(a1 + 32) shouldDefer])
                 {
                   *(*(*(a1 + 56) + 8) + 24) = 0;
-                  v35 = +[CPLErrors sessionHasBeenDeferredError];
+                  v34 = +[CPLErrors sessionHasBeenDeferredError];
 LABEL_30:
-                  v36 = *(*(a1 + 64) + 8);
-                  v37 = *(v36 + 40);
-                  *(v36 + 40) = v35;
+                  v35 = *(*(a1 + 64) + 8);
+                  v36 = *(v35 + 40);
+                  *(v35 + 40) = v34;
 
 LABEL_31:
                   goto LABEL_32;
@@ -3687,30 +3633,30 @@ LABEL_31:
                 if ([*(a1 + 40) isCancelled])
                 {
                   *(*(*(a1 + 56) + 8) + 24) = 0;
-                  v35 = +[CPLErrors operationCancelledError];
+                  v34 = +[CPLErrors operationCancelledError];
                   goto LABEL_30;
                 }
               }
             }
           }
 
-          ++v22;
+          ++v21;
         }
 
-        while (v20 != v22);
-        v34 = [v18 countByEnumeratingWithState:&v41 objects:v45 count:16];
-        v20 = v34;
+        while (v19 != v21);
+        v33 = [v17 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v19 = v33;
       }
 
-      while (v34);
+      while (v33);
     }
 
 LABEL_32:
 
-    [v7 setResources:v18];
+    [v7 setResources:v17];
     v13 = 1;
-    v9 = v38;
-    v8 = v39;
+    v9 = v37;
+    v8 = v38;
   }
 
   else
@@ -3720,7 +3666,6 @@ LABEL_32:
 
 LABEL_8:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -3844,7 +3789,7 @@ void __54__CPLUploadPushedChangesTask__checkForRecordExistence__block_invoke(voi
 
 void __54__CPLUploadPushedChangesTask__checkForRecordExistence__block_invoke_2(uint64_t a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 288);
   *(v2 + 288) = 0;
@@ -3869,11 +3814,10 @@ void __54__CPLUploadPushedChangesTask__checkForRecordExistence__block_invoke_2(u
     }
 
     [*(a1 + 32) _didFinishTaskWithKey:@"existence-check" error:v7 cancelled:v8];
-    v13 = *(a1 + 32);
-    v14 = *(a1 + 40);
-    v15 = *MEMORY[0x1E69E9840];
+    v12 = *(a1 + 32);
+    v13 = *(a1 + 40);
 
-    [v13 _uploadTaskDidFinishWithError:v14];
+    [v12 _uploadTaskDidFinishWithError:v13];
   }
 
   else
@@ -3884,9 +3828,8 @@ void __54__CPLUploadPushedChangesTask__checkForRecordExistence__block_invoke_2(u
     {
       [v10 _didFinishTaskWithKey:@"existence-check" error:0 cancelled:1];
       v11 = *(a1 + 32);
-      v31 = +[CPLErrors operationCancelledError];
+      v28 = +[CPLErrors operationCancelledError];
       [v11 _uploadTaskDidFinishWithError:?];
-      v12 = *MEMORY[0x1E69E9840];
     }
 
     else
@@ -3894,62 +3837,60 @@ void __54__CPLUploadPushedChangesTask__checkForRecordExistence__block_invoke_2(u
       [v10 _didFinishTaskWithKey:@"existence-check" error:0 cancelled:0];
       if ([*(*(a1 + 32) + 240) shouldCheckOverQuotaChangesWithServer])
       {
-        v16 = [*(a1 + 32) store];
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __54__CPLUploadPushedChangesTask__checkForRecordExistence__block_invoke_3;
-        v33[3] = &unk_1E86205E0;
-        v33[4] = *(a1 + 32);
-        v17 = [v16 performWriteTransactionWithBlock:v33 completionHandler:&__block_literal_global_24464];
+        v14 = [*(a1 + 32) store];
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __54__CPLUploadPushedChangesTask__checkForRecordExistence__block_invoke_3;
+        v30[3] = &unk_1E86205E0;
+        v30[4] = *(a1 + 32);
+        v15 = [v14 performWriteTransactionWithBlock:v30 completionHandler:&__block_literal_global_24464];
       }
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v18 = __CPLTaskOSLogDomain_24274();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v16 = __CPLTaskOSLogDomain_24274();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = [*(a1 + 48) count];
-          v20 = [*(a1 + 56) count];
-          v21 = [*(*(a1 + 32) + 240) fetchRules];
-          v22 = [v21 componentsJoinedByString:@"/"];
-          v23 = CFAbsoluteTimeGetCurrent() - *(a1 + 72);
-          v24 = *(a1 + 64);
-          if (!v24)
+          v17 = [*(a1 + 48) count];
+          v18 = [*(a1 + 56) count];
+          v19 = [*(*(a1 + 32) + 240) fetchRules];
+          v20 = [v19 componentsJoinedByString:@"/"];
+          v21 = CFAbsoluteTimeGetCurrent() - *(a1 + 72);
+          v22 = *(a1 + 64);
+          if (!v22)
           {
-            v24 = @"none";
+            v22 = @"none";
           }
 
           *buf = 134219010;
-          v35 = v19;
-          v36 = 2048;
-          v37 = v20;
-          v38 = 2114;
-          v39 = v22;
-          v40 = 2048;
-          v41 = v23;
-          v42 = 2114;
-          v43 = v24;
-          _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_DEFAULT, "Found %lu/%lu records on server (rules: %{public}@) in %.2fs - cache: %{public}@", buf, 0x34u);
+          v32 = v17;
+          v33 = 2048;
+          v34 = v18;
+          v35 = 2114;
+          v36 = v20;
+          v37 = 2048;
+          v38 = v21;
+          v39 = 2114;
+          v40 = v22;
+          _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_DEFAULT, "Found %lu/%lu records on server (rules: %{public}@) in %.2fs - cache: %{public}@", buf, 0x34u);
         }
       }
 
-      v25 = *(*(a1 + 32) + 240);
-      v26 = *(a1 + 48);
-      v32 = 0;
-      v27 = [v25 checkBatchWithFoundRecords:v26 error:&v32];
-      v28 = v32;
-      v29 = *(a1 + 32);
-      if (v27)
+      v23 = *(*(a1 + 32) + 240);
+      v24 = *(a1 + 48);
+      v29 = 0;
+      v25 = [v23 checkBatchWithFoundRecords:v24 error:&v29];
+      v26 = v29;
+      v27 = *(a1 + 32);
+      if (v25)
       {
-        [v29 _checkPrioritiesWithFetchCache:*(a1 + 64)];
+        [v27 _checkPrioritiesWithFetchCache:*(a1 + 64)];
       }
 
       else
       {
-        [v29 _uploadTaskDidFinishWithError:v28];
+        [v27 _uploadTaskDidFinishWithError:v26];
       }
-
-      v30 = *MEMORY[0x1E69E9840];
     }
   }
 }
@@ -4037,143 +3978,143 @@ LABEL_5:
 
 void __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_invoke(uint64_t a1, void *a2)
 {
-  v174 = *MEMORY[0x1E69E9840];
+  v173 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (![*(a1 + 32) checkScopeIsValidInTransaction:v3])
   {
     goto LABEL_109;
   }
 
-  v87 = v3;
-  v110 = a1;
-  v111 = [*(a1 + 40) idMapping];
-  v109 = [*(a1 + 40) cloudCache];
-  v161 = 0;
-  v162 = &v161;
-  v163 = 0x3032000000;
-  v164 = __Block_byref_object_copy__24318;
-  v165 = __Block_byref_object_dispose__24319;
-  v166 = 0;
+  v86 = v3;
+  v109 = a1;
+  v110 = [*(a1 + 40) idMapping];
+  v108 = [*(a1 + 40) cloudCache];
+  v160 = 0;
+  v161 = &v160;
+  v162 = 0x3032000000;
+  v163 = __Block_byref_object_copy__24318;
+  v164 = __Block_byref_object_dispose__24319;
+  v165 = 0;
   v4 = [CPLErrors cplErrorWithCode:11 description:@"Resource will be uploaded in a later batch"];
-  v158[0] = MEMORY[0x1E69E9820];
-  v158[1] = 3221225472;
-  v158[2] = __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_invoke_22;
-  v158[3] = &unk_1E86204C8;
+  v157[0] = MEMORY[0x1E69E9820];
+  v157[1] = 3221225472;
+  v157[2] = __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_invoke_22;
+  v157[3] = &unk_1E86204C8;
   v5 = *(a1 + 32);
-  v160 = &v161;
-  v158[4] = v5;
-  v84 = v4;
-  v159 = v84;
-  v86 = MEMORY[0x1E128EBA0](v158);
-  v152 = 0;
-  v153 = &v152;
-  v154 = 0x3032000000;
-  v155 = __Block_byref_object_copy__24318;
-  v156 = __Block_byref_object_dispose__24319;
-  v157 = [*(*(a1 + 32) + 496) storedExtractedBatch];
+  v159 = &v160;
+  v157[4] = v5;
+  v83 = v4;
+  v158 = v83;
+  v85 = MEMORY[0x1E128EBA0](v157);
+  v151 = 0;
+  v152 = &v151;
+  v153 = 0x3032000000;
+  v154 = __Block_byref_object_copy__24318;
+  v155 = __Block_byref_object_dispose__24319;
+  v156 = [*(*(a1 + 32) + 496) storedExtractedBatch];
   if ([*(a1 + 48) count])
   {
     v6 = objc_alloc_init(CPLExtractedBatch);
-    v143[0] = MEMORY[0x1E69E9820];
-    v143[1] = 3221225472;
-    v143[2] = __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_invoke_2;
-    v143[3] = &unk_1E86204F0;
-    v149 = &v152;
-    v7 = v111;
+    v142[0] = MEMORY[0x1E69E9820];
+    v142[1] = 3221225472;
+    v142[2] = __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_invoke_2;
+    v142[3] = &unk_1E86204F0;
+    v148 = &v151;
+    v7 = v110;
     v8 = *(a1 + 48);
-    v151 = *(a1 + 56);
+    v150 = *(a1 + 56);
     v9 = *(a1 + 32);
-    v144 = v7;
-    v145 = v9;
-    v146 = v8;
-    v148 = v86;
+    v143 = v7;
+    v144 = v9;
+    v145 = v8;
+    v147 = v85;
     v10 = v6;
-    v147 = v10;
-    v150 = &v161;
-    [v87 do:v143];
+    v146 = v10;
+    v149 = &v160;
+    [v86 do:v142];
   }
 
 LABEL_4:
-  v11 = [v87 error];
+  v11 = [v86 error];
   v12 = v11 == 0;
 
   if (v12)
   {
-    v85 = objc_autoreleasePoolPush();
-    v142 = 0;
-    v138 = 0;
-    v139 = &v138;
-    v140 = 0x2020000000;
+    v84 = objc_autoreleasePoolPush();
     v141 = 0;
-    v89 = objc_alloc_init(CPLExtractedBatch);
+    v137 = 0;
+    v138 = &v137;
+    v139 = 0x2020000000;
+    v140 = 0;
+    v88 = objc_alloc_init(CPLExtractedBatch);
     v13 = objc_alloc(MEMORY[0x1E695DFA8]);
-    v14 = [v153[5] batch];
-    v112 = [v13 initWithCapacity:{objc_msgSend(v14, "count")}];
+    v14 = [v152[5] batch];
+    v111 = [v13 initWithCapacity:{objc_msgSend(v14, "count")}];
 
-    v134[0] = MEMORY[0x1E69E9820];
-    v134[1] = 3221225472;
-    v134[2] = __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_invoke_30;
-    v134[3] = &unk_1E8620540;
-    v135 = v87;
-    v136 = v86;
-    v137 = &v138;
-    v91 = MEMORY[0x1E128EBA0](v134);
-    v132 = 0u;
-    v133 = 0u;
-    v130 = 0u;
+    v133[0] = MEMORY[0x1E69E9820];
+    v133[1] = 3221225472;
+    v133[2] = __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_invoke_30;
+    v133[3] = &unk_1E8620540;
+    v134 = v86;
+    v135 = v85;
+    v136 = &v137;
+    v90 = MEMORY[0x1E128EBA0](v133);
     v131 = 0u;
-    obj = [v153[5] batch];
-    v94 = [obj countByEnumeratingWithState:&v130 objects:v173 count:16];
-    if (!v94)
+    v132 = 0u;
+    v129 = 0u;
+    v130 = 0u;
+    obj = [v152[5] batch];
+    v93 = [obj countByEnumeratingWithState:&v129 objects:v172 count:16];
+    if (!v93)
     {
-      v88 = 0;
-      v95 = 0;
+      v87 = 0;
+      v94 = 0;
       goto LABEL_51;
     }
 
-    v95 = 0;
-    v92 = *v131;
-    v88 = 0;
+    v94 = 0;
+    v91 = *v130;
+    v87 = 0;
     while (1)
     {
-      for (i = 0; i != v94; i = i + 1)
+      for (i = 0; i != v93; i = i + 1)
       {
-        if (*v131 != v92)
+        if (*v130 != v91)
         {
           objc_enumerationMutation(obj);
         }
 
-        v107 = *(*(&v130 + 1) + 8 * i);
+        v106 = *(*(&v129 + 1) + 8 * i);
         context = objc_autoreleasePoolPush();
-        v101 = [v107 scopedIdentifier];
-        v15 = [v111 cloudScopedIdentifierForLocalScopedIdentifier:? isFinal:?];
+        v100 = [v106 scopedIdentifier];
+        v15 = [v110 cloudScopedIdentifierForLocalScopedIdentifier:? isFinal:?];
         if (!v15)
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v69 = __CPLTaskOSLogDomain_24274();
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+            v68 = __CPLTaskOSLogDomain_24274();
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v172 = v107;
-              _os_log_impl(&dword_1DC05A000, v69, OS_LOG_TYPE_ERROR, "Cloud scoped identifier for %@ should be known here", buf, 0xCu);
+              v171 = v106;
+              _os_log_impl(&dword_1DC05A000, v68, OS_LOG_TYPE_ERROR, "Cloud scoped identifier for %@ should be known here", buf, 0xCu);
             }
           }
 
-          v70 = [MEMORY[0x1E696AAA8] currentHandler];
-          v71 = *(v110 + 56);
-          v72 = *(v110 + 32);
-          v73 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
-          [v70 handleFailureInMethod:v71 object:v72 file:v73 lineNumber:417 description:{@"Cloud scoped identifier for %@ should be known here", v107}];
+          v69 = [MEMORY[0x1E696AAA8] currentHandler];
+          v70 = *(v109 + 56);
+          v71 = *(v109 + 32);
+          v72 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
+          [v69 handleFailureInMethod:v70 object:v71 file:v72 lineNumber:417 description:{@"Cloud scoped identifier for %@ should be known here", v106}];
 
 LABEL_115:
           abort();
         }
 
-        v96 = v15;
-        v16 = [*(*(v110 + 32) + 240) itemWithScopedIdentifier:?];
-        v17 = *(*(v110 + 32) + 488);
-        v105 = v16;
+        v95 = v15;
+        v16 = [*(*(v109 + 32) + 240) itemWithScopedIdentifier:?];
+        v17 = *(*(v109 + 32) + 488);
+        v104 = v16;
         v18 = [v16 change];
         v19 = v18 == 0;
 
@@ -4182,39 +4123,39 @@ LABEL_115:
           goto LABEL_34;
         }
 
-        if (![v107 isMasterChange])
+        if (![v106 isMasterChange])
         {
-          v25 = [v105 change];
+          v25 = [v104 change];
           v26 = [v25 hasChangeType:2];
 
           if (v26)
           {
-            v128 = 0u;
-            v129 = 0u;
-            v126 = 0u;
             v127 = 0u;
-            v27 = [v107 scopedIdentifiersForMapping];
+            v128 = 0u;
+            v125 = 0u;
+            v126 = 0u;
+            v27 = [v106 scopedIdentifiersForMapping];
             v24 = 0;
-            v28 = [v27 countByEnumeratingWithState:&v126 objects:v170 count:16];
+            v28 = [v27 countByEnumeratingWithState:&v125 objects:v169 count:16];
             if (v28)
             {
-              v29 = *v127;
+              v29 = *v126;
               do
               {
                 for (j = 0; j != v28; ++j)
                 {
-                  if (*v127 != v29)
+                  if (*v126 != v29)
                   {
                     objc_enumerationMutation(v27);
                   }
 
-                  v31 = *(*(&v126 + 1) + 8 * j);
-                  if (([v112 containsObject:v31] & 1) == 0)
+                  v31 = *(*(&v125 + 1) + 8 * j);
+                  if (([v111 containsObject:v31] & 1) == 0)
                   {
-                    v32 = [v111 cloudScopedIdentifierForLocalScopedIdentifier:v31 isFinal:&v142];
-                    if (!v32 || ([v109 hasRecordWithScopedIdentifier:v32] & 1) == 0)
+                    v32 = [v110 cloudScopedIdentifierForLocalScopedIdentifier:v31 isFinal:&v141];
+                    if (!v32 || ([v108 hasRecordWithScopedIdentifier:v32] & 1) == 0)
                     {
-                      v33 = [*(*(v110 + 32) + 496) changeWithScopedIdentifier:v31];
+                      v33 = [*(*(v109 + 32) + 496) changeWithScopedIdentifier:v31];
                       v34 = v33;
                       if (v33)
                       {
@@ -4231,7 +4172,7 @@ LABEL_115:
                   }
                 }
 
-                v28 = [v27 countByEnumeratingWithState:&v126 objects:v170 count:16];
+                v28 = [v27 countByEnumeratingWithState:&v125 objects:v169 count:16];
               }
 
               while (v28);
@@ -4244,11 +4185,11 @@ LABEL_34:
             v24 = 0;
           }
 
-          v22 = v110;
+          v22 = v109;
           goto LABEL_36;
         }
 
-        v20 = [v105 change];
+        v20 = [v104 change];
         v21 = [v20 hasChangeType:8];
 
         if (!v21)
@@ -4256,42 +4197,42 @@ LABEL_34:
           goto LABEL_34;
         }
 
-        v22 = v110;
-        v23 = v95;
-        if (!v95)
+        v22 = v109;
+        v23 = v94;
+        if (!v94)
         {
           v23 = objc_alloc_init(MEMORY[0x1E695DFA8]);
         }
 
-        v95 = v23;
-        [v23 addObject:v101];
+        v94 = v23;
+        [v23 addObject:v100];
         v24 = 0;
 LABEL_36:
         if (v17 <= *(*(v22 + 32) + 488))
         {
-          [v112 addObject:v101];
-          [(CPLExtractedBatch *)v89 addChange:v107 fromStorage:*(*(v22 + 32) + 160)];
-          if ([v95 count])
+          [v111 addObject:v100];
+          [(CPLExtractedBatch *)v88 addChange:v106 fromStorage:*(*(v22 + 32) + 160)];
+          if ([v94 count])
           {
-            if ([v107 isAssetChange])
+            if ([v106 isAssetChange])
             {
-              v37 = [v105 change];
+              v37 = [v104 change];
               if (v37)
               {
-                v38 = [v107 hasChangeType:2];
+                v38 = [v106 hasChangeType:2];
 
                 if (v38)
                 {
-                  v39 = [v107 relatedScopedIdentifier];
+                  v39 = [v106 relatedScopedIdentifier];
                   if (v39)
                   {
-                    v40 = v88;
-                    if (!v88)
+                    v40 = v87;
+                    if (!v87)
                     {
                       v40 = objc_alloc_init(MEMORY[0x1E695DFA8]);
                     }
 
-                    v88 = v40;
+                    v87 = v40;
                     [v40 addObject:v39];
                   }
                 }
@@ -4302,81 +4243,81 @@ LABEL_36:
 
         else
         {
-          (v91)[2](v91, v105, v107, v17, v24);
+          (v90)[2](v90, v104, v106, v17, v24);
         }
 
         objc_autoreleasePoolPop(context);
       }
 
-      v94 = [obj countByEnumeratingWithState:&v130 objects:v173 count:16];
-      if (!v94)
+      v93 = [obj countByEnumeratingWithState:&v129 objects:v172 count:16];
+      if (!v93)
       {
 LABEL_51:
 
-        if ([v95 count])
+        if ([v94 count])
         {
-          v93 = objc_autoreleasePoolPush();
-          objc_storeStrong(v153 + 5, v89);
-          v102 = objc_alloc_init(CPLExtractedBatch);
+          v92 = objc_autoreleasePoolPush();
+          objc_storeStrong(v152 + 5, v88);
+          v101 = objc_alloc_init(CPLExtractedBatch);
 
-          v124 = 0u;
-          v125 = 0u;
-          v122 = 0u;
           v123 = 0u;
-          v41 = [v153[5] batch];
-          v108 = [v41 countByEnumeratingWithState:&v122 objects:v169 count:16];
-          if (!v108)
+          v124 = 0u;
+          v121 = 0u;
+          v122 = 0u;
+          v41 = [v152[5] batch];
+          v107 = [v41 countByEnumeratingWithState:&v121 objects:v168 count:16];
+          if (!v107)
           {
             goto LABEL_92;
           }
 
-          v104 = v41;
-          v106 = *v123;
+          v103 = v41;
+          v105 = *v122;
           while (1)
           {
-            for (k = 0; k != v108; ++k)
+            for (k = 0; k != v107; ++k)
             {
-              if (*v123 != v106)
+              if (*v122 != v105)
               {
-                objc_enumerationMutation(v104);
+                objc_enumerationMutation(v103);
               }
 
-              v43 = *(*(&v122 + 1) + 8 * k);
+              v43 = *(*(&v121 + 1) + 8 * k);
               if (![v43 isMasterChange])
               {
-                [(CPLExtractedBatch *)v102 addChange:v43 fromStorage:*(*(v110 + 32) + 160)];
+                [(CPLExtractedBatch *)v101 addChange:v43 fromStorage:*(*(v109 + 32) + 160)];
                 continue;
               }
 
               v44 = [v43 scopedIdentifier];
-              if ([v95 containsObject:v44] && (objc_msgSend(v88, "containsObject:", v44) & 1) == 0)
+              if ([v94 containsObject:v44] && (objc_msgSend(v87, "containsObject:", v44) & 1) == 0)
               {
-                v45 = [v111 cloudScopedIdentifierForLocalScopedIdentifier:v44 isFinal:&v142];
+                v45 = [v110 cloudScopedIdentifierForLocalScopedIdentifier:v44 isFinal:&v141];
                 if (!v45)
                 {
                   if ((_CPLSilentLogging & 1) == 0)
                   {
-                    v74 = __CPLTaskOSLogDomain_24274();
-                    if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+                    v73 = __CPLTaskOSLogDomain_24274();
+                    if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412290;
-                      v172 = v43;
-                      _os_log_impl(&dword_1DC05A000, v74, OS_LOG_TYPE_ERROR, "%@ should have a cloud scoped identifier here", buf, 0xCu);
+                      v171 = v43;
+                      _os_log_impl(&dword_1DC05A000, v73, OS_LOG_TYPE_ERROR, "%@ should have a cloud scoped identifier here", buf, 0xCu);
                     }
                   }
 
-                  v75 = [MEMORY[0x1E696AAA8] currentHandler];
-                  v76 = *(v110 + 56);
-                  v77 = *(v110 + 32);
-                  v78 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
-                  [v75 handleFailureInMethod:v76 object:v77 file:v78 lineNumber:481 description:{@"%@ should have a cloud scoped identifier here", v43}];
+                  v74 = [MEMORY[0x1E696AAA8] currentHandler];
+                  v75 = *(v109 + 56);
+                  v76 = *(v109 + 32);
+                  v77 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
+                  [v74 handleFailureInMethod:v75 object:v76 file:v77 lineNumber:481 description:{@"%@ should have a cloud scoped identifier here", v43}];
 
                   goto LABEL_115;
                 }
 
                 contexta = v45;
-                v98 = [*(*(v110 + 32) + 240) itemWithScopedIdentifier:?];
-                v46 = *(v110 + 32);
+                v97 = [*(*(v109 + 32) + 240) itemWithScopedIdentifier:?];
+                v46 = *(v109 + 32);
                 if (*(v46 + 224))
                 {
                   v47 = [*(v46 + 272) targetForRecordWithScopedIdentifier:contexta];
@@ -4385,20 +4326,20 @@ LABEL_51:
                   {
                     if ((_CPLSilentLogging & 1) == 0)
                     {
-                      v79 = __CPLTaskOSLogDomain_24274();
-                      if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+                      v78 = __CPLTaskOSLogDomain_24274();
+                      if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 138412290;
-                        v172 = v43;
-                        _os_log_impl(&dword_1DC05A000, v79, OS_LOG_TYPE_ERROR, "%@ should know its target here", buf, 0xCu);
+                        v171 = v43;
+                        _os_log_impl(&dword_1DC05A000, v78, OS_LOG_TYPE_ERROR, "%@ should know its target here", buf, 0xCu);
                       }
                     }
 
-                    v80 = [MEMORY[0x1E696AAA8] currentHandler];
-                    v81 = *(v110 + 56);
-                    v82 = *(v110 + 32);
-                    v83 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
-                    [v80 handleFailureInMethod:v81 object:v82 file:v83 lineNumber:494 description:{@"%@ should know its target here", v43}];
+                    v79 = [MEMORY[0x1E696AAA8] currentHandler];
+                    v80 = *(v109 + 56);
+                    v81 = *(v109 + 32);
+                    v82 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
+                    [v79 handleFailureInMethod:v80 object:v81 file:v82 lineNumber:494 description:{@"%@ should know its target here", v43}];
 
                     goto LABEL_115;
                   }
@@ -4406,7 +4347,7 @@ LABEL_51:
                   v49 = [v47 targetState];
                   if ((v49 - 2) < 2)
                   {
-                    v97 = v48;
+                    v96 = v48;
                     v50 = 3000;
                     goto LABEL_70;
                   }
@@ -4418,28 +4359,28 @@ LABEL_51:
 
                   else
                   {
-                    v97 = v48;
+                    v96 = v48;
                     v50 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_70:
-                    v120 = 0u;
-                    v121 = 0u;
-                    v118 = 0u;
                     v119 = 0u;
-                    v53 = [*(*(v110 + 32) + 496) allChangesWithClass:objc_opt_class() relatedScopedIdentifier:v44];
-                    v54 = [v53 countByEnumeratingWithState:&v118 objects:v168 count:16];
+                    v120 = 0u;
+                    v117 = 0u;
+                    v118 = 0u;
+                    v53 = [*(*(v109 + 32) + 496) allChangesWithClass:objc_opt_class() relatedScopedIdentifier:v44];
+                    v54 = [v53 countByEnumeratingWithState:&v117 objects:v167 count:16];
                     if (v54)
                     {
-                      v55 = *v119;
+                      v55 = *v118;
                       while (2)
                       {
                         for (m = 0; m != v54; ++m)
                         {
-                          if (*v119 != v55)
+                          if (*v118 != v55)
                           {
                             objc_enumerationMutation(v53);
                           }
 
-                          v57 = [*(*(&v118 + 1) + 8 * m) _pushContext];
+                          v57 = [*(*(&v117 + 1) + 8 * m) _pushContext];
                           v58 = [v57 priority];
 
                           if (v58 == 2000)
@@ -4455,7 +4396,7 @@ LABEL_70:
                           }
                         }
 
-                        v54 = [v53 countByEnumeratingWithState:&v118 objects:v168 count:16];
+                        v54 = [v53 countByEnumeratingWithState:&v117 objects:v167 count:16];
                         if (v54)
                         {
                           continue;
@@ -4476,10 +4417,10 @@ LABEL_70:
                     }
 
 LABEL_84:
-                    v48 = v97;
+                    v48 = v96;
                   }
 
-                  v46 = *(v110 + 32);
+                  v46 = *(v109 + 32);
                   v52 = @"keep master with related asset";
                 }
 
@@ -4491,33 +4432,33 @@ LABEL_84:
 
                 if (v51 > *(v46 + 488))
                 {
-                  (v91)[2](v91, v98, v43, v51, v52);
+                  (v90)[2](v90, v97, v43, v51, v52);
                 }
               }
             }
 
-            v41 = v104;
-            v108 = [v104 countByEnumeratingWithState:&v122 objects:v169 count:16];
-            if (!v108)
+            v41 = v103;
+            v107 = [v103 countByEnumeratingWithState:&v121 objects:v168 count:16];
+            if (!v107)
             {
 LABEL_92:
 
-              objc_autoreleasePoolPop(v93);
+              objc_autoreleasePoolPop(v92);
               goto LABEL_94;
             }
           }
         }
 
-        v102 = v89;
+        v101 = v88;
 LABEL_94:
-        v59 = *(v139 + 24);
+        v59 = *(v138 + 24);
         if (v59 == 1)
         {
-          objc_storeStrong(v153 + 5, v102);
+          objc_storeStrong(v152 + 5, v101);
         }
 
-        _Block_object_dispose(&v138, 8);
-        objc_autoreleasePoolPop(v85);
+        _Block_object_dispose(&v137, 8);
+        objc_autoreleasePoolPop(v84);
         if ((v59 & 1) == 0)
         {
           break;
@@ -4528,29 +4469,29 @@ LABEL_94:
     }
   }
 
-  if ([v162[5] count])
+  if ([v161[5] count])
   {
     v60 = objc_alloc_init(CPLChangeBatch);
-    v116 = 0u;
-    v117 = 0u;
-    v114 = 0u;
     v115 = 0u;
-    v61 = *(*(v110 + 32) + 184);
-    v62 = [v61 countByEnumeratingWithState:&v114 objects:v167 count:16];
+    v116 = 0u;
+    v113 = 0u;
+    v114 = 0u;
+    v61 = *(*(v109 + 32) + 184);
+    v62 = [v61 countByEnumeratingWithState:&v113 objects:v166 count:16];
     if (v62)
     {
-      v63 = *v115;
+      v63 = *v114;
       do
       {
         for (n = 0; n != v62; ++n)
         {
-          if (*v115 != v63)
+          if (*v114 != v63)
           {
             objc_enumerationMutation(v61);
           }
 
-          v65 = *(*(&v114 + 1) + 8 * n);
-          v66 = v162[5];
+          v65 = *(*(&v113 + 1) + 8 * n);
+          v66 = v161[5];
           v67 = [v65 scopedIdentifier];
           LOBYTE(v66) = [v66 containsObject:v67];
 
@@ -4560,29 +4501,27 @@ LABEL_94:
           }
         }
 
-        v62 = [v61 countByEnumeratingWithState:&v114 objects:v167 count:16];
+        v62 = [v61 countByEnumeratingWithState:&v113 objects:v166 count:16];
       }
 
       while (v62);
     }
 
-    objc_storeStrong((*(v110 + 32) + 184), v60);
-    v113[0] = MEMORY[0x1E69E9820];
-    v113[1] = 3221225472;
-    v113[2] = __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_invoke_50;
-    v113[3] = &unk_1E8620568;
-    v113[4] = *(v110 + 32);
-    v113[5] = &v152;
-    [v87 do:v113];
+    objc_storeStrong((*(v109 + 32) + 184), v60);
+    v112[0] = MEMORY[0x1E69E9820];
+    v112[1] = 3221225472;
+    v112[2] = __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_invoke_50;
+    v112[3] = &unk_1E8620568;
+    v112[4] = *(v109 + 32);
+    v112[5] = &v151;
+    [v86 do:v112];
   }
 
-  _Block_object_dispose(&v152, 8);
+  _Block_object_dispose(&v151, 8);
 
-  _Block_object_dispose(&v161, 8);
-  v3 = v87;
+  _Block_object_dispose(&v160, 8);
+  v3 = v86;
 LABEL_109:
-
-  v68 = *MEMORY[0x1E69E9840];
 }
 
 void __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_invoke_52(uint64_t a1, void *a2)
@@ -4696,50 +4635,50 @@ uint64_t __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block
 
 uint64_t __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_invoke_2(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = [*(*(*(a1 + 72) + 8) + 40) batch];
-  v4 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v4 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v4)
   {
     v5 = v4;
-    v27 = a2;
+    v26 = a2;
     v6 = 0;
-    v7 = *v32;
+    v7 = *v31;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v32 != v7)
+        if (*v31 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * i);
+        v9 = *(*(&v30 + 1) + 8 * i);
         v10 = [v9 scopedIdentifier];
-        v30 = 0;
-        v11 = [*(a1 + 32) cloudScopedIdentifierForLocalScopedIdentifier:v10 isFinal:&v30];
+        v29 = 0;
+        v11 = [*(a1 + 32) cloudScopedIdentifierForLocalScopedIdentifier:v10 isFinal:&v29];
         if (!v11)
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v22 = __CPLTaskOSLogDomain_24274();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v21 = __CPLTaskOSLogDomain_24274();
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v36 = v9;
-              _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_ERROR, "Cloud scoped identifier for %@ should be known here", buf, 0xCu);
+              v35 = v9;
+              _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Cloud scoped identifier for %@ should be known here", buf, 0xCu);
             }
           }
 
-          v23 = [MEMORY[0x1E696AAA8] currentHandler];
-          v24 = *(a1 + 88);
-          v25 = *(a1 + 40);
-          v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
-          [v23 handleFailureInMethod:v24 object:v25 file:v26 lineNumber:379 description:{@"Cloud scoped identifier for %@ should be known here", v9}];
+          v22 = [MEMORY[0x1E696AAA8] currentHandler];
+          v23 = *(a1 + 88);
+          v24 = *(a1 + 40);
+          v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
+          [v22 handleFailureInMethod:v23 object:v24 file:v25 lineNumber:379 description:{@"Cloud scoped identifier for %@ should be known here", v9}];
 
           abort();
         }
@@ -4751,18 +4690,18 @@ uint64_t __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block
           v14 = v13;
           v15 = *(a1 + 64);
           v16 = [v13 pushRepositoryPriority];
-          v29 = v6;
-          LODWORD(v15) = (*(v15 + 16))(v15, v9, v12, v16, &v29);
-          v17 = v29;
+          v28 = v6;
+          LODWORD(v15) = (*(v15 + 16))(v15, v9, v12, v16, &v28);
+          v17 = v28;
 
           if (!v15)
           {
 
-            if (v27)
+            if (v26)
             {
               v18 = v17;
               v19 = 0;
-              *v27 = v17;
+              *v26 = v17;
             }
 
             else
@@ -4782,7 +4721,7 @@ uint64_t __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+      v5 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
       if (v5)
       {
         continue;
@@ -4806,7 +4745,6 @@ uint64_t __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block
   v17 = v6;
 LABEL_21:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -4833,22 +4771,20 @@ void __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_inv
 
 uint64_t __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_invoke_50(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v4 = __CPLTaskOSLogDomain_24274();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(*(a1 + 32) + 184);
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "After considering priorities, new batch to commit is %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "After considering priorities, new batch to commit is %@", &v7, 0xCu);
     }
   }
 
-  result = [*(*(a1 + 32) + 496) storeExtractedBatch:*(*(*(a1 + 40) + 8) + 40) error:a2];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 496) storeExtractedBatch:*(*(*(a1 + 40) + 8) + 40) error:a2];
 }
 
 uint64_t __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block_invoke_2_31(uint64_t a1, uint64_t a2)
@@ -4913,32 +4849,32 @@ uint64_t __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block
 
 - (BOOL)_discardUploadedExtractedBatch:(id)batch error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   engineLibrary = [(CPLEngineSyncTask *)self engineLibrary];
   store = [engineLibrary store];
   outgoingResources = [store outgoingResources];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   uploadIdentifiers = [batchCopy uploadIdentifiers];
-  v11 = [uploadIdentifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [uploadIdentifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(uploadIdentifiers);
         }
 
-        if (![outgoingResources deleteResourcesToUploadWithUploadIdentifier:*(*(&v18 + 1) + 8 * i) error:error])
+        if (![outgoingResources deleteResourcesToUploadWithUploadIdentifier:*(*(&v17 + 1) + 8 * i) error:error])
         {
 
           v15 = 0;
@@ -4946,7 +4882,7 @@ uint64_t __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block
         }
       }
 
-      v12 = [uploadIdentifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [uploadIdentifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v12)
       {
         continue;
@@ -4959,27 +4895,26 @@ uint64_t __61__CPLUploadPushedChangesTask__checkPrioritiesWithFetchCache___block
   v15 = [(CPLEnginePushRepository *)self->_pushRepository storeExtractedBatch:0 error:error];
 LABEL_11:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (BOOL)_markUploadedTasksDidFinishWithError:(id)error transaction:(id)transaction error:(id *)a5
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   uploadResourceTasks = self->_uploadResourceTasks;
   if (uploadResourceTasks)
   {
     v9 = uploadResourceTasks;
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __85__CPLUploadPushedChangesTask__markUploadedTasksDidFinishWithError_transaction_error___block_invoke;
-    v45[3] = &unk_1E86204A0;
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __85__CPLUploadPushedChangesTask__markUploadedTasksDidFinishWithError_transaction_error___block_invoke;
+    v44[3] = &unk_1E86204A0;
     selfCopy = self;
-    v45[4] = self;
-    v36 = v9;
-    v46 = v36;
-    [transaction addCleanupBlock:v45];
+    v44[4] = self;
+    v35 = v9;
+    v45 = v35;
+    [transaction addCleanupBlock:v44];
     if ((_CPLSilentLogging & 1) == 0)
     {
       v10 = __CPLTaskOSLogDomain_24274();
@@ -4989,16 +4924,16 @@ LABEL_11:
         v12 = "failed";
         v13 = self->_uploadResourceTasks;
         *buf = 134218498;
-        v49 = v11;
+        v48 = v11;
         if (!errorCopy)
         {
           v12 = "succeeded";
         }
 
-        v50 = 2080;
-        v51 = v12;
-        v52 = 2112;
-        v53 = v13;
+        v49 = 2080;
+        v50 = v12;
+        v51 = 2112;
+        v52 = v13;
         _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, "Notifying upload tasks for %lu resources as %s: %@", buf, 0x20u);
       }
     }
@@ -5008,27 +4943,27 @@ LABEL_11:
     store = [engineLibrary store];
     resourceStorage = [store resourceStorage];
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     obj = self->_uploadResourceTasks;
-    v17 = [(NSArray *)obj countByEnumeratingWithState:&v41 objects:v47 count:16];
+    v17 = [(NSArray *)obj countByEnumeratingWithState:&v40 objects:v46 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v42;
+      v19 = *v41;
       v20 = 1;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v42 != v19)
+          if (*v41 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v41 + 1) + 8 * i);
+          v22 = *(*(&v40 + 1) + 8 * i);
           cloudResource = [v22 cloudResource];
           v24 = cloudResource;
           if (v20)
@@ -5061,7 +4996,7 @@ LABEL_11:
           }
         }
 
-        v18 = [(NSArray *)obj countByEnumeratingWithState:&v41 objects:v47 count:16];
+        v18 = [(NSArray *)obj countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
       while (v18);
@@ -5085,7 +5020,6 @@ LABEL_11:
   v33 = selfCopy3->_cloudScopedIdentifiersToUploadResourceTaskErrors;
   selfCopy3->_cloudScopedIdentifiersToUploadResourceTaskErrors = 0;
 
-  v34 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -5123,7 +5057,7 @@ void __85__CPLUploadPushedChangesTask__markUploadedTasksDidFinishWithError_trans
   }
 }
 
-uint64_t __76__CPLUploadPushedChangesTask__updateQuotaStrategyAfterSuccessInTransaction___block_invoke(uint64_t a1, uint64_t a2)
+void *__76__CPLUploadPushedChangesTask__updateQuotaStrategyAfterSuccessInTransaction___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 32);
   v5 = *(v4 + 224);
@@ -5177,28 +5111,68 @@ uint64_t __76__CPLUploadPushedChangesTask__updateQuotaStrategyAfterSuccessInTran
   self->_shouldSetupEstimatedSize = v5;
 }
 
+- (void)_didFinishTaskWithKey:(id)key error:(BOOL)error cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  errorCopy = error;
+  v23 = *MEMORY[0x1E69E9840];
+  keyCopy = key;
+  currentTaskKey = self->_currentTaskKey;
+  if (!currentTaskKey)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v15 = __CPLTaskOSLogDomain_24274();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        v16 = NSStringFromSelector(a2);
+        *buf = 138412290;
+        v22 = v16;
+        _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "%@ called without any started task", buf, 0xCu);
+      }
+    }
+
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
+    v19 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:v18 lineNumber:228 description:{@"%@ called without any started task", v19}];
+
+    abort();
+  }
+
+  v20 = keyCopy;
+  pushRepository = self->_pushRepository;
+  [(NSDate *)self->_taskStartDate timeIntervalSinceNow];
+  [(CPLEnginePushRepository *)pushRepository updateTimingStatisticForKey:currentTaskKey duration:self->_recordCount recordCount:errorCopy error:cancelledCopy cancelled:-v12];
+  v13 = self->_currentTaskKey;
+  self->_currentTaskKey = 0;
+
+  taskStartDate = self->_taskStartDate;
+  self->_taskStartDate = 0;
+}
+
 - (void)_didStartTaskWithKey:(id)key recordCount:(unint64_t)count
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if (self->_currentTaskKey)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = __CPLTaskOSLogDomain_24274();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = __CPLTaskOSLogDomain_24274();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v13 = NSStringFromSelector(a2);
+        v12 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v18 = v13;
-        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "%@ called too many times", buf, 0xCu);
+        v17 = v12;
+        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "%@ called too many times", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
-    v16 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:221 description:{@"%@ called too many times", v16}];
+    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLUploadPushedChangesTask.m"];
+    v15 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:v14 lineNumber:221 description:{@"%@ called too many times", v15}];
 
     abort();
   }
@@ -5210,7 +5184,6 @@ uint64_t __76__CPLUploadPushedChangesTask__updateQuotaStrategyAfterSuccessInTran
   self->_taskStartDate = date;
 
   self->_recordCount = count;
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)checkScopeIsValidInTransaction:(id)transaction

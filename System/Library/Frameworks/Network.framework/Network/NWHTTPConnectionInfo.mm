@@ -3,7 +3,7 @@
 
 @implementation NWHTTPConnectionInfo
 
-void __52___NWHTTPConnectionInfo_sendPingWithReceiveHandler___block_invoke(uint64_t a1, char a2, uint64_t a3)
+void __52___NWHTTPConnectionInfo_sendPingWithReceiveHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(a1 + 32);
   if (a2)

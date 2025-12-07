@@ -85,8 +85,6 @@
     objc_storeStrong(&oslog, 0);
     [(NSUserDefaults *)selfCopy->_userDefaults setBool:sessionCopy forKey:@"WorkoutRecoveryInSessionHint"];
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)attemptRecoveryWithCompletion:(id)completion
@@ -126,7 +124,6 @@
   objc_destroyWeak(&v12);
   objc_destroyWeak(&from);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __61__NLWorkoutRecoveryController_attemptRecoveryWithCompletion___block_invoke(uint64_t a1)
@@ -157,7 +154,6 @@ void __61__NLWorkoutRecoveryController_attemptRecoveryWithCompletion___block_inv
   [v1 recoverActiveWorkoutSessionWithCompletion:*(a1 + 32)];
   MEMORY[0x277D82BD8](v1);
   objc_storeStrong(v10, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)workoutController:(id)controller transitionedWorkout:(id)workout toState:(int64_t)state

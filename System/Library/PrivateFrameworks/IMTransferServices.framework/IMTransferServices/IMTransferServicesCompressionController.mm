@@ -30,21 +30,21 @@
       self->_blockMap = blockMap;
     }
 
-    v12 = objc_msgSend_copy(block, a2, copier, block, v4, v5, v6, v7);
-    v20 = objc_msgSend_identifier(copier, v13, v14, v15, v16, v17, v18, v19);
+    v8 = objc_msgSend_copy(block, a2, copier, block);
+    v12 = objc_msgSend_identifier(copier, v9, v10, v11);
 
-    MEMORY[0x2821F9670](blockMap, sel_setObject_forKey_, v12, v20, v21, v22, v23, v24);
+    MEMORY[0x2821F9670](blockMap, sel_setObject_forKey_, v8, v12);
   }
 }
 
 - (void)_unmapCopier:(id)copier
 {
-  if (copier && objc_msgSend_identifier(copier, a2, copier, v3, v4, v5, v6, v7))
+  if (copier && objc_msgSend_identifier(copier, a2, copier, v3))
   {
     blockMap = self->_blockMap;
-    v18 = objc_msgSend_identifier(copier, v10, v11, v12, v13, v14, v15, v16);
-    objc_msgSend_removeObjectForKey_(blockMap, v19, v18, v20, v21, v22, v23, v24);
-    if (!objc_msgSend_count(self->_blockMap, v25, v26, v27, v28, v29, v30, v31))
+    v10 = objc_msgSend_identifier(copier, v6, v7, v8);
+    objc_msgSend_removeObjectForKey_(blockMap, v11, v10, v12);
+    if (!objc_msgSend_count(self->_blockMap, v13, v14, v15))
     {
 
       self->_blockMap = 0;
@@ -54,46 +54,46 @@
 
 - (void)compressFileTransfer:(id)transfer completionBlock:(id)block
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (block)
   {
     if (transfer)
     {
-      v55 = 0;
-      v11 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], a2, transfer, block, v4, v5, v6, v7);
-      v19 = objc_msgSend_path(transfer, v12, v13, v14, v15, v16, v17, v18);
-      if (objc_msgSend_fileExistsAtPath_isDirectory_(v11, v20, v19, &v55, v21, v22, v23, v24))
+      v29 = 0;
+      v7 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], a2, transfer, block);
+      v11 = objc_msgSend_path(transfer, v8, v9, v10);
+      if (objc_msgSend_fileExistsAtPath_isDirectory_(v7, v12, v11, &v29))
       {
-        if (v55)
+        if (v29)
         {
-          v25 = objc_alloc(MEMORY[0x277D19248]);
-          v33 = objc_msgSend_stringGUID(MEMORY[0x277CCACA8], v26, v27, v28, v29, v30, v31, v32);
-          v36 = objc_msgSend_initWithInputURL_outputURL_identifier_operation_delegate_(v25, v34, transfer, 0, v33, 0, self, v35);
-          objc_msgSend__mapCopier_toBlock_(self, v37, v36, block, v38, v39, v40, v41);
+          v13 = objc_alloc(MEMORY[0x277D19248]);
+          v17 = objc_msgSend_stringGUID(MEMORY[0x277CCACA8], v14, v15, v16);
+          v19 = objc_msgSend_initWithInputURL_outputURL_identifier_operation_delegate_(v13, v18, transfer, 0, v17, 0, self);
+          objc_msgSend__mapCopier_toBlock_(self, v20, v19, block);
           if (IMOSLoggingEnabled())
           {
-            v49 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+            v24 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
             {
-              v56 = 138412290;
+              v30 = 138412290;
               transferCopy3 = transfer;
-              _os_log_impl(&dword_254879000, v49, OS_LOG_TYPE_INFO, "Starting compression for URL: %@", &v56, 0xCu);
+              _os_log_impl(&dword_254879000, v24, OS_LOG_TYPE_INFO, "Starting compression for URL: %@", &v30, 0xCu);
             }
           }
 
-          objc_msgSend_start(v36, v42, v43, v44, v45, v46, v47, v48);
+          objc_msgSend_start(v19, v21, v22, v23);
         }
 
         else
         {
           if (IMOSLoggingEnabled())
           {
-            v53 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+            v28 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
             {
-              v56 = 138412290;
+              v30 = 138412290;
               transferCopy3 = transfer;
-              _os_log_impl(&dword_254879000, v53, OS_LOG_TYPE_INFO, "URL supplied (%@) is not a directory, marking as not needed", &v56, 0xCu);
+              _os_log_impl(&dword_254879000, v28, OS_LOG_TYPE_INFO, "URL supplied (%@) is not a directory, marking as not needed", &v30, 0xCu);
             }
           }
 
@@ -105,12 +105,12 @@
       {
         if (IMOSLoggingEnabled())
         {
-          v52 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+          v27 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
           {
-            v56 = 138412290;
+            v30 = 138412290;
             transferCopy3 = transfer;
-            _os_log_impl(&dword_254879000, v52, OS_LOG_TYPE_INFO, "File doesn't exist at source path (%@), failing compression", &v56, 0xCu);
+            _os_log_impl(&dword_254879000, v27, OS_LOG_TYPE_INFO, "File doesn't exist at source path (%@), failing compression", &v30, 0xCu);
           }
         }
 
@@ -122,11 +122,11 @@
     {
       if (IMOSLoggingEnabled())
       {
-        v51 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+        v26 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v56) = 0;
-          _os_log_impl(&dword_254879000, v51, OS_LOG_TYPE_INFO, "No transfer URL supplied, failing", &v56, 2u);
+          LOWORD(v30) = 0;
+          _os_log_impl(&dword_254879000, v26, OS_LOG_TYPE_INFO, "No transfer URL supplied, failing", &v30, 2u);
         }
       }
 
@@ -136,105 +136,100 @@
 
   else if (IMOSLoggingEnabled())
   {
-    v50 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+    v25 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v56) = 0;
-      _os_log_impl(&dword_254879000, v50, OS_LOG_TYPE_INFO, "No input block for transfer URL, failing", &v56, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_254879000, v25, OS_LOG_TYPE_INFO, "No input block for transfer URL, failing", &v30, 2u);
     }
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fileCopierDidStart:(id)start
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v4 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v13 = 138412546;
+      v8 = 138412546;
       startCopy = start;
-      v15 = 2112;
-      v16 = objc_msgSend_inputURL(start, v5, v6, v7, v8, v9, v10, v11);
-      _os_log_impl(&dword_254879000, v4, OS_LOG_TYPE_INFO, "Copier started: %@  (URL: %@)", &v13, 0x16u);
+      v10 = 2112;
+      v11 = objc_msgSend_inputURL(start, v5, v6, v7);
+      _os_log_impl(&dword_254879000, v4, OS_LOG_TYPE_INFO, "Copier started: %@  (URL: %@)", &v8, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fileCopierDidFinish:(id)finish
 {
-  v69 = *MEMORY[0x277D85DE8];
-  v10 = objc_msgSend__blockForCopier_(self, a2, finish, v3, v4, v5, v6, v7);
+  v40 = *MEMORY[0x277D85DE8];
+  v6 = objc_msgSend__blockForCopier_(self, a2, finish, v3);
+  if (IMOSLoggingEnabled())
+  {
+    v7 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      v36 = 138412546;
+      finishCopy = finish;
+      v38 = 2112;
+      v39 = objc_msgSend_inputURL(finish, v8, v9, v10);
+      _os_log_impl(&dword_254879000, v7, OS_LOG_TYPE_INFO, "Copier completed: %@  (URL: %@)", &v36, 0x16u);
+    }
+  }
+
   if (IMOSLoggingEnabled())
   {
     v11 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v65 = 138412546;
-      finishCopy = finish;
-      v67 = 2112;
-      v68 = objc_msgSend_inputURL(finish, v12, v13, v14, v15, v16, v17, v18);
-      _os_log_impl(&dword_254879000, v11, OS_LOG_TYPE_INFO, "Copier completed: %@  (URL: %@)", &v65, 0x16u);
+      v15 = objc_msgSend_inputURL(finish, v12, v13, v14);
+      v36 = 138412290;
+      finishCopy = v15;
+      _os_log_impl(&dword_254879000, v11, OS_LOG_TYPE_INFO, "    Input URL: %@", &v36, 0xCu);
     }
   }
 
   if (IMOSLoggingEnabled())
   {
-    v19 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v16 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v27 = objc_msgSend_inputURL(finish, v20, v21, v22, v23, v24, v25, v26);
-      v65 = 138412290;
-      finishCopy = v27;
-      _os_log_impl(&dword_254879000, v19, OS_LOG_TYPE_INFO, "    Input URL: %@", &v65, 0xCu);
+      v20 = objc_msgSend_outputURL(finish, v17, v18, v19);
+      v36 = 138412290;
+      finishCopy = v20;
+      _os_log_impl(&dword_254879000, v16, OS_LOG_TYPE_INFO, "   Output URL: %@", &v36, 0xCu);
     }
   }
 
   if (IMOSLoggingEnabled())
   {
-    v28 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    v24 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      v36 = objc_msgSend_outputURL(finish, v29, v30, v31, v32, v33, v34, v35);
-      v65 = 138412290;
-      finishCopy = v36;
-      _os_log_impl(&dword_254879000, v28, OS_LOG_TYPE_INFO, "   Output URL: %@", &v65, 0xCu);
-    }
-  }
-
-  if (IMOSLoggingEnabled())
-  {
-    v44 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
-    {
-      v45 = objc_msgSend_didErrorOccur(finish, v37, v38, v39, v40, v41, v42, v43);
-      v46 = @"YES";
-      if (v45)
+      v25 = objc_msgSend_didErrorOccur(finish, v21, v22, v23);
+      v26 = @"YES";
+      if (v25)
       {
-        v46 = @"NO";
+        v26 = @"NO";
       }
 
-      v65 = 138412290;
-      finishCopy = v46;
-      _os_log_impl(&dword_254879000, v44, OS_LOG_TYPE_INFO, "      Success: %@", &v65, 0xCu);
+      v36 = 138412290;
+      finishCopy = v26;
+      _os_log_impl(&dword_254879000, v24, OS_LOG_TYPE_INFO, "      Success: %@", &v36, 0xCu);
     }
   }
 
-  if (v10)
+  if (v6)
   {
-    v47 = objc_msgSend_inputURL(finish, v37, v38, v39, v40, v41, v42, v43);
-    v55 = objc_msgSend_outputURL(finish, v48, v49, v50, v51, v52, v53, v54);
-    v63 = objc_msgSend_didErrorOccur(finish, v56, v57, v58, v59, v60, v61, v62);
-    (*(v10 + 16))(v10, v47, v55, 0, v63 ^ 1u, 1);
+    v27 = objc_msgSend_inputURL(finish, v21, v22, v23);
+    v31 = objc_msgSend_outputURL(finish, v28, v29, v30);
+    v35 = objc_msgSend_didErrorOccur(finish, v32, v33, v34);
+    (*(v6 + 16))(v6, v27, v31, 0, v35 ^ 1u, 1);
   }
 
-  objc_msgSend__unmapCopier_(self, v37, finish, v39, v40, v41, v42, v43);
-  v64 = *MEMORY[0x277D85DE8];
+  objc_msgSend__unmapCopier_(self, v21, finish, v23);
 }
 
 @end

@@ -209,7 +209,7 @@
 - (BOOL)_useLargeFormatBehavior
 {
   _sizingContextWindow = [(SearchResultsViewController *)self _sizingContextWindow];
-  ShouldUseLargeFormatInterface = EKUICurrentWindowInterfaceParadigm_ShouldUseLargeFormatInterface();
+  ShouldUseLargeFormatInterface = EKUICurrentWindowInterfaceParadigm_ShouldUseLargeFormatInterface(_sizingContextWindow);
 
   return ShouldUseLargeFormatInterface;
 }

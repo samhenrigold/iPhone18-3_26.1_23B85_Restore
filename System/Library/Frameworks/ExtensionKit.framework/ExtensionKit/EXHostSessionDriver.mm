@@ -29,12 +29,4 @@ void __49___EXHostSessionDriver_hostSessionDidInvalidate___block_invoke(uint64_t
   }
 }
 
-void __51___EXHostSessionDriver_initWithHostViewController___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 @end

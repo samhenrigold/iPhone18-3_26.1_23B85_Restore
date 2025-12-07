@@ -284,8 +284,8 @@
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  iconListViews = [(SBHIconStylePreviewManager *)self iconListViews];
-  v6 = [iconListViews countByEnumeratingWithState:&v24 objects:v33 count:16];
+  v5 = objc_msgSend_iconListViews(self);
+  v6 = [v5 countByEnumeratingWithState:&v24 objects:v33 count:16];
   selfCopy = self;
   if (v6)
   {
@@ -296,7 +296,7 @@ LABEL_3:
     {
       if (*v25 != v7)
       {
-        objc_enumerationMutation(iconListViews);
+        objc_enumerationMutation(v5);
       }
 
       v9 = *(*(&v24 + 1) + 8 * v8);
@@ -316,7 +316,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [iconListViews countByEnumeratingWithState:&v24 objects:v33 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v24 objects:v33 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -370,7 +370,7 @@ LABEL_11:
       }
     }
 
-    iconListViews = v10;
+    v5 = v10;
   }
 
   _Block_object_dispose(&v28, 8);
@@ -391,8 +391,8 @@ uint64_t __59__SBHIconStylePreviewManager_enumerateIconViewsUsingBlock___block_i
 
 - (int64_t)configurationUserInterfaceStyle
 {
-  iconListViews = [(SBHIconStylePreviewManager *)self iconListViews];
-  firstObject = [iconListViews firstObject];
+  v2 = objc_msgSend_iconListViews(self, a2);
+  firstObject = [v2 firstObject];
   v4 = [MEMORY[0x1E69DD1B8] sbh_highestLevelTraitCollectionForView:firstObject];
   userInterfaceStyle = [v4 userInterfaceStyle];
 
@@ -410,10 +410,10 @@ uint64_t __59__SBHIconStylePreviewManager_enumerateIconViewsUsingBlock___block_i
 
 - (SBIconImageInfo)configurationIconImageInfo
 {
-  iconListViews = [(SBHIconStylePreviewManager *)self iconListViews];
-  firstObject = [iconListViews firstObject];
+  v3 = objc_msgSend_iconListViews(self, a3);
+  firstObject = [v3 firstObject];
   layout = [firstObject layout];
-  [layout iconImageInfo];
+  objc_msgSend_iconImageInfo(layout);
 
   return result;
 }

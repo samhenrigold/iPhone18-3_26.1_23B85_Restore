@@ -61,7 +61,7 @@
 
   persistentStoreCoordinator = [(NSManagedObjectContext *)context persistentStoreCoordinator];
   v4 = persistentStoreCoordinator ? persistentStoreCoordinator->_modelMap : 0;
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", +[_PFPersistentHistoryFetchModel ancillaryModelNamespace](_PFPersistentHistoryFetchModel, "ancillaryModelNamespace"), @"Transaction"];
+  v5 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], +[_PFPersistentHistoryFetchModel ancillaryModelNamespace], @"Transaction");
   if (!v4)
   {
     return 0;
@@ -97,7 +97,7 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<NSPersistentHistoryTransaction: %lld, %@, %@, %@, %@, %@, %@>", -[NSPersistentHistoryTransaction transactionNumber](self, "transactionNumber"), -[NSPersistentHistoryTransaction timestamp](self, "timestamp"), -[NSPersistentHistoryTransaction bundleID](self, "bundleID"), -[NSPersistentHistoryTransaction processID](self, "processID"), -[NSPersistentHistoryTransaction contextName](self, "contextName"), -[NSPersistentHistoryTransaction author](self, "author"), -[NSPersistentHistoryTransaction changes](self, "changes")];
+  v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [(NSPersistentHistoryTransaction *)self transactionNumber], [(NSPersistentHistoryTransaction *)self timestamp], [(NSPersistentHistoryTransaction *)self bundleID], [(NSPersistentHistoryTransaction *)self processID], [(NSPersistentHistoryTransaction *)self contextName], [(NSPersistentHistoryTransaction *)self author], [(NSPersistentHistoryTransaction *)self changes]);
   objc_autoreleasePoolPop(v3);
 
   return v4;
@@ -105,90 +105,90 @@
 
 - (NSDate)timestamp
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
-  v2 = MEMORY[0x1E695DF00];
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
+  v10 = MEMORY[0x1E695DF00];
 
-  return [v2 distantFuture];
+  return [v10 distantFuture];
 }
 
 - (NSArray)changes
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
 - (NSPersistentHistoryToken)token
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
 - (id)initialQueryGenerationToken
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
 - (id)postQueryGenerationToken
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
 - (int64_t)transactionNumber
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
 - (NSString)storeID
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return &stru_1EF3F1768;
 }
 
 - (NSString)bundleID
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return &stru_1EF3F1768;
 }
 
 - (NSString)processID
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return &stru_1EF3F1768;
 }
 
 - (NSString)contextName
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
 - (NSString)author
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
 - (NSNotification)objectIDNotification
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
-  v2 = MEMORY[0x1E696AD80];
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
+  v10 = MEMORY[0x1E696AD80];
 
-  return [v2 notificationWithName:&stru_1EF3F1768 object:0];
+  return [v10 notificationWithName:&stru_1EF3F1768 object:0];
 }
 
 @end

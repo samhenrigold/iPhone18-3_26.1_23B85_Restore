@@ -13,6 +13,7 @@
 - (id)_buildRequestBodyWithStyle:(unint64_t)style primaryCerts:(id)certs extendedCerts:(id)extendedCerts;
 - (id)_buildRequestWithBody:(id)body bag:(id)bag;
 - (id)_handleDialogRequest:(id)request;
+- (id)_keychainOptionWithPurpose:(unint64_t)purpose style:(unint64_t)style regenerate:(BOOL)regenerate;
 - (id)_lookupAttestationForOption:(id)option;
 - (id)performUpdate;
 - (int64_t)_runUpdateRequestWithStyle:(unint64_t)style primaryCerts:(id)certs extendedCerts:(id)extendedCerts error:(id *)error;
@@ -147,6 +148,17 @@ LABEL_10:
   v12 = v9 == 0;
 
   return v12;
+}
+
+- (id)_keychainOptionWithPurpose:(unint64_t)purpose style:(unint64_t)style regenerate:(BOOL)regenerate
+{
+  regenerateCopy = regenerate;
+  v8 = objc_alloc_init(AMSKeychainOptions);
+  [v8 setStyle:style];
+  [v8 setPurpose:purpose];
+  [v8 setRegenerateKeys:regenerateCopy];
+
+  return v8;
 }
 
 - (id)_lookupAttestationForOption:(id)option
@@ -1132,7 +1144,7 @@ LABEL_9:
 {
   promiseCopy = promise;
   selfCopy = self;
-  AMSDBiometricsTokenUpdateTask.completeMetricsActivity(promise:)();
+  AMSDBiometricsTokenUpdateTask.completeMetricsActivity(promise:)(promiseCopy);
 }
 
 @end

@@ -17,44 +17,42 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v52[8] = *MEMORY[0x1E69E9840];
-  v51[0] = @"startTime";
+  v51[8] = *MEMORY[0x1E69E9840];
+  v50[0] = @"startTime";
   v4 = MEMORY[0x1E696AD98];
   started = objc_msgSend_startDate(self, a2, v2);
   objc_msgSend_timeIntervalSinceReferenceDate(started, v6, v7);
-  v52[0] = objc_msgSend_numberWithDouble_(v4, v8, v9);
-  v51[1] = @"endTime";
+  v51[0] = objc_msgSend_numberWithDouble_(v4, v8, v9);
+  v50[1] = @"endTime";
   v10 = MEMORY[0x1E696AD98];
   v13 = objc_msgSend_endDate(self, v11, v12);
   objc_msgSend_timeIntervalSinceReferenceDate(v13, v14, v15);
-  v52[1] = objc_msgSend_numberWithDouble_(v10, v16, v17);
-  v51[2] = @"stepCount";
+  v51[1] = objc_msgSend_numberWithDouble_(v10, v16, v17);
+  v50[2] = @"stepCount";
   v18 = MEMORY[0x1E696AD98];
   v21 = objc_msgSend_stepCount(self, v19, v20);
-  v52[2] = objc_msgSend_numberWithUnsignedInt_(v18, v22, v21);
-  v51[3] = @"distance";
+  v51[2] = objc_msgSend_numberWithUnsignedInt_(v18, v22, v21);
+  v50[3] = @"distance";
   v23 = MEMORY[0x1E696AD98];
   objc_msgSend_distance(self, v24, v25);
-  v52[3] = objc_msgSend_numberWithDouble_(v23, v26, v27);
-  v51[4] = @"activeTime";
+  v51[3] = objc_msgSend_numberWithDouble_(v23, v26, v27);
+  v50[4] = @"activeTime";
   v28 = MEMORY[0x1E696AD98];
   objc_msgSend_activeTime(self, v29, v30);
-  v52[4] = objc_msgSend_numberWithDouble_(v28, v31, v32);
-  v51[5] = @"elevationAsc";
+  v51[4] = objc_msgSend_numberWithDouble_(v28, v31, v32);
+  v50[5] = @"elevationAsc";
   v33 = MEMORY[0x1E696AD98];
   v36 = objc_msgSend_elevationAsc(self, v34, v35);
-  v52[5] = objc_msgSend_numberWithUnsignedInt_(v33, v37, v36);
-  v51[6] = @"elevationDesc";
+  v51[5] = objc_msgSend_numberWithUnsignedInt_(v33, v37, v36);
+  v50[6] = @"elevationDesc";
   v38 = MEMORY[0x1E696AD98];
   v41 = objc_msgSend_elevationDesc(self, v39, v40);
-  v52[6] = objc_msgSend_numberWithUnsignedInt_(v38, v42, v41);
-  v51[7] = @"boutType";
+  v51[6] = objc_msgSend_numberWithUnsignedInt_(v38, v42, v41);
+  v50[7] = @"boutType";
   v43 = MEMORY[0x1E696AD98];
   v46 = objc_msgSend_boutType(self, v44, v45);
-  v52[7] = objc_msgSend_numberWithInteger_(v43, v47, v46);
-  result = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v48, v52, v51, 8);
-  v50 = *MEMORY[0x1E69E9840];
-  return result;
+  v51[7] = objc_msgSend_numberWithInteger_(v43, v47, v46);
+  return objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v48, v51, v50, 8);
 }
 
 - (CMPredictedDistanceBout)initWithRecordId:(unint64_t)id startDate:(id)date endDate:(id)endDate stepCount:(unsigned int)count distance:(double)distance activeTime:(double)time elevationAsc:(unsigned int)asc elevationDesc:(unsigned int)self0 stepCountGPS:(unsigned int)self1 distanceGPS:(double)self2 boutType:(int64_t)self3

@@ -21,7 +21,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_26BA918E8();
+  sub_26BA918E8(selfCopy);
 }
 
 - (_TtC10StickersUI17PoofAnimationView)initWithFrame:(CGRect)frame

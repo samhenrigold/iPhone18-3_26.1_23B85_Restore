@@ -1,7 +1,7 @@
 @interface GeometricCutTools
 + (BOOL)derotateContentsOf:(id)of inImage:(vImage_Buffer *)image andOutputTo:(vImage_Buffer *)to withPadding:(CGPoint)padding networkInputSize:(CGSize)size;
 + (BOOL)isPointArrayARectangle:(uint64_t)rectangle;
-+ (BOOL)lineThroughPoint:(double)point andPoint:(double)andPoint andRectangle:(double)rectangle intersectAtPoint:(double)atPoint andPoint:(double)a7;
++ (BOOL)lineThroughPoint:(_OWORD *)point andPoint:(double)andPoint andRectangle:(double)rectangle intersectAtPoint:(double)atPoint andPoint:(double)a7;
 + (id)boxInNormalizedSpace:(id)space toImageSpaceWithSize:(CGSize)size plusPadding:(CGPoint)padding destSize:(CGSize *)destSize networkInputSize:(CGSize)inputSize;
 + (id)cleanTextDetectorOutput:(id)output;
 + (id)findCorrectedBoundingBoxOfTextFeature:(id)feature inImageWithSize:(CGSize)size;
@@ -16,67 +16,54 @@
 
 + (id)cleanTextDetectorOutput:(id)output
 {
-  v51 = *MEMORY[0x277D85DE8];
   outputCopy = output;
   array = [MEMORY[0x277CBEB18] array];
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
   obj = outputCopy;
-  v32 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v32 = [obj countByEnumeratingWithState:? objects:? count:?];
   if (v32)
   {
-    v31 = *v45;
+    v31 = MEMORY[0];
     do
     {
-      for (i = 0; i != v32; ++i)
+      for (i = 0; i != v32; i = (i + 1))
       {
-        if (*v45 != v31)
+        if (MEMORY[0] != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = *(*(&v44 + 1) + 8 * i);
+        v3 = *(8 * i);
         array2 = [MEMORY[0x277CBEB18] array];
-        v42 = 0u;
-        v43 = 0u;
-        v40 = 0u;
-        v41 = 0u;
         subFeatures = [v3 subFeatures];
-        v5 = [subFeatures countByEnumeratingWithState:&v40 objects:v49 count:16];
+        v5 = [subFeatures countByEnumeratingWithState:? objects:? count:?];
         if (v5)
         {
-          v6 = *v41;
+          v6 = MEMORY[0];
           do
           {
-            for (j = 0; j != v5; ++j)
+            for (j = 0; j != v5; j = (j + 1))
             {
-              if (*v41 != v6)
+              if (MEMORY[0] != v6)
               {
                 objc_enumerationMutation(subFeatures);
               }
 
-              v8 = *(*(&v40 + 1) + 8 * j);
-              v36 = 0u;
-              v37 = 0u;
-              v38 = 0u;
-              v39 = 0u;
+              v8 = *(8 * j);
               subFeatures2 = [v3 subFeatures];
-              v10 = [subFeatures2 countByEnumeratingWithState:&v36 objects:v48 count:16];
+              v10 = [subFeatures2 countByEnumeratingWithState:? objects:? count:?];
               if (v10)
               {
-                v11 = *v37;
+                v11 = MEMORY[0];
                 while (2)
                 {
-                  for (k = 0; k != v10; ++k)
+                  for (k = 0; k != v10; k = (k + 1))
                   {
-                    if (*v37 != v11)
+                    if (MEMORY[0] != v11)
                     {
                       objc_enumerationMutation(subFeatures2);
                     }
 
-                    v13 = *(*(&v36 + 1) + 8 * k);
+                    v13 = *(8 * k);
                     if (v13 != v8)
                     {
                       [v13 bounds];
@@ -85,15 +72,15 @@
                       v19 = v18;
                       v21 = v20;
                       [v8 bounds];
-                      v54.origin.x = v22;
-                      v54.origin.y = v23;
-                      v54.size.width = v24;
-                      v54.size.height = v25;
-                      v53.origin.x = v15;
-                      v53.origin.y = v17;
-                      v53.size.width = v19;
-                      v53.size.height = v21;
-                      if (CGRectContainsRect(v53, v54))
+                      v38.origin.x = v22;
+                      v38.origin.y = v23;
+                      v38.size.width = v24;
+                      v38.size.height = v25;
+                      v37.origin.x = v15;
+                      v37.origin.y = v17;
+                      v37.size.width = v19;
+                      v37.size.height = v21;
+                      if (CGRectContainsRect(v37, v38))
                       {
 
                         goto LABEL_22;
@@ -101,7 +88,7 @@
                     }
                   }
 
-                  v10 = [subFeatures2 countByEnumeratingWithState:&v36 objects:v48 count:16];
+                  v10 = [subFeatures2 countByEnumeratingWithState:? objects:? count:?];
                   if (v10)
                   {
                     continue;
@@ -111,12 +98,12 @@
                 }
               }
 
-              [array2 addObject:v8];
+              [array2 addObject:?];
 LABEL_22:
               ;
             }
 
-            v5 = [subFeatures countByEnumeratingWithState:&v40 objects:v49 count:16];
+            v5 = [subFeatures countByEnumeratingWithState:? objects:? count:?];
           }
 
           while (v5);
@@ -133,145 +120,142 @@ LABEL_22:
         [v26 setBottomRight:?];
         [v3 bottomLeft];
         [v26 setBottomLeft:?];
-        [v26 setSubFeatures:array2];
-        [array addObject:v26];
+        [v26 setSubFeatures:?];
+        [array addObject:?];
       }
 
-      v32 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v32 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v32);
   }
 
-  v27 = [MEMORY[0x277CBEA60] arrayWithArray:array];
+  v27 = [MEMORY[0x277CBEA60] arrayWithArray:?];
 
   return v27;
 }
 
 + (id)findCorrectedBoundingBoxOfTextFeature:(id)feature inImageWithSize:(CGSize)size
 {
-  v165 = *MEMORY[0x277D85DE8];
+  v150 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
   subFeatures = [featureCopy subFeatures];
   v5 = [subFeatures count];
 
   if (v5 >= 2)
   {
-    v116 = objc_alloc_init(MEMORY[0x277D700A8]);
+    v109 = objc_alloc_init(MEMORY[0x277D700A8]);
     array = [MEMORY[0x277CBEB18] array];
-    v159 = 0u;
-    v160 = 0u;
-    v157 = 0u;
-    v158 = 0u;
+    v148 = 0u;
+    v149 = 0u;
+    v146 = 0u;
+    v147 = 0u;
     subFeatures2 = [featureCopy subFeatures];
-    v8 = [subFeatures2 countByEnumeratingWithState:&v157 objects:v164 count:16];
+    v8 = [subFeatures2 countByEnumeratingWithState:? objects:? count:?];
     if (v8)
     {
-      v9 = *v158;
+      v9 = *v147;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v8; i = (i + 1))
         {
-          if (*v158 != v9)
+          if (*v147 != v9)
           {
             objc_enumerationMutation(subFeatures2);
           }
 
-          v11 = *(*(&v157 + 1) + 8 * i);
+          v11 = *(*(&v146 + 1) + 8 * i);
           v12 = objc_alloc_init(MEMORY[0x277D700A8]);
           [v11 bounds];
-          v14 = v13;
           [v11 bounds];
-          v16 = v15;
           [v11 bounds];
-          v18 = v17;
           [v11 bounds];
-          [v12 setBounds:{size.width * v14, size.height * v16, size.width * v18, size.height * v19}];
-          [array addObject:v12];
+          [v12 setBounds:?];
+          [array addObject:?];
         }
 
-        v8 = [subFeatures2 countByEnumeratingWithState:&v157 objects:v164 count:16];
+        v8 = [subFeatures2 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v8);
     }
 
-    [v116 setSubFeatures:array];
-    subFeatures3 = [v116 subFeatures];
-    std::vector<double>::vector[abi:ne200100](&v155, [subFeatures3 count]);
+    [v109 setSubFeatures:?];
+    subFeatures3 = [v109 subFeatures];
+    std::vector<double>::vector[abi:ne200100](&v144, [subFeatures3 count]);
 
-    v153 = 0u;
-    v154 = 0u;
-    v151 = 0u;
-    v152 = 0u;
-    subFeatures4 = [v116 subFeatures];
-    v22 = [subFeatures4 countByEnumeratingWithState:&v151 objects:v163 count:16];
-    if (v22)
+    v142 = 0u;
+    v143 = 0u;
+    v140 = 0u;
+    v141 = 0u;
+    subFeatures4 = [v109 subFeatures];
+    v15 = [subFeatures4 countByEnumeratingWithState:? objects:? count:?];
+    if (v15)
     {
-      v23 = 0;
-      v24 = *v152;
+      v16 = 0;
+      v17 = *v141;
       do
       {
-        v25 = 0;
-        v26 = v23;
+        v18 = 0;
+        v19 = v16;
         do
         {
-          if (*v152 != v24)
+          if (*v141 != v17)
           {
             objc_enumerationMutation(subFeatures4);
           }
 
-          [*(*(&v151 + 1) + 8 * v25) bounds];
-          v23 = v26 + 1;
-          *(v155 + v26) = v27;
-          ++v25;
-          ++v26;
+          [*(*(&v140 + 1) + 8 * v18) bounds];
+          v16 = v19 + 1;
+          *(v144 + v19) = v20;
+          v18 = (v18 + 1);
+          ++v19;
         }
 
-        while (v22 != v25);
-        v22 = [subFeatures4 countByEnumeratingWithState:&v151 objects:v163 count:16];
+        while (v15 != v18);
+        v15 = [subFeatures4 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v22);
+      while (v15);
     }
 
     std::__sort<std::__less<double,double> &,double *>();
-    v28 = *(v155 + (((v156 - v155) >> 1) & 0xFFFFFFFFFFFFFFF8));
-    v148 = 0;
-    v149 = 0;
-    v150 = 0;
+    v21 = *(v144 + (((v145 - v144) >> 1) & 0xFFFFFFFFFFFFFFF8));
+    v137 = 0;
+    v138 = 0;
+    v139 = 0;
     __p = 0;
-    v146 = 0;
-    v147 = 0;
-    v144[0] = 0;
-    v144[1] = 0;
-    v143 = v144;
-    v141 = 0u;
-    v142 = 0u;
-    v139 = 0u;
-    v140 = 0u;
-    subFeatures5 = [v116 subFeatures];
-    v30 = [subFeatures5 countByEnumeratingWithState:&v139 objects:v162 count:16];
-    if (v30)
+    v135 = 0;
+    v136 = 0;
+    v133[0] = 0;
+    v133[1] = 0;
+    v132 = v133;
+    v130 = 0u;
+    v131 = 0u;
+    v128 = 0u;
+    v129 = 0u;
+    subFeatures5 = [v109 subFeatures];
+    v23 = [subFeatures5 countByEnumeratingWithState:? objects:? count:?];
+    if (v23)
     {
-      v31 = *v140;
+      v24 = *v129;
       do
       {
-        for (j = 0; j != v30; ++j)
+        for (j = 0; j != v23; j = (j + 1))
         {
-          if (*v140 != v31)
+          if (*v129 != v24)
           {
             objc_enumerationMutation(subFeatures5);
           }
 
-          v33 = *(*(&v139 + 1) + 8 * j);
-          [v33 bounds];
-          if (vabdd_f64(v34, v28) < v28 * 0.1)
+          v26 = *(*(&v128 + 1) + 8 * j);
+          [v26 bounds];
+          if (vabdd_f64(v27, v21) < v21 * 0.1)
           {
-            v35 = v33;
-            v36 = v35;
-            v37 = v144[0];
-            if (!v144[0])
+            v28 = v26;
+            v29 = v28;
+            v30 = v133[0];
+            if (!v133[0])
             {
 LABEL_29:
               operator new();
@@ -281,312 +265,308 @@ LABEL_29:
             {
               while (1)
               {
-                v38 = v37;
-                v39 = v37[4];
-                if (v39 <= v35)
+                v31 = v30;
+                v32 = v30[4];
+                if (v32 <= v28)
                 {
                   break;
                 }
 
-                v37 = *v38;
-                if (!*v38)
+                v30 = *v31;
+                if (!*v31)
                 {
                   goto LABEL_29;
                 }
               }
 
-              if (v39 >= v35)
+              if (v32 >= v28)
               {
                 break;
               }
 
-              v37 = v38[1];
-              if (!v37)
+              v30 = v31[1];
+              if (!v30)
               {
                 goto LABEL_29;
               }
             }
 
-            [v36 bounds];
-            v135 = v40;
-            v136 = v41;
-            v137 = v42;
-            v138 = v43;
-            std::vector<double>::push_back[abi:ne200100](&v148, &v135);
-            [v36 bounds];
-            v135 = v44;
-            v136 = v45;
-            v137 = v46;
-            v138 = v47;
-            std::vector<double>::push_back[abi:ne200100](&__p, &v136);
+            [v29 bounds];
+            v124 = v33;
+            v125 = v34;
+            v126 = v35;
+            v127 = v36;
+            std::vector<double>::push_back[abi:ne200100](&v137, &v124);
+            [v29 bounds];
+            v124 = v37;
+            v125 = v38;
+            v126 = v39;
+            v127 = v40;
+            std::vector<double>::push_back[abi:ne200100](&__p, &v125);
           }
         }
 
-        v30 = [subFeatures5 countByEnumeratingWithState:&v139 objects:v162 count:16];
+        v23 = [subFeatures5 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v30);
+      while (v23);
     }
 
     v6 = 0;
-    if (v149 != v148)
+    if (v138 != v137)
     {
-      v48 = (v149 - v148) >> 3;
-      if (v48 >= 2)
+      v41 = (v138 - v137) >> 3;
+      if (v41 >= 2)
       {
-        v49 = 0.0;
-        v50 = v148;
-        v51 = __p;
-        v52 = (v149 - v148) >> 3;
-        v53 = 0.0;
+        v42 = 0.0;
+        v43 = v137;
+        v44 = __p;
+        v45 = (v138 - v137) >> 3;
+        v46 = 0.0;
         do
         {
-          v54 = *v50++;
-          v55 = v54 - *v148;
-          v56 = *v51++;
-          v49 = v49 + v55 * (v56 - *__p);
-          v53 = v53 + v55 * v55;
-          --v52;
+          v47 = *v43++;
+          v48 = v47 - *v137;
+          v49 = *v44++;
+          v42 = v42 + v48 * (v49 - *__p);
+          v46 = v46 + v48 * v48;
+          --v45;
         }
 
-        while (v52);
-        v57 = v49 / v53;
-        v121 = *(__p + (((v146 - __p) >> 1) & 0xFFFFFFFFFFFFFFF8));
-        v122 = *(v148 + ((4 * v48) & 0xFFFFFFFFFFFFFFF8));
-        v131 = 0u;
-        v132 = 0u;
-        v133 = 0u;
-        v134 = 0u;
-        subFeatures6 = [v116 subFeatures];
-        v59 = [subFeatures6 countByEnumeratingWithState:&v131 objects:v161 count:16];
-        v60 = sqrt(v57 * v57 + 1.0);
-        v123 = v57 / v60;
-        v120 = 1.0 / v60;
-        v117 = -(1.0 / v60);
-        if (v59)
+        while (v45);
+        v50 = v42 / v46;
+        v114 = *(__p + (((v135 - __p) >> 1) & 0xFFFFFFFFFFFFFFF8));
+        v115 = *(v137 + ((4 * v41) & 0xFFFFFFFFFFFFFFF8));
+        subFeatures6 = [v109 subFeatures];
+        v52 = [subFeatures6 countByEnumeratingWithState:? objects:? count:?];
+        v53 = sqrt(v50 * v50 + 1.0);
+        v116 = v50 / v53;
+        v113 = 1.0 / v53;
+        v110 = -(1.0 / v53);
+        if (v52)
         {
-          v61 = *v132;
-          v118 = INFINITY;
-          v119 = -INFINITY;
-          v127 = -INFINITY;
-          v128 = INFINITY;
+          v54 = MEMORY[0];
+          v111 = INFINITY;
+          v112 = -INFINITY;
+          v120 = -INFINITY;
+          v121 = INFINITY;
           do
           {
-            for (k = 0; k != v59; ++k)
+            for (k = 0; k != v52; k = (k + 1))
             {
-              if (*v132 != v61)
+              if (MEMORY[0] != v54)
               {
                 objc_enumerationMutation(subFeatures6);
               }
 
-              v63 = *(*(&v131 + 1) + 8 * k);
-              [v63 bounds];
-              v126 = v64;
-              [v63 bounds];
-              v125 = v65;
-              [v63 bounds];
-              v124 = v66;
-              [v63 bounds];
-              v68 = v67;
-              [v63 bounds];
-              v70 = v69;
-              [v63 bounds];
-              v72 = v71;
-              [v63 bounds];
-              v74 = v73;
-              [v63 bounds];
-              v76 = v75;
-              [v63 bounds];
-              v78 = v77;
-              [v63 bounds];
-              v80 = v79;
-              [v63 bounds];
-              v82 = v81;
-              [v63 bounds];
-              v84 = v124 + v68 - v122;
-              v85 = v72 + v74 - v122;
-              v86 = v76 + v78 - v121;
-              v87 = v82 + v83 - v121;
-              v88 = v123 * (v125 - v121) + (v126 - v122) * v120;
-              v89 = v123 * (v70 - v121) + v84 * v120;
-              v90 = v123 * v86 + v85 * v120;
-              v91 = v123 * v87 + (v80 - v122) * v120;
-              v92 = v128;
-              if (v88 < v128)
+              v56 = *(8 * k);
+              [v56 bounds];
+              v119 = v57;
+              [v56 bounds];
+              v118 = v58;
+              [v56 bounds];
+              v117 = v59;
+              [v56 bounds];
+              v61 = v60;
+              [v56 bounds];
+              v63 = v62;
+              [v56 bounds];
+              v65 = v64;
+              [v56 bounds];
+              v67 = v66;
+              [v56 bounds];
+              v69 = v68;
+              [v56 bounds];
+              v71 = v70;
+              [v56 bounds];
+              v73 = v72;
+              [v56 bounds];
+              v75 = v74;
+              [v56 bounds];
+              v77 = v117 + v61 - v115;
+              v78 = v65 + v67 - v115;
+              v79 = v69 + v71 - v114;
+              v80 = v75 + v76 - v114;
+              v81 = v116 * (v118 - v114) + (v119 - v115) * v113;
+              v82 = v116 * (v63 - v114) + v77 * v113;
+              v83 = v116 * v79 + v78 * v113;
+              v84 = v116 * v80 + (v73 - v115) * v113;
+              v85 = v121;
+              if (v81 < v121)
               {
-                v92 = v123 * (v125 - v121) + (v126 - v122) * v120;
+                v85 = v116 * (v118 - v114) + (v119 - v115) * v113;
               }
 
-              if (v89 < v92)
+              if (v82 < v85)
               {
-                v92 = v123 * (v70 - v121) + v84 * v120;
+                v85 = v116 * (v63 - v114) + v77 * v113;
               }
 
-              if (v90 < v92)
+              if (v83 < v85)
               {
-                v92 = v123 * v86 + v85 * v120;
+                v85 = v116 * v79 + v78 * v113;
               }
 
-              if (v91 >= v92)
+              if (v84 >= v85)
               {
-                v93 = v92;
+                v86 = v85;
               }
 
               else
               {
-                v93 = v123 * v87 + (v80 - v122) * v120;
+                v86 = v116 * v80 + (v73 - v115) * v113;
               }
 
-              if (v88 <= v127)
+              if (v81 <= v120)
               {
-                v88 = v127;
+                v81 = v120;
               }
 
-              if (v89 > v88)
+              if (v82 > v81)
               {
-                v88 = v123 * (v70 - v121) + v84 * v120;
+                v81 = v116 * (v63 - v114) + v77 * v113;
               }
 
-              if (v90 > v88)
+              if (v83 > v81)
               {
-                v88 = v123 * v86 + v85 * v120;
+                v81 = v116 * v79 + v78 * v113;
               }
 
-              if (v91 > v88)
+              if (v84 > v81)
               {
-                v88 = v123 * v87 + (v80 - v122) * v120;
+                v81 = v116 * v80 + (v73 - v115) * v113;
               }
 
-              v127 = v88;
-              v128 = v93;
-              v94 = v144[0];
-              if (v144[0])
+              v120 = v81;
+              v121 = v86;
+              v87 = v133[0];
+              if (v133[0])
               {
-                v95 = v144;
+                v88 = v133;
                 do
                 {
-                  v96 = v94[4];
-                  v97 = v96 >= v63;
-                  v98 = v96 < v63;
-                  if (v97)
+                  v89 = v87[4];
+                  v90 = v89 >= v56;
+                  v91 = v89 < v56;
+                  if (v90)
                   {
-                    v95 = v94;
+                    v88 = v87;
                   }
 
-                  v94 = v94[v98];
+                  v87 = v87[v91];
                 }
 
-                while (v94);
-                if (v95 != v144 && v63 >= v95[4])
+                while (v87);
+                if (v88 != v133 && v56 >= v88[4])
                 {
-                  v99 = (v125 - v121) * v117 + (v126 - v122) * v123;
-                  v100 = (v70 - v121) * v117 + v84 * v123;
-                  v101 = v86 * v117 + v85 * v123;
-                  v102 = v87 * v117 + (v80 - v122) * v123;
-                  v103 = v118;
-                  if (v99 < v118)
+                  v92 = (v118 - v114) * v110 + (v119 - v115) * v116;
+                  v93 = (v63 - v114) * v110 + v77 * v116;
+                  v94 = v79 * v110 + v78 * v116;
+                  v95 = v80 * v110 + (v73 - v115) * v116;
+                  v96 = v111;
+                  if (v92 < v111)
                   {
-                    v103 = (v125 - v121) * v117 + (v126 - v122) * v123;
+                    v96 = (v118 - v114) * v110 + (v119 - v115) * v116;
                   }
 
-                  if (v100 < v103)
+                  if (v93 < v96)
                   {
-                    v103 = v100;
+                    v96 = v93;
                   }
 
-                  if (v101 < v103)
+                  if (v94 < v96)
                   {
-                    v103 = v101;
+                    v96 = v94;
                   }
 
-                  if (v102 >= v103)
+                  if (v95 >= v96)
                   {
-                    v104 = v103;
+                    v97 = v96;
                   }
 
                   else
                   {
-                    v104 = v87 * v117 + (v80 - v122) * v123;
+                    v97 = v80 * v110 + (v73 - v115) * v116;
                   }
 
-                  if (v99 <= v119)
+                  if (v92 <= v112)
                   {
-                    v99 = v119;
+                    v92 = v112;
                   }
 
-                  if (v100 > v99)
+                  if (v93 > v92)
                   {
-                    v99 = v100;
+                    v92 = v93;
                   }
 
-                  if (v101 > v99)
+                  if (v94 > v92)
                   {
-                    v99 = v101;
+                    v92 = v94;
                   }
 
-                  if (v102 > v99)
+                  if (v95 > v92)
                   {
-                    v99 = v87 * v117 + (v80 - v122) * v123;
+                    v92 = v80 * v110 + (v73 - v115) * v116;
                   }
 
-                  v118 = v104;
-                  v119 = v99;
+                  v111 = v97;
+                  v112 = v92;
                 }
               }
             }
 
-            v59 = [subFeatures6 countByEnumeratingWithState:&v131 objects:v161 count:16];
+            v52 = [subFeatures6 countByEnumeratingWithState:? objects:? count:?];
           }
 
-          while (v59);
+          while (v52);
         }
 
         else
         {
-          v118 = INFINITY;
-          v119 = -INFINITY;
-          v127 = -INFINITY;
-          v128 = INFINITY;
+          v111 = INFINITY;
+          v112 = -INFINITY;
+          v120 = -INFINITY;
+          v121 = INFINITY;
         }
 
-        v105 = v122 + v118 * v123;
-        v106 = v121 + v118 * v117;
-        v167.x = (v105 + v128 * v120) / size.width;
-        v167.y = (v106 + v128 * v123) / size.height;
-        v107 = MEMORY[0x277CBEA60];
-        v108 = NSStringFromPoint(v167);
-        v168.y = (v106 + v127 * v123) / size.height;
-        v168.x = (v105 + v127 * v120) / size.width;
-        v109 = NSStringFromPoint(v168);
-        v110 = v122 + v119 * v123;
-        v111 = v121 + v119 * v117;
-        v169.x = (v110 + v127 * v120) / size.width;
-        v169.y = (v111 + v127 * v123) / size.height;
-        v112 = NSStringFromPoint(v169);
-        v170.x = (v110 + v128 * v120) / size.width;
-        v170.y = (v111 + v128 * v123) / size.height;
-        v113 = NSStringFromPoint(v170);
-        v6 = [v107 arrayWithObjects:{v108, v109, v112, v113, 0}];
+        v98 = v115 + v111 * v116;
+        v99 = v114 + v111 * v110;
+        v152.x = (v98 + v121 * v113) / size.width;
+        v152.y = (v99 + v121 * v116) / size.height;
+        v100 = MEMORY[0x277CBEA60];
+        v101 = NSStringFromPoint(v152);
+        v153.y = (v99 + v120 * v116) / size.height;
+        v153.x = (v98 + v120 * v113) / size.width;
+        v102 = NSStringFromPoint(v153);
+        v103 = v115 + v112 * v116;
+        v104 = v114 + v112 * v110;
+        v154.x = (v103 + v120 * v113) / size.width;
+        v154.y = (v104 + v120 * v116) / size.height;
+        v105 = NSStringFromPoint(v154);
+        v155.x = (v103 + v121 * v113) / size.width;
+        v155.y = (v104 + v121 * v116) / size.height;
+        v106 = NSStringFromPoint(v155);
+        v6 = [v100 arrayWithObjects:{v102, v105, v106, 0}];
       }
     }
 
-    std::__tree<std::__value_type<CRTextFeature * {__strong},int>,std::__map_value_compare<CRTextFeature * {__strong},std::__value_type<CRTextFeature * {__strong},int>,std::less<CRTextFeature * {__strong}>,true>,std::allocator<std::__value_type<CRTextFeature * {__strong},int>>>::destroy(v144[0]);
+    std::__tree<std::__value_type<CRTextFeature * {__strong},int>,std::__map_value_compare<CRTextFeature * {__strong},std::__value_type<CRTextFeature * {__strong},int>,std::less<CRTextFeature * {__strong}>,true>,std::allocator<std::__value_type<CRTextFeature * {__strong},int>>>::destroy(v133[0]);
     if (__p)
     {
-      v146 = __p;
+      v135 = __p;
       operator delete(__p);
     }
 
-    if (v148)
+    if (v137)
     {
-      v149 = v148;
-      operator delete(v148);
+      v138 = v137;
+      operator delete(v137);
     }
 
-    if (v155)
+    if (v144)
     {
-      v156 = v155;
-      operator delete(v155);
+      v145 = v144;
+      operator delete(v144);
     }
   }
 
@@ -601,78 +581,77 @@ LABEL_29:
 + (BOOL)isPointArrayARectangle:(uint64_t)rectangle
 {
   v2 = a2;
-  v20 = [v2 count] == 4 && (objc_msgSend(v2, "objectAtIndexedSubscript:", 3), v3 = objc_opt_self();
+  v20 = [v2 count] == 4 && (objc_msgSend(v2, "objectAtIndexedSubscript:"), v3 = objc_opt_self();
 
   return v20;
 }
 
-+ (BOOL)lineThroughPoint:(double)point andPoint:(double)andPoint andRectangle:(double)rectangle intersectAtPoint:(double)atPoint andPoint:(double)a7
++ (BOOL)lineThroughPoint:(_OWORD *)point andPoint:(double)andPoint andRectangle:(double)rectangle intersectAtPoint:(double)atPoint andPoint:(double)a7
 {
-  v29[7] = *MEMORY[0x277D85DE8];
+  v24[7] = *MEMORY[0x277D85DE8];
   objc_opt_self();
-  v21 = 0;
-  v22 = 0;
-  v23 = v29;
-  rectangleCopy = rectangle;
-  *v29 = atPoint;
-  *&v29[1] = rectangle + a7;
-  *&v29[2] = atPoint;
-  *&v29[3] = rectangle + a7;
-  *&v29[4] = atPoint + a8;
-  *&v29[5] = rectangle;
-  *&v29[6] = atPoint + a8;
-  v24 = 1;
+  v17 = 0;
+  v18 = 0;
+  v19 = v24;
+  *v24 = a9;
+  *&v24[1] = a8 + a10;
+  *&v24[2] = a9;
+  *&v24[3] = a8 + a10;
+  *&v24[4] = a9 + a11;
+  *&v24[5] = a8;
+  *&v24[6] = a9 + a11;
+  v20 = 1;
   while (1)
   {
-    v25 = v21 + 1;
-    if ([MEMORY[0x277D70080] checkIntersectionForLineThroughPoint:&v27 andPoint:self andSegmentStartingAt:a2 andEndingAt:point intersectAt:{andPoint, *(v23 - 1), *v23, *&v29[2 * ((v21 + 1) & 3) - 1], *&v29[2 * ((v21 + 1) & 3)]}])
+    v21 = v17 + 1;
+    if ([MEMORY[0x277D70080] checkIntersectionForLineThroughPoint:? andPoint:? andSegmentStartingAt:? andEndingAt:? intersectAt:?])
     {
       break;
     }
 
 LABEL_7:
-    v24 = v21 < 3;
-    v23 += 2;
-    ++v21;
-    if (v25 == 4)
+    v20 = v17 < 3;
+    v19 += 2;
+    ++v17;
+    if (v21 == 4)
     {
       return 0;
     }
   }
 
-  if (!v22)
+  if (!v18)
   {
-    if (a10)
+    if (a2)
     {
-      *a10 = v27;
+      *a2 = v23;
     }
 
-    v22 = 1;
+    v18 = 1;
     goto LABEL_7;
   }
 
-  if (a11)
+  if (point)
   {
-    *a11 = v27;
+    *point = v23;
   }
 
-  return v24;
+  return v20;
 }
 
 + (id)boxInNormalizedSpace:(id)space toImageSpaceWithSize:(CGSize)size plusPadding:(CGPoint)padding destSize:(CGSize *)destSize networkInputSize:(CGSize)inputSize
 {
   height = inputSize.height;
   spaceCopy = space;
-  v11 = [spaceCopy objectAtIndexedSubscript:3];
+  v11 = [spaceCopy objectAtIndexedSubscript:?];
   v12 = NSPointFromString(v11);
 
-  v13 = [spaceCopy objectAtIndexedSubscript:2];
+  v13 = [spaceCopy objectAtIndexedSubscript:?];
   v14 = NSPointFromString(v13);
 
-  v15 = [spaceCopy objectAtIndexedSubscript:1];
+  v15 = [spaceCopy objectAtIndexedSubscript:?];
   v16 = NSPointFromString(v15);
 
-  v17 = [spaceCopy objectAtIndexedSubscript:0];
+  v17 = [spaceCopy objectAtIndexedSubscript:?];
   v18 = NSPointFromString(v17);
 
   v19 = 0;
@@ -731,24 +710,24 @@ LABEL_7:
         v127.x = v105 + v108;
         v127.y = v103 + v33;
         v51 = NSStringFromPoint(v127);
-        v52 = [v47 arrayWithObjects:{v48, v49, v50, v51, 0}];
+        v52 = [v47 arrayWithObjects:{v49, v50, v51, 0}];
 
         v53 = v52;
         objc_opt_self();
-        v54 = [v53 objectAtIndex:0];
+        v54 = [v53 objectAtIndex:?];
         v55 = NSPointFromString(v54);
 
-        v56 = [v53 objectAtIndex:1];
+        v56 = [v53 objectAtIndex:?];
         v57 = NSPointFromString(v56);
 
-        v58 = [v53 objectAtIndex:2];
+        v58 = [v53 objectAtIndex:?];
         v59 = NSPointFromString(v58);
 
-        v60 = [v53 objectAtIndex:3];
+        v60 = [v53 objectAtIndex:?];
         v61 = NSPointFromString(v60);
 
         v62 = objc_opt_self();
-        if ([(GeometricCutTools *)v55.x lineThroughPoint:v57.x andPoint:v57.y andRectangle:1.0 intersectAtPoint:1.0 andPoint:size.width + -2.0, size.height + -2.0, v62, &v122, &v121]&& (v63 = objc_opt_self(), [(GeometricCutTools *)v59.x lineThroughPoint:v61.x andPoint:v61.y andRectangle:1.0 intersectAtPoint:1.0 andPoint:size.width + -2.0, size.height + -2.0, v63, &v120, &v119]))
+        if ([(GeometricCutTools *)v62 lineThroughPoint:&v121 andPoint:v55.x andRectangle:v55.y intersectAtPoint:v57.x andPoint:v57.y, 1.0, 1.0, size.width + -2.0, size.height + -2.0]&& (v63 = objc_opt_self(), [(GeometricCutTools *)v63 lineThroughPoint:&v119 andPoint:v59.x andRectangle:v59.y intersectAtPoint:v61.x andPoint:v61.y, 1.0, 1.0, size.width + -2.0, size.height + -2.0]))
         {
           v64 = *&v122;
           v109 = *&v121;
@@ -790,7 +769,7 @@ LABEL_7:
           v131.x = v70 + aPointb;
           v131.y = v71 + v75;
           v82 = NSStringFromPoint(v131);
-          v83 = [v76 arrayWithObjects:{v77, v80, v81, v82, 0}];
+          v83 = [v76 arrayWithObjects:{v80, v81, v82, 0}];
 
           if (__p[0])
           {
@@ -804,22 +783,22 @@ LABEL_7:
           v83 = v53;
         }
 
-        v84 = [v83 objectAtIndexedSubscript:0];
+        v84 = [v83 objectAtIndexedSubscript:?];
         v85 = NSPointFromString(v84);
         x = v85.x;
         y = v85.y;
 
-        v86 = [v83 objectAtIndexedSubscript:1];
+        v86 = [v83 objectAtIndexedSubscript:?];
         v87 = NSPointFromString(v86);
         v43 = v87.x;
         v44 = v87.y;
 
-        v88 = [v83 objectAtIndexedSubscript:2];
+        v88 = [v83 objectAtIndexedSubscript:?];
         v89 = NSPointFromString(v88);
         aPointa = v89.y;
         v42 = v89.x;
 
-        v90 = [v83 objectAtIndexedSubscript:3];
+        v90 = [v83 objectAtIndexedSubscript:?];
         v91 = NSPointFromString(v90);
         v106 = v91.x;
         v41 = v91.y;
@@ -879,7 +858,7 @@ LABEL_7:
                       v135.x = v106;
                       v135.y = v41;
                       v98 = NSStringFromPoint(v135);
-                      v99 = [v94 arrayWithObjects:{v95, v96, v97, v98, 0}];
+                      v99 = [v94 arrayWithObjects:{v96, v97, v98, 0}];
 
                       if ([(GeometricCutTools *)self isPointArrayARectangle:v99])
                       {
@@ -912,80 +891,76 @@ LABEL_15:
 
 + (BOOL)derotateContentsOf:(id)of inImage:(vImage_Buffer *)image andOutputTo:(vImage_Buffer *)to withPadding:(CGPoint)padding networkInputSize:(CGSize)size
 {
-  height = size.height;
   width = size.width;
-  y = padding.y;
-  x = padding.x;
   ofCopy = of;
-  v42 = 0uLL;
-  v15 = [self boxInNormalizedSpace:ofCopy toImageSpaceWithSize:&v42 plusPadding:image->width destSize:image->height networkInputSize:{x, y, width, height}];
+  v38 = 0uLL;
+  v12 = [self boxInNormalizedSpace:? toImageSpaceWithSize:? plusPadding:? destSize:? networkInputSize:?];
 
-  if (v15 && (v16 = v42.f64[0] * 0.125, v17 = (ceilf(v16) * 8.0) + -5.0, v42.f64[0] = v17, width <= v17) && v17 <= (4 * image->width))
+  if (v12 && (v13 = 0.0 * 0.125, v14 = (ceilf(v13) * 8.0) + -5.0, v38.f64[0] = v14, width <= v14) && v14 <= (4 * image->width))
   {
-    to->data = malloc_type_malloc(v42.f64[1] * v17, 0x100004077774924uLL);
-    v20 = v42.f64[0];
-    v21 = vcvtq_u64_f64(v42);
-    *&to->height = vextq_s8(v21, v21, 8uLL);
-    to->rowBytes = v20;
-    v22 = [v15 objectAtIndexedSubscript:0];
+    to->data = malloc_type_malloc(0.0 * v14, 0x100004077774924uLL);
+    v17 = vcvtq_u64_f64(v38);
+    *&to->height = vextq_s8(v17, v17, 8uLL);
+    to->rowBytes = v38.f64[0];
+    v18 = [v12 objectAtIndexedSubscript:?];
+    v19 = NSPointFromString(v18);
+
+    v20 = [v12 objectAtIndexedSubscript:?];
+    v21 = NSPointFromString(v20);
+
+    v22 = [v12 objectAtIndexedSubscript:?];
     v23 = NSPointFromString(v22);
 
-    v24 = [v15 objectAtIndexedSubscript:1];
-    v25 = NSPointFromString(v24);
-
-    v26 = [v15 objectAtIndexedSubscript:3];
-    v27 = NSPointFromString(v26);
-
-    v28 = to->height;
-    if (v28)
+    height = to->height;
+    if (height)
     {
-      v29 = sqrt((v23.y - v27.y) * (v23.y - v27.y) + (v23.x - v27.x) * (v23.x - v27.x));
-      v30 = sqrt((v23.y - v25.y) * (v23.y - v25.y) + (v23.x - v25.x) * (v23.x - v25.x));
-      v31 = atan2(v25.y - v23.y, v25.x - v23.x);
-      v32 = __sincos_stret(v31 + 1.57079633);
-      v33 = __sincos_stret(v31);
-      v34 = 0;
-      v35 = to->width;
+      v25 = sqrt((v19.y - v23.y) * (v19.y - v23.y) + (v19.x - v23.x) * (v19.x - v23.x));
+      v26 = sqrt((v19.y - v21.y) * (v19.y - v21.y) + (v19.x - v21.x) * (v19.x - v21.x));
+      v27 = atan2(v21.y - v19.y, v21.x - v19.x);
+      v28 = __sincos_stret(v27 + 1.57079633);
+      v29 = __sincos_stret(v27);
+      v30 = 0;
+      v31 = to->width;
       do
       {
-        if (v35)
+        if (v31)
         {
-          v36 = 0;
-          v37 = v29 * v34 / (v28 - 1);
-          v38 = v23.y + v37 * v32.__sinval;
-          v39 = v23.x + v37 * v32.__cosval;
-          v40 = to->data + to->rowBytes * v34;
+          v32 = 0;
+          v33 = v25 * v30 / (height - 1);
+          v34 = v19.y + v33 * v28.__sinval;
+          v35 = v19.x + v33 * v28.__cosval;
+          v36 = to->data + to->rowBytes * v30;
           do
           {
-            v41 = v30 * v36 / (v35 - 1);
-            v40[v36++] = *(image->data + image->rowBytes * (v38 + v41 * v33.__sinval) + (v39 + v41 * v33.__cosval));
-            v35 = to->width;
+            v37 = v26 * v32 / (v31 - 1);
+            v36[v32++] = *(image->data + image->rowBytes * (v34 + v37 * v29.__sinval) + (v35 + v37 * v29.__cosval));
+            v31 = to->width;
           }
 
-          while (v35 > v36);
-          v28 = to->height;
+          while (v31 > v32);
+          height = to->height;
         }
 
-        ++v34;
+        ++v30;
       }
 
-      while (v28 > v34);
+      while (height > v30);
     }
 
-    v18 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v18 = 0;
+    v15 = 0;
   }
 
-  return v18;
+  return v15;
 }
 
 + (id)stringByInjectingSpaces:(id)spaces textFeatures:(id)features improved:(BOOL)improved
 {
-  v137 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   spacesCopy = spaces;
   featuresCopy = features;
   v115 = spacesCopy;
@@ -1000,15 +975,11 @@ LABEL_15:
 
   v114 = featuresCopy;
   subFeatures2 = [featuresCopy subFeatures];
-  v132[0] = 0;
-  std::vector<float>::vector[abi:ne200100](__p, [subFeatures2 count] - 1);
+  v123[0] = 0;
+  std::vector<float>::vector[abi:ne200100](__p, [subFeatures2 count] - 1, v123);
 
-  v125 = 0u;
-  v126 = 0u;
-  v123 = 0u;
-  v124 = 0u;
   subFeatures3 = [featuresCopy subFeatures];
-  v13 = [subFeatures3 countByEnumeratingWithState:&v123 objects:v136 count:16];
+  v13 = [subFeatures3 countByEnumeratingWithState:? objects:? count:?];
   if (!v13)
   {
 
@@ -1020,22 +991,22 @@ LABEL_17:
   }
 
   v14 = 0;
-  v15 = *v124;
+  v15 = MEMORY[0];
   v16 = 0.0;
   v17 = 0.0;
   do
   {
-    for (i = 0; i != v13; ++i)
+    for (i = 0; i != v13; i = (i + 1))
     {
-      if (*v124 != v15)
+      if (MEMORY[0] != v15)
       {
         objc_enumerationMutation(subFeatures3);
       }
 
-      v19 = *(*(&v123 + 1) + 8 * i);
+      v19 = *(8 * i);
       if (v17 != 0.0)
       {
-        [*(*(&v123 + 1) + 8 * i) bounds];
+        [*(8 * i) bounds];
         *&v20 = v20 - v17;
         *&v20 = fabsf(*&v20);
         *(__p[0] + v14++) = LODWORD(v20);
@@ -1048,7 +1019,7 @@ LABEL_17:
       v17 = v22 + v23;
     }
 
-    v13 = [subFeatures3 countByEnumeratingWithState:&v123 objects:v136 count:16];
+    v13 = [subFeatures3 countByEnumeratingWithState:? objects:? count:?];
   }
 
   while (v13);
@@ -1075,16 +1046,16 @@ LABEL_18:
   improvedCopy = improved;
   for (j = 0; j != 18; j += 6)
   {
-    v29 = &v132[j];
-    v29[2] = 0;
-    *&v132[j + 2] = 0;
-    *v29 = &v132[j + 2];
+    v29 = &v123[j];
+    *(v29 + 2) = 0;
+    *&v123[j + 2] = 0;
+    *v29 = &v123[j + 2];
   }
 
   v30 = *(__p[0] + v14 - 1);
-  v129 = *__p[0];
-  v130 = v30;
-  v131 = *(__p[0] + v14 / 2);
+  v120 = *__p[0];
+  v121 = v30;
+  v122 = *(__p[0] + v14 / 2);
   if (v14 <= 1)
   {
     v31 = 1;
@@ -1101,11 +1072,11 @@ LABEL_18:
     v118 = v32;
     for (k = 0; k != 18; k += 6)
     {
-      v34 = &v132[k];
-      v35 = &v132[k + 2];
-      std::__tree<int>::destroy(&v132[k], *v35);
+      v34 = &v123[k];
+      v35 = &v123[k + 2];
+      std::__tree<int>::destroy(&v123[k], *v35);
       *v34 = v35;
-      v34[2] = 0;
+      *(v34 + 2) = 0;
       *v35 = 0;
     }
 
@@ -1116,13 +1087,13 @@ LABEL_18:
         v37 = 0;
         for (n = 1; n != 3; ++n)
         {
-          if (((*(__p[0] + m) - *(&v129 + n)) * (*(__p[0] + m) - *(&v129 + n))) < ((*(__p[0] + m) - v129) * (*(__p[0] + m) - v129)))
+          if (((*(__p[0] + m) - *(&v120 + n)) * (*(__p[0] + m) - *(&v120 + n))) < ((*(__p[0] + m) - v120) * (*(__p[0] + m) - v120)))
           {
             v37 = n;
           }
         }
 
-        v39 = *&v132[6 * v37 + 2];
+        v39 = *&v123[6 * v37 + 2];
         if (!v39)
         {
 LABEL_38:
@@ -1166,16 +1137,16 @@ LABEL_38:
     v44 = __p[0];
     do
     {
-      v45 = &v132[6 * v42];
+      v45 = &v123[6 * v42];
       v48 = *v45;
-      v46 = v45 + 1;
+      v46 = v45 + 2;
       v47 = v48;
       v49 = 0.0;
       if (v48 != v46)
       {
         do
         {
-          v50 = v47[1];
+          v50 = *(v47 + 1);
           v51 = v47;
           if (v50)
           {
@@ -1192,7 +1163,7 @@ LABEL_38:
           {
             do
             {
-              v52 = v51[2];
+              v52 = *(v51 + 2);
               v53 = *v52 == v51;
               v51 = v52;
             }
@@ -1200,17 +1171,17 @@ LABEL_38:
             while (!v53);
           }
 
-          v49 = v49 + v44[*(v47 + 7)];
+          v49 = v49 + v44[v47[7]];
           v47 = v52;
         }
 
         while (v52 != v46);
       }
 
-      v54 = v49 / *&v132[6 * v42 + 4];
-      if (vabds_f32(v54, *(&v129 + v42)) > 0.00000011921)
+      v54 = v49 / *&v123[6 * v42 + 4];
+      if (vabds_f32(v54, *(&v120 + v42)) > 0.00000011921)
       {
-        *(&v129 + v42) = v54;
+        *(&v120 + v42) = v54;
         v43 = 1;
       }
 
@@ -1227,15 +1198,15 @@ LABEL_38:
   v57 = (v14 - 1);
   do
   {
-    v58 = &v132[6 * v55];
+    v58 = &v123[6 * v55];
     v61 = *v58;
-    v59 = v58 + 1;
+    v59 = v58 + 2;
     v60 = v61;
     if (v61 != v59)
     {
       do
       {
-        v62 = v60[1];
+        v62 = *(v60 + 1);
         v63 = v60;
         if (v62)
         {
@@ -1252,7 +1223,7 @@ LABEL_38:
         {
           do
           {
-            v64 = v63[2];
+            v64 = *(v63 + 2);
             v53 = *v64 == v63;
             v63 = v64;
           }
@@ -1260,7 +1231,7 @@ LABEL_38:
           while (!v53);
         }
 
-        v65 = v44[*(v60 + 7)] - *(&v129 + v55);
+        v65 = v44[v60[7]] - *(&v120 + v55);
         v56 = v56 + (v65 * v65);
         v60 = v64;
       }
@@ -1272,8 +1243,8 @@ LABEL_38:
   }
 
   while (v55 != 3);
-  v66 = v133 && v130 > v129;
-  if (v135 && v131 > *(&v129 + v66))
+  v66 = v124 && v121 > v120;
+  if (v126 && v122 > *(&v120 + v66))
   {
     v66 = 2;
   }
@@ -1281,30 +1252,26 @@ LABEL_38:
   v67 = v26 - v56;
   if (improvedCopy)
   {
-    v121 = 0u;
-    v122 = 0u;
-    v119 = 0u;
-    v120 = 0u;
     subFeatures4 = [v114 subFeatures];
-    v69 = [subFeatures4 countByEnumeratingWithState:&v119 objects:v128 count:16];
+    v69 = [subFeatures4 countByEnumeratingWithState:? objects:? count:?];
     if (v69)
     {
-      v70 = *v120;
+      v70 = MEMORY[0];
       v71 = 0.0;
       do
       {
-        for (ii = 0; ii != v69; ++ii)
+        for (ii = 0; ii != v69; ii = (ii + 1))
         {
-          if (*v120 != v70)
+          if (MEMORY[0] != v70)
           {
             objc_enumerationMutation(subFeatures4);
           }
 
-          [*(*(&v119 + 1) + 8 * ii) bounds];
+          [*(8 * ii) bounds];
           v71 = v73 + v71;
         }
 
-        v69 = [subFeatures4 countByEnumeratingWithState:&v119 objects:v128 count:16];
+        v69 = [subFeatures4 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v69);
@@ -1319,12 +1286,12 @@ LABEL_38:
     v84 = [subFeatures5 count];
 
     v85 = v66;
-    v86 = &v132[6 * v66];
-    v88 = v86 + 1;
+    v86 = &v123[6 * v66];
+    v88 = v86 + 2;
     v87 = *v86;
     v89 = 0.0;
     v90 = 0.0;
-    if (*v86 != v86 + 1)
+    if (*v86 != v86 + 2)
     {
       do
       {
@@ -1362,20 +1329,20 @@ LABEL_38:
 
     v94 = 0;
     v95 = 0;
-    v96 = v86[2];
+    v96 = *(v86 + 2);
     do
     {
       if (v94 != v85)
       {
-        v97 = &v132[6 * v94];
+        v97 = &v123[6 * v94];
         v100 = *v97;
-        v98 = v97 + 1;
+        v98 = v97 + 2;
         v99 = v100;
         if (v100 != v98)
         {
           do
           {
-            v101 = v99[1];
+            v101 = *(v99 + 1);
             v102 = v99;
             if (v101)
             {
@@ -1392,7 +1359,7 @@ LABEL_38:
             {
               do
               {
-                v103 = v102[2];
+                v103 = *(v102 + 2);
                 v53 = *v103 == v102;
                 v102 = v103;
               }
@@ -1400,7 +1367,7 @@ LABEL_38:
               while (!v53);
             }
 
-            v89 = v89 + *(__p[0] + *(v99 + 7));
+            v89 = v89 + *(__p[0] + v99[7]);
             ++v95;
             v99 = v103;
           }
@@ -1447,7 +1414,7 @@ LABEL_38:
             while (v107);
             if (v108 != v88 && v57 >= *(v108 + 7))
             {
-              [v116 insertString:@" " atIndex:v57 + 1];
+              [v116 insertString:? atIndex:?];
             }
           }
 
@@ -1461,7 +1428,7 @@ LABEL_38:
 
   else
   {
-    v74 = &v132[6 * v66];
+    v74 = &v123[6 * v66];
     v75 = v67 <= 0.0001 || *(v74 + 2) >= v14;
     v76 = v117;
     if (v75)
@@ -1494,7 +1461,7 @@ LABEL_38:
           while (v78);
           if (v79 != v77 && v57 >= *(v79 + 7))
           {
-            [v116 insertString:@" " atIndex:v57 + 1];
+            [v116 insertString:? atIndex:?];
           }
         }
 
@@ -1507,7 +1474,7 @@ LABEL_38:
 
   for (jj = 0; jj != -72; jj -= 24)
   {
-    std::__tree<int>::destroy(&v134[jj], *&v134[jj + 8]);
+    std::__tree<int>::destroy(&v125[jj], *&v125[jj + 8]);
   }
 
   featuresCopy = v114;
@@ -1524,130 +1491,122 @@ LABEL_137:
 
 + (id)geometricRecognitionOf:(id)of inDerotatedRegion:(vImage_Buffer *)region withPadding:(CGPoint)padding fromCorrectedBoundingBox:(id)box inImageWithSize:(CGSize)size withNetwork:(void *)network activations:()vector<std:(std:(BOOL)self0 :allocator<std::vector<std::vector<float>>>> *)a9 :vector<std::vector<float>> invert:
 {
-  stdCopy = std;
-  height = size.height;
-  width = size.width;
-  y = padding.y;
-  x = padding.x;
   ofCopy = of;
   boxCopy = box;
-  v22 = *&region->width;
-  v27[0] = *&region->data;
-  v27[1] = v22;
-  v23 = *(network + 21);
-  memset(v26, 0, sizeof(v26));
-  std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne200100]<std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(v26, a9->var0, a9->var1, 0xAAAAAAAAAAAAAAABLL * ((a9->var1 - a9->var0) >> 3));
-  v24 = [self geometricRecognitionOf:ofCopy inDerotatedRegion:v27 withPadding:boxCopy fromCorrectedBoundingBox:v23 inImageWithSize:v26 withCodeMap:stdCopy activations:x invert:y networkInputSize:{width, height, *(network + 25), *(network + 26)}];
-  *&v27[0] = v26;
-  std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](v27);
+  v16 = *&region->width;
+  v20[0] = *&region->data;
+  v20[1] = v16;
+  memset(v19, 0, sizeof(v19));
+  std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne200100]<std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(v19, a9->var0, a9->var1, 0xAAAAAAAAAAAAAAABLL * ((a9->var1 - a9->var0) >> 3));
+  v17 = [self geometricRecognitionOf:? inDerotatedRegion:? withPadding:? fromCorrectedBoundingBox:? inImageWithSize:? withCodeMap:? activations:? invert:? networkInputSize:?];
+  *&v20[0] = v19;
+  std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](v20);
 
-  return v24;
+  return v17;
 }
 
 + (id)geometricRecognitionOf:(id)of inDerotatedRegion:(vImage_Buffer *)region withPadding:(CGPoint)padding fromCorrectedBoundingBox:(id)box inImageWithSize:(CGSize)size withCodeMap:(const int *)map activations:()vector<std:(std:(BOOL)self0 :(CGSize)self1 allocator<std::vector<std::vector<float>>>> *)a9 :vector<std::vector<float>> invert:networkInputSize:
 {
   stdCopy = std;
-  height = a11.height;
   width = a11.width;
-  v18 = size.height;
-  v19 = size.width;
-  y = padding.y;
+  height = size.height;
+  v18 = size.width;
   x = padding.x;
-  v184 = *MEMORY[0x277D85DE8];
+  v169[17] = *MEMORY[0x277D85DE8];
   ofCopy = of;
   boxCopy = box;
-  mapCopy = map;
+  v169[0] = map;
   if (width <= region->width)
   {
-    v142 = v19;
-    v144 = v18;
-    v137 = [self boxInNormalizedSpace:boxCopy toImageSpaceWithSize:v181 plusPadding:v19 destSize:v18 networkInputSize:{x, y, width, height}];
+    v135 = v18;
+    v137 = height;
+    v131 = [self boxInNormalizedSpace:? toImageSpaceWithSize:? plusPadding:? destSize:? networkInputSize:?];
 
-    if (v137)
+    if (v131)
     {
-      v25 = [v137 objectAtIndexedSubscript:0];
+      v23 = [v131 objectAtIndexedSubscript:?];
+      v24 = NSPointFromString(v23);
+
+      v25 = [v131 objectAtIndexedSubscript:?];
       v26 = NSPointFromString(v25);
 
-      v27 = [v137 objectAtIndexedSubscript:1];
-      v28 = NSPointFromString(v27);
-
-      v179 = 0;
-      v180 = 0;
-      v178 = 0;
-      v29 = 0xAAAAAAAAAAAAAAABLL * ((a9->var1 - a9->var0) >> 3);
-      v30 = *a9->var0;
-      v31 = -1431655765 * ((*(a9->var0 + 1) - v30) >> 3);
-      if (v29 < 2)
+      v167 = 0;
+      v168 = 0;
+      v166 = 0;
+      v27 = 0xAAAAAAAAAAAAAAABLL * ((a9->var1 - a9->var0) >> 3);
+      v28 = *a9->var0;
+      v29 = -1431655765 * ((*(a9->var0 + 1) - v28) >> 3);
+      if (v27 < 2)
       {
-        std::vector<std::vector<float>>::resize(&v178, v31);
-        if (v31 >= 1)
+        std::vector<std::vector<float>>::resize(&v166, v29);
+        if (v29 >= 1)
         {
-          v42 = 0;
-          v43 = v31 & 0x7FFFFFFF;
+          v40 = 0;
+          v41 = v29 & 0x7FFFFFFF;
           do
           {
-            v44 = *a9->var0;
-            if (v178 != v44)
+            v42 = *a9->var0;
+            if (v166 != v42)
             {
-              std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v178[v42], v44[v42], v44[v42 + 1], (v44[v42 + 1] - v44[v42]) >> 2);
+              std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v166[v40], v42[v40], v42[v40 + 1], (v42[v40 + 1] - v42[v40]) >> 2);
             }
 
-            v42 += 3;
-            --v43;
+            v40 += 3;
+            --v41;
           }
 
-          while (v43);
+          while (v41);
         }
       }
 
       else
       {
-        v33 = *v30;
-        v32 = v30[1];
-        std::vector<std::vector<float>>::resize(&v178, v31);
-        if (v31 >= 1)
+        v31 = *v28;
+        v30 = v28[1];
+        std::vector<std::vector<float>>::resize(&v166, v29);
+        if (v29 >= 1)
         {
-          v34 = 0;
-          v157 = (v32 - v33) >> 2;
-          v35 = v29;
-          v36 = v29 & 0x7FFFFFFF;
+          v32 = 0;
+          v150 = (v30 - v31) >> 2;
+          v33 = v27;
+          v34 = v27 & 0x7FFFFFFF;
           do
           {
-            if (v157 >= 1)
+            if (v150 >= 1)
             {
-              v37 = 0;
+              v35 = 0;
               do
               {
                 var0 = a9->var0;
-                v39 = 0.0;
-                v40 = v36;
+                v37 = 0.0;
+                v38 = v34;
                 do
                 {
-                  v41 = *var0;
+                  v39 = *var0;
                   var0 += 3;
-                  v39 = v39 + *(*(v41 + 24 * v34) + 4 * v37);
-                  --v40;
+                  v37 = v37 + *(*(v39 + 24 * v32) + 4 * v35);
+                  --v38;
                 }
 
-                while (v40);
-                *&v172 = v39 / v35;
-                std::vector<float>::push_back[abi:ne200100](&v178[3 * v34], &v172);
-                ++v37;
+                while (v38);
+                *&v160 = v37 / v33;
+                std::vector<float>::push_back[abi:ne200100](&v166[3 * v32], &v160);
+                ++v35;
               }
 
-              while (v37 != (v157 & 0x7FFFFFFF));
+              while (v35 != (v150 & 0x7FFFFFFF));
             }
 
-            ++v34;
+            ++v32;
           }
 
-          while (v34 != (v31 & 0x7FFFFFFF));
+          while (v32 != (v29 & 0x7FFFFFFF));
         }
       }
 
       if (stdCopy)
       {
-        std::__reverse[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<std::vector<float> *>,std::__wrap_iter<std::vector<float> *>>(v178, v179);
+        std::__reverse[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<std::vector<float> *>,std::__wrap_iter<std::vector<float> *>>(v166, v167);
       }
 
       string = [MEMORY[0x277CCAB68] string];
@@ -1656,287 +1615,262 @@ LABEL_137:
       array = [MEMORY[0x277CBEB18] array];
       array2 = [MEMORY[0x277CBEB18] array];
       array3 = [MEMORY[0x277CBEB18] array];
-      v176 = 0u;
-      v177 = 0u;
-      v174 = 0u;
-      v175 = 0u;
+      v164 = 0u;
+      v165 = 0u;
+      v162 = 0u;
+      v163 = 0u;
       obj = [ofCopy subFeatures];
-      v46 = [obj countByEnumeratingWithState:&v174 objects:v183 count:16];
-      v150 = array;
-      if (v46)
+      v44 = [obj countByEnumeratingWithState:? objects:? count:?];
+      v143 = array;
+      if (v44)
       {
-        v47 = sqrt((v28.y - v26.y) * (v28.y - v26.y) + (v28.x - v26.x) * (v28.x - v26.x));
-        v139 = (v28.y - v26.y) / v47;
-        v140 = (v28.x - v26.x) / v47;
-        v48 = *v175;
+        v45 = sqrt((v26.y - v24.y) * (v26.y - v24.y) + (v26.x - v24.x) * (v26.x - v24.x));
+        v133 = (v26.y - v24.y) / v45;
+        v134 = (v26.x - v24.x) / v45;
+        v46 = *v163;
         do
         {
-          for (i = 0; i != v46; ++i)
+          for (i = 0; i != v44; i = (i + 1))
           {
-            if (*v175 != v48)
+            if (*v163 != v46)
             {
               objc_enumerationMutation(obj);
             }
 
-            v50 = *(*(&v174 + 1) + 8 * i);
-            [v50 bounds];
+            v48 = *(*(&v162 + 1) + 8 * i);
+            [v48 bounds];
+            v50 = v49;
+            [v48 bounds];
             v52 = v51;
-            [v50 bounds];
+            [v48 bounds];
             v54 = v53;
-            [v50 bounds];
-            v56 = v55;
-            [v50 bounds];
-            v58 = 0.0;
-            if (v47 > width)
+            [v48 bounds];
+            v56 = 0.0;
+            if (v45 > width)
             {
-              v59 = (v139 * (v144 * (v56 + v57 * 0.5) - v26.y) + (v142 * (v52 + v54 * 0.5) - v26.x) * v140 - width * 0.5) / (v47 - width);
-              if (v59 >= 0.0)
+              v57 = (v133 * (v137 * (v54 + v55 * 0.5) - v24.y) + (v135 * (v50 + v52 * 0.5) - v24.x) * v134 - width * 0.5) / (v45 - width);
+              if (v57 >= 0.0)
               {
-                v58 = (v139 * (v144 * (v56 + v57 * 0.5) - v26.y) + (v142 * (v52 + v54 * 0.5) - v26.x) * v140 - width * 0.5) / (v47 - width);
-                if (v59 > 1.0)
+                v56 = (v133 * (v137 * (v54 + v55 * 0.5) - v24.y) + (v135 * (v50 + v52 * 0.5) - v24.x) * v134 - width * 0.5) / (v45 - width);
+                if (v57 > 1.0)
                 {
-                  v58 = 1.0;
+                  v56 = 1.0;
                 }
               }
             }
 
-            v61 = v178;
-            v60 = v179;
-            [v50 bounds];
-            v63 = v62;
-            v64 = 1.0;
+            v59 = v166;
+            v58 = v167;
+            [v48 bounds];
+            v61 = v60;
+            v62 = 1.0;
             if (x != INFINITY)
             {
               [ofCopy bounds];
             }
 
-            v65 = 0xAAAAAAAAAAAAAAABLL * (v60 - v61);
-            v66 = (v58 * (v65 - 1));
-            v67 = (v63 * v65 / v64);
-            if (v67 <= 1)
+            v63 = 0xAAAAAAAAAAAAAAABLL * (v58 - v59);
+            v64 = (v56 * (v63 - 1));
+            v65 = (v61 * v63 / v62);
+            if (v65 <= 1)
             {
-              v68 = 1;
+              v66 = 1;
             }
 
             else
             {
-              v68 = v67;
+              v66 = v65;
             }
 
-            v69 = (v178[3 * v66 + 1] - v178[3 * v66]) >> 2;
-            v170 = 0;
-            std::vector<double>::vector[abi:ne200100](&v172, v69);
-            v70 = (v178[3 * v66 + 1] - v178[3 * v66]) >> 2;
+            v67 = (v166[3 * v64 + 1] - v166[3 * v64]) >> 2;
+            v158 = 0;
+            std::vector<double>::vector[abi:ne200100](&v160, v67, &v158);
+            v68 = (v166[3 * v64 + 1] - v166[3 * v64]) >> 2;
             __p = 0;
-            std::vector<double>::vector[abi:ne200100](&v170, v70);
-            v71 = (v178[3 * v66 + 1] - v178[3 * v66]) >> 2;
-            v167 = 0;
-            std::vector<double>::vector[abi:ne200100](&__p, v71);
-            array = v150;
-            fieldDecoding(&v178, v68, v66, &mapCopy, 1, &v172, v150, stdCopy);
-            fieldDecoding(&v178, v68, v66, &mapCopy, 2, &v170, array2, stdCopy);
-            fieldDecoding(&v178, v68, v66, &mapCopy, 3, &__p, array3, stdCopy);
-            if (v172 == v173)
+            std::vector<double>::vector[abi:ne200100](&v158, v68, &__p);
+            v69 = (v166[3 * v64 + 1] - v166[3 * v64]) >> 2;
+            v155 = 0;
+            std::vector<double>::vector[abi:ne200100](&__p, v69, &v155);
+            array = v143;
+            fieldDecoding(&v166, v66, v64, v169, 1, &v160, v143, stdCopy);
+            fieldDecoding(&v166, v66, v64, v169, 2, &v158, array2, stdCopy);
+            fieldDecoding(&v166, v66, v64, v169, 3, &__p, array3, stdCopy);
+            if (v160 == v161)
             {
-              v74 = v172;
+              v71 = v160;
             }
 
             else
             {
-              v73 = (v172 + 8);
-              v74 = v172;
-              if (v172 + 8 != v173)
+              v70 = (v160 + 8);
+              v71 = v160;
+              if (v160 + 8 != v161)
               {
-                v72 = *v172;
-                v74 = v172;
-                v75 = (v172 + 8);
+                v72 = *v160;
+                v71 = v160;
+                v73 = (v160 + 8);
                 do
                 {
-                  v76 = *v75++;
-                  v77 = v76;
-                  if (v72 < v76)
+                  v74 = *v73++;
+                  v75 = v74;
+                  if (v72 < v74)
                   {
-                    v72 = v77;
-                    v74 = v73;
+                    v72 = v75;
+                    v71 = v70;
                   }
 
-                  v73 = v75;
+                  v70 = v73;
                 }
 
-                while (v75 != v173);
+                while (v73 != v161);
               }
             }
 
-            v78 = (v170 + 8);
-            v79 = v170 == v171 || v78 == v171;
-            v80 = v170;
-            if (!v79)
+            if (v158 != v159 && v158 + 8 != v159)
             {
-              v72 = *v170;
-              v80 = v170;
-              v81 = (v170 + 8);
+              v77 = *v158;
+              v78 = (v158 + 8);
               do
               {
-                v82 = *v81++;
-                v83 = v82;
-                if (v72 < v82)
+                v79 = *v78++;
+                v80 = v79;
+                if (v77 < v79)
                 {
-                  v72 = v83;
-                  v80 = v78;
+                  v77 = v80;
                 }
-
-                v78 = v81;
               }
 
-              while (v81 != v171);
+              while (v78 != v159);
             }
 
-            v84 = (__p + 8);
-            v85 = __p == v169 || v84 == v169;
-            v86 = __p;
-            if (!v85)
+            if (__p != v157 && __p + 8 != v157)
             {
-              v72 = *__p;
-              v86 = __p;
-              v87 = (__p + 8);
+              v82 = *__p;
+              v83 = (__p + 8);
               do
               {
-                v88 = *v87++;
-                v89 = v88;
-                if (v72 < v88)
+                v84 = *v83++;
+                v85 = v84;
+                if (v82 < v84)
                 {
-                  v72 = v89;
-                  v86 = v84;
+                  v82 = v85;
                 }
-
-                v84 = v87;
               }
 
-              while (v87 != v169);
+              while (v83 != v157);
             }
 
-            LOWORD(v167) = *(map + ((v74 - v172) << 29 >> 30));
-            v166 = *(map + ((v80 - v170) << 29 >> 30));
-            v165 = *(map + ((v86 - __p) << 29 >> 30));
-            v90 = [MEMORY[0x277CCACA8] stringWithCharacters:&v167 length:{1, v72}];
-            [string appendString:v90];
+            LOWORD(v155) = *(map + ((v71 - v160) << 29 >> 30));
+            v86 = [MEMORY[0x277CCACA8] stringWithCharacters:? length:?];
+            [string appendString:?];
 
-            v91 = [MEMORY[0x277CCACA8] stringWithCharacters:&v166 length:1];
-            [string2 appendString:v91];
+            v87 = [MEMORY[0x277CCACA8] stringWithCharacters:? length:?];
+            [string2 appendString:?];
 
-            v92 = [MEMORY[0x277CCACA8] stringWithCharacters:&v165 length:1];
-            [string3 appendString:v92];
+            v88 = [MEMORY[0x277CCACA8] stringWithCharacters:? length:?];
+            [string3 appendString:?];
 
             if (__p)
             {
-              v169 = __p;
+              v157 = __p;
               operator delete(__p);
             }
 
-            if (v170)
+            if (v158)
             {
-              v171 = v170;
-              operator delete(v170);
+              v159 = v158;
+              operator delete(v158);
             }
 
-            if (v172)
+            if (v160)
             {
-              v173 = v172;
-              operator delete(v172);
+              v161 = v160;
+              operator delete(v160);
             }
           }
 
-          v46 = [obj countByEnumeratingWithState:&v174 objects:v183 count:16];
+          v44 = [obj countByEnumeratingWithState:? objects:? count:?];
         }
 
-        while (v46);
+        while (v44);
       }
 
-      std::vector<int>::vector[abi:ne200100](&v172, 0xAAAAAAAAAAAAAAABLL * (v179 - v178));
-      v93 = v178;
-      if (v179 != v178)
+      std::vector<int>::vector[abi:ne200100](&v160, 0xAAAAAAAAAAAAAAABLL * (v167 - v166));
+      v89 = v166;
+      if (v167 != v166)
       {
-        v94 = 0;
-        v95 = 0xAAAAAAAAAAAAAAABLL * (v179 - v178);
-        v96 = v172;
-        if (v95 <= 1)
+        v90 = 0;
+        v91 = 0xAAAAAAAAAAAAAAABLL * (v167 - v166);
+        v92 = v160;
+        if (v91 <= 1)
         {
-          v95 = 1;
+          v91 = 1;
         }
 
         do
         {
-          v97 = &v93[3 * v94];
-          v98 = *v97;
-          v99 = v97[1];
-          v100 = v98 + 1;
-          v101 = v98 == v99 || v100 == v99;
-          v102 = v98;
-          if (!v101)
+          v93 = &v89[3 * v90];
+          v94 = *v93;
+          v95 = v93[1];
+          v96 = v94 + 1;
+          v97 = v94 == v95 || v96 == v95;
+          v98 = v94;
+          if (!v97)
           {
-            v103 = *v98;
-            v102 = v98;
-            v104 = v98 + 1;
+            v99 = *v94;
+            v98 = v94;
+            v100 = v94 + 1;
             do
             {
-              v105 = *v104++;
-              v106 = v105;
-              if (v103 < v105)
+              v101 = *v100++;
+              v102 = v101;
+              if (v99 < v101)
               {
-                v103 = v106;
-                v102 = v100;
+                v99 = v102;
+                v98 = v96;
               }
 
-              v100 = v104;
+              v96 = v100;
             }
 
-            while (v104 != v99);
+            while (v100 != v95);
           }
 
-          v96[v94++] = *(map + ((v102 - v98) << 30 >> 30));
+          v92[v90++] = *(map + ((v98 - v94) << 30 >> 30));
         }
 
-        while (v94 != v95);
+        while (v90 != v91);
       }
 
-      v107 = [GeometricCutTools stringByInjectingSpaces:string textFeatures:ofCopy improved:0];
-      v108 = [GeometricCutTools stringByInjectingSpaces:string2 textFeatures:ofCopy improved:0];
-      v109 = [GeometricCutTools stringByInjectingSpaces:string3 textFeatures:ofCopy improved:0];
-      v110 = v109;
+      v103 = [GeometricCutTools stringByInjectingSpaces:"stringByInjectingSpaces:textFeatures:improved:" textFeatures:? improved:?];
+      v104 = [GeometricCutTools stringByInjectingSpaces:"stringByInjectingSpaces:textFeatures:improved:" textFeatures:? improved:?];
+      v105 = [GeometricCutTools stringByInjectingSpaces:"stringByInjectingSpaces:textFeatures:improved:" textFeatures:? improved:?];
+      v106 = v105;
       if (stdCopy)
       {
-        v141 = [MEMORY[0x277CCAB68] stringWithCapacity:{objc_msgSend(v107, "length")}];
-        v145 = [MEMORY[0x277CCAB68] stringWithCapacity:{objc_msgSend(v108, "length")}];
-        v143 = [MEMORY[0x277CCAB68] stringWithCapacity:{objc_msgSend(v110, "length")}];
-        v111 = [v107 length];
-        v163[0] = MEMORY[0x277D85DD0];
-        v163[1] = 3221225472;
-        v163[2] = __163__GeometricCutTools_geometricRecognitionOf_inDerotatedRegion_withPadding_fromCorrectedBoundingBox_inImageWithSize_withCodeMap_activations_invert_networkInputSize___block_invoke;
-        v163[3] = &unk_278EAAD90;
-        v112 = v141;
-        v164 = v112;
-        v113 = v107;
-        [v107 enumerateSubstringsInRange:0 options:v111 usingBlock:{258, v163}];
-        v114 = [v108 length];
-        v161[0] = MEMORY[0x277D85DD0];
-        v161[1] = 3221225472;
-        v161[2] = __163__GeometricCutTools_geometricRecognitionOf_inDerotatedRegion_withPadding_fromCorrectedBoundingBox_inImageWithSize_withCodeMap_activations_invert_networkInputSize___block_invoke_2;
-        v161[3] = &unk_278EAAD90;
-        v115 = v145;
-        v162 = v115;
-        [v108 enumerateSubstringsInRange:0 options:v114 usingBlock:{258, v161}];
-        v116 = [v110 length];
-        v159[0] = MEMORY[0x277D85DD0];
-        v159[1] = 3221225472;
-        v159[2] = __163__GeometricCutTools_geometricRecognitionOf_inDerotatedRegion_withPadding_fromCorrectedBoundingBox_inImageWithSize_withCodeMap_activations_invert_networkInputSize___block_invoke_3;
-        v159[3] = &unk_278EAAD90;
-        v117 = v143;
-        v160 = v117;
-        [v110 enumerateSubstringsInRange:0 options:v116 usingBlock:{258, v159}];
-        v107 = v112;
+        v107 = MEMORY[0x277CCAB68];
+        [v103 length];
+        v108 = [v107 stringWithCapacity:?];
+        v109 = MEMORY[0x277CCAB68];
+        [v104 length];
+        v138 = [v109 stringWithCapacity:?];
+        v110 = MEMORY[0x277CCAB68];
+        [v106 length];
+        v136 = [v110 stringWithCapacity:?];
+        [v103 length];
+        v154 = v108;
+        v111 = v103;
+        [v103 enumerateSubstringsInRange:? options:? usingBlock:?];
+        [v104 length];
+        v153 = v138;
+        [v104 enumerateSubstringsInRange:? options:? usingBlock:?];
+        [v106 length];
+        v152 = v136;
+        [v106 enumerateSubstringsInRange:? options:? usingBlock:?];
+        v103 = v154;
 
-        v147 = v115;
-        v146 = v117;
+        v140 = v153;
+        v139 = v152;
 
         reverseObjectEnumerator = [array reverseObjectEnumerator];
         allObjects = [reverseObjectEnumerator allObjects];
@@ -1944,500 +1878,488 @@ LABEL_137:
 
         reverseObjectEnumerator2 = [array2 reverseObjectEnumerator];
         allObjects2 = [reverseObjectEnumerator2 allObjects];
-        v151 = [allObjects2 mutableCopy];
+        v144 = [allObjects2 mutableCopy];
 
         reverseObjectEnumerator3 = [array3 reverseObjectEnumerator];
         allObjects3 = [reverseObjectEnumerator3 allObjects];
-        v124 = [allObjects3 mutableCopy];
+        v118 = [allObjects3 mutableCopy];
 
-        array3 = v124;
+        array3 = v118;
       }
 
       else
       {
         obja = array;
-        v151 = array2;
-        v146 = v109;
-        v147 = v108;
+        v144 = array2;
+        v139 = v105;
+        v140 = v104;
       }
 
-      v125 = MEMORY[0x277CBEAC0];
-      v126 = MEMORY[0x277CBEA60];
-      v156 = [MEMORY[0x277CCACA8] _newZStringWithString:v107];
-      v127 = [MEMORY[0x277CCABB0] numberWithInteger:0xAAAAAAAAAAAAAAABLL * (v179 - v178)];
-      v128 = [v126 arrayWithObjects:{v156, obja, v127, 0}];
-      v129 = MEMORY[0x277CBEA60];
-      v130 = [MEMORY[0x277CCACA8] _newZStringWithString:v147];
-      v131 = [MEMORY[0x277CCABB0] numberWithInteger:0xAAAAAAAAAAAAAAABLL * (v179 - v178)];
-      v132 = [v129 arrayWithObjects:{v130, v151, v131, 0}];
-      v133 = MEMORY[0x277CBEA60];
-      v134 = [MEMORY[0x277CCABB0] numberWithInteger:0xAAAAAAAAAAAAAAABLL * (v179 - v178)];
-      v135 = [v133 arrayWithObjects:{v146, array3, v134, 0}];
-      v24 = [v125 dictionaryWithObjectsAndKeys:{v128, @"CardNumber", v132, @"Cardholder", v135, @"Expiration", 0}];
+      v119 = MEMORY[0x277CBEAC0];
+      v120 = MEMORY[0x277CBEA60];
+      v149 = [MEMORY[0x277CCACA8] _newZStringWithString:?];
+      v121 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+      v122 = [v120 arrayWithObjects:{obja, v121, 0}];
+      v123 = MEMORY[0x277CBEA60];
+      v124 = [MEMORY[0x277CCACA8] _newZStringWithString:?];
+      v125 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+      v126 = [v123 arrayWithObjects:{v144, v125, 0}];
+      v127 = MEMORY[0x277CBEA60];
+      v128 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+      v129 = [v127 arrayWithObjects:{array3, v128, 0}];
+      v22 = [v119 dictionaryWithObjectsAndKeys:{@"CardNumber", v126, @"Cardholder", v129, @"Expiration", 0}];
 
-      if (v172)
+      if (v160)
       {
-        v173 = v172;
-        operator delete(v172);
+        v161 = v160;
+        operator delete(v160);
       }
 
-      v172 = &v178;
-      std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v172);
+      v160 = &v166;
+      std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v160);
     }
 
     else
     {
-      v24 = 0;
+      v22 = 0;
     }
 
-    boxCopy = v137;
+    boxCopy = v131;
   }
 
   else
   {
-    v24 = 0;
+    v22 = 0;
   }
 
-  return v24;
+  return v22;
 }
 
 + (id)geometricRecognitionOf:(id)of inDerotatedRegion:(vImage_Buffer *)region withPadding:(CGPoint)padding fromCorrectedBoundingBox:(id)box inImageWithSize:(CGSize)size withNetwork:(void *)network activations:()vector<std:(std:(BOOL)self0 :(unsigned __int16)self1 allocator<std::vector<std::vector<float>>>> *)a9 :vector<std::vector<float>> invert:garbageSymbol:
 {
-  stdCopy = std;
-  height = size.height;
-  width = size.width;
-  y = padding.y;
-  x = padding.x;
   ofCopy = of;
   boxCopy = box;
-  v23 = *&region->width;
-  v29[0] = *&region->data;
-  v29[1] = v23;
-  v24 = *(network + 21);
-  memset(v28, 0, sizeof(v28));
-  std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne200100]<std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(v28, a9->var0, a9->var1, 0xAAAAAAAAAAAAAAABLL * ((a9->var1 - a9->var0) >> 3));
-  LOWORD(v27) = a11;
-  v25 = [self geometricRecognitionOf:ofCopy inDerotatedRegion:v29 withPadding:boxCopy fromCorrectedBoundingBox:v24 inImageWithSize:v28 withCodeMap:stdCopy activations:x invert:y networkInputSize:width garbageSymbol:{height, *(network + 25), *(network + 26), v27}];
-  *&v29[0] = v28;
-  std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](v29);
+  v17 = *&region->width;
+  v22[0] = *&region->data;
+  v22[1] = v17;
+  memset(v21, 0, sizeof(v21));
+  std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne200100]<std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(v21, a9->var0, a9->var1, 0xAAAAAAAAAAAAAAABLL * ((a9->var1 - a9->var0) >> 3));
+  LOWORD(v20) = a11;
+  v18 = [self geometricRecognitionOf:v20 inDerotatedRegion:? withPadding:? fromCorrectedBoundingBox:? inImageWithSize:? withCodeMap:? activations:? invert:? networkInputSize:? garbageSymbol:?];
+  *&v22[0] = v21;
+  std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](v22);
 
-  return v25;
+  return v18;
 }
 
 + (id)geometricRecognitionOf:(id)of inDerotatedRegion:(vImage_Buffer *)region withPadding:(CGPoint)padding fromCorrectedBoundingBox:(id)box inImageWithSize:(CGSize)size withCodeMap:(const int *)map activations:()vector<std:(std:(BOOL)self0 :(CGSize)self1 allocator<std:(unsigned __int16)self2 :vector<std::vector<float>>>> *)a9 :vector<std::vector<float>> invert:networkInputSize:garbageSymbol:
 {
   stdCopy = std;
-  height = a11.height;
   width = a11.width;
-  v18 = size.height;
-  v19 = size.width;
-  y = padding.y;
+  height = size.height;
+  v18 = size.width;
   x = padding.x;
-  v143 = *MEMORY[0x277D85DE8];
+  v138 = *MEMORY[0x277D85DE8];
   ofCopy = of;
   boxCopy = box;
   if (width <= region->width)
   {
-    v122 = v19;
-    v123 = v18;
-    v118 = [self boxInNormalizedSpace:boxCopy toImageSpaceWithSize:v141 plusPadding:v19 destSize:v18 networkInputSize:{x, y, width, height}];
+    v120 = v18;
+    v121 = height;
+    v116 = [self boxInNormalizedSpace:? toImageSpaceWithSize:? plusPadding:? destSize:? networkInputSize:?];
 
-    if (v118)
+    if (v116)
     {
-      v25 = [v118 objectAtIndexedSubscript:0];
+      v23 = [v116 objectAtIndexedSubscript:?];
+      v24 = NSPointFromString(v23);
+
+      v25 = [v116 objectAtIndexedSubscript:?];
       v26 = NSPointFromString(v25);
 
-      v27 = [v118 objectAtIndexedSubscript:1];
-      v28 = NSPointFromString(v27);
-
-      v139 = 0;
-      v140 = 0;
-      v138 = 0;
-      v29 = 0xAAAAAAAAAAAAAAABLL * ((a9->var1 - a9->var0) >> 3);
-      v30 = *a9->var0;
-      v31 = -1431655765 * ((*(a9->var0 + 1) - v30) >> 3);
-      if (v29 < 2)
+      v136 = 0;
+      v137 = 0;
+      v135 = 0;
+      v27 = 0xAAAAAAAAAAAAAAABLL * ((a9->var1 - a9->var0) >> 3);
+      v28 = *a9->var0;
+      v29 = -1431655765 * ((*(a9->var0 + 1) - v28) >> 3);
+      if (v27 < 2)
       {
-        std::vector<std::vector<float>>::resize(&v138, v31);
-        if (v31 >= 1)
+        std::vector<std::vector<float>>::resize(&v135, v29);
+        if (v29 >= 1)
         {
-          v42 = 0;
-          v43 = v31 & 0x7FFFFFFF;
+          v40 = 0;
+          v41 = v29 & 0x7FFFFFFF;
           do
           {
-            v44 = *a9->var0;
-            if (v138 != v44)
+            v42 = *a9->var0;
+            if (v135 != v42)
             {
-              std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v138[v42], v44[v42], v44[v42 + 1], (v44[v42 + 1] - v44[v42]) >> 2);
+              std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&v135[v40], v42[v40], v42[v40 + 1], (v42[v40 + 1] - v42[v40]) >> 2);
             }
 
-            v42 += 3;
-            --v43;
+            v40 += 3;
+            --v41;
           }
 
-          while (v43);
+          while (v41);
         }
       }
 
       else
       {
-        v33 = *v30;
-        v32 = v30[1];
-        std::vector<std::vector<float>>::resize(&v138, v31);
-        if (v31 >= 1)
+        v31 = *v28;
+        v30 = v28[1];
+        std::vector<std::vector<float>>::resize(&v135, v29);
+        if (v29 >= 1)
         {
-          v34 = 0;
-          v127 = (v32 - v33) >> 2;
-          v35 = v29;
-          v36 = v29 & 0x7FFFFFFF;
+          v32 = 0;
+          v125 = (v30 - v31) >> 2;
+          v33 = v27;
+          v34 = v27 & 0x7FFFFFFF;
           do
           {
-            if (v127 >= 1)
+            if (v125 >= 1)
             {
-              v37 = 0;
+              v35 = 0;
               do
               {
                 var0 = a9->var0;
-                v39 = 0.0;
-                v40 = v36;
+                v37 = 0.0;
+                v38 = v34;
                 do
                 {
-                  v41 = *var0;
+                  v39 = *var0;
                   var0 += 3;
-                  v39 = v39 + *(*(v41 + 24 * v34) + 4 * v37);
-                  --v40;
+                  v37 = v37 + *(*(v39 + 24 * v32) + 4 * v35);
+                  --v38;
                 }
 
-                while (v40);
-                *&__p = v39 / v35;
-                std::vector<float>::push_back[abi:ne200100](&v138[3 * v34], &__p);
-                ++v37;
+                while (v38);
+                *&__p = v37 / v33;
+                std::vector<float>::push_back[abi:ne200100](&v135[3 * v32], &__p);
+                ++v35;
               }
 
-              while (v37 != (v127 & 0x7FFFFFFF));
+              while (v35 != (v125 & 0x7FFFFFFF));
             }
 
-            ++v34;
+            ++v32;
           }
 
-          while (v34 != (v31 & 0x7FFFFFFF));
+          while (v32 != (v29 & 0x7FFFFFFF));
         }
       }
 
       if (stdCopy)
       {
-        std::__reverse[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<std::vector<float> *>,std::__wrap_iter<std::vector<float> *>>(v138, v139);
+        std::__reverse[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<std::vector<float> *>,std::__wrap_iter<std::vector<float> *>>(v135, v136);
       }
 
       string = [MEMORY[0x277CCAB68] string];
       array = [MEMORY[0x277CBEB18] array];
-      v136 = 0u;
-      v137 = 0u;
+      v133 = 0u;
       v134 = 0u;
-      v135 = 0u;
+      v131 = 0u;
+      v132 = 0u;
       subFeatures = [ofCopy subFeatures];
-      v46 = [subFeatures countByEnumeratingWithState:&v134 objects:v142 count:16];
-      if (v46)
+      v44 = [subFeatures countByEnumeratingWithState:? objects:? count:?];
+      if (v44)
       {
-        v47 = sqrt((v28.y - v26.y) * (v28.y - v26.y) + (v28.x - v26.x) * (v28.x - v26.x));
-        v120 = (v28.y - v26.y) / v47;
-        v121 = (v28.x - v26.x) / v47;
-        v124 = *v135;
-        v48 = subFeatures;
+        v45 = sqrt((v26.y - v24.y) * (v26.y - v24.y) + (v26.x - v24.x) * (v26.x - v24.x));
+        v118 = (v26.y - v24.y) / v45;
+        v119 = (v26.x - v24.x) / v45;
+        v122 = *v132;
+        v46 = subFeatures;
         do
         {
-          v126 = v46;
-          for (i = 0; i != v126; ++i)
+          v124 = v44;
+          for (i = 0; i != v124; i = (i + 1))
           {
-            if (*v135 != v124)
+            if (*v132 != v122)
             {
               objc_enumerationMutation(subFeatures);
             }
 
-            v50 = *(*(&v134 + 1) + 8 * i);
-            [v50 bounds];
+            v48 = *(*(&v131 + 1) + 8 * i);
+            [v48 bounds];
+            v50 = v49;
+            [v48 bounds];
             v52 = v51;
-            [v50 bounds];
+            [v48 bounds];
             v54 = v53;
-            [v50 bounds];
-            v56 = v55;
-            [v50 bounds];
-            v58 = 0.0;
-            if (v47 > width)
+            [v48 bounds];
+            v56 = 0.0;
+            if (v45 > width)
             {
-              v59 = (v120 * (v123 * (v56 + v57 * 0.5) - v26.y) + (v122 * (v52 + v54 * 0.5) - v26.x) * v121 - width * 0.5) / (v47 - width);
-              if (v59 >= 0.0)
+              v57 = (v118 * (v121 * (v54 + v55 * 0.5) - v24.y) + (v120 * (v50 + v52 * 0.5) - v24.x) * v119 - width * 0.5) / (v45 - width);
+              if (v57 >= 0.0)
               {
-                v58 = (v120 * (v123 * (v56 + v57 * 0.5) - v26.y) + (v122 * (v52 + v54 * 0.5) - v26.x) * v121 - width * 0.5) / (v47 - width);
-                if (v59 > 1.0)
+                v56 = (v118 * (v121 * (v54 + v55 * 0.5) - v24.y) + (v120 * (v50 + v52 * 0.5) - v24.x) * v119 - width * 0.5) / (v45 - width);
+                if (v57 > 1.0)
                 {
-                  v58 = 1.0;
+                  v56 = 1.0;
                 }
               }
             }
 
-            v61 = v138;
-            v60 = v139;
-            [v50 bounds];
-            v63 = v62;
-            v64 = 1.0;
+            v59 = v135;
+            v58 = v136;
+            [v48 bounds];
+            v61 = v60;
+            v62 = 1.0;
             if (x != INFINITY)
             {
               [ofCopy bounds];
             }
 
-            v65 = 0xAAAAAAAAAAAAAAABLL * (v60 - v61);
-            v66 = (v58 * (v65 - 1));
-            v67 = (v63 * v65 / v64);
-            if (v67 <= 1)
+            v63 = 0xAAAAAAAAAAAAAAABLL * (v58 - v59);
+            v64 = (v56 * (v63 - 1));
+            v65 = (v61 * v63 / v62);
+            if (v65 <= 1)
             {
-              v68 = 1;
+              v66 = 1;
             }
 
             else
             {
-              v68 = v67;
+              v66 = v65;
             }
 
-            v69 = 0xAAAAAAAAAAAAAAABLL * (v139 - v138);
-            v70 = v69 - 1;
-            v71 = v69 - 1;
-            if (v70 >= (v66 + (v68 >> 1)))
+            v67 = 0xAAAAAAAAAAAAAAABLL * (v136 - v135);
+            v68 = v67 - 1;
+            v69 = v67 - 1;
+            if (v68 >= (v64 + (v66 >> 1)))
             {
-              v72 = v66 + (v68 >> 1);
+              v70 = v64 + (v66 >> 1);
             }
 
             else
             {
-              v72 = v71;
+              v70 = v69;
             }
 
-            v73 = (v138[3 * v66 + 1] - v138[3 * v66]) >> 2;
-            v131 = 0;
-            std::vector<double>::vector[abi:ne200100](&__p, v73);
+            v71 = (v135[3 * v64 + 1] - v135[3 * v64]) >> 2;
+            v128 = 0;
+            std::vector<double>::vector[abi:ne200100](&__p, v71, &v128);
             string2 = [MEMORY[0x277CCAB68] string];
-            v76 = (v66 - (v68 >> 1)) & ~((v66 - (v68 >> 1)) >> 31);
-            if (v76 <= v72)
+            v73 = (v64 - (v66 >> 1)) & ~((v64 - (v66 >> 1)) >> 31);
+            if (v73 <= v70)
             {
               do
               {
-                v77 = &v138[3 * v76];
-                v78 = *v77;
-                v79 = v77[1] - *v77;
-                if (v79)
+                v74 = &v135[3 * v73];
+                v75 = *v74;
+                v76 = v74[1] - *v74;
+                if (v76)
                 {
-                  v80 = 0;
-                  v81 = v79 >> 2;
-                  if (v81 <= 1)
+                  v77 = 0;
+                  v78 = v76 >> 2;
+                  if (v78 <= 1)
                   {
-                    v82 = 1;
+                    v79 = 1;
                   }
 
                   else
                   {
-                    v82 = v81;
+                    v79 = v78;
                   }
 
-                  v83 = -1;
-                  LODWORD(v75) = -8388608;
+                  v80 = -1;
+                  v81 = -INFINITY;
                   do
                   {
-                    if (map[v80] != a12 && *(v78 + 4 * v80) > *&v75)
+                    if (map[v77] != a12 && *(v75 + 4 * v77) > v81)
                     {
-                      LODWORD(v75) = *(v78 + 4 * v80);
-                      v83 = v80;
+                      v81 = *(v75 + 4 * v77);
+                      v80 = v77;
                     }
 
-                    ++v80;
+                    ++v77;
                   }
 
-                  while (v82 != v80);
-                  if ((v83 & 0x80000000) == 0)
+                  while (v79 != v77);
+                  if ((v80 & 0x80000000) == 0)
                   {
-                    v75 = *(__p + v83) + *&v75;
-                    *(__p + v83) = v75;
+                    *(__p + v80) = *(__p + v80) + v81;
                   }
                 }
 
                 else
                 {
-                  v83 = -1;
+                  v80 = -1;
                 }
 
-                LOWORD(v131) = map[v83];
-                v84 = [MEMORY[0x277CCACA8] stringWithCharacters:&v131 length:{1, v75}];
-                [string2 appendString:v84];
+                LOWORD(v128) = map[v80];
+                v82 = [MEMORY[0x277CCACA8] stringWithCharacters:? length:?];
+                [string2 appendString:?];
 
-                v85 = [MEMORY[0x277CCABB0] numberWithInteger:v76];
-                [array addObject:v85];
+                v83 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+                [array addObject:?];
 
-                ++v76;
+                ++v73;
               }
 
-              while (v76 != v72 + 1);
+              while (v73 != v70 + 1);
             }
 
-            if (__p == v133)
+            if (__p == v130)
             {
-              v87 = __p;
+              v85 = __p;
             }
 
             else
             {
-              v86 = (__p + 8);
-              v87 = __p;
-              if (__p + 8 != v133)
+              v84 = (__p + 8);
+              v85 = __p;
+              if (__p + 8 != v130)
               {
-                v75 = *__p;
-                v87 = __p;
-                v88 = (__p + 8);
+                v86 = *__p;
+                v85 = __p;
+                v87 = (__p + 8);
                 do
                 {
-                  v89 = *v88++;
-                  v90 = v89;
-                  if (v75 < v89)
+                  v88 = *v87++;
+                  v89 = v88;
+                  if (v86 < v88)
                   {
-                    v75 = v90;
-                    v87 = v86;
+                    v86 = v89;
+                    v85 = v84;
                   }
 
-                  v86 = v88;
+                  v84 = v87;
                 }
 
-                while (v88 != v133);
+                while (v87 != v130);
               }
             }
 
-            LOWORD(v131) = *(map + ((v87 - __p) << 29 >> 30));
-            subFeatures = v48;
-            v91 = [MEMORY[0x277CCACA8] stringWithCharacters:&v131 length:{1, v75}];
-            [string appendString:v91];
+            LOWORD(v128) = *(map + ((v85 - __p) << 29 >> 30));
+            subFeatures = v46;
+            v90 = [MEMORY[0x277CCACA8] stringWithCharacters:? length:?];
+            [string appendString:?];
 
             if (__p)
             {
-              v133 = __p;
+              v130 = __p;
               operator delete(__p);
             }
           }
 
-          v46 = [v48 countByEnumeratingWithState:&v134 objects:v142 count:16];
+          v44 = [v46 countByEnumeratingWithState:? objects:? count:?];
         }
 
-        while (v46);
+        while (v44);
       }
 
-      std::vector<int>::vector[abi:ne200100](&__p, 0xAAAAAAAAAAAAAAABLL * (v139 - v138));
-      v92 = v138;
-      if (v139 != v138)
+      std::vector<int>::vector[abi:ne200100](&__p, 0xAAAAAAAAAAAAAAABLL * (v136 - v135));
+      v91 = v135;
+      if (v136 != v135)
       {
-        v93 = 0;
-        v94 = 0xAAAAAAAAAAAAAAABLL * (v139 - v138);
-        v95 = __p;
-        if (v94 <= 1)
+        v92 = 0;
+        v93 = 0xAAAAAAAAAAAAAAABLL * (v136 - v135);
+        v94 = __p;
+        if (v93 <= 1)
         {
-          v94 = 1;
+          v93 = 1;
         }
 
         do
         {
-          v96 = &v92[3 * v93];
-          v97 = *v96;
-          v98 = v96[1];
-          v99 = v97 + 1;
-          v100 = v97 == v98 || v99 == v98;
-          v101 = v97;
-          if (!v100)
+          v95 = &v91[3 * v92];
+          v96 = *v95;
+          v97 = v95[1];
+          v98 = v96 + 1;
+          v99 = v96 == v97 || v98 == v97;
+          v100 = v96;
+          if (!v99)
           {
-            v102 = *v97;
-            v101 = v97;
-            v103 = v97 + 1;
+            v101 = *v96;
+            v100 = v96;
+            v102 = v96 + 1;
             do
             {
-              v104 = *v103++;
-              v105 = v104;
-              if (v102 < v104)
+              v103 = *v102++;
+              v104 = v103;
+              if (v101 < v103)
               {
-                v102 = v105;
-                v101 = v99;
+                v101 = v104;
+                v100 = v98;
               }
 
-              v99 = v103;
+              v98 = v102;
             }
 
-            while (v103 != v98);
+            while (v102 != v97);
           }
 
-          v95[v93++] = *(map + ((v101 - v97) << 30 >> 30));
+          v94[v92++] = *(map + ((v100 - v96) << 30 >> 30));
         }
 
-        while (v93 != v94);
+        while (v92 != v93);
       }
 
       string3 = [MEMORY[0x277CCAB68] string];
-      v107 = __p;
-      if (v133 != __p)
+      v106 = __p;
+      if (v130 != __p)
       {
-        v108 = 0;
+        v107 = 0;
         do
         {
-          LOWORD(v131) = v107[v108];
-          v109 = [MEMORY[0x277CCACA8] stringWithCharacters:&v131 length:1];
-          [string3 appendString:v109];
+          LOWORD(v128) = v106[v107];
+          v108 = [MEMORY[0x277CCACA8] stringWithCharacters:? length:?];
+          [string3 appendString:?];
 
-          ++v108;
-          v107 = __p;
+          ++v107;
+          v106 = __p;
         }
 
-        while (v108 < (v133 - __p) >> 2);
+        while (v107 < (v130 - __p) >> 2);
       }
 
-      v110 = [GeometricCutTools stringByInjectingSpaces:string textFeatures:ofCopy improved:1];
-      v111 = v110;
+      v109 = [GeometricCutTools stringByInjectingSpaces:"stringByInjectingSpaces:textFeatures:improved:" textFeatures:? improved:?];
+      v110 = v109;
       if (stdCopy)
       {
-        v112 = [MEMORY[0x277CCAB68] stringWithCapacity:{objc_msgSend(v110, "length")}];
-        v113 = [v111 length];
-        v129[0] = MEMORY[0x277D85DD0];
-        v129[1] = 3221225472;
-        v129[2] = __177__GeometricCutTools_geometricRecognitionOf_inDerotatedRegion_withPadding_fromCorrectedBoundingBox_inImageWithSize_withCodeMap_activations_invert_networkInputSize_garbageSymbol___block_invoke;
-        v129[3] = &unk_278EAAD90;
-        v114 = v112;
-        v130 = v114;
-        [v111 enumerateSubstringsInRange:0 options:v113 usingBlock:{258, v129}];
-        v115 = v114;
+        v111 = MEMORY[0x277CCAB68];
+        [v109 length];
+        v112 = [v111 stringWithCapacity:?];
+        [v110 length];
+        v127 = v112;
+        [v110 enumerateSubstringsInRange:? options:? usingBlock:?];
+        v113 = v127;
       }
 
       else
       {
-        v115 = v110;
+        v113 = v109;
       }
 
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:{v115, array, 0}];
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:{array, 0}];
 
       if (__p)
       {
-        v133 = __p;
+        v130 = __p;
         operator delete(__p);
       }
 
-      __p = &v138;
+      __p = &v135;
       std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&__p);
     }
 
     else
     {
-      v24 = 0;
+      v22 = 0;
     }
 
-    boxCopy = v118;
+    boxCopy = v116;
   }
 
   else
   {
-    v24 = 0;
+    v22 = 0;
   }
 
-  return v24;
+  return v22;
 }
 
 @end

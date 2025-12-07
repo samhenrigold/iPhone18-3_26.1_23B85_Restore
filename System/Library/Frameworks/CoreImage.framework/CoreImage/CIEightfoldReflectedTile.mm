@@ -48,7 +48,7 @@
   v24 = v23;
   v26 = v25;
   v28 = v27;
-  affine::inverse(&v43, v42);
+  affine::inverse(v42, &v43);
   v29 = [CIVector vectorWithX:v42[0] Y:v42[2] Z:v42[1] W:v42[3]];
   v30 = [CIVector vectorWithX:v43 Y:v45 Z:v44 W:v46];
   _kernel = [(CIEightfoldReflectedTile *)self _kernel];

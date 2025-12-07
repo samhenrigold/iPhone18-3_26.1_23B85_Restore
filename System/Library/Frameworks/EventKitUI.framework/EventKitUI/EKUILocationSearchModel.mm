@@ -2139,7 +2139,7 @@ void __48__EKUILocationSearchModel_updateEventLocations___block_invoke_2(uint64_
   dispatch_group_leave(*(a1 + 48));
 }
 
-uint64_t __48__EKUILocationSearchModel_updateEventLocations___block_invoke_132(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__48__EKUILocationSearchModel_updateEventLocations___block_invoke_132(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isEqualToLocation:a2];
   if (result)

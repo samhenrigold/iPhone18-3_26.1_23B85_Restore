@@ -274,7 +274,6 @@
   }
 
   MEMORY[0x1E69E5920](v27);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setPerceptualBrightnessWithFade:(float)fade length:(float)length current:(float)current
@@ -382,7 +381,6 @@
   _Block_object_dispose(&v30, 8);
   _Block_object_dispose(&v37, 8);
   _Block_object_dispose(&v42, 8);
-  *MEMORY[0x1E69E9840];
 }
 
 void __59__CBABRamp_setPerceptualBrightnessWithFade_length_current___block_invoke(uint64_t a1)
@@ -487,8 +485,6 @@ void __59__CBABRamp_setPerceptualBrightnessWithFade_length_current___block_invok
 
     [*(a1 + 32) stopTransition];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 @end

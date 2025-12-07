@@ -8,15 +8,15 @@
 
 + (BOOL)isNLRouterAssetAvailable:(id)available
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   availableCopy = available;
   v4 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v24 = "+[CDMCcqrServiceUtils isNLRouterAssetAvailable:]";
-    v25 = 2112;
-    v26 = availableCopy;
+    v23 = "+[CDMCcqrServiceUtils isNLRouterAssetAvailable:]";
+    v24 = 2112;
+    v25 = availableCopy;
     _os_log_debug_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEBUG, "%s Checking NLRouter assets for locale: %@", buf, 0x16u);
   }
 
@@ -27,9 +27,9 @@
     v7 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:availableCopy];
     if ([v6 shouldReSetupForLocale:availableCopy cdmAssetsInfo:v5])
     {
-      v22 = 0;
-      [v6 setupForLocale:v7 cdmAssetsInfo:v5 error:&v22];
-      v8 = v22;
+      v21 = 0;
+      [v6 setupForLocale:v7 cdmAssetsInfo:v5 error:&v21];
+      v8 = v21;
       if (v8)
       {
         v9 = v8;
@@ -37,9 +37,9 @@
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v24 = "+[CDMCcqrServiceUtils isNLRouterAssetAvailable:]";
-          v25 = 2112;
-          v26 = v9;
+          v23 = "+[CDMCcqrServiceUtils isNLRouterAssetAvailable:]";
+          v24 = 2112;
+          v25 = v9;
           _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s NLRouter CDM assets manager failed to setup with error: %@.", buf, 0x16u);
         }
 
@@ -53,15 +53,15 @@
     {
       descriptionInStringsFileFormat = [v9 descriptionInStringsFileFormat];
       *buf = 136315394;
-      v24 = "+[CDMCcqrServiceUtils isNLRouterAssetAvailable:]";
-      v25 = 2112;
-      v26 = descriptionInStringsFileFormat;
+      v23 = "+[CDMCcqrServiceUtils isNLRouterAssetAvailable:]";
+      v24 = 2112;
+      v25 = descriptionInStringsFileFormat;
       _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s AssetPath Info for NLRouter.  %@", buf, 0x16u);
     }
 
-    v21 = 0;
-    v12 = [v6 areAssetsAvailableForCDMAssetsInfo:v5 factorToAsset:v9 withError:&v21];
-    v10 = v21;
+    v20 = 0;
+    v12 = [v6 areAssetsAvailableForCDMAssetsInfo:v5 factorToAsset:v9 withError:&v20];
+    v10 = v20;
     if (v10)
     {
       v13 = CDMOSLoggerForCategory(0);
@@ -75,9 +75,9 @@ LABEL_22:
       }
 
       *buf = 136315394;
-      v24 = "+[CDMCcqrServiceUtils isNLRouterAssetAvailable:]";
-      v25 = 2112;
-      v26 = v10;
+      v23 = "+[CDMCcqrServiceUtils isNLRouterAssetAvailable:]";
+      v24 = 2112;
+      v25 = v10;
       v14 = "%s NLRouter assets not available due to error %@.";
       v15 = v13;
       v16 = 22;
@@ -100,7 +100,7 @@ LABEL_23:
       }
 
       *buf = 136315138;
-      v24 = "+[CDMCcqrServiceUtils isNLRouterAssetAvailable:]";
+      v23 = "+[CDMCcqrServiceUtils isNLRouterAssetAvailable:]";
       v14 = "%s NLRouter assets not available";
       v15 = v13;
       v16 = 12;
@@ -114,20 +114,19 @@ LABEL_23:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v24 = "+[CDMCcqrServiceUtils isNLRouterAssetAvailable:]";
+    v23 = "+[CDMCcqrServiceUtils isNLRouterAssetAvailable:]";
     _os_log_debug_impl(&dword_1DC287000, v6, OS_LOG_TYPE_DEBUG, "%s Failed to initialize CDMAssetsInfo for NLRouter. Asset registration failed", buf, 0xCu);
   }
 
   v17 = 0;
 LABEL_24:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 + (id)buildQueryRewriteRequest
 {
-  v38[3] = *MEMORY[0x1E69E9840];
+  v37[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E69D1380]);
   v3 = objc_alloc_init(MEMORY[0x1E69D1230]);
   [v2 setAsrId:v3];
@@ -135,14 +134,14 @@ LABEL_24:
   [v2 setUtterance:@"helloo world"];
   v4 = [MEMORY[0x1E695DF70] arrayWithObjects:{@"helloo", 0}];
   v5 = [CDMToken getTokenWith:@"helloo" cleanValue:@"helloo" normalizedValues:v4 isSignificant:1 isWhitespace:0];
-  v38[0] = v5;
+  v37[0] = v5;
   v6 = [MEMORY[0x1E695DF70] arrayWithObjects:{@" ", 0}];
   v7 = [CDMToken getTokenWith:@" " cleanValue:@" " normalizedValues:v6 isSignificant:0 isWhitespace:1];
-  v38[1] = v7;
+  v37[1] = v7;
   v8 = [MEMORY[0x1E695DF70] arrayWithObjects:{@"world", 0}];
   v9 = [CDMToken getTokenWith:@"world" cleanValue:@"world" normalizedValues:v8 isSignificant:1 isWhitespace:0];
-  v38[2] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:3];
+  v37[2] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:3];
   v11 = [v10 copy];
   [v2 setNluInternalTokens:v11];
 
@@ -152,8 +151,8 @@ LABEL_24:
 
   [v2 setConfidence:0.0];
   v14 = objc_alloc_init(MEMORY[0x1E69D1370]);
-  v37 = v2;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+  v36 = v2;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
   v16 = [v15 copy];
   [v14 setOriginalUtterances:v16];
 
@@ -170,8 +169,8 @@ LABEL_24:
   [v18 setUtterance:@"hello"];
   v20 = [MEMORY[0x1E695DF70] arrayWithObjects:{@"hello", 0}];
   v21 = [CDMToken getTokenWith:@"hello" cleanValue:@"hello" normalizedValues:v20 isSignificant:1 isWhitespace:0];
-  v36 = v21;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+  v35 = v21;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
   v23 = [v22 copy];
   [v18 setNluInternalTokens:v23];
 
@@ -180,8 +179,8 @@ LABEL_24:
 
   [v18 setConfidence:0.0];
   v25 = objc_alloc_init(MEMORY[0x1E69D1370]);
-  v35 = v18;
-  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+  v34 = v18;
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
   v27 = [v26 copy];
   [v25 setOriginalUtterances:v27];
 
@@ -192,13 +191,11 @@ LABEL_24:
   [v25 setTap2edit:0];
   [v25 setStartTimestamp:0];
   v29 = objc_alloc_init(MEMORY[0x1E69D1358]);
-  v34[0] = v14;
-  v34[1] = v25;
-  v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+  v33[0] = v14;
+  v33[1] = v25;
+  v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
   v31 = [v30 copy];
   [v29 setOriginalInteractions:v31];
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v29;
 }

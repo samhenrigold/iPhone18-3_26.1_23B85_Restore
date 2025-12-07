@@ -161,7 +161,7 @@ LABEL_48:
 
 - (id)jsonDictionary
 {
-  v46[9] = *MEMORY[0x1E69E9840];
+  v45[9] = *MEMORY[0x1E69E9840];
   if ([(BMOasisAnalyticsBlinkSample *)self hasCount])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMOasisAnalyticsBlinkSample count](self, "count")}];
@@ -215,7 +215,7 @@ LABEL_48:
 
   if (![(BMOasisAnalyticsBlinkSample *)self hasMedianBlinkOffsetVelocity]|| ([(BMOasisAnalyticsBlinkSample *)self medianBlinkOffsetVelocity], fabsf(v15) == INFINITY))
   {
-    v44 = 0;
+    v43 = 0;
   }
 
   else
@@ -223,7 +223,7 @@ LABEL_48:
     [(BMOasisAnalyticsBlinkSample *)self medianBlinkOffsetVelocity];
     v16 = MEMORY[0x1E696AD98];
     [(BMOasisAnalyticsBlinkSample *)self medianBlinkOffsetVelocity];
-    v44 = [v16 numberWithFloat:?];
+    v43 = [v16 numberWithFloat:?];
   }
 
   if (![(BMOasisAnalyticsBlinkSample *)self hasMedianBlinkOpenness]|| ([(BMOasisAnalyticsBlinkSample *)self medianBlinkOpenness], fabsf(v17) == INFINITY))
@@ -252,55 +252,55 @@ LABEL_48:
     v22 = [v21 numberWithFloat:?];
   }
 
-  v45[0] = @"count";
+  v44[0] = @"count";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v43 = v3;
-  v38 = null;
-  v46[0] = null;
-  v45[1] = @"medianDurationMs";
+  v42 = v3;
+  v37 = null;
+  v45[0] = null;
+  v44[1] = @"medianDurationMs";
   null2 = v6;
   if (!v6)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v42 = v6;
-  v37 = null2;
-  v46[1] = null2;
-  v45[2] = @"blinkDurations";
+  v41 = v6;
+  v36 = null2;
+  v45[1] = null2;
+  v44[2] = @"blinkDurations";
   null3 = _blinkDurationsJSONArray;
   if (!_blinkDurationsJSONArray)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v41 = _blinkDurationsJSONArray;
-  v36 = null3;
-  v46[2] = null3;
-  v45[3] = @"medianTimeIntervalMs";
+  v40 = _blinkDurationsJSONArray;
+  v35 = null3;
+  v45[2] = null3;
+  v44[3] = @"medianTimeIntervalMs";
   null4 = v10;
   if (!v10)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40 = v10;
-  v46[3] = null4;
-  v45[4] = @"blinkIntervals";
+  v39 = v10;
+  v45[3] = null4;
+  v44[4] = @"blinkIntervals";
   null5 = _blinkIntervalsJSONArray;
   if (!_blinkIntervalsJSONArray)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39 = _blinkIntervalsJSONArray;
-  v46[4] = null5;
-  v45[5] = @"medianBlinkOnsetVelocity";
+  v38 = _blinkIntervalsJSONArray;
+  v45[4] = null5;
+  v44[5] = @"medianBlinkOnsetVelocity";
   null6 = v14;
   if (!v14)
   {
@@ -308,32 +308,32 @@ LABEL_48:
   }
 
   v29 = v14;
-  v46[5] = null6;
-  v45[6] = @"medianBlinkOffsetVelocity";
-  null7 = v44;
-  if (!v44)
+  v45[5] = null6;
+  v44[6] = @"medianBlinkOffsetVelocity";
+  null7 = v43;
+  if (!v43)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v46[6] = null7;
-  v45[7] = @"medianBlinkOpenness";
+  v45[6] = null7;
+  v44[7] = @"medianBlinkOpenness";
   null8 = v19;
   if (!v19)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v46[7] = null8;
-  v45[8] = @"medianEyelidOpenness";
+  v45[7] = null8;
+  v44[8] = @"medianEyelidOpenness";
   null9 = v22;
   if (!v22)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v46[8] = null9;
-  v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:9];
+  v45[8] = null9;
+  v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:9];
   if (v22)
   {
     if (v19)
@@ -352,11 +352,15 @@ LABEL_48:
   }
 
 LABEL_48:
-  if (!v44)
+  if (!v43)
   {
   }
 
   if (!v29)
+  {
+  }
+
+  if (!v38)
   {
   }
 
@@ -376,94 +380,84 @@ LABEL_48:
   {
   }
 
-  if (!v43)
-  {
-  }
-
-  v34 = *MEMORY[0x1E69E9840];
-
   return v33;
 }
 
 - (id)_blinkIntervalsJSONArray
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   blinkIntervals = [(BMOasisAnalyticsBlinkSample *)self blinkIntervals];
-  v5 = [blinkIntervals countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [blinkIntervals countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(blinkIntervals);
         }
 
-        jsonDictionary = [*(*(&v12 + 1) + 8 * i) jsonDictionary];
+        jsonDictionary = [*(*(&v11 + 1) + 8 * i) jsonDictionary];
         [v3 addObject:jsonDictionary];
       }
 
-      v6 = [blinkIntervals countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [blinkIntervals countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)_blinkDurationsJSONArray
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   blinkDurations = [(BMOasisAnalyticsBlinkSample *)self blinkDurations];
-  v5 = [blinkDurations countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [blinkDurations countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(blinkDurations);
         }
 
-        jsonDictionary = [*(*(&v12 + 1) + 8 * i) jsonDictionary];
+        jsonDictionary = [*(*(&v11 + 1) + 8 * i) jsonDictionary];
         [v3 addObject:jsonDictionary];
       }
 
-      v6 = [blinkDurations countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [blinkDurations countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMOasisAnalyticsBlinkSample)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v161[1] = *MEMORY[0x1E69E9840];
+  v160[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"count"];
   if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -475,10 +469,10 @@ LABEL_48:
       {
         v24 = objc_alloc(MEMORY[0x1E696ABC0]);
         v25 = *MEMORY[0x1E698F240];
-        v160 = *MEMORY[0x1E696A578];
+        v159 = *MEMORY[0x1E696A578];
         v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"count"];
-        v161[0] = v26;
-        v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v161 forKeys:&v160 count:1];
+        v160[0] = v26;
+        v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v160 forKeys:&v159 count:1];
         v28 = [v24 initWithDomain:v25 code:2 userInfo:v27];
         v7 = 0;
         selfCopy3 = 0;
@@ -500,7 +494,7 @@ LABEL_48:
   }
 
   v8 = [dictionaryCopy objectForKeyedSubscript:@"medianDurationMs"];
-  v120 = v6;
+  v119 = v6;
   if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -512,14 +506,14 @@ LABEL_48:
         v31 = v7;
         v32 = objc_alloc(MEMORY[0x1E696ABC0]);
         v33 = *MEMORY[0x1E698F240];
-        v158 = *MEMORY[0x1E696A578];
+        v157 = *MEMORY[0x1E696A578];
         v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"medianDurationMs"];
-        v159 = v9;
-        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v159 forKeys:&v158 count:1];
+        v158 = v9;
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v158 forKeys:&v157 count:1];
         v35 = v32;
         v7 = v31;
         v27 = v30;
-        v123 = v34;
+        v122 = v34;
         v26 = 0;
         selfCopy3 = 0;
         *error = [v35 initWithDomain:v33 code:2 userInfo:?];
@@ -533,14 +527,14 @@ LABEL_48:
       goto LABEL_110;
     }
 
-    v116 = v8;
-    v119 = v8;
+    v115 = v8;
+    v118 = v8;
   }
 
   else
   {
-    v116 = v8;
-    v119 = 0;
+    v115 = v8;
+    v118 = 0;
   }
 
   v9 = [dictionaryCopy objectForKeyedSubscript:@"blinkDurations"];
@@ -550,7 +544,7 @@ LABEL_48:
   if (v11)
   {
     selfCopy2 = self;
-    v115 = v7;
+    v114 = v7;
 
     v9 = 0;
   }
@@ -566,33 +560,33 @@ LABEL_48:
         {
           v43 = objc_alloc(MEMORY[0x1E696ABC0]);
           v44 = *MEMORY[0x1E698F240];
-          v156 = *MEMORY[0x1E696A578];
-          v122 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"blinkDurations"];
-          v157 = v122;
-          v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v157 forKeys:&v156 count:1];
+          v155 = *MEMORY[0x1E696A578];
+          v121 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"blinkDurations"];
+          v156 = v121;
+          v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v156 forKeys:&v155 count:1];
           selfCopy3 = 0;
           *error = [v43 initWithDomain:v44 code:2 userInfo:v45];
           goto LABEL_63;
         }
 
         selfCopy3 = 0;
-        v27 = v116;
-        v26 = v119;
+        v27 = v115;
+        v26 = v118;
         goto LABEL_109;
       }
     }
 
     selfCopy2 = self;
-    v115 = v7;
+    v114 = v7;
   }
 
-  v122 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v9, "count")}];
+  v121 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v9, "count")}];
+  v129 = 0u;
   v130 = 0u;
   v131 = 0u;
   v132 = 0u;
-  v133 = 0u;
   v9 = v9;
-  v12 = [v9 countByEnumeratingWithState:&v130 objects:v155 count:16];
+  v12 = [v9 countByEnumeratingWithState:&v129 objects:v154 count:16];
   if (!v12)
   {
 LABEL_22:
@@ -601,7 +595,7 @@ LABEL_22:
     if (v17 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
-      v7 = v115;
+      v7 = v114;
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         self = selfCopy2;
@@ -609,37 +603,37 @@ LABEL_22:
         {
           v56 = objc_alloc(MEMORY[0x1E696ABC0]);
           v57 = *MEMORY[0x1E698F240];
-          v149 = *MEMORY[0x1E696A578];
+          v148 = *MEMORY[0x1E696A578];
           v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"medianTimeIntervalMs"];
-          v150 = v21;
-          v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v150 forKeys:&v149 count:1];
+          v149 = v21;
+          v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v149 forKeys:&v148 count:1];
           v59 = v56;
-          v7 = v115;
-          v118 = v58;
-          v109 = 0;
+          v7 = v114;
+          v117 = v58;
+          v108 = 0;
           selfCopy3 = 0;
           *error = [v59 initWithDomain:v57 code:2 userInfo:?];
-          v27 = v116;
+          v27 = v115;
 
           goto LABEL_105;
         }
 
-        v109 = 0;
+        v108 = 0;
         selfCopy3 = 0;
-        v27 = v116;
+        v27 = v115;
 LABEL_106:
 
-        v26 = v119;
-        v45 = v109;
+        v26 = v118;
+        v45 = v108;
         goto LABEL_107;
       }
 
-      v109 = v17;
+      v108 = v17;
     }
 
     else
     {
-      v109 = 0;
+      v108 = 0;
     }
 
     v21 = [dictionaryCopy objectForKeyedSubscript:@"blinkIntervals"];
@@ -666,45 +660,45 @@ LABEL_106:
 
         v69 = objc_alloc(MEMORY[0x1E696ABC0]);
         v70 = *MEMORY[0x1E698F240];
-        v147 = *MEMORY[0x1E696A578];
-        v117 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"blinkIntervals"];
-        v148 = v117;
-        v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v148 forKeys:&v147 count:1];
+        v146 = *MEMORY[0x1E696A578];
+        v116 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"blinkIntervals"];
+        v147 = v116;
+        v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v147 forKeys:&v146 count:1];
         v72 = v70;
         v55 = v71;
         selfCopy3 = 0;
         *error = [v69 initWithDomain:v72 code:2 userInfo:v71];
 LABEL_83:
-        v27 = v116;
+        v27 = v115;
         goto LABEL_103;
       }
     }
 
-    v117 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v21, "count")}];
+    v116 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v21, "count")}];
+    v124 = 0u;
     v125 = 0u;
     v126 = 0u;
     v127 = 0u;
-    v128 = 0u;
     v21 = v21;
-    v46 = [v21 countByEnumeratingWithState:&v125 objects:v146 count:16];
+    v46 = [v21 countByEnumeratingWithState:&v124 objects:v145 count:16];
     if (!v46)
     {
       goto LABEL_59;
     }
 
     v47 = v46;
-    v48 = *v126;
-    v111 = dictionaryCopy;
+    v48 = *v125;
+    v110 = dictionaryCopy;
 LABEL_51:
     v49 = 0;
     while (1)
     {
-      if (*v126 != v48)
+      if (*v125 != v48)
       {
         objc_enumerationMutation(v21);
       }
 
-      v50 = *(*(&v125 + 1) + 8 * v49);
+      v50 = *(*(&v124 + 1) + 8 * v49);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -719,12 +713,12 @@ LABEL_51:
         {
           v61 = objc_alloc(MEMORY[0x1E696ABC0]);
           v62 = *MEMORY[0x1E698F240];
-          v142 = *MEMORY[0x1E696A578];
+          v141 = *MEMORY[0x1E696A578];
           v51 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"blinkIntervals"];
-          v143 = v51;
+          v142 = v51;
           v63 = MEMORY[0x1E695DF20];
-          v64 = &v143;
-          v65 = &v142;
+          v64 = &v142;
+          v65 = &v141;
           goto LABEL_75;
         }
 
@@ -733,9 +727,9 @@ LABEL_51:
 
       v51 = v50;
       v52 = [BMBlinkIntervalEntry alloc];
-      v124 = 0;
-      v53 = [(BMBlinkIntervalEntry *)v52 initWithJSONDictionary:v51 error:&v124];
-      v54 = v124;
+      v123 = 0;
+      v53 = [(BMBlinkIntervalEntry *)v52 initWithJSONDictionary:v51 error:&v123];
+      v54 = v123;
       if (v54)
       {
         v66 = v54;
@@ -749,12 +743,12 @@ LABEL_51:
         goto LABEL_79;
       }
 
-      [v117 addObject:v53];
+      [v116 addObject:v53];
 
       if (v47 == ++v49)
       {
-        v47 = [v21 countByEnumeratingWithState:&v125 objects:v146 count:16];
-        dictionaryCopy = v111;
+        v47 = [v21 countByEnumeratingWithState:&v124 objects:v145 count:16];
+        dictionaryCopy = v110;
         if (v47)
         {
           goto LABEL_51;
@@ -777,30 +771,30 @@ LABEL_59:
           v55 = 0;
 LABEL_87:
           v73 = [dictionaryCopy objectForKeyedSubscript:@"medianBlinkOffsetVelocity"];
-          v107 = v73;
+          v106 = v73;
           if (!v73 || (v74 = v73, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
             v66 = 0;
 LABEL_90:
             v75 = [dictionaryCopy objectForKeyedSubscript:@"medianBlinkOpenness"];
-            v105 = v75;
+            v104 = v75;
             if (!v75 || (v76 = v75, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v113 = 0;
+              v112 = 0;
               goto LABEL_93;
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v113 = v76;
+              v112 = v76;
 LABEL_93:
               v77 = [dictionaryCopy objectForKeyedSubscript:@"medianEyelidOpenness"];
-              v103 = v77;
+              v102 = v77;
               if (!v77)
               {
 LABEL_96:
-                v27 = v116;
+                v27 = v115;
                 goto LABEL_97;
               }
 
@@ -813,13 +807,13 @@ LABEL_96:
               }
 
               objc_opt_class();
-              v27 = v116;
+              v27 = v115;
               if (objc_opt_isKindOfClass())
               {
                 v77 = v78;
 LABEL_97:
-                v101 = v77;
-                self = [(BMOasisAnalyticsBlinkSample *)self initWithCount:v115 medianDurationMs:v119 blinkDurations:v122 medianTimeIntervalMs:v109 blinkIntervals:v117 medianBlinkOnsetVelocity:v55 medianBlinkOffsetVelocity:v66 medianBlinkOpenness:v113 medianEyelidOpenness:v77];
+                v100 = v77;
+                self = [(BMOasisAnalyticsBlinkSample *)self initWithCount:v114 medianDurationMs:v118 blinkDurations:v121 medianTimeIntervalMs:v108 blinkIntervals:v116 medianBlinkOnsetVelocity:v55 medianBlinkOffsetVelocity:v66 medianBlinkOpenness:v112 medianEyelidOpenness:v77];
                 selfCopy3 = self;
               }
 
@@ -827,19 +821,19 @@ LABEL_97:
               {
                 if (error)
                 {
-                  v102 = objc_alloc(MEMORY[0x1E696ABC0]);
-                  v99 = *MEMORY[0x1E698F240];
-                  v134 = *MEMORY[0x1E696A578];
-                  v100 = v55;
-                  v95 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"medianEyelidOpenness"];
-                  v135 = v95;
-                  v96 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v135 forKeys:&v134 count:1];
-                  *error = [v102 initWithDomain:v99 code:2 userInfo:v96];
+                  v101 = objc_alloc(MEMORY[0x1E696ABC0]);
+                  v98 = *MEMORY[0x1E698F240];
+                  v133 = *MEMORY[0x1E696A578];
+                  v99 = v55;
+                  v94 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"medianEyelidOpenness"];
+                  v134 = v94;
+                  v95 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
+                  *error = [v101 initWithDomain:v98 code:2 userInfo:v95];
 
-                  v55 = v100;
+                  v55 = v99;
                 }
 
-                v101 = 0;
+                v100 = 0;
                 selfCopy3 = 0;
               }
 
@@ -852,7 +846,7 @@ LABEL_101:
 LABEL_102:
 
 LABEL_103:
-              v7 = v115;
+              v7 = v114;
 
 LABEL_105:
               goto LABEL_106;
@@ -860,29 +854,29 @@ LABEL_105:
 
             if (error)
             {
-              v90 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v114 = *MEMORY[0x1E698F240];
-              v136 = *MEMORY[0x1E696A578];
-              v91 = v55;
-              v92 = objc_alloc(MEMORY[0x1E696AEC0]);
-              v98 = objc_opt_class();
-              v93 = v92;
-              v55 = v91;
-              v101 = [v93 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v98, @"medianBlinkOpenness"];
-              v137 = v101;
-              v103 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v137 forKeys:&v136 count:1];
-              v94 = [v90 initWithDomain:v114 code:2 userInfo:?];
-              v113 = 0;
+              v89 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v113 = *MEMORY[0x1E698F240];
+              v135 = *MEMORY[0x1E696A578];
+              v90 = v55;
+              v91 = objc_alloc(MEMORY[0x1E696AEC0]);
+              v97 = objc_opt_class();
+              v92 = v91;
+              v55 = v90;
+              v100 = [v92 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v97, @"medianBlinkOpenness"];
+              v136 = v100;
+              v102 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v136 forKeys:&v135 count:1];
+              v93 = [v89 initWithDomain:v113 code:2 userInfo:?];
+              v112 = 0;
               selfCopy3 = 0;
-              *error = v94;
-              v27 = v116;
+              *error = v93;
+              v27 = v115;
               goto LABEL_98;
             }
 
-            v113 = 0;
+            v112 = 0;
             selfCopy3 = 0;
 LABEL_133:
-            v27 = v116;
+            v27 = v115;
             goto LABEL_99;
           }
 
@@ -895,22 +889,22 @@ LABEL_133:
 
           if (error)
           {
-            v106 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v104 = *MEMORY[0x1E698F240];
-            v138 = *MEMORY[0x1E696A578];
-            v85 = v55;
-            v86 = objc_alloc(MEMORY[0x1E696AEC0]);
-            v97 = objc_opt_class();
-            v87 = v86;
-            v55 = v85;
-            v113 = [v87 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v97, @"medianBlinkOffsetVelocity"];
-            v139 = v113;
-            v88 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
-            v89 = v106;
-            v105 = v88;
+            v105 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v103 = *MEMORY[0x1E698F240];
+            v137 = *MEMORY[0x1E696A578];
+            v84 = v55;
+            v85 = objc_alloc(MEMORY[0x1E696AEC0]);
+            v96 = objc_opt_class();
+            v86 = v85;
+            v55 = v84;
+            v112 = [v86 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v96, @"medianBlinkOffsetVelocity"];
+            v138 = v112;
+            v87 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
+            v88 = v105;
+            v104 = v87;
             v66 = 0;
             selfCopy3 = 0;
-            *error = [v89 initWithDomain:v104 code:2 userInfo:?];
+            *error = [v88 initWithDomain:v103 code:2 userInfo:?];
             goto LABEL_133;
           }
 
@@ -931,25 +925,25 @@ LABEL_133:
           {
             v55 = 0;
             selfCopy3 = 0;
-            v27 = v116;
+            v27 = v115;
             goto LABEL_102;
           }
 
-          v108 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v81 = *MEMORY[0x1E698F240];
-          v140 = *MEMORY[0x1E696A578];
+          v107 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v80 = *MEMORY[0x1E698F240];
+          v139 = *MEMORY[0x1E696A578];
           v66 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"medianBlinkOnsetVelocity"];
-          v141 = v66;
-          v82 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v141 forKeys:&v140 count:1];
-          v83 = v108;
-          v107 = v82;
-          v84 = [v83 initWithDomain:v81 code:2 userInfo:?];
+          v140 = v66;
+          v81 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
+          v82 = v107;
+          v106 = v81;
+          v83 = [v82 initWithDomain:v80 code:2 userInfo:?];
           v55 = 0;
           selfCopy3 = 0;
-          *error = v84;
+          *error = v83;
         }
 
-        v27 = v116;
+        v27 = v115;
         goto LABEL_100;
       }
     }
@@ -959,12 +953,12 @@ LABEL_133:
     {
       v61 = objc_alloc(MEMORY[0x1E696ABC0]);
       v62 = *MEMORY[0x1E698F240];
-      v144 = *MEMORY[0x1E696A578];
+      v143 = *MEMORY[0x1E696A578];
       v51 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"blinkIntervals"];
-      v145 = v51;
+      v144 = v51;
       v63 = MEMORY[0x1E695DF20];
-      v64 = &v145;
-      v65 = &v144;
+      v64 = &v144;
+      v65 = &v143;
 LABEL_75:
       v66 = [v63 dictionaryWithObjects:v64 forKeys:v65 count:1];
       v67 = [v61 initWithDomain:v62 code:2 userInfo:v66];
@@ -972,33 +966,33 @@ LABEL_75:
       *errorCopy2 = v67;
 LABEL_79:
       v55 = v21;
-      dictionaryCopy = v111;
+      dictionaryCopy = v110;
       self = selfCopy2;
-      v27 = v116;
+      v27 = v115;
       goto LABEL_101;
     }
 
 LABEL_82:
     selfCopy3 = 0;
     v55 = v21;
-    dictionaryCopy = v111;
+    dictionaryCopy = v110;
     self = selfCopy2;
     goto LABEL_83;
   }
 
   v13 = v12;
-  v14 = *v131;
-  v110 = dictionaryCopy;
+  v14 = *v130;
+  v109 = dictionaryCopy;
 LABEL_14:
   v15 = 0;
   while (1)
   {
-    if (*v131 != v14)
+    if (*v130 != v14)
     {
       objc_enumerationMutation(v9);
     }
 
-    v16 = *(*(&v130 + 1) + 8 * v15);
+    v16 = *(*(&v129 + 1) + 8 * v15);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -1016,12 +1010,12 @@ LABEL_14:
 
       v37 = objc_alloc(MEMORY[0x1E696ABC0]);
       v38 = *MEMORY[0x1E698F240];
-      v151 = *MEMORY[0x1E696A578];
+      v150 = *MEMORY[0x1E696A578];
       v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"blinkDurations"];
-      v152 = v17;
+      v151 = v17;
       v39 = MEMORY[0x1E695DF20];
-      v40 = &v152;
-      v41 = &v151;
+      v40 = &v151;
+      v41 = &v150;
 LABEL_39:
       v21 = [v39 dictionaryWithObjects:v40 forKeys:v41 count:1];
       selfCopy3 = 0;
@@ -1031,9 +1025,9 @@ LABEL_39:
 
     v17 = v16;
     v18 = [BMBlinkDurationEntry alloc];
-    v129 = 0;
-    v19 = [(BMBlinkDurationEntry *)v18 initWithJSONDictionary:v17 error:&v129];
-    v20 = v129;
+    v128 = 0;
+    v19 = [(BMBlinkDurationEntry *)v18 initWithJSONDictionary:v17 error:&v128];
+    v20 = v128;
     if (v20)
     {
       v21 = v20;
@@ -1045,21 +1039,21 @@ LABEL_39:
 
       selfCopy3 = 0;
 LABEL_43:
-      v109 = v9;
-      dictionaryCopy = v110;
+      v108 = v9;
+      dictionaryCopy = v109;
       self = selfCopy2;
 LABEL_44:
-      v7 = v115;
-      v27 = v116;
+      v7 = v114;
+      v27 = v115;
       goto LABEL_105;
     }
 
-    [v122 addObject:v19];
+    [v121 addObject:v19];
 
     if (v13 == ++v15)
     {
-      v13 = [v9 countByEnumeratingWithState:&v130 objects:v155 count:16];
-      dictionaryCopy = v110;
+      v13 = [v9 countByEnumeratingWithState:&v129 objects:v154 count:16];
+      dictionaryCopy = v109;
       if (!v13)
       {
         goto LABEL_22;
@@ -1074,32 +1068,31 @@ LABEL_44:
   {
     v37 = objc_alloc(MEMORY[0x1E696ABC0]);
     v38 = *MEMORY[0x1E698F240];
-    v153 = *MEMORY[0x1E696A578];
+    v152 = *MEMORY[0x1E696A578];
     v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"blinkDurations"];
-    v154 = v17;
+    v153 = v17;
     v39 = MEMORY[0x1E695DF20];
-    v40 = &v154;
-    v41 = &v153;
+    v40 = &v153;
+    v41 = &v152;
     goto LABEL_39;
   }
 
 LABEL_62:
   selfCopy3 = 0;
   v45 = v9;
-  dictionaryCopy = v110;
+  dictionaryCopy = v109;
   self = selfCopy2;
-  v7 = v115;
+  v7 = v114;
 LABEL_63:
-  v27 = v116;
-  v26 = v119;
+  v27 = v115;
+  v26 = v118;
 LABEL_107:
 
 LABEL_109:
-  v6 = v120;
+  v6 = v119;
 LABEL_110:
 
 LABEL_111:
-  v79 = *MEMORY[0x1E69E9840];
   return selfCopy3;
 }
 
@@ -1114,121 +1107,112 @@ LABEL_111:
 
 - (void)writeTo:(id)to
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_hasCount)
   {
-    count = self->_count;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_hasMedianDurationMs)
   {
-    medianDurationMs = self->_medianDurationMs;
     PBDataWriterWriteFloatField();
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v7 = self->_blinkDurations;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v8)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v5 = self->_blinkDurations;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v6)
   {
-    v9 = v8;
-    v10 = *v31;
+    v7 = v6;
+    v8 = *v23;
     do
     {
-      v11 = 0;
+      v9 = 0;
       do
       {
-        if (*v31 != v10)
+        if (*v23 != v8)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v30 + 1) + 8 * v11);
-        v29 = 0;
+        v10 = *(*(&v22 + 1) + 8 * v9);
+        v21 = 0;
         PBDataWriterPlaceMark();
-        [v12 writeTo:toCopy];
+        [v10 writeTo:toCopy];
         PBDataWriterRecallMark();
-        ++v11;
+        ++v9;
       }
 
-      while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
-    while (v9);
+    while (v7);
   }
 
   if (self->_hasMedianTimeIntervalMs)
   {
-    medianTimeIntervalMs = self->_medianTimeIntervalMs;
     PBDataWriterWriteFloatField();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v14 = self->_blinkIntervals;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v25 objects:v34 count:16];
-  if (v15)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = self->_blinkIntervals;
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v17 objects:v26 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v26;
+    v13 = v12;
+    v14 = *v18;
     do
     {
-      v18 = 0;
+      v15 = 0;
       do
       {
-        if (*v26 != v17)
+        if (*v18 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v25 + 1) + 8 * v18);
-        v29 = 0;
+        v16 = *(*(&v17 + 1) + 8 * v15);
+        v21 = 0;
         PBDataWriterPlaceMark();
-        [v19 writeTo:{toCopy, v25}];
+        [v16 writeTo:{toCopy, v17}];
         PBDataWriterRecallMark();
-        ++v18;
+        ++v15;
       }
 
-      while (v16 != v18);
-      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v25 objects:v34 count:16];
+      while (v13 != v15);
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v17 objects:v26 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
 
   if (self->_hasMedianBlinkOnsetVelocity)
   {
-    medianBlinkOnsetVelocity = self->_medianBlinkOnsetVelocity;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasMedianBlinkOffsetVelocity)
   {
-    medianBlinkOffsetVelocity = self->_medianBlinkOffsetVelocity;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasMedianBlinkOpenness)
   {
-    medianBlinkOpenness = self->_medianBlinkOpenness;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_hasMedianEyelidOpenness)
   {
-    medianEyelidOpenness = self->_medianEyelidOpenness;
     PBDataWriterWriteFloatField();
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -1722,34 +1706,32 @@ LABEL_86:
 
 + (id)protoFields
 {
-  v14[9] = *MEMORY[0x1E69E9840];
+  v13[9] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"count" number:1 type:4 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"medianDurationMs" number:2 type:1 subMessageClass:{0, v2}];
-  v14[1] = v3;
+  v13[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"blinkDurations" number:3 type:14 subMessageClass:objc_opt_class()];
-  v14[2] = v4;
+  v13[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"medianTimeIntervalMs" number:4 type:1 subMessageClass:0];
-  v14[3] = v5;
+  v13[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"blinkIntervals" number:5 type:14 subMessageClass:objc_opt_class()];
-  v14[4] = v6;
+  v13[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"medianBlinkOnsetVelocity" number:6 type:1 subMessageClass:0];
-  v14[5] = v7;
+  v13[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"medianBlinkOffsetVelocity" number:7 type:1 subMessageClass:0];
-  v14[6] = v8;
+  v13[6] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"medianBlinkOpenness" number:8 type:1 subMessageClass:0];
-  v14[7] = v9;
+  v13[7] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"medianEyelidOpenness" number:9 type:1 subMessageClass:0];
-  v14[8] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:9];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13[8] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:9];
 
   return v11;
 }
 
 + (id)columns
 {
-  v14[9] = *MEMORY[0x1E69E9840];
+  v13[9] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"count" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"medianDurationMs" dataType:1 requestOnly:0 fieldNumber:2 protoDataType:1 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"blinkDurations_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_216_112655];
@@ -1759,38 +1741,36 @@ LABEL_86:
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"medianBlinkOffsetVelocity" dataType:1 requestOnly:0 fieldNumber:7 protoDataType:1 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"medianBlinkOpenness" dataType:1 requestOnly:0 fieldNumber:8 protoDataType:1 convertedType:0];
   v10 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"medianEyelidOpenness" dataType:1 requestOnly:0 fieldNumber:9 protoDataType:1 convertedType:0];
-  v14[0] = v2;
-  v14[1] = v3;
-  v14[2] = v4;
-  v14[3] = v5;
-  v14[4] = v6;
-  v14[5] = v7;
-  v14[6] = v8;
-  v14[7] = v9;
-  v14[8] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:9];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13[0] = v2;
+  v13[1] = v3;
+  v13[2] = v4;
+  v13[3] = v5;
+  v13[4] = v6;
+  v13[5] = v7;
+  v13[6] = v8;
+  v13[7] = v9;
+  v13[8] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:9];
 
   return v11;
 }
 
-id __38__BMOasisAnalyticsBlinkSample_columns__block_invoke_2(uint64_t a1, void *a2)
+id __38__BMOasisAnalyticsBlinkSample_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _blinkIntervalsJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _blinkIntervalsJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
-id __38__BMOasisAnalyticsBlinkSample_columns__block_invoke(uint64_t a1, void *a2)
+id __38__BMOasisAnalyticsBlinkSample_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _blinkDurationsJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _blinkDurationsJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

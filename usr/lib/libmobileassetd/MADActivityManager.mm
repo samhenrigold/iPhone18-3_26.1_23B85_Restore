@@ -1082,7 +1082,7 @@ void __62__MADActivityManager_notifyStatusChange_forClient_withReason___block_in
   v3 = [v2 owner];
   if (v3 == &dword_0 + 2)
   {
-    v4 = getDownloadManager();
+    v4 = getDownloadManager(2);
     if (!v4)
     {
       [*(a1 + 32) setStatusChangeNoDownloadManager:{objc_msgSend(*(a1 + 32), "statusChangeNoDownloadManager") + 1}];
@@ -1093,7 +1093,7 @@ void __62__MADActivityManager_notifyStatusChange_forClient_withReason___block_in
 
   if (v3 == &dword_0 + 1)
   {
-    v4 = getControlManager();
+    v4 = getControlManager(1);
     if (!v4)
     {
       [*(a1 + 32) setStatusChangeNoControlManager:{objc_msgSend(*(a1 + 32), "statusChangeNoControlManager") + 1}];

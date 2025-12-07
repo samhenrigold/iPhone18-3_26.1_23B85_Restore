@@ -7,7 +7,7 @@
 - (_TtC12PhotosUICore19PXMemoryMoodFactory)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PXMemoryMoodFactory();
+  v3.super_class = type metadata accessor for PXMemoryMoodFactory(self, a2);
   return [(PXMemoryMoodFactory *)&v3 init];
 }
 

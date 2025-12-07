@@ -1,4 +1,6 @@
 @interface OrgApacheLuceneUtilPackedBulkOperationPacked8
+- (void)decodeWithByteArray:(id)array withInt:(int)int withIntArray:(id)intArray withInt:(int)withInt withInt:(int)a7;
+- (void)decodeWithByteArray:(id)array withInt:(int)int withLongArray:(id)longArray withInt:(int)withInt withInt:(int)a7;
 - (void)decodeWithLongArray:(id)array withInt:(int)int withIntArray:(id)intArray withInt:(int)withInt withInt:(int)a7;
 - (void)decodeWithLongArray:(id)array withInt:(int)int withLongArray:(id)longArray withInt:(int)withInt withInt:(int)a7;
 @end
@@ -50,6 +52,46 @@
   }
 }
 
+- (void)decodeWithByteArray:(id)array withInt:(int)int withIntArray:(id)intArray withInt:(int)withInt withInt:(int)a7
+{
+  if (a7 >= 1)
+  {
+    if (array)
+    {
+      v7 = a7;
+      v8 = *&withInt;
+      while (1)
+      {
+        v9 = *(array + 2);
+        if (int < 0 || int >= v9)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v9, int);
+        }
+
+        if (!intArray)
+        {
+          break;
+        }
+
+        v10 = *(intArray + 2);
+        if ((v8 & 0x80000000) != 0 || v8 >= v10)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v10, v8);
+        }
+
+        *(intArray + v8 + 3) = *(array + int++ + 12);
+        v8 = (v8 + 1);
+        if (!--v7)
+        {
+          return;
+        }
+      }
+    }
+
+    JreThrowNullPointerException();
+  }
+}
+
 - (void)decodeWithLongArray:(id)array withInt:(int)int withLongArray:(id)longArray withInt:(int)withInt withInt:(int)a7
 {
   if (a7 >= 1)
@@ -85,6 +127,46 @@
         }
 
         if (++v9 == a7)
+        {
+          return;
+        }
+      }
+    }
+
+    JreThrowNullPointerException();
+  }
+}
+
+- (void)decodeWithByteArray:(id)array withInt:(int)int withLongArray:(id)longArray withInt:(int)withInt withInt:(int)a7
+{
+  if (a7 >= 1)
+  {
+    if (array)
+    {
+      v7 = a7;
+      v8 = *&withInt;
+      while (1)
+      {
+        v9 = *(array + 2);
+        if (int < 0 || int >= v9)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v9, int);
+        }
+
+        if (!longArray)
+        {
+          break;
+        }
+
+        v10 = *(longArray + 2);
+        if ((v8 & 0x80000000) != 0 || v8 >= v10)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v10, v8);
+        }
+
+        *(longArray + v8 + 2) = *(array + int++ + 12);
+        v8 = (v8 + 1);
+        if (!--v7)
         {
           return;
         }

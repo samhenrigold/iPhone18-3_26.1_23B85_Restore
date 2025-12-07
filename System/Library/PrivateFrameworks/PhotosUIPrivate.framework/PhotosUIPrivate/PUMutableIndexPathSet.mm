@@ -65,7 +65,7 @@ LABEL_7:
   return v8;
 }
 
-uint64_t __33__PUMutableIndexPathSet_isEqual___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__33__PUMutableIndexPathSet_isEqual___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) containsIndexPath:a2];
   if ((result & 1) == 0)

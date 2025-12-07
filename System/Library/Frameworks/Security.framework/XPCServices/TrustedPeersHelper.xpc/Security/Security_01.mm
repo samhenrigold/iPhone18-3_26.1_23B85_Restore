@@ -1,1072 +1,3 @@
-_BYTE *sub_100017EF0@<X0>(_BYTE *result@<X0>, _BYTE *a2@<X1>, void *a3@<X8>)
-{
-  if (!result)
-  {
-    goto LABEL_4;
-  }
-
-  v3 = a2 - result;
-  if (a2 == result)
-  {
-    result = 0;
-LABEL_4:
-    *a3 = result;
-    a3[1] = 0xC000000000000000;
-    return result;
-  }
-
-  if (v3 <= 14)
-  {
-    result = sub_100017F84(result, a2);
-    v8 = a3;
-    v6 = v9 & 0xFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    if (v3 >= 0x7FFFFFFF)
-    {
-      result = sub_100018044(result, a2);
-      v6 = v10 | 0x8000000000000000;
-    }
-
-    else
-    {
-      result = sub_1000180C0(result, a2);
-      v6 = v5 | 0x4000000000000000;
-    }
-
-    v8 = a3;
-  }
-
-  *v8 = result;
-  v8[1] = v6;
-  return result;
-}
-
-unint64_t sub_100017F84(_BYTE *a1, _BYTE *a2)
-{
-  v4 = a2 - a1;
-  if (a1)
-  {
-    v5 = a2 - a1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  result = sub_10001391C(v5);
-  __dst = result;
-  v11 = v7;
-  v13 = v8;
-  v12 = v9;
-  if (a1)
-  {
-    if (a2 != a1)
-    {
-      memcpy(&__dst, a1, v4);
-      return __dst;
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_100018044(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    v2 = a2 - a1;
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = sub_100216074();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
-  swift_allocObject();
-  result = sub_100216024();
-  if (v2 < 0)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    sub_1002161D4();
-    result = swift_allocObject();
-    *(result + 16) = 0;
-    *(result + 24) = v2;
-  }
-
-  return result;
-}
-
-uint64_t sub_1000180C0(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    v2 = a2 - a1;
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = sub_100216074();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
-  swift_allocObject();
-  result = sub_100216024();
-  if (v2 < 0xFFFFFFFF80000000)
-  {
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  if (v2 > 0x7FFFFFFF)
-  {
-LABEL_9:
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  if ((v2 & 0x8000000000000000) == 0)
-  {
-    return v2 << 32;
-  }
-
-LABEL_10:
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_100018144(char a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5)
-{
-  v42 = xmmword_10021D470;
-  v10 = "Recoveryed Signing Key-%@";
-  if (a1)
-  {
-    v10 = "Recovery Signing Private Key";
-    v11 = 0xD00000000000001FLL;
-  }
-
-  else
-  {
-    v11 = 0xD00000000000001CLL;
-  }
-
-  v12 = sub_1001B43B8(v11, v10 | 0x8000000000000000);
-  v13 = sub_1000139DC(v12 + 32, *(v12 + 2));
-  v15 = v14;
-
-  v43 = v13;
-  v44 = v15;
-  v16 = ccec_cp_384();
-  if (!v16)
-  {
-    sub_100015220();
-    swift_allocError();
-    *v33 = 0;
-    *(v33 + 8) = 0;
-    *(v33 + 16) = 3;
-    swift_willThrow();
-    goto LABEL_21;
-  }
-
-  v17 = v16;
-  v45 = 0;
-  v38 = objc_opt_self();
-  v37 = [v38 ccec384Context];
-  v18 = sub_100216074();
-  v19 = *(v18 + 48);
-  v20 = *(v18 + 52);
-  swift_allocObject();
-  sub_100216044();
-  v40 = a2;
-  v41 = a3;
-  v21 = sub_1001B43B8(a4, a5);
-  if ((a5 & 0x1000000000000000) != 0)
-  {
-    v22 = sub_100216A44();
-  }
-
-  else if ((a5 & 0x2000000000000000) != 0)
-  {
-    v22 = HIBYTE(a5) & 0xF;
-  }
-
-  else
-  {
-    v22 = a4 & 0xFFFFFFFFFFFFLL;
-  }
-
-  sub_100012558(a2, a3);
-  v23 = sub_1000139DC(v21 + 32, v22);
-  v25 = v24;
-
-  sub_100012558(v23, v25);
-  sub_100012558(v23, v25);
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-
-    if (sub_100216034())
-    {
-      result = sub_100216064();
-      if (__OFSUB__(0, result))
-      {
-LABEL_26:
-        __break(1u);
-        goto LABEL_27;
-      }
-    }
-
-    v27 = *(v18 + 48);
-    v28 = *(v18 + 52);
-    swift_allocObject();
-    sub_100216014();
-  }
-
-  result = sub_100216034();
-  if (result)
-  {
-    v29 = result;
-    result = sub_100216064();
-    v30 = -result;
-    if (!__OFSUB__(0, result))
-    {
-      v31 = sub_100216054();
-      if (v31 >= 56)
-      {
-        v32 = 56;
-      }
-
-      else
-      {
-        v32 = v31;
-      }
-
-      a5 = v29 + v30;
-      sub_100012558(v23, v25);
-      sub_1000161E0(&v40, v23, v25, &v43, &v45, a5, a5 + v32, a1 & 1, v17, v37, &v42);
-      if (!v39)
-      {
-
-        sub_100002BF0(v23, v25);
-        sub_100002BF0(v23, v25);
-        sub_100002BF0(v23, v25);
-        v34 = *(&v42 + 1);
-        a5 = v42;
-        v35 = v40;
-        v36 = v41;
-        sub_100012558(v42, *(&v42 + 1));
-        sub_100002BF0(v35, v36);
-        [v38 contextFree:v37];
-
-        sub_100002BF0(a5, v34);
-        sub_100002BF0(v43, v44);
-        return a5;
-      }
-
-      sub_100002BF0(v23, v25);
-      sub_100002BF0(v23, v25);
-      sub_100002BF0(v23, v25);
-      sub_100002BF0(v40, v41);
-      [v38 contextFree:v37];
-
-LABEL_21:
-      sub_100002BF0(v42, *(&v42 + 1));
-      sub_100002BF0(v43, v44);
-      return a5;
-    }
-
-    __break(1u);
-    goto LABEL_26;
-  }
-
-LABEL_27:
-  __break(1u);
-  return result;
-}
-
-SecKeyRef sub_10001853C()
-{
-  sub_10001148C(&qword_100297D48, &qword_10021D758);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_10021D420;
-  *(inited + 32) = kSecAttrKeyClass;
-  *(inited + 40) = kSecAttrKeyClassPrivate;
-  *(inited + 48) = kSecAttrKeyType;
-  *(inited + 56) = kSecAttrKeyTypeEC;
-  v1 = kSecAttrKeyClass;
-  v2 = kSecAttrKeyClassPrivate;
-  v3 = kSecAttrKeyType;
-  v4 = kSecAttrKeyTypeEC;
-  sub_100019468(inited, &qword_100297D58, &qword_10021D768, sub_100015974);
-  swift_setDeallocating();
-  sub_10001148C(&qword_100297D50, &qword_10021D760);
-  swift_arrayDestroy();
-  isa = sub_100216204().super.isa;
-  type metadata accessor for CFString(0);
-  sub_100019C24(&qword_1002978D0, type metadata accessor for CFString);
-  v6 = sub_1002168C4().super.isa;
-
-  v7 = SecKeyCreateWithData(isa, v6, 0);
-
-  if (!v7)
-  {
-    sub_100015220();
-    swift_allocError();
-    *v8 = 0;
-    *(v8 + 8) = 0;
-    *(v8 + 16) = 3;
-    swift_willThrow();
-  }
-
-  return v7;
-}
-
-unint64_t sub_100018728(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    sub_10001148C(&qword_10029D690, &qword_10021D750);
-    v3 = sub_100217144();
-    v4 = a1 + 32;
-
-    while (1)
-    {
-      sub_100019C6C(v4, &v11, &unk_10029D970, &unk_10021D740);
-      v5 = v11;
-      result = sub_100015974(v11);
-      if (v7)
-      {
-        break;
-      }
-
-      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      *(v3[6] + 8 * result) = v5;
-      result = sub_1000125AC(&v12, (v3[7] + 32 * result));
-      v8 = v3[2];
-      v9 = __OFADD__(v8, 1);
-      v10 = v8 + 1;
-      if (v9)
-      {
-        goto LABEL_10;
-      }
-
-      v3[2] = v10;
-      v4 += 40;
-      if (!--v1)
-      {
-
-        return v3;
-      }
-    }
-
-    __break(1u);
-LABEL_10:
-    __break(1u);
-  }
-
-  else
-  {
-    return &_swiftEmptyDictionarySingleton;
-  }
-
-  return result;
-}
-
-uint64_t sub_100018850()
-{
-  result = 0;
-  type metadata accessor for CFString(0);
-  sub_100019C24(&qword_1002978D0, type metadata accessor for CFString);
-  isa = sub_1002168C4().super.isa;
-  v1 = SecItemAdd(isa, &result);
-
-  if (v1)
-  {
-    if (v1 != -25299)
-    {
-      goto LABEL_4;
-    }
-
-    sub_100015790(kSecClass, v6);
-    sub_100012480(v6);
-    v2 = sub_1002168C4().super.isa;
-    v3 = sub_1002168C4().super.isa;
-
-    v1 = SecItemUpdate(v2, v3);
-
-    if (v1)
-    {
-LABEL_4:
-      sub_100015220();
-      swift_allocError();
-      *v4 = v1;
-      *(v4 + 8) = 0;
-      *(v4 + 16) = 0;
-      swift_willThrow();
-    }
-  }
-
-  swift_unknownObjectRelease();
-  return 1;
-}
-
-uint64_t sub_100018A14(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
-{
-  sub_10001148C(&qword_100297D28, &unk_10021D730);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_10021D5F0;
-  *(inited + 32) = kSecClass;
-  type metadata accessor for CFString(0);
-  *(inited + 40) = kSecClassKey;
-  *(inited + 64) = v5;
-  *(inited + 72) = kSecAttrAccessible;
-  *(inited + 80) = kSecAttrAccessibleWhenUnlocked;
-  *(inited + 104) = v5;
-  *(inited + 112) = kSecUseDataProtectionKeychain;
-  *(inited + 120) = 1;
-  *(inited + 144) = &type metadata for Bool;
-  *(inited + 152) = kSecAttrAccessGroup;
-  *(inited + 160) = 0xD00000000000001ALL;
-  *(inited + 168) = 0x8000000100227BB0;
-  *(inited + 184) = &type metadata for String;
-  *(inited + 192) = kSecAttrSynchronizable;
-  *(inited + 200) = 0;
-  *(inited + 224) = &type metadata for Bool;
-  *(inited + 232) = kSecAttrApplicationLabel;
-  sub_10001148C(&qword_100297D30, &qword_1002270B0);
-  v6 = swift_allocObject();
-  *(v6 + 16) = xmmword_10021D600;
-  v7 = objc_allocWithZone(NSUUID);
-  v8 = kSecClass;
-  v9 = kSecClassKey;
-  v10 = kSecAttrAccessible;
-  v11 = kSecAttrAccessibleWhenUnlocked;
-  v12 = kSecUseDataProtectionKeychain;
-  v13 = kSecAttrAccessGroup;
-  v14 = kSecAttrSynchronizable;
-  v15 = kSecAttrApplicationLabel;
-  v16 = [v7 init];
-  v17 = [v16 UUIDString];
-
-  v18 = sub_100216974();
-  v20 = v19;
-
-  *(v6 + 56) = &type metadata for String;
-  *(v6 + 64) = sub_100019BD0();
-  *(v6 + 32) = v18;
-  *(v6 + 40) = v20;
-  *(inited + 240) = sub_100216984();
-  *(inited + 248) = v21;
-  *(inited + 264) = &type metadata for String;
-  *(inited + 272) = kSecAttrLabel;
-  *(inited + 280) = a3;
-  *(inited + 288) = a4;
-  *(inited + 304) = &type metadata for String;
-  *(inited + 312) = kSecValueData;
-  *(inited + 344) = &type metadata for Data;
-  *(inited + 320) = a1;
-  *(inited + 328) = a2;
-  v22 = kSecAttrLabel;
-
-  v23 = kSecValueData;
-  sub_100012558(a1, a2);
-  sub_100018728(inited);
-  swift_setDeallocating();
-  sub_10001148C(&unk_10029D970, &unk_10021D740);
-  swift_arrayDestroy();
-  v24 = sub_100018850();
-
-  return v24 & 1;
-}
-
-uint64_t sub_100018D0C(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
-{
-  sub_10001148C(&qword_100297D28, &unk_10021D730);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_10021D5F0;
-  *(inited + 32) = kSecClass;
-  type metadata accessor for CFString(0);
-  *(inited + 40) = kSecClassKey;
-  *(inited + 64) = v7;
-  *(inited + 72) = kSecAttrAccessible;
-  *(inited + 80) = kSecAttrAccessibleWhenUnlocked;
-  *(inited + 104) = v7;
-  *(inited + 112) = kSecUseDataProtectionKeychain;
-  *(inited + 120) = 1;
-  *(inited + 144) = &type metadata for Bool;
-  *(inited + 152) = kSecAttrAccessGroup;
-  *(inited + 160) = 0xD00000000000001ALL;
-  *(inited + 168) = 0x8000000100227BB0;
-  *(inited + 184) = &type metadata for String;
-  *(inited + 192) = kSecAttrSynchronizable;
-  *(inited + 200) = 0;
-  *(inited + 224) = &type metadata for Bool;
-  *(inited + 232) = kSecAttrLabel;
-  *(inited + 240) = a3;
-  *(inited + 248) = a4;
-  *(inited + 264) = &type metadata for String;
-  *(inited + 272) = kSecAttrApplicationLabel;
-  sub_10001148C(&qword_100297D30, &qword_1002270B0);
-  v8 = swift_allocObject();
-  *(v8 + 16) = xmmword_10021D600;
-  v9 = objc_allocWithZone(NSUUID);
-  v10 = kSecClass;
-  v11 = kSecClassKey;
-  v12 = kSecAttrAccessible;
-  v13 = kSecAttrAccessibleWhenUnlocked;
-  v14 = kSecUseDataProtectionKeychain;
-  v15 = kSecAttrAccessGroup;
-  v16 = kSecAttrSynchronizable;
-  v17 = kSecAttrLabel;
-
-  v18 = kSecAttrApplicationLabel;
-  v19 = [v9 init];
-  v20 = [v19 UUIDString];
-
-  v21 = sub_100216974();
-  v23 = v22;
-
-  *(v8 + 56) = &type metadata for String;
-  *(v8 + 64) = sub_100019BD0();
-  *(v8 + 32) = v21;
-  *(v8 + 40) = v23;
-  *(inited + 280) = sub_100216984();
-  *(inited + 288) = v24;
-  *(inited + 304) = &type metadata for String;
-  *(inited + 312) = kSecValueData;
-  *(inited + 344) = &type metadata for Data;
-  *(inited + 320) = a1;
-  *(inited + 328) = a2;
-  v25 = kSecValueData;
-  sub_100012558(a1, a2);
-  sub_100018728(inited);
-  swift_setDeallocating();
-  sub_10001148C(&unk_10029D970, &unk_10021D740);
-  swift_arrayDestroy();
-  v26 = sub_100018850();
-
-  return v26 & 1;
-}
-
-unint64_t sub_10001900C(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    sub_10001148C(&qword_10029DB60, &qword_10021D6F0);
-    v3 = sub_100217144();
-    v4 = a1 + 32;
-
-    while (1)
-    {
-      sub_100019C6C(v4, &v13, &qword_100297CF0, &qword_10021D6F8);
-      v5 = v13;
-      v6 = v14;
-      result = sub_100015A28(v13, v14);
-      if (v8)
-      {
-        break;
-      }
-
-      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v9 = (v3[6] + 16 * result);
-      *v9 = v5;
-      v9[1] = v6;
-      result = sub_1000125AC(&v15, (v3[7] + 32 * result));
-      v10 = v3[2];
-      v11 = __OFADD__(v10, 1);
-      v12 = v10 + 1;
-      if (v11)
-      {
-        goto LABEL_10;
-      }
-
-      v3[2] = v12;
-      v4 += 48;
-      if (!--v1)
-      {
-
-        return v3;
-      }
-    }
-
-    __break(1u);
-LABEL_10:
-    __break(1u);
-  }
-
-  else
-  {
-    return &_swiftEmptyDictionarySingleton;
-  }
-
-  return result;
-}
-
-unint64_t sub_10001913C(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    sub_10001148C(&qword_100297D70, &unk_10021D780);
-    v3 = sub_100217144();
-
-    for (i = (a1 + 56); ; i += 4)
-    {
-      v5 = *(i - 3);
-      v6 = *(i - 2);
-      v7 = *(i - 1);
-      v8 = *i;
-
-      sub_100012558(v7, v8);
-      result = sub_100015A28(v5, v6);
-      if (v10)
-      {
-        break;
-      }
-
-      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v11 = (v3[6] + 16 * result);
-      *v11 = v5;
-      v11[1] = v6;
-      v12 = (v3[7] + 16 * result);
-      *v12 = v7;
-      v12[1] = v8;
-      v13 = v3[2];
-      v14 = __OFADD__(v13, 1);
-      v15 = v13 + 1;
-      if (v14)
-      {
-        goto LABEL_10;
-      }
-
-      v3[2] = v15;
-      if (!--v1)
-      {
-
-        return v3;
-      }
-    }
-
-    __break(1u);
-LABEL_10:
-    __break(1u);
-  }
-
-  else
-  {
-    return &_swiftEmptyDictionarySingleton;
-  }
-
-  return result;
-}
-
-unint64_t sub_100019254(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    sub_10001148C(&qword_100297CF8, &qword_10021D700);
-    v3 = sub_100217144();
-    v4 = a1 + 32;
-
-    while (1)
-    {
-      sub_100019C6C(v4, v13, &unk_1002983E0, &qword_10021D708);
-      result = sub_100015AA0(v13);
-      if (v6)
-      {
-        break;
-      }
-
-      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v7 = v3[6] + 40 * result;
-      v8 = v13[0];
-      v9 = v13[1];
-      *(v7 + 32) = v14;
-      *v7 = v8;
-      *(v7 + 16) = v9;
-      result = sub_1000125AC(&v15, (v3[7] + 32 * result));
-      v10 = v3[2];
-      v11 = __OFADD__(v10, 1);
-      v12 = v10 + 1;
-      if (v11)
-      {
-        goto LABEL_10;
-      }
-
-      v3[2] = v12;
-      v4 += 72;
-      if (!--v1)
-      {
-
-        return v3;
-      }
-    }
-
-    __break(1u);
-LABEL_10:
-    __break(1u);
-  }
-
-  else
-  {
-    return &_swiftEmptyDictionarySingleton;
-  }
-
-  return result;
-}
-
-unint64_t sub_100019468(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t (*a4)(id))
-{
-  v4 = *(a1 + 16);
-  if (v4)
-  {
-    sub_10001148C(a2, a3);
-    v7 = sub_100217144();
-
-    for (i = (a1 + 40); ; i += 2)
-    {
-      v9 = *i;
-      v10 = *(i - 1);
-      v11 = v9;
-      result = a4(v10);
-      if (v13)
-      {
-        break;
-      }
-
-      *(v7 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      *(v7[6] + 8 * result) = v10;
-      *(v7[7] + 8 * result) = v11;
-      v14 = v7[2];
-      v15 = __OFADD__(v14, 1);
-      v16 = v14 + 1;
-      if (v15)
-      {
-        goto LABEL_10;
-      }
-
-      v7[2] = v16;
-      if (!--v4)
-      {
-
-        return v7;
-      }
-    }
-
-    __break(1u);
-LABEL_10:
-    __break(1u);
-  }
-
-  else
-  {
-    return &_swiftEmptyDictionarySingleton;
-  }
-
-  return result;
-}
-
-unint64_t sub_100019574(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    sub_10001148C(&qword_10029D8F0, &qword_100226690);
-    v3 = sub_100217144();
-
-    for (i = (a1 + 48); ; i += 3)
-    {
-      v5 = *(i - 2);
-      v6 = *(i - 1);
-      v7 = *i;
-
-      result = sub_100015A28(v5, v6);
-      if (v9)
-      {
-        break;
-      }
-
-      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v10 = (v3[6] + 16 * result);
-      *v10 = v5;
-      v10[1] = v6;
-      *(v3[7] + 8 * result) = v7;
-      v11 = v3[2];
-      v12 = __OFADD__(v11, 1);
-      v13 = v11 + 1;
-      if (v12)
-      {
-        goto LABEL_10;
-      }
-
-      v3[2] = v13;
-      if (!--v1)
-      {
-
-        return v3;
-      }
-    }
-
-    __break(1u);
-LABEL_10:
-    __break(1u);
-  }
-
-  else
-  {
-    return &_swiftEmptyDictionarySingleton;
-  }
-
-  return result;
-}
-
-unint64_t sub_100019678(uint64_t a1)
-{
-  v2 = sub_10001148C(&qword_100297D08, &qword_10021D710);
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2, v5);
-  v7 = &v21 - v6;
-  v8 = *(a1 + 16);
-  if (v8)
-  {
-    sub_10001148C(&qword_100297D10, &qword_10021D718);
-    v9 = sub_100217144();
-    v10 = *(v2 + 48);
-    v11 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-    v12 = *(v3 + 72);
-
-    while (1)
-    {
-      sub_100019C6C(v11, v7, &qword_100297D08, &qword_10021D710);
-      result = sub_100015B28(v7);
-      if (v14)
-      {
-        break;
-      }
-
-      v15 = result;
-      *(v9 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v16 = v9[6];
-      v17 = sub_100216194();
-      result = (*(*(v17 - 8) + 32))(v16 + *(*(v17 - 8) + 72) * v15, v7, v17);
-      *(v9[7] + 8 * v15) = *&v7[v10];
-      v18 = v9[2];
-      v19 = __OFADD__(v18, 1);
-      v20 = v18 + 1;
-      if (v19)
-      {
-        goto LABEL_10;
-      }
-
-      v9[2] = v20;
-      v11 += v12;
-      if (!--v8)
-      {
-
-        return v9;
-      }
-    }
-
-    __break(1u);
-LABEL_10:
-    __break(1u);
-  }
-
-  else
-  {
-    return &_swiftEmptyDictionarySingleton;
-  }
-
-  return result;
-}
-
-unint64_t sub_100019860(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    sub_10001148C(&qword_100297D88, &qword_10021D7A0);
-    v3 = sub_100217144();
-
-    for (i = (a1 + 56); ; i += 4)
-    {
-      v5 = *(i - 3);
-      v6 = *(i - 2);
-      v8 = *(i - 1);
-      v7 = *i;
-
-      result = sub_100015A28(v5, v6);
-      if (v10)
-      {
-        break;
-      }
-
-      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v11 = (v3[6] + 16 * result);
-      *v11 = v5;
-      v11[1] = v6;
-      v12 = (v3[7] + 16 * result);
-      *v12 = v8;
-      v12[1] = v7;
-      v13 = v3[2];
-      v14 = __OFADD__(v13, 1);
-      v15 = v13 + 1;
-      if (v14)
-      {
-        goto LABEL_10;
-      }
-
-      v3[2] = v15;
-      if (!--v1)
-      {
-
-        return v3;
-      }
-    }
-
-    __break(1u);
-LABEL_10:
-    __break(1u);
-  }
-
-  else
-  {
-    return &_swiftEmptyDictionarySingleton;
-  }
-
-  return result;
-}
-
-unint64_t sub_10001999C(uint64_t a1, uint64_t *a2, uint64_t *a3)
-{
-  v3 = *(a1 + 16);
-  if (v3)
-  {
-    sub_10001148C(a2, a3);
-    v5 = sub_100217144();
-
-    for (i = (a1 + 48); ; i += 3)
-    {
-      v7 = *(i - 2);
-      v8 = *(i - 1);
-      v9 = *i;
-
-      v10 = v9;
-      result = sub_100015A28(v7, v8);
-      if (v12)
-      {
-        break;
-      }
-
-      *(v5 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v13 = (v5[6] + 16 * result);
-      *v13 = v7;
-      v13[1] = v8;
-      *(v5[7] + 8 * result) = v10;
-      v14 = v5[2];
-      v15 = __OFADD__(v14, 1);
-      v16 = v14 + 1;
-      if (v15)
-      {
-        goto LABEL_10;
-      }
-
-      v5[2] = v16;
-      if (!--v3)
-      {
-
-        return v5;
-      }
-    }
-
-    __break(1u);
-LABEL_10:
-    __break(1u);
-  }
-
-  else
-  {
-    return &_swiftEmptyDictionarySingleton;
-  }
-
-  return result;
-}
-
-unint64_t sub_100019A98(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1)
-  {
-    sub_10001148C(&qword_100297D18, &qword_10021D720);
-    v3 = sub_100217144();
-    v4 = a1 + 32;
-
-    while (1)
-    {
-      sub_100019C6C(v4, &v16, &qword_100297D20, &qword_10021D728);
-      v5 = v16;
-      v6 = v17;
-      result = sub_100015A28(v16, v17);
-      if (v8)
-      {
-        break;
-      }
-
-      *(v3 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v9 = (v3[6] + 16 * result);
-      *v9 = v5;
-      v9[1] = v6;
-      v10 = v3[7] + 40 * result;
-      v11 = v18;
-      v12 = v19;
-      *(v10 + 32) = v20;
-      *v10 = v11;
-      *(v10 + 16) = v12;
-      v13 = v3[2];
-      v14 = __OFADD__(v13, 1);
-      v15 = v13 + 1;
-      if (v14)
-      {
-        goto LABEL_10;
-      }
-
-      v3[2] = v15;
-      v4 += 56;
-      if (!--v1)
-      {
-
-        return v3;
-      }
-    }
-
-    __break(1u);
-LABEL_10:
-    __break(1u);
-  }
-
-  else
-  {
-    return &_swiftEmptyDictionarySingleton;
-  }
-
-  return result;
-}
-
 unint64_t sub_100019BD0()
 {
   result = qword_100297D38;
@@ -1079,7 +10,7 @@ unint64_t sub_100019BD0()
   return result;
 }
 
-uint64_t sub_100019C24(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100019C24(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1475,27 +406,27 @@ id sub_10001A924()
   v41 = [v34 TPPBPolicyIntroducersByCategoryWithCategory:v39 introducers:v40];
 
   *(v31 + 48) = v41;
-  v53 = objc_allocWithZone(TPPolicyDocument);
+  v92 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
   v42 = sub_100216B14().super.isa;
-
+  v0, v43, v44, v45, v46, v47, v48, v49, v74, v77, v80, v83, v86, v89, v92, 7, v98, v101;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v43 = sub_100216B14().super.isa;
-
-  sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v44 = sub_100216B14().super.isa;
-
-  sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v45 = sub_100216B14().super.isa;
-  sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v46 = sub_100216B14().super.isa;
-  v47 = sub_100216B14().super.isa;
-  v48 = sub_100216B14().super.isa;
-  v49 = sub_100216B14().super.isa;
   v50 = sub_100216B14().super.isa;
-  v51 = [v53 initWithVersion:1 modelToCategory:v42 categoriesByView:v43 introducersByCategory:v44 redactions:v45 keyViewMapping:v46 userControllableViewList:v47 piggybackViews:v48 priorityViews:v49 inheritedExcludedViews:v50 hashAlgo:1];
+  v20, v51, v52, v53, v54, v55, v56, v57, v75, v78, v81, v84, v87, v90, v93, v96, v99, v102;
+  sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
+  v58 = sub_100216B14().super.isa;
+  v31, v59, v60, v61, v62, v63, v64, v65, v76, v79, v82, v85, v88, v91, v94, v97, v100, v103;
+  sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
+  v66 = sub_100216B14().super.isa;
+  sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
+  v67 = sub_100216B14().super.isa;
+  v68 = sub_100216B14().super.isa;
+  v69 = sub_100216B14().super.isa;
+  v70 = sub_100216B14().super.isa;
+  v71 = sub_100216B14().super.isa;
+  v72 = [v95 initWithVersion:1 modelToCategory:v42 categoriesByView:v50 introducersByCategory:v58 redactions:v66 keyViewMapping:v67 userControllableViewList:v68 piggybackViews:v69 priorityViews:v70 inheritedExcludedViews:v71 hashAlgo:1];
 
-  return v51;
+  return v72;
 }
 
 id sub_10001AFE4()
@@ -1575,27 +506,27 @@ id sub_10001AFE4()
   v44 = [v37 TPPBPolicyIntroducersByCategoryWithCategory:v42 introducers:v43];
 
   *(v34 + 48) = v44;
-  v56 = objc_allocWithZone(TPPolicyDocument);
+  v95 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
   v45 = sub_100216B14().super.isa;
-
+  v0, v46, v47, v48, v49, v50, v51, v52, v77, v80, v83, v86, v89, v92, v95, 7, v101, v104;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v46 = sub_100216B14().super.isa;
-
-  sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v47 = sub_100216B14().super.isa;
-
-  sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v48 = sub_100216B14().super.isa;
-  sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v49 = sub_100216B14().super.isa;
-  v50 = sub_100216B14().super.isa;
-  v51 = sub_100216B14().super.isa;
-  v52 = sub_100216B14().super.isa;
   v53 = sub_100216B14().super.isa;
-  v54 = [v56 initWithVersion:2 modelToCategory:v45 categoriesByView:v46 introducersByCategory:v47 redactions:v48 keyViewMapping:v49 userControllableViewList:v50 piggybackViews:v51 priorityViews:v52 inheritedExcludedViews:v53 hashAlgo:1];
+  v23, v54, v55, v56, v57, v58, v59, v60, v78, v81, v84, v87, v90, v93, v96, v99, v102, v105;
+  sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
+  v61 = sub_100216B14().super.isa;
+  v34, v62, v63, v64, v65, v66, v67, v68, v79, v82, v85, v88, v91, v94, v97, v100, v103, v106;
+  sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
+  v69 = sub_100216B14().super.isa;
+  sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
+  v70 = sub_100216B14().super.isa;
+  v71 = sub_100216B14().super.isa;
+  v72 = sub_100216B14().super.isa;
+  v73 = sub_100216B14().super.isa;
+  v74 = sub_100216B14().super.isa;
+  v75 = [v98 initWithVersion:2 modelToCategory:v45 categoriesByView:v53 introducersByCategory:v61 redactions:v69 keyViewMapping:v70 userControllableViewList:v71 piggybackViews:v72 priorityViews:v73 inheritedExcludedViews:v74 hashAlgo:1];
 
-  return v54;
+  return v75;
 }
 
 id sub_10001B6FC()
@@ -1609,38 +540,39 @@ id sub_10001B6FC()
   v4 = objc_opt_self();
   v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
 
-  v1[4] = v5;
+  *v1[1]._TtCs12_SwiftObject_opaque = v5;
   v6 = sub_100216964();
   v7 = sub_100216964();
   v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
 
-  v1[5] = v8;
+  *&v1[1]._TtCs12_SwiftObject_opaque[8] = v8;
   v9 = sub_100216964();
   v10 = sub_100216964();
   v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
 
-  v1[6] = v11;
+  *v1[1].endpoint = v11;
   v12 = sub_100216964();
   v13 = sub_100216964();
   v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
 
-  v1[7] = v14;
+  *v1[1].containerMap = v14;
   v15 = sub_100216964();
   v16 = sub_100216964();
   v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
 
   v18 = v1;
-  v1[8] = v17;
+  *v1[2]._TtCs12_SwiftObject_opaque = v17;
   v19 = sub_100216964();
   v20 = sub_100216964();
   v21 = [v4 TPPBPolicyModelToCategoryWithPrefix:v19 category:v20];
 
-  v18[9] = v21;
+  *&v18[2]._TtCs12_SwiftObject_opaque[8] = v21;
+  v477 = v18;
   v22 = sub_100216964();
   v23 = sub_100216964();
   v24 = [v4 TPPBPolicyModelToCategoryWithPrefix:v22 category:v23];
 
-  v18[10] = v24;
+  *v18[2].endpoint = v24;
   v25 = swift_allocObject();
   *(v25 + 16) = xmmword_10021D8A0;
   v26 = v25;
@@ -1738,6 +670,7 @@ id sub_10001B6FC()
   v83 = sub_100216B14().super.isa;
   v84 = [v77 TPPBPolicyIntroducersByCategoryWithCategory:v82 introducers:v83];
 
+  v443 = v74;
   v74[6] = v84;
   v85 = sub_100216964();
   v86 = sub_100216B14().super.isa;
@@ -1824,253 +757,254 @@ id sub_10001B6FC()
   *(v127 + 48) = v136;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
   v137 = sub_100216B14().super.isa;
+  v127, v138, v139, v140, v141, v142, v143, v144, v361, v373, v385, v397, v409, v421, "ProtectedCloudStorage", v443, "DURldmljZVBhaXJpbmc=", v26;
+  v145 = [v90 orMatch:v137];
 
-  v138 = [v90 orMatch:v137];
+  v146 = sub_100216964();
+  v147 = [v95 TPPBPolicyKeyViewMappingWithView:v146 matchingRule:v145];
 
-  v139 = sub_100216964();
-  v140 = [v95 TPPBPolicyKeyViewMappingWithView:v139 matchingRule:v138];
-
-  v89[11] = v140;
-  v141 = sub_100216964();
-  v142 = sub_100216964();
-  v143 = [v90 fieldMatch:v141 fieldRegex:v142];
-
-  v144 = sub_100216964();
-  v145 = [v95 TPPBPolicyKeyViewMappingWithView:v144 matchingRule:v143];
-
-  v89[12] = v145;
-  v146 = swift_allocObject();
-  *(v146 + 16) = xmmword_10021D8B0;
-  v147 = swift_allocObject();
-  *(v147 + 16) = xmmword_10021D8D0;
+  v89[11] = v147;
   v148 = sub_100216964();
   v149 = sub_100216964();
   v150 = [v90 fieldMatch:v148 fieldRegex:v149];
 
-  *(v147 + 32) = v150;
   v151 = sub_100216964();
-  v152 = sub_100216964();
-  v153 = [v90 fieldMatch:v151 fieldRegex:v152];
+  v152 = [v95 TPPBPolicyKeyViewMappingWithView:v151 matchingRule:v150];
 
-  *(v147 + 40) = v153;
-  v154 = sub_100216B14().super.isa;
+  v89[12] = v152;
+  v153 = swift_allocObject();
+  *(v153 + 16) = xmmword_10021D8B0;
+  v154 = swift_allocObject();
+  *(v154 + 16) = xmmword_10021D8D0;
+  v155 = sub_100216964();
+  v156 = sub_100216964();
+  v157 = [v90 fieldMatch:v155 fieldRegex:v156];
 
-  v155 = [v90 andMatch:v154];
-
-  *(v146 + 32) = v155;
-  v156 = swift_allocObject();
-  *(v156 + 16) = xmmword_10021D8D0;
-  v157 = sub_100216964();
+  *(v154 + 32) = v157;
   v158 = sub_100216964();
-  v159 = [v90 fieldMatch:v157 fieldRegex:v158];
+  v159 = sub_100216964();
+  v160 = [v90 fieldMatch:v158 fieldRegex:v159];
 
-  *(v156 + 32) = v159;
-  v160 = sub_100216964();
-  v161 = sub_100216964();
-  v162 = [v90 fieldMatch:v160 fieldRegex:v161];
+  *(v154 + 40) = v160;
+  v161 = sub_100216B14().super.isa;
+  v154, v162, v163, v164, v165, v166, v167, v168, v362, v374, v386, v398, v410, v89, v432, v444, v455, v466;
+  v169 = [v90 andMatch:v161];
 
-  *(v156 + 40) = v162;
-  v163 = sub_100216B14().super.isa;
+  *(v153 + 32) = v169;
+  v170 = swift_allocObject();
+  *(v170 + 16) = xmmword_10021D8D0;
+  v171 = sub_100216964();
+  v172 = sub_100216964();
+  v173 = [v90 fieldMatch:v171 fieldRegex:v172];
 
-  v164 = [v90 andMatch:v163];
+  *(v170 + 32) = v173;
+  v174 = sub_100216964();
+  v175 = sub_100216964();
+  v176 = [v90 fieldMatch:v174 fieldRegex:v175];
 
-  *(v146 + 40) = v164;
-  v165 = sub_100216964();
-  v166 = sub_100216964();
-  v167 = [v90 fieldMatch:v165 fieldRegex:v166];
+  *(v170 + 40) = v176;
+  v177 = sub_100216B14().super.isa;
+  v170, v178, v179, v180, v181, v182, v183, v184, v363, v375, v387, v399, v411, v422, v433, v445, v456, v467;
+  v185 = [v90 andMatch:v177];
 
-  *(v146 + 48) = v167;
-  v168 = sub_100216964();
-  v169 = sub_100216964();
-  v170 = [v90 fieldMatch:v168 fieldRegex:v169];
-
-  *(v146 + 56) = v170;
-  v171 = sub_100216B14().super.isa;
-
-  v172 = [v90 orMatch:v171];
-
-  v173 = sub_100216964();
-  v174 = [v95 TPPBPolicyKeyViewMappingWithView:v173 matchingRule:v172];
-
-  v89[13] = v174;
-  v175 = swift_allocObject();
-  *(v175 + 16) = xmmword_10021D8D0;
-  v176 = sub_100216964();
-  v177 = sub_100216964();
-  v178 = [v90 fieldMatch:v176 fieldRegex:v177];
-
-  *(v175 + 32) = v178;
-  v179 = swift_allocObject();
-  *(v179 + 16) = xmmword_10021D880;
-  v180 = sub_100216964();
-  v181 = sub_100216964();
-  v182 = [v90 fieldMatch:v180 fieldRegex:v181];
-
-  *(v179 + 32) = v182;
-  v183 = sub_100216964();
-  v184 = sub_100216964();
-  v185 = [v90 fieldMatch:v183 fieldRegex:v184];
-
-  *(v179 + 40) = v185;
+  *(v153 + 40) = v185;
   v186 = sub_100216964();
   v187 = sub_100216964();
   v188 = [v90 fieldMatch:v186 fieldRegex:v187];
 
-  *(v179 + 48) = v188;
-  v189 = sub_100216B14().super.isa;
+  *(v153 + 48) = v188;
+  v189 = sub_100216964();
+  v190 = sub_100216964();
+  v191 = [v90 fieldMatch:v189 fieldRegex:v190];
 
-  v190 = [v90 andMatch:v189];
+  *(v153 + 56) = v191;
+  v192 = sub_100216B14().super.isa;
+  v153, v193, v194, v195, v196, v197, v198, v199, v364, v376, v388, v400, v412, v423, v434, v446, v457, v468;
+  v200 = [v90 orMatch:v192];
 
-  *(v175 + 40) = v190;
-  v191 = sub_100216B14().super.isa;
+  v201 = sub_100216964();
+  v202 = [v95 TPPBPolicyKeyViewMappingWithView:v201 matchingRule:v200];
 
-  v192 = [v90 orMatch:v191];
-
-  v193 = sub_100216964();
-  v194 = [v95 TPPBPolicyKeyViewMappingWithView:v193 matchingRule:v192];
-
-  v89[14] = v194;
-  v195 = swift_allocObject();
-  *(v195 + 16) = xmmword_10021D8E0;
-  v196 = sub_100216964();
-  v197 = sub_100216964();
-  v198 = [v90 fieldMatch:v196 fieldRegex:v197];
-
-  *(v195 + 32) = v198;
-  v199 = sub_100216964();
-  v200 = sub_100216964();
-  v201 = [v90 fieldMatch:v199 fieldRegex:v200];
-
-  *(v195 + 40) = v201;
-  v202 = sub_100216964();
-  v203 = sub_100216964();
-  v204 = [v90 fieldMatch:v202 fieldRegex:v203];
-
-  *(v195 + 48) = v204;
+  v203 = v424;
+  *(v424 + 104) = v202;
+  v204 = swift_allocObject();
+  *(v204 + 16) = xmmword_10021D8D0;
   v205 = sub_100216964();
   v206 = sub_100216964();
   v207 = [v90 fieldMatch:v205 fieldRegex:v206];
 
-  *(v195 + 56) = v207;
-  v208 = sub_100216964();
+  *(v204 + 32) = v207;
+  v208 = swift_allocObject();
+  *(v208 + 16) = xmmword_10021D880;
   v209 = sub_100216964();
-  v210 = [v90 fieldMatch:v208 fieldRegex:v209];
+  v210 = sub_100216964();
+  v211 = [v90 fieldMatch:v209 fieldRegex:v210];
 
-  *(v195 + 64) = v210;
-  v211 = sub_100216964();
+  *(v208 + 32) = v211;
   v212 = sub_100216964();
-  v213 = [v90 fieldMatch:v211 fieldRegex:v212];
+  v213 = sub_100216964();
+  v214 = [v90 fieldMatch:v212 fieldRegex:v213];
 
-  *(v195 + 72) = v213;
-  v214 = sub_100216964();
+  *(v208 + 40) = v214;
   v215 = sub_100216964();
-  v216 = [v90 fieldMatch:v214 fieldRegex:v215];
+  v216 = sub_100216964();
+  v217 = [v90 fieldMatch:v215 fieldRegex:v216];
 
-  *(v195 + 80) = v216;
-  v217 = sub_100216964();
-  v218 = sub_100216964();
-  v219 = [v90 fieldMatch:v217 fieldRegex:v218];
+  *(v208 + 48) = v217;
+  v218 = sub_100216B14().super.isa;
+  v208, v219, v220, v221, v222, v223, v224, v225, v365, v377, v389, v401, v413, v424, v435, v447, v458, v469;
+  v226 = [v90 andMatch:v218];
 
-  *(v195 + 88) = v219;
-  v220 = sub_100216964();
-  v221 = sub_100216964();
-  v222 = [v90 fieldMatch:v220 fieldRegex:v221];
+  *(v204 + 40) = v226;
+  v227 = sub_100216B14().super.isa;
+  v204, v228, v229, v230, v231, v232, v233, v234, v366, v378, v390, v402, v414, v425, v436, v448, v459, v470;
+  v235 = [v90 orMatch:v227];
 
-  *(v195 + 96) = v222;
-  v223 = sub_100216964();
-  v224 = sub_100216964();
-  v225 = [v90 fieldMatch:v223 fieldRegex:v224];
-
-  *(v195 + 104) = v225;
-  v226 = sub_100216964();
-  v227 = sub_100216964();
-  v228 = [v90 fieldMatch:v226 fieldRegex:v227];
-
-  *(v195 + 112) = v228;
-  v229 = sub_100216964();
-  v230 = sub_100216964();
-  v231 = [v90 fieldMatch:v229 fieldRegex:v230];
-
-  *(v195 + 120) = v231;
-  v232 = sub_100216B14().super.isa;
-
-  v233 = [v90 orMatch:v232];
-
-  v234 = sub_100216964();
-  v235 = [v95 TPPBPolicyKeyViewMappingWithView:v234 matchingRule:v233];
-
-  v89[15] = v235;
   v236 = sub_100216964();
-  v237 = sub_100216964();
-  v238 = [v90 fieldMatch:v236 fieldRegex:v237];
+  v237 = [v95 TPPBPolicyKeyViewMappingWithView:v236 matchingRule:v235];
 
+  *(v203 + 112) = v237;
+  v238 = swift_allocObject();
+  *(v238 + 16) = xmmword_10021D8E0;
   v239 = sub_100216964();
-  v240 = [v95 TPPBPolicyKeyViewMappingWithView:v239 matchingRule:v238];
+  v240 = sub_100216964();
+  v241 = [v90 fieldMatch:v239 fieldRegex:v240];
 
-  v89[16] = v240;
-  v241 = sub_100216964();
+  *(v238 + 32) = v241;
   v242 = sub_100216964();
-  v243 = [v90 fieldMatch:v241 fieldRegex:v242];
+  v243 = sub_100216964();
+  v244 = [v90 fieldMatch:v242 fieldRegex:v243];
 
-  v244 = sub_100216964();
-  v245 = [v95 TPPBPolicyKeyViewMappingWithView:v244 matchingRule:v243];
+  *(v238 + 40) = v244;
+  v245 = sub_100216964();
+  v246 = sub_100216964();
+  v247 = [v90 fieldMatch:v245 fieldRegex:v246];
 
-  v89[17] = v245;
-  v246 = swift_allocObject();
-  *(v246 + 16) = xmmword_10021D880;
-  v247 = sub_100216964();
+  *(v238 + 48) = v247;
   v248 = sub_100216964();
-  v249 = [v90 fieldMatch:v247 fieldRegex:v248];
+  v249 = sub_100216964();
+  v250 = [v90 fieldMatch:v248 fieldRegex:v249];
 
-  *(v246 + 32) = v249;
-  v250 = sub_100216964();
+  *(v238 + 56) = v250;
   v251 = sub_100216964();
-  v252 = [v90 fieldMatch:v250 fieldRegex:v251];
+  v252 = sub_100216964();
+  v253 = [v90 fieldMatch:v251 fieldRegex:v252];
 
-  *(v246 + 40) = v252;
-  v253 = sub_100216964();
+  *(v238 + 64) = v253;
   v254 = sub_100216964();
-  v255 = [v90 fieldMatch:v253 fieldRegex:v254];
+  v255 = sub_100216964();
+  v256 = [v90 fieldMatch:v254 fieldRegex:v255];
 
-  *(v246 + 48) = v255;
-  v256 = sub_100216B14().super.isa;
-
-  v257 = [v90 orMatch:v256];
-
+  *(v238 + 72) = v256;
+  v257 = sub_100216964();
   v258 = sub_100216964();
-  v259 = [v95 TPPBPolicyKeyViewMappingWithView:v258 matchingRule:v257];
+  v259 = [v90 fieldMatch:v257 fieldRegex:v258];
 
-  v89[18] = v259;
+  *(v238 + 80) = v259;
   v260 = sub_100216964();
   v261 = sub_100216964();
   v262 = [v90 fieldMatch:v260 fieldRegex:v261];
 
+  *(v238 + 88) = v262;
   v263 = sub_100216964();
-  v264 = [v95 TPPBPolicyKeyViewMappingWithView:v263 matchingRule:v262];
+  v264 = sub_100216964();
+  v265 = [v90 fieldMatch:v263 fieldRegex:v264];
 
-  v89[19] = v264;
-  v276 = objc_allocWithZone(TPPolicyDocument);
+  *(v238 + 96) = v265;
+  v266 = sub_100216964();
+  v267 = sub_100216964();
+  v268 = [v90 fieldMatch:v266 fieldRegex:v267];
+
+  *(v238 + 104) = v268;
+  v269 = sub_100216964();
+  v270 = sub_100216964();
+  v271 = [v90 fieldMatch:v269 fieldRegex:v270];
+
+  *(v238 + 112) = v271;
+  v272 = sub_100216964();
+  v273 = sub_100216964();
+  v274 = [v90 fieldMatch:v272 fieldRegex:v273];
+
+  *(v238 + 120) = v274;
+  v275 = sub_100216B14().super.isa;
+  v238, v276, v277, v278, v279, v280, v281, v282, v367, v379, v391, v403, v415, v426, v437, v449, v460, v471;
+  v283 = [v90 orMatch:v275];
+
+  v284 = sub_100216964();
+  v285 = [v95 TPPBPolicyKeyViewMappingWithView:v284 matchingRule:v283];
+
+  *(v203 + 120) = v285;
+  v286 = sub_100216964();
+  v287 = sub_100216964();
+  v288 = [v90 fieldMatch:v286 fieldRegex:v287];
+
+  v289 = sub_100216964();
+  v290 = [v95 TPPBPolicyKeyViewMappingWithView:v289 matchingRule:v288];
+
+  *(v203 + 128) = v290;
+  v291 = sub_100216964();
+  v292 = sub_100216964();
+  v293 = [v90 fieldMatch:v291 fieldRegex:v292];
+
+  v294 = sub_100216964();
+  v295 = [v95 TPPBPolicyKeyViewMappingWithView:v294 matchingRule:v293];
+
+  *(v203 + 136) = v295;
+  v296 = swift_allocObject();
+  *(v296 + 16) = xmmword_10021D880;
+  v297 = sub_100216964();
+  v298 = sub_100216964();
+  v299 = [v90 fieldMatch:v297 fieldRegex:v298];
+
+  *(v296 + 32) = v299;
+  v300 = sub_100216964();
+  v301 = sub_100216964();
+  v302 = [v90 fieldMatch:v300 fieldRegex:v301];
+
+  *(v296 + 40) = v302;
+  v303 = sub_100216964();
+  v304 = sub_100216964();
+  v305 = [v90 fieldMatch:v303 fieldRegex:v304];
+
+  *(v296 + 48) = v305;
+  v306 = sub_100216B14().super.isa;
+  v296, v307, v308, v309, v310, v311, v312, v313, v368, v380, v392, v404, v416, v427, v438, v450, v461, v472;
+  v314 = [v90 orMatch:v306];
+
+  v315 = sub_100216964();
+  v316 = [v95 TPPBPolicyKeyViewMappingWithView:v315 matchingRule:v314];
+
+  *(v203 + 144) = v316;
+  v317 = sub_100216964();
+  v318 = sub_100216964();
+  v319 = [v90 fieldMatch:v317 fieldRegex:v318];
+
+  v320 = sub_100216964();
+  v321 = [v95 TPPBPolicyKeyViewMappingWithView:v320 matchingRule:v319];
+
+  *(v203 + 152) = v321;
+  v478 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v265 = sub_100216B14().super.isa;
-
+  v322 = sub_100216B14().super.isa;
+  v477, v323, v324, v325, v326, v327, v328, v329, v369, v381, v393, v405, v417, v428, v439, v451, v462, v473;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v266 = sub_100216B14().super.isa;
-
+  v330 = sub_100216B14().super.isa;
+  v474, v331, v332, v333, v334, v335, v336, v337, v370, v382, v394, v406, v418, v429, v440, v452, v463, v474;
   sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v267 = sub_100216B14().super.isa;
-
+  v338 = sub_100216B14().super.isa;
+  v453, v339, v340, v341, v342, v343, v344, v345, v371, v383, v395, v407, v419, v430, v441, v453, v464, v475;
   sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v268 = sub_100216B14().super.isa;
+  v346 = sub_100216B14().super.isa;
   sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v269 = sub_100216B14().super.isa;
+  v347 = sub_100216B14().super.isa;
+  v203, v348, v349, v350, v351, v352, v353, v354, v372, v384, v396, v408, v420, v431, v442, v454, v465, v476;
+  v355 = sub_100216B14().super.isa;
+  v356 = sub_100216B14().super.isa;
+  v357 = sub_100216B14().super.isa;
+  v358 = sub_100216B14().super.isa;
+  v359 = [v478 initWithVersion:3 modelToCategory:v322 categoriesByView:v330 introducersByCategory:v338 redactions:v346 keyViewMapping:v347 userControllableViewList:v355 piggybackViews:v356 priorityViews:v357 inheritedExcludedViews:v358 hashAlgo:1];
 
-  v270 = sub_100216B14().super.isa;
-  v271 = sub_100216B14().super.isa;
-  v272 = sub_100216B14().super.isa;
-  v273 = sub_100216B14().super.isa;
-  v274 = [v276 initWithVersion:3 modelToCategory:v265 categoriesByView:v266 introducersByCategory:v267 redactions:v268 keyViewMapping:v269 userControllableViewList:v270 piggybackViews:v271 priorityViews:v272 inheritedExcludedViews:v273 hashAlgo:1];
-
-  return v274;
+  return v359;
 }
 
 id sub_10001D9F4()
@@ -2084,37 +1018,38 @@ id sub_10001D9F4()
   v4 = objc_opt_self();
   v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
 
-  v1[4] = v5;
+  *v1[1]._TtCs12_SwiftObject_opaque = v5;
   v6 = sub_100216964();
   v7 = sub_100216964();
   v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
 
-  v1[5] = v8;
+  *&v1[1]._TtCs12_SwiftObject_opaque[8] = v8;
   v9 = sub_100216964();
   v10 = sub_100216964();
   v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
 
-  v1[6] = v11;
+  *v1[1].endpoint = v11;
   v12 = sub_100216964();
   v13 = sub_100216964();
   v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
 
-  v1[7] = v14;
+  *v1[1].containerMap = v14;
   v15 = sub_100216964();
   v16 = sub_100216964();
   v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
 
-  v1[8] = v17;
+  *v1[2]._TtCs12_SwiftObject_opaque = v17;
   v18 = sub_100216964();
   v19 = sub_100216964();
   v20 = [v4 TPPBPolicyModelToCategoryWithPrefix:v18 category:v19];
 
-  v1[9] = v20;
+  *&v1[2]._TtCs12_SwiftObject_opaque[8] = v20;
+  v469 = v1;
   v21 = sub_100216964();
   v22 = sub_100216964();
   v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
 
-  v1[10] = v23;
+  *v1[2].endpoint = v23;
   v24 = swift_allocObject();
   *(v24 + 16) = xmmword_10021D8F0;
   v25 = sub_100216964();
@@ -2182,6 +1117,7 @@ id sub_10001D9F4()
   v63 = sub_100216B14().super.isa;
   v64 = [v27 TPPBPolicyCategoriesByViewWithView:v62 categories:v63];
 
+  v468 = v24;
   *(v24 + 128) = v64;
   v65 = sub_100216964();
   v66 = sub_100216B14().super.isa;
@@ -2292,245 +1228,247 @@ id sub_10001D9F4()
   *(v122 + 48) = v131;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
   v132 = sub_100216B14().super.isa;
+  v122, v133, v134, v135, v136, v137, v138, v139, v352, v364, v376, v388, v400, v412, v424, "ProtectedCloudStorage", v69, "Security-61901.40.77\n";
+  v140 = [v85 orMatch:v132];
 
-  v133 = [v85 orMatch:v132];
+  v141 = sub_100216964();
+  v142 = [v90 TPPBPolicyKeyViewMappingWithView:v141 matchingRule:v140];
 
-  v134 = sub_100216964();
-  v135 = [v90 TPPBPolicyKeyViewMappingWithView:v134 matchingRule:v133];
-
-  v84[11] = v135;
-  v136 = sub_100216964();
-  v137 = sub_100216964();
-  v138 = [v85 fieldMatch:v136 fieldRegex:v137];
-
-  v139 = sub_100216964();
-  v140 = [v90 TPPBPolicyKeyViewMappingWithView:v139 matchingRule:v138];
-
-  v84[12] = v140;
-  v141 = swift_allocObject();
-  *(v141 + 16) = xmmword_10021D8B0;
-  v142 = swift_allocObject();
-  *(v142 + 16) = xmmword_10021D8D0;
+  v84[11] = v142;
   v143 = sub_100216964();
   v144 = sub_100216964();
   v145 = [v85 fieldMatch:v143 fieldRegex:v144];
 
-  *(v142 + 32) = v145;
   v146 = sub_100216964();
-  v147 = sub_100216964();
-  v148 = [v85 fieldMatch:v146 fieldRegex:v147];
+  v147 = [v90 TPPBPolicyKeyViewMappingWithView:v146 matchingRule:v145];
 
-  *(v142 + 40) = v148;
-  v149 = sub_100216B14().super.isa;
+  v84[12] = v147;
+  v148 = swift_allocObject();
+  *(v148 + 16) = xmmword_10021D8B0;
+  v149 = swift_allocObject();
+  *(v149 + 16) = xmmword_10021D8D0;
+  v150 = sub_100216964();
+  v151 = sub_100216964();
+  v152 = [v85 fieldMatch:v150 fieldRegex:v151];
 
-  v150 = [v85 andMatch:v149];
-
-  *(v141 + 32) = v150;
-  v151 = swift_allocObject();
-  *(v151 + 16) = xmmword_10021D8D0;
-  v152 = sub_100216964();
+  *(v149 + 32) = v152;
   v153 = sub_100216964();
-  v154 = [v85 fieldMatch:v152 fieldRegex:v153];
+  v154 = sub_100216964();
+  v155 = [v85 fieldMatch:v153 fieldRegex:v154];
 
-  *(v151 + 32) = v154;
-  v155 = sub_100216964();
-  v156 = sub_100216964();
-  v157 = [v85 fieldMatch:v155 fieldRegex:v156];
+  *(v149 + 40) = v155;
+  v156 = sub_100216B14().super.isa;
+  v149, v157, v158, v159, v160, v161, v162, v163, v353, v365, v377, v389, v401, v413, v84, v435, v446, v457;
+  v164 = [v85 andMatch:v156];
 
-  *(v151 + 40) = v157;
-  v158 = sub_100216B14().super.isa;
+  *(v148 + 32) = v164;
+  v165 = swift_allocObject();
+  *(v165 + 16) = xmmword_10021D8D0;
+  v166 = sub_100216964();
+  v167 = sub_100216964();
+  v168 = [v85 fieldMatch:v166 fieldRegex:v167];
 
-  v159 = [v85 andMatch:v158];
+  *(v165 + 32) = v168;
+  v169 = sub_100216964();
+  v170 = sub_100216964();
+  v171 = [v85 fieldMatch:v169 fieldRegex:v170];
 
-  *(v141 + 40) = v159;
-  v160 = sub_100216964();
-  v161 = sub_100216964();
-  v162 = [v85 fieldMatch:v160 fieldRegex:v161];
+  *(v165 + 40) = v171;
+  v172 = sub_100216B14().super.isa;
+  v165, v173, v174, v175, v176, v177, v178, v179, v354, v366, v378, v390, v402, v414, v425, v436, v447, v458;
+  v180 = [v85 andMatch:v172];
 
-  *(v141 + 48) = v162;
-  v163 = sub_100216964();
-  v164 = sub_100216964();
-  v165 = [v85 fieldMatch:v163 fieldRegex:v164];
-
-  *(v141 + 56) = v165;
-  v166 = sub_100216B14().super.isa;
-
-  v167 = [v85 orMatch:v166];
-
-  v168 = sub_100216964();
-  v169 = [v90 TPPBPolicyKeyViewMappingWithView:v168 matchingRule:v167];
-
-  v84[13] = v169;
-  v170 = swift_allocObject();
-  *(v170 + 16) = xmmword_10021D8D0;
-  v171 = sub_100216964();
-  v172 = sub_100216964();
-  v173 = [v85 fieldMatch:v171 fieldRegex:v172];
-
-  *(v170 + 32) = v173;
-  v174 = swift_allocObject();
-  *(v174 + 16) = xmmword_10021D880;
-  v175 = sub_100216964();
-  v176 = sub_100216964();
-  v177 = [v85 fieldMatch:v175 fieldRegex:v176];
-
-  *(v174 + 32) = v177;
-  v178 = sub_100216964();
-  v179 = sub_100216964();
-  v180 = [v85 fieldMatch:v178 fieldRegex:v179];
-
-  *(v174 + 40) = v180;
+  *(v148 + 40) = v180;
   v181 = sub_100216964();
   v182 = sub_100216964();
   v183 = [v85 fieldMatch:v181 fieldRegex:v182];
 
-  *(v174 + 48) = v183;
-  v184 = sub_100216B14().super.isa;
+  *(v148 + 48) = v183;
+  v184 = sub_100216964();
+  v185 = sub_100216964();
+  v186 = [v85 fieldMatch:v184 fieldRegex:v185];
 
-  v185 = [v85 andMatch:v184];
+  *(v148 + 56) = v186;
+  v187 = sub_100216B14().super.isa;
+  v148, v188, v189, v190, v191, v192, v193, v194, v355, v367, v379, v391, v403, v415, v426, v437, v448, v459;
+  v195 = [v85 orMatch:v187];
 
-  *(v170 + 40) = v185;
-  v186 = sub_100216B14().super.isa;
+  v196 = sub_100216964();
+  v197 = [v90 TPPBPolicyKeyViewMappingWithView:v196 matchingRule:v195];
 
-  v187 = [v85 orMatch:v186];
-
-  v188 = sub_100216964();
-  v189 = [v90 TPPBPolicyKeyViewMappingWithView:v188 matchingRule:v187];
-
-  v84[14] = v189;
-  v190 = swift_allocObject();
-  *(v190 + 16) = xmmword_10021D8E0;
-  v191 = sub_100216964();
-  v192 = sub_100216964();
-  v193 = [v85 fieldMatch:v191 fieldRegex:v192];
-
-  *(v190 + 32) = v193;
-  v194 = sub_100216964();
-  v195 = sub_100216964();
-  v196 = [v85 fieldMatch:v194 fieldRegex:v195];
-
-  *(v190 + 40) = v196;
-  v197 = sub_100216964();
-  v198 = sub_100216964();
-  v199 = [v85 fieldMatch:v197 fieldRegex:v198];
-
-  *(v190 + 48) = v199;
+  v198 = v427;
+  *&v427[3]._TtCs12_SwiftObject_opaque[8] = v197;
+  v199 = swift_allocObject();
+  *(v199 + 16) = xmmword_10021D8D0;
   v200 = sub_100216964();
   v201 = sub_100216964();
   v202 = [v85 fieldMatch:v200 fieldRegex:v201];
 
-  *(v190 + 56) = v202;
-  v203 = sub_100216964();
+  *(v199 + 32) = v202;
+  v203 = swift_allocObject();
+  *(v203 + 16) = xmmword_10021D880;
   v204 = sub_100216964();
-  v205 = [v85 fieldMatch:v203 fieldRegex:v204];
+  v205 = sub_100216964();
+  v206 = [v85 fieldMatch:v204 fieldRegex:v205];
 
-  *(v190 + 64) = v205;
-  v206 = sub_100216964();
+  *(v203 + 32) = v206;
   v207 = sub_100216964();
-  v208 = [v85 fieldMatch:v206 fieldRegex:v207];
+  v208 = sub_100216964();
+  v209 = [v85 fieldMatch:v207 fieldRegex:v208];
 
-  *(v190 + 72) = v208;
-  v209 = sub_100216964();
+  *(v203 + 40) = v209;
   v210 = sub_100216964();
-  v211 = [v85 fieldMatch:v209 fieldRegex:v210];
+  v211 = sub_100216964();
+  v212 = [v85 fieldMatch:v210 fieldRegex:v211];
 
-  *(v190 + 80) = v211;
-  v212 = sub_100216964();
-  v213 = sub_100216964();
-  v214 = [v85 fieldMatch:v212 fieldRegex:v213];
+  *(v203 + 48) = v212;
+  v213 = sub_100216B14().super.isa;
+  v203, v214, v215, v216, v217, v218, v219, v220, v356, v368, v380, v392, v404, v416, v427, v438, v449, v460;
+  v221 = [v85 andMatch:v213];
 
-  *(v190 + 88) = v214;
-  v215 = sub_100216964();
-  v216 = sub_100216964();
-  v217 = [v85 fieldMatch:v215 fieldRegex:v216];
+  *(v199 + 40) = v221;
+  v222 = sub_100216B14().super.isa;
+  v199, v223, v224, v225, v226, v227, v228, v229, v357, v369, v381, v393, v405, v417, v428, v439, v450, v461;
+  v230 = [v85 orMatch:v222];
 
-  *(v190 + 96) = v217;
-  v218 = sub_100216964();
-  v219 = sub_100216964();
-  v220 = [v85 fieldMatch:v218 fieldRegex:v219];
-
-  *(v190 + 104) = v220;
-  v221 = sub_100216964();
-  v222 = sub_100216964();
-  v223 = [v85 fieldMatch:v221 fieldRegex:v222];
-
-  *(v190 + 112) = v223;
-  v224 = sub_100216964();
-  v225 = sub_100216964();
-  v226 = [v85 fieldMatch:v224 fieldRegex:v225];
-
-  *(v190 + 120) = v226;
-  v227 = sub_100216B14().super.isa;
-
-  v228 = [v85 orMatch:v227];
-
-  v229 = sub_100216964();
-  v230 = [v90 TPPBPolicyKeyViewMappingWithView:v229 matchingRule:v228];
-
-  v84[15] = v230;
   v231 = sub_100216964();
-  v232 = sub_100216964();
-  v233 = [v85 fieldMatch:v231 fieldRegex:v232];
+  v232 = [v90 TPPBPolicyKeyViewMappingWithView:v231 matchingRule:v230];
 
-  v234 = sub_100216964();
-  v235 = [v90 TPPBPolicyKeyViewMappingWithView:v234 matchingRule:v233];
-
-  v84[16] = v235;
+  v233 = v198;
+  *v198[3].endpoint = v232;
+  v234 = swift_allocObject();
+  *(v234 + 16) = xmmword_10021D8E0;
+  v235 = sub_100216964();
   v236 = sub_100216964();
-  v237 = sub_100216964();
-  v238 = [v85 fieldMatch:v236 fieldRegex:v237];
+  v237 = [v85 fieldMatch:v235 fieldRegex:v236];
 
+  *(v234 + 32) = v237;
+  v238 = sub_100216964();
   v239 = sub_100216964();
-  v240 = [v90 TPPBPolicyKeyViewMappingWithView:v239 matchingRule:v238];
+  v240 = [v85 fieldMatch:v238 fieldRegex:v239];
 
-  v84[17] = v240;
-  v241 = swift_allocObject();
-  *(v241 + 16) = xmmword_10021D880;
+  *(v234 + 40) = v240;
+  v241 = sub_100216964();
   v242 = sub_100216964();
-  v243 = sub_100216964();
-  v244 = [v85 fieldMatch:v242 fieldRegex:v243];
+  v243 = [v85 fieldMatch:v241 fieldRegex:v242];
 
-  *(v241 + 32) = v244;
+  *(v234 + 48) = v243;
+  v244 = sub_100216964();
   v245 = sub_100216964();
-  v246 = sub_100216964();
-  v247 = [v85 fieldMatch:v245 fieldRegex:v246];
+  v246 = [v85 fieldMatch:v244 fieldRegex:v245];
 
-  *(v241 + 40) = v247;
+  *(v234 + 56) = v246;
+  v247 = sub_100216964();
   v248 = sub_100216964();
-  v249 = sub_100216964();
-  v250 = [v85 fieldMatch:v248 fieldRegex:v249];
+  v249 = [v85 fieldMatch:v247 fieldRegex:v248];
 
-  *(v241 + 48) = v250;
-  v251 = sub_100216B14().super.isa;
+  *(v234 + 64) = v249;
+  v250 = sub_100216964();
+  v251 = sub_100216964();
+  v252 = [v85 fieldMatch:v250 fieldRegex:v251];
 
-  v252 = [v85 orMatch:v251];
-
+  *(v234 + 72) = v252;
   v253 = sub_100216964();
-  v254 = [v90 TPPBPolicyKeyViewMappingWithView:v253 matchingRule:v252];
+  v254 = sub_100216964();
+  v255 = [v85 fieldMatch:v253 fieldRegex:v254];
 
-  v84[18] = v254;
-  v266 = objc_allocWithZone(TPPolicyDocument);
+  *(v234 + 80) = v255;
+  v256 = sub_100216964();
+  v257 = sub_100216964();
+  v258 = [v85 fieldMatch:v256 fieldRegex:v257];
+
+  *(v234 + 88) = v258;
+  v259 = sub_100216964();
+  v260 = sub_100216964();
+  v261 = [v85 fieldMatch:v259 fieldRegex:v260];
+
+  *(v234 + 96) = v261;
+  v262 = sub_100216964();
+  v263 = sub_100216964();
+  v264 = [v85 fieldMatch:v262 fieldRegex:v263];
+
+  *(v234 + 104) = v264;
+  v265 = sub_100216964();
+  v266 = sub_100216964();
+  v267 = [v85 fieldMatch:v265 fieldRegex:v266];
+
+  *(v234 + 112) = v267;
+  v268 = sub_100216964();
+  v269 = sub_100216964();
+  v270 = [v85 fieldMatch:v268 fieldRegex:v269];
+
+  *(v234 + 120) = v270;
+  v271 = sub_100216B14().super.isa;
+  v234, v272, v273, v274, v275, v276, v277, v278, v358, v370, v382, v394, v406, v418, v429, v440, v451, v462;
+  v279 = [v85 orMatch:v271];
+
+  v280 = sub_100216964();
+  v281 = [v90 TPPBPolicyKeyViewMappingWithView:v280 matchingRule:v279];
+
+  *v198[3].containerMap = v281;
+  v282 = sub_100216964();
+  v283 = sub_100216964();
+  v284 = [v85 fieldMatch:v282 fieldRegex:v283];
+
+  v285 = sub_100216964();
+  v286 = [v90 TPPBPolicyKeyViewMappingWithView:v285 matchingRule:v284];
+
+  *v198[4]._TtCs12_SwiftObject_opaque = v286;
+  v287 = sub_100216964();
+  v288 = sub_100216964();
+  v289 = [v85 fieldMatch:v287 fieldRegex:v288];
+
+  v290 = sub_100216964();
+  v291 = [v90 TPPBPolicyKeyViewMappingWithView:v290 matchingRule:v289];
+
+  *&v198[4]._TtCs12_SwiftObject_opaque[8] = v291;
+  v292 = swift_allocObject();
+  *(v292 + 16) = xmmword_10021D880;
+  v293 = sub_100216964();
+  v294 = sub_100216964();
+  v295 = [v85 fieldMatch:v293 fieldRegex:v294];
+
+  *(v292 + 32) = v295;
+  v296 = sub_100216964();
+  v297 = sub_100216964();
+  v298 = [v85 fieldMatch:v296 fieldRegex:v297];
+
+  *(v292 + 40) = v298;
+  v299 = sub_100216964();
+  v300 = sub_100216964();
+  v301 = [v85 fieldMatch:v299 fieldRegex:v300];
+
+  *(v292 + 48) = v301;
+  v302 = sub_100216B14().super.isa;
+  v292, v303, v304, v305, v306, v307, v308, v309, v359, v371, v383, v395, v407, v419, v430, v441, v452, v463;
+  v310 = [v85 orMatch:v302];
+
+  v311 = sub_100216964();
+  v312 = [v90 TPPBPolicyKeyViewMappingWithView:v311 matchingRule:v310];
+
+  *v198[4].endpoint = v312;
+  v470 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v255 = sub_100216B14().super.isa;
-
+  v313 = sub_100216B14().super.isa;
+  v469, v314, v315, v316, v317, v318, v319, v320, v360, v372, v384, v396, v408, v420, v431, v442, v453, v464;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v256 = sub_100216B14().super.isa;
-
+  v321 = sub_100216B14().super.isa;
+  v468, v322, v323, v324, v325, v326, v327, v328, v361, v373, v385, v397, v409, v421, v432, v443, v454, v465;
   sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v257 = sub_100216B14().super.isa;
-
+  v329 = sub_100216B14().super.isa;
+  v455, v330, v331, v332, v333, v334, v335, v336, v362, v374, v386, v398, v410, v422, v433, v444, v455, v466;
   sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v258 = sub_100216B14().super.isa;
+  v337 = sub_100216B14().super.isa;
   sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v259 = sub_100216B14().super.isa;
+  v338 = sub_100216B14().super.isa;
+  v233, v339, v340, v341, v342, v343, v344, v345, v363, v375, v387, v399, v411, v423, v434, v445, v456, v467;
+  v346 = sub_100216B14().super.isa;
+  v347 = sub_100216B14().super.isa;
+  v348 = sub_100216B14().super.isa;
+  v349 = sub_100216B14().super.isa;
+  v350 = [v470 initWithVersion:4 modelToCategory:v313 categoriesByView:v321 introducersByCategory:v329 redactions:v337 keyViewMapping:v338 userControllableViewList:v346 piggybackViews:v347 priorityViews:v348 inheritedExcludedViews:v349 hashAlgo:1];
 
-  v260 = sub_100216B14().super.isa;
-  v261 = sub_100216B14().super.isa;
-  v262 = sub_100216B14().super.isa;
-  v263 = sub_100216B14().super.isa;
-  v264 = [v266 initWithVersion:4 modelToCategory:v255 categoriesByView:v256 introducersByCategory:v257 redactions:v258 keyViewMapping:v259 userControllableViewList:v260 piggybackViews:v261 priorityViews:v262 inheritedExcludedViews:v263 hashAlgo:1];
-
-  return v264;
+  return v350;
 }
 
 id sub_10001FC04()
@@ -2544,42 +1482,43 @@ id sub_10001FC04()
   v4 = objc_opt_self();
   v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
 
-  v1[4] = v5;
+  *v1[1]._TtCs12_SwiftObject_opaque = v5;
   v6 = sub_100216964();
   v7 = sub_100216964();
   v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
 
-  v1[5] = v8;
+  *&v1[1]._TtCs12_SwiftObject_opaque[8] = v8;
   v9 = sub_100216964();
   v10 = sub_100216964();
   v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
 
-  v1[6] = v11;
+  *v1[1].endpoint = v11;
   v12 = sub_100216964();
   v13 = sub_100216964();
   v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
 
-  v1[7] = v14;
+  *v1[1].containerMap = v14;
   v15 = sub_100216964();
   v16 = sub_100216964();
   v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
 
-  v1[8] = v17;
+  *v1[2]._TtCs12_SwiftObject_opaque = v17;
   v18 = sub_100216964();
   v19 = sub_100216964();
   v20 = [v4 TPPBPolicyModelToCategoryWithPrefix:v18 category:v19];
 
-  v1[9] = v20;
+  *&v1[2]._TtCs12_SwiftObject_opaque[8] = v20;
   v21 = sub_100216964();
   v22 = sub_100216964();
   v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
 
-  v1[10] = v23;
+  *v1[2].endpoint = v23;
+  v483 = v1;
   v24 = sub_100216964();
   v25 = sub_100216964();
   v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
 
-  v1[11] = v26;
+  *v1[2].containerMap = v26;
   v27 = swift_allocObject();
   *(v27 + 16) = xmmword_10021D8F0;
   v28 = v27;
@@ -2588,73 +1527,74 @@ id sub_10001FC04()
   v31 = objc_opt_self();
   v32 = [v31 TPPBPolicyCategoriesByViewWithView:v29 categories:isa];
 
-  v28[4] = v32;
+  *v28[1]._TtCs12_SwiftObject_opaque = v32;
   v33 = sub_100216964();
   v34 = sub_100216B14().super.isa;
   v35 = [v31 TPPBPolicyCategoriesByViewWithView:v33 categories:v34];
 
-  v28[5] = v35;
+  *&v28[1]._TtCs12_SwiftObject_opaque[8] = v35;
   v36 = sub_100216964();
   v37 = sub_100216B14().super.isa;
   v38 = [v31 TPPBPolicyCategoriesByViewWithView:v36 categories:v37];
 
-  v28[6] = v38;
+  *v28[1].endpoint = v38;
   v39 = sub_100216964();
   v40 = sub_100216B14().super.isa;
   v41 = [v31 TPPBPolicyCategoriesByViewWithView:v39 categories:v40];
 
-  v28[7] = v41;
+  *v28[1].containerMap = v41;
   v42 = sub_100216964();
   v43 = sub_100216B14().super.isa;
   v44 = [v31 TPPBPolicyCategoriesByViewWithView:v42 categories:v43];
 
-  v28[8] = v44;
+  *v28[2]._TtCs12_SwiftObject_opaque = v44;
   v45 = sub_100216964();
   v46 = sub_100216B14().super.isa;
   v47 = [v31 TPPBPolicyCategoriesByViewWithView:v45 categories:v46];
 
-  v28[9] = v47;
+  *&v28[2]._TtCs12_SwiftObject_opaque[8] = v47;
   v48 = sub_100216964();
   v49 = sub_100216B14().super.isa;
   v50 = [v31 TPPBPolicyCategoriesByViewWithView:v48 categories:v49];
 
-  v28[10] = v50;
+  *v28[2].endpoint = v50;
   v51 = sub_100216964();
   v52 = sub_100216B14().super.isa;
   v53 = [v31 TPPBPolicyCategoriesByViewWithView:v51 categories:v52];
 
-  v28[11] = v53;
+  *v28[2].containerMap = v53;
   v54 = sub_100216964();
   v55 = sub_100216B14().super.isa;
   v56 = [v31 TPPBPolicyCategoriesByViewWithView:v54 categories:v55];
 
-  v28[12] = v56;
+  *v28[3]._TtCs12_SwiftObject_opaque = v56;
   v57 = sub_100216964();
   v58 = sub_100216B14().super.isa;
   v59 = [v31 TPPBPolicyCategoriesByViewWithView:v57 categories:v58];
 
-  v28[13] = v59;
+  *&v28[3]._TtCs12_SwiftObject_opaque[8] = v59;
   v60 = sub_100216964();
   v61 = sub_100216B14().super.isa;
   v62 = [v31 TPPBPolicyCategoriesByViewWithView:v60 categories:v61];
 
   v63 = v28;
-  v28[14] = v62;
+  *v28[3].endpoint = v62;
   v64 = sub_100216964();
   v65 = sub_100216B14().super.isa;
   v66 = [v31 TPPBPolicyCategoriesByViewWithView:v64 categories:v65];
 
-  v63[15] = v66;
+  *v63[3].containerMap = v66;
   v67 = sub_100216964();
   v68 = sub_100216B14().super.isa;
   v69 = [v31 TPPBPolicyCategoriesByViewWithView:v67 categories:v68];
 
-  v63[16] = v69;
+  *v63[4]._TtCs12_SwiftObject_opaque = v69;
+  v482 = v63;
   v70 = sub_100216964();
   v71 = sub_100216B14().super.isa;
   v72 = [v31 TPPBPolicyCategoriesByViewWithView:v70 categories:v71];
 
-  v63[17] = v72;
+  *&v63[4]._TtCs12_SwiftObject_opaque[8] = v72;
   v73 = swift_allocObject();
   *(v73 + 16) = xmmword_10021D8B0;
   v74 = v73;
@@ -2663,22 +1603,23 @@ id sub_10001FC04()
   v77 = objc_opt_self();
   v78 = [v77 TPPBPolicyIntroducersByCategoryWithCategory:v75 introducers:v76];
 
-  v74[4] = v78;
+  *v74[1]._TtCs12_SwiftObject_opaque = v78;
   v79 = sub_100216964();
   v80 = sub_100216B14().super.isa;
   v81 = [v77 TPPBPolicyIntroducersByCategoryWithCategory:v79 introducers:v80];
 
-  v74[5] = v81;
+  *&v74[1]._TtCs12_SwiftObject_opaque[8] = v81;
   v82 = sub_100216964();
   v83 = sub_100216B14().super.isa;
   v84 = [v77 TPPBPolicyIntroducersByCategoryWithCategory:v82 introducers:v83];
 
-  v74[6] = v84;
+  v481 = v74;
+  *v74[1].endpoint = v84;
   v85 = sub_100216964();
   v86 = sub_100216B14().super.isa;
   v87 = [v77 TPPBPolicyIntroducersByCategoryWithCategory:v85 introducers:v86];
 
-  v74[7] = v87;
+  *v74[1].containerMap = v87;
   v88 = swift_allocObject();
   *(v88 + 16) = xmmword_10021D8C0;
   v89 = v88;
@@ -2691,7 +1632,7 @@ id sub_10001FC04()
   v95 = objc_opt_self();
   v96 = [v95 TPPBPolicyKeyViewMappingWithView:v94 matchingRule:v93];
 
-  v89[4] = v96;
+  *v89[1]._TtCs12_SwiftObject_opaque = v96;
   v97 = sub_100216964();
   v98 = sub_100216964();
   v99 = [v90 fieldMatch:v97 fieldRegex:v98];
@@ -2699,7 +1640,7 @@ id sub_10001FC04()
   v100 = sub_100216964();
   v101 = [v95 TPPBPolicyKeyViewMappingWithView:v100 matchingRule:v99];
 
-  v89[5] = v101;
+  *&v89[1]._TtCs12_SwiftObject_opaque[8] = v101;
   v102 = sub_100216964();
   v103 = sub_100216964();
   v104 = [v90 fieldMatch:v102 fieldRegex:v103];
@@ -2707,7 +1648,7 @@ id sub_10001FC04()
   v105 = sub_100216964();
   v106 = [v95 TPPBPolicyKeyViewMappingWithView:v105 matchingRule:v104];
 
-  v89[6] = v106;
+  *v89[1].endpoint = v106;
   v107 = sub_100216964();
   v108 = sub_100216964();
   v109 = [v90 fieldMatch:v107 fieldRegex:v108];
@@ -2715,7 +1656,7 @@ id sub_10001FC04()
   v110 = sub_100216964();
   v111 = [v95 TPPBPolicyKeyViewMappingWithView:v110 matchingRule:v109];
 
-  v89[7] = v111;
+  *v89[1].containerMap = v111;
   v112 = sub_100216964();
   v113 = sub_100216964();
   v114 = [v90 fieldMatch:v112 fieldRegex:v113];
@@ -2723,7 +1664,7 @@ id sub_10001FC04()
   v115 = sub_100216964();
   v116 = [v95 TPPBPolicyKeyViewMappingWithView:v115 matchingRule:v114];
 
-  v89[8] = v116;
+  *v89[2]._TtCs12_SwiftObject_opaque = v116;
   v117 = sub_100216964();
   v118 = sub_100216964();
   v119 = [v90 fieldMatch:v117 fieldRegex:v118];
@@ -2731,7 +1672,7 @@ id sub_10001FC04()
   v120 = sub_100216964();
   v121 = [v95 TPPBPolicyKeyViewMappingWithView:v120 matchingRule:v119];
 
-  v89[9] = v121;
+  *&v89[2]._TtCs12_SwiftObject_opaque[8] = v121;
   v122 = sub_100216964();
   v123 = sub_100216964();
   v124 = [v90 fieldMatch:v122 fieldRegex:v123];
@@ -2739,7 +1680,7 @@ id sub_10001FC04()
   v125 = sub_100216964();
   v126 = [v95 TPPBPolicyKeyViewMappingWithView:v125 matchingRule:v124];
 
-  v89[10] = v126;
+  *v89[2].endpoint = v126;
   v127 = swift_allocObject();
   *(v127 + 16) = xmmword_10021D880;
   v128 = sub_100216964();
@@ -2759,261 +1700,263 @@ id sub_10001FC04()
   *(v127 + 48) = v136;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
   v137 = sub_100216B14().super.isa;
+  v127, v138, v139, v140, v141, v142, v143, v144, v365, v377, v389, v401, v413, v425, v437, "ProtectedCloudStorage", 0xE, 0x1D;
+  v145 = [v90 orMatch:v137];
 
-  v138 = [v90 orMatch:v137];
+  v146 = sub_100216964();
+  v438 = v95;
+  v147 = [v95 TPPBPolicyKeyViewMappingWithView:v146 matchingRule:v145];
 
-  v139 = sub_100216964();
-  v280 = v95;
-  v140 = [v95 TPPBPolicyKeyViewMappingWithView:v139 matchingRule:v138];
-
-  v89[11] = v140;
-  v141 = sub_100216964();
-  v142 = sub_100216964();
-  v143 = [v90 fieldMatch:v141 fieldRegex:v142];
-
-  v144 = sub_100216964();
-  v145 = [v95 TPPBPolicyKeyViewMappingWithView:v144 matchingRule:v143];
-
-  v89[12] = v145;
-  v146 = swift_allocObject();
-  *(v146 + 16) = xmmword_10021D8B0;
-  v147 = swift_allocObject();
-  *(v147 + 16) = xmmword_10021D8D0;
+  v484 = v89;
+  *v89[2].containerMap = v147;
   v148 = sub_100216964();
   v149 = sub_100216964();
   v150 = [v90 fieldMatch:v148 fieldRegex:v149];
 
-  *(v147 + 32) = v150;
   v151 = sub_100216964();
-  v152 = sub_100216964();
-  v153 = [v90 fieldMatch:v151 fieldRegex:v152];
+  v152 = [v95 TPPBPolicyKeyViewMappingWithView:v151 matchingRule:v150];
 
-  *(v147 + 40) = v153;
-  v154 = sub_100216B14().super.isa;
+  *v89[3]._TtCs12_SwiftObject_opaque = v152;
+  v153 = swift_allocObject();
+  *(v153 + 16) = xmmword_10021D8B0;
+  v154 = swift_allocObject();
+  *(v154 + 16) = xmmword_10021D8D0;
+  v155 = sub_100216964();
+  v156 = sub_100216964();
+  v157 = [v90 fieldMatch:v155 fieldRegex:v156];
 
-  v155 = [v90 andMatch:v154];
-
-  *(v146 + 32) = v155;
-  v156 = swift_allocObject();
-  *(v156 + 16) = xmmword_10021D8D0;
-  v157 = sub_100216964();
+  *(v154 + 32) = v157;
   v158 = sub_100216964();
-  v159 = [v90 fieldMatch:v157 fieldRegex:v158];
+  v159 = sub_100216964();
+  v160 = [v90 fieldMatch:v158 fieldRegex:v159];
 
-  *(v156 + 32) = v159;
-  v160 = sub_100216964();
-  v161 = sub_100216964();
-  v162 = [v90 fieldMatch:v160 fieldRegex:v161];
+  *(v154 + 40) = v160;
+  v161 = sub_100216B14().super.isa;
+  v154, v162, v163, v164, v165, v166, v167, v168, v366, v378, v390, v402, v414, v426, v438, v449, v460, v471;
+  v169 = [v90 andMatch:v161];
 
-  *(v156 + 40) = v162;
-  v163 = sub_100216B14().super.isa;
+  *(v153 + 32) = v169;
+  v170 = swift_allocObject();
+  *(v170 + 16) = xmmword_10021D8D0;
+  v171 = sub_100216964();
+  v172 = sub_100216964();
+  v173 = [v90 fieldMatch:v171 fieldRegex:v172];
 
-  v164 = [v90 andMatch:v163];
+  *(v170 + 32) = v173;
+  v174 = sub_100216964();
+  v175 = sub_100216964();
+  v176 = [v90 fieldMatch:v174 fieldRegex:v175];
 
-  *(v146 + 40) = v164;
-  v165 = sub_100216964();
-  v166 = sub_100216964();
-  v167 = [v90 fieldMatch:v165 fieldRegex:v166];
+  *(v170 + 40) = v176;
+  v177 = sub_100216B14().super.isa;
+  v170, v178, v179, v180, v181, v182, v183, v184, v367, v379, v391, v403, v415, v427, v439, v450, v461, v472;
+  v185 = [v90 andMatch:v177];
 
-  *(v146 + 48) = v167;
-  v168 = sub_100216964();
-  v169 = sub_100216964();
-  v170 = [v90 fieldMatch:v168 fieldRegex:v169];
-
-  *(v146 + 56) = v170;
-  v171 = sub_100216B14().super.isa;
-
-  v172 = [v90 orMatch:v171];
-
-  v173 = sub_100216964();
-  v174 = [v280 TPPBPolicyKeyViewMappingWithView:v173 matchingRule:v172];
-
-  v89[13] = v174;
-  v175 = swift_allocObject();
-  *(v175 + 16) = xmmword_10021D8D0;
-  v176 = sub_100216964();
-  v177 = sub_100216964();
-  v178 = [v90 fieldMatch:v176 fieldRegex:v177];
-
-  *(v175 + 32) = v178;
-  v179 = swift_allocObject();
-  *(v179 + 16) = xmmword_10021D880;
-  v180 = sub_100216964();
-  v181 = sub_100216964();
-  v182 = [v90 fieldMatch:v180 fieldRegex:v181];
-
-  *(v179 + 32) = v182;
-  v183 = sub_100216964();
-  v184 = sub_100216964();
-  v185 = [v90 fieldMatch:v183 fieldRegex:v184];
-
-  *(v179 + 40) = v185;
+  *(v153 + 40) = v185;
   v186 = sub_100216964();
   v187 = sub_100216964();
   v188 = [v90 fieldMatch:v186 fieldRegex:v187];
 
-  *(v179 + 48) = v188;
-  v189 = sub_100216B14().super.isa;
+  *(v153 + 48) = v188;
+  v189 = sub_100216964();
+  v190 = sub_100216964();
+  v191 = [v90 fieldMatch:v189 fieldRegex:v190];
 
-  v190 = [v90 andMatch:v189];
+  *(v153 + 56) = v191;
+  v192 = sub_100216B14().super.isa;
+  v153, v193, v194, v195, v196, v197, v198, v199, v368, v380, v392, v404, v416, v428, v440, v451, v462, v473;
+  v200 = [v90 orMatch:v192];
 
-  *(v175 + 40) = v190;
-  v191 = sub_100216B14().super.isa;
+  v201 = sub_100216964();
+  v202 = v441;
+  v203 = [v441 TPPBPolicyKeyViewMappingWithView:v201 matchingRule:v200];
 
-  v192 = [v90 orMatch:v191];
-
-  v193 = sub_100216964();
-  v194 = [v280 TPPBPolicyKeyViewMappingWithView:v193 matchingRule:v192];
-
-  v89[14] = v194;
-  v195 = swift_allocObject();
-  *(v195 + 16) = xmmword_10021D8F0;
-  v196 = sub_100216964();
-  v197 = sub_100216964();
-  v198 = [v90 fieldMatch:v196 fieldRegex:v197];
-
-  *(v195 + 32) = v198;
-  v199 = sub_100216964();
-  v200 = sub_100216964();
-  v201 = [v90 fieldMatch:v199 fieldRegex:v200];
-
-  *(v195 + 40) = v201;
-  v202 = sub_100216964();
-  v203 = sub_100216964();
-  v204 = [v90 fieldMatch:v202 fieldRegex:v203];
-
-  *(v195 + 48) = v204;
+  *&v89[3]._TtCs12_SwiftObject_opaque[8] = v203;
+  v204 = swift_allocObject();
+  *(v204 + 16) = xmmword_10021D8D0;
   v205 = sub_100216964();
   v206 = sub_100216964();
   v207 = [v90 fieldMatch:v205 fieldRegex:v206];
 
-  *(v195 + 56) = v207;
-  v208 = sub_100216964();
+  *(v204 + 32) = v207;
+  v208 = swift_allocObject();
+  *(v208 + 16) = xmmword_10021D880;
   v209 = sub_100216964();
-  v210 = [v90 fieldMatch:v208 fieldRegex:v209];
+  v210 = sub_100216964();
+  v211 = [v90 fieldMatch:v209 fieldRegex:v210];
 
-  *(v195 + 64) = v210;
-  v211 = sub_100216964();
+  *(v208 + 32) = v211;
   v212 = sub_100216964();
-  v213 = [v90 fieldMatch:v211 fieldRegex:v212];
+  v213 = sub_100216964();
+  v214 = [v90 fieldMatch:v212 fieldRegex:v213];
 
-  *(v195 + 72) = v213;
-  v214 = sub_100216964();
+  *(v208 + 40) = v214;
   v215 = sub_100216964();
-  v216 = [v90 fieldMatch:v214 fieldRegex:v215];
+  v216 = sub_100216964();
+  v217 = [v90 fieldMatch:v215 fieldRegex:v216];
 
-  *(v195 + 80) = v216;
-  v217 = sub_100216964();
-  v218 = sub_100216964();
-  v219 = [v90 fieldMatch:v217 fieldRegex:v218];
+  *(v208 + 48) = v217;
+  v218 = sub_100216B14().super.isa;
+  v208, v219, v220, v221, v222, v223, v224, v225, v369, v381, v393, v405, v417, v429, v441, v452, v463, v474;
+  v226 = [v90 andMatch:v218];
 
-  *(v195 + 88) = v219;
-  v220 = sub_100216964();
-  v221 = sub_100216964();
-  v222 = [v90 fieldMatch:v220 fieldRegex:v221];
+  *(v204 + 40) = v226;
+  v227 = sub_100216B14().super.isa;
+  v204, v228, v229, v230, v231, v232, v233, v234, v370, v382, v394, v406, v418, v430, v442, v453, v464, v475;
+  v235 = [v90 orMatch:v227];
 
-  *(v195 + 96) = v222;
-  v223 = sub_100216964();
-  v224 = sub_100216964();
-  v225 = [v90 fieldMatch:v223 fieldRegex:v224];
-
-  *(v195 + 104) = v225;
-  v226 = sub_100216964();
-  v227 = sub_100216964();
-  v228 = [v90 fieldMatch:v226 fieldRegex:v227];
-
-  *(v195 + 112) = v228;
-  v229 = sub_100216964();
-  v230 = sub_100216964();
-  v231 = [v90 fieldMatch:v229 fieldRegex:v230];
-
-  *(v195 + 120) = v231;
-  v232 = sub_100216964();
-  v233 = sub_100216964();
-  v234 = [v90 fieldMatch:v232 fieldRegex:v233];
-
-  *(v195 + 128) = v234;
-  v235 = sub_100216964();
   v236 = sub_100216964();
-  v237 = [v90 fieldMatch:v235 fieldRegex:v236];
+  v237 = [v202 TPPBPolicyKeyViewMappingWithView:v236 matchingRule:v235];
 
-  *(v195 + 136) = v237;
-  v238 = sub_100216B14().super.isa;
-
-  v239 = [v90 orMatch:v238];
-
+  *v89[3].endpoint = v237;
+  v238 = swift_allocObject();
+  *(v238 + 16) = v465;
+  v239 = sub_100216964();
   v240 = sub_100216964();
-  v241 = [v280 TPPBPolicyKeyViewMappingWithView:v240 matchingRule:v239];
+  v241 = [v90 fieldMatch:v239 fieldRegex:v240];
 
-  v89[15] = v241;
+  *(v238 + 32) = v241;
   v242 = sub_100216964();
   v243 = sub_100216964();
   v244 = [v90 fieldMatch:v242 fieldRegex:v243];
 
+  *(v238 + 40) = v244;
   v245 = sub_100216964();
-  v246 = [v280 TPPBPolicyKeyViewMappingWithView:v245 matchingRule:v244];
+  v246 = sub_100216964();
+  v247 = [v90 fieldMatch:v245 fieldRegex:v246];
 
-  v89[16] = v246;
-  v247 = sub_100216964();
+  *(v238 + 48) = v247;
   v248 = sub_100216964();
-  v249 = [v90 fieldMatch:v247 fieldRegex:v248];
+  v249 = sub_100216964();
+  v250 = [v90 fieldMatch:v248 fieldRegex:v249];
 
-  v250 = sub_100216964();
-  v251 = [v280 TPPBPolicyKeyViewMappingWithView:v250 matchingRule:v249];
+  *(v238 + 56) = v250;
+  v251 = sub_100216964();
+  v252 = sub_100216964();
+  v253 = [v90 fieldMatch:v251 fieldRegex:v252];
 
-  v89[17] = v251;
-  v252 = swift_allocObject();
-  *(v252 + 16) = xmmword_10021D880;
-  v253 = sub_100216964();
+  *(v238 + 64) = v253;
   v254 = sub_100216964();
-  v255 = [v90 fieldMatch:v253 fieldRegex:v254];
+  v255 = sub_100216964();
+  v256 = [v90 fieldMatch:v254 fieldRegex:v255];
 
-  *(v252 + 32) = v255;
-  v256 = sub_100216964();
+  *(v238 + 72) = v256;
   v257 = sub_100216964();
-  v258 = [v90 fieldMatch:v256 fieldRegex:v257];
+  v258 = sub_100216964();
+  v259 = [v90 fieldMatch:v257 fieldRegex:v258];
 
-  *(v252 + 40) = v258;
-  v259 = sub_100216964();
+  *(v238 + 80) = v259;
   v260 = sub_100216964();
-  v261 = [v90 fieldMatch:v259 fieldRegex:v260];
+  v261 = sub_100216964();
+  v262 = [v90 fieldMatch:v260 fieldRegex:v261];
 
-  *(v252 + 48) = v261;
-  v262 = sub_100216B14().super.isa;
-
-  v263 = [v90 orMatch:v262];
-
+  *(v238 + 88) = v262;
+  v263 = sub_100216964();
   v264 = sub_100216964();
-  v265 = [v280 TPPBPolicyKeyViewMappingWithView:v264 matchingRule:v263];
+  v265 = [v90 fieldMatch:v263 fieldRegex:v264];
 
-  v89[18] = v265;
-  v266 = [v90 trueMatch];
+  *(v238 + 96) = v265;
+  v266 = sub_100216964();
   v267 = sub_100216964();
-  v268 = [v280 TPPBPolicyKeyViewMappingWithView:v267 matchingRule:v266];
+  v268 = [v90 fieldMatch:v266 fieldRegex:v267];
 
-  v89[19] = v268;
-  v281 = objc_allocWithZone(TPPolicyDocument);
+  *(v238 + 104) = v268;
+  v269 = sub_100216964();
+  v270 = sub_100216964();
+  v271 = [v90 fieldMatch:v269 fieldRegex:v270];
+
+  *(v238 + 112) = v271;
+  v272 = sub_100216964();
+  v273 = sub_100216964();
+  v274 = [v90 fieldMatch:v272 fieldRegex:v273];
+
+  *(v238 + 120) = v274;
+  v275 = sub_100216964();
+  v276 = sub_100216964();
+  v277 = [v90 fieldMatch:v275 fieldRegex:v276];
+
+  *(v238 + 128) = v277;
+  v278 = sub_100216964();
+  v279 = sub_100216964();
+  v280 = [v90 fieldMatch:v278 fieldRegex:v279];
+
+  *(v238 + 136) = v280;
+  v281 = sub_100216B14().super.isa;
+  v238, v282, v283, v284, v285, v286, v287, v288, v371, v383, v395, v407, v419, v431, v443, v454, v465, *(&v465 + 1);
+  v289 = [v90 orMatch:v281];
+
+  v290 = sub_100216964();
+  v291 = [v202 TPPBPolicyKeyViewMappingWithView:v290 matchingRule:v289];
+
+  *v89[3].containerMap = v291;
+  v292 = sub_100216964();
+  v293 = sub_100216964();
+  v294 = [v90 fieldMatch:v292 fieldRegex:v293];
+
+  v295 = sub_100216964();
+  v296 = [v202 TPPBPolicyKeyViewMappingWithView:v295 matchingRule:v294];
+
+  *v89[4]._TtCs12_SwiftObject_opaque = v296;
+  v297 = sub_100216964();
+  v298 = sub_100216964();
+  v299 = [v90 fieldMatch:v297 fieldRegex:v298];
+
+  v300 = sub_100216964();
+  v301 = [v202 TPPBPolicyKeyViewMappingWithView:v300 matchingRule:v299];
+
+  *&v89[4]._TtCs12_SwiftObject_opaque[8] = v301;
+  v302 = swift_allocObject();
+  *(v302 + 16) = xmmword_10021D880;
+  v303 = sub_100216964();
+  v304 = sub_100216964();
+  v305 = [v90 fieldMatch:v303 fieldRegex:v304];
+
+  *(v302 + 32) = v305;
+  v306 = sub_100216964();
+  v307 = sub_100216964();
+  v308 = [v90 fieldMatch:v306 fieldRegex:v307];
+
+  *(v302 + 40) = v308;
+  v309 = sub_100216964();
+  v310 = sub_100216964();
+  v311 = [v90 fieldMatch:v309 fieldRegex:v310];
+
+  *(v302 + 48) = v311;
+  v312 = sub_100216B14().super.isa;
+  v302, v313, v314, v315, v316, v317, v318, v319, v372, v384, v396, v408, v420, v432, v444, v455, v466, v476;
+  v320 = [v90 orMatch:v312];
+
+  v321 = sub_100216964();
+  v322 = [v202 TPPBPolicyKeyViewMappingWithView:v321 matchingRule:v320];
+
+  *v89[4].endpoint = v322;
+  v323 = [v90 trueMatch];
+  v324 = sub_100216964();
+  v325 = [v202 TPPBPolicyKeyViewMappingWithView:v324 matchingRule:v323];
+
+  *v89[4].containerMap = v325;
+  v485 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v269 = sub_100216B14().super.isa;
-
+  v326 = sub_100216B14().super.isa;
+  v483, v327, v328, v329, v330, v331, v332, v333, v373, v385, v397, v409, v421, v433, v445, v456, v467, v477;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v270 = sub_100216B14().super.isa;
-
+  v334 = sub_100216B14().super.isa;
+  v482, v335, v336, v337, v338, v339, v340, v341, v374, v386, v398, v410, v422, v434, v446, v457, v468, v478;
   sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v271 = sub_100216B14().super.isa;
-
+  v342 = sub_100216B14().super.isa;
+  v481, v343, v344, v345, v346, v347, v348, v349, v375, v387, v399, v411, v423, v435, v447, v458, v469, v479;
   sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v272 = sub_100216B14().super.isa;
+  v350 = sub_100216B14().super.isa;
   sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v273 = sub_100216B14().super.isa;
+  v351 = sub_100216B14().super.isa;
+  v484, v352, v353, v354, v355, v356, v357, v358, v376, v388, v400, v412, v424, v436, v448, v459, v470, v480;
+  v359 = sub_100216B14().super.isa;
+  v360 = sub_100216B14().super.isa;
+  v361 = sub_100216B14().super.isa;
+  v362 = sub_100216B14().super.isa;
+  v363 = [v485 initWithVersion:5 modelToCategory:v326 categoriesByView:v334 introducersByCategory:v342 redactions:v350 keyViewMapping:v351 userControllableViewList:v359 piggybackViews:v360 priorityViews:v361 inheritedExcludedViews:v362 hashAlgo:1];
 
-  v274 = sub_100216B14().super.isa;
-  v275 = sub_100216B14().super.isa;
-  v276 = sub_100216B14().super.isa;
-  v277 = sub_100216B14().super.isa;
-  v278 = [v281 initWithVersion:5 modelToCategory:v269 categoriesByView:v270 introducersByCategory:v271 redactions:v272 keyViewMapping:v273 userControllableViewList:v274 piggybackViews:v275 priorityViews:v276 inheritedExcludedViews:v277 hashAlgo:1];
-
-  return v278;
+  return v363;
 }
 
 id sub_100021F8C()
@@ -3027,42 +1970,43 @@ id sub_100021F8C()
   v4 = objc_opt_self();
   v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
 
-  v1[4] = v5;
+  *v1[1]._TtCs12_SwiftObject_opaque = v5;
   v6 = sub_100216964();
   v7 = sub_100216964();
   v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
 
-  v1[5] = v8;
+  *&v1[1]._TtCs12_SwiftObject_opaque[8] = v8;
   v9 = sub_100216964();
   v10 = sub_100216964();
   v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
 
-  v1[6] = v11;
+  *v1[1].endpoint = v11;
   v12 = sub_100216964();
   v13 = sub_100216964();
   v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
 
-  v1[7] = v14;
+  *v1[1].containerMap = v14;
   v15 = sub_100216964();
   v16 = sub_100216964();
   v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
 
-  v1[8] = v17;
+  *v1[2]._TtCs12_SwiftObject_opaque = v17;
   v18 = sub_100216964();
   v19 = sub_100216964();
   v20 = [v4 TPPBPolicyModelToCategoryWithPrefix:v18 category:v19];
 
-  v1[9] = v20;
+  *&v1[2]._TtCs12_SwiftObject_opaque[8] = v20;
   v21 = sub_100216964();
   v22 = sub_100216964();
   v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
 
-  v1[10] = v23;
+  *v1[2].endpoint = v23;
+  v478 = v1;
   v24 = sub_100216964();
   v25 = sub_100216964();
   v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
 
-  v1[11] = v26;
+  *v1[2].containerMap = v26;
   v27 = swift_allocObject();
   *(v27 + 16) = xmmword_10021D8F0;
   v28 = sub_100216964();
@@ -3130,6 +2074,7 @@ id sub_100021F8C()
   v66 = sub_100216B14().super.isa;
   v67 = [v30 TPPBPolicyCategoriesByViewWithView:v65 categories:v66];
 
+  v477 = v27;
   *(v27 + 128) = v67;
   v68 = sub_100216964();
   v69 = sub_100216B14().super.isa;
@@ -3154,6 +2099,7 @@ id sub_100021F8C()
   v81 = sub_100216B14().super.isa;
   v82 = [v75 TPPBPolicyIntroducersByCategoryWithCategory:v80 introducers:v81];
 
+  v454 = v72;
   v72[6] = v82;
   v83 = sub_100216964();
   v84 = sub_100216B14().super.isa;
@@ -3172,7 +2118,7 @@ id sub_100021F8C()
   v93 = objc_opt_self();
   v94 = [v93 TPPBPolicyKeyViewMappingWithView:v92 matchingRule:v91];
 
-  v87[4] = v94;
+  *v87[1]._TtCs12_SwiftObject_opaque = v94;
   v95 = sub_100216964();
   v96 = sub_100216964();
   v97 = [v88 fieldMatch:v95 fieldRegex:v96];
@@ -3180,7 +2126,7 @@ id sub_100021F8C()
   v98 = sub_100216964();
   v99 = [v93 TPPBPolicyKeyViewMappingWithView:v98 matchingRule:v97];
 
-  v87[5] = v99;
+  *&v87[1]._TtCs12_SwiftObject_opaque[8] = v99;
   v100 = sub_100216964();
   v101 = sub_100216964();
   v102 = [v88 fieldMatch:v100 fieldRegex:v101];
@@ -3188,7 +2134,7 @@ id sub_100021F8C()
   v103 = sub_100216964();
   v104 = [v93 TPPBPolicyKeyViewMappingWithView:v103 matchingRule:v102];
 
-  v87[6] = v104;
+  *v87[1].endpoint = v104;
   v105 = sub_100216964();
   v106 = sub_100216964();
   v107 = [v88 fieldMatch:v105 fieldRegex:v106];
@@ -3196,7 +2142,7 @@ id sub_100021F8C()
   v108 = sub_100216964();
   v109 = [v93 TPPBPolicyKeyViewMappingWithView:v108 matchingRule:v107];
 
-  v87[7] = v109;
+  *v87[1].containerMap = v109;
   v110 = sub_100216964();
   v111 = sub_100216964();
   v112 = [v88 fieldMatch:v110 fieldRegex:v111];
@@ -3204,7 +2150,7 @@ id sub_100021F8C()
   v113 = sub_100216964();
   v114 = [v93 TPPBPolicyKeyViewMappingWithView:v113 matchingRule:v112];
 
-  v87[8] = v114;
+  *v87[2]._TtCs12_SwiftObject_opaque = v114;
   v115 = sub_100216964();
   v116 = sub_100216964();
   v117 = [v88 fieldMatch:v115 fieldRegex:v116];
@@ -3212,7 +2158,7 @@ id sub_100021F8C()
   v118 = sub_100216964();
   v119 = [v93 TPPBPolicyKeyViewMappingWithView:v118 matchingRule:v117];
 
-  v87[9] = v119;
+  *&v87[2]._TtCs12_SwiftObject_opaque[8] = v119;
   v120 = sub_100216964();
   v121 = sub_100216964();
   v122 = [v88 fieldMatch:v120 fieldRegex:v121];
@@ -3220,7 +2166,7 @@ id sub_100021F8C()
   v123 = sub_100216964();
   v124 = [v93 TPPBPolicyKeyViewMappingWithView:v123 matchingRule:v122];
 
-  v87[10] = v124;
+  *v87[2].endpoint = v124;
   v125 = swift_allocObject();
   *(v125 + 16) = xmmword_10021D880;
   v126 = sub_100216964();
@@ -3240,261 +2186,261 @@ id sub_100021F8C()
   *(v125 + 48) = v134;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
   v135 = sub_100216B14().super.isa;
+  v125, v136, v137, v138, v139, v140, v141, v142, v362, v374, v386, v398, v410, "ProtectedCloudStorage", 0xE, 0x1D, v454, "Security-61901.40.77\n";
+  v143 = [v88 orMatch:v135];
 
-  v136 = [v88 orMatch:v135];
+  v144 = sub_100216964();
+  v145 = [v93 TPPBPolicyKeyViewMappingWithView:v144 matchingRule:v143];
 
-  v137 = sub_100216964();
-  v138 = [v93 TPPBPolicyKeyViewMappingWithView:v137 matchingRule:v136];
-
-  v278 = v87;
-  v87[11] = v138;
-  v139 = sub_100216964();
-  v140 = sub_100216964();
-  v141 = [v88 fieldMatch:v139 fieldRegex:v140];
-
-  v142 = sub_100216964();
-  v143 = [v93 TPPBPolicyKeyViewMappingWithView:v142 matchingRule:v141];
-
-  v87[12] = v143;
-  v144 = swift_allocObject();
-  *(v144 + 16) = xmmword_10021D8B0;
-  v145 = swift_allocObject();
-  *(v145 + 16) = xmmword_10021D8D0;
+  v479 = v87;
+  *v87[2].containerMap = v145;
   v146 = sub_100216964();
   v147 = sub_100216964();
   v148 = [v88 fieldMatch:v146 fieldRegex:v147];
 
-  *(v145 + 32) = v148;
   v149 = sub_100216964();
-  v150 = sub_100216964();
-  v151 = [v88 fieldMatch:v149 fieldRegex:v150];
+  v150 = [v93 TPPBPolicyKeyViewMappingWithView:v149 matchingRule:v148];
 
-  *(v145 + 40) = v151;
-  v152 = sub_100216B14().super.isa;
+  *v87[3]._TtCs12_SwiftObject_opaque = v150;
+  v151 = swift_allocObject();
+  *(v151 + 16) = xmmword_10021D8B0;
+  v152 = swift_allocObject();
+  *(v152 + 16) = xmmword_10021D8D0;
+  v153 = sub_100216964();
+  v154 = sub_100216964();
+  v155 = [v88 fieldMatch:v153 fieldRegex:v154];
 
-  v153 = [v88 andMatch:v152];
-
-  *(v144 + 32) = v153;
-  v154 = swift_allocObject();
-  *(v154 + 16) = xmmword_10021D8D0;
-  v155 = sub_100216964();
+  *(v152 + 32) = v155;
   v156 = sub_100216964();
-  v157 = [v88 fieldMatch:v155 fieldRegex:v156];
+  v157 = sub_100216964();
+  v158 = [v88 fieldMatch:v156 fieldRegex:v157];
 
-  *(v154 + 32) = v157;
-  v158 = sub_100216964();
-  v159 = sub_100216964();
-  v160 = [v88 fieldMatch:v158 fieldRegex:v159];
+  *(v152 + 40) = v158;
+  v159 = sub_100216B14().super.isa;
+  v152, v160, v161, v162, v163, v164, v165, v166, v363, v375, v387, v399, v411, v422, v433, v444, v455, v466;
+  v167 = [v88 andMatch:v159];
 
-  *(v154 + 40) = v160;
-  v161 = sub_100216B14().super.isa;
+  *(v151 + 32) = v167;
+  v168 = swift_allocObject();
+  *(v168 + 16) = xmmword_10021D8D0;
+  v169 = sub_100216964();
+  v170 = sub_100216964();
+  v171 = [v88 fieldMatch:v169 fieldRegex:v170];
 
-  v162 = [v88 andMatch:v161];
+  *(v168 + 32) = v171;
+  v172 = sub_100216964();
+  v173 = sub_100216964();
+  v174 = [v88 fieldMatch:v172 fieldRegex:v173];
 
-  *(v144 + 40) = v162;
-  v163 = sub_100216964();
-  v164 = sub_100216964();
-  v165 = [v88 fieldMatch:v163 fieldRegex:v164];
+  *(v168 + 40) = v174;
+  v175 = sub_100216B14().super.isa;
+  v168, v176, v177, v178, v179, v180, v181, v182, v364, v376, v388, v400, v412, v423, v434, v445, v456, v467;
+  v183 = [v88 andMatch:v175];
 
-  *(v144 + 48) = v165;
-  v166 = sub_100216964();
-  v167 = sub_100216964();
-  v168 = [v88 fieldMatch:v166 fieldRegex:v167];
-
-  *(v144 + 56) = v168;
-  v169 = sub_100216B14().super.isa;
-
-  v170 = [v88 orMatch:v169];
-
-  v171 = sub_100216964();
-  v172 = [v93 TPPBPolicyKeyViewMappingWithView:v171 matchingRule:v170];
-
-  v278[13] = v172;
-  v173 = swift_allocObject();
-  *(v173 + 16) = xmmword_10021D8D0;
-  v174 = sub_100216964();
-  v175 = sub_100216964();
-  v176 = [v88 fieldMatch:v174 fieldRegex:v175];
-
-  *(v173 + 32) = v176;
-  v177 = swift_allocObject();
-  *(v177 + 16) = xmmword_10021D880;
-  v178 = sub_100216964();
-  v179 = sub_100216964();
-  v180 = [v88 fieldMatch:v178 fieldRegex:v179];
-
-  *(v177 + 32) = v180;
-  v181 = sub_100216964();
-  v182 = sub_100216964();
-  v183 = [v88 fieldMatch:v181 fieldRegex:v182];
-
-  *(v177 + 40) = v183;
+  *(v151 + 40) = v183;
   v184 = sub_100216964();
   v185 = sub_100216964();
   v186 = [v88 fieldMatch:v184 fieldRegex:v185];
 
-  *(v177 + 48) = v186;
-  v187 = sub_100216B14().super.isa;
+  *(v151 + 48) = v186;
+  v187 = sub_100216964();
+  v188 = sub_100216964();
+  v189 = [v88 fieldMatch:v187 fieldRegex:v188];
 
-  v188 = [v88 andMatch:v187];
+  *(v151 + 56) = v189;
+  v190 = sub_100216B14().super.isa;
+  v151, v191, v192, v193, v194, v195, v196, v197, v365, v377, v389, v401, v413, v424, v435, v446, v457, v468;
+  v198 = [v88 orMatch:v190];
 
-  *(v173 + 40) = v188;
-  v189 = sub_100216B14().super.isa;
+  v199 = sub_100216964();
+  v200 = [v93 TPPBPolicyKeyViewMappingWithView:v199 matchingRule:v198];
 
-  v190 = [v88 orMatch:v189];
-
-  v191 = sub_100216964();
-  v192 = [v93 TPPBPolicyKeyViewMappingWithView:v191 matchingRule:v190];
-
-  v278[14] = v192;
-  v193 = swift_allocObject();
-  *(v193 + 16) = xmmword_10021D8F0;
-  v194 = sub_100216964();
-  v195 = sub_100216964();
-  v196 = [v88 fieldMatch:v194 fieldRegex:v195];
-
-  *(v193 + 32) = v196;
-  v197 = sub_100216964();
-  v198 = sub_100216964();
-  v199 = [v88 fieldMatch:v197 fieldRegex:v198];
-
-  *(v193 + 40) = v199;
-  v200 = sub_100216964();
-  v201 = sub_100216964();
-  v202 = [v88 fieldMatch:v200 fieldRegex:v201];
-
-  *(v193 + 48) = v202;
+  *&v479[3]._TtCs12_SwiftObject_opaque[8] = v200;
+  v201 = swift_allocObject();
+  *(v201 + 16) = xmmword_10021D8D0;
+  v202 = sub_100216964();
   v203 = sub_100216964();
-  v204 = sub_100216964();
-  v205 = [v88 fieldMatch:v203 fieldRegex:v204];
+  v204 = [v88 fieldMatch:v202 fieldRegex:v203];
 
-  *(v193 + 56) = v205;
+  *(v201 + 32) = v204;
+  v205 = swift_allocObject();
+  *(v205 + 16) = xmmword_10021D880;
   v206 = sub_100216964();
   v207 = sub_100216964();
   v208 = [v88 fieldMatch:v206 fieldRegex:v207];
 
-  *(v193 + 64) = v208;
+  *(v205 + 32) = v208;
   v209 = sub_100216964();
   v210 = sub_100216964();
   v211 = [v88 fieldMatch:v209 fieldRegex:v210];
 
-  *(v193 + 72) = v211;
+  *(v205 + 40) = v211;
   v212 = sub_100216964();
   v213 = sub_100216964();
   v214 = [v88 fieldMatch:v212 fieldRegex:v213];
 
-  *(v193 + 80) = v214;
-  v215 = sub_100216964();
-  v216 = sub_100216964();
-  v217 = [v88 fieldMatch:v215 fieldRegex:v216];
+  *(v205 + 48) = v214;
+  v215 = sub_100216B14().super.isa;
+  v205, v216, v217, v218, v219, v220, v221, v222, v366, v378, v390, v402, v414, v425, v436, v447, v458, v469;
+  v223 = [v88 andMatch:v215];
 
-  *(v193 + 88) = v217;
-  v218 = sub_100216964();
-  v219 = sub_100216964();
-  v220 = [v88 fieldMatch:v218 fieldRegex:v219];
+  *(v201 + 40) = v223;
+  v224 = sub_100216B14().super.isa;
+  v201, v225, v226, v227, v228, v229, v230, v231, v367, v379, v391, v403, v415, v426, v437, v448, v459, v470;
+  v232 = [v88 orMatch:v224];
 
-  *(v193 + 96) = v220;
-  v221 = sub_100216964();
-  v222 = sub_100216964();
-  v223 = [v88 fieldMatch:v221 fieldRegex:v222];
-
-  *(v193 + 104) = v223;
-  v224 = sub_100216964();
-  v225 = sub_100216964();
-  v226 = [v88 fieldMatch:v224 fieldRegex:v225];
-
-  *(v193 + 112) = v226;
-  v227 = sub_100216964();
-  v228 = sub_100216964();
-  v229 = [v88 fieldMatch:v227 fieldRegex:v228];
-
-  *(v193 + 120) = v229;
-  v230 = sub_100216964();
-  v231 = sub_100216964();
-  v232 = [v88 fieldMatch:v230 fieldRegex:v231];
-
-  *(v193 + 128) = v232;
   v233 = sub_100216964();
-  v234 = sub_100216964();
-  v235 = [v88 fieldMatch:v233 fieldRegex:v234];
+  v234 = [v93 TPPBPolicyKeyViewMappingWithView:v233 matchingRule:v232];
 
-  *(v193 + 136) = v235;
-  v236 = sub_100216B14().super.isa;
+  *v479[3].endpoint = v234;
+  v235 = swift_allocObject();
+  *(v235 + 16) = v438;
+  v236 = sub_100216964();
+  v237 = sub_100216964();
+  v238 = [v88 fieldMatch:v236 fieldRegex:v237];
 
-  v237 = [v88 orMatch:v236];
-
-  v238 = sub_100216964();
-  v239 = [v93 TPPBPolicyKeyViewMappingWithView:v238 matchingRule:v237];
-
-  v278[15] = v239;
+  *(v235 + 32) = v238;
+  v239 = sub_100216964();
   v240 = sub_100216964();
-  v241 = sub_100216964();
-  v242 = [v88 fieldMatch:v240 fieldRegex:v241];
+  v241 = [v88 fieldMatch:v239 fieldRegex:v240];
 
+  *(v235 + 40) = v241;
+  v242 = sub_100216964();
   v243 = sub_100216964();
-  v244 = [v93 TPPBPolicyKeyViewMappingWithView:v243 matchingRule:v242];
+  v244 = [v88 fieldMatch:v242 fieldRegex:v243];
 
-  v278[16] = v244;
+  *(v235 + 48) = v244;
   v245 = sub_100216964();
   v246 = sub_100216964();
   v247 = [v88 fieldMatch:v245 fieldRegex:v246];
 
+  *(v235 + 56) = v247;
   v248 = sub_100216964();
-  v249 = [v93 TPPBPolicyKeyViewMappingWithView:v248 matchingRule:v247];
+  v249 = sub_100216964();
+  v250 = [v88 fieldMatch:v248 fieldRegex:v249];
 
-  v278[17] = v249;
-  v250 = swift_allocObject();
-  *(v250 + 16) = xmmword_10021D880;
+  *(v235 + 64) = v250;
   v251 = sub_100216964();
   v252 = sub_100216964();
   v253 = [v88 fieldMatch:v251 fieldRegex:v252];
 
-  *(v250 + 32) = v253;
+  *(v235 + 72) = v253;
   v254 = sub_100216964();
   v255 = sub_100216964();
   v256 = [v88 fieldMatch:v254 fieldRegex:v255];
 
-  *(v250 + 40) = v256;
+  *(v235 + 80) = v256;
   v257 = sub_100216964();
   v258 = sub_100216964();
   v259 = [v88 fieldMatch:v257 fieldRegex:v258];
 
-  *(v250 + 48) = v259;
-  v260 = sub_100216B14().super.isa;
+  *(v235 + 88) = v259;
+  v260 = sub_100216964();
+  v261 = sub_100216964();
+  v262 = [v88 fieldMatch:v260 fieldRegex:v261];
 
-  v261 = [v88 orMatch:v260];
+  *(v235 + 96) = v262;
+  v263 = sub_100216964();
+  v264 = sub_100216964();
+  v265 = [v88 fieldMatch:v263 fieldRegex:v264];
 
-  v262 = sub_100216964();
-  v263 = [v93 TPPBPolicyKeyViewMappingWithView:v262 matchingRule:v261];
+  *(v235 + 104) = v265;
+  v266 = sub_100216964();
+  v267 = sub_100216964();
+  v268 = [v88 fieldMatch:v266 fieldRegex:v267];
 
-  v278[18] = v263;
-  v264 = [v88 trueMatch];
-  v265 = sub_100216964();
-  v266 = [v93 TPPBPolicyKeyViewMappingWithView:v265 matchingRule:v264];
+  *(v235 + 112) = v268;
+  v269 = sub_100216964();
+  v270 = sub_100216964();
+  v271 = [v88 fieldMatch:v269 fieldRegex:v270];
 
-  v278[19] = v266;
-  v279 = objc_allocWithZone(TPPolicyDocument);
+  *(v235 + 120) = v271;
+  v272 = sub_100216964();
+  v273 = sub_100216964();
+  v274 = [v88 fieldMatch:v272 fieldRegex:v273];
+
+  *(v235 + 128) = v274;
+  v275 = sub_100216964();
+  v276 = sub_100216964();
+  v277 = [v88 fieldMatch:v275 fieldRegex:v276];
+
+  *(v235 + 136) = v277;
+  v278 = sub_100216B14().super.isa;
+  v235, v279, v280, v281, v282, v283, v284, v285, v368, v380, v392, v404, v416, v427, v438, *(&v438 + 1), v460, v471;
+  v286 = [v88 orMatch:v278];
+
+  v287 = sub_100216964();
+  v288 = [v93 TPPBPolicyKeyViewMappingWithView:v287 matchingRule:v286];
+
+  *v479[3].containerMap = v288;
+  v289 = sub_100216964();
+  v290 = sub_100216964();
+  v291 = [v88 fieldMatch:v289 fieldRegex:v290];
+
+  v292 = sub_100216964();
+  v293 = [v93 TPPBPolicyKeyViewMappingWithView:v292 matchingRule:v291];
+
+  *v479[4]._TtCs12_SwiftObject_opaque = v293;
+  v294 = sub_100216964();
+  v295 = sub_100216964();
+  v296 = [v88 fieldMatch:v294 fieldRegex:v295];
+
+  v297 = sub_100216964();
+  v298 = [v93 TPPBPolicyKeyViewMappingWithView:v297 matchingRule:v296];
+
+  *&v479[4]._TtCs12_SwiftObject_opaque[8] = v298;
+  v299 = swift_allocObject();
+  *(v299 + 16) = xmmword_10021D880;
+  v300 = sub_100216964();
+  v301 = sub_100216964();
+  v302 = [v88 fieldMatch:v300 fieldRegex:v301];
+
+  *(v299 + 32) = v302;
+  v303 = sub_100216964();
+  v304 = sub_100216964();
+  v305 = [v88 fieldMatch:v303 fieldRegex:v304];
+
+  *(v299 + 40) = v305;
+  v306 = sub_100216964();
+  v307 = sub_100216964();
+  v308 = [v88 fieldMatch:v306 fieldRegex:v307];
+
+  *(v299 + 48) = v308;
+  v309 = sub_100216B14().super.isa;
+  v299, v310, v311, v312, v313, v314, v315, v316, v369, v381, v393, v405, v417, v428, v439, v449, v461, v472;
+  v317 = [v88 orMatch:v309];
+
+  v318 = sub_100216964();
+  v319 = [v93 TPPBPolicyKeyViewMappingWithView:v318 matchingRule:v317];
+
+  *v479[4].endpoint = v319;
+  v320 = [v88 trueMatch];
+  v321 = sub_100216964();
+  v322 = [v93 TPPBPolicyKeyViewMappingWithView:v321 matchingRule:v320];
+
+  *v479[4].containerMap = v322;
+  v480 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v267 = sub_100216B14().super.isa;
-
+  v323 = sub_100216B14().super.isa;
+  v478, v324, v325, v326, v327, v328, v329, v330, v370, v382, v394, v406, v418, v429, v440, v450, v462, v473;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v268 = sub_100216B14().super.isa;
-
+  v331 = sub_100216B14().super.isa;
+  v477, v332, v333, v334, v335, v336, v337, v338, v371, v383, v395, v407, v419, v430, v441, v451, v463, v474;
   sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v269 = sub_100216B14().super.isa;
-
+  v339 = sub_100216B14().super.isa;
+  v464, v340, v341, v342, v343, v344, v345, v346, v372, v384, v396, v408, v420, v431, v442, v452, v464, v475;
   sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v270 = sub_100216B14().super.isa;
+  v347 = sub_100216B14().super.isa;
   sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v271 = sub_100216B14().super.isa;
+  v348 = sub_100216B14().super.isa;
+  v479, v349, v350, v351, v352, v353, v354, v355, v373, v385, v397, v409, v421, v432, v443, v453, v465, v476;
+  v356 = sub_100216B14().super.isa;
+  v357 = sub_100216B14().super.isa;
+  v358 = sub_100216B14().super.isa;
+  v359 = sub_100216B14().super.isa;
+  v360 = [v480 initWithVersion:6 modelToCategory:v323 categoriesByView:v331 introducersByCategory:v339 redactions:v347 keyViewMapping:v348 userControllableViewList:v356 piggybackViews:v357 priorityViews:v358 inheritedExcludedViews:v359 hashAlgo:1];
 
-  v272 = sub_100216B14().super.isa;
-  v273 = sub_100216B14().super.isa;
-  v274 = sub_100216B14().super.isa;
-  v275 = sub_100216B14().super.isa;
-  v276 = [v279 initWithVersion:6 modelToCategory:v267 categoriesByView:v268 introducersByCategory:v269 redactions:v270 keyViewMapping:v271 userControllableViewList:v272 piggybackViews:v273 priorityViews:v274 inheritedExcludedViews:v275 hashAlgo:1];
-
-  return v276;
+  return v360;
 }
 
 id sub_100024308()
@@ -3539,6 +2485,7 @@ id sub_100024308()
   v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
 
   v1[10] = v23;
+  v473 = v1;
   v24 = sub_100216964();
   v25 = sub_100216964();
   v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
@@ -3619,6 +2566,7 @@ id sub_100024308()
   v72 = [v31 TPPBPolicyCategoriesByViewWithView:v70 categories:v71];
 
   v66[17] = v72;
+  v450 = v66;
   v73 = sub_100216964();
   v74 = sub_100216B14().super.isa;
   v75 = [v31 TPPBPolicyCategoriesByViewWithView:v73 categories:v74];
@@ -3643,6 +2591,7 @@ id sub_100024308()
   v87 = [v80 TPPBPolicyIntroducersByCategoryWithCategory:v85 introducers:v86];
 
   v77[6] = v87;
+  v438 = v77;
   v88 = sub_100216964();
   v89 = sub_100216B14().super.isa;
   v90 = [v80 TPPBPolicyIntroducersByCategoryWithCategory:v88 introducers:v89];
@@ -3660,7 +2609,7 @@ id sub_100024308()
   v98 = objc_opt_self();
   v99 = [v98 TPPBPolicyKeyViewMappingWithView:v97 matchingRule:v96];
 
-  v92[4] = v99;
+  *(v92 + 32) = v99;
   v100 = sub_100216964();
   v101 = sub_100216964();
   v102 = [v93 fieldMatch:v100 fieldRegex:v101];
@@ -3668,7 +2617,7 @@ id sub_100024308()
   v103 = sub_100216964();
   v104 = [v98 TPPBPolicyKeyViewMappingWithView:v103 matchingRule:v102];
 
-  v92[5] = v104;
+  *(v92 + 40) = v104;
   v105 = sub_100216964();
   v106 = sub_100216964();
   v107 = [v93 fieldMatch:v105 fieldRegex:v106];
@@ -3676,7 +2625,7 @@ id sub_100024308()
   v108 = sub_100216964();
   v109 = [v98 TPPBPolicyKeyViewMappingWithView:v108 matchingRule:v107];
 
-  v92[6] = v109;
+  *(v92 + 48) = v109;
   v110 = sub_100216964();
   v111 = sub_100216964();
   v112 = [v93 fieldMatch:v110 fieldRegex:v111];
@@ -3684,7 +2633,7 @@ id sub_100024308()
   v113 = sub_100216964();
   v114 = [v98 TPPBPolicyKeyViewMappingWithView:v113 matchingRule:v112];
 
-  v92[7] = v114;
+  *(v92 + 56) = v114;
   v115 = sub_100216964();
   v116 = sub_100216964();
   v117 = [v93 fieldMatch:v115 fieldRegex:v116];
@@ -3692,7 +2641,7 @@ id sub_100024308()
   v118 = sub_100216964();
   v119 = [v98 TPPBPolicyKeyViewMappingWithView:v118 matchingRule:v117];
 
-  v92[8] = v119;
+  *(v92 + 64) = v119;
   v120 = sub_100216964();
   v121 = sub_100216964();
   v122 = [v93 fieldMatch:v120 fieldRegex:v121];
@@ -3700,7 +2649,7 @@ id sub_100024308()
   v123 = sub_100216964();
   v124 = [v98 TPPBPolicyKeyViewMappingWithView:v123 matchingRule:v122];
 
-  v92[9] = v124;
+  *(v92 + 72) = v124;
   v125 = sub_100216964();
   v126 = sub_100216964();
   v127 = [v93 fieldMatch:v125 fieldRegex:v126];
@@ -3708,7 +2657,7 @@ id sub_100024308()
   v128 = sub_100216964();
   v129 = [v98 TPPBPolicyKeyViewMappingWithView:v128 matchingRule:v127];
 
-  v92[10] = v129;
+  *(v92 + 80) = v129;
   v130 = swift_allocObject();
   *(v130 + 16) = xmmword_10021D880;
   v131 = sub_100216964();
@@ -3728,260 +2677,260 @@ id sub_100024308()
   *(v130 + 48) = v139;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
   v140 = sub_100216B14().super.isa;
+  v130, v141, v142, v143, v144, v145, v146, v147, v367, v379, v391, v403, v415, "ProtectedCloudStorage", v438, v450, "Security-61901.40.77\n", v473;
+  v148 = [v93 orMatch:v140];
 
-  v141 = [v93 orMatch:v140];
+  v149 = sub_100216964();
+  v150 = [v98 TPPBPolicyKeyViewMappingWithView:v149 matchingRule:v148];
 
-  v142 = sub_100216964();
-  v143 = [v98 TPPBPolicyKeyViewMappingWithView:v142 matchingRule:v141];
-
-  v92[11] = v143;
-  v144 = sub_100216964();
-  v145 = sub_100216964();
-  v146 = [v93 fieldMatch:v144 fieldRegex:v145];
-
-  v147 = sub_100216964();
-  v148 = [v98 TPPBPolicyKeyViewMappingWithView:v147 matchingRule:v146];
-
-  v92[12] = v148;
-  v149 = swift_allocObject();
-  *(v149 + 16) = xmmword_10021D8B0;
-  v150 = swift_allocObject();
-  *(v150 + 16) = xmmword_10021D8D0;
+  *(v92 + 88) = v150;
   v151 = sub_100216964();
   v152 = sub_100216964();
   v153 = [v93 fieldMatch:v151 fieldRegex:v152];
 
-  *(v150 + 32) = v153;
   v154 = sub_100216964();
-  v155 = sub_100216964();
-  v156 = [v93 fieldMatch:v154 fieldRegex:v155];
+  v155 = [v98 TPPBPolicyKeyViewMappingWithView:v154 matchingRule:v153];
 
-  *(v150 + 40) = v156;
-  v157 = sub_100216B14().super.isa;
+  *(v92 + 96) = v155;
+  v156 = swift_allocObject();
+  *(v156 + 16) = xmmword_10021D8B0;
+  v157 = swift_allocObject();
+  *(v157 + 16) = xmmword_10021D8D0;
+  v158 = sub_100216964();
+  v159 = sub_100216964();
+  v160 = [v93 fieldMatch:v158 fieldRegex:v159];
 
-  v158 = [v93 andMatch:v157];
-
-  *(v149 + 32) = v158;
-  v159 = swift_allocObject();
-  *(v159 + 16) = xmmword_10021D8D0;
-  v160 = sub_100216964();
+  *(v157 + 32) = v160;
   v161 = sub_100216964();
-  v162 = [v93 fieldMatch:v160 fieldRegex:v161];
+  v162 = sub_100216964();
+  v163 = [v93 fieldMatch:v161 fieldRegex:v162];
 
-  *(v159 + 32) = v162;
-  v163 = sub_100216964();
-  v164 = sub_100216964();
-  v165 = [v93 fieldMatch:v163 fieldRegex:v164];
+  *(v157 + 40) = v163;
+  v164 = sub_100216B14().super.isa;
+  v157, v165, v166, v167, v168, v169, v170, v171, v368, v380, v392, v404, v416, v427, v439, v451, v462, v474;
+  v172 = [v93 andMatch:v164];
 
-  *(v159 + 40) = v165;
-  v166 = sub_100216B14().super.isa;
+  *(v156 + 32) = v172;
+  v173 = swift_allocObject();
+  *(v173 + 16) = xmmword_10021D8D0;
+  v174 = sub_100216964();
+  v175 = sub_100216964();
+  v176 = [v93 fieldMatch:v174 fieldRegex:v175];
 
-  v167 = [v93 andMatch:v166];
+  *(v173 + 32) = v176;
+  v177 = sub_100216964();
+  v178 = sub_100216964();
+  v179 = [v93 fieldMatch:v177 fieldRegex:v178];
 
-  *(v149 + 40) = v167;
-  v168 = sub_100216964();
-  v169 = sub_100216964();
-  v170 = [v93 fieldMatch:v168 fieldRegex:v169];
+  *(v173 + 40) = v179;
+  v180 = sub_100216B14().super.isa;
+  v173, v181, v182, v183, v184, v185, v186, v187, v369, v381, v393, v405, v417, v428, v440, v452, v463, v475;
+  v188 = [v93 andMatch:v180];
 
-  *(v149 + 48) = v170;
-  v171 = sub_100216964();
-  v172 = sub_100216964();
-  v173 = [v93 fieldMatch:v171 fieldRegex:v172];
-
-  *(v149 + 56) = v173;
-  v174 = sub_100216B14().super.isa;
-
-  v175 = [v93 orMatch:v174];
-
-  v176 = sub_100216964();
-  v177 = [v98 TPPBPolicyKeyViewMappingWithView:v176 matchingRule:v175];
-
-  v92[13] = v177;
-  v178 = swift_allocObject();
-  *(v178 + 16) = xmmword_10021D8D0;
-  v179 = sub_100216964();
-  v180 = sub_100216964();
-  v181 = [v93 fieldMatch:v179 fieldRegex:v180];
-
-  *(v178 + 32) = v181;
-  v182 = swift_allocObject();
-  *(v182 + 16) = xmmword_10021D880;
-  v183 = sub_100216964();
-  v184 = sub_100216964();
-  v185 = [v93 fieldMatch:v183 fieldRegex:v184];
-
-  *(v182 + 32) = v185;
-  v186 = sub_100216964();
-  v187 = sub_100216964();
-  v188 = [v93 fieldMatch:v186 fieldRegex:v187];
-
-  *(v182 + 40) = v188;
+  *(v156 + 40) = v188;
   v189 = sub_100216964();
   v190 = sub_100216964();
   v191 = [v93 fieldMatch:v189 fieldRegex:v190];
 
-  *(v182 + 48) = v191;
-  v192 = sub_100216B14().super.isa;
+  *(v156 + 48) = v191;
+  v192 = sub_100216964();
+  v193 = sub_100216964();
+  v194 = [v93 fieldMatch:v192 fieldRegex:v193];
 
-  v193 = [v93 andMatch:v192];
+  *(v156 + 56) = v194;
+  v195 = sub_100216B14().super.isa;
+  v156, v196, v197, v198, v199, v200, v201, v202, v370, v382, v394, v406, v418, v429, v441, v453, v464, v476;
+  v203 = [v93 orMatch:v195];
 
-  *(v178 + 40) = v193;
-  v194 = sub_100216B14().super.isa;
+  v204 = sub_100216964();
+  v205 = [v98 TPPBPolicyKeyViewMappingWithView:v204 matchingRule:v203];
 
-  v195 = [v93 orMatch:v194];
-
-  v196 = sub_100216964();
-  v197 = [v98 TPPBPolicyKeyViewMappingWithView:v196 matchingRule:v195];
-
-  v92[14] = v197;
-  v198 = swift_allocObject();
-  *(v198 + 16) = xmmword_10021D8F0;
-  v199 = sub_100216964();
-  v200 = sub_100216964();
-  v201 = [v93 fieldMatch:v199 fieldRegex:v200];
-
-  *(v198 + 32) = v201;
-  v202 = sub_100216964();
-  v203 = sub_100216964();
-  v204 = [v93 fieldMatch:v202 fieldRegex:v203];
-
-  *(v198 + 40) = v204;
-  v205 = sub_100216964();
-  v206 = sub_100216964();
-  v207 = [v93 fieldMatch:v205 fieldRegex:v206];
-
-  *(v198 + 48) = v207;
+  *(v92 + 104) = v205;
+  v206 = swift_allocObject();
+  *(v206 + 16) = xmmword_10021D8D0;
+  v207 = sub_100216964();
   v208 = sub_100216964();
-  v209 = sub_100216964();
-  v210 = [v93 fieldMatch:v208 fieldRegex:v209];
+  v209 = [v93 fieldMatch:v207 fieldRegex:v208];
 
-  *(v198 + 56) = v210;
+  *(v206 + 32) = v209;
+  v210 = swift_allocObject();
+  *(v210 + 16) = xmmword_10021D880;
   v211 = sub_100216964();
   v212 = sub_100216964();
   v213 = [v93 fieldMatch:v211 fieldRegex:v212];
 
-  *(v198 + 64) = v213;
+  *(v210 + 32) = v213;
   v214 = sub_100216964();
   v215 = sub_100216964();
   v216 = [v93 fieldMatch:v214 fieldRegex:v215];
 
-  *(v198 + 72) = v216;
+  *(v210 + 40) = v216;
   v217 = sub_100216964();
   v218 = sub_100216964();
   v219 = [v93 fieldMatch:v217 fieldRegex:v218];
 
-  *(v198 + 80) = v219;
-  v220 = sub_100216964();
-  v221 = sub_100216964();
-  v222 = [v93 fieldMatch:v220 fieldRegex:v221];
+  *(v210 + 48) = v219;
+  v220 = sub_100216B14().super.isa;
+  v210, v221, v222, v223, v224, v225, v226, v227, v371, v383, v395, v407, v419, v430, v442, v454, v465, v477;
+  v228 = [v93 andMatch:v220];
 
-  *(v198 + 88) = v222;
-  v223 = sub_100216964();
-  v224 = sub_100216964();
-  v225 = [v93 fieldMatch:v223 fieldRegex:v224];
+  *(v206 + 40) = v228;
+  v229 = sub_100216B14().super.isa;
+  v206, v230, v231, v232, v233, v234, v235, v236, v372, v384, v396, v408, v420, v431, v443, v455, v466, v478;
+  v237 = [v93 orMatch:v229];
 
-  *(v198 + 96) = v225;
-  v226 = sub_100216964();
-  v227 = sub_100216964();
-  v228 = [v93 fieldMatch:v226 fieldRegex:v227];
-
-  *(v198 + 104) = v228;
-  v229 = sub_100216964();
-  v230 = sub_100216964();
-  v231 = [v93 fieldMatch:v229 fieldRegex:v230];
-
-  *(v198 + 112) = v231;
-  v232 = sub_100216964();
-  v233 = sub_100216964();
-  v234 = [v93 fieldMatch:v232 fieldRegex:v233];
-
-  *(v198 + 120) = v234;
-  v235 = sub_100216964();
-  v236 = sub_100216964();
-  v237 = [v93 fieldMatch:v235 fieldRegex:v236];
-
-  *(v198 + 128) = v237;
   v238 = sub_100216964();
-  v239 = sub_100216964();
-  v240 = [v93 fieldMatch:v238 fieldRegex:v239];
+  v239 = [v98 TPPBPolicyKeyViewMappingWithView:v238 matchingRule:v237];
 
-  *(v198 + 136) = v240;
-  v241 = sub_100216B14().super.isa;
+  *(v92 + 112) = v239;
+  v240 = swift_allocObject();
+  *(v240 + 16) = xmmword_10021D8F0;
+  v241 = sub_100216964();
+  v242 = sub_100216964();
+  v243 = [v93 fieldMatch:v241 fieldRegex:v242];
 
-  v242 = [v93 orMatch:v241];
-
-  v243 = sub_100216964();
-  v244 = [v98 TPPBPolicyKeyViewMappingWithView:v243 matchingRule:v242];
-
-  v92[15] = v244;
+  *(v240 + 32) = v243;
+  v244 = sub_100216964();
   v245 = sub_100216964();
-  v246 = sub_100216964();
-  v247 = [v93 fieldMatch:v245 fieldRegex:v246];
+  v246 = [v93 fieldMatch:v244 fieldRegex:v245];
 
+  *(v240 + 40) = v246;
+  v247 = sub_100216964();
   v248 = sub_100216964();
-  v249 = [v98 TPPBPolicyKeyViewMappingWithView:v248 matchingRule:v247];
+  v249 = [v93 fieldMatch:v247 fieldRegex:v248];
 
-  v92[16] = v249;
+  *(v240 + 48) = v249;
   v250 = sub_100216964();
   v251 = sub_100216964();
   v252 = [v93 fieldMatch:v250 fieldRegex:v251];
 
+  *(v240 + 56) = v252;
   v253 = sub_100216964();
-  v254 = [v98 TPPBPolicyKeyViewMappingWithView:v253 matchingRule:v252];
+  v254 = sub_100216964();
+  v255 = [v93 fieldMatch:v253 fieldRegex:v254];
 
-  v92[17] = v254;
-  v255 = swift_allocObject();
-  *(v255 + 16) = xmmword_10021D880;
+  *(v240 + 64) = v255;
   v256 = sub_100216964();
   v257 = sub_100216964();
   v258 = [v93 fieldMatch:v256 fieldRegex:v257];
 
-  *(v255 + 32) = v258;
+  *(v240 + 72) = v258;
   v259 = sub_100216964();
   v260 = sub_100216964();
   v261 = [v93 fieldMatch:v259 fieldRegex:v260];
 
-  *(v255 + 40) = v261;
+  *(v240 + 80) = v261;
   v262 = sub_100216964();
   v263 = sub_100216964();
   v264 = [v93 fieldMatch:v262 fieldRegex:v263];
 
-  *(v255 + 48) = v264;
-  v265 = sub_100216B14().super.isa;
+  *(v240 + 88) = v264;
+  v265 = sub_100216964();
+  v266 = sub_100216964();
+  v267 = [v93 fieldMatch:v265 fieldRegex:v266];
 
-  v266 = [v93 orMatch:v265];
+  *(v240 + 96) = v267;
+  v268 = sub_100216964();
+  v269 = sub_100216964();
+  v270 = [v93 fieldMatch:v268 fieldRegex:v269];
 
-  v267 = sub_100216964();
-  v268 = [v98 TPPBPolicyKeyViewMappingWithView:v267 matchingRule:v266];
+  *(v240 + 104) = v270;
+  v271 = sub_100216964();
+  v272 = sub_100216964();
+  v273 = [v93 fieldMatch:v271 fieldRegex:v272];
 
-  v92[18] = v268;
-  v269 = [v93 trueMatch];
-  v270 = sub_100216964();
-  v271 = [v98 TPPBPolicyKeyViewMappingWithView:v270 matchingRule:v269];
+  *(v240 + 112) = v273;
+  v274 = sub_100216964();
+  v275 = sub_100216964();
+  v276 = [v93 fieldMatch:v274 fieldRegex:v275];
 
-  v92[19] = v271;
-  v283 = objc_allocWithZone(TPPolicyDocument);
+  *(v240 + 120) = v276;
+  v277 = sub_100216964();
+  v278 = sub_100216964();
+  v279 = [v93 fieldMatch:v277 fieldRegex:v278];
+
+  *(v240 + 128) = v279;
+  v280 = sub_100216964();
+  v281 = sub_100216964();
+  v282 = [v93 fieldMatch:v280 fieldRegex:v281];
+
+  *(v240 + 136) = v282;
+  v283 = sub_100216B14().super.isa;
+  v240, v284, v285, v286, v287, v288, v289, v290, v373, v385, v397, v409, v421, v432, v444, v456, v467, v479;
+  v291 = [v93 orMatch:v283];
+
+  v292 = sub_100216964();
+  v293 = [v98 TPPBPolicyKeyViewMappingWithView:v292 matchingRule:v291];
+
+  *(v92 + 120) = v293;
+  v294 = sub_100216964();
+  v295 = sub_100216964();
+  v296 = [v93 fieldMatch:v294 fieldRegex:v295];
+
+  v297 = sub_100216964();
+  v298 = [v98 TPPBPolicyKeyViewMappingWithView:v297 matchingRule:v296];
+
+  *(v92 + 128) = v298;
+  v299 = sub_100216964();
+  v300 = sub_100216964();
+  v301 = [v93 fieldMatch:v299 fieldRegex:v300];
+
+  v302 = sub_100216964();
+  v303 = [v98 TPPBPolicyKeyViewMappingWithView:v302 matchingRule:v301];
+
+  *(v92 + 136) = v303;
+  v304 = swift_allocObject();
+  *(v304 + 16) = xmmword_10021D880;
+  v305 = sub_100216964();
+  v306 = sub_100216964();
+  v307 = [v93 fieldMatch:v305 fieldRegex:v306];
+
+  *(v304 + 32) = v307;
+  v308 = sub_100216964();
+  v309 = sub_100216964();
+  v310 = [v93 fieldMatch:v308 fieldRegex:v309];
+
+  *(v304 + 40) = v310;
+  v311 = sub_100216964();
+  v312 = sub_100216964();
+  v313 = [v93 fieldMatch:v311 fieldRegex:v312];
+
+  *(v304 + 48) = v313;
+  v314 = sub_100216B14().super.isa;
+  v304, v315, v316, v317, v318, v319, v320, v321, v374, v386, v398, v410, v422, v433, v445, v457, v468, v480;
+  v322 = [v93 orMatch:v314];
+
+  v323 = sub_100216964();
+  v324 = [v98 TPPBPolicyKeyViewMappingWithView:v323 matchingRule:v322];
+
+  *(v92 + 144) = v324;
+  v325 = [v93 trueMatch];
+  v326 = sub_100216964();
+  v327 = [v98 TPPBPolicyKeyViewMappingWithView:v326 matchingRule:v325];
+
+  *(v92 + 152) = v327;
+  v485 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v272 = sub_100216B14().super.isa;
-
+  v328 = sub_100216B14().super.isa;
+  v481, v329, v330, v331, v332, v333, v334, v335, v375, v387, v399, v411, v423, v434, v446, v458, v469, v481;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v273 = sub_100216B14().super.isa;
-
+  v336 = sub_100216B14().super.isa;
+  v459, v337, v338, v339, v340, v341, v342, v343, v376, v388, v400, v412, v424, v435, v447, v459, v470, v482;
   sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v274 = sub_100216B14().super.isa;
-
+  v344 = sub_100216B14().super.isa;
+  v448, v345, v346, v347, v348, v349, v350, v351, v377, v389, v401, v413, v425, v436, v448, v460, v471, v483;
   sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v275 = sub_100216B14().super.isa;
+  v352 = sub_100216B14().super.isa;
   sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v276 = sub_100216B14().super.isa;
+  v353 = sub_100216B14().super.isa;
+  v92, v354, v355, v356, v357, v358, v359, v360, v378, v390, v402, v414, v426, v437, v449, v461, v472, v484;
+  v361 = sub_100216B14().super.isa;
+  v362 = sub_100216B14().super.isa;
+  v363 = sub_100216B14().super.isa;
+  v364 = sub_100216B14().super.isa;
+  v365 = [v485 initWithVersion:7 modelToCategory:v328 categoriesByView:v336 introducersByCategory:v344 redactions:v352 keyViewMapping:v353 userControllableViewList:v361 piggybackViews:v362 priorityViews:v363 inheritedExcludedViews:v364 hashAlgo:1];
 
-  v277 = sub_100216B14().super.isa;
-  v278 = sub_100216B14().super.isa;
-  v279 = sub_100216B14().super.isa;
-  v280 = sub_100216B14().super.isa;
-  v281 = [v283 initWithVersion:7 modelToCategory:v272 categoriesByView:v273 introducersByCategory:v274 redactions:v275 keyViewMapping:v276 userControllableViewList:v277 piggybackViews:v278 priorityViews:v279 inheritedExcludedViews:v280 hashAlgo:1];
-
-  return v281;
+  return v365;
 }
 
 id sub_1000266F8()
@@ -3995,42 +2944,43 @@ id sub_1000266F8()
   v4 = objc_opt_self();
   v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
 
-  v1[4] = v5;
+  *v1[1]._TtCs12_SwiftObject_opaque = v5;
   v6 = sub_100216964();
   v7 = sub_100216964();
   v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
 
-  v1[5] = v8;
+  *&v1[1]._TtCs12_SwiftObject_opaque[8] = v8;
   v9 = sub_100216964();
   v10 = sub_100216964();
   v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
 
-  v1[6] = v11;
+  *v1[1].endpoint = v11;
   v12 = sub_100216964();
   v13 = sub_100216964();
   v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
 
-  v1[7] = v14;
+  *v1[1].containerMap = v14;
   v15 = sub_100216964();
   v16 = sub_100216964();
   v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
 
-  v1[8] = v17;
+  *v1[2]._TtCs12_SwiftObject_opaque = v17;
   v18 = sub_100216964();
   v19 = sub_100216964();
   v20 = [v4 TPPBPolicyModelToCategoryWithPrefix:v18 category:v19];
 
-  v1[9] = v20;
+  *&v1[2]._TtCs12_SwiftObject_opaque[8] = v20;
   v21 = sub_100216964();
   v22 = sub_100216964();
   v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
 
-  v1[10] = v23;
+  *v1[2].endpoint = v23;
+  v536 = v1;
   v24 = sub_100216964();
   v25 = sub_100216964();
   v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
 
-  v1[11] = v26;
+  *v1[2].containerMap = v26;
   v27 = swift_allocObject();
   *(v27 + 16) = xmmword_10021D8A0;
   v28 = sub_100216964();
@@ -4104,6 +3054,7 @@ id sub_1000266F8()
   v70 = [v30 TPPBPolicyCategoriesByViewWithView:v68 categories:v69];
 
   *(v27 + 136) = v70;
+  v535 = v27;
   v71 = sub_100216964();
   v72 = sub_100216B14().super.isa;
   v73 = [v30 TPPBPolicyCategoriesByViewWithView:v71 categories:v72];
@@ -4127,6 +3078,7 @@ id sub_1000266F8()
   v84 = [v77 TPPBPolicyIntroducersByCategoryWithCategory:v82 introducers:v83];
 
   *(v74 + 48) = v84;
+  v521 = v74;
   v85 = sub_100216964();
   v86 = sub_100216B14().super.isa;
   v87 = [v77 TPPBPolicyIntroducersByCategoryWithCategory:v85 introducers:v86];
@@ -4144,7 +3096,7 @@ id sub_1000266F8()
   v95 = objc_opt_self();
   v96 = [v95 TPPBPolicyKeyViewMappingWithView:v94 matchingRule:v93];
 
-  v89[4] = v96;
+  *v89[1]._TtCs12_SwiftObject_opaque = v96;
   v97 = sub_100216964();
   v98 = sub_100216964();
   v99 = [v90 fieldMatch:v97 fieldRegex:v98];
@@ -4152,7 +3104,7 @@ id sub_1000266F8()
   v100 = sub_100216964();
   v101 = [v95 TPPBPolicyKeyViewMappingWithView:v100 matchingRule:v99];
 
-  v89[5] = v101;
+  *&v89[1]._TtCs12_SwiftObject_opaque[8] = v101;
   v102 = sub_100216964();
   v103 = sub_100216964();
   v104 = [v90 fieldMatch:v102 fieldRegex:v103];
@@ -4160,7 +3112,7 @@ id sub_1000266F8()
   v105 = sub_100216964();
   v106 = [v95 TPPBPolicyKeyViewMappingWithView:v105 matchingRule:v104];
 
-  v89[6] = v106;
+  *v89[1].endpoint = v106;
   v107 = sub_100216964();
   v108 = sub_100216964();
   v109 = [v90 fieldMatch:v107 fieldRegex:v108];
@@ -4168,7 +3120,7 @@ id sub_1000266F8()
   v110 = sub_100216964();
   v111 = [v95 TPPBPolicyKeyViewMappingWithView:v110 matchingRule:v109];
 
-  v89[7] = v111;
+  *v89[1].containerMap = v111;
   v112 = sub_100216964();
   v113 = sub_100216964();
   v114 = [v90 fieldMatch:v112 fieldRegex:v113];
@@ -4176,7 +3128,7 @@ id sub_1000266F8()
   v115 = sub_100216964();
   v116 = [v95 TPPBPolicyKeyViewMappingWithView:v115 matchingRule:v114];
 
-  v89[8] = v116;
+  *v89[2]._TtCs12_SwiftObject_opaque = v116;
   v117 = sub_100216964();
   v118 = sub_100216964();
   v119 = [v90 fieldMatch:v117 fieldRegex:v118];
@@ -4184,7 +3136,7 @@ id sub_1000266F8()
   v120 = sub_100216964();
   v121 = [v95 TPPBPolicyKeyViewMappingWithView:v120 matchingRule:v119];
 
-  v89[9] = v121;
+  *&v89[2]._TtCs12_SwiftObject_opaque[8] = v121;
   v122 = sub_100216964();
   v123 = sub_100216964();
   v124 = [v90 fieldMatch:v122 fieldRegex:v123];
@@ -4192,7 +3144,7 @@ id sub_1000266F8()
   v125 = sub_100216964();
   v126 = [v95 TPPBPolicyKeyViewMappingWithView:v125 matchingRule:v124];
 
-  v89[10] = v126;
+  *v89[2].endpoint = v126;
   v127 = swift_allocObject();
   *(v127 + 16) = xmmword_10021D880;
   v128 = sub_100216964();
@@ -4210,297 +3162,298 @@ id sub_1000266F8()
   v136 = [v90 fieldMatch:v134 fieldRegex:v135];
 
   *(v127 + 48) = v136;
-  sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
-  v137 = sub_100216B14().super.isa;
+  v137 = sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
+  v138 = sub_100216B14().super.isa;
+  v127, v139, v140, v141, v142, v143, v144, v145, v398, v412, v426, v440, v454, v468, v482, v495, "ProtectedCloudStorage", v521;
+  v146 = [v90 orMatch:v138];
 
-  v138 = [v90 orMatch:v137];
+  v147 = sub_100216964();
+  v148 = [v95 TPPBPolicyKeyViewMappingWithView:v147 matchingRule:v146];
 
-  v139 = sub_100216964();
-  v140 = [v95 TPPBPolicyKeyViewMappingWithView:v139 matchingRule:v138];
-
-  v89[11] = v140;
-  v141 = sub_100216964();
-  v142 = sub_100216964();
-  v143 = [v90 fieldMatch:v141 fieldRegex:v142];
-
-  v144 = sub_100216964();
-  v145 = [v95 TPPBPolicyKeyViewMappingWithView:v144 matchingRule:v143];
-
-  v89[12] = v145;
-  v146 = swift_allocObject();
-  *(v146 + 16) = xmmword_10021D8B0;
-  v147 = swift_allocObject();
-  *(v147 + 16) = xmmword_10021D8D0;
-  v148 = sub_100216964();
+  v537 = v89;
+  *v89[2].containerMap = v148;
   v149 = sub_100216964();
-  v150 = [v90 fieldMatch:v148 fieldRegex:v149];
+  v150 = sub_100216964();
+  v151 = [v90 fieldMatch:v149 fieldRegex:v150];
 
-  *(v147 + 32) = v150;
-  v151 = sub_100216964();
   v152 = sub_100216964();
-  v153 = [v90 fieldMatch:v151 fieldRegex:v152];
+  v153 = [v95 TPPBPolicyKeyViewMappingWithView:v152 matchingRule:v151];
 
-  *(v147 + 40) = v153;
-  v154 = sub_100216B14().super.isa;
-
-  v155 = [v90 andMatch:v154];
-
-  *(v146 + 32) = v155;
-  v156 = swift_allocObject();
-  *(v156 + 16) = xmmword_10021D8D0;
+  *v89[3]._TtCs12_SwiftObject_opaque = v153;
+  v154 = swift_allocObject();
+  *(v154 + 16) = xmmword_10021D8B0;
+  v155 = swift_allocObject();
+  *(v155 + 16) = xmmword_10021D8D0;
+  v156 = sub_100216964();
   v157 = sub_100216964();
-  v158 = sub_100216964();
-  v159 = [v90 fieldMatch:v157 fieldRegex:v158];
+  v158 = [v90 fieldMatch:v156 fieldRegex:v157];
 
-  *(v156 + 32) = v159;
+  *(v155 + 32) = v158;
+  v159 = sub_100216964();
   v160 = sub_100216964();
-  v161 = sub_100216964();
-  v162 = [v90 fieldMatch:v160 fieldRegex:v161];
+  v161 = [v90 fieldMatch:v159 fieldRegex:v160];
 
-  *(v156 + 40) = v162;
-  v163 = sub_100216B14().super.isa;
+  *(v155 + 40) = v161;
+  v162 = sub_100216B14().super.isa;
+  v155, v163, v164, v165, v166, v167, v168, v169, v399, v413, v427, v441, v455, v469, v95, v496, v508, v522;
+  v170 = [v90 andMatch:v162];
 
-  v164 = [v90 andMatch:v163];
-
-  *(v146 + 40) = v164;
-  v165 = sub_100216964();
-  v166 = sub_100216964();
-  v167 = [v90 fieldMatch:v165 fieldRegex:v166];
-
-  *(v146 + 48) = v167;
-  v168 = sub_100216964();
-  v169 = sub_100216964();
-  v170 = [v90 fieldMatch:v168 fieldRegex:v169];
-
-  *(v146 + 56) = v170;
-  v171 = sub_100216B14().super.isa;
-
-  v172 = [v90 orMatch:v171];
-
+  *(v154 + 32) = v170;
+  v171 = swift_allocObject();
+  *(v171 + 16) = xmmword_10021D8D0;
+  v172 = sub_100216964();
   v173 = sub_100216964();
-  v174 = [v95 TPPBPolicyKeyViewMappingWithView:v173 matchingRule:v172];
+  v174 = [v90 fieldMatch:v172 fieldRegex:v173];
 
-  v89[13] = v174;
-  v175 = swift_allocObject();
-  *(v175 + 16) = xmmword_10021D8D0;
+  *(v171 + 32) = v174;
+  v175 = sub_100216964();
   v176 = sub_100216964();
-  v177 = sub_100216964();
-  v178 = [v90 fieldMatch:v176 fieldRegex:v177];
+  v177 = [v90 fieldMatch:v175 fieldRegex:v176];
 
-  *(v175 + 32) = v178;
-  v179 = swift_allocObject();
-  *(v179 + 16) = xmmword_10021D880;
-  v180 = sub_100216964();
-  v181 = sub_100216964();
-  v182 = [v90 fieldMatch:v180 fieldRegex:v181];
+  *(v171 + 40) = v177;
+  v178 = sub_100216B14().super.isa;
+  v171, v179, v180, v181, v182, v183, v184, v185, v400, v414, v428, v442, v456, v470, v483, v497, v509, v523;
+  v186 = [v90 andMatch:v178];
 
-  *(v179 + 32) = v182;
-  v183 = sub_100216964();
-  v184 = sub_100216964();
-  v185 = [v90 fieldMatch:v183 fieldRegex:v184];
-
-  *(v179 + 40) = v185;
-  v186 = sub_100216964();
+  *(v154 + 40) = v186;
   v187 = sub_100216964();
-  v188 = [v90 fieldMatch:v186 fieldRegex:v187];
+  v188 = sub_100216964();
+  v189 = [v90 fieldMatch:v187 fieldRegex:v188];
 
-  *(v179 + 48) = v188;
-  v189 = sub_100216B14().super.isa;
+  *(v154 + 48) = v189;
+  v190 = sub_100216964();
+  v191 = sub_100216964();
+  v192 = [v90 fieldMatch:v190 fieldRegex:v191];
 
-  v190 = [v90 andMatch:v189];
+  *(v154 + 56) = v192;
+  v193 = sub_100216B14().super.isa;
+  v154, v194, v195, v196, v197, v198, v199, v200, v401, v415, v429, v443, v457, v471, v484, v498, v510, v524;
+  v201 = [v90 orMatch:v193];
 
-  *(v175 + 40) = v190;
-  v191 = sub_100216B14().super.isa;
+  v202 = sub_100216964();
+  v203 = v485;
+  v204 = [v485 TPPBPolicyKeyViewMappingWithView:v202 matchingRule:v201];
 
-  v192 = [v90 orMatch:v191];
-
-  v193 = sub_100216964();
-  v194 = v95;
-  v195 = [v95 TPPBPolicyKeyViewMappingWithView:v193 matchingRule:v192];
-
-  v89[14] = v195;
-  v196 = swift_allocObject();
-  *(v196 + 16) = xmmword_10021D8F0;
-  v197 = sub_100216964();
-  v198 = sub_100216964();
-  v199 = [v90 fieldMatch:v197 fieldRegex:v198];
-
-  *(v196 + 32) = v199;
-  v200 = sub_100216964();
-  v201 = sub_100216964();
-  v202 = [v90 fieldMatch:v200 fieldRegex:v201];
-
-  *(v196 + 40) = v202;
-  v203 = sub_100216964();
-  v204 = sub_100216964();
-  v205 = [v90 fieldMatch:v203 fieldRegex:v204];
-
-  *(v196 + 48) = v205;
+  *&v537[3]._TtCs12_SwiftObject_opaque[8] = v204;
+  v205 = swift_allocObject();
+  *(v205 + 16) = xmmword_10021D8D0;
   v206 = sub_100216964();
   v207 = sub_100216964();
   v208 = [v90 fieldMatch:v206 fieldRegex:v207];
 
-  *(v196 + 56) = v208;
-  v209 = sub_100216964();
+  *(v205 + 32) = v208;
+  v209 = swift_allocObject();
+  *(v209 + 16) = xmmword_10021D880;
   v210 = sub_100216964();
-  v211 = [v90 fieldMatch:v209 fieldRegex:v210];
+  v211 = sub_100216964();
+  v212 = [v90 fieldMatch:v210 fieldRegex:v211];
 
-  *(v196 + 64) = v211;
-  v212 = sub_100216964();
+  *(v209 + 32) = v212;
   v213 = sub_100216964();
-  v214 = [v90 fieldMatch:v212 fieldRegex:v213];
+  v214 = sub_100216964();
+  v215 = [v90 fieldMatch:v213 fieldRegex:v214];
 
-  *(v196 + 72) = v214;
-  v215 = sub_100216964();
+  *(v209 + 40) = v215;
   v216 = sub_100216964();
-  v217 = [v90 fieldMatch:v215 fieldRegex:v216];
+  v217 = sub_100216964();
+  v218 = [v90 fieldMatch:v216 fieldRegex:v217];
 
-  *(v196 + 80) = v217;
-  v218 = sub_100216964();
-  v219 = sub_100216964();
-  v220 = [v90 fieldMatch:v218 fieldRegex:v219];
+  *(v209 + 48) = v218;
+  v219 = sub_100216B14().super.isa;
+  v209, v220, v221, v222, v223, v224, v225, v226, v402, v416, v430, v444, v458, v472, v485, v137, v511, v525;
+  v227 = [v90 andMatch:v219];
 
-  *(v196 + 88) = v220;
-  v221 = sub_100216964();
-  v222 = sub_100216964();
-  v223 = [v90 fieldMatch:v221 fieldRegex:v222];
+  *(v205 + 40) = v227;
+  v228 = sub_100216B14().super.isa;
+  v205, v229, v230, v231, v232, v233, v234, v235, v403, v417, v431, v445, v459, v473, v486, v499, v512, v526;
+  v236 = [v90 orMatch:v228];
 
-  *(v196 + 96) = v223;
-  v224 = sub_100216964();
-  v225 = sub_100216964();
-  v226 = [v90 fieldMatch:v224 fieldRegex:v225];
-
-  *(v196 + 104) = v226;
-  v227 = sub_100216964();
-  v228 = sub_100216964();
-  v229 = [v90 fieldMatch:v227 fieldRegex:v228];
-
-  *(v196 + 112) = v229;
-  v230 = sub_100216964();
-  v231 = sub_100216964();
-  v232 = [v90 fieldMatch:v230 fieldRegex:v231];
-
-  *(v196 + 120) = v232;
-  v233 = sub_100216964();
-  v234 = sub_100216964();
-  v235 = [v90 fieldMatch:v233 fieldRegex:v234];
-
-  *(v196 + 128) = v235;
-  v236 = sub_100216964();
   v237 = sub_100216964();
-  v238 = [v90 fieldMatch:v236 fieldRegex:v237];
+  v238 = [v203 TPPBPolicyKeyViewMappingWithView:v237 matchingRule:v236];
 
-  *(v196 + 136) = v238;
-  v239 = sub_100216B14().super.isa;
-
-  v240 = [v90 orMatch:v239];
-
+  *v537[3].endpoint = v238;
+  v239 = swift_allocObject();
+  *(v239 + 16) = xmmword_10021D8F0;
+  v240 = sub_100216964();
   v241 = sub_100216964();
-  v242 = [v194 TPPBPolicyKeyViewMappingWithView:v241 matchingRule:v240];
+  v242 = [v90 fieldMatch:v240 fieldRegex:v241];
 
-  v89[15] = v242;
-  v243 = swift_allocObject();
-  *(v243 + 16) = xmmword_10021D8D0;
+  *(v239 + 32) = v242;
+  v243 = sub_100216964();
   v244 = sub_100216964();
-  v245 = sub_100216964();
-  v246 = [v90 fieldMatch:v244 fieldRegex:v245];
+  v245 = [v90 fieldMatch:v243 fieldRegex:v244];
 
-  *(v243 + 32) = v246;
+  *(v239 + 40) = v245;
+  v246 = sub_100216964();
   v247 = sub_100216964();
-  v248 = sub_100216964();
-  v249 = [v90 fieldMatch:v247 fieldRegex:v248];
+  v248 = [v90 fieldMatch:v246 fieldRegex:v247];
 
-  *(v243 + 40) = v249;
-  v250 = sub_100216B14().super.isa;
+  *(v239 + 48) = v248;
+  v249 = sub_100216964();
+  v250 = sub_100216964();
+  v251 = [v90 fieldMatch:v249 fieldRegex:v250];
 
-  v251 = [v90 orMatch:v250];
-
+  *(v239 + 56) = v251;
   v252 = sub_100216964();
-  v253 = [v194 TPPBPolicyKeyViewMappingWithView:v252 matchingRule:v251];
+  v253 = sub_100216964();
+  v254 = [v90 fieldMatch:v252 fieldRegex:v253];
 
-  v89[16] = v253;
-  v254 = swift_allocObject();
-  *(v254 + 16) = xmmword_10021D8B0;
+  *(v239 + 64) = v254;
   v255 = sub_100216964();
   v256 = sub_100216964();
   v257 = [v90 fieldMatch:v255 fieldRegex:v256];
 
-  *(v254 + 32) = v257;
+  *(v239 + 72) = v257;
   v258 = sub_100216964();
   v259 = sub_100216964();
   v260 = [v90 fieldMatch:v258 fieldRegex:v259];
 
-  *(v254 + 40) = v260;
+  *(v239 + 80) = v260;
   v261 = sub_100216964();
   v262 = sub_100216964();
   v263 = [v90 fieldMatch:v261 fieldRegex:v262];
 
-  *(v254 + 48) = v263;
+  *(v239 + 88) = v263;
   v264 = sub_100216964();
   v265 = sub_100216964();
   v266 = [v90 fieldMatch:v264 fieldRegex:v265];
 
-  *(v254 + 56) = v266;
-  v267 = sub_100216B14().super.isa;
+  *(v239 + 96) = v266;
+  v267 = sub_100216964();
+  v268 = sub_100216964();
+  v269 = [v90 fieldMatch:v267 fieldRegex:v268];
 
-  v268 = [v90 orMatch:v267];
+  *(v239 + 104) = v269;
+  v270 = sub_100216964();
+  v271 = sub_100216964();
+  v272 = [v90 fieldMatch:v270 fieldRegex:v271];
 
-  v269 = sub_100216964();
-  v270 = [v194 TPPBPolicyKeyViewMappingWithView:v269 matchingRule:v268];
-
-  v89[17] = v270;
-  v271 = swift_allocObject();
-  *(v271 + 16) = xmmword_10021D880;
-  v272 = sub_100216964();
+  *(v239 + 112) = v272;
   v273 = sub_100216964();
-  v274 = [v90 fieldMatch:v272 fieldRegex:v273];
+  v274 = sub_100216964();
+  v275 = [v90 fieldMatch:v273 fieldRegex:v274];
 
-  *(v271 + 32) = v274;
-  v275 = sub_100216964();
+  *(v239 + 120) = v275;
   v276 = sub_100216964();
-  v277 = [v90 fieldMatch:v275 fieldRegex:v276];
+  v277 = sub_100216964();
+  v278 = [v90 fieldMatch:v276 fieldRegex:v277];
 
-  *(v271 + 40) = v277;
-  v278 = sub_100216964();
+  *(v239 + 128) = v278;
   v279 = sub_100216964();
-  v280 = [v90 fieldMatch:v278 fieldRegex:v279];
+  v280 = sub_100216964();
+  v281 = [v90 fieldMatch:v279 fieldRegex:v280];
 
-  *(v271 + 48) = v280;
-  v281 = sub_100216B14().super.isa;
+  *(v239 + 136) = v281;
+  v282 = sub_100216B14().super.isa;
+  v239, v283, v284, v285, v286, v287, v288, v289, v404, v418, v432, v446, v460, v474, v487, v500, v513, v527;
+  v290 = [v90 orMatch:v282];
 
-  v282 = [v90 orMatch:v281];
+  v291 = sub_100216964();
+  v292 = [v203 TPPBPolicyKeyViewMappingWithView:v291 matchingRule:v290];
 
-  v283 = sub_100216964();
-  v284 = [v194 TPPBPolicyKeyViewMappingWithView:v283 matchingRule:v282];
+  *v537[3].containerMap = v292;
+  v293 = swift_allocObject();
+  *(v293 + 16) = xmmword_10021D8D0;
+  v294 = sub_100216964();
+  v295 = sub_100216964();
+  v296 = [v90 fieldMatch:v294 fieldRegex:v295];
 
-  v89[18] = v284;
-  v285 = [v90 trueMatch];
-  v286 = sub_100216964();
-  v287 = [v194 TPPBPolicyKeyViewMappingWithView:v286 matchingRule:v285];
+  *(v293 + 32) = v296;
+  v297 = sub_100216964();
+  v298 = sub_100216964();
+  v299 = [v90 fieldMatch:v297 fieldRegex:v298];
 
-  v89[19] = v287;
-  v299 = objc_allocWithZone(TPPolicyDocument);
+  *(v293 + 40) = v299;
+  v300 = sub_100216B14().super.isa;
+  v293, v301, v302, v303, v304, v305, v306, v307, v405, v419, v433, v447, v461, v475, v488, v501, v514, v528;
+  v308 = [v90 orMatch:v300];
+
+  v309 = sub_100216964();
+  v310 = [v203 TPPBPolicyKeyViewMappingWithView:v309 matchingRule:v308];
+
+  *v537[4]._TtCs12_SwiftObject_opaque = v310;
+  v311 = swift_allocObject();
+  *(v311 + 16) = xmmword_10021D8B0;
+  v312 = sub_100216964();
+  v313 = sub_100216964();
+  v314 = [v90 fieldMatch:v312 fieldRegex:v313];
+
+  *(v311 + 32) = v314;
+  v315 = sub_100216964();
+  v316 = sub_100216964();
+  v317 = [v90 fieldMatch:v315 fieldRegex:v316];
+
+  *(v311 + 40) = v317;
+  v318 = sub_100216964();
+  v319 = sub_100216964();
+  v320 = [v90 fieldMatch:v318 fieldRegex:v319];
+
+  *(v311 + 48) = v320;
+  v321 = sub_100216964();
+  v322 = sub_100216964();
+  v323 = [v90 fieldMatch:v321 fieldRegex:v322];
+
+  *(v311 + 56) = v323;
+  v324 = sub_100216B14().super.isa;
+  v311, v325, v326, v327, v328, v329, v330, v331, v406, v420, v434, v448, v462, v476, v489, v502, v515, v529;
+  v332 = [v90 orMatch:v324];
+
+  v333 = sub_100216964();
+  v334 = [v203 TPPBPolicyKeyViewMappingWithView:v333 matchingRule:v332];
+
+  *&v537[4]._TtCs12_SwiftObject_opaque[8] = v334;
+  v335 = swift_allocObject();
+  *(v335 + 16) = xmmword_10021D880;
+  v336 = sub_100216964();
+  v337 = sub_100216964();
+  v338 = [v90 fieldMatch:v336 fieldRegex:v337];
+
+  *(v335 + 32) = v338;
+  v339 = sub_100216964();
+  v340 = sub_100216964();
+  v341 = [v90 fieldMatch:v339 fieldRegex:v340];
+
+  *(v335 + 40) = v341;
+  v342 = sub_100216964();
+  v343 = sub_100216964();
+  v344 = [v90 fieldMatch:v342 fieldRegex:v343];
+
+  *(v335 + 48) = v344;
+  v345 = sub_100216B14().super.isa;
+  v335, v346, v347, v348, v349, v350, v351, v352, v407, v421, v435, v449, v463, v477, v490, v503, v516, v530;
+  v353 = [v90 orMatch:v345];
+
+  v354 = sub_100216964();
+  v355 = [v203 TPPBPolicyKeyViewMappingWithView:v354 matchingRule:v353];
+
+  *v537[4].endpoint = v355;
+  v356 = [v90 trueMatch];
+  v357 = sub_100216964();
+  v358 = [v203 TPPBPolicyKeyViewMappingWithView:v357 matchingRule:v356];
+
+  *v537[4].containerMap = v358;
+  v538 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v288 = sub_100216B14().super.isa;
-
+  v359 = sub_100216B14().super.isa;
+  v536, v360, v361, v362, v363, v364, v365, v366, v408, v422, v436, v450, v464, v478, v491, v504, v517, v531;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v289 = sub_100216B14().super.isa;
-
+  v367 = sub_100216B14().super.isa;
+  v535, v368, v369, v370, v371, v372, v373, v374, v409, v423, v437, v451, v465, v479, v492, v505, v518, v532;
   sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v290 = sub_100216B14().super.isa;
-
+  v375 = sub_100216B14().super.isa;
+  v533, v376, v377, v378, v379, v380, v381, v382, v410, v424, v438, v452, v466, v480, v493, v506, v519, v533;
   sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v291 = sub_100216B14().super.isa;
+  v383 = sub_100216B14().super.isa;
   sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v292 = sub_100216B14().super.isa;
+  v384 = sub_100216B14().super.isa;
+  v537, v385, v386, v387, v388, v389, v390, v391, v411, v425, v439, v453, v467, v481, v494, v507, v520, v534;
+  v392 = sub_100216B14().super.isa;
+  v393 = sub_100216B14().super.isa;
+  v394 = sub_100216B14().super.isa;
+  v395 = sub_100216B14().super.isa;
+  v396 = [v538 initWithVersion:8 modelToCategory:v359 categoriesByView:v367 introducersByCategory:v375 redactions:v383 keyViewMapping:v384 userControllableViewList:v392 piggybackViews:v393 priorityViews:v394 inheritedExcludedViews:v395 hashAlgo:1];
 
-  v293 = sub_100216B14().super.isa;
-  v294 = sub_100216B14().super.isa;
-  v295 = sub_100216B14().super.isa;
-  v296 = sub_100216B14().super.isa;
-  v297 = [v299 initWithVersion:8 modelToCategory:v288 categoriesByView:v289 introducersByCategory:v290 redactions:v291 keyViewMapping:v292 userControllableViewList:v293 piggybackViews:v294 priorityViews:v295 inheritedExcludedViews:v296 hashAlgo:1];
-
-  return v297;
+  return v396;
 }
 
 id sub_100028D50()
@@ -4514,42 +3467,43 @@ id sub_100028D50()
   v4 = objc_opt_self();
   v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
 
-  v1[4] = v5;
+  *v1[1]._TtCs12_SwiftObject_opaque = v5;
   v6 = sub_100216964();
   v7 = sub_100216964();
   v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
 
-  v1[5] = v8;
+  *&v1[1]._TtCs12_SwiftObject_opaque[8] = v8;
   v9 = sub_100216964();
   v10 = sub_100216964();
   v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
 
-  v1[6] = v11;
+  *v1[1].endpoint = v11;
   v12 = sub_100216964();
   v13 = sub_100216964();
   v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
 
-  v1[7] = v14;
+  *v1[1].containerMap = v14;
   v15 = sub_100216964();
   v16 = sub_100216964();
   v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
 
-  v1[8] = v17;
+  *v1[2]._TtCs12_SwiftObject_opaque = v17;
   v18 = sub_100216964();
   v19 = sub_100216964();
   v20 = [v4 TPPBPolicyModelToCategoryWithPrefix:v18 category:v19];
 
-  v1[9] = v20;
+  *&v1[2]._TtCs12_SwiftObject_opaque[8] = v20;
   v21 = sub_100216964();
   v22 = sub_100216964();
   v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
 
-  v1[10] = v23;
+  *v1[2].endpoint = v23;
+  v541 = v1;
   v24 = sub_100216964();
   v25 = sub_100216964();
   v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
 
-  v1[11] = v26;
+  *v1[2].containerMap = v26;
   v27 = swift_allocObject();
   *(v27 + 16) = xmmword_10021D8A0;
   v28 = sub_100216964();
@@ -4623,6 +3577,7 @@ id sub_100028D50()
   v70 = [v30 TPPBPolicyCategoriesByViewWithView:v68 categories:v69];
 
   *(v27 + 136) = v70;
+  v540 = v27;
   v71 = sub_100216964();
   v72 = sub_100216B14().super.isa;
   v73 = [v30 TPPBPolicyCategoriesByViewWithView:v71 categories:v72];
@@ -4647,6 +3602,7 @@ id sub_100028D50()
   v85 = [v78 TPPBPolicyIntroducersByCategoryWithCategory:v83 introducers:v84];
 
   v86 = v75;
+  v526 = v75;
   v75[6] = v85;
   v87 = sub_100216964();
   v88 = sub_100216B14().super.isa;
@@ -4665,7 +3621,7 @@ id sub_100028D50()
   v97 = objc_opt_self();
   v98 = [v97 TPPBPolicyKeyViewMappingWithView:v96 matchingRule:v95];
 
-  v91[4] = v98;
+  *v91[1]._TtCs12_SwiftObject_opaque = v98;
   v99 = sub_100216964();
   v100 = sub_100216964();
   v101 = [v92 fieldMatch:v99 fieldRegex:v100];
@@ -4673,7 +3629,7 @@ id sub_100028D50()
   v102 = sub_100216964();
   v103 = [v97 TPPBPolicyKeyViewMappingWithView:v102 matchingRule:v101];
 
-  v91[5] = v103;
+  *&v91[1]._TtCs12_SwiftObject_opaque[8] = v103;
   v104 = sub_100216964();
   v105 = sub_100216964();
   v106 = [v92 fieldMatch:v104 fieldRegex:v105];
@@ -4681,7 +3637,7 @@ id sub_100028D50()
   v107 = sub_100216964();
   v108 = [v97 TPPBPolicyKeyViewMappingWithView:v107 matchingRule:v106];
 
-  v91[6] = v108;
+  *v91[1].endpoint = v108;
   v109 = sub_100216964();
   v110 = sub_100216964();
   v111 = [v92 fieldMatch:v109 fieldRegex:v110];
@@ -4689,7 +3645,7 @@ id sub_100028D50()
   v112 = sub_100216964();
   v113 = [v97 TPPBPolicyKeyViewMappingWithView:v112 matchingRule:v111];
 
-  v91[7] = v113;
+  *v91[1].containerMap = v113;
   v114 = sub_100216964();
   v115 = sub_100216964();
   v116 = [v92 fieldMatch:v114 fieldRegex:v115];
@@ -4697,7 +3653,7 @@ id sub_100028D50()
   v117 = sub_100216964();
   v118 = [v97 TPPBPolicyKeyViewMappingWithView:v117 matchingRule:v116];
 
-  v91[8] = v118;
+  *v91[2]._TtCs12_SwiftObject_opaque = v118;
   v119 = sub_100216964();
   v120 = sub_100216964();
   v121 = [v92 fieldMatch:v119 fieldRegex:v120];
@@ -4705,7 +3661,7 @@ id sub_100028D50()
   v122 = sub_100216964();
   v123 = [v97 TPPBPolicyKeyViewMappingWithView:v122 matchingRule:v121];
 
-  v91[9] = v123;
+  *&v91[2]._TtCs12_SwiftObject_opaque[8] = v123;
   v124 = sub_100216964();
   v125 = sub_100216964();
   v126 = [v92 fieldMatch:v124 fieldRegex:v125];
@@ -4713,7 +3669,7 @@ id sub_100028D50()
   v127 = sub_100216964();
   v128 = [v97 TPPBPolicyKeyViewMappingWithView:v127 matchingRule:v126];
 
-  v91[10] = v128;
+  *v91[2].endpoint = v128;
   v129 = swift_allocObject();
   *(v129 + 16) = xmmword_10021D880;
   v130 = sub_100216964();
@@ -4733,301 +3689,302 @@ id sub_100028D50()
   *(v129 + 48) = v138;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
   v139 = sub_100216B14().super.isa;
+  v129, v140, v141, v142, v143, v144, v145, v146, v402, v416, v430, v444, v458, v472, v486, "ProtectedCloudStorage", "Security-61901.40.77\n", v526;
+  v147 = [v92 orMatch:v139];
 
-  v140 = [v92 orMatch:v139];
+  v148 = sub_100216964();
+  v487 = v97;
+  v149 = [v97 TPPBPolicyKeyViewMappingWithView:v148 matchingRule:v147];
 
-  v141 = sub_100216964();
-  v303 = v97;
-  v142 = [v97 TPPBPolicyKeyViewMappingWithView:v141 matchingRule:v140];
-
-  v304 = v91;
-  v91[11] = v142;
-  v143 = sub_100216964();
-  v144 = sub_100216964();
-  v145 = [v92 fieldMatch:v143 fieldRegex:v144];
-
-  v146 = sub_100216964();
-  v147 = [v97 TPPBPolicyKeyViewMappingWithView:v146 matchingRule:v145];
-
-  v91[12] = v147;
-  v148 = swift_allocObject();
-  *(v148 + 16) = xmmword_10021D8B0;
-  v149 = swift_allocObject();
-  *(v149 + 16) = xmmword_10021D8D0;
+  v542 = v91;
+  *v91[2].containerMap = v149;
   v150 = sub_100216964();
   v151 = sub_100216964();
   v152 = [v92 fieldMatch:v150 fieldRegex:v151];
 
-  *(v149 + 32) = v152;
   v153 = sub_100216964();
-  v154 = sub_100216964();
-  v155 = [v92 fieldMatch:v153 fieldRegex:v154];
+  v154 = [v97 TPPBPolicyKeyViewMappingWithView:v153 matchingRule:v152];
 
-  *(v149 + 40) = v155;
-  v156 = sub_100216B14().super.isa;
+  *v91[3]._TtCs12_SwiftObject_opaque = v154;
+  v155 = swift_allocObject();
+  *(v155 + 16) = xmmword_10021D8B0;
+  v156 = swift_allocObject();
+  *(v156 + 16) = xmmword_10021D8D0;
+  v157 = sub_100216964();
+  v158 = sub_100216964();
+  v159 = [v92 fieldMatch:v157 fieldRegex:v158];
 
-  v157 = [v92 andMatch:v156];
-
-  *(v148 + 32) = v157;
-  v158 = swift_allocObject();
-  *(v158 + 16) = xmmword_10021D8D0;
-  v159 = sub_100216964();
+  *(v156 + 32) = v159;
   v160 = sub_100216964();
-  v161 = [v92 fieldMatch:v159 fieldRegex:v160];
+  v161 = sub_100216964();
+  v162 = [v92 fieldMatch:v160 fieldRegex:v161];
 
-  *(v158 + 32) = v161;
-  v162 = sub_100216964();
-  v163 = sub_100216964();
-  v164 = [v92 fieldMatch:v162 fieldRegex:v163];
+  *(v156 + 40) = v162;
+  v163 = sub_100216B14().super.isa;
+  v156, v164, v165, v166, v167, v168, v169, v170, v403, v417, v431, v445, v459, v473, v487, v500, v513, v527;
+  v171 = [v92 andMatch:v163];
 
-  *(v158 + 40) = v164;
-  v165 = sub_100216B14().super.isa;
+  *(v155 + 32) = v171;
+  v172 = swift_allocObject();
+  *(v172 + 16) = xmmword_10021D8D0;
+  v173 = sub_100216964();
+  v174 = sub_100216964();
+  v175 = [v92 fieldMatch:v173 fieldRegex:v174];
 
-  v166 = [v92 andMatch:v165];
+  *(v172 + 32) = v175;
+  v176 = sub_100216964();
+  v177 = sub_100216964();
+  v178 = [v92 fieldMatch:v176 fieldRegex:v177];
 
-  *(v148 + 40) = v166;
-  v167 = sub_100216964();
-  v168 = sub_100216964();
-  v169 = [v92 fieldMatch:v167 fieldRegex:v168];
+  *(v172 + 40) = v178;
+  v179 = sub_100216B14().super.isa;
+  v172, v180, v181, v182, v183, v184, v185, v186, v404, v418, v432, v446, v460, v474, v488, v501, v514, v528;
+  v187 = [v92 andMatch:v179];
 
-  *(v148 + 48) = v169;
-  v170 = sub_100216964();
-  v171 = sub_100216964();
-  v172 = [v92 fieldMatch:v170 fieldRegex:v171];
-
-  *(v148 + 56) = v172;
-  v173 = sub_100216B14().super.isa;
-
-  v174 = [v92 orMatch:v173];
-
-  v175 = sub_100216964();
-  v176 = [v303 TPPBPolicyKeyViewMappingWithView:v175 matchingRule:v174];
-
-  v91[13] = v176;
-  v177 = swift_allocObject();
-  *(v177 + 16) = xmmword_10021D8D0;
-  v178 = sub_100216964();
-  v179 = sub_100216964();
-  v180 = [v92 fieldMatch:v178 fieldRegex:v179];
-
-  *(v177 + 32) = v180;
-  v181 = swift_allocObject();
-  *(v181 + 16) = xmmword_10021D880;
-  v182 = sub_100216964();
-  v183 = sub_100216964();
-  v184 = [v92 fieldMatch:v182 fieldRegex:v183];
-
-  *(v181 + 32) = v184;
-  v185 = sub_100216964();
-  v186 = sub_100216964();
-  v187 = [v92 fieldMatch:v185 fieldRegex:v186];
-
-  *(v181 + 40) = v187;
+  *(v155 + 40) = v187;
   v188 = sub_100216964();
   v189 = sub_100216964();
   v190 = [v92 fieldMatch:v188 fieldRegex:v189];
 
-  *(v181 + 48) = v190;
-  v191 = sub_100216B14().super.isa;
+  *(v155 + 48) = v190;
+  v191 = sub_100216964();
+  v192 = sub_100216964();
+  v193 = [v92 fieldMatch:v191 fieldRegex:v192];
 
-  v192 = [v92 andMatch:v191];
+  *(v155 + 56) = v193;
+  v194 = sub_100216B14().super.isa;
+  v155, v195, v196, v197, v198, v199, v200, v201, v405, v419, v433, v447, v461, v475, v489, v502, v515, v529;
+  v202 = [v92 orMatch:v194];
 
-  *(v177 + 40) = v192;
-  v193 = sub_100216B14().super.isa;
+  v203 = sub_100216964();
+  v204 = v490;
+  v205 = [v490 TPPBPolicyKeyViewMappingWithView:v203 matchingRule:v202];
 
-  v194 = [v92 orMatch:v193];
-
-  v195 = sub_100216964();
-  v196 = [v303 TPPBPolicyKeyViewMappingWithView:v195 matchingRule:v194];
-
-  v91[14] = v196;
-  v197 = swift_allocObject();
-  *(v197 + 16) = xmmword_10021D8F0;
-  v198 = sub_100216964();
-  v199 = sub_100216964();
-  v200 = [v92 fieldMatch:v198 fieldRegex:v199];
-
-  *(v197 + 32) = v200;
-  v201 = sub_100216964();
-  v202 = sub_100216964();
-  v203 = [v92 fieldMatch:v201 fieldRegex:v202];
-
-  *(v197 + 40) = v203;
-  v204 = sub_100216964();
-  v205 = sub_100216964();
-  v206 = [v92 fieldMatch:v204 fieldRegex:v205];
-
-  *(v197 + 48) = v206;
+  *&v91[3]._TtCs12_SwiftObject_opaque[8] = v205;
+  v206 = swift_allocObject();
+  *(v206 + 16) = xmmword_10021D8D0;
   v207 = sub_100216964();
   v208 = sub_100216964();
   v209 = [v92 fieldMatch:v207 fieldRegex:v208];
 
-  *(v197 + 56) = v209;
-  v210 = sub_100216964();
+  *(v206 + 32) = v209;
+  v210 = swift_allocObject();
+  *(v210 + 16) = xmmword_10021D880;
   v211 = sub_100216964();
-  v212 = [v92 fieldMatch:v210 fieldRegex:v211];
+  v212 = sub_100216964();
+  v213 = [v92 fieldMatch:v211 fieldRegex:v212];
 
-  *(v197 + 64) = v212;
-  v213 = sub_100216964();
+  *(v210 + 32) = v213;
   v214 = sub_100216964();
-  v215 = [v92 fieldMatch:v213 fieldRegex:v214];
+  v215 = sub_100216964();
+  v216 = [v92 fieldMatch:v214 fieldRegex:v215];
 
-  *(v197 + 72) = v215;
-  v216 = sub_100216964();
+  *(v210 + 40) = v216;
   v217 = sub_100216964();
-  v218 = [v92 fieldMatch:v216 fieldRegex:v217];
+  v218 = sub_100216964();
+  v219 = [v92 fieldMatch:v217 fieldRegex:v218];
 
-  *(v197 + 80) = v218;
-  v219 = sub_100216964();
-  v220 = sub_100216964();
-  v221 = [v92 fieldMatch:v219 fieldRegex:v220];
+  *(v210 + 48) = v219;
+  v220 = sub_100216B14().super.isa;
+  v210, v221, v222, v223, v224, v225, v226, v227, v406, v420, v434, v448, v462, v476, v490, v503, v516, v530;
+  v228 = [v92 andMatch:v220];
 
-  *(v197 + 88) = v221;
-  v222 = sub_100216964();
-  v223 = sub_100216964();
-  v224 = [v92 fieldMatch:v222 fieldRegex:v223];
+  *(v206 + 40) = v228;
+  v229 = sub_100216B14().super.isa;
+  v206, v230, v231, v232, v233, v234, v235, v236, v407, v421, v435, v449, v463, v477, v491, v504, v517, v531;
+  v237 = [v92 orMatch:v229];
 
-  *(v197 + 96) = v224;
-  v225 = sub_100216964();
-  v226 = sub_100216964();
-  v227 = [v92 fieldMatch:v225 fieldRegex:v226];
-
-  *(v197 + 104) = v227;
-  v228 = sub_100216964();
-  v229 = sub_100216964();
-  v230 = [v92 fieldMatch:v228 fieldRegex:v229];
-
-  *(v197 + 112) = v230;
-  v231 = sub_100216964();
-  v232 = sub_100216964();
-  v233 = [v92 fieldMatch:v231 fieldRegex:v232];
-
-  *(v197 + 120) = v233;
-  v234 = sub_100216964();
-  v235 = sub_100216964();
-  v236 = [v92 fieldMatch:v234 fieldRegex:v235];
-
-  *(v197 + 128) = v236;
-  v237 = sub_100216964();
   v238 = sub_100216964();
-  v239 = [v92 fieldMatch:v237 fieldRegex:v238];
+  v239 = [v204 TPPBPolicyKeyViewMappingWithView:v238 matchingRule:v237];
 
-  *(v197 + 136) = v239;
-  v240 = sub_100216B14().super.isa;
-
-  v241 = [v92 orMatch:v240];
-
+  *v91[3].endpoint = v239;
+  v240 = swift_allocObject();
+  *(v240 + 16) = xmmword_10021D8F0;
+  v241 = sub_100216964();
   v242 = sub_100216964();
-  v243 = [v303 TPPBPolicyKeyViewMappingWithView:v242 matchingRule:v241];
+  v243 = [v92 fieldMatch:v241 fieldRegex:v242];
 
-  v304[15] = v243;
-  v244 = swift_allocObject();
-  *(v244 + 16) = xmmword_10021D8D0;
+  *(v240 + 32) = v243;
+  v244 = sub_100216964();
   v245 = sub_100216964();
-  v246 = sub_100216964();
-  v247 = [v92 fieldMatch:v245 fieldRegex:v246];
+  v246 = [v92 fieldMatch:v244 fieldRegex:v245];
 
-  *(v244 + 32) = v247;
+  *(v240 + 40) = v246;
+  v247 = sub_100216964();
   v248 = sub_100216964();
-  v249 = sub_100216964();
-  v250 = [v92 fieldMatch:v248 fieldRegex:v249];
+  v249 = [v92 fieldMatch:v247 fieldRegex:v248];
 
-  *(v244 + 40) = v250;
-  v251 = sub_100216B14().super.isa;
+  *(v240 + 48) = v249;
+  v250 = sub_100216964();
+  v251 = sub_100216964();
+  v252 = [v92 fieldMatch:v250 fieldRegex:v251];
 
-  v252 = [v92 orMatch:v251];
-
+  *(v240 + 56) = v252;
   v253 = sub_100216964();
-  v254 = [v303 TPPBPolicyKeyViewMappingWithView:v253 matchingRule:v252];
+  v254 = sub_100216964();
+  v255 = [v92 fieldMatch:v253 fieldRegex:v254];
 
-  v304[16] = v254;
-  v255 = swift_allocObject();
-  *(v255 + 16) = xmmword_10021D910;
+  *(v240 + 64) = v255;
   v256 = sub_100216964();
   v257 = sub_100216964();
   v258 = [v92 fieldMatch:v256 fieldRegex:v257];
 
-  *(v255 + 32) = v258;
+  *(v240 + 72) = v258;
   v259 = sub_100216964();
   v260 = sub_100216964();
   v261 = [v92 fieldMatch:v259 fieldRegex:v260];
 
-  *(v255 + 40) = v261;
+  *(v240 + 80) = v261;
   v262 = sub_100216964();
   v263 = sub_100216964();
   v264 = [v92 fieldMatch:v262 fieldRegex:v263];
 
-  *(v255 + 48) = v264;
+  *(v240 + 88) = v264;
   v265 = sub_100216964();
   v266 = sub_100216964();
   v267 = [v92 fieldMatch:v265 fieldRegex:v266];
 
-  *(v255 + 56) = v267;
+  *(v240 + 96) = v267;
   v268 = sub_100216964();
   v269 = sub_100216964();
   v270 = [v92 fieldMatch:v268 fieldRegex:v269];
 
-  *(v255 + 64) = v270;
-  v271 = sub_100216B14().super.isa;
+  *(v240 + 104) = v270;
+  v271 = sub_100216964();
+  v272 = sub_100216964();
+  v273 = [v92 fieldMatch:v271 fieldRegex:v272];
 
-  v272 = [v92 orMatch:v271];
+  *(v240 + 112) = v273;
+  v274 = sub_100216964();
+  v275 = sub_100216964();
+  v276 = [v92 fieldMatch:v274 fieldRegex:v275];
 
-  v273 = sub_100216964();
-  v274 = [v303 TPPBPolicyKeyViewMappingWithView:v273 matchingRule:v272];
-
-  v304[17] = v274;
-  v275 = swift_allocObject();
-  *(v275 + 16) = xmmword_10021D880;
-  v276 = sub_100216964();
+  *(v240 + 120) = v276;
   v277 = sub_100216964();
-  v278 = [v92 fieldMatch:v276 fieldRegex:v277];
+  v278 = sub_100216964();
+  v279 = [v92 fieldMatch:v277 fieldRegex:v278];
 
-  *(v275 + 32) = v278;
-  v279 = sub_100216964();
+  *(v240 + 128) = v279;
   v280 = sub_100216964();
-  v281 = [v92 fieldMatch:v279 fieldRegex:v280];
+  v281 = sub_100216964();
+  v282 = [v92 fieldMatch:v280 fieldRegex:v281];
 
-  *(v275 + 40) = v281;
-  v282 = sub_100216964();
-  v283 = sub_100216964();
-  v284 = [v92 fieldMatch:v282 fieldRegex:v283];
+  *(v240 + 136) = v282;
+  v283 = sub_100216B14().super.isa;
+  v240, v284, v285, v286, v287, v288, v289, v290, v408, v422, v436, v450, v464, v478, v492, v505, v518, v532;
+  v291 = [v92 orMatch:v283];
 
-  *(v275 + 48) = v284;
-  v285 = sub_100216B14().super.isa;
+  v292 = sub_100216964();
+  v293 = [v204 TPPBPolicyKeyViewMappingWithView:v292 matchingRule:v291];
 
-  v286 = [v92 orMatch:v285];
+  *v542[3].containerMap = v293;
+  v294 = swift_allocObject();
+  *(v294 + 16) = xmmword_10021D8D0;
+  v295 = sub_100216964();
+  v296 = sub_100216964();
+  v297 = [v92 fieldMatch:v295 fieldRegex:v296];
 
-  v287 = sub_100216964();
-  v288 = [v303 TPPBPolicyKeyViewMappingWithView:v287 matchingRule:v286];
+  *(v294 + 32) = v297;
+  v298 = sub_100216964();
+  v299 = sub_100216964();
+  v300 = [v92 fieldMatch:v298 fieldRegex:v299];
 
-  v304[18] = v288;
-  v289 = [v92 trueMatch];
-  v290 = sub_100216964();
-  v291 = [v303 TPPBPolicyKeyViewMappingWithView:v290 matchingRule:v289];
+  *(v294 + 40) = v300;
+  v301 = sub_100216B14().super.isa;
+  v294, v302, v303, v304, v305, v306, v307, v308, v409, v423, v437, v451, v465, v479, v493, v506, v519, v533;
+  v309 = [v92 orMatch:v301];
 
-  v304[19] = v291;
-  v305 = objc_allocWithZone(TPPolicyDocument);
+  v310 = sub_100216964();
+  v311 = [v204 TPPBPolicyKeyViewMappingWithView:v310 matchingRule:v309];
+
+  *v542[4]._TtCs12_SwiftObject_opaque = v311;
+  v312 = swift_allocObject();
+  *(v312 + 16) = xmmword_10021D910;
+  v313 = sub_100216964();
+  v314 = sub_100216964();
+  v315 = [v92 fieldMatch:v313 fieldRegex:v314];
+
+  *(v312 + 32) = v315;
+  v316 = sub_100216964();
+  v317 = sub_100216964();
+  v318 = [v92 fieldMatch:v316 fieldRegex:v317];
+
+  *(v312 + 40) = v318;
+  v319 = sub_100216964();
+  v320 = sub_100216964();
+  v321 = [v92 fieldMatch:v319 fieldRegex:v320];
+
+  *(v312 + 48) = v321;
+  v322 = sub_100216964();
+  v323 = sub_100216964();
+  v324 = [v92 fieldMatch:v322 fieldRegex:v323];
+
+  *(v312 + 56) = v324;
+  v325 = sub_100216964();
+  v326 = sub_100216964();
+  v327 = [v92 fieldMatch:v325 fieldRegex:v326];
+
+  *(v312 + 64) = v327;
+  v328 = sub_100216B14().super.isa;
+  v312, v329, v330, v331, v332, v333, v334, v335, v410, v424, v438, v452, v466, v480, v494, v507, v520, v534;
+  v336 = [v92 orMatch:v328];
+
+  v337 = sub_100216964();
+  v338 = [v204 TPPBPolicyKeyViewMappingWithView:v337 matchingRule:v336];
+
+  *&v542[4]._TtCs12_SwiftObject_opaque[8] = v338;
+  v339 = swift_allocObject();
+  *(v339 + 16) = xmmword_10021D880;
+  v340 = sub_100216964();
+  v341 = sub_100216964();
+  v342 = [v92 fieldMatch:v340 fieldRegex:v341];
+
+  *(v339 + 32) = v342;
+  v343 = sub_100216964();
+  v344 = sub_100216964();
+  v345 = [v92 fieldMatch:v343 fieldRegex:v344];
+
+  *(v339 + 40) = v345;
+  v346 = sub_100216964();
+  v347 = sub_100216964();
+  v348 = [v92 fieldMatch:v346 fieldRegex:v347];
+
+  *(v339 + 48) = v348;
+  v349 = sub_100216B14().super.isa;
+  v339, v350, v351, v352, v353, v354, v355, v356, v411, v425, v439, v453, v467, v481, v495, v508, v521, v535;
+  v357 = [v92 orMatch:v349];
+
+  v358 = sub_100216964();
+  v359 = [v204 TPPBPolicyKeyViewMappingWithView:v358 matchingRule:v357];
+
+  *v542[4].endpoint = v359;
+  v360 = [v92 trueMatch];
+  v361 = sub_100216964();
+  v362 = [v204 TPPBPolicyKeyViewMappingWithView:v361 matchingRule:v360];
+
+  *v542[4].containerMap = v362;
+  v543 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v292 = sub_100216B14().super.isa;
-
+  v363 = sub_100216B14().super.isa;
+  v541, v364, v365, v366, v367, v368, v369, v370, v412, v426, v440, v454, v468, v482, v496, v509, v522, v536;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v293 = sub_100216B14().super.isa;
-
+  v371 = sub_100216B14().super.isa;
+  v540, v372, v373, v374, v375, v376, v377, v378, v413, v427, v441, v455, v469, v483, v497, v510, v523, v537;
   sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v294 = sub_100216B14().super.isa;
-
+  v379 = sub_100216B14().super.isa;
+  v538, v380, v381, v382, v383, v384, v385, v386, v414, v428, v442, v456, v470, v484, v498, v511, v524, v538;
   sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v295 = sub_100216B14().super.isa;
+  v387 = sub_100216B14().super.isa;
   sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v296 = sub_100216B14().super.isa;
+  v388 = sub_100216B14().super.isa;
+  v542, v389, v390, v391, v392, v393, v394, v395, v415, v429, v443, v457, v471, v485, v499, v512, v525, v539;
+  v396 = sub_100216B14().super.isa;
+  v397 = sub_100216B14().super.isa;
+  v398 = sub_100216B14().super.isa;
+  v399 = sub_100216B14().super.isa;
+  v400 = [v543 initWithVersion:9 modelToCategory:v363 categoriesByView:v371 introducersByCategory:v379 redactions:v387 keyViewMapping:v388 userControllableViewList:v396 piggybackViews:v397 priorityViews:v398 inheritedExcludedViews:v399 hashAlgo:1];
 
-  v297 = sub_100216B14().super.isa;
-  v298 = sub_100216B14().super.isa;
-  v299 = sub_100216B14().super.isa;
-  v300 = sub_100216B14().super.isa;
-  v301 = [v305 initWithVersion:9 modelToCategory:v292 categoriesByView:v293 introducersByCategory:v294 redactions:v295 keyViewMapping:v296 userControllableViewList:v297 piggybackViews:v298 priorityViews:v299 inheritedExcludedViews:v300 hashAlgo:1];
-
-  return v301;
+  return v400;
 }
 
 id sub_10002B438()
@@ -5041,47 +3998,48 @@ id sub_10002B438()
   v4 = objc_opt_self();
   v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
 
-  v1[4] = v5;
+  *v1[1]._TtCs12_SwiftObject_opaque = v5;
   v6 = sub_100216964();
   v7 = sub_100216964();
   v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
 
-  v1[5] = v8;
+  *&v1[1]._TtCs12_SwiftObject_opaque[8] = v8;
   v9 = sub_100216964();
   v10 = sub_100216964();
   v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
 
-  v1[6] = v11;
+  *v1[1].endpoint = v11;
   v12 = sub_100216964();
   v13 = sub_100216964();
   v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
 
-  v1[7] = v14;
+  *v1[1].containerMap = v14;
   v15 = sub_100216964();
   v16 = sub_100216964();
   v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
 
-  v1[8] = v17;
+  *v1[2]._TtCs12_SwiftObject_opaque = v17;
   v18 = sub_100216964();
   v19 = sub_100216964();
   v20 = [v4 TPPBPolicyModelToCategoryWithPrefix:v18 category:v19];
 
-  v1[9] = v20;
+  *&v1[2]._TtCs12_SwiftObject_opaque[8] = v20;
   v21 = sub_100216964();
   v22 = sub_100216964();
   v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
 
-  v1[10] = v23;
+  *v1[2].endpoint = v23;
   v24 = sub_100216964();
   v25 = sub_100216964();
   v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
 
-  v1[11] = v26;
+  *v1[2].containerMap = v26;
+  v545 = v1;
   v27 = sub_100216964();
   v28 = sub_100216964();
   v29 = [v4 TPPBPolicyModelToCategoryWithPrefix:v27 category:v28];
 
-  v1[12] = v29;
+  *v1[3]._TtCs12_SwiftObject_opaque = v29;
   v30 = swift_allocObject();
   *(v30 + 16) = xmmword_10021D8A0;
   v31 = v30;
@@ -5090,77 +4048,78 @@ id sub_10002B438()
   v34 = objc_opt_self();
   v35 = [v34 TPPBPolicyCategoriesByViewWithView:v32 categories:isa];
 
-  v31[4] = v35;
+  *v31[1]._TtCs12_SwiftObject_opaque = v35;
   v36 = sub_100216964();
   v37 = sub_100216B14().super.isa;
   v38 = [v34 TPPBPolicyCategoriesByViewWithView:v36 categories:v37];
 
-  v31[5] = v38;
+  *&v31[1]._TtCs12_SwiftObject_opaque[8] = v38;
   v39 = sub_100216964();
   v40 = sub_100216B14().super.isa;
   v41 = [v34 TPPBPolicyCategoriesByViewWithView:v39 categories:v40];
 
-  v31[6] = v41;
+  *v31[1].endpoint = v41;
   v42 = sub_100216964();
   v43 = sub_100216B14().super.isa;
   v44 = [v34 TPPBPolicyCategoriesByViewWithView:v42 categories:v43];
 
-  v31[7] = v44;
+  *v31[1].containerMap = v44;
   v45 = sub_100216964();
   v46 = sub_100216B14().super.isa;
   v47 = [v34 TPPBPolicyCategoriesByViewWithView:v45 categories:v46];
 
-  v31[8] = v47;
+  *v31[2]._TtCs12_SwiftObject_opaque = v47;
   v48 = sub_100216964();
   v49 = sub_100216B14().super.isa;
   v50 = [v34 TPPBPolicyCategoriesByViewWithView:v48 categories:v49];
 
-  v31[9] = v50;
+  *&v31[2]._TtCs12_SwiftObject_opaque[8] = v50;
   v51 = sub_100216964();
   v52 = sub_100216B14().super.isa;
   v53 = [v34 TPPBPolicyCategoriesByViewWithView:v51 categories:v52];
 
-  v31[10] = v53;
+  *v31[2].endpoint = v53;
   v54 = sub_100216964();
   v55 = sub_100216B14().super.isa;
   v56 = [v34 TPPBPolicyCategoriesByViewWithView:v54 categories:v55];
 
-  v31[11] = v56;
+  *v31[2].containerMap = v56;
   v57 = sub_100216964();
   v58 = sub_100216B14().super.isa;
   v59 = [v34 TPPBPolicyCategoriesByViewWithView:v57 categories:v58];
 
-  v31[12] = v59;
+  *v31[3]._TtCs12_SwiftObject_opaque = v59;
   v60 = sub_100216964();
   v61 = sub_100216B14().super.isa;
   v62 = [v34 TPPBPolicyCategoriesByViewWithView:v60 categories:v61];
 
-  v31[13] = v62;
+  *&v31[3]._TtCs12_SwiftObject_opaque[8] = v62;
   v63 = sub_100216964();
   v64 = sub_100216B14().super.isa;
   v65 = [v34 TPPBPolicyCategoriesByViewWithView:v63 categories:v64];
 
-  v31[14] = v65;
+  *v31[3].endpoint = v65;
   v66 = sub_100216964();
   v67 = sub_100216B14().super.isa;
   v68 = [v34 TPPBPolicyCategoriesByViewWithView:v66 categories:v67];
 
-  v31[15] = v68;
+  *v31[3].containerMap = v68;
   v69 = sub_100216964();
   v70 = sub_100216B14().super.isa;
   v71 = [v34 TPPBPolicyCategoriesByViewWithView:v69 categories:v70];
 
-  v31[16] = v71;
+  *v31[4]._TtCs12_SwiftObject_opaque = v71;
   v72 = sub_100216964();
   v73 = sub_100216B14().super.isa;
   v74 = [v34 TPPBPolicyCategoriesByViewWithView:v72 categories:v73];
 
-  v31[17] = v74;
+  *&v31[4]._TtCs12_SwiftObject_opaque[8] = v74;
+  v544 = v31;
   v75 = sub_100216964();
   v76 = sub_100216B14().super.isa;
   v77 = [v34 TPPBPolicyCategoriesByViewWithView:v75 categories:v76];
 
-  v31[18] = v77;
+  *v31[4].endpoint = v77;
   v78 = swift_allocObject();
   *(v78 + 16) = xmmword_10021D910;
   v79 = v78;
@@ -5169,27 +4128,27 @@ id sub_10002B438()
   v82 = objc_opt_self();
   v83 = [v82 TPPBPolicyIntroducersByCategoryWithCategory:v80 introducers:v81];
 
-  v79[4] = v83;
+  *(v79 + 32) = v83;
   v84 = sub_100216964();
   v85 = sub_100216B14().super.isa;
   v86 = [v82 TPPBPolicyIntroducersByCategoryWithCategory:v84 introducers:v85];
 
-  v79[5] = v86;
+  *(v79 + 40) = v86;
   v87 = sub_100216964();
   v88 = sub_100216B14().super.isa;
   v89 = [v82 TPPBPolicyIntroducersByCategoryWithCategory:v87 introducers:v88];
 
-  v79[6] = v89;
+  *(v79 + 48) = v89;
   v90 = sub_100216964();
   v91 = sub_100216B14().super.isa;
   v92 = [v82 TPPBPolicyIntroducersByCategoryWithCategory:v90 introducers:v91];
 
-  v79[7] = v92;
+  *(v79 + 56) = v92;
   v93 = sub_100216964();
   v94 = sub_100216B14().super.isa;
   v95 = [v82 TPPBPolicyIntroducersByCategoryWithCategory:v93 introducers:v94];
 
-  v79[8] = v95;
+  *(v79 + 64) = v95;
   v96 = swift_allocObject();
   *(v96 + 16) = xmmword_10021D8C0;
   v97 = v96;
@@ -5202,7 +4161,7 @@ id sub_10002B438()
   v103 = objc_opt_self();
   v104 = [v103 TPPBPolicyKeyViewMappingWithView:v102 matchingRule:v101];
 
-  v97[4] = v104;
+  *v97[1]._TtCs12_SwiftObject_opaque = v104;
   v105 = sub_100216964();
   v106 = sub_100216964();
   v107 = [v98 fieldMatch:v105 fieldRegex:v106];
@@ -5210,7 +4169,7 @@ id sub_10002B438()
   v108 = sub_100216964();
   v109 = [v103 TPPBPolicyKeyViewMappingWithView:v108 matchingRule:v107];
 
-  v97[5] = v109;
+  *&v97[1]._TtCs12_SwiftObject_opaque[8] = v109;
   v110 = sub_100216964();
   v111 = sub_100216964();
   v112 = [v98 fieldMatch:v110 fieldRegex:v111];
@@ -5218,7 +4177,7 @@ id sub_10002B438()
   v113 = sub_100216964();
   v114 = [v103 TPPBPolicyKeyViewMappingWithView:v113 matchingRule:v112];
 
-  v97[6] = v114;
+  *v97[1].endpoint = v114;
   v115 = sub_100216964();
   v116 = sub_100216964();
   v117 = [v98 fieldMatch:v115 fieldRegex:v116];
@@ -5226,7 +4185,7 @@ id sub_10002B438()
   v118 = sub_100216964();
   v119 = [v103 TPPBPolicyKeyViewMappingWithView:v118 matchingRule:v117];
 
-  v97[7] = v119;
+  *v97[1].containerMap = v119;
   v120 = sub_100216964();
   v121 = sub_100216964();
   v122 = [v98 fieldMatch:v120 fieldRegex:v121];
@@ -5234,7 +4193,7 @@ id sub_10002B438()
   v123 = sub_100216964();
   v124 = [v103 TPPBPolicyKeyViewMappingWithView:v123 matchingRule:v122];
 
-  v97[8] = v124;
+  *v97[2]._TtCs12_SwiftObject_opaque = v124;
   v125 = sub_100216964();
   v126 = sub_100216964();
   v127 = [v98 fieldMatch:v125 fieldRegex:v126];
@@ -5242,7 +4201,7 @@ id sub_10002B438()
   v128 = sub_100216964();
   v129 = [v103 TPPBPolicyKeyViewMappingWithView:v128 matchingRule:v127];
 
-  v97[9] = v129;
+  *&v97[2]._TtCs12_SwiftObject_opaque[8] = v129;
   v130 = sub_100216964();
   v131 = sub_100216964();
   v132 = [v98 fieldMatch:v130 fieldRegex:v131];
@@ -5250,7 +4209,7 @@ id sub_10002B438()
   v133 = sub_100216964();
   v134 = [v103 TPPBPolicyKeyViewMappingWithView:v133 matchingRule:v132];
 
-  v97[10] = v134;
+  *v97[2].endpoint = v134;
   v135 = swift_allocObject();
   *(v135 + 16) = xmmword_10021D880;
   v136 = sub_100216964();
@@ -5268,303 +4227,304 @@ id sub_10002B438()
   v144 = [v98 fieldMatch:v142 fieldRegex:v143];
 
   *(v135 + 48) = v144;
-  sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
-  v145 = sub_100216B14().super.isa;
+  v145 = sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
+  v146 = sub_100216B14().super.isa;
+  v135, v147, v148, v149, v150, v151, v152, v153, v409, v423, v437, v451, v465, v479, v493, "ProtectedCloudStorage", 5, 0xB;
+  v154 = [v98 orMatch:v146];
 
-  v146 = [v98 orMatch:v145];
+  v155 = sub_100216964();
+  v480 = v103;
+  v156 = [v103 TPPBPolicyKeyViewMappingWithView:v155 matchingRule:v154];
 
-  v147 = sub_100216964();
-  v309 = v103;
-  v148 = [v103 TPPBPolicyKeyViewMappingWithView:v147 matchingRule:v146];
-
-  v310 = v97;
-  v97[11] = v148;
-  v149 = sub_100216964();
-  v150 = sub_100216964();
-  v151 = [v98 fieldMatch:v149 fieldRegex:v150];
-
-  v152 = sub_100216964();
-  v153 = [v103 TPPBPolicyKeyViewMappingWithView:v152 matchingRule:v151];
-
-  v97[12] = v153;
-  v154 = swift_allocObject();
-  *(v154 + 16) = xmmword_10021D8B0;
-  v155 = swift_allocObject();
-  *(v155 + 16) = xmmword_10021D8D0;
-  v156 = sub_100216964();
+  v546 = v97;
+  *v97[2].containerMap = v156;
   v157 = sub_100216964();
-  v158 = [v98 fieldMatch:v156 fieldRegex:v157];
+  v158 = sub_100216964();
+  v159 = [v98 fieldMatch:v157 fieldRegex:v158];
 
-  *(v155 + 32) = v158;
-  v159 = sub_100216964();
   v160 = sub_100216964();
-  v161 = [v98 fieldMatch:v159 fieldRegex:v160];
+  v161 = [v103 TPPBPolicyKeyViewMappingWithView:v160 matchingRule:v159];
 
-  *(v155 + 40) = v161;
-  v162 = sub_100216B14().super.isa;
-
-  v163 = [v98 andMatch:v162];
-
-  *(v154 + 32) = v163;
-  v164 = swift_allocObject();
-  *(v164 + 16) = xmmword_10021D8D0;
+  *v97[3]._TtCs12_SwiftObject_opaque = v161;
+  v162 = swift_allocObject();
+  *(v162 + 16) = xmmword_10021D8B0;
+  v163 = swift_allocObject();
+  *(v163 + 16) = xmmword_10021D8D0;
+  v164 = sub_100216964();
   v165 = sub_100216964();
-  v166 = sub_100216964();
-  v167 = [v98 fieldMatch:v165 fieldRegex:v166];
+  v166 = [v98 fieldMatch:v164 fieldRegex:v165];
 
-  *(v164 + 32) = v167;
+  *(v163 + 32) = v166;
+  v167 = sub_100216964();
   v168 = sub_100216964();
-  v169 = sub_100216964();
-  v170 = [v98 fieldMatch:v168 fieldRegex:v169];
+  v169 = [v98 fieldMatch:v167 fieldRegex:v168];
 
-  *(v164 + 40) = v170;
-  v171 = sub_100216B14().super.isa;
+  *(v163 + 40) = v169;
+  v170 = sub_100216B14().super.isa;
+  v163, v171, v172, v173, v174, v175, v176, v177, v410, v424, v438, v452, v466, v480, v494, v506, v519, v532;
+  v178 = [v98 andMatch:v170];
 
-  v172 = [v98 andMatch:v171];
-
-  *(v154 + 40) = v172;
-  v173 = sub_100216964();
-  v174 = sub_100216964();
-  v175 = [v98 fieldMatch:v173 fieldRegex:v174];
-
-  *(v154 + 48) = v175;
-  v176 = sub_100216964();
-  v177 = sub_100216964();
-  v178 = [v98 fieldMatch:v176 fieldRegex:v177];
-
-  *(v154 + 56) = v178;
-  v179 = sub_100216B14().super.isa;
-
-  v180 = [v98 orMatch:v179];
-
+  *(v162 + 32) = v178;
+  v179 = swift_allocObject();
+  *(v179 + 16) = xmmword_10021D8D0;
+  v180 = sub_100216964();
   v181 = sub_100216964();
-  v182 = [v309 TPPBPolicyKeyViewMappingWithView:v181 matchingRule:v180];
+  v182 = [v98 fieldMatch:v180 fieldRegex:v181];
 
-  v310[13] = v182;
-  v183 = swift_allocObject();
-  *(v183 + 16) = xmmword_10021D8D0;
+  *(v179 + 32) = v182;
+  v183 = sub_100216964();
   v184 = sub_100216964();
-  v185 = sub_100216964();
-  v186 = [v98 fieldMatch:v184 fieldRegex:v185];
+  v185 = [v98 fieldMatch:v183 fieldRegex:v184];
 
-  *(v183 + 32) = v186;
-  v187 = swift_allocObject();
-  *(v187 + 16) = xmmword_10021D880;
-  v188 = sub_100216964();
-  v189 = sub_100216964();
-  v190 = [v98 fieldMatch:v188 fieldRegex:v189];
+  *(v179 + 40) = v185;
+  v186 = sub_100216B14().super.isa;
+  v179, v187, v188, v189, v190, v191, v192, v193, v411, v425, v439, v453, v467, v481, v495, v507, v520, v533;
+  v194 = [v98 andMatch:v186];
 
-  *(v187 + 32) = v190;
-  v191 = sub_100216964();
-  v192 = sub_100216964();
-  v193 = [v98 fieldMatch:v191 fieldRegex:v192];
-
-  *(v187 + 40) = v193;
-  v194 = sub_100216964();
+  *(v162 + 40) = v194;
   v195 = sub_100216964();
-  v196 = [v98 fieldMatch:v194 fieldRegex:v195];
+  v196 = sub_100216964();
+  v197 = [v98 fieldMatch:v195 fieldRegex:v196];
 
-  *(v187 + 48) = v196;
-  v197 = sub_100216B14().super.isa;
+  *(v162 + 48) = v197;
+  v198 = sub_100216964();
+  v199 = sub_100216964();
+  v200 = [v98 fieldMatch:v198 fieldRegex:v199];
 
-  v198 = [v98 andMatch:v197];
+  *(v162 + 56) = v200;
+  v201 = sub_100216B14().super.isa;
+  v162, v202, v203, v204, v205, v206, v207, v208, v412, v426, v440, v454, v468, v482, v496, v508, v521, v534;
+  v209 = [v98 orMatch:v201];
 
-  *(v183 + 40) = v198;
-  v199 = sub_100216B14().super.isa;
-
-  v200 = [v98 orMatch:v199];
-
-  v201 = sub_100216964();
-  v202 = [v309 TPPBPolicyKeyViewMappingWithView:v201 matchingRule:v200];
-
-  v310[14] = v202;
-  v203 = swift_allocObject();
-  *(v203 + 16) = xmmword_10021D8F0;
-  v204 = sub_100216964();
-  v205 = sub_100216964();
-  v206 = [v98 fieldMatch:v204 fieldRegex:v205];
-
-  *(v203 + 32) = v206;
-  v207 = sub_100216964();
-  v208 = sub_100216964();
-  v209 = [v98 fieldMatch:v207 fieldRegex:v208];
-
-  *(v203 + 40) = v209;
   v210 = sub_100216964();
-  v211 = sub_100216964();
-  v212 = [v98 fieldMatch:v210 fieldRegex:v211];
+  v211 = v483;
+  v212 = [v483 TPPBPolicyKeyViewMappingWithView:v210 matchingRule:v209];
 
-  *(v203 + 48) = v212;
-  v213 = sub_100216964();
+  *&v546[3]._TtCs12_SwiftObject_opaque[8] = v212;
+  v213 = swift_allocObject();
+  *(v213 + 16) = xmmword_10021D8D0;
   v214 = sub_100216964();
-  v215 = [v98 fieldMatch:v213 fieldRegex:v214];
+  v215 = sub_100216964();
+  v216 = [v98 fieldMatch:v214 fieldRegex:v215];
 
-  *(v203 + 56) = v215;
-  v216 = sub_100216964();
-  v217 = sub_100216964();
-  v218 = [v98 fieldMatch:v216 fieldRegex:v217];
-
-  *(v203 + 64) = v218;
+  *(v213 + 32) = v216;
+  v217 = swift_allocObject();
+  *(v217 + 16) = xmmword_10021D880;
+  v218 = sub_100216964();
   v219 = sub_100216964();
-  v220 = sub_100216964();
-  v221 = [v98 fieldMatch:v219 fieldRegex:v220];
+  v220 = [v98 fieldMatch:v218 fieldRegex:v219];
 
-  *(v203 + 72) = v221;
+  *(v217 + 32) = v220;
+  v221 = sub_100216964();
   v222 = sub_100216964();
-  v223 = sub_100216964();
-  v224 = [v98 fieldMatch:v222 fieldRegex:v223];
+  v223 = [v98 fieldMatch:v221 fieldRegex:v222];
 
-  *(v203 + 80) = v224;
+  *(v217 + 40) = v223;
+  v224 = sub_100216964();
   v225 = sub_100216964();
-  v226 = sub_100216964();
-  v227 = [v98 fieldMatch:v225 fieldRegex:v226];
+  v226 = [v98 fieldMatch:v224 fieldRegex:v225];
 
-  *(v203 + 88) = v227;
-  v228 = sub_100216964();
-  v229 = sub_100216964();
-  v230 = [v98 fieldMatch:v228 fieldRegex:v229];
+  *(v217 + 48) = v226;
+  v227 = sub_100216B14().super.isa;
+  v217, v228, v229, v230, v231, v232, v233, v234, v413, v427, v441, v455, v469, v483, v145, v509, v522, v535;
+  v235 = [v98 andMatch:v227];
 
-  *(v203 + 96) = v230;
-  v231 = sub_100216964();
-  v232 = sub_100216964();
-  v233 = [v98 fieldMatch:v231 fieldRegex:v232];
+  *(v213 + 40) = v235;
+  v236 = sub_100216B14().super.isa;
+  v213, v237, v238, v239, v240, v241, v242, v243, v414, v428, v442, v456, v470, v484, v497, v510, v523, v536;
+  v244 = [v98 orMatch:v236];
 
-  *(v203 + 104) = v233;
-  v234 = sub_100216964();
-  v235 = sub_100216964();
-  v236 = [v98 fieldMatch:v234 fieldRegex:v235];
+  v245 = sub_100216964();
+  v246 = [v211 TPPBPolicyKeyViewMappingWithView:v245 matchingRule:v244];
 
-  *(v203 + 112) = v236;
-  v237 = sub_100216964();
-  v238 = sub_100216964();
-  v239 = [v98 fieldMatch:v237 fieldRegex:v238];
-
-  *(v203 + 120) = v239;
-  v240 = sub_100216964();
-  v241 = sub_100216964();
-  v242 = [v98 fieldMatch:v240 fieldRegex:v241];
-
-  *(v203 + 128) = v242;
-  v243 = sub_100216964();
-  v244 = sub_100216964();
-  v245 = [v98 fieldMatch:v243 fieldRegex:v244];
-
-  *(v203 + 136) = v245;
-  v246 = sub_100216B14().super.isa;
-
-  v247 = [v98 orMatch:v246];
-
+  *v546[3].endpoint = v246;
+  v247 = swift_allocObject();
+  *(v247 + 16) = xmmword_10021D8F0;
   v248 = sub_100216964();
-  v249 = [v309 TPPBPolicyKeyViewMappingWithView:v248 matchingRule:v247];
+  v249 = sub_100216964();
+  v250 = [v98 fieldMatch:v248 fieldRegex:v249];
 
-  v310[15] = v249;
-  v250 = swift_allocObject();
-  *(v250 + 16) = xmmword_10021D8D0;
+  *(v247 + 32) = v250;
   v251 = sub_100216964();
   v252 = sub_100216964();
   v253 = [v98 fieldMatch:v251 fieldRegex:v252];
 
-  *(v250 + 32) = v253;
+  *(v247 + 40) = v253;
   v254 = sub_100216964();
   v255 = sub_100216964();
   v256 = [v98 fieldMatch:v254 fieldRegex:v255];
 
-  *(v250 + 40) = v256;
-  v257 = sub_100216B14().super.isa;
+  *(v247 + 48) = v256;
+  v257 = sub_100216964();
+  v258 = sub_100216964();
+  v259 = [v98 fieldMatch:v257 fieldRegex:v258];
 
-  v258 = [v98 orMatch:v257];
+  *(v247 + 56) = v259;
+  v260 = sub_100216964();
+  v261 = sub_100216964();
+  v262 = [v98 fieldMatch:v260 fieldRegex:v261];
 
-  v259 = sub_100216964();
-  v260 = [v309 TPPBPolicyKeyViewMappingWithView:v259 matchingRule:v258];
-
-  v310[16] = v260;
-  v261 = swift_allocObject();
-  *(v261 + 16) = xmmword_10021D910;
-  v262 = sub_100216964();
+  *(v247 + 64) = v262;
   v263 = sub_100216964();
-  v264 = [v98 fieldMatch:v262 fieldRegex:v263];
+  v264 = sub_100216964();
+  v265 = [v98 fieldMatch:v263 fieldRegex:v264];
 
-  *(v261 + 32) = v264;
-  v265 = sub_100216964();
+  *(v247 + 72) = v265;
   v266 = sub_100216964();
-  v267 = [v98 fieldMatch:v265 fieldRegex:v266];
+  v267 = sub_100216964();
+  v268 = [v98 fieldMatch:v266 fieldRegex:v267];
 
-  *(v261 + 40) = v267;
-  v268 = sub_100216964();
+  *(v247 + 80) = v268;
   v269 = sub_100216964();
-  v270 = [v98 fieldMatch:v268 fieldRegex:v269];
+  v270 = sub_100216964();
+  v271 = [v98 fieldMatch:v269 fieldRegex:v270];
 
-  *(v261 + 48) = v270;
-  v271 = sub_100216964();
+  *(v247 + 88) = v271;
   v272 = sub_100216964();
-  v273 = [v98 fieldMatch:v271 fieldRegex:v272];
+  v273 = sub_100216964();
+  v274 = [v98 fieldMatch:v272 fieldRegex:v273];
 
-  *(v261 + 56) = v273;
-  v274 = sub_100216964();
+  *(v247 + 96) = v274;
   v275 = sub_100216964();
-  v276 = [v98 fieldMatch:v274 fieldRegex:v275];
+  v276 = sub_100216964();
+  v277 = [v98 fieldMatch:v275 fieldRegex:v276];
 
-  *(v261 + 64) = v276;
-  v277 = sub_100216B14().super.isa;
-
-  v278 = [v98 orMatch:v277];
-
+  *(v247 + 104) = v277;
+  v278 = sub_100216964();
   v279 = sub_100216964();
-  v280 = [v309 TPPBPolicyKeyViewMappingWithView:v279 matchingRule:v278];
+  v280 = [v98 fieldMatch:v278 fieldRegex:v279];
 
-  v310[17] = v280;
-  v281 = swift_allocObject();
-  *(v281 + 16) = xmmword_10021D880;
+  *(v247 + 112) = v280;
+  v281 = sub_100216964();
   v282 = sub_100216964();
-  v283 = sub_100216964();
-  v284 = [v98 fieldMatch:v282 fieldRegex:v283];
+  v283 = [v98 fieldMatch:v281 fieldRegex:v282];
 
-  *(v281 + 32) = v284;
+  *(v247 + 120) = v283;
+  v284 = sub_100216964();
   v285 = sub_100216964();
-  v286 = sub_100216964();
-  v287 = [v98 fieldMatch:v285 fieldRegex:v286];
+  v286 = [v98 fieldMatch:v284 fieldRegex:v285];
 
-  *(v281 + 40) = v287;
+  *(v247 + 128) = v286;
+  v287 = sub_100216964();
   v288 = sub_100216964();
-  v289 = sub_100216964();
-  v290 = [v98 fieldMatch:v288 fieldRegex:v289];
+  v289 = [v98 fieldMatch:v287 fieldRegex:v288];
 
-  *(v281 + 48) = v290;
-  v291 = sub_100216B14().super.isa;
+  *(v247 + 136) = v289;
+  v290 = sub_100216B14().super.isa;
+  v247, v291, v292, v293, v294, v295, v296, v297, v415, v429, v443, v457, v471, v485, v498, v511, v524, v537;
+  v298 = [v98 orMatch:v290];
 
-  v292 = [v98 orMatch:v291];
+  v299 = sub_100216964();
+  v300 = [v211 TPPBPolicyKeyViewMappingWithView:v299 matchingRule:v298];
 
-  v293 = sub_100216964();
-  v294 = [v309 TPPBPolicyKeyViewMappingWithView:v293 matchingRule:v292];
+  *v546[3].containerMap = v300;
+  v301 = swift_allocObject();
+  *(v301 + 16) = xmmword_10021D8D0;
+  v302 = sub_100216964();
+  v303 = sub_100216964();
+  v304 = [v98 fieldMatch:v302 fieldRegex:v303];
 
-  v310[18] = v294;
-  v295 = [v98 trueMatch];
-  v296 = sub_100216964();
-  v297 = [v309 TPPBPolicyKeyViewMappingWithView:v296 matchingRule:v295];
+  *(v301 + 32) = v304;
+  v305 = sub_100216964();
+  v306 = sub_100216964();
+  v307 = [v98 fieldMatch:v305 fieldRegex:v306];
 
-  v310[19] = v297;
-  v311 = objc_allocWithZone(TPPolicyDocument);
+  *(v301 + 40) = v307;
+  v308 = sub_100216B14().super.isa;
+  v301, v309, v310, v311, v312, v313, v314, v315, v416, v430, v444, v458, v472, v486, v499, v512, v525, v538;
+  v316 = [v98 orMatch:v308];
+
+  v317 = sub_100216964();
+  v318 = [v211 TPPBPolicyKeyViewMappingWithView:v317 matchingRule:v316];
+
+  *v546[4]._TtCs12_SwiftObject_opaque = v318;
+  v319 = swift_allocObject();
+  *(v319 + 16) = v526;
+  v320 = sub_100216964();
+  v321 = sub_100216964();
+  v322 = [v98 fieldMatch:v320 fieldRegex:v321];
+
+  *(v319 + 32) = v322;
+  v323 = sub_100216964();
+  v324 = sub_100216964();
+  v325 = [v98 fieldMatch:v323 fieldRegex:v324];
+
+  *(v319 + 40) = v325;
+  v326 = sub_100216964();
+  v327 = sub_100216964();
+  v328 = [v98 fieldMatch:v326 fieldRegex:v327];
+
+  *(v319 + 48) = v328;
+  v329 = sub_100216964();
+  v330 = sub_100216964();
+  v331 = [v98 fieldMatch:v329 fieldRegex:v330];
+
+  *(v319 + 56) = v331;
+  v332 = sub_100216964();
+  v333 = sub_100216964();
+  v334 = [v98 fieldMatch:v332 fieldRegex:v333];
+
+  *(v319 + 64) = v334;
+  v335 = sub_100216B14().super.isa;
+  v319, v336, v337, v338, v339, v340, v341, v342, v417, v431, v445, v459, v473, v487, v500, v513, v526, *(&v526 + 1);
+  v343 = [v98 orMatch:v335];
+
+  v344 = sub_100216964();
+  v345 = [v211 TPPBPolicyKeyViewMappingWithView:v344 matchingRule:v343];
+
+  *&v546[4]._TtCs12_SwiftObject_opaque[8] = v345;
+  v346 = swift_allocObject();
+  *(v346 + 16) = xmmword_10021D880;
+  v347 = sub_100216964();
+  v348 = sub_100216964();
+  v349 = [v98 fieldMatch:v347 fieldRegex:v348];
+
+  *(v346 + 32) = v349;
+  v350 = sub_100216964();
+  v351 = sub_100216964();
+  v352 = [v98 fieldMatch:v350 fieldRegex:v351];
+
+  *(v346 + 40) = v352;
+  v353 = sub_100216964();
+  v354 = sub_100216964();
+  v355 = [v98 fieldMatch:v353 fieldRegex:v354];
+
+  *(v346 + 48) = v355;
+  v356 = sub_100216B14().super.isa;
+  v346, v357, v358, v359, v360, v361, v362, v363, v418, v432, v446, v460, v474, v488, v501, v514, v527, v539;
+  v364 = [v98 orMatch:v356];
+
+  v365 = sub_100216964();
+  v366 = [v211 TPPBPolicyKeyViewMappingWithView:v365 matchingRule:v364];
+
+  *v546[4].endpoint = v366;
+  v367 = [v98 trueMatch];
+  v368 = sub_100216964();
+  v369 = [v211 TPPBPolicyKeyViewMappingWithView:v368 matchingRule:v367];
+
+  *v546[4].containerMap = v369;
+  v547 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v298 = sub_100216B14().super.isa;
-
+  v370 = sub_100216B14().super.isa;
+  v545, v371, v372, v373, v374, v375, v376, v377, v419, v433, v447, v461, v475, v489, v502, v515, v528, v540;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v299 = sub_100216B14().super.isa;
-
+  v378 = sub_100216B14().super.isa;
+  v544, v379, v380, v381, v382, v383, v384, v385, v420, v434, v448, v462, v476, v490, v503, v516, v529, v541;
   sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v300 = sub_100216B14().super.isa;
-
+  v386 = sub_100216B14().super.isa;
+  v79, v387, v388, v389, v390, v391, v392, v393, v421, v435, v449, v463, v477, v491, v504, v517, v530, v542;
   sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v301 = sub_100216B14().super.isa;
+  v394 = sub_100216B14().super.isa;
   sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v302 = sub_100216B14().super.isa;
+  v395 = sub_100216B14().super.isa;
+  v546, v396, v397, v398, v399, v400, v401, v402, v422, v436, v450, v464, v478, v492, v505, v518, v531, v543;
+  v403 = sub_100216B14().super.isa;
+  v404 = sub_100216B14().super.isa;
+  v405 = sub_100216B14().super.isa;
+  v406 = sub_100216B14().super.isa;
+  v407 = [v547 initWithVersion:10 modelToCategory:v370 categoriesByView:v378 introducersByCategory:v386 redactions:v394 keyViewMapping:v395 userControllableViewList:v403 piggybackViews:v404 priorityViews:v405 inheritedExcludedViews:v406 hashAlgo:1];
 
-  v303 = sub_100216B14().super.isa;
-  v304 = sub_100216B14().super.isa;
-  v305 = sub_100216B14().super.isa;
-  v306 = sub_100216B14().super.isa;
-  v307 = [v311 initWithVersion:10 modelToCategory:v298 categoriesByView:v299 introducersByCategory:v300 redactions:v301 keyViewMapping:v302 userControllableViewList:v303 piggybackViews:v304 priorityViews:v305 inheritedExcludedViews:v306 hashAlgo:1];
-
-  return v307;
+  return v407;
 }
 
 id sub_10002DBB8()
@@ -5578,47 +4538,48 @@ id sub_10002DBB8()
   v4 = objc_opt_self();
   v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
 
-  v1[4] = v5;
+  *v1[1]._TtCs12_SwiftObject_opaque = v5;
   v6 = sub_100216964();
   v7 = sub_100216964();
   v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
 
-  v1[5] = v8;
+  *&v1[1]._TtCs12_SwiftObject_opaque[8] = v8;
   v9 = sub_100216964();
   v10 = sub_100216964();
   v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
 
-  v1[6] = v11;
+  *v1[1].endpoint = v11;
   v12 = sub_100216964();
   v13 = sub_100216964();
   v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
 
-  v1[7] = v14;
+  *v1[1].containerMap = v14;
   v15 = sub_100216964();
   v16 = sub_100216964();
   v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
 
-  v1[8] = v17;
+  *v1[2]._TtCs12_SwiftObject_opaque = v17;
   v18 = sub_100216964();
   v19 = sub_100216964();
   v20 = [v4 TPPBPolicyModelToCategoryWithPrefix:v18 category:v19];
 
-  v1[9] = v20;
+  *&v1[2]._TtCs12_SwiftObject_opaque[8] = v20;
   v21 = sub_100216964();
   v22 = sub_100216964();
   v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
 
-  v1[10] = v23;
+  *v1[2].endpoint = v23;
   v24 = sub_100216964();
   v25 = sub_100216964();
   v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
 
-  v1[11] = v26;
+  *v1[2].containerMap = v26;
+  v555 = v1;
   v27 = sub_100216964();
   v28 = sub_100216964();
   v29 = [v4 TPPBPolicyModelToCategoryWithPrefix:v27 category:v28];
 
-  v1[12] = v29;
+  *v1[3]._TtCs12_SwiftObject_opaque = v29;
   v30 = swift_allocObject();
   *(v30 + 16) = xmmword_10021D8C0;
   v31 = sub_100216964();
@@ -5692,17 +4653,18 @@ id sub_10002DBB8()
   v73 = sub_100216B14().super.isa;
   v74 = [v33 TPPBPolicyCategoriesByViewWithView:v72 categories:v73];
 
-  v71[17] = v74;
+  *&v71[4]._TtCs12_SwiftObject_opaque[8] = v74;
   v75 = sub_100216964();
   v76 = sub_100216B14().super.isa;
   v77 = [v33 TPPBPolicyCategoriesByViewWithView:v75 categories:v76];
 
-  v71[18] = v77;
+  *v71[4].endpoint = v77;
+  v554 = v71;
   v78 = sub_100216964();
   v79 = sub_100216B14().super.isa;
   v80 = [v33 TPPBPolicyCategoriesByViewWithView:v78 categories:v79];
 
-  v71[19] = v80;
+  *v71[4].containerMap = v80;
   v81 = swift_allocObject();
   *(v81 + 16) = xmmword_10021D910;
   v82 = v81;
@@ -5711,27 +4673,28 @@ id sub_10002DBB8()
   v85 = objc_opt_self();
   v86 = [v85 TPPBPolicyIntroducersByCategoryWithCategory:v83 introducers:v84];
 
-  v82[4] = v86;
+  *v82[1]._TtCs12_SwiftObject_opaque = v86;
   v87 = sub_100216964();
   v88 = sub_100216B14().super.isa;
   v89 = [v85 TPPBPolicyIntroducersByCategoryWithCategory:v87 introducers:v88];
 
-  v82[5] = v89;
+  *&v82[1]._TtCs12_SwiftObject_opaque[8] = v89;
   v90 = sub_100216964();
   v91 = sub_100216B14().super.isa;
   v92 = [v85 TPPBPolicyIntroducersByCategoryWithCategory:v90 introducers:v91];
 
-  v82[6] = v92;
+  *v82[1].endpoint = v92;
   v93 = sub_100216964();
   v94 = sub_100216B14().super.isa;
   v95 = [v85 TPPBPolicyIntroducersByCategoryWithCategory:v93 introducers:v94];
 
-  v82[7] = v95;
+  *v82[1].containerMap = v95;
+  v553 = v82;
   v96 = sub_100216964();
   v97 = sub_100216B14().super.isa;
   v98 = [v85 TPPBPolicyIntroducersByCategoryWithCategory:v96 introducers:v97];
 
-  v82[8] = v98;
+  *v82[2]._TtCs12_SwiftObject_opaque = v98;
   v99 = swift_allocObject();
   *(v99 + 16) = xmmword_10021D930;
   v100 = v99;
@@ -5769,351 +4732,353 @@ id sub_10002DBB8()
   v122 = [v106 TPPBPolicyKeyViewMappingWithView:v121 matchingRule:v120];
 
   v100[7] = v122;
-  v123 = sub_100216964();
+  v123 = v100;
   v124 = sub_100216964();
-  v125 = [v101 fieldMatch:v123 fieldRegex:v124];
+  v125 = sub_100216964();
+  v126 = [v101 fieldMatch:v124 fieldRegex:v125];
 
-  v126 = sub_100216964();
-  v127 = [v106 TPPBPolicyKeyViewMappingWithView:v126 matchingRule:v125];
+  v127 = sub_100216964();
+  v128 = [v106 TPPBPolicyKeyViewMappingWithView:v127 matchingRule:v126];
 
-  v100[8] = v127;
-  v128 = sub_100216964();
+  v100[8] = v128;
   v129 = sub_100216964();
-  v130 = [v101 fieldMatch:v128 fieldRegex:v129];
+  v130 = sub_100216964();
+  v131 = [v101 fieldMatch:v129 fieldRegex:v130];
 
-  v131 = sub_100216964();
-  v132 = [v106 TPPBPolicyKeyViewMappingWithView:v131 matchingRule:v130];
+  v132 = sub_100216964();
+  v133 = [v106 TPPBPolicyKeyViewMappingWithView:v132 matchingRule:v131];
 
-  v100[9] = v132;
-  v133 = sub_100216964();
+  v100[9] = v133;
   v134 = sub_100216964();
-  v135 = [v101 fieldMatch:v133 fieldRegex:v134];
+  v135 = sub_100216964();
+  v136 = [v101 fieldMatch:v134 fieldRegex:v135];
 
-  v136 = sub_100216964();
-  v137 = [v106 TPPBPolicyKeyViewMappingWithView:v136 matchingRule:v135];
+  v137 = sub_100216964();
+  v138 = [v106 TPPBPolicyKeyViewMappingWithView:v137 matchingRule:v136];
 
-  v100[10] = v137;
-  v138 = swift_allocObject();
-  *(v138 + 16) = xmmword_10021D880;
-  v139 = sub_100216964();
+  v100[10] = v138;
+  v139 = swift_allocObject();
+  *(v139 + 16) = xmmword_10021D880;
   v140 = sub_100216964();
-  v141 = [v101 fieldMatch:v139 fieldRegex:v140];
+  v141 = sub_100216964();
+  v142 = [v101 fieldMatch:v140 fieldRegex:v141];
 
-  *(v138 + 32) = v141;
-  v142 = sub_100216964();
+  *(v139 + 32) = v142;
   v143 = sub_100216964();
-  v144 = [v101 fieldMatch:v142 fieldRegex:v143];
+  v144 = sub_100216964();
+  v145 = [v101 fieldMatch:v143 fieldRegex:v144];
 
-  *(v138 + 40) = v144;
-  v145 = sub_100216964();
+  *(v139 + 40) = v145;
   v146 = sub_100216964();
-  v147 = [v101 fieldMatch:v145 fieldRegex:v146];
+  v147 = sub_100216964();
+  v148 = [v101 fieldMatch:v146 fieldRegex:v147];
 
-  *(v138 + 48) = v147;
+  *(v139 + 48) = v148;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
-  v148 = sub_100216B14().super.isa;
+  v149 = sub_100216B14().super.isa;
+  v139, v150, v151, v152, v153, v154, v155, v156, v418, v432, v446, v460, v474, v488, v502, "ProtectedCloudStorage", 5, 0xB;
+  v157 = [v101 orMatch:v149];
 
-  v149 = [v101 orMatch:v148];
-
-  v150 = sub_100216964();
-  v151 = [v106 TPPBPolicyKeyViewMappingWithView:v150 matchingRule:v149];
-
-  v100[11] = v151;
-  v152 = sub_100216964();
-  v153 = sub_100216964();
-  v154 = [v101 fieldMatch:v152 fieldRegex:v153];
-
-  v155 = sub_100216964();
-  v156 = [v106 TPPBPolicyKeyViewMappingWithView:v155 matchingRule:v154];
-
-  v100[12] = v156;
-  v317 = v100;
-  v157 = sub_100216964();
   v158 = sub_100216964();
-  v159 = [v101 fieldMatch:v157 fieldRegex:v158];
+  v159 = [v106 TPPBPolicyKeyViewMappingWithView:v158 matchingRule:v157];
 
+  v100[11] = v159;
   v160 = sub_100216964();
-  v161 = [v106 TPPBPolicyKeyViewMappingWithView:v160 matchingRule:v159];
+  v161 = sub_100216964();
+  v162 = [v101 fieldMatch:v160 fieldRegex:v161];
 
-  v100[13] = v161;
-  v162 = swift_allocObject();
-  *(v162 + 16) = xmmword_10021D8B0;
-  v163 = swift_allocObject();
-  *(v163 + 16) = xmmword_10021D8D0;
-  v164 = sub_100216964();
+  v163 = sub_100216964();
+  v164 = [v106 TPPBPolicyKeyViewMappingWithView:v163 matchingRule:v162];
+
+  v100[12] = v164;
   v165 = sub_100216964();
-  v166 = [v101 fieldMatch:v164 fieldRegex:v165];
+  v166 = sub_100216964();
+  v167 = [v101 fieldMatch:v165 fieldRegex:v166];
 
-  *(v163 + 32) = v166;
-  v167 = sub_100216964();
   v168 = sub_100216964();
-  v169 = [v101 fieldMatch:v167 fieldRegex:v168];
+  v169 = [v106 TPPBPolicyKeyViewMappingWithView:v168 matchingRule:v167];
 
-  *(v163 + 40) = v169;
-  v170 = sub_100216B14().super.isa;
-
-  v171 = [v101 andMatch:v170];
-
-  *(v162 + 32) = v171;
-  v172 = swift_allocObject();
-  *(v172 + 16) = xmmword_10021D8D0;
+  v100[13] = v169;
+  v170 = swift_allocObject();
+  *(v170 + 16) = xmmword_10021D8B0;
+  v171 = swift_allocObject();
+  *(v171 + 16) = xmmword_10021D8D0;
+  v172 = sub_100216964();
   v173 = sub_100216964();
-  v174 = sub_100216964();
-  v175 = [v101 fieldMatch:v173 fieldRegex:v174];
+  v174 = [v101 fieldMatch:v172 fieldRegex:v173];
 
-  *(v172 + 32) = v175;
+  *(v171 + 32) = v174;
+  v175 = sub_100216964();
   v176 = sub_100216964();
-  v177 = sub_100216964();
-  v178 = [v101 fieldMatch:v176 fieldRegex:v177];
+  v177 = [v101 fieldMatch:v175 fieldRegex:v176];
 
-  *(v172 + 40) = v178;
-  v179 = sub_100216B14().super.isa;
+  *(v171 + 40) = v177;
+  v178 = sub_100216B14().super.isa;
+  v171, v179, v180, v181, v182, v183, v184, v185, v419, v433, v447, v461, v475, v489, v123, v515, v528, v541;
+  v186 = [v101 andMatch:v178];
 
-  v180 = [v101 andMatch:v179];
-
-  *(v162 + 40) = v180;
-  v181 = sub_100216964();
-  v182 = sub_100216964();
-  v183 = [v101 fieldMatch:v181 fieldRegex:v182];
-
-  *(v162 + 48) = v183;
-  v184 = sub_100216964();
-  v185 = sub_100216964();
-  v186 = [v101 fieldMatch:v184 fieldRegex:v185];
-
-  *(v162 + 56) = v186;
-  v187 = sub_100216B14().super.isa;
-
-  v188 = [v101 orMatch:v187];
-
+  *(v170 + 32) = v186;
+  v187 = swift_allocObject();
+  *(v187 + 16) = xmmword_10021D8D0;
+  v188 = sub_100216964();
   v189 = sub_100216964();
-  v190 = [v106 TPPBPolicyKeyViewMappingWithView:v189 matchingRule:v188];
+  v190 = [v101 fieldMatch:v188 fieldRegex:v189];
 
-  v317[14] = v190;
-  v191 = swift_allocObject();
-  *(v191 + 16) = xmmword_10021D8D0;
+  *(v187 + 32) = v190;
+  v191 = sub_100216964();
   v192 = sub_100216964();
-  v193 = sub_100216964();
-  v194 = [v101 fieldMatch:v192 fieldRegex:v193];
+  v193 = [v101 fieldMatch:v191 fieldRegex:v192];
 
-  *(v191 + 32) = v194;
-  v195 = swift_allocObject();
-  *(v195 + 16) = xmmword_10021D880;
-  v196 = sub_100216964();
-  v197 = sub_100216964();
-  v198 = [v101 fieldMatch:v196 fieldRegex:v197];
+  *(v187 + 40) = v193;
+  v194 = sub_100216B14().super.isa;
+  v187, v195, v196, v197, v198, v199, v200, v201, v420, v434, v448, v462, v476, v490, v503, v516, v529, v542;
+  v202 = [v101 andMatch:v194];
 
-  *(v195 + 32) = v198;
-  v199 = sub_100216964();
-  v200 = sub_100216964();
-  v201 = [v101 fieldMatch:v199 fieldRegex:v200];
-
-  *(v195 + 40) = v201;
-  v202 = sub_100216964();
+  *(v170 + 40) = v202;
   v203 = sub_100216964();
-  v204 = [v101 fieldMatch:v202 fieldRegex:v203];
+  v204 = sub_100216964();
+  v205 = [v101 fieldMatch:v203 fieldRegex:v204];
 
-  *(v195 + 48) = v204;
-  v205 = sub_100216B14().super.isa;
+  *(v170 + 48) = v205;
+  v206 = sub_100216964();
+  v207 = sub_100216964();
+  v208 = [v101 fieldMatch:v206 fieldRegex:v207];
 
-  v206 = [v101 andMatch:v205];
+  *(v170 + 56) = v208;
+  v209 = sub_100216B14().super.isa;
+  v170, v210, v211, v212, v213, v214, v215, v216, v421, v435, v449, v463, v477, v491, v504, v517, v530, v543;
+  v217 = [v101 orMatch:v209];
 
-  *(v191 + 40) = v206;
-  v207 = sub_100216B14().super.isa;
-
-  v208 = [v101 orMatch:v207];
-
-  v209 = sub_100216964();
-  v210 = [v106 TPPBPolicyKeyViewMappingWithView:v209 matchingRule:v208];
-
-  v317[15] = v210;
-  v211 = swift_allocObject();
-  *(v211 + 16) = xmmword_10021D8F0;
-  v212 = sub_100216964();
-  v213 = sub_100216964();
-  v214 = [v101 fieldMatch:v212 fieldRegex:v213];
-
-  *(v211 + 32) = v214;
-  v215 = sub_100216964();
-  v216 = sub_100216964();
-  v217 = [v101 fieldMatch:v215 fieldRegex:v216];
-
-  *(v211 + 40) = v217;
   v218 = sub_100216964();
-  v219 = sub_100216964();
-  v220 = [v101 fieldMatch:v218 fieldRegex:v219];
+  v219 = [v106 TPPBPolicyKeyViewMappingWithView:v218 matchingRule:v217];
 
-  *(v211 + 48) = v220;
-  v221 = sub_100216964();
+  v220 = v505;
+  *v505[3].endpoint = v219;
+  v221 = swift_allocObject();
+  *(v221 + 16) = xmmword_10021D8D0;
   v222 = sub_100216964();
-  v223 = [v101 fieldMatch:v221 fieldRegex:v222];
+  v223 = sub_100216964();
+  v224 = [v101 fieldMatch:v222 fieldRegex:v223];
 
-  *(v211 + 56) = v223;
-  v224 = sub_100216964();
-  v225 = sub_100216964();
-  v226 = [v101 fieldMatch:v224 fieldRegex:v225];
-
-  *(v211 + 64) = v226;
+  *(v221 + 32) = v224;
+  v225 = swift_allocObject();
+  *(v225 + 16) = xmmword_10021D880;
+  v226 = sub_100216964();
   v227 = sub_100216964();
-  v228 = sub_100216964();
-  v229 = [v101 fieldMatch:v227 fieldRegex:v228];
+  v228 = [v101 fieldMatch:v226 fieldRegex:v227];
 
-  *(v211 + 72) = v229;
+  *(v225 + 32) = v228;
+  v229 = sub_100216964();
   v230 = sub_100216964();
-  v231 = sub_100216964();
-  v232 = [v101 fieldMatch:v230 fieldRegex:v231];
+  v231 = [v101 fieldMatch:v229 fieldRegex:v230];
 
-  *(v211 + 80) = v232;
+  *(v225 + 40) = v231;
+  v232 = sub_100216964();
   v233 = sub_100216964();
-  v234 = sub_100216964();
-  v235 = [v101 fieldMatch:v233 fieldRegex:v234];
+  v234 = [v101 fieldMatch:v232 fieldRegex:v233];
 
-  *(v211 + 88) = v235;
-  v236 = sub_100216964();
-  v237 = sub_100216964();
-  v238 = [v101 fieldMatch:v236 fieldRegex:v237];
+  *(v225 + 48) = v234;
+  v235 = sub_100216B14().super.isa;
+  v225, v236, v237, v238, v239, v240, v241, v242, v422, v436, v450, v464, v478, v492, v505, v518, v531, v544;
+  v243 = [v101 andMatch:v235];
 
-  *(v211 + 96) = v238;
-  v239 = sub_100216964();
-  v240 = sub_100216964();
-  v241 = [v101 fieldMatch:v239 fieldRegex:v240];
+  *(v221 + 40) = v243;
+  v244 = sub_100216B14().super.isa;
+  v221, v245, v246, v247, v248, v249, v250, v251, v423, v437, v451, v465, v479, v493, v506, v519, v532, v545;
+  v252 = [v101 orMatch:v244];
 
-  *(v211 + 104) = v241;
-  v242 = sub_100216964();
-  v243 = sub_100216964();
-  v244 = [v101 fieldMatch:v242 fieldRegex:v243];
+  v253 = sub_100216964();
+  v254 = [v106 TPPBPolicyKeyViewMappingWithView:v253 matchingRule:v252];
 
-  *(v211 + 112) = v244;
-  v245 = sub_100216964();
-  v246 = sub_100216964();
-  v247 = [v101 fieldMatch:v245 fieldRegex:v246];
+  *v220[3].containerMap = v254;
+  v255 = v220;
+  v256 = swift_allocObject();
+  *(v256 + 16) = xmmword_10021D8F0;
+  v257 = sub_100216964();
+  v258 = sub_100216964();
+  v259 = [v101 fieldMatch:v257 fieldRegex:v258];
 
-  *(v211 + 120) = v247;
-  v248 = sub_100216964();
-  v249 = sub_100216964();
-  v250 = [v101 fieldMatch:v248 fieldRegex:v249];
-
-  *(v211 + 128) = v250;
-  v251 = sub_100216964();
-  v252 = sub_100216964();
-  v253 = [v101 fieldMatch:v251 fieldRegex:v252];
-
-  *(v211 + 136) = v253;
-  v254 = sub_100216B14().super.isa;
-
-  v255 = [v101 orMatch:v254];
-
-  v256 = sub_100216964();
-  v257 = [v106 TPPBPolicyKeyViewMappingWithView:v256 matchingRule:v255];
-
-  v317[16] = v257;
-  v258 = swift_allocObject();
-  *(v258 + 16) = xmmword_10021D8D0;
-  v259 = sub_100216964();
+  *(v256 + 32) = v259;
   v260 = sub_100216964();
-  v261 = [v101 fieldMatch:v259 fieldRegex:v260];
+  v261 = sub_100216964();
+  v262 = [v101 fieldMatch:v260 fieldRegex:v261];
 
-  *(v258 + 32) = v261;
-  v262 = sub_100216964();
+  *(v256 + 40) = v262;
   v263 = sub_100216964();
-  v264 = [v101 fieldMatch:v262 fieldRegex:v263];
+  v264 = sub_100216964();
+  v265 = [v101 fieldMatch:v263 fieldRegex:v264];
 
-  *(v258 + 40) = v264;
-  v265 = sub_100216B14().super.isa;
-
-  v266 = [v101 orMatch:v265];
-
+  *(v256 + 48) = v265;
+  v266 = sub_100216964();
   v267 = sub_100216964();
-  v268 = [v106 TPPBPolicyKeyViewMappingWithView:v267 matchingRule:v266];
+  v268 = [v101 fieldMatch:v266 fieldRegex:v267];
 
-  v317[17] = v268;
-  v269 = swift_allocObject();
-  *(v269 + 16) = xmmword_10021D910;
+  *(v256 + 56) = v268;
+  v269 = sub_100216964();
   v270 = sub_100216964();
-  v271 = sub_100216964();
-  v272 = [v101 fieldMatch:v270 fieldRegex:v271];
+  v271 = [v101 fieldMatch:v269 fieldRegex:v270];
 
-  *(v269 + 32) = v272;
+  *(v256 + 64) = v271;
+  v272 = sub_100216964();
   v273 = sub_100216964();
-  v274 = sub_100216964();
-  v275 = [v101 fieldMatch:v273 fieldRegex:v274];
+  v274 = [v101 fieldMatch:v272 fieldRegex:v273];
 
-  *(v269 + 40) = v275;
+  *(v256 + 72) = v274;
+  v275 = sub_100216964();
   v276 = sub_100216964();
-  v277 = sub_100216964();
-  v278 = [v101 fieldMatch:v276 fieldRegex:v277];
+  v277 = [v101 fieldMatch:v275 fieldRegex:v276];
 
-  *(v269 + 48) = v278;
+  *(v256 + 80) = v277;
+  v278 = sub_100216964();
   v279 = sub_100216964();
-  v280 = sub_100216964();
-  v281 = [v101 fieldMatch:v279 fieldRegex:v280];
+  v280 = [v101 fieldMatch:v278 fieldRegex:v279];
 
-  *(v269 + 56) = v281;
+  *(v256 + 88) = v280;
+  v281 = sub_100216964();
   v282 = sub_100216964();
-  v283 = sub_100216964();
-  v284 = [v101 fieldMatch:v282 fieldRegex:v283];
+  v283 = [v101 fieldMatch:v281 fieldRegex:v282];
 
-  *(v269 + 64) = v284;
-  v285 = sub_100216B14().super.isa;
+  *(v256 + 96) = v283;
+  v284 = sub_100216964();
+  v285 = sub_100216964();
+  v286 = [v101 fieldMatch:v284 fieldRegex:v285];
 
-  v286 = [v101 orMatch:v285];
-
+  *(v256 + 104) = v286;
   v287 = sub_100216964();
-  v288 = [v106 TPPBPolicyKeyViewMappingWithView:v287 matchingRule:v286];
+  v288 = sub_100216964();
+  v289 = [v101 fieldMatch:v287 fieldRegex:v288];
 
-  v317[18] = v288;
-  v289 = swift_allocObject();
-  *(v289 + 16) = xmmword_10021D880;
+  *(v256 + 112) = v289;
   v290 = sub_100216964();
   v291 = sub_100216964();
   v292 = [v101 fieldMatch:v290 fieldRegex:v291];
 
-  *(v289 + 32) = v292;
+  *(v256 + 120) = v292;
   v293 = sub_100216964();
   v294 = sub_100216964();
   v295 = [v101 fieldMatch:v293 fieldRegex:v294];
 
-  *(v289 + 40) = v295;
+  *(v256 + 128) = v295;
   v296 = sub_100216964();
   v297 = sub_100216964();
   v298 = [v101 fieldMatch:v296 fieldRegex:v297];
 
-  *(v289 + 48) = v298;
+  *(v256 + 136) = v298;
   v299 = sub_100216B14().super.isa;
+  v256, v300, v301, v302, v303, v304, v305, v306, v424, v438, v452, v466, v480, v494, v507, v520, v533, v546;
+  v307 = [v101 orMatch:v299];
 
-  v300 = [v101 orMatch:v299];
+  v308 = sub_100216964();
+  v309 = [v106 TPPBPolicyKeyViewMappingWithView:v308 matchingRule:v307];
 
-  v301 = sub_100216964();
-  v302 = [v106 TPPBPolicyKeyViewMappingWithView:v301 matchingRule:v300];
+  *v220[4]._TtCs12_SwiftObject_opaque = v309;
+  v310 = swift_allocObject();
+  *(v310 + 16) = xmmword_10021D8D0;
+  v311 = sub_100216964();
+  v312 = sub_100216964();
+  v313 = [v101 fieldMatch:v311 fieldRegex:v312];
 
-  v317[19] = v302;
-  v303 = [v101 trueMatch];
-  v304 = sub_100216964();
-  v305 = [v106 TPPBPolicyKeyViewMappingWithView:v304 matchingRule:v303];
+  *(v310 + 32) = v313;
+  v314 = sub_100216964();
+  v315 = sub_100216964();
+  v316 = [v101 fieldMatch:v314 fieldRegex:v315];
 
-  v317[20] = v305;
-  v318 = objc_allocWithZone(TPPolicyDocument);
+  *(v310 + 40) = v316;
+  v317 = sub_100216B14().super.isa;
+  v310, v318, v319, v320, v321, v322, v323, v324, v425, v439, v453, v467, v481, v495, v508, v521, v534, v547;
+  v325 = [v101 orMatch:v317];
+
+  v326 = sub_100216964();
+  v327 = [v106 TPPBPolicyKeyViewMappingWithView:v326 matchingRule:v325];
+
+  *&v220[4]._TtCs12_SwiftObject_opaque[8] = v327;
+  v328 = swift_allocObject();
+  *(v328 + 16) = v535;
+  v329 = sub_100216964();
+  v330 = sub_100216964();
+  v331 = [v101 fieldMatch:v329 fieldRegex:v330];
+
+  *(v328 + 32) = v331;
+  v332 = sub_100216964();
+  v333 = sub_100216964();
+  v334 = [v101 fieldMatch:v332 fieldRegex:v333];
+
+  *(v328 + 40) = v334;
+  v335 = sub_100216964();
+  v336 = sub_100216964();
+  v337 = [v101 fieldMatch:v335 fieldRegex:v336];
+
+  *(v328 + 48) = v337;
+  v338 = sub_100216964();
+  v339 = sub_100216964();
+  v340 = [v101 fieldMatch:v338 fieldRegex:v339];
+
+  *(v328 + 56) = v340;
+  v341 = sub_100216964();
+  v342 = sub_100216964();
+  v343 = [v101 fieldMatch:v341 fieldRegex:v342];
+
+  *(v328 + 64) = v343;
+  v344 = sub_100216B14().super.isa;
+  v328, v345, v346, v347, v348, v349, v350, v351, v426, v440, v454, v468, v482, v496, v509, v522, v535, *(&v535 + 1);
+  v352 = [v101 orMatch:v344];
+
+  v353 = sub_100216964();
+  v354 = [v106 TPPBPolicyKeyViewMappingWithView:v353 matchingRule:v352];
+
+  *v220[4].endpoint = v354;
+  v355 = swift_allocObject();
+  *(v355 + 16) = xmmword_10021D880;
+  v356 = sub_100216964();
+  v357 = sub_100216964();
+  v358 = [v101 fieldMatch:v356 fieldRegex:v357];
+
+  *(v355 + 32) = v358;
+  v359 = sub_100216964();
+  v360 = sub_100216964();
+  v361 = [v101 fieldMatch:v359 fieldRegex:v360];
+
+  *(v355 + 40) = v361;
+  v362 = sub_100216964();
+  v363 = sub_100216964();
+  v364 = [v101 fieldMatch:v362 fieldRegex:v363];
+
+  *(v355 + 48) = v364;
+  v365 = sub_100216B14().super.isa;
+  v355, v366, v367, v368, v369, v370, v371, v372, v427, v441, v455, v469, v483, v497, v510, v523, v536, v548;
+  v373 = [v101 orMatch:v365];
+
+  v374 = sub_100216964();
+  v375 = [v106 TPPBPolicyKeyViewMappingWithView:v374 matchingRule:v373];
+
+  *v220[4].containerMap = v375;
+  v376 = [v101 trueMatch];
+  v377 = sub_100216964();
+  v378 = [v106 TPPBPolicyKeyViewMappingWithView:v377 matchingRule:v376];
+
+  *v220[5]._TtCs12_SwiftObject_opaque = v378;
+  v556 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v306 = sub_100216B14().super.isa;
-
+  v379 = sub_100216B14().super.isa;
+  v555, v380, v381, v382, v383, v384, v385, v386, v428, v442, v456, v470, v484, v498, v511, v524, v537, v549;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v307 = sub_100216B14().super.isa;
-
+  v387 = sub_100216B14().super.isa;
+  v554, v388, v389, v390, v391, v392, v393, v394, v429, v443, v457, v471, v485, v499, v512, v525, v538, v550;
   sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v308 = sub_100216B14().super.isa;
-
+  v395 = sub_100216B14().super.isa;
+  v553, v396, v397, v398, v399, v400, v401, v402, v430, v444, v458, v472, v486, v500, v513, v526, v539, v551;
   sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v309 = sub_100216B14().super.isa;
+  v403 = sub_100216B14().super.isa;
   sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v310 = sub_100216B14().super.isa;
+  v404 = sub_100216B14().super.isa;
+  v255, v405, v406, v407, v408, v409, v410, v411, v431, v445, v459, v473, v487, v501, v514, v527, v540, v552;
+  v412 = sub_100216B14().super.isa;
+  v413 = sub_100216B14().super.isa;
+  v414 = sub_100216B14().super.isa;
+  v415 = sub_100216B14().super.isa;
+  v416 = [v556 initWithVersion:11 modelToCategory:v379 categoriesByView:v387 introducersByCategory:v395 redactions:v403 keyViewMapping:v404 userControllableViewList:v412 piggybackViews:v413 priorityViews:v414 inheritedExcludedViews:v415 hashAlgo:1];
 
-  v311 = sub_100216B14().super.isa;
-  v312 = sub_100216B14().super.isa;
-  v313 = sub_100216B14().super.isa;
-  v314 = sub_100216B14().super.isa;
-  v315 = [v318 initWithVersion:11 modelToCategory:v306 categoriesByView:v307 introducersByCategory:v308 redactions:v309 keyViewMapping:v310 userControllableViewList:v311 piggybackViews:v312 priorityViews:v313 inheritedExcludedViews:v314 hashAlgo:1];
-
-  return v315;
+  return v416;
 }
 
 id sub_100030430()
@@ -6127,47 +5092,48 @@ id sub_100030430()
   v4 = objc_opt_self();
   v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
 
-  v1[4] = v5;
+  *v1[1]._TtCs12_SwiftObject_opaque = v5;
   v6 = sub_100216964();
   v7 = sub_100216964();
   v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
 
-  v1[5] = v8;
+  *&v1[1]._TtCs12_SwiftObject_opaque[8] = v8;
   v9 = sub_100216964();
   v10 = sub_100216964();
   v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
 
-  v1[6] = v11;
+  *v1[1].endpoint = v11;
   v12 = sub_100216964();
   v13 = sub_100216964();
   v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
 
-  v1[7] = v14;
+  *v1[1].containerMap = v14;
   v15 = sub_100216964();
   v16 = sub_100216964();
   v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
 
-  v1[8] = v17;
+  *v1[2]._TtCs12_SwiftObject_opaque = v17;
   v18 = sub_100216964();
   v19 = sub_100216964();
   v20 = [v4 TPPBPolicyModelToCategoryWithPrefix:v18 category:v19];
 
-  v1[9] = v20;
+  *&v1[2]._TtCs12_SwiftObject_opaque[8] = v20;
   v21 = sub_100216964();
   v22 = sub_100216964();
   v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
 
-  v1[10] = v23;
+  *v1[2].endpoint = v23;
   v24 = sub_100216964();
   v25 = sub_100216964();
   v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
 
-  v1[11] = v26;
+  *v1[2].containerMap = v26;
+  v554 = v1;
   v27 = sub_100216964();
   v28 = sub_100216964();
   v29 = [v4 TPPBPolicyModelToCategoryWithPrefix:v27 category:v28];
 
-  v1[12] = v29;
+  *v1[3]._TtCs12_SwiftObject_opaque = v29;
   v30 = swift_allocObject();
   *(v30 + 16) = xmmword_10021D8C0;
   v31 = v30;
@@ -6176,83 +5142,84 @@ id sub_100030430()
   v34 = objc_opt_self();
   v35 = [v34 TPPBPolicyCategoriesByViewWithView:v32 categories:isa];
 
-  v31[4] = v35;
+  *v31[1]._TtCs12_SwiftObject_opaque = v35;
   v36 = sub_100216964();
   v37 = sub_100216B14().super.isa;
   v38 = [v34 TPPBPolicyCategoriesByViewWithView:v36 categories:v37];
 
-  v31[5] = v38;
+  *&v31[1]._TtCs12_SwiftObject_opaque[8] = v38;
   v39 = sub_100216964();
   v40 = sub_100216B14().super.isa;
   v41 = [v34 TPPBPolicyCategoriesByViewWithView:v39 categories:v40];
 
-  v31[6] = v41;
+  *v31[1].endpoint = v41;
   v42 = sub_100216964();
   v43 = sub_100216B14().super.isa;
   v44 = [v34 TPPBPolicyCategoriesByViewWithView:v42 categories:v43];
 
-  v31[7] = v44;
+  *v31[1].containerMap = v44;
   v45 = sub_100216964();
   v46 = sub_100216B14().super.isa;
   v47 = [v34 TPPBPolicyCategoriesByViewWithView:v45 categories:v46];
 
-  v31[8] = v47;
+  *v31[2]._TtCs12_SwiftObject_opaque = v47;
   v48 = sub_100216964();
   v49 = sub_100216B14().super.isa;
   v50 = [v34 TPPBPolicyCategoriesByViewWithView:v48 categories:v49];
 
-  v31[9] = v50;
+  *&v31[2]._TtCs12_SwiftObject_opaque[8] = v50;
   v51 = sub_100216964();
   v52 = sub_100216B14().super.isa;
   v53 = [v34 TPPBPolicyCategoriesByViewWithView:v51 categories:v52];
 
-  v31[10] = v53;
+  *v31[2].endpoint = v53;
   v54 = sub_100216964();
   v55 = sub_100216B14().super.isa;
   v56 = [v34 TPPBPolicyCategoriesByViewWithView:v54 categories:v55];
 
-  v31[11] = v56;
+  *v31[2].containerMap = v56;
   v57 = sub_100216964();
   v58 = sub_100216B14().super.isa;
   v59 = [v34 TPPBPolicyCategoriesByViewWithView:v57 categories:v58];
 
-  v31[12] = v59;
+  *v31[3]._TtCs12_SwiftObject_opaque = v59;
   v60 = sub_100216964();
   v61 = sub_100216B14().super.isa;
   v62 = [v34 TPPBPolicyCategoriesByViewWithView:v60 categories:v61];
 
-  v31[13] = v62;
+  *&v31[3]._TtCs12_SwiftObject_opaque[8] = v62;
   v63 = sub_100216964();
   v64 = sub_100216B14().super.isa;
   v65 = [v34 TPPBPolicyCategoriesByViewWithView:v63 categories:v64];
 
   v66 = v31;
-  v31[14] = v65;
+  *v31[3].endpoint = v65;
   v67 = sub_100216964();
   v68 = sub_100216B14().super.isa;
   v69 = [v34 TPPBPolicyCategoriesByViewWithView:v67 categories:v68];
 
-  v66[15] = v69;
+  *v66[3].containerMap = v69;
   v70 = sub_100216964();
   v71 = sub_100216B14().super.isa;
   v72 = [v34 TPPBPolicyCategoriesByViewWithView:v70 categories:v71];
 
-  v66[16] = v72;
+  *v66[4]._TtCs12_SwiftObject_opaque = v72;
   v73 = sub_100216964();
   v74 = sub_100216B14().super.isa;
   v75 = [v34 TPPBPolicyCategoriesByViewWithView:v73 categories:v74];
 
-  v66[17] = v75;
+  *&v66[4]._TtCs12_SwiftObject_opaque[8] = v75;
   v76 = sub_100216964();
   v77 = sub_100216B14().super.isa;
   v78 = [v34 TPPBPolicyCategoriesByViewWithView:v76 categories:v77];
 
-  v66[18] = v78;
+  *v66[4].endpoint = v78;
+  v553 = v66;
   v79 = sub_100216964();
   v80 = sub_100216B14().super.isa;
   v81 = [v34 TPPBPolicyCategoriesByViewWithView:v79 categories:v80];
 
-  v66[19] = v81;
+  *v66[4].containerMap = v81;
   v82 = swift_allocObject();
   *(v82 + 16) = xmmword_10021D910;
   v83 = v82;
@@ -6261,27 +5228,28 @@ id sub_100030430()
   v86 = objc_opt_self();
   v87 = [v86 TPPBPolicyIntroducersByCategoryWithCategory:v84 introducers:v85];
 
-  v83[4] = v87;
+  *v83[1]._TtCs12_SwiftObject_opaque = v87;
   v88 = sub_100216964();
   v89 = sub_100216B14().super.isa;
   v90 = [v86 TPPBPolicyIntroducersByCategoryWithCategory:v88 introducers:v89];
 
-  v83[5] = v90;
+  *&v83[1]._TtCs12_SwiftObject_opaque[8] = v90;
   v91 = sub_100216964();
   v92 = sub_100216B14().super.isa;
   v93 = [v86 TPPBPolicyIntroducersByCategoryWithCategory:v91 introducers:v92];
 
-  v83[6] = v93;
+  *v83[1].endpoint = v93;
   v94 = sub_100216964();
   v95 = sub_100216B14().super.isa;
   v96 = [v86 TPPBPolicyIntroducersByCategoryWithCategory:v94 introducers:v95];
 
-  v83[7] = v96;
+  v552 = v83;
+  *v83[1].containerMap = v96;
   v97 = sub_100216964();
   v98 = sub_100216B14().super.isa;
   v99 = [v86 TPPBPolicyIntroducersByCategoryWithCategory:v97 introducers:v98];
 
-  v83[8] = v99;
+  *v83[2]._TtCs12_SwiftObject_opaque = v99;
   v100 = swift_allocObject();
   *(v100 + 16) = xmmword_10021D930;
   v101 = v100;
@@ -6294,7 +5262,7 @@ id sub_100030430()
   v107 = objc_opt_self();
   v108 = [v107 TPPBPolicyKeyViewMappingWithView:v106 matchingRule:v105];
 
-  v101[4] = v108;
+  *(v101 + 32) = v108;
   v109 = sub_100216964();
   v110 = sub_100216964();
   v111 = [v102 fieldMatch:v109 fieldRegex:v110];
@@ -6302,7 +5270,7 @@ id sub_100030430()
   v112 = sub_100216964();
   v113 = [v107 TPPBPolicyKeyViewMappingWithView:v112 matchingRule:v111];
 
-  v101[5] = v113;
+  *(v101 + 40) = v113;
   v114 = sub_100216964();
   v115 = sub_100216964();
   v116 = [v102 fieldMatch:v114 fieldRegex:v115];
@@ -6310,7 +5278,7 @@ id sub_100030430()
   v117 = sub_100216964();
   v118 = [v107 TPPBPolicyKeyViewMappingWithView:v117 matchingRule:v116];
 
-  v101[6] = v118;
+  *(v101 + 48) = v118;
   v119 = sub_100216964();
   v120 = sub_100216964();
   v121 = [v102 fieldMatch:v119 fieldRegex:v120];
@@ -6318,7 +5286,7 @@ id sub_100030430()
   v122 = sub_100216964();
   v123 = [v107 TPPBPolicyKeyViewMappingWithView:v122 matchingRule:v121];
 
-  v101[7] = v123;
+  *(v101 + 56) = v123;
   v124 = sub_100216964();
   v125 = sub_100216964();
   v126 = [v102 fieldMatch:v124 fieldRegex:v125];
@@ -6326,7 +5294,7 @@ id sub_100030430()
   v127 = sub_100216964();
   v128 = [v107 TPPBPolicyKeyViewMappingWithView:v127 matchingRule:v126];
 
-  v101[8] = v128;
+  *(v101 + 64) = v128;
   v129 = sub_100216964();
   v130 = sub_100216964();
   v131 = [v102 fieldMatch:v129 fieldRegex:v130];
@@ -6334,7 +5302,7 @@ id sub_100030430()
   v132 = sub_100216964();
   v133 = [v107 TPPBPolicyKeyViewMappingWithView:v132 matchingRule:v131];
 
-  v101[9] = v133;
+  *(v101 + 72) = v133;
   v134 = sub_100216964();
   v135 = sub_100216964();
   v136 = [v102 fieldMatch:v134 fieldRegex:v135];
@@ -6342,7 +5310,7 @@ id sub_100030430()
   v137 = sub_100216964();
   v138 = [v107 TPPBPolicyKeyViewMappingWithView:v137 matchingRule:v136];
 
-  v101[10] = v138;
+  *(v101 + 80) = v138;
   v139 = swift_allocObject();
   *(v139 + 16) = xmmword_10021D880;
   v140 = sub_100216964();
@@ -6362,307 +5330,307 @@ id sub_100030430()
   *(v139 + 48) = v148;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
   v149 = sub_100216B14().super.isa;
+  v139, v150, v151, v152, v153, v154, v155, v156, v417, v431, v445, v459, v473, v487, "ProtectedCloudStorage", "Security-61901.40.77\n", 5, 0xB;
+  v157 = [v102 orMatch:v149];
 
-  v150 = [v102 orMatch:v149];
-
-  v151 = sub_100216964();
-  v152 = [v107 TPPBPolicyKeyViewMappingWithView:v151 matchingRule:v150];
-
-  v101[11] = v152;
-  v153 = sub_100216964();
-  v154 = sub_100216964();
-  v155 = [v102 fieldMatch:v153 fieldRegex:v154];
-
-  v156 = sub_100216964();
-  v157 = [v107 TPPBPolicyKeyViewMappingWithView:v156 matchingRule:v155];
-
-  v101[12] = v157;
   v158 = sub_100216964();
-  v159 = sub_100216964();
-  v160 = [v102 fieldMatch:v158 fieldRegex:v159];
+  v159 = [v107 TPPBPolicyKeyViewMappingWithView:v158 matchingRule:v157];
 
+  *(v101 + 88) = v159;
+  v160 = sub_100216964();
   v161 = sub_100216964();
-  v162 = [v107 TPPBPolicyKeyViewMappingWithView:v161 matchingRule:v160];
+  v162 = [v102 fieldMatch:v160 fieldRegex:v161];
 
-  v101[13] = v162;
-  v163 = swift_allocObject();
-  *(v163 + 16) = xmmword_10021D8B0;
-  v164 = swift_allocObject();
-  *(v164 + 16) = xmmword_10021D8D0;
+  v163 = sub_100216964();
+  v164 = [v107 TPPBPolicyKeyViewMappingWithView:v163 matchingRule:v162];
+
+  *(v101 + 96) = v164;
   v165 = sub_100216964();
   v166 = sub_100216964();
   v167 = [v102 fieldMatch:v165 fieldRegex:v166];
 
-  *(v164 + 32) = v167;
   v168 = sub_100216964();
-  v169 = sub_100216964();
-  v170 = [v102 fieldMatch:v168 fieldRegex:v169];
+  v169 = [v107 TPPBPolicyKeyViewMappingWithView:v168 matchingRule:v167];
 
-  *(v164 + 40) = v170;
-  v171 = sub_100216B14().super.isa;
+  *(v101 + 104) = v169;
+  v170 = swift_allocObject();
+  *(v170 + 16) = xmmword_10021D8B0;
+  v171 = swift_allocObject();
+  *(v171 + 16) = xmmword_10021D8D0;
+  v172 = sub_100216964();
+  v173 = sub_100216964();
+  v174 = [v102 fieldMatch:v172 fieldRegex:v173];
 
-  v172 = [v102 andMatch:v171];
-
-  *(v163 + 32) = v172;
-  v173 = swift_allocObject();
-  *(v173 + 16) = xmmword_10021D8D0;
-  v174 = sub_100216964();
+  *(v171 + 32) = v174;
   v175 = sub_100216964();
-  v176 = [v102 fieldMatch:v174 fieldRegex:v175];
+  v176 = sub_100216964();
+  v177 = [v102 fieldMatch:v175 fieldRegex:v176];
 
-  *(v173 + 32) = v176;
-  v177 = sub_100216964();
-  v178 = sub_100216964();
-  v179 = [v102 fieldMatch:v177 fieldRegex:v178];
+  *(v171 + 40) = v177;
+  v178 = sub_100216B14().super.isa;
+  v171, v179, v180, v181, v182, v183, v184, v185, v418, v432, v446, v460, v474, v488, v501, v514, v527, v540;
+  v186 = [v102 andMatch:v178];
 
-  *(v173 + 40) = v179;
-  v180 = sub_100216B14().super.isa;
+  *(v170 + 32) = v186;
+  v187 = swift_allocObject();
+  *(v187 + 16) = xmmword_10021D8D0;
+  v188 = sub_100216964();
+  v189 = sub_100216964();
+  v190 = [v102 fieldMatch:v188 fieldRegex:v189];
 
-  v181 = [v102 andMatch:v180];
+  *(v187 + 32) = v190;
+  v191 = sub_100216964();
+  v192 = sub_100216964();
+  v193 = [v102 fieldMatch:v191 fieldRegex:v192];
 
-  *(v163 + 40) = v181;
-  v182 = sub_100216964();
-  v183 = sub_100216964();
-  v184 = [v102 fieldMatch:v182 fieldRegex:v183];
+  *(v187 + 40) = v193;
+  v194 = sub_100216B14().super.isa;
+  v187, v195, v196, v197, v198, v199, v200, v201, v419, v433, v447, v461, v475, v489, v502, v515, v528, v541;
+  v202 = [v102 andMatch:v194];
 
-  *(v163 + 48) = v184;
-  v185 = sub_100216964();
-  v186 = sub_100216964();
-  v187 = [v102 fieldMatch:v185 fieldRegex:v186];
-
-  *(v163 + 56) = v187;
-  v188 = sub_100216B14().super.isa;
-
-  v189 = [v102 orMatch:v188];
-
-  v190 = sub_100216964();
-  v191 = [v107 TPPBPolicyKeyViewMappingWithView:v190 matchingRule:v189];
-
-  v101[14] = v191;
-  v192 = swift_allocObject();
-  *(v192 + 16) = xmmword_10021D8D0;
-  v193 = sub_100216964();
-  v194 = sub_100216964();
-  v195 = [v102 fieldMatch:v193 fieldRegex:v194];
-
-  *(v192 + 32) = v195;
-  v196 = swift_allocObject();
-  *(v196 + 16) = xmmword_10021D880;
-  v197 = sub_100216964();
-  v198 = sub_100216964();
-  v199 = [v102 fieldMatch:v197 fieldRegex:v198];
-
-  *(v196 + 32) = v199;
-  v200 = sub_100216964();
-  v201 = sub_100216964();
-  v202 = [v102 fieldMatch:v200 fieldRegex:v201];
-
-  *(v196 + 40) = v202;
+  *(v170 + 40) = v202;
   v203 = sub_100216964();
   v204 = sub_100216964();
   v205 = [v102 fieldMatch:v203 fieldRegex:v204];
 
-  *(v196 + 48) = v205;
-  v206 = sub_100216B14().super.isa;
+  *(v170 + 48) = v205;
+  v206 = sub_100216964();
+  v207 = sub_100216964();
+  v208 = [v102 fieldMatch:v206 fieldRegex:v207];
 
-  v207 = [v102 andMatch:v206];
+  *(v170 + 56) = v208;
+  v209 = sub_100216B14().super.isa;
+  v170, v210, v211, v212, v213, v214, v215, v216, v420, v434, v448, v462, v476, v490, v503, v516, v529, v542;
+  v217 = [v102 orMatch:v209];
 
-  *(v192 + 40) = v207;
-  v208 = sub_100216B14().super.isa;
+  v218 = sub_100216964();
+  v219 = [v107 TPPBPolicyKeyViewMappingWithView:v218 matchingRule:v217];
 
-  v209 = [v102 orMatch:v208];
-
-  v210 = sub_100216964();
-  v211 = [v107 TPPBPolicyKeyViewMappingWithView:v210 matchingRule:v209];
-
-  v101[15] = v211;
-  v212 = swift_allocObject();
-  *(v212 + 16) = xmmword_10021D8F0;
-  v213 = sub_100216964();
-  v214 = sub_100216964();
-  v215 = [v102 fieldMatch:v213 fieldRegex:v214];
-
-  *(v212 + 32) = v215;
-  v216 = sub_100216964();
-  v217 = sub_100216964();
-  v218 = [v102 fieldMatch:v216 fieldRegex:v217];
-
-  *(v212 + 40) = v218;
-  v219 = sub_100216964();
-  v220 = sub_100216964();
-  v221 = [v102 fieldMatch:v219 fieldRegex:v220];
-
-  *(v212 + 48) = v221;
+  *(v101 + 112) = v219;
+  v220 = swift_allocObject();
+  *(v220 + 16) = xmmword_10021D8D0;
+  v221 = sub_100216964();
   v222 = sub_100216964();
-  v223 = sub_100216964();
-  v224 = [v102 fieldMatch:v222 fieldRegex:v223];
+  v223 = [v102 fieldMatch:v221 fieldRegex:v222];
 
-  *(v212 + 56) = v224;
+  *(v220 + 32) = v223;
+  v224 = swift_allocObject();
+  *(v224 + 16) = xmmword_10021D880;
   v225 = sub_100216964();
   v226 = sub_100216964();
   v227 = [v102 fieldMatch:v225 fieldRegex:v226];
 
-  *(v212 + 64) = v227;
+  *(v224 + 32) = v227;
   v228 = sub_100216964();
   v229 = sub_100216964();
   v230 = [v102 fieldMatch:v228 fieldRegex:v229];
 
-  *(v212 + 72) = v230;
+  *(v224 + 40) = v230;
   v231 = sub_100216964();
   v232 = sub_100216964();
   v233 = [v102 fieldMatch:v231 fieldRegex:v232];
 
-  *(v212 + 80) = v233;
-  v234 = sub_100216964();
-  v235 = sub_100216964();
-  v236 = [v102 fieldMatch:v234 fieldRegex:v235];
+  *(v224 + 48) = v233;
+  v234 = sub_100216B14().super.isa;
+  v224, v235, v236, v237, v238, v239, v240, v241, v421, v435, v449, v463, v477, v491, v504, v517, v530, v543;
+  v242 = [v102 andMatch:v234];
 
-  *(v212 + 88) = v236;
-  v237 = sub_100216964();
-  v238 = sub_100216964();
-  v239 = [v102 fieldMatch:v237 fieldRegex:v238];
+  *(v220 + 40) = v242;
+  v243 = sub_100216B14().super.isa;
+  v220, v244, v245, v246, v247, v248, v249, v250, v422, v436, v450, v464, v478, v492, v505, v518, v531, v544;
+  v251 = [v102 orMatch:v243];
 
-  *(v212 + 96) = v239;
-  v240 = sub_100216964();
-  v241 = sub_100216964();
-  v242 = [v102 fieldMatch:v240 fieldRegex:v241];
-
-  *(v212 + 104) = v242;
-  v243 = sub_100216964();
-  v244 = sub_100216964();
-  v245 = [v102 fieldMatch:v243 fieldRegex:v244];
-
-  *(v212 + 112) = v245;
-  v246 = sub_100216964();
-  v247 = sub_100216964();
-  v248 = [v102 fieldMatch:v246 fieldRegex:v247];
-
-  *(v212 + 120) = v248;
-  v249 = sub_100216964();
-  v250 = sub_100216964();
-  v251 = [v102 fieldMatch:v249 fieldRegex:v250];
-
-  *(v212 + 128) = v251;
   v252 = sub_100216964();
-  v253 = sub_100216964();
-  v254 = [v102 fieldMatch:v252 fieldRegex:v253];
+  v253 = [v107 TPPBPolicyKeyViewMappingWithView:v252 matchingRule:v251];
 
-  *(v212 + 136) = v254;
-  v255 = sub_100216B14().super.isa;
+  *(v101 + 120) = v253;
+  v254 = swift_allocObject();
+  *(v254 + 16) = xmmword_10021D8F0;
+  v255 = sub_100216964();
+  v256 = sub_100216964();
+  v257 = [v102 fieldMatch:v255 fieldRegex:v256];
 
-  v256 = [v102 orMatch:v255];
+  *(v254 + 32) = v257;
+  v258 = sub_100216964();
+  v259 = sub_100216964();
+  v260 = [v102 fieldMatch:v258 fieldRegex:v259];
 
-  v257 = sub_100216964();
-  v258 = [v107 TPPBPolicyKeyViewMappingWithView:v257 matchingRule:v256];
-
-  v101[16] = v258;
-  v259 = swift_allocObject();
-  *(v259 + 16) = xmmword_10021D8D0;
-  v260 = sub_100216964();
+  *(v254 + 40) = v260;
   v261 = sub_100216964();
-  v262 = [v102 fieldMatch:v260 fieldRegex:v261];
+  v262 = sub_100216964();
+  v263 = [v102 fieldMatch:v261 fieldRegex:v262];
 
-  *(v259 + 32) = v262;
-  v263 = sub_100216964();
+  *(v254 + 48) = v263;
   v264 = sub_100216964();
-  v265 = [v102 fieldMatch:v263 fieldRegex:v264];
+  v265 = sub_100216964();
+  v266 = [v102 fieldMatch:v264 fieldRegex:v265];
 
-  *(v259 + 40) = v265;
-  v266 = sub_100216B14().super.isa;
-
-  v267 = [v102 orMatch:v266];
-
+  *(v254 + 56) = v266;
+  v267 = sub_100216964();
   v268 = sub_100216964();
-  v269 = [v107 TPPBPolicyKeyViewMappingWithView:v268 matchingRule:v267];
+  v269 = [v102 fieldMatch:v267 fieldRegex:v268];
 
-  v101[17] = v269;
-  v270 = swift_allocObject();
-  *(v270 + 16) = xmmword_10021D910;
+  *(v254 + 64) = v269;
+  v270 = sub_100216964();
   v271 = sub_100216964();
-  v272 = sub_100216964();
-  v273 = [v102 fieldMatch:v271 fieldRegex:v272];
+  v272 = [v102 fieldMatch:v270 fieldRegex:v271];
 
-  *(v270 + 32) = v273;
+  *(v254 + 72) = v272;
+  v273 = sub_100216964();
   v274 = sub_100216964();
-  v275 = sub_100216964();
-  v276 = [v102 fieldMatch:v274 fieldRegex:v275];
+  v275 = [v102 fieldMatch:v273 fieldRegex:v274];
 
-  *(v270 + 40) = v276;
+  *(v254 + 80) = v275;
+  v276 = sub_100216964();
   v277 = sub_100216964();
-  v278 = sub_100216964();
-  v279 = [v102 fieldMatch:v277 fieldRegex:v278];
+  v278 = [v102 fieldMatch:v276 fieldRegex:v277];
 
-  *(v270 + 48) = v279;
+  *(v254 + 88) = v278;
+  v279 = sub_100216964();
   v280 = sub_100216964();
-  v281 = sub_100216964();
-  v282 = [v102 fieldMatch:v280 fieldRegex:v281];
+  v281 = [v102 fieldMatch:v279 fieldRegex:v280];
 
-  *(v270 + 56) = v282;
+  *(v254 + 96) = v281;
+  v282 = sub_100216964();
   v283 = sub_100216964();
-  v284 = sub_100216964();
-  v285 = [v102 fieldMatch:v283 fieldRegex:v284];
+  v284 = [v102 fieldMatch:v282 fieldRegex:v283];
 
-  *(v270 + 64) = v285;
-  v286 = sub_100216B14().super.isa;
+  *(v254 + 104) = v284;
+  v285 = sub_100216964();
+  v286 = sub_100216964();
+  v287 = [v102 fieldMatch:v285 fieldRegex:v286];
 
-  v287 = [v102 orMatch:v286];
-
+  *(v254 + 112) = v287;
   v288 = sub_100216964();
-  v289 = [v107 TPPBPolicyKeyViewMappingWithView:v288 matchingRule:v287];
+  v289 = sub_100216964();
+  v290 = [v102 fieldMatch:v288 fieldRegex:v289];
 
-  v101[18] = v289;
-  v290 = swift_allocObject();
-  *(v290 + 16) = xmmword_10021D880;
+  *(v254 + 120) = v290;
   v291 = sub_100216964();
   v292 = sub_100216964();
   v293 = [v102 fieldMatch:v291 fieldRegex:v292];
 
-  *(v290 + 32) = v293;
+  *(v254 + 128) = v293;
   v294 = sub_100216964();
   v295 = sub_100216964();
   v296 = [v102 fieldMatch:v294 fieldRegex:v295];
 
-  *(v290 + 40) = v296;
-  v297 = sub_100216964();
-  v298 = sub_100216964();
-  v299 = [v102 fieldMatch:v297 fieldRegex:v298];
+  *(v254 + 136) = v296;
+  v297 = sub_100216B14().super.isa;
+  v254, v298, v299, v300, v301, v302, v303, v304, v423, v437, v451, v465, v479, v493, v506, v519, v532, v545;
+  v305 = [v102 orMatch:v297];
 
-  *(v290 + 48) = v299;
-  v300 = sub_100216B14().super.isa;
+  v306 = sub_100216964();
+  v307 = [v107 TPPBPolicyKeyViewMappingWithView:v306 matchingRule:v305];
 
-  v301 = [v102 orMatch:v300];
+  *(v101 + 128) = v307;
+  v308 = swift_allocObject();
+  *(v308 + 16) = xmmword_10021D8D0;
+  v309 = sub_100216964();
+  v310 = sub_100216964();
+  v311 = [v102 fieldMatch:v309 fieldRegex:v310];
 
-  v302 = sub_100216964();
-  v303 = [v107 TPPBPolicyKeyViewMappingWithView:v302 matchingRule:v301];
+  *(v308 + 32) = v311;
+  v312 = sub_100216964();
+  v313 = sub_100216964();
+  v314 = [v102 fieldMatch:v312 fieldRegex:v313];
 
-  v101[19] = v303;
-  v304 = [v102 trueMatch];
-  v305 = sub_100216964();
-  v306 = [v107 TPPBPolicyKeyViewMappingWithView:v305 matchingRule:v304];
-
-  v101[20] = v306;
-  v307 = objc_allocWithZone(TPPolicyDocument);
-  sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v308 = sub_100216B14().super.isa;
-
-  sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v309 = sub_100216B14().super.isa;
-
-  sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v310 = sub_100216B14().super.isa;
-
-  sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v311 = sub_100216B14().super.isa;
-  sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v312 = sub_100216B14().super.isa;
-
-  v313 = sub_100216B14().super.isa;
-  v314 = sub_100216B14().super.isa;
+  *(v308 + 40) = v314;
   v315 = sub_100216B14().super.isa;
-  v316 = sub_100216B14().super.isa;
-  v317 = [v307 initWithVersion:12 modelToCategory:v308 categoriesByView:v309 introducersByCategory:v310 redactions:v311 keyViewMapping:v312 userControllableViewList:v313 piggybackViews:v314 priorityViews:v315 inheritedExcludedViews:v316 hashAlgo:1];
+  v308, v316, v317, v318, v319, v320, v321, v322, v424, v438, v452, v466, v480, v494, v507, v520, v533, v546;
+  v323 = [v102 orMatch:v315];
 
-  return v317;
+  v324 = sub_100216964();
+  v325 = [v107 TPPBPolicyKeyViewMappingWithView:v324 matchingRule:v323];
+
+  *(v101 + 136) = v325;
+  v326 = swift_allocObject();
+  *(v326 + 16) = v534;
+  v327 = sub_100216964();
+  v328 = sub_100216964();
+  v329 = [v102 fieldMatch:v327 fieldRegex:v328];
+
+  *(v326 + 32) = v329;
+  v330 = sub_100216964();
+  v331 = sub_100216964();
+  v332 = [v102 fieldMatch:v330 fieldRegex:v331];
+
+  *(v326 + 40) = v332;
+  v333 = sub_100216964();
+  v334 = sub_100216964();
+  v335 = [v102 fieldMatch:v333 fieldRegex:v334];
+
+  *(v326 + 48) = v335;
+  v336 = sub_100216964();
+  v337 = sub_100216964();
+  v338 = [v102 fieldMatch:v336 fieldRegex:v337];
+
+  *(v326 + 56) = v338;
+  v339 = sub_100216964();
+  v340 = sub_100216964();
+  v341 = [v102 fieldMatch:v339 fieldRegex:v340];
+
+  *(v326 + 64) = v341;
+  v342 = sub_100216B14().super.isa;
+  v326, v343, v344, v345, v346, v347, v348, v349, v425, v439, v453, v467, v481, v495, v508, v521, v534, *(&v534 + 1);
+  v350 = [v102 orMatch:v342];
+
+  v351 = sub_100216964();
+  v352 = [v107 TPPBPolicyKeyViewMappingWithView:v351 matchingRule:v350];
+
+  *(v101 + 144) = v352;
+  v353 = swift_allocObject();
+  *(v353 + 16) = xmmword_10021D880;
+  v354 = sub_100216964();
+  v355 = sub_100216964();
+  v356 = [v102 fieldMatch:v354 fieldRegex:v355];
+
+  *(v353 + 32) = v356;
+  v357 = sub_100216964();
+  v358 = sub_100216964();
+  v359 = [v102 fieldMatch:v357 fieldRegex:v358];
+
+  *(v353 + 40) = v359;
+  v360 = sub_100216964();
+  v361 = sub_100216964();
+  v362 = [v102 fieldMatch:v360 fieldRegex:v361];
+
+  *(v353 + 48) = v362;
+  v363 = sub_100216B14().super.isa;
+  v353, v364, v365, v366, v367, v368, v369, v370, v426, v440, v454, v468, v482, v496, v509, v522, v535, v547;
+  v371 = [v102 orMatch:v363];
+
+  v372 = sub_100216964();
+  v373 = [v107 TPPBPolicyKeyViewMappingWithView:v372 matchingRule:v371];
+
+  *(v101 + 152) = v373;
+  v374 = [v102 trueMatch];
+  v375 = sub_100216964();
+  v376 = [v107 TPPBPolicyKeyViewMappingWithView:v375 matchingRule:v374];
+
+  *(v101 + 160) = v376;
+  v377 = objc_allocWithZone(TPPolicyDocument);
+  sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
+  v378 = sub_100216B14().super.isa;
+  v554, v379, v380, v381, v382, v383, v384, v385, v427, v441, v455, v469, v483, v497, v510, v523, v536, v548;
+  sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
+  v386 = sub_100216B14().super.isa;
+  v553, v387, v388, v389, v390, v391, v392, v393, v428, v442, v456, v470, v484, v498, v511, v524, v537, v549;
+  sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
+  v394 = sub_100216B14().super.isa;
+  v552, v395, v396, v397, v398, v399, v400, v401, v429, v443, v457, v471, v485, v499, v512, v525, v538, v550;
+  sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
+  v402 = sub_100216B14().super.isa;
+  sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
+  v403 = sub_100216B14().super.isa;
+  v101, v404, v405, v406, v407, v408, v409, v410, v430, v444, v458, v472, v486, v500, v513, v526, v539, v551;
+  v411 = sub_100216B14().super.isa;
+  v412 = sub_100216B14().super.isa;
+  v413 = sub_100216B14().super.isa;
+  v414 = sub_100216B14().super.isa;
+  v415 = [v377 initWithVersion:12 modelToCategory:v378 categoriesByView:v386 introducersByCategory:v394 redactions:v402 keyViewMapping:v403 userControllableViewList:v411 piggybackViews:v412 priorityViews:v413 inheritedExcludedViews:v414 hashAlgo:1];
+
+  return v415;
 }
 
 id sub_100032CA8()
@@ -6676,47 +5644,48 @@ id sub_100032CA8()
   v4 = objc_opt_self();
   v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
 
-  v1[4] = v5;
+  *v1[1]._TtCs12_SwiftObject_opaque = v5;
   v6 = sub_100216964();
   v7 = sub_100216964();
   v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
 
-  v1[5] = v8;
+  *&v1[1]._TtCs12_SwiftObject_opaque[8] = v8;
   v9 = sub_100216964();
   v10 = sub_100216964();
   v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
 
-  v1[6] = v11;
+  *v1[1].endpoint = v11;
   v12 = sub_100216964();
   v13 = sub_100216964();
   v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
 
-  v1[7] = v14;
+  *v1[1].containerMap = v14;
   v15 = sub_100216964();
   v16 = sub_100216964();
   v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
 
-  v1[8] = v17;
+  *v1[2]._TtCs12_SwiftObject_opaque = v17;
   v18 = sub_100216964();
   v19 = sub_100216964();
   v20 = [v4 TPPBPolicyModelToCategoryWithPrefix:v18 category:v19];
 
-  v1[9] = v20;
+  *&v1[2]._TtCs12_SwiftObject_opaque[8] = v20;
   v21 = sub_100216964();
   v22 = sub_100216964();
   v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
 
-  v1[10] = v23;
+  *v1[2].endpoint = v23;
   v24 = sub_100216964();
   v25 = sub_100216964();
   v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
 
-  v1[11] = v26;
+  *v1[2].containerMap = v26;
+  v561 = v1;
   v27 = sub_100216964();
   v28 = sub_100216964();
   v29 = [v4 TPPBPolicyModelToCategoryWithPrefix:v27 category:v28];
 
-  v1[12] = v29;
+  *v1[3]._TtCs12_SwiftObject_opaque = v29;
   v30 = swift_allocObject();
   *(v30 + 16) = xmmword_10021D930;
   v31 = v30;
@@ -6725,87 +5694,88 @@ id sub_100032CA8()
   v34 = objc_opt_self();
   v35 = [v34 TPPBPolicyCategoriesByViewWithView:v32 categories:isa];
 
-  v31[4] = v35;
+  *v31[1]._TtCs12_SwiftObject_opaque = v35;
   v36 = sub_100216964();
   v37 = sub_100216B14().super.isa;
   v38 = [v34 TPPBPolicyCategoriesByViewWithView:v36 categories:v37];
 
-  v31[5] = v38;
+  *&v31[1]._TtCs12_SwiftObject_opaque[8] = v38;
   v39 = sub_100216964();
   v40 = sub_100216B14().super.isa;
   v41 = [v34 TPPBPolicyCategoriesByViewWithView:v39 categories:v40];
 
-  v31[6] = v41;
+  *v31[1].endpoint = v41;
   v42 = sub_100216964();
   v43 = sub_100216B14().super.isa;
   v44 = [v34 TPPBPolicyCategoriesByViewWithView:v42 categories:v43];
 
-  v31[7] = v44;
+  *v31[1].containerMap = v44;
   v45 = sub_100216964();
   v46 = sub_100216B14().super.isa;
   v47 = [v34 TPPBPolicyCategoriesByViewWithView:v45 categories:v46];
 
-  v31[8] = v47;
+  *v31[2]._TtCs12_SwiftObject_opaque = v47;
   v48 = sub_100216964();
   v49 = sub_100216B14().super.isa;
   v50 = [v34 TPPBPolicyCategoriesByViewWithView:v48 categories:v49];
 
-  v31[9] = v50;
+  *&v31[2]._TtCs12_SwiftObject_opaque[8] = v50;
   v51 = sub_100216964();
   v52 = sub_100216B14().super.isa;
   v53 = [v34 TPPBPolicyCategoriesByViewWithView:v51 categories:v52];
 
-  v31[10] = v53;
+  *v31[2].endpoint = v53;
   v54 = sub_100216964();
   v55 = sub_100216B14().super.isa;
   v56 = [v34 TPPBPolicyCategoriesByViewWithView:v54 categories:v55];
 
-  v31[11] = v56;
+  *v31[2].containerMap = v56;
   v57 = sub_100216964();
   v58 = sub_100216B14().super.isa;
   v59 = [v34 TPPBPolicyCategoriesByViewWithView:v57 categories:v58];
 
-  v31[12] = v59;
+  *v31[3]._TtCs12_SwiftObject_opaque = v59;
   v60 = sub_100216964();
   v61 = sub_100216B14().super.isa;
   v62 = [v34 TPPBPolicyCategoriesByViewWithView:v60 categories:v61];
 
-  v31[13] = v62;
+  *&v31[3]._TtCs12_SwiftObject_opaque[8] = v62;
   v63 = sub_100216964();
   v64 = sub_100216B14().super.isa;
   v65 = [v34 TPPBPolicyCategoriesByViewWithView:v63 categories:v64];
 
-  v31[14] = v65;
+  *v31[3].endpoint = v65;
   v66 = sub_100216964();
   v67 = sub_100216B14().super.isa;
   v68 = [v34 TPPBPolicyCategoriesByViewWithView:v66 categories:v67];
 
-  v31[15] = v68;
+  *v31[3].containerMap = v68;
   v69 = sub_100216964();
   v70 = sub_100216B14().super.isa;
   v71 = [v34 TPPBPolicyCategoriesByViewWithView:v69 categories:v70];
 
-  v31[16] = v71;
+  *v31[4]._TtCs12_SwiftObject_opaque = v71;
   v72 = sub_100216964();
   v73 = sub_100216B14().super.isa;
   v74 = [v34 TPPBPolicyCategoriesByViewWithView:v72 categories:v73];
 
-  v31[17] = v74;
+  *&v31[4]._TtCs12_SwiftObject_opaque[8] = v74;
   v75 = sub_100216964();
   v76 = sub_100216B14().super.isa;
   v77 = [v34 TPPBPolicyCategoriesByViewWithView:v75 categories:v76];
 
-  v31[18] = v77;
+  *v31[4].endpoint = v77;
   v78 = sub_100216964();
   v79 = sub_100216B14().super.isa;
   v80 = [v34 TPPBPolicyCategoriesByViewWithView:v78 categories:v79];
 
-  v31[19] = v80;
+  *v31[4].containerMap = v80;
+  v560 = v31;
   v81 = sub_100216964();
   v82 = sub_100216B14().super.isa;
   v83 = [v34 TPPBPolicyCategoriesByViewWithView:v81 categories:v82];
 
-  v31[20] = v83;
+  *v31[5]._TtCs12_SwiftObject_opaque = v83;
   v84 = swift_allocObject();
   *(v84 + 16) = xmmword_10021D910;
   v85 = v84;
@@ -6814,27 +5784,28 @@ id sub_100032CA8()
   v88 = objc_opt_self();
   v89 = [v88 TPPBPolicyIntroducersByCategoryWithCategory:v86 introducers:v87];
 
-  v85[4] = v89;
+  *v85[1]._TtCs12_SwiftObject_opaque = v89;
   v90 = sub_100216964();
   v91 = sub_100216B14().super.isa;
   v92 = [v88 TPPBPolicyIntroducersByCategoryWithCategory:v90 introducers:v91];
 
-  v85[5] = v92;
+  *&v85[1]._TtCs12_SwiftObject_opaque[8] = v92;
   v93 = sub_100216964();
   v94 = sub_100216B14().super.isa;
   v95 = [v88 TPPBPolicyIntroducersByCategoryWithCategory:v93 introducers:v94];
 
-  v85[6] = v95;
+  *v85[1].endpoint = v95;
   v96 = sub_100216964();
   v97 = sub_100216B14().super.isa;
   v98 = [v88 TPPBPolicyIntroducersByCategoryWithCategory:v96 introducers:v97];
 
-  v85[7] = v98;
+  v559 = v85;
+  *v85[1].containerMap = v98;
   v99 = sub_100216964();
   v100 = sub_100216B14().super.isa;
   v101 = [v88 TPPBPolicyIntroducersByCategoryWithCategory:v99 introducers:v100];
 
-  v85[8] = v101;
+  *v85[2]._TtCs12_SwiftObject_opaque = v101;
   v102 = swift_allocObject();
   *(v102 + 16) = xmmword_10021D940;
   v103 = v102;
@@ -6847,7 +5818,7 @@ id sub_100032CA8()
   v109 = objc_opt_self();
   v110 = [v109 TPPBPolicyKeyViewMappingWithView:v108 matchingRule:v107];
 
-  v103[4] = v110;
+  *v103[1]._TtCs12_SwiftObject_opaque = v110;
   v111 = sub_100216964();
   v112 = sub_100216964();
   v113 = [v104 fieldMatch:v111 fieldRegex:v112];
@@ -6855,7 +5826,7 @@ id sub_100032CA8()
   v114 = sub_100216964();
   v115 = [v109 TPPBPolicyKeyViewMappingWithView:v114 matchingRule:v113];
 
-  v103[5] = v115;
+  *&v103[1]._TtCs12_SwiftObject_opaque[8] = v115;
   v116 = sub_100216964();
   v117 = sub_100216964();
   v118 = [v104 fieldMatch:v116 fieldRegex:v117];
@@ -6863,7 +5834,7 @@ id sub_100032CA8()
   v119 = sub_100216964();
   v120 = [v109 TPPBPolicyKeyViewMappingWithView:v119 matchingRule:v118];
 
-  v103[6] = v120;
+  *v103[1].endpoint = v120;
   v121 = sub_100216964();
   v122 = sub_100216964();
   v123 = [v104 fieldMatch:v121 fieldRegex:v122];
@@ -6871,7 +5842,7 @@ id sub_100032CA8()
   v124 = sub_100216964();
   v125 = [v109 TPPBPolicyKeyViewMappingWithView:v124 matchingRule:v123];
 
-  v103[7] = v125;
+  *v103[1].containerMap = v125;
   v126 = sub_100216964();
   v127 = sub_100216964();
   v128 = [v104 fieldMatch:v126 fieldRegex:v127];
@@ -6879,7 +5850,7 @@ id sub_100032CA8()
   v129 = sub_100216964();
   v130 = [v109 TPPBPolicyKeyViewMappingWithView:v129 matchingRule:v128];
 
-  v103[8] = v130;
+  *v103[2]._TtCs12_SwiftObject_opaque = v130;
   v131 = sub_100216964();
   v132 = sub_100216964();
   v133 = [v104 fieldMatch:v131 fieldRegex:v132];
@@ -6887,7 +5858,7 @@ id sub_100032CA8()
   v134 = sub_100216964();
   v135 = [v109 TPPBPolicyKeyViewMappingWithView:v134 matchingRule:v133];
 
-  v103[9] = v135;
+  *&v103[2]._TtCs12_SwiftObject_opaque[8] = v135;
   v136 = sub_100216964();
   v137 = sub_100216964();
   v138 = [v104 fieldMatch:v136 fieldRegex:v137];
@@ -6895,7 +5866,7 @@ id sub_100032CA8()
   v139 = sub_100216964();
   v140 = [v109 TPPBPolicyKeyViewMappingWithView:v139 matchingRule:v138];
 
-  v103[10] = v140;
+  *v103[2].endpoint = v140;
   v141 = swift_allocObject();
   *(v141 + 16) = xmmword_10021D880;
   v142 = sub_100216964();
@@ -6915,316 +5886,317 @@ id sub_100032CA8()
   *(v141 + 48) = v150;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
   v151 = sub_100216B14().super.isa;
+  v141, v152, v153, v154, v155, v156, v157, v158, v425, v439, v453, v467, v481, v495, "ProtectedCloudStorage", "Security-61901.40.77\n", 5, 0xB;
+  v159 = [v104 orMatch:v151];
 
-  v152 = [v104 orMatch:v151];
-
-  v153 = sub_100216964();
-  v154 = [v109 TPPBPolicyKeyViewMappingWithView:v153 matchingRule:v152];
-
-  v103[11] = v154;
-  v155 = sub_100216964();
-  v156 = sub_100216964();
-  v157 = [v104 fieldMatch:v155 fieldRegex:v156];
-
-  v158 = sub_100216964();
-  v159 = [v109 TPPBPolicyKeyViewMappingWithView:v158 matchingRule:v157];
-
-  v103[12] = v159;
   v160 = sub_100216964();
-  v161 = sub_100216964();
-  v162 = [v104 fieldMatch:v160 fieldRegex:v161];
+  v161 = [v109 TPPBPolicyKeyViewMappingWithView:v160 matchingRule:v159];
 
+  *v103[2].containerMap = v161;
+  v162 = sub_100216964();
   v163 = sub_100216964();
-  v164 = [v109 TPPBPolicyKeyViewMappingWithView:v163 matchingRule:v162];
+  v164 = [v104 fieldMatch:v162 fieldRegex:v163];
 
-  v103[13] = v164;
-  v326 = v103;
   v165 = sub_100216964();
-  v166 = sub_100216964();
-  v167 = [v104 fieldMatch:v165 fieldRegex:v166];
+  v166 = [v109 TPPBPolicyKeyViewMappingWithView:v165 matchingRule:v164];
 
+  *v103[3]._TtCs12_SwiftObject_opaque = v166;
+  v167 = sub_100216964();
   v168 = sub_100216964();
-  v169 = [v109 TPPBPolicyKeyViewMappingWithView:v168 matchingRule:v167];
+  v169 = [v104 fieldMatch:v167 fieldRegex:v168];
 
-  v103[14] = v169;
-  v170 = swift_allocObject();
-  *(v170 + 16) = xmmword_10021D8B0;
-  v171 = swift_allocObject();
-  *(v171 + 16) = xmmword_10021D8D0;
+  v170 = sub_100216964();
+  v171 = [v109 TPPBPolicyKeyViewMappingWithView:v170 matchingRule:v169];
+
+  *&v103[3]._TtCs12_SwiftObject_opaque[8] = v171;
+  v562 = v103;
   v172 = sub_100216964();
   v173 = sub_100216964();
   v174 = [v104 fieldMatch:v172 fieldRegex:v173];
 
-  *(v171 + 32) = v174;
   v175 = sub_100216964();
-  v176 = sub_100216964();
-  v177 = [v104 fieldMatch:v175 fieldRegex:v176];
+  v176 = [v109 TPPBPolicyKeyViewMappingWithView:v175 matchingRule:v174];
 
-  *(v171 + 40) = v177;
-  v178 = sub_100216B14().super.isa;
+  *v103[3].endpoint = v176;
+  v177 = swift_allocObject();
+  *(v177 + 16) = xmmword_10021D8B0;
+  v178 = swift_allocObject();
+  *(v178 + 16) = xmmword_10021D8D0;
+  v179 = sub_100216964();
+  v180 = sub_100216964();
+  v181 = [v104 fieldMatch:v179 fieldRegex:v180];
 
-  v179 = [v104 andMatch:v178];
-
-  *(v170 + 32) = v179;
-  v180 = swift_allocObject();
-  *(v180 + 16) = xmmword_10021D8D0;
-  v181 = sub_100216964();
+  *(v178 + 32) = v181;
   v182 = sub_100216964();
-  v183 = [v104 fieldMatch:v181 fieldRegex:v182];
+  v183 = sub_100216964();
+  v184 = [v104 fieldMatch:v182 fieldRegex:v183];
 
-  *(v180 + 32) = v183;
-  v184 = sub_100216964();
-  v185 = sub_100216964();
-  v186 = [v104 fieldMatch:v184 fieldRegex:v185];
+  *(v178 + 40) = v184;
+  v185 = sub_100216B14().super.isa;
+  v178, v186, v187, v188, v189, v190, v191, v192, v426, v440, v454, v468, v482, v109, v508, v521, v534, v547;
+  v193 = [v104 andMatch:v185];
 
-  *(v180 + 40) = v186;
-  v187 = sub_100216B14().super.isa;
+  *(v177 + 32) = v193;
+  v194 = swift_allocObject();
+  *(v194 + 16) = xmmword_10021D8D0;
+  v195 = sub_100216964();
+  v196 = sub_100216964();
+  v197 = [v104 fieldMatch:v195 fieldRegex:v196];
 
-  v188 = [v104 andMatch:v187];
+  *(v194 + 32) = v197;
+  v198 = sub_100216964();
+  v199 = sub_100216964();
+  v200 = [v104 fieldMatch:v198 fieldRegex:v199];
 
-  *(v170 + 40) = v188;
-  v189 = sub_100216964();
-  v190 = sub_100216964();
-  v191 = [v104 fieldMatch:v189 fieldRegex:v190];
+  *(v194 + 40) = v200;
+  v201 = sub_100216B14().super.isa;
+  v194, v202, v203, v204, v205, v206, v207, v208, v427, v441, v455, v469, v483, v496, v509, v522, v535, v548;
+  v209 = [v104 andMatch:v201];
 
-  *(v170 + 48) = v191;
-  v192 = sub_100216964();
-  v193 = sub_100216964();
-  v194 = [v104 fieldMatch:v192 fieldRegex:v193];
-
-  *(v170 + 56) = v194;
-  v195 = sub_100216B14().super.isa;
-
-  v196 = [v104 orMatch:v195];
-
-  v197 = sub_100216964();
-  v198 = [v109 TPPBPolicyKeyViewMappingWithView:v197 matchingRule:v196];
-
-  v326[15] = v198;
-  v199 = swift_allocObject();
-  *(v199 + 16) = xmmword_10021D8D0;
-  v200 = sub_100216964();
-  v201 = sub_100216964();
-  v202 = [v104 fieldMatch:v200 fieldRegex:v201];
-
-  *(v199 + 32) = v202;
-  v203 = swift_allocObject();
-  *(v203 + 16) = xmmword_10021D880;
-  v204 = sub_100216964();
-  v205 = sub_100216964();
-  v206 = [v104 fieldMatch:v204 fieldRegex:v205];
-
-  *(v203 + 32) = v206;
-  v207 = sub_100216964();
-  v208 = sub_100216964();
-  v209 = [v104 fieldMatch:v207 fieldRegex:v208];
-
-  *(v203 + 40) = v209;
+  *(v177 + 40) = v209;
   v210 = sub_100216964();
   v211 = sub_100216964();
   v212 = [v104 fieldMatch:v210 fieldRegex:v211];
 
-  *(v203 + 48) = v212;
-  v213 = sub_100216B14().super.isa;
+  *(v177 + 48) = v212;
+  v213 = sub_100216964();
+  v214 = sub_100216964();
+  v215 = [v104 fieldMatch:v213 fieldRegex:v214];
 
-  v214 = [v104 andMatch:v213];
+  *(v177 + 56) = v215;
+  v216 = sub_100216B14().super.isa;
+  v177, v217, v218, v219, v220, v221, v222, v223, v428, v442, v456, v470, v484, v497, v510, v523, v536, v549;
+  v224 = [v104 orMatch:v216];
 
-  *(v199 + 40) = v214;
-  v215 = sub_100216B14().super.isa;
+  v225 = sub_100216964();
+  v226 = v498;
+  v227 = [v498 TPPBPolicyKeyViewMappingWithView:v225 matchingRule:v224];
 
-  v216 = [v104 orMatch:v215];
-
-  v217 = sub_100216964();
-  v218 = [v109 TPPBPolicyKeyViewMappingWithView:v217 matchingRule:v216];
-
-  v326[16] = v218;
-  v219 = swift_allocObject();
-  *(v219 + 16) = xmmword_10021D8F0;
-  v220 = sub_100216964();
-  v221 = sub_100216964();
-  v222 = [v104 fieldMatch:v220 fieldRegex:v221];
-
-  *(v219 + 32) = v222;
-  v223 = sub_100216964();
-  v224 = sub_100216964();
-  v225 = [v104 fieldMatch:v223 fieldRegex:v224];
-
-  *(v219 + 40) = v225;
-  v226 = sub_100216964();
-  v227 = sub_100216964();
-  v228 = [v104 fieldMatch:v226 fieldRegex:v227];
-
-  *(v219 + 48) = v228;
+  *v562[3].containerMap = v227;
+  v228 = swift_allocObject();
+  *(v228 + 16) = xmmword_10021D8D0;
   v229 = sub_100216964();
   v230 = sub_100216964();
   v231 = [v104 fieldMatch:v229 fieldRegex:v230];
 
-  *(v219 + 56) = v231;
-  v232 = sub_100216964();
+  *(v228 + 32) = v231;
+  v232 = swift_allocObject();
+  *(v232 + 16) = xmmword_10021D880;
   v233 = sub_100216964();
-  v234 = [v104 fieldMatch:v232 fieldRegex:v233];
+  v234 = sub_100216964();
+  v235 = [v104 fieldMatch:v233 fieldRegex:v234];
 
-  *(v219 + 64) = v234;
-  v235 = sub_100216964();
+  *(v232 + 32) = v235;
   v236 = sub_100216964();
-  v237 = [v104 fieldMatch:v235 fieldRegex:v236];
+  v237 = sub_100216964();
+  v238 = [v104 fieldMatch:v236 fieldRegex:v237];
 
-  *(v219 + 72) = v237;
-  v238 = sub_100216964();
+  *(v232 + 40) = v238;
   v239 = sub_100216964();
-  v240 = [v104 fieldMatch:v238 fieldRegex:v239];
+  v240 = sub_100216964();
+  v241 = [v104 fieldMatch:v239 fieldRegex:v240];
 
-  *(v219 + 80) = v240;
-  v241 = sub_100216964();
-  v242 = sub_100216964();
-  v243 = [v104 fieldMatch:v241 fieldRegex:v242];
+  *(v232 + 48) = v241;
+  v242 = sub_100216B14().super.isa;
+  v232, v243, v244, v245, v246, v247, v248, v249, v429, v443, v457, v471, v485, v498, v511, v524, v537, v550;
+  v250 = [v104 andMatch:v242];
 
-  *(v219 + 88) = v243;
-  v244 = sub_100216964();
-  v245 = sub_100216964();
-  v246 = [v104 fieldMatch:v244 fieldRegex:v245];
+  *(v228 + 40) = v250;
+  v251 = sub_100216B14().super.isa;
+  v228, v252, v253, v254, v255, v256, v257, v258, v430, v444, v458, v472, v486, v499, v512, v525, v538, v551;
+  v259 = [v104 orMatch:v251];
 
-  *(v219 + 96) = v246;
-  v247 = sub_100216964();
-  v248 = sub_100216964();
-  v249 = [v104 fieldMatch:v247 fieldRegex:v248];
-
-  *(v219 + 104) = v249;
-  v250 = sub_100216964();
-  v251 = sub_100216964();
-  v252 = [v104 fieldMatch:v250 fieldRegex:v251];
-
-  *(v219 + 112) = v252;
-  v253 = sub_100216964();
-  v254 = sub_100216964();
-  v255 = [v104 fieldMatch:v253 fieldRegex:v254];
-
-  *(v219 + 120) = v255;
-  v256 = sub_100216964();
-  v257 = sub_100216964();
-  v258 = [v104 fieldMatch:v256 fieldRegex:v257];
-
-  *(v219 + 128) = v258;
-  v259 = sub_100216964();
   v260 = sub_100216964();
-  v261 = [v104 fieldMatch:v259 fieldRegex:v260];
+  v261 = [v226 TPPBPolicyKeyViewMappingWithView:v260 matchingRule:v259];
 
-  *(v219 + 136) = v261;
-  v262 = sub_100216B14().super.isa;
-
-  v263 = [v104 orMatch:v262];
-
+  *v562[4]._TtCs12_SwiftObject_opaque = v261;
+  v262 = swift_allocObject();
+  *(v262 + 16) = xmmword_10021D8F0;
+  v263 = sub_100216964();
   v264 = sub_100216964();
-  v265 = [v109 TPPBPolicyKeyViewMappingWithView:v264 matchingRule:v263];
+  v265 = [v104 fieldMatch:v263 fieldRegex:v264];
 
-  v326[17] = v265;
-  v266 = swift_allocObject();
-  *(v266 + 16) = xmmword_10021D8D0;
+  *(v262 + 32) = v265;
+  v266 = sub_100216964();
   v267 = sub_100216964();
-  v268 = sub_100216964();
-  v269 = [v104 fieldMatch:v267 fieldRegex:v268];
+  v268 = [v104 fieldMatch:v266 fieldRegex:v267];
 
-  *(v266 + 32) = v269;
+  *(v262 + 40) = v268;
+  v269 = sub_100216964();
   v270 = sub_100216964();
-  v271 = sub_100216964();
-  v272 = [v104 fieldMatch:v270 fieldRegex:v271];
+  v271 = [v104 fieldMatch:v269 fieldRegex:v270];
 
-  *(v266 + 40) = v272;
-  v273 = sub_100216B14().super.isa;
+  *(v262 + 48) = v271;
+  v272 = sub_100216964();
+  v273 = sub_100216964();
+  v274 = [v104 fieldMatch:v272 fieldRegex:v273];
 
-  v274 = [v104 orMatch:v273];
-
+  *(v262 + 56) = v274;
   v275 = sub_100216964();
-  v276 = [v109 TPPBPolicyKeyViewMappingWithView:v275 matchingRule:v274];
+  v276 = sub_100216964();
+  v277 = [v104 fieldMatch:v275 fieldRegex:v276];
 
-  v326[18] = v276;
-  v277 = swift_allocObject();
-  *(v277 + 16) = xmmword_10021D910;
+  *(v262 + 64) = v277;
   v278 = sub_100216964();
   v279 = sub_100216964();
   v280 = [v104 fieldMatch:v278 fieldRegex:v279];
 
-  *(v277 + 32) = v280;
+  *(v262 + 72) = v280;
   v281 = sub_100216964();
   v282 = sub_100216964();
   v283 = [v104 fieldMatch:v281 fieldRegex:v282];
 
-  *(v277 + 40) = v283;
+  *(v262 + 80) = v283;
   v284 = sub_100216964();
   v285 = sub_100216964();
   v286 = [v104 fieldMatch:v284 fieldRegex:v285];
 
-  *(v277 + 48) = v286;
+  *(v262 + 88) = v286;
   v287 = sub_100216964();
   v288 = sub_100216964();
   v289 = [v104 fieldMatch:v287 fieldRegex:v288];
 
-  *(v277 + 56) = v289;
+  *(v262 + 96) = v289;
   v290 = sub_100216964();
   v291 = sub_100216964();
   v292 = [v104 fieldMatch:v290 fieldRegex:v291];
 
-  *(v277 + 64) = v292;
-  v293 = sub_100216B14().super.isa;
+  *(v262 + 104) = v292;
+  v293 = sub_100216964();
+  v294 = sub_100216964();
+  v295 = [v104 fieldMatch:v293 fieldRegex:v294];
 
-  v294 = [v104 orMatch:v293];
+  *(v262 + 112) = v295;
+  v296 = sub_100216964();
+  v297 = sub_100216964();
+  v298 = [v104 fieldMatch:v296 fieldRegex:v297];
 
-  v295 = sub_100216964();
-  v296 = [v109 TPPBPolicyKeyViewMappingWithView:v295 matchingRule:v294];
-
-  v326[19] = v296;
-  v297 = swift_allocObject();
-  *(v297 + 16) = xmmword_10021D880;
-  v298 = sub_100216964();
+  *(v262 + 120) = v298;
   v299 = sub_100216964();
-  v300 = [v104 fieldMatch:v298 fieldRegex:v299];
+  v300 = sub_100216964();
+  v301 = [v104 fieldMatch:v299 fieldRegex:v300];
 
-  *(v297 + 32) = v300;
-  v301 = sub_100216964();
+  *(v262 + 128) = v301;
   v302 = sub_100216964();
-  v303 = [v104 fieldMatch:v301 fieldRegex:v302];
+  v303 = sub_100216964();
+  v304 = [v104 fieldMatch:v302 fieldRegex:v303];
 
-  *(v297 + 40) = v303;
-  v304 = sub_100216964();
-  v305 = sub_100216964();
-  v306 = [v104 fieldMatch:v304 fieldRegex:v305];
+  *(v262 + 136) = v304;
+  v305 = sub_100216B14().super.isa;
+  v262, v306, v307, v308, v309, v310, v311, v312, v431, v445, v459, v473, v487, v500, v513, v526, v539, v552;
+  v313 = [v104 orMatch:v305];
 
-  *(v297 + 48) = v306;
-  v307 = sub_100216B14().super.isa;
+  v314 = sub_100216964();
+  v315 = [v226 TPPBPolicyKeyViewMappingWithView:v314 matchingRule:v313];
 
-  v308 = [v104 orMatch:v307];
+  *&v562[4]._TtCs12_SwiftObject_opaque[8] = v315;
+  v316 = swift_allocObject();
+  *(v316 + 16) = xmmword_10021D8D0;
+  v317 = sub_100216964();
+  v318 = sub_100216964();
+  v319 = [v104 fieldMatch:v317 fieldRegex:v318];
 
-  v309 = sub_100216964();
-  v310 = [v109 TPPBPolicyKeyViewMappingWithView:v309 matchingRule:v308];
+  *(v316 + 32) = v319;
+  v320 = sub_100216964();
+  v321 = sub_100216964();
+  v322 = [v104 fieldMatch:v320 fieldRegex:v321];
 
-  v326[20] = v310;
-  v311 = [v104 trueMatch];
-  v312 = sub_100216964();
-  v313 = [v109 TPPBPolicyKeyViewMappingWithView:v312 matchingRule:v311];
-
-  v326[21] = v313;
-  v314 = objc_allocWithZone(TPPolicyDocument);
-  sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v315 = sub_100216B14().super.isa;
-
-  sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v316 = sub_100216B14().super.isa;
-
-  sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v317 = sub_100216B14().super.isa;
-
-  sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v318 = sub_100216B14().super.isa;
-  sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v319 = sub_100216B14().super.isa;
-
-  v320 = sub_100216B14().super.isa;
-  v321 = sub_100216B14().super.isa;
-  v322 = sub_100216B14().super.isa;
+  *(v316 + 40) = v322;
   v323 = sub_100216B14().super.isa;
-  v324 = [v314 initWithVersion:13 modelToCategory:v315 categoriesByView:v316 introducersByCategory:v317 redactions:v318 keyViewMapping:v319 userControllableViewList:v320 piggybackViews:v321 priorityViews:v322 inheritedExcludedViews:v323 hashAlgo:1];
+  v316, v324, v325, v326, v327, v328, v329, v330, v432, v446, v460, v474, v488, v501, v514, v527, v540, v553;
+  v331 = [v104 orMatch:v323];
 
-  return v324;
+  v332 = sub_100216964();
+  v333 = [v226 TPPBPolicyKeyViewMappingWithView:v332 matchingRule:v331];
+
+  *v562[4].endpoint = v333;
+  v334 = swift_allocObject();
+  *(v334 + 16) = v541;
+  v335 = sub_100216964();
+  v336 = sub_100216964();
+  v337 = [v104 fieldMatch:v335 fieldRegex:v336];
+
+  *(v334 + 32) = v337;
+  v338 = sub_100216964();
+  v339 = sub_100216964();
+  v340 = [v104 fieldMatch:v338 fieldRegex:v339];
+
+  *(v334 + 40) = v340;
+  v341 = sub_100216964();
+  v342 = sub_100216964();
+  v343 = [v104 fieldMatch:v341 fieldRegex:v342];
+
+  *(v334 + 48) = v343;
+  v344 = sub_100216964();
+  v345 = sub_100216964();
+  v346 = [v104 fieldMatch:v344 fieldRegex:v345];
+
+  *(v334 + 56) = v346;
+  v347 = sub_100216964();
+  v348 = sub_100216964();
+  v349 = [v104 fieldMatch:v347 fieldRegex:v348];
+
+  *(v334 + 64) = v349;
+  v350 = sub_100216B14().super.isa;
+  v334, v351, v352, v353, v354, v355, v356, v357, v433, v447, v461, v475, v489, v502, v515, v528, v541, *(&v541 + 1);
+  v358 = [v104 orMatch:v350];
+
+  v359 = sub_100216964();
+  v360 = [v226 TPPBPolicyKeyViewMappingWithView:v359 matchingRule:v358];
+
+  *v562[4].containerMap = v360;
+  v361 = swift_allocObject();
+  *(v361 + 16) = xmmword_10021D880;
+  v362 = sub_100216964();
+  v363 = sub_100216964();
+  v364 = [v104 fieldMatch:v362 fieldRegex:v363];
+
+  *(v361 + 32) = v364;
+  v365 = sub_100216964();
+  v366 = sub_100216964();
+  v367 = [v104 fieldMatch:v365 fieldRegex:v366];
+
+  *(v361 + 40) = v367;
+  v368 = sub_100216964();
+  v369 = sub_100216964();
+  v370 = [v104 fieldMatch:v368 fieldRegex:v369];
+
+  *(v361 + 48) = v370;
+  v371 = sub_100216B14().super.isa;
+  v361, v372, v373, v374, v375, v376, v377, v378, v434, v448, v462, v476, v490, v503, v516, v529, v542, v554;
+  v379 = [v104 orMatch:v371];
+
+  v380 = sub_100216964();
+  v381 = [v226 TPPBPolicyKeyViewMappingWithView:v380 matchingRule:v379];
+
+  *v562[5]._TtCs12_SwiftObject_opaque = v381;
+  v382 = [v104 trueMatch];
+  v383 = sub_100216964();
+  v384 = [v226 TPPBPolicyKeyViewMappingWithView:v383 matchingRule:v382];
+
+  *&v562[5]._TtCs12_SwiftObject_opaque[8] = v384;
+  v385 = objc_allocWithZone(TPPolicyDocument);
+  sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
+  v386 = sub_100216B14().super.isa;
+  v561, v387, v388, v389, v390, v391, v392, v393, v435, v449, v463, v477, v491, v504, v517, v530, v543, v555;
+  sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
+  v394 = sub_100216B14().super.isa;
+  v560, v395, v396, v397, v398, v399, v400, v401, v436, v450, v464, v478, v492, v505, v518, v531, v544, v556;
+  sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
+  v402 = sub_100216B14().super.isa;
+  v559, v403, v404, v405, v406, v407, v408, v409, v437, v451, v465, v479, v493, v506, v519, v532, v545, v557;
+  sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
+  v410 = sub_100216B14().super.isa;
+  sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
+  v411 = sub_100216B14().super.isa;
+  v562, v412, v413, v414, v415, v416, v417, v418, v438, v452, v466, v480, v494, v507, v520, v533, v546, v558;
+  v419 = sub_100216B14().super.isa;
+  v420 = sub_100216B14().super.isa;
+  v421 = sub_100216B14().super.isa;
+  v422 = sub_100216B14().super.isa;
+  v423 = [v385 initWithVersion:13 modelToCategory:v386 categoriesByView:v394 introducersByCategory:v402 redactions:v410 keyViewMapping:v411 userControllableViewList:v419 piggybackViews:v420 priorityViews:v421 inheritedExcludedViews:v422 hashAlgo:1];
+
+  return v423;
 }
 
 id sub_1000355E4()
@@ -7238,47 +6210,48 @@ id sub_1000355E4()
   v4 = objc_opt_self();
   v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
 
-  v1[4] = v5;
+  *v1[1]._TtCs12_SwiftObject_opaque = v5;
   v6 = sub_100216964();
   v7 = sub_100216964();
   v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
 
-  v1[5] = v8;
+  *&v1[1]._TtCs12_SwiftObject_opaque[8] = v8;
   v9 = sub_100216964();
   v10 = sub_100216964();
   v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
 
-  v1[6] = v11;
+  *v1[1].endpoint = v11;
   v12 = sub_100216964();
   v13 = sub_100216964();
   v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
 
-  v1[7] = v14;
+  *v1[1].containerMap = v14;
   v15 = sub_100216964();
   v16 = sub_100216964();
   v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
 
-  v1[8] = v17;
+  *v1[2]._TtCs12_SwiftObject_opaque = v17;
   v18 = sub_100216964();
   v19 = sub_100216964();
   v20 = [v4 TPPBPolicyModelToCategoryWithPrefix:v18 category:v19];
 
-  v1[9] = v20;
+  *&v1[2]._TtCs12_SwiftObject_opaque[8] = v20;
   v21 = sub_100216964();
   v22 = sub_100216964();
   v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
 
-  v1[10] = v23;
+  *v1[2].endpoint = v23;
   v24 = sub_100216964();
   v25 = sub_100216964();
   v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
 
-  v1[11] = v26;
+  *v1[2].containerMap = v26;
+  v576 = v1;
   v27 = sub_100216964();
   v28 = sub_100216964();
   v29 = [v4 TPPBPolicyModelToCategoryWithPrefix:v27 category:v28];
 
-  v1[12] = v29;
+  *v1[3]._TtCs12_SwiftObject_opaque = v29;
   v30 = swift_allocObject();
   *(v30 + 16) = xmmword_10021D930;
   v31 = sub_100216964();
@@ -7362,6 +6335,7 @@ id sub_1000355E4()
   v79 = [v33 TPPBPolicyCategoriesByViewWithView:v77 categories:v78];
 
   *(v30 + 152) = v79;
+  v562 = v30;
   v80 = sub_100216964();
   v81 = sub_100216B14().super.isa;
   v82 = [v33 TPPBPolicyCategoriesByViewWithView:v80 categories:v81];
@@ -7476,340 +6450,342 @@ id sub_1000355E4()
   *(v140 + 48) = v149;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
   v150 = sub_100216B14().super.isa;
+  v140, v151, v152, v153, v154, v155, v156, v157, v440, v454, v468, v482, v496, v510, "ProtectedCloudStorage", "Security-61901.40.77\n", v84, v562;
+  v158 = [v103 orMatch:v150];
 
-  v151 = [v103 orMatch:v150];
-
-  v152 = sub_100216964();
-  v153 = [v108 TPPBPolicyKeyViewMappingWithView:v152 matchingRule:v151];
-
-  v102[11] = v153;
-  v154 = sub_100216964();
-  v155 = sub_100216964();
-  v156 = [v103 fieldMatch:v154 fieldRegex:v155];
-
-  v157 = sub_100216964();
-  v158 = [v108 TPPBPolicyKeyViewMappingWithView:v157 matchingRule:v156];
-
-  v102[12] = v158;
   v159 = sub_100216964();
-  v160 = sub_100216964();
-  v161 = [v103 fieldMatch:v159 fieldRegex:v160];
+  v160 = [v108 TPPBPolicyKeyViewMappingWithView:v159 matchingRule:v158];
 
+  v102[11] = v160;
+  v161 = sub_100216964();
   v162 = sub_100216964();
-  v163 = [v108 TPPBPolicyKeyViewMappingWithView:v162 matchingRule:v161];
+  v163 = [v103 fieldMatch:v161 fieldRegex:v162];
 
-  v102[13] = v163;
   v164 = sub_100216964();
-  v165 = sub_100216964();
-  v166 = [v103 fieldMatch:v164 fieldRegex:v165];
+  v165 = [v108 TPPBPolicyKeyViewMappingWithView:v164 matchingRule:v163];
 
+  v102[12] = v165;
+  v166 = sub_100216964();
   v167 = sub_100216964();
-  v168 = [v108 TPPBPolicyKeyViewMappingWithView:v167 matchingRule:v166];
+  v168 = [v103 fieldMatch:v166 fieldRegex:v167];
 
-  v102[14] = v168;
-  v169 = swift_allocObject();
-  *(v169 + 16) = xmmword_10021D8B0;
-  v170 = swift_allocObject();
-  *(v170 + 16) = xmmword_10021D8D0;
+  v169 = sub_100216964();
+  v170 = [v108 TPPBPolicyKeyViewMappingWithView:v169 matchingRule:v168];
+
+  v102[13] = v170;
   v171 = sub_100216964();
   v172 = sub_100216964();
   v173 = [v103 fieldMatch:v171 fieldRegex:v172];
 
-  *(v170 + 32) = v173;
   v174 = sub_100216964();
-  v175 = sub_100216964();
-  v176 = [v103 fieldMatch:v174 fieldRegex:v175];
+  v175 = [v108 TPPBPolicyKeyViewMappingWithView:v174 matchingRule:v173];
 
-  *(v170 + 40) = v176;
-  v177 = sub_100216B14().super.isa;
+  v102[14] = v175;
+  v176 = swift_allocObject();
+  *(v176 + 16) = xmmword_10021D8B0;
+  v177 = swift_allocObject();
+  *(v177 + 16) = xmmword_10021D8D0;
+  v178 = sub_100216964();
+  v179 = sub_100216964();
+  v180 = [v103 fieldMatch:v178 fieldRegex:v179];
 
-  v178 = [v103 andMatch:v177];
-
-  *(v169 + 32) = v178;
-  v179 = swift_allocObject();
-  *(v179 + 16) = xmmword_10021D8D0;
-  v180 = sub_100216964();
+  *(v177 + 32) = v180;
   v181 = sub_100216964();
-  v182 = [v103 fieldMatch:v180 fieldRegex:v181];
+  v182 = sub_100216964();
+  v183 = [v103 fieldMatch:v181 fieldRegex:v182];
 
-  *(v179 + 32) = v182;
-  v183 = sub_100216964();
-  v184 = sub_100216964();
-  v185 = [v103 fieldMatch:v183 fieldRegex:v184];
+  *(v177 + 40) = v183;
+  v184 = sub_100216B14().super.isa;
+  v177, v185, v186, v187, v188, v189, v190, v191, v441, v455, v469, v483, v497, v102, v523, v536, v549, v563;
+  v192 = [v103 andMatch:v184];
 
-  *(v179 + 40) = v185;
-  v186 = sub_100216B14().super.isa;
+  *(v176 + 32) = v192;
+  v193 = swift_allocObject();
+  *(v193 + 16) = xmmword_10021D8D0;
+  v194 = sub_100216964();
+  v195 = sub_100216964();
+  v196 = [v103 fieldMatch:v194 fieldRegex:v195];
 
-  v187 = [v103 andMatch:v186];
+  *(v193 + 32) = v196;
+  v197 = sub_100216964();
+  v198 = sub_100216964();
+  v199 = [v103 fieldMatch:v197 fieldRegex:v198];
 
-  *(v169 + 40) = v187;
-  v188 = sub_100216964();
-  v189 = sub_100216964();
-  v190 = [v103 fieldMatch:v188 fieldRegex:v189];
+  *(v193 + 40) = v199;
+  v200 = sub_100216B14().super.isa;
+  v193, v201, v202, v203, v204, v205, v206, v207, v442, v456, v470, v484, v498, v511, v524, v537, v550, v564;
+  v208 = [v103 andMatch:v200];
 
-  *(v169 + 48) = v190;
-  v191 = sub_100216964();
-  v192 = sub_100216964();
-  v193 = [v103 fieldMatch:v191 fieldRegex:v192];
-
-  *(v169 + 56) = v193;
-  v194 = sub_100216B14().super.isa;
-
-  v195 = [v103 orMatch:v194];
-
-  v196 = sub_100216964();
-  v197 = [v108 TPPBPolicyKeyViewMappingWithView:v196 matchingRule:v195];
-
-  v102[15] = v197;
-  v198 = swift_allocObject();
-  *(v198 + 16) = xmmword_10021D8D0;
-  v199 = sub_100216964();
-  v200 = sub_100216964();
-  v201 = [v103 fieldMatch:v199 fieldRegex:v200];
-
-  *(v198 + 32) = v201;
-  v202 = swift_allocObject();
-  *(v202 + 16) = xmmword_10021D880;
-  v203 = sub_100216964();
-  v204 = sub_100216964();
-  v205 = [v103 fieldMatch:v203 fieldRegex:v204];
-
-  *(v202 + 32) = v205;
-  v206 = sub_100216964();
-  v207 = sub_100216964();
-  v208 = [v103 fieldMatch:v206 fieldRegex:v207];
-
-  *(v202 + 40) = v208;
+  *(v176 + 40) = v208;
   v209 = sub_100216964();
   v210 = sub_100216964();
   v211 = [v103 fieldMatch:v209 fieldRegex:v210];
 
-  *(v202 + 48) = v211;
-  v212 = sub_100216B14().super.isa;
+  *(v176 + 48) = v211;
+  v212 = sub_100216964();
+  v213 = sub_100216964();
+  v214 = [v103 fieldMatch:v212 fieldRegex:v213];
 
-  v213 = [v103 andMatch:v212];
+  *(v176 + 56) = v214;
+  v215 = sub_100216B14().super.isa;
+  v176, v216, v217, v218, v219, v220, v221, v222, v443, v457, v471, v485, v499, v512, v525, v538, v551, v565;
+  v223 = [v103 orMatch:v215];
 
-  *(v198 + 40) = v213;
-  v214 = sub_100216B14().super.isa;
+  v224 = sub_100216964();
+  v225 = [v108 TPPBPolicyKeyViewMappingWithView:v224 matchingRule:v223];
 
-  v215 = [v103 orMatch:v214];
-
-  v216 = sub_100216964();
-  v217 = [v108 TPPBPolicyKeyViewMappingWithView:v216 matchingRule:v215];
-
-  v102[16] = v217;
-  v218 = swift_allocObject();
-  *(v218 + 16) = xmmword_10021D8F0;
-  v219 = sub_100216964();
-  v220 = sub_100216964();
-  v221 = [v103 fieldMatch:v219 fieldRegex:v220];
-
-  *(v218 + 32) = v221;
-  v222 = sub_100216964();
-  v223 = sub_100216964();
-  v224 = [v103 fieldMatch:v222 fieldRegex:v223];
-
-  *(v218 + 40) = v224;
-  v225 = sub_100216964();
-  v226 = sub_100216964();
-  v227 = [v103 fieldMatch:v225 fieldRegex:v226];
-
-  *(v218 + 48) = v227;
+  v226 = v513;
+  *(v513 + 120) = v225;
+  v227 = swift_allocObject();
+  *(v227 + 16) = xmmword_10021D8D0;
   v228 = sub_100216964();
   v229 = sub_100216964();
   v230 = [v103 fieldMatch:v228 fieldRegex:v229];
 
-  *(v218 + 56) = v230;
-  v231 = sub_100216964();
+  *(v227 + 32) = v230;
+  v231 = swift_allocObject();
+  *(v231 + 16) = xmmword_10021D880;
   v232 = sub_100216964();
-  v233 = [v103 fieldMatch:v231 fieldRegex:v232];
+  v233 = sub_100216964();
+  v234 = [v103 fieldMatch:v232 fieldRegex:v233];
 
-  *(v218 + 64) = v233;
-  v234 = sub_100216964();
+  *(v231 + 32) = v234;
   v235 = sub_100216964();
-  v236 = [v103 fieldMatch:v234 fieldRegex:v235];
+  v236 = sub_100216964();
+  v237 = [v103 fieldMatch:v235 fieldRegex:v236];
 
-  *(v218 + 72) = v236;
-  v237 = sub_100216964();
+  *(v231 + 40) = v237;
   v238 = sub_100216964();
-  v239 = [v103 fieldMatch:v237 fieldRegex:v238];
+  v239 = sub_100216964();
+  v240 = [v103 fieldMatch:v238 fieldRegex:v239];
 
-  *(v218 + 80) = v239;
-  v240 = sub_100216964();
-  v241 = sub_100216964();
-  v242 = [v103 fieldMatch:v240 fieldRegex:v241];
+  *(v231 + 48) = v240;
+  v241 = sub_100216B14().super.isa;
+  v231, v242, v243, v244, v245, v246, v247, v248, v444, v458, v472, v486, v500, v513, v526, v539, v552, v566;
+  v249 = [v103 andMatch:v241];
 
-  *(v218 + 88) = v242;
-  v243 = sub_100216964();
-  v244 = sub_100216964();
-  v245 = [v103 fieldMatch:v243 fieldRegex:v244];
+  *(v227 + 40) = v249;
+  v250 = sub_100216B14().super.isa;
+  v227, v251, v252, v253, v254, v255, v256, v257, v445, v459, v473, v487, v501, v514, v527, v540, v553, v567;
+  v258 = [v103 orMatch:v250];
 
-  *(v218 + 96) = v245;
-  v246 = sub_100216964();
-  v247 = sub_100216964();
-  v248 = [v103 fieldMatch:v246 fieldRegex:v247];
-
-  *(v218 + 104) = v248;
-  v249 = sub_100216964();
-  v250 = sub_100216964();
-  v251 = [v103 fieldMatch:v249 fieldRegex:v250];
-
-  *(v218 + 112) = v251;
-  v252 = sub_100216964();
-  v253 = sub_100216964();
-  v254 = [v103 fieldMatch:v252 fieldRegex:v253];
-
-  *(v218 + 120) = v254;
-  v255 = sub_100216964();
-  v256 = sub_100216964();
-  v257 = [v103 fieldMatch:v255 fieldRegex:v256];
-
-  *(v218 + 128) = v257;
-  v258 = sub_100216964();
   v259 = sub_100216964();
-  v260 = [v103 fieldMatch:v258 fieldRegex:v259];
+  v260 = [v108 TPPBPolicyKeyViewMappingWithView:v259 matchingRule:v258];
 
-  *(v218 + 136) = v260;
-  v261 = sub_100216B14().super.isa;
-
-  v262 = [v103 orMatch:v261];
-
+  *(v226 + 128) = v260;
+  v261 = v226;
+  v262 = swift_allocObject();
+  *(v262 + 16) = xmmword_10021D8F0;
   v263 = sub_100216964();
-  v264 = [v108 TPPBPolicyKeyViewMappingWithView:v263 matchingRule:v262];
+  v264 = sub_100216964();
+  v265 = [v103 fieldMatch:v263 fieldRegex:v264];
 
-  v102[17] = v264;
-  v265 = swift_allocObject();
-  *(v265 + 16) = xmmword_10021D8D0;
+  *(v262 + 32) = v265;
   v266 = sub_100216964();
   v267 = sub_100216964();
   v268 = [v103 fieldMatch:v266 fieldRegex:v267];
 
-  *(v265 + 32) = v268;
+  *(v262 + 40) = v268;
   v269 = sub_100216964();
   v270 = sub_100216964();
   v271 = [v103 fieldMatch:v269 fieldRegex:v270];
 
-  *(v265 + 40) = v271;
-  v272 = sub_100216B14().super.isa;
+  *(v262 + 48) = v271;
+  v272 = sub_100216964();
+  v273 = sub_100216964();
+  v274 = [v103 fieldMatch:v272 fieldRegex:v273];
 
-  v273 = [v103 orMatch:v272];
+  *(v262 + 56) = v274;
+  v275 = sub_100216964();
+  v276 = sub_100216964();
+  v277 = [v103 fieldMatch:v275 fieldRegex:v276];
 
-  v274 = sub_100216964();
-  v275 = [v108 TPPBPolicyKeyViewMappingWithView:v274 matchingRule:v273];
-
-  v102[18] = v275;
-  v276 = swift_allocObject();
-  *(v276 + 16) = xmmword_10021D950;
-  v277 = sub_100216964();
+  *(v262 + 64) = v277;
   v278 = sub_100216964();
-  v279 = [v103 fieldMatch:v277 fieldRegex:v278];
+  v279 = sub_100216964();
+  v280 = [v103 fieldMatch:v278 fieldRegex:v279];
 
-  *(v276 + 32) = v279;
-  v280 = sub_100216964();
+  *(v262 + 72) = v280;
   v281 = sub_100216964();
-  v282 = [v103 fieldMatch:v280 fieldRegex:v281];
+  v282 = sub_100216964();
+  v283 = [v103 fieldMatch:v281 fieldRegex:v282];
 
-  *(v276 + 40) = v282;
-  v283 = sub_100216964();
+  *(v262 + 80) = v283;
   v284 = sub_100216964();
-  v285 = [v103 fieldMatch:v283 fieldRegex:v284];
+  v285 = sub_100216964();
+  v286 = [v103 fieldMatch:v284 fieldRegex:v285];
 
-  *(v276 + 48) = v285;
-  v286 = sub_100216964();
+  *(v262 + 88) = v286;
   v287 = sub_100216964();
-  v288 = [v103 fieldMatch:v286 fieldRegex:v287];
+  v288 = sub_100216964();
+  v289 = [v103 fieldMatch:v287 fieldRegex:v288];
 
-  *(v276 + 56) = v288;
-  v289 = sub_100216964();
+  *(v262 + 96) = v289;
   v290 = sub_100216964();
-  v291 = [v103 fieldMatch:v289 fieldRegex:v290];
+  v291 = sub_100216964();
+  v292 = [v103 fieldMatch:v290 fieldRegex:v291];
 
-  *(v276 + 64) = v291;
-  v292 = sub_100216964();
+  *(v262 + 104) = v292;
   v293 = sub_100216964();
-  v294 = [v103 fieldMatch:v292 fieldRegex:v293];
+  v294 = sub_100216964();
+  v295 = [v103 fieldMatch:v293 fieldRegex:v294];
 
-  *(v276 + 72) = v294;
-  v295 = sub_100216964();
+  *(v262 + 112) = v295;
   v296 = sub_100216964();
-  v297 = [v103 fieldMatch:v295 fieldRegex:v296];
+  v297 = sub_100216964();
+  v298 = [v103 fieldMatch:v296 fieldRegex:v297];
 
-  *(v276 + 80) = v297;
-  v298 = sub_100216964();
+  *(v262 + 120) = v298;
   v299 = sub_100216964();
-  v300 = [v103 fieldMatch:v298 fieldRegex:v299];
+  v300 = sub_100216964();
+  v301 = [v103 fieldMatch:v299 fieldRegex:v300];
 
-  *(v276 + 88) = v300;
-  v301 = sub_100216964();
+  *(v262 + 128) = v301;
   v302 = sub_100216964();
-  v303 = [v103 fieldMatch:v301 fieldRegex:v302];
+  v303 = sub_100216964();
+  v304 = [v103 fieldMatch:v302 fieldRegex:v303];
 
-  *(v276 + 96) = v303;
-  v304 = sub_100216964();
-  v305 = sub_100216964();
-  v306 = [v103 fieldMatch:v304 fieldRegex:v305];
+  *(v262 + 136) = v304;
+  v305 = sub_100216B14().super.isa;
+  v262, v306, v307, v308, v309, v310, v311, v312, v446, v460, v474, v488, v502, v515, v528, v541, v554, v568;
+  v313 = [v103 orMatch:v305];
 
-  *(v276 + 104) = v306;
-  v307 = sub_100216B14().super.isa;
+  v314 = sub_100216964();
+  v315 = [v108 TPPBPolicyKeyViewMappingWithView:v314 matchingRule:v313];
 
-  v308 = [v103 orMatch:v307];
-
-  v309 = sub_100216964();
-  v310 = [v108 TPPBPolicyKeyViewMappingWithView:v309 matchingRule:v308];
-
-  v102[19] = v310;
-  v311 = swift_allocObject();
-  *(v311 + 16) = xmmword_10021D880;
-  v312 = sub_100216964();
-  v313 = sub_100216964();
-  v314 = [v103 fieldMatch:v312 fieldRegex:v313];
-
-  *(v311 + 32) = v314;
-  v315 = sub_100216964();
-  v316 = sub_100216964();
-  v317 = [v103 fieldMatch:v315 fieldRegex:v316];
-
-  *(v311 + 40) = v317;
+  *(v261 + 136) = v315;
+  v316 = swift_allocObject();
+  *(v316 + 16) = xmmword_10021D8D0;
+  v317 = sub_100216964();
   v318 = sub_100216964();
-  v319 = sub_100216964();
-  v320 = [v103 fieldMatch:v318 fieldRegex:v319];
+  v319 = [v103 fieldMatch:v317 fieldRegex:v318];
 
-  *(v311 + 48) = v320;
-  v321 = sub_100216B14().super.isa;
+  *(v316 + 32) = v319;
+  v320 = sub_100216964();
+  v321 = sub_100216964();
+  v322 = [v103 fieldMatch:v320 fieldRegex:v321];
 
-  v322 = [v103 orMatch:v321];
+  *(v316 + 40) = v322;
+  v323 = sub_100216B14().super.isa;
+  v316, v324, v325, v326, v327, v328, v329, v330, v447, v461, v475, v489, v503, v516, v529, v542, v555, v569;
+  v331 = [v103 orMatch:v323];
 
-  v323 = sub_100216964();
-  v324 = [v108 TPPBPolicyKeyViewMappingWithView:v323 matchingRule:v322];
+  v332 = sub_100216964();
+  v333 = [v108 TPPBPolicyKeyViewMappingWithView:v332 matchingRule:v331];
 
-  v102[20] = v324;
-  v325 = [v103 trueMatch];
-  v326 = sub_100216964();
-  v327 = [v108 TPPBPolicyKeyViewMappingWithView:v326 matchingRule:v325];
+  *(v261 + 144) = v333;
+  v334 = swift_allocObject();
+  *(v334 + 16) = xmmword_10021D950;
+  v335 = sub_100216964();
+  v336 = sub_100216964();
+  v337 = [v103 fieldMatch:v335 fieldRegex:v336];
 
-  v102[21] = v327;
-  v328 = objc_allocWithZone(TPPolicyDocument);
+  *(v334 + 32) = v337;
+  v338 = sub_100216964();
+  v339 = sub_100216964();
+  v340 = [v103 fieldMatch:v338 fieldRegex:v339];
+
+  *(v334 + 40) = v340;
+  v341 = sub_100216964();
+  v342 = sub_100216964();
+  v343 = [v103 fieldMatch:v341 fieldRegex:v342];
+
+  *(v334 + 48) = v343;
+  v344 = sub_100216964();
+  v345 = sub_100216964();
+  v346 = [v103 fieldMatch:v344 fieldRegex:v345];
+
+  *(v334 + 56) = v346;
+  v347 = sub_100216964();
+  v348 = sub_100216964();
+  v349 = [v103 fieldMatch:v347 fieldRegex:v348];
+
+  *(v334 + 64) = v349;
+  v350 = sub_100216964();
+  v351 = sub_100216964();
+  v352 = [v103 fieldMatch:v350 fieldRegex:v351];
+
+  *(v334 + 72) = v352;
+  v353 = sub_100216964();
+  v354 = sub_100216964();
+  v355 = [v103 fieldMatch:v353 fieldRegex:v354];
+
+  *(v334 + 80) = v355;
+  v356 = sub_100216964();
+  v357 = sub_100216964();
+  v358 = [v103 fieldMatch:v356 fieldRegex:v357];
+
+  *(v334 + 88) = v358;
+  v359 = sub_100216964();
+  v360 = sub_100216964();
+  v361 = [v103 fieldMatch:v359 fieldRegex:v360];
+
+  *(v334 + 96) = v361;
+  v362 = sub_100216964();
+  v363 = sub_100216964();
+  v364 = [v103 fieldMatch:v362 fieldRegex:v363];
+
+  *(v334 + 104) = v364;
+  v365 = sub_100216B14().super.isa;
+  v334, v366, v367, v368, v369, v370, v371, v372, v448, v462, v476, v490, v504, v517, v530, v543, v556, v570;
+  v373 = [v103 orMatch:v365];
+
+  v374 = sub_100216964();
+  v375 = [v108 TPPBPolicyKeyViewMappingWithView:v374 matchingRule:v373];
+
+  *(v261 + 152) = v375;
+  v376 = swift_allocObject();
+  *(v376 + 16) = xmmword_10021D880;
+  v377 = sub_100216964();
+  v378 = sub_100216964();
+  v379 = [v103 fieldMatch:v377 fieldRegex:v378];
+
+  *(v376 + 32) = v379;
+  v380 = sub_100216964();
+  v381 = sub_100216964();
+  v382 = [v103 fieldMatch:v380 fieldRegex:v381];
+
+  *(v376 + 40) = v382;
+  v383 = sub_100216964();
+  v384 = sub_100216964();
+  v385 = [v103 fieldMatch:v383 fieldRegex:v384];
+
+  *(v376 + 48) = v385;
+  v386 = sub_100216B14().super.isa;
+  v376, v387, v388, v389, v390, v391, v392, v393, v449, v463, v477, v491, v505, v518, v531, v544, v557, v571;
+  v394 = [v103 orMatch:v386];
+
+  v395 = sub_100216964();
+  v396 = [v108 TPPBPolicyKeyViewMappingWithView:v395 matchingRule:v394];
+
+  *(v261 + 160) = v396;
+  v397 = [v103 trueMatch];
+  v398 = sub_100216964();
+  v399 = [v108 TPPBPolicyKeyViewMappingWithView:v398 matchingRule:v397];
+
+  *(v261 + 168) = v399;
+  v400 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v329 = sub_100216B14().super.isa;
-
+  v401 = sub_100216B14().super.isa;
+  v576, v402, v403, v404, v405, v406, v407, v408, v450, v464, v478, v492, v506, v519, v532, v545, v558, v572;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v330 = sub_100216B14().super.isa;
-
+  v409 = sub_100216B14().super.isa;
+  v573, v410, v411, v412, v413, v414, v415, v416, v451, v465, v479, v493, v507, v520, v533, v546, v559, v573;
   sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v331 = sub_100216B14().super.isa;
-
+  v417 = sub_100216B14().super.isa;
+  v560, v418, v419, v420, v421, v422, v423, v424, v452, v466, v480, v494, v508, v521, v534, v547, v560, v574;
   sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v332 = sub_100216B14().super.isa;
+  v425 = sub_100216B14().super.isa;
   sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v333 = sub_100216B14().super.isa;
+  v426 = sub_100216B14().super.isa;
+  v261, v427, v428, v429, v430, v431, v432, v433, v453, v467, v481, v495, v509, v522, v535, v548, v561, v575;
+  v434 = sub_100216B14().super.isa;
+  v435 = sub_100216B14().super.isa;
+  v436 = sub_100216B14().super.isa;
+  v437 = sub_100216B14().super.isa;
+  v438 = [v400 initWithVersion:15 modelToCategory:v401 categoriesByView:v409 introducersByCategory:v417 redactions:v425 keyViewMapping:v426 userControllableViewList:v434 piggybackViews:v435 priorityViews:v436 inheritedExcludedViews:v437 hashAlgo:1];
 
-  v334 = sub_100216B14().super.isa;
-  v335 = sub_100216B14().super.isa;
-  v336 = sub_100216B14().super.isa;
-  v337 = sub_100216B14().super.isa;
-  v338 = [v328 initWithVersion:15 modelToCategory:v329 categoriesByView:v330 introducersByCategory:v331 redactions:v332 keyViewMapping:v333 userControllableViewList:v334 piggybackViews:v335 priorityViews:v336 inheritedExcludedViews:v337 hashAlgo:1];
-
-  return v338;
+  return v438;
 }
 
 id sub_1000380E4()
@@ -7823,47 +6799,48 @@ id sub_1000380E4()
   v4 = objc_opt_self();
   v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
 
-  v1[4] = v5;
+  *v1[1]._TtCs12_SwiftObject_opaque = v5;
   v6 = sub_100216964();
   v7 = sub_100216964();
   v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
 
-  v1[5] = v8;
+  *&v1[1]._TtCs12_SwiftObject_opaque[8] = v8;
   v9 = sub_100216964();
   v10 = sub_100216964();
   v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
 
-  v1[6] = v11;
+  *v1[1].endpoint = v11;
   v12 = sub_100216964();
   v13 = sub_100216964();
   v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
 
-  v1[7] = v14;
+  *v1[1].containerMap = v14;
   v15 = sub_100216964();
   v16 = sub_100216964();
   v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
 
-  v1[8] = v17;
+  *v1[2]._TtCs12_SwiftObject_opaque = v17;
   v18 = sub_100216964();
   v19 = sub_100216964();
   v20 = [v4 TPPBPolicyModelToCategoryWithPrefix:v18 category:v19];
 
-  v1[9] = v20;
+  *&v1[2]._TtCs12_SwiftObject_opaque[8] = v20;
   v21 = sub_100216964();
   v22 = sub_100216964();
   v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
 
-  v1[10] = v23;
+  *v1[2].endpoint = v23;
   v24 = sub_100216964();
   v25 = sub_100216964();
   v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
 
-  v1[11] = v26;
+  *v1[2].containerMap = v26;
+  v569 = v1;
   v27 = sub_100216964();
   v28 = sub_100216964();
   v29 = [v4 TPPBPolicyModelToCategoryWithPrefix:v27 category:v28];
 
-  v1[12] = v29;
+  *v1[3]._TtCs12_SwiftObject_opaque = v29;
   v30 = swift_allocObject();
   *(v30 + 16) = xmmword_10021D940;
   v31 = v30;
@@ -7872,92 +6849,93 @@ id sub_1000380E4()
   v34 = objc_opt_self();
   v35 = [v34 TPPBPolicyCategoriesByViewWithView:v32 categories:isa];
 
-  v31[4] = v35;
+  *v31[1]._TtCs12_SwiftObject_opaque = v35;
   v36 = sub_100216964();
   v37 = sub_100216B14().super.isa;
   v38 = [v34 TPPBPolicyCategoriesByViewWithView:v36 categories:v37];
 
-  v31[5] = v38;
+  *&v31[1]._TtCs12_SwiftObject_opaque[8] = v38;
   v39 = sub_100216964();
   v40 = sub_100216B14().super.isa;
   v41 = [v34 TPPBPolicyCategoriesByViewWithView:v39 categories:v40];
 
-  v31[6] = v41;
+  *v31[1].endpoint = v41;
   v42 = sub_100216964();
   v43 = sub_100216B14().super.isa;
   v44 = [v34 TPPBPolicyCategoriesByViewWithView:v42 categories:v43];
 
-  v31[7] = v44;
+  *v31[1].containerMap = v44;
   v45 = sub_100216964();
   v46 = sub_100216B14().super.isa;
   v47 = [v34 TPPBPolicyCategoriesByViewWithView:v45 categories:v46];
 
-  v31[8] = v47;
+  *v31[2]._TtCs12_SwiftObject_opaque = v47;
   v48 = sub_100216964();
   v49 = sub_100216B14().super.isa;
   v50 = [v34 TPPBPolicyCategoriesByViewWithView:v48 categories:v49];
 
-  v31[9] = v50;
+  *&v31[2]._TtCs12_SwiftObject_opaque[8] = v50;
   v51 = sub_100216964();
   v52 = sub_100216B14().super.isa;
   v53 = [v34 TPPBPolicyCategoriesByViewWithView:v51 categories:v52];
 
-  v31[10] = v53;
+  *v31[2].endpoint = v53;
   v54 = sub_100216964();
   v55 = sub_100216B14().super.isa;
   v56 = [v34 TPPBPolicyCategoriesByViewWithView:v54 categories:v55];
 
-  v31[11] = v56;
+  *v31[2].containerMap = v56;
   v57 = sub_100216964();
   v58 = sub_100216B14().super.isa;
   v59 = [v34 TPPBPolicyCategoriesByViewWithView:v57 categories:v58];
 
-  v31[12] = v59;
+  *v31[3]._TtCs12_SwiftObject_opaque = v59;
   v60 = sub_100216964();
   v61 = sub_100216B14().super.isa;
   v62 = [v34 TPPBPolicyCategoriesByViewWithView:v60 categories:v61];
 
-  v31[13] = v62;
+  *&v31[3]._TtCs12_SwiftObject_opaque[8] = v62;
   v63 = sub_100216964();
   v64 = sub_100216B14().super.isa;
   v65 = [v34 TPPBPolicyCategoriesByViewWithView:v63 categories:v64];
 
-  v31[14] = v65;
+  *v31[3].endpoint = v65;
   v66 = sub_100216964();
   v67 = sub_100216B14().super.isa;
   v68 = [v34 TPPBPolicyCategoriesByViewWithView:v66 categories:v67];
 
-  v31[15] = v68;
+  *v31[3].containerMap = v68;
   v69 = sub_100216964();
   v70 = sub_100216B14().super.isa;
   v71 = [v34 TPPBPolicyCategoriesByViewWithView:v69 categories:v70];
 
-  v31[16] = v71;
+  *v31[4]._TtCs12_SwiftObject_opaque = v71;
   v72 = sub_100216964();
   v73 = sub_100216B14().super.isa;
   v74 = [v34 TPPBPolicyCategoriesByViewWithView:v72 categories:v73];
 
-  v31[17] = v74;
+  *&v31[4]._TtCs12_SwiftObject_opaque[8] = v74;
   v75 = sub_100216964();
   v76 = sub_100216B14().super.isa;
   v77 = [v34 TPPBPolicyCategoriesByViewWithView:v75 categories:v76];
 
-  v31[18] = v77;
+  *v31[4].endpoint = v77;
   v78 = sub_100216964();
   v79 = sub_100216B14().super.isa;
   v80 = [v34 TPPBPolicyCategoriesByViewWithView:v78 categories:v79];
 
-  v31[19] = v80;
+  *v31[4].containerMap = v80;
   v81 = sub_100216964();
   v82 = sub_100216B14().super.isa;
   v83 = [v34 TPPBPolicyCategoriesByViewWithView:v81 categories:v82];
 
-  v31[20] = v83;
+  *v31[5]._TtCs12_SwiftObject_opaque = v83;
+  v568 = v31;
   v84 = sub_100216964();
   v85 = sub_100216B14().super.isa;
   v86 = [v34 TPPBPolicyCategoriesByViewWithView:v84 categories:v85];
 
-  v31[21] = v86;
+  *&v31[5]._TtCs12_SwiftObject_opaque[8] = v86;
   v87 = swift_allocObject();
   *(v87 + 16) = xmmword_10021D910;
   v88 = v87;
@@ -7966,27 +6944,28 @@ id sub_1000380E4()
   v91 = objc_opt_self();
   v92 = [v91 TPPBPolicyIntroducersByCategoryWithCategory:v89 introducers:v90];
 
-  v88[4] = v92;
+  *v88[1]._TtCs12_SwiftObject_opaque = v92;
   v93 = sub_100216964();
   v94 = sub_100216B14().super.isa;
   v95 = [v91 TPPBPolicyIntroducersByCategoryWithCategory:v93 introducers:v94];
 
-  v88[5] = v95;
+  *&v88[1]._TtCs12_SwiftObject_opaque[8] = v95;
   v96 = sub_100216964();
   v97 = sub_100216B14().super.isa;
   v98 = [v91 TPPBPolicyIntroducersByCategoryWithCategory:v96 introducers:v97];
 
-  v88[6] = v98;
+  *v88[1].endpoint = v98;
   v99 = sub_100216964();
   v100 = sub_100216B14().super.isa;
   v101 = [v91 TPPBPolicyIntroducersByCategoryWithCategory:v99 introducers:v100];
 
-  v88[7] = v101;
+  v567 = v88;
+  *v88[1].containerMap = v101;
   v102 = sub_100216964();
   v103 = sub_100216B14().super.isa;
   v104 = [v91 TPPBPolicyIntroducersByCategoryWithCategory:v102 introducers:v103];
 
-  v88[8] = v104;
+  *v88[2]._TtCs12_SwiftObject_opaque = v104;
   v105 = swift_allocObject();
   *(v105 + 16) = xmmword_10021D960;
   v106 = v105;
@@ -7999,7 +6978,7 @@ id sub_1000380E4()
   v112 = objc_opt_self();
   v113 = [v112 TPPBPolicyKeyViewMappingWithView:v111 matchingRule:v110];
 
-  v106[4] = v113;
+  *v106[1]._TtCs12_SwiftObject_opaque = v113;
   v114 = sub_100216964();
   v115 = sub_100216964();
   v116 = [v107 fieldMatch:v114 fieldRegex:v115];
@@ -8007,7 +6986,7 @@ id sub_1000380E4()
   v117 = sub_100216964();
   v118 = [v112 TPPBPolicyKeyViewMappingWithView:v117 matchingRule:v116];
 
-  v106[5] = v118;
+  *&v106[1]._TtCs12_SwiftObject_opaque[8] = v118;
   v119 = sub_100216964();
   v120 = sub_100216964();
   v121 = [v107 fieldMatch:v119 fieldRegex:v120];
@@ -8015,7 +6994,7 @@ id sub_1000380E4()
   v122 = sub_100216964();
   v123 = [v112 TPPBPolicyKeyViewMappingWithView:v122 matchingRule:v121];
 
-  v106[6] = v123;
+  *v106[1].endpoint = v123;
   v124 = sub_100216964();
   v125 = sub_100216964();
   v126 = [v107 fieldMatch:v124 fieldRegex:v125];
@@ -8023,7 +7002,7 @@ id sub_1000380E4()
   v127 = sub_100216964();
   v128 = [v112 TPPBPolicyKeyViewMappingWithView:v127 matchingRule:v126];
 
-  v106[7] = v128;
+  *v106[1].containerMap = v128;
   v129 = sub_100216964();
   v130 = sub_100216964();
   v131 = [v107 fieldMatch:v129 fieldRegex:v130];
@@ -8031,7 +7010,7 @@ id sub_1000380E4()
   v132 = sub_100216964();
   v133 = [v112 TPPBPolicyKeyViewMappingWithView:v132 matchingRule:v131];
 
-  v106[8] = v133;
+  *v106[2]._TtCs12_SwiftObject_opaque = v133;
   v134 = sub_100216964();
   v135 = sub_100216964();
   v136 = [v107 fieldMatch:v134 fieldRegex:v135];
@@ -8039,7 +7018,7 @@ id sub_1000380E4()
   v137 = sub_100216964();
   v138 = [v112 TPPBPolicyKeyViewMappingWithView:v137 matchingRule:v136];
 
-  v106[9] = v138;
+  *&v106[2]._TtCs12_SwiftObject_opaque[8] = v138;
   v139 = sub_100216964();
   v140 = sub_100216964();
   v141 = [v107 fieldMatch:v139 fieldRegex:v140];
@@ -8047,7 +7026,7 @@ id sub_1000380E4()
   v142 = sub_100216964();
   v143 = [v112 TPPBPolicyKeyViewMappingWithView:v142 matchingRule:v141];
 
-  v106[10] = v143;
+  *v106[2].endpoint = v143;
   v144 = swift_allocObject();
   *(v144 + 16) = xmmword_10021D880;
   v145 = sub_100216964();
@@ -8067,324 +7046,325 @@ id sub_1000380E4()
   *(v144 + 48) = v153;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
   v154 = sub_100216B14().super.isa;
+  v144, v155, v156, v157, v158, v159, v160, v161, v433, v447, v461, v475, v489, v503, "ProtectedCloudStorage", "Security-61901.40.77\n", 5, 0xB;
+  v162 = [v107 orMatch:v154];
 
-  v155 = [v107 orMatch:v154];
-
-  v156 = sub_100216964();
-  v157 = [v112 TPPBPolicyKeyViewMappingWithView:v156 matchingRule:v155];
-
-  v106[11] = v157;
-  v158 = sub_100216964();
-  v159 = sub_100216964();
-  v160 = [v107 fieldMatch:v158 fieldRegex:v159];
-
-  v161 = sub_100216964();
-  v162 = [v112 TPPBPolicyKeyViewMappingWithView:v161 matchingRule:v160];
-
-  v106[12] = v162;
   v163 = sub_100216964();
-  v164 = sub_100216964();
-  v165 = [v107 fieldMatch:v163 fieldRegex:v164];
+  v164 = [v112 TPPBPolicyKeyViewMappingWithView:v163 matchingRule:v162];
 
+  *v106[2].containerMap = v164;
+  v165 = sub_100216964();
   v166 = sub_100216964();
-  v167 = [v112 TPPBPolicyKeyViewMappingWithView:v166 matchingRule:v165];
+  v167 = [v107 fieldMatch:v165 fieldRegex:v166];
 
-  v106[13] = v167;
   v168 = sub_100216964();
-  v169 = sub_100216964();
-  v170 = [v107 fieldMatch:v168 fieldRegex:v169];
+  v169 = [v112 TPPBPolicyKeyViewMappingWithView:v168 matchingRule:v167];
 
+  *v106[3]._TtCs12_SwiftObject_opaque = v169;
+  v170 = sub_100216964();
   v171 = sub_100216964();
-  v172 = [v112 TPPBPolicyKeyViewMappingWithView:v171 matchingRule:v170];
+  v172 = [v107 fieldMatch:v170 fieldRegex:v171];
 
-  v106[14] = v172;
-  v334 = v106;
   v173 = sub_100216964();
-  v174 = sub_100216964();
-  v175 = [v107 fieldMatch:v173 fieldRegex:v174];
+  v174 = [v112 TPPBPolicyKeyViewMappingWithView:v173 matchingRule:v172];
 
+  *&v106[3]._TtCs12_SwiftObject_opaque[8] = v174;
+  v175 = sub_100216964();
   v176 = sub_100216964();
-  v177 = [v112 TPPBPolicyKeyViewMappingWithView:v176 matchingRule:v175];
+  v177 = [v107 fieldMatch:v175 fieldRegex:v176];
 
-  v106[15] = v177;
-  v178 = swift_allocObject();
-  *(v178 + 16) = xmmword_10021D8B0;
-  v179 = swift_allocObject();
-  *(v179 + 16) = xmmword_10021D8D0;
+  v178 = sub_100216964();
+  v179 = [v112 TPPBPolicyKeyViewMappingWithView:v178 matchingRule:v177];
+
+  *v106[3].endpoint = v179;
+  v570 = v106;
   v180 = sub_100216964();
   v181 = sub_100216964();
   v182 = [v107 fieldMatch:v180 fieldRegex:v181];
 
-  *(v179 + 32) = v182;
   v183 = sub_100216964();
-  v184 = sub_100216964();
-  v185 = [v107 fieldMatch:v183 fieldRegex:v184];
+  v184 = [v112 TPPBPolicyKeyViewMappingWithView:v183 matchingRule:v182];
 
-  *(v179 + 40) = v185;
-  v186 = sub_100216B14().super.isa;
+  *v106[3].containerMap = v184;
+  v185 = swift_allocObject();
+  *(v185 + 16) = xmmword_10021D8B0;
+  v186 = swift_allocObject();
+  *(v186 + 16) = xmmword_10021D8D0;
+  v187 = sub_100216964();
+  v188 = sub_100216964();
+  v189 = [v107 fieldMatch:v187 fieldRegex:v188];
 
-  v187 = [v107 andMatch:v186];
-
-  *(v178 + 32) = v187;
-  v188 = swift_allocObject();
-  *(v188 + 16) = xmmword_10021D8D0;
-  v189 = sub_100216964();
+  *(v186 + 32) = v189;
   v190 = sub_100216964();
-  v191 = [v107 fieldMatch:v189 fieldRegex:v190];
+  v191 = sub_100216964();
+  v192 = [v107 fieldMatch:v190 fieldRegex:v191];
 
-  *(v188 + 32) = v191;
-  v192 = sub_100216964();
-  v193 = sub_100216964();
-  v194 = [v107 fieldMatch:v192 fieldRegex:v193];
+  *(v186 + 40) = v192;
+  v193 = sub_100216B14().super.isa;
+  v186, v194, v195, v196, v197, v198, v199, v200, v434, v448, v462, v476, v490, v112, v516, v529, v542, v555;
+  v201 = [v107 andMatch:v193];
 
-  *(v188 + 40) = v194;
-  v195 = sub_100216B14().super.isa;
+  *(v185 + 32) = v201;
+  v202 = swift_allocObject();
+  *(v202 + 16) = xmmword_10021D8D0;
+  v203 = sub_100216964();
+  v204 = sub_100216964();
+  v205 = [v107 fieldMatch:v203 fieldRegex:v204];
 
-  v196 = [v107 andMatch:v195];
+  *(v202 + 32) = v205;
+  v206 = sub_100216964();
+  v207 = sub_100216964();
+  v208 = [v107 fieldMatch:v206 fieldRegex:v207];
 
-  *(v178 + 40) = v196;
-  v197 = sub_100216964();
-  v198 = sub_100216964();
-  v199 = [v107 fieldMatch:v197 fieldRegex:v198];
+  *(v202 + 40) = v208;
+  v209 = sub_100216B14().super.isa;
+  v202, v210, v211, v212, v213, v214, v215, v216, v435, v449, v463, v477, v491, v504, v517, v530, v543, v556;
+  v217 = [v107 andMatch:v209];
 
-  *(v178 + 48) = v199;
-  v200 = sub_100216964();
-  v201 = sub_100216964();
-  v202 = [v107 fieldMatch:v200 fieldRegex:v201];
-
-  *(v178 + 56) = v202;
-  v203 = sub_100216B14().super.isa;
-
-  v204 = [v107 orMatch:v203];
-
-  v205 = sub_100216964();
-  v206 = [v112 TPPBPolicyKeyViewMappingWithView:v205 matchingRule:v204];
-
-  v334[16] = v206;
-  v207 = swift_allocObject();
-  *(v207 + 16) = xmmword_10021D8D0;
-  v208 = sub_100216964();
-  v209 = sub_100216964();
-  v210 = [v107 fieldMatch:v208 fieldRegex:v209];
-
-  *(v207 + 32) = v210;
-  v211 = swift_allocObject();
-  *(v211 + 16) = xmmword_10021D880;
-  v212 = sub_100216964();
-  v213 = sub_100216964();
-  v214 = [v107 fieldMatch:v212 fieldRegex:v213];
-
-  *(v211 + 32) = v214;
-  v215 = sub_100216964();
-  v216 = sub_100216964();
-  v217 = [v107 fieldMatch:v215 fieldRegex:v216];
-
-  *(v211 + 40) = v217;
+  *(v185 + 40) = v217;
   v218 = sub_100216964();
   v219 = sub_100216964();
   v220 = [v107 fieldMatch:v218 fieldRegex:v219];
 
-  *(v211 + 48) = v220;
-  v221 = sub_100216B14().super.isa;
+  *(v185 + 48) = v220;
+  v221 = sub_100216964();
+  v222 = sub_100216964();
+  v223 = [v107 fieldMatch:v221 fieldRegex:v222];
 
-  v222 = [v107 andMatch:v221];
+  *(v185 + 56) = v223;
+  v224 = sub_100216B14().super.isa;
+  v185, v225, v226, v227, v228, v229, v230, v231, v436, v450, v464, v478, v492, v505, v518, v531, v544, v557;
+  v232 = [v107 orMatch:v224];
 
-  *(v207 + 40) = v222;
-  v223 = sub_100216B14().super.isa;
+  v233 = sub_100216964();
+  v234 = v506;
+  v235 = [v506 TPPBPolicyKeyViewMappingWithView:v233 matchingRule:v232];
 
-  v224 = [v107 orMatch:v223];
-
-  v225 = sub_100216964();
-  v226 = [v112 TPPBPolicyKeyViewMappingWithView:v225 matchingRule:v224];
-
-  v334[17] = v226;
-  v227 = swift_allocObject();
-  *(v227 + 16) = xmmword_10021D8F0;
-  v228 = sub_100216964();
-  v229 = sub_100216964();
-  v230 = [v107 fieldMatch:v228 fieldRegex:v229];
-
-  *(v227 + 32) = v230;
-  v231 = sub_100216964();
-  v232 = sub_100216964();
-  v233 = [v107 fieldMatch:v231 fieldRegex:v232];
-
-  *(v227 + 40) = v233;
-  v234 = sub_100216964();
-  v235 = sub_100216964();
-  v236 = [v107 fieldMatch:v234 fieldRegex:v235];
-
-  *(v227 + 48) = v236;
+  *v570[4]._TtCs12_SwiftObject_opaque = v235;
+  v236 = swift_allocObject();
+  *(v236 + 16) = xmmword_10021D8D0;
   v237 = sub_100216964();
   v238 = sub_100216964();
   v239 = [v107 fieldMatch:v237 fieldRegex:v238];
 
-  *(v227 + 56) = v239;
-  v240 = sub_100216964();
+  *(v236 + 32) = v239;
+  v240 = swift_allocObject();
+  *(v240 + 16) = xmmword_10021D880;
   v241 = sub_100216964();
-  v242 = [v107 fieldMatch:v240 fieldRegex:v241];
+  v242 = sub_100216964();
+  v243 = [v107 fieldMatch:v241 fieldRegex:v242];
 
-  *(v227 + 64) = v242;
-  v243 = sub_100216964();
+  *(v240 + 32) = v243;
   v244 = sub_100216964();
-  v245 = [v107 fieldMatch:v243 fieldRegex:v244];
+  v245 = sub_100216964();
+  v246 = [v107 fieldMatch:v244 fieldRegex:v245];
 
-  *(v227 + 72) = v245;
-  v246 = sub_100216964();
+  *(v240 + 40) = v246;
   v247 = sub_100216964();
-  v248 = [v107 fieldMatch:v246 fieldRegex:v247];
+  v248 = sub_100216964();
+  v249 = [v107 fieldMatch:v247 fieldRegex:v248];
 
-  *(v227 + 80) = v248;
-  v249 = sub_100216964();
-  v250 = sub_100216964();
-  v251 = [v107 fieldMatch:v249 fieldRegex:v250];
+  *(v240 + 48) = v249;
+  v250 = sub_100216B14().super.isa;
+  v240, v251, v252, v253, v254, v255, v256, v257, v437, v451, v465, v479, v493, v506, v519, v532, v545, v558;
+  v258 = [v107 andMatch:v250];
 
-  *(v227 + 88) = v251;
-  v252 = sub_100216964();
-  v253 = sub_100216964();
-  v254 = [v107 fieldMatch:v252 fieldRegex:v253];
+  *(v236 + 40) = v258;
+  v259 = sub_100216B14().super.isa;
+  v236, v260, v261, v262, v263, v264, v265, v266, v438, v452, v466, v480, v494, v507, v520, v533, v546, v559;
+  v267 = [v107 orMatch:v259];
 
-  *(v227 + 96) = v254;
-  v255 = sub_100216964();
-  v256 = sub_100216964();
-  v257 = [v107 fieldMatch:v255 fieldRegex:v256];
-
-  *(v227 + 104) = v257;
-  v258 = sub_100216964();
-  v259 = sub_100216964();
-  v260 = [v107 fieldMatch:v258 fieldRegex:v259];
-
-  *(v227 + 112) = v260;
-  v261 = sub_100216964();
-  v262 = sub_100216964();
-  v263 = [v107 fieldMatch:v261 fieldRegex:v262];
-
-  *(v227 + 120) = v263;
-  v264 = sub_100216964();
-  v265 = sub_100216964();
-  v266 = [v107 fieldMatch:v264 fieldRegex:v265];
-
-  *(v227 + 128) = v266;
-  v267 = sub_100216964();
   v268 = sub_100216964();
-  v269 = [v107 fieldMatch:v267 fieldRegex:v268];
+  v269 = [v234 TPPBPolicyKeyViewMappingWithView:v268 matchingRule:v267];
 
-  *(v227 + 136) = v269;
-  v270 = sub_100216B14().super.isa;
-
-  v271 = [v107 orMatch:v270];
-
+  *&v570[4]._TtCs12_SwiftObject_opaque[8] = v269;
+  v270 = swift_allocObject();
+  *(v270 + 16) = xmmword_10021D8F0;
+  v271 = sub_100216964();
   v272 = sub_100216964();
-  v273 = [v112 TPPBPolicyKeyViewMappingWithView:v272 matchingRule:v271];
+  v273 = [v107 fieldMatch:v271 fieldRegex:v272];
 
-  v334[18] = v273;
-  v274 = swift_allocObject();
-  *(v274 + 16) = xmmword_10021D8D0;
+  *(v270 + 32) = v273;
+  v274 = sub_100216964();
   v275 = sub_100216964();
-  v276 = sub_100216964();
-  v277 = [v107 fieldMatch:v275 fieldRegex:v276];
+  v276 = [v107 fieldMatch:v274 fieldRegex:v275];
 
-  *(v274 + 32) = v277;
+  *(v270 + 40) = v276;
+  v277 = sub_100216964();
   v278 = sub_100216964();
-  v279 = sub_100216964();
-  v280 = [v107 fieldMatch:v278 fieldRegex:v279];
+  v279 = [v107 fieldMatch:v277 fieldRegex:v278];
 
-  *(v274 + 40) = v280;
-  v281 = sub_100216B14().super.isa;
+  *(v270 + 48) = v279;
+  v280 = sub_100216964();
+  v281 = sub_100216964();
+  v282 = [v107 fieldMatch:v280 fieldRegex:v281];
 
-  v282 = [v107 orMatch:v281];
-
+  *(v270 + 56) = v282;
   v283 = sub_100216964();
-  v284 = [v112 TPPBPolicyKeyViewMappingWithView:v283 matchingRule:v282];
+  v284 = sub_100216964();
+  v285 = [v107 fieldMatch:v283 fieldRegex:v284];
 
-  v334[19] = v284;
-  v285 = swift_allocObject();
-  *(v285 + 16) = xmmword_10021D910;
+  *(v270 + 64) = v285;
   v286 = sub_100216964();
   v287 = sub_100216964();
   v288 = [v107 fieldMatch:v286 fieldRegex:v287];
 
-  *(v285 + 32) = v288;
+  *(v270 + 72) = v288;
   v289 = sub_100216964();
   v290 = sub_100216964();
   v291 = [v107 fieldMatch:v289 fieldRegex:v290];
 
-  *(v285 + 40) = v291;
+  *(v270 + 80) = v291;
   v292 = sub_100216964();
   v293 = sub_100216964();
   v294 = [v107 fieldMatch:v292 fieldRegex:v293];
 
-  *(v285 + 48) = v294;
+  *(v270 + 88) = v294;
   v295 = sub_100216964();
   v296 = sub_100216964();
   v297 = [v107 fieldMatch:v295 fieldRegex:v296];
 
-  *(v285 + 56) = v297;
+  *(v270 + 96) = v297;
   v298 = sub_100216964();
   v299 = sub_100216964();
   v300 = [v107 fieldMatch:v298 fieldRegex:v299];
 
-  *(v285 + 64) = v300;
-  v301 = sub_100216B14().super.isa;
+  *(v270 + 104) = v300;
+  v301 = sub_100216964();
+  v302 = sub_100216964();
+  v303 = [v107 fieldMatch:v301 fieldRegex:v302];
 
-  v302 = [v107 orMatch:v301];
+  *(v270 + 112) = v303;
+  v304 = sub_100216964();
+  v305 = sub_100216964();
+  v306 = [v107 fieldMatch:v304 fieldRegex:v305];
 
-  v303 = sub_100216964();
-  v304 = [v112 TPPBPolicyKeyViewMappingWithView:v303 matchingRule:v302];
-
-  v334[20] = v304;
-  v305 = swift_allocObject();
-  *(v305 + 16) = xmmword_10021D880;
-  v306 = sub_100216964();
+  *(v270 + 120) = v306;
   v307 = sub_100216964();
-  v308 = [v107 fieldMatch:v306 fieldRegex:v307];
+  v308 = sub_100216964();
+  v309 = [v107 fieldMatch:v307 fieldRegex:v308];
 
-  *(v305 + 32) = v308;
-  v309 = sub_100216964();
+  *(v270 + 128) = v309;
   v310 = sub_100216964();
-  v311 = [v107 fieldMatch:v309 fieldRegex:v310];
+  v311 = sub_100216964();
+  v312 = [v107 fieldMatch:v310 fieldRegex:v311];
 
-  *(v305 + 40) = v311;
-  v312 = sub_100216964();
-  v313 = sub_100216964();
-  v314 = [v107 fieldMatch:v312 fieldRegex:v313];
+  *(v270 + 136) = v312;
+  v313 = sub_100216B14().super.isa;
+  v270, v314, v315, v316, v317, v318, v319, v320, v439, v453, v467, v481, v495, v508, v521, v534, v547, v560;
+  v321 = [v107 orMatch:v313];
 
-  *(v305 + 48) = v314;
-  v315 = sub_100216B14().super.isa;
+  v322 = sub_100216964();
+  v323 = [v234 TPPBPolicyKeyViewMappingWithView:v322 matchingRule:v321];
 
-  v316 = [v107 orMatch:v315];
+  *v570[4].endpoint = v323;
+  v324 = swift_allocObject();
+  *(v324 + 16) = xmmword_10021D8D0;
+  v325 = sub_100216964();
+  v326 = sub_100216964();
+  v327 = [v107 fieldMatch:v325 fieldRegex:v326];
 
-  v317 = sub_100216964();
-  v318 = [v112 TPPBPolicyKeyViewMappingWithView:v317 matchingRule:v316];
+  *(v324 + 32) = v327;
+  v328 = sub_100216964();
+  v329 = sub_100216964();
+  v330 = [v107 fieldMatch:v328 fieldRegex:v329];
 
-  v334[21] = v318;
-  v319 = [v107 trueMatch];
-  v320 = sub_100216964();
-  v321 = [v112 TPPBPolicyKeyViewMappingWithView:v320 matchingRule:v319];
-
-  v334[22] = v321;
-  v322 = objc_allocWithZone(TPPolicyDocument);
-  sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v323 = sub_100216B14().super.isa;
-
-  sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v324 = sub_100216B14().super.isa;
-
-  sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v325 = sub_100216B14().super.isa;
-
-  sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v326 = sub_100216B14().super.isa;
-  sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v327 = sub_100216B14().super.isa;
-
-  v328 = sub_100216B14().super.isa;
-  v329 = sub_100216B14().super.isa;
-  v330 = sub_100216B14().super.isa;
+  *(v324 + 40) = v330;
   v331 = sub_100216B14().super.isa;
-  v332 = [v322 initWithVersion:16 modelToCategory:v323 categoriesByView:v324 introducersByCategory:v325 redactions:v326 keyViewMapping:v327 userControllableViewList:v328 piggybackViews:v329 priorityViews:v330 inheritedExcludedViews:v331 hashAlgo:1];
+  v324, v332, v333, v334, v335, v336, v337, v338, v440, v454, v468, v482, v496, v509, v522, v535, v548, v561;
+  v339 = [v107 orMatch:v331];
 
-  return v332;
+  v340 = sub_100216964();
+  v341 = [v234 TPPBPolicyKeyViewMappingWithView:v340 matchingRule:v339];
+
+  *v570[4].containerMap = v341;
+  v342 = swift_allocObject();
+  *(v342 + 16) = v549;
+  v343 = sub_100216964();
+  v344 = sub_100216964();
+  v345 = [v107 fieldMatch:v343 fieldRegex:v344];
+
+  *(v342 + 32) = v345;
+  v346 = sub_100216964();
+  v347 = sub_100216964();
+  v348 = [v107 fieldMatch:v346 fieldRegex:v347];
+
+  *(v342 + 40) = v348;
+  v349 = sub_100216964();
+  v350 = sub_100216964();
+  v351 = [v107 fieldMatch:v349 fieldRegex:v350];
+
+  *(v342 + 48) = v351;
+  v352 = sub_100216964();
+  v353 = sub_100216964();
+  v354 = [v107 fieldMatch:v352 fieldRegex:v353];
+
+  *(v342 + 56) = v354;
+  v355 = sub_100216964();
+  v356 = sub_100216964();
+  v357 = [v107 fieldMatch:v355 fieldRegex:v356];
+
+  *(v342 + 64) = v357;
+  v358 = sub_100216B14().super.isa;
+  v342, v359, v360, v361, v362, v363, v364, v365, v441, v455, v469, v483, v497, v510, v523, v536, v549, *(&v549 + 1);
+  v366 = [v107 orMatch:v358];
+
+  v367 = sub_100216964();
+  v368 = [v234 TPPBPolicyKeyViewMappingWithView:v367 matchingRule:v366];
+
+  *v570[5]._TtCs12_SwiftObject_opaque = v368;
+  v369 = swift_allocObject();
+  *(v369 + 16) = xmmword_10021D880;
+  v370 = sub_100216964();
+  v371 = sub_100216964();
+  v372 = [v107 fieldMatch:v370 fieldRegex:v371];
+
+  *(v369 + 32) = v372;
+  v373 = sub_100216964();
+  v374 = sub_100216964();
+  v375 = [v107 fieldMatch:v373 fieldRegex:v374];
+
+  *(v369 + 40) = v375;
+  v376 = sub_100216964();
+  v377 = sub_100216964();
+  v378 = [v107 fieldMatch:v376 fieldRegex:v377];
+
+  *(v369 + 48) = v378;
+  v379 = sub_100216B14().super.isa;
+  v369, v380, v381, v382, v383, v384, v385, v386, v442, v456, v470, v484, v498, v511, v524, v537, v550, v562;
+  v387 = [v107 orMatch:v379];
+
+  v388 = sub_100216964();
+  v389 = [v234 TPPBPolicyKeyViewMappingWithView:v388 matchingRule:v387];
+
+  *&v570[5]._TtCs12_SwiftObject_opaque[8] = v389;
+  v390 = [v107 trueMatch];
+  v391 = sub_100216964();
+  v392 = [v234 TPPBPolicyKeyViewMappingWithView:v391 matchingRule:v390];
+
+  *v570[5].endpoint = v392;
+  v393 = objc_allocWithZone(TPPolicyDocument);
+  sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
+  v394 = sub_100216B14().super.isa;
+  v569, v395, v396, v397, v398, v399, v400, v401, v443, v457, v471, v485, v499, v512, v525, v538, v551, v563;
+  sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
+  v402 = sub_100216B14().super.isa;
+  v568, v403, v404, v405, v406, v407, v408, v409, v444, v458, v472, v486, v500, v513, v526, v539, v552, v564;
+  sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
+  v410 = sub_100216B14().super.isa;
+  v567, v411, v412, v413, v414, v415, v416, v417, v445, v459, v473, v487, v501, v514, v527, v540, v553, v565;
+  sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
+  v418 = sub_100216B14().super.isa;
+  sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
+  v419 = sub_100216B14().super.isa;
+  v570, v420, v421, v422, v423, v424, v425, v426, v446, v460, v474, v488, v502, v515, v528, v541, v554, v566;
+  v427 = sub_100216B14().super.isa;
+  v428 = sub_100216B14().super.isa;
+  v429 = sub_100216B14().super.isa;
+  v430 = sub_100216B14().super.isa;
+  v431 = [v393 initWithVersion:16 modelToCategory:v394 categoriesByView:v402 introducersByCategory:v410 redactions:v418 keyViewMapping:v419 userControllableViewList:v427 piggybackViews:v428 priorityViews:v429 inheritedExcludedViews:v430 hashAlgo:1];
+
+  return v431;
 }
 
 id sub_10003AB2C()
@@ -8434,6 +7414,7 @@ id sub_10003AB2C()
   v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
 
   v1[11] = v26;
+  v586 = v1;
   v27 = sub_100216964();
   v28 = sub_100216964();
   v29 = [v4 TPPBPolicyModelToCategoryWithPrefix:v27 category:v28];
@@ -8566,6 +7547,7 @@ id sub_10003AB2C()
   v106 = sub_100216B14().super.isa;
   v107 = [v97 TPPBPolicyIntroducersByCategoryWithCategory:v105 introducers:v106];
 
+  v559 = v94;
   v94[7] = v107;
   v108 = sub_100216964();
   v109 = sub_100216B14().super.isa;
@@ -8584,7 +7566,7 @@ id sub_10003AB2C()
   v118 = objc_opt_self();
   v119 = [v118 TPPBPolicyKeyViewMappingWithView:v117 matchingRule:v116];
 
-  v112[4] = v119;
+  *v112[1]._TtCs12_SwiftObject_opaque = v119;
   v120 = sub_100216964();
   v121 = sub_100216964();
   v122 = [v113 fieldMatch:v120 fieldRegex:v121];
@@ -8592,7 +7574,7 @@ id sub_10003AB2C()
   v123 = sub_100216964();
   v124 = [v118 TPPBPolicyKeyViewMappingWithView:v123 matchingRule:v122];
 
-  v112[5] = v124;
+  *&v112[1]._TtCs12_SwiftObject_opaque[8] = v124;
   v125 = sub_100216964();
   v126 = sub_100216964();
   v127 = [v113 fieldMatch:v125 fieldRegex:v126];
@@ -8600,7 +7582,7 @@ id sub_10003AB2C()
   v128 = sub_100216964();
   v129 = [v118 TPPBPolicyKeyViewMappingWithView:v128 matchingRule:v127];
 
-  v112[6] = v129;
+  *v112[1].endpoint = v129;
   v130 = sub_100216964();
   v131 = sub_100216964();
   v132 = [v113 fieldMatch:v130 fieldRegex:v131];
@@ -8608,7 +7590,7 @@ id sub_10003AB2C()
   v133 = sub_100216964();
   v134 = [v118 TPPBPolicyKeyViewMappingWithView:v133 matchingRule:v132];
 
-  v112[7] = v134;
+  *v112[1].containerMap = v134;
   v135 = sub_100216964();
   v136 = sub_100216964();
   v137 = [v113 fieldMatch:v135 fieldRegex:v136];
@@ -8616,7 +7598,7 @@ id sub_10003AB2C()
   v138 = sub_100216964();
   v139 = [v118 TPPBPolicyKeyViewMappingWithView:v138 matchingRule:v137];
 
-  v112[8] = v139;
+  *v112[2]._TtCs12_SwiftObject_opaque = v139;
   v140 = sub_100216964();
   v141 = sub_100216964();
   v142 = [v113 fieldMatch:v140 fieldRegex:v141];
@@ -8624,7 +7606,7 @@ id sub_10003AB2C()
   v143 = sub_100216964();
   v144 = [v118 TPPBPolicyKeyViewMappingWithView:v143 matchingRule:v142];
 
-  v112[9] = v144;
+  *&v112[2]._TtCs12_SwiftObject_opaque[8] = v144;
   v145 = sub_100216964();
   v146 = sub_100216964();
   v147 = [v113 fieldMatch:v145 fieldRegex:v146];
@@ -8632,7 +7614,7 @@ id sub_10003AB2C()
   v148 = sub_100216964();
   v149 = [v118 TPPBPolicyKeyViewMappingWithView:v148 matchingRule:v147];
 
-  v112[10] = v149;
+  *v112[2].endpoint = v149;
   v150 = swift_allocObject();
   *(v150 + 16) = xmmword_10021D880;
   v151 = sub_100216964();
@@ -8652,365 +7634,365 @@ id sub_10003AB2C()
   *(v150 + 48) = v159;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
   v160 = sub_100216B14().super.isa;
+  v150, v161, v162, v163, v164, v165, v166, v167, v463, v477, v491, v505, v519, "ProtectedCloudStorage", "Security-61901.40.77\n", v559, v31, v586;
+  v168 = [v113 orMatch:v160];
 
-  v161 = [v113 orMatch:v160];
-
-  v162 = sub_100216964();
-  v163 = [v118 TPPBPolicyKeyViewMappingWithView:v162 matchingRule:v161];
-
-  v112[11] = v163;
-  v164 = sub_100216964();
-  v165 = sub_100216964();
-  v166 = [v113 fieldMatch:v164 fieldRegex:v165];
-
-  v167 = sub_100216964();
-  v168 = [v118 TPPBPolicyKeyViewMappingWithView:v167 matchingRule:v166];
-
-  v112[12] = v168;
   v169 = sub_100216964();
-  v170 = sub_100216964();
-  v171 = [v113 fieldMatch:v169 fieldRegex:v170];
+  v170 = [v118 TPPBPolicyKeyViewMappingWithView:v169 matchingRule:v168];
 
+  *v112[2].containerMap = v170;
+  v171 = sub_100216964();
   v172 = sub_100216964();
-  v173 = [v118 TPPBPolicyKeyViewMappingWithView:v172 matchingRule:v171];
+  v173 = [v113 fieldMatch:v171 fieldRegex:v172];
 
-  v112[13] = v173;
   v174 = sub_100216964();
-  v175 = sub_100216964();
-  v176 = [v113 fieldMatch:v174 fieldRegex:v175];
+  v175 = [v118 TPPBPolicyKeyViewMappingWithView:v174 matchingRule:v173];
 
+  *v112[3]._TtCs12_SwiftObject_opaque = v175;
+  v176 = sub_100216964();
   v177 = sub_100216964();
-  v178 = [v118 TPPBPolicyKeyViewMappingWithView:v177 matchingRule:v176];
+  v178 = [v113 fieldMatch:v176 fieldRegex:v177];
 
-  v112[14] = v178;
   v179 = sub_100216964();
-  v180 = sub_100216964();
-  v181 = [v113 fieldMatch:v179 fieldRegex:v180];
+  v180 = [v118 TPPBPolicyKeyViewMappingWithView:v179 matchingRule:v178];
 
+  *&v112[3]._TtCs12_SwiftObject_opaque[8] = v180;
+  v181 = sub_100216964();
   v182 = sub_100216964();
-  v183 = [v118 TPPBPolicyKeyViewMappingWithView:v182 matchingRule:v181];
+  v183 = [v113 fieldMatch:v181 fieldRegex:v182];
 
-  v112[15] = v183;
   v184 = sub_100216964();
-  v185 = sub_100216964();
-  v186 = [v113 fieldMatch:v184 fieldRegex:v185];
+  v185 = [v118 TPPBPolicyKeyViewMappingWithView:v184 matchingRule:v183];
 
+  *v112[3].endpoint = v185;
+  v186 = sub_100216964();
   v187 = sub_100216964();
-  v188 = [v118 TPPBPolicyKeyViewMappingWithView:v187 matchingRule:v186];
+  v188 = [v113 fieldMatch:v186 fieldRegex:v187];
 
-  v112[16] = v188;
-  v365 = v112;
   v189 = sub_100216964();
-  v190 = sub_100216964();
-  v191 = [v113 fieldMatch:v189 fieldRegex:v190];
+  v190 = [v118 TPPBPolicyKeyViewMappingWithView:v189 matchingRule:v188];
 
+  *v112[3].containerMap = v190;
+  v191 = sub_100216964();
   v192 = sub_100216964();
-  v193 = [v118 TPPBPolicyKeyViewMappingWithView:v192 matchingRule:v191];
+  v193 = [v113 fieldMatch:v191 fieldRegex:v192];
 
-  v112[17] = v193;
-  v194 = swift_allocObject();
-  *(v194 + 16) = xmmword_10021D8B0;
-  v195 = swift_allocObject();
-  *(v195 + 16) = xmmword_10021D8D0;
+  v194 = sub_100216964();
+  v195 = [v118 TPPBPolicyKeyViewMappingWithView:v194 matchingRule:v193];
+
+  *v112[4]._TtCs12_SwiftObject_opaque = v195;
+  v600 = v112;
   v196 = sub_100216964();
   v197 = sub_100216964();
   v198 = [v113 fieldMatch:v196 fieldRegex:v197];
 
-  *(v195 + 32) = v198;
   v199 = sub_100216964();
-  v200 = sub_100216964();
-  v201 = [v113 fieldMatch:v199 fieldRegex:v200];
+  v200 = [v118 TPPBPolicyKeyViewMappingWithView:v199 matchingRule:v198];
 
-  *(v195 + 40) = v201;
-  v202 = sub_100216B14().super.isa;
+  *&v112[4]._TtCs12_SwiftObject_opaque[8] = v200;
+  v201 = swift_allocObject();
+  *(v201 + 16) = xmmword_10021D8B0;
+  v202 = swift_allocObject();
+  *(v202 + 16) = xmmword_10021D8D0;
+  v203 = sub_100216964();
+  v204 = sub_100216964();
+  v205 = [v113 fieldMatch:v203 fieldRegex:v204];
 
-  v203 = [v113 andMatch:v202];
-
-  *(v194 + 32) = v203;
-  v204 = swift_allocObject();
-  *(v204 + 16) = xmmword_10021D8D0;
-  v205 = sub_100216964();
+  *(v202 + 32) = v205;
   v206 = sub_100216964();
-  v207 = [v113 fieldMatch:v205 fieldRegex:v206];
+  v207 = sub_100216964();
+  v208 = [v113 fieldMatch:v206 fieldRegex:v207];
 
-  *(v204 + 32) = v207;
-  v208 = sub_100216964();
-  v209 = sub_100216964();
-  v210 = [v113 fieldMatch:v208 fieldRegex:v209];
+  *(v202 + 40) = v208;
+  v209 = sub_100216B14().super.isa;
+  v202, v210, v211, v212, v213, v214, v215, v216, v464, v478, v492, v506, v520, v533, v546, v560, v573, v587;
+  v217 = [v113 andMatch:v209];
 
-  *(v204 + 40) = v210;
-  v211 = sub_100216B14().super.isa;
+  *(v201 + 32) = v217;
+  v218 = swift_allocObject();
+  *(v218 + 16) = xmmword_10021D8D0;
+  v219 = sub_100216964();
+  v220 = sub_100216964();
+  v221 = [v113 fieldMatch:v219 fieldRegex:v220];
 
-  v212 = [v113 andMatch:v211];
+  *(v218 + 32) = v221;
+  v222 = sub_100216964();
+  v223 = sub_100216964();
+  v224 = [v113 fieldMatch:v222 fieldRegex:v223];
 
-  *(v194 + 40) = v212;
-  v213 = sub_100216964();
-  v214 = sub_100216964();
-  v215 = [v113 fieldMatch:v213 fieldRegex:v214];
+  *(v218 + 40) = v224;
+  v225 = sub_100216B14().super.isa;
+  v218, v226, v227, v228, v229, v230, v231, v232, v465, v479, v493, v507, v521, v534, v547, v561, v574, v588;
+  v233 = [v113 andMatch:v225];
 
-  *(v194 + 48) = v215;
-  v216 = sub_100216964();
-  v217 = sub_100216964();
-  v218 = [v113 fieldMatch:v216 fieldRegex:v217];
-
-  *(v194 + 56) = v218;
-  v219 = sub_100216B14().super.isa;
-
-  v220 = [v113 orMatch:v219];
-
-  v221 = sub_100216964();
-  v222 = [v118 TPPBPolicyKeyViewMappingWithView:v221 matchingRule:v220];
-
-  v365[18] = v222;
-  v223 = swift_allocObject();
-  *(v223 + 16) = xmmword_10021D8D0;
-  v224 = sub_100216964();
-  v225 = sub_100216964();
-  v226 = [v113 fieldMatch:v224 fieldRegex:v225];
-
-  *(v223 + 32) = v226;
-  v227 = swift_allocObject();
-  *(v227 + 16) = xmmword_10021D880;
-  v228 = sub_100216964();
-  v229 = sub_100216964();
-  v230 = [v113 fieldMatch:v228 fieldRegex:v229];
-
-  *(v227 + 32) = v230;
-  v231 = sub_100216964();
-  v232 = sub_100216964();
-  v233 = [v113 fieldMatch:v231 fieldRegex:v232];
-
-  *(v227 + 40) = v233;
+  *(v201 + 40) = v233;
   v234 = sub_100216964();
   v235 = sub_100216964();
   v236 = [v113 fieldMatch:v234 fieldRegex:v235];
 
-  *(v227 + 48) = v236;
-  v237 = sub_100216B14().super.isa;
+  *(v201 + 48) = v236;
+  v237 = sub_100216964();
+  v238 = sub_100216964();
+  v239 = [v113 fieldMatch:v237 fieldRegex:v238];
 
-  v238 = [v113 andMatch:v237];
+  *(v201 + 56) = v239;
+  v240 = sub_100216B14().super.isa;
+  v201, v241, v242, v243, v244, v245, v246, v247, v466, v480, v494, v508, v522, v535, v548, v562, v575, v589;
+  v248 = [v113 orMatch:v240];
 
-  *(v223 + 40) = v238;
-  v239 = sub_100216B14().super.isa;
+  v249 = sub_100216964();
+  v250 = [v118 TPPBPolicyKeyViewMappingWithView:v249 matchingRule:v248];
 
-  v240 = [v113 orMatch:v239];
-
-  v241 = sub_100216964();
-  v242 = [v118 TPPBPolicyKeyViewMappingWithView:v241 matchingRule:v240];
-
-  v365[19] = v242;
-  v243 = swift_allocObject();
-  *(v243 + 16) = xmmword_10021D8F0;
-  v244 = sub_100216964();
-  v245 = sub_100216964();
-  v246 = [v113 fieldMatch:v244 fieldRegex:v245];
-
-  *(v243 + 32) = v246;
-  v247 = sub_100216964();
-  v248 = sub_100216964();
-  v249 = [v113 fieldMatch:v247 fieldRegex:v248];
-
-  *(v243 + 40) = v249;
-  v250 = sub_100216964();
-  v251 = sub_100216964();
-  v252 = [v113 fieldMatch:v250 fieldRegex:v251];
-
-  *(v243 + 48) = v252;
+  *v600[4].endpoint = v250;
+  v251 = swift_allocObject();
+  *(v251 + 16) = xmmword_10021D8D0;
+  v252 = sub_100216964();
   v253 = sub_100216964();
-  v254 = sub_100216964();
-  v255 = [v113 fieldMatch:v253 fieldRegex:v254];
+  v254 = [v113 fieldMatch:v252 fieldRegex:v253];
 
-  *(v243 + 56) = v255;
+  *(v251 + 32) = v254;
+  v255 = swift_allocObject();
+  *(v255 + 16) = xmmword_10021D880;
   v256 = sub_100216964();
   v257 = sub_100216964();
   v258 = [v113 fieldMatch:v256 fieldRegex:v257];
 
-  *(v243 + 64) = v258;
+  *(v255 + 32) = v258;
   v259 = sub_100216964();
   v260 = sub_100216964();
   v261 = [v113 fieldMatch:v259 fieldRegex:v260];
 
-  *(v243 + 72) = v261;
+  *(v255 + 40) = v261;
   v262 = sub_100216964();
   v263 = sub_100216964();
   v264 = [v113 fieldMatch:v262 fieldRegex:v263];
 
-  *(v243 + 80) = v264;
-  v265 = sub_100216964();
-  v266 = sub_100216964();
-  v267 = [v113 fieldMatch:v265 fieldRegex:v266];
+  *(v255 + 48) = v264;
+  v265 = sub_100216B14().super.isa;
+  v255, v266, v267, v268, v269, v270, v271, v272, v467, v481, v495, v509, v523, v536, v549, v563, v576, v590;
+  v273 = [v113 andMatch:v265];
 
-  *(v243 + 88) = v267;
-  v268 = sub_100216964();
-  v269 = sub_100216964();
-  v270 = [v113 fieldMatch:v268 fieldRegex:v269];
+  *(v251 + 40) = v273;
+  v274 = sub_100216B14().super.isa;
+  v251, v275, v276, v277, v278, v279, v280, v281, v468, v482, v496, v510, v524, v537, v550, v564, v577, v591;
+  v282 = [v113 orMatch:v274];
 
-  *(v243 + 96) = v270;
-  v271 = sub_100216964();
-  v272 = sub_100216964();
-  v273 = [v113 fieldMatch:v271 fieldRegex:v272];
-
-  *(v243 + 104) = v273;
-  v274 = sub_100216964();
-  v275 = sub_100216964();
-  v276 = [v113 fieldMatch:v274 fieldRegex:v275];
-
-  *(v243 + 112) = v276;
-  v277 = sub_100216964();
-  v278 = sub_100216964();
-  v279 = [v113 fieldMatch:v277 fieldRegex:v278];
-
-  *(v243 + 120) = v279;
-  v280 = sub_100216964();
-  v281 = sub_100216964();
-  v282 = [v113 fieldMatch:v280 fieldRegex:v281];
-
-  *(v243 + 128) = v282;
   v283 = sub_100216964();
-  v284 = sub_100216964();
-  v285 = [v113 fieldMatch:v283 fieldRegex:v284];
+  v284 = [v118 TPPBPolicyKeyViewMappingWithView:v283 matchingRule:v282];
 
-  *(v243 + 136) = v285;
-  v286 = sub_100216B14().super.isa;
+  *v600[4].containerMap = v284;
+  v285 = swift_allocObject();
+  *(v285 + 16) = xmmword_10021D8F0;
+  v286 = sub_100216964();
+  v287 = sub_100216964();
+  v288 = [v113 fieldMatch:v286 fieldRegex:v287];
 
-  v287 = [v113 orMatch:v286];
+  *(v285 + 32) = v288;
+  v289 = sub_100216964();
+  v290 = sub_100216964();
+  v291 = [v113 fieldMatch:v289 fieldRegex:v290];
 
-  v288 = sub_100216964();
-  v289 = [v118 TPPBPolicyKeyViewMappingWithView:v288 matchingRule:v287];
-
-  v365[20] = v289;
-  v290 = swift_allocObject();
-  *(v290 + 16) = xmmword_10021D8D0;
-  v291 = sub_100216964();
+  *(v285 + 40) = v291;
   v292 = sub_100216964();
-  v293 = [v113 fieldMatch:v291 fieldRegex:v292];
+  v293 = sub_100216964();
+  v294 = [v113 fieldMatch:v292 fieldRegex:v293];
 
-  *(v290 + 32) = v293;
-  v294 = sub_100216964();
+  *(v285 + 48) = v294;
   v295 = sub_100216964();
-  v296 = [v113 fieldMatch:v294 fieldRegex:v295];
+  v296 = sub_100216964();
+  v297 = [v113 fieldMatch:v295 fieldRegex:v296];
 
-  *(v290 + 40) = v296;
-  v297 = sub_100216B14().super.isa;
-
-  v298 = [v113 orMatch:v297];
-
+  *(v285 + 56) = v297;
+  v298 = sub_100216964();
   v299 = sub_100216964();
-  v300 = [v118 TPPBPolicyKeyViewMappingWithView:v299 matchingRule:v298];
+  v300 = [v113 fieldMatch:v298 fieldRegex:v299];
 
-  v365[21] = v300;
-  v301 = swift_allocObject();
-  *(v301 + 16) = xmmword_10021D950;
+  *(v285 + 64) = v300;
+  v301 = sub_100216964();
   v302 = sub_100216964();
-  v303 = sub_100216964();
-  v304 = [v113 fieldMatch:v302 fieldRegex:v303];
+  v303 = [v113 fieldMatch:v301 fieldRegex:v302];
 
-  *(v301 + 32) = v304;
+  *(v285 + 72) = v303;
+  v304 = sub_100216964();
   v305 = sub_100216964();
-  v306 = sub_100216964();
-  v307 = [v113 fieldMatch:v305 fieldRegex:v306];
+  v306 = [v113 fieldMatch:v304 fieldRegex:v305];
 
-  *(v301 + 40) = v307;
+  *(v285 + 80) = v306;
+  v307 = sub_100216964();
   v308 = sub_100216964();
-  v309 = sub_100216964();
-  v310 = [v113 fieldMatch:v308 fieldRegex:v309];
+  v309 = [v113 fieldMatch:v307 fieldRegex:v308];
 
-  *(v301 + 48) = v310;
+  *(v285 + 88) = v309;
+  v310 = sub_100216964();
   v311 = sub_100216964();
-  v312 = sub_100216964();
-  v313 = [v113 fieldMatch:v311 fieldRegex:v312];
+  v312 = [v113 fieldMatch:v310 fieldRegex:v311];
 
-  *(v301 + 56) = v313;
+  *(v285 + 96) = v312;
+  v313 = sub_100216964();
   v314 = sub_100216964();
-  v315 = sub_100216964();
-  v316 = [v113 fieldMatch:v314 fieldRegex:v315];
+  v315 = [v113 fieldMatch:v313 fieldRegex:v314];
 
-  *(v301 + 64) = v316;
+  *(v285 + 104) = v315;
+  v316 = sub_100216964();
   v317 = sub_100216964();
-  v318 = sub_100216964();
-  v319 = [v113 fieldMatch:v317 fieldRegex:v318];
+  v318 = [v113 fieldMatch:v316 fieldRegex:v317];
 
-  *(v301 + 72) = v319;
+  *(v285 + 112) = v318;
+  v319 = sub_100216964();
   v320 = sub_100216964();
-  v321 = sub_100216964();
-  v322 = [v113 fieldMatch:v320 fieldRegex:v321];
+  v321 = [v113 fieldMatch:v319 fieldRegex:v320];
 
-  *(v301 + 80) = v322;
+  *(v285 + 120) = v321;
+  v322 = sub_100216964();
   v323 = sub_100216964();
-  v324 = sub_100216964();
-  v325 = [v113 fieldMatch:v323 fieldRegex:v324];
+  v324 = [v113 fieldMatch:v322 fieldRegex:v323];
 
-  *(v301 + 88) = v325;
+  *(v285 + 128) = v324;
+  v325 = sub_100216964();
   v326 = sub_100216964();
-  v327 = sub_100216964();
-  v328 = [v113 fieldMatch:v326 fieldRegex:v327];
+  v327 = [v113 fieldMatch:v325 fieldRegex:v326];
 
-  *(v301 + 96) = v328;
-  v329 = sub_100216964();
-  v330 = sub_100216964();
-  v331 = [v113 fieldMatch:v329 fieldRegex:v330];
+  *(v285 + 136) = v327;
+  v328 = sub_100216B14().super.isa;
+  v285, v329, v330, v331, v332, v333, v334, v335, v469, v483, v497, v511, v525, v538, v551, v565, v578, v592;
+  v336 = [v113 orMatch:v328];
 
-  *(v301 + 104) = v331;
-  v332 = sub_100216B14().super.isa;
-
-  v333 = [v113 orMatch:v332];
-
-  v334 = sub_100216964();
-  v335 = [v118 TPPBPolicyKeyViewMappingWithView:v334 matchingRule:v333];
-
-  v365[22] = v335;
-  v336 = swift_allocObject();
-  *(v336 + 16) = xmmword_10021D880;
   v337 = sub_100216964();
-  v338 = sub_100216964();
-  v339 = [v113 fieldMatch:v337 fieldRegex:v338];
+  v338 = [v118 TPPBPolicyKeyViewMappingWithView:v337 matchingRule:v336];
 
-  *(v336 + 32) = v339;
+  *v600[5]._TtCs12_SwiftObject_opaque = v338;
+  v339 = swift_allocObject();
+  *(v339 + 16) = xmmword_10021D8D0;
   v340 = sub_100216964();
   v341 = sub_100216964();
   v342 = [v113 fieldMatch:v340 fieldRegex:v341];
 
-  *(v336 + 40) = v342;
+  *(v339 + 32) = v342;
   v343 = sub_100216964();
   v344 = sub_100216964();
   v345 = [v113 fieldMatch:v343 fieldRegex:v344];
 
-  *(v336 + 48) = v345;
+  *(v339 + 40) = v345;
   v346 = sub_100216B14().super.isa;
+  v339, v347, v348, v349, v350, v351, v352, v353, v470, v484, v498, v512, v526, v539, v552, v566, v579, v593;
+  v354 = [v113 orMatch:v346];
 
-  v347 = [v113 orMatch:v346];
+  v355 = sub_100216964();
+  v356 = [v118 TPPBPolicyKeyViewMappingWithView:v355 matchingRule:v354];
 
-  v348 = sub_100216964();
-  v349 = [v118 TPPBPolicyKeyViewMappingWithView:v348 matchingRule:v347];
+  *&v600[5]._TtCs12_SwiftObject_opaque[8] = v356;
+  v357 = swift_allocObject();
+  *(v357 + 16) = xmmword_10021D950;
+  v358 = sub_100216964();
+  v359 = sub_100216964();
+  v360 = [v113 fieldMatch:v358 fieldRegex:v359];
 
-  v365[23] = v349;
-  v350 = [v113 trueMatch];
-  v351 = sub_100216964();
-  v352 = [v118 TPPBPolicyKeyViewMappingWithView:v351 matchingRule:v350];
+  *(v357 + 32) = v360;
+  v361 = sub_100216964();
+  v362 = sub_100216964();
+  v363 = [v113 fieldMatch:v361 fieldRegex:v362];
 
-  v365[24] = v352;
-  v353 = objc_allocWithZone(TPPolicyDocument);
+  *(v357 + 40) = v363;
+  v364 = sub_100216964();
+  v365 = sub_100216964();
+  v366 = [v113 fieldMatch:v364 fieldRegex:v365];
+
+  *(v357 + 48) = v366;
+  v367 = sub_100216964();
+  v368 = sub_100216964();
+  v369 = [v113 fieldMatch:v367 fieldRegex:v368];
+
+  *(v357 + 56) = v369;
+  v370 = sub_100216964();
+  v371 = sub_100216964();
+  v372 = [v113 fieldMatch:v370 fieldRegex:v371];
+
+  *(v357 + 64) = v372;
+  v373 = sub_100216964();
+  v374 = sub_100216964();
+  v375 = [v113 fieldMatch:v373 fieldRegex:v374];
+
+  *(v357 + 72) = v375;
+  v376 = sub_100216964();
+  v377 = sub_100216964();
+  v378 = [v113 fieldMatch:v376 fieldRegex:v377];
+
+  *(v357 + 80) = v378;
+  v379 = sub_100216964();
+  v380 = sub_100216964();
+  v381 = [v113 fieldMatch:v379 fieldRegex:v380];
+
+  *(v357 + 88) = v381;
+  v382 = sub_100216964();
+  v383 = sub_100216964();
+  v384 = [v113 fieldMatch:v382 fieldRegex:v383];
+
+  *(v357 + 96) = v384;
+  v385 = sub_100216964();
+  v386 = sub_100216964();
+  v387 = [v113 fieldMatch:v385 fieldRegex:v386];
+
+  *(v357 + 104) = v387;
+  v388 = sub_100216B14().super.isa;
+  v357, v389, v390, v391, v392, v393, v394, v395, v471, v485, v499, v513, v527, v540, v553, v567, v580, v594;
+  v396 = [v113 orMatch:v388];
+
+  v397 = sub_100216964();
+  v398 = [v118 TPPBPolicyKeyViewMappingWithView:v397 matchingRule:v396];
+
+  *v600[5].endpoint = v398;
+  v399 = swift_allocObject();
+  *(v399 + 16) = xmmword_10021D880;
+  v400 = sub_100216964();
+  v401 = sub_100216964();
+  v402 = [v113 fieldMatch:v400 fieldRegex:v401];
+
+  *(v399 + 32) = v402;
+  v403 = sub_100216964();
+  v404 = sub_100216964();
+  v405 = [v113 fieldMatch:v403 fieldRegex:v404];
+
+  *(v399 + 40) = v405;
+  v406 = sub_100216964();
+  v407 = sub_100216964();
+  v408 = [v113 fieldMatch:v406 fieldRegex:v407];
+
+  *(v399 + 48) = v408;
+  v409 = sub_100216B14().super.isa;
+  v399, v410, v411, v412, v413, v414, v415, v416, v472, v486, v500, v514, v528, v541, v554, v568, v581, v595;
+  v417 = [v113 orMatch:v409];
+
+  v418 = sub_100216964();
+  v419 = [v118 TPPBPolicyKeyViewMappingWithView:v418 matchingRule:v417];
+
+  *v600[5].containerMap = v419;
+  v420 = [v113 trueMatch];
+  v421 = sub_100216964();
+  v422 = [v118 TPPBPolicyKeyViewMappingWithView:v421 matchingRule:v420];
+
+  *v600[6]._TtCs12_SwiftObject_opaque = v422;
+  v423 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v354 = sub_100216B14().super.isa;
-
+  v424 = sub_100216B14().super.isa;
+  v596, v425, v426, v427, v428, v429, v430, v431, v473, v487, v501, v515, v529, v542, v555, v569, v582, v596;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v355 = sub_100216B14().super.isa;
-
+  v432 = sub_100216B14().super.isa;
+  v583, v433, v434, v435, v436, v437, v438, v439, v474, v488, v502, v516, v530, v543, v556, v570, v583, v597;
   sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v356 = sub_100216B14().super.isa;
-
+  v440 = sub_100216B14().super.isa;
+  v571, v441, v442, v443, v444, v445, v446, v447, v475, v489, v503, v517, v531, v544, v557, v571, v584, v598;
   sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v357 = sub_100216B14().super.isa;
+  v448 = sub_100216B14().super.isa;
   sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v358 = sub_100216B14().super.isa;
+  v449 = sub_100216B14().super.isa;
+  v600, v450, v451, v452, v453, v454, v455, v456, v476, v490, v504, v518, v532, v545, v558, v572, v585, v599;
+  v457 = sub_100216B14().super.isa;
+  v458 = sub_100216B14().super.isa;
+  v459 = sub_100216B14().super.isa;
+  v460 = sub_100216B14().super.isa;
+  v461 = [v423 initWithVersion:17 modelToCategory:v424 categoriesByView:v432 introducersByCategory:v440 redactions:v448 keyViewMapping:v449 userControllableViewList:v457 piggybackViews:v458 priorityViews:v459 inheritedExcludedViews:v460 hashAlgo:1];
 
-  v359 = sub_100216B14().super.isa;
-  v360 = sub_100216B14().super.isa;
-  v361 = sub_100216B14().super.isa;
-  v362 = sub_100216B14().super.isa;
-  v363 = [v353 initWithVersion:17 modelToCategory:v354 categoriesByView:v355 introducersByCategory:v356 redactions:v357 keyViewMapping:v358 userControllableViewList:v359 piggybackViews:v360 priorityViews:v361 inheritedExcludedViews:v362 hashAlgo:1];
-
-  return v363;
+  return v461;
 }
 
 id sub_10003D930()
@@ -9060,6 +8042,7 @@ id sub_10003D930()
   v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
 
   v1[11] = v26;
+  v591 = v1;
   v27 = sub_100216964();
   v28 = sub_100216964();
   v29 = [v4 TPPBPolicyModelToCategoryWithPrefix:v27 category:v28];
@@ -9191,6 +8174,7 @@ id sub_10003D930()
   v105 = sub_100216B14().super.isa;
   v106 = [v96 TPPBPolicyIntroducersByCategoryWithCategory:v104 introducers:v105];
 
+  v564 = v93;
   v93[7] = v106;
   v107 = sub_100216964();
   v108 = sub_100216B14().super.isa;
@@ -9209,7 +8193,7 @@ id sub_10003D930()
   v117 = objc_opt_self();
   v118 = [v117 TPPBPolicyKeyViewMappingWithView:v116 matchingRule:v115];
 
-  v111[4] = v118;
+  *(v111 + 32) = v118;
   v119 = sub_100216964();
   v120 = sub_100216964();
   v121 = [v112 fieldMatch:v119 fieldRegex:v120];
@@ -9217,7 +8201,7 @@ id sub_10003D930()
   v122 = sub_100216964();
   v123 = [v117 TPPBPolicyKeyViewMappingWithView:v122 matchingRule:v121];
 
-  v111[5] = v123;
+  *(v111 + 40) = v123;
   v124 = sub_100216964();
   v125 = sub_100216964();
   v126 = [v112 fieldMatch:v124 fieldRegex:v125];
@@ -9225,7 +8209,7 @@ id sub_10003D930()
   v127 = sub_100216964();
   v128 = [v117 TPPBPolicyKeyViewMappingWithView:v127 matchingRule:v126];
 
-  v111[6] = v128;
+  *(v111 + 48) = v128;
   v129 = sub_100216964();
   v130 = sub_100216964();
   v131 = [v112 fieldMatch:v129 fieldRegex:v130];
@@ -9233,7 +8217,7 @@ id sub_10003D930()
   v132 = sub_100216964();
   v133 = [v117 TPPBPolicyKeyViewMappingWithView:v132 matchingRule:v131];
 
-  v111[7] = v133;
+  *(v111 + 56) = v133;
   v134 = sub_100216964();
   v135 = sub_100216964();
   v136 = [v112 fieldMatch:v134 fieldRegex:v135];
@@ -9241,7 +8225,7 @@ id sub_10003D930()
   v137 = sub_100216964();
   v138 = [v117 TPPBPolicyKeyViewMappingWithView:v137 matchingRule:v136];
 
-  v111[8] = v138;
+  *(v111 + 64) = v138;
   v139 = sub_100216964();
   v140 = sub_100216964();
   v141 = [v112 fieldMatch:v139 fieldRegex:v140];
@@ -9249,7 +8233,7 @@ id sub_10003D930()
   v142 = sub_100216964();
   v143 = [v117 TPPBPolicyKeyViewMappingWithView:v142 matchingRule:v141];
 
-  v111[9] = v143;
+  *(v111 + 72) = v143;
   v144 = sub_100216964();
   v145 = sub_100216964();
   v146 = [v112 fieldMatch:v144 fieldRegex:v145];
@@ -9257,7 +8241,7 @@ id sub_10003D930()
   v147 = sub_100216964();
   v148 = [v117 TPPBPolicyKeyViewMappingWithView:v147 matchingRule:v146];
 
-  v111[10] = v148;
+  *(v111 + 80) = v148;
   v149 = swift_allocObject();
   *(v149 + 16) = xmmword_10021D880;
   v150 = sub_100216964();
@@ -9277,374 +8261,374 @@ id sub_10003D930()
   *(v149 + 48) = v158;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
   v159 = sub_100216B14().super.isa;
+  v149, v160, v161, v162, v163, v164, v165, v166, v468, v482, v496, v510, v524, "ProtectedCloudStorage", "Security-61901.40.77\n", v564, v30, v591;
+  v167 = [v112 orMatch:v159];
 
-  v160 = [v112 orMatch:v159];
-
-  v161 = sub_100216964();
-  v162 = [v117 TPPBPolicyKeyViewMappingWithView:v161 matchingRule:v160];
-
-  v111[11] = v162;
-  v163 = sub_100216964();
-  v164 = sub_100216964();
-  v165 = [v112 fieldMatch:v163 fieldRegex:v164];
-
-  v166 = sub_100216964();
-  v167 = [v117 TPPBPolicyKeyViewMappingWithView:v166 matchingRule:v165];
-
-  v111[12] = v167;
   v168 = sub_100216964();
-  v169 = sub_100216964();
-  v170 = [v112 fieldMatch:v168 fieldRegex:v169];
+  v169 = [v117 TPPBPolicyKeyViewMappingWithView:v168 matchingRule:v167];
 
+  *(v111 + 88) = v169;
+  v170 = sub_100216964();
   v171 = sub_100216964();
-  v172 = [v117 TPPBPolicyKeyViewMappingWithView:v171 matchingRule:v170];
+  v172 = [v112 fieldMatch:v170 fieldRegex:v171];
 
-  v111[13] = v172;
   v173 = sub_100216964();
-  v174 = sub_100216964();
-  v175 = [v112 fieldMatch:v173 fieldRegex:v174];
+  v174 = [v117 TPPBPolicyKeyViewMappingWithView:v173 matchingRule:v172];
 
+  *(v111 + 96) = v174;
+  v175 = sub_100216964();
   v176 = sub_100216964();
-  v177 = [v117 TPPBPolicyKeyViewMappingWithView:v176 matchingRule:v175];
+  v177 = [v112 fieldMatch:v175 fieldRegex:v176];
 
-  v111[14] = v177;
   v178 = sub_100216964();
-  v179 = sub_100216964();
-  v180 = [v112 fieldMatch:v178 fieldRegex:v179];
+  v179 = [v117 TPPBPolicyKeyViewMappingWithView:v178 matchingRule:v177];
 
+  *(v111 + 104) = v179;
+  v180 = sub_100216964();
   v181 = sub_100216964();
-  v182 = [v117 TPPBPolicyKeyViewMappingWithView:v181 matchingRule:v180];
+  v182 = [v112 fieldMatch:v180 fieldRegex:v181];
 
-  v111[15] = v182;
   v183 = sub_100216964();
-  v184 = sub_100216964();
-  v185 = [v112 fieldMatch:v183 fieldRegex:v184];
+  v184 = [v117 TPPBPolicyKeyViewMappingWithView:v183 matchingRule:v182];
 
+  *(v111 + 112) = v184;
+  v185 = sub_100216964();
   v186 = sub_100216964();
-  v187 = [v117 TPPBPolicyKeyViewMappingWithView:v186 matchingRule:v185];
+  v187 = [v112 fieldMatch:v185 fieldRegex:v186];
 
-  v111[16] = v187;
   v188 = sub_100216964();
-  v189 = sub_100216964();
-  v190 = [v112 fieldMatch:v188 fieldRegex:v189];
+  v189 = [v117 TPPBPolicyKeyViewMappingWithView:v188 matchingRule:v187];
 
+  *(v111 + 120) = v189;
+  v190 = sub_100216964();
   v191 = sub_100216964();
-  v192 = [v117 TPPBPolicyKeyViewMappingWithView:v191 matchingRule:v190];
+  v192 = [v112 fieldMatch:v190 fieldRegex:v191];
 
-  v111[17] = v192;
-  v193 = swift_allocObject();
-  *(v193 + 16) = xmmword_10021D8B0;
-  v194 = swift_allocObject();
-  *(v194 + 16) = xmmword_10021D8D0;
+  v193 = sub_100216964();
+  v194 = [v117 TPPBPolicyKeyViewMappingWithView:v193 matchingRule:v192];
+
+  *(v111 + 128) = v194;
   v195 = sub_100216964();
   v196 = sub_100216964();
   v197 = [v112 fieldMatch:v195 fieldRegex:v196];
 
-  *(v194 + 32) = v197;
   v198 = sub_100216964();
-  v199 = sub_100216964();
-  v200 = [v112 fieldMatch:v198 fieldRegex:v199];
+  v199 = [v117 TPPBPolicyKeyViewMappingWithView:v198 matchingRule:v197];
 
-  *(v194 + 40) = v200;
-  v201 = sub_100216B14().super.isa;
+  *(v111 + 136) = v199;
+  v200 = swift_allocObject();
+  *(v200 + 16) = xmmword_10021D8B0;
+  v201 = swift_allocObject();
+  *(v201 + 16) = xmmword_10021D8D0;
+  v202 = sub_100216964();
+  v203 = sub_100216964();
+  v204 = [v112 fieldMatch:v202 fieldRegex:v203];
 
-  v202 = [v112 andMatch:v201];
-
-  *(v193 + 32) = v202;
-  v203 = swift_allocObject();
-  *(v203 + 16) = xmmword_10021D8D0;
-  v204 = sub_100216964();
+  *(v201 + 32) = v204;
   v205 = sub_100216964();
-  v206 = [v112 fieldMatch:v204 fieldRegex:v205];
+  v206 = sub_100216964();
+  v207 = [v112 fieldMatch:v205 fieldRegex:v206];
 
-  *(v203 + 32) = v206;
-  v207 = sub_100216964();
-  v208 = sub_100216964();
-  v209 = [v112 fieldMatch:v207 fieldRegex:v208];
+  *(v201 + 40) = v207;
+  v208 = sub_100216B14().super.isa;
+  v201, v209, v210, v211, v212, v213, v214, v215, v469, v483, v497, v511, v525, v538, v551, v565, v578, v592;
+  v216 = [v112 andMatch:v208];
 
-  *(v203 + 40) = v209;
-  v210 = sub_100216B14().super.isa;
+  *(v200 + 32) = v216;
+  v217 = swift_allocObject();
+  *(v217 + 16) = xmmword_10021D8D0;
+  v218 = sub_100216964();
+  v219 = sub_100216964();
+  v220 = [v112 fieldMatch:v218 fieldRegex:v219];
 
-  v211 = [v112 andMatch:v210];
+  *(v217 + 32) = v220;
+  v221 = sub_100216964();
+  v222 = sub_100216964();
+  v223 = [v112 fieldMatch:v221 fieldRegex:v222];
 
-  *(v193 + 40) = v211;
-  v212 = sub_100216964();
-  v213 = sub_100216964();
-  v214 = [v112 fieldMatch:v212 fieldRegex:v213];
+  *(v217 + 40) = v223;
+  v224 = sub_100216B14().super.isa;
+  v217, v225, v226, v227, v228, v229, v230, v231, v470, v484, v498, v512, v526, v539, v552, v566, v579, v593;
+  v232 = [v112 andMatch:v224];
 
-  *(v193 + 48) = v214;
-  v215 = sub_100216964();
-  v216 = sub_100216964();
-  v217 = [v112 fieldMatch:v215 fieldRegex:v216];
-
-  *(v193 + 56) = v217;
-  v218 = sub_100216B14().super.isa;
-
-  v219 = [v112 orMatch:v218];
-
-  v220 = sub_100216964();
-  v221 = [v117 TPPBPolicyKeyViewMappingWithView:v220 matchingRule:v219];
-
-  v111[18] = v221;
-  v222 = swift_allocObject();
-  *(v222 + 16) = xmmword_10021D8D0;
-  v223 = sub_100216964();
-  v224 = sub_100216964();
-  v225 = [v112 fieldMatch:v223 fieldRegex:v224];
-
-  *(v222 + 32) = v225;
-  v226 = swift_allocObject();
-  *(v226 + 16) = xmmword_10021D880;
-  v227 = sub_100216964();
-  v228 = sub_100216964();
-  v229 = [v112 fieldMatch:v227 fieldRegex:v228];
-
-  *(v226 + 32) = v229;
-  v230 = sub_100216964();
-  v231 = sub_100216964();
-  v232 = [v112 fieldMatch:v230 fieldRegex:v231];
-
-  *(v226 + 40) = v232;
+  *(v200 + 40) = v232;
   v233 = sub_100216964();
   v234 = sub_100216964();
   v235 = [v112 fieldMatch:v233 fieldRegex:v234];
 
-  *(v226 + 48) = v235;
-  v236 = sub_100216B14().super.isa;
+  *(v200 + 48) = v235;
+  v236 = sub_100216964();
+  v237 = sub_100216964();
+  v238 = [v112 fieldMatch:v236 fieldRegex:v237];
 
-  v237 = [v112 andMatch:v236];
+  *(v200 + 56) = v238;
+  v239 = sub_100216B14().super.isa;
+  v200, v240, v241, v242, v243, v244, v245, v246, v471, v485, v499, v513, v527, v540, v553, v567, v580, v594;
+  v247 = [v112 orMatch:v239];
 
-  *(v222 + 40) = v237;
-  v238 = sub_100216B14().super.isa;
+  v248 = sub_100216964();
+  v249 = [v117 TPPBPolicyKeyViewMappingWithView:v248 matchingRule:v247];
 
-  v239 = [v112 orMatch:v238];
-
-  v240 = sub_100216964();
-  v241 = [v117 TPPBPolicyKeyViewMappingWithView:v240 matchingRule:v239];
-
-  v111[19] = v241;
-  v242 = swift_allocObject();
-  *(v242 + 16) = xmmword_10021D8F0;
-  v243 = sub_100216964();
-  v244 = sub_100216964();
-  v245 = [v112 fieldMatch:v243 fieldRegex:v244];
-
-  *(v242 + 32) = v245;
-  v246 = sub_100216964();
-  v247 = sub_100216964();
-  v248 = [v112 fieldMatch:v246 fieldRegex:v247];
-
-  *(v242 + 40) = v248;
-  v249 = sub_100216964();
-  v250 = sub_100216964();
-  v251 = [v112 fieldMatch:v249 fieldRegex:v250];
-
-  *(v242 + 48) = v251;
+  *(v111 + 144) = v249;
+  v250 = swift_allocObject();
+  *(v250 + 16) = xmmword_10021D8D0;
+  v251 = sub_100216964();
   v252 = sub_100216964();
-  v253 = sub_100216964();
-  v254 = [v112 fieldMatch:v252 fieldRegex:v253];
+  v253 = [v112 fieldMatch:v251 fieldRegex:v252];
 
-  *(v242 + 56) = v254;
+  *(v250 + 32) = v253;
+  v254 = swift_allocObject();
+  *(v254 + 16) = xmmword_10021D880;
   v255 = sub_100216964();
   v256 = sub_100216964();
   v257 = [v112 fieldMatch:v255 fieldRegex:v256];
 
-  *(v242 + 64) = v257;
+  *(v254 + 32) = v257;
   v258 = sub_100216964();
   v259 = sub_100216964();
   v260 = [v112 fieldMatch:v258 fieldRegex:v259];
 
-  *(v242 + 72) = v260;
+  *(v254 + 40) = v260;
   v261 = sub_100216964();
   v262 = sub_100216964();
   v263 = [v112 fieldMatch:v261 fieldRegex:v262];
 
-  *(v242 + 80) = v263;
-  v264 = sub_100216964();
-  v265 = sub_100216964();
-  v266 = [v112 fieldMatch:v264 fieldRegex:v265];
+  *(v254 + 48) = v263;
+  v264 = sub_100216B14().super.isa;
+  v254, v265, v266, v267, v268, v269, v270, v271, v472, v486, v500, v514, v528, v541, v554, v568, v581, v595;
+  v272 = [v112 andMatch:v264];
 
-  *(v242 + 88) = v266;
-  v267 = sub_100216964();
-  v268 = sub_100216964();
-  v269 = [v112 fieldMatch:v267 fieldRegex:v268];
+  *(v250 + 40) = v272;
+  v273 = sub_100216B14().super.isa;
+  v250, v274, v275, v276, v277, v278, v279, v280, v473, v487, v501, v515, v529, v542, v555, v569, v582, v596;
+  v281 = [v112 orMatch:v273];
 
-  *(v242 + 96) = v269;
-  v270 = sub_100216964();
-  v271 = sub_100216964();
-  v272 = [v112 fieldMatch:v270 fieldRegex:v271];
-
-  *(v242 + 104) = v272;
-  v273 = sub_100216964();
-  v274 = sub_100216964();
-  v275 = [v112 fieldMatch:v273 fieldRegex:v274];
-
-  *(v242 + 112) = v275;
-  v276 = sub_100216964();
-  v277 = sub_100216964();
-  v278 = [v112 fieldMatch:v276 fieldRegex:v277];
-
-  *(v242 + 120) = v278;
-  v279 = sub_100216964();
-  v280 = sub_100216964();
-  v281 = [v112 fieldMatch:v279 fieldRegex:v280];
-
-  *(v242 + 128) = v281;
   v282 = sub_100216964();
-  v283 = sub_100216964();
-  v284 = [v112 fieldMatch:v282 fieldRegex:v283];
+  v283 = [v117 TPPBPolicyKeyViewMappingWithView:v282 matchingRule:v281];
 
-  *(v242 + 136) = v284;
-  v285 = sub_100216B14().super.isa;
+  *(v111 + 152) = v283;
+  v284 = swift_allocObject();
+  *(v284 + 16) = xmmword_10021D8F0;
+  v285 = sub_100216964();
+  v286 = sub_100216964();
+  v287 = [v112 fieldMatch:v285 fieldRegex:v286];
 
-  v286 = [v112 orMatch:v285];
+  *(v284 + 32) = v287;
+  v288 = sub_100216964();
+  v289 = sub_100216964();
+  v290 = [v112 fieldMatch:v288 fieldRegex:v289];
 
-  v287 = sub_100216964();
-  v288 = [v117 TPPBPolicyKeyViewMappingWithView:v287 matchingRule:v286];
-
-  v111[20] = v288;
-  v289 = swift_allocObject();
-  *(v289 + 16) = xmmword_10021D8D0;
-  v290 = sub_100216964();
+  *(v284 + 40) = v290;
   v291 = sub_100216964();
-  v292 = [v112 fieldMatch:v290 fieldRegex:v291];
+  v292 = sub_100216964();
+  v293 = [v112 fieldMatch:v291 fieldRegex:v292];
 
-  *(v289 + 32) = v292;
-  v293 = sub_100216964();
+  *(v284 + 48) = v293;
   v294 = sub_100216964();
-  v295 = [v112 fieldMatch:v293 fieldRegex:v294];
+  v295 = sub_100216964();
+  v296 = [v112 fieldMatch:v294 fieldRegex:v295];
 
-  *(v289 + 40) = v295;
-  v296 = sub_100216B14().super.isa;
-
-  v297 = [v112 orMatch:v296];
-
+  *(v284 + 56) = v296;
+  v297 = sub_100216964();
   v298 = sub_100216964();
-  v299 = [v117 TPPBPolicyKeyViewMappingWithView:v298 matchingRule:v297];
+  v299 = [v112 fieldMatch:v297 fieldRegex:v298];
 
-  v111[21] = v299;
-  v300 = swift_allocObject();
-  *(v300 + 16) = xmmword_10021D8E0;
+  *(v284 + 64) = v299;
+  v300 = sub_100216964();
   v301 = sub_100216964();
-  v302 = sub_100216964();
-  v303 = [v112 fieldMatch:v301 fieldRegex:v302];
+  v302 = [v112 fieldMatch:v300 fieldRegex:v301];
 
-  *(v300 + 32) = v303;
+  *(v284 + 72) = v302;
+  v303 = sub_100216964();
   v304 = sub_100216964();
-  v305 = sub_100216964();
-  v306 = [v112 fieldMatch:v304 fieldRegex:v305];
+  v305 = [v112 fieldMatch:v303 fieldRegex:v304];
 
-  *(v300 + 40) = v306;
+  *(v284 + 80) = v305;
+  v306 = sub_100216964();
   v307 = sub_100216964();
-  v308 = sub_100216964();
-  v309 = [v112 fieldMatch:v307 fieldRegex:v308];
+  v308 = [v112 fieldMatch:v306 fieldRegex:v307];
 
-  *(v300 + 48) = v309;
+  *(v284 + 88) = v308;
+  v309 = sub_100216964();
   v310 = sub_100216964();
-  v311 = sub_100216964();
-  v312 = [v112 fieldMatch:v310 fieldRegex:v311];
+  v311 = [v112 fieldMatch:v309 fieldRegex:v310];
 
-  *(v300 + 56) = v312;
+  *(v284 + 96) = v311;
+  v312 = sub_100216964();
   v313 = sub_100216964();
-  v314 = sub_100216964();
-  v315 = [v112 fieldMatch:v313 fieldRegex:v314];
+  v314 = [v112 fieldMatch:v312 fieldRegex:v313];
 
-  *(v300 + 64) = v315;
+  *(v284 + 104) = v314;
+  v315 = sub_100216964();
   v316 = sub_100216964();
-  v317 = sub_100216964();
-  v318 = [v112 fieldMatch:v316 fieldRegex:v317];
+  v317 = [v112 fieldMatch:v315 fieldRegex:v316];
 
-  *(v300 + 72) = v318;
+  *(v284 + 112) = v317;
+  v318 = sub_100216964();
   v319 = sub_100216964();
-  v320 = sub_100216964();
-  v321 = [v112 fieldMatch:v319 fieldRegex:v320];
+  v320 = [v112 fieldMatch:v318 fieldRegex:v319];
 
-  *(v300 + 80) = v321;
+  *(v284 + 120) = v320;
+  v321 = sub_100216964();
   v322 = sub_100216964();
-  v323 = sub_100216964();
-  v324 = [v112 fieldMatch:v322 fieldRegex:v323];
+  v323 = [v112 fieldMatch:v321 fieldRegex:v322];
 
-  *(v300 + 88) = v324;
+  *(v284 + 128) = v323;
+  v324 = sub_100216964();
   v325 = sub_100216964();
-  v326 = sub_100216964();
-  v327 = [v112 fieldMatch:v325 fieldRegex:v326];
+  v326 = [v112 fieldMatch:v324 fieldRegex:v325];
 
-  *(v300 + 96) = v327;
-  v328 = sub_100216964();
-  v329 = sub_100216964();
-  v330 = [v112 fieldMatch:v328 fieldRegex:v329];
+  *(v284 + 136) = v326;
+  v327 = sub_100216B14().super.isa;
+  v284, v328, v329, v330, v331, v332, v333, v334, v474, v488, v502, v516, v530, v543, v556, v570, v583, v597;
+  v335 = [v112 orMatch:v327];
 
-  *(v300 + 104) = v330;
-  v331 = sub_100216964();
-  v332 = sub_100216964();
-  v333 = [v112 fieldMatch:v331 fieldRegex:v332];
+  v336 = sub_100216964();
+  v337 = [v117 TPPBPolicyKeyViewMappingWithView:v336 matchingRule:v335];
 
-  *(v300 + 112) = v333;
-  v334 = sub_100216964();
-  v335 = sub_100216964();
-  v336 = [v112 fieldMatch:v334 fieldRegex:v335];
-
-  *(v300 + 120) = v336;
-  v337 = sub_100216B14().super.isa;
-
-  v338 = [v112 orMatch:v337];
-
+  *(v111 + 160) = v337;
+  v338 = swift_allocObject();
+  *(v338 + 16) = xmmword_10021D8D0;
   v339 = sub_100216964();
-  v340 = [v117 TPPBPolicyKeyViewMappingWithView:v339 matchingRule:v338];
+  v340 = sub_100216964();
+  v341 = [v112 fieldMatch:v339 fieldRegex:v340];
 
-  v111[22] = v340;
-  v341 = swift_allocObject();
-  *(v341 + 16) = xmmword_10021D880;
+  *(v338 + 32) = v341;
   v342 = sub_100216964();
   v343 = sub_100216964();
   v344 = [v112 fieldMatch:v342 fieldRegex:v343];
 
-  *(v341 + 32) = v344;
-  v345 = sub_100216964();
-  v346 = sub_100216964();
-  v347 = [v112 fieldMatch:v345 fieldRegex:v346];
+  *(v338 + 40) = v344;
+  v345 = sub_100216B14().super.isa;
+  v338, v346, v347, v348, v349, v350, v351, v352, v475, v489, v503, v517, v531, v544, v557, v571, v584, v598;
+  v353 = [v112 orMatch:v345];
 
-  *(v341 + 40) = v347;
-  v348 = sub_100216964();
-  v349 = sub_100216964();
-  v350 = [v112 fieldMatch:v348 fieldRegex:v349];
+  v354 = sub_100216964();
+  v355 = [v117 TPPBPolicyKeyViewMappingWithView:v354 matchingRule:v353];
 
-  *(v341 + 48) = v350;
-  v351 = sub_100216B14().super.isa;
+  *(v111 + 168) = v355;
+  v356 = swift_allocObject();
+  *(v356 + 16) = xmmword_10021D8E0;
+  v357 = sub_100216964();
+  v358 = sub_100216964();
+  v359 = [v112 fieldMatch:v357 fieldRegex:v358];
 
-  v352 = [v112 orMatch:v351];
+  *(v356 + 32) = v359;
+  v360 = sub_100216964();
+  v361 = sub_100216964();
+  v362 = [v112 fieldMatch:v360 fieldRegex:v361];
 
-  v353 = sub_100216964();
-  v354 = [v117 TPPBPolicyKeyViewMappingWithView:v353 matchingRule:v352];
+  *(v356 + 40) = v362;
+  v363 = sub_100216964();
+  v364 = sub_100216964();
+  v365 = [v112 fieldMatch:v363 fieldRegex:v364];
 
-  v111[23] = v354;
-  v355 = [v112 trueMatch];
-  v356 = sub_100216964();
-  v357 = [v117 TPPBPolicyKeyViewMappingWithView:v356 matchingRule:v355];
+  *(v356 + 48) = v365;
+  v366 = sub_100216964();
+  v367 = sub_100216964();
+  v368 = [v112 fieldMatch:v366 fieldRegex:v367];
 
-  v111[24] = v357;
-  v358 = objc_allocWithZone(TPPolicyDocument);
+  *(v356 + 56) = v368;
+  v369 = sub_100216964();
+  v370 = sub_100216964();
+  v371 = [v112 fieldMatch:v369 fieldRegex:v370];
+
+  *(v356 + 64) = v371;
+  v372 = sub_100216964();
+  v373 = sub_100216964();
+  v374 = [v112 fieldMatch:v372 fieldRegex:v373];
+
+  *(v356 + 72) = v374;
+  v375 = sub_100216964();
+  v376 = sub_100216964();
+  v377 = [v112 fieldMatch:v375 fieldRegex:v376];
+
+  *(v356 + 80) = v377;
+  v378 = sub_100216964();
+  v379 = sub_100216964();
+  v380 = [v112 fieldMatch:v378 fieldRegex:v379];
+
+  *(v356 + 88) = v380;
+  v381 = sub_100216964();
+  v382 = sub_100216964();
+  v383 = [v112 fieldMatch:v381 fieldRegex:v382];
+
+  *(v356 + 96) = v383;
+  v384 = sub_100216964();
+  v385 = sub_100216964();
+  v386 = [v112 fieldMatch:v384 fieldRegex:v385];
+
+  *(v356 + 104) = v386;
+  v387 = sub_100216964();
+  v388 = sub_100216964();
+  v389 = [v112 fieldMatch:v387 fieldRegex:v388];
+
+  *(v356 + 112) = v389;
+  v390 = sub_100216964();
+  v391 = sub_100216964();
+  v392 = [v112 fieldMatch:v390 fieldRegex:v391];
+
+  *(v356 + 120) = v392;
+  v393 = sub_100216B14().super.isa;
+  v356, v394, v395, v396, v397, v398, v399, v400, v476, v490, v504, v518, v532, v545, v558, v572, v585, v599;
+  v401 = [v112 orMatch:v393];
+
+  v402 = sub_100216964();
+  v403 = [v117 TPPBPolicyKeyViewMappingWithView:v402 matchingRule:v401];
+
+  *(v111 + 176) = v403;
+  v404 = swift_allocObject();
+  *(v404 + 16) = xmmword_10021D880;
+  v405 = sub_100216964();
+  v406 = sub_100216964();
+  v407 = [v112 fieldMatch:v405 fieldRegex:v406];
+
+  *(v404 + 32) = v407;
+  v408 = sub_100216964();
+  v409 = sub_100216964();
+  v410 = [v112 fieldMatch:v408 fieldRegex:v409];
+
+  *(v404 + 40) = v410;
+  v411 = sub_100216964();
+  v412 = sub_100216964();
+  v413 = [v112 fieldMatch:v411 fieldRegex:v412];
+
+  *(v404 + 48) = v413;
+  v414 = sub_100216B14().super.isa;
+  v404, v415, v416, v417, v418, v419, v420, v421, v477, v491, v505, v519, v533, v546, v559, v573, v586, v600;
+  v422 = [v112 orMatch:v414];
+
+  v423 = sub_100216964();
+  v424 = [v117 TPPBPolicyKeyViewMappingWithView:v423 matchingRule:v422];
+
+  *(v111 + 184) = v424;
+  v425 = [v112 trueMatch];
+  v426 = sub_100216964();
+  v427 = [v117 TPPBPolicyKeyViewMappingWithView:v426 matchingRule:v425];
+
+  *(v111 + 192) = v427;
+  v428 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v359 = sub_100216B14().super.isa;
-
+  v429 = sub_100216B14().super.isa;
+  v601, v430, v431, v432, v433, v434, v435, v436, v478, v492, v506, v520, v534, v547, v560, v574, v587, v601;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v360 = sub_100216B14().super.isa;
-
+  v437 = sub_100216B14().super.isa;
+  v588, v438, v439, v440, v441, v442, v443, v444, v479, v493, v507, v521, v535, v548, v561, v575, v588, v602;
   sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v361 = sub_100216B14().super.isa;
-
+  v445 = sub_100216B14().super.isa;
+  v576, v446, v447, v448, v449, v450, v451, v452, v480, v494, v508, v522, v536, v549, v562, v576, v589, v603;
   sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v362 = sub_100216B14().super.isa;
+  v453 = sub_100216B14().super.isa;
   sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v363 = sub_100216B14().super.isa;
+  v454 = sub_100216B14().super.isa;
+  v111, v455, v456, v457, v458, v459, v460, v461, v481, v495, v509, v523, v537, v550, v563, v577, v590, v604;
+  v462 = sub_100216B14().super.isa;
+  v463 = sub_100216B14().super.isa;
+  v464 = sub_100216B14().super.isa;
+  v465 = sub_100216B14().super.isa;
+  v466 = [v428 initWithVersion:18 modelToCategory:v429 categoriesByView:v437 introducersByCategory:v445 redactions:v453 keyViewMapping:v454 userControllableViewList:v462 piggybackViews:v463 priorityViews:v464 inheritedExcludedViews:v465 hashAlgo:1];
 
-  v364 = sub_100216B14().super.isa;
-  v365 = sub_100216B14().super.isa;
-  v366 = sub_100216B14().super.isa;
-  v367 = sub_100216B14().super.isa;
-  v368 = [v358 initWithVersion:18 modelToCategory:v359 categoriesByView:v360 introducersByCategory:v361 redactions:v362 keyViewMapping:v363 userControllableViewList:v364 piggybackViews:v365 priorityViews:v366 inheritedExcludedViews:v367 hashAlgo:1];
-
-  return v368;
+  return v466;
 }
 
 id sub_1000407F8()
@@ -9699,6 +8683,7 @@ id sub_1000407F8()
   v29 = [v4 TPPBPolicyModelToCategoryWithPrefix:v27 category:v28];
 
   v1[12] = v29;
+  v594 = v1;
   v30 = sub_100216964();
   v31 = sub_100216964();
   v32 = [v4 TPPBPolicyModelToCategoryWithPrefix:v30 category:v31];
@@ -9830,6 +8815,7 @@ id sub_1000407F8()
   v108 = sub_100216B14().super.isa;
   v109 = [v99 TPPBPolicyIntroducersByCategoryWithCategory:v107 introducers:v108];
 
+  v567 = v96;
   v96[7] = v109;
   v110 = sub_100216964();
   v111 = sub_100216B14().super.isa;
@@ -9848,7 +8834,7 @@ id sub_1000407F8()
   v120 = objc_opt_self();
   v121 = [v120 TPPBPolicyKeyViewMappingWithView:v119 matchingRule:v118];
 
-  v114[4] = v121;
+  *(v114 + 32) = v121;
   v122 = sub_100216964();
   v123 = sub_100216964();
   v124 = [v115 fieldMatch:v122 fieldRegex:v123];
@@ -9856,7 +8842,7 @@ id sub_1000407F8()
   v125 = sub_100216964();
   v126 = [v120 TPPBPolicyKeyViewMappingWithView:v125 matchingRule:v124];
 
-  v114[5] = v126;
+  *(v114 + 40) = v126;
   v127 = sub_100216964();
   v128 = sub_100216964();
   v129 = [v115 fieldMatch:v127 fieldRegex:v128];
@@ -9864,7 +8850,7 @@ id sub_1000407F8()
   v130 = sub_100216964();
   v131 = [v120 TPPBPolicyKeyViewMappingWithView:v130 matchingRule:v129];
 
-  v114[6] = v131;
+  *(v114 + 48) = v131;
   v132 = sub_100216964();
   v133 = sub_100216964();
   v134 = [v115 fieldMatch:v132 fieldRegex:v133];
@@ -9872,7 +8858,7 @@ id sub_1000407F8()
   v135 = sub_100216964();
   v136 = [v120 TPPBPolicyKeyViewMappingWithView:v135 matchingRule:v134];
 
-  v114[7] = v136;
+  *(v114 + 56) = v136;
   v137 = sub_100216964();
   v138 = sub_100216964();
   v139 = [v115 fieldMatch:v137 fieldRegex:v138];
@@ -9880,7 +8866,7 @@ id sub_1000407F8()
   v140 = sub_100216964();
   v141 = [v120 TPPBPolicyKeyViewMappingWithView:v140 matchingRule:v139];
 
-  v114[8] = v141;
+  *(v114 + 64) = v141;
   v142 = sub_100216964();
   v143 = sub_100216964();
   v144 = [v115 fieldMatch:v142 fieldRegex:v143];
@@ -9888,7 +8874,7 @@ id sub_1000407F8()
   v145 = sub_100216964();
   v146 = [v120 TPPBPolicyKeyViewMappingWithView:v145 matchingRule:v144];
 
-  v114[9] = v146;
+  *(v114 + 72) = v146;
   v147 = sub_100216964();
   v148 = sub_100216964();
   v149 = [v115 fieldMatch:v147 fieldRegex:v148];
@@ -9896,7 +8882,7 @@ id sub_1000407F8()
   v150 = sub_100216964();
   v151 = [v120 TPPBPolicyKeyViewMappingWithView:v150 matchingRule:v149];
 
-  v114[10] = v151;
+  *(v114 + 80) = v151;
   v152 = swift_allocObject();
   *(v152 + 16) = xmmword_10021D880;
   v153 = sub_100216964();
@@ -9916,372 +8902,1667 @@ id sub_1000407F8()
   *(v152 + 48) = v161;
   sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
   v162 = sub_100216B14().super.isa;
+  v152, v163, v164, v165, v166, v167, v168, v169, v471, v485, v499, v513, v527, "ProtectedCloudStorage", "Security-61901.40.77\n", v567, v33, v594;
+  v170 = [v115 orMatch:v162];
 
-  v163 = [v115 orMatch:v162];
-
-  v164 = sub_100216964();
-  v165 = [v120 TPPBPolicyKeyViewMappingWithView:v164 matchingRule:v163];
-
-  v114[11] = v165;
-  v166 = sub_100216964();
-  v167 = sub_100216964();
-  v168 = [v115 fieldMatch:v166 fieldRegex:v167];
-
-  v169 = sub_100216964();
-  v170 = [v120 TPPBPolicyKeyViewMappingWithView:v169 matchingRule:v168];
-
-  v114[12] = v170;
   v171 = sub_100216964();
-  v172 = sub_100216964();
-  v173 = [v115 fieldMatch:v171 fieldRegex:v172];
+  v172 = [v120 TPPBPolicyKeyViewMappingWithView:v171 matchingRule:v170];
 
+  *(v114 + 88) = v172;
+  v173 = sub_100216964();
   v174 = sub_100216964();
-  v175 = [v120 TPPBPolicyKeyViewMappingWithView:v174 matchingRule:v173];
+  v175 = [v115 fieldMatch:v173 fieldRegex:v174];
 
-  v114[13] = v175;
   v176 = sub_100216964();
-  v177 = sub_100216964();
-  v178 = [v115 fieldMatch:v176 fieldRegex:v177];
+  v177 = [v120 TPPBPolicyKeyViewMappingWithView:v176 matchingRule:v175];
 
+  *(v114 + 96) = v177;
+  v178 = sub_100216964();
   v179 = sub_100216964();
-  v180 = [v120 TPPBPolicyKeyViewMappingWithView:v179 matchingRule:v178];
+  v180 = [v115 fieldMatch:v178 fieldRegex:v179];
 
-  v114[14] = v180;
   v181 = sub_100216964();
-  v182 = sub_100216964();
-  v183 = [v115 fieldMatch:v181 fieldRegex:v182];
+  v182 = [v120 TPPBPolicyKeyViewMappingWithView:v181 matchingRule:v180];
 
+  *(v114 + 104) = v182;
+  v183 = sub_100216964();
   v184 = sub_100216964();
-  v185 = [v120 TPPBPolicyKeyViewMappingWithView:v184 matchingRule:v183];
+  v185 = [v115 fieldMatch:v183 fieldRegex:v184];
 
-  v114[15] = v185;
   v186 = sub_100216964();
-  v187 = sub_100216964();
-  v188 = [v115 fieldMatch:v186 fieldRegex:v187];
+  v187 = [v120 TPPBPolicyKeyViewMappingWithView:v186 matchingRule:v185];
 
+  *(v114 + 112) = v187;
+  v188 = sub_100216964();
   v189 = sub_100216964();
-  v190 = [v120 TPPBPolicyKeyViewMappingWithView:v189 matchingRule:v188];
+  v190 = [v115 fieldMatch:v188 fieldRegex:v189];
 
-  v114[16] = v190;
   v191 = sub_100216964();
-  v192 = sub_100216964();
-  v193 = [v115 fieldMatch:v191 fieldRegex:v192];
+  v192 = [v120 TPPBPolicyKeyViewMappingWithView:v191 matchingRule:v190];
 
+  *(v114 + 120) = v192;
+  v193 = sub_100216964();
   v194 = sub_100216964();
-  v195 = [v120 TPPBPolicyKeyViewMappingWithView:v194 matchingRule:v193];
+  v195 = [v115 fieldMatch:v193 fieldRegex:v194];
 
-  v114[17] = v195;
-  v196 = swift_allocObject();
-  *(v196 + 16) = xmmword_10021D8B0;
-  v197 = swift_allocObject();
-  *(v197 + 16) = xmmword_10021D8D0;
+  v196 = sub_100216964();
+  v197 = [v120 TPPBPolicyKeyViewMappingWithView:v196 matchingRule:v195];
+
+  *(v114 + 128) = v197;
   v198 = sub_100216964();
   v199 = sub_100216964();
   v200 = [v115 fieldMatch:v198 fieldRegex:v199];
 
-  *(v197 + 32) = v200;
   v201 = sub_100216964();
-  v202 = sub_100216964();
-  v203 = [v115 fieldMatch:v201 fieldRegex:v202];
+  v202 = [v120 TPPBPolicyKeyViewMappingWithView:v201 matchingRule:v200];
 
-  *(v197 + 40) = v203;
-  v204 = sub_100216B14().super.isa;
+  *(v114 + 136) = v202;
+  v203 = swift_allocObject();
+  *(v203 + 16) = xmmword_10021D8B0;
+  v204 = swift_allocObject();
+  *(v204 + 16) = xmmword_10021D8D0;
+  v205 = sub_100216964();
+  v206 = sub_100216964();
+  v207 = [v115 fieldMatch:v205 fieldRegex:v206];
 
-  v205 = [v115 andMatch:v204];
-
-  *(v196 + 32) = v205;
-  v206 = swift_allocObject();
-  *(v206 + 16) = xmmword_10021D8D0;
-  v207 = sub_100216964();
+  *(v204 + 32) = v207;
   v208 = sub_100216964();
-  v209 = [v115 fieldMatch:v207 fieldRegex:v208];
+  v209 = sub_100216964();
+  v210 = [v115 fieldMatch:v208 fieldRegex:v209];
 
-  *(v206 + 32) = v209;
-  v210 = sub_100216964();
-  v211 = sub_100216964();
-  v212 = [v115 fieldMatch:v210 fieldRegex:v211];
+  *(v204 + 40) = v210;
+  v211 = sub_100216B14().super.isa;
+  v204, v212, v213, v214, v215, v216, v217, v218, v472, v486, v500, v514, v528, v541, v554, v568, v581, v595;
+  v219 = [v115 andMatch:v211];
 
-  *(v206 + 40) = v212;
-  v213 = sub_100216B14().super.isa;
+  *(v203 + 32) = v219;
+  v220 = swift_allocObject();
+  *(v220 + 16) = xmmword_10021D8D0;
+  v221 = sub_100216964();
+  v222 = sub_100216964();
+  v223 = [v115 fieldMatch:v221 fieldRegex:v222];
 
-  v214 = [v115 andMatch:v213];
+  *(v220 + 32) = v223;
+  v224 = sub_100216964();
+  v225 = sub_100216964();
+  v226 = [v115 fieldMatch:v224 fieldRegex:v225];
 
-  *(v196 + 40) = v214;
-  v215 = sub_100216964();
-  v216 = sub_100216964();
-  v217 = [v115 fieldMatch:v215 fieldRegex:v216];
+  *(v220 + 40) = v226;
+  v227 = sub_100216B14().super.isa;
+  v220, v228, v229, v230, v231, v232, v233, v234, v473, v487, v501, v515, v529, v542, v555, v569, v582, v596;
+  v235 = [v115 andMatch:v227];
 
-  *(v196 + 48) = v217;
-  v218 = sub_100216964();
-  v219 = sub_100216964();
-  v220 = [v115 fieldMatch:v218 fieldRegex:v219];
-
-  *(v196 + 56) = v220;
-  v221 = sub_100216B14().super.isa;
-
-  v222 = [v115 orMatch:v221];
-
-  v223 = sub_100216964();
-  v224 = [v120 TPPBPolicyKeyViewMappingWithView:v223 matchingRule:v222];
-
-  v114[18] = v224;
-  v225 = swift_allocObject();
-  *(v225 + 16) = xmmword_10021D8D0;
-  v226 = sub_100216964();
-  v227 = sub_100216964();
-  v228 = [v115 fieldMatch:v226 fieldRegex:v227];
-
-  *(v225 + 32) = v228;
-  v229 = swift_allocObject();
-  *(v229 + 16) = xmmword_10021D880;
-  v230 = sub_100216964();
-  v231 = sub_100216964();
-  v232 = [v115 fieldMatch:v230 fieldRegex:v231];
-
-  *(v229 + 32) = v232;
-  v233 = sub_100216964();
-  v234 = sub_100216964();
-  v235 = [v115 fieldMatch:v233 fieldRegex:v234];
-
-  *(v229 + 40) = v235;
+  *(v203 + 40) = v235;
   v236 = sub_100216964();
   v237 = sub_100216964();
   v238 = [v115 fieldMatch:v236 fieldRegex:v237];
 
-  *(v229 + 48) = v238;
-  v239 = sub_100216B14().super.isa;
+  *(v203 + 48) = v238;
+  v239 = sub_100216964();
+  v240 = sub_100216964();
+  v241 = [v115 fieldMatch:v239 fieldRegex:v240];
 
-  v240 = [v115 andMatch:v239];
+  *(v203 + 56) = v241;
+  v242 = sub_100216B14().super.isa;
+  v203, v243, v244, v245, v246, v247, v248, v249, v474, v488, v502, v516, v530, v543, v556, v570, v583, v597;
+  v250 = [v115 orMatch:v242];
 
-  *(v225 + 40) = v240;
-  v241 = sub_100216B14().super.isa;
+  v251 = sub_100216964();
+  v252 = [v120 TPPBPolicyKeyViewMappingWithView:v251 matchingRule:v250];
 
-  v242 = [v115 orMatch:v241];
-
-  v243 = sub_100216964();
-  v244 = [v120 TPPBPolicyKeyViewMappingWithView:v243 matchingRule:v242];
-
-  v114[19] = v244;
-  v245 = swift_allocObject();
-  *(v245 + 16) = xmmword_10021D8F0;
-  v246 = sub_100216964();
-  v247 = sub_100216964();
-  v248 = [v115 fieldMatch:v246 fieldRegex:v247];
-
-  *(v245 + 32) = v248;
-  v249 = sub_100216964();
-  v250 = sub_100216964();
-  v251 = [v115 fieldMatch:v249 fieldRegex:v250];
-
-  *(v245 + 40) = v251;
-  v252 = sub_100216964();
-  v253 = sub_100216964();
-  v254 = [v115 fieldMatch:v252 fieldRegex:v253];
-
-  *(v245 + 48) = v254;
+  *(v114 + 144) = v252;
+  v253 = swift_allocObject();
+  *(v253 + 16) = xmmword_10021D8D0;
+  v254 = sub_100216964();
   v255 = sub_100216964();
-  v256 = sub_100216964();
-  v257 = [v115 fieldMatch:v255 fieldRegex:v256];
+  v256 = [v115 fieldMatch:v254 fieldRegex:v255];
 
-  *(v245 + 56) = v257;
+  *(v253 + 32) = v256;
+  v257 = swift_allocObject();
+  *(v257 + 16) = xmmword_10021D880;
   v258 = sub_100216964();
   v259 = sub_100216964();
   v260 = [v115 fieldMatch:v258 fieldRegex:v259];
 
-  *(v245 + 64) = v260;
+  *(v257 + 32) = v260;
   v261 = sub_100216964();
   v262 = sub_100216964();
   v263 = [v115 fieldMatch:v261 fieldRegex:v262];
 
-  *(v245 + 72) = v263;
+  *(v257 + 40) = v263;
   v264 = sub_100216964();
   v265 = sub_100216964();
   v266 = [v115 fieldMatch:v264 fieldRegex:v265];
 
-  *(v245 + 80) = v266;
-  v267 = sub_100216964();
-  v268 = sub_100216964();
-  v269 = [v115 fieldMatch:v267 fieldRegex:v268];
+  *(v257 + 48) = v266;
+  v267 = sub_100216B14().super.isa;
+  v257, v268, v269, v270, v271, v272, v273, v274, v475, v489, v503, v517, v531, v544, v557, v571, v584, v598;
+  v275 = [v115 andMatch:v267];
 
-  *(v245 + 88) = v269;
-  v270 = sub_100216964();
-  v271 = sub_100216964();
-  v272 = [v115 fieldMatch:v270 fieldRegex:v271];
+  *(v253 + 40) = v275;
+  v276 = sub_100216B14().super.isa;
+  v253, v277, v278, v279, v280, v281, v282, v283, v476, v490, v504, v518, v532, v545, v558, v572, v585, v599;
+  v284 = [v115 orMatch:v276];
 
-  *(v245 + 96) = v272;
-  v273 = sub_100216964();
-  v274 = sub_100216964();
-  v275 = [v115 fieldMatch:v273 fieldRegex:v274];
-
-  *(v245 + 104) = v275;
-  v276 = sub_100216964();
-  v277 = sub_100216964();
-  v278 = [v115 fieldMatch:v276 fieldRegex:v277];
-
-  *(v245 + 112) = v278;
-  v279 = sub_100216964();
-  v280 = sub_100216964();
-  v281 = [v115 fieldMatch:v279 fieldRegex:v280];
-
-  *(v245 + 120) = v281;
-  v282 = sub_100216964();
-  v283 = sub_100216964();
-  v284 = [v115 fieldMatch:v282 fieldRegex:v283];
-
-  *(v245 + 128) = v284;
   v285 = sub_100216964();
-  v286 = sub_100216964();
-  v287 = [v115 fieldMatch:v285 fieldRegex:v286];
+  v286 = [v120 TPPBPolicyKeyViewMappingWithView:v285 matchingRule:v284];
 
-  *(v245 + 136) = v287;
-  v288 = sub_100216B14().super.isa;
+  *(v114 + 152) = v286;
+  v287 = swift_allocObject();
+  *(v287 + 16) = xmmword_10021D8F0;
+  v288 = sub_100216964();
+  v289 = sub_100216964();
+  v290 = [v115 fieldMatch:v288 fieldRegex:v289];
 
-  v289 = [v115 orMatch:v288];
+  *(v287 + 32) = v290;
+  v291 = sub_100216964();
+  v292 = sub_100216964();
+  v293 = [v115 fieldMatch:v291 fieldRegex:v292];
 
-  v290 = sub_100216964();
-  v291 = [v120 TPPBPolicyKeyViewMappingWithView:v290 matchingRule:v289];
-
-  v114[20] = v291;
-  v292 = swift_allocObject();
-  *(v292 + 16) = xmmword_10021D8D0;
-  v293 = sub_100216964();
+  *(v287 + 40) = v293;
   v294 = sub_100216964();
-  v295 = [v115 fieldMatch:v293 fieldRegex:v294];
+  v295 = sub_100216964();
+  v296 = [v115 fieldMatch:v294 fieldRegex:v295];
 
-  *(v292 + 32) = v295;
-  v296 = sub_100216964();
+  *(v287 + 48) = v296;
   v297 = sub_100216964();
-  v298 = [v115 fieldMatch:v296 fieldRegex:v297];
+  v298 = sub_100216964();
+  v299 = [v115 fieldMatch:v297 fieldRegex:v298];
 
-  *(v292 + 40) = v298;
-  v299 = sub_100216B14().super.isa;
-
-  v300 = [v115 orMatch:v299];
-
+  *(v287 + 56) = v299;
+  v300 = sub_100216964();
   v301 = sub_100216964();
-  v302 = [v120 TPPBPolicyKeyViewMappingWithView:v301 matchingRule:v300];
+  v302 = [v115 fieldMatch:v300 fieldRegex:v301];
 
-  v114[21] = v302;
-  v303 = swift_allocObject();
-  *(v303 + 16) = xmmword_10021D8E0;
+  *(v287 + 64) = v302;
+  v303 = sub_100216964();
   v304 = sub_100216964();
-  v305 = sub_100216964();
-  v306 = [v115 fieldMatch:v304 fieldRegex:v305];
+  v305 = [v115 fieldMatch:v303 fieldRegex:v304];
 
-  *(v303 + 32) = v306;
+  *(v287 + 72) = v305;
+  v306 = sub_100216964();
   v307 = sub_100216964();
-  v308 = sub_100216964();
-  v309 = [v115 fieldMatch:v307 fieldRegex:v308];
+  v308 = [v115 fieldMatch:v306 fieldRegex:v307];
 
-  *(v303 + 40) = v309;
+  *(v287 + 80) = v308;
+  v309 = sub_100216964();
   v310 = sub_100216964();
-  v311 = sub_100216964();
-  v312 = [v115 fieldMatch:v310 fieldRegex:v311];
+  v311 = [v115 fieldMatch:v309 fieldRegex:v310];
 
-  *(v303 + 48) = v312;
+  *(v287 + 88) = v311;
+  v312 = sub_100216964();
   v313 = sub_100216964();
-  v314 = sub_100216964();
-  v315 = [v115 fieldMatch:v313 fieldRegex:v314];
+  v314 = [v115 fieldMatch:v312 fieldRegex:v313];
 
-  *(v303 + 56) = v315;
+  *(v287 + 96) = v314;
+  v315 = sub_100216964();
   v316 = sub_100216964();
-  v317 = sub_100216964();
-  v318 = [v115 fieldMatch:v316 fieldRegex:v317];
+  v317 = [v115 fieldMatch:v315 fieldRegex:v316];
 
-  *(v303 + 64) = v318;
+  *(v287 + 104) = v317;
+  v318 = sub_100216964();
   v319 = sub_100216964();
-  v320 = sub_100216964();
-  v321 = [v115 fieldMatch:v319 fieldRegex:v320];
+  v320 = [v115 fieldMatch:v318 fieldRegex:v319];
 
-  *(v303 + 72) = v321;
+  *(v287 + 112) = v320;
+  v321 = sub_100216964();
   v322 = sub_100216964();
-  v323 = sub_100216964();
-  v324 = [v115 fieldMatch:v322 fieldRegex:v323];
+  v323 = [v115 fieldMatch:v321 fieldRegex:v322];
 
-  *(v303 + 80) = v324;
+  *(v287 + 120) = v323;
+  v324 = sub_100216964();
   v325 = sub_100216964();
-  v326 = sub_100216964();
-  v327 = [v115 fieldMatch:v325 fieldRegex:v326];
+  v326 = [v115 fieldMatch:v324 fieldRegex:v325];
 
-  *(v303 + 88) = v327;
+  *(v287 + 128) = v326;
+  v327 = sub_100216964();
   v328 = sub_100216964();
-  v329 = sub_100216964();
-  v330 = [v115 fieldMatch:v328 fieldRegex:v329];
+  v329 = [v115 fieldMatch:v327 fieldRegex:v328];
 
-  *(v303 + 96) = v330;
-  v331 = sub_100216964();
-  v332 = sub_100216964();
-  v333 = [v115 fieldMatch:v331 fieldRegex:v332];
+  *(v287 + 136) = v329;
+  v330 = sub_100216B14().super.isa;
+  v287, v331, v332, v333, v334, v335, v336, v337, v477, v491, v505, v519, v533, v546, v559, v573, v586, v600;
+  v338 = [v115 orMatch:v330];
 
-  *(v303 + 104) = v333;
-  v334 = sub_100216964();
-  v335 = sub_100216964();
-  v336 = [v115 fieldMatch:v334 fieldRegex:v335];
+  v339 = sub_100216964();
+  v340 = [v120 TPPBPolicyKeyViewMappingWithView:v339 matchingRule:v338];
 
-  *(v303 + 112) = v336;
-  v337 = sub_100216964();
-  v338 = sub_100216964();
-  v339 = [v115 fieldMatch:v337 fieldRegex:v338];
-
-  *(v303 + 120) = v339;
-  v340 = sub_100216B14().super.isa;
-
-  v341 = [v115 orMatch:v340];
-
+  *(v114 + 160) = v340;
+  v341 = swift_allocObject();
+  *(v341 + 16) = xmmword_10021D8D0;
   v342 = sub_100216964();
-  v343 = [v120 TPPBPolicyKeyViewMappingWithView:v342 matchingRule:v341];
+  v343 = sub_100216964();
+  v344 = [v115 fieldMatch:v342 fieldRegex:v343];
 
-  v114[22] = v343;
-  v344 = swift_allocObject();
-  *(v344 + 16) = xmmword_10021D880;
+  *(v341 + 32) = v344;
   v345 = sub_100216964();
   v346 = sub_100216964();
   v347 = [v115 fieldMatch:v345 fieldRegex:v346];
 
-  *(v344 + 32) = v347;
-  v348 = sub_100216964();
-  v349 = sub_100216964();
-  v350 = [v115 fieldMatch:v348 fieldRegex:v349];
+  *(v341 + 40) = v347;
+  v348 = sub_100216B14().super.isa;
+  v341, v349, v350, v351, v352, v353, v354, v355, v478, v492, v506, v520, v534, v547, v560, v574, v587, v601;
+  v356 = [v115 orMatch:v348];
 
-  *(v344 + 40) = v350;
-  v351 = sub_100216964();
-  v352 = sub_100216964();
-  v353 = [v115 fieldMatch:v351 fieldRegex:v352];
+  v357 = sub_100216964();
+  v358 = [v120 TPPBPolicyKeyViewMappingWithView:v357 matchingRule:v356];
 
-  *(v344 + 48) = v353;
-  v354 = sub_100216B14().super.isa;
+  *(v114 + 168) = v358;
+  v359 = swift_allocObject();
+  *(v359 + 16) = xmmword_10021D8E0;
+  v360 = sub_100216964();
+  v361 = sub_100216964();
+  v362 = [v115 fieldMatch:v360 fieldRegex:v361];
 
-  v355 = [v115 orMatch:v354];
+  *(v359 + 32) = v362;
+  v363 = sub_100216964();
+  v364 = sub_100216964();
+  v365 = [v115 fieldMatch:v363 fieldRegex:v364];
 
-  v356 = sub_100216964();
-  v357 = [v120 TPPBPolicyKeyViewMappingWithView:v356 matchingRule:v355];
+  *(v359 + 40) = v365;
+  v366 = sub_100216964();
+  v367 = sub_100216964();
+  v368 = [v115 fieldMatch:v366 fieldRegex:v367];
 
-  v114[23] = v357;
-  v358 = [v115 trueMatch];
-  v359 = sub_100216964();
-  v360 = [v120 TPPBPolicyKeyViewMappingWithView:v359 matchingRule:v358];
+  *(v359 + 48) = v368;
+  v369 = sub_100216964();
+  v370 = sub_100216964();
+  v371 = [v115 fieldMatch:v369 fieldRegex:v370];
 
-  v114[24] = v360;
-  v361 = objc_allocWithZone(TPPolicyDocument);
+  *(v359 + 56) = v371;
+  v372 = sub_100216964();
+  v373 = sub_100216964();
+  v374 = [v115 fieldMatch:v372 fieldRegex:v373];
+
+  *(v359 + 64) = v374;
+  v375 = sub_100216964();
+  v376 = sub_100216964();
+  v377 = [v115 fieldMatch:v375 fieldRegex:v376];
+
+  *(v359 + 72) = v377;
+  v378 = sub_100216964();
+  v379 = sub_100216964();
+  v380 = [v115 fieldMatch:v378 fieldRegex:v379];
+
+  *(v359 + 80) = v380;
+  v381 = sub_100216964();
+  v382 = sub_100216964();
+  v383 = [v115 fieldMatch:v381 fieldRegex:v382];
+
+  *(v359 + 88) = v383;
+  v384 = sub_100216964();
+  v385 = sub_100216964();
+  v386 = [v115 fieldMatch:v384 fieldRegex:v385];
+
+  *(v359 + 96) = v386;
+  v387 = sub_100216964();
+  v388 = sub_100216964();
+  v389 = [v115 fieldMatch:v387 fieldRegex:v388];
+
+  *(v359 + 104) = v389;
+  v390 = sub_100216964();
+  v391 = sub_100216964();
+  v392 = [v115 fieldMatch:v390 fieldRegex:v391];
+
+  *(v359 + 112) = v392;
+  v393 = sub_100216964();
+  v394 = sub_100216964();
+  v395 = [v115 fieldMatch:v393 fieldRegex:v394];
+
+  *(v359 + 120) = v395;
+  v396 = sub_100216B14().super.isa;
+  v359, v397, v398, v399, v400, v401, v402, v403, v479, v493, v507, v521, v535, v548, v561, v575, v588, v602;
+  v404 = [v115 orMatch:v396];
+
+  v405 = sub_100216964();
+  v406 = [v120 TPPBPolicyKeyViewMappingWithView:v405 matchingRule:v404];
+
+  *(v114 + 176) = v406;
+  v407 = swift_allocObject();
+  *(v407 + 16) = xmmword_10021D880;
+  v408 = sub_100216964();
+  v409 = sub_100216964();
+  v410 = [v115 fieldMatch:v408 fieldRegex:v409];
+
+  *(v407 + 32) = v410;
+  v411 = sub_100216964();
+  v412 = sub_100216964();
+  v413 = [v115 fieldMatch:v411 fieldRegex:v412];
+
+  *(v407 + 40) = v413;
+  v414 = sub_100216964();
+  v415 = sub_100216964();
+  v416 = [v115 fieldMatch:v414 fieldRegex:v415];
+
+  *(v407 + 48) = v416;
+  v417 = sub_100216B14().super.isa;
+  v407, v418, v419, v420, v421, v422, v423, v424, v480, v494, v508, v522, v536, v549, v562, v576, v589, v603;
+  v425 = [v115 orMatch:v417];
+
+  v426 = sub_100216964();
+  v427 = [v120 TPPBPolicyKeyViewMappingWithView:v426 matchingRule:v425];
+
+  *(v114 + 184) = v427;
+  v428 = [v115 trueMatch];
+  v429 = sub_100216964();
+  v430 = [v120 TPPBPolicyKeyViewMappingWithView:v429 matchingRule:v428];
+
+  *(v114 + 192) = v430;
+  v431 = objc_allocWithZone(TPPolicyDocument);
   sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
-  v362 = sub_100216B14().super.isa;
-
+  v432 = sub_100216B14().super.isa;
+  v604, v433, v434, v435, v436, v437, v438, v439, v481, v495, v509, v523, v537, v550, v563, v577, v590, v604;
   sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
-  v363 = sub_100216B14().super.isa;
-
+  v440 = sub_100216B14().super.isa;
+  v591, v441, v442, v443, v444, v445, v446, v447, v482, v496, v510, v524, v538, v551, v564, v578, v591, v605;
   sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
-  v364 = sub_100216B14().super.isa;
-
+  v448 = sub_100216B14().super.isa;
+  v579, v449, v450, v451, v452, v453, v454, v455, v483, v497, v511, v525, v539, v552, v565, v579, v592, v606;
   sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
-  v365 = sub_100216B14().super.isa;
+  v456 = sub_100216B14().super.isa;
   sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
-  v366 = sub_100216B14().super.isa;
+  v457 = sub_100216B14().super.isa;
+  v114, v458, v459, v460, v461, v462, v463, v464, v484, v498, v512, v526, v540, v553, v566, v580, v593, v607;
+  v465 = sub_100216B14().super.isa;
+  v466 = sub_100216B14().super.isa;
+  v467 = sub_100216B14().super.isa;
+  v468 = sub_100216B14().super.isa;
+  v469 = [v431 initWithVersion:19 modelToCategory:v432 categoriesByView:v440 introducersByCategory:v448 redactions:v456 keyViewMapping:v457 userControllableViewList:v465 piggybackViews:v466 priorityViews:v467 inheritedExcludedViews:v468 hashAlgo:1];
 
-  v367 = sub_100216B14().super.isa;
-  v368 = sub_100216B14().super.isa;
-  v369 = sub_100216B14().super.isa;
-  v370 = sub_100216B14().super.isa;
-  v371 = [v361 initWithVersion:19 modelToCategory:v362 categoriesByView:v363 introducersByCategory:v364 redactions:v365 keyViewMapping:v366 userControllableViewList:v367 piggybackViews:v368 priorityViews:v369 inheritedExcludedViews:v370 hashAlgo:1];
+  return v469;
+}
 
-  return v371;
+id sub_100043728()
+{
+  sub_10001148C(&qword_100297DA0, &qword_1002264D0);
+  v0 = swift_allocObject();
+  *(v0 + 16) = xmmword_10021D950;
+  v1 = v0;
+  v2 = sub_100216964();
+  v3 = sub_100216964();
+  v4 = objc_opt_self();
+  v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
+
+  v1[4] = v5;
+  v6 = sub_100216964();
+  v7 = sub_100216964();
+  v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
+
+  v1[5] = v8;
+  v9 = sub_100216964();
+  v10 = sub_100216964();
+  v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
+
+  v1[6] = v11;
+  v12 = sub_100216964();
+  v13 = sub_100216964();
+  v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
+
+  v1[7] = v14;
+  v15 = sub_100216964();
+  v16 = sub_100216964();
+  v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
+
+  v1[8] = v17;
+  v18 = sub_100216964();
+  v19 = sub_100216964();
+  v20 = [v4 TPPBPolicyModelToCategoryWithPrefix:v18 category:v19];
+
+  v1[9] = v20;
+  v21 = sub_100216964();
+  v22 = sub_100216964();
+  v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
+
+  v1[10] = v23;
+  v24 = sub_100216964();
+  v25 = sub_100216964();
+  v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
+
+  v1[11] = v26;
+  v27 = sub_100216964();
+  v28 = sub_100216964();
+  v29 = [v4 TPPBPolicyModelToCategoryWithPrefix:v27 category:v28];
+
+  v1[12] = v29;
+  v594 = v1;
+  v30 = sub_100216964();
+  v31 = sub_100216964();
+  v32 = [v4 TPPBPolicyModelToCategoryWithPrefix:v30 category:v31];
+
+  v1[13] = v32;
+  v33 = swift_allocObject();
+  *(v33 + 16) = xmmword_10021D970;
+  v34 = sub_100216964();
+  isa = sub_100216B14().super.isa;
+  v36 = objc_opt_self();
+  v37 = [v36 TPPBPolicyCategoriesByViewWithView:v34 categories:isa];
+
+  *(v33 + 32) = v37;
+  v38 = sub_100216964();
+  v39 = sub_100216B14().super.isa;
+  v40 = [v36 TPPBPolicyCategoriesByViewWithView:v38 categories:v39];
+
+  *(v33 + 40) = v40;
+  v41 = sub_100216964();
+  v42 = sub_100216B14().super.isa;
+  v43 = [v36 TPPBPolicyCategoriesByViewWithView:v41 categories:v42];
+
+  *(v33 + 48) = v43;
+  v44 = sub_100216964();
+  v45 = sub_100216B14().super.isa;
+  v46 = [v36 TPPBPolicyCategoriesByViewWithView:v44 categories:v45];
+
+  *(v33 + 56) = v46;
+  v47 = sub_100216964();
+  v48 = sub_100216B14().super.isa;
+  v49 = [v36 TPPBPolicyCategoriesByViewWithView:v47 categories:v48];
+
+  *(v33 + 64) = v49;
+  v50 = sub_100216964();
+  v51 = sub_100216B14().super.isa;
+  v52 = [v36 TPPBPolicyCategoriesByViewWithView:v50 categories:v51];
+
+  *(v33 + 72) = v52;
+  v53 = sub_100216964();
+  v54 = sub_100216B14().super.isa;
+  v55 = [v36 TPPBPolicyCategoriesByViewWithView:v53 categories:v54];
+
+  *(v33 + 80) = v55;
+  v56 = sub_100216964();
+  v57 = sub_100216B14().super.isa;
+  v58 = [v36 TPPBPolicyCategoriesByViewWithView:v56 categories:v57];
+
+  *(v33 + 88) = v58;
+  v59 = sub_100216964();
+  v60 = sub_100216B14().super.isa;
+  v61 = [v36 TPPBPolicyCategoriesByViewWithView:v59 categories:v60];
+
+  *(v33 + 96) = v61;
+  v62 = sub_100216964();
+  v63 = sub_100216B14().super.isa;
+  v64 = [v36 TPPBPolicyCategoriesByViewWithView:v62 categories:v63];
+
+  *(v33 + 104) = v64;
+  v65 = sub_100216964();
+  v66 = sub_100216B14().super.isa;
+  v67 = [v36 TPPBPolicyCategoriesByViewWithView:v65 categories:v66];
+
+  *(v33 + 112) = v67;
+  v68 = sub_100216964();
+  v69 = sub_100216B14().super.isa;
+  v70 = [v36 TPPBPolicyCategoriesByViewWithView:v68 categories:v69];
+
+  *(v33 + 120) = v70;
+  v71 = sub_100216964();
+  v72 = sub_100216B14().super.isa;
+  v73 = [v36 TPPBPolicyCategoriesByViewWithView:v71 categories:v72];
+
+  *(v33 + 128) = v73;
+  v74 = sub_100216964();
+  v75 = sub_100216B14().super.isa;
+  v76 = [v36 TPPBPolicyCategoriesByViewWithView:v74 categories:v75];
+
+  *(v33 + 136) = v76;
+  v77 = sub_100216964();
+  v78 = sub_100216B14().super.isa;
+  v79 = [v36 TPPBPolicyCategoriesByViewWithView:v77 categories:v78];
+
+  *(v33 + 144) = v79;
+  v80 = sub_100216964();
+  v81 = sub_100216B14().super.isa;
+  v82 = [v36 TPPBPolicyCategoriesByViewWithView:v80 categories:v81];
+
+  *(v33 + 152) = v82;
+  v83 = sub_100216964();
+  v84 = sub_100216B14().super.isa;
+  v85 = [v36 TPPBPolicyCategoriesByViewWithView:v83 categories:v84];
+
+  *(v33 + 160) = v85;
+  v86 = sub_100216964();
+  v87 = sub_100216B14().super.isa;
+  v88 = [v36 TPPBPolicyCategoriesByViewWithView:v86 categories:v87];
+
+  *(v33 + 168) = v88;
+  v89 = sub_100216964();
+  v90 = sub_100216B14().super.isa;
+  v91 = [v36 TPPBPolicyCategoriesByViewWithView:v89 categories:v90];
+
+  *(v33 + 176) = v91;
+  v92 = sub_100216964();
+  v93 = sub_100216B14().super.isa;
+  v94 = [v36 TPPBPolicyCategoriesByViewWithView:v92 categories:v93];
+
+  *(v33 + 184) = v94;
+  v95 = swift_allocObject();
+  *(v95 + 16) = xmmword_10021D910;
+  v96 = v95;
+  v97 = sub_100216964();
+  v98 = sub_100216B14().super.isa;
+  v99 = objc_opt_self();
+  v100 = [v99 TPPBPolicyIntroducersByCategoryWithCategory:v97 introducers:v98];
+
+  v96[4] = v100;
+  v101 = sub_100216964();
+  v102 = sub_100216B14().super.isa;
+  v103 = [v99 TPPBPolicyIntroducersByCategoryWithCategory:v101 introducers:v102];
+
+  v96[5] = v103;
+  v104 = sub_100216964();
+  v105 = sub_100216B14().super.isa;
+  v106 = [v99 TPPBPolicyIntroducersByCategoryWithCategory:v104 introducers:v105];
+
+  v96[6] = v106;
+  v107 = sub_100216964();
+  v108 = sub_100216B14().super.isa;
+  v109 = [v99 TPPBPolicyIntroducersByCategoryWithCategory:v107 introducers:v108];
+
+  v567 = v96;
+  v96[7] = v109;
+  v110 = sub_100216964();
+  v111 = sub_100216B14().super.isa;
+  v112 = [v99 TPPBPolicyIntroducersByCategoryWithCategory:v110 introducers:v111];
+
+  v96[8] = v112;
+  v113 = swift_allocObject();
+  *(v113 + 16) = xmmword_10021D980;
+  v114 = v113;
+  v115 = objc_opt_self();
+  v116 = sub_100216964();
+  v117 = sub_100216964();
+  v118 = [v115 fieldMatch:v116 fieldRegex:v117];
+
+  v119 = sub_100216964();
+  v120 = objc_opt_self();
+  v121 = [v120 TPPBPolicyKeyViewMappingWithView:v119 matchingRule:v118];
+
+  *(v114 + 32) = v121;
+  v122 = sub_100216964();
+  v123 = sub_100216964();
+  v124 = [v115 fieldMatch:v122 fieldRegex:v123];
+
+  v125 = sub_100216964();
+  v126 = [v120 TPPBPolicyKeyViewMappingWithView:v125 matchingRule:v124];
+
+  *(v114 + 40) = v126;
+  v127 = sub_100216964();
+  v128 = sub_100216964();
+  v129 = [v115 fieldMatch:v127 fieldRegex:v128];
+
+  v130 = sub_100216964();
+  v131 = [v120 TPPBPolicyKeyViewMappingWithView:v130 matchingRule:v129];
+
+  *(v114 + 48) = v131;
+  v132 = sub_100216964();
+  v133 = sub_100216964();
+  v134 = [v115 fieldMatch:v132 fieldRegex:v133];
+
+  v135 = sub_100216964();
+  v136 = [v120 TPPBPolicyKeyViewMappingWithView:v135 matchingRule:v134];
+
+  *(v114 + 56) = v136;
+  v137 = sub_100216964();
+  v138 = sub_100216964();
+  v139 = [v115 fieldMatch:v137 fieldRegex:v138];
+
+  v140 = sub_100216964();
+  v141 = [v120 TPPBPolicyKeyViewMappingWithView:v140 matchingRule:v139];
+
+  *(v114 + 64) = v141;
+  v142 = sub_100216964();
+  v143 = sub_100216964();
+  v144 = [v115 fieldMatch:v142 fieldRegex:v143];
+
+  v145 = sub_100216964();
+  v146 = [v120 TPPBPolicyKeyViewMappingWithView:v145 matchingRule:v144];
+
+  *(v114 + 72) = v146;
+  v147 = sub_100216964();
+  v148 = sub_100216964();
+  v149 = [v115 fieldMatch:v147 fieldRegex:v148];
+
+  v150 = sub_100216964();
+  v151 = [v120 TPPBPolicyKeyViewMappingWithView:v150 matchingRule:v149];
+
+  *(v114 + 80) = v151;
+  v152 = swift_allocObject();
+  *(v152 + 16) = xmmword_10021D880;
+  v153 = sub_100216964();
+  v154 = sub_100216964();
+  v155 = [v115 fieldMatch:v153 fieldRegex:v154];
+
+  *(v152 + 32) = v155;
+  v156 = sub_100216964();
+  v157 = sub_100216964();
+  v158 = [v115 fieldMatch:v156 fieldRegex:v157];
+
+  *(v152 + 40) = v158;
+  v159 = sub_100216964();
+  v160 = sub_100216964();
+  v161 = [v115 fieldMatch:v159 fieldRegex:v160];
+
+  *(v152 + 48) = v161;
+  sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
+  v162 = sub_100216B14().super.isa;
+  v152, v163, v164, v165, v166, v167, v168, v169, v471, v485, v499, v513, v527, "ProtectedCloudStorage", "Security-61901.40.77\n", v567, v33, v594;
+  v170 = [v115 orMatch:v162];
+
+  v171 = sub_100216964();
+  v172 = [v120 TPPBPolicyKeyViewMappingWithView:v171 matchingRule:v170];
+
+  *(v114 + 88) = v172;
+  v173 = sub_100216964();
+  v174 = sub_100216964();
+  v175 = [v115 fieldMatch:v173 fieldRegex:v174];
+
+  v176 = sub_100216964();
+  v177 = [v120 TPPBPolicyKeyViewMappingWithView:v176 matchingRule:v175];
+
+  *(v114 + 96) = v177;
+  v178 = sub_100216964();
+  v179 = sub_100216964();
+  v180 = [v115 fieldMatch:v178 fieldRegex:v179];
+
+  v181 = sub_100216964();
+  v182 = [v120 TPPBPolicyKeyViewMappingWithView:v181 matchingRule:v180];
+
+  *(v114 + 104) = v182;
+  v183 = sub_100216964();
+  v184 = sub_100216964();
+  v185 = [v115 fieldMatch:v183 fieldRegex:v184];
+
+  v186 = sub_100216964();
+  v187 = [v120 TPPBPolicyKeyViewMappingWithView:v186 matchingRule:v185];
+
+  *(v114 + 112) = v187;
+  v188 = sub_100216964();
+  v189 = sub_100216964();
+  v190 = [v115 fieldMatch:v188 fieldRegex:v189];
+
+  v191 = sub_100216964();
+  v192 = [v120 TPPBPolicyKeyViewMappingWithView:v191 matchingRule:v190];
+
+  *(v114 + 120) = v192;
+  v193 = sub_100216964();
+  v194 = sub_100216964();
+  v195 = [v115 fieldMatch:v193 fieldRegex:v194];
+
+  v196 = sub_100216964();
+  v197 = [v120 TPPBPolicyKeyViewMappingWithView:v196 matchingRule:v195];
+
+  *(v114 + 128) = v197;
+  v198 = sub_100216964();
+  v199 = sub_100216964();
+  v200 = [v115 fieldMatch:v198 fieldRegex:v199];
+
+  v201 = sub_100216964();
+  v202 = [v120 TPPBPolicyKeyViewMappingWithView:v201 matchingRule:v200];
+
+  *(v114 + 136) = v202;
+  v203 = swift_allocObject();
+  *(v203 + 16) = xmmword_10021D8B0;
+  v204 = swift_allocObject();
+  *(v204 + 16) = xmmword_10021D8D0;
+  v205 = sub_100216964();
+  v206 = sub_100216964();
+  v207 = [v115 fieldMatch:v205 fieldRegex:v206];
+
+  *(v204 + 32) = v207;
+  v208 = sub_100216964();
+  v209 = sub_100216964();
+  v210 = [v115 fieldMatch:v208 fieldRegex:v209];
+
+  *(v204 + 40) = v210;
+  v211 = sub_100216B14().super.isa;
+  v204, v212, v213, v214, v215, v216, v217, v218, v472, v486, v500, v514, v528, v541, v554, v568, v581, v595;
+  v219 = [v115 andMatch:v211];
+
+  *(v203 + 32) = v219;
+  v220 = swift_allocObject();
+  *(v220 + 16) = xmmword_10021D8D0;
+  v221 = sub_100216964();
+  v222 = sub_100216964();
+  v223 = [v115 fieldMatch:v221 fieldRegex:v222];
+
+  *(v220 + 32) = v223;
+  v224 = sub_100216964();
+  v225 = sub_100216964();
+  v226 = [v115 fieldMatch:v224 fieldRegex:v225];
+
+  *(v220 + 40) = v226;
+  v227 = sub_100216B14().super.isa;
+  v220, v228, v229, v230, v231, v232, v233, v234, v473, v487, v501, v515, v529, v542, v555, v569, v582, v596;
+  v235 = [v115 andMatch:v227];
+
+  *(v203 + 40) = v235;
+  v236 = sub_100216964();
+  v237 = sub_100216964();
+  v238 = [v115 fieldMatch:v236 fieldRegex:v237];
+
+  *(v203 + 48) = v238;
+  v239 = sub_100216964();
+  v240 = sub_100216964();
+  v241 = [v115 fieldMatch:v239 fieldRegex:v240];
+
+  *(v203 + 56) = v241;
+  v242 = sub_100216B14().super.isa;
+  v203, v243, v244, v245, v246, v247, v248, v249, v474, v488, v502, v516, v530, v543, v556, v570, v583, v597;
+  v250 = [v115 orMatch:v242];
+
+  v251 = sub_100216964();
+  v252 = [v120 TPPBPolicyKeyViewMappingWithView:v251 matchingRule:v250];
+
+  *(v114 + 144) = v252;
+  v253 = swift_allocObject();
+  *(v253 + 16) = xmmword_10021D8D0;
+  v254 = sub_100216964();
+  v255 = sub_100216964();
+  v256 = [v115 fieldMatch:v254 fieldRegex:v255];
+
+  *(v253 + 32) = v256;
+  v257 = swift_allocObject();
+  *(v257 + 16) = xmmword_10021D880;
+  v258 = sub_100216964();
+  v259 = sub_100216964();
+  v260 = [v115 fieldMatch:v258 fieldRegex:v259];
+
+  *(v257 + 32) = v260;
+  v261 = sub_100216964();
+  v262 = sub_100216964();
+  v263 = [v115 fieldMatch:v261 fieldRegex:v262];
+
+  *(v257 + 40) = v263;
+  v264 = sub_100216964();
+  v265 = sub_100216964();
+  v266 = [v115 fieldMatch:v264 fieldRegex:v265];
+
+  *(v257 + 48) = v266;
+  v267 = sub_100216B14().super.isa;
+  v257, v268, v269, v270, v271, v272, v273, v274, v475, v489, v503, v517, v531, v544, v557, v571, v584, v598;
+  v275 = [v115 andMatch:v267];
+
+  *(v253 + 40) = v275;
+  v276 = sub_100216B14().super.isa;
+  v253, v277, v278, v279, v280, v281, v282, v283, v476, v490, v504, v518, v532, v545, v558, v572, v585, v599;
+  v284 = [v115 orMatch:v276];
+
+  v285 = sub_100216964();
+  v286 = [v120 TPPBPolicyKeyViewMappingWithView:v285 matchingRule:v284];
+
+  *(v114 + 152) = v286;
+  v287 = swift_allocObject();
+  *(v287 + 16) = xmmword_10021D8F0;
+  v288 = sub_100216964();
+  v289 = sub_100216964();
+  v290 = [v115 fieldMatch:v288 fieldRegex:v289];
+
+  *(v287 + 32) = v290;
+  v291 = sub_100216964();
+  v292 = sub_100216964();
+  v293 = [v115 fieldMatch:v291 fieldRegex:v292];
+
+  *(v287 + 40) = v293;
+  v294 = sub_100216964();
+  v295 = sub_100216964();
+  v296 = [v115 fieldMatch:v294 fieldRegex:v295];
+
+  *(v287 + 48) = v296;
+  v297 = sub_100216964();
+  v298 = sub_100216964();
+  v299 = [v115 fieldMatch:v297 fieldRegex:v298];
+
+  *(v287 + 56) = v299;
+  v300 = sub_100216964();
+  v301 = sub_100216964();
+  v302 = [v115 fieldMatch:v300 fieldRegex:v301];
+
+  *(v287 + 64) = v302;
+  v303 = sub_100216964();
+  v304 = sub_100216964();
+  v305 = [v115 fieldMatch:v303 fieldRegex:v304];
+
+  *(v287 + 72) = v305;
+  v306 = sub_100216964();
+  v307 = sub_100216964();
+  v308 = [v115 fieldMatch:v306 fieldRegex:v307];
+
+  *(v287 + 80) = v308;
+  v309 = sub_100216964();
+  v310 = sub_100216964();
+  v311 = [v115 fieldMatch:v309 fieldRegex:v310];
+
+  *(v287 + 88) = v311;
+  v312 = sub_100216964();
+  v313 = sub_100216964();
+  v314 = [v115 fieldMatch:v312 fieldRegex:v313];
+
+  *(v287 + 96) = v314;
+  v315 = sub_100216964();
+  v316 = sub_100216964();
+  v317 = [v115 fieldMatch:v315 fieldRegex:v316];
+
+  *(v287 + 104) = v317;
+  v318 = sub_100216964();
+  v319 = sub_100216964();
+  v320 = [v115 fieldMatch:v318 fieldRegex:v319];
+
+  *(v287 + 112) = v320;
+  v321 = sub_100216964();
+  v322 = sub_100216964();
+  v323 = [v115 fieldMatch:v321 fieldRegex:v322];
+
+  *(v287 + 120) = v323;
+  v324 = sub_100216964();
+  v325 = sub_100216964();
+  v326 = [v115 fieldMatch:v324 fieldRegex:v325];
+
+  *(v287 + 128) = v326;
+  v327 = sub_100216964();
+  v328 = sub_100216964();
+  v329 = [v115 fieldMatch:v327 fieldRegex:v328];
+
+  *(v287 + 136) = v329;
+  v330 = sub_100216B14().super.isa;
+  v287, v331, v332, v333, v334, v335, v336, v337, v477, v491, v505, v519, v533, v546, v559, v573, v586, v600;
+  v338 = [v115 orMatch:v330];
+
+  v339 = sub_100216964();
+  v340 = [v120 TPPBPolicyKeyViewMappingWithView:v339 matchingRule:v338];
+
+  *(v114 + 160) = v340;
+  v341 = swift_allocObject();
+  *(v341 + 16) = xmmword_10021D8D0;
+  v342 = sub_100216964();
+  v343 = sub_100216964();
+  v344 = [v115 fieldMatch:v342 fieldRegex:v343];
+
+  *(v341 + 32) = v344;
+  v345 = sub_100216964();
+  v346 = sub_100216964();
+  v347 = [v115 fieldMatch:v345 fieldRegex:v346];
+
+  *(v341 + 40) = v347;
+  v348 = sub_100216B14().super.isa;
+  v341, v349, v350, v351, v352, v353, v354, v355, v478, v492, v506, v520, v534, v547, v560, v574, v587, v601;
+  v356 = [v115 orMatch:v348];
+
+  v357 = sub_100216964();
+  v358 = [v120 TPPBPolicyKeyViewMappingWithView:v357 matchingRule:v356];
+
+  *(v114 + 168) = v358;
+  v359 = swift_allocObject();
+  *(v359 + 16) = xmmword_10021D8E0;
+  v360 = sub_100216964();
+  v361 = sub_100216964();
+  v362 = [v115 fieldMatch:v360 fieldRegex:v361];
+
+  *(v359 + 32) = v362;
+  v363 = sub_100216964();
+  v364 = sub_100216964();
+  v365 = [v115 fieldMatch:v363 fieldRegex:v364];
+
+  *(v359 + 40) = v365;
+  v366 = sub_100216964();
+  v367 = sub_100216964();
+  v368 = [v115 fieldMatch:v366 fieldRegex:v367];
+
+  *(v359 + 48) = v368;
+  v369 = sub_100216964();
+  v370 = sub_100216964();
+  v371 = [v115 fieldMatch:v369 fieldRegex:v370];
+
+  *(v359 + 56) = v371;
+  v372 = sub_100216964();
+  v373 = sub_100216964();
+  v374 = [v115 fieldMatch:v372 fieldRegex:v373];
+
+  *(v359 + 64) = v374;
+  v375 = sub_100216964();
+  v376 = sub_100216964();
+  v377 = [v115 fieldMatch:v375 fieldRegex:v376];
+
+  *(v359 + 72) = v377;
+  v378 = sub_100216964();
+  v379 = sub_100216964();
+  v380 = [v115 fieldMatch:v378 fieldRegex:v379];
+
+  *(v359 + 80) = v380;
+  v381 = sub_100216964();
+  v382 = sub_100216964();
+  v383 = [v115 fieldMatch:v381 fieldRegex:v382];
+
+  *(v359 + 88) = v383;
+  v384 = sub_100216964();
+  v385 = sub_100216964();
+  v386 = [v115 fieldMatch:v384 fieldRegex:v385];
+
+  *(v359 + 96) = v386;
+  v387 = sub_100216964();
+  v388 = sub_100216964();
+  v389 = [v115 fieldMatch:v387 fieldRegex:v388];
+
+  *(v359 + 104) = v389;
+  v390 = sub_100216964();
+  v391 = sub_100216964();
+  v392 = [v115 fieldMatch:v390 fieldRegex:v391];
+
+  *(v359 + 112) = v392;
+  v393 = sub_100216964();
+  v394 = sub_100216964();
+  v395 = [v115 fieldMatch:v393 fieldRegex:v394];
+
+  *(v359 + 120) = v395;
+  v396 = sub_100216B14().super.isa;
+  v359, v397, v398, v399, v400, v401, v402, v403, v479, v493, v507, v521, v535, v548, v561, v575, v588, v602;
+  v404 = [v115 orMatch:v396];
+
+  v405 = sub_100216964();
+  v406 = [v120 TPPBPolicyKeyViewMappingWithView:v405 matchingRule:v404];
+
+  *(v114 + 176) = v406;
+  v407 = swift_allocObject();
+  *(v407 + 16) = xmmword_10021D880;
+  v408 = sub_100216964();
+  v409 = sub_100216964();
+  v410 = [v115 fieldMatch:v408 fieldRegex:v409];
+
+  *(v407 + 32) = v410;
+  v411 = sub_100216964();
+  v412 = sub_100216964();
+  v413 = [v115 fieldMatch:v411 fieldRegex:v412];
+
+  *(v407 + 40) = v413;
+  v414 = sub_100216964();
+  v415 = sub_100216964();
+  v416 = [v115 fieldMatch:v414 fieldRegex:v415];
+
+  *(v407 + 48) = v416;
+  v417 = sub_100216B14().super.isa;
+  v407, v418, v419, v420, v421, v422, v423, v424, v480, v494, v508, v522, v536, v549, v562, v576, v589, v603;
+  v425 = [v115 orMatch:v417];
+
+  v426 = sub_100216964();
+  v427 = [v120 TPPBPolicyKeyViewMappingWithView:v426 matchingRule:v425];
+
+  *(v114 + 184) = v427;
+  v428 = [v115 trueMatch];
+  v429 = sub_100216964();
+  v430 = [v120 TPPBPolicyKeyViewMappingWithView:v429 matchingRule:v428];
+
+  *(v114 + 192) = v430;
+  v431 = objc_allocWithZone(TPPolicyDocument);
+  sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
+  v432 = sub_100216B14().super.isa;
+  v604, v433, v434, v435, v436, v437, v438, v439, v481, v495, v509, v523, v537, v550, v563, v577, v590, v604;
+  sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
+  v440 = sub_100216B14().super.isa;
+  v591, v441, v442, v443, v444, v445, v446, v447, v482, v496, v510, v524, v538, v551, v564, v578, v591, v605;
+  sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
+  v448 = sub_100216B14().super.isa;
+  v579, v449, v450, v451, v452, v453, v454, v455, v483, v497, v511, v525, v539, v552, v565, v579, v592, v606;
+  sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
+  v456 = sub_100216B14().super.isa;
+  sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
+  v457 = sub_100216B14().super.isa;
+  v114, v458, v459, v460, v461, v462, v463, v464, v484, v498, v512, v526, v540, v553, v566, v580, v593, v607;
+  v465 = sub_100216B14().super.isa;
+  v466 = sub_100216B14().super.isa;
+  v467 = sub_100216B14().super.isa;
+  v468 = sub_100216B14().super.isa;
+  v469 = [v431 initWithVersion:20 modelToCategory:v432 categoriesByView:v440 introducersByCategory:v448 redactions:v456 keyViewMapping:v457 userControllableViewList:v465 piggybackViews:v466 priorityViews:v467 inheritedExcludedViews:v468 hashAlgo:1];
+
+  return v469;
+}
+
+id sub_100046658()
+{
+  sub_10001148C(&qword_100297DA0, &qword_1002264D0);
+  v0 = swift_allocObject();
+  *(v0 + 16) = xmmword_10021D950;
+  v1 = v0;
+  v2 = sub_100216964();
+  v3 = sub_100216964();
+  v4 = objc_opt_self();
+  v5 = [v4 TPPBPolicyModelToCategoryWithPrefix:v2 category:v3];
+
+  v1[4] = v5;
+  v6 = sub_100216964();
+  v7 = sub_100216964();
+  v8 = [v4 TPPBPolicyModelToCategoryWithPrefix:v6 category:v7];
+
+  v1[5] = v8;
+  v9 = sub_100216964();
+  v10 = sub_100216964();
+  v11 = [v4 TPPBPolicyModelToCategoryWithPrefix:v9 category:v10];
+
+  v1[6] = v11;
+  v12 = sub_100216964();
+  v13 = sub_100216964();
+  v14 = [v4 TPPBPolicyModelToCategoryWithPrefix:v12 category:v13];
+
+  v1[7] = v14;
+  v15 = sub_100216964();
+  v16 = sub_100216964();
+  v17 = [v4 TPPBPolicyModelToCategoryWithPrefix:v15 category:v16];
+
+  v1[8] = v17;
+  v18 = sub_100216964();
+  v19 = sub_100216964();
+  v20 = [v4 TPPBPolicyModelToCategoryWithPrefix:v18 category:v19];
+
+  v1[9] = v20;
+  v21 = sub_100216964();
+  v22 = sub_100216964();
+  v23 = [v4 TPPBPolicyModelToCategoryWithPrefix:v21 category:v22];
+
+  v1[10] = v23;
+  v24 = sub_100216964();
+  v25 = sub_100216964();
+  v26 = [v4 TPPBPolicyModelToCategoryWithPrefix:v24 category:v25];
+
+  v1[11] = v26;
+  v27 = sub_100216964();
+  v28 = sub_100216964();
+  v29 = [v4 TPPBPolicyModelToCategoryWithPrefix:v27 category:v28];
+
+  v1[12] = v29;
+  v602 = v1;
+  v30 = sub_100216964();
+  v31 = sub_100216964();
+  v32 = [v4 TPPBPolicyModelToCategoryWithPrefix:v30 category:v31];
+
+  v1[13] = v32;
+  v33 = swift_allocObject();
+  *(v33 + 16) = xmmword_10021D980;
+  v34 = sub_100216964();
+  isa = sub_100216B14().super.isa;
+  v36 = objc_opt_self();
+  v37 = [v36 TPPBPolicyCategoriesByViewWithView:v34 categories:isa];
+
+  *(v33 + 32) = v37;
+  v38 = sub_100216964();
+  v39 = sub_100216B14().super.isa;
+  v40 = [v36 TPPBPolicyCategoriesByViewWithView:v38 categories:v39];
+
+  *(v33 + 40) = v40;
+  v41 = sub_100216964();
+  v42 = sub_100216B14().super.isa;
+  v43 = [v36 TPPBPolicyCategoriesByViewWithView:v41 categories:v42];
+
+  *(v33 + 48) = v43;
+  v44 = sub_100216964();
+  v45 = sub_100216B14().super.isa;
+  v46 = [v36 TPPBPolicyCategoriesByViewWithView:v44 categories:v45];
+
+  *(v33 + 56) = v46;
+  v47 = sub_100216964();
+  v48 = sub_100216B14().super.isa;
+  v49 = [v36 TPPBPolicyCategoriesByViewWithView:v47 categories:v48];
+
+  *(v33 + 64) = v49;
+  v50 = sub_100216964();
+  v51 = sub_100216B14().super.isa;
+  v52 = [v36 TPPBPolicyCategoriesByViewWithView:v50 categories:v51];
+
+  *(v33 + 72) = v52;
+  v53 = sub_100216964();
+  v54 = sub_100216B14().super.isa;
+  v55 = [v36 TPPBPolicyCategoriesByViewWithView:v53 categories:v54];
+
+  *(v33 + 80) = v55;
+  v56 = sub_100216964();
+  v57 = sub_100216B14().super.isa;
+  v58 = [v36 TPPBPolicyCategoriesByViewWithView:v56 categories:v57];
+
+  *(v33 + 88) = v58;
+  v59 = sub_100216964();
+  v60 = sub_100216B14().super.isa;
+  v61 = [v36 TPPBPolicyCategoriesByViewWithView:v59 categories:v60];
+
+  *(v33 + 96) = v61;
+  v62 = sub_100216964();
+  v63 = sub_100216B14().super.isa;
+  v64 = [v36 TPPBPolicyCategoriesByViewWithView:v62 categories:v63];
+
+  *(v33 + 104) = v64;
+  v65 = sub_100216964();
+  v66 = sub_100216B14().super.isa;
+  v67 = [v36 TPPBPolicyCategoriesByViewWithView:v65 categories:v66];
+
+  *(v33 + 112) = v67;
+  v68 = sub_100216964();
+  v69 = sub_100216B14().super.isa;
+  v70 = [v36 TPPBPolicyCategoriesByViewWithView:v68 categories:v69];
+
+  *(v33 + 120) = v70;
+  v71 = sub_100216964();
+  v72 = sub_100216B14().super.isa;
+  v73 = [v36 TPPBPolicyCategoriesByViewWithView:v71 categories:v72];
+
+  *(v33 + 128) = v73;
+  v74 = sub_100216964();
+  v75 = sub_100216B14().super.isa;
+  v76 = [v36 TPPBPolicyCategoriesByViewWithView:v74 categories:v75];
+
+  *(v33 + 136) = v76;
+  v77 = sub_100216964();
+  v78 = sub_100216B14().super.isa;
+  v79 = [v36 TPPBPolicyCategoriesByViewWithView:v77 categories:v78];
+
+  *(v33 + 144) = v79;
+  v80 = sub_100216964();
+  v81 = sub_100216B14().super.isa;
+  v82 = [v36 TPPBPolicyCategoriesByViewWithView:v80 categories:v81];
+
+  *(v33 + 152) = v82;
+  v83 = sub_100216964();
+  v84 = sub_100216B14().super.isa;
+  v85 = [v36 TPPBPolicyCategoriesByViewWithView:v83 categories:v84];
+
+  *(v33 + 160) = v85;
+  v86 = sub_100216964();
+  v87 = sub_100216B14().super.isa;
+  v88 = [v36 TPPBPolicyCategoriesByViewWithView:v86 categories:v87];
+
+  *(v33 + 168) = v88;
+  v89 = sub_100216964();
+  v90 = sub_100216B14().super.isa;
+  v91 = [v36 TPPBPolicyCategoriesByViewWithView:v89 categories:v90];
+
+  *(v33 + 176) = v91;
+  v92 = sub_100216964();
+  v93 = sub_100216B14().super.isa;
+  v94 = [v36 TPPBPolicyCategoriesByViewWithView:v92 categories:v93];
+
+  *(v33 + 184) = v94;
+  v588 = v33;
+  v95 = sub_100216964();
+  v96 = sub_100216B14().super.isa;
+  v97 = [v36 TPPBPolicyCategoriesByViewWithView:v95 categories:v96];
+
+  *(v33 + 192) = v97;
+  v98 = swift_allocObject();
+  *(v98 + 16) = xmmword_10021D910;
+  v99 = v98;
+  v100 = sub_100216964();
+  v101 = sub_100216B14().super.isa;
+  v102 = objc_opt_self();
+  v103 = [v102 TPPBPolicyIntroducersByCategoryWithCategory:v100 introducers:v101];
+
+  v99[4] = v103;
+  v104 = sub_100216964();
+  v105 = sub_100216B14().super.isa;
+  v106 = [v102 TPPBPolicyIntroducersByCategoryWithCategory:v104 introducers:v105];
+
+  v99[5] = v106;
+  v107 = sub_100216964();
+  v108 = sub_100216B14().super.isa;
+  v109 = [v102 TPPBPolicyIntroducersByCategoryWithCategory:v107 introducers:v108];
+
+  v99[6] = v109;
+  v110 = sub_100216964();
+  v111 = sub_100216B14().super.isa;
+  v112 = [v102 TPPBPolicyIntroducersByCategoryWithCategory:v110 introducers:v111];
+
+  v99[7] = v112;
+  v113 = sub_100216964();
+  v114 = sub_100216B14().super.isa;
+  v115 = [v102 TPPBPolicyIntroducersByCategoryWithCategory:v113 introducers:v114];
+
+  v99[8] = v115;
+  v116 = swift_allocObject();
+  *(v116 + 16) = xmmword_10021D990;
+  v117 = v116;
+  v118 = objc_opt_self();
+  v119 = sub_100216964();
+  v120 = sub_100216964();
+  v121 = [v118 fieldMatch:v119 fieldRegex:v120];
+
+  v122 = sub_100216964();
+  v123 = objc_opt_self();
+  v124 = [v123 TPPBPolicyKeyViewMappingWithView:v122 matchingRule:v121];
+
+  *(v117 + 32) = v124;
+  v125 = sub_100216964();
+  v126 = sub_100216964();
+  v127 = [v118 fieldMatch:v125 fieldRegex:v126];
+
+  v128 = sub_100216964();
+  v129 = [v123 TPPBPolicyKeyViewMappingWithView:v128 matchingRule:v127];
+
+  *(v117 + 40) = v129;
+  v130 = sub_100216964();
+  v131 = sub_100216964();
+  v132 = [v118 fieldMatch:v130 fieldRegex:v131];
+
+  v133 = sub_100216964();
+  v134 = [v123 TPPBPolicyKeyViewMappingWithView:v133 matchingRule:v132];
+
+  *(v117 + 48) = v134;
+  v135 = sub_100216964();
+  v136 = sub_100216964();
+  v137 = [v118 fieldMatch:v135 fieldRegex:v136];
+
+  v138 = sub_100216964();
+  v139 = [v123 TPPBPolicyKeyViewMappingWithView:v138 matchingRule:v137];
+
+  *(v117 + 56) = v139;
+  v140 = sub_100216964();
+  v141 = sub_100216964();
+  v142 = [v118 fieldMatch:v140 fieldRegex:v141];
+
+  v143 = sub_100216964();
+  v144 = [v123 TPPBPolicyKeyViewMappingWithView:v143 matchingRule:v142];
+
+  *(v117 + 64) = v144;
+  v145 = sub_100216964();
+  v146 = sub_100216964();
+  v147 = [v118 fieldMatch:v145 fieldRegex:v146];
+
+  v148 = sub_100216964();
+  v149 = [v123 TPPBPolicyKeyViewMappingWithView:v148 matchingRule:v147];
+
+  *(v117 + 72) = v149;
+  v150 = sub_100216964();
+  v151 = sub_100216964();
+  v152 = [v118 fieldMatch:v150 fieldRegex:v151];
+
+  v153 = sub_100216964();
+  v154 = [v123 TPPBPolicyKeyViewMappingWithView:v153 matchingRule:v152];
+
+  *(v117 + 80) = v154;
+  v155 = swift_allocObject();
+  *(v155 + 16) = xmmword_10021D880;
+  v156 = sub_100216964();
+  v157 = sub_100216964();
+  v158 = [v118 fieldMatch:v156 fieldRegex:v157];
+
+  *(v155 + 32) = v158;
+  v159 = sub_100216964();
+  v160 = sub_100216964();
+  v161 = [v118 fieldMatch:v159 fieldRegex:v160];
+
+  *(v155 + 40) = v161;
+  v162 = sub_100216964();
+  v163 = sub_100216964();
+  v164 = [v118 fieldMatch:v162 fieldRegex:v163];
+
+  *(v155 + 48) = v164;
+  sub_10000200C(0, &qword_100297DA8, TPPBDictionaryMatchingRule_ptr);
+  v165 = sub_100216B14().super.isa;
+  v155, v166, v167, v168, v169, v170, v171, v172, v479, v493, v507, v521, v535, "ProtectedCloudStorage", "Security-61901.40.77\n", v99, v588, v602;
+  v173 = [v118 orMatch:v165];
+
+  v174 = sub_100216964();
+  v175 = [v123 TPPBPolicyKeyViewMappingWithView:v174 matchingRule:v173];
+
+  *(v117 + 88) = v175;
+  v176 = sub_100216964();
+  v177 = sub_100216964();
+  v178 = [v118 fieldMatch:v176 fieldRegex:v177];
+
+  v179 = sub_100216964();
+  v180 = [v123 TPPBPolicyKeyViewMappingWithView:v179 matchingRule:v178];
+
+  *(v117 + 96) = v180;
+  v181 = sub_100216964();
+  v182 = sub_100216964();
+  v183 = [v118 fieldMatch:v181 fieldRegex:v182];
+
+  v184 = sub_100216964();
+  v185 = [v123 TPPBPolicyKeyViewMappingWithView:v184 matchingRule:v183];
+
+  *(v117 + 104) = v185;
+  v186 = sub_100216964();
+  v187 = sub_100216964();
+  v188 = [v118 fieldMatch:v186 fieldRegex:v187];
+
+  v189 = sub_100216964();
+  v190 = [v123 TPPBPolicyKeyViewMappingWithView:v189 matchingRule:v188];
+
+  *(v117 + 112) = v190;
+  v191 = sub_100216964();
+  v192 = sub_100216964();
+  v193 = [v118 fieldMatch:v191 fieldRegex:v192];
+
+  v194 = sub_100216964();
+  v195 = [v123 TPPBPolicyKeyViewMappingWithView:v194 matchingRule:v193];
+
+  *(v117 + 120) = v195;
+  v196 = sub_100216964();
+  v197 = sub_100216964();
+  v198 = [v118 fieldMatch:v196 fieldRegex:v197];
+
+  v199 = sub_100216964();
+  v200 = [v123 TPPBPolicyKeyViewMappingWithView:v199 matchingRule:v198];
+
+  *(v117 + 128) = v200;
+  v201 = sub_100216964();
+  v202 = sub_100216964();
+  v203 = [v118 fieldMatch:v201 fieldRegex:v202];
+
+  v204 = sub_100216964();
+  v205 = [v123 TPPBPolicyKeyViewMappingWithView:v204 matchingRule:v203];
+
+  *(v117 + 136) = v205;
+  v206 = sub_100216964();
+  v207 = sub_100216964();
+  v208 = [v118 fieldMatch:v206 fieldRegex:v207];
+
+  v209 = sub_100216964();
+  v210 = [v123 TPPBPolicyKeyViewMappingWithView:v209 matchingRule:v208];
+
+  *(v117 + 144) = v210;
+  v211 = swift_allocObject();
+  *(v211 + 16) = xmmword_10021D8B0;
+  v212 = swift_allocObject();
+  *(v212 + 16) = xmmword_10021D8D0;
+  v213 = sub_100216964();
+  v214 = sub_100216964();
+  v215 = [v118 fieldMatch:v213 fieldRegex:v214];
+
+  *(v212 + 32) = v215;
+  v216 = sub_100216964();
+  v217 = sub_100216964();
+  v218 = [v118 fieldMatch:v216 fieldRegex:v217];
+
+  *(v212 + 40) = v218;
+  v219 = sub_100216B14().super.isa;
+  v212, v220, v221, v222, v223, v224, v225, v226, v480, v494, v508, v522, v536, v549, v562, v575, v589, v603;
+  v227 = [v118 andMatch:v219];
+
+  *(v211 + 32) = v227;
+  v228 = swift_allocObject();
+  *(v228 + 16) = xmmword_10021D8D0;
+  v229 = sub_100216964();
+  v230 = sub_100216964();
+  v231 = [v118 fieldMatch:v229 fieldRegex:v230];
+
+  *(v228 + 32) = v231;
+  v232 = sub_100216964();
+  v233 = sub_100216964();
+  v234 = [v118 fieldMatch:v232 fieldRegex:v233];
+
+  *(v228 + 40) = v234;
+  v235 = sub_100216B14().super.isa;
+  v228, v236, v237, v238, v239, v240, v241, v242, v481, v495, v509, v523, v537, v550, v563, v576, v590, v604;
+  v243 = [v118 andMatch:v235];
+
+  *(v211 + 40) = v243;
+  v244 = sub_100216964();
+  v245 = sub_100216964();
+  v246 = [v118 fieldMatch:v244 fieldRegex:v245];
+
+  *(v211 + 48) = v246;
+  v247 = sub_100216964();
+  v248 = sub_100216964();
+  v249 = [v118 fieldMatch:v247 fieldRegex:v248];
+
+  *(v211 + 56) = v249;
+  v250 = sub_100216B14().super.isa;
+  v211, v251, v252, v253, v254, v255, v256, v257, v482, v496, v510, v524, v538, v551, v564, v577, v591, v605;
+  v258 = [v118 orMatch:v250];
+
+  v259 = sub_100216964();
+  v260 = [v123 TPPBPolicyKeyViewMappingWithView:v259 matchingRule:v258];
+
+  *(v117 + 152) = v260;
+  v261 = swift_allocObject();
+  *(v261 + 16) = xmmword_10021D8D0;
+  v262 = sub_100216964();
+  v263 = sub_100216964();
+  v264 = [v118 fieldMatch:v262 fieldRegex:v263];
+
+  *(v261 + 32) = v264;
+  v265 = swift_allocObject();
+  *(v265 + 16) = xmmword_10021D880;
+  v266 = sub_100216964();
+  v267 = sub_100216964();
+  v268 = [v118 fieldMatch:v266 fieldRegex:v267];
+
+  *(v265 + 32) = v268;
+  v269 = sub_100216964();
+  v270 = sub_100216964();
+  v271 = [v118 fieldMatch:v269 fieldRegex:v270];
+
+  *(v265 + 40) = v271;
+  v272 = sub_100216964();
+  v273 = sub_100216964();
+  v274 = [v118 fieldMatch:v272 fieldRegex:v273];
+
+  *(v265 + 48) = v274;
+  v275 = sub_100216B14().super.isa;
+  v265, v276, v277, v278, v279, v280, v281, v282, v483, v497, v511, v525, v539, v552, v565, v578, v592, v606;
+  v283 = [v118 andMatch:v275];
+
+  *(v261 + 40) = v283;
+  v284 = sub_100216B14().super.isa;
+  v261, v285, v286, v287, v288, v289, v290, v291, v484, v498, v512, v526, v540, v553, v566, v579, v593, v607;
+  v292 = [v118 orMatch:v284];
+
+  v293 = sub_100216964();
+  v294 = [v123 TPPBPolicyKeyViewMappingWithView:v293 matchingRule:v292];
+
+  *(v117 + 160) = v294;
+  v295 = swift_allocObject();
+  *(v295 + 16) = xmmword_10021D8F0;
+  v296 = sub_100216964();
+  v297 = sub_100216964();
+  v298 = [v118 fieldMatch:v296 fieldRegex:v297];
+
+  *(v295 + 32) = v298;
+  v299 = sub_100216964();
+  v300 = sub_100216964();
+  v301 = [v118 fieldMatch:v299 fieldRegex:v300];
+
+  *(v295 + 40) = v301;
+  v302 = sub_100216964();
+  v303 = sub_100216964();
+  v304 = [v118 fieldMatch:v302 fieldRegex:v303];
+
+  *(v295 + 48) = v304;
+  v305 = sub_100216964();
+  v306 = sub_100216964();
+  v307 = [v118 fieldMatch:v305 fieldRegex:v306];
+
+  *(v295 + 56) = v307;
+  v308 = sub_100216964();
+  v309 = sub_100216964();
+  v310 = [v118 fieldMatch:v308 fieldRegex:v309];
+
+  *(v295 + 64) = v310;
+  v311 = sub_100216964();
+  v312 = sub_100216964();
+  v313 = [v118 fieldMatch:v311 fieldRegex:v312];
+
+  *(v295 + 72) = v313;
+  v314 = sub_100216964();
+  v315 = sub_100216964();
+  v316 = [v118 fieldMatch:v314 fieldRegex:v315];
+
+  *(v295 + 80) = v316;
+  v317 = sub_100216964();
+  v318 = sub_100216964();
+  v319 = [v118 fieldMatch:v317 fieldRegex:v318];
+
+  *(v295 + 88) = v319;
+  v320 = sub_100216964();
+  v321 = sub_100216964();
+  v322 = [v118 fieldMatch:v320 fieldRegex:v321];
+
+  *(v295 + 96) = v322;
+  v323 = sub_100216964();
+  v324 = sub_100216964();
+  v325 = [v118 fieldMatch:v323 fieldRegex:v324];
+
+  *(v295 + 104) = v325;
+  v326 = sub_100216964();
+  v327 = sub_100216964();
+  v328 = [v118 fieldMatch:v326 fieldRegex:v327];
+
+  *(v295 + 112) = v328;
+  v329 = sub_100216964();
+  v330 = sub_100216964();
+  v331 = [v118 fieldMatch:v329 fieldRegex:v330];
+
+  *(v295 + 120) = v331;
+  v332 = sub_100216964();
+  v333 = sub_100216964();
+  v334 = [v118 fieldMatch:v332 fieldRegex:v333];
+
+  *(v295 + 128) = v334;
+  v335 = sub_100216964();
+  v336 = sub_100216964();
+  v337 = [v118 fieldMatch:v335 fieldRegex:v336];
+
+  *(v295 + 136) = v337;
+  v338 = sub_100216B14().super.isa;
+  v295, v339, v340, v341, v342, v343, v344, v345, v485, v499, v513, v527, v541, v554, v567, v580, v594, v608;
+  v346 = [v118 orMatch:v338];
+
+  v347 = sub_100216964();
+  v348 = [v123 TPPBPolicyKeyViewMappingWithView:v347 matchingRule:v346];
+
+  *(v117 + 168) = v348;
+  v349 = swift_allocObject();
+  *(v349 + 16) = xmmword_10021D8D0;
+  v350 = sub_100216964();
+  v351 = sub_100216964();
+  v352 = [v118 fieldMatch:v350 fieldRegex:v351];
+
+  *(v349 + 32) = v352;
+  v353 = sub_100216964();
+  v354 = sub_100216964();
+  v355 = [v118 fieldMatch:v353 fieldRegex:v354];
+
+  *(v349 + 40) = v355;
+  v356 = sub_100216B14().super.isa;
+  v349, v357, v358, v359, v360, v361, v362, v363, v486, v500, v514, v528, v542, v555, v568, v581, v595, v609;
+  v364 = [v118 orMatch:v356];
+
+  v365 = sub_100216964();
+  v366 = [v123 TPPBPolicyKeyViewMappingWithView:v365 matchingRule:v364];
+
+  *(v117 + 176) = v366;
+  v367 = swift_allocObject();
+  *(v367 + 16) = xmmword_10021D8E0;
+  v368 = sub_100216964();
+  v369 = sub_100216964();
+  v370 = [v118 fieldMatch:v368 fieldRegex:v369];
+
+  *(v367 + 32) = v370;
+  v371 = sub_100216964();
+  v372 = sub_100216964();
+  v373 = [v118 fieldMatch:v371 fieldRegex:v372];
+
+  *(v367 + 40) = v373;
+  v374 = sub_100216964();
+  v375 = sub_100216964();
+  v376 = [v118 fieldMatch:v374 fieldRegex:v375];
+
+  *(v367 + 48) = v376;
+  v377 = sub_100216964();
+  v378 = sub_100216964();
+  v379 = [v118 fieldMatch:v377 fieldRegex:v378];
+
+  *(v367 + 56) = v379;
+  v380 = sub_100216964();
+  v381 = sub_100216964();
+  v382 = [v118 fieldMatch:v380 fieldRegex:v381];
+
+  *(v367 + 64) = v382;
+  v383 = sub_100216964();
+  v384 = sub_100216964();
+  v385 = [v118 fieldMatch:v383 fieldRegex:v384];
+
+  *(v367 + 72) = v385;
+  v386 = sub_100216964();
+  v387 = sub_100216964();
+  v388 = [v118 fieldMatch:v386 fieldRegex:v387];
+
+  *(v367 + 80) = v388;
+  v389 = sub_100216964();
+  v390 = sub_100216964();
+  v391 = [v118 fieldMatch:v389 fieldRegex:v390];
+
+  *(v367 + 88) = v391;
+  v392 = sub_100216964();
+  v393 = sub_100216964();
+  v394 = [v118 fieldMatch:v392 fieldRegex:v393];
+
+  *(v367 + 96) = v394;
+  v395 = sub_100216964();
+  v396 = sub_100216964();
+  v397 = [v118 fieldMatch:v395 fieldRegex:v396];
+
+  *(v367 + 104) = v397;
+  v398 = sub_100216964();
+  v399 = sub_100216964();
+  v400 = [v118 fieldMatch:v398 fieldRegex:v399];
+
+  *(v367 + 112) = v400;
+  v401 = sub_100216964();
+  v402 = sub_100216964();
+  v403 = [v118 fieldMatch:v401 fieldRegex:v402];
+
+  *(v367 + 120) = v403;
+  v404 = sub_100216B14().super.isa;
+  v367, v405, v406, v407, v408, v409, v410, v411, v487, v501, v515, v529, v543, v556, v569, v582, v596, v610;
+  v412 = [v118 orMatch:v404];
+
+  v413 = sub_100216964();
+  v414 = [v123 TPPBPolicyKeyViewMappingWithView:v413 matchingRule:v412];
+
+  *(v117 + 184) = v414;
+  v415 = swift_allocObject();
+  *(v415 + 16) = xmmword_10021D880;
+  v416 = sub_100216964();
+  v417 = sub_100216964();
+  v418 = [v118 fieldMatch:v416 fieldRegex:v417];
+
+  *(v415 + 32) = v418;
+  v419 = sub_100216964();
+  v420 = sub_100216964();
+  v421 = [v118 fieldMatch:v419 fieldRegex:v420];
+
+  *(v415 + 40) = v421;
+  v422 = sub_100216964();
+  v423 = sub_100216964();
+  v424 = [v118 fieldMatch:v422 fieldRegex:v423];
+
+  *(v415 + 48) = v424;
+  v425 = sub_100216B14().super.isa;
+  v415, v426, v427, v428, v429, v430, v431, v432, v488, v502, v516, v530, v544, v557, v570, v583, v597, v611;
+  v433 = [v118 orMatch:v425];
+
+  v434 = sub_100216964();
+  v435 = [v123 TPPBPolicyKeyViewMappingWithView:v434 matchingRule:v433];
+
+  *(v117 + 192) = v435;
+  v436 = [v118 trueMatch];
+  v437 = sub_100216964();
+  v438 = [v123 TPPBPolicyKeyViewMappingWithView:v437 matchingRule:v436];
+
+  *(v117 + 200) = v438;
+  v439 = objc_allocWithZone(TPPolicyDocument);
+  sub_10000200C(0, &qword_100297DB0, TPPBPolicyModelToCategory_ptr);
+  v440 = sub_100216B14().super.isa;
+  v612, v441, v442, v443, v444, v445, v446, v447, v489, v503, v517, v531, v545, v558, v571, v584, v598, v612;
+  sub_10000200C(0, &qword_100297DB8, TPPBPolicyCategoriesByView_ptr);
+  v448 = sub_100216B14().super.isa;
+  v599, v449, v450, v451, v452, v453, v454, v455, v490, v504, v518, v532, v546, v559, v572, v585, v599, v613;
+  sub_10000200C(0, &qword_100297DC0, TPPBPolicyIntroducersByCategory_ptr);
+  v456 = sub_100216B14().super.isa;
+  v586, v457, v458, v459, v460, v461, v462, v463, v491, v505, v519, v533, v547, v560, v573, v586, v600, v614;
+  sub_10000200C(0, &qword_100297DC8, TPPBPolicyRedaction_ptr);
+  v464 = sub_100216B14().super.isa;
+  sub_10000200C(0, &qword_100297DD0, TPPBPolicyKeyViewMapping_ptr);
+  v465 = sub_100216B14().super.isa;
+  v117, v466, v467, v468, v469, v470, v471, v472, v492, v506, v520, v534, v548, v561, v574, v587, v601, v615;
+  v473 = sub_100216B14().super.isa;
+  v474 = sub_100216B14().super.isa;
+  v475 = sub_100216B14().super.isa;
+  v476 = sub_100216B14().super.isa;
+  v477 = [v439 initWithVersion:21 modelToCategory:v440 categoriesByView:v448 introducersByCategory:v456 redactions:v464 keyViewMapping:v465 userControllableViewList:v473 piggybackViews:v474 priorityViews:v475 inheritedExcludedViews:v476 hashAlgo:1];
+
+  return v477;
 }

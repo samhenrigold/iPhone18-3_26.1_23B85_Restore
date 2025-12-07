@@ -39,6 +39,7 @@
 - (void)_loadSnapshotContentViews;
 - (void)_prepareForEditing;
 - (void)_prepareToZoom;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_unloadSnapshotContentViews;
 - (void)_updateComplicationColors;
 - (void)_updateDayDuration;
@@ -258,6 +259,16 @@
   [(NTKRoundedCornerOverlayView *)self->_cornerView removeFromSuperview];
   cornerView = self->_cornerView;
   self->_cornerView = 0;
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKKaleidoscopeFaceView;
+  groupCopy = group;
+  [(NTKKaleidoscopeFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(CLKUIQuadView *)self->_quadView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
 }
 
 - (void)_applyFrozen
@@ -797,19 +808,18 @@ LABEL_27:
   if (self->_userImage)
   {
     device = [(NTKKaleidoscopeFaceView *)self device];
-    v4 = [(NTKKaleidoscopeAssetOption *)NTKKaleidoscopeCustomAssetOption optionWithAsset:1000 forDevice:device];
+    v3 = [(NTKKaleidoscopeAssetOption *)NTKKaleidoscopeCustomAssetOption optionWithAsset:1000 forDevice:device];
 
-    +[NTKEditOption sizeForSwatchStyle:](NTKEditOption, "sizeForSwatchStyle:", [v4 swatchStyle]);
-    userImage = self->_userImage;
-    v6 = NTKPhotosAspectFilledImageFromImage();
+    +[NTKEditOption sizeForSwatchStyle:](NTKEditOption, "sizeForSwatchStyle:", [v3 swatchStyle]);
+    v4 = NTKPhotosAspectFilledImageFromImage();
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  return v6;
+  return v4;
 }
 
 - (void)_updateUserContent
@@ -845,20 +855,19 @@ LABEL_16:
       userUuidChroma = self->_userUuidChroma;
       self->_userUuidChroma = v13;
 
-      v15 = self->_userImage;
       CLKUIComputePow2SubRect();
-      v44 = v16;
-      v17 = [CLKUITexture textureWithProviderDelegate:self uuid:self->_userUuidLuma rect:?];
+      v43 = v15;
+      v16 = [CLKUITexture textureWithProviderDelegate:self uuid:self->_userUuidLuma rect:?];
       userTextureLuma = self->_userTextureLuma;
-      self->_userTextureLuma = v17;
+      self->_userTextureLuma = v16;
 
-      v19 = [CLKUITexture textureWithProviderDelegate:self uuid:self->_userUuidChroma rect:v44];
+      v18 = [CLKUITexture textureWithProviderDelegate:self uuid:self->_userUuidChroma rect:v43];
       userTextureChroma = self->_userTextureChroma;
-      self->_userTextureChroma = v19;
+      self->_userTextureChroma = v18;
 
-      v21 = [NTKKaleidoscopePathfinder pathfinderFromDirectory:resourceDirectory];
+      v20 = [NTKKaleidoscopePathfinder pathfinderFromDirectory:resourceDirectory];
       userPathfinder = self->_userPathfinder;
-      self->_userPathfinder = v21;
+      self->_userPathfinder = v20;
 
       if (self->_userPathfinder)
       {
@@ -870,41 +879,41 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      v45 = v7;
-      v23 = NTKNewUniqueTeporaryResourceDirectory();
-      v24 = +[NSFileManager defaultManager];
-      v46 = 0;
-      v25 = [v24 copyItemAtPath:resourceDirectory toPath:v23 error:&v46];
-      v43 = v46;
+      v44 = v7;
+      v22 = NTKNewUniqueTeporaryResourceDirectory();
+      v23 = +[NSFileManager defaultManager];
+      v45 = 0;
+      v24 = [v23 copyItemAtPath:resourceDirectory toPath:v22 error:&v45];
+      v42 = v45;
 
-      if (v25)
+      if (v24)
       {
-        v26 = [NTKKaleidoscopePathfinder pathfinderWithImage:self->_userImage];
-        v27 = self->_userPathfinder;
-        self->_userPathfinder = v26;
+        v25 = [NTKKaleidoscopePathfinder pathfinderWithImage:self->_userImage];
+        v26 = self->_userPathfinder;
+        self->_userPathfinder = v25;
 
-        v28 = v43;
-        if (![(NTKKaleidoscopePathfinder *)self->_userPathfinder writeToDirectory:v23])
+        v27 = v42;
+        if (![(NTKKaleidoscopePathfinder *)self->_userPathfinder writeToDirectory:v22])
         {
 LABEL_14:
-          v40 = +[NSFileManager defaultManager];
-          [v40 removeItemAtPath:v23 error:0];
+          v39 = +[NSFileManager defaultManager];
+          [v39 removeItemAtPath:v22 error:0];
 
-          v7 = v45;
+          v7 = v44;
           goto LABEL_15;
         }
 
         delegate = [(NTKKaleidoscopeFaceView *)self delegate];
-        [delegate faceViewUpdatedResourceDirectory:v23 wantsToTransferOwnership:1];
+        [delegate faceViewUpdatedResourceDirectory:v22 wantsToTransferOwnership:1];
       }
 
       else
       {
         delegate = _NTKLoggingObjectForDomain();
-        v28 = v43;
+        v27 = v42;
         if (os_log_type_enabled(delegate, OS_LOG_TYPE_ERROR))
         {
-          sub_15118(v43, delegate);
+          sub_15118(v42, delegate);
         }
       }
 
@@ -917,28 +926,28 @@ LABEL_14:
   {
     self->_userPhoto = 0;
 
-    v31 = self->_userImage;
+    v30 = self->_userImage;
     self->_userImage = 0;
 
-    v32 = self->_userUuidLuma;
+    v31 = self->_userUuidLuma;
     self->_userUuidLuma = 0;
 
-    v33 = self->_userUuidChroma;
+    v32 = self->_userUuidChroma;
     self->_userUuidChroma = 0;
 
-    v34 = self->_userTextureLuma;
+    v33 = self->_userTextureLuma;
     self->_userTextureLuma = 0;
 
-    v35 = self->_userTextureChroma;
+    v34 = self->_userTextureChroma;
     self->_userTextureChroma = 0;
 
-    v36 = self->_userPathfinder;
+    v35 = self->_userPathfinder;
     self->_userPathfinder = 0;
 
-    v37 = [NSBundle bundleForClass:objc_opt_class()];
-    v38 = NTKImageNamedFromBundle();
-    v39 = self->_userSwatch;
-    self->_userSwatch = v38;
+    v36 = [NSBundle bundleForClass:objc_opt_class()];
+    v37 = NTKImageNamedFromBundle();
+    v38 = self->_userSwatch;
+    self->_userSwatch = v37;
   }
 
 LABEL_17:
@@ -1065,7 +1074,7 @@ LABEL_13:
       if (v17)
       {
         memset(v24, 0, sizeof(v24));
-        [v17 pointForTime:COERCE_DOUBLE(LODWORD(v14))];
+        objc_msgSend_pointForTime_(v17, COERCE_DOUBLE(LODWORD(v14)));
         v19 = CGColorCreate(self->_extendedSRGBcolorSpace, v24);
         v20 = [UIColor colorWithCGColor:v19];
 

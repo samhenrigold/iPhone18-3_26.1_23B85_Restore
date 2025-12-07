@@ -67,8 +67,37 @@ uint64_t start()
   return 0;
 }
 
-void sub_100000B8C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100000B8C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
+}
+
+void sub_100000BF0()
+{
+  LODWORD(v5) = 67109120;
+  HIDWORD(v5) = *__error();
+  sub_100000B8C(&_mh_execute_header, &_os_log_default, v0, "failed to resolve temporary directory: %{darwin.errno}d", v1, v2, v3, v4, v5);
+}
+
+void sub_100000C70()
+{
+  LODWORD(v5) = 67109120;
+  HIDWORD(v5) = *__error();
+  sub_100000B8C(&_mh_execute_header, &_os_log_default, v0, "failed to initialize temporary directory: %{darwin.errno}d", v1, v2, v3, v4, v5);
+}
+
+void sub_100000CF0()
+{
+  LODWORD(v5) = 67109120;
+  HIDWORD(v5) = *__error();
+  sub_100000B8C(&_mh_execute_header, &_os_log_default, v0, "failed to resolve user's home directory: %{darwin.errno}d", v1, v2, v3, v4, v5);
+}
+
+void sub_100000D70()
+{
+  LODWORD(v5) = 67109120;
+  HIDWORD(v5) = getuid();
+  sub_100000B8C(&_mh_execute_header, &_os_log_default, v0, "failed to get passwd entry for uid %u", v1, v2, v3, v4, v5);
 }

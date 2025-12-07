@@ -171,7 +171,7 @@
         v77[0] = @"start";
         if (v35)
         {
-          [v35 timestamp];
+          objc_msgSend_timestamp(v35);
         }
 
         else
@@ -852,7 +852,7 @@ LABEL_27:
         v10 = v9;
         if (v9)
         {
-          [v9 startTime];
+          objc_msgSend_startTime(v9);
         }
 
         else
@@ -874,7 +874,7 @@ LABEL_27:
             v18 = v17;
             if (v17)
             {
-              [v17 timestamp];
+              objc_msgSend_timestamp(v17);
             }
 
             else
@@ -891,7 +891,7 @@ LABEL_27:
             v23 = v22;
             if (v22)
             {
-              [v22 timestamp];
+              objc_msgSend_timestamp(v22);
             }
 
             else
@@ -1017,7 +1017,7 @@ LABEL_8:
     v7 = v6;
     if (v6)
     {
-      [v6 timestamp];
+      objc_msgSend_timestamp(v6);
     }
 
     else
@@ -1031,7 +1031,7 @@ LABEL_8:
     v10 = v9;
     if (v9)
     {
-      [v9 timestamp];
+      objc_msgSend_timestamp(v9);
     }
 
     else

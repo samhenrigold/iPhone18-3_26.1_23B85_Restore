@@ -285,7 +285,7 @@ LABEL_6:
       v6 = *(v6 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v5 = google::protobuf::Arena::CreateMaybeMessage<TSD::ConnectionLinePathSourceArchive>(v6);
+    v5 = google::protobuf::Arena::CreateMaybeMessage<TSD::ConnectionLinePathSourceArchive>(v6, a2);
     *(archive + 9) = v5;
   }
 
@@ -299,7 +299,7 @@ LABEL_6:
       v8 = *(v8 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v7 = google::protobuf::Arena::CreateMaybeMessage<TSD::BezierPathSourceArchive>(v8);
+    v7 = google::protobuf::Arena::CreateMaybeMessage<TSD::BezierPathSourceArchive>(v8, a2);
     *(v5 + 24) = v7;
   }
 

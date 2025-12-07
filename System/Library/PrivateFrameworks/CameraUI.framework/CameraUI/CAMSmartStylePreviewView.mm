@@ -157,7 +157,7 @@
       logIdentifier2 = [resourceLoadResult logIdentifier];
       [statisticsCopy totalDuration];
       v12 = v11;
-      [statisticsCopy duration];
+      objc_msgSend_duration(statisticsCopy);
       v14 = v13;
       [statisticsCopy latency];
       *buf = 138544386;

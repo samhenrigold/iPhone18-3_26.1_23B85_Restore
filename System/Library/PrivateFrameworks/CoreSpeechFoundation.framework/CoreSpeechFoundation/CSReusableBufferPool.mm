@@ -13,55 +13,55 @@
 
 - (void)_checkIdleBackingStores
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   numberOfBackingStores = self->_numberOfBackingStores;
   if (numberOfBackingStores > [(CSReusableBufferPoolConfiguration *)self->_configuration minimalNumberOfBackingStores])
   {
     [(CSReusableBufferPoolConfiguration *)self->_configuration backingStoreIdleTimeout];
     if (v4 != 0.0)
     {
-      v6 = v4;
+      v5 = v4;
       if ([(NSMutableArray *)self->_recycledBackingStores count])
       {
-        v7 = mach_absolute_time();
+        v6 = mach_absolute_time();
+        v15 = 0u;
         v16 = 0u;
         v17 = 0u;
         v18 = 0u;
-        v19 = 0u;
-        v8 = self->_recycledBackingStores;
-        v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-        if (v9)
+        v7 = self->_recycledBackingStores;
+        v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        if (v8)
         {
-          v10 = v9;
-          v11 = 0;
-          v12 = *v17;
+          v9 = v8;
+          v10 = 0;
+          v11 = *v16;
 LABEL_7:
-          v13 = 0;
-          v15 = v11 + v10;
+          v12 = 0;
+          v14 = v10 + v9;
           while (1)
           {
-            if (*v17 != v12)
+            if (*v16 != v11)
             {
-              objc_enumerationMutation(v8);
+              objc_enumerationMutation(v7);
             }
 
-            recycleHostTime = [*(*(&v16 + 1) + 8 * v13) recycleHostTime];
+            recycleHostTime = [*(*(&v15 + 1) + 8 * v12) recycleHostTime];
             if (_CSMachAbsoluteTimeRate_onceToken != -1)
             {
               dispatch_once(&_CSMachAbsoluteTimeRate_onceToken, &__block_literal_global_431);
             }
 
-            if (*&_CSMachAbsoluteTimeRate_rate * (v7 - recycleHostTime) / 1000000000.0 <= v6)
+            if (*&_CSMachAbsoluteTimeRate_rate * (v6 - recycleHostTime) / 1000000000.0 <= v5)
             {
               break;
             }
 
-            ++v11;
-            if (v10 == ++v13)
+            ++v10;
+            if (v9 == ++v12)
             {
-              v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-              v11 = v15;
-              if (v10)
+              v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+              v10 = v14;
+              if (v9)
               {
                 goto LABEL_7;
               }
@@ -70,9 +70,9 @@ LABEL_7:
             }
           }
 
-          if (v11)
+          if (v10)
           {
-            [(NSMutableArray *)self->_recycledBackingStores removeObjectsInRange:0, v11];
+            [(NSMutableArray *)self->_recycledBackingStores removeObjectsInRange:0, v10];
           }
         }
 
@@ -82,8 +82,6 @@ LABEL_7:
       }
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_recycleUsedBackingStore:(id)store

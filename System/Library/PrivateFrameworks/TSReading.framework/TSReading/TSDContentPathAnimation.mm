@@ -72,7 +72,7 @@
 
   v12 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"transform"];
   [v12 setValues:array];
-  [(TSDContentPathAnimation *)self duration];
+  objc_msgSend_duration(self);
   [v12 setDuration:?];
   [v12 setTimingFunction:{-[TSDContentPathAnimation timingFunction](self, "timingFunction")}];
   [v12 setKeyTimes:self->_keyTimes];

@@ -196,7 +196,7 @@ LABEL_31:
   page = [(WKContentView *)self->_view page];
   focusedElementInformation = [(WKContentView *)self->_view focusedElementInformation];
   v9 = 0;
-  v10[0] = focusedElementInformation + 2;
+  v10[0] = focusedElementInformation + 4;
   v6 = page[44];
   v10[1] = &v9;
   WebKit::AuxiliaryProcessProxy::send<Messages::WebPage::SetFocusedElementValue>(v6, v10, page[6], 0);
@@ -373,13 +373,13 @@ uint64_t __38__WKDateTimePicker_showDateTimePicker__block_invoke(uint64_t a1)
 {
   if (*([(WKContentView *)self->_view focusedElementInformation]+ 185) == 14)
   {
-    [(WKDateTimePicker *)self iso8601DateFormatterForCalendarView];
+    objc_msgSend_iso8601DateFormatterForCalendarView(self);
     -[WKContentView updateFocusedElementValue:](self->_view, "updateFocusedElementValue:", [v3 stringFromDate:{objc_msgSend(objc_msgSend(MEMORY[0x1E695DEE8], "calendarWithIdentifier:", *MEMORY[0x1E695D868]), "dateFromComponents:", -[UICalendarSelectionWeekOfYear selectedWeekOfYear](self->_selectionWeekOfYear.m_ptr, "selectedWeekOfYear"))}]);
   }
 
   else
   {
-    [(WKDateTimePicker *)self dateFormatterForPicker];
+    objc_msgSend_dateFormatterForPicker(self);
     -[WKContentView updateFocusedElementValue:](self->_view, "updateFocusedElementValue:", [v3 stringFromDate:{-[UIDatePicker date](self->_datePicker.m_ptr, "date")}]);
   }
 
@@ -392,7 +392,7 @@ uint64_t __38__WKDateTimePicker_showDateTimePicker__block_invoke(uint64_t a1)
 {
   if ([(NSString *)self->_initialValue.m_ptr length])
   {
-    [(WKDateTimePicker *)self iso8601DateFormatterForCalendarView];
+    objc_msgSend_iso8601DateFormatterForCalendarView(self);
     v3 = [v14 dateFromString:{-[WKDateTimePicker _sanitizeInputValueForFormatter:](self, "_sanitizeInputValueForFormatter:", self->_initialValue.m_ptr)}];
     v4 = v3;
     if (v3)
@@ -463,7 +463,7 @@ uint64_t __38__WKDateTimePicker_showDateTimePicker__block_invoke(uint64_t a1)
 
   else if ([(NSString *)self->_initialValue.m_ptr length])
   {
-    [(WKDateTimePicker *)self dateFormatterForPicker];
+    objc_msgSend_dateFormatterForPicker(self);
     v3 = [v9 dateFromString:{-[WKDateTimePicker _sanitizeInputValueForFormatter:](self, "_sanitizeInputValueForFormatter:", self->_initialValue.m_ptr)}];
     v4 = v3;
     if (v3)
@@ -580,7 +580,7 @@ LABEL_14:
 {
   minute = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%.2ld:%.2ld", hour, minute];
   m_ptr = self->_datePicker.m_ptr;
-  [(WKDateTimePicker *)self dateFormatterForPicker];
+  objc_msgSend_dateFormatterForPicker(self);
   -[UIDatePicker setDate:](m_ptr, "setDate:", [v7 dateFromString:minute]);
   if (v7)
   {

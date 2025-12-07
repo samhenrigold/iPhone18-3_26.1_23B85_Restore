@@ -1,6 +1,8 @@
 @interface APKRemoteInspectorCSSAgent
 - (APKRemoteInspectorCSSAgent)initWithDispatcher:(id)dispatcher;
 - (APKRemoteInspectorCSSAgentDelegate)delegate;
+- (void)getComputedStyleForNodeWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id;
+- (void)getInlineStylesForNodeWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id;
 @end
 
 @implementation APKRemoteInspectorCSSAgent
@@ -20,6 +22,31 @@
   return v7;
 }
 
+- (void)getInlineStylesForNodeWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id
+{
+  v5 = *&id;
+  callbackCopy = callback;
+  successCallbackCopy = successCallback;
+  delegate = [(APKRemoteInspectorCSSAgent *)self delegate];
+
+  if (delegate)
+  {
+    delegate2 = [(APKRemoteInspectorCSSAgent *)self delegate];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __93__APKRemoteInspectorCSSAgent_getInlineStylesForNodeWithErrorCallback_successCallback_nodeId___block_invoke;
+    v12[3] = &unk_278C5DD20;
+    v13 = successCallbackCopy;
+    v14 = callbackCopy;
+    [delegate2 CSSAgent:self onInlineStylesRequestWithIdentifier:v5 completion:v12];
+  }
+
+  else
+  {
+    (*(callbackCopy + 2))(callbackCopy, @"Not supported");
+  }
+}
+
 void __93__APKRemoteInspectorCSSAgent_getInlineStylesForNodeWithErrorCallback_successCallback_nodeId___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -35,6 +62,31 @@ void __93__APKRemoteInspectorCSSAgent_getInlineStylesForNodeWithErrorCallback_su
     v8 = *(a1 + 40);
     v9 = [a3 localizedDescription];
     (*(v8 + 16))(v8, v9);
+  }
+}
+
+- (void)getComputedStyleForNodeWithErrorCallback:(id)callback successCallback:(id)successCallback nodeId:(int)id
+{
+  v5 = *&id;
+  callbackCopy = callback;
+  successCallbackCopy = successCallback;
+  delegate = [(APKRemoteInspectorCSSAgent *)self delegate];
+
+  if (delegate)
+  {
+    delegate2 = [(APKRemoteInspectorCSSAgent *)self delegate];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __94__APKRemoteInspectorCSSAgent_getComputedStyleForNodeWithErrorCallback_successCallback_nodeId___block_invoke;
+    v12[3] = &unk_278C5DD48;
+    v13 = successCallbackCopy;
+    v14 = callbackCopy;
+    [delegate2 CSSAgent:self onComputedStylesRequestWithIdentifier:v5 completion:v12];
+  }
+
+  else
+  {
+    (*(callbackCopy + 2))(callbackCopy, @"Not supported");
   }
 }
 

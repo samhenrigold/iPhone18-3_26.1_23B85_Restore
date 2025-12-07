@@ -7,7 +7,7 @@
 
 - (void)contactPicker:(id)picker didSelectContact:(id)contact
 {
-  sub_1A3C52C70(0, &qword_1EB13B2E0);
+  sub_1A3C52C70(0, &qword_1EB13B2E0, off_1E771EA58);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   pickerCopy = picker;
   contactCopy = contact;

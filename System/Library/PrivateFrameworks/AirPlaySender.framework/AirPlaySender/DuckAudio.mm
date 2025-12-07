@@ -3,26 +3,26 @@
 
 @implementation DuckAudio
 
-uint64_t __carEndpoint_DuckAudio_block_invoke(uint64_t result)
+uint64_t __carEndpoint_DuckAudio_block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  v1 = result;
+  v3 = result;
   if (*(*(result + 40) + 328))
   {
     if (gLogCategory_APEndpointCarPlay <= 50)
     {
       if (gLogCategory_APEndpointCarPlay != -1 || (result = _LogCategory_Initialize(), result))
       {
-        result = __carEndpoint_DuckAudio_block_invoke_cold_1();
+        result = __carEndpoint_DuckAudio_block_invoke_cold_1(v3, a2, a3);
       }
     }
 
-    *(*(v1 + 40) + 328) = 0;
+    *(*(v3 + 40) + 328) = 0;
   }
 
   else
   {
     result = carEndpoint_sendCommandInternal(*(result + 48), @"duckAudio", *(result + 56), 0, 0);
-    *(*(*(v1 + 32) + 8) + 24) = result;
+    *(*(*(v3 + 32) + 8) + 24) = result;
   }
 
   return result;
@@ -33,10 +33,10 @@ uint64_t __carEndpoint_DuckAudio_block_invoke_2(uint64_t result)
   if (*(*(result + 40) + 264))
   {
     v1 = result;
-    result = carEndpoint_getStreamInfoForSubtype();
+    result = carEndpoint_getStreamInfoForSubtype(*(result + 48), *MEMORY[0x277CC1918]);
     if (result)
     {
-      v10 = 0;
+      v11 = 0;
       v2 = CFGetAllocator(*(v1 + 48));
       CMBaseObject = FigEndpointStreamGetCMBaseObject();
       VTable = CMBaseObjectGetVTable();
@@ -45,26 +45,37 @@ uint64_t __carEndpoint_DuckAudio_block_invoke_2(uint64_t result)
       v6 = *(v5 + 48);
       if (v6)
       {
-        v6(CMBaseObject, @"AudioFormatInfo", v2, &v10);
-        result = v10;
-        if (v10)
+        v6(CMBaseObject, @"AudioFormatInfo", v2, &v11);
+        result = v11;
+        if (v11)
         {
-          LODWORD(v7) = *(APCarPlayAudioFormatInfoGetLatencyInfo(v10) + 8);
+          LODWORD(v7) = *(APCarPlayAudioFormatInfoGetLatencyInfo(v11) + 8);
           v8 = v7;
-          result = APCarPlayAudioFormatInfoGetDescription(v10);
+          result = APCarPlayAudioFormatInfoGetDescription(v11);
           *(*(*(v1 + 32) + 8) + 24) = (v8 / *result * 1000000000.0);
           v9 = *(v1 + 32);
-          if (*(*(v9 + 8) + 24) > 0x1DCD6500uLL)
+          v10 = *(*(v9 + 8) + 24);
+          if (v10 > 0x1DCD6500)
           {
             if (gLogCategory_APEndpointCarPlay <= 50)
             {
-              if (gLogCategory_APEndpointCarPlay != -1 || (result = _LogCategory_Initialize(), v9 = *(v1 + 32), result))
+              if (gLogCategory_APEndpointCarPlay == -1)
               {
-                result = LogPrintF();
+                result = _LogCategory_Initialize();
                 v9 = *(v1 + 32);
+                if (!result)
+                {
+                  goto LABEL_10;
+                }
+
+                v10 = *(*(v9 + 8) + 24);
               }
+
+              result = LogPrintF(&gLogCategory_APEndpointCarPlay, "OSStatus carEndpoint_DuckAudio(FigEndpointExtendedRef, CFDictionaryRef)_block_invoke_2", 33554482, "[%{ptr}] Excessively large unduck delay calculated as %llu na, capping to %llu ns\n", *(v1 + 48), v10, 500000000);
+              v9 = *(v1 + 32);
             }
 
+LABEL_10:
             *(*(v9 + 8) + 24) = 500000000;
           }
         }

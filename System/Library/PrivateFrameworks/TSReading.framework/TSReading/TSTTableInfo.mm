@@ -55,68 +55,68 @@
   tableModel = [(TSTTableInfo *)self tableModel];
   v3 = [[TSTCellIterator alloc] initWithTableModel:tableModel range:[(TSTTableModel *)tableModel range] flags:128];
   v4 = objc_alloc_init(MEMORY[0x277CCAB68]);
-  if ([(TSTCellIterator *)v3 getNext:v18])
+  if ([(TSTCellIterator *)v3 getNext:v19])
   {
-    v5 = 0;
-    v6 = 0xFFFF;
+    v6 = 0;
+    v7 = 0xFFFF;
     do
     {
-      v7 = v21;
-      v8 = v19;
+      v8 = v22;
       v9 = v20;
-      v11 = v22;
-      v10 = v23;
-      if (v6 == v19)
+      v10 = v21;
+      v12 = v23;
+      v11 = v24;
+      if (v7 == v20)
       {
-        [v4 appendString:v5];
+        [v4 appendString:v6];
       }
 
       else
       {
-        if (v6 != 0xFFFF)
+        if (v7 != 0xFFFF)
         {
           [v4 appendString:@"\n"];
         }
 
-        v6 = v8;
+        v7 = v9;
       }
 
-      v12 = v8 | (v9 << 16);
-      if (v11 == 0xFFFF || (*&v11 & 0xFF0000) == 0xFF0000 || v10 < 0x10000 || !v10 || ((v12 ^ v11) & 0xFFFFFF) == 0)
+      v13 = v9 | (v10 << 16);
+      if (v12 == 0xFFFF || (*&v12 & 0xFF0000) == 0xFF0000 || v11 < 0x10000 || !v11 || ((v13 ^ v12) & 0xFFFFFF) == 0)
       {
-        if (v7 && v7->mPrivate.mCellFormats.mCurrentCellFormat.mFormatType == 267)
+        if (v8 && v8->mPrivate.mCellFormats.mCurrentCellFormat.mFormatType == 267)
         {
-          TSTCellCoerceCellToTextFormat(v7);
+          TSTCellCoerceCellToTextFormat(v8, v5);
         }
 
-        v2 = v2 & 0xFFFFFFFF00000000 | v12;
-        v14 = TSTTableStringForCellAtCellID(tableModel, v7, v2);
-        if (v14)
+        v2 = v2 & 0xFFFFFFFF00000000 | v13;
+        v15 = TSTTableStringForCellAtCellID(tableModel, v8, v2);
+        if (v15)
         {
-          v15 = v14;
-          if ([(__CFString *)v14 rangeOfString:@"\n"]== 0x7FFFFFFFFFFFFFFFLL)
+          v16 = v15;
+          if ([(__CFString *)v15 rangeOfString:@"\n"]== 0x7FFFFFFFFFFFFFFFLL)
           {
-            [v4 appendString:v15];
+            [v4 appendString:v16];
           }
 
           else
           {
-            [v4 appendFormat:@"%@", v15];
+            [v4 appendFormat:@"%@", v16];
           }
         }
 
-        v13 = TSTTableInfoTextArchiving_TabSpacing;
+        v14 = TSTTableInfoTextArchiving_TabSpacing;
       }
 
       else
       {
-        v13 = &TSTTableInfoTextArchiving_MergeCellSpacing;
+        v14 = &TSTTableInfoTextArchiving_MergeCellSpacing;
       }
 
-      v5 = *v13;
+      v6 = *v14;
     }
 
-    while ([(TSTCellIterator *)v3 getNext:v18]);
+    while ([(TSTCellIterator *)v3 getNext:v19]);
   }
 
   return v4;

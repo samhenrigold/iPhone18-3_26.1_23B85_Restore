@@ -61,17 +61,12 @@
 
 - (id)describeMotionData:(id)data
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v8 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
+  v9 = *MEMORY[0x1E69E9840];
+  memset(v7, 0, sizeof(v7));
   dataCopy = data;
-  if ([dataCopy countByEnumeratingWithState:&v8 objects:v12 count:16])
+  if ([dataCopy countByEnumeratingWithState:v7 objects:v8 count:16])
   {
-    *v9;
-    *v9;
-    [**(&v8 + 1) floatValue];
+    [**(&v7[0] + 1) floatValue];
     v4 = [dataCopy valueForKey:@"description"];
     v5 = [v4 componentsJoinedByString:{@", "}];
   }
@@ -80,8 +75,6 @@
   {
     v5 = @"nil";
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -132,25 +125,25 @@
 
 - (AWFaceDetectAttentionEvent)initWithCoder:(id)coder
 {
-  v69[2] = *MEMORY[0x1E69E9840];
+  v67[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v49 = 0;
-  v5 = decodeDouble(coderCopy, &v49, @"timestamp");
-  v48 = decodeUInt64(coderCopy, &v49, @"metadataValid");
-  v6 = decodeDouble(coderCopy, &v49, @"pitch");
-  v7 = decodeDouble(coderCopy, &v49, @"yaw");
-  v8 = decodeDouble(coderCopy, &v49, @"roll");
-  v47 = decodeUInt64(coderCopy, &v49, @"orientation");
-  v9 = decodeDouble(coderCopy, &v49, @"distance");
-  v46 = decodeUInt64(coderCopy, &v49, @"faceState");
-  v45 = decodeUInt64(coderCopy, &v49, @"metadataType");
-  v10 = decodeUInt64(coderCopy, &v49, @"tagIndex");
+  v47 = 0;
+  v5 = decodeDouble(coderCopy, &v47, @"timestamp");
+  v46 = decodeUInt64(coderCopy, &v47, @"metadataValid");
+  v6 = decodeDouble(coderCopy, &v47, @"pitch");
+  v7 = decodeDouble(coderCopy, &v47, @"yaw");
+  v8 = decodeDouble(coderCopy, &v47, @"roll");
+  v45 = decodeUInt64(coderCopy, &v47, @"orientation");
+  v9 = decodeDouble(coderCopy, &v47, @"distance");
+  v44 = decodeUInt64(coderCopy, &v47, @"faceState");
+  v43 = decodeUInt64(coderCopy, &v47, @"metadataType");
+  v10 = decodeUInt64(coderCopy, &v47, @"tagIndex");
   v11 = coderCopy;
   v12 = @"motionData";
   v13 = MEMORY[0x1E695DFD8];
-  v69[0] = objc_opt_class();
-  v69[1] = objc_opt_class();
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:2];
+  v67[0] = objc_opt_class();
+  v67[1] = objc_opt_class();
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:2];
   v15 = [v13 setWithArray:v14];
   v16 = [v11 decodeObjectOfClasses:v15 forKey:@"motionData"];
 
@@ -159,7 +152,7 @@
   {
     if ([v11 containsValueForKey:@"motionData"])
     {
-      v24 = 0;
+      v23 = 0;
       goto LABEL_19;
     }
 
@@ -172,9 +165,92 @@
 LABEL_15:
     if (*(v17 + 2416) >= 3)
     {
-      v25 = v17;
-      v26 = _AALog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v24 = v17;
+      v25 = _AALog();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      {
+        v35 = absTimeNS();
+        if (v35 == -1)
+        {
+          v36 = INFINITY;
+        }
+
+        else
+        {
+          v36 = v35 / 1000000000.0;
+        }
+
+        buf = 134218242;
+        v64 = v36;
+        v65 = 2112;
+        v66 = @"motionData";
+        _os_log_error_impl(&dword_1BB2EF000, v25, OS_LOG_TYPE_ERROR, "%13.5f: failed to decode %@", &buf, 0x16u);
+      }
+
+      v17 = v24;
+    }
+
+    v23 = 0;
+    v47 = 1;
+    goto LABEL_19;
+  }
+
+  v41 = v10;
+  selfCopy = self;
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v18 = v16;
+  v19 = [v18 countByEnumeratingWithState:&v48 objects:v52 count:16];
+  if (v19)
+  {
+    v20 = v19;
+    v21 = *v49;
+    while (2)
+    {
+      for (i = 0; i != v20; ++i)
+      {
+        if (*v49 != v21)
+        {
+          objc_enumerationMutation(v18);
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+
+          v10 = v41;
+          self = selfCopy;
+          v17 = 0x1EDC16000uLL;
+          goto LABEL_15;
+        }
+      }
+
+      v20 = [v18 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      if (v20)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v23 = v18;
+  v10 = v41;
+  self = selfCopy;
+  v17 = 0x1EDC16000;
+LABEL_19:
+
+  v26 = decodeUInt64(v11, &v47, @"motionResult");
+  v27 = decodeDouble(v11, &v47, @"faceDetectionScore");
+  if (v47 == 1)
+  {
+    if (*(v17 + 2416) >= 3)
+    {
+      v28 = _AALog();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         v37 = absTimeNS();
         if (v37 == -1)
@@ -187,137 +263,52 @@ LABEL_15:
           v38 = v37 / 1000000000.0;
         }
 
-        buf = 134218242;
-        v66 = v38;
-        v67 = 2112;
-        v68 = @"motionData";
-        _os_log_error_impl(&dword_1BB2EF000, v26, OS_LOG_TYPE_ERROR, "%13.5f: failed to decode %@", &buf, 0x16u);
-      }
-
-      v17 = v25;
-    }
-
-    v24 = 0;
-    v49 = 1;
-    goto LABEL_19;
-  }
-
-  v43 = v10;
-  selfCopy = self;
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v18 = v16;
-  v19 = [v18 countByEnumeratingWithState:&v50 objects:v54 count:16];
-  if (v19)
-  {
-    v20 = v19;
-    v21 = *v51;
-    while (2)
-    {
-      for (i = 0; i != v20; ++i)
-      {
-        if (*v51 != v21)
-        {
-          objc_enumerationMutation(v18);
-        }
-
-        v23 = *(*(&v50 + 1) + 8 * i);
-        objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
-        {
-
-          v10 = v43;
-          self = selfCopy;
-          v17 = 0x1EDC16000uLL;
-          goto LABEL_15;
-        }
-      }
-
-      v20 = [v18 countByEnumeratingWithState:&v50 objects:v54 count:16];
-      if (v20)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-  v24 = v18;
-  v10 = v43;
-  self = selfCopy;
-  v17 = 0x1EDC16000;
-LABEL_19:
-
-  v27 = decodeUInt64(v11, &v49, @"motionResult");
-  v28 = decodeDouble(v11, &v49, @"faceDetectionScore");
-  if (v49 == 1)
-  {
-    if (*(v17 + 2416) >= 3)
-    {
-      v29 = _AALog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-      {
-        v39 = absTimeNS();
-        if (v39 == -1)
-        {
-          v40 = INFINITY;
-        }
-
-        else
-        {
-          v40 = v39 / 1000000000.0;
-        }
-
-        v41 = objc_opt_class();
-        v42 = NSStringFromClass(v41);
-        *v54 = 134218242;
-        *&v54[4] = v40;
-        *&v54[12] = 2112;
-        *&v54[14] = v42;
-        _os_log_error_impl(&dword_1BB2EF000, v29, OS_LOG_TYPE_ERROR, "%13.5f: failed to decode %@", v54, 0x16u);
+        v39 = objc_opt_class();
+        v40 = NSStringFromClass(v39);
+        *v52 = 134218242;
+        *&v52[4] = v38;
+        *&v52[12] = 2112;
+        *&v52[14] = v40;
+        _os_log_error_impl(&dword_1BB2EF000, v28, OS_LOG_TYPE_ERROR, "%13.5f: failed to decode %@", v52, 0x16u);
       }
     }
 
-    v30 = 0;
+    v29 = 0;
   }
 
   else
   {
-    v31 = 0;
-    *v54 = v48 != 0;
+    v30 = 0;
+    *v52 = v46 != 0;
+    v59 = 0u;
+    memset(v58, 0, sizeof(v58));
+    *&v52[8] = v6;
+    *&v52[16] = v7;
+    v53 = v8;
+    v54 = v45;
+    v55 = v9;
+    v56 = v44;
+    v57 = v43;
+    *&v59 = v26;
+    v31 = v27;
+    *(&v59 + 2) = v31;
+    v62 = 0;
+    v60 = 0u;
     v61 = 0u;
-    memset(v60, 0, sizeof(v60));
-    *&v54[8] = v6;
-    *&v54[16] = v7;
-    v55 = v8;
-    v56 = v47;
-    v57 = v9;
-    v58 = v46;
-    v59 = v45;
-    *&v61 = v27;
-    v32 = v28;
-    *(&v61 + 2) = v32;
-    v64 = 0;
-    v62 = 0u;
-    v63 = 0u;
     do
     {
-      v33 = [v24 objectAtIndexedSubscript:v31];
-      [v33 floatValue];
-      *(v60 + v31) = v34;
+      v32 = [v23 objectAtIndexedSubscript:v30];
+      [v32 floatValue];
+      *(v58 + v30) = v33;
 
-      ++v31;
+      ++v30;
     }
 
-    while (v31 != 16);
-    v30 = [[AWFaceDetectAttentionEvent alloc] initWithTimestamp:v10 tagIndex:v54 faceMetadata:v5];
+    while (v30 != 16);
+    v29 = [[AWFaceDetectAttentionEvent alloc] initWithTimestamp:v10 tagIndex:v52 faceMetadata:v5];
   }
 
-  v35 = *MEMORY[0x1E69E9840];
-  return v30;
+  return v29;
 }
 
 - (void)encodeWithCoder:(id)coder

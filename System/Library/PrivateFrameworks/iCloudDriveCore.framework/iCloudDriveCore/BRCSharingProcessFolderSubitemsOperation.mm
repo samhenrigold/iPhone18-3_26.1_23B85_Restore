@@ -133,33 +133,33 @@ LABEL_7:
 
 - (void)_stopObservingListOperation
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v3 = selfCopy->_activeListOperations;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v4)
   {
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) endObservingChangesWithDelegate:{selfCopy, v8}];
+        [*(*(&v7 + 1) + 8 * v6++) endObservingChangesWithDelegate:{selfCopy, v7}];
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
@@ -167,8 +167,6 @@ LABEL_7:
 
   [(NSMutableArray *)selfCopy->_activeListOperations removeAllObjects];
   objc_sync_exit(selfCopy);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -229,10 +227,10 @@ LABEL_7:
 
 void __79__BRCSharingProcessFolderSubitemsOperation_removeSharedSubitemsWithCompletion___block_invoke(uint64_t a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
-  v39 = objc_opt_new();
-  v37 = objc_opt_new();
+  v38 = objc_opt_new();
+  v36 = objc_opt_new();
   v3 = *(a1 + 32);
   if (*(v3 + 528))
   {
@@ -254,9 +252,9 @@ void __79__BRCSharingProcessFolderSubitemsOperation_removeSharedSubitemsWithComp
       {
         v12 = [v7 shareID];
         *buf = 138412546;
-        v51 = v12;
-        v52 = 2112;
-        v53 = v8;
+        v50 = v12;
+        v51 = 2112;
+        v52 = v8;
         _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] Removing shareID %@%@", buf, 0x16u);
       }
 
@@ -264,9 +262,9 @@ void __79__BRCSharingProcessFolderSubitemsOperation_removeSharedSubitemsWithComp
       [v2 addObject:v10];
 
       v11 = [v7 emptyRecord];
-      [v39 addObject:v11];
+      [v38 addObject:v11];
 
-      [v37 addObject:v7];
+      [v36 addObject:v7];
       v3 = *(a1 + 32);
       v4 += 2;
       ++v5;
@@ -280,7 +278,7 @@ void __79__BRCSharingProcessFolderSubitemsOperation_removeSharedSubitemsWithComp
     v5 = 0;
   }
 
-  [*(v3 + 576) removeObjectsInRange:{0, v5, v37}];
+  [*(v3 + 576) removeObjectsInRange:{0, v5, v36}];
   v13 = [*(*(a1 + 32) + 568) count];
   v14 = *(a1 + 32);
   v15 = *(v14 + 528);
@@ -302,35 +300,35 @@ void __79__BRCSharingProcessFolderSubitemsOperation_removeSharedSubitemsWithComp
     [*(*(a1 + 32) + 568) removeAllObjects];
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = v18;
-  v22 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v22 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v46;
+    v24 = *v45;
     do
     {
       v25 = 0;
       do
       {
-        if (*v46 != v24)
+        if (*v45 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v45 + 1) + 8 * v25);
+        v26 = *(*(&v44 + 1) + 8 * v25);
         v27 = brc_bread_crumbs();
         v28 = brc_default_log();
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v51 = v26;
-          v52 = 2112;
-          v53 = v27;
+          v50 = v26;
+          v51 = 2112;
+          v52 = v27;
           _os_log_debug_impl(&dword_223E7A000, v28, OS_LOG_TYPE_DEBUG, "[DEBUG] Removing alias record %@%@", buf, 0x16u);
         }
 
@@ -342,18 +340,18 @@ void __79__BRCSharingProcessFolderSubitemsOperation_removeSharedSubitemsWithComp
       }
 
       while (v23 != v25);
-      v23 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v23 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
     }
 
     while (v23);
   }
 
-  if ([v2 count] || objc_msgSend(v39, "count"))
+  if ([v2 count] || objc_msgSend(v38, "count"))
   {
     v31 = objc_alloc(MEMORY[0x277CBC4A0]);
-    if ([v39 count])
+    if ([v38 count])
     {
-      v32 = v39;
+      v32 = v38;
     }
 
     else
@@ -374,16 +372,16 @@ void __79__BRCSharingProcessFolderSubitemsOperation_removeSharedSubitemsWithComp
     v34 = [v31 initWithRecordsToSave:v32 recordIDsToDelete:v33];
     [v34 setAtomic:1];
     [v34 setSavePolicy:0];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __79__BRCSharingProcessFolderSubitemsOperation_removeSharedSubitemsWithCompletion___block_invoke_384;
-    v41[3] = &unk_278506A00;
-    v41[4] = *(v19 + 32);
-    v35 = v38;
-    v42 = v38;
-    v43 = obj;
-    v44 = *(v19 + 40);
-    [v34 setModifyRecordsCompletionBlock:v41];
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __79__BRCSharingProcessFolderSubitemsOperation_removeSharedSubitemsWithCompletion___block_invoke_384;
+    v40[3] = &unk_278506A00;
+    v40[4] = *(v19 + 32);
+    v35 = v37;
+    v41 = v37;
+    v42 = obj;
+    v43 = *(v19 + 40);
+    [v34 setModifyRecordsCompletionBlock:v40];
     [*(v19 + 32) addSubOperation:v34];
   }
 
@@ -391,10 +389,8 @@ void __79__BRCSharingProcessFolderSubitemsOperation_removeSharedSubitemsWithComp
   {
     [*(*(v19 + 32) + 592) scheduleSyncDown];
     (*(*(v19 + 40) + 16))();
-    v35 = v38;
+    v35 = v37;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __79__BRCSharingProcessFolderSubitemsOperation_removeSharedSubitemsWithCompletion___block_invoke_384(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -553,28 +549,28 @@ void __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingCli
 
 void __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingClientTruthIfNecessaryWithError___block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = *(*(a1 + 32) + 552);
-  v2 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v2 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v27;
+    v4 = *v26;
     do
     {
       v5 = 0;
       do
       {
-        if (*v27 != v4)
+        if (*v26 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v26 + 1) + 8 * v5);
+        v6 = *(*(&v25 + 1) + 8 * v5);
         v7 = [*(*(a1 + 32) + 256) itemFetcher];
         v8 = [v7 itemByItemGlobalID:v6 dbFacade:*(a1 + 40)];
 
@@ -584,21 +580,21 @@ void __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingCli
           v9 = [MEMORY[0x277CC64A8] br_sharedProviderManager];
           v10 = [v8 fileObjectID];
           v11 = [v10 asString];
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingClientTruthIfNecessaryWithError___block_invoke_3;
-          v22[3] = &unk_278504348;
-          v23 = v8;
-          v25 = *(a1 + 72);
-          v24 = *(a1 + 48);
-          [v9 getUserVisibleURLForItemIdentifier:v11 completionHandler:v22];
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingClientTruthIfNecessaryWithError___block_invoke_3;
+          v21[3] = &unk_278504348;
+          v22 = v8;
+          v24 = *(a1 + 72);
+          v23 = *(a1 + 48);
+          [v9 getUserVisibleURLForItemIdentifier:v11 completionHandler:v21];
         }
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v3 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v3);
@@ -610,19 +606,17 @@ void __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingCli
   block[1] = 3221225472;
   block[2] = __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingClientTruthIfNecessaryWithError___block_invoke_392;
   block[3] = &unk_2784FF4A0;
-  v19 = *(a1 + 56);
+  v18 = *(a1 + 56);
   v14 = *(a1 + 64);
   v15 = *(a1 + 32);
-  v20 = v14;
-  v21 = v15;
+  v19 = v14;
+  v20 = v15;
   dispatch_group_notify(v12, v13, block);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingClientTruthIfNecessaryWithError___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -631,26 +625,23 @@ void __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingCli
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *(a1 + 32);
-      v12 = 138412802;
-      v13 = v11;
+      v9 = *(a1 + 32);
+      v10 = 138412802;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v6;
       v14 = 2112;
-      v15 = v6;
-      v16 = 2112;
-      v17 = v7;
-      _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Got an error while computing the URL of %@ - %@%@", &v12, 0x20u);
+      v15 = v7;
+      _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Got an error while computing the URL of %@ - %@%@", &v10, 0x20u);
     }
   }
 
   if (v5)
   {
-    v9 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingClientTruthIfNecessaryWithError___block_invoke_392(uint64_t a1)
@@ -661,7 +652,7 @@ void __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingCli
 
 - (id)computeURLForItemID:(id)d rootURL:(id)l
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dCopy = d;
   lCopy = l;
   session = [(BRCSyncContext *)self->super.super._syncContext session];
@@ -669,7 +660,7 @@ void __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingCli
   [serverDB assertOnQueue];
   dbRowID = [(BRCClientZone *)self->_rootClientZone dbRowID];
   dbRowID2 = [(BRCClientZone *)self->_rootClientZone dbRowID];
-  v34 = dCopy;
+  v33 = dCopy;
   v10 = [serverDB fetch:{@"WITH RECURSIVE item_parents (item_filename, item_parent_id) AS(    SELECT item_filename, item_parent_id FROM server_items      WHERE zone_rowid = %@ AND item_id = %@  UNION ALL     SELECT si.item_filename, si.item_parent_id FROM server_items AS si INNER JOIN item_parents AS p      WHERE si.item_id = p.item_parent_id        AND si.zone_rowid = %@) SELECT item_filename FROM item_parents", dbRowID, dCopy, dbRowID2}];
 
   v11 = objc_opt_new();
@@ -703,8 +694,8 @@ LABEL_20:
   if ([v11 count])
   {
     v13 = brc_bread_crumbs();
-    v31 = brc_default_log();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v30 = brc_default_log();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       [BRCSharingProcessFolderSubitemsOperation computeURLForItemID:rootURL:];
     }
@@ -712,12 +703,12 @@ LABEL_20:
     goto LABEL_29;
   }
 
-  v14 = [serverDB stringWithSQL:{@"SELECT item_alias_target FROM server_items WHERE item_id = %@ AND zone_rowid = %@", v34, self->_rootClientZone}];
+  v14 = [serverDB stringWithSQL:{@"SELECT item_alias_target FROM server_items WHERE item_id = %@ AND zone_rowid = %@", v33, self->_rootClientZone}];
   if (!v14)
   {
     v13 = brc_bread_crumbs();
-    v31 = brc_default_log();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v30 = brc_default_log();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       [BRCSharingProcessFolderSubitemsOperation computeURLForItemID:rootURL:];
     }
@@ -730,11 +721,11 @@ LABEL_29:
   }
 
   v15 = v14;
-  v36 = 0;
-  v37 = 0;
   v35 = 0;
-  v16 = [v14 parseUnsaltedBookmarkDataWithItemID:&v37 mangledID:&v36 error:&v35];
-  v17 = v35;
+  v36 = 0;
+  v34 = 0;
+  v16 = [v14 parseUnsaltedBookmarkDataWithItemID:&v36 mangledID:&v35 error:&v34];
+  v17 = v34;
   if ((v16 & 1) == 0)
   {
     v19 = brc_bread_crumbs();
@@ -742,22 +733,22 @@ LABEL_29:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v39 = v15;
-      v40 = 2112;
-      v41 = v17;
-      v42 = 2112;
-      v43 = v19;
+      v38 = v15;
+      v39 = 2112;
+      v40 = v17;
+      v41 = 2112;
+      v42 = v19;
       _os_log_impl(&dword_223E7A000, v23, OS_LOG_TYPE_DEFAULT, "[WARNING] Couldn't parse unsalted bookmark data %@ - %@%@", buf, 0x20u);
     }
 
     goto LABEL_18;
   }
 
-  v18 = [session serverZoneByMangledID:v36];
+  v18 = [session serverZoneByMangledID:v35];
   v19 = v18;
   if (v18)
   {
-    v20 = v37;
+    v20 = v36;
     dbRowID3 = [v18 dbRowID];
     v13 = [serverDB stringWithSQL:{@"SELECT item_filename FROM server_items WHERE item_id = %@ AND zone_rowid = %@", v20, dbRowID3}];
 
@@ -776,9 +767,9 @@ LABEL_29:
     }
 
     *buf = 138412546;
-    v39 = v37;
-    v40 = 2112;
-    v41 = v23;
+    v38 = v36;
+    v39 = 2112;
+    v40 = v23;
     v25 = v24;
     v26 = "[WARNING] No filename found on alias target %@%@";
     goto LABEL_16;
@@ -789,9 +780,9 @@ LABEL_29:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v39 = v36;
-    v40 = 2112;
-    v41 = v23;
+    v38 = v35;
+    v39 = 2112;
+    v40 = v23;
     v25 = v24;
     v26 = "[WARNING] Couldn't find server zone for %@%@";
 LABEL_16:
@@ -813,8 +804,6 @@ LABEL_19:
   v28 = 0;
   v27 = lCopy;
 LABEL_22:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -903,71 +892,71 @@ void __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingSer
 
 void __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingServerTruthIfNecessaryWithError___block_invoke_405(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v4 = *(*(a1 + 32) + 560);
-  v5 = [v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v25;
+    v7 = *v24;
     do
     {
       v8 = 0;
       do
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
         v9 = *(*(*(a1 + 40) + 8) + 40);
-        v10 = [*(a1 + 32) computeURLForItemID:*(*(&v24 + 1) + 8 * v8) rootURL:v3];
+        v10 = [*(a1 + 32) computeURLForItemID:*(*(&v23 + 1) + 8 * v8) rootURL:v3];
         [v9 addObject:v10];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v6);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = *(*(a1 + 32) + 568);
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       v15 = 0;
       do
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
         v16 = *(*(*(a1 + 48) + 8) + 40);
-        v17 = [*(a1 + 32) computeURLForItemID:*(*(&v20 + 1) + 8 * v15) rootURL:{v3, v20}];
+        v17 = [*(a1 + 32) computeURLForItemID:*(*(&v19 + 1) + 8 * v15) rootURL:{v3, v19}];
         [v16 addObject:v17];
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v13);
@@ -975,8 +964,6 @@ void __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingSer
 
   v18 = [MEMORY[0x277CCA9B8] brc_errorFolderHasSharedSubitemsWithSharedByMeURLs:*(*(*(a1 + 40) + 8) + 40) sharedToMeURLs:*(*(*(a1 + 48) + 8) + 40)];
   [*(a1 + 32) completedWithResult:0 error:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessingServerTruthIfNecessaryWithError___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1039,41 +1026,41 @@ uint64_t __100__BRCSharingProcessFolderSubitemsOperation__completeAfterProcessin
 
 void __85__BRCSharingProcessFolderSubitemsOperation_processServerItemsUnderItemID_completion___block_invoke(uint64_t a1)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v2 = a1 + 32;
   v3 = [*(*(a1 + 32) + 248) session];
-  v41 = [v3 clientDB];
+  v40 = [v3 clientDB];
 
   v4 = [*(*v2 + 592) dbRowID];
   v5 = *(a1 + 40);
   v6 = [*(*v2 + 592) dbRowID];
-  v7 = [v41 fetch:{@"WITH RECURSIVE item_children_needing_fetching (item_id, item_type, item_sharing_options, shared_alias_count, shared_children_count) AS(    SELECT item_id, item_type, item_sharing_options, shared_alias_count, shared_children_count FROM server_items      WHERE zone_rowid = %@ AND item_id = %@ AND (IFNULL(shared_children_count + shared_alias_count, 1) > 0)  UNION ALL     SELECT ip.item_id, ip.item_type, ip.item_sharing_options, ip.shared_alias_count, ip.shared_children_count FROM server_items AS ip INNER JOIN item_children_needing_fetching AS p       WHERE ip.item_parent_id = p.item_id        AND ip.zone_rowid = %@        AND ip.item_type IN (0, 9, 10, 1, 2, 8, 3)        AND ((IFNULL(ip.shared_children_count + ip.shared_alias_count, 1) > 0)            OR (ip.item_sharing_options & 4)            OR ip.item_type = 3)) SELECT item_id, item_type, item_sharing_options FROM item_children_needing_fetching WHERE item_type = 3 OR (item_sharing_options & 4)       OR (item_type IN (9, 10) AND (IFNULL(shared_children_count + shared_alias_count, 1) > 0))", v4, v5, v6}];
+  v7 = [v40 fetch:{@"WITH RECURSIVE item_children_needing_fetching (item_id, item_type, item_sharing_options, shared_alias_count, shared_children_count) AS(    SELECT item_id, item_type, item_sharing_options, shared_alias_count, shared_children_count FROM server_items      WHERE zone_rowid = %@ AND item_id = %@ AND (IFNULL(shared_children_count + shared_alias_count, 1) > 0)  UNION ALL     SELECT ip.item_id, ip.item_type, ip.item_sharing_options, ip.shared_alias_count, ip.shared_children_count FROM server_items AS ip INNER JOIN item_children_needing_fetching AS p       WHERE ip.item_parent_id = p.item_id        AND ip.zone_rowid = %@        AND ip.item_type IN (0, 9, 10, 1, 2, 8, 3)        AND ((IFNULL(ip.shared_children_count + ip.shared_alias_count, 1) > 0)            OR (ip.item_sharing_options & 4)            OR ip.item_type = 3)) SELECT item_id, item_type, item_sharing_options FROM item_children_needing_fetching WHERE item_type = 3 OR (item_sharing_options & 4)       OR (item_type IN (9, 10) AND (IFNULL(shared_children_count + shared_alias_count, 1) > 0))", v4, v5, v6}];
 
   group = dispatch_group_create();
-  v56[0] = 0;
-  v56[1] = v56;
-  v56[2] = 0x3032000000;
-  v56[3] = __Block_byref_object_copy__48;
-  v56[4] = __Block_byref_object_dispose__48;
-  v57 = 0;
+  v55[0] = 0;
+  v55[1] = v55;
+  v55[2] = 0x3032000000;
+  v55[3] = __Block_byref_object_copy__48;
+  v55[4] = __Block_byref_object_dispose__48;
+  v56 = 0;
   while ([v7 next])
   {
     v8 = objc_autoreleasePoolPush();
     v9 = [v7 objectOfClass:objc_opt_class() atIndex:0];
     v10 = [v7 intAtIndex:1];
     v11 = [v7 intAtIndex:2];
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __85__BRCSharingProcessFolderSubitemsOperation_processServerItemsUnderItemID_completion___block_invoke_2;
-    v51[3] = &unk_278502BB0;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __85__BRCSharingProcessFolderSubitemsOperation_processServerItemsUnderItemID_completion___block_invoke_2;
+    v50[3] = &unk_278502BB0;
     v12 = group;
     v13 = *(a1 + 32);
-    v52 = v12;
-    v53 = v13;
+    v51 = v12;
+    v52 = v13;
     v14 = v9;
-    v54 = v14;
-    v55 = v56;
-    v15 = MEMORY[0x22AA4A310](v51);
+    v53 = v14;
+    v54 = v55;
+    v15 = MEMORY[0x22AA4A310](v50);
     v16 = v11;
     if ((v11 & 4) != 0)
     {
@@ -1086,11 +1073,11 @@ void __85__BRCSharingProcessFolderSubitemsOperation_processServerItemsUnderItemI
         {
           v36 = *(a1 + 40);
           *buf = 138412802;
-          v59 = v14;
-          v60 = 2112;
-          v61 = v36;
-          v62 = 2112;
-          v63 = v34;
+          v58 = v14;
+          v59 = 2112;
+          v60 = v36;
+          v61 = 2112;
+          v62 = v34;
           _os_log_impl(&dword_223E7A000, v35, OS_LOG_TYPE_DEFAULT, "[WARNING] subitem %@ is already shared inside %@%@", buf, 0x20u);
         }
 
@@ -1137,11 +1124,11 @@ void __85__BRCSharingProcessFolderSubitemsOperation_processServerItemsUnderItemI
           {
             v38 = *(*(a1 + 32) + 600);
             *buf = 138412802;
-            v59 = v14;
-            v60 = 2112;
-            v61 = v38;
-            v62 = 2112;
-            v63 = v22;
+            v58 = v14;
+            v59 = 2112;
+            v60 = v38;
+            v61 = 2112;
+            v62 = v22;
             _os_log_debug_impl(&dword_223E7A000, v23, OS_LOG_TYPE_DEBUG, "[DEBUG] Found shared-to-me alias to delete %@ in %@%@", buf, 0x20u);
           }
 
@@ -1158,9 +1145,9 @@ void __85__BRCSharingProcessFolderSubitemsOperation_processServerItemsUnderItemI
         if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412546;
-          v59 = v14;
-          v60 = 2112;
-          v61 = v32;
+          v58 = v14;
+          v59 = 2112;
+          v60 = v32;
           _os_log_fault_impl(&dword_223E7A000, v37, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Huh?  We shouldn't be processing this item if it's not shared and not a directory fault %@%@", buf, 0x16u);
         }
 
@@ -1175,9 +1162,9 @@ LABEL_31:
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v59 = v14;
-        v60 = 2112;
-        v61 = v30;
+        v58 = v14;
+        v59 = 2112;
+        v60 = v30;
         _os_log_debug_impl(&dword_223E7A000, v31, OS_LOG_TYPE_DEBUG, "[DEBUG] We need to fetch %@ before we can continue%@", buf, 0x16u);
       }
 
@@ -1197,19 +1184,19 @@ LABEL_31:
 
         dispatch_group_enter(v12);
         objc_initWeak(buf, v32);
-        v46[0] = MEMORY[0x277D85DD0];
-        v46[1] = 3221225472;
-        v46[2] = __85__BRCSharingProcessFolderSubitemsOperation_processServerItemsUnderItemID_completion___block_invoke_414;
-        v46[3] = &unk_278506A78;
-        v46[4] = *(a1 + 32);
-        objc_copyWeak(&v50, buf);
-        v49 = v56;
-        v48 = v15;
-        v47 = v12;
-        [v32 addDirectoryListCompletionBlock:v46];
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 3221225472;
+        v45[2] = __85__BRCSharingProcessFolderSubitemsOperation_processServerItemsUnderItemID_completion___block_invoke_414;
+        v45[3] = &unk_278506A78;
+        v45[4] = *(a1 + 32);
+        objc_copyWeak(&v49, buf);
+        v48 = v55;
+        v47 = v15;
+        v46 = v12;
+        [v32 addDirectoryListCompletionBlock:v45];
         [v32 beginObservingChangesWithDelegate:*(a1 + 32)];
 
-        objc_destroyWeak(&v50);
+        objc_destroyWeak(&v49);
         objc_destroyWeak(buf);
         goto LABEL_30;
       }
@@ -1233,14 +1220,12 @@ LABEL_32:
   block[2] = __85__BRCSharingProcessFolderSubitemsOperation_processServerItemsUnderItemID_completion___block_invoke_416;
   block[3] = &unk_278506AA0;
   block[4] = *(a1 + 32);
-  v44 = *(a1 + 48);
-  v45 = v56;
+  v43 = *(a1 + 48);
+  v44 = v55;
   dispatch_group_notify(group, v39, block);
 
 LABEL_35:
-  _Block_object_dispose(v56, 8);
-
-  v40 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v55, 8);
 }
 
 void __85__BRCSharingProcessFolderSubitemsOperation_processServerItemsUnderItemID_completion___block_invoke_2(uint64_t a1)
@@ -1317,7 +1302,6 @@ void __85__BRCSharingProcessFolderSubitemsOperation_processServerItemsUnderItemI
 {
   obj = *(a1 + 32);
   objc_sync_enter(obj);
-  v2 = *(*(*(a1 + 48) + 8) + 40);
   (*(*(a1 + 40) + 16))();
   objc_sync_exit(obj);
 }
@@ -1325,7 +1309,7 @@ void __85__BRCSharingProcessFolderSubitemsOperation_processServerItemsUnderItemI
 - (BOOL)deleteShareInfoFromZone:(id)zone zoneRowID:(id)d itemID:(id)iD sharingOptions:(unint64_t)options itemsTable:(id)table
 {
   optionsCopy = options;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   iDCopy = iD;
   syncContext = self->super.super._syncContext;
@@ -1370,8 +1354,8 @@ LABEL_7:
   }
 
   v25 = 1 << v24;
-  v41 = optionsCopy;
-  v42 = clientDB;
+  v40 = optionsCopy;
+  v41 = clientDB;
   if ((v25 & 0x611) == 0)
   {
     if ((v25 & 0x106) != 0)
@@ -1402,18 +1386,18 @@ LABEL_10:
   v37 = brc_default_log();
   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
   {
-    v40 = "full";
+    v39 = "full";
     *buf = 136315650;
-    if ((v41 & 0x48) == 0)
+    if ((v40 & 0x48) == 0)
     {
-      v40 = "empty";
+      v39 = "empty";
     }
 
-    v44 = v40;
-    v45 = 2112;
-    v46 = v34;
-    v47 = 2112;
-    v48 = v36;
+    v43 = v39;
+    v44 = 2112;
+    v45 = v34;
+    v46 = 2112;
+    v47 = v36;
     _os_log_debug_impl(&dword_223E7A000, v37, OS_LOG_TYPE_DEBUG, "[DEBUG] deleting %s shareID %@%@", buf, 0x20u);
   }
 
@@ -1424,10 +1408,9 @@ LABEL_10:
 
   v31 = 1;
   v21 = v34;
-  clientDB = v42;
+  clientDB = v41;
 LABEL_14:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -1478,7 +1461,7 @@ void __77__BRCSharingProcessFolderSubitemsOperation_processClientTruthWithComple
 
 void __77__BRCSharingProcessFolderSubitemsOperation_processClientTruthWithCompletion___block_invoke_2(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = a2;
   if ((a3 & 4) == 0)
   {
@@ -1492,13 +1475,13 @@ void __77__BRCSharingProcessFolderSubitemsOperation_processClientTruthWithComple
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = a1[5];
-      v23 = 138412802;
-      v24 = v7;
-      v25 = 2112;
-      v26 = v19;
-      v27 = 2112;
-      v28 = v17;
-      _os_log_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] subitem %@ is already shared inside %@%@", &v23, 0x20u);
+      v22 = 138412802;
+      v23 = v7;
+      v24 = 2112;
+      v25 = v19;
+      v26 = 2112;
+      v27 = v17;
+      _os_log_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] subitem %@ is already shared inside %@%@", &v22, 0x20u);
     }
 
     [*(a1[4] + 552) addObject:v7];
@@ -1534,8 +1517,6 @@ void __77__BRCSharingProcessFolderSubitemsOperation_processClientTruthWithComple
       [*(a1[4] + 592) itemMovedIntoShareInThisZone:v16 associatedItemID:0];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main
@@ -1552,7 +1533,7 @@ void __77__BRCSharingProcessFolderSubitemsOperation_processClientTruthWithComple
     v4 = brc_default_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      [(BRCSharingProcessFolderSubitemsOperation *)self main];
+      [BRCSharingProcessFolderSubitemsOperation main];
     }
 
     [(_BRCOperation *)self completedWithResult:0 error:0];
@@ -1569,7 +1550,7 @@ void __77__BRCSharingProcessFolderSubitemsOperation_processClientTruthWithComple
   }
 }
 
-uint64_t __48__BRCSharingProcessFolderSubitemsOperation_main__block_invoke(uint64_t a1, uint64_t a2)
+void *__48__BRCSharingProcessFolderSubitemsOperation_main__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _completeAfterProcessingClientTruthIfNecessaryWithError:a2];
   if ((result & 1) == 0)
@@ -1586,7 +1567,7 @@ uint64_t __48__BRCSharingProcessFolderSubitemsOperation_main__block_invoke(uint6
   return result;
 }
 
-uint64_t __48__BRCSharingProcessFolderSubitemsOperation_main__block_invoke_2(uint64_t a1, uint64_t a2)
+void *__48__BRCSharingProcessFolderSubitemsOperation_main__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _completeAfterProcessingServerTruthIfNecessaryWithError:a2];
   if ((result & 1) == 0)

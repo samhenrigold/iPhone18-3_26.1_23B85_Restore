@@ -34,7 +34,7 @@
     transaction = self->_transaction;
     self->_transaction = v4;
 
-    _objc_release_x1();
+    _objc_release_x1(v4, transaction);
   }
 }
 
@@ -42,7 +42,7 @@
 {
   transaction = self->_transaction;
   self->_transaction = 0;
-  _objc_release_x1();
+  _objc_release_x1(self, transaction);
 }
 
 - (void)_stageEvictionOfResourceWithTargetLifetime:(double)lifetime block:(id)block

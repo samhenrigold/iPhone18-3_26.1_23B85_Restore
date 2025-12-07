@@ -159,7 +159,7 @@ uint64_t __44__BRCUploadConstraintChecker_defaultChecker__block_invoke()
 
 void __80__BRCUploadConstraintChecker__scheduleNoSpaceExecutionBlocksWithAvailableSpace___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v5 isEqualToString:@"__defaultPersonaID__"])
@@ -187,7 +187,7 @@ void __80__BRCUploadConstraintChecker__scheduleNoSpaceExecutionBlocksWithAvailab
   v10 = [MEMORY[0x277D77BF8] sharedManager];
   v11 = [v10 currentPersona];
 
-  v26 = 0;
+  v25 = 0;
   v12 = [v11 userPersonaUniqueString];
   v13 = v12;
   if (v12 == v9 || ([v12 isEqualToString:v9] & 1) != 0)
@@ -198,17 +198,17 @@ void __80__BRCUploadConstraintChecker__scheduleNoSpaceExecutionBlocksWithAvailab
 
   if (voucher_process_can_use_arbitrary_personas())
   {
-    v25 = 0;
-    v16 = [v11 copyCurrentPersonaContextWithError:&v25];
+    v24 = 0;
+    v15 = [v11 copyCurrentPersonaContextWithError:&v24];
+    v16 = v24;
     v17 = v25;
-    v18 = v26;
-    v26 = v16;
+    v25 = v15;
 
-    if (v17)
+    if (v16)
     {
-      v19 = brc_bread_crumbs();
-      v20 = brc_default_log();
-      if (os_log_type_enabled(v20, 0x90u))
+      v18 = brc_bread_crumbs();
+      v19 = brc_default_log();
+      if (os_log_type_enabled(v19, 0x90u))
       {
         __80__BRCUploadConstraintChecker__scheduleNoSpaceExecutionBlocksWithAvailableSpace___block_invoke_cold_4();
       }
@@ -218,17 +218,17 @@ void __80__BRCUploadConstraintChecker__scheduleNoSpaceExecutionBlocksWithAvailab
 
     if (v14)
     {
-      v21 = brc_bread_crumbs();
-      v22 = brc_default_log();
-      if (os_log_type_enabled(v22, 0x90u))
+      v20 = brc_bread_crumbs();
+      v21 = brc_default_log();
+      if (os_log_type_enabled(v21, 0x90u))
       {
         *buf = 138412802;
-        v28 = v5;
-        v29 = 2112;
-        v30 = v14;
-        v31 = 2112;
-        v32 = v21;
-        _os_log_error_impl(&dword_223E7A000, v22, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v27 = v5;
+        v28 = 2112;
+        v29 = v14;
+        v30 = 2112;
+        v31 = v20;
+        _os_log_error_impl(&dword_223E7A000, v21, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
 
 LABEL_28:
@@ -239,9 +239,9 @@ LABEL_28:
   {
     if (!v8 && ([v11 isDataSeparatedPersona] & 1) == 0)
     {
-      v21 = brc_bread_crumbs();
-      v22 = brc_default_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v20 = brc_bread_crumbs();
+      v21 = brc_default_log();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -250,9 +250,9 @@ LABEL_28:
       goto LABEL_28;
     }
 
-    v23 = brc_bread_crumbs();
-    v24 = brc_default_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v22 = brc_bread_crumbs();
+    v23 = brc_default_log();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       __br_notify_register_dispatch_block_invoke_cold_3();
     }
@@ -264,7 +264,6 @@ LABEL_11:
   v6[2](v6, *(a1 + 32));
 
   _BRRestorePersona();
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __80__BRCUploadConstraintChecker__scheduleNoSpaceExecutionBlocksWithAvailableSpace___block_invoke_2()
@@ -358,7 +357,7 @@ void __80__BRCUploadConstraintChecker__scheduleNoSpaceExecutionBlocksWithAvailab
 
 void __90__BRCUploadConstraintChecker__rescheduleAndResetAvailableSizeAndDateIfNeededWithDidReset___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   if ([v4 isEqualToString:@"__defaultPersonaID__"])
@@ -386,7 +385,7 @@ void __90__BRCUploadConstraintChecker__rescheduleAndResetAvailableSizeAndDateIfN
   v9 = [MEMORY[0x277D77BF8] sharedManager];
   v10 = [v9 currentPersona];
 
-  v25 = 0;
+  v24 = 0;
   v11 = [v10 userPersonaUniqueString];
   v12 = v11;
   if (v11 == v8 || ([v11 isEqualToString:v8] & 1) != 0)
@@ -397,17 +396,17 @@ void __90__BRCUploadConstraintChecker__rescheduleAndResetAvailableSizeAndDateIfN
 
   if (voucher_process_can_use_arbitrary_personas())
   {
-    v24 = 0;
-    v15 = [v10 copyCurrentPersonaContextWithError:&v24];
+    v23 = 0;
+    v14 = [v10 copyCurrentPersonaContextWithError:&v23];
+    v15 = v23;
     v16 = v24;
-    v17 = v25;
-    v25 = v15;
+    v24 = v14;
 
-    if (v16)
+    if (v15)
     {
-      v18 = brc_bread_crumbs();
-      v19 = brc_default_log();
-      if (os_log_type_enabled(v19, 0x90u))
+      v17 = brc_bread_crumbs();
+      v18 = brc_default_log();
+      if (os_log_type_enabled(v18, 0x90u))
       {
         __80__BRCUploadConstraintChecker__scheduleNoSpaceExecutionBlocksWithAvailableSpace___block_invoke_cold_4();
       }
@@ -417,17 +416,17 @@ void __90__BRCUploadConstraintChecker__rescheduleAndResetAvailableSizeAndDateIfN
 
     if (v13)
     {
-      v20 = brc_bread_crumbs();
-      v21 = brc_default_log();
-      if (os_log_type_enabled(v21, 0x90u))
+      v19 = brc_bread_crumbs();
+      v20 = brc_default_log();
+      if (os_log_type_enabled(v20, 0x90u))
       {
         *buf = 138412802;
-        v27 = v4;
-        v28 = 2112;
-        v29 = v13;
-        v30 = 2112;
-        v31 = v20;
-        _os_log_error_impl(&dword_223E7A000, v21, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v26 = v4;
+        v27 = 2112;
+        v28 = v13;
+        v29 = 2112;
+        v30 = v19;
+        _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
 
 LABEL_28:
@@ -438,9 +437,9 @@ LABEL_28:
   {
     if (!v7 && ([v10 isDataSeparatedPersona] & 1) == 0)
     {
-      v20 = brc_bread_crumbs();
-      v21 = brc_default_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v19 = brc_bread_crumbs();
+      v20 = brc_default_log();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -449,9 +448,9 @@ LABEL_28:
       goto LABEL_28;
     }
 
-    v22 = brc_bread_crumbs();
-    v23 = brc_default_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v21 = brc_bread_crumbs();
+    v22 = brc_default_log();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       __br_notify_register_dispatch_block_invoke_cold_3();
     }
@@ -463,7 +462,6 @@ LABEL_11:
   v5[2](v5);
 
   _BRRestorePersona();
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __90__BRCUploadConstraintChecker__rescheduleAndResetAvailableSizeAndDateIfNeededWithDidReset___block_invoke_2()

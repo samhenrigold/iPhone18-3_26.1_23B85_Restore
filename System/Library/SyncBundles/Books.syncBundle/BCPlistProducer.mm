@@ -48,7 +48,7 @@
   v4 = 0;
   v5 = 1;
   *&v2 = 138412802;
-  v25 = v2;
+  v29 = v2;
   while ([(BCPlistProducer *)self shouldRetry])
   {
     v6 = objc_autoreleasePoolPush();
@@ -57,113 +57,114 @@
     produceData = [(BCPlistProducer *)self produceData];
     if (self->_dataUnchanged)
     {
-      v9 = BCDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = BCDefaultLog(produceData, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         path = self->_path;
         *buf = 138412546;
-        v27 = path;
-        v28 = 2112;
+        v31 = path;
+        v32 = 2112;
         selfCopy5 = self;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Plist modification resulted in no changes -- skipping rewrite %@ -- %@", buf, 0x16u);
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Plist modification resulted in no changes -- skipping rewrite %@ -- %@", buf, 0x16u);
       }
     }
 
     else
     {
-      v11 = produceData;
-      v12 = [+[NSFileManager defaultManager](NSFileManager attributesOfItemAtPath:"attributesOfItemAtPath:error:" error:self->_path, 0];
-      v13 = v12;
-      if (v7 | v12)
+      v12 = produceData;
+      v13 = [+[NSFileManager defaultManager](NSFileManager attributesOfItemAtPath:"attributesOfItemAtPath:error:" error:self->_path, 0];
+      v15 = v13;
+      if (v7 | v13)
       {
-        if (!v7 || !v12 || (v14 = [v7 fileSize], v14 != objc_msgSend(v13, "fileSize")) || (objc_msgSend(objc_msgSend(v7, "fileModificationDate"), "isEqualToDate:", objc_msgSend(v13, "fileModificationDate")) & 1) == 0)
+        if (!v7 || !v13 || (v16 = [v7 fileSize], v13 = objc_msgSend(v15, "fileSize"), v16 != v13) || (v13 = objc_msgSend(objc_msgSend(v7, "fileModificationDate"), "isEqualToDate:", objc_msgSend(v15, "fileModificationDate")), (v13 & 1) == 0))
         {
-          v18 = BCDefaultLog();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v22 = BCDefaultLog(v13, v14);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            v22 = self->_path;
-            *buf = v25;
-            v27 = v22;
-            v28 = 2112;
+            v26 = self->_path;
+            *buf = v29;
+            v31 = v26;
+            v32 = 2112;
             selfCopy5 = self;
-            v30 = 1024;
-            v31 = v5;
-            _os_log_error_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "--- --- ---modification time changed during processing--- --- ---%@ -- %@ -- Attempt # %d", buf, 0x1Cu);
+            v34 = 1024;
+            v35 = v5;
+            _os_log_error_impl(&dword_0, v22, OS_LOG_TYPE_ERROR, "--- --- ---modification time changed during processing--- --- ---%@ -- %@ -- Attempt # %d", buf, 0x1Cu);
           }
 
           [(BCPlistProducer *)self fileWasModifiedDuringDataProduction];
-          v17 = 0;
+          v21 = 0;
           goto LABEL_23;
         }
       }
 
-      if (v11)
+      if (v12)
       {
-        if ([v11 writeToFile:self->_path atomically:1])
+        v17 = [v12 writeToFile:self->_path atomically:1];
+        if (v17)
         {
-          v15 = BCDefaultLog();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v19 = BCDefaultLog(v17, v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            v16 = self->_path;
-            *buf = v25;
-            v27 = v16;
-            v28 = 2112;
+            v20 = self->_path;
+            *buf = v29;
+            v31 = v20;
+            v32 = 2112;
             selfCopy5 = self;
-            v30 = 1024;
-            v31 = v5;
-            _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Successfully rewrote plist %@ -- %@ -- Attempt # %d", buf, 0x1Cu);
+            v34 = 1024;
+            v35 = v5;
+            _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Successfully rewrote plist %@ -- %@ -- Attempt # %d", buf, 0x1Cu);
           }
 
-          v17 = 1;
+          v21 = 1;
           v4 = 1;
         }
 
         else
         {
-          v21 = BCDefaultLog();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v25 = BCDefaultLog(v17, v18);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            v23 = self->_path;
-            *buf = v25;
-            v27 = v23;
-            v28 = 2112;
+            v27 = self->_path;
+            *buf = v29;
+            v31 = v27;
+            v32 = 2112;
             selfCopy5 = self;
-            v30 = 1024;
-            v31 = v5;
-            _os_log_error_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "Failed to write plist %@ -- %@ -- Attempt # %d", buf, 0x1Cu);
+            v34 = 1024;
+            v35 = v5;
+            _os_log_error_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "Failed to write plist %@ -- %@ -- Attempt # %d", buf, 0x1Cu);
           }
 
           v4 = 0;
           [(BCPlistProducer *)self fileWriteFailed];
-          v17 = 1;
+          v21 = 1;
         }
 
         goto LABEL_23;
       }
 
-      v19 = BCDefaultLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v23 = BCDefaultLog(v13, v14);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = self->_path;
-        *buf = v25;
-        v27 = v20;
-        v28 = 2112;
+        v24 = self->_path;
+        *buf = v29;
+        v31 = v24;
+        v32 = 2112;
         selfCopy5 = self;
-        v30 = 1024;
-        v31 = v5;
-        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Deleting plist %@ -- %@ -- Attempt # %d", buf, 0x1Cu);
+        v34 = 1024;
+        v35 = v5;
+        _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Deleting plist %@ -- %@ -- Attempt # %d", buf, 0x1Cu);
       }
 
       v4 = 1;
       [+[NSFileManager defaultManager](NSFileManager removeItemAtPath:"removeItemAtPath:error:" error:self->_path, 0];
     }
 
-    v17 = 1;
+    v21 = 1;
 LABEL_23:
     [(BCLockout *)self->_lockout unlock];
     objc_autoreleasePoolPop(v6);
     ++v5;
-    if (v17)
+    if (v21)
     {
       return v4;
     }

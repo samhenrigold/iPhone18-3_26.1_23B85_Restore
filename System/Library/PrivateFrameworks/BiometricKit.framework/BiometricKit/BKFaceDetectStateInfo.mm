@@ -206,30 +206,28 @@
 
 - (id)dictionary
 {
-  v13[7] = *MEMORY[0x1E69E9840];
-  v13[0] = @"BKFaceDetectStateInfo";
-  v12[0] = @"class";
-  v12[1] = @"faceDetected";
+  v12[7] = *MEMORY[0x1E69E9840];
+  v12[0] = @"BKFaceDetectStateInfo";
+  v11[0] = @"class";
+  v11[1] = @"faceDetected";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:self->_faceDetected];
-  v13[1] = v3;
-  v12[2] = @"tooCloseToCamera";
+  v12[1] = v3;
+  v11[2] = @"tooCloseToCamera";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:self->_tooCloseToCamera];
-  v13[2] = v4;
-  v12[3] = @"tooFarFromCamera";
+  v12[2] = v4;
+  v11[3] = @"tooFarFromCamera";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:self->_tooFarFromCamera];
-  v13[3] = v5;
-  v12[4] = @"multipleFaces";
+  v12[3] = v5;
+  v11[4] = @"multipleFaces";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:self->_multipleFaces];
-  v13[4] = v6;
-  v12[5] = @"flare";
+  v12[4] = v6;
+  v11[5] = @"flare";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:self->_flare];
-  v13[5] = v7;
-  v12[6] = @"occlusion";
+  v12[5] = v7;
+  v11[6] = @"occlusion";
   v8 = [MEMORY[0x1E696AD98] numberWithBool:self->_occlusion];
-  v13[6] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v12[6] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:7];
 
   return v9;
 }

@@ -21,7 +21,7 @@
 
 - (void)donateReceivedPhotoEventWatch
 {
-  v3 = sub_1A870CCE0(&unk_1EB3090D0);
+  v3 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v9 - v4;
   v6 = sub_1A88C87A8();
@@ -36,7 +36,7 @@
 
 - (void)donateSentINSendMessageIntentEvent
 {
-  v3 = sub_1A870CCE0(&unk_1EB3090D0);
+  v3 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v9 - v4;
   v6 = sub_1A88C87A8();
@@ -57,7 +57,7 @@
   v3[1] = 0x80000001A8916B50;
   sub_1A88C7E48();
   v5.receiver = self;
-  v5.super_class = type metadata accessor for TipsNextEventReporter();
+  v5.super_class = type metadata accessor for TipsNextEventReporter(0);
   return [(TipsNextEventReporter *)&v5 init];
 }
 

@@ -409,7 +409,7 @@ LABEL_10:
     v11 = 0;
     v12 = &v11;
     v13 = 0x2020000000;
-    [asset duration];
+    objc_msgSend_duration(asset);
     v14 = v7;
     v8 = [MEMORY[0x277D3AD80] videoAVObjectBuilderForManagedAsset:asset applyVideoAdjustments:adjustmentsCopy];
     v6->__videoAVObjectBuilder = v8;
@@ -433,7 +433,7 @@ void __61__PLVideoRemaker_initWithManagedAsset_applyVideoAdjustments___block_inv
   {
     if (a2)
     {
-      [a2 duration];
+      objc_msgSend_duration(a2);
     }
 
     else
@@ -512,7 +512,7 @@ void __61__PLVideoRemaker_initWithManagedAsset_applyVideoAdjustments___block_inv
 
 + (double)maximumDurationForTrimMode:(int)mode
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   result = 3.40282347e38;
   if (mode <= 1)
   {
@@ -543,13 +543,14 @@ void __61__PLVideoRemaker_initWithManagedAsset_applyVideoAdjustments___block_inv
 
 LABEL_9:
     v5 = [self fileLengthLimitForRemakerMode:{*&mode, 3.40282347e38}];
-    v8 = @"fileLengthLimit";
-    v9[0] = [MEMORY[0x277CCABB0] numberWithLongLong:v5];
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-    memset(&v7[32], 0, 24);
-    [MEMORY[0x277CE6400] maximumDurationForPreset:AVAssetExportPresetForRemakerMode(mode) properties:v6];
-    *v7 = *&v7[32];
-    return CMTimeGetSeconds(v7);
+    v7 = @"fileLengthLimit";
+    v8[0] = [MEMORY[0x277CCABB0] numberWithLongLong:v5];
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    AVAssetExportPresetForRemakerMode(mode);
+    memset(&v6[32], 0, 24);
+    objc_msgSend_maximumDurationForPreset_properties_(MEMORY[0x277CE6400]);
+    *v6 = *&v6[32];
+    return CMTimeGetSeconds(v6);
   }
 
   return 900.0;

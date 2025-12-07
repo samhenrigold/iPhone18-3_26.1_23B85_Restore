@@ -65,11 +65,11 @@
 
 - (TUThumperCTCapabilitiesState)initWithCapabilityInfo:(id)info
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   infoCopy = info;
-  v37.receiver = self;
-  v37.super_class = TUThumperCTCapabilitiesState;
-  v5 = [(TUCTCapabilitiesState *)&v37 initWithCapabilityInfo:infoCopy];
+  v36.receiver = self;
+  v36.super_class = TUThumperCTCapabilitiesState;
+  v5 = [(TUCTCapabilitiesState *)&v36 initWithCapabilityInfo:infoCopy];
   if (v5)
   {
     v6 = [infoCopy objectForKeyedSubscript:*MEMORY[0x1E6965500]];
@@ -105,36 +105,36 @@ LABEL_20:
 LABEL_8:
         if ([v19 count])
         {
-          v32 = v16;
+          v31 = v16;
           v20 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v19, "count")}];
+          v32 = 0u;
           v33 = 0u;
           v34 = 0u;
           v35 = 0u;
-          v36 = 0u;
-          v31 = v19;
+          v30 = v19;
           v21 = v19;
-          v22 = [v21 countByEnumeratingWithState:&v33 objects:v38 count:16];
+          v22 = [v21 countByEnumeratingWithState:&v32 objects:v37 count:16];
           if (v22)
           {
             v23 = v22;
-            v24 = *v34;
+            v24 = *v33;
             do
             {
               for (i = 0; i != v23; ++i)
               {
-                if (*v34 != v24)
+                if (*v33 != v24)
                 {
                   objc_enumerationMutation(v21);
                 }
 
-                v26 = [*(*(&v33 + 1) + 8 * i) objectForKeyedSubscript:{v11, v31}];
+                v26 = [*(*(&v32 + 1) + 8 * i) objectForKeyedSubscript:{v11, v30}];
                 if (v26)
                 {
                   [v20 addObject:v26];
                 }
               }
 
-              v23 = [v21 countByEnumeratingWithState:&v33 objects:v38 count:16];
+              v23 = [v21 countByEnumeratingWithState:&v32 objects:v37 count:16];
             }
 
             while (v23);
@@ -144,8 +144,8 @@ LABEL_8:
           approvedSecondaryDeviceIDs = v5->_approvedSecondaryDeviceIDs;
           v5->_approvedSecondaryDeviceIDs = v27;
 
-          v19 = v31;
-          v16 = v32;
+          v19 = v30;
+          v16 = v31;
         }
 
         goto LABEL_20;
@@ -163,7 +163,6 @@ LABEL_8:
 
 LABEL_21:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -218,11 +217,11 @@ LABEL_21:
 
 - (TUThumperCTCapabilitiesState)initWithCoder:(id)coder
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v25.receiver = self;
-  v25.super_class = TUThumperCTCapabilitiesState;
-  v5 = [(TUCTCapabilitiesState *)&v25 initWithCoder:coderCopy];
+  v24.receiver = self;
+  v24.super_class = TUThumperCTCapabilitiesState;
+  v5 = [(TUCTCapabilitiesState *)&v24 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = objc_opt_class();
@@ -235,9 +234,9 @@ LABEL_21:
     v5->_approved = [coderCopy decodeBoolForKey:v10];
 
     v11 = MEMORY[0x1E695DFD8];
-    v26[0] = objc_opt_class();
-    v26[1] = objc_opt_class();
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
     v13 = [v11 setWithArray:v12];
     v14 = NSStringFromSelector(sel_approvedSecondaryDeviceIDs);
     v15 = [coderCopy decodeObjectOfClasses:v13 forKey:v14];
@@ -257,7 +256,6 @@ LABEL_21:
     v5->_supportsDefaultPairedDevice = [coderCopy decodeBoolForKey:v22];
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

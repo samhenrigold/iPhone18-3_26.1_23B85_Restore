@@ -38,14 +38,14 @@ void __67___CDMDCSContextualPredicate_predicateForPhotosAppBecameForeground__blo
 
 void __60___CDMDCSContextualPredicate_predicateForNetworkQualityFair__block_invoke(uint64_t a1)
 {
-  v15[3] = *MEMORY[0x1E69E9840];
+  v14[3] = *MEMORY[0x1E69E9840];
   v2 = +[_CDContextQueries keyPathForWiredConnectionQuality];
-  v15[0] = v2;
+  v14[0] = v2;
   v3 = +[_CDContextQueries keyPathForWiFiConnectionQuality];
-  v15[1] = v3;
+  v14[1] = v3;
   v4 = +[_CDContextQueries keyPathForCellConnectionQuality];
-  v15[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:3];
+  v14[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
 
   v6 = [MEMORY[0x1E695DFD8] setWithArray:v5];
   v7 = MEMORY[0x1E696AE18];
@@ -57,20 +57,18 @@ void __60___CDMDCSContextualPredicate_predicateForNetworkQualityFair__block_invo
   v12 = [*(a1 + 32) contextualPredicateForKeyPaths:v6 withPredicate:v11 identifier:@"0f403649-9be2-e755-d0fa-000000000000"];
   v13 = predicateForNetworkQualityFair_contextualPredicate;
   predicateForNetworkQualityFair_contextualPredicate = v12;
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __59___CDMDCSContextualPredicate_predicateForNetworkQualityBad__block_invoke(uint64_t a1)
 {
-  v15[3] = *MEMORY[0x1E69E9840];
+  v14[3] = *MEMORY[0x1E69E9840];
   v2 = +[_CDContextQueries keyPathForWiredConnectionQuality];
-  v15[0] = v2;
+  v14[0] = v2;
   v3 = +[_CDContextQueries keyPathForWiFiConnectionQuality];
-  v15[1] = v3;
+  v14[1] = v3;
   v4 = +[_CDContextQueries keyPathForCellConnectionQuality];
-  v15[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:3];
+  v14[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:3];
 
   v6 = [MEMORY[0x1E695DFD8] setWithArray:v5];
   v7 = MEMORY[0x1E696AE18];
@@ -82,27 +80,23 @@ void __59___CDMDCSContextualPredicate_predicateForNetworkQualityBad__block_invok
   v12 = [*(a1 + 32) contextualPredicateForKeyPaths:v6 withPredicate:v11 identifier:@"a56a7166-c833-0cbd-948e-000000000000"];
   v13 = predicateForNetworkQualityBad_contextualPredicate;
   predicateForNetworkQualityBad_contextualPredicate = v12;
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __58___CDMDCSContextualPredicate_predicateForIsConnectedToCar__block_invoke(uint64_t a1)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v2 = +[_CDContextQueries keyPathForCarplayConnectedStatus];
   v3 = [_CDContextualPredicate predicateForChangeAtKeyPath:v2];
   v4 = +[_CDContextQueries keyPathForCarConnectedStatus];
   v5 = [_CDContextualPredicate predicateForChangeAtKeyPath:v4];
   v6 = *(a1 + 32);
-  v12[0] = v3;
-  v12[1] = v5;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v11[0] = v3;
+  v11[1] = v5;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   v8 = NSStringFromSelector(*(a1 + 40));
   v9 = [v6 orPredicateWithSubpredicates:v7 identifier:v8];
   v10 = predicateForIsConnectedToCar_contextualPredicate;
   predicateForIsConnectedToCar_contextualPredicate = v9;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __75___CDMDCSContextualPredicate_predicateForIsConnectedToAudioBluetoothDevice__block_invoke(uint64_t a1)
@@ -150,34 +144,34 @@ void __55___CDMDCSContextualPredicate_predicateForForegroundApp__block_invoke(ui
 
 void __54___CDMDCSContextualPredicate_predicateWithIdentifier___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) predicates];
   v2 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v1, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         v9 = [v8 identifier];
         [v2 setObject:v8 forKey:v9];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -186,30 +180,28 @@ void __54___CDMDCSContextualPredicate_predicateWithIdentifier___block_invoke(uin
   v10 = [v2 copy];
   v11 = predicateWithIdentifier__mapping;
   predicateWithIdentifier__mapping = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __40___CDMDCSContextualPredicate_predicates__block_invoke()
 {
-  v18[8] = *MEMORY[0x1E69E9840];
+  v17[8] = *MEMORY[0x1E69E9840];
   v0 = +[_CDMDCSContextualPredicate predicateForUserIsLeavingHome];
-  v18[0] = v0;
+  v17[0] = v0;
   v1 = +[_CDMDCSContextualPredicate predicateForUserIsArrivingAtHome];
-  v18[1] = v1;
+  v17[1] = v1;
   v2 = +[_CDMDCSContextualPredicate predicateForPhotosAppBecameForeground];
-  v18[2] = v2;
+  v17[2] = v2;
   v3 = +[_CDMDCSContextualPredicate predicateForNetworkQualityFair];
-  v18[3] = v3;
+  v17[3] = v3;
   v4 = +[_CDMDCSContextualPredicate predicateForNetworkQualityBad];
-  v18[4] = v4;
+  v17[4] = v4;
   v5 = +[_CDMDCSContextualPredicate predicateForIsConnectedToCar];
-  v18[5] = v5;
+  v17[5] = v5;
   v6 = +[_CDMDCSContextualPredicate predicateForIsConnectedToAudioBluetoothDevice];
-  v18[6] = v6;
+  v17[6] = v6;
   v7 = +[_CDMDCSContextualPredicate predicateForNextAlarm];
-  v18[7] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:8];
+  v17[7] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:8];
   v9 = predicates_predicates;
   predicates_predicates = v8;
 
@@ -217,16 +209,14 @@ void __40___CDMDCSContextualPredicate_predicates__block_invoke()
   {
     v10 = predicates_predicates;
     v11 = +[_CDMDCSContextualPredicate predicateForBacklightOnStatus];
-    v17[0] = v11;
+    v16[0] = v11;
     v12 = +[_CDMDCSContextualPredicate predicateForForegroundApp];
-    v17[1] = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+    v16[1] = v12;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
     v14 = [v10 arrayByAddingObjectsFromArray:v13];
     v15 = predicates_predicates;
     predicates_predicates = v14;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44___CDMDCSContextualPredicate_initWithCoder___block_invoke()

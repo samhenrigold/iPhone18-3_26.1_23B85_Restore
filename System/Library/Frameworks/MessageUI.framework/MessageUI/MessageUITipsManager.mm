@@ -25,9 +25,9 @@
 + (void)setShouldDisplayTo:(BOOL)to
 {
   swift_getObjCClassMetadata();
-  sub_1BE941E9C();
+  v3 = sub_1BE941E9C();
   swift_getObjCClassMetadata();
-  static MessageUITipsManager.setShouldDisplay(to:)();
+  static MessageUITipsManager.setShouldDisplay(to:)(v3 & 1);
 }
 
 + (void)donateHasUsedAttachment

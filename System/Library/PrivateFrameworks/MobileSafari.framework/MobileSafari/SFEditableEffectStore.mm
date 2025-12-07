@@ -79,7 +79,7 @@
   v3 = sub_18BC1EA98();
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
-  v6 = &v11[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v6 = v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   _directoryURL = [(SFEditableEffectStore *)selfCopy _directoryURL];
   sub_18BC218B8();
@@ -102,7 +102,7 @@
 
 - (void)loadEffectNamed:(NSString *)named completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9DAE10, &qword_18BC426D0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

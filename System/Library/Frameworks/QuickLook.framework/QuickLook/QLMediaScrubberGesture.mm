@@ -26,41 +26,41 @@
 
 - (float)nominalFrameRate
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   currentItem = [(AVPlayer *)self->_player currentItem];
   asset = [currentItem asset];
   v5 = [asset tracksWithMediaType:*MEMORY[0x277CE5EA8]];
 
-  memset(&v23, 0, sizeof(v23));
+  memset(&v22, 0, sizeof(v22));
   player = self->_player;
   if (player)
   {
-    [(AVPlayer *)player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         if (v12)
         {
-          [*(*(&v19 + 1) + 8 * i) timeRange];
+          objc_msgSend_timeRange(*(*(&v18 + 1) + 8 * i));
         }
 
         else
@@ -68,8 +68,8 @@
           memset(&range, 0, sizeof(range));
         }
 
-        v17 = v23;
-        if (CMTimeRangeContainsTime(&range, &v17))
+        v16 = v22;
+        if (CMTimeRangeContainsTime(&range, &v16))
         {
           [v12 nominalFrameRate];
           v13 = v14;
@@ -77,7 +77,7 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
       if (v9)
       {
         continue;
@@ -90,7 +90,6 @@
   v13 = NAN;
 LABEL_16:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -121,7 +120,7 @@ LABEL_16:
     player = self->_player;
     if (player)
     {
-      [(AVPlayer *)player currentTime];
+      objc_msgSend_currentTime(player);
     }
 
     else
@@ -135,7 +134,7 @@ LABEL_16:
     v36 = asset;
     if (asset)
     {
-      [asset duration];
+      objc_msgSend_duration(asset);
     }
 
     else

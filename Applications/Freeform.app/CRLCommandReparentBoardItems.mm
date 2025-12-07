@@ -60,7 +60,6 @@
 
 - (_TtC8Freeform28CRLCommandReparentBoardItems)initWithDestinationContainer:(id)container boardItem:(id)item
 {
-  sub_1005B981C(&unk_1019F4D60);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_101465920;
   *(v6 + 32) = item;
@@ -83,7 +82,6 @@
 
 - (_TtC8Freeform28CRLCommandReparentBoardItems)initWithDestinationContainer:(id)container boardItem:(id)item index:(int64_t)index
 {
-  sub_1005B981C(&unk_1019F4D60);
   v8 = swift_allocObject();
   *(v8 + 16) = xmmword_101465920;
   *(v8 + 32) = item;

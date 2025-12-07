@@ -4,7 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)initWithEvent:(void *)event press:;
 - (int64_t)phaseForDelivery;
-- (uint64_t)saveCurrentPressState;
+- (void)saveCurrentPressState;
 @end
 
 @implementation UIGestureDelayedPress
@@ -48,17 +48,17 @@
   return v4;
 }
 
-- (uint64_t)saveCurrentPressState
+- (void)saveCurrentPressState
 {
   if (result)
   {
     v1 = result;
     v2 = objc_alloc_init(UIPress);
-    v3 = *(v1 + 40);
-    *(v1 + 40) = v2;
+    v3 = v1[5];
+    v1[5] = v2;
 
-    v4 = *(v1 + 40);
-    v5 = *(v1 + 24);
+    v4 = v1[5];
+    v5 = v1[3];
 
     return [v4 _loadStateFromPress:v5];
   }

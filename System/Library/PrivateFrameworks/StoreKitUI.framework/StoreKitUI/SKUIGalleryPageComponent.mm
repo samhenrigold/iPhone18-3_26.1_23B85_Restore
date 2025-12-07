@@ -6,16 +6,16 @@
 
 - (SKUIGalleryPageComponent)initWithCustomPageContext:(id)context
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (os_variant_has_internal_content() && _os_feature_enabled_impl() && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
     [SKUIGalleryPageComponent initWithCustomPageContext:];
   }
 
-  v31.receiver = self;
-  v31.super_class = SKUIGalleryPageComponent;
-  v5 = [(SKUIPageComponent *)&v31 initWithCustomPageContext:contextCopy];
+  v32.receiver = self;
+  v32.super_class = SKUIGalleryPageComponent;
+  v5 = [(SKUIPageComponent *)&v32 initWithCustomPageContext:contextCopy];
   if (v5)
   {
     componentDictionary = [contextCopy componentDictionary];
@@ -37,31 +37,31 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v24 = v9;
-      v25 = componentDictionary;
+      v25 = v9;
+      v26 = componentDictionary;
       v11 = [contextCopy copy];
-      v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v27 = 0u;
+      v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v28 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v23 = v10;
+      v31 = 0u;
+      v24 = v10;
       v12 = v10;
-      v13 = [v12 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v28 objects:v33 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v28;
+        v15 = *v29;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v28 != v15)
+            if (*v29 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v27 + 1) + 8 * i);
+            v17 = *(*(&v28 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -70,28 +70,28 @@
               if ((objc_opt_isKindOfClass() & 1) != 0 && SKUIPageComponentTypeForBlockType(v18) == 10)
               {
                 [v11 setComponentDictionary:v17];
-                v19 = [objc_alloc(SKUIPageComponentClassForComponentType(10)) initWithCustomPageContext:v11];
-                if (v19)
+                v20 = [objc_alloc(SKUIPageComponentClassForComponentType(10 v19))];
+                if (v20)
                 {
-                  [v26 addObject:v19];
+                  [v27 addObject:v20];
                 }
               }
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v28 objects:v33 count:16];
         }
 
         while (v14);
       }
 
-      v20 = [v26 copy];
+      v21 = [v27 copy];
       childComponents = v5->_childComponents;
-      v5->_childComponents = v20;
+      v5->_childComponents = v21;
 
-      v9 = v24;
-      componentDictionary = v25;
-      v10 = v23;
+      v9 = v25;
+      componentDictionary = v26;
+      v10 = v24;
     }
   }
 

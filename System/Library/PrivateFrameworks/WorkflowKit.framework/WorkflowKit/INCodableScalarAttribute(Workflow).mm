@@ -1,13 +1,13 @@
 @interface INCodableScalarAttribute(Workflow)
+- (WFVariableStringParameterState)wf_parameterStateForIntentValue:()Workflow parameterDefinition:;
 - (id)wf_objectClass;
 - (id)wf_parameterClass;
-- (id)wf_parameterStateForIntentValue:()Workflow parameterDefinition:;
 - (void)wf_updatedParameterDefinition:()Workflow parameterClass:localizer:;
 @end
 
 @implementation INCodableScalarAttribute(Workflow)
 
-- (id)wf_parameterStateForIntentValue:()Workflow parameterDefinition:
+- (WFVariableStringParameterState)wf_parameterStateForIntentValue:()Workflow parameterDefinition:
 {
   v6 = a3;
   v7 = a4;
@@ -56,17 +56,17 @@ LABEL_11:
 
 - (void)wf_updatedParameterDefinition:()Workflow parameterClass:localizer:
 {
-  v34[1] = *MEMORY[0x1E69E9840];
-  v26.receiver = self;
-  v26.super_class = &off_1F4B05710;
-  v2 = objc_msgSendSuper2(&v26, sel_wf_updatedParameterDefinition_parameterClass_localizer_);
+  v33[1] = *MEMORY[0x1E69E9840];
+  v25.receiver = self;
+  v25.super_class = &off_1F4B05710;
+  v2 = objc_msgSendSuper2(&v25, sel_wf_updatedParameterDefinition_parameterClass_localizer_);
   if (([self supportsDynamicEnumeration] & 1) == 0 && objc_msgSend(self, "type") == 7)
   {
     metadata = [self metadata];
     v4 = objc_opt_class();
     v5 = WFEnforceClass_1501(metadata, v4);
 
-    v33 = @"TextAlignment";
+    v32 = @"TextAlignment";
     isMultiline = [v5 isMultiline];
     v7 = @"Right";
     if (isMultiline)
@@ -74,44 +74,44 @@ LABEL_11:
       v7 = @"Left";
     }
 
-    v34[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v33[0] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v9 = [v2 definitionByAddingEntriesInDictionary:v8];
 
     localizedDefaultValue = [v5 localizedDefaultValue];
     v11 = localizedDefaultValue;
     if (localizedDefaultValue)
     {
-      v31 = @"DefaultValue";
-      v32 = localizedDefaultValue;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v30 = @"DefaultValue";
+      v31 = localizedDefaultValue;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
       v13 = [v9 definitionByAddingEntriesInDictionary:v12];
 
       v9 = v13;
     }
 
-    v29[0] = @"Multiline";
+    v28[0] = @"Multiline";
     v14 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "isMultiline")}];
-    v30[0] = v14;
-    v29[1] = @"DisableAutocorrection";
+    v29[0] = v14;
+    v28[1] = @"DisableAutocorrection";
     v15 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "disableAutocorrect")}];
-    v30[1] = v15;
-    v29[2] = @"DisableSmartDashes";
+    v29[1] = v15;
+    v28[2] = @"DisableSmartDashes";
     v16 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "disableSmartDashes")}];
-    v30[2] = v16;
-    v29[3] = @"DisableSmartQuotes";
+    v29[2] = v16;
+    v28[3] = @"DisableSmartQuotes";
     v17 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v5, "disableSmartQuotes")}];
-    v30[3] = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:4];
+    v29[3] = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:4];
     v2 = [v9 definitionByAddingEntriesInDictionary:v18];
 
     capitalization = [v5 capitalization];
     if (capitalization <= 3)
     {
       v20 = off_1E8379D48[capitalization];
-      v27 = @"AutocapitalizationType";
-      v28 = v20;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+      v26 = @"AutocapitalizationType";
+      v27 = v20;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
       v22 = [v2 definitionByAddingEntriesInDictionary:v21];
 
       v2 = v22;
@@ -120,7 +120,6 @@ LABEL_11:
 
   v23 = v2;
 
-  v24 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

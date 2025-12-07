@@ -17,7 +17,7 @@
 {
   v51 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
-  v32 = [(NSArray *)self->_workItems count];
+  v32 = objc_msgSend_count(self->_workItems);
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
@@ -235,7 +235,7 @@
   identifiersCopy = identifiers;
   ineligibleIdentifiersCopy = ineligibleIdentifiers;
   v9 = objc_alloc_init(MEMORY[0x1E696AD60]);
-  v10 = [identifiersCopy count];
+  v10 = objc_msgSend_count(identifiersCopy);
   if (entity > 9)
   {
     v11 = @"invalid";
@@ -249,14 +249,14 @@
   v12 = v11;
   [v9 appendFormat:@"%tu %@ searchable objects", v10, v12];
 
-  if ([identifiersCopy count] && objc_msgSend(identifiersCopy, "count") <= 9)
+  if (objc_msgSend_count(identifiersCopy) && objc_msgSend_count(identifiersCopy) <= 9)
   {
     v13 = [identifiersCopy componentsJoinedByString:{@", "}];
     [v9 appendFormat:@" (%@)", v13];
   }
 
-  [v9 appendFormat:@", %tu ineligible identifiers to remove", objc_msgSend(ineligibleIdentifiersCopy, "count")];
-  if ([ineligibleIdentifiersCopy count] && objc_msgSend(ineligibleIdentifiersCopy, "count") <= 9)
+  [v9 appendFormat:@", %tu ineligible identifiers to remove", objc_msgSend_count(ineligibleIdentifiersCopy)];
+  if (objc_msgSend_count(ineligibleIdentifiersCopy) && objc_msgSend_count(ineligibleIdentifiersCopy) <= 9)
   {
     v14 = [ineligibleIdentifiersCopy componentsJoinedByString:{@", "}];
     [v9 appendFormat:@" (%@)", v14];
@@ -453,7 +453,7 @@ LABEL_60:
           }
 
           result = [v69 result];
-          v72 = [result count];
+          v72 = objc_msgSend_count(result);
 
           v69 = v70;
           if (v72)
@@ -467,7 +467,7 @@ LABEL_60:
             v76 = v75;
             if (v75)
             {
-              if ([v75 count])
+              if (objc_msgSend_count(v75))
               {
                 v116 = v67;
                 v147 = 0u;
@@ -908,7 +908,7 @@ LABEL_31:
               if ([v61 isSuccess])
               {
                 result = [v61 result];
-                v63 = [result count];
+                v63 = objc_msgSend_count(result);
 
                 if (v63)
                 {
@@ -1247,7 +1247,7 @@ LABEL_65:
             v61 = v16;
             v59 = v10;
             v60 = v11;
-            if ([v16 count] < 2)
+            if (objc_msgSend_count(v16) < 2)
             {
               originalFlags = [v11 jobFlags];
               [v64 addObject:v11];
@@ -1261,7 +1261,7 @@ LABEL_65:
             v19 = PLSearchBackendIndexingEngineGetLog();
             if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
             {
-              v20 = [v16 count];
+              v20 = objc_msgSend_count(v16);
               identifier3 = [v11 identifier];
               *buf = 134218242;
               v77 = v20;
@@ -1475,7 +1475,7 @@ LABEL_55:
         v9 = *(*(&v21 + 1) + 8 * i);
         v10 = PLBackgroundJobSearchIndexingEntitiesFromJobFlags([v9 jobFlags]);
         _flagsAreAmbiguous = [(PLSearchIndexingIncrementalUpdateBatch *)self _flagsAreAmbiguous];
-        v12 = [v10 count];
+        v12 = objc_msgSend_count(v10);
         if (_flagsAreAmbiguous)
         {
           if (v12 > 1)
@@ -1511,14 +1511,14 @@ LABEL_13:
     while (v6);
   }
 
-  v15 = [v3 count];
-  if (v15 != [(NSArray *)self->_workItems count])
+  v15 = objc_msgSend_count(v3);
+  if (v15 != objc_msgSend_count(self->_workItems))
   {
     v16 = PLSearchBackendIndexingEngineGetLog();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v17 = [(NSArray *)self->_workItems count];
-      v18 = [v3 count];
+      v17 = objc_msgSend_count(self->_workItems);
+      v18 = objc_msgSend_count(v3);
       *buf = 134217984;
       v26 = v17 - v18;
       _os_log_impl(&dword_19BF1F000, v16, OS_LOG_TYPE_ERROR, "Search indexing batch initialized with work items that don't match the batch job flags, %lu items have been removed and will be processed in a future batch", buf, 0xCu);
@@ -1532,7 +1532,7 @@ LABEL_13:
 
 - (unint64_t)targetEntity
 {
-  if ([(NSArray *)self->_possibleEntities count]!= 1)
+  if (objc_msgSend_count(self->_possibleEntities, a2) != 1)
   {
     return 0;
   }
@@ -1546,7 +1546,7 @@ LABEL_13:
 - (BOOL)hasDonations
 {
   eligibleManagedObjects = [(PLSearchIndexingIncrementalUpdateBatch *)self eligibleManagedObjects];
-  if ([eligibleManagedObjects count])
+  if (objc_msgSend_count(eligibleManagedObjects))
   {
     v4 = 1;
   }
@@ -1554,7 +1554,7 @@ LABEL_13:
   else
   {
     ineligibleIdentifiers = [(PLSearchIndexingIncrementalUpdateBatch *)self ineligibleIdentifiers];
-    v4 = [ineligibleIdentifiers count] != 0;
+    v4 = objc_msgSend_count(ineligibleIdentifiers) != 0;
   }
 
   return v4;

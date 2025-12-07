@@ -1,4 +1,4 @@
-uint64_t FigCaptureISPProcessingSessionGetClassID()
+uint64_t FigCaptureISPProcessingSessionGetClassID(uint64_t a1, uint64_t a2)
 {
   if (FigCaptureISPProcessingSessionGetClassID_onceToken != -1)
   {
@@ -15,16 +15,16 @@ uint64_t __FigCaptureISPProcessingSessionGetClassID_block_invoke()
   return MEMORY[0x282112448](&sFigCaptureISPProcessingSessionDesc, ClassID, 1, &FigCaptureISPProcessingSessionGetClassID_sFigCaptureISPProcessingSessionClassID);
 }
 
-uint64_t FigCaptureISPProcessingSessionGetTypeID()
+uint64_t FigCaptureISPProcessingSessionGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (FigCaptureISPProcessingSessionGetClassID_onceToken != -1)
   {
     FigCaptureISPProcessingSessionGetClassID_cold_1();
   }
 
-  v1 = FigCaptureISPProcessingSessionGetClassID_sFigCaptureISPProcessingSessionClassID;
+  v3 = FigCaptureISPProcessingSessionGetClassID_sFigCaptureISPProcessingSessionClassID;
 
-  return MEMORY[0x282111A98](v1);
+  return MEMORY[0x282111A98](v3);
 }
 
 uint64_t RegisterFigCaptureDeviceType()

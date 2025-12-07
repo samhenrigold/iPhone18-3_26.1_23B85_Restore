@@ -2,107 +2,122 @@
 - (id)preResponseItemArrayFromQuickResponses:(id)responses;
 - (void)preResponseItemsForMessage:(id)message maximumResponses:(unint64_t)responses conversationTurns:(id)turns context:(id)context time:(id)time language:(id)language recipientHandles:(id)handles modelFilePath:(id)self0 modelConfigPath:(id)self1 espressoBinFilePath:(id)self2 vocabFilePath:(id)self3 registerDisplayed:(BOOL)self4 includeCustomResponses:(BOOL)self5 includeResponsesToRobots:(BOOL)self6 completion:(id)self7;
 - (void)predictForMessage:(id)message conversationTurns:(id)turns language:(id)language plistPath:(id)path espressoBinPath:(id)binPath vocabPath:(id)vocabPath heads:(id)heads completion:(id)self0;
+- (void)registerResponse:(id)response position:(id)position isCanned:(BOOL)canned isUsingQuickResponses:(BOOL)responses locale:(id)locale modelConfigPath:(id)path vocabPath:(id)vocabPath;
 @end
 
 @implementation PREResponsesServerRequestHandler
 
+- (void)registerResponse:(id)response position:(id)position isCanned:(BOOL)canned isUsingQuickResponses:(BOOL)responses locale:(id)locale modelConfigPath:(id)path vocabPath:(id)vocabPath
+{
+  responsesCopy = responses;
+  cannedCopy = canned;
+  vocabPathCopy = vocabPath;
+  pathCopy = path;
+  localeCopy = locale;
+  positionCopy = position;
+  responseCopy = response;
+  v20 = pre_sv_responses_handle();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_260D12000, v20, OS_LOG_TYPE_DEFAULT, "PREInternal - Server registerResponse called", buf, 2u);
+  }
+
+  [MEMORY[0x277D02598] registerResponse:responseCopy position:positionCopy isCanned:cannedCopy isUsingQuickResponses:responsesCopy locale:localeCopy plistPath:pathCopy vocabPath:vocabPathCopy];
+}
+
 - (id)preResponseItemArrayFromQuickResponses:(id)responses
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
-  v23 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(responsesCopy, "count")}];
+  v20 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(responsesCopy, "count")}];
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
   v4 = responsesCopy;
-  v5 = [v4 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v5)
   {
     v6 = v5;
-    v29 = *v31;
-    v7 = 0x277D02000uLL;
-    v22 = v4;
+    v26 = *v28;
+    v19 = v4;
     do
     {
-      v8 = 0;
-      v24 = v6;
+      v7 = 0;
+      v21 = v6;
       do
       {
-        if (*v31 != v29)
+        if (*v28 != v26)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * v8);
-        v10 = *(v7 + 1400);
+        v8 = *(*(&v27 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          proactiveTrigger = [v9 proactiveTrigger];
+          proactiveTrigger = [v8 proactiveTrigger];
 
           if (proactiveTrigger)
           {
-            v12 = pre_sv_responses_handle();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+            v10 = pre_sv_responses_handle();
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
             {
-              proactiveTrigger2 = [v9 proactiveTrigger];
+              proactiveTrigger2 = [v8 proactiveTrigger];
               *buf = 138412290;
-              v35 = proactiveTrigger2;
-              _os_log_fault_impl(&dword_260D12000, v12, OS_LOG_TYPE_FAULT, "PREInternal - Unexpected proactive trigger received %@", buf, 0xCu);
+              v32 = proactiveTrigger2;
+              _os_log_fault_impl(&dword_260D12000, v10, OS_LOG_TYPE_FAULT, "PREInternal - Unexpected proactive trigger received %@", buf, 0xCu);
             }
           }
 
           else
           {
-            v14 = objc_alloc(MEMORY[0x277D41DD0]);
-            v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "categoryId")}];
-            v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "modelId")}];
-            v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "semanticClassId")}];
-            v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "styleGroupId")}];
-            v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "replyTextId")}];
-            text = [v9 text];
-            lang = [v9 lang];
-            v18 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v9, "isCustomResponse")}];
-            v19 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v9, "isRobotResponse")}];
-            v12 = [v14 initWithCategoryId:v15 modelId:v28 responseClassId:v27 replySubgroupId:v25 replyTextId:v26 replyText:text language:lang isCustomResponse:v18 isRobotResponse:v19];
+            v12 = objc_alloc(MEMORY[0x277D41DD0]);
+            v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "categoryId")}];
+            v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "modelId")}];
+            v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "semanticClassId")}];
+            v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "styleGroupId")}];
+            v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v8, "replyTextId")}];
+            text = [v8 text];
+            lang = [v8 lang];
+            v16 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v8, "isCustomResponse")}];
+            v17 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v8, "isRobotResponse")}];
+            v10 = [v12 initWithCategoryId:v13 modelId:v25 responseClassId:v24 replySubgroupId:v22 replyTextId:v23 replyText:text language:lang isCustomResponse:v16 isRobotResponse:v17];
 
-            v6 = v24;
-            v4 = v22;
+            v6 = v21;
+            v4 = v19;
 
-            v7 = 0x277D02000;
-            [v23 addObject:v12];
+            [v20 addObject:v10];
           }
         }
 
         else
         {
-          v12 = pre_sv_responses_handle();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+          v10 = pre_sv_responses_handle();
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
           {
             *buf = 0;
-            _os_log_fault_impl(&dword_260D12000, v12, OS_LOG_TYPE_FAULT, "PREInternal - Unexpected type received when expecting SGQuickResponse", buf, 2u);
+            _os_log_fault_impl(&dword_260D12000, v10, OS_LOG_TYPE_FAULT, "PREInternal - Unexpected type received when expecting SGQuickResponse", buf, 2u);
           }
         }
 
-        ++v8;
+        ++v7;
       }
 
-      while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      while (v6 != v7);
+      v6 = [v4 countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v6);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v20;
 }
 
 - (void)predictForMessage:(id)message conversationTurns:(id)turns language:(id)language plistPath:(id)path espressoBinPath:(id)binPath vocabPath:(id)vocabPath heads:(id)heads completion:(id)self0
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   turnsCopy = turns;
   languageCopy = language;
@@ -118,53 +133,53 @@
     _os_log_impl(&dword_260D12000, v15, OS_LOG_TYPE_DEFAULT, "PREInternal - Server predictForMessage called", buf, 2u);
   }
 
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2050000000;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2050000000;
   v16 = getSGMultiHeadInferenceClass_softClass;
-  v48 = getSGMultiHeadInferenceClass_softClass;
+  v47 = getSGMultiHeadInferenceClass_softClass;
   if (!getSGMultiHeadInferenceClass_softClass)
   {
     *buf = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __getSGMultiHeadInferenceClass_block_invoke;
-    v43 = &unk_279ABC618;
-    v44 = &v45;
+    v40 = 3221225472;
+    v41 = __getSGMultiHeadInferenceClass_block_invoke;
+    v42 = &unk_279ABC618;
+    v43 = &v44;
     __getSGMultiHeadInferenceClass_block_invoke(buf);
-    v16 = v46[3];
+    v16 = v45[3];
   }
 
   v17 = v16;
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v44, 8);
   v18 = [v16 predictForMessage:messageCopy conversationTurns:turnsCopy localeIdentifier:languageCopy plistPath:pathCopy espressoBinPath:binPathCopy vocabPath:vocabPathCopy heads:headsCopy];
   if (v18)
   {
     v19 = objc_opt_new();
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v20 = v18;
-    v21 = [v20 countByEnumeratingWithState:&v36 objects:v49 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v35 objects:v48 count:16];
     if (v21)
     {
-      v22 = *v37;
+      v22 = *v36;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v37 != v22)
+          if (*v36 != v22)
           {
             objc_enumerationMutation(v20);
           }
 
-          v24 = *(*(&v36 + 1) + 8 * i);
+          v24 = *(*(&v35 + 1) + 8 * i);
           v25 = [v20 objectForKeyedSubscript:v24];
           v26 = [v25 _pas_mappedArrayWithTransform:&__block_literal_global_95];
           [v19 setObject:v26 forKeyedSubscript:v24];
         }
 
-        v21 = [v20 countByEnumeratingWithState:&v36 objects:v49 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v35 objects:v48 count:16];
       }
 
       while (v21);
@@ -177,8 +192,6 @@
   {
     completionCopy[2](completionCopy, 0, 0);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 id __134__PREResponsesServerRequestHandler_predictForMessage_conversationTurns_language_plistPath_espressoBinPath_vocabPath_heads_completion___block_invoke(uint64_t a1, void *a2)

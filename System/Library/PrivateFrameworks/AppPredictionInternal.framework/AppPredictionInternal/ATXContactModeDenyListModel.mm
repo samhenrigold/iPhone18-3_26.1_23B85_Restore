@@ -58,7 +58,7 @@
 
 - (id)scoredEntities
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = [[ATXInteractionEventProvider alloc] initWithContactStore:self->_contactStore];
   v5 = [[ATXModeEntityCorrelator alloc] initWithModeEventProvider:self->_modeEventProvider entityEventProvider:v4];
@@ -66,28 +66,28 @@
   contactNotificationEngagementEventProvider = self->_contactNotificationEngagementEventProvider;
   self->_contactNotificationEngagementEventProvider = v6;
 
-  if (![(ATXContactNotificationEngagementEventProvider *)self->_contactNotificationEngagementEventProvider successfullyCalculatedNotificationEvents])
+  successfullyCalculatedNotificationEvents = [(ATXContactNotificationEngagementEventProvider *)self->_contactNotificationEngagementEventProvider successfullyCalculatedNotificationEvents];
+  if ((successfullyCalculatedNotificationEvents & 1) == 0)
   {
-    v8 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_modes(successfullyCalculatedNotificationEvents);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(ATXContactModeDenyListModel *)v8 scoredEntities];
+      [(ATXContactModeDenyListModel *)v9 scoredEntities];
     }
   }
 
   entityFeaturesForModeEntityScoring = [(ATXModeEntityCorrelator *)v5 entityFeaturesForModeEntityScoring];
-  v10 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = __atxlog_handle_notification_management(entityFeaturesForModeEntityScoring);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    mode = self->_mode;
     v12 = ATXModeToString();
     *buf = 136315650;
-    v31 = "[ATXContactModeDenyListModel scoredEntities]";
-    v32 = 2112;
-    v33 = v12;
-    v34 = 2048;
-    v35 = [entityFeaturesForModeEntityScoring count];
-    _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "%s: mode: '%@' returned %ld contacts from featurizer", buf, 0x20u);
+    v30 = "[ATXContactModeDenyListModel scoredEntities]";
+    v31 = 2112;
+    v32 = v12;
+    v33 = 2048;
+    v34 = [entityFeaturesForModeEntityScoring count];
+    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "%s: mode: '%@' returned %ld contacts from featurizer", buf, 0x20u);
   }
 
   [entityFeaturesForModeEntityScoring enumerateKeysAndObjectsUsingBlock:&__block_literal_global_211];
@@ -97,22 +97,21 @@
   v16 = [(ATXStableContactRepresentationDatastore *)v14 stableContactRepresentationForCnContactId:identifier rawIdentifier:0];
   stableContactIdentifier = [v16 stableContactIdentifier];
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __45__ATXContactModeDenyListModel_scoredEntities__block_invoke_30;
-  v25[3] = &unk_2785970E0;
-  v26 = stableContactIdentifier;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __45__ATXContactModeDenyListModel_scoredEntities__block_invoke_30;
+  v24[3] = &unk_2785970E0;
+  v25 = stableContactIdentifier;
   selfCopy = self;
-  v28 = v14;
+  v27 = v14;
   v18 = v3;
-  v29 = v18;
+  v28 = v18;
   v19 = v14;
   v20 = stableContactIdentifier;
-  [entityFeaturesForModeEntityScoring enumerateKeysAndObjectsUsingBlock:v25];
-  v21 = v29;
+  [entityFeaturesForModeEntityScoring enumerateKeysAndObjectsUsingBlock:v24];
+  v21 = v28;
   v22 = v18;
 
-  v23 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -120,7 +119,7 @@ void __45__ATXContactModeDenyListModel_scoredEntities__block_invoke(uint64_t a1,
 {
   v4 = a2;
   v5 = a3;
-  v6 = __atxlog_handle_notification_management();
+  v6 = __atxlog_handle_notification_management(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     __45__ATXContactModeDenyListModel_scoredEntities__block_invoke_cold_1(v4, v5, v6);
@@ -251,16 +250,16 @@ void __45__ATXContactModeDenyListModel_scoredEntities__block_invoke_30(uint64_t 
 {
   contactStore = self->_contactStore;
   contactKeysToFetch = [(ATXContactModeDenyListModel *)self contactKeysToFetch];
-  v14 = 0;
-  v4 = [(CNContactStore *)contactStore _crossPlatformUnifiedMeContactWithKeysToFetch:contactKeysToFetch error:&v14];
-  v5 = v14;
+  v15 = 0;
+  v4 = [(CNContactStore *)contactStore _crossPlatformUnifiedMeContactWithKeysToFetch:contactKeysToFetch error:&v15];
+  v5 = v15;
 
   if (v5)
   {
-    v6 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_notification_management(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(ATXContactModeDenyListModel *)v5 meContact:v6];
+      [(ATXContactModeDenyListModel *)v5 meContact:v7];
     }
   }
 
@@ -269,13 +268,12 @@ void __45__ATXContactModeDenyListModel_scoredEntities__block_invoke_30(uint64_t 
 
 - (id)contactKeysToFetch
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CBD098];
-  v6[0] = *MEMORY[0x277CBD018];
-  v6[1] = v2;
-  v6[2] = *MEMORY[0x277CBCFC0];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277CBD018];
+  v5[1] = v2;
+  v5[2] = *MEMORY[0x277CBCFC0];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
 
   return v3;
 }
@@ -289,37 +287,37 @@ void __45__ATXContactModeDenyListModel_scoredEntities__block_invoke_30(uint64_t 
 
   if ((isKindOfClass & 1) == 0)
   {
-    v7 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_modes(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [ATXContactModeDenyListModel featuresToModel:v7];
+      [ATXContactModeDenyListModel featuresToModel:v8];
     }
   }
 
   entitySpecificFeatures2 = [modelCopy entitySpecificFeatures];
-  v9 = MEMORY[0x277CCABB0];
-  [modelCopy classConditionalProbability];
-  v39 = [v9 numberWithDouble:?];
   v10 = MEMORY[0x277CCABB0];
-  [modelCopy posteriorProbability];
+  [modelCopy classConditionalProbability];
   v40 = [v10 numberWithDouble:?];
   v11 = MEMORY[0x277CCABB0];
-  [modelCopy globalPopularity];
-  v37 = [v11 numberWithDouble:?];
+  [modelCopy posteriorProbability];
+  v41 = [v11 numberWithDouble:?];
   v12 = MEMORY[0x277CCABB0];
-  [modelCopy modePopularity];
+  [modelCopy globalPopularity];
   v38 = [v12 numberWithDouble:?];
-  v28 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(modelCopy, "entityOccurredGloballyOverLastNDays:", -[ATXModeAffinityModelsConstants numOfDaysToComputeEntityOccurenceFeaturesForContacts](self->_modeAffinityModelsConstants, "numOfDaysToComputeEntityOccurenceFeaturesForContacts"))}];
-  v27 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(modelCopy, "entityOccurredInModeOverLastNDays:", -[ATXModeAffinityModelsConstants numOfDaysToComputeEntityOccurenceFeaturesForContacts](self->_modeAffinityModelsConstants, "numOfDaysToComputeEntityOccurenceFeaturesForContacts"))}];
-  v36 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(entitySpecificFeatures2, "isFavoriteContact")}];
-  v35 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(entitySpecificFeatures2, "isVIPContact")}];
-  v34 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(entitySpecificFeatures2, "isEmergencyContact")}];
-  v33 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(entitySpecificFeatures2, "isICloudFamilyMember")}];
   v13 = MEMORY[0x277CCABB0];
+  [modelCopy modePopularity];
+  v39 = [v13 numberWithDouble:?];
+  v29 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(modelCopy, "entityOccurredGloballyOverLastNDays:", -[ATXModeAffinityModelsConstants numOfDaysToComputeEntityOccurenceFeaturesForContacts](self->_modeAffinityModelsConstants, "numOfDaysToComputeEntityOccurenceFeaturesForContacts"))}];
+  v28 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(modelCopy, "entityOccurredInModeOverLastNDays:", -[ATXModeAffinityModelsConstants numOfDaysToComputeEntityOccurenceFeaturesForContacts](self->_modeAffinityModelsConstants, "numOfDaysToComputeEntityOccurenceFeaturesForContacts"))}];
+  v37 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(entitySpecificFeatures2, "isFavoriteContact")}];
+  v36 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(entitySpecificFeatures2, "isVIPContact")}];
+  v35 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(entitySpecificFeatures2, "isEmergencyContact")}];
+  v34 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(entitySpecificFeatures2, "isICloudFamilyMember")}];
+  v14 = MEMORY[0x277CCABB0];
   [modelCopy ratioModeAndGlobalPopularity];
-  v15 = v14;
+  v16 = v15;
 
-  v23 = [v13 numberWithDouble:v15];
+  v24 = [v14 numberWithDouble:v16];
   globalCountOfNotificationsReceivedForEntity = [entitySpecificFeatures2 globalCountOfNotificationsReceivedForEntity];
   modeCountOfNotificationsReceivedForEntity = [entitySpecificFeatures2 modeCountOfNotificationsReceivedForEntity];
   localPopularityOfNotificationsReceivedForEntity = [entitySpecificFeatures2 localPopularityOfNotificationsReceivedForEntity];
@@ -332,32 +330,32 @@ void __45__ATXContactModeDenyListModel_scoredEntities__block_invoke_30(uint64_t 
   globalNotificationsClearedRateForEntity = [entitySpecificFeatures2 globalNotificationsClearedRateForEntity];
   ratioOfLocalToGlobalNotificationsClearedRateForEntity = [entitySpecificFeatures2 ratioOfLocalToGlobalNotificationsClearedRateForEntity];
   classConditionalOfNotificationsClearedForEntity = [entitySpecificFeatures2 classConditionalOfNotificationsClearedForEntity];
-  v21 = objc_opt_new();
-  [v21 setObject:v39 forKey:@"classConditionalProbability"];
-  [v21 setObject:v40 forKey:@"posteriorProbability"];
-  [v21 setObject:v37 forKey:@"globalPopularity"];
-  [v21 setObject:v38 forKey:@"modePopularity"];
-  [v21 setObject:v28 forKey:@"contactEngagedGloballyOverLastNDays"];
-  [v21 setObject:v27 forKey:@"contactEngagedInModeOverLastNDays"];
-  [v21 setObject:v36 forKey:@"contactIsFavorite"];
-  [v21 setObject:v35 forKey:@"contactIsVIP"];
-  [v21 setObject:v34 forKey:@"contactIsEmergency"];
-  [v21 setObject:v33 forKey:@"contactIsICloudFamilyMember"];
-  [v21 setObject:v23 forKey:@"ratioOfModePopularityToGlobalPopularityOfEntity"];
-  [v21 setObject:globalCountOfNotificationsReceivedForEntity forKey:@"globalCountOfNotificationsReceivedForEntity"];
-  [v21 setObject:modeCountOfNotificationsReceivedForEntity forKey:@"modeCountOfNotificationsReceivedForEntity"];
-  [v21 setObject:localPopularityOfNotificationsReceivedForEntity forKey:@"localPopularityOfNotificationsReceivedForEntity"];
-  [v21 setObject:globalPopularityOfNotificationsReceivedForEntity forKey:@"globalPopularityOfNotificationsReceivedForEntity"];
-  [v21 setObject:ratioOfLocalToGlobalPopularityOfNotificationsReceivedForEntity forKey:@"ratioOfLocalToGlobalPopularityOfNotificationsReceivedForEntity"];
-  [v21 setObject:classConditionalOfNotificationsReceivedForEntity forKey:@"classConditionalOfNotificationsReceivedForEntity"];
-  [v21 setObject:globalCountOfNotificationsClearedForEntity forKey:@"globalCountOfNotificationsClearedForEntity"];
-  [v21 setObject:modeCountOfNotificationsClearedForEntity forKey:@"modeCountOfNotificationsClearedForEntity"];
-  [v21 setObject:localNotificationsClearedRateForEntity forKey:@"localNotificationsClearedRateForEntity"];
-  [v21 setObject:globalNotificationsClearedRateForEntity forKey:@"globalNotificationsClearedRateForEntity"];
-  [v21 setObject:ratioOfLocalToGlobalNotificationsClearedRateForEntity forKey:@"ratioOfLocalToGlobalNotificationsClearedRateForEntity"];
-  [v21 setObject:classConditionalOfNotificationsClearedForEntity forKey:@"classConditionalOfNotificationsClearedForEntity"];
+  v22 = objc_opt_new();
+  [v22 setObject:v40 forKey:@"classConditionalProbability"];
+  [v22 setObject:v41 forKey:@"posteriorProbability"];
+  [v22 setObject:v38 forKey:@"globalPopularity"];
+  [v22 setObject:v39 forKey:@"modePopularity"];
+  [v22 setObject:v29 forKey:@"contactEngagedGloballyOverLastNDays"];
+  [v22 setObject:v28 forKey:@"contactEngagedInModeOverLastNDays"];
+  [v22 setObject:v37 forKey:@"contactIsFavorite"];
+  [v22 setObject:v36 forKey:@"contactIsVIP"];
+  [v22 setObject:v35 forKey:@"contactIsEmergency"];
+  [v22 setObject:v34 forKey:@"contactIsICloudFamilyMember"];
+  [v22 setObject:v24 forKey:@"ratioOfModePopularityToGlobalPopularityOfEntity"];
+  [v22 setObject:globalCountOfNotificationsReceivedForEntity forKey:@"globalCountOfNotificationsReceivedForEntity"];
+  [v22 setObject:modeCountOfNotificationsReceivedForEntity forKey:@"modeCountOfNotificationsReceivedForEntity"];
+  [v22 setObject:localPopularityOfNotificationsReceivedForEntity forKey:@"localPopularityOfNotificationsReceivedForEntity"];
+  [v22 setObject:globalPopularityOfNotificationsReceivedForEntity forKey:@"globalPopularityOfNotificationsReceivedForEntity"];
+  [v22 setObject:ratioOfLocalToGlobalPopularityOfNotificationsReceivedForEntity forKey:@"ratioOfLocalToGlobalPopularityOfNotificationsReceivedForEntity"];
+  [v22 setObject:classConditionalOfNotificationsReceivedForEntity forKey:@"classConditionalOfNotificationsReceivedForEntity"];
+  [v22 setObject:globalCountOfNotificationsClearedForEntity forKey:@"globalCountOfNotificationsClearedForEntity"];
+  [v22 setObject:modeCountOfNotificationsClearedForEntity forKey:@"modeCountOfNotificationsClearedForEntity"];
+  [v22 setObject:localNotificationsClearedRateForEntity forKey:@"localNotificationsClearedRateForEntity"];
+  [v22 setObject:globalNotificationsClearedRateForEntity forKey:@"globalNotificationsClearedRateForEntity"];
+  [v22 setObject:ratioOfLocalToGlobalNotificationsClearedRateForEntity forKey:@"ratioOfLocalToGlobalNotificationsClearedRateForEntity"];
+  [v22 setObject:classConditionalOfNotificationsClearedForEntity forKey:@"classConditionalOfNotificationsClearedForEntity"];
 
-  return v21;
+  return v22;
 }
 
 - (id)loadContactModeModel
@@ -382,75 +380,74 @@ void __45__ATXContactModeDenyListModel_scoredEntities__block_invoke_30(uint64_t 
 
 - (double)scoreFromContactFeatures:(id)features
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
-  if ([featuresCopy uniqueOccurrencesInMode] > 2)
+  uniqueOccurrencesInMode = [featuresCopy uniqueOccurrencesInMode];
+  if (uniqueOccurrencesInMode > 2)
   {
     if (!self->_contactModeModel)
     {
-      v6 = 0.0;
+      v7 = 0.0;
       goto LABEL_16;
     }
 
     v11 = objc_alloc(MEMORY[0x277CBFED0]);
     v12 = [(ATXContactModeDenyListModel *)self featuresToModel:featuresCopy];
-    v34 = 0;
-    entityDescription = [v11 initWithDictionary:v12 error:&v34];
-    v13 = v34;
+    v35 = 0;
+    entityDescription = [v11 initWithDictionary:v12 error:&v35];
+    v13 = v35;
 
     if (v13)
     {
-      v14 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_modes(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(ATXContactModeDenyListModel *)v13 scoreFromContactFeatures:v14, v15, v16, v17, v18, v19, v20];
+        [(ATXContactModeDenyListModel *)v13 scoreFromContactFeatures:v15, v16, v17, v18, v19, v20, v21];
       }
     }
 
     contactModeModel = self->_contactModeModel;
-    v33 = v13;
-    v10 = [(MLModel *)contactModeModel predictionFromFeatures:entityDescription error:&v33];
-    v5 = v33;
+    v34 = v13;
+    v10 = [(MLModel *)contactModeModel predictionFromFeatures:entityDescription error:&v34];
+    v6 = v34;
 
-    if (v5)
+    if (v6)
     {
-      v22 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = __atxlog_handle_modes(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [(ATXContactModeDenyListModel *)v5 scoreFromContactFeatures:v22, v23, v24, v25, v26, v27, v28];
+        [(ATXContactModeDenyListModel *)v6 scoreFromContactFeatures:v24, v25, v26, v27, v28, v29, v30];
       }
     }
 
-    v29 = [v10 featureValueForName:@"classProbability"];
-    [ATXCoreMLUtilities scoreForModelOutputValue:v29 outputIndexedSubscript:1];
-    v6 = v30;
+    v31 = [v10 featureValueForName:@"classProbability"];
+    [ATXCoreMLUtilities scoreForModelOutputValue:v31 outputIndexedSubscript:1];
+    v7 = v32;
 
     goto LABEL_14;
   }
 
-  v5 = __atxlog_handle_notification_management();
-  v6 = 0.0;
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = __atxlog_handle_notification_management(uniqueOccurrencesInMode);
+  v7 = 0.0;
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     entityDescription = [featuresCopy entityDescription];
-    uniqueOccurrencesInMode = [featuresCopy uniqueOccurrencesInMode];
-    mode = self->_mode;
+    uniqueOccurrencesInMode2 = [featuresCopy uniqueOccurrencesInMode];
     v10 = ATXModeToString();
     *buf = 136315907;
-    v36 = "[ATXContactModeDenyListModel scoreFromContactFeatures:]";
-    v37 = 2117;
-    v38 = entityDescription;
-    v39 = 2048;
-    v40 = uniqueOccurrencesInMode;
-    v41 = 2112;
-    v42 = v10;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%s: contact '%{sensitive}@' only had %ld < 3 unique occurrences in mode: '%@' so setting score to zero", buf, 0x2Au);
+    v37 = "[ATXContactModeDenyListModel scoreFromContactFeatures:]";
+    v38 = 2117;
+    v39 = entityDescription;
+    v40 = 2048;
+    v41 = uniqueOccurrencesInMode2;
+    v42 = 2112;
+    v43 = v10;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "%s: contact '%{sensitive}@' only had %ld < 3 unique occurrences in mode: '%@' so setting score to zero", buf, 0x2Au);
 LABEL_14:
   }
 
 LABEL_16:
-  v31 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (id)purgeDeletedContacts:(id)contacts
@@ -477,19 +474,19 @@ LABEL_16:
   [(CNContactStore *)contactStore enumerateContactsWithFetchRequest:v10 error:0 usingBlock:v20];
 
   v14 = [v12 count];
-  if (v14 != [v11 count])
+  v15 = [v11 count];
+  if (v14 != v15)
   {
-    v15 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v16 = __atxlog_handle_notification_management(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      [(ATXContactModeDenyListModel *)v11 purgeDeletedContacts:v12, v15];
+      [(ATXContactModeDenyListModel *)v11 purgeDeletedContacts:v12, v16];
     }
   }
 
-  v16 = v23;
-  v17 = v12;
+  v17 = v23;
+  v18 = v12;
 
-  v18 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -511,51 +508,48 @@ void __52__ATXContactModeDenyListModel_purgeDeletedContacts___block_invoke(uint6
 
 void __45__ATXContactModeDenyListModel_scoredEntities__block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = [a2 debugDescription];
   v6 = [v5 stringByReplacingOccurrencesOfString:@"\n" withString:&stru_2839A6058];
-  v8 = 136315651;
-  v9 = "[ATXContactModeDenyListModel scoredEntities]_block_invoke";
-  v10 = 2117;
-  v11 = a1;
-  v12 = 2117;
-  v13 = v6;
-  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "  %s: contactId: '%{sensitive}@' features: '%{sensitive}@'", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 136315651;
+  v8 = "[ATXContactModeDenyListModel scoredEntities]_block_invoke";
+  v9 = 2117;
+  v10 = a1;
+  v11 = 2117;
+  v12 = v6;
+  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "  %s: contactId: '%{sensitive}@' features: '%{sensitive}@'", &v7, 0x20u);
 }
 
 - (void)meContact
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "Error when fetching me contact: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "Error when fetching me contact: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)scoreFromContactFeatures:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXContactModeDenyListModel - Error initializing MLDictionaryFeatureProvider for inference on the CoreMLModel: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXContactModeDenyListModel - Error initializing MLDictionaryFeatureProvider for inference on the CoreMLModel: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)scoreFromContactFeatures:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXContactModeDenyListModel - Error during inference on the CoreMLModel: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXContactModeDenyListModel - Error during inference on the CoreMLModel: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)purgeDeletedContacts:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 count];
-  v7 = 136315394;
-  v8 = "[ATXContactModeDenyListModel purgeDeletedContacts:]";
-  v9 = 2048;
-  v10 = v5 - [a2 count];
-  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "%s: Filtered out %ld deleted contacts", &v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
+  v7 = "[ATXContactModeDenyListModel purgeDeletedContacts:]";
+  v8 = 2048;
+  v9 = v5 - [a2 count];
+  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "%s: Filtered out %ld deleted contacts", &v6, 0x16u);
 }
 
 @end

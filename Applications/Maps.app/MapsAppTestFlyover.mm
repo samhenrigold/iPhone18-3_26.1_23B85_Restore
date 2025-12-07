@@ -10,7 +10,7 @@
   fullCopy = full;
   if (!fullCopy)
   {
-    fullCopy = [(MapsAppTest *)self options];
+    fullCopy = objc_msgSend_options(self);
   }
 
   v6 = [fullCopy objectForKeyedSubscript:@"subTestName"];

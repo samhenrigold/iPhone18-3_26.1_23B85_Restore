@@ -1,4 +1,4 @@
-uint64_t NFInternalBuild()
+uint64_t NFInternalBuild(uint64_t a1, uint64_t a2)
 {
   if (NFInternalBuild_onceToken != -1)
   {
@@ -131,16 +131,16 @@ uint64_t NFStoreDemoMode()
   return NFStoreDemoMode_storeDemoMode;
 }
 
-id zalgoIfMain()
+id zalgoIfMain(uint64_t a1)
 {
   if (zalgoIfMain_token != -1)
   {
     zalgoIfMain_cold_1();
   }
 
-  v1 = zalgoIfMain_queue;
+  v2 = zalgoIfMain_queue;
 
-  return v1;
+  return v2;
 }
 
 void __zalgoIfMain_block_invoke()
@@ -159,30 +159,30 @@ void __zalgo_block_invoke()
   zalgo_queue = v0;
 }
 
-id zalgo()
+id zalgo(uint64_t a1)
 {
   if (zalgo_token != -1)
   {
     zalgo_cold_1();
   }
 
-  v1 = zalgo_queue;
+  v2 = zalgo_queue;
 
-  return v1;
+  return v2;
 }
 
 void NFPromiseInvokeOnQueue(void *a1, void *a2)
 {
   v7 = a1;
   v3 = a2;
-  v4 = zalgo();
+  v4 = zalgo(v3);
 
   if (v4 == v7)
   {
     goto LABEL_4;
   }
 
-  v5 = zalgoIfMain();
+  v5 = zalgoIfMain(v7);
 
   v6 = v7;
   if (v5 == v7)
@@ -201,10 +201,11 @@ LABEL_4:
 LABEL_7:
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x26u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x26u);
 }
 
 void NFArchiverCopyFileFinishedHandler(uint64_t a1, const char *a2)
@@ -250,17 +251,14 @@ double _UIValueCGRectValue(void *a1)
 
 void *_getNSValueBytes(void *a1, void *a2, size_t a3)
 {
-  sizep[1] = *MEMORY[0x277D85DE8];
-  sizep[0] = 0;
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v6 = NSGetSizeAndAlignment([v5 objCType], sizep, 0);
+  v6 = NSGetSizeAndAlignment([v5 objCType], &sizep, 0);
   MEMORY[0x28223BE20](v6);
-  v8 = sizep - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &sizep - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   [v5 getValue:v8];
 
-  result = memcpy(a2, v8, a3);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return memcpy(a2, v8, a3);
 }
 
 double _UIValueCGPointValue(void *a1)
@@ -271,7 +269,7 @@ double _UIValueCGPointValue(void *a1)
   return *v2;
 }
 
-uint64_t NFDeviceIsA7()
+uint64_t NFDeviceIsA7(uint64_t a1, uint64_t a2)
 {
   if (NFDeviceIsA7_onceToken != -1)
   {
@@ -344,7 +342,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t NFDeviceIsA8()
+uint64_t NFDeviceIsA8(uint64_t a1, uint64_t a2)
 {
   if (NFDeviceIsA8_onceToken != -1)
   {
@@ -356,10 +354,8 @@ uint64_t NFDeviceIsA8()
 
 uint64_t __NFDeviceIsA8_block_invoke()
 {
-  v2 = *MEMORY[0x277D85DE8];
   result = MGIsDeviceOneOfType();
   NFDeviceIsA8_result = result;
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -398,17 +394,15 @@ id NFSystemName()
 
 void NFGeneralDeviceString_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v1 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Encountered an unknown device model: %@", a1];
   *buf = 136315906;
-  v4 = "NSString *NFGeneralDeviceString()";
-  v5 = 2080;
-  v6 = "NFDevice.m";
-  v7 = 1024;
-  v8 = 104;
-  v9 = 2114;
-  v10 = v1;
+  v3 = "NSString *NFGeneralDeviceString()";
+  v4 = 2080;
+  v5 = "NFDevice.m";
+  v6 = 1024;
+  v7 = 104;
+  v8 = 2114;
+  v9 = v1;
   _os_log_error_impl(&dword_25BED3000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v2 = *MEMORY[0x277D85DE8];
 }

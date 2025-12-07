@@ -20,11 +20,10 @@
 
 - (void)encodeToCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceArrays:(id)arrays destinationArrays:(id)destinationArrays status:(id)status
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  v13[1] = [destinationArrays objectAtIndexedSubscript:{1, objc_msgSend(destinationArrays, "objectAtIndexedSubscript:", 0)}];
-  v13[2] = status;
-  -[MPSNDArrayMultiaryMultiDestinationKernel encodeToCommandEncoder:commandBuffer:sourceArrays:destinationArrays:](self, "encodeToCommandEncoder:commandBuffer:sourceArrays:destinationArrays:", encoder, buffer, arrays, [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3]);
-  v12 = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
+  v12[1] = [destinationArrays objectAtIndexedSubscript:{1, objc_msgSend(destinationArrays, "objectAtIndexedSubscript:", 0)}];
+  v12[2] = status;
+  -[MPSNDArrayMultiaryMultiDestinationKernel encodeToCommandEncoder:commandBuffer:sourceArrays:destinationArrays:](self, "encodeToCommandEncoder:commandBuffer:sourceArrays:destinationArrays:", encoder, buffer, arrays, [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3]);
 }
 
 - (void)dealloc

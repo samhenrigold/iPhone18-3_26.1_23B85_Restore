@@ -17,60 +17,19 @@
   v6 = sub_1000013A0(v5);
   v7 = [v6 fileExistsAtPath:dirCopy isDirectory:0];
 
-  if (v7)
+  if (!v7)
   {
-    if (qword_1000EB498 != -1)
+    v12 = [(UMDVolumeHelper *)self se];
+    v13 = sub_1000013A0(v12);
+    v14 = [v13 makePath:dirCopy mode:511 error:0];
+
+    if (v14)
     {
-      sub_10009865C();
-    }
+      v15 = [(UMDVolumeHelper *)self se];
+      v16 = sub_1000013A0(v15);
+      v17 = [v16 chmodPath:dirCopy withMode:511 error:0];
 
-    v8 = qword_1000EB490;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-    {
-      v9 = sub_1000011A8(0);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-      {
-        v10 = v9;
-      }
-
-      else
-      {
-        v10 = v9 & 0xFFFFFFFE;
-      }
-
-      if (v10)
-      {
-LABEL_35:
-        v23 = _os_log_send_and_compose_impl();
-        v24 = v23;
-        if (v23)
-        {
-          sub_100002A8C(v23);
-        }
-
-        goto LABEL_38;
-      }
-
-LABEL_37:
-      v24 = 0;
-LABEL_38:
-      free(v24);
-    }
-  }
-
-  else
-  {
-    v11 = [(UMDVolumeHelper *)self se];
-    v12 = sub_1000013A0(v11);
-    v13 = [v12 makePath:dirCopy mode:511 error:0];
-
-    if (v13)
-    {
-      v14 = [(UMDVolumeHelper *)self se];
-      v15 = sub_1000013A0(v14);
-      v16 = [v15 chmodPath:dirCopy withMode:511 error:0];
-
-      if (v16)
+      if (v17)
       {
         if (qword_1000EB498 != -1)
         {
@@ -78,26 +37,31 @@ LABEL_38:
         }
 
         v8 = qword_1000EB490;
+        if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_40;
+        }
+
+        v25 = 0;
+        v18 = sub_1000011A8(0);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = sub_1000011A8(0);
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-          {
-            v18 = v17;
-          }
-
-          else
-          {
-            v18 = v17 & 0xFFFFFFFE;
-          }
-
-          if (v18)
-          {
-            goto LABEL_35;
-          }
-
-          goto LABEL_37;
+          v19 = v18;
         }
+
+        else
+        {
+          v19 = v18 & 0xFFFFFFFE;
+        }
+
+        if (!v19)
+        {
+          goto LABEL_38;
+        }
+
+        v26 = 138543362;
+        v27 = dirCopy;
+        v11 = _os_log_send_and_compose_impl(v19, &v25, 0, 0, &_mh_execute_header, v8, 0, "Created volume mounts directory %{public}@", &v26, 12);
       }
 
       else
@@ -108,26 +72,31 @@ LABEL_38:
         }
 
         v8 = qword_1000EB490;
+        if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_40;
+        }
+
+        v25 = 0;
+        v22 = sub_1000011A8(0);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          v21 = sub_1000011A8(0);
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-          {
-            v22 = v21;
-          }
-
-          else
-          {
-            v22 = v21 & 0xFFFFFFFE;
-          }
-
-          if (v22)
-          {
-            goto LABEL_35;
-          }
-
-          goto LABEL_37;
+          v23 = v22;
         }
+
+        else
+        {
+          v23 = v22 & 0xFFFFFFFE;
+        }
+
+        if (!v23)
+        {
+          goto LABEL_38;
+        }
+
+        v26 = 138543362;
+        v27 = dirCopy;
+        v11 = _os_log_send_and_compose_impl(v23, &v25, 0, 0, &_mh_execute_header, v8, 16, "Failed to set permissions on volume mounts directory %{public}@", &v26, 12);
       }
     }
 
@@ -139,35 +108,85 @@ LABEL_38:
       }
 
       v8 = qword_1000EB490;
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_40;
+      }
+
+      v25 = 0;
+      v20 = sub_1000011A8(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v19 = sub_1000011A8(0);
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-        {
-          v20 = v19;
-        }
-
-        else
-        {
-          v20 = v19 & 0xFFFFFFFE;
-        }
-
-        if (v20)
-        {
-          goto LABEL_35;
-        }
-
-        goto LABEL_37;
+        v21 = v20;
       }
+
+      else
+      {
+        v21 = v20 & 0xFFFFFFFE;
+      }
+
+      if (!v21)
+      {
+        goto LABEL_38;
+      }
+
+      v26 = 138543362;
+      v27 = dirCopy;
+      v11 = _os_log_send_and_compose_impl(v21, &v25, 0, 0, &_mh_execute_header, v8, 16, "Failed to create volume mounts directory %{public}@", &v26, 12);
     }
+
+LABEL_36:
+    v24 = v11;
+    if (v11)
+    {
+      sub_100002A8C(v11);
+    }
+
+    goto LABEL_39;
   }
+
+  if (qword_1000EB498 != -1)
+  {
+    sub_10009865C();
+  }
+
+  v8 = qword_1000EB490;
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    v25 = 0;
+    v9 = sub_1000011A8(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      v10 = v9;
+    }
+
+    else
+    {
+      v10 = v9 & 0xFFFFFFFE;
+    }
+
+    if (v10)
+    {
+      v26 = 138543362;
+      v27 = dirCopy;
+      v11 = _os_log_send_and_compose_impl(v10, &v25, 0, 0, &_mh_execute_header, v8, 1, "Volume mounts directory %{public}@ exists", &v26, 12);
+      goto LABEL_36;
+    }
+
+LABEL_38:
+    v24 = 0;
+LABEL_39:
+    free(v24);
+  }
+
+LABEL_40:
 }
 
 - (BOOL)unmountVolumeWithSession:(id)session mountPath:(id)path error:(int *)error
 {
   sessionCopy = session;
   pathCopy = path;
-  v29 = 0;
+  v31 = 0;
   if (error)
   {
     *error = 0;
@@ -180,7 +199,7 @@ LABEL_38:
     v11 = sub_100098ECC(sessionCopy, @"MKBUserSessionHomeDir");
   }
 
-  if ([(UMDVolumeHelper *)self unmountVolumeWithSession:sessionCopy mountPath:v10 error:&v29 force:0])
+  if ([(UMDVolumeHelper *)self unmountVolumeWithSession:sessionCopy mountPath:v10 error:&v31 force:0])
   {
     goto LABEL_18;
   }
@@ -193,6 +212,7 @@ LABEL_38:
   v12 = qword_1000EB490;
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
+    v30 = 0;
     v13 = sub_1000011A8(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
@@ -206,11 +226,11 @@ LABEL_38:
 
     if (v14)
     {
-      v30 = 138412546;
-      v31 = v11;
-      v32 = 1024;
-      v33 = v29;
-      v15 = _os_log_send_and_compose_impl();
+      v32 = 138412546;
+      v33 = v11;
+      v34 = 1024;
+      v35 = v31;
+      v15 = _os_log_send_and_compose_impl(v14, &v30, 0, 0, &_mh_execute_header, v12, 0, "Failed to unmount volume at %@ (%d), retrying with force unmount", &v32, 18);
       v16 = v15;
       if (v15)
       {
@@ -226,7 +246,7 @@ LABEL_38:
     free(v16);
   }
 
-  if ([(UMDVolumeHelper *)self unmountVolumeWithSession:sessionCopy mountPath:v10 error:&v29 force:1])
+  if ([(UMDVolumeHelper *)self unmountVolumeWithSession:sessionCopy mountPath:v10 error:&v31 force:1])
   {
 LABEL_18:
     if (qword_1000EB498 != -1)
@@ -237,6 +257,7 @@ LABEL_18:
     v17 = qword_1000EB490;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
+      v30 = 0;
       v18 = sub_1000011A8(0);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
@@ -250,9 +271,10 @@ LABEL_18:
 
       if (v19)
       {
-        v30 = 138412290;
-        v31 = v11;
-        v20 = _os_log_send_and_compose_impl();
+        v32 = 138412290;
+        v33 = v11;
+        LODWORD(v29) = 12;
+        v20 = _os_log_send_and_compose_impl(v19, &v30, 0, 0, &_mh_execute_header, v17, 0, "Unmounted volume at %@", &v32, v29);
         v21 = v20;
         if (v20)
         {
@@ -281,6 +303,7 @@ LABEL_18:
     v22 = qword_1000EB490;
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
+      v30 = 0;
       v23 = sub_1000011A8(0);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
@@ -294,11 +317,12 @@ LABEL_18:
 
       if (v24)
       {
-        v30 = 138412546;
-        v31 = v11;
-        v32 = 1024;
-        v33 = v29;
-        v25 = _os_log_send_and_compose_impl();
+        v32 = 138412546;
+        v33 = v11;
+        v34 = 1024;
+        v35 = v31;
+        LODWORD(v29) = 18;
+        v25 = _os_log_send_and_compose_impl(v24, &v30, 0, 0, &_mh_execute_header, v22, 0, "Failed to force unmount volume at %@ (%d)", &v32, v29);
         v26 = v25;
         if (v25)
         {
@@ -317,7 +341,7 @@ LABEL_18:
     v27 = 0;
     if (error)
     {
-      *error = v29;
+      *error = v31;
     }
   }
 

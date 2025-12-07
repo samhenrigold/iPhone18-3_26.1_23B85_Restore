@@ -13,38 +13,38 @@
 
 + (id)stringWithPeople:(id)people options:(id)options error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   peopleCopy = people;
   optionsCopy = options;
   v10 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = peopleCopy;
-  v11 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v11 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v11)
   {
     v12 = v11;
     errorCopy = error;
     v13 = 0;
-    v14 = *v29;
+    v14 = *v28;
     while (2)
     {
       v15 = 0;
       v16 = v13;
       do
       {
-        if (*v29 != v14)
+        if (*v28 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v28 + 1) + 8 * v15);
+        v17 = *(*(&v27 + 1) + 8 * v15);
         v18 = objc_autoreleasePoolPush();
-        v27 = v16;
-        v19 = [self stringWithPerson:v17 options:optionsCopy error:&v27];
-        v13 = v27;
+        v26 = v16;
+        v19 = [self stringWithPerson:v17 options:optionsCopy error:&v26];
+        v13 = v26;
 
         if (!v19)
         {
@@ -62,7 +62,7 @@
       }
 
       while (v12 != v15);
-      v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v12 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v12)
       {
         continue;
@@ -87,8 +87,6 @@ LABEL_11:
     v22 = v13;
     *error = v13;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -116,38 +114,38 @@ LABEL_11:
 
 + (id)dataWithPeople:(id)people options:(id)options error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   peopleCopy = people;
   optionsCopy = options;
   v10 = objc_alloc_init(MEMORY[0x277CBEB28]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = peopleCopy;
-  v11 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v11 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v11)
   {
     v12 = v11;
     errorCopy = error;
     v13 = 0;
-    v14 = *v29;
+    v14 = *v28;
     while (2)
     {
       v15 = 0;
       v16 = v13;
       do
       {
-        if (*v29 != v14)
+        if (*v28 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v28 + 1) + 8 * v15);
+        v17 = *(*(&v27 + 1) + 8 * v15);
         v18 = objc_autoreleasePoolPush();
-        v27 = v16;
-        v19 = [self dataWithPerson:v17 options:optionsCopy error:&v27];
-        v13 = v27;
+        v26 = v16;
+        v19 = [self dataWithPerson:v17 options:optionsCopy error:&v26];
+        v13 = v26;
 
         if (!v19)
         {
@@ -165,7 +163,7 @@ LABEL_11:
       }
 
       while (v12 != v15);
-      v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v12 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v12)
       {
         continue;
@@ -190,8 +188,6 @@ LABEL_11:
     v22 = v13;
     *error = v13;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

@@ -15,6 +15,8 @@
 - (void)_prepareAnimationLaunch;
 - (void)_setDialogRequest:(id)request;
 - (void)setPreferredAppearance:(id)appearance;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AMSUIAccountMessageViewController
@@ -48,6 +50,28 @@
   v6.receiver = self;
   v6.super_class = AMSUIAccountMessageViewController;
   return [(AMSUIBaseMessageViewController *)&v6 initWithRequest:request bag:bag account:account];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AMSUIAccountMessageViewController;
+  [(AMSUIAccountMessageViewController *)&v4 viewWillAppear:appear];
+  if (![(AMSUIAccountMessageViewController *)self didAnimateFirstImpression])
+  {
+    [(AMSUIAccountMessageViewController *)self _prepareAnimationLaunch];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AMSUIAccountMessageViewController;
+  [(AMSUIBaseMessageViewController *)&v4 viewDidAppear:appear];
+  if (![(AMSUIAccountMessageViewController *)self didAnimateFirstImpression])
+  {
+    [(AMSUIAccountMessageViewController *)self _commitAnimationLaunch];
+  }
 }
 
 - (void)_setDialogRequest:(id)request
@@ -360,15 +384,15 @@ void __59__AMSUIAccountMessageViewController__commitAnimationLaunch__block_invok
 
 - (void)_commitAppearance
 {
-  v73 = *MEMORY[0x1E69E9840];
-  v71.receiver = self;
-  v71.super_class = AMSUIAccountMessageViewController;
-  [(AMSUIBaseMessageViewController *)&v71 _commitAppearance];
+  v72 = *MEMORY[0x1E69E9840];
+  v70.receiver = self;
+  v70.super_class = AMSUIAccountMessageViewController;
+  [(AMSUIBaseMessageViewController *)&v70 _commitAppearance];
   viewIfLoaded = [(AMSUIAccountMessageViewController *)self viewIfLoaded];
 
   if (!viewIfLoaded)
   {
-    goto LABEL_61;
+    return;
   }
 
   _messageView = [(AMSUIBaseMessageViewController *)self _messageView];
@@ -403,7 +427,7 @@ void __59__AMSUIAccountMessageViewController__commitAnimationLaunch__block_invok
     [v7 setPreferredBackgroundColor:accessoryButtonBackgroundColor2];
   }
 
-  v65 = accessoryButtonBackgroundColor2;
+  v64 = accessoryButtonBackgroundColor2;
   requestAppearance2 = [(AMSUIAccountMessageViewController *)self requestAppearance];
   accessoryButtonColor = [requestAppearance2 accessoryButtonColor];
   v15 = accessoryButtonColor;
@@ -524,8 +548,8 @@ LABEL_28:
     footerButtonColor2 = [preferredAppearance7 footerButtonColor];
   }
 
-  v64 = accessoryButtonColor2;
-  v66 = v7;
+  v63 = accessoryButtonColor2;
+  v65 = v7;
 
   requestAppearance9 = [(AMSUIAccountMessageViewController *)self requestAppearance];
   footerButtonFont = [requestAppearance9 footerButtonFont];
@@ -542,28 +566,28 @@ LABEL_28:
   }
 
   footerButtons = [_messageView footerButtons];
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
-  v49 = [footerButtons countByEnumeratingWithState:&v67 objects:v72 count:16];
+  v49 = [footerButtons countByEnumeratingWithState:&v66 objects:v71 count:16];
   if (v49)
   {
     v50 = v49;
-    v51 = *v68;
+    v51 = *v67;
     do
     {
       for (i = 0; i != v50; ++i)
       {
-        if (*v68 != v51)
+        if (*v67 != v51)
         {
           objc_enumerationMutation(footerButtons);
         }
 
-        v53 = *(*(&v67 + 1) + 8 * i);
+        v53 = *(*(&v66 + 1) + 8 * i);
         if (footerButtonColor2)
         {
-          [*(*(&v67 + 1) + 8 * i) setPreferredForegroundColor:footerButtonColor2];
+          [*(*(&v66 + 1) + 8 * i) setPreferredForegroundColor:footerButtonColor2];
         }
 
         if (footerButtonFont2)
@@ -577,7 +601,7 @@ LABEL_28:
         }
       }
 
-      v50 = [footerButtons countByEnumeratingWithState:&v67 objects:v72 count:16];
+      v50 = [footerButtons countByEnumeratingWithState:&v66 objects:v71 count:16];
     }
 
     while (v50);
@@ -589,7 +613,7 @@ LABEL_28:
   {
     imageTintColor2 = imageTintColor;
 
-    v57 = v66;
+    v57 = v65;
 LABEL_57:
     [_messageView setIconColor:imageTintColor2];
 
@@ -599,7 +623,7 @@ LABEL_57:
   preferredAppearance9 = [(AMSUIAccountMessageViewController *)self preferredAppearance];
   imageTintColor2 = [preferredAppearance9 imageTintColor];
 
-  v57 = v66;
+  v57 = v65;
   if (imageTintColor2)
   {
     goto LABEL_57;
@@ -617,9 +641,6 @@ LABEL_58:
   }
 
   [(AMSUIBaseMessageViewController *)self _updateTextWithAttributes];
-
-LABEL_61:
-  v63 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_iconAnimationPlayCount

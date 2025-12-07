@@ -5,12 +5,15 @@
 - (TransparencyGPBStringEnumDictionary)initWithDictionary:(id)dictionary;
 - (TransparencyGPBStringEnumDictionary)initWithValidationFunction:(void *)function rawValues:(const int *)values forKeys:(id *)keys count:(unint64_t)count;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)serializedDataForUnknownValue:(int)value forKey:(id *)key keyDataType:(unsigned __int8)type;
 - (unint64_t)computeSerializedSizeAsField:(id)field;
 - (void)addRawEntriesFromDictionary:(id)dictionary;
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndEnumsUsingBlock:(id)block;
 - (void)enumerateKeysAndRawValuesUsingBlock:(id)block;
+- (void)setEnum:(int)enum forKey:(id)key;
+- (void)setRawValue:(int)value forKey:(id)key;
 - (void)setTransparencyGPBGenericValue:(id *)value forTransparencyGPBGenericValueKey:(id *)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
@@ -182,6 +185,18 @@
   }
 }
 
+- (id)serializedDataForUnknownValue:(int)value forKey:(id *)key keyDataType:(unsigned __int8)type
+{
+  v6 = *&value;
+  v7 = sub_100171828(1, key->var7);
+  v8 = [NSMutableData dataWithLength:&v7[sub_100171738(2, v6)]];
+  v9 = [[TransparencyGPBCodedOutputStream alloc] initWithData:v8];
+  [(TransparencyGPBCodedOutputStream *)v9 writeString:1 value:key->var2];
+  [(TransparencyGPBCodedOutputStream *)v9 writeEnum:2 value:v6];
+
+  return v8;
+}
+
 - (void)setTransparencyGPBGenericValue:(id *)value forTransparencyGPBGenericValueKey:(id *)key
 {
   dictionary = self->_dictionary;
@@ -269,6 +284,45 @@
 
       sub_100192DE8(autocreator, self);
     }
+  }
+}
+
+- (void)setRawValue:(int)value forKey:(id)key
+{
+  v5 = *&value;
+  if (!key)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"Attempting to add nil key to a Dictionary"];
+  }
+
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithInt:" numberWithInt:v5], key];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_100192DE8(autocreator, self);
+  }
+}
+
+- (void)setEnum:(int)enum forKey:(id)key
+{
+  v5 = *&enum;
+  if (!key)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"Attempting to add nil key to a Dictionary"];
+  }
+
+  if (((self->_validationFunc)(v5, a2) & 1) == 0)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"TransparencyGPBStringEnumDictionary: Attempt to set an unknown enum value (%d)", v5];
+  }
+
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithInt:" numberWithInt:v5], key];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_100192DE8(autocreator, self);
   }
 }
 

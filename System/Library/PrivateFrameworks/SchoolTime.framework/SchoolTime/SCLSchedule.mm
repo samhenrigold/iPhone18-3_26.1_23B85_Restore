@@ -84,31 +84,31 @@
 
 - (int64_t)scheduledDays
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   recurrences = [(SCLSchedule *)self recurrences];
-  v3 = [recurrences countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [recurrences countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(recurrences);
         }
 
-        v5 |= SCLRepeatScheduleForDay([*(*(&v10 + 1) + 8 * i) day]);
+        v5 |= SCLRepeatScheduleForDay([*(*(&v9 + 1) + 8 * i) day]);
       }
 
-      v4 = [recurrences countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [recurrences countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -119,7 +119,6 @@
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -194,38 +193,36 @@ void __48__SCLSchedule_Convenience__uniformTimeIntervals__block_invoke(uint64_t 
 
 - (id)timeIntervalsForDay:(int64_t)day
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = [(SCLSchedule *)self recurrencesForDay:day];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        timeInterval = [*(*(&v14 + 1) + 8 * i) timeInterval];
+        timeInterval = [*(*(&v13 + 1) + 8 * i) timeInterval];
         [v5 addObject:timeInterval];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

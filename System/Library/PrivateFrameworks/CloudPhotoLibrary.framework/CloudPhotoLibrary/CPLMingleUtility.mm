@@ -12,7 +12,7 @@
 
 + (BOOL)applyShareRemapFixUpTasks:(id)tasks scope:(id)scope store:(id)store onPutBatchInPullQueue:(id)queue error:(id *)error
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   tasksCopy = tasks;
   scopeCopy = scope;
   storeCopy = store;
@@ -21,32 +21,32 @@
   remappedRecords = [storeCopy remappedRecords];
   transientPullRepository = [storeCopy transientPullRepository];
   v15 = objc_alloc_init(CPLChangeBatch);
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   v16 = tasksCopy;
-  v51 = [v16 countByEnumeratingWithState:&v57 objects:v69 count:16];
-  if (v51)
+  v50 = [v16 countByEnumeratingWithState:&v56 objects:v68 count:16];
+  if (v50)
   {
     errorCopy = error;
-    v42 = queueCopy;
-    v43 = storeCopy;
-    v44 = scopeCopy;
-    v52 = 0;
-    v45 = v15;
-    v46 = *v58;
-    v47 = v16;
+    v41 = queueCopy;
+    v42 = storeCopy;
+    v43 = scopeCopy;
+    v51 = 0;
+    v44 = v15;
+    v45 = *v57;
+    v46 = v16;
     while (1)
     {
-      for (i = 0; i != v51; ++i)
+      for (i = 0; i != v50; ++i)
       {
-        if (*v58 != v46)
+        if (*v57 != v45)
         {
           objc_enumerationMutation(v16);
         }
 
-        v18 = *(*(&v57 + 1) + 8 * i);
+        v18 = *(*(&v56 + 1) + 8 * i);
         v19 = objc_autoreleasePoolPush();
         sharedCloudScopedIdentifier = [v18 sharedCloudScopedIdentifier];
         realCloudScopedIdentifier = [v18 realCloudScopedIdentifier];
@@ -64,19 +64,19 @@
             {
               privateCloudScopedIdentifier = [v18 privateCloudScopedIdentifier];
               *buf = 138413058;
-              v62 = privateCloudScopedIdentifier;
-              v63 = 2112;
-              v64 = sharedCloudScopedIdentifier;
-              v65 = 2112;
-              v66 = realCloudScopedIdentifier;
-              v67 = 2112;
-              v68 = v25;
+              v61 = privateCloudScopedIdentifier;
+              v62 = 2112;
+              v63 = sharedCloudScopedIdentifier;
+              v64 = 2112;
+              v65 = realCloudScopedIdentifier;
+              v66 = 2112;
+              v67 = v25;
               _os_log_impl(&dword_1DC05A000, v26, OS_LOG_TYPE_DEFAULT, "After fix-up of %@, acknowledging shared record %@ has been remapped to %@ too late - so we will need to delete %@ in the client", buf, 0x2Au);
             }
           }
 
           recordClass = [objc_msgSend(v18 recordClass];
-          [(CPLChangeBatch *)v45 addRecord:recordClass];
+          [(CPLChangeBatch *)v44 addRecord:recordClass];
         }
 
         else
@@ -91,25 +91,25 @@
           {
             privateCloudScopedIdentifier2 = [v18 privateCloudScopedIdentifier];
             *buf = 138412802;
-            v62 = privateCloudScopedIdentifier2;
-            v63 = 2112;
-            v64 = sharedCloudScopedIdentifier;
-            v65 = 2112;
-            v66 = realCloudScopedIdentifier;
+            v61 = privateCloudScopedIdentifier2;
+            v62 = 2112;
+            v63 = sharedCloudScopedIdentifier;
+            v64 = 2112;
+            v65 = realCloudScopedIdentifier;
             _os_log_impl(&dword_1DC05A000, recordClass, OS_LOG_TYPE_DEFAULT, "After fix-up of %@, acknowledging %@ has been remapped to %@", buf, 0x20u);
           }
         }
 
 LABEL_16:
-        v56 = 0;
-        v30 = [remappedRecords addRemappedRecordWithScopedIdentifier:sharedCloudScopedIdentifier realScopedIdentifier:realCloudScopedIdentifier error:{&v56, errorCopy, v42, v43, v44}];
-        v31 = v56;
+        v55 = 0;
+        v30 = [remappedRecords addRemappedRecordWithScopedIdentifier:sharedCloudScopedIdentifier realScopedIdentifier:realCloudScopedIdentifier error:{&v55, errorCopy, v41, v42, v43}];
+        v31 = v55;
         if (v30)
         {
           sharedCloudScopedIdentifier2 = [v18 sharedCloudScopedIdentifier];
-          v55 = v31;
-          v33 = [transientPullRepository markUnmingledChangeWithScopedIdentifierAsMingled:sharedCloudScopedIdentifier2 error:&v55];
-          v34 = v55;
+          v54 = v31;
+          v33 = [transientPullRepository markUnmingledChangeWithScopedIdentifierAsMingled:sharedCloudScopedIdentifier2 error:&v54];
+          v34 = v54;
 
           if (v33)
           {
@@ -123,34 +123,34 @@ LABEL_16:
         v34 = v31;
 
         v35 = 0;
-        v52 = v34;
+        v51 = v34;
 LABEL_21:
 
         objc_autoreleasePoolPop(v19);
-        v16 = v47;
+        v16 = v46;
       }
 
-      v51 = [v47 countByEnumeratingWithState:&v57 objects:v69 count:16];
-      if (!v51)
+      v50 = [v46 countByEnumeratingWithState:&v56 objects:v68 count:16];
+      if (!v50)
       {
 
         if (v35)
         {
-          storeCopy = v43;
-          scopeCopy = v44;
+          storeCopy = v42;
+          scopeCopy = v43;
           error = errorCopy;
-          queueCopy = v42;
-          v15 = v45;
-          v36 = v52;
+          queueCopy = v41;
+          v15 = v44;
+          v36 = v51;
           goto LABEL_26;
         }
 
-        storeCopy = v43;
-        scopeCopy = v44;
+        storeCopy = v42;
+        scopeCopy = v43;
         error = errorCopy;
-        queueCopy = v42;
-        v15 = v45;
-        v36 = v52;
+        queueCopy = v41;
+        v15 = v44;
+        v36 = v51;
         if (errorCopy)
         {
 LABEL_30:
@@ -171,9 +171,9 @@ LABEL_30:
 LABEL_26:
   if ([(CPLChangeBatch *)v15 count])
   {
-    v54 = v36;
-    LOBYTE(v35) = [self _applyMingledBatch:v15 scope:scopeCopy forStore:storeCopy onPutBatchInPullQueue:queueCopy error:&v54];
-    v37 = v54;
+    v53 = v36;
+    LOBYTE(v35) = [self _applyMingledBatch:v15 scope:scopeCopy forStore:storeCopy onPutBatchInPullQueue:queueCopy error:&v53];
+    v37 = v53;
 
     v36 = v37;
     if (error)
@@ -189,13 +189,12 @@ LABEL_26:
 
 LABEL_33:
 
-  v39 = *MEMORY[0x1E69E9840];
   return v35;
 }
 
 + (BOOL)mingleSharedRemappedBatch:(id)batch scope:(id)scope sharedScope:(id)sharedScope forStore:(id)store fixUpTasks:(id *)tasks onPutBatchInPullQueue:(id)queue error:(id *)error
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v94 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   scopeCopy = scope;
   sharedScopeCopy = sharedScope;
@@ -204,42 +203,42 @@ LABEL_33:
   cloudCache = [storeCopy cloudCache];
   remappedRecords = [storeCopy remappedRecords];
   transientPullRepository = [storeCopy transientPullRepository];
-  v68 = objc_alloc_init(CPLChangeBatch);
+  v67 = objc_alloc_init(CPLChangeBatch);
+  v81 = 0u;
   v82 = 0u;
   v83 = 0u;
   v84 = 0u;
-  v85 = 0u;
   v19 = batchCopy;
-  v75 = [v19 countByEnumeratingWithState:&v82 objects:v94 count:16];
-  if (!v75)
+  v74 = [v19 countByEnumeratingWithState:&v81 objects:v93 count:16];
+  if (!v74)
   {
 
     v53 = 0;
-    v70 = 0;
+    v69 = 0;
     goto LABEL_58;
   }
 
   tasksCopy = tasks;
-  v65 = queueCopy;
+  v64 = queueCopy;
   obj = v19;
-  v70 = 0;
-  v66 = storeCopy;
-  v67 = sharedScopeCopy;
-  v77 = 0;
-  v71 = 1;
-  v74 = *v83;
+  v69 = 0;
+  v65 = storeCopy;
+  v66 = sharedScopeCopy;
+  v76 = 0;
+  v70 = 1;
+  v73 = *v82;
   *&v20 = 138413058;
-  v63 = v20;
+  v62 = v20;
   do
   {
-    for (i = 0; i != v75; ++i)
+    for (i = 0; i != v74; ++i)
     {
-      if (*v83 != v74)
+      if (*v82 != v73)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v82 + 1) + 8 * i);
+      v22 = *(*(&v81 + 1) + 8 * i);
       v23 = objc_autoreleasePoolPush();
       scopedIdentifier = [v22 scopedIdentifier];
       realScopedIdentifier = [v22 realScopedIdentifier];
@@ -267,11 +266,11 @@ LABEL_36:
           if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v87 = scopedIdentifier;
-            v88 = 2112;
-            v89 = realScopedIdentifier;
-            v90 = 2112;
-            v91 = v30;
+            v86 = scopedIdentifier;
+            v87 = 2112;
+            v88 = realScopedIdentifier;
+            v89 = 2112;
+            v90 = v30;
             _os_log_impl(&dword_1DC05A000, v34, OS_LOG_TYPE_DEFAULT, "%@ has been remapped to %@ but the private record %@ is meant to be deleted", buf, 0x20u);
           }
 
@@ -291,11 +290,11 @@ LABEL_35:
             if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412802;
-              v87 = scopedIdentifier;
-              v88 = 2112;
-              v89 = realScopedIdentifier;
-              v90 = 2112;
-              v91 = v30;
+              v86 = scopedIdentifier;
+              v87 = 2112;
+              v88 = realScopedIdentifier;
+              v89 = 2112;
+              v90 = v30;
               v42 = v41;
               v43 = "%@ has been remapped to %@ but the private record %@ is not shared any more";
               v44 = 32;
@@ -317,14 +316,14 @@ LABEL_34:
             v41 = __CPLTaskOSLogDomain_619();
             if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v63;
-              v87 = scopedIdentifier;
-              v88 = 2112;
-              v89 = realScopedIdentifier;
-              v90 = 2112;
-              v91 = v30;
-              v92 = 2112;
-              v93 = v33;
+              *buf = v62;
+              v86 = scopedIdentifier;
+              v87 = 2112;
+              v88 = realScopedIdentifier;
+              v89 = 2112;
+              v90 = v30;
+              v91 = 2112;
+              v92 = v33;
               v42 = v41;
               v43 = "%@ has been remapped to %@ but the private record %@ is already shared to %@";
               v44 = 42;
@@ -361,24 +360,24 @@ LABEL_32:
           if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v87 = scopedIdentifier;
-            v88 = 2112;
-            v89 = realScopedIdentifier;
-            v90 = 2112;
-            v91 = scopedIdentifier2;
+            v86 = scopedIdentifier;
+            v87 = 2112;
+            v88 = realScopedIdentifier;
+            v89 = 2112;
+            v90 = scopedIdentifier2;
             _os_log_impl(&dword_1DC05A000, v36, OS_LOG_TYPE_DEFAULT, "%@ has been remapped to %@ but we will need to fix up %@ first", buf, 0x20u);
           }
         }
 
         v37 = -[CPLSharedRemapFixUpTask initWithSharedCloudScopedIdentifier:realCloudScopedIdentifier:privateCloudScopedIdentifier:proposedPrivateScopedIdentifier:recordClass:]([CPLSharedRemapFixUpTask alloc], "initWithSharedCloudScopedIdentifier:realCloudScopedIdentifier:privateCloudScopedIdentifier:proposedPrivateScopedIdentifier:recordClass:", scopedIdentifier, realScopedIdentifier, scopedIdentifier2, v30, [v22 recordClass]);
-        v38 = v70;
-        if (!v70)
+        v38 = v69;
+        if (!v69)
         {
           v38 = objc_alloc_init(MEMORY[0x1E695DF70]);
         }
 
-        v70 = v38;
-        [v38 addObject:{v37, v63}];
+        v69 = v38;
+        [v38 addObject:{v37, v62}];
         v39 = 1;
         goto LABEL_52;
       }
@@ -396,17 +395,17 @@ LABEL_37:
           if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v87 = scopedIdentifier;
-            v88 = 2112;
-            v89 = realScopedIdentifier;
-            v90 = 2112;
-            v91 = scopedIdentifier2;
+            v86 = scopedIdentifier;
+            v87 = 2112;
+            v88 = realScopedIdentifier;
+            v89 = 2112;
+            v90 = scopedIdentifier2;
             _os_log_impl(&dword_1DC05A000, v47, OS_LOG_TYPE_DEFAULT, "Acknowledging shared record %@ has been remapped to %@ too late - so we will need to delete %@ in the client", buf, 0x20u);
           }
         }
 
         recordClass = [objc_msgSend(v22 recordClass];
-        [(CPLChangeBatch *)v68 addRecord:recordClass];
+        [(CPLChangeBatch *)v67 addRecord:recordClass];
 LABEL_46:
 
         goto LABEL_47;
@@ -418,9 +417,9 @@ LABEL_46:
         if (os_log_type_enabled(recordClass, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v87 = scopedIdentifier;
-          v88 = 2112;
-          v89 = realScopedIdentifier;
+          v86 = scopedIdentifier;
+          v87 = 2112;
+          v88 = realScopedIdentifier;
           _os_log_impl(&dword_1DC05A000, recordClass, OS_LOG_TYPE_DEFAULT, "Acknowledging shared record %@ has been remapped to %@", buf, 0x16u);
         }
 
@@ -428,20 +427,20 @@ LABEL_46:
       }
 
 LABEL_47:
-      v81 = 0;
-      v49 = [remappedRecords addRemappedRecordWithScopedIdentifier:scopedIdentifier realScopedIdentifier:realScopedIdentifier error:{&v81, v63}];
-      v50 = v81;
+      v80 = 0;
+      v49 = [remappedRecords addRemappedRecordWithScopedIdentifier:scopedIdentifier realScopedIdentifier:realScopedIdentifier error:{&v80, v62}];
+      v50 = v80;
       v51 = v50;
       if (v49)
       {
-        v80 = v50;
-        v52 = [transientPullRepository markUnmingledChangeWithScopedIdentifierAsMingled:scopedIdentifier error:&v80];
-        v37 = v80;
+        v79 = v50;
+        v52 = [transientPullRepository markUnmingledChangeWithScopedIdentifierAsMingled:scopedIdentifier error:&v79];
+        v37 = v79;
 
         if (v52)
         {
           v39 = 1;
-          v71 = 1;
+          v70 = 1;
           goto LABEL_52;
         }
 
@@ -449,9 +448,9 @@ LABEL_47:
       }
 
       v39 = 0;
-      v71 = 0;
-      v37 = v77;
-      v77 = v51;
+      v70 = 0;
+      v37 = v76;
+      v76 = v51;
 LABEL_52:
 
       objc_autoreleasePoolPop(v23);
@@ -461,19 +460,19 @@ LABEL_52:
       }
     }
 
-    v75 = [obj countByEnumeratingWithState:&v82 objects:v94 count:16];
+    v74 = [obj countByEnumeratingWithState:&v81 objects:v93 count:16];
   }
 
-  while (v75);
+  while (v74);
 LABEL_55:
   v19 = obj;
 
-  storeCopy = v66;
-  sharedScopeCopy = v67;
+  storeCopy = v65;
+  sharedScopeCopy = v66;
   tasks = tasksCopy;
-  queueCopy = v65;
-  v53 = v77;
-  if ((v71 & 1) == 0)
+  queueCopy = v64;
+  v53 = v76;
+  if ((v70 & 1) == 0)
   {
 LABEL_61:
     if (error)
@@ -488,17 +487,17 @@ LABEL_61:
       v58 = 0;
     }
 
-    v59 = v68;
-    v57 = v70;
+    v59 = v67;
+    v57 = v69;
     goto LABEL_65;
   }
 
 LABEL_58:
-  if ([(CPLChangeBatch *)v68 count])
+  if ([(CPLChangeBatch *)v67 count])
   {
-    v79 = v53;
-    v54 = [self _applyMingledBatch:v68 scope:scopeCopy forStore:storeCopy onPutBatchInPullQueue:queueCopy error:&v79];
-    v55 = v79;
+    v78 = v53;
+    v54 = [self _applyMingledBatch:v67 scope:scopeCopy forStore:storeCopy onPutBatchInPullQueue:queueCopy error:&v78];
+    v55 = v78;
 
     v53 = v55;
     if ((v54 & 1) == 0)
@@ -507,14 +506,13 @@ LABEL_58:
     }
   }
 
-  v56 = v70;
-  v57 = v70;
-  *tasks = v70;
+  v56 = v69;
+  v57 = v69;
+  *tasks = v69;
   v58 = 1;
-  v59 = v68;
+  v59 = v67;
 LABEL_65:
 
-  v61 = *MEMORY[0x1E69E9840];
   return v58;
 }
 
@@ -541,7 +539,7 @@ LABEL_65:
 
 + (BOOL)mingleRemappedBatch:(id)batch scope:(id)scope forStore:(id)store onPutBatchInPullQueue:(id)queue error:(id *)error
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   scopeCopy = scope;
   storeCopy = store;
@@ -550,39 +548,39 @@ LABEL_65:
   idMapping = [storeCopy idMapping];
   cloudCache = [storeCopy cloudCache];
   remappedRecords = [storeCopy remappedRecords];
-  v44 = storeCopy;
+  v43 = storeCopy;
   transientPullRepository = [storeCopy transientPullRepository];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   obj = batchCopy;
-  v16 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+  v16 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v49;
-    v36 = queueCopy;
-    v37 = scopeCopy;
+    v18 = *v48;
+    v35 = queueCopy;
+    v36 = scopeCopy;
     errorCopy = error;
 LABEL_3:
     v19 = 0;
     while (1)
     {
-      if (*v49 != v18)
+      if (*v48 != v18)
       {
         objc_enumerationMutation(obj);
       }
 
-      v20 = *(*(&v48 + 1) + 8 * v19);
+      v20 = *(*(&v47 + 1) + 8 * v19);
       v21 = objc_autoreleasePoolPush();
       scopedIdentifier = [v20 scopedIdentifier];
       realScopedIdentifier = [v20 realScopedIdentifier];
       recordClass = [v20 recordClass];
-      v47 = 0;
+      v46 = 0;
       v25 = v15;
-      v26 = [self _remapScopedIdentifier:scopedIdentifier to:realScopedIdentifier class:recordClass inBatch:v15 store:v44 idMapping:idMapping cloudCache:cloudCache remappedRecords:remappedRecords error:&v47];
-      v27 = v47;
+      v26 = [self _remapScopedIdentifier:scopedIdentifier to:realScopedIdentifier class:recordClass inBatch:v15 store:v43 idMapping:idMapping cloudCache:cloudCache remappedRecords:remappedRecords error:&v46];
+      v27 = v46;
 
       if (!v26)
       {
@@ -590,9 +588,9 @@ LABEL_3:
       }
 
       scopedIdentifier2 = [v20 scopedIdentifier];
-      v46 = v27;
-      v29 = [transientPullRepository markUnmingledChangeWithScopedIdentifierAsMingled:scopedIdentifier2 error:&v46];
-      v30 = v46;
+      v45 = v27;
+      v29 = [transientPullRepository markUnmingledChangeWithScopedIdentifierAsMingled:scopedIdentifier2 error:&v45];
+      v30 = v45;
 
       if (!v29)
       {
@@ -605,9 +603,9 @@ LABEL_3:
       v15 = v25;
       if (v17 == v19)
       {
-        v17 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
-        queueCopy = v36;
-        scopeCopy = v37;
+        v17 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+        queueCopy = v35;
+        scopeCopy = v36;
         error = errorCopy;
         if (v17)
         {
@@ -622,8 +620,8 @@ LABEL_3:
     objc_autoreleasePoolPop(v21);
 
     v31 = 0;
-    queueCopy = v36;
-    scopeCopy = v37;
+    queueCopy = v35;
+    scopeCopy = v36;
     error = errorCopy;
     if (!errorCopy)
     {
@@ -642,9 +640,9 @@ LABEL_10:
       goto LABEL_18;
     }
 
-    v45 = 0;
-    v31 = [self _applyMingledBatch:v15 scope:scopeCopy forStore:v44 onPutBatchInPullQueue:queueCopy error:&v45];
-    v27 = v45;
+    v44 = 0;
+    v31 = [self _applyMingledBatch:v15 scope:scopeCopy forStore:v43 onPutBatchInPullQueue:queueCopy error:&v44];
+    v27 = v44;
     if (!error)
     {
       goto LABEL_18;
@@ -660,13 +658,12 @@ LABEL_10:
 
 LABEL_18:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
 + (BOOL)_remapScopedIdentifier:(id)identifier to:(id)to class:(Class)class inBatch:(id)batch store:(id)store idMapping:(id)mapping cloudCache:(id)cache remappedRecords:(id)self0 error:(id *)self1
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   toCopy = to;
   batchCopy = batch;
@@ -678,27 +675,27 @@ LABEL_18:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v51 = __CPLTaskOSLogDomain_619();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v50 = __CPLTaskOSLogDomain_619();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
         classCopy7 = class;
-        v64 = 2112;
-        v65 = identifierCopy;
-        _os_log_impl(&dword_1DC05A000, v51, OS_LOG_TYPE_ERROR, "Trying to remap <%@ %@> to no other scoped identifier", buf, 0x16u);
+        v63 = 2112;
+        v64 = identifierCopy;
+        _os_log_impl(&dword_1DC05A000, v50, OS_LOG_TYPE_ERROR, "Trying to remap <%@ %@> to no other scoped identifier", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v53 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLMingleUtility.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v53 lineNumber:176 description:{@"Trying to remap <%@ %@> to no other scoped identifier", class, identifierCopy}];
+    v52 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLMingleUtility.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v52 lineNumber:176 description:{@"Trying to remap <%@ %@> to no other scoped identifier", class, identifierCopy}];
 
     abort();
   }
 
   v23 = recordsCopy;
-  v61 = 0;
-  v24 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:toCopy isFinal:&v61];
+  v60 = 0;
+  v24 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:toCopy isFinal:&v60];
   if (!v24)
   {
 LABEL_23:
@@ -710,24 +707,24 @@ LABEL_23:
       {
         *buf = 138412802;
         classCopy7 = class;
-        v64 = 2112;
-        v65 = identifierCopy;
-        v66 = 2112;
-        v67 = toCopy;
+        v63 = 2112;
+        v64 = identifierCopy;
+        v65 = 2112;
+        v66 = toCopy;
         _os_log_impl(&dword_1DC05A000, v39, OS_LOG_TYPE_DEFAULT, "<%@ %@> has been remapped to %@", buf, 0x20u);
       }
     }
 
-    v59 = 0;
-    v40 = [mappingCopy setFinalCloudScopedIdentifier:toCopy forPendingCloudScopedIdentifier:identifierCopy error:&v59];
-    v41 = v59;
+    v58 = 0;
+    v40 = [mappingCopy setFinalCloudScopedIdentifier:toCopy forPendingCloudScopedIdentifier:identifierCopy error:&v58];
+    v41 = v58;
     v42 = v41;
     if (v40)
     {
-      v58 = v41;
-      v55 = cacheCopy;
-      v43 = [cacheCopy remapAllRecordsWithPreviousScopedIdentifier:identifierCopy newScopedIdentifier:toCopy error:&v58];
-      v25 = v58;
+      v57 = v41;
+      v54 = cacheCopy;
+      v43 = [cacheCopy remapAllRecordsWithPreviousScopedIdentifier:identifierCopy newScopedIdentifier:toCopy error:&v57];
+      v25 = v57;
 
       if (v43)
       {
@@ -741,12 +738,12 @@ LABEL_23:
         {
           *buf = 138413058;
           classCopy7 = class;
-          v64 = 2112;
-          v65 = identifierCopy;
-          v66 = 2112;
-          v67 = toCopy;
-          v68 = 2112;
-          v69 = v25;
+          v63 = 2112;
+          v64 = identifierCopy;
+          v65 = 2112;
+          v66 = toCopy;
+          v67 = 2112;
+          v68 = v25;
           _os_log_impl(&dword_1DC05A000, v47, OS_LOG_TYPE_ERROR, "Failed to update cloud cache remapping all %@s with %@ to %@: %@", buf, 0x2Au);
         }
       }
@@ -771,10 +768,10 @@ LABEL_36:
         {
           *buf = 138412802;
           classCopy7 = toCopy;
-          v64 = 2112;
-          v65 = identifierCopy;
-          v66 = 2112;
-          v67 = v42;
+          v63 = 2112;
+          v64 = identifierCopy;
+          v65 = 2112;
+          v66 = v42;
           _os_log_impl(&dword_1DC05A000, v45, OS_LOG_TYPE_ERROR, "Failed to set final cloud identifier %@ for cloud identifier %@: %@", buf, 0x20u);
         }
       }
@@ -791,10 +788,10 @@ LABEL_36:
   }
 
   v25 = v24;
-  v26 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:identifierCopy isFinal:&v61];
+  v26 = [mappingCopy localScopedIdentifierForCloudScopedIdentifier:identifierCopy isFinal:&v60];
   if (!v26)
   {
-    v55 = cacheCopy;
+    v54 = cacheCopy;
     if (![cacheCopy hasRecordWithScopedIdentifier:identifierCopy])
     {
       if (_CPLSilentLogging)
@@ -807,8 +804,8 @@ LABEL_36:
       {
         *buf = 138412546;
         classCopy7 = class;
-        v64 = 2112;
-        v65 = identifierCopy;
+        v63 = 2112;
+        v64 = identifierCopy;
         _os_log_impl(&dword_1DC05A000, v34, OS_LOG_TYPE_DEFAULT, "Ignoring remap for <%@ %@> as we don't know this record", buf, 0x16u);
       }
 
@@ -818,7 +815,7 @@ LABEL_16:
 LABEL_29:
 
       v44 = [v23 addRemappedRecordWithScopedIdentifier:identifierCopy realScopedIdentifier:toCopy error:error];
-      v38 = v55;
+      v38 = v54;
       goto LABEL_51;
     }
 
@@ -829,8 +826,8 @@ LABEL_29:
       {
         *buf = 138412546;
         classCopy7 = class;
-        v64 = 2112;
-        v65 = identifierCopy;
+        v63 = 2112;
+        v64 = identifierCopy;
         v31 = "<%@ %@> has been remapped and should not even be here to begin with. Fixing cloud cache";
         v32 = v30;
         v33 = OS_LOG_TYPE_ERROR;
@@ -846,7 +843,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v54 = v23;
+  v53 = v23;
   v27 = batchCopy;
   transactionClientCacheView = [storeCopy transactionClientCacheView];
   v29 = [transactionClientCacheView hasRecordWithScopedIdentifier:v25];
@@ -854,8 +851,8 @@ LABEL_14:
   if (v29)
   {
     batchCopy = v27;
-    v55 = cacheCopy;
-    v23 = v54;
+    v54 = cacheCopy;
+    v23 = v53;
     if ((_CPLSilentLogging & 1) == 0)
     {
       v30 = __CPLTaskOSLogDomain_619();
@@ -863,8 +860,8 @@ LABEL_14:
       {
         *buf = 138412546;
         classCopy7 = class;
-        v64 = 2112;
-        v65 = identifierCopy;
+        v63 = 2112;
+        v64 = identifierCopy;
         v31 = "Got a remapped <%@ %@> too late, so we will need to delete it in the client";
         v32 = v30;
         v33 = OS_LOG_TYPE_DEFAULT;
@@ -886,24 +883,24 @@ LABEL_12:
     {
       *buf = 138413058;
       classCopy7 = class;
-      v64 = 2112;
-      v65 = identifierCopy;
-      v66 = 2112;
-      v67 = toCopy;
-      v68 = 2112;
-      v69 = v25;
+      v63 = 2112;
+      v64 = identifierCopy;
+      v65 = 2112;
+      v66 = toCopy;
+      v67 = 2112;
+      v68 = v25;
       _os_log_impl(&dword_1DC05A000, v35, OS_LOG_TYPE_DEFAULT, "<%@ %@> had been remapped to %@ but we believed %@ was already pointing to this cloud identifier. Which is wrong. Doing a normal remap here", buf, 0x2Au);
     }
   }
 
-  v60 = 0;
-  v36 = [mappingCopy removeMappingForCloudScopedIdentifier:toCopy error:&v60];
-  v37 = v60;
+  v59 = 0;
+  v36 = [mappingCopy removeMappingForCloudScopedIdentifier:toCopy error:&v59];
+  v37 = v59;
   if (v36)
   {
 
     batchCopy = v27;
-    v23 = v54;
+    v23 = v53;
     goto LABEL_23;
   }
 
@@ -915,24 +912,23 @@ LABEL_12:
     {
       *buf = 138412546;
       classCopy7 = toCopy;
-      v64 = 2112;
-      v65 = v37;
+      v63 = 2112;
+      v64 = v37;
       _os_log_impl(&dword_1DC05A000, v48, OS_LOG_TYPE_ERROR, "Can't reset mapping for %@: %@", buf, 0x16u);
     }
   }
 
   v44 = 0;
   v38 = cacheCopy;
-  v23 = v54;
+  v23 = v53;
 LABEL_51:
 
-  v49 = *MEMORY[0x1E69E9840];
   return v44;
 }
 
 + (BOOL)mingleChangeBatch:(id)batch scope:(id)scope forStore:(id)store onPutBatchInPullQueue:(id)queue error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   scopeCopy = scope;
   storeCopy = store;
@@ -944,20 +940,20 @@ LABEL_51:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v29 = batchCopy;
+      v28 = batchCopy;
       _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEBUG, "Processing %@", buf, 0xCu);
     }
   }
 
-  v27 = 0;
-  v18 = [cloudCache cloudChangeBatchFromBatch:batchCopy usingMapping:0 isFinal:0 withError:&v27];
-  v19 = v27;
+  v26 = 0;
+  v18 = [cloudCache cloudChangeBatchFromBatch:batchCopy usingMapping:0 isFinal:0 withError:&v26];
+  v19 = v26;
   v20 = v19;
   if (v18)
   {
-    v26 = v19;
-    v21 = [self _applyMingledBatch:v18 scope:scopeCopy forStore:storeCopy onPutBatchInPullQueue:queueCopy error:&v26];
-    v22 = v26;
+    v25 = v19;
+    v21 = [self _applyMingledBatch:v18 scope:scopeCopy forStore:storeCopy onPutBatchInPullQueue:queueCopy error:&v25];
+    v22 = v25;
 
     v20 = v22;
     if (!error)
@@ -983,38 +979,37 @@ LABEL_51:
 
 LABEL_11:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 + (BOOL)_applyMingledBatch:(id)batch scope:(id)scope forStore:(id)store onPutBatchInPullQueue:(id)queue error:(id *)error
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   scopeCopy = scope;
   storeCopy = store;
   queueCopy = queue;
-  v103[0] = 0;
-  v103[1] = v103;
-  v103[2] = 0x2020000000;
-  v104 = 0;
-  v101[0] = 0;
-  v101[1] = v101;
-  v101[2] = 0x2020000000;
-  v102 = 0;
-  v96[0] = MEMORY[0x1E69E9820];
-  v96[1] = 3221225472;
-  v96[2] = __82__CPLMingleUtility__applyMingledBatch_scope_forStore_onPutBatchInPullQueue_error___block_invoke;
-  v96[3] = &unk_1E861B948;
-  v99 = v103;
-  v100 = v101;
-  v73 = storeCopy;
-  v97 = v73;
-  v68 = scopeCopy;
-  v98 = v68;
-  v74 = MEMORY[0x1E128EBA0](v96);
-  cloudCache = [v73 cloudCache];
-  idMapping = [v73 idMapping];
+  v102[0] = 0;
+  v102[1] = v102;
+  v102[2] = 0x2020000000;
+  v103 = 0;
+  v100[0] = 0;
+  v100[1] = v100;
+  v100[2] = 0x2020000000;
+  v101 = 0;
+  v95[0] = MEMORY[0x1E69E9820];
+  v95[1] = 3221225472;
+  v95[2] = __82__CPLMingleUtility__applyMingledBatch_scope_forStore_onPutBatchInPullQueue_error___block_invoke;
+  v95[3] = &unk_1E861B948;
+  v98 = v102;
+  v99 = v100;
+  v72 = storeCopy;
+  v96 = v72;
+  v67 = scopeCopy;
+  v97 = v67;
+  v73 = MEMORY[0x1E128EBA0](v95);
+  cloudCache = [v72 cloudCache];
+  idMapping = [v72 idMapping];
   if (batchCopy)
   {
     if (![batchCopy count])
@@ -1028,16 +1023,16 @@ LABEL_7:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v107 = batchCopy;
+          v106 = batchCopy;
           _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_DEBUG, "Applying to cloud cache %@", buf, 0xCu);
         }
 
         v17 = batchCopy;
       }
 
-      v94 = v15;
-      v16 = [cloudCache applyBatch:v17 isFinal:0 direction:2 withError:&v94];
-      v14 = v94;
+      v93 = v15;
+      v16 = [cloudCache applyBatch:v17 isFinal:0 direction:2 withError:&v93];
+      v14 = v93;
 
       if (!v16)
       {
@@ -1050,65 +1045,65 @@ LABEL_7:
         goto LABEL_84;
       }
 
-      downloadQueue = [v73 downloadQueue];
-      scopes = [v73 scopes];
-      v65 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      downloadQueue = [v72 downloadQueue];
+      scopes = [v72 scopes];
+      v64 = objc_alloc_init(MEMORY[0x1E695DFA8]);
       v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v91[0] = MEMORY[0x1E69E9820];
-      v91[1] = 3221225472;
-      v91[2] = __82__CPLMingleUtility__applyMingledBatch_scope_forStore_onPutBatchInPullQueue_error___block_invoke_2;
-      v91[3] = &unk_1E861E2C0;
-      v62 = v20;
-      v92 = v62;
-      v67 = scopes;
-      v93 = v67;
-      v63 = MEMORY[0x1E128EBA0](v91);
-      v89 = 0u;
-      v90 = 0u;
+      v90[0] = MEMORY[0x1E69E9820];
+      v90[1] = 3221225472;
+      v90[2] = __82__CPLMingleUtility__applyMingledBatch_scope_forStore_onPutBatchInPullQueue_error___block_invoke_2;
+      v90[3] = &unk_1E861E2C0;
+      v61 = v20;
+      v91 = v61;
+      v66 = scopes;
+      v92 = v66;
+      v62 = MEMORY[0x1E128EBA0](v90);
       v88 = 0u;
+      v89 = 0u;
       v87 = 0u;
+      v86 = 0u;
       obj = batchCopy;
-      v21 = [obj countByEnumeratingWithState:&v87 objects:v112 count:16];
+      v21 = [obj countByEnumeratingWithState:&v86 objects:v111 count:16];
       if (v21)
       {
-        v23 = *v88;
+        v23 = *v87;
         *&v22 = 138412802;
-        v61 = v22;
+        v60 = v22;
         while (2)
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v88 != v23)
+            if (*v87 != v23)
             {
               objc_enumerationMutation(obj);
             }
 
-            v25 = *(*(&v87 + 1) + 8 * i);
+            v25 = *(*(&v86 + 1) + 8 * i);
             v26 = objc_autoreleasePoolPush();
-            if ([v25 supportsResources] && v74[2]())
+            if ([v25 supportsResources] && v73[2]())
             {
               scopedIdentifier = [v25 scopedIdentifier];
               scopeIdentifier = [scopedIdentifier scopeIdentifier];
 
-              if (([v65 containsObject:scopeIdentifier] & 1) == 0 && (v63)[2](v63, scopeIdentifier))
+              if (([v64 containsObject:scopeIdentifier] & 1) == 0 && (v62)[2](v62, scopeIdentifier))
               {
-                if (([v25 isDelete] & 1) != 0 || objc_msgSend(v25, "hasChangeType:", 2) && (objc_msgSend(v25, "inTrash") & 1) != 0 || objc_msgSend(v25, "isFullRecord", v61) && (objc_msgSend(v25, "resources"), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "count") == 0, v29, !v30))
+                if (([v25 isDelete] & 1) != 0 || objc_msgSend(v25, "hasChangeType:", 2) && (objc_msgSend(v25, "inTrash") & 1) != 0 || objc_msgSend(v25, "isFullRecord", v60) && (objc_msgSend(v25, "resources"), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "count") == 0, v29, !v30))
                 {
-                  [v65 addObject:{scopeIdentifier, v61}];
+                  [v64 addObject:{scopeIdentifier, v60}];
                 }
               }
             }
 
             scopedIdentifier2 = [v25 scopedIdentifier];
-            v86 = 0;
+            v85 = 0;
             if ([v25 supportsResources] && ((objc_msgSend(v25, "hasChangeType:", 8) & 1) != 0 || objc_msgSend(v25, "isDelete")))
             {
-              v32 = [idMapping localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier2 isFinal:&v86];
+              v32 = [idMapping localScopedIdentifierForCloudScopedIdentifier:scopedIdentifier2 isFinal:&v85];
               if (v32)
               {
-                v85 = v14;
-                v33 = [downloadQueue removeAllBackgroundDownloadTasksForItemWithScopedIdentifier:v32 error:&v85];
-                v34 = v85;
+                v84 = v14;
+                v33 = [downloadQueue removeAllBackgroundDownloadTasksForItemWithScopedIdentifier:v32 error:&v84];
+                v34 = v84;
 
                 if (v33)
                 {
@@ -1123,12 +1118,12 @@ LABEL_7:
                     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                     {
                       v37 = objc_opt_class();
-                      *buf = v61;
-                      v107 = v37;
-                      v108 = 2112;
-                      v109 = v32;
-                      v110 = 2112;
-                      v111 = v34;
+                      *buf = v60;
+                      v106 = v37;
+                      v107 = 2112;
+                      v108 = v32;
+                      v109 = 2112;
+                      v110 = v34;
                       v38 = v37;
                       _os_log_impl(&dword_1DC05A000, v36, OS_LOG_TYPE_ERROR, "Can't remove background download tasks for <%@ %@> from queue: %@", buf, 0x20u);
                     }
@@ -1161,7 +1156,7 @@ LABEL_77:
             }
           }
 
-          v21 = [obj countByEnumeratingWithState:&v87 objects:v112 count:16];
+          v21 = [obj countByEnumeratingWithState:&v86 objects:v111 count:16];
           if (v21)
           {
             continue;
@@ -1171,48 +1166,48 @@ LABEL_77:
         }
       }
 
-      if ([v65 count])
+      if ([v64 count])
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
           v39 = __CPLTaskOSLogDomain_619();
           if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
-            allObjects = [v65 allObjects];
+            allObjects = [v64 allObjects];
             v41 = [allObjects componentsJoinedByString:{@", "}];
             *buf = 138543362;
-            v107 = v41;
+            v106 = v41;
             _os_log_impl(&dword_1DC05A000, v39, OS_LOG_TYPE_DEFAULT, "Tentatively consider %{public}@ have moved under quota", buf, 0xCu);
           }
         }
 
-        v83 = 0u;
-        v84 = 0u;
-        v81 = 0u;
         v82 = 0u;
-        v42 = v65;
-        v43 = [v42 countByEnumeratingWithState:&v81 objects:v105 count:16];
+        v83 = 0u;
+        v80 = 0u;
+        v81 = 0u;
+        v42 = v64;
+        v43 = [v42 countByEnumeratingWithState:&v80 objects:v104 count:16];
         if (v43)
         {
-          v44 = *v82;
+          v44 = *v81;
           do
           {
             for (j = 0; j != v43; ++j)
             {
-              if (*v82 != v44)
+              if (*v81 != v44)
               {
                 objc_enumerationMutation(v42);
               }
 
-              v46 = [v67 scopeWithIdentifier:*(*(&v81 + 1) + 8 * j)];
+              v46 = [v66 scopeWithIdentifier:*(*(&v80 + 1) + 8 * j)];
               if (v46)
               {
-                v47 = [v67 sharingScopeForScope:v46];
+                v47 = [v66 sharingScopeForScope:v46];
                 if (v47)
                 {
-                  v80 = v14;
-                  v48 = [v67 setValue:0 forFlag:2 forScope:v47 error:&v80];
-                  v49 = v80;
+                  v79 = v14;
+                  v48 = [v66 setValue:0 forFlag:2 forScope:v47 error:&v79];
+                  v49 = v79;
 
                   if ((v48 & 1) == 0)
                   {
@@ -1226,9 +1221,9 @@ LABEL_77:
                   v49 = v14;
                 }
 
-                v79 = v49;
-                v50 = [v67 setValue:0 forFlag:2 forScope:v46 error:&v79];
-                v14 = v79;
+                v78 = v49;
+                v50 = [v66 setValue:0 forFlag:2 forScope:v46 error:&v78];
+                v14 = v78;
 
                 if (!v50)
                 {
@@ -1237,15 +1232,15 @@ LABEL_77:
               }
             }
 
-            v43 = [v42 countByEnumeratingWithState:&v81 objects:v105 count:16];
+            v43 = [v42 countByEnumeratingWithState:&v80 objects:v104 count:16];
           }
 
           while (v43);
         }
       }
 
-      v51 = v73;
-      if ([v67 busyStateForScope:v68])
+      v51 = v72;
+      if ([v66 busyStateForScope:v67])
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
@@ -1253,14 +1248,14 @@ LABEL_77:
           if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v107 = v68;
+            v106 = v67;
             _os_log_impl(&dword_1DC05A000, v52, OS_LOG_TYPE_DEFAULT, "Tentatively consider %@ is not busy any more", buf, 0xCu);
           }
         }
 
-        v78 = v14;
-        v53 = [v67 storeBusyState:0 forScope:v68 error:&v78];
-        v49 = v78;
+        v77 = v14;
+        v53 = [v66 storeBusyState:0 forScope:v67 error:&v77];
+        v49 = v77;
 
         if (!v53)
         {
@@ -1269,12 +1264,12 @@ LABEL_79:
           goto LABEL_80;
         }
 
-        v54 = [v67 sharingScopeForScope:v68];
+        v54 = [v66 sharingScopeForScope:v67];
         if (v54)
         {
-          v77 = v49;
-          v55 = [v67 storeBusyState:0 forScope:v54 error:&v77];
-          v14 = v77;
+          v76 = v49;
+          v55 = [v66 storeBusyState:0 forScope:v54 error:&v76];
+          v14 = v76;
 
           if (!v55)
           {
@@ -1292,15 +1287,15 @@ LABEL_80:
           v14 = v49;
         }
 
-        v51 = v73;
+        v51 = v72;
       }
 
       pullQueue = [v51 pullQueue];
-      v76 = v14;
-      v60 = [pullQueue appendChangeBatch:obj error:&v76];
-      v49 = v76;
+      v75 = v14;
+      v59 = [pullQueue appendChangeBatch:obj error:&v75];
+      v49 = v75;
 
-      if (v60)
+      if (v59)
       {
         LOBYTE(v16) = 1;
         goto LABEL_80;
@@ -1312,7 +1307,7 @@ LABEL_80:
         if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v107 = v49;
+          v106 = v49;
           _os_log_impl(&dword_1DC05A000, v42, OS_LOG_TYPE_ERROR, "Can't put batch in pull queue: %@", buf, 0xCu);
         }
 
@@ -1322,9 +1317,9 @@ LABEL_78:
       goto LABEL_79;
     }
 
-    v95 = 0;
-    v12 = queueCopy[2](queueCopy, batchCopy, &v95);
-    v13 = v95;
+    v94 = 0;
+    v12 = queueCopy[2](queueCopy, batchCopy, &v94);
+    v13 = v94;
     v14 = v13;
     if (v12)
     {
@@ -1351,10 +1346,9 @@ LABEL_81:
 
 LABEL_84:
 
-  _Block_object_dispose(v101, 8);
-  _Block_object_dispose(v103, 8);
+  _Block_object_dispose(v100, 8);
+  _Block_object_dispose(v102, 8);
 
-  v57 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

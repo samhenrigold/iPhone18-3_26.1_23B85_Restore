@@ -6,49 +6,41 @@
 
 - (void)avt_applyPoseRoundingBehaviour
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v11 = _AVTPoseRoundingBehaviour();
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
+  v9 = _AVTPoseRoundingBehaviour(self);
   allKeys = [self allKeys];
-  v3 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [allKeys countByEnumeratingWithState:? objects:? count:?];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = MEMORY[0];
     do
     {
-      for (i = 0; i != v4; ++i)
+      for (i = 0; i != v4; i = (i + 1))
       {
-        if (*v13 != v5)
+        if (MEMORY[0] != v5)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
-        v8 = [self objectForKeyedSubscript:v7];
+        v7 = [self objectForKeyedSubscript:?];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v9 = [v8 avt_numberByRoundingWithBehavior:v11];
-          [self setObject:v9 forKeyedSubscript:v7];
+          v8 = [v7 avt_numberByRoundingWithBehavior:?];
+          [self setObject:? forKeyedSubscript:?];
         }
 
         else if (objc_opt_respondsToSelector())
         {
-          [v8 avt_applyPoseRoundingBehaviour];
+          [v7 avt_applyPoseRoundingBehaviour];
         }
       }
 
-      v4 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [allKeys countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -62,8 +62,8 @@
       while (v18);
     }
 
-    objc_initWeak(&location, v8);
-    v23 = BLTWorkQueue();
+    inited = objc_initWeak(&location, v8);
+    v24 = BLTWorkQueue(inited);
     objc_copyWeak(&v26, &location);
     v8->_stateHandler = os_state_add_handler();
 
@@ -71,7 +71,6 @@
     objc_destroyWeak(&location);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -88,107 +87,107 @@ _DWORD *__73__BLTSectionInfoSyncCoordinator_initWithAlertingSectionIDs_infoProvi
 
 - (void)dealloc
 {
-  stateHandler = self->_stateHandler;
   os_state_remove_handler();
   self->_stateHandler = 0;
-  v4.receiver = self;
-  v4.super_class = BLTSectionInfoSyncCoordinator;
-  [(BLTSectionInfoSyncCoordinator *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = BLTSectionInfoSyncCoordinator;
+  [(BLTSectionInfoSyncCoordinator *)&v3 dealloc];
 }
 
 - (unint64_t)performSyncForSectionID:(id)d queue:(id)queue completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   queueCopy = queue;
   completionCopy = completion;
   v11 = [(NSMutableDictionary *)self->_alertingSectionState objectForKeyedSubscript:dCopy];
   v12 = v11;
-  if (!v11 || [v11 state] == 2)
+  if (!v11 || (v13 = [v11 state], v13 == 2))
   {
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __74__BLTSectionInfoSyncCoordinator_performSyncForSectionID_queue_completion___block_invoke;
     block[3] = &unk_278D314F0;
-    v27 = completionCopy;
+    v28 = completionCopy;
     dispatch_async(queueCopy, block);
-    v13 = 3;
-    v14 = v27;
+    v14 = 3;
+    v15 = v28;
     goto LABEL_4;
   }
 
-  v17 = blt_settings_log();
+  v17 = blt_settings_log(v13);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v29 = dCopy;
+    v30 = dCopy;
     _os_log_impl(&dword_241FB3000, v17, OS_LOG_TYPE_DEFAULT, "Section %@ hasn't completed sync'ing", buf, 0xCu);
   }
 
   [v12 setClientCompletion:completionCopy];
   [v12 setClientQueue:queueCopy];
-  if ([v12 state] == 1)
+  state = [v12 state];
+  if (state == 1)
   {
     goto LABEL_17;
   }
 
-  v18 = blt_settings_log();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = blt_settings_log(state);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v29 = dCopy;
-    _os_log_impl(&dword_241FB3000, v18, OS_LOG_TYPE_DEFAULT, "Moving %@ to front of send queue", buf, 0xCu);
+    v30 = dCopy;
+    _os_log_impl(&dword_241FB3000, v19, OS_LOG_TYPE_DEFAULT, "Moving %@ to front of send queue", buf, 0xCu);
   }
 
   p_mostRecentIndex = &self->_mostRecentIndex;
   mostRecentIndex = self->_mostRecentIndex;
   p_alertingSectionIDs = &self->_alertingSectionIDs;
-  if (mostRecentIndex >= [(NSMutableArray *)self->_alertingSectionIDs count])
+  v23 = [(NSMutableArray *)self->_alertingSectionIDs count];
+  if (mostRecentIndex >= v23)
   {
-    v25 = blt_settings_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = blt_settings_log(v23);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      [BLTSectionInfoSyncCoordinator performSyncForSectionID:&self->_alertingSectionIDs queue:v25 completion:?];
+      [BLTSectionInfoSyncCoordinator performSyncForSectionID:&self->_alertingSectionIDs queue:v26 completion:?];
     }
 
     goto LABEL_17;
   }
 
-  v22 = [(NSMutableArray *)*p_alertingSectionIDs indexOfObject:dCopy];
-  if (v22 == *p_mostRecentIndex + 1)
+  state = [(NSMutableArray *)*p_alertingSectionIDs indexOfObject:dCopy];
+  if (state == *p_mostRecentIndex + 1)
   {
 LABEL_17:
-    v13 = 2;
+    v14 = 2;
     goto LABEL_18;
   }
 
-  v23 = v22;
-  v24 = [(NSMutableArray *)*p_alertingSectionIDs objectAtIndexedSubscript:?];
-  [(NSMutableArray *)*p_alertingSectionIDs setObject:v24 atIndexedSubscript:v23];
+  v24 = state;
+  v25 = [(NSMutableArray *)*p_alertingSectionIDs objectAtIndexedSubscript:?];
+  [(NSMutableArray *)*p_alertingSectionIDs setObject:v25 atIndexedSubscript:v24];
 
-  [(NSMutableArray *)*p_alertingSectionIDs setObject:dCopy atIndexedSubscript:*p_mostRecentIndex + 1];
-  v13 = 0;
+  state = [(NSMutableArray *)*p_alertingSectionIDs setObject:dCopy atIndexedSubscript:*p_mostRecentIndex + 1];
+  v14 = 0;
 LABEL_18:
   if (self->_mostRecentIndexSinceSync != self->_mostRecentIndex)
   {
     goto LABEL_5;
   }
 
-  v14 = blt_settings_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = blt_settings_log(state);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_241FB3000, v14, OS_LOG_TYPE_DEFAULT, "Section info sync coordinator has not completed sync'ing any sections since last call", buf, 2u);
+    _os_log_impl(&dword_241FB3000, v15, OS_LOG_TYPE_DEFAULT, "Section info sync coordinator has not completed sync'ing any sections since last call", buf, 2u);
   }
 
-  v13 = 1;
+  v14 = 1;
 LABEL_4:
 
 LABEL_5:
   self->_mostRecentIndexSinceSync = self->_mostRecentIndex;
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
 - (id)effectiveSectionInfoForSectionIDIndex:(unint64_t)index
@@ -254,15 +253,14 @@ void __58__BLTSectionInfoSyncCoordinator_sectionInfoSendCompleted___block_invoke
 
 - (void)performSyncForSectionID:(uint64_t *)a1 queue:(id *)a2 completion:(NSObject *)a3 .cold.1(uint64_t *a1, id *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v5 = [*a2 count];
-  v7 = 134218240;
-  v8 = v4;
-  v9 = 2048;
-  v10 = v5;
-  _os_log_error_impl(&dword_241FB3000, a3, OS_LOG_TYPE_ERROR, "Most recent index (%lu) has completed section sync count (%lu)", &v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218240;
+  v7 = v4;
+  v8 = 2048;
+  v9 = v5;
+  _os_log_error_impl(&dword_241FB3000, a3, OS_LOG_TYPE_ERROR, "Most recent index (%lu) has completed section sync count (%lu)", &v6, 0x16u);
 }
 
 @end

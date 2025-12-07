@@ -17,7 +17,7 @@
 
 + (void)initialize
 {
-  v10[214] = *MEMORY[0x277D85DE8];
+  v9[214] = *MEMORY[0x277D85DE8];
   if (!happyEmojiSet)
   {
     v2 = [MEMORY[0x277CBEB98] setWithObjects:{@"🙆‍♀️", @"🙆‍♂️", @"😀", @"😁", @"😂", @"😃", @"😄", @"😅", @"😆", @"😇", @"😉", @"😊", @"😋", @"😌", @"😍", @"😎", @"😏", @"🤑", @"🤓", @"😗", @"😘", @"🤗", @"😙", @"😚", @"😛", @"😜", @"😝", @"😬", @"😸", @"😹", @"😺", @"😻", @"😽", @"🙂", @"🙃", @"🙆", @"☺️", @"✊", 0}];
@@ -34,435 +34,435 @@
 
   if (!specialCharMapping)
   {
+    v8[0] = @"#";
+    v8[1] = @"$";
     v9[0] = @"#";
     v9[1] = @"$";
-    v10[0] = @"#";
-    v10[1] = @"$";
+    v8[2] = @"%";
+    v8[3] = @"&";
     v9[2] = @"%";
     v9[3] = @"&";
-    v10[2] = @"%";
-    v10[3] = @"&";
+    v8[4] = @"'";
+    v8[5] = @",";
     v9[4] = @"'";
     v9[5] = @",";
-    v10[4] = @"'";
-    v10[5] = @",";
-    v9[6] = @"、";
+    v8[6] = @"、";
+    v8[7] = @"-";
+    v9[6] = @",";
     v9[7] = @"-";
-    v10[6] = @",";
-    v10[7] = @"-";
-    v9[8] = @"‒";
-    v9[9] = @"–";
-    v10[8] = kEMDash;
-    v10[9] = kEMDash;
-    v9[10] = @"‐";
-    v9[11] = @"‑";
-    v10[10] = @"-";
-    v10[11] = @"-";
-    v9[12] = @"—";
-    v9[13] = @"―";
-    v10[12] = kEMDash;
-    v10[13] = kEMDash;
-    v9[14] = @"­";
+    v8[8] = @"‒";
+    v8[9] = @"–";
+    v9[8] = kEMDash;
+    v9[9] = kEMDash;
+    v8[10] = @"‐";
+    v8[11] = @"‑";
+    v9[10] = @"-";
+    v9[11] = @"-";
+    v8[12] = @"—";
+    v8[13] = @"―";
+    v9[12] = kEMDash;
+    v9[13] = kEMDash;
+    v8[14] = @"­";
+    v8[15] = @".";
+    v9[14] = @"-";
     v9[15] = @".";
-    v10[14] = @"-";
-    v10[15] = @".";
+    v8[16] = @"/";
+    v8[17] = @"0";
     v9[16] = @"/";
     v9[17] = @"0";
-    v10[16] = @"/";
-    v10[17] = @"0";
+    v8[18] = @"1";
+    v8[19] = @"2";
     v9[18] = @"1";
     v9[19] = @"2";
-    v10[18] = @"1";
-    v10[19] = @"2";
+    v8[20] = @"3";
+    v8[21] = @"4";
     v9[20] = @"3";
     v9[21] = @"4";
-    v10[20] = @"3";
-    v10[21] = @"4";
+    v8[22] = @"5";
+    v8[23] = @"6";
     v9[22] = @"5";
     v9[23] = @"6";
-    v10[22] = @"5";
-    v10[23] = @"6";
+    v8[24] = @"7";
+    v8[25] = @"8";
     v9[24] = @"7";
     v9[25] = @"8";
-    v10[24] = @"7";
-    v10[25] = @"8";
+    v8[26] = @"9";
+    v8[27] = @":";
     v9[26] = @"9";
     v9[27] = @":";
-    v10[26] = @"9";
-    v10[27] = @":";
+    v8[28] = @"<";
+    v8[29] = @">";
     v9[28] = @"<";
     v9[29] = @">";
-    v10[28] = @"<";
-    v10[29] = @">";
+    v8[30] = @"?";
+    v8[31] = @"@";
     v9[30] = @"?";
     v9[31] = @"@";
-    v10[30] = @"?";
-    v10[31] = @"@";
+    v8[32] = @"A";
+    v8[33] = @"B";
     v9[32] = @"A";
     v9[33] = @"B";
-    v10[32] = @"A";
-    v10[33] = @"B";
+    v8[34] = @"C";
+    v8[35] = @"D";
     v9[34] = @"C";
     v9[35] = @"D";
-    v10[34] = @"C";
-    v10[35] = @"D";
+    v8[36] = @"E";
+    v8[37] = @"F";
     v9[36] = @"E";
     v9[37] = @"F";
-    v10[36] = @"E";
-    v10[37] = @"F";
+    v8[38] = @"G";
+    v8[39] = @"H";
     v9[38] = @"G";
     v9[39] = @"H";
-    v10[38] = @"G";
-    v10[39] = @"H";
+    v8[40] = @"I";
+    v8[41] = @"J";
     v9[40] = @"I";
     v9[41] = @"J";
-    v10[40] = @"I";
-    v10[41] = @"J";
+    v8[42] = @"K";
+    v8[43] = @"L";
     v9[42] = @"K";
     v9[43] = @"L";
-    v10[42] = @"K";
-    v10[43] = @"L";
+    v8[44] = @"M";
+    v8[45] = @"N";
     v9[44] = @"M";
     v9[45] = @"N";
-    v10[44] = @"M";
-    v10[45] = @"N";
+    v8[46] = @"O";
+    v8[47] = @"P";
     v9[46] = @"O";
     v9[47] = @"P";
-    v10[46] = @"O";
-    v10[47] = @"P";
+    v8[48] = @"Q";
+    v8[49] = @"R";
     v9[48] = @"Q";
     v9[49] = @"R";
-    v10[48] = @"Q";
-    v10[49] = @"R";
+    v8[50] = @"S";
+    v8[51] = @"T";
     v9[50] = @"S";
     v9[51] = @"T";
-    v10[50] = @"S";
-    v10[51] = @"T";
+    v8[52] = @"U";
+    v8[53] = @"V";
     v9[52] = @"U";
     v9[53] = @"V";
-    v10[52] = @"U";
-    v10[53] = @"V";
+    v8[54] = @"W";
+    v8[55] = @"X";
     v9[54] = @"W";
     v9[55] = @"X";
-    v10[54] = @"W";
-    v10[55] = @"X";
+    v8[56] = @"Y";
+    v8[57] = @"Z";
     v9[56] = @"Y";
     v9[57] = @"Z";
-    v10[56] = @"Y";
-    v10[57] = @"Z";
-    v9[58] = @"\\"";
+    v8[58] = @"\";
+    v8[59] = @"_";
+    v9[58] = @"\";
     v9[59] = @"_";
-    v10[58] = @"\\"";
-    v10[59] = @"_";
+    v8[60] = @"a";
+    v8[61] = @"b";
     v9[60] = @"a";
     v9[61] = @"b";
-    v10[60] = @"a";
-    v10[61] = @"b";
+    v8[62] = @"c";
+    v8[63] = @"d";
     v9[62] = @"c";
     v9[63] = @"d";
-    v10[62] = @"c";
-    v10[63] = @"d";
+    v8[64] = @"e";
     v9[64] = @"e";
-    v10[64] = @"e";
+    v8[65] = @"f";
     v9[65] = @"f";
-    v10[65] = @"f";
+    v8[66] = @"g";
     v9[66] = @"g";
-    v10[66] = @"g";
+    v8[67] = @"h";
     v9[67] = @"h";
-    v10[67] = @"h";
+    v8[68] = @"i";
     v9[68] = @"i";
-    v10[68] = @"i";
+    v8[69] = @"j";
     v9[69] = @"j";
-    v10[69] = @"j";
+    v8[70] = @"k";
     v9[70] = @"k";
-    v10[70] = @"k";
+    v8[71] = @"l";
     v9[71] = @"l";
-    v10[71] = @"l";
+    v8[72] = @"m";
     v9[72] = @"m";
-    v10[72] = @"m";
+    v8[73] = @"n";
     v9[73] = @"n";
-    v10[73] = @"n";
+    v8[74] = @"o";
     v9[74] = @"o";
-    v10[74] = @"o";
+    v8[75] = @"p";
     v9[75] = @"p";
-    v10[75] = @"p";
+    v8[76] = @"q";
     v9[76] = @"q";
-    v10[76] = @"q";
+    v8[77] = @"r";
     v9[77] = @"r";
-    v10[77] = @"r";
+    v8[78] = @"s";
     v9[78] = @"s";
-    v10[78] = @"s";
+    v8[79] = @"t";
     v9[79] = @"t";
-    v10[79] = @"t";
+    v8[80] = @"u";
     v9[80] = @"u";
-    v10[80] = @"u";
+    v8[81] = @"v";
     v9[81] = @"v";
-    v10[81] = @"v";
+    v8[82] = @"w";
     v9[82] = @"w";
-    v10[82] = @"w";
+    v8[83] = @"x";
     v9[83] = @"x";
-    v10[83] = @"x";
+    v8[84] = @"y";
     v9[84] = @"y";
-    v10[84] = @"y";
+    v8[85] = @"z";
     v9[85] = @"z";
-    v10[85] = @"z";
+    v8[86] = @"¢";
     v9[86] = @"¢";
-    v10[86] = @"¢";
+    v8[87] = @"£";
     v9[87] = @"£";
-    v10[87] = @"£";
+    v8[88] = @"¥";
     v9[88] = @"¥";
-    v10[88] = @"¥";
+    v8[89] = @"§";
     v9[89] = @"§";
-    v10[89] = @"§";
+    v8[90] = @"°";
     v9[90] = @"°";
-    v10[90] = @"°";
+    v8[91] = @"À";
     v9[91] = @"À";
-    v10[91] = @"À";
+    v8[92] = @"Á";
     v9[92] = @"Á";
-    v10[92] = @"Á";
+    v8[93] = @"Â";
     v9[93] = @"Â";
-    v10[93] = @"Â";
+    v8[94] = @"Ã";
     v9[94] = @"Ã";
-    v10[94] = @"Ã";
+    v8[95] = @"Ä";
     v9[95] = @"Ä";
-    v10[95] = @"Ä";
+    v8[96] = @"Å";
     v9[96] = @"Å";
-    v10[96] = @"Å";
+    v8[97] = @"Ç";
     v9[97] = @"Ç";
-    v10[97] = @"Ç";
+    v8[98] = @"È";
     v9[98] = @"È";
-    v10[98] = @"È";
+    v8[99] = @"É";
     v9[99] = @"É";
-    v10[99] = @"É";
+    v8[100] = @"Ê";
     v9[100] = @"Ê";
-    v10[100] = @"Ê";
+    v8[101] = @"Ë";
     v9[101] = @"Ë";
-    v10[101] = @"Ë";
+    v8[102] = @"Ì";
     v9[102] = @"Ì";
-    v10[102] = @"Ì";
+    v8[103] = @"Í";
     v9[103] = @"Í";
-    v10[103] = @"Í";
+    v8[104] = @"Î";
     v9[104] = @"Î";
-    v10[104] = @"Î";
+    v8[105] = @"Ï";
     v9[105] = @"Ï";
-    v10[105] = @"Ï";
+    v8[106] = @"Ñ";
     v9[106] = @"Ñ";
-    v10[106] = @"Ñ";
+    v8[107] = @"Ò";
     v9[107] = @"Ò";
-    v10[107] = @"Ò";
+    v8[108] = @"Ó";
     v9[108] = @"Ó";
-    v10[108] = @"Ó";
+    v8[109] = @"Ô";
     v9[109] = @"Ô";
-    v10[109] = @"Ô";
+    v8[110] = @"Õ";
     v9[110] = @"Õ";
-    v10[110] = @"Õ";
+    v8[111] = @"Ö";
     v9[111] = @"Ö";
-    v10[111] = @"Ö";
+    v8[112] = @"Ø";
     v9[112] = @"Ø";
-    v10[112] = @"Ø";
+    v8[113] = @"Ù";
     v9[113] = @"Ù";
-    v10[113] = @"Ù";
+    v8[114] = @"Ú";
     v9[114] = @"Ú";
-    v10[114] = @"Ú";
+    v8[115] = @"Ü";
     v9[115] = @"Ü";
-    v10[115] = @"Ü";
+    v8[116] = @"ß";
     v9[116] = @"ß";
-    v10[116] = @"ß";
+    v8[117] = @"à";
     v9[117] = @"à";
-    v10[117] = @"à";
+    v8[118] = @"á";
     v9[118] = @"á";
-    v10[118] = @"á";
+    v8[119] = @"â";
     v9[119] = @"â";
-    v10[119] = @"â";
+    v8[120] = @"ã";
     v9[120] = @"ã";
-    v10[120] = @"ã";
+    v8[121] = @"ä";
     v9[121] = @"ä";
-    v10[121] = @"ä";
+    v8[122] = @"å";
     v9[122] = @"å";
-    v10[122] = @"å";
+    v8[123] = @"æ";
     v9[123] = @"æ";
-    v10[123] = @"æ";
+    v8[124] = @"ç";
     v9[124] = @"ç";
-    v10[124] = @"ç";
+    v8[125] = @"è";
     v9[125] = @"è";
-    v10[125] = @"è";
+    v8[126] = @"é";
     v9[126] = @"é";
-    v10[126] = @"é";
+    v8[127] = @"ê";
     v9[127] = @"ê";
-    v10[127] = @"ê";
+    v8[128] = @"ë";
     v9[128] = @"ë";
-    v10[128] = @"ë";
+    v8[129] = @"ì";
     v9[129] = @"ì";
-    v10[129] = @"ì";
+    v8[130] = @"í";
     v9[130] = @"í";
-    v10[130] = @"í";
+    v8[131] = @"î";
     v9[131] = @"î";
-    v10[131] = @"î";
+    v8[132] = @"ï";
     v9[132] = @"ï";
-    v10[132] = @"ï";
+    v8[133] = @"ð";
     v9[133] = @"ð";
-    v10[133] = @"ð";
+    v8[134] = @"ñ";
     v9[134] = @"ñ";
-    v10[134] = @"ñ";
+    v8[135] = @"ò";
     v9[135] = @"ò";
-    v10[135] = @"ò";
+    v8[136] = @"ó";
     v9[136] = @"ó";
-    v10[136] = @"ó";
+    v8[137] = @"ô";
     v9[137] = @"ô";
-    v10[137] = @"ô";
+    v8[138] = @"õ";
     v9[138] = @"õ";
-    v10[138] = @"õ";
+    v8[139] = @"ö";
     v9[139] = @"ö";
-    v10[139] = @"ö";
+    v8[140] = @"ø";
     v9[140] = @"ø";
-    v10[140] = @"ø";
+    v8[141] = @"ù";
     v9[141] = @"ù";
-    v10[141] = @"ù";
+    v8[142] = @"ú";
     v9[142] = @"ú";
-    v10[142] = @"ú";
+    v8[143] = @"û";
     v9[143] = @"û";
-    v10[143] = @"û";
+    v8[144] = @"ü";
     v9[144] = @"ü";
-    v10[144] = @"ü";
+    v8[145] = @"\xFF";
     v9[145] = @"\xFF";
-    v10[145] = @"\xFF";
-    v9[146] = @"∼";
-    v10[146] = @"~";
-    v9[147] = @"’";
-    v10[147] = @"'";
-    v9[148] = @"ʼ";
-    v10[148] = @"'";
-    v9[149] = @"Ⅱ";
-    v10[149] = @"II";
-    v9[150] = @"Ⅲ";
-    v10[150] = @"III";
-    v9[151] = @"ƒ";
-    v10[151] = @"f";
-    v9[152] = @"ﬁ";
-    v10[152] = @"fi";
-    v9[153] = @"ı";
-    v10[153] = @"i";
-    v9[154] = @"ẞ";
-    v10[154] = @"s";
-    v9[155] = @"ſ";
-    v10[155] = @"s";
+    v8[146] = @"∼";
+    v9[146] = @"~";
+    v8[147] = @"’";
+    v9[147] = @"'";
+    v8[148] = @"ʼ";
+    v9[148] = @"'";
+    v8[149] = @"Ⅱ";
+    v9[149] = @"II";
+    v8[150] = @"Ⅲ";
+    v9[150] = @"III";
+    v8[151] = @"ƒ";
+    v9[151] = @"f";
+    v8[152] = @"ﬁ";
+    v9[152] = @"fi";
+    v8[153] = @"ı";
+    v9[153] = @"i";
+    v8[154] = @"ẞ";
+    v9[154] = @"s";
+    v8[155] = @"ſ";
+    v9[155] = @"s";
+    v8[156] = @"Ć";
     v9[156] = @"Ć";
-    v10[156] = @"Ć";
+    v8[157] = @"Ė";
     v9[157] = @"Ė";
-    v10[157] = @"Ė";
+    v8[158] = @"ė";
     v9[158] = @"ė";
-    v10[158] = @"ė";
+    v8[159] = @"ě";
     v9[159] = @"ě";
-    v10[159] = @"ě";
+    v8[160] = @"Ķ";
     v9[160] = @"Ķ";
-    v10[160] = @"Ķ";
+    v8[161] = @"ń";
     v9[161] = @"ń";
-    v10[161] = @"ń";
+    v8[162] = @"ş";
     v9[162] = @"ş";
-    v10[162] = @"ş";
+    v8[163] = @"ż";
     v9[163] = @"ż";
-    v10[163] = @"ż";
+    v8[164] = @"ą";
     v9[164] = @"ą";
-    v10[164] = @"ą";
+    v8[165] = @"ž";
     v9[165] = @"ž";
-    v10[165] = @"ž";
+    v8[166] = @"ś";
     v9[166] = @"ś";
-    v10[166] = @"ś";
+    v8[167] = @"ā";
     v9[167] = @"ā";
-    v10[167] = @"ā";
+    v8[168] = @"ę";
     v9[168] = @"ę";
-    v10[168] = @"ę";
+    v8[169] = @"ğ";
     v9[169] = @"ğ";
-    v10[169] = @"ğ";
+    v8[170] = @"ř";
     v9[170] = @"ř";
-    v10[170] = @"ř";
+    v8[171] = @"Š";
     v9[171] = @"Š";
-    v10[171] = @"Š";
+    v8[172] = @"Ż";
     v9[172] = @"Ż";
-    v10[172] = @"Ż";
+    v8[173] = @"€";
     v9[173] = @"€";
-    v10[173] = @"€";
+    v8[174] = @"Ÿ";
     v9[174] = @"Ÿ";
-    v10[174] = @"Ÿ";
+    v8[175] = @"ć";
     v9[175] = @"ć";
-    v10[175] = @"ć";
+    v8[176] = @"ī";
     v9[176] = @"ī";
-    v10[176] = @"ī";
+    v8[177] = @"ň";
     v9[177] = @"ň";
-    v10[177] = @"ň";
+    v8[178] = @"ů";
     v9[178] = @"ů";
-    v10[178] = @"ů";
+    v8[179] = @"Œ";
     v9[179] = @"Œ";
-    v10[179] = @"Œ";
+    v8[180] = @"š";
     v9[180] = @"š";
-    v10[180] = @"š";
+    v8[181] = @"č";
     v9[181] = @"č";
-    v10[181] = @"č";
+    v8[182] = @"ō";
     v9[182] = @"ō";
-    v10[182] = @"ō";
+    v8[183] = @"ņ";
     v9[183] = @"ņ";
-    v10[183] = @"ņ";
+    v8[184] = @"œ";
     v9[184] = @"œ";
-    v10[184] = @"œ";
+    v8[185] = @"😁";
     v9[185] = @"😁";
-    v10[185] = @"😁";
+    v8[186] = @"😂";
     v9[186] = @"😂";
-    v10[186] = @"😂";
+    v8[187] = @"😉";
     v9[187] = @"😉";
-    v10[187] = @"😉";
+    v8[188] = @"😊";
     v9[188] = @"😊";
-    v10[188] = @"😊";
+    v8[189] = @"👍";
     v9[189] = @"👍";
-    v10[189] = @"👍";
+    v8[190] = @"😍";
     v9[190] = @"😍";
-    v10[190] = @"😍";
-    v9[191] = @"☺";
-    v10[191] = @"😊";
+    v8[191] = @"☺";
+    v9[191] = @"😊";
+    v8[192] = @"😄";
     v9[192] = @"😄";
-    v10[192] = @"😄";
+    v8[193] = @"😘";
     v9[193] = @"😘";
-    v10[193] = @"😘";
+    v8[194] = @"😱";
     v9[194] = @"😱";
-    v10[194] = @"😱";
+    v8[195] = @"👌";
     v9[195] = @"👌";
-    v10[195] = @"👌";
+    v8[196] = @"😎";
     v9[196] = @"😎";
-    v10[196] = @"😎";
+    v8[197] = @"😡";
     v9[197] = @"😡";
-    v10[197] = @"😡";
+    v8[198] = @"❤";
     v9[198] = @"❤";
-    v10[198] = @"❤";
+    v8[199] = @"😬";
     v9[199] = @"😬";
-    v10[199] = @"😬";
+    v8[200] = @"😃";
     v9[200] = @"😃";
-    v10[200] = @"😃";
+    v8[201] = @"😏";
     v9[201] = @"😏";
-    v10[201] = @"😏";
+    v8[202] = @"😝";
     v9[202] = @"😝";
-    v10[202] = @"😝";
+    v8[203] = @"😩";
     v9[203] = @"😩";
-    v10[203] = @"😩";
+    v8[204] = @"😳";
     v9[204] = @"😳";
-    v10[204] = @"😳";
+    v8[205] = @"🍸";
     v9[205] = @"🍸";
-    v10[205] = @"🍸";
+    v8[206] = @"✨";
     v9[206] = @"✨";
-    v10[206] = @"✨";
+    v8[207] = @"😜";
     v9[207] = @"😜";
-    v10[207] = @"😜";
+    v8[208] = @"😀";
     v9[208] = @"😀";
-    v10[208] = @"😀";
+    v8[209] = @"🍷";
     v9[209] = @"🍷";
-    v10[209] = @"🍷";
+    v8[210] = @"😭";
     v9[210] = @"😭";
-    v10[210] = @"😭";
-    v9[211] = @"☹";
-    v10[211] = @"😭";
+    v8[211] = @"☹";
+    v9[211] = @"😭";
+    v8[212] = @"👎";
     v9[212] = @"👎";
-    v10[212] = @"👎";
-    v9[213] = @"à";
-    v10[213] = @"à";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:214];
+    v8[213] = @"à";
+    v9[213] = @"à";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:214];
     v7 = specialCharMapping;
     specialCharMapping = v6;
   }
@@ -471,8 +471,6 @@
   {
     emoticonCategoryDict = &unk_2874EA760;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -666,7 +664,6 @@ LABEL_31:
 
 uint64_t __48__RKNLEventTokenizer_tokenizeWithDataDetectors___block_invoke(uint64_t a1)
 {
-  v1 = *(*(a1 + 32) + 8);
   result = DDScannerCreateWithType();
   tokenizeWithDataDetectors__scanner = result;
   return result;
@@ -674,34 +671,34 @@ uint64_t __48__RKNLEventTokenizer_tokenizeWithDataDetectors___block_invoke(uint6
 
 - (BOOL)hasEmoticon:(id)emoticon
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   emoticonCopy = emoticon;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = emoticonCategoryDict;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([emoticonCopy containsString:{*(*(&v10 + 1) + 8 * i), v10}])
+        if ([emoticonCopy containsString:{*(*(&v9 + 1) + 8 * i), v9}])
         {
           LOBYTE(v5) = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -713,72 +710,71 @@ uint64_t __48__RKNLEventTokenizer_tokenizeWithDataDetectors___block_invoke(uint6
 
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)processForEmoticonsAndEmojis:(id)emojis
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   emojisCopy = emojis;
   v4 = objc_opt_new();
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   obj = emojisCopy;
-  v32 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
-  if (v32)
+  v31 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+  if (v31)
   {
-    v5 = *v55;
+    v5 = *v54;
     do
     {
-      for (i = 0; i != v32; ++i)
+      for (i = 0; i != v31; ++i)
       {
-        if (*v55 != v5)
+        if (*v54 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v54 + 1) + 8 * i);
+        v7 = *(*(&v53 + 1) + 8 * i);
         string = [v7 string];
-        v50 = 0;
-        v51 = &v50;
-        v52 = 0x2020000000;
+        v49 = 0;
+        v50 = &v49;
+        v51 = 0x2020000000;
         location = [v7 location];
         if (CEMStringContainsEmoji())
         {
           CFStringGetLength(string);
-          v46 = 0;
-          v47 = &v46;
-          v48 = 0x2020000000;
-          v49 = 0;
-          v38 = MEMORY[0x277D85DD0];
-          v39 = 3221225472;
-          v40 = __51__RKNLEventTokenizer_processForEmoticonsAndEmojis___block_invoke;
-          v41 = &unk_279B10048;
-          v44 = &v46;
+          v45 = 0;
+          v46 = &v45;
+          v47 = 0x2020000000;
+          v48 = 0;
+          v37 = MEMORY[0x277D85DD0];
+          v38 = 3221225472;
+          v39 = __51__RKNLEventTokenizer_processForEmoticonsAndEmojis___block_invoke;
+          v40 = &unk_279B10048;
+          v43 = &v45;
           v9 = string;
-          v42 = v9;
+          v41 = v9;
           v10 = v4;
-          v43 = v10;
-          v45 = &v50;
+          v42 = v10;
+          v44 = &v49;
           CEMEnumerateEmojiTokensInStringWithBlock();
-          v11 = v47[3];
+          v11 = v46[3];
           if (v11 < [(__CFString *)v9 length])
           {
-            v12 = v47[3];
+            v12 = v46[3];
             v13 = [(__CFString *)v9 length];
-            v14 = [(__CFString *)v9 substringWithRange:v12, v13 - v47[3]];
+            v14 = [(__CFString *)v9 substringWithRange:v12, v13 - v46[3]];
             v15 = [RKNLEventToken alloc];
-            v16 = v51[3];
-            v17 = v47[3];
+            v16 = v50[3];
+            v17 = v46[3];
             v18 = [(__CFString *)v9 length];
-            v19 = [(RKNLEventToken *)v15 initWithString:v14 location:v17 + v16 length:v18 - v47[3]];
+            v19 = [(RKNLEventToken *)v15 initWithString:v14 location:v17 + v16 length:v18 - v46[3]];
             [v10 addObject:v19];
           }
 
-          _Block_object_dispose(&v46, 8);
+          _Block_object_dispose(&v45, 8);
         }
 
         else
@@ -786,35 +782,35 @@ LABEL_11:
           [v4 addObject:v7];
         }
 
-        _Block_object_dispose(&v50, 8);
+        _Block_object_dispose(&v49, 8);
       }
 
-      v32 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+      v31 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
     }
 
-    while (v32);
+    while (v31);
   }
 
   v20 = objc_opt_new();
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v21 = v4;
-  v22 = [v21 countByEnumeratingWithState:&v34 objects:v58 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v33 objects:v57 count:16];
   if (v22)
   {
-    v23 = *v35;
+    v23 = *v34;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v35 != v23)
+        if (*v34 != v23)
         {
           objc_enumerationMutation(v21);
         }
 
-        v25 = *(*(&v34 + 1) + 8 * j);
+        v25 = *(*(&v33 + 1) + 8 * j);
         string2 = [v25 string];
         v27 = [(RKNLEventTokenizer *)self hasEmoticon:string2];
 
@@ -830,13 +826,11 @@ LABEL_11:
         }
       }
 
-      v22 = [v21 countByEnumeratingWithState:&v34 objects:v58 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v33 objects:v57 count:16];
     }
 
     while (v22);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -882,42 +876,42 @@ void __51__RKNLEventTokenizer_processForEmoticonsAndEmojis___block_invoke(uint64
 
 - (id)transform:(id)transform
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   transformCopy = transform;
   selfCopy = self;
-  v40 = [(NSString *)self->_languageID isEqualToString:@"ja"]|| [(NSString *)self->_languageID isEqualToString:@"zh-Hans"]|| [(NSString *)self->_languageID isEqualToString:@"zh-Hant"];
-  v34 = objc_opt_new();
+  v39 = [(NSString *)self->_languageID isEqualToString:@"ja"]|| [(NSString *)self->_languageID isEqualToString:@"zh-Hans"]|| [(NSString *)self->_languageID isEqualToString:@"zh-Hant"];
+  v33 = objc_opt_new();
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = transformCopy;
-  v36 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
-  if (v36)
+  v35 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  if (v35)
   {
-    v35 = *v44;
+    v34 = *v43;
     do
     {
       v5 = 0;
       do
       {
-        if (*v44 != v35)
+        if (*v43 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v39 = v5;
-        v6 = *(*(&v43 + 1) + 8 * v5);
+        v38 = v5;
+        v6 = *(*(&v42 + 1) + 8 * v5);
         string = [v6 string];
-        v37 = v6;
+        v36 = v6;
         location = [v6 location];
-        v41 = objc_alloc_init(MEMORY[0x277CCAB68]);
+        v40 = objc_alloc_init(MEMORY[0x277CCAB68]);
         Length = CFStringGetLength(string);
         v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
         if (Length >= 1)
         {
           v10 = 0;
-          v42 = 0;
+          v41 = 0;
           v11 = &stru_2874A9C90;
           while (1)
           {
@@ -933,7 +927,7 @@ void __51__RKNLEventTokenizer_processForEmoticonsAndEmojis___block_invoke(uint64
             else
             {
               v16 = v12;
-              if (v40)
+              if (v39)
               {
                 goto LABEL_18;
               }
@@ -976,13 +970,13 @@ LABEL_18:
               if (CEMStringContainsEmoji() || (-[__CFString isEqualToString:](v16, "isEqualToString:", @"?") & 1) != 0 || (-[__CFString isEqualToString:](v16, "isEqualToString:", @":") & 1) != 0 || (v21 = [v19 integerValue], v21 >= kMaxCharRepetitionAllowed))
               {
                 integerValue = [v19 integerValue];
-                v23 = v42;
+                v23 = v41;
                 if (integerValue >= kMaxCharRepetitionAllowed)
                 {
-                  v23 = v42 + 1;
+                  v23 = v41 + 1;
                 }
 
-                v42 = v23;
+                v41 = v23;
                 goto LABEL_31;
               }
             }
@@ -992,7 +986,7 @@ LABEL_18:
               [v9 removeAllObjects];
             }
 
-            [v41 appendString:v16];
+            [v40 appendString:v16];
 LABEL_31:
             Length -= CFStringGetLength(v12);
             v10 += CFStringGetLength(v12);
@@ -1007,40 +1001,38 @@ LABEL_31:
           }
         }
 
-        v42 = 0;
+        v41 = 0;
         v24 = &stru_2874A9C90;
 LABEL_34:
-        if ([v41 length])
+        if ([v40 length])
         {
-          v25 = [RKNLEventTokenizer isSpecialToken:v41];
+          v25 = [RKNLEventTokenizer isSpecialToken:v40];
           v26 = [RKNLEventToken alloc];
           if (v25)
           {
-            v27 = [v37 length];
+            v27 = [v36 length];
           }
 
           else
           {
-            v27 = [v41 length] + v42;
+            v27 = [v40 length] + v41;
           }
 
-          v28 = [(RKNLEventToken *)v26 initWithString:v41 location:location length:v27];
-          [v34 addObject:v28];
+          v28 = [(RKNLEventToken *)v26 initWithString:v40 location:location length:v27];
+          [v33 addObject:v28];
         }
 
-        v5 = v39 + 1;
+        v5 = v38 + 1;
       }
 
-      while (v39 + 1 != v36);
-      v36 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+      while (v38 + 1 != v35);
+      v35 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
-    while (v36);
+    while (v35);
   }
 
-  v29 = [(RKNLEventTokenizer *)selfCopy processForHyphenation:v34];
-
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = [(RKNLEventTokenizer *)selfCopy processForHyphenation:v33];
 
   return v29;
 }
@@ -1218,7 +1210,7 @@ LABEL_15:
 
 - (id)getTokens:(id)tokens
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   if (getTokens__onceToken != -1)
   {
@@ -1226,49 +1218,49 @@ LABEL_15:
   }
 
   array = [MEMORY[0x277CBEB18] array];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = tokensCopy;
-  v5 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v5 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (!v5)
   {
-    v42 = &stru_2874A9C90;
+    v41 = &stru_2874A9C90;
     goto LABEL_45;
   }
 
   v6 = v5;
   v7 = 0;
-  v40 = *v44;
+  v39 = *v43;
   v8 = *MEMORY[0x277CBECE8];
-  v42 = &stru_2874A9C90;
+  v41 = &stru_2874A9C90;
   do
   {
     v9 = 0;
-    v36 = v6;
+    v35 = v6;
     do
     {
-      if (*v44 != v40)
+      if (*v43 != v39)
       {
         objc_enumerationMutation(obj);
       }
 
-      v41 = *(*(&v43 + 1) + 8 * v9);
-      string = [v41 string];
+      v40 = *(*(&v42 + 1) + 8 * v9);
+      string = [v40 string];
       if (![RKNLEventTokenizer isSpecialToken:string])
       {
-        v39 = v7;
+        v38 = v7;
         tokenizer = [(RKNLEventTokenizer *)self tokenizer];
-        v50.length = CFStringGetLength(string);
-        v50.location = 0;
-        CFStringTokenizerSetString(tokenizer, string, v50);
+        v49.length = CFStringGetLength(string);
+        v49.location = 0;
+        CFStringTokenizerSetString(tokenizer, string, v49);
         while (1)
         {
           if (!CFStringTokenizerAdvanceToNextToken([(RKNLEventTokenizer *)self tokenizer]))
           {
-            location = [v41 location];
-            v7 = [v41 length] + location;
+            location = [v40 location];
+            v7 = [v40 length] + location;
             goto LABEL_41;
           }
 
@@ -1292,15 +1284,15 @@ LABEL_37:
         {
           v24 = MutableCopy;
           MutableCopy = v24;
-          v23 = v42;
+          v23 = v41;
 LABEL_27:
-          v42 = v24;
+          v41 = v24;
         }
 
         else
         {
-          v23 = v42;
-          if ([(__CFString *)v42 isEqualToString:@"?"]&& [(__CFString *)MutableCopy isEqualToString:@"?"]|| CEMStringContainsEmoji() && [(__CFString *)v42 isEqualToString:MutableCopy])
+          v23 = v41;
+          if ([(__CFString *)v41 isEqualToString:@"?"]&& [(__CFString *)MutableCopy isEqualToString:@"?"]|| CEMStringContainsEmoji() && [(__CFString *)v41 isEqualToString:MutableCopy])
           {
             v24 = MutableCopy;
             MutableCopy = v24;
@@ -1311,11 +1303,11 @@ LABEL_27:
           v23 = objc_opt_new();
           if (v25 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            if ([(__CFString *)v42 isEqualToString:@"DIGIT_STRG"])
+            if ([(__CFString *)v41 isEqualToString:@"DIGIT_STRG"])
             {
               MutableCopy = MutableCopy;
 
-              v42 = MutableCopy;
+              v41 = MutableCopy;
               goto LABEL_35;
             }
 
@@ -1325,12 +1317,12 @@ LABEL_34:
             [v28 setString:v29];
             string2 = [v23 string];
 
-            [v23 setLocation:CurrentTokenRange.location + v39];
+            [v23 setLocation:CurrentTokenRange.location + v38];
             [v23 setLength:CurrentTokenRange.length];
             [array addObject:v23];
-            v42 = string2;
+            v41 = string2;
 LABEL_35:
-            v6 = v36;
+            v6 = v35;
           }
 
           else
@@ -1341,7 +1333,7 @@ LABEL_35:
 
             MutableCopy = [v27 stringByReplacingOccurrencesOfString:@"EMOTICONPERTURBED" withString:@"EMOTICON_PERTURBED"];
 
-            if (!+[RKNLEventTokenizer isSpecialToken:](RKNLEventTokenizer, "isSpecialToken:", MutableCopy) && ![kAllowedPunctuations containsString:MutableCopy] || !-[__CFString isEqualToString:](v42, "isEqualToString:", MutableCopy))
+            if (!+[RKNLEventTokenizer isSpecialToken:](RKNLEventTokenizer, "isSpecialToken:", MutableCopy) && ![kAllowedPunctuations containsString:MutableCopy] || !-[__CFString isEqualToString:](v41, "isEqualToString:", MutableCopy))
             {
               v28 = v23;
               v29 = MutableCopy;
@@ -1350,8 +1342,8 @@ LABEL_35:
 
             MutableCopy = MutableCopy;
 
-            v42 = MutableCopy;
-            v6 = v36;
+            v41 = MutableCopy;
+            v6 = v35;
           }
         }
 
@@ -1364,41 +1356,39 @@ LABEL_35:
 
       v13 = [v12 stringByReplacingOccurrencesOfString:@"EMOTICONPERTURBED" withString:@"EMOTICON_PERTURBED"];
 
-      if ([v13 isEqualToString:v42])
+      if ([v13 isEqualToString:v41])
       {
         string = v13;
 
-        location2 = [v41 location];
-        v7 = [v41 length] + location2;
+        location2 = [v40 location];
+        v7 = [v40 length] + location2;
       }
 
       else
       {
         v32 = objc_opt_new();
         [v32 setString:v13];
-        [v32 setLocation:{objc_msgSend(v41, "location")}];
-        [v32 setLength:{objc_msgSend(v41, "length")}];
+        [v32 setLocation:{objc_msgSend(v40, "location")}];
+        [v32 setLength:{objc_msgSend(v40, "length")}];
         [array addObject:v32];
         string = v13;
 
-        location3 = [v41 location];
-        v7 = [v41 length] + location3;
+        location3 = [v40 location];
+        v7 = [v40 length] + location3;
       }
 
-      v42 = string;
+      v41 = string;
 LABEL_41:
 
       ++v9;
     }
 
     while (v9 != v6);
-    v6 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v6 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
   }
 
   while (v6);
 LABEL_45:
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return array;
 }

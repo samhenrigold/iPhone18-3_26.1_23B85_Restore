@@ -43,11 +43,10 @@
 
 - (void)_startDaemonConnection
 {
-  fLocationdConnection = self->fLocationdConnection;
   CLConnectionClient::setDefaultMessageHandler();
-  v4 = self->fLocationdConnection;
+  fLocationdConnection = self->fLocationdConnection;
 
-  CLConnectionClient::start(v4);
+  CLConnectionClient::start(fLocationdConnection);
 }
 
 - (void)_feedCatherine:(double)catherine confidence:(double)confidence timestamp:(double)timestamp

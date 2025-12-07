@@ -185,29 +185,28 @@
 
 - (BOOL)isEmergencyNumberForDigits:(id)digits senderIdentityUUID:(id)d
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   digitsCopy = digits;
   dCopy = d;
-  v14 = 0;
-  v8 = [(TUSenderIdentityClient *)self isEmergencyNumberForDigits:digitsCopy senderIdentityUUID:dCopy error:&v14];
-  v9 = v14;
+  v13 = 0;
+  v8 = [(TUSenderIdentityClient *)self isEmergencyNumberForDigits:digitsCopy senderIdentityUUID:dCopy error:&v13];
+  v9 = v13;
   v10 = v9;
   if (!v8 && v9)
   {
-    v11 = TUDefaultLog();
+    v11 = TUDefaultLog(v9);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v16 = digitsCopy;
-      v17 = 2112;
-      v18 = v10;
-      v19 = 2112;
-      v20 = dCopy;
+      v15 = digitsCopy;
+      v16 = 2112;
+      v17 = v10;
+      v18 = 2112;
+      v19 = dCopy;
       _os_log_error_impl(&dword_1956FD000, v11, OS_LOG_TYPE_ERROR, "Failed to determine whether digits %@ are an emergency number due to error %@ for sender identity UUID %@.", buf, 0x20u);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -223,29 +222,28 @@
 
 - (BOOL)isWhitelistedEmergencyNumberForDigits:(id)digits senderIdentityUUID:(id)d
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   digitsCopy = digits;
   dCopy = d;
-  v14 = 0;
-  v8 = [(TUSenderIdentityClient *)self isWhitelistedEmergencyNumberForDigits:digitsCopy senderIdentityUUID:dCopy error:&v14];
-  v9 = v14;
+  v13 = 0;
+  v8 = [(TUSenderIdentityClient *)self isWhitelistedEmergencyNumberForDigits:digitsCopy senderIdentityUUID:dCopy error:&v13];
+  v9 = v13;
   v10 = v9;
   if (!v8 && v9)
   {
-    v11 = TUDefaultLog();
+    v11 = TUDefaultLog(v9);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v16 = digitsCopy;
-      v17 = 2112;
-      v18 = v10;
-      v19 = 2112;
-      v20 = dCopy;
+      v15 = digitsCopy;
+      v16 = 2112;
+      v17 = v10;
+      v18 = 2112;
+      v19 = dCopy;
       _os_log_error_impl(&dword_1956FD000, v11, OS_LOG_TYPE_ERROR, "Failed to determine whether digits %@ are a whitelisted emergency number due to error %@ for sender identity UUID %@.", buf, 0x20u);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -268,7 +266,7 @@
   v7 = v6;
   if (!v5 && v6)
   {
-    v8 = TUDefaultLog();
+    v8 = TUDefaultLog(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(TUSenderIdentityClient(Emergency) *)v7 shouldShowEmergencyCallbackModeAlertForSenderIdentityUUID:dCopy, v8];

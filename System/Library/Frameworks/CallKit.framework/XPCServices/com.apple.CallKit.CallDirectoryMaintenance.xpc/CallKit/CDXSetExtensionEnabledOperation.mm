@@ -1,6 +1,7 @@
 @interface CDXSetExtensionEnabledOperation
 - (BOOL)_loadExtensionDataWithError:(id *)error;
 - (CDXSetExtensionEnabledOperation)initWithExtensionIdentifier:(id)identifier enabled:(BOOL)enabled loadExtensionDataOperation:(id)operation queue:(id)queue store:(id)store identificationEntriesChangedNotifier:(id)notifier;
+- (CDXSetExtensionEnabledOperation)initWithExtensionIdentifier:(id)identifier enabled:(BOOL)enabled loadExtensionDataOperation:(id)operation store:(id)store;
 - (void)performWithCompletionHandler:(id)handler;
 @end
 
@@ -36,6 +37,20 @@
   return v19;
 }
 
+- (CDXSetExtensionEnabledOperation)initWithExtensionIdentifier:(id)identifier enabled:(BOOL)enabled loadExtensionDataOperation:(id)operation store:(id)store
+{
+  enabledCopy = enabled;
+  storeCopy = store;
+  operationCopy = operation;
+  identifierCopy = identifier;
+  v13 = dispatch_queue_create("com.apple.callkit.calldirectory.setextensionenabledoperation", 0);
+  v14 = [CDXNotifydNotifier alloc];
+  v15 = [(CDXNotifydNotifier *)v14 initWithNotificationName:CXCallDirectoryManagerIdentificationEntriesChangedNotification];
+  v16 = [(CDXSetExtensionEnabledOperation *)self initWithExtensionIdentifier:identifierCopy enabled:enabledCopy loadExtensionDataOperation:operationCopy queue:v13 store:storeCopy identificationEntriesChangedNotifier:v15];
+
+  return v16;
+}
+
 - (void)performWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -55,10 +70,10 @@
   queue = [(CDXSetExtensionEnabledOperation *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
   loadExtensionDataOperation = [(CDXSetExtensionEnabledOperation *)self loadExtensionDataOperation];
 
   if (loadExtensionDataOperation)
@@ -66,39 +81,39 @@
     loadExtensionDataOperation2 = [(CDXSetExtensionEnabledOperation *)self loadExtensionDataOperation];
     [loadExtensionDataOperation2 setAllowLoadingDisabledExtensions:1];
 
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x3032000000;
-    v21 = sub_10000962C;
-    v22 = sub_10000963C;
-    v23 = 0;
-    v8 = dispatch_semaphore_create(0);
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = sub_10000962C;
+    v23 = sub_10000963C;
+    v24 = 0;
+    v9 = dispatch_semaphore_create(0);
     loadExtensionDataOperation3 = [(CDXSetExtensionEnabledOperation *)self loadExtensionDataOperation];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100009644;
-    v14[3] = &unk_100034D78;
-    v16 = &v24;
-    v17 = &v18;
-    v10 = v8;
-    v15 = v10;
-    [loadExtensionDataOperation3 performWithCompletionHandler:v14];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100009644;
+    v15[3] = &unk_100034D78;
+    v17 = &v25;
+    v18 = &v19;
+    v11 = v9;
+    v16 = v11;
+    [loadExtensionDataOperation3 performWithCompletionHandler:v15];
 
-    dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
     if (error)
     {
-      *error = v19[5];
+      *error = v20[5];
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v19, 8);
   }
 
   else
   {
-    v11 = sub_100005CC4();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100005CC4(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_100021B1C(v11);
+      sub_100021B1C(v12);
     }
 
     if (error)
@@ -107,9 +122,9 @@
     }
   }
 
-  v12 = *(v25 + 24);
-  _Block_object_dispose(&v24, 8);
-  return v12;
+  v13 = *(v26 + 24);
+  _Block_object_dispose(&v25, 8);
+  return v13;
 }
 
 @end

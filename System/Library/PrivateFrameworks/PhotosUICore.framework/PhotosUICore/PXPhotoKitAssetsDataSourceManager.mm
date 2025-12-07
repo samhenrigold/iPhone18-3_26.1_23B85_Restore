@@ -229,7 +229,7 @@
     LOBYTE(v3) = 1;
   }
 
-  else if (([photosDataSource options] & 0x10000) != 0 && objc_msgSend(photosDataSource, "isEmpty"))
+  else if ((objc_msgSend_options(photosDataSource) & 0x10000) != 0 && [photosDataSource isEmpty])
   {
     v3 = [photosDataSource areAllSectionsConsideredAccurate] ^ 1;
   }
@@ -1075,7 +1075,7 @@ uint64_t __60__PXPhotoKitAssetsDataSourceManager__ensurePhotosDataSource__block_
   existingKeyAssetsFetchResult = [configurationCopy existingKeyAssetsFetchResult];
   fetchPropertySets = [configurationCopy fetchPropertySets];
   basePredicate = [configurationCopy basePredicate];
-  options = [configurationCopy options];
+  v9 = objc_msgSend_options(configurationCopy);
   ignoreSharedLibraryFilters = [configurationCopy ignoreSharedLibraryFilters];
   reverseSortOrder = [configurationCopy reverseSortOrder];
   canIncludeUnsavedSyndicatedAssets = [configurationCopy canIncludeUnsavedSyndicatedAssets];
@@ -1088,7 +1088,7 @@ uint64_t __60__PXPhotoKitAssetsDataSourceManager__ensurePhotosDataSource__block_
     v13 = MEMORY[0x1E6978760];
     v45[0] = collectionCopy;
     [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
-    v34 = options;
+    v34 = v9;
     v14 = existingKeyAssetsFetchResult;
     v15 = existingAssetsFetchResult;
     v17 = v16 = reverseSortOrder;
@@ -1098,7 +1098,7 @@ uint64_t __60__PXPhotoKitAssetsDataSourceManager__ensurePhotosDataSource__block_
     reverseSortOrder = v16;
     existingAssetsFetchResult = v15;
     existingKeyAssetsFetchResult = v14;
-    options = v34;
+    v9 = v34;
     v20 = [MEMORY[0x1E6978758] fetchCollectionsInCollectionList:localIdentifier options:librarySpecificFetchOptions];
   }
 
@@ -1121,7 +1121,7 @@ uint64_t __60__PXPhotoKitAssetsDataSourceManager__ensurePhotosDataSource__block_
     v20 = [v23 fetchAssetCollectionsWithLocalIdentifiers:v24 options:librarySpecificFetchOptions];
   }
 
-  v25 = [[PXPhotosDataSourceConfiguration alloc] initWithCollectionListFetchResult:v20 containerCollection:0 options:options];
+  v25 = [[PXPhotosDataSourceConfiguration alloc] initWithCollectionListFetchResult:v20 containerCollection:0 options:v9];
   [(PXPhotosDataSourceConfiguration *)v25 setFetchPropertySets:fetchPropertySets];
   [(PXPhotosDataSourceConfiguration *)v25 setBasePredicate:basePredicate];
   v26 = [PXContentFilterState defaultFilterStateForContainerCollection:collectionCopy photoLibrary:photoLibrary];

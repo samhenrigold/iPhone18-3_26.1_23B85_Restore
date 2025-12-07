@@ -12,16 +12,16 @@
 
 - (Attribute)generateAttributeStruct
 {
-  if (self->_encodedAttribute)
+  encodedAttribute = self->_encodedAttribute;
+  if (encodedAttribute)
   {
-    free_Attribute();
+    free_Attribute(encodedAttribute);
     free(self->_encodedAttribute);
   }
 
   self->_encodedAttribute = malloc_type_malloc(0x20uLL, 0x10300406495394CuLL);
   v7[5] = [(MSOID *)self->_attributeType Asn1OID];
-  v7[6] = v3;
-  encodedAttribute = self->_encodedAttribute;
+  v7[6] = v4;
   der_copy_oid();
   self->_encodedAttribute->var1.var0 = [(NSArray *)self->_attributeValues count];
   self->_encodedAttribute->var1.var1 = malloc_type_malloc(16 * [(NSArray *)self->_attributeValues count], 0x108004057E67DB5uLL);
@@ -51,7 +51,7 @@ uint64_t __41__MSCMSAttribute_generateAttributeStruct__block_invoke(uint64_t a1,
   encodedAttribute = self->_encodedAttribute;
   if (encodedAttribute)
   {
-    free_Attribute();
+    free_Attribute(encodedAttribute);
     encodedAttribute = self->_encodedAttribute;
   }
 
@@ -64,9 +64,9 @@ uint64_t __41__MSCMSAttribute_generateAttributeStruct__block_invoke(uint64_t a1,
 
 - (MSCMSAttribute)initWithAttributeStruct:(Attribute *)struct error:(id *)error
 {
-  v19.receiver = self;
-  v19.super_class = MSCMSAttribute;
-  v6 = [(MSCMSAttribute *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = MSCMSAttribute;
+  v6 = [(MSCMSAttribute *)&v18 init];
   if (!v6)
   {
 LABEL_13:
@@ -75,10 +75,10 @@ LABEL_13:
   }
 
   v7 = malloc_type_malloc(0x20uLL, 0x10300406495394CuLL);
-  v6->_encodedAttribute = v7;
+  *(v6 + 4) = v7;
   if (v7)
   {
-    v8 = copy_Attribute();
+    v8 = copy_Attribute(struct, v7);
     if (v8)
     {
       if (error)
@@ -90,17 +90,16 @@ LABEL_13:
     }
 
     v10 = [MSOID OIDWithAsn1OID:struct error:error];
-    attributeType = v6->_attributeType;
-    v6->_attributeType = v10;
+    v11 = *(v6 + 1);
+    *(v6 + 1) = v10;
 
-    if (!v6->_attributeType)
+    if (!*(v6 + 1))
     {
-      encodedAttribute = v6->_encodedAttribute;
-      free_Attribute();
+      free_Attribute(*(v6 + 4));
 LABEL_16:
-      free(v6->_encodedAttribute);
+      free(*(v6 + 4));
       v9 = 0;
-      v6->_encodedAttribute = 0;
+      *(v6 + 4) = 0;
       goto LABEL_17;
     }
 
@@ -112,7 +111,7 @@ LABEL_16:
       do
       {
         v15 = [MEMORY[0x277CBEA90] dataWithBytes:struct->var1.var1[v13].var1 length:struct->var1.var1[v13].var0];
-        [(NSArray *)v12 addObject:v15];
+        [v12 addObject:v15];
 
         ++v14;
         ++v13;
@@ -121,8 +120,8 @@ LABEL_16:
       while (v14 < struct->var1.var0);
     }
 
-    attributeValues = v6->_attributeValues;
-    v6->_attributeValues = v12;
+    v16 = *(v6 + 2);
+    *(v6 + 2) = v12;
 
     goto LABEL_13;
   }
@@ -153,9 +152,8 @@ LABEL_17:
   }
 
   v7 = v6;
-  [rCopy bytes];
-  [rCopy length];
-  if (decode_Attribute())
+  v12 = 0;
+  if (decode_Attribute([rCopy bytes], objc_msgSend(rCopy, "length"), v6, &v12))
   {
     free(v7);
 LABEL_4:
@@ -168,7 +166,7 @@ LABEL_4:
   if (v9)
   {
     objc_storeStrong(&v9->_attributeDERData, r);
-    free_Attribute();
+    free_Attribute(v7);
     free(v7);
   }
 

@@ -1,4 +1,4 @@
-void *mlir::mps::NormalSamplingMethodAttr::print(mlir::mps::NormalSamplingMethodAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::NormalSamplingMethodAttr::print(mlir::mps::NormalSamplingMethodAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -74,8 +74,8 @@ void *mlir::mps::NormalSamplingMethodAttr::print(mlir::mps::NormalSamplingMethod
   }
 
   result = (*(*a2 + 16))(a2);
-  v15 = result[4];
-  if (result[3] == v15)
+  v15 = *(result + 4);
+  if (*(result + 3) == v15)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -84,7 +84,7 @@ void *mlir::mps::NormalSamplingMethodAttr::print(mlir::mps::NormalSamplingMethod
   else
   {
     *v15 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -657,7 +657,7 @@ LABEL_51:
   return 0;
 }
 
-void *mlir::mps::PaddingStyleAttr::print(mlir::mps::PaddingStyleAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::PaddingStyleAttr::print(mlir::mps::PaddingStyleAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -741,8 +741,8 @@ LABEL_15:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -751,7 +751,7 @@ LABEL_15:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -1510,7 +1510,7 @@ LABEL_63:
   return 0;
 }
 
-void *mlir::mps::PoolIndicesModeAttr::print(mlir::mps::PoolIndicesModeAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::PoolIndicesModeAttr::print(mlir::mps::PoolIndicesModeAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -1625,8 +1625,8 @@ LABEL_23:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -1635,7 +1635,7 @@ LABEL_23:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -2270,7 +2270,7 @@ LABEL_55:
   return 0;
 }
 
-void *mlir::mps::RNNActivationAttr::print(mlir::mps::RNNActivationAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::RNNActivationAttr::print(mlir::mps::RNNActivationAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -2367,8 +2367,8 @@ LABEL_17:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -2377,7 +2377,7 @@ LABEL_17:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -2905,7 +2905,7 @@ LABEL_8:
   return 0;
 }
 
-void *mlir::mps::LSTMGateLayoutAttr::print(mlir::mps::LSTMGateLayoutAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::LSTMGateLayoutAttr::print(mlir::mps::LSTMGateLayoutAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -2984,8 +2984,8 @@ LABEL_14:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -2994,7 +2994,7 @@ LABEL_14:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -3470,7 +3470,7 @@ LABEL_80:
   return 0;
 }
 
-void *mlir::mps::GRUGateLayoutAttr::print(mlir::mps::GRUGateLayoutAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::GRUGateLayoutAttr::print(mlir::mps::GRUGateLayoutAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -3547,8 +3547,8 @@ LABEL_14:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -3557,7 +3557,7 @@ LABEL_14:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -4254,7 +4254,7 @@ LABEL_59:
   return 0;
 }
 
-void *mlir::mps::StencilPaddingModeAttr::print(mlir::mps::StencilPaddingModeAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::StencilPaddingModeAttr::print(mlir::mps::StencilPaddingModeAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -4355,8 +4355,8 @@ LABEL_19:
   }
 
   result = (*(*a2 + 16))(a2);
-  v12 = result[4];
-  if (result[3] == v12)
+  v12 = *(result + 4);
+  if (*(result + 3) == v12)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -4365,7 +4365,7 @@ LABEL_19:
   else
   {
     *v12 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -4849,7 +4849,7 @@ LABEL_24:
   return 0;
 }
 
-void *mlir::mps::CropResizeAlignmentModeAttr::print(mlir::mps::CropResizeAlignmentModeAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::CropResizeAlignmentModeAttr::print(mlir::mps::CropResizeAlignmentModeAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -4928,8 +4928,8 @@ LABEL_13:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -4938,7 +4938,7 @@ LABEL_13:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -5496,7 +5496,7 @@ LABEL_36:
   return 0;
 }
 
-void *mlir::mps::CropResizeCoordinateModeAttr::print(mlir::mps::CropResizeCoordinateModeAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::CropResizeCoordinateModeAttr::print(mlir::mps::CropResizeCoordinateModeAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -5577,8 +5577,8 @@ LABEL_14:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -5587,7 +5587,7 @@ LABEL_14:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -5908,7 +5908,7 @@ LABEL_42:
   return 0;
 }
 
-void *mlir::mps::PruningMetricAttr::print(mlir::mps::PruningMetricAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::PruningMetricAttr::print(mlir::mps::PruningMetricAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -5963,8 +5963,8 @@ void *mlir::mps::PruningMetricAttr::print(mlir::mps::PruningMetricAttr *this, ml
   }
 
   result = (*(*a2 + 16))(a2);
-  v12 = result[4];
-  if (result[3] == v12)
+  v12 = *(result + 4);
+  if (*(result + 3) == v12)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -5973,7 +5973,7 @@ void *mlir::mps::PruningMetricAttr::print(mlir::mps::PruningMetricAttr *this, ml
   else
   {
     *v12 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -6378,7 +6378,7 @@ LABEL_75:
   return 0;
 }
 
-void *mlir::mps::PruningStructureAttr::print(mlir::mps::PruningStructureAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::PruningStructureAttr::print(mlir::mps::PruningStructureAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -6454,8 +6454,8 @@ void *mlir::mps::PruningStructureAttr::print(mlir::mps::PruningStructureAttr *th
   }
 
   result = (*(*a2 + 16))(a2);
-  v15 = result[4];
-  if (result[3] == v15)
+  v15 = *(result + 4);
+  if (*(result + 3) == v15)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -6464,7 +6464,7 @@ void *mlir::mps::PruningStructureAttr::print(mlir::mps::PruningStructureAttr *th
   else
   {
     *v15 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -6874,7 +6874,7 @@ LABEL_69:
   return 0;
 }
 
-void *mlir::mps::SimilarityTypeAttr::print(mlir::mps::SimilarityTypeAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::SimilarityTypeAttr::print(mlir::mps::SimilarityTypeAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -6950,8 +6950,8 @@ void *mlir::mps::SimilarityTypeAttr::print(mlir::mps::SimilarityTypeAttr *this, 
   }
 
   result = (*(*a2 + 16))(a2);
-  v15 = result[4];
-  if (result[3] == v15)
+  v15 = *(result + 4);
+  if (*(result + 3) == v15)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -6960,7 +6960,7 @@ void *mlir::mps::SimilarityTypeAttr::print(mlir::mps::SimilarityTypeAttr *this, 
   else
   {
     *v15 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -7442,7 +7442,7 @@ LABEL_75:
   return 0;
 }
 
-void *mlir::mps::FFTScalingModeAttr::print(mlir::mps::FFTScalingModeAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::FFTScalingModeAttr::print(mlir::mps::FFTScalingModeAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -7521,8 +7521,8 @@ LABEL_13:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -7531,7 +7531,7 @@ LABEL_13:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -8145,7 +8145,7 @@ LABEL_19:
   return *&v6;
 }
 
-void *mlir::mps::MPSBufferTensorAttr::print(mlir::mps::MPSBufferTensorAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::MPSBufferTensorAttr::print(mlir::mps::MPSBufferTensorAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -8261,14 +8261,14 @@ void *mlir::mps::MPSBufferTensorAttr::print(mlir::mps::MPSBufferTensorAttr *this
   llvm::raw_ostream::operator<<(v20, v19);
 LABEL_25:
   result = (*(*a2 + 16))(a2);
-  v22 = result[4];
-  if (result[3] == v22)
+  v22 = *(result + 4);
+  if (*(result + 3) == v22)
   {
     return llvm::raw_ostream::write(result, ">", 1uLL);
   }
 
   *v22 = 62;
-  ++result[4];
+  ++*(result + 4);
   return result;
 }
 
@@ -8756,7 +8756,7 @@ LABEL_21:
   return 0;
 }
 
-void *mlir::mps::CallInlineModeAttr::print(mlir::mps::CallInlineModeAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::CallInlineModeAttr::print(mlir::mps::CallInlineModeAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -8835,8 +8835,8 @@ LABEL_13:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -8845,7 +8845,7 @@ LABEL_13:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;

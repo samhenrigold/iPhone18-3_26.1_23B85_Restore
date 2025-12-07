@@ -197,11 +197,10 @@ __CFString *__40__MFError_initWithDomain_code_userInfo___block_invoke_2(uint64_t
 
 + (void)errorWithDomain:(void *)a1 code:(NSObject *)a2 localizedDescription:title:userInfo:.cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 138543362;
-  v5 = [a1 ef_publicDescription];
-  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "Created error: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = [a1 ef_publicDescription];
+  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "Created error: %{public}@", &v3, 0xCu);
 }
 
 @end

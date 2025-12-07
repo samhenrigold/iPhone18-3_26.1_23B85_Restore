@@ -3,11 +3,13 @@
 - (void)_accumulateAppMediaUsage:(id)usage timestamp:(id)timestamp;
 - (void)_accumulateAppUsage:(id)usage timestamp:(id)timestamp;
 - (void)_accumulateAppWebUsage:(id)usage timestamp:(id)timestamp;
+- (void)_accumulateApplication:(id)application timestamp:(id)timestamp starting:(BOOL)starting isUsageTrusted:(BOOL)trusted;
 - (void)_accumulateDeviceBacklight:(id)backlight timestamp:(id)timestamp;
 - (void)_accumulateDeviceBacklightWithIsBacklit:(BOOL)backlit timestamp:(id)timestamp;
 - (void)_accumulateMediaNowPlaying:(id)playing timestamp:(id)timestamp;
 - (void)_accumulateMediaNowPlayingWithTimestamp:(id)timestamp starting:(BOOL)starting;
 - (void)_accumulateNotificationUsage:(id)usage;
+- (void)_accumulateWebDomain:(id)domain bundleIdentifier:(id)identifier timestamp:(id)timestamp starting:(BOOL)starting isUsageTrusted:(BOOL)trusted;
 - (void)_aggregateAppMediaUsage:(id)usage timestamp:(id)timestamp;
 - (void)_aggregateApplicationUsageInterval:(id)interval identifier:(id)identifier;
 - (void)_aggregateCanonicalApplicationUsageInterval:(id)interval canonicalIdentifier:(id)identifier;
@@ -188,7 +190,7 @@
 
 - (void)_accumulateAppMediaUsage:(id)usage timestamp:(id)timestamp
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   usageCopy = usage;
   timestampCopy = timestamp;
   uniqueID = [usageCopy uniqueID];
@@ -224,7 +226,7 @@ LABEL_21:
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v44 = v12;
+            v43 = v12;
             _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Media usage session has not changed state, not accumulating event: %{public}@", buf, 0xCu);
           }
 
@@ -238,8 +240,8 @@ LABEL_24:
         bundleID5 = [v12 bundleID];
         v25 = [v12 URL];
         [v12 mediaURL];
-        v39 = v11;
-        v41 = uniqueID;
+        v38 = v11;
+        v40 = uniqueID;
         v27 = v26 = timestampCopy;
         v28 = usageCopy;
         v29 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v12, "isUsageTrusted")}];
@@ -248,40 +250,40 @@ LABEL_24:
         v32 = [v22 initWithStarting:v23 bundleID:bundleID5 URL:v25 mediaURL:v27 isUsageTrusted:v29 absoluteTimestamp:v26 safariProfileID:safariProfileID uniqueID:uniqueID2];
 
         usageCopy = v28;
-        uniqueID = v41;
+        uniqueID = v40;
 
         timestampCopy = v26;
-        v11 = v39;
+        v11 = v38;
 
         mediaUsageByUniqueID2 = [(USUsageAccumulator *)selfCopy mediaUsageByUniqueID];
-        [mediaUsageByUniqueID2 setObject:v32 forKeyedSubscript:v41];
+        [mediaUsageByUniqueID2 setObject:v32 forKeyedSubscript:v40];
 
 LABEL_25:
         goto LABEL_26;
       }
 
-      v38 = bundleID3;
+      v37 = bundleID3;
     }
 
     v17 = [v11 URL];
     v18 = [v12 URL];
     if (v17 == v18)
     {
-      v37 = bundleID;
+      v36 = bundleID;
     }
 
     else
     {
       v19 = [v11 URL];
-      v35 = [v12 URL];
-      v36 = v19;
+      v34 = [v12 URL];
+      v35 = v19;
       if (![v19 isEqual:?])
       {
         v20 = 0;
         goto LABEL_17;
       }
 
-      v37 = bundleID;
+      v36 = bundleID;
     }
 
     isUsageTrusted = [v11 isUsageTrusted];
@@ -289,10 +291,10 @@ LABEL_25:
     if (v17 == v18)
     {
 
-      bundleID = v37;
+      bundleID = v36;
 LABEL_19:
       self = selfCopy;
-      bundleID3 = v38;
+      bundleID3 = v37;
       if (bundleID == bundleID2)
       {
         goto LABEL_21;
@@ -301,7 +303,7 @@ LABEL_19:
       goto LABEL_20;
     }
 
-    bundleID = v37;
+    bundleID = v36;
 LABEL_17:
 
     goto LABEL_19;
@@ -313,8 +315,6 @@ LABEL_17:
   }
 
 LABEL_26:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_accumulateAppWebUsage:(id)usage timestamp:(id)timestamp
@@ -384,7 +384,7 @@ LABEL_15:
 - (void)_accumulateDeviceBacklightWithIsBacklit:(BOOL)backlit timestamp:(id)timestamp
 {
   backlitCopy = backlit;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   timestampCopy = timestamp;
   backlightStartDate = [(USUsageAccumulator *)self backlightStartDate];
   v8 = backlightStartDate;
@@ -411,31 +411,31 @@ LABEL_15:
         v10 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v8 endDate:timestampCopy];
         backlightIntervals = [(USUsageAccumulator *)self backlightIntervals];
         v12 = v10;
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v37 = 0u;
-        v13 = [backlightIntervals countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v13 = [backlightIntervals countByEnumeratingWithState:&v33 objects:v37 count:16];
         if (v13)
         {
           selfCopy = self;
-          v31 = v8;
-          v32 = timestampCopy;
+          v30 = v8;
+          v31 = timestampCopy;
           v14 = 0;
-          v15 = *v35;
-          v29 = v12;
+          v15 = *v34;
+          v28 = v12;
           do
           {
             v16 = 0;
-            v33 = v13;
+            v32 = v13;
             do
             {
-              if (*v35 != v15)
+              if (*v34 != v15)
               {
                 objc_enumerationMutation(backlightIntervals);
               }
 
-              v17 = *(*(&v34 + 1) + 8 * v16);
+              v17 = *(*(&v33 + 1) + 8 * v16);
               if ([v17 intersectsDateInterval:v12])
               {
                 v18 = backlightIntervals;
@@ -463,33 +463,33 @@ LABEL_15:
 
                 v12 = v26;
                 backlightIntervals = v18;
-                v13 = v33;
+                v13 = v32;
               }
 
               v16 = v16 + 1;
             }
 
             while (v13 != v16);
-            v13 = [backlightIntervals countByEnumeratingWithState:&v34 objects:v38 count:16];
+            v13 = [backlightIntervals countByEnumeratingWithState:&v33 objects:v37 count:16];
           }
 
           while (v13);
           if (v14)
           {
             [backlightIntervals removeObjectsInArray:v14];
-            timestampCopy = v32;
+            timestampCopy = v31;
             v13 = v14;
           }
 
           else
           {
             v13 = 0;
-            timestampCopy = v32;
+            timestampCopy = v31;
           }
 
           self = selfCopy;
-          v8 = v31;
-          v27 = v29;
+          v8 = v30;
+          v27 = v28;
         }
 
         else
@@ -512,8 +512,6 @@ LABEL_15:
   }
 
 LABEL_29:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_accumulateMediaNowPlaying:(id)playing timestamp:(id)timestamp
@@ -569,6 +567,178 @@ LABEL_29:
   }
 }
 
+- (void)_accumulateApplication:(id)application timestamp:(id)timestamp starting:(BOOL)starting isUsageTrusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  startingCopy = starting;
+  v28 = *MEMORY[0x277D85DE8];
+  applicationCopy = application;
+  timestampCopy = timestamp;
+  v12 = [[USTrustIdentifier alloc] initWithIdentifier:applicationCopy trusted:trustedCopy];
+  applicationUsageStartDates = [(USUsageAccumulator *)self applicationUsageStartDates];
+  v14 = [applicationUsageStartDates objectForKeyedSubscript:v12];
+
+  if (startingCopy)
+  {
+    if (v14)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        v22 = 138543874;
+        v23 = applicationCopy;
+        v24 = 2114;
+        v25 = timestampCopy;
+        v26 = 2114;
+        v27 = v14;
+        v15 = MEMORY[0x277D86220];
+        v16 = "Ignoring start event for %{public}@ at %{public}@ because it already started at %{public}@";
+        v17 = 32;
+LABEL_14:
+        _os_log_impl(&dword_2707F8000, v15, OS_LOG_TYPE_DEFAULT, v16, &v22, v17);
+      }
+    }
+
+    else
+    {
+      applicationUsageStartDates2 = [(USUsageAccumulator *)self applicationUsageStartDates];
+      [applicationUsageStartDates2 setObject:timestampCopy forKeyedSubscript:v12];
+    }
+  }
+
+  else if (v14)
+  {
+    v18 = [v14 compare:timestampCopy];
+    if (v18 != 1)
+    {
+      if (v18)
+      {
+        if (v18 != -1)
+        {
+          goto LABEL_17;
+        }
+
+        v19 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v14 endDate:timestampCopy];
+        [(USUsageAccumulator *)self _aggregateApplicationUsageInterval:v19 identifier:v12];
+      }
+
+      applicationUsageStartDates3 = [(USUsageAccumulator *)self applicationUsageStartDates];
+      [applicationUsageStartDates3 setObject:0 forKeyedSubscript:v12];
+
+      [(USUsageAccumulator *)self _stopAllWebUsageForWebBrowser:v12 endDate:timestampCopy];
+      goto LABEL_17;
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
+    {
+      [USUsageAccumulator _accumulateApplication:timestamp:starting:isUsageTrusted:];
+    }
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v22 = 138543362;
+    v23 = applicationCopy;
+    v15 = MEMORY[0x277D86220];
+    v16 = "Received end event for %{public}@ without a corresponding start event. This may be because the event was manually ended due to a backlight end event.";
+    v17 = 12;
+    goto LABEL_14;
+  }
+
+LABEL_17:
+}
+
+- (void)_accumulateWebDomain:(id)domain bundleIdentifier:(id)identifier timestamp:(id)timestamp starting:(BOOL)starting isUsageTrusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  startingCopy = starting;
+  v34 = *MEMORY[0x277D85DE8];
+  timestampCopy = timestamp;
+  identifierCopy = identifier;
+  domainCopy = domain;
+  v15 = [[USTrustIdentifier alloc] initWithIdentifier:domainCopy trusted:trustedCopy];
+
+  v16 = [[USTrustIdentifier alloc] initWithIdentifier:identifierCopy trusted:trustedCopy];
+  webUsageStartDatesByWebBrowser = [(USUsageAccumulator *)self webUsageStartDatesByWebBrowser];
+  v18 = [webUsageStartDatesByWebBrowser objectForKeyedSubscript:v16];
+  v19 = v18;
+  if (v18)
+  {
+    v20 = v18;
+  }
+
+  else
+  {
+    v20 = objc_opt_new();
+  }
+
+  v21 = v20;
+
+  v22 = [v21 objectForKeyedSubscript:v15];
+  v23 = v22;
+  if (v22)
+  {
+    v24 = v22;
+  }
+
+  else
+  {
+    v24 = objc_opt_new();
+  }
+
+  v25 = v24;
+
+  if (!startingCopy)
+  {
+    firstObject = [v25 firstObject];
+    v27 = firstObject;
+    if (!firstObject)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        identifier = [(USTrustIdentifier *)v15 identifier];
+        v32 = 138543362;
+        v33 = identifier;
+        _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received end event for %{public}@ without a corresponding start event. This may be because the event was manually ended due to a backlight end event.", &v32, 0xCu);
+      }
+
+      goto LABEL_19;
+    }
+
+    v28 = [firstObject compare:timestampCopy];
+    if (v28 == 1)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
+      {
+        [USUsageAccumulator _accumulateWebDomain:timestampCopy bundleIdentifier:v15 timestamp:? starting:? isUsageTrusted:?];
+      }
+
+      goto LABEL_19;
+    }
+
+    if (v28)
+    {
+      if (v28 != -1)
+      {
+LABEL_19:
+
+        goto LABEL_20;
+      }
+
+      v29 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v27 endDate:timestampCopy];
+      [(USUsageAccumulator *)self _aggregateWebUsageInterval:v29 identifier:v15];
+    }
+
+    [v25 removeObjectAtIndex:0];
+    goto LABEL_19;
+  }
+
+  [v25 addObject:timestampCopy];
+LABEL_20:
+  [v21 setObject:v25 forKeyedSubscript:v15];
+  webUsageStartDatesByWebBrowser2 = [(USUsageAccumulator *)self webUsageStartDatesByWebBrowser];
+  [webUsageStartDatesByWebBrowser2 setObject:v21 forKeyedSubscript:v16];
+}
+
 - (void)_accumulateMediaNowPlayingWithTimestamp:(id)timestamp starting:(BOOL)starting
 {
   startingCopy = starting;
@@ -618,7 +788,7 @@ LABEL_11:
 
 - (void)aggregateUsageForInterval:(id)interval usageReportHandler:(id)handler
 {
-  v49[16] = *MEMORY[0x277D85DE8];
+  v48[16] = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   handlerCopy = handler;
   endDate = [intervalCopy endDate];
@@ -630,31 +800,31 @@ LABEL_11:
   v12 = lastEventDate;
   if (lastEventDate)
   {
-    v37 = lastEventDate;
-    v38 = v10;
-    v39 = handlerCopy;
-    v40 = intervalCopy;
+    v36 = lastEventDate;
+    v37 = v10;
+    v38 = handlerCopy;
+    v39 = intervalCopy;
     backlightIntervals = [(USUsageAccumulator *)self backlightIntervals];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
-    v14 = [backlightIntervals countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v14 = [backlightIntervals countByEnumeratingWithState:&v44 objects:v48 count:16];
     if (v14)
     {
       v15 = v14;
       v16 = 0;
-      v17 = *v46;
+      v17 = *v45;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v46 != v17)
+          if (*v45 != v17)
           {
             objc_enumerationMutation(backlightIntervals);
           }
 
-          v19 = *(*(&v45 + 1) + 8 * i);
+          v19 = *(*(&v44 + 1) + 8 * i);
           [v19 duration];
           if (v20 > -1.0)
           {
@@ -664,7 +834,7 @@ LABEL_11:
           }
         }
 
-        v15 = [backlightIntervals countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v15 = [backlightIntervals countByEnumeratingWithState:&v44 objects:v48 count:16];
       }
 
       while (v15);
@@ -675,13 +845,13 @@ LABEL_11:
       v16 = 0;
     }
 
-    v49[0] = 0;
+    v48[0] = 0;
     applicationUsageIntervals = [(USUsageAccumulator *)self applicationUsageIntervals];
-    v44 = 0;
-    v43 = [USUsageQuerying _generatePickupsByBundleIdentifierWithPickupIntervals:backlightIntervals applicationUsageIntervals:applicationUsageIntervals pickupsWithoutApplicationUsage:v49 firstPickup:&v44];
-    v36 = v44;
+    v43 = 0;
+    v42 = [USUsageQuerying _generatePickupsByBundleIdentifierWithPickupIntervals:backlightIntervals applicationUsageIntervals:applicationUsageIntervals pickupsWithoutApplicationUsage:v48 firstPickup:&v43];
+    v35 = v43;
 
-    v35 = v49[0];
+    v34 = v48[0];
     applicationUsageIntervals2 = [(USUsageAccumulator *)self applicationUsageIntervals];
     webUsageIntervals = [(USUsageAccumulator *)self webUsageIntervals];
     categoryUsageIntervals = [(USUsageAccumulator *)self categoryUsageIntervals];
@@ -694,13 +864,13 @@ LABEL_11:
     v26 = webCategories;
     notifications = [(USUsageAccumulator *)selfCopy notifications];
     localTimeZone = [MEMORY[0x277CBEBB0] localTimeZone];
-    v12 = v37;
-    intervalCopy = v40;
-    v22 = [USUsageQuerying _newReportWithNonIntersectingScreenTimeIntervals:backlightIntervals pickupsByBundleIdentifier:v43 pickupsWithoutApplicationUsage:v35 firstPickup:v36 longestSession:v16 applicationUsageIntervals:applicationUsageIntervals2 webUsageIntervals:webUsageIntervals categoryUsageIntervals:categoryUsageIntervals aggregatedApplicationUsageIntervals:canonicalApplicationUsageIntervals aggregatedWebUsageIntervals:primaryWebUsageIntervals categoryByBundleIdentifier:applicationCategories categoryByWebDomain:v26 notifications:notifications interval:v40 timeZone:localTimeZone lastEventDate:v37];
+    v12 = v36;
+    intervalCopy = v39;
+    v22 = [USUsageQuerying _newReportWithNonIntersectingScreenTimeIntervals:backlightIntervals pickupsByBundleIdentifier:v42 pickupsWithoutApplicationUsage:v34 firstPickup:v35 longestSession:v16 applicationUsageIntervals:applicationUsageIntervals2 webUsageIntervals:webUsageIntervals categoryUsageIntervals:categoryUsageIntervals aggregatedApplicationUsageIntervals:canonicalApplicationUsageIntervals aggregatedWebUsageIntervals:primaryWebUsageIntervals categoryByBundleIdentifier:applicationCategories categoryByWebDomain:v26 notifications:notifications interval:v39 timeZone:localTimeZone lastEventDate:v36];
 
     [(USUsageAccumulator *)selfCopy2 _resetAggregations];
-    v10 = v38;
-    handlerCopy = v39;
+    v10 = v37;
+    handlerCopy = v38;
   }
 
   else
@@ -709,8 +879,6 @@ LABEL_11:
   }
 
   handlerCopy[2](handlerCopy, v22);
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetAggregations
@@ -741,7 +909,7 @@ LABEL_11:
 
 - (void)_aggregateApplicationUsageInterval:(id)interval identifier:(id)identifier
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   identifierCopy = identifier;
   selfCopy = self;
@@ -762,30 +930,30 @@ LABEL_11:
 
   v13 = v12;
   v14 = intervalCopy;
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
-  v15 = [v13 countByEnumeratingWithState:&v50 objects:v54 count:16];
+  v15 = [v13 countByEnumeratingWithState:&v49 objects:v53 count:16];
   if (v15)
   {
     v16 = v15;
-    v46 = v14;
-    v47 = identifierCopy;
+    v45 = v14;
+    v46 = identifierCopy;
     v17 = 0;
-    v18 = *v51;
+    v18 = *v50;
     do
     {
       v19 = 0;
-      v49 = v16;
+      v48 = v16;
       do
       {
-        if (*v51 != v18)
+        if (*v50 != v18)
         {
           objc_enumerationMutation(v13);
         }
 
-        v20 = *(*(&v50 + 1) + 8 * v19);
+        v20 = *(*(&v49 + 1) + 8 * v19);
         if ([v20 intersectsDateInterval:v14])
         {
           v21 = v13;
@@ -813,25 +981,25 @@ LABEL_11:
 
           v14 = v29;
           v13 = v21;
-          v16 = v49;
+          v16 = v48;
         }
 
         ++v19;
       }
 
       while (v16 != v19);
-      v16 = [v13 countByEnumeratingWithState:&v50 objects:v54 count:16];
+      v16 = [v13 countByEnumeratingWithState:&v49 objects:v53 count:16];
     }
 
     while (v16);
-    identifierCopy = v47;
+    identifierCopy = v46;
     if (v17)
     {
       [v13 removeObjectsInArray:v17];
     }
 
     v30 = selfCopy;
-    v31 = v46;
+    v31 = v45;
   }
 
   else
@@ -877,8 +1045,6 @@ LABEL_11:
 
   v44 = [[USTrustIdentifier alloc] initWithIdentifier:v43 trusted:1];
   [(USUsageAccumulator *)v30 _aggregateCanonicalApplicationUsageInterval:v31 canonicalIdentifier:v44];
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_aggregateAppMediaUsage:(id)usage timestamp:(id)timestamp
@@ -928,7 +1094,7 @@ LABEL_11:
 
 - (void)_aggregateWebUsageInterval:(id)interval identifier:(id)identifier
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   identifierCopy = identifier;
   selfCopy = self;
@@ -949,31 +1115,31 @@ LABEL_11:
 
   v13 = v12;
   v14 = intervalCopy;
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
-  v15 = [v13 countByEnumeratingWithState:&v48 objects:v52 count:16];
+  v15 = [v13 countByEnumeratingWithState:&v47 objects:v51 count:16];
   if (v15)
   {
     v16 = v15;
-    v44 = v14;
-    v45 = identifierCopy;
+    v43 = v14;
+    v44 = identifierCopy;
     v17 = 0;
-    v18 = *v49;
+    v18 = *v48;
     v19 = v14;
     do
     {
       v20 = 0;
-      v47 = v16;
+      v46 = v16;
       do
       {
-        if (*v49 != v18)
+        if (*v48 != v18)
         {
           objc_enumerationMutation(v13);
         }
 
-        v21 = *(*(&v48 + 1) + 8 * v20);
+        v21 = *(*(&v47 + 1) + 8 * v20);
         if ([v21 intersectsDateInterval:v19])
         {
           v22 = v13;
@@ -1001,25 +1167,25 @@ LABEL_11:
 
           v19 = v30;
           v13 = v22;
-          v16 = v47;
+          v16 = v46;
         }
 
         ++v20;
       }
 
       while (v16 != v20);
-      v16 = [v13 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v16 = [v13 countByEnumeratingWithState:&v47 objects:v51 count:16];
     }
 
     while (v16);
-    identifierCopy = v45;
+    identifierCopy = v44;
     if (v17)
     {
       [v13 removeObjectsInArray:v17];
     }
 
     v31 = selfCopy;
-    v14 = v44;
+    v14 = v43;
   }
 
   else
@@ -1065,13 +1231,11 @@ LABEL_11:
       [(USUsageAccumulator *)v31 _aggregatePrimaryWebUsageInterval:v14 primaryIdentifier:v42];
     }
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_aggregateCategoryUsageInterval:(id)interval identifier:(id)identifier
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   identifierCopy = identifier;
   selfCopy = self;
@@ -1092,29 +1256,29 @@ LABEL_11:
 
   v13 = v12;
   v14 = intervalCopy;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v15 = [v13 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v15 = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v15)
   {
     v16 = v15;
-    v31 = v14;
-    v32 = identifierCopy;
-    v34 = 0;
-    v17 = *v36;
+    v30 = v14;
+    v31 = identifierCopy;
+    v33 = 0;
+    v17 = *v35;
     v18 = v14;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v36 != v17)
+        if (*v35 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v20 = *(*(&v35 + 1) + 8 * i);
+        v20 = *(*(&v34 + 1) + 8 * i);
         if ([v20 intersectsDateInterval:v18])
         {
           startDate = [v20 startDate];
@@ -1126,32 +1290,32 @@ LABEL_11:
           v26 = [endDate laterDate:endDate2];
 
           v27 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v23 endDate:v26];
-          if (v34)
+          if (v33)
           {
-            [v34 addObject:v20];
+            [v33 addObject:v20];
           }
 
           else
           {
-            v34 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v20, 0}];
+            v33 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v20, 0}];
           }
 
           v18 = v27;
         }
       }
 
-      v16 = [v13 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v16 = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v16);
-    identifierCopy = v32;
-    v28 = v34;
-    if (v34)
+    identifierCopy = v31;
+    v28 = v33;
+    if (v33)
     {
-      [v13 removeObjectsInArray:v34];
+      [v13 removeObjectsInArray:v33];
     }
 
-    v14 = v31;
+    v14 = v30;
   }
 
   else
@@ -1164,13 +1328,11 @@ LABEL_11:
 
   categoryUsageIntervals2 = [(USUsageAccumulator *)selfCopy categoryUsageIntervals];
   [categoryUsageIntervals2 setObject:v13 forKeyedSubscript:identifierCopy];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_aggregateCanonicalApplicationUsageInterval:(id)interval canonicalIdentifier:(id)identifier
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   identifierCopy = identifier;
   selfCopy = self;
@@ -1191,29 +1353,29 @@ LABEL_11:
 
   v13 = v12;
   v14 = intervalCopy;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v15 = [v13 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v15 = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v15)
   {
     v16 = v15;
-    v31 = v14;
-    v32 = identifierCopy;
-    v34 = 0;
-    v17 = *v36;
+    v30 = v14;
+    v31 = identifierCopy;
+    v33 = 0;
+    v17 = *v35;
     v18 = v14;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v36 != v17)
+        if (*v35 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v20 = *(*(&v35 + 1) + 8 * i);
+        v20 = *(*(&v34 + 1) + 8 * i);
         if ([v20 intersectsDateInterval:v18])
         {
           startDate = [v20 startDate];
@@ -1225,32 +1387,32 @@ LABEL_11:
           v26 = [endDate laterDate:endDate2];
 
           v27 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v23 endDate:v26];
-          if (v34)
+          if (v33)
           {
-            [v34 addObject:v20];
+            [v33 addObject:v20];
           }
 
           else
           {
-            v34 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v20, 0}];
+            v33 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v20, 0}];
           }
 
           v18 = v27;
         }
       }
 
-      v16 = [v13 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v16 = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v16);
-    identifierCopy = v32;
-    v28 = v34;
-    if (v34)
+    identifierCopy = v31;
+    v28 = v33;
+    if (v33)
     {
-      [v13 removeObjectsInArray:v34];
+      [v13 removeObjectsInArray:v33];
     }
 
-    v14 = v31;
+    v14 = v30;
   }
 
   else
@@ -1263,13 +1425,11 @@ LABEL_11:
 
   canonicalApplicationUsageIntervals2 = [(USUsageAccumulator *)selfCopy canonicalApplicationUsageIntervals];
   [canonicalApplicationUsageIntervals2 setObject:v13 forKeyedSubscript:identifierCopy];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_aggregatePrimaryWebUsageInterval:(id)interval primaryIdentifier:(id)identifier
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   identifierCopy = identifier;
   selfCopy = self;
@@ -1290,29 +1450,29 @@ LABEL_11:
 
   v13 = v12;
   v14 = intervalCopy;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v15 = [v13 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v15 = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v15)
   {
     v16 = v15;
-    v31 = v14;
-    v32 = identifierCopy;
-    v34 = 0;
-    v17 = *v36;
+    v30 = v14;
+    v31 = identifierCopy;
+    v33 = 0;
+    v17 = *v35;
     v18 = v14;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v36 != v17)
+        if (*v35 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v20 = *(*(&v35 + 1) + 8 * i);
+        v20 = *(*(&v34 + 1) + 8 * i);
         if ([v20 intersectsDateInterval:v18])
         {
           startDate = [v20 startDate];
@@ -1324,32 +1484,32 @@ LABEL_11:
           v26 = [endDate laterDate:endDate2];
 
           v27 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v23 endDate:v26];
-          if (v34)
+          if (v33)
           {
-            [v34 addObject:v20];
+            [v33 addObject:v20];
           }
 
           else
           {
-            v34 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v20, 0}];
+            v33 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v20, 0}];
           }
 
           v18 = v27;
         }
       }
 
-      v16 = [v13 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v16 = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v16);
-    identifierCopy = v32;
-    v28 = v34;
-    if (v34)
+    identifierCopy = v31;
+    v28 = v33;
+    if (v33)
     {
-      [v13 removeObjectsInArray:v34];
+      [v13 removeObjectsInArray:v33];
     }
 
-    v14 = v31;
+    v14 = v30;
   }
 
   else
@@ -1362,8 +1522,6 @@ LABEL_11:
 
   primaryWebUsageIntervals2 = [(USUsageAccumulator *)selfCopy primaryWebUsageIntervals];
   [primaryWebUsageIntervals2 setObject:v13 forKeyedSubscript:identifierCopy];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopAllUsageWithEndDate:(id)date
@@ -1442,7 +1600,7 @@ void __47__USUsageAccumulator__stopAllUsageWithEndDate___block_invoke(uint64_t a
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
-      __47__USUsageAccumulator__stopAllUsageWithEndDate___block_invoke_cold_1(v5, v6, (a1 + 32));
+      __47__USUsageAccumulator__stopAllUsageWithEndDate___block_invoke_cold_1(v5);
     }
   }
 
@@ -1468,44 +1626,44 @@ void __47__USUsageAccumulator__stopAllUsageWithEndDate___block_invoke_16(uint64_
 
 void __47__USUsageAccumulator__stopAllUsageWithEndDate___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v29 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v21;
+    v10 = *v20;
     v11 = MEMORY[0x277D86220];
     *&v8 = 138543874;
-    v19 = v8;
+    v18 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
-        v14 = [v13 compare:{*(a1 + 32), v19}];
+        v13 = *(*(&v19 + 1) + 8 * i);
+        v14 = [v13 compare:{*(a1 + 32), v18}];
         if (v14 == 1)
         {
           if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
           {
             v16 = [v5 identifier];
             v17 = *(a1 + 32);
-            *buf = v19;
-            v25 = v16;
-            v26 = 2114;
-            v27 = v13;
-            v28 = 2114;
-            v29 = v17;
+            *buf = v18;
+            v24 = v16;
+            v25 = 2114;
+            v26 = v13;
+            v27 = 2114;
+            v28 = v17;
             _os_log_fault_impl(&dword_2707F8000, v11, OS_LOG_TYPE_FAULT, "Web domain %{public}@ start date: %{public}@ is later than end date: %{public}@", buf, 0x20u);
           }
         }
@@ -1517,13 +1675,11 @@ void __47__USUsageAccumulator__stopAllUsageWithEndDate___block_invoke_2(uint64_t
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v19 objects:v29 count:16];
     }
 
     while (v9);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopAllWebUsageForWebBrowser:(id)browser endDate:(id)date
@@ -1547,44 +1703,44 @@ void __47__USUsageAccumulator__stopAllUsageWithEndDate___block_invoke_2(uint64_t
 
 void __60__USUsageAccumulator__stopAllWebUsageForWebBrowser_endDate___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v29 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v21;
+    v10 = *v20;
     v11 = MEMORY[0x277D86220];
     *&v8 = 138543874;
-    v19 = v8;
+    v18 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
-        v14 = [v13 compare:{*(a1 + 32), v19}];
+        v13 = *(*(&v19 + 1) + 8 * i);
+        v14 = [v13 compare:{*(a1 + 32), v18}];
         if (v14 == 1)
         {
           if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
           {
             v16 = [v5 identifier];
             v17 = *(a1 + 32);
-            *buf = v19;
-            v25 = v16;
-            v26 = 2114;
-            v27 = v13;
-            v28 = 2114;
-            v29 = v17;
+            *buf = v18;
+            v24 = v16;
+            v25 = 2114;
+            v26 = v13;
+            v27 = 2114;
+            v28 = v17;
             _os_log_fault_impl(&dword_2707F8000, v11, OS_LOG_TYPE_FAULT, "Web domain %{public}@ start date: %{public}@ is later than end date: %{public}@", buf, 0x20u);
           }
         }
@@ -1596,23 +1752,21 @@ void __60__USUsageAccumulator__stopAllWebUsageForWebBrowser_endDate___block_invo
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v19 objects:v29 count:16];
     }
 
     while (v9);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_aggregateStartDatesUsingEndDate:(id)date
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   dateCopy = date;
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x2020000000;
-  v72 = 0;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x2020000000;
+  v71 = 0;
   backlightStartDate = [(USUsageAccumulator *)self backlightStartDate];
   if (backlightStartDate)
   {
@@ -1621,28 +1775,28 @@ void __60__USUsageAccumulator__stopAllWebUsageForWebBrowser_endDate___block_invo
     {
       v5 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:backlightStartDate endDate:dateCopy];
       backlightIntervals = [(USUsageAccumulator *)self backlightIntervals];
-      v45 = v5;
+      v44 = v5;
+      v72 = 0u;
       v73 = 0u;
       v74 = 0u;
       v75 = 0u;
-      v76 = 0u;
       obj = backlightIntervals;
-      v7 = [obj countByEnumeratingWithState:&v73 objects:v78 count:16];
+      v7 = [obj countByEnumeratingWithState:&v72 objects:v77 count:16];
       if (v7)
       {
         v8 = 0;
-        v49 = *v74;
-        v9 = v45;
+        v48 = *v73;
+        v9 = v44;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v74 != v49)
+            if (*v73 != v48)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = *(*(&v73 + 1) + 8 * i);
+            v11 = *(*(&v72 + 1) + 8 * i);
             if ([v11 intersectsDateInterval:v9])
             {
               startDate = [v11 startDate];
@@ -1668,7 +1822,7 @@ void __60__USUsageAccumulator__stopAllWebUsageForWebBrowser_endDate___block_invo
             }
           }
 
-          v7 = [obj countByEnumeratingWithState:&v73 objects:v78 count:16];
+          v7 = [obj countByEnumeratingWithState:&v72 objects:v77 count:16];
         }
 
         while (v7);
@@ -1683,7 +1837,7 @@ void __60__USUsageAccumulator__stopAllWebUsageForWebBrowser_endDate___block_invo
       {
 
         v8 = 0;
-        v9 = v45;
+        v9 = v44;
       }
 
       [obj addObject:v9];
@@ -1695,51 +1849,51 @@ void __60__USUsageAccumulator__stopAllWebUsageForWebBrowser_endDate___block_invo
     }
 
     [(USUsageAccumulator *)self setBacklightStartDate:dateCopy];
-    *(v70 + 24) = 1;
+    *(v69 + 24) = 1;
   }
 
   v19 = objc_opt_new();
   applicationUsageStartDates = [(USUsageAccumulator *)self applicationUsageStartDates];
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke;
-  v65[3] = &unk_279E0A290;
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke;
+  v64[3] = &unk_279E0A290;
   v21 = dateCopy;
-  v66 = v21;
+  v65 = v21;
   selfCopy = self;
   v22 = v19;
-  v68 = v22;
-  [applicationUsageStartDates enumerateKeysAndObjectsUsingBlock:v65];
+  v67 = v22;
+  [applicationUsageStartDates enumerateKeysAndObjectsUsingBlock:v64];
 
   applicationUsageStartDates2 = [(USUsageAccumulator *)self applicationUsageStartDates];
   [applicationUsageStartDates2 removeAllObjects];
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v24 = v22;
-  v25 = [v24 countByEnumeratingWithState:&v61 objects:v77 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v60 objects:v76 count:16];
   if (v25)
   {
-    v26 = *v62;
+    v26 = *v61;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v62 != v26)
+        if (*v61 != v26)
         {
           objc_enumerationMutation(v24);
         }
 
-        v28 = *(*(&v61 + 1) + 8 * j);
+        v28 = *(*(&v60 + 1) + 8 * j);
         identifier = [v28 identifier];
         -[USUsageAccumulator _accumulateApplication:timestamp:starting:isUsageTrusted:](self, "_accumulateApplication:timestamp:starting:isUsageTrusted:", identifier, v21, 1, [v28 trusted]);
 
-        *(v70 + 24) = 1;
+        *(v69 + 24) = 1;
       }
 
-      v25 = [v24 countByEnumeratingWithState:&v61 objects:v77 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v60 objects:v76 count:16];
     }
 
     while (v25);
@@ -1747,42 +1901,42 @@ void __60__USUsageAccumulator__stopAllWebUsageForWebBrowser_endDate___block_invo
 
   v30 = objc_opt_new();
   webUsageStartDatesByWebBrowser = [(USUsageAccumulator *)self webUsageStartDatesByWebBrowser];
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke_21;
-  v57[3] = &unk_279E09D68;
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke_21;
+  v56[3] = &unk_279E09D68;
   v32 = v21;
-  v58 = v32;
+  v57 = v32;
   selfCopy2 = self;
   v33 = v30;
-  v60 = v33;
-  [webUsageStartDatesByWebBrowser enumerateKeysAndObjectsUsingBlock:v57];
+  v59 = v33;
+  [webUsageStartDatesByWebBrowser enumerateKeysAndObjectsUsingBlock:v56];
 
   webUsageStartDatesByWebBrowser2 = [(USUsageAccumulator *)self webUsageStartDatesByWebBrowser];
   [webUsageStartDatesByWebBrowser2 removeAllObjects];
 
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke_22;
-  v54[3] = &unk_279E0A2E0;
-  v54[4] = self;
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke_22;
+  v53[3] = &unk_279E0A2E0;
+  v53[4] = self;
   v35 = v32;
-  v55 = v35;
-  v56 = &v69;
-  [v33 enumerateKeysAndObjectsUsingBlock:v54];
+  v54 = v35;
+  v55 = &v68;
+  [v33 enumerateKeysAndObjectsUsingBlock:v53];
   v36 = objc_opt_new();
   mediaUsageByUniqueID = [(USUsageAccumulator *)self mediaUsageByUniqueID];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke_2_23;
-  v50[3] = &unk_279E0A308;
-  v50[4] = self;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke_2_23;
+  v49[3] = &unk_279E0A308;
+  v49[4] = self;
   v38 = v35;
-  v51 = v38;
+  v50 = v38;
   v39 = v36;
-  v52 = v39;
-  v53 = &v69;
-  [mediaUsageByUniqueID enumerateKeysAndObjectsUsingBlock:v50];
+  v51 = v39;
+  v52 = &v68;
+  [mediaUsageByUniqueID enumerateKeysAndObjectsUsingBlock:v49];
 
   [(USUsageAccumulator *)self setMediaUsageByUniqueID:v39];
   mediaNowPlayingStartDate = [(USUsageAccumulator *)self mediaNowPlayingStartDate];
@@ -1802,10 +1956,10 @@ void __60__USUsageAccumulator__stopAllWebUsageForWebBrowser_endDate___block_invo
     }
 
     [(USUsageAccumulator *)self setMediaNowPlayingStartDate:v38];
-    *(v70 + 24) = 1;
+    *(v69 + 24) = 1;
   }
 
-  else if ((v70[3] & 1) == 0)
+  else if ((v69[3] & 1) == 0)
   {
     goto LABEL_40;
   }
@@ -1813,8 +1967,7 @@ void __60__USUsageAccumulator__stopAllWebUsageForWebBrowser_endDate___block_invo
   [(USUsageAccumulator *)self setLastEventDate:v38];
 LABEL_40:
 
-  _Block_object_dispose(&v69, 8);
-  v44 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v68, 8);
 }
 
 void __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1826,7 +1979,7 @@ void __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke(ui
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
-      __47__USUsageAccumulator__stopAllUsageWithEndDate___block_invoke_cold_1(v5, v6, (a1 + 32));
+      __47__USUsageAccumulator__stopAllUsageWithEndDate___block_invoke_cold_1(v5);
     }
   }
 
@@ -1859,44 +2012,44 @@ void __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke_21
 
 void __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v33 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v25;
+    v10 = *v24;
     v11 = MEMORY[0x277D86220];
     *&v8 = 138543874;
-    v23 = v8;
+    v22 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
-        v14 = [v13 compare:{*(a1 + 32), v23}];
+        v13 = *(*(&v23 + 1) + 8 * i);
+        v14 = [v13 compare:{*(a1 + 32), v22}];
         if (v14 == 1)
         {
           if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
           {
             v20 = [v5 identifier];
             v21 = *(a1 + 32);
-            *buf = v23;
-            v29 = v20;
-            v30 = 2114;
-            v31 = v13;
-            v32 = 2114;
-            v33 = v21;
+            *buf = v22;
+            v28 = v20;
+            v29 = 2114;
+            v30 = v13;
+            v31 = 2114;
+            v32 = v21;
             _os_log_fault_impl(&dword_2707F8000, v11, OS_LOG_TYPE_FAULT, "Web domain %{public}@ start date: %{public}@ is later than end date: %{public}@", buf, 0x20u);
           }
         }
@@ -1925,39 +2078,37 @@ void __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke_2(
         [*(a1 + 48) setObject:v19 forKeyedSubscript:*(a1 + 56)];
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v23 objects:v33 count:16];
     }
 
     while (v9);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke_22(void *a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = a3;
-  v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = a1[4];
         v12 = [v10 identifier];
         v13 = [v5 identifier];
@@ -1966,13 +2117,11 @@ void __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke_22
         *(*(a1[6] + 8) + 24) = 1;
       }
 
-      v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke_2_23(uint64_t a1, void *a2, void *a3)
@@ -1997,103 +2146,48 @@ void __55__USUsageAccumulator__aggregateStartDatesUsingEndDate___block_invoke_2_
   *(*(*(a1 + 56) + 8) + 24) = 1;
 }
 
-- (void)accumulateEvent:timestamp:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3_0(&dword_2707F8000, MEMORY[0x277D86220], v0, "Received unexpected event type: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_accumulateAppUsage:timestamp:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3_0(&dword_2707F8000, MEMORY[0x277D86220], v0, "Received malformed app usage event: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_accumulateAppMediaUsage:timestamp:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3_0(&dword_2707F8000, MEMORY[0x277D86220], v0, "Received malformed app media usage event: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_accumulateAppWebUsage:timestamp:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3_0(&dword_2707F8000, MEMORY[0x277D86220], v0, "Received malformed app web usage event: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_accumulateDeviceBacklightWithIsBacklit:timestamp:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_accumulateNotificationUsage:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3_0(&dword_2707F8000, MEMORY[0x277D86220], v0, "Received notification usage event without bundle identifier: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_accumulateApplication:timestamp:starting:isUsageTrusted:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_accumulateWebDomain:(uint64_t)a1 bundleIdentifier:(void *)a2 timestamp:starting:isUsageTrusted:.cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [a2 identifier];
+  v7 = [a2 identifier];
   OUTLINED_FUNCTION_2_0();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_accumulateMediaNowPlayingWithTimestamp:starting:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_aggregateAppMediaUsage:timestamp:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __47__USUsageAccumulator__stopAllUsageWithEndDate___block_invoke_cold_1(void *a1, uint64_t a2, uint64_t *a3)
+void __47__USUsageAccumulator__stopAllUsageWithEndDate___block_invoke_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = [a1 identifier];
-  v5 = *a3;
+  v1 = [a1 identifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(v6, v7, v8, v9, v10, 0x20u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 @end

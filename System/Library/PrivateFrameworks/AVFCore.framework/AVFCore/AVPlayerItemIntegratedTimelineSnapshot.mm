@@ -83,7 +83,7 @@ LABEL_3:
       v13 = *(*(&v23 + 1) + 8 * v12);
       if (v13)
       {
-        [*(*(&v23 + 1) + 8 * v12) timeMapping];
+        objc_msgSend_timeMapping(*(*(&v23 + 1) + 8 * v12));
       }
 
       else
@@ -129,7 +129,7 @@ LABEL_12:
   {
     if (v13)
     {
-      [v13 timeMapping];
+      objc_msgSend_timeMapping(v13);
       time = *&v16[3].timescale;
       v16[0] = *time;
       CMTimeSubtract(&range.start, v16, &time);

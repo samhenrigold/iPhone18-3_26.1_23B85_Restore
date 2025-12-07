@@ -65,7 +65,7 @@
 
 - (id)_fetchIsRCSEnabled:(id)enabled
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   v5 = [(CKLazuliEnablementManager *)self fetchSystemConfiguration:enabledCopy];
   v6 = v5;
@@ -79,8 +79,8 @@
         v8 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "Operation status is nil", &v17, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "Operation status is nil", &v16, 2u);
         }
 
         goto LABEL_35;
@@ -96,8 +96,8 @@
         v8 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "Feature is disabled by profile.", &v17, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "Feature is disabled by profile.", &v16, 2u);
         }
 
 LABEL_35:
@@ -119,8 +119,8 @@ LABEL_35:
           v13 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
-            LOWORD(v17) = 0;
-            _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_INFO, "RCS is enabled by default.", &v17, 2u);
+            LOWORD(v16) = 0;
+            _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_INFO, "RCS is enabled by default.", &v16, 2u);
           }
 
           goto LABEL_27;
@@ -141,8 +141,8 @@ LABEL_37:
         v13 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_INFO, "Lazuli is enabled.", &v17, 2u);
+          LOWORD(v16) = 0;
+          _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_INFO, "Lazuli is enabled.", &v16, 2u);
         }
 
 LABEL_27:
@@ -168,9 +168,9 @@ LABEL_27:
           v14 = off_278DE82E0[v12 + 1];
         }
 
-        v17 = 138412290;
-        v18 = v14;
-        _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "Lazuli switch state is not enabled: %@", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = v14;
+        _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "Lazuli switch state is not enabled: %@", &v16, 0xCu);
       }
 
       goto LABEL_35;
@@ -186,21 +186,20 @@ LABEL_36:
     v9 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_243BE5000, v9, OS_LOG_TYPE_INFO, "System configuration is nil", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_243BE5000, v9, OS_LOG_TYPE_INFO, "System configuration is nil", &v16, 2u);
     }
   }
 
   v10 = MEMORY[0x277CBEC28];
 LABEL_38:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (int64_t)_fetchRegistrationState:(id)state
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v5 = [(CKLazuliEnablementManager *)self fetchSystemConfiguration:stateCopy];
   v6 = v5;
@@ -216,9 +215,9 @@ LABEL_38:
         v10 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v15 = 134217984;
-          v16 = registrationState;
-          _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_INFO, "Registration state is: %ld.", &v15, 0xCu);
+          v14 = 134217984;
+          v15 = registrationState;
+          _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_INFO, "Registration state is: %ld.", &v14, 0xCu);
         }
       }
     }
@@ -230,8 +229,8 @@ LABEL_38:
         v12 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v15) = 0;
-          _os_log_impl(&dword_243BE5000, v12, OS_LOG_TYPE_INFO, "Operation status is nil", &v15, 2u);
+          LOWORD(v14) = 0;
+          _os_log_impl(&dword_243BE5000, v12, OS_LOG_TYPE_INFO, "Operation status is nil", &v14, 2u);
         }
       }
 
@@ -246,21 +245,20 @@ LABEL_38:
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_INFO, "System configuration is nil", &v15, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_INFO, "System configuration is nil", &v14, 2u);
       }
     }
 
     registrationState = -1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return registrationState;
 }
 
 - (id)isRCSEnabledForSubscriptionContext:(id)context
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (contextCopy)
   {
@@ -285,23 +283,21 @@ LABEL_38:
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v11 = 136315138;
-        v12 = "[CKLazuliEnablementManager isRCSEnabledForSubscriptionContext:]";
-        _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "[%s] No active subscriptions.", &v11, 0xCu);
+        v10 = 136315138;
+        v11 = "[CKLazuliEnablementManager isRCSEnabledForSubscriptionContext:]";
+        _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "[%s] No active subscriptions.", &v10, 0xCu);
       }
     }
 
     v7 = MEMORY[0x277CBEC28];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (int64_t)registrationStateForSubscriptionContext:(id)context
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (contextCopy)
   {
@@ -327,16 +323,15 @@ LABEL_38:
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v12 = 136315138;
-        v13 = "[CKLazuliEnablementManager registrationStateForSubscriptionContext:]";
-        _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "[%s] No active subscriptions.", &v12, 0xCu);
+        v11 = 136315138;
+        v12 = "[CKLazuliEnablementManager registrationStateForSubscriptionContext:]";
+        _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "[%s] No active subscriptions.", &v11, 0xCu);
       }
     }
 
     intValue = -1;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 
@@ -350,40 +345,40 @@ LABEL_38:
 
 - (id)getSubscriptionWithRCSBusinessMessaging
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([(CKLazuliEnablementManager *)self isRCSSupportedForAnyActiveSubscription])
   {
     ctSubscriptionInfo = [(CKLazuliEnablementManager *)self ctSubscriptionInfo];
     __im_subscriptionsWithRCSSupport = [ctSubscriptionInfo __im_subscriptionsWithRCSSupport];
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = __im_subscriptionsWithRCSSupport;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
-          if ([(CKLazuliEnablementManager *)self _isRCSBusinessMessagingSupportedForSubscription:v10, v14])
+          v10 = *(*(&v13 + 1) + 8 * i);
+          if ([(CKLazuliEnablementManager *)self _isRCSBusinessMessagingSupportedForSubscription:v10, v13])
           {
             v11 = v10;
             goto LABEL_13;
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           continue;
@@ -402,54 +397,50 @@ LABEL_13:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (void)setRCSBusinessMessagingEnabled:(id)enabled specifier:(id)specifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   if ([(CKLazuliEnablementManager *)self isRCSSupportedForAnyActiveSubscription])
   {
     ctSubscriptionInfo = [(CKLazuliEnablementManager *)self ctSubscriptionInfo];
     __im_subscriptionsWithRCSSupport = [ctSubscriptionInfo __im_subscriptionsWithRCSSupport];
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v8 = __im_subscriptionsWithRCSSupport;
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v15 + 1) + 8 * i);
-          if ([(CKLazuliEnablementManager *)self _isRCSBusinessMessagingSupportedForSubscription:v13, v15])
+          v13 = *(*(&v14 + 1) + 8 * i);
+          if ([(CKLazuliEnablementManager *)self _isRCSBusinessMessagingSupportedForSubscription:v13, v14])
           {
             [(CKLazuliEnablementManager *)self _setRCSBusinessMessagingEnabledForSubscription:v13 enabled:enabledCopy];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v10);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setRCSBusinessMessagingEnabledForSubscription:(id)subscription enabled:(id)enabled
@@ -485,58 +476,54 @@ LABEL_13:
 
 - (BOOL)isRCSBusinessMessagingSupported
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if ([(CKLazuliEnablementManager *)self isRCSSupportedForAnyActiveSubscription])
+  v17 = *MEMORY[0x277D85DE8];
+  if (![(CKLazuliEnablementManager *)self isRCSSupportedForAnyActiveSubscription])
   {
-    ctSubscriptionInfo = [(CKLazuliEnablementManager *)self ctSubscriptionInfo];
-    __im_subscriptionsWithRCSSupport = [ctSubscriptionInfo __im_subscriptionsWithRCSSupport];
+    return 0;
+  }
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v5 = __im_subscriptionsWithRCSSupport;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v6)
+  ctSubscriptionInfo = [(CKLazuliEnablementManager *)self ctSubscriptionInfo];
+  __im_subscriptionsWithRCSSupport = [ctSubscriptionInfo __im_subscriptionsWithRCSSupport];
+
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v5 = __im_subscriptionsWithRCSSupport;
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v13;
+    while (2)
     {
-      v7 = v6;
-      v8 = *v14;
-      while (2)
+      for (i = 0; i != v7; ++i)
       {
-        for (i = 0; i != v7; ++i)
+        if (*v13 != v8)
         {
-          if (*v14 != v8)
-          {
-            objc_enumerationMutation(v5);
-          }
-
-          if ([(CKLazuliEnablementManager *)self _isRCSBusinessMessagingSupportedForSubscription:*(*(&v13 + 1) + 8 * i), v13])
-          {
-            v10 = 1;
-            goto LABEL_13;
-          }
+          objc_enumerationMutation(v5);
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-        if (v7)
+        if ([(CKLazuliEnablementManager *)self _isRCSBusinessMessagingSupportedForSubscription:*(*(&v12 + 1) + 8 * i), v12])
         {
-          continue;
+          v10 = 1;
+          goto LABEL_13;
         }
-
-        break;
       }
+
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      if (v7)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v10 = 0;
+  v10 = 0;
 LABEL_13:
-  }
 
-  else
-  {
-    v10 = 0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -562,67 +549,63 @@ LABEL_13:
 
 - (int64_t)isRCSBusinessMessagingEnabledByUserPreference
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if ([(CKLazuliEnablementManager *)self isRCSEnabledForAnyActiveSubscription])
+  v18 = *MEMORY[0x277D85DE8];
+  if (![(CKLazuliEnablementManager *)self isRCSEnabledForAnyActiveSubscription])
   {
-    ctSubscriptionInfo = [(CKLazuliEnablementManager *)self ctSubscriptionInfo];
-    __im_subscriptionsWithRCSSupport = [ctSubscriptionInfo __im_subscriptionsWithRCSSupport];
+    return 0;
+  }
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v5 = __im_subscriptionsWithRCSSupport;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v6)
-    {
-      v7 = v6;
-      v8 = *v15;
-      v9 = -1;
+  ctSubscriptionInfo = [(CKLazuliEnablementManager *)self ctSubscriptionInfo];
+  __im_subscriptionsWithRCSSupport = [ctSubscriptionInfo __im_subscriptionsWithRCSSupport];
+
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v5 = __im_subscriptionsWithRCSSupport;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v14;
+    v9 = -1;
 LABEL_4:
-      v10 = 0;
-      while (1)
+    v10 = 0;
+    while (1)
+    {
+      if (*v14 != v8)
       {
-        if (*v15 != v8)
-        {
-          objc_enumerationMutation(v5);
-        }
+        objc_enumerationMutation(v5);
+      }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
-        if ([(CKLazuliEnablementManager *)self _isRCSBusinessMessagingSupportedForSubscription:v11, v14])
+      v11 = *(*(&v13 + 1) + 8 * v10);
+      if ([(CKLazuliEnablementManager *)self _isRCSBusinessMessagingSupportedForSubscription:v11, v13])
+      {
+        v9 = [(CKLazuliEnablementManager *)self _isRCSBusinessMessagingEnabledByUserPreferenceForSubscriptionContext:v11];
+        if (v9 == 1)
         {
-          v9 = [(CKLazuliEnablementManager *)self _isRCSBusinessMessagingEnabledByUserPreferenceForSubscriptionContext:v11];
-          if (v9 == 1)
-          {
-            break;
-          }
-        }
-
-        if (v7 == ++v10)
-        {
-          v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
-          if (v7)
-          {
-            goto LABEL_4;
-          }
-
           break;
         }
       }
-    }
 
-    else
-    {
-      v9 = -1;
+      if (v7 == ++v10)
+      {
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        if (v7)
+        {
+          goto LABEL_4;
+        }
+
+        break;
+      }
     }
   }
 
   else
   {
-    v9 = 0;
+    v9 = -1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -673,59 +656,55 @@ LABEL_4:
 
 - (BOOL)isRCSBusinessMessagingEnabledByDefault
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if ([(CKLazuliEnablementManager *)self isRCSEnabledForAnyActiveSubscription])
+  v18 = *MEMORY[0x277D85DE8];
+  if (![(CKLazuliEnablementManager *)self isRCSEnabledForAnyActiveSubscription])
   {
-    ctSubscriptionInfo = [(CKLazuliEnablementManager *)self ctSubscriptionInfo];
-    __im_subscriptionsWithRCSSupport = [ctSubscriptionInfo __im_subscriptionsWithRCSSupport];
+    return 0;
+  }
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v5 = __im_subscriptionsWithRCSSupport;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v6)
+  ctSubscriptionInfo = [(CKLazuliEnablementManager *)self ctSubscriptionInfo];
+  __im_subscriptionsWithRCSSupport = [ctSubscriptionInfo __im_subscriptionsWithRCSSupport];
+
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v5 = __im_subscriptionsWithRCSSupport;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v14;
+    while (2)
     {
-      v7 = v6;
-      v8 = *v15;
-      while (2)
+      for (i = 0; i != v7; ++i)
       {
-        for (i = 0; i != v7; ++i)
+        if (*v14 != v8)
         {
-          if (*v15 != v8)
-          {
-            objc_enumerationMutation(v5);
-          }
-
-          v10 = *(*(&v14 + 1) + 8 * i);
-          if ([(CKLazuliEnablementManager *)self _isRCSBusinessMessagingSupportedForSubscription:v10, v14]&& [(CKLazuliEnablementManager *)self _isRCSBusinessMessagingEnabledByDefaultForSubscriptionContext:v10])
-          {
-            v11 = 1;
-            goto LABEL_14;
-          }
+          objc_enumerationMutation(v5);
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v7)
+        v10 = *(*(&v13 + 1) + 8 * i);
+        if ([(CKLazuliEnablementManager *)self _isRCSBusinessMessagingSupportedForSubscription:v10, v13]&& [(CKLazuliEnablementManager *)self _isRCSBusinessMessagingEnabledByDefaultForSubscriptionContext:v10])
         {
-          continue;
+          v11 = 1;
+          goto LABEL_14;
         }
-
-        break;
       }
+
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      if (v7)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v11 = 0;
+  v11 = 0;
 LABEL_14:
-  }
 
-  else
-  {
-    v11 = 0;
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -751,7 +730,7 @@ LABEL_14:
 
 - (BOOL)isRCSEnabledForAnyActiveSubscription
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEA60] array];
   ctSubscriptionInfo = [(CKLazuliEnablementManager *)self ctSubscriptionInfo];
   v5 = objc_opt_respondsToSelector();
@@ -768,9 +747,9 @@ LABEL_14:
       {
         v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(__im_subscriptionsWithRCSSupport, "count")}];
         *buf = 136315394;
-        v25 = "[CKLazuliEnablementManager isRCSEnabledForAnyActiveSubscription]";
-        v26 = 2112;
-        v27 = v9;
+        v24 = "[CKLazuliEnablementManager isRCSEnabledForAnyActiveSubscription]";
+        v25 = 2112;
+        v26 = v9;
         _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "[%s] subscriptionsWithRCSSupport count %@", buf, 0x16u);
       }
     }
@@ -781,25 +760,25 @@ LABEL_14:
     __im_subscriptionsWithRCSSupport = array;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v10 = __im_subscriptionsWithRCSSupport;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
-    v12 = *v20;
+    v12 = *v19;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = [(CKLazuliEnablementManager *)self isRCSEnabledForSubscriptionContext:*(*(&v19 + 1) + 8 * i), v19];
+        v14 = [(CKLazuliEnablementManager *)self isRCSEnabledForSubscriptionContext:*(*(&v18 + 1) + 8 * i), v18];
         bOOLValue = [v14 BOOLValue];
 
         if (bOOLValue)
@@ -809,7 +788,7 @@ LABEL_14:
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v11)
       {
         continue;
@@ -822,13 +801,12 @@ LABEL_14:
   v16 = 0;
 LABEL_17:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)isRCSSupportedForAnyActiveSubscription
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEA60] array];
   ctSubscriptionInfo = [(CKLazuliEnablementManager *)self ctSubscriptionInfo];
   v5 = objc_opt_respondsToSelector();
@@ -844,11 +822,11 @@ LABEL_17:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(__im_subscriptionsWithRCSSupport, "count")}];
-        v13 = 136315394;
-        v14 = "[CKLazuliEnablementManager isRCSSupportedForAnyActiveSubscription]";
-        v15 = 2112;
-        v16 = v9;
-        _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "[%s] subscriptionsWithRCSSupport count %@", &v13, 0x16u);
+        v12 = 136315394;
+        v13 = "[CKLazuliEnablementManager isRCSSupportedForAnyActiveSubscription]";
+        v14 = 2112;
+        v15 = v9;
+        _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "[%s] subscriptionsWithRCSSupport count %@", &v12, 0x16u);
       }
     }
   }
@@ -860,7 +838,6 @@ LABEL_17:
 
   v10 = [__im_subscriptionsWithRCSSupport count] != 0;
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -936,7 +913,7 @@ LABEL_17:
 
 - (void)setRCSEnabled:(id)enabled specifier:(id)specifier
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   specifierCopy = specifier;
   ctSubscriptionInfo = [(CKLazuliEnablementManager *)self ctSubscriptionInfo];
@@ -957,7 +934,7 @@ LABEL_17:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v27 = "[CKLazuliEnablementManager setRCSEnabled:specifier:]";
+      v26 = "[CKLazuliEnablementManager setRCSEnabled:specifier:]";
       _os_log_impl(&dword_243BE5000, v14, OS_LOG_TYPE_INFO, "[%s] No active subscriptions.", buf, 0xCu);
     }
 
@@ -996,9 +973,9 @@ LABEL_7:
       }
 
       client = [(CKLazuliEnablementManager *)self client];
-      v25 = 0;
-      [client enableLazuli:v13 withError:&v25];
-      v19 = &v25;
+      v24 = 0;
+      [client enableLazuli:v13 withError:&v24];
+      v19 = &v24;
     }
 
     else
@@ -1014,9 +991,9 @@ LABEL_7:
       }
 
       client = [(CKLazuliEnablementManager *)self client];
-      v24 = 0;
-      [client disableLazuli:v13 withError:&v24];
-      v19 = &v24;
+      v23 = 0;
+      [client disableLazuli:v13 withError:&v23];
+      v19 = &v23;
     }
 
     v21 = *v19;
@@ -1029,7 +1006,7 @@ LABEL_7:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v27 = v21;
+          v26 = v21;
           _os_log_impl(&dword_243BE5000, v22, OS_LOG_TYPE_INFO, "Error Enabling Lazuli: %@", buf, 0xCu);
         }
       }
@@ -1042,13 +1019,11 @@ LABEL_7:
   }
 
 LABEL_30:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)systemConfigurationChanged:(id)changed withConfiguration:(id)configuration
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   configurationCopy = configuration;
   if (IMOSLoggingEnabled())
@@ -1056,11 +1031,11 @@ LABEL_30:
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v33 = 136315394;
-      v34 = "[CKLazuliEnablementManager systemConfigurationChanged:withConfiguration:]";
-      v35 = 2112;
-      v36 = configurationCopy;
-      _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "[%s] New configuration for context: %@", &v33, 0x16u);
+      v32 = 136315394;
+      v33 = "[CKLazuliEnablementManager systemConfigurationChanged:withConfiguration:]";
+      v34 = 2112;
+      v35 = configurationCopy;
+      _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_INFO, "[%s] New configuration for context: %@", &v32, 0x16u);
     }
   }
 
@@ -1078,8 +1053,8 @@ LABEL_30:
           v12 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
-            LOWORD(v33) = 0;
-            _os_log_impl(&dword_243BE5000, v12, OS_LOG_TYPE_INFO, "Feature is disabled by profile.", &v33, 2u);
+            LOWORD(v32) = 0;
+            _os_log_impl(&dword_243BE5000, v12, OS_LOG_TYPE_INFO, "Feature is disabled by profile.", &v32, 2u);
           }
         }
       }
@@ -1091,8 +1066,8 @@ LABEL_30:
           v31 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
           {
-            LOWORD(v33) = 0;
-            _os_log_impl(&dword_243BE5000, v31, OS_LOG_TYPE_INFO, "Lazuli is enabled.", &v33, 2u);
+            LOWORD(v32) = 0;
+            _os_log_impl(&dword_243BE5000, v31, OS_LOG_TYPE_INFO, "Lazuli is enabled.", &v32, 2u);
           }
         }
 
@@ -1111,8 +1086,8 @@ LABEL_18:
           v17 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
-            LOWORD(v33) = 0;
-            _os_log_impl(&dword_243BE5000, v17, OS_LOG_TYPE_INFO, "RCS enablement cache was out of date, updating the cache.", &v33, 2u);
+            LOWORD(v32) = 0;
+            _os_log_impl(&dword_243BE5000, v17, OS_LOG_TYPE_INFO, "RCS enablement cache was out of date, updating the cache.", &v32, 2u);
           }
         }
 
@@ -1131,8 +1106,8 @@ LABEL_18:
           v22 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
-            LOWORD(v33) = 0;
-            _os_log_impl(&dword_243BE5000, v22, OS_LOG_TYPE_INFO, "Feature disabled by profile state changed.", &v33, 2u);
+            LOWORD(v32) = 0;
+            _os_log_impl(&dword_243BE5000, v22, OS_LOG_TYPE_INFO, "Feature disabled by profile state changed.", &v32, 2u);
           }
         }
 
@@ -1145,8 +1120,8 @@ LABEL_18:
         v24 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v33) = 0;
-          _os_log_impl(&dword_243BE5000, v24, OS_LOG_TYPE_INFO, "contextToConfiguration cache was out of date, updating the cache.", &v33, 2u);
+          LOWORD(v32) = 0;
+          _os_log_impl(&dword_243BE5000, v24, OS_LOG_TYPE_INFO, "contextToConfiguration cache was out of date, updating the cache.", &v32, 2u);
         }
       }
 
@@ -1180,8 +1155,8 @@ LABEL_18:
       v13 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v33) = 0;
-        _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_INFO, "Operation status is nil", &v33, 2u);
+        LOWORD(v32) = 0;
+        _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_INFO, "Operation status is nil", &v32, 2u);
       }
     }
   }
@@ -1196,13 +1171,11 @@ LABEL_18:
   }
 
 LABEL_48:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_cacheGetConfigurationForContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = MEMORY[0x277D1A8F8];
   phoneNumber = [contextCopy phoneNumber];
@@ -1219,11 +1192,11 @@ LABEL_48:
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v14 = 138412546;
-        v15 = v10;
-        v16 = 2112;
-        v17 = v8;
-        _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_INFO, "Returning cached system configuration (%@) for unique identifier %@", &v14, 0x16u);
+        v13 = 138412546;
+        v14 = v10;
+        v15 = 2112;
+        v16 = v8;
+        _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_INFO, "Returning cached system configuration (%@) for unique identifier %@", &v13, 0x16u);
       }
     }
   }
@@ -1232,8 +1205,6 @@ LABEL_48:
   {
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1288,7 +1259,7 @@ LABEL_48:
 
 - (id)_enablementCacheObjectForContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = MEMORY[0x277D1A8F8];
   phoneNumber = [contextCopy phoneNumber];
@@ -1305,11 +1276,11 @@ LABEL_48:
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v14 = 138412546;
-        v15 = v10;
-        v16 = 2112;
-        v17 = v8;
-        _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_INFO, "Returning cached enablement value (%@) for unique identifier %@", &v14, 0x16u);
+        v13 = 138412546;
+        v14 = v10;
+        v15 = 2112;
+        v16 = v8;
+        _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_INFO, "Returning cached enablement value (%@) for unique identifier %@", &v13, 0x16u);
       }
     }
   }
@@ -1318,8 +1289,6 @@ LABEL_48:
   {
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1343,7 +1312,7 @@ LABEL_48:
 
 - (id)_registrationCacheObjectForContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = MEMORY[0x277D1A8F8];
   phoneNumber = [contextCopy phoneNumber];
@@ -1360,11 +1329,11 @@ LABEL_48:
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v14 = 138412546;
-        v15 = v10;
-        v16 = 2112;
-        v17 = v8;
-        _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_INFO, "Returning cached registrationState value (%@) for unique identifier %@", &v14, 0x16u);
+        v13 = 138412546;
+        v14 = v10;
+        v15 = 2112;
+        v16 = v8;
+        _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_INFO, "Returning cached registrationState value (%@) for unique identifier %@", &v13, 0x16u);
       }
     }
   }
@@ -1373,8 +1342,6 @@ LABEL_48:
   {
     v10 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1398,20 +1365,18 @@ LABEL_48:
 
 - (void)_setRCSBusinessMessagingEnabledForSubscription:(uint64_t)a1 enabled:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_243BE5000, a2, OS_LOG_TYPE_ERROR, "Error enabling/disabling RCS business messaging: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_243BE5000, a2, OS_LOG_TYPE_ERROR, "Error enabling/disabling RCS business messaging: %@", &v2, 0xCu);
 }
 
 - (void)fetchSystemConfiguration:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_243BE5000, a2, OS_LOG_TYPE_ERROR, "Error getting systemConfiguration: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_243BE5000, a2, OS_LOG_TYPE_ERROR, "Error getting systemConfiguration: %@", &v2, 0xCu);
 }
 
 @end

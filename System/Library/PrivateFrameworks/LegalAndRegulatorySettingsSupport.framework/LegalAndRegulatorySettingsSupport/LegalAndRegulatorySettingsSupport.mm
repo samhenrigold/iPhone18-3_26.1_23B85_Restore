@@ -7,7 +7,7 @@ _DWORD *cmark_render_ascii(uint64_t a1, char *a2)
   return result;
 }
 
-_DWORD *cmark_render_code_point(uint64_t a1, unsigned int a2)
+_DWORD *cmark_render_code_point(uint64_t a1, uint64_t a2)
 {
   result = cmark_utf8proc_encode_char(a2, *(a1 + 8));
   ++*(a1 + 24);
@@ -16,57 +16,57 @@ _DWORD *cmark_render_code_point(uint64_t a1, unsigned int a2)
 
 uint64_t cmark_render(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, unsigned int (*a6)(uint64_t *, uint64_t, uint64_t, uint64_t))
 {
-  v32[0] = a1;
-  v32[1] = &cmark_strbuf__initbuf;
-  v32[2] = 0;
-  v31[0] = a1;
-  v31[1] = &cmark_strbuf__initbuf;
-  v31[2] = 0;
+  v34[0] = a1;
+  v34[1] = &cmark_strbuf__initbuf;
+  v34[2] = 0;
+  v33[0] = a1;
+  v33[1] = &cmark_strbuf__initbuf;
+  v33[2] = 0;
   v11 = cmark_iter_new(a2);
-  v25 = 257;
-  v30 = 0;
-  v12 = v31;
-  v19 = a1;
-  v20 = v31;
-  v21 = v32;
-  v22 = 0;
-  v23 = a4;
+  v27 = 257;
+  v32 = 0;
+  v12 = v33;
+  v21 = a1;
+  v22 = v33;
+  v23 = v34;
   v24 = 0;
-  v26 = a5;
-  v27 = S_cr;
-  v28 = S_blankline;
-  v29 = S_out;
-  v13 = cmark_iter_next(v11);
-  if (v13 != 1)
+  v25 = a4;
+  v26 = 0;
+  v28 = a5;
+  v29 = S_cr;
+  v30 = S_blankline;
+  v31 = S_out;
+  v14 = cmark_iter_next(v11, v13);
+  if (v14 != 1)
   {
-    v14 = v13;
+    v15 = v14;
     do
     {
       node = cmark_iter_get_node(v11);
-      if (!a6(&v19, node, v14, a3))
+      if (!a6(&v21, node, v15, a3))
       {
         cmark_iter_reset(v11, node, 3);
       }
 
-      v14 = cmark_iter_next(v11);
+      v15 = cmark_iter_next(v11, v17);
     }
 
-    while (v14 != 1);
-    v12 = v20;
+    while (v15 != 1);
+    v12 = v22;
   }
 
-  v16 = *(v12 + 5);
-  if (!v16 || *(v12[1] + v16 - 1) != 10)
+  v18 = *(v12 + 5);
+  if (!v18 || *(v12[1] + v18 - 1) != 10)
   {
     cmark_strbuf_putc(v12, 10);
-    v12 = v20;
+    v12 = v22;
   }
 
-  v17 = cmark_strbuf_detach(v12);
+  v19 = cmark_strbuf_detach(v12);
   cmark_iter_free(v11);
-  cmark_strbuf_free(v21);
-  cmark_strbuf_free(v20);
-  return v17;
+  cmark_strbuf_free(v23);
+  cmark_strbuf_free(v22);
+  return v19;
 }
 
 uint64_t S_cr(uint64_t result)
@@ -272,11 +272,11 @@ LABEL_41:
           v30 = a5;
           v31 = *(*(a1 + 8) + 8) + v29;
           v32 = strlen((v31 + 1));
-          v33 = (**a1)(v32 + 1, 1);
+          v33 = (**a1)((v32 + 1), 1);
           v34 = (v31 + 1);
           a5 = v30;
           v7 = v39;
-          memcpy(v33, v34, v32 + 1);
+          memcpy(v33, v34, (v32 + 1));
           cmark_strbuf_truncate(*(a1 + 8), *(a1 + 36));
           cmark_strbuf_putc(*(a1 + 8), 10);
           cmark_strbuf_put(*(a1 + 8), *(*(a1 + 16) + 8), *(*(a1 + 16) + 20));
@@ -340,7 +340,7 @@ _BYTE *cmark_footnote_create(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t footnote_free(uint64_t result, uint64_t a2)
+uint64_t *footnote_free(uint64_t *result, uint64_t a2)
 {
   if (a2)
   {
@@ -378,24 +378,24 @@ void *cmark_unlink_footnotes_map(void *result)
 
 uint64_t cmark_render_html_with_mem(uint64_t a1, int a2, void *a3, uint64_t (**a4)(uint64_t, uint64_t))
 {
-  v103 = *MEMORY[0x277D85DE8];
-  v98[0] = a4;
-  v98[1] = &cmark_strbuf__initbuf;
-  v98[2] = 0;
-  v96 = 0u;
+  v104 = *MEMORY[0x277D85DE8];
+  v99[0] = a4;
+  v99[1] = &cmark_strbuf__initbuf;
+  v99[2] = 0;
   v97 = 0u;
-  v95 = v98;
-  v7 = cmark_iter_new(a1);
+  v98 = 0u;
+  v96 = v99;
+  v8 = cmark_iter_new(a1);
   if (a3)
   {
-    v8 = 0;
+    v7 = 0;
     do
     {
       v9 = a3[1];
       if (*(v9 + 144))
       {
-        v8 = cmark_llist_append(a4, v8, v9);
-        *(&v96 + 1) = v8;
+        v7 = cmark_llist_append(a4, v7, v9);
+        *(&v97 + 1) = v7;
       }
 
       a3 = *a3;
@@ -404,109 +404,109 @@ uint64_t cmark_render_html_with_mem(uint64_t a1, int a2, void *a3, uint64_t (**a
     while (a3);
   }
 
-  v10 = cmark_iter_next(v7);
+  v10 = cmark_iter_next(v8, v7);
   if (v10 != 1)
   {
     v13 = v10;
-    v94 = a2;
+    v95 = a2;
     do
     {
-      node = cmark_iter_get_node(v7);
-      v15 = node;
+      node = cmark_iter_get_node(v8);
+      v16 = node;
       strcpy(__s, "<h0");
-      strcpy(v99, "</h0");
-      v16 = v95;
-      if (v96 == node)
+      strcpy(v100, "</h0");
+      v17 = v96;
+      if (v97 == node)
       {
-        *&v96 = 0;
+        *&v97 = 0;
       }
 
-      else if (v96)
+      else if (v97)
       {
-        v17 = *(node + 100) - 49153;
-        if (v17 <= 4)
+        v18 = *(node + 100) - 49153;
+        if (v18 <= 4)
         {
-          if (((1 << v17) & 0x19) == 0)
+          if (((1 << v18) & 0x19) == 0)
           {
             goto LABEL_82;
           }
 
 LABEL_15:
-          houdini_escape_html0(v95, *(v15 + 128), *(v15 + 136), 0);
+          houdini_escape_html0(v96, *(v16 + 128), *(v16 + 136), 0);
           goto LABEL_205;
         }
 
         goto LABEL_205;
       }
 
-      v18 = *(node + 104);
-      if (v18)
+      v19 = *(node + 104);
+      if (v19)
       {
-        v19 = *(v18 + 136);
-        if (v19)
+        v20 = *(v19 + 136);
+        if (v20)
         {
-          v19();
+          v20();
           goto LABEL_205;
         }
       }
 
-      v20 = *(v15 + 100);
-      if (v20 > 0xC000)
+      v21 = *(v16 + 100);
+      if (v21 > 0xC000)
       {
-        if (*(v15 + 100) > 0xC005u)
+        if (*(v16 + 100) > 0xC005u)
         {
-          if (*(v15 + 100) > 0xC008u)
+          if (*(v16 + 100) > 0xC008u)
           {
-            switch(v20)
+            switch(v21)
             {
               case 0xC009u:
                 if (v13 == 2)
                 {
-                  cmark_strbuf_puts(v95, "<a href=");
-                  if ((a2 & 0x20000) != 0 || !_scan_at(_scan_dangerous_url, (v15 + 128), 0))
+                  cmark_strbuf_puts(v96, "<a href=");
+                  if ((a2 & 0x20000) != 0 || !_scan_at(_scan_dangerous_url, (v16 + 128), 0))
                   {
-                    houdini_escape_href(v16, *(v15 + 128), *(v15 + 136));
+                    houdini_escape_href(v17, *(v16 + 128), *(v16 + 136));
                   }
 
-                  if (*(v15 + 152))
+                  if (*(v16 + 152))
                   {
-                    cmark_strbuf_puts(v16, " title=");
-                    houdini_escape_html0(v16, *(v15 + 144), *(v15 + 152), 0);
+                    cmark_strbuf_puts(v17, " title=");
+                    houdini_escape_html0(v17, *(v16 + 144), *(v16 + 152), 0);
                   }
 
-                  v26 = v16;
-                  v27 = ">";
+                  v27 = v17;
+                  v28 = ">";
                 }
 
                 else
                 {
-                  v26 = v95;
-                  v27 = "</a>";
+                  v27 = v96;
+                  v28 = "</a>";
                 }
 
                 break;
               case 0xC00Au:
                 if (v13 == 2)
                 {
-                  cmark_strbuf_puts(v95, "<img src=");
-                  if ((a2 & 0x20000) != 0 || !_scan_at(_scan_dangerous_url, (v15 + 128), 0))
+                  cmark_strbuf_puts(v96, "<img src=");
+                  if ((a2 & 0x20000) != 0 || !_scan_at(_scan_dangerous_url, (v16 + 128), 0))
                   {
-                    houdini_escape_href(v16, *(v15 + 128), *(v15 + 136));
+                    houdini_escape_href(v17, *(v16 + 128), *(v16 + 136));
                   }
 
-                  cmark_strbuf_puts(v16, " alt=");
-                  *&v96 = v15;
+                  cmark_strbuf_puts(v17, " alt=");
+                  *&v97 = v16;
                   goto LABEL_205;
                 }
 
-                if (*(v15 + 152))
+                if (*(v16 + 152))
                 {
-                  cmark_strbuf_puts(v95, " title=");
-                  houdini_escape_html0(v16, *(v15 + 144), *(v15 + 152), 0);
+                  cmark_strbuf_puts(v96, " title=");
+                  houdini_escape_html0(v17, *(v16 + 144), *(v16 + 152), 0);
                 }
 
-                v26 = v16;
-                v27 = " />";
+                v27 = v17;
+                v28 = " />";
                 break;
               case 0xC00Bu:
                 if (v13 != 2)
@@ -514,21 +514,21 @@ LABEL_15:
                   goto LABEL_205;
                 }
 
-                cmark_strbuf_puts(v95, "<sup class=footnote-ref><a href=#fn-");
-                houdini_escape_href(v16, *(*(v15 + 120) + 128), *(*(v15 + 120) + 136));
-                cmark_strbuf_puts(v16, " id=fnref-");
-                houdini_escape_href(v16, *(*(v15 + 120) + 128), *(*(v15 + 120) + 136));
-                if (*(v15 + 112) >= 2)
+                cmark_strbuf_puts(v96, "<sup class=footnote-ref><a href=#fn-");
+                houdini_escape_href(v17, *(*(v16 + 120) + 128), *(*(v16 + 120) + 136));
+                cmark_strbuf_puts(v17, " id=fnref-");
+                houdini_escape_href(v17, *(*(v16 + 120) + 128), *(*(v16 + 120) + 136));
+                if (*(v16 + 112) >= 2)
                 {
-                  snprintf(__str, 0x20uLL, "%d", *(v15 + 112));
-                  cmark_strbuf_puts(v16, "-");
-                  cmark_strbuf_puts(v16, __str);
+                  snprintf(__str, 0x20uLL, "%d", *(v16 + 112));
+                  cmark_strbuf_puts(v17, "-");
+                  cmark_strbuf_puts(v17, __str);
                 }
 
-                cmark_strbuf_puts(v16, " data-footnote-ref>");
-                houdini_escape_href(v16, *(v15 + 128), *(v15 + 136));
-                v26 = v16;
-                v27 = "</a></sup>";
+                cmark_strbuf_puts(v17, " data-footnote-ref>");
+                houdini_escape_href(v17, *(v16 + 128), *(v16 + 136));
+                v27 = v17;
+                v28 = "</a></sup>";
                 break;
               default:
                 goto LABEL_217;
@@ -537,49 +537,49 @@ LABEL_15:
 
           else
           {
-            if (v20 == 49158)
+            if (v21 == 49158)
             {
               if (v13 == 2)
               {
-                v47 = *(v15 + 128);
-                v48 = *(v15 + 136);
+                v48 = *(v16 + 128);
+                v49 = *(v16 + 136);
               }
 
               else
               {
-                v47 = *(v15 + 144);
-                v48 = *(v15 + 152);
+                v48 = *(v16 + 144);
+                v49 = *(v16 + 152);
               }
 
-              cmark_strbuf_put(v95, v47, v48);
+              cmark_strbuf_put(v96, v48, v49);
               goto LABEL_205;
             }
 
-            if (v20 == 49159)
+            if (v21 == 49159)
             {
-              v26 = v95;
+              v27 = v96;
               if (v13 == 2)
               {
-                v27 = "<em>";
+                v28 = "<em>";
               }
 
               else
               {
-                v27 = "</em>";
+                v28 = "</em>";
               }
             }
 
             else
             {
-              v26 = v95;
+              v27 = v96;
               if (v13 == 2)
               {
-                v27 = "<strong>";
+                v28 = "<strong>";
               }
 
               else
               {
-                v27 = "</strong>";
+                v28 = "</strong>";
               }
             }
           }
@@ -587,64 +587,64 @@ LABEL_15:
           goto LABEL_204;
         }
 
-        if (*(v15 + 100) > 0xC002u)
+        if (*(v16 + 100) > 0xC002u)
         {
-          if (v20 == 49155)
+          if (v21 == 49155)
           {
 LABEL_84:
-            v26 = v95;
-            v27 = "<br />\n";
+            v27 = v96;
+            v28 = "<br />\n";
           }
 
-          else if (v20 == 49156)
+          else if (v21 == 49156)
           {
-            cmark_strbuf_puts(v95, "<code>");
-            houdini_escape_html0(v16, *(v15 + 128), *(v15 + 136), 0);
-            v26 = v16;
-            v27 = "</code>";
+            cmark_strbuf_puts(v96, "<code>");
+            houdini_escape_html0(v17, *(v16 + 128), *(v16 + 136), 0);
+            v27 = v17;
+            v28 = "</code>";
           }
 
           else
           {
             if ((a2 & 0x20000) != 0)
             {
-              v70 = &v96 + 1;
+              v71 = &v97 + 1;
               while (1)
               {
-                v70 = *v70;
-                if (!v70)
+                v71 = *v71;
+                if (!v71)
                 {
                   break;
                 }
 
-                if (!(*(v70[1] + 144))())
+                if (!(*(v71[1] + 144))())
                 {
-                  cmark_strbuf_puts(v16, "&lt;");
-                  v71 = *(v15 + 136) - 1;
-                  v72 = (*(v15 + 128) + 1);
+                  cmark_strbuf_puts(v17, "&lt;");
+                  v72 = *(v16 + 136) - 1;
+                  v73 = (*(v16 + 128) + 1);
                   goto LABEL_188;
                 }
               }
 
-              v72 = *(v15 + 128);
-              v71 = *(v15 + 136);
+              v73 = *(v16 + 128);
+              v72 = *(v16 + 136);
 LABEL_188:
-              cmark_strbuf_put(v16, v72, v71);
+              cmark_strbuf_put(v17, v73, v72);
               goto LABEL_205;
             }
 
-            v26 = v95;
-            v27 = "<!-- raw HTML omitted -->";
+            v27 = v96;
+            v28 = "<!-- raw HTML omitted -->";
           }
 
 LABEL_204:
-          cmark_strbuf_puts(v26, v27);
+          cmark_strbuf_puts(v27, v28);
           goto LABEL_205;
         }
 
-        if (v20 != 49153)
+        if (v21 != 49153)
         {
-          if (v20 != 49154)
+          if (v21 != 49154)
           {
 LABEL_217:
             cmark_render_html_with_mem_cold_1();
@@ -658,86 +658,86 @@ LABEL_217:
           if ((a2 & 0x10) != 0)
           {
 LABEL_82:
-            v38 = v95;
-            v39 = 32;
+            v39 = v96;
+            v40 = 32;
 LABEL_83:
-            cmark_strbuf_putc(v38, v39);
+            cmark_strbuf_putc(v39, v40);
             goto LABEL_205;
           }
 
 LABEL_216:
-          v38 = v16;
-          v39 = 10;
+          v39 = v17;
+          v40 = 10;
           goto LABEL_83;
         }
 
         goto LABEL_15;
       }
 
-      if (*(v15 + 100) > 0x8005u)
+      if (*(v16 + 100) > 0x8005u)
       {
-        if (*(v15 + 100) > 0x8008u)
+        if (*(v16 + 100) > 0x8008u)
         {
-          if (v20 != 32777)
+          if (v21 != 32777)
           {
-            if (v20 == 32778)
+            if (v21 == 32778)
             {
-              v58 = v95[5];
-              if (v58 && *(*(v95 + 1) + v58 - 1) != 10)
+              v59 = v96[5];
+              if (v59 && *(*(v96 + 1) + v59 - 1) != 10)
               {
-                cmark_strbuf_putc(v95, 10);
+                cmark_strbuf_putc(v96, 10);
               }
 
-              cmark_strbuf_puts(v16, "<hr");
+              cmark_strbuf_puts(v17, "<hr");
               if ((a2 & 2) != 0)
               {
-                start_line = cmark_node_get_start_line(v15);
-                start_column = cmark_node_get_start_column(v15);
-                end_line = cmark_node_get_end_line(v15);
-                end_column = cmark_node_get_end_column(v15);
-                v90 = end_line;
-                a2 = v94;
-                snprintf(__str, 0x64uLL, " data-sourcepos=%d:%d-%d:%d", start_line, start_column, v90, end_column);
-                cmark_strbuf_puts(v16, __str);
+                start_line = cmark_node_get_start_line(v16);
+                start_column = cmark_node_get_start_column(v16);
+                end_line = cmark_node_get_end_line(v16);
+                end_column = cmark_node_get_end_column(v16);
+                v91 = end_line;
+                a2 = v95;
+                snprintf(__str, 0x64uLL, " data-sourcepos=%d:%d-%d:%d", start_line, start_column, v91, end_column);
+                cmark_strbuf_puts(v17, __str);
               }
 
-              v26 = v16;
-              v27 = " />\n";
+              v27 = v17;
+              v28 = " />\n";
             }
 
             else
             {
-              if (v20 != 32779)
+              if (v21 != 32779)
               {
                 goto LABEL_217;
               }
 
               if (v13 == 2)
               {
-                v31 = v97;
-                if (!v97)
+                v32 = v98;
+                if (!v98)
                 {
-                  cmark_strbuf_puts(v95, "<section class=footnotes data-footnotes>\n<ol>\n");
-                  v31 = v97;
+                  cmark_strbuf_puts(v96, "<section class=footnotes data-footnotes>\n<ol>\n");
+                  v32 = v98;
                 }
 
-                LODWORD(v97) = v31 + 1;
-                cmark_strbuf_puts(v16, "<li id=fn-");
-                houdini_escape_href(v16, *(v15 + 128), *(v15 + 136));
-                v26 = v16;
-                v27 = ">\n";
+                LODWORD(v98) = v32 + 1;
+                cmark_strbuf_puts(v17, "<li id=fn-");
+                houdini_escape_href(v17, *(v16 + 128), *(v16 + 136));
+                v27 = v17;
+                v28 = ">\n";
               }
 
               else
               {
-                if (S_put_footnote_backref(&v95, v95, v15))
+                if (S_put_footnote_backref(&v96, v96, v16))
                 {
-                  cmark_strbuf_putc(v16, 10);
+                  cmark_strbuf_putc(v17, 10);
                 }
 
 LABEL_179:
-                v26 = v16;
-                v27 = "</li>\n";
+                v27 = v17;
+                v28 = "</li>\n";
               }
             }
 
@@ -746,87 +746,87 @@ LABEL_179:
 
           if (v13 != 2)
           {
-            v99[3] = *(v15 + 128) + 48;
-            v37 = v99;
+            v100[3] = *(v16 + 128) + 48;
+            v38 = v100;
 LABEL_161:
-            cmark_strbuf_puts(v16, v37);
+            cmark_strbuf_puts(v17, v38);
             goto LABEL_162;
           }
 
-          v49 = v95[5];
-          if (v49 && *(*(v95 + 1) + v49 - 1) != 10)
+          v50 = v96[5];
+          if (v50 && *(*(v96 + 1) + v50 - 1) != 10)
           {
-            cmark_strbuf_putc(v95, 10);
+            cmark_strbuf_putc(v96, 10);
           }
 
-          __s[2] = *(v15 + 128) + 48;
-          v25 = __s;
-          v24 = v16;
+          __s[2] = *(v16 + 128) + 48;
+          v26 = __s;
+          v25 = v17;
           goto LABEL_109;
         }
 
-        if (v20 != 32774)
+        if (v21 != 32774)
         {
-          if (v20 != 32775)
+          if (v21 != 32775)
           {
-            v21 = cmark_node_parent(v15);
-            v22 = cmark_node_parent(v21);
-            if (v22 && *(v22 + 100) == 32771 && (*(v22 + 149) & 1) != 0)
+            v22 = cmark_node_parent(v16);
+            v23 = cmark_node_parent(v22);
+            if (v23 && *(v23 + 100) == 32771 && (*(v23 + 149) & 1) != 0)
             {
               goto LABEL_205;
             }
 
             if (v13 != 2)
             {
-              if (*(v21 + 100) == 32779 && !*(v15 + 24))
+              if (*(v22 + 100) == 32779 && !*(v16 + 24))
               {
-                cmark_strbuf_putc(v16, 32);
-                S_put_footnote_backref(&v95, v16, v21);
+                cmark_strbuf_putc(v17, 32);
+                S_put_footnote_backref(&v96, v17, v22);
               }
 
-              v26 = v16;
-              v27 = "</p>\n";
+              v27 = v17;
+              v28 = "</p>\n";
               goto LABEL_204;
             }
 
-            v23 = v16[5];
-            if (v23 && *(*(v16 + 1) + v23 - 1) != 10)
+            v24 = v17[5];
+            if (v24 && *(*(v17 + 1) + v24 - 1) != 10)
             {
-              cmark_strbuf_putc(v16, 10);
+              cmark_strbuf_putc(v17, 10);
             }
 
-            v24 = v16;
-            v25 = "<p";
+            v25 = v17;
+            v26 = "<p";
             goto LABEL_109;
           }
 
-          v54 = v95[5];
-          if (v54 && *(*(v95 + 1) + v54 - 1) != 10)
+          v55 = v96[5];
+          if (v55 && *(*(v96 + 1) + v55 - 1) != 10)
           {
-            cmark_strbuf_putc(v95, 10);
+            cmark_strbuf_putc(v96, 10);
           }
 
-          v55 = 144;
+          v56 = 144;
           if (v13 == 2)
           {
-            v55 = 128;
+            v56 = 128;
           }
 
-          v56 = 152;
+          v57 = 152;
           if (v13 == 2)
           {
-            v56 = 136;
+            v57 = 136;
           }
 
-          cmark_strbuf_put(v16, *(v15 + v55), *(v15 + v56));
-          v57 = v16[5];
-          if (!v57)
+          cmark_strbuf_put(v17, *(v16 + v56), *(v16 + v57));
+          v58 = v17[5];
+          if (!v58)
           {
             goto LABEL_205;
           }
 
 LABEL_215:
-          if (*(*(v16 + 1) + v57 - 1) == 10)
+          if (*(*(v17 + 1) + v58 - 1) == 10)
           {
             goto LABEL_205;
           }
@@ -834,76 +834,76 @@ LABEL_215:
           goto LABEL_216;
         }
 
-        v46 = v95[5];
-        if (v46 && *(*(v95 + 1) + v46 - 1) != 10)
+        v47 = v96[5];
+        if (v47 && *(*(v96 + 1) + v47 - 1) != 10)
         {
-          cmark_strbuf_putc(v95, 10);
+          cmark_strbuf_putc(v96, 10);
         }
 
         if ((a2 & 0x20000) == 0)
         {
-          cmark_strbuf_puts(v16, "<!-- raw HTML omitted -->");
+          cmark_strbuf_puts(v17, "<!-- raw HTML omitted -->");
           goto LABEL_214;
         }
 
-        v63 = *(v15 + 128);
-        v64 = *(v15 + 136);
-        if (*(&v96 + 1))
+        v64 = *(v16 + 128);
+        v65 = *(v16 + 136);
+        if (*(&v97 + 1))
         {
-          if (v64)
+          if (v65)
           {
-            v65 = v95;
+            v66 = v96;
             while (1)
             {
-              v66 = memchr(v63, 60, v64);
-              if (!v66)
+              v67 = memchr(v64, 60, v65);
+              if (!v67)
               {
                 break;
               }
 
-              v67 = v66;
-              v68 = v66 - v63;
-              if (v66 != v63)
+              v68 = v67;
+              v69 = v67 - v64;
+              if (v67 != v64)
               {
-                cmark_strbuf_put(v65, v63, v68);
-                v64 -= v68;
-                v63 = v67;
+                cmark_strbuf_put(v66, v64, v69);
+                v65 -= v69;
+                v64 = v68;
               }
 
-              v69 = &v96 + 1;
-              a2 = v94;
+              v70 = &v97 + 1;
+              a2 = v95;
               while (1)
               {
-                v69 = *v69;
-                if (!v69)
+                v70 = *v70;
+                if (!v70)
                 {
                   break;
                 }
 
-                if (!(*(v69[1] + 144))())
+                if (!(*(v70[1] + 144))())
                 {
-                  cmark_strbuf_puts(v65, "&lt;");
+                  cmark_strbuf_puts(v66, "&lt;");
                   goto LABEL_156;
                 }
               }
 
-              cmark_strbuf_putc(v65, 60);
+              cmark_strbuf_putc(v66, 60);
 LABEL_156:
-              ++v63;
-              if (!--v64)
+              ++v64;
+              if (!--v65)
               {
                 goto LABEL_214;
               }
             }
 
-            v83 = v65;
+            v84 = v66;
 LABEL_213:
-            cmark_strbuf_put(v83, v63, v64);
+            cmark_strbuf_put(v84, v64, v65);
           }
 
 LABEL_214:
-          v57 = v16[5];
-          if (!v57)
+          v58 = v17[5];
+          if (!v58)
           {
             goto LABEL_205;
           }
@@ -911,171 +911,171 @@ LABEL_214:
           goto LABEL_215;
         }
 
-        v83 = v16;
+        v84 = v17;
         goto LABEL_213;
       }
 
-      if (*(v15 + 100) > 0x8002u)
+      if (*(v16 + 100) > 0x8002u)
       {
-        if (v20 == 32771)
+        if (v21 == 32771)
         {
-          v40 = *(v15 + 128);
+          v41 = *(v16 + 128);
           if (v13 == 2)
           {
-            v41 = *(v15 + 140);
-            v42 = v95[5];
-            if (v42 && *(*(v95 + 1) + v42 - 1) != 10)
+            v42 = *(v16 + 140);
+            v43 = v96[5];
+            if (v43 && *(*(v96 + 1) + v43 - 1) != 10)
             {
-              cmark_strbuf_putc(v95, 10);
+              cmark_strbuf_putc(v96, 10);
             }
 
-            if (v40 == 1)
+            if (v41 == 1)
             {
-              v43 = v16;
-              v44 = "<ul";
+              v44 = v17;
+              v45 = "<ul";
             }
 
-            else if (v41 == 1)
+            else if (v42 == 1)
             {
-              v43 = v16;
-              v44 = "<ol";
+              v44 = v17;
+              v45 = "<ol";
             }
 
             else
             {
-              snprintf(v101, 0x64uLL, "<ol start=%d", v41);
-              v44 = v101;
-              v43 = v16;
+              snprintf(v102, 0x64uLL, "<ol start=%d", v42);
+              v45 = v102;
+              v44 = v17;
             }
 
-            cmark_strbuf_puts(v43, v44);
+            cmark_strbuf_puts(v44, v45);
             if ((a2 & 2) != 0)
             {
-              v84 = cmark_node_get_start_line(v15);
-              v85 = cmark_node_get_start_column(v15);
-              v86 = cmark_node_get_end_line(v15);
-              v87 = cmark_node_get_end_column(v15);
-              v93 = v86;
-              a2 = v94;
-              snprintf(__str, 0x64uLL, " data-sourcepos=%d:%d-%d:%d", v84, v85, v93, v87);
-              cmark_strbuf_puts(v16, __str);
+              v85 = cmark_node_get_start_line(v16);
+              v86 = cmark_node_get_start_column(v16);
+              v87 = cmark_node_get_end_line(v16);
+              v88 = cmark_node_get_end_column(v16);
+              v94 = v87;
+              a2 = v95;
+              snprintf(__str, 0x64uLL, " data-sourcepos=%d:%d-%d:%d", v85, v86, v94, v88);
+              cmark_strbuf_puts(v17, __str);
             }
 
-            cmark_strbuf_puts(v16, ">\n");
+            cmark_strbuf_puts(v17, ">\n");
             goto LABEL_205;
           }
 
-          if (v40 == 1)
+          if (v41 == 1)
           {
-            v27 = "</ul>\n";
+            v28 = "</ul>\n";
           }
 
           else
           {
-            v27 = "</ol>\n";
+            v28 = "</ol>\n";
           }
 
-          v26 = v95;
+          v27 = v96;
           goto LABEL_204;
         }
 
-        if (v20 != 32772)
+        if (v21 != 32772)
         {
-          v28 = v95[5];
-          if (v28 && *(*(v95 + 1) + v28 - 1) != 10)
+          v29 = v96[5];
+          if (v29 && *(*(v96 + 1) + v29 - 1) != 10)
           {
-            cmark_strbuf_putc(v95, 10);
+            cmark_strbuf_putc(v96, 10);
           }
 
-          v29 = *(v15 + 136);
-          if (v29)
+          v30 = *(v16 + 136);
+          if (v30)
           {
-            if (v29 < 1)
+            if (v30 < 1)
             {
-              LODWORD(v30) = 0;
+              LODWORD(v31) = 0;
             }
 
             else
             {
-              v30 = 0;
+              v31 = 0;
               do
               {
-                if (cmark_isspace(*(*(v15 + 128) + v30)))
+                if (cmark_isspace(*(*(v16 + 128) + v31)))
                 {
                   break;
                 }
 
-                ++v30;
+                ++v31;
               }
 
-              while (v30 < *(v15 + 136));
+              while (v31 < *(v16 + 136));
             }
 
-            cmark_strbuf_puts(v16, "<pre");
+            cmark_strbuf_puts(v17, "<pre");
             if ((a2 & 2) != 0)
             {
-              v79 = cmark_node_get_start_line(v15);
-              v80 = cmark_node_get_start_column(v15);
-              v81 = cmark_node_get_end_line(v15);
-              v82 = cmark_node_get_end_column(v15);
-              v92 = v81;
-              a2 = v94;
-              snprintf(__str, 0x64uLL, " data-sourcepos=%d:%d-%d:%d", v79, v80, v92, v82);
-              cmark_strbuf_puts(v16, __str);
+              v80 = cmark_node_get_start_line(v16);
+              v81 = cmark_node_get_start_column(v16);
+              v82 = cmark_node_get_end_line(v16);
+              v83 = cmark_node_get_end_column(v16);
+              v93 = v82;
+              a2 = v95;
+              snprintf(__str, 0x64uLL, " data-sourcepos=%d:%d-%d:%d", v80, v81, v93, v83);
+              cmark_strbuf_puts(v17, __str);
             }
 
             if ((a2 & 0x800) != 0)
             {
-              cmark_strbuf_puts(v16, " lang=");
-              houdini_escape_html0(v16, *(v15 + 128), v30, 0);
-              if ((a2 & 0x10000) != 0 && v30 < *(v15 + 136))
+              cmark_strbuf_puts(v17, " lang=");
+              houdini_escape_html0(v17, *(v16 + 128), v31, 0);
+              if ((a2 & 0x10000) != 0 && v31 < *(v16 + 136))
               {
-                cmark_strbuf_puts(v16, " data-meta=");
-                houdini_escape_html0(v16, *(v15 + 128) + v30 + 1, *(v15 + 136) + ~v30, 0);
+                cmark_strbuf_puts(v17, " data-meta=");
+                houdini_escape_html0(v17, *(v16 + 128) + v31 + 1, *(v16 + 136) + ~v31, 0);
               }
 
-              v77 = v16;
-              v78 = "><code>";
+              v78 = v17;
+              v79 = "><code>";
             }
 
             else
             {
-              cmark_strbuf_puts(v16, "><code class=language-");
-              houdini_escape_html0(v16, *(v15 + 128), v30, 0);
-              if ((a2 & 0x10000) != 0 && v30 < *(v15 + 136))
+              cmark_strbuf_puts(v17, "><code class=language-");
+              houdini_escape_html0(v17, *(v16 + 128), v31, 0);
+              if ((a2 & 0x10000) != 0 && v31 < *(v16 + 136))
               {
-                cmark_strbuf_puts(v16, " data-meta=");
-                houdini_escape_html0(v16, *(v15 + 128) + v30 + 1, *(v15 + 136) + ~v30, 0);
+                cmark_strbuf_puts(v17, " data-meta=");
+                houdini_escape_html0(v17, *(v16 + 128) + v31 + 1, *(v16 + 136) + ~v31, 0);
               }
 
-              v77 = v16;
-              v78 = ">";
+              v78 = v17;
+              v79 = ">";
             }
           }
 
           else
           {
-            cmark_strbuf_puts(v16, "<pre");
+            cmark_strbuf_puts(v17, "<pre");
             if ((a2 & 2) != 0)
             {
-              v73 = cmark_node_get_start_line(v15);
-              v74 = cmark_node_get_start_column(v15);
-              v75 = cmark_node_get_end_line(v15);
-              v76 = cmark_node_get_end_column(v15);
-              v91 = v75;
-              a2 = v94;
-              snprintf(__str, 0x64uLL, " data-sourcepos=%d:%d-%d:%d", v73, v74, v91, v76);
-              cmark_strbuf_puts(v16, __str);
+              v74 = cmark_node_get_start_line(v16);
+              v75 = cmark_node_get_start_column(v16);
+              v76 = cmark_node_get_end_line(v16);
+              v77 = cmark_node_get_end_column(v16);
+              v92 = v76;
+              a2 = v95;
+              snprintf(__str, 0x64uLL, " data-sourcepos=%d:%d-%d:%d", v74, v75, v92, v77);
+              cmark_strbuf_puts(v17, __str);
             }
 
-            v77 = v16;
-            v78 = "><code>";
+            v78 = v17;
+            v79 = "><code>";
           }
 
-          cmark_strbuf_puts(v77, v78);
-          houdini_escape_html0(v16, *(v15 + 144), *(v15 + 152), 0);
-          v26 = v16;
-          v27 = "</code></pre>\n";
+          cmark_strbuf_puts(v78, v79);
+          houdini_escape_html0(v17, *(v16 + 144), *(v16 + 152), 0);
+          v27 = v17;
+          v28 = "</code></pre>\n";
           goto LABEL_204;
         }
 
@@ -1084,93 +1084,93 @@ LABEL_214:
           goto LABEL_179;
         }
 
-        v45 = v95[5];
-        if (v45 && *(*(v95 + 1) + v45 - 1) != 10)
+        v46 = v96[5];
+        if (v46 && *(*(v96 + 1) + v46 - 1) != 10)
         {
-          cmark_strbuf_putc(v95, 10);
+          cmark_strbuf_putc(v96, 10);
         }
 
-        v24 = v16;
-        v25 = "<li";
+        v25 = v17;
+        v26 = "<li";
 LABEL_109:
-        cmark_strbuf_puts(v24, v25);
+        cmark_strbuf_puts(v25, v26);
         if ((a2 & 2) != 0)
         {
-          v50 = cmark_node_get_start_line(v15);
-          v51 = cmark_node_get_start_column(v15);
-          v52 = cmark_node_get_end_line(v15);
-          v53 = cmark_node_get_end_column(v15);
-          v89 = v52;
-          a2 = v94;
-          snprintf(__str, 0x64uLL, " data-sourcepos=%d:%d-%d:%d", v50, v51, v89, v53);
-          cmark_strbuf_puts(v16, __str);
+          v51 = cmark_node_get_start_line(v16);
+          v52 = cmark_node_get_start_column(v16);
+          v53 = cmark_node_get_end_line(v16);
+          v54 = cmark_node_get_end_column(v16);
+          v90 = v53;
+          a2 = v95;
+          snprintf(__str, 0x64uLL, " data-sourcepos=%d:%d-%d:%d", v51, v52, v90, v54);
+          cmark_strbuf_puts(v17, __str);
         }
 
-        v38 = v16;
-        v39 = 62;
+        v39 = v17;
+        v40 = 62;
         goto LABEL_83;
       }
 
-      if (v20 != 32769)
+      if (v21 != 32769)
       {
-        if (v20 != 32770)
+        if (v21 != 32770)
         {
           goto LABEL_217;
         }
 
-        v32 = v95[5];
+        v33 = v96[5];
         if (v13 != 2)
         {
-          if (v32 && *(*(v95 + 1) + v32 - 1) != 10)
+          if (v33 && *(*(v96 + 1) + v33 - 1) != 10)
           {
-            cmark_strbuf_putc(v95, 10);
+            cmark_strbuf_putc(v96, 10);
           }
 
-          v26 = v16;
-          v27 = "</blockquote>\n";
+          v27 = v17;
+          v28 = "</blockquote>\n";
           goto LABEL_204;
         }
 
-        if (v32 && *(*(v95 + 1) + v32 - 1) != 10)
+        if (v33 && *(*(v96 + 1) + v33 - 1) != 10)
         {
-          cmark_strbuf_putc(v95, 10);
+          cmark_strbuf_putc(v96, 10);
         }
 
-        cmark_strbuf_puts(v16, "<blockquote");
+        cmark_strbuf_puts(v17, "<blockquote");
         if ((a2 & 2) != 0)
         {
-          v33 = cmark_node_get_start_line(v15);
-          v34 = cmark_node_get_start_column(v15);
-          v35 = cmark_node_get_end_line(v15);
-          v36 = cmark_node_get_end_column(v15);
-          v88 = v35;
-          a2 = v94;
-          snprintf(__str, 0x64uLL, " data-sourcepos=%d:%d-%d:%d", v33, v34, v88, v36);
-          v37 = __str;
+          v34 = cmark_node_get_start_line(v16);
+          v35 = cmark_node_get_start_column(v16);
+          v36 = cmark_node_get_end_line(v16);
+          v37 = cmark_node_get_end_column(v16);
+          v89 = v36;
+          a2 = v95;
+          snprintf(__str, 0x64uLL, " data-sourcepos=%d:%d-%d:%d", v34, v35, v89, v37);
+          v38 = __str;
           goto LABEL_161;
         }
 
 LABEL_162:
-        v26 = v16;
-        v27 = ">\n";
+        v27 = v17;
+        v28 = ">\n";
         goto LABEL_204;
       }
 
 LABEL_205:
-      v13 = cmark_iter_next(v7);
+      v13 = cmark_iter_next(v8, v15);
     }
 
     while (v13 != 1);
   }
 
-  if (v97)
+  if (v98)
   {
-    cmark_strbuf_puts(v98, "</ol>\n</section>\n");
+    cmark_strbuf_puts(v99, "</ol>\n</section>\n");
   }
 
-  v11 = cmark_strbuf_detach(v98);
-  cmark_llist_free(a4, *(&v96 + 1));
-  cmark_iter_free(v7);
+  v11 = cmark_strbuf_detach(v99);
+  cmark_llist_free(a4, *(&v97 + 1));
+  cmark_iter_free(v8);
   return v11;
 }
 
@@ -1207,77 +1207,77 @@ BOOL S_put_footnote_backref(uint64_t a1, _DWORD *a2, uint64_t a3)
   return v3 < v4;
 }
 
-uint64_t cmark_parser_attach_syntax_extension(uint64_t a1, uint64_t a2)
+uint64_t cmark_parser_attach_syntax_extension(uint64_t (***a1)(uint64_t, uint64_t), uint64_t a2)
 {
-  *(a1 + 128) = cmark_llist_append(*a1, *(a1 + 128), a2);
-  if (*(a2 + 16) || *(a2 + 24))
+  a1[16] = cmark_llist_append(*a1, a1[16], a2);
+  if (*(a2 + 16) != 0)
   {
-    *(a1 + 136) = cmark_llist_append(*a1, *(a1 + 136), a2);
+    a1[17] = cmark_llist_append(*a1, a1[17], a2);
   }
 
   return 1;
 }
 
-uint64_t cmark_parser_new_with_mem(int a1, uint64_t (**a2)(uint64_t, uint64_t))
+__n128 *cmark_parser_new_with_mem(unsigned __int32 a1, uint64_t (**a2)(uint64_t, uint64_t))
 {
   v4 = (*a2)(1, 152);
-  *v4 = a2;
-  *(v4 + 120) = a1;
+  v4->n128_u64[0] = a2;
+  v4[7].n128_u32[2] = a1;
   cmark_parser_reset(v4);
   return v4;
 }
 
-__n128 cmark_parser_reset(uint64_t a1)
+__n128 cmark_parser_reset(__n128 *a1)
 {
-  v2 = *(a1 + 120);
-  v3 = *a1;
-  v7 = *(a1 + 128);
+  v2 = a1[7].n128_u32[2];
+  v3 = a1->n128_u64[0];
+  v7 = a1[8];
   cmark_parser_dispose(a1);
-  *(a1 + 144) = 0;
-  *(a1 + 112) = 0u;
-  *(a1 + 128) = 0u;
-  *(a1 + 80) = 0u;
-  *(a1 + 32) = 0u;
-  *(a1 + 48) = 0u;
+  a1[9].n128_u64[0] = 0;
+  a1[7] = 0u;
+  a1[8] = 0u;
+  a1[5] = 0u;
+  a1[2] = 0u;
+  a1[3] = 0u;
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 96) = 0u;
-  *(a1 + 64) = 0u;
-  *a1 = v3;
-  cmark_strbuf_init(v3, (a1 + 64), 256);
-  cmark_strbuf_init(*a1, (a1 + 96), 0);
-  v4 = *a1;
-  v5 = (**a1)(1, 168);
+  a1[1] = 0u;
+  a1[6] = 0u;
+  a1[4] = 0u;
+  a1->n128_u64[0] = v3;
+  cmark_strbuf_init(v3, &a1[4], 256);
+  cmark_strbuf_init(a1->n128_u64[0], &a1[6], 0);
+  v4 = a1->n128_u64[0];
+  v5 = (*a1->n128_u64[0])(1, 168);
   cmark_strbuf_init(v4, v5, 32);
   *(v5 + 100) = 98305;
   *(v5 + 80) = 0x100000001;
   *(v5 + 88) = 1;
-  *(a1 + 8) = cmark_reference_map_new(*a1);
-  *(a1 + 16) = v5;
-  *(a1 + 24) = v5;
+  a1->n128_u64[1] = cmark_reference_map_new(a1->n128_u64[0]);
+  a1[1].n128_u64[0] = v5;
+  a1[1].n128_u64[1] = v5;
   result = v7;
-  *(a1 + 128) = v7;
-  *(a1 + 120) = v2;
+  a1[8] = v7;
+  a1[7].n128_u32[2] = v2;
   return result;
 }
 
-_DWORD *cmark_parser_new(int a1)
+__n128 *cmark_parser_new(unsigned __int32 a1)
 {
-  v2 = (CMARK_DEFAULT_MEM_ALLOCATOR[0])(1uLL, 0x98uLL);
-  *v2 = CMARK_DEFAULT_MEM_ALLOCATOR;
-  v2[30] = a1;
+  v2 = CMARK_DEFAULT_MEM_ALLOCATOR(1, 152);
+  v2->n128_u64[0] = &CMARK_DEFAULT_MEM_ALLOCATOR;
+  v2[7].n128_u32[2] = a1;
   cmark_parser_reset(v2);
   return v2;
 }
 
-uint64_t cmark_parser_free(uint64_t a1)
+uint64_t cmark_parser_free(uint64_t *a1)
 {
   v2 = *a1;
   cmark_parser_dispose(a1);
-  cmark_strbuf_free(a1 + 64);
-  cmark_strbuf_free(a1 + 96);
-  cmark_llist_free(*a1, *(a1 + 128));
-  cmark_llist_free(*a1, *(a1 + 136));
+  cmark_strbuf_free(a1 + 8);
+  cmark_strbuf_free(a1 + 12);
+  cmark_llist_free(*a1, a1[16]);
+  cmark_llist_free(*a1, a1[17]);
   v3 = *(v2 + 16);
 
   return v3(a1);
@@ -1325,15 +1325,15 @@ uint64_t cmark_manage_extensions_special_characters(uint64_t result, int a2)
   return result;
 }
 
-uint64_t cmark_parse_file(uint64_t a1)
+unint64_t cmark_parse_file(uint64_t a1)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v3 = v2;
-  v4 = v1;
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  v4 = v3;
   v11 = *MEMORY[0x277D85DE8];
-  v5 = (CMARK_DEFAULT_MEM_ALLOCATOR[0])(1uLL, 0x98uLL);
-  *v5 = CMARK_DEFAULT_MEM_ALLOCATOR;
-  v5[30] = v3;
+  v5 = CMARK_DEFAULT_MEM_ALLOCATOR(1, 152);
+  v5->n128_u64[0] = &CMARK_DEFAULT_MEM_ALLOCATOR;
+  v5[7].n128_u32[2] = v2;
   cmark_parser_reset(v5);
   do
   {
@@ -1451,61 +1451,61 @@ LABEL_24:
   return result;
 }
 
-uint64_t cmark_parser_finish(uint64_t a1)
+unint64_t cmark_parser_finish(uint64_t (***a1)(uint64_t, uint64_t))
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 16);
+  v50 = *MEMORY[0x277D85DE8];
+  v1 = a1[2];
   if (!v1)
   {
     return 0;
   }
 
-  v3 = *(a1 + 116);
+  v3 = *(a1 + 29);
   if (v3)
   {
-    S_process_line(a1, *(a1 + 104), v3);
-    cmark_strbuf_clear(a1 + 96);
-    v1 = *(a1 + 16);
+    S_process_line(a1, a1[13], v3);
+    cmark_strbuf_clear((a1 + 12));
+    v1 = a1[2];
   }
 
-  for (i = *(a1 + 24); i != v1; v1 = *(a1 + 16))
+  for (i = a1[3]; i != v1; v1 = a1[2])
   {
     i = finalize(a1, i);
-    *(a1 + 24) = i;
+    a1[3] = i;
   }
 
   finalize(a1, v1);
-  v5 = *(a1 + 120);
-  v6 = *(a1 + 8);
-  v7 = cmark_iter_new(*(a1 + 16));
+  v5 = *(a1 + 30);
+  v6 = a1[1];
+  v7 = cmark_iter_new(a1[2]);
   cmark_manage_extensions_special_characters(a1, 1);
-  v8 = cmark_iter_next(v7);
-  if (v8 != 1)
+  v9 = cmark_iter_next(v7, v8);
+  if (v9 != 1)
   {
-    for (j = v8; j != 1; j = cmark_iter_next(v7))
+    for (j = v9; j != 1; j = cmark_iter_next(v7, v12))
     {
       node = cmark_iter_get_node(v7);
       if (j == 2)
       {
-        v11 = node;
-        v12 = *(node + 104);
-        if (v12)
+        v13 = node;
+        v14 = *(node + 104);
+        if (v14)
         {
-          v13 = *(v12 + 88);
-          if (v13)
+          v15 = *(v14 + 88);
+          if (v15)
           {
-            if (!v13())
+            if (!v15())
             {
               continue;
             }
 
 LABEL_14:
-            cmark_parse_inlines(a1, v11, v6, v5);
+            cmark_parse_inlines(a1, v13, v6, v5);
             continue;
           }
         }
 
-        if ((*(v11 + 100) & 0xFFFE) == 0x8008)
+        if ((*(v13 + 100) & 0xFFFE) == 0x8008)
         {
           goto LABEL_14;
         }
@@ -1517,152 +1517,156 @@ LABEL_14:
   cmark_iter_free(v7);
   if ((*(a1 + 121) & 0x20) != 0)
   {
-    v14 = cmark_footnote_map_new(*a1);
-    v15 = cmark_iter_new(*(a1 + 16));
-    v16 = cmark_iter_next(v15);
-    if (v16 != 1)
+    v16 = cmark_footnote_map_new(*a1);
+    v17 = cmark_iter_new(a1[2]);
+    v19 = cmark_iter_next(v17, v18);
+    if (v19 != 1)
     {
-      for (k = v16; k != 1; k = cmark_iter_next(v15))
+      for (k = v19; k != 1; k = cmark_iter_next(v17, v22))
       {
-        v18 = cmark_iter_get_node(v15);
-        if (k == 3 && *(v18 + 100) == 32779)
+        v21 = cmark_iter_get_node(v17);
+        if (k == 3)
         {
-          cmark_footnote_create(v14, v18);
+          v22 = v21;
+          if (*(v21 + 100) == 32779)
+          {
+            cmark_footnote_create(v16, v21);
+          }
         }
       }
     }
 
-    cmark_iter_free(v15);
-    v19 = cmark_iter_new(*(a1 + 16));
-    v20 = cmark_iter_next(v19);
-    if (v20 != 1)
+    cmark_iter_free(v17);
+    v23 = cmark_iter_new(a1[2]);
+    v25 = cmark_iter_next(v23, v24);
+    if (v25 != 1)
     {
-      v21 = v20;
-      v22 = 0;
+      v26 = v25;
+      v27 = 0;
       do
       {
-        v23 = cmark_iter_get_node(v19);
-        if (v21 == 3)
+        v28 = cmark_iter_get_node(v23);
+        if (v26 == 3)
         {
-          v24 = v23;
-          if (*(v23 + 100) == 49163)
+          v30 = v28;
+          if (*(v28 + 100) == 49163)
           {
-            v25 = cmark_map_lookup(v14, v23 + 128);
-            if (v25)
+            v31 = cmark_map_lookup(v16, v28 + 128);
+            if (v31)
             {
-              if (!*(v25 + 8))
+              if (!*(v31 + 8))
               {
-                *(v25 + 8) = ++v22;
+                *(v31 + 8) = ++v27;
               }
 
-              v26 = *(v25 + 3);
-              *(v24 + 120) = v26;
-              v27 = *(v26 + 112) + 1;
-              *(v26 + 112) = v27;
-              *(v24 + 112) = v27;
-              snprintf(__str, 0x20uLL, "%d", *(v25 + 8));
-              if (*(v24 + 140))
+              v32 = *(v31 + 3);
+              *(v30 + 120) = v32;
+              v33 = *(v32 + 112) + 1;
+              *(v32 + 112) = v33;
+              *(v30 + 112) = v33;
+              snprintf(__str, 0x20uLL, "%d", *(v31 + 8));
+              if (*(v30 + 140))
               {
-                (*(*a1 + 16))(*(v24 + 128));
+                ((*a1)[2])(*(v30 + 128));
               }
 
-              *(v24 + 128) = 0;
-              *(v24 + 136) = 0;
-              v39[0] = *a1;
-              v39[1] = &cmark_strbuf__initbuf;
-              v40 = 0;
-              cmark_strbuf_puts(v39, __str);
-              v28 = HIDWORD(v40);
-              *(v24 + 128) = cmark_strbuf_detach(v39);
-              *(v24 + 136) = v28 | 0x100000000;
+              *(v30 + 128) = 0;
+              *(v30 + 136) = 0;
+              v45[0] = *a1;
+              v45[1] = &cmark_strbuf__initbuf;
+              v46 = 0;
+              cmark_strbuf_puts(v45, __str);
+              v34 = HIDWORD(v46);
+              *(v30 + 128) = cmark_strbuf_detach(v45);
+              *(v30 + 136) = v34 | 0x100000000;
             }
 
             else
             {
-              v29 = (**a1)(1, 168);
-              cmark_strbuf_init(*a1, v29, 0);
-              *(v29 + 100) = -16383;
+              v35 = (**a1)(1, 168);
+              cmark_strbuf_init(*a1, v35, 0);
+              *(v35 + 100) = -16383;
               *__str = *a1;
-              v42 = &cmark_strbuf__initbuf;
-              v43 = 0;
+              v48 = &cmark_strbuf__initbuf;
+              v49 = 0;
               cmark_strbuf_puts(__str, "[^");
-              cmark_strbuf_put(__str, *(v24 + 128), *(v24 + 136));
+              cmark_strbuf_put(__str, *(v30 + 128), *(v30 + 136));
               cmark_strbuf_putc(__str, 93);
-              v30 = HIDWORD(v43);
-              *(v29 + 128) = cmark_strbuf_detach(__str);
-              *(v29 + 136) = v30 | 0x100000000;
-              cmark_node_insert_after(v24, v29);
-              cmark_node_free(v24);
+              v36 = HIDWORD(v49);
+              *(v35 + 128) = cmark_strbuf_detach(__str);
+              *(v35 + 136) = v36 | 0x100000000;
+              cmark_node_insert_after(v30, v35);
+              cmark_node_free(v30);
             }
           }
         }
 
-        v21 = cmark_iter_next(v19);
+        v26 = cmark_iter_next(v23, v29);
       }
 
-      while (v21 != 1);
+      while (v26 != 1);
     }
 
-    cmark_iter_free(v19);
-    v31 = v14[2];
-    if (v31)
+    cmark_iter_free(v23);
+    v37 = v16[2];
+    if (v37)
     {
-      qsort(v31, *(v14 + 6), 8uLL, sort_footnote_by_ix);
-      if (*(v14 + 6))
+      qsort(v37, *(v16 + 6), 8uLL, sort_footnote_by_ix);
+      if (*(v16 + 6))
       {
-        v32 = 0;
+        v38 = 0;
         do
         {
-          v33 = v14[2][v32];
-          if (*(v33 + 8))
+          v39 = v16[2][v38];
+          if (*(v39 + 8))
           {
-            cmark_node_append_child(*(a1 + 16), *(v33 + 3));
-            *(v33 + 3) = 0;
+            cmark_node_append_child(a1[2], *(v39 + 3));
+            *(v39 + 3) = 0;
           }
 
           else
           {
-            cmark_node_unlink(*(v33 + 3));
+            cmark_node_unlink(*(v39 + 3));
           }
 
-          ++v32;
+          ++v38;
         }
 
-        while (v32 < *(v14 + 6));
+        while (v38 < *(v16 + 6));
       }
     }
 
-    cmark_unlink_footnotes_map(v14);
-    cmark_map_free(v14);
+    cmark_unlink_footnotes_map(v16);
+    cmark_map_free(v16);
   }
 
-  cmark_consolidate_text_nodes(*(a1 + 16));
-  cmark_strbuf_free(a1 + 64);
-  cmark_strbuf_free(a1 + 96);
-  for (m = *(a1 + 128); m; m = *m)
+  cmark_consolidate_text_nodes(a1[2]);
+  cmark_strbuf_free(a1 + 8);
+  cmark_strbuf_free(a1 + 12);
+  for (m = a1[16]; m; m = *m)
   {
-    v35 = *(m[1] + 152);
-    if (v35)
+    v41 = *(m[1] + 19);
+    if (v41)
     {
-      v36 = v35();
-      if (v36)
+      v42 = v41();
+      if (v42)
       {
-        *(a1 + 16) = v36;
+        a1[2] = v42;
       }
     }
   }
 
-  v37 = *(a1 + 16);
-  *(a1 + 16) = 0;
+  v43 = a1[2];
+  a1[2] = 0;
   cmark_parser_reset(a1);
-  return v37;
+  return v43;
 }
 
-uint64_t cmark_parse_document(_BYTE *a1, uint64_t a2, int a3)
+unint64_t cmark_parse_document(_BYTE *a1, uint64_t a2, unsigned __int32 a3)
 {
-  v6 = (CMARK_DEFAULT_MEM_ALLOCATOR[0])(1uLL, 0x98uLL);
-  *v6 = CMARK_DEFAULT_MEM_ALLOCATOR;
-  v6[30] = a3;
+  v6 = CMARK_DEFAULT_MEM_ALLOCATOR(1, 152);
+  v6->n128_u64[0] = &CMARK_DEFAULT_MEM_ALLOCATOR;
+  v6[7].n128_u32[2] = a3;
   cmark_parser_reset(v6);
   S_parser_feed(v6, a1, a2, 1);
   v7 = cmark_parser_finish(v6);
@@ -1670,7 +1674,7 @@ uint64_t cmark_parse_document(_BYTE *a1, uint64_t a2, int a3)
   return v7;
 }
 
-uint64_t cmark_parser_feed_reentrant(uint64_t a1, _BYTE *a2, uint64_t a3)
+void *cmark_parser_feed_reentrant(uint64_t a1, _BYTE *a2, uint64_t a3)
 {
   v7 = 0;
   __s = 0;
@@ -1683,17 +1687,18 @@ uint64_t cmark_parser_feed_reentrant(uint64_t a1, _BYTE *a2, uint64_t a3)
   return cmark_strbuf_free(&v7);
 }
 
-uint64_t S_process_line(uint64_t a1, const void *a2, int a3)
+uint64_t S_process_line(uint64_t a1, const void *a2, uint64_t a3)
 {
+  v3 = a3;
   cmark_strbuf_clear(a1 + 64);
   if ((*(a1 + 121) & 2) != 0)
   {
-    cmark_utf8proc_check((a1 + 64), a2, a3);
+    cmark_utf8proc_check((a1 + 64), a2, v3);
   }
 
   else
   {
-    cmark_strbuf_put((a1 + 64), a2, a3);
+    cmark_strbuf_put((a1 + 64), a2, v3);
   }
 
   v145 = 0;
@@ -1873,7 +1878,7 @@ LABEL_24:
               break;
             }
 
-            S_advance_offset(a1, &v145, 1, 1);
+            S_advance_offset(a1, &v145, 1u, 1);
             --v31;
           }
 
@@ -1957,7 +1962,7 @@ LABEL_85:
       v62 = v59[*(a1 + 36)];
       if (v62 == 32 || v62 == 9)
       {
-        S_advance_offset(a1, &v145, 1, 1);
+        S_advance_offset(a1, &v145, 1u, 1);
       }
 
       v64 = add_child(a1, v37, 32770, v61);
@@ -2248,7 +2253,7 @@ LABEL_192:
 LABEL_196:
           if (v38 >= 4 && !v35 && (*(a1 + 60) & 1) == 0)
           {
-            S_advance_offset(a1, &v145, 4, 1);
+            S_advance_offset(a1, &v145, 4u, 1);
             v37 = add_child(a1, v37, 32773, *(a1 + 36) + 1);
             *(v37 + 160) = 0;
             *(v37 + 128) = "";
@@ -2344,7 +2349,7 @@ LABEL_125:
           break;
         }
 
-        S_advance_offset(a1, &v145, 1, 1);
+        S_advance_offset(a1, &v145, 1u, 1);
         v51 = *(a1 + 40) - v52;
         if (v51 >= 6)
         {
@@ -2394,7 +2399,7 @@ LABEL_111:
         }
       }
 
-      S_advance_offset(a1, &v145, 1, 1);
+      S_advance_offset(a1, &v145, 1u, 1);
       goto LABEL_111;
     }
 
@@ -2613,28 +2618,37 @@ LABEL_265:
   return cmark_strbuf_clear(a1 + 64);
 }
 
-uint64_t add_child(uint64_t a1, uint64_t a2, int a3, int a4)
+uint64_t add_child(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (!a2)
   {
     add_child_cold_1();
   }
 
-    ;
+  v5 = a3;
+  v6 = a2;
+  if (!cmark_node_can_contain_type(a2, a3))
+  {
+    do
+    {
+      v6 = finalize(a1, v6);
+    }
+
+    while (!cmark_node_can_contain_type(v6, v5));
   }
 
   v8 = *a1;
   v9 = *(a1 + 32);
   v10 = (**a1)(1, 168);
   cmark_strbuf_init(v8, v10, 32);
-  *(v10 + 100) = a3;
+  *(v10 + 100) = v5;
   *(v10 + 102) = 1;
   *(v10 + 80) = v9;
   *(v10 + 84) = a4;
   *(v10 + 88) = v9;
-  *(v10 + 40) = i;
-  v11 = *(i + 56);
-  v12 = (i + 48);
+  *(v10 + 40) = v6;
+  v11 = *(v6 + 56);
+  v12 = (v6 + 48);
   if (v11)
   {
     v12 = (v11 + 24);
@@ -2642,12 +2656,13 @@ uint64_t add_child(uint64_t a1, uint64_t a2, int a3, int a4)
 
   *v12 = v10;
   *(v10 + 32) = v11;
-  *(i + 56) = v10;
+  *(v6 + 56) = v10;
   return v10;
 }
 
-uint64_t cmark_parser_advance_offset(uint64_t a1, char *__s, int a3, int a4)
+uint64_t cmark_parser_advance_offset(uint64_t a1, char *__s, uint64_t a3, int a4)
 {
+  v5 = a3;
   if (__s)
   {
     v8 = strlen(__s);
@@ -2660,10 +2675,10 @@ uint64_t cmark_parser_advance_offset(uint64_t a1, char *__s, int a3, int a4)
 
   v10[0] = __s;
   v10[1] = v8;
-  return S_advance_offset(a1, v10, a3, a4 != 0);
+  return S_advance_offset(a1, v10, v5, a4 != 0);
 }
 
-uint64_t S_advance_offset(uint64_t result, uint64_t *a2, int a3, int a4)
+uint64_t S_advance_offset(uint64_t result, uint64_t *a2, unsigned int a3, int a4)
 {
   if (a3 >= 1)
   {
@@ -3451,12 +3466,12 @@ uint64_t refcmp(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t cmark_reference_create(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 **a4)
+_BYTE *cmark_reference_create(uint64_t *a1, uint64_t a2, int *a3, unsigned __int8 **a4)
 {
   result = normalize_map_label(*a1, a2);
   if (result)
   {
-    if (*(a1 + 16))
+    if (a1[2])
     {
       cmark_reference_create_cold_1();
     }
@@ -3469,17 +3484,17 @@ uint64_t cmark_reference_create(uint64_t a1, uint64_t a2, uint64_t a3, unsigned 
     result = cmark_clean_title(*a1, a4);
     *(v9 + 40) = result;
     *(v9 + 48) = v11;
-    v12 = *(a1 + 24);
+    v12 = *(a1 + 6);
     *(v9 + 16) = v12;
-    *v9 = *(a1 + 8);
-    *(a1 + 8) = v9;
-    *(a1 + 24) = v12 + 1;
+    *v9 = a1[1];
+    a1[1] = v9;
+    *(a1 + 6) = v12 + 1;
   }
 
   return result;
 }
 
-uint64_t reference_free(uint64_t result, uint64_t a2)
+uint64_t *reference_free(uint64_t *result, uint64_t a2)
 {
   if (a2)
   {
@@ -3509,118 +3524,118 @@ uint64_t reference_free(uint64_t result, uint64_t a2)
 
 uint64_t cmark_render_xml_with_mem(uint64_t a1, char a2, uint64_t a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v33[0] = a3;
-  v33[1] = &cmark_strbuf__initbuf;
-  v33[2] = 0;
+  v37 = *MEMORY[0x277D85DE8];
+  v35[0] = a3;
+  v35[1] = &cmark_strbuf__initbuf;
+  v35[2] = 0;
   v4 = cmark_iter_new(a1);
-  cmark_strbuf_puts(v33, "<?xml version=1.0 encoding=UTF-8?>\n");
-  cmark_strbuf_puts(v33, "<!DOCTYPE document SYSTEM CommonMark.dtd>\n");
-  v5 = cmark_iter_next(v4);
-  if (v5 != 1)
+  cmark_strbuf_puts(v35, "<?xml version=1.0 encoding=UTF-8?>\n");
+  cmark_strbuf_puts(v35, "<!DOCTYPE document SYSTEM CommonMark.dtd>\n");
+  v6 = cmark_iter_next(v4, v5);
+  if (v6 != 1)
   {
-    v6 = v5;
-    v7 = 0;
+    v7 = v6;
+    v8 = 0;
     while (1)
     {
       node = cmark_iter_get_node(v4);
-      v9 = node;
-      if (v6 == 2)
+      v11 = node;
+      if (v7 == 2)
       {
         break;
       }
 
       if (*(node + 48))
       {
-        v22 = (v7 - 2);
-        if (v7 >= 3)
+        v24 = (v8 - 2);
+        if (v8 >= 3)
         {
-          v23 = v7 - 2;
+          v25 = v8 - 2;
           do
           {
-            cmark_strbuf_putc(v33, 32);
-            --v23;
+            cmark_strbuf_putc(v35, 32);
+            --v25;
           }
 
-          while (v23);
+          while (v25);
         }
 
-        cmark_strbuf_puts(v33, "</");
-        type_string = cmark_node_get_type_string(v9);
-        cmark_strbuf_puts(v33, type_string);
+        cmark_strbuf_puts(v35, "</");
+        type_string = cmark_node_get_type_string(v11);
+        cmark_strbuf_puts(v35, type_string);
         goto LABEL_58;
       }
 
 LABEL_59:
-      v6 = cmark_iter_next(v4);
-      if (v6 == 1)
+      v7 = cmark_iter_next(v4, v10);
+      if (v7 == 1)
       {
         goto LABEL_60;
       }
     }
 
-    if (v7 >= 1)
+    if (v8 >= 1)
     {
-      v10 = v7;
+      v12 = v8;
       do
       {
-        cmark_strbuf_putc(v33, 32);
-        --v10;
+        cmark_strbuf_putc(v35, 32);
+        --v12;
       }
 
-      while (v10);
+      while (v12);
     }
 
-    cmark_strbuf_putc(v33, 60);
-    v11 = cmark_node_get_type_string(v9);
-    cmark_strbuf_puts(v33, v11);
+    cmark_strbuf_putc(v35, 60);
+    v13 = cmark_node_get_type_string(v11);
+    cmark_strbuf_puts(v35, v13);
     if ((a2 & 2) != 0)
     {
-      v12 = *(v9 + 80);
-      if (v12)
+      v14 = *(v11 + 80);
+      if (v14)
       {
-        snprintf(__str, 0x64uLL, " sourcepos=%d:%d-%d:%d", v12, *(v9 + 84), *(v9 + 88), *(v9 + 92));
-        cmark_strbuf_puts(v33, __str);
+        snprintf(__str, 0x64uLL, " sourcepos=%d:%d-%d:%d", v14, *(v11 + 84), *(v11 + 88), *(v11 + 92));
+        cmark_strbuf_puts(v35, __str);
       }
     }
 
-    v13 = *(v9 + 104);
-    if (v13)
+    v15 = *(v11 + 104);
+    if (v15)
     {
-      v14 = *(v13 + 120);
-      if (v14)
+      v16 = *(v15 + 120);
+      if (v16)
       {
-        v15 = v14();
-        if (v15)
+        v17 = v16();
+        if (v17)
         {
-          cmark_strbuf_puts(v33, v15);
+          cmark_strbuf_puts(v35, v17);
         }
       }
     }
 
-    v16 = 0;
-    v17 = *(v9 + 100);
-    if (v17 <= 0x8006)
+    v18 = 0;
+    v19 = *(v11 + 100);
+    if (v19 <= 0x8006)
     {
-      if (*(v9 + 100) <= 0x8004u)
+      if (*(v11 + 100) <= 0x8004u)
       {
-        if (v17 == 32769)
+        if (v19 == 32769)
         {
-          v29 = " xmlns=http://commonmark.org/xml/1.0";
+          v31 = " xmlns=http://commonmark.org/xml/1.0";
 LABEL_51:
-          cmark_strbuf_puts(v33, v29);
+          cmark_strbuf_puts(v35, v31);
           goto LABEL_52;
         }
 
-        if (v17 != 32771)
+        if (v19 != 32771)
         {
           goto LABEL_53;
         }
 
-        list_type = cmark_node_get_list_type(v9);
+        list_type = cmark_node_get_list_type(v11);
         if (list_type == 1)
         {
-          v21 = " type=bullet";
+          v23 = " type=bullet";
         }
 
         else
@@ -3630,119 +3645,119 @@ LABEL_51:
             goto LABEL_49;
           }
 
-          cmark_strbuf_puts(v33, " type=ordered");
-          list_start = cmark_node_get_list_start(v9);
+          cmark_strbuf_puts(v35, " type=ordered");
+          list_start = cmark_node_get_list_start(v11);
           snprintf(__str, 0x64uLL, " start=%d", list_start);
-          cmark_strbuf_puts(v33, __str);
-          list_delim = cmark_node_get_list_delim(v9);
+          cmark_strbuf_puts(v35, __str);
+          list_delim = cmark_node_get_list_delim(v11);
           if (list_delim == 2)
           {
-            v21 = " delim=paren";
+            v23 = " delim=paren";
             goto LABEL_48;
           }
 
           if (list_delim != 1)
           {
 LABEL_49:
-            cmark_node_get_list_tight(v9);
+            cmark_node_get_list_tight(v11);
             snprintf(__str, 0x64uLL, " tight=%s");
 LABEL_50:
-            v29 = __str;
+            v31 = __str;
             goto LABEL_51;
           }
 
-          v21 = " delim=period";
+          v23 = " delim=period";
         }
 
 LABEL_48:
-        cmark_strbuf_puts(v33, v21);
+        cmark_strbuf_puts(v35, v23);
         goto LABEL_49;
       }
 
-      if (v17 == 32773)
+      if (v19 == 32773)
       {
-        if (*(v9 + 136) >= 1)
+        if (*(v11 + 136) >= 1)
         {
-          cmark_strbuf_puts(v33, " info=");
-          houdini_escape_html0(v33, *(v9 + 128), *(v9 + 136), 0);
-          cmark_strbuf_putc(v33, 34);
+          cmark_strbuf_puts(v35, " info=");
+          houdini_escape_html0(v35, *(v11 + 128), *(v11 + 136), 0);
+          cmark_strbuf_putc(v35, 34);
         }
 
-        cmark_strbuf_puts(v33, " xml:space=preserve>");
-        v27 = *(v9 + 144);
-        v28 = *(v9 + 152);
+        cmark_strbuf_puts(v35, " xml:space=preserve>");
+        v29 = *(v11 + 144);
+        v30 = *(v11 + 152);
         goto LABEL_39;
       }
 
-      if (v17 != 32774)
+      if (v19 != 32774)
       {
         goto LABEL_53;
       }
 
 LABEL_34:
-      cmark_strbuf_puts(v33, " xml:space=preserve>");
-      v27 = *(v9 + 128);
-      v28 = *(v9 + 136);
+      cmark_strbuf_puts(v35, " xml:space=preserve>");
+      v29 = *(v11 + 128);
+      v30 = *(v11 + 136);
 LABEL_39:
-      houdini_escape_html0(v33, v27, v28, 0);
-      cmark_strbuf_puts(v33, "</");
-      v30 = cmark_node_get_type_string(v9);
-      cmark_strbuf_puts(v33, v30);
-      v16 = 1;
+      houdini_escape_html0(v35, v29, v30, 0);
+      cmark_strbuf_puts(v35, "</");
+      v32 = cmark_node_get_type_string(v11);
+      cmark_strbuf_puts(v35, v32);
+      v18 = 1;
       goto LABEL_53;
     }
 
-    v25 = v17 - 1;
-    if (v17 - 49153 > 9)
+    v27 = v19 - 1;
+    if (v19 - 49153 > 9)
     {
       goto LABEL_41;
     }
 
-    if (((1 << v25) & 0x19) != 0)
+    if (((1 << v27) & 0x19) != 0)
     {
       goto LABEL_34;
     }
 
-    if (((1 << v25) & 0x300) != 0)
+    if (((1 << v27) & 0x300) != 0)
     {
-      cmark_strbuf_puts(v33, " destination=");
-      houdini_escape_html0(v33, *(v9 + 128), *(v9 + 136), 0);
-      cmark_strbuf_putc(v33, 34);
-      v26 = " title=";
+      cmark_strbuf_puts(v35, " destination=");
+      houdini_escape_html0(v35, *(v11 + 128), *(v11 + 136), 0);
+      cmark_strbuf_putc(v35, 34);
+      v28 = " title=";
 LABEL_45:
-      cmark_strbuf_puts(v33, v26);
-      houdini_escape_html0(v33, *(v9 + 144), *(v9 + 152), 0);
-      cmark_strbuf_putc(v33, 34);
+      cmark_strbuf_puts(v35, v28);
+      houdini_escape_html0(v35, *(v11 + 144), *(v11 + 152), 0);
+      cmark_strbuf_putc(v35, 34);
 LABEL_52:
-      v16 = 0;
+      v18 = 0;
 LABEL_53:
-      if (*(v9 + 48))
+      if (*(v11 + 48))
       {
-        v22 = (v7 + 2);
+        v24 = (v8 + 2);
       }
 
       else
       {
-        if ((v16 & 1) == 0)
+        if ((v18 & 1) == 0)
         {
-          cmark_strbuf_puts(v33, " /");
+          cmark_strbuf_puts(v35, " /");
         }
 
-        v22 = v7;
+        v24 = v8;
       }
 
 LABEL_58:
-      cmark_strbuf_puts(v33, ">\n");
-      v7 = v22;
+      cmark_strbuf_puts(v35, ">\n");
+      v8 = v24;
       goto LABEL_59;
     }
 
-    if (v17 != 49158)
+    if (v19 != 49158)
     {
 LABEL_41:
-      if (v17 != 32775)
+      if (v19 != 32775)
       {
-        if (v17 != 32777)
+        if (v19 != 32777)
         {
           goto LABEL_53;
         }
@@ -3752,59 +3767,59 @@ LABEL_41:
       }
     }
 
-    cmark_strbuf_puts(v33, " on_enter=");
-    houdini_escape_html0(v33, *(v9 + 128), *(v9 + 136), 0);
-    cmark_strbuf_putc(v33, 34);
-    v26 = " on_exit=";
+    cmark_strbuf_puts(v35, " on_enter=");
+    houdini_escape_html0(v35, *(v11 + 128), *(v11 + 136), 0);
+    cmark_strbuf_putc(v35, 34);
+    v28 = " on_exit=";
     goto LABEL_45;
   }
 
 LABEL_60:
-  v31 = cmark_strbuf_detach(v33);
+  v33 = cmark_strbuf_detach(v35);
   cmark_iter_free(v4);
-  return v31;
+  return v33;
 }
 
-uint64_t cmark_syntax_extension_free(uint64_t a1, uint64_t a2)
+uint64_t cmark_syntax_extension_free(uint64_t a1, void *a2)
 {
-  v4 = *(a2 + 64);
-  if (v4 && *(a2 + 48))
+  v4 = a2[8];
+  if (v4 && a2[6])
   {
     v4(a1);
   }
 
-  cmark_llist_free(a1, *(a2 + 32));
-  (*(a1 + 16))(*(a2 + 40));
+  cmark_llist_free(a1, a2[4]);
+  (*(a1 + 16))(a2[5]);
   v5 = *(a1 + 16);
 
   return v5(a2);
 }
 
-void *cmark_syntax_extension_new(const char *a1)
+uint64_t cmark_syntax_extension_new(const char *a1)
 {
-  v2 = (CMARK_DEFAULT_MEM_ALLOCATOR[0])(1uLL, 0xB8uLL);
+  v2 = CMARK_DEFAULT_MEM_ALLOCATOR(1, 184);
   v3 = strlen(a1);
-  v4 = (CMARK_DEFAULT_MEM_ALLOCATOR[0])(1uLL, v3 + 1);
-  v2[5] = v4;
+  v4 = CMARK_DEFAULT_MEM_ALLOCATOR(1uLL, v3 + 1);
+  *(v2 + 40) = v4;
   strcpy(v4, a1);
   return v2;
 }
 
-uint64_t cmark_syntax_extension_add_node(int a1)
+uint64_t cmark_syntax_extension_add_node(uint64_t a1, uint64_t a2)
 {
-  v1 = &CMARK_NODE_LAST_INLINE;
+  v2 = &CMARK_NODE_LAST_INLINE;
   if (!a1)
   {
-    v1 = &CMARK_NODE_LAST_BLOCK;
+    v2 = &CMARK_NODE_LAST_BLOCK;
   }
 
-  if ((~*v1 & 0x3FFF) == 0)
+  if ((~*v2 & 0x3FFF) == 0)
   {
     cmark_syntax_extension_add_node_cold_1();
   }
 
-  result = (*v1 + 1);
-  *v1 = result;
+  result = (*v2 + 1);
+  *v2 = result;
   return result;
 }
 
@@ -3817,14 +3832,14 @@ uint64_t cmark_syntax_extension_set_private(uint64_t result, uint64_t a2, uint64
 
 void *cmark_plugin_new()
 {
-  result = (CMARK_DEFAULT_MEM_ALLOCATOR[0])(1uLL, 8uLL);
+  result = CMARK_DEFAULT_MEM_ALLOCATOR(1, 8);
   *result = 0;
   return result;
 }
 
-void cmark_plugin_free(void **a1)
+void cmark_plugin_free(void *a1)
 {
-  cmark_llist_free_full(CMARK_DEFAULT_MEM_ALLOCATOR, *a1, cmark_syntax_extension_free);
+  cmark_llist_free_full(&CMARK_DEFAULT_MEM_ALLOCATOR, *a1, cmark_syntax_extension_free);
   v2 = off_281D60E88[0];
 
   v2(a1);
@@ -3859,7 +3874,7 @@ void *xrealloc(void *a1, size_t a2)
   return result;
 }
 
-uint64_t cmark_markdown_to_html(_BYTE *a1, uint64_t a2, int a3)
+uint64_t cmark_markdown_to_html(_BYTE *a1, uint64_t a2, uint64_t a3)
 {
   v4 = cmark_parse_document(a1, a2, a3);
   v5 = cmark_render_html(v4, a3, 0);
@@ -3880,7 +3895,7 @@ void cmark_register_plugin(unsigned int (*a1)(void))
       v6 = v3;
       do
       {
-        v5 = cmark_llist_append(CMARK_DEFAULT_MEM_ALLOCATOR, v5, v6[1]);
+        v5 = cmark_llist_append(&CMARK_DEFAULT_MEM_ALLOCATOR, v5, v6[1]);
         syntax_extensions = v5;
         v6 = *v6;
       }
@@ -3888,7 +3903,7 @@ void cmark_register_plugin(unsigned int (*a1)(void))
       while (v6);
     }
 
-    cmark_llist_free(CMARK_DEFAULT_MEM_ALLOCATOR, v4);
+    cmark_llist_free(&CMARK_DEFAULT_MEM_ALLOCATOR, v4);
   }
 
   cmark_plugin_free(v2);
@@ -3898,7 +3913,7 @@ uint64_t cmark_release_plugins()
 {
   if (syntax_extensions)
   {
-    result = cmark_llist_free_full(CMARK_DEFAULT_MEM_ALLOCATOR, syntax_extensions, cmark_syntax_extension_free);
+    result = cmark_llist_free_full(&CMARK_DEFAULT_MEM_ALLOCATOR, syntax_extensions, cmark_syntax_extension_free);
     syntax_extensions = 0;
   }
 
@@ -3945,7 +3960,7 @@ uint64_t cmark_find_syntax_extension(char *__s2)
   return 0;
 }
 
-void *create_tagfilter_extension()
+uint64_t create_tagfilter_extension()
 {
   v0 = cmark_syntax_extension_new("tagfilter");
   cmark_syntax_extension_set_html_filter_func(v0, filter);
@@ -4020,17 +4035,17 @@ uint64_t houdini_escape_href(_DWORD *a1, uint64_t a2, int a3)
   return 1;
 }
 
-uint64_t cmark_clean_url(uint64_t a1, uint64_t a2)
+uint64_t cmark_clean_url(uint64_t a1, int *a2)
 {
   v9[0] = a1;
   v9[1] = &cmark_strbuf__initbuf;
   v9[2] = 0;
-  if (*(a2 + 12))
+  if (a2[3])
   {
     cmark_clean_url_cold_1();
   }
 
-  if (!*(a2 + 8))
+  if (!a2[2])
   {
     return 0;
   }
@@ -4045,30 +4060,31 @@ uint64_t cmark_clean_url(uint64_t a1, uint64_t a2)
 
     v3 = (*a2 + 1);
     *a2 = v3;
-    v4 = *(a2 + 8) - 1;
-    *(a2 + 8) = v4;
+    v4 = a2[2] - 1;
+    a2[2] = v4;
   }
 
   while (v4);
-  if (*(a2 + 12))
+  if (a2[3])
   {
     chop_trailing_hashtags_cold_1();
   }
 
-  v5 = *(a2 + 8);
+  v5 = a2[2];
   if (v5 >= 1)
   {
     do
     {
       v6 = cmark_isspace(*(*a2 + v5 - 1));
-      v5 = *(a2 + 8);
+      v5 = a2[2];
       if (!v6)
       {
         break;
       }
 
-      v7 = __OFSUB__(v5--, 1);
-      *(a2 + 8) = v5;
+      v7 = __OFSUB__(v5, 1);
+      v5 = (v5 - 1);
+      a2[2] = v5;
     }
 
     while (!((v5 < 0) ^ v7 | (v5 == 0)));
@@ -4100,7 +4116,7 @@ uint64_t cmark_clean_title(uint64_t a1, unsigned __int8 **a2)
   v5 = v3[v2 - 1];
   if (v4 == 39 && v5 == 39 || v4 == 40 && v5 == 41 || v4 == 34 && v5 == 34)
   {
-    LODWORD(v2) = v2 - 2;
+    v2 = (v2 - 2);
     ++v3;
   }
 
@@ -4174,7 +4190,7 @@ uint64_t cmark_parse_inlines(uint64_t (***a1)(uint64_t, uint64_t), uint64_t a2, 
 
   v13 = 0;
   v235 = v4;
-  v236 = (v4 + 136);
+  v236 = v4 + 17;
   do
   {
     v14 = v239;
@@ -4847,7 +4863,7 @@ LABEL_349:
           }
         }
 
-        v115 = *(v4 + 144);
+        v115 = v4[18];
         if (!v115)
         {
           v115 = cmark_ispunct;
@@ -4925,7 +4941,7 @@ LABEL_267:
         autolink = (*v238)(1, 168);
         cmark_strbuf_init(v238, autolink, 0);
         *(autolink + 100) = -16383;
-        *(autolink + 128) = "\";
+        *(autolink + 128) = "\"";
         *(autolink + 136) = 1;
         v70 = v244;
         v71 = v242;
@@ -5733,7 +5749,7 @@ LABEL_354:
   return result;
 }
 
-void process_emphasis(uint64_t a1, uint64_t *a2, void *a3)
+void process_emphasis(uint64_t a1, uint64_t (***a2)(uint64_t, uint64_t), uint64_t (**a3)(uint64_t, uint64_t))
 {
   v55 = *MEMORY[0x277D85DE8];
   v6 = a2[6];
@@ -5778,9 +5794,9 @@ void process_emphasis(uint64_t a1, uint64_t *a2, void *a3)
 
         v13 = 0;
 LABEL_13:
-        if (!*(v10 + 9))
+        if (!*(v10 + 36))
         {
-          v18 = v10[1];
+          v18 = *(v10 + 8);
           goto LABEL_100;
         }
 
@@ -5794,7 +5810,7 @@ LABEL_13:
 LABEL_38:
             if (!v17)
             {
-              v18 = v10[1];
+              v18 = *(v10 + 8);
               goto LABEL_98;
             }
 
@@ -5805,7 +5821,7 @@ LABEL_38:
 
         else
         {
-          v19 = *(v10 + 6);
+          v19 = *(v10 + 24);
           v20 = v19 % 3;
           v21 = *v10;
           while (1)
@@ -5823,9 +5839,9 @@ LABEL_37:
               goto LABEL_38;
             }
 
-            if (*(v21 + 32) && *(v21 + 28) == v11)
+            if (*(v21 + 8) && *(v21 + 28) == v11)
             {
-              if (*(v10 + 8))
+              if (*(v10 + 32))
               {
                 if (!v20)
                 {
@@ -5836,13 +5852,13 @@ LABEL_37:
               else
               {
                 v17 = 1;
-                if (!v20 || !*(v21 + 36))
+                if (!v20 || !*(v21 + 9))
                 {
                   goto LABEL_37;
                 }
               }
 
-              if ((715827882 - 1431655765 * (*(v21 + 24) + v19)) > 0x55555554)
+              if ((715827882 - 1431655765 * (*(v21 + 6) + v19)) > 0x55555554)
               {
                 break;
               }
@@ -5879,12 +5895,12 @@ LABEL_42:
           {
             if (!v17)
             {
-              v18 = v10[1];
+              v18 = *(v10 + 8);
               goto LABEL_98;
             }
 
-            v28 = *(v21 + 16);
-            v29 = v10[2];
+            v28 = v21[2];
+            v29 = *(v10 + 16);
             v30 = *(v28 + 136);
             v31 = *(v29 + 136);
             v33 = v31 < 2 || v30 < 2;
@@ -5988,7 +6004,7 @@ LABEL_42:
             if (v53 == v52)
             {
               cmark_node_free(v29);
-              v18 = v10[1];
+              v18 = *(v10 + 8);
               remove_delimiter(a2, v10);
             }
           }
@@ -6007,44 +6023,44 @@ LABEL_86:
           break;
         }
 
-        v46 = v10[2];
+        v46 = *(v10 + 16);
         if (*(v46 + 140))
         {
-          (*(*a2 + 16))(*(v46 + 128));
+          ((*a2)[2])(*(v46 + 128));
         }
 
         *(v46 + 128) = 0;
         *(v46 + 136) = 0;
-        v47 = v10[2];
+        v47 = *(v10 + 16);
         *(v47 + 128) = "”";
         *(v47 + 136) = 3;
         if (v17)
         {
-          v48 = *(v21 + 16);
-          if (*(v48 + 140))
+          v48 = v21[2];
+          if (*(v48 + 35))
           {
-            (*(*a2 + 16))(*(v48 + 128));
+            ((*a2)[2])(*(v48 + 16));
           }
 
-          *(v48 + 128) = 0;
-          *(v48 + 136) = 0;
-          v26 = *(v21 + 16);
+          *(v48 + 16) = 0;
+          *(v48 + 17) = 0;
+          v26 = v21[2];
           v27 = "“";
 LABEL_95:
-          *(v26 + 128) = v27;
-          *(v26 + 136) = 3;
+          *(v26 + 16) = v27;
+          *(v26 + 17) = 3;
         }
 
 LABEL_96:
-        v18 = v10[1];
+        v18 = *(v10 + 8);
         if ((v17 & 1) == 0)
         {
 LABEL_97:
           v15 = *v10;
           v11 = *(v10 + 28);
 LABEL_98:
-          *&v54[1024 * (*(v10 + 6) % 3) + 8 * v11] = v15;
-          if (!*(v10 + 8))
+          *&v54[1024 * (*(v10 + 24) % 3) + 8 * v11] = v15;
+          if (!*(v10 + 32))
           {
             remove_delimiter(a2, v10);
           }
@@ -6065,15 +6081,15 @@ LABEL_100:
         goto LABEL_86;
       }
 
-      v23 = v10[2];
+      v23 = *(v10 + 16);
       if (*(v23 + 140))
       {
-        (*(*a2 + 16))(*(v23 + 128));
+        ((*a2)[2])(*(v23 + 128));
       }
 
       *(v23 + 128) = 0;
       *(v23 + 136) = 0;
-      v24 = v10[2];
+      v24 = *(v10 + 16);
       *(v24 + 128) = "’";
       *(v24 + 136) = 3;
       if (!v17)
@@ -6081,15 +6097,15 @@ LABEL_100:
         goto LABEL_96;
       }
 
-      v25 = *(v21 + 16);
-      if (*(v25 + 140))
+      v25 = v21[2];
+      if (*(v25 + 35))
       {
-        (*(*a2 + 16))(*(v25 + 128));
+        ((*a2)[2])(*(v25 + 16));
       }
 
-      *(v25 + 128) = 0;
-      *(v25 + 136) = 0;
-      v26 = *(v21 + 16);
+      *(v25 + 16) = 0;
+      *(v25 + 17) = 0;
+      v26 = v21[2];
       v27 = "‘";
       goto LABEL_95;
     }
@@ -6147,26 +6163,24 @@ uint64_t *remove_delimiter(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-uint64_t cmark_parse_reference_inline(uint64_t a1, __int128 *a2, uint64_t a3)
+uint64_t cmark_parse_reference_inline(uint64_t a1, __int128 *a2, uint64_t *a3)
 {
+  v28 = 0;
+  v29 = 0;
+  v27[0] = 0;
+  v27[1] = 0;
+  v25 = 0;
   v26 = 0;
-  v27 = 0;
-  v25[0] = 0;
-  v25[1] = 0;
-  v23 = 0;
-  v24 = 0;
-  v28 = a1;
-  v29 = *a2;
-  v30 = -1;
-  v46 = 0u;
-  v47 = 0u;
+  v30 = a1;
+  v31 = *a2;
+  v32 = -1;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  memset(v52, 0, sizeof(v52));
-  v31 = 0u;
-  v32 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  memset(v54, 0, sizeof(v54));
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
@@ -6180,18 +6194,20 @@ uint64_t cmark_parse_reference_inline(uint64_t a1, __int128 *a2, uint64_t a3)
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v4 = link_label(&v28, &v26);
+  v46 = 0u;
+  v47 = 0u;
+  v5 = link_label(&v30, &v28);
   result = 0;
-  if (v4 && v27)
+  if (v5 && v29)
   {
-    if (v31 >= SDWORD2(v29))
+    if (v33 >= SDWORD2(v31))
     {
       return 0;
     }
 
-    if (*(v29 + v31) != 58)
+    if (*(v31 + v33) != 58)
     {
-      if (!*(v29 + v31))
+      if (!*(v31 + v33))
       {
         cmark_parse_inlines_cold_1();
       }
@@ -6199,189 +6215,189 @@ uint64_t cmark_parse_reference_inline(uint64_t a1, __int128 *a2, uint64_t a3)
       return 0;
     }
 
-    LODWORD(v31) = v31 + 1;
-    spnl(&v28);
-    v6 = manual_scan_link_url(&v29, v31, v25);
-    if (v6 < 0)
+    LODWORD(v33) = v33 + 1;
+    spnl(&v30, v4);
+    v7 = manual_scan_link_url(&v31, v33, v27);
+    if (v7 < 0)
     {
       return 0;
     }
 
-    LODWORD(v31) = v31 + v6;
-    v7 = v31;
-    spnl(&v28);
-    if (v31 == v7 || (v8 = _scan_at(_scan_link_title, &v29, v31)) == 0)
+    LODWORD(v33) = v33 + v7;
+    v9 = v33;
+    spnl(&v30, v8);
+    if (v33 == v9 || (v10 = _scan_at(_scan_link_title, &v31, v33)) == 0)
     {
-      LODWORD(v31) = v7;
-      v23 = "";
-      v24 = 0;
-      v9 = 1;
-      v10 = v7;
+      LODWORD(v33) = v9;
+      v25 = "";
+      v26 = 0;
+      v11 = 1;
+      v12 = v9;
     }
 
     else
     {
-      v9 = 0;
-      v23 = (v29 + v31);
-      v24 = v8;
-      v10 = v31 + v8;
-      LODWORD(v31) = v31 + v8;
+      v11 = 0;
+      v25 = (v31 + v33);
+      v26 = v10;
+      v12 = v33 + v10;
+      LODWORD(v33) = v33 + v10;
     }
 
-    if (v10 < SDWORD2(v29))
+    if (v12 < SDWORD2(v31))
     {
-      v11 = (v29 + v10);
+      v13 = (v31 + v12);
       while (1)
       {
-        v13 = *v11++;
-        v12 = v13;
-        if (v13 != 32 && v12 != 9)
+        v15 = *v13++;
+        v14 = v15;
+        if (v15 != 32 && v14 != 9)
         {
           break;
         }
 
-        LODWORD(v31) = ++v10;
-        if (DWORD2(v29) == v10)
+        LODWORD(v33) = ++v12;
+        if (DWORD2(v31) == v12)
         {
           goto LABEL_61;
         }
       }
 
-      if (!v12)
+      if (!v14)
       {
         cmark_parse_inlines_cold_1();
       }
     }
 
-    if (v10 < SDWORD2(v29))
+    if (v12 < SDWORD2(v31))
     {
-      if (*(v29 + v10) == 13)
+      if (*(v31 + v12) == 13)
       {
-        LODWORD(v31) = ++v10;
-        v15 = 1;
+        LODWORD(v33) = ++v12;
+        v17 = 1;
 LABEL_27:
-        if (v10 < SDWORD2(v29))
+        if (v12 < SDWORD2(v31))
         {
-          if (*(v29 + v10) == 10)
+          if (*(v31 + v12) == 10)
           {
             goto LABEL_60;
           }
 
-          if (!*(v29 + v10))
+          if (!*(v31 + v12))
           {
             cmark_parse_inlines_cold_1();
           }
         }
 
-        if (v10 >= SDWORD2(v29))
+        if (v12 >= SDWORD2(v31))
         {
-          v16 = 1;
+          v18 = 1;
         }
 
         else
         {
-          v16 = v15;
+          v18 = v17;
         }
 
-        if (v16)
+        if (v18)
         {
           goto LABEL_61;
         }
 
-        if ((v9 & 1) == 0)
+        if ((v11 & 1) == 0)
         {
-          LODWORD(v31) = v7;
-          if (v7 < SDWORD2(v29))
+          LODWORD(v33) = v9;
+          if (v9 < SDWORD2(v31))
           {
-            v17 = (v29 + v7);
+            v19 = (v31 + v9);
             while (1)
             {
-              v19 = *v17++;
-              v18 = v19;
-              if (v19 != 32 && v18 != 9)
+              v21 = *v19++;
+              v20 = v21;
+              if (v21 != 32 && v20 != 9)
               {
                 break;
               }
 
-              LODWORD(v31) = ++v7;
-              if (DWORD2(v29) == v7)
+              LODWORD(v33) = ++v9;
+              if (DWORD2(v31) == v9)
               {
                 goto LABEL_61;
               }
             }
 
-            if (!v18)
+            if (!v20)
             {
               cmark_parse_inlines_cold_1();
             }
           }
 
-          if (v7 < SDWORD2(v29))
+          if (v9 < SDWORD2(v31))
           {
-            if (*(v29 + v7) == 13)
+            if (*(v31 + v9) == 13)
             {
-              LODWORD(v31) = ++v7;
-              v21 = 1;
+              LODWORD(v33) = ++v9;
+              v23 = 1;
               goto LABEL_50;
             }
 
-            if (!*(v29 + v7))
+            if (!*(v31 + v9))
             {
               cmark_parse_inlines_cold_1();
             }
           }
 
-          v21 = 0;
+          v23 = 0;
 LABEL_50:
-          if (v7 >= SDWORD2(v29))
+          if (v9 >= SDWORD2(v31))
           {
             goto LABEL_53;
           }
 
-          if (*(v29 + v7) != 10)
+          if (*(v31 + v9) != 10)
           {
-            if (!*(v29 + v7))
+            if (!*(v31 + v9))
             {
               cmark_parse_inlines_cold_1();
             }
 
 LABEL_53:
-            if (v7 >= SDWORD2(v29))
+            if (v9 >= SDWORD2(v31))
             {
-              v22 = 1;
+              v24 = 1;
             }
 
             else
             {
-              v22 = v21;
+              v24 = v23;
             }
 
-            if ((v22 & 1) == 0)
+            if ((v24 & 1) == 0)
             {
               return 0;
             }
 
 LABEL_61:
-            cmark_reference_create(a3, &v26, v25, &v23);
-            return v31;
+            cmark_reference_create(a3, &v28, v27, &v25);
+            return v33;
           }
 
-          v10 = v7;
+          v12 = v9;
 LABEL_60:
-          LODWORD(v31) = v10 + 1;
+          LODWORD(v33) = v12 + 1;
           goto LABEL_61;
         }
 
         return 0;
       }
 
-      if (!*(v29 + v10))
+      if (!*(v31 + v12))
       {
         cmark_parse_inlines_cold_1();
       }
     }
 
-    v15 = 0;
+    v17 = 0;
     goto LABEL_27;
   }
 
@@ -6535,69 +6551,69 @@ LABEL_34:
   return result;
 }
 
-uint64_t spnl(uint64_t result)
+uint64_t spnl(uint64_t result, uint64_t a2)
 {
-  v1 = *(result + 16);
-  v2 = *(result + 28);
-  if (v2 < v1)
+  v2 = *(result + 16);
+  v3 = *(result + 28);
+  if (v3 < v2)
   {
-    v3 = (*(result + 8) + v2);
+    v4 = (*(result + 8) + v3);
     while (1)
     {
-      v5 = *v3++;
-      v4 = v5;
-      if (v5 != 32 && v4 != 9)
+      v6 = *v4++;
+      v5 = v6;
+      if (v6 != 32 && v5 != 9)
       {
         break;
       }
 
-      *(result + 28) = ++v2;
-      if (v1 == v2)
+      *(result + 28) = ++v3;
+      if (v2 == v3)
       {
         return result;
       }
     }
 
-    if (!v4)
+    if (!v5)
     {
       cmark_parse_inlines_cold_1();
     }
   }
 
-  if (v2 >= v1)
+  if (v3 >= v2)
   {
     goto LABEL_14;
   }
 
-  if (*(*(result + 8) + v2) != 13)
+  if (*(*(result + 8) + v3) != 13)
   {
-    if (!*(*(result + 8) + v2))
+    if (!*(*(result + 8) + v3))
     {
       cmark_parse_inlines_cold_1();
     }
 
 LABEL_14:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_16;
   }
 
-  *(result + 28) = ++v2;
-  v7 = 1;
+  *(result + 28) = ++v3;
+  v8 = 1;
 LABEL_16:
-  if (v2 >= v1)
+  if (v3 >= v2)
   {
     goto LABEL_19;
   }
 
-  if (*(*(result + 8) + v2) != 10)
+  if (*(*(result + 8) + v3) != 10)
   {
-    if (!*(*(result + 8) + v2))
+    if (!*(*(result + 8) + v3))
     {
       cmark_parse_inlines_cold_1();
     }
 
 LABEL_19:
-    if (((v2 < v1) & ~v7) != 0)
+    if (((v3 < v2) & ~v8) != 0)
     {
       return result;
     }
@@ -6605,31 +6621,31 @@ LABEL_19:
     goto LABEL_22;
   }
 
-  *(result + 28) = ++v2;
+  *(result + 28) = ++v3;
 LABEL_22:
-  v8 = __OFSUB__(v1, v2);
-  v9 = v1 - v2;
-  if (!((v9 < 0) ^ v8 | (v9 == 0)))
+  v9 = __OFSUB__(v2, v3);
+  v10 = v2 - v3;
+  if (!((v10 < 0) ^ v9 | (v10 == 0)))
   {
-    v10 = v2 + 1;
-    v11 = (*(result + 8) + v2);
+    v11 = v3 + 1;
+    v12 = (*(result + 8) + v3);
     while (1)
     {
-      v13 = *v11++;
-      v12 = v13;
-      if (v13 != 32 && v12 != 9)
+      v14 = *v12++;
+      v13 = v14;
+      if (v14 != 32 && v13 != 9)
       {
         break;
       }
 
-      *(result + 28) = v10++;
-      if (!--v9)
+      *(result + 28) = v11++;
+      if (!--v10)
       {
         return result;
       }
     }
 
-    if (!v12)
+    if (!v13)
     {
       cmark_parse_inlines_cold_1();
     }
@@ -6770,17 +6786,17 @@ LABEL_37:
   return result;
 }
 
-uint64_t cmark_inline_parser_peek_char(uint64_t a1)
+uint64_t cmark_inline_parser_peek_char(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 28);
-  if (v1 >= *(a1 + 16))
+  v2 = *(a1 + 28);
+  if (v2 >= *(a1 + 16))
   {
     return 0;
   }
 
-  v2 = *(a1 + 8);
-  result = *(v2 + v1);
-  if (!*(v2 + v1))
+  v3 = *(a1 + 8);
+  result = *(v3 + v2);
+  if (!*(v3 + v2))
   {
     cmark_parse_inlines_cold_1();
   }
@@ -6867,8 +6883,9 @@ uint64_t cmark_inline_parser_push_delimiter(uint64_t a1, char a2, int a3, int a4
   return result;
 }
 
-uint64_t cmark_inline_parser_scan_delimiters(uint64_t a1, int a2, int a3, _BOOL4 *a4, _BOOL4 *a5, _DWORD *a6, _DWORD *a7)
+uint64_t cmark_inline_parser_scan_delimiters(uint64_t a1, uint64_t a2, int a3, _BOOL4 *a4, _BOOL4 *a5, _DWORD *a6, _DWORD *a7)
 {
+  v12 = a2;
   v32 = 0;
   v14 = *(a1 + 28);
   if (!v14)
@@ -6917,7 +6934,7 @@ LABEL_6:
       }
     }
 
-    if (v24 != a3 || v19 >= a2)
+    if (v24 != a3 || v19 >= v12)
     {
       break;
     }
@@ -7086,7 +7103,7 @@ uint64_t adjust_subj_node_newlines(uint64_t result, uint64_t a2, int a3, int a4,
   return result;
 }
 
-uint64_t make_autolink(uint64_t a1, int a2, int a3, unsigned __int8 *a4, unint64_t a5, int a6)
+uint64_t make_autolink(uint64_t (***a1)(uint64_t, uint64_t), int a2, int a3, char *a4, unint64_t a5, int a6)
 {
   v12 = *a1;
   v13 = (**a1)(1, 168);
@@ -7108,7 +7125,7 @@ uint64_t make_autolink(uint64_t a1, int a2, int a3, unsigned __int8 *a4, unint64
   while (cmark_isspace(*a4))
   {
     ++a4;
-    LODWORD(a5) = a5 - 1;
+    a5 = (a5 - 1);
     if (!a5)
     {
       goto LABEL_16;
@@ -7122,10 +7139,10 @@ uint64_t make_autolink(uint64_t a1, int a2, int a3, unsigned __int8 *a4, unint64
     {
       --v14;
       v15 = __OFSUB__(a5, 1);
-      LODWORD(a5) = a5 - 1;
+      a5 = (a5 - 1);
       if (((a5 & 0x80000000) != 0) ^ v15 | (a5 == 0))
       {
-        LODWORD(a5) = 0;
+        a5 = 0;
         goto LABEL_16;
       }
     }
@@ -7156,7 +7173,7 @@ LABEL_17:
   *(v13 + 136) = v18;
   *(v13 + 144) = "";
   *(v13 + 152) = 0;
-  v19 = *(a1 + 24);
+  v19 = *(a1 + 6);
   v20 = a2 + 1;
   *(v13 + 80) = v19;
   *(v13 + 84) = v20;
@@ -7180,10 +7197,10 @@ LABEL_17:
   v23 = (**a1)(1, 168);
   cmark_strbuf_init(*a1, v23, 0);
   *(v23 + 136) = v22;
-  v24 = *(a1 + 36) + *(a1 + 32) + 1;
+  v24 = *(a1 + 9) + *(a1 + 8) + 1;
   *(v23 + 100) = -16383;
   *(v23 + 128) = a4;
-  v25 = *(a1 + 24);
+  v25 = *(a1 + 6);
   *(v23 + 80) = v25;
   *(v23 + 84) = v24 + v20;
   *(v23 + 88) = v25;
@@ -7212,7 +7229,7 @@ _BYTE *chunk_clone(uint64_t (**a1)(uint64_t, uint64_t), uint64_t a2)
   return v5;
 }
 
-void *create_strikethrough_extension()
+uint64_t create_strikethrough_extension()
 {
   v0 = cmark_syntax_extension_new("strikethrough");
   cmark_syntax_extension_set_get_type_string_func(v0, get_type_string);
@@ -7222,12 +7239,12 @@ void *create_strikethrough_extension()
   cmark_syntax_extension_set_man_render_func(v0, man_render);
   cmark_syntax_extension_set_html_render_func(v0, html_render);
   cmark_syntax_extension_set_plaintext_render_func(v0, plaintext_render);
-  CMARK_NODE_STRIKETHROUGH = cmark_syntax_extension_add_node(1);
+  CMARK_NODE_STRIKETHROUGH = cmark_syntax_extension_add_node(1, v1);
   cmark_syntax_extension_set_match_inline_func(v0, match);
   cmark_syntax_extension_set_inline_from_delim_func(v0, insert);
   default_mem_allocator = cmark_get_default_mem_allocator();
-  v2 = cmark_llist_append(default_mem_allocator, 0, 126);
-  cmark_syntax_extension_set_special_inline_chars(v0, v2);
+  v3 = cmark_llist_append(default_mem_allocator, 0, 126);
+  cmark_syntax_extension_set_special_inline_chars(v0, v3);
   cmark_syntax_extension_set_emphasis(v0, 1);
   return v0;
 }
@@ -7279,7 +7296,7 @@ uint64_t man_render(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   }
 }
 
-_DWORD *html_render(uint64_t a1, _DWORD **a2, uint64_t a3, int a4)
+_DWORD *html_render(uint64_t a1, uint64_t *a2, uint64_t a3, int a4)
 {
   v4 = *a2;
   if (a4 == 2)
@@ -7322,7 +7339,7 @@ _DWORD *match(uint64_t a1, uint64_t a2, uint64_t a3, int a4, _DWORD *a5)
   return v8;
 }
 
-uint64_t insert(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
+uint64_t insert(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
   v5 = a4[2];
   v6 = a5[1];
@@ -8989,11 +9006,11 @@ LABEL_18:
           }
 
           v9 = i[5];
-          if (*(v9 + 56) != i)
+          if (v9[7] != i)
           {
             S_print_error(a2, v9, "last_child");
             v9 = i[5];
-            *(v9 + 56) = i;
+            v9[7] = i;
             v4 = (v4 + 1);
           }
 
@@ -9056,48 +9073,48 @@ uint64_t cmark_iter_new(uint64_t result)
   return result;
 }
 
-uint64_t cmark_iter_next(uint64_t a1)
+uint64_t cmark_iter_next(uint64_t a1, uint64_t a2)
 {
   result = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v4 = *(a1 + 40);
   *(a1 + 16) = result;
-  *(a1 + 24) = v3;
+  *(a1 + 24) = v4;
   if (result != 1)
   {
-    if (result != 2 || (v4 = *(v3 + 100), (v4 - 49153) < 5) || ((v5 = v4 - 32773, v6 = v5 > 5, v7 = (1 << v5) & 0x23, !v6) ? (v8 = v7 == 0) : (v8 = 1), !v8))
+    if (result != 2 || (v5 = *(v4 + 100), (v5 - 49153) < 5) || ((v6 = v5 - 32773, v7 = v6 > 5, v8 = (1 << v6) & 0x23, !v7) ? (v9 = v8 == 0) : (v9 = 1), !v9))
     {
-      if (v3 == *(a1 + 8))
+      if (v4 == *(a1 + 8))
       {
         *(a1 + 32) = 1;
         *(a1 + 40) = 0;
         return result;
       }
 
-      v9 = *(v3 + 24);
-      if (v9)
+      v10 = *(v4 + 24);
+      if (v10)
       {
         *(a1 + 32) = 2;
-        *(a1 + 40) = v9;
+        *(a1 + 40) = v10;
         return result;
       }
 
-      v10 = *(v3 + 40);
-      if (!v10)
+      v11 = *(v4 + 40);
+      if (!v11)
       {
         cmark_iter_next_cold_1();
       }
 
-      v11 = 3;
+      v12 = 3;
       goto LABEL_14;
     }
 
-    v10 = *(v3 + 48);
-    if (v10)
+    v11 = *(v4 + 48);
+    if (v11)
     {
-      v11 = 2;
+      v12 = 2;
 LABEL_14:
-      *(a1 + 32) = v11;
-      *(a1 + 40) = v10;
+      *(a1 + 32) = v12;
+      *(a1 + 40) = v11;
       return result;
     }
 
@@ -9111,7 +9128,7 @@ uint64_t cmark_iter_reset(uint64_t a1, uint64_t a2, int a3)
 {
   *(a1 + 32) = a3;
   *(a1 + 40) = a2;
-  return cmark_iter_next(a1);
+  return cmark_iter_next(a1, a2);
 }
 
 void *cmark_consolidate_text_nodes(void *result)
@@ -9127,62 +9144,62 @@ void *cmark_consolidate_text_nodes(void *result)
     *(v3 + 24) = 0;
     *(v3 + 32) = 2;
     *(v3 + 40) = v1;
-    v11[0] = v2;
-    v11[1] = &cmark_strbuf__initbuf;
-    v12 = 0;
-    for (i = cmark_iter_next(v3); i != 1; i = cmark_iter_next(v3))
+    v14[0] = v2;
+    v14[1] = &cmark_strbuf__initbuf;
+    v15 = 0;
+    for (i = cmark_iter_next(v3, v4); i != 1; i = cmark_iter_next(v3, v6))
     {
       if (i == 2)
       {
-        v5 = *(v3 + 24);
-        if (*(v5 + 100) == 49153)
+        v7 = *(v3 + 24);
+        if (*(v7 + 100) == 49153)
         {
-          v6 = *(v5 + 24);
-          if (v6)
+          v8 = *(v7 + 24);
+          if (v8)
           {
-            if (*(v6 + 100) == 49153)
+            if (*(v8 + 100) == 49153)
             {
-              cmark_strbuf_clear(v11);
-              v7 = (v5 + 128);
-              cmark_strbuf_put(v11, *(v5 + 128), *(v5 + 136));
-              v8 = *(v5 + 24);
-              if (v8)
+              cmark_strbuf_clear(v14);
+              v9 = (v7 + 128);
+              cmark_strbuf_put(v14, *(v7 + 128), *(v7 + 136));
+              v11 = *(v7 + 24);
+              if (v11)
               {
                 do
                 {
-                  if (*(v8 + 100) != 49153)
+                  if (*(v11 + 100) != 49153)
                   {
                     break;
                   }
 
-                  cmark_iter_next(v3);
-                  cmark_strbuf_put(v11, *(v8 + 128), *(v8 + 136));
-                  *(v5 + 92) = *(v8 + 92);
-                  v9 = *(v8 + 24);
-                  cmark_node_free(v8);
-                  v8 = v9;
+                  cmark_iter_next(v3, v10);
+                  cmark_strbuf_put(v14, *(v11 + 128), *(v11 + 136));
+                  *(v7 + 92) = *(v11 + 92);
+                  v12 = *(v11 + 24);
+                  cmark_node_free(v11);
+                  v11 = v12;
                 }
 
-                while (v9);
+                while (v12);
               }
 
-              if (*(v5 + 140))
+              if (*(v7 + 140))
               {
-                (*(*v3 + 16))(*v7);
+                (*(*v3 + 16))(*v9);
               }
 
-              *v7 = 0;
-              *(v5 + 136) = 0;
-              v10 = HIDWORD(v12);
-              *(v5 + 128) = cmark_strbuf_detach(v11);
-              *(v5 + 136) = v10 | 0x100000000;
+              *v9 = 0;
+              *(v7 + 136) = 0;
+              v13 = HIDWORD(v15);
+              *(v7 + 128) = cmark_strbuf_detach(v14);
+              *(v7 + 136) = v13 | 0x100000000;
             }
           }
         }
       }
     }
 
-    cmark_strbuf_free(v11);
+    cmark_strbuf_free(v14);
     return (*(*v3 + 16))(v3);
   }
 
@@ -9202,86 +9219,86 @@ void *cmark_node_own(void *result)
     *(v3 + 24) = 0;
     *(v3 + 32) = 2;
     *(v3 + 40) = v1;
-    for (i = cmark_iter_next(v3); i != 1; i = cmark_iter_next(v3))
+    for (i = cmark_iter_next(v3, v4); i != 1; i = cmark_iter_next(v3, v6))
     {
       if (i == 2)
       {
-        v5 = *(v3 + 24);
-        v6 = *(v5 + 100);
-        if (v6 <= 0xC003)
+        v7 = *(v3 + 24);
+        v8 = *(v7 + 100);
+        if (v8 <= 0xC003)
         {
-          if (v6 != 32774 && v6 != 49153)
+          if (v8 != 32774 && v8 != 49153)
           {
             continue;
           }
         }
 
-        else if (v6 - 49156 >= 2)
+        else if (v8 - 49156 >= 2)
         {
-          if (v6 != 49158 && v6 != 49161)
+          if (v8 != 49158 && v8 != 49161)
           {
             continue;
           }
 
-          if (!*(v5 + 140))
+          if (!*(v7 + 140))
           {
-            v7 = (**v3)(*(v5 + 136) + 1, 1);
-            v8 = v7;
-            v9 = *(v5 + 136);
-            if (v9 >= 1)
+            v9 = (**v3)(*(v7 + 136) + 1, 1);
+            v10 = v9;
+            v11 = *(v7 + 136);
+            if (v11 >= 1)
             {
-              memcpy(v7, *(v5 + 128), v9);
-              LODWORD(v9) = *(v5 + 136);
+              memcpy(v9, *(v7 + 128), v11);
+              LODWORD(v11) = *(v7 + 136);
             }
 
-            v8[v9] = 0;
-            *(v5 + 128) = v8;
-            *(v5 + 140) = 1;
+            v10[v11] = 0;
+            *(v7 + 128) = v10;
+            *(v7 + 140) = 1;
           }
 
-          v10 = (v5 + 156);
-          if (*(v5 + 156))
+          v12 = (v7 + 156);
+          if (*(v7 + 156))
           {
             continue;
           }
 
-          v11 = (**v3)(*(v5 + 152) + 1, 1);
-          v12 = v11;
-          v13 = *(v5 + 152);
-          if (v13 >= 1)
+          v13 = (**v3)(*(v7 + 152) + 1, 1);
+          v14 = v13;
+          v15 = *(v7 + 152);
+          if (v15 >= 1)
           {
-            memcpy(v11, *(v5 + 144), v13);
-            LODWORD(v13) = *(v5 + 152);
+            memcpy(v13, *(v7 + 144), v15);
+            LODWORD(v15) = *(v7 + 152);
           }
 
-          v12[v13] = 0;
-          *(v5 + 144) = v12;
+          v14[v15] = 0;
+          *(v7 + 144) = v14;
           goto LABEL_25;
         }
 
-        v10 = (v5 + 140);
-        if (!*(v5 + 140))
+        v12 = (v7 + 140);
+        if (!*(v7 + 140))
         {
-          v15 = (**v3)(*(v5 + 136) + 1, 1);
-          v16 = v15;
-          v17 = *(v5 + 136);
-          if (v17 >= 1)
+          v17 = (**v3)(*(v7 + 136) + 1, 1);
+          v18 = v17;
+          v19 = *(v7 + 136);
+          if (v19 >= 1)
           {
-            memcpy(v15, *(v5 + 128), v17);
-            LODWORD(v17) = *(v5 + 136);
+            memcpy(v17, *(v7 + 128), v19);
+            LODWORD(v19) = *(v7 + 136);
           }
 
-          v16[v17] = 0;
-          *(v5 + 128) = v16;
+          v18[v19] = 0;
+          *(v7 + 128) = v18;
 LABEL_25:
-          *v10 = 1;
+          *v12 = 1;
         }
       }
     }
 
-    v18 = *(*v3 + 16);
+    v20 = *(*v3 + 16);
 
-    return v18(v3);
+    return v20(v3);
   }
 
   return result;
@@ -9416,7 +9433,7 @@ void cmark_gfm_core_extensions_ensure_registered()
   }
 }
 
-uint64_t core_extensions_registration(void **a1)
+uint64_t core_extensions_registration(void *a1)
 {
   table_extension = create_table_extension();
   cmark_plugin_register_syntax_extension(a1, table_extension);
@@ -9448,13 +9465,13 @@ void *create_table_extension()
   cmark_syntax_extension_set_opaque_alloc_func(v0, opaque_alloc);
   cmark_syntax_extension_set_opaque_free_func(v0, opaque_free);
   cmark_syntax_extension_set_commonmark_escape_func(v0, escape);
-  CMARK_NODE_TABLE = cmark_syntax_extension_add_node(0);
-  CMARK_NODE_TABLE_ROW = cmark_syntax_extension_add_node(0);
-  CMARK_NODE_TABLE_CELL = cmark_syntax_extension_add_node(0);
+  CMARK_NODE_TABLE = cmark_syntax_extension_add_node(0, v1);
+  CMARK_NODE_TABLE_ROW = cmark_syntax_extension_add_node(0, v2);
+  CMARK_NODE_TABLE_CELL = cmark_syntax_extension_add_node(0, v3);
   return v0;
 }
 
-BOOL matches(uint64_t a1, uint64_t (***a2)(uint64_t, uint64_t), uint64_t a3, int a4, uint64_t a5)
+BOOL matches(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, uint64_t a5)
 {
   if (cmark_node_get_type(a5) != CMARK_NODE_TABLE)
   {
@@ -9464,14 +9481,14 @@ BOOL matches(uint64_t a1, uint64_t (***a2)(uint64_t, uint64_t), uint64_t a3, int
   cmark_arena_push();
   v8 = a3 + cmark_parser_get_first_nonspace(a2);
   first_nonspace = cmark_parser_get_first_nonspace(a2);
-  v10 = row_from_string(a2, v8, a4 - first_nonspace);
+  v10 = row_from_string(a2, v8, (a4 - first_nonspace));
   if (v10)
   {
     v11 = v10;
     v12 = *v10 != 0;
     v13 = *a2;
     cmark_llist_free_full(v13, *(v10 + 1), free_table_cell);
-    (v13[2])(v11);
+    (*(v13 + 16))(v11);
   }
 
   else
@@ -9483,17 +9500,18 @@ BOOL matches(uint64_t a1, uint64_t (***a2)(uint64_t, uint64_t), uint64_t a3, int
   return v12;
 }
 
-uint64_t try_opening_table_block(uint64_t a1, int a2, uint64_t (***a3)(uint64_t, uint64_t), uint64_t a4, char *a5, int a6)
+uint64_t try_opening_table_block(uint64_t a1, int a2, uint64_t (***a3)(uint64_t, uint64_t), uint64_t a4, char *a5, uint64_t a6)
 {
+  v6 = a6;
   type = cmark_node_get_type(a4);
   if (!a2 && type == 32776)
   {
     first_nonspace = cmark_parser_get_first_nonspace(a3);
-    if (_ext_scan_at(_scan_table_start, a5, a6, first_nonspace))
+    if (_ext_scan_at(_scan_table_start, a5, v6, first_nonspace))
     {
       v14 = &a5[cmark_parser_get_first_nonspace(a3)];
       v15 = cmark_parser_get_first_nonspace(a3);
-      v16 = row_from_string(a3, v14, a6 - v15);
+      v16 = row_from_string(a3, v14, (v6 - v15));
       if (v16)
       {
         v17 = v16;
@@ -9612,21 +9630,21 @@ LABEL_11:
 
                 v52 = strlen(__s);
                 offset = cmark_parser_get_offset(a3);
-                cmark_parser_advance_offset(a3, __s, ~offset + v52, 0);
+                cmark_parser_advance_offset(a3, __s, (~offset + v52), 0);
               }
 
               v54 = *a3;
               cmark_llist_free_full(*a3, *(v21 + 1), free_table_cell);
-              (v54[2])(v21);
+              (*(v54 + 16))(v21);
               v55 = *a3;
               cmark_llist_free_full(v55, *(v17 + 1), free_table_cell);
-              (v55[2])(v17);
+              (*(v55 + 16))(v17);
               return a4;
             }
 
             v22 = &a5[cmark_parser_get_first_nonspace(a3)];
             v23 = cmark_parser_get_first_nonspace(a3);
-            v17 = row_from_string(a3, v22, a6 - v23);
+            v17 = row_from_string(a3, v22, (v6 - v23));
             v24 = strlen(string_content);
             v25 = row_from_string(a3, string_content, v24);
             v21 = v25;
@@ -9645,13 +9663,13 @@ LABEL_11:
 
             v74 = *a3;
             cmark_llist_free_full(*a3, *(v17 + 1), free_table_cell);
-            (v74[2])(v17);
+            (*(v74 + 16))(v17);
 LABEL_58:
             if (v21)
             {
               v75 = *a3;
               cmark_llist_free_full(v75, *(v21 + 1), free_table_cell);
-              (v75[2])(v21);
+              (*(v75 + 16))(v21);
             }
 
             return a4;
@@ -9659,7 +9677,7 @@ LABEL_58:
 
           v72 = *a3;
           cmark_llist_free_full(*a3, *(v17 + 1), free_table_cell);
-          (v72[2])(v17);
+          (*(v72 + 16))(v17);
         }
 
         else
@@ -9669,7 +9687,7 @@ LABEL_58:
 
         v73 = *a3;
         cmark_llist_free_full(v73, *(v21 + 1), free_table_cell);
-        (v73[2])(v21);
+        (*(v73 + 16))(v21);
         cmark_arena_pop();
       }
     }
@@ -9691,7 +9709,7 @@ LABEL_58:
     *(v56 + 128) = (**a3)(1, 1);
     v57 = &a5[cmark_parser_get_first_nonspace(a3)];
     v58 = cmark_parser_get_first_nonspace(a3);
-    v59 = row_from_string(a3, v57, a6 - v58);
+    v59 = row_from_string(a3, v57, (v6 - v58));
     if (!v59)
     {
       cmark_node_free(v56);
@@ -9744,42 +9762,10 @@ LABEL_58:
 
     v70 = *a3;
     cmark_llist_free_full(*a3, *(v60 + 1), free_table_cell);
-    (v70[2])(v60);
+    (*(v70 + 16))(v60);
     v71 = cmark_parser_get_offset(a3);
-    cmark_parser_advance_offset(a3, a5, ~v71 + a6, 0);
+    cmark_parser_advance_offset(a3, a5, (~v71 + v6), 0);
   }
 
   return v56;
-}
-
-const char *get_type_string_0(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 100);
-  if (CMARK_NODE_TABLE == v2)
-  {
-    return "table";
-  }
-
-  if (CMARK_NODE_TABLE_ROW == v2)
-  {
-    if (**(a2 + 128))
-    {
-      return "table_header";
-    }
-
-    else
-    {
-      return "table_row";
-    }
-  }
-
-  else if (CMARK_NODE_TABLE_CELL == v2)
-  {
-    return "table_cell";
-  }
-
-  else
-  {
-    return "<unknown>";
-  }
 }

@@ -117,9 +117,9 @@
 
   if (!image)
   {
-    v6 = AVTMoreButtonImage();
+    v7 = AVTMoreButtonImage(v5);
     imageView2 = [(AVTStickerRecentsStickerCollectionViewCell *)self imageView];
-    [imageView2 setImage:v6];
+    [imageView2 setImage:v7];
   }
 }
 

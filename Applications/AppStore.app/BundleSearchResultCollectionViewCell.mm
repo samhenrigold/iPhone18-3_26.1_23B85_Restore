@@ -9,9 +9,9 @@
 - (_TtC8AppStore36BundleSearchResultCollectionViewCell)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC8AppStore36BundleSearchResultCollectionViewCell_lockupView;
-  *(&self->super.super.super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for SmallSearchLockupView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for SmallSearchLockupView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   v5 = OBJC_IVAR____TtC8AppStore36BundleSearchResultCollectionViewCell_bundleView;
-  *(&self->super.super.super.super.super.isa + v5) = [objc_allocWithZone(type metadata accessor for BundleView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.super.super.isa + v5) = [objc_allocWithZone(type metadata accessor for BundleView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;
@@ -36,7 +36,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100472980();
+  sub_100472980(selfCopy);
 }
 
 @end

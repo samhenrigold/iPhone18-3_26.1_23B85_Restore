@@ -1,4 +1,5 @@
 @interface BackendXPC
++ (id)newFileBackendWithURL:(id)l fileOpenFlags:(int)flags error:(id *)error;
 - (BOOL)tryCreatingCryptoHeader;
 - (BackendXPC)initWithCoder:(id)coder;
 - (NSUUID)instanceID;
@@ -47,7 +48,7 @@
 
 - (int)lock
 {
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self, a2);
   sub_10019A824(&v4, &v6);
   sub_1000520A4(&v6, &v8);
   if (v7)
@@ -81,7 +82,7 @@
 - (NSUUID)instanceID
 {
   v3 = [NSUUID alloc];
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   v9[0] = (*(*v7 + 168))();
   v9[1] = v4;
   v5 = [v3 initWithUUIDBytes:v9];
@@ -95,7 +96,7 @@
 
 - (BOOL)tryCreatingCryptoHeader
 {
-  [(BackendXPC *)self getCryptoHeaderBackend];
+  objc_msgSend_getCryptoHeaderBackend(self, a2);
   if ((v6 & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x40uLL);
@@ -132,7 +133,7 @@
 
 - (expected<std::shared_ptr<Backend>,)getCryptoHeaderBackend
 {
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self, a3);
   sub_10019A824(&v5, &v7);
   retstr->var0.var0.var0 = v7;
   v7 = 0;
@@ -169,7 +170,7 @@
 
   if (cCopy)
   {
-    [cCopy backend];
+    objc_msgSend_backend(cCopy);
     v5 = v9;
   }
 
@@ -184,6 +185,126 @@
   {
     sub_10000367C(cntrl);
   }
+}
+
++ (id)newFileBackendWithURL:(id)l fileOpenFlags:(int)flags error:(id *)error
+{
+  v6 = *&flags;
+  lCopy = l;
+  if (stat([lCopy fileSystemRepresentation], &v26))
+  {
+    v8 = [DIError nilWithPOSIXCode:*__error() verboseInfo:@"stat failed" error:error];
+  }
+
+  else
+  {
+    v9 = *__error();
+    v10 = sub_1000E044C();
+    if (v10)
+    {
+      v25 = 0;
+      v12 = sub_1000E03D8(v10, v11);
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      path = [lCopy path];
+      if (v13)
+      {
+        v15 = 3;
+      }
+
+      else
+      {
+        v15 = 2;
+      }
+
+      *buf = 68160003;
+      v28 = 56;
+      v29 = 2080;
+      v30 = "+[BackendXPC newFileBackendWithURL:fileOpenFlags:error:]";
+      v31 = 2113;
+      v32 = path;
+      v33 = 1024;
+      st_dev = v26.st_dev;
+      v35 = 2048;
+      st_ino = v26.st_ino;
+      v37 = 1024;
+      st_mode = v26.st_mode;
+      v39 = 1024;
+      st_uid = v26.st_uid;
+      v41 = 1024;
+      st_gid = v26.st_gid;
+      v43 = 2048;
+      st_size = v26.st_size;
+      v45 = 2048;
+      st_blocks = v26.st_blocks;
+      v16 = _os_log_send_and_compose_impl(v15, &v25, 0, 0, &_mh_execute_header, v12, 0, "%.*s: Image file %{private}@ stat: dev(0x%x), inode(%lld), mode(%o), uid(%d), gid(%d), size(%lld), blocks(%lld)", buf, 82);
+
+      if (v16)
+      {
+        fprintf(__stderrp, "%s\n", v16);
+        free(v16);
+      }
+    }
+
+    else
+    {
+      v17 = sub_1000E03D8(v10, v11);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        path2 = [lCopy path];
+        *buf = 68160003;
+        v28 = 56;
+        v29 = 2080;
+        v30 = "+[BackendXPC newFileBackendWithURL:fileOpenFlags:error:]";
+        v31 = 2113;
+        v32 = path2;
+        v33 = 1024;
+        st_dev = v26.st_dev;
+        v35 = 2048;
+        st_ino = v26.st_ino;
+        v37 = 1024;
+        st_mode = v26.st_mode;
+        v39 = 1024;
+        st_uid = v26.st_uid;
+        v41 = 1024;
+        st_gid = v26.st_gid;
+        v43 = 2048;
+        st_size = v26.st_size;
+        v45 = 2048;
+        st_blocks = v26.st_blocks;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%.*s: Image file %{private}@ stat: dev(0x%x), inode(%lld), mode(%o), uid(%d), gid(%d), size(%lld), blocks(%lld)", buf, 0x52u);
+      }
+    }
+
+    *__error() = v9;
+    if ((v26.st_mode & 0xF000) == 0x4000)
+    {
+      v19 = lCopy;
+      if ((sub_10007C8D8([lCopy fileSystemRepresentation]) & 1) == 0)
+      {
+        exception = __cxa_allocate_exception(0x40uLL);
+        *exception = &off_100233158;
+        v24 = std::generic_category();
+        exception[1] = 161;
+        exception[2] = v24;
+        *(exception + 24) = 0;
+        *(exception + 48) = 0;
+        exception[7] = "The specified image is a folder but not a sparsebundle";
+      }
+
+      v20 = &off_100201010;
+    }
+
+    else
+    {
+      v20 = off_100200FF8;
+    }
+
+    v8 = [objc_alloc(*v20) initWithURL:lCopy fileOpenFlags:v6];
+  }
+
+  v21 = v8;
+
+  return v21;
 }
 
 - (shared_ptr<Backend>)backend

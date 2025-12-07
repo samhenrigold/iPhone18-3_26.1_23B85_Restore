@@ -13,16 +13,16 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v11 = 1;
+    v5 = 1;
   }
 
   else
   {
     objc_opt_class();
-    v11 = (objc_opt_isKindOfClass() & 1) != 0 && (shape = equalCopy->_shape, v6 = self->_shape, BSEqualObjects()) && (offset = equalCopy->_offset, v8 = self->_offset, BSFloatEqualToFloat()) && (angle = equalCopy->_angle, v10 = self->_angle, BSFloatEqualToFloat()) && equalCopy->_orientationMatchesAngle == self->_orientationMatchesAngle;
+    v5 = (objc_opt_isKindOfClass() & 1) != 0 && BSEqualObjects() && BSFloatEqualToFloat() && BSFloatEqualToFloat() && equalCopy->_orientationMatchesAngle == self->_orientationMatchesAngle;
   }
 
-  return v11;
+  return v5;
 }
 
 - (id)description

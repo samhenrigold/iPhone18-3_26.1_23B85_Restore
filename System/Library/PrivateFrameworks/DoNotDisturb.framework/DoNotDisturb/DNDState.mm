@@ -75,40 +75,38 @@
 
 - (NSArray)activeModeIdentifiers
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   activeModeAssertionMetadata = [(DNDState *)self activeModeAssertionMetadata];
-  v5 = [activeModeAssertionMetadata countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [activeModeAssertionMetadata countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(activeModeAssertionMetadata);
         }
 
-        modeIdentifier = [*(*(&v13 + 1) + 8 * i) modeIdentifier];
+        modeIdentifier = [*(*(&v12 + 1) + 8 * i) modeIdentifier];
         [v3 addObject:modeIdentifier];
       }
 
-      v6 = [activeModeAssertionMetadata countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [activeModeAssertionMetadata countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   allObjects = [v3 allObjects];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }

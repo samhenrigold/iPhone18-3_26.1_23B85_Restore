@@ -383,8 +383,8 @@ uint64_t __56__CAMLocationController__startMonitoringLocationUpdates__block_invo
     {
       [lastObject horizontalAccuracy];
       v10 = v9;
-      timestamp = [v8 timestamp];
-      [timestamp timeIntervalSinceNow];
+      v11 = objc_msgSend_timestamp(v8);
+      [v11 timeIntervalSinceNow];
       v13 = v12;
 
       if (v13 < -60.0 || v10 < 0.0)
@@ -479,7 +479,7 @@ uint64_t __56__CAMLocationController__startMonitoringLocationUpdates__block_invo
   _Block_object_dispose(&v15, 8);
 }
 
-uint64_t __63__CAMLocationController_locationManagerDidChangeAuthorization___block_invoke(uint64_t a1)
+void *__63__CAMLocationController_locationManagerDidChangeAuthorization___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) authorizationStatus];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -547,18 +547,18 @@ uint64_t __63__CAMLocationController_locationManagerDidChangeAuthorization___blo
   [v10 setObject:v22 forKey:*MEMORY[0x1E696DC28]];
 
   [v10 setObject:v18 forKey:*MEMORY[0x1E696DC30]];
-  timestamp = [locationCopy timestamp];
-  if (timestamp)
+  v23 = objc_msgSend_timestamp(locationCopy);
+  if (v23)
   {
     _sharedGPSTimestampFormatter = [self _sharedGPSTimestampFormatter];
-    v25 = [_sharedGPSTimestampFormatter stringFromDate:timestamp];
+    v25 = [_sharedGPSTimestampFormatter stringFromDate:v23];
     if (v25)
     {
       [v10 setObject:v25 forKey:*MEMORY[0x1E696DC70]];
     }
 
     _sharedGPSDatestampFormatter = [self _sharedGPSDatestampFormatter];
-    v27 = [_sharedGPSDatestampFormatter stringFromDate:timestamp];
+    v27 = [_sharedGPSDatestampFormatter stringFromDate:v23];
     if (v27)
     {
       [v10 setObject:v27 forKey:*MEMORY[0x1E696DBA8]];
@@ -909,7 +909,7 @@ uint64_t __55__CAMLocationController_addListenerForLocationUpdates___block_invok
   return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
-uint64_t __55__CAMLocationController_addListenerForLocationUpdates___block_invoke_3(uint64_t a1)
+void *__55__CAMLocationController_addListenerForLocationUpdates___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) authorizationStatusUpdated:*(*(*(a1 + 40) + 8) + 24)];
   if (*(*(*(a1 + 48) + 8) + 40))

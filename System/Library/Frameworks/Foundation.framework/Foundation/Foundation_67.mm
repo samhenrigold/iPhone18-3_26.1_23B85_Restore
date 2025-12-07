@@ -545,14 +545,14 @@ LABEL_79:
   return result;
 }
 
-unsigned __int8 *_CalendarICU._locked_start(of:at:)@<X0>(unsigned __int8 *result@<X0>, double *a2@<X1>, uint64_t a3@<X8>)
+void _CalendarICU._locked_start(of:at:)(unsigned __int8 *a1@<X0>, double *a2@<X1>, uint64_t a3@<X8>)
 {
   v20 = *MEMORY[0x1E69E9840];
-  v5 = *result;
+  v5 = *a1;
   v6 = *a2;
   if (one-time initialization token for validCalendarRange != -1)
   {
-    result = swift_once();
+    swift_once();
   }
 
   v7 = *(&static Date.validCalendarRange + 1);
@@ -583,7 +583,7 @@ unsigned __int8 *_CalendarICU._locked_start(of:at:)@<X0>(unsigned __int8 *result
         v11 = *(v9 + 40);
         swift_unknownObjectRetain();
         v12 = v11(&v18, ObjectType, v9);
-        result = swift_unknownObjectRelease();
+        swift_unknownObjectRelease();
         v13 = floor((v8 + v12) / 3600.0) * 3600.0 - v12;
       }
 
@@ -759,10 +759,10 @@ LABEL_23:
   {
 LABEL_25:
     v19 = v5;
-    HIDWORD(v18) = HIDWORD(v8);
-    _CalendarICU._locked_setToFirstInstant(of:at:)(&v19);
+    v18 = v8;
+    _CalendarICU._locked_setToFirstInstant(of:at:)(&v19, &v18);
     LODWORD(v18) = 0;
-    result = ucal_getMillis();
+    ucal_getMillis();
     v13 = v14 / 1000.0 + -978307200.0;
     goto LABEL_26;
   }
@@ -772,7 +772,7 @@ LABEL_25:
 LABEL_12:
     *a3 = 0;
     *(a3 + 8) = 1;
-    return result;
+    return;
   }
 
   if (v5 != 13)
@@ -785,10 +785,9 @@ LABEL_26:
   *a3 = v13;
 LABEL_27:
   *(a3 + 8) = 0;
-  return result;
 }
 
-uint64_t _CalendarICU._locked_add(_:amount:wrap:status:)(uint64_t a1, uint64_t a2, char a3)
+void _CalendarICU._locked_add(_:amount:wrap:status:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
   if (a1 == 14)
   {
@@ -796,14 +795,14 @@ LABEL_2:
     if (a3)
     {
 LABEL_3:
-      v5 = 0;
+      v7 = 0;
       goto LABEL_4;
     }
 
 LABEL_47:
-    v16 = 0;
-    v17 = 0;
-    v5 = 0;
+    v19 = 0;
+    v20 = 0;
+    v7 = 0;
     goto LABEL_48;
   }
 
@@ -842,18 +841,18 @@ LABEL_57:
         ucal_add();
       }
 
-      result = ucal_getMillis();
+      ucal_getMillis();
       if (a2 >= 1)
       {
-        v25 = v24 / 1000.0 + -978307200.0;
-        result = _CalendarICU._locked_timeZoneTransitionInterval(at:)(&v25, &v26);
-        if ((v27 & 1) == 0)
+        v30 = v29 / 1000.0 + -978307200.0;
+        _CalendarICU._locked_timeZoneTransitionInterval(at:)(&v30, &v31);
+        if ((v32 & 1) == 0)
         {
-          return ucal_setMillis();
+          goto LABEL_53;
         }
       }
 
-      return result;
+      return;
     }
   }
 
@@ -878,79 +877,79 @@ LABEL_57:
     {
       if ((a3 & 1) == 0)
       {
-        v16 = 0;
-        v17 = 0;
-        v5 = 0;
+        v19 = 0;
+        v20 = 0;
+        v7 = 0;
         goto LABEL_48;
       }
 
-      v5 = 0;
+      v7 = 0;
 LABEL_4:
       Limit = ucal_getLimit();
-      result = ucal_getLimit();
-      v8 = result - Limit;
-      if (__OFSUB__(result, Limit))
+      v9 = ucal_getLimit();
+      v10 = v9 - Limit;
+      if (__OFSUB__(v9, Limit))
       {
         __break(1u);
       }
 
       else
       {
-        v9 = v8 + 1;
-        if (!__OFADD__(v8, 1))
+        v11 = v10 + 1;
+        if (!__OFADD__(v10, 1))
         {
-          result = ucal_get();
-          v10 = result + a2;
-          if (!__OFADD__(result, a2))
+          v12 = ucal_get();
+          v13 = v12 + a2;
+          if (!__OFADD__(v12, a2))
           {
-            v11 = __OFSUB__(v10, Limit);
-            v12 = v10 - Limit;
-            if (!v11)
+            v14 = __OFSUB__(v13, Limit);
+            v15 = v13 - Limit;
+            if (!v14)
             {
-              if (!v9)
+              if (!v11)
               {
 LABEL_71:
                 __break(1u);
                 goto LABEL_72;
               }
 
-              if (v12 == 0x80000000 && v9 == -1)
+              if (v15 == 0x80000000 && v11 == -1)
               {
                 goto LABEL_75;
               }
 
-              v13 = v12 % v9;
-              if (v13 < 0)
+              v16 = v15 % v11;
+              if (v16 < 0)
               {
-                v11 = __OFADD__(v13, v9);
-                v13 += v9;
-                if (v11)
+                v14 = __OFADD__(v16, v11);
+                v16 += v11;
+                if (v14)
                 {
                   goto LABEL_77;
                 }
               }
 
-              v14 = v13 + Limit;
-              if (__OFADD__(v13, Limit))
+              v17 = v16 + Limit;
+              if (__OFADD__(v16, Limit))
               {
                 goto LABEL_73;
               }
 
-              if (v14 >= result || a2 < 1)
+              if (v17 >= v12 || a2 < 1)
               {
-                if (__OFSUB__(v14, result))
+                if (__OFSUB__(v17, v12))
                 {
 LABEL_76:
                   __break(1u);
 LABEL_77:
                   __break(1u);
-                  return result;
+                  return;
                 }
 
-                if (!v5)
+                if (!v7)
                 {
-                  v16 = 0;
-                  v17 = 0;
+                  v19 = 0;
+                  v20 = 0;
                   goto LABEL_48;
                 }
               }
@@ -958,26 +957,26 @@ LABEL_77:
               else
               {
                 ucal_getMillis();
-                v19 = v18 / 1000.0 + -978307200.0;
+                v22 = v21 / 1000.0 + -978307200.0;
                 if (a1 == 14 || (a1 - 10) > 3)
                 {
-                  LOBYTE(v20) = 6;
+                  LOBYTE(v23) = 6;
                 }
 
                 else
                 {
-                  v20 = 0x5040303u >> (8 * (a1 - 10));
+                  v23 = 0x5040303u >> (8 * (a1 - 10));
                 }
 
-                _CalendarICU.totalSecondsInSmallUnits(_:status:)(a1);
-                LOBYTE(v25) = v20;
-                v26 = v19;
-                _CalendarICU._locked_setToFirstInstant(of:at:)(&v25);
-                if ((v5 & 1) == 0)
+                _CalendarICU.totalSecondsInSmallUnits(_:status:)(a1, a4);
+                LOBYTE(v30) = v23;
+                v31 = v22;
+                _CalendarICU._locked_setToFirstInstant(of:at:)(&v30, &v31);
+                if ((v7 & 1) == 0)
                 {
-                  v16 = 0;
-                  v17 = 0;
-                  v5 = 0;
+                  v19 = 0;
+                  v20 = 0;
+                  v7 = 0;
                   goto LABEL_48;
                 }
               }
@@ -1013,15 +1012,15 @@ LABEL_46:
 
   if (a3)
   {
-    v5 = 1;
+    v7 = 1;
     goto LABEL_4;
   }
 
 LABEL_39:
-  v21 = ucal_get();
-  result = ucal_get();
-  v17 = v21 + result;
-  if (__OFADD__(v21, result))
+  v24 = ucal_get();
+  v25 = ucal_get();
+  v20 = v24 + v25;
+  if (__OFADD__(v24, v25))
   {
 LABEL_74:
     __break(1u);
@@ -1030,25 +1029,25 @@ LABEL_75:
     goto LABEL_76;
   }
 
-  v16 = ucal_get();
-  v5 = 1;
+  v19 = ucal_get();
+  v7 = 1;
 LABEL_48:
   ucal_getMillis();
-  result = ucal_setMillis();
-  if (!v5)
+  ucal_setMillis();
+  if (!v7)
   {
-    return result;
+    return;
   }
 
-  v22 = ucal_get();
-  result = ucal_get();
-  v23 = v22 + result;
-  if (__OFADD__(v22, result))
+  v26 = ucal_get();
+  v27 = ucal_get();
+  v28 = v26 + v27;
+  if (__OFADD__(v26, v27))
   {
     goto LABEL_70;
   }
 
-  if (__OFSUB__(v17, v23))
+  if (__OFSUB__(v20, v28))
   {
 LABEL_72:
     __break(1u);
@@ -1057,18 +1056,16 @@ LABEL_73:
     goto LABEL_74;
   }
 
-  if (v17 != v23)
+  if (v20 != v28)
   {
     ucal_getMillis();
     ucal_setMillis();
-    result = ucal_get();
-    if (result != v16)
+    if (ucal_get() != v19)
     {
-      return ucal_setMillis();
+LABEL_53:
+      ucal_setMillis();
     }
   }
-
-  return result;
 }
 
 void _CalendarICU.dateComponents(_:from:in:)(uint64_t *a1, uint64_t *a2, uint64_t *a3)
@@ -1451,13 +1448,14 @@ LABEL_44:
   return memcpy(a3, __src, 0x11BuLL);
 }
 
-uint64_t closure #1 in _CalendarICU.date(byAdding:to:wrappingComponents:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X8>, double a5@<D0>)
+void closure #1 in _CalendarICU.date(byAdding:to:wrappingComponents:)(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X8>, double a5@<D0>)
 {
+  v20 = *MEMORY[0x1E69E9840];
   if (one-time initialization token for validCalendarRange != -1)
   {
-    v17 = a5;
+    v18 = a5;
     swift_once();
-    a5 = v17;
+    a5 = v18;
   }
 
   if (*(&static Date.validCalendarRange + 1) < a5)
@@ -1475,6 +1473,7 @@ uint64_t closure #1 in _CalendarICU.date(byAdding:to:wrappingComponents:)@<X0>(u
     v9 = a5;
   }
 
+  v19 = 0;
   MEMORY[0x1865D2A80](*(a1 + 32));
   v10 = 0.0;
   if ((*&v9 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
@@ -1497,7 +1496,7 @@ uint64_t closure #1 in _CalendarICU.date(byAdding:to:wrappingComponents:)@<X0>(u
 
   else
   {
-    _CalendarICU._locked_add(_:amount:wrap:status:)(0, *(a2 + 32), a3 & 1);
+    _CalendarICU._locked_add(_:amount:wrap:status:)(0, *(a2 + 32), a3 & 1, &v19);
     if (*(a2 + 56))
     {
 LABEL_13:
@@ -1510,7 +1509,7 @@ LABEL_13:
     }
   }
 
-  _CalendarICU._locked_add(_:amount:wrap:status:)(1, *(a2 + 48), a3 & 1);
+  _CalendarICU._locked_add(_:amount:wrap:status:)(1, *(a2 + 48), a3 & 1, &v19);
   if (*(a2 + 280))
   {
 LABEL_14:
@@ -1523,7 +1522,7 @@ LABEL_14:
   }
 
 LABEL_22:
-  _CalendarICU._locked_add(_:amount:wrap:status:)(17, *(a2 + 272), a3 & 1);
+  _CalendarICU._locked_add(_:amount:wrap:status:)(17, *(a2 + 272), a3 & 1, &v19);
   if (*(a2 + 72))
   {
 LABEL_15:
@@ -1537,7 +1536,7 @@ LABEL_15:
   }
 
 LABEL_23:
-  _CalendarICU._locked_add(_:amount:wrap:status:)(2, *(a2 + 64), a3 & 1);
+  _CalendarICU._locked_add(_:amount:wrap:status:)(2, *(a2 + 64), a3 & 1, &v19);
   v11 = *(a2 + 264);
   if (v11)
   {
@@ -1551,7 +1550,7 @@ LABEL_16:
   }
 
 LABEL_24:
-  _CalendarICU._locked_add(_:amount:wrap:status:)(3, *(a2 + 256), a3 & 1);
+  _CalendarICU._locked_add(_:amount:wrap:status:)(3, *(a2 + 256), a3 & 1, &v19);
   if (*(a2 + 248))
   {
 LABEL_17:
@@ -1564,7 +1563,7 @@ LABEL_17:
   }
 
 LABEL_25:
-  _CalendarICU._locked_add(_:amount:wrap:status:)(4, *(a2 + 240), a3 & 1);
+  _CalendarICU._locked_add(_:amount:wrap:status:)(4, *(a2 + 240), a3 & 1, &v19);
   if (*(a2 + 200))
   {
 LABEL_18:
@@ -1577,7 +1576,7 @@ LABEL_18:
   }
 
 LABEL_26:
-  _CalendarICU._locked_add(_:amount:wrap:status:)(8, *(a2 + 192), a3 & 1);
+  _CalendarICU._locked_add(_:amount:wrap:status:)(8, *(a2 + 192), a3 & 1, &v19);
   if (*(a2 + 232))
   {
     goto LABEL_29;
@@ -1586,7 +1585,7 @@ LABEL_26:
 LABEL_27:
   if (v11)
   {
-    _CalendarICU._locked_add(_:amount:wrap:status:)(3, *(a2 + 224), a3 & 1);
+    _CalendarICU._locked_add(_:amount:wrap:status:)(3, *(a2 + 224), a3 & 1, &v19);
   }
 
 LABEL_29:
@@ -1600,7 +1599,7 @@ LABEL_29:
 
   else
   {
-    _CalendarICU._locked_add(_:amount:wrap:status:)(5, *(a2 + 80), a3 & 1);
+    _CalendarICU._locked_add(_:amount:wrap:status:)(5, *(a2 + 80), a3 & 1, &v19);
     if (*(a2 + 104))
     {
 LABEL_31:
@@ -1609,11 +1608,11 @@ LABEL_31:
         goto LABEL_32;
       }
 
-      goto LABEL_41;
+      goto LABEL_43;
     }
   }
 
-  _CalendarICU._locked_add(_:amount:wrap:status:)(6, *(a2 + 96), a3 & 1);
+  _CalendarICU._locked_add(_:amount:wrap:status:)(6, *(a2 + 96), a3 & 1, &v19);
   if (*(a2 + 184))
   {
 LABEL_32:
@@ -1622,11 +1621,11 @@ LABEL_32:
       goto LABEL_33;
     }
 
-    goto LABEL_42;
+    goto LABEL_44;
   }
 
-LABEL_41:
-  _CalendarICU._locked_add(_:amount:wrap:status:)(7, *(a2 + 176), a3 & 1);
+LABEL_43:
+  _CalendarICU._locked_add(_:amount:wrap:status:)(7, *(a2 + 176), a3 & 1, &v19);
   if (*(a2 + 120))
   {
 LABEL_33:
@@ -1635,11 +1634,11 @@ LABEL_33:
       goto LABEL_34;
     }
 
-    goto LABEL_43;
+    goto LABEL_45;
   }
 
-LABEL_42:
-  _CalendarICU._locked_add(_:amount:wrap:status:)(11, *(a2 + 112), a3 & 1);
+LABEL_44:
+  _CalendarICU._locked_add(_:amount:wrap:status:)(11, *(a2 + 112), a3 & 1, &v19);
   if (*(a2 + 136))
   {
 LABEL_34:
@@ -1651,27 +1650,33 @@ LABEL_34:
     goto LABEL_35;
   }
 
-LABEL_43:
-  _CalendarICU._locked_add(_:amount:wrap:status:)(12, *(a2 + 128), a3 & 1);
+LABEL_45:
+  _CalendarICU._locked_add(_:amount:wrap:status:)(12, *(a2 + 128), a3 & 1, &v19);
   if ((*(a2 + 152) & 1) == 0)
   {
 LABEL_35:
-    _CalendarICU._locked_add(_:amount:wrap:status:)(13, *(a2 + 144), a3 & 1);
+    _CalendarICU._locked_add(_:amount:wrap:status:)(13, *(a2 + 144), a3 & 1, &v19);
   }
 
 LABEL_36:
   v12 = *(a2 + 160);
   v13 = *(a2 + 168);
-  result = ucal_getMillis();
-  v16 = v12 * 0.000000001;
-  if (v13)
+  ucal_getMillis();
+  v15 = v19;
+  v16 = 0.0;
+  if (v19 <= 0)
   {
-    v16 = 0.0;
+    v17 = v12 * 0.000000001;
+    if (v13)
+    {
+      v17 = 0.0;
+    }
+
+    v16 = v17 + v10 + v14 / 1000.0 + -978307200.0;
   }
 
-  *a4 = v16 + v10 + v15 / 1000.0 + -978307200.0;
-  *(a4 + 8) = 0;
-  return result;
+  *a4 = v16;
+  *(a4 + 8) = v15 > 0;
 }
 
 void *closure #1 in _CalendarICU.dateComponents(_:from:to:)@<X0>(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>, double a4@<D0>, double a5@<D1>)
@@ -2043,21 +2048,21 @@ LABEL_44:
   return memcpy(a3, __src, 0x11BuLL);
 }
 
-double *_CalendarICU._locked_setToFirstInstant(of:at:)(unsigned __int8 *a1)
+double *_CalendarICU._locked_setToFirstInstant(of:at:)(unsigned __int8 *a1, double *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v19 = 0;
+  v22 = *MEMORY[0x1E69E9840];
+  v3 = *a1;
+  v20 = 0;
   ucal_setMillis();
-  v3 = 0;
-  v4 = 1;
-  if (v2 <= 6)
+  v4 = 0;
+  v5 = 1;
+  if (v3 <= 6)
   {
-    if (v2 > 2)
+    if (v3 > 2)
     {
-      if (v2 > 4)
+      if (v3 > 4)
       {
-        if (v2 != 5)
+        if (v3 != 5)
         {
           ucal_set();
           goto LABEL_54;
@@ -2066,7 +2071,7 @@ double *_CalendarICU._locked_setToFirstInstant(of:at:)(unsigned __int8 *a1)
         goto LABEL_37;
       }
 
-      if (v2 != 3)
+      if (v3 != 3)
       {
 LABEL_36:
         ucal_getLimit();
@@ -2075,40 +2080,40 @@ LABEL_37:
         ucal_getLimit();
         ucal_set();
         ucal_set();
-        if ((v4 & 1) == 0 && ucal_get() < v3)
+        if ((v5 & 1) == 0 && ucal_get() < v4)
         {
           do
           {
             ucal_getMillis();
-            v8 = v7;
+            v9 = v8;
             ucal_add();
           }
 
-          while (ucal_get() < v3);
+          while (ucal_get() < v4);
           ucal_getMillis();
-          v10 = v9;
+          v11 = v10;
           do
           {
             ucal_setMillis();
-            if (ucal_get() >= v3)
+            if (ucal_get() >= v4)
             {
-              v10 = (v8 + v10) * 0.5;
+              v11 = (v9 + v11) * 0.5;
             }
 
             else
             {
-              v8 = (v8 + v10) * 0.5;
+              v9 = (v9 + v11) * 0.5;
             }
           }
 
-          while (vabdd_f64(v10, v8) >= 1000.0);
+          while (vabdd_f64(v11, v9) >= 1000.0);
           do
           {
-            v8 = floor((v8 + 1000.0) / 1000.0) * 1000.0;
+            v9 = floor((v9 + 1000.0) / 1000.0) * 1000.0;
             ucal_setMillis();
           }
 
-          while (ucal_get() < v3);
+          while (ucal_get() < v4);
         }
 
         goto LABEL_46;
@@ -2120,9 +2125,9 @@ LABEL_35:
       goto LABEL_36;
     }
 
-    if (v2)
+    if (v3)
     {
-      if (v2 != 1)
+      if (v3 != 1)
       {
         goto LABEL_34;
       }
@@ -2130,10 +2135,10 @@ LABEL_35:
 
     else
     {
-      v3 = ucal_get();
+      v4 = ucal_get();
       ucal_getLimit();
       ucal_set();
-      v4 = 0;
+      v5 = 0;
     }
 
     ucal_getLimit();
@@ -2147,22 +2152,22 @@ LABEL_34:
     goto LABEL_35;
   }
 
-  if (v2 <= 9)
+  if (v3 <= 9)
   {
-    if ((v2 - 7) < 2)
+    if ((v3 - 7) < 2)
     {
       goto LABEL_35;
     }
 
-    if (v2 != 9)
+    if (v3 != 9)
     {
       goto LABEL_46;
     }
 
-    v5 = ucal_get();
-    if (*(v1 + 24) == 6)
+    v6 = ucal_get();
+    if (*(v2 + 24) == 6)
     {
-      if (v5 <= 0xC)
+      if (v6 <= 0xC)
       {
         goto LABEL_32;
       }
@@ -2170,35 +2175,35 @@ LABEL_34:
       __break(1u);
     }
 
-    else if (v5 <= 0xC)
+    else if (v6 <= 0xC)
     {
 LABEL_32:
-      v2 = 2;
+      v3 = 2;
       ucal_set();
-      v3 = 0;
+      v4 = 0;
       goto LABEL_33;
     }
 
     __break(1u);
   }
 
-  if ((v2 - 10) < 2)
+  if ((v3 - 10) < 2)
   {
 LABEL_22:
-    if (*(v1 + 64) == 1)
+    if (*(v2 + 64) == 1)
     {
       Attribute = ucal_getAttribute();
     }
 
     else
     {
-      Attribute = *(v1 + 56);
+      Attribute = *(v2 + 56);
     }
 
     if (Attribute == ucal_get())
     {
-      v3 = 0;
-      v2 = 3;
+      v4 = 0;
+      v3 = 3;
     }
 
     else
@@ -2210,48 +2215,48 @@ LABEL_22:
       }
 
       while (Attribute != ucal_get());
-      v3 = 0;
-      v2 = 3;
-      v4 = 1;
+      v4 = 0;
+      v3 = 3;
+      v5 = 1;
     }
 
     goto LABEL_35;
   }
 
-  if (v2 == 12)
+  if (v3 == 12)
   {
     ucal_getLimit();
     ucal_set();
     goto LABEL_22;
   }
 
-  if (v2 == 18)
+  if (v3 == 18)
   {
     goto LABEL_35;
   }
 
 LABEL_46:
-  if (v2 <= 8 && ((1 << v2) & 0x188) != 0)
+  if (v3 <= 8 && ((1 << v3) & 0x188) != 0)
   {
-    v11 = ucal_get();
     v12 = ucal_get();
+    v13 = ucal_get();
     do
     {
       ucal_getMillis();
       ucal_add();
-      v13 = ucal_get();
       v14 = ucal_get();
+      v15 = ucal_get();
     }
 
-    while (v11 == v13 && v12 == v14);
+    while (v12 == v14 && v13 == v15);
     ucal_setMillis();
   }
 
 LABEL_54:
   ucal_getMillis();
-  v18 = v16 / 1000.0 + -978307200.0;
-  result = _CalendarICU._locked_timeZoneTransitionInterval(at:)(&v18, v20);
-  if ((v20[16] & 1) == 0)
+  v19 = v17 / 1000.0 + -978307200.0;
+  result = _CalendarICU._locked_timeZoneTransitionInterval(at:)(&v19, v21);
+  if ((v21[16] & 1) == 0)
   {
     return ucal_setMillis();
   }
@@ -2259,18 +2264,18 @@ LABEL_54:
   return result;
 }
 
-uint64_t _CalendarICU.totalSecondsInSmallUnits(_:status:)(uint64_t result)
+uint64_t _CalendarICU.totalSecondsInSmallUnits(_:status:)(uint64_t result, uint64_t a2)
 {
   if (result != 14)
   {
-    v1 = result;
+    v2 = result;
     if (result != 21)
     {
       result = ucal_get();
-      if (v1 != 13)
+      if (v2 != 13)
       {
         result = ucal_get();
-        if (v1 != 12)
+        if (v2 != 12)
         {
           return ucal_get();
         }
@@ -2376,7 +2381,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return *(&v2 + 1);
 }
 
-char *Calendar.eraSymbols.getter(int a1)
+char *Calendar.eraSymbols.getter(uint64_t a1)
 {
   v7[0] = *v1;
   swift_unknownObjectRetain();
@@ -2493,14 +2498,14 @@ uint64_t Calendar.Component.init(_:)@<X0>(uint64_t result@<X0>, _BYTE *a2@<X8>)
 
 uint64_t instantiation function for generic protocol witness table for _CalendarICU(uint64_t a1)
 {
-  result = lazy protocol witness table accessor for type _CalendarICU and conformance _CalendarICU(&lazy protocol witness table cache variable for type _CalendarICU and conformance _CalendarICU);
+  result = lazy protocol witness table accessor for type _CalendarICU and conformance _CalendarICU(&lazy protocol witness table cache variable for type _CalendarICU and conformance _CalendarICU, &protocol conformance descriptor for _CalendarICU);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t outlined destroy of LocalePreferences?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation17LocalePreferencesVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -2523,12 +2528,13 @@ void *partial apply for specialized closure #1 in LockedState<A>.withLock<A>(_:)
   return result;
 }
 
-unsigned __int8 *partial apply for closure #1 in _CalendarICU.dateInterval(of:for:)@<X0>(uint64_t a1@<X8>)
+double partial apply for closure #1 in _CalendarICU.dateInterval(of:for:)@<D0>(uint64_t a1@<X8>)
 {
   v2 = *(v1 + 32);
   v5 = *(v1 + 24);
   v4 = v2;
-  return _CalendarICU._locked_dateInterval(of:at:)(&v5, &v4, a1);
+  _CalendarICU._locked_dateInterval(of:at:)(&v5, &v4, a1);
+  return result;
 }
 
 Swift::Int partial apply for closure #1 in _CalendarICU.ordinality(of:in:for:)@<X0>(uint64_t a1@<X8>)
@@ -4314,14 +4320,14 @@ uint64_t (*Date.AnchoredRelativeFormatStyle.presentation.modify(uint64_t a1))(ui
   return Date.AnchoredRelativeFormatStyle.presentation.modify;
 }
 
-_BYTE *(*Date.AnchoredRelativeFormatStyle.unitsStyle.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*Date.AnchoredRelativeFormatStyle.unitsStyle.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 1);
   return Date.AnchoredRelativeFormatStyle.unitsStyle.modify;
 }
 
-_BYTE *(*Date.AnchoredRelativeFormatStyle.capitalizationContext.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*Date.AnchoredRelativeFormatStyle.capitalizationContext.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 2);
@@ -4336,7 +4342,7 @@ __n128 Date.AnchoredRelativeFormatStyle.locale.setter(__n128 *a1)
   return result;
 }
 
-uint64_t (*Date.AnchoredRelativeFormatStyle.locale.modify(uint64_t a1))(uint64_t *a1, char a2)
+uint64_t (*Date.AnchoredRelativeFormatStyle.locale.modify(uint64_t a1))()
 {
   *(a1 + 16) = v1;
   *a1 = *(v1 + 8);
@@ -4344,7 +4350,7 @@ uint64_t (*Date.AnchoredRelativeFormatStyle.locale.modify(uint64_t a1))(uint64_t
   return Date.AnchoredRelativeFormatStyle.locale.modify;
 }
 
-uint64_t Date.AnchoredRelativeFormatStyle.locale.modify(uint64_t *a1, char a2)
+uint64_t Date.AnchoredRelativeFormatStyle.locale.modify(void *a1, char a2)
 {
   v3 = a1[1];
   v2 = a1[2];
@@ -4377,7 +4383,7 @@ __n128 Date.AnchoredRelativeFormatStyle.calendar.setter(__n128 *a1)
   return result;
 }
 
-uint64_t (*Date.AnchoredRelativeFormatStyle.calendar.modify(uint64_t a1))(uint64_t *a1, char a2)
+uint64_t (*Date.AnchoredRelativeFormatStyle.calendar.modify(uint64_t a1))()
 {
   *(a1 + 16) = v1;
   *a1 = *(v1 + 24);
@@ -4385,7 +4391,7 @@ uint64_t (*Date.AnchoredRelativeFormatStyle.calendar.modify(uint64_t a1))(uint64
   return Date.AnchoredRelativeFormatStyle.calendar.modify;
 }
 
-uint64_t Date.AnchoredRelativeFormatStyle.calendar.modify(uint64_t *a1, char a2)
+uint64_t Date.AnchoredRelativeFormatStyle.calendar.modify(void *a1, char a2)
 {
   v3 = a1[1];
   v2 = a1[2];
@@ -4417,7 +4423,7 @@ uint64_t Date.AnchoredRelativeFormatStyle.allowedFields.setter(uint64_t a1)
   return result;
 }
 
-uint64_t (*Date.AnchoredRelativeFormatStyle.allowedFields.modify(void *a1))(uint64_t *a1, char a2)
+uint64_t (*Date.AnchoredRelativeFormatStyle.allowedFields.modify(void *a1))()
 {
   v3 = *(v1 + 40);
   a1[1] = v1;
@@ -4427,7 +4433,7 @@ uint64_t (*Date.AnchoredRelativeFormatStyle.allowedFields.modify(void *a1))(uint
   return Date.AnchoredRelativeFormatStyle.allowedFields.modify;
 }
 
-uint64_t Date.AnchoredRelativeFormatStyle.allowedFields.modify(uint64_t *a1, char a2)
+uint64_t Date.AnchoredRelativeFormatStyle.allowedFields.modify(void *a1, char a2)
 {
   v2 = a1[1];
   v3 = *a1;
@@ -4613,7 +4619,7 @@ Swift::String __swiftcall Date.AnchoredRelativeFormatStyle.format(_:)(Foundation
   v83 = v7;
   v8 = v88;
   outlined init with copy of Date.RelativeFormatStyle(&v88, v81);
-  Date.RelativeFormatStyle._largestNonZeroComponent(_:reference:adjustComponent:)(&v83, &v82, v87);
+  Date.RelativeFormatStyle._largestNonZeroComponent(_:reference:adjustComponent:)(v87, &v83, &v82);
   if (LOBYTE(v87[0]) != 19)
   {
     v78 = LOBYTE(v87[0]);
@@ -4690,7 +4696,7 @@ Swift::String __swiftcall Date.AnchoredRelativeFormatStyle.format(_:)(Foundation
     v24 = v23;
     v73 = v17;
     v74 = v16 | (v19 << 32);
-    v22 = ICURelativeDateFormatter.init(signature:)(v79, v23, v17 | (LOBYTE(v81[0]) << 32));
+    v22 = ICURelativeDateFormatter.init(signature:)(v79, v23, v17 | (LOBYTE(v81[0]) << 32), v74);
     os_unfair_lock_lock((v21 + 24));
     v25 = v79;
     if (v20 >= *(*(v21 + 16) + 16))
@@ -4816,7 +4822,7 @@ LABEL_55:
 
     v71 = v31;
     v72 = v30;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation24ICURelativeDateFormatterC9SignatureVAESgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation24ICURelativeDateFormatterC9SignatureVAESgGMd, &_ss18_DictionaryStorageCy10Foundation24ICURelativeDateFormatterC9SignatureVAESgGMR);
     v41 = static _DictionaryStorage.copy(original:)();
     v37 = v41;
     if (*(v27 + 16))
@@ -5002,7 +5008,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t Date.AnchoredRelativeFormatStyle.encode(to:)(void *a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation4DateV27AnchoredRelativeFormatStyleV10CodingKeys33_C066C46DD7A4458BFE9B19CA47B7E7FELLOGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation4DateV27AnchoredRelativeFormatStyleV10CodingKeys33_C066C46DD7A4458BFE9B19CA47B7E7FELLOGMd, &_ss22KeyedEncodingContainerVy10Foundation4DateV27AnchoredRelativeFormatStyleV10CodingKeys33_C066C46DD7A4458BFE9B19CA47B7E7FELLOGMR);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v12[-v6];
@@ -5043,8 +5049,7 @@ uint64_t Date.AnchoredRelativeFormatStyle.hash(into:)(Swift::Int a1)
   v4 = v1[2];
   v5 = *(v1 + 2);
   v6 = *(v1 + 4);
-  v7 = *(v1 + 5);
-  v8 = *(v1 + 6);
+  v7 = *(v1 + 6);
   MEMORY[0x1865CD060](*v1);
   MEMORY[0x1865CD060](v3);
   MEMORY[0x1865CD060](v4);
@@ -5055,73 +5060,72 @@ uint64_t Date.AnchoredRelativeFormatStyle.hash(into:)(Swift::Int a1)
     (*(v5 + 64))(ObjectType, v5);
     String.hash(into:)();
 
-    (*(v5 + 464))(&v53, ObjectType, v5);
-    v61[6] = v59;
-    v62[0] = *v60;
-    *(v62 + 12) = *&v60[12];
-    v61[2] = v55;
-    v61[3] = v56;
-    v61[4] = v57;
-    v61[5] = v58;
-    v61[0] = v53;
-    v61[1] = v54;
-    if (_s10Foundation17LocalePreferencesVSgWOg(v61) == 1)
+    (*(v5 + 464))(&v51, ObjectType, v5);
+    v59[6] = v57;
+    v60[0] = *v58;
+    *(v60 + 12) = *&v58[12];
+    v59[2] = v53;
+    v59[3] = v54;
+    v59[4] = v55;
+    v59[5] = v56;
+    v59[0] = v51;
+    v59[1] = v52;
+    if (_s10Foundation17LocalePreferencesVSgWOg(v59) == 1)
     {
-      v10 = 0;
+      v9 = 0;
       goto LABEL_5;
     }
 
-    v52 = v7;
-    v11 = v53;
-    v12 = *(&v53 + 1);
-    v13 = *(&v54 + 1);
-    v14 = *(&v55 + 1);
-    v43 = v56;
-    v44 = v57;
-    v45 = v58;
-    v15 = v59;
-    v47 = *v60;
-    v16 = *&v60[16];
-    v49 = v60[24];
-    v50 = v60[25];
-    v17 = v60[26];
-    v51 = v60[27];
+    v10 = v51;
+    v11 = *(&v51 + 1);
+    v12 = *(&v52 + 1);
+    v13 = *(&v53 + 1);
+    v42 = v54;
+    v43 = v55;
+    v44 = v56;
+    v14 = v57;
+    v46 = *v58;
+    v15 = *&v58[16];
+    v48 = v58[24];
+    v49 = v58[25];
+    v16 = v58[26];
+    v50 = v58[27];
     Hasher._combine(_:)(1u);
-    if (v11 == 2)
+    if (v10 == 2)
     {
-      v18 = 0;
+      v17 = 0;
     }
 
     else
     {
       Hasher._combine(_:)(1u);
-      v18 = v11 & 1;
+      v17 = v10 & 1;
     }
 
-    v48 = v16;
-    Hasher._combine(_:)(v18);
-    if (v12)
+    v47 = v15;
+    Hasher._combine(_:)(v17);
+    if (v11)
     {
       Hasher._combine(_:)(1u);
-      MEMORY[0x1865CD060](*(v12 + 16));
-      v19 = *(v12 + 16);
-      if (v19)
+      MEMORY[0x1865CD060](*(v11 + 16));
+      v18 = *(v11 + 16);
+      if (v18)
       {
-        v20 = v12 + 40;
+        v19 = v11 + 40;
         do
         {
 
           String.hash(into:)();
 
-          v20 += 16;
-          --v19;
+          v19 += 16;
+          --v18;
         }
 
-        while (v19);
+        while (v18);
       }
 
-      v46 = v17;
-      if (v13)
+      v45 = v16;
+      if (v12)
       {
         goto LABEL_14;
       }
@@ -5130,8 +5134,8 @@ uint64_t Date.AnchoredRelativeFormatStyle.hash(into:)(Swift::Int a1)
     else
     {
       Hasher._combine(_:)(0);
-      v46 = v17;
-      if (v13)
+      v45 = v16;
+      if (v12)
       {
 LABEL_14:
         Hasher._combine(_:)(1u);
@@ -5142,17 +5146,16 @@ LABEL_14:
 
     Hasher._combine(_:)(0);
 LABEL_17:
-    v7 = v52;
-    if (v14)
+    if (v13)
     {
       Hasher._combine(_:)(1u);
       String.hash(into:)();
-      v21 = v48;
-      if (v43)
+      v20 = v47;
+      if (v42)
       {
 LABEL_19:
         Hasher._combine(_:)(1u);
-        specialized Dictionary<>.hash(into:)(a1, v43, v22, v23, v24, v25, v26, v27);
+        specialized Dictionary<>.hash(into:)(a1, v42, v21, v22, v23, v24, v25, v26);
         goto LABEL_22;
       }
     }
@@ -5160,8 +5163,8 @@ LABEL_19:
     else
     {
       Hasher._combine(_:)(0);
-      v21 = v48;
-      if (v43)
+      v20 = v47;
+      if (v42)
       {
         goto LABEL_19;
       }
@@ -5169,11 +5172,11 @@ LABEL_19:
 
     Hasher._combine(_:)(0);
 LABEL_22:
-    if (*(&v43 + 1))
+    if (*(&v42 + 1))
     {
       Hasher._combine(_:)(1u);
-      specialized Dictionary<>.hash(into:)(a1, *(&v43 + 1), v28, v29, v30, v31, v32, v33);
-      if (v44)
+      specialized Dictionary<>.hash(into:)(a1, *(&v42 + 1), v27, v28, v29, v30, v31, v32);
+      if (v43)
       {
         goto LABEL_24;
       }
@@ -5182,14 +5185,14 @@ LABEL_22:
     else
     {
       Hasher._combine(_:)(0);
-      if (v44)
+      if (v43)
       {
 LABEL_24:
         Hasher._combine(_:)(1u);
         type metadata accessor for CFDictionaryRef(0);
         lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
         _CFObject.hash(into:)();
-        if (*(&v44 + 1))
+        if (*(&v43 + 1))
         {
           goto LABEL_25;
         }
@@ -5199,15 +5202,15 @@ LABEL_24:
     }
 
     Hasher._combine(_:)(0);
-    if (*(&v44 + 1))
+    if (*(&v43 + 1))
     {
 LABEL_25:
       Hasher._combine(_:)(1u);
       type metadata accessor for CFDictionaryRef(0);
       lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
       _CFObject.hash(into:)();
-      v34 = v21;
-      if (v45)
+      v33 = v20;
+      if (v44)
       {
 LABEL_26:
         Hasher._combine(_:)(1u);
@@ -5220,14 +5223,14 @@ LABEL_26:
 LABEL_30:
       Hasher._combine(_:)(0);
 LABEL_31:
-      if (*(&v45 + 1))
+      if (*(&v44 + 1))
       {
-        v35 = v51;
+        v34 = v50;
         Hasher._combine(_:)(1u);
         type metadata accessor for CFDictionaryRef(0);
         lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
         _CFObject.hash(into:)();
-        if (v15)
+        if (v14)
         {
           goto LABEL_33;
         }
@@ -5235,33 +5238,33 @@ LABEL_31:
 
       else
       {
-        v35 = v51;
+        v34 = v50;
         Hasher._combine(_:)(0);
-        if (v15)
+        if (v14)
         {
 LABEL_33:
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
           lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
           _CFObject.hash(into:)();
-          v36 = v35;
-          if (*(&v15 + 1))
+          v35 = v34;
+          if (*(&v14 + 1))
           {
 LABEL_34:
             Hasher._combine(_:)(1u);
-            specialized Dictionary<>.hash(into:)(a1, *(&v15 + 1));
+            specialized Dictionary<>.hash(into:)(a1, *(&v14 + 1));
             goto LABEL_38;
           }
 
 LABEL_37:
           Hasher._combine(_:)(0);
 LABEL_38:
-          if (v47)
+          if (v46)
           {
             Hasher._combine(_:)(1u);
-            specialized Dictionary<>.hash(into:)(a1, v47);
-            v37 = v46;
-            if (v34)
+            specialized Dictionary<>.hash(into:)(a1, v46);
+            v36 = v45;
+            if (v33)
             {
               goto LABEL_40;
             }
@@ -5270,13 +5273,13 @@ LABEL_38:
           else
           {
             Hasher._combine(_:)(0);
-            v37 = v46;
-            if (v34)
+            v36 = v45;
+            if (v33)
             {
 LABEL_40:
               Hasher._combine(_:)(1u);
               String.hash(into:)();
-              if (v49 == 2)
+              if (v48 == 2)
               {
                 goto LABEL_41;
               }
@@ -5286,11 +5289,11 @@ LABEL_40:
           }
 
           Hasher._combine(_:)(0);
-          if (v49 == 2)
+          if (v48 == 2)
           {
 LABEL_41:
             Hasher._combine(_:)(0);
-            if (v50 != 2)
+            if (v49 != 2)
             {
               goto LABEL_42;
             }
@@ -5300,43 +5303,43 @@ LABEL_41:
 
 LABEL_46:
           Hasher._combine(_:)(1u);
-          MEMORY[0x1865CD060](v49 & 1);
-          if (v50 != 2)
+          MEMORY[0x1865CD060](v48 & 1);
+          if (v49 != 2)
           {
 LABEL_42:
             Hasher._combine(_:)(1u);
-            MEMORY[0x1865CD060](v50 & 1);
-            if (v37 != 2)
+            MEMORY[0x1865CD060](v49 & 1);
+            if (v36 != 2)
             {
 LABEL_43:
               Hasher._combine(_:)(1u);
-              v38 = v37 & 1;
+              v37 = v36 & 1;
 LABEL_49:
-              Hasher._combine(_:)(v38);
-              if (v36 == 2)
+              Hasher._combine(_:)(v37);
+              if (v35 == 2)
               {
-                v39 = 0;
+                v38 = 0;
               }
 
               else
               {
                 Hasher._combine(_:)(1u);
-                v39 = v36 & 1;
+                v38 = v35 & 1;
               }
 
-              Hasher._combine(_:)(v39);
-              outlined destroy of TermOfAddress?(&v53, &_s10Foundation17LocalePreferencesVSgMd);
+              Hasher._combine(_:)(v38);
+              outlined destroy of TermOfAddress?(&v51, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
               goto LABEL_53;
             }
 
 LABEL_48:
-            v38 = 0;
+            v37 = 0;
             goto LABEL_49;
           }
 
 LABEL_47:
           Hasher._combine(_:)(0);
-          if (v37 != 2)
+          if (v36 != 2)
           {
             goto LABEL_43;
           }
@@ -5346,8 +5349,8 @@ LABEL_47:
       }
 
       Hasher._combine(_:)(0);
-      v36 = v35;
-      if (*(&v15 + 1))
+      v35 = v34;
+      if (*(&v14 + 1))
       {
         goto LABEL_34;
       }
@@ -5357,8 +5360,8 @@ LABEL_47:
 
 LABEL_29:
     Hasher._combine(_:)(0);
-    v34 = v21;
-    if (v45)
+    v33 = v20;
+    if (v44)
     {
       goto LABEL_26;
     }
@@ -5366,25 +5369,25 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  v10 = 1;
+  v9 = 1;
 LABEL_5:
-  Hasher._combine(_:)(v10);
+  Hasher._combine(_:)(v9);
 LABEL_53:
-  v40 = swift_getObjectType();
-  (*(v6 + 120))(a1, v40, v6);
-  specialized Set.hash(into:)(a1, v7);
-  v41 = 0.0;
-  if (v8 != 0.0)
+  v39 = swift_getObjectType();
+  (*(v6 + 120))(a1, v39, v6);
+  specialized Set.hash(into:)();
+  v40 = 0.0;
+  if (v7 != 0.0)
   {
-    v41 = v8;
+    v40 = v7;
   }
 
-  return MEMORY[0x1865CD090](*&v41);
+  return MEMORY[0x1865CD090](*&v40);
 }
 
 uint64_t Date.AnchoredRelativeFormatStyle.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation4DateV27AnchoredRelativeFormatStyleV10CodingKeys33_C066C46DD7A4458BFE9B19CA47B7E7FELLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation4DateV27AnchoredRelativeFormatStyleV10CodingKeys33_C066C46DD7A4458BFE9B19CA47B7E7FELLOGMd, &_ss22KeyedDecodingContainerVy10Foundation4DateV27AnchoredRelativeFormatStyleV10CodingKeys33_C066C46DD7A4458BFE9B19CA47B7E7FELLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = v13 - v7;
@@ -5426,57 +5429,55 @@ uint64_t Date.AnchoredRelativeFormatStyle.init(from:)@<X0>(void *a1@<X0>, uint64
   return outlined destroy of Date.AnchoredRelativeFormatStyle(v15);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.AnchoredRelativeFormatStyle()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.AnchoredRelativeFormatStyle(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = *(v0 + 2);
-  v5 = *(v0 + 4);
-  v6 = *(v0 + 5);
-  v7 = *(v0 + 6);
+  v2 = *v1;
+  v3 = v1[1];
+  v4 = v1[2];
+  v5 = *(v1 + 2);
+  v6 = *(v1 + 4);
+  v7 = *(v1 + 6);
   Hasher.init(_seed:)();
-  MEMORY[0x1865CD060](v1);
   MEMORY[0x1865CD060](v2);
   MEMORY[0x1865CD060](v3);
+  MEMORY[0x1865CD060](v4);
   ObjectType = swift_getObjectType();
-  if (((*(v4 + 48))(ObjectType, v4) & 1) == 0)
+  if (((*(v5 + 48))(ObjectType, v5) & 1) == 0)
   {
     Hasher._combine(_:)(0);
-    (*(v4 + 64))(ObjectType, v4);
+    (*(v5 + 64))(ObjectType, v5);
     String.hash(into:)();
 
-    (*(v4 + 464))(&v47, ObjectType, v4);
-    v55[6] = v53;
-    v56[0] = *v54;
-    *(v56 + 12) = *&v54[12];
-    v55[2] = v49;
-    v55[3] = v50;
-    v55[4] = v51;
-    v55[5] = v52;
-    v55[0] = v47;
-    v55[1] = v48;
-    if (_s10Foundation17LocalePreferencesVSgWOg(v55) == 1)
+    (*(v5 + 464))(&v46, ObjectType, v5);
+    v54[6] = v52;
+    v55[0] = *v53;
+    *(v55 + 12) = *&v53[12];
+    v54[2] = v48;
+    v54[3] = v49;
+    v54[4] = v50;
+    v54[5] = v51;
+    v54[0] = v46;
+    v54[1] = v47;
+    if (_s10Foundation17LocalePreferencesVSgWOg(v54) == 1)
     {
       v9 = 0;
       goto LABEL_5;
     }
 
-    v45 = v6;
-    v10 = v47;
-    v11 = *(&v47 + 1);
-    v12 = *(&v48 + 1);
-    v13 = *(&v49 + 1);
-    v41 = v50;
-    v14 = v51;
-    v42 = v52;
-    v15 = v53;
-    v16 = *v54;
-    v43 = *&v54[16];
-    v44 = v54[24];
-    v17 = v54[25];
-    v18 = v54[26];
-    v46 = v54[27];
+    v10 = v46;
+    v11 = *(&v46 + 1);
+    v12 = *(&v47 + 1);
+    v13 = *(&v48 + 1);
+    v41 = v49;
+    v14 = v50;
+    v42 = v51;
+    v15 = v52;
+    v16 = *v53;
+    v43 = *&v53[16];
+    v44 = v53[24];
+    v17 = v53[25];
+    v18 = v53[26];
+    v45 = v53[27];
     Hasher._combine(_:)(1u);
     if (v10 == 2)
     {
@@ -5527,7 +5528,6 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
       Hasher._combine(_:)(0);
     }
 
-    v6 = v45;
     if (v13)
     {
       Hasher._combine(_:)(1u);
@@ -5542,7 +5542,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
     if (v41)
     {
       Hasher._combine(_:)(1u);
-      specialized Dictionary<>.hash(into:)(v57, v41, v22, v23, v24, v25, v26, v27);
+      specialized Dictionary<>.hash(into:)(v56, v41, v22, v23, v24, v25, v26, v27);
       if (*(&v41 + 1))
       {
         goto LABEL_23;
@@ -5556,7 +5556,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
       {
 LABEL_23:
         Hasher._combine(_:)(1u);
-        specialized Dictionary<>.hash(into:)(v57, *(&v41 + 1), v28, v29, v30, v31, v32, v33);
+        specialized Dictionary<>.hash(into:)(v56, *(&v41 + 1), v28, v29, v30, v31, v32, v33);
         if (v14)
         {
           goto LABEL_24;
@@ -5622,7 +5622,7 @@ LABEL_32:
         if (v15)
         {
 LABEL_34:
-          v34 = v46;
+          v34 = v45;
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
           lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef();
@@ -5632,7 +5632,7 @@ LABEL_34:
           {
 LABEL_35:
             Hasher._combine(_:)(1u);
-            specialized Dictionary<>.hash(into:)(v57, v35);
+            specialized Dictionary<>.hash(into:)(v56, v35);
             goto LABEL_39;
           }
 
@@ -5642,7 +5642,7 @@ LABEL_39:
           if (v16)
           {
             Hasher._combine(_:)(1u);
-            specialized Dictionary<>.hash(into:)(v57, v16);
+            specialized Dictionary<>.hash(into:)(v56, v16);
             if (v43)
             {
 LABEL_41:
@@ -5696,7 +5696,7 @@ LABEL_52:
               }
 
               Hasher._combine(_:)(v37);
-              outlined destroy of TermOfAddress?(&v47, &_s10Foundation17LocalePreferencesVSgMd);
+              outlined destroy of TermOfAddress?(&v46, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
               goto LABEL_56;
             }
           }
@@ -5716,7 +5716,7 @@ LABEL_52:
         }
       }
 
-      v34 = v46;
+      v34 = v45;
       Hasher._combine(_:)(0);
       v35 = *(&v15 + 1);
       if (*(&v15 + 1))
@@ -5742,8 +5742,8 @@ LABEL_5:
   Hasher._combine(_:)(v9);
 LABEL_56:
   v38 = swift_getObjectType();
-  (*(v5 + 120))(v57, v38, v5);
-  specialized Set.hash(into:)(v57, v6);
+  (*(v6 + 120))(v56, v38, v6);
+  specialized Set.hash(into:)();
   v39 = 0.0;
   if (v7 != 0.0)
   {
@@ -5812,7 +5812,7 @@ uint64_t Date.AnchoredRelativeFormatStyle.bound(for:relativeTo:movingDown:counti
   v140 = v10;
   outlined init with copy of Date.AnchoredRelativeFormatStyle(&v146, v138);
   v15 = COERCE_DOUBLE(&v142);
-  Date.RelativeFormatStyle._largestNonZeroComponent(_:reference:adjustComponent:)(&v141, &v140, v145);
+  Date.RelativeFormatStyle._largestNonZeroComponent(_:reference:adjustComponent:)(v145, &v141, &v140);
   v139[0] = v142;
   v139[1] = v143;
   v139[2] = v144;
@@ -6030,7 +6030,7 @@ LABEL_45:
 
   LOBYTE(v18) = LOBYTE(v125);
   LOBYTE(v135[0]) = LOBYTE(v125);
-  DateComponents.init(component:value:)(v17, v135, __src);
+  DateComponents.init(component:value:)(__src, v17, v135);
   memcpy(__dst, __src, 0x11BuLL);
   memcpy(v138, __src, 0x11BuLL);
   if (_s10Foundation13URLComponentsV01_B0VSgWOg(v138) == 1)
@@ -6088,7 +6088,7 @@ LABEL_45:
   }
 
   v70 = static Calendar.compatibility2;
-  outlined destroy of TermOfAddress?(__dst, &_s10Foundation14DateComponentsVSgMd);
+  outlined destroy of TermOfAddress?(__dst, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
   if (v70 == 1)
   {
     if (LODWORD(v15))
@@ -6350,7 +6350,7 @@ LABEL_205:
 
     LOBYTE(v130) = 0x60504030A0201uLL >> (8 * v32);
     v79.value = a5 * v72;
-    DateComponents.init(component:value:)(v79, &v130, v132);
+    DateComponents.init(component:value:)(v132, v79, &v130);
     memcpy(v133, v132, 0x11BuLL);
     memcpy(v134, v132, 0x11BuLL);
     a5 = v111;
@@ -6397,7 +6397,7 @@ LABEL_205:
 
     v129 = v85;
     v123(&v130, v132, &v129, 0, v126, v120);
-    outlined destroy of TermOfAddress?(v133, &_s10Foundation14DateComponentsVSgMd);
+    outlined destroy of TermOfAddress?(v133, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
     v15 = v130;
     v86 = v131;
     if (v70)
@@ -6471,7 +6471,7 @@ LABEL_46:
   v15 = *(&v147 + 1);
   v19 = *&v148;
   LOBYTE(v135[0]) = v18;
-  DateComponents.init(component:value:)(v17, v135, __src);
+  DateComponents.init(component:value:)(__src, v17, v135);
   memcpy(__dst, __src, 0x11BuLL);
   memcpy(v138, __src, 0x11BuLL);
   result = _s10Foundation13URLComponentsV01_B0VSgWOg(v138);
@@ -6722,7 +6722,7 @@ LABEL_52:
       }
 
       v52 = static Calendar.compatibility2;
-      result = outlined destroy of TermOfAddress?(__dst, &_s10Foundation14DateComponentsVSgMd);
+      result = outlined destroy of TermOfAddress?(__dst, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
       if (v52)
       {
         if (v51)
@@ -6856,7 +6856,7 @@ LABEL_201:
         v82 = 6;
 LABEL_224:
         v45 = v128;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation8CalendarV9ComponentOGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation8CalendarV9ComponentOGMd, &_ss23_ContiguousArrayStorageCy10Foundation8CalendarV9ComponentOGMR);
         v64 = swift_allocObject();
         *(v64 + 1) = xmmword_181215ED0;
         *(v64 + 32) = v82;
@@ -7615,7 +7615,7 @@ LABEL_107:
 
           v74 = *(v9 + 32 + 16 * v73);
           v75 = *(v9 + 32 + 16 * v35 + 8);
-          result = specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + v74), (*a3 + *(v9 + 32 + 16 * v35)), *a3 + v75, v34);
+          result = specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + v74), (*a3 + *(v9 + 32 + 16 * v35)), (*a3 + v75), v34);
           if (v4)
           {
           }
@@ -9282,8 +9282,8 @@ LABEL_95:
           v104 = _stringCompareWithSmolCheck(_:_:expecting:)();
         }
 
-        outlined destroy of TermOfAddress?(&v108, &_sSS3key_SE_p5valuetMd);
-        result = outlined destroy of TermOfAddress?(&v110, &_sSS3key_SE_p5valuetMd);
+        outlined destroy of TermOfAddress?(&v108, &_sSS3key_SE_p5valuetMd, &_sSS3key_SE_p5valuetMR);
+        result = outlined destroy of TermOfAddress?(&v110, &_sSS3key_SE_p5valuetMd, &_sSS3key_SE_p5valuetMR);
         v11 = v8 + 2;
         v99 = v8;
         v12 = 56 * v8;
@@ -9305,8 +9305,8 @@ LABEL_95:
           outlined init with copy of (key: String, value: Encodable)(v13 - 56, &v108);
           v20 = v110 == v108 && v111 == v109;
           v15 = v20 ? 0 : _stringCompareWithSmolCheck(_:_:expecting:)();
-          outlined destroy of TermOfAddress?(&v108, &_sSS3key_SE_p5valuetMd);
-          result = outlined destroy of TermOfAddress?(&v110, &_sSS3key_SE_p5valuetMd);
+          outlined destroy of TermOfAddress?(&v108, &_sSS3key_SE_p5valuetMd, &_sSS3key_SE_p5valuetMR);
+          result = outlined destroy of TermOfAddress?(&v110, &_sSS3key_SE_p5valuetMd, &_sSS3key_SE_p5valuetMR);
           v16 = v104 ^ v15;
           v11 = v17 + 1;
           v13 += 56;
@@ -9437,8 +9437,8 @@ LABEL_129:
                 }
 
                 v43 = _stringCompareWithSmolCheck(_:_:expecting:)();
-                outlined destroy of TermOfAddress?(&v108, &_sSS3key_SE_p5valuetMd);
-                result = outlined destroy of TermOfAddress?(&v110, &_sSS3key_SE_p5valuetMd);
+                outlined destroy of TermOfAddress?(&v108, &_sSS3key_SE_p5valuetMd, &_sSS3key_SE_p5valuetMR);
+                result = outlined destroy of TermOfAddress?(&v110, &_sSS3key_SE_p5valuetMd, &_sSS3key_SE_p5valuetMR);
                 if ((v43 & 1) == 0)
                 {
                   goto LABEL_41;
@@ -9469,8 +9469,8 @@ LABEL_129:
                 }
               }
 
-              outlined destroy of TermOfAddress?(&v108, &_sSS3key_SE_p5valuetMd);
-              result = outlined destroy of TermOfAddress?(&v110, &_sSS3key_SE_p5valuetMd);
+              outlined destroy of TermOfAddress?(&v108, &_sSS3key_SE_p5valuetMd, &_sSS3key_SE_p5valuetMR);
+              result = outlined destroy of TermOfAddress?(&v110, &_sSS3key_SE_p5valuetMd, &_sSS3key_SE_p5valuetMR);
 LABEL_41:
               v37 += 56;
               --v38;

@@ -26,7 +26,7 @@ uint64_t sub_1000011F8()
 
 uint64_t sub_100001278()
 {
-  sub_100001448();
+  sub_100001448(0);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_100001820;
   v1 = sub_1000016DC();
@@ -67,15 +67,15 @@ unint64_t sub_1000013D4()
   return result;
 }
 
-void sub_100001448()
+void sub_100001448(uint64_t a1)
 {
   if (!qword_100008018)
   {
     sub_1000014A0();
-    v0 = sub_10000170C();
-    if (!v1)
+    v1 = sub_10000170C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100008018);
+      atomic_store(v1, &qword_100008018);
     }
   }
 }

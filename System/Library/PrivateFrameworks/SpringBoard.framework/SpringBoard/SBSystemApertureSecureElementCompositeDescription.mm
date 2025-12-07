@@ -113,14 +113,14 @@ LABEL_13:
   v6 = [v3 stringWithFormat:@"%@.%@", initialState, initialState2];
 
   _composedStates = [(SBSystemApertureSecureElementCompositeDescription *)self _composedStates];
-  LOBYTE(initialState) = [_composedStates containsObject:v6];
+  LOBYTE(initialState) = objc_msgSend_containsObject_(_composedStates);
 
   if ((initialState & 1) == 0)
   {
-    v8 = SBLogSystemApertureSecureFlipBookElements();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SBLogSystemApertureSecureFlipBookElements(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(SBSystemApertureSecureElementCompositeDescription *)v8 initialState];
+      [(SBSystemApertureSecureElementCompositeDescription *)v9 initialState];
     }
 
     v6 = 0;
@@ -229,7 +229,7 @@ LABEL_13:
 
 - (CGRect)captureBounds
 {
-  [(SBSystemApertureSecureElementCaptureBoundsView *)self->_captureBoundsDefiningViewWrapper frame];
+  objc_msgSend_frame(self->_captureBoundsDefiningViewWrapper, a2);
   result.size.height = v5;
   result.size.width = v4;
   result.origin.y = v3;
@@ -267,7 +267,7 @@ LABEL_13:
   v27 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   completionCopy = completion;
-  v8 = SBLogSystemApertureSecureFlipBookElements();
+  v8 = SBLogSystemApertureSecureFlipBookElements(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -307,7 +307,7 @@ void __77__SBSystemApertureSecureElementCompositeDescription_resetToState_comple
 {
   v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = SBLogSystemApertureSecureFlipBookElements();
+  v4 = SBLogSystemApertureSecureFlipBookElements(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
@@ -326,8 +326,7 @@ void __77__SBSystemApertureSecureElementCompositeDescription_resetToState_comple
   v20 = v7;
   v9 = v6;
   v21 = v9;
-  [v8 resetToState:v20 completion:v19];
-  v10 = SBLogSystemApertureSecureFlipBookElements();
+  v10 = SBLogSystemApertureSecureFlipBookElements([v8 resetToState:v20 completion:v19]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = a1[6];
@@ -352,7 +351,7 @@ void __77__SBSystemApertureSecureElementCompositeDescription_resetToState_comple
 uint64_t __77__SBSystemApertureSecureElementCompositeDescription_resetToState_completion___block_invoke_24(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogSystemApertureSecureFlipBookElements();
+  v2 = SBLogSystemApertureSecureFlipBookElements(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -367,7 +366,7 @@ uint64_t __77__SBSystemApertureSecureElementCompositeDescription_resetToState_co
 uint64_t __77__SBSystemApertureSecureElementCompositeDescription_resetToState_completion___block_invoke_29(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogSystemApertureSecureFlipBookElements();
+  v2 = SBLogSystemApertureSecureFlipBookElements(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -381,9 +380,10 @@ uint64_t __77__SBSystemApertureSecureElementCompositeDescription_resetToState_co
 
 - (void)transitionToState:(id)state completion:(id)completion
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   completionCopy = completion;
+  v9 = completionCopy;
   if (self->_containerInTransition)
   {
     [(SBSystemApertureSecureElementCompositeDescription *)a2 transitionToState:stateCopy completion:?];
@@ -394,72 +394,71 @@ uint64_t __77__SBSystemApertureSecureElementCompositeDescription_resetToState_co
     [(SBSystemApertureSecureElementCompositeDescription *)a2 transitionToState:stateCopy completion:?];
   }
 
-  v9 = SBLogSystemApertureSecureFlipBookElements();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = SBLogSystemApertureSecureFlipBookElements(completionCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v37 = stateCopy;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "composite (begin) transitionToState: %@", buf, 0xCu);
+    v38 = stateCopy;
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "composite (begin) transitionToState: %@", buf, 0xCu);
   }
 
   captureBoundsDefiningViewWrapper = self->_captureBoundsDefiningViewWrapper;
   stateCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"transitionToState: %@", stateCopy];
   [(SBSystemApertureSecureElementCaptureBoundsView *)captureBoundsDefiningViewWrapper setDebugString:stateCopy];
 
+  v36 = 0;
   v35 = 0;
-  v34 = 0;
-  [(SBSystemApertureSecureElementCompositeDescription *)self _decomposeState:stateCopy toContainerState:&v35 contentState:&v34];
-  v12 = v35;
-  v13 = v34;
-  v14 = SBLogSystemApertureSecureFlipBookElements();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  [(SBSystemApertureSecureElementCompositeDescription *)self _decomposeState:stateCopy toContainerState:&v36 contentState:&v35];
+  v13 = v36;
+  v14 = v35;
+  v15 = SBLogSystemApertureSecureFlipBookElements(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v37 = v12;
-    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "container (begin) transitionToState: %@", buf, 0xCu);
+    v38 = v13;
+    _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "container (begin) transitionToState: %@", buf, 0xCu);
   }
 
   *&self->_containerInTransition = 257;
   containerDescription = self->_containerDescription;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __82__SBSystemApertureSecureElementCompositeDescription_transitionToState_completion___block_invoke;
-  v29[3] = &unk_2783A8EB0;
-  v16 = v12;
-  v30 = v16;
-  selfCopy = self;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __82__SBSystemApertureSecureElementCompositeDescription_transitionToState_completion___block_invoke;
+  v30[3] = &unk_2783A8EB0;
   v17 = v13;
-  v32 = v17;
-  v18 = completionCopy;
+  v31 = v17;
+  selfCopy = self;
+  v18 = v14;
   v33 = v18;
-  [(SFUSecureFlipBookCaptureDescription *)containerDescription transitionToState:v16 completion:v29];
-  v19 = SBLogSystemApertureSecureFlipBookElements();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v19 = v9;
+  v34 = v19;
+  v20 = SBLogSystemApertureSecureFlipBookElements([(SFUSecureFlipBookCaptureDescription *)containerDescription transitionToState:v17 completion:v30]);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v37 = v17;
-    _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "content (begin) transitionToState: %@", buf, 0xCu);
+    v38 = v18;
+    _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "content (begin) transitionToState: %@", buf, 0xCu);
   }
 
   contentDescription = self->_contentDescription;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __82__SBSystemApertureSecureElementCompositeDescription_transitionToState_completion___block_invoke_46;
-  v24[3] = &unk_2783A8EB0;
-  v25 = v17;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __82__SBSystemApertureSecureElementCompositeDescription_transitionToState_completion___block_invoke_46;
+  v25[3] = &unk_2783A8EB0;
+  v26 = v18;
   selfCopy2 = self;
-  v27 = v16;
-  v28 = v18;
-  v21 = v18;
-  v22 = v16;
+  v28 = v17;
+  v29 = v19;
+  v22 = v19;
   v23 = v17;
-  [(SFUNestableSecureFlipBookCaptureDescription *)contentDescription transitionToState:v23 completion:v24];
+  v24 = v18;
+  [(SFUNestableSecureFlipBookCaptureDescription *)contentDescription transitionToState:v24 completion:v25];
 }
 
 uint64_t __82__SBSystemApertureSecureElementCompositeDescription_transitionToState_completion___block_invoke(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogSystemApertureSecureFlipBookElements();
+  v2 = SBLogSystemApertureSecureFlipBookElements(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -475,7 +474,7 @@ uint64_t __82__SBSystemApertureSecureElementCompositeDescription_transitionToSta
 uint64_t __82__SBSystemApertureSecureElementCompositeDescription_transitionToState_completion___block_invoke_46(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogSystemApertureSecureFlipBookElements();
+  v2 = SBLogSystemApertureSecureFlipBookElements(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -787,10 +786,11 @@ uint64_t __82__SBSystemApertureSecureElementCompositeDescription_transitionToSta
 
 - (void)_completeTransitionToContainerState:(id)state contentState:(id)contentState completionBlock:(id)block
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   contentStateCopy = contentState;
   blockCopy = block;
+  v12 = blockCopy;
   if (self->_contentInTransition)
   {
     if (!self->_containerInTransition)
@@ -804,27 +804,27 @@ uint64_t __82__SBSystemApertureSecureElementCompositeDescription_transitionToSta
   if (self->_containerInTransition)
   {
 LABEL_5:
-    v12 = [(SFUNestableSecureFlipBookCaptureDescription *)self->_contentDescription allowedNextStatesForState:contentStateCopy];
-    v13 = [v12 containsObject:contentStateCopy];
+    v13 = [(SFUNestableSecureFlipBookCaptureDescription *)self->_contentDescription allowedNextStatesForState:contentStateCopy];
+    v14 = objc_msgSend_containsObject_(v13);
 
-    if ((v13 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
       [(SBSystemApertureSecureElementCompositeDescription *)a2 _completeTransitionToContainerState:contentStateCopy contentState:stateCopy completionBlock:?];
     }
 
-    v14 = CACurrentMediaTime();
+    v15 = CACurrentMediaTime();
     self->_contentInTransition = 1;
     contentDescription = self->_contentDescription;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __118__SBSystemApertureSecureElementCompositeDescription__completeTransitionToContainerState_contentState_completionBlock___block_invoke;
-    v18[3] = &unk_2783BC598;
-    v18[4] = self;
-    v22 = v14;
-    v19 = contentStateCopy;
-    v21 = blockCopy;
-    v20 = stateCopy;
-    [(SFUNestableSecureFlipBookCaptureDescription *)contentDescription transitionToState:v19 completion:v18];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __118__SBSystemApertureSecureElementCompositeDescription__completeTransitionToContainerState_contentState_completionBlock___block_invoke;
+    v19[3] = &unk_2783BC598;
+    v19[4] = self;
+    v23 = v15;
+    v20 = contentStateCopy;
+    v22 = v12;
+    v21 = stateCopy;
+    [(SFUNestableSecureFlipBookCaptureDescription *)contentDescription transitionToState:v20 completion:v19];
 
     goto LABEL_8;
   }
@@ -836,16 +836,16 @@ LABEL_5:
 
   else
   {
-    v16 = SBLogSystemApertureSecureFlipBookElements();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = SBLogSystemApertureSecureFlipBookElements(blockCopy);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       contentStateCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", stateCopy, contentStateCopy];
       *buf = 138412290;
-      v24 = contentStateCopy;
-      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "composite (a) (end) transitionToState: %@", buf, 0xCu);
+      v25 = contentStateCopy;
+      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "composite (a) (end) transitionToState: %@", buf, 0xCu);
     }
 
-    blockCopy[2](blockCopy);
+    v12[2](v12);
   }
 
 LABEL_8:
@@ -875,7 +875,7 @@ void __118__SBSystemApertureSecureElementCompositeDescription__completeTransitio
 
   else
   {
-    v9 = SBLogSystemApertureSecureFlipBookElements();
+    v9 = SBLogSystemApertureSecureFlipBookElements(a1);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", *(a1 + 48), *(a1 + 40)];
@@ -919,7 +919,7 @@ uint64_t __108__SBSystemApertureSecureElementCompositeDescription__keepContentIn
 
   else
   {
-    v6 = SBLogSystemApertureSecureFlipBookElements();
+    v6 = SBLogSystemApertureSecureFlipBookElements(v2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = a1[5];

@@ -12,96 +12,95 @@
   styleCopy = style;
   pathCopy = path;
   generatorCopy = generator;
-  v71.receiver = self;
-  v71.super_class = LPEmailCompatibleHTMLTextComponent;
-  v14 = [(LPHTMLComponent *)&v71 initWithTagName:@"div" themePath:pathCopy generator:generatorCopy];
-  v16 = v14;
+  v69.receiver = self;
+  v69.super_class = LPEmailCompatibleHTMLTextComponent;
+  v14 = [(LPHTMLComponent *)&v69 initWithTagName:@"div" themePath:pathCopy generator:generatorCopy];
   if (v14)
   {
-    LPWebLock(v14, v15);
+    LPWebLock();
     attributedText = [captionCopy attributedText];
-    v65 = captionCopy;
-    v61 = generatorCopy;
-    v62 = pathCopy;
-    v18 = [styleCopy adjustedForString:attributedText];
+    v63 = captionCopy;
+    v59 = generatorCopy;
+    v60 = pathCopy;
+    v16 = [styleCopy adjustedForString:attributedText];
 
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 3221225472;
-    v66[2] = __80__LPEmailCompatibleHTMLTextComponent_initWithCaption_style_themePath_generator___block_invoke;
-    v66[3] = &unk_1E7A371A8;
-    v19 = generatorCopy;
+    v64[0] = MEMORY[0x1E69E9820];
+    v64[1] = 3221225472;
+    v64[2] = __80__LPEmailCompatibleHTMLTextComponent_initWithCaption_style_themePath_generator___block_invoke;
+    v64[3] = &unk_1E7A371A8;
+    v17 = generatorCopy;
+    v65 = v17;
+    v18 = pathCopy;
+    v66 = v18;
+    v19 = captionCopy;
     v67 = v19;
-    v20 = pathCopy;
-    v68 = v20;
-    v21 = captionCopy;
-    v69 = v21;
-    styleCopy = v18;
-    v70 = styleCopy;
-    v64 = __80__LPEmailCompatibleHTMLTextComponent_initWithCaption_style_themePath_generator___block_invoke(v66);
-    _lp_CSSText = [v64 _lp_CSSText];
-    [v21 textScale];
-    v23 = v22;
+    styleCopy = v16;
+    v68 = styleCopy;
+    v62 = __80__LPEmailCompatibleHTMLTextComponent_initWithCaption_style_themePath_generator___block_invoke(v64);
+    _lp_CSSText = [v62 _lp_CSSText];
+    [v19 textScale];
+    v21 = v20;
     font = [styleCopy font];
-    v25 = MEMORY[0x1E696AEC0];
+    v23 = MEMORY[0x1E696AEC0];
     [font pointSize];
-    v27 = [v25 stringWithFormat:@"%gpx", v23 * v26];
+    v25 = [v23 stringWithFormat:@"%gpx", v21 * v24];
 
-    cssResolver = [v19 cssResolver];
+    cssResolver = [v17 cssResolver];
     localVariables = [cssResolver localVariables];
-    v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"local-%@-font-size", v20];
-    [localVariables setObject:v27 forKeyedSubscript:v30];
+    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"local-%@-font-size", v18];
+    [localVariables setObject:v25 forKeyedSubscript:v28];
 
-    v31 = CSSAlignmentFromLPTextAlignment([styleCopy textAlignment]);
-    cssResolver2 = [v19 cssResolver];
+    v29 = CSSAlignmentFromLPTextAlignment([styleCopy textAlignment]);
+    cssResolver2 = [v17 cssResolver];
     localVariables2 = [cssResolver2 localVariables];
-    v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"local-%@-text-alignment", v20];
-    [localVariables2 setObject:v31 forKeyedSubscript:v34];
+    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"local-%@-text-alignment", v18];
+    [localVariables2 setObject:v29 forKeyedSubscript:v32];
 
-    cssResolver3 = [v19 cssResolver];
-    v36 = [@"lp-rich-link-" stringByAppendingString:v20];
-    element = [(LPHTMLComponent *)v16 element];
-    [cssResolver3 addStyle:v36 toElement:element inComponent:v16];
+    cssResolver3 = [v17 cssResolver];
+    v34 = [@"lp-rich-link-" stringByAppendingString:v18];
+    element = [(LPHTMLComponent *)v14 element];
+    [cssResolver3 addStyle:v34 toElement:element inComponent:v14];
 
-    generator = [(LPHTMLComponent *)v16 generator];
+    generator = [(LPHTMLComponent *)v14 generator];
     parentDocument = [generator parentDocument];
-    v40 = [parentDocument createElement:@"a"];
+    v38 = [parentDocument createElement:@"a"];
 
-    [v40 setAttribute:@"rel" value:@"nofollow"];
-    generator2 = [(LPHTMLComponent *)v16 generator];
-    v42 = [generator2 URL];
-    absoluteString = [v42 absoluteString];
-    [v40 setAttribute:@"href" value:absoluteString];
+    [v38 setAttribute:@"rel" value:@"nofollow"];
+    generator2 = [(LPHTMLComponent *)v14 generator];
+    v40 = [generator2 URL];
+    absoluteString = [v40 absoluteString];
+    [v38 setAttribute:@"href" value:absoluteString];
 
-    [v40 setAttribute:@"style" value:@"text-decoration: none"];
-    [v40 setAttribute:@"draggable" value:@"false"];
-    generator3 = [(LPHTMLComponent *)v16 generator];
+    [v38 setAttribute:@"style" value:@"text-decoration: none"];
+    [v38 setAttribute:@"draggable" value:@"false"];
+    generator3 = [(LPHTMLComponent *)v14 generator];
     parentDocument2 = [generator3 parentDocument];
-    v46 = [parentDocument2 createElement:@"font"];
+    v44 = [parentDocument2 createElement:@"font"];
 
-    [v46 setAttribute:@"color" value:_lp_CSSText];
-    v47 = MEMORY[0x1E696AEC0];
-    v48 = [v64 _lp_CSSTextForcingUserInterfaceStyle:0];
-    v49 = [v47 stringWithFormat:@"color: %@", v48];;
-    [v46 setAttribute:@"style" value:v49];
+    [v44 setAttribute:@"color" value:_lp_CSSText];
+    v45 = MEMORY[0x1E696AEC0];
+    v46 = [v62 _lp_CSSTextForcingUserInterfaceStyle:0];
+    v47 = [v45 stringWithFormat:@"color: %@", v46];;
+    [v44 setAttribute:@"style" value:v47];
 
-    v50 = [v40 appendChild:v46];
-    generator4 = [(LPHTMLComponent *)v16 generator];
+    v48 = [v38 appendChild:v44];
+    generator4 = [(LPHTMLComponent *)v14 generator];
     parentDocument3 = [generator4 parentDocument];
-    text = [v21 text];
-    v54 = truncatedStringAtMaximumMetadataLength(text);
-    v55 = [parentDocument3 createTextNode:v54];
-    v56 = [v46 appendChild:v55];
+    text = [v19 text];
+    v52 = truncatedStringAtMaximumMetadataLength(text);
+    v53 = [parentDocument3 createTextNode:v52];
+    v54 = [v44 appendChild:v53];
 
-    element2 = [(LPHTMLComponent *)v16 element];
-    v58 = [element2 appendChild:v40];
+    element2 = [(LPHTMLComponent *)v14 element];
+    v56 = [element2 appendChild:v38];
 
-    v59 = v16;
-    captionCopy = v65;
-    generatorCopy = v61;
-    pathCopy = v62;
+    v57 = v14;
+    captionCopy = v63;
+    generatorCopy = v59;
+    pathCopy = v60;
   }
 
-  return v16;
+  return v14;
 }
 
 id __80__LPEmailCompatibleHTMLTextComponent_initWithCaption_style_themePath_generator___block_invoke(id *a1)

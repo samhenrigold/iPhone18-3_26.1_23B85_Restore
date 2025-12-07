@@ -4,6 +4,9 @@
 - (HAPAuthSession)initWithRole:(int64_t)role instanceId:(id)id delegate:(id)delegate;
 - (HAPAuthSessionDelegate)delegate;
 - (id)logIdentifier;
+- (void)_handleAuthExchangeData:(id)data withHeader:(BOOL)header;
+- (void)_handleTokenResponse:(id)response withHeader:(BOOL)header;
+- (void)_handleTokenUpdateResponse:(id)response withHeader:(BOOL)header;
 - (void)_reportAuthFailure;
 - (void)_resetSession;
 - (void)_sendTokenRequest;
@@ -50,7 +53,7 @@
     else
     {
       selfCopy = self;
-      v24 = sub_10007FAA0();
+      v24 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         v25 = sub_10007FAFC(selfCopy);
@@ -69,7 +72,7 @@
   else
   {
     selfCopy2 = self;
-    v20 = sub_10007FAA0();
+    v20 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v21 = sub_10007FAFC(selfCopy2);
@@ -107,7 +110,7 @@ LABEL_5:
   }
 
   selfCopy3 = self;
-  v7 = sub_10007FAA0();
+  v7 = sub_10007FAA0(selfCopy3);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v8 = sub_10007FAFC(selfCopy3);
@@ -135,7 +138,7 @@ LABEL_5:
   else
   {
     selfCopy = self;
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = sub_10007FAFC(selfCopy);
@@ -172,6 +175,57 @@ LABEL_5:
   dispatch_async(workQueue, block);
 }
 
+- (void)_handleAuthExchangeData:(id)data withHeader:(BOOL)header
+{
+  headerCopy = header;
+  dataCopy = data;
+  currentState = [(HAPAuthSession *)self currentState];
+  if (currentState <= 9)
+  {
+    if (((1 << currentState) & 0x2EC) != 0)
+    {
+LABEL_3:
+      selfCopy = self;
+      v9 = sub_10007FAA0(selfCopy);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        v10 = sub_10007FAFC(selfCopy);
+        v11 = 138543618;
+        v12 = v10;
+        v13 = 2048;
+        currentState2 = [(HAPAuthSession *)selfCopy currentState];
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@Unhandled state: %tu", &v11, 0x16u);
+      }
+
+      goto LABEL_6;
+    }
+
+    if (currentState == 4)
+    {
+      [(HAPAuthSession *)self _handleTokenResponse:dataCopy withHeader:headerCopy];
+      goto LABEL_6;
+    }
+
+    if (currentState == 8)
+    {
+      [(HAPAuthSession *)self _handleTokenUpdateResponse:dataCopy withHeader:headerCopy];
+      goto LABEL_6;
+    }
+  }
+
+  if (!currentState)
+  {
+    goto LABEL_3;
+  }
+
+  if (currentState == 1)
+  {
+    [(HAPAuthSession *)self _sendTokenRequest];
+  }
+
+LABEL_6:
+}
+
 - (void)continueAuthAfterValidation:(BOOL)validation
 {
   workQueue = [(HAPAuthSession *)self workQueue];
@@ -193,7 +247,7 @@ LABEL_5:
   if (!v4)
   {
     selfCopy = self;
-    v12 = sub_10007FAA0();
+    v12 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = sub_10007FAFC(selfCopy);
@@ -213,7 +267,7 @@ LABEL_11:
   [(HAPAuthSession *)self setCurrentState:4];
   [(HAPAuthSession *)self setCurrentTID:v15];
   selfCopy2 = self;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = sub_10007FAFC(selfCopy2);
@@ -230,7 +284,7 @@ LABEL_11:
   if ((v9 & 1) == 0)
   {
     selfCopy = selfCopy2;
-    v12 = sub_10007FAA0();
+    v12 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = sub_10007FAFC(selfCopy);
@@ -247,6 +301,85 @@ LABEL_11:
   [delegate2 authSession:selfCopy2 sendAuthExchangeData:v4];
 
 LABEL_12:
+}
+
+- (void)_handleTokenResponse:(id)response withHeader:(BOOL)header
+{
+  headerCopy = header;
+  responseCopy = response;
+  selfCopy = self;
+  v8 = sub_10007FAA0(selfCopy);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    v9 = sub_10007FAFC(selfCopy);
+    v10 = @"No";
+    *buf = 138543874;
+    v26 = v9;
+    v27 = 2112;
+    if (headerCopy)
+    {
+      v10 = @"Yes";
+    }
+
+    v28 = responseCopy;
+    v29 = 2112;
+    v30 = v10;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "%{public}@Received Token Response: %@ withHeader: %@", buf, 0x20u);
+  }
+
+  v23 = 0;
+  v24 = 0;
+  v11 = [HAPProtocolMessages parseTokenResponse:responseCopy expectedTID:[(HAPAuthSession *)selfCopy currentTID] withHeader:headerCopy outToken:&v24 outUUID:&v23];
+  v12 = v24;
+  v13 = v23;
+  if (!v11)
+  {
+    v19 = selfCopy;
+    v20 = sub_10007FAA0(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      v21 = sub_10007FAFC(v19);
+      *buf = 138543362;
+      v26 = v21;
+      v22 = "%{public}@Failed to parse token response";
+LABEL_12:
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, v22, buf, 0xCu);
+    }
+
+LABEL_13:
+
+    [(HAPAuthSession *)v19 _reportAuthFailure];
+    goto LABEL_14;
+  }
+
+  [(HAPAuthSession *)selfCopy setCurrentState:5];
+  [(HAPAuthSession *)selfCopy setToken1:v12];
+  [(HAPAuthSession *)selfCopy setProvisionUUID:v13];
+  delegate = [(HAPAuthSession *)selfCopy delegate];
+  v15 = objc_opt_respondsToSelector();
+
+  if ((v15 & 1) == 0)
+  {
+    v19 = selfCopy;
+    v20 = sub_10007FAA0(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      v21 = sub_10007FAFC(v19);
+      *buf = 138543362;
+      v26 = v21;
+      v22 = "%{public}@Delegate does not implement validateUUID:token:";
+      goto LABEL_12;
+    }
+
+    goto LABEL_13;
+  }
+
+  delegate2 = [(HAPAuthSession *)selfCopy delegate];
+  provisionUUID = [(HAPAuthSession *)selfCopy provisionUUID];
+  token1 = [(HAPAuthSession *)selfCopy token1];
+  [delegate2 authSession:selfCopy validateUUID:provisionUUID token:token1];
+
+LABEL_14:
 }
 
 - (void)sendTokenUpdateRequest:(id)request
@@ -273,7 +406,7 @@ LABEL_12:
   if (!v6)
   {
     selfCopy2 = self;
-    v11 = sub_10007FAA0();
+    v11 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v14 = sub_10007FAFC(selfCopy2);
@@ -297,7 +430,7 @@ LABEL_11:
   v8 = objc_opt_respondsToSelector();
 
   selfCopy2 = self;
-  v10 = sub_10007FAA0();
+  v10 = sub_10007FAA0(selfCopy2);
   v11 = v10;
   if ((v8 & 1) == 0)
   {
@@ -374,6 +507,57 @@ LABEL_12:
 
   _Block_object_dispose(&v21, 8);
   return v8;
+}
+
+- (void)_handleTokenUpdateResponse:(id)response withHeader:(BOOL)header
+{
+  headerCopy = header;
+  responseCopy = response;
+  LODWORD(headerCopy) = [HAPProtocolMessages parseTokenUpdateResponse:responseCopy expectedTID:[(HAPAuthSession *)self currentTID] withHeader:headerCopy];
+
+  if (headerCopy)
+  {
+    delegate = [(HAPAuthSession *)self delegate];
+    v8 = objc_opt_respondsToSelector();
+
+    if (v8)
+    {
+      delegate2 = [(HAPAuthSession *)self delegate];
+      provisionUUID = [(HAPAuthSession *)self provisionUUID];
+      token1 = [(HAPAuthSession *)self token1];
+      [delegate2 authSession:self confirmUUID:provisionUUID token:token1];
+    }
+
+    else
+    {
+      selfCopy = self;
+      v15 = sub_10007FAA0(selfCopy);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        v16 = sub_10007FAFC(selfCopy);
+        *buf = 138543362;
+        v19 = v16;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement confirmUUID:token:", buf, 0xCu);
+      }
+
+      [(HAPAuthSession *)selfCopy _resetSession];
+    }
+  }
+
+  else
+  {
+    selfCopy2 = self;
+    v12 = sub_10007FAA0(selfCopy2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      v13 = sub_10007FAFC(selfCopy2);
+      *buf = 138543362;
+      v19 = v13;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed parsing token update response", buf, 0xCu);
+    }
+
+    [(HAPAuthSession *)selfCopy2 _reportAuthFailure];
+  }
 }
 
 + (id)logCategory

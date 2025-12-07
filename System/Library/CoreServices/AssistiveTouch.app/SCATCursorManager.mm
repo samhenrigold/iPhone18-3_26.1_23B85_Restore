@@ -626,7 +626,7 @@ LABEL_38:
   cursorCopy = cursor;
   size = CGRectZero.size;
   origin = CGRectZero.origin;
-  v48 = size;
+  v50 = size;
   v16 = -[SCATCursorManager displayContextForCursor:forDisplayID:](self, "displayContextForCursor:forDisplayID:", cursorCopy, [contextCopy displayID]);
   focusedItemCursorController = [(SCATCursorManager *)self focusedItemCursorController];
   v18 = [cursorCopy isEqual:focusedItemCursorController];
@@ -635,21 +635,21 @@ LABEL_38:
   {
     element = [contextCopy element];
 LABEL_3:
-    v30ParentGroup = element;
+    v32ParentGroup = element;
     goto LABEL_4;
   }
 
   containingGroupCursorController = [(SCATCursorManager *)self containingGroupCursorController];
-  v29 = [cursorCopy isEqual:containingGroupCursorController];
+  v31 = [cursorCopy isEqual:containingGroupCursorController];
 
-  if (!v29)
+  if (!v31)
   {
     menuItemCursorController = [(SCATCursorManager *)self menuItemCursorController];
-    v23 = [cursorCopy isEqual:menuItemCursorController];
+    v25 = [cursorCopy isEqual:menuItemCursorController];
 
-    if (!v23)
+    if (!v25)
     {
-      v30ParentGroup = 0;
+      v32ParentGroup = 0;
 LABEL_21:
       v21 = 0;
       if (!_path)
@@ -669,46 +669,46 @@ LABEL_21:
   {
     do
     {
-      v30ParentGroup = [parentGroup parentGroup];
+      v32ParentGroup = [parentGroup parentGroup];
 
-      parentGroup = v30ParentGroup;
+      parentGroup = v32ParentGroup;
     }
 
-    while (([v30ParentGroup scatIsAuxiliaryElement] & 1) != 0);
+    while (([v32ParentGroup scatIsAuxiliaryElement] & 1) != 0);
   }
 
   else
   {
-    v30ParentGroup = parentGroup;
+    v32ParentGroup = parentGroup;
   }
 
 LABEL_4:
-  if (!v30ParentGroup)
+  if (!v32ParentGroup)
   {
 LABEL_16:
-    LOBYTE(v23) = 0;
+    LOBYTE(v25) = 0;
     goto LABEL_21;
   }
 
-  if (![v30ParentGroup scatPath])
+  if (![v32ParentGroup scatPath])
   {
-    [v30ParentGroup scatFrame];
-    v33 = v32;
+    [v32ParentGroup scatFrame];
     v35 = v34;
     v37 = v36;
     v39 = v38;
-    v49.origin.x = CGRectZero.origin.x;
-    v49.origin.y = CGRectZero.origin.y;
-    v49.size.width = CGRectZero.size.width;
-    v49.size.height = CGRectZero.size.height;
-    v50.origin.x = v33;
-    v50.origin.y = v35;
-    v50.size.width = v37;
-    v50.size.height = v39;
-    if (!CGRectEqualToRect(v49, v50))
+    v41 = v40;
+    v51.origin.x = CGRectZero.origin.x;
+    v51.origin.y = CGRectZero.origin.y;
+    v51.size.width = CGRectZero.size.width;
+    v51.size.height = CGRectZero.size.height;
+    v52.origin.x = v35;
+    v52.origin.y = v37;
+    v52.size.width = v39;
+    v52.size.height = v41;
+    if (!CGRectEqualToRect(v51, v52))
     {
-      v21 = [(SCATCursorManager *)self _cursorPathAndFrame:&origin cornerRadius:radius forElementFrame:v16 inDisplayContext:v30ParentGroup target:v33, v35, v37, v39];
-      LOBYTE(v23) = 1;
+      v21 = [(SCATCursorManager *)self _cursorPathAndFrame:&origin cornerRadius:radius forElementFrame:v16 inDisplayContext:v32ParentGroup target:v35, v37, v39, v41];
+      LOBYTE(v25) = 1;
       if (_path)
       {
         goto LABEL_22;
@@ -720,17 +720,17 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v21 = +[UIBezierPath bezierPathWithCGPath:](UIBezierPath, "bezierPathWithCGPath:", [v30ParentGroup scatPath]);
-  if ([v30ParentGroup scatPathIsInSceneReferenceSpace])
+  v21 = +[UIBezierPath bezierPathWithCGPath:](UIBezierPath, "bezierPathWithCGPath:", [v32ParentGroup scatPath]);
+  if ([v32ParentGroup scatPathIsInSceneReferenceSpace])
   {
     v22 = [v21 convertPathToView:v16];
 
-    [HNDScreen convertRect:v16 toView:[HNDHandManager screenFrame:]_0()];
-    LOBYTE(v23) = 0;
-    origin.x = v24;
-    origin.y = v25;
-    v48.width = v26;
-    v48.height = v27;
+    [HNDScreen convertRect:v16 toView:[HNDHandManager screenFrame:]_0(v23, v24)];
+    LOBYTE(v25) = 0;
+    origin.x = v26;
+    origin.y = v27;
+    v50.width = v28;
+    v50.height = v29;
     v21 = v22;
     if (!_path)
     {
@@ -738,18 +738,18 @@ LABEL_16:
     }
 
 LABEL_22:
-    v44 = v21;
+    v46 = v21;
     *_path = v21;
     goto LABEL_23;
   }
 
-  [v30ParentGroup scatFrame];
+  [v32ParentGroup scatFrame];
   [HNDScreen convertRect:v16 toView:?];
-  LOBYTE(v23) = 0;
-  origin.x = v40;
-  origin.y = v41;
-  v48.width = v42;
-  v48.height = v43;
+  LOBYTE(v25) = 0;
+  origin.x = v42;
+  origin.y = v43;
+  v50.width = v44;
+  v50.height = v45;
   if (_path)
   {
     goto LABEL_22;
@@ -758,14 +758,14 @@ LABEL_22:
 LABEL_23:
   if (rect)
   {
-    *rect = v23;
+    *rect = v25;
   }
 
   if (frame)
   {
-    v45 = v48;
+    v47 = v50;
     frame->origin = origin;
-    frame->size = v45;
+    frame->size = v47;
   }
 }
 

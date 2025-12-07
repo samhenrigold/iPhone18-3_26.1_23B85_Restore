@@ -1,6 +1,5 @@
 @interface ControlContainerViewController
 - (CGRect)visibleBounds;
-- (SBIconImageInfo)iconImageInfo;
 - (_TtC23ControlCenterUIServices30ControlContainerViewController)initWithCoder:(id)coder;
 - (_TtC23ControlCenterUIServices30ControlContainerViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (id)sourceView;
@@ -24,15 +23,6 @@
   v2.receiver = self;
   v2.super_class = type metadata accessor for ControlContainerViewController();
   [(ControlContainerViewController *)&v2 viewDidLoad];
-}
-
-- (SBIconImageInfo)iconImageInfo
-{
-  v3 = *(&self->size.width + OBJC_IVAR____TtC23ControlCenterUIServices30ControlContainerViewController_iconImageInfo);
-  v4 = *(&self->size.height + OBJC_IVAR____TtC23ControlCenterUIServices30ControlContainerViewController_iconImageInfo);
-  v5 = *(&self->scale + OBJC_IVAR____TtC23ControlCenterUIServices30ControlContainerViewController_iconImageInfo);
-  v6 = *(&self->continuousCornerRadius + OBJC_IVAR____TtC23ControlCenterUIServices30ControlContainerViewController_iconImageInfo);
-  return self;
 }
 
 - (void)setIconImageInfo:(SBIconImageInfo *)info

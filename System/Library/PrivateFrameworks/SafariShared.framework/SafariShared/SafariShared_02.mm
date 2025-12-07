@@ -533,39 +533,39 @@ uint64_t std::unordered_set<long long>::unordered_set(uint64_t a1, uint64_t a2)
   std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(a1, i + 2);
+    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(a1, i + 2, i + 2);
   }
 
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__emplace_unique_key_args<long long,std::pair<long long,int>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__emplace_unique_key_args<long long,std::pair<long long,int>>(void *a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -573,44 +573,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t SafariShared::_WBSSQLiteStatementBindOrStep<0,0,std::tuple<void({block_pointer} {__strong})(long long,long long,long long,long long)>>(void *a1, sqlite3_stmt *a2, uint64_t a3, void **a4)
@@ -1317,7 +1317,7 @@ void SafariShared::HistoryObjectStreamWriter::~HistoryObjectStreamWriter(void **
   free(*this);
 }
 
-void *SafariShared::HistoryObjectStreamWriter::ensureCapacity(void *this, size_t a2)
+void **SafariShared::HistoryObjectStreamWriter::ensureCapacity(void **this, size_t a2)
 {
   if (this[1] < a2)
   {
@@ -1353,7 +1353,7 @@ id SafariShared::HistoryObjectStreamWriter::createPipeHandles(void *a1, void *a2
   return v8;
 }
 
-BOOL SafariShared::HistoryObjectStreamWriter::write(SafariShared::HistoryObjectStreamWriter *this, const _HistoryStreamedItem *a2)
+uint64_t SafariShared::HistoryObjectStreamWriter::write(void **this, const _HistoryStreamedItem *a2)
 {
   v4 = a2->var8 + 88;
   var6 = a2->var6;
@@ -1421,30 +1421,30 @@ BOOL SafariShared::HistoryObjectStreamWriter::write(SafariShared::HistoryObjectS
   v17 = a2->var10;
   v18 = *&a2->var8;
   v19 = *&a2->var4;
-  *(v15 + 48) = *&a2->var6;
-  *(v15 + 64) = v18;
-  *(v15 + 16) = v16;
-  *(v15 + 32) = v19;
-  *(v15 + 4) = v12;
-  *(v15 + 48) = v11;
-  *(v15 + 56) = v14;
-  *(v15 + 72) = v9;
-  *(v15 + 80) = v17;
+  v15[3] = *&a2->var6;
+  v15[4] = v18;
+  v15[1] = v16;
+  v15[2] = v19;
+  *(v15 + 1) = v12;
+  *(v15 + 6) = v11;
+  *(v15 + 7) = v14;
+  *(v15 + 9) = v9;
+  *(v15 + 10) = v17;
   if (v8 <= 0x10000)
   {
     if (v11)
     {
-      memcpy((*this + v11), a2->var6, v10);
+      memcpy(*this + v11, a2->var6, v10);
     }
 
     if (var7)
     {
-      memcpy((*this + 88), a2->var7, a2->var8);
+      memcpy(*this + 88, a2->var7, a2->var8);
     }
 
     if (v9)
     {
-      memcpy((*this + v9), a2->var9, a2->var10);
+      memcpy(*this + v9, a2->var9, a2->var10);
     }
 
     return WBSWriteExactAmountOfBytesToFileDescriptor() > 0;
@@ -1463,7 +1463,7 @@ BOOL SafariShared::HistoryObjectStreamWriter::write(SafariShared::HistoryObjectS
   return 1;
 }
 
-BOOL SafariShared::HistoryObjectStreamWriter::write(SafariShared::HistoryObjectStreamWriter *this, const _HistoryStreamedVisit *a2)
+BOOL SafariShared::HistoryObjectStreamWriter::write(void **this, const _HistoryStreamedVisit *a2)
 {
   var13 = a2->var13;
   if (var13)
@@ -1487,21 +1487,21 @@ BOOL SafariShared::HistoryObjectStreamWriter::write(SafariShared::HistoryObjectS
   v10 = *&a2->var2;
   v11 = *&a2->var4;
   v12 = *&a2->var11;
-  *(v9 + 48) = *&a2->var9;
-  *(v9 + 64) = v12;
-  *(v9 + 16) = v10;
-  *(v9 + 32) = v11;
-  *(v9 + 4) = v7;
-  *(v9 + 80) = v8;
+  v9[3] = *&a2->var9;
+  v9[4] = v12;
+  v9[1] = v10;
+  v9[2] = v11;
+  *(v9 + 1) = v7;
+  *(v9 + 10) = v8;
   if (var13)
   {
-    memcpy((*this + v8), a2->var13, v6);
+    memcpy(*this + v8, a2->var13, v6);
   }
 
   return WBSWriteExactAmountOfBytesToFileDescriptor() > 0;
 }
 
-BOOL SafariShared::HistoryObjectStreamWriter::write(uint64_t *a1, __int128 *a2)
+BOOL SafariShared::HistoryObjectStreamWriter::write(void **a1, __int128 *a2)
 {
   v4 = *(a2 + 4);
   if (v4)
@@ -1539,49 +1539,49 @@ BOOL SafariShared::HistoryObjectStreamWriter::write(uint64_t *a1, __int128 *a2)
   v14 = *(a2 + 6);
   v15 = a2[2];
   v16 = *a2;
-  *(v13 + 16) = a2[1];
-  *(v13 + 32) = v15;
-  *(v13 + 40) = v11;
-  *(v13 + 48) = v14;
+  v13[1] = a2[1];
+  v13[2] = v15;
+  *(v13 + 5) = v11;
+  *(v13 + 6) = v14;
   *v13 = v16;
-  *(v13 + 4) = v12;
-  *(v13 + 32) = v8;
+  *(v13 + 1) = v12;
+  *(v13 + 4) = v8;
   if (v4)
   {
-    memcpy((*a1 + v8), *(a2 + 4), v6);
+    memcpy(*a1 + v8, *(a2 + 4), v6);
   }
 
   if (v11)
   {
-    memcpy((*a1 + v11), *(a2 + 5), v10);
+    memcpy(*a1 + v11, *(a2 + 5), v10);
   }
 
   return WBSWriteExactAmountOfBytesToFileDescriptor() > 0;
 }
 
-BOOL SafariShared::HistoryObjectStreamWriter::write(uint64_t *a1, _OWORD *a2)
+BOOL SafariShared::HistoryObjectStreamWriter::write(void **a1, _OWORD *a2)
 {
   SafariShared::HistoryObjectStreamWriter::ensureCapacity(a1, 0x20uLL);
   v4 = *a1;
   v5 = a2[1];
   *v4 = *a2;
-  *(v4 + 16) = v5;
-  *(v4 + 4) = 32;
+  v4[1] = v5;
+  *(v4 + 1) = 32;
   return WBSWriteExactAmountOfBytesToFileDescriptor() > 0;
 }
 
 void SafariShared::ReadStreamedObjects(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v24 = a2;
-  v25 = a3;
+  v28 = *MEMORY[0x1E69E9840];
+  v25 = a2;
+  v26 = a3;
   v10 = a4;
   v11 = a5;
   v12 = a6;
-  v13 = malloc_type_malloc(0xD8uLL, 0x100004077774924uLL);
-  if (v13)
+  v14 = malloc_type_malloc(0xD8uLL, 0x100004077774924uLL);
+  if (v14)
   {
-    v14 = 216;
+    v15 = 216;
     while (1)
     {
       if (WBSReadExactAmountOfBytesFromFileDescriptor() < 1)
@@ -1589,32 +1589,32 @@ void SafariShared::ReadStreamedObjects(uint64_t a1, void *a2, void *a3, void *a4
         goto LABEL_35;
       }
 
-      if (v14 < *&buf[4])
+      if (v15 < *&buf[4])
       {
-        free(v13);
-        v13 = malloc_type_malloc(*&buf[4], 0x100004077774924uLL);
-        v14 = *&buf[4];
+        free(v14);
+        v14 = malloc_type_malloc(*&buf[4], 0x100004077774924uLL);
+        v15 = *&buf[4];
       }
 
-      *v13 = *buf;
+      *v14 = *buf;
       if (WBSReadExactAmountOfBytesFromFileDescriptor() < 1)
       {
 LABEL_35:
-        free(v13);
+        free(v14);
         goto LABEL_39;
       }
 
-      v15 = *v13;
-      if (*v13 > 6)
+      v16 = *v14;
+      if (*v14 > 6)
       {
-        if (v15 != 7)
+        if (v16 != 7)
         {
-          if (v15 != 8)
+          if (v16 != 8)
           {
             goto LABEL_29;
           }
 
-          v18 = v11;
+          v19 = v11;
           if (!v11)
           {
             goto LABEL_29;
@@ -1628,69 +1628,69 @@ LABEL_35:
           goto LABEL_29;
         }
 
-        v21 = v13[4];
-        if (v21)
+        v22 = v14[4];
+        if (v22)
         {
-          v13[4] = v13 + v21;
+          v14[4] = v14 + v22;
         }
 
-        v16 = v13 + 5;
-        v17 = v13[5];
-        if (!v17)
+        v17 = v14 + 5;
+        v18 = v14[5];
+        if (!v18)
         {
-          v18 = v10;
+          v19 = v10;
           goto LABEL_28;
         }
 
-        v18 = v10;
+        v19 = v10;
       }
 
-      else if (v15 == 1)
+      else if (v16 == 1)
       {
-        v19 = v13[6];
-        if (v19)
-        {
-          v13[6] = v13 + v19;
-        }
-
-        v20 = v13[7];
+        v20 = v14[6];
         if (v20)
         {
-          v13[7] = v13 + v20;
+          v14[6] = v14 + v20;
         }
 
-        v16 = v13 + 9;
-        v17 = v13[9];
-        if (!v17)
+        v21 = v14[7];
+        if (v21)
         {
-          v18 = v24;
+          v14[7] = v14 + v21;
+        }
+
+        v17 = v14 + 9;
+        v18 = v14[9];
+        if (!v18)
+        {
+          v19 = v25;
           goto LABEL_28;
         }
 
-        v18 = v24;
+        v19 = v25;
       }
 
       else
       {
-        if (v15 != 2)
+        if (v16 != 2)
         {
           goto LABEL_29;
         }
 
-        v16 = v13 + 10;
-        v17 = v13[10];
-        if (!v17)
+        v17 = v14 + 10;
+        v18 = v14[10];
+        if (!v18)
         {
-          v18 = v25;
+          v19 = v26;
           goto LABEL_28;
         }
 
-        v18 = v25;
+        v19 = v26;
       }
 
-      *v16 = v13 + v17;
+      *v17 = v14 + v18;
 LABEL_28:
-      v18[2](v18, v13);
+      v19[2](v19, v14);
 LABEL_29:
       if (v12 && v12[2](v12))
       {
@@ -1699,17 +1699,17 @@ LABEL_29:
     }
   }
 
-  v22 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v23 = WBS_LOG_CHANNEL_PREFIXHistory(0, v13);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    v23 = __error();
-    SafariShared::ReadStreamedObjects(v23, buf, v22);
+    v24 = __error();
+    SafariShared::ReadStreamedObjects(v24, buf, v23);
   }
 
 LABEL_39:
 }
 
-BOOL SafariShared::HistoryObjectStreamWriter::write(uint64_t *a1, uint64_t a2)
+BOOL SafariShared::HistoryObjectStreamWriter::write(void **a1, uint64_t a2)
 {
   v4 = *(a2 + 8);
   if (v4)
@@ -1731,12 +1731,12 @@ BOOL SafariShared::HistoryObjectStreamWriter::write(uint64_t *a1, uint64_t a2)
   v9 = *a1;
   v10 = *(a2 + 16);
   *v9 = *a2;
-  *(v9 + 4) = v7;
-  *(v9 + 8) = v8;
-  *(v9 + 16) = v10;
+  v9[1] = v7;
+  *(v9 + 1) = v8;
+  *(v9 + 2) = v10;
   if (v4)
   {
-    memcpy((*a1 + v8), *(a2 + 8), v6);
+    memcpy(*a1 + v8, *(a2 + 8), v6);
   }
 
   return WBSWriteExactAmountOfBytesToFileDescriptor() > 0;
@@ -1744,19 +1744,19 @@ BOOL SafariShared::HistoryObjectStreamWriter::write(uint64_t *a1, uint64_t a2)
 
 void SafariShared::ReadStreamedDomainExpansions(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = malloc_type_malloc(0x58uLL, 0x100004077774924uLL);
-  if (v3)
+  v4 = malloc_type_malloc(0x58uLL, 0x100004077774924uLL);
+  if (v4)
   {
-    v4 = 88;
+    v5 = 88;
     while (WBSReadExactAmountOfBytesFromFileDescriptor() >= 1)
     {
-      v5 = v3[1];
-      if (v4 < v5)
+      v6 = v4[1];
+      if (v5 < v6)
       {
-        v3 = malloc_type_realloc(v3, v3[1], 0x100004077774924uLL);
-        v4 = v5;
+        v4 = malloc_type_realloc(v4, v4[1], 0x100004077774924uLL);
+        v5 = v6;
       }
 
       if (WBSReadExactAmountOfBytesFromFileDescriptor() < 1)
@@ -1764,33 +1764,33 @@ void SafariShared::ReadStreamedDomainExpansions(uint64_t a1, void *a2)
         break;
       }
 
-      if (*v3 == 3)
+      if (*v4 == 3)
       {
-        v6 = *(v3 + 1);
-        if (v6)
+        v7 = *(v4 + 1);
+        if (v7)
         {
-          *(v3 + 1) = v3 + v6;
+          *(v4 + 1) = v4 + v7;
         }
 
-        v2[2](v2, v3);
+        v2[2](v2, v4);
       }
     }
 
-    free(v3);
+    free(v4);
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXHistory(0, v3);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = __error();
-      SafariShared::ReadStreamedObjects(v8, v9, v7);
+      v9 = __error();
+      SafariShared::ReadStreamedObjects(v9, v10, v8);
     }
   }
 }
 
-BOOL SafariShared::HistoryObjectStreamWriter::write(SafariShared::HistoryObjectStreamWriter *this, const _HistoryStreamedMatchEntry *a2)
+BOOL SafariShared::HistoryObjectStreamWriter::write(void **this, const _HistoryStreamedMatchEntry *a2)
 {
   var1 = a2->var1;
   if (var1)
@@ -1828,25 +1828,25 @@ BOOL SafariShared::HistoryObjectStreamWriter::write(SafariShared::HistoryObjectS
   var4 = a2->var4;
   v15 = *&a2->var2;
   *v13 = *&a2->var0.var0;
-  *(v13 + 16) = v15;
-  *(v13 + 32) = var4;
-  *(v13 + 4) = v12;
-  *(v13 + 8) = v8;
-  *(v13 + 16) = v11;
+  v13[1] = v15;
+  *(v13 + 4) = var4;
+  *(v13 + 1) = v12;
+  *(v13 + 1) = v8;
+  *(v13 + 2) = v11;
   if (var1)
   {
-    memcpy((*this + v8), a2->var1, v6);
+    memcpy(*this + v8, a2->var1, v6);
   }
 
   if (v11)
   {
-    memcpy((*this + v11), a2->var2, v10);
+    memcpy(*this + v11, a2->var2, v10);
   }
 
   return WBSWriteExactAmountOfBytesToFileDescriptor() > 0;
 }
 
-BOOL SafariShared::HistoryObjectStreamWriter::write(SafariShared::HistoryObjectStreamWriter *this, const _HistoryStreamedMatchData *a2)
+BOOL SafariShared::HistoryObjectStreamWriter::write(void **this, const _HistoryStreamedMatchData *a2)
 {
   var2 = a2->var2;
   var3 = a2->var3;
@@ -1876,14 +1876,14 @@ BOOL SafariShared::HistoryObjectStreamWriter::write(SafariShared::HistoryObjectS
   v11 = *&a2->var2;
   v10 = *&a2->var4;
   *v8 = *&a2->var0.var0;
-  *(v8 + 16) = v11;
-  *(v8 + 32) = v10;
-  *(v8 + 48) = v9;
-  *(v8 + 4) = v6;
-  *(v8 + 16) = v7;
+  v8[1] = v11;
+  v8[2] = v10;
+  *(v8 + 6) = v9;
+  *(v8 + 1) = v6;
+  *(v8 + 2) = v7;
   if (var2)
   {
-    memcpy((*this + 56), a2->var2, var3);
+    memcpy(*this + 56, a2->var2, var3);
   }
 
   return WBSWriteExactAmountOfBytesToFileDescriptor() > 0;
@@ -1966,7 +1966,7 @@ void sub_1BB7DBB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7DC974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
+void sub_1BB7DC974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
 {
   _Block_object_dispose(&a29, 8);
 
@@ -1974,30 +1974,32 @@ void sub_1BB7DC974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7DCE34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, char a29)
+void sub_1BB7DCE34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v31 + 48);
+  va_start(va, a28);
+
+  _Block_object_dispose(va, 8);
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v30 + 48);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7DDA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, id location, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1BB7DDA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id location, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, void *a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  objc_destroyWeak((v72 + 80));
+  objc_destroyWeak((v67 + 80));
   _Block_object_dispose(&a26, 8);
 
   _Block_object_dispose(&a32, 8);
   objc_destroyWeak(&location);
 
-  _Block_object_dispose(&a66, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x240], 8);
 
   _Block_object_dispose(&STACK[0x270], 8);
   _Block_object_dispose(&STACK[0x2A0], 8);
 
   _Block_object_dispose(&STACK[0x2D0], 8);
-  _Block_object_dispose((v75 - 240), 8);
+  _Block_object_dispose((v70 - 240), 8);
 
   _Unwind_Resume(a1);
 }
@@ -2014,7 +2016,7 @@ void sub_1BB7DDF74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1BB7DE6EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1BB7DE6EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -2028,17 +2030,17 @@ uint64_t __Block_byref_object_copy__59(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1BB7DEC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, ...)
+void sub_1BB7DEC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
 
   _Block_object_dispose(va, 8);
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v15 + 48);
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(v22 + 48);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7DF194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_1BB7DF194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a17, 8);
 
@@ -2053,9 +2055,9 @@ void sub_1BB7E0A48(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7E0B20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BB7E0B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   std::unique_ptr<SafariShared::SuddenTerminationDisabler>::~unique_ptr[abi:sn200100](va);
   _Unwind_Resume(a1);
@@ -2083,10 +2085,11 @@ void sub_1BB7E1784(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7E3BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_1BB7E3BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  _Block_object_dispose(&a30, 8);
-  std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::~__hash_table(v30 + 48);
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::~__hash_table(v29 + 48);
   _Unwind_Resume(a1);
 }
 
@@ -2097,47 +2100,48 @@ void sub_1BB7E5230(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7E5C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, void *a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_1BB7E5C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, void *a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&a35);
+  va_start(va, a34);
 
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB7E64B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32)
+void sub_1BB7E64B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32)
 {
   _Block_object_dispose(&a27, 8);
 
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,VisitRedirectInformation>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,VisitRedirectInformation>>>::__emplace_unique_key_args<long long,std::pair<long long,VisitRedirectInformation>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long,VisitRedirectInformation>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,VisitRedirectInformation>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,VisitRedirectInformation>>>::__emplace_unique_key_args<long long,std::pair<long long,VisitRedirectInformation>>(void *a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -2145,44 +2149,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void OUTLINED_FUNCTION_5_0(void *a1, int a2, os_log_t log, const char *a4, uint8_t *a5)
@@ -2472,7 +2476,7 @@ LABEL_15:
 void SafariShared::URLCompletionEntryMap::insert(uint64_t *a1, uint64_t a2, uint64_t **a3)
 {
   v6 = *a2;
-  v22[0] = v6;
+  v22 = v6;
   SafariShared::URLCompletionEntryKey::URLCompletionEntryKey(v20, v6);
   ShouldValidate = WTF::HashTable<SafariShared::URLCompletionEntryKey,SafariShared::URLCompletionEntry,SafariShared::URLCompletionEntryKeyExtractor,SafariShared::URLCompletionEntryHash,SafariShared::URLCompletionEntryValueTraits,SafariShared::URLCompletionEntryKeyTraits,WTF::FastMalloc>::lookup<(WTF::ShouldValidateKey)1>(a1, v20);
 
@@ -2512,14 +2516,14 @@ void SafariShared::URLCompletionEntryMap::insert(uint64_t *a1, uint64_t a2, uint
   if (!*a3)
   {
 LABEL_9:
-    v6 = v22[0];
+    v6 = v22;
 LABEL_10:
 
     return;
   }
 
-  v22[2] = v22;
-  v17 = std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(a1 + 1, v22);
+  v23 = &v22;
+  v17 = std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(a1 + 1, &v22, &std::piecewise_construct, &v23);
   if (v17)
   {
     v18 = *a3;
@@ -2684,10 +2688,10 @@ id SafariShared::URLCompletionEntryMap::insert(SafariShared::URLCompletionEntryM
 {
   v5 = SafariShared::URLCompletionEntryBuilder::buildEntryInMap(a2, this, a3);
   v9 = v5;
-  SafariShared::URLCompletionEntryBuilder::buildExtras(a2, &v8);
+  SafariShared::URLCompletionEntryBuilder::buildExtras(&v8, a2);
   if (v8)
   {
-    std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}&,std::unique_ptr<SafariShared::URLCompletionEntryExtras>>(this + 1, &v9);
+    std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}&,std::unique_ptr<SafariShared::URLCompletionEntryExtras>>(this + 1, &v9, &v9, &v8);
     v6 = v8;
     v5 = v9;
     v8 = 0;
@@ -2710,7 +2714,7 @@ void sub_1BB7E8074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a9)
   {
-    MEMORY[0x1BFB13480](a9, 0x10C402CAF9ECALL);
+    MEMORY[0x1BFB13480](a9, 0x10C402CAF9ECALL, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
@@ -2814,15 +2818,15 @@ LABEL_16:
   return v7;
 }
 
-void sub_1BB7E82C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1BB7E82C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   SafariShared::URLCompletionEntry::~URLCompletionEntry(va);
 
   _Unwind_Resume(a1);
 }
 
-char *SafariShared::URLCompletionEntryBuilder::buildExtras@<X0>(SafariShared::URLCompletionEntryBuilder *this@<X0>, char **a2@<X8>)
+char *SafariShared::URLCompletionEntryBuilder::buildExtras@<X0>(char **__return_ptr a1@<X8>, SafariShared::URLCompletionEntryBuilder *this@<X0>)
 {
   if ((SafariShared::URLCompletionEntryBuilder::buildCachedInfo(this) & 0x7000000000000000) != 0)
   {
@@ -2834,7 +2838,7 @@ char *SafariShared::URLCompletionEntryBuilder::buildExtras@<X0>(SafariShared::UR
     result = 0;
   }
 
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
@@ -2867,7 +2871,7 @@ void SafariShared::URLCompletionEntryMap::updateAutocompleteTriggers(SafariShare
     v17[3] = v17 + v16 + 32;
     memcpy(v17 + 4, v15, v16);
     v18[0] = v17;
-    std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}&,std::unique_ptr<SafariShared::URLCompletionEntryExtras>>(this + 1, &v19);
+    std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}&,std::unique_ptr<SafariShared::URLCompletionEntryExtras>>(this + 1, &v19, &v19, v18);
     v14 = v18[0];
     v18[0] = 0;
     if (!v14)
@@ -2889,7 +2893,7 @@ void SafariShared::URLCompletionEntryMap::updateAutocompleteTriggers(SafariShare
 
   v11 = SafariShared::URLCompletionEntryExtras::create(v10, (v9 - v10), v9, (*(v8 + 16) - v9), [(NSData *)v5 bytes], [(NSData *)v5 length]);
   v18[0] = &v19;
-  v12 = std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(this + 1, &v19);
+  v12 = std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(this + 1, &v19, &std::piecewise_construct, v18);
   if (v12)
   {
     v13 = v12[3];
@@ -2953,13 +2957,13 @@ BOOL SafariShared::URLCompletionEntryMap::queryVisitCounts(uint64_t *a1, void *a
 
 void SafariShared::URLCompletionEntryMap::updateVisitCounts(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v67[0] = a3;
+  v67 = a3;
   v7 = a4;
   v65 = 0;
   v66 = 0;
   v63 = 0;
   v64 = 0;
-  v8 = std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::find<NSString * {__strong}>((a1 + 8), v67);
+  v8 = std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::find<NSString * {__strong}>((a1 + 8), &v67);
   if (!v8)
   {
     LODWORD(v56[0]) = *(a2 + 48);
@@ -3163,7 +3167,7 @@ LABEL_19:
 
   v15 = v9[3] - v16;
 LABEL_26:
-  (v7)[2](v7, &v65, &v63);
+  v7[2](v7, &v65, &v63);
   v28 = *(a2 + 48);
   v56[0] = 0;
   v56[1] = 0;
@@ -3180,16 +3184,16 @@ LABEL_26:
   v61 = 0;
   v59 = 0;
   v62 = (v28 & 0x400000000000000) != 0;
-  SafariShared::URLCompletionEntryBuilder::buildExtras(v56, &v55);
+  SafariShared::URLCompletionEntryBuilder::buildExtras(&v55, v56);
   v29 = v55;
   if (!v55)
   {
-    std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__erase_unique<NSString * {__strong}>((a1 + 8), v67);
+    std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__erase_unique<NSString * {__strong}>((a1 + 8), &v67);
     goto LABEL_31;
   }
 
-  v67[2] = v67;
-  v30 = std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((a1 + 8), v67);
+  v68 = &v67;
+  v30 = std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((a1 + 8), &v67, &std::piecewise_construct, &v68);
   if (!v30)
   {
     __break(1u);
@@ -3415,7 +3419,7 @@ void SafariShared::URLCompletionEntryMap::recordVisit(uint64_t *a1, void *a2, vo
   }
 }
 
-uint64_t ___ZN12SafariShared21URLCompletionEntryMap11recordVisitEP8NSStringS2_db21WBSHistoryVisitOriginbib_block_invoke(uint64_t a1, unsigned int *a2, unsigned int *a3)
+uint64_t ___ZN12SafariShared21URLCompletionEntryMap11recordVisitEP8NSStringS2_db21WBSHistoryVisitOriginbib_block_invoke(uint64_t a1, unsigned int *a2, WTF *a3)
 {
   v3 = *(a1 + 60);
   *(*(a1 + 32) + 48) = *(a1 + 56) | (*(*(a1 + 32) + 52) << 32);
@@ -3658,66 +3662,70 @@ uint64_t *SafariShared::URLCompletionEntryMap::visitedMoreThanOnceStatistics(Saf
   return v4;
 }
 
-uint64_t **SafariShared::URLCompletionEntryMap::addURLCompletionMatchEntryToArray(uint64_t *a1, void *a2, void *a3, void *a4)
+uint64_t **SafariShared::URLCompletionEntryMap::addURLCompletionMatchEntryToArray(uint64_t *a1, void *a2, void *a3, void *a4, double a5)
 {
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  v23 = v9;
-  SafariShared::URLCompletionEntryKey::URLCompletionEntryKey(v22, v9);
-  v10 = WTF::HashTable<SafariShared::URLCompletionEntryKey,SafariShared::URLCompletionEntry,SafariShared::URLCompletionEntryKeyExtractor,SafariShared::URLCompletionEntryHash,SafariShared::URLCompletionEntryValueTraits,SafariShared::URLCompletionEntryKeyTraits,WTF::FastMalloc>::find<WTF::IdentityHashTranslator<SafariShared::URLCompletionEntryValueTraits,SafariShared::URLCompletionEntryHash>,(WTF::ShouldValidateKey)1,SafariShared::URLCompletionEntryKey>(a1, v22);
+  v8 = a2;
+  v9 = a3;
+  v10 = a4;
+  v27 = v10;
+  SafariShared::URLCompletionEntryKey::URLCompletionEntryKey(v26, v10);
+  v11 = WTF::HashTable<SafariShared::URLCompletionEntryKey,SafariShared::URLCompletionEntry,SafariShared::URLCompletionEntryKeyExtractor,SafariShared::URLCompletionEntryHash,SafariShared::URLCompletionEntryValueTraits,SafariShared::URLCompletionEntryKeyTraits,WTF::FastMalloc>::find<WTF::IdentityHashTranslator<SafariShared::URLCompletionEntryValueTraits,SafariShared::URLCompletionEntryHash>,(WTF::ShouldValidateKey)1,SafariShared::URLCompletionEntryKey>(a1, v26);
 
   if (*a1)
   {
-    v11 = *a1 + 56 * *(*a1 - 4);
+    v12 = *a1 + 56 * *(*a1 - 4);
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  if (v11 == v10)
+  if (v12 == v11)
   {
-    goto LABEL_13;
+    goto LABEL_15;
   }
 
-  v12 = [v8 count];
-  v13 = *(v10 + 40);
-  v14 = *(v10 + 48);
-  if (!v12)
+  v13 = [v9 count];
+  v14 = v11[6];
+  v15 = *(v11 + 5);
+  v16 = v14;
+  if (!v13)
   {
-    [WBSHistoryVisit weightedVisitCountFromScore:*(v10 + 48)];
-    [v7 setVisitCount:vcvtps_s32_f32(v15)];
-    [v7 setLastVisitedTimeInterval:v13];
-    v14 = *(v10 + 48);
+    [WBSHistoryVisit weightedVisitCountFromScore:v11[6]];
+    [v8 setVisitCount:vcvtps_s32_f32(v17)];
+    [v8 setLastVisitedTimeInterval:v15];
+    v16 = v11[6];
   }
 
-  if ((v14 & 0x7000000000000000) == 0)
+  if ((v16 & 0x7000000000000000) == 0)
   {
-LABEL_12:
-    v17 = WBSTopSitesScore();
-    v18 = [WBSHistoryServiceURLCompletionMatchEntry alloc];
-    v19 = *v10;
-    *&v20 = v17;
-    v21 = [(WBSHistoryServiceURLCompletionMatchEntry *)v18 initWithURLString:v19 title:*(v10 + 24) topSitesScore:*(v10 + 48) visitCountScore:v20];
-    [v8 addObject:v21];
+    v20 = WBSTopSitesScore(*v11, v14, 0, 0, 0, 0);
+LABEL_14:
+    v21 = v20;
+    v22 = [WBSHistoryServiceURLCompletionMatchEntry alloc];
+    v23 = *v11;
+    *&v24 = v21;
+    v25 = [(WBSHistoryServiceURLCompletionMatchEntry *)v22 initWithURLString:v23 title:v11[3] topSitesScore:*(v11 + 12) visitCountScore:v24];
+    [v9 addObject:v25];
 
-    v9 = v23;
-LABEL_13:
+    v10 = v27;
+LABEL_15:
 
-    return (v11 != v10);
+    return (v12 != v11);
   }
 
-  result = std::__hash_table<NSString * {__strong},std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::allocator<NSString * {__strong}>>::find<NSString * {__strong}>(a1 + 1, &v23);
+  result = std::__hash_table<NSString * {__strong},std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::allocator<NSString * {__strong}>>::find<NSString * {__strong}>(a1 + 1, &v27);
   if (result)
   {
-    if (!v12 && result[3][3] != result[3][2])
+    v19 = result[3];
+    if (!v13 && v19[3] != v19[2])
     {
-      [v7 setAutocompleteTriggers:? length:?];
+      [v8 setAutocompleteTriggers:? length:?];
     }
 
-    goto LABEL_12;
+    v20 = WBSTopSitesScore(*v11, v14, *v19, (v19[1] - *v19) >> 2, v19[1], (v19[2] - v19[1]) >> 2);
+    goto LABEL_14;
   }
 
   __break(1u);
@@ -3788,7 +3796,7 @@ uint64_t SafariShared::URLCompletionEntryMap::uniqueLocalCanonicalURLVisitCount(
 
         if (v12)
         {
-          std::__hash_table<NSString * {__strong},std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::allocator<NSString * {__strong}>>::__emplace_unique_key_args<NSString * {__strong},NSString * const {__strong}&>(&v13, &v12);
+          std::__hash_table<NSString * {__strong},std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::allocator<NSString * {__strong}>>::__emplace_unique_key_args<NSString * {__strong},NSString * const {__strong}&>(&v13, &v12, &v12);
         }
       }
 
@@ -3812,35 +3820,37 @@ uint64_t SafariShared::URLCompletionEntryMap::uniqueLocalCanonicalURLVisitCount(
   return v10;
 }
 
-void sub_1BB7E9C10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BB7E9C10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__hash_table<NSString * {__strong},std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::allocator<NSString * {__strong}>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
 void SafariShared::URLCompletionEntryBuilder::validateVisitedCountsIfNeeded(SafariShared::URLCompletionEntryBuilder *this)
 {
-  if ((WBSValidateVisitCountScores(*(this + 3), *(this + 4) >> 2, 300) & 1) == 0)
+  v2 = WBSValidateVisitCountScores(*(this + 3), *(this + 4) >> 2, 300);
+  if ((v2 & 1) == 0)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      SafariShared::URLCompletionEntryBuilder::validateVisitedCountsIfNeeded(v2);
+      SafariShared::URLCompletionEntryBuilder::validateVisitedCountsIfNeeded(v4);
     }
   }
 
-  if ((WBSValidateVisitCountScores(*(this + 5), *(this + 6) >> 2, 2100) & 1) == 0)
+  v5 = WBSValidateVisitCountScores(*(this + 5), *(this + 6) >> 2, 2100);
+  if ((v5 & 1) == 0)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      SafariShared::URLCompletionEntryBuilder::validateVisitedCountsIfNeeded(v3);
+      SafariShared::URLCompletionEntryBuilder::validateVisitedCountsIfNeeded(v7);
     }
   }
 }
 
-void sub_1BB7EAA78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *__p, uint64_t a49, int a50, __int16 a51, char a52, char a53, char a54)
+void sub_1BB7EAA78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *__p, uint64_t a49, int a50, __int16 a51, char a52, char a53, char a54)
 {
   _Block_object_dispose(&a26, 8);
   std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::~__hash_table(&a32);
@@ -3866,7 +3876,7 @@ LABEL_4:
     while (a1)
     {
       v7 = *(a1 + 1);
-      result = (v6)[2](v6, &v7);
+      result = (*(v6 + 2))(v6, &v7);
       a1 = *a1;
       if (a1 == a2)
       {
@@ -3951,12 +3961,12 @@ void sub_1BB7EC714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id *std::vector<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::insert(uint64_t a1, uint64_t a2, id *a3)
+id *std::vector<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::insert(void ***a1, id *a2, id *a3)
 {
   v4 = a2;
   v6 = *a1;
-  v7 = *(a1 + 8);
-  v8 = *(a1 + 16);
+  v7 = a1[1];
+  v8 = a1[2];
   if (v7 < v8)
   {
     if (a2 == v7)
@@ -3964,15 +3974,15 @@ id *std::vector<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::insert(u
       if (v6)
       {
         *v7 = *a3;
-        *(a1 + 8) = v7 + 8;
+        a1[1] = v7 + 1;
         return v4;
       }
     }
 
     else
     {
-      std::vector<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::__move_range(a1, a2, *(a1 + 8), (a2 + 8));
-      v9 = *(a1 + 8);
+      std::vector<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::__move_range(a1, a2, a1[1], a2 + 8);
+      v9 = a1[1];
       if (v9 >= v4)
       {
         v10 = v9 <= a3 || v4 > a3;
@@ -3992,7 +4002,7 @@ LABEL_24:
     std::__throw_bad_array_new_length[abi:sn200100]();
   }
 
-  v12 = ((v7 - v6) >> 3) + 1;
+  v12 = v7 - v6 + 1;
   if (v12 >> 61)
   {
     goto LABEL_24;
@@ -4024,8 +4034,8 @@ LABEL_24:
   }
 
   v19[0] = 0;
-  v19[1] = (8 * v17);
-  v19[2] = (8 * v17);
+  v19[1] = 8 * v17;
+  v19[2] = 8 * v17;
   v19[3] = 0;
   std::__split_buffer<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::emplace_back<WBSHistoryServiceURLCompletionMatchEntry * const {__strong}&>(v19, a3);
   v4 = std::vector<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::__swap_out_circular_buffer(a1, v19, v4);
@@ -4033,9 +4043,9 @@ LABEL_24:
   return v4;
 }
 
-void sub_1BB7ECFE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BB7ECFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4206,16 +4216,16 @@ void *std::__put_character_sequence[abi:sn200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x1E69E5318]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -4411,7 +4421,7 @@ uint64_t **___ZN12SafariShared32URLCompletionRedundancyPreventer22shouldProcessU
   else
   {
 
-    return std::__hash_table<NSString * {__strong},std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::allocator<NSString * {__strong}>>::__emplace_unique_key_args<NSString * {__strong},NSString * const {__strong}&>((v2 + 8), (a1 + 48));
+    return std::__hash_table<NSString * {__strong},std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::allocator<NSString * {__strong}>>::__emplace_unique_key_args<NSString * {__strong},NSString * const {__strong}&>((v2 + 8), (a1 + 48), (a1 + 48));
   }
 
   return result;
@@ -4489,7 +4499,7 @@ uint64_t **std::__hash_table<NSString * {__strong},std::hash<NSString * {__stron
 void std::vector<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::__move_range(uint64_t a1, uint64_t a2, unint64_t a3, char *a4)
 {
   v4 = *(a1 + 8);
-  v5 = (v4 - a4);
+  v5 = v4 - a4;
   v6 = (a2 + v4 - a4);
   v7 = v4;
   while (v6 < a3)
@@ -4513,8 +4523,8 @@ void std::vector<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::__move_
     v10 = a2 - 8;
     do
     {
-      v11 = *&v5[v10];
-      *&v5[v10] = 0;
+      v11 = *(v10 + v5);
+      *(v10 + v5) = 0;
       v12 = *v9;
       *v9-- = v11;
 
@@ -4525,7 +4535,7 @@ void std::vector<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::__move_
   }
 }
 
-void std::__split_buffer<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::emplace_back<WBSHistoryServiceURLCompletionMatchEntry * const {__strong}&>(void ***a1, id *a2)
+void std::__split_buffer<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::emplace_back<WBSHistoryServiceURLCompletionMatchEntry * const {__strong}&>(unint64_t *a1, id *a2)
 {
   v4 = a1[2];
   v5 = v4;
@@ -4573,7 +4583,7 @@ void std::__split_buffer<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>:
   if (v5)
   {
     *v5 = *a2;
-    ++a1[2];
+    a1[2] += 8;
   }
 
   else
@@ -4582,28 +4592,28 @@ void std::__split_buffer<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>:
   }
 }
 
-uint64_t std::vector<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::__swap_out_circular_buffer(uint64_t a1, uint64_t a2, void **a3)
+uint64_t std::vector<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::__swap_out_circular_buffer(void ***a1, void *a2, void **a3)
 {
-  v6 = *(a2 + 8);
-  std::__uninitialized_allocator_relocate[abi:sn200100]<std::allocator<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>,WBSHistoryServiceURLCompletionMatchEntry * {__strong}*>(a1, a3, *(a1 + 8), *(a2 + 16));
+  v6 = a2[1];
+  std::__uninitialized_allocator_relocate[abi:sn200100]<std::allocator<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>,WBSHistoryServiceURLCompletionMatchEntry * {__strong}*>(a1, a3, a1[1], a2[2]);
   v7 = *a1;
-  v8 = *(a2 + 8);
-  *(a2 + 16) += *(a1 + 8) - a3;
-  *(a1 + 8) = a3;
+  v8 = a2[1];
+  a2[2] += a1[1] - a3;
+  a1[1] = a3;
   v9 = (v8 + v7 - a3);
   std::__uninitialized_allocator_relocate[abi:sn200100]<std::allocator<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>,WBSHistoryServiceURLCompletionMatchEntry * {__strong}*>(a1, v7, a3, v9);
-  *(a2 + 8) = v9;
+  a2[1] = v9;
   v10 = *a1;
-  *(a1 + 8) = *a1;
-  *a1 = *(a2 + 8);
-  *(a2 + 8) = v10;
-  v11 = *(a1 + 8);
-  *(a1 + 8) = *(a2 + 16);
-  *(a2 + 16) = v11;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = *(a2 + 24);
-  *(a2 + 24) = v12;
-  *a2 = *(a2 + 8);
+  a1[1] = *a1;
+  *a1 = a2[1];
+  a2[1] = v10;
+  v11 = a1[1];
+  a1[1] = a2[2];
+  a2[2] = v11;
+  v12 = a1[2];
+  a1[2] = a2[3];
+  a2[3] = v12;
+  *a2 = a2[1];
   return v6;
 }
 
@@ -4803,7 +4813,7 @@ uint64_t WTF::HashTable<SafariShared::URLCompletionEntryKey,SafariShared::URLCom
   v3 = *a1;
   if (*a1 && (v4 = *(v3 - 4)) != 0)
   {
-    v5 = v4 << (6 * *(v3 - 12) >= (2 * v4));
+    v5 = (v4 << (6 * *(v3 - 12) >= (2 * v4)));
   }
 
   else
@@ -4845,8 +4855,9 @@ __n128 WTF::IdentityHashTranslator<SafariShared::URLCompletionEntryValueTraits,S
   return result;
 }
 
-uint64_t WTF::HashTable<SafariShared::URLCompletionEntryKey,SafariShared::URLCompletionEntry,SafariShared::URLCompletionEntryKeyExtractor,SafariShared::URLCompletionEntryHash,SafariShared::URLCompletionEntryValueTraits,SafariShared::URLCompletionEntryKeyTraits,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, uint64_t a3)
+uint64_t WTF::HashTable<SafariShared::URLCompletionEntryKey,SafariShared::URLCompletionEntry,SafariShared::URLCompletionEntryKeyExtractor,SafariShared::URLCompletionEntryHash,SafariShared::URLCompletionEntryValueTraits,SafariShared::URLCompletionEntryKeyTraits,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -4862,8 +4873,8 @@ uint64_t WTF::HashTable<SafariShared::URLCompletionEntryKey,SafariShared::URLCom
 
   v9 = WTF::fastZeroedMalloc((56 * a2 + 16));
   *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  v9[2] = v4 - 1;
+  v9[3] = v4;
   *v9 = 0;
   v9[1] = v8;
   if (v7)
@@ -4943,35 +4954,35 @@ uint64_t WTF::HashTable<SafariShared::URLCompletionEntryKey,SafariShared::URLCom
   return v12;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(void *a1, CFTypeRef *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(void *a1, CFTypeRef *a2, uint64_t a3, id **a4)
 {
-  v4 = CFHash(*a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = CFHash(*a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -4979,44 +4990,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!CFEqual(v11[2], *a2))
+  if (!CFEqual(v13[2], *a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
 void sub_1BB7EE928(_Unwind_Exception *a1)
@@ -5026,35 +5037,35 @@ void sub_1BB7EE928(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}&,std::unique_ptr<SafariShared::URLCompletionEntryExtras>>(void *a1, CFTypeRef *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},std::unique_ptr<SafariShared::URLCompletionEntryExtras>>>>::__emplace_unique_key_args<NSString * {__strong},NSString * {__strong}&,std::unique_ptr<SafariShared::URLCompletionEntryExtras>>(void *a1, CFTypeRef *a2, id *a3, uint64_t *a4)
 {
-  v4 = CFHash(*a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = CFHash(*a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -5062,44 +5073,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!CFEqual(v11[2], *a2))
+  if (!CFEqual(v13[2], *a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
 void sub_1BB7EEB98(_Unwind_Exception *a1)
@@ -5340,35 +5351,35 @@ void std::__hash_table<NSString * {__strong},std::hash<NSString * {__strong}>,st
   }
 }
 
-uint64_t **std::__hash_table<NSString * {__strong},std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::allocator<NSString * {__strong}>>::__emplace_unique_key_args<NSString * {__strong},NSString * const {__strong}&>(void *a1, CFTypeRef *a2)
+uint64_t **std::__hash_table<NSString * {__strong},std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::allocator<NSString * {__strong}>>::__emplace_unique_key_args<NSString * {__strong},NSString * const {__strong}&>(void *a1, CFTypeRef *a2, id *a3)
 {
-  v4 = CFHash(*a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = CFHash(*a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -5376,49 +5387,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!CFEqual(v11[2], *a2))
+  if (!CFEqual(v12[2], *a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_1BB7EF270(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BB7EF270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<NSString * {__strong},void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<NSString * {__strong},void *>>>>::~unique_ptr[abi:sn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5439,33 +5450,33 @@ uint64_t std::unique_ptr<std::__hash_node<NSString * {__strong},void *>,std::__h
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,long long &,NSString * {__strong}&>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,long long &,NSString * {__strong}&>(void *a1, unint64_t *a2, void *a3, id *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5473,49 +5484,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_1BB7EF530(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BB7EF530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,void *>>>>::~unique_ptr[abi:sn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5535,20 +5546,6 @@ void *std::__hash_table<std::__hash_value_type<long long,long long>,std::__unord
   }
 
   return result;
-}
-
-void std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>>>::__emplace_multi<NSString * const {__strong}&,NSString * {__strong}&>()
-{
-  std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>>>::__construct_node<NSString * const {__strong}&,NSString * {__strong}&>();
-}
-
-{
-  OUTLINED_FUNCTION_3_4();
-  if (v1)
-  {
-  }
-
-  operator delete(v0);
 }
 
 void sub_1BB7EF660(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -5672,7 +5669,7 @@ void *std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * 
   return v16;
 }
 
-void std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>>>::__rehash<false>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -5688,7 +5685,7 @@ void std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -5696,7 +5693,7 @@ void std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -5720,7 +5717,7 @@ void std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>>>::__do_rehash<false>(result, prime);
     }
   }
 }
@@ -5909,7 +5906,7 @@ id currentSessionStartDate()
   return v1;
 }
 
-void sub_1BB7F35D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1BB7F35D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -6021,13 +6018,13 @@ LABEL_7:
   return result;
 }
 
-unint64_t WTF::Vector<double,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<double,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 8 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 8 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -6059,7 +6056,7 @@ unint64_t WTF::Vector<double,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::exp
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -6263,17 +6260,17 @@ BOOL SafariShared::LatestVisitInformationMap::find(SafariShared::LatestVisitInfo
   return v4 != 0;
 }
 
-uint64_t SafariShared::LatestVisitInformationMap::update(SafariShared::LatestVisitInformationMap *this, unint64_t a2, int64_t a3, double a4, int a5)
+uint64_t SafariShared::LatestVisitInformationMap::update(SafariShared::LatestVisitInformationMap *this, unint64_t a2, uint64_t a3, double a4, int a5)
 {
   v16 = a2;
   v9 = std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::find<long long>(this, &v16);
   if (v9)
   {
-    v10 = v9[4];
-    if (v10 < a4 || v10 == a4 && ((v11 = *(v9 + 10), v11 > a5) || v11 == a5 && *(v9 + 3) < a3))
+    v10 = *(v9 + 4);
+    if (v10 < a4 || v10 == a4 && ((v11 = *(v9 + 10), v11 > a5) || v11 == a5 && v9[3] < a3))
     {
-      *(v9 + 3) = a3;
-      v9[4] = a4;
+      v9[3] = a3;
+      *(v9 + 4) = a4;
       v12 = 1;
       *(v9 + 10) = a5;
     }
@@ -6290,7 +6287,7 @@ uint64_t SafariShared::LatestVisitInformationMap::update(SafariShared::LatestVis
     v14[1] = a3;
     *&v14[2] = a4;
     v15 = a5;
-    std::__hash_table<std::__hash_value_type<long long,SafariShared::LatestVisitInformation>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,SafariShared::LatestVisitInformation>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,SafariShared::LatestVisitInformation>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,SafariShared::LatestVisitInformation>>>::__emplace_unique_key_args<long long,std::pair<long long,SafariShared::LatestVisitInformation>>(this, v14);
+    std::__hash_table<std::__hash_value_type<long long,SafariShared::LatestVisitInformation>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,SafariShared::LatestVisitInformation>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,SafariShared::LatestVisitInformation>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,SafariShared::LatestVisitInformation>>>::__emplace_unique_key_args<long long,std::pair<long long,SafariShared::LatestVisitInformation>>(this, v14, v14);
     return 1;
   }
 
@@ -6310,7 +6307,7 @@ void *SafariShared::LatestVisitInformationMap::lastVisitsForItems(void *result, 
       if (result)
       {
         v6 = result;
-        result = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__emplace_unique_key_args<long long,long long const&,long long const&>(a3, &v8);
+        result = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__emplace_unique_key_args<long long,long long const&,long long const&>(a3, &v8, &v8, result + 3);
         if ((v7 & 1) == 0)
         {
           if (!result)
@@ -6332,7 +6329,7 @@ void *SafariShared::LatestVisitInformationMap::lastVisitsForItems(void *result, 
   return result;
 }
 
-uint64_t *SafariShared::LatestVisitInformationMap::removeItems(uint64_t *result, uint64_t a2)
+void *SafariShared::LatestVisitInformationMap::removeItems(void *result, uint64_t a2)
 {
   v2 = *(a2 + 16);
   if (v2)
@@ -6422,18 +6419,18 @@ void WBSSQLiteVisitScore(sqlite3_context *a1, uint64_t a2, sqlite3_value **a3)
   sqlite3_result_int64(a1, v8);
 }
 
-_BYTE *WBSSQLiteDailyVisitCountsStep(sqlite3_context *a1, uint64_t a2, sqlite3_value **a3)
+uint64_t WBSSQLiteDailyVisitCountsStep(sqlite3_context *a1, uint64_t a2, sqlite3_value **a3)
 {
   result = sqliteScoreAggregationContext(a1, *a3, a3[1], 13);
   if (result)
   {
     v5 = result;
     result = sqlite3_value_int(a3[2]);
-    v6 = *(v5 + 1) - vcvtpd_u64_f64(result / 86400.0);
-    if (v6 < *(v5 + 3))
+    v6 = *(v5 + 8) - vcvtpd_u64_f64(result / 86400.0);
+    if (v6 < *(v5 + 24))
     {
       result = sqlite3_value_int(a3[3]);
-      *&v5[4 * v6 + 32] += result;
+      *(v5 + 4 * v6 + 32) += result;
     }
   }
 
@@ -6532,33 +6529,33 @@ void WBSSQLiteWeeklyVisitCountsFinal(sqlite3_context *a1)
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,SafariShared::LatestVisitInformation>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,SafariShared::LatestVisitInformation>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,SafariShared::LatestVisitInformation>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,SafariShared::LatestVisitInformation>>>::__emplace_unique_key_args<long long,std::pair<long long,SafariShared::LatestVisitInformation>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long,SafariShared::LatestVisitInformation>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,SafariShared::LatestVisitInformation>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,SafariShared::LatestVisitInformation>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,SafariShared::LatestVisitInformation>>>::__emplace_unique_key_args<long long,std::pair<long long,SafariShared::LatestVisitInformation>>(void *a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -6566,73 +6563,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__emplace_unique_key_args<long long,long long const&,long long const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__emplace_unique_key_args<long long,long long const&,long long const&>(void *a1, unint64_t *a2, void *a3, uint64_t *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -6640,44 +6637,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void sqliteVisitCountScore(sqlite3_context *a1, int a2, sqlite3_value **a3)
@@ -6699,7 +6696,7 @@ void sqliteVisitCountScore(sqlite3_context *a1, int a2, sqlite3_value **a3)
 
 void sqliteVisitBlobScore(sqlite3_context *a1, int a2, sqlite3_value **a3)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   if (sqlite3_value_type(*a3) == 5)
   {
 
@@ -6710,33 +6707,34 @@ void sqliteVisitBlobScore(sqlite3_context *a1, int a2, sqlite3_value **a3)
   {
     v5 = sqlite3_value_blob(*a3);
     v6 = sqlite3_value_bytes(*a3);
-    v7 = MEMORY[0x1EEE9AC00]();
-    v11 = v15 - v9;
-    if (v7 >= 4)
+    v7 = v6;
+    v8 = MEMORY[0x1EEE9AC00](v6);
+    v12 = v16 - v10;
+    if (v8 >= 4)
     {
-      if (v8 <= 1)
+      if (v9 <= 1)
       {
-        v12 = 1;
+        v13 = 1;
       }
 
       else
       {
-        v12 = v8;
+        v13 = v9;
       }
 
-      v13 = (v15 - v9);
+      v14 = (v16 - v10);
       do
       {
-        v14 = *v5++;
-        *&v10 = v14;
-        *v13++ = [WBSHistoryVisit scoreForWeightedVisitCount:v10];
-        --v12;
+        v15 = *v5++;
+        *&v11 = v15;
+        *v14++ = [WBSHistoryVisit scoreForWeightedVisitCount:v11];
+        --v13;
       }
 
-      while (v12);
+      while (v13);
     }
 
-    sqlite3_result_blob(a1, v11, v6, 0xFFFFFFFFFFFFFFFFLL);
+    sqlite3_result_blob(a1, v12, v7, 0xFFFFFFFFFFFFFFFFLL);
   }
 }
 
@@ -7269,7 +7267,7 @@ WBSSetInt64 *WBSSetOfIdentifiersFromTags(void *a1)
         }
 
         v7 = [*(*(&v8 + 1) + 8 * i) databaseID];
-        std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v12, &v7);
+        std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v12, &v7, &v7);
       }
 
       v2 = [v1 countByEnumeratingWithState:&v8 objects:v14 count:16];
@@ -7284,9 +7282,9 @@ WBSSetInt64 *WBSSetOfIdentifiersFromTags(void *a1)
   return v5;
 }
 
-void sub_1BB7FCF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BB7FCF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(va);
   _Unwind_Resume(a1);
@@ -7593,7 +7591,7 @@ void sub_1BB7FEF74(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-atomic_uint *WTF::ThreadSafeRefCounted<SafariShared::HistoryURLCompletionItem,(WTF::DestructionThread)0>::deref(atomic_uint *result)
+atomic_uint *WTF::ThreadSafeRefCounted<SafariShared::HistoryURLCompletionItem,(WTF::DestructionThread)0>::deref(atomic_uint *result, uint64_t a2)
 {
   if (atomic_fetch_add(result, 0xFFFFFFFF) == 1)
   {
@@ -7603,33 +7601,34 @@ atomic_uint *WTF::ThreadSafeRefCounted<SafariShared::HistoryURLCompletionItem,(W
   return result;
 }
 
-void std::vector<WTF::RefPtr<SafariShared::HistoryURLCompletionItem,WTF::RawPtrTraits<SafariShared::HistoryURLCompletionItem>,WTF::DefaultRefDerefTraits<SafariShared::HistoryURLCompletionItem>>>::__destroy_vector::operator()[abi:sn200100](void ***a1)
+void std::vector<WTF::RefPtr<SafariShared::HistoryURLCompletionItem,WTF::RawPtrTraits<SafariShared::HistoryURLCompletionItem>,WTF::DefaultRefDerefTraits<SafariShared::HistoryURLCompletionItem>>>::__destroy_vector::operator()[abi:sn200100](void ***a1, uint64_t a2)
 {
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
+  v2 = *a1;
+  v3 = **a1;
+  if (v3)
   {
-    v4 = v1[1];
-    v5 = **a1;
-    if (v4 != v2)
+    v5 = v2[1];
+    v6 = **a1;
+    if (v5 != v3)
     {
       do
       {
-        v6 = *--v4;
-        *v4 = 0;
-        if (v6)
+        v8 = *--v5;
+        v7 = v8;
+        *v5 = 0;
+        if (v8)
         {
-          WTF::ThreadSafeRefCounted<SafariShared::HistoryURLCompletionItem,(WTF::DestructionThread)0>::deref();
+          WTF::ThreadSafeRefCounted<SafariShared::HistoryURLCompletionItem,(WTF::DestructionThread)0>::deref(v7, a2);
         }
       }
 
-      while (v4 != v2);
-      v5 = **a1;
+      while (v5 != v3);
+      v6 = **a1;
     }
 
-    v1[1] = v2;
+    v2[1] = v3;
 
-    operator delete(v5);
+    operator delete(v6);
   }
 }
 
@@ -7744,18 +7743,20 @@ void SafariShared::_WBSSQLiteStatementBindAllParameters<1,double &,double &>(voi
   [v5 bindDouble:2 atParameterIndex:*a3];
 }
 
-void sub_1BB802FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1BB802FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
+
   std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&a27);
-  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&a33);
+  std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1BB803D48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1BB803D48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = WBSIgnoredSiriSuggestedSitesController;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7787,17 +7788,17 @@ void sub_1BB8042FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BB804538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BB804538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BB804698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BB804698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -8076,16 +8077,16 @@ void appendToQueryItems(void *a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void SafariShared::JSController::~JSController(WTF **this)
+void SafariShared::JSController::~JSController(WTF **this, uint64_t a2, unint64_t a3)
 {
   *this = &unk_1F3A5CE70;
-  SafariShared::JSController::setContext(this, 0);
-  v3 = this[1];
-  if (v3)
+  SafariShared::JSController::setContext(this, 0, a3);
+  v5 = this[1];
+  if (v5)
   {
     this[1] = 0;
     *(this + 4) = 0;
-    WTF::fastFree(v3, v2);
+    WTF::fastFree(v5, v4);
   }
 }
 
@@ -8102,21 +8103,21 @@ void sub_1BB8087E8(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-void SafariShared::JSController::setContext(SafariShared::JSController *this, JSGlobalContextRef ctx)
+void SafariShared::JSController::setContext(SafariShared::JSController *this, JSGlobalContextRef ctx, unint64_t a3)
 {
-  v2 = *(this + 5);
-  if (v2 != ctx)
+  v3 = *(this + 5);
+  if (v3 != ctx)
   {
-    if (v2)
+    if (v3)
     {
-      v5 = *(this + 4);
-      if (v5)
+      v6 = *(this + 4);
+      if (v6)
       {
-        JSObjectSetPrivate(v5, 0);
+        JSObjectSetPrivate(v6, 0);
         *(this + 4) = 0;
       }
 
-      SafariShared::JSController::unprotectObjects(this);
+      SafariShared::JSController::unprotectObjects(this, ctx, a3);
       *(this + 3) = 0;
       JSGlobalContextRelease(*(this + 5));
     }
@@ -8125,25 +8126,25 @@ void SafariShared::JSController::setContext(SafariShared::JSController *this, JS
     if (ctx)
     {
       JSGlobalContextRetain(ctx);
-      v6 = *(this + 5);
-      v7 = (*(*this + 16))(this);
-      v9 = SafariShared::JSUtilities::globalJSObjectByName(v6, v7, v8);
-      *(this + 3) = v9;
-      if (v9)
+      v7 = *(this + 5);
+      v8 = (*(*this + 16))(this);
+      v10 = SafariShared::JSUtilities::globalJSObjectByName(v7, v8, v9);
+      *(this + 3) = v10;
+      if (v10)
       {
-        SafariShared::JSController::protectObject(this, v9);
+        SafariShared::JSController::protectObject(this, v10);
       }
 
-      v10 = *(this + 5);
-      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%sController", (*(*this + 16))(this)];
-      v12 = [v11 UTF8String];
-      *(this + 4) = SafariShared::JSUtilities::globalJSObjectByName(v10, v12, v13);
+      v11 = *(this + 5);
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%sController", (*(*this + 16))(this)];
+      v13 = [v12 UTF8String];
+      *(this + 4) = SafariShared::JSUtilities::globalJSObjectByName(v11, v13, v14);
 
-      v14 = *(this + 4);
-      if (v14)
+      v15 = *(this + 4);
+      if (v15)
       {
 
-        SafariShared::JSController::protectObject(this, v14);
+        SafariShared::JSController::protectObject(this, v15);
       }
     }
   }
@@ -8177,7 +8178,7 @@ void SafariShared::JSController::scriptObjectReady(SafariShared::JSController *t
 {
   GlobalContext = JSContextGetGlobalContext(ctx);
 
-  SafariShared::JSController::setContext(this, GlobalContext);
+  SafariShared::JSController::setContext(this, GlobalContext, v4);
 }
 
 void SafariShared::JSController::protectObject(SafariShared::JSController *this, OpaqueJSValue *a2)
@@ -8186,7 +8187,7 @@ void SafariShared::JSController::protectObject(SafariShared::JSController *this,
   v3 = *(this + 5);
   if (v3 == *(this + 4))
   {
-    v4 = WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(this + 8, v3 + 1, &value);
+    v4 = WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(this + 1, v3 + 1, &value);
     v3 = *(this + 5);
     *(*(this + 1) + 8 * v3) = *v4;
     a2 = value;
@@ -8201,29 +8202,29 @@ void SafariShared::JSController::protectObject(SafariShared::JSController *this,
   JSValueProtect(*(this + 5), a2);
 }
 
-unsigned int *SafariShared::JSController::unprotectObjects(SafariShared::JSController *this)
+WTF *SafariShared::JSController::unprotectObjects(JSContextRef *this, uint64_t a2, unint64_t a3)
 {
   if (*(this + 5))
   {
-    v2 = 0;
+    v4 = 0;
     do
     {
-      JSValueUnprotect(*(this + 5), *(*(this + 1) + 8 * v2++));
+      JSValueUnprotect(this[5], *(this[1] + v4++));
     }
 
-    while (v2 < *(this + 5));
+    while (v4 < *(this + 5));
   }
 
-  return WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(this + 2, 0);
+  return WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity((this + 1), 0, a3);
 }
 
-unint64_t WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 8 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 8 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -8255,7 +8256,7 @@ unint64_t WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMal
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -8323,28 +8324,28 @@ uint64_t WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMall
   return result;
 }
 
-unsigned int *WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(unsigned int *result, unint64_t a2)
+WTF *WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(WTF *result, unint64_t a2, unint64_t a3)
 {
-  if (result[2] > a2)
+  if (*(result + 2) > a2)
   {
-    v2 = result;
-    if (result[3] > a2)
+    v3 = result;
+    if (*(result + 3) > a2)
     {
-      result[3] = a2;
+      *(result + 3) = a2;
     }
 
     result = *result;
     if (a2)
     {
-      v2[2] = a2;
+      *(v3 + 2) = a2;
       result = WTF::fastRealloc(result, (8 * a2));
-      *v2 = result;
+      *v3 = result;
     }
 
     else if (result)
     {
-      *v2 = 0;
-      v2[2] = 0;
+      *v3 = 0;
+      *(v3 + 2) = 0;
 
       return WTF::fastFree(result, 0);
     }
@@ -8353,10 +8354,10 @@ unsigned int *WTF::Vector<OpaqueJSValue *,0ul,WTF::CrashOnOverflow,16ul,WTF::Fas
   return result;
 }
 
-void sub_1BB809A90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1BB809A90(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = WBSJSCallbackHandler;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8465,7 +8466,7 @@ id callWithArguments<3ul>(JSObjectRef object, JSContextRef *a2, JSValueRef *argu
   return v6;
 }
 
-OpaqueJSValue *SafariShared::JSUtilities::functionObjectByName(SafariShared::JSUtilities *this, const OpaqueJSContext *a2, OpaqueJSValue *string, const char *a4)
+JSObjectRef SafariShared::JSUtilities::functionObjectByName(SafariShared::JSUtilities *this, const OpaqueJSContext *a2, OpaqueJSValue *string, const char *a4)
 {
   exception = 0;
   v6 = JSStringCreateWithUTF8CString(string);
@@ -8508,10 +8509,10 @@ void sub_1BB80A4F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-JSStringRef SafariShared::JSUtilities::jsString@<X0>(SafariShared::JSUtilities *this@<X0>, JSStringRef *a2@<X8>)
+uint64_t *SafariShared::JSUtilities::jsString@<X0>(uint64_t *__return_ptr a1@<X8>, SafariShared::JSUtilities *this@<X0>)
 {
   result = JSStringCreateWithUTF8CString(this);
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
@@ -8750,7 +8751,7 @@ void sub_1BB80AD0C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-JSStringRef SafariShared::JSUtilities::jsString@<X0>(const __CFString *this@<X0>, JSStringRef *a2@<X8>)
+uint64_t *SafariShared::JSUtilities::jsString@<X0>(uint64_t *__return_ptr a1@<X8>, const __CFString *this@<X0>)
 {
   if (!this)
   {
@@ -8758,7 +8759,7 @@ JSStringRef SafariShared::JSUtilities::jsString@<X0>(const __CFString *this@<X0>
   }
 
   result = JSStringCreateWithCFString(this);
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
@@ -9030,7 +9031,7 @@ id SafariShared::JSUtilities::nsDictionaryExcludingNullValuesWithJSValue(SafariS
   return v9;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXAutoBugCapture()
+uint64_t WBS_LOG_CHANNEL_PREFIXAutoBugCapture(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXAutoBugCapture_onceToken != -1)
   {
@@ -9040,7 +9041,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXAutoBugCapture()
   return WBS_LOG_CHANNEL_PREFIXAutoBugCapture_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXAutoFill()
+uint64_t WBS_LOG_CHANNEL_PREFIXAutoFill(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXAutoFill_onceToken != -1)
   {
@@ -9050,7 +9051,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXAutoFill()
   return WBS_LOG_CHANNEL_PREFIXAutoFill_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXAutoPlay()
+uint64_t WBS_LOG_CHANNEL_PREFIXAutoPlay(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXAutoPlay_onceToken != -1)
   {
@@ -9060,7 +9061,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXAutoPlay()
   return WBS_LOG_CHANNEL_PREFIXAutoPlay_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXBanners()
+uint64_t WBS_LOG_CHANNEL_PREFIXBanners(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXBanners_onceToken != -1)
   {
@@ -9070,7 +9071,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXBanners()
   return WBS_LOG_CHANNEL_PREFIXBanners_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXCertificates()
+uint64_t WBS_LOG_CHANNEL_PREFIXCertificates(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXCertificates_onceToken != -1)
   {
@@ -9080,7 +9081,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXCertificates()
   return WBS_LOG_CHANNEL_PREFIXCertificates_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXCloudHistory()
+uint64_t WBS_LOG_CHANNEL_PREFIXCloudHistory(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXCloudHistory_onceToken != -1)
   {
@@ -9090,7 +9091,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXCloudHistory()
   return WBS_LOG_CHANNEL_PREFIXCloudHistory_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXContentBlockers()
+uint64_t WBS_LOG_CHANNEL_PREFIXContentBlockers(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXContentBlockers_onceToken != -1)
   {
@@ -9100,7 +9101,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXContentBlockers()
   return WBS_LOG_CHANNEL_PREFIXContentBlockers_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXCycler()
+uint64_t WBS_LOG_CHANNEL_PREFIXCycler(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXCycler_onceToken != -1)
   {
@@ -9110,7 +9111,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXCycler()
   return WBS_LOG_CHANNEL_PREFIXCycler_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXKeychain()
+uint64_t WBS_LOG_CHANNEL_PREFIXKeychain(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXKeychain_onceToken != -1)
   {
@@ -9120,7 +9121,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXKeychain()
   return WBS_LOG_CHANNEL_PREFIXKeychain_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXKeyedArchiver()
+uint64_t WBS_LOG_CHANNEL_PREFIXKeyedArchiver(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXKeyedArchiver_onceToken != -1)
   {
@@ -9130,7 +9131,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXKeyedArchiver()
   return WBS_LOG_CHANNEL_PREFIXKeyedArchiver_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXMemory()
+uint64_t WBS_LOG_CHANNEL_PREFIXMemory(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXMemory_onceToken != -1)
   {
@@ -9140,7 +9141,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXMemory()
   return WBS_LOG_CHANNEL_PREFIXMemory_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXOther()
+uint64_t WBS_LOG_CHANNEL_PREFIXOther(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXOther_onceToken != -1)
   {
@@ -9150,7 +9151,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXOther()
   return WBS_LOG_CHANNEL_PREFIXOther_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXParsec()
+uint64_t WBS_LOG_CHANNEL_PREFIXParsec(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXParsec_onceToken != -1)
   {
@@ -9160,7 +9161,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXParsec()
   return WBS_LOG_CHANNEL_PREFIXParsec_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXPasswords()
+uint64_t WBS_LOG_CHANNEL_PREFIXPasswords(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXPasswords_onceToken != -1)
   {
@@ -9170,7 +9171,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXPasswords()
   return WBS_LOG_CHANNEL_PREFIXPasswords_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXPerSitePreferences()
+uint64_t WBS_LOG_CHANNEL_PREFIXPerSitePreferences(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXPerSitePreferences_onceToken != -1)
   {
@@ -9180,7 +9181,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXPerSitePreferences()
   return WBS_LOG_CHANNEL_PREFIXPerSitePreferences_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXProfiles()
+uint64_t WBS_LOG_CHANNEL_PREFIXProfiles(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXProfiles_onceToken != -1)
   {
@@ -9190,7 +9191,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXProfiles()
   return WBS_LOG_CHANNEL_PREFIXProfiles_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXReader()
+uint64_t WBS_LOG_CHANNEL_PREFIXReader(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXReader_onceToken != -1)
   {
@@ -9200,7 +9201,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXReader()
   return WBS_LOG_CHANNEL_PREFIXReader_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXSiriIntelligence()
+uint64_t WBS_LOG_CHANNEL_PREFIXSiriIntelligence(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXSiriIntelligence_onceToken != -1)
   {
@@ -9210,7 +9211,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXSiriIntelligence()
   return WBS_LOG_CHANNEL_PREFIXSiriIntelligence_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXStartPage()
+uint64_t WBS_LOG_CHANNEL_PREFIXStartPage(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXStartPage_onceToken != -1)
   {
@@ -9220,7 +9221,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXStartPage()
   return WBS_LOG_CHANNEL_PREFIXStartPage_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXTabDialogs()
+uint64_t WBS_LOG_CHANNEL_PREFIXTabDialogs(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXTabDialogs_onceToken != -1)
   {
@@ -9230,7 +9231,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXTabDialogs()
   return WBS_LOG_CHANNEL_PREFIXTabDialogs_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXTest()
+uint64_t WBS_LOG_CHANNEL_PREFIXTest(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXTest_onceToken != -1)
   {
@@ -9240,7 +9241,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXTest()
   return WBS_LOG_CHANNEL_PREFIXTest_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXURLAutocomplete()
+uint64_t WBS_LOG_CHANNEL_PREFIXURLAutocomplete(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXURLAutocomplete_onceToken != -1)
   {
@@ -9250,7 +9251,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXURLAutocomplete()
   return WBS_LOG_CHANNEL_PREFIXURLAutocomplete_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXUserMediaCapture()
+uint64_t WBS_LOG_CHANNEL_PREFIXUserMediaCapture(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXUserMediaCapture_onceToken != -1)
   {
@@ -9260,7 +9261,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXUserMediaCapture()
   return WBS_LOG_CHANNEL_PREFIXUserMediaCapture_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXDigitalHealth()
+uint64_t WBS_LOG_CHANNEL_PREFIXDigitalHealth(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXDigitalHealth_onceToken != -1)
   {
@@ -9270,7 +9271,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXDigitalHealth()
   return WBS_LOG_CHANNEL_PREFIXDigitalHealth_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness()
+uint64_t WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness_onceToken != -1)
   {
@@ -9280,7 +9281,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness()
   return WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXTranslation()
+uint64_t WBS_LOG_CHANNEL_PREFIXTranslation(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXTranslation_onceToken != -1)
   {
@@ -9290,7 +9291,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXTranslation()
   return WBS_LOG_CHANNEL_PREFIXTranslation_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXExtensions()
+uint64_t WBS_LOG_CHANNEL_PREFIXExtensions(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXExtensions_onceToken != -1)
   {
@@ -9300,7 +9301,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXExtensions()
   return WBS_LOG_CHANNEL_PREFIXExtensions_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXCloudSettings()
+uint64_t WBS_LOG_CHANNEL_PREFIXCloudSettings(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXCloudSettings_onceToken != -1)
   {
@@ -9310,7 +9311,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXCloudSettings()
   return WBS_LOG_CHANNEL_PREFIXCloudSettings_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXInterstellar()
+uint64_t WBS_LOG_CHANNEL_PREFIXInterstellar(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXInterstellar_onceToken != -1)
   {
@@ -9320,7 +9321,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXInterstellar()
   return WBS_LOG_CHANNEL_PREFIXInterstellar_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXWidgets()
+uint64_t WBS_LOG_CHANNEL_PREFIXWidgets(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXWidgets_onceToken != -1)
   {
@@ -9330,7 +9331,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXWidgets()
   return WBS_LOG_CHANNEL_PREFIXWidgets_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXBiomeDonation()
+uint64_t WBS_LOG_CHANNEL_PREFIXBiomeDonation(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXBiomeDonation_onceToken != -1)
   {
@@ -9340,7 +9341,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXBiomeDonation()
   return WBS_LOG_CHANNEL_PREFIXBiomeDonation_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXBrowsingAssistant()
+uint64_t WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXBrowsingAssistant_onceToken != -1)
   {
@@ -9350,7 +9351,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXBrowsingAssistant()
   return WBS_LOG_CHANNEL_PREFIXBrowsingAssistant_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites()
+uint64_t WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites_onceToken != -1)
   {
@@ -9360,7 +9361,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites()
   return WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker()
+uint64_t WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker_onceToken != -1)
   {
@@ -9370,7 +9371,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker()
   return WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXExport()
+uint64_t WBS_LOG_CHANNEL_PREFIXExport(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXExport_onceToken != -1)
   {
@@ -9380,7 +9381,7 @@ uint64_t WBS_LOG_CHANNEL_PREFIXExport()
   return WBS_LOG_CHANNEL_PREFIXExport_log;
 }
 
-uint64_t WBS_LOG_CHANNEL_PREFIXImport()
+uint64_t WBS_LOG_CHANNEL_PREFIXImport(uint64_t a1, uint64_t a2)
 {
   if (WBS_LOG_CHANNEL_PREFIXImport_onceToken != -1)
   {
@@ -9400,7 +9401,7 @@ void sub_1BB80F4E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1BB80F794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
+void sub_1BB80F794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
 {
   _Block_object_dispose(&a16, 8);
   _Block_object_dispose(&a20, 8);
@@ -9429,9 +9430,9 @@ void sub_1BB810F40(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BB811548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BB811548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9479,12 +9480,12 @@ uint64_t WBSObjCWrappedCallOldDealloc(void *a1)
   return (MethodImplementation)(a1, sel_safari_oldDealloc);
 }
 
-void std::vector<_WBSSearchSuggestionCandidate>::push_back[abi:sn200100](void *a1, uint64_t *a2)
+void std::vector<_WBSSearchSuggestionCandidate>::push_back[abi:sn200100](unint64_t *result, uint64_t *a2)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v3 = result[1];
+  if (v3 >= result[2])
   {
-    std::vector<_WBSSearchSuggestionCandidate>::__emplace_back_slow_path<_WBSSearchSuggestionCandidate const&>(a1);
+    std::vector<_WBSSearchSuggestionCandidate>::__emplace_back_slow_path<_WBSSearchSuggestionCandidate const&>(result, a2);
     goto LABEL_5;
   }
 
@@ -9496,7 +9497,7 @@ void std::vector<_WBSSearchSuggestionCandidate>::push_back[abi:sn200100](void *a
     *(v3 + 16) = a2[2];
     v5 = v3 + 24;
 LABEL_5:
-    a1[1] = v5;
+    result[1] = v5;
     return;
   }
 
@@ -9548,44 +9549,44 @@ void sub_1BB81668C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<_WBSSearchSuggestionCandidate>::__emplace_back_slow_path<_WBSSearchSuggestionCandidate const&>(void *a1)
+void std::vector<_WBSSearchSuggestionCandidate>::__emplace_back_slow_path<_WBSSearchSuggestionCandidate const&>(unint64_t *a1, uint64_t *a2)
 {
-  v1 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
-  v2 = v1 + 1;
-  if (v1 + 1 <= 0xAAAAAAAAAAAAAAALL)
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
+  v3 = v2 + 1;
+  if (v2 + 1 <= 0xAAAAAAAAAAAAAAALL)
   {
-    if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v2)
+    if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
     {
-      v2 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
     }
 
     if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
     {
-      v3 = 0xAAAAAAAAAAAAAAALL;
+      v4 = 0xAAAAAAAAAAAAAAALL;
     }
 
     else
     {
-      v3 = v2;
+      v4 = v3;
     }
 
-    v6 = a1;
-    if (v3)
+    v7 = a1;
+    if (v4)
     {
-      std::allocator<_WBSSearchSuggestionCandidate>::allocate_at_least[abi:sn200100](a1, v3);
+      std::allocator<_WBSSearchSuggestionCandidate>::allocate_at_least[abi:sn200100](a1, v4);
     }
 
-    v4 = 24 * v1;
-    *(&v5 + 1) = 0;
+    v5 = 24 * v2;
+    *(&v6 + 1) = 0;
     __break(1u);
   }
 
   std::__throw_bad_array_new_length[abi:sn200100]();
 }
 
-void sub_1BB81682C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1BB81682C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<_WBSSearchSuggestionCandidate>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }

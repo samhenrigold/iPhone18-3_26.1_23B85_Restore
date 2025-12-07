@@ -42,7 +42,7 @@
       v29 = HKLogHealthRecords;
       if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
       {
-        sub_9D608(v29);
+        sub_9D608(v29, self);
       }
 
       goto LABEL_23;
@@ -76,7 +76,7 @@ LABEL_13:
       v23 = HKLogHealthRecords;
       if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
       {
-        sub_9D750(v23);
+        sub_9D750(v23, self);
       }
     }
 
@@ -104,7 +104,7 @@ LABEL_13:
   v30 = HKLogHealthRecords;
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
   {
-    sub_9D6AC(v30);
+    sub_9D6AC(v30, self);
   }
 
 LABEL_23:

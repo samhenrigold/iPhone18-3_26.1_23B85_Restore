@@ -641,9 +641,9 @@ LABEL_15:
   dataModel = self->_dataModel;
   monthCopy = month;
   visibleMonth = [(_UICalendarDataModel *)dataModel visibleMonth];
-  v6 = [visibleMonth isEqual:monthCopy];
+  isEqual = objc_msgSend_isEqual_(visibleMonth);
 
-  return v6 ^ 1;
+  return isEqual ^ 1;
 }
 
 - (void)_updateVisibleMonth:(id)month animated:(BOOL)animated
@@ -1485,9 +1485,9 @@ uint64_t __45__UICalendarView__reloadDataSourceController__block_invoke(uint64_t
     goto LABEL_8;
   }
 
-  v7 = [(NSCalendar *)v8 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v8);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(_UICalendarDataModel *)self->_dataModel setCalendar:v8];
@@ -1519,9 +1519,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSLocale *)v8 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v8);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(_UICalendarDataModel *)self->_dataModel setLocale:v8];
@@ -1552,9 +1552,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSTimeZone *)v8 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v8);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(_UICalendarDataModel *)self->_dataModel setTimeZone:v8];
@@ -1584,9 +1584,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)fontDesign isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(fontDesign, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(_UICalendarDataModel *)self->_dataModel setFontDesign:v8];
@@ -1617,9 +1617,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSDateInterval *)availableDateRange isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(availableDateRange);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(_UICalendarDataModel *)self->_dataModel setAvailableDateRange:v8];
@@ -1660,9 +1660,9 @@ LABEL_9:
     if (effectiveCalendar)
     {
       calendar2 = [v7 calendar];
-      v10 = [calendar2 isEqual:effectiveCalendar];
+      isEqual = objc_msgSend_isEqual_(calendar2);
 
-      if ((v10 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         calendar3 = [v7 calendar];
         v12 = [calendar3 dateFromComponents:v7];
@@ -1729,9 +1729,9 @@ LABEL_9:
   animatedCopy = animated;
   monthCopy = month;
   visibleMonth = [(_UICalendarDataModel *)self->_dataModel visibleMonth];
-  v9 = [monthCopy isEqual:visibleMonth];
+  isEqual = objc_msgSend_isEqual_(monthCopy);
 
-  if ((v9 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     availableDateRange = [(_UICalendarDataModel *)self->_dataModel availableDateRange];
     v11 = [availableDateRange _ui_containsMonth:monthCopy];
@@ -1785,9 +1785,9 @@ LABEL_9:
     }
 
     visibleDateComponents2 = [(UICalendarView *)self visibleDateComponents];
-    v17 = [visibleDateComponents isEqual:visibleDateComponents2];
+    isEqual = objc_msgSend_isEqual_(visibleDateComponents);
 
-    if (delegateCopy && (v17 & 1) == 0 && (*&self->_flags & 0x40) != 0)
+    if (delegateCopy && (isEqual & 1) == 0 && (*&self->_flags & 0x40) != 0)
     {
       delegate = [(UICalendarView *)self delegate];
       [delegate calendarView:self didChangeVisibleDateComponentsFrom:visibleDateComponents];
@@ -1969,9 +1969,9 @@ LABEL_13:
     {
       v12 = [sectionIdentifiers objectAtIndexedSubscript:v9];
       visibleMonth = [(_UICalendarDataModel *)self->_dataModel visibleMonth];
-      v14 = [visibleMonth isEqual:v12];
+      isEqual = objc_msgSend_isEqual_(visibleMonth);
 
-      if ((v14 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         [(UICalendarView *)self _setVisibleMonth:v12 animated:0 updateDataSource:1 updateCollectionView:0 notifyDelegate:1];
       }
@@ -2084,7 +2084,7 @@ uint64_t __41__UICalendarView__cleanupDataIfNecessary__block_invoke(uint64_t a1)
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __53__UICalendarView_scrollViewDidEndScrollingAnimation___block_invoke(uint64_t a1)
+void *__53__UICalendarView_scrollViewDidEndScrollingAnimation___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isScrollAnimating];
   if ((result & 1) == 0)

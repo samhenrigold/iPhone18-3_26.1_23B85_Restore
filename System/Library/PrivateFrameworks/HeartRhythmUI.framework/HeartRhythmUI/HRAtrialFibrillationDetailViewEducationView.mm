@@ -25,60 +25,60 @@
   secondarySystemGroupedBackgroundColor = [MEMORY[0x277D75348] secondarySystemGroupedBackgroundColor];
   [(HRAtrialFibrillationDetailViewEducationView *)self setBackgroundColor:secondarySystemGroupedBackgroundColor];
 
-  v4 = HRHeartRhythmUIFrameworkBundle();
-  v5 = [v4 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETAIL_EDUCATION_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
-  v36 = [(HRAtrialFibrillationDetailViewEducationView *)self _labelWithText:v5 fontTextStyle:*MEMORY[0x277D76A08] symbolicTraits:2];
+  v5 = HRHeartRhythmUIFrameworkBundle(v4);
+  v6 = [v5 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETAIL_EDUCATION_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v38 = [(HRAtrialFibrillationDetailViewEducationView *)self _labelWithText:v6 fontTextStyle:*MEMORY[0x277D76A08] symbolicTraits:2];
 
-  [(HRAtrialFibrillationDetailViewEducationView *)self addSubview:v36];
-  leadingAnchor = [v36 leadingAnchor];
+  [(HRAtrialFibrillationDetailViewEducationView *)self addSubview:v38];
+  leadingAnchor = [v38 leadingAnchor];
   layoutMarginsGuide = [(HRAtrialFibrillationDetailViewEducationView *)self layoutMarginsGuide];
   leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
-  v9 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:12.0];
-  [v9 setActive:1];
+  v10 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:12.0];
+  [v10 setActive:1];
 
   layoutMarginsGuide2 = [(HRAtrialFibrillationDetailViewEducationView *)self layoutMarginsGuide];
   trailingAnchor = [layoutMarginsGuide2 trailingAnchor];
-  trailingAnchor2 = [v36 trailingAnchor];
-  v13 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:12.0];
-  [v13 setActive:1];
+  trailingAnchor2 = [v38 trailingAnchor];
+  v14 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:12.0];
+  [v14 setActive:1];
 
-  v14 = [MEMORY[0x277CCACA8] healthAccessibilityIdentifier:2 suffix:@"Details.AtrialFibrillation.Title"];
-  [v36 setAccessibilityIdentifier:v14];
+  v15 = [MEMORY[0x277CCACA8] healthAccessibilityIdentifier:2 suffix:@"Details.AtrialFibrillation.Title"];
+  [v38 setAccessibilityIdentifier:v15];
 
-  topAnchor = [v36 topAnchor];
+  topAnchor = [v38 topAnchor];
   topAnchor2 = [(HRAtrialFibrillationDetailViewEducationView *)self topAnchor];
-  v17 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:22.0];
-  [v17 setActive:1];
+  v18 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:22.0];
+  [v18 setActive:1];
 
-  v18 = HRHeartRhythmUIFrameworkBundle();
-  v19 = [v18 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETAIL_EDUCATION_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
-  v20 = [(HRAtrialFibrillationDetailViewEducationView *)self _labelWithText:v19 fontTextStyle:*MEMORY[0x277D76918] symbolicTraits:0x8000];
+  v20 = HRHeartRhythmUIFrameworkBundle(v19);
+  v21 = [v20 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETAIL_EDUCATION_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v22 = [(HRAtrialFibrillationDetailViewEducationView *)self _labelWithText:v21 fontTextStyle:*MEMORY[0x277D76918] symbolicTraits:0x8000];
 
-  [(HRAtrialFibrillationDetailViewEducationView *)self addSubview:v20];
-  leadingAnchor3 = [v20 leadingAnchor];
+  [(HRAtrialFibrillationDetailViewEducationView *)self addSubview:v22];
+  leadingAnchor3 = [v22 leadingAnchor];
   layoutMarginsGuide3 = [(HRAtrialFibrillationDetailViewEducationView *)self layoutMarginsGuide];
   leadingAnchor4 = [layoutMarginsGuide3 leadingAnchor];
-  v24 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:12.0];
-  [v24 setActive:1];
+  v26 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:12.0];
+  [v26 setActive:1];
 
   layoutMarginsGuide4 = [(HRAtrialFibrillationDetailViewEducationView *)self layoutMarginsGuide];
   trailingAnchor3 = [layoutMarginsGuide4 trailingAnchor];
-  trailingAnchor4 = [v20 trailingAnchor];
-  v28 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:12.0];
-  [v28 setActive:1];
+  trailingAnchor4 = [v22 trailingAnchor];
+  v30 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:12.0];
+  [v30 setActive:1];
 
-  topAnchor3 = [v20 topAnchor];
-  bottomAnchor = [v36 bottomAnchor];
-  v31 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:12.0];
-  [v31 setActive:1];
+  topAnchor3 = [v22 topAnchor];
+  bottomAnchor = [v38 bottomAnchor];
+  v33 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:12.0];
+  [v33 setActive:1];
 
   bottomAnchor2 = [(HRAtrialFibrillationDetailViewEducationView *)self bottomAnchor];
-  bottomAnchor3 = [v20 bottomAnchor];
-  v34 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:16.0];
-  [v34 setActive:1];
+  bottomAnchor3 = [v22 bottomAnchor];
+  v36 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:16.0];
+  [v36 setActive:1];
 
-  v35 = [MEMORY[0x277CCACA8] healthAccessibilityIdentifier:2 suffix:@"Details.AtrialFibrillation.Body"];
-  [v20 setAccessibilityIdentifier:v35];
+  v37 = [MEMORY[0x277CCACA8] healthAccessibilityIdentifier:2 suffix:@"Details.AtrialFibrillation.Body"];
+  [v22 setAccessibilityIdentifier:v37];
 }
 
 - (id)_labelWithText:(id)text fontTextStyle:(id)style symbolicTraits:(unsigned int)traits

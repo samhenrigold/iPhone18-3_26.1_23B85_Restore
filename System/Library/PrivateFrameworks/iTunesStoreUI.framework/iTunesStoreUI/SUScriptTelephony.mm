@@ -256,12 +256,12 @@ LABEL_14:
 
 - (BOOL)_checkIfIsAllowed
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(SUScriptAccessSecurity);
   webFrame = [(SUScriptObject *)self webFrame];
-  v16 = 0;
-  v5 = [(SUScriptAccessSecurity *)v3 canAccessTelephonyInFrame:webFrame error:&v16];
-  v6 = v16;
+  v15 = 0;
+  v5 = [(SUScriptAccessSecurity *)v3 canAccessTelephonyInFrame:webFrame error:&v15];
+  v6 = v15;
 
   if (v6)
   {
@@ -269,16 +269,21 @@ LABEL_14:
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -286,30 +291,29 @@ LABEL_14:
     if (v9)
     {
       v11 = objc_opt_class();
-      v17 = 138412546;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v6;
+      v16 = 138412546;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v6;
       v12 = v11;
-      LODWORD(v15) = 22;
-      v13 = _os_log_send_and_compose_impl();
+      v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: unable to access telephony in current frame: %@", &v16, 22);
 
       if (!v13)
       {
-LABEL_11:
+LABEL_12:
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v17, v15}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 
   return v5;
 }

@@ -315,7 +315,7 @@ LABEL_11:
   }
 
   mediaObject2 = [(CKMediaObjectBackedAsset *)self mediaObject];
-  [mediaObject2 duration];
+  objc_msgSend_duration(mediaObject2);
   v7 = v6;
 
   return v7;
@@ -357,12 +357,12 @@ LABEL_11:
 
 - (CGSize)_transcoderGeneratedPxSize:(BOOL *)size
 {
-  [(CKMediaObjectBackedAsset *)self _clientPreviewConstraints];
+  objc_msgSend__clientPreviewConstraints(self, a2);
   mediaObject = [(CKMediaObjectBackedAsset *)self mediaObject];
   v6 = mediaObject;
   if (mediaObject)
   {
-    [mediaObject transcodingPreviewConstraints];
+    objc_msgSend_transcodingPreviewConstraints(mediaObject);
   }
 
   if (IMPreviewConstraintsEqualToConstraints())
@@ -418,7 +418,7 @@ LABEL_11:
     v8 = v7;
     if (v7)
     {
-      [v7 transcodingPreviewConstraints];
+      objc_msgSend_transcodingPreviewConstraints(v7);
     }
 
     else

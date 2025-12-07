@@ -124,9 +124,9 @@ LABEL_17:
 
         if (v14 && v15)
         {
-          v17 = [v14 isEqualToString:v15];
+          isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-          if (v17)
+          if (isEqualToString)
           {
             goto LABEL_17;
           }
@@ -648,9 +648,9 @@ LABEL_17:
 
           if (v5 && v13)
           {
-            v15 = [v12 isEqualToString:v13];
+            isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-            if (v15)
+            if (isEqualToString)
             {
               goto LABEL_17;
             }
@@ -798,9 +798,9 @@ LABEL_17:
 
           if (v5 && v13)
           {
-            v15 = [v12 isEqualToString:v13];
+            isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-            if (v15)
+            if (isEqualToString)
             {
               goto LABEL_17;
             }

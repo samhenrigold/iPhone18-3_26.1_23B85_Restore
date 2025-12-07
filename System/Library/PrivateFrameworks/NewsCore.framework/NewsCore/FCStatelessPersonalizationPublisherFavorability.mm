@@ -28,28 +28,28 @@
 
 void __65__FCStatelessPersonalizationPublisherFavorability_initWithArray___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v29 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         v10 = FCAppConfigurationStringValue(v9, @"publisherID", 0);
         if (v10)
         {
@@ -66,11 +66,11 @@ void __65__FCStatelessPersonalizationPublisherFavorability_initWithArray___block
                 v14 = v13;
                 v15 = [v3 objectForKeyedSubscript:v10];
                 *buf = 138543874;
-                v24 = v10;
-                v25 = 2114;
-                v26 = v15;
-                v27 = 2114;
-                v28 = v11;
+                v23 = v10;
+                v24 = 2114;
+                v25 = v15;
+                v26 = 2114;
+                v27 = v11;
                 _os_log_error_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_ERROR, "Stateless personalization publisher favorability has duplicate entry for publisherID %{public}@. Existing favorability %{public}@, duplicate favorability %{public}@", buf, 0x20u);
               }
             }
@@ -87,9 +87,9 @@ void __65__FCStatelessPersonalizationPublisherFavorability_initWithArray___block
             if (os_log_type_enabled(FCStatelessPersonalizationLog, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v24 = @"favorability";
-              v25 = 2114;
-              v26 = v9;
+              v23 = @"favorability";
+              v24 = 2114;
+              v25 = v9;
               _os_log_error_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_ERROR, "Stateless personalization publisher favorability entry missing %{public}@: %{public}@", buf, 0x16u);
             }
           }
@@ -101,21 +101,19 @@ void __65__FCStatelessPersonalizationPublisherFavorability_initWithArray___block
           if (os_log_type_enabled(FCStatelessPersonalizationLog, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v24 = @"publisherID";
-            v25 = 2114;
-            v26 = v9;
+            v23 = @"publisherID";
+            v24 = 2114;
+            v25 = v9;
             _os_log_error_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_ERROR, "Stateless personalization publisher favorability entry missing %{public}@: %{public}@", buf, 0x16u);
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v29 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v28 count:16];
     }
 
     while (v6);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

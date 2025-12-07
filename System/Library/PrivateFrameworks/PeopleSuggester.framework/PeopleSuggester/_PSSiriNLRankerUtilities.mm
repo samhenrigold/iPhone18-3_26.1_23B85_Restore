@@ -6,32 +6,32 @@
 
 + (id)knowledgeEventWithContactPriors:(id)priors interactionId:(id)id
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   priorsCopy = priors;
   idCopy = id;
   date = [MEMORY[0x1E695DF00] date];
-  v37 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(priorsCopy, "count")}];
+  v36 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(priorsCopy, "count")}];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = priorsCopy;
-  v6 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v6 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v6)
   {
     v7 = v6;
-    v36 = *v39;
+    v35 = *v38;
     do
     {
       v8 = 0;
       do
       {
-        if (*v39 != v36)
+        if (*v38 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v38 + 1) + 8 * v8);
+        v9 = *(*(&v37 + 1) + 8 * v8);
         v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
         contactIdentifier = [v9 contactIdentifier];
         contact = [v9 contact];
@@ -99,13 +99,13 @@ LABEL_18:
           [v10 setObject:modelVersion forKeyedSubscript:@"modelVersion"];
         }
 
-        [v37 addObject:v10];
+        [v36 addObject:v10];
 
         ++v8;
       }
 
       while (v7 != v8);
-      v24 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v24 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
       v7 = v24;
     }
 
@@ -116,12 +116,10 @@ LABEL_18:
   v26 = MEMORY[0x1E6997960];
   peopleSuggesterOutputForSiriNLStream = [MEMORY[0x1E69979E8] peopleSuggesterOutputForSiriNLStream];
   rankedSuggestions = [MEMORY[0x1E69979B0] rankedSuggestions];
-  v42 = rankedSuggestions;
-  v43 = v37;
-  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+  v41 = rankedSuggestions;
+  v42 = v36;
+  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
   v30 = [v26 eventWithStream:peopleSuggesterOutputForSiriNLStream source:v25 startDate:date endDate:date identifierStringValue:idCopy metadata:v29];
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v30;
 }

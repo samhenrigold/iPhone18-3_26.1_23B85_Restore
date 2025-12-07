@@ -29,7 +29,7 @@ uint64_t _usb_device_configuration_add_interface(uint64_t a1, const char *a2, _D
       CFArrayAppendValue(qword_8088, v5);
       Copy = CFArrayCreateCopy(kCFAllocatorDefault, qword_8088);
       pthread_mutex_unlock(&stru_8000);
-      *a3 = sub_888();
+      *a3 = sub_888(Copy);
       CFRelease(Copy);
       pthread_mutex_lock(&stru_8000);
     }
@@ -41,37 +41,37 @@ uint64_t _usb_device_configuration_add_interface(uint64_t a1, const char *a2, _D
   return 0;
 }
 
-BOOL sub_888()
+BOOL sub_888(uint64_t a1)
 {
   if (IOUSBDeviceControllerCreate())
   {
     return 0;
   }
 
-  v1 = IOUSBDeviceDescriptionCreateFromController();
-  if (v1)
+  v2 = IOUSBDeviceDescriptionCreateFromController();
+  if (v2)
   {
-    v2 = v1;
+    v3 = v2;
     if (IOUSBDeviceDescriptionGetMatchingConfiguration())
     {
-      v0 = IOUSBDeviceControllerSetPreferredConfiguration() == 0;
+      v1 = IOUSBDeviceControllerSetPreferredConfiguration() == 0;
     }
 
     else
     {
-      v0 = 1;
+      v1 = 1;
     }
 
-    CFRelease(v2);
+    CFRelease(v3);
   }
 
   else
   {
-    v0 = 1;
+    v1 = 1;
   }
 
   CFRelease(0xAAAAAAAAAAAAAAAALL);
-  return v0;
+  return v1;
 }
 
 uint64_t _usb_device_configuration_remove_interface(uint64_t a1, const char *a2, _DWORD *a3)
@@ -91,7 +91,7 @@ uint64_t _usb_device_configuration_remove_interface(uint64_t a1, const char *a2,
       CFArrayRemoveValueAtIndex(qword_8088, FirstIndexOfValue);
       Copy = CFArrayCreateCopy(kCFAllocatorDefault, qword_8088);
       pthread_mutex_unlock(&stru_8000);
-      *a3 = sub_888();
+      *a3 = sub_888(Copy);
       CFRelease(Copy);
       pthread_mutex_lock(&stru_8000);
     }
@@ -274,7 +274,7 @@ LABEL_11:
   }
 
   pthread_mutex_unlock(&stru_8000);
-  sub_888();
+  sub_888(Copy);
   if (Copy)
   {
     CFRelease(Copy);

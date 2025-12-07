@@ -25,14 +25,13 @@
 
 - (NSArray)preferredFocusEnvironments
 {
-  v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC7Climate20ClimatePositionViews_positions);
   selfCopy = self;
-  sub_1000C5884(v2);
+  sub_1000C5884();
 
-  sub_1000040E8(&unk_1001150F0);
-  v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  sub_1000040E8(&unk_1001150F0, &qword_1000D5F10);
+  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v4.super.isa;
+  return v3.super.isa;
 }
 
 @end

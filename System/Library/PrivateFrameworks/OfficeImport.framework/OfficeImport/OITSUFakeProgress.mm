@@ -49,13 +49,13 @@
   dispatch_async(accessQueue, block);
 }
 
-uint64_t __26__OITSUFakeProgress_start__block_invoke(uint64_t result)
+void *__26__OITSUFakeProgress_start__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (*(v1 + 64) == 1)
   {
     *(v1 + 64) = 0;
-    return [*(result + 32) p_slowlyAdvanceToNextStage];
+    return [*(result + 4) p_slowlyAdvanceToNextStage];
   }
 
   return result;
@@ -84,19 +84,19 @@ uint64_t __26__OITSUFakeProgress_start__block_invoke(uint64_t result)
   dispatch_async(accessQueue, v4);
 }
 
-uint64_t __36__OITSUFakeProgress_advanceToStage___block_invoke(uint64_t result)
+void *__36__OITSUFakeProgress_advanceToStage___block_invoke(void *result)
 {
-  v3 = *(result + 32);
-  v2 = *(result + 40);
+  v3 = result[4];
+  v2 = result[5];
   if (v2 > *(v3 + 48) && v2 <= *(v3 + 56))
   {
     v4 = result;
     *(v3 + 48) = v2;
-    v5 = *(result + 32);
+    v5 = result[4];
     v6 = v5[6] / v5[7];
     [v5 maxValue];
     v8 = v7 * v6;
-    v9 = *(v4 + 32);
+    v9 = v4[4];
 
     return [v9 setValue:v8];
   }

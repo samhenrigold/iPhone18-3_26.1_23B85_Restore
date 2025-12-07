@@ -257,7 +257,7 @@ LABEL_6:
   [encoderCopy setCullMode:0];
 }
 
-uint64_t __61__NUNIGlobetrotterRenderer_draw3DWithEncoder_state_spheroid___block_invoke(uint64_t a1, double a2)
+double __61__NUNIGlobetrotterRenderer_draw3DWithEncoder_state_spheroid___block_invoke(uint64_t a1, double a2)
 {
   if (a2 >= 0.5)
   {
@@ -270,7 +270,8 @@ uint64_t __61__NUNIGlobetrotterRenderer_draw3DWithEncoder_state_spheroid___block
     [*(a1 + 32) colorize];
   }
 
-  return CLKUIConvertToRGBfFromSRGBf_fast();
+  CLKUIConvertToRGBfFromSRGBf_fast();
+  return result;
 }
 
 - (void)drawOffscreen3DWithCommandBuffer:(id)buffer state:(const NUNIClassicRendererState *)state spheroid:(id)spheroid
@@ -372,14 +373,15 @@ uint64_t __61__NUNIGlobetrotterRenderer_draw3DWithEncoder_state_spheroid___block
 {
   libraryCopy = library;
   pixelFormat = [(NUNIRenderer *)self pixelFormat];
+  v7 = pixelFormat;
   if (type > 1)
   {
     if (type != 3)
     {
       if (type == 2)
       {
-        v7 = @"classic_luna_vsh";
-        v8 = @"classic_luna_fsh";
+        v8 = @"classic_luna_vsh";
+        v9 = @"classic_luna_fsh";
         goto LABEL_8;
       }
 
@@ -387,9 +389,9 @@ LABEL_17:
       [NUNIGlobetrotterRenderer _createPipelineForProgramType:fromLibrary:];
     }
 
-    v7 = @"globetrotter_lines_vsh";
-    v8 = @"globetrotter_lines_fsh";
-    pixelFormat = 10;
+    v8 = @"globetrotter_lines_vsh";
+    v9 = @"globetrotter_lines_fsh";
+    v7 = 10;
   }
 
   else
@@ -398,73 +400,73 @@ LABEL_17:
     {
       if (type == 1)
       {
-        v7 = @"classic_sprite_vsh";
-        v8 = @"classic_sprite_fsh";
+        v8 = @"classic_sprite_vsh";
+        v9 = @"classic_sprite_fsh";
 LABEL_8:
-        v9 = @"NUNIClassicShaders";
+        v10 = @"NUNIClassicShaders";
         goto LABEL_12;
       }
 
       goto LABEL_17;
     }
 
-    v7 = @"globetrotter_globe_vsh";
-    v8 = @"globetrotter_globe_fsh";
+    v8 = @"globetrotter_globe_vsh";
+    v9 = @"globetrotter_globe_fsh";
   }
 
-  v9 = @"NUNIGlobetrotterShaders";
+  v10 = @"NUNIGlobetrotterShaders";
 LABEL_12:
-  v10 = MEMORY[0x277CFA788];
-  v11 = NUNIBundle();
+  v11 = MEMORY[0x277CFA788];
+  v12 = NUNIBundle(pixelFormat);
   mtlDevice = [(NUNIClassicRenderer *)self mtlDevice];
-  v13 = [v10 archiveWithName:v9 bundle:v11 device:mtlDevice];
+  v14 = [v11 archiveWithName:v10 bundle:v12 device:mtlDevice];
 
   functionDescriptor = [MEMORY[0x277CD6D78] functionDescriptor];
-  [functionDescriptor setName:v7];
-  v15 = [v13 newFunctionInLibrary:libraryCopy withDescriptor:functionDescriptor];
   [functionDescriptor setName:v8];
-  v16 = [v13 newFunctionInLibrary:libraryCopy withDescriptor:functionDescriptor];
-  v17 = objc_alloc_init(MEMORY[0x277CD6F78]);
-  [v17 setLabel:_NUNIGlobetrotterPipelineNames[type]];
-  [v17 setVertexFunction:v15];
-  [v17 setFragmentFunction:v16];
-  colorAttachments = [v17 colorAttachments];
-  v19 = [colorAttachments objectAtIndexedSubscript:0];
-  [v19 setPixelFormat:pixelFormat];
+  v16 = [v14 newFunctionInLibrary:libraryCopy withDescriptor:functionDescriptor];
+  [functionDescriptor setName:v9];
+  v17 = [v14 newFunctionInLibrary:libraryCopy withDescriptor:functionDescriptor];
+  v18 = objc_alloc_init(MEMORY[0x277CD6F78]);
+  [v18 setLabel:_NUNIGlobetrotterPipelineNames[type]];
+  [v18 setVertexFunction:v16];
+  [v18 setFragmentFunction:v17];
+  colorAttachments = [v18 colorAttachments];
+  v20 = [colorAttachments objectAtIndexedSubscript:0];
+  [v20 setPixelFormat:v7];
 
-  colorAttachments2 = [v17 colorAttachments];
-  v21 = [colorAttachments2 objectAtIndexedSubscript:0];
-  [v21 setBlendingEnabled:1];
+  colorAttachments2 = [v18 colorAttachments];
+  v22 = [colorAttachments2 objectAtIndexedSubscript:0];
+  [v22 setBlendingEnabled:1];
 
-  colorAttachments3 = [v17 colorAttachments];
-  v23 = [colorAttachments3 objectAtIndexedSubscript:0];
-  [v23 setRgbBlendOperation:0];
+  colorAttachments3 = [v18 colorAttachments];
+  v24 = [colorAttachments3 objectAtIndexedSubscript:0];
+  [v24 setRgbBlendOperation:0];
 
-  colorAttachments4 = [v17 colorAttachments];
-  v25 = [colorAttachments4 objectAtIndexedSubscript:0];
-  [v25 setAlphaBlendOperation:0];
+  colorAttachments4 = [v18 colorAttachments];
+  v26 = [colorAttachments4 objectAtIndexedSubscript:0];
+  [v26 setAlphaBlendOperation:0];
 
-  colorAttachments5 = [v17 colorAttachments];
-  v27 = [colorAttachments5 objectAtIndexedSubscript:0];
-  [v27 setSourceRGBBlendFactor:1];
+  colorAttachments5 = [v18 colorAttachments];
+  v28 = [colorAttachments5 objectAtIndexedSubscript:0];
+  [v28 setSourceRGBBlendFactor:1];
 
-  colorAttachments6 = [v17 colorAttachments];
-  v29 = [colorAttachments6 objectAtIndexedSubscript:0];
-  [v29 setSourceAlphaBlendFactor:1];
+  colorAttachments6 = [v18 colorAttachments];
+  v30 = [colorAttachments6 objectAtIndexedSubscript:0];
+  [v30 setSourceAlphaBlendFactor:1];
 
-  colorAttachments7 = [v17 colorAttachments];
-  v31 = [colorAttachments7 objectAtIndexedSubscript:0];
-  [v31 setDestinationRGBBlendFactor:5];
+  colorAttachments7 = [v18 colorAttachments];
+  v32 = [colorAttachments7 objectAtIndexedSubscript:0];
+  [v32 setDestinationRGBBlendFactor:5];
 
-  colorAttachments8 = [v17 colorAttachments];
-  v33 = [colorAttachments8 objectAtIndexedSubscript:0];
-  [v33 setDestinationAlphaBlendFactor:5];
+  colorAttachments8 = [v18 colorAttachments];
+  v34 = [colorAttachments8 objectAtIndexedSubscript:0];
+  [v34 setDestinationAlphaBlendFactor:5];
 
   mtlDevice2 = [(NUNIClassicRenderer *)self mtlDevice];
-  v35 = [v13 newRenderPipelineStateForDevice:mtlDevice2 withDescriptor:v17];
+  v36 = [v14 newRenderPipelineStateForDevice:mtlDevice2 withDescriptor:v18];
   resources = [(NUNIClassicRenderer *)self resources];
-  v37 = resources->pipelines[type];
-  resources->pipelines[type] = v35;
+  v38 = resources->pipelines[type];
+  resources->pipelines[type] = v36;
 
   if (![(NUNIClassicRenderer *)self resources][8 * type])
   {
@@ -474,7 +476,7 @@ LABEL_12:
 
 - (void)_initPrograms
 {
-  v5 = NUNIBundle();
+  v5 = NUNIBundle(self);
   mtlDevice = [(NUNIClassicRenderer *)self mtlDevice];
   v4 = [mtlDevice newDefaultLibraryWithBundle:v5 error:0];
 

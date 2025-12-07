@@ -12,17 +12,17 @@
 - (unint64_t)intentToRetain
 {
   selfCopy = self;
-  v3 = DCPresentmentRequestedElement.__intentToRetain.getter();
+  v4 = DCPresentmentRequestedElement.__intentToRetain.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (int64_t)retentionPeriod
 {
   selfCopy = self;
-  v3 = DCPresentmentRequestedElement.retentionPeriod.getter();
+  v4 = DCPresentmentRequestedElement.retentionPeriod.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -50,9 +50,9 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = DCPresentmentRequestedElement.hash.getter();
+  v4 = DCPresentmentRequestedElement.hash.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)encodeWithCoder:(id)coder

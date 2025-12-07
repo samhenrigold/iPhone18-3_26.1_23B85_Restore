@@ -46,22 +46,20 @@
 
 void __78__FCCKDatabaseEncryptionMiddleware_initWithEncryptionSchema_recordNameCipher___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (a2 && *(a2 + 8) == 1 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"a record name cipher is required for a schema with record name encryption"];
-    v4 = 136315906;
-    v5 = "[FCCKDatabaseEncryptionMiddleware initWithEncryptionSchema:recordNameCipher:]_block_invoke";
-    v6 = 2080;
-    v7 = "FCCKDatabaseEncryptionMiddleware.m";
-    v8 = 1024;
-    v9 = 60;
-    v10 = 2114;
-    v11 = v3;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v4, 0x26u);
+    v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"a record name cipher is required for a schema with record name encryption"];
+    v3 = 136315906;
+    v4 = "[FCCKDatabaseEncryptionMiddleware initWithEncryptionSchema:recordNameCipher:]_block_invoke";
+    v5 = 2080;
+    v6 = "FCCKDatabaseEncryptionMiddleware.m";
+    v7 = 1024;
+    v8 = 60;
+    v9 = 2114;
+    v10 = v2;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v3, 0x26u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)database:(id)database willEnqueueOperation:(id)operation error:(id *)error
@@ -658,7 +656,7 @@ LABEL_27:
 
 - (id)clientToServerRecord:(id)record inDatabase:(id)database error:(id *)error
 {
-  v124 = *MEMORY[0x1E69E9840];
+  v123 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   databaseCopy = database;
   v10 = recordCopy;
@@ -695,56 +693,56 @@ LABEL_27:
     v19 = v16;
     v20 = v18;
     v21 = v15;
-    v102 = v21;
+    v101 = v21;
     if (self)
     {
       v22 = v21;
       if (!v21 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v92 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "mapping"];
-        *v116 = 136315906;
-        v117 = "[FCCKDatabaseEncryptionMiddleware _encryptRecord:withEncryptionKey:mapping:error:]";
-        v118 = 2080;
-        v119 = "FCCKDatabaseEncryptionMiddleware.m";
-        v120 = 1024;
-        v121 = 339;
-        v122 = 2114;
-        v123 = v92;
-        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v116, 0x26u);
+        v91 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "mapping"];
+        *v115 = 136315906;
+        v116 = "[FCCKDatabaseEncryptionMiddleware _encryptRecord:withEncryptionKey:mapping:error:]";
+        v117 = 2080;
+        v118 = "FCCKDatabaseEncryptionMiddleware.m";
+        v119 = 1024;
+        v120 = 339;
+        v121 = 2114;
+        v122 = v91;
+        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v115, 0x26u);
       }
 
       selfCopy = self;
-      v94 = v20;
-      v95 = v15;
+      v93 = v20;
+      v94 = v15;
       errorCopy = error;
-      v97 = v10;
-      v98 = databaseCopy;
-      v111 = 0u;
-      v112 = 0u;
-      v109 = 0u;
+      v96 = v10;
+      v97 = databaseCopy;
       v110 = 0u;
+      v111 = 0u;
+      v108 = 0u;
+      v109 = 0u;
       allKeys = [v19 allKeys];
-      v24 = [allKeys countByEnumeratingWithState:&v109 objects:v116 count:16];
+      v24 = [allKeys countByEnumeratingWithState:&v108 objects:v115 count:16];
       if (v24)
       {
         v25 = v24;
-        v108 = 0;
-        v26 = *v110;
-        v100 = allKeys;
-        v99 = v19;
-        v103 = *v110;
+        v107 = 0;
+        v26 = *v109;
+        v99 = allKeys;
+        v98 = v19;
+        v102 = *v109;
         while (2)
         {
           v27 = 0;
-          v104 = v25;
+          v103 = v25;
           do
           {
-            if (*v110 != v26)
+            if (*v109 != v26)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v28 = *(*(&v109 + 1) + 8 * v27);
+            v28 = *(*(&v108 + 1) + 8 * v27);
             toRecordSchema = [v22 toRecordSchema];
             v30 = [(FCCKRecordSchema *)toRecordSchema schemaForField:v28];
 
@@ -758,7 +756,7 @@ LABEL_27:
                 v34 = v33;
                 if (v31)
                 {
-                  v107 = v33;
+                  v106 = v33;
                   valueStore = [v32 valueStore];
                   changedKeysSet = [valueStore changedKeysSet];
                   v37 = [changedKeysSet containsObject:v31];
@@ -778,12 +776,12 @@ LABEL_27:
                   values = [valueStore3 values];
                   v44 = [values objectForKey:v31];
 
-                  v105 = v44;
+                  v104 = v44;
                   if (v44)
                   {
-                    v45 = [(FCCKRecordFieldSchema *)v107 sanitizeValue:v44];
+                    v45 = [(FCCKRecordFieldSchema *)v106 sanitizeValue:v44];
                     v46 = [objc_alloc(MEMORY[0x1E695B8E0]) initWithValue:v45];
-                    v106 = v46 != 0;
+                    v105 = v46 != 0;
                     if (v46)
                     {
                       valueStore4 = [v32 valueStore];
@@ -807,7 +805,7 @@ LABEL_27:
 
                   else
                   {
-                    v106 = 1;
+                    v105 = 1;
                   }
 
                   valueStore5 = [v32 valueStore];
@@ -816,9 +814,9 @@ LABEL_27:
 
                   if (v57)
                   {
-                    v58 = [(FCCKRecordFieldSchema *)v107 sanitizeValue:v57];
+                    v58 = [(FCCKRecordFieldSchema *)v106 sanitizeValue:v57];
                     objc_opt_class();
-                    v101 = v57;
+                    v100 = v57;
                     if (objc_opt_isKindOfClass())
                     {
                       valueStore6 = [v32 valueStore];
@@ -853,29 +851,29 @@ LABEL_27:
                         v69 = MEMORY[0x1E696ABC0];
                         originalValues2 = [v32 recordType];
                         [v69 fc_encryptionErrorWithCode:3 descriptionFormat:@"CKRecord failed to serialize original value {%@.%@, %@}", originalValues2, v31, v58];
-                        v106 = 0;
+                        v105 = 0;
                         v44 = v64OriginalValues = v44;
                       }
 
-                      v60 = v99;
+                      v60 = v98;
                       v61 = v58;
                     }
 
                     v52 = v60;
 
-                    v57 = v101;
-                    v22 = v102;
+                    v57 = v100;
+                    v22 = v101;
                   }
 
                   else
                   {
                     v52 = v19;
-                    v22 = v102;
+                    v22 = v101;
                   }
 
-                  allKeys = v100;
-                  v34 = v107;
-                  v53 = v106;
+                  allKeys = v99;
+                  v34 = v106;
+                  v53 = v105;
                 }
 
                 else
@@ -891,18 +889,18 @@ LABEL_27:
                 if ((v53 & 1) == 0)
                 {
                   v76 = 0;
-                  v10 = v97;
-                  databaseCopy = v98;
-                  v15 = v95;
-                  v20 = v94;
+                  v10 = v96;
+                  databaseCopy = v97;
+                  v15 = v94;
+                  v20 = v93;
                   v19 = v52;
                   error = errorCopy;
                   goto LABEL_53;
                 }
 
-                v108 = v71;
-                v26 = v103;
-                v25 = v104;
+                v107 = v71;
+                v26 = v102;
+                v25 = v103;
                 v19 = v52;
               }
             }
@@ -916,11 +914,11 @@ LABEL_27:
                 recordType = [v19 recordType];
                 *buf = 138543618;
                 *&buf[4] = recordType;
-                v114 = 2114;
-                v115 = v28;
+                v113 = 2114;
+                v114 = v28;
                 _os_log_error_impl(&dword_1B63EF000, v72, OS_LOG_TYPE_ERROR, "Client record field is missing from the schema: %{public}@.%{public}@", buf, 0x16u);
 
-                v22 = v102;
+                v22 = v101;
               }
 
               [FCCKDatabaseEncryptionMiddleware _removeField:v28 fromRecord:v19];
@@ -930,7 +928,7 @@ LABEL_27:
           }
 
           while (v25 != v27);
-          v25 = [allKeys countByEnumeratingWithState:&v109 objects:v116 count:16];
+          v25 = [allKeys countByEnumeratingWithState:&v108 objects:v115 count:16];
           if (v25)
           {
             continue;
@@ -942,24 +940,24 @@ LABEL_27:
 
       else
       {
-        v108 = 0;
+        v107 = 0;
       }
 
       recordID2 = [v19 recordID];
       [v22 recordIDMapping];
       v79 = v78 = v22;
-      *buf = v108;
-      v20 = v94;
-      v80 = [(FCCKDatabaseEncryptionMiddleware *)selfCopy _encryptedRecordIDWithOriginalRecordID:recordID2 withEncryptionKey:v94 mapping:v79 error:buf];
+      *buf = v107;
+      v20 = v93;
+      v80 = [(FCCKDatabaseEncryptionMiddleware *)selfCopy _encryptedRecordIDWithOriginalRecordID:recordID2 withEncryptionKey:v93 mapping:v79 error:buf];
       v71 = *buf;
 
       if (v80)
       {
-        v100 = v80;
+        v99 = v80;
         [v19 setRecordID:v80];
         toRecordSchema2 = [v78 toRecordSchema];
-        v10 = v97;
-        databaseCopy = v98;
+        v10 = v96;
+        databaseCopy = v97;
         error = errorCopy;
         if (toRecordSchema2)
         {
@@ -977,7 +975,7 @@ LABEL_27:
         [v19 setRecordType:v84];
 
         v76 = 1;
-        v15 = v95;
+        v15 = v94;
         v34 = v82;
 LABEL_53:
       }
@@ -985,9 +983,9 @@ LABEL_53:
       else
       {
         v76 = 1;
-        v10 = v97;
-        databaseCopy = v98;
-        v15 = v95;
+        v10 = v96;
+        databaseCopy = v97;
+        v15 = v94;
         error = errorCopy;
       }
 
@@ -1011,18 +1009,18 @@ LABEL_53:
     {
       if (v74 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
       {
-        v89 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v88 = objc_alloc(MEMORY[0x1E696AEC0]);
         recordType2 = [v10 recordType];
-        v91 = [v89 initWithFormat:@"Failed to encrypt record of type %@ with error: %@", recordType2, v74];
-        *v116 = 136315906;
-        v117 = "[FCCKDatabaseEncryptionMiddleware clientToServerRecord:inDatabase:error:]";
-        v118 = 2080;
-        v119 = "FCCKDatabaseEncryptionMiddleware.m";
-        v120 = 1024;
-        v121 = 216;
-        v122 = 2114;
-        v123 = v91;
-        _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: RecordEncryptionFailure) : %s %s:%d %{public}@", v116, 0x26u);
+        v90 = [v88 initWithFormat:@"Failed to encrypt record of type %@ with error: %@", recordType2, v74];
+        *v115 = 136315906;
+        v116 = "[FCCKDatabaseEncryptionMiddleware clientToServerRecord:inDatabase:error:]";
+        v117 = 2080;
+        v118 = "FCCKDatabaseEncryptionMiddleware.m";
+        v119 = 1024;
+        v120 = 216;
+        v121 = 2114;
+        v122 = v90;
+        _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: RecordEncryptionFailure) : %s %s:%d %{public}@", v115, 0x26u);
       }
 
       goto LABEL_61;
@@ -1041,14 +1039,12 @@ LABEL_61:
     }
   }
 
-  v87 = *MEMORY[0x1E69E9840];
-
   return v75;
 }
 
 - (id)serverToClientRecord:(id)record inDatabase:(id)database error:(id *)error
 {
-  v114 = *MEMORY[0x1E69E9840];
+  v113 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   databaseCopy = database;
   v10 = recordCopy;
@@ -1072,41 +1068,41 @@ LABEL_61:
     v16 = v13;
     v17 = v15;
     v18 = v12;
-    v92 = v16;
+    v91 = v16;
     selfCopy = self;
     if (self)
     {
-      v87 = v17;
-      v88 = v12;
+      v86 = v17;
+      v87 = v12;
       errorCopy = error;
-      v90 = v10;
-      v91 = databaseCopy;
-      v101 = 0u;
-      v102 = 0u;
-      v99 = 0u;
+      v89 = v10;
+      v90 = databaseCopy;
       v100 = 0u;
+      v101 = 0u;
+      v98 = 0u;
+      v99 = 0u;
       allKeys = [v16 allKeys];
-      v20 = [allKeys countByEnumeratingWithState:&v99 objects:v106 count:16];
+      v20 = [allKeys countByEnumeratingWithState:&v98 objects:v105 count:16];
       v21 = v16;
       if (v20)
       {
         v22 = v20;
         v23 = 0;
-        v24 = *v100;
-        v93 = allKeys;
-        v94 = *v100;
+        v24 = *v99;
+        v92 = allKeys;
+        v93 = *v99;
         while (2)
         {
           v25 = 0;
-          v95 = v22;
+          v94 = v22;
           do
           {
-            if (*v100 != v24)
+            if (*v99 != v24)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v26 = *(*(&v99 + 1) + 8 * v25);
+            v26 = *(*(&v98 + 1) + 8 * v25);
             fromRecordSchema = [v18 fromRecordSchema];
             v28 = [(FCCKRecordSchema *)fromRecordSchema isFieldKnown:v26];
 
@@ -1141,12 +1137,12 @@ LABEL_61:
                   values = [encryptedValueStore3 values];
                   selfCopy = [values objectForKey:v31];
 
-                  v96 = selfCopy;
-                  v97 = v23;
+                  v95 = selfCopy;
+                  v96 = v23;
                   if (selfCopy)
                   {
                     value = [selfCopy value];
-                    v98 = value != 0;
+                    v97 = value != 0;
                     if (value)
                     {
                       encryptedValueStore4 = [v33 encryptedValueStore];
@@ -1170,7 +1166,7 @@ LABEL_61:
 
                   else
                   {
-                    v98 = 1;
+                    v97 = 1;
                   }
 
                   encryptedValueStore5 = [v33 encryptedValueStore];
@@ -1212,18 +1208,18 @@ LABEL_61:
                         v66 = MEMORY[0x1E696ABC0];
                         valueStore4 = [v33 recordType];
                         [v66 fc_encryptionErrorWithCode:3 descriptionFormat:@"CKRecord failed to deserialize original value {%@.%@}", valueStore4, v31];
-                        v98 = 0;
+                        v97 = 0;
                         selfCopy = originalValues5 = selfCopy;
                       }
                     }
 
-                    v21 = v92;
-                    allKeys = v93;
+                    v21 = v91;
+                    allKeys = v92;
                   }
 
-                  v23 = v97;
+                  v23 = v96;
 
-                  v50 = v98;
+                  v50 = v97;
                 }
 
                 else
@@ -1238,17 +1234,17 @@ LABEL_61:
                 if ((v50 & 1) == 0)
                 {
                   v71 = 0;
-                  v10 = v90;
-                  databaseCopy = v91;
-                  v12 = v88;
+                  v10 = v89;
+                  databaseCopy = v90;
+                  v12 = v87;
                   error = errorCopy;
-                  v17 = v87;
+                  v17 = v86;
                   goto LABEL_49;
                 }
 
                 v23 = v68;
-                v24 = v94;
-                v22 = v95;
+                v24 = v93;
+                v22 = v94;
               }
             }
 
@@ -1261,8 +1257,8 @@ LABEL_61:
                 recordType = [v21 recordType];
                 *buf = 138543618;
                 *&buf[4] = recordType;
-                v104 = 2114;
-                v105 = v26;
+                v103 = 2114;
+                v104 = v26;
                 _os_log_error_impl(&dword_1B63EF000, v64, OS_LOG_TYPE_ERROR, "Server record field is missing from the schema: %{public}@.%{public}@", buf, 0x16u);
               }
 
@@ -1273,7 +1269,7 @@ LABEL_61:
           }
 
           while (v22 != v25);
-          v22 = [allKeys countByEnumeratingWithState:&v99 objects:v106 count:16];
+          v22 = [allKeys countByEnumeratingWithState:&v98 objects:v105 count:16];
           if (v22)
           {
             continue;
@@ -1291,18 +1287,18 @@ LABEL_61:
       recordID2 = [v21 recordID];
       recordIDMapping = [v18 recordIDMapping];
       *buf = v23;
-      v17 = v87;
-      v74 = [(FCCKDatabaseEncryptionMiddleware *)selfCopy _decryptedRecordIDWithOriginalRecordID:recordID2 withEncryptionKey:v87 mapping:recordIDMapping error:buf];
+      v17 = v86;
+      v74 = [(FCCKDatabaseEncryptionMiddleware *)selfCopy _decryptedRecordIDWithOriginalRecordID:recordID2 withEncryptionKey:v86 mapping:recordIDMapping error:buf];
       v68 = *buf;
 
       if (v74)
       {
-        v93 = v74;
+        v92 = v74;
         [v21 setRecordID:v74];
         toRecordSchema = [v18 toRecordSchema];
         v76 = toRecordSchema;
         error = errorCopy;
-        v10 = v90;
+        v10 = v89;
         if (toRecordSchema)
         {
           v77 = *(toRecordSchema + 16);
@@ -1317,19 +1313,19 @@ LABEL_61:
         [v21 setRecordType:v78];
 
         v71 = 1;
-        databaseCopy = v91;
+        databaseCopy = v90;
       }
 
       else
       {
-        v93 = 0;
+        v92 = 0;
         v71 = 1;
-        v10 = v90;
-        databaseCopy = v91;
+        v10 = v89;
+        databaseCopy = v90;
         error = errorCopy;
       }
 
-      v12 = v88;
+      v12 = v87;
 LABEL_49:
 
       v79 = v68;
@@ -1345,25 +1341,25 @@ LABEL_49:
     v70 = v10;
     if (v71)
     {
-      v70 = v92;
+      v70 = v91;
     }
 
     if (error)
     {
       if (v69 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
       {
-        v83 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v82 = objc_alloc(MEMORY[0x1E696AEC0]);
         recordType2 = [v10 recordType];
-        v85 = [v83 initWithFormat:@"Failed to decrypt record of type %@ with error: %@", recordType2, v69];
-        *v106 = 136315906;
-        v107 = "[FCCKDatabaseEncryptionMiddleware serverToClientRecord:inDatabase:error:]";
-        v108 = 2080;
-        v109 = "FCCKDatabaseEncryptionMiddleware.m";
-        v110 = 1024;
-        v111 = 245;
-        v112 = 2114;
-        v113 = v85;
-        _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: RecordDecryptionFailure) : %s %s:%d %{public}@", v106, 0x26u);
+        v84 = [v82 initWithFormat:@"Failed to decrypt record of type %@ with error: %@", recordType2, v69];
+        *v105 = 136315906;
+        v106 = "[FCCKDatabaseEncryptionMiddleware serverToClientRecord:inDatabase:error:]";
+        v107 = 2080;
+        v108 = "FCCKDatabaseEncryptionMiddleware.m";
+        v109 = 1024;
+        v110 = 245;
+        v111 = 2114;
+        v112 = v84;
+        _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: RecordDecryptionFailure) : %s %s:%d %{public}@", v105, 0x26u);
       }
 
       goto LABEL_56;
@@ -1381,8 +1377,6 @@ LABEL_56:
       *error = v69;
     }
   }
-
-  v81 = *MEMORY[0x1E69E9840];
 
   return v70;
 }

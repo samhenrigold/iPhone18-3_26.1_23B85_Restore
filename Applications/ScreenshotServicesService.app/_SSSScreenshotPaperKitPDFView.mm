@@ -350,7 +350,7 @@
 
 - (void)generateCachedDocumentWithCompletionHandler:(id)handler
 {
-  v5 = sub_100055840(&qword_1000D4170);
+  v5 = sub_100055840(&qword_1000D4170, &qword_10008FA80);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

@@ -1,7 +1,9 @@
 @interface MKBDeviceLockModelEducationalMode
++ (id)sharedLockModelWithUID:(unsigned int)d;
 - (BOOL)isPermanentlyBlocked;
 - (BOOL)isTemporarilyBlocked;
 - (BOOL)isWipePending;
+- (MKBDeviceLockModelEducationalMode)initWithJournalPath:(id)path uid:(unsigned int)uid;
 - (double)timeUntilUnblockedSinceReferenceDate;
 - (id)_lockStateValueForKey:(id)key ofType:(Class)type;
 - (unint64_t)failedPasscodeAttempts;
@@ -21,6 +23,44 @@
 @end
 
 @implementation MKBDeviceLockModelEducationalMode
+
++ (id)sharedLockModelWithUID:(unsigned int)d
+{
+  v3 = *&d;
+  if (qword_10003D318 != -1)
+  {
+    sub_10001C90C();
+  }
+
+  v4 = qword_10003D310;
+  objc_sync_enter(qword_10003D310);
+  if (![qword_10003D310 objectForKeyedSubscript:{+[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", v3)}])
+  {
+    v5 = [[MKBDeviceLockModelEducationalMode alloc] initWithUID:v3];
+    [qword_10003D310 setObject:v5 forKeyedSubscript:{+[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", v3)}];
+  }
+
+  v6 = [qword_10003D310 objectForKeyedSubscript:{+[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", v3)}];
+  objc_sync_exit(v4);
+  return v6;
+}
+
+- (MKBDeviceLockModelEducationalMode)initWithJournalPath:(id)path uid:(unsigned int)uid
+{
+  v4 = *&uid;
+  v8.receiver = self;
+  v8.super_class = MKBDeviceLockModelEducationalMode;
+  v6 = [(MKBDeviceLockModelEducationalMode *)&v8 init];
+  if (v6)
+  {
+    v6->_lockStatePath = [path copy];
+    v6->_uid = [[NSString alloc] initWithFormat:@"%d", v4];
+    v6->_persistentStateQueue = dispatch_queue_create("com.apple.mobilekeybag.devicelockmodel", 0);
+    [(MKBDeviceLockModelEducationalMode *)v6 _persistentStateQueue_loadLockState];
+  }
+
+  return v6;
+}
 
 - (void)dealloc
 {

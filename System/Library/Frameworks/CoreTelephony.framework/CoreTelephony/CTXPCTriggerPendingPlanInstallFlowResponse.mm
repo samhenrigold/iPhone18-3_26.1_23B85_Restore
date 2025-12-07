@@ -8,16 +8,15 @@
 
 - (CTXPCTriggerPendingPlanInstallFlowResponse)initWithResult:(unint64_t)result
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10 = @"result";
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = @"result";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:result];
-  v11[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-  v9.receiver = self;
-  v9.super_class = CTXPCTriggerPendingPlanInstallFlowResponse;
-  v6 = [(CTXPCMessage *)&v9 initWithNamedArguments:v5];
+  v10[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8.receiver = self;
+  v8.super_class = CTXPCTriggerPendingPlanInstallFlowResponse;
+  v6 = [(CTXPCMessage *)&v8 initWithNamedArguments:v5];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

@@ -18,7 +18,7 @@
   objc_initWeak(&location, self);
   duplicateActionController = [(PUPhotoKitDuplicateActionPerformer *)self duplicateActionController];
   action = [(PUPhotoKitDuplicateActionPerformer *)self action];
-  [(PUPhotoKitDuplicateActionPerformer *)self newStillImageTime];
+  objc_msgSend_newStillImageTime(self);
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
   v5[2] = __59__PUPhotoKitDuplicateActionPerformer_performBackgroundTask__block_invoke;

@@ -10,15 +10,14 @@
 
 - (CLGnssDisablementAssertion)initWithRegistrationMessageName:(const char *)name messagePayload:(id)payload callbackQueue:(id)queue completionHandler:(id)handler
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = CLGnssDisablementAssertion;
-  if ([(CLGnssDisablementAssertion *)&v8 init])
+  v8 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = CLGnssDisablementAssertion;
+  if ([(CLGnssDisablementAssertion *)&v7 init])
   {
     operator new();
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -42,7 +41,7 @@
 
 + (id)newAssertionForBundleIdentifier:(id)identifier withReason:(id)reason callbackQueue:(id)queue completionHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (qword_1ED519088 != -1)
   {
     dispatch_once(&qword_1ED519088, &unk_1F0E6B8E0);
@@ -64,22 +63,23 @@
       dispatch_once(&qword_1ED519088, &unk_1F0E6B8E0);
     }
 
-    v12 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "+[CLGnssDisablementAssertion newAssertionForBundleIdentifier:withReason:callbackQueue:completionHandler:]", "CoreLocation: %s\n", v12);
-    if (v12 != buf)
+    v22[0] = 0;
+    v15 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1ED519090, 2, "#clgda,client,newAssertionForBundleIdentifier", v22, 2);
+    sub_19B885924("Generic", 1, 0, 2, "+[CLGnssDisablementAssertion newAssertionForBundleIdentifier:withReason:callbackQueue:completionHandler:]", "CoreLocation: %s\n", v15);
+    if (v15 != buf)
     {
-      free(v12);
+      free(v15);
     }
   }
 
-  result = sub_19B8DC650([identifier copy], &stru_1F0E6F140, objc_msgSend(reason, "copy"), queue, handler);
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  v16 = objc_msgSend_copy(identifier, v12, v13, v14);
+  v20 = objc_msgSend_copy(reason, v17, v18, v19);
+  return sub_19B8DC650(v16, &stru_1F0E6F140, v20, queue, handler);
 }
 
 + (id)newAssertionForBundle:(id)bundle withReason:(id)reason callbackQueue:(id)queue completionHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (qword_1ED519088 != -1)
   {
     dispatch_once(&qword_1ED519088, &unk_1F0E6B8E0);
@@ -101,17 +101,19 @@
       dispatch_once(&qword_1ED519088, &unk_1F0E6B8E0);
     }
 
-    v12 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "+[CLGnssDisablementAssertion newAssertionForBundle:withReason:callbackQueue:completionHandler:]", "CoreLocation: %s\n", v12);
-    if (v12 != buf)
+    v26[0] = 0;
+    v15 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1ED519090, 2, "#clgda,client,newAssertionForBundle", v26, 2);
+    sub_19B885924("Generic", 1, 0, 2, "+[CLGnssDisablementAssertion newAssertionForBundle:withReason:callbackQueue:completionHandler:]", "CoreLocation: %s\n", v15);
+    if (v15 != buf)
     {
-      free(v12);
+      free(v15);
     }
   }
 
-  result = sub_19B8DC650(&stru_1F0E6F140, [objc_msgSend(bundle "bundlePath")], objc_msgSend(reason, "copy"), queue, handler);
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  v16 = objc_msgSend_bundlePath(bundle, v12, v13, v14);
+  v20 = objc_msgSend_copy(v16, v17, v18, v19);
+  v24 = objc_msgSend_copy(reason, v21, v22, v23);
+  return sub_19B8DC650(&stru_1F0E6F140, v20, v24, queue, handler);
 }
 
 @end

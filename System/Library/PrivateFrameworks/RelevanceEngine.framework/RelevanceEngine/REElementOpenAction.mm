@@ -79,25 +79,19 @@
     {
       v7 = [(REElementOpenAction *)self url];
       applicationID2 = [(REElementOpenAction *)self applicationID];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __43__REElementOpenAction__performWithContext___block_invoke;
-      v9[3] = &unk_2785F9FF0;
-      v9[4] = self;
-      RELaunchApp(v7, applicationID2, v9);
+      RELaunchApp();
     }
   }
 }
 
 - (id)description
 {
-  v7.receiver = self;
-  v7.super_class = REElementOpenAction;
-  v3 = [(REElementOpenAction *)&v7 description];
-  url = self->_url;
-  v5 = [v3 stringByAppendingFormat:@" url=%@, applicationId=%@", url, self->_applicationID];
+  v6.receiver = self;
+  v6.super_class = REElementOpenAction;
+  v3 = [(REElementOpenAction *)&v6 description];
+  v4 = [v3 stringByAppendingFormat:@" url=%@, applicationId=%@", self->_url, self->_applicationID];
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

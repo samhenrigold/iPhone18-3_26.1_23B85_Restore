@@ -11,7 +11,7 @@
 
 - (NSArray)foundEntities
 {
-  sub_232C165EC();
+  sub_232C165EC(self);
   type metadata accessor for DUUserInterfaceUnderstandingResult();
   v2 = sub_232CE9FD0();
 
@@ -28,7 +28,7 @@
 
 - (_TtC21DocumentUnderstanding11DUDebugInfo)responseDebugInfo
 {
-  v2 = sub_232C16794();
+  v2 = sub_232C16794(self);
 
   return v2;
 }

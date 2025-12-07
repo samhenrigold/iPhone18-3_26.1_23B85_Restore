@@ -121,27 +121,26 @@ void __81__MDMWallpaperUtilities_setWallpaper_forLockScreen_homeScreen_completio
   }
 }
 
-uint64_t __77__MDMWallpaperUtilities__createNewConfigurationIfNeeedWithCompletionHandler___block_invoke(void *a1, int a2)
+uint64_t __77__MDMWallpaperUtilities__createNewConfigurationIfNeeedWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
     v3 = *DMCLogObjects();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_2561F5000, v3, OS_LOG_TYPE_DEFAULT, "Found existing wallpaper configuration.", v8, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_2561F5000, v3, OS_LOG_TYPE_DEFAULT, "Found existing wallpaper configuration.", v7, 2u);
     }
 
-    v4 = a1[4];
-    return (*(a1[6] + 16))();
+    return (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v6 = a1[5];
-    v7 = a1[6];
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 48);
 
-    return [v6 _createNewConfigurationWithCompletionHandler:v7];
+    return [v5 _createNewConfigurationWithCompletionHandler:v6];
   }
 }
 
@@ -172,7 +171,7 @@ uint64_t __77__MDMWallpaperUtilities__createNewConfigurationIfNeeedWithCompletio
 
 void __70__MDMWallpaperUtilities__createNewConfigurationWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -183,9 +182,9 @@ void __70__MDMWallpaperUtilities__createNewConfigurationWithCompletionHandler___
       v8 = *DMCLogObjects();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v15 = 138543362;
-        v16 = v6;
-        _os_log_impl(&dword_2561F5000, v8, OS_LOG_TYPE_ERROR, "Failed to create poster configuration with error: %{public}@", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v6;
+        _os_log_impl(&dword_2561F5000, v8, OS_LOG_TYPE_ERROR, "Failed to create poster configuration with error: %{public}@", &v14, 0xCu);
       }
 
       v9 = *(a1 + 32);
@@ -204,9 +203,9 @@ void __70__MDMWallpaperUtilities__createNewConfigurationWithCompletionHandler___
       v12 = *DMCLogObjects();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138543362;
-        v16 = v10;
-        _os_log_impl(&dword_2561F5000, v12, OS_LOG_TYPE_DEFAULT, "Poster configuration created with UUID: %{public}@", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v10;
+        _os_log_impl(&dword_2561F5000, v12, OS_LOG_TYPE_DEFAULT, "Poster configuration created with UUID: %{public}@", &v14, 0xCu);
       }
 
       v13 = *(a1 + 32);
@@ -216,8 +215,6 @@ void __70__MDMWallpaperUtilities__createNewConfigurationWithCompletionHandler___
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyWallpaperConfigExistsWithUUID:(id)d completionHandler:(id)handler
@@ -243,7 +240,7 @@ void __70__MDMWallpaperUtilities__createNewConfigurationWithCompletionHandler___
 
 void __80__MDMWallpaperUtilities__verifyWallpaperConfigExistsWithUUID_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -254,9 +251,9 @@ void __80__MDMWallpaperUtilities__verifyWallpaperConfigExistsWithUUID_completion
       v8 = *DMCLogObjects();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v12 = 138543362;
-        v13 = v6;
-        _os_log_impl(&dword_2561F5000, v8, OS_LOG_TYPE_ERROR, "Failed to fetch eligible configuration with error: %{public}@", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = v6;
+        _os_log_impl(&dword_2561F5000, v8, OS_LOG_TYPE_ERROR, "Failed to fetch eligible configuration with error: %{public}@", &v11, 0xCu);
       }
     }
 
@@ -264,15 +261,13 @@ void __80__MDMWallpaperUtilities__verifyWallpaperConfigExistsWithUUID_completion
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_2561F5000, v9, OS_LOG_TYPE_DEFAULT, "Wallpaper configuration with UUID (%{public}@) exists.", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_2561F5000, v9, OS_LOG_TYPE_DEFAULT, "Wallpaper configuration with UUID (%{public}@) exists.", &v11, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))(*(a1 + 40), [v5 containsObject:*(a1 + 32)]);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setWallpaper:(id)wallpaper forConfigurationWithUUID:(id)d setLockScreen:(BOOL)screen setHomeScreen:(BOOL)homeScreen completionHandler:(id)handler
@@ -342,7 +337,7 @@ void __80__MDMWallpaperUtilities__verifyWallpaperConfigExistsWithUUID_completion
 
 void __100__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_retryCount_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!v3)
   {
@@ -354,7 +349,7 @@ void __100__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_
   {
     v5 = *(a1 + 64);
     *buf = 134217984;
-    v20 = v5;
+    v19 = v5;
     _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_ERROR, "Failed to update wallpaper. Retry count %ld", buf, 0xCu);
   }
 
@@ -366,16 +361,16 @@ void __100__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_
     block[1] = 3221225472;
     block[2] = __100__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_retryCount_completionHandler___block_invoke_8;
     block[3] = &unk_27982D1D0;
-    v14 = *(a1 + 32);
-    v8 = *(&v14 + 1);
+    v13 = *(a1 + 32);
+    v8 = *(&v13 + 1);
     v9 = *(a1 + 48);
     v10 = *(a1 + 56);
-    v18 = *(a1 + 64);
+    v17 = *(a1 + 64);
     v11 = v10;
     *&v12 = v9;
     *(&v12 + 1) = v11;
-    v16 = v14;
-    v17 = v12;
+    v15 = v13;
+    v16 = v12;
     dispatch_after(v6, v7, block);
   }
 
@@ -384,17 +379,15 @@ void __100__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_
 LABEL_6:
     (*(*(a1 + 56) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __100__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_retryCount_completionHandler___block_invoke_8(uint64_t a1)
+uint64_t __100__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_retryCount_completionHandler___block_invoke_8(uint64_t a1, uint64_t a2)
 {
-  v2 = *DMCLogObjects();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = *DMCLogObjects();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2561F5000, v2, OS_LOG_TYPE_DEFAULT, "Retry setting wallpaper...", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2561F5000, v3, OS_LOG_TYPE_DEFAULT, "Retry setting wallpaper...", v5, 2u);
   }
 
   return [*(a1 + 32) _updateWallpaperConfiguraitonWithUUID:*(a1 + 40) updates:*(a1 + 48) retryCount:*(a1 + 64) - 1 completionHandler:*(a1 + 56)];
@@ -429,7 +422,7 @@ uint64_t __100__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_upda
 
 void __89__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -441,7 +434,7 @@ void __89__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_c
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v16 = v7;
+        v15 = v7;
         _os_log_impl(&dword_2561F5000, v9, OS_LOG_TYPE_ERROR, "Failed to update poster configuration UUID with error: %{public}@", buf, 0xCu);
       }
 
@@ -461,21 +454,19 @@ void __89__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_c
       }
 
       v11 = [WeakRetained posterService];
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __89__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_completionHandler___block_invoke_13;
-      v13[3] = &unk_27982BD00;
-      v14 = *(a1 + 32);
-      [v11 updateSelectedForRoleIdentifier:@"PRPosterRoleLockScreen" newlySelectedConfiguration:v6 completion:v13];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __89__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_completionHandler___block_invoke_13;
+      v12[3] = &unk_27982BD00;
+      v13 = *(a1 + 32);
+      [v11 updateSelectedForRoleIdentifier:@"PRPosterRoleLockScreen" newlySelectedConfiguration:v6 completion:v12];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __89__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_completionHandler___block_invoke_13(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *DMCLogObjects();
   if (v3)
@@ -485,8 +476,8 @@ void __89__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_c
       goto LABEL_7;
     }
 
-    v11 = 138543362;
-    v12 = v3;
+    v10 = 138543362;
+    v11 = v3;
     v5 = "Failed to selected configuration with error: %{public}@";
     v6 = v4;
     v7 = OS_LOG_TYPE_ERROR;
@@ -500,22 +491,20 @@ void __89__MDMWallpaperUtilities__updateWallpaperConfiguraitonWithUUID_updates_c
       goto LABEL_7;
     }
 
-    LOWORD(v11) = 0;
+    LOWORD(v10) = 0;
     v5 = "Poster configuration selected.";
     v6 = v4;
     v7 = OS_LOG_TYPE_DEFAULT;
     v8 = 2;
   }
 
-  _os_log_impl(&dword_2561F5000, v6, v7, v5, &v11, v8);
+  _os_log_impl(&dword_2561F5000, v6, v7, v5, &v10, v8);
 LABEL_7:
   v9 = *(a1 + 32);
   if (v9)
   {
     (*(v9 + 16))(v9, v3);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (PRSService)posterService
@@ -550,7 +539,7 @@ LABEL_7:
 
 - (id)_storeImageToTempDirectory:(id)directory
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   v4 = NSTemporaryDirectory();
   v5 = [v4 stringByAppendingPathComponent:@"MDMWallpaper.png"];
@@ -558,9 +547,9 @@ LABEL_7:
   v6 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:v5];
   v7 = UIImagePNGRepresentation(directoryCopy);
 
-  v17 = 0;
-  v8 = [v7 writeToURL:v6 options:1 error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [v7 writeToURL:v6 options:1 error:&v16];
+  v9 = v16;
 
   v10 = *DMCLogObjects();
   if (v8)
@@ -571,7 +560,7 @@ LABEL_7:
     }
 
     *buf = 138543362;
-    v19 = v6;
+    v18 = v6;
     v11 = "Image stored to url: %{public}@";
     v12 = v10;
     v13 = OS_LOG_TYPE_DEFAULT;
@@ -586,9 +575,9 @@ LABEL_7:
     }
 
     *buf = 138543618;
-    v19 = v6;
-    v20 = 2114;
-    v21 = v9;
+    v18 = v6;
+    v19 = 2114;
+    v20 = v9;
     v11 = "Failed to write image to url: %{public}@, error: %{public}@";
     v12 = v10;
     v13 = OS_LOG_TYPE_ERROR;
@@ -598,19 +587,17 @@ LABEL_7:
   _os_log_impl(&dword_2561F5000, v12, v13, v11, buf, v14);
 LABEL_7:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)_removeImageFromURL:(id)l
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   lCopy = l;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v8 = 0;
-  [defaultManager removeItemAtURL:lCopy error:&v8];
-  v5 = v8;
+  v7 = 0;
+  [defaultManager removeItemAtURL:lCopy error:&v7];
+  v5 = v7;
 
   if (v5)
   {
@@ -618,12 +605,10 @@ LABEL_7:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v10 = lCopy;
+      v9 = lCopy;
       _os_log_impl(&dword_2561F5000, v6, OS_LOG_TYPE_ERROR, "Failed to remove image from URL with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

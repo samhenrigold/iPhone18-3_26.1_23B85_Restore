@@ -20,17 +20,16 @@
 
 uint64_t __51__HMHomeActivityStateScheduleUtilities_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_54287;
-  logCategory__hmf_once_v4_54287 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_54287;
+  logCategory__hmf_once_v4_54287 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)areValidScheduleEntries:(id)entries
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   entriesCopy = entries;
   if ([entriesCopy count] >= 2)
   {
@@ -69,14 +68,14 @@ LABEL_19:
       }
 
       v23 = HMFGetLogIdentifier();
-      v31 = 138544130;
-      v32 = v23;
-      v33 = 2112;
-      v34 = start;
-      v35 = 2112;
-      v36 = start3;
-      v37 = 2112;
-      v38 = start2;
+      v30 = 138544130;
+      v31 = v23;
+      v32 = 2112;
+      v33 = start;
+      v34 = 2112;
+      v35 = start3;
+      v36 = 2112;
+      v37 = start2;
       v24 = "%{public}@Invalid schedule as the last end date component is invalid. lastStart:%@ lastEnd:%@ firstStart:%@";
       v25 = v22;
       v26 = 42;
@@ -107,12 +106,12 @@ LABEL_19:
           }
 
           v23 = HMFGetLogIdentifier();
-          v31 = 138543874;
-          v32 = v23;
-          v33 = 2112;
-          v34 = start3;
-          v35 = 2112;
-          v36 = start;
+          v30 = 138543874;
+          v31 = v23;
+          v32 = 2112;
+          v33 = start3;
+          v34 = 2112;
+          v35 = start;
           v24 = "%{public}@Invalid schedule due to start:%@ not coming before end:%@";
           goto LABEL_17;
         }
@@ -137,19 +136,19 @@ LABEL_19:
       }
 
       v23 = HMFGetLogIdentifier();
-      v31 = 138543874;
-      v32 = v23;
-      v33 = 2112;
-      v34 = start;
-      v35 = 2112;
-      v36 = start2;
+      v30 = 138543874;
+      v31 = v23;
+      v32 = 2112;
+      v33 = start;
+      v34 = 2112;
+      v35 = start2;
       v24 = "%{public}@Invalid schedule due to end:%@ overlapping with following start:%@";
 LABEL_17:
       v25 = v22;
       v26 = 32;
     }
 
-    _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_INFO, v24, &v31, v26);
+    _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_INFO, v24, &v30, v26);
 
     goto LABEL_19;
   }
@@ -157,7 +156,6 @@ LABEL_17:
   v5 = 1;
 LABEL_21:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

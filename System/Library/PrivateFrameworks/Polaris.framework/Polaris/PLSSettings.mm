@@ -7,7 +7,6 @@
 - (NSDictionary)streamDefaults;
 - (NSSet)applicationSupportANETags;
 - (PLSSettings)init;
-- (uint64_t)_checkOOLPortArrayEnforced;
 - (unint64_t)MSGMFrequencyAtBootHz;
 - (unint64_t)systemPulseRate;
 - (unsigned)_getcamDispConfig;
@@ -38,9 +37,9 @@ uint64_t __30__PLSSettings_currentSettings__block_invoke()
 
 - (PLSSettings)init
 {
-  v8.receiver = self;
-  v8.super_class = PLSSettings;
-  v2 = [(PLSSettings *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = PLSSettings;
+  v2 = [(PLSSettings *)&v9 init];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.polaris"];
@@ -50,14 +49,15 @@ uint64_t __30__PLSSettings_currentSettings__block_invoke()
     [(PLSSettings *)v2 _registerDefaultSettings];
     [(PLSSettings *)v2 _getBootArgs];
     [(PLSSettings *)v2 _checkOOLPortArrayEnforced];
-    v2->_camDispConfig = [(PLSSettings *)v2 _getcamDispConfig];
+    _getcamDispConfig = [(PLSSettings *)v2 _getcamDispConfig];
+    v2->_camDispConfig = _getcamDispConfig;
     if (!v2->_bootArgs)
     {
-      v5 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = __PLSLogSharedInstance(_getcamDispConfig);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "Failed to get boot-args", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "Failed to get boot-args", v8, 2u);
       }
     }
   }
@@ -90,62 +90,61 @@ void __27__PLSSettings__getBootArgs__block_invoke(uint64_t a1)
   sysctlbyname("kern.bootargs", 0, &v25, 0, 0);
   v19[1] = v19;
   v5 = v19 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (sysctlbyname("kern.bootargs", v5, &v25, 0, 0))
+  v6 = sysctlbyname("kern.bootargs", v5, &v25, 0, 0);
+  if (v6)
   {
-    v6 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = __PLSLogSharedInstance(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_DEFAULT, "Unable to query sysctl 'kern.bootargs'", buf, 2u);
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "Unable to query sysctl 'kern.bootargs'", buf, 2u);
     }
   }
 
-  v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v5];
+  v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:v5];
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v19[0] = v7;
-  v8 = [v7 componentsSeparatedByString:@" "];
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
-  if (v9)
+  v19[0] = v8;
+  v9 = [v8 componentsSeparatedByString:@" "];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v21;
+    v11 = v10;
+    v12 = *v21;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v11)
+        if (*v21 != v12)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
-        v14 = [v13 rangeOfString:@"="];
-        if (v14 == 0x7FFFFFFFFFFFFFFFLL)
+        v14 = *(*(&v20 + 1) + 8 * i);
+        v15 = [v14 rangeOfString:@"="];
+        if (v15 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v15 = v13;
-          v16 = v15;
+          v16 = v14;
+          v17 = v16;
         }
 
         else
         {
-          v17 = v14;
-          v16 = [v13 substringToIndex:v14];
-          v15 = [v13 substringFromIndex:v17 + 1];
+          v18 = v15;
+          v17 = [v14 substringToIndex:v15];
+          v16 = [v14 substringFromIndex:v18 + 1];
         }
 
-        [*(*(a1 + 32) + 16) setObject:v15 forKey:v16];
+        [*(*(a1 + 32) + 16) setObject:v16 forKey:v17];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)infoPlistDict
@@ -158,33 +157,33 @@ void __27__PLSSettings__getBootArgs__block_invoke(uint64_t a1)
 
 - (NSDictionary)streamDefaults
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [(NSUserDefaults *)self->_userDefaults dictionaryForKey:@"streamDefaults"];
   if (v2)
   {
-    v17 = v2;
-    v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v16 = v2;
+    v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v20;
+      v6 = *v19;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v20 != v6)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v19 + 1) + 8 * i);
-          v9 = [v3 objectForKeyedSubscript:{v8, v17}];
+          v8 = *(*(&v18 + 1) + 8 * i);
+          v9 = [v3 objectForKeyedSubscript:{v8, v16}];
           v10 = objc_alloc_init(PSStreamDefaults);
           v11 = [v9 objectForKeyedSubscript:@"staleExpiryFramePeriod"];
 
@@ -202,31 +201,29 @@ void __27__PLSSettings__getBootArgs__block_invoke(uint64_t a1)
             -[PSStreamDefaults setDropFrames:](v10, "setDropFrames:", [v14 BOOLValue]);
           }
 
-          [v18 setObject:v10 forKeyedSubscript:v8];
+          [v17 setObject:v10 forKeyedSubscript:v8];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v5);
     }
 
-    v2 = v17;
+    v2 = v16;
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v17;
 }
 
 - (BOOL)enableEntitlementChecks
 {
-  if (!ps_util_is_internal_build())
+  if (!ps_util_is_internal_build(self, a2))
   {
     return 1;
   }
@@ -238,7 +235,7 @@ void __27__PLSSettings__getBootArgs__block_invoke(uint64_t a1)
 
 - (BOOL)enablePerResourceEntitlementChecks
 {
-  if (!ps_util_is_internal_build())
+  if (!ps_util_is_internal_build(self, a2))
   {
     return 1;
   }
@@ -259,17 +256,41 @@ void __27__PLSSettings__getBootArgs__block_invoke(uint64_t a1)
 
 - (void)_checkOOLPortArrayEnforced
 {
-  v2 = [(NSMutableDictionary *)self->_bootArgs objectForKey:@"ool_port_array_enforced"];
-  v10 = 1;
-  if (v2 && ((v3 = v2, [MEMORY[0x277CCAC80] scannerWithString:v2], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "scanInteger:", &v10), v5 = objc_msgSend(v4, "isAtEnd"), v4, v5) ? (v6 = v10 == 0) : (v6 = 0), v6))
+  v10 = *MEMORY[0x277D85DE8];
+  *self = 0;
+  v1 = asprintf(self, "Missing required boot-arg. Please add ool_port_array_enforced=0 to your boot-args to continue using Polaris on iOS. Please reach out to Polaris team if you have questions.");
+  v2 = __PLSLogSharedInstance(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
+    v6 = 136315394;
+    v7 = "[PLSSettings _checkOOLPortArrayEnforced]";
+    v8 = 1024;
+    v9 = 407;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d Missing required boot-arg. Please add ool_port_array_enforced=0 to your boot-args to continue using Polaris on iOS. Please reach out to Polaris team if you have questions.", &v6, 0x12u);
+  }
+
+  v3 = OSLogFlushBuffers();
+  if (v3)
+  {
+    v4 = v3;
+    v5 = __PLSLogSharedInstance(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      v6 = 136315394;
+      v7 = "[PLSSettings _checkOOLPortArrayEnforced]";
+      v8 = 1024;
+      v9 = v4;
+      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v6, 0x12u);
+    }
   }
 
   else
   {
-    _checkOOLPortArrayEnforced = [(PLSSettings *)&v9 _checkOOLPortArrayEnforced];
-    [(PLSSettings *)_checkOOLPortArrayEnforced _getcamDispConfig];
+    usleep(0x1E8480u);
   }
+
+  abort_with_reason();
+  +[PLSDevice getAriadneID:];
 }
 
 - (unsigned)_getcamDispConfig
@@ -358,46 +379,6 @@ void __27__PLSSettings__getBootArgs__block_invoke(uint64_t a1)
   {
     return 90;
   }
-}
-
-- (uint64_t)_checkOOLPortArrayEnforced
-{
-  v13 = *MEMORY[0x277D85DE8];
-  *self = 0;
-  asprintf(self, "Missing required boot-arg. Please add ool_port_array_enforced=0 to your boot-args to continue using Polaris on iOS. Please reach out to Polaris team if you have questions.");
-  v2 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
-  {
-    v9 = 136315394;
-    v10 = "[PLSSettings _checkOOLPortArrayEnforced]";
-    v11 = 1024;
-    v12 = 407;
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d Missing required boot-arg. Please add ool_port_array_enforced=0 to your boot-args to continue using Polaris on iOS. Please reach out to Polaris team if you have questions.", &v9, 0x12u);
-  }
-
-  v3 = OSLogFlushBuffers();
-  if (v3)
-  {
-    v4 = v3;
-    v5 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v9 = 136315394;
-      v10 = "[PLSSettings _checkOOLPortArrayEnforced]";
-      v11 = 1024;
-      v12 = v4;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v9, 0x12u);
-    }
-  }
-
-  else
-  {
-    usleep(0x1E8480u);
-  }
-
-  v6 = *self;
-  v7 = abort_with_reason();
-  return [PLSDevice getAriadneID:v7];
 }
 
 @end

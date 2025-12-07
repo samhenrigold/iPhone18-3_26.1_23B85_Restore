@@ -230,7 +230,7 @@ LABEL_14:
 
 void __64__PLBatteryBreakdownNotificationInfo_representativeDisplayPower__block_invoke()
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D3F430];
   v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT AVG(%@) AS %@ FROM %@ WHERE %@=%@ AND %@>0 LIMIT %d", *MEMORY[0x277D3F430], *MEMORY[0x277D3F430], @"%@", *MEMORY[0x277D3F438], @"%d", *MEMORY[0x277D3F430], 100];
   v2 = *MEMORY[0x277D3F428];
@@ -240,12 +240,12 @@ void __64__PLBatteryBreakdownNotificationInfo_representativeDisplayPower__block_
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v26 = v4;
+    v25 = v4;
     _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "displayPower: running query %@", buf, 0xCu);
   }
 
   v6 = [MEMORY[0x277D3F2A0] sharedCore];
-  v7 = [v6 storage];
+  v7 = objc_msgSend_storage(v6);
   v8 = [v7 entriesForKey:v3 withQuery:v4];
 
   v9 = [v8 firstObject];
@@ -270,12 +270,12 @@ void __64__PLBatteryBreakdownNotificationInfo_representativeDisplayPower__block_
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v26 = v15;
+    v25 = v15;
     _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "dynamicDisplayPower: running query %@", buf, 0xCu);
   }
 
   v17 = [MEMORY[0x277D3F2A0] sharedCore];
-  v18 = [v17 storage];
+  v18 = objc_msgSend_storage(v17);
   v19 = [v18 entriesForKey:v14 withQuery:v15];
 
   v20 = [v19 firstObject];
@@ -293,8 +293,6 @@ void __64__PLBatteryBreakdownNotificationInfo_representativeDisplayPower__block_
   }
 
   *&qword_2811F80C8 = v13 + v23;
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

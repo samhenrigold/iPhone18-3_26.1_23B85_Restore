@@ -2,11 +2,11 @@
 + (id)sharedCaptureSourceBackingsProvider;
 + (uint64_t)initialize;
 + (void)initialize;
-- (uint64_t)_addBackingsForSourceInfoDictionaries:(uint64_t)result;
-- (uint64_t)_removeBackingsWithDeviceIDs:(uint64_t)result;
-- (uint64_t)updateBackingCachedPropertiesByDeviceID:(uint64_t)result;
+- (void)_addBackingsForSourceInfoDictionaries:(void *)result;
+- (void)_removeBackingsWithDeviceIDs:(void *)result;
 - (void)dealloc;
 - (void)initWithSourceInfoDictionaries:(void *)dictionaries commonSettings:;
+- (void)updateBackingCachedPropertiesByDeviceID:(void *)result;
 @end
 
 @implementation FigCaptureSourceBackingsProvider
@@ -36,7 +36,7 @@
 
   if (dword_1EB58DF60)
   {
-    LODWORD(v74) = 0;
+    LODWORD(v76) = 0;
     type[0] = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -54,40 +54,40 @@ LABEL_10:
     v5 = CFPreferencesCopyValue(@"CaptureSourceInfo", @"com.apple.cameracapture.volatile", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
     if (v5)
     {
-      v48 = v5;
+      v49 = v5;
       if (dword_1EB58DF60)
       {
-        LODWORD(v74) = 0;
+        LODWORD(v76) = 0;
         type[0] = OS_LOG_TYPE_DEFAULT;
-        v49 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v50 = v74;
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        v50 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v51 = v76;
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
-          v51 = v50;
+          v52 = v51;
         }
 
         else
         {
-          v51 = v50 & 0xFFFFFFFE;
+          v52 = v51 & 0xFFFFFFFE;
         }
 
-        if (v51)
+        if (v52)
         {
-          *v69 = 136315650;
-          *&v69[4] = "cs_getBackingsForBuiltInCameras";
-          v70 = 2112;
-          v71 = @"com.apple.cameracapture.volatile";
+          *v71 = 136315650;
+          *&v71[4] = "cs_getBackingsForBuiltInCameras";
           v72 = 2112;
-          v73 = @"CaptureSourceInfo";
-          LODWORD(v59) = 32;
-          v57 = v69;
+          v73 = @"com.apple.cameracapture.volatile";
+          v74 = 2112;
+          v75 = @"CaptureSourceInfo";
+          LODWORD(v61) = 32;
+          v59 = v71;
           _os_log_send_and_compose_impl();
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      gCaptureSourceBackings = csu_createBackingsFromCaptureSourceInfoDict(v48);
+      gCaptureSourceBackings = csu_createBackingsFromCaptureSourceInfoDict(v49, v6);
     }
 
     if (gCaptureSourceBackings)
@@ -98,87 +98,87 @@ LABEL_10:
 
   if (dword_1EB58DF60)
   {
-    LODWORD(v74) = 0;
+    LODWORD(v76) = 0;
     type[0] = OS_LOG_TYPE_DEFAULT;
-    v45 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v46 = v74;
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v46 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v47 = v76;
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = v46;
+      v48 = v47;
     }
 
     else
     {
-      v47 = v46 & 0xFFFFFFFE;
+      v48 = v47 & 0xFFFFFFFE;
     }
 
-    if (v47)
+    if (v48)
     {
-      *v69 = 136315650;
-      *&v69[4] = "cs_getBackingsForBuiltInCameras";
-      v70 = 2112;
-      v71 = @"com.apple.cameracapture.volatile";
+      *v71 = 136315650;
+      *&v71[4] = "cs_getBackingsForBuiltInCameras";
       v72 = 2112;
-      v73 = @"CaptureSourceInfo";
-      LODWORD(v59) = 32;
-      v57 = v69;
+      v73 = @"com.apple.cameracapture.volatile";
+      v74 = 2112;
+      v75 = @"CaptureSourceInfo";
+      LODWORD(v61) = 32;
+      v59 = v71;
       _os_log_send_and_compose_impl();
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v79 = 0x1F21702D0;
-  v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v79 count:{1, v57, v59}];
-  v80[0] = 0;
-  *v69 = 0;
-  if (csu_createSourceInfoDictionariesFromAVCaptureSessionPlistForCaptureDeviceIDs(v52, v80, v69))
+  v81 = 0x1F21702D0;
+  v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v81 count:{1, v59, v61}];
+  v82[0] = 0;
+  *v71 = 0;
+  if (csu_createSourceInfoDictionariesFromAVCaptureSessionPlistForCaptureDeviceIDs(v53, v82, v71))
   {
     +[FigCaptureSourceBackingsProvider sharedCaptureSourceBackingsProvider];
-    v54 = 0;
+    v55 = 0;
   }
 
   else
   {
-    v53 = [FigCaptureSourceBackingsProvider alloc];
-    v54 = [(FigCaptureSourceBackingsProvider *)v53 initWithSourceInfoDictionaries:*v69 commonSettings:?];
+    v54 = [FigCaptureSourceBackingsProvider alloc];
+    v55 = [(FigCaptureSourceBackingsProvider *)v54 initWithSourceInfoDictionaries:*v71 commonSettings:?];
   }
 
-  gCaptureSourceBackings = v54;
-  v55 = CFPreferencesCopyValue(@"CaptureSourceInfo", @"com.apple.cameracapture.volatile", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
-  if (v55)
+  gCaptureSourceBackings = v55;
+  v56 = CFPreferencesCopyValue(@"CaptureSourceInfo", @"com.apple.cameracapture.volatile", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
+  if (v56)
   {
-    v56 = v55;
+    v57 = v56;
 
-    gCaptureSourceBackings = csu_createBackingsFromCaptureSourceInfoDict(v56);
+    gCaptureSourceBackings = csu_createBackingsFromCaptureSourceInfoDict(v57, v58);
   }
 
 LABEL_12:
   if (dword_1EB58DF60)
   {
-    LODWORD(v74) = 0;
+    LODWORD(v76) = 0;
     type[0] = OS_LOG_TYPE_DEFAULT;
-    v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v7 = v74;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v8 = v76;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = v7;
+      v9 = v8;
     }
 
     else
     {
-      v8 = v7 & 0xFFFFFFFE;
+      v9 = v8 & 0xFFFFFFFE;
     }
 
-    if (v8)
+    if (v9)
     {
-      v9 = [objc_msgSend(gCaptureSourceBackings "sourceBackings")];
-      *v69 = 136315394;
-      *&v69[4] = "cs_getBackingsForBuiltInCameras";
-      v70 = 1024;
-      LODWORD(v71) = v9;
-      LODWORD(v59) = 18;
-      v57 = v69;
+      v10 = [objc_msgSend(gCaptureSourceBackings "sourceBackings")];
+      *v71 = 136315394;
+      *&v71[4] = "cs_getBackingsForBuiltInCameras";
+      v72 = 1024;
+      LODWORD(v73) = v10;
+      LODWORD(v61) = 18;
+      v59 = v71;
       _os_log_send_and_compose_impl();
     }
 
@@ -186,130 +186,130 @@ LABEL_12:
   }
 
 LABEL_19:
-  v78 = 0;
+  v80 = 0;
   array = [MEMORY[0x1E695DF70] array];
-  v10 = [+[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor](BWFigCaptureDeviceVendor "sharedCaptureDeviceVendor")];
-  v11 = [MEMORY[0x1E695DF70] arrayWithArray:v10];
-  [v11 removeObject:0x1F21702D0];
+  v11 = [+[BWFigCaptureDeviceVendor sharedCaptureDeviceVendor](BWFigCaptureDeviceVendor "sharedCaptureDeviceVendor")];
+  v12 = [MEMORY[0x1E695DF70] arrayWithArray:v11];
+  [v12 removeObject:0x1F21702D0];
+  v78 = 0u;
+  v79 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v74 = 0u;
-  v75 = 0u;
   sourceBackings = [gCaptureSourceBackings sourceBackings];
-  v13 = [sourceBackings countByEnumeratingWithState:&v74 objects:v80 count:16];
-  if (v13)
+  v14 = [sourceBackings countByEnumeratingWithState:&v76 objects:v82 count:16];
+  if (v14)
   {
-    v14 = v13;
-    v15 = *v75;
+    v15 = v14;
+    v16 = *v77;
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v75 != v15)
+        if (*v77 != v16)
         {
           objc_enumerationMutation(sourceBackings);
         }
 
-        v17 = *(*(&v74 + 1) + 8 * i);
-        if ([v17 mediaType] == 1986618469)
+        v18 = *(*(&v76 + 1) + 8 * i);
+        if ([v18 mediaType] == 1986618469)
         {
-          v18 = [objc_msgSend(v17 "attributes")];
-          [v11 removeObject:v18];
-          if (([v10 containsObject:v18] & 1) == 0)
+          v19 = [objc_msgSend(v18 "attributes")];
+          [v12 removeObject:v19];
+          if (([v11 containsObject:v19] & 1) == 0)
           {
             if (dword_1EB58DF60)
             {
-              v19 = sourceBackings;
-              v20 = v10;
+              v20 = sourceBackings;
               v21 = v11;
-              LODWORD(v68) = 0;
-              v67[0] = OS_LOG_TYPE_DEFAULT;
-              v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v23 = v68;
-              if (os_log_type_enabled(v22, v67[0]))
+              v22 = v12;
+              LODWORD(v70) = 0;
+              v69[0] = OS_LOG_TYPE_DEFAULT;
+              v23 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v24 = v70;
+              if (os_log_type_enabled(v23, v69[0]))
               {
-                v24 = v23;
+                v25 = v24;
               }
 
               else
               {
-                v24 = v23 & 0xFFFFFFFE;
+                v25 = v24 & 0xFFFFFFFE;
               }
 
-              if (v24)
+              if (v25)
               {
                 *type = 136315394;
-                v63 = "cs_getBackingsForBuiltInCameras";
-                v64 = 2112;
-                v65[0] = v18;
-                LODWORD(v60) = 22;
-                v58 = type;
+                v65 = "cs_getBackingsForBuiltInCameras";
+                v66 = 2112;
+                v67[0] = v19;
+                LODWORD(v62) = 22;
+                v60 = type;
                 _os_log_send_and_compose_impl();
               }
 
               fig_log_call_emit_and_clean_up_after_send_and_compose();
+              v12 = v22;
               v11 = v21;
-              v10 = v20;
-              sourceBackings = v19;
+              sourceBackings = v20;
             }
 
-            [array addObject:{v18, v58, v60}];
+            [array addObject:{v19, v60, v62}];
           }
         }
       }
 
-      v14 = [sourceBackings countByEnumeratingWithState:&v74 objects:v80 count:16];
+      v15 = [sourceBackings countByEnumeratingWithState:&v76 objects:v82 count:16];
     }
 
-    while (v14);
+    while (v15);
   }
 
-  v68 = 0;
-  v25 = csu_createSourceInfoDictionariesFromAVCaptureSessionPlistForCaptureDeviceIDs(v11, &v78, &v68);
-  if (v25)
+  v70 = 0;
+  v26 = csu_createSourceInfoDictionariesFromAVCaptureSessionPlistForCaptureDeviceIDs(v12, &v80, &v70);
+  if (v26)
   {
-    v26 = v25;
-    *v67 = 0;
-    v66 = OS_LOG_TYPE_DEFAULT;
-    v27 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v28 = *v67;
-    if (os_log_type_enabled(v27, v66))
+    v27 = v26;
+    *v69 = 0;
+    v68 = OS_LOG_TYPE_DEFAULT;
+    v28 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v29 = *v69;
+    if (os_log_type_enabled(v28, v68))
     {
-      v29 = v28;
+      v30 = v29;
     }
 
     else
     {
-      v29 = v28 & 0xFFFFFFFE;
+      v30 = v29 & 0xFFFFFFFE;
     }
 
-    if (v29)
+    if (v30)
     {
       *type = 136315650;
-      v63 = "cs_getBackingsForBuiltInCameras";
-      v64 = 1024;
-      LODWORD(v65[0]) = v26;
-      WORD2(v65[0]) = 2112;
-      *(v65 + 6) = v78;
-      LODWORD(v60) = 28;
-      v58 = type;
+      v65 = "cs_getBackingsForBuiltInCameras";
+      v66 = 1024;
+      LODWORD(v67[0]) = v27;
+      WORD2(v67[0]) = 2112;
+      *(v67 + 6) = v80;
+      LODWORD(v62) = 28;
+      v60 = type;
       _os_log_send_and_compose_impl();
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  if ([v78 count])
+  if ([v80 count])
   {
     if (gCaptureSourceBackings)
     {
-      [(FigCaptureSourceBackingsProvider *)gCaptureSourceBackings _addBackingsForSourceInfoDictionaries:v78];
+      [(FigCaptureSourceBackingsProvider *)gCaptureSourceBackings _addBackingsForSourceInfoDictionaries:v80];
     }
 
     else
     {
-      v44 = [FigCaptureSourceBackingsProvider alloc];
-      gCaptureSourceBackings = [(FigCaptureSourceBackingsProvider *)v44 initWithSourceInfoDictionaries:v78 commonSettings:v68];
+      v45 = [FigCaptureSourceBackingsProvider alloc];
+      gCaptureSourceBackings = [(FigCaptureSourceBackingsProvider *)v45 initWithSourceInfoDictionaries:v80 commonSettings:v70];
     }
   }
 
@@ -320,81 +320,81 @@ LABEL_19:
 
   if (dword_1EB58DF60)
   {
-    *v67 = 0;
-    v66 = OS_LOG_TYPE_DEFAULT;
-    v30 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v31 = *v67;
-    if (os_log_type_enabled(v30, v66))
+    *v69 = 0;
+    v68 = OS_LOG_TYPE_DEFAULT;
+    v31 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v32 = *v69;
+    if (os_log_type_enabled(v31, v68))
     {
-      v32 = v31;
+      v33 = v32;
     }
 
     else
     {
-      v32 = v31 & 0xFFFFFFFE;
+      v33 = v32 & 0xFFFFFFFE;
     }
 
-    if (v32)
+    if (v33)
     {
-      v33 = [v78 count];
+      v34 = [v80 count];
       *type = 136315394;
-      v63 = "cs_getBackingsForBuiltInCameras";
-      v64 = 1024;
-      LODWORD(v65[0]) = v33;
+      v65 = "cs_getBackingsForBuiltInCameras";
+      v66 = 1024;
+      LODWORD(v67[0]) = v34;
       _os_log_send_and_compose_impl();
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     if (dword_1EB58DF60)
     {
-      *v67 = 0;
-      v66 = OS_LOG_TYPE_DEFAULT;
-      v34 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v35 = *v67;
-      if (os_log_type_enabled(v34, v66))
+      *v69 = 0;
+      v68 = OS_LOG_TYPE_DEFAULT;
+      v35 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v36 = *v69;
+      if (os_log_type_enabled(v35, v68))
       {
-        v36 = v35;
+        v37 = v36;
       }
 
       else
       {
-        v36 = v35 & 0xFFFFFFFE;
+        v37 = v36 & 0xFFFFFFFE;
       }
 
-      if (v36)
+      if (v37)
       {
-        v37 = [array count];
+        v38 = [array count];
         *type = 136315394;
-        v63 = "cs_getBackingsForBuiltInCameras";
-        v64 = 1024;
-        LODWORD(v65[0]) = v37;
+        v65 = "cs_getBackingsForBuiltInCameras";
+        v66 = 1024;
+        LODWORD(v67[0]) = v38;
         _os_log_send_and_compose_impl();
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
       if (dword_1EB58DF60)
       {
-        *v67 = 0;
-        v66 = OS_LOG_TYPE_DEFAULT;
-        v38 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v39 = *v67;
-        if (os_log_type_enabled(v38, v66))
+        *v69 = 0;
+        v68 = OS_LOG_TYPE_DEFAULT;
+        v39 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v40 = *v69;
+        if (os_log_type_enabled(v39, v68))
         {
-          v40 = v39;
+          v41 = v40;
         }
 
         else
         {
-          v40 = v39 & 0xFFFFFFFE;
+          v41 = v40 & 0xFFFFFFFE;
         }
 
-        if (v40)
+        if (v41)
         {
-          v41 = [objc_msgSend(gCaptureSourceBackings "sourceBackings")];
+          v42 = [objc_msgSend(gCaptureSourceBackings "sourceBackings")];
           *type = 136315394;
-          v63 = "cs_getBackingsForBuiltInCameras";
-          v64 = 1024;
-          LODWORD(v65[0]) = v41;
+          v65 = "cs_getBackingsForBuiltInCameras";
+          v66 = 1024;
+          LODWORD(v67[0]) = v42;
           _os_log_send_and_compose_impl();
         }
 
@@ -405,9 +405,9 @@ LABEL_19:
 
   v4 = gCaptureSourceBackings;
 LABEL_66:
-  v42 = v4;
+  v43 = v4;
   FigSimpleMutexUnlock();
-  return v42;
+  return v43;
 }
 
 + (void)initialize
@@ -450,7 +450,7 @@ LABEL_66:
 
 uint64_t __46__FigCaptureSourceBackingsProvider_initialize__block_invoke(uint64_t a1, void *a2)
 {
-  if (([objc_msgSend(a2 "name")] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_([a2 name]) & 1) == 0)
   {
     return __46__FigCaptureSourceBackingsProvider_initialize__block_invoke_cold_1();
   }
@@ -485,30 +485,30 @@ uint64_t __46__FigCaptureSourceBackingsProvider_initialize__block_invoke(uint64_
   return v5;
 }
 
-- (uint64_t)_addBackingsForSourceInfoDictionaries:(uint64_t)result
+- (void)_addBackingsForSourceInfoDictionaries:(void *)result
 {
   if (result)
   {
     v3 = result;
     v4 = FigSimpleMutexCheckIsLockedOnThisThread();
-    result = OUTLINED_FUNCTION_56_8(v4, v5, v6, v7, v8, v9);
-    v24 = result;
+    result = OUTLINED_FUNCTION_56_8(v4, v5, v6, v7, v8, v9, v10, v11, v26, v28, a2, v32);
+    v34 = result;
     if (result)
     {
-      v23 = MEMORY[0];
+      v33 = MEMORY[0];
       do
       {
-        v10 = 0;
+        v12 = 0;
         do
         {
-          if (MEMORY[0] != v23)
+          if (MEMORY[0] != v33)
           {
-            objc_enumerationMutation(a2);
+            objc_enumerationMutation(obja);
           }
 
-          v11 = *(8 * v10);
-          v12 = [objc_msgSend(v11 objectForKeyedSubscript:{@"MediaType", "intValue"}];
-          if (v12 == 1936684398)
+          v13 = *(8 * v12);
+          v14 = [objc_msgSend(v13 objectForKeyedSubscript:{@"MediaType", "intValue"}];
+          if (v14 == 1936684398)
           {
             if (*(v3 + 24))
             {
@@ -518,22 +518,22 @@ uint64_t __46__FigCaptureSourceBackingsProvider_initialize__block_invoke(uint64_
             *(v3 + 24) = 1;
           }
 
-          v25 = [FigCaptureSourceBacking alloc];
-          v18 = [objc_msgSend(v11 objectForKeyedSubscript:{@"MediaType", "intValue"}];
-          v19 = [v11 objectForKeyedSubscript:@"Attributes"];
-          v20 = [v11 objectForKeyedSubscript:@"CachedProperties"];
-          v21 = [v11 objectForKeyedSubscript:@"Formats"];
-          [v11 objectForKeyedSubscript:@"MissingFormats"];
-          v2 = -[FigCaptureSourceBacking initWithMediaType:attributes:cachedProperties:formats:missingFormatNames:synchronizedStreamUniqueIDs:unsynchronizedStreamUniqueIDs:](v25, "initWithMediaType:attributes:cachedProperties:formats:missingFormatNames:synchronizedStreamUniqueIDs:unsynchronizedStreamUniqueIDs:", v18, v19, v20, v21, v2, [OUTLINED_FUNCTION_53_0() objectForKeyedSubscript:@"SynchronizedStreamUniqueIDs"], objc_msgSend(v11, "objectForKeyedSubscript:", @"UnsynchronizedStreamUniqueIDs"));
-          [*(v3 + 8) addObject:v2];
+          v35 = [FigCaptureSourceBacking alloc];
+          v22 = [objc_msgSend(v13 objectForKeyedSubscript:{@"MediaType", "intValue"}];
+          v23 = [v13 objectForKeyedSubscript:@"Attributes"];
+          v24 = [v13 objectForKeyedSubscript:@"CachedProperties"];
+          v25 = [v13 objectForKeyedSubscript:@"Formats"];
+          [v13 objectForKeyedSubscript:@"MissingFormats"];
+          v2 = -[FigCaptureSourceBacking initWithMediaType:attributes:cachedProperties:formats:missingFormatNames:synchronizedStreamUniqueIDs:unsynchronizedStreamUniqueIDs:](v35, "initWithMediaType:attributes:cachedProperties:formats:missingFormatNames:synchronizedStreamUniqueIDs:unsynchronizedStreamUniqueIDs:", v22, v23, v24, v25, v2, [OUTLINED_FUNCTION_53_0() objectForKeyedSubscript:@"SynchronizedStreamUniqueIDs"], objc_msgSend(v13, "objectForKeyedSubscript:", @"UnsynchronizedStreamUniqueIDs"));
+          [*(v3 + 1) addObject:v2];
 
 LABEL_11:
-          ++v10;
+          v12 = v12 + 1;
         }
 
-        while (v24 != v10);
-        result = OUTLINED_FUNCTION_56_8(v12, v13, v14, v15, v16, v17);
-        v24 = result;
+        while (v34 != v12);
+        result = OUTLINED_FUNCTION_56_8(v14, v15, v16, v17, v18, v19, v20, v21, v27, v29, obja, v33);
+        v34 = result;
       }
 
       while (result);
@@ -543,15 +543,15 @@ LABEL_11:
   return result;
 }
 
-- (uint64_t)_removeBackingsWithDeviceIDs:(uint64_t)result
+- (void)_removeBackingsWithDeviceIDs:(void *)result
 {
   if (result)
   {
     v1 = result;
     FigSimpleMutexCheckIsLockedOnThisThread();
     array = [MEMORY[0x1E695DF70] array];
-    v3 = *(v1 + 8);
-    v11 = OUTLINED_FUNCTION_55_8(array, v4, v5, v6, v7, v8, v9, v10, v42, v45, v48, v51, v54, v57, v60, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v95, v97, v99, v101, v103, v105, v107);
+    v3 = *(v1 + 1);
+    v11 = OUTLINED_FUNCTION_55_8(array, v4, v5, v6, v7, v8, v9, v10, v42, v45, v48, v51, v54, v57, v60, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v92, v94, v96, v98, v100, v102, v104);
     if (v11)
     {
       v19 = v11;
@@ -583,14 +583,14 @@ LABEL_11:
         }
 
         while (v19 != v21);
-        v11 = OUTLINED_FUNCTION_55_8(v23, v24, v25, v26, v27, v28, v29, v30, v43, v46, v49, v52, v55, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v96, v98, v100, v102, v104, v106, v108);
+        v11 = OUTLINED_FUNCTION_55_8(v23, v24, v25, v26, v27, v28, v29, v30, v43, v46, v49, v52, v55, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v93, v95, v97, v99, v101, v103, v105);
         v19 = v11;
       }
 
       while (v11);
     }
 
-    result = OUTLINED_FUNCTION_1_3(v11, v12, v13, v14, v15, v16, v17, v18, v43, v46, v49, v52, v55, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, 0);
+    result = OUTLINED_FUNCTION_1_3(v11, v12, v13, v14, v15, v16, v17, v18, v43, v46, v49, v52, v55, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88);
     if (result)
     {
       v31 = result;
@@ -605,11 +605,12 @@ LABEL_11:
             objc_enumerationMutation(array);
           }
 
-          v34 = [*(v1 + 8) removeObject:*(8 * v32++)];
+          v34 = [*(v1 + 1) removeObject:*(8 * v32)];
+          v32 = v32 + 1;
         }
 
         while (v31 != v32);
-        result = OUTLINED_FUNCTION_1_3(v34, v35, v36, v37, v38, v39, v40, v41, v44, v47, v50, v53, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92);
+        result = OUTLINED_FUNCTION_1_3(v34, v35, v36, v37, v38, v39, v40, v41, v44, v47, v50, v53, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89);
         v31 = result;
       }
 
@@ -620,14 +621,14 @@ LABEL_11:
   return result;
 }
 
-- (uint64_t)updateBackingCachedPropertiesByDeviceID:(uint64_t)result
+- (void)updateBackingCachedPropertiesByDeviceID:(void *)result
 {
   if (result)
   {
     v1 = result;
     v2 = FigSimpleMutexCheckIsLockedOnThisThread();
-    v3 = *(v1 + 8);
-    result = OUTLINED_FUNCTION_1_3(v2, v4, v5, v6, v7, v8, v9, v10, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, 0);
+    v3 = v1[1];
+    result = OUTLINED_FUNCTION_1_3(v2, v4, v5, v6, v7, v8, v9, v10, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54);
     if (result)
     {
       v11 = result;
@@ -651,11 +652,11 @@ LABEL_11:
             [(FigCaptureSourceBacking *)v14 updateCachedProperties:v15];
           }
 
-          ++v13;
+          v13 = (v13 + 1);
         }
 
         while (v11 != v13);
-        result = OUTLINED_FUNCTION_1_3(v16, v17, v18, v19, v20, v21, v22, v23, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v56);
+        result = OUTLINED_FUNCTION_1_3(v16, v17, v18, v19, v20, v21, v22, v23, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55);
         v11 = result;
       }
 
@@ -670,7 +671,7 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_1_5();
   OUTLINED_FUNCTION_2_5();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 @end

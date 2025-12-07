@@ -66,35 +66,33 @@ LABEL_6:
 
 - (id)jsonDict
 {
-  v12[5] = *MEMORY[0x1E69E9840];
+  v11[5] = *MEMORY[0x1E69E9840];
   name = self->_name;
   if (!name)
   {
     name = &stru_1EF2B2408;
   }
 
-  v11[0] = @"name";
-  v11[1] = @"build";
+  v10[0] = @"name";
+  v10[1] = @"build";
   build = self->_build;
-  v12[0] = name;
-  v12[1] = build;
+  v11[0] = name;
+  v11[1] = build;
   supplementalBuild = self->_supplementalBuild;
   if (!supplementalBuild)
   {
     supplementalBuild = &stru_1EF2B2408;
   }
 
-  v12[2] = supplementalBuild;
-  v11[2] = @"supplementalBuild";
-  v11[3] = @"platform";
+  v11[2] = supplementalBuild;
+  v10[2] = @"supplementalBuild";
+  v10[3] = @"platform";
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:self->_platform];
-  v12[3] = v6;
-  v11[4] = @"rapidSecurityResponsePreReboot";
+  v11[3] = v6;
+  v10[4] = @"rapidSecurityResponsePreReboot";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:self->_rapidSecurityResponsePreReboot];
-  v12[4] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[4] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }
@@ -143,7 +141,7 @@ LABEL_8:
     v11 = __biome_log_for_category();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [BMDeviceMetadataEvent initWithProto:];
+      [BMDeviceMetadataEvent initWithProto:?];
     }
 
     goto LABEL_8;

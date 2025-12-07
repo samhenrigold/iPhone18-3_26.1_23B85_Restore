@@ -127,16 +127,16 @@ LABEL_8:
   return v5;
 }
 
-id __31__TPSAssetFileInfo_na_identity__block_invoke()
+id __31__TPSAssetFileInfo_na_identity__block_invoke(uint64_t a1)
 {
   if (TPSAssetFileSizeKey_block_invoke_na_once_token_0 != -1)
   {
     __31__TPSAssetFileInfo_na_identity__block_invoke_cold_1();
   }
 
-  v1 = TPSAssetFileSizeKey_block_invoke_na_once_object_0;
+  v2 = TPSAssetFileSizeKey_block_invoke_na_once_object_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __31__TPSAssetFileInfo_na_identity__block_invoke_2()

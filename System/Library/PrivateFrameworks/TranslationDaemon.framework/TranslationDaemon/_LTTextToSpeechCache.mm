@@ -32,12 +32,13 @@
 {
   dataCopy = data;
   keyCopy = key;
-  if (_LTPreferencesDebugDisableTTSCache())
+  v8 = _LTPreferencesDebugDisableTTSCache();
+  if (v8)
   {
-    v8 = _LTOSLogTTS();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = _LTOSLogTTS(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [_LTTextToSpeechCache cacheAudioData:v8 forKey:?];
+      [_LTTextToSpeechCache cacheAudioData:v10 forKey:?];
     }
   }
 
@@ -45,64 +46,63 @@
   {
     objc_initWeak(&location, self);
     cacheQueue = self->_cacheQueue;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __46___LTTextToSpeechCache_cacheAudioData_forKey___block_invoke;
-    v10[3] = &unk_2789B6C78;
-    objc_copyWeak(&v13, &location);
-    v11 = keyCopy;
-    v12 = dataCopy;
-    dispatch_async(cacheQueue, v10);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __46___LTTextToSpeechCache_cacheAudioData_forKey___block_invoke;
+    v12[3] = &unk_2789B6C78;
+    objc_copyWeak(&v15, &location);
+    v13 = keyCopy;
+    v14 = dataCopy;
+    dispatch_async(cacheQueue, v12);
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&location);
   }
 }
 
 - (id)audioDataForKey:(id)key
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__14;
-  v19 = __Block_byref_object_dispose__14;
-  v20 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__14;
+  v20 = __Block_byref_object_dispose__14;
+  v21 = 0;
   cacheQueue = self->_cacheQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __40___LTTextToSpeechCache_audioDataForKey___block_invoke;
   block[3] = &unk_2789B59B8;
-  v14 = &v15;
+  v15 = &v16;
   block[4] = self;
   v6 = keyCopy;
-  v13 = v6;
+  v14 = v6;
   dispatch_sync(cacheQueue, block);
-  v7 = _LTOSLogTTS();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v9 = _LTOSLogTTS(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    if (v16[5])
+    if (v17[5])
     {
-      v8 = @"HIT";
+      v10 = @"HIT";
     }
 
     else
     {
-      v8 = @"MISS";
+      v10 = @"MISS";
     }
 
     *buf = 138543362;
-    v22 = v8;
-    _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_INFO, "TTS cache request: %{public}@", buf, 0xCu);
+    v23 = v10;
+    _os_log_impl(&dword_232E53000, v9, OS_LOG_TYPE_INFO, "TTS cache request: %{public}@", buf, 0xCu);
   }
 
-  v9 = v16[5];
+  v11 = v17[5];
 
-  _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v16, 8);
 
-  return v9;
+  return v11;
 }
 
 - (void)clear

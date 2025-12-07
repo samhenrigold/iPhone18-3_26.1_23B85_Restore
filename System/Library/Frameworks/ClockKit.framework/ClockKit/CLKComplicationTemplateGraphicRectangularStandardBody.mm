@@ -142,7 +142,7 @@ void __103__CLKComplicationTemplateGraphicRectangularStandardBody__enumerateFull
   qword_27DE91C88 = v3;
   [v5 setNewestAllowedSizeClass:&unk_284A34128];
   [v5 scaledValue:3 withOverride:12.0 forSizeClass:13.5];
-  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1521 = v4;
+  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1521[0] = v4;
 }
 
 @end

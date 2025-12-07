@@ -1,5 +1,7 @@
 @interface PowerSourceCC
 - (PowerSourceCC)initWithParams:(__CFDictionary *)params;
+- (__CFString)copyFieldCurrentValueForIndex:(int)index;
+- (__CFString)copyHeaderForIndex:(int)index;
 - (int)numberOfFields;
 - (void)dealloc;
 - (void)defaultAction;
@@ -283,6 +285,79 @@ LABEL_11:
   v3.receiver = self;
   v3.super_class = PowerSourceCC;
   return [(ComponentControl *)&v3 numberOfFields]+ 2;
+}
+
+- (__CFString)copyHeaderForIndex:(int)index
+{
+  v3 = *&index;
+  v10.receiver = self;
+  v10.super_class = PowerSourceCC;
+  if ([(ComponentControl *)&v10 numberOfFields]<= index)
+  {
+    v8.receiver = self;
+    v8.super_class = PowerSourceCC;
+    numberOfFields = [(ComponentControl *)&v8 numberOfFields];
+    if (v3 - numberOfFields == 1)
+    {
+      v7 = @"B1TI - Charge rate thermal";
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    if (v3 == numberOfFields)
+    {
+      return @"PwrSrc - Charge limit index";
+    }
+
+    else
+    {
+      return v7;
+    }
+  }
+
+  else
+  {
+    v9.receiver = self;
+    v9.super_class = PowerSourceCC;
+    return [(ComponentControl *)&v9 copyHeaderForIndex:v3];
+  }
+}
+
+- (__CFString)copyFieldCurrentValueForIndex:(int)index
+{
+  v3 = *&index;
+  v9.receiver = self;
+  v9.super_class = PowerSourceCC;
+  if ([(ComponentControl *)&v9 numberOfFields]<= index)
+  {
+    v7.receiver = self;
+    v7.super_class = PowerSourceCC;
+    v6 = v3 - [(ComponentControl *)&v7 numberOfFields];
+    if (v6 == 1)
+    {
+      return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%f", *&self->previousChargeLevel);
+    }
+
+    else if (v6)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%d", *(&self->super.currentPower + 1));
+    }
+  }
+
+  else
+  {
+    v8.receiver = self;
+    v8.super_class = PowerSourceCC;
+    return [(ComponentControl *)&v8 copyFieldCurrentValueForIndex:v3];
+  }
 }
 
 @end

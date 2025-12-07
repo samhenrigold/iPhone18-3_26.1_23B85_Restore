@@ -23,7 +23,7 @@
 
 + (BOOL)isiCloudSignoutRestrictionEnabled
 {
-  v2 = objc_alloc_init(off_15918());
+  v2 = objc_alloc_init(off_15918(self, a2));
   v9 = 0;
   v3 = [v2 requestiCloudLogoutPolicyWithError:&v9];
   v4 = v9;

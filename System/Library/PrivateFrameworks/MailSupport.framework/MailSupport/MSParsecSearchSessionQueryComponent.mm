@@ -2,6 +2,7 @@
 + (OS_os_log)log;
 + (id)_structuredQueryForComponents:(id)components hasCurrentMailboxScope:(BOOL)scope languages:(id)languages;
 + (id)freeTextQueryComponentWithString:(id)string;
++ (id)suggestionAtomQueryComponentWithCategory:(id)category scope:(id)scope queryString:(id)string cannedSuggestion:(BOOL)suggestion;
 + (id)userTypedQueryComponentWithString:(id)string removingFreeTextTokenString:(id)tokenString;
 + (id)userTypedQueryComponentWithString:(id)string removingFreeTextTokens:(id)tokens;
 - (MSParsecSearchSessionQueryComponent)initWithCategory:(id)category scope:(id)scope queryString:(id)string cannedSuggestion:(BOOL)suggestion;
@@ -78,22 +79,33 @@ void __42__MSParsecSearchSessionQueryComponent_log__block_invoke(uint64_t a1)
   return v11;
 }
 
++ (id)suggestionAtomQueryComponentWithCategory:(id)category scope:(id)scope queryString:(id)string cannedSuggestion:(BOOL)suggestion
+{
+  suggestionCopy = suggestion;
+  categoryCopy = category;
+  scopeCopy = scope;
+  stringCopy = string;
+  v13 = [[self alloc] initWithCategory:categoryCopy scope:scopeCopy queryString:stringCopy cannedSuggestion:suggestionCopy];
+
+  return v13;
+}
+
 + (id)_structuredQueryForComponents:(id)components hasCurrentMailboxScope:(BOOL)scope languages:(id)languages
 {
   scopeCopy = scope;
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   componentsCopy = components;
   languagesCopy = languages;
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (componentsCopy)
   {
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __102__MSParsecSearchSessionQueryComponent__structuredQueryForComponents_hasCurrentMailboxScope_languages___block_invoke;
-    v21 = &unk_27985B948;
-    v22 = languagesCopy;
-    v10 = [componentsCopy ef_compactMap:&v18];
-    [v9 addObjectsFromArray:{v10, v18, v19, v20, v21}];
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __102__MSParsecSearchSessionQueryComponent__structuredQueryForComponents_hasCurrentMailboxScope_languages___block_invoke;
+    v20 = &unk_27985B948;
+    v21 = languagesCopy;
+    v10 = [componentsCopy ef_compactMap:&v17];
+    [v9 addObjectsFromArray:{v10, v17, v18, v19, v20}];
     v11 = @"all";
     if (scopeCopy)
     {
@@ -101,16 +113,14 @@ void __42__MSParsecSearchSessionQueryComponent_log__block_invoke(uint64_t a1)
     }
 
     v12 = v11;
-    v23 = @"mf";
-    v24[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = @"mf";
+    v23[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     [v9 addObject:v13];
   }
 
   v14 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v9 options:0 error:0];
   v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v14 encoding:4];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -162,7 +172,7 @@ id __102__MSParsecSearchSessionQueryComponent__structuredQueryForComponents_hasC
 
 - (id)_structuredQueryComponentWithLanguages:(id)languages
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   languagesCopy = languages;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if ([(MSParsecSearchSessionQueryComponent *)self cannedSuggestion])
@@ -192,29 +202,29 @@ id __102__MSParsecSearchSessionQueryComponent__structuredQueryForComponents_hasC
     v13 = [queryString ef_wordComponentsForLocale:firstObject];
 
     v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v13, "count")}];
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v15 = v13;
     v16 = 0;
-    v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v17)
     {
-      v18 = *v26;
+      v18 = *v25;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v26 != v18)
+          if (*v25 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v16 += [*(*(&v25 + 1) + 8 * i) length];
+          v16 += [*(*(&v24 + 1) + 8 * i) length];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v17);
@@ -227,8 +237,6 @@ id __102__MSParsecSearchSessionQueryComponent__structuredQueryForComponents_hasC
     category3 = [(MSParsecSearchSessionQueryComponent *)self category];
     [v4 setObject:v6 forKeyedSubscript:category3];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

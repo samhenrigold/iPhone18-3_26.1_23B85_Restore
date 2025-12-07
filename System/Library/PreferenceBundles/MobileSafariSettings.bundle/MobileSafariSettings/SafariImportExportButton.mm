@@ -1,5 +1,6 @@
 @interface SafariImportExportButton
 - (SafariImportExportButton)initWithText:(id)text primaryAction:(id)action;
+- (void)setEnabled:(BOOL)enabled;
 - (void)showInProgressWithText:(id)text;
 @end
 
@@ -81,6 +82,32 @@
   }
 
   return v8;
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v8.receiver = self;
+  v8.super_class = SafariImportExportButton;
+  [(SafariImportExportButton *)&v8 setEnabled:?];
+  [(SafariImportExportButton *)self setUserInteractionEnabled:enabledCopy];
+  if (enabledCopy)
+  {
+    _enabledBackgroundColor = [(SafariImportExportButton *)self _enabledBackgroundColor];
+    [(SafariImportExportButton *)self setBackgroundColor:_enabledBackgroundColor];
+
+    [(SafariImportExportButton *)self _enabledTextColor];
+  }
+
+  else
+  {
+    _disabledBackgroundColor = [(SafariImportExportButton *)self _disabledBackgroundColor];
+    [(SafariImportExportButton *)self setBackgroundColor:_disabledBackgroundColor];
+
+    [(SafariImportExportButton *)self _disabledTextColor];
+  }
+  v7 = ;
+  [(UILabel *)self->_buttonLabel setTextColor:v7];
 }
 
 - (void)showInProgressWithText:(id)text

@@ -79,15 +79,14 @@
 {
   v2 = sub_1BAF8E7C8();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x1EEE9AC00](v2);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BAF8E7B8();
   sub_1BAF8E798();
-  (*(v3 + 8))(v6, v2);
-  v7 = sub_1BAF8EC28();
+  (*(v3 + 8))(v5, v2);
+  v6 = sub_1BAF8EC28();
 
-  return v7;
+  return v6;
 }
 
 + (BOOL)firstRunSinceReboot

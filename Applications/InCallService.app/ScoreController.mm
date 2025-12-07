@@ -16,7 +16,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  ScoreController.delegate.setter();
+  ScoreController.delegate.setter(delegate);
 }
 
 @end

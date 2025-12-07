@@ -18,7 +18,7 @@
 
 + (id)songAtPath:(id)path
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v4 = objc_opt_class();
   if (objc_msgSend_isSongAtPath_(v4, v5, pathCopy, v6, v7))
@@ -28,9 +28,9 @@
     v17 = objc_msgSend_dataWithContentsOfFile_(MEMORY[0x277CBEA90], v13, v12, v14, v15);
     if (v17)
     {
-      v59 = 0;
-      v18 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x277CCAAA0], v16, v17, 0, &v59);
-      v22 = v59;
+      v58 = 0;
+      v18 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x277CCAAA0], v16, v17, 0, &v58);
+      v22 = v58;
       if (v18)
       {
         v23 = objc_msgSend_objectForKey_(v18, v19, @"contentVersion", v20, v21);
@@ -64,8 +64,8 @@
         v50 = objc_msgSend_initWithAssetID_assetStatus_localURL_contentVersion_compatibilityVersion_(v44, v49, @"FMSongBundleAssetID", 0, v48, v32, v43);
 
         v51 = [FlexSong alloc];
-        v60[0] = v50;
-        v54 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v52, v60, 1, v53);
+        v59[0] = v50;
+        v54 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v52, v59, 1, v53);
         v33 = objc_msgSend_initWithDictionary_assets_(v51, v55, v18, v54, v56);
       }
 
@@ -85,8 +85,6 @@
   {
     v33 = 0;
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 
   return v33;
 }

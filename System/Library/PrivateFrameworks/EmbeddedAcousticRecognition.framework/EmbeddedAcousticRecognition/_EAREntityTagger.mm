@@ -8,15 +8,16 @@
 
 - (id)tagEntitiesWithTagNamesIn:(id)in
 {
-  sub_1B5AD6664();
+  v4 = sub_1B5AD6664();
+  v6 = v5;
   selfCopy = self;
-  sub_1B5A91CB4();
+  sub_1B5A91CB4(v4, v6);
 
   type metadata accessor for _EARExtractedEntity();
-  sub_1B5A951DC(&qword_1EB909538, v5, type metadata accessor for _EARExtractedEntity);
-  v6 = sub_1B5AD66E4();
+  sub_1B5A951DC(&qword_1EB909538, v8, type metadata accessor for _EARExtractedEntity, MEMORY[0x1E69E81B8]);
+  v9 = sub_1B5AD66E4();
 
-  return v6;
+  return v9;
 }
 
 - (id)tagEntitiesIn:(id)in

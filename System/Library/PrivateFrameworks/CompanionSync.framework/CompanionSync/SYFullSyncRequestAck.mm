@@ -66,7 +66,7 @@
     [SYFullSyncRequestAck writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteSubmessage();
   if (!self->_requestSyncID)
   {
@@ -74,7 +74,6 @@
   }
 
   PBDataWriterWriteStringField();
-  accepted = self->_accepted;
   PBDataWriterWriteBOOLField();
   if (self->_error)
   {
@@ -156,7 +155,6 @@
     }
   }
 
-  v7 = *(equalCopy + 40);
   if (self->_accepted)
   {
     if ((*(equalCopy + 40) & 1) == 0)
@@ -168,7 +166,7 @@
   else if (*(equalCopy + 40))
   {
 LABEL_14:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_15;
   }
 
@@ -181,17 +179,17 @@ LABEL_14:
   inProgressSyncID = self->_inProgressSyncID;
   if (inProgressSyncID | *(equalCopy + 3))
   {
-    v10 = [(NSString *)inProgressSyncID isEqual:?];
+    v9 = [(NSString *)inProgressSyncID isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_15:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

@@ -10,6 +10,8 @@
 - (void)errorDelegate;
 - (void)loadWebView;
 - (void)presentViewDelegate;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler;
 - (void)webView:(id)view didFailNavigation:(id)navigation withError:(id)error;
@@ -106,10 +108,10 @@ void __76__NewsTransparencyViewController_initWithNewsTransparencyDetailsDiction
 
 - (void)viewDidLoad
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = NewsTransparencyViewController;
-  [(NewsTransparencyViewController *)&v14 viewDidLoad];
+  v15[1] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = NewsTransparencyViewController;
+  [(NewsTransparencyViewController *)&v13 viewDidLoad];
   navigationController = [(NewsTransparencyViewController *)self navigationController];
   if (navigationController)
   {
@@ -123,10 +125,10 @@ void __76__NewsTransparencyViewController_initWithNewsTransparencyDetailsDiction
       systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
       [v6 setBackgroundColor:systemBackgroundColor];
 
-      v15 = *MEMORY[0x277D740C0];
+      v14 = *MEMORY[0x277D740C0];
       whiteColor = [MEMORY[0x277D75348] whiteColor];
-      v16[0] = whiteColor;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v15[0] = whiteColor;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       [v6 setTitleTextAttributes:v9];
 
       navigationBar = [navigationController navigationBar];
@@ -139,8 +141,6 @@ void __76__NewsTransparencyViewController_initWithNewsTransparencyDetailsDiction
       [navigationBar3 setTranslucent:0];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_commonInit
@@ -273,7 +273,7 @@ void __76__NewsTransparencyViewController_initWithNewsTransparencyDetailsDiction
 
 - (void)loadWebView
 {
-  v63[4] = *MEMORY[0x277D85DE8];
+  v61[4] = *MEMORY[0x277D85DE8];
   transparencyRendererURL = [(NewsTransparencyViewController *)self transparencyRendererURL];
 
   if (transparencyRendererURL)
@@ -297,7 +297,7 @@ void __76__NewsTransparencyViewController_initWithNewsTransparencyDetailsDiction
     [array addObject:v15];
 
     v16 = MEMORY[0x277CCAD18];
-    v62 = v7;
+    v60 = v7;
     shortBuildVersion = [v7 shortBuildVersion];
     v18 = [v16 queryItemWithName:@"build" value:shortBuildVersion];
     [array addObject:v18];
@@ -305,20 +305,20 @@ void __76__NewsTransparencyViewController_initWithNewsTransparencyDetailsDiction
     v19 = MEMORY[0x277CCAD18];
     shortModelType = [v7 shortModelType];
     v21 = [v19 queryItemWithName:@"model" value:shortModelType];
-    v61 = array;
+    v59 = array;
     [array addObject:v21];
 
     v22 = MEMORY[0x277CCACE0];
     transparencyRendererURL2 = [(NewsTransparencyViewController *)self transparencyRendererURL];
-    v60 = [v22 componentsWithString:transparencyRendererURL2];
+    v58 = [v22 componentsWithString:transparencyRendererURL2];
 
-    [v60 setQueryItems:array];
-    v59 = [v60 URL];
-    v24 = [objc_alloc(MEMORY[0x277CCAB70]) initWithURL:v59];
+    [v58 setQueryItems:array];
+    v57 = [v58 URL];
+    v24 = [objc_alloc(MEMORY[0x277CCAB70]) initWithURL:v57];
     [v24 setHTTPMethod:@"POST"];
     transparencyRendererPayload = [(NewsTransparencyViewController *)self transparencyRendererPayload];
     v26 = [transparencyRendererPayload dataUsingEncoding:4];
-    v58 = v24;
+    v56 = v24;
     [v24 setHTTPBody:v26];
 
     myNewsPrivacyWebView = [(NewsTransparencyViewController *)self myNewsPrivacyWebView];
@@ -332,43 +332,39 @@ void __76__NewsTransparencyViewController_initWithNewsTransparencyDetailsDiction
     myNewsPrivacyWebView2 = [(NewsTransparencyViewController *)self myNewsPrivacyWebView];
     [view addSubview:myNewsPrivacyWebView2];
 
-    v48 = MEMORY[0x277CCAAD0];
+    v46 = MEMORY[0x277CCAAD0];
     myNewsPrivacyWebView3 = [(NewsTransparencyViewController *)self myNewsPrivacyWebView];
     topAnchor = [myNewsPrivacyWebView3 topAnchor];
     view2 = [(NewsTransparencyViewController *)self view];
     topAnchor2 = [view2 topAnchor];
-    v53 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:20.0];
-    v63[0] = v53;
+    v51 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:20.0];
+    v61[0] = v51;
     myNewsPrivacyWebView4 = [(NewsTransparencyViewController *)self myNewsPrivacyWebView];
     bottomAnchor = [myNewsPrivacyWebView4 bottomAnchor];
     view3 = [(NewsTransparencyViewController *)self view];
     bottomAnchor2 = [view3 bottomAnchor];
-    v47 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v63[1] = v47;
+    v45 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v61[1] = v45;
     myNewsPrivacyWebView5 = [(NewsTransparencyViewController *)self myNewsPrivacyWebView];
     rightAnchor = [myNewsPrivacyWebView5 rightAnchor];
     view4 = [(NewsTransparencyViewController *)self view];
     rightAnchor2 = [view4 rightAnchor];
     v36 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-    v63[2] = v36;
+    v61[2] = v36;
     myNewsPrivacyWebView6 = [(NewsTransparencyViewController *)self myNewsPrivacyWebView];
     leftAnchor = [myNewsPrivacyWebView6 leftAnchor];
     view5 = [(NewsTransparencyViewController *)self view];
     leftAnchor2 = [view5 leftAnchor];
     v41 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-    v63[3] = v41;
-    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:4];
-    [v48 activateConstraints:v42];
-
-    v43 = *MEMORY[0x277D85DE8];
+    v61[3] = v41;
+    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:4];
+    [v46 activateConstraints:v42];
   }
 
   else
   {
-    v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: We don't have the URL for the rendering server.", objc_opt_class()];
+    v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: We don't have the URL for the rendering server.", objc_opt_class()];
     _ADLog();
-
-    v45 = *MEMORY[0x277D85DE8];
 
     [(NewsTransparencyViewController *)self _showErrorMessage:0];
   }
@@ -503,6 +499,26 @@ void __76__NewsTransparencyViewController_initWithNewsTransparencyDetailsDiction
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v13.receiver = self;
+  v13.super_class = NewsTransparencyViewController;
+  [(NewsTransparencyViewController *)&v13 viewDidAppear:appear];
+  v4 = *MEMORY[0x277D76768];
+  objc_initWeak(&location, self);
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __48__NewsTransparencyViewController_viewDidAppear___block_invoke;
+  v10 = &unk_279DD9710;
+  objc_copyWeak(&v11, &location);
+  v6 = [defaultCenter addObserverForName:v4 object:0 queue:0 usingBlock:&v7];
+  [(NewsTransparencyViewController *)self setNotificationObserver:v6, v7, v8, v9, v10];
+
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(&location);
+}
+
 void __48__NewsTransparencyViewController_viewDidAppear___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -514,9 +530,30 @@ void __48__NewsTransparencyViewController_viewDidAppear___block_invoke(uint64_t 
   }
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  delegate = [(NewsTransparencyViewController *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    delegate2 = [(NewsTransparencyViewController *)self delegate];
+    [delegate2 newsTransparencyViewControllerDidDismiss:self];
+  }
+
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  notificationObserver = [(NewsTransparencyViewController *)self notificationObserver];
+  [defaultCenter removeObserver:notificationObserver];
+
+  v10.receiver = self;
+  v10.super_class = NewsTransparencyViewController;
+  [(NewsTransparencyViewController *)&v10 viewDidDisappear:disappearCopy];
+}
+
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   handlerCopy = handler;
   request = [actionCopy request];
@@ -530,30 +567,30 @@ void __48__NewsTransparencyViewController_viewDidAppear___block_invoke(uint64_t 
   _ADLog();
 
   v15 = [MEMORY[0x277CCACE0] componentsWithURL:v10 resolvingAgainstBaseURL:0];
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   queryItems = [v15 queryItems];
-  v17 = [queryItems countByEnumeratingWithState:&v73 objects:v77 count:16];
-  v71 = v10;
+  v17 = [queryItems countByEnumeratingWithState:&v72 objects:v76 count:16];
+  v70 = v10;
   if (v17)
   {
     v18 = v17;
-    v69 = v15;
+    v68 = v15;
     v19 = handlerCopy;
     v20 = actionCopy;
-    v21 = *v74;
+    v21 = *v73;
     while (2)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v74 != v21)
+        if (*v73 != v21)
         {
           objc_enumerationMutation(queryItems);
         }
 
-        v23 = *(*(&v73 + 1) + 8 * i);
+        v23 = *(*(&v72 + 1) + 8 * i);
         name = [v23 name];
         v25 = [name isEqualToString:@"path"];
 
@@ -564,7 +601,7 @@ void __48__NewsTransparencyViewController_viewDidAppear___block_invoke(uint64_t 
         }
       }
 
-      v18 = [queryItems countByEnumeratingWithState:&v73 objects:v77 count:16];
+      v18 = [queryItems countByEnumeratingWithState:&v72 objects:v76 count:16];
       if (v18)
       {
         continue;
@@ -577,7 +614,7 @@ void __48__NewsTransparencyViewController_viewDidAppear___block_invoke(uint64_t 
 LABEL_11:
     actionCopy = v20;
     handlerCopy = v19;
-    v15 = v69;
+    v15 = v68;
   }
 
   else
@@ -608,7 +645,7 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  absoluteString2 = [v71 absoluteString];
+  absoluteString2 = [v70 absoluteString];
   v35 = [absoluteString2 containsString:@"Privacy_Advertising"];
 
   v26 = v31;
@@ -631,7 +668,7 @@ LABEL_25:
     }
 
     handlerCopy[2](handlerCopy, 0);
-    v43 = v71;
+    v43 = v70;
     goto LABEL_28;
   }
 
@@ -642,13 +679,13 @@ LABEL_25:
 
   if (v39 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v59 = [MEMORY[0x277CCACA8] stringWithFormat:@"This is the Settings->App Settings->Location link. Launch this in the settings app."];
+    v58 = [MEMORY[0x277CCACA8] stringWithFormat:@"This is the Settings->App Settings->Location link. Launch this in the settings app."];
     _ADLog();
 
     mEMORY[0x277CE9638] = [MEMORY[0x277CE9638] sharedInstance];
     bundleIdentifier = [mEMORY[0x277CE9638] bundleIdentifier];
 
-    v43 = v71;
+    v43 = v70;
     if ([bundleIdentifier isEqualToString:@"com.apple.news"])
     {
       v38 = @"prefs:root=NEWS";
@@ -660,16 +697,16 @@ LABEL_25:
     }
 
     defaultWorkspace2 = [MEMORY[0x277CC1E80] defaultWorkspace];
-    v62 = [MEMORY[0x277CBEBC0] URLWithString:v38];
-    [defaultWorkspace2 openSensitiveURL:v62 withOptions:MEMORY[0x277CBEC10]];
+    v61 = [MEMORY[0x277CBEBC0] URLWithString:v38];
+    [defaultWorkspace2 openSensitiveURL:v61 withOptions:MEMORY[0x277CBEC10]];
 
     presentingViewController = [(NewsTransparencyViewController *)selfCopy presentingViewController];
-    v72[0] = MEMORY[0x277D85DD0];
-    v72[1] = 3221225472;
-    v72[2] = __90__NewsTransparencyViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke;
-    v72[3] = &unk_279DD95D0;
-    v72[4] = selfCopy;
-    [presentingViewController dismissViewControllerAnimated:1 completion:v72];
+    v71[0] = MEMORY[0x277D85DD0];
+    v71[1] = 3221225472;
+    v71[2] = __90__NewsTransparencyViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke;
+    v71[3] = &unk_279DD95D0;
+    v71[4] = selfCopy;
+    [presentingViewController dismissViewControllerAnimated:1 completion:v71];
 
     goto LABEL_36;
   }
@@ -678,7 +715,7 @@ LABEL_25:
   lastPathComponent4 = [path4 lastPathComponent];
   v42 = [lastPathComponent4 rangeOfString:@"embedded:root=Privacy" options:1];
 
-  v43 = v71;
+  v43 = v70;
   if (v26 && v42 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v44 = MEMORY[0x277D37678];
@@ -707,7 +744,7 @@ LABEL_25:
     v53 = [v51 stringWithFormat:@"This is the Data & Privacy link for the about page with path %@. Present this in the modal sheet.", value2];
     _ADLog();
 
-    v43 = v71;
+    v43 = v70;
 LABEL_36:
     handlerCopy[2](handlerCopy, 0);
 
@@ -723,8 +760,8 @@ LABEL_36:
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
     request2 = [actionCopy request];
-    v66 = [request2 URL];
-    [mEMORY[0x277D75128] openURL:v66 options:MEMORY[0x277CBEC10] completionHandler:&__block_literal_global_0];
+    v65 = [request2 URL];
+    [mEMORY[0x277D75128] openURL:v65 options:MEMORY[0x277CBEC10] completionHandler:&__block_literal_global_0];
 
     delegate3 = [(NewsTransparencyViewController *)selfCopy delegate];
     LOBYTE(request2) = objc_opt_respondsToSelector();
@@ -739,8 +776,6 @@ LABEL_36:
   }
 
 LABEL_28:
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 void __90__NewsTransparencyViewController_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke(uint64_t a1)

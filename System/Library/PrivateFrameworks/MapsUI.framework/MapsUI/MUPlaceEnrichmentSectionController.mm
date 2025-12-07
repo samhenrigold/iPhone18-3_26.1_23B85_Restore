@@ -96,7 +96,7 @@
 
 - (void)addContextMenuUsingBoundingBox:(id)box accessibilityLabel:(id)label
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   boxCopy = box;
   labelCopy = label;
   v8 = [boxCopy objectForKeyedSubscript:@"xCoordinate"];
@@ -122,17 +122,17 @@
     {
       contextMenuButton2 = [(MUPlaceEnrichmentSectionController *)self contextMenuButton];
       [contextMenuButton2 frame];
-      v24 = NSStringFromCGRect(v43);
-      v44.origin.x = v10;
-      v44.origin.y = v13;
-      v44.size.width = v16;
-      v44.size.height = v19;
-      v25 = NSStringFromCGRect(v44);
-      v38 = 138412546;
-      v39 = v24;
-      v40 = 2112;
-      v41 = v25;
-      _os_log_impl(&dword_1C5620000, v21, OS_LOG_TYPE_DEBUG, "Context menu button alreadyd exists; changing boundingBox (from:%@) -> (to:%@)", &v38, 0x16u);
+      v24 = NSStringFromCGRect(v40);
+      v41.origin.x = v10;
+      v41.origin.y = v13;
+      v41.size.width = v16;
+      v41.size.height = v19;
+      v25 = NSStringFromCGRect(v41);
+      v35 = 138412546;
+      v36 = v24;
+      v37 = 2112;
+      v38 = v25;
+      _os_log_impl(&dword_1C5620000, v21, OS_LOG_TYPE_DEBUG, "Context menu button alreadyd exists; changing boundingBox (from:%@) -> (to:%@)", &v35, 0x16u);
     }
 
     contextMenuButton3 = [(MUPlaceEnrichmentSectionController *)self contextMenuButton];
@@ -143,14 +143,12 @@
   {
     if (v22)
     {
-      v38 = 138412290;
-      v39 = boxCopy;
-      _os_log_impl(&dword_1C5620000, v21, OS_LOG_TYPE_DEBUG, "Trying to add a context menu button at: %@", &v38, 0xCu);
+      v35 = 138412290;
+      v36 = boxCopy;
+      _os_log_impl(&dword_1C5620000, v21, OS_LOG_TYPE_DEBUG, "Trying to add a context menu button at: %@", &v35, 0xCu);
     }
 
     contextMenuButton3 = [[MUPlaceEnrichmentContextMenu alloc] initWithFrame:v10, v13, v16, v19];
-    v27 = *MEMORY[0x1E696F150];
-    v28 = *(MEMORY[0x1E696F150] + 8);
     if (GEOConfigGetBOOL())
     {
       redColor = [MEMORY[0x1E69DC888] redColor];
@@ -181,8 +179,6 @@
 
     [(MUPlaceSectionController *)self captureInfoCardAction:6111 eventValue:showcaseId feedbackType:0];
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_populateRevealedAnalyticsModule:(id)module
@@ -376,27 +372,23 @@ void __112__MUPlaceEnrichmentSectionController_webContentViewController_performH
       v21 = +[MUPlaceEnrichmentAPIController sharedPlaceEnrichmentAPIController];
       [actionManager configureWithEnrichmentDataProvider:v21 presentationOptions:v18];
 
-      v22 = *MEMORY[0x1E696F140];
-      v23 = *(MEMORY[0x1E696F140] + 8);
-      v24 = 0.0;
+      v22 = 0.0;
       if (GEOConfigGetBOOL())
       {
-        v25 = *MEMORY[0x1E696F148];
-        v26 = *(MEMORY[0x1E696F148] + 8);
         GEOConfigGetDouble();
-        v24 = v27;
+        v22 = v23;
       }
 
       webContentViewController = self->_webContentViewController;
       actionManager2 = [(MUPlaceEnrichmentSectionController *)self actionManager];
-      [(MUWebContentViewController *)webContentViewController configureWithHTML:enrichmentHtml3 actionManager:actionManager2 initialDefaultHeight:v24];
+      [(MUWebContentViewController *)webContentViewController configureWithHTML:enrichmentHtml3 actionManager:actionManager2 initialDefaultHeight:v22];
 
       sectionView = self->_sectionView;
       view = [(MUWebContentViewController *)self->_webContentViewController view];
       [(MUPlaceSectionView *)sectionView attachViewToContentView:view];
 
-      v32 = +[MUPlaceEnrichmentAPIController sharedPlaceEnrichmentAPIController];
-      [v32 cancelFetchingPlaceEnrichment];
+      v28 = +[MUPlaceEnrichmentAPIController sharedPlaceEnrichmentAPIController];
+      [v28 cancelFetchingPlaceEnrichment];
     }
 
     v13 = dataCopy;
@@ -487,7 +479,7 @@ void __112__MUPlaceEnrichmentSectionController_webContentViewController_performH
 
 - (void)_setupPlaceEnrichmentViewController
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   [(MUWebContentViewController *)self->_webContentViewController setDelegate:self];
   if (!self->_sectionView)
   {
@@ -499,14 +491,14 @@ void __112__MUPlaceEnrichmentSectionController_webContentViewController_performH
   }
 
   v5 = +[MUPlaceEnrichmentAPIController sharedPlaceEnrichmentAPIController];
-  v34 = MEMORY[0x1E69E9820];
-  v35 = 3221225472;
-  v36 = __73__MUPlaceEnrichmentSectionController__setupPlaceEnrichmentViewController__block_invoke;
-  v37 = &unk_1E821A870;
+  v33 = MEMORY[0x1E69E9820];
+  v34 = 3221225472;
+  v35 = __73__MUPlaceEnrichmentSectionController__setupPlaceEnrichmentViewController__block_invoke;
+  v36 = &unk_1E821A870;
   selfCopy = self;
   v6 = v5;
-  v39 = v6;
-  v7 = _Block_copy(&v34);
+  v38 = v6;
+  v7 = _Block_copy(&v33);
   mapItem = [v6 mapItem];
   _identifier = [mapItem _identifier];
   mapItem2 = [(MUPlaceSectionController *)self mapItem];
@@ -523,9 +515,9 @@ void __112__MUPlaceEnrichmentSectionController_webContentViewController_performH
       mapItem4 = [(MUPlaceSectionController *)self mapItem];
       _identifier4 = [mapItem4 _identifier];
       *buf = 138412546;
-      v41 = _identifier3;
-      v42 = 2112;
-      v43 = _identifier4;
+      v40 = _identifier3;
+      v41 = 2112;
+      v42 = _identifier4;
       _os_log_impl(&dword_1C5620000, v17, OS_LOG_TYPE_DEBUG, "Unequal mapitems. API controller was holding identifier: %@ but placecard wants to show identifier: %@", buf, 0x16u);
 
 LABEL_14:
@@ -556,16 +548,16 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      v24 = MUGetMUPlaceEnrichmentSectionControllerLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v23 = MUGetMUPlaceEnrichmentSectionControllerLog();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         mapItem6 = [(MUPlaceSectionController *)self mapItem];
         _identifier5 = [mapItem6 _identifier];
         *buf = 138412546;
-        v41 = @"Initialized";
-        v42 = 2112;
-        v43 = _identifier5;
-        _os_log_impl(&dword_1C5620000, v24, OS_LOG_TYPE_DEBUG, "API Controller is in state: %@. So asking to fetch enrichment for identifier: %@", buf, 0x16u);
+        v40 = @"Initialized";
+        v41 = 2112;
+        v42 = _identifier5;
+        _os_log_impl(&dword_1C5620000, v23, OS_LOG_TYPE_DEBUG, "API Controller is in state: %@. So asking to fetch enrichment for identifier: %@", buf, 0x16u);
       }
 
       goto LABEL_16;
@@ -577,9 +569,9 @@ LABEL_16:
       mapItem3 = [(MUPlaceSectionController *)self mapItem];
       _identifier3 = [mapItem3 _identifier];
       *buf = 138412546;
-      v41 = @"Unknown";
-      v42 = 2112;
-      v43 = _identifier3;
+      v40 = @"Unknown";
+      v41 = 2112;
+      v42 = _identifier3;
       _os_log_impl(&dword_1C5620000, v17, OS_LOG_TYPE_DEBUG, "API Controller is in state: %@. So Configuring with identifier: %@", buf, 0x16u);
       goto LABEL_14;
     }
@@ -590,31 +582,31 @@ LABEL_16:
   switch(currentState)
   {
     case 2:
-      v27 = MUGetMUPlaceEnrichmentSectionControllerLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v26 = MUGetMUPlaceEnrichmentSectionControllerLog();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         mapItem7 = [(MUPlaceSectionController *)self mapItem];
         _identifier6 = [mapItem7 _identifier];
         *buf = 138412546;
-        v41 = @"Loading";
-        v42 = 2112;
-        v43 = _identifier6;
-        _os_log_impl(&dword_1C5620000, v27, OS_LOG_TYPE_DEBUG, "API Controller is in state: %@. So asking to register for enrichment updates for identifier: %@", buf, 0x16u);
+        v40 = @"Loading";
+        v41 = 2112;
+        v42 = _identifier6;
+        _os_log_impl(&dword_1C5620000, v26, OS_LOG_TYPE_DEBUG, "API Controller is in state: %@. So asking to register for enrichment updates for identifier: %@", buf, 0x16u);
       }
 
       [v6 registerObserver:self];
       break;
     case 3:
-      v30 = MUGetMUPlaceEnrichmentSectionControllerLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v29 = MUGetMUPlaceEnrichmentSectionControllerLog();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
         mapItem8 = [(MUPlaceSectionController *)self mapItem];
         _identifier7 = [mapItem8 _identifier];
         *buf = 138412546;
-        v41 = @"ReadyWithData";
-        v42 = 2112;
-        v43 = _identifier7;
-        _os_log_impl(&dword_1C5620000, v30, OS_LOG_TYPE_DEBUG, "API Controller is in state: %@. So using enrichment for identifier: %@", buf, 0x16u);
+        v40 = @"ReadyWithData";
+        v41 = 2112;
+        v42 = _identifier7;
+        _os_log_impl(&dword_1C5620000, v29, OS_LOG_TYPE_DEBUG, "API Controller is in state: %@. So using enrichment for identifier: %@", buf, 0x16u);
       }
 
       placeEnrichmentData = [v6 placeEnrichmentData];
@@ -628,9 +620,9 @@ LABEL_16:
         mapItem9 = [(MUPlaceSectionController *)self mapItem];
         _identifier8 = [mapItem9 _identifier];
         *buf = 138412546;
-        v41 = @"Error";
-        v42 = 2112;
-        v43 = _identifier8;
+        v40 = @"Error";
+        v41 = 2112;
+        v42 = _identifier8;
         _os_log_impl(&dword_1C5620000, v14, OS_LOG_TYPE_DEBUG, "API Controller is in state: %@. So asking to remove enrichment module for identifier: %@", buf, 0x16u);
       }
 
@@ -639,27 +631,23 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __73__MUPlaceEnrichmentSectionController__setupPlaceEnrichmentViewController__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = MUGetMUPlaceEnrichmentSectionControllerLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = [*(a1 + 32) mapItem];
     v4 = [v3 _identifier];
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1C5620000, v2, OS_LOG_TYPE_DEBUG, "Fetching Enrichment information for identifier: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1C5620000, v2, OS_LOG_TYPE_DEBUG, "Fetching Enrichment information for identifier: %@", &v6, 0xCu);
   }
 
   [*(a1 + 40) registerObserver:*(a1 + 32)];
-  result = [*(a1 + 40) fetchPlaceEnrichment:0];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) fetchPlaceEnrichment:0];
 }
 
 - (MUPlaceEnrichmentSectionController)initWithMapItem:(id)item actionManager:(id)manager dataAvailability:(id)availability amsResultProvider:(id)provider callToActionDelegate:(id)delegate externalActionHandler:(id)handler rapActionHandler:(id)actionHandler

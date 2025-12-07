@@ -17,7 +17,7 @@
 - (uint64_t)_ensureEspressoBindingsUsingStorage:(uint64_t)result;
 - (uint64_t)_mapSchedulerToEspressoPriority:(uint64_t)result;
 - (uint64_t)_prepareWithWorkQueue:(uint64_t)queue;
-- (uint64_t)_surfacePropertiesForTensor:(uint64_t)result bindingName:(void *)name;
+- (unsigned)_surfacePropertiesForTensor:(unsigned int *)result bindingName:(void *)name;
 - (void)dealloc;
 - (void)setCustomInferenceIdentifier:(id)identifier;
 - (void)setPropagatable:(id)propagatable;
@@ -39,31 +39,32 @@
 
 - (BWEspressoInferenceProvider)initWithType:(int)type networkURL:(id)l networkConfiguration:(id)configuration context:(id)context executionTarget:(int)target schedulerPriority:(unsigned int)priority preventionReasons:(id)reasons resourceProvider:(id)self0 allowedCompressionDirection:(unsigned int)self1 concurrentSubmissionLimit:(unint64_t)self2 updateMetadataWithCropRect:(BOOL)self3
 {
-  v21.receiver = self;
-  v21.super_class = BWEspressoInferenceProvider;
-  v18 = [(BWEspressoInferenceProvider *)&v21 init];
-  v19 = v18;
-  if (v18)
+  v13 = *&priority;
+  v22.receiver = self;
+  v22.super_class = BWEspressoInferenceProvider;
+  v19 = [(BWEspressoInferenceProvider *)&v22 init];
+  v20 = v19;
+  if (v19)
   {
-    v18->_type = type;
-    v18->_networkURL = [l copy];
-    v19->_networkConfiguration = [configuration copy];
-    v19->_executionTarget = target;
-    v19->_preventionReasons = [reasons copy];
-    v19->_allowedCompressionDirection = direction;
-    v19->_concurrentSubmissionLimit = limit;
-    v19->_espressoPriority = [BWEspressoInferenceProvider _mapSchedulerToEspressoPriority:v19];
-    v19->_context = context;
-    v19->_bindingNamesByRequirement = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v19->_inputVideoRequirements = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v19->_outputVideoRequirements = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v19->_cloneVideoRequirements = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v19->_inputMetadataRequirements = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v19->_outputMetadataRequirements = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v19->_updateMetadataWithCropRect = rect;
+    v19->_type = type;
+    v19->_networkURL = [l copy];
+    v20->_networkConfiguration = [configuration copy];
+    v20->_executionTarget = target;
+    v20->_preventionReasons = [reasons copy];
+    v20->_allowedCompressionDirection = direction;
+    v20->_concurrentSubmissionLimit = limit;
+    v20->_espressoPriority = [(BWEspressoInferenceProvider *)v20 _mapSchedulerToEspressoPriority:v13];
+    v20->_context = context;
+    v20->_bindingNamesByRequirement = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v20->_inputVideoRequirements = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v20->_outputVideoRequirements = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v20->_cloneVideoRequirements = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v20->_inputMetadataRequirements = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v20->_outputMetadataRequirements = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v20->_updateMetadataWithCropRect = rect;
   }
 
-  return v19;
+  return v20;
 }
 
 - (void)dealloc
@@ -446,8 +447,8 @@ uint64_t __113__BWEspressoInferenceProvider_submitForSampleBuffer_usingStorage_w
 
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    [queue type];
-    OUTLINED_FUNCTION_2_38();
+    type = [queue type];
+    OUTLINED_FUNCTION_2_38(0x485u, v6, type);
   }
 
   BWInferenceTypeDescription(*(queue + 16));
@@ -490,17 +491,17 @@ LABEL_48:
   {
     OUTLINED_FUNCTION_4_69();
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v13))
+    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v15))
     {
-      v8 = v14;
+      v10 = v16;
     }
 
     else
     {
-      v8 = v14 & 0xFFFFFFFE;
+      v10 = v16 & 0xFFFFFFFE;
     }
 
-    if (v8)
+    if (v10)
     {
       OUTLINED_FUNCTION_7_53();
       _os_log_send_and_compose_impl();
@@ -523,10 +524,10 @@ LABEL_48:
     goto LABEL_50;
   }
 
-  v9 = *(queue + 56);
-  if (v9)
+  v11 = *(queue + 56);
+  if (v11)
   {
-    [v9 UTF8String];
+    [v11 UTF8String];
     prepareForInference = espresso_network_select_configuration();
     if (prepareForInference)
     {
@@ -548,7 +549,7 @@ LABEL_51:
   {
 LABEL_50:
     OUTLINED_FUNCTION_3_78();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     goto LABEL_51;
   }
 
@@ -561,18 +562,18 @@ LABEL_50:
   if (dword_1EB58E3E0)
   {
     OUTLINED_FUNCTION_4_69();
-    v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    if (os_log_type_enabled(v10, v13))
+    v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    if (os_log_type_enabled(v12, v15))
     {
-      v11 = v14;
+      v13 = v16;
     }
 
     else
     {
-      v11 = v14 & 0xFFFFFFFE;
+      v13 = v16 & 0xFFFFFFFE;
     }
 
-    if (v11)
+    if (v13)
     {
       mach_absolute_time();
       FigHostTimeToNanoseconds();
@@ -904,7 +905,7 @@ LABEL_70:
   return result;
 }
 
-- (uint64_t)_surfacePropertiesForTensor:(uint64_t)result bindingName:(void *)name
+- (unsigned)_surfacePropertiesForTensor:(unsigned int *)result bindingName:(void *)name
 {
   if (!result)
   {
@@ -944,7 +945,7 @@ LABEL_8:
       v13[4] = *MEMORY[0x1E696D130];
       v14[4] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v10];
       v13[5] = *MEMORY[0x1E696CF98];
-      v14[5] = [MEMORY[0x1E696AEC0] stringWithFormat:@"BWInference %d", *(v3 + 16)];
+      v14[5] = [MEMORY[0x1E696AEC0] stringWithFormat:@"BWInference %d", v3[4]];
       return [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:6];
   }
 
@@ -956,7 +957,7 @@ LABEL_8:
   v4 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    OUTLINED_FUNCTION_2_38();
+    OUTLINED_FUNCTION_2_38(0x495u, a2, memory);
   }
 
   prepareForExecution = [(BWEspressoInferenceProvider *)self prepareForExecution];
@@ -992,7 +993,8 @@ LABEL_8:
   }
 
   [provider customInferenceIdentifier];
-  if (![OUTLINED_FUNCTION_8() isEqualToString:?])
+  v6 = OUTLINED_FUNCTION_8();
+  if (!objc_msgSend_isEqualToString_(v6))
   {
     return -31783;
   }
@@ -1015,15 +1017,15 @@ LABEL_8:
   [(NSMutableDictionary *)self->_bindingNamesByRequirement removeAllObjects];
   if (provider)
   {
-    v6 = *(provider + 14);
+    v7 = *(provider + 14);
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  [(NSMutableDictionary *)self->_bindingNamesByRequirement addEntriesFromDictionary:v6];
+  [(NSMutableDictionary *)self->_bindingNamesByRequirement addEntriesFromDictionary:v7];
   -[BWEspressoInferenceProvider setPropagatable:](self, "setPropagatable:", [provider propagatable]);
   return 0;
 }

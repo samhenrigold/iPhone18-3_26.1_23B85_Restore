@@ -76,18 +76,16 @@
 
 - (id)propertyDictionary
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"value";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"value";
   value = [(SKGNode *)self value];
   firstName = self->_firstName;
-  v9[0] = value;
-  v9[1] = firstName;
-  v8[1] = @"firstName";
-  v8[2] = @"lastName";
-  v9[2] = self->_lastName;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[0] = value;
+  v8[1] = firstName;
+  v7[1] = @"firstName";
+  v7[2] = @"lastName";
+  v8[2] = self->_lastName;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }

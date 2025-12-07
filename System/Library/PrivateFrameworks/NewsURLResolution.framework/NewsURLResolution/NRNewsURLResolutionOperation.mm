@@ -150,36 +150,32 @@ uint64_t __48__NRNewsURLResolutionOperation_performOperation__block_invoke_3(uin
 
 - (void)initWithNewsURL:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "newsURL != nil"];
   *buf = 136315906;
-  v3 = "[NRNewsURLResolutionOperation initWithNewsURL:]";
-  v4 = 2080;
-  v5 = "NRNewsURLResolutionOperation.m";
-  v6 = 1024;
-  v7 = 37;
-  v8 = 2114;
-  v9 = v0;
+  v2 = "[NRNewsURLResolutionOperation initWithNewsURL:]";
+  v3 = 2080;
+  v4 = "NRNewsURLResolutionOperation.m";
+  v5 = 1024;
+  v6 = 37;
+  v7 = 2114;
+  v8 = v0;
   _os_log_error_impl(&dword_25C33C000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateOperation
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"news url resolution operation requires URL"];
-  v2 = 136315906;
-  v3 = "[NRNewsURLResolutionOperation validateOperation]";
-  v4 = 2080;
-  v5 = "NRNewsURLResolutionOperation.m";
-  v6 = 1024;
-  v7 = 53;
-  v8 = 2114;
-  v9 = v0;
-  _os_log_error_impl(&dword_25C33C000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v2, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136315906;
+  v2 = "[NRNewsURLResolutionOperation validateOperation]";
+  v3 = 2080;
+  v4 = "NRNewsURLResolutionOperation.m";
+  v5 = 1024;
+  v6 = 53;
+  v7 = 2114;
+  v8 = v0;
+  _os_log_error_impl(&dword_25C33C000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v1, 0x26u);
 }
 
 @end

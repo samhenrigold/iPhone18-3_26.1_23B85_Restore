@@ -143,10 +143,11 @@ LABEL_6:
 
 - (void)insertChild:(id)child at:(unint64_t)at
 {
+  atCopy = at;
   childCopy = child;
   [NSMutableArray insertObject:"insertObject:atIndex:" atIndex:?];
   objc_storeWeak(childCopy + 2, self);
-  EshContainer::insertChild(-[ESDContainer eshContainer](self, "eshContainer"), [childCopy eshObject]);
+  EshContainer::insertChild(-[ESDContainer eshContainer](self, "eshContainer"), [childCopy eshObject], atCopy);
 }
 
 - (id)insertEshChild:(EshObject *)child at:(unint64_t)at
@@ -155,7 +156,7 @@ LABEL_6:
   v7 = [objc_alloc(objc_opt_class()) initWithEshObject:child];
   [(NSMutableArray *)self->mChildren insertObject:v7 atIndex:at];
   objc_storeWeak(v7 + 2, self);
-  EshContainer::insertChild(-[ESDContainer eshContainer](self, "eshContainer"), [v7 eshObject]);
+  EshContainer::insertChild(-[ESDContainer eshContainer](self, "eshContainer"), [v7 eshObject], at);
 }
 
 - (void)removeChild:(id)child

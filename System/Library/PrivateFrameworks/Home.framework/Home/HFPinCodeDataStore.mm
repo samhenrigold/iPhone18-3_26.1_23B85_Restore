@@ -96,7 +96,7 @@
 
 - (id)guestPinCodeFromItem:(id)item
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   guestPINCodes = [(HFPinCodeDataStore *)self guestPINCodes];
   pinCodeValue = [itemCopy pinCodeValue];
@@ -104,18 +104,8 @@
 
   if (!v7)
   {
-    if (![itemCopy isUnknownGuestFromMatter])
+    if (![itemCopy isUnknownGuestFromMatter] || (-[HFPinCodeDataStore otherEcosystemGuestPINCodes](self, "otherEcosystemGuestPINCodes"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(itemCopy, "unknownMatterGuestUniqueID"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "objectForKey:", v9), v7 = objc_claimAutoreleasedReturnValue(), v9, v8, !v7))
     {
-      goto LABEL_4;
-    }
-
-    otherEcosystemGuestPINCodes = [(HFPinCodeDataStore *)self otherEcosystemGuestPINCodes];
-    unknownMatterGuestUniqueID = [itemCopy unknownMatterGuestUniqueID];
-    v7 = [otherEcosystemGuestPINCodes objectForKey:unknownMatterGuestUniqueID];
-
-    if (!v7)
-    {
-LABEL_4:
       userPINCodes = [(HFPinCodeDataStore *)self userPINCodes];
       pinCodeValue2 = [itemCopy pinCodeValue];
       v12 = [userPINCodes objectForKey:pinCodeValue2];
@@ -125,17 +115,15 @@ LABEL_4:
         v13 = HFLogForCategory(0x37uLL);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v16 = 136315138;
-          v17 = "[HFPinCodeDataStore guestPinCodeFromItem:]";
-          _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "(%s) Expected a guest PIN Code, but found a user code instead.", &v16, 0xCu);
+          v15 = 136315138;
+          v16 = "[HFPinCodeDataStore guestPinCodeFromItem:]";
+          _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "(%s) Expected a guest PIN Code, but found a user code instead.", &v15, 0xCu);
         }
       }
 
       v7 = 0;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

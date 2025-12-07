@@ -51,10 +51,10 @@
 - (BOOL)isEqualDrawingCommandData:(id)data
 {
   dataCopy = data;
-  [(ICDrawingCommandData *)self commandID];
+  objc_msgSend_commandID(self);
   if (dataCopy)
   {
-    [dataCopy commandID];
+    objc_msgSend_commandID(dataCopy);
     v5 = v8;
   }
 
@@ -89,11 +89,11 @@
 
 - (unint64_t)hash
 {
-  [(ICDrawingCommandData *)self commandID];
+  objc_msgSend_commandID(self, a2);
   v3 = v10;
-  [(ICDrawingCommandData *)self commandID];
+  objc_msgSend_commandID(self);
   v4 = v9;
-  [(ICDrawingCommandData *)self commandID];
+  objc_msgSend_commandID(self);
   v5 = [v7 hash];
 
   return v5 ^ v3 ^ (v4 << 16);
@@ -271,11 +271,11 @@
   }
 
   v17 = *(v14 + 44);
-  v77 = v15;
-  v65 = v13;
-  v78 = v65;
-  v79 = v17;
-  v18 = [(ICDrawingCommandData *)v9 setCommandID:&v77];
+  v68 = v15;
+  v61 = v13;
+  v69 = v61;
+  v70 = v17;
+  v18 = [(ICDrawingCommandData *)v9 setCommandID:&v68];
   if ((*(archive + 32) & 4) != 0)
   {
     v23 = *(archive + 6);
@@ -297,17 +297,17 @@
         goto LABEL_15;
       }
 
-      v63 = drawing::Command::default_instance(v25);
+      v59 = drawing::Command::default_instance(v25);
       v23 = *(archive + 6);
-      v21 = *(*(v63 + 6) + 44);
+      v21 = *(*(v59 + 6) + 44);
       if (!v23)
       {
-        v64 = drawing::Command::default_instance(v63);
+        v60 = drawing::Command::default_instance(v59);
         v23 = *(archive + 6);
-        v24 = *(*(v64 + 6) + 48);
+        v24 = *(*(v60 + 6) + 48);
         if (!v23)
         {
-          v23 = *(drawing::Command::default_instance(v64) + 48);
+          v23 = *(drawing::Command::default_instance(v60) + 48);
         }
 
         goto LABEL_15;
@@ -330,156 +330,152 @@ LABEL_16:
   v27 = *(archive + 8);
   if ((v27 & 8) != 0)
   {
-    v28 = *(archive + 7);
-    if (!v28)
+    if (!*(archive + 7))
     {
-      v28 = *(drawing::Command::default_instance(v26) + 56);
+      drawing::Command::default_instance(v26);
     }
 
-    [(ICDrawingCommandData *)v9 readPointFromArchive:v28 deltaFrom:&ICDrawingOutputPointDefault];
-    v69 = v73;
-    v70 = v74;
-    v71 = v75;
-    v72 = v76;
-    v26 = [(ICDrawingCommandData *)v9 setBaseValues:&v69];
+    objc_msgSend_readPointFromArchive_deltaFrom_(v9);
+    v63 = v67[0];
+    v64 = v67[1];
+    v65 = v67[2];
+    v66 = v67[3];
+    v26 = [(ICDrawingCommandData *)v9 setBaseValues:&v63];
     v27 = *(archive + 8);
   }
 
   if ((v27 & 0x200) != 0)
   {
-    v30 = *(archive + 15);
-    if (!v30)
+    v29 = *(archive + 15);
+    if (!v29)
     {
-      v30 = *(drawing::Command::default_instance(v26) + 120);
+      v29 = *(drawing::Command::default_instance(v26) + 120);
     }
 
-    v31 = *(v30 + 32);
+    v30 = *(v29 + 32);
+    v31 = 0.0;
     v32 = 0.0;
+    if (v30)
+    {
+      v32 = *(v29 + 40);
+    }
+
+    if ((v30 & 2) != 0)
+    {
+      v31 = *(v29 + 44);
+    }
+
     v33 = 0.0;
-    if (v31)
+    if ((v30 & 4) != 0)
     {
-      v33 = *(v30 + 40);
+      v33 = *(v29 + 48);
     }
 
-    if ((v31 & 2) != 0)
-    {
-      v32 = *(v30 + 44);
-    }
-
-    v34 = 0.0;
-    if ((v31 & 4) != 0)
-    {
-      v34 = *(v30 + 48);
-    }
-
-    v29 = [(ICDrawingCommandData *)v9 setParameters:v33, v32, v34];
+    v28 = [(ICDrawingCommandData *)v9 setParameters:v32, v31, v33];
   }
 
   else
   {
     [(ICDrawingCommandData *)v9 version1Parameters];
-    v29 = [(ICDrawingCommandData *)v9 setParameters:?];
+    v28 = [(ICDrawingCommandData *)v9 setParameters:?];
   }
 
   if ((*(archive + 32) & 0x80) != 0)
   {
-    v71 = 0u;
-    v72 = 0u;
-    v69 = 0u;
-    v70 = 0u;
-    v35 = *(archive + 13);
-    if (!v35)
+    v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
+    if (!*(archive + 13))
     {
-      v35 = *(drawing::Command::default_instance(v29) + 104);
+      drawing::Command::default_instance(v28);
     }
 
-    [(ICDrawingCommandData *)v9 baseValues];
-    v36 = [(ICDrawingCommandData *)v9 readPointFromArchive:v35 deltaFrom:v68];
-    memset(v68, 0, sizeof(v68));
-    v37 = *(archive + 14);
-    if (!v37)
+    objc_msgSend_baseValues(v9);
+    PointFromArchive_deltaFrom = objc_msgSend_readPointFromArchive_deltaFrom_(v9);
+    if (!*(archive + 14))
     {
-      v37 = *(drawing::Command::default_instance(v36) + 112);
+      drawing::Command::default_instance(PointFromArchive_deltaFrom);
     }
 
-    [(ICDrawingCommandData *)v9 baseValues];
-    [(ICDrawingCommandData *)v9 readPointFromArchive:v37 deltaFrom:v67];
+    objc_msgSend_baseValues(v9);
+    objc_msgSend_readPointFromArchive_deltaFrom_(v9);
     [(ICDrawingCommandData *)v9 setIsClipped:1];
-    [(ICDrawingCommandData *)v9 setClipOrigin:v69];
-    [(ICDrawingCommandData *)v9 setClipNormal:v68[0]];
+    [(ICDrawingCommandData *)v9 setClipOrigin:v63];
+    [(ICDrawingCommandData *)v9 setClipNormal:0];
   }
 
   points = [(ICDrawingCommandData *)v9 points];
-  v39 = *(archive + 18);
-  if (v39)
+  v36 = *(archive + 18);
+  if (v36)
   {
-    v40 = points;
-    points = std::vector<ICDrawingOutputPoint>::reserve(points, v39);
-    v41 = *(archive + 18);
-    if (v41)
+    v37 = points;
+    std::vector<ICDrawingOutputPoint>::reserve(points, v36);
+    v38 = *(archive + 18);
+    if (v38)
     {
-      for (i = 0; i != v41; ++i)
+      for (i = 0; i != v38; ++i)
       {
-        v43 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<drawing::Point>::TypeHandler>(archive + 64, i);
-        v71 = 0u;
-        v72 = 0u;
-        v69 = 0u;
-        v70 = 0u;
-        [(ICDrawingCommandData *)v9 baseValues];
-        points = [(ICDrawingCommandData *)v9 readPointFromArchive:v43 deltaFrom:v68];
-        v44 = *(v40 + 8);
-        if (!version && i && *&v69 == *(v44 - 8) && *(&v69 + 1) == *(v44 - 7))
+        google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<drawing::Point>::TypeHandler>(archive + 64, i);
+        v65 = 0u;
+        v66 = 0u;
+        v63 = 0u;
+        v64 = 0u;
+        objc_msgSend_baseValues(v9);
+        points = objc_msgSend_readPointFromArchive_deltaFrom_(v9);
+        v40 = *(v37 + 8);
+        if (!version && i && *&v63 == *(v40 - 8) && *(&v63 + 1) == *(v40 - 7))
         {
           continue;
         }
 
-        v46 = *(v40 + 16);
-        if (v44 >= v46)
+        v42 = *(v37 + 16);
+        if (v40 >= v42)
         {
-          v51 = (v44 - *v40) >> 6;
-          v52 = v51 + 1;
-          if ((v51 + 1) >> 58)
+          v47 = (v40 - *v37) >> 6;
+          v48 = v47 + 1;
+          if ((v47 + 1) >> 58)
           {
             std::vector<std::pair<minIdPathData,TopoSubstring *>>::__throw_length_error[abi:ne200100]();
           }
 
-          v53 = v46 - *v40;
-          if (v53 >> 5 > v52)
+          v49 = v42 - *v37;
+          if (v49 >> 5 > v48)
           {
-            v52 = v53 >> 5;
+            v48 = v49 >> 5;
           }
 
-          if (v53 >= 0x7FFFFFFFFFFFFFC0)
+          if (v49 >= 0x7FFFFFFFFFFFFFC0)
           {
-            v54 = 0x3FFFFFFFFFFFFFFLL;
+            v50 = 0x3FFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v54 = v52;
+            v50 = v48;
           }
 
-          if (v54)
+          if (v50)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<ICDrawingOutputPoint>>(v40, v54);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<ICDrawingOutputPoint>>(v37, v50);
           }
 
-          v55 = (v51 << 6);
-          v56 = v69;
-          v57 = v70;
-          v58 = v72;
-          v55[2] = v71;
-          v55[3] = v58;
-          *v55 = v56;
-          v55[1] = v57;
-          v50 = (v51 << 6) + 64;
-          v59 = *(v40 + 8) - *v40;
-          v60 = (v51 << 6) - v59;
-          memcpy(v55 - v59, *v40, v59);
-          points = *v40;
-          *v40 = v60;
-          *(v40 + 8) = v50;
-          *(v40 + 16) = 0;
+          v51 = (v47 << 6);
+          v52 = v63;
+          v53 = v64;
+          v54 = v66;
+          v51[2] = v65;
+          v51[3] = v54;
+          *v51 = v52;
+          v51[1] = v53;
+          v46 = (v47 << 6) + 64;
+          v55 = *(v37 + 8) - *v37;
+          v56 = (v47 << 6) - v55;
+          memcpy(v51 - v55, *v37, v55);
+          points = *v37;
+          *v37 = v56;
+          *(v37 + 8) = v46;
+          *(v37 + 16) = 0;
           if (points)
           {
             operator delete(points);
@@ -488,33 +484,33 @@ LABEL_16:
 
         else
         {
-          v47 = v69;
-          v48 = v70;
-          v49 = v72;
-          *(v44 + 2) = v71;
-          *(v44 + 3) = v49;
-          *v44 = v47;
-          *(v44 + 1) = v48;
-          v50 = (v44 + 8);
+          v43 = v63;
+          v44 = v64;
+          v45 = v66;
+          *(v40 + 2) = v65;
+          *(v40 + 3) = v45;
+          *v40 = v43;
+          *(v40 + 1) = v44;
+          v46 = (v40 + 8);
         }
 
-        *(v40 + 8) = v50;
+        *(v37 + 8) = v46;
       }
     }
   }
 
   if ((*(archive + 32) & 0x40) != 0)
   {
-    v61 = *(archive + 12);
-    if (!v61)
+    v57 = *(archive + 12);
+    if (!v57)
     {
-      v61 = *(drawing::Command::default_instance(points) + 96);
+      v57 = *(drawing::Command::default_instance(points) + 96);
     }
 
-    drawing::Rectangle::Rectangle(&v69, v61);
-    v9->_cachedBounds.origin = vcvtq_f64_f32(*(&v71 + 8));
-    v9->_cachedBounds.size = vcvtq_f64_f32(*&v72);
-    drawing::Rectangle::~Rectangle(&v69);
+    drawing::Rectangle::Rectangle(&v63, v57);
+    v9->_cachedBounds.origin = vcvtq_f64_f32(*(&v65 + 8));
+    v9->_cachedBounds.size = vcvtq_f64_f32(*&v66);
+    drawing::Rectangle::~Rectangle(&v63);
   }
 
 LABEL_65:
@@ -672,7 +668,7 @@ LABEL_65:
     operator new();
   }
 
-  [(ICDrawingCommandData *)self commandID];
+  objc_msgSend_commandID(self);
   v18 = v73;
   *(v17 + 32) |= 1u;
   *(v17 + 40) = v18;
@@ -684,12 +680,12 @@ LABEL_65:
     operator new();
   }
 
-  [(ICDrawingCommandData *)self commandID];
+  objc_msgSend_commandID(self);
   v20 = v75;
   *(v19 + 32) |= 2u;
   *(v19 + 44) = v20;
 
-  [(ICDrawingCommandData *)self commandID];
+  objc_msgSend_commandID(self);
   v21 = [dsCopy indexOfObject:v74];
 
   *(archive + 8) |= 1u;
@@ -711,7 +707,7 @@ LABEL_65:
     if (dataCopy)
     {
       points = [(ICDrawingCommandData *)self points];
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 64, (points[1] - *points) >> 6);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 16, (points[1] - *points) >> 6);
       v25 = points[1] - *points;
       if ((v25 & 0x3FFFFFFFC0) != 0)
       {
@@ -725,7 +721,7 @@ LABEL_65:
           {
             if (v28 == *(archive + 20))
             {
-              google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 64, v28 + 1);
+              google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 16, v28 + 1);
             }
 
             google::protobuf::internal::GenericTypeHandler<drawing::Point>::New();
@@ -735,7 +731,7 @@ LABEL_65:
           *(archive + 18) = v29 + 1;
           v31 = *(v30 + 8 * v29);
           v32 = *points;
-          [(ICDrawingCommandData *)self baseValues];
+          objc_msgSend_baseValues(self);
           [(ICDrawingCommandData *)self savePoint:v32 + v26 deltaFrom:&v73 toArchive:v31];
           v26 += 64;
           --v27;
@@ -744,7 +740,7 @@ LABEL_65:
         while (v27);
       }
 
-      [(ICDrawingCommandData *)self baseValues];
+      objc_msgSend_baseValues(self);
       *(archive + 8) |= 8u;
       v33 = *(archive + 7);
       if (!v33)
@@ -843,7 +839,7 @@ LABEL_65:
       *(v49 + 52) = v54;
     }
 
-    [(ICDrawingCommandData *)self baseValues];
+    objc_msgSend_baseValues(self);
     *(archive + 8) |= 8u;
     v55 = *(archive + 7);
     if (!v55)

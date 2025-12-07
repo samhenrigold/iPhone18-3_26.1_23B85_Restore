@@ -38,8 +38,8 @@
 + (id)disambiguationWithObjectsToDisambiguate:(id)disambiguate
 {
   sub_10004943C();
-  sub_10004AA5C();
-  static WeatherLocationResolutionResult.disambiguation(with:)();
+  v3 = sub_10004AA5C();
+  static WeatherLocationResolutionResult.disambiguation(with:)(v3, v4, v5, v6, v7, v8, v9, v10);
 }
 
 @end

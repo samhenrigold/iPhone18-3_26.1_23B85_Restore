@@ -43,7 +43,7 @@
 - (void)viewDidLayoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for MediaControlsModuleViewController();
+  v3.super_class = type metadata accessor for MediaControlsModuleViewController(self, a2);
   v2 = v3.receiver;
   [(MRUMediaControlsModuleViewController *)&v3 viewDidLayoutSubviews];
   sub_1A211C9D0();
@@ -52,15 +52,15 @@
 - (MRUMediaControlsModuleViewController)initWithController:(id)controller
 {
   ObjectType = swift_getObjectType();
-  type metadata accessor for MediaControlsModulePresenter();
-  v5 = *(controller + OBJC_IVAR___MRUMediaControlsModuleController_sessionsController + 8);
+  type metadata accessor for MediaControlsModulePresenter(0, v5);
+  v6 = *(controller + OBJC_IVAR___MRUMediaControlsModuleController_sessionsController + 8);
   controllerCopy = controller;
-  v7 = swift_unknownObjectRetain();
-  v8 = sub_1A2255888(v7, v5);
-  v9 = (*(ObjectType + 440))(v8);
+  v8 = swift_unknownObjectRetain();
+  v9 = sub_1A2255888(v8, v6);
+  v10 = (*(ObjectType + 440))(v9);
 
   swift_deallocPartialClassInstance();
-  return v9;
+  return v10;
 }
 
 - (void)loadView
@@ -74,7 +74,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1A22A5418();
+  sub_1A22A5418(selfCopy, v2);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -83,7 +83,7 @@
   width = size.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1A22A594C(coordinator, width, height);
+  sub_1A22A594C(coordinator, selfCopy, width, height);
   swift_unknownObjectRelease();
 }
 
@@ -129,10 +129,11 @@
   v6 = (self + OBJC_IVAR___MRUMediaControlsModuleViewController_dismissModuleBlock);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1A210F5C0(v7);
+  sub_1A210F5C0(v7, v8);
 }
 
 - (void)setExpandModuleBlock:(id)block
@@ -153,10 +154,11 @@
   v6 = (self + OBJC_IVAR___MRUMediaControlsModuleViewController_expandModuleBlock);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1A210F5C0(v7);
+  sub_1A210F5C0(v7, v8);
 }
 
 - (void)setInvalidateContainerViewsBlock:(id)block
@@ -177,10 +179,11 @@
   v6 = (self + OBJC_IVAR___MRUMediaControlsModuleViewController_invalidateContainerViewsBlock);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1A210F5C0(v7);
+  sub_1A210F5C0(v7, v8);
 }
 
 - (int64_t)gridSizeClass
@@ -321,7 +324,7 @@
 
   if (v3)
   {
-    sub_1A2115288(0, &qword_1ED94E980);
+    sub_1A2115288(0, &qword_1ED94E980, 0x1E69DD250);
     v4 = sub_1A22E6738();
   }
 
@@ -430,7 +433,7 @@
 
   selfCopy = self;
   sub_1A22ABEE0(v8, v7);
-  sub_1A210F5C0(v8);
+  sub_1A210F5C0(v8, v7);
 }
 
 - (void)dismissModule
@@ -440,10 +443,11 @@
   v3 = v2();
   if (v3)
   {
-    v4 = v3;
+    v5 = v3;
+    v6 = v4;
     v3(0, 0);
 
-    sub_1A210F5C0(v4);
+    sub_1A210F5C0(v5, v6);
   }
 
   else

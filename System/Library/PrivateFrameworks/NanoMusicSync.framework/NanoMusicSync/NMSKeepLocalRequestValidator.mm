@@ -13,14 +13,14 @@
 
 - (NMSKeepLocalRequestValidator)initWithModelObject:(id)object
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v5 = NMLogForCategory(5);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138412290;
-    v28 = objectCopy;
-    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "[NMSKeepLocalRequestValidator] _fetchSizeOfModelObjectItems - (begin) model-object: %@", &v27, 0xCu);
+    v26 = 138412290;
+    v27 = objectCopy;
+    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "[NMSKeepLocalRequestValidator] _fetchSizeOfModelObjectItems - (begin) model-object: %@", &v26, 0xCu);
   }
 
   autoupdatingSharedLibrary = [MEMORY[0x277D2B5F8] autoupdatingSharedLibrary];
@@ -42,10 +42,10 @@
   }
 
   v17 = [v14 predicateWithProperty:*v16 values:v12];
-  v31[0] = v17;
+  v30[0] = v17;
   v18 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B508] value:&unk_286C8D4D8 comparison:2];
-  v31[1] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+  v30[1] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
   v20 = [v13 predicateMatchingPredicates:v19];
 
   v21 = [MEMORY[0x277D2B620] allItemsQueryWithLibrary:autoupdatingSharedLibrary predicate:v20 orderingTerms:0 usingSections:0];
@@ -53,15 +53,14 @@
   v23 = NMLogForCategory(5);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 134218242;
-    v28 = v22;
-    v29 = 2112;
-    v30 = objectCopy;
-    _os_log_impl(&dword_25B27B000, v23, OS_LOG_TYPE_DEFAULT, "[NMSKeepLocalRequestValidator] _fetchSizeOfModelObjectItems (finish) - size: %llu for model-object: %@", &v27, 0x16u);
+    v26 = 134218242;
+    v27 = v22;
+    v28 = 2112;
+    v29 = objectCopy;
+    _os_log_impl(&dword_25B27B000, v23, OS_LOG_TYPE_DEFAULT, "[NMSKeepLocalRequestValidator] _fetchSizeOfModelObjectItems (finish) - size: %llu for model-object: %@", &v26, 0x16u);
   }
 
   v24 = [(NMSKeepLocalRequestValidator *)self initWithItemSize:v22];
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -105,11 +104,11 @@
 
 void __62__NMSKeepLocalRequestValidator_performWithOptions_completion___block_invoke(id *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
+  v23 = *MEMORY[0x277D85DE8];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   v2 = [MEMORY[0x277D7FA90] sharedMonitor];
   v3 = [v2 networkType];
 
@@ -118,7 +117,7 @@ void __62__NMSKeepLocalRequestValidator_performWithOptions_completion___block_in
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v23 = v3;
+    v22 = v3;
     _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "[NMSKeepLocalRequestValidator] Current network connection type: %ld.", buf, 0xCu);
   }
 
@@ -137,22 +136,22 @@ void __62__NMSKeepLocalRequestValidator_performWithOptions_completion___block_in
       v9 = [v6 initWithQueue:v8];
 
       v10 = [a1[5] cellularBundleIdentifier];
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __62__NMSKeepLocalRequestValidator_performWithOptions_completion___block_invoke_24;
-      v13[3] = &unk_27993E478;
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __62__NMSKeepLocalRequestValidator_performWithOptions_completion___block_invoke_24;
+      v12[3] = &unk_27993E478;
       v11 = a1[5];
-      v13[4] = a1[4];
-      v14 = v11;
-      v16 = &v18;
-      v15 = a1[6];
-      v17 = IsCellular;
-      [v9 performNetworkAccessFlowIfAllowed:v10 ignoreForeground:0 completion:v13];
+      v12[4] = a1[4];
+      v13 = v11;
+      v15 = &v17;
+      v14 = a1[6];
+      v16 = IsCellular;
+      [v9 performNetworkAccessFlowIfAllowed:v10 ignoreForeground:0 completion:v12];
     }
 
     else
     {
-      [a1[4] _continueWithOptions:a1[5] validatorException:v19[3] cellularNetwork:0 completion:a1[6]];
+      [a1[4] _continueWithOptions:a1[5] validatorException:v18[3] cellularNetwork:0 completion:a1[6]];
     }
   }
 
@@ -161,8 +160,7 @@ void __62__NMSKeepLocalRequestValidator_performWithOptions_completion___block_in
     [a1[4] _finishWithOptions:a1[5] validatorException:16 constraints:0 error:0 completion:a1[6]];
   }
 
-  _Block_object_dispose(&v18, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
 }
 
 void __62__NMSKeepLocalRequestValidator_performWithOptions_completion___block_invoke_24(uint64_t a1, void *a2, void *a3)
@@ -207,13 +205,13 @@ LABEL_11:
 - (void)_continueWithOptions:(id)options validatorException:(unint64_t)exception cellularNetwork:(BOOL)network completion:(id)completion
 {
   networkCopy = network;
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v10 = MEMORY[0x277CD5EC0];
   completionCopy = completion;
   optionsCopy = options;
   nms_defaultKeepLocalConstraints = [v10 nms_defaultKeepLocalConstraints];
   itemSize = self->_itemSize;
-  v34 = [(NMSKeepLocalRequestValidator *)self _fetchSizeOfPendingDownloadsWithPowerConstraintCheck:0];
+  v33 = [(NMSKeepLocalRequestValidator *)self _fetchSizeOfPendingDownloadsWithPowerConstraintCheck:0];
   v15 = [(NMSKeepLocalRequestValidator *)self _fetchSizeOfPendingDownloadsWithPowerConstraintCheck:1];
   mEMORY[0x277D7FA90] = [MEMORY[0x277D7FA90] sharedMonitor];
   isCharging = [mEMORY[0x277D7FA90] isCharging];
@@ -223,7 +221,7 @@ LABEL_11:
   {
     v19 = @"Off-charger";
     *buf = 134218754;
-    v36 = v15;
+    v35 = v15;
     v20 = 499999999;
     if (networkCopy)
     {
@@ -235,12 +233,12 @@ LABEL_11:
       v19 = @"On-charger";
     }
 
-    v37 = 2048;
-    v38 = itemSize;
-    v39 = 2048;
-    v40 = v20 + 1;
-    v41 = 2112;
-    v42 = v19;
+    v36 = 2048;
+    v37 = itemSize;
+    v38 = 2048;
+    v39 = v20 + 1;
+    v40 = 2112;
+    v41 = v19;
     _os_log_impl(&dword_25B27B000, v18, OS_LOG_TYPE_DEFAULT, "[NMSKeepLocalRequestValidator] There are presently %llu bytes pending download off charger. The current model-object size is %llu bytes. The current pending threshold has a max of %llu bytes. The watch charging state is: %@", buf, 0x2Au);
   }
 
@@ -294,9 +292,9 @@ LABEL_11:
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v36 = v34 + itemSize;
-    v37 = 2048;
-    v38 = storageSpaceAvailable;
+    v35 = v33 + itemSize;
+    v36 = 2048;
+    v37 = storageSpaceAvailable;
     _os_log_impl(&dword_25B27B000, v28, OS_LOG_TYPE_DEFAULT, "[NMSKeepLocalRequestValidator] Calculated size(pending+new item): %llu with available storage of: %llu.", buf, 0x16u);
   }
 
@@ -326,7 +324,7 @@ LABEL_11:
     v31 = v24;
   }
 
-  if (storageSpaceAvailable - v34 >= 0x6ACFC1)
+  if (storageSpaceAvailable - v33 >= 0x6ACFC1)
   {
     v32 = v30;
   }
@@ -337,13 +335,11 @@ LABEL_11:
   }
 
   [(NMSKeepLocalRequestValidator *)self _finishWithOptions:optionsCopy validatorException:v32 constraints:v31 error:0 completion:completionCopy];
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishWithOptions:(id)options validatorException:(unint64_t)exception constraints:(unint64_t)constraints error:(id)error completion:(id)completion
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   errorCopy = error;
   completionCopy = completion;
@@ -356,9 +352,9 @@ LABEL_11:
     }
 
     v16 = MEMORY[0x277CCA9B8];
-    v30 = *MEMORY[0x277CCA7E8];
-    v31[0] = errorCopy;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v29 = *MEMORY[0x277CCA7E8];
+    v30[0] = errorCopy;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     v18 = [v16 errorWithDomain:@"NMSKeepLocalRequestErrorDomain" code:0 userInfo:v17];
     v19 = errorCopy;
   }
@@ -378,21 +374,19 @@ LABEL_11:
     {
       v23 = NMSKeepLocalRequestValidatorExceptionString(v21);
       *buf = 138412290;
-      v29 = v23;
+      v28 = v23;
       _os_log_impl(&dword_25B27B000, v22, OS_LOG_TYPE_DEFAULT, "[NMSKeepLocalRequestValidator] Cannot proceed with KeepLocal request due to validatorException: %@", buf, 0xCu);
     }
 
     v24 = MEMORY[0x277CCA9B8];
     v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{v21, @"NMSKeepLocalRequestErrorValidatorExceptionKey"}];
-    v27 = v17;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v26 = v17;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v18 = [v24 errorWithDomain:@"NMSKeepLocalRequestErrorDomain" code:1 userInfo:v19];
   }
 
 LABEL_10:
   completionCopy[2](completionCopy, [optionsCopy resolvedConstraints:constraints], v18);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_resolvedValidatorException:(unint64_t)exception options:(id)options
@@ -410,18 +404,16 @@ LABEL_10:
 
 - (id)_predicateForKeepLocalStatusDownloadingOrWaiting
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D2B5B0];
   v3 = *MEMORY[0x277D2B508];
   v4 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B508] value:&unk_286C8D460 comparison:1];
   v5 = [MEMORY[0x277D2B5C0] predicateWithProperty:v3 value:&unk_286C8D478 comparison:{1, v4}];
-  v11[1] = v5;
+  v10[1] = v5;
   v6 = [MEMORY[0x277D2B5C0] predicateWithProperty:v3 value:&unk_286C8D490 comparison:1];
-  v11[2] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
+  v10[2] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
   v8 = [v2 predicateMatchingPredicates:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -429,7 +421,7 @@ LABEL_10:
 - (unint64_t)_fetchSizeOfPendingDownloadsWithPowerConstraintCheck:(BOOL)check
 {
   checkCopy = check;
-  v56[2] = *MEMORY[0x277D85DE8];
+  v55[2] = *MEMORY[0x277D85DE8];
   v5 = NMLogForCategory(5);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -444,24 +436,24 @@ LABEL_10:
     }
 
     *buf = 138412546;
-    v49 = v6;
-    v50 = 2112;
+    v48 = v6;
+    v49 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "[NMSKeepLocalRequestValidator] (begin) _fetchSizeOfPendingDownloadsWithPowerConstraintCheck - checkConstraint: %@ - self: %@", buf, 0x16u);
   }
 
   autoupdatingSharedLibrary = [MEMORY[0x277D2B5F8] autoupdatingSharedLibrary];
-  v42 = checkCopy;
+  v41 = checkCopy;
   if (checkCopy)
   {
     v7 = MEMORY[0x277D2B5A8];
     v8 = MEMORY[0x277D2B608];
     v9 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B4D0] value:&unk_286C8D4A8 comparison:10];
     v10 = [v8 predicateWithPredicate:v9];
-    v56[0] = v10;
+    v55[0] = v10;
     v11 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B4C8] equalToInt64:1];
-    v56[1] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+    v55[1] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
     v13 = [v7 predicateMatchingPredicates:v12];
   }
 
@@ -470,48 +462,48 @@ LABEL_10:
     v13 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B4C8] equalToInt64:1];
   }
 
-  v44 = v13;
+  v43 = v13;
   v14 = [MEMORY[0x277D2B5C8] allItemsQueryWithLibrary:autoupdatingSharedLibrary predicate:v13 orderingTerms:0 usingSections:0];
   v15 = [MEMORY[0x277CBEB58] set];
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __85__NMSKeepLocalRequestValidator__fetchSizeOfPendingDownloadsWithPowerConstraintCheck___block_invoke;
-  v46[3] = &unk_27993E4A0;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __85__NMSKeepLocalRequestValidator__fetchSizeOfPendingDownloadsWithPowerConstraintCheck___block_invoke;
+  v45[3] = &unk_27993E4A0;
   v16 = v15;
-  v47 = v16;
-  v43 = v14;
-  [v14 enumeratePersistentIDsUsingBlock:v46];
+  v46 = v16;
+  v42 = v14;
+  [v14 enumeratePersistentIDsUsingBlock:v45];
   v17 = NMLogForCategory(5);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     v18 = [(NMSKeepLocalRequestValidator *)v16 count];
     *buf = 134218242;
-    v49 = v18;
-    v50 = 2112;
+    v48 = v18;
+    v49 = 2112;
     selfCopy = v16;
     _os_log_impl(&dword_25B27B000, v17, OS_LOG_TYPE_INFO, "[NMSKeepLocalRequestValidator] _fetchSizeOfPendingDownloadsWithPowerConstraintCheck - containerIDs count: %lu - %@", buf, 0x16u);
   }
 
   v19 = MEMORY[0x277D2B5A8];
   v20 = [MEMORY[0x277D2B5D0] predicateWithProperty:*MEMORY[0x277D2B538] values:v16];
-  v55[0] = v20;
+  v54[0] = v20;
   [(NMSKeepLocalRequestValidator *)self _predicateForKeepLocalStatusDownloadingOrWaiting];
-  v21 = v41 = self;
-  v55[1] = v21;
+  v21 = v40 = self;
+  v54[1] = v21;
   v22 = MEMORY[0x277D2B608];
   v23 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B500] equalToInt64:-1];
   v24 = [v22 predicateWithPredicate:v23];
-  v55[2] = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:3];
+  v54[2] = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:3];
   v26 = [v19 predicateMatchingPredicates:v25];
 
   v27 = [MEMORY[0x277D2B620] allItemsQueryWithLibrary:autoupdatingSharedLibrary predicate:v26 orderingTerms:0 usingSections:0];
   v28 = _aggregatedFetchOfFileSizeForQuery(v27, autoupdatingSharedLibrary);
   v29 = MEMORY[0x277D2B5A8];
-  v54[0] = v26;
+  v53[0] = v26;
   v30 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B588] value:&unk_286C8D4C0 comparison:1];
-  v54[1] = v30;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+  v53[1] = v30;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
   v32 = [v29 predicateMatchingPredicates:v31];
 
   v33 = MEMORY[0x277D2B620];
@@ -523,21 +515,20 @@ LABEL_10:
   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     v38 = @"NO";
-    if (v42)
+    if (v41)
     {
       v38 = @"YES";
     }
 
     *buf = 138412802;
-    v49 = v38;
-    v50 = 2048;
+    v48 = v38;
+    v49 = 2048;
     selfCopy = v36;
-    v52 = 2112;
-    v53 = v41;
+    v51 = 2112;
+    v52 = v40;
     _os_log_impl(&dword_25B27B000, v37, OS_LOG_TYPE_DEFAULT, "[NMSKeepLocalRequestValidator] (finished) _fetchSizeOfPendingDownloadsWithPowerConstraintCheck - checkConstraint: %@ - total size in bytes: %llu - self: %@", buf, 0x20u);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
@@ -550,20 +541,18 @@ void __85__NMSKeepLocalRequestValidator__fetchSizeOfPendingDownloadsWithPowerCon
 
 void __62__NMSKeepLocalRequestValidator_performWithOptions_completion___block_invoke_24_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B27B000, a2, OS_LOG_TYPE_ERROR, "[NMSKeepLocalRequestValidator] Failed to get cellular policy. Error: %@.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B27B000, a2, OS_LOG_TYPE_ERROR, "[NMSKeepLocalRequestValidator] Failed to get cellular policy. Error: %@.", &v2, 0xCu);
 }
 
 - (void)_finishWithOptions:(uint64_t)a1 validatorException:(NSObject *)a2 constraints:error:completion:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B27B000, a2, OS_LOG_TYPE_ERROR, "[NMSKeepLocalRequestValidator] Cannot proceed with KeepLocal request due to error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B27B000, a2, OS_LOG_TYPE_ERROR, "[NMSKeepLocalRequestValidator] Cannot proceed with KeepLocal request due to error: %@", &v2, 0xCu);
 }
 
 @end

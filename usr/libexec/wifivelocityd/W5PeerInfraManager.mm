@@ -11,9 +11,9 @@
 {
   managerCopy = manager;
   statusManagerCopy = statusManager;
-  v16.receiver = self;
-  v16.super_class = W5PeerInfraManager;
-  v9 = [(W5PeerInfraManager *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = W5PeerInfraManager;
+  v9 = [(W5PeerInfraManager *)&v17 init];
   v10 = v9;
   if (v9 && (objc_storeStrong(&v9->_peerManager, manager), v10->_peerManager) && (objc_storeStrong(&v10->_statusManager, statusManager), v10->_statusManager) && (v11 = objc_alloc_init(W5PeerGenericRequestListener), listener = v10->_listener, v10->_listener = v11, listener, (v13 = v10->_listener) != 0))
   {
@@ -28,13 +28,14 @@
     _requestHandler = sub_100098A04();
     if (os_log_type_enabled(_requestHandler, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136315650;
-      v18 = "[W5PeerInfraManager initWithPeerManager:statusManager:]";
-      v19 = 2080;
-      v20 = "W5PeerInfraManager.m";
-      v21 = 1024;
-      v22 = 59;
-      _os_log_send_and_compose_impl();
+      v18 = 136315650;
+      v19 = "[W5PeerInfraManager initWithPeerManager:statusManager:]";
+      v20 = 2080;
+      v21 = "W5PeerInfraManager.m";
+      v22 = 1024;
+      v23 = 59;
+      LODWORD(v16) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, _requestHandler, 0, "[wifivelocity] %s (%s:%u) init error!", &v18, v16, LODWORD(v17.receiver));
     }
 
     v10 = 0;

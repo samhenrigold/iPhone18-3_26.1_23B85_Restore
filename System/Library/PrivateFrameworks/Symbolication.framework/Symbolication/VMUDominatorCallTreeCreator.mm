@@ -1,8 +1,12 @@
 @interface VMUDominatorCallTreeCreator
+- (id)_addNodeWithNodeName:(unsigned int)name nodeInfo:(id)info callTreeParentNode:(id)node parentNodeName:parentNodeType:reference:;
 - (id)callTreeWithGraph:(id)graph groupByType:(BOOL)type showRegionVirtualSize:(BOOL)size debugTimer:(id)timer;
+- (id)groupByNodeNameForNode:(unsigned int)node parentNodeName:(unsigned int)name parentNodeType:(unsigned int)type reference:(id *)reference;
 - (id)groupByTypeNameForNode:(unsigned int)node;
 - (id)referenceDecriptionForSourceNodeAddress:(unint64_t)address referenceInfo:(id *)info;
 - (id)remainingNodeNames;
+- (unint64_t)sizeForNodeName:(unsigned int)name nodeInfo:(id)info;
+- (void)buildCallTreeWithNodeName:(unsigned int)name callTreeParentNode:(id)node parentNodeName:(unsigned int)nodeName parentNodeType:(unsigned int)type reference:(id *)reference rootNodeFilter:(id)filter;
 - (void)buildCallTreeWithRootNodeNames:(id)names;
 - (void)removeJunkEdges;
 - (void)removeJunkNodes;
@@ -99,43 +103,44 @@ uint64_t __46__VMUDominatorCallTreeCreator_removeJunkEdges__block_invoke(void *a
   return v4;
 }
 
-void __46__VMUDominatorCallTreeCreator_removeJunkEdges__block_invoke_2(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void __46__VMUDominatorCallTreeCreator_removeJunkEdges__block_invoke_2(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a2;
   if (a4 != a3)
   {
-    v7 = *(a1[4] + 32);
-    if (v7)
+    v6 = *(a1[4] + 32);
+    if (v6)
     {
-      [v7 nodeDetails:a4];
+      objc_msgSend_nodeDetails_(v6, a2, a4);
     }
 
-    v9 = 0;
-    v10 = *(a1[4] + 32);
-    if (v10)
-    {
-      [v10 nodeDetails:a3];
-    }
-
-    v11 = 0;
+    v8 = 0;
+    v9 = *(a1[4] + 32);
     if (v9)
     {
-      v12 = [v9 className];
-      v13 = [v12 isEqualToString:@"NSConcreteMutableData (Bytes Storage)"];
+      objc_msgSend_nodeDetails_(v9);
+    }
 
-      if (v13)
+    v10 = 0;
+    if (v8)
+    {
+      v11 = [v8 className];
+      v12 = [v11 isEqualToString:@"NSConcreteMutableData (Bytes Storage)"];
+
+      if (v12)
       {
         goto LABEL_10;
       }
 
-      v15 = [v9 className];
-      if ([v15 isEqualToString:@"@autoreleasepool content"])
+      v14 = [v8 className];
+      if ([v14 isEqualToString:@"@autoreleasepool content"])
       {
-        v16 = [v11 className];
-        v17 = [v16 isEqualToString:@"@autoreleasepool content"];
+        v15 = [v10 className];
+        v16 = [v15 isEqualToString:@"@autoreleasepool content"];
 
-        if ((v17 & 1) == 0)
+        if ((v16 & 1) == 0)
         {
-          v18 = *(a1[5] + 16);
+          v17 = *(a1[5] + 16);
           goto LABEL_22;
         }
       }
@@ -145,13 +150,13 @@ void __46__VMUDominatorCallTreeCreator_removeJunkEdges__block_invoke_2(void *a1,
       }
     }
 
-    v19 = [v11 className];
-    v20 = [v19 isEqualToString:@"@autoreleasepool content"];
+    v18 = [v10 className];
+    v19 = [v18 isEqualToString:@"@autoreleasepool content"];
 
-    if (v20)
+    if (v19)
     {
-      v21 = [v9 className];
-      if ([v21 isEqualToString:@"@autoreleasepool content"])
+      v20 = [v8 className];
+      if ([v20 isEqualToString:@"@autoreleasepool content"])
       {
       }
 
@@ -162,10 +167,10 @@ void __46__VMUDominatorCallTreeCreator_removeJunkEdges__block_invoke_2(void *a1,
         if (!IsRoot)
         {
 LABEL_10:
-          v14 = a1[6];
-          if (*v14 > a2)
+          v13 = a1[6];
+          if (*v13 > v4)
           {
-            *(v14 + (a2 >> 3) + 4) |= 1 << (a2 & 7);
+            *(v13 + (v4 >> 3) + 4) |= 1 << (v4 & 7);
           }
 
           goto LABEL_26;
@@ -175,30 +180,30 @@ LABEL_10:
 
     if (!VMUGraphNodeType_IsVMRegion(0))
     {
-      v23 = *(a1[4] + 32);
-      if (v23)
+      v22 = *(a1[4] + 32);
+      if (v22)
       {
-        [v23 referenceInfoWithName:a2];
-        LOBYTE(v23) = 0;
+        objc_msgSend_referenceInfoWithName_(v22);
+        LOBYTE(v22) = 0;
       }
 
-      VMUIsOwningReference(v23);
+      VMUIsOwningReference(v22);
       (*(a1[5] + 16))();
       goto LABEL_26;
     }
 
-    v18 = *(a1[5] + 16);
+    v17 = *(a1[5] + 16);
 LABEL_22:
-    v18();
+    v17();
 LABEL_26:
 
     return;
   }
 
-  v8 = a1[6];
-  if (*v8 > a2)
+  v7 = a1[6];
+  if (*v7 > a2)
   {
-    *(v8 + (a2 >> 3) + 4) |= 1 << (a2 & 7);
+    *(v7 + (a2 >> 3) + 4) |= 1 << (a2 & 7);
   }
 }
 
@@ -311,7 +316,7 @@ LABEL_18:
   return v10;
 }
 
-void __46__VMUDominatorCallTreeCreator_removeJunkNodes__block_invoke_2(void *a1, uint64_t a2)
+void __46__VMUDominatorCallTreeCreator_removeJunkNodes__block_invoke_2(void *a1, const char *a2)
 {
   v8 = 0;
   v9 = 0;
@@ -319,7 +324,7 @@ void __46__VMUDominatorCallTreeCreator_removeJunkNodes__block_invoke_2(void *a1,
   v4 = *(a1[4] + 32);
   if (v4)
   {
-    [v4 nodeDetails:a2];
+    objc_msgSend_nodeDetails_(v4, a2, a2);
     v4 = (v9 >> 60);
   }
 
@@ -344,6 +349,38 @@ void __46__VMUDominatorCallTreeCreator_removeJunkNodes__block_invoke_2(void *a1,
       *(v7 + (a2 >> 3) + 4) |= 1 << (a2 & 7);
     }
   }
+}
+
+- (unint64_t)sizeForNodeName:(unsigned int)name nodeInfo:(id)info
+{
+  v5 = *(info.var0 + 8);
+  if (self->_showRegionVirtualSize)
+  {
+    return v5 & 0xFFFFFFFFFFFFFFFLL;
+  }
+
+  v6 = *&name;
+  if (!VMUGraphNodeType_IsVMRegion(v5 >> 60))
+  {
+    return v5 & 0xFFFFFFFFFFFFFFFLL;
+  }
+
+  v8 = [(VMUProcessObjectGraph *)self->_processObjectGraph vmuVMRegionForNode:v6];
+  v9 = v8[22] + v8[23];
+  v10 = v8[24];
+  v11 = v9 >= v10;
+  v12 = v9 - v10;
+  if (v11)
+  {
+    v13 = v12;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
 }
 
 - (id)callTreeWithGraph:(id)graph groupByType:(BOOL)type showRegionVirtualSize:(BOOL)size debugTimer:(id)timer
@@ -413,7 +450,7 @@ void __94__VMUDominatorCallTreeCreator_callTreeWithGraph_groupByType_showRegionV
 
 - (void)buildCallTreeWithRootNodeNames:(id)names
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   namesCopy = names;
   desiredAddress = [(VMUDominatorCallTreeCreator *)self desiredAddress];
 
@@ -422,12 +459,12 @@ void __94__VMUDominatorCallTreeCreator_callTreeWithGraph_groupByType_showRegionV
     desiredAddress2 = [(VMUDominatorCallTreeCreator *)self desiredAddress];
     unsignedIntegerValue = [desiredAddress2 unsignedIntegerValue];
 
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __62__VMUDominatorCallTreeCreator_buildCallTreeWithRootNodeNames___block_invoke;
-    v23[3] = &__block_descriptor_40_e21_B36__0I8___Qb60b4__12l;
-    v23[4] = unsignedIntegerValue;
-    v8 = v23;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __62__VMUDominatorCallTreeCreator_buildCallTreeWithRootNodeNames___block_invoke;
+    v22[3] = &__block_descriptor_40_e21_B36__0I8___Qb60b4__12l;
+    v22[4] = unsignedIntegerValue;
+    v8 = v22;
   }
 
   else
@@ -449,30 +486,30 @@ void __94__VMUDominatorCallTreeCreator_callTreeWithGraph_groupByType_showRegionV
 
   desiredClassesPattern = _Block_copy(v8);
 LABEL_6:
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = namesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        unsignedIntValue = [*(*(&v18 + 1) + 8 * i) unsignedIntValue];
+        unsignedIntValue = [*(*(&v17 + 1) + 8 * i) unsignedIntValue];
         processObjectGraph = self->_processObjectGraph;
         if (processObjectGraph)
         {
-          [(VMUObjectGraph *)processObjectGraph nodeDetails:unsignedIntValue];
+          objc_msgSend_nodeDetails_(processObjectGraph);
         }
 
         if ([(VMUDominatorGraph *)self->_dominatorGraph hasAnyDirectDomineesForNodeName:unsignedIntValue])
@@ -481,13 +518,11 @@ LABEL_6:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v12);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __62__VMUDominatorCallTreeCreator_buildCallTreeWithRootNodeNames___block_invoke_2(uint64_t a1, uint64_t a2, __int128 *a3)
@@ -586,13 +621,169 @@ void __49__VMUDominatorCallTreeCreator_remainingNodeNames__block_invoke(uint64_t
 {
   if ([*(*(a1 + 32) + 32) isNodePresent:a2])
   {
-    if ((v7 = 0, v8 = 0, v9 = 0, (v4 = *(*(a1 + 32) + 32)) != 0) && ([v4 nodeDetails:a2], v4 = (v8 >> 60), v8 >> 60 == 1) || VMUGraphNodeType_IsVMRegion(v4))
+    if ((v7 = 0, v8 = 0, v9 = 0, (v4 = *(*(a1 + 32) + 32)) != 0) && (objc_msgSend_nodeDetails_(v4), v4 = (v8 >> 60), v8 >> 60 == 1) || VMUGraphNodeType_IsVMRegion(v4))
     {
       v5 = *(a1 + 40);
       v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
       [v5 addObject:v6];
     }
   }
+}
+
+- (id)_addNodeWithNodeName:(unsigned int)name nodeInfo:(id)info callTreeParentNode:(id)node parentNodeName:parentNodeType:reference:
+{
+  v8 = v7;
+  v9 = v6;
+  v10 = v5;
+  v11 = *&name;
+  v18 = *info.var0;
+  v19 = *(info.var0 + 16);
+  nodeCopy = node;
+  v14 = [(VMUDominatorCallTreeCreator *)self sizeForNodeName:v11 nodeInfo:&v18];
+  if (self->_groupByType)
+  {
+    v15 = [(VMUDominatorCallTreeCreator *)self groupByTypeNameForNode:v11, v18, v19];
+    [(VMUCallTreeRoot *)self->_callTreeRoot addChildWithName:v15 address:0 count:1 numBytes:v14 toNode:nodeCopy];
+  }
+
+  else
+  {
+    v15 = [(VMUDominatorCallTreeCreator *)self groupByNodeNameForNode:v11 parentNodeName:v10 parentNodeType:v9 reference:v8, v18, v19];
+    [(VMUCallTreeRoot *)self->_callTreeRoot addUniqueChildWithName:v15 address:0 count:1 numBytes:v14 toNode:nodeCopy];
+  }
+  v16 = ;
+
+  return v16;
+}
+
+- (void)buildCallTreeWithNodeName:(unsigned int)name callTreeParentNode:(id)node parentNodeName:(unsigned int)nodeName parentNodeType:(unsigned int)type reference:(id *)reference rootNodeFilter:(id)filter
+{
+  v10 = *&type;
+  v11 = *&nodeName;
+  v12 = *&name;
+  v56 = *MEMORY[0x1E69E9840];
+  nodeCopy = node;
+  filterCopy = filter;
+  v16 = objc_autoreleasePoolPush();
+  if (v12 == v11)
+  {
+    v53 = 0uLL;
+    v54 = 0;
+    processObjectGraph = self->_processObjectGraph;
+    if (processObjectGraph)
+    {
+      objc_msgSend_nodeDetails_(processObjectGraph);
+    }
+
+    v51 = v53;
+    v52 = v54;
+    v18 = [(VMUDominatorCallTreeCreator *)self _addNodeWithNodeName:v12 nodeInfo:&v51 callTreeParentNode:nodeCopy parentNodeName:v12 parentNodeType:v10 reference:reference];
+    goto LABEL_25;
+  }
+
+  visitedNodes = self->_visitedNodes;
+  if (*visitedNodes > v12 && ((*(visitedNodes + (v12 >> 3) + 4) >> (v12 & 7)) & 1) != 0)
+  {
+    goto LABEL_25;
+  }
+
+  v53 = 0uLL;
+  v54 = 0;
+  v20 = self->_processObjectGraph;
+  if (v20)
+  {
+    objc_msgSend_nodeDetails_(v20);
+  }
+
+  if (!filterCopy)
+  {
+    v51 = v53;
+    v52 = v54;
+    v23 = [(VMUDominatorCallTreeCreator *)self _addNodeWithNodeName:v12 nodeInfo:&v51 callTreeParentNode:nodeCopy parentNodeName:v11 parentNodeType:v10 reference:reference];
+LABEL_14:
+    v22 = v23;
+    goto LABEL_15;
+  }
+
+  v21 = filterCopy[2];
+  v51 = v53;
+  v52 = v54;
+  if (!v21(filterCopy, v12, &v51))
+  {
+    v23 = nodeCopy;
+    goto LABEL_14;
+  }
+
+  v51 = v53;
+  v52 = v54;
+  v22 = [(VMUDominatorCallTreeCreator *)self _addNodeWithNodeName:v12 nodeInfo:&v51 callTreeParentNode:nodeCopy parentNodeName:v11 parentNodeType:v10 reference:reference];
+  filterCopy = 0;
+LABEL_15:
+  v24 = self->_visitedNodes;
+  if (*v24 > v12)
+  {
+    *(v24 + (v12 >> 3) + 4) |= 1 << (v12 & 7);
+  }
+
+  v25 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  dominatorGraph = self->_dominatorGraph;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __131__VMUDominatorCallTreeCreator_buildCallTreeWithNodeName_callTreeParentNode_parentNodeName_parentNodeType_reference_rootNodeFilter___block_invoke;
+  v49[3] = &unk_1E827A390;
+  v27 = v25;
+  v50 = v27;
+  [(VMUDominatorGraph *)dominatorGraph enumerateDirectDomineesForNodeName:v12 withBlock:v49];
+  v28 = self->_processObjectGraph;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __131__VMUDominatorCallTreeCreator_buildCallTreeWithNodeName_callTreeParentNode_parentNodeName_parentNodeType_reference_rootNodeFilter___block_invoke_2;
+  v41[3] = &unk_1E827A400;
+  v29 = v27;
+  v42 = v29;
+  selfCopy = self;
+  v30 = v22;
+  v44 = v30;
+  v48 = v12;
+  v46 = v53;
+  v47 = v54;
+  filterCopy = filterCopy;
+  v45 = filterCopy;
+  [(VMUObjectGraph *)v28 enumerateReferencesOfNode:v12 withBlock:v41];
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v31 = v29;
+  v32 = [v31 countByEnumeratingWithState:&v37 objects:v55 count:16];
+  if (v32)
+  {
+    v33 = v32;
+    v34 = *v38;
+    do
+    {
+      v35 = 0;
+      do
+      {
+        if (*v38 != v34)
+        {
+          objc_enumerationMutation(v31);
+        }
+
+        unsignedIntValue = [*(*(&v37 + 1) + 8 * v35) unsignedIntValue];
+        [(VMUDominatorCallTreeCreator *)self buildCallTreeWithNodeName:unsignedIntValue callTreeParentNode:v30 parentNodeName:v12 parentNodeType:*(&v53 + 1) >> 60 reference:0 rootNodeFilter:filterCopy];
+        ++v35;
+      }
+
+      while (v33 != v35);
+      v33 = [v31 countByEnumeratingWithState:&v37 objects:v55 count:16];
+    }
+
+    while (v33);
+  }
+
+LABEL_25:
+  objc_autoreleasePoolPop(v16);
 }
 
 void __131__VMUDominatorCallTreeCreator_buildCallTreeWithNodeName_callTreeParentNode_parentNodeName_parentNodeType_reference_rootNodeFilter___block_invoke(uint64_t a1, uint64_t a2)
@@ -602,7 +793,7 @@ void __131__VMUDominatorCallTreeCreator_buildCallTreeWithNodeName_callTreeParent
   [v2 addObject:v3];
 }
 
-uint64_t __131__VMUDominatorCallTreeCreator_buildCallTreeWithNodeName_callTreeParentNode_parentNodeName_parentNodeType_reference_rootNodeFilter___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
+void *__131__VMUDominatorCallTreeCreator_buildCallTreeWithNodeName_callTreeParentNode_parentNodeName_parentNodeType_reference_rootNodeFilter___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
 {
   v10 = *(a1 + 32);
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a4];
@@ -658,10 +849,71 @@ uint64_t __131__VMUDominatorCallTreeCreator_buildCallTreeWithNodeName_callTreePa
   processObjectGraph = self->_processObjectGraph;
   if (processObjectGraph)
   {
-    [(VMUObjectGraph *)processObjectGraph nodeDetails:?];
+    objc_msgSend_nodeDetails_(processObjectGraph, a2);
   }
 
   return @"(unknown)";
+}
+
+- (id)groupByNodeNameForNode:(unsigned int)node parentNodeName:(unsigned int)name parentNodeType:(unsigned int)type reference:(id *)reference
+{
+  v9 = [(VMUProcessObjectGraph *)self->_processObjectGraph nodeDescription:*&node];
+  if (reference)
+  {
+    v10 = *&reference->var1.var1;
+    *v25 = *&reference->var0;
+    *&v25[16] = v10;
+    var2 = reference->var2;
+    if (VMUGraphNodeType_IsVMRegion(type))
+    {
+      v22 = 0;
+      v23 = 0;
+      v24 = 0;
+      processObjectGraph = self->_processObjectGraph;
+      if (processObjectGraph)
+      {
+        objc_msgSend_nodeDetails_(processObjectGraph);
+        v12 = v22;
+      }
+
+      else
+      {
+        v12 = 0;
+      }
+
+      v19 = *&v25[8];
+      *&v20 = *&v25[24];
+      v15 = [(VMUDominatorCallTreeCreator *)self referenceDecriptionForSourceNodeAddress:v12 referenceInfo:&v19];
+      v16 = v15;
+      if (v15)
+      {
+        [v15 stringByAppendingFormat:@" --> %@", v9];
+      }
+
+      else
+      {
+        is64bit = [(VMUProcessObjectGraph *)self->_processObjectGraph is64bit];
+        v19 = *v25;
+        v20 = *&v25[16];
+        v21 = var2;
+        [VMULeakDetector referenceDescription:&v19 dstDescription:v9 is64bit:is64bit];
+      }
+      v14 = ;
+    }
+
+    else
+    {
+      is64bit2 = [(VMUProcessObjectGraph *)self->_processObjectGraph is64bit];
+      v19 = *v25;
+      v20 = *&v25[16];
+      v21 = var2;
+      v14 = [VMULeakDetector referenceDescription:&v19 dstDescription:v9 is64bit:is64bit2];
+    }
+
+    v9 = v14;
+  }
+
+  return v9;
 }
 
 @end

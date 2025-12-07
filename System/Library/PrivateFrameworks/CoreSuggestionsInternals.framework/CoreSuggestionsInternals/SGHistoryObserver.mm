@@ -20,57 +20,57 @@
 
 - (void)processNewConfirmedOrRejectedReminderHashes:(id)hashes
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   hashesCopy = hashes;
   WeakRetained = objc_loadWeakRetained(&self->_store);
   v6 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained duplicateKeysMatchingAnyReminderHash:hashesCopy];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    obj = v30 = 0u;
-    v20 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
-    if (!v20)
+    obj = v29 = 0u;
+    v19 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
+    if (!v19)
     {
       goto LABEL_22;
     }
 
-    v19 = *v28;
+    v18 = *v27;
     while (1)
     {
       v7 = 0;
       do
       {
-        if (*v28 != v19)
+        if (*v27 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = v7;
-        v8 = *(*(&v27 + 1) + 8 * v7);
+        v21 = v7;
+        v8 = *(*(&v26 + 1) + 8 * v7);
+        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
         v9 = [obj objectForKeyedSubscript:v8];
-        v10 = [v9 countByEnumeratingWithState:&v23 objects:v33 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v22 objects:v32 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v24;
+          v12 = *v23;
           do
           {
             v13 = 0;
             do
             {
-              if (*v24 != v12)
+              if (*v23 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = [v6 loadReminderByKey:*(*(&v23 + 1) + 8 * v13)];
+              v14 = [v6 loadReminderByKey:*(*(&v22 + 1) + 8 * v13)];
               if (v14)
               {
                 journal = [v6 journal];
@@ -86,7 +86,7 @@ LABEL_14:
               {
                 v16 = [v8 base64EncodedDataWithOptions:0];
                 *buf = 138412290;
-                v32 = v16;
+                v31 = v16;
                 _os_log_error_impl(&dword_231E60000, journal, OS_LOG_TYPE_ERROR, "SGDSuggestManager - Database inconsistency: Found key for reminder hash %@ but reminder is missing", buf, 0xCu);
                 goto LABEL_14;
               }
@@ -97,19 +97,19 @@ LABEL_16:
             }
 
             while (v11 != v13);
-            v17 = [v9 countByEnumeratingWithState:&v23 objects:v33 count:16];
+            v17 = [v9 countByEnumeratingWithState:&v22 objects:v32 count:16];
             v11 = v17;
           }
 
           while (v17);
         }
 
-        v7 = v22 + 1;
+        v7 = v21 + 1;
       }
 
-      while (v22 + 1 != v20);
-      v20 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
-      if (!v20)
+      while (v21 + 1 != v19);
+      v19 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
+      if (!v19)
       {
 LABEL_22:
 
@@ -117,61 +117,59 @@ LABEL_22:
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processNewConfirmOrRejectEventHashes:(id)hashes
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   hashesCopy = hashes;
   WeakRetained = objc_loadWeakRetained(&self->_store);
   v6 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained duplicateKeysMatchingAnyEventHash:hashesCopy];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    obj = v32 = 0u;
-    v21 = [obj countByEnumeratingWithState:&v29 objects:v36 count:16];
-    if (v21)
+    obj = v31 = 0u;
+    v20 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
+    if (v20)
     {
       v7 = 0;
-      v20 = *v30;
+      v19 = *v29;
       do
       {
         v8 = 0;
         do
         {
-          if (*v30 != v20)
+          if (*v29 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = v8;
-          v9 = *(*(&v29 + 1) + 8 * v8);
+          v22 = v8;
+          v9 = *(*(&v28 + 1) + 8 * v8);
+          v24 = 0u;
           v25 = 0u;
           v26 = 0u;
           v27 = 0u;
-          v28 = 0u;
-          v24 = v9;
+          v23 = v9;
           v10 = [obj objectForKeyedSubscript:?];
-          v11 = [v10 countByEnumeratingWithState:&v25 objects:v35 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v24 objects:v34 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v26;
+            v13 = *v25;
             do
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v26 != v13)
+                if (*v25 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v15 = [v6 loadEventByDuplicateKey:*(*(&v25 + 1) + 8 * i)];
+                v15 = [v6 loadEventByDuplicateKey:*(*(&v24 + 1) + 8 * i)];
                 if (v15)
                 {
                   journal = [v6 journal];
@@ -186,36 +184,34 @@ LABEL_22:
                   journal = sgLogHandle();
                   if (os_log_type_enabled(journal, OS_LOG_TYPE_DEFAULT))
                   {
-                    v18 = [v24 base64EncodedDataWithOptions:0];
+                    v18 = [v23 base64EncodedDataWithOptions:0];
                     *buf = 138412290;
-                    v34 = v18;
+                    v33 = v18;
                     _os_log_impl(&dword_231E60000, journal, OS_LOG_TYPE_DEFAULT, "Database inconsistency; found key for event hash %@ but event is missing", buf, 0xCu);
                   }
                 }
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v25 objects:v35 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v24 objects:v34 count:16];
             }
 
             while (v12);
           }
 
-          v8 = v23 + 1;
+          v8 = v22 + 1;
         }
 
-        while (v23 + 1 != v21);
-        v21 = [obj countByEnumeratingWithState:&v29 objects:v36 count:16];
+        while (v22 + 1 != v20);
+        v20 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
       }
 
-      while (v21);
+      while (v20);
       if (v7)
       {
         +[SGDSuggestManager clearRequestCache];
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (SGHistoryObserver)initWithStore:(id)store

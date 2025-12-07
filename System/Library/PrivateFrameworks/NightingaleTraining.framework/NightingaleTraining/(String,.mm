@@ -9,7 +9,7 @@
   v2 = lazy protocol witness table cache variable for type [(String, Any)] and conformance [A];
   if (!lazy protocol witness table cache variable for type [(String, Any)] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySS_yptGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySS_yptGMd, &_sSaySS_yptGMR);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [(String, Any)] and conformance [A]);
     return WitnessTable;

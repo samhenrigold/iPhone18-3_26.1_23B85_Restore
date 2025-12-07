@@ -3,9 +3,9 @@
 
 @implementation LSBundleDisplayNameContextGetIndex
 
-uint64_t ___LSBundleDisplayNameContextGetIndex_block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
+void *___LSBundleDisplayNameContextGetIndex_block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
 {
-  result = [a3 isEqual:*(a1 + 32)];
+  result = [a3 isEqual:{*(a1 + 32), a4}];
   if (result)
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;

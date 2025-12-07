@@ -71,31 +71,31 @@ void __36__MLRServiceClient_sharedConnection__block_invoke()
 - (void)performOnRemoteObjectWithBlock:(id)block isSynchronous:(BOOL)synchronous errorHandler:(id)handler
 {
   synchronousCopy = synchronous;
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   handlerCopy = handler;
   v10 = handlerCopy;
   connection = self->_connection;
   if (synchronousCopy)
   {
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __78__MLRServiceClient_performOnRemoteObjectWithBlock_isSynchronous_errorHandler___block_invoke;
-    v22[3] = &unk_2798409D8;
-    v12 = &v23;
-    v23 = handlerCopy;
-    v13 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __78__MLRServiceClient_performOnRemoteObjectWithBlock_isSynchronous_errorHandler___block_invoke;
+    v21[3] = &unk_2798409D8;
+    v12 = &v22;
+    v22 = handlerCopy;
+    v13 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v21];
   }
 
   else
   {
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __78__MLRServiceClient_performOnRemoteObjectWithBlock_isSynchronous_errorHandler___block_invoke_2;
-    v20[3] = &unk_2798409D8;
-    v12 = &v21;
-    v21 = handlerCopy;
-    v13 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __78__MLRServiceClient_performOnRemoteObjectWithBlock_isSynchronous_errorHandler___block_invoke_2;
+    v19[3] = &unk_2798409D8;
+    v12 = &v20;
+    v20 = handlerCopy;
+    v13 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v19];
   }
 
   v14 = v13;
@@ -112,14 +112,12 @@ void __36__MLRServiceClient_sharedConnection__block_invoke()
   {
     v15 = MEMORY[0x277CCA9B8];
     v16 = *MEMORY[0x277D05640];
-    v24 = *MEMORY[0x277CCA450];
-    v25[0] = @"Fail to create remote object proxy.";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA450];
+    v24[0] = @"Fail to create remote object proxy.";
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v18 = [v15 errorWithDomain:v16 code:1300 userInfo:v17];
     (v10)[2](v10, v18);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __78__MLRServiceClient_performOnRemoteObjectWithBlock_isSynchronous_errorHandler___block_invoke(uint64_t a1)
@@ -146,7 +144,7 @@ uint64_t __78__MLRServiceClient_performOnRemoteObjectWithBlock_isSynchronous_err
 
 - (void)donateJSONResult:(id)result identifier:(id)identifier completion:(id)completion
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   resultCopy = result;
   identifierCopy = identifier;
   completionCopy = completion;
@@ -154,11 +152,11 @@ uint64_t __78__MLRServiceClient_performOnRemoteObjectWithBlock_isSynchronous_err
   {
     v12 = MEMORY[0x277CCA9B8];
     v13 = *MEMORY[0x277D05640];
-    v27 = *MEMORY[0x277CCA450];
-    v28[0] = @"JSONResult must be not be nil.";
+    v26 = *MEMORY[0x277CCA450];
+    v27[0] = @"JSONResult must be not be nil.";
     v14 = MEMORY[0x277CBEAC0];
-    v15 = v28;
-    v16 = &v27;
+    v15 = v27;
+    v16 = &v26;
 LABEL_6:
     v11 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:1];
     v17 = [v12 errorWithDomain:v13 code:1400 userInfo:v11];
@@ -171,32 +169,30 @@ LABEL_6:
   {
     v12 = MEMORY[0x277CCA9B8];
     v13 = *MEMORY[0x277D05640];
-    v25 = *MEMORY[0x277CCA450];
-    v26 = @"identifier must be not be nil.";
+    v24 = *MEMORY[0x277CCA450];
+    v25 = @"identifier must be not be nil.";
     v14 = MEMORY[0x277CBEAC0];
-    v15 = &v26;
-    v16 = &v25;
+    v15 = &v25;
+    v16 = &v24;
     goto LABEL_6;
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __59__MLRServiceClient_donateJSONResult_identifier_completion___block_invoke;
-  v21[3] = &unk_279840A00;
-  v22 = resultCopy;
-  v23 = identifierCopy;
-  v24 = completionCopy;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __59__MLRServiceClient_donateJSONResult_identifier_completion___block_invoke_3;
-  v19[3] = &unk_2798409D8;
-  v20 = v24;
-  [(MLRServiceClient *)self performOnRemoteObjectWithBlock:v21 errorHandler:v19];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __59__MLRServiceClient_donateJSONResult_identifier_completion___block_invoke;
+  v20[3] = &unk_279840A00;
+  v21 = resultCopy;
+  v22 = identifierCopy;
+  v23 = completionCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __59__MLRServiceClient_donateJSONResult_identifier_completion___block_invoke_3;
+  v18[3] = &unk_2798409D8;
+  v19 = v23;
+  [(MLRServiceClient *)self performOnRemoteObjectWithBlock:v20 errorHandler:v18];
 
-  v11 = v22;
+  v11 = v21;
 LABEL_7:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __59__MLRServiceClient_donateJSONResult_identifier_completion___block_invoke(uint64_t a1, void *a2)

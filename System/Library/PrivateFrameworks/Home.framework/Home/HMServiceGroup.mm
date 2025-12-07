@@ -46,7 +46,7 @@ void __66__HMServiceGroup_HFApplicationData___hf_didUpdateApplicationData___bloc
   {
     v3 = [*(a1 + 32) services];
     v4 = [v3 firstObject];
-    v5 = [v4 home];
+    v5 = objc_msgSend_home(v4);
     [v6 home:v5 didUpdateApplicationDataForServiceGroup:*(a1 + 32)];
   }
 }
@@ -60,7 +60,7 @@ void __92__HMServiceGroup_HFApplicationData__hf_updateApplicationData_handleErro
   {
     v5 = [*(a1 + 32) services];
     v6 = [v5 firstObject];
-    v7 = [v6 home];
+    v7 = objc_msgSend_home(v6);
     v8 = [v7 residentDevices];
     v9 = [v8 count];
 

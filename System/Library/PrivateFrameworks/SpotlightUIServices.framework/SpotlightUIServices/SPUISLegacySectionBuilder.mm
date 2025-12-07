@@ -8,10 +8,9 @@
 
 + (id)supportedBundleIds
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"com.apple.spotlight.related_search";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"com.apple.spotlight.related_search";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -41,7 +40,7 @@
 - (id)buildSection
 {
   selfCopy = self;
-  v76 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   section = [(SPUISSectionBuilder *)self section];
   mutableDeepCopy = [section mutableDeepCopy];
 
@@ -53,33 +52,33 @@
   v8 = objc_opt_new();
   v9 = objc_opt_new();
   isTopHitSection = [(SPUISSectionBuilder *)selfCopy isTopHitSection];
-  v57 = objc_opt_new();
+  v54 = objc_opt_new();
+  v66 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
-  v71 = 0u;
-  v72 = 0u;
   results2 = [mutableDeepCopy results];
-  v56 = v8;
-  v60 = [results2 countByEnumeratingWithState:&v69 objects:v75 count:16];
-  if (v60)
+  v53 = v8;
+  v57 = [results2 countByEnumeratingWithState:&v66 objects:v72 count:16];
+  if (v57)
   {
-    v59 = *v70;
-    v54 = selfCopy;
-    v55 = mutableDeepCopy;
-    v53 = v9;
-    v52 = isTopHitSection;
-    v51 = results2;
+    v56 = *v67;
+    v51 = selfCopy;
+    v52 = mutableDeepCopy;
+    v50 = v9;
+    v49 = isTopHitSection;
+    v48 = results2;
     do
     {
       v12 = 0;
       do
       {
-        if (*v70 != v59)
+        if (*v67 != v56)
         {
           objc_enumerationMutation(results2);
         }
 
-        v13 = *(*(&v69 + 1) + 8 * v12);
+        v13 = *(*(&v66 + 1) + 8 * v12);
         inlineCard = [v13 inlineCard];
         if (inlineCard)
         {
@@ -112,7 +111,7 @@
 
           if (buildResult)
           {
-            [v57 addObject:buildResult];
+            [v54 addObject:buildResult];
           }
         }
 
@@ -120,7 +119,7 @@
         v12 = v16;
 LABEL_10:
         results3 = [mutableDeepCopy results];
-        if (([results3 count] == 1) & isTopHitSection) != 1 || (objc_msgSend(v13, "usesCompactDisplay"))
+        if ((objc_msgSend_count(results3) == 1) & isTopHitSection) != 1 || ([v13 usesCompactDisplay])
         {
 LABEL_31:
         }
@@ -131,46 +130,44 @@ LABEL_31:
 
           if ((shouldUseCompactDisplay & 1) == 0)
           {
-            v58 = v12;
+            v55 = v12;
             inlineCard2 = [v13 inlineCard];
             cardSections = [inlineCard2 cardSections];
 
-            v67 = 0u;
-            v68 = 0u;
+            v64 = 0u;
             v65 = 0u;
-            v66 = 0u;
+            v62 = 0u;
+            v63 = 0u;
             results3 = cardSections;
-            v23 = [results3 countByEnumeratingWithState:&v65 objects:v74 count:16];
-            v24 = 0x277D4C000uLL;
+            v23 = [results3 countByEnumeratingWithState:&v62 objects:v71 count:16];
             if (!v23)
             {
               goto LABEL_30;
             }
 
-            v25 = v23;
-            v26 = *v66;
+            v24 = v23;
+            v25 = *v63;
             while (1)
             {
-              for (i = 0; i != v25; ++i)
+              for (i = 0; i != v24; ++i)
               {
-                if (*v66 != v26)
+                if (*v63 != v25)
                 {
                   objc_enumerationMutation(results3);
                 }
 
-                v28 = *(*(&v65 + 1) + 8 * i);
-                backgroundColor = [v28 backgroundColor];
+                v27 = *(*(&v62 + 1) + 8 * i);
+                backgroundColor = [v27 backgroundColor];
                 if (!backgroundColor)
                 {
                   contentType = [v13 contentType];
-                  v31 = [contentType isEqualToString:@"com.apple.application-bundle"];
+                  v30 = [contentType isEqualToString:@"com.apple.application-bundle"];
 
-                  if (v31)
+                  if (v30)
                   {
                     continue;
                   }
 
-                  v32 = *(v24 + 440);
                   backgroundColor = objc_opt_new();
                   relatedAppIdentifier = [v13 relatedAppIdentifier];
                   if (relatedAppIdentifier)
@@ -191,26 +188,24 @@ LABEL_31:
                       sectionBundleIdentifier = [v13 sectionBundleIdentifier];
                       [backgroundColor setApplicationBundleIdentifier:sectionBundleIdentifier];
                     }
-
-                    v24 = 0x277D4C000;
                   }
 
-                  [v28 setBackgroundColor:backgroundColor];
+                  [v27 setBackgroundColor:backgroundColor];
                 }
               }
 
-              v25 = [results3 countByEnumeratingWithState:&v65 objects:v74 count:16];
-              if (!v25)
+              v24 = [results3 countByEnumeratingWithState:&v62 objects:v71 count:16];
+              if (!v24)
               {
 LABEL_30:
 
-                selfCopy = v54;
-                mutableDeepCopy = v55;
-                v8 = v56;
-                v9 = v53;
-                isTopHitSection = v52;
-                results2 = v51;
-                v12 = v58;
+                selfCopy = v51;
+                mutableDeepCopy = v52;
+                v8 = v53;
+                v9 = v50;
+                isTopHitSection = v49;
+                results2 = v48;
+                v12 = v55;
                 goto LABEL_31;
               }
             }
@@ -222,68 +217,66 @@ LABEL_30:
           [v9 addObject:v13];
         }
 
-        v36 = [objc_opt_class() compactCardSectionForResult:v13];
-        v37 = v36;
-        if (v36)
+        v34 = [objc_opt_class() compactCardSectionForResult:v13];
+        v35 = v34;
+        if (v34)
         {
-          [v36 setSpotlightBackingResult:v13];
-          [v8 addObject:v37];
+          [v34 setSpotlightBackingResult:v13];
+          [v8 addObject:v35];
         }
 
         ++v12;
       }
 
-      while (v12 != v60);
-      v39 = [results2 countByEnumeratingWithState:&v69 objects:v75 count:16];
-      v60 = v39;
+      while (v12 != v57);
+      v37 = [results2 countByEnumeratingWithState:&v66 objects:v72 count:16];
+      v57 = v37;
     }
 
-    while (v39);
+    while (v37);
   }
 
   [objc_opt_class() disambiguateUIIfNecessary:v8];
-  v40 = objc_opt_new();
+  v38 = objc_opt_new();
+  v58 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v41 = v9;
-  v42 = [v41 countByEnumeratingWithState:&v61 objects:v73 count:16];
-  if (v42)
+  v39 = v9;
+  v40 = [v39 countByEnumeratingWithState:&v58 objects:v70 count:16];
+  if (v40)
   {
-    v43 = v42;
-    v44 = *v62;
+    v41 = v40;
+    v42 = *v59;
     do
     {
-      for (j = 0; j != v43; ++j)
+      for (j = 0; j != v41; ++j)
       {
-        if (*v62 != v44)
+        if (*v59 != v42)
         {
-          objc_enumerationMutation(v41);
+          objc_enumerationMutation(v39);
         }
 
-        v46 = *(*(&v61 + 1) + 8 * j);
-        if ([v57 containsObject:v46])
+        v44 = *(*(&v58 + 1) + 8 * j);
+        if ([v54 containsObject:v44])
         {
-          v47 = [objc_alloc(objc_opt_class()) initWithResult:v46];
+          v45 = [objc_alloc(objc_opt_class()) initWithResult:v44];
 
-          v46 = v47;
+          v44 = v45;
         }
 
-        [v40 addObject:v46];
+        [v38 addObject:v44];
       }
 
-      v43 = [v41 countByEnumeratingWithState:&v61 objects:v73 count:16];
+      v41 = [v39 countByEnumeratingWithState:&v58 objects:v70 count:16];
     }
 
-    while (v43);
+    while (v41);
   }
 
-  [mutableDeepCopy setResults:v40];
+  [mutableDeepCopy setResults:v38];
   buildButtonItem = [(SPUISSectionBuilder *)selfCopy buildButtonItem];
   [mutableDeepCopy setButton:buildButtonItem];
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return mutableDeepCopy;
 }

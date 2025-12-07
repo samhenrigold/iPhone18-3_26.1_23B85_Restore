@@ -39,21 +39,21 @@
 
 - (AXAutoForwardingLocalNotificationHandler)initWithNotificationName:(id)name target:(id)target dispatcher:(id)dispatcher possibleHandlers:(SEL)handlers
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v29.receiver = self;
-  v29.super_class = AXAutoForwardingLocalNotificationHandler;
-  v7 = [(VISAXNotificationHandler *)&v29 initWithNotificationName:name target:target dispatcher:dispatcher startObserving:0];
+  v31 = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = AXAutoForwardingLocalNotificationHandler;
+  v7 = [(VISAXNotificationHandler *)&v28 initWithNotificationName:name target:target dispatcher:dispatcher startObserving:0];
   if (v7)
   {
-    v28 = 0;
+    v27 = 0;
     if (handlers)
     {
       v8 = 0;
       v9 = 0;
-      v28 = &v33;
+      v27 = &v32;
       do
       {
-        v10 = v28++;
+        v10 = v27++;
         ++v9;
         v8 += 8;
       }
@@ -66,14 +66,14 @@
         if (v11)
         {
           *v11 = handlers;
-          v28 = &v33;
+          v27 = &v32;
           if (v9 != 1)
           {
             v12 = v9 - 1;
             v13 = 1;
             do
             {
-              v14 = v28++;
+              v14 = v27++;
               v7->_possibleHandlers[v13++] = *v14;
               --v12;
             }
@@ -100,24 +100,23 @@
         v20 = AXColorizeFormatLog();
         _notificationTypeDescription = [(AXAutoForwardingLocalNotificationHandler *)v7 _notificationTypeDescription];
         [(VISAXNotificationHandler *)v7 _notificationName];
-        v27 = v26 = _notificationTypeDescription;
-        v25 = v7;
+        v26 = v25 = _notificationTypeDescription;
+        v24 = v7;
         v22 = _AXStringForArgs();
 
         if (os_log_type_enabled(v18, v19))
         {
           *buf = 138543362;
-          v31 = v22;
+          v30 = v22;
           _os_log_impl(&dword_27102A000, v18, v19, "%{public}@", buf, 0xCu);
         }
       }
     }
 
-    [(AXAutoForwardingLocalNotificationHandler *)v7 _startObserving:v25];
+    [(AXAutoForwardingLocalNotificationHandler *)v7 _startObserving:v24];
     v7->super.super._valid = 1;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -137,10 +136,10 @@
 
 - (void)processHandler:(SEL)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = AXAutoForwardingLocalNotificationHandler;
-  [(VISAXNotificationHandler *)&v15 processHandler:?];
+  v17 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = AXAutoForwardingLocalNotificationHandler;
+  [(VISAXNotificationHandler *)&v14 processHandler:?];
   if (AXProcessIsSpringBoard())
   {
     v5 = [(AXAutoForwardingLocalNotificationHandler *)self _forwardDistributedNotificationNameForHandler:handler];
@@ -160,7 +159,7 @@
         if (os_log_type_enabled(v9, v10))
         {
           *buf = 138543362;
-          v17 = v12;
+          v16 = v12;
           _os_log_impl(&dword_27102A000, v9, v10, "%{public}@", buf, 0xCu);
         }
       }
@@ -169,8 +168,6 @@
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, v5, 0, 0, 1u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_prefixForForwardDistributedNotificationName
@@ -227,12 +224,12 @@ LABEL_6:
 
 - (void)_startObserving
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (AXProcessIsSpringBoard())
   {
-    v16.receiver = self;
-    v16.super_class = AXAutoForwardingLocalNotificationHandler;
-    [(AXLocalNotificationHandler *)&v16 _startObserving];
+    v15.receiver = self;
+    v15.super_class = AXAutoForwardingLocalNotificationHandler;
+    [(AXLocalNotificationHandler *)&v15 _startObserving];
   }
 
   else if (self->_possibleHandlers && self->_possibleHandlersCount)
@@ -240,7 +237,7 @@ LABEL_6:
     v3 = 0;
     do
     {
-      v4 = [(AXAutoForwardingLocalNotificationHandler *)self _forwardDistributedNotificationNameForHandler:self->_possibleHandlers[v3], selfCopy, v15];
+      v4 = [(AXAutoForwardingLocalNotificationHandler *)self _forwardDistributedNotificationNameForHandler:self->_possibleHandlers[v3], selfCopy, v14];
       mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
       ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -254,12 +251,12 @@ LABEL_6:
         {
           v10 = AXColorizeFormatLog();
           selfCopy = self;
-          v15 = v4;
+          v14 = v4;
           v11 = _AXStringForArgs();
           if (os_log_type_enabled(v8, v9))
           {
             *buf = 138543362;
-            v18 = v11;
+            v17 = v11;
             _os_log_impl(&dword_27102A000, v8, v9, "%{public}@", buf, 0xCu);
           }
         }
@@ -273,18 +270,16 @@ LABEL_6:
 
     while (v3 < self->_possibleHandlersCount);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObserving
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (AXProcessIsSpringBoard())
   {
-    v16.receiver = self;
-    v16.super_class = AXAutoForwardingLocalNotificationHandler;
-    [(AXLocalNotificationHandler *)&v16 _stopObserving];
+    v15.receiver = self;
+    v15.super_class = AXAutoForwardingLocalNotificationHandler;
+    [(AXLocalNotificationHandler *)&v15 _stopObserving];
   }
 
   else if (self->_possibleHandlersCount)
@@ -292,7 +287,7 @@ LABEL_6:
     v3 = 0;
     do
     {
-      v4 = [(AXAutoForwardingLocalNotificationHandler *)self _forwardDistributedNotificationNameForHandler:self->_possibleHandlers[v3], selfCopy, v15];
+      v4 = [(AXAutoForwardingLocalNotificationHandler *)self _forwardDistributedNotificationNameForHandler:self->_possibleHandlers[v3], selfCopy, v14];
       mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
       ignoreLogging = [mEMORY[0x277CE6998] ignoreLogging];
 
@@ -306,12 +301,12 @@ LABEL_6:
         {
           v10 = AXColorizeFormatLog();
           selfCopy = self;
-          v15 = v4;
+          v14 = v4;
           v11 = _AXStringForArgs();
           if (os_log_type_enabled(v8, v9))
           {
             *buf = 138543362;
-            v18 = v11;
+            v17 = v11;
             _os_log_impl(&dword_27102A000, v8, v9, "%{public}@", buf, 0xCu);
           }
         }
@@ -325,8 +320,6 @@ LABEL_6:
 
     while (v3 < self->_possibleHandlersCount);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_notificationTypeDescription

@@ -1,3 +1,336 @@
+void sub_100080B28(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v2 = *(a1 + 40);
+  v3 = [v1 associatedDevices];
+  [v1 updateCloudPairings:v2 newDevices:v3];
+}
+
+id sub_100081C00(uint64_t a1, uint64_t a2, void *a3)
+{
+  v6 = a3;
+  v7 = [*(a1 + 32) idsDevice];
+  v8 = [v7 nsuuid];
+  if (v8)
+  {
+    v9 = *(a1 + 40);
+    v3 = [*(a1 + 32) idsDevice];
+    v4 = [v3 uniqueID];
+    v10 = [v9 publicAddressForIDSDevice:v4];
+    if (v10)
+    {
+      v11 = 0;
+LABEL_6:
+
+      goto LABEL_7;
+    }
+  }
+
+  v12 = [v6 idsDevice];
+  v13 = [v12 uniqueID];
+  v14 = [*(a1 + 32) idsDevice];
+  v15 = [v14 uniqueID];
+  v11 = [v13 isEqualToString:v15];
+
+  if (v8)
+  {
+    v10 = 0;
+    goto LABEL_6;
+  }
+
+LABEL_7:
+
+  return v11;
+}
+
+id sub_100081D1C(uint64_t a1, void *a2)
+{
+  v3 = [a2 idsDevice];
+  v4 = [v3 uniqueID];
+  v5 = [*(a1 + 32) objectAtIndexedSubscript:*(a1 + 40)];
+  v6 = [v4 isEqualToString:v5];
+
+  return v6;
+}
+
+void sub_100083390(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = sub_100005C14("CloudPairing");
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v71 = [v3 nsuuid];
+    obja = [v71 UUIDString];
+    v63 = [obja UTF8String];
+    v67 = [v3 uniqueID];
+    v61 = [v67 UTF8String];
+    v65 = [v3 modelIdentifier];
+    v60 = [v65 UTF8String];
+    v5 = [v3 productName];
+    v56 = [v5 UTF8String];
+    v6 = [v3 productVersion];
+    v55 = [v6 UTF8String];
+    [v3 productBuildVersion];
+    v7 = v58 = a1;
+    v8 = [v7 UTF8String];
+    v9 = [v3 name];
+    v10 = [v9 UTF8String];
+    v11 = *(a1 + 32);
+    v12 = [v3 uniqueID];
+    v13 = [v11 publicAddressForIDSDevice:v12];
+    v14 = [v13 UTF8String];
+    *buf = 136316930;
+    v79 = v63;
+    v80 = 2080;
+    v81 = v61;
+    v82 = 2080;
+    v83 = v60;
+    v84 = 2080;
+    v85 = v56;
+    v86 = 2080;
+    v87 = v55;
+    v88 = 2080;
+    v89 = v8;
+    v90 = 2080;
+    v91 = v10;
+    v92 = 2080;
+    v93 = v14;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "BT:(%s) IDS:%s model:%s prodName:%s prodVers:%s buildVers:%s Name:%s address:[%s]", buf, 0x52u);
+
+    a1 = v58;
+  }
+
+  v15 = [v3 modelIdentifier];
+  if ([v15 localizedStandardContainsString:@"Phone"])
+  {
+    v16 = *(a1 + 48);
+
+    if (v16 == 1)
+    {
+      v17 = sub_100005C14("CloudPairing");
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        v18 = [v3 cpDescription];
+        v19 = [v18 UTF8String];
+        *buf = 136380675;
+        v79 = v19;
+        v20 = "Ignoring IDS device %{private}s as it is a phone and we are a watch and we cant allow that";
+LABEL_19:
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v20, buf, 0xCu);
+
+        goto LABEL_20;
+      }
+
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+  }
+
+  v21 = [v3 modelIdentifier];
+  if ([v21 localizedStandardContainsString:@"Watch"])
+  {
+    v22 = *(a1 + 49);
+
+    if (v22 == 1)
+    {
+      v17 = sub_100005C14("CloudPairing");
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        v18 = [v3 cpDescription];
+        v23 = [v18 UTF8String];
+        *buf = 136380675;
+        v79 = v23;
+        v20 = "Ignoring IDS device %{private}s as it is a watch and we are a phone and we cant allow that.";
+        goto LABEL_19;
+      }
+
+LABEL_20:
+      v26 = v17;
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+  }
+
+  if (([v3 supportsiCloudPairing] & 1) == 0)
+  {
+    v17 = sub_100005C14("CloudPairing");
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = [v3 cpDescription];
+      v25 = [v18 UTF8String];
+      *buf = 136380675;
+      v79 = v25;
+      v20 = "Ignoring IDS device %{private}s as it doesn't support iCloud pairing with us";
+      goto LABEL_19;
+    }
+
+    goto LABEL_20;
+  }
+
+  if ([v3 isDefaultPairedDevice])
+  {
+    v17 = sub_100005C14("CloudPairing");
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = [v3 cpDescription];
+      v24 = [v18 UTF8String];
+      *buf = 136380675;
+      v79 = v24;
+      v20 = "Ignoring IDS device %{private}s as it is a 'default paired' device";
+      goto LABEL_19;
+    }
+
+    goto LABEL_20;
+  }
+
+  v27 = [v3 uniqueID];
+  v28 = [v27 length];
+
+  if (!v28)
+  {
+    v17 = sub_100005C14("CloudPairing");
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_20;
+    }
+
+    v18 = [v3 cpDescription];
+    v54 = [v18 UTF8String];
+    *buf = 136380675;
+    v79 = v54;
+    v20 = "Ignoring IDS device %{private}s as it has no uniqueID set";
+    goto LABEL_19;
+  }
+
+  v57 = v3;
+  v26 = [CloudDevice deviceWithIDSDevice:v3];
+  v73 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  v76 = 0u;
+  v59 = a1;
+  obj = [*(a1 + 32) associatedDevices];
+  v72 = [obj countByEnumeratingWithState:&v73 objects:v77 count:16];
+  if (!v72)
+  {
+    goto LABEL_41;
+  }
+
+  v29 = *v74;
+  v62 = v26;
+  v68 = *v74;
+  do
+  {
+    v30 = 0;
+    do
+    {
+      if (*v74 != v29)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v31 = *(*(&v73 + 1) + 8 * v30);
+      v32 = [v31 idsDevice];
+      v33 = [v32 uniqueID];
+      v34 = [v26 idsDevice];
+      v35 = [v34 uniqueID];
+      v36 = [v33 isEqualToString:v35];
+
+      if (v36)
+      {
+        v37 = sub_100005C14("CloudPairing");
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        {
+          v66 = [v26 idsDevice];
+          v38 = [v66 uniqueID];
+          v64 = [v26 idsDevice];
+          v39 = [v64 nsuuid];
+          v40 = [v31 idsDevice];
+          v41 = [v40 uniqueID];
+          v42 = [v31 idsDevice];
+          v43 = [v42 nsuuid];
+          v44 = [v31 stateString];
+          *buf = 138413314;
+          v79 = v38;
+          v80 = 2112;
+          v81 = v39;
+          v82 = 2112;
+          v83 = v41;
+          v84 = 2112;
+          v85 = v43;
+          v86 = 2112;
+          v87 = v44;
+          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Newly created device: %@ (BT: %@) already associated with device: %@ (BT: %@, state: %@)", buf, 0x34u);
+
+          v26 = v62;
+        }
+
+        v45 = [v26 idsDevice];
+        v46 = [v45 nsuuid];
+        if (v46)
+        {
+          v47 = v46;
+          v29 = v68;
+          goto LABEL_33;
+        }
+
+        v47 = [v31 idsDevice];
+        v48 = [v47 nsuuid];
+        v29 = v68;
+        if (v48)
+        {
+          v49 = v48;
+          v50 = [v31 state];
+
+          if (v50)
+          {
+            v45 = [v31 idsDevice];
+            v47 = [v45 nsuuid];
+            v51 = [v26 idsDevice];
+            [v51 setNSUUID:v47];
+
+            goto LABEL_33;
+          }
+        }
+
+        else
+        {
+LABEL_33:
+        }
+
+        [v26 setState:{objc_msgSend(v31, "state")}];
+        [v26 setIsConnected:{objc_msgSend(v31, "isConnected")}];
+      }
+
+      v30 = v30 + 1;
+    }
+
+    while (v72 != v30);
+    v52 = [obj countByEnumeratingWithState:&v73 objects:v77 count:16];
+    v72 = v52;
+  }
+
+  while (v52);
+LABEL_41:
+
+  v3 = v57;
+  v53 = [v57 nsuuid];
+
+  if (v53)
+  {
+    [v26 setState:6];
+  }
+
+  [*(v59 + 40) addObject:v26];
+LABEL_21:
+}
+
 id sub_100083E40(uint64_t a1, void *a2)
 {
   v3 = [a2 idsDevice];
@@ -178,10 +511,9 @@ uint64_t sub_100085794(void *a1)
 {
   if (a1[4] && !a1[5])
   {
-    v5 = a1[6];
-    v6 = *(a1[6] + 16);
+    v4 = *(a1[6] + 16);
 
-    return v6();
+    return v4();
   }
 
   else
@@ -189,10 +521,9 @@ uint64_t sub_100085794(void *a1)
     v2 = sub_100005C14("CloudPairing");
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      sub_1001F008C(a1);
+      sub_1001F008C();
     }
 
-    v3 = a1[5];
     return (*(a1[6] + 16))();
   }
 }
@@ -770,9 +1101,9 @@ void sub_10008A4B4(uint64_t a1)
   }
 }
 
-void sub_10008AF48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10008AF48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -844,50 +1175,48 @@ void sub_10008BCE0(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_100003948;
-  v25 = sub_100003850;
-  v26 = 0;
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_10008BEDC;
-  v16[3] = &unk_1002B99E0;
-  v19 = &v27;
-  v20 = &v21;
-  v17 = *(a1 + 32);
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_100003948;
+  v23 = sub_100003850;
+  v24 = 0;
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10008BEDC;
+  v14[3] = &unk_1002B99E0;
+  v17 = &v25;
+  v18 = &v19;
+  v15 = *(a1 + 32);
   v7 = v5;
-  v18 = v7;
-  [v6 enumerateKeysAndObjectsUsingBlock:v16];
+  v16 = v7;
+  [v6 enumerateKeysAndObjectsUsingBlock:v14];
   v8 = *(*(a1 + 40) + 8);
   obj = *(v8 + 40);
-  v12 = *(v28 + 6);
-  NSAppendPrintF_safe();
+  NSAppendPrintF_safe(&obj, "] %@: %u\n", v7, *(v26 + 6));
   objc_storeStrong((v8 + 40), obj);
   v9 = *(*(a1 + 40) + 8);
-  v14 = *(v9 + 40);
-  v11 = v22[5];
-  NSAppendPrintF_safe();
-  objc_storeStrong((v9 + 40), v14);
+  v12 = *(v9 + 40);
+  NSAppendPrintF_safe(&v12, "%@", v20[5]);
+  objc_storeStrong((v9 + 40), v12);
   v10 = *(*(a1 + 40) + 8);
-  v13 = *(v10 + 40);
-  NSAppendPrintF_safe();
-  objc_storeStrong((v10 + 40), v13);
+  v11 = *(v10 + 40);
+  NSAppendPrintF_safe(&v11, "\n");
+  objc_storeStrong((v10 + 40), v11);
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v25, 8);
 }
 
-void sub_10008BEB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10008BEB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 64), 8);
+  _Block_object_dispose((v22 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -899,25 +1228,24 @@ void sub_10008BEDC(uint64_t a1, void *a2, void *a3)
   *(*(*(a1 + 48) + 8) + 24) = [v6 intValue] + v5;
   v8 = *(*(a1 + 56) + 8);
   obj = *(v8 + 40);
-  v12 = v6;
-  NSAppendPrintF_safe();
+  NSAppendPrintF_safe(&obj, "> %@ - %@", v7, v6);
 
   objc_storeStrong((v8 + 40), obj);
   v9 = *(*(a1 + 56) + 8);
-  v13 = *(v9 + 40);
-  v10 = [*(a1 + 32) objectForKeyedSubscript:{*(a1 + 40), v7, v12}];
+  v12 = *(v9 + 40);
+  v10 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
   v11 = [v10 objectForKeyedSubscript:v7];
 
-  NSAppendPrintF_safe();
-  objc_storeStrong((v9 + 40), v13);
+  NSAppendPrintF_safe(&v12, "\n%@\n", v11);
+  objc_storeStrong((v9 + 40), v12);
 }
 
-void sub_10008BFD4(uint64_t a1)
+void sub_10008BFD4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(*(a1 + 32) + 8);
-  obj = *(v1 + 40);
-  NSAppendPrintF_safe();
-  objc_storeStrong((v1 + 40), obj);
+  v3 = *(*(a1 + 32) + 8);
+  obj = *(v3 + 40);
+  NSAppendPrintF_safe(&obj, "%@ = %@\n", a2, a3);
+  objc_storeStrong((v3 + 40), obj);
 }
 
 void sub_10008C028(uint64_t a1, void *a2, void *a3)
@@ -931,7 +1259,7 @@ void sub_10008C028(uint64_t a1, void *a2, void *a3)
   v9 = [v5 idsDevice];
 
   v10 = [v9 name];
-  NSAppendPrintF_safe();
+  NSAppendPrintF_safe(&obj, "%@ = [%@] %@\n", v6, v8, v10);
 
   objc_storeStrong((v4 + 40), obj);
 }
@@ -1135,10 +1463,11 @@ LABEL_33:
   objc_destroyWeak(&to);
 }
 
-void sub_10008EE34(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10008EE34(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t start()
@@ -1247,10 +1576,11 @@ uint64_t start()
   return 0;
 }
 
-void sub_10008F27C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10008F27C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void sub_10008F29C(uint64_t a1)
@@ -1298,9 +1628,12 @@ void sub_10008F3E8(id a1)
 
 void sub_10008F824(id a1)
 {
-  if (dword_1002F6BE8 <= 30 && (dword_1002F6BE8 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F6BE8 <= 30)
   {
-    sub_1001F1110();
+    if (dword_1002F6BE8 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1001F1110(a1, v1, v2);
+    }
   }
 }
 
@@ -1319,77 +1652,76 @@ void *sub_10008F870(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t sub_10008F88C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = v3;
+  v5 = v3;
   if (*(a1 + 32) == *(*(a1 + 40) + 8))
   {
     if (v3)
     {
-      v8 = v3;
+      v9 = v3;
       if (dword_1002F6BE8 <= 90 && (dword_1002F6BE8 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001F112C();
+        sub_1001F112C(v9);
       }
 
       [*(a1 + 32) invalidate];
-      v5 = *(a1 + 40);
-      v6 = *(v5 + 8);
-      *(v5 + 8) = 0;
+      v6 = *(a1 + 40);
+      v7 = *(v6 + 8);
+      *(v6 + 8) = 0;
 
       goto LABEL_7;
     }
 
     if (dword_1002F6BE8 <= 30)
     {
-      v8 = 0;
-      if (dword_1002F6BE8 != -1 || (v3 = _LogCategory_Initialize(), v4 = 0, v3))
+      v9 = 0;
+      if (dword_1002F6BE8 != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
       {
-        v3 = sub_1001F116C();
+        v3 = sub_1001F116C(v3, v5, v4);
 LABEL_7:
-        v4 = v8;
+        v5 = v9;
       }
     }
   }
 
-  return _objc_release_x1(v3, v4);
+  return _objc_release_x1(v3, v5);
 }
 
 void sub_10008FA84(uint64_t a1)
 {
-  if ([*(a1 + 32) length] <= 1)
+  v2 = [*(a1 + 32) length];
+  if (v2 <= 1)
   {
-    sub_1001F1228();
+    sub_1001F1228(v2, v3, v4);
   }
 
   else if (*(a1 + 40))
   {
-    v9 = 0;
-    [*(a1 + 32) getBytes:&v9 length:2];
-    v2 = v9;
+    v10 = 0;
+    [*(a1 + 32) getBytes:&v10 length:2];
+    v5 = v10;
     if (dword_1002F6BE8 <= 30)
     {
-      v3 = HIBYTE(v9);
+      v6 = HIBYTE(v10);
       if (dword_1002F6BE8 != -1 || _LogCategory_Initialize())
       {
-        v7 = v2;
-        v8 = v3;
-        LogPrintF();
+        LogPrintF(&dword_1002F6BE8, "[AASensorServiceDaemon _personalTranslationMessageReceived:fromDeviceAddress:]_block_invoke", 30, "PT inMessageData subtype %d signalState %d", v5, v6);
       }
     }
 
-    if (v2 == 1)
+    if (v5 == 1)
     {
-      v4 = [*(*(a1 + 48) + 24) objectForKeyedSubscript:*(a1 + 40)];
+      v7 = [*(*(a1 + 48) + 24) objectForKeyedSubscript:*(a1 + 40)];
 
-      if (!v4)
+      if (!v7)
       {
-        v5 = [[AAOVADSensorInfo alloc] initWithBTAddress:*(a1 + 40)];
-        [*(*(a1 + 48) + 24) setObject:v5 forKeyedSubscript:*(a1 + 40)];
+        v8 = [[AAOVADSensorInfo alloc] initWithBTAddress:*(a1 + 40)];
+        [*(*(a1 + 48) + 24) setObject:v8 forKeyedSubscript:*(a1 + 40)];
       }
 
-      v6 = [*(*(a1 + 48) + 24) objectForKeyedSubscript:{*(a1 + 40), v7, v8}];
-      if ([v6 update:*(a1 + 32)])
+      v9 = [*(*(a1 + 48) + 24) objectForKeyedSubscript:*(a1 + 40)];
+      if ([v9 update:*(a1 + 32)])
       {
-        [*(a1 + 48) _sensorDataUpdated:v6];
+        [*(a1 + 48) _sensorDataUpdated:v9];
       }
     }
 
@@ -1397,16 +1729,16 @@ void sub_10008FA84(uint64_t a1)
     {
       if (dword_1002F6BE8 <= 30 && (dword_1002F6BE8 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001F1188();
+        sub_1001F1188(v5);
       }
 
-      v6 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    sub_1001F11C8();
+    sub_1001F11C8(v2, v3, v4);
   }
 }
 
@@ -2140,7 +2472,7 @@ void sub_100095770(uint64_t a1, void *a2, void *a3)
     v7 = sub_100005C14("MagicPairing");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1001F20A0(v6, a1);
+      sub_1001F20A0();
     }
 
     [*(a1 + 32) handleModifyMasterKeyError:v6 forBlob:*(a1 + 40) withRetryCount:*(a1 + 48)];
@@ -2223,10 +2555,11 @@ LABEL_22:
   [v23 endTransaction:@"modifyKeyBlob"];
 }
 
-void sub_100096330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_100096330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2618,7 +2951,7 @@ void sub_10009763C(uint64_t a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1001F2250(a1);
+      sub_1001F2250();
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -2654,13 +2987,13 @@ void sub_10009763C(uint64_t a1, void *a2, void *a3)
 
 void sub_10009785C(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v2 = a2;
+  if (v2)
   {
-    v4 = sub_100005C14("MagicPairing");
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = sub_100005C14("MagicPairing");
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_1001F22B8(a1);
+      sub_1001F22B8();
     }
   }
 }
@@ -2932,13 +3265,13 @@ void sub_100098BA4(uint64_t a1)
 
 void sub_100098C60(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v2 = a2;
+  if (v2)
   {
-    v4 = sub_100005C14("MagicPairing");
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = sub_100005C14("MagicPairing");
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_1001F2604(a1);
+      sub_1001F2604();
     }
   }
 }
@@ -3066,7 +3399,7 @@ void sub_1000999C0(uint64_t a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1001F27A4(a1);
+      sub_1001F27A4();
     }
 
     v9 = [v6 domain];
@@ -3182,11 +3515,11 @@ void sub_100099D88(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-void sub_10009A0DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009A0DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  objc_destroyWeak((v9 + 48));
-  objc_destroyWeak((v10 - 64));
+  va_start(va, a16);
+  objc_destroyWeak((v16 + 48));
+  objc_destroyWeak((v17 - 64));
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3316,9 +3649,9 @@ void sub_10009A494(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10009A87C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10009A87C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4112,19 +4445,18 @@ void sub_10009D450(id a1, CKRecordZoneID *a2, NSError *a3)
 
 void sub_10009D7A4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     goto LABEL_11;
   }
 
-  v3 = *(a1 + 32);
-  v4 = [v3 recordZoneID];
-  v5 = [v4 zoneName];
-  v6 = [v5 isEqualToString:@"MagicCloudPairingCustomKeyBlobZone"];
+  v2 = *(a1 + 32);
+  v3 = [v2 recordZoneID];
+  v4 = [v3 zoneName];
+  v5 = [v4 isEqualToString:@"MagicCloudPairingCustomKeyBlobZone"];
 
-  if (!v6)
+  if (!v5)
   {
 LABEL_10:
 
@@ -4138,11 +4470,11 @@ LABEL_11:
     return;
   }
 
-  v7 = sub_100005C14("MagicPairing");
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100005C14("MagicPairing");
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "*****>>>> Master Key Updated", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "*****>>>> Master Key Updated", buf, 2u);
   }
 
   if (([*(a1 + 40) isWriteMasterKeysInProgress] & 1) == 0)
@@ -4152,11 +4484,11 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  v8 = sub_100005C14("MagicPairing");
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100005C14("MagicPairing");
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "*****>>>> Master Key Updated but we are in process to push new key. Dont fetch", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "*****>>>> Master Key Updated but we are in process to push new key. Dont fetch", buf, 2u);
   }
 }
 
@@ -4169,16 +4501,18 @@ id sub_10009D960(uint64_t a1)
   return [v2 fetchAccessoryKeyBlob:0];
 }
 
-void sub_10009DC18(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10009DC18(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_10009DC38(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10009DC38(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
 BOOL sub_10009DC58(NSObject *a1)
@@ -4187,17 +4521,11 @@ BOOL sub_10009DC58(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-uint64_t sub_10009DC70@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void sub_10009DC7C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
-}
+  va_start(va, a8);
 
-void sub_10009DC7C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
 void sub_10009E7A8(id a1)
@@ -4224,19 +4552,20 @@ const char *sub_10009E97C(unsigned int a1)
 
 uint64_t sub_10009EF68(uint64_t result)
 {
-  if (*(*(*(result + 32) + 8) + 40) && dword_1002F6E08 <= 30)
+  v1 = *(*(*(result + 32) + 8) + 40);
+  if (v1 && dword_1002F6E08 <= 30)
   {
     if (dword_1002F6E08 != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6E08, "[SRConnectionManager _findHeadphoneToConnectWithResult:]_block_invoke", 30, "FindHeadphoneToConnectWithResult: Skip, reason %@", v1);
     }
 
-    v1 = result;
+    v2 = result;
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 32) + 8) + 40);
-      return LogPrintF();
+      v1 = *(*(*(v2 + 32) + 8) + 40);
+      return LogPrintF(&dword_1002F6E08, "[SRConnectionManager _findHeadphoneToConnectWithResult:]_block_invoke", 30, "FindHeadphoneToConnectWithResult: Skip, reason %@", v1);
     }
   }
 
@@ -4275,7 +4604,7 @@ void sub_10009F004(uint64_t a1, uint64_t a2, void *a3)
 
   if (dword_1002F6E08 <= 30 && (dword_1002F6E08 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F37D8(a1);
+    sub_1001F37D8(a1, v10);
   }
 
   if ([*(a1 + 32) _isHeadphonePrerequisiteMet:v10])
@@ -4288,7 +4617,7 @@ void sub_10009F004(uint64_t a1, uint64_t a2, void *a3)
       }
 
       v9 = [v10 btAddress];
-      LogPrintF();
+      LogPrintF(&dword_1002F6E08, "[SRConnectionManager _findHeadphoneToConnectWithResult:]_block_invoke_2", 30, "IsSRConnectEligible %@ NO", v9);
       goto LABEL_24;
     }
 
@@ -4334,25 +4663,25 @@ const char *sub_10009F210(unsigned int a1)
   }
 }
 
-void sub_10009F528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10009F528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10009F560(uint64_t a1)
+void sub_10009F560(uint64_t result)
 {
-  if (*(*(*(a1 + 40) + 8) + 40) && dword_1002F6E08 <= 30 && (dword_1002F6E08 != -1 || _LogCategory_Initialize()))
+  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6E08 <= 30 && (dword_1002F6E08 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F38A4(a1);
+    sub_1001F38A4(result);
   }
 }
 
-void sub_10009F92C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009F92C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  (*(v9 + 16))(v9);
+  va_start(va, a16);
+  (*(v16 + 16))(v16, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4390,9 +4719,9 @@ void sub_10009FAC0(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_10009FBE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10009FBE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4409,9 +4738,9 @@ void sub_10009FBFC(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_10009FF6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009FF6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4437,7 +4766,7 @@ void sub_10009FF84(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 
   if (dword_1002F6E08 <= 30 && (dword_1002F6E08 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F39E8(a1);
+    sub_1001F39E8(a1, v9);
   }
 
   v15 = [v9 bytes];
@@ -4464,9 +4793,9 @@ void sub_10009FF84(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
   }
 }
 
-void sub_1000A0218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000A0218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4480,19 +4809,19 @@ void sub_1000A0230(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_1000A04C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000A04C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  (*(v7 + 16))(v7);
+  va_start(va, a13);
+  (*(v13 + 16))(v13, a2, a3, a4, a5, a6, a7);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000A0504(uint64_t a1)
+void sub_1000A0504(uint64_t result)
 {
-  if (*(*(*(a1 + 40) + 8) + 40) && dword_1002F6E08 <= 30 && (dword_1002F6E08 != -1 || _LogCategory_Initialize()))
+  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6E08 <= 30 && (dword_1002F6E08 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F3A78(a1);
+    sub_1001F3A78(result);
   }
 }
 
@@ -4509,9 +4838,9 @@ const __CFString *sub_1000A0708(int a1)
   }
 }
 
-void sub_1000A0B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000A0B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4525,60 +4854,60 @@ void sub_1000A0BB4(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_1000A10B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A10B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000A145C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000A145C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  (*(v7 + 16))(v7);
+  va_start(va, a13);
+  (*(v13 + 16))(v13, a2, a3, a4, a5, a6, a7);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000A14B8(uint64_t a1)
+void sub_1000A14B8(uint64_t result)
 {
-  if (*(*(*(a1 + 40) + 8) + 40) && dword_1002F6E08 <= 30 && (dword_1002F6E08 != -1 || _LogCategory_Initialize()))
+  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6E08 <= 30 && (dword_1002F6E08 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F3C54(a1);
+    sub_1001F3C54(result);
   }
 }
 
-void sub_1000A18DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A18DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  (*(v9 + 16))(v9);
+  va_start(va, a16);
+  (*(v16 + 16))(v16, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000A193C(uint64_t a1)
+void sub_1000A193C(uint64_t result)
 {
-  if (*(*(*(a1 + 40) + 8) + 24))
+  if (*(*(*(result + 40) + 8) + 24))
   {
     if (dword_1002F6E08 <= 30 && (dword_1002F6E08 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001F3CBC(a1);
+      sub_1001F3CBC(result);
     }
 
-    **(a1 + 48) = *(*(*(a1 + 40) + 8) + 24);
+    **(result + 48) = *(*(*(result + 40) + 8) + 24);
   }
 }
 
-void sub_1000A1BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A1BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000A24CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000A24CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4609,9 +4938,9 @@ id sub_1000A2500(uint64_t a1)
   return result;
 }
 
-void sub_1000A2734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000A2734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4628,23 +4957,27 @@ id sub_1000A2768(uint64_t a1)
   return result;
 }
 
-void sub_1000A2B5C(uint64_t a1)
+void sub_1000A2B5C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_1002F6E08 <= 30 && (dword_1002F6E08 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_1002F6E08 <= 30)
   {
-    sub_1001F401C();
+    if (dword_1002F6E08 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1001F401C(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 72) = 0;
-  *(*(a1 + 32) + 80) = 0;
-  v2 = *(*(a1 + 32) + 88);
-  if (v2)
+  *(*(v3 + 32) + 72) = 0;
+  *(*(v3 + 32) + 80) = 0;
+  v4 = *(*(v3 + 32) + 88);
+  if (v4)
   {
-    v5 = v2;
-    dispatch_source_cancel(v5);
-    v3 = *(a1 + 32);
-    v4 = *(v3 + 88);
-    *(v3 + 88) = 0;
+    v7 = v4;
+    dispatch_source_cancel(v7);
+    v5 = *(v3 + 32);
+    v6 = *(v5 + 88);
+    *(v5 + 88) = 0;
   }
 }
 
@@ -4737,10 +5070,11 @@ void sub_1000A4BC0(uint64_t a1)
   v1[2]();
 }
 
-void sub_1000A4E0C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000A4E0C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_1000A4E70(id a1)
@@ -4752,28 +5086,36 @@ void sub_1000A4E70(id a1)
   _objc_release_x1(v1, v2);
 }
 
-id sub_1000A5208(uint64_t a1)
+id sub_1000A5208(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_1002F6ED8 <= 30 && (dword_1002F6ED8 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_1002F6ED8 <= 30)
   {
-    sub_1001F4644();
+    if (dword_1002F6ED8 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1001F4644(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 _activate];
+  return [v4 _activate];
 }
 
-id sub_1000A53D4(uint64_t a1)
+id sub_1000A53D4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_1002F6ED8 <= 30 && (dword_1002F6ED8 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_1002F6ED8 <= 30)
   {
-    sub_1001F4660();
+    if (dword_1002F6ED8 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1001F4660(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 _invalidate];
+  return [v4 _invalidate];
 }
 
 void sub_1000A5AC0(_Unwind_Exception *a1)
@@ -4789,18 +5131,18 @@ void sub_1000A5AE0(uint64_t a1)
   [WeakRetained _xpcConnectionInvalidated:*(a1 + 32)];
 }
 
-void sub_1000A5F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000A5F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  (*(v11 + 16))(v11);
+  va_start(va, a18);
+  (*(v18 + 16))(v18, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000A5F60(uint64_t result)
+void *sub_1000A5F60(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -4810,40 +5152,35 @@ uint64_t sub_1000A5F60(uint64_t result)
   {
     if (dword_1002F6ED8 == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection cloudServicesClientActivate:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
-void sub_1000A6420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A6420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000A645C(uint64_t result)
+void *sub_1000A645C(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -4853,51 +5190,50 @@ uint64_t sub_1000A645C(uint64_t result)
   {
     if (dword_1002F6ED8 == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchAAProxCardsInfoForDeviceWithAddress:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 void sub_1000A652C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (dword_1002F6ED8 <= 30 && (dword_1002F6ED8 != -1 || _LogCategory_Initialize()))
+  v5 = v3;
+  if (dword_1002F6ED8 <= 30)
   {
-    sub_1001F473C();
+    if (dword_1002F6ED8 != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
+    {
+      sub_1001F473C(v3);
+    }
   }
 
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_1000A67D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000A67D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  (*(v11 + 16))(v11);
+  va_start(va, a18);
+  (*(v18 + 16))(v18, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000A680C(uint64_t result)
+void *sub_1000A680C(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -4907,40 +5243,35 @@ uint64_t sub_1000A680C(uint64_t result)
   {
     if (dword_1002F6ED8 == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection modifyAAProxCardsInfo:completion:]_block_invoke", 90, "### modifyAAProxCardsInfo failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
-void sub_1000A6AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000A6AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  (*(v11 + 16))(v11);
+  va_start(va, a18);
+  (*(v18 + 16))(v18, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000A6B1C(uint64_t result)
+void *sub_1000A6B1C(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -4950,53 +5281,47 @@ uint64_t sub_1000A6B1C(uint64_t result)
   {
     if (dword_1002F6ED8 == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection removeAAProxCardsInfoForDeviceWithAddress:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
-void sub_1000A6E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A6E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000A6EAC(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection createDeviceRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection createDeviceRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5018,31 +5343,30 @@ void sub_1000A6F4C(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-void sub_1000A733C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A733C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000A7378(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection deleteDeviceRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection deleteDeviceRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5064,31 +5388,30 @@ void sub_1000A7418(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-void sub_1000A776C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A776C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000A77A8(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchDeviceRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchDeviceRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5116,37 +5439,35 @@ uint64_t sub_1000A7904(uint64_t a1)
     sub_1001F487C(a1);
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
-void sub_1000A7BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A7BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000A7C20(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchDeviceRecordsWithCompletion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchDeviceRecordsWithCompletion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5179,31 +5500,30 @@ void sub_1000A7D7C(uint64_t a1)
   (*(v2 + 16))(v2, v3, 0);
 }
 
-void sub_1000A80A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A80A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000A80E0(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection createDeviceSupportInformationRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection createDeviceSupportInformationRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5225,31 +5545,30 @@ void sub_1000A8180(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-void sub_1000A84D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A84D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000A8510(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection deleteDeviceSupportInformationRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection deleteDeviceSupportInformationRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5271,31 +5590,30 @@ void sub_1000A85B0(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-void sub_1000A8904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A8904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000A8940(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchBTCloudDeviceSupportInformation:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchBTCloudDeviceSupportInformation:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5307,7 +5625,7 @@ void sub_1000A89E0(uint64_t a1, void *a2)
   v3 = a2;
   if (dword_1002F6ED8 <= 30 && (dword_1002F6ED8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F49BC();
+    sub_1001F49BC(v3);
   }
 
   v4 = *(*(a1 + 32) + 32);
@@ -5322,31 +5640,30 @@ void sub_1000A89E0(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-void sub_1000A8D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A8D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000A8D8C(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchAllBTCloudDeviceSupportInformationWithCompletion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchAllBTCloudDeviceSupportInformationWithCompletion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5358,7 +5675,7 @@ void sub_1000A8E2C(uint64_t a1, void *a2)
   v3 = a2;
   if (dword_1002F6ED8 <= 30 && (dword_1002F6ED8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F4A18();
+    sub_1001F4A18(v3);
   }
 
   v4 = *(*(a1 + 32) + 32);
@@ -5373,31 +5690,30 @@ void sub_1000A8E2C(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-void sub_1000A91BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A91BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000A91F8(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection modifyDeviceSupportInformationRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection modifyDeviceSupportInformationRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5419,31 +5735,30 @@ void sub_1000A9298(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-void sub_1000A95EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A95EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000A9628(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection createMagicSettingsRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection createMagicSettingsRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5465,31 +5780,30 @@ void sub_1000A96C8(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-void sub_1000A9A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A9A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000A9A58(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection deleteMagicSettingsRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection deleteMagicSettingsRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5511,31 +5825,30 @@ void sub_1000A9AF8(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-void sub_1000A9E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000A9E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000A9E88(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchMagicSettingsRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchMagicSettingsRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5547,7 +5860,7 @@ void sub_1000A9F28(uint64_t a1, void *a2)
   v3 = a2;
   if (dword_1002F6ED8 <= 30 && (dword_1002F6ED8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F4B58();
+    sub_1001F4B58(v3);
   }
 
   v4 = *(*(a1 + 32) + 32);
@@ -5562,31 +5875,30 @@ void sub_1000A9F28(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-void sub_1000AA298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000AA298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000AA2D4(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchAllMagicSettingsRecordsWithCompletion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchAllMagicSettingsRecordsWithCompletion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5598,7 +5910,7 @@ void sub_1000AA374(uint64_t a1, void *a2)
   v3 = a2;
   if (dword_1002F6ED8 <= 30 && (dword_1002F6ED8 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001F4BB4();
+    sub_1001F4BB4(v3);
   }
 
   v4 = *(*(a1 + 32) + 32);
@@ -5613,31 +5925,30 @@ void sub_1000AA374(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-void sub_1000AA704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000AA704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000AA740(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection modifyMagicSettingsRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection modifyMagicSettingsRecord:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5659,31 +5970,30 @@ void sub_1000AA7E0(uint64_t a1, void *a2)
   dispatch_async(v4, v7);
 }
 
-void sub_1000AAB28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000AAB28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  (*(v9 + 16))(v9);
+  va_start(va, a16);
+  (*(v16 + 16))(v16, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000AAB68(uint64_t result)
 {
-  if (*(*(*(result + 40) + 8) + 40) && dword_1002F6ED8 <= 90)
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (v1 && dword_1002F6ED8 <= 90)
   {
-    v1 = result;
+    v2 = result;
     if (dword_1002F6ED8 != -1)
     {
-LABEL_4:
-      v3 = *(v1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchCloudAccountInfoUpdatedWithCompletion:]_block_invoke", 90, "### DeviceManager failed to fetch account info: %@, %{error}", *(v2 + 32), v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v2 = *(*(*(v1 + 40) + 8) + 40);
-      goto LABEL_4;
+      v1 = *(*(*(v2 + 40) + 8) + 40);
+      return LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchCloudAccountInfoUpdatedWithCompletion:]_block_invoke", 90, "### DeviceManager failed to fetch account info: %@, %{error}", *(v2 + 32), v1);
     }
   }
 
@@ -5697,10 +6007,10 @@ void sub_1000AAED8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000AAF14(uint64_t result)
+void *sub_1000AAF14(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -5710,26 +6020,21 @@ uint64_t sub_1000AAF14(uint64_t result)
   {
     if (dword_1002F6ED8 == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchCloudPairingIdentifierForPeripheral:completion:]_block_invoke", 90, "### CloudPairingManager failed to fetch cloud pairing identifier: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 void sub_1000AAFE4(uint64_t a1, void *a2)
@@ -5759,7 +6064,7 @@ uint64_t sub_1000AB0C8(void *a1)
     {
       if (dword_1002F6ED8 != -1 || (v10 = _LogCategory_Initialize(), v2 = a1[4], v10))
       {
-        LogPrintF();
+        LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchCloudPairingIdentifierForPeripheral:completion:]_block_invoke_3", 30, "Fetched cloud pairing identifier: %@", v2);
         v2 = a1[4];
       }
     }
@@ -5777,8 +6082,7 @@ uint64_t sub_1000AB0C8(void *a1)
     }
 
     v3 = a1[6];
-    v12 = a1[5];
-    v4 = BTErrorF();
+    v4 = BTErrorF(4294960588, "Cannot find cloud identifier for peripheral '%@'", a1[5]);
     v5 = *(a1[7] + 8);
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
@@ -5792,18 +6096,18 @@ uint64_t sub_1000AB0C8(void *a1)
   return v7(v8, v2, v9);
 }
 
-void sub_1000AB488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000AB488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  (*(v9 + 16))(v9);
+  va_start(va, a16);
+  (*(v16 + 16))(v16, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000AB4C4(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -5813,39 +6117,35 @@ uint64_t sub_1000AB4C4(uint64_t result)
   {
     if (dword_1002F6ED8 == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection forceCloudPairingForIdentifiers:completion:]_block_invoke", 90, "### CloudPairingManager failed to force cloud pairing: %{error}", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
-void sub_1000AB7F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1000AB7F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
-  (*(v17 + 16))(v17);
+  va_start(va, a24);
+  (*(v24 + 16))(v24, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000AB834(uint64_t result)
+void *sub_1000AB834(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -5855,26 +6155,21 @@ uint64_t sub_1000AB834(uint64_t result)
   {
     if (dword_1002F6ED8 == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchHMDeviceCloudRecordInfoWithAddress:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 void sub_1000AB904(uint64_t a1, void *a2)
@@ -5898,24 +6193,61 @@ uint64_t sub_1000AB9C0(uint64_t a1)
     sub_1001F4D38(a1);
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
+
+  return v2();
+}
+
+void sub_1000ABC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  (*(v18 + 16))(v18, a2, a3, a4, a5, a6, a7, a8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *sub_1000ABC7C(void *result)
+{
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
+  {
+    return result;
+  }
+
+  v2 = result;
+  if (dword_1002F6ED8 <= 90)
+  {
+    if (dword_1002F6ED8 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_7;
+      }
+
+      v1 = *(*(v2[6] + 8) + 40);
+    }
+
+    LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection modifyHMDeviceCloudRecordInfo:completion:]_block_invoke", 90, "### modifyHMDeviceCloudRecordInfo failed: %@, %{error}", v2[4], v1);
+  }
+
+LABEL_7:
+  v3 = *(v2[5] + 16);
 
   return v3();
 }
 
-void sub_1000ABC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000ABF50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  (*(v11 + 16))(v11);
+  va_start(va, a18);
+  (*(v18 + 16))(v18, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000ABC7C(uint64_t result)
+void *sub_1000ABF8C(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -5925,82 +6257,34 @@ uint64_t sub_1000ABC7C(uint64_t result)
   {
     if (dword_1002F6ED8 == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection removeHMDeviceCloudRecordInfoForDeviceWithAddress:completion:]_block_invoke", 90, "### DeviceManager failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
-void sub_1000ABF50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000AC318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  (*(v11 + 16))(v11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_1000ABF8C(uint64_t result)
-{
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
-  {
-    return result;
-  }
-
-  v2 = result;
-  if (dword_1002F6ED8 <= 90)
-  {
-    if (dword_1002F6ED8 == -1)
-    {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
-      {
-        goto LABEL_7;
-      }
-
-      v6 = *(*(v1 + 8) + 40);
-    }
-
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
-  }
-
-LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
-
-  return v5();
-}
-
-void sub_1000AC318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000AC358(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -6010,38 +6294,34 @@ uint64_t sub_1000AC358(uint64_t result)
   {
     if (dword_1002F6ED8 == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection startSoundProfileRecordFileHandleSessionWithCompletion:]_block_invoke", 90, "### Failed to create sound profile with error: %{error}", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
-void sub_1000AC7B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1000AC7B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000AC800(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -6051,25 +6331,21 @@ uint64_t sub_1000AC800(uint64_t result)
   {
     if (dword_1002F6ED8 == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection finishSoundProfileRecordSessionHandle:completion:]_block_invoke", 90, "### Failed to create sound profile with error: %{error}", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 void sub_1000AC8C8(uint64_t a1, void *a2)
@@ -6087,23 +6363,22 @@ void sub_1000AC8C8(uint64_t a1, void *a2)
 
 void sub_1000AC97C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-  v2 = +[CloudXPCService sharedInstance];
-  [v2 endTransaction:@"createSoundProfileRecordURL"];
+  v1 = +[CloudXPCService sharedInstance];
+  [v1 endTransaction:@"createSoundProfileRecordURL"];
 }
 
-void sub_1000ACC58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000ACC58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000ACC94(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -6113,25 +6388,21 @@ uint64_t sub_1000ACC94(uint64_t result)
   {
     if (dword_1002F6ED8 == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection fetchSoundProfileRecordWithCompletion:]_block_invoke", 90, "### Failed to fetch sound profile with error: %{error}", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 void sub_1000ACD60(uint64_t a1, void *a2, void *a3)
@@ -6169,7 +6440,7 @@ void sub_1000ACE34(void *a1)
 
     else
     {
-      v3 = BTErrorF();
+      v3 = BTErrorF(4294960596, "No profile or error found");
       (*(v2 + 16))(v2, 0, v3);
     }
   }
@@ -6178,18 +6449,18 @@ void sub_1000ACE34(void *a1)
   [v4 endTransaction:@"fetchSoundProfileRecord"];
 }
 
-void sub_1000AD160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000AD160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  (*(v15 + 16))(v15);
+  va_start(va, a22);
+  (*(v22 + 16))(v22, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000AD19C(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -6199,25 +6470,21 @@ uint64_t sub_1000AD19C(uint64_t result)
   {
     if (dword_1002F6ED8 == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&dword_1002F6ED8, "[BTCloudServicesXPCConnection deleteSoundProfileRecordWithCompletion:]_block_invoke", 90, "### Failed to delete sound profile with error: %{error}", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 void sub_1000AD264(uint64_t a1, void *a2)
@@ -6386,7 +6653,7 @@ void sub_1000AE700(uint64_t a1, uint64_t a2)
     v8 = sub_100005C14("XPC");
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_1001F4EC0(a1);
+      sub_1001F4EC0();
     }
 
     goto LABEL_10;
@@ -6436,7 +6703,7 @@ void sub_1000AE9A0(uint64_t a1, uint64_t a2)
     v8 = sub_100005C14("XPC");
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_1001F4F28(a1);
+      sub_1001F4F28();
     }
 
     goto LABEL_13;
@@ -6449,11 +6716,11 @@ void sub_1000AE9A0(uint64_t a1, uint64_t a2)
     {
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
-      v18 = 138412547;
-      v19 = v6;
-      v20 = 2113;
-      v21 = v7;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Sending CK XPC message: (%@)%{private}@", &v18, 0x16u);
+      v17 = 138412547;
+      v18 = v6;
+      v19 = 2113;
+      v20 = v7;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Sending CK XPC message: (%@)%{private}@", &v17, 0x16u);
     }
 
     v8 = xpc_dictionary_create(0, 0, 0);
@@ -6478,14 +6745,13 @@ void sub_1000AE9A0(uint64_t a1, uint64_t a2)
 
       else
       {
-        v16 = *(a1 + 40);
         v13 = _CFXPCCreateXPCMessageWithCFObject();
         xpc_dictionary_set_value(v8, "kMsgArgs", v13);
       }
     }
 
-    v17 = [WeakRetained cloudKitConnection];
-    xpc_connection_send_message(v17, v8);
+    v16 = [WeakRetained cloudKitConnection];
+    xpc_connection_send_message(v16, v8);
 
 LABEL_13:
   }
@@ -6507,7 +6773,7 @@ void sub_1000AED18(uint64_t a1, void *a2)
     v8 = sub_100005C14("XPC");
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_1001F5008(a1);
+      sub_1001F5008();
     }
 
     goto LABEL_14;
@@ -6552,7 +6818,7 @@ LABEL_14:
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    sub_1001F4F90(a1);
+    sub_1001F4F90();
   }
 
   v7 = *(a1 + 48);
@@ -6602,7 +6868,7 @@ void sub_1000AEF88(uint64_t a1, void *a2)
   v6 = sub_100005C14("XPC");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    sub_1001F5070(a1);
+    sub_1001F5070();
   }
 
   v7 = [NSString stringWithFormat:@"Unexpected object type from reply: %@", v3];
@@ -6612,7 +6878,7 @@ void sub_1000AEF88(uint64_t a1, void *a2)
     v9 = sub_100005C14("XPC");
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1001F50E8(a1);
+      sub_1001F50E8();
     }
 
     v10 = [NSString stringWithUTF8String:string];
@@ -6649,7 +6915,7 @@ void sub_1000AF3DC(uint64_t a1, void *a2)
     v7 = sub_100005C14("XPC");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1001F5008(a1);
+      sub_1001F5008();
     }
 
     goto LABEL_30;
@@ -6715,7 +6981,7 @@ void sub_1000AF3DC(uint64_t a1, void *a2)
       v16 = sub_100005C14("XPC");
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_1001F51D8((a1 + 32));
+        sub_1001F51D8();
       }
 
       v17 = [NSString stringWithFormat:@"Unexpected object type from reply: %@", v13];
@@ -6725,7 +6991,7 @@ void sub_1000AF3DC(uint64_t a1, void *a2)
         v19 = sub_100005C14("XPC");
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          sub_1001F5254((a1 + 32));
+          sub_1001F5254();
         }
 
         v20 = [NSString stringWithUTF8String:string];
@@ -6755,7 +7021,7 @@ LABEL_30:
   v5 = sub_100005C14("CloudPairing");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    sub_1001F5160(a1);
+    sub_1001F5160();
   }
 
   v6 = *(a1 + 48);
@@ -7974,36 +8240,39 @@ id sub_1000B503C(uint64_t a1)
 
 void sub_1000B5218(id a1)
 {
-  if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F7008 <= 30)
   {
-    sub_1001F5A64();
+    if (dword_1002F7008 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1001F5A64(a1, v1, v2);
+    }
   }
 }
 
 void sub_1000B5264(uint64_t a1, void *a2, void *a3)
 {
-  v8 = a2;
-  v5 = a3;
+  v9 = a2;
+  v6 = a3;
   if (*(a1 + 32) == *(*(a1 + 40) + 8))
   {
-    v6 = v8;
-    if (v8)
+    v7 = v9;
+    if (v9)
     {
       if (dword_1002F7008 <= 30)
       {
-        if (dword_1002F7008 != -1 || (v7 = _LogCategory_Initialize(), v6 = v8, v7))
+        if (dword_1002F7008 != -1 || (v8 = _LogCategory_Initialize(), v7 = v9, v8))
         {
-          sub_1001F5A80();
-          v6 = v8;
+          sub_1001F5A80(v7);
+          v7 = v9;
         }
       }
 
-      [*(a1 + 40) _rawGestureMessageReceived:v5 fromDeviceIdentifier:v6];
+      [*(a1 + 40) _rawGestureMessageReceived:v6 fromDeviceIdentifier:v7];
     }
 
     else
     {
-      sub_1001F5AC0(dword_1002F7008 < 31, dword_1002F7008);
+      sub_1001F5AC0(dword_1002F7008 < 31, dword_1002F7008, v5);
     }
   }
 }
@@ -8011,38 +8280,38 @@ void sub_1000B5264(uint64_t a1, void *a2, void *a3)
 uint64_t sub_1000B532C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = v3;
+  v5 = v3;
   if (*(a1 + 32) == *(*(a1 + 40) + 8))
   {
     if (v3)
     {
-      v8 = v3;
+      v9 = v3;
       if (dword_1002F7008 <= 90 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001F5B14();
+        sub_1001F5B14(v9);
       }
 
       [*(a1 + 32) invalidate];
-      v5 = *(a1 + 40);
-      v6 = *(v5 + 8);
-      *(v5 + 8) = 0;
+      v6 = *(a1 + 40);
+      v7 = *(v6 + 8);
+      *(v6 + 8) = 0;
 
       goto LABEL_7;
     }
 
     if (dword_1002F7008 <= 30)
     {
-      v8 = 0;
-      if (dword_1002F7008 != -1 || (v3 = _LogCategory_Initialize(), v4 = 0, v3))
+      v9 = 0;
+      if (dword_1002F7008 != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
       {
-        v3 = sub_1001F5B54();
+        v3 = sub_1001F5B54(v3, v5, v4);
 LABEL_7:
-        v4 = v8;
+        v5 = v9;
       }
     }
   }
 
-  return _objc_release_x1(v3, v4);
+  return _objc_release_x1(v3, v5);
 }
 
 void sub_1000B5A24(uint64_t a1, uint64_t a2)
@@ -8060,17 +8329,23 @@ void sub_1000B5A24(uint64_t a1, uint64_t a2)
 
 void sub_1000B5D38(id a1)
 {
-  if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F7008 <= 30)
   {
-    sub_1001F5ECC();
+    if (dword_1002F7008 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1001F5ECC(a1, v1, v2);
+    }
   }
 }
 
 void sub_1000B5D84(id a1)
 {
-  if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
+  if (dword_1002F7008 <= 30)
   {
-    sub_1001F5EE8();
+    if (dword_1002F7008 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1001F5EE8(a1, v1, v2);
+    }
   }
 }
 
@@ -8082,7 +8357,7 @@ void sub_1000B5DDC(uint64_t a1, void *a2)
   {
     if (dword_1002F7008 != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      sub_1001F5F04();
+      sub_1001F5F04(v3);
       v3 = v5;
     }
   }
@@ -8097,7 +8372,7 @@ void sub_1000B5E6C(uint64_t a1, void *a2)
   {
     if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001F5F44();
+      sub_1001F5F44(v5);
     }
 
     [*(*(a1 + 32) + 40) invalidate];
@@ -8147,57 +8422,67 @@ id sub_1000B66C4(uint64_t a1)
   result = [*(a1 + 32) serviceID];
   if (dword_1002F7008 <= 30)
   {
-    if (dword_1002F7008 != -1 || (result = _LogCategory_Initialize(), result))
+    v4 = result;
+    if (dword_1002F7008 != -1)
     {
-      v4 = *(a1 + 32);
-      return LogPrintF();
+      return LogPrintF(&dword_1002F7008, "[AAGestureControl _activateCameraControlHIDService]_block_invoke", 30, "Camera Control HID - Service: %@ with senderID: %llX", *(a1 + 32), v4);
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return LogPrintF(&dword_1002F7008, "[AAGestureControl _activateCameraControlHIDService]_block_invoke", 30, "Camera Control HID - Service: %@ with senderID: %llX", *(a1 + 32), v4);
     }
   }
 
   return result;
 }
 
-void sub_1000B67C4(uint64_t a1)
+void sub_1000B67C4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (dword_1002F7008 <= 30 && (dword_1002F7008 != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (dword_1002F7008 <= 30)
   {
-    sub_1001F61C0();
+    if (dword_1002F7008 != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1001F61C0(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 64);
-  *(v2 + 64) = 0;
+  v4 = *(v3 + 32);
+  v5 = *(v4 + 64);
+  *(v4 + 64) = 0;
 }
 
 void sub_1000B6B08(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = v2;
+  v4 = v2;
   if (v2)
   {
     if (dword_1002F7008 <= 90)
     {
-      v4 = v2;
-      if (dword_1002F7008 != -1 || (v2 = _LogCategory_Initialize(), v3 = v4, v2))
+      v5 = v2;
+      if (dword_1002F7008 != -1 || (v2 = _LogCategory_Initialize(), v4 = v5, v2))
       {
-        v2 = sub_1001F62C8();
+        v2 = sub_1001F62C8(v4);
 LABEL_13:
-        v3 = v4;
+        v4 = v5;
       }
     }
   }
 
   else if (dword_1002F7008 <= 30)
   {
-    v4 = 0;
-    if (dword_1002F7008 != -1 || (v2 = _LogCategory_Initialize(), v3 = 0, v2))
+    v5 = 0;
+    if (dword_1002F7008 != -1 || (v2 = _LogCategory_Initialize(), v4 = 0, v2))
     {
-      v2 = sub_1001F6308();
+      v2 = sub_1001F6308(v2, v4, v3);
       goto LABEL_13;
     }
   }
 
-  _objc_release_x1(v2, v3);
+  _objc_release_x1(v2, v4);
 }
 
 void sub_1000B6BB8(id a1, NSError *a2)
@@ -8206,13 +8491,13 @@ void sub_1000B6BB8(id a1, NSError *a2)
   v3 = v2;
   if (v2)
   {
-    v8 = v2;
+    v9 = v2;
     if (dword_1002F7008 <= 90)
     {
-      if (dword_1002F7008 != -1 || (v4 = _LogCategory_Initialize(), v3 = v8, v4))
+      if (dword_1002F7008 != -1 || (v4 = _LogCategory_Initialize(), v3 = v9, v4))
       {
-        sub_1001F6324();
-        v3 = v8;
+        sub_1001F6324(v3);
+        v3 = v9;
       }
     }
 
@@ -8220,9 +8505,9 @@ void sub_1000B6BB8(id a1, NSError *a2)
     v6 = v5;
     if (v5 == _LTTranslationErrorDomain)
     {
-      v7 = [(NSError *)v8 code];
+      v8 = [(NSError *)v9 code];
 
-      if (v7 == 30)
+      if (v8 == 30)
       {
         v2 = AudioServicesPlaySystemSoundWithOptions();
         goto LABEL_9;
@@ -8233,7 +8518,7 @@ void sub_1000B6BB8(id a1, NSError *a2)
     {
     }
 
-    v3 = v8;
+    v3 = v9;
     if (dword_1002F7008 > 90)
     {
       goto LABEL_13;
@@ -8242,16 +8527,16 @@ void sub_1000B6BB8(id a1, NSError *a2)
     if (dword_1002F7008 == -1)
     {
       v2 = _LogCategory_Initialize();
-      v3 = v8;
+      v3 = v9;
       if (!v2)
       {
         goto LABEL_13;
       }
     }
 
-    v2 = sub_1001F6364();
+    v2 = sub_1001F6364(v2, v3, v7);
 LABEL_9:
-    v3 = v8;
+    v3 = v9;
   }
 
 LABEL_13:
@@ -8592,328 +8877,4 @@ id sub_1000B8D80(uint64_t a1)
   }
 
   return [*(a1 + 32) _fetchKeyBlob:*(a1 + 40)];
-}
-
-void sub_1000B9294(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
-{
-  objc_destroyWeak((v19 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1000B92C0(uint64_t a1, void *a2, void *a3)
-{
-  v64 = a2;
-  v5 = a3;
-  v6 = sub_100005C14("MagicPairing");
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = [v64 recordID];
-    v8 = [v7 zoneID];
-    *buf = 138412802;
-    v76 = v5;
-    v77 = 2112;
-    v78 = v8;
-    v79 = 2112;
-    v80 = v64;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Manatee: fetchKeyBlob completion error %@ recordZoneID %@, record: %@", buf, 0x20u);
-  }
-
-  p_info = &OBJC_METACLASS___BTStateWatcher.info;
-  if (!v5)
-  {
-    v14 = [v64 recordID];
-    v15 = [v14 zoneID];
-    v16 = [v15 zoneName];
-    v17 = [*(a1 + 32) recordZoneBlob];
-    v18 = [v17 zoneID];
-    v19 = [v18 zoneName];
-    v20 = [v16 isEqualToString:v19];
-
-    p_info = (&OBJC_METACLASS___BTStateWatcher + 32);
-    if (!v20)
-    {
-      goto LABEL_25;
-    }
-
-    v21 = [v64 encryptedValues];
-    WeakRetained = [v21 objectForKey:@"EncryptedMasterKeyBlob"];
-
-    v22 = sub_100005C14("MagicPairing");
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412290;
-      v76 = WeakRetained;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Manatee: fetchKeyBlob record %@", buf, 0xCu);
-    }
-
-    if ([WeakRetained length] > 0x20)
-    {
-      v65[0] = _NSConcreteStackBlock;
-      v65[1] = 3221225472;
-      v65[2] = sub_1000B9CC4;
-      v65[3] = &unk_1002B6CF0;
-      v35 = WeakRetained;
-      v36 = *(a1 + 32);
-      v66 = v35;
-      v67 = v36;
-      v68 = v64;
-      dispatch_async(&_dispatch_main_q, v65);
-    }
-
-    else
-    {
-      v23 = sub_100005C14("MagicPairing");
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Manatee: fetchKeyBlob NO record", buf, 2u);
-      }
-
-      dispatch_async(&_dispatch_main_q, &stru_1002BAB30);
-    }
-
-    goto LABEL_9;
-  }
-
-  if ([v5 code] == 26 || objc_msgSend(v5, "code") == 11)
-  {
-    v10 = sub_100005C14("MagicPairing");
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Manatee: fetchKeyBlob CKErrorZoneNotFound or Record does not exist", buf, 2u);
-    }
-
-    buf[0] = 0;
-    WeakRetained = +[CloudXPCService sharedInstance];
-    v12 = [NSData dataWithBytes:buf length:1];
-    v13 = [NSMutableDictionary dictionaryWithObjectsAndKeys:v12, @"kMasterKeyBlob", 0];
-    [WeakRetained sendCloudKitMsg:@"MasterKeysNotAvailable" args:v13];
-
-    goto LABEL_9;
-  }
-
-  if ([v5 code] == 6 || objc_msgSend(v5, "code") == 7)
-  {
-    v24 = sub_100005C14("MagicPairing");
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412290;
-      v76 = v5;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Manatee: fetchKeyBlob unavailable service: %@", buf, 0xCu);
-    }
-
-    v25 = [v5 userInfo];
-    v26 = [v25 objectForKeyedSubscript:CKErrorRetryAfterKey];
-
-    if (v26)
-    {
-      v27 = [v5 userInfo];
-      v28 = [v27 objectForKeyedSubscript:CKErrorRetryAfterKey];
-      [v28 doubleValue];
-      v30 = v29;
-
-      v31 = sub_100005C14("MagicPairing");
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 134217984;
-        v76 = v30;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Manatee: fetchKeyBlob retry after %lu", buf, 0xCu);
-      }
-
-      v32 = dispatch_time(0, (v30 * 1000000000.0));
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_1000B9C0C;
-      block[3] = &unk_1002B82D0;
-      v33 = *(a1 + 48);
-      block[4] = *(a1 + 32);
-      block[5] = v33;
-      dispatch_after(v32, &_dispatch_main_q, block);
-    }
-  }
-
-  else
-  {
-    v37 = [v5 domain];
-    v38 = CKErrorDomain;
-    if ([v37 isEqualToString:CKErrorDomain])
-    {
-      v39 = [v5 code];
-
-      if (v39 == 112)
-      {
-        v40 = sub_100005C14("MagicPairing");
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Manatee: fetchKeyBlob lost access to manatee data. Reset and recreate zone.", buf, 2u);
-        }
-
-        v41 = sub_100005C14("MagicPairing");
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Manatee: fetchKeyBlob. Reset and recreate zone DONE!", buf, 2u);
-        }
-
-        WeakRetained = objc_loadWeakRetained((a1 + 40));
-        [WeakRetained resetCloudContainerManateeIdentityLost];
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-    }
-
-    WeakRetained = [v5 domain];
-    if (([WeakRetained isEqualToString:CKErrorDomain] & 1) == 0)
-    {
-LABEL_9:
-
-      goto LABEL_25;
-    }
-
-    v42 = [v5 userInfo];
-    v43 = [v42 objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
-
-    p_info = (&OBJC_METACLASS___BTStateWatcher + 32);
-    if (v43)
-    {
-      v63 = a1;
-      v44 = [v5 userInfo];
-      v45 = [v44 objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
-
-      v71 = 0u;
-      v72 = 0u;
-      v69 = 0u;
-      v70 = 0u;
-      v46 = v45;
-      v47 = [v46 countByEnumeratingWithState:&v69 objects:v74 count:16];
-      if (v47)
-      {
-        v48 = v47;
-        v49 = *v70;
-        v50 = &_sSs8UTF8ViewV8distance4from2toSiSS5IndexV_AGtF_ptr;
-        while (2)
-        {
-          for (i = 0; i != v48; i = i + 1)
-          {
-            if (*v70 != v49)
-            {
-              objc_enumerationMutation(v46);
-            }
-
-            v52 = [v46 objectForKey:*(*(&v69 + 1) + 8 * i)];
-            v53 = v50[302];
-            objc_opt_class();
-            if (objc_opt_isKindOfClass())
-            {
-              v54 = [v52 domain];
-              if ([v54 isEqualToString:v38])
-              {
-                v55 = v50;
-                v56 = v38;
-                v57 = [v52 code];
-
-                v58 = v57 == 112;
-                v38 = v56;
-                v50 = v55;
-                if (v58)
-                {
-                  v59 = sub_100005C14("MagicPairing");
-                  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 138412290;
-                    v76 = v52;
-                    _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "Manatee: fetchKeyBlob lost access to manatee data. Reset and recreate zone due to - %@", buf, 0xCu);
-                  }
-
-                  v61 = sub_100005C14("MagicPairing");
-                  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
-                  {
-                    *buf = 0;
-                    _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "Manatee: fetchKeyBlob. Reset and recreate zone DONE!", buf, 2u);
-                  }
-
-                  v62 = objc_loadWeakRetained((v63 + 40));
-                  [v62 resetCloudContainerManateeIdentityLost];
-
-                  goto LABEL_56;
-                }
-              }
-
-              else
-              {
-              }
-            }
-          }
-
-          v48 = [v46 countByEnumeratingWithState:&v69 objects:v74 count:16];
-          if (v48)
-          {
-            continue;
-          }
-
-          break;
-        }
-      }
-
-LABEL_56:
-
-      a1 = v63;
-      p_info = (&OBJC_METACLASS___BTStateWatcher + 32);
-    }
-  }
-
-LABEL_25:
-  [*(a1 + 32) setIsFetchMasterKeyInProgress:0];
-  v34 = [p_info + 21 sharedInstance];
-  [v34 endTransaction:@"ManateefetchKeyBlob"];
-}
-
-void sub_1000B9C1C(id a1)
-{
-  v4 = 0;
-  v1 = +[CloudXPCService sharedInstance];
-  v2 = [NSData dataWithBytes:&v4 length:1];
-  v3 = [NSMutableDictionary dictionaryWithObjectsAndKeys:v2, @"kMasterKeyBlob", 0];
-  [v1 sendCloudKitMsg:@"MasterKeysNotAvailable" args:v3];
-}
-
-void sub_1000B9CC4(uint64_t a1)
-{
-  if ([*(a1 + 32) length] == 33)
-  {
-    v2 = [*(a1 + 40) masterBlob];
-
-    if (!v2)
-    {
-      v3 = [*(a1 + 40) readUserPreference:@"MagicCloudPairingManateeUpgradedAccount"];
-
-      if (!v3)
-      {
-        [*(a1 + 40) setuserPreference:@"MagicCloudPairingManateeUpgradedAccount" value:&__kCFBooleanTrue sync:1];
-        v4 = +[MPCloudKit sharedInstance];
-        [v4 markLegacyNonManateeContainerMigrated];
-      }
-
-      v5 = [*(a1 + 32) mutableCopy];
-      [*(a1 + 40) setMasterBlob:v5];
-
-      v6 = +[CloudXPCService sharedInstance];
-      v7 = [NSMutableDictionary dictionaryWithObjectsAndKeys:*(a1 + 32), @"kMasterKeyBlob", 0];
-      [v6 sendCloudKitMsg:@"MasterKeysAvailable" args:v7];
-
-      v8 = +[CloudXPCService sharedInstance];
-      v9 = [v8 deviceManager];
-      [v9 addAccountMagicKeysWithCloudRecord:*(a1 + 48)];
-
-      v10 = *(a1 + 40);
-
-      [v10 fetchAccessoryKeyBlob:0];
-    }
-  }
 }

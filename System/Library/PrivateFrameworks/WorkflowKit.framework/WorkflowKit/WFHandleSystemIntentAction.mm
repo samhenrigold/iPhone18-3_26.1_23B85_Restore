@@ -78,29 +78,27 @@
 
 - (id)possibleStatesForEnumeration:(id)enumeration
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   intentClassName = [(WFHandleSystemIntentAction *)self intentClassName];
   supportedIdentifiers = [(WFHandleSystemIntentAction *)self supportedIdentifiers];
   v6 = MEMORY[0x1E696AEB0];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __59__WFHandleSystemIntentAction_possibleStatesForEnumeration___block_invoke;
-  v17[3] = &unk_1E8376880;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __59__WFHandleSystemIntentAction_possibleStatesForEnumeration___block_invoke;
+  v16[3] = &unk_1E8376880;
   v7 = intentClassName;
-  v18 = v7;
-  v8 = [v6 sortDescriptorWithKey:@"self" ascending:1 comparator:v17];
-  v19[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v17 = v7;
+  v8 = [v6 sortDescriptorWithKey:@"self" ascending:1 comparator:v16];
+  v18[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
   v10 = [supportedIdentifiers sortedArrayUsingDescriptors:v9];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __59__WFHandleSystemIntentAction_possibleStatesForEnumeration___block_invoke_2;
-  v15[3] = &unk_1E83768A8;
-  v16 = v7;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __59__WFHandleSystemIntentAction_possibleStatesForEnumeration___block_invoke_2;
+  v14[3] = &unk_1E83768A8;
+  v15 = v7;
   v11 = v7;
-  v12 = [v10 if_map:v15];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = [v10 if_map:v14];
 
   return v12;
 }
@@ -142,28 +140,28 @@ WFIntentDescriptorParameterState *__59__WFHandleSystemIntentAction_possibleState
 
 - (id)actionForAppIdentifier:(id)identifier
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = [(WFHandleSystemIntentAction *)self supportedIdentifiers];
-  v5 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v5 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * i);
+        v9 = *(*(&v24 + 1) + 8 * i);
         intentClassName = [(WFHandleSystemIntentAction *)self intentClassName];
         v11 = [(WFHandleSystemIntentAction *)self intentDescriptorWithIntentClassName:intentClassName launchableBundleId:v9];
 
@@ -171,16 +169,16 @@ WFIntentDescriptorParameterState *__59__WFHandleSystemIntentAction_possibleState
         v13 = [mEMORY[0x1E696E748] resolvedIntentMatchingDescriptor:v11];
 
         displayableBundleIdentifier = [v13 displayableBundleIdentifier];
-        v15 = [displayableBundleIdentifier isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(displayableBundleIdentifier);
 
-        if (v15)
+        if (isEqualToString)
         {
           appDescriptor = [v13 appDescriptor];
           v18 = [(WFVariableSubstitutableParameterState *)[WFAppDescriptorParameterState alloc] initWithValue:appDescriptor];
-          v29 = @"IntentAppDefinition";
+          v28 = @"IntentAppDefinition";
           serializedRepresentation = [(WFVariableSubstitutableParameterState *)v18 serializedRepresentation];
-          v30 = serializedRepresentation;
-          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+          v29 = serializedRepresentation;
+          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
           v16 = [(WFHandleSystemIntentAction *)self copyWithSerializedParameters:v20];
 
           objc_storeStrong(v16 + 52, self->_supportedAppIdentifiers);
@@ -188,7 +186,7 @@ WFIntentDescriptorParameterState *__59__WFHandleSystemIntentAction_possibleState
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v6 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
       if (v6)
       {
         continue;
@@ -198,12 +196,10 @@ WFIntentDescriptorParameterState *__59__WFHandleSystemIntentAction_possibleState
     }
   }
 
-  v24.receiver = self;
-  v24.super_class = WFHandleSystemIntentAction;
-  v16 = [(WFAction *)&v24 actionForAppIdentifier:identifierCopy];
+  v23.receiver = self;
+  v23.super_class = WFHandleSystemIntentAction;
+  v16 = [(WFAction *)&v23 actionForAppIdentifier:identifierCopy];
 LABEL_11:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -354,7 +350,7 @@ LABEL_9:
 
 id __50__WFHandleSystemIntentAction_supportedIdentifiers__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc(MEMORY[0x1E696E890]);
   v5 = [*(a1 + 32) intentClassName];
@@ -380,29 +376,29 @@ id __50__WFHandleSystemIntentAction_supportedIdentifiers__block_invoke(uint64_t 
     [v9 addObject:v13];
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v14 = v9;
-  v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v15)
   {
-    v16 = *v26;
+    v16 = *v25;
     while (2)
     {
       for (i = 0; i != v15; i = i + 1)
       {
-        if (*v26 != v16)
+        if (*v25 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v25 + 1) + 8 * i);
+        v18 = *(*(&v24 + 1) + 8 * i);
         v19 = objc_alloc(MEMORY[0x1E69635F8]);
-        v24 = 0;
-        v20 = [v19 initWithBundleIdentifier:v18 allowPlaceholder:0 error:&v24];
-        v21 = v24;
+        v23 = 0;
+        v20 = [v19 initWithBundleIdentifier:v18 allowPlaceholder:0 error:&v23];
+        v21 = v23;
         if (v20 && ([v20 wf_isAvailableInContext:0] & 1) != 0)
         {
           v15 = v3;
@@ -411,7 +407,7 @@ id __50__WFHandleSystemIntentAction_supportedIdentifiers__block_invoke(uint64_t 
         }
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v15)
       {
         continue;
@@ -422,8 +418,6 @@ id __50__WFHandleSystemIntentAction_supportedIdentifiers__block_invoke(uint64_t 
   }
 
 LABEL_16:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -440,7 +434,7 @@ void *__50__WFHandleSystemIntentAction_supportedIdentifiers__block_invoke_2(uint
   v9 = [v8 resolvedIntentMatchingDescriptor:v7];
 
   v10 = [v9 displayableBundleIdentifier];
-  if ([v10 isEqualToString:*(a1 + 40)])
+  if (objc_msgSend_isEqualToString_(v10))
   {
     v11 = v4;
   }
@@ -490,7 +484,7 @@ void *__50__WFHandleSystemIntentAction_supportedIdentifiers__block_invoke_2(uint
   v15.receiver = self;
   v15.super_class = WFHandleSystemIntentAction;
   v8 = [(WFAction *)&v15 setParameterState:stateCopy forKey:keyCopy];
-  if (v8 && [keyCopy isEqualToString:@"IntentAppDefinition"])
+  if (v8 && objc_msgSend_isEqualToString_(keyCopy))
   {
     [(WFHandleSystemIntentAction *)self selectedAppDidChange];
     v9 = stateCopy;
@@ -528,7 +522,7 @@ void *__50__WFHandleSystemIntentAction_supportedIdentifiers__block_invoke_2(uint
 
 - (id)selectedAppNotSupportedError
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   v3 = WFLocalizedString(@"Invalid App");
   v4 = MEMORY[0x1E696AEC0];
   v5 = WFLocalizedString(@"Please select a valid app for %@.");
@@ -537,14 +531,12 @@ void *__50__WFHandleSystemIntentAction_supportedIdentifiers__block_invoke_2(uint
 
   v8 = MEMORY[0x1E696ABC0];
   v9 = *MEMORY[0x1E696A578];
-  v14[0] = *MEMORY[0x1E696A588];
-  v14[1] = v9;
-  v15[0] = v3;
-  v15[1] = v7;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v13[0] = *MEMORY[0x1E696A588];
+  v13[1] = v9;
+  v14[0] = v3;
+  v14[1] = v7;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
   v11 = [v8 errorWithDomain:@"WFActionErrorDomain" code:10 userInfo:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -610,7 +602,7 @@ void *__50__WFHandleSystemIntentAction_supportedIdentifiers__block_invoke_2(uint
 
 - (id)copyWithSerializedParameters:(id)parameters
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   if (!parametersCopy)
   {
@@ -619,11 +611,11 @@ void *__50__WFHandleSystemIntentAction_supportedIdentifiers__block_invoke_2(uint
 
     if (v6)
     {
-      v13 = @"IntentAppDefinition";
+      v12 = @"IntentAppDefinition";
       serializedParameters2 = [(WFAction *)self serializedParameters];
       v8 = [serializedParameters2 objectForKey:@"IntentAppDefinition"];
-      v14[0] = v8;
-      parametersCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v13[0] = v8;
+      parametersCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     }
 
     else
@@ -632,11 +624,10 @@ void *__50__WFHandleSystemIntentAction_supportedIdentifiers__block_invoke_2(uint
     }
   }
 
-  v12.receiver = self;
-  v12.super_class = WFHandleSystemIntentAction;
-  v9 = [(WFAction *)&v12 copyWithSerializedParameters:parametersCopy];
+  v11.receiver = self;
+  v11.super_class = WFHandleSystemIntentAction;
+  v9 = [(WFAction *)&v11 copyWithSerializedParameters:parametersCopy];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -811,48 +802,47 @@ LABEL_5:
 
 - (void)selectedAppDidChange
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   intentDescriptor = self->_intentDescriptor;
   self->_intentDescriptor = 0;
 
   [(WFHandleSystemIntentAction *)self intentDescriptor];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   parameters = [(WFAction *)self parameters];
-  v5 = [parameters countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v5 = [parameters countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(parameters);
         }
 
-        resourceManager = [*(*(&v12 + 1) + 8 * v8) resourceManager];
-        v16 = objc_opt_class();
-        v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+        resourceManager = [*(*(&v11 + 1) + 8 * v8) resourceManager];
+        v15 = objc_opt_class();
+        v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
         [resourceManager refreshAvailabilityOfRequiredResourcesOfClasses:v10];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [parameters countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v6 = [parameters countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   [(WFAction *)self iconUpdated];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -865,7 +855,7 @@ LABEL_5:
 
 - (WFHandleSystemIntentAction)initWithIdentifier:(id)identifier definition:(id)definition serializedParameters:(id)parameters intentDescription:(id)description stringLocalizer:(id)localizer
 {
-  v68[4] = *MEMORY[0x1E69E9840];
+  v67[4] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   definitionCopy = definition;
   parametersCopy = parameters;
@@ -896,50 +886,50 @@ LABEL_5:
   {
     v18 = objc_opt_new();
     slotDescriptions = [descriptionCopy slotDescriptions];
-    v59[0] = MEMORY[0x1E69E9820];
-    v59[1] = 3221225472;
-    v59[2] = __115__WFHandleSystemIntentAction_initWithIdentifier_definition_serializedParameters_intentDescription_stringLocalizer___block_invoke;
-    v59[3] = &unk_1E83767E0;
+    v58[0] = MEMORY[0x1E69E9820];
+    v58[1] = 3221225472;
+    v58[2] = __115__WFHandleSystemIntentAction_initWithIdentifier_definition_serializedParameters_intentDescription_stringLocalizer___block_invoke;
+    v58[3] = &unk_1E83767E0;
     selfCopy = self;
-    v61 = identifierCopy;
-    v62 = v18;
-    v52 = v18;
-    [slotDescriptions enumerateObjectsUsingBlock:v59];
+    v60 = identifierCopy;
+    v61 = v18;
+    v51 = v18;
+    [slotDescriptions enumerateObjectsUsingBlock:v58];
 
     v20 = [WFParameterDefinition alloc];
-    v67[0] = @"Class";
+    v66[0] = @"Class";
     v21 = objc_opt_class();
     v22 = NSStringFromClass(v21);
-    v68[0] = v22;
-    v68[1] = @"IntentAppDefinition";
-    v67[1] = @"Key";
-    v67[2] = @"Label";
+    v67[0] = v22;
+    v67[1] = @"IntentAppDefinition";
+    v66[1] = @"Key";
+    v66[2] = @"Label";
     v23 = WFLocalizedStringResourceWithKey(@"App (SystemIntentAppIdentifier)", @"App");
-    v68[2] = v23;
-    v67[3] = @"IntentName";
+    v67[2] = v23;
+    v66[3] = @"IntentName";
     v24 = NSStringFromClass([descriptionCopy facadeClass]);
-    v68[3] = v24;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:v67 count:4];
+    v67[3] = v24;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:v66 count:4];
     v26 = [(WFParameterDefinition *)v20 initWithDictionary:v25];
 
-    [v52 insertObject:v26 atIndex:0];
+    [v51 insertObject:v26 atIndex:0];
     v27 = [WFParameterDefinition alloc];
-    v65[0] = @"Class";
+    v64[0] = @"Class";
     v28 = objc_opt_class();
     v29 = NSStringFromClass(v28);
-    v66[0] = v29;
-    v66[1] = @"OpenInApp";
-    v65[1] = @"Key";
-    v65[2] = @"Label";
+    v65[0] = v29;
+    v65[1] = @"OpenInApp";
+    v64[1] = @"Key";
+    v64[2] = @"Label";
     v30 = WFLocalizedStringResourceWithKey(@"Open in App (SystemIntentOpenInApp)", @"Open in App");
-    v66[2] = v30;
-    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:v65 count:3];
+    v65[2] = v30;
+    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:v64 count:3];
     v32 = [(WFParameterDefinition *)v27 initWithDictionary:v31];
 
-    [v52 addObject:v32];
-    v63 = @"Parameters";
-    v64 = v52;
-    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+    [v51 addObject:v32];
+    v62 = @"Parameters";
+    v63 = v51;
+    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
     v34 = [(WFActionDefinition *)definitionCopy definitionByAddingEntriesInDictionary:v33];
 
     definitionCopy = v34;
@@ -975,9 +965,9 @@ LABEL_7:
     }
   }
 
-  v58.receiver = self;
-  v58.super_class = WFHandleSystemIntentAction;
-  v45 = [(WFHandleIntentAction *)&v58 initWithIdentifier:identifierCopy definition:definitionCopy serializedParameters:parametersCopy stringLocalizer:localizerCopy];
+  v57.receiver = self;
+  v57.super_class = WFHandleSystemIntentAction;
+  v45 = [(WFHandleIntentAction *)&v57 initWithIdentifier:identifierCopy definition:definitionCopy serializedParameters:parametersCopy stringLocalizer:localizerCopy];
   v46 = v45;
   if (v45)
   {
@@ -989,21 +979,20 @@ LABEL_7:
     handler[1] = 3221225472;
     handler[2] = __115__WFHandleSystemIntentAction_initWithIdentifier_definition_serializedParameters_intentDescription_stringLocalizer___block_invoke_3;
     handler[3] = &unk_1E837C5F8;
-    objc_copyWeak(&v56, &location);
+    objc_copyWeak(&v55, &location);
     notify_register_dispatch(uTF8String, &v46->_token, MEMORY[0x1E69E96A0], handler);
 
     v49 = v46;
-    objc_destroyWeak(&v56);
+    objc_destroyWeak(&v55);
     objc_destroyWeak(&location);
   }
 
-  v50 = *MEMORY[0x1E69E9840];
   return v46;
 }
 
 void __115__WFHandleSystemIntentAction_initWithIdentifier_definition_serializedParameters_intentDescription_stringLocalizer___block_invoke(uint64_t a1, void *a2)
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 wf_parameterClass];
   if (v4)
@@ -1021,12 +1010,12 @@ void __115__WFHandleSystemIntentAction_initWithIdentifier_definition_serializedP
     if (v11)
     {
       v12 = *(a1 + 40);
-      v17[0] = @"IntentType";
-      v17[1] = @"SlotName";
-      v18[0] = v12;
+      v16[0] = @"IntentType";
+      v16[1] = @"SlotName";
+      v17[0] = v12;
       v13 = [v3 wf_slotName];
-      v18[1] = v13;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+      v17[1] = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
       v15 = [v9 definitionByAddingEntriesInDictionary:v14];
 
       v9 = v15;
@@ -1034,8 +1023,6 @@ void __115__WFHandleSystemIntentAction_initWithIdentifier_definition_serializedP
 
     [*(a1 + 48) addObject:v9];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __115__WFHandleSystemIntentAction_initWithIdentifier_definition_serializedParameters_intentDescription_stringLocalizer___block_invoke_3(uint64_t a1)
@@ -1054,14 +1041,14 @@ void __115__WFHandleSystemIntentAction_initWithIdentifier_definition_serializedP
 uint64_t __115__WFHandleSystemIntentAction_initWithIdentifier_definition_serializedParameters_intentDescription_stringLocalizer___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = [a2 objectForKey:@"Key"];
-  v3 = [v2 isEqualToString:@"IntentAppDefinition"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (WFHandleSystemIntentAction)initWithIdentifier:(id)identifier definition:(id)definition serializedParameters:(id)parameters stringLocalizer:(id)localizer
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   definitionCopy = definition;
   parametersCopy = parameters;
@@ -1074,16 +1061,16 @@ uint64_t __115__WFHandleSystemIntentAction_initWithIdentifier_definition_seriali
     v18 = getWFGeneralLogObject();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      *v24 = 136315906;
-      *&v24[4] = "WFEnforceClass";
-      *&v24[12] = 2114;
-      *&v24[14] = v16;
-      *&v24[22] = 2114;
-      v25 = objc_opt_class();
-      LOWORD(v26) = 2114;
-      *(&v26 + 2) = v15;
-      v19 = v25;
-      _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", v24, 0x2Au);
+      *v23 = 136315906;
+      *&v23[4] = "WFEnforceClass";
+      *&v23[12] = 2114;
+      *&v23[14] = v16;
+      *&v23[22] = 2114;
+      v24 = objc_opt_class();
+      LOWORD(v25) = 2114;
+      *(&v25 + 2) = v15;
+      v19 = v24;
+      _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", v23, 0x2Au);
     }
 
     v17 = 0;
@@ -1104,9 +1091,8 @@ uint64_t __115__WFHandleSystemIntentAction_initWithIdentifier_definition_seriali
     v20 = 0;
   }
 
-  v21 = [(WFHandleSystemIntentAction *)self initWithIdentifier:identifierCopy definition:definitionCopy serializedParameters:parametersCopy intentDescription:v20 stringLocalizer:localizerCopy, *v24, *&v24[16], v25, v26];
+  v21 = [(WFHandleSystemIntentAction *)self initWithIdentifier:identifierCopy definition:definitionCopy serializedParameters:parametersCopy intentDescription:v20 stringLocalizer:localizerCopy, *v23, *&v23[8], v24, v25];
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 

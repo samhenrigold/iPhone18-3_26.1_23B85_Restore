@@ -140,7 +140,7 @@ void __49__PXStoryScrollLayout__updateModelScrollPosition__block_invoke(uint64_t
     v11 = v12;
     if (v12)
     {
-      [v12 presentedScrollPosition];
+      objc_msgSend_presentedScrollPosition(v12);
     }
 
     else
@@ -401,7 +401,7 @@ LABEL_5:
         model3 = model2;
         if (model2)
         {
-          [model2 currentScrollPosition];
+          objc_msgSend_currentScrollPosition(model2);
         }
 
         else
@@ -767,7 +767,7 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  [pagedScrollContentLayout presentedScrollPosition];
+  objc_msgSend_presentedScrollPosition(pagedScrollContentLayout);
   v6 = v17;
   if (v17 <= 0.5)
   {

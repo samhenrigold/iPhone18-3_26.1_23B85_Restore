@@ -22,64 +22,65 @@
 - (NSDictionary)initWithXPCDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v15 = 0;
-  v16[0] = &v15;
-  v16[1] = 0x3032000000;
-  v16[2] = sub_1618;
-  v16[3] = sub_1628;
-  v17 = +[NSMutableDictionary dictionary];
-  v9 = _NSConcreteStackBlock;
-  v10 = 3221225472;
-  v11 = sub_1630;
-  v12 = &unk_185A8;
-  v14 = &v15;
+  v16 = 0;
+  v17[0] = &v16;
+  v17[1] = 0x3032000000;
+  v17[2] = sub_1618;
+  v17[3] = sub_1628;
+  v18 = +[NSMutableDictionary dictionary];
+  v10 = _NSConcreteStackBlock;
+  v11 = 3221225472;
+  v12 = sub_1630;
+  v13 = &unk_185A8;
+  v15 = &v16;
   selfCopy = self;
-  v13 = selfCopy;
-  if (xpc_dictionary_apply(dictionaryCopy, &v9))
+  v14 = selfCopy;
+  v6 = xpc_dictionary_apply(dictionaryCopy, &v10);
+  if (v6)
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = defaultLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      sub_B86C(v16, v6);
+      sub_B86C(v17, v7);
     }
 
-    selfCopy = [(NSDictionary *)selfCopy initWithDictionary:*(v16[0] + 40), v9, v10, v11, v12];
-    v7 = selfCopy;
+    selfCopy = [(NSDictionary *)selfCopy initWithDictionary:*(v17[0] + 40), v10, v11, v12, v13];
+    v8 = selfCopy;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  _Block_object_dispose(&v15, 8);
-  return v7;
+  _Block_object_dispose(&v16, 8);
+  return v8;
 }
 
 - (id)createXPCDictionary
 {
   v3 = xpc_dictionary_create(0, 0, 0);
-  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
   selfCopy = self;
-  v5 = [(NSDictionary *)selfCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v5 = [(NSDictionary *)selfCopy countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v28;
+    v7 = *v29;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v28 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
-        v10 = [(NSDictionary *)selfCopy objectForKey:v9, v27];
+        v9 = *(*(&v28 + 1) + 8 * i);
+        v10 = [(NSDictionary *)selfCopy objectForKey:v9, v28];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -113,7 +114,7 @@
                 {
                   uTF8String = [v9 UTF8String];
                   [v11 doubleValue];
-                  xpc_dictionary_set_double(v3, uTF8String, v23);
+                  xpc_dictionary_set_double(v3, uTF8String, v24);
                 }
 
                 else
@@ -124,14 +125,14 @@
                     objCType4 = [v11 objCType];
                     if (*objCType4 != 99 || objCType4[1])
                     {
-                      v25 = defaultLogHandle();
-                      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+                      v26 = defaultLogHandle(objCType4);
+                      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                       {
                         sub_BA08(v11);
                       }
 
 LABEL_41:
-                      v24 = 0;
+                      v25 = 0;
                       goto LABEL_42;
                     }
                   }
@@ -144,12 +145,13 @@ LABEL_41:
             else
             {
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0)
+              isKindOfClass = objc_opt_isKindOfClass();
+              if ((isKindOfClass & 1) == 0)
               {
-                v11 = defaultLogHandle();
+                v11 = defaultLogHandle(isKindOfClass);
                 if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
                 {
-                  sub_B964();
+                  sub_B964(v9, v10);
                 }
 
                 goto LABEL_41;
@@ -157,13 +159,13 @@ LABEL_41:
 
               uTF8String2 = [v9 UTF8String];
               [v10 timeIntervalSince1970];
-              xpc_dictionary_set_date(v3, uTF8String2, v21);
+              xpc_dictionary_set_date(v3, uTF8String2, v22);
             }
           }
         }
       }
 
-      v6 = [(NSDictionary *)selfCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v6 = [(NSDictionary *)selfCopy countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v6)
       {
         continue;
@@ -173,10 +175,10 @@ LABEL_41:
     }
   }
 
-  v24 = v3;
+  v25 = v3;
 LABEL_42:
 
-  return v24;
+  return v25;
 }
 
 + (id)dictionaryFromJsonData:(id)data
@@ -184,7 +186,7 @@ LABEL_42:
   dataCopy = data;
   if (!dataCopy)
   {
-    v6 = defaultLogHandle();
+    v6 = defaultLogHandle(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_BC18();
@@ -227,36 +229,37 @@ LABEL_5:
 
 - (id)convertToNSData
 {
-  if ([NSJSONSerialization isValidJSONObject:self])
+  v3 = [NSJSONSerialization isValidJSONObject:self];
+  if (v3)
   {
-    v8 = 0;
-    v3 = [NSJSONSerialization dataWithJSONObject:self options:0 error:&v8];
-    v4 = v8;
-    v5 = v4;
-    if (v3)
+    v9 = 0;
+    v4 = [NSJSONSerialization dataWithJSONObject:self options:0 error:&v9];
+    v5 = v9;
+    v6 = v5;
+    if (v4)
     {
-      v6 = v3;
+      v7 = v4;
 
-      v5 = v6;
+      v6 = v7;
       goto LABEL_4;
     }
 
-    sub_BD24(v4);
+    sub_BD24(v5);
   }
 
   else
   {
-    v5 = defaultLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = defaultLogHandle(v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_BCA0();
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_4:
 
-  return v6;
+  return v7;
 }
 
 + (id)dictionaryFromXPCDictionary:(id)dictionary withDataFromKey:(const char *)key

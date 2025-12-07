@@ -91,7 +91,7 @@
     v35 = self->_underInfiniteHighLevelRootLayer;
     if (v35)
     {
-      [(CALayer *)self->_underInfiniteHighLevelRootLayer affineTransform];
+      objc_msgSend_affineTransform(self->_underInfiniteHighLevelRootLayer);
     }
 
     else
@@ -222,7 +222,7 @@ LABEL_16:
       [(CAPortalLayer *)self->_recordingIndicatorPortalLayer setMatchesOpacity:1];
       [(CAPortalLayer *)self->_recordingIndicatorPortalLayer setMatchesPosition:0];
       v9 = self->_recordingIndicatorPortalLayer;
-      [(SBRecordingIndicatorLayer *)self->_recordingIndicatorLayer frame];
+      objc_msgSend_frame(self->_recordingIndicatorLayer);
       v18 = CGRectOffset(v17, -40.0, -40.0);
       [(CAPortalLayer *)v9 setFrame:v18.origin.x, v18.origin.y, v18.size.width, v18.size.height];
       [(CAPortalLayer *)self->_recordingIndicatorPortalLayer setHidesSourceLayer:0];

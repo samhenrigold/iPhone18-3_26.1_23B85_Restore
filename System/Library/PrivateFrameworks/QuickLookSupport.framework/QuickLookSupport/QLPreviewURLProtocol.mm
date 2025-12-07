@@ -628,7 +628,7 @@ void __45__QLPreviewURLProtocol_startLoadingProtocol___block_invoke(uint64_t a1)
   v2 = _log_2();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __45__QLPreviewURLProtocol_startLoadingProtocol___block_invoke_cold_1();
+    __45__QLPreviewURLProtocol_startLoadingProtocol___block_invoke_cold_1(a1);
   }
 
   v3 = (a1 + 40);
@@ -814,7 +814,7 @@ void __53__QLPreviewURLProtocol_stopLoadingProtocol_isCancel___block_invoke(uint
       v14 = _log_2();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        __53__QLPreviewURLProtocol_stopLoadingProtocol_isCancel___block_invoke_cold_1();
+        __53__QLPreviewURLProtocol_stopLoadingProtocol_isCancel___block_invoke_cold_1(v9);
       }
     }
   }
@@ -968,13 +968,13 @@ void __54__QLPreviewURLProtocol_registerPreview_forPreviewURL___block_invoke_col
   _os_log_debug_impl(&dword_2615AE000, v1, OS_LOG_TYPE_DEBUG, "Registering %@ at url %@", v2, 0x16u);
 }
 
-void __45__QLPreviewURLProtocol_startLoadingProtocol___block_invoke_cold_1()
+void __45__QLPreviewURLProtocol_startLoadingProtocol___block_invoke_cold_1(uint64_t a1)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_1_0();
-  v1 = OUTLINED_FUNCTION_6(v0);
+  v2 = OUTLINED_FUNCTION_6(v1);
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __45__QLPreviewURLProtocol_startLoadingProtocol___block_invoke_cold_2(uint64_t a1, void *a2)
@@ -1006,14 +1006,14 @@ void __45__QLPreviewURLProtocol_startLoadingProtocol___block_invoke_cold_5()
 {
   OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_1(&dword_2615AE000, v0, v1, "  Resource at %@ is not yet complete", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_1_1(&dword_2615AE000, v0, v1, "  Resource at %@ is not yet complete", v2, v3, v4, v5);
 }
 
 void __45__QLPreviewURLProtocol_startLoadingProtocol___block_invoke_cold_6()
 {
   OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_1(&dword_2615AE000, v0, v1, "  Resource at %@ is already complete", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_1_1(&dword_2615AE000, v0, v1, "  Resource at %@ is already complete", v2, v3, v4, v5);
 }
 
 void __45__QLPreviewURLProtocol_startLoadingProtocol___block_invoke_cold_7()
@@ -1027,16 +1027,16 @@ void __45__QLPreviewURLProtocol_startLoadingProtocol___block_invoke_cold_8()
 {
   OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_1_1(&dword_2615AE000, v0, v1, "  No resource available at %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_1_1(&dword_2615AE000, v0, v1, "  No resource available at %@", v2, v3, v4, v5);
 }
 
-void __53__QLPreviewURLProtocol_stopLoadingProtocol_isCancel___block_invoke_cold_1()
+void __53__QLPreviewURLProtocol_stopLoadingProtocol_isCancel___block_invoke_cold_1(void *a1)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_1_0();
-  v1 = OUTLINED_FUNCTION_6(v0);
+  v2 = OUTLINED_FUNCTION_6(v1);
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __45__QLPreviewURLProtocol__dumpPendingProtocols__block_invoke_cold_1()

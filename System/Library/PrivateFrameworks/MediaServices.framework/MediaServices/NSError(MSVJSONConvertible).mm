@@ -18,19 +18,17 @@
 
 - (id)msv_jsonValue
 {
-  v9[3] = *MEMORY[0x1E69E9840];
-  v8[0] = @"domain";
+  v8[3] = *MEMORY[0x1E69E9840];
+  v7[0] = @"domain";
   domain = [self domain];
-  v9[0] = domain;
-  v8[1] = @"code";
+  v8[0] = domain;
+  v7[1] = @"code";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(self, "code")}];
-  v9[1] = v3;
-  v8[2] = @"userInfo";
+  v8[1] = v3;
+  v7[2] = @"userInfo";
   msv_userInfoJSONValue = [self msv_userInfoJSONValue];
-  v9[2] = msv_userInfoJSONValue;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[2] = msv_userInfoJSONValue;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }

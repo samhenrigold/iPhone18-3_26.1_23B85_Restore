@@ -1,82 +1,2027 @@
+uint64_t x509_get_basic_constraints(unsigned __int8 **a1, unsigned __int8 *a2, int *a3, int *a4)
+{
+  v10 = a1;
+  v9 = a2;
+  v8 = a3;
+  v7 = a4;
+  tag = -110;
+  v5 = 0;
+  *a3 = 0;
+  *v7 = 0;
+  tag = mbedtls_asn1_get_tag(v10, v9, &v5, 48);
+  if (tag)
+  {
+    return mbedtls_error_add(-9472, tag);
+  }
+
+  if (*v10 == v9)
+  {
+    return 0;
+  }
+
+  else
+  {
+    tag = mbedtls_asn1_get_BOOL(v10, v9, v8);
+    if (tag)
+    {
+      if (tag == -98)
+      {
+        tag = mbedtls_asn1_get_int(v10, v9, v8);
+      }
+
+      if (tag)
+      {
+        return mbedtls_error_add(-9472, tag);
+      }
+
+      if (*v8)
+      {
+        *v8 = 1;
+      }
+    }
+
+    if (*v10 == v9)
+    {
+      return 0;
+    }
+
+    else
+    {
+      tag = mbedtls_asn1_get_int(v10, v9, v7);
+      if (tag)
+      {
+        return mbedtls_error_add(-9472, tag);
+      }
+
+      if (*v10 == v9)
+      {
+        if (*v7 == 0x7FFFFFFF)
+        {
+          return mbedtls_error_add(-9472, -100);
+        }
+
+        else
+        {
+          ++*v7;
+          return 0;
+        }
+      }
+
+      else
+      {
+        return mbedtls_error_add(-9472, -102);
+      }
+    }
+  }
+}
+
+uint64_t x509_get_ext_key_usage(_BYTE **a1, _BYTE *a2, uint64_t a3)
+{
+  sequence_of = mbedtls_asn1_get_sequence_of(a1, a2, a3, 6u);
+  if (sequence_of)
+  {
+    return mbedtls_error_add(-9472, sequence_of);
+  }
+
+  else if (*(a3 + 16))
+  {
+    return 0;
+  }
+
+  else
+  {
+    return mbedtls_error_add(-9472, -100);
+  }
+}
+
+uint64_t x509_get_subject_key_id(unsigned __int8 **a1, uint64_t a2, uint64_t a3)
+{
+  v8 = a1;
+  v7 = a2;
+  v6 = a3;
+  tag = -110;
+  v4 = 0;
+  tag = mbedtls_asn1_get_tag(a1, a2, &v4, 4);
+  if (tag)
+  {
+    return mbedtls_error_add(-9472, tag);
+  }
+
+  else
+  {
+    *(v6 + 8) = v4;
+    *v6 = 4;
+    *(v6 + 16) = *v8;
+    *v8 += v4;
+    if (*v8 == v7)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return mbedtls_error_add(-9472, -102);
+    }
+  }
+}
+
+uint64_t x509_get_authority_key_id(unsigned __int8 **a1, unint64_t a2, uint64_t a3)
+{
+  v8 = a1;
+  v7 = a2;
+  v6 = a3;
+  tag = -110;
+  v4 = 0;
+  tag = mbedtls_asn1_get_tag(a1, a2, &v4, 48);
+  if (tag)
+  {
+    return mbedtls_error_add(-9472, tag);
+  }
+
+  if (&(*v8)[v4] != v7)
+  {
+    return mbedtls_error_add(-9472, -102);
+  }
+
+  tag = mbedtls_asn1_get_tag(v8, v7, &v4, 128);
+  if (tag)
+  {
+    if (tag != -98)
+    {
+      return mbedtls_error_add(-9472, tag);
+    }
+  }
+
+  else
+  {
+    *(v6 + 8) = v4;
+    *(v6 + 16) = *v8;
+    *v6 = 4;
+    *v8 += v4;
+  }
+
+  if (*v8 < v7)
+  {
+    tag = mbedtls_asn1_get_tag(v8, v7, &v4, 161);
+    if (tag)
+    {
+      return mbedtls_error_add(-9472, tag);
+    }
+
+    tag = mbedtls_x509_get_subject_alt_name_ext(v8, &(*v8)[v4], v6 + 24);
+    if (tag)
+    {
+      return tag;
+    }
+
+    tag = mbedtls_asn1_get_tag(v8, v7, &v4, 130);
+    if (tag)
+    {
+      return mbedtls_error_add(-9472, tag);
+    }
+
+    *(v6 + 64) = v4;
+    *(v6 + 72) = *v8;
+    *(v6 + 56) = 2;
+    *v8 += v4;
+  }
+
+  if (*v8 == v7)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return -9574;
+  }
+}
+
+uint64_t x509_get_certificate_policies(unsigned __int8 **a1, unsigned __int8 *a2, uint64_t a3)
+{
+  v14 = a1;
+  v13 = a2;
+  v12 = a3;
+  tag = 0;
+  v10 = 0;
+  v9 = 0;
+  v8 = a3;
+  tag = mbedtls_asn1_get_tag(a1, a2, &v9, 48);
+  if (tag)
+  {
+    return mbedtls_error_add(-9472, tag);
+  }
+
+  else
+  {
+    if (&(*v14)[v9] != v13 || !v9)
+    {
+      return mbedtls_error_add(-9472, -102);
+    }
+
+    while (*v14 < v13)
+    {
+      tag = mbedtls_asn1_get_tag(v14, v13, &v9, 48);
+      if (tag)
+      {
+        return mbedtls_error_add(-9472, tag);
+      }
+
+      v5 = &(*v14)[v9];
+      tag = mbedtls_asn1_get_tag(v14, v5, &v9, 6);
+      if (tag)
+      {
+        return mbedtls_error_add(-9472, tag);
+      }
+
+      __n = v9;
+      __s2 = *v14;
+      v4 = 1;
+      if (v9 == 4)
+      {
+        v4 = memcmp(&unk_10044AF65, __s2, 4uLL) != 0;
+      }
+
+      if (v4)
+      {
+        v10 = -8320;
+      }
+
+      if (*(v8 + 16))
+      {
+        if (*(v8 + 24))
+        {
+          return -9472;
+        }
+
+        *(v8 + 24) = mbedtls_calloc(1, 32);
+        if (!*(v8 + 24))
+        {
+          return mbedtls_error_add(-9472, -106);
+        }
+
+        v8 = *(v8 + 24);
+      }
+
+      *v8 = 6;
+      *(v8 + 16) = __s2;
+      *(v8 + 8) = __n;
+      *v14 += v9;
+      if (*v14 < v5)
+      {
+        tag = mbedtls_asn1_get_tag(v14, v5, &v9, 48);
+        if (tag)
+        {
+          return mbedtls_error_add(-9472, tag);
+        }
+
+        *v14 += v9;
+      }
+
+      if (*v14 != v5)
+      {
+        return mbedtls_error_add(-9472, -102);
+      }
+    }
+
+    *(v8 + 24) = 0;
+    if (*v14 == v13)
+    {
+      return v10;
+    }
+
+    else
+    {
+      return mbedtls_error_add(-9472, -102);
+    }
+  }
+}
+
+uint64_t x509_crt_verify_chain_reset(uint64_t result)
+{
+  for (i = 0; i < 0xA; ++i)
+  {
+    *(result + 16 * i) = 0;
+    *(result + 16 * i + 8) = -1;
+  }
+
+  *(result + 160) = 0;
+  return result;
+}
+
+unint64_t x509_crt_verify_name(uint64_t a1, char *a2, _DWORD *a3)
+{
+  result = strlen(a2);
+  v5 = result;
+  if ((*(a1 + 640) & 0x20) != 0)
+  {
+    result = x509_crt_check_san(a1 + 448, a2, result);
+    if (!result)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    for (i = a1 + 224; i; i = *(i + 48))
+    {
+      v4 = 1;
+      if (*(i + 8) == 3)
+      {
+        result = memcmp("U\x04\x03", *(i + 16), *(i + 8));
+        v4 = result != 0;
+      }
+
+      if (!v4)
+      {
+        result = x509_crt_check_cn(i + 24, a2, v5);
+        if (!result)
+        {
+          return result;
+        }
+      }
+    }
+  }
+
+  *a3 |= 4u;
+  return result;
+}
+
+uint64_t x509_profile_check_pk_alg(uint64_t a1, int a2)
+{
+  if (a2)
+  {
+    if ((*(a1 + 4) & (1 << (a2 - 1))) != 0)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return -1;
+    }
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+uint64_t x509_profile_check_key(uint64_t a1, unsigned int **a2)
+{
+  type = mbedtls_pk_get_type(a2);
+  if (type == 1 || type == 6)
+  {
+    if (mbedtls_pk_get_bitlen(a2) >= *(a1 + 12))
+    {
+      return 0;
+    }
+
+    else
+    {
+      return -1;
+    }
+  }
+
+  else if (type == 4 || type == 2 || type == 3)
+  {
+    ec_group_id = mbedtls_pk_get_ec_group_id(a2);
+    if (ec_group_id)
+    {
+      if ((*(a1 + 8) & (1 << (ec_group_id - 1))) != 0)
+      {
+        return 0;
+      }
+
+      else
+      {
+        return -1;
+      }
+    }
+
+    else
+    {
+      return -1;
+    }
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+uint64_t x509_crt_verify_chain(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6, uint64_t a7, uint64_t a8)
+{
+  v27 = a1;
+  v26 = a2;
+  v25 = a3;
+  v24 = a4;
+  v23 = a5;
+  v22 = a6;
+  v21 = a7;
+  v20 = a8;
+  parent = -110;
+  v18 = 0;
+  v17 = 0;
+  v15 = 0;
+  v12 = 0;
+  v10 = 0;
+  memset(v9, 0, sizeof(v9));
+  v16 = a1;
+  v11 = 0;
+  v14 = 0;
+  v13 = 0;
+  while (1)
+  {
+    v17 = v21 + 16 * *(v21 + 160);
+    *v17 = v16;
+    *(v17 + 8) = 0;
+    ++*(v21 + 160);
+    v18 = (v17 + 8);
+    if (v13)
+    {
+      return 0;
+    }
+
+    if (x509_profile_check_md_alg(v22, *(v16 + 720)))
+    {
+      *v18 |= 0x4000u;
+    }
+
+    if (x509_profile_check_pk_alg(v22, *(v16 + 724)))
+    {
+      *v18 |= 0x8000u;
+    }
+
+    if (*(v21 + 160) == 1 && !x509_crt_check_ee_locally_trusted(v16, v26))
+    {
+      return 0;
+    }
+
+    v10 = v26;
+    parent = x509_crt_find_parent(v16, v26, &v15, &v14, &v12, *(v21 + 160) - 1, v11, v20, v9);
+    if (!v15)
+    {
+      *v18 |= 8u;
+      return 0;
+    }
+
+    if (*(v21 + 160) != 1 && !x509_name_cmp(v16 + 160, v16 + 224))
+    {
+      ++v11;
+    }
+
+    if (!v14 && *(v21 + 160) > 8u)
+    {
+      break;
+    }
+
+    if (!v12)
+    {
+      *v18 |= 8u;
+    }
+
+    if (x509_profile_check_key(v22, (v15 + 360)))
+    {
+      *v18 |= 0x10000u;
+    }
+
+    v16 = v15;
+    v15 = 0;
+    v13 = v14;
+    v12 = 0;
+  }
+
+  return -12288;
+}
+
+uint64_t x509_crt_merge_flags_with_cb(_DWORD *a1, uint64_t a2, uint64_t (*a3)(uint64_t, void, void, int *), uint64_t a4)
+{
+  v12 = a1;
+  v11 = a2;
+  v10 = a3;
+  v9 = a4;
+  v8 = -110;
+  i = 0;
+  v6 = 0;
+  for (i = *(a2 + 160); i; --i)
+  {
+    v5 = v11 + 16 * (i - 1);
+    v6 = *(v5 + 8);
+    if (v10)
+    {
+      v8 = v10(v9, *v5, (i - 1), &v6);
+      if (v8)
+      {
+        return v8;
+      }
+    }
+
+    *v12 |= v6;
+  }
+
+  return 0;
+}
+
+uint64_t x509_crt_check_san(uint64_t a1, char *a2, unint64_t a3)
+{
+  v7 = 0;
+  v6 = 0;
+  for (i = a1; i; i = *(i + 24))
+  {
+    v4 = *i & 0x1F;
+    switch(v4)
+    {
+      case 2:
+        if (!x509_crt_check_cn(i, a2, a3))
+        {
+          return 0;
+        }
+
+        break;
+      case 6:
+        v6 = 1;
+        break;
+      case 7:
+        v7 = 1;
+        break;
+    }
+  }
+
+  if (!v7 || x509_crt_check_san_ip(a1, a2))
+  {
+    if (!v6 || x509_crt_check_san_uri(a1, a2, a3))
+    {
+      return -1;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t x509_crt_check_cn(uint64_t a1, const char *a2, unint64_t a3)
+{
+  if (*(a1 + 8) != a3 || x509_memcasecmp(a2, *(a1 + 16), a3))
+  {
+    if (x509_check_wildcard(a2, a1))
+    {
+      return -1;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t x509_crt_check_san_ip(uint64_t a1, char *a2)
+{
+  __n = mbedtls_x509_crt_parse_cn_inet_pton(a2, __s2);
+  if (__n)
+  {
+    for (i = a1; i; i = *(i + 24))
+    {
+      if ((*i & 0x1F) == 7 && *(i + 8) == __n && !memcmp(*(i + 16), __s2, __n))
+      {
+        return 0;
+      }
+    }
+
+    return -1;
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+uint64_t x509_crt_check_san_uri(uint64_t a1, const void *a2, size_t a3)
+{
+  while (a1)
+  {
+    if ((*a1 & 0x1F) == 6 && *(a1 + 8) == a3 && !memcmp(*(a1 + 16), a2, a3))
+    {
+      return 0;
+    }
+
+    a1 = *(a1 + 24);
+  }
+
+  return -1;
+}
+
+uint64_t x509_memcasecmp(uint64_t a1, uint64_t a2, unint64_t a3)
+{
+  for (i = 0; i < a3; ++i)
+  {
+    v4 = *(a1 + i) ^ *(a2 + i);
+    if (v4 && (v4 != 32 || (*(a1 + i) < 0x61u || *(a1 + i) > 0x7Au) && (*(a1 + i) < 0x41u || *(a1 + i) > 0x5Au)))
+    {
+      return -1;
+    }
+  }
+
+  return 0;
+}
+
+uint64_t x509_check_wildcard(const char *a1, uint64_t a2)
+{
+  v4 = 0;
+  v3 = strlen(a1);
+  if (*(a2 + 8) >= 3uLL && **(a2 + 16) == 42 && *(*(a2 + 16) + 1) == 46)
+  {
+    for (i = 0; i < v3; ++i)
+    {
+      if (a1[i] == 46)
+      {
+        v4 = i;
+        break;
+      }
+    }
+
+    if (v4)
+    {
+      if (v3 - v4 != *(a2 + 8) - 1 || x509_memcasecmp(*(a2 + 16) + 1, &a1[v4], *(a2 + 8) - 1))
+      {
+        return -1;
+      }
+
+      else
+      {
+        return 0;
+      }
+    }
+
+    else
+    {
+      return -1;
+    }
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+uint64_t x509_profile_check_md_alg(_DWORD *a1, int a2)
+{
+  if (a2)
+  {
+    if ((*a1 & (1 << (a2 - 1))) != 0)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return -1;
+    }
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+uint64_t x509_crt_check_ee_locally_trusted(uint64_t a1, uint64_t a2)
+{
+  if (x509_name_cmp(a1 + 160, a1 + 224))
+  {
+    return -1;
+  }
+
+  else
+  {
+    for (i = a2; i; i = *(i + 736))
+    {
+      if (*(a1 + 16) == *(i + 16) && !memcmp(*(a1 + 24), *(i + 24), *(a1 + 16)))
+      {
+        return 0;
+      }
+    }
+
+    return -1;
+  }
+}
+
+uint64_t x509_crt_find_parent(uint64_t a1, uint64_t a2, void *a3, int *a4, _BOOL4 *a5, int a6, int a7, uint64_t a8, uint64_t a9)
+{
+  for (*a4 = 1; ; *a4 = 0)
+  {
+    v10 = *a4 ? a2 : *(a1 + 736);
+    x509_crt_find_parent_in(a1, v10, a3, a5, *a4, a6, a7, a8);
+    if (*a3 || !*a4)
+    {
+      break;
+    }
+  }
+
+  if (!*a3)
+  {
+    *a4 = 0;
+    *a5 = 0;
+  }
+
+  return 0;
+}
+
+uint64_t x509_name_cmp(uint64_t a1, uint64_t a2)
+{
+  while (1)
+  {
+    v3 = 1;
+    if (!a1)
+    {
+      v3 = a2 != 0;
+    }
+
+    if (!v3)
+    {
+      break;
+    }
+
+    if (!a1 || !a2)
+    {
+      return -1;
+    }
+
+    if (*a1 != *a2 || *(a1 + 8) != *(a2 + 8) || memcmp(*(a1 + 16), *(a2 + 16), *(a2 + 8)))
+    {
+      return -1;
+    }
+
+    if (x509_string_cmp(a1 + 24, a2 + 24))
+    {
+      return -1;
+    }
+
+    if (*(a1 + 56) != *(a2 + 56))
+    {
+      return -1;
+    }
+
+    a1 = *(a1 + 48);
+    a2 = *(a2 + 48);
+  }
+
+  return 0;
+}
+
+uint64_t x509_crt_find_parent_in(uint64_t a1, uint64_t a2, void *a3, _BOOL4 *a4, int a5, int a6, int a7, uint64_t a8)
+{
+  while (a2)
+  {
+    if (!x509_crt_check_parent(a1, a2, a5) && (*(a2 + 648) <= 0 || *(a2 + 648) >= (a6 + 1 - a7)))
+    {
+      v9 = x509_crt_check_signature(a1, a2) == 0;
+      if (!a5 || v9)
+      {
+        *a3 = a2;
+        *a4 = v9;
+        break;
+      }
+    }
+
+    a2 = *(a2 + 736);
+  }
+
+  if (!a2)
+  {
+    *a3 = 0;
+    *a4 = 0;
+  }
+
+  return 0;
+}
+
+uint64_t x509_crt_check_parent(uint64_t a1, uint64_t a2, int a3)
+{
+  if (x509_name_cmp(a1 + 160, a2 + 224))
+  {
+    return -1;
+  }
+
+  else
+  {
+    v4 = 1;
+    if (a3)
+    {
+      v4 = *(a2 + 56) >= 3;
+    }
+
+    if (!v4 || *(a2 + 644))
+    {
+      if (v4 && mbedtls_x509_crt_check_key_usage(a2, 4))
+      {
+        return -1;
+      }
+
+      else
+      {
+        return 0;
+      }
+    }
+
+    else
+    {
+      return -1;
+    }
+  }
+}
+
+uint64_t x509_crt_check_signature(uint64_t a1, uint64_t a2)
+{
+  v3 = mbedtls_md_info_from_type(*(a1 + 720));
+  size = mbedtls_md_get_size(v3);
+  if (mbedtls_md(v3, *(a1 + 48), *(a1 + 40), v8))
+  {
+    return -1;
+  }
+
+  else if (mbedtls_pk_can_do(a2 + 360, *(a1 + 724)))
+  {
+    return mbedtls_pk_verify_ext(*(a1 + 724), *(a1 + 728), (a2 + 360), *(a1 + 720), v8, size, *(a1 + 712), *(a1 + 704));
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+uint64_t x509_string_cmp(uint64_t a1, uint64_t a2)
+{
+  if (*a1 == *a2 && *(a1 + 8) == *(a2 + 8) && !memcmp(*(a1 + 16), *(a2 + 16), *(a2 + 8)))
+  {
+    return 0;
+  }
+
+  else if ((*a1 == 12 || *a1 == 19) && (*a2 == 12 || *a2 == 19) && *(a1 + 8) == *(a2 + 8) && !x509_memcasecmp(*(a1 + 16), *(a2 + 16), *(a2 + 8)))
+  {
+    return 0;
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+ot::Cli::Interpreter *ot::Cli::Interpreter::Interpreter(ot::Cli::Interpreter *this, ot::Instance *a2, int (*a3)(void *, const char *, char *), void *a4)
+{
+  ot::Cli::OutputImplementer::OutputImplementer(this, a3, a4);
+  ot::Cli::Utils::Utils(this + 2, a2, this);
+  *(this + 56) = 0;
+  *(this + 57) = 0;
+  ot::TimerMilliContext::TimerMilliContext((this + 64), a2, ot::Cli::Interpreter::HandleTimer, this);
+  ot::Cli::Dataset::Dataset(this + 12, a2, this);
+  ot::Cli::NetworkData::NetworkData(this + 112, a2, this);
+  ot::Cli::UdpExample::UdpExample(this + 136, a2, this);
+  ot::Cli::Dataset::Dataset(this + 29, a2, this);
+  ot::Cli::Dataset::Dataset(this + 31, a2, this);
+  ot::Cli::Coap::Coap(this + 264, a2, this);
+  ot::Cli::Dataset::Dataset(this + 48, a2, this);
+  ot::Cli::Dataset::Dataset(this + 50, a2, this);
+  ot::Cli::Dataset::Dataset(this + 52, a2, this);
+  ot::Cli::Dataset::Dataset(this + 54, a2, this);
+  ot::Cli::LinkMetrics::LinkMetrics(this + 456, a2, this);
+  ot::Cli::PingSender::PingSender(this + 504, a2, this);
+  InstancePtr = ot::Cli::Utils::GetInstancePtr((this + 16));
+  otThreadSetDiscoveryRequestCallback(InstancePtr, ot::Cli::Interpreter::HandleDiscoveryRequest, this);
+  v5 = ot::Cli::Utils::GetInstancePtr((this + 16));
+  otDiagSetOutputCallback(v5, ot::Cli::Interpreter::HandleDiagOutput, this);
+  ot::Cli::Utils::ClearAllBytes<ot::Cli::Interpreter::UserCommandsEntry [1]>(this + 4);
+  v6 = ot::Cli::Utils::GetInstancePtr((this + 16));
+  otDiagSetOutputCallback(v6, ot::Cli::Interpreter::HandleDiagOutput, this);
+  ot::Cli::Utils::ClearAllBytes<ot::Cli::Interpreter::UserCommandsEntry [1]>(this + 4);
+  ot::Cli::Interpreter::OutputPrompt(this);
+  return this;
+}
+
+{
+  ot::Cli::Interpreter::Interpreter(this, a2, a3, a4);
+  return this;
+}
+
+void *ot::Cli::Utils::Utils(void *result, uint64_t a2, uint64_t a3)
+{
+  *result = a2;
+  result[1] = a3;
+  return result;
+}
+
+ot::TimerMilliContext *ot::TimerMilliContext::TimerMilliContext(ot::TimerMilliContext *this, ot::Instance *a2, void (*a3)(ot::Timer *), void *a4)
+{
+  ot::TimerMilliContext::TimerMilliContext(this, a2, a3, a4);
+  return this;
+}
+
+{
+  ot::TimerMilli::TimerMilli(this, a2, a3);
+  result = this;
+  *(this + 3) = a4;
+  return result;
+}
+
+void *ot::Cli::Dataset::Dataset(void *a1, uint64_t a2, uint64_t a3)
+{
+  ot::Cli::Dataset::Dataset(a1, a2, a3);
+  return a1;
+}
+
+{
+  ot::Cli::Utils::Utils(a1, a2, a3);
+  return a1;
+}
+
+void *ot::Cli::Utils::ClearAllBytes<ot::Cli::Interpreter::UserCommandsEntry [1]>(void *result)
+{
+  *result = 0;
+  result[1] = 0;
+  result[2] = 0;
+  return result;
+}
+
+{
+  return ot::Cli::Utils::ClearAllBytes<ot::Cli::Interpreter::UserCommandsEntry [1]>(result);
+}
+
+void ot::Cli::Interpreter::OutputPrompt(ot::Cli::Interpreter *this)
+{
+  ot::Cli::OutputImplementer::SetEmittingCommandOutput(this);
+  ot::Cli::Utils::OutputFormat((this + 16), "%s", "> ");
+  ot::Cli::OutputImplementer::SetEmittingCommandOutput(this);
+}
+
+void ot::Cli::Interpreter::OutputResult(_BYTE *result, int a2)
+{
+  if (result[57])
+  {
+    if (a2)
+    {
+      v2 = otThreadErrorToString(a2);
+      ot::Cli::Utils::OutputLine((result + 16), "Error %u: %s", a2, v2);
+    }
+  }
+
+  else
+  {
+    if ((result[56] & 1) == 0)
+    {
+      __assert_rtn("OutputResult", "cli.cpp", 201, "mCommandIsPending");
+    }
+
+    if (a2 != 36)
+    {
+      if (a2)
+      {
+        v3 = otThreadErrorToString(a2);
+        ot::Cli::Utils::OutputLine((result + 16), "Error %u: %s", a2, v3);
+      }
+
+      ot::Cli::Utils::OutputLine((result + 16), "Done");
+      result[56] = 0;
+      ot::TimerMilli::Stop((result + 64));
+      ot::Cli::Interpreter::OutputPrompt(result);
+    }
+  }
+}
+
+uint64_t ot::Cli::Interpreter::Process<1714215925ull>(uint64_t a1, ot::Utils::CmdLineParser::Arg *a2)
+{
+  memset(__b, 0, sizeof(__b));
+  ot::Utils::CmdLineParser::Arg::CopyArgsToStringArray(a2, __b, v2);
+  InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+  ArgsLength = ot::Utils::CmdLineParser::Arg::GetArgsLength(a2, v3);
+  return otDiagProcessCmd(InstancePtr, ArgsLength, __b);
+}
+
+uint64_t ot::Cli::Interpreter::Process<30363746172521848ull>(uint64_t a1, const char **a2)
+{
+  v5 = 0;
+  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
+  {
+    VersionString = otGetVersionString();
+    ot::Cli::Utils::OutputLine((a1 + 16), "%s", VersionString);
+  }
+
+  else if (ot::Utils::CmdLineParser::Arg::operator==(a2, "api"))
+  {
+    ot::Cli::Utils::OutputLine((a1 + 16), "%u", 431);
+  }
+
+  else
+  {
+    return 35;
+  }
+
+  return v5;
+}
+
+uint64_t ot::Cli::Interpreter::Process<492159295119ull>(uint64_t a1, ot::Utils::CmdLineParser::Arg *a2)
+{
+  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
+  {
+    InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+    otInstanceReset(InstancePtr);
+  }
+
+  return 35;
+}
+
+void ot::Cli::Interpreter::ProcessLine(ot::Cli::Interpreter *this, ot *a2, unsigned __int16 a3, unsigned __int8 a4)
+{
+  v6 = 0;
+  if (!a2)
+  {
+    __assert_rtn("ProcessLine", "cli.cpp", 322, "aBuf != nullptr");
+  }
+
+  if ((*(this + 57) & 1) == 0)
+  {
+    if (*(this + 56))
+    {
+      ot::Utils::CmdLineParser::Arg::Clear(v8);
+      goto LABEL_17;
+    }
+
+    *(this + 56) = 1;
+    if (ot::StringLength(a2, 0x280) > 639)
+    {
+      v6 = 6;
+      goto LABEL_17;
+    }
+  }
+
+  v6 = ot::Utils::CmdLineParser::ParseCmd(a2, v8, 0x20);
+  if (!v6)
+  {
+    if (ot::Utils::CmdLineParser::Arg::IsEmpty(v8))
+    {
+      *(this + 56) = 0;
+    }
+
+    else if (*(this + 57) & 1) == 0 && (ot::Cli::Utils::LogInput((this + 16), v8), InstancePtr = ot::Cli::Utils::GetInstancePtr((this + 16)), (otDiagIsEnabled(InstancePtr)) && ot::Utils::CmdLineParser::Arg::operator!=(v8, "diag") && ot::Utils::CmdLineParser::Arg::operator!=(v8, "factoryreset"))
+    {
+      ot::Cli::Utils::OutputLine((this + 16), "under diagnostics mode, execute 'diag stop' before running any other commands.");
+      v6 = 13;
+    }
+
+    else
+    {
+      v6 = ot::Cli::Interpreter::ProcessCommand(this, v8);
+    }
+  }
+
+LABEL_17:
+  if (!v6 && ot::Utils::CmdLineParser::Arg::IsEmpty(v8))
+  {
+    if ((*(this + 56) & 1) == 0)
+    {
+      ot::Cli::Interpreter::OutputPrompt(this);
+    }
+  }
+
+  else
+  {
+    ot::Cli::Interpreter::OutputResult(this, v6);
+  }
+}
+
+void *ot::Utils::CmdLineParser::Arg::Clear(void *this)
+{
+  *this = 0;
+  return this;
+}
+
+{
+  return ot::Utils::CmdLineParser::Arg::Clear(this);
+}
+
+void ot::Cli::Utils::LogInput(ot::Cli::Utils *this, const ot::Utils::CmdLineParser::Arg *a2)
+{
+  ;
+}
+
+{
+  ot::Cli::Utils::LogInput(this, a2);
+}
+
+BOOL ot::Utils::CmdLineParser::Arg::operator!=(const char **a1, const char *a2)
+{
+  return !ot::Utils::CmdLineParser::Arg::operator==(a1, a2);
+}
+
+{
+  return ot::Utils::CmdLineParser::Arg::operator!=(a1, a2);
+}
+
+uint64_t ot::Cli::Interpreter::ProcessCommand(ot::Cli::Interpreter *this, const char **a2)
+{
+  v18 = this;
+  v17 = a2;
+  v16 = 0;
+  CString = ot::Utils::CmdLineParser::Arg::GetCString(a2);
+  v15 = ot::BinarySearch::Find<char *,ot::Cli::Utils::CommandEntry<ot::Cli::Interpreter>,(unsigned short)121>(&CString, &ot::Cli::Interpreter::ProcessCommand(ot::Utils::CmdLineParser::Arg *)::kCommands, v2, v3, v4, v5);
+  if (v15)
+  {
+    v9 = *(v15 + 1);
+    v6 = *(v15 + 2);
+    v10 = (this + (v6 >> 1));
+    if (v6)
+    {
+      return (*(*v10 + v9))(v10, v17 + 1);
+    }
+
+    else
+    {
+      return v9(v10, v17 + 1);
+    }
+  }
+
+  else if (ot::Utils::CmdLineParser::Arg::operator==(v17, "help"))
+  {
+    ot::Cli::Utils::OutputCommandTable<ot::Cli::Interpreter,(unsigned short)121>((this + 16), &ot::Cli::Interpreter::ProcessCommand(ot::Utils::CmdLineParser::Arg *)::kCommands);
+    for (i = this + 32; i != this + 56; i += 24)
+    {
+      for (j = 0; j < i[8]; ++j)
+      {
+        ot::Cli::Utils::OutputLine((this + 16), "%s", *(*i + 16 * j));
+      }
+    }
+  }
+
+  else
+  {
+    return ot::Cli::Interpreter::ProcessUserCommands(this, v17);
+  }
+
+  return v16;
+}
+
+uint64_t ot::Cli::Interpreter::ProcessUserCommands(ot::Cli::Interpreter *this, ot::Utils::CmdLineParser::Arg *a2)
+{
+  v11 = 35;
+  v10 = this + 32;
+  v9 = this + 56;
+  while (v10 != v9)
+  {
+    for (i = 0; i < v10[8]; ++i)
+    {
+      if (ot::Utils::CmdLineParser::Arg::operator==(a2, *(*v10 + 16 * i)))
+      {
+        memset(__b, 0, sizeof(__b));
+        ot::Utils::CmdLineParser::Arg::CopyArgsToStringArray(a2, __b, v2);
+        v6 = *(*v10 + 16 * i + 8);
+        v7 = *(v10 + 2);
+        ArgsLength = ot::Utils::CmdLineParser::Arg::GetArgsLength(a2, v3);
+        v11 = v6(v7, (ArgsLength - 1), &__b[8]);
+        break;
+      }
+    }
+
+    v10 += 24;
+  }
+
+  return v11;
+}
+
+uint64_t ot::Cli::Interpreter::SetUserCommands(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
+{
+  v6 = 1;
+  for (i = a1 + 32; i != a1 + 56; i += 24)
+  {
+    if (!*i)
+    {
+      *i = a2;
+      *(i + 8) = a3;
+      *(i + 16) = a4;
+      return 0;
+    }
+  }
+
+  return v6;
+}
+
+uint64_t ot::Cli::Interpreter::Process<24833ull>(uint64_t a1, const char **a2)
+{
+  v15 = a1;
+  v14 = a2;
+  Id = 0;
+  if (ot::Utils::CmdLineParser::Arg::operator==(a2, "port"))
+  {
+    InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+    UdpPort = otBorderAgentGetUdpPort(InstancePtr);
+    ot::Cli::Utils::OutputLine((a1 + 16), "%hu", UdpPort);
+  }
+
+  else if (ot::Utils::CmdLineParser::Arg::operator==(v14, "state"))
+  {
+    v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+    State = otBorderAgentGetState(v4);
+    v6 = ot::Cli::Utils::Stringify<otBorderAgentState,(unsigned short)3>(State, ot::Cli::Interpreter::Process<24833ull>(ot::Utils::CmdLineParser::Arg *)::kStateStrings, "unknown");
+    ot::Cli::Utils::OutputLine((a1 + 16), "%s", v6);
+  }
+
+  else if (ot::Utils::CmdLineParser::Arg::operator==(v14, "id"))
+  {
+    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v14 + 1)))
+    {
+      v8 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      Id = otBorderAgentGetId(v8, v16);
+      if (!Id)
+      {
+        ot::Cli::Utils::OutputBytesLine<(unsigned char)16>((a1 + 16), v16);
+      }
+    }
+
+    else
+    {
+      v12 = 16;
+      Id = ot::Utils::CmdLineParser::Arg::ParseAsHexString(v14 + 1, &v12, v16, v7);
+      if (!Id)
+      {
+        if (v12 == 16)
+        {
+          v9 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+          return otBorderAgentSetId(v9, v16);
+        }
+
+        else
+        {
+          return 7;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    return 35;
+  }
+
+  return Id;
+}
+
+uint64_t ot::Cli::Utils::Stringify<otBorderAgentState,(unsigned short)3>(unsigned __int16 a1, uint64_t a2, uint64_t a3)
+{
+  if (a1 >= 3u)
+  {
+    return a3;
+  }
+
+  else
+  {
+    return *(a2 + 8 * a1);
+  }
+}
+
+{
+  return ot::Cli::Utils::Stringify<otBorderAgentState,(unsigned short)3>(a1, a2, a3);
+}
+
+uint64_t ot::Cli::Utils::OutputBytesLine<(unsigned char)16>(ot::Cli::Utils *a1, const unsigned __int8 *a2)
+{
+  return ot::Cli::Utils::OutputBytesLine(a1, a2, 0x10u);
+}
+
+{
+  return ot::Cli::Utils::OutputBytesLine<(unsigned char)16>(a1, a2);
+}
+
+uint64_t ot::Utils::CmdLineParser::Arg::ParseAsHexString(ot::Utils::CmdLineParser **this, char *a2, unsigned __int16 *a3, unsigned __int8 *a4)
+{
+  return ot::Utils::CmdLineParser::ParseAsHexString(*this, a2, a3, a4);
+}
+
+{
+  return ot::Utils::CmdLineParser::Arg::ParseAsHexString(this, a2, a3, a4);
+}
+
+uint64_t ot::Cli::Utils::ProcessGetSet<char const*>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser::Arg *a2, uint64_t (*a3)(uint64_t), unsigned int (*a4)(uint64_t, uint64_t))
+{
+  v6 = ot::Cli::Utils::ProcessGet<char const*>(a1, a2, a3);
+  if (v6)
+  {
+    return ot::Cli::Utils::ProcessSet<char const*>(a1, a2, a4);
+  }
+
+  return v6;
+}
+
+{
+  return ot::Cli::Utils::ProcessGetSet<char const*>(a1, a2, a3, a4);
+}
+
+uint64_t ot::Cli::Interpreter::Process<6337360ull>(uint64_t a1, const char **a2)
+{
+  v13 = a1;
+  v12 = a2;
+  v11 = 0;
+  if (ot::Utils::CmdLineParser::Arg::operator==(a2, "iid"))
+  {
+    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v12 + 1)))
+    {
+      InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      FixedDuaInterfaceIdentifier = otThreadGetFixedDuaInterfaceIdentifier(InstancePtr);
+      if (FixedDuaInterfaceIdentifier)
+      {
+        ot::Cli::Utils::OutputBytesLine<(unsigned char)8>((a1 + 16), FixedDuaInterfaceIdentifier);
+      }
+    }
+
+    else if (ot::Utils::CmdLineParser::Arg::operator==(v12 + 1, "clear"))
+    {
+      v5 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      return otThreadSetFixedDuaInterfaceIdentifier(v5, 0);
+    }
+
+    else
+    {
+      v11 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(v12 + 1, v9, v3, v4);
+      if (!v11)
+      {
+        v6 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+        return otThreadSetFixedDuaInterfaceIdentifier(v6, v9);
+      }
+    }
+  }
+
+  else
+  {
+    return 35;
+  }
+
+  return v11;
+}
+
+uint64_t ot::Cli::Utils::OutputBytesLine<(unsigned char)8>(ot::Cli::Utils *a1, const unsigned __int8 *a2)
+{
+  return ot::Cli::Utils::OutputBytesLine(a1, a2, 8u);
+}
+
+{
+  return ot::Cli::Utils::OutputBytesLine<(unsigned char)8>(a1, a2);
+}
+
+uint64_t ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(ot::Utils::CmdLineParser **a1, char *a2, uint64_t a3, unsigned __int16 a4)
+{
+  return ot::Utils::CmdLineParser::Arg::ParseAsHexString(a1, a2, 8u, a4);
+}
+
+{
+  return ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(a1, a2, a3, a4);
+}
+
+uint64_t ot::Cli::Interpreter::Process<13711823289570935762ull>(uint64_t a1, const char **a2)
+{
+  v14 = a1;
+  v13 = a2;
+  v12 = 0;
+  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
+  {
+    InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+    otMessageGetBufferInfo(InstancePtr, v11);
+    ot::Cli::Utils::OutputLine((a1 + 16), "total: %u", v11[0]);
+    ot::Cli::Utils::OutputLine((a1 + 16), "free: %u", v11[1]);
+    ot::Cli::Utils::OutputLine((a1 + 16), "max-used: %u", v11[2]);
+    for (i = &ot::Cli::Interpreter::Process<13711823289570935762ull>(ot::Utils::CmdLineParser::Arg *)::kBufferInfoNames; i != ot::Cli::Interpreter::Process<424622705244ull>(ot::Utils::CmdLineParser::Arg *)::kChildTableTitles; i += 2)
+    {
+      v6 = i[1];
+      v7 = *(v11 + *i);
+      v8 = *(&v11[1] + *i);
+      v3 = ot::ToUlong(*(&v11[2] + *i));
+      ot::Cli::Utils::OutputLine((a1 + 16), "%s: %u %u %lu", v6, v7, v8, v3);
+    }
+  }
+
+  else if (ot::Utils::CmdLineParser::Arg::operator==(v13, "reset"))
+  {
+    v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+    otMessageResetBufferInfo(v4);
+  }
+
+  else
+  {
+    return 7;
+  }
+
+  return v12;
+}
+
+uint64_t ot::Cli::Interpreter::Process<11512677311266953430ull>(uint64_t a1, ot::Utils::CmdLineParser **a2)
+{
+  v10 = a1;
+  v9 = a2;
+  CcaEnergyDetectThreshold = 0;
+  v7 = 0;
+  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
+  {
+    InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+    CcaEnergyDetectThreshold = otPlatRadioGetCcaEnergyDetectThreshold(InstancePtr, &v7);
+    if (!CcaEnergyDetectThreshold)
+    {
+      ot::Cli::Utils::OutputLine((a1 + 16), "%d dBm", v7);
+    }
+  }
+
+  else
+  {
+    CcaEnergyDetectThreshold = ot::Utils::CmdLineParser::Arg::ParseAsInt8(v9, &v7, v2);
+    if (!CcaEnergyDetectThreshold)
+    {
+      v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      return otPlatRadioSetCcaEnergyDetectThreshold(v4, v7);
+    }
+  }
+
+  return CcaEnergyDetectThreshold;
+}
+
+uint64_t ot::Utils::CmdLineParser::Arg::ParseAsInt8(ot::Utils::CmdLineParser **this, signed __int8 *a2, unsigned __int8 *a3)
+{
+  return ot::Utils::CmdLineParser::ParseAsInt8(*this, a2, a3);
+}
+
+{
+  return ot::Utils::CmdLineParser::Arg::ParseAsInt8(this, a2, a3);
+}
+
+uint64_t ot::Cli::Interpreter::Process<29803101196888419ull>(uint64_t a1, const char **a2)
+{
+  v33 = a1;
+  v32 = a2;
+  v31 = 0;
+  if (ot::Utils::CmdLineParser::Arg::operator==(a2, "supported"))
+  {
+    ot::Cli::Utils::GetInstancePtr((a1 + 16));
+    SupportedChannelMask = otPlatRadioGetSupportedChannelMask();
+    v3 = ot::ToUlong(SupportedChannelMask);
+    ot::Cli::Utils::OutputLine((a1 + 16), "0x%lx", v3);
+  }
+
+  else if (ot::Utils::CmdLineParser::Arg::operator==(v32, "preferred"))
+  {
+    ot::Cli::Utils::GetInstancePtr((a1 + 16));
+    PreferredChannelMask = otPlatRadioGetPreferredChannelMask();
+    v5 = ot::ToUlong(PreferredChannelMask);
+    ot::Cli::Utils::OutputLine((a1 + 16), "0x%lx", v5);
+  }
+
+  else if (ot::Utils::CmdLineParser::Arg::operator==(v32, "manager"))
+  {
+    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v32 + 1)))
+    {
+      InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      RequestedChannel = otChannelManagerGetRequestedChannel(InstancePtr);
+      ot::Cli::Utils::OutputLine((a1 + 16), "channel: %u", RequestedChannel);
+      v8 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      AutoChannelSelectionEnabled = otChannelManagerGetAutoChannelSelectionEnabled(v8);
+      ot::Cli::Utils::OutputLine((a1 + 16), "auto: %d", AutoChannelSelectionEnabled & 1);
+      v10 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      if (otChannelManagerGetAutoChannelSelectionEnabled(v10))
+      {
+        v11 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+        SupportedChannels = otChannelManagerGetSupportedChannels(v11);
+        ot::Mac::ChannelMask::ChannelMask(v30, SupportedChannels);
+        v13 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+        FavoredChannels = otChannelManagerGetFavoredChannels(v13);
+        ot::Mac::ChannelMask::ChannelMask(v29, FavoredChannels);
+        v15 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+        Delay = otChannelManagerGetDelay(v15);
+        ot::Cli::Utils::OutputLine((a1 + 16), "delay: %u", Delay);
+        v17 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+        AutoChannelSelectionInterval = otChannelManagerGetAutoChannelSelectionInterval(v17);
+        v19 = ot::ToUlong(AutoChannelSelectionInterval);
+        ot::Cli::Utils::OutputLine((a1 + 16), "interval: %lu", v19);
+        v20 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+        CcaFailureRateThreshold = otChannelManagerGetCcaFailureRateThreshold(v20);
+        ot::Cli::Utils::OutputLine((a1 + 16), "cca threshold: 0x%04x", CcaFailureRateThreshold);
+        ot::Mac::ChannelMask::ToString(v30, v35);
+        v22 = ot::String<(unsigned short)45>::AsCString(v35);
+        ot::Cli::Utils::OutputLine((a1 + 16), "supported: %s", v22);
+        ot::Mac::ChannelMask::ToString(v29, v34);
+        v23 = ot::String<(unsigned short)45>::AsCString(v34);
+        ot::Cli::Utils::OutputLine((a1 + 16), "favored: %s", v23);
+      }
+    }
+
+    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "change"))
+    {
+      return ot::Cli::Utils::ProcessSet<unsigned char>((a1 + 16), v32 + 2, otChannelManagerRequestChannelChange);
+    }
+
+    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "auto"))
+    {
+      v28 = 0;
+      v31 = ot::Utils::CmdLineParser::Arg::ParseAsBool(v32 + 2, &v28, v24);
+      if (!v31)
+      {
+        v25 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+        otChannelManagerSetAutoChannelSelectionEnabled(v25, v28);
+      }
+    }
+
+    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "delay"))
+    {
+      return ot::Cli::Utils::ProcessGetSet<unsigned short>((a1 + 16), (v32 + 2), otChannelManagerGetDelay, otChannelManagerSetDelay);
+    }
+
+    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "interval"))
+    {
+      return ot::Cli::Utils::ProcessSet<unsigned int>((a1 + 16), v32 + 2, otChannelManagerSetAutoChannelSelectionInterval);
+    }
+
+    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "supported"))
+    {
+      return ot::Cli::Utils::ProcessSet<unsigned int>((a1 + 16), v32 + 2, otChannelManagerSetSupportedChannels);
+    }
+
+    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "favored"))
+    {
+      return ot::Cli::Utils::ProcessSet<unsigned int>((a1 + 16), v32 + 2, otChannelManagerSetFavoredChannels);
+    }
+
+    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "threshold"))
+    {
+      return ot::Cli::Utils::ProcessSet<unsigned short>((a1 + 16), v32 + 2, otChannelManagerSetCcaFailureRateThreshold);
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  else
+  {
+    return ot::Cli::Utils::ProcessGetSet<unsigned char>((a1 + 16), v32, otLinkGetChannel, otLinkSetChannel);
+  }
+
+  return v31;
+}
+
+uint64_t ot::String<(unsigned short)45>::AsCString(uint64_t a1)
+{
+  return a1 + 12;
+}
+
+{
+  return ot::String<(unsigned short)45>::AsCString(a1);
+}
+
+uint64_t ot::Cli::Utils::ProcessSet<unsigned char>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser **a2, unsigned __int8 *a3)
+{
+  v11 = a1;
+  v10 = a2;
+  v9 = a3;
+  v8 = 0;
+  v7 = 0;
+  v8 = ot::Utils::CmdLineParser::Arg::ParseAs<unsigned char>(a2, &v7, a3);
+  if (!v8)
+  {
+    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1)))
+    {
+      v5 = v9;
+      InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
+      (v5)(InstancePtr, v7);
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v8;
+}
+
+{
+  v11 = a1;
+  v10 = a2;
+  v9 = a3;
+  v8 = 0;
+  v7 = 0;
+  v8 = ot::Utils::CmdLineParser::Arg::ParseAs<unsigned char>(a2, &v7, a3);
+  if (!v8)
+  {
+    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1)))
+    {
+      v5 = v9;
+      InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
+      return (v5)(InstancePtr, v7);
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v8;
+}
+
+{
+  return ot::Cli::Utils::ProcessSet<unsigned char>(a1, a2, a3);
+}
+
+{
+  return ot::Cli::Utils::ProcessSet<unsigned char>(a1, a2, a3);
+}
+
+uint64_t ot::Cli::Utils::ProcessGetSet<unsigned short>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser::Arg *a2, uint64_t (*a3)(uint64_t), unsigned __int8 *a4)
+{
+  v6 = ot::Cli::Utils::ProcessGet<unsigned short>(a1, a2, a3);
+  if (v6)
+  {
+    return ot::Cli::Utils::ProcessSet<unsigned short>(a1, a2, a4);
+  }
+
+  return v6;
+}
+
+{
+  v6 = ot::Cli::Utils::ProcessGet<unsigned short>(a1, a2, a3);
+  if (v6)
+  {
+    return ot::Cli::Utils::ProcessSet<unsigned short>(a1, a2, a4);
+  }
+
+  return v6;
+}
+
+{
+  return ot::Cli::Utils::ProcessGetSet<unsigned short>(a1, a2, a3, a4);
+}
+
+{
+  return ot::Cli::Utils::ProcessGetSet<unsigned short>(a1, a2, a3, a4);
+}
+
+uint64_t ot::Cli::Utils::ProcessSet<unsigned int>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser **a2, unsigned __int8 *a3)
+{
+  v11 = a1;
+  v10 = a2;
+  v9 = a3;
+  v8 = 0;
+  v7 = 0;
+  v8 = ot::Utils::CmdLineParser::Arg::ParseAs<unsigned int>(a2, &v7, a3);
+  if (!v8)
+  {
+    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1)))
+    {
+      v5 = v9;
+      InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
+      return (v5)(InstancePtr, v7);
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v8;
+}
+
+{
+  v11 = a1;
+  v10 = a2;
+  v9 = a3;
+  v8 = 0;
+  v7 = 0;
+  v8 = ot::Utils::CmdLineParser::Arg::ParseAs<unsigned int>(a2, &v7, a3);
+  if (!v8)
+  {
+    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1)))
+    {
+      v5 = v9;
+      InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
+      (v5)(InstancePtr, v7);
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v8;
+}
+
+{
+  return ot::Cli::Utils::ProcessSet<unsigned int>(a1, a2, a3);
+}
+
+{
+  return ot::Cli::Utils::ProcessSet<unsigned int>(a1, a2, a3);
+}
+
+uint64_t ot::Cli::Utils::ProcessSet<unsigned short>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser **a2, unsigned __int8 *a3)
+{
+  v11 = a1;
+  v10 = a2;
+  v9 = a3;
+  v8 = 0;
+  v7 = 0;
+  v8 = ot::Utils::CmdLineParser::Arg::ParseAs<unsigned short>(a2, &v7, a3);
+  if (!v8)
+  {
+    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1)))
+    {
+      v5 = v9;
+      InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
+      (v5)(InstancePtr, v7);
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v8;
+}
+
+{
+  v11 = a1;
+  v10 = a2;
+  v9 = a3;
+  v8 = 0;
+  v7 = 0;
+  v8 = ot::Utils::CmdLineParser::Arg::ParseAs<unsigned short>(a2, &v7, a3);
+  if (!v8)
+  {
+    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1)))
+    {
+      v5 = v9;
+      InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
+      return (v5)(InstancePtr, v7);
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v8;
+}
+
+{
+  return ot::Cli::Utils::ProcessSet<unsigned short>(a1, a2, a3);
+}
+
+{
+  return ot::Cli::Utils::ProcessSet<unsigned short>(a1, a2, a3);
+}
+
+uint64_t ot::Cli::Utils::ProcessGetSet<unsigned char>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser::Arg *a2, uint64_t (*a3)(uint64_t), unsigned __int8 *a4)
+{
+  v6 = ot::Cli::Utils::ProcessGet<unsigned char>(a1, a2, a3);
+  if (v6)
+  {
+    return ot::Cli::Utils::ProcessSet<unsigned char>(a1, a2, a4);
+  }
+
+  return v6;
+}
+
+{
+  v6 = ot::Cli::Utils::ProcessGet<unsigned char>(a1, a2, a3);
+  if (v6)
+  {
+    return ot::Cli::Utils::ProcessSet<unsigned char>(a1, a2, a4);
+  }
+
+  return v6;
+}
+
+{
+  return ot::Cli::Utils::ProcessGetSet<unsigned char>(a1, a2, a3, a4);
+}
+
+{
+  return ot::Cli::Utils::ProcessGetSet<unsigned char>(a1, a2, a3, a4);
+}
+
+uint64_t ot::Cli::Interpreter::Process<424622705244ull>(uint64_t a1, ot::Utils::CmdLineParser **a2)
+{
+  v21 = a1;
+  v20 = a2;
+  ChildInfoById = 0;
+  v18 = 0;
+  v17 = ot::Utils::CmdLineParser::Arg::operator==(a2, "table");
+  if (v17 || ot::Utils::CmdLineParser::Arg::operator==(v20, "list"))
+  {
+    if (v17)
+    {
+      ot::Cli::Utils::OutputTableHeader<(unsigned char)14>((a1 + 16), ot::Cli::Interpreter::Process<424622705244ull>(ot::Utils::CmdLineParser::Arg *)::kChildTableTitles, ot::Cli::Interpreter::Process<424622705244ull>(ot::Utils::CmdLineParser::Arg *)::kChildTableColumnWidths);
+    }
+
+    InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+    MaxAllowedChildren = otThreadGetMaxAllowedChildren(InstancePtr);
+    for (i = 0; i < MaxAllowedChildren; ++i)
+    {
+      v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      if (!otThreadGetChildInfoByIndex(v4, i, v22) && (v37 & 8) == 0)
+      {
+        if (v17)
+        {
+          ot::Cli::Utils::OutputFormat((a1 + 16), "| %3u ", v26);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "| 0x%04x ", v25);
+          v5 = ot::ToUlong(v23);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "| %10lu ", v5);
+          v6 = ot::ToUlong(v24);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "| %10lu ", v6);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "| %5u ", v28);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "| %4u ", v27);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "|%1d", v37 & 1);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "|%1d", (v37 & 2) != 0);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "|%1d", (v37 & 4) != 0);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "|%3u", v32);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "| %1d ", (v37 & 0x10) != 0);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "| %5u ", v30);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "| %5u ", v31);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "| ");
+          ot::Cli::Utils::OutputExtAddress((a1 + 16), v22);
+          ot::Cli::Utils::OutputLine((a1 + 16), " |");
+        }
+
+        else
+        {
+          ot::Cli::Utils::OutputFormat((a1 + 16), "%u ", v26);
+        }
+      }
+    }
+
+    ot::Cli::Utils::OutputNewLine((a1 + 16));
+  }
+
+  else
+  {
+    ChildInfoById = ot::Utils::CmdLineParser::Arg::ParseAsUint16(v20, &v18, v2);
+    if (!ChildInfoById)
+    {
+      v7 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      ChildInfoById = otThreadGetChildInfoById(v7, v18, v22);
+      if (!ChildInfoById)
+      {
+        ot::Cli::Utils::OutputLine((a1 + 16), "Child ID: %u", v26);
+        ot::Cli::Utils::OutputLine((a1 + 16), "Rloc: %04x", v25);
+        ot::Cli::Utils::OutputFormat((a1 + 16), "Ext Addr: ");
+        ot::Cli::Utils::OutputExtAddressLine((a1 + 16), v22);
+        v16 = v16 & 0xFE | v37 & 1;
+        v16 = v16 & 0xFD | (2 * ((v37 & 2) != 0));
+        v16 = v16 & 0xFB | (4 * ((v37 & 2) != 0));
+        v8 = ot::Cli::Utils::LinkModeToString(&v16, v15);
+        ot::Cli::Utils::OutputLine((a1 + 16), "Mode: %s", v8);
+        ot::Cli::Utils::OutputLine((a1 + 16), "CSL Synchronized: %d ", (v37 & 0x10) != 0);
+        ot::Cli::Utils::OutputLine((a1 + 16), "Net Data: %u", v27);
+        v9 = ot::ToUlong(v23);
+        ot::Cli::Utils::OutputLine((a1 + 16), "Timeout: %lu", v9);
+        v10 = ot::ToUlong(v24);
+        ot::Cli::Utils::OutputLine((a1 + 16), "Age: %lu", v10);
+        ot::Cli::Utils::OutputLine((a1 + 16), "Link Quality In: %u", v28);
+        ot::Cli::Utils::OutputLine((a1 + 16), "RSSI: %d", v29);
+        ot::Cli::Utils::OutputLine((a1 + 16), "Supervision Interval: %d", v31);
+        ot::Cli::Utils::OutputLine((a1 + 16), "CSL Channel:%d", v33);
+        ot::Cli::Utils::OutputLine((a1 + 16), "CSL Timeout:%d", v34);
+        ot::Cli::Utils::OutputLine((a1 + 16), "CSL Period:%d", v35);
+        ot::Cli::Utils::OutputLine((a1 + 16), "CSL Phase:%d", v36);
+      }
+    }
+  }
+
+  return ChildInfoById;
+}
+
+uint64_t ot::Cli::Utils::OutputTableHeader<(unsigned char)14>(ot::Cli::Utils *a1, const char *const *a2, const unsigned __int8 *a3)
+{
+  return ot::Cli::Utils::OutputTableHeader(a1, 0xEu, a2, a3);
+}
+
+{
+  return ot::Cli::Utils::OutputTableHeader<(unsigned char)14>(a1, a2, a3);
+}
+
+ot::Cli::Utils *ot::Cli::Utils::OutputExtAddress(ot::Cli::Utils *a1, const unsigned __int8 *a2)
+{
+  return ot::Cli::Utils::OutputBytes<(unsigned char)8>(a1, a2);
+}
+
+{
+  return ot::Cli::Utils::OutputExtAddress(a1, a2);
+}
+
+uint64_t ot::Cli::Utils::OutputExtAddressLine(ot::Cli::Utils *a1, const unsigned __int8 *a2)
+{
+  return ot::Cli::Utils::OutputBytesLine<(unsigned char)8>(a1, a2);
+}
+
+{
+  return ot::Cli::Utils::OutputExtAddressLine(a1, a2);
+}
+
 uint64_t ot::Cli::Interpreter::Process<30907139684939619ull>(uint64_t a1, ot::Utils::CmdLineParser::Arg *a2)
 {
-  v23 = a1;
-  v22 = a2;
-  v21 = 0;
+  v25 = a1;
+  v24 = a2;
+  v23 = 0;
   if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
   {
     InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
     MaxAllowedChildren = otThreadGetMaxAllowedChildren(InstancePtr);
     for (i = 0; i < MaxAllowedChildren; ++i)
     {
-      v18 = 0;
+      v20 = 0;
       v3 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      if (!otThreadGetChildInfoByIndex(v3, i, v26) && (v28 & 8) == 0)
+      if (!otThreadGetChildInfoByIndex(v3, i, v28) && (v30 & 8) == 0)
       {
-        v18 = 0;
+        v20 = 0;
         while (1)
         {
           v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-          if (otThreadGetChildNextIp6Address(v4, i, &v18, v17))
+          if (otThreadGetChildNextIp6Address(v4, i, &v20, v19))
           {
             break;
           }
 
-          ot::Cli::Utils::OutputFormat((a1 + 16), "%04x: ", v27);
-          ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), v17);
+          ot::Cli::Utils::OutputFormat((a1 + 16), "%04x: ", v29);
+          ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), v19);
         }
       }
     }
   }
 
-  else if (ot::Utils::CmdLineParser::Arg::operator==(v22, "max"))
+  else if (ot::Utils::CmdLineParser::Arg::operator==(v24, "max"))
   {
-    return ot::Cli::Utils::ProcessGet<unsigned char>((a1 + 16), (v22 + 8), otThreadGetMaxChildIpAddresses);
+    return ot::Cli::Utils::ProcessGet<unsigned char>((a1 + 16), (v24 + 8), otThreadGetMaxChildIpAddresses);
   }
 
-  else if (ot::Utils::CmdLineParser::Arg::operator==(v22, "extaddr"))
+  else if (ot::Utils::CmdLineParser::Arg::operator==(v24, "extaddr"))
   {
-    v16 = 0;
-    v15 = 0;
+    v18 = 0;
+    v17 = 0;
     v5 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    v14 = otThreadGetMaxAllowedChildren(v5);
-    v21 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(v22 + 1, v25);
-    if (!v21)
+    v16 = otThreadGetMaxAllowedChildren(v5);
+    v23 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(v24 + 1, v27, v6, v7);
+    if (!v23)
     {
-      for (j = 0; j < v14; ++j)
+      for (j = 0; j < v16; ++j)
       {
-        v12 = 0;
-        v6 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-        if (!otThreadGetChildInfoByIndex(v6, j, v24) && (v24[52] & 8) == 0)
+        v14 = 0;
+        v8 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+        if (!otThreadGetChildInfoByIndex(v8, j, v26) && (v26[52] & 8) == 0)
         {
-          v16 = 0;
+          v18 = 0;
           for (k = 0; k < 8; ++k)
           {
-            if (v25[k] == v24[k])
+            if (v27[k] == v26[k])
             {
-              ++v16;
+              ++v18;
             }
           }
 
-          if (v16 == 8)
+          if (v18 == 8)
           {
-            v15 = 1;
-            v12 = 0;
+            v17 = 1;
+            v14 = 0;
             while (1)
             {
-              v7 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-              if (otThreadGetChildNextIp6Address(v7, j, &v12, v11))
+              v9 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+              if (otThreadGetChildNextIp6Address(v9, j, &v14, v13))
               {
                 break;
               }
 
-              ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), v11);
+              ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), v13);
             }
           }
         }
       }
 
-      if ((v15 & 1) == 0)
+      if ((v17 & 1) == 0)
       {
         return 7;
       }
@@ -88,7 +2033,7 @@ uint64_t ot::Cli::Interpreter::Process<30907139684939619ull>(uint64_t a1, ot::Ut
     return 35;
   }
 
-  return v21;
+  return v23;
 }
 
 uint64_t ot::Cli::Utils::ProcessGet<unsigned char>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser::Arg *a2, uint64_t (*a3)(uint64_t))
@@ -383,7 +2328,7 @@ uint64_t ot::Cli::Interpreter::Process<8094126837366616329ull>(uint64_t a1, cons
   return v33;
 }
 
-uint64_t ot::Cli::Interpreter::Process<7052124ull>(uint64_t a1, uint64_t a2)
+uint64_t ot::Cli::Interpreter::Process<7052124ull>(uint64_t a1, ot::Utils::CmdLineParser **a2)
 {
   v16 = 0;
   if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
@@ -412,17 +2357,17 @@ uint64_t ot::Cli::Interpreter::Process<7052124ull>(uint64_t a1, uint64_t a2)
 
   else if (ot::Utils::CmdLineParser::Arg::operator==(a2, "channel"))
   {
-    return ot::Cli::Utils::ProcessSet<unsigned char>((a1 + 16), (a2 + 8), otLinkSetCslChannel);
+    return ot::Cli::Utils::ProcessSet<unsigned char>((a1 + 16), a2 + 1, otLinkSetCslChannel);
   }
 
   else if (ot::Utils::CmdLineParser::Arg::operator==(a2, "period"))
   {
-    return ot::Cli::Utils::ProcessSet<unsigned int>((a1 + 16), (a2 + 8), otLinkSetCslPeriod);
+    return ot::Cli::Utils::ProcessSet<unsigned int>((a1 + 16), a2 + 1, otLinkSetCslPeriod);
   }
 
   else if (ot::Utils::CmdLineParser::Arg::operator==(a2, "timeout"))
   {
-    return ot::Cli::Utils::ProcessSet<unsigned int>((a1 + 16), (a2 + 8), otLinkSetCslTimeout);
+    return ot::Cli::Utils::ProcessSet<unsigned int>((a1 + 16), a2 + 1, otLinkSetCslTimeout);
   }
 
   else if (!ot::Utils::CmdLineParser::Arg::operator==(a2, "debug"))
@@ -435,82 +2380,82 @@ uint64_t ot::Cli::Interpreter::Process<7052124ull>(uint64_t a1, uint64_t a2)
 
 uint64_t ot::Cli::Interpreter::Process<7441274ull>(uint64_t a1, const char **a2)
 {
-  v20 = a1;
-  v19 = a2;
-  v18 = 0;
+  v22 = a1;
+  v21 = a2;
+  v20 = 0;
   if (ot::Utils::CmdLineParser::Arg::operator==(a2, "attach"))
   {
+    v19 = 0;
+    v18 = 0;
     v17 = 0;
-    v16 = 0;
-    v15 = 0;
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v19 + 2)))
+    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v21 + 2)))
     {
       return 7;
     }
 
     else
     {
-      v18 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(v19 + 1, v21);
-      if (!v18)
+      v20 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(v21 + 1, v23, v2, v3);
+      if (!v20)
       {
-        v18 = ot::Utils::CmdLineParser::Arg::ParseAsUint32(v19 + 2, &v17, v2);
-        if (!v18)
+        v20 = ot::Utils::CmdLineParser::Arg::ParseAsUint32(v21 + 2, &v19, v4);
+        if (!v20)
         {
-          if (ot::Utils::CmdLineParser::Arg::IsEmpty((v19 + 3)))
+          if (ot::Utils::CmdLineParser::Arg::IsEmpty((v21 + 3)))
           {
             InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-            v16 = otThreadWedWakeUpPattern(InstancePtr);
-            ot::Cli::Utils::OutputLine((a1 + 16), "Set wakeupPattern as %d", v16);
+            v18 = otThreadWedWakeUpPattern(InstancePtr);
+            ot::Cli::Utils::OutputLine((a1 + 16), "Set wakeupPattern as %d", v18);
           }
 
           else
           {
-            v18 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v19 + 3, &v16, v3);
-            if (v18)
+            v20 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v21 + 3, &v18, v5);
+            if (v20)
             {
-              return v18;
+              return v20;
             }
           }
 
-          v18 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v19 + 4, &v15, v5);
-          if (!v18)
+          v20 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v21 + 4, &v17, v7);
+          if (!v20)
           {
-            v6 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-            return otThreadAttachCslPeripheral(v6, v21, v17, v16, 3, v15);
+            v8 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+            return otThreadAttachCslPeripheral(v8, v23, v19, v18, 3, v17);
           }
         }
       }
     }
   }
 
-  else if (ot::Utils::CmdLineParser::Arg::operator==(v19, "configure"))
+  else if (ot::Utils::CmdLineParser::Arg::operator==(v21, "configure"))
   {
-    v14 = 11;
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v19 + 1)) || (v18 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v19 + 1, &v14, v7)) == 0)
+    v16 = 11;
+    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v21 + 1)) || (v20 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v21 + 1, &v16, v9)) == 0)
     {
-      v8 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      return otThreadConfigureWOR(v8, 0xEA60u, v14);
+      v10 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      return otThreadConfigureWOR(v10, 0xEA60u, v16);
     }
   }
 
-  else if (ot::Utils::CmdLineParser::Arg::operator==(v19, "detach"))
+  else if (ot::Utils::CmdLineParser::Arg::operator==(v21, "detach"))
   {
-    v9 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    return otThreadDetachEnhCslPeer(v9);
+    v11 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+    return otThreadDetachEnhCslPeer(v11);
   }
 
-  else if (ot::Utils::CmdLineParser::Arg::operator==(v19, "state"))
+  else if (ot::Utils::CmdLineParser::Arg::operator==(v21, "state"))
   {
-    v10 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    if (otThreadIsEnhCslPeerLinked(v10))
+    v12 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+    if (otThreadIsEnhCslPeerLinked(v12))
     {
       ot::Cli::Utils::OutputLine((a1 + 16), "linked");
     }
 
     else
     {
-      v11 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      if (otThreadIsEnhCslPeerLinking(v11))
+      v13 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      if (otThreadIsEnhCslPeerLinking(v13))
       {
         ot::Cli::Utils::OutputLine((a1 + 16), "linking");
       }
@@ -527,7 +2472,7 @@ uint64_t ot::Cli::Interpreter::Process<7441274ull>(uint64_t a1, const char **a2)
     return 7;
   }
 
-  return v18;
+  return v20;
 }
 
 uint64_t ot::Cli::Interpreter::Process<7419947443224800644ull>(uint64_t a1, ot::Utils::CmdLineParser **a2)
@@ -775,7 +2720,7 @@ uint64_t ot::Cli::Interpreter::Process<220771284311ull>(uint64_t a1, ot::Utils::
 
 uint64_t ot::Cli::Interpreter::Process<31451632477498226ull>(uint64_t a1, ot::Utils::CmdLineParser **a2)
 {
-  v7 = 0;
+  v9 = 0;
   if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
   {
     InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
@@ -785,25 +2730,25 @@ uint64_t ot::Cli::Interpreter::Process<31451632477498226ull>(uint64_t a1, ot::Ut
 
   else
   {
-    v7 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(a2, v9);
-    if (!v7)
+    v9 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(a2, v11, v2, v3);
+    if (!v9)
     {
-      v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      return otLinkSetExtendedAddress(v4, v9);
+      v6 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      return otLinkSetExtendedAddress(v6, v11);
     }
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t ot::Cli::Interpreter::Process<6725988ull>(uint64_t a1, const char **a2)
 {
-  v10 = a1;
-  v9 = a2;
-  v8 = 0;
+  v11 = a1;
+  v10 = a2;
+  v9 = 0;
   if (ot::Utils::CmdLineParser::Arg::operator==(a2, "level"))
   {
-    IsEmpty = ot::Utils::CmdLineParser::Arg::IsEmpty((v9 + 1));
+    IsEmpty = ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1));
     if (IsEmpty)
     {
       Level = otLoggingGetLevel(IsEmpty);
@@ -812,13 +2757,13 @@ uint64_t ot::Cli::Interpreter::Process<6725988ull>(uint64_t a1, const char **a2)
 
     else
     {
-      v7 = 0;
-      if (ot::Utils::CmdLineParser::Arg::IsEmpty((v9 + 2)))
+      v8 = 0;
+      if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 2)))
       {
-        v8 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v9 + 1, &v7, v4);
-        if (!v8)
+        v9 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v10 + 1, &v8, v4);
+        if (!v9)
         {
-          return otLoggingSetLevel(v7);
+          return otLoggingSetLevel(v8, v5);
         }
       }
 
@@ -834,36 +2779,36 @@ uint64_t ot::Cli::Interpreter::Process<6725988ull>(uint64_t a1, const char **a2)
     return 7;
   }
 
-  return v8;
+  return v9;
 }
 
 uint64_t ot::Cli::Interpreter::Process<7040008844819482601ull>(uint64_t a1, ot::Utils::CmdLineParser **a2)
 {
-  v7 = 0;
+  v9 = 0;
   if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
   {
     InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
     otThreadGetExtendedPanId(InstancePtr);
-    ot::Cli::Utils::OutputBytesLine<(unsigned char)8>((a1 + 16), v3);
+    ot::Cli::Utils::OutputBytesLine<(unsigned char)8>((a1 + 16), v5);
   }
 
   else
   {
-    v7 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(a2, v9);
-    if (!v7)
+    v9 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(a2, v11, v2, v3);
+    if (!v9)
     {
-      v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      return otThreadSetExtendedPanId(v4, v9);
+      v6 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      return otThreadSetExtendedPanId(v6, v11);
     }
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t ot::Cli::Interpreter::Process<13321296782721747327ull>(uint64_t a1, ot::Utils::CmdLineParser::Arg *a2)
 {
-  v11 = a1;
-  v10 = a2;
+  v13 = a1;
+  v12 = a2;
   NeighborEnhAckSolicitationEnabled = 0;
   if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
   {
@@ -872,28 +2817,28 @@ uint64_t ot::Cli::Interpreter::Process<13321296782721747327ull>(uint64_t a1, ot:
 
   else
   {
-    NeighborEnhAckSolicitationEnabled = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(v10, v12);
+    NeighborEnhAckSolicitationEnabled = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(v12, v14, v2, v3);
     if (!NeighborEnhAckSolicitationEnabled)
     {
-      if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 8)))
+      if (ot::Utils::CmdLineParser::Arg::IsEmpty((v12 + 8)))
       {
-        v8 = 0;
+        v10 = 0;
         InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-        NeighborEnhAckSolicitationEnabled = otThreadGetNeighborEnhAckSolicitationEnabled(InstancePtr, v12, &v8);
+        NeighborEnhAckSolicitationEnabled = otThreadGetNeighborEnhAckSolicitationEnabled(InstancePtr, v14, &v10);
         if (!NeighborEnhAckSolicitationEnabled)
         {
-          ot::Cli::Utils::OutputLine((a1 + 16), "%d", v8 & 1);
+          ot::Cli::Utils::OutputLine((a1 + 16), "%d", v10 & 1);
         }
       }
 
       else
       {
-        v7 = 0;
-        NeighborEnhAckSolicitationEnabled = ot::Utils::CmdLineParser::Arg::ParseAsBool(v10 + 1, &v7, v2);
+        v9 = 0;
+        NeighborEnhAckSolicitationEnabled = ot::Utils::CmdLineParser::Arg::ParseAsBool(v12 + 1, &v9, v4);
         if (!NeighborEnhAckSolicitationEnabled)
         {
-          v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-          return otThreadSetNeighborEnhAckSolicitationEnabled(v4, v12, v7);
+          v6 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+          return otThreadSetNeighborEnhAckSolicitationEnabled(v6, v14, v9);
         }
       }
     }
@@ -1059,22 +3004,22 @@ uint64_t ot::Cli::Interpreter::Process<123339735204840ull>(uint64_t a1, const ch
   else if (ot::Utils::CmdLineParser::Arg::operator==(v21, "linklocal"))
   {
     v6 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    LinkLocalIp6Address = otThreadGetLinkLocalIp6Address(v6);
-    ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), LinkLocalIp6Address);
+    otThreadGetLinkLocalIp6Address(v6);
+    ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), v7);
   }
 
   else if (ot::Utils::CmdLineParser::Arg::operator==(v21, "rloc"))
   {
     v8 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    Rloc = otThreadGetRloc(v8);
-    ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), Rloc);
+    otThreadGetRloc(v8);
+    ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), v9);
   }
 
   else if (ot::Utils::CmdLineParser::Arg::operator==(v21, "mleid"))
   {
     v10 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    MeshLocalEid = otThreadGetMeshLocalEid(v10);
-    ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), MeshLocalEid);
+    otThreadGetMeshLocalEid(v10);
+    ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), v11);
   }
 
   else
@@ -1131,15 +3076,15 @@ uint64_t ot::Cli::Interpreter::Process<31451632477041015ull>(uint64_t a1, const 
   else if (ot::Utils::CmdLineParser::Arg::operator==(v15, "llatn"))
   {
     v5 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    LinkLocalAllThreadNodesMulticastAddress = otThreadGetLinkLocalAllThreadNodesMulticastAddress(v5);
-    ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), LinkLocalAllThreadNodesMulticastAddress);
+    otThreadGetLinkLocalAllThreadNodesMulticastAddress(v5);
+    ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), v6);
   }
 
   else if (ot::Utils::CmdLineParser::Arg::operator==(v15, "rlatn"))
   {
     v7 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    RealmLocalAllThreadNodesMulticastAddress = otThreadGetRealmLocalAllThreadNodesMulticastAddress(v7);
-    ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), RealmLocalAllThreadNodesMulticastAddress);
+    otThreadGetRealmLocalAllThreadNodesMulticastAddress(v7);
+    ot::Cli::Utils::OutputIp6AddressLine((a1 + 16), v8);
   }
 
   else
@@ -1233,22 +3178,22 @@ uint64_t ot::Cli::Interpreter::Process<1648543237ull>(uint64_t a1, uint64_t a2)
   if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
   {
     InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    otThreadGetPskc(InstancePtr, v14);
-    ot::Cli::Utils::OutputBytesLine<(unsigned char)16>((a1 + 16), v14);
+    otThreadGetPskc(InstancePtr, v16);
+    ot::Cli::Utils::OutputBytesLine<(unsigned char)16>((a1 + 16), v16);
     return Pskc;
   }
 
   if (ot::Utils::CmdLineParser::Arg::IsEmpty((a2 + 8)))
   {
-    Pskc = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)16>(a2, v14);
+    Pskc = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)16>(a2, v16, v3, v4);
     if (Pskc)
     {
       return Pskc;
     }
 
 LABEL_10:
-    v7 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    return otThreadSetPskc(v7, v14);
+    v9 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+    return otThreadSetPskc(v9, v16);
   }
 
   if (!ot::Utils::CmdLineParser::Arg::operator==(a2, "-p"))
@@ -1257,12 +3202,12 @@ LABEL_10:
   }
 
   CString = ot::Utils::CmdLineParser::Arg::GetCString((a2 + 8));
-  v3 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-  otThreadGetNetworkName(v3);
-  v9 = v4;
   v5 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-  otThreadGetExtendedPanId(v5);
-  Pskc = otDatasetGeneratePskc(CString, v9, v6, v14);
+  otThreadGetNetworkName(v5);
+  v11 = v6;
+  v7 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+  otThreadGetExtendedPanId(v7);
+  Pskc = otDatasetGeneratePskc(CString, v11, v8, v16);
   if (!Pskc)
   {
     goto LABEL_10;
@@ -1271,13 +3216,13 @@ LABEL_10:
   return Pskc;
 }
 
-uint64_t ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)16>(ot::Utils::CmdLineParser **a1, char *a2)
+uint64_t ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)16>(ot::Utils::CmdLineParser **a1, char *a2, uint64_t a3, unsigned __int16 a4)
 {
-  return ot::Utils::CmdLineParser::Arg::ParseAsHexString(a1, a2, 0x10u);
+  return ot::Utils::CmdLineParser::Arg::ParseAsHexString(a1, a2, 0x10u, a4);
 }
 
 {
-  return ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)16>(a1, a2);
+  return ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)16>(a1, a2, a3, a4);
 }
 
 uint64_t ot::Utils::CmdLineParser::Arg::GetCString(ot::Utils::CmdLineParser::Arg *this)
@@ -1740,25 +3685,25 @@ uint64_t ot::Cli::Interpreter::Process<27876329803337845ull>(uint64_t a1, ot::Ut
 
 uint64_t ot::Cli::Interpreter::Process<2882870027264844783ull>(uint64_t a1, ot::Utils::CmdLineParser **a2)
 {
-  v6 = 0;
+  v8 = 0;
   if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
   {
     InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    otThreadGetNetworkKey(InstancePtr, v9);
-    ot::Cli::Utils::OutputBytesLine<(unsigned char)16>((a1 + 16), v9);
+    otThreadGetNetworkKey(InstancePtr, v11);
+    ot::Cli::Utils::OutputBytesLine<(unsigned char)16>((a1 + 16), v11);
   }
 
   else
   {
-    v6 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)16>(a2, v8);
-    if (!v6)
+    v8 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)16>(a2, v10, v2, v3);
+    if (!v8)
     {
-      v3 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      return otThreadSetNetworkKey(v3, v8);
+      v5 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      return otThreadSetNetworkKey(v5, v10);
     }
   }
 
-  return v6;
+  return v8;
 }
 
 uint64_t ot::Cli::Interpreter::Process<30913625955023990ull>(uint64_t a1, ot::Utils::CmdLineParser **a2)
@@ -2417,7 +4362,7 @@ uint64_t ot::Cli::Interpreter::Process<129830133337582ull>(uint64_t a1, const ch
 
   else if (ot::Utils::CmdLineParser::Arg::operator==(v18, "add"))
   {
-    v17 = ot::Cli::Utils::ParsePrefix((v18 + 1), v14);
+    v17 = ot::Cli::Utils::ParsePrefix(v18 + 1, v14);
     if (!v17)
     {
       v5 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
@@ -2577,7 +4522,7 @@ uint64_t ot::Cli::Interpreter::Process<428984388969ull>(uint64_t a1, const char 
 
   else if (ot::Utils::CmdLineParser::Arg::operator==(v12, "add"))
   {
-    v11 = ot::Cli::Utils::ParseRoute((v12 + 1), v8);
+    v11 = ot::Cli::Utils::ParseRoute(v12 + 1, v8);
     if (!v11)
     {
       v3 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
@@ -2715,7 +4660,7 @@ uint64_t ot::Cli::Interpreter::Process<9036270695828403958ull>(uint64_t a1, ot::
       RssiOffset = otPlatRadioSetRssiOffset(v4, v7);
       if (!RssiOffset)
       {
-        persist_rssi_offset();
+        persist_rssi_offset(v7);
       }
     }
   }
@@ -2748,7 +4693,7 @@ uint64_t ot::Cli::Interpreter::Process<3745368069079870530ull>(uint64_t a1, ot::
       RssiOffsetPath1 = otPlatRadioSetRssiOffsetPath1(v4, v7);
       if (!RssiOffsetPath1)
       {
-        persist_rssi_offset_path_1();
+        persist_rssi_offset_path_1(v7);
       }
     }
   }
@@ -3058,7 +5003,7 @@ uint64_t ot::Cli::Interpreter::Process<31452791250048641ull>(uint64_t a1, ot::Ut
       TransmitPower = otPlatRadioSetTransmitPower(v4, v7);
       if (TransmitPower)
       {
-        persist_tx_power();
+        persist_tx_power(v7);
       }
     }
   }
@@ -3074,7 +5019,7 @@ uint64_t ot::Cli::Interpreter::Process<437456233555ull>(_BYTE *a1)
     strncpy(__dst, *i, 0x1DuLL);
     __dst[29] = 0;
     ot::Cli::Utils::OutputLine((a1 + 16), "$ %s", __dst);
-    ot::Cli::Interpreter::ProcessLine(a1, __dst);
+    ot::Cli::Interpreter::ProcessLine(a1, __dst, v1, v2);
   }
 
   a1[57] = 0;
@@ -3193,13 +5138,13 @@ uint64_t ot::Cli::Interpreter::Process<6462319ull>(uint64_t a1, const char **a2)
 
 uint64_t ot::Cli::Interpreter::Process<1433029466759137599ull>(uint64_t a1, const char **a2)
 {
-  v40 = a1;
-  v39 = a2;
-  v38 = 0;
+  v38 = a1;
+  v37 = a2;
+  v36 = 0;
   InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
   BufferStats = otMessageGetBufferStats(InstancePtr);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:dn200100](v35);
-  if (ot::Utils::CmdLineParser::Arg::operator==(v39, "enable"))
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:dn200100](v33);
+  if (ot::Utils::CmdLineParser::Arg::operator==(v37, "enable"))
   {
     v3 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
     otMessageSetIsBufferStatsEnabled(v3, 1);
@@ -3207,7 +5152,7 @@ uint64_t ot::Cli::Interpreter::Process<1433029466759137599ull>(uint64_t a1, cons
     goto LABEL_32;
   }
 
-  if (ot::Utils::CmdLineParser::Arg::operator==(v39, "disable"))
+  if (ot::Utils::CmdLineParser::Arg::operator==(v37, "disable"))
   {
     v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
     otMessageSetIsBufferStatsEnabled(v4, 0);
@@ -3215,19 +5160,19 @@ uint64_t ot::Cli::Interpreter::Process<1433029466759137599ull>(uint64_t a1, cons
     goto LABEL_32;
   }
 
-  if (!ot::Utils::CmdLineParser::Arg::IsEmpty(v39))
+  if (!ot::Utils::CmdLineParser::Arg::IsEmpty(v37))
   {
-    if (!ot::Utils::CmdLineParser::Arg::operator==(v39, "reset"))
+    if (!ot::Utils::CmdLineParser::Arg::operator==(v37, "reset"))
     {
-      v38 = 7;
+      v36 = 7;
       goto LABEL_32;
     }
 
-    v12 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    if (otMessageGetIsBufferStatsEnabled(v12))
+    v10 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+    if (otMessageGetIsBufferStatsEnabled(v10))
     {
-      v13 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      otMessageResetBufferStats(v13);
+      v11 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
+      otMessageResetBufferStats(v11);
       goto LABEL_32;
     }
 
@@ -3246,51 +5191,49 @@ LABEL_26:
   {
     v6 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
     BufferAt = otMessageGetBufferAt(v6, i);
-    std::string::basic_string[abi:dn200100]<0>(&v32, "");
-    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:dn200100]();
-    std::string::~string(&v32);
-    v20 = std::operator<<[abi:dn200100]<std::char_traits<char>>(v36, "Buf");
-    v31 = std::setw[abi:dn200100](3);
-    std::operator<<[abi:dn200100]<char,std::char_traits<char>>(v20, &v31);
-    v30 = std::setfill[abi:dn200100]<char>(48);
-    std::operator<<[abi:dn200100]<std::char_traits<char>>(v20, &v30);
+    std::string::basic_string[abi:dn200100]<0>(&v30, "");
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:dn200100](v33, &v30);
+    std::string::~string(&v30);
+    v18 = std::operator<<[abi:dn200100]<std::char_traits<char>>(v34, "Buf");
+    v29 = std::setw[abi:dn200100](3);
+    std::operator<<[abi:dn200100]<char,std::char_traits<char>>(v18, &v29);
+    v28 = std::setfill[abi:dn200100]<char>(48);
+    std::operator<<[abi:dn200100]<std::char_traits<char>>(v18, &v28);
     std::ostream::operator<<();
-    std::operator<<[abi:dn200100]<std::char_traits<char>>(v36, ":");
+    std::operator<<[abi:dn200100]<std::char_traits<char>>(v34, ":");
     std::ostream::operator<<();
     if ((*(BufferStats + 76 * i + 8) & 1) == 1)
     {
-      std::operator<<[abi:dn200100]<std::char_traits<char>>(v36, " (A), ");
+      std::operator<<[abi:dn200100]<std::char_traits<char>>(v34, " (A), ");
     }
 
     else
     {
-      std::operator<<[abi:dn200100]<std::char_traits<char>>(v36, " (D), ");
+      std::operator<<[abi:dn200100]<std::char_traits<char>>(v34, " (D), ");
     }
 
-    v18 = std::operator<<[abi:dn200100]<std::char_traits<char>>(v36, "#A:");
-    v29 = std::setw[abi:dn200100](10);
-    std::operator<<[abi:dn200100]<char,std::char_traits<char>>(v18, &v29);
-    v28 = std::setfill[abi:dn200100]<char>(48);
-    std::operator<<[abi:dn200100]<std::char_traits<char>>(v18, &v28);
-    v7 = *(BufferStats + 76 * i);
-    std::ostream::operator<<();
-    v19 = std::operator<<[abi:dn200100]<std::char_traits<char>>(v36, ", #D:");
+    v16 = std::operator<<[abi:dn200100]<std::char_traits<char>>(v34, "#A:");
     v27 = std::setw[abi:dn200100](10);
-    std::operator<<[abi:dn200100]<char,std::char_traits<char>>(v19, &v27);
+    std::operator<<[abi:dn200100]<char,std::char_traits<char>>(v16, &v27);
     v26 = std::setfill[abi:dn200100]<char>(48);
-    std::operator<<[abi:dn200100]<std::char_traits<char>>(v19, &v26);
-    v8 = *(BufferStats + 76 * i + 4);
+    std::operator<<[abi:dn200100]<std::char_traits<char>>(v16, &v26);
+    std::ostream::operator<<();
+    v17 = std::operator<<[abi:dn200100]<std::char_traits<char>>(v34, ", #D:");
+    v25 = std::setw[abi:dn200100](10);
+    std::operator<<[abi:dn200100]<char,std::char_traits<char>>(v17, &v25);
+    v24 = std::setfill[abi:dn200100]<char>(48);
+    std::operator<<[abi:dn200100]<std::char_traits<char>>(v17, &v24);
     std::ostream::operator<<();
     if (*(BufferStats + 76 * i + 9))
     {
-      v9 = std::operator<<[abi:dn200100]<std::char_traits<char>>(v36, ", LastAllocTimestamp: ");
-      std::operator<<[abi:dn200100]<std::char_traits<char>>(v9, (BufferStats + 76 * i + 9));
+      v7 = std::operator<<[abi:dn200100]<std::char_traits<char>>(v34, ", LastAllocTimestamp: ");
+      std::operator<<[abi:dn200100]<std::char_traits<char>>(v7, (BufferStats + 76 * i + 9));
     }
 
     if (*(BufferStats + 76 * i + 41))
     {
-      v10 = std::operator<<[abi:dn200100]<std::char_traits<char>>(v36, ", LastDeallocTimestamp: ");
-      std::operator<<[abi:dn200100]<std::char_traits<char>>(v10, (BufferStats + 76 * i + 41));
+      v8 = std::operator<<[abi:dn200100]<std::char_traits<char>>(v34, ", LastDeallocTimestamp: ");
+      std::operator<<[abi:dn200100]<std::char_traits<char>>(v8, (BufferStats + 76 * i + 41));
     }
 
     logging_obg = log_get_logging_obg("com.apple.wpantund", "default");
@@ -3301,42 +5244,33 @@ LABEL_26:
       if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
       {
         log = oslog;
-        v17 = type;
+        v15 = type;
         std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:dn200100]();
-        std::string::c_str[abi:dn200100](&v22);
-        __os_log_helper_16_2_1_8_32(v42, v11);
-        _os_log_impl(&_mh_execute_header, log, v17, "%s", v42, 0xCu);
-        std::string::~string(&v22);
+        std::string::c_str[abi:dn200100](&v20);
+        __os_log_helper_16_2_1_8_32(v40, v9);
+        _os_log_impl(&_mh_execute_header, log, v15, "%s", v40, 0xCu);
+        std::string::~string(&v20);
       }
     }
 
     else if (!logging_obg && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_2_8_32_8_32(v41, "com.apple.wpantund.ncp", "default");
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging Module is not defined for SubSystem: %s, Category: %s", v41, 0x16u);
+      __os_log_helper_16_2_2_8_32_8_32(v39, "com.apple.wpantund.ncp", "default");
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging Module is not defined for SubSystem: %s, Category: %s", v39, 0x16u);
     }
   }
 
 LABEL_32:
-  v15 = v38;
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(v35);
-  return v15;
+  v13 = v36;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(v33);
+  return v13;
 }
 
-uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:dn200100](uint64_t a1)
+void (__cdecl ***std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:dn200100](void (__cdecl ***a1)(std::ios_base *__hidden this)))(std::ios_base *__hidden this)
 {
-  std::ios::basic_ios[abi:dn200100]((a1 + 128));
-  std::stringbuf::basic_stringbuf[abi:dn200100](a1 + 24, 24);
+  std::ios::basic_ios[abi:dn200100](a1 + 16);
+  std::stringbuf::basic_stringbuf[abi:dn200100]((a1 + 3), 24);
   return a1;
-}
-
-uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:dn200100]()
-{
-  return std::stringbuf::str();
-}
-
-{
-  return std::stringbuf::str();
 }
 
 uint64_t ot::Cli::Interpreter::Process<17671613907470187241ull>(uint64_t a1, const char **a2)
@@ -3891,7 +5825,7 @@ char *ot::BinarySearch::Find<char *,ot::Cli::Utils::CommandEntry<ot::Cli::Interp
   return ot::BinarySearch::Find<char *,ot::Cli::Utils::CommandEntry<ot::Cli::Interpreter>,(unsigned short)121>(a1, a2, a3, a4, a5, a6);
 }
 
-uint64_t ot::Cli::Utils::OutputCommandTable<ot::Cli::Interpreter,(unsigned short)121>(uint64_t result, const char **a2)
+ot::Cli::Utils *ot::Cli::Utils::OutputCommandTable<ot::Cli::Interpreter,(unsigned short)121>(ot::Cli::Utils *result, const char **a2)
 {
   v2 = result;
   v4 = a2;
@@ -3926,6 +5860,13 @@ uint64_t ot::Cli::Interpreter::GetInterpreter(ot::Cli::Interpreter *this)
 
 {
   return ot::Cli::Interpreter::GetInterpreter(this);
+}
+
+uint64_t otCliOutputFormat(ot::Cli::Interpreter *a1, ...)
+{
+  va_start(va, a1);
+  Interpreter = ot::Cli::Interpreter::GetInterpreter(a1);
+  return ot::Cli::Utils::OutputFormatV((Interpreter + 16), a1, va);
 }
 
 void otCliAppendResult(ot::Cli::Interpreter *a1)
@@ -4029,13 +5970,13 @@ uint64_t ot::Utils::CmdLineParser::Arg::ParseAs<char const*>(ot::Utils::CmdLineP
   return ot::Utils::CmdLineParser::Arg::ParseAs<char const*>(a1, a2);
 }
 
-uint64_t ot::Utils::CmdLineParser::Arg::ParseAsHexString(ot::Utils::CmdLineParser **this, char *a2, unsigned __int16 a3)
+uint64_t ot::Utils::CmdLineParser::Arg::ParseAsHexString(ot::Utils::CmdLineParser **this, char *a2, unsigned __int16 a3, unsigned __int16 a4)
 {
   return ot::Utils::CmdLineParser::ParseAsHexString(*this, a2, a3);
 }
 
 {
-  return ot::Utils::CmdLineParser::Arg::ParseAsHexString(this, a2, a3);
+  return ot::Utils::CmdLineParser::Arg::ParseAsHexString(this, a2, a3, a4);
 }
 
 uint64_t ot::Utils::CmdLineParser::Arg::ParseAs<unsigned char>(ot::Utils::CmdLineParser **a1, char *a2, unsigned __int8 *a3)
@@ -4436,31 +6377,8 @@ uint64_t std::__pad_and_output[abi:dn200100]<char,std::char_traits<char>>(uint64
     return 0;
   }
 
-  if (v14 <= 0)
+  if (v14 <= 0 || ((std::string::basic_string[abi:dn200100](&v12, v14, v16), v10 = v21, std::string::data[abi:dn200100](&v12), v7 = std::streambuf::sputn[abi:dn200100](v10, v6, v14), v7 == v14) ? (v11 = 0) : (v21 = 0, v22 = 0, v11 = 1), std::string::~string(&v12), !v11))
   {
-    goto LABEL_14;
-  }
-
-  std::string::basic_string[abi:dn200100](&v12, v14, v16);
-  v10 = v21;
-  std::string::data[abi:dn200100](&v12);
-  v7 = std::streambuf::sputn[abi:dn200100](v10, v6, v14);
-  if (v7 == v14)
-  {
-    v11 = 0;
-  }
-
-  else
-  {
-    v21 = 0;
-    v22 = 0;
-    v11 = 1;
-  }
-
-  std::string::~string(&v12);
-  if (!v11)
-  {
-LABEL_14:
     v13 = v18 - v19;
     if (v18 - v19 <= 0 || (v8 = std::streambuf::sputn[abi:dn200100](v21, v19, v13), v8 == v13))
     {
@@ -4502,7 +6420,7 @@ uint64_t std::ios::fill[abi:dn200100](const std::ios_base *a1)
   return std::_SentinelValueFill<std::char_traits<char>>::__get[abi:dn200100](&a1[1].__fmtflags_);
 }
 
-ot::Spinel::SpinelInterface *std::string::basic_string[abi:dn200100](ot::Spinel::SpinelInterface *a1, std::string::size_type a2, std::string::value_type a3)
+std::string *std::string::basic_string[abi:dn200100](std::string *a1, std::string::size_type a2, std::string::value_type a3)
 {
   std::string::basic_string[abi:dn200100](a1, a2, a3);
   return a1;
@@ -4674,7 +6592,7 @@ void ot::Cli::Coap::HandleRequest(char *a1, uint64_t a2, uint64_t a3)
   ot::Cli::Utils::OutputFormat(a1, "coap request from ");
   ot::Cli::Utils::OutputIp6Address(a1, a3 + 16);
   ot::Cli::Utils::OutputFormat(a1, " ");
-  Code = otCoapMessageGetCode();
+  Code = otCoapMessageGetCode(a2);
   switch(Code)
   {
     case 1:
@@ -4696,9 +6614,9 @@ void ot::Cli::Coap::HandleRequest(char *a1, uint64_t a2, uint64_t a3)
   }
 
   ot::Cli::Coap::PrintPayload(a1, a2);
-  if (!otCoapMessageGetType() || otCoapMessageGetCode() == 1)
+  if (!otCoapMessageGetType(a2) || otCoapMessageGetCode(a2) == 1)
   {
-    if (otCoapMessageGetCode() == 1)
+    if (otCoapMessageGetCode(a2) == 1)
     {
       v10 = 69;
     }
@@ -4715,7 +6633,7 @@ void ot::Cli::Coap::HandleRequest(char *a1, uint64_t a2, uint64_t a3)
       inited = otCoapMessageInitResponse(v11, a2, 2u, v10);
       if (!inited)
       {
-        if (v10 != 69 || (inited = otCoapMessageSetPayloadMarker()) == 0 && (v4 = strlen(a1 + 104), (inited = otMessageAppend(v11, a1 + 104, v4)) == 0))
+        if (v10 != 69 || (inited = otCoapMessageSetPayloadMarker(v11)) == 0 && (v4 = strlen(a1 + 104), (inited = otMessageAppend(v11, a1 + 104, v4)) == 0))
         {
           v7 = ot::Cli::Utils::GetInstancePtr(a1);
           ResponseTxParameters = ot::Cli::Coap::GetResponseTxParameters(a1);
@@ -4922,7 +6840,7 @@ uint64_t ot::Cli::Coap::ProcessRequest(ot::Cli::Utils *a1, const char **a2, unsi
       }
     }
 
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v26 + 3)) || (Length = ot::Utils::CmdLineParser::Arg::GetLength(v26 + 3)) == 0 || (appended = otCoapMessageSetPayloadMarker()) == 0)
+    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v26 + 3)) || (Length = ot::Utils::CmdLineParser::Arg::GetLength(v26 + 3)) == 0 || (appended = otCoapMessageSetPayloadMarker(v23)) == 0)
     {
       if (!Length || (v14 = v23, v6 = ot::Utils::CmdLineParser::Arg::GetCString((v26 + 3)), (appended = otMessageAppend(v14, v6, Length)) == 0))
       {
@@ -5044,7 +6962,7 @@ uint64_t ot::Cli::Coap::Process(ot::Cli::Coap *this, const char **a2)
   return v15;
 }
 
-uint64_t ot::Cli::Utils::OutputCommandTable<ot::Cli::Coap,(unsigned short)9>(uint64_t result, const char **a2)
+ot::Cli::Utils *ot::Cli::Utils::OutputCommandTable<ot::Cli::Coap,(unsigned short)9>(ot::Cli::Utils *result, const char **a2)
 {
   v2 = result;
   v4 = a2;
@@ -5174,33 +7092,33 @@ uint64_t ot::Cli::Commissioner::Process<130900079721176ull>(ot::Cli::Utils *a1, 
 
 uint64_t ot::Cli::Commissioner::Process<123344129789161ull>(ot::Cli::Utils *a1, const char **a2)
 {
-  v21 = a1;
-  v20 = a2;
-  v19 = 0;
-  v18 = 0;
+  v23 = a1;
+  v22 = a2;
+  v21 = 0;
+  v20 = 0;
   if (ot::Utils::CmdLineParser::Arg::operator==(a2, "table"))
   {
-    v15 = 0;
+    v17 = 0;
     ot::Cli::Utils::OutputTableHeader<(unsigned char)3>(a1, ot::Cli::Commissioner::Process<123344129789161ull>(ot::Utils::CmdLineParser::Arg *)::kJoinerTableTitles, ot::Cli::Commissioner::Process<123344129789161ull>(ot::Utils::CmdLineParser::Arg *)::kJoinerTableColumnWidths);
     while (1)
     {
       InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-      if (otCommissionerGetNextJoinerInfo(InstancePtr, &v15, v22))
+      if (otCommissionerGetNextJoinerInfo(InstancePtr, &v17, v24))
       {
         break;
       }
 
-      if (*v22)
+      if (*v24)
       {
-        if (*v22 == 1)
+        if (*v24 == 1)
         {
           ot::Cli::Utils::OutputFormat(a1, "|      ");
-          ot::Cli::Utils::OutputExtAddress(a1, &v23);
+          ot::Cli::Utils::OutputExtAddress(a1, &v25);
         }
 
-        else if (*v22 == 2)
+        else if (*v24 == 2)
         {
-          ot::Cli::Utils::OutputFormat(a1, "| 0x%08lx%08lx/%2u", HIDWORD(v23), v23, v24);
+          ot::Cli::Utils::OutputFormat(a1, "| 0x%08lx%08lx/%2u", HIDWORD(v25), v25, v26);
         }
       }
 
@@ -5209,76 +7127,76 @@ uint64_t ot::Cli::Commissioner::Process<123344129789161ull>(ot::Cli::Utils *a1, 
         ot::Cli::Utils::OutputFormat(a1, "| %21s", "*");
       }
 
-      v3 = ot::ToUlong(v26);
-      ot::Cli::Utils::OutputFormat(a1, " | %32s | %10lu |", v25, v3);
+      v3 = ot::ToUlong(v28);
+      ot::Cli::Utils::OutputFormat(a1, " | %32s | %10lu |", v27, v3);
       ot::Cli::Utils::OutputNewLine(a1);
     }
 
     return 0;
   }
 
-  else if (ot::Utils::CmdLineParser::Arg::IsEmpty((v20 + 1)))
+  else if (ot::Utils::CmdLineParser::Arg::IsEmpty((v22 + 1)))
   {
     return 7;
   }
 
   else
   {
-    ot::Cli::Utils::ClearAllBytes<otJoinerDiscerner>(&v16);
-    if (ot::Utils::CmdLineParser::Arg::operator==(v20 + 1, "*"))
+    ot::Cli::Utils::ClearAllBytes<otJoinerDiscerner>(v18);
+    if (ot::Utils::CmdLineParser::Arg::operator==(v22 + 1, "*"))
     {
       goto LABEL_19;
     }
 
-    v19 = ot::Cli::Utils::ParseJoinerDiscerner(v20 + 1, &v16);
-    if (v19 == 23)
+    v21 = ot::Cli::Utils::ParseJoinerDiscerner(v22 + 1, v18);
+    if (v21 == 23)
     {
-      v19 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(v20 + 1, v27);
-      v18 = v27;
+      v21 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(v22 + 1, v29, v4, v5);
+      v20 = v29;
     }
 
-    if (!v19)
+    if (!v21)
     {
 LABEL_19:
-      if (ot::Utils::CmdLineParser::Arg::operator==(v20, "add"))
+      if (ot::Utils::CmdLineParser::Arg::operator==(v22, "add"))
       {
-        v14 = 120;
-        if (ot::Utils::CmdLineParser::Arg::IsEmpty((v20 + 2)))
+        v16 = 120;
+        if (ot::Utils::CmdLineParser::Arg::IsEmpty((v22 + 2)))
         {
           return 7;
         }
 
-        else if (ot::Utils::CmdLineParser::Arg::IsEmpty((v20 + 3)) || (v19 = ot::Utils::CmdLineParser::Arg::ParseAsUint32(v20 + 3, &v14, v4)) == 0)
+        else if (ot::Utils::CmdLineParser::Arg::IsEmpty((v22 + 3)) || (v21 = ot::Utils::CmdLineParser::Arg::ParseAsUint32(v22 + 3, &v16, v6)) == 0)
         {
-          if (v17)
+          if (v19)
           {
-            v12 = ot::Cli::Utils::GetInstancePtr(a1);
-            CString = ot::Utils::CmdLineParser::Arg::GetCString((v20 + 2));
-            return otCommissionerAddJoinerWithDiscerner(v12, &v16, CString, v14);
+            v14 = ot::Cli::Utils::GetInstancePtr(a1);
+            CString = ot::Utils::CmdLineParser::Arg::GetCString((v22 + 2));
+            return otCommissionerAddJoinerWithDiscerner(v14, v18, CString, v16);
           }
 
           else
           {
-            v11 = ot::Cli::Utils::GetInstancePtr(a1);
-            v10 = v18;
-            v6 = ot::Utils::CmdLineParser::Arg::GetCString((v20 + 2));
-            return otCommissionerAddJoiner(v11, v10, v6, v14);
+            v13 = ot::Cli::Utils::GetInstancePtr(a1);
+            v12 = v20;
+            v8 = ot::Utils::CmdLineParser::Arg::GetCString((v22 + 2));
+            return otCommissionerAddJoiner(v13, v12, v8, v16);
           }
         }
       }
 
-      else if (ot::Utils::CmdLineParser::Arg::operator==(v20, "remove"))
+      else if (ot::Utils::CmdLineParser::Arg::operator==(v22, "remove"))
       {
-        if (v17)
+        if (v19)
         {
-          v7 = ot::Cli::Utils::GetInstancePtr(a1);
-          return otCommissionerRemoveJoinerWithDiscerner(v7, &v16);
+          v9 = ot::Cli::Utils::GetInstancePtr(a1);
+          return otCommissionerRemoveJoinerWithDiscerner(v9, v18);
         }
 
         else
         {
-          v8 = ot::Cli::Utils::GetInstancePtr(a1);
-          return otCommissionerRemoveJoiner(v8, v18);
+          v10 = ot::Cli::Utils::GetInstancePtr(a1);
+          return otCommissionerRemoveJoiner(v10, v20);
         }
       }
 
@@ -5289,7 +7207,7 @@ LABEL_19:
     }
   }
 
-  return v19;
+  return v21;
 }
 
 void *ot::Cli::Utils::ClearAllBytes<otJoinerDiscerner>(void *result)
@@ -5390,7 +7308,7 @@ uint64_t ot::Cli::Commissioner::Process<32002658413534849ull>(ot::Cli::Utils *a1
       if (ot::Utils::CmdLineParser::Arg::operator==(v14, "locator"))
       {
         v14 = (v14 + 8);
-        v21 = v21 & 0xFE | 1;
+        v22 = v22 & 0xFE | 1;
         v13 = ot::Utils::CmdLineParser::Arg::ParseAsUint16(v14, &v17, v2);
         if (v13)
         {
@@ -5401,8 +7319,8 @@ uint64_t ot::Cli::Commissioner::Process<32002658413534849ull>(ot::Cli::Utils *a1
       else if (ot::Utils::CmdLineParser::Arg::operator==(v14, "sessionid"))
       {
         v14 = (v14 + 8);
-        v21 = v21 & 0xFD | 2;
-        v13 = ot::Utils::CmdLineParser::Arg::ParseAsUint16(v14, v18, v3);
+        v22 = v22 & 0xFD | 2;
+        v13 = ot::Utils::CmdLineParser::Arg::ParseAsUint16(v14, &v18, v3);
         if (v13)
         {
           return v13;
@@ -5412,22 +7330,22 @@ uint64_t ot::Cli::Commissioner::Process<32002658413534849ull>(ot::Cli::Utils *a1
       else if (ot::Utils::CmdLineParser::Arg::operator==(v14, "steeringdata"))
       {
         v14 = (v14 + 8);
-        v21 = v21 & 0xFB | 4;
+        v22 = v22 & 0xFB | 4;
         v11 = 16;
-        v13 = ot::Utils::CmdLineParser::Arg::ParseAsHexString(v14, &v11, v19, v4);
+        v13 = ot::Utils::CmdLineParser::Arg::ParseAsHexString(v14, &v11, v20, v4);
         if (v13)
         {
           return v13;
         }
 
-        v18[2] = v11;
+        v19 = v11;
       }
 
       else if (ot::Utils::CmdLineParser::Arg::operator==(v14, "joinerudpport"))
       {
         v14 = (v14 + 8);
-        v21 = v21 & 0xF7 | 8;
-        v13 = ot::Utils::CmdLineParser::Arg::ParseAsUint16(v14, v20, v5);
+        v22 = v22 & 0xF7 | 8;
+        v13 = ot::Utils::CmdLineParser::Arg::ParseAsUint16(v14, &v21, v5);
         if (v13)
         {
           return v13;
@@ -5630,7 +7548,7 @@ uint64_t ot::Cli::Commissioner::Process(ot::Cli::Commissioner *this, const char 
   return v15;
 }
 
-uint64_t ot::Cli::Utils::OutputCommandTable<ot::Cli::Commissioner,(unsigned short)12>(uint64_t result, const char **a2)
+ot::Cli::Utils *ot::Cli::Utils::OutputCommandTable<ot::Cli::Commissioner,(unsigned short)12>(ot::Cli::Utils *result, const char **a2)
 {
   v2 = result;
   v4 = a2;
@@ -5891,29 +7809,29 @@ uint64_t ot::Cli::Dataset::ParsePskc(ot::Cli::Utils *a1, ot::Utils::CmdLineParse
       CString = ot::Utils::CmdLineParser::Arg::GetCString(*a2);
       if (a3[123])
       {
-        v10 = (a3 + 48);
+        v12 = (a3 + 48);
       }
 
       else
       {
         InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
         otThreadGetNetworkName(InstancePtr);
-        v10 = v4;
+        v12 = v6;
       }
 
       if (a3[124])
       {
-        v9 = (a3 + 65);
+        v11 = (a3 + 65);
       }
 
       else
       {
-        v5 = ot::Cli::Utils::GetInstancePtr(a1);
-        otThreadGetExtendedPanId(v5);
-        v9 = v6;
+        v7 = ot::Cli::Utils::GetInstancePtr(a1);
+        otThreadGetExtendedPanId(v7);
+        v11 = v8;
       }
 
-      Pskc = otDatasetGeneratePskc(CString, v10, v9, (a3 + 94));
+      Pskc = otDatasetGeneratePskc(CString, v12, v11, (a3 + 94));
       if (!Pskc)
       {
         *a2 = (*a2 + 8);
@@ -5923,9 +7841,9 @@ uint64_t ot::Cli::Dataset::ParsePskc(ot::Cli::Utils *a1, ot::Utils::CmdLineParse
 
   else
   {
-    v7 = *a2;
+    v9 = *a2;
     *a2 = (*a2 + 8);
-    return ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)16>(v7, a3 + 94);
+    return ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)16>(v9, a3 + 94, v3, v4);
   }
 
   return Pskc;
@@ -6151,7 +8069,7 @@ uint64_t ot::Cli::Dataset::PrintKeychain(ot::Cli::Dataset *this, const char **a2
 
   else if (ot::Utils::CmdLineParser::Arg::operator==(a2, "-p"))
   {
-    if (dskeychainRcp::FindAndGetDataSet(1u, v6) == 1)
+    if (dskeychainRcp::FindAndGetDataSet(1, v6) == 1)
     {
       ot::Cli::Utils::OutputLine(this, "PENDING DATASET:");
       ot::Cli::Utils::OutputLine(this, "================");
@@ -6179,7 +8097,7 @@ uint64_t ot::Cli::Dataset::PrintKeychain(ot::Cli::Dataset *this, const char **a2
     }
 
     ot::Clearable<ot::MeshCoP::Dataset::Info>::Clear(v6);
-    if (dskeychainRcp::FindAndGetDataSet(1u, v6) == 1)
+    if (dskeychainRcp::FindAndGetDataSet(1, v6) == 1)
     {
       ot::Cli::Utils::OutputLine(this, "================");
       ot::Cli::Utils::OutputLine(this, "PENDING DATASET:");
@@ -6430,7 +8348,7 @@ uint64_t ot::Cli::Dataset::Process<12771032453691045162ull>(ot::Cli::Dataset *a1
   v20 = a2;
   v19 = 0;
   v17 = 0;
-  ot::Cli::Utils::ClearAllBytes<otOperationalDatasetComponents>(&v18);
+  ot::Cli::Utils::ClearAllBytes<otOperationalDatasetComponents>(v18);
   ot::Cli::Utils::ClearAllBytes<otOperationalDatasetTlvs>(v22);
   for (i = (v20 + 1); !ot::Utils::CmdLineParser::Arg::IsEmpty(i); i = (i + 8))
   {
@@ -6438,7 +8356,7 @@ uint64_t ot::Cli::Dataset::Process<12771032453691045162ull>(ot::Cli::Dataset *a1
     v14 = ot::Cli::Dataset::LookupMapper(a1, CString, v3, v4, v5, v6);
     if (v14)
     {
-      *(&v18 + *(v14 + 1)) = 1;
+      v18[*(v14 + 1)] = 1;
     }
 
     else if (ot::Utils::CmdLineParser::Arg::operator==(i, "-x"))
@@ -6474,12 +8392,12 @@ uint64_t ot::Cli::Dataset::Process<12771032453691045162ull>(ot::Cli::Dataset *a1
     InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
     if (v17)
     {
-      return otDatasetSendMgmtActiveGet(InstancePtr, &v18, v22, v23, v16);
+      return otDatasetSendMgmtActiveGet(InstancePtr, v18, v22, v23, v16);
     }
 
     else
     {
-      return otDatasetSendMgmtActiveGet(InstancePtr, &v18, v22, v23, 0);
+      return otDatasetSendMgmtActiveGet(InstancePtr, v18, v22, v23, 0);
     }
   }
 
@@ -6488,12 +8406,12 @@ uint64_t ot::Cli::Dataset::Process<12771032453691045162ull>(ot::Cli::Dataset *a1
     v11 = ot::Cli::Utils::GetInstancePtr(a1);
     if (v17)
     {
-      return otDatasetSendMgmtPendingGet(v11, &v18, v22, v23, v16);
+      return otDatasetSendMgmtPendingGet(v11, v18, v22, v23, v16);
     }
 
     else
     {
-      return otDatasetSendMgmtPendingGet(v11, &v18, v22, v23, 0);
+      return otDatasetSendMgmtPendingGet(v11, v18, v22, v23, 0);
     }
   }
 
@@ -6618,7 +8536,7 @@ uint64_t ot::Cli::Dataset::Process(ot::Cli::Dataset *this, const char **a2)
   return v20;
 }
 
-uint64_t ot::Cli::Utils::OutputCommandTable<ot::Cli::Dataset,(unsigned short)10>(uint64_t result, const char **a2)
+ot::Cli::Utils *ot::Cli::Utils::OutputCommandTable<ot::Cli::Dataset,(unsigned short)10>(ot::Cli::Utils *result, const char **a2)
 {
   v2 = result;
   v4 = a2;
@@ -7338,7 +9256,7 @@ const char *ot::Cli::History::RadioTypeToString(uint64_t a1)
   return v2;
 }
 
-const char *ot::Cli::History::MessageTypeToString(uint64_t a1, unsigned __int8 a2, uint64_t a3, uint64_t a4, uint64_t a5, int (*a6)(const void *, const void *))
+const char *ot::Cli::History::MessageTypeToString(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int (*a6)(const void *, const void *))
 {
   v8 = otIp6ProtoToString(*(a1 + 42), a2, a3, a4, a5, a6);
   if (*(a1 + 42) == 58)
@@ -7679,7 +9597,7 @@ uint64_t ot::Cli::History::Process(ot::Cli::History *this, const char **a2)
   return v15;
 }
 
-uint64_t ot::Cli::Utils::OutputCommandTable<ot::Cli::History,(unsigned short)10>(uint64_t result, const char **a2)
+ot::Cli::Utils *ot::Cli::Utils::OutputCommandTable<ot::Cli::History,(unsigned short)10>(ot::Cli::Utils *result, const char **a2)
 {
   v2 = result;
   v4 = a2;
@@ -7767,1919 +9685,4 @@ uint64_t ot::Cli::Joiner::Process<16073431636142911865ull>(ot::Cli::Utils *a1, c
   }
 
   return v9;
-}
-
-uint64_t ot::Cli::Joiner::Process<25605ull>(ot::Cli::Utils *a1)
-{
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-  otJoinerGetId(InstancePtr);
-  ot::Cli::Utils::OutputExtAddressLine(a1, v2);
-  return 0;
-}
-
-uint64_t ot::Cli::Joiner::Process<13525664152328030601ull>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser **a2)
-{
-  v10 = a1;
-  v9 = a2;
-  v8 = 7;
-  RepeatScan = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-    RepeatScan = otJoinerGetRepeatScan(InstancePtr);
-    ot::Cli::Utils::OutputLine(a1, "%u", RepeatScan);
-    return 0;
-  }
-
-  else
-  {
-    v8 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v9, &RepeatScan, v2);
-    if (!v8)
-    {
-      v4 = ot::Cli::Utils::GetInstancePtr(a1);
-      return otJoinerSetRepeatScan(v4, RepeatScan);
-    }
-  }
-
-  return v8;
-}
-
-uint64_t ot::Cli::Joiner::Process<492373686370ull>(ot::Cli::Utils *a1, uint64_t a2)
-{
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    return 7;
-  }
-
-  else
-  {
-    InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-    CString = ot::Utils::CmdLineParser::Arg::GetCString(a2);
-    v2 = ot::Utils::CmdLineParser::Arg::GetCString((a2 + 8));
-    return otJoinerStart(InstancePtr, CString, v2, "OPENTHREAD", "POSIX", "0.01.00", 0, ot::Cli::Joiner::HandleCallback, a1);
-  }
-}
-
-uint64_t ot::Cli::Joiner::Process<1864361470ull>(ot::Cli::Utils *a1)
-{
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-  otJoinerStop(InstancePtr);
-  return 0;
-}
-
-uint64_t ot::Cli::Joiner::Process<428983089745ull>(ot::Cli::Utils *a1)
-{
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-  State = otJoinerGetState(InstancePtr);
-  v3 = otJoinerStateToString(State);
-  ot::Cli::Utils::OutputLine(a1, "%s", v3);
-  return 0;
-}
-
-uint64_t ot::Cli::Joiner::Process(ot::Cli::Joiner *this, const char **a2)
-{
-  v17 = this;
-  v16 = a2;
-  v15 = 35;
-  v14 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2) || ot::Utils::CmdLineParser::Arg::operator==(v16, "help"))
-  {
-    ot::Cli::Utils::OutputCommandTable<ot::Cli::Joiner,(unsigned short)6>(this, &ot::Cli::Joiner::Process(ot::Utils::CmdLineParser::Arg *)::kCommands);
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty(v16))
-    {
-      return v15;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    CString = ot::Utils::CmdLineParser::Arg::GetCString(v16);
-    v14 = ot::BinarySearch::Find<char *,ot::Cli::Utils::CommandEntry<ot::Cli::Joiner>,(unsigned short)6>(&CString, &ot::Cli::Joiner::Process(ot::Utils::CmdLineParser::Arg *)::kCommands, v2, v3, v4, v5);
-    if (v14)
-    {
-      v9 = *(v14 + 1);
-      v6 = *(v14 + 2);
-      v10 = (this + (v6 >> 1));
-      if (v6)
-      {
-        return (*(*v10 + v9))(v10, v16 + 1);
-      }
-
-      else
-      {
-        return v9(v10, v16 + 1);
-      }
-    }
-  }
-
-  return v15;
-}
-
-uint64_t ot::Cli::Utils::OutputCommandTable<ot::Cli::Joiner,(unsigned short)6>(uint64_t result, const char **a2)
-{
-  v2 = result;
-  v4 = a2;
-  v3 = a2 + 18;
-  while (v4 != v3)
-  {
-    result = ot::Cli::Utils::CommandEntry<ot::Cli::Joiner>::Compare(v4, "reset");
-    if (result)
-    {
-      result = ot::Cli::Utils::OutputLine(v2, "%s", *v4);
-    }
-
-    v4 += 3;
-  }
-
-  return result;
-}
-
-{
-  return ot::Cli::Utils::OutputCommandTable<ot::Cli::Joiner,(unsigned short)6>(result, a2);
-}
-
-char *ot::BinarySearch::Find<char *,ot::Cli::Utils::CommandEntry<ot::Cli::Joiner>,(unsigned short)6>(ot::BinarySearch *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, int (*a6)(const void *, const void *))
-{
-  return ot::BinarySearch::Find(a1, a2, 6, 0x18u, ot::BinarySearch::Compare<char *,ot::Cli::Utils::CommandEntry<ot::Cli::Joiner>>, a6);
-}
-
-{
-  return ot::BinarySearch::Find<char *,ot::Cli::Utils::CommandEntry<ot::Cli::Joiner>,(unsigned short)6>(a1, a2, a3, a4, a5, a6);
-}
-
-uint64_t ot::Cli::Joiner::HandleCallback(ot::Cli::Utils *a1, int a2)
-{
-  if (!a2)
-  {
-    return ot::Cli::Utils::OutputLine(a1, "Join success");
-  }
-
-  v3 = otThreadErrorToString(a2);
-  return ot::Cli::Utils::OutputLine(a1, "Join failed [%s]", v3);
-}
-
-uint64_t ot::Cli::Utils::CommandEntry<ot::Cli::Joiner>::Compare(const char **a1, const char *a2)
-{
-  return strcmp(a2, *a1);
-}
-
-{
-  return ot::Cli::Utils::CommandEntry<ot::Cli::Joiner>::Compare(a1, a2);
-}
-
-uint64_t ot::Cli::NetworkData::NetworkData(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  ot::Cli::Utils::Utils(a1, a2, a3);
-  *(a1 + 16) = 0;
-  otBorderRouterSetNetDataFullCallback(a2, ot::Cli::NetworkData::HandleNetdataFull, a1);
-  return a1;
-}
-
-{
-  ot::Cli::NetworkData::NetworkData(a1, a2, a3);
-  return a1;
-}
-
-uint64_t ot::Cli::NetworkData::PrefixFlagsToString(uint64_t result, _BYTE *a2)
-{
-  v10 = a2;
-  if ((*(result + 17) & 4) != 0)
-  {
-    v10 = a2 + 1;
-    *a2 = 112;
-  }
-
-  if ((*(result + 17) & 8) != 0)
-  {
-    v2 = v10++;
-    *v2 = 97;
-  }
-
-  if ((*(result + 17) & 0x10) != 0)
-  {
-    v3 = v10++;
-    *v3 = 100;
-  }
-
-  if ((*(result + 17) & 0x20) != 0)
-  {
-    v4 = v10++;
-    *v4 = 99;
-  }
-
-  if ((*(result + 17) & 0x40) != 0)
-  {
-    v5 = v10++;
-    *v5 = 114;
-  }
-
-  if ((*(result + 17) & 0x80) != 0)
-  {
-    v6 = v10++;
-    *v6 = 111;
-  }
-
-  if ((*(result + 17) & 0x100) != 0)
-  {
-    v7 = v10++;
-    *v7 = 115;
-  }
-
-  if ((*(result + 17) & 0x200) != 0)
-  {
-    v8 = v10++;
-    *v8 = 110;
-  }
-
-  if ((*(result + 17) & 0x400) != 0)
-  {
-    v9 = v10++;
-    *v9 = 68;
-  }
-
-  *v10 = 0;
-  return result;
-}
-
-uint64_t ot::Cli::NetworkData::OutputPrefix(ot::Cli::Utils *a1, uint64_t a2)
-{
-  v6[0] = 0;
-  v6[1] = 0;
-  v7 = 0;
-  ot::Cli::Utils::OutputIp6Prefix(a1, a2);
-  ot::Cli::NetworkData::PrefixFlagsToString(a2, v6);
-  if (LOBYTE(v6[0]))
-  {
-    ot::Cli::Utils::OutputFormat(a1, " %s", v6);
-  }
-
-  v2 = ot::Cli::Utils::PreferenceToString(((*(a2 + 17) << 14) >> 14));
-  return ot::Cli::Utils::OutputLine(a1, " %s %04x", v2, *(a2 + 20));
-}
-
-uint64_t ot::Cli::NetworkData::RouteFlagsToString(uint64_t result, _BYTE *a2)
-{
-  v4 = a2;
-  if ((*(result + 20) & 8) != 0)
-  {
-    v4 = a2 + 1;
-    *a2 = 115;
-  }
-
-  if ((*(result + 20) & 4) != 0)
-  {
-    v2 = v4++;
-    *v2 = 110;
-  }
-
-  if ((*(result + 20) & 0x20) != 0)
-  {
-    v3 = v4++;
-    *v3 = 97;
-  }
-
-  *v4 = 0;
-  return result;
-}
-
-uint64_t ot::Cli::NetworkData::OutputRoute(ot::Cli::Utils *a1, uint64_t a2)
-{
-  v6[0] = 0;
-  v6[1] = 0;
-  v7 = 0;
-  ot::Cli::Utils::OutputIp6Prefix(a1, a2);
-  ot::Cli::NetworkData::RouteFlagsToString(a2, v6);
-  if (LOBYTE(v6[0]))
-  {
-    ot::Cli::Utils::OutputFormat(a1, " %s", v6);
-  }
-
-  v2 = ot::Cli::Utils::PreferenceToString(((*(a2 + 20) << 6) >> 6));
-  return ot::Cli::Utils::OutputLine(a1, " %s %04x", v2, *(a2 + 18));
-}
-
-uint64_t ot::Cli::NetworkData::OutputService(ot::Cli::Utils *a1, unsigned __int8 *a2)
-{
-  ot::Cli::Utils::OutputFormat(a1, "sid[%u] ", *a2);
-  v2 = ot::ToUlong(*(a2 + 1));
-  ot::Cli::Utils::OutputFormat(a1, "%lu ", v2);
-  ot::Cli::Utils::OutputBytes(a1, a2 + 9, a2[8]);
-  ot::Cli::Utils::OutputFormat(a1, " ");
-  ot::Cli::Utils::OutputBytes(a1, a2 + 264, a2[263]);
-  if (a2[262])
-  {
-    ot::Cli::Utils::OutputFormat(a1, " s");
-  }
-
-  return ot::Cli::Utils::OutputLine(a1, " %04x %u", *(a2 + 256), *a2);
-}
-
-uint64_t ot::Cli::NetworkData::Process<112625398707738ull>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v6 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-    Length = otNetDataGetLength(InstancePtr);
-    ot::Cli::Utils::OutputLine(a1, "%u", Length);
-  }
-
-  else
-  {
-    return 7;
-  }
-
-  return v6;
-}
-
-uint64_t ot::Cli::NetworkData::Process<4362819052862294378ull>(ot::Cli::Utils *a1, const char **a2)
-{
-  v7 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-    MaxLength = otNetDataGetMaxLength(InstancePtr);
-    ot::Cli::Utils::OutputLine(a1, "%u", MaxLength);
-  }
-
-  else if (ot::Utils::CmdLineParser::Arg::operator==(a2, "reset"))
-  {
-    v4 = ot::Cli::Utils::GetInstancePtr(a1);
-    otNetDataResetMaxLength(v4);
-  }
-
-  else
-  {
-    return 7;
-  }
-
-  return v7;
-}
-
-uint64_t ot::Cli::NetworkData::Process<3328099188798998309ull>(ot::Cli::Utils *a1, const char **a2)
-{
-  v10 = a1;
-  v9 = a2;
-  v8 = 0;
-  if (ot::Utils::CmdLineParser::Arg::operator==(a2, "check"))
-  {
-    v8 = ot::Cli::Utils::ParseJoinerDiscerner(v9 + 1, v6);
-    if (v8 == 23)
-    {
-      v7 = 0;
-      v8 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(v9 + 1, v11);
-    }
-
-    if (!v8)
-    {
-      if (v7)
-      {
-        InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-        return otNetDataSteeringDataCheckJoinerWithDiscerner(InstancePtr, v6);
-      }
-
-      else
-      {
-        v3 = ot::Cli::Utils::GetInstancePtr(a1);
-        return otNetDataSteeringDataCheckJoiner(v3, v11);
-      }
-    }
-  }
-
-  else
-  {
-    return 7;
-  }
-
-  return v8;
-}
-
-uint64_t ot::Cli::NetworkData::GetNextPrefix(ot::Cli::Utils *a1, unsigned int *a2, uint64_t a3, char a4)
-{
-  if (a4)
-  {
-    InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-    return otBorderRouterGetNextOnMeshPrefix(InstancePtr, a2, a3);
-  }
-
-  else
-  {
-    v5 = ot::Cli::Utils::GetInstancePtr(a1);
-    return otNetDataGetNextOnMeshPrefix(v5, a2, a3);
-  }
-}
-
-uint64_t ot::Cli::NetworkData::OutputNetworkData(ot::Cli::NetworkData *this, char a2, unsigned __int16 a3)
-{
-  v17 = this;
-  v16 = a2;
-  v15 = a3;
-  v14 = 0;
-  ot::Cli::Utils::OutputLine(this, "Prefixes:");
-  while (!ot::Cli::NetworkData::GetNextPrefix(this, &v14, v12, v16 & 1))
-  {
-    if (v15 == 0xFFFF || v15 == v13)
-    {
-      ot::Cli::NetworkData::OutputPrefix(this, v12);
-    }
-  }
-
-  ot::Cli::Utils::OutputLine(this, "Routes:");
-  v14 = 0;
-  while (!ot::Cli::NetworkData::GetNextRoute(this, &v14, v10, v16 & 1))
-  {
-    if (v15 == 0xFFFF || v15 == v11)
-    {
-      ot::Cli::NetworkData::OutputRoute(this, v10);
-    }
-  }
-
-  ot::Cli::Utils::OutputLine(this, "Services:");
-  v14 = 0;
-  while (1)
-  {
-    result = ot::Cli::NetworkData::GetNextService(this, &v14, v23, v16 & 1);
-    if (result)
-    {
-      break;
-    }
-
-    if (v15 == 0xFFFF || v15 == v24)
-    {
-      ot::Cli::NetworkData::OutputService(this, v23);
-    }
-  }
-
-  if ((v16 & 1) == 0 && v15 == 0xFFFF)
-  {
-    ot::Cli::Utils::OutputLine(this, "Contexts:");
-    v14 = 0;
-    while (1)
-    {
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-      if (otNetDataGetNextLowpanContextInfo(InstancePtr, &v14, v8))
-      {
-        break;
-      }
-
-      ot::Cli::Utils::OutputIp6Prefix(this, &v9);
-      if (v8[1])
-      {
-        v5 = 99;
-      }
-
-      else
-      {
-        v5 = 45;
-      }
-
-      ot::Cli::Utils::OutputLine(this, " %u %c", v8[0], v5);
-    }
-
-    v6 = ot::Cli::Utils::GetInstancePtr(this);
-    otNetDataGetCommissioningDataset(v6, v18);
-    ot::Cli::Utils::OutputLine(this, "Commissioning:");
-    if ((v22 & 2) != 0)
-    {
-      ot::Cli::Utils::OutputFormat(this, "%u ", v18[1]);
-    }
-
-    else
-    {
-      ot::Cli::Utils::OutputFormat(this, "- ");
-    }
-
-    if (v22)
-    {
-      ot::Cli::Utils::OutputFormat(this, "%04x ", v18[0]);
-    }
-
-    else
-    {
-      ot::Cli::Utils::OutputFormat(this, "- ");
-    }
-
-    if ((v22 & 8) != 0)
-    {
-      ot::Cli::Utils::OutputFormat(this, "%u ", v21);
-    }
-
-    else
-    {
-      ot::Cli::Utils::OutputFormat(this, "- ");
-    }
-
-    if ((v22 & 4) != 0)
-    {
-      ot::Cli::Utils::OutputBytes(this, &v20, v19);
-    }
-
-    else
-    {
-      ot::Cli::Utils::OutputFormat(this, "-");
-    }
-
-    if ((v22 & 0x10) != 0)
-    {
-      ot::Cli::Utils::OutputFormat(this, " e");
-    }
-
-    return ot::Cli::Utils::OutputNewLine(this);
-  }
-
-  return result;
-}
-
-uint64_t ot::Cli::NetworkData::GetNextRoute(ot::Cli::Utils *a1, unsigned int *a2, uint64_t a3, char a4)
-{
-  if (a4)
-  {
-    InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-    return otBorderRouterGetNextRoute(InstancePtr, a2, a3);
-  }
-
-  else
-  {
-    v5 = ot::Cli::Utils::GetInstancePtr(a1);
-    return otNetDataGetNextRoute(v5, a2, a3);
-  }
-}
-
-uint64_t ot::Cli::NetworkData::GetNextService(ot::Cli::Utils *a1, unsigned int *a2, uint64_t a3, char a4)
-{
-  if (a4)
-  {
-    InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-    return otServerGetNextService(InstancePtr, a2, a3);
-  }
-
-  else
-  {
-    v5 = ot::Cli::Utils::GetInstancePtr(a1);
-    return otNetDataGetNextService(v5, a2, a3);
-  }
-}
-
-uint64_t ot::Cli::NetworkData::OutputBinary(ot::Cli::NetworkData *this, char a2)
-{
-  v7 = this;
-  v6[8] = a2;
-  *&v6[1] = 0;
-  v6[0] = -1;
-  if (a2)
-  {
-    InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-    *&v6[1] = otBorderRouterGetNetData(InstancePtr, 0, v8, v6);
-  }
-
-  else
-  {
-    v3 = ot::Cli::Utils::GetInstancePtr(this);
-    *&v6[1] = otNetDataGet(v3, 0, v8, v6);
-  }
-
-  if (!*&v6[1])
-  {
-    ot::Cli::Utils::OutputBytesLine(this, v8, v6[0]);
-  }
-
-  return *&v6[1];
-}
-
-uint64_t ot::Cli::NetworkData::Process<1980428035ull>(ot::Cli::NetworkData *a1, uint64_t a2)
-{
-  v11 = a1;
-  v10 = a2;
-  v9 = 7;
-  v8 = -1;
-  v7 = 0;
-  v6 = 0;
-  for (i = 0; !ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 8 * i)); ++i)
-  {
-    if (ot::Utils::CmdLineParser::Arg::operator==((v10 + 8 * i), "local"))
-    {
-      v7 = 1;
-    }
-
-    else if (ot::Utils::CmdLineParser::Arg::operator==((v10 + 8 * i), "-x"))
-    {
-      v6 = 1;
-    }
-
-    else
-    {
-      v9 = ot::Utils::CmdLineParser::Arg::ParseAsUint16((v10 + 8 * i), &v8, v2);
-      if (v9)
-      {
-        return v9;
-      }
-    }
-  }
-
-  if ((v7 & 1) != 0 || (v6) && v8 != 0xFFFF)
-  {
-    return 7;
-  }
-
-  else if (v6)
-  {
-    return ot::Cli::NetworkData::OutputBinary(a1, v7 & 1);
-  }
-
-  else
-  {
-    ot::Cli::NetworkData::OutputNetworkData(a1, v7 & 1, v8);
-    return 0;
-  }
-}
-
-uint64_t ot::Cli::NetworkData::Process<109323266905330ull>(ot::Cli::Utils *a1, uint64_t a2)
-{
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-  DeviceRole = otThreadGetDeviceRole(InstancePtr);
-  v4 = otThreadDeviceRoleToString(DeviceRole);
-  if (!strcmp(v4, "disabled") || (v5 = ot::Cli::Utils::GetInstancePtr(a1), otThreadIsDeviceDetached(v5)))
-  {
-    v10 = 7;
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((a2 + 8)))
-    {
-      memset(__b, 0, sizeof(__b));
-      ot::Utils::CmdLineParser::Arg::CopyArgsToStringArray(a2, __b, v6);
-      strcpy(__dst, __b[0]);
-      v7 = strlen(__dst);
-      if (!ot::Cli::NetworkData::SetNetdata(a1, __dst, v7, 0, 0))
-      {
-        ot::Cli::NetworkData::OutputNetworkData(a1, 0, 0xFFFFu);
-        return 0;
-      }
-    }
-
-    else
-    {
-      return 7;
-    }
-  }
-
-  else
-  {
-    v10 = 13;
-    ot::Cli::Utils::OutputLine(a1, "Invalid state. To process this decode command , device must be in offline, detached or disabled state.");
-  }
-
-  return v10;
-}
-
-uint64_t ot::Cli::NetworkData::Process<1797841137ull>(ot::Cli::Utils *a1, const char **a2)
-{
-  v4 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    if (*(a1 + 16))
-    {
-      ot::Cli::Utils::OutputLine(a1, "yes", a1);
-    }
-
-    else
-    {
-      ot::Cli::Utils::OutputLine(a1, "no", a1);
-    }
-  }
-
-  else if (ot::Utils::CmdLineParser::Arg::operator==(a2, "reset"))
-  {
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((a2 + 1)))
-    {
-      *(a1 + 16) = 0;
-    }
-
-    else
-    {
-      return 7;
-    }
-  }
-
-  else
-  {
-    return 7;
-  }
-
-  return v4;
-}
-
-uint64_t ot::Cli::NetworkData::Process(ot::Cli::NetworkData *this, const char **a2)
-{
-  v17 = this;
-  v16 = a2;
-  v15 = 35;
-  v14 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2) || ot::Utils::CmdLineParser::Arg::operator==(v16, "help"))
-  {
-    ot::Cli::Utils::OutputCommandTable<ot::Cli::NetworkData,(unsigned short)7>(this, &ot::Cli::NetworkData::Process(ot::Utils::CmdLineParser::Arg *)::kCommands);
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty(v16))
-    {
-      return v15;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    CString = ot::Utils::CmdLineParser::Arg::GetCString(v16);
-    v14 = ot::BinarySearch::Find<char *,ot::Cli::Utils::CommandEntry<ot::Cli::NetworkData>,(unsigned short)7>(&CString, &ot::Cli::NetworkData::Process(ot::Utils::CmdLineParser::Arg *)::kCommands, v2, v3, v4, v5);
-    if (v14)
-    {
-      v9 = *(v14 + 1);
-      v6 = *(v14 + 2);
-      v10 = (this + (v6 >> 1));
-      if (v6)
-      {
-        return (*(*v10 + v9))(v10, v16 + 1);
-      }
-
-      else
-      {
-        return v9(v10, v16 + 1);
-      }
-    }
-  }
-
-  return v15;
-}
-
-uint64_t ot::Cli::Utils::OutputCommandTable<ot::Cli::NetworkData,(unsigned short)7>(uint64_t result, const char **a2)
-{
-  v2 = result;
-  v4 = a2;
-  v3 = a2 + 21;
-  while (v4 != v3)
-  {
-    result = ot::Cli::Utils::CommandEntry<ot::Cli::NetworkData>::Compare(v4, "reset");
-    if (result)
-    {
-      result = ot::Cli::Utils::OutputLine(v2, "%s", *v4);
-    }
-
-    v4 += 3;
-  }
-
-  return result;
-}
-
-{
-  return ot::Cli::Utils::OutputCommandTable<ot::Cli::NetworkData,(unsigned short)7>(result, a2);
-}
-
-char *ot::BinarySearch::Find<char *,ot::Cli::Utils::CommandEntry<ot::Cli::NetworkData>,(unsigned short)7>(ot::BinarySearch *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, int (*a6)(const void *, const void *))
-{
-  return ot::BinarySearch::Find(a1, a2, 7, 0x18u, ot::BinarySearch::Compare<char *,ot::Cli::Utils::CommandEntry<ot::Cli::NetworkData>>, a6);
-}
-
-{
-  return ot::BinarySearch::Find<char *,ot::Cli::Utils::CommandEntry<ot::Cli::NetworkData>,(unsigned short)7>(a1, a2, a3, a4, a5, a6);
-}
-
-uint64_t ot::Cli::NetworkData::HandleNetdataFull(uint64_t this)
-{
-  *(this + 16) = 1;
-  return this;
-}
-
-{
-  return ot::Cli::NetworkData::HandleNetdataFull(this);
-}
-
-uint64_t ot::Cli::Utils::CommandEntry<ot::Cli::NetworkData>::Compare(const char **a1, const char *a2)
-{
-  return strcmp(a2, *a1);
-}
-
-{
-  return ot::Cli::Utils::CommandEntry<ot::Cli::NetworkData>::Compare(a1, a2);
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorAssert(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  v6 = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  v6 = otPlatVendorGenerateAssert(InstancePtr, &v5);
-  if (!v6)
-  {
-    ot::Cli::Utils::OutputLine(this, "VendorAssert=%u", v5);
-  }
-
-  return v6;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorAssignedHwMac(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  v5 = this;
-  v9 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  AssignedHwMac = otPlatVendorGetAssignedHwMac(InstancePtr, &v9);
-  if (!AssignedHwMac)
-  {
-    v4[9] = v4;
-    ot::Cli::Utils::OutputLine(v5, "AssignedHWMac=%x:%x:%x:%x:%x:%x:%x:%x", v9, BYTE1(v9), BYTE2(v9), BYTE3(v9), BYTE4(v9), BYTE5(v9), BYTE6(v9), HIBYTE(v9));
-  }
-
-  return AssignedHwMac;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorHardFault(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  ot::Cli::Utils::GetInstancePtr(this);
-  HardFault = otPlatVendorGenerateHardFault();
-  if (!HardFault)
-  {
-    ot::Cli::Utils::OutputLine(this, "HardFault");
-  }
-
-  return HardFault;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorPower(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  Power = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  Power = otPlatVendorGetPower(InstancePtr, &v5);
-  if (!Power)
-  {
-    ot::Cli::Utils::OutputLine(this, " Power = %f dBm", v5 * 0.25);
-  }
-
-  return Power;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorPowerLimitTableVersion(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  PowerLimitTableVersion = otPlatVendorGetPowerLimitTableVersion(InstancePtr, v6, 60);
-  if (!PowerLimitTableVersion)
-  {
-    ot::Cli::Utils::OutputLine(this, "Version = %s", v6);
-  }
-
-  return PowerLimitTableVersion;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorPTB(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v15 = this;
-  v14 = a2;
-  v8 = this;
-  PTB = 0;
-  v12 = 1300;
-  v11 = v5;
-  v6 = 1312;
-  __chkstk_darwin(this);
-  v7 = &v5[-v6];
-  v10 = v2;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(v8);
-  PTB = otPlatVendorGetPTB(InstancePtr, v7, &v12);
-  if (!PTB)
-  {
-    ot::Cli::Utils::OutputLine(v8, "RCP2 PTB Read data response Size = %d", v12);
-    for (i = 0; i < v12; ++i)
-    {
-      ot::Cli::Utils::OutputLine(v8, "Byte[%d] = 0X%x", i, v7[i]);
-    }
-  }
-
-  return PTB;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorStackOverflow(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  ot::Cli::Utils::GetInstancePtr(this);
-  StackOverflow = otPlatVendorGenerateStackOverflow();
-  if (!StackOverflow)
-  {
-    ot::Cli::Utils::OutputLine(this, "StackOverflow");
-  }
-
-  return StackOverflow;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorVersion(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  Version = otPlatVendorGetVersion(InstancePtr, v6, 500);
-  if (!Version)
-  {
-    ot::Cli::Utils::OutputLine(this, "mVersion=%s", v6);
-  }
-
-  return Version;
-}
-
-uint64_t ot::Cli::Vendor::ProcessSetVendorAssert(ot::Cli::Vendor *this, ot::Utils::CmdLineParser **a2)
-{
-  v9 = this;
-  v8 = a2;
-  v7 = 0;
-  v6 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    return 7;
-  }
-
-  else
-  {
-    v7 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v8, &v6, v2);
-    if (!v7)
-    {
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-      v7 = otPlatVendorSetAssert(InstancePtr, v6);
-      if (!v7)
-      {
-        ot::Cli::Utils::OutputLine(this, "VendorAssert=%u", v6);
-      }
-    }
-  }
-
-  return v7;
-}
-
-uint64_t ot::Cli::Vendor::ProcessSetVendorAssignedHwMac(ot::Cli::Vendor *this, ot::Utils::CmdLineParser **a2)
-{
-  v9 = this;
-  v8 = a2;
-  v5 = this;
-  *v10 = 0x807060504030201;
-  v6 = 8;
-  v7 = ot::Utils::CmdLineParser::Arg::ParseAsHexString(a2, v10, 8u);
-  if (!v7)
-  {
-    InstancePtr = ot::Cli::Utils::GetInstancePtr(v5);
-    v7 = otPlatVendorSetAssignedHwMac(InstancePtr, v10);
-    if (!v7)
-    {
-      v4[9] = v4;
-      ot::Cli::Utils::OutputLine(v5, "AssignedHWMac=%x:%x:%x:%x:%x:%x:%x:%x", v10[0], v10[1], v10[2], v10[3], v10[4], v10[5], v10[6], v10[7]);
-    }
-  }
-
-  return v7;
-}
-
-uint64_t ot::Cli::Vendor::ProcessSetVendorPower(ot::Cli::Vendor *this, ot::Utils::CmdLineParser **a2)
-{
-  v9 = this;
-  v8 = a2;
-  v7 = 0;
-  v6 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    return 7;
-  }
-
-  else
-  {
-    v7 = ot::Utils::CmdLineParser::Arg::ParseAsInt8(v8, &v6, v2);
-    if (!v7)
-    {
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-      v7 = otPlatVendorSetPower(InstancePtr, &v6);
-      if (!v7)
-      {
-        ot::Cli::Utils::OutputLine(this, " Setting Power as %f dBm", v6 * 0.25);
-      }
-    }
-  }
-
-  return v7;
-}
-
-uint64_t ot::Cli::Vendor::ProcessHelp(ot::Cli::Vendor *this)
-{
-  v9 = &ot::Cli::Vendor::sGetCommands;
-  v8 = &ot::Cli::Vendor::sGetCommands;
-  v7 = 9;
-  v6 = 4;
-  ot::Cli::Utils::GetInstancePtr(this);
-  if (otPlatRadioGetRcp2Vendor2Enabled())
-  {
-    v9 = &ot::Cli::Vendor::sGetCommandsProxima;
-    v8 = &ot::Cli::Vendor::sSetCommandsProxima;
-    v7 = 3;
-    v6 = 2;
-  }
-
-  ot::Cli::Utils::OutputLine(this, "GET PROPERTIES:", this);
-  for (i = 0; i < v7; ++i)
-  {
-    ot::Cli::Utils::OutputLine(v3, v9[3 * i]);
-  }
-
-  ot::Cli::Utils::OutputLine(v3, "");
-  ot::Cli::Utils::OutputLine(v3, "SET PROPERTIES:");
-  for (j = 0; j < v6; ++j)
-  {
-    ot::Cli::Utils::OutputLine(v3, v8[3 * j]);
-  }
-
-  return 0;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGet(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v14 = 35;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    ot::Cli::Vendor::ProcessHelp(this);
-    IgnoreError();
-    return 0;
-  }
-
-  else
-  {
-    CString = ot::Utils::CmdLineParser::Arg::GetCString(a2);
-    v13 = ot::Utils::LookupTable::Find<ot::Cli::Vendor::Command,(unsigned short)9>(CString, &ot::Cli::Vendor::sGetCommands, v3, v4, v5, v6);
-    if (v13)
-    {
-      v10 = *(v13 + 1);
-      v7 = *(v13 + 2);
-      v11 = (this + (v7 >> 1));
-      if (v7)
-      {
-        return (*(*v11 + v10))(v11, a2 + 8);
-      }
-
-      else
-      {
-        return v10(v11, a2 + 8);
-      }
-    }
-  }
-
-  return v14;
-}
-
-const char *ot::Utils::LookupTable::Find<ot::Cli::Vendor::Command,(unsigned short)9>(ot::Utils::LookupTable *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, const char *(*a6)(const void *))
-{
-  return ot::Utils::LookupTable::Find(a1, a2, 9, 0x18u, ot::Utils::LookupTable::GetName<ot::Cli::Vendor::Command>, a6);
-}
-
-{
-  return ot::Utils::LookupTable::Find<ot::Cli::Vendor::Command,(unsigned short)9>(a1, a2, a3, a4, a5, a6);
-}
-
-uint64_t ot::Cli::Vendor::ProcessSet(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v14 = 35;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    ot::Cli::Vendor::ProcessHelp(this);
-    IgnoreError();
-    return 0;
-  }
-
-  else
-  {
-    CString = ot::Utils::CmdLineParser::Arg::GetCString(a2);
-    v13 = ot::Utils::LookupTable::Find<ot::Cli::Vendor::Command,(unsigned short)4>(CString, &ot::Cli::Vendor::sSetCommands, v3, v4, v5, v6);
-    if (v13)
-    {
-      v10 = *(v13 + 1);
-      v7 = *(v13 + 2);
-      v11 = (this + (v7 >> 1));
-      if (v7)
-      {
-        return (*(*v11 + v10))(v11, a2 + 8);
-      }
-
-      else
-      {
-        return v10(v11, a2 + 8);
-      }
-    }
-  }
-
-  return v14;
-}
-
-const char *ot::Utils::LookupTable::Find<ot::Cli::Vendor::Command,(unsigned short)4>(ot::Utils::LookupTable *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, const char *(*a6)(const void *))
-{
-  return ot::Utils::LookupTable::Find(a1, a2, 4, 0x18u, ot::Utils::LookupTable::GetName<ot::Cli::Vendor::Command>, a6);
-}
-
-{
-  return ot::Utils::LookupTable::Find<ot::Cli::Vendor::Command,(unsigned short)4>(a1, a2, a3, a4, a5, a6);
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorPeek(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v12 = this;
-  v11 = a2;
-  v10 = 0;
-  v9 = 0;
-  v8[2] = 0;
-  *v8 = ot::Utils::CmdLineParser::Arg::GetArgsLength(a2, a2);
-  if (v8[0] != 2)
-  {
-    ot::Cli::Utils::OutputLine(this, "Usage: get peek [address:32-bit] [count:16-bit]");
-  }
-
-  v10 = ot::Utils::CmdLineParser::Arg::ParseAsUint32(v11, &v9, v2);
-  if (!v10)
-  {
-    v10 = ot::Utils::CmdLineParser::Arg::ParseAsUint16(v11 + 1, &v8[1], v3);
-    if (!v10)
-    {
-      v7 = 0;
-      v10 = otPlatPeek(v13, &v7, v9, *&v8[1]);
-      ot::Cli::Utils::OutputLine(this, "BytesRead=%u", v7);
-      for (i = 0; i < v7; ++i)
-      {
-        ot::Cli::Utils::OutputLine(this, "Byte[%d]=%x", i, v13[i]);
-      }
-    }
-  }
-
-  return v10;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorCoexRx(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  CoexRxMode = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  CoexRxMode = otPlatVendorGetCoexRxMode(InstancePtr, &v5);
-  if (!CoexRxMode)
-  {
-    switch(v5)
-    {
-      case 1u:
-        ot::Cli::Utils::OutputLine(this, "COEX_RX_REQUEST_MODE_RESERVED");
-        break;
-      case 2u:
-        ot::Cli::Utils::OutputLine(this, "COEX_RX_REQUEST_MODE_PREAMBLE");
-        break;
-      case 3u:
-        ot::Cli::Utils::OutputLine(this, "COEX_RX_REQUEST_MODE_DESTINED");
-        break;
-      case 4u:
-        ot::Cli::Utils::OutputLine(this, "COEX_RX_REQUEST_MODE_MIXED");
-        break;
-      default:
-        ot::Cli::Utils::OutputLine(this, "Unknown Rx Coex Mode");
-        break;
-    }
-  }
-
-  return CoexRxMode;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorCoexRxUpperBound(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  CoexRxMixedModeUpperBound = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  CoexRxMixedModeUpperBound = otPlatVendorGetCoexRxMixedModeUpperBound(InstancePtr, &v5);
-  if (!CoexRxMixedModeUpperBound)
-  {
-    ot::Cli::Utils::OutputLine(this, "Upper bound threshold=%u", v5);
-  }
-
-  return CoexRxMixedModeUpperBound;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorCoexRxLowerBound(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  CoexRxMixedModeLowerBound = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  CoexRxMixedModeLowerBound = otPlatVendorGetCoexRxMixedModeLowerBound(InstancePtr, &v5);
-  if (!CoexRxMixedModeLowerBound)
-  {
-    ot::Cli::Utils::OutputLine(this, "Lower bound threshold=%u", v5);
-  }
-
-  return CoexRxMixedModeLowerBound;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorCoexTx(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  CoexTxMode = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  CoexTxMode = otPlatVendorGetCoexTxMode(InstancePtr, &v5);
-  if (!CoexTxMode)
-  {
-    switch(v5)
-    {
-      case 1u:
-        ot::Cli::Utils::OutputLine(this, "COEX_TX_REQUEST_MODE_FRAME_READY");
-        break;
-      case 2u:
-        ot::Cli::Utils::OutputLine(this, "COEX_TX_REQUEST_MODE_CCA_START");
-        break;
-      case 3u:
-        ot::Cli::Utils::OutputLine(this, "COEX_TX_REQUEST_MODE_EVERY_CCA_START");
-        break;
-      case 4u:
-        ot::Cli::Utils::OutputLine(this, "COEX_TX_REQUEST_MODE_BEFORE_CCA_REQ_TOGGLE");
-        break;
-      default:
-        ot::Cli::Utils::OutputLine(this, "Unknown COEX_TX_REQUEST_MODE");
-        break;
-    }
-  }
-
-  return CoexTxMode;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorIfsMode(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  IfsMode = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  IfsMode = otPlatVendorGetIfsMode(InstancePtr, &v5);
-  if (!IfsMode)
-  {
-    ot::Cli::Utils::OutputLine(this, "IFSMode=%u", v5);
-  }
-
-  return IfsMode;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorIfsMinSifs(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  IfsMinSifs = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  IfsMinSifs = otPlatVendorGetIfsMinSifs(InstancePtr, &v5);
-  if (!IfsMinSifs)
-  {
-    ot::Cli::Utils::OutputLine(this, "MinSIFS=%u", v5);
-  }
-
-  return IfsMinSifs;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorIfsMinLifs(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  IfsMinLifs = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  IfsMinLifs = otPlatVendorGetIfsMinLifs(InstancePtr, &v5);
-  if (!IfsMinLifs)
-  {
-    ot::Cli::Utils::OutputLine(this, "MinLIFS=%u", v5);
-  }
-
-  return IfsMinLifs;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorGetIfsAckTurnAroundTime(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  IfsAckTurnAroundTime = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  IfsAckTurnAroundTime = otPlatVendorGetIfsAckTurnAroundTime(InstancePtr, &v5);
-  if (!IfsAckTurnAroundTime)
-  {
-    ot::Cli::Utils::OutputLine(this, "AckTurnAroundTime=%u", v5);
-    persist_ifs_ackturnaround_time();
-  }
-
-  return IfsAckTurnAroundTime;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorGetIfsAckTurnAroundMode(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  IfsAckTurnAroundMode = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  IfsAckTurnAroundMode = otPlatVendorGetIfsAckTurnAroundMode(InstancePtr, &v5);
-  if (!IfsAckTurnAroundMode)
-  {
-    ot::Cli::Utils::OutputLine(this, "AckTurnAroundMode=%u", v5);
-    persist_ifs_ackturnaround_mode();
-  }
-
-  return IfsAckTurnAroundMode;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorGetIfsAckTurnAroundEnable(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  IfsAckTurnAroundEnable = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  IfsAckTurnAroundEnable = otPlatVendorGetIfsAckTurnAroundEnable(InstancePtr, &v5);
-  if (!IfsAckTurnAroundEnable)
-  {
-    ot::Cli::Utils::OutputLine(this, "AckTurnAroundEnable=%u", v5);
-    persist_ifs_ackturnaround_enable();
-  }
-
-  return IfsAckTurnAroundEnable;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorIfsAckDataPerNeighbor(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v9 = __chkstk_darwin(this);
-  v8 = v2;
-  v4 = v9;
-  IfsAckDataPerNeighbor = 0;
-  v6 = 0;
-  IfsAckDataPerNeighbor = otPlatVendorGetIfsAckDataPerNeighbor(v10, &v6);
-  if (!IfsAckDataPerNeighbor)
-  {
-    for (i = 0; i < v6; ++i)
-    {
-      ot::Cli::Utils::OutputFormat(v4, "[%u] Neighbor Short Address = %04x | Bit field = %04x", i, v10[57 * i], v10[57 * i + 5]);
-      ot::Cli::Utils::OutputFormat(v4, " | Extended Address = ");
-      ot::Cli::Utils::OutputExtAddress(v4, &v10[57 * i + 1]);
-      ot::Cli::Utils::OutputFormat(v4, " | IE data = ");
-      ot::Cli::Utils::OutputBytesLine(v4, &v10[57 * i + 6], v10[57 * i + 56]);
-    }
-  }
-
-  return IfsAckDataPerNeighbor;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorOtRadioCounters(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  OpenThreadRadioCounters = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  OpenThreadRadioCounters = otPlatVendorGetOpenThreadRadioCounters(InstancePtr, v5);
-  if (!OpenThreadRadioCounters)
-  {
-    ot::Cli::Utils::OutputLine(this, "TransmittedFrames=%u", v5[0]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorTimeslotEnded=%u", v5[1]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorTimeslotDenied=%u", v5[2]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorBusyChannelCcaNotStarted=%u", v5[3]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorChannelAccessCcaBusy=%u", v5[4]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorChannelAccessFailure=%u", v5[5]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorTxAborted=%u", v5[6]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorTxAbortedCsmaCfgBackoff=%u", v5[7]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorTxAbortedCsmaBackoff=%u", v5[8]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorTxAbortedCsmaPrepare=%u", v5[9]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorTxAbortedIfs=%u", v5[10]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorTxAbortedRxAck=%u", v5[11]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorTxAbortedCcaTx=%u", v5[12]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorTxAbortedTx=%u", v5[13]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorNotGranted=%u", v5[14]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorInvalidAck=%u", v5[15]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorNoAck=%u", v5[16]);
-    ot::Cli::Utils::OutputLine(this, "TxErrorAckNoMem=%u", v5[17]);
-    ot::Cli::Utils::OutputLine(this, "ReceivedFrames=%u", v5[18]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorReceiveFailed=%u", v5[19]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorInvalidFrame=%u", v5[20]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorDelayedTimeout=%u", v5[21]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorInvalidFcs=%u", v5[22]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorDestAddrFiltered=%u", v5[24]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorRuntimeDelay=%u", v5[25]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorTimeslotEnded=%u", v5[26]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorAborted=%u", v5[27]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorDelayedTimeslotEnded=%u", v5[28]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorInvalidLength=%u", v5[29]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorInvalidData=%u", v5[30]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorAckFailedRadioState[PATH_0]=%u", v5[31]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorAckFailedRadioDelay[PATH_0]=%u", v5[33]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorAckDenied[PATH_0]=%u", v5[35]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorAckAborted[PATH_0]=%u", v5[37]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorAckFailedRadioState[PATH_1]=%u", v5[32]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorAckFailedRadioDelay[PATH_1]=%u", v5[34]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorAckDenied[PATH_1]=%u", v5[36]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorAckAborted[PATH_1]=%u", v5[38]);
-    ot::Cli::Utils::OutputLine(this, "RxErrorInvalidFcsWhenSwitchingRadioPath=%u", v5[23]);
-    ot::Cli::Utils::OutputLine(this, "SleepState=%u", v5[39]);
-    ot::Cli::Utils::OutputLine(this, "EnergyDetectedRequests=%u", v5[40]);
-    ot::Cli::Utils::OutputLine(this, "EnergyDetectedEvents=%u", v5[41]);
-    ot::Cli::Utils::OutputLine(this, "Radio status double notification events=%u", v5[42]);
-  }
-
-  return OpenThreadRadioCounters;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorRadioCounters(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  RadioCounters = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  RadioCounters = otPlatVendorGetRadioCounters(InstancePtr, v5);
-  if (!RadioCounters)
-  {
-    ot::Cli::Utils::OutputLine(this, "CcaFailedAttempts=%u", v5[0]);
-    ot::Cli::Utils::OutputLine(this, "ReceivedFrames=%u", v5[1]);
-    ot::Cli::Utils::OutputLine(this, "ReceivedEnergyEvents=%u", v5[2]);
-    ot::Cli::Utils::OutputLine(this, "ReceivedPreambles=%u", v5[3]);
-  }
-
-  return RadioCounters;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetMSFState(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  MSFState = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  MSFState = otPlatVendorGetMSFState(InstancePtr, &v5);
-  if (!MSFState)
-  {
-    if (v5)
-    {
-      ot::Cli::Utils::OutputLine(this, "MSF loaded", this);
-    }
-
-    else
-    {
-      ot::Cli::Utils::OutputLine(this, "MSF not loaded", this);
-    }
-  }
-
-  return MSFState;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorFaultInfo(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v9 = this;
-  v8 = a2;
-  FaultInfo = 0;
-  v5 = 0u;
-  v6 = 0u;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  FaultInfo = otPlatVendorGetFaultInfo(InstancePtr, &v5);
-  if (!FaultInfo)
-  {
-    ot::Cli::Utils::OutputLine(this, "Address=%u", v6);
-    ot::Cli::Utils::OutputLine(this, "Line=%u", DWORD1(v6));
-    ot::Cli::Utils::OutputLine(this, "RandomId=%u", v5);
-    ot::Cli::Utils::OutputLine(this, "CrashCount=%u", WORD4(v6));
-    ot::Cli::Utils::OutputLine(this, "CrashType=%u", DWORD1(v5));
-    ot::Cli::Utils::OutputLine(this, "Timestamp=%u", DWORD2(v5));
-  }
-
-  return FaultInfo;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorDeepSleepFilterList(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v9 = this;
-  v8 = a2;
-  DeepSleepFilterList = 0;
-  v6 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  DeepSleepFilterList = otPlatVendorGetDeepSleepFilterList(InstancePtr, v10, &v6);
-  if (!DeepSleepFilterList)
-  {
-    for (i = 0; i < v6; ++i)
-    {
-      ot::Cli::Utils::OutputLine(this, "DeepSleepFilterList=%u", v10[i]);
-    }
-  }
-
-  return DeepSleepFilterList;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorDeepSleepLogLevel(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  DeepSleepLogLevel = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  DeepSleepLogLevel = otPlatVendorGetDeepSleepLogLevel(InstancePtr, &v5);
-  if (!DeepSleepLogLevel)
-  {
-    ot::Cli::Utils::OutputLine(this, "DeepSleepLogLevel=%u", v5);
-  }
-
-  return DeepSleepLogLevel;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorDeepSleepRegionLogLevels(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v9 = this;
-  v8 = a2;
-  DeepSleepRegionLogLevels = 0;
-  v6 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  DeepSleepRegionLogLevels = otPlatVendorGetDeepSleepRegionLogLevels(InstancePtr, v10, &v6);
-  if (!DeepSleepRegionLogLevels)
-  {
-    for (i = 0; i < v6; ++i)
-    {
-      ot::Cli::Utils::OutputLine(this, "%u", v10[i]);
-    }
-  }
-
-  return DeepSleepRegionLogLevels;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorLastHostWakeReason(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  HostWakeReason = 0;
-  v5 = 0;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  HostWakeReason = otPlatVendorGetHostWakeReason(InstancePtr, &v5);
-  if (!HostWakeReason)
-  {
-    ot::Cli::Utils::OutputLine(this, "HostWakeReason=%u", v5);
-  }
-
-  return HostWakeReason;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorDeviceId(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v8 = this;
-  v7 = a2;
-  v5 = this;
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  DeviceId = otPlatVendorGetDeviceId(InstancePtr, v9);
-  if (!DeviceId)
-  {
-    v4[10] = v4;
-    ot::Cli::Utils::OutputLine(v5, "%x:%x:%x:%x:%x:%x:%x:%x", v9[0], v9[1], v9[2], v9[3], v9[4], v9[5], v9[6], v9[7]);
-  }
-
-  return DeviceId;
-}
-
-uint64_t ot::Cli::Vendor::ProcessGetVendorNcpStateDump(ot::Cli::Vendor *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v33 = this;
-  v32 = a2;
-  CoexGrantTimeout = 0;
-  ot::Cli::Utils::OutputLine(this, "RCP State Dump");
-  InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-  State = otBorderAgentGetState(InstancePtr);
-  ot::Cli::Utils::OutputFormat(this, "Border Agent State=%d\n", State);
-  v29 = 0;
-  ot::Cli::Utils::OutputFormat(this, "Role=");
-  v3 = ot::Cli::Utils::GetInstancePtr(this);
-  DeviceRole = otThreadGetDeviceRole(v3);
-  v5 = otThreadDeviceRoleToString(DeviceRole);
-  ot::Cli::Utils::OutputLine(this, "%s", v5);
-  ot::Cli::Utils::OutputFormat(this, "\nRLOC16=");
-  v6 = ot::Cli::Utils::GetInstancePtr(this);
-  Rloc = otThreadGetRloc(v6);
-  ot::Cli::Utils::OutputIp6Address(this, Rloc);
-  v8 = ot::Cli::Utils::GetInstancePtr(this);
-  v20 = otJoinerGetState(v8);
-  if (v20)
-  {
-    switch(v20)
-    {
-      case 1:
-        ot::Cli::Utils::OutputFormat(this, "\nJOINER_STATE: %s", "discover");
-        break;
-      case 2:
-        ot::Cli::Utils::OutputFormat(this, "\nJOINER_STATE: %s", "connecting");
-        break;
-      case 3:
-        ot::Cli::Utils::OutputFormat(this, "\nJOINER_STATE: %s", "connected");
-        break;
-      case 4:
-        ot::Cli::Utils::OutputFormat(this, "\nJOINER_STATE: %s", "entrust");
-        break;
-      case 5:
-        ot::Cli::Utils::OutputFormat(this, "\nJOINER_STATE: %s", "joined");
-        break;
-      default:
-        ot::Cli::Utils::OutputFormat(this, "\nJOINER_STATE: unknown");
-        break;
-    }
-  }
-
-  else
-  {
-    ot::Cli::Utils::OutputFormat(this, "\nJOINER_STATE: %s", "idle");
-  }
-
-  v28 = 0;
-  v9 = ot::Cli::Utils::GetInstancePtr(this);
-  v19 = otCommissionerGetState(v9);
-  if (v19)
-  {
-    if (v19 == 1)
-    {
-      v28 = 1;
-    }
-
-    else if (v19 == 2)
-    {
-      v28 = 2;
-    }
-  }
-
-  else
-  {
-    v28 = 0;
-  }
-
-  ot::Cli::Utils::OutputFormat(this, "\nMESHCOP_COMMISSIONER_STATE: %d", v28);
-  ot::Cli::Utils::OutputFormat(this, "\nIPV6_ADDRESS_TABLE: \n");
-  v10 = ot::Cli::Utils::GetInstancePtr(this);
-  for (i = otIp6GetUnicastAddresses(v10); i; i = *(i + 24))
-  {
-    ot::Cli::Utils::OutputIp6Address(this, i);
-    ot::Cli::Utils::OutputFormat(this, "Prefix Length=%d", *(i + 16));
-    if (*(i + 18))
-    {
-      v11 = -1;
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
-    ot::Cli::Utils::OutputFormat(this, "Preferred:%d", v11);
-    if ((*(i + 18) & 2) != 0)
-    {
-      v12 = -1;
-    }
-
-    else
-    {
-      v12 = 0;
-    }
-
-    ot::Cli::Utils::OutputFormat(this, "Valid:%d\n", v12);
-  }
-
-  ot::Cli::Utils::OutputFormat(this, "\nMSG_BUFFER_COUNTERS\n");
-  v13 = ot::Cli::Utils::GetInstancePtr(this);
-  otMessageGetBufferInfo(v13, v26);
-  ot::Cli::Utils::OutputFormat(this, "\nmTotalBuffers:%u", v26[0]);
-  ot::Cli::Utils::OutputFormat(this, "\nmFreeBuffers:%u", v26[1]);
-  ot::Cli::Utils::OutputFormat(this, "\nm6loSendMessages:%u", v26[4]);
-  ot::Cli::Utils::OutputFormat(this, "\nm6loSendBuffers:%u", v26[5]);
-  ot::Cli::Utils::OutputFormat(this, "\nm6loReassemblyMessages:%u", v26[8]);
-  ot::Cli::Utils::OutputFormat(this, "\nm6loReassemblyBuffers:%u", v26[9]);
-  ot::Cli::Utils::OutputFormat(this, "\nmIp6Messages:%u", v26[12]);
-  ot::Cli::Utils::OutputFormat(this, "\nmIp6Buffers:%u", v26[13]);
-  ot::Cli::Utils::OutputFormat(this, "\nmMplMessages:%u", v26[16]);
-  ot::Cli::Utils::OutputFormat(this, "\nmMplBuffers:%u", v26[17]);
-  ot::Cli::Utils::OutputFormat(this, "\nmMleMessages:%u", v26[20]);
-  ot::Cli::Utils::OutputFormat(this, "\nmMleBuffers:%u", v26[21]);
-  ot::Cli::Utils::OutputFormat(this, "\nmCoapMessages:%u", v26[24]);
-  ot::Cli::Utils::OutputFormat(this, "\nmCoapBuffers:%u", v26[25]);
-  ot::Cli::Utils::OutputFormat(this, "\nNeighbor Info\n");
-  while (1)
-  {
-    v14 = ot::Cli::Utils::GetInstancePtr(this);
-    if (otThreadGetNextNeighborInfo(v14, &v29, v35))
-    {
-      break;
-    }
-
-    ot::Cli::Utils::OutputFormat(this, " neighInfo.mIsChild:%u", (v39 & 8) != 0);
-    ot::Cli::Utils::OutputFormat(this, " neighInfo.mRloc16:%u", v36);
-    ot::Cli::Utils::OutputFormat(this, " neighInfo.mAverageRssi:%u", v37);
-    ot::Cli::Utils::OutputFormat(this, " neighInfo.mLastRssi:%u", v38);
-  }
-
-  ot::Cli::Utils::OutputFormat(this, "\nLEADER_NETWORK_DATA\n");
-  v25 = -1;
-  v15 = ot::Cli::Utils::GetInstancePtr(this);
-  otNetDataGet(v15, 0, v34, &v25);
-  IgnoreError();
-  for (j = 0; j < v25; ++j)
-  {
-    ot::Cli::Utils::OutputFormat(this, "%x", v34[j]);
-  }
-
-  ot::Cli::Utils::OutputFormat(this, "\nMLE_COUNTERS\n");
-  v16 = ot::Cli::Utils::GetInstancePtr(this);
-  MleCounters = otThreadGetMleCounters(v16);
-  if (!MleCounters)
-  {
-    __assert_rtn("ProcessGetVendorNcpStateDump", "cli_vendor.cpp", 1424, "counters != nullptr");
-  }
-
-  ot::Cli::Utils::OutputFormat(this, "\ncounters->mDisabledRole:%u", *MleCounters);
-  ot::Cli::Utils::OutputFormat(this, "\ncounters->mDetachedRole:%u", MleCounters[1]);
-  ot::Cli::Utils::OutputFormat(this, "\ncounters->mChildRole:%u", MleCounters[2]);
-  ot::Cli::Utils::OutputFormat(this, "\ncounters->mRouterRole:%u", MleCounters[3]);
-  ot::Cli::Utils::OutputFormat(this, "\ncounters->mLeaderRole:%u", MleCounters[4]);
-  ot::Cli::Utils::OutputFormat(this, "\ncounters->mAttachAttempts:%u", MleCounters[5]);
-  ot::Cli::Utils::OutputFormat(this, "\ncounters->mPartitionIdChanges:%u", MleCounters[6]);
-  ot::Cli::Utils::OutputFormat(this, "\ncounters->mBetterPartitionAttachAttempts:%u", MleCounters[7]);
-  ot::Cli::Utils::OutputFormat(this, "\ncounters->mParentChanges:%u", MleCounters[32]);
-  v22 = 0;
-  v17 = ot::Cli::Utils::GetInstancePtr(this);
-  CoexGrantTimeout = otPlatVendorGetCoexGrantTimeout(v17, &v22);
-  if (!CoexGrantTimeout)
-  {
-    ot::Cli::Utils::OutputFormat(this, "\nCoexGrantTimeout:%u", v22);
-  }
-
-  return CoexGrantTimeout;
-}
-
-uint64_t ot::Cli::Vendor::ProcessSetVendorCoexRx(ot::Cli::Vendor *this, ot::Utils::CmdLineParser **a2)
-{
-  v9 = this;
-  v8 = a2;
-  v7 = 0;
-  v6 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    return 7;
-  }
-
-  else
-  {
-    v7 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v8, &v6, v2);
-    if (!v7)
-    {
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-      v7 = otPlatVendorSetCoexRxMode(InstancePtr, v6);
-      if (!v7)
-      {
-        persist_coex_rxmode();
-      }
-    }
-  }
-
-  return v7;
-}
-
-uint64_t ot::Cli::Vendor::ProcessSetVendorCoexRxUpperBound(ot::Cli::Vendor *this, ot::Utils::CmdLineParser **a2)
-{
-  v9 = this;
-  v8 = a2;
-  v7 = 0;
-  v6 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    return 7;
-  }
-
-  else
-  {
-    v7 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v8, &v6, v2);
-    if (!v7)
-    {
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-      v7 = otPlatVendorSetCoexRxMixedModeUpperBound(InstancePtr, v6);
-      if (!v7)
-      {
-        persist_coex_rxthresholdUpperBound();
-      }
-    }
-  }
-
-  return v7;
-}
-
-uint64_t ot::Cli::Vendor::ProcessSetVendorCoexRxLowerBound(ot::Cli::Vendor *this, ot::Utils::CmdLineParser **a2)
-{
-  v9 = this;
-  v8 = a2;
-  v7 = 0;
-  v6 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    return 7;
-  }
-
-  else
-  {
-    v7 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v8, &v6, v2);
-    if (!v7)
-    {
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-      v7 = otPlatVendorSetCoexRxMixedModeLowerBound(InstancePtr, v6);
-      if (!v7)
-      {
-        persist_coex_rxthresholdLowerBound();
-      }
-    }
-  }
-
-  return v7;
-}
-
-uint64_t ot::Cli::Vendor::ProcessSetVendorCoexTx(ot::Cli::Vendor *this, ot::Utils::CmdLineParser **a2)
-{
-  v9 = this;
-  v8 = a2;
-  v7 = 0;
-  v6 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    return 7;
-  }
-
-  else
-  {
-    v7 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v8, &v6, v2);
-    if (!v7)
-    {
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-      v7 = otPlatVendorSetCoexTxMode(InstancePtr, v6);
-      if (!v7)
-      {
-        persist_coex_txmode();
-      }
-    }
-  }
-
-  return v7;
-}
-
-uint64_t ot::Cli::Vendor::ProcessSetVendorIfsMode(ot::Cli::Vendor *this, ot::Utils::CmdLineParser **a2)
-{
-  v9 = this;
-  v8 = a2;
-  v7 = 0;
-  v6 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    return 7;
-  }
-
-  else
-  {
-    v7 = ot::Utils::CmdLineParser::Arg::ParseAsUint8(v8, &v6, v2);
-    if (!v7)
-    {
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-      v7 = otPlatVendorSetIfsMode(InstancePtr, v6);
-      if (!v7)
-      {
-        ot::Cli::Utils::OutputLine(this, "IFSMode=%u", v6);
-      }
-    }
-  }
-
-  return v7;
-}
-
-uint64_t ot::Cli::Vendor::ProcessSetVendorIfsMinSifs(ot::Cli::Vendor *this, ot::Utils::CmdLineParser **a2)
-{
-  v9 = this;
-  v8 = a2;
-  v7 = 0;
-  v6 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    return 7;
-  }
-
-  else
-  {
-    v7 = ot::Utils::CmdLineParser::Arg::ParseAsUint16(v8, &v6, v2);
-    if (!v7)
-    {
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(this);
-      v7 = otPlatVendorSetIfsMinSifs(InstancePtr, v6);
-      if (!v7)
-      {
-        ot::Cli::Utils::OutputLine(this, "MinSIFS=%u", v6);
-      }
-    }
-  }
-
-  return v7;
 }

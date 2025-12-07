@@ -24,12 +24,15 @@
 - (unsigned)addGroupNodeForNodes:(const unsigned int *)nodes count:(unsigned int)count;
 - (unsigned)addNode;
 - (unsigned)edgeCount;
+- (unsigned)enumerateEdgesOfNode:(unsigned int)node withBlock:(id)block;
 - (unsigned)enumerateEdgesWithBlock:(id)block;
 - (unsigned)enumerateMembersOfGroupNode:(unsigned int)node withBlock:(id)block;
 - (unsigned)enumerateNodesWithBlock:(id)block;
 - (unsigned)parentGroupForNode:(unsigned int)node;
 - (unsigned)pointerSize;
 - (unsigned)reverseEnumerateNodesWithBlock:(id)block;
+- (void)_bfsCore:(unsigned int)core colors:(char *)colors visitBlock:(id)block examineBlock:(id)examineBlock;
+- (void)_dfsCore:(unsigned int)core colors:(char *)colors visitBlock:(id)block examineBlock:(id)examineBlock;
 - (void)_dumpAdjacencyList;
 - (void)_faultDeadNodeMap;
 - (void)_internalAccessRawEdgesWithBlock:(id)block;
@@ -38,8 +41,11 @@
 - (void)_renameWithNodeMap:(unsigned int *)map nodeNamespace:(unsigned int)namespace edgeMap:(unsigned int *)edgeMap edgeNamespace:(unsigned int)edgeNamespace;
 - (void)_renormalize;
 - (void)_reorderEdgesNaturally;
+- (void)_searchMainLoop:(unsigned int)loop action:(id)action;
 - (void)archiveDictionaryRepresentation:(id)representation options:(unint64_t)options;
+- (void)breadthFirstSearch:(unsigned int)search nodeVisitBlock:(id)block edgeVisitBlock:(id)visitBlock;
 - (void)dealloc;
+- (void)depthFirstSearch:(unsigned int)search nodeVisitBlock:(id)block edgeVisitBlock:(id)visitBlock;
 - (void)invertEdges;
 - (void)removeMarkedEdges:(void *)edges;
 - (void)removeMarkedNodes:(void *)nodes;
@@ -194,20 +200,8 @@ LABEL_22:
 + (void)_copyUnarchived:(id)unarchived length:(unint64_t *)length options:(unint64_t)options
 {
   unarchivedCopy = unarchived;
-  if ([unarchivedCopy length] <= 0xF)
+  if ([unarchivedCopy length] <= 0xF || ((objc_msgSend(MEMORY[0x1E695DF00], "timeIntervalSinceReferenceDate"), v8 = v7, v9 = objc_msgSend(unarchivedCopy, "bytes"), v11 = v9[1], v10 = v9[2], v10) ? (v12 = v11 == 0) : (v12 = 1), v12 || (v13 = *v9, v14 = v9[3], objc_msgSend(unarchivedCopy, "length") < (v11 + v13))))
   {
-    goto LABEL_7;
-  }
-
-  [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-  v8 = v7;
-  bytes = [unarchivedCopy bytes];
-  v11 = bytes[1];
-  v10 = bytes[2];
-  v12 = !v10 || v11 == 0;
-  if (v12 || (v13 = *bytes, v14 = bytes[3], [unarchivedCopy length] < (v11 + v13)))
-  {
-LABEL_7:
     if (length)
     {
       v15 = 0;
@@ -244,10 +238,10 @@ LABEL_43:
       goto LABEL_34;
     }
 
-    bytes2 = [unarchivedCopy bytes];
+    bytes = [unarchivedCopy bytes];
     v19 = [unarchivedCopy length];
     memset(&strm.avail_in, 0, 104);
-    strm.next_in = (bytes2 + v13);
+    strm.next_in = (bytes + v13);
     v20 = v19 - v13;
     if (v19 < v13)
     {
@@ -279,7 +273,7 @@ LABEL_43:
     goto LABEL_33;
   }
 
-  bytes3 = [unarchivedCopy bytes];
+  bytes2 = [unarchivedCopy bytes];
   memset(&strm, 0, 40);
   if (compression_stream_init(&strm, COMPRESSION_STREAM_DECODE, COMPRESSION_LZFSE) == COMPRESSION_STATUS_ERROR)
   {
@@ -289,7 +283,7 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  strm.total_in = bytes3 + v13;
+  strm.total_in = bytes2 + v13;
   strm.next_out = v11;
   strm.next_in = v15;
   *&strm.avail_in = v10;
@@ -510,7 +504,7 @@ LABEL_22:
 
 + (id)_unarchivedObject:(id)object ofClasses:(id)classes options:(unint64_t)options
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   classesCopy = classes;
   v8 = objectCopy;
@@ -674,29 +668,29 @@ LABEL_43:
 
   if ([v38 length])
   {
-    v51 = v38;
+    v50 = v38;
     v39 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v38 error:0];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
-    v52 = classesCopy;
+    v51 = classesCopy;
     v40 = classesCopy;
-    v41 = [v40 countByEnumeratingWithState:&v53 objects:v58 count:16];
+    v41 = [v40 countByEnumeratingWithState:&v52 objects:v57 count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v54;
+      v43 = *v53;
       do
       {
         for (i = 0; i != v42; ++i)
         {
-          if (*v54 != v43)
+          if (*v53 != v43)
           {
             objc_enumerationMutation(v40);
           }
 
-          v45 = *(*(&v53 + 1) + 8 * i);
+          v45 = *(*(&v52 + 1) + 8 * i);
           v46 = [MEMORY[0x1E696AEC0] stringWithUTF8String:class_getName(v45)];
           if ([v46 containsString:@"VMU"])
           {
@@ -715,7 +709,7 @@ LABEL_43:
           }
         }
 
-        v42 = [v40 countByEnumeratingWithState:&v53 objects:v58 count:16];
+        v42 = [v40 countByEnumeratingWithState:&v52 objects:v57 count:16];
       }
 
       while (v42);
@@ -723,16 +717,14 @@ LABEL_43:
 
     v48 = [v39 decodeObjectOfClasses:v40 forKey:*MEMORY[0x1E696A508]];
 
-    v38 = v51;
-    classesCopy = v52;
+    v38 = v50;
+    classesCopy = v51;
   }
 
   else
   {
     v48 = 0;
   }
-
-  v49 = *MEMORY[0x1E69E9840];
 
   return v48;
 }
@@ -822,7 +814,6 @@ LABEL_17:
 
     if (error)
     {
-      v16 = bytes[3];
       VMUDirectedGraphErrorWithExtraUserInfo(1u, 0, @"This platform cannot map in the memory graph plist at offset %llu of size %llu", v10, v11, v12, v13, v14, bytes[2]);
       goto LABEL_17;
     }
@@ -836,7 +827,7 @@ LABEL_5:
 
 - (id)decapsulateSupplementalData:(id)data forTag:(const char *)tag
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if ([dataCopy length] < 0x31)
   {
@@ -854,12 +845,12 @@ LABEL_5:
     goto LABEL_3;
   }
 
-  v10 = bytes;
-  v11 = 0;
+  v9 = bytes;
+  v10 = 0;
   while (1)
   {
-    v12 = *(v10 + 32) + v11 * *(v10 + 44);
-    if (v12 + 32 < [dataCopy length])
+    v11 = *(v9 + 32) + v10 * *(v9 + 44);
+    if (v11 + 32 < [dataCopy length])
     {
       bytes2 = [dataCopy bytes];
       if (strlen(tag) >= 9)
@@ -867,22 +858,22 @@ LABEL_5:
         [VMUDirectedGraph decapsulateSupplementalData:forTag:];
       }
 
-      v14 = (bytes2 + v12);
+      v13 = (bytes2 + v11);
       strncpy(__dst, tag, 8uLL);
-      if (*__dst == *v14)
+      if (*__dst == *v13)
       {
         break;
       }
     }
 
-    if (++v11 >= *(v10 + 40))
+    if (++v10 >= *(v9 + 40))
     {
       goto LABEL_3;
     }
   }
 
-  v15 = v14[2];
-  if (v15 == -1 || ((v16 = v14[3], v16 != -1) ? (v17 = v16 + v15 == -1) : (v17 = 1), v17))
+  v14 = v13[2];
+  if (v14 == -1 || ((v15 = v13[3], v15 != -1) ? (v16 = v15 + v14 == -1) : (v16 = 1), v16))
   {
 LABEL_3:
     v6 = 0;
@@ -893,62 +884,60 @@ LABEL_3:
     v6 = [dataCopy subdataWithRange:?];
     if (kVMUPrintArchivingTiming == 1)
     {
-      v18 = "";
-      if (!v14[3])
+      v17 = "";
+      if (!v13[3])
       {
-        v18 = "STACK LOGS FAILED TO SAVE";
+        v17 = "STACK LOGS FAILED TO SAVE";
       }
 
-      fprintf(*MEMORY[0x1E69E9848], "[Full Stack Log History] dataOffset: %llu  dataSize: %llu  %s\n\n", v14[2], v14[3], v18);
+      fprintf(*MEMORY[0x1E69E9848], "[Full Stack Log History] dataOffset: %llu  dataSize: %llu  %s\n\n", v13[2], v13[3], v17);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (BOOL)encapsulateData:(id)data to:(id)to withSupplementalDataTag:(const char *)tag error:(id *)error dataGeneratorBlock:(id)block
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   toCopy = to;
   blockCopy = block;
   v14 = [dataCopy length];
   v15 = v14 + 48;
-  v43 = xmmword_1C6858490;
-  v44 = 48;
-  v45 = [dataCopy length];
-  v46 = v14 + 48;
-  v47 = 0x30002000000001;
-  if (nsfilehandle_write(toCopy, &v43, 48, error) && [toCopy writeData:dataCopy error:error])
+  v42 = xmmword_1C6858490;
+  v43 = 48;
+  v44 = [dataCopy length];
+  v45 = v14 + 48;
+  v46 = 0x30002000000001;
+  if (nsfilehandle_write(toCopy, &v42, 48, error) && [toCopy writeData:dataCopy error:error])
   {
     v16 = -v14 & 0xFLL;
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x4010000000;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x4010000000;
     v17 = v14 + v16 + 80;
-    v41 = &unk_1C6872315;
-    v42[0] = 0;
-    v42[1] = 0;
-    v42[2] = v17;
-    v42[3] = 0;
+    v40 = &unk_1C6872315;
+    v41[0] = 0;
+    v41[1] = 0;
+    v41[2] = v17;
+    v41[3] = 0;
     if (strlen(tag) > 8)
     {
-      v23 = "strlen(tag) <= 8";
-      v24 = 310;
+      v22 = "strlen(tag) <= 8";
+      v23 = 310;
     }
 
     else
     {
-      strncpy(v42, tag, 8uLL);
+      strncpy(v41, tag, 8uLL);
       if ([toCopy offsetInFile] == v15)
       {
-        if (!nsfilehandle_write(toCopy, (v39 + 4), 32, error) || (*(v37 + 7) = 0, v37[0] = 0, (nsfilehandle_write(toCopy, v37, v16, error) & 1) == 0))
+        if (!nsfilehandle_write(toCopy, (v38 + 4), 32, error) || (*(v36 + 7) = 0, v36[0] = 0, (nsfilehandle_write(toCopy, v36, v16, error) & 1) == 0))
         {
           v20 = 0;
 LABEL_19:
-          _Block_object_dispose(&v38, 8);
+          _Block_object_dispose(&v37, 8);
           goto LABEL_20;
         }
 
@@ -956,32 +945,32 @@ LABEL_19:
         {
           if (([toCopy offsetInFile] & 0xF) == 0)
           {
-            v31 = 0;
-            v32 = &v31;
-            v33 = 0x3032000000;
-            v34 = __Block_byref_object_copy__9;
-            v35 = __Block_byref_object_dispose__9;
-            v36 = 0;
-            v27[0] = MEMORY[0x1E69E9820];
-            v27[1] = 3221225472;
-            v27[2] = __88__VMUDirectedGraph_encapsulateData_to_withSupplementalDataTag_error_dataGeneratorBlock___block_invoke;
-            v27[3] = &unk_1E827A438;
+            v30 = 0;
+            v31 = &v30;
+            v32 = 0x3032000000;
+            v33 = __Block_byref_object_copy__9;
+            v34 = __Block_byref_object_dispose__9;
+            v35 = 0;
+            v26[0] = MEMORY[0x1E69E9820];
+            v26[1] = 3221225472;
+            v26[2] = __88__VMUDirectedGraph_encapsulateData_to_withSupplementalDataTag_error_dataGeneratorBlock___block_invoke;
+            v26[3] = &unk_1E827A438;
             v18 = toCopy;
-            v28 = v18;
-            v29 = &v31;
-            v30 = &v38;
-            if (blockCopy[2](blockCopy, v27))
+            v27 = v18;
+            v28 = &v30;
+            v29 = &v37;
+            if (blockCopy[2](blockCopy, v26))
             {
               if (error)
               {
-                v19 = v32[5];
+                v19 = v31[5];
                 if (v19)
                 {
                   v20 = 0;
                   *error = v19;
 LABEL_18:
 
-                  _Block_object_dispose(&v31, 8);
+                  _Block_object_dispose(&v30, 8);
                   goto LABEL_19;
                 }
               }
@@ -990,7 +979,7 @@ LABEL_18:
             else
             {
               [v18 seekToFileOffset:v15];
-              if (nsfilehandle_write(v18, (v39 + 4), 32, error))
+              if (nsfilehandle_write(v18, (v38 + 4), 32, error))
               {
                 [v18 seekToEndOfFile];
                 v20 = 1;
@@ -1002,30 +991,29 @@ LABEL_18:
             goto LABEL_18;
           }
 
-          v25 = "([fh offsetInFile] % 16) == 0";
-          v26 = 323;
+          v24 = "([fh offsetInFile] % 16) == 0";
+          v25 = 323;
         }
 
         else
         {
-          v25 = "[fh offsetInFile] == supplementalDataOffset";
-          v26 = 322;
+          v24 = "[fh offsetInFile] == supplementalDataOffset";
+          v25 = 322;
         }
 
-        __assert_rtn("+[VMUDirectedGraph encapsulateData:to:withSupplementalDataTag:error:dataGeneratorBlock:]", "VMUDirectedGraph.m", v26, v25);
+        __assert_rtn("+[VMUDirectedGraph encapsulateData:to:withSupplementalDataTag:error:dataGeneratorBlock:]", "VMUDirectedGraph.m", v25, v24);
       }
 
-      v23 = "[fh offsetInFile] == supplementalHeaderOffset";
-      v24 = 312;
+      v22 = "[fh offsetInFile] == supplementalHeaderOffset";
+      v23 = 312;
     }
 
-    __assert_rtn("+[VMUDirectedGraph encapsulateData:to:withSupplementalDataTag:error:dataGeneratorBlock:]", "VMUDirectedGraph.m", v24, v23);
+    __assert_rtn("+[VMUDirectedGraph encapsulateData:to:withSupplementalDataTag:error:dataGeneratorBlock:]", "VMUDirectedGraph.m", v23, v22);
   }
 
   v20 = 0;
 LABEL_20:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -1137,11 +1125,11 @@ LABEL_25:
 
 - (VMUDirectedGraph)initWithPlistRepresentation:(id)representation error:(id *)error
 {
-  v75[2] = *MEMORY[0x1E69E9840];
+  v74[2] = *MEMORY[0x1E69E9840];
   v7 = objc_autoreleasePoolPush();
-  v73 = 0;
-  v8 = [(VMUDirectedGraph *)self decapsulateIPSheaderInData:representation error:&v73];
-  v9 = v73;
+  v72 = 0;
+  v8 = [(VMUDirectedGraph *)self decapsulateIPSheaderInData:representation error:&v72];
+  v9 = v72;
   if (!v8)
   {
     v17 = 0;
@@ -1155,7 +1143,7 @@ LABEL_34:
   v11 = v10;
   if (v10 && ![v10 length])
   {
-    v17 = VMUDirectedGraphErrorWithExtraUserInfo(4u, 0, @"Memgraph file contained full stack log history header, but failed to store the actual stack log data.", v12, v13, v14, v15, v16, v64);
+    v17 = VMUDirectedGraphErrorWithExtraUserInfo(4u, 0, @"Memgraph file contained full stack log history header, but failed to store the actual stack log data.", v12, v13, v14, v15, v16, v63);
 
     v11 = 0;
   }
@@ -1165,9 +1153,9 @@ LABEL_34:
     v17 = 0;
   }
 
-  v72 = v9;
-  v18 = [(VMUDirectedGraph *)self decapsulatePlistData:v8 error:&v72];
-  v19 = v72;
+  v71 = v9;
+  v18 = [(VMUDirectedGraph *)self decapsulatePlistData:v8 error:&v71];
+  v19 = v71;
 
   if (!v18)
   {
@@ -1177,10 +1165,10 @@ LABEL_33:
     goto LABEL_34;
   }
 
+  v69 = 0;
   v70 = 0;
-  v71 = 0;
-  v20 = [MEMORY[0x1E696AE40] propertyListWithData:v18 options:0 format:&v71 error:&v70];
-  v21 = v70;
+  v20 = [MEMORY[0x1E696AE40] propertyListWithData:v18 options:0 format:&v70 error:&v69];
+  v21 = v69;
 
   if (!v20)
   {
@@ -1193,7 +1181,7 @@ LABEL_32:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v43 = VMUDirectedGraphErrorWithExtraUserInfo(1u, 0, @"File does not contain a memory graph in the correct format", v22, v23, v24, v25, v26, v64);
+    v43 = VMUDirectedGraphErrorWithExtraUserInfo(1u, 0, @"File does not contain a memory graph in the correct format", v22, v23, v24, v25, v26, v63);
     v44 = v21;
 LABEL_31:
 
@@ -1210,12 +1198,12 @@ LABEL_31:
   graphCompatibilityVersion = self->_graphCompatibilityVersion;
   if (!graphCompatibilityVersion || graphCompatibilityVersion >= 3)
   {
-    v74[0] = @"VMUDirectedGraphCompatibilityVersionNumberInGraphKey";
+    v73[0] = @"VMUDirectedGraphCompatibilityVersionNumberInGraphKey";
     v45 = [MEMORY[0x1E696AD98] numberWithInteger:?];
-    v74[1] = @"VMUDirectedGraphToolCompatibilityVersionKey";
-    v75[0] = v45;
-    v75[1] = &unk_1F4638B58;
-    v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:2];
+    v73[1] = @"VMUDirectedGraphToolCompatibilityVersionKey";
+    v74[0] = v45;
+    v74[1] = &unk_1F4638B58;
+    v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:v73 count:2];
 
     if (self->_graphCompatibilityVersion)
     {
@@ -1224,7 +1212,7 @@ LABEL_31:
 
     else
     {
-      VMUDirectedGraphErrorWithExtraUserInfo(2u, v44, @"File does not contain memory graph version information (not in correct format)", v46, v47, v48, v49, v50, v64);
+      VMUDirectedGraphErrorWithExtraUserInfo(2u, v44, @"File does not contain memory graph version information (not in correct format)", v46, v47, v48, v49, v50, v63);
     }
     v43 = ;
 
@@ -1249,7 +1237,7 @@ LABEL_31:
   self->_additionalProperties = v35;
 
   v37 = [v20 objectForKey:@"graphIs64bit"];
-  v68 = v37;
+  v67 = v37;
   if (v37)
   {
     bOOLValue = [v37 BOOLValue];
@@ -1276,7 +1264,7 @@ LABEL_31:
       v42 = "reference";
 LABEL_28:
       NSLog(&cfstr_MemoryGraphHas.isa, v42, nodeCount);
-      v9 = VMUDirectedGraphErrorWithExtraUserInfo(1u, 0, @"Memory graph is too large to open", v51, v52, v53, v54, v55, v65);
+      v9 = VMUDirectedGraphErrorWithExtraUserInfo(1u, 0, @"Memory graph is too large to open", v51, v52, v53, v54, v55, v64);
       v56 = 0;
       goto LABEL_41;
     }
@@ -1287,15 +1275,15 @@ LABEL_28:
     self->_graphIs64bit = 1;
   }
 
-  v66 = [v20 objectForKeyedSubscript:@"details"];
+  v65 = [v20 objectForKeyedSubscript:@"details"];
   graphVersion = self->_graphVersion;
-  v67 = [v20 objectForKeyedSubscript:@"options"];
-  v69 = v21;
-  v63 = -[VMUDirectedGraph initWithArchived:version:options:diskLogs:error:](self, "initWithArchived:version:options:diskLogs:error:", v66, graphVersion, [v67 unsignedIntValue], v11, &v69);
-  v9 = v69;
+  v66 = [v20 objectForKeyedSubscript:@"options"];
+  v68 = v21;
+  v62 = -[VMUDirectedGraph initWithArchived:version:options:diskLogs:error:](self, "initWithArchived:version:options:diskLogs:error:", v65, graphVersion, [v66 unsignedIntValue], v11, &v68);
+  v9 = v68;
 
-  v56 = v63;
-  v21 = v66;
+  v56 = v62;
+  v21 = v65;
   self = v56;
 LABEL_41:
 
@@ -1336,17 +1324,16 @@ LABEL_37:
 
 LABEL_38:
 
-  v60 = *MEMORY[0x1E69E9840];
   return v58;
 }
 
 - (VMUDirectedGraph)initWithArchived:(id)archived version:(int64_t)version options:(unint64_t)options diskLogs:(id)logs error:(id *)error
 {
-  v54[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   archivedCopy = archived;
-  v52.receiver = self;
-  v52.super_class = VMUDirectedGraph;
-  v12 = [(VMUDirectedGraph *)&v52 init];
+  v50.receiver = self;
+  v50.super_class = VMUDirectedGraph;
+  v12 = [(VMUDirectedGraph *)&v50 init];
   if (!v12)
   {
 LABEL_44:
@@ -1358,12 +1345,12 @@ LABEL_44:
   v14 = [v13 objectForKeyedSubscript:@"compactEdgeList"];
   if (!v14)
   {
-    v51 = 0;
+    v49 = 0;
     v18 = [v13 objectForKeyedSubscript:@"sparseEdgeList"];
-    v12->_edges = [VMUDirectedGraph _copyUnarchived:v18 length:&v51 options:options];
+    v12->_edges = [VMUDirectedGraph _copyUnarchived:v18 length:&v49 options:options];
 
-    v19 = v51 / 0xC;
-    v12->_edgeCount = v51 / 0xC;
+    v19 = v49 / 0xC;
+    v12->_edgeCount = v49 / 0xC;
     v12->_edgeCapacity = v19;
     if (kVMUPrintArchivingTiming == 1)
     {
@@ -1391,18 +1378,18 @@ LABEL_44:
     }
 
     v12->_edges = v20;
-    v51 = 0;
-    v21 = [VMUDirectedGraph _copyUnarchived:v14 length:&v51 options:options];
+    v49 = 0;
+    v21 = [VMUDirectedGraph _copyUnarchived:v14 length:&v49 options:options];
     v22 = v21;
     v23 = v12->_edgeCount;
-    if (v51 < 4 * v23)
+    if (v49 < 4 * v23)
     {
       free(v21);
       if (error)
       {
         v24 = MEMORY[0x1E696ABC0];
-        v53 = *MEMORY[0x1E696A578];
-        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
+        v51 = *MEMORY[0x1E696A578];
+        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
         *error = [v24 errorWithDomain:@"com.apple.dt.Symbolication.VMUDirectedGraph" code:1 userInfo:v25];
       }
 
@@ -1494,45 +1481,44 @@ LABEL_33:
     free(v21);
     if (kVMUPrintArchivingTiming)
     {
-      v38 = v12->_edgeCount;
       fprintf(*MEMORY[0x1E69E9848], "[Dense Edges] Compact: %d Large: %d (%2.2f%%)\n\n");
     }
 
 LABEL_35:
-    v39 = [v13 objectForKeyedSubscript:@"inverted"];
-    v12->_inverted = [v39 BOOLValue];
+    v38 = [v13 objectForKeyedSubscript:@"inverted"];
+    v12->_inverted = [v38 BOOLValue];
 
-    v40 = [v13 objectForKeyedSubscript:@"deadNodes"];
-    v12->_deadNodes = [VMUDirectedGraph _copyUnarchived:v40 length:0 options:options];
+    v39 = [v13 objectForKeyedSubscript:@"deadNodes"];
+    v12->_deadNodes = [VMUDirectedGraph _copyUnarchived:v39 length:0 options:options];
 
     deadNodes = v12->_deadNodes;
     if (deadNodes && kVMUPrintArchivingTiming == 1)
     {
-      v44 = *deadNodes;
-      v42 = (deadNodes + 1);
-      v43 = v44;
-      if (v44)
+      v43 = *deadNodes;
+      v41 = (deadNodes + 1);
+      v42 = v43;
+      if (v43)
       {
+        v44 = 0;
         v45 = 0;
-        v46 = 0;
         do
         {
-          v47 = *v42++;
-          v48 = vcnt_s8(v47);
-          v48.i16[0] = vaddlv_u8(v48);
-          v46 += v48.i32[0];
-          v45 += 8;
+          v46 = *v41++;
+          v47 = vcnt_s8(v46);
+          v47.i16[0] = vaddlv_u8(v47);
+          v45 += v47.i32[0];
+          v44 += 8;
         }
 
-        while (v45 < v43);
+        while (v44 < v42);
       }
 
       else
       {
-        v46 = 0;
+        v45 = 0;
       }
 
-      fprintf(*MEMORY[0x1E69E9848], "[Dead Nodes Marking Map] Count: %u\n\n", v46);
+      fprintf(*MEMORY[0x1E69E9848], "[Dead Nodes Marking Map] Count: %u\n\n", v45);
     }
 
     v12->_indexedEdges = -1;
@@ -1546,7 +1532,6 @@ LABEL_16:
   v26 = 0;
 LABEL_45:
 
-  v49 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
@@ -1638,8 +1623,8 @@ LABEL_45:
 
     v24 = 0;
 LABEL_23:
-    v27 = [VMUDirectedGraph _archivedBytes:v13 length:v24 options:options];
-    [dictionary setObject:v27 forKeyedSubscript:@"compactEdgeList"];
+    v26 = [VMUDirectedGraph _archivedBytes:v13 length:v24 options:options];
+    [dictionary setObject:v26 forKeyedSubscript:@"compactEdgeList"];
 
     if (v13)
     {
@@ -1648,7 +1633,6 @@ LABEL_23:
 
     if (kVMUPrintArchivingTiming == 1)
     {
-      v28 = self->_edgeCount;
       fprintf(*MEMORY[0x1E69E9848], "[Dense Edges] Compact: %d Large: %d (%2.2f%%)\n\n");
     }
 
@@ -1660,50 +1644,48 @@ LABEL_23:
 
   if (kVMUPrintArchivingTiming == 1)
   {
-    v26 = self->_edgeCount;
     fprintf(*MEMORY[0x1E69E9848], "[Sparse Edges] Edge Count: %u\n\n");
   }
 
 LABEL_27:
   if (self->_nodeCount != self->_nextNodeName)
   {
-    v29 = (*self->_deadNodes + 7) >> 3;
-    v30 = [VMUDirectedGraph _archivedBytes:"_archivedBytes:length:options:" length:? options:?];
-    [dictionary setObject:v30 forKeyedSubscript:@"deadNodes"];
+    v27 = [VMUDirectedGraph _archivedBytes:"_archivedBytes:length:options:" length:? options:?];
+    [dictionary setObject:v27 forKeyedSubscript:@"deadNodes"];
 
     if (kVMUPrintArchivingTiming == 1)
     {
       deadNodes = self->_deadNodes;
-      v34 = *deadNodes;
-      v32 = (deadNodes + 1);
-      v33 = v34;
-      if (v34)
+      v31 = *deadNodes;
+      v29 = (deadNodes + 1);
+      v30 = v31;
+      if (v31)
       {
-        v35 = 0;
-        v36 = 0;
+        v32 = 0;
+        v33 = 0;
         do
         {
-          v37 = *v32++;
-          v38 = vcnt_s8(v37);
-          v38.i16[0] = vaddlv_u8(v38);
-          v36 += v38.i32[0];
-          v35 += 8;
+          v34 = *v29++;
+          v35 = vcnt_s8(v34);
+          v35.i16[0] = vaddlv_u8(v35);
+          v33 += v35.i32[0];
+          v32 += 8;
         }
 
-        while (v35 < v33);
+        while (v32 < v30);
       }
 
       else
       {
-        v36 = 0;
+        v33 = 0;
       }
 
-      fprintf(*MEMORY[0x1E69E9848], "[Dead Nodes Marking Map] Count: %u\n\n", v36);
+      fprintf(*MEMORY[0x1E69E9848], "[Dead Nodes Marking Map] Count: %u\n\n", v33);
     }
   }
 
-  v39 = [MEMORY[0x1E696AD98] numberWithBool:self->_inverted];
-  [dictionary setObject:v39 forKeyedSubscript:@"inverted"];
+  v36 = [MEMORY[0x1E696AD98] numberWithBool:self->_inverted];
+  [dictionary setObject:v36 forKeyedSubscript:@"inverted"];
 
   [representationCopy setObject:dictionary forKeyedSubscript:@"directedGraphInfo"];
 }
@@ -3591,8 +3573,8 @@ LABEL_52:
           var2 = -1;
         }
 
-        v66 = var2;
-        v67 = 0;
+        v61 = var2;
+        v62 = 0;
         v25 = 0;
         v26 = &nodeCopy;
         v27 = 1;
@@ -3632,139 +3614,125 @@ LABEL_52:
                 [VMUDirectedGraph enumerateMembersOfGroupNode:withBlock:];
               }
 
-              inverted = self->_inverted;
-              v40 = &edges[v30];
-              var0 = v40->var0;
-              v42 = v40->var0 < 0xFFFFFFFB;
-              v43 = !v42 || !inverted;
-              if (v42 && inverted)
+              v39 = &edges[v30];
+              var0 = v39->var0;
+              if (v39->var0 < 0xFFFFFFFB && self->_inverted)
               {
-                v44 = 8;
+                v41 = 4;
               }
 
               else
               {
-                v44 = 4;
+                v41 = 8;
               }
 
-              if (v43)
-              {
-                v45 = 8;
-              }
-
-              else
-              {
-                v45 = 4;
-              }
-
-              v46 = *(&v40->var0 + v45);
+              v42 = *(&v39->var0 + v41);
               if (var0 == -2)
               {
                 if (v27 >= v25)
                 {
-                  v47 = blockCopy;
+                  v43 = blockCopy;
                   if (2 * v25 <= 0x10)
                   {
-                    v48 = 16;
+                    v44 = 16;
                   }
 
                   else
                   {
-                    v48 = 2 * v25;
+                    v44 = 2 * v25;
                   }
 
                   if (v25)
                   {
-                    v49 = v26;
+                    v45 = v26;
                   }
 
                   else
                   {
-                    v49 = 0;
+                    v45 = 0;
                   }
 
-                  v26 = malloc_type_realloc(v49, 4 * v48, 0x100004052888210uLL);
-                  v25 = v48;
-                  blockCopy = v47;
+                  v26 = malloc_type_realloc(v45, 4 * v44, 0x100004052888210uLL);
+                  v25 = v44;
+                  blockCopy = v43;
                 }
 
-                v26[v27++] = v46;
+                v26[v27++] = v42;
               }
 
               else if (var0 <= 0xFFFFFFFA)
               {
-                v50 = *(&v40->var0 + v44);
-                v51 = self->_indexedNodeSpace;
-                if (v46 >= v51)
+                v46 = self->_indexedNodeSpace;
+                if (v42 >= v46)
                 {
-                  goto LABEL_68;
+                  goto LABEL_65;
                 }
 
-                v52 = self->_nodeAdjIndex;
-                v53 = self->_indexedEdges;
-                if (v46 + 1 < v51)
+                v47 = self->_nodeAdjIndex;
+                v48 = self->_indexedEdges;
+                if (v42 + 1 < v46)
                 {
-                  v53 = v52[v46 + 1];
+                  v48 = v47[v42 + 1];
                 }
 
-                v54 = v52[v46];
-                if (v53 - v54 < 2)
+                v49 = v47[v42];
+                if (v48 - v49 < 2)
                 {
-                  goto LABEL_68;
+                  goto LABEL_65;
                 }
 
-                v55 = &edges[v54 + 1];
-                if (v55->var0 != -3)
+                v50 = &edges[v49 + 1];
+                if (v50->var0 != -3)
                 {
-                  goto LABEL_68;
+                  goto LABEL_65;
                 }
 
-                v56 = v55->var2;
-                if (v56 == -1 || v56 == v66)
+                v51 = v50->var2;
+                if (v51 == -1 || v51 == v61)
                 {
-                  goto LABEL_68;
+                  goto LABEL_65;
                 }
 
                 do
                 {
-                  v58 = v56;
-                  if (v56 >= v51)
+                  v53 = v51;
+                  if (v51 >= v46)
                   {
                     break;
                   }
 
-                  v59 = v56 + 1;
-                  v60 = self->_indexedEdges;
-                  if (v59 < v51)
+                  v54 = v51 + 1;
+                  v55 = self->_indexedEdges;
+                  if (v54 < v46)
                   {
-                    v60 = v52[v59];
+                    v55 = v47[v54];
                   }
 
-                  v61 = v52[v58];
-                  if (v60 - v61 < 2)
-                  {
-                    break;
-                  }
-
-                  v62 = &edges[v61 + 1];
-                  if (v62->var0 != -3)
+                  v56 = v47[v53];
+                  if (v55 - v56 < 2)
                   {
                     break;
                   }
 
-                  v56 = v62->var2;
+                  v57 = &edges[v56 + 1];
+                  if (v57->var0 != -3)
+                  {
+                    break;
+                  }
+
+                  v51 = v57->var2;
                 }
 
-                while (v56 != -1 && v56 != v66);
-                if (nodeCopy != v58 || v58 == v46)
+                while (v51 != -1 && v51 != v61);
+                if (nodeCopy != v53 || v53 == v42)
                 {
-LABEL_68:
+LABEL_65:
                   if (blockCopy)
                   {
                     blockCopy[2](blockCopy);
                   }
 
-                  ++v67;
+                  ++v62;
                 }
               }
 
@@ -3782,7 +3750,7 @@ LABEL_68:
         }
 
         insideSearch = self->_insideSearch - 1;
-        v10 = v67;
+        v10 = v62;
       }
     }
 
@@ -3790,6 +3758,29 @@ LABEL_68:
   }
 
   return v10;
+}
+
+- (unsigned)enumerateEdgesOfNode:(unsigned int)node withBlock:(id)block
+{
+  v4 = *&node;
+  blockCopy = block;
+  v7 = blockCopy;
+  if (blockCopy)
+  {
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __51__VMUDirectedGraph_enumerateEdgesOfNode_withBlock___block_invoke;
+    v10[3] = &unk_1E827A4A8;
+    v11 = blockCopy;
+    v8 = [(VMUDirectedGraph *)self _internalEnumerateEdgesOfNode:v4 withBlock:v10];
+  }
+
+  else
+  {
+    v8 = [(VMUDirectedGraph *)self _internalEnumerateEdgesOfNode:v4 withBlock:0];
+  }
+
+  return v8;
 }
 
 - (void)withNodeMarkingMap:(id)map
@@ -3820,6 +3811,579 @@ LABEL_68:
   }
 }
 
+- (void)_dfsCore:(unsigned int)core colors:(char *)colors visitBlock:(id)block examineBlock:(id)examineBlock
+{
+  v8 = *&core;
+  blockCopy = block;
+  examineBlockCopy = examineBlock;
+  v11 = blockCopy[2](blockCopy, v8, colors[v8]);
+  colors[v8] = v11;
+  indexedNodeSpace = self->_indexedNodeSpace;
+  if (indexedNodeSpace <= v8 || ((nodeAdjIndex = self->_nodeAdjIndex, p_indexedEdges = &self->_indexedEdges, v8 + 1 >= indexedNodeSpace) ? (v14 = &self->_indexedEdges) : (v14 = &nodeAdjIndex[(v8 + 1)]), *v14 == nodeAdjIndex[v8]))
+  {
+    colors[v8] = blockCopy[2](blockCopy, v8, v11);
+    goto LABEL_82;
+  }
+
+  if (indexedNodeSpace <= 0x10)
+  {
+    v15 = 16;
+  }
+
+  else
+  {
+    v15 = self->_indexedNodeSpace;
+  }
+
+  v16 = malloc_type_malloc(4 * v15, 0x100004052888210uLL);
+  v17 = self->_nodeAdjIndex[v8];
+  *v16 = v17;
+  indexedEdges = self->_indexedEdges;
+  if (indexedEdges == -1)
+  {
+    [VMUDirectedGraph _dfsCore:colors:visitBlock:examineBlock:];
+  }
+
+  v19 = v16;
+  if (v17 < indexedEdges)
+  {
+    v20 = 0;
+    v60 = v15;
+    do
+    {
+      v21 = v19[v20];
+      if (v21 == -1)
+      {
+        if (!v20)
+        {
+          [VMUDirectedGraph _dfsCore:colors:visitBlock:examineBlock:];
+        }
+
+        v22 = v19[--v20];
+      }
+
+      else
+      {
+        v22 = v19[v20];
+      }
+
+      edges = self->_edges;
+      if (!edges)
+      {
+        [VMUDirectedGraph enumerateMembersOfGroupNode:withBlock:];
+      }
+
+      v24 = self->_nodeAdjIndex;
+      inverted = self->_inverted;
+      v26 = &edges[v22];
+      var0 = v26->var0;
+      v28 = v26->var0 < 0xFFFFFFFB;
+      v29 = !v28 || !inverted;
+      if (v28 && inverted)
+      {
+        v30 = 8;
+      }
+
+      else
+      {
+        v30 = 4;
+      }
+
+      v31 = *(&v26->var0 + v30);
+      if (v29)
+      {
+        v32 = 8;
+      }
+
+      else
+      {
+        v32 = 4;
+      }
+
+      v33 = *(&v26->var0 + v32);
+      if (var0 == -2)
+      {
+        v34 = v33;
+        var2 = v31;
+      }
+
+      else
+      {
+        v36 = self->_indexedNodeSpace;
+        if (v31 >= v36)
+        {
+          goto LABEL_30;
+        }
+
+        v37 = indexedEdges;
+        if (v31 + 1 < v36)
+        {
+          v37 = v24[v31 + 1];
+        }
+
+        v38 = v24[v31];
+        if (v37 == v38)
+        {
+LABEL_30:
+          var2 = v31;
+        }
+
+        else
+        {
+          v59 = &edges[v38];
+          var2 = v31;
+          if (v59->var0 == -3)
+          {
+            var2 = v59->var2;
+          }
+        }
+
+        if (v33 < v36)
+        {
+          if (v33 + 1 < v36)
+          {
+            indexedEdges = v24[v33 + 1];
+          }
+
+          v39 = v24[v33];
+          if (indexedEdges != v39)
+          {
+            v40 = &edges[v39];
+            if (v40->var0 == -3)
+            {
+              v34 = v40->var2;
+              v41 = v34;
+              goto LABEL_39;
+            }
+          }
+        }
+
+        v34 = v33;
+      }
+
+      v41 = v33;
+LABEL_39:
+      if (v41 == v33 && var2 == v31)
+      {
+        v43 = var0;
+      }
+
+      else
+      {
+        v43 = -4;
+      }
+
+      if (var2 == v41)
+      {
+        v44 = v43;
+      }
+
+      else
+      {
+        v44 = var0;
+      }
+
+      v45 = var2;
+      if (v21 != -1)
+      {
+        if (v44 <= 0xFFFFFFFA)
+        {
+          if (examineBlockCopy[2]())
+          {
+            v47 = (blockCopy[2])(blockCopy, v41, colors[v34], 12);
+            colors[v34] = v47;
+            v48 = self->_indexedNodeSpace;
+            if (v41 < v48)
+            {
+              v24 = self->_nodeAdjIndex;
+              v49 = v41 + 1 >= v48;
+              v50 = &self->_indexedEdges;
+              if (!v49)
+              {
+                v50 = &v24[(v41 + 1)];
+              }
+
+              if (*v50 != v24[v34])
+              {
+LABEL_51:
+                if (++v20 >= v60)
+                {
+                  v60 *= 2;
+                  v19 = malloc_type_realloc(v19, 4 * v60, 0x100004052888210uLL);
+                  v24 = self->_nodeAdjIndex;
+                }
+
+                v46 = v24[v34];
+                goto LABEL_77;
+              }
+            }
+
+            colors[v34] = (blockCopy[2])(blockCopy, v41, v47, 12);
+          }
+        }
+
+        else if (v44 == -2)
+        {
+          goto LABEL_51;
+        }
+      }
+
+      v51 = self->_edges;
+      if (v22 + 1 >= self->_indexedEdges)
+      {
+        if (!v51)
+        {
+          [VMUDirectedGraph enumerateMembersOfGroupNode:withBlock:];
+        }
+
+LABEL_71:
+        v57 = &v51[v22];
+        if (v57->var0 < 0xFFFFFFFB && self->_inverted)
+        {
+          v58 = 8;
+        }
+
+        else
+        {
+          v58 = 4;
+        }
+
+        if (*(&v57->var0 + v58) == v45)
+        {
+          colors[v45] = (blockCopy[2])(blockCopy, v45, colors[v45], 12);
+        }
+
+        v46 = -1;
+        goto LABEL_77;
+      }
+
+      if (!v51)
+      {
+        [VMUDirectedGraph enumerateMembersOfGroupNode:withBlock:];
+      }
+
+      v52 = &v51[v22 + 1];
+      if (v52->var0 < 0xFFFFFFFB && self->_inverted)
+      {
+        v53 = 8;
+      }
+
+      else
+      {
+        v53 = 4;
+      }
+
+      v54 = *(&v52->var0 + v53);
+      v55 = &v51[v22];
+      if (v55->var0 < 0xFFFFFFFB && self->_inverted)
+      {
+        v56 = 8;
+      }
+
+      else
+      {
+        v56 = 4;
+      }
+
+      if (v54 != *(&v55->var0 + v56))
+      {
+        goto LABEL_71;
+      }
+
+      v46 = v19[v20] + 1;
+LABEL_77:
+      v19[v20] = v46;
+      indexedEdges = *p_indexedEdges;
+    }
+
+    while (*v19 < *p_indexedEdges);
+  }
+
+  free(v19);
+LABEL_82:
+}
+
+- (void)_bfsCore:(unsigned int)core colors:(char *)colors visitBlock:(id)block examineBlock:(id)examineBlock
+{
+  v8 = *&core;
+  blockCopy = block;
+  examineBlockCopy = examineBlock;
+  if (self->_indexedNodeSpace <= 0x10)
+  {
+    indexedNodeSpace = 16;
+  }
+
+  else
+  {
+    indexedNodeSpace = self->_indexedNodeSpace;
+  }
+
+  v12 = malloc_type_malloc(4 * indexedNodeSpace, 0x100004052888210uLL);
+  v13 = 0;
+  colors[v8] = blockCopy[2](blockCopy, v8, colors[v8]);
+  *v12 = v8;
+  colorsCopy = colors;
+  v14 = 1;
+  do
+  {
+    v15 = v12[v13];
+    nodeAdjIndex = self->_nodeAdjIndex;
+    v17 = nodeAdjIndex[v15];
+    v18 = self->_indexedNodeSpace;
+    if (v15 >= v18)
+    {
+      v20 = 0;
+    }
+
+    else
+    {
+      p_indexedEdges = &self->_indexedEdges;
+      if (v15 + 1 < v18)
+      {
+        p_indexedEdges = &nodeAdjIndex[v15 + 1];
+      }
+
+      v20 = *p_indexedEdges - v17;
+    }
+
+    ++v13;
+    v21 = (v20 + v17);
+    if (v17 < v21)
+    {
+      v52 = v15;
+      v22 = v17;
+      v23 = v21 - v17;
+      while (1)
+      {
+        edges = self->_edges;
+        if (!edges)
+        {
+          [VMUDirectedGraph enumerateMembersOfGroupNode:withBlock:];
+        }
+
+        v25 = self->_indexedNodeSpace;
+        inverted = self->_inverted;
+        p_var1 = &edges[v22].var1;
+        var0 = edges[v22].var0;
+        v29 = var0 < 0xFFFFFFFB;
+        v30 = !v29 || !inverted;
+        if (v29 && inverted)
+        {
+          p_var2 = &edges[v22].var2;
+        }
+
+        else
+        {
+          p_var2 = &edges[v22].var1;
+        }
+
+        v32 = *p_var2;
+        if (v30)
+        {
+          p_var1 = &edges[v22].var2;
+        }
+
+        v33 = *p_var1;
+        if (var0 == -2)
+        {
+          var2 = v32;
+        }
+
+        else
+        {
+          v35 = self->_nodeAdjIndex;
+          indexedEdges = self->_indexedEdges;
+          if (v32 >= v25)
+          {
+            goto LABEL_25;
+          }
+
+          v37 = self->_indexedEdges;
+          if (v32 + 1 < v25)
+          {
+            v37 = v35[v32 + 1];
+          }
+
+          v38 = v35[v32];
+          if (v37 == v38)
+          {
+LABEL_25:
+            var2 = v32;
+          }
+
+          else
+          {
+            v46 = &edges[v38];
+            var2 = v32;
+            if (v46->var0 == -3)
+            {
+              var2 = v46->var2;
+            }
+          }
+
+          if (v33 < v25)
+          {
+            if (v33 + 1 < v25)
+            {
+              indexedEdges = v35[v33 + 1];
+            }
+
+            v39 = v35[v33];
+            if (indexedEdges != v39)
+            {
+              v40 = &edges[v39];
+              if (v40->var0 == -3)
+              {
+                v41 = v40->var2;
+                goto LABEL_33;
+              }
+            }
+          }
+        }
+
+        v41 = v33;
+LABEL_33:
+        if (v41 == v33 && var2 == v32)
+        {
+          v43 = var0;
+        }
+
+        else
+        {
+          v43 = -4;
+        }
+
+        if (var2 == v41)
+        {
+          v44 = v43;
+        }
+
+        else
+        {
+          v44 = var0;
+        }
+
+        if (v44 >= 0xFFFFFFFB)
+        {
+          if (v44 == -2)
+          {
+            v45 = v41;
+          }
+
+          else
+          {
+            v45 = -1;
+          }
+
+LABEL_48:
+          if (v45 < v25)
+          {
+            if (v14 >= indexedNodeSpace)
+            {
+              if (v13 <= indexedNodeSpace >> 1)
+              {
+                indexedNodeSpace *= 2;
+                v12 = malloc_type_realloc(v12, 4 * indexedNodeSpace, 0x100004052888210uLL);
+              }
+
+              else
+              {
+                v14 -= v13;
+                memmove(v12, &v12[v13], 4 * v14);
+                v13 = 0;
+              }
+            }
+
+            v12[v14++] = v41;
+          }
+
+          goto LABEL_57;
+        }
+
+        if (examineBlockCopy[2](examineBlockCopy))
+        {
+          colorsCopy[v41] = blockCopy[2](blockCopy, v41, colorsCopy[v41]);
+          v25 = self->_indexedNodeSpace;
+          v45 = v41;
+          goto LABEL_48;
+        }
+
+LABEL_57:
+        ++v22;
+        if (!--v23)
+        {
+          nodeAdjIndex = self->_nodeAdjIndex;
+          v18 = self->_indexedNodeSpace;
+          v15 = v52;
+          break;
+        }
+      }
+    }
+
+    if (v15 < v18)
+    {
+      v47 = self->_edges;
+      v48 = v15 + 1 >= v18;
+      v49 = &self->_indexedEdges;
+      if (!v48)
+      {
+        v49 = &nodeAdjIndex[(v15 + 1)];
+      }
+
+      if (v47)
+      {
+        v50 = nodeAdjIndex[v15];
+        if (*v49 != v50)
+        {
+          v51 = &v47[v50];
+          if (v51->var0 == -3 && v15 != v51->var2)
+          {
+            continue;
+          }
+        }
+      }
+    }
+
+    colorsCopy[v15] = blockCopy[2](blockCopy, v15, colorsCopy[v15]);
+  }
+
+  while (v13 != v14);
+  free(v12);
+}
+
+- (void)_searchMainLoop:(unsigned int)loop action:(id)action
+{
+  v4 = *&loop;
+  actionCopy = action;
+  nextNodeName = self->_nextNodeName;
+  if (nextNodeName)
+  {
+    v8 = malloc_type_calloc(nextNodeName, 1uLL, 0x100004077774924uLL);
+    v9 = v8;
+    if (v4 == -1)
+    {
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __43__VMUDirectedGraph__searchMainLoop_action___block_invoke;
+      v11[3] = &unk_1E827A4D0;
+      v13 = v8;
+      v12 = actionCopy;
+      [(VMUDirectedGraph *)self enumerateNodesWithBlock:v11];
+    }
+
+    else if (self->_indexedNodeSpace > v4)
+    {
+      deadNodes = self->_deadNodes;
+      if (!deadNodes || *deadNodes <= v4 || ((*(deadNodes + (v4 >> 3) + 4) >> (v4 & 7)) & 1) == 0)
+      {
+        (*(actionCopy + 2))(actionCopy, v4, v8);
+      }
+    }
+
+    free(v9);
+  }
+}
+
 uint64_t __43__VMUDirectedGraph__searchMainLoop_action___block_invoke(uint64_t result, unsigned int a2)
 {
   if (!*(*(result + 40) + a2))
@@ -3828,6 +4392,96 @@ uint64_t __43__VMUDirectedGraph__searchMainLoop_action___block_invoke(uint64_t r
   }
 
   return result;
+}
+
+- (void)depthFirstSearch:(unsigned int)search nodeVisitBlock:(id)block edgeVisitBlock:(id)visitBlock
+{
+  v6 = *&search;
+  blockCopy = block;
+  visitBlockCopy = visitBlock;
+  v11 = visitBlockCopy;
+  if (blockCopy && visitBlockCopy)
+  {
+    insideSearch = self->_insideSearch;
+    if (!insideSearch)
+    {
+      indexedEdges = self->_indexedEdges;
+      if (indexedEdges == -1 || indexedEdges < self->_edgeCount || self->_indexedNodeSpace < self->_nextNodeName)
+      {
+        [(VMUDirectedGraph *)self _adjustAdjacencyMap];
+        insideSearch = self->_insideSearch;
+      }
+
+      else
+      {
+        insideSearch = 0;
+      }
+    }
+
+    self->_insideSearch = insideSearch + 1;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __67__VMUDirectedGraph_depthFirstSearch_nodeVisitBlock_edgeVisitBlock___block_invoke;
+    v17[3] = &unk_1E827A4F8;
+    v17[4] = self;
+    v18 = blockCopy;
+    v19 = v11;
+    [(VMUDirectedGraph *)self _searchMainLoop:v6 action:v17];
+    --self->_insideSearch;
+  }
+
+  else
+  {
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
+    Name = sel_getName(a2);
+    NSLog(&cfstr_SS_5.isa, v15, Name, "^block parameters must be non-nil.");
+  }
+}
+
+- (void)breadthFirstSearch:(unsigned int)search nodeVisitBlock:(id)block edgeVisitBlock:(id)visitBlock
+{
+  v6 = *&search;
+  blockCopy = block;
+  visitBlockCopy = visitBlock;
+  v11 = visitBlockCopy;
+  if (blockCopy && visitBlockCopy)
+  {
+    insideSearch = self->_insideSearch;
+    if (!insideSearch)
+    {
+      indexedEdges = self->_indexedEdges;
+      if (indexedEdges == -1 || indexedEdges < self->_edgeCount || self->_indexedNodeSpace < self->_nextNodeName)
+      {
+        [(VMUDirectedGraph *)self _adjustAdjacencyMap];
+        insideSearch = self->_insideSearch;
+      }
+
+      else
+      {
+        insideSearch = 0;
+      }
+    }
+
+    self->_insideSearch = insideSearch + 1;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __69__VMUDirectedGraph_breadthFirstSearch_nodeVisitBlock_edgeVisitBlock___block_invoke;
+    v17[3] = &unk_1E827A4F8;
+    v17[4] = self;
+    v18 = blockCopy;
+    v19 = v11;
+    [(VMUDirectedGraph *)self _searchMainLoop:v6 action:v17];
+    --self->_insideSearch;
+  }
+
+  else
+  {
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
+    Name = sel_getName(a2);
+    NSLog(&cfstr_SS_5.isa, v15, Name, "^block parameters must be non-nil.");
+  }
 }
 
 - (void)_reorderEdgesNaturally

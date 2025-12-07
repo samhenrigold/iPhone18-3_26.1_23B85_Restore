@@ -63,12 +63,12 @@
 
 - (void)addTypesetterForParagraphIdentifier:(unint64_t)identifier typesetter:(shared_ptr<TSWPParagraphTypesetter>)typesetter
 {
-  v12[0] = identifier;
+  identifierCopy = identifier;
   if (*typesetter.var0)
   {
     var0 = typesetter.var0;
-    v12[2] = v12;
-    v6 = std::__tree<std::__value_type<unsigned long,std::shared_ptr<TSWPParagraphTypesetter>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::shared_ptr<TSWPParagraphTypesetter>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::shared_ptr<TSWPParagraphTypesetter>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&self->_typesetters, v12);
+    v13 = &identifierCopy;
+    v6 = std::__tree<std::__value_type<unsigned long,std::shared_ptr<TSWPParagraphTypesetter>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::shared_ptr<TSWPParagraphTypesetter>>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,std::shared_ptr<TSWPParagraphTypesetter>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&self->_typesetters, &identifierCopy, &std::piecewise_construct, &v13);
     v8 = *var0;
     v7 = *(var0 + 1);
     if (v7)
@@ -84,7 +84,7 @@
       std::__shared_weak_count::__release_shared[abi:nn200100](v9);
     }
 
-    [(TSWPCTTypesetterCache *)self p_limitCacheSize:v12[0]];
+    [(TSWPCTTypesetterCache *)self p_limitCacheSize:identifierCopy];
     if (self->_typesetters.__tree_.__size_ >= 2)
     {
       currentHandler = [MEMORY[0x277D6C290] currentHandler];

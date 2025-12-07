@@ -132,14 +132,12 @@
 
 - (NSArray)seatBelts
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   seatBeltServices = [(CAFSeat *)self seatBeltServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"vehicleLayoutKey" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [seatBeltServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -163,16 +161,14 @@
 
 - (NSArray)heatingCoolings
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   heatingCoolingServices = [(CAFSeat *)self heatingCoolingServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"vehicleLayoutKey" ascending:1];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:0 ascending:1 selector:sel_typeCompare_];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   v6 = [heatingCoolingServices sortedArrayUsingDescriptors:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -196,14 +192,12 @@
 
 - (NSArray)fans
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   fanServices = [(CAFSeat *)self fanServices];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"vehicleLayoutKey" ascending:1];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [fanServices sortedArrayUsingDescriptors:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

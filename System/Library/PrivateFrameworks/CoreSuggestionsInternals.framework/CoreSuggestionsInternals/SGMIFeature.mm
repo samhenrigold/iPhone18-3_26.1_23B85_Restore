@@ -124,7 +124,7 @@
 
 - (id)description
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   featureType = [(SGMIFeature *)self featureType];
   stringValue = 0;
   if (featureType <= 1)
@@ -151,30 +151,30 @@ LABEL_17:
   {
     case 2:
       numberValue = objc_opt_new();
+      v21 = 0u;
       v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
       numberArrayValue = [(SGMIFeature *)self numberArrayValue];
-      v10 = [numberArrayValue countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [numberArrayValue countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v23;
+        v12 = *v22;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v23 != v12)
+            if (*v22 != v12)
             {
               objc_enumerationMutation(numberArrayValue);
             }
 
-            stringValue2 = [*(*(&v22 + 1) + 8 * i) stringValue];
+            stringValue2 = [*(*(&v21 + 1) + 8 * i) stringValue];
             [numberValue addObject:stringValue2];
           }
 
-          v11 = [numberArrayValue countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v11 = [numberArrayValue countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
         while (v11);
@@ -202,14 +202,12 @@ LABEL_20:
   v18 = [SGMIFeature prettyName:[(SGMIFeature *)self featureName]];
   v19 = [v17 initWithFormat:@"%@: %@", v18, stringValue];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (id)stringArrayRepresentation
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   featureType = [(SGMIFeature *)self featureType];
   stringArrayValue = MEMORY[0x277CBEBF8];
   if (featureType <= 2)
@@ -219,12 +217,12 @@ LABEL_20:
       if (featureType == 2)
       {
         numberArrayValue = [(SGMIFeature *)self numberArrayValue];
-        v10[0] = MEMORY[0x277D85DD0];
-        v10[1] = 3221225472;
-        v10[2] = __40__SGMIFeature_stringArrayRepresentation__block_invoke;
-        v10[3] = &unk_27894EB88;
-        v10[4] = self;
-        stringArrayValue = [numberArrayValue _pas_mappedArrayWithTransform:v10];
+        v9[0] = MEMORY[0x277D85DD0];
+        v9[1] = 3221225472;
+        v9[2] = __40__SGMIFeature_stringArrayRepresentation__block_invoke;
+        v9[3] = &unk_27894EB88;
+        v9[4] = self;
+        stringArrayValue = [numberArrayValue _pas_mappedArrayWithTransform:v9];
       }
 
       goto LABEL_11;
@@ -232,8 +230,8 @@ LABEL_20:
 
     numberValue = [(SGMIFeature *)self numberValue];
     stringValue = [numberValue stringValue];
-    v12[0] = stringValue;
-    stringArrayValue = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = stringValue;
+    stringArrayValue = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
 
 LABEL_10:
     goto LABEL_11;
@@ -242,8 +240,8 @@ LABEL_10:
   if (featureType == 3)
   {
     numberValue = [(SGMIFeature *)self stringValue];
-    v11 = numberValue;
-    stringArrayValue = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+    v10 = numberValue;
+    stringArrayValue = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
     goto LABEL_10;
   }
 
@@ -253,7 +251,6 @@ LABEL_10:
   }
 
 LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
 
   return stringArrayValue;
 }
@@ -677,31 +674,30 @@ LABEL_73:
 
 void __33__SGMIFeature_submodeledFeatures__block_invoke()
 {
-  v13[9] = *MEMORY[0x277D85DE8];
+  v12[9] = *MEMORY[0x277D85DE8];
   v0 = objc_autoreleasePoolPush();
   v1 = [[SGMIFeatureSubmodelLink alloc] initFor:1000 fromUnigram:2003 andBigram:0];
   v2 = [[SGMIFeatureSubmodelLink alloc] initFor:1004 fromUnigram:2010 andBigram:0, v1];
-  v13[1] = v2;
+  v12[1] = v2;
   v3 = [[SGMIFeatureSubmodelLink alloc] initFor:1003 fromUnigram:2001 andBigram:0];
-  v13[2] = v3;
+  v12[2] = v3;
   v4 = [[SGMIFeatureSubmodelLink alloc] initFor:1001 fromUnigram:2004 andBigram:2005];
-  v13[3] = v4;
+  v12[3] = v4;
   v5 = [[SGMIFeatureSubmodelLink alloc] initFor:1002 fromUnigram:2006 andBigram:2007];
-  v13[4] = v5;
+  v12[4] = v5;
   v6 = [[SGMIFeatureSubmodelLink alloc] initFor:1005 fromUnigram:2011 andBigram:0];
-  v13[5] = v6;
+  v12[5] = v6;
   v7 = [[SGMIFeatureSubmodelLink alloc] initFor:1006 fromUnigram:2012 andBigram:0];
-  v13[6] = v7;
+  v12[6] = v7;
   v8 = [[SGMIFeatureSubmodelLink alloc] initFor:1008 fromUnigram:2016 andBigram:0];
-  v13[7] = v8;
+  v12[7] = v8;
   v9 = [[SGMIFeatureSubmodelLink alloc] initFor:1007 fromUnigram:2015 andBigram:0];
-  v13[8] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:9];
+  v12[8] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:9];
   v11 = submodeledFeatures__pasExprOnceResult;
   submodeledFeatures__pasExprOnceResult = v10;
 
   objc_autoreleasePoolPop(v0);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)featureTypeForName:(int64_t)name

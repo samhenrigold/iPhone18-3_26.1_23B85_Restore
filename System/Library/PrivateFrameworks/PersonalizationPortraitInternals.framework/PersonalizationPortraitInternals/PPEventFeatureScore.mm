@@ -75,36 +75,7 @@
 {
   scoreCopy = score;
   v5 = scoreCopy;
-  if (!scoreCopy)
-  {
-    goto LABEL_7;
-  }
-
-  v6 = self->_featureValues == 0;
-  featureValues = [scoreCopy featureValues];
-  v8 = featureValues != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_7;
-  }
-
-  featureValues = self->_featureValues;
-  if (featureValues)
-  {
-    featureValues2 = [v5 featureValues];
-    v11 = [(NSArray *)featureValues isEqual:featureValues2];
-
-    if (!v11)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  [v5 weightedScore];
-  weightedScore = self->_weightedScore;
-  [v5 weightedScore];
-  if (weightedScore == v13)
+  if (scoreCopy && (v6 = self->_featureValues == 0, [scoreCopy featureValues], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 != v8) && ((featureValues = self->_featureValues) == 0 || (objc_msgSend(v5, "featureValues"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSArray isEqual:](featureValues, "isEqual:", v10), v10, v11)) && (objc_msgSend(v5, "weightedScore", self->_weightedScore), weightedScore = self->_weightedScore, objc_msgSend(v5, "weightedScore"), weightedScore == v13))
   {
     prominentFeature = self->_prominentFeature;
     v14 = prominentFeature == [v5 prominentFeature];
@@ -112,7 +83,6 @@
 
   else
   {
-LABEL_7:
     v14 = 0;
   }
 

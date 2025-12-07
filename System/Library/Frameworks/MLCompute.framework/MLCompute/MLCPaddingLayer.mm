@@ -121,7 +121,7 @@
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -138,11 +138,11 @@
       v32 = NSStringFromSelector(a2);
       [(MLCPaddingLayer *)self constantValue];
       *buf = 138412802;
-      v52 = v32;
-      v53 = 2048;
-      *v54 = v33;
-      *&v54[8] = 1024;
-      *&v54[10] = dataType;
+      v51 = v32;
+      v52 = 2048;
+      *v53 = v33;
+      *&v53[8] = 1024;
+      *&v53[10] = dataType;
       v34 = "%@: cannot compile padding layer as specified constant value = %f is too large for data type = %d";
 LABEL_12:
       _os_log_error_impl(&dword_238C1D000, v21, OS_LOG_TYPE_ERROR, v34, buf, 0x1Cu);
@@ -160,11 +160,11 @@ LABEL_16:
     {
       v32 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v52 = v32;
-      v53 = 1024;
-      *v54 = dataType;
-      *&v54[4] = 2112;
-      *&v54[6] = deviceCopy;
+      v51 = v32;
+      v52 = 1024;
+      *v53 = dataType;
+      *&v53[4] = 2112;
+      *&v53[6] = deviceCopy;
       v34 = "%@: padding layer with data type = %d is not supported on a device = %@";
       goto LABEL_12;
     }
@@ -173,7 +173,7 @@ LABEL_16:
   }
 
   aSelector = a2;
-  v49 = tensorCopy;
+  v48 = tensorCopy;
   computeEngine = [deviceCopy computeEngine];
   paddingType = [(MLCPaddingLayer *)self paddingType];
   paddingLeft = [(MLCPaddingLayer *)self paddingLeft];
@@ -186,10 +186,10 @@ LABEL_16:
   if (!v21 || ![v21 count])
   {
     v35 = +[MLCLog framework];
-    tensorCopy = v49;
+    tensorCopy = v48;
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      [MLCPaddingLayer compileForDevice:? sourceTensors:? resultTensor:?];
+      [MLCPaddingLayer compileForDevice:v21 sourceTensors:? resultTensor:?];
     }
 
     goto LABEL_16;
@@ -210,8 +210,8 @@ LABEL_16:
   {
     if (v25 != 4)
     {
-      v45 = +[MLCLog framework];
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v44 = +[MLCLog framework];
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         [MLCPaddingLayer compileForDevice:tensorsCopy sourceTensors:? resultTensor:?];
       }
@@ -228,51 +228,50 @@ LABEL_16:
     v31 = 3;
   }
 
-  v39 = [tensorsCopy objectAtIndexedSubscript:0];
-  descriptor4 = [v39 descriptor];
+  v38 = [tensorsCopy objectAtIndexedSubscript:0];
+  descriptor4 = [v38 descriptor];
   shape3 = [descriptor4 shape];
-  v42 = [shape3 objectAtIndexedSubscript:v31];
-  unsignedIntegerValue2 = [v42 unsignedIntegerValue];
+  v41 = [shape3 objectAtIndexedSubscript:v31];
+  unsignedIntegerValue2 = [v41 unsignedIntegerValue];
 
   if ([(MLCPaddingLayer *)self paddingType]&& [(MLCPaddingLayer *)self paddingType]!= MLCPaddingTypeConstant && (unsignedIntegerValue2 <= [(MLCPaddingLayer *)self paddingLeft]|| unsignedIntegerValue2 <= [(MLCPaddingLayer *)self paddingRight]|| unsignedIntegerValue <= [(MLCPaddingLayer *)self paddingTop]|| unsignedIntegerValue <= [(MLCPaddingLayer *)self paddingBottom]))
   {
-    v46 = +[MLCLog framework];
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    v45 = +[MLCLog framework];
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       aSelectora = NSStringFromSelector(aSelector);
       *buf = 138413826;
-      v52 = aSelectora;
-      v53 = 2048;
-      *v54 = [(MLCPaddingLayer *)self paddingLeft];
-      *&v54[8] = 2048;
-      *&v54[10] = [(MLCPaddingLayer *)self paddingRight];
-      v55 = 2048;
+      v51 = aSelectora;
+      v52 = 2048;
+      *v53 = [(MLCPaddingLayer *)self paddingLeft];
+      *&v53[8] = 2048;
+      *&v53[10] = [(MLCPaddingLayer *)self paddingRight];
+      v54 = 2048;
       paddingTop2 = [(MLCPaddingLayer *)self paddingTop];
-      v57 = 2048;
+      v56 = 2048;
       paddingBottom2 = [(MLCPaddingLayer *)self paddingBottom];
-      v59 = 2048;
-      v60 = unsignedIntegerValue2;
-      v61 = 2048;
-      v62 = unsignedIntegerValue;
-      _os_log_error_impl(&dword_238C1D000, v46, OS_LOG_TYPE_ERROR, "%@: padding size [%lu, %lu, %lu, %lu] must be less than the source tensor dimension size=[%lu, %lu]", buf, 0x48u);
+      v58 = 2048;
+      v59 = unsignedIntegerValue2;
+      v60 = 2048;
+      v61 = unsignedIntegerValue;
+      _os_log_error_impl(&dword_238C1D000, v45, OS_LOG_TYPE_ERROR, "%@: padding size [%lu, %lu, %lu, %lu] must be less than the source tensor dimension size=[%lu, %lu]", buf, 0x48u);
     }
 
 LABEL_32:
     v36 = 0;
-    tensorCopy = v49;
+    tensorCopy = v48;
     goto LABEL_17;
   }
 
   computeEngine2 = [deviceCopy computeEngine];
-  tensorCopy = v49;
-  v36 = [computeEngine2 compileLayerDeviceOps:v21 sourceTensors:tensorsCopy resultTensor:v49];
+  tensorCopy = v48;
+  v36 = [computeEngine2 compileLayerDeviceOps:v21 sourceTensors:tensorsCopy resultTensor:v48];
 
-  v50.receiver = self;
-  v50.super_class = MLCPaddingLayer;
-  [(MLCLayer *)&v50 bindDevice:deviceCopy deviceOps:v21];
+  v49.receiver = self;
+  v49.super_class = MLCPaddingLayer;
+  [(MLCLayer *)&v49 bindDevice:deviceCopy deviceOps:v21];
 LABEL_17:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
@@ -435,42 +434,43 @@ LABEL_6:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   v4 = [objc_opt_class() allocWithZone:zone];
   paddingType = [(MLCPaddingLayer *)self paddingType];
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[MLCPaddingLayer paddingLeft](self, "paddingLeft")}];
-  v14[0] = v6;
+  v13[0] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[MLCPaddingLayer paddingRight](self, "paddingRight")}];
-  v14[1] = v7;
+  v13[1] = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[MLCPaddingLayer paddingTop](self, "paddingTop")}];
-  v14[2] = v8;
+  v13[2] = v8;
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[MLCPaddingLayer paddingBottom](self, "paddingBottom")}];
-  v14[3] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
+  v13[3] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
   [(MLCPaddingLayer *)self constantValue];
   v11 = [v4 initWithPaddingType:paddingType paddingSizes:v10 constantValue:?];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:(void *)a2 resultTensor:.cold.1(const char *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
-  v11 = [a2 objectAtIndexedSubscript:0];
-  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v4, v5, "%@: Source tensor shape not supported=%@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v4 = [a2 objectAtIndexedSubscript:0];
+  *v11 = 138412546;
+  *&v11[4] = v3;
+  *&v11[12] = 2112;
+  *&v11[14] = v4;
+  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v5, v6, "%@: Source tensor shape not supported=%@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
-- (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.2(const char *a1)
+- (void)compileForDevice:(const char *)a1 sourceTensors:(uint64_t)a2 resultTensor:.cold.2(const char *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = NSStringFromSelector(a1);
-  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v2, v3, "%@: failure to create deviceOps=%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v3 = NSStringFromSelector(a1);
+  *v10 = 138412546;
+  *&v10[4] = v3;
+  *&v10[12] = 2112;
+  *&v10[14] = a2;
+  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v4, v5, "%@: failure to create deviceOps=%@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

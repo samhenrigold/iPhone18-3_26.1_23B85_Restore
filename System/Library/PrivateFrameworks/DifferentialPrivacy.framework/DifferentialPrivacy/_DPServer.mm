@@ -5,6 +5,8 @@
 - (BOOL)retireReports:(id)reports inDirectory:(id)directory;
 - (_DPServer)init;
 - (_DPServer)initWithDatabaseDirectoryPath:(id)path reportsDirectoryPath:(id)directoryPath enablePeriodicTasks:(BOOL)tasks enterSandbox:(BOOL)sandbox;
+- (void)donateDonationReceivedEventToBitacoraForKey:(id)key succeeded:(BOOL)succeeded count:(int)count;
+- (void)donateEventToCoreAnalytics:(id)analytics succeeded:(BOOL)succeeded count:(int)count;
 - (void)init;
 - (void)recordBitValues:(id)values forKey:(id)key withReply:(id)reply;
 - (void)recordBitValues:(id)values metadata:(id)metadata forKey:(id)key withReply:(id)reply;
@@ -276,7 +278,7 @@ LABEL_16:
 
 - (void)recordBitValues:(id)values metadata:(id)metadata forKey:(id)key withReply:(id)reply
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   metadataCopy = metadata;
   keyCopy = key;
@@ -286,9 +288,9 @@ LABEL_16:
     -[_DPServer donateDonationReceivedEventToBitacoraForKey:succeeded:count:](self, "donateDonationReceivedEventToBitacoraForKey:succeeded:count:", keyCopy, 0, [valuesCopy count]);
     v18 = MEMORY[0x277CCA9B8];
     v19 = +[_DPStrings errorDomain];
-    v24 = *MEMORY[0x277CCA470];
-    v25[0] = @"Missing entitlement required for this method";
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA470];
+    v24[0] = @"Missing entitlement required for this method";
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v21 = [v18 errorWithDomain:v19 code:0 userInfo:v20];
     replyCopy[2](replyCopy, 0, v21);
 
@@ -319,8 +321,6 @@ LABEL_8:
 
   replyCopy[2](replyCopy, 1, 0);
 LABEL_9:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordBitVectors:(id)vectors forKey:(id)key withReply:(id)reply
@@ -350,7 +350,7 @@ LABEL_9:
 
 - (void)recordBitVectors:(id)vectors metadata:(id)metadata forKey:(id)key withReply:(id)reply
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
   metadataCopy = metadata;
   keyCopy = key;
@@ -360,9 +360,9 @@ LABEL_9:
     -[_DPServer donateDonationReceivedEventToBitacoraForKey:succeeded:count:](self, "donateDonationReceivedEventToBitacoraForKey:succeeded:count:", keyCopy, 0, [vectorsCopy count]);
     v17 = MEMORY[0x277CCA9B8];
     v18 = +[_DPStrings errorDomain];
-    v23 = *MEMORY[0x277CCA470];
-    v24[0] = @"Missing entitlement required for this method";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277CCA470];
+    v23[0] = @"Missing entitlement required for this method";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     v20 = [v17 errorWithDomain:v18 code:0 userInfo:v19];
     replyCopy[2](replyCopy, 0, v20);
 
@@ -387,8 +387,6 @@ LABEL_6:
 
   replyCopy[2](replyCopy, 1, 0);
 LABEL_7:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordFloatVectors:(id)vectors forKey:(id)key withReply:(id)reply
@@ -418,7 +416,7 @@ LABEL_7:
 
 - (void)recordFloatVectors:(id)vectors metadata:(id)metadata forKey:(id)key withReply:(id)reply
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
   metadataCopy = metadata;
   keyCopy = key;
@@ -428,9 +426,9 @@ LABEL_7:
     -[_DPServer donateDonationReceivedEventToBitacoraForKey:succeeded:count:](self, "donateDonationReceivedEventToBitacoraForKey:succeeded:count:", keyCopy, 0, [vectorsCopy count]);
     v17 = MEMORY[0x277CCA9B8];
     v18 = +[_DPStrings errorDomain];
-    v23 = *MEMORY[0x277CCA470];
-    v24[0] = @"Missing entitlement required for this method";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277CCA470];
+    v23[0] = @"Missing entitlement required for this method";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     v20 = [v17 errorWithDomain:v18 code:0 userInfo:v19];
     replyCopy[2](replyCopy, 0, v20);
 
@@ -455,8 +453,6 @@ LABEL_6:
 
   replyCopy[2](replyCopy, 1, 0);
 LABEL_7:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordNumbers:(id)numbers forKey:(id)key withReply:(id)reply
@@ -486,7 +482,7 @@ LABEL_7:
 
 - (void)recordNumbers:(id)numbers metadata:(id)metadata forKey:(id)key withReply:(id)reply
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   numbersCopy = numbers;
   metadataCopy = metadata;
   keyCopy = key;
@@ -496,9 +492,9 @@ LABEL_7:
     -[_DPServer donateDonationReceivedEventToBitacoraForKey:succeeded:count:](self, "donateDonationReceivedEventToBitacoraForKey:succeeded:count:", keyCopy, 0, [numbersCopy count]);
     v17 = MEMORY[0x277CCA9B8];
     v18 = +[_DPStrings errorDomain];
-    v23 = *MEMORY[0x277CCA470];
-    v24[0] = @"Missing entitlement required for this method";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277CCA470];
+    v23[0] = @"Missing entitlement required for this method";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     v20 = [v17 errorWithDomain:v18 code:0 userInfo:v19];
     replyCopy[2](replyCopy, 0, v20);
 
@@ -523,8 +519,6 @@ LABEL_6:
 
   replyCopy[2](replyCopy, 1, 0);
 LABEL_7:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordNumbersVectors:(id)vectors forKey:(id)key withReply:(id)reply
@@ -554,7 +548,7 @@ LABEL_7:
 
 - (void)recordNumbersVectors:(id)vectors metadata:(id)metadata forKey:(id)key withReply:(id)reply
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
   metadataCopy = metadata;
   keyCopy = key;
@@ -564,9 +558,9 @@ LABEL_7:
     -[_DPServer donateDonationReceivedEventToBitacoraForKey:succeeded:count:](self, "donateDonationReceivedEventToBitacoraForKey:succeeded:count:", keyCopy, 0, [vectorsCopy count]);
     v17 = MEMORY[0x277CCA9B8];
     v18 = +[_DPStrings errorDomain];
-    v23 = *MEMORY[0x277CCA470];
-    v24[0] = @"Missing entitlement required for this method";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277CCA470];
+    v23[0] = @"Missing entitlement required for this method";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     v20 = [v17 errorWithDomain:v18 code:0 userInfo:v19];
     replyCopy[2](replyCopy, 0, v20);
 
@@ -591,8 +585,6 @@ LABEL_6:
 
   replyCopy[2](replyCopy, 1, 0);
 LABEL_7:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordStrings:(id)strings forKey:(id)key withReply:(id)reply
@@ -622,7 +614,7 @@ LABEL_7:
 
 - (void)recordStrings:(id)strings metadata:(id)metadata forKey:(id)key withReply:(id)reply
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   metadataCopy = metadata;
   keyCopy = key;
@@ -632,9 +624,9 @@ LABEL_7:
     -[_DPServer donateDonationReceivedEventToBitacoraForKey:succeeded:count:](self, "donateDonationReceivedEventToBitacoraForKey:succeeded:count:", keyCopy, 0, [stringsCopy count]);
     v17 = MEMORY[0x277CCA9B8];
     v18 = +[_DPStrings errorDomain];
-    v23 = *MEMORY[0x277CCA470];
-    v24[0] = @"Missing entitlement required for this method";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277CCA470];
+    v23[0] = @"Missing entitlement required for this method";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     v20 = [v17 errorWithDomain:v18 code:0 userInfo:v19];
     replyCopy[2](replyCopy, 0, v20);
 
@@ -659,8 +651,6 @@ LABEL_6:
 
   replyCopy[2](replyCopy, 1, 0);
 LABEL_7:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordWords:(id)words forKey:(id)key withReply:(id)reply
@@ -743,39 +733,88 @@ LABEL_7:
   return v9;
 }
 
-- (void)init
+- (void)donateEventToCoreAnalytics:(id)analytics succeeded:(BOOL)succeeded count:(int)count
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = +[_DPStrings databaseDirectoryPath];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_22622D000, self, OS_LOG_TYPE_DEBUG, "DataBaseDirectoryPath: %@", v4, 0xCu);
+  v5 = *&count;
+  succeededCopy = succeeded;
+  v13[4] = *MEMORY[0x277D85DE8];
+  analyticsCopy = analytics;
+  v8 = +[_DPCoreAnalyticsCollector sharedInstance];
+  v12[0] = @"Phase";
+  v12[1] = @"TaskName";
+  v13[0] = &unk_283976030;
+  v13[1] = analyticsCopy;
+  v12[2] = @"Status";
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:succeededCopy];
+  v13[2] = v9;
+  v12[3] = @"Counts";
+  v10 = [MEMORY[0x277CCABB0] numberWithInt:v5];
+  v13[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
-  v3 = *MEMORY[0x277D85DE8];
+  [v8 reportMetricsForEvent:@"com.apple.DifferentialPrivacy.PhaseCount" withMetrics:v11];
 }
 
-+ (void)shouldNotRecord:forKey:count:.cold.1()
+- (void)donateDonationReceivedEventToBitacoraForKey:(id)key succeeded:(BOOL)succeeded count:(int)count
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *&count;
+  succeededCopy = succeeded;
+  keyCopy = key;
+  v15 = [_DPKeyNames keyPropertiesForKey:keyCopy];
+  telemetryAllowed = [v15 telemetryAllowed];
+  v10 = 1;
+  if ((telemetryAllowed & 1) == 0)
+  {
+    v10 = +[_DPDeviceInfo isInternalBuild];
+  }
+
+  if (succeededCopy)
+  {
+    v11 = 100;
+  }
+
+  else
+  {
+    v11 = 104;
+  }
+
+  if (succeededCopy)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v12 = @"Metadata methods not allowed";
+  }
+
+  LOBYTE(v14) = v10;
+  LODWORD(v13) = 1;
+  HIDWORD(v13) = v5;
+  [_DPLHBitacoraLogger donateEventToBitacoraForKey:keyCopy eventPhase:1 uuid:0 succeeded:succeededCopy errorCode:v11 errorMessage:v12 aggregateFunction:v13 count:v14 telemetryAllowed:?];
+  [(_DPServer *)self donateEventToCoreAnalytics:keyCopy succeeded:succeededCopy count:v5];
+}
+
+- (void)init
+{
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = +[_DPStrings databaseDirectoryPath];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3_0(&dword_22622D000, v0, v1, "%@ for key: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_22622D000, self, OS_LOG_TYPE_DEBUG, "DataBaseDirectoryPath: %@", v3, 0xCu);
 }
 
 - (void)recordBitValues:metadata:forKey:withReply:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_22622D000, v0, OS_LOG_TYPE_DEBUG, "Skipping recording for key=%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_22622D000, v0, OS_LOG_TYPE_DEBUG, "Skipping recording for key=%@", v1, 0xCu);
 }
 
 - (void)listener:(void *)a1 shouldAcceptNewConnection:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 processIdentifier];
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

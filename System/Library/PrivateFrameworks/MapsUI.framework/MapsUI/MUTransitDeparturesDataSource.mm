@@ -3,6 +3,7 @@
 - (MUTransitDeparturesDataSource)init;
 - (MUTransitDeparturesDataSourceDelegate)delegate;
 - (id)traitsForTransitDeparturesDataProvider:(id)provider;
+- (void)setIsActive:(BOOL)active;
 - (void)transitDeparturesDataProviderDidReload:(id)reload;
 @end
 
@@ -21,6 +22,15 @@
   v3 = OBJC_IVAR___MUTransitDeparturesDataSource_isActive;
   swift_beginAccess();
   return *(self + v3);
+}
+
+- (void)setIsActive:(BOOL)active
+{
+  activeCopy = active;
+  v5 = OBJC_IVAR___MUTransitDeparturesDataSource_isActive;
+  swift_beginAccess();
+  *(self + v5) = activeCopy;
+  [*(self + OBJC_IVAR___MUTransitDeparturesDataSource_dataProvider) setActive_];
 }
 
 - (MUTransitDeparturesDataSource)init

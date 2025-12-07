@@ -8,11 +8,11 @@
 
 - (MCAlwaysOnVPNPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v15.receiver = self;
-  v15.super_class = MCAlwaysOnVPNPayload;
-  v9 = [(MCVPNPayloadBase *)&v15 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v14.receiver = self;
+  v14.super_class = MCAlwaysOnVPNPayload;
+  v9 = [(MCVPNPayloadBase *)&v14 initWithDictionary:dictionaryCopy profile:profile outError:error];
   if (v9)
   {
     if ([dictionaryCopy count])
@@ -23,22 +23,21 @@
         v11 = v10;
         friendlyName = [(MCPayload *)v9 friendlyName];
         *buf = 138543618;
-        v17 = friendlyName;
-        v18 = 2114;
-        v19 = dictionaryCopy;
+        v16 = friendlyName;
+        v17 = 2114;
+        v18 = dictionaryCopy;
         _os_log_impl(&dword_1A795B000, v11, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
       }
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)_validatePayload:(id)payload
 {
   payloadCopy = payload;
-  if (MCNEProfileIngestionClass())
+  if (MCNEProfileIngestionClass(payloadCopy))
   {
     v5 = [objc_alloc(NSClassFromString(&cfstr_Neprofilepaylo.isa)) initWithPayload:payloadCopy];
     [(MCVPNPayloadBase *)self setNePayloadBase:v5];
@@ -66,10 +65,9 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.vpn.managed.alwayson";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.vpn.managed.alwayson";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }

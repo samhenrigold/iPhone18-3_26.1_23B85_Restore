@@ -14,6 +14,7 @@
 - (NSArray)endpoints;
 - (id)_clientForIdentifier:(id)identifier;
 - (id)_clientForPairingSession:(id)session;
+- (id)_createLocalizedOutputDevice:(id)device redactVolume:(BOOL)volume forClient:(id)client endpoint:(id)endpoint;
 - (id)_createLocalizedOutputDevices:(id)devices redactVolume:(BOOL)volume forClient:(id)client endpoint:(id)endpoint;
 - (id)_findClientIf:(id)if;
 - (id)_unpair:(id)_unpair;
@@ -86,6 +87,7 @@
 - (void)_sendMessageFromEndpoint:(id)endpoint withSource:(int64_t)source handler:(id)handler;
 - (void)_sendStateUpdateMessageFromOrigin:(id)origin source:(int64_t)source handler:(id)handler;
 - (void)_sendStateUpdateMessageFromPlayerPath:(id)path source:(int64_t)source handler:(id)handler;
+- (void)_setGameControllerInputMode:(unsigned int)mode;
 - (void)_syncStateToClient:(id)client;
 - (void)addAuthorizationCallbackForOutputDeviceUID:(id)d client:(id)client;
 - (void)clearEndpointForClient:(id)client;
@@ -111,6 +113,7 @@
 - (void)purgeUnusedDiscoverySessions;
 - (void)registerNotifications;
 - (void)requestRouteAuthorizationStatusForDeviceUID:(id)d client:(id)client;
+- (void)setServerDiscoveryMode:(unsigned int)mode forConfiguration:(id)configuration;
 - (void)sleepObserverSystemWillSleep:(id)sleep completion:(id)completion;
 - (void)stateObserver:(id)observer didReceiveClientDidUnregister:(id)unregister;
 - (void)stateObserver:(id)observer didReceiveCoalescedNowPlayingStateChange:(id)change playerPath:(id)path;
@@ -118,6 +121,7 @@
 - (void)stateObserver:(id)observer didReceiveNowPlayingClientChange:(id)change;
 - (void)stateObserver:(id)observer didReceiveNowPlayingPlayerChange:(id)change;
 - (void)stateObserver:(id)observer didReceivePlayerDidUnregister:(id)unregister;
+- (void)stateObserver:(id)observer didReceiveVolumeControlCapabilitiesChange:(unsigned int)change playerPath:(id)path;
 - (void)updateASEAssertionForRemoteDeviceID:(id)d isAsserting:(BOOL)asserting;
 @end
 
@@ -502,7 +506,7 @@ LABEL_23:
         v24 = v23;
         if (v23)
         {
-          [v23 event];
+          objc_msgSend_event(v23);
         }
 
         else
@@ -522,9 +526,9 @@ LABEL_23:
       case 18:
         v27 = messageCopy;
         v24 = [v9 gameControllerWithID:{objc_msgSend(v27, "controllerID")}];
-        event = [v27 event];
+        v28 = objc_msgSend_event(v27);
 
-        [v24 sendGameControllerEvent:event];
+        [v24 sendGameControllerEvent:v28];
         goto LABEL_94;
       case 19:
         [(MRDExternalDeviceRemoteServer *)self _handleRegisterGameControllerMessage:messageCopy client:v9];
@@ -703,6 +707,25 @@ LABEL_94:
   v9 = [[MRSetNowPlayingPlayerMessage alloc] initWithPlayerPath:changeCopy];
   v7 = v9;
   [(MRDExternalDeviceRemoteServer *)self _sendStateUpdateMessageFromPlayerPath:changeCopy source:1 handler:v8];
+}
+
+- (void)stateObserver:(id)observer didReceiveVolumeControlCapabilitiesChange:(unsigned int)change playerPath:(id)path
+{
+  v5 = *&change;
+  pathCopy = path;
+  v8 = _MRLogForCategory();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    sub_1003A9390(v5, v8);
+  }
+
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100107EC8;
+  v10[3] = &unk_1004BCAE8;
+  v11 = [[MRLegacyVolumeControlCapabilitiesDidChangeMessage alloc] initWithCapabilities:v5];
+  v9 = v11;
+  [(MRDExternalDeviceRemoteServer *)self _sendStateUpdateMessageFromPlayerPath:pathCopy source:2 handler:v10];
 }
 
 - (void)stateObserver:(id)observer didReceiveDefaultSupportedCommandsChange:(id)change playerPath:(id)path
@@ -888,6 +911,30 @@ LABEL_11:
   v9 = [[MRGameControllerPropertiesMessage alloc] initWithGameControllerProperties:changedCopy controllerID:controller];
 
   [clientCopy sendMessage:v9];
+}
+
+- (id)_createLocalizedOutputDevice:(id)device redactVolume:(BOOL)volume forClient:(id)client endpoint:(id)endpoint
+{
+  if (device)
+  {
+    volumeCopy = volume;
+    deviceCopy = device;
+    endpointCopy = endpoint;
+    clientCopy = client;
+    deviceCopy2 = device;
+    v13 = [NSArray arrayWithObjects:&deviceCopy count:1];
+
+    deviceCopy = [(MRDExternalDeviceRemoteServer *)self _createLocalizedOutputDevices:v13 redactVolume:volumeCopy forClient:clientCopy endpoint:endpointCopy, deviceCopy];
+
+    firstObject = [deviceCopy firstObject];
+  }
+
+  else
+  {
+    firstObject = 0;
+  }
+
+  return firstObject;
 }
 
 - (id)_createLocalizedOutputDevices:(id)devices redactVolume:(BOOL)volume forClient:(id)client endpoint:(id)endpoint
@@ -1202,19 +1249,8 @@ LABEL_11:
   if (v6 && ![v6 type] && (objc_msgSend(v6, "isPairedDeviceSync") & 1) == 0 && (objc_msgSend(v6, "suppressPairedDeviceSync") & 1) == 0)
   {
     outputDeviceUID = [v6 outputDeviceUID];
-    if (!outputDeviceUID)
+    if (!outputDeviceUID || (v8 = outputDeviceUID, [v6 outputDeviceUID], v9 = objc_claimAutoreleasedReturnValue(), +[MRAVOutputDevice localDeviceUID](MRAVOutputDevice, "localDeviceUID"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqualToString:", v10), v10, v9, v8, v11))
     {
-      goto LABEL_7;
-    }
-
-    v8 = outputDeviceUID;
-    outputDeviceUID2 = [v6 outputDeviceUID];
-    v10 = +[MRAVOutputDevice localDeviceUID];
-    v11 = [outputDeviceUID2 isEqualToString:v10];
-
-    if (v11)
-    {
-LABEL_7:
       v12 = +[MROrigin localOrigin];
       v13 = [MRDeviceInfoRequest deviceInfoForOrigin:v12];
 
@@ -2071,6 +2107,36 @@ LABEL_10:
   _Block_object_dispose(&v20, 8);
 }
 
+- (void)_setGameControllerInputMode:(unsigned int)mode
+{
+  if (self->_gameControllerInputMode != mode)
+  {
+    v3 = *&mode;
+    v5 = _MRLogForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      Description = MRGameControllerInputModeCreateDescription();
+      *buf = 138543362;
+      v15 = Description;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[ExternalDeviceServer] Setting game controller input mode to %{public}@", buf, 0xCu);
+    }
+
+    self->_gameControllerInputMode = v3;
+    v7 = [[MRRegisterForGameControllerEventsMessage alloc] initWithInputMode:v3];
+    v8 = [MRPlayerPath alloc];
+    v9 = +[MROrigin localOrigin];
+    v10 = [v8 initWithOrigin:v9 client:0 player:0];
+
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10010CEBC;
+    v12[3] = &unk_1004BCAE8;
+    v13 = v7;
+    v11 = v7;
+    [(MRDExternalDeviceRemoteServer *)self _sendStateUpdateMessageFromPlayerPath:v10 source:0 handler:v12];
+  }
+}
+
 - (id)_unpair:(id)_unpair
 {
   _unpairCopy = _unpair;
@@ -2256,6 +2322,53 @@ LABEL_16:
   v12 = objc_retainBlock(handlerCopy);
 
   [v11 addObject:v12];
+}
+
+- (void)setServerDiscoveryMode:(unsigned int)mode forConfiguration:(id)configuration
+{
+  v4 = *&mode;
+  configurationCopy = configuration;
+  v7 = self->_discoverySessions;
+  objc_sync_enter(v7);
+  v8 = [(NSMutableDictionary *)self->_outputDeviceCallbackTokens objectForKeyedSubscript:configurationCopy];
+  v9 = [(NSMutableDictionary *)self->_discoverySessions objectForKeyedSubscript:configurationCopy];
+  v10 = v9;
+  if (v4)
+  {
+    if (!v9)
+    {
+      v10 = [MRAVRoutingDiscoverySession discoverySessionWithConfiguration:configurationCopy];
+      [(NSMutableDictionary *)self->_discoverySessions setObject:v10 forKeyedSubscript:configurationCopy];
+    }
+
+    if (!v8)
+    {
+      objc_initWeak(&location, self);
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_10010DEAC;
+      v12[3] = &unk_1004BCE50;
+      objc_copyWeak(&v14, &location);
+      v11 = configurationCopy;
+      v13 = v11;
+      v8 = [v10 addOutputDevicesChangedCallback:v12];
+      [(NSMutableDictionary *)self->_outputDeviceCallbackTokens setObject:v8 forKeyedSubscript:v11];
+
+      objc_destroyWeak(&v14);
+      objc_destroyWeak(&location);
+    }
+
+    [v10 setDiscoveryMode:v4];
+  }
+
+  else
+  {
+    [v9 removeOutputDevicesChangedCallback:v8];
+    [(NSMutableDictionary *)self->_outputDeviceCallbackTokens setObject:0 forKeyedSubscript:configurationCopy];
+    [(NSMutableDictionary *)self->_discoverySessions setObject:0 forKeyedSubscript:configurationCopy];
+  }
+
+  objc_sync_exit(v7);
 }
 
 - (void)purgeUnusedDiscoverySessions
@@ -3071,34 +3184,25 @@ LABEL_14:
   origin = [pathCopy origin];
   v9 = [(MRDExternalDeviceRemoteServer *)self _origin:origin matchesSubscribedPlayerPath:playerPathCopy];
 
-  if (!v9)
+  v17 = 0;
+  if (v9)
   {
-    goto LABEL_5;
-  }
+    origin2 = [pathCopy origin];
+    client = [pathCopy client];
+    v12 = [(MRDExternalDeviceRemoteServer *)self _origin:origin2 client:client matchesSubscribedPlayerPath:playerPathCopy];
 
-  origin2 = [pathCopy origin];
-  client = [pathCopy client];
-  v12 = [(MRDExternalDeviceRemoteServer *)self _origin:origin2 client:client matchesSubscribedPlayerPath:playerPathCopy];
+    if (v12)
+    {
+      origin3 = [pathCopy origin];
+      client2 = [pathCopy client];
+      player = [pathCopy player];
+      v16 = [(MRDExternalDeviceRemoteServer *)self _origin:origin3 client:client2 player:player matchesSubscribedPlayerPath:playerPathCopy];
 
-  if (!v12)
-  {
-    goto LABEL_5;
-  }
-
-  origin3 = [pathCopy origin];
-  client2 = [pathCopy client];
-  player = [pathCopy player];
-  v16 = [(MRDExternalDeviceRemoteServer *)self _origin:origin3 client:client2 player:player matchesSubscribedPlayerPath:playerPathCopy];
-
-  if (v16)
-  {
-    v17 = 1;
-  }
-
-  else
-  {
-LABEL_5:
-    v17 = 0;
+      if (v16)
+      {
+        v17 = 1;
+      }
+    }
   }
 
   return v17;

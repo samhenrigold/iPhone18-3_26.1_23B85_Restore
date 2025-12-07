@@ -83,55 +83,59 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v7 = 0;
+    v11 = 0;
     goto LABEL_18;
   }
 
   safari_dataByDecompressingData = [valueCopy safari_dataByDecompressingData];
   if (!safari_dataByDecompressingData)
   {
-    v8 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_100031DA8(v8);
+      sub_100031DA8(v12);
     }
 
-    v7 = 0;
+    v11 = 0;
     goto LABEL_17;
   }
 
-  v6 = [NSJSONSerialization JSONObjectWithData:safari_dataByDecompressingData options:0 error:0];
-  if (!v6)
+  v8 = [NSJSONSerialization JSONObjectWithData:safari_dataByDecompressingData options:0 error:0];
+  if (!v8)
   {
-    v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_100031D64(v9);
+      sub_100031D64(v13);
     }
 
     goto LABEL_15;
   }
 
-  if (self->_rootJSONObjectType && (objc_opt_isKindOfClass() & 1) == 0)
+  if (self->_rootJSONObjectType)
   {
-    v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      sub_100031CA4(&self->_rootJSONObjectType, v10);
-    }
+      v14 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(isKindOfClass, v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        sub_100031CA4(&self->_rootJSONObjectType, v14, v8);
+      }
 
 LABEL_15:
-    v7 = 0;
-    goto LABEL_16;
+      v11 = 0;
+      goto LABEL_16;
+    }
   }
 
-  v7 = v6;
+  v11 = v8;
 LABEL_16:
 
 LABEL_17:
 LABEL_18:
 
-  return v7;
+  return v11;
 }
 
 @end

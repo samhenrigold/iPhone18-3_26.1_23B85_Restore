@@ -9,45 +9,45 @@
   v6 = *(arguments + 1) - *arguments;
   if ((v6 & 0x7FFFFFFF8) != 8)
   {
-    v7 = objc_msgSend_functionName(spec, a2, context, spec, arguments);
-    v23 = objc_msgSend_wrongNumberOfArgumentsErrorForFunctionName_provided_(TSCEError, v33, v7, (v6 >> 3), v34);
-    v32 = objc_msgSend_raiseErrorOrConvert_(context, v35, v23, v36, v37);
+    v7 = objc_msgSend_functionName(spec, a2, context, spec);
+    v19 = objc_msgSend_wrongNumberOfArgumentsErrorForFunctionName_provided_(TSCEError, v27, v7, (v6 >> 3));
+    v26 = objc_msgSend_raiseErrorOrConvert_(context, v28, v19, v29);
     goto LABEL_9;
   }
 
   v7 = **arguments;
-  if (objc_msgSend_isReferenceValue(v7, v8, v9, v10, v11))
+  if (objc_msgSend_isReferenceValue(v7, v8, v9, v10))
   {
-    v16 = objc_msgSend_asReferenceValue(v7, v12, v13, v14, v15);
-    v19 = objc_msgSend_referredToValue_fetchRichTextAttributesIfPlainText_(v16, v17, context, 0, v18);
+    v14 = objc_msgSend_asReferenceValue(v7, v11, v12, v13);
+    v16 = objc_msgSend_referredToValue_fetchRichTextAttributesIfPlainText_(v14, v15, context, 0);
 
-    v7 = v19;
+    v7 = v16;
   }
 
-  if (objc_msgSend_isError(v7, v12, v13, v14, v15))
+  if (objc_msgSend_isError(v7, v11, v12, v13))
   {
-    v23 = objc_msgSend_errorWithContext_(v7, v20, context, v21, v22);
-    if ((objc_msgSend_isInvalidReferenceError(v23, v24, v25, v26, v27) & 1) != 0 || objc_msgSend_isInvalidRangeUsageError(v23, v28, v29, v30, v31))
+    v19 = objc_msgSend_errorWithContext_(v7, v17, context, v18);
+    if ((objc_msgSend_isInvalidReferenceError(v19, v20, v21, v22) & 1) != 0 || objc_msgSend_isInvalidRangeUsageError(v19, v23, v24, v25))
     {
-      v32 = objc_msgSend_raiseErrorOrConvert_(context, v28, v23, v30, v31);
+      v26 = objc_msgSend_raiseErrorOrConvert_(context, v23, v19, v25);
 LABEL_9:
-      v38 = v32;
+      v30 = v26;
 
       goto LABEL_12;
     }
 
-    objc_msgSend_BOOLValue_(TSCEBooleanValue, v44, 0, v45, v46);
+    objc_msgSend_BOOLValue_(TSCEBooleanValue, v35, 0, v36);
   }
 
   else
   {
-    v39 = objc_msgSend_deepType_(v7, v20, context, v21, v22) == 7;
-    objc_msgSend_BOOLValue_(TSCEBooleanValue, v40, v39, v41, v42);
+    v31 = objc_msgSend_deepType_(v7, v17, context, v18) == 7;
+    objc_msgSend_BOOLValue_(TSCEBooleanValue, v32, v31, v33);
   }
-  v38 = ;
+  v30 = ;
 LABEL_12:
 
-  return v38;
+  return v30;
 }
 
 @end

@@ -1766,45 +1766,10 @@ LABEL_5:
         deviceNeedsBTReconnect = [(SHFUPlugin *)selfCopy3 deviceNeedsBTReconnect];
         bOOLValue2 = [deviceNeedsBTReconnect BOOLValue];
 
-        if (!bOOLValue2)
+        if (!bOOLValue2 || (-[SHFUPlugin waitForBTSession](selfCopy3, "waitForBTSession"), -[SHFUPlugin btSession](selfCopy3, "btSession")) || (+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Bluetooth Session not found for device %@", v32), v51 = objc_claimAutoreleasedReturnValue(), v52 = [NSError alloc], -[SHFUPlugin errorDomain](selfCopy3, "errorDomain"), v53 = objc_claimAutoreleasedReturnValue(), v81 = NSLocalizedDescriptionKey, v82 = v51, +[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v82, &v81, 1), v54 = objc_claimAutoreleasedReturnValue(), v46 = [v52 initWithDomain:v53 code:34 userInfo:v54], v54, v53, v51, v62 = 0, !v46))
         {
-          goto LABEL_41;
-        }
-
-        [(SHFUPlugin *)selfCopy3 waitForBTSession];
-        if ([(SHFUPlugin *)selfCopy3 btSession])
-        {
-          goto LABEL_41;
-        }
-
-        v51 = [NSString stringWithFormat:@"Bluetooth Session not found for device %@", v32];
-        v52 = [NSError alloc];
-        errorDomain3 = [(SHFUPlugin *)selfCopy3 errorDomain];
-        v81 = NSLocalizedDescriptionKey;
-        v82 = v51;
-        v54 = [NSDictionary dictionaryWithObjects:&v82 forKeys:&v81 count:1];
-        v46 = [v52 initWithDomain:errorDomain3 code:34 userInfo:v54];
-
-        v62 = 0;
-        if (!v46)
-        {
-LABEL_41:
-          if ([v32 hardwareVersion])
+          if ([v32 hardwareVersion] || (+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"No hardware revision ID for device %@", v32), v47 = objc_claimAutoreleasedReturnValue(), v48 = [NSError alloc], -[SHFUPlugin errorDomain](selfCopy3, "errorDomain"), v49 = objc_claimAutoreleasedReturnValue(), v79 = NSLocalizedDescriptionKey, v80 = v47, +[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v80, &v79, 1), v50 = objc_claimAutoreleasedReturnValue(), v46 = objc_msgSend(v48, "initWithDomain:code:userInfo:", v49, 9, v50), v50, v49, v47, !v46))
           {
-            goto LABEL_42;
-          }
-
-          v47 = [NSString stringWithFormat:@"No hardware revision ID for device %@", v32];
-          v48 = [NSError alloc];
-          errorDomain4 = [(SHFUPlugin *)selfCopy3 errorDomain];
-          v79 = NSLocalizedDescriptionKey;
-          v80 = v47;
-          v50 = [NSDictionary dictionaryWithObjects:&v80 forKeys:&v79 count:1];
-          v46 = [v48 initWithDomain:errorDomain4 code:9 userInfo:v50];
-
-          if (!v46)
-          {
-LABEL_42:
             v35 = +[NSNumber numberWithUnsignedShort:](NSNumber, "numberWithUnsignedShort:", [v32 hardwareVersion]);
             v36 = [(SHFUPlugin *)selfCopy3 getParsersForHWRevID:v35];
 
@@ -1822,8 +1787,8 @@ LABEL_42:
               featureReportDelay = [(SHFUPlugin *)selfCopy3 featureReportDelay];
               logHandle3 = [(SHFUPlugin *)selfCopy3 logHandle];
               delegate2 = [(SHFUPlugin *)selfCopy3 delegate];
-              errorDomain5 = [(SHFUPlugin *)selfCopy3 errorDomain];
-              v46 = [v63 sendAllFirmwaresToDeviceWithVendorID:vendorID productID:productID2 hasPowerSource:bOOLValue4 parsers:v36 totalPrepareBytes:v66 bytesSent:buf featureReportDelay:featureReportDelay logHandle:logHandle3 pluginDelegate:delegate2 errorDomain:errorDomain5];
+              errorDomain3 = [(SHFUPlugin *)selfCopy3 errorDomain];
+              v46 = [v63 sendAllFirmwaresToDeviceWithVendorID:vendorID productID:productID2 hasPowerSource:bOOLValue4 parsers:v36 totalPrepareBytes:v66 bytesSent:buf featureReportDelay:featureReportDelay logHandle:logHandle3 pluginDelegate:delegate2 errorDomain:errorDomain3];
 
               v30 = &selRef_errorDomain;
               v11 = v65;

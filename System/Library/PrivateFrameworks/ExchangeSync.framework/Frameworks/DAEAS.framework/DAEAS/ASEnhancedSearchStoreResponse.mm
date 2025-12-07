@@ -109,15 +109,15 @@
 
 - (void)addResult:(id)result
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v5, v6))
   {
-    v11 = 138412290;
-    v12 = resultCopy;
-    _os_log_impl(&dword_24A0AC000, v5, v6, "Adding search result: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = resultCopy;
+    _os_log_impl(&dword_24A0AC000, v5, v6, "Adding search result: %@", &v10, 0xCu);
   }
 
   mResults = [(ASEnhancedSearchStoreResponse *)self mResults];
@@ -133,8 +133,6 @@
     mResults2 = [(ASEnhancedSearchStoreResponse *)self mResults];
     [mResults2 addObject:resultCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)asParseRules

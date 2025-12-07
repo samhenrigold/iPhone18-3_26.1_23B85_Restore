@@ -382,7 +382,7 @@ LABEL_103:
           v80 = 8 * v76;
 LABEL_104:
           v81 = (a4 + v80);
-          v82 = v236 + 8 * (v47 - a7);
+          v82 = (v236 + 8 * (v47 - a7));
           v242 = (a2 + v68);
           if (v243)
           {
@@ -461,7 +461,7 @@ LABEL_111:
 
           else if (v87 == 3)
           {
-            v89 = vld1q_dup_f32(v83->f32);
+            v89 = vld1q_dup_f32(v83->i32);
             v256 = v89;
             v257 = v89;
             v264 = v89;
@@ -493,7 +493,7 @@ LABEL_111:
             v281 = 0u;
           }
 
-          v98 = v83 + v88;
+          v98 = v83->i64 + v88;
           v99 = v81[1];
           if (v99 == 127)
           {
@@ -925,16 +925,16 @@ LABEL_111:
             }
 
             v189 = !v188;
-            v191 = v184 < v247 + v248 * (v172 - 1) + 8 * v252 && v247 < &__dst[128 * v172 + 896 + 128 * v249 + 8 * v252 + v183];
+            v191 = v184 < &v247->i8[8 * v252 + v248 * (v172 - 1)] && v247 < &__dst[128 * v172 + 896 + 128 * v249 + 8 * v252 + v183];
             v192 = v187 & 0x1FFFFFFE0;
             v193 = v189 | (v248 < 0) | v191;
-            v194 = &v257 + 128 * v249 + v183;
-            v195 = (v247 + 16);
+            v194 = (&v257 + 128 * v249 + v183);
+            v195 = v247 + 1;
             v196 = v184;
             v197 = v247;
             do
             {
-              v198 = (v185 + v182 * v186);
+              v198 = &v185->i8[v182 * v186];
               v199 = &v184[128 * v182];
               if (v193)
               {
@@ -948,7 +948,7 @@ LABEL_111:
                   v204 = 0;
 LABEL_197:
                   v209 = -8 * v181 + v204;
-                  v210 = (v197 + v204);
+                  v210 = (v197->i64 + v204);
                   v211 = &v196[v204];
                   do
                   {
@@ -968,7 +968,7 @@ LABEL_197:
                 do
                 {
                   v208 = *v205;
-                  *(v206 - 1) = *(v205 - 1);
+                  v206[-1] = v205[-1];
                   *v206 = v208;
                   v206 += 2;
                   v205 += 2;
@@ -1002,9 +1002,9 @@ LABEL_197:
               while (v187 > v201++);
 LABEL_185:
               ++v182;
-              v194 += 128;
+              v194 += 8;
               v195 = (v195 + v186);
-              v197 += v186;
+              v197 = (v197 + v186);
               v196 += 128;
             }
 
@@ -2509,7 +2509,7 @@ LABEL_77:
 LABEL_78:
           v69 = (a4 + v63);
           v70 = a7;
-          v71 = v224 + 8 * (v38 - a7);
+          v71 = (v224 + 8 * (v38 - a7));
           v72 = (a2 + v51);
           __src = (a2 + v51);
           if (v231)
@@ -2575,7 +2575,7 @@ LABEL_85:
 
             else if (v74 == 3)
             {
-              v76 = vld1q_dup_f32(v72->f32);
+              v76 = vld1q_dup_f32(v72->i32);
               v244 = v76;
               v245 = v76;
               v252 = v76;
@@ -2605,7 +2605,7 @@ LABEL_85:
               v269 = 0u;
             }
 
-            v84 = v72 + v75;
+            v84 = v72->i64 + v75;
             v85 = v69[1];
             if (v85 == 127)
             {
@@ -3010,16 +3010,16 @@ LABEL_147:
                 }
 
                 v169 = !v168;
-                v171 = v164 < v235 + v236 * (v152 - 1) + 8 * v240 && v235 < &__dst[128 * v152 + 896 + 128 * v237 + 8 * v240 + v163];
+                v171 = v164 < &v235->i8[8 * v240 + v236 * (v152 - 1)] && v235 < &__dst[128 * v152 + 896 + 128 * v237 + 8 * v240 + v163];
                 v172 = v167 & 0x1FFFFFFE0;
                 v173 = v169 | (v236 < 0) | v171;
-                v174 = &v245 + 128 * v237 + v163;
-                v175 = (v235 + 16);
+                v174 = (&v245 + 128 * v237 + v163);
+                v175 = v235 + 1;
                 v176 = v164;
                 v177 = v235;
                 while (2)
                 {
-                  v178 = (v165 + v162 * v166);
+                  v178 = &v165->i8[v162 * v166];
                   v179 = &v164[128 * v162];
                   if (v173)
                   {
@@ -3035,9 +3035,9 @@ LABEL_164:
                     while (v167 > v181++);
 LABEL_161:
                     ++v162;
-                    v174 += 128;
+                    v174 += 8;
                     v175 = (v175 + v166);
-                    v177 += v166;
+                    v177 = (v177 + v166);
                     v176 += 128;
                     if (v162 == v152)
                     {
@@ -3058,7 +3058,7 @@ LABEL_161:
                   do
                   {
                     v188 = *v185;
-                    *(v186 - 1) = *(v185 - 1);
+                    v186[-1] = v185[-1];
                     *v186 = v188;
                     v186 += 2;
                     v185 += 2;
@@ -3087,7 +3087,7 @@ LABEL_161:
                 }
 
                 v189 = -8 * v161 + v184;
-                v190 = (v177 + v184);
+                v190 = (v177->i64 + v184);
                 v191 = &v176[v184];
                 do
                 {
@@ -4635,10 +4635,10 @@ LABEL_104:
             {
               v90 = __dst;
 LABEL_111:
-              v92 = (v90 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v90, v88, v89, a11));
-              v93 = (v92 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v92, v88 + 1, v89 + 8, a11));
+              v92 = &v90[AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v90, v88, v89, a11)];
+              v93 = v92 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v92, v88 + 1, v89 + 8, a11);
               v94 = (v89 + 4 * a11);
-              v95 = (v93 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v93, v88 + 2, v94, a11));
+              v95 = v93 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v93, v88 + 2, v94, a11);
               v96 = v88 + 3;
               v97 = v94 + 8;
               v98 = a11;
@@ -4678,7 +4678,7 @@ LABEL_111:
             goto LABEL_114;
           }
 
-          v99 = v90->u64 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v168, 256, v90, *v88);
+          v99 = &v90[AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v168, 256, v90, *v88)];
           v100 = v99 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v169, 256, v99, v88[1]);
           v101 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v170, 256, v100, v88[2]);
           AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v171, 256, v100 + v101, v88[3]);
@@ -4755,7 +4755,7 @@ LABEL_111:
           v125 = v166;
           if (v165 && v166)
           {
-            v123 = (v123 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v157, v158, v168, 256));
+            v123 += AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v157, v158, v168, 256);
             if (v124 < 5)
             {
               goto LABEL_145;
@@ -4773,7 +4773,7 @@ LABEL_111:
 
           if (v125)
           {
-            v123 = (v123 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v123, v122 + 1, v169, 256));
+            v123 += AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v123, v122 + 1, v169, 256);
             goto LABEL_146;
           }
 
@@ -4797,7 +4797,7 @@ LABEL_149:
             goto LABEL_150;
           }
 
-          v123 = (v123 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v123, v122 + 2, v170, 256));
+          v123 += AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v123, v122 + 2, v170, 256);
           if (v124 < 5)
           {
             goto LABEL_152;
@@ -6428,10 +6428,10 @@ LABEL_78:
             {
               v85 = __dst;
 LABEL_86:
-              v87 = (v85 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v85, v78, v79, a11));
-              v88 = (v87 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v87, v78 + 1, v79 + 8, a11));
+              v87 = &v85[AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v85, v78, v79, a11)];
+              v88 = v87 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v87, v78 + 1, v79 + 8, a11);
               v89 = (v79 + 4 * a11);
-              v90 = (v88 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v88, v78 + 2, v89, a11));
+              v90 = v88 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v88, v78 + 2, v89, a11);
               v91 = v78 + 3;
               v92 = v89 + 8;
               v93 = a11;
@@ -6496,7 +6496,7 @@ LABEL_88:
             goto LABEL_88;
           }
 
-          v94 = v85->u64 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v173, 256, v85, *v78);
+          v94 = &v85[AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v173, 256, v85, *v78)];
           v95 = v94 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v174, 256, v94, v78[1]);
           v96 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v175, 256, v95, v78[2]);
           AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::decompressSubblock(v176, 256, v95 + v96, v78[3]);
@@ -6573,7 +6573,7 @@ LABEL_88:
           v120 = v171;
           if (v170 && v171)
           {
-            v118 = (v118 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v162, v163, v173, 256));
+            v118 += AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v162, v163, v173, 256);
             if (v119 < 5)
             {
               goto LABEL_118;
@@ -6601,11 +6601,11 @@ LABEL_118:
             goto LABEL_119;
           }
 
-          v118 = (v118 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v118, v117 + 1, v174, 256));
+          v118 += AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v118, v117 + 1, v174, 256);
 LABEL_119:
           if (v120 >= 5)
           {
-            v118 = (v118 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v118, v117 + 2, v175, 256));
+            v118 += AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressSubblock(v118, v117 + 2, v175, 256);
             if (v119 < 5)
             {
               goto LABEL_125;

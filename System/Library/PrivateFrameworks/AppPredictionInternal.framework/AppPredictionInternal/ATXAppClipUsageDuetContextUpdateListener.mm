@@ -55,7 +55,7 @@ void __71__ATXAppClipUsageDuetContextUpdateListener_startListeningWithClientId__
 
     else
     {
-      v8 = __atxlog_handle_hero();
+      v8 = __atxlog_handle_hero(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         __71__ATXAppClipUsageDuetContextUpdateListener_startListeningWithClientId___block_invoke_cold_1(v8);

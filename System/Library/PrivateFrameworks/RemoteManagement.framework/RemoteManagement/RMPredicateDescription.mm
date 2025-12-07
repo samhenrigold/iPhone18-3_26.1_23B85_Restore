@@ -37,7 +37,7 @@
 {
   stringCopy = string;
   v44[0] = 0;
-  v37 = [NSRegularExpression regularExpressionWithPattern:"regularExpressionWithPattern:options:error:" options:@"@(status|property|key)\\(([^)]+)\\" error:?], 1, v44);
+  v37 = [NSRegularExpression regularExpressionWithPattern:"regularExpressionWithPattern:options:error:" options:@"@(status|property|key)\\(([^)]+)\\"" error:?], 1, v44);
   v34 = v44[0];
   if (v37)
   {

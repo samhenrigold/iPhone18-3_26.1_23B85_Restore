@@ -105,7 +105,7 @@ LABEL_19:
 
 - (id)resultTensorFromSources:(id)sources
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   sourcesCopy = sources;
   context = objc_autoreleasePoolPush();
   v5 = [sourcesCopy objectAtIndexedSubscript:1];
@@ -114,31 +114,30 @@ LABEL_19:
 
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
   v9 = [sourcesCopy objectAtIndexedSubscript:0];
-  v25[0] = v9;
+  v24[0] = v9;
   v10 = [sourcesCopy objectAtIndexedSubscript:1];
-  v25[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
-  v23.receiver = self;
-  v23.super_class = MLCSelectionLayer;
-  v12 = [(MLCLayer *)&v23 resultTensorsFromBroadcastableSources:v11 resultTensorDataType:dataType];
+  v24[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v22.receiver = self;
+  v22.super_class = MLCSelectionLayer;
+  v12 = [(MLCLayer *)&v22 resultTensorsFromBroadcastableSources:v11 resultTensorDataType:dataType];
   [v8 setObject:v12 atIndexedSubscript:0];
 
   v13 = [sourcesCopy objectAtIndexedSubscript:1];
-  v24[0] = v13;
+  v23[0] = v13;
   v14 = [sourcesCopy objectAtIndexedSubscript:2];
-  v24[1] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
-  v22.receiver = self;
-  v22.super_class = MLCSelectionLayer;
-  v16 = [(MLCLayer *)&v22 resultTensorsFromBroadcastableSources:v15 resultTensorDataType:dataType];
-  [v8 setObject:v16 atIndexedSubscript:1];
-
+  v23[1] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
   v21.receiver = self;
   v21.super_class = MLCSelectionLayer;
-  v17 = [(MLCLayer *)&v21 resultTensorsFromBroadcastableSources:v8 resultTensorDataType:dataType];
+  v16 = [(MLCLayer *)&v21 resultTensorsFromBroadcastableSources:v15 resultTensorDataType:dataType];
+  [v8 setObject:v16 atIndexedSubscript:1];
+
+  v20.receiver = self;
+  v20.super_class = MLCSelectionLayer;
+  v17 = [(MLCLayer *)&v20 resultTensorsFromBroadcastableSources:v8 resultTensorDataType:dataType];
 
   objc_autoreleasePoolPop(context);
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -172,35 +171,26 @@ LABEL_19:
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.4(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

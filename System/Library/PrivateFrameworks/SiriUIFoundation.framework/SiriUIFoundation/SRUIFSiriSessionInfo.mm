@@ -177,28 +177,26 @@ LABEL_18:
 
 - (id)description
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(sel_identifier);
-  v16[0] = v3;
+  v15[0] = v3;
   identifier = self->_identifier;
   v4 = NSStringFromSelector(sel_assistantVersion);
-  v16[1] = v4;
+  v15[1] = v4;
   *&v5 = identifier;
   *(&v5 + 1) = self->_assistantVersion;
-  v15 = v5;
+  v14 = v5;
   v6 = NSStringFromSelector(sel_activeAccount);
-  v16[2] = v6;
+  v15[2] = v6;
   activeAccount = self->_activeAccount;
   v7 = NSStringFromSelector(sel_userAccountCount);
-  v16[3] = v7;
+  v15[3] = v7;
   *&v8 = activeAccount;
   *(&v8 + 1) = self->_userAccountCount;
-  v17[0] = v15;
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[0] = v14;
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
   v10 = [v9 description];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

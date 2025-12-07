@@ -15,7 +15,7 @@
 
 + (void)cleanCurrentVisitWithMissingData:(id)data
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   visits = [dataCopy visits];
   if ([visits count])
@@ -75,43 +75,43 @@
         goto LABEL_45;
       }
 
-      v72 = v8;
+      v71 = v8;
       v25 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109376;
-        *v80 = 1;
-        *&v80[4] = 1024;
-        *&v80[6] = 0;
+        *v79 = 1;
+        *&v79[4] = 1024;
+        *&v79[6] = 0;
         _os_log_impl(&dword_1CEE74000, v25, OS_LOG_TYPE_ERROR, "ERROR: current visit is missing some information, hasNoLoiId: %d, inTransition: %d", buf, 0xEu);
       }
 
-      v77 = 0u;
-      v78 = 0u;
-      v75 = 0u;
       v76 = 0u;
+      v77 = 0u;
+      v74 = 0u;
+      v75 = 0u;
       locationOfInterests = [dataCopy locationOfInterests];
-      v27 = [locationOfInterests countByEnumeratingWithState:&v75 objects:v86 count:16];
+      v27 = [locationOfInterests countByEnumeratingWithState:&v74 objects:v85 count:16];
       if (v27)
       {
         v28 = v27;
-        v70 = v20;
-        v71 = v10;
+        v69 = v20;
+        v70 = v10;
+        v72 = 0;
         v73 = 0;
-        v74 = 0;
         v29 = 0;
-        v30 = *v76;
+        v30 = *v75;
         v31 = 1.79769313e308;
         do
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v76 != v30)
+            if (*v75 != v30)
             {
               objc_enumerationMutation(locationOfInterests);
             }
 
-            v33 = *(*(&v75 + 1) + 8 * i);
+            v33 = *(*(&v74 + 1) + 8 * i);
             if ([v33 hasLocation])
             {
               location2 = [v33 location];
@@ -133,7 +133,7 @@
                     v41 = v33;
 
                     v31 = v37;
-                    v73 = v41;
+                    v72 = v41;
                   }
 
                   if ([v33 placeType] == 1)
@@ -147,7 +147,7 @@
                   {
                     v43 = v33;
 
-                    v74 = v43;
+                    v73 = v43;
                   }
 
                   v44 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
@@ -156,13 +156,13 @@
                     location5 = [v33 location];
                     [location5 locationHorizontalUncertaintyMeters];
                     *buf = 138413058;
-                    *v80 = v33;
-                    *&v80[8] = 2048;
-                    v81 = v37;
-                    v82 = 2048;
-                    v83 = v46;
-                    v84 = 2048;
-                    v85 = 0x4008000000000000;
+                    *v79 = v33;
+                    *&v79[8] = 2048;
+                    v80 = v37;
+                    v81 = 2048;
+                    v82 = v46;
+                    v83 = 2048;
+                    v84 = 0x4008000000000000;
                     _os_log_impl(&dword_1CEE74000, v44, OS_LOG_TYPE_ERROR, "adding candidate loi: %@, distance: %f, unc: %f, unc scale factor: %f", buf, 0x2Au);
                   }
                 }
@@ -170,84 +170,84 @@
             }
           }
 
-          v28 = [locationOfInterests countByEnumeratingWithState:&v75 objects:v86 count:16];
+          v28 = [locationOfInterests countByEnumeratingWithState:&v74 objects:v85 count:16];
         }
 
         while (v28);
 
-        v10 = v71;
+        v10 = v70;
         if (v29)
         {
           v47 = v29;
           visits4 = [dataCopy visits];
-          v49 = [visits4 objectAtIndexedSubscript:v72];
+          v49 = [visits4 objectAtIndexedSubscript:v71];
           loiIdentifier2 = [v29 loiIdentifier];
           [v49 setLoiIdentifier:loiIdentifier2];
 
           visits5 = [dataCopy visits];
-          v52 = [visits5 objectAtIndexedSubscript:v72];
+          v52 = [visits5 objectAtIndexedSubscript:v71];
           location6 = [v29 location];
           [v52 setLocation:location6];
 
           v54 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
-          v20 = v70;
-          v55 = v73;
+          v20 = v69;
+          v55 = v72;
           if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            *v80 = v47;
+            *v79 = v47;
             _os_log_impl(&dword_1CEE74000, v54, OS_LOG_TYPE_ERROR, "overwriting with home loi: %@", buf, 0xCu);
           }
         }
 
         else
         {
-          v20 = v70;
-          v55 = v73;
-          v47 = v74;
-          if (v74)
+          v20 = v69;
+          v55 = v72;
+          v47 = v73;
+          if (v73)
           {
             visits6 = [dataCopy visits];
-            v57 = [visits6 objectAtIndexedSubscript:v72];
-            loiIdentifier3 = [v74 loiIdentifier];
+            v57 = [visits6 objectAtIndexedSubscript:v71];
+            loiIdentifier3 = [v73 loiIdentifier];
             [v57 setLoiIdentifier:loiIdentifier3];
 
             visits7 = [dataCopy visits];
-            v60 = [visits7 objectAtIndexedSubscript:v72];
-            location7 = [v74 location];
+            v60 = [visits7 objectAtIndexedSubscript:v71];
+            location7 = [v73 location];
             [v60 setLocation:location7];
 
             v62 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
             if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *v80 = v74;
+              *v79 = v73;
               _os_log_impl(&dword_1CEE74000, v62, OS_LOG_TYPE_ERROR, "overwriting with work loi: %@", buf, 0xCu);
             }
           }
 
           else
           {
-            if (!v73)
+            if (!v72)
             {
               goto LABEL_45;
             }
 
             visits8 = [dataCopy visits];
-            v65 = [visits8 objectAtIndexedSubscript:v72];
-            loiIdentifier4 = [v73 loiIdentifier];
-            [v65 setLoiIdentifier:loiIdentifier4];
+            v64 = [visits8 objectAtIndexedSubscript:v71];
+            loiIdentifier4 = [v72 loiIdentifier];
+            [v64 setLoiIdentifier:loiIdentifier4];
 
             visits9 = [dataCopy visits];
-            v68 = [visits9 objectAtIndexedSubscript:v72];
-            location8 = [v73 location];
-            [v68 setLocation:location8];
+            v67 = [visits9 objectAtIndexedSubscript:v71];
+            location8 = [v72 location];
+            [v67 setLocation:location8];
 
             v47 = _plc_log_get_normal_handle(PCLogCategoryVisitHistoryPredictor);
             if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              *v80 = v73;
+              *v79 = v72;
               _os_log_impl(&dword_1CEE74000, v47, OS_LOG_TYPE_ERROR, "overwriting with closest loi: %@", buf, 0xCu);
             }
           }
@@ -266,8 +266,6 @@ LABEL_45:
   else
   {
   }
-
-  v63 = *MEMORY[0x1E69E9840];
 }
 
 + (double)boundValue:(double)value toMin:(double)min max:(double)max
@@ -290,7 +288,7 @@ LABEL_45:
 
 + (id)currentLocationWithLocationHistory:(id)history currentTime:(double)time
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   historyCopy = history;
   v7 = historyCopy;
   if (!historyCopy || ![historyCopy count])
@@ -300,7 +298,7 @@ LABEL_45:
     {
       v43 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v55 = v43;
+      v54 = v43;
       v44 = "%@ - no location history available";
 LABEL_38:
       _os_log_impl(&dword_1CEE74000, v31, OS_LOG_TYPE_DEFAULT, v44, buf, 0xCu);
@@ -311,12 +309,12 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v50 objects:v62 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v49 objects:v61 count:16];
   if (!v9)
   {
 
@@ -326,7 +324,7 @@ LABEL_36:
     {
       v43 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v55 = v43;
+      v54 = v43;
       v44 = "%@ - no valid location history found before currentTime";
       goto LABEL_38;
     }
@@ -335,21 +333,21 @@ LABEL_36:
   }
 
   v10 = v9;
-  v48 = v7;
-  v49 = 0;
-  v11 = *v51;
+  v47 = v7;
+  v48 = 0;
+  v11 = *v50;
   v12 = -1.79769313e308;
   do
   {
     v13 = 0;
     do
     {
-      if (*v51 != v11)
+      if (*v50 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v14 = *(*(&v50 + 1) + 8 * v13);
+      v14 = *(*(&v49 + 1) + 8 * v13);
       if (([v14 hasTimeCFAbsolute] & 1) == 0)
       {
         v20 = _plc_log_get_normal_handle(PCLogCategoryGeneral);
@@ -357,7 +355,7 @@ LABEL_36:
         {
           v21 = NSStringFromSelector(a2);
           *buf = 138412290;
-          v55 = v21;
+          v54 = v21;
           v22 = v20;
           v23 = OS_LOG_TYPE_ERROR;
           v24 = "%@ - location missing timeCFAbsolute, skipping";
@@ -382,7 +380,7 @@ LABEL_19:
 
         v21 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v55 = v21;
+        v54 = v21;
         v22 = v20;
         v23 = OS_LOG_TYPE_ERROR;
         v24 = "%@ - location missing locationHorizontalUncertaintyMeters, skipping";
@@ -405,11 +403,11 @@ LABEL_17:
 
         v21 = NSStringFromSelector(a2);
         *buf = 138412802;
-        v55 = v21;
-        v56 = 2048;
-        v57 = v19;
-        v58 = 2048;
-        v59 = 0x4059000000000000;
+        v54 = v21;
+        v55 = 2048;
+        v56 = v19;
+        v57 = 2048;
+        v58 = 0x4059000000000000;
         v22 = v20;
         v23 = OS_LOG_TYPE_DEFAULT;
         v24 = "%@ - location uncertainty (%f) exceeds threshold (%f), skipping";
@@ -425,9 +423,9 @@ LABEL_18:
       {
         v28 = v26;
         v29 = v14;
-        v20 = v49;
+        v20 = v48;
         v12 = v28;
-        v49 = v29;
+        v48 = v29;
         goto LABEL_19;
       }
 
@@ -436,20 +434,20 @@ LABEL_20:
     }
 
     while (v10 != v13);
-    v30 = [v8 countByEnumeratingWithState:&v50 objects:v62 count:16];
+    v30 = [v8 countByEnumeratingWithState:&v49 objects:v61 count:16];
     v10 = v30;
   }
 
   while (v30);
 
-  v7 = v48;
-  v31 = v49;
-  if (!v49)
+  v7 = v47;
+  v31 = v48;
+  if (!v48)
   {
     goto LABEL_36;
   }
 
-  location3 = [v49 location];
+  location3 = [v48 location];
   if ([location3 hasLocationLatitudeDeg] && objc_msgSend(location3, "hasLocationLongitudeDeg"))
   {
     v33 = [PCLatLon alloc];
@@ -465,12 +463,12 @@ LABEL_20:
       v41 = v40;
       [(PCLatLon *)v37 longitudeDeg];
       *buf = 138413059;
-      v55 = v39;
-      v56 = 2053;
-      v57 = v41;
-      v58 = 2053;
-      v59 = v42;
-      v60 = 2048;
+      v54 = v39;
+      v55 = 2053;
+      v56 = v41;
+      v57 = 2053;
+      v58 = v42;
+      v59 = 2048;
       timeCopy = time;
       _os_log_impl(&dword_1CEE74000, v38, OS_LOG_TYPE_INFO, "[%@] current location, lat: %{sensitive}.5f, lon: %{sensitive}.5f, current time: %f", buf, 0x2Au);
     }
@@ -481,9 +479,9 @@ LABEL_20:
     v38 = _plc_log_get_normal_handle(PCLogCategoryGeneral);
     if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      v47 = NSStringFromSelector(a2);
+      v46 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v55 = v47;
+      v54 = v46;
       _os_log_impl(&dword_1CEE74000, v38, OS_LOG_TYPE_ERROR, "%@ - selected location missing latitude or longitude", buf, 0xCu);
     }
 
@@ -491,28 +489,27 @@ LABEL_20:
   }
 
 LABEL_40:
-  v45 = *MEMORY[0x1E69E9840];
 
   return v37;
 }
 
 + (id)latLonToCartesianWithLatLon:(id)lon
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   lonCopy = lon;
   [lonCopy latitudeDeg];
   if (v4 >= -90.0 && ([lonCopy latitudeDeg], v5 <= 90.0) && (objc_msgSend(lonCopy, "longitudeDeg"), v6 >= -180.0) && (objc_msgSend(lonCopy, "longitudeDeg"), v7 <= 180.0))
   {
     [lonCopy latitudeDeg];
-    v18 = v17 * 3.14159265 / 180.0;
+    v17 = v16 * 3.14159265 / 180.0;
     [lonCopy longitudeDeg];
-    v20 = v19 * 3.14159265 / 180.0;
-    v21 = __sincos_stret(v18);
-    v22 = __sincos_stret(v20);
+    v19 = v18 * 3.14159265 / 180.0;
+    v20 = __sincos_stret(v17);
+    v21 = __sincos_stret(v19);
     v10 = [PCXYZCoordinate alloc];
-    v11 = v21.__cosval * 6371000.0 * v22.__cosval;
-    v12 = v21.__cosval * 6371000.0 * v22.__sinval;
-    v13 = v21.__sinval * 6371000.0;
+    v11 = v20.__cosval * 6371000.0 * v21.__cosval;
+    v12 = v20.__cosval * 6371000.0 * v21.__sinval;
+    v13 = v20.__sinval * 6371000.0;
   }
 
   else
@@ -521,9 +518,9 @@ LABEL_40:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [lonCopy description];
-      v23 = 138739971;
-      v24 = v9;
-      _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEFAULT, "invalid latitude or longitude values, %{sensitive}@", &v23, 0xCu);
+      v22 = 138739971;
+      v23 = v9;
+      _os_log_impl(&dword_1CEE74000, v8, OS_LOG_TYPE_DEFAULT, "invalid latitude or longitude values, %{sensitive}@", &v22, 0xCu);
     }
 
     v10 = [PCXYZCoordinate alloc];
@@ -533,8 +530,6 @@ LABEL_40:
   }
 
   v14 = [(PCXYZCoordinate *)v10 initWithX:v11 y:v12 z:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -659,46 +654,46 @@ LABEL_40:
 
 + (id)currentLocationWithLocationHistory:(id)history visitHistory:(id)visitHistory currentTime:(double)time
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   historyCopy = history;
   visitHistoryCopy = visitHistory;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy_;
-  v33 = __Block_byref_object_dispose_;
-  v34 = 0;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __79__PCLocationUtils_currentLocationWithLocationHistory_visitHistory_currentTime___block_invoke;
-  v28[3] = &unk_1E83B8078;
-  *&v28[5] = time;
-  v28[4] = &v29;
-  [visitHistoryCopy enumerateObjectsUsingBlock:v28];
-  v10 = v30[5];
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __79__PCLocationUtils_currentLocationWithLocationHistory_visitHistory_currentTime___block_invoke;
+  v27[3] = &unk_1E83B8078;
+  *&v27[5] = time;
+  v27[4] = &v28;
+  [visitHistoryCopy enumerateObjectsUsingBlock:v27];
+  v10 = v29[5];
   if (v10 && [v10 hasLocation])
   {
     v11 = _plc_log_get_normal_handle(PCLogCategoryGeneral);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = NSStringFromSelector(a2);
-      location = [v30[5] location];
+      location = [v29[5] location];
       [location locationLatitudeDeg];
       v15 = v14;
-      location2 = [v30[5] location];
+      location2 = [v29[5] location];
       [location2 locationLongitudeDeg];
       *buf = 138413059;
-      v36 = v12;
-      v37 = 2053;
-      v38 = v15;
-      v39 = 2053;
-      v40 = v17;
-      v41 = 2048;
+      v35 = v12;
+      v36 = 2053;
+      v37 = v15;
+      v38 = 2053;
+      v39 = v17;
+      v40 = 2048;
       timeCopy2 = time;
       _os_log_impl(&dword_1CEE74000, v11, OS_LOG_TYPE_INFO, "[%@] current location from active visit, lat: %{sensitive}.5f, lon: %{sensitive}.5f, current time: %f", buf, 0x2Au);
     }
 
-    location3 = [v30[5] location];
+    location3 = [v29[5] location];
   }
 
   else
@@ -719,12 +714,12 @@ LABEL_40:
         v23 = v22;
         [(PCPLocation *)location3 locationLongitudeDeg];
         *buf = 138413059;
-        v36 = v21;
-        v37 = 2053;
-        v38 = v23;
-        v39 = 2053;
-        v40 = v24;
-        v41 = 2048;
+        v35 = v21;
+        v36 = 2053;
+        v37 = v23;
+        v38 = 2053;
+        v39 = v24;
+        v40 = 2048;
         timeCopy2 = time;
         _os_log_impl(&dword_1CEE74000, v20, OS_LOG_TYPE_INFO, "[%@] current location from location history, lat: %{sensitive}.5f, lon: %{sensitive}.5f, current time: %f", buf, 0x2Au);
       }
@@ -737,7 +732,7 @@ LABEL_40:
       {
         v25 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v36 = v25;
+        v35 = v25;
         _os_log_impl(&dword_1CEE74000, v20, OS_LOG_TYPE_DEFAULT, "%@ - no valid location found from visit or location history", buf, 0xCu);
       }
 
@@ -745,9 +740,7 @@ LABEL_40:
     }
   }
 
-  _Block_object_dispose(&v29, 8);
-
-  v26 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v28, 8);
 
   return location3;
 }

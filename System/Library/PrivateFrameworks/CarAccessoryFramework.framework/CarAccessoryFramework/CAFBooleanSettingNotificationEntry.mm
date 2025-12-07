@@ -130,11 +130,11 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v17[6] = *MEMORY[0x277D85DE8];
-  v16[0] = @"offSymbolColor";
-  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFBooleanSettingNotificationEntry offSymbolColor](self, "offSymbolColor")}];
-  v17[0] = v15;
-  v16[1] = @"offSymbolName";
+  v16[6] = *MEMORY[0x277D85DE8];
+  v15[0] = @"offSymbolColor";
+  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFBooleanSettingNotificationEntry offSymbolColor](self, "offSymbolColor")}];
+  v16[0] = v14;
+  v15[1] = @"offSymbolName";
   offSymbolName = [(CAFBooleanSettingNotificationEntry *)self offSymbolName];
   null = offSymbolName;
   if (!offSymbolName)
@@ -142,8 +142,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v17[1] = null;
-  v16[2] = @"offUserVisibleLabel";
+  v16[1] = null;
+  v15[2] = @"offUserVisibleLabel";
   offUserVisibleLabel = [(CAFBooleanSettingNotificationEntry *)self offUserVisibleLabel];
   null2 = offUserVisibleLabel;
   if (!offUserVisibleLabel)
@@ -151,11 +151,11 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v17[2] = null2;
-  v16[3] = @"onSymbolColor";
+  v16[2] = null2;
+  v15[3] = @"onSymbolColor";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFBooleanSettingNotificationEntry onSymbolColor](self, "onSymbolColor")}];
-  v17[3] = v7;
-  v16[4] = @"onSymbolName";
+  v16[3] = v7;
+  v15[4] = @"onSymbolName";
   onSymbolName = [(CAFBooleanSettingNotificationEntry *)self onSymbolName];
   null3 = onSymbolName;
   if (!onSymbolName)
@@ -163,8 +163,8 @@
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v17[4] = null3;
-  v16[5] = @"onUserVisibleLabel";
+  v16[4] = null3;
+  v15[5] = @"onUserVisibleLabel";
   onUserVisibleLabel = [(CAFBooleanSettingNotificationEntry *)self onUserVisibleLabel];
   null4 = onUserVisibleLabel;
   if (!onUserVisibleLabel)
@@ -172,8 +172,8 @@
     null4 = [MEMORY[0x277CBEB68] null];
   }
 
-  v17[5] = null4;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:6];
+  v16[5] = null4;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:6];
   if (!onUserVisibleLabel)
   {
   }
@@ -189,8 +189,6 @@
   if (!offSymbolName)
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

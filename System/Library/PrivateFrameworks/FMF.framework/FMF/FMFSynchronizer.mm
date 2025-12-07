@@ -32,16 +32,14 @@
   v3 = [(FMFSynchronizer *)self sem];
   dispatch_semaphore_signal(v3);
 
-  v4 = LogCategory_Daemon();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = LogCategory_Daemon(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     info = [(FMFSynchronizer *)self info];
     v7 = 138412290;
     v8 = info;
-    _os_log_impl(&dword_24A33F000, v4, OS_LOG_TYPE_DEFAULT, "Signaling end of wait for %@", &v7, 0xCu);
+    _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_DEFAULT, "Signaling end of wait for %@", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)wait
@@ -54,29 +52,27 @@
   v7 = [(FMFSynchronizer *)self sem];
   v8 = dispatch_semaphore_wait(v7, v6);
 
-  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  v10 = v9;
-  v11 = LogCategory_Daemon();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  timeIntervalSinceReferenceDate = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  v11 = v10;
+  v12 = LogCategory_Daemon(timeIntervalSinceReferenceDate);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     info = [(FMFSynchronizer *)self info];
-    v13 = info;
-    v14 = @"timed out";
+    v14 = info;
+    v15 = @"timed out";
     v16 = 134218498;
-    v17 = v10 - v4;
+    v17 = v11 - v4;
     v18 = 2112;
     if (!v8)
     {
-      v14 = @"replied";
+      v15 = @"replied";
     }
 
     v19 = info;
     v20 = 2112;
-    v21 = v14;
-    _os_log_impl(&dword_24A33F000, v11, OS_LOG_TYPE_DEFAULT, "Done waiting (%f seconds) for %@. Status: %@", &v16, 0x20u);
+    v21 = v15;
+    _os_log_impl(&dword_24A33F000, v12, OS_LOG_TYPE_DEFAULT, "Done waiting (%f seconds) for %@. Status: %@", &v16, 0x20u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)loggingID

@@ -50,7 +50,7 @@
 
 + (void)reportDailyStats
 {
-  v40[3] = *MEMORY[0x1E69E9840];
+  v39[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E695E000]);
   v4 = objc_msgSend_initWithSuiteName_(v2, v3, @"com.apple.inputAnalytics.serverStats");
   v6 = objc_msgSend_integerForKey_(v4, v5, @"serviceStartCount");
@@ -65,35 +65,33 @@
   objc_msgSend_timeIntervalSinceDate_(v11, v13, v15);
   v17 = v16;
   v18 = v16;
-  v39[0] = @"serviceStartCount";
+  v38[0] = @"serviceStartCount";
   v20 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v19, v6);
-  v40[0] = v20;
-  v39[1] = @"serviceShutdownCount";
+  v39[0] = v20;
+  v38[1] = @"serviceShutdownCount";
   v22 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v21, v8);
-  v40[1] = v22;
-  v39[2] = @"secondsSinceLastPublish";
+  v39[1] = v22;
+  v38[2] = @"secondsSinceLastPublish";
   v24 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x1E696AD98], v23, v18);
-  v40[2] = v24;
-  v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v25, v40, v39, 3);
+  v39[2] = v24;
+  v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v25, v39, v38, 3);
   objc_msgSend_dispatchEvent_payload_(IAEventDispatcher, v27, @"com.apple.inputAnalytics.serverStats", v26);
 
   v28 = sub_1D4611170();
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = 134218496;
-    v34 = v17;
-    v35 = 2048;
-    v36 = v6;
-    v37 = 2048;
-    v38 = v8;
-    _os_log_impl(&dword_1D460F000, v28, OS_LOG_TYPE_DEFAULT, "reportDailyStats: Interval %f Starts %lu Shutdowns %lu", &v33, 0x20u);
+    v32 = 134218496;
+    v33 = v17;
+    v34 = 2048;
+    v35 = v6;
+    v36 = 2048;
+    v37 = v8;
+    _os_log_impl(&dword_1D460F000, v28, OS_LOG_TYPE_DEFAULT, "reportDailyStats: Interval %f Starts %lu Shutdowns %lu", &v32, 0x20u);
   }
 
   objc_msgSend_setInteger_forKey_(v4, v29, 0, @"serviceStartCount");
   objc_msgSend_setInteger_forKey_(v4, v30, 0, @"serviceShutdownCount");
   objc_msgSend_setObject_forKey_(v4, v31, v11, @"lastPublishDate");
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 @end

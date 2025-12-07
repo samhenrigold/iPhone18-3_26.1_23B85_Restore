@@ -300,7 +300,6 @@ LABEL_11:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x200) == 0)
@@ -320,7 +319,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  uLCAHasCoexBand = self->_uLCAHasCoexBand;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -335,7 +333,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  uLCAPriCarULFreq = self->_uLCAPriCarULFreq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -350,7 +347,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  uLCAPriCarDLFreq = self->_uLCAPriCarDLFreq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -365,7 +361,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  uLCAPriCarULBW = self->_uLCAPriCarULBW;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -380,7 +375,6 @@ LABEL_7:
   }
 
 LABEL_17:
-  uLCAPriCarDLBW = self->_uLCAPriCarDLBW;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -395,7 +389,6 @@ LABEL_8:
   }
 
 LABEL_18:
-  uLCACriCarULFreq = self->_uLCACriCarULFreq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -407,7 +400,6 @@ LABEL_9:
     }
 
 LABEL_20:
-    uLCACriCarULBW = self->_uLCACriCarULBW;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -418,7 +410,6 @@ LABEL_20:
   }
 
 LABEL_19:
-  uLCACriCarDLFreq = self->_uLCACriCarDLFreq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -433,7 +424,6 @@ LABEL_10:
   }
 
 LABEL_21:
-  uLCACriCarDLBW = self->_uLCACriCarDLBW;
 
   PBDataWriterWriteUint32Field();
 }
@@ -750,7 +740,6 @@ LABEL_11:
   {
     if ((*(equal + 26) & 0x200) != 0)
     {
-      v8 = *(equal + 48);
       if (self->_uLCAHasCoexBand)
       {
         if ((*(equal + 48) & 1) == 0)

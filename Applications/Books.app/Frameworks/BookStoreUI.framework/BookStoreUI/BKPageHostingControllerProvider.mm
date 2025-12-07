@@ -17,7 +17,7 @@
 
 - (void)createPage:(id)page :(id)a4 :(id)a5 :(id)a6
 {
-  v9 = sub_6620C(&unk_3BDBB0);
+  v9 = sub_6620C(&unk_3BDBB0, &qword_2E47D0);
   __chkstk_darwin(v9 - 8);
   v11 = &v22 - v10;
   v12 = sub_2C57E8();

@@ -7,11 +7,11 @@
 - (NSString)sfSymbolsName;
 - (_GCDevicePhysicalInputElement)initWithParameters:(id)parameters;
 - (_GCDevicePhysicalInputElement)initWithTemplate:(id)template context:(id)context;
+- (id)_localizedName;
+- (id)_setLocalizedName:(id *)result;
+- (id)_setSymbol:(id *)result;
+- (id)_symbol;
 - (id)symbol;
-- (uint64_t)_localizedName;
-- (uint64_t)_setLocalizedName:(uint64_t)result;
-- (uint64_t)_setSymbol:(uint64_t)result;
-- (uint64_t)_symbol;
 - (void)postCommit:(const void *)commit sender:(id)sender;
 - (void)preCommit:(const void *)commit sender:(id)sender;
 @end
@@ -72,7 +72,7 @@
   _localizedName = [(_GCDevicePhysicalInputElement *)with _localizedName];
   if (self)
   {
-    v13 = [(_GCDevicePhysicalInputView *)self _testAndSetObjectValue:_localizedName forSlot:&self->_localizedNameSlot policy:771];
+    v13 = [(_GCDevicePhysicalInputView *)&self->super.super.isa _testAndSetObjectValue:_localizedName forSlot:&self->_localizedNameSlot policy:771];
   }
 
   else
@@ -85,7 +85,7 @@
   _symbol = [(_GCDevicePhysicalInputElement *)with _symbol];
   if (self)
   {
-    v15 = [(_GCDevicePhysicalInputView *)self _testAndSetObjectValue:_symbol forSlot:&self->_symbolSlot policy:771];
+    v15 = [(_GCDevicePhysicalInputView *)&self->super.super.isa _testAndSetObjectValue:_symbol forSlot:&self->_symbolSlot policy:771];
     if (v15)
     {
       v16 = 2;
@@ -184,7 +184,7 @@ LABEL_10:
       aliases2 = [elementCopy aliases];
       if ([aliases isEqual:aliases2])
       {
-        [(_GCDevicePhysicalInputElement *)self isEqualToElement:elementCopy, &v14];
+        [(_GCDevicePhysicalInputElement *)&self->super.super.isa isEqualToElement:elementCopy, &v14];
         v11 = v14;
       }
 
@@ -306,22 +306,22 @@ LABEL_13:
 
   if (v6)
   {
-    [(_GCDevicePhysicalInputView *)v7 _testAndSetObjectValue:&v7->_localizedNameSlot forSlot:771 policy:?];
+    [(_GCDevicePhysicalInputView *)&v7->super.super.isa _testAndSetObjectValue:&v7->_localizedNameSlot forSlot:771 policy:?];
     v15 = *(v6 + 4);
   }
 
   else
   {
-    [(_GCDevicePhysicalInputView *)v7 _testAndSetObjectValue:&v7->_localizedNameSlot forSlot:771 policy:?];
+    [(_GCDevicePhysicalInputView *)&v7->super.super.isa _testAndSetObjectValue:&v7->_localizedNameSlot forSlot:771 policy:?];
     v15 = 0;
   }
 
-  [(_GCDevicePhysicalInputView *)v7 _testAndSetObjectValue:v15 forSlot:&v7->_symbolSlot policy:771];
+  [(_GCDevicePhysicalInputView *)&v7->super.super.isa _testAndSetObjectValue:v15 forSlot:&v7->_symbolSlot policy:771];
 
   return v7;
 }
 
-- (uint64_t)_setLocalizedName:(uint64_t)result
+- (id)_setLocalizedName:(id *)result
 {
   if (result)
   {
@@ -331,7 +331,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_setSymbol:(uint64_t)result
+- (id)_setSymbol:(id *)result
 {
   if (result)
   {
@@ -341,7 +341,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_localizedName
+- (id)_localizedName
 {
   if (result)
   {
@@ -352,7 +352,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_symbol
+- (id)_symbol
 {
   if (result)
   {
@@ -365,21 +365,21 @@ LABEL_13:
 
 - (NSString)localizedName
 {
-  _localizedName = [(_GCDevicePhysicalInputElement *)self _localizedName];
+  _localizedName = [(_GCDevicePhysicalInputElement *)&self->super.super.isa _localizedName];
 
   return _localizedName;
 }
 
 - (id)symbol
 {
-  _symbol = [(_GCDevicePhysicalInputElement *)self _symbol];
+  _symbol = [(_GCDevicePhysicalInputElement *)&self->super.super.isa _symbol];
 
   return _symbol;
 }
 
 - (NSString)sfSymbolsName
 {
-  _symbol = [(_GCDevicePhysicalInputElement *)self _symbol];
+  _symbol = [(_GCDevicePhysicalInputElement *)&self->super.super.isa _symbol];
   sfSymbolsName = [_symbol sfSymbolsName];
 
   return sfSymbolsName;
@@ -392,7 +392,7 @@ LABEL_13:
   return [v6 handleFailureInMethod:a1 object:a2 file:@"_GCDevicePhysicalInputElement.m" lineNumber:111 description:{@"Invalid parameter not satisfying: %s", "[otherElement isKindOfClass:_GCDevicePhysicalInputElement.class]"}];
 }
 
-- (void)isEqualToElement:(char *)a3 .cold.2(uint64_t a1, uint64_t a2, char *a3)
+- (void)isEqualToElement:(unsigned __int8 *)a3 .cold.2(id *a1, id *a2, unsigned __int8 *a3)
 {
   v15 = [(_GCDevicePhysicalInputElement *)a1 _localizedName];
   v8 = [(_GCDevicePhysicalInputElement *)a2 _localizedName];

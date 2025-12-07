@@ -20,9 +20,9 @@
     [NSProxy(AXSideStorage) _axDictionaryQueue];
   }
 
-  v1 = _axDictionaryQueue__sDictionaryQueue;
+  v2 = _axDictionaryQueue__sDictionaryQueue;
 
-  return v1;
+  return v2;
 }
 
 - (id)_accessibilityValueForKey:()AXSideStorage
@@ -67,7 +67,7 @@
 
   else
   {
-    v9 = AXLogValidations();
+    v9 = AXLogValidations(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(NSProxy(AXSideStorage) *)self _accessibilityValueForKey:v9];
@@ -173,7 +173,7 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v17 = AXLogValidations();
+  v17 = AXLogValidations(0);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     [NSProxy(AXSideStorage) _accessibilitySetValue:v8 forKey:self storageMode:v17];
@@ -217,30 +217,26 @@ LABEL_17:
 
 - (void)_accessibilityValueForKey:()AXSideStorage .cold.1(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AF00] callStackSymbols];
-  v6 = 138543618;
-  v7 = a1;
-  v8 = 2114;
-  v9 = v4;
-  _os_log_error_impl(&dword_19159B000, a2, OS_LOG_TYPE_ERROR, "AX Storage Error: Attempting to access a value with a nil key. Self:%{public}@.\nBacktrace:\n%{public}@.", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543618;
+  v6 = a1;
+  v7 = 2114;
+  v8 = v4;
+  _os_log_error_impl(&dword_19159B000, a2, OS_LOG_TYPE_ERROR, "AX Storage Error: Attempting to access a value with a nil key. Self:%{public}@.\nBacktrace:\n%{public}@.", &v5, 0x16u);
 }
 
 - (void)_accessibilitySetValue:()AXSideStorage forKey:storageMode:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = [MEMORY[0x1E696AF00] callStackSymbols];
-  v8 = 134218498;
-  v9 = a1;
-  v10 = 2114;
-  v11 = a2;
-  v12 = 2114;
-  v13 = v6;
-  _os_log_error_impl(&dword_19159B000, a3, OS_LOG_TYPE_ERROR, "AX Storage Error: Attempting to store a value with a nil key. Value:%p.\nSelf:%{public}@.\nBacktrace:\n%{public}@.", &v8, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 134218498;
+  v8 = a1;
+  v9 = 2114;
+  v10 = a2;
+  v11 = 2114;
+  v12 = v6;
+  _os_log_error_impl(&dword_19159B000, a3, OS_LOG_TYPE_ERROR, "AX Storage Error: Attempting to store a value with a nil key. Value:%p.\nSelf:%{public}@.\nBacktrace:\n%{public}@.", &v7, 0x20u);
 }
 
 @end

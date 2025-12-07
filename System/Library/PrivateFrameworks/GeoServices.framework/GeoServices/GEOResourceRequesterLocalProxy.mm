@@ -1,9 +1,11 @@
 @interface GEOResourceRequesterLocalProxy
 - (GEOResourceRequesterLocalProxy)init;
 - (id)_finished:(id)_finished withResult:(id)result error:(id)error;
+- (id)resourcesRequested:(id)requested forHandler:(id)handler queue:(id)queue wantsUnpacked:(BOOL)unpacked signpost:(unint64_t)signpost;
 - (void)_cleanUpFinishedHandlers:(id)handlers;
 - (void)_failAllPendingRequests;
 - (void)_fetchResources:(id)resources force:(BOOL)force manifestConfiguration:(id)configuration destination:(id)destination additionalDestination:(id)additionalDestination auditToken:(id)token signpostID:(unint64_t)d;
+- (void)_fetchResources:(id)resources force:(BOOL)force unpack:(BOOL)unpack manifestConfiguration:(id)configuration auditToken:(id)token signpostID:(unint64_t)d queue:(id)queue handler:(id)self0;
 - (void)_resetRequestTimeout;
 - (void)dealloc;
 - (void)didResolvePaths:(id)paths forResources:(id)resources;
@@ -16,57 +18,34 @@
 
 - (void)_resetRequestTimeout
 {
-  v3 = GeoServicesConfig_ResourceRequesterTimeoutEnabled[1];
   BOOL = GEOConfigGetBOOL();
   requestTimeoutTimer = self->_requestTimeoutTimer;
   if (BOOL)
   {
-    if (requestTimeoutTimer)
+    if (requestTimeoutTimer || (v5 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_workQueue), v6 = self->_requestTimeoutTimer, self->_requestTimeoutTimer = v5, v6, dispatch_source_set_timer(self->_requestTimeoutTimer, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0), objc_initWeak(&location, self), v7 = self->_requestTimeoutTimer, v14[0] = _NSConcreteStackBlock, v14[1] = 3221225472, v14[2] = sub_100043F44, v14[3] = &unk_1000838F0, objc_copyWeak(&v15, &location), dispatch_source_set_event_handler(v7, v14), dispatch_activate(self->_requestTimeoutTimer), objc_destroyWeak(&v15), objc_destroyWeak(&location), self->_requestTimeoutTimer))
     {
-      goto LABEL_4;
-    }
-
-    v6 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_workQueue);
-    v7 = self->_requestTimeoutTimer;
-    self->_requestTimeoutTimer = v6;
-
-    dispatch_source_set_timer(self->_requestTimeoutTimer, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
-    objc_initWeak(&location, self);
-    v8 = self->_requestTimeoutTimer;
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_100043F44;
-    v15[3] = &unk_1000838F0;
-    objc_copyWeak(&v16, &location);
-    dispatch_source_set_event_handler(v8, v15);
-    dispatch_activate(self->_requestTimeoutTimer);
-    objc_destroyWeak(&v16);
-    objc_destroyWeak(&location);
-    if (self->_requestTimeoutTimer)
-    {
-LABEL_4:
       GEODataRequestTimeout();
-      if (v9 * 3.0 * 0.5 <= 300.0)
+      if (v8 * 3.0 * 0.5 <= 300.0)
       {
-        v11 = 300000000000;
+        v10 = 300000000000;
       }
 
       else
       {
         GEODataRequestTimeout();
-        v11 = (v10 * 3.0 * 0.5 * 1000000000.0);
+        v10 = (v9 * 3.0 * 0.5 * 1000000000.0);
       }
 
-      v13 = self->_requestTimeoutTimer;
-      v14 = dispatch_time(0, v11);
-      dispatch_source_set_timer(v13, v14, 0xFFFFFFFFFFFFFFFFLL, 1uLL);
+      v12 = self->_requestTimeoutTimer;
+      v13 = dispatch_time(0, v10);
+      dispatch_source_set_timer(v12, v13, 0xFFFFFFFFFFFFFFFFLL, 1uLL);
     }
   }
 
   else if (requestTimeoutTimer)
   {
     dispatch_source_cancel(requestTimeoutTimer);
-    v12 = self->_requestTimeoutTimer;
+    v11 = self->_requestTimeoutTimer;
     self->_requestTimeoutTimer = 0;
   }
 }
@@ -406,6 +385,59 @@ LABEL_4:
   return v21;
 }
 
+- (id)resourcesRequested:(id)requested forHandler:(id)handler queue:(id)queue wantsUnpacked:(BOOL)unpacked signpost:(unint64_t)signpost
+{
+  unpackedCopy = unpacked;
+  requestedCopy = requested;
+  handlerCopy = handler;
+  queueCopy = queue;
+  v15 = [NSOrderedSet orderedSetWithArray:requestedCopy];
+  v16 = +[NSMutableSet setWithCapacity:](NSMutableSet, "setWithCapacity:", [requestedCopy count]);
+  v27 = handlerCopy;
+  v28 = requestedCopy;
+  v17 = [_GEOResourceRequestHelper helperForHandler:handlerCopy queue:queueCopy resources:requestedCopy wantsUnpacked:unpackedCopy signpost:signpost];
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v18 = v15;
+  v19 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v19)
+  {
+    v20 = v19;
+    v21 = *v30;
+    do
+    {
+      for (i = 0; i != v20; i = i + 1)
+      {
+        if (*v30 != v21)
+        {
+          objc_enumerationMutation(v18);
+        }
+
+        v23 = *(*(&v29 + 1) + 8 * i);
+        v24 = [(NSMutableDictionary *)self->_requestHandlersPending objectForKeyedSubscript:v23];
+        if (!v24)
+        {
+          v24 = [NSMutableArray arrayWithCapacity:1];
+          [(NSMutableDictionary *)self->_requestHandlersPending setObject:v24 forKeyedSubscript:v23];
+          [v16 addObject:v23];
+        }
+
+        [v24 addObject:v17];
+      }
+
+      v20 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    }
+
+    while (v20);
+  }
+
+  allObjects = [v16 allObjects];
+
+  return allObjects;
+}
+
 - (void)dealloc
 {
   workQueue = self->_workQueue;
@@ -473,6 +505,233 @@ LABEL_4:
 
   objc_destroyWeak(&v41);
   objc_destroyWeak(&location);
+}
+
+- (void)_fetchResources:(id)resources force:(BOOL)force unpack:(BOOL)unpack manifestConfiguration:(id)configuration auditToken:(id)token signpostID:(unint64_t)d queue:(id)queue handler:(id)self0
+{
+  unpackCopy = unpack;
+  forceCopy = force;
+  resourcesCopy = resources;
+  configurationCopy = configuration;
+  tokenCopy = token;
+  queueCopy = queue;
+  handlerCopy = handler;
+  if (![resourcesCopy count])
+  {
+    v25 = sub_1000018BC();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "0 resources requested. Done.", buf, 2u);
+    }
+
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100045DF0;
+    block[3] = &unk_1000833E0;
+    v65 = handlerCopy;
+    dispatch_async(queueCopy, block);
+    v26 = v65;
+    goto LABEL_53;
+  }
+
+  v56 = tokenCopy;
+  v54 = forceCopy;
+  if (d)
+  {
+    v20 = sub_1000018BC();
+    v21 = os_signpost_id_generate(v20);
+
+    v22 = sub_1000018BC();
+    v23 = v22;
+    if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+    {
+      *buf = 134217984;
+      *v68 = d;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_INTERVAL_BEGIN, v21, "FetchResources", "parent_signpost=%llu", buf, 0xCu);
+    }
+
+    v24 = v21;
+    tokenCopy = v56;
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  v55 = handlerCopy;
+  v53 = v24;
+  v26 = [(GEOResourceRequesterLocalProxy *)self resourcesRequested:resourcesCopy forHandler:handlerCopy queue:queueCopy wantsUnpacked:unpackCopy signpost:?];
+  v27 = sub_1000018BC();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+  {
+    v28 = [resourcesCopy count];
+    v29 = [resourcesCopy count];
+    v30 = v29 - [v26 count];
+    v31 = [v26 count];
+    *buf = 67109632;
+    *v68 = v28;
+    *&v68[4] = 1024;
+    *&v68[6] = v30;
+    v69 = 1024;
+    v70 = v31;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "%d resources requested, %d already pending, will load %d", buf, 0x14u);
+  }
+
+  if (![v26 count])
+  {
+    goto LABEL_52;
+  }
+
+  v50 = queueCopy;
+  if (!configurationCopy)
+  {
+    configurationCopy = +[GEOResourceManifestConfiguration defaultConfiguration];
+  }
+
+  v51 = configurationCopy;
+  v52 = resourcesCopy;
+  v32 = [GEOResourceManifestManager modernManagerForConfiguration:configurationCopy];
+  activeTileGroup = [v32 activeTileGroup];
+
+  v34 = +[NSMutableArray array];
+  v59 = +[NSMutableArray array];
+  v60 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v26 = v26;
+  v35 = [v26 countByEnumeratingWithState:&v60 objects:v66 count:16];
+  if (!v35)
+  {
+    v58 = 0;
+    goto LABEL_36;
+  }
+
+  v36 = v35;
+  v58 = 0;
+  v37 = *v61;
+  do
+  {
+    v38 = 0;
+    do
+    {
+      if (*v61 != v37)
+      {
+        objc_enumerationMutation(v26);
+      }
+
+      v39 = *(*(&v60 + 1) + 8 * v38);
+      if ([activeTileGroup isRegionalResource:v39])
+      {
+        v40 = v34;
+        goto LABEL_27;
+      }
+
+      activeResources = [activeTileGroup activeResources];
+      if ([activeResources containsObject:v39])
+      {
+
+LABEL_26:
+        v40 = v59;
+        goto LABEL_27;
+      }
+
+      explicitResources = [activeTileGroup explicitResources];
+      v43 = [explicitResources containsObject:v39];
+
+      if (v43)
+      {
+        goto LABEL_26;
+      }
+
+      v44 = sub_1000018BC();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        *v68 = v39;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Asked to load unknown resource: %@", buf, 0xCu);
+      }
+
+      v40 = v58;
+      if (!v58)
+      {
+        v40 = +[NSMutableArray array];
+        v58 = v40;
+      }
+
+LABEL_27:
+      [v40 addObject:v39];
+      v38 = v38 + 1;
+    }
+
+    while (v36 != v38);
+    v45 = [v26 countByEnumeratingWithState:&v60 objects:v66 count:16];
+    v36 = v45;
+  }
+
+  while (v45);
+LABEL_36:
+
+  configurationCopy = v51;
+  resourcesCopy = v52;
+  if (![v58 count])
+  {
+    goto LABEL_40;
+  }
+
+  v46 = [NSError GEOErrorWithCode:-10 reason:@"Unknown resource"];
+  [(GEOResourceRequesterLocalProxy *)self failedToResolveResources:v58 withError:v46];
+  if ([v34 count] || objc_msgSend(v59, "count"))
+  {
+
+LABEL_40:
+    if ([v34 count])
+    {
+      v47 = GEORegionalResourcesDirectory();
+      if ([v51 isDefaultConfiguration])
+      {
+        v48 = 0;
+      }
+
+      else
+      {
+        v48 = GEORegionalResourcesDirectory();
+      }
+
+      [(GEOResourceRequesterLocalProxy *)self _fetchResources:v34 force:v54 manifestConfiguration:v51 destination:v47 additionalDestination:v48 auditToken:v56 signpostID:v53];
+    }
+
+    if ([v59 count])
+    {
+      v46 = GEOResourcesPath();
+      if ([v51 isDefaultConfiguration])
+      {
+        v49 = 0;
+      }
+
+      else
+      {
+        v49 = GEOResourcesPath();
+      }
+
+      [(GEOResourceRequesterLocalProxy *)self _fetchResources:v59 force:v54 manifestConfiguration:v51 destination:v46 additionalDestination:v49 auditToken:v56 signpostID:v53];
+
+      goto LABEL_50;
+    }
+  }
+
+  else
+  {
+LABEL_50:
+  }
+
+  tokenCopy = v56;
+  queueCopy = v50;
+LABEL_52:
+  handlerCopy = v55;
+LABEL_53:
 }
 
 - (void)fetchResources:(id)resources force:(BOOL)force unpack:(BOOL)unpack manifestConfiguration:(id)configuration auditToken:(id)token signpostID:(unint64_t)d queue:(id)queue handler:(id)self0

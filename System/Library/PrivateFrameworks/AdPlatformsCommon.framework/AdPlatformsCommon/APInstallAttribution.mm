@@ -8,61 +8,61 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v11 = objc_msgSend_adamId(self, v5, v6, v7, v8, v9, v10);
-  objc_msgSend_encodeInt64_forKey_(coderCopy, v12, v11, @"adamId", v13, v14, v15);
-  v22 = objc_msgSend_campaignId(self, v16, v17, v18, v19, v20, v21);
-  objc_msgSend_encodeInt64_forKey_(coderCopy, v23, v22, @"campaignId", v24, v25, v26);
-  v33 = objc_msgSend_sourceAppAdamId(self, v27, v28, v29, v30, v31, v32);
-  objc_msgSend_encodeInt64_forKey_(coderCopy, v34, v33, @"sourceAppAdamId", v35, v36, v37);
-  v44 = objc_msgSend_timestamp(self, v38, v39, v40, v41, v42, v43);
-  objc_msgSend_encodeInt64_forKey_(coderCopy, v45, v44, @"timestamp", v46, v47, v48);
-  v55 = objc_msgSend_adNetworkId(self, v49, v50, v51, v52, v53, v54);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v56, v55, @"adNetworkId", v57, v58, v59);
+  v7 = objc_msgSend_adamId(self, v5, v6);
+  objc_msgSend_encodeInt64_forKey_(coderCopy, v8, v7, @"adamId");
+  v11 = objc_msgSend_campaignId(self, v9, v10);
+  objc_msgSend_encodeInt64_forKey_(coderCopy, v12, v11, @"campaignId");
+  v15 = objc_msgSend_sourceAppAdamId(self, v13, v14);
+  objc_msgSend_encodeInt64_forKey_(coderCopy, v16, v15, @"sourceAppAdamId");
+  v19 = objc_msgSend_timestamp(self, v17, v18);
+  objc_msgSend_encodeInt64_forKey_(coderCopy, v20, v19, @"timestamp");
+  v23 = objc_msgSend_adNetworkId(self, v21, v22);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v24, v23, @"adNetworkId");
 
-  v66 = objc_msgSend_attributionSignature(self, v60, v61, v62, v63, v64, v65);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v67, v66, @"attributionSignature", v68, v69, v70);
+  v27 = objc_msgSend_attributionSignature(self, v25, v26);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v28, v27, @"attributionSignature");
 
-  v77 = objc_msgSend_contextIdentifier(self, v71, v72, v73, v74, v75, v76);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v78, v77, @"contextIdentifier", v79, v80, v81);
+  v31 = objc_msgSend_contextIdentifier(self, v29, v30);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v32, v31, @"contextIdentifier");
 
-  v92 = objc_msgSend_version(self, v82, v83, v84, v85, v86, v87);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v88, v92, @"version", v89, v90, v91);
+  v36 = objc_msgSend_version(self, v33, v34);
+  objc_msgSend_encodeObject_forKey_(coderCopy, v35, v36, @"version");
 }
 
 - (APInstallAttribution)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v55.receiver = self;
-  v55.super_class = APInstallAttribution;
-  v8 = [(APInstallAttribution *)&v55 init];
-  if (v8)
+  v27.receiver = self;
+  v27.super_class = APInstallAttribution;
+  v6 = [(APInstallAttribution *)&v27 init];
+  if (v6)
   {
-    v8->_adamId = objc_msgSend_decodeInt64ForKey_(coderCopy, v5, @"adamId", v6, v7, v9, v10);
-    v8->_campaignId = objc_msgSend_decodeInt64ForKey_(coderCopy, v11, @"campaignId", v12, v13, v14, v15);
-    v8->_sourceAppAdamId = objc_msgSend_decodeInt64ForKey_(coderCopy, v16, @"sourceAppAdamId", v17, v18, v19, v20);
-    v8->_timestamp = objc_msgSend_decodeInt64ForKey_(coderCopy, v21, @"timestamp", v22, v23, v24, v25);
-    v26 = objc_opt_class();
-    v31 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v27, v26, @"adNetworkId", v28, v29, v30);
-    adNetworkId = v8->_adNetworkId;
-    v8->_adNetworkId = v31;
+    v6->_adamId = objc_msgSend_decodeInt64ForKey_(coderCopy, v5, @"adamId");
+    v6->_campaignId = objc_msgSend_decodeInt64ForKey_(coderCopy, v7, @"campaignId");
+    v6->_sourceAppAdamId = objc_msgSend_decodeInt64ForKey_(coderCopy, v8, @"sourceAppAdamId");
+    v6->_timestamp = objc_msgSend_decodeInt64ForKey_(coderCopy, v9, @"timestamp");
+    v10 = objc_opt_class();
+    v12 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v11, v10, @"adNetworkId");
+    adNetworkId = v6->_adNetworkId;
+    v6->_adNetworkId = v12;
 
-    v33 = objc_opt_class();
-    v38 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v34, v33, @"attributionSignature", v35, v36, v37);
-    attributionSignature = v8->_attributionSignature;
-    v8->_attributionSignature = v38;
+    v14 = objc_opt_class();
+    v16 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v15, v14, @"attributionSignature");
+    attributionSignature = v6->_attributionSignature;
+    v6->_attributionSignature = v16;
 
-    v40 = objc_opt_class();
-    v45 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v41, v40, @"contextIdentifier", v42, v43, v44);
-    contextIdentifier = v8->_contextIdentifier;
-    v8->_contextIdentifier = v45;
+    v18 = objc_opt_class();
+    v20 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v19, v18, @"contextIdentifier");
+    contextIdentifier = v6->_contextIdentifier;
+    v6->_contextIdentifier = v20;
 
-    v47 = objc_opt_class();
-    v52 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v48, v47, @"version", v49, v50, v51);
-    version = v8->_version;
-    v8->_version = v52;
+    v22 = objc_opt_class();
+    v24 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v23, v22, @"version");
+    version = v6->_version;
+    v6->_version = v24;
   }
 
-  return v8;
+  return v6;
 }
 
 @end

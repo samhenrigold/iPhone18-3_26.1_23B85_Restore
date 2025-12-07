@@ -13,8 +13,12 @@
 + (id)_loadAllAccountsWithError:(id *)error;
 + (id)_loadDataAccessAccountsWithError:(id *)error;
 + (id)accountContainingEmailAddress:(id)address;
++ (id)accountContainingEmailAddress:(id)address includingInactive:(BOOL)inactive;
++ (id)accountForHeaders:(id)headers message:(id)message includingInactive:(BOOL)inactive error:(id *)error;
 + (id)accountIDFromMailboxURLString:(id)string urlScheme:(id)scheme;
 + (id)accountThatMessageIsFrom:(id)from;
++ (id)accountThatMessageIsFrom:(id)from includingInactive:(BOOL)inactive;
++ (id)accountThatMessageIsFrom:(id)from includingInactive:(BOOL)inactive error:(id *)error;
 + (id)activeAccountEmailAddresses;
 + (id)activeAccountsWithError:(id *)error;
 + (id)activeNonLocalAccounts;
@@ -33,10 +37,12 @@
 + (id)legacyPathForAccountIdentifier:(id)identifier withHostname:(id)hostname username:(id)username;
 + (id)legacyPathNameForAccountWithHostname:(id)hostname username:(id)username;
 + (id)mailAccountsWithError:(id *)error;
++ (id)mailboxUidForFileSystemPath:(id)path create:(BOOL)create;
 + (id)mailboxUidFromActiveAccountsForURL:(id)l;
 + (id)newAccountWithDictionary:(id)dictionary;
 + (id)newAccountWithPath:(id)path;
 + (id)outboxMailboxUid;
++ (id)outboxMessageStore:(BOOL)store;
 + (id)predefinedValueForKey:(id)key;
 + (id)purgeableAccounts;
 + (id)standardAccountClass:(Class)class valueForKey:(id)key;
@@ -73,6 +79,7 @@
 - (BOOL)checkAndSetEmailAddresses:(id)addresses;
 - (BOOL)checkAndSetReceiveEmailAliasAddresses:(id)addresses;
 - (BOOL)containsMailboxWithURL:(id)l;
+- (BOOL)deleteMailbox:(id)mailbox reflectToServer:(BOOL)server;
 - (BOOL)deliveryAccountInUseByOtherAccounts:(id)accounts;
 - (BOOL)hasEnoughInformationForEasySetup;
 - (BOOL)isAccountClassEquivalentTo:(id)to;
@@ -116,6 +123,7 @@
 - (id)_deliveryAccountCreateIfNeeded:(BOOL)needed;
 - (id)_infoForMatchingURL:(id)l;
 - (id)_localMailboxNameForType:(int64_t)type usingDisplayName:(id)name;
+- (id)_specialMailboxUidWithType:(int64_t)type create:(BOOL)create;
 - (id)allLocalMailboxUids;
 - (id)allMailboxesFilteringNotes:(BOOL)notes;
 - (id)connectionError;
@@ -134,8 +142,10 @@
 - (id)mailboxCachePath;
 - (id)mailboxForType:(int64_t)type;
 - (id)mailboxUidForInfo:(id)info;
+- (id)mailboxUidForRelativePath:(id)path create:(BOOL)create;
 - (id)mailboxUidForRelativePath:(id)path create:(BOOL)create withOption:(int64_t)option;
 - (id)mailboxUidForURL:(id)l;
+- (id)mailboxUidOfType:(int64_t)type createIfNeeded:(BOOL)needed;
 - (id)mailboxesForSuggestionsLostMessageSearchPriorToTime:(double)time;
 - (id)newMailboxWithParent:(id)parent name:(id)name;
 - (id)path;
@@ -169,6 +179,7 @@
 - (void)addNewAction:(id)action;
 - (void)dealloc;
 - (void)deleteDeliveryAccountIfNeeded;
+- (void)deleteMessagesFromMailboxUid:(id)uid olderThanNumberOfDays:(unsigned int)days;
 - (void)deliveryAccountWillBeRemoved:(id)removed;
 - (void)didFinishActionForChokePoint:(id)point coalescePoint:(id)coalescePoint withResult:(id)result;
 - (void)emptyTrash;
@@ -179,7 +190,9 @@
 - (void)releaseAllConnections;
 - (void)releaseAllForcedConnections;
 - (void)saveState;
+- (void)setActive:(BOOL)active;
 - (void)setCacheHasBeenRead:(BOOL)read;
+- (void)setCanUseCarrierDeliveryFallback:(BOOL)fallback;
 - (void)setConnectionError:(id)error;
 - (void)setDeliveryAccount:(id)account;
 - (void)setDeliveryAccountAlternates:(id)alternates;
@@ -190,6 +203,8 @@
 - (void)setLibrary:(id)library;
 - (void)setMailboxCachePath:(id)path;
 - (void)setPath:(id)path;
+- (void)setPortNumber:(unsigned int)number;
+- (void)setPrimaryDeliveryAccountDisabled:(BOOL)disabled;
 - (void)setUsername:(id)username;
 - (void)setValueInAccountLookAsideProperties:(id)properties forKey:(id)key;
 - (void)setValueInAccountProperties:(id)properties forKey:(id)key;
@@ -312,24 +327,22 @@ void __18__MailAccount_log__block_invoke(uint64_t a1)
 
 - (id)library
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   library = self->_library;
   if (!library)
   {
     v4 = MFLogGeneral();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412546;
-      v8 = objc_opt_class();
-      v9 = 2048;
+      v6 = 138412546;
+      v7 = objc_opt_class();
+      v8 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_DEFAULT, "#Warning <%@ %p>: no library!", &v7, 0x16u);
+      _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_DEFAULT, "#Warning <%@ %p>: no library!", &v6, 0x16u);
     }
 
     library = self->_library;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return library;
 }
@@ -471,7 +484,7 @@ id __39__MailAccount_emailAddressesDictionary__block_invoke(uint64_t a1, void *a
 
 - (BOOL)shouldArchiveByDefault
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([(MailAccount *)self supportsArchiving])
   {
     v3 = [(MFAccount *)self _BOOLForAccountInfoKey:@"ArchiveMessages" defaultValue:0];
@@ -489,21 +502,20 @@ id __39__MailAccount_emailAddressesDictionary__block_invoke(uint64_t a1, void *a
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       ef_publicDescription2 = [(MFAccount *)self ef_publicDescription];
-      v9 = 138543362;
-      v10 = ef_publicDescription2;
-      _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: shouldArchiveByDefault: Account does not support archiving", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = ef_publicDescription2;
+      _os_log_impl(&dword_1B0389000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: shouldArchiveByDefault: Account does not support archiving", &v8, 0xCu);
     }
 
     v3 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (id)emailAddressesDictionary
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [(MFAccount *)self _objectForAccountInfoKey:@"EmailAddresses"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -530,7 +542,7 @@ id __39__MailAccount_emailAddressesDictionary__block_invoke(uint64_t a1, void *a
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v22 = v2;
+          v21 = v2;
           _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_DEFAULT, "#Warning Returned unhandled email addresses %@", buf, 0xCu);
         }
       }
@@ -552,27 +564,27 @@ LABEL_20:
 
   v5 = [v3 ef_map:&__block_literal_global_214];
   array = [MEMORY[0x1E695DF70] array];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
-    v9 = *v17;
+    v9 = *v16;
     v10 = MEMORY[0x1E695E118];
     while (1)
     {
-      if (*v17 != v9)
+      if (*v16 != v9)
       {
         objc_enumerationMutation(v7);
       }
 
-      [array addObject:{v10, v16}];
+      [array addObject:{v10, v15}];
       if (!--v8)
       {
-        v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (!v8)
         {
           break;
@@ -586,7 +598,6 @@ LABEL_20:
 LABEL_21:
   v13 = v11;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -715,16 +726,14 @@ id __42__MailAccount_copyReceivingEmailAddresses__block_invoke(uint64_t a1)
 
 - (id)URLString
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"Account";
-  v8[1] = @"RelativePath";
-  v9[0] = self;
-  v9[1] = &stru_1F273A5E0;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"Account";
+  v7[1] = @"RelativePath";
+  v8[0] = self;
+  v8[1] = &stru_1F273A5E0;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
   v4 = [(MailAccount *)self _URLForInfo:v3];
   absoluteString = [v4 absoluteString];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return absoluteString;
 }
@@ -778,37 +787,35 @@ id __42__MailAccount_copyReceivingEmailAddresses__block_invoke_3(uint64_t a1, vo
 
 + (void)resetMailboxTimers
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   [self activeAccounts];
+  v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v7 = 0u;
-  v2 = v8 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v6 = 0u;
+  v2 = v7 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v3)
   {
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) resetMailboxTimer];
+        [*(*(&v6 + 1) + 8 * v5++) resetMailboxTimer];
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidateCachedMailboxen
@@ -892,66 +899,64 @@ id __42__MailAccount_copyReceivingEmailAddresses__block_invoke_3(uint64_t a1, vo
 
 + (void)_setupSortedPathsForAccounts:(id)accounts
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   accountsCopy = accounts;
   CFArrayRemoveAllValues(_sortedAccountPaths);
   CFArrayRemoveAllValues(_accountsSortedByPath);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v5 = accountsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        [self _addAccountToSortedPaths:{*(*(&v10 + 1) + 8 * v8++), v10}];
+        [self _addAccountToSortedPaths:{*(*(&v9 + 1) + 8 * v8++), v9}];
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)existingAccountForUniqueID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   +[MailAccount lockMailAccount];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = _accounts;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         uniqueID = [v8 uniqueID];
         v10 = [uniqueID isEqualToString:dCopy];
 
@@ -962,7 +967,7 @@ id __42__MailAccount_copyReceivingEmailAddresses__block_invoke_3(uint64_t a1, vo
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -975,36 +980,35 @@ id __42__MailAccount_copyReceivingEmailAddresses__block_invoke_3(uint64_t a1, vo
 LABEL_11:
 
   +[MailAccount unlockMailAccount];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)existingDAMailAccountForDAAccount:(id)account
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   +[MailAccount lockMailAccount];
   accountID = [accountCopy accountID];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = _accounts;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v15 != v7)
+      if (*v14 != v7)
       {
         objc_enumerationMutation(v5);
       }
 
-      v9 = *(*(&v14 + 1) + 8 * v8);
+      v9 = *(*(&v13 + 1) + 8 * v8);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -1019,7 +1023,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -1039,34 +1043,32 @@ LABEL_10:
   +[MailAccount unlockMailAccount];
   [v9 setDAAccount:accountCopy];
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)_loadAllAccountsWithError:(id *)error
 {
-  v33[6] = *MEMORY[0x1E69E9840];
+  v32[6] = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:1];
   array = [MEMORY[0x1E695DF70] array];
   v5 = *MEMORY[0x1E69597F0];
-  v33[0] = *MEMORY[0x1E69598D8];
-  v33[1] = v5;
+  v32[0] = *MEMORY[0x1E69598D8];
+  v32[1] = v5;
   v6 = *MEMORY[0x1E6959868];
-  v33[2] = *MEMORY[0x1E6959918];
-  v33[3] = v6;
+  v32[2] = *MEMORY[0x1E6959918];
+  v32[3] = v6;
   v7 = *MEMORY[0x1E6959898];
-  v33[4] = *MEMORY[0x1E6959890];
-  v33[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:6];
+  v32[4] = *MEMORY[0x1E6959890];
+  v32[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:6];
   [array addObjectsFromArray:v8];
 
   if ([array count])
   {
     v9 = +[MFAccountStore sharedAccountStore];
-    v31 = 0;
-    v10 = [v9 accountsWithTypeIdentifiers:array error:&v31];
-    v11 = v31;
+    v30 = 0;
+    v10 = [v9 accountsWithTypeIdentifiers:array error:&v30];
+    v11 = v30;
 
     if (v10)
     {
@@ -1084,28 +1086,28 @@ LABEL_10:
     v11 = 0;
   }
 
-  v30 = 0;
-  v13 = [self _loadDataAccessAccountsWithError:&v30];
-  v24 = v30;
+  v29 = 0;
+  v13 = [self _loadDataAccessAccountsWithError:&v29];
+  v23 = v29;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v15)
   {
-    v16 = *v27;
+    v16 = *v26;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v26 + 1) + 8 * i);
+        v18 = *(*(&v25 + 1) + 8 * i);
         v19 = [self existingDAMailAccountForDAAccount:v18];
         if (v19 || (v19 = [[DAMailAccount alloc] initWithDAAccount:v18]) != 0)
         {
@@ -1113,13 +1115,13 @@ LABEL_10:
         }
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v15);
   }
 
-  if (!v24 || v11)
+  if (!v23 || v11)
   {
     if (!v11)
     {
@@ -1131,7 +1133,7 @@ LABEL_10:
 
   else
   {
-    v11 = v24;
+    v11 = v23;
   }
 
   if (error)
@@ -1142,50 +1144,46 @@ LABEL_10:
 
 LABEL_25:
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 + (id)_loadDataAccessAccountsWithError:(id *)error
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v4 = sharedDAAccountStore();
   v5 = *MEMORY[0x1E6959878];
-  v20[0] = *MEMORY[0x1E6959840];
-  v20[1] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+  v19[0] = *MEMORY[0x1E6959840];
+  v19[1] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
   v7 = [v4 da_accountsWithAccountTypeIdentifiers:v6 outError:error];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
-    v10 = *v16;
+    v10 = *v15;
     v11 = *MEMORY[0x1E69B17F0];
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v15 + 1) + 8 * i) setSourceApplicationBundleIdentifier:{v11, v15}];
+        [*(*(&v14 + 1) + 8 * i) setSourceApplicationBundleIdentifier:{v11, v14}];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1223,11 +1221,11 @@ LABEL_25:
 + (void)_setMailAccounts:(id)accounts saveIfChanged:(BOOL)changed alreadyLocked:(BOOL)locked
 {
   changedCopy = changed;
-  v90 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   accountsCopy = accounts;
-  v48 = accountsCopy;
-  v55 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v47 = accountsCopy;
   v54 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v53 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
   lockedCopy = locked;
   if (!locked)
@@ -1240,8 +1238,8 @@ LABEL_25:
   [v10 setMaxConcurrentOperationCount:1];
   obj = [accountsCopy mutableCopy];
   v11 = +[LocalAccount localAccount];
-  v51 = changedCopy;
-  v50 = v11;
+  v50 = changedCopy;
+  v49 = v11;
   if ([obj indexOfObjectIdenticalTo:v11] == 0x7FFFFFFFFFFFFFFFLL)
   {
     v12 = [_accounts indexOfObjectIdenticalTo:v11];
@@ -1258,28 +1256,28 @@ LABEL_25:
     [obj insertObject:v11 atIndex:v13];
   }
 
-  v53 = _accounts;
+  v52 = _accounts;
   objc_storeStrong(&_accounts, obj);
   [self _setupSortedPathsForAccounts:_accounts];
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
-  v14 = v53;
-  v15 = [v14 countByEnumeratingWithState:&v80 objects:v89 count:16];
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
+  v14 = v52;
+  v15 = [v14 countByEnumeratingWithState:&v79 objects:v88 count:16];
   if (v15)
   {
-    v16 = *v81;
+    v16 = *v80;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v81 != v16)
+        if (*v80 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v80 + 1) + 8 * i);
+        v18 = *(*(&v79 + 1) + 8 * i);
         if ([obj containsObject:v18])
         {
           [v9 addObject:v18];
@@ -1287,38 +1285,38 @@ LABEL_25:
 
         else
         {
-          [v54 addObject:v18];
+          [v53 addObject:v18];
           [v18 invalidate];
         }
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v80 objects:v89 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v79 objects:v88 count:16];
     }
 
     while (v15);
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   v19 = obj;
-  v20 = [v19 countByEnumeratingWithState:&v76 objects:v88 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v75 objects:v87 count:16];
   if (v20)
   {
-    v21 = *v77;
+    v21 = *v76;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v77 != v21)
+        if (*v76 != v21)
         {
           objc_enumerationMutation(v19);
         }
 
-        v23 = *(*(&v76 + 1) + 8 * j);
+        v23 = *(*(&v75 + 1) + 8 * j);
         v24 = [v14 containsObject:v23];
-        v25 = v55;
+        v25 = v54;
         if (v24)
         {
           v26 = [v9 containsObject:v23];
@@ -1332,117 +1330,117 @@ LABEL_25:
         [v25 addObject:v23];
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v76 objects:v88 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v75 objects:v87 count:16];
     }
 
     while (v20);
   }
 
-  if (v51)
+  if (v50)
   {
-    v47 = v19;
+    v46 = v19;
     selfCopy = self;
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
-    v27 = v54;
-    v28 = [v27 countByEnumeratingWithState:&v72 objects:v87 count:16];
+    v74 = 0u;
+    v71 = 0u;
+    v72 = 0u;
+    v27 = v53;
+    v28 = [v27 countByEnumeratingWithState:&v71 objects:v86 count:16];
     if (v28)
     {
-      v29 = *v73;
+      v29 = *v72;
       do
       {
         for (k = 0; k != v28; ++k)
         {
-          if (*v73 != v29)
+          if (*v72 != v29)
           {
             objc_enumerationMutation(v27);
           }
 
-          v31 = *(*(&v72 + 1) + 8 * k);
-          v71[0] = MEMORY[0x1E69E9820];
-          v71[1] = 3221225472;
-          v71[2] = __60__MailAccount__setMailAccounts_saveIfChanged_alreadyLocked___block_invoke;
-          v71[3] = &unk_1E7AA25C0;
-          v71[4] = v31;
-          [v10 addOperationWithBlock:v71];
+          v31 = *(*(&v71 + 1) + 8 * k);
+          v70[0] = MEMORY[0x1E69E9820];
+          v70[1] = 3221225472;
+          v70[2] = __60__MailAccount__setMailAccounts_saveIfChanged_alreadyLocked___block_invoke;
+          v70[3] = &unk_1E7AA25C0;
+          v70[4] = v31;
+          [v10 addOperationWithBlock:v70];
         }
 
-        v28 = [v27 countByEnumeratingWithState:&v72 objects:v87 count:16];
+        v28 = [v27 countByEnumeratingWithState:&v71 objects:v86 count:16];
       }
 
       while (v28);
     }
 
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
     v68 = 0u;
-    v32 = v55;
-    v33 = [v32 countByEnumeratingWithState:&v67 objects:v86 count:16];
+    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
+    v32 = v54;
+    v33 = [v32 countByEnumeratingWithState:&v66 objects:v85 count:16];
     if (v33)
     {
-      v34 = *v68;
+      v34 = *v67;
       do
       {
         for (m = 0; m != v33; ++m)
         {
-          if (*v68 != v34)
+          if (*v67 != v34)
           {
             objc_enumerationMutation(v32);
           }
 
-          v36 = *(*(&v67 + 1) + 8 * m);
-          v66[0] = MEMORY[0x1E69E9820];
-          v66[1] = 3221225472;
-          v66[2] = __60__MailAccount__setMailAccounts_saveIfChanged_alreadyLocked___block_invoke_2;
-          v66[3] = &unk_1E7AA25C0;
-          v66[4] = v36;
-          [v10 addOperationWithBlock:v66];
+          v36 = *(*(&v66 + 1) + 8 * m);
+          v65[0] = MEMORY[0x1E69E9820];
+          v65[1] = 3221225472;
+          v65[2] = __60__MailAccount__setMailAccounts_saveIfChanged_alreadyLocked___block_invoke_2;
+          v65[3] = &unk_1E7AA25C0;
+          v65[4] = v36;
+          [v10 addOperationWithBlock:v65];
         }
 
-        v33 = [v32 countByEnumeratingWithState:&v67 objects:v86 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v66 objects:v85 count:16];
       }
 
       while (v33);
     }
 
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     v37 = v9;
-    v38 = [v37 countByEnumeratingWithState:&v62 objects:v85 count:16];
+    v38 = [v37 countByEnumeratingWithState:&v61 objects:v84 count:16];
     if (v38)
     {
-      v39 = *v63;
+      v39 = *v62;
       do
       {
         for (n = 0; n != v38; ++n)
         {
-          if (*v63 != v39)
+          if (*v62 != v39)
           {
             objc_enumerationMutation(v37);
           }
 
-          v41 = *(*(&v62 + 1) + 8 * n);
-          v61[0] = MEMORY[0x1E69E9820];
-          v61[1] = 3221225472;
-          v61[2] = __60__MailAccount__setMailAccounts_saveIfChanged_alreadyLocked___block_invoke_3;
-          v61[3] = &unk_1E7AA25C0;
-          v61[4] = v41;
-          [v10 addOperationWithBlock:v61];
+          v41 = *(*(&v61 + 1) + 8 * n);
+          v60[0] = MEMORY[0x1E69E9820];
+          v60[1] = 3221225472;
+          v60[2] = __60__MailAccount__setMailAccounts_saveIfChanged_alreadyLocked___block_invoke_3;
+          v60[3] = &unk_1E7AA25C0;
+          v60[4] = v41;
+          [v10 addOperationWithBlock:v60];
         }
 
-        v38 = [v37 countByEnumeratingWithState:&v62 objects:v85 count:16];
+        v38 = [v37 countByEnumeratingWithState:&v61 objects:v84 count:16];
       }
 
       while (v38);
     }
 
     self = selfCopy;
-    v19 = v47;
+    v19 = v46;
   }
 
   if (!lockedCopy)
@@ -1453,35 +1451,34 @@ LABEL_25:
 
   [v10 waitUntilAllOperationsAreFinished];
   clearMailboxUIDCache();
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v42 = v9;
-  v43 = [v42 countByEnumeratingWithState:&v57 objects:v84 count:16];
+  v43 = [v42 countByEnumeratingWithState:&v56 objects:v83 count:16];
   if (v43)
   {
-    v44 = *v58;
+    v44 = *v57;
     do
     {
       for (ii = 0; ii != v43; ++ii)
       {
-        if (*v58 != v44)
+        if (*v57 != v44)
         {
           objc_enumerationMutation(v42);
         }
 
-        [*(*(&v57 + 1) + 8 * ii) invalidateEmailAliases];
+        [*(*(&v56 + 1) + 8 * ii) invalidateEmailAliases];
       }
 
-      v43 = [v42 countByEnumeratingWithState:&v57 objects:v84 count:16];
+      v43 = [v42 countByEnumeratingWithState:&v56 objects:v83 count:16];
     }
 
     while (v43);
   }
 
-  [self notifyOfAccountsAdded:v55 accountsRemoved:v54 changedAccounts:v42];
-  v46 = *MEMORY[0x1E69E9840];
+  [self notifyOfAccountsAdded:v54 accountsRemoved:v53 changedAccounts:v42];
 }
 
 + (void)_removeAccountFromSortedPaths:(id)paths
@@ -1579,29 +1576,29 @@ uint64_t __35__MailAccount_accountWithUniqueId___block_invoke(uint64_t a1, void 
 
 + (id)existingAccountWithType:(id)type hostname:(id)hostname username:(id)username
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   hostnameCopy = hostname;
   usernameCopy = username;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   mailAccounts = [self mailAccounts];
-  v12 = [mailAccounts countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [mailAccounts countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
-    v13 = *v19;
+    v13 = *v18;
     while (2)
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(mailAccounts);
         }
 
-        v15 = *(*(&v18 + 1) + 8 * i);
+        v15 = *(*(&v17 + 1) + 8 * i);
         if ([v15 isEquivalentTo:typeCopy hostname:hostnameCopy username:usernameCopy])
         {
           v12 = v15;
@@ -1609,7 +1606,7 @@ uint64_t __35__MailAccount_accountWithUniqueId___block_invoke(uint64_t a1, void 
         }
       }
 
-      v12 = [mailAccounts countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [mailAccounts countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v12)
       {
         continue;
@@ -1620,8 +1617,6 @@ uint64_t __35__MailAccount_accountWithUniqueId___block_invoke(uint64_t a1, void 
   }
 
 LABEL_11:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1656,7 +1651,7 @@ LABEL_11:
 
 + (id)_accountContainingEmailAddress:(id)address matchingAddress:(id *)matchingAddress fullUserName:(id *)name includingInactive:(BOOL)inactive
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   emailAddressValue = [addressCopy emailAddressValue];
   simpleAddress = [emailAddressValue simpleAddress];
@@ -1673,8 +1668,8 @@ LABEL_11:
 
   v11 = stringValue;
 
-  v36 = addressCopy;
-  emailAddressValue2 = [v36 emailAddressValue];
+  v35 = addressCopy;
+  emailAddressValue2 = [v35 emailAddressValue];
   displayName = [emailAddressValue2 displayName];
   v14 = displayName;
   if (displayName)
@@ -1684,64 +1679,64 @@ LABEL_11:
 
   else
   {
-    stringValue2 = [v36 stringValue];
+    stringValue2 = [v35 stringValue];
   }
 
   v16 = stringValue2;
 
-  if (([v16 isEqualToString:&stru_1F273A5E0] & 1) != 0 || objc_msgSend(v16, "isEqualToString:", v36))
+  if (([v16 isEqualToString:&stru_1F273A5E0] & 1) != 0 || objc_msgSend(v16, "isEqualToString:", v35))
   {
 
     v16 = 0;
   }
 
   +[MailAccount lockMailAccount];
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = _accounts;
-  v17 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
+  v17 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
   if (v17)
   {
-    v44 = 0;
+    v43 = 0;
     v18 = 0;
-    v39 = *v50;
+    v38 = *v49;
 LABEL_12:
-    v41 = 0;
-    v38 = v17;
+    v40 = 0;
+    v37 = v17;
     while (1)
     {
-      if (*v50 != v39)
+      if (*v49 != v38)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v49 + 1) + 8 * v41);
-      if (inactive || [*(*(&v49 + 1) + 8 * v41) isActive])
+      v19 = *(*(&v48 + 1) + 8 * v40);
+      if (inactive || [*(*(&v48 + 1) + 8 * v40) isActive])
       {
         emailAddressesAndAliasesList = [v19 emailAddressesAndAliasesList];
         v21 = [emailAddressesAndAliasesList ef_map:&__block_literal_global_146];
 
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
         v46 = 0u;
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
         v22 = v21;
-        v23 = [v22 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v44 objects:v52 count:16];
         if (v23)
         {
-          v24 = *v46;
+          v24 = *v45;
           while (2)
           {
             for (i = 0; i != v23; ++i)
             {
-              if (*v46 != v24)
+              if (*v45 != v24)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v26 = *(*(&v45 + 1) + 8 * i);
+              v26 = *(*(&v44 + 1) + 8 * i);
               if (![v26 caseInsensitiveCompare:v11])
               {
                 fullUserName = [v19 fullUserName];
@@ -1750,7 +1745,7 @@ LABEL_12:
                 {
                   v29 = v19;
 
-                  v44 = v29;
+                  v43 = v29;
                 }
 
                 else
@@ -1781,7 +1776,7 @@ LABEL_12:
               }
             }
 
-            v23 = [v22 countByEnumeratingWithState:&v45 objects:v53 count:16];
+            v23 = [v22 countByEnumeratingWithState:&v44 objects:v52 count:16];
             if (v23)
             {
               continue;
@@ -1799,9 +1794,9 @@ LABEL_40:
         break;
       }
 
-      if (++v41 == v38)
+      if (++v40 == v37)
       {
-        v17 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
+        v17 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
         if (v17)
         {
           goto LABEL_12;
@@ -1814,19 +1809,18 @@ LABEL_40:
 
   else
   {
-    v44 = 0;
+    v43 = 0;
     v18 = 0;
   }
 
   +[MailAccount unlockMailAccount];
-  if (!v18 && v44)
+  if (!v18 && v43)
   {
-    v18 = v44;
+    v18 = v43;
   }
 
   v33 = v18;
 
-  v34 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -1851,11 +1845,122 @@ id __93__MailAccount__accountContainingEmailAddress_matchingAddress_fullUserName
   return v7;
 }
 
++ (id)accountContainingEmailAddress:(id)address includingInactive:(BOOL)inactive
+{
+  v4 = [self _accountContainingEmailAddress:address matchingAddress:0 fullUserName:0 includingInactive:inactive];
+
+  return v4;
+}
+
 + (id)accountContainingEmailAddress:(id)address
 {
   v3 = [self _accountContainingEmailAddress:address matchingAddress:0 fullUserName:0 includingInactive:0];
 
   return v3;
+}
+
++ (id)accountForHeaders:(id)headers message:(id)message includingInactive:(BOOL)inactive error:(id *)error
+{
+  inactiveCopy = inactive;
+  v31 = *MEMORY[0x1E69E9840];
+  messageCopy = message;
+  copyAddressListForResentFrom = [headers copyAddressListForResentFrom];
+  firstObject = [copyAddressListForResentFrom firstObject];
+  v12 = firstObject;
+  if (!firstObject || ([firstObject isEqualToString:&stru_1F273A5E0] & 1) != 0 || (+[MailAccount accountContainingEmailAddress:includingInactive:](MailAccount, "accountContainingEmailAddress:includingInactive:", v12, inactiveCopy), (v13 = objc_claimAutoreleasedReturnValue()) == 0))
+  {
+    v29 = 0;
+    v14 = [messageCopy sendersWithError:&v29];
+    v15 = v29;
+    v16 = v15;
+    if (v15)
+    {
+      if (error)
+      {
+        v17 = v15;
+        v13 = 0;
+        *error = v16;
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+    }
+
+    else
+    {
+      v23 = messageCopy;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      v18 = v14;
+      v24 = copyAddressListForResentFrom;
+      v19 = [v18 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      if (v19)
+      {
+        v20 = *v26;
+LABEL_9:
+        v21 = 0;
+        while (1)
+        {
+          if (*v26 != v20)
+          {
+            objc_enumerationMutation(v18);
+          }
+
+          v13 = [MailAccount accountContainingEmailAddress:*(*(&v25 + 1) + 8 * v21) includingInactive:inactiveCopy, v23];
+          if (v13)
+          {
+            break;
+          }
+
+          if (v19 == ++v21)
+          {
+            v19 = [v18 countByEnumeratingWithState:&v25 objects:v30 count:16];
+            if (v19)
+            {
+              goto LABEL_9;
+            }
+
+            goto LABEL_15;
+          }
+        }
+      }
+
+      else
+      {
+LABEL_15:
+        v13 = 0;
+      }
+
+      messageCopy = v23;
+      copyAddressListForResentFrom = v24;
+    }
+  }
+
+  return v13;
+}
+
++ (id)accountThatMessageIsFrom:(id)from includingInactive:(BOOL)inactive error:(id *)error
+{
+  inactiveCopy = inactive;
+  fromCopy = from;
+  headersIfAvailable = [fromCopy headersIfAvailable];
+  v10 = [self accountForHeaders:headersIfAvailable message:fromCopy includingInactive:inactiveCopy error:error];
+
+  return v10;
+}
+
++ (id)accountThatMessageIsFrom:(id)from includingInactive:(BOOL)inactive
+{
+  inactiveCopy = inactive;
+  fromCopy = from;
+  headersIfAvailable = [fromCopy headersIfAvailable];
+  v8 = [self accountForHeaders:headersIfAvailable message:fromCopy includingInactive:inactiveCopy error:0];
+
+  return v8;
 }
 
 + (id)accountThatMessageIsFrom:(id)from
@@ -1869,35 +1974,35 @@ id __93__MailAccount__accountContainingEmailAddress_matchingAddress_fullUserName
 
 + (id)addressesThatReceivedMessage:(id)message
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   headersIfAvailable = [message headersIfAvailable];
-  v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
   array = [MEMORY[0x1E695DF70] array];
   copyAddressListForTo = [headersIfAvailable copyAddressListForTo];
-  [v23 addObjectsFromArray:copyAddressListForTo];
+  [v22 addObjectsFromArray:copyAddressListForTo];
   copyAddressListForCc = [headersIfAvailable copyAddressListForCc];
 
-  [v23 addObjectsFromArray:copyAddressListForCc];
-  v21 = copyAddressListForCc;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  [v22 addObjectsFromArray:copyAddressListForCc];
+  v20 = copyAddressListForCc;
   v25 = 0u;
-  v7 = v23;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v7 = v22;
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v23 + 1) + 8 * i);
         emailAddressValue = [v11 emailAddressValue];
         simpleAddress = [emailAddressValue simpleAddress];
         v14 = simpleAddress;
@@ -1922,13 +2027,11 @@ id __93__MailAccount__accountContainingEmailAddress_matchingAddress_fullUserName
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v8);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -1969,6 +2072,24 @@ LABEL_8:
   return v4;
 }
 
++ (id)outboxMessageStore:(BOOL)store
+{
+  v4 = +[LocalAccount localAccount];
+  outboxMailboxUid = [self outboxMailboxUid];
+  v6 = outboxMailboxUid;
+  if (outboxMailboxUid && [outboxMailboxUid isValid])
+  {
+    v7 = [v4 storeForMailboxUid:v6];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
+}
+
 + (id)allMailboxUids
 {
   v2 = +[MailAccount mailAccounts];
@@ -1987,36 +2108,36 @@ LABEL_8:
 
 + (id)allMailboxUidsForAccounts:(id)accounts
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   accountsCopy = accounts;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = accountsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        rootMailbox = [*(*(&v15 + 1) + 8 * i) rootMailbox];
+        rootMailbox = [*(*(&v14 + 1) + 8 * i) rootMailbox];
         if (rootMailbox)
         {
           [array2 addObject:rootMailbox];
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -2037,8 +2158,6 @@ LABEL_8:
     [array2 removeLastObject];
     [array2 addObjectsFromArray:mutableCopyOfChildren];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -2116,14 +2235,15 @@ id __42__MailAccount_allActivePrimaryMailboxUids__block_invoke(uint64_t a1, void
 
 + (void)test_tearDown
 {
-  if ((EFIsRunningUnitTests() & 1) == 0)
+  v4 = EFIsRunningUnitTests();
+  if ((v4 & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"MailAccount.m" lineNumber:886 description:{@"%s can only be called from unit tests", "+[MailAccount test_tearDown]"}];
   }
 
-  v5 = mailAccountQueue();
-  dispatch_sync(v5, &__block_literal_global_161);
+  v6 = mailAccountQueue(v4);
+  dispatch_sync(v6, &__block_literal_global_161);
 }
 
 - (void)test_tearDown
@@ -2388,7 +2508,7 @@ id __49__MailAccount_initWithLibrary_persistentAccount___block_invoke(uint64_t a
 
 + (id)_defaultMailAccountForDeliveryIncludingRestricted:(BOOL)restricted
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   em_userDefaults = [MEMORY[0x1E695E000] em_userDefaults];
   v6 = [em_userDefaults objectForKey:@"DefaultSendingAccount"];
 
@@ -2408,25 +2528,25 @@ id __49__MailAccount_initWithLibrary_persistentAccount___block_invoke(uint64_t a
     }
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   mailAccounts = [self mailAccounts];
-  v7 = [mailAccounts countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [mailAccounts countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(mailAccounts);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0 && [v11 isActive] && (restricted || (objc_msgSend(v11, "restrictedFromSendingExternally") & 1) == 0))
         {
@@ -2435,7 +2555,7 @@ id __49__MailAccount_initWithLibrary_persistentAccount___block_invoke(uint64_t a
         }
       }
 
-      v7 = [mailAccounts countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [mailAccounts countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -2448,7 +2568,6 @@ id __49__MailAccount_initWithLibrary_persistentAccount___block_invoke(uint64_t a
 LABEL_19:
 
 LABEL_20:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -2461,39 +2580,47 @@ LABEL_20:
   return deliveryAccount;
 }
 
+- (void)setPrimaryDeliveryAccountDisabled:(BOOL)disabled
+{
+  v4 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:disabled];
+  [(MailAccount *)self mf_lock];
+  [(MFAccount *)self setAccountProperty:v4 forKey:@"SMTPDisabled"];
+  [(MailAccount *)self mf_unlock];
+}
+
 - (id)deliveryAccountAlternates
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [(MFAccount *)self _objectForAccountInfoKey:@"SMTPAlternateIdentifiers"];
   if (v2)
   {
     array = [MEMORY[0x1E695DF70] array];
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = [DeliveryAccount accountWithIdentifier:*(*(&v11 + 1) + 8 * i), v11];
+          v8 = [DeliveryAccount accountWithIdentifier:*(*(&v10 + 1) + 8 * i), v10];
           if (v8)
           {
             [array addObject:v8];
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
@@ -2504,8 +2631,6 @@ LABEL_20:
   {
     array = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -2538,29 +2663,29 @@ LABEL_20:
 
 - (void)setDeliveryAccountAlternates:(id)alternates
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   alternatesCopy = alternates;
   array = [MEMORY[0x1E695DF70] array];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = alternatesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        identifier = [*(*(&v13 + 1) + 8 * v9) identifier];
+        identifier = [*(*(&v12 + 1) + 8 * v9) identifier];
         if (identifier)
         {
           [array addObject:identifier];
@@ -2570,7 +2695,7 @@ LABEL_20:
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -2592,8 +2717,6 @@ LABEL_20:
 
     [(MailAccount *)self mf_unlock];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canUseDeliveryAccount:(id)account
@@ -2615,6 +2738,16 @@ LABEL_20:
   }
 
   return v7;
+}
+
+- (void)setCanUseCarrierDeliveryFallback:(BOOL)fallback
+{
+  fallbackCopy = fallback;
+  [(MailAccount *)self mf_lock];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:fallbackCopy];
+  [(MFAccount *)self setAccountProperty:v5 forKey:@"SMTPCarrierFallbackAllowed"];
+
+  [(MailAccount *)self mf_unlock];
 }
 
 - (BOOL)canUseCarrierDeliveryFallback
@@ -2673,53 +2806,53 @@ LABEL_20:
 
 + (void)updatePersonalStatusForAccounts:(id)accounts forceUpdate:(BOOL)update
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   accountsCopy = accounts;
   v5 = MFUserAgent();
   isMaild = [v5 isMaild];
 
   if (isMaild)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = accountsCopy;
-    v7 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+    v7 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
     if (v7)
     {
-      v8 = *v28;
+      v8 = *v27;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v28 != v8)
+          if (*v27 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v27 + 1) + 8 * i);
-          v21 = 0;
-          v22 = &v21;
-          v23 = 0x3032000000;
-          v24 = __Block_byref_object_copy__4;
-          v25 = __Block_byref_object_dispose__4;
+          v10 = *(*(&v26 + 1) + 8 * i);
+          v20 = 0;
+          v21 = &v20;
+          v22 = 0x3032000000;
+          v23 = __Block_byref_object_copy__4;
+          v24 = __Block_byref_object_dispose__4;
           systemAccount = [v10 systemAccount];
           firstEmailAddress = [v10 firstEmailAddress];
           if (firstEmailAddress)
           {
-            ed_accountIsNonPersonal = [v22[5] ed_accountIsNonPersonal];
+            ed_accountIsNonPersonal = [v21[5] ed_accountIsNonPersonal];
             v13 = ed_accountIsNonPersonal;
             if (update || !ed_accountIsNonPersonal)
             {
-              v14 = [v22[5] ed_accountIsPersonalDomainForMailAccount:v10 force:1];
-              v20[0] = MEMORY[0x1E69E9820];
-              v20[1] = 3221225472;
-              v20[2] = __59__MailAccount_updatePersonalStatusForAccounts_forceUpdate___block_invoke;
-              v20[3] = &unk_1E7AA3170;
-              v20[4] = &v21;
-              v20[5] = self;
-              [v14 addSuccessBlock:v20];
+              v14 = [v21[5] ed_accountIsPersonalDomainForMailAccount:v10 force:1];
+              v19[0] = MEMORY[0x1E69E9820];
+              v19[1] = 3221225472;
+              v19[2] = __59__MailAccount_updatePersonalStatusForAccounts_forceUpdate___block_invoke;
+              v19[3] = &unk_1E7AA3170;
+              v19[4] = &v20;
+              v19[5] = self;
+              [v14 addSuccessBlock:v19];
             }
           }
 
@@ -2730,22 +2863,20 @@ LABEL_20:
             {
               ef_publicDescription = [v10 ef_publicDescription];
               *buf = 138543362;
-              v32 = ef_publicDescription;
+              v31 = ef_publicDescription;
               _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "Skip updating isNonPersonal since emailAddress is nil for %{public}@", buf, 0xCu);
             }
           }
 
-          _Block_object_dispose(&v21, 8);
+          _Block_object_dispose(&v20, 8);
         }
 
-        v7 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+        v7 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
       }
 
       while (v7);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __59__MailAccount_updatePersonalStatusForAccounts_forceUpdate___block_invoke(uint64_t a1, void *a2)
@@ -2762,7 +2893,7 @@ void __59__MailAccount_updatePersonalStatusForAccounts_forceUpdate___block_invok
 
 - (BOOL)checkAndSetEmailAddresses:(id)addresses
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   addressesCopy = addresses;
   emailAddressesDictionary = [(MailAccount *)self emailAddressesDictionary];
   objc_opt_class();
@@ -2792,27 +2923,27 @@ LABEL_13:
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
-    v11 = *v20;
+    v11 = *v19;
     v12 = MEMORY[0x1E695E118];
     while (1)
     {
-      if (*v20 != v11)
+      if (*v19 != v11)
       {
         objc_enumerationMutation(v9);
       }
 
-      [array addObject:{v12, v19}];
+      [array addObject:{v12, v18}];
       if (!--v10)
       {
-        v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (!v10)
         {
           break;
@@ -2835,7 +2966,7 @@ LABEL_14:
     dictionary = [MEMORY[0x1E695DF20] dictionary];
   }
 
-  v15 = [v13 isEqual:{dictionary, v19}];
+  v15 = [v13 isEqual:{dictionary, v18}];
   if (!emailAddressesDictionary)
   {
   }
@@ -2863,39 +2994,38 @@ LABEL_20:
     v16 = 1;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (id)receiveEmailAliasAddresses
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [(MFAccount *)self _objectForAccountInfoKey:@"ReceiveEmailAliasAddresses"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
-      v6 = *v12;
+      v6 = *v11;
       v7 = MEMORY[0x1E695E118];
       while (1)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 addObject:{v7, v11}];
+        [v3 addObject:{v7, v10}];
         if (!--v5)
         {
-          v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+          v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
           if (!v5)
           {
             break;
@@ -2908,8 +3038,6 @@ LABEL_20:
 
     v2 = v8;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -3064,7 +3192,7 @@ LABEL_7:
 - (void)_invalidateAndDeleteAccountData:(BOOL)data
 {
   dataCopy = data;
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   [objc_opt_class() disableMailboxListingNotifications];
   [(MailAccount *)self releaseAllConnections];
   [(MFLock *)self->_deletionLock lock];
@@ -3083,9 +3211,9 @@ LABEL_7:
     allMailboxUids = [(MailAccount *)self allMailboxUids];
     v7 = [allMailboxUids arrayByApplyingSelector:sel_URLString];
 
-    v28 = v7;
+    v27 = v7;
     allLocalMailboxUids = [(MailAccount *)self allLocalMailboxUids];
-    v29 = allLocalMailboxUids;
+    v28 = allLocalMailboxUids;
     path = [(MailAccount *)self path];
     v10 = MFRemoveItemAtPath();
 
@@ -3095,28 +3223,28 @@ LABEL_7:
     if ([allLocalMailboxUids count])
     {
       v12 = +[LocalAccount localAccount];
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       v13 = allLocalMailboxUids;
-      v14 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
       if (v14)
       {
-        v15 = *v35;
+        v15 = *v34;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v35 != v15)
+            if (*v34 != v15)
             {
               objc_enumerationMutation(v13);
             }
 
-            [v12 deleteMailbox:*(*(&v34 + 1) + 8 * i)];
+            [v12 deleteMailbox:*(*(&v33 + 1) + 8 * i)];
           }
 
-          v14 = [v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v33 objects:v38 count:16];
         }
 
         while (v14);
@@ -3127,25 +3255,25 @@ LABEL_7:
 
     v17 = [MailAccount outboxMessageStore:1];
     v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v19 = [v17 copyOfAllMessagesWithOptions:2048];
-    v20 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v20)
     {
-      v21 = *v31;
+      v21 = *v30;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v31 != v21)
+          if (*v30 != v21)
           {
             objc_enumerationMutation(v19);
           }
 
-          v23 = *(*(&v30 + 1) + 8 * j);
+          v23 = *(*(&v29 + 1) + 8 * j);
           v24 = [MailAccount accountThatMessageIsFrom:v23];
           v25 = v24 == 0;
 
@@ -3155,7 +3283,7 @@ LABEL_7:
           }
         }
 
-        v20 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v20);
@@ -3177,12 +3305,11 @@ LABEL_7:
 
   [(MFLock *)self->_deletionLock unlock];
   [objc_opt_class() enableMailboxListingNotifications:1];
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_asynchronouslyInvalidateAndDeleteAccountData:(BOOL)data
 {
-  v5 = mailAccountQueue();
+  v5 = mailAccountQueue(self);
   v6[0] = MEMORY[0x1E69E9820];
   v6[1] = 3221225472;
   v6[2] = __61__MailAccount__asynchronouslyInvalidateAndDeleteAccountData___block_invoke;
@@ -3272,29 +3399,29 @@ LABEL_7:
 
 - (BOOL)deliveryAccountInUseByOtherAccounts:(id)accounts
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   uniqueID = [accounts uniqueID];
   +[MailAccount lockMailAccount];
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = _accounts;
-  v4 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v4 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v4)
   {
-    v22 = 0;
-    v24 = *v31;
+    v21 = 0;
+    v23 = *v30;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v31 != v24)
+        if (*v30 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v30 + 1) + 8 * i);
+        v6 = *(*(&v29 + 1) + 8 * i);
         uniqueID2 = [v6 uniqueID];
         uniqueID3 = [(MFAccount *)self uniqueID];
         v9 = uniqueID2 == uniqueID3;
@@ -3311,40 +3438,40 @@ LABEL_7:
             if (v13)
             {
 
-              v22 = 1;
+              v21 = 1;
               goto LABEL_25;
             }
           }
 
-          v28 = 0u;
-          v29 = 0u;
-          v26 = 0u;
           v27 = 0u;
+          v28 = 0u;
+          v25 = 0u;
+          v26 = 0u;
           deliveryAccountAlternates = [v6 deliveryAccountAlternates];
-          v15 = [deliveryAccountAlternates countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v15 = [deliveryAccountAlternates countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v15)
           {
-            v16 = *v27;
+            v16 = *v26;
             while (2)
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v27 != v16)
+                if (*v26 != v16)
                 {
                   objc_enumerationMutation(deliveryAccountAlternates);
                 }
 
-                uniqueID5 = [*(*(&v26 + 1) + 8 * j) uniqueID];
+                uniqueID5 = [*(*(&v25 + 1) + 8 * j) uniqueID];
                 v19 = [uniqueID5 isEqualToString:uniqueID];
 
                 if (v19)
                 {
-                  v22 = 1;
+                  v21 = 1;
                   goto LABEL_19;
                 }
               }
 
-              v15 = [deliveryAccountAlternates countByEnumeratingWithState:&v26 objects:v34 count:16];
+              v15 = [deliveryAccountAlternates countByEnumeratingWithState:&v25 objects:v33 count:16];
               if (v15)
               {
                 continue;
@@ -3358,7 +3485,7 @@ LABEL_19:
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v4 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
       if (v4)
       {
         continue;
@@ -3370,14 +3497,13 @@ LABEL_19:
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
 LABEL_25:
 
   +[MailAccount unlockMailAccount];
-  v20 = *MEMORY[0x1E69E9840];
-  return v22 & 1;
+  return v21 & 1;
 }
 
 - (BOOL)isSpecialMailbox:(id)mailbox
@@ -3394,6 +3520,26 @@ LABEL_25:
   }
 
   return v4;
+}
+
+- (id)mailboxUidOfType:(int64_t)type createIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  v7 = [(MailAccount *)self _cachedSpecialMailboxOfType:?];
+  if (!v7)
+  {
+    v9 = [(MailAccount *)self _specialMailboxUidWithType:type create:neededCopy];
+    v7 = v9;
+    if (v9)
+    {
+      if ([v9 type] != type)
+      {
+        [(MailAccount *)self _assignSpecialMailboxToAppropriateIvar:v7 forType:type];
+      }
+    }
+  }
+
+  return v7;
 }
 
 - (id)mailboxForType:(int64_t)type
@@ -3469,33 +3615,31 @@ LABEL_25:
 
 - (id)mailboxesForSuggestionsLostMessageSearchPriorToTime:(double)time
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   allMailMailboxUid = [(MailAccount *)self allMailMailboxUid];
   v6 = allMailMailboxUid;
   if (allMailMailboxUid)
   {
-    v14[0] = allMailMailboxUid;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = allMailMailboxUid;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   }
 
   else
   {
     allMailboxUids = [(MailAccount *)self allMailboxUids];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __67__MailAccount_mailboxesForSuggestionsLostMessageSearchPriorToTime___block_invoke;
-    v13[3] = &__block_descriptor_40_e22_B16__0__MFMailboxUid_8l;
-    *&v13[4] = time;
-    v9 = [allMailboxUids ef_filter:v13];
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
-    v12[2] = __67__MailAccount_mailboxesForSuggestionsLostMessageSearchPriorToTime___block_invoke_2;
-    v12[3] = &__block_descriptor_40_e39_q24__0__MFMailboxUid_8__MFMailboxUid_16l;
+    v12[2] = __67__MailAccount_mailboxesForSuggestionsLostMessageSearchPriorToTime___block_invoke;
+    v12[3] = &__block_descriptor_40_e22_B16__0__MFMailboxUid_8l;
     *&v12[4] = time;
-    v7 = [v9 sortedArrayUsingComparator:v12];
+    v9 = [allMailboxUids ef_filter:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __67__MailAccount_mailboxesForSuggestionsLostMessageSearchPriorToTime___block_invoke_2;
+    v11[3] = &__block_descriptor_40_e39_q24__0__MFMailboxUid_8__MFMailboxUid_16l;
+    *&v11[4] = time;
+    v7 = [v9 sortedArrayUsingComparator:v11];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -3567,6 +3711,18 @@ LABEL_10:
   return v10;
 }
 
+- (void)deleteMessagesFromMailboxUid:(id)uid olderThanNumberOfDays:(unsigned int)days
+{
+  v4 = *&days;
+  uidCopy = uid;
+  uRLString = [uidCopy URLString];
+  if (uRLString && [(MailAccount *)self isActive]&& [(MailAccount *)self _canEmptyMessagesFromMailboxUid:uidCopy])
+  {
+    v7 = [(MailAccount *)self storeForMailboxUid:uidCopy];
+    [v7 deleteMessagesOlderThanNumberOfDays:v4 compact:1];
+  }
+}
+
 - (void)_setEmptyFrequency:(int)frequency forKey:(id)key
 {
   keyCopy = key;
@@ -3598,19 +3754,19 @@ LABEL_10:
 
 uint64_t __45__MailAccount__resetSpecialMailboxesCanPost___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) mf_lock];
   v2 = *(a1 + 32);
-  v12 = (v2[15] != 0) | (2 * (v2[16] != 0)) | (4 * (v2[17] != 0)) | (8 * (v2[18] != 0)) | (16 * (v2[19] != 0)) | (32 * (v2[20] != 0));
+  v11 = (v2[15] != 0) | (2 * (v2[16] != 0)) | (4 * (v2[17] != 0)) | (8 * (v2[18] != 0)) | (16 * (v2[19] != 0)) | (32 * (v2[20] != 0));
   [v2 mf_unlock];
   v3 = 0;
-  v13[0] = xmmword_1B0E975B0;
-  v13[1] = xmmword_1B0E975C0;
-  v13[2] = xmmword_1B0E975D0;
+  v12[0] = xmmword_1B0E975B0;
+  v12[1] = xmmword_1B0E975C0;
+  v12[2] = xmmword_1B0E975D0;
   do
   {
     v4 = *(a1 + 32);
-    v5 = *(v13 + v3);
+    v5 = *(v12 + v3);
     v6 = [v4 _specialMailboxUidWithType:v5 create:0];
     LODWORD(v5) = [v4 _assignSpecialMailboxToAppropriateIvar:v6 forType:v5];
 
@@ -3629,7 +3785,7 @@ uint64_t __45__MailAccount__resetSpecialMailboxesCanPost___block_invoke(uint64_t
     v7 = *(a1 + 32);
     v8 = (v7[15] != 0) | (2 * (v7[16] != 0)) | (4 * (v7[17] != 0)) | (8 * (v7[18] != 0)) | (16 * (v7[19] != 0)) | (32 * (v7[20] != 0));
     [v7 mf_unlock];
-    *(*(*(a1 + 40) + 8) + 24) = v12 != v8;
+    *(*(*(a1 + 40) + 8) + 24) = v11 != v8;
   }
 
   if (*(a1 + 48) == 1)
@@ -3642,7 +3798,6 @@ uint64_t __45__MailAccount__resetSpecialMailboxesCanPost___block_invoke(uint64_t
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9 & 1;
 }
 
@@ -3703,6 +3858,118 @@ void __46__MailAccount_performOnAccounts_accountBlock___block_invoke_2(uint64_t 
   }
 }
 
++ (id)mailboxUidForFileSystemPath:(id)path create:(BOOL)create
+{
+  createCopy = create;
+  pathCopy = path;
+  v6 = 0;
+  if (pathCopy && _sortedAccountPaths)
+  {
+    +[MailAccount lockMailAccount];
+    Count = CFArrayGetCount(_sortedAccountPaths);
+    if (Count < 1)
+    {
+LABEL_8:
+      v10 = 0;
+      v9 = 0;
+    }
+
+    else
+    {
+      v8 = 0;
+      while (1)
+      {
+        v9 = CFArrayGetValueAtIndex(_sortedAccountPaths, v8);
+        if ([pathCopy mf_isSubdirectoryOfPath:v9] & 1) != 0 || (objc_msgSend(pathCopy, "isEqualToString:", v9))
+        {
+          break;
+        }
+
+        if (Count == ++v8)
+        {
+          goto LABEL_8;
+        }
+      }
+
+      if (!v9)
+      {
+        goto LABEL_16;
+      }
+
+      v11 = [pathCopy rangeOfString:v9 options:8];
+      v13 = v12;
+      v14 = [pathCopy length];
+      v15 = v11 + v13;
+      if (v15 != [v9 length])
+      {
+        goto LABEL_16;
+      }
+
+      if (v15 == v14)
+      {
+        v16 = 0;
+      }
+
+      else
+      {
+        if ([pathCopy characterAtIndex:v15] != 47)
+        {
+LABEL_16:
+          v10 = 0;
+          goto LABEL_17;
+        }
+
+        v14 = v15 + 1;
+        v16 = [pathCopy length] - (v15 + 1);
+      }
+
+      if (v14 == 0x7FFFFFFFFFFFFFFFLL)
+      {
+        goto LABEL_16;
+      }
+
+      v10 = CFArrayGetValueAtIndex(_accountsSortedByPath, v8);
+      if (v10)
+      {
+        v17 = [pathCopy substringWithRange:{v14, v16}];
+LABEL_18:
+        +[MailAccount unlockMailAccount];
+        if (v17)
+        {
+          v6 = [v10 mailboxUidForRelativePath:v17 create:createCopy];
+          if (v6)
+          {
+LABEL_24:
+
+            goto LABEL_25;
+          }
+        }
+
+        else
+        {
+          v6 = 0;
+        }
+
+        if (Count >= 1)
+        {
+          v18 = +[LocalAccount localAccount];
+          v6 = [v18 mailboxUidForFileSystemPath:pathCopy];
+        }
+
+        goto LABEL_24;
+      }
+    }
+
+LABEL_17:
+    v17 = 0;
+    goto LABEL_18;
+  }
+
+LABEL_25:
+
+  return v6;
+}
+
 - (BOOL)newMailboxNameIsAcceptable:(id)acceptable reasonForFailure:(id *)failure
 {
   acceptableCopy = acceptable;
@@ -3757,11 +4024,11 @@ void __46__MailAccount_performOnAccounts_accountBlock___block_invoke_2(uint64_t 
 
 - (BOOL)_renameMailbox:(id)mailbox newName:(id)name parent:(id)parent
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   mailboxCopy = mailbox;
   nameCopy = name;
   parentCopy = parent;
-  v68 = mailboxCopy;
+  v67 = mailboxCopy;
   fullPath = [mailboxCopy fullPath];
   attributes = [mailboxCopy attributes];
   parent = [mailboxCopy parent];
@@ -3771,9 +4038,9 @@ void __46__MailAccount_performOnAccounts_accountBlock___block_invoke_2(uint64_t 
     ef_publicDescription = [mailboxCopy ef_publicDescription];
     v12 = [MEMORY[0x1E699B858] partiallyRedactedStringForString:nameCopy];
     *buf = 138543618;
-    v77 = ef_publicDescription;
-    v78 = 2114;
-    v79 = v12;
+    v76 = ef_publicDescription;
+    v77 = 2114;
+    v78 = v12;
     _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_DEFAULT, "Renaming mailbox %{public}@ newName: %{public}@", buf, 0x16u);
   }
 
@@ -3781,7 +4048,7 @@ void __46__MailAccount_performOnAccounts_accountBlock___block_invoke_2(uint64_t 
   depthFirstEnumerator = [mailboxCopy depthFirstEnumerator];
   allObjects = [depthFirstEnumerator allObjects];
 
-  v59 = [allObjects arrayByApplyingSelector:sel_URLString];
+  v58 = [allObjects arrayByApplyingSelector:sel_URLString];
   if (nameCopy)
   {
     v14 = [(MailAccount *)self _uidNameForPathComponent:nameCopy];
@@ -3794,13 +4061,13 @@ void __46__MailAccount_performOnAccounts_accountBlock___block_invoke_2(uint64_t 
   }
 
   [allObjects makeObjectsPerformSelector:sel_flushCriteria];
-  v60 = [allObjects arrayByApplyingSelector:sel_URLString];
+  v59 = [allObjects arrayByApplyingSelector:sel_URLString];
   fullPath2 = [mailboxCopy fullPath];
   stringByDeletingLastPathComponent = [fullPath2 stringByDeletingLastPathComponent];
-  v66 = [stringByDeletingLastPathComponent ef_pathByReplacingRelativePathWithFolderName:@"mbox"];
+  v65 = [stringByDeletingLastPathComponent ef_pathByReplacingRelativePathWithFolderName:@"mbox"];
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  if (([defaultManager fileExistsAtPath:v66] & 1) == 0 && !objc_msgSend(defaultManager, "mf_makeCompletePath:mode:", v66, 448))
+  if (([defaultManager fileExistsAtPath:v65] & 1) == 0 && !objc_msgSend(defaultManager, "mf_makeCompletePath:mode:", v65, 448))
   {
     goto LABEL_20;
   }
@@ -3823,31 +4090,31 @@ void __46__MailAccount_performOnAccounts_accountBlock___block_invoke_2(uint64_t 
   v23 = +[MailAccount log];
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    ef_publicDescription2 = [v68 ef_publicDescription];
+    ef_publicDescription2 = [v67 ef_publicDescription];
     *buf = 138543618;
-    v77 = ef_publicDescription2;
-    v78 = 1024;
-    LODWORD(v79) = v22;
+    v76 = ef_publicDescription2;
+    v77 = 1024;
+    LODWORD(v78) = v22;
     _os_log_impl(&dword_1B0389000, v23, OS_LOG_TYPE_DEFAULT, "Renaming file at new path for mailbox %{public}@ result %d", buf, 0x12u);
   }
 
   if (v22)
   {
     library = [(MailAccount *)self library];
-    v64 = [library renameMailboxes:v59 to:v60];
+    v63 = [library renameMailboxes:v58 to:v59];
 
     v26 = +[MailAccount log];
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       v27 = [allObjects ef_mapSelector:sel_ef_publicDescription];
       *buf = 138543618;
-      v77 = v27;
-      v78 = 1024;
-      LODWORD(v79) = v64;
+      v76 = v27;
+      v77 = 1024;
+      LODWORD(v78) = v63;
       _os_log_impl(&dword_1B0389000, v26, OS_LOG_TYPE_DEFAULT, "Renaming mailboxes in the database %{public}@ result %d", buf, 0x12u);
     }
 
-    if ((v64 & ((attributes & 3) == 0)) == 1)
+    if ((v63 & ((attributes & 3) == 0)) == 1)
     {
       stringByDeletingPathExtension = [fullPath stringByDeletingPathExtension];
 
@@ -3859,22 +4126,22 @@ void __46__MailAccount_performOnAccounts_accountBlock___block_invoke_2(uint64_t 
         v32 = stringByDeletingPathExtension2;
         fileSystemRepresentation4 = [stringByDeletingPathExtension2 fileSystemRepresentation];
         rename(fileSystemRepresentation3, fileSystemRepresentation4, v34);
-        v64 = v35 == 0;
+        v63 = v35 == 0;
       }
 
       else
       {
-        v64 = 1;
+        v63 = 1;
       }
 
       v36 = +[MailAccount log];
       if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
-        ef_publicDescription3 = [v68 ef_publicDescription];
+        ef_publicDescription3 = [v67 ef_publicDescription];
         *buf = 138543618;
-        v77 = ef_publicDescription3;
-        v78 = 1024;
-        LODWORD(v79) = v64;
+        v76 = ef_publicDescription3;
+        v77 = 1024;
+        LODWORD(v78) = v63;
         _os_log_impl(&dword_1B0389000, v36, OS_LOG_TYPE_DEFAULT, "Renaming file that requires two renames at new path for mailbox %{public}@ result %d", buf, 0x12u);
       }
 
@@ -3885,11 +4152,11 @@ void __46__MailAccount_performOnAccounts_accountBlock___block_invoke_2(uint64_t 
   else
   {
 LABEL_20:
-    v64 = 0;
+    v63 = 0;
   }
 
   [(MailAccount *)self mf_unlock];
-  if (v64)
+  if (v63)
   {
     v38 = 0;
   }
@@ -3911,7 +4178,7 @@ LABEL_20:
     [v44 setError:v38];
   }
 
-  if ((([parentCopy isEqual:parent] | v64 ^ 1) & 1) == 0 && objc_msgSend(objc_opt_class(), "mailboxListingNotificationsAreEnabled"))
+  if ((([parentCopy isEqual:parent] | v63 ^ 1) & 1) == 0 && objc_msgSend(objc_opt_class(), "mailboxListingNotificationsAreEnabled"))
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     v46 = [MEMORY[0x1E696AD80] notificationWithName:@"AccountMailboxListingDidChange" object:parent userInfo:0];
@@ -3920,9 +4187,9 @@ LABEL_20:
     v47 = +[MailAccount log];
     if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
-      ef_publicDescription4 = [v68 ef_publicDescription];
+      ef_publicDescription4 = [v67 ef_publicDescription];
       *buf = 138543362;
-      v77 = ef_publicDescription4;
+      v76 = ef_publicDescription4;
       _os_log_impl(&dword_1B0389000, v47, OS_LOG_TYPE_DEFAULT, "Successfully renamed mailbox %{public}@", buf, 0xCu);
     }
   }
@@ -3936,30 +4203,30 @@ LABEL_20:
 
   if (!v38)
   {
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     v51 = allObjects;
-    v52 = [v51 countByEnumeratingWithState:&v71 objects:v75 count:16];
+    v52 = [v51 countByEnumeratingWithState:&v70 objects:v74 count:16];
     if (v52)
     {
-      v53 = *v72;
+      v53 = *v71;
       do
       {
         for (i = 0; i != v52; ++i)
         {
-          if (*v72 != v53)
+          if (*v71 != v53)
           {
             objc_enumerationMutation(v51);
           }
 
-          v55 = *(*(&v71 + 1) + 8 * i);
+          v55 = *(*(&v70 + 1) + 8 * i);
           defaultCenter3 = [MEMORY[0x1E696AD88] defaultCenter];
           [defaultCenter3 postNotificationName:@"MFMailboxUidWasRenamedNotification" object:v55 userInfo:0];
         }
 
-        v52 = [v51 countByEnumeratingWithState:&v71 objects:v75 count:16];
+        v52 = [v51 countByEnumeratingWithState:&v70 objects:v74 count:16];
       }
 
       while (v52);
@@ -3975,48 +4242,220 @@ LABEL_20:
   [(MailAccount *)self _writeMailboxCacheWithPrejudice:1];
   clearMailboxUIDCache();
 
-  v57 = *MEMORY[0x1E69E9840];
-  return v64;
+  return v63;
+}
+
+- (BOOL)deleteMailbox:(id)mailbox reflectToServer:(BOOL)server
+{
+  serverCopy = server;
+  v55 = *MEMORY[0x1E69E9840];
+  mailboxCopy = mailbox;
+  v7 = +[MailAccount log];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    ef_publicDescription = [mailboxCopy ef_publicDescription];
+    *buf = 67109378;
+    v52 = serverCopy;
+    v53 = 2114;
+    v54 = ef_publicDescription;
+    _os_log_impl(&dword_1B0389000, v7, OS_LOG_TYPE_DEFAULT, "Deleting mailbox (reflect to server = %d): %{public}@", buf, 0x12u);
+  }
+
+  v9 = +[MFActivityMonitor currentMonitor];
+  mailboxType = [mailboxCopy mailboxType];
+  fullPath = [mailboxCopy fullPath];
+  depthFirstEnumerator = [mailboxCopy depthFirstEnumerator];
+  nextObject = [depthFirstEnumerator nextObject];
+  v45 = mailboxType;
+  v47 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  parent = 0;
+  v14 = 1;
+LABEL_4:
+  v15 = parent;
+  while ((([v9 shouldCancel] ^ 1) & v14) == 1 && nextObject != 0)
+  {
+    parent = [nextObject parent];
+
+    v14 = [(MailAccount *)self _deleteMailbox:nextObject reflectToServer:serverCopy];
+    v15 = parent;
+    if (v14)
+    {
+      v17 = nextObject;
+      uRLString = [v17 URLString];
+      v19 = uRLString == 0;
+
+      if (v19)
+      {
+        v20 = +[MailAccount log];
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        {
+          ef_publicDescription2 = [v17 ef_publicDescription];
+          [(MailAccount *)ef_publicDescription2 deleteMailbox:buf reflectToServer:&v52, v20];
+        }
+      }
+
+      uRLString2 = [v17 URLString];
+      [v47 ef_addOptionalObject:uRLString2];
+
+      if (depthFirstEnumerator)
+      {
+        nextObject = [depthFirstEnumerator nextObject];
+      }
+
+      else
+      {
+        nextObject = 0;
+      }
+
+      [(MailAccount *)self _incrementCacheDirtyCount];
+      [v17 setParent:0];
+
+      goto LABEL_4;
+    }
+  }
+
+  if (v14)
+  {
+    defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+    if ([defaultManager fileExistsAtPath:fullPath])
+    {
+      v24 = MFRemoveItemAtPath();
+      v25 = v24 == 0;
+
+      if (v25)
+      {
+        goto LABEL_24;
+      }
+
+      defaultManager = MFLogGeneral();
+      if (os_log_type_enabled(defaultManager, OS_LOG_TYPE_INFO))
+      {
+        *v49 = 138412290;
+        v50 = fullPath;
+        _os_log_impl(&dword_1B0389000, defaultManager, OS_LOG_TYPE_INFO, "failed to remove path %@", v49, 0xCu);
+      }
+    }
+  }
+
+LABEL_24:
+  if ([v47 count])
+  {
+    library = [(MailAccount *)self library];
+    [library deleteMailboxes:v47 account:self];
+  }
+
+  if (v14)
+  {
+    if (v45)
+    {
+      [(MFLock *)self->_cachedMailboxenLock lock];
+      if (v45 <= 7 && ((0x5Fu >> (v45 - 1)) & 1) != 0)
+      {
+        v27 = *off_1E7AA3338[v45 - 1];
+        v28 = *(&self->super.super.isa + v27);
+        *(&self->super.super.isa + v27) = 0;
+      }
+
+      [(MFLock *)self->_cachedMailboxenLock unlock];
+    }
+  }
+
+  else
+  {
+    v29 = +[MFActivityMonitor currentMonitor];
+    error = [v29 error];
+    v31 = error == 0;
+
+    if (v31)
+    {
+      v32 = MEMORY[0x1E696AEC0];
+      v33 = MFLookupLocalizedString(@"DELETE_FAILED_FORMAT", @"Unable to delete “%@”.", @"Delayed");
+      accountRelativePath = [mailboxCopy accountRelativePath];
+      v35 = [v32 stringWithFormat:v33, accountRelativePath];
+
+      v36 = +[MFActivityMonitor currentMonitor];
+      v37 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1030 localizedDescription:v35];
+      [v36 setError:v37];
+    }
+  }
+
+  if (v15)
+  {
+    taskManager = [(MailAccount *)self taskManager];
+
+    if (taskManager)
+    {
+      [(MailAccount *)self mf_lock];
+      children = [v15 children];
+      v48 = mailboxCopy;
+      v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
+      error2 = [children arrayByExcludingObjectsInArray:v40];
+
+      [v15 setChildren:error2];
+      [(MailAccount *)self mf_unlock];
+    }
+
+    else
+    {
+      v42 = +[MFActivityMonitor currentMonitor];
+      error2 = [v42 error];
+
+      [(MailAccount *)self _synchronouslyLoadListingForParent:v15];
+      [(MailAccount *)self mf_lock];
+      [(MailAccount *)self _setChildren:0 forMailboxUid:v15];
+      [(MailAccount *)self mf_unlock];
+      if (error2)
+      {
+        v43 = +[MFActivityMonitor currentMonitor];
+        [v43 setError:error2];
+      }
+    }
+  }
+
+  [(MailAccount *)self _writeMailboxCacheWithPrejudice:1];
+  clearMailboxUIDCache();
+
+  return v14;
 }
 
 - (void)_resetAllMailboxURLs:(BOOL)ls
 {
   lsCopy = ls;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if ([(MailAccount *)self isActive])
   {
     v5 = +[MailAccount mailAccounts];
-    v21 = v5;
+    v20 = v5;
     v6 = v5;
     if (v5)
     {
       v7 = [v5 containsObject:self];
-      v6 = v21;
+      v6 = v20;
       if (v7)
       {
         allMailboxUids = [(MailAccount *)self allMailboxUids];
         v9 = [allMailboxUids count];
         v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:v9];
         v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:v9];
-        v24 = 0u;
-        v25 = 0u;
-        v22 = 0u;
         v23 = 0u;
+        v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
         v12 = allMailboxUids;
-        v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v13)
         {
-          v14 = *v23;
+          v14 = *v22;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v23 != v14)
+              if (*v22 != v14)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v16 = *(*(&v22 + 1) + 8 * i);
+              v16 = *(*(&v21 + 1) + 8 * i);
               uRLString = [v16 URLString];
               if (uRLString)
               {
@@ -4030,26 +4469,27 @@ LABEL_20:
               }
             }
 
-            v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+            v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
           }
 
           while (v13);
         }
 
-        if ([v11 count] && lsCopy)
+        if ([v11 count])
         {
-          library = [(MailAccount *)self library];
-          [library renameMailboxes:v10 to:v11];
+          if (lsCopy)
+          {
+            library = [(MailAccount *)self library];
+            [library renameMailboxes:v10 to:v11];
+          }
         }
 
         clearMailboxUIDCache();
 
-        v6 = v21;
+        v6 = v20;
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUsername:(id)username
@@ -4160,6 +4600,30 @@ LABEL_20:
   return v8;
 }
 
+- (void)setPortNumber:(unsigned int)number
+{
+  v3 = *&number;
+  portNumber = [(MFAccount *)self portNumber];
+  v6 = portNumber == [(MFAccount *)self defaultPortNumber]|| portNumber == [(MFAccount *)self defaultSecurePortNumber];
+  v9.receiver = self;
+  v9.super_class = MailAccount;
+  [(MFAccount *)&v9 setPortNumber:v3];
+  portNumber2 = [(MFAccount *)self portNumber];
+  v8 = portNumber2 == [(MFAccount *)self defaultPortNumber]|| portNumber2 == [(MFAccount *)self defaultSecurePortNumber];
+  if (portNumber2 != portNumber)
+  {
+    if (v6 != v8)
+    {
+      LOBYTE(v8) = 0;
+    }
+
+    if ((v8 & 1) == 0)
+    {
+      [(MailAccount *)self _resetAllMailboxURLs:0];
+    }
+  }
+}
+
 - (void)setValueInAccountProperties:(id)properties forKey:(id)key
 {
   propertiesCopy = properties;
@@ -4227,6 +4691,13 @@ LABEL_20:
   return storeClass;
 }
 
+- (id)mailboxUidForRelativePath:(id)path create:(BOOL)create
+{
+  v4 = [(MailAccount *)self mailboxUidForRelativePath:path create:create withOption:0];
+
+  return v4;
+}
+
 - (id)_childOfMailbox:(id)mailbox withComponentName:(id)name
 {
   mailboxCopy = mailbox;
@@ -4243,18 +4714,18 @@ LABEL_20:
 - (id)mailboxUidForRelativePath:(id)path create:(BOOL)create withOption:(int64_t)option
 {
   createCopy = create;
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   pathComponents = [pathCopy pathComponents];
   v7 = [pathComponents count];
   rootMailbox = [(MailAccount *)self rootMailbox];
   [(MailAccount *)self mf_lock];
-  v32 = 0;
+  v31 = 0;
   if (rootMailbox && v7)
   {
-    v32 = 0;
+    v31 = 0;
     v9 = 0;
-    v30 = 0;
+    v29 = 0;
     v10 = 1;
     do
     {
@@ -4294,17 +4765,17 @@ LABEL_20:
         v16 = v19;
         if (v18 && !v19)
         {
-          if (v32)
+          if (v31)
           {
-            v34[0] = v18;
-            v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+            v33[0] = v18;
+            v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
             [rootMailbox setChildren:v20];
           }
 
           else
           {
-            v32 = rootMailbox;
-            mutableCopyOfChildren = [v32 mutableCopyOfChildren];
+            v31 = rootMailbox;
+            mutableCopyOfChildren = [v31 mutableCopyOfChildren];
 
             v22 = mutableCopyOfChildren;
             if (!mutableCopyOfChildren)
@@ -4312,7 +4783,7 @@ LABEL_20:
               v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
             }
 
-            v30 = v22;
+            v29 = v22;
             [v22 addObject:v18];
           }
 
@@ -4333,10 +4804,10 @@ LABEL_20:
     }
 
     while (v10++ < v7);
-    if (v9 && v32)
+    if (v9 && v31)
     {
       [(MailAccount *)self mf_unlock];
-      [(MailAccount *)self _setChildren:v30 forMailboxUid:v32];
+      [(MailAccount *)self _setChildren:v29 forMailboxUid:v31];
       v25 = v9;
       [(MailAccount *)self mf_lock];
     }
@@ -4351,45 +4822,44 @@ LABEL_20:
   {
     v25 = 0;
     v9 = rootMailbox;
-    v30 = 0;
+    v29 = 0;
   }
 
   [(MailAccount *)self mf_unlock];
   v26 = v9;
 
-  v27 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (MailAccount)accountWithURL:(id)l
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v27 = lCopy;
+  v26 = lCopy;
   scheme = [lCopy scheme];
   if (scheme)
   {
     ef_hostNilForEmpty = [lCopy ef_hostNilForEmpty];
     array = [MEMORY[0x1E695DF70] array];
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     mailAccounts = [self mailAccounts];
-    v9 = [mailAccounts countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v9 = [mailAccounts countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v9)
     {
-      v10 = *v33;
+      v10 = *v32;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v33 != v10)
+          if (*v32 != v10)
           {
             objc_enumerationMutation(mailAccounts);
           }
 
-          v12 = *(*(&v32 + 1) + 8 * i);
+          v12 = *(*(&v31 + 1) + 8 * i);
           if ([v12 isActive])
           {
             [array insertObject:v12 atIndex:0];
@@ -4401,31 +4871,31 @@ LABEL_20:
           }
         }
 
-        v9 = [mailAccounts countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v9 = [mailAccounts countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v9);
     }
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v13 = array;
-    v14 = [v13 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v14)
     {
-      v15 = *v29;
+      v15 = *v28;
       while (2)
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v29 != v15)
+          if (*v28 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v28 + 1) + 8 * j);
+          v17 = *(*(&v27 + 1) + 8 * j);
           _URLScheme = [v17 _URLScheme];
           v19 = _URLScheme;
           if (_URLScheme)
@@ -4461,7 +4931,7 @@ LABEL_29:
           }
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v14)
         {
           continue;
@@ -4479,8 +4949,6 @@ LABEL_30:
   {
     v24 = 0;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -4541,15 +5009,13 @@ LABEL_30:
 
 - (id)URL
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"Account";
-  v7[1] = @"RelativePath";
-  v8[0] = self;
-  v8[1] = &stru_1F273A5E0;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"Account";
+  v6[1] = @"RelativePath";
+  v7[0] = self;
+  v7[1] = &stru_1F273A5E0;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
   v4 = [(MailAccount *)self _URLForInfo:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -4681,37 +5147,35 @@ LABEL_30:
 
 + (void)updateEmailAliasesForActiveAccounts
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v2 = +[MailAccount activeAccounts];
-  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v3)
   {
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) updateEmailAliasesIfNeeded];
+        [*(*(&v6 + 1) + 8 * v5++) updateEmailAliasesIfNeeded];
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (id)standardAccountClass:(Class)class valueForKey:(id)key
@@ -4758,7 +5222,7 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
 
 - (void)setLibrary:(id)library
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
   if (libraryCopy)
   {
@@ -4768,11 +5232,11 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
       v5 = MFLogGeneral();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 138412546;
+        v7 = 138412546;
         selfCopy = self;
-        v10 = 2112;
-        v11 = libraryCopy;
-        _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_DEFAULT, "#Warning %@: Cannot set library to %@. See rdar://problem/42167098.", &v8, 0x16u);
+        v9 = 2112;
+        v10 = libraryCopy;
+        _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_DEFAULT, "#Warning %@: Cannot set library to %@. See rdar://problem/42167098.", &v7, 0x16u);
       }
 
       libraryCopy = 0;
@@ -4781,8 +5245,6 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
 
   library = self->_library;
   self->_library = libraryCopy;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)displayNameUsingSpecialNamesForMailboxUid:(id)uid
@@ -4861,21 +5323,21 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
 
 - (BOOL)willPerformActionForChokePoint:(id)point coalescePoint:(id)coalescePoint result:(id *)result
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   pointCopy = point;
   coalescePointCopy = coalescePoint;
-  v31 = [MEMORY[0x1E699B858] partiallyRedactedStringForString:pointCopy];
-  v29 = [MEMORY[0x1E699B858] partiallyRedactedStringForString:coalescePointCopy];
+  v30 = [MEMORY[0x1E699B858] partiallyRedactedStringForString:pointCopy];
+  v28 = [MEMORY[0x1E699B858] partiallyRedactedStringForString:coalescePointCopy];
   v9 = MFAutoFetchLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     ef_publicDescription = [(MFAccount *)self ef_publicDescription];
     *buf = 138412802;
-    v33 = ef_publicDescription;
-    v34 = 2112;
-    v35 = v31;
-    v36 = 2112;
-    v37 = v29;
+    v32 = ef_publicDescription;
+    v33 = 2112;
+    v34 = v30;
+    v35 = 2112;
+    v36 = v28;
     _os_log_impl(&dword_1B0389000, v9, OS_LOG_TYPE_DEFAULT, "Account: %@ willPerformActionForChokePoint: %@ - coalescePoint: %@", buf, 0x20u);
   }
 
@@ -4898,7 +5360,7 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v33 = v16;
+    v32 = v16;
     _os_log_impl(&dword_1B0389000, v17, OS_LOG_TYPE_DEFAULT, "Clients for choke point - %@", buf, 0xCu);
   }
 
@@ -4917,7 +5379,7 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v33 = v31;
+      v32 = v30;
       _os_log_impl(&dword_1B0389000, v20, OS_LOG_TYPE_DEFAULT, "Waiting for existing fetch to finish for choke point: %@", buf, 0xCu);
     }
 
@@ -4928,9 +5390,9 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
     {
       v22 = *result;
       *buf = 138412546;
-      v33 = v22;
-      v34 = 2112;
-      v35 = v31;
+      v32 = v22;
+      v33 = 2112;
+      v34 = v30;
       _os_log_impl(&dword_1B0389000, v21, OS_LOG_TYPE_DEFAULT, "Result: %@ returned for chokepoint: %@", buf, 0x16u);
     }
 
@@ -4945,7 +5407,7 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v33 = v31;
+        v32 = v30;
         _os_log_impl(&dword_1B0389000, v26, OS_LOG_TYPE_DEFAULT, "Removing choke point from current actions: %@", buf, 0xCu);
       }
 
@@ -4967,30 +5429,29 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
     [v19 lock];
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v18 != 0;
 }
 
 - (void)didFinishActionForChokePoint:(id)point coalescePoint:(id)coalescePoint withResult:(id)result
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   pointCopy = point;
   coalescePointCopy = coalescePoint;
   resultCopy = result;
-  v24 = [MEMORY[0x1E699B858] partiallyRedactedStringForString:pointCopy];
-  v22 = [MEMORY[0x1E699B858] partiallyRedactedStringForString:coalescePointCopy];
+  v23 = [MEMORY[0x1E699B858] partiallyRedactedStringForString:pointCopy];
+  v21 = [MEMORY[0x1E699B858] partiallyRedactedStringForString:coalescePointCopy];
   v11 = MFAutoFetchLog();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     ef_publicDescription = [(MFAccount *)self ef_publicDescription];
     *buf = 138413058;
-    v26 = ef_publicDescription;
-    v27 = 2112;
-    v28 = v24;
-    v29 = 2112;
-    v30 = v22;
-    v31 = 2112;
-    v32 = resultCopy;
+    v25 = ef_publicDescription;
+    v26 = 2112;
+    v27 = v23;
+    v28 = 2112;
+    v29 = v21;
+    v30 = 2112;
+    v31 = resultCopy;
     _os_log_impl(&dword_1B0389000, v11, OS_LOG_TYPE_DEFAULT, "Account: %@ didFinishActionForChokePoint: %@ - coalescePoint: %@ - result: %@", buf, 0x2Au);
   }
 
@@ -5006,7 +5467,7 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = v24;
+      v25 = v23;
       _os_log_impl(&dword_1B0389000, v19, OS_LOG_TYPE_DEFAULT, "Removing choke point from current actions: %@", buf, 0xCu);
     }
 
@@ -5017,8 +5478,8 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
   {
     if (!resultCopy)
     {
-      v21 = MFLogGeneral();
-      [MailAccount didFinishActionForChokePoint:v21 coalescePoint:&self->_currentChokedActions withResult:v13];
+      v20 = MFLogGeneral();
+      [MailAccount didFinishActionForChokePoint:v20 coalescePoint:&self->_currentChokedActions withResult:v13];
 
       __assert_rtn("[MailAccount didFinishActionForChokePoint:coalescePoint:withResult:]", "MailAccount.m", 2989, "0");
     }
@@ -5027,9 +5488,9 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v26 = v24;
-      v27 = 2112;
-      v28 = resultCopy;
+      v25 = v23;
+      v26 = 2112;
+      v27 = resultCopy;
       _os_log_impl(&dword_1B0389000, v17, OS_LOG_TYPE_DEFAULT, "Updating result for for choke point: %@ - result: %@", buf, 0x16u);
     }
 
@@ -5041,8 +5502,6 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
   }
 
   [(MailAccount *)self mf_unlock];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deliveryAccountWillBeRemoved:(id)removed
@@ -5068,7 +5527,7 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
 
 + (id)_accountWithPath:(id)path
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v5 = [self mailboxUidForFileSystemPath:pathCopy create:0];
   v6 = v5;
@@ -5079,25 +5538,25 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = _accountsSortedByPath;
-    account = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    account = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (account)
     {
-      v9 = *v17;
+      v9 = *v16;
       while (2)
       {
         for (i = 0; i != account; i = i + 1)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v8);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           path = [v11 path];
           v13 = [pathCopy isEqualToString:path];
 
@@ -5108,7 +5567,7 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
           }
         }
 
-        account = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        account = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (account)
         {
           continue;
@@ -5120,8 +5579,6 @@ void __48__MailAccount_standardAccountClass_valueForKey___block_invoke(uint64_t 
 
 LABEL_13:
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return account;
 }
@@ -5155,10 +5612,27 @@ LABEL_13:
   return v5;
 }
 
+- (void)setActive:(BOOL)active
+{
+  activeCopy = active;
+  persistentAccount = [(MFAccount *)self persistentAccount];
+  v5 = [(MailAccount *)self isActiveWithPersistentAccount:?];
+  if (persistentAccount)
+  {
+    [persistentAccount setEnabled:activeCopy forDataclass:*MEMORY[0x1E6959B28]];
+  }
+
+  if ([(MailAccount *)self isActiveWithPersistentAccount:persistentAccount]== activeCopy && v5 != activeCopy)
+  {
+    [(MailAccount *)self _didBecomeActive:activeCopy];
+  }
+}
+
 - (void)_didBecomeActive:(BOOL)active
 {
   activeCopy = active;
-  if (!+[MFMailMessageLibrary canUsePersistence])
+  v5 = +[MFMailMessageLibrary canUsePersistence];
+  if (!v5)
   {
     hookRegistry = 0;
     if (!activeCopy)
@@ -5173,8 +5647,8 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v5 = +[MFMailMessageLibrary defaultInstance];
-  persistence = [v5 persistence];
+  v6 = +[MFMailMessageLibrary defaultInstance];
+  persistence = [v6 persistence];
   hookRegistry = [persistence hookRegistry];
 
   if (activeCopy)
@@ -5183,14 +5657,14 @@ LABEL_5:
   }
 
 LABEL_3:
-  v8 = mailAccountQueue();
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __32__MailAccount__didBecomeActive___block_invoke;
-  v9[3] = &unk_1E7AA26E0;
-  v9[4] = self;
-  v10 = hookRegistry;
-  dispatch_async(v8, v9);
+  v9 = mailAccountQueue(v5);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __32__MailAccount__didBecomeActive___block_invoke;
+  v10[3] = &unk_1E7AA26E0;
+  v10[4] = self;
+  v11 = hookRegistry;
+  dispatch_async(v9, v10);
 
 LABEL_6:
 }
@@ -5309,7 +5783,7 @@ LABEL_9:
 
 - (BOOL)_loadMailboxListingIntoCache:(id)cache attributes:(unsigned int)attributes children:(id)children parent:(id)parent
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
   childrenCopy = children;
   parentCopy = parent;
@@ -5317,9 +5791,9 @@ LABEL_9:
   [defaultCenter postNotificationName:@"AccountMailboxListingWillLoad" object:0 userInfo:0];
 
   Mutable = 0;
-  v49 = 0;
+  v48 = 0;
   v10 = 0;
-  v50 = 0;
+  v49 = 0;
   do
   {
     ValueAtIndex = childrenCopy;
@@ -5329,35 +5803,35 @@ LABEL_9:
       ValueAtIndex = CFArrayGetValueAtIndex(v10, 0);
     }
 
-    v57 = ValueAtIndex;
+    v56 = ValueAtIndex;
     v12 = parentCopy;
-    if (v49)
+    if (v48)
     {
-      v12 = CFArrayGetValueAtIndex(v49, 0);
+      v12 = CFArrayGetValueAtIndex(v48, 0);
     }
 
-    v53 = v12;
-    mutableCopyOfChildren = [v53 mutableCopyOfChildren];
-    v13 = [v57 count];
+    v52 = v12;
+    mutableCopyOfChildren = [v52 mutableCopyOfChildren];
+    v13 = [v56 count];
     if (theArray)
     {
       CFArrayRemoveValueAtIndex(theArray, 0);
     }
 
-    if (v49)
+    if (v48)
     {
-      CFArrayRemoveValueAtIndex(v49, 0);
+      CFArrayRemoveValueAtIndex(v48, 0);
     }
 
-    v55 = objc_opt_new();
-    v56 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v54 = objc_opt_new();
+    v55 = objc_alloc_init(MEMORY[0x1E695DF90]);
     if (v13)
     {
       for (i = 0; i != v13; ++i)
       {
-        v15 = [v57 objectAtIndex:i];
+        v15 = [v56 objectAtIndex:i];
         v16 = [v15 objectForKey:@"MailboxName"];
-        [v56 setObject:v15 forKey:v16];
+        [v55 setObject:v15 forKey:v16];
       }
     }
 
@@ -5369,15 +5843,15 @@ LABEL_9:
       {
         v19 = [mutableCopyOfChildren objectAtIndex:v18];
         name = [v19 name];
-        v21 = [v56 objectForKey:name];
-        if ([v55 containsObject:name])
+        v21 = [v55 objectForKey:name];
+        if ([v54 containsObject:name])
         {
           v22 = +[MailAccount log];
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             v23 = [MEMORY[0x1E699B858] partiallyRedactedStringForString:name];
             *buf = 138543362;
-            v59 = v23;
+            v58 = v23;
             _os_log_impl(&dword_1B0389000, v22, OS_LOG_TYPE_DEFAULT, "Removing duplicate mailbox %{public}@", buf, 0xCu);
           }
 
@@ -5391,25 +5865,25 @@ LABEL_9:
             v25 = [v21 objectForKey:@"MailboxAttributes"];
             unsignedIntValue = [v25 unsignedIntValue];
 
-            v27 = [(MailAccount *)self _copyMailboxUidWithParent:v53 name:name attributes:unsignedIntValue existingMailboxUid:v19 dictionary:v21];
+            v27 = [(MailAccount *)self _copyMailboxUidWithParent:v52 name:name attributes:unsignedIntValue existingMailboxUid:v19 dictionary:v21];
           }
 
           else
           {
-            v27 = [(MailAccount *)self _copyMailboxUidWithParent:v53 name:0 attributes:0 existingMailboxUid:v19 dictionary:0];
+            v27 = [(MailAccount *)self _copyMailboxUidWithParent:v52 name:0 attributes:0 existingMailboxUid:v19 dictionary:0];
           }
 
           v24 = v27;
         }
 
-        [v55 addObject:name];
+        [v54 addObject:name];
         if (v24)
         {
           name2 = [v24 name];
           if (([v24 isEqual:v19] & 1) == 0)
           {
             [mutableCopyOfChildren replaceObjectAtIndex:v18 withObject:v24];
-            v50 = 1;
+            v49 = 1;
           }
 
           if (!Mutable)
@@ -5439,7 +5913,7 @@ LABEL_9:
             v29 = 0;
           }
 
-          v50 = 1;
+          v49 = 1;
         }
 
         v13 += v29;
@@ -5449,7 +5923,7 @@ LABEL_9:
       while (v18 != -1);
     }
 
-    v30 = [v57 count];
+    v30 = [v56 count];
     v31 = [MEMORY[0x1E695DF70] arrayWithCapacity:v13];
     v32 = v31;
     if (mutableCopyOfChildren)
@@ -5461,17 +5935,17 @@ LABEL_9:
     {
       for (j = 0; v30 != j; ++j)
       {
-        v34 = [v57 objectAtIndex:j];
+        v34 = [v56 objectAtIndex:j];
         v35 = [v34 objectForKey:@"MailboxName"];
         v36 = [v34 objectForKey:@"MailboxAttributes"];
         unsignedIntValue2 = [v36 unsignedIntValue];
 
         v38 = [v34 objectForKey:@"MailboxChildren"];
-        if (Mutable && (v39 = CFDictionaryGetValue(Mutable, v35)) != 0 || (v39 = [(MailAccount *)self _copyMailboxUidWithParent:v53 name:v35 attributes:unsignedIntValue2 existingMailboxUid:0 dictionary:v34]) != 0)
+        if (Mutable && (v39 = CFDictionaryGetValue(Mutable, v35)) != 0 || (v39 = [(MailAccount *)self _copyMailboxUidWithParent:v52 name:v35 attributes:unsignedIntValue2 existingMailboxUid:0 dictionary:v34]) != 0)
         {
           if ([v32 indexOfObjectIdenticalTo:v39] == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v50 = 1;
+            v49 = 1;
             [v32 ef_insertObject:v39 usingSortFunction:_MFCompareMailboxUids context:0 allowDuplicates:1];
           }
 
@@ -5504,13 +5978,13 @@ LABEL_52:
                 theArray = CFArrayCreateMutable(0, 0, 0);
               }
 
-              if (!v49)
+              if (!v48)
               {
-                v49 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+                v48 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
               }
 
               CFArrayAppendValue(theArray, v38);
-              CFArrayAppendValue(v49, v39);
+              CFArrayAppendValue(v48, v39);
             }
           }
         }
@@ -5522,10 +5996,10 @@ LABEL_52:
       CFDictionaryRemoveAllValues(Mutable);
     }
 
-    v50 |= [(MailAccount *)self _cleanInboxDuplication:v32];
-    if (v50)
+    v49 |= [(MailAccount *)self _cleanInboxDuplication:v32];
+    if (v49)
     {
-      [(MailAccount *)self _setChildren:v32 forMailboxUid:v53];
+      [(MailAccount *)self _setChildren:v32 forMailboxUid:v52];
     }
 
     if (!theArray)
@@ -5546,9 +6020,9 @@ LABEL_52:
     CFRelease(Mutable);
   }
 
-  if (v49)
+  if (v48)
   {
-    CFRelease(v49);
+    CFRelease(v48);
   }
 
   if (theArray)
@@ -5556,8 +6030,7 @@ LABEL_52:
     CFRelease(theArray);
   }
 
-  v44 = *MEMORY[0x1E69E9840];
-  return v50 & 1;
+  return v49 & 1;
 }
 
 - (void)setMailboxCachePath:(id)path
@@ -5570,45 +6043,45 @@ LABEL_52:
 
 - (void)_loadEntriesFromFileSystemPath:(id)path parent:(id)parent
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   parentCopy = parent;
-  v25 = objc_autoreleasePoolPush();
+  v24 = objc_autoreleasePoolPush();
   v6 = [pathCopy length];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v26 = [defaultManager contentsOfDirectoryAtPath:pathCopy error:0];
+  v25 = [defaultManager contentsOfDirectoryAtPath:pathCopy error:0];
 
   theArray = objc_alloc_init(MEMORY[0x1E695DF70]);
   context[0] = self;
   context[1] = pathCopy;
   context[2] = parentCopy;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  obj = v26;
-  v8 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  obj = v25;
+  v8 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v8)
   {
-    v9 = *v33;
+    v9 = *v32;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v31 + 1) + 8 * i);
         if (([v11 hasPrefix:@"."] & 1) == 0)
         {
-          v31 = -86;
+          v30 = -86;
           [pathCopy appendString:@"/"];
           [pathCopy appendString:v11];
           defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-          v13 = [defaultManager2 fileExistsAtPath:pathCopy isDirectory:&v31];
-          v14 = v31;
+          v13 = [defaultManager2 fileExistsAtPath:pathCopy isDirectory:&v30];
+          v14 = v30;
 
           if ((v13 & v14) != 0)
           {
@@ -5637,7 +6110,7 @@ LABEL_52:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v8 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v8);
@@ -5651,18 +6124,17 @@ LABEL_52:
     [(MailAccount *)self _incrementCacheDirtyCount];
   }
 
-  v39.length = [(__CFArray *)theArray count];
-  v39.location = 0;
-  CFArrayApplyFunction(theArray, v39, _recurseIntoFileSystem, context);
+  v38.length = [(__CFArray *)theArray count];
+  v38.location = 0;
+  CFArrayApplyFunction(theArray, v38, _recurseIntoFileSystem, context);
 
-  objc_autoreleasePoolPop(v25);
-  v24 = *MEMORY[0x1E69E9840];
+  objc_autoreleasePoolPop(v24);
 }
 
 - (void)_writeMailboxCacheWithPrejudice:(BOOL)prejudice completionHandler:(id)handler
 {
   prejudiceCopy = prejudice;
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   os_unfair_lock_lock(&self->_flagsLock);
   flags = self->_flags;
@@ -5688,35 +6160,35 @@ LABEL_52:
 
     mailboxCachePath = [(MailAccount *)self mailboxCachePath];
     [(MailAccount *)self mf_lock];
-    v29 = mailboxCachePath;
+    v28 = mailboxCachePath;
     children = [(MFMailboxUid *)self->_rootMailboxUid children];
     v16 = [children count];
     if (v16)
     {
       v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v16];
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       v18 = children;
-      v19 = [v18 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v35 objects:v39 count:16];
       if (v19)
       {
-        v20 = *v37;
+        v20 = *v36;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v37 != v20)
+            if (*v36 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
-            dictionaryRepresentation = [*(*(&v36 + 1) + 8 * i) dictionaryRepresentation];
+            dictionaryRepresentation = [*(*(&v35 + 1) + 8 * i) dictionaryRepresentation];
             [v17 addObject:dictionaryRepresentation];
           }
 
-          v19 = [v18 countByEnumeratingWithState:&v36 objects:v40 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v35 objects:v39 count:16];
         }
 
         while (v19);
@@ -5732,11 +6204,11 @@ LABEL_52:
         block[1] = 3221225472;
         block[2] = __65__MailAccount__writeMailboxCacheWithPrejudice_completionHandler___block_invoke;
         block[3] = &unk_1E7AA32B8;
-        v31 = v23;
-        v35 = v16;
-        v32 = v29;
+        v30 = v23;
+        v34 = v16;
+        v31 = v28;
         selfCopy = self;
-        v34 = handlerCopy;
+        v33 = handlerCopy;
         dispatch_async(v25, block);
       }
 
@@ -5765,7 +6237,7 @@ LABEL_52:
       v24 = 1;
     }
 
-    v26 = v29;
+    v26 = v28;
     [(MailAccount *)self mf_unlock];
     if (v24)
     {
@@ -5789,13 +6261,11 @@ LABEL_52:
 
     v26 = 0;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __65__MailAccount__writeMailboxCacheWithPrejudice_completionHandler___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AE40] dataWithPropertyList:*(a1 + 32) format:200 options:0 error:0];
   [v2 writeToFile:*(a1 + 40) options:1073741825 error:0];
   v3 = MFLogGeneral();
@@ -5803,11 +6273,11 @@ void __65__MailAccount__writeMailboxCacheWithPrejudice_completionHandler___block
   {
     v4 = *(a1 + 64);
     v5 = [*(a1 + 48) ef_publicDescription];
-    v8 = 134218242;
-    v9 = v4;
-    v10 = 2114;
-    v11 = v5;
-    _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_DEFAULT, "Finished writing to disk mailbox cache mailboxes.count:%lu self:%{public}@", &v8, 0x16u);
+    v7 = 134218242;
+    v8 = v4;
+    v9 = 2114;
+    v10 = v5;
+    _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_DEFAULT, "Finished writing to disk mailbox cache mailboxes.count:%lu self:%{public}@", &v7, 0x16u);
   }
 
   v6 = *(a1 + 56);
@@ -5815,8 +6285,6 @@ void __65__MailAccount__writeMailboxCacheWithPrejudice_completionHandler___block
   {
     (*(v6 + 16))();
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_setChildren:(id)children forMailboxUid:(id)uid
@@ -6076,6 +6544,21 @@ LABEL_10:
   }
 }
 
+- (id)_specialMailboxUidWithType:(int64_t)type create:(BOOL)create
+{
+  createCopy = create;
+  v7 = [(MailAccount *)self specialMailboxNameForType:?];
+  if (!v7)
+  {
+    v7 = [(MailAccount *)self _defaultSpecialMailboxNameForType:type];
+    [(MailAccount *)self _setSpecialMailboxName:v7 forType:type];
+  }
+
+  v8 = [(MailAccount *)self mailboxUidForRelativePath:v7 create:createCopy];
+
+  return v8;
+}
+
 - (BOOL)_shouldLogDeleteActivity
 {
   v2 = sLogDeleteActivity;
@@ -6293,14 +6776,14 @@ LABEL_10:
 {
   v3 = 0;
   array = 0;
-  v12 = *MEMORY[0x1E69E9840];
-  v9 = xmmword_1B0E975E0;
-  v10 = xmmword_1B0E975F0;
-  v11 = 1;
+  v11 = *MEMORY[0x1E69E9840];
+  v8 = xmmword_1B0E975E0;
+  v9 = xmmword_1B0E975F0;
+  v10 = 1;
   do
   {
-    v5 = *(&v9 + v3);
-    if ([(MailAccount *)self isMailboxLocalForType:v5, v9, v10, v11, v12])
+    v5 = *(&v8 + v3);
+    if ([(MailAccount *)self isMailboxLocalForType:v5, v8, v9, v10, v11])
     {
       v6 = [(MailAccount *)self mailboxUidOfType:v5 createIfNeeded:0];
       if (v6)
@@ -6318,14 +6801,13 @@ LABEL_10:
   }
 
   while (v3 != 40);
-  v7 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 + (void)_removeLookAsideValuesNotInAccountList:(id)list
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   listCopy = list;
   v4 = MFUserAgent();
   isMaild = [v4 isMaild];
@@ -6340,33 +6822,33 @@ LABEL_10:
     if ([allKeys count])
     {
       v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       v11 = listCopy;
-      v12 = [v11 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v18 objects:v24 count:16];
       if (v12)
       {
-        v13 = *v20;
+        v13 = *v19;
         do
         {
           v14 = 0;
           do
           {
-            if (*v20 != v13)
+            if (*v19 != v13)
             {
               objc_enumerationMutation(v11);
             }
 
-            identifier = [*(*(&v19 + 1) + 8 * v14) identifier];
+            identifier = [*(*(&v18 + 1) + 8 * v14) identifier];
             [v10 addObject:identifier];
 
             ++v14;
           }
 
           while (v12 != v14);
-          v12 = [v11 countByEnumeratingWithState:&v19 objects:v25 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v18 objects:v24 count:16];
         }
 
         while (v12);
@@ -6379,7 +6861,7 @@ LABEL_10:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v24 = v16;
+        v23 = v16;
         _os_log_impl(&dword_1B0389000, v17, OS_LOG_TYPE_INFO, "Removing lookaside properties for accounts with identifiers: %@", buf, 0xCu);
       }
 
@@ -6387,8 +6869,6 @@ LABEL_10:
       [em_userDefaults synchronize];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)valueInAccountLookAsidePropertiesForKey:(id)key
@@ -6448,7 +6928,7 @@ LABEL_10:
 
 - (void)_setValueInAccountLookAsideProperties:(id)properties forKey:(id)key subKey:(id)subKey
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   keyCopy = key;
   subKeyCopy = subKey;
@@ -6478,13 +6958,11 @@ LABEL_10:
 
   else if (propertiesCopy)
   {
-    v16 = subKeyCopy;
-    v17[0] = propertiesCopy;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = subKeyCopy;
+    v16[0] = propertiesCopy;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     [(MailAccount *)self setValueInAccountLookAsideProperties:v14 forKey:keyCopy];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)signingIdentityPersistentReferenceForAddress:(id)address
@@ -6702,18 +7180,16 @@ id __43__MailAccount__registerStateCaptureHandler__block_invoke(uint64_t a1)
 
 - (id)debugAccountState
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = [MFDebugAccountState alloc];
   identifier = [(MFAccount *)self identifier];
   lastKnownCapabilities = [(MailAccount *)self lastKnownCapabilities];
   v6 = [(MFDebugAccountState *)v3 initWithStateEventDictionary:self identifier:identifier lastKnownCapabilities:lastKnownCapabilities];
 
-  v11 = @"Account Info";
+  v10 = @"Account Info";
   dictionaryRepresentation = [(MFDebugAccountState *)v6 dictionaryRepresentation];
-  v12[0] = dictionaryRepresentation;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[0] = dictionaryRepresentation;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
   return v8;
 }
@@ -6727,27 +7203,24 @@ id __43__MailAccount__registerStateCaptureHandler__block_invoke(uint64_t a1)
 
 + (void)mailboxUidFromActiveAccountsForURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B0389000, a2, OS_LOG_TYPE_DEBUG, "Mailbox UID from account: cache miss. ('%@')", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B0389000, a2, OS_LOG_TYPE_DEBUG, "Mailbox UID from account: cache miss. ('%@')", &v2, 0xCu);
 }
 
 - (void)didFinishActionForChokePoint:(NSObject *)a1 coalescePoint:(uint64_t *)a2 withResult:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *a2;
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = a3;
-    _os_log_impl(&dword_1B0389000, a1, OS_LOG_TYPE_DEFAULT, "#Warning <rdar://problem/17733540> _currentChokedActions: %@\nmailboxDict: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = a3;
+    _os_log_impl(&dword_1B0389000, a1, OS_LOG_TYPE_DEFAULT, "#Warning <rdar://problem/17733540> _currentChokedActions: %@\nmailboxDict: %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shouldArchiveByDefault

@@ -115,16 +115,17 @@ void ___ef_log_EDBusinessCloudStorage_block_invoke()
   v7 = [(EDBusinessCloudStorage *)self _dictionaryForBusiness:dCopy];
   v8 = [v7 objectForKeyedSubscript:@"category"];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v9 = [v8 objectForKeyedSubscript:@"type"];
-    v10 = [v8 objectForKeyedSubscript:@"lastModified"];
-    v11 = v10;
-    if (v10)
+    v10 = [v8 objectForKeyedSubscript:@"type"];
+    v11 = [v8 objectForKeyedSubscript:@"lastModified"];
+    v12 = v11;
+    if (v11)
     {
-      v12 = MEMORY[0x1E695DF00];
-      [v10 doubleValue];
-      v13 = [v12 dateWithTimeIntervalSince1970:?];
+      v13 = MEMORY[0x1E695DF00];
+      [v11 doubleValue];
+      v14 = [v13 dateWithTimeIntervalSince1970:?];
       if (!date)
       {
 LABEL_5:
@@ -135,28 +136,28 @@ LABEL_5:
 
     else
     {
-      v13 = 0;
+      v14 = 0;
       if (!date)
       {
         goto LABEL_5;
       }
     }
 
-    v13 = v13;
-    *date = v13;
+    v14 = v14;
+    *date = v14;
     goto LABEL_5;
   }
 
   if (v8)
   {
-    v14 = _ef_log_EDBusinessCloudStorage();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _ef_log_EDBusinessCloudStorage(isKindOfClass);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [EDBusinessCloudStorage categoryForBusinessWithExternalID:lastModifiedDate:];
     }
   }
 
-  v9 = 0;
+  v10 = 0;
   if (date)
   {
     *date = 0;
@@ -164,7 +165,7 @@ LABEL_5:
 
 LABEL_12:
 
-  return v9;
+  return v10;
 }
 
 - (void)setCategory:(unint64_t)category forBusinessWithExternalID:(id)d
@@ -176,7 +177,7 @@ LABEL_12:
 
 - (void)setCategory:(unint64_t)category forBusinessWithExternalID:(id)d withLastModifiedDate:(id)date
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dateCopy = date;
   v10 = [(EDBusinessCloudStorage *)self _mutableDictionaryForBusiness:dCopy];
@@ -185,53 +186,52 @@ LABEL_12:
 
   if (v12)
   {
-    v13 = objc_alloc(MEMORY[0x1E695DF00]);
+    v14 = objc_alloc(MEMORY[0x1E695DF00]);
     [v12 doubleValue];
-    v14 = [v13 initWithTimeIntervalSince1970:?];
-    if ([dateCopy ef_isEarlierThanOrEqualDate:v14])
+    v15 = [v14 initWithTimeIntervalSince1970:?];
+    v16 = [dateCopy ef_isEarlierThanOrEqualDate:v15];
+    if (v16)
     {
-      v15 = _ef_log_EDBusinessCloudStorage();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = _ef_log_EDBusinessCloudStorage(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218754;
         categoryCopy2 = category;
-        v26 = 2114;
-        v27 = dateCopy;
-        v28 = 2114;
-        v29 = v14;
-        v30 = 2114;
-        v31 = dCopy;
-        _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "Skipping setting category to %lu (%{public}@ older than %{public}@) for business: %{public}@", buf, 0x2Au);
+        v27 = 2114;
+        v28 = dateCopy;
+        v29 = 2114;
+        v30 = v15;
+        v31 = 2114;
+        v32 = dCopy;
+        _os_log_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEFAULT, "Skipping setting category to %lu (%{public}@ older than %{public}@) for business: %{public}@", buf, 0x2Au);
       }
 
       goto LABEL_10;
     }
   }
 
-  v16 = _ef_log_EDBusinessCloudStorage();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v18 = _ef_log_EDBusinessCloudStorage(v13);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     categoryCopy2 = category;
-    v26 = 2114;
-    v27 = dCopy;
-    _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Setting category to %lu for business: %{public}@", buf, 0x16u);
+    v27 = 2114;
+    v28 = dCopy;
+    _os_log_impl(&dword_1C61EF000, v18, OS_LOG_TYPE_DEFAULT, "Setting category to %lu for business: %{public}@", buf, 0x16u);
   }
 
-  v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{category, @"type"}];
-  v22[1] = @"lastModified";
-  v23[0] = v17;
-  v18 = MEMORY[0x1E696AD98];
+  v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{category, @"type"}];
+  v23[1] = @"lastModified";
+  v24[0] = v19;
+  v20 = MEMORY[0x1E696AD98];
   [dateCopy timeIntervalSince1970];
-  v19 = [v18 numberWithDouble:?];
-  v23[1] = v19;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
-  [v10 setObject:v20 forKeyedSubscript:@"category"];
+  v21 = [v20 numberWithDouble:?];
+  v24[1] = v21;
+  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  [v10 setObject:v22 forKeyedSubscript:@"category"];
 
   [(EDBusinessCloudStorage *)self _setMutableDictionary:v10 forBusiness:dCopy];
 LABEL_10:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeCategoryForBusinessWithExternalID:(id)d
@@ -243,7 +243,7 @@ LABEL_10:
 
 - (void)removeCategoryForBusinessWithExternalID:(id)d withLastModifiedDate:(id)date
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dateCopy = date;
   v8 = [(EDBusinessCloudStorage *)self _mutableDictionaryForBusiness:dCopy];
@@ -252,46 +252,45 @@ LABEL_10:
 
   if (v10)
   {
-    v11 = objc_alloc(MEMORY[0x1E695DF00]);
+    v12 = objc_alloc(MEMORY[0x1E695DF00]);
     [v10 doubleValue];
-    v12 = [v11 initWithTimeIntervalSince1970:?];
-    if ([dateCopy ef_isEarlierThanOrEqualDate:v12])
+    v13 = [v12 initWithTimeIntervalSince1970:?];
+    v14 = [dateCopy ef_isEarlierThanOrEqualDate:v13];
+    if (v14)
     {
-      v13 = _ef_log_EDBusinessCloudStorage();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = _ef_log_EDBusinessCloudStorage(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543874;
-        v22 = dateCopy;
-        v23 = 2114;
-        v24 = v12;
-        v25 = 2114;
-        v26 = dCopy;
-        _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Skipping removing category (%{public}@ older than %{public}@) for business: %{public}@", buf, 0x20u);
+        v23 = dateCopy;
+        v24 = 2114;
+        v25 = v13;
+        v26 = 2114;
+        v27 = dCopy;
+        _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "Skipping removing category (%{public}@ older than %{public}@) for business: %{public}@", buf, 0x20u);
       }
 
       goto LABEL_10;
     }
   }
 
-  v14 = _ef_log_EDBusinessCloudStorage();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = _ef_log_EDBusinessCloudStorage(v11);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v22 = dCopy;
-    _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Removing category for business: %{public}@", buf, 0xCu);
+    v23 = dCopy;
+    _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Removing category for business: %{public}@", buf, 0xCu);
   }
 
-  v15 = MEMORY[0x1E696AD98];
+  v17 = MEMORY[0x1E696AD98];
   [dateCopy timeIntervalSince1970];
-  v16 = [v15 numberWithDouble:?];
-  v20 = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-  [v8 setObject:v17 forKeyedSubscript:@"category"];
+  v18 = [v17 numberWithDouble:?];
+  v21 = v18;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  [v8 setObject:v19 forKeyedSubscript:@"category"];
 
   [(EDBusinessCloudStorage *)self _setMutableDictionary:v8 forBusiness:dCopy];
 LABEL_10:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)lastSeenDateForCategoryType:(id)type businessWithExternalID:(id)d
@@ -316,30 +315,32 @@ LABEL_10:
   v11 = [(EDBusinessCloudStorage *)self _dictionaryForBusiness:dCopy];
   v12 = [v11 objectForKeyedSubscript:keyCopy];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v13 = [(EDBusinessCloudStorage *)self _categoryStringForCategoryType:typeCopy];
-    v14 = [v12 objectForKeyedSubscript:v13];
+    v14 = [(EDBusinessCloudStorage *)self _categoryStringForCategoryType:typeCopy];
+    v15 = [v12 objectForKeyedSubscript:v14];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v16 = objc_opt_isKindOfClass();
+    if (v16)
     {
-      v15 = MEMORY[0x1E695DF00];
-      [v14 doubleValue];
-      v16 = [v15 dateWithTimeIntervalSince1970:?];
+      v17 = MEMORY[0x1E695DF00];
+      [v15 doubleValue];
+      v18 = [v17 dateWithTimeIntervalSince1970:?];
     }
 
     else
     {
-      if (v14)
+      if (v15)
       {
-        v17 = _ef_log_EDBusinessCloudStorage();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v19 = _ef_log_EDBusinessCloudStorage(v16);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           [EDBusinessCloudStorage _dateForKey:categoryType:businessWithExternalID:];
         }
       }
 
-      v16 = 0;
+      v18 = 0;
     }
 
 LABEL_14:
@@ -348,55 +349,53 @@ LABEL_14:
 
   if (v12)
   {
-    v13 = _ef_log_EDBusinessCloudStorage();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = _ef_log_EDBusinessCloudStorage(isKindOfClass);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [EDBusinessCloudStorage _dateForKey:categoryType:businessWithExternalID:];
     }
 
-    v16 = 0;
+    v18 = 0;
     goto LABEL_14;
   }
 
-  v16 = 0;
+  v18 = 0;
 LABEL_15:
 
-  return v16;
+  return v18;
 }
 
 - (void)setIfNeededLastSeenDate:(id)date andDisplayDate:(id)displayDate forCategoryType:(id)type businessWithExternalID:(id)d
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   displayDateCopy = displayDate;
   typeCopy = type;
   dCopy = d;
-  v14 = _ef_log_EDBusinessCloudStorage();
+  v14 = _ef_log_EDBusinessCloudStorage(dCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138544130;
-    v18 = dateCopy;
-    v19 = 2114;
-    v20 = displayDateCopy;
-    v21 = 2114;
-    v22 = dCopy;
-    v23 = 2114;
-    v24 = typeCopy;
-    _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Updating last seen date to %{public}@ and display date to %{public}@ for business: %{public}@, category: %{public}@", &v17, 0x2Au);
+    v16 = 138544130;
+    v17 = dateCopy;
+    v18 = 2114;
+    v19 = displayDateCopy;
+    v20 = 2114;
+    v21 = dCopy;
+    v22 = 2114;
+    v23 = typeCopy;
+    _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Updating last seen date to %{public}@ and display date to %{public}@ for business: %{public}@, category: %{public}@", &v16, 0x2Au);
   }
 
   v15 = [(EDBusinessCloudStorage *)self _mutableDictionaryForBusiness:dCopy];
   [(EDBusinessCloudStorage *)self _setLastSeenDate:dateCopy forCategoryType:typeCopy onDictionary:v15 isDisplayDate:0];
   [(EDBusinessCloudStorage *)self _setLastSeenDate:displayDateCopy forCategoryType:typeCopy onDictionary:v15 isDisplayDate:1];
   [(EDBusinessCloudStorage *)self _setMutableDictionary:v15 forBusiness:dCopy];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_setLastSeenDate:(id)date forCategoryType:(id)type onDictionary:(id)dictionary isDisplayDate:(BOOL)displayDate
 {
   displayDateCopy = displayDate;
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   dictionaryCopy = dictionary;
   v12 = @"lastSeenDates";
@@ -431,7 +430,7 @@ LABEL_15:
 
   else
   {
-    v25 = _ef_log_EDBusinessCloudStorage();
+    v25 = _ef_log_EDBusinessCloudStorage(v20);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       v26 = &stru_1F45B4608;
@@ -440,11 +439,11 @@ LABEL_15:
         v26 = @" display";
       }
 
-      v32 = 138412546;
-      v33 = v26;
-      v34 = 2114;
-      v35 = dateCopy;
-      _os_log_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_INFO, "Setting last seen%@ date to %{public}@", &v32, 0x16u);
+      v31 = 138412546;
+      v32 = v26;
+      v33 = 2114;
+      v34 = dateCopy;
+      _os_log_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_INFO, "Setting last seen%@ date to %{public}@", &v31, 0x16u);
     }
 
     v27 = MEMORY[0x1E696AD98];
@@ -456,26 +455,23 @@ LABEL_15:
     v29 = 1;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
 - (void)removeAllEntries
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v3 = _ef_log_EDBusinessCloudStorage();
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = _ef_log_EDBusinessCloudStorage(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     persistentDictionary = [(EDBusinessCloudStorage *)self persistentDictionary];
-    v7 = 134217984;
-    v8 = [persistentDictionary count];
-    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Clearing all data with oldCount:%lu", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [persistentDictionary count];
+    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Clearing all data with oldCount:%lu", &v6, 0xCu);
   }
 
   persistentDictionary2 = [(EDBusinessCloudStorage *)self persistentDictionary];
   [persistentDictionary2 removeAllObjects];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_syncKeyForExternalID:(id)d
@@ -522,7 +518,7 @@ id __48__EDBusinessCloudStorage__syncKeyForExternalID___block_invoke(uint64_t a1
 
   else
   {
-    v11 = _ef_log_EDBusinessCloudStorage();
+    v11 = _ef_log_EDBusinessCloudStorage(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __48__EDBusinessCloudStorage__syncKeyForExternalID___block_invoke_cold_1(v1, v11, v12, v13, v14, v15, v16, v17);
@@ -562,26 +558,27 @@ id __48__EDBusinessCloudStorage__syncKeyForExternalID___block_invoke(uint64_t a1
   v7 = [persistentDictionary objectForKeyedSubscript:v5];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v8 = v7;
+    v9 = v7;
   }
 
   else
   {
     if (v7)
     {
-      v9 = _ef_log_EDBusinessCloudStorage();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _ef_log_EDBusinessCloudStorage(isKindOfClass);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [EDBusinessCloudStorage _dictionaryForBusiness:];
       }
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)_mutableDictionaryForBusiness:(id)business
@@ -694,28 +691,28 @@ void __92__EDBusinessCloudStorage_persistedDictionaryDidChangeRemotelyWithChange
 
 void __92__EDBusinessCloudStorage_persistedDictionaryDidChangeRemotelyWithChangedItems_deletedItems___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = [v3 objectForKeyedSubscript:{*(*(&v11 + 1) + 8 * v7), v11}];
+        v8 = [v3 objectForKeyedSubscript:{*(*(&v10 + 1) + 8 * v7), v10}];
         if (v8)
         {
           v9 = [MEMORY[0x1E699AC30] externalIDForSerializedRepresentation:v8];
@@ -729,78 +726,75 @@ void __92__EDBusinessCloudStorage_persistedDictionaryDidChangeRemotelyWithChange
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   [v3 removeAllObjects];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __92__EDBusinessCloudStorage_persistedDictionaryDidChangeRemotelyWithChangedItems_deletedItems___block_invoke_3(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v2 = *(a1[4] + 8);
-  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v3)
   {
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) updatedBusinessesWithExternalIDs:a1[5] removedBusinessesWithExternalIDs:{a1[6], v7}];
+        [*(*(&v6 + 1) + 8 * v5++) updatedBusinessesWithExternalIDs:a1[5] removedBusinessesWithExternalIDs:{a1[6], v6}];
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)mergeChangesForRemotelyChangedKeys:(id)keys localStore:(id)store cloudStore:(id)cloudStore
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   storeCopy = store;
   cloudStoreCopy = cloudStore;
-  v25 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
+  v24 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v10 = keysCopy;
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v11)
   {
-    v12 = *v30;
-    v26 = *MEMORY[0x1E699AB38];
+    v12 = *v29;
+    v25 = *MEMORY[0x1E699AB38];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * i);
+        v14 = *(*(&v28 + 1) + 8 * i);
         if (isValidKey(v14))
         {
           v15 = [storeCopy objectForKeyedSubscript:v14];
@@ -811,34 +805,33 @@ void __92__EDBusinessCloudStorage_persistedDictionaryDidChangeRemotelyWithChange
 
             if (v17)
             {
-              v18 = [v15 objectForKeyedSubscript:v26];
+              v18 = [v15 objectForKeyedSubscript:v25];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
                 v19 = [v18 objectForKeyedSubscript:@"id"];
-                [v25 setObject:v19 forKeyedSubscript:v14];
+                [v24 setObject:v19 forKeyedSubscript:v14];
               }
             }
           }
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v11);
   }
 
   deletedKeyMap = [(EDBusinessCloudStorage *)self deletedKeyMap];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __83__EDBusinessCloudStorage_mergeChangesForRemotelyChangedKeys_localStore_cloudStore___block_invoke;
-  v27[3] = &unk_1E8250D20;
-  v21 = v25;
-  v28 = v21;
-  [deletedKeyMap performWhileLocked:v27];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __83__EDBusinessCloudStorage_mergeChangesForRemotelyChangedKeys_localStore_cloudStore___block_invoke;
+  v26[3] = &unk_1E8250D20;
+  v21 = v24;
+  v27 = v21;
+  [deletedKeyMap performWhileLocked:v26];
 
-  v22 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -850,8 +843,8 @@ void __92__EDBusinessCloudStorage_persistedDictionaryDidChangeRemotelyWithChange
 
   if (v6 == *MEMORY[0x1E699A728])
   {
-    v7 = _ef_log_EDBusinessCloudStorage();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ef_log_EDBusinessCloudStorage(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [EDBusinessCloudStorage _updateCategoryOverrideForBusinessExternalID:];
     }
@@ -865,7 +858,7 @@ void __92__EDBusinessCloudStorage_persistedDictionaryDidChangeRemotelyWithChange
 
 - (void)_updateCategoryOverrideForBusinessID:(int64_t)d withBusinessExternalID:(id)iD
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v6 = [(EDBusinessCloudStorage *)self categoryForBusinessWithExternalID:iD lastModifiedDate:0];
   businessPersistence = [(EDBusinessCloudStorage *)self businessPersistence];
   v8 = [businessPersistence categoryTypeForBusinessID:d];
@@ -880,8 +873,8 @@ void __92__EDBusinessCloudStorage_persistedDictionaryDidChangeRemotelyWithChange
       unsignedIntegerValue = [v6 unsignedIntegerValue];
       businessPersistence2 = [(EDBusinessCloudStorage *)self businessPersistence];
       v13 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-      v21[0] = v13;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+      v20[0] = v13;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
       v15 = [MEMORY[0x1E695DF00] now];
       [businessPersistence2 insertOrUpdateUserOverrideForBusinessIDs:v14 category:unsignedIntegerValue userInitiated:0 timestamp:v15];
     }
@@ -890,8 +883,8 @@ void __92__EDBusinessCloudStorage_persistedDictionaryDidChangeRemotelyWithChange
     {
       businessPersistence2 = [(EDBusinessCloudStorage *)self businessPersistence];
       v13 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-      v20 = v13;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+      v19 = v13;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
       v15 = [MEMORY[0x1E695DF00] now];
       unsignedIntegerValue = 0;
       [businessPersistence2 removeUserOverridesForBusinessIDs:v14 timestamp:v15 originator:0 userInitiated:0];
@@ -902,56 +895,13 @@ void __92__EDBusinessCloudStorage_persistedDictionaryDidChangeRemotelyWithChange
     categoryPersistence2 = [(EDBusinessCloudStorage *)self categoryPersistence];
     [analyticsLogger logRecategorizationEventForMessages:v10 categoryType:unsignedIntegerValue categoryPersistence:categoryPersistence2];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
-}
-
-- (void)categoryForBusinessWithExternalID:lastModifiedDate:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, v0, v1, "Value for category key is not a dictionary for business: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_dateForKey:categoryType:businessWithExternalID:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2_2(&dword_1C61EF000, v0, v1, "Value for date key %{public}@ is not a dictionary for business: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_dateForKey:categoryType:businessWithExternalID:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_2_2(&dword_1C61EF000, v0, v1, "Date value (for %{public}@) is not a number for business: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __48__EDBusinessCloudStorage__syncKeyForExternalID___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Invalid attributes for external ID: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_dictionaryForBusiness:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, v0, v1, "Value for business is not a dictionary: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_updateCategoryOverrideForBusinessExternalID:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, v0, v1, "Skipping updating category for business %{public}@, no corresponding businessID on this device", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_4(&dword_1C61EF000, a2, a3, "Invalid attributes for external ID: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

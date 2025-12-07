@@ -8,6 +8,7 @@
 - (double)caretRectForStartOfLineFromCharacterIndex:(void *)index coordinateSpace:(uint64_t *)space outCharacterIndex:;
 - (double)caretRectInCoordinateSpace:(uint64_t)space;
 - (double)frameForTextPlaceholder:(void *)placeholder inCoordinateSpace:;
+- (id)contentLength;
 - (id)description;
 - (id)initWithElement:(id *)element;
 - (id)protectedCharacterIndexesInRange:(uint64_t)range;
@@ -15,13 +16,11 @@
 - (id)selectionRectsForRange:(uint64_t)range inCoordinateSpace:(void *)space visibleOnly:(int)only;
 - (id)stringInRange:(uint64_t)range;
 - (id)textContentType;
+- (int64_t)characterIndexClosestToPoint:(uint64_t)point inCoordinateSpace:(uint64_t)space forInsertingText:(double)text adjustForLastCharacter:(CGFloat)character;
 - (uint64_t)_isLastCharacterNewline;
-- (uint64_t)characterIndexClosestToPoint:(uint64_t)point inCoordinateSpace:(uint64_t)space forInsertingText:(double)text adjustForLastCharacter:(double)character;
-- (uint64_t)contentLength;
 - (uint64_t)hasLinkAtCharacterIndex:(void *)index location:(double)location coordinateSpace:(double)space;
 - (uint64_t)indexOfLastNonWhitespaceCharacter;
 - (uint64_t)isSingleLineDocumentContent;
-- (uint64_t)rangeOfCharacterAtIndex:(uint64_t)index;
 - (uint64_t)selectedRange;
 - (uint64_t)supportsAutoLineBreaks;
 - (void)_insertTextPlaceholderWithSize:(double)size completionHandler:(double)handler;
@@ -30,11 +29,12 @@
 - (void)_webDocumentContext_enumerateBoundsForCharactersInRange:(uint64_t)range inCoordinateSpace:(void *)space reverse:(int)reverse block:(void *)block;
 - (void)_webInsertCommittedTextPhase3:(void *)phase3 withAlternatives:(uint64_t)alternatives activePreviewText:(uint64_t)text replacingRange:(void *)range webTextInput:;
 - (void)deleteTextInRange:(uint64_t)range completion:(void *)completion;
-- (void)enumerateBoundsForCharactersInRange:(uint64_t)range inCoordinateSpace:(void *)space reverse:(int)reverse block:(void *)block;
+- (void)enumerateBoundsForCharactersInRange:(uint64_t)range inCoordinateSpace:(void *)space reverse:(uint64_t)reverse block:(void *)block;
 - (void)firstRectForRange:(unint64_t)range inCoordinateSpace:(void *)space;
 - (void)insertTextsToCommit:(void *)commit withAlternatives:(void *)alternatives activePreviewText:(uint64_t)text replacingRange:(uint64_t)range completion:(void *)completion;
 - (void)loadDataIfNeededWithTextInput:(uint64_t)input;
 - (void)loadDataIfNeededWithWebDocumentSourceView:(void *)view textInput:(void *)input rectOfInterest:(CGFloat)interest completion:(CGFloat)completion;
+- (void)rangeOfCharacterAtIndex:(uint64_t)index;
 - (void)requestUpdatedApproximateCaretRectInCoordinateSpace:(void *)space completion:;
 - (void)requestUpdatedLastSelectionRectForCommittedTextLength:(void *)length targetCoordinateSpace:(void *)space completion:;
 - (void)selectTextInRange:(uint64_t)range completion:(void *)completion;
@@ -443,23 +443,23 @@ LABEL_24:
   return self;
 }
 
-- (uint64_t)contentLength
+- (id)contentLength
 {
   selfCopy = self;
   if (self)
   {
-    v2 = *(self + 64);
-    WeakRetained = objc_loadWeakRetained((selfCopy + 32));
+    v2 = self[8];
+    WeakRetained = objc_loadWeakRetained(selfCopy + 4);
 
     if (WeakRetained)
     {
-      v4 = objc_loadWeakRetained((selfCopy + 32));
+      v4 = objc_loadWeakRetained(selfCopy + 4);
       selfCopy = [PKTextInputUITextInputInterface contentLengthForTextInput:v4];
     }
 
     else if (v2)
     {
-      selfCopy = [*(selfCopy + 48) length];
+      selfCopy = [selfCopy[6] length];
     }
 
     else
@@ -560,7 +560,7 @@ LABEL_7:
   return [v2 isSingleLineDocument];
 }
 
-- (uint64_t)rangeOfCharacterAtIndex:(uint64_t)index
+- (void)rangeOfCharacterAtIndex:(uint64_t)index
 {
   if (!index)
   {
@@ -652,8 +652,9 @@ LABEL_7:
   return result;
 }
 
-- (void)enumerateBoundsForCharactersInRange:(uint64_t)range inCoordinateSpace:(void *)space reverse:(int)reverse block:(void *)block
+- (void)enumerateBoundsForCharactersInRange:(uint64_t)range inCoordinateSpace:(void *)space reverse:(uint64_t)reverse block:(void *)block
 {
+  reverseCopy = reverse;
   spaceCopy = space;
   blockCopy = block;
   if (self)
@@ -662,12 +663,12 @@ LABEL_7:
 
     if (WeakRetained)
     {
-      [(PKTextInputElementContent *)self _textInput_enumerateBoundsForCharactersInRange:a2 inCoordinateSpace:range reverse:spaceCopy block:reverse, blockCopy];
+      [(PKTextInputElementContent *)self _textInput_enumerateBoundsForCharactersInRange:a2 inCoordinateSpace:range reverse:spaceCopy block:reverseCopy, blockCopy];
     }
 
     else if (*(self + 64) && range)
     {
-      [(PKTextInputElementContent *)self _webDocumentContext_enumerateBoundsForCharactersInRange:a2 inCoordinateSpace:range reverse:spaceCopy block:reverse, blockCopy];
+      [(PKTextInputElementContent *)self _webDocumentContext_enumerateBoundsForCharactersInRange:a2 inCoordinateSpace:range reverse:spaceCopy block:reverseCopy, blockCopy];
     }
   }
 }
@@ -907,7 +908,7 @@ uint64_t __117__PKTextInputElementContent__webDocumentContext_enumerateBoundsFor
   return v20(v21, v22, v23, v24);
 }
 
-- (uint64_t)characterIndexClosestToPoint:(uint64_t)point inCoordinateSpace:(uint64_t)space forInsertingText:(double)text adjustForLastCharacter:(double)character
+- (int64_t)characterIndexClosestToPoint:(uint64_t)point inCoordinateSpace:(uint64_t)space forInsertingText:(double)text adjustForLastCharacter:(CGFloat)character
 {
   v11 = a2;
   if (self)
@@ -930,7 +931,7 @@ uint64_t __117__PKTextInputElementContent__webDocumentContext_enumerateBoundsFor
       character = v20;
       if (point)
       {
-        if (v20 + 1 == [(PKTextInputElementContent *)self contentLength])
+        if ((v20 + 1) == [(PKTextInputElementContent *)self contentLength])
         {
           if ([(PKTextInputElementContent *)self _isLastCharacterNewline])
           {

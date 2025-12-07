@@ -419,7 +419,6 @@ LABEL_62:
         NSStringFromClass(v45);
         errorCopy = error;
         v48 = v47 = dataCopy;
-        v49 = *&v7[*v10];
         v11 = CCSkipFieldErrorForMessage();
 
         dataCopy = v47;
@@ -446,22 +445,21 @@ LABEL_64:
 LABEL_67:
   if (!*&v7[*v10])
   {
-    v53 = 1;
+    v51 = 1;
     goto LABEL_71;
   }
 
 LABEL_68:
-  v50 = objc_opt_class();
-  v11 = NSStringFromClass(v50);
-  v51 = *&v7[*v10];
-  v52 = CCInvalidBufferErrorForMessage();
+  v49 = objc_opt_class();
+  v11 = NSStringFromClass(v49);
+  v50 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_69:
-  v53 = 0;
+  v51 = 0;
 LABEL_71:
 
-  return v53;
+  return v51;
 }
 
 - (CCContactDate)initWithLabel:(id)label year:(id)year month:(id)month day:(id)day error:(id *)error
@@ -489,21 +487,19 @@ LABEL_71:
     v18 = 0;
   }
 
-  v19 = 0x1E696A000uLL;
   if (yearCopy)
   {
     objc_opt_class();
-    v20 = CCValidateIsInstanceOfExpectedClass();
-    v21 = v18;
+    v19 = CCValidateIsInstanceOfExpectedClass();
+    v20 = v18;
 
-    if (!v20)
+    if (!v19)
     {
       goto LABEL_17;
     }
 
     [yearCopy unsignedIntValue];
     CCPBDataWriterWriteUint32Field();
-    v19 = 0x1E696A000;
     if (!monthCopy)
     {
       goto LABEL_8;
@@ -512,45 +508,43 @@ LABEL_71:
 
   else
   {
-    v21 = v18;
+    v20 = v18;
     if (!monthCopy)
     {
 LABEL_8:
-      v18 = v21;
+      v18 = v20;
       if (!dayCopy)
       {
         goto LABEL_15;
       }
 
 LABEL_13:
-      v24 = *(v19 + 3480);
       objc_opt_class();
-      v29 = v18;
-      v25 = CCValidateIsInstanceOfExpectedClass();
-      v21 = v18;
+      v26 = v18;
+      v22 = CCValidateIsInstanceOfExpectedClass();
+      v20 = v18;
 
-      if (v25)
+      if (v22)
       {
         [dayCopy unsignedIntValue];
         CCPBDataWriterWriteUint32Field();
-        v18 = v21;
+        v18 = v20;
         goto LABEL_15;
       }
 
 LABEL_17:
       CCSetError();
       selfCopy = 0;
-      v18 = v21;
+      v18 = v20;
       goto LABEL_18;
     }
   }
 
-  v22 = *(v19 + 3480);
   objc_opt_class();
-  v23 = CCValidateIsInstanceOfExpectedClass();
-  v18 = v21;
+  v21 = CCValidateIsInstanceOfExpectedClass();
+  v18 = v20;
 
-  if (!v23)
+  if (!v21)
   {
 LABEL_16:
     CCSetError();
@@ -560,7 +554,6 @@ LABEL_16:
 
   [monthCopy unsignedIntValue];
   CCPBDataWriterWriteUint32Field();
-  v19 = 0x1E696A000uLL;
   if (dayCopy)
   {
     goto LABEL_13;

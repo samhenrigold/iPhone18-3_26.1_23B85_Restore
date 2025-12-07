@@ -17,11 +17,11 @@
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v19 = selfCopy;
-  [(NSMutableDictionary *)selfCopy->_activityToProfile count];
+  objc_msgSend_count(selfCopy->_activityToProfile);
   ++selfCopy->_numTotalProfiledRuns;
   if (os_log_type_enabled(selfCopy->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_100124AB8(&selfCopy->_numTotalProfiledRuns);
+    sub_100124AB8();
   }
 
   if (os_log_type_enabled(selfCopy->_log, OS_LOG_TYPE_DEBUG))
@@ -344,7 +344,7 @@
     v67 = [v36 objectForKeyedSubscript:@"MemoryPressure"];
     v64 = v36;
     v66 = [v36 objectForKeyedSubscript:@"ThermalPressure"];
-    if ([v68 count])
+    if (objc_msgSend_count(v68))
     {
       v86 = 0u;
       v87 = 0u;
@@ -398,7 +398,7 @@
 LABEL_40:
     }
 
-    if ([v67 count])
+    if (objc_msgSend_count(v67))
     {
       v82 = 0u;
       v83 = 0u;
@@ -452,7 +452,7 @@ LABEL_40:
 LABEL_54:
     }
 
-    if ([v66 count])
+    if (objc_msgSend_count(v66))
     {
       v78 = 0u;
       v79 = 0u;
@@ -515,7 +515,7 @@ LABEL_68:
 
   if (v11 > 5.0 && os_log_type_enabled(selfCopy->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_100124A40(p_activityToProfile);
+    sub_100124A40();
   }
 
   objc_sync_exit(selfCopy);

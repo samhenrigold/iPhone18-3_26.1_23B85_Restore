@@ -10,14 +10,14 @@
 - (void)configureWithConfirmationRecord:(id)record transaction:(id)transaction installmentCriteria:(id)criteria
 {
   ObjectType = swift_getObjectType();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD471F8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD471F8, &qword_1BE0D9080);
   v11 = *(v10 - 8);
-  MEMORY[0x1EEE9AC00](v10, v12);
-  v14 = &v19[-v13];
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = &v18[-v12];
   recordCopy = record;
   criteriaCopy = criteria;
   transactionCopy = transaction;
-  v23 = ObjectType;
+  v22 = ObjectType;
   sub_1BD4881B0();
   recordCopy2 = record;
   transactionCopy2 = transaction;
@@ -25,12 +25,12 @@
   selfCopy = self;
   sub_1BE04FCE4();
   sub_1BE0501D4();
-  v24[3] = v10;
-  v24[4] = sub_1BD0DE4F4(&qword_1EBD47208, &qword_1EBD471F8);
-  __swift_allocate_boxed_opaque_existential_1(v24);
+  v23[3] = v10;
+  v23[4] = sub_1BD0DE4F4(&qword_1EBD47208, &qword_1EBD471F8, &qword_1BE0D9080, MEMORY[0x1E697C858]);
+  __swift_allocate_boxed_opaque_existential_1(v23);
   sub_1BE04FCD4();
-  (*(v11 + 8))(v14, v10);
-  MEMORY[0x1BFB3FD10](v24);
+  (*(v11 + 8))(v13, v10);
+  MEMORY[0x1BFB3FD10](v23);
 }
 
 + (int64_t)statusForRecord:(id)record transaction:(id)transaction installmentCriteria:(id)criteria
@@ -49,14 +49,16 @@
   if (identifier)
   {
     sub_1BE052434();
+    v9 = v8;
     identifier = sub_1BE052404();
+    v9, v10, v11, v12, v13, v14, v15, v16;
   }
 
-  v10.receiver = self;
-  v10.super_class = ObjectType;
-  v8 = [(PKPaymentOfferConfirmationRecordDetailCell *)&v10 initWithStyle:style reuseIdentifier:identifier];
+  v19.receiver = self;
+  v19.super_class = ObjectType;
+  v17 = [(PKPaymentOfferConfirmationRecordDetailCell *)&v19 initWithStyle:style reuseIdentifier:identifier];
 
-  return v8;
+  return v17;
 }
 
 - (_TtC9PassKitUI42PKPaymentOfferConfirmationRecordDetailCell)initWithCoder:(id)coder

@@ -143,8 +143,8 @@
   v5 = MEMORY[0x1E696B098];
   [keyplaneCopy frameForKeylayoutName:{@"split-left", v20.receiver, v20.super_class}];
   v6 = [v5 valueWithCGRect:?];
-  geometry = [v4 geometry];
-  [geometry setSplitLeftRect:v6];
+  v7 = objc_msgSend_geometry(v4);
+  [v7 setSplitLeftRect:v6];
 
   v8 = MEMORY[0x1E696B098];
   [keyplaneCopy frameForKeylayoutName:@"split-right"];
@@ -154,8 +154,8 @@
   v16 = v15;
 
   v17 = [v8 valueWithCGRect:{v10, v12, v14, v16}];
-  geometry2 = [v4 geometry];
-  [geometry2 setSplitRightRect:v17];
+  v18 = objc_msgSend_geometry(v4);
+  [v18 setSplitRightRect:v17];
 
   return v4;
 }
@@ -330,9 +330,9 @@ LABEL_14:
   v19.super_class = UIKBRenderFactoryiPadSplit;
   v7 = [(UIKBRenderFactoryiPad *)&v19 _traitsForKey:keyCopy onKeyplane:keyplane];
   displayString = [keyCopy displayString];
-  v9 = [displayString isEqualToString:{@", !"}];
+  isEqualToString = objc_msgSend_isEqualToString_(displayString);
 
-  if (v9)
+  if (isEqualToString)
   {
     symbolStyle = [v7 symbolStyle];
     [symbolStyle textOffset];

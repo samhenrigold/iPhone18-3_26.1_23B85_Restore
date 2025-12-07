@@ -29,15 +29,16 @@
 - (void)checkNeedsPrewarmWithCompletion:(id)completion
 {
   completionCopy = completion;
-  if ([(LACKeyBag *)self->_keybag state]!= 5)
+  state = [(LACKeyBag *)self->_keybag state];
+  if (state != 5)
   {
-    v6 = LACLogDTOLocation();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = LACLogDTOLocation(state);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      v7 = "Prewarm skipped because keybag is not unlocked";
+      v9 = "Prewarm skipped because keybag is not unlocked";
 LABEL_8:
-      _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, v7, location, 2u);
+      _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, v9, location, 2u);
     }
 
 LABEL_9:
@@ -46,13 +47,14 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if (([(LACDTODeviceSetupInfoProvider *)self->_device hasCompletedSetup]& 1) == 0)
+  hasCompletedSetup = [(LACDTODeviceSetupInfoProvider *)self->_device hasCompletedSetup];
+  if ((hasCompletedSetup & 1) == 0)
   {
-    v6 = LACLogDTOLocation();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = LACLogDTOLocation(hasCompletedSetup);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      v7 = "Prewarm skipped because device has not finished setup";
+      v9 = "Prewarm skipped because device has not finished setup";
       goto LABEL_8;
     }
 
@@ -61,15 +63,15 @@ LABEL_9:
 
   objc_initWeak(location, self);
   featureStateProvider = self->_featureStateProvider;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __65__LACDTOLocationPrewarmStrategy_checkNeedsPrewarmWithCompletion___block_invoke;
-  v8[3] = &unk_1E7A95838;
-  objc_copyWeak(&v10, location);
-  v9 = completionCopy;
-  [(LACDTOFeatureStateProviding *)featureStateProvider fetchStateWithCompletion:v8];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __65__LACDTOLocationPrewarmStrategy_checkNeedsPrewarmWithCompletion___block_invoke;
+  v10[3] = &unk_1E7A95838;
+  objc_copyWeak(&v12, location);
+  v11 = completionCopy;
+  [(LACDTOFeatureStateProviding *)featureStateProvider fetchStateWithCompletion:v10];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(location);
 LABEL_10:
 }
@@ -80,37 +82,39 @@ void __65__LACDTOLocationPrewarmStrategy_checkNeedsPrewarmWithCompletion___block
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    if ([v3 isEnabled])
+    v5 = [v3 isEnabled];
+    if (v5)
     {
-      if (![v3 isStrictModeEnabled])
+      v6 = [v3 isStrictModeEnabled];
+      if (!v6)
       {
-        v7 = WeakRetained[2];
-        v8[0] = MEMORY[0x1E69E9820];
-        v8[1] = 3221225472;
-        v8[2] = __65__LACDTOLocationPrewarmStrategy_checkNeedsPrewarmWithCompletion___block_invoke_1;
-        v8[3] = &unk_1E7A95810;
-        objc_copyWeak(&v10, (a1 + 40));
-        v9 = *(a1 + 32);
-        [v7 fetchSensorTrustStateWithCompletion:v8];
+        v9 = WeakRetained[2];
+        v10[0] = MEMORY[0x1E69E9820];
+        v10[1] = 3221225472;
+        v10[2] = __65__LACDTOLocationPrewarmStrategy_checkNeedsPrewarmWithCompletion___block_invoke_1;
+        v10[3] = &unk_1E7A95810;
+        objc_copyWeak(&v12, (a1 + 40));
+        v11 = *(a1 + 32);
+        [v9 fetchSensorTrustStateWithCompletion:v10];
 
-        objc_destroyWeak(&v10);
+        objc_destroyWeak(&v12);
         goto LABEL_11;
       }
 
-      v5 = LACLogDTOLocation();
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = LACLogDTOLocation(v6);
+      if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_9;
       }
 
       *buf = 0;
-      v6 = "Prewarm skipped because strict mode is enabled";
+      v8 = "Prewarm skipped because strict mode is enabled";
     }
 
     else
     {
-      v5 = LACLogDTOLocation();
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = LACLogDTOLocation(v5);
+      if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_9:
 
@@ -119,10 +123,10 @@ LABEL_9:
       }
 
       *buf = 0;
-      v6 = "Prewarm skipped because feature is disabled";
+      v8 = "Prewarm skipped because feature is disabled";
     }
 
-    _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 2u);
+    _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 2u);
     goto LABEL_9;
   }
 
@@ -135,24 +139,25 @@ void __65__LACDTOLocationPrewarmStrategy_checkNeedsPrewarmWithCompletion___block
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    if ([v3 isDisapproved])
+    v5 = [v3 isDisapproved];
+    if (v5)
     {
-      v5 = *(*(a1 + 32) + 16);
+      v6 = *(*(a1 + 32) + 16);
     }
 
     else
     {
-      v6 = LACLogDTOLocation();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = LACLogDTOLocation(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "Prewarm skipped because sensor is trusted", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "Prewarm skipped because sensor is trusted", v8, 2u);
       }
 
-      v5 = *(*(a1 + 32) + 16);
+      v6 = *(*(a1 + 32) + 16);
     }
 
-    v5();
+    v6();
   }
 }
 

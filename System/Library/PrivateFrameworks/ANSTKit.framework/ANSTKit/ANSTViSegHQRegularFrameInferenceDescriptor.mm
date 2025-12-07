@@ -27,114 +27,116 @@
   v69[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   configurationCopy = configuration;
-  if (objc_msgSend_version(configurationCopy, v10, v11) == 0x20000)
+  v12 = objc_msgSend_version(configurationCopy, v10, v11);
+  if (v12 == 0x20000)
   {
-    v14 = @"Unsupported model version. ViSegHQ currently only supports ANSTViSegHQInferenceVersion2E5ML config on this platform.";
+    v15 = @"Unsupported model version. ViSegHQ currently only supports ANSTViSegHQInferenceVersion2E5ML config on this platform.";
   }
 
   else
   {
-    if (objc_msgSend_version(configurationCopy, v12, v13) == 131073)
+    v12 = objc_msgSend_version(configurationCopy, v13, v14);
+    if (v12 == 131073)
     {
-      v16 = objc_msgSend_makeInputImagePixelBufferDescriptorForConfiguration_name_error_(_ANSTViSegHQUtility, v15, configurationCopy, @"input_image", p_isa);
+      v17 = objc_msgSend_makeInputImagePixelBufferDescriptorForConfiguration_name_error_(_ANSTViSegHQUtility, v16, configurationCopy, @"input_image", p_isa);
       inputImageDescriptor = self->_inputImageDescriptor;
-      self->_inputImageDescriptor = v16;
+      self->_inputImageDescriptor = v17;
 
       if (!self->_inputImageDescriptor)
       {
         goto LABEL_15;
       }
 
-      v19 = objc_msgSend_makeMaskPixelBufferDescriptorForConfiguration_name_error_(_ANSTViSegHQUtility, v18, configurationCopy, @"input_matting", p_isa);
+      v20 = objc_msgSend_makeMaskPixelBufferDescriptorForConfiguration_name_error_(_ANSTViSegHQUtility, v19, configurationCopy, @"input_matting", p_isa);
       inputMattingDescriptor = self->_inputMattingDescriptor;
-      self->_inputMattingDescriptor = v19;
+      self->_inputMattingDescriptor = v20;
 
       if (!self->_inputMattingDescriptor)
       {
         goto LABEL_15;
       }
 
-      v22 = objc_msgSend_makeProbTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v21, configurationCopy, @"input_prob");
+      v23 = objc_msgSend_makeProbTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v22, configurationCopy, @"input_prob");
       inputProbTensorDescriptor = self->_inputProbTensorDescriptor;
-      self->_inputProbTensorDescriptor = v22;
+      self->_inputProbTensorDescriptor = v23;
 
-      v25 = objc_msgSend_makeHiddenTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v24, configurationCopy, @"input_hidden");
+      v26 = objc_msgSend_makeHiddenTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v25, configurationCopy, @"input_hidden");
       inputHiddenTensorDescriptor = self->_inputHiddenTensorDescriptor;
-      self->_inputHiddenTensorDescriptor = v25;
+      self->_inputHiddenTensorDescriptor = v26;
 
-      v28 = objc_msgSend_makeKeyTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v27, configurationCopy, @"input_key");
+      v29 = objc_msgSend_makeKeyTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v28, configurationCopy, @"input_key");
       inputKeyTensorDescriptor = self->_inputKeyTensorDescriptor;
-      self->_inputKeyTensorDescriptor = v28;
+      self->_inputKeyTensorDescriptor = v29;
 
-      v31 = objc_msgSend_makeValueTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v30, configurationCopy, @"input_value");
+      v32 = objc_msgSend_makeValueTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v31, configurationCopy, @"input_value");
       inputValueTensorDescriptor = self->_inputValueTensorDescriptor;
-      self->_inputValueTensorDescriptor = v31;
+      self->_inputValueTensorDescriptor = v32;
 
-      v34 = objc_msgSend_makeMaskPixelBufferDescriptorForConfiguration_name_error_(_ANSTViSegHQUtility, v33, configurationCopy, @"output_matting", p_isa);
+      v35 = objc_msgSend_makeMaskPixelBufferDescriptorForConfiguration_name_error_(_ANSTViSegHQUtility, v34, configurationCopy, @"output_matting", p_isa);
       outputMattingDescriptor = self->_outputMattingDescriptor;
-      self->_outputMattingDescriptor = v34;
+      self->_outputMattingDescriptor = v35;
 
       if (!self->_outputMattingDescriptor)
       {
         goto LABEL_15;
       }
 
-      v37 = objc_msgSend_makeProbTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v36, configurationCopy, @"output_prob");
+      v38 = objc_msgSend_makeProbTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v37, configurationCopy, @"output_prob");
       outputProbTensorDescriptor = self->_outputProbTensorDescriptor;
-      self->_outputProbTensorDescriptor = v37;
+      self->_outputProbTensorDescriptor = v38;
 
-      v40 = objc_msgSend_makeHiddenTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v39, configurationCopy, @"output_hidden");
+      v41 = objc_msgSend_makeHiddenTensorDescriptorForConfiguration_name_(_ANSTViSegHQUtility, v40, configurationCopy, @"output_hidden");
       outputHiddenTensorDescriptor = self->_outputHiddenTensorDescriptor;
-      self->_outputHiddenTensorDescriptor = v40;
+      self->_outputHiddenTensorDescriptor = v41;
 
-      v64 = objc_msgSend_version(configurationCopy, v42, v43);
-      v63 = objc_msgSend_assetURLForConfiguration_(ANSTViSegHQRegularFrameInferenceDescriptor, v44, configurationCopy);
-      v62 = objc_msgSend_e5FunctionNameForConfiguration_(ANSTViSegHQRegularFrameInferenceDescriptor, v45, configurationCopy);
-      v46 = self->_inputMattingDescriptor;
+      v64 = objc_msgSend_version(configurationCopy, v43, v44);
+      v63 = objc_msgSend_assetURLForConfiguration_(ANSTViSegHQRegularFrameInferenceDescriptor, v45, configurationCopy);
+      v62 = objc_msgSend_e5FunctionNameForConfiguration_(ANSTViSegHQRegularFrameInferenceDescriptor, v46, configurationCopy);
+      v47 = self->_inputMattingDescriptor;
       v67[0] = self->_inputImageDescriptor;
-      v67[1] = v46;
-      v47 = self->_inputHiddenTensorDescriptor;
+      v67[1] = v47;
+      v48 = self->_inputHiddenTensorDescriptor;
       v67[2] = self->_inputProbTensorDescriptor;
-      v67[3] = v47;
-      v48 = self->_inputValueTensorDescriptor;
+      v67[3] = v48;
+      v49 = self->_inputValueTensorDescriptor;
       v67[4] = self->_inputKeyTensorDescriptor;
-      v67[5] = v48;
-      v50 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v49, v67, 6);
-      v51 = self->_outputProbTensorDescriptor;
+      v67[5] = v49;
+      v51 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v50, v67, 6);
+      v52 = self->_outputProbTensorDescriptor;
       v66[0] = self->_outputMattingDescriptor;
-      v66[1] = v51;
+      v66[1] = v52;
       v66[2] = self->_outputHiddenTensorDescriptor;
-      v53 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v52, v66, 3);
+      v54 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v53, v66, 3);
       v65.receiver = self;
       v65.super_class = ANSTViSegHQRegularFrameInferenceDescriptor;
-      v54 = [(ANSTInferenceDescriptor *)&v65 initWithName:nameCopy version:v64 assetURL:v63 assetType:0 e5FunctionName:v62 inputDescriptors:v50 outputDescriptors:v53 error:p_isa];
+      v55 = [(ANSTInferenceDescriptor *)&v65 initWithName:nameCopy version:v64 assetURL:v63 assetType:0 e5FunctionName:v62 inputDescriptors:v51 outputDescriptors:v54 error:p_isa];
 
-      if (v54)
+      if (v55)
       {
-        objc_storeStrong(&v54->_configuration, configuration);
+        objc_storeStrong(&v55->_configuration, configuration);
       }
 
-      self = v54;
+      self = v55;
       p_isa = &self->super.super.super.isa;
       goto LABEL_16;
     }
 
-    v14 = @"Unsupported model version.";
+    v15 = @"Unsupported model version.";
   }
 
-  v55 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-  if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+  v56 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
+  if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
   {
-    sub_22E6584D8(v14, v55);
+    sub_22E6584D8(v15, v56);
   }
 
   if (p_isa)
   {
-    v57 = MEMORY[0x277CCA9B8];
+    v58 = MEMORY[0x277CCA9B8];
     v68 = *MEMORY[0x277CCA068];
-    v69[0] = v14;
-    v58 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v56, v69, &v68, 1);
-    *p_isa = objc_msgSend_errorWithDomain_code_userInfo_(v57, v59, @"ANSTErrorDomain", 1, v58);
+    v69[0] = v15;
+    v59 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v57, v69, &v68, 1);
+    *p_isa = objc_msgSend_errorWithDomain_code_userInfo_(v58, v60, @"ANSTErrorDomain", 1, v59);
 
 LABEL_15:
     p_isa = 0;
@@ -142,39 +144,37 @@ LABEL_15:
 
 LABEL_16:
 
-  v60 = *MEMORY[0x277D85DE8];
   return p_isa;
 }
 
 + (id)assetURLForConfiguration:(id)configuration
 {
   v17 = *MEMORY[0x277D85DE8];
-  if (objc_msgSend_version(configuration, a2, configuration) == 131073)
+  v4 = objc_msgSend_version(configuration, a2, configuration);
+  if (v4 == 131073)
   {
-    v5 = objc_msgSend_bundleForClass_(MEMORY[0x277CCA8D8], v4, self);
-    v7 = objc_msgSend_URLForResource_withExtension_subdirectory_(v5, v6, @"visegHQ_e5", @"mlmodelc", @"Models");
+    v6 = objc_msgSend_bundleForClass_(MEMORY[0x277CCA8D8], v5, self);
+    v8 = objc_msgSend_URLForResource_withExtension_subdirectory_(v6, v7, @"visegHQ_e5", @"mlmodelc", @"Models");
 
-    v9 = objc_msgSend_URLByAppendingPathComponent_(v7, v8, @"model.bundle");
+    v10 = objc_msgSend_URLByAppendingPathComponent_(v8, v9, @"model.bundle");
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _ANSTLoggingGetOSLogForCategoryANSTKit(v4);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 136446466;
     v14 = "+[ANSTViSegHQRegularFrameInferenceDescriptor assetURLForConfiguration:]";
     v15 = 2114;
-    v16 = v9;
-    _os_log_impl(&dword_22E5D5000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: returning %{public}@", &v13, 0x16u);
+    v16 = v10;
+    _os_log_impl(&dword_22E5D5000, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: returning %{public}@", &v13, 0x16u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
 + (id)e5FunctionNameForConfiguration:(id)configuration
@@ -210,25 +210,13 @@ LABEL_16:
   v13.receiver = self;
   v13.super_class = ANSTViSegHQRegularFrameInferenceDescriptor;
   v5 = [(ANSTInferenceDescriptor *)&v13 initWithCoder:coderCopy];
-  if (!v5)
-  {
-    goto LABEL_3;
-  }
-
-  v6 = objc_opt_class();
-  v7 = NSStringFromSelector(sel_configuration);
-  v9 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v8, v6, v7);
-  configuration = v5->_configuration;
-  v5->_configuration = v9;
-
-  if (!v5->_configuration)
+  if (v5 && (v6 = objc_opt_class(), NSStringFromSelector(sel_configuration), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v8, v6, v7), v9 = objc_claimAutoreleasedReturnValue(), configuration = v5->_configuration, v5->_configuration = v9, configuration, v7, !v5->_configuration))
   {
     v11 = 0;
   }
 
   else
   {
-LABEL_3:
     v11 = v5;
   }
 
@@ -237,7 +225,7 @@ LABEL_3:
 
 + (id)descriptorWithConfiguration:(id)configuration error:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   if (configurationCopy)
   {
@@ -248,15 +236,13 @@ LABEL_3:
   else if (error)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = @"Configuration cannot be nil.";
-    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, v16, &v15, 1);
+    v14 = *MEMORY[0x277CCA450];
+    v15[0] = @"Configuration cannot be nil.";
+    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, v15, &v14, 1);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v10, v12, @"ANSTErrorDomain", 2, v11);
 
     error = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return error;
 }

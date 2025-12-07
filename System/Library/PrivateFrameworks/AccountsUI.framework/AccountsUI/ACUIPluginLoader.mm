@@ -154,7 +154,6 @@ LABEL_25:
   objc_storeStrong(&v36, 0);
   objc_storeStrong(&defaultManager, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v39;
 
   return v6;

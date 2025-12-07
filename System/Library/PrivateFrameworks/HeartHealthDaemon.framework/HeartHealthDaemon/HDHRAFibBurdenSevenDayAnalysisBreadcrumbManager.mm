@@ -254,20 +254,4 @@
   }
 }
 
-- (void)_queue_dropBreadcrumb:date:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Error when saving date: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_dropAnalysisResultBreadcrumbWithContext:date:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Error when saving context: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 @end

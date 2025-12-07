@@ -8,7 +8,7 @@ uint64_t aci::Array::castToClass(uint64_t a1, uint64_t *a2)
   return a1;
 }
 
-uint64_t aci::Array::Array(uint64_t a1, uint64_t a2, unint64_t a3)
+aci::Object *aci::Array::Array(aci::Object *a1, uint64_t *a2, unint64_t a3)
 {
   aci::Object::Object(a1);
   *v6 = &unk_284F05418;
@@ -16,9 +16,9 @@ uint64_t aci::Array::Array(uint64_t a1, uint64_t a2, unint64_t a3)
   v7 = (v6 + 2);
   v6[3] = 0;
   v6[4] = 0;
-  std::vector<aci::Object *>::__init_with_size[abi:ne200100]<aci::Object * const*,aci::Object * const*>((v6 + 2), a2, a2 + 8 * a3, a3);
+  std::vector<aci::Object *>::__init_with_size[abi:ne200100]<aci::Object * const*,aci::Object * const*>(v6 + 2, a2, &a2[a3], a3);
   v8 = *v7;
-  v9 = *(a1 + 24);
+  v9 = *(a1 + 3);
   while (v8 != v9)
   {
     aci::Object::retain(*v8++);
@@ -241,7 +241,7 @@ uint64_t std::function<BOOL ()(aci::Object *,unsigned int)>::operator()(uint64_t
   return (*(*v3 + 48))(v3, &v6, &v5);
 }
 
-uint64_t std::vector<aci::Object *>::__init_with_size[abi:ne200100]<aci::Object * const*,aci::Object * const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<aci::Object *>::__init_with_size[abi:ne200100]<aci::Object * const*,aci::Object * const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -263,7 +263,7 @@ void sub_23C404D20(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<aci::Object *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<aci::Object *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -482,11 +482,11 @@ void aci::SourceManager::SourceManager(aci::SourceManager *this)
   aci::ACIObjectSP<aci::Array>();
 }
 
-void sub_23C405454(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C405454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(va);
-  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v2);
+  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v3);
   _Unwind_Resume(a1);
 }
 
@@ -616,18 +616,16 @@ aci::Object *aci::_ACIDynamicCast<aci::Object,aci::ServiceReceiverProtocol>(aci:
 
 void aci::Service::onNewData(aci::Service *this, aci::Data *a2, aci::String *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = _aciLogGeneral();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "virtual void aci::Service::onNewData(Data *, String *)";
-    v7 = 1024;
-    v8 = 119;
-    _os_log_impl(&dword_23C404000, v3, OS_LOG_TYPE_DEFAULT, " === %s:%d", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "virtual void aci::Service::onNewData(Data *, String *)";
+    v6 = 1024;
+    v7 = 119;
+    _os_log_impl(&dword_23C404000, v3, OS_LOG_TYPE_DEFAULT, " === %s:%d", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void aci::Service::~Service(aci::Service *this)
@@ -762,14 +760,14 @@ void aci::Activity::Activity(aci::Activity *this)
   aci::ACIObjectSP<aci::Array>();
 }
 
-void sub_23C405E3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C405E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(va);
-  aci::SP<aci::Object,&(void ACISPRetain<aci::Object>(aci::Object &)),&(void ACISPRelease<aci::Object>(aci::Object &))>::~SP((v2 + 96));
-  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v4);
-  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP((v2 + 80));
-  std::mutex::~mutex(v3);
+  aci::SP<aci::Object,&(void ACISPRetain<aci::Object>(aci::Object &)),&(void ACISPRelease<aci::Object>(aci::Object &))>::~SP((v3 + 96));
+  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v5);
+  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP((v3 + 80));
+  std::mutex::~mutex(v4);
   _Unwind_Resume(a1);
 }
 
@@ -784,17 +782,11 @@ atomic_uint **aci::SP<aci::Stream,&(void ACISPRetain<aci::Stream>(aci::Stream &)
   return a1;
 }
 
-uint64_t *OUTLINED_FUNCTION_1()
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  result = *(v0 + 144);
-  v2 = *result;
-  return result;
-}
+  va_start(va, a8);
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x12u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x12u);
 }
 
 BOOL OUTLINED_FUNCTION_5(NSObject *a1)
@@ -803,10 +795,11 @@ BOOL OUTLINED_FUNCTION_5(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT);
 }
 
-void OUTLINED_FUNCTION_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t aci::ComponentSpec::castToClass(uint64_t a1, uint64_t *a2)
@@ -819,32 +812,32 @@ uint64_t aci::ComponentSpec::castToClass(uint64_t a1, uint64_t *a2)
   return a1;
 }
 
-void aci::ComponentSpec::description(aci::String **this)
+void aci::ComponentSpec::description(uint64_t (***this)(aci::String **), uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  v5 = 0;
-  v21 = 0u;
+  v26 = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v8 = 0;
+  v24 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v9 = 0u;
-  v10 = 0u;
+  v13 = 0u;
   *__str = 0u;
-  v8 = 0u;
-  aci::fourccToStr(*(this + 12), &v5, 5uLL);
-  v2 = (*(*this + 1))(this);
+  v11 = 0u;
+  aci::fourccToStr(*(this + 12), &v8, 5uLL);
+  v5 = (*this)[1](this);
   CString = aci::String::getCString(this[3]);
-  snprintf(__str, 0x100uLL, "[%s]%-20s: %6lu x %-6lu %4s", v2, CString, this[4], this[5], &v5);
-  aci::String::stringWithCString(__str, v4);
+  snprintf(__str, 0x100uLL, "[%s]%-20s: %6lu x %-6lu %4s", v5, CString, this[4], this[5], &v8);
+  aci::String::stringWithCString(__str, v7);
 }
 
 uint64_t aci::ComponentGraph::castToClass(uint64_t a1, uint64_t *a2)
@@ -878,44 +871,44 @@ uint64_t non-virtual thunk toaci::ComponentGraph::castToClass(uint64_t a1, uint6
   return result;
 }
 
-void aci::ComponentGraph::ComponentGraph(aci::ComponentGraph *this)
+void aci::ComponentGraph::ComponentGraph(aci::Object **this)
 {
   v1 = aci::MetaType<aci::ComponentGraph,aci::Object,aci::Controller>::MetaType(this);
   *v1 = &unk_284F057F8;
   *(v1 + 6) = 0u;
   *(v1 + 7) = 0u;
-  v1[2] = &unk_284F05870;
-  v1[16] = 0;
-  v1[17] = 850045863;
+  *(v1 + 2) = &unk_284F05870;
+  *(v1 + 16) = 0;
+  *(v1 + 17) = 850045863;
   *(v1 + 9) = 0u;
   *(v1 + 10) = 0u;
   *(v1 + 11) = 0u;
-  v1[24] = 0;
+  *(v1 + 24) = 0;
   aci::ACIObjectSP<aci::Array>();
 }
 
-void sub_23C40624C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C40624C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(va);
-  std::mutex::~mutex(v6);
-  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(v5);
-  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP((v2 + 120));
+  std::mutex::~mutex(v7);
+  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(v6);
+  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP((v3 + 120));
+  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v5);
+  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP((v3 + 104));
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v4);
-  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP((v2 + 104));
-  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v3);
-  *(v2 + 16) = &unk_284F055A8;
-  std::recursive_mutex::~recursive_mutex((v2 + 32));
+  *(v3 + 16) = &unk_284F055A8;
+  std::recursive_mutex::~recursive_mutex((v3 + 32));
   _Unwind_Resume(a1);
 }
 
-void *aci::MetaType<aci::ComponentGraph,aci::Object,aci::Controller>::MetaType(void *a1)
+aci::Object *aci::MetaType<aci::ComponentGraph,aci::Object,aci::Controller>::MetaType(aci::Object *a1)
 {
   aci::Object::Object(a1);
   *(v2 + 16) = &unk_284F055A8;
   MEMORY[0x23EED0660](v2 + 32);
   *a1 = &unk_284F05AA8;
-  a1[2] = &unk_284F05AF0;
+  *(a1 + 2) = &unk_284F05AF0;
   return a1;
 }
 
@@ -1269,12 +1262,12 @@ uint64_t non-virtual thunk toaci::ComponentGraph::stop(aci::ComponentGraph *this
   return aci::Controller::stopWithBlock(this, v2);
 }
 
-uint64_t aci::ComponentGraph::addSources(uint64_t a1, uint64_t a2, unint64_t a3)
+uint64_t aci::ComponentGraph::addSources(uint64_t a1, uint64_t *a2, unint64_t a3)
 {
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  std::vector<aci::Component *>::__init_with_size[abi:ne200100]<aci::Component * const*,aci::Component * const*>(&v7, a2, a2 + 8 * a3, a3);
+  std::vector<aci::Component *>::__init_with_size[abi:ne200100]<aci::Component * const*,aci::Component * const*>(&v7, a2, &a2[a3], a3);
   v4 = v7;
   v5 = v8;
   if (v7 != v8)
@@ -1307,12 +1300,12 @@ void sub_23C407150(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t aci::ComponentGraph::addFilters(uint64_t a1, uint64_t a2, unint64_t a3)
+uint64_t aci::ComponentGraph::addFilters(uint64_t a1, uint64_t *a2, unint64_t a3)
 {
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  std::vector<aci::Component *>::__init_with_size[abi:ne200100]<aci::Component * const*,aci::Component * const*>(&v7, a2, a2 + 8 * a3, a3);
+  std::vector<aci::Component *>::__init_with_size[abi:ne200100]<aci::Component * const*,aci::Component * const*>(&v7, a2, &a2[a3], a3);
   v4 = v7;
   v5 = v8;
   if (v7 != v8)
@@ -1345,12 +1338,12 @@ void sub_23C4071F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t aci::ComponentGraph::addSinks(uint64_t a1, uint64_t a2, unint64_t a3)
+uint64_t aci::ComponentGraph::addSinks(uint64_t a1, uint64_t *a2, unint64_t a3)
 {
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  std::vector<aci::Component *>::__init_with_size[abi:ne200100]<aci::Component * const*,aci::Component * const*>(&v7, a2, a2 + 8 * a3, a3);
+  std::vector<aci::Component *>::__init_with_size[abi:ne200100]<aci::Component * const*,aci::Component * const*>(&v7, a2, &a2[a3], a3);
   v4 = v7;
   v5 = v8;
   if (v7 != v8)
@@ -1424,18 +1417,18 @@ void aci::ComponentGraph::connect(aci::ComponentGraph *this, aci::Component *a2,
   aci::String::stringWithCString(__str, v9);
 }
 
-void sub_23C4074D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_23C4074D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va2, a6);
-  va_start(va1, a6);
-  va_start(va, a6);
-  v8 = va_arg(va1, atomic_uint *);
+  va_start(va2, a11);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v13 = va_arg(va1, atomic_uint *);
   va_copy(va2, va1);
-  v10 = va_arg(va2, atomic_uint *);
+  v15 = va_arg(va2, atomic_uint *);
   aci::SP<aci::Port,&(void ACISPRetain<aci::Port>(aci::Port &)),&(void ACISPRelease<aci::Port>(aci::Port &))>::~SP(va);
   aci::SP<aci::Port,&(void ACISPRetain<aci::Port>(aci::Port &)),&(void ACISPRelease<aci::Port>(aci::Port &))>::~SP(va2);
   aci::SP<aci::String,&(void ACISPRetain<aci::String>(aci::String &)),&(void ACISPRelease<aci::String>(aci::String &))>::~SP(va1);
-  std::mutex::unlock((v6 + 136));
+  std::mutex::unlock((v11 + 136));
   _Unwind_Resume(a1);
 }
 
@@ -1520,16 +1513,16 @@ uint64_t non-virtual thunk toaci::Component::className(aci::Component *this)
   return aci::Component::classTypeInfo(void)::ti;
 }
 
-void sub_23C407B28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C407B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(va);
-  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP((v2 + 3600));
-  std::mutex::~mutex((v2 + 3536));
-  std::array<aci::Component::Ports,16ul>::~array(v2 + 1872);
-  std::array<aci::Component::Ports,16ul>::~array(v2 + 208);
-  aci::SP<aci::ComponentSpec,&(void ACISPRetain<aci::ComponentSpec>(aci::ComponentSpec &)),&(void ACISPRelease<aci::ComponentSpec>(aci::ComponentSpec &))>::~SP(v3);
-  aci::MetaType<aci::Component,aci::Object,aci::Activity,aci::Controller>::~MetaType(v2);
+  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP((v3 + 3600));
+  std::mutex::~mutex((v3 + 3536));
+  std::array<aci::Component::Ports,16ul>::~array(v3 + 1872);
+  std::array<aci::Component::Ports,16ul>::~array(v3 + 208);
+  aci::SP<aci::ComponentSpec,&(void ACISPRetain<aci::ComponentSpec>(aci::ComponentSpec &)),&(void ACISPRelease<aci::ComponentSpec>(aci::ComponentSpec &))>::~SP(v4);
+  aci::MetaType<aci::Component,aci::Object,aci::Activity,aci::Controller>::~MetaType(v3);
   _Unwind_Resume(a1);
 }
 
@@ -1610,25 +1603,25 @@ uint64_t aci::Component::Ports::attachPort(std::mutex *this, aci::Port *a2)
   return 0;
 }
 
-uint64_t aci::Component::Ports::detachPort(aci::Component::Ports *this, atomic_uint *a2)
+uint64_t aci::Component::Ports::detachPort(std::mutex *this, atomic_uint *a2)
 {
   std::mutex::lock(this);
-  if (aci::Array::containsObject(this + 64, a2))
+  if (aci::Array::containsObject(&this[1], a2))
   {
-    aci::Array::removeObject(this + 8, a2);
+    aci::Array::removeObject(&this[1], a2);
   }
 
   std::mutex::unlock(this);
   return 0;
 }
 
-uint64_t aci::Component::write(aci::Component *this, aci::Data *a2, int a3)
+uint64_t aci::Component::write(aci::Component *this, aci::Data *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2000000000;
-  v17 = 0;
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2000000000;
+  v16 = 0;
   if (a3 == -1)
   {
     v6 = MEMORY[0x277D85DD0];
@@ -1636,14 +1629,14 @@ uint64_t aci::Component::write(aci::Component *this, aci::Data *a2, int a3)
     v8 = 16;
     while (1)
     {
-      v13[0] = v6;
-      v13[1] = 0x40000000;
-      v13[2] = ___ZN3aci9Component5writeEPNS_4DataEi_block_invoke;
-      v13[3] = &unk_278BBC830;
-      v13[4] = &v14;
-      v13[5] = a2;
-      aci::Array::enumerateObjectsUsingBlock(v7, v13);
-      v5 = *(v15 + 6);
+      v12[0] = v6;
+      v12[1] = 0x40000000;
+      v12[2] = ___ZN3aci9Component5writeEPNS_4DataEi_block_invoke;
+      v12[3] = &unk_278BBC830;
+      v12[4] = &v13;
+      v12[5] = a2;
+      aci::Array::enumerateObjectsUsingBlock(v7, v12);
+      v5 = *(v14 + 6);
       if (v5)
       {
         break;
@@ -1657,44 +1650,47 @@ uint64_t aci::Component::write(aci::Component *this, aci::Data *a2, int a3)
     }
   }
 
-  else if (a3 >= 16)
-  {
-    v11 = _aciLogGeneral();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 67109120;
-      v19 = a3;
-      _os_log_impl(&dword_23C404000, v11, OS_LOG_TYPE_ERROR, "[ACIVERIFY]Can't find port category(%d)!", buf, 8u);
-    }
-
-    v5 = 4294967289;
-  }
-
   else
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 0x40000000;
-    v12[2] = ___ZN3aci9Component5writeEPNS_4DataEi_block_invoke_56;
-    v12[3] = &unk_278BBC858;
-    v12[4] = &v14;
-    v12[5] = a2;
-    aci::Array::enumerateObjectsUsingBlock(this + 104 * a3 + 1936, v12);
-    v5 = *(v15 + 6);
-    if (!v5)
+    v4 = a3;
+    if (a3 >= 16)
     {
+      v10 = _aciLogGeneral();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 67109120;
+        v18 = v4;
+        _os_log_impl(&dword_23C404000, v10, OS_LOG_TYPE_ERROR, "[ACIVERIFY]Can't find port category(%d)!", buf, 8u);
+      }
+
+      v5 = 4294967289;
+    }
+
+    else
+    {
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 0x40000000;
+      v11[2] = ___ZN3aci9Component5writeEPNS_4DataEi_block_invoke_56;
+      v11[3] = &unk_278BBC858;
+      v11[4] = &v13;
+      v11[5] = a2;
+      aci::Array::enumerateObjectsUsingBlock(this + 104 * a3 + 1936, v11);
+      v5 = *(v14 + 6);
+      if (!v5)
+      {
 LABEL_8:
-      v5 = 0;
+        v5 = 0;
+      }
     }
   }
 
-  _Block_object_dispose(&v14, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
   return v5;
 }
 
-void sub_23C4081EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23C4081EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1835,7 +1831,7 @@ void aci::MetaType<aci::ComponentGraph,aci::Object,aci::Controller>::~MetaType(u
   JUMPOUT(0x23EED06D0);
 }
 
-uint64_t std::vector<aci::Component *>::__init_with_size[abi:ne200100]<aci::Component * const*,aci::Component * const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<aci::Component *>::__init_with_size[abi:ne200100]<aci::Component * const*,aci::Component * const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1993,17 +1989,11 @@ aci::Spec *aci::Spec::Spec(aci::Spec *this, aci::Dictionary *a2)
   return this;
 }
 
-uint64_t OUTLINED_FUNCTION_0_0(uint64_t result)
+void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(*(*(v1 + 32) + 8) + 24) = result;
-  v2 = *(*(*(v1 + 32) + 8) + 24);
-  return result;
-}
+  va_start(va, a8);
 
-void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 BOOL OUTLINED_FUNCTION_5_0(NSObject *a1)
@@ -2062,13 +2052,13 @@ uint64_t non-virtual thunk toaci::Sink::className(aci::Sink *this)
   return aci::Sink::classTypeInfo(void)::ti;
 }
 
-void sub_23C408E94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C408E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(va);
-  std::mutex::~mutex((v2 + 3616));
-  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP((v2 + 3608));
-  aci::Component::~Component(v2);
+  std::mutex::~mutex((v3 + 3616));
+  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP((v3 + 3608));
+  aci::Component::~Component(v3);
   _Unwind_Resume(a1);
 }
 
@@ -2281,7 +2271,7 @@ aci::Object *aci::_ACIDynamicCast<aci::Object,aci::Activity>(aci::Object *result
   return result;
 }
 
-void aci::Activity::detachChild(aci::Activity *this, atomic_uint **a2)
+void aci::Activity::detachChild(aci::Activity *this, aci::Object **a2)
 {
   std::mutex::lock((this + 16));
   v4 = aci::_ACIDynamicCast<aci::Object,aci::Activity>(a2);
@@ -2400,7 +2390,7 @@ uint64_t aci::Factory::castToClass(uint64_t a1, uint64_t *a2)
   return a1;
 }
 
-void aci::Factory::Factory(aci::Factory *this, int a2)
+void aci::Factory::Factory(aci::Object **this, int a2)
 {
   aci::Object::Object(this);
   *v3 = &unk_284F05E38;
@@ -2414,23 +2404,23 @@ void aci::Factory::Factory(aci::Factory *this, int a2)
   aci::ACIObjectSP<aci::Array>();
 }
 
-void sub_23C40986C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C40986C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(va);
-  aci::SP<aci::Data,&(void ACISPRetain<aci::Data>(aci::Data &)),&(void ACISPRelease<aci::Data>(aci::Data &))>::~SP(v4);
-  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP((v2 + 88));
-  std::mutex::~mutex(v3);
+  aci::SP<aci::Data,&(void ACISPRetain<aci::Data>(aci::Data &)),&(void ACISPRelease<aci::Data>(aci::Data &))>::~SP(v5);
+  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP((v3 + 88));
+  std::mutex::~mutex(v4);
   _Unwind_Resume(a1);
 }
 
-uint64_t aci::Factory::acquireData(aci::Factory *this)
+aci::Data *aci::Factory::acquireData(aci::Factory *this)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2000000000;
-  v17 = 0;
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2000000000;
+  v16 = 0;
   std::mutex::lock((this + 24));
   v2 = *(this + 13);
   if (!v2)
@@ -2445,13 +2435,13 @@ uint64_t aci::Factory::acquireData(aci::Factory *this)
     else
     {
       v5 = *(this + 11);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 0x40000000;
-      v13[2] = ___ZN3aci7Factory11acquireDataEv_block_invoke;
-      v13[3] = &unk_278BBC940;
-      v13[4] = &v14;
-      aci::Array::enumerateObjectsUsingBlock(v5, v13);
-      v6 = v15[3];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 0x40000000;
+      v12[2] = ___ZN3aci7Factory11acquireDataEv_block_invoke;
+      v12[3] = &unk_278BBC940;
+      v12[4] = &v13;
+      aci::Array::enumerateObjectsUsingBlock(v5, v12);
+      v6 = v14[3];
       if (v6)
       {
         aci::Data::reserve(v6);
@@ -2461,19 +2451,19 @@ uint64_t aci::Factory::acquireData(aci::Factory *this)
       {
         if (aci::Array::count(*(this + 11)) >= *(this + 4))
         {
-          v11 = _aciLogGeneral();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v10 = _aciLogGeneral();
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
-            v12 = aci::Array::count(*(this + 11));
-            aci::Factory::acquireData(this + 4, buf, v12, v11);
+            v11 = aci::Array::count(*(this + 11));
+            aci::Factory::acquireData(this + 4, buf, v11, v10);
           }
 
           __assert_rtn("acquireData", "ACIFactory.cpp", 35, "false");
         }
 
         v7 = (*(*this + 104))(this);
-        v8 = v15;
-        v15[3] = v7;
+        v8 = v14;
+        v14[3] = v7;
         if (!v7)
         {
           v2 = 0;
@@ -2482,10 +2472,10 @@ uint64_t aci::Factory::acquireData(aci::Factory *this)
 
         *(this + 12) = v7;
         aci::Array::addObject(*(this + 11), v8[3]);
-        aci::Data::reserve(v15[3]);
+        aci::Data::reserve(v14[3]);
       }
 
-      v4 = v15 + 3;
+      v4 = v14 + 3;
     }
 
     v2 = *v4;
@@ -2493,14 +2483,13 @@ uint64_t aci::Factory::acquireData(aci::Factory *this)
 
 LABEL_10:
   std::mutex::unlock((this + 24));
-  _Block_object_dispose(&v14, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
   return v2;
 }
 
-void sub_23C409A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23C409A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2527,7 +2516,7 @@ uint64_t aci::Factory::push(uint64_t a1, atomic_uint **a2)
   return 0;
 }
 
-void aci::Factory::pop(aci::Factory *this@<X0>, uint64_t *a2@<X8>)
+void aci::Factory::pop(aci::Factory *this@<X0>, aci::Object **a2@<X8>)
 {
   std::mutex::lock((this + 24));
   v4 = *(this + 13);
@@ -2772,11 +2761,11 @@ void aci::Streamer::Streamer(aci::Streamer *this)
   aci::ACIObjectSP<aci::Dictionary>();
 }
 
-void sub_23C40A350(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C40A350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(va);
-  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(v2);
+  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(v3);
   _Unwind_Resume(a1);
 }
 
@@ -2886,20 +2875,17 @@ void sub_23C40A63C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::pair<aci::Object *,aci::Object *>>::reserve(void *result, unint64_t a2)
+void std::vector<std::pair<aci::Object *,aci::Object *>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<aci::Object *,aci::Object *>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<aci::Object *,aci::Object *>>>(a1, a2);
     }
 
     std::vector<aci::Object *>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void aci::Dictionary::setObject(aci::Dictionary *this, atomic_uint *a2, aci::Object *a3)
@@ -3227,7 +3213,7 @@ aci::StringCopy *aci::StringCopy::StringCopy(aci::StringCopy *this, const char *
   return this;
 }
 
-uint64_t aci::StringCopy::free(aci::StringCopy *this)
+void aci::StringCopy::free(aci::StringCopy *this)
 {
   v2 = *(this + 2);
   if (v2)
@@ -3235,7 +3221,7 @@ uint64_t aci::StringCopy::free(aci::StringCopy *this)
     free(v2);
   }
 
-  return aci::Object::free(this);
+  aci::Object::free(this);
 }
 
 uint64_t aci::Device::castToClass(uint64_t a1, uint64_t *a2)
@@ -3287,7 +3273,7 @@ atomic_uint **aci::SP<aci::SourceManager,&(void ACISPRetain<aci::SourceManager>(
   return a1;
 }
 
-uint64_t aci::StreamSpec::castToClass(aci::ComponentSpec *a1, uint64_t *a2)
+aci::ComponentSpec *aci::StreamSpec::castToClass(aci::ComponentSpec *a1, uint64_t *a2)
 {
   if (aci::ComponentSpec::classTypeInfo(a1) == a2)
   {
@@ -3307,15 +3293,15 @@ void aci::StreamSpec::StreamSpec(aci::StreamSpec *this, aci::Dictionary *a2)
   aci::ACIObjectSP<aci::Array>();
 }
 
-void sub_23C40B308(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C40B308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(va);
+  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v6);
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v5);
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v4);
-  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v3);
-  *v2 = &unk_284F05FA8;
-  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP((v2 + 16));
+  *v3 = &unk_284F05FA8;
+  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP((v3 + 16));
   _Unwind_Resume(a1);
 }
 
@@ -3414,24 +3400,24 @@ uint64_t non-virtual thunk toaci::Stream::className(aci::Stream *this)
   return aci::Stream::classTypeInfo(void)::ti;
 }
 
-void aci::Stream::Stream(void *a1, atomic_uint *a2)
+void aci::Stream::Stream(void *a1, atomic_uint *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = aci::MetaType<aci::Stream,aci::Object,aci::Controller,aci::SinkAgentProtocol>::MetaType(a1);
-  *v3 = &unk_284F06218;
-  v3[2] = &unk_284F06298;
-  *(v3 + 13) = 0u;
-  v3[12] = &unk_284F062E8;
-  *(v3 + 15) = 0u;
-  v3[18] = 850045863;
-  *(v3 + 19) = 0u;
-  *(v3 + 21) = 0u;
-  *(v3 + 23) = 0u;
-  v3[25] = 0;
-  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::setPtr(v3 + 15, a2);
+  v9 = aci::MetaType<aci::Stream,aci::Object,aci::Controller,aci::SinkAgentProtocol>::MetaType(a1);
+  *v9 = &unk_284F06218;
+  v9[2] = &unk_284F06298;
+  *(v9 + 13) = 0u;
+  v9[12] = &unk_284F062E8;
+  *(v9 + 15) = 0u;
+  v9[18] = 850045863;
+  *(v9 + 19) = 0u;
+  *(v9 + 21) = 0u;
+  *(v9 + 23) = 0u;
+  v9[25] = 0;
+  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::setPtr(v9 + 15, a2);
   aci::ACIObjectSP<aci::StreamSpec>();
 }
 
-void sub_23C40B6F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::mutex *a9, uint64_t a10, uint64_t a11, atomic_uint *a12)
+void sub_23C40B6F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::mutex *a9, uint64_t a10, uint64_t a11, aci::Object *a12)
 {
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(&a12);
   std::mutex::~mutex(a9);
@@ -3812,12 +3798,12 @@ uint64_t non-virtual thunk toaci::Provider::castToClass(uint64_t a1, uint64_t *a
   return result;
 }
 
-void sub_23C40C794(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C40C794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(va);
-  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v3);
-  aci::Activity::~Activity(v2);
+  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(v4);
+  aci::Activity::~Activity(v3);
   _Unwind_Resume(a1);
 }
 
@@ -3861,9 +3847,9 @@ uint64_t aci::Provider::serviceForKey(aci::Provider *this, aci::String *a2)
   return v3;
 }
 
-void sub_23C40C904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23C40C904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3877,10 +3863,9 @@ uint64_t ___ZNK3aci8Provider13serviceForKeyEPNS_6StringE_block_invoke(uint64_t a
     ___ZNK3aci8Provider13serviceForKeyEPNS_6StringE_block_invoke_cold_1();
   }
 
-  v4 = *(a1 + 40);
-  v5 = *(**(v3 + 128) + 56);
+  v4 = *(**(v3 + 128) + 56);
 
-  return v5();
+  return v4();
 }
 
 uint64_t aci::Provider::discoverServices(aci::Provider *this)
@@ -3910,28 +3895,28 @@ uint64_t ___ZN3aci8Provider16discoverServicesEv_block_invoke(uint64_t a1, aci::S
   return 0;
 }
 
-void sub_23C40CAE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C40CAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Service,&(void ACISPRetain<aci::Service>(aci::Service &)),&(void ACISPRelease<aci::Service>(aci::Service &))>::~SP(va);
   _Unwind_Resume(a1);
 }
 
-void aci::Provider::allServiceProps(aci::Provider *this)
+void aci::Provider::allServiceProps()
 {
-  v1[0] = 0;
-  v1[1] = v1;
-  v1[2] = 0x3002000000;
-  v1[3] = __Block_byref_object_copy_;
-  v1[4] = __Block_byref_object_dispose_;
+  v2[0] = 0;
+  v2[1] = v2;
+  v2[2] = 0x3002000000;
+  v2[3] = __Block_byref_object_copy_;
+  v2[4] = __Block_byref_object_dispose_;
   aci::ACIObjectSP<aci::Array>();
 }
 
-void sub_23C40CC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23C40CC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP((v7 + 40));
+  aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP((v13 + 40));
   _Unwind_Resume(a1);
 }
 
@@ -4204,140 +4189,128 @@ uint64_t aci::Service::unsubscribe(atomic_uint **this, aci::String *a2)
 
 uint64_t aci::Service::start(aci::Service *this)
 {
-  v25 = *MEMORY[0x277D85DE8];
   v2 = _aciLogGeneral();
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_23C404000, v3, v4, "%s:%d", v5, v6, v7, v8, v24);
+    OUTLINED_FUNCTION_2(&dword_23C404000, v3, v4, "%s:%d", v5, v6, v7, v8);
   }
 
   if (*(this + 38) > 8)
   {
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_3();
+  if (v9)
+  {
     v15 = 0;
+    *(this + 40) = 9;
   }
 
   else
   {
-    OUTLINED_FUNCTION_3();
-    if (v9)
+    v10 = OUTLINED_FUNCTION_7();
+    v12 = aci::Stream::registerStreamListener(v10, v11);
+    if (v12)
     {
-      v15 = 0;
-      *(this + 40) = 9;
+      v15 = v12;
+      v17 = _aciLogGeneral();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        OUTLINED_FUNCTION_4();
+        _os_log_impl(v18, v19, v20, v21, v22, 8u);
+      }
     }
 
     else
     {
-      v10 = OUTLINED_FUNCTION_7();
-      v12 = aci::Stream::registerStreamListener(v10, v11);
-      if (v12)
+      v13 = OUTLINED_FUNCTION_1();
+      v15 = (*(v14 + 88))(v13);
+      if (!v15)
       {
-        v15 = v12;
-        v18 = _aciLogGeneral();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-        {
-          OUTLINED_FUNCTION_4();
-          _os_log_impl(v19, v20, v21, v22, v23, 8u);
-        }
-      }
-
-      else
-      {
-        v13 = OUTLINED_FUNCTION_1();
-        v15 = (*(v14 + 88))(v13);
-        if (!v15)
-        {
-          *(this + 38) = 9;
-        }
+        *(this + 38) = 9;
       }
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 uint64_t aci::Service::stop(aci::Service *this)
 {
-  v26 = *MEMORY[0x277D85DE8];
   v2 = _aciLogGeneral();
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_23C404000, v3, v4, "%s:%d", v5, v6, v7, v8, v25);
+    OUTLINED_FUNCTION_2(&dword_23C404000, v3, v4, "%s:%d", v5, v6, v7, v8);
   }
 
   if (*(this + 38) < 7)
   {
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_3();
+  if (v16)
+  {
     v15 = 0;
+    *(this + 40) = 6;
   }
 
   else
   {
-    OUTLINED_FUNCTION_3();
-    if (v16)
+    v9 = OUTLINED_FUNCTION_7();
+    v11 = aci::Stream::unregisterStreamListener(v9, v10);
+    if (v11)
     {
-      v15 = 0;
-      *(this + 40) = 6;
+      v15 = v11;
+      v18 = _aciLogGeneral();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        OUTLINED_FUNCTION_4();
+        _os_log_impl(v19, v20, v21, v22, v23, 8u);
+      }
     }
 
     else
     {
-      v9 = OUTLINED_FUNCTION_7();
-      v11 = aci::Stream::unregisterStreamListener(v9, v10);
-      if (v11)
+      v12 = OUTLINED_FUNCTION_1();
+      v14 = (*(v13 + 96))(v12);
+      v15 = v14;
+      if (v14)
       {
-        v15 = v11;
-        v19 = _aciLogGeneral();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-        {
-          OUTLINED_FUNCTION_4();
-          _os_log_impl(v20, v21, v22, v23, v24, 8u);
-        }
+        v16 = v14 == -8;
       }
 
       else
       {
-        v12 = OUTLINED_FUNCTION_1();
-        v14 = (*(v13 + 96))(v12);
-        v15 = v14;
-        if (v14)
-        {
-          v16 = v14 == -8;
-        }
+        v16 = 1;
+      }
 
-        else
-        {
-          v16 = 1;
-        }
-
-        if (v16)
-        {
-          *(this + 38) = 6;
-        }
+      if (v16)
+      {
+        *(this + 38) = 6;
       }
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 uint64_t aci::Service::prepare(aci::Service *this)
 {
-  v17 = *MEMORY[0x277D85DE8];
   v3 = _aciLogGeneral();
   if (OUTLINED_FUNCTION_5(v3))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_23C404000, v4, v5, "%s:%d", v6, v7, v8, v9, v16);
+    OUTLINED_FUNCTION_2(&dword_23C404000, v4, v5, "%s:%d", v6, v7, v8, v9);
   }
 
   OUTLINED_FUNCTION_6();
   if (v10 > 5)
   {
-    result = 0;
-    goto LABEL_6;
+    return 0;
   }
 
   OUTLINED_FUNCTION_3();
@@ -4356,19 +4329,16 @@ LABEL_9:
     *v1 = 6;
   }
 
-LABEL_6:
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t aci::Service::unprepare(aci::Service *this)
 {
-  v19 = *MEMORY[0x277D85DE8];
   v3 = _aciLogGeneral();
   if (OUTLINED_FUNCTION_5(v3))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_23C404000, v4, v5, "%s:%d", v6, v7, v8, v9, v18);
+    OUTLINED_FUNCTION_2(&dword_23C404000, v4, v5, "%s:%d", v6, v7, v8, v9);
   }
 
   v10 = OUTLINED_FUNCTION_7();
@@ -4376,8 +4346,7 @@ uint64_t aci::Service::unprepare(aci::Service *this)
   OUTLINED_FUNCTION_6();
   if (v12 < 4)
   {
-    result = 0;
-    goto LABEL_11;
+    return 0;
   }
 
   OUTLINED_FUNCTION_3();
@@ -4387,7 +4356,7 @@ uint64_t aci::Service::unprepare(aci::Service *this)
     v1 = (this + 160);
 LABEL_10:
     *v1 = 3;
-    goto LABEL_11;
+    return result;
   }
 
   v13 = OUTLINED_FUNCTION_1();
@@ -4407,26 +4376,22 @@ LABEL_10:
     goto LABEL_10;
   }
 
-LABEL_11:
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t aci::Service::activate(aci::Service *this)
 {
-  v17 = *MEMORY[0x277D85DE8];
   v3 = _aciLogGeneral();
   if (OUTLINED_FUNCTION_5(v3))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_23C404000, v4, v5, "%s:%d", v6, v7, v8, v9, v16);
+    OUTLINED_FUNCTION_2(&dword_23C404000, v4, v5, "%s:%d", v6, v7, v8, v9);
   }
 
   OUTLINED_FUNCTION_6();
   if (v10 > 2)
   {
-    result = 0;
-    goto LABEL_6;
+    return 0;
   }
 
   OUTLINED_FUNCTION_3();
@@ -4445,19 +4410,16 @@ LABEL_9:
     *v1 = 3;
   }
 
-LABEL_6:
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t aci::Service::deactivate(aci::Service *this)
 {
-  v19 = *MEMORY[0x277D85DE8];
   v3 = _aciLogGeneral();
   if (OUTLINED_FUNCTION_5(v3))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_23C404000, v4, v5, "%s:%d", v6, v7, v8, v9, v18);
+    OUTLINED_FUNCTION_2(&dword_23C404000, v4, v5, "%s:%d", v6, v7, v8, v9);
   }
 
   v10 = OUTLINED_FUNCTION_7();
@@ -4465,8 +4427,7 @@ uint64_t aci::Service::deactivate(aci::Service *this)
   OUTLINED_FUNCTION_6();
   if (v12 < 1)
   {
-    result = 0;
-    goto LABEL_11;
+    return 0;
   }
 
   OUTLINED_FUNCTION_3();
@@ -4476,7 +4437,7 @@ uint64_t aci::Service::deactivate(aci::Service *this)
     v1 = (this + 160);
 LABEL_10:
     *v1 = 0;
-    goto LABEL_11;
+    return result;
   }
 
   v13 = OUTLINED_FUNCTION_1();
@@ -4496,8 +4457,6 @@ LABEL_10:
     goto LABEL_10;
   }
 
-LABEL_11:
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4506,7 +4465,8 @@ void aci::Service::getSpec(void *a1)
   v2 = _aciLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_8(&dword_23C404000, v3, v4, "[ACIVERIFY]Can't find source spec!", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_8(&dword_23C404000, v3, v4, "[ACIVERIFY]Can't find source spec!", v5, v6, v7, v8, v9);
   }
 
   *a1 = 0;
@@ -4516,7 +4476,8 @@ void aci::Service::getSpec(void *a1)
   v2 = _aciLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_8(&dword_23C404000, v3, v4, "[ACIVERIFY]Can't find source!", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_8(&dword_23C404000, v3, v4, "[ACIVERIFY]Can't find source!", v5, v6, v7, v8, v9);
   }
 
   *a1 = 0;
@@ -4524,451 +4485,403 @@ void aci::Service::getSpec(void *a1)
 
 uint64_t ___ZN3aci14ComponentGraph8activateEv_block_invoke_2(uint64_t a1, aci::Controller *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   result = aci::_ACIDynamicCast<aci::Controller,aci::Object>(a2);
   if (result)
   {
-    v3 = OUTLINED_FUNCTION_1_0(result);
-    result = (*(v4 + 16))(v3);
+    OUTLINED_FUNCTION_1_0();
+    result = (*(v3 + 16))();
     if (result)
     {
-      v6 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v6))
+      v4 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v4))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v7, v8, "[ACIVERIFY]Activate component(%p) failed", v9, v10, v11, v12, v13);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v5, v6, "[ACIVERIFY]Activate component(%p) failed", v7, v8, v9, v10);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ___ZN3aci14ComponentGraph8activateEv_block_invoke_6(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
-  v4 = aci::_ACIDynamicCast<aci::Controller,aci::Object>(v3);
-  if (v4)
+  v2 = OUTLINED_FUNCTION_4_0(a1, a2);
+  if (aci::_ACIDynamicCast<aci::Controller,aci::Object>(v2))
   {
-    v5 = OUTLINED_FUNCTION_1_0(v4);
-    v7 = (*(v6 + 16))(v5);
-    OUTLINED_FUNCTION_0_0(v7);
-    if (v8)
+    OUTLINED_FUNCTION_1_0();
+    v4 = (*(v3 + 16))();
+    OUTLINED_FUNCTION_0_0(v4);
+    if (v5)
     {
-      v11 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v11))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v12, v13, "[ACIVERIFY]Activate component(%p) failed", v14, v15, v16, v17, v18);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Activate component(%p) failed", v10, v11, v12, v13);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t ___ZN3aci14ComponentGraph8activateEv_block_invoke_8(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
-  v4 = aci::_ACIDynamicCast<aci::Controller,aci::Object>(v3);
-  if (v4)
+  v2 = OUTLINED_FUNCTION_4_0(a1, a2);
+  if (aci::_ACIDynamicCast<aci::Controller,aci::Object>(v2))
   {
-    v5 = OUTLINED_FUNCTION_1_0(v4);
-    v7 = (*(v6 + 16))(v5);
-    OUTLINED_FUNCTION_0_0(v7);
-    if (v8)
+    OUTLINED_FUNCTION_1_0();
+    v4 = (*(v3 + 16))();
+    OUTLINED_FUNCTION_0_0(v4);
+    if (v5)
     {
-      v11 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v11))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v12, v13, "[ACIVERIFY]Activate component(%p) failed", v14, v15, v16, v17, v18);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Activate component(%p) failed", v10, v11, v12, v13);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t ___ZN3aci14ComponentGraph10deactivateEv_block_invoke_2(uint64_t a1, aci::Controller *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   result = aci::_ACIDynamicCast<aci::Controller,aci::Object>(a2);
   if (result)
   {
-    v3 = OUTLINED_FUNCTION_1_0(result);
-    result = (*(v4 + 24))(v3);
+    OUTLINED_FUNCTION_1_0();
+    result = (*(v3 + 24))();
     if (result)
     {
-      v6 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v6))
+      v4 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v4))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v7, v8, "[ACIVERIFY]Deactivate component(%p) failed", v9, v10, v11, v12, v13);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v5, v6, "[ACIVERIFY]Deactivate component(%p) failed", v7, v8, v9, v10);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ___ZN3aci14ComponentGraph10deactivateEv_block_invoke_15(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
-  v4 = aci::_ACIDynamicCast<aci::Controller,aci::Object>(v3);
-  if (v4)
+  v2 = OUTLINED_FUNCTION_4_0(a1, a2);
+  if (aci::_ACIDynamicCast<aci::Controller,aci::Object>(v2))
   {
-    v5 = OUTLINED_FUNCTION_1_0(v4);
-    v7 = (*(v6 + 24))(v5);
-    OUTLINED_FUNCTION_0_0(v7);
-    if (v8)
+    OUTLINED_FUNCTION_1_0();
+    v4 = (*(v3 + 24))();
+    OUTLINED_FUNCTION_0_0(v4);
+    if (v5)
     {
-      v11 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v11))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v12, v13, "[ACIVERIFY]Deactivate component(%p) failed", v14, v15, v16, v17, v18);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Deactivate component(%p) failed", v10, v11, v12, v13);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t ___ZN3aci14ComponentGraph10deactivateEv_block_invoke_17(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
-  v4 = aci::_ACIDynamicCast<aci::Controller,aci::Object>(v3);
-  if (v4)
+  v2 = OUTLINED_FUNCTION_4_0(a1, a2);
+  if (aci::_ACIDynamicCast<aci::Controller,aci::Object>(v2))
   {
-    v5 = OUTLINED_FUNCTION_1_0(v4);
-    v7 = (*(v6 + 24))(v5);
-    OUTLINED_FUNCTION_0_0(v7);
-    if (v8)
+    OUTLINED_FUNCTION_1_0();
+    v4 = (*(v3 + 24))();
+    OUTLINED_FUNCTION_0_0(v4);
+    if (v5)
     {
-      v11 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v11))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v12, v13, "[ACIVERIFY]Deactivate component(%p) failed", v14, v15, v16, v17, v18);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Deactivate component(%p) failed", v10, v11, v12, v13);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t ___ZN3aci14ComponentGraph7prepareEv_block_invoke_2(uint64_t a1, aci::Controller *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   result = aci::_ACIDynamicCast<aci::Controller,aci::Object>(a2);
   if (result)
   {
-    v3 = OUTLINED_FUNCTION_1_0(result);
-    result = (*(v4 + 32))(v3);
+    OUTLINED_FUNCTION_1_0();
+    result = (*(v3 + 32))();
     if (result)
     {
-      v6 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v6))
+      v4 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v4))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v7, v8, "[ACIVERIFY]Prepare component(%p) failed", v9, v10, v11, v12, v13);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v5, v6, "[ACIVERIFY]Prepare component(%p) failed", v7, v8, v9, v10);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ___ZN3aci14ComponentGraph7prepareEv_block_invoke_23(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
-  v4 = aci::_ACIDynamicCast<aci::Controller,aci::Object>(v3);
-  if (v4)
+  v2 = OUTLINED_FUNCTION_4_0(a1, a2);
+  if (aci::_ACIDynamicCast<aci::Controller,aci::Object>(v2))
   {
-    v5 = OUTLINED_FUNCTION_1_0(v4);
-    v7 = (*(v6 + 32))(v5);
-    OUTLINED_FUNCTION_0_0(v7);
-    if (v8)
+    OUTLINED_FUNCTION_1_0();
+    v4 = (*(v3 + 32))();
+    OUTLINED_FUNCTION_0_0(v4);
+    if (v5)
     {
-      v11 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v11))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v12, v13, "[ACIVERIFY]Prepare component(%p) failed", v14, v15, v16, v17, v18);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Prepare component(%p) failed", v10, v11, v12, v13);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t ___ZN3aci14ComponentGraph7prepareEv_block_invoke_25(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
-  v4 = aci::_ACIDynamicCast<aci::Controller,aci::Object>(v3);
-  if (v4)
+  v2 = OUTLINED_FUNCTION_4_0(a1, a2);
+  if (aci::_ACIDynamicCast<aci::Controller,aci::Object>(v2))
   {
-    v5 = OUTLINED_FUNCTION_1_0(v4);
-    v7 = (*(v6 + 32))(v5);
-    OUTLINED_FUNCTION_0_0(v7);
-    if (v8)
+    OUTLINED_FUNCTION_1_0();
+    v4 = (*(v3 + 32))();
+    OUTLINED_FUNCTION_0_0(v4);
+    if (v5)
     {
-      v11 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v11))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v12, v13, "[ACIVERIFY]Prepare component(%p) failed", v14, v15, v16, v17, v18);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Prepare component(%p) failed", v10, v11, v12, v13);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t ___ZN3aci14ComponentGraph9unprepareEv_block_invoke_2(uint64_t a1, aci::Controller *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   result = aci::_ACIDynamicCast<aci::Controller,aci::Object>(a2);
   if (result)
   {
-    v3 = OUTLINED_FUNCTION_1_0(result);
-    result = (*(v4 + 40))(v3);
+    OUTLINED_FUNCTION_1_0();
+    result = (*(v3 + 40))();
     if (result)
     {
-      v6 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v6))
+      v4 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v4))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v7, v8, "[ACIVERIFY]Unprepare component(%p) failed", v9, v10, v11, v12, v13);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v5, v6, "[ACIVERIFY]Unprepare component(%p) failed", v7, v8, v9, v10);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ___ZN3aci14ComponentGraph9unprepareEv_block_invoke_31(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
-  v4 = aci::_ACIDynamicCast<aci::Controller,aci::Object>(v3);
-  if (v4)
+  v2 = OUTLINED_FUNCTION_4_0(a1, a2);
+  if (aci::_ACIDynamicCast<aci::Controller,aci::Object>(v2))
   {
-    v5 = OUTLINED_FUNCTION_1_0(v4);
-    v7 = (*(v6 + 40))(v5);
-    OUTLINED_FUNCTION_0_0(v7);
-    if (v8)
+    OUTLINED_FUNCTION_1_0();
+    v4 = (*(v3 + 40))();
+    OUTLINED_FUNCTION_0_0(v4);
+    if (v5)
     {
-      v11 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v11))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v12, v13, "[ACIVERIFY]Unprepare component(%p) failed", v14, v15, v16, v17, v18);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Unprepare component(%p) failed", v10, v11, v12, v13);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t ___ZN3aci14ComponentGraph9unprepareEv_block_invoke_33(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
-  v4 = aci::_ACIDynamicCast<aci::Controller,aci::Object>(v3);
-  if (v4)
+  v2 = OUTLINED_FUNCTION_4_0(a1, a2);
+  if (aci::_ACIDynamicCast<aci::Controller,aci::Object>(v2))
   {
-    v5 = OUTLINED_FUNCTION_1_0(v4);
-    v7 = (*(v6 + 40))(v5);
-    OUTLINED_FUNCTION_0_0(v7);
-    if (v8)
+    OUTLINED_FUNCTION_1_0();
+    v4 = (*(v3 + 40))();
+    OUTLINED_FUNCTION_0_0(v4);
+    if (v5)
     {
-      v11 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v11))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v12, v13, "[ACIVERIFY]Unprepare component(%p) failed", v14, v15, v16, v17, v18);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Unprepare component(%p) failed", v10, v11, v12, v13);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t ___ZN3aci14ComponentGraph5startEv_block_invoke_2(uint64_t a1, aci::Controller *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   result = aci::_ACIDynamicCast<aci::Controller,aci::Object>(a2);
   if (result)
   {
-    v3 = OUTLINED_FUNCTION_1_0(result);
-    result = (*(v4 + 48))(v3);
+    OUTLINED_FUNCTION_1_0();
+    result = (*(v3 + 48))();
     if (result)
     {
-      v6 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v6))
+      v4 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v4))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v7, v8, "[ACIVERIFY]Start component(%p) failed", v9, v10, v11, v12, v13);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v5, v6, "[ACIVERIFY]Start component(%p) failed", v7, v8, v9, v10);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ___ZN3aci14ComponentGraph5startEv_block_invoke_39(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
-  v4 = aci::_ACIDynamicCast<aci::Controller,aci::Object>(v3);
-  if (v4)
+  v2 = OUTLINED_FUNCTION_4_0(a1, a2);
+  if (aci::_ACIDynamicCast<aci::Controller,aci::Object>(v2))
   {
-    v5 = OUTLINED_FUNCTION_1_0(v4);
-    v7 = (*(v6 + 48))(v5);
-    OUTLINED_FUNCTION_0_0(v7);
-    if (v8)
+    OUTLINED_FUNCTION_1_0();
+    v4 = (*(v3 + 48))();
+    OUTLINED_FUNCTION_0_0(v4);
+    if (v5)
     {
-      v11 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v11))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v12, v13, "[ACIVERIFY]Start component(%p) failed", v14, v15, v16, v17, v18);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Start component(%p) failed", v10, v11, v12, v13);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t ___ZN3aci14ComponentGraph5startEv_block_invoke_41(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
-  v4 = aci::_ACIDynamicCast<aci::Controller,aci::Object>(v3);
-  if (v4)
+  v2 = OUTLINED_FUNCTION_4_0(a1, a2);
+  if (aci::_ACIDynamicCast<aci::Controller,aci::Object>(v2))
   {
-    v5 = OUTLINED_FUNCTION_1_0(v4);
-    v7 = (*(v6 + 48))(v5);
-    OUTLINED_FUNCTION_0_0(v7);
-    if (v8)
+    OUTLINED_FUNCTION_1_0();
+    v4 = (*(v3 + 48))();
+    OUTLINED_FUNCTION_0_0(v4);
+    if (v5)
     {
-      v11 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v11))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v12, v13, "[ACIVERIFY]Start component(%p) failed", v14, v15, v16, v17, v18);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Start component(%p) failed", v10, v11, v12, v13);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t ___ZN3aci14ComponentGraph4stopEv_block_invoke_2(uint64_t a1, aci::Controller *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   result = aci::_ACIDynamicCast<aci::Controller,aci::Object>(a2);
   if (result)
   {
-    v3 = OUTLINED_FUNCTION_1_0(result);
-    result = (*(v4 + 56))(v3);
+    OUTLINED_FUNCTION_1_0();
+    result = (*(v3 + 56))();
     if (result)
     {
-      v6 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v6))
+      v4 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v4))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v7, v8, "[ACIVERIFY]Stop component(%p) failed", v9, v10, v11, v12, v13);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v5, v6, "[ACIVERIFY]Stop component(%p) failed", v7, v8, v9, v10);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ___ZN3aci14ComponentGraph4stopEv_block_invoke_47(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
-  v4 = aci::_ACIDynamicCast<aci::Controller,aci::Object>(v3);
-  if (v4)
+  v2 = OUTLINED_FUNCTION_4_0(a1, a2);
+  if (aci::_ACIDynamicCast<aci::Controller,aci::Object>(v2))
   {
-    v5 = OUTLINED_FUNCTION_1_0(v4);
-    v7 = (*(v6 + 56))(v5);
-    OUTLINED_FUNCTION_0_0(v7);
-    if (v8)
+    OUTLINED_FUNCTION_1_0();
+    v4 = (*(v3 + 56))();
+    OUTLINED_FUNCTION_0_0(v4);
+    if (v5)
     {
-      v11 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v11))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v12, v13, "[ACIVERIFY]Stop component(%p) failed", v14, v15, v16, v17, v18);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Stop component(%p) failed", v10, v11, v12, v13);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t ___ZN3aci14ComponentGraph4stopEv_block_invoke_49(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
-  v4 = aci::_ACIDynamicCast<aci::Controller,aci::Object>(v3);
-  if (v4)
+  v2 = OUTLINED_FUNCTION_4_0(a1, a2);
+  if (aci::_ACIDynamicCast<aci::Controller,aci::Object>(v2))
   {
-    v5 = OUTLINED_FUNCTION_1_0(v4);
-    v7 = (*(v6 + 56))(v5);
-    OUTLINED_FUNCTION_0_0(v7);
-    if (v8)
+    OUTLINED_FUNCTION_1_0();
+    v4 = (*(v3 + 56))();
+    OUTLINED_FUNCTION_0_0(v4);
+    if (v5)
     {
-      v11 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v11))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v12, v13, "[ACIVERIFY]Stop component(%p) failed", v14, v15, v16, v17, v18);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Stop component(%p) failed", v10, v11, v12, v13);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -5038,63 +4951,59 @@ uint64_t aci::Component::detachInPort(aci::Component *this, aci::Port *a2, int a
 
 aci::Port *___ZN3aci9Component5writeEPNS_4DataEi_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v4 = OUTLINED_FUNCTION_4_0(a1, a2);
-  result = aci::_ACIDynamicCast<aci::Port,aci::Object>(v4);
+  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
+  result = aci::_ACIDynamicCast<aci::Port,aci::Object>(v3);
   if (result)
   {
-    v6 = aci::Port::write(result, *(a1 + 40));
-    OUTLINED_FUNCTION_0_0(v6);
-    if (v7)
+    v5 = aci::Port::write(result, *(a1 + 40));
+    OUTLINED_FUNCTION_0_0(v5);
+    if (v6)
     {
-      v9 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v9))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v10, v11, "[ACIVERIFY]Write data to port(%p) failed!", v12, v13, v14, v15, v16);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Write data to port(%p) failed!", v10, v11, v12, v13);
       }
 
-      result = 1;
+      return 1;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 aci::Port *___ZN3aci9Component5writeEPNS_4DataEi_block_invoke_56(uint64_t a1, uint64_t a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v4 = OUTLINED_FUNCTION_4_0(a1, a2);
-  result = aci::_ACIDynamicCast<aci::Port,aci::Object>(v4);
+  v3 = OUTLINED_FUNCTION_4_0(a1, a2);
+  result = aci::_ACIDynamicCast<aci::Port,aci::Object>(v3);
   if (result)
   {
-    v6 = aci::Port::write(result, *(a1 + 40));
-    OUTLINED_FUNCTION_0_0(v6);
-    if (v7)
+    v5 = aci::Port::write(result, *(a1 + 40));
+    OUTLINED_FUNCTION_0_0(v5);
+    if (v6)
     {
-      v9 = _aciLogGeneral();
-      if (OUTLINED_FUNCTION_5_0(v9))
+      v7 = _aciLogGeneral();
+      if (OUTLINED_FUNCTION_5_0(v7))
       {
         OUTLINED_FUNCTION_3_0();
-        OUTLINED_FUNCTION_2_0(&dword_23C404000, v10, v11, "[ACIVERIFY]Write data to port(%p) failed!", v12, v13, v14, v15, v16);
+        OUTLINED_FUNCTION_2_0(&dword_23C404000, v8, v9, "[ACIVERIFY]Write data to port(%p) failed!", v10, v11, v12, v13);
       }
 
-      result = 1;
+      return 1;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5139,7 +5048,8 @@ void aci::Sink::registerSinkAgent(_DWORD *a1)
   v2 = _aciLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_8(&dword_23C404000, v3, v4, "[ACIVERIFY]Agent is not a valid aci::Object!", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_8(&dword_23C404000, v3, v4, "[ACIVERIFY]Agent is not a valid aci::Object!", v5, v6, v7, v8, v9);
   }
 
   *a1 = -12;
@@ -5288,7 +5198,8 @@ void aci::Stream::registerStreamListener(_DWORD *a1)
   v2 = _aciLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_8(&dword_23C404000, v3, v4, "[ACIVERIFY]Listener is not a valid aci::Object!", v5, v6, v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_8(&dword_23C404000, v3, v4, "[ACIVERIFY]Listener is not a valid aci::Object!", v5, v6, v7, v8, v9);
   }
 
   *a1 = -12;
@@ -5412,10 +5323,9 @@ uint64_t aci::Port::write(aci::Port *this, aci::Data *a2)
     ++*(this + 18);
     if (v3[32] == 9)
     {
-      v4 = *(this + 35);
-      v5 = *(*v3 + 56);
+      v4 = *(*v3 + 56);
 
-      return v5();
+      return v4();
     }
 
     else
@@ -5426,11 +5336,11 @@ uint64_t aci::Port::write(aci::Port *this, aci::Data *a2)
 
   else
   {
-    v7 = _aciLogGeneral();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = _aciLogGeneral();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_23C404000, v7, OS_LOG_TYPE_ERROR, "[ACIVERIFY]No downstream component", v8, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_23C404000, v6, OS_LOG_TYPE_ERROR, "[ACIVERIFY]No downstream component", v7, 2u);
     }
 
     return 4294967234;

@@ -9,9 +9,9 @@
 - (FMCoreRoutineController)initWithDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  v17.receiver = self;
-  v17.super_class = FMCoreRoutineController;
-  v5 = [(FMCoreRoutineController *)&v17 init];
+  v15.receiver = self;
+  v15.super_class = FMCoreRoutineController;
+  v5 = [(FMCoreRoutineController *)&v15 init];
   [(FMCoreRoutineController *)v5 setDelegate:delegateCopy];
   v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
   [(FMCoreRoutineController *)v5 setQueue:dispatch_queue_create("com.apple.wirelessinsightsd.FederatedMobility.CoreRoutineController", v6)];
@@ -25,19 +25,17 @@
     handler[1] = 3221225472;
     handler[2] = sub_1000ECB3C;
     handler[3] = &unk_1002AB2D8;
-    objc_copyWeak(&v14, &location);
+    objc_copyWeak(&v12, &location);
     notify_register_dispatch(uTF8String, &out_token, queue, handler);
     [(FMCoreRoutineController *)v5 setNotificationToken:out_token];
-    notificationToken = [(FMCoreRoutineController *)v5 notificationToken];
-    v10 = *(qword_1002DBE98 + 136);
-    if (notificationToken == -1)
+    if ([(FMCoreRoutineController *)v5 notificationToken]== -1)
     {
       if (os_log_type_enabled(*(qword_1002DBE98 + 136), OS_LOG_TYPE_ERROR))
       {
         sub_100208B94();
       }
 
-      v11 = 0;
+      v9 = 0;
     }
 
     else
@@ -47,19 +45,19 @@
         sub_100208B60();
       }
 
-      v11 = v5;
+      v9 = v5;
     }
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v11 = 0;
+    v9 = 0;
   }
 
-  return v11;
+  return v9;
 }
 
 - (void)dealloc

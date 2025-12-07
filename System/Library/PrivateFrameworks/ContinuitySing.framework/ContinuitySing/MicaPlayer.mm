@@ -19,7 +19,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for MicaPlayer();
+  v7.super_class = type metadata accessor for MicaPlayer(0);
   [(MicaPlayer *)&v7 dealloc];
 }
 
@@ -27,19 +27,17 @@
 {
   v4 = sub_244257318();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(&self->super.isa + OBJC_IVAR____TtC14ContinuitySing10MicaPlayer_rootLayer);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   sub_244250008();
-  v12 = v11;
-  v13 = sub_244254D00(*(&selfCopy->super.isa + OBJC_IVAR____TtC14ContinuitySing10MicaPlayer_publishedObjects));
-  (*(v5 + 16))(v8, selfCopy + OBJC_IVAR____TtC14ContinuitySing10MicaPlayer_url, v4);
-  v14 = objc_allocWithZone(type metadata accessor for MicaPlayer());
-  v15 = sub_244254AC8(v8, v12, v13);
+  v10 = v9;
+  v11 = sub_244254D00(*(&selfCopy->super.isa + OBJC_IVAR____TtC14ContinuitySing10MicaPlayer_publishedObjects));
+  (*(v5 + 16))(v7, selfCopy + OBJC_IVAR____TtC14ContinuitySing10MicaPlayer_url, v4);
+  v12 = objc_allocWithZone(type metadata accessor for MicaPlayer(0));
+  v13 = sub_244254AC8(v7, v10, v11);
 
-  return v15;
+  return v13;
 }
 
 - (_TtC14ContinuitySing10MicaPlayer)init

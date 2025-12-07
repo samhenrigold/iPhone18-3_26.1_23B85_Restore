@@ -183,16 +183,15 @@ id *__99__AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation__setR
 - (void)_routeConfigUpdateWithID:(__CFString *)d endedWithReason:(__CFString *)reason
 {
   v6 = objc_alloc_init(AVOutputContextDestinationChange);
-  v12 = objc_alloc_init(AVInputContextDestinationChange);
-  routeChangeID = self->_routeChangeID;
+  v9 = objc_alloc_init(AVInputContextDestinationChange);
   if (FigCFEqual())
   {
     [(AVOutputContextDestinationChange *)v6 changeToTerminalStatusBasedOnRouteConfigUpdatedReason:reason];
     [(AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation *)self _setResultIfNotAlreadySet:v6];
     if (self->_inputRoutePicked)
     {
-      [(AVInputContextDestinationChange *)v12 changeToTerminalStatusBasedOnInputRouteConfigUpdatedReason:reason];
-      [(AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation *)self _setResultInputIfNotAlreadySet:v12];
+      [(AVInputContextDestinationChange *)v9 changeToTerminalStatusBasedOnInputRouteConfigUpdatedReason:reason];
+      [(AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation *)self _setResultInputIfNotAlreadySet:v9];
     }
 
     if ([(AVOutputContextDestinationChange *)v6 status]== 2)
@@ -202,18 +201,17 @@ id *__99__AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation__setR
 
     else if ([(AVOutputContextDestinationChange *)v6 status]== 3)
     {
-      v8 = *MEMORY[0x1E69AF3F0];
       if (FigCFEqual())
       {
-        v9 = -11909;
+        v7 = -11909;
       }
 
       else
       {
-        v9 = -11800;
+        v7 = -11800;
       }
 
-      [(AVRoutingOperation *)self markAsFailedWithError:AVLocalizedError(@"AVFoundationErrorDomain", v9, 0)];
+      [(AVRoutingOperation *)self markAsFailedWithError:AVLocalizedError(@"AVFoundationErrorDomain", v7, 0)];
     }
 
     else
@@ -223,25 +221,24 @@ id *__99__AVRoutingRouteConfigUpdatedFigRoutingContextRouteChangeOperation__setR
 
     if (self->_inputRoutePicked)
     {
-      if ([(AVInputContextDestinationChange *)v12 status]== 2)
+      if ([(AVInputContextDestinationChange *)v9 status]== 2)
       {
         [(AVRoutingOperation *)self markAsCompleted];
       }
 
-      else if ([(AVInputContextDestinationChange *)v12 status]== 3)
+      else if ([(AVInputContextDestinationChange *)v9 status]== 3)
       {
-        v10 = *MEMORY[0x1E69AF3F0];
         if (FigCFEqual())
         {
-          v11 = -11909;
+          v8 = -11909;
         }
 
         else
         {
-          v11 = -11800;
+          v8 = -11800;
         }
 
-        [(AVRoutingOperation *)self markAsFailedWithError:AVLocalizedError(@"AVFoundationErrorDomain", v11, 0)];
+        [(AVRoutingOperation *)self markAsFailedWithError:AVLocalizedError(@"AVFoundationErrorDomain", v8, 0)];
       }
 
       else

@@ -199,7 +199,7 @@ LABEL_7:
 - (double)currentTime
 {
   audioPlayer = [(CKAudioPlayer *)self audioPlayer];
-  [audioPlayer currentTime];
+  objc_msgSend_currentTime(audioPlayer);
   v4 = v3;
 
   return v4;
@@ -223,7 +223,7 @@ LABEL_7:
 - (double)duration
 {
   audioPlayer = [(CKAudioPlayer *)self audioPlayer];
-  [audioPlayer duration];
+  objc_msgSend_duration(audioPlayer);
   v4 = v3;
 
   return v4;

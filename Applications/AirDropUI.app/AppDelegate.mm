@@ -29,6 +29,8 @@
   applicationCopy = application;
   selfCopy = self;
   sub_1000CA4BC(v6);
+
+  v6, v9, v10, v11, v12, v13, v14, v15;
 }
 
 - (_TtC9AirDropUI11AppDelegate)init

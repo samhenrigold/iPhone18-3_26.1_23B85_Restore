@@ -103,7 +103,7 @@
 
 - (void)removeObserver:(id)observer
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [(NSLock *)self->_lock lock];
   reachabilityRequests = self->_reachabilityRequests;
   if (!reachabilityRequests)
@@ -114,36 +114,34 @@
 
   allKeys = [(NSMutableDictionary *)reachabilityRequests allKeys];
   [(NSLock *)self->_lock unlock];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
-  v7 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v7 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        [(CPNetworkObserver *)self removeObserver:observer forHostname:*(*(&v12 + 1) + 8 * v10++)];
+        [(CPNetworkObserver *)self removeObserver:observer forHostname:*(*(&v11 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:(id)observer forHostname:(id)hostname
@@ -174,7 +172,7 @@
 
 - (void)_networkObserversInitialize
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E695E480];
   self->_networkObservers = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, 0, 0);
   address = xmmword_195EA3D50;
@@ -183,21 +181,20 @@
   SCNetworkReachabilityGetFlags(v4, &self->_networkReachability);
   self->_networkReachable = (self->_networkReachability & 2) != 0;
   -[CPNetworkObserver performSelectorOnMainThread:withObject:waitUntilDone:](self, "performSelectorOnMainThread:withObject:waitUntilDone:", sel__networkReachableFirstCallBack_, [MEMORY[0x1E695DEF0] dataWithBytes:&self->_networkReachability length:4], 0);
-  v8.version = 0;
-  memset(&v8.retain, 0, 24);
-  v8.info = self;
-  SCNetworkReachabilitySetCallback(self->_networkReach, _NetworkReachabilityCallBack, &v8);
+  v7.version = 0;
+  memset(&v7.retain, 0, 24);
+  v7.info = self;
+  SCNetworkReachabilitySetCallback(self->_networkReach, _NetworkReachabilityCallBack, &v7);
   networkReach = self->_networkReach;
   Main = CFRunLoopGetMain();
   SCNetworkReachabilityScheduleWithRunLoop(networkReach, Main, *MEMORY[0x1E695E8D0]);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_networkReachableCallBack:(unsigned int)back
 {
   if ((back & 2) != 0 && (self->_networkReachability & 2) != 0)
   {
-    v4 = &v14;
+    v4 = &v13[1];
     v13[0] = 0;
     v5 = 2;
   }

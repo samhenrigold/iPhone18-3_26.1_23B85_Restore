@@ -3,8 +3,10 @@
 - (IAMICStorageProvider)iTunesCloudStorageProvider;
 - (IAMStorageCoordinator)initWithMessageEntryProvider:(id)provider messageMetadataStorage:(id)storage propertyStorage:(id)propertyStorage messageBundleIdentifiers:(id)identifiers;
 - (IAMStorageCoordinatorDelegate)delegate;
+- (void)_fetchLastDisplayTimeForGlobalPresentationPolicyGroup:(int)group completion:(id)completion;
 - (void)_fetchMessageEntries:(id)entries;
 - (void)_fetchMessagesMetadata:(id)metadata;
+- (void)_updateLastDisplayTime:(id)time forGlobalPresentationPolicyGroup:(int)group;
 - (void)downloadResourcesForMessageEntry:(id)entry completion:(id)completion;
 - (void)fetchGlobalPresentationPolicyGroupDisplayTimes:(id)times;
 - (void)fetchMessagesEntriesAndMetadata:(id)metadata;
@@ -161,7 +163,7 @@ uint64_t __57__IAMStorageCoordinator_fetchMessagesEntriesAndMetadata___block_inv
 
 - (void)downloadResourcesForMessageEntry:(id)entry completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   completionCopy = completion;
   v8 = IAMLogCategoryDefault();
@@ -170,7 +172,7 @@ uint64_t __57__IAMStorageCoordinator_fetchMessagesEntriesAndMetadata___block_inv
     applicationMessage = [entryCopy applicationMessage];
     identifier = [applicationMessage identifier];
     *buf = 138543362;
-    v22 = identifier;
+    v21 = identifier;
     _os_log_impl(&dword_254AF4000, v8, OS_LOG_TYPE_DEFAULT, "Asking storage to download resources for message with identifier = %{public}@", buf, 0xCu);
   }
 
@@ -179,22 +181,20 @@ uint64_t __57__IAMStorageCoordinator_fetchMessagesEntriesAndMetadata___block_inv
 
   WeakRetained = objc_loadWeakRetained(&self->_messageEntryProvider);
   bundleIdentifier = [entryCopy bundleIdentifier];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __69__IAMStorageCoordinator_downloadResourcesForMessageEntry_completion___block_invoke;
-  v18[3] = &unk_2797A74F0;
-  v19 = identifier2;
-  v20 = completionCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __69__IAMStorageCoordinator_downloadResourcesForMessageEntry_completion___block_invoke;
+  v17[3] = &unk_2797A74F0;
+  v18 = identifier2;
+  v19 = completionCopy;
   v15 = completionCopy;
   v16 = identifier2;
-  [WeakRetained downloadResourcesForMessageWithIdentifier:v16 bundleIdentifier:bundleIdentifier completion:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [WeakRetained downloadResourcesForMessageWithIdentifier:v16 bundleIdentifier:bundleIdentifier completion:v17];
 }
 
 void __69__IAMStorageCoordinator_downloadResourcesForMessageEntry_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -202,11 +202,11 @@ void __69__IAMStorageCoordinator_downloadResourcesForMessageEntry_completion___b
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v10 = 138543618;
-      v11 = v5;
-      v12 = 2114;
-      v13 = v3;
-      _os_log_impl(&dword_254AF4000, v4, OS_LOG_TYPE_ERROR, "Error downloading message resources for message with identifier = %{public}@ :\n %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v3;
+      _os_log_impl(&dword_254AF4000, v4, OS_LOG_TYPE_ERROR, "Error downloading message resources for message with identifier = %{public}@ :\n %{public}@", &v9, 0x16u);
     }
 
     v6 = *(a1 + 40);
@@ -227,8 +227,6 @@ LABEL_8:
       goto LABEL_8;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeMessageEntry:(id)entry completion:(id)completion
@@ -254,7 +252,7 @@ LABEL_8:
 
 void __55__IAMStorageCoordinator_removeMessageEntry_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -262,9 +260,9 @@ void __55__IAMStorageCoordinator_removeMessageEntry_completion___block_invoke(ui
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v5;
-      _os_log_impl(&dword_254AF4000, v4, OS_LOG_TYPE_ERROR, "Error while removing message locally with identifier = %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v5;
+      _os_log_impl(&dword_254AF4000, v4, OS_LOG_TYPE_ERROR, "Error while removing message locally with identifier = %{public}@", &v9, 0xCu);
     }
 
     v6 = *(a1 + 40);
@@ -285,8 +283,6 @@ LABEL_8:
       goto LABEL_8;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportEventForMessageIdentifier:(id)identifier withParams:(id)params completion:(id)completion
@@ -307,7 +303,7 @@ LABEL_8:
 
 void __79__IAMStorageCoordinator_reportEventForMessageIdentifier_withParams_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -315,9 +311,9 @@ void __79__IAMStorageCoordinator_reportEventForMessageIdentifier_withParams_comp
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v5;
-      _os_log_impl(&dword_254AF4000, v4, OS_LOG_TYPE_ERROR, "Error while removing message globally with identifier = %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v5;
+      _os_log_impl(&dword_254AF4000, v4, OS_LOG_TYPE_ERROR, "Error while removing message globally with identifier = %{public}@", &v9, 0xCu);
     }
 
     v6 = *(a1 + 40);
@@ -338,8 +334,6 @@ LABEL_8:
       goto LABEL_8;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateMetadata:(id)metadata forMessageEntry:(id)entry completion:(id)completion
@@ -366,7 +360,7 @@ LABEL_8:
 
 void __67__IAMStorageCoordinator_updateMetadata_forMessageEntry_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -374,11 +368,11 @@ void __67__IAMStorageCoordinator_updateMetadata_forMessageEntry_completion___blo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v10 = 138543618;
-      v11 = v5;
-      v12 = 2114;
-      v13 = v3;
-      _os_log_impl(&dword_254AF4000, v4, OS_LOG_TYPE_ERROR, "Error updating metadata for message entry with identifier = %{public}@ :\n %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v3;
+      _os_log_impl(&dword_254AF4000, v4, OS_LOG_TYPE_ERROR, "Error updating metadata for message entry with identifier = %{public}@ :\n %{public}@", &v9, 0x16u);
     }
 
     v6 = *(a1 + 40);
@@ -399,8 +393,6 @@ LABEL_8:
       goto LABEL_8;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchGlobalPresentationPolicyGroupDisplayTimes:(id)times
@@ -509,8 +501,6 @@ LABEL_4:
 
     if (*(*(a1[6] + 8) + 24) == 1 && *(*(a1[7] + 8) + 24) == 1)
     {
-      v9 = *(*(a1[8] + 8) + 40);
-      v10 = *(*(a1[9] + 8) + 40);
       v8 = *(a1[4] + 16);
       goto LABEL_4;
     }
@@ -586,32 +576,30 @@ void __72__IAMStorageCoordinator_fetchGlobalPresentationPolicyGroupDisplayTimes_
 
 - (void)_fetchMessageEntries:(id)entries
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   v5 = self->_messageBundleIdentifiers;
   v6 = IAMLogCategoryDefault();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = v5;
+    v12 = v5;
     _os_log_impl(&dword_254AF4000, v6, OS_LOG_TYPE_DEFAULT, "Fetching message entries with bundle identifiers = %{public}@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_messageEntryProvider);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __46__IAMStorageCoordinator__fetchMessageEntries___block_invoke;
-  v10[3] = &unk_2797A7568;
-  v11 = entriesCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __46__IAMStorageCoordinator__fetchMessageEntries___block_invoke;
+  v9[3] = &unk_2797A7568;
+  v10 = entriesCopy;
   v8 = entriesCopy;
-  [WeakRetained messageEntriesForBundleIdentifiers:v5 completion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [WeakRetained messageEntriesForBundleIdentifiers:v5 completion:v9];
 }
 
 void __46__IAMStorageCoordinator__fetchMessageEntries___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = IAMLogCategoryDefault();
@@ -620,51 +608,48 @@ void __46__IAMStorageCoordinator__fetchMessageEntries___block_invoke(uint64_t a1
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_254AF4000, v8, OS_LOG_TYPE_ERROR, "Error fetching message entries. %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_254AF4000, v8, OS_LOG_TYPE_ERROR, "Error fetching message entries. %{public}@", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
-    v11 = [v5 count];
-    _os_log_impl(&dword_254AF4000, v8, OS_LOG_TYPE_DEFAULT, "Received %lu message entries from storage.", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = [v5 count];
+    _os_log_impl(&dword_254AF4000, v8, OS_LOG_TYPE_DEFAULT, "Received %lu message entries from storage.", &v9, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchMessagesMetadata:(id)metadata
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   v5 = self->_messageBundleIdentifiers;
   v6 = IAMLogCategoryDefault();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = v5;
+    v12 = v5;
     _os_log_impl(&dword_254AF4000, v6, OS_LOG_TYPE_DEFAULT, "Fetching metadata for message with bundle identifiers = %{public}@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_messageMetadataStorage);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __48__IAMStorageCoordinator__fetchMessagesMetadata___block_invoke;
-  v10[3] = &unk_2797A7590;
-  v11 = metadataCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__IAMStorageCoordinator__fetchMessagesMetadata___block_invoke;
+  v9[3] = &unk_2797A7590;
+  v10 = metadataCopy;
   v8 = metadataCopy;
-  [WeakRetained metadataForBundleIdentifiers:v5 completion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [WeakRetained metadataForBundleIdentifiers:v5 completion:v9];
 }
 
 void __48__IAMStorageCoordinator__fetchMessagesMetadata___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = IAMLogCategoryDefault();
@@ -673,26 +658,44 @@ void __48__IAMStorageCoordinator__fetchMessagesMetadata___block_invoke(uint64_t 
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_254AF4000, v8, OS_LOG_TYPE_ERROR, "Error fetching metadata for all messages. %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_254AF4000, v8, OS_LOG_TYPE_ERROR, "Error fetching metadata for all messages. %{public}@", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
-    v11 = [v5 count];
-    _os_log_impl(&dword_254AF4000, v8, OS_LOG_TYPE_DEFAULT, "Received %lu metadata entries for messages from storage.", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = [v5 count];
+    _os_log_impl(&dword_254AF4000, v8, OS_LOG_TYPE_DEFAULT, "Received %lu metadata entries for messages from storage.", &v9, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_fetchLastDisplayTimeForGlobalPresentationPolicyGroup:(int)group completion:(id)completion
+{
+  v4 = *&group;
+  completionCopy = completion;
+  v7 = [IAMStorageCoordinator _propertyNameForGlobalPresentationPolicyGroupLastDisplayTime:v4];
+  WeakRetained = objc_loadWeakRetained(&self->_propertyStorage);
+  mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
+  bundleIdentifier = [mainBundle bundleIdentifier];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __90__IAMStorageCoordinator__fetchLastDisplayTimeForGlobalPresentationPolicyGroup_completion___block_invoke;
+  v13[3] = &unk_2797A75B8;
+  v14 = v7;
+  v15 = completionCopy;
+  v11 = v7;
+  v12 = completionCopy;
+  [WeakRetained getPropertyForKey:v11 bundleIdentifier:bundleIdentifier completion:v13];
 }
 
 void __90__IAMStorageCoordinator__fetchLastDisplayTimeForGlobalPresentationPolicyGroup_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -701,11 +704,11 @@ void __90__IAMStorageCoordinator__fetchLastDisplayTimeForGlobalPresentationPolic
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = *(a1 + 32);
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2114;
-      v14 = v6;
-      _os_log_impl(&dword_254AF4000, v7, OS_LOG_TYPE_ERROR, "Error fetching last display time for global presentation policy group = %{public}@ :\n %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2114;
+      v13 = v6;
+      _os_log_impl(&dword_254AF4000, v7, OS_LOG_TYPE_ERROR, "Error fetching last display time for global presentation policy group = %{public}@ :\n %{public}@", &v10, 0x16u);
     }
 
     v9 = *(*(a1 + 40) + 16);
@@ -717,13 +720,28 @@ void __90__IAMStorageCoordinator__fetchLastDisplayTimeForGlobalPresentationPolic
   }
 
   v9();
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)_updateLastDisplayTime:(id)time forGlobalPresentationPolicyGroup:(int)group
+{
+  v4 = *&group;
+  timeCopy = time;
+  v7 = [IAMStorageCoordinator _propertyNameForGlobalPresentationPolicyGroupLastDisplayTime:v4];
+  WeakRetained = objc_loadWeakRetained(&self->_propertyStorage);
+  mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
+  bundleIdentifier = [mainBundle bundleIdentifier];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __81__IAMStorageCoordinator__updateLastDisplayTime_forGlobalPresentationPolicyGroup___block_invoke;
+  v12[3] = &unk_2797A6FD0;
+  v13 = v7;
+  v11 = v7;
+  [WeakRetained setProperty:timeCopy forKey:v11 bundleIdentifier:bundleIdentifier completion:v12];
 }
 
 void __81__IAMStorageCoordinator__updateLastDisplayTime_forGlobalPresentationPolicyGroup___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -731,15 +749,13 @@ void __81__IAMStorageCoordinator__updateLastDisplayTime_forGlobalPresentationPol
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 32);
-      v7 = 138543618;
-      v8 = v5;
-      v9 = 2114;
-      v10 = v3;
-      _os_log_impl(&dword_254AF4000, v4, OS_LOG_TYPE_ERROR, "Error storing last display time for global presentation policy group = %{public}@ :\n %{public}@", &v7, 0x16u);
+      v6 = 138543618;
+      v7 = v5;
+      v8 = 2114;
+      v9 = v3;
+      _os_log_impl(&dword_254AF4000, v4, OS_LOG_TYPE_ERROR, "Error storing last display time for global presentation policy group = %{public}@ :\n %{public}@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_propertyNameForGlobalPresentationPolicyGroupLastDisplayTime:(int)time

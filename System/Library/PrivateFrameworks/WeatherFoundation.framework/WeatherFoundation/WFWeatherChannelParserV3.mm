@@ -1178,4 +1178,32 @@ LABEL_6:
   return v15;
 }
 
+- (void)parseForecastData:(uint64_t)a3 types:(uint64_t)a4 location:(uint64_t)a5 locale:(uint64_t)a6 date:(uint64_t)a7 error:(uint64_t)a8 rules:.cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"Failed to parse current observations from response.";
+  OUTLINED_FUNCTION_3(&dword_272B94000, a1, a3, "%{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)parseForecastData:(uint64_t)a3 types:(uint64_t)a4 location:(uint64_t)a5 locale:(uint64_t)a6 date:(uint64_t)a7 error:(uint64_t)a8 rules:.cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"Failed to parse last twenty-four hours of observations from response.";
+  OUTLINED_FUNCTION_3(&dword_272B94000, a1, a3, "%{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)parseForecastData:(uint64_t)a3 types:(uint64_t)a4 location:(uint64_t)a5 locale:(uint64_t)a6 date:(uint64_t)a7 error:(uint64_t)a8 rules:.cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"Failed to parse daily forecasted conditions from response.";
+  OUTLINED_FUNCTION_3(&dword_272B94000, a1, a3, "%{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)parseForecastData:(uint64_t)a3 types:(uint64_t)a4 location:(uint64_t)a5 locale:(uint64_t)a6 date:(uint64_t)a7 error:(uint64_t)a8 rules:.cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"Failed to parse daily pollen forecasted conditions from response.";
+  OUTLINED_FUNCTION_3(&dword_272B94000, a1, a3, "%{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

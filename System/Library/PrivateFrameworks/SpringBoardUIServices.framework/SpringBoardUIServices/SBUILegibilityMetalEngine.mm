@@ -48,7 +48,7 @@
 
 - (void)executeLegibilityUpdateForContainer:(id)container forImage:(id)image settings:(id)settings strength:(double *)strength engineResult:(id *)result
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   containerCopy = container;
   imageCopy = image;
   settingsCopy = settings;
@@ -64,6 +64,7 @@
   }
 
   v16 = v15;
+  v17 = v16;
   if (!self->_useMinFillHeightForTemplateGeneration)
   {
     goto LABEL_9;
@@ -78,7 +79,7 @@ LABEL_8:
   }
 
   legibilityEngine = [containerCopy legibilityEngine];
-  v19 = legibilityEngine;
+  v20 = legibilityEngine;
   if (legibilityEngine != self)
   {
 
@@ -86,40 +87,40 @@ LABEL_8:
   }
 
   legibilitySettings = [containerCopy legibilitySettings];
-  v29 = BSEqualObjects();
+  v30 = BSEqualObjects();
 
-  if (!v29)
+  if (!v30)
   {
 LABEL_9:
-    if (v16)
+    if (v17)
     {
-      v20 = SBLogLegibility();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v21 = SBLogLegibility(v16);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138413058;
         selfCopy3 = self;
-        v32 = 2112;
-        v33 = containerCopy;
-        v34 = 2112;
-        v35 = imageCopy;
-        v36 = 2048;
-        v37 = settingsCopy;
-        _os_log_debug_impl(&dword_1A9A79000, v20, OS_LOG_TYPE_DEBUG, "(%@) Legibility background image already prepared for view '%@' / image '%@', settings '%p'", buf, 0x2Au);
+        v33 = 2112;
+        v34 = containerCopy;
+        v35 = 2112;
+        v36 = imageCopy;
+        v37 = 2048;
+        v38 = settingsCopy;
+        _os_log_debug_impl(&dword_1A9A79000, v21, OS_LOG_TYPE_DEBUG, "(%@) Legibility background image already prepared for view '%@' / image '%@', settings '%p'", buf, 0x2Au);
       }
 
-      v21 = v16;
+      v22 = v17;
       if (result)
       {
         result->var0 = 1;
-        v21 = v16;
+        v22 = v17;
       }
 
       if (strength)
       {
 LABEL_15:
-        v22 = [(SBUILegibilityMetalEngine *)self applyStrength:v21 toImage:settingsCopy settings:*strength];
+        v23 = [(SBUILegibilityMetalEngine *)self applyStrength:v22 toImage:settingsCopy settings:*strength];
 LABEL_22:
-        [containerCopy updateOrigImage:imageCopy shadowImage:v21 strengthenedShadowImage:v22 settings:settingsCopy engine:self isTemplate:v16 != 0 withStrength:strength context:0];
+        [containerCopy updateOrigImage:imageCopy shadowImage:v22 strengthenedShadowImage:v23 settings:settingsCopy engine:self isTemplate:v17 != 0 withStrength:strength context:0];
         goto LABEL_23;
       }
     }
@@ -133,22 +134,22 @@ LABEL_22:
         screen = self->_screen;
       }
 
-      v25 = screen;
+      v26 = screen;
 
-      v26 = [(SBUILegibilityMetalEngine *)self _findEngineConfigurationMatchingScreen:v25 settings:settingsCopy];
-      v21 = [v26 executeBlurForImage:imageCopy settings:settingsCopy];
-      v27 = SBLogLegibility();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v27 = [(SBUILegibilityMetalEngine *)self _findEngineConfigurationMatchingScreen:v26 settings:settingsCopy];
+      v22 = [v27 executeBlurForImage:imageCopy settings:settingsCopy];
+      v28 = SBLogLegibility(v22);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138413058;
         selfCopy3 = self;
-        v32 = 2112;
-        v33 = containerCopy;
-        v34 = 2112;
-        v35 = imageCopy;
-        v36 = 2048;
-        v37 = settingsCopy;
-        _os_log_impl(&dword_1A9A79000, v27, OS_LOG_TYPE_DEFAULT, "(%@) Drew legibility background image for view '%@' / image '%@', settings '%p'", buf, 0x2Au);
+        v33 = 2112;
+        v34 = containerCopy;
+        v35 = 2112;
+        v36 = imageCopy;
+        v37 = 2048;
+        v38 = settingsCopy;
+        _os_log_impl(&dword_1A9A79000, v28, OS_LOG_TYPE_DEFAULT, "(%@) Drew legibility background image for view '%@' / image '%@', settings '%p'", buf, 0x2Au);
       }
 
       if (strength)
@@ -157,25 +158,25 @@ LABEL_22:
       }
     }
 
-    v22 = 0;
+    v23 = 0;
     goto LABEL_22;
   }
 
-  v22 = SBLogLegibility();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v23 = SBLogLegibility(v16);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
     selfCopy3 = self;
-    v32 = 2112;
-    v33 = containerCopy;
-    v34 = 2112;
-    v35 = imageCopy;
-    v36 = 2048;
-    v37 = settingsCopy;
-    _os_log_debug_impl(&dword_1A9A79000, v22, OS_LOG_TYPE_DEBUG, "(%@) Skipping legibility background image generation for view '%@' / image '%@', settings '%p'; this is redundent", buf, 0x2Au);
+    v33 = 2112;
+    v34 = containerCopy;
+    v35 = 2112;
+    v36 = imageCopy;
+    v37 = 2048;
+    v38 = settingsCopy;
+    _os_log_debug_impl(&dword_1A9A79000, v23, OS_LOG_TYPE_DEBUG, "(%@) Skipping legibility background image generation for view '%@' / image '%@', settings '%p'; this is redundent", buf, 0x2Au);
   }
 
-  v21 = v16;
+  v22 = v17;
 LABEL_23:
 }
 
@@ -375,7 +376,7 @@ void __105__SBUILegibilityMetalEngine_executeAsyncLegibilityUpdateForContainer_i
 {
   size = size.height;
   width = size.width;
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   if (!settingsCopy)
   {
@@ -384,71 +385,71 @@ void __105__SBUILegibilityMetalEngine_executeAsyncLegibilityUpdateForContainer_i
 
   if (width > 0.0 && size > 0.0 && self->_useMinFillHeightForTemplateGeneration)
   {
-    if ([(SBUILegibilityCache *)self->_legibilityCache containsTemplateForSettings:settingsCopy, size])
+    v11 = [(SBUILegibilityCache *)self->_legibilityCache containsTemplateForSettings:settingsCopy, size];
+    if (v11)
     {
-      v11 = SBLogLegibility();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = SBLogLegibility(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v31.width = width;
-        v31.height = size;
-        v21 = NSStringFromCGSize(v31);
+        v32.width = width;
+        v32.height = size;
+        v22 = NSStringFromCGSize(v32);
         *buf = 138412802;
         selfCopy3 = self;
-        v26 = 2048;
-        v27 = settingsCopy;
-        v28 = 2112;
-        v29 = v21;
-        _os_log_debug_impl(&dword_1A9A79000, v11, OS_LOG_TYPE_DEBUG, "(%@) Bailing; templateImageForSettings already exists for settings %p, maxSize %@", buf, 0x20u);
+        v27 = 2048;
+        v28 = settingsCopy;
+        v29 = 2112;
+        v30 = v22;
+        _os_log_debug_impl(&dword_1A9A79000, v12, OS_LOG_TYPE_DEBUG, "(%@) Bailing; templateImageForSettings already exists for settings %p, maxSize %@", buf, 0x20u);
       }
     }
 
     else
     {
       [(UIScreen *)self->_screen scale];
-      if (v12 != scale)
+      if (v13 != scale)
       {
         [SBUILegibilityMetalEngine prewarmForSettings:a2 maxSize:self minSize:? scale:?];
       }
 
-      v11 = [(SBUILegibilityCache *)self->_legibilityCache memoryPoolForGraphicsContextType:4 matchingSize:SBUILegibilityImageSizeForContentSizeAndSettings(settingsCopy scale:width)];
+      v12 = [(SBUILegibilityCache *)self->_legibilityCache memoryPoolForGraphicsContextType:4 matchingSize:SBUILegibilityImageSizeForContentSizeAndSettings(settingsCopy scale:width)];
       for (i = 0; i != 10; ++i)
       {
         UIRoundToScale();
-        v15 = v14;
+        v16 = v15;
         UIRoundToScale();
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __70__SBUILegibilityMetalEngine_prewarmForSettings_maxSize_minSize_scale___block_invoke;
-        v23[3] = &__block_descriptor_48_e5_v8__0l;
-        *&v23[4] = v15;
-        *&v23[5] = v16;
-        v17 = [MEMORY[0x1E69DCAB8] sbf_imageFromContextWithSize:4 scale:v11 type:v23 pool:v15 drawing:{v16, scale}];
-        v18 = [(SBUILegibilityMetalEngine *)self _findEngineConfigurationMatchingScreen:self->_screen settings:settingsCopy];
-        v19 = [v18 executeBlurForImage:v17 settings:settingsCopy];
-        if (v19)
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __70__SBUILegibilityMetalEngine_prewarmForSettings_maxSize_minSize_scale___block_invoke;
+        v24[3] = &__block_descriptor_48_e5_v8__0l;
+        *&v24[4] = v16;
+        *&v24[5] = v17;
+        v18 = [MEMORY[0x1E69DCAB8] sbf_imageFromContextWithSize:4 scale:v12 type:v24 pool:v16 drawing:{v17, scale}];
+        v19 = [(SBUILegibilityMetalEngine *)self _findEngineConfigurationMatchingScreen:self->_screen settings:settingsCopy];
+        v20 = [v19 executeBlurForImage:v18 settings:settingsCopy];
+        if (v20)
         {
-          [(SBUILegibilityCache *)self->_legibilityCache cacheTemplateShadowImage:v19 settings:settingsCopy maxSize:width, size];
-          v20 = SBLogLegibility();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v21 = SBLogLegibility([(SBUILegibilityCache *)self->_legibilityCache cacheTemplateShadowImage:v20 settings:settingsCopy maxSize:width, size]);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
             selfCopy3 = self;
-            v26 = 2048;
-            v27 = settingsCopy;
-            _os_log_impl(&dword_1A9A79000, v20, OS_LOG_TYPE_DEFAULT, "(%@) Prewarmed legibility background for settings %p", buf, 0x16u);
+            v27 = 2048;
+            v28 = settingsCopy;
+            _os_log_impl(&dword_1A9A79000, v21, OS_LOG_TYPE_DEFAULT, "(%@) Prewarmed legibility background for settings %p", buf, 0x16u);
           }
         }
 
         else
         {
-          v20 = SBLogLegibility();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v21 = SBLogLegibility(0);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
             selfCopy3 = self;
-            v26 = 2048;
-            v27 = settingsCopy;
-            _os_log_error_impl(&dword_1A9A79000, v20, OS_LOG_TYPE_ERROR, "(%@) FAILED to Prewarm legibility background for settings %p", buf, 0x16u);
+            v27 = 2048;
+            v28 = settingsCopy;
+            _os_log_error_impl(&dword_1A9A79000, v21, OS_LOG_TYPE_ERROR, "(%@) FAILED to Prewarm legibility background for settings %p", buf, 0x16u);
           }
         }
       }
@@ -573,8 +574,7 @@ id __60__SBUILegibilityMetalEngine_applyStrength_toImage_settings___block_invoke
   v10 = *MEMORY[0x1E69E9840];
   cachesCopy = caches;
   [(NSOperationQueue *)self->_asyncOperationQueue cancelAllOperations];
-  [(SBUILegibilityCache *)self->_legibilityCache removeAllObjects];
-  v5 = SBLogLegibility();
+  v5 = SBLogLegibility([(SBUILegibilityCache *)self->_legibilityCache removeAllObjects]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412546;

@@ -2,7 +2,10 @@
 - (FigDepthBlurEffectRenderingParametersV4_Builder)initWithVersion:(int)version;
 - (id)encodedParams;
 - (void)dealloc;
+- (void)setParam:(signed __int16)param BOOLValue:(BOOL)value;
 - (void)setParam:(signed __int16)param floatValue:(float)value;
+- (void)setParam:(signed __int16)param intValue:(int)value;
+- (void)setParam:(signed __int16)param uintValue:(unsigned int)value;
 - (void)setParamPair:(const FigDepthBlurEffectRenderingParametersV4_ParameterPair *)pair;
 @end
 
@@ -99,6 +102,30 @@ LABEL_5:
   v5[0] = param;
   valueCopy = value;
   objc_msgSend_setParamPair_(self, a2, v5, v4);
+}
+
+- (void)setParam:(signed __int16)param intValue:(int)value
+{
+  v4[1] = 2;
+  v4[0] = param;
+  valueCopy = value;
+  objc_msgSend_setParamPair_(self, a2, v4, *&value);
+}
+
+- (void)setParam:(signed __int16)param uintValue:(unsigned int)value
+{
+  v4[1] = 3;
+  v4[0] = param;
+  valueCopy = value;
+  objc_msgSend_setParamPair_(self, a2, v4, *&value);
+}
+
+- (void)setParam:(signed __int16)param BOOLValue:(BOOL)value
+{
+  v4 = 0x40000;
+  LOWORD(v4) = param;
+  BYTE4(v4) = value;
+  objc_msgSend_setParamPair_(self, a2, &v4, value);
 }
 
 @end

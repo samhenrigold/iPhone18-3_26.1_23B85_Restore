@@ -275,7 +275,7 @@ LABEL_40:
     v83 = asset5;
     if (asset5)
     {
-      [asset5 vcp_livePhotoStillDisplayTime];
+      objc_msgSend_vcp_livePhotoStillDisplayTime(asset5);
     }
 
     else
@@ -326,7 +326,7 @@ LABEL_40:
 
     if (v209)
     {
-      [v209 preferredTransform];
+      objc_msgSend_preferredTransform(v209);
     }
 
     else
@@ -443,7 +443,7 @@ LABEL_40:
           v119 = v118;
           if (v118)
           {
-            [v118 presentationTimeStamp];
+            objc_msgSend_presentationTimeStamp(v118);
           }
 
           else
@@ -476,7 +476,7 @@ LABEL_40:
               v125 = v124;
               if (v124)
               {
-                [v124 presentationTimeStamp];
+                objc_msgSend_presentationTimeStamp(v124);
               }
 
               else
@@ -508,7 +508,7 @@ LABEL_40:
         v131 = v130;
         if (v130)
         {
-          [v130 presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(v130);
         }
 
         else
@@ -536,7 +536,7 @@ LABEL_40:
           v137 = v136;
           if (v136)
           {
-            [v136 presentationTimeStamp];
+            objc_msgSend_presentationTimeStamp(v136);
           }
 
           else
@@ -622,7 +622,7 @@ LABEL_40:
           time2.epoch = *(v205 + 2);
           *&time2.value = v153;
           asset7 = [v209 asset];
-          [v214 getFramePTSAfter:&time2 forAsset:asset7];
+          objc_msgSend_getFramePTSAfter_forAsset_(v214);
           v155 = buf.start.epoch;
           *(v214 + 312) = *&buf.start.value;
           *(v214 + 41) = v155;
@@ -1397,7 +1397,7 @@ uint64_t __55__VCPVideoInterpolator_getOriginalSamplesListforTrack___block_invok
         v29 = v28;
         if (v28)
         {
-          [v28 presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(v28);
         }
 
         else
@@ -1415,7 +1415,7 @@ uint64_t __55__VCPVideoInterpolator_getOriginalSamplesListforTrack___block_invok
           v40 = v39;
           if (v39)
           {
-            [v39 presentationTimeStamp];
+            objc_msgSend_presentationTimeStamp(v39);
           }
 
           else
@@ -1439,7 +1439,7 @@ uint64_t __55__VCPVideoInterpolator_getOriginalSamplesListforTrack___block_invok
             v43 = v42;
             if (v42)
             {
-              [v42 presentationTimeStamp];
+              objc_msgSend_presentationTimeStamp(v42);
             }
 
             else
@@ -1469,7 +1469,7 @@ uint64_t __55__VCPVideoInterpolator_getOriginalSamplesListforTrack___block_invok
         memset(&v212, 0, sizeof(v212));
         if (v45)
         {
-          [v45 interpolatedFrameDuration];
+          objc_msgSend_interpolatedFrameDuration(v45);
         }
 
         else
@@ -1649,7 +1649,7 @@ LABEL_77:
             v70 = v69;
             if (v69)
             {
-              [v69 presentationTimeStamp];
+              objc_msgSend_presentationTimeStamp(v69);
             }
 
             else
@@ -1671,11 +1671,11 @@ LABEL_77:
 
             v71 = self->_assetWriter;
             v72 = v182;
-            buffer = [(FRCFrame *)self->_previousFrame buffer];
+            v73 = objc_msgSend_buffer(self->_previousFrame);
             v74 = self->_previousFrame;
             if (v74)
             {
-              [(FRCFrame *)v74 presentationTimeStamp];
+              objc_msgSend_presentationTimeStamp(v74);
             }
 
             else
@@ -1683,7 +1683,7 @@ LABEL_77:
               memset(&time1, 0, 24);
             }
 
-            v10 = [(VCPMovieAssetWriter *)v71 addPixelBuffer:buffer withTime:&time1 withAttachment:v182];
+            v10 = [(VCPMovieAssetWriter *)v71 addPixelBuffer:v73 withTime:&time1 withAttachment:v182];
             if (v10)
             {
               goto LABEL_127;
@@ -1693,7 +1693,7 @@ LABEL_77:
             v76 = self->_previousFrame;
             if (v76)
             {
-              [(FRCFrame *)v76 presentationTimeStamp];
+              objc_msgSend_presentationTimeStamp(v76);
             }
 
             else
@@ -1709,7 +1709,7 @@ LABEL_77:
             if (v79)
             {
               v72 = v182;
-              [(FRCFrame *)v79 presentationTimeStamp];
+              objc_msgSend_presentationTimeStamp(v79);
             }
 
             else
@@ -1739,7 +1739,7 @@ LABEL_77:
                 v82 = self->_previousFrame;
                 if (v82)
                 {
-                  [(FRCFrame *)v82 presentationTimeStamp];
+                  objc_msgSend_presentationTimeStamp(v82);
                 }
 
                 else
@@ -1758,7 +1758,7 @@ LABEL_77:
               v83 = self->_previousFrame;
               if (v83)
               {
-                [(FRCFrame *)v83 presentationTimeStamp];
+                objc_msgSend_presentationTimeStamp(v83);
               }
 
               else
@@ -1800,7 +1800,7 @@ LABEL_77:
                   v91 = self->_previousFrame;
                   if (v91)
                   {
-                    [(FRCFrame *)v91 presentationTimeStamp];
+                    objc_msgSend_presentationTimeStamp(v91);
                   }
 
                   else
@@ -1827,7 +1827,7 @@ LABEL_77:
                       v223[0] = *v90;
                       if (obj)
                       {
-                        [obj presentationTimeStamp];
+                        objc_msgSend_presentationTimeStamp(obj);
                       }
 
                       else
@@ -1852,7 +1852,7 @@ LABEL_77:
                         v108 = v107;
                         if (v107)
                         {
-                          [v107 presentationTimeStamp];
+                          objc_msgSend_presentationTimeStamp(v107);
                         }
 
                         else
@@ -1959,7 +1959,7 @@ LABEL_77:
                         v127 = self->_previousFrame;
                         if (v127)
                         {
-                          [(FRCFrame *)v127 presentationTimeStamp];
+                          objc_msgSend_presentationTimeStamp(v127);
                         }
 
                         else
@@ -1969,7 +1969,7 @@ LABEL_77:
 
                         if (obj)
                         {
-                          [obj presentationTimeStamp];
+                          objc_msgSend_presentationTimeStamp(obj);
                         }
 
                         else
@@ -2001,12 +2001,12 @@ LABEL_77:
                             v172 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v217 forKeys:&v216 count:1];
                             v135 = self->_assetWriter;
                             v136 = [v189 objectAtIndexedSubscript:v133];
-                            buffer2 = [v136 buffer];
+                            v137 = objc_msgSend_buffer(v136);
                             v138 = [v189 objectAtIndexedSubscript:v133];
                             v139 = v138;
                             if (v138)
                             {
-                              [v138 presentationTimeStamp];
+                              objc_msgSend_presentationTimeStamp(v138);
                             }
 
                             else
@@ -2014,7 +2014,7 @@ LABEL_77:
                               memset(&time1, 0, 24);
                             }
 
-                            v10 = [(VCPMovieAssetWriter *)v135 addPixelBuffer:buffer2 withTime:&time1 withAttachment:v172];
+                            v10 = [(VCPMovieAssetWriter *)v135 addPixelBuffer:v137 withTime:&time1 withAttachment:v172];
 
                             if (v10)
                             {
@@ -2026,7 +2026,7 @@ LABEL_77:
                             v142 = v141;
                             if (v141)
                             {
-                              [v141 presentationTimeStamp];
+                              objc_msgSend_presentationTimeStamp(v141);
                             }
 
                             else
@@ -2064,7 +2064,7 @@ LABEL_77:
                           v146 = self->_previousFrame;
                           if (v146)
                           {
-                            [(FRCFrame *)v146 presentationTimeStamp];
+                            objc_msgSend_presentationTimeStamp(v146);
                           }
 
                           else
@@ -2074,7 +2074,7 @@ LABEL_77:
 
                           if (obj)
                           {
-                            [obj presentationTimeStamp];
+                            objc_msgSend_presentationTimeStamp(obj);
                           }
 
                           else
@@ -2092,18 +2092,18 @@ LABEL_77:
                               v215 = MEMORY[0x1E695E118];
                               v166 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v215 forKeys:&v214 count:1];
                               v147 = [v181 objectAtIndexedSubscript:v184];
-                              buffer3 = [v147 buffer];
+                              v148 = objc_msgSend_buffer(v147);
                               v149 = [v189 objectAtIndexedSubscript:v184];
-                              buffer4 = [v149 buffer];
+                              v150 = objc_msgSend_buffer(v149);
                               v151 = [v172 objectAtIndexedSubscript:v184];
-                              v152 = [(VCPVideoInterpolator *)self calculateDeltaforUnstyledFrame:buffer3 styledFrame:buffer4 withCoefficients:v151];
+                              v152 = [(VCPVideoInterpolator *)self calculateDeltaforUnstyledFrame:v148 styledFrame:v150 withCoefficients:v151];
 
                               v153 = self->_assetWriter;
                               v154 = [v189 objectAtIndexedSubscript:v184];
                               v155 = v154;
                               if (v154)
                               {
-                                [v154 presentationTimeStamp];
+                                objc_msgSend_presentationTimeStamp(v154);
                               }
 
                               else
@@ -2128,7 +2128,7 @@ LABEL_77:
                               v157 = v156;
                               if (v156)
                               {
-                                [v156 presentationTimeStamp];
+                                objc_msgSend_presentationTimeStamp(v156);
                               }
 
                               else
@@ -2222,7 +2222,7 @@ LABEL_258:
                       memset(&v211, 0, sizeof(v211));
                       if (v194)
                       {
-                        [v194 interpolatedFrameDuration];
+                        objc_msgSend_interpolatedFrameDuration(v194);
                       }
 
                       else
@@ -2243,7 +2243,7 @@ LABEL_258:
                       v164 = v163;
                       if (v163)
                       {
-                        [v163 presentationTimeStamp];
+                        objc_msgSend_presentationTimeStamp(v163);
                       }
 
                       else
@@ -2333,7 +2333,7 @@ LABEL_133:
             v93 = v92;
             if (v92)
             {
-              [v92 presentationTimeStamp];
+              objc_msgSend_presentationTimeStamp(v92);
             }
 
             else
@@ -2345,7 +2345,7 @@ LABEL_133:
             v95 = v94;
             if (v94)
             {
-              [v94 presentationTimeStamp];
+              objc_msgSend_presentationTimeStamp(v94);
             }
 
             else
@@ -2403,7 +2403,7 @@ LABEL_33:
   timestampCopy2 = timestamp;
   if (v16)
   {
-    [v16 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v16);
   }
 
   else
@@ -3062,7 +3062,7 @@ LABEL_64:
   v7 = v6;
   if (v6)
   {
-    [v6 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v6);
   }
 
   else
@@ -3166,11 +3166,11 @@ LABEL_21:
   }
 
   assetWriter = self->_assetWriter;
-  buffer = [(FRCFrame *)self->_previousFrame buffer];
+  v14 = objc_msgSend_buffer(self->_previousFrame);
   previousFrame = self->_previousFrame;
   if (previousFrame)
   {
-    [(FRCFrame *)previousFrame presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(previousFrame);
   }
 
   else
@@ -3178,7 +3178,7 @@ LABEL_21:
     memset(&time, 0, 24);
   }
 
-  combineVideoSegmentsWithAVMutableComposition = [(VCPMovieAssetWriter *)assetWriter addPixelBuffer:buffer withTime:&time withAttachment:v67];
+  combineVideoSegmentsWithAVMutableComposition = [(VCPMovieAssetWriter *)assetWriter addPixelBuffer:v14 withTime:&time withAttachment:v67];
   if (combineVideoSegmentsWithAVMutableComposition)
   {
     goto LABEL_20;
@@ -3188,7 +3188,7 @@ LABEL_21:
   v17 = self->_previousFrame;
   if (v17)
   {
-    [(FRCFrame *)v17 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v17);
   }
 
   else
@@ -3205,7 +3205,7 @@ LABEL_21:
   v20 = self->_previousFrame;
   if (v20)
   {
-    [(FRCFrame *)v20 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v20);
   }
 
   else
@@ -3228,7 +3228,7 @@ LABEL_20:
     v39 = self->_previousFrame;
     if (v39)
     {
-      [(FRCFrame *)v39 presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(v39);
     }
 
     else
@@ -3248,7 +3248,7 @@ LABEL_20:
       v43 = self->_previousFrame;
       if (v43)
       {
-        [(FRCFrame *)v43 presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(v43);
       }
 
       else
@@ -3930,7 +3930,7 @@ LABEL_95:
           originalTrack = self->_originalTrack;
           if (originalTrack)
           {
-            [(AVAssetTrack *)originalTrack preferredTransform];
+            objc_msgSend_preferredTransform(originalTrack);
           }
 
           else
@@ -5042,7 +5042,7 @@ LABEL_18:
             v58 = [objc_alloc(MEMORY[0x1E6987EE0]) initWithMediaType:v21 outputSettings:0 sourceFormatHint:0];
             if (v56)
             {
-              [v56 preferredTransform];
+              objc_msgSend_preferredTransform(v56);
             }
 
             else
@@ -5564,7 +5564,7 @@ LABEL_154:
   v6 = asset2;
   if (asset2)
   {
-    [asset2 duration];
+    objc_msgSend_duration(asset2);
   }
 
   else
@@ -5626,7 +5626,7 @@ LABEL_154:
 
       if (v13)
       {
-        [v13 preferredTransform];
+        objc_msgSend_preferredTransform(v13);
       }
 
       else
@@ -5674,7 +5674,7 @@ LABEL_18:
   v29 = [(VCPVideoInterpolator *)self findLinearThumbnailTrack:v100];
   if (v21)
   {
-    [v21 timeRange];
+    objc_msgSend_timeRange(v21);
   }
 
   else
@@ -5685,7 +5685,7 @@ LABEL_18:
   [v21 removeTimeRange:&v125];
   if (v22)
   {
-    [v22 timeRange];
+    objc_msgSend_timeRange(v22);
   }
 
   else
@@ -5696,7 +5696,7 @@ LABEL_18:
   [v22 removeTimeRange:&v125];
   if (v25)
   {
-    [v25 timeRange];
+    objc_msgSend_timeRange(v25);
   }
 
   else
@@ -5709,7 +5709,7 @@ LABEL_18:
   {
     if (obja)
     {
-      [obja timeRange];
+      objc_msgSend_timeRange(obja);
     }
 
     else
@@ -5720,7 +5720,7 @@ LABEL_18:
     [obja removeTimeRange:&v125];
     if (v89)
     {
-      [v89 timeRange];
+      objc_msgSend_timeRange(v89);
     }
 
     else
@@ -5731,7 +5731,7 @@ LABEL_18:
     [v89 removeTimeRange:&v125];
     if (v88)
     {
-      [v88 timeRange];
+      objc_msgSend_timeRange(v88);
     }
 
     else
@@ -5742,7 +5742,7 @@ LABEL_18:
     [v88 removeTimeRange:&v125];
     if (v28)
     {
-      [v28 timeRange];
+      objc_msgSend_timeRange(v28);
     }
 
     else
@@ -5753,7 +5753,7 @@ LABEL_18:
     [v28 removeTimeRange:&v125];
     if (v29)
     {
-      [v29 timeRange];
+      objc_msgSend_timeRange(v29);
     }
 
     else
@@ -5766,7 +5766,7 @@ LABEL_18:
     {
       if (v87)
       {
-        [v87 timeRange];
+        objc_msgSend_timeRange(v87);
       }
 
       else
@@ -5780,7 +5780,7 @@ LABEL_18:
 
   if (v24)
   {
-    [v24 timeRange];
+    objc_msgSend_timeRange(v24);
   }
 
   else
@@ -5891,13 +5891,13 @@ LABEL_61:
   memset(&v125, 0, sizeof(v125));
   if (v21)
   {
-    [v21 timeRange];
+    objc_msgSend_timeRange(v21);
   }
 
   start = v125;
   if (v22)
   {
-    [v22 timeRange];
+    objc_msgSend_timeRange(v22);
   }
 
   else
@@ -5915,7 +5915,7 @@ LABEL_61:
     start = v125;
     if (obja)
     {
-      [obja timeRange];
+      objc_msgSend_timeRange(obja);
     }
 
     else
@@ -5933,7 +5933,7 @@ LABEL_61:
       start = v125;
       if (v87)
       {
-        [v87 timeRange];
+        objc_msgSend_timeRange(v87);
       }
 
       else
@@ -5952,7 +5952,7 @@ LABEL_61:
   v126.epoch = self->_startAdjustedPTS.epoch;
   if (v86)
   {
-    [v86 timeRange];
+    objc_msgSend_timeRange(v86);
   }
 
   else
@@ -5979,7 +5979,7 @@ LABEL_61:
   v126.epoch = self->_startAdjustedPTS.epoch;
   if (v84)
   {
-    [v84 timeRange];
+    objc_msgSend_timeRange(v84);
   }
 
   else
@@ -6011,7 +6011,7 @@ LABEL_61:
   v126.epoch = self->_startAdjustedPTS.epoch;
   if (v82)
   {
-    [v82 timeRange];
+    objc_msgSend_timeRange(v82);
   }
 
   else
@@ -6045,7 +6045,7 @@ LABEL_61:
   if (v80)
   {
     v41 = v87;
-    [v80 timeRange];
+    objc_msgSend_timeRange(v80);
   }
 
   else
@@ -6073,7 +6073,7 @@ LABEL_96:
   memset(&start, 0, sizeof(start));
   if (v21)
   {
-    [v21 timeRange];
+    objc_msgSend_timeRange(v21);
   }
 
   if (!self->_enableStyle)
@@ -6082,7 +6082,7 @@ LABEL_120:
     duration = start;
     if (v22)
     {
-      [v22 timeRange];
+      objc_msgSend_timeRange(v22);
     }
 
     else
@@ -6101,7 +6101,7 @@ LABEL_120:
       duration = start;
       if (obja)
       {
-        [obja timeRange];
+        objc_msgSend_timeRange(obja);
       }
 
       else
@@ -6120,7 +6120,7 @@ LABEL_120:
         duration = start;
         if (v87)
         {
-          [v87 timeRange];
+          objc_msgSend_timeRange(v87);
         }
 
         else
@@ -6151,7 +6151,7 @@ LABEL_120:
     v63 = self->_originalTrack;
     if (v63)
     {
-      [(AVAssetTrack *)v63 timeRange];
+      objc_msgSend_timeRange(v63);
     }
 
     else
@@ -6174,7 +6174,7 @@ LABEL_120:
       v113 = *p_endAdjustedPTS;
       if (v85)
       {
-        [v85 timeRange];
+        objc_msgSend_timeRange(v85);
       }
 
       else
@@ -6207,7 +6207,7 @@ LABEL_120:
       v68 = v67;
       if (v67)
       {
-        [v67 timeRange];
+        objc_msgSend_timeRange(v67);
       }
 
       else
@@ -6233,7 +6233,7 @@ LABEL_120:
           v79 = [(VCPVideoInterpolator *)self findDeltaTrack:asset8];
           if (v79)
           {
-            [v79 timeRange];
+            objc_msgSend_timeRange(v79);
           }
 
           else
@@ -6369,7 +6369,7 @@ LABEL_167:
     v50 = [(VCPVideoInterpolator *)self findLinearThumbnailTrack:v74];
     if (v93)
     {
-      [v93 timeRange];
+      objc_msgSend_timeRange(v93);
     }
 
     else
@@ -6382,7 +6382,7 @@ LABEL_167:
     [v89 insertTimeRange:&duration ofTrack:v93 atTime:&rhs error:0];
     if (v77)
     {
-      [v77 timeRange];
+      objc_msgSend_timeRange(v77);
     }
 
     else
@@ -6395,7 +6395,7 @@ LABEL_167:
     [v88 insertTimeRange:&duration ofTrack:v77 atTime:&rhs error:0];
     if (v75)
     {
-      [v75 timeRange];
+      objc_msgSend_timeRange(v75);
     }
 
     else
@@ -6408,7 +6408,7 @@ LABEL_167:
     [v28 insertTimeRange:&duration ofTrack:v75 atTime:&rhs error:0];
     if (v50)
     {
-      [v50 timeRange];
+      objc_msgSend_timeRange(v50);
     }
 
     else
@@ -6491,7 +6491,7 @@ LABEL_168:
             v21 = [v46 addMutableTrackWithMediaType:v15 copySettingsFromTrack:v17 options:0];
             if (v17)
             {
-              [v17 timeRange];
+              objc_msgSend_timeRange(v17);
             }
 
             else
@@ -6511,7 +6511,7 @@ LABEL_168:
 
             if (v17)
             {
-              [v17 preferredTransform];
+              objc_msgSend_preferredTransform(v17);
             }
 
             else
@@ -6539,7 +6539,7 @@ LABEL_168:
               v21 = [v46 addMutableTrackWithMediaType:v45 copySettingsFromTrack:v17 options:0];
               if (v17)
               {
-                [v17 timeRange];
+                objc_msgSend_timeRange(v17);
               }
 
               else
@@ -6559,7 +6559,7 @@ LABEL_168:
 
               if (v17)
               {
-                [v17 preferredTransform];
+                objc_msgSend_preferredTransform(v17);
               }
 
               else
@@ -6590,7 +6590,7 @@ LABEL_168:
 
                 if (v17)
                 {
-                  [v17 timeRange];
+                  objc_msgSend_timeRange(v17);
                 }
 
                 else
@@ -6623,7 +6623,7 @@ LABEL_168:
 
                 if (v17)
                 {
-                  [v17 timeRange];
+                  objc_msgSend_timeRange(v17);
                 }
 
                 else
@@ -6960,7 +6960,7 @@ LABEL_48:
     if (trackCopy)
     {
 LABEL_3:
-      [trackCopy preferredTransform];
+      objc_msgSend_preferredTransform(trackCopy);
       goto LABEL_6;
     }
   }
@@ -7266,7 +7266,7 @@ LABEL_28:
   v13 = [VCPVideoTrackStandardDecoder alloc];
   if (trackCopy)
   {
-    [trackCopy timeRange];
+    objc_msgSend_timeRange(trackCopy);
   }
 
   else

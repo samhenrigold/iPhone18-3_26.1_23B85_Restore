@@ -17,9 +17,28 @@
 - (void)openFaceTimeSettings;
 - (void)openPhoneWiFiCallingSettings;
 - (void)prepareSpecifiersMetadata;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NPHBSSettingsAppController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = NPHBSSettingsAppController;
+  [(NPHBSSettingsAppController *)&v12 viewWillAppear:appear];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"BRIDGE_APP_TITLE" table:@"Localizable" locale:v5 bundleURL:bundleURL];
+
+  bundleIdentifier = [v3 bundleIdentifier];
+  bundleIdentifier2 = [v3 bundleIdentifier];
+  v10 = [NSString stringWithFormat:@"bridge:root=%@", bundleIdentifier2];
+  v11 = [NSURL URLWithString:v10];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v7 localizedNavigationComponents:&__NSArray0__struct deepLink:v11];
+}
 
 - (id)localizedPaneTitle
 {
@@ -79,7 +98,7 @@
 
 - (id)applicationGroupSpecifiers
 {
-  v3 = NPHBSFrameworkBundle();
+  v3 = NPHBSFrameworkBundle(self);
   v4 = [(NPHBSSettingsAppController *)self loadSpecifiersFromPlistName:@"PhoneBridgeSettings" target:self bundle:v3];
   appGroupSpecifiers = self->_appGroupSpecifiers;
   self->_appGroupSpecifiers = v4;
@@ -170,7 +189,7 @@
 - (void)_cellularPlanInfoDidChange:(id)change
 {
   changeCopy = change;
-  v5 = nph_general_log();
+  v5 = nph_general_log(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;

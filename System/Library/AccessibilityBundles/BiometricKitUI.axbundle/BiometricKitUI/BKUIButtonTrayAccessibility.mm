@@ -1,5 +1,6 @@
 @interface BKUIButtonTrayAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
+- (BKUIButtonTrayAccessibility)initWithFrame:(CGRect)frame willUseActionDelegate:(BOOL)delegate;
 - (void)_accessibilityLoadAccessibilityInformation;
 @end
 
@@ -13,53 +14,61 @@
   [validationsCopy validateClass:@"BKUIButtonTray" hasInstanceMethod:@"initWithFrame:willUseActionDelegate:" withFullSignature:{"@", "{CGRect={CGPoint=dd}{CGSize=dd}}", "B", 0}];
 }
 
+- (BKUIButtonTrayAccessibility)initWithFrame:(CGRect)frame willUseActionDelegate:(BOOL)delegate
+{
+  v6.receiver = self;
+  v6.super_class = BKUIButtonTrayAccessibility;
+  v4 = [(BKUIButtonTrayAccessibility *)&v6 initWithFrame:delegate willUseActionDelegate:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  [(BKUIButtonTrayAccessibility *)v4 _accessibilityLoadAccessibilityInformation];
+
+  return v4;
+}
+
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v18 = *MEMORY[0x29EDCA608];
-  v16.receiver = self;
-  v16.super_class = BKUIButtonTrayAccessibility;
-  [(BKUIButtonTrayAccessibility *)&v16 _accessibilityLoadAccessibilityInformation];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v17 = *MEMORY[0x29EDCA608];
+  v15.receiver = self;
+  v15.super_class = BKUIButtonTrayAccessibility;
+  [(BKUIButtonTrayAccessibility *)&v15 _accessibilityLoadAccessibilityInformation];
   v13 = 0u;
-  v3 = [&unk_2A2127978 countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v3 = [&unk_2A2127978 countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v3)
   {
-    v4 = *v13;
+    v4 = *v12;
     v5 = MEMORY[0x29EDCA5F8];
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v4)
+        if (*v12 != v4)
         {
           objc_enumerationMutation(&unk_2A2127978);
         }
 
-        v7 = [(BKUIButtonTrayAccessibility *)self safeUIViewForKey:*(*(&v12 + 1) + 8 * v6)];
+        v7 = [(BKUIButtonTrayAccessibility *)self safeUIViewForKey:*(*(&v11 + 1) + 8 * v6)];
         objc_initWeak(&location, v7);
-        v9[0] = v5;
-        v9[1] = 3221225472;
-        v9[2] = __73__BKUIButtonTrayAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
-        v9[3] = &unk_29F2A8250;
-        objc_copyWeak(&v10, &location);
-        [v7 _setIsAccessibilityElementBlock:v9];
-        objc_destroyWeak(&v10);
+        v8[0] = v5;
+        v8[1] = 3221225472;
+        v8[2] = __73__BKUIButtonTrayAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
+        v8[3] = &unk_29F2A8250;
+        objc_copyWeak(&v9, &location);
+        [v7 _setIsAccessibilityElementBlock:v8];
+        objc_destroyWeak(&v9);
         objc_destroyWeak(&location);
 
         ++v6;
       }
 
       while (v3 != v6);
-      v3 = [&unk_2A2127978 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v3 = [&unk_2A2127978 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v3);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 BOOL __73__BKUIButtonTrayAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)

@@ -1,6 +1,7 @@
 @interface SKUIReviewInAppRatingButtonViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)setEnabled:(BOOL)enabled;
 - (void)viewDidLoad;
 @end
 
@@ -53,6 +54,14 @@ uint64_t __100__SKUIReviewInAppRatingButtonViewControllerAccessibility__accessib
   v3.receiver = self;
   v3.super_class = SKUIReviewInAppRatingButtonViewControllerAccessibility;
   [(SKUIReviewInAppRatingButtonViewControllerAccessibility *)&v3 viewDidLoad];
+  [(SKUIReviewInAppRatingButtonViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  v4.receiver = self;
+  v4.super_class = SKUIReviewInAppRatingButtonViewControllerAccessibility;
+  [(SKUIReviewInAppRatingButtonViewControllerAccessibility *)&v4 setEnabled:enabled];
   [(SKUIReviewInAppRatingButtonViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 

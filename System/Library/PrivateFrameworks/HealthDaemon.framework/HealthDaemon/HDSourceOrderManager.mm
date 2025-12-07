@@ -6,8 +6,8 @@
 - (BOOL)resetCacheWithError:(id *)error;
 - (BOOL)updateOrderedSources:(id)sources forObjectType:(id)type error:(id *)error;
 - (HDSourceOrderManager)initWithProfile:(id)profile;
-- (char)_sourceOrderForCodableSourceOrder:(void *)order transactionCache:(void *)cache transaction:(uint64_t)transaction error:;
 - (id)_sourceCacheItemForObjectType:(void *)type transactionCache:(void *)cache transaction:(uint64_t)transaction error:;
+- (id)_sourceOrderForCodableSourceOrder:(void *)order transactionCache:(void *)cache transaction:(uint64_t)transaction error:;
 - (id)orderedSourceIDsForObjectType:(id)type error:(id *)error;
 - (id)orderedSourceIDsWithUnorderedIDs:(id)ds objectType:(id)type error:(id *)error;
 - (id)orderedSourcesForObjectType:(id)type error:(id *)error;
@@ -75,47 +75,45 @@
   return error;
 }
 
-uint64_t __61__HDSourceOrderManager_createSourceOrdersWithCodables_error___block_invoke(uint64_t a1, void *a2)
+uint64_t __61__HDSourceOrderManager_createSourceOrdersWithCodables_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v14 = a2;
-  v3 = [_HDSourceOrderTransactionCache alloc];
+  v4 = [_HDSourceOrderTransactionCache alloc];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  v5 = [(_HDSourceOrderTransactionCache *)&v3->super.isa initWithProfile:?];
+  v6 = [(_HDSourceOrderTransactionCache *)&v4->super.isa initWithProfile:?];
 
-  v21 = 0u;
-  v22 = 0u;
   v19 = 0u;
   v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   obj = *(a1 + 40);
-  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v6)
+  v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v7)
   {
-    v7 = *v20;
+    v8 = *v18;
     while (2)
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v7)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(a1 + 32);
-        v16 = *(*(&v19 + 1) + 8 * i);
-        v17 = v5;
-        v18 = v14;
-        v9 = HKWithAutoreleasePool();
+        v15 = v6;
+        v16 = v14;
+        v10 = HKWithAutoreleasePool();
 
-        if (!v9)
+        if (!v10)
         {
-          v10 = 0;
+          v11 = 0;
           goto LABEL_11;
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
-      if (v6)
+      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      if (v7)
       {
         continue;
       }
@@ -124,23 +122,22 @@ uint64_t __61__HDSourceOrderManager_createSourceOrdersWithCodables_error___block
     }
   }
 
-  v10 = 1;
+  v11 = 1;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 BOOL __61__HDSourceOrderManager_createSourceOrdersWithCodables_error___block_invoke_2(uint64_t a1, uint64_t *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
   v6 = *(a1 + 48);
   WeakRetained = objc_loadWeakRetained((v5 + 8));
   v8 = *(a1 + 56);
   v9 = v4;
-  v45 = v6;
+  v44 = v6;
   v10 = WeakRetained;
   v11 = v8;
   if (!v5)
@@ -173,12 +170,12 @@ LABEL_20:
   if ((_HKValidDataTypeCode() & 1) == 0)
   {
     _HKInitializeLogging();
-    v33 = *MEMORY[0x277CCC2A0];
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = *MEMORY[0x277CCC2A0];
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf) = 134217984;
       *(&buf + 4) = [v16 objectType];
-      _os_log_error_impl(&dword_228986000, v33, OS_LOG_TYPE_ERROR, "Ignoring source order for invalid data type code %lld", &buf, 0xCu);
+      _os_log_error_impl(&dword_228986000, v32, OS_LOG_TYPE_ERROR, "Ignoring source order for invalid data type code %lld", &buf, 0xCu);
     }
 
     v22 = 2;
@@ -201,59 +198,59 @@ LABEL_20:
     goto LABEL_39;
   }
 
-  log = [(HDSourceOrderManager *)v5 _sourceCacheItemForObjectType:v17 transactionCache:v45 transaction:v11 error:a2];
+  log = [(HDSourceOrderManager *)v5 _sourceCacheItemForObjectType:v17 transactionCache:v44 transaction:v11 error:a2];
   if (log)
   {
-    v43 = [HDLogicalSourceOrderEntity syncIdentityForType:v17 profile:v10 transaction:v11 error:a2];
-    if (!v43)
+    v42 = [HDLogicalSourceOrderEntity syncIdentityForType:v17 profile:v10 transaction:v11 error:a2];
+    if (!v42)
     {
       v18 = v17;
       v19 = objc_loadWeakRetained((v5 + 8));
       v20 = [v19 syncIdentityManager];
-      v43 = [v20 currentSyncIdentity];
+      v42 = [v20 currentSyncIdentity];
 
       v17 = v18;
     }
 
-    v21 = [(HDSourceOrderManager *)v5 _sourceOrderForCodableSourceOrder:v16 transactionCache:v45 transaction:v11 error:a2];
+    v21 = [(HDSourceOrderManager *)v5 _sourceOrderForCodableSourceOrder:v16 transactionCache:v44 transaction:v11 error:a2];
     v22 = 0;
-    v42 = v21;
+    v41 = v21;
     if (v21 && v21 != log)
     {
       v23 = [v16 syncIdentity];
       v24 = [HDSyncIdentity syncIdentityWithCodable:v23 error:a2];
 
-      v41 = v24;
+      v40 = v24;
       if (v24)
       {
-        v39 = objc_loadWeakRetained((v5 + 8));
-        v25 = [v39 syncIdentityManager];
+        v38 = objc_loadWeakRetained((v5 + 8));
+        v25 = [v38 syncIdentityManager];
         v26 = [v25 concreteIdentityForIdentity:v24 shouldCreate:1 transaction:v11 error:a2];
 
-        v38 = v26;
+        v37 = v26;
         if (v26)
         {
-          [(HDSourceOrderManager *)&buf _mergedSourceOrderForExistingOrder:v5 incomingOrder:log existingSyncIdentity:v42 incomingSyncIdentity:v43, v26];
+          [(HDSourceOrderManager *)&buf _mergedSourceOrderForExistingOrder:v5 incomingOrder:log existingSyncIdentity:v41 incomingSyncIdentity:v42, v26];
           v27 = buf;
-          v40 = *(&buf + 1);
-          v28 = [v40 entity];
+          v39 = *(&buf + 1);
+          v28 = [v39 entity];
           v29 = -[HDSourceOrderManager _updateSourceOrder:type:syncIdentity:transactionCache:transaction:error:](v5, v27, v17, [v28 persistentID], v11, a2);
 
           v22 = v29;
-          v30 = v38;
+          v30 = v37;
         }
 
         else
         {
           _HKInitializeLogging();
-          v35 = *MEMORY[0x277CCC2A0];
+          v34 = *MEMORY[0x277CCC2A0];
           v30 = 0;
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
           {
-            v37 = *a2;
+            v36 = *a2;
             LODWORD(buf) = 138543362;
-            *(&buf + 4) = v37;
-            _os_log_fault_impl(&dword_228986000, v35, OS_LOG_TYPE_FAULT, "ConcreteSyncIdentity from received codable is nil %{public}@", &buf, 0xCu);
+            *(&buf + 4) = v36;
+            _os_log_fault_impl(&dword_228986000, v34, OS_LOG_TYPE_FAULT, "ConcreteSyncIdentity from received codable is nil %{public}@", &buf, 0xCu);
           }
 
           v22 = 0;
@@ -263,13 +260,13 @@ LABEL_20:
       else
       {
         _HKInitializeLogging();
-        v34 = *MEMORY[0x277CCC2A0];
+        v33 = *MEMORY[0x277CCC2A0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
         {
-          v36 = *a2;
+          v35 = *a2;
           LODWORD(buf) = 138543362;
-          *(&buf + 4) = v36;
-          _os_log_fault_impl(&dword_228986000, v34, OS_LOG_TYPE_FAULT, "SyncIdentity from received codable is nil %{public}@", &buf, 0xCu);
+          *(&buf + 4) = v35;
+          _os_log_fault_impl(&dword_228986000, v33, OS_LOG_TYPE_FAULT, "SyncIdentity from received codable is nil %{public}@", &buf, 0xCu);
         }
 
         v22 = 0;
@@ -285,7 +282,7 @@ LABEL_39:
 LABEL_40:
   if ((v22 | 2) == 2)
   {
-    goto LABEL_22;
+    return v22 != 0;
   }
 
   v10 = [MEMORY[0x277CCD720] dataTypeWithCode:{objc_msgSend(*(a1 + 40), "decodedDataTypeCode")}];
@@ -296,10 +293,7 @@ LABEL_40:
 
 LABEL_21:
 
-LABEL_22:
-  result = v22 != 0;
-  v32 = *MEMORY[0x277D85DE8];
-  return result;
+  return v22 != 0;
 }
 
 - (id)orderedSourcesForObjectType:(id)type error:(id *)error
@@ -450,48 +444,48 @@ BOOL __74__HDSourceOrderManager_orderedSourceIDsWithUnorderedIDs_objectType_erro
 
 BOOL __65__HDSourceOrderManager_updateOrderedSources_forObjectType_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v19 = a2;
+  v39 = *MEMORY[0x277D85DE8];
+  v18 = a2;
   v5 = [_HDSourceOrderTransactionCache alloc];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  v21 = [(_HDSourceOrderTransactionCache *)&v5->super.isa initWithProfile:?];
+  v20 = [(_HDSourceOrderTransactionCache *)&v5->super.isa initWithProfile:?];
 
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x4812000000;
-  v34 = __Block_byref_object_copy__307;
-  v35 = __Block_byref_object_dispose__308;
-  v36 = &unk_22929BC4D;
-  memset(v37, 0, sizeof(v37));
-  std::vector<_HDWrappedSource>::reserve(v37, [*(a1 + 40) count]);
-  v7 = [v19 databaseForEntityClass:objc_opt_class()];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x4812000000;
+  v33 = __Block_byref_object_copy__307;
+  v34 = __Block_byref_object_dispose__308;
+  v35 = &unk_22929BC4D;
+  memset(v36, 0, sizeof(v36));
+  std::vector<_HDWrappedSource>::reserve(v36, [*(a1 + 40) count]);
+  v7 = [v18 databaseForEntityClass:objc_opt_class()];
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = *(a1 + 40);
-  v8 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
+  v8 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
   if (v8)
   {
-    v9 = *v28;
+    v9 = *v27;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
-        v22[3] = MEMORY[0x277D85DD0];
-        v22[4] = 3221225472;
-        v22[5] = __65__HDSourceOrderManager_updateOrderedSources_forObjectType_error___block_invoke_309;
-        v22[6] = &unk_27861CDB8;
-        v23 = v21;
-        v24 = v11;
-        v25 = v7;
-        v26 = &v31;
+        v11 = *(*(&v26 + 1) + 8 * i);
+        v21[3] = MEMORY[0x277D85DD0];
+        v21[4] = 3221225472;
+        v21[5] = __65__HDSourceOrderManager_updateOrderedSources_forObjectType_error___block_invoke_309;
+        v21[6] = &unk_27861CDB8;
+        v22 = v20;
+        v23 = v11;
+        v24 = v7;
+        v25 = &v30;
         LODWORD(v11) = HKWithAutoreleasePool();
 
         if (!v11)
@@ -501,7 +495,7 @@ BOOL __65__HDSourceOrderManager_updateOrderedSources_forObjectType_error___block
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
+      v8 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
       if (v8)
       {
         continue;
@@ -512,22 +506,21 @@ BOOL __65__HDSourceOrderManager_updateOrderedSources_forObjectType_error___block
   }
 
   v12 = [_HDCachedSourceOrder alloc];
-  memset(v22, 0, 24);
-  std::vector<_HDWrappedSource>::__init_with_size[abi:ne200100]<_HDWrappedSource*,_HDWrappedSource*>(v22, v32[6], v32[7], 0xAAAAAAAAAAAAAAABLL * ((v32[7] - v32[6]) >> 3));
-  obj = [(_HDCachedSourceOrder *)v12 initWithSources:v22 userOrdered:1 isDefaultOrder:0];
-  v38 = v22;
-  std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v38);
+  memset(v21, 0, 24);
+  std::vector<_HDWrappedSource>::__init_with_size[abi:ne200100]<_HDWrappedSource*,_HDWrappedSource*>(v21, v31[6], v31[7], 0xAAAAAAAAAAAAAAABLL * ((v31[7] - v31[6]) >> 3));
+  obj = [(_HDCachedSourceOrder *)v12 initWithSources:v21 userOrdered:1 isDefaultOrder:0];
+  v37 = v21;
+  std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v37);
   v13 = *(a1 + 32);
   v14 = *(a1 + 48);
   v15 = objc_loadWeakRetained((v13 + 8));
-  v16 = -[HDSourceOrderManager _updateSourceOrder:type:syncIdentity:transactionCache:transaction:error:](v13, obj, v14, [v15 currentSyncIdentityPersistentID], v19, a3);
+  v16 = -[HDSourceOrderManager _updateSourceOrder:type:syncIdentity:transactionCache:transaction:error:](v13, obj, v14, [v15 currentSyncIdentityPersistentID], v18, a3);
 
 LABEL_11:
-  _Block_object_dispose(&v31, 8);
-  v38 = v37;
-  std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v38);
+  _Block_object_dispose(&v30, 8);
+  v37 = v36;
+  std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v37);
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -551,7 +544,7 @@ BOOL __65__HDSourceOrderManager_updateOrderedSources_forObjectType_error___block
 
 - (BOOL)_updateSourceOrder:(uint64_t)order type:(void *)type syncIdentity:(void *)identity transactionCache:(uint64_t)cache transaction:(void *)transaction error:(uint64_t)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   identityCopy = identity;
   transactionCopy = transaction;
@@ -575,23 +568,23 @@ BOOL __65__HDSourceOrderManager_updateOrderedSources_forObjectType_error___block
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           sources = [(_HDCachedSourceOrder *)typeCopy sources];
-          v23 = [sources componentsJoinedByString:{@", "}];
+          v22 = [sources componentsJoinedByString:{@", "}];
           *buf = 138412546;
-          v29 = identityCopy;
-          v30 = 2112;
-          v31 = v23;
+          v28 = identityCopy;
+          v29 = 2112;
+          v30 = v22;
           _os_log_debug_impl(&dword_228986000, v18, OS_LOG_TYPE_DEBUG, "Updating source order for type %@ sources (%@)", buf, 0x16u);
         }
       }
 
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __96__HDSourceOrderManager__updateSourceOrder_type_syncIdentity_transactionCache_transaction_error___block_invoke;
-      v24[3] = &unk_27861CE30;
-      v25 = typeCopy;
-      v26 = transactionCopy;
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __96__HDSourceOrderManager__updateSourceOrder_type_syncIdentity_transactionCache_transaction_error___block_invoke;
+      v23[3] = &unk_27861CE30;
+      v24 = typeCopy;
+      v25 = transactionCopy;
       cacheCopy = cache;
-      v15 = [HDLogicalSourceOrderEntity updateOrderedLogicalSourcesForType:identityCopy transaction:v26 error:error updateHandler:v24];
+      v15 = [HDLogicalSourceOrderEntity updateOrderedLogicalSourcesForType:identityCopy transaction:v25 error:error updateHandler:v23];
       if (!v15)
       {
         _HKInitializeLogging();
@@ -599,9 +592,9 @@ BOOL __65__HDSourceOrderManager_updateOrderedSources_forObjectType_error___block
         if (os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v29 = identityCopy;
-          v30 = 2114;
-          v31 = 0;
+          v28 = identityCopy;
+          v29 = 2114;
+          v30 = 0;
           _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "Failed to update source order for type %@: %{public}@.", buf, 0x16u);
         }
       }
@@ -613,74 +606,73 @@ BOOL __65__HDSourceOrderManager_updateOrderedSources_forObjectType_error___block
     v15 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
-- (char)_sourceOrderForCodableSourceOrder:(void *)order transactionCache:(void *)cache transaction:(uint64_t)transaction error:
+- (id)_sourceOrderForCodableSourceOrder:(void *)order transactionCache:(void *)cache transaction:(uint64_t)transaction error:
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v9 = a2;
   orderCopy = order;
   cacheCopy = cache;
-  v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
   sourceUUIDs = [v9 sourceUUIDs];
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __93__HDSourceOrderManager__sourceOrderForCodableSourceOrder_transactionCache_transaction_error___block_invoke;
-  v49[3] = &unk_27861CDE0;
-  v23 = v9;
-  v50 = v23;
-  v27 = v21;
-  v51 = v27;
-  v24 = v22;
-  v52 = v24;
-  v11 = [HDSourceEntity enumerateBundleIdentifiersForSourcesForUUIDData:sourceUUIDs transaction:cacheCopy error:transaction enumerationHandler:v49];
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __93__HDSourceOrderManager__sourceOrderForCodableSourceOrder_transactionCache_transaction_error___block_invoke;
+  v48[3] = &unk_27861CDE0;
+  v22 = v9;
+  v49 = v22;
+  v26 = v20;
+  v50 = v26;
+  v23 = v21;
+  v51 = v23;
+  v11 = [HDSourceEntity enumerateBundleIdentifiersForSourcesForUUIDData:sourceUUIDs transaction:cacheCopy error:transaction enumerationHandler:v48];
 
   if (v11)
   {
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x4812000000;
-    v45 = __Block_byref_object_copy__307;
-    v46 = __Block_byref_object_dispose__308;
-    v47 = &unk_22929BC4D;
-    memset(v48, 0, sizeof(v48));
-    std::vector<_HDWrappedSource>::reserve(v48, [v24 count]);
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x4812000000;
+    v44 = __Block_byref_object_copy__307;
+    v45 = __Block_byref_object_dispose__308;
+    v46 = &unk_22929BC4D;
+    memset(v47, 0, sizeof(v47));
+    std::vector<_HDWrappedSource>::reserve(v47, [v23 count]);
     WeakRetained = objc_loadWeakRetained((self + 8));
     sourceManager = [WeakRetained sourceManager];
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
-    obj = v24;
-    v13 = [obj countByEnumeratingWithState:&v38 objects:v54 count:16];
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    obj = v23;
+    v13 = [obj countByEnumeratingWithState:&v37 objects:v53 count:16];
     if (v13)
     {
-      v14 = *v39;
+      v14 = *v38;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v39 != v14)
+          if (*v38 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v38 + 1) + 8 * i);
-          v30[3] = MEMORY[0x277D85DD0];
-          v30[4] = 3221225472;
-          v30[5] = __93__HDSourceOrderManager__sourceOrderForCodableSourceOrder_transactionCache_transaction_error___block_invoke_2;
-          v30[6] = &unk_27861CE08;
-          v31 = sourceManager;
-          v32 = v16;
-          v33 = v27;
+          v16 = *(*(&v37 + 1) + 8 * i);
+          v29[3] = MEMORY[0x277D85DD0];
+          v29[4] = 3221225472;
+          v29[5] = __93__HDSourceOrderManager__sourceOrderForCodableSourceOrder_transactionCache_transaction_error___block_invoke_2;
+          v29[6] = &unk_27861CE08;
+          v30 = sourceManager;
+          v31 = v16;
+          v32 = v26;
           selfCopy = self;
-          v35 = orderCopy;
-          v36 = cacheCopy;
-          v37 = &v42;
+          v34 = orderCopy;
+          v35 = cacheCopy;
+          v36 = &v41;
           LODWORD(v16) = HKWithAutoreleasePool();
 
           if (!v16)
@@ -691,7 +683,7 @@ BOOL __65__HDSourceOrderManager_updateOrderedSources_forObjectType_error___block
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v38 objects:v54 count:16];
+        v13 = [obj countByEnumeratingWithState:&v37 objects:v53 count:16];
         if (v13)
         {
           continue;
@@ -702,24 +694,22 @@ BOOL __65__HDSourceOrderManager_updateOrderedSources_forObjectType_error___block
     }
 
     v17 = [_HDCachedSourceOrder alloc];
-    memset(v30, 0, 24);
-    std::vector<_HDWrappedSource>::__init_with_size[abi:ne200100]<_HDWrappedSource*,_HDWrappedSource*>(v30, v43[6], v43[7], 0xAAAAAAAAAAAAAAABLL * ((v43[7] - v43[6]) >> 3));
-    v18 = -[_HDCachedSourceOrder initWithSources:userOrdered:isDefaultOrder:](v17, v30, [v23 userOrdered], 0);
-    v53 = v30;
-    std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v53);
+    memset(v29, 0, 24);
+    std::vector<_HDWrappedSource>::__init_with_size[abi:ne200100]<_HDWrappedSource*,_HDWrappedSource*>(v29, v42[6], v42[7], 0xAAAAAAAAAAAAAAABLL * ((v42[7] - v42[6]) >> 3));
+    v18 = -[_HDCachedSourceOrder initWithSources:userOrdered:isDefaultOrder:](v17, v29, [v22 userOrdered], 0);
+    v52 = v29;
+    std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v52);
 LABEL_13:
 
-    _Block_object_dispose(&v42, 8);
-    v53 = v48;
-    std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v53);
+    _Block_object_dispose(&v41, 8);
+    v52 = v47;
+    std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v52);
   }
 
   else
   {
     v18 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -1160,12 +1150,12 @@ BOOL __54__HDSourceOrderManager__updateSourceOrder_type_error___block_invoke(voi
 
 void __96__HDSourceOrderManager__updateSourceOrder_type_syncIdentity_transactionCache_transaction_error___block_invoke(uint64_t *a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  [(_HDCachedSourceOrder *)&v16 orderedSources];
-  v4 = v16;
-  v5 = v17;
-  if (v16 == v17)
+  [(_HDCachedSourceOrder *)&v15 orderedSources];
+  v4 = v15;
+  v5 = v16;
+  if (v15 == v16)
   {
     goto LABEL_12;
   }
@@ -1182,9 +1172,9 @@ LABEL_7:
 
   v6 = [*v4 bundleIdentifier];
   v7 = a1[5];
-  v15 = 0;
-  v8 = [HDLogicalSourceEntity logicalSourceIDForBundleIdentifier:v6 transaction:v7 error:&v15];
-  v9 = v15;
+  v14 = 0;
+  v8 = [HDLogicalSourceEntity logicalSourceIDForBundleIdentifier:v6 transaction:v7 error:&v14];
+  v9 = v14;
 
   if (v8)
   {
@@ -1204,19 +1194,17 @@ LABEL_7:
   v12 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    v14 = [*v4 bundleIdentifier];
+    v13 = [*v4 bundleIdentifier];
     *buf = 138412546;
-    *&buf[4] = v14;
-    v19 = 2114;
-    v20 = v9;
+    *&buf[4] = v13;
+    v18 = 2114;
+    v19 = v9;
     _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "Failed to fetch logical source ID for bundle ID %@, %{public}@.", buf, 0x16u);
   }
 
 LABEL_12:
-  *buf = &v16;
+  *buf = &v15;
   std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](buf);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __60__HDSourceOrderManager__sourceCacheItemForObjectType_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -1235,142 +1223,142 @@ BOOL __60__HDSourceOrderManager__sourceCacheItemForObjectType_error___block_invo
   return v12;
 }
 
-char *__89__HDSourceOrderManager__sourceCacheItemForObjectType_transactionCache_transaction_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+id **__89__HDSourceOrderManager__sourceCacheItemForObjectType_transactionCache_transaction_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v6 = *(a1 + 48);
-  v39 = *(a1 + 40);
-  v38 = v6;
+  v38 = *(a1 + 40);
+  v37 = v6;
   v7 = a2;
-  v37 = v7;
+  v36 = v7;
   if (v5)
   {
     v8 = v7;
     WeakRetained = objc_loadWeakRetained((v5 + 8));
     v10 = [WeakRetained sourceManager];
 
-    v60 = 0;
-    v61 = &v60;
-    v62 = 0x4812000000;
-    v63 = __Block_byref_object_copy__325;
-    v64 = __Block_byref_object_dispose__326;
-    v65 = &unk_22929BC4D;
-    memset(v66, 0, sizeof(v66));
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x5812000000;
-    v55 = __Block_byref_object_copy__328;
-    v56 = __Block_byref_object_dispose__329;
-    v57 = &unk_22929BC4D;
-    memset(v58, 0, sizeof(v58));
-    v59 = 1065353216;
-    v48 = 0;
-    v49 = &v48;
-    v50 = 0x2020000000;
+    v59 = 0;
+    v60 = &v59;
+    v61 = 0x4812000000;
+    v62 = __Block_byref_object_copy__325;
+    v63 = __Block_byref_object_dispose__326;
+    v64 = &unk_22929BC4D;
+    memset(v65, 0, sizeof(v65));
     v51 = 0;
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __94__HDSourceOrderManager__fetchSourceCacheItemForObjectType_transactionCache_transaction_error___block_invoke;
-    v42[3] = &unk_27861CED0;
-    v45 = &v48;
-    v43 = v10;
+    v52 = &v51;
+    v53 = 0x5812000000;
+    v54 = __Block_byref_object_copy__328;
+    v55 = __Block_byref_object_dispose__329;
+    v56 = &unk_22929BC4D;
+    memset(v57, 0, sizeof(v57));
+    v58 = 1065353216;
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x2020000000;
+    v50 = 0;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __94__HDSourceOrderManager__fetchSourceCacheItemForObjectType_transactionCache_transaction_error___block_invoke;
+    v41[3] = &unk_27861CED0;
+    v44 = &v47;
+    v42 = v10;
     v11 = v8;
-    v44 = v11;
-    v46 = &v52;
-    v47 = &v60;
-    v36 = v43;
-    if (![HDLogicalSourceOrderEntity enumerateOrderedSourceIDsForType:v39 transaction:v11 error:a3 block:v42])
+    v43 = v11;
+    v45 = &v51;
+    v46 = &v59;
+    v35 = v42;
+    if (![HDLogicalSourceOrderEntity enumerateOrderedSourceIDsForType:v38 transaction:v11 error:a3 block:v41])
     {
       v17 = 0;
 LABEL_27:
 
-      _Block_object_dispose(&v48, 8);
-      _Block_object_dispose(&v52, 8);
-      std::__hash_table<std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,std::__unordered_map_hasher<HKSource * {__strong},std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,HDNSObjectHash,HDNSObjectEqual,true>,std::__unordered_map_equal<HKSource * {__strong},std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,HDNSObjectEqual,HDNSObjectHash,true>,std::allocator<std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>>>::~__hash_table(v58);
-      _Block_object_dispose(&v60, 8);
-      v84 = v66;
-      std::vector<HKSource * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v84);
+      _Block_object_dispose(&v47, 8);
+      _Block_object_dispose(&v51, 8);
+      std::__hash_table<std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,std::__unordered_map_hasher<HKSource * {__strong},std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,HDNSObjectHash,HDNSObjectEqual,true>,std::__unordered_map_equal<HKSource * {__strong},std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,HDNSObjectEqual,HDNSObjectHash,true>,std::allocator<std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>>>::~__hash_table(v57);
+      _Block_object_dispose(&v59, 8);
+      v83 = v65;
+      std::vector<HKSource * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v83);
 
       goto LABEL_28;
     }
 
-    v12 = v61[7] - v61[6];
+    v12 = v60[7] - v60[6];
     if (v12)
     {
+      v83 = 0;
       v84 = 0;
       v85 = 0;
-      v86 = 0;
-      std::vector<_HDWrappedSource>::reserve(&v84, v12 >> 3);
-      v13 = v61[6];
-      for (i = v61[7]; v13 != i; ++v13)
+      std::vector<_HDWrappedSource>::reserve(&v83, v12 >> 3);
+      v13 = v60[6];
+      for (i = v60[7]; v13 != i; ++v13)
       {
-        *&v72 = *v13;
-        v76 = &v72;
-        v15 = std::__hash_table<std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,std::__unordered_map_hasher<HKSource * {__strong},std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,HDNSObjectHash,HDNSObjectEqual,true>,std::__unordered_map_equal<HKSource * {__strong},std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,HDNSObjectEqual,HDNSObjectHash,true>,std::allocator<std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>>>::__emplace_unique_key_args<HKSource * {__strong},std::piecewise_construct_t const&,std::tuple<HKSource * const {__strong}&>,std::tuple<>>(v53 + 6, &v72);
-        std::vector<_HDWrappedSource>::push_back[abi:ne200100](&v84, (v15 + 3));
+        *&v71 = *v13;
+        v75 = &v71;
+        v15 = std::__hash_table<std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,std::__unordered_map_hasher<HKSource * {__strong},std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,HDNSObjectHash,HDNSObjectEqual,true>,std::__unordered_map_equal<HKSource * {__strong},std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,HDNSObjectEqual,HDNSObjectHash,true>,std::allocator<std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>>>::__emplace_unique_key_args<HKSource * {__strong},std::piecewise_construct_t const&,std::tuple<HKSource * const {__strong}&>,std::tuple<>>(v52 + 12, &v71, &v75);
+        std::vector<_HDWrappedSource>::push_back[abi:ne200100](&v83, (v15 + 3));
       }
 
       v16 = [_HDCachedSourceOrder alloc];
+      v75 = 0;
       v76 = 0;
       v77 = 0;
-      v78 = 0;
-      std::vector<_HDWrappedSource>::__init_with_size[abi:ne200100]<_HDWrappedSource*,_HDWrappedSource*>(&v76, v84, v85, 0xAAAAAAAAAAAAAAABLL * ((v85 - v84) >> 3));
-      v17 = [(_HDCachedSourceOrder *)v16 initWithSources:*(v49 + 24) userOrdered:0 isDefaultOrder:?];
-      *&v72 = &v76;
-      std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v72);
-      *&v72 = &v84;
-      std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v72);
+      std::vector<_HDWrappedSource>::__init_with_size[abi:ne200100]<_HDWrappedSource*,_HDWrappedSource*>(&v75, v83, v84, 0xAAAAAAAAAAAAAAABLL * ((v84 - v83) >> 3));
+      v17 = [(_HDCachedSourceOrder *)v16 initWithSources:*(v48 + 24) userOrdered:0 isDefaultOrder:?];
+      *&v71 = &v75;
+      std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v71);
+      *&v71 = &v83;
+      std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v71);
       goto LABEL_27;
     }
 
     v18 = [v11 databaseForEntityClass:objc_opt_class()];
-    v19 = v38;
-    v40 = v19;
-    v41 = v18;
+    v19 = v37;
+    v39 = v19;
+    v40 = v18;
     if (v19)
     {
       v20 = v19[2];
       if (v20)
       {
-        v35 = v20;
+        v34 = v20;
 
 LABEL_15:
-        v76 = 0;
-        v77 = &v76;
-        v78 = 0x4812000000;
-        v79 = __Block_byref_object_copy__307;
-        v80 = __Block_byref_object_dispose__308;
-        v81 = &unk_22929BC4D;
-        memset(v82, 0, sizeof(v82));
-        std::vector<_HDWrappedSource>::reserve(v82, [v35 count]);
-        v74 = 0u;
-        v75 = 0u;
-        v72 = 0u;
+        v75 = 0;
+        v76 = &v75;
+        v77 = 0x4812000000;
+        v78 = __Block_byref_object_copy__307;
+        v79 = __Block_byref_object_dispose__308;
+        v80 = &unk_22929BC4D;
+        memset(v81, 0, sizeof(v81));
+        std::vector<_HDWrappedSource>::reserve(v81, [v34 count]);
         v73 = 0u;
-        v27 = v35;
-        v28 = [v27 countByEnumeratingWithState:&v72 objects:&v84 count:16];
+        v74 = 0u;
+        v71 = 0u;
+        v72 = 0u;
+        v27 = v34;
+        v28 = [v27 countByEnumeratingWithState:&v71 objects:&v83 count:16];
         if (v28)
         {
-          v29 = *v73;
+          v29 = *v72;
           while (2)
           {
             for (j = 0; j != v28; ++j)
             {
-              if (*v73 != v29)
+              if (*v72 != v29)
               {
                 objc_enumerationMutation(v27);
               }
 
-              v31 = *(*(&v72 + 1) + 8 * j);
-              v67[3] = MEMORY[0x277D85DD0];
-              v67[4] = 3221225472;
-              v67[5] = __83__HDSourceOrderManager__defaultSourceCacheItemWithTransactionCache_database_error___block_invoke;
-              v67[6] = &unk_27861CDB8;
-              v68 = v40;
-              v69 = v31;
-              v70 = v41;
-              v71 = &v76;
+              v31 = *(*(&v71 + 1) + 8 * j);
+              v66[3] = MEMORY[0x277D85DD0];
+              v66[4] = 3221225472;
+              v66[5] = __83__HDSourceOrderManager__defaultSourceCacheItemWithTransactionCache_database_error___block_invoke;
+              v66[6] = &unk_27861CDB8;
+              v67 = v39;
+              v68 = v31;
+              v69 = v40;
+              v70 = &v75;
               LODWORD(v31) = HKWithAutoreleasePool();
 
               if (!v31)
@@ -1381,7 +1369,7 @@ LABEL_15:
               }
             }
 
-            v28 = [v27 countByEnumeratingWithState:&v72 objects:&v84 count:16];
+            v28 = [v27 countByEnumeratingWithState:&v71 objects:&v83 count:16];
             if (v28)
             {
               continue;
@@ -1392,15 +1380,15 @@ LABEL_15:
         }
 
         v32 = [_HDCachedSourceOrder alloc];
-        memset(v67, 0, 24);
-        std::vector<_HDWrappedSource>::__init_with_size[abi:ne200100]<_HDWrappedSource*,_HDWrappedSource*>(v67, v77[6], v77[7], 0xAAAAAAAAAAAAAAABLL * ((v77[7] - v77[6]) >> 3));
-        v17 = [(_HDCachedSourceOrder *)v32 initWithSources:v67 userOrdered:0 isDefaultOrder:1];
-        v83 = v67;
-        std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v83);
+        memset(v66, 0, 24);
+        std::vector<_HDWrappedSource>::__init_with_size[abi:ne200100]<_HDWrappedSource*,_HDWrappedSource*>(v66, v76[6], v76[7], 0xAAAAAAAAAAAAAAABLL * (v76[7] - v76[6]));
+        v17 = [(_HDCachedSourceOrder *)v32 initWithSources:v66 userOrdered:0 isDefaultOrder:1];
+        v82 = v66;
+        std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v82);
 LABEL_25:
-        _Block_object_dispose(&v76, 8);
-        v83 = v82;
-        std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v83);
+        _Block_object_dispose(&v75, 8);
+        v82 = v81;
+        std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v82);
         goto LABEL_26;
       }
 
@@ -1417,15 +1405,15 @@ LABEL_25:
         v26 = v19[2];
         v19[2] = v25;
 
-        v35 = v19[2];
+        v34 = v19[2];
       }
 
       else
       {
-        v35 = 0;
+        v34 = 0;
       }
 
-      if (v35)
+      if (v34)
       {
         goto LABEL_15;
       }
@@ -1445,35 +1433,31 @@ LABEL_26:
   v17 = 0;
 LABEL_28:
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
-uint64_t __94__HDSourceOrderManager__fetchSourceCacheItemForObjectType_transactionCache_transaction_error___block_invoke(uint64_t a1, uint64_t a2, char a3)
+uint64_t __94__HDSourceOrderManager__fetchSourceCacheItemForObjectType_transactionCache_transaction_error___block_invoke(uint64_t a1, uint64_t a2, char a3, double a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   *(*(*(a1 + 48) + 8) + 24) = a3;
   v10 = *(a1 + 32);
   v11 = *(a1 + 40);
-  v12 = *(a1 + 56);
-  v5 = HKWithAutoreleasePool();
-  v6 = 0;
-  if ((v5 & 1) == 0)
+  v6 = HKWithAutoreleasePool();
+  v7 = 0;
+  if ((v6 & 1) == 0)
   {
     _HKInitializeLogging();
-    v7 = *MEMORY[0x277CCC2A0];
+    v8 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
     {
       *buf = 134218242;
-      v14 = a2;
-      v15 = 2114;
-      v16 = v6;
-      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_INFO, "Failed to lookup source order information for %lld: %{public}@", buf, 0x16u);
+      v13 = a2;
+      v14 = 2114;
+      v15 = v7;
+      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_INFO, "Failed to lookup source order information for %lld: %{public}@", buf, 0x16u);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1482,13 +1466,13 @@ BOOL __94__HDSourceOrderManager__fetchSourceCacheItemForObjectType_transactionCa
   v4 = *(a1 + 32);
   v5 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 64)];
   v6 = [v4 uncachedClientSourceForPersistentID:v5 transaction:*(a1 + 40) error:a2];
-  obj[0] = v6;
+  obj = v6;
 
   if (v6)
   {
     v7 = *(*(a1 + 48) + 8);
-    obj[1] = obj;
-    v8 = std::__hash_table<std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,std::__unordered_map_hasher<HKSource * {__strong},std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,HDNSObjectHash,HDNSObjectEqual,true>,std::__unordered_map_equal<HKSource * {__strong},std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,HDNSObjectEqual,HDNSObjectHash,true>,std::allocator<std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>>>::__emplace_unique_key_args<HKSource * {__strong},std::piecewise_construct_t const&,std::tuple<HKSource * const {__strong}&>,std::tuple<>>((v7 + 48), obj);
+    p_obj = &obj;
+    v8 = std::__hash_table<std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,std::__unordered_map_hasher<HKSource * {__strong},std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,HDNSObjectHash,HDNSObjectEqual,true>,std::__unordered_map_equal<HKSource * {__strong},std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>,HDNSObjectEqual,HDNSObjectHash,true>,std::allocator<std::__hash_value_type<HKSource * {__strong},_HDWrappedSource>>>::__emplace_unique_key_args<HKSource * {__strong},std::piecewise_construct_t const&,std::tuple<HKSource * const {__strong}&>,std::tuple<>>((v7 + 48), &obj, &p_obj);
     v9 = v8;
     v10 = (v8 + 3);
     if (v8[3])
@@ -1539,7 +1523,7 @@ BOOL __94__HDSourceOrderManager__fetchSourceCacheItemForObjectType_transactionCa
         }
 
         v22 = (8 * v18);
-        *v22 = obj[0];
+        *v22 = obj;
         v16 = 8 * v18 + 8;
         v23 = v13[6];
         v24 = v13[7];
@@ -1576,12 +1560,12 @@ BOOL __94__HDSourceOrderManager__fetchSourceCacheItemForObjectType_transactionCa
 
       else
       {
-        *v15 = obj[0];
+        *v15 = obj;
         v16 = (v15 + 1);
       }
 
       v13[7] = v16;
-      objc_storeStrong(v10, obj[0]);
+      objc_storeStrong(v10, obj);
       v12 = *(a1 + 72);
       *(v9 + 4) = v12;
       *(v9 + 40) = 1;
@@ -1638,86 +1622,86 @@ BOOL __83__HDSourceOrderManager__defaultSourceCacheItemWithTransactionCache_data
 
 uint64_t __59__HDSourceOrderManager_addOrderedSource_objectTypes_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v132 = *MEMORY[0x277D85DE8];
-  v102 = a2;
+  v131 = *MEMORY[0x277D85DE8];
+  v101 = a2;
   v4 = [_HDSourceOrderTransactionCache alloc];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  v103 = [(_HDSourceOrderTransactionCache *)&v4->super.isa initWithProfile:?];
+  v102 = [(_HDSourceOrderTransactionCache *)&v4->super.isa initWithProfile:?];
 
-  v110 = 0u;
-  v111 = 0u;
-  v108 = 0u;
   v109 = 0u;
+  v110 = 0u;
+  v107 = 0u;
+  v108 = 0u;
   obj = *(a1 + 40);
-  v6 = [obj countByEnumeratingWithState:&v108 objects:v126 count:16];
-  v96 = 1;
+  v6 = [obj countByEnumeratingWithState:&v107 objects:v125 count:16];
+  v95 = 1;
   if (!v6)
   {
     goto LABEL_116;
   }
 
-  v99 = a1;
-  v100 = *v109;
+  v98 = a1;
+  v99 = *v108;
   while (2)
   {
     v7 = 0;
-    v98 = v6;
+    v97 = v6;
     do
     {
-      if (*v109 != v100)
+      if (*v108 != v99)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v108 + 1) + 8 * v7);
-      v9 = *(v99 + 32);
-      v10 = *(v99 + 48);
+      v8 = *(*(&v107 + 1) + 8 * v7);
+      v9 = *(v98 + 32);
+      v10 = *(v98 + 48);
       v11 = v8;
-      v12 = v103;
-      v13 = v102;
+      v12 = v102;
+      v13 = v101;
       if (!v9)
       {
 
 LABEL_115:
-        v96 = 0;
+        v95 = 0;
         goto LABEL_116;
       }
 
-      v119 = 0;
-      v104 = v11;
-      v105 = v12;
-      v106 = v13;
-      v14 = [(HDSourceOrderManager *)v9 _sourceCacheItemForObjectType:v11 transactionCache:v12 transaction:v13 error:&v119];
-      v15 = v119;
+      v118 = 0;
+      v103 = v11;
+      v104 = v12;
+      v105 = v13;
+      v14 = [(HDSourceOrderManager *)v9 _sourceCacheItemForObjectType:v11 transactionCache:v12 transaction:v13 error:&v118];
+      v15 = v118;
       v16 = v15;
-      v107 = v14;
+      v106 = v14;
       if (v14)
       {
-        v118 = 0;
-        v117 = 0uLL;
+        v117 = 0;
+        v116 = 0uLL;
         if ((*(v14 + 9) & 1) == 0)
         {
           memset(buf, 0, sizeof(buf));
           std::vector<_HDWrappedSource>::__init_with_size[abi:ne200100]<_HDWrappedSource*,_HDWrappedSource*>(buf, *(v14 + 16), *(v14 + 24), 0xAAAAAAAAAAAAAAABLL * ((*(v14 + 24) - *(v14 + 16)) >> 3));
-          std::vector<_HDWrappedSource>::__vdeallocate(&v117);
-          v117 = *buf;
-          v118 = *&buf[16];
+          std::vector<_HDWrappedSource>::__vdeallocate(&v116);
+          v116 = *buf;
+          v117 = *&buf[16];
           memset(buf, 0, sizeof(buf));
-          v121 = buf;
-          std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v121);
-          v24 = *(&v117 + 1);
-          v25 = v117;
-          if (v117 == *(&v117 + 1))
+          v120 = buf;
+          std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](&v120);
+          v24 = *(&v116 + 1);
+          v25 = v116;
+          if (v116 == *(&v116 + 1))
           {
-            v36 = v117;
+            v36 = v116;
           }
 
           else
           {
-            v26 = (v117 + 24);
+            v26 = (v116 + 24);
             while (*(v26 - 8) == 1)
             {
-              v27 = v26 == *(&v117 + 1);
+              v27 = v26 == *(&v116 + 1);
               v26 += 3;
               if (v27)
               {
@@ -1726,7 +1710,7 @@ LABEL_115:
             }
 
             v36 = v26 - 3;
-            if (v26 - 3 != *(&v117 + 1) && v26 != *(&v117 + 1))
+            if (v26 - 3 != *(&v116 + 1) && v26 != *(&v116 + 1))
             {
               do
               {
@@ -1747,8 +1731,8 @@ LABEL_115:
               }
 
               while (v26 != v24);
-              v24 = *(&v117 + 1);
-              v25 = v117;
+              v24 = *(&v116 + 1);
+              v25 = v116;
             }
           }
 
@@ -1765,8 +1749,8 @@ LABEL_49:
             v24 -= 3;
           }
 
-          *(&v117 + 1) = v36;
-          v25 = v117;
+          *(&v116 + 1) = v36;
+          v25 = v116;
 LABEL_51:
           while (v25 != v36)
           {
@@ -1781,20 +1765,20 @@ LABEL_51:
         }
 
         v17 = v10;
-        v114 = v17;
+        v113 = v17;
         Current = CFAbsoluteTimeGetCurrent();
-        v116 = 1;
-        v113 = v16;
-        v18 = [(HDSourceOrderManager *)v9 _updateOrderedSourceIDsForWrappedSource:v105 transactionCache:v106 transaction:&v113 error:?];
-        v19 = v113;
+        v115 = 1;
+        v112 = v16;
+        v18 = [(HDSourceOrderManager *)v9 _updateOrderedSourceIDsForWrappedSource:v104 transactionCache:v105 transaction:&v112 error:?];
+        v19 = v112;
 
         if (v18)
         {
-          v21 = *(&v117 + 1);
-          v20 = v117;
-          if (v117 == *(&v117 + 1))
+          v21 = *(&v116 + 1);
+          v20 = v116;
+          if (v116 == *(&v116 + 1))
           {
-            v22 = v117;
+            v22 = v116;
           }
 
           else
@@ -1810,11 +1794,11 @@ LABEL_51:
             }
 
             v22 = v20;
-            v21 = *(&v117 + 1);
-            v20 = v117;
+            v21 = *(&v116 + 1);
+            v20 = v116;
           }
 
-          if (v21 >= v118)
+          if (v21 >= v117)
           {
             v56 = 1 - 0x5555555555555555 * ((v21 - v20) >> 3);
             if (v56 > 0xAAAAAAAAAAAAAAALL)
@@ -1822,12 +1806,12 @@ LABEL_51:
               std::vector<std::unique_ptr<statistics::Interval>>::__throw_length_error[abi:ne200100]();
             }
 
-            if (0x5555555555555556 * ((v118 - v20) >> 3) > v56)
+            if (0x5555555555555556 * ((v117 - v20) >> 3) > v56)
             {
-              v56 = 0x5555555555555556 * ((v118 - v20) >> 3);
+              v56 = 0x5555555555555556 * ((v117 - v20) >> 3);
             }
 
-            if (0xAAAAAAAAAAAAAAABLL * ((v118 - v20) >> 3) >= 0x555555555555555)
+            if (0xAAAAAAAAAAAAAAABLL * ((v117 - v20) >> 3) >= 0x555555555555555)
             {
               v57 = 0xAAAAAAAAAAAAAAALL;
             }
@@ -1837,7 +1821,7 @@ LABEL_51:
               v57 = v56;
             }
 
-            v125 = &v117;
+            v124 = &v116;
             if (v57)
             {
               std::__allocate_at_least[abi:ne200100]<std::allocator<_HDWrappedSource>>(v57);
@@ -1845,10 +1829,10 @@ LABEL_51:
 
             v59 = v22 - v20;
             v60 = 8 * ((v22 - v20) >> 3);
-            v121 = 0;
+            v120 = 0;
+            v121 = v60;
             v122 = v60;
-            v123 = v60;
-            v124 = 0;
+            v123 = 0;
             if (!(0xAAAAAAAAAAAAAAABLL * ((v22 - v20) >> 3)))
             {
               if (v59 < 1)
@@ -1863,25 +1847,25 @@ LABEL_51:
                   v61 = 0x5555555555555556 * ((v22 - v20) >> 3);
                 }
 
-                v129 = &v117;
+                v128 = &v116;
                 std::__allocate_at_least[abi:ne200100]<std::allocator<_HDWrappedSource>>(v61);
               }
 
               v60 -= 24 * ((0xAAAAAAAAAAAAAAABLL * (v59 >> 3) + 1) >> 1);
+              v121 = v60;
               v122 = v60;
-              v123 = v60;
             }
 
             *v60 = v17;
-            v62 = v116;
+            v62 = v115;
             *(v60 + 8) = Current;
             *(v60 + 16) = v62;
-            v63 = v123 + 24;
-            v123 += 24;
-            v64 = *(&v117 + 1);
-            if (*(&v117 + 1) == v22)
+            v63 = v122 + 24;
+            v122 += 24;
+            v64 = *(&v116 + 1);
+            if (*(&v116 + 1) == v22)
             {
-              v70 = v122;
+              v70 = v121;
               v69 = v22;
             }
 
@@ -1909,20 +1893,20 @@ LABEL_51:
               }
 
               while (v68 != v64);
-              v69 = *(&v117 + 1);
-              v70 = v122;
-              v63 = v123;
+              v69 = *(&v116 + 1);
+              v70 = v121;
+              v63 = v122;
             }
 
             v71 = v63 + v69 - v22;
-            v123 = v71;
-            *(&v117 + 1) = v22;
-            v72 = v117;
-            v73 = v70 + v117 - v22;
-            if (v117 != v22)
+            v122 = v71;
+            *(&v116 + 1) = v22;
+            v72 = v116;
+            v73 = v70 + v116 - v22;
+            if (v116 != v22)
             {
-              v74 = v117;
-              v75 = v70 + v117 - v22;
+              v74 = v116;
+              v75 = v70 + v116 - v22;
               do
               {
                 v76 = *v74;
@@ -1943,28 +1927,28 @@ LABEL_51:
               }
 
               while (v72 != v22);
-              v72 = v117;
-              v71 = v123;
+              v72 = v116;
+              v71 = v122;
             }
 
-            *&v117 = v73;
-            *(&v117 + 1) = v71;
-            v78 = v118;
-            v118 = v124;
-            v123 = v72;
-            v124 = v78;
-            v121 = v72;
+            *&v116 = v73;
+            *(&v116 + 1) = v71;
+            v78 = v117;
+            v117 = v123;
             v122 = v72;
-            std::__split_buffer<_HDWrappedSource>::~__split_buffer(&v121);
+            v123 = v78;
+            v120 = v72;
+            v121 = v72;
+            std::__split_buffer<_HDWrappedSource>::~__split_buffer(&v120);
           }
 
           else if (v22 == v21)
           {
             *v21 = v17;
             v58 = Current;
-            *(v21 + 16) = v116;
+            *(v21 + 16) = v115;
             *(v21 + 8) = v58;
-            *(&v117 + 1) = v21 + 24;
+            *(&v116 + 1) = v21 + 24;
           }
 
           else
@@ -1982,7 +1966,7 @@ LABEL_51:
               *(v21 + 8) = v44;
             }
 
-            *(&v117 + 1) = v42;
+            *(&v116 + 1) = v42;
             if (v21 != v22 + 24)
             {
               v45 = v21 - 24;
@@ -2003,11 +1987,11 @@ LABEL_51:
               }
 
               while (v46 != v22);
-              v42 = *(&v117 + 1);
+              v42 = *(&v116 + 1);
             }
 
-            v50 = v22 <= &v114;
-            v51 = v42 > &v114;
+            v50 = v22 <= &v113;
+            v51 = v42 > &v113;
             v52 = v50 && v51;
             v27 = !v50 || !v51;
             v53 = 3;
@@ -2016,11 +2000,11 @@ LABEL_51:
               v53 = 0;
             }
 
-            objc_storeStrong(v22, (&v114)[v53]);
+            objc_storeStrong(v22, (&v113)[v53]);
             p_Current = &Current;
             if (v52)
             {
-              p_Current = &v117 + 1;
+              p_Current = &v116 + 1;
             }
 
             v55 = *p_Current;
@@ -2029,7 +2013,7 @@ LABEL_51:
           }
 
 LABEL_104:
-          v79 = v107;
+          v79 = v106;
           _HKInitializeLogging();
           v80 = *MEMORY[0x277CCC2A0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
@@ -2041,35 +2025,35 @@ LABEL_104:
               *buf = 138412546;
               *&buf[4] = v92;
               *&buf[12] = 2112;
-              *&buf[14] = v104;
+              *&buf[14] = v103;
               _os_log_debug_impl(&dword_228986000, v81, OS_LOG_TYPE_DEBUG, "Will add ordered source %@ for type %@", buf, 0x16u);
             }
 
-            v79 = v107;
+            v79 = v106;
           }
 
           v82 = [_HDCachedSourceOrder alloc];
-          memset(v112, 0, sizeof(v112));
-          std::vector<_HDWrappedSource>::__init_with_size[abi:ne200100]<_HDWrappedSource*,_HDWrappedSource*>(v112, v117, *(&v117 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v117 + 1) - v117) >> 3));
-          v83 = [(_HDCachedSourceOrder *)v82 initWithSources:v112 userOrdered:v79[8] isDefaultOrder:0];
-          *buf = v112;
+          memset(v111, 0, sizeof(v111));
+          std::vector<_HDWrappedSource>::__init_with_size[abi:ne200100]<_HDWrappedSource*,_HDWrappedSource*>(v111, v116, *(&v116 + 1), 0xAAAAAAAAAAAAAAABLL * ((*(&v116 + 1) - v116) >> 3));
+          v83 = [(_HDCachedSourceOrder *)v82 initWithSources:v111 userOrdered:v79[8] isDefaultOrder:0];
+          *buf = v111;
           std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](buf);
           v84 = v83;
-          v85 = v104;
+          v85 = v103;
           v86 = objc_loadWeakRetained((v9 + 8));
           v87 = [v86 database];
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __54__HDSourceOrderManager__updateSourceOrder_type_error___block_invoke;
-          v128 = &unk_27861CA28;
-          v129 = v9;
+          v127 = &unk_27861CA28;
+          v128 = v9;
           v88 = v84;
-          v130 = v88;
+          v129 = v88;
           v89 = v85;
-          v131 = v89;
+          v130 = v89;
           v90 = [(HDHealthEntity *)HDLogicalSourceOrderEntity performWriteTransactionWithHealthDatabase:v87 error:a3 block:buf];
 
-          v120 = v90;
+          v119 = v90;
           goto LABEL_109;
         }
 
@@ -2096,9 +2080,9 @@ LABEL_36:
               }
             }
 
-            v120 = 0;
+            v119 = 0;
 LABEL_109:
-            *buf = &v117;
+            *buf = &v116;
             std::vector<_HDWrappedSource>::__destroy_vector::operator()[abi:ne200100](buf);
             goto LABEL_110;
           }
@@ -2140,7 +2124,7 @@ LABEL_109:
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          *&buf[4] = v104;
+          *&buf[4] = v103;
           *&buf[12] = 2114;
           *&buf[14] = v16;
           _os_log_debug_impl(&dword_228986000, v23, OS_LOG_TYPE_DEBUG, "Failed to fetch ordered sources for type %@: %{public}@", buf, 0x16u);
@@ -2154,7 +2138,7 @@ LABEL_109:
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          *&buf[4] = v104;
+          *&buf[4] = v103;
           *&buf[12] = 2114;
           *&buf[14] = v16;
           _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "Failed to fetch ordered sources for type %@: %{public}@", buf, 0x16u);
@@ -2177,10 +2161,10 @@ LABEL_109:
         }
       }
 
-      v120 = 0;
+      v119 = 0;
 LABEL_110:
 
-      v91 = v120;
+      v91 = v119;
       if (!v91)
       {
         goto LABEL_115;
@@ -2189,8 +2173,8 @@ LABEL_110:
       ++v7;
     }
 
-    while (v7 != v98);
-    v6 = [obj countByEnumeratingWithState:&v108 objects:v126 count:16];
+    while (v7 != v97);
+    v6 = [obj countByEnumeratingWithState:&v107 objects:v125 count:16];
     if (v6)
     {
       continue;
@@ -2199,11 +2183,10 @@ LABEL_110:
     break;
   }
 
-  v96 = 1;
+  v95 = 1;
 LABEL_116:
 
-  v94 = *MEMORY[0x277D85DE8];
-  return v96;
+  return v95;
 }
 
 @end

@@ -1,1700 +1,13 @@
-uint64_t SecCurve448PrivateKeyBlockSize(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1 == &kSecEd448PrivateKeyDescriptor || v1 == &kSecEd448PublicKeyDescriptor)
-  {
-    return 57;
-  }
-
-  else
-  {
-    return 56;
-  }
-}
-
-uint64_t SecCurve448PrivateKeyDestroy(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  v1 = *(a1 + 24);
-  return cc_clear();
-}
-
-uint64_t SecCurve448PrivateKeyInit(uint64_t a1, const void *a2, size_t a3, int a4)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 24);
-  if (a4 == 5)
-  {
-    v8 = *(a1 + 16);
-    if (v8 == &kSecEd448PublicKeyDescriptor || v8 == &kSecEd448PrivateKeyDescriptor)
-    {
-      v21 = 0u;
-      memset(v22, 0, sizeof(v22));
-      v20 = 0u;
-      ccrng();
-      key_pair = cced448_make_key_pair();
-      if (!key_pair)
-      {
-LABEL_19:
-        cc_clear();
-        goto LABEL_20;
-      }
-
-      v16 = key_pair;
-      v14 = _SECKEY_LOG_10207();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-LABEL_25:
-
-        goto LABEL_26;
-      }
-
-      *buf = 67109120;
-      v19 = v16;
-      v15 = "cced448_make_key_pair() failed, error %d";
-    }
-
-    else
-    {
-      v21 = 0u;
-      memset(v22, 0, 24);
-      v20 = 0u;
-      ccrng();
-      v12 = cccurve448_make_key_pair();
-      if (!v12)
-      {
-        goto LABEL_19;
-      }
-
-      v17 = v12;
-      v14 = _SECKEY_LOG_10207();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_25;
-      }
-
-      *buf = 67109120;
-      v19 = v17;
-      v15 = "ccec448_make_key_pair() failed, error %d";
-    }
-
-    _os_log_error_impl(&dword_1887D2000, v14, OS_LOG_TYPE_ERROR, v15, buf, 8u);
-    goto LABEL_25;
-  }
-
-  if (a4 == 7)
-  {
-    v5 = *(a1 + 16);
-    v6 = v5 == &kSecEd448PrivateKeyDescriptor || v5 == &kSecEd448PublicKeyDescriptor;
-    v7 = 56;
-    if (v6)
-    {
-      v7 = 57;
-    }
-
-    if (v7 == a3)
-    {
-      memcpy(*(a1 + 24), a2, a3);
-LABEL_20:
-      result = 0;
-      goto LABEL_21;
-    }
-
-LABEL_26:
-    result = 4294941021;
-    goto LABEL_21;
-  }
-
-  result = 4294899625;
-LABEL_21:
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-id _SECKEY_LOG_10207()
-{
-  if (_SECKEY_LOG_once_10210 != -1)
-  {
-    dispatch_once(&_SECKEY_LOG_once_10210, &__block_literal_global_10211);
-  }
-
-  v1 = _SECKEY_LOG_log_10212;
-
-  return v1;
-}
-
-CFDataRef SecCurve448PublicKeyCopyExternalRepresentation(void *a1)
-{
-  v2 = a1[3];
-  v3 = CFGetAllocator(a1);
-  v4 = a1[2];
-  if (v4 == &kSecEd448PrivateKeyDescriptor || v4 == &kSecEd448PublicKeyDescriptor)
-  {
-    v6 = 57;
-  }
-
-  else
-  {
-    v6 = 56;
-  }
-
-  return CFDataCreate(v3, v2, v6);
-}
-
-uint64_t SecCurve448PublicKeyCopyPublicOctets(void *a1, CFDataRef *a2)
-{
-  v4 = a1[3];
-  v5 = CFGetAllocator(a1);
-  v6 = a1[2];
-  if (v6 == &kSecEd448PrivateKeyDescriptor || v6 == &kSecEd448PublicKeyDescriptor)
-  {
-    v8 = 57;
-  }
-
-  else
-  {
-    v8 = 56;
-  }
-
-  v9 = CFDataCreate(v5, v4, v8);
-  *a2 = v9;
-  if (v9)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return 4294941021;
-  }
-}
-
-uint64_t SecCurve448KeyGetAlgorithmID(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1 == &kSecEd448PrivateKeyDescriptor || v1 == &kSecEd448PublicKeyDescriptor)
-  {
-    return 6;
-  }
-
-  else
-  {
-    return 7;
-  }
-}
-
-uint64_t SecCurve448PublicKeyCopyKeyDescription(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  v3 = MEMORY[0x1E696AEC0];
-  AlgorithmId = SecKeyGetAlgorithmId(a1);
-  v5 = *(a1 + 16);
-  v6 = *(v5 + 1);
-  v7 = *v5;
-  _SecKeyCheck(a1, "SecKeyGetBlockSize");
-  v8 = *(*(a1 + 16) + 80);
-  if (v8)
-  {
-    v8 = (8 * v8(a1));
-  }
-
-  v9 = v2 == &kSecEd448PrivateKeyDescriptor || v2 == &kSecEd448PublicKeyDescriptor;
-  v10 = "kSecX448";
-  if (v9)
-  {
-    v10 = "kSecEd448";
-  }
-
-  [v3 stringWithFormat:@"<SecKeyRef curve type: %s, algorithm id: %lu, key type: %s, version: %d, block size: %zu bits, addr: %p>", v10, AlgorithmId, v6, v7, v8, a1];
-  return objc_claimAutoreleasedReturnValue();
-}
-
-__CFDictionary *SecCurve448PublicKeyCopyAttributeDictionary(void *a1)
-{
-  v1 = a1[2];
-  if (v1 == &kSecEd448PrivateKeyDescriptor || v1 == &kSecEd448PublicKeyDescriptor)
-  {
-    v3 = @"107";
-  }
-
-  else
-  {
-    v3 = @"108";
-  }
-
-  v4 = SecKeyCopyAttributeDictionaryWithLocalKey(a1, v3, 0);
-  MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v4);
-  CFDictionarySetValue(MutableCopy, @"drve", *MEMORY[0x1E695E4C0]);
-  if (v4)
-  {
-    CFRelease(v4);
-  }
-
-  return MutableCopy;
-}
-
-uint64_t SecCurve448PublicKeyBlockSize(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (v1 == &kSecEd448PrivateKeyDescriptor || v1 == &kSecEd448PublicKeyDescriptor)
-  {
-    return 57;
-  }
-
-  else
-  {
-    return 56;
-  }
-}
-
-uint64_t SecCurve448PublicKeyDestroy(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  v1 = *(a1 + 24);
-  return cc_clear();
-}
-
-uint64_t SecCurve448PublicKeyInit(uint64_t a1, void *__src, size_t a3, int a4)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 24);
-  if (a4 == 6)
-  {
-    v9 = *(a1 + 16);
-    v10 = v9 == &kSecEd448PublicKeyDescriptor || v9 == &kSecEd448PrivateKeyDescriptor;
-    v11 = v10;
-    v12 = 56;
-    if (v10)
-    {
-      v12 = 57;
-    }
-
-    if (v12 != a3)
-    {
-      goto LABEL_28;
-    }
-
-    ccrng();
-    if (v11)
-    {
-      result = cced448_make_pub();
-      if (!result)
-      {
-        goto LABEL_25;
-      }
-
-      v13 = result;
-      v14 = _SECKEY_LOG_10207();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_27;
-      }
-
-      v18 = 67109120;
-      v19 = v13;
-      v15 = "cced448_make_pub() failed, error %d";
-    }
-
-    else
-    {
-      result = cccurve448_make_pub();
-      if (!result)
-      {
-        goto LABEL_25;
-      }
-
-      v17 = result;
-      v14 = _SECKEY_LOG_10207();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_27;
-      }
-
-      v18 = 67109120;
-      v19 = v17;
-      v15 = "cccurve448_make_pub() failed, error %d";
-    }
-
-    _os_log_error_impl(&dword_1887D2000, v14, OS_LOG_TYPE_ERROR, v15, &v18, 8u);
-LABEL_27:
-
-    goto LABEL_28;
-  }
-
-  if (a4 != 7)
-  {
-    result = 4294967246;
-    goto LABEL_25;
-  }
-
-  v5 = *(a1 + 16);
-  v6 = v5 == &kSecEd448PrivateKeyDescriptor || v5 == &kSecEd448PublicKeyDescriptor;
-  v7 = 56;
-  if (v6)
-  {
-    v7 = 57;
-  }
-
-  if (v7 != a3)
-  {
-LABEL_28:
-    result = 4294941021;
-    goto LABEL_25;
-  }
-
-  memcpy(*(a1 + 24), __src, a3);
-  result = 0;
-LABEL_25:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t curve448KeyGeneratePair(uint64_t a1, void *a2, void *a3, uint64_t a4)
-{
-  if (SecCFAllocatorZeroize_sOnce != -1)
-  {
-    dispatch_once(&SecCFAllocatorZeroize_sOnce, &__block_literal_global_9069);
-  }
-
-  v8 = SecCFAllocatorZeroize_sAllocator;
-  if (a4 == 6)
-  {
-    v9 = &kSecEd448PrivateKeyDescriptor;
-  }
-
-  else
-  {
-    v9 = &kSecX448PrivateKeyDescriptor;
-  }
-
-  v10 = SecKeyCreate(SecCFAllocatorZeroize_sAllocator, v9, a1, 0, 5);
-  if (!v10)
-  {
-    return 4294967246;
-  }
-
-  v11 = v10;
-  if (a4 == 6)
-  {
-    v12 = &kSecEd448PublicKeyDescriptor;
-  }
-
-  else
-  {
-    v12 = &kSecX448PublicKeyDescriptor;
-  }
-
-  if (a4 == 6)
-  {
-    v13 = 57;
-  }
-
-  else
-  {
-    v13 = 56;
-  }
-
-  v14 = SecKeyCreate(v8, v12, v10[3], v13, 6);
-  if (!v14)
-  {
-    v15 = 4294967246;
-LABEL_21:
-    CFRelease(v11);
-    return v15;
-  }
-
-  if (a2)
-  {
-    *a2 = v14;
-    v14 = 0;
-  }
-
-  if (a3)
-  {
-    *a3 = v11;
-    v11 = 0;
-  }
-
-  if (v14)
-  {
-    CFRelease(v14);
-  }
-
-  v15 = 0;
-  result = 0;
-  if (v11)
-  {
-    goto LABEL_21;
-  }
-
-  return result;
-}
-
-id SecEMCSCreateDerivedEMCSKey(void *a1, void *a2)
-{
-  v3 = a2;
-  valuePtr = 0xAAAAAAAAAAAAAAAALL;
-  v4 = a1;
-  Value = CFDictionaryGetValue(v4, @"salt");
-  v6 = CFDictionaryGetValue(v4, @"iter");
-  v7 = CFDictionaryGetValue(v4, @"wkey");
-
-  if (!Value)
-  {
-LABEL_10:
-    v9 = 0;
-    goto LABEL_11;
-  }
-
-  v8 = CFGetTypeID(Value);
-  v9 = 0;
-  if (v8 == CFDataGetTypeID())
-  {
-    if (v6)
-    {
-      v10 = CFGetTypeID(v6);
-      v9 = 0;
-      if (v10 == CFNumberGetTypeID())
-      {
-        if (v7)
-        {
-          v11 = CFGetTypeID(v7);
-          if (v11 == CFDataGetTypeID())
-          {
-            if (CFNumberGetValue(v6, kCFNumberLongType, &valuePtr))
-            {
-              DerivedKey = CreateDerivedKey(Value, valuePtr, v3);
-              if (DerivedKey)
-              {
-                v13 = DerivedKey;
-                v9 = CopyUnwrappedKey(DerivedKey, v7);
-                CFRelease(v13);
-                goto LABEL_11;
-              }
-            }
-          }
-
-          goto LABEL_10;
-        }
-      }
-    }
-  }
-
-LABEL_11:
-
-  return v9;
-}
-
-__CFData *CreateDerivedKey(const __CFData *a1, uint64_t a2, void *a3)
-{
-  v5 = a3;
-  if (a2 < 1000 || CFDataGetLength(a1) < 16)
-  {
-    goto LABEL_8;
-  }
-
-  if (SecCFAllocatorZeroize_sOnce != -1)
-  {
-    dispatch_once(&SecCFAllocatorZeroize_sOnce, &__block_literal_global_9069);
-  }
-
-  Mutable = CFDataCreateMutable(SecCFAllocatorZeroize_sAllocator, 16);
-  v7 = Mutable;
-  if (Mutable)
-  {
-    CFDataSetLength(Mutable, 16);
-    ccsha256_di();
-    strlen([v5 UTF8String]);
-    [v5 UTF8String];
-    CFDataGetLength(a1);
-    CFDataGetBytePtr(a1);
-    CFDataGetMutableBytePtr(v7);
-    if (ccpbkdf2_hmac())
-    {
-      CFRelease(v7);
-LABEL_8:
-      v7 = 0;
-    }
-  }
-
-  return v7;
-}
-
-__CFData *CopyUnwrappedKey(const __CFData *a1, const __CFData *a2)
-{
-  v14[1] = *MEMORY[0x1E69E9840];
-  ccaes_ecb_decrypt_mode();
-  v4 = ccecb_context_size();
-  MEMORY[0x1EEE9AC00](v4);
-  if (v6 >= 0x10)
-  {
-    v7 = (v14 - v5);
-    do
-    {
-      *v7 = 0xAAAAAAAAAAAAAAAALL;
-      v7[1] = 0xAAAAAAAAAAAAAAAALL;
-      v7 += 2;
-      v5 -= 16;
-    }
-
-    while (v5);
-  }
-
-  if (CFDataGetLength(a2) < 8 || CFDataGetLength(a1) != 16)
-  {
-    goto LABEL_11;
-  }
-
-  CFDataGetLength(a1);
-  CFDataGetBytePtr(a1);
-  ccecb_init();
-  if (SecCFAllocatorZeroize_sOnce != -1)
-  {
-    dispatch_once(&SecCFAllocatorZeroize_sOnce, &__block_literal_global_9069);
-  }
-
-  v8 = SecCFAllocatorZeroize_sAllocator;
-  CFDataGetLength(a2);
-  v9 = ccwrap_unwrapped_size();
-  Mutable = CFDataCreateMutable(v8, 0);
-  CFDataSetLength(Mutable, v9);
-  if (Mutable)
-  {
-    v14[0] = 0;
-    CFDataGetLength(a2);
-    CFDataGetBytePtr(a2);
-    [(__CFData *)Mutable mutableBytes];
-    if (ccwrap_auth_decrypt())
-    {
-
-LABEL_11:
-      Mutable = 0;
-      goto LABEL_14;
-    }
-
-    v11 = v14[0];
-    if (v11 != [(__CFData *)Mutable length])
-    {
-      __security_simulatecrash(@"Execution has encountered an unexpected state", 1405091854);
-    }
-  }
-
-LABEL_14:
-  ccecb_context_size();
-  cc_clear();
-  v12 = *MEMORY[0x1E69E9840];
-
-  return Mutable;
-}
-
-__CFData *SecEMCSCreateNewiDMSKey(void *a1, void *a2, void *a3, void *a4)
-{
-  keys[3] = *MEMORY[0x1E69E9840];
-  v7 = a1;
-  v8 = a2;
-  v9 = a3;
-  v23 = 1000;
-  if (a4)
-  {
-    *a4 = 0;
-  }
-
-  if (v8)
-  {
-    v10 = CFGetTypeID(v8);
-    if (v10 != CFDataGetTypeID() || CFDataGetLength(v8) != 16)
-    {
-      v15 = 0;
-      goto LABEL_13;
-    }
-  }
-
-  Mutable = CFDataCreateMutable(0, 0);
-  CFDataSetLength(Mutable, 16);
-  if (!Mutable)
-  {
-    v13 = 0;
-    goto LABEL_12;
-  }
-
-  CFDataGetLength(Mutable);
-  CFDataGetMutableBytePtr(Mutable);
-  v12 = *MEMORY[0x1E69E94D8];
-  if (!CCRandomCopyBytes())
-  {
-    v18 = CFNumberCreate(0, kCFNumberLongType, &v23);
-    if (v18)
-    {
-      v19 = v18;
-      if (SecCFAllocatorZeroize_sOnce != -1)
-      {
-        dispatch_once(&SecCFAllocatorZeroize_sOnce, &__block_literal_global_9069);
-      }
-
-      if (v8)
-      {
-        MutableCopy = CFDataCreateMutableCopy(SecCFAllocatorZeroize_sAllocator, 0, v8);
-      }
-
-      else
-      {
-        MutableCopy = CFDataCreateMutable(SecCFAllocatorZeroize_sAllocator, 0);
-        CFDataSetLength(MutableCopy, 16);
-        if (!MutableCopy || (CFDataGetLength(MutableCopy), CFDataGetMutableBytePtr(MutableCopy), CCRandomCopyBytes()))
-        {
-          v14 = 0;
-          goto LABEL_29;
-        }
-      }
-
-      DerivedKey = CreateDerivedKey(Mutable, 1000, v9);
-      v13 = DerivedKey;
-      if (!DerivedKey)
-      {
-        v14 = 0;
-        goto LABEL_31;
-      }
-
-      v14 = CopyWrappedKey(DerivedKey, MutableCopy);
-      CFRelease(v13);
-      if (v14)
-      {
-        keys[0] = @"salt";
-        keys[1] = @"iter";
-        keys[2] = @"wkey";
-        values[0] = Mutable;
-        values[1] = v19;
-        values[2] = v14;
-        v22 = CFDictionaryCreate(0, keys, values, 3, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        v13 = v22;
-        if (a4 && v22)
-        {
-          *a4 = CFRetain(MutableCopy);
-        }
-
-LABEL_31:
-        CFRelease(Mutable);
-        CFRelease(v19);
-        if (MutableCopy)
-        {
-          CFRelease(MutableCopy);
-        }
-
-        if (!v14)
-        {
-          goto LABEL_12;
-        }
-
-        goto LABEL_9;
-      }
-
-LABEL_29:
-      v13 = 0;
-      goto LABEL_31;
-    }
-  }
-
-  v13 = 0;
-  v14 = Mutable;
-LABEL_9:
-  CFRelease(v14);
-LABEL_12:
-  v15 = v13;
-LABEL_13:
-
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
-}
-
-__CFData *CopyWrappedKey(const __CFData *a1, const __CFData *a2)
-{
-  v13[1] = *MEMORY[0x1E69E9840];
-  ccaes_ecb_encrypt_mode();
-  v4 = ccecb_context_size();
-  MEMORY[0x1EEE9AC00](v4);
-  if (v6 >= 0x10)
-  {
-    v7 = (v13 - v5);
-    do
-    {
-      *v7 = 0xAAAAAAAAAAAAAAAALL;
-      v7[1] = 0xAAAAAAAAAAAAAAAALL;
-      v7 += 2;
-      v5 -= 16;
-    }
-
-    while (v5);
-  }
-
-  if (CFDataGetLength(a1) != 16)
-  {
-    goto LABEL_8;
-  }
-
-  CFDataGetLength(a1);
-  CFDataGetBytePtr(a1);
-  ccecb_init();
-  CFDataGetLength(a2);
-  v8 = ccwrap_wrapped_size();
-  Mutable = CFDataCreateMutable(0, 0);
-  CFDataSetLength(Mutable, v8);
-  v13[0] = 0;
-  CFDataGetLength(a2);
-  CFDataGetBytePtr(a2);
-  CFDataGetMutableBytePtr(Mutable);
-  if (ccwrap_auth_encrypt())
-  {
-    if (Mutable)
-    {
-      CFRelease(Mutable);
-LABEL_8:
-      Mutable = 0;
-    }
-  }
-
-  else
-  {
-    v10 = v13[0];
-    if (v10 != CFDataGetLength(Mutable))
-    {
-      __security_simulatecrash(@"Execution has encountered an unexpected state", 1405091854);
-    }
-  }
-
-  ccecb_context_size();
-  cc_clear();
-  v11 = *MEMORY[0x1E69E9840];
-  return Mutable;
-}
-
-uint64_t SecKyberPublicKeyCopyOperationResult(uint64_t a1, uint64_t a2, CFTypeRef cf1, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, __CFString **a8)
-{
-  v23[2] = *MEMORY[0x1E69E9840];
-  if (a2 != 5 || !CFEqual(cf1, @"algid:kem:kyber"))
-  {
-    v11 = MEMORY[0x1E695E738];
-    goto LABEL_6;
-  }
-
-  if (a5)
-  {
-    v11 = MEMORY[0x1E695E4D0];
-LABEL_6:
-    v12 = *v11;
-    goto LABEL_7;
-  }
-
-  v15 = *(a1 + 24);
-  if (SecCFAllocatorZeroize_sOnce != -1)
-  {
-    dispatch_once(&SecCFAllocatorZeroize_sOnce, &__block_literal_global_9069);
-  }
-
-  v16 = SecCFAllocatorZeroize_sAllocator;
-  v17 = cckem_shared_key_nbytes_ctx();
-  Mutable = CFDataCreateMutable(v16, 0);
-  CFDataSetLength(Mutable, v17);
-  if (SecCFAllocatorZeroize_sOnce != -1)
-  {
-    dispatch_once(&SecCFAllocatorZeroize_sOnce, &__block_literal_global_9069);
-  }
-
-  v19 = SecCFAllocatorZeroize_sAllocator;
-  v20 = cckem_encapsulated_key_nbytes_ctx();
-  v21 = CFDataCreateMutable(v19, 0);
-  CFDataSetLength(v21, v20);
-  [(__CFData *)v21 length];
-  [(__CFData *)v21 mutableBytes];
-  [(__CFData *)Mutable length];
-  [(__CFData *)Mutable mutableBytes];
-  ccrng();
-  v22 = cckem_encapsulate();
-  if (v22)
-  {
-    SecError(-26275, a8, @"Key encapsulation failed, err=%d for key %@", v22, a1);
-  }
-
-  v23[0] = v21;
-  v23[1] = Mutable;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
-
-LABEL_7:
-  v13 = *MEMORY[0x1E69E9840];
-  return v12;
-}
-
-uint64_t SecKyberPublicKeyCopyPublicOctets(uint64_t a1, __CFData **a2)
-{
-  v3 = SecKEMPublicKeyCopyData(*(a1 + 24), 0);
-  *a2 = v3;
-  if (v3)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return 4294941021;
-  }
-}
-
-uint64_t SecKyberPublicKeyCopyKeyDescription(uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  v3 = cckem_pubkey_nbytes_ctx();
-  cckem_kyber768();
-  if (v3 == cckem_pubkey_nbytes_info())
-  {
-    v4 = @"Kyber-768-pubKey";
-  }
-
-  else
-  {
-    v5 = cckem_pubkey_nbytes_ctx();
-    cckem_kyber1024();
-    if (v5 == cckem_pubkey_nbytes_info())
-    {
-      v4 = @"Kyber-1024-pubKey";
-    }
-
-    else
-    {
-      v4 = @"Kyber";
-    }
-  }
-
-  v6 = SecKEMGenerateHexDump();
-  v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<SecKeyRef %@ algorithm id: %lu, key type: %s, version: %d, bytes: %@, addr: %p>", v4, 8, *(*(a1 + 16) + 8), **(a1 + 16), v6, a1];
-
-  return v7;
-}
-
-__CFString *SecKyberPublicKeyCopyAttributeDictionary(uint64_t a1)
-{
-  v1 = *(a1 + 24);
-  if (v1)
-  {
-    v2 = *(a1 + 24);
-    v3 = cckem_pubkey_nbytes_ctx();
-    cckem_kyber768();
-    if (v3 == cckem_pubkey_nbytes_info())
-    {
-      v4 = @"768";
-    }
-
-    else
-    {
-      v6 = cckem_pubkey_nbytes_ctx();
-      cckem_kyber1024();
-      if (v6 != cckem_pubkey_nbytes_info())
-      {
-        v8 = secLogObjForScope("SecError");
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-        {
-          *v12 = 0;
-          _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "unknown Kyber type detected", v12, 2u);
-        }
-
-        v4 = &unk_1EFAAC748;
-        goto LABEL_13;
-      }
-
-      v4 = @"1024";
-    }
-
-    v7 = v4;
-LABEL_13:
-    v9 = SecKEMPublicKeyCopyData(v1, 0);
-    v10 = SecSHA1DigestCreate(*MEMORY[0x1E695E480], [(__CFData *)v9 bytes], [(__CFData *)v9 length]);
-    v5 = SecKEMCreateKeyAttributeDictionary(@"109", v4, @"0", v10, v9);
-
-    goto LABEL_14;
-  }
-
-  v4 = secLogObjForScope("SecError");
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "Invalid key data: The provided key does not contain a valid KEM context.", buf, 2u);
-  }
-
-  v5 = &stru_1EFA8C6C8;
-LABEL_14:
-
-  return v5;
-}
-
-uint64_t SecKyberPublicKeyInit(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v17 = *MEMORY[0x1E69E9840];
-  if (a3)
-  {
-    cckem_kyber768();
-    if (cckem_pubkey_nbytes_info() == a3)
-    {
-      cckem_kyber768();
-    }
-
-    else
-    {
-      cckem_kyber1024();
-      if (cckem_pubkey_nbytes_info() != a3)
-      {
-        v8 = secLogObjForScope("SecWarning");
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-        {
-          v13 = 67109120;
-          v14 = a3;
-          v9 = "Kyber pubkey size=%dbytes is invalid";
-          v10 = v8;
-          v11 = 8;
-          goto LABEL_13;
-        }
-
-LABEL_14:
-
-        goto LABEL_15;
-      }
-
-      cckem_kyber1024();
-    }
-
-    v6 = cckem_sizeof_pub_ctx();
-    *(a1 + 24) = malloc_type_calloc(1uLL, v6, 0x773AC145uLL);
-    result = cckem_import_pubkey();
-    if (result)
-    {
-      v7 = result;
-      v8 = secLogObjForScope("SecWarning");
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-      {
-        v13 = 67109376;
-        v14 = a3;
-        v15 = 1024;
-        v16 = v7;
-        v9 = "Kyber pubkey size=%dbytes import failed: %d";
-        v10 = v8;
-        v11 = 14;
-LABEL_13:
-        _os_log_impl(&dword_1887D2000, v10, OS_LOG_TYPE_DEFAULT, v9, &v13, v11);
-        goto LABEL_14;
-      }
-
-      goto LABEL_14;
-    }
-  }
-
-  else
-  {
-    if (!a2)
-    {
-LABEL_15:
-      result = 4294967246;
-      goto LABEL_16;
-    }
-
-    result = 0;
-    *(a1 + 24) = a2;
-  }
-
-LABEL_16:
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t SecKyberPrivateKeyCopyOperationResult(uint64_t a1, uint64_t a2, CFTypeRef cf1, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, __CFString **a8)
-{
-  if (a2 == 6 && CFEqual(cf1, @"algid:kem:kyber"))
-  {
-    if (a5 == 1)
-    {
-      v13 = MEMORY[0x1E695E4D0];
-      return *v13;
-    }
-
-    if (!a5)
-    {
-      SecKEMDecapsulateSharedKey(a1, a6, a8);
-      return objc_claimAutoreleasedReturnValue();
-    }
-  }
-
-  v13 = MEMORY[0x1E695E738];
-  return *v13;
-}
-
-uint64_t SecKyberPrivateKeyCopyPublicOctets(uint64_t a1, __CFData **a2)
-{
-  v3 = *(a1 + 24);
-  v4 = cckem_public_ctx();
-  v5 = SecKEMPublicKeyCopyData(v4, 0);
-  *a2 = v5;
-  if (v5)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return 4294941021;
-  }
-}
-
-uint64_t SecKyberPrivateKeyCopyKeyDescription(uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  cckem_public_ctx();
-  v3 = cckem_privkey_nbytes_ctx();
-  cckem_kyber768();
-  if (v3 == cckem_privkey_nbytes_info())
-  {
-    v4 = @"Kyber-768-privKey";
-  }
-
-  else
-  {
-    cckem_public_ctx();
-    v5 = cckem_privkey_nbytes_ctx();
-    cckem_kyber1024();
-    v6 = cckem_privkey_nbytes_info();
-    v4 = @"Kyber";
-    if (v5 == v6)
-    {
-      v4 = @"Kyber-1024-privKey";
-    }
-  }
-
-  [MEMORY[0x1E696AEC0] stringWithFormat:@"<SecKeyRef %@ algorithm id: %lu, key type: %s, version: %d, addr: %p>", v4, 8, *(*(a1 + 16) + 8), **(a1 + 16), a1];
-  return objc_claimAutoreleasedReturnValue();
-}
-
-uint64_t SecKyberPrivateKeyCopyAttributeDictionary(uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  cckem_public_ctx();
-  v3 = cckem_privkey_nbytes_ctx();
-  cckem_kyber768();
-  if (v3 == cckem_privkey_nbytes_info())
-  {
-    v4 = @"768";
-LABEL_5:
-    v6 = v4;
-    goto LABEL_9;
-  }
-
-  cckem_public_ctx();
-  v5 = cckem_privkey_nbytes_ctx();
-  cckem_kyber1024();
-  if (v5 == cckem_privkey_nbytes_info())
-  {
-    v4 = @"1024";
-    goto LABEL_5;
-  }
-
-  v7 = secLogObjForScope("SecError");
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-  {
-    *v18 = 0;
-    _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, "unknown Kyber type detected", v18, 2u);
-  }
-
-  v4 = &unk_1EFAAC748;
-LABEL_9:
-  v8 = *(a1 + 24);
-  v9 = cckem_public_ctx();
-  v10 = SecKEMPublicKeyCopyData(v9, 0);
-  if (v10 && (v11 = v10, v12 = SecSHA1DigestCreate(*MEMORY[0x1E695E480], [(__CFData *)v10 bytes], [(__CFData *)v10 length]), v11, v12))
-  {
-    v13 = 0;
-    v14 = v12;
-  }
-
-  else
-  {
-    v14 = [MEMORY[0x1E695DEF0] data];
-    v12 = 0;
-    v13 = 1;
-  }
-
-  v15 = SecKEMPrivateKeyCopyExternalRepresentation(a1, 0);
-  v16 = SecKEMCreateKeyAttributeDictionary(@"109", v4, @"1", v14, v15);
-
-  if (v13)
-  {
-  }
-
-  return v16;
-}
-
-uint64_t SecKyberPrivateKeyInit(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  if (a3)
-  {
-    cckem_kyber768();
-    v5 = cckem_pubkey_nbytes_info();
-    cckem_kyber768();
-    if (cckem_privkey_nbytes_info() + v5 == a3)
-    {
-      cckem_kyber768();
-    }
-
-    else
-    {
-      cckem_kyber1024();
-      v7 = cckem_pubkey_nbytes_info();
-      cckem_kyber1024();
-      if (cckem_privkey_nbytes_info() + v7 != a3)
-      {
-        v11 = secLogObjForScope("SecWarning");
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-        {
-          v17 = 67109120;
-          v18 = a3;
-          v12 = "Kyber pubkey size=%dbytes is invalid";
-          v14 = v11;
-          v15 = 8;
-          goto LABEL_17;
-        }
-
-        goto LABEL_18;
-      }
-
-      cckem_kyber1024();
-    }
-
-    v8 = cckem_sizeof_full_ctx();
-    *(a1 + 24) = malloc_type_calloc(1uLL, v8, 0xFE012729uLL);
-    cckem_pubkey_nbytes_info();
-    v9 = cckem_import_privkey();
-    if (v9)
-    {
-      v10 = v9;
-      v11 = secLogObjForScope("SecWarning");
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-      {
-        v17 = 67109376;
-        v18 = a3;
-        v19 = 1024;
-        v20 = v10;
-        v12 = "Kyber privkey size=%dbytes import of priv part failed: %d";
-LABEL_14:
-        v14 = v11;
-        v15 = 14;
-LABEL_17:
-        _os_log_impl(&dword_1887D2000, v14, OS_LOG_TYPE_DEFAULT, v12, &v17, v15);
-        goto LABEL_18;
-      }
-
-      goto LABEL_18;
-    }
-
-    cckem_public_ctx();
-    result = cckem_import_pubkey();
-    if (result)
-    {
-      v13 = result;
-      v11 = secLogObjForScope("SecWarning");
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-      {
-        v17 = 67109376;
-        v18 = a3;
-        v19 = 1024;
-        v20 = v13;
-        v12 = "Kyber privkey size=%dbytes import of pub part failed: %d";
-        goto LABEL_14;
-      }
-
-LABEL_18:
-
-      goto LABEL_19;
-    }
-  }
-
-  else
-  {
-    if (!a2)
-    {
-LABEL_19:
-      result = 4294967246;
-      goto LABEL_20;
-    }
-
-    result = 0;
-    *(a1 + 24) = a2;
-  }
-
-LABEL_20:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t SecKyberKeyGeneratePair(void *a1, void *a2, void *a3)
-{
-  v28 = *MEMORY[0x1E69E9840];
-  cckem_kyber768();
-  v6 = [a1 objectForKeyedSubscript:@"bsiz"];
-  v7 = v6;
-  if (!v6)
-  {
-LABEL_6:
-    v10 = cckem_sizeof_full_ctx();
-    v11 = malloc_type_calloc(1uLL, v10, 0x506D6625uLL);
-    cckem_full_ctx_init();
-    ccrng();
-    key = cckem_generate_key();
-    if (key)
-    {
-      v13 = key;
-      free(v11);
-      v14 = secLogObjForScope("SecWarning");
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-      {
-        v26 = 67109120;
-        LODWORD(v27) = v13;
-        _os_log_impl(&dword_1887D2000, v14, OS_LOG_TYPE_DEFAULT, "Failed to generate Kyber key: err %d", &v26, 8u);
-      }
-
-      v15 = 4294941021;
-    }
-
-    else
-    {
-      if (SecCFAllocatorZeroize_sOnce != -1)
-      {
-        dispatch_once(&SecCFAllocatorZeroize_sOnce, &__block_literal_global_9069);
-      }
-
-      v16 = SecKeyCreate(SecCFAllocatorZeroize_sAllocator, &kSecKyberPrivateKeyDescriptor, v11, 0, 0);
-      if (v16)
-      {
-        v17 = cckem_sizeof_pub_ctx();
-        v18 = malloc_type_calloc(1uLL, v17, 0x1991FCEBuLL);
-        v19 = cckem_public_ctx();
-        v20 = cckem_sizeof_pub_ctx();
-        memcpy(v18, v19, v20);
-        v21 = SecKeyCreate(*MEMORY[0x1E695E480], &kSecKyberPublicKeyDescriptor, v18, 0, 0);
-        v22 = v21;
-        if (v21)
-        {
-          if (a2)
-          {
-            *a2 = v21;
-          }
-
-          v15 = 0;
-          if (a3)
-          {
-            *a3 = v16;
-          }
-        }
-
-        else
-        {
-          v15 = 4294967246;
-        }
-      }
-
-      else
-      {
-        v15 = 4294967246;
-      }
-    }
-
-    goto LABEL_25;
-  }
-
-  v8 = [v6 integerValue];
-  if (v8 == [@"768" integerValue])
-  {
-    cckem_kyber768();
-    goto LABEL_6;
-  }
-
-  v9 = [v7 integerValue];
-  if (v9 == [@"1024" integerValue])
-  {
-    cckem_kyber1024();
-    goto LABEL_6;
-  }
-
-  v23 = secLogObjForScope("SecWarning");
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-  {
-    v26 = 138412290;
-    v27 = v7;
-    _os_log_impl(&dword_1887D2000, v23, OS_LOG_TYPE_DEFAULT, "Invalid kyber type %@ requested for Kyber key generation", &v26, 0xCu);
-  }
-
-  v15 = 4294967246;
-LABEL_25:
-
-  v24 = *MEMORY[0x1E69E9840];
-  return v15;
-}
-
-uint64_t __SecIdentityGetTypeID_block_invoke(uint64_t a1)
-{
-  result = _CFRuntimeRegisterClass();
-  **(a1 + 32) = result;
-  return result;
-}
-
-uint64_t SecIdentityCompare(uint64_t a1, uint64_t a2)
-{
-  if (a1 == a2)
-  {
-    return 1;
-  }
-
-  if (!a2)
-  {
-    return 0;
-  }
-
-  result = CFEqual(*(a1 + 16), *(a2 + 16));
-  if (result)
-  {
-    return CFEqual(*(a1 + 24), *(a2 + 24)) != 0;
-  }
-
-  return result;
-}
-
-OSStatus SecPKCS12Import(CFDataRef pkcs12_data, CFDictionaryRef options, CFArrayRef *items)
-{
-  coder = 0;
-  cf = 0;
-  theDict = 0;
-  SecAsn1CoderCreate(&coder);
-  if (options)
-  {
-    Value = CFDictionaryGetValue(options, @"passphrase");
-    cf = Value;
-    if (Value)
-    {
-      CFRetain(Value);
-    }
-  }
-
-  if (!cf)
-  {
-    cf = CFStringCreateWithCString(0, &unk_188967DD7, 0x8000100u);
-  }
-
-  theDict = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v52 = 0;
-  v50 = 0u;
-  v51 = 0u;
-  v49 = 0u;
-  Length = CFDataGetLength(pkcs12_data);
-  BytePtr = CFDataGetBytePtr(pkcs12_data);
-  v9 = 1;
-  if (!coder || !BytePtr)
-  {
-    goto LABEL_26;
-  }
-
-  v10 = SEC_ASN1Decode(*coder, &v49, &NSS_P12_DecodedPFXTemplate, BytePtr, Length);
-  v11 = v52;
-  if (v10)
-  {
-    v12 = 0;
-  }
-
-  else
-  {
-    v12 = v51 == 1;
-  }
-
-  if (!v12 || v52 == 0)
-  {
-    goto LABEL_81;
-  }
-
-  *&context = v52[1];
-  *(&context + 1) = *v52;
-  if (DEROidCompare(&oidSha1, &context))
-  {
-    v14 = 0;
-    v15 = 20;
-LABEL_19:
-    v16 = 64;
-    goto LABEL_20;
-  }
-
-  if (DEROidCompare(&oidSha256, &context))
-  {
-    v14 = 2;
-    v15 = 32;
-    goto LABEL_19;
-  }
-
-  if (DEROidCompare(&oidSha384, &context))
-  {
-    v14 = 3;
-    v15 = 48;
-  }
-
-  else
-  {
-    if (!DEROidCompare(&oidSha512, &context))
-    {
-      if (!DEROidCompare(&oidSha224, &context))
-      {
-        goto LABEL_24;
-      }
-
-      v14 = 5;
-      v15 = 28;
-      goto LABEL_19;
-    }
-
-    v14 = 4;
-    v15 = 64;
-  }
-
-  v16 = 128;
-LABEL_20:
-  if (!*(&context + 1))
-  {
-LABEL_24:
-    v19 = 0;
-LABEL_25:
-    free(v19);
-    v9 = 2;
-LABEL_26:
-    LODWORD(v53) = v9;
-    goto LABEL_60;
-  }
-
-  v17 = v11[8];
-  if (!v17)
-  {
-    goto LABEL_32;
-  }
-
-  v18 = v11[9];
-  if (!v18)
-  {
-    goto LABEL_32;
-  }
-
-  if (v17 > 4)
-  {
-    goto LABEL_24;
-  }
-
-  v20 = 0;
-  do
-  {
-    v21 = *v18++;
-    v20 = v21 | (v20 << 8);
-    --v17;
-  }
-
-  while (v17);
-  if (!v20)
-  {
-LABEL_32:
-    v20 = 1;
-  }
-
-  v22 = v15;
-  v19 = malloc_type_malloc(v15, 0x100004077774924uLL);
-  if (p12_pbe_gen(cf, v11[7], v11[6], v20, 3, v19, v22, v16, v22))
-  {
-    goto LABEL_25;
-  }
-
-  v23 = 0xAAAAAAAAAAAAAAAALL;
-  v53 = 0xAAAAAAAAAAAAAAAALL;
-  v54 = 0xAAAAAAAAAAAAAAAALL;
-  if (coder)
-  {
-    v23 = PORT_ArenaAlloc(*coder, v22);
-    v54 = v23;
-    if (v23)
-    {
-      v53 = v22;
-    }
-  }
-
-  CCHmac(v14, v19, v22, *(*(&v51 + 1) + 8), **(&v51 + 1), v23);
-  if (!nssCompareSecAsn1Items(&v53, v11 + 4))
-  {
-    goto LABEL_25;
-  }
-
-  free(v19);
-  v53 = 0;
-  if (!coder || (v24 = *(*(&v51 + 1) + 8)) == 0 || SEC_ASN1Decode(*coder, &v53, &NSS_P12_AuthenticatedSafeTemplate, v24, **(&v51 + 1)))
-  {
-LABEL_81:
-    v9 = 1;
-    goto LABEL_26;
-  }
-
-  if (v53)
-  {
-    if (*v53)
-    {
-      v25 = 0;
-        ;
-      }
-
-      if (v25)
-      {
-        v27 = 0;
-        v28 = 8 * v25;
-        while (1)
-        {
-          v29 = v53[v27 / 8];
-          v30 = *(v29 + 16);
-          if (v30 == 6)
-          {
-            break;
-          }
-
-          if (v30 == 1)
-          {
-            v31 = *(v29 + 24);
-            v32 = *v31;
-            v33 = v31[1];
-            goto LABEL_52;
-          }
-
-LABEL_53:
-          v27 += 8;
-          if (v28 == v27)
-          {
-            goto LABEL_54;
-          }
-        }
-
-        context = 0uLL;
-        p12Decrypt(&coder, (*(v29 + 24) + 32), *(v29 + 24) + 64, &context);
-        if (v34)
-        {
-          goto LABEL_81;
-        }
-
-        v33 = *(&context + 1);
-        v32 = context;
-LABEL_52:
-        if (safeContentsParse(&coder, v32, v33))
-        {
-          goto LABEL_81;
-        }
-
-        goto LABEL_53;
-      }
-    }
-  }
-
-LABEL_54:
-  LODWORD(v53) = 0;
-  v35 = MEMORY[0x1E695E9C0];
-  Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
-  v37 = CFArrayCreateMutable(0, 0, v35);
-  *&context = Mutable;
-  *(&context + 1) = &v53;
-  CFDictionaryApplyFunction(theDict, collect_certs, &context);
-  if (!v53)
-  {
-    v38 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
-    *&v49 = v38;
-    *(&v49 + 1) = v37;
-    *&v50 = Mutable;
-    *(&v50 + 1) = &v53;
-    CFDictionaryApplyFunction(theDict, build_trust_chains, &v49);
-    *items = v38;
-  }
-
-  if (v37)
-  {
-    CFRelease(v37);
-  }
-
-  if (Mutable)
-  {
-    CFRelease(Mutable);
-  }
-
-LABEL_60:
-  if (theDict)
-  {
-    CFRelease(theDict);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  SecAsn1CoderRelease(coder);
-  if (v53)
-  {
-    if (v53 == 2)
-    {
-      return -25293;
-    }
-
-    else if (v53 == 1)
-    {
-      return -26275;
-    }
-
-    else
-    {
-      return -26276;
-    }
-  }
-
-  else if (options)
-  {
-    v40 = CFDictionaryGetValue(options, @"nleg");
-    v39 = 0;
-    if (v40 && v40 != *MEMORY[0x1E695E4C0])
-    {
-      *&context = 0;
-      *(&context + 1) = &context;
-      v47 = 0x2000000000;
-      v48 = 0;
-      v41 = *items;
-      *&v49 = MEMORY[0x1E69E9820];
-      *(&v49 + 1) = 0x40000000;
-      *&v50 = __SecPKCS12ImportToModernKeychain_block_invoke;
-      *(&v50 + 1) = &unk_1E70DEA00;
-      *&v51 = &context;
-      *(&v51 + 1) = options;
-      v55.length = CFArrayGetCount(v41);
-      v55.location = 0;
-      CFArrayApplyFunction(v41, v55, apply_block_1_10321, &v49);
-      v39 = *(*(&context + 1) + 24);
-      _Block_object_dispose(&context, 8);
-    }
-  }
-
-  else
-  {
-    return 0;
-  }
-
-  return v39;
-}
-
 uint64_t __SecPKCS12ImportToModernKeychain_block_invoke(uint64_t a1, CFTypeRef cf)
 {
   v3 = a1;
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 40);
   v5 = CFGetTypeID(cf);
   result = CFDictionaryGetTypeID();
   if (v5 != result)
   {
-    goto LABEL_39;
+    return result;
   }
 
   if (CFDictionaryContainsKey(cf, @"identity"))
@@ -1706,7 +19,7 @@ LABEL_35:
       v11 = -26276;
 LABEL_38:
       *(*(*(v3 + 32) + 8) + 24) = v11;
-      goto LABEL_39;
+      return result;
     }
 
     v9 = secItemOptionsFromPKCS12Options(v4);
@@ -1730,12 +43,12 @@ LABEL_38:
       v11 = v10;
       if (v10)
       {
-        v37 = secLogObjForScope("SecError");
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v36 = secLogObjForScope("SecError");
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          v41 = v11;
-          _os_log_impl(&dword_1887D2000, v37, OS_LOG_TYPE_DEFAULT, "p12Decode: Error %d adding identity to keychain", buf, 8u);
+          v40 = v11;
+          _os_log_impl(&dword_1887D2000, v36, OS_LOG_TYPE_DEFAULT, "p12Decode: Error %d adding identity to keychain", buf, 8u);
         }
 
         goto LABEL_14;
@@ -1774,14 +87,14 @@ LABEL_16:
       result = CFArrayGetTypeID();
       if (v15 == result)
       {
-        v38 = v3;
+        v37 = v3;
         v16 = 0;
         v17 = @"nleg";
         v18 = @"class";
         v19 = @"cert";
         v20 = *MEMORY[0x1E695E4D0];
         v21 = @"v_Ref";
-        v39 = v14;
+        v38 = v14;
         while (1)
         {
           result = CFArrayGetCount(v14);
@@ -1826,7 +139,7 @@ LABEL_16:
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            v41 = v11;
+            v40 = v11;
             _os_log_impl(&dword_1887D2000, v35, OS_LOG_TYPE_DEFAULT, "p12Decode: Error %d adding identity to keychain", buf, 8u);
           }
 
@@ -1835,7 +148,7 @@ LABEL_16:
           v19 = v32;
           v21 = v31;
           v20 = v30;
-          v14 = v39;
+          v14 = v38;
           if (v24)
           {
             goto LABEL_29;
@@ -1871,16 +184,14 @@ LABEL_29:
     goto LABEL_35;
   }
 
-  v38 = v3;
+  v37 = v3;
 LABEL_37:
-  v3 = v38;
+  v3 = v37;
   if (v11)
   {
     goto LABEL_38;
   }
 
-LABEL_39:
-  v36 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2148,9 +459,9 @@ const void *SecCopyLastError(int a1)
   return v3;
 }
 
-__CFData *_SecItemCreatePersistentRef(const __CFString *a1, unint64_t a2, CFDictionaryRef theDict)
+CFDataRef _SecItemCreatePersistentRef(const __CFString *a1, unint64_t a2, CFDictionaryRef theDict)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (theDict && (TokenPersistentRefData = CreateTokenPersistentRefData(a1, theDict)) != 0)
   {
     v6 = TokenPersistentRefData;
@@ -2164,18 +475,26 @@ __CFData *_SecItemCreatePersistentRef(const __CFString *a1, unint64_t a2, CFDict
     CFRelease(v6);
   }
 
-  else if ((a2 & 0x8000000000000000) != 0 || (memset(buffer, 170, 12), !CFStringGetCString(a1, buffer, 5, 0x8000100u)))
-  {
-    Mutable = 0;
-  }
-
   else
   {
-    *&buffer[4] = bswap64(a2);
-    Mutable = CFDataCreate(0, buffer, 12);
+    if ((a2 & 0x8000000000000000) != 0)
+    {
+      return 0;
+    }
+
+    memset(buffer, 170, 12);
+    if (!CFStringGetCString(a1, buffer, 5, 0x8000100u))
+    {
+      return 0;
+    }
+
+    else
+    {
+      *&buffer[4] = bswap64(a2);
+      return CFDataCreate(0, buffer, 12);
+    }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
@@ -2225,7 +544,7 @@ void SecItemAuthMaxAttemptsReached(const __CFArray *a1, __CFString **a2)
 
   v18 = CFStringCreateWithFormat(v3, 0, @"Reached maximum count of authentication attempts\n %@", Mutable);
   SecError(-25293, a2, @"%@", v18);
-  __security_simulatecrash(v18, 1405091846);
+  __security_simulatecrash(v18, 0x53C00006u);
   CFRelease(v18);
 
   CFRelease(Mutable);
@@ -2287,7 +606,7 @@ LABEL_23:
       return 0;
     }
 
-    __security_simulatecrash(@"Execution has encountered an unexpected state", 1405091854);
+    __security_simulatecrash(@"Execution has encountered an unexpected state", 0x53C0000Eu);
     v10 = a1[2];
     CFRetain(v10);
     v6 = a1[3];
@@ -2367,7 +686,7 @@ void __SecItemAttributesPrepare_block_invoke(uint64_t a1, const void *a2, const 
   CFDictionaryAddValue(v5, a2, a3);
 }
 
-uint64_t SecItemShareWithGroup(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t SecItemShareWithGroup(const __CFDictionary *a1, uint64_t a2, void *a3)
 {
   v6 = objc_autoreleasePoolPush();
   v14 = 0;
@@ -2400,19 +719,20 @@ uint64_t SecItemShareWithGroup(uint64_t a1, uint64_t a2, uint64_t a3)
   return v8;
 }
 
-void sub_1888D4450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, os_activity_scope_state_s state, uint64_t a16, uint64_t a17, char a18)
+void sub_1888D4450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, os_activity_scope_state_s state, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
   os_activity_scope_leave(&state);
-  _Block_object_dispose(&a18, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __SecItemShareWithGroup_block_invoke(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t a4, const __CFDictionary *a5, CFTypeRef *a6)
+uint64_t __SecItemShareWithGroup_block_invoke(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t a4, const __CFDictionary *a5, CFErrorRef *a6)
 {
   v10 = a2;
   if ((isModifyingAPIRateWithinLimits() & 1) == 0)
   {
-    __security_simulatecrash(@"BUG IN CLIENT OF SECITEM: too many writes. See https://at.apple.com/secitemratelimit", 1405091855);
+    __security_simulatecrash(@"BUG IN CLIENT OF SECITEM: too many writes. See https://at.apple.com/secitemratelimit", 0x53C0000Fu);
   }
 
   if (!v10)
@@ -2487,38 +807,33 @@ BOOL __share_with_group_request_block_invoke(uint64_t a1, void *a2, __CFString *
 
 void getTKTokenNotFoundAndRegistered_10505()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
   v0 = getTKTokenNotFoundAndRegisteredSymbolLoc_ptr_10507;
-  v8 = getTKTokenNotFoundAndRegisteredSymbolLoc_ptr_10507;
+  v7 = getTKTokenNotFoundAndRegisteredSymbolLoc_ptr_10507;
   if (!getTKTokenNotFoundAndRegisteredSymbolLoc_ptr_10507)
   {
     v1 = CryptoTokenKitLibrary();
-    v6[3] = dlsym(v1, "TKTokenNotFoundAndRegistered");
-    getTKTokenNotFoundAndRegisteredSymbolLoc_ptr_10507 = v6[3];
-    v0 = v6[3];
+    v5[3] = dlsym(v1, "TKTokenNotFoundAndRegistered");
+    getTKTokenNotFoundAndRegisteredSymbolLoc_ptr_10507 = v5[3];
+    v0 = v5[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (v0)
+  _Block_object_dispose(&v4, 8);
+  if (!v0)
   {
-    v2 = *v0;
-  }
-
-  else
-  {
-    v3 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"TKErrorCode getTKTokenNotFoundAndRegistered(void)"];
-    [v3 handleFailureInFunction:v4 file:@"SecSoftLink.h" lineNumber:43 description:{@"%s", dlerror()}];
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"TKErrorCode getTKTokenNotFoundAndRegistered(void)"];
+    [v2 handleFailureInFunction:v3 file:@"SecSoftLink.h" lineNumber:43 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
 }
 
-void sub_1888D481C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1888D481C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2532,7 +847,7 @@ void *__getTKTokenNotFoundAndRegisteredSymbolLoc_block_invoke_10508(uint64_t a1)
   return result;
 }
 
-uint64_t __SecItemDelete_block_invoke_3(uint64_t a1, CFDictionaryRef theDict, uint64_t a3, CFTypeRef *a4)
+uint64_t __SecItemDelete_block_invoke_3(uint64_t a1, CFDictionaryRef theDict, uint64_t a3, CFErrorRef *a4)
 {
   Value = CFDictionaryGetValue(theDict, @"oid");
   v8 = *(a1 + 32);
@@ -2544,7 +859,7 @@ uint64_t __SecItemDelete_block_invoke_3(uint64_t a1, CFDictionaryRef theDict, ui
     goto LABEL_6;
   }
 
-  if (CryptoTokenKitLibraryCore() && getTKErrorDomainSymbolLoc())
+  if (CryptoTokenKitLibraryCore(0) && getTKErrorDomainSymbolLoc())
   {
     v11 = [v10 domain];
     v12 = getTKErrorDomain();
@@ -2603,7 +918,7 @@ LABEL_18:
   return v17;
 }
 
-uint64_t SecTokenItemForEachMatching(const __CFDictionary *a1, CFTypeRef *a2, void *a3)
+uint64_t SecTokenItemForEachMatching(const __CFDictionary *a1, CFErrorRef *a2, void *a3)
 {
   v32 = a3;
   cf = 0;
@@ -2765,7 +1080,7 @@ void SecTokenProcessError(uint64_t a1, void *a2, uint64_t a3, CFErrorRef *a4)
 {
   valuePtr[1] = *MEMORY[0x1E69E9840];
   v6 = a2;
-  if (CryptoTokenKitLibraryCore() && getTKErrorDomainSymbolLoc())
+  if (CryptoTokenKitLibraryCore(0) && getTKErrorDomainSymbolLoc())
   {
     Domain = CFErrorGetDomain(*a4);
     getTKErrorDomain();
@@ -2784,9 +1099,9 @@ void SecTokenProcessError(uint64_t a1, void *a2, uint64_t a3, CFErrorRef *a4)
 
     if (CFErrorGetCode(*a4) == -9)
     {
-      v31 = 0;
-      v9 = [v6 objectForObjectID:a3 error:&v31];
-      v10 = v31;
+      v30 = 0;
+      v9 = [v6 objectForObjectID:a3 error:&v30];
+      v10 = v30;
       v11 = v10;
       if (!v9)
       {
@@ -2817,8 +1132,6 @@ void SecTokenProcessError(uint64_t a1, void *a2, uint64_t a3, CFErrorRef *a4)
   }
 
 LABEL_16:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __SecTokenItemUpdate_block_invoke(uint64_t a1, const __CFDictionary *a2, const __CFString *a3, CFErrorRef *a4)
@@ -2850,23 +1163,23 @@ LABEL_3:
   return v13;
 }
 
-void *SecTokenCopyUpdatedObjectID(void *a1, uint64_t a2, const __CFDictionary *a3, CFErrorRef *a4)
+void *SecTokenCopyUpdatedObjectID(void *a1, const __CFDictionary *a2, const __CFDictionary *a3, CFErrorRef *a4)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v7 = a1;
   Copy = CFDictionaryCreateCopy(*MEMORY[0x1E695E480], a3);
   if (a2)
   {
-    v39 = 0;
-    v9 = &v39;
-    v10 = [v7 objectForObjectID:a2 error:&v39];
+    v38 = 0;
+    v9 = &v38;
+    v10 = [v7 objectForObjectID:a2 error:&v38];
   }
 
   else
   {
-    v40 = 0;
-    v9 = &v40;
-    v10 = [v7 createObjectWithAttributes:a3 error:&v40];
+    v39 = 0;
+    v9 = &v39;
+    v10 = [v7 createObjectWithAttributes:a3 error:&v39];
   }
 
   v11 = v10;
@@ -2896,39 +1209,39 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v33 = v12;
+  v32 = v12;
   CFDictionaryRemoveAllValues(a3);
   v16 = [v11 keychainAttributes];
   [(__CFDictionary *)a3 addEntriesFromDictionary:v16];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  v34 = Copy;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v33 = Copy;
   v17 = Copy;
-  v18 = [(__CFDictionary *)v17 countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v18 = [(__CFDictionary *)v17 countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v36;
+    v20 = *v35;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v36 != v20)
+        if (*v35 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v35 + 1) + 8 * i);
-        if (([v22 isEqualToString:{@"v_Data", v33}] & 1) == 0)
+        v22 = *(*(&v34 + 1) + 8 * i);
+        if (([v22 isEqualToString:{@"v_Data", v32}] & 1) == 0)
         {
           CFDictionaryAddValue(a3, v22, [(__CFDictionary *)v17 objectForKey:v22]);
         }
       }
 
-      v19 = [(__CFDictionary *)v17 countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v19 = [(__CFDictionary *)v17 countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
     while (v19);
@@ -2966,8 +1279,8 @@ LABEL_25:
   }
 
 LABEL_26:
-  v13 = v33;
-  Copy = v34;
+  v13 = v32;
+  Copy = v33;
   if (v30)
   {
     CFRelease(v30);
@@ -2979,11 +1292,10 @@ LABEL_28:
     CFRelease(Copy);
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
-__CFData *SecTokenItemValueCreate(uint64_t a1, int a2, const void *a3, CFTypeRef *a4, int a5, int a6, int a7, int a8)
+__CFData *SecTokenItemValueCreate(uint64_t a1, int a2, const void *a3, CFErrorRef *a4, int a5, int a6, int a7, int a8)
 {
   MutableForCFTypesWith_10537 = CFDictionaryCreateMutableForCFTypesWith_10537(a1, a2, a3, a4, a5, a6, a7, a8, @"oid", a1);
   v16 = MutableForCFTypesWith_10537;
@@ -3028,7 +1340,7 @@ void __SecTokenItemAdd_block_invoke(uint64_t a1, CFTypeRef cf1, const void *a3)
   }
 }
 
-uint64_t SecDeleteItemsOnSignOut(CFTypeRef *a1)
+uint64_t SecDeleteItemsOnSignOut(CFErrorRef *a1)
 {
   v2 = objc_autoreleasePoolPush();
   v3 = _os_activity_create(&dword_1887D2000, "SecDeleteItemsOnSignOut", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -3085,42 +1397,42 @@ uint64_t _SecKeychainForceUpgradeIfNeeded()
   return v2;
 }
 
-void sub_1888D56E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1888D56E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t SecKeychainCopyDatabasePath(uint64_t *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v18 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
   v2 = objc_autoreleasePoolPush();
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __SecKeychainCopyDatabasePath_block_invoke;
-  v12[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
-  v12[4] = a1;
-  v3 = SecuritydXPCProxyObject(1, v12);
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
-  v11[2] = __SecKeychainCopyDatabasePath_block_invoke_50;
-  v11[3] = &unk_1E70DEC30;
-  v11[4] = &v13;
-  v11[5] = a1;
-  [v3 secKeychainCopyDatabasePath:v11];
+  v11[2] = __SecKeychainCopyDatabasePath_block_invoke;
+  v11[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
+  v11[4] = a1;
+  v3 = SecuritydXPCProxyObject(1, v11);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __SecKeychainCopyDatabasePath_block_invoke_50;
+  v10[3] = &unk_1E70DEC30;
+  v10[4] = &v12;
+  v10[5] = a1;
+  [v3 secKeychainCopyDatabasePath:v10];
 
   objc_autoreleasePoolPop(v2);
   v4 = secLogObjForScope("xpc");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v9 = v14[3];
+    v8 = v13[3];
     *buf = 138412290;
-    v18 = v9;
+    v17 = v8;
     _os_log_debug_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEBUG, "returning keychain database path as: %@", buf, 0xCu);
   }
 
@@ -3129,65 +1441,62 @@ uint64_t SecKeychainCopyDatabasePath(uint64_t *a1)
     v5 = secLogObjForScope("xpc");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v10 = *a1;
+      v9 = *a1;
       *buf = 138412290;
-      v18 = v10;
+      v17 = v9;
       _os_log_debug_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEBUG, "returning keychain database path error: %@", buf, 0xCu);
     }
   }
 
-  v6 = v14[3];
-  _Block_object_dispose(&v13, 8);
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = v13[3];
+  _Block_object_dispose(&v12, 8);
   return v6;
 }
 
-void sub_1888D5A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1888D5A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __SecKeychainCopyDatabasePath_block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = secLogObjForScope("SecError");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "xpc: failure to obtain XPC proxy object for SecCopyKeychainDatabasePath %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "xpc: failure to obtain XPC proxy object for SecCopyKeychainDatabasePath %@", &v5, 0xCu);
   }
 
   if (*(a1 + 32))
   {
     **(a1 + 32) = v3;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __SecKeychainCopyDatabasePath_block_invoke_50(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = secLogObjForScope("xpc");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_debug_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEBUG, "keychain database path: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_debug_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEBUG, "keychain database path: %@", &v9, 0xCu);
   }
 
   v8 = secLogObjForScope("xpc");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 138412290;
-    v11 = v5;
-    _os_log_debug_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEBUG, "keychain database path xpc status error: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v5;
+    _os_log_debug_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEBUG, "keychain database path xpc status error: %@", &v9, 0xCu);
   }
 
   if (*(a1 + 40))
@@ -3196,8 +1505,6 @@ void __SecKeychainCopyDatabasePath_block_invoke_50(uint64_t a1, void *a2, void *
   }
 
   *(*(*(a1 + 32) + 8) + 24) = v6;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t SecItemDeleteAll()
@@ -3296,7 +1603,7 @@ uint64_t _SecKeychainSyncUpdateMessage(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-uint64_t _SecKeychainRollKeys(uint64_t a1, CFTypeRef *a2)
+uint64_t _SecKeychainRollKeys(uint64_t a1, CFErrorRef *a2)
 {
   v4 = objc_autoreleasePoolPush();
   if (gSecurityd && (v5 = *(gSecurityd + 72)) != 0)
@@ -3329,7 +1636,7 @@ uint64_t _SecKeychainRollKeys(uint64_t a1, CFTypeRef *a2)
   return v6 & 1;
 }
 
-uint64_t SecItemCertificateExists(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef *a4)
+uint64_t SecItemCertificateExists(uint64_t a1, uint64_t a2, uint64_t a3, CFErrorRef *a4)
 {
   v8 = objc_autoreleasePoolPush();
   v9 = _os_activity_create(&dword_1887D2000, "SecItemCertificateExists", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -3405,17 +1712,19 @@ uint64_t _SecItemAddAndNotifyOnSync(uint64_t a1, uint64_t a2, void *a3)
   return v8;
 }
 
-void sub_1888D6A1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, os_activity_scope_state_s state, char a18)
+void sub_1888D6A1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, os_activity_scope_state_s state, ...)
 {
+  va_start(va, state);
   os_activity_scope_leave(&state);
-  _Block_object_dispose(&a18, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1888D6DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1888D6DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 128), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3516,7 +1825,7 @@ void _SecItemFetchDigests(void *a1, void *a2, void *a3)
 
 void _SecKeychainDeleteMultiUser(void *a1, void *a2)
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = _os_activity_create(&dword_1887D2000, "_SecKeychainDeleteMultiUser", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -3527,16 +1836,16 @@ void _SecKeychainDeleteMultiUser(void *a1, void *a2)
   v7 = v6;
   if (v6)
   {
-    v32[0] = 0xAAAAAAAAAAAAAAAALL;
-    v32[1] = 0xAAAAAAAAAAAAAAAALL;
-    [v6 getUUIDBytes:v32];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v26 = ___SecKeychainDeleteMultiUser_block_invoke;
-    v27 = &unk_1E70DECC0;
+    v31[0] = 0xAAAAAAAAAAAAAAAALL;
+    v31[1] = 0xAAAAAAAAAAAAAAAALL;
+    [v6 getUUIDBytes:v31];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v25 = ___SecKeychainDeleteMultiUser_block_invoke;
+    v26 = &unk_1E70DECC0;
     v8 = v4;
-    v28 = v8;
-    v9 = v25;
+    v27 = v8;
+    v9 = v24;
     if (gSecurityd && *(gSecurityd + 704))
     {
       v10 = objc_alloc_init(FakeSecuritydXPCClient);
@@ -3551,13 +1860,13 @@ void _SecKeychainDeleteMultiUser(void *a1, void *a2)
     if (v10)
     {
 
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = ___SecKeychainDeleteMultiUser_block_invoke_2;
-      v23[3] = &unk_1E70DECC0;
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = ___SecKeychainDeleteMultiUser_block_invoke_2;
+      v22[3] = &unk_1E70DECC0;
       v12 = v8;
-      v24 = v12;
-      v13 = [(FakeSecuritydXPCClient *)v11 protocolWithSync:0 errorHandler:v23];
+      v23 = v12;
+      v13 = [(FakeSecuritydXPCClient *)v11 protocolWithSync:0 errorHandler:v22];
       if (v13)
       {
         cf[0] = 0;
@@ -3565,15 +1874,15 @@ void _SecKeychainDeleteMultiUser(void *a1, void *a2)
         cf[2] = 0x3032000000;
         cf[3] = __Block_byref_object_copy__10431;
         cf[4] = __Block_byref_object_dispose__10432;
-        v31 = v11;
-        v14 = [MEMORY[0x1E695DEF0] dataWithBytes:v32 length:16];
-        v20[0] = MEMORY[0x1E69E9820];
-        v20[1] = 3221225472;
-        v20[2] = ___SecKeychainDeleteMultiUser_block_invoke_90;
-        v20[3] = &unk_1E70DEDD8;
-        v21 = v12;
-        v22 = cf;
-        [v13 secKeychainDeleteMultiuser:v14 complete:v20];
+        v30 = v11;
+        v14 = [MEMORY[0x1E695DEF0] dataWithBytes:v31 length:16];
+        v19[0] = MEMORY[0x1E69E9820];
+        v19[1] = 3221225472;
+        v19[2] = ___SecKeychainDeleteMultiUser_block_invoke_90;
+        v19[3] = &unk_1E70DEDD8;
+        v20 = v12;
+        v21 = cf;
+        [v13 secKeychainDeleteMultiuser:v14 complete:v19];
 
         _Block_object_dispose(cf, 8);
       }
@@ -3582,11 +1891,11 @@ void _SecKeychainDeleteMultiUser(void *a1, void *a2)
     else
     {
       v16 = MEMORY[0x1E696ABC0];
-      v33[0] = *MEMORY[0x1E696A578];
+      v32[0] = *MEMORY[0x1E696A578];
       cf[0] = @"Could not create SecuritydXPCClientObject";
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:cf forKeys:v33 count:1];
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:cf forKeys:v32 count:1];
       v18 = [v16 errorWithDomain:@"securityd" code:-1 userInfo:v17];
-      (v26)(v9, v18);
+      (v25)(v9, v18);
     }
   }
 
@@ -3604,7 +1913,6 @@ void _SecKeychainDeleteMultiUser(void *a1, void *a2)
   }
 
   os_activity_scope_leave(&state);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t SecItemDeleteKeychainItemsForAppClip(uint64_t a1)
@@ -3628,45 +1936,41 @@ uint64_t SecItemDeleteKeychainItemsForAppClip(uint64_t a1)
   return v4;
 }
 
-void sub_1888D7A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1888D7A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __SecItemDeleteKeychainItemsForAppClip_block_invoke_93(uint64_t a1, int a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v4 = secLogObjForScope("xpc");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = a2;
-    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "app clip deletion result: %i", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = a2;
+    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "app clip deletion result: %i", v5, 8u);
   }
 
   if (!a2 || a2 == -34018)
   {
     *(*(*(a1 + 32) + 8) + 24) = a2;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __SecItemDeleteKeychainItemsForAppClip_block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = secLogObjForScope("SecError");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, "xpc: failure to obtain XPC proxy object for app clip deletion, %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, "xpc: failure to obtain XPC proxy object for app clip deletion, %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t SecItemPersistKeychainWritesAtHighPerformanceCost(void *a1)
@@ -3725,47 +2029,45 @@ uint64_t SecItemPersistKeychainWritesAtHighPerformanceCost(void *a1)
   return v8;
 }
 
-void sub_1888D7DE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1888D7DE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
-  os_activity_scope_leave((v15 - 80));
+  _Block_object_dispose((v22 - 112), 8);
+  os_activity_scope_leave((v22 - 80));
   _Unwind_Resume(a1);
 }
 
 void __SecItemPersistKeychainWritesAtHighPerformanceCost_block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = secLogObjForScope("SecError");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "xpc: failure to obtain XPC proxy object for Item Persistence, %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "xpc: failure to obtain XPC proxy object for Item Persistence, %@", &v6, 0xCu);
   }
 
   v5 = v3;
   *(*(*(a1 + 32) + 8) + 24) = v5;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __SecItemPersistKeychainWritesAtHighPerformanceCost_block_invoke_94(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
     v6 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9[0] = 67109378;
-      v9[1] = a2;
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, "xpc: Failed to persist keychain writes: %d %@", v9, 0x12u);
+      v8[0] = 67109378;
+      v8[1] = a2;
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, "xpc: Failed to persist keychain writes: %d %@", v8, 0x12u);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = v5;
@@ -3776,14 +2078,12 @@ void __SecItemPersistKeychainWritesAtHighPerformanceCost_block_invoke_94(uint64_
     v7 = secLogObjForScope("xpc");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9[0]) = 0;
-      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, "Successfully persisted keychain data to disk", v9, 2u);
+      LOWORD(v8[0]) = 0;
+      _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, "Successfully persisted keychain data to disk", v8, 2u);
     }
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t SecItemPromoteAppClipItemsToParentApp(uint64_t a1, uint64_t a2)
@@ -3807,45 +2107,41 @@ uint64_t SecItemPromoteAppClipItemsToParentApp(uint64_t a1, uint64_t a2)
   return v6;
 }
 
-void sub_1888D8120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1888D8120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __SecItemPromoteAppClipItemsToParentApp_block_invoke_98(uint64_t a1, int a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v4 = secLogObjForScope("xpc");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = a2;
-    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "app clip promotion result: %i", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = a2;
+    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "app clip promotion result: %i", v5, 8u);
   }
 
   if (a2 == -34018 || !a2 || a2 == -25308)
   {
     *(*(*(a1 + 32) + 8) + 24) = a2;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __SecItemPromoteAppClipItemsToParentApp_block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = secLogObjForScope("SecError");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, "xpc: failure to obtain XPC proxy object for app clip promotion, %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, "xpc: failure to obtain XPC proxy object for app clip promotion, %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void *__loadUIKit_block_invoke()
@@ -4112,58 +2408,58 @@ CFMutableDataRef SecItemBackupCreateManifest(const __CFDictionary *a1)
 
 void __SecItemBackupCreateManifest_block_invoke(uint64_t a1, int a2, CFTypeRef cf)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  if (!cf || (v5 = CFGetTypeID(cf), v5 != CFDictionaryGetTypeID()))
+  v22 = *MEMORY[0x1E69E9840];
+  if (cf)
   {
-LABEL_16:
-    v21 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  Value = CFDictionaryGetValue(cf, @"hash");
-  v7 = Value;
-  if (!Value || (v8 = CFGetTypeID(Value), v8 != CFDataGetTypeID()) || CFDataGetLength(v7) != 20)
-  {
-    v13 = *MEMORY[0x1E695E480];
-    Length = CFDataGetLength(v7);
-    Mutable = CFStringCreateMutable(v13, 2 * Length);
-    BytePtr = CFDataGetBytePtr(v7);
-    v17 = CFDataGetLength(v7);
-    if (v17 >= 1)
+    v5 = CFGetTypeID(cf);
+    if (v5 == CFDictionaryGetTypeID())
     {
-      v18 = v17;
-      do
+      Value = CFDictionaryGetValue(cf, @"hash");
+      v7 = Value;
+      if (Value && (v8 = CFGetTypeID(Value), v8 == CFDataGetTypeID()) && CFDataGetLength(v7) == 20)
       {
-        v19 = *BytePtr++;
-        CFStringAppendFormat(Mutable, 0, @"%02X", v19);
-        --v18;
+        v9 = *(a1 + 32);
+        BytePtr = CFDataGetBytePtr(v7);
+        Length = CFDataGetLength(v7);
+
+        CFDataAppendBytes(v9, BytePtr, Length);
       }
 
-      while (v18);
-    }
+      else
+      {
+        v12 = *MEMORY[0x1E695E480];
+        v13 = CFDataGetLength(v7);
+        Mutable = CFStringCreateMutable(v12, 2 * v13);
+        v15 = CFDataGetBytePtr(v7);
+        v16 = CFDataGetLength(v7);
+        if (v16 >= 1)
+        {
+          v17 = v16;
+          do
+          {
+            v18 = *v15++;
+            CFStringAppendFormat(Mutable, 0, @"%02X", v18);
+            --v17;
+          }
 
-    v20 = secLogObjForScope("SecError");
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412290;
-      v23 = Mutable;
-      _os_log_impl(&dword_1887D2000, v20, OS_LOG_TYPE_DEFAULT, "bad hash %@ in backup", buf, 0xCu);
-    }
+          while (v17);
+        }
 
-    if (Mutable)
-    {
-      CFRelease(Mutable);
-    }
+        v19 = secLogObjForScope("SecError");
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v21 = Mutable;
+          _os_log_impl(&dword_1887D2000, v19, OS_LOG_TYPE_DEFAULT, "bad hash %@ in backup", buf, 0xCu);
+        }
 
-    goto LABEL_16;
+        if (Mutable)
+        {
+          CFRelease(Mutable);
+        }
+      }
+    }
   }
-
-  v9 = *(a1 + 32);
-  v10 = CFDataGetBytePtr(v7);
-  v11 = CFDataGetLength(v7);
-  v12 = *MEMORY[0x1E69E9840];
-
-  CFDataAppendBytes(v9, v10, v11);
 }
 
 uint64_t compareDigests(uint64_t a1, uint64_t a2)
@@ -4417,22 +2713,22 @@ BOOL __string_to_string_error_request_block_invoke_2(uint64_t a1, void *a2, __CF
 
 uint64_t SecItemBackupWithChanges(uint64_t a1, void *a2, uint64_t a3)
 {
-  v65 = *MEMORY[0x1E69E9840];
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x2000000000;
-  v62 = 1;
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x2000000000;
-  v58 = 0;
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 0x40000000;
-  v50 = __SecItemBackupWithChanges_block_invoke;
-  v51 = &unk_1E70DF190;
-  v53 = &v59;
-  v54 = &v55;
-  v52 = a3;
+  v63 = *MEMORY[0x1E69E9840];
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2000000000;
+  v60 = 1;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2000000000;
+  v56 = 0;
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 0x40000000;
+  v48 = __SecItemBackupWithChanges_block_invoke;
+  v49 = &unk_1E70DF190;
+  v51 = &v57;
+  v52 = &v53;
+  v50 = a3;
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2000000000;
@@ -4443,7 +2739,7 @@ uint64_t SecItemBackupWithChanges(uint64_t a1, void *a2, uint64_t a3)
   *&activity_block.st_rdev = &unk_1E70DF498;
   activity_block.st_atimespec.tv_sec = buf;
   activity_block.st_atimespec.tv_nsec = a1;
-  activity_block.st_mtimespec.tv_sec = &v58;
+  activity_block.st_mtimespec.tv_sec = &v56;
   _os_activity_initiate(&dword_1887D2000, "SecItemBackupHandoffFD", OS_ACTIVITY_FLAG_DEFAULT, &activity_block);
   v6 = *(*&buf[8] + 24);
   _Block_object_dispose(buf, 8);
@@ -4455,7 +2751,7 @@ uint64_t SecItemBackupWithChanges(uint64_t a1, void *a2, uint64_t a3)
       activity_block.st_dev = 67109378;
       *&activity_block.st_mode = v6;
       LOWORD(activity_block.st_ino) = 2112;
-      *(&activity_block.st_ino + 2) = v58;
+      *(&activity_block.st_ino + 2) = v56;
       _os_log_impl(&dword_1887D2000, v14, OS_LOG_TYPE_DEFAULT, "SecItemBackupHandoffFD returned %d: %@", &activity_block, 0x12u);
     }
 
@@ -4472,34 +2768,34 @@ uint64_t SecItemBackupWithChanges(uint64_t a1, void *a2, uint64_t a3)
   v16 = fdopen(v6, "r");
   if (!v16)
   {
-    v32 = secLogObjForScope("backup");
-    v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
-    if (v33)
+    v31 = secLogObjForScope("backup");
+    v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
+    if (v32)
     {
-      v39 = *__error();
+      v38 = *__error();
       activity_block.st_dev = 138412546;
       *&activity_block.st_mode = a1;
       WORD2(activity_block.st_ino) = 1024;
-      *(&activity_block.st_ino + 6) = v39;
-      _os_log_impl(&dword_1887D2000, v32, OS_LOG_TYPE_DEFAULT, "Receiving file for %@ failed, %d", &activity_block, 0x12u);
+      *(&activity_block.st_ino + 6) = v38;
+      _os_log_impl(&dword_1887D2000, v31, OS_LOG_TYPE_DEFAULT, "Receiving file for %@ failed, %d", &activity_block, 0x12u);
     }
 
-    SecCheckErrno(v33, &v58, @"fdopen", v34, v35, v36, v37, v38, v48);
+    SecCheckErrno(v32, &v56, @"fdopen", v33, v34, v35, v36, v37);
     if (!close(v6))
     {
       goto LABEL_7;
     }
 
-    v40 = secLogObjForScope("backup");
-    v7 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
+    v39 = secLogObjForScope("backup");
+    v7 = os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT);
     if (v7)
     {
-      v41 = *__error();
+      v40 = *__error();
       activity_block.st_dev = 138412546;
       *&activity_block.st_mode = a1;
       WORD2(activity_block.st_ino) = 1024;
-      *(&activity_block.st_ino + 6) = v41;
-      _os_log_impl(&dword_1887D2000, v40, OS_LOG_TYPE_DEFAULT, "Encountered error closing file %@: %d", &activity_block, 0x12u);
+      *(&activity_block.st_ino + 6) = v40;
+      _os_log_impl(&dword_1887D2000, v39, OS_LOG_TYPE_DEFAULT, "Encountered error closing file %@: %d", &activity_block, 0x12u);
     }
 
     v13 = @"close";
@@ -4532,7 +2828,7 @@ uint64_t SecItemBackupWithChanges(uint64_t a1, void *a2, uint64_t a3)
       _os_log_impl(&dword_1887D2000, v20, OS_LOG_TYPE_DEFAULT, "Unable to get file metadata for %@, fd %d", buf, 0x12u);
     }
 
-    SecCheckErrno(v21, &v58, @"fstat", v22, v23, v24, v25, v26, v48);
+    SecCheckErrno(v21, &v56, @"fstat", v22, v23, v24, v25, v26);
     if (!fclose(v17))
     {
       goto LABEL_7;
@@ -4552,12 +2848,12 @@ uint64_t SecItemBackupWithChanges(uint64_t a1, void *a2, uint64_t a3)
 
     v13 = @"fclose";
 LABEL_4:
-    SecCheckErrno(v7, &v58, v13, v8, v9, v10, v11, v12, v48);
+    SecCheckErrno(v7, &v56, v13, v8, v9, v10, v11, v12);
 LABEL_7:
-    *(v60 + 24) = 0;
+    *(v58 + 24) = 0;
 LABEL_8:
     (*(a3 + 16))(a3, 3, 0, 0);
-    v15 = v56[3];
+    v15 = v54[3];
     if (v15)
     {
       if (a2 && !*a2)
@@ -4585,178 +2881,175 @@ LABEL_8:
     _os_log_impl(&dword_1887D2000, v20, OS_LOG_TYPE_DEFAULT, "Receiving file for %@ with fd %d of size %llu", buf, 0x1Cu);
   }
 
-  v50(v49, v17);
-  v42 = fclose(v17);
-  if (v42)
+  v48(v47, v17);
+  v41 = fclose(v17);
+  if (v41)
   {
-    SecCheckErrno(v42, &v58, @"fclose", v43, v44, v45, v46, v47, v48);
+    SecCheckErrno(v41, &v56, @"fclose", v42, v43, v44, v45, v46);
   }
 
-  if (!*(v60 + 24))
+  if (!*(v58 + 24))
   {
     goto LABEL_8;
   }
 
 LABEL_21:
-  v29 = *(v60 + 24);
-  _Block_object_dispose(&v55, 8);
-  _Block_object_dispose(&v59, 8);
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *(v58 + 24);
+  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v57, 8);
   return v29;
 }
 
 void __SecItemBackupWithChanges_block_invoke(void *a1, FILE *a2)
 {
   v3 = *(a1[6] + 8);
-  v4 = a1[4];
-  v5 = malloc_type_malloc(0x10uLL, 0xD0202418uLL);
-  v6 = 0;
-  allocator = *MEMORY[0x1E695E480];
-  v7 = 1;
-  v8 = 16;
+  v4 = malloc_type_malloc(0x10uLL, 0xD0202418uLL);
+  v5 = 0;
+  v6 = 1;
+  v7 = 16;
   while (1)
   {
-    v9 = fread(&v5[v6], 1uLL, 16 - v6, a2);
-    if (!v9)
+    v8 = fread(&v4[v5], 1uLL, 16 - v5, a2);
+    if (!v8)
     {
       break;
     }
 
-    v10 = v9 + v6;
-    v11 = &v5[v9 + v6];
-    v12 = ccder_decode_tag();
-    if (v12)
+    v9 = v8 + v5;
+    v10 = &v4[v8 + v5];
+    v11 = ccder_decode_tag();
+    if (v11)
     {
-      v13 = v12 >= v11;
+      v12 = v11 >= v10;
     }
 
     else
     {
-      v13 = 1;
+      v12 = 1;
     }
 
-    if (v13)
+    if (v12)
     {
 LABEL_29:
-      v37 = SecError(-26275, (v3 + 24), @"failed to decode backup event header");
+      v36 = SecError(-26275, (v3 + 24), @"failed to decode backup event header");
       goto LABEL_30;
     }
 
-    v14 = v12 + 1;
-    v15 = *v12;
-    if ((v15 & 0x8000000000000000) != 0)
+    v13 = v11 + 1;
+    v14 = *v11;
+    if ((v14 & 0x8000000000000000) != 0)
     {
-      if (v15 == -125)
+      if (v14 == -125)
       {
-        if (v11 - v14 < 3)
+        if (v10 - v13 < 3)
         {
           goto LABEL_29;
         }
 
-        v14 = v12 + 4;
-        v15 = (v12[1] << 16) | (v12[2] << 8) | v12[3];
+        v13 = v11 + 4;
+        v14 = (v11[1] << 16) | (v11[2] << 8) | v11[3];
       }
 
       else
       {
-        v20 = *v12;
-        if (v20 == 130)
+        v19 = *v11;
+        if (v19 == 130)
         {
-          if (v11 - v14 < 2)
+          if (v10 - v13 < 2)
           {
             goto LABEL_29;
           }
 
-          v14 = v12 + 3;
-          v15 = __rev16(*(v12 + 1));
+          v13 = v11 + 3;
+          v14 = __rev16(*(v11 + 1));
         }
 
         else
         {
-          if (v20 != 129 || v11 - v14 < 1)
+          if (v19 != 129 || v10 - v13 < 1)
           {
             goto LABEL_29;
           }
 
-          v14 = v12 + 2;
-          v15 = v12[1];
+          v13 = v11 + 2;
+          v14 = v11[1];
         }
       }
     }
 
-    v16 = v14 - v5;
-    v17 = v16 + v15;
-    v18 = v16 + v15 - v10;
-    if (v16 + v15 > v10)
+    v15 = v13 - v4;
+    v16 = v15 + v14;
+    v17 = v15 + v14 - v9;
+    if (v15 + v14 > v9)
     {
-      if (v8 >= v17)
+      if (v7 >= v16)
       {
-        v19 = v5;
+        v18 = v4;
       }
 
       else
       {
-        v19 = malloc_type_realloc(v5, v16 + v15, 0xD1EDD9C0uLL);
-        v8 = v17;
-        if (!v19)
+        v18 = malloc_type_realloc(v4, v15 + v14, 0xD1EDD9C0uLL);
+        v7 = v16;
+        if (!v18)
         {
-          v37 = SecError(-108, (v3 + 24), @"realloc buf failed");
+          v36 = SecError(-108, (v3 + 24), @"realloc buf failed");
 LABEL_30:
-          v7 = v37;
+          v6 = v36;
           goto LABEL_37;
         }
       }
 
-      v21 = fread(&v19[v10], 1uLL, v18, a2);
-      if (v21 < v18)
+      v20 = fread(&v18[v9], 1uLL, v17, a2);
+      if (v20 < v17)
       {
-        v30 = v21;
-        v31 = feof(a2);
-        if (v31)
+        v29 = v20;
+        v30 = feof(a2);
+        if (v30)
         {
-          v7 = SecError(-26275, (v3 + 24), @"unexpected end of event file %zu of %zu bytes read", v30, v18);
+          v6 = SecError(-26275, (v3 + 24), @"unexpected end of event file %zu of %zu bytes read", v29, v17);
         }
 
         else
         {
-          SecCheckErrno(v31, (v3 + 24), @"failed to read event body", v32, v33, v34, v35, v36, v38);
-          v7 = 0;
+          SecCheckErrno(v30, (v3 + 24), @"failed to read event body", v31, v32, v33, v34, v35);
+          v6 = 0;
         }
 
-        v5 = v19;
+        v4 = v18;
         goto LABEL_37;
       }
 
-      v5 = v19;
+      v4 = v18;
     }
 
-    v22 = &v5[v17];
+    v21 = &v4[v16];
     ccder_decode_tag();
-    v23 = SecError(-26275, (v3 + 24), @"unsupported event tag: %lu", 0xAAAAAAAAAAAAAAAALL);
-    if (v17 >= v10)
+    v22 = SecError(-26275, (v3 + 24), @"unsupported event tag: %lu", 0xAAAAAAAAAAAAAAAALL);
+    if (v16 >= v9)
     {
-      v6 = 0;
+      v5 = 0;
     }
 
     else
     {
-      v6 = v10 - v17;
-      memmove(v5, v22, v6);
+      v5 = v9 - v16;
+      memmove(v4, v21, v5);
     }
 
-    v7 &= v23;
+    v6 &= v22;
   }
 
-  v24 = feof(a2);
-  if (!v24)
+  v23 = feof(a2);
+  if (!v23)
   {
-    SecCheckErrno(v24, (v3 + 24), @"read backup event header", v25, v26, v27, v28, v29, v38);
-    v7 = 0;
+    SecCheckErrno(v23, (v3 + 24), @"read backup event header", v24, v25, v26, v27, v28);
+    v6 = 0;
   }
 
 LABEL_37:
-  free(v5);
-  *(*(a1[5] + 8) + 24) &= v7;
+  free(v4);
+  *(*(a1[5] + 8) + 24) &= v6;
 }
 
 void __SecItemBackupHandoffFD_block_invoke(void *a1)
@@ -5032,7 +3325,7 @@ uint64_t __SecBackupKeybagDelete_block_invoke(void *a1)
   return securityd_send_sync_and_do(0x70u, v1, v4, v3);
 }
 
-__CFData *SecKeyCopyPublicKeyHash(const void *a1)
+__CFData *SecKeyCopyPublicKeyHash(void *a1)
 {
   theData = 0;
   v2 = SecKeyCopyPublicBytes(a1, &theData);
@@ -5172,14 +3465,14 @@ OSStatus SecKeyGeneratePair(CFDictionaryRef parameters, SecKeyRef *publicKey, Se
 
 SecKeyRef SecKeyCreateRandomKey(CFDictionaryRef parameters, CFErrorRef *error)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
   v4 = _os_activity_create(&dword_1887D2000, "SecKeyCreateRandomKey", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
   os_activity_scope_enter(v4, &state);
   key = 0;
-  v41 = 0;
+  v40 = 0;
   cf = 0;
   v5 = merge_params(parameters, @"public");
   v6 = merge_params(parameters, @"private");
@@ -5215,12 +3508,12 @@ SecKeyRef SecKeyCreateRandomKey(CFDictionaryRef parameters, CFErrorRef *error)
     else
     {
       v18 = 0;
-      v41 = v16;
+      v40 = v16;
     }
 
     key = v18;
-    OSStatus = SecErrorGetOSStatus(v41);
-    SecError(OSStatus, &v41, @"Failed to generate keypair", contexta);
+    OSStatus = SecErrorGetOSStatus(v40);
+    SecError(OSStatus, &v40, @"Failed to generate keypair", contexta);
     goto LABEL_15;
   }
 
@@ -5239,29 +3532,29 @@ SecKeyRef SecKeyCreateRandomKey(CFDictionaryRef parameters, CFErrorRef *error)
   {
     if (CFEqual(Value, @"105"))
     {
-      v32 = 4;
+      v31 = 4;
 LABEL_40:
-      v19 = curve25519KeyGeneratePair(parameters, &cf, &key, v32);
+      v19 = curve25519KeyGeneratePair(parameters, &cf, &key, v31);
       goto LABEL_9;
     }
 
     if (CFEqual(Value, @"106"))
     {
-      v32 = 5;
+      v31 = 5;
       goto LABEL_40;
     }
 
     if (CFEqual(Value, @"107"))
     {
-      v34 = 6;
+      v33 = 6;
 LABEL_45:
-      v19 = curve448KeyGeneratePair(parameters, &cf, &key, v34);
+      v19 = curve448KeyGeneratePair(parameters, &cf, &key, v33);
       goto LABEL_9;
     }
 
     if (CFEqual(Value, @"108"))
     {
-      v34 = 7;
+      v33 = 7;
       goto LABEL_45;
     }
 
@@ -5302,21 +3595,21 @@ LABEL_15:
     dispatch_once(&SecCFAllocatorZeroize_sOnce, &__block_literal_global_9069);
   }
 
-  v28 = SecCFAllocatorZeroize_sAllocator;
-  v29 = SecKeyCreate(SecCFAllocatorZeroize_sAllocator, &kSecRSAPrivateKeyDescriptor, parameters, 0, 5);
-  if (v29)
+  v27 = SecCFAllocatorZeroize_sAllocator;
+  v28 = SecKeyCreate(SecCFAllocatorZeroize_sAllocator, &kSecRSAPrivateKeyDescriptor, parameters, 0, 5);
+  if (v28)
   {
-    v30 = v29;
-    v31 = SecKeyCreate(v28, &kSecRSAPublicKeyDescriptor, *(v29 + 3), 0, 6);
-    if (v31)
+    v29 = v28;
+    v30 = SecKeyCreate(v27, &kSecRSAPublicKeyDescriptor, *(v28 + 3), 0, 6);
+    if (v30)
     {
       v20 = 0;
-      cf = v31;
-      key = v30;
+      cf = v30;
+      key = v29;
       goto LABEL_17;
     }
 
-    CFRelease(v30);
+    CFRelease(v29);
   }
 
   v20 = -50;
@@ -5324,13 +3617,13 @@ LABEL_10:
   v21 = _SECKEY_LOG_11460();
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
-    v33 = CFDictionaryGetValue(parameters, @"bsiz");
+    v32 = CFDictionaryGetValue(parameters, @"bsiz");
     *buf = 138543874;
     *&buf[4] = Value;
-    v44 = 2114;
-    v45 = v33;
-    v46 = 1024;
-    v47 = v20;
+    v43 = 2114;
+    v44 = v32;
+    v45 = 1024;
+    v46 = v20;
     _os_log_error_impl(&dword_1887D2000, v21, OS_LOG_TYPE_ERROR, "Failed to generate software key %{public}@:%{public}@, error: %d", buf, 0x1Cu);
   }
 
@@ -5351,9 +3644,9 @@ LABEL_17:
       cf = v23;
     }
 
-    if (!add_key(v23, v5, &v41))
+    if (!add_key(v23, v5, &v40))
     {
-      v35 = key;
+      v34 = key;
       if (!key)
       {
         goto LABEL_23;
@@ -5364,20 +3657,23 @@ LABEL_17:
   }
 
   v24 = CFDictionaryContainsKey(v6, @"tkid") != 0;
-  if (getBoolForKey(v6, v24) && !add_key(key, v6, &v41))
+  if (getBoolForKey(v6, v24))
   {
-    v35 = key;
-    if (key)
+    if (!add_key(key, v6, &v40))
     {
+      v34 = key;
+      if (key)
+      {
 LABEL_49:
-      key = 0;
-      CFRelease(v35);
+        key = 0;
+        CFRelease(v34);
+      }
     }
   }
 
 LABEL_23:
-  SecError(v20, &v41, @"failed to generate key", context);
-  _SecKeyErrorPropagate(key != 0, "SecKeyCreateRandomKey", v41, error);
+  SecError(v20, &v40, @"failed to generate key", context);
+  _SecKeyErrorPropagate(key != 0, "SecKeyCreateRandomKey", v40, error);
   if (v5)
   {
     CFRelease(v5);
@@ -5397,7 +3693,6 @@ LABEL_23:
   os_activity_scope_leave(&state);
 
   objc_autoreleasePoolPop(contextb);
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -5422,9 +3717,9 @@ CFMutableDictionaryRef merge_params(const __CFDictionary *a1, const void *a2)
   return MutableCopy;
 }
 
-BOOL getBoolForKey(const __CFDictionary *a1, _BOOL8 a2)
+uint64_t getBoolForKey(const __CFDictionary *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   Value = CFDictionaryGetValue(a1, @"perm");
   if (Value)
   {
@@ -5432,7 +3727,7 @@ BOOL getBoolForKey(const __CFDictionary *a1, _BOOL8 a2)
     v5 = CFGetTypeID(Value);
     if (v5 == CFBooleanGetTypeID())
     {
-      a2 = CFBooleanGetValue(v4) != 0;
+      return CFBooleanGetValue(v4) != 0;
     }
 
     else
@@ -5440,16 +3735,15 @@ BOOL getBoolForKey(const __CFDictionary *a1, _BOOL8 a2)
       v6 = _SECKEY_LOG_11460();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v9 = 138543618;
-        v10 = v4;
-        v11 = 2114;
-        v12 = @"perm";
-        _os_log_error_impl(&dword_1887D2000, v6, OS_LOG_TYPE_ERROR, "Value %{public}@ for key %{public}@ is not BOOL", &v9, 0x16u);
+        v8 = 138543618;
+        v9 = v4;
+        v10 = 2114;
+        v11 = @"perm";
+        _os_log_error_impl(&dword_1887D2000, v6, OS_LOG_TYPE_ERROR, "Value %{public}@ for key %{public}@ is not BOOL", &v8, 0x16u);
       }
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
@@ -5475,10 +3769,9 @@ BOOL add_key(void *value, CFMutableDictionaryRef theDict, __CFString **a3)
   return SecError(v8, a3, @"failed to add key to keychain: %@", value);
 }
 
-CFDictionaryRef CreatePrivateKeyMatchingQuery(const void *a1)
+CFDictionaryRef CreatePrivateKeyMatchingQuery(void *a1)
 {
   v1 = SecKeyCopyPublicKeyHash(a1);
-  v11 = *MEMORY[0x1E695E4D0];
   v9 = CFDictionaryCreateForCFTypes(*MEMORY[0x1E695E480], v2, v3, v4, v5, v6, v7, v8, @"class", @"keys");
   if (v1)
   {
@@ -5488,7 +3781,7 @@ CFDictionaryRef CreatePrivateKeyMatchingQuery(const void *a1)
   return v9;
 }
 
-CFTypeRef SecKeyCreatePersistentRefToMatchingPrivateKey(const void *a1, __CFString **a2)
+CFTypeRef SecKeyCreatePersistentRefToMatchingPrivateKey(void *a1, __CFString **a2)
 {
   result = 0;
   PrivateKeyMatchingQuery = CreatePrivateKeyMatchingQuery(a1);
@@ -5502,7 +3795,7 @@ CFTypeRef SecKeyCreatePersistentRefToMatchingPrivateKey(const void *a1, __CFStri
   return result;
 }
 
-CFTypeRef SecKeyCopyMatchingPrivateKey(const void *a1, __CFString **a2)
+CFTypeRef SecKeyCopyMatchingPrivateKey(void *a1, __CFString **a2)
 {
   result = 0;
   if (!a1)
@@ -5543,7 +3836,7 @@ LABEL_8:
   return v7;
 }
 
-uint64_t SecKeyGetMatchingPrivateKeyStatus(const void *a1, __CFString **a2)
+uint64_t SecKeyGetMatchingPrivateKeyStatus(void *a1, __CFString **a2)
 {
   result = 0;
   if (a1)
@@ -5646,7 +3939,7 @@ OSStatus SecKeyRawSign(SecKeyRef key, SecPadding padding, const uint8_t *dataToS
   return SecKeyPerformLegacyOperation(dataToSign, dataToSignLen, 0, 0, sig, sigLen, v13);
 }
 
-__CFString *SecKeyGetSignatureAlgorithmForPadding(uint64_t a1, int a2, uint64_t a3)
+__CFString *SecKeyGetSignatureAlgorithmForPadding(void *a1, int a2, uint64_t a3)
 {
   AlgorithmId = SecKeyGetAlgorithmId(a1);
   if (AlgorithmId == 3)
@@ -5820,7 +4113,7 @@ OSStatus SecKeyEncrypt(SecKeyRef key, SecPadding padding, const uint8_t *plainTe
   return result;
 }
 
-__CFData *SecKeyCreateEncryptedDataWithParameters(uint64_t a1, const void *a2, const __CFData *a3, const __CFData *a4, void *a5)
+__CFData *SecKeyCreateEncryptedDataWithParameters(void *a1, const void *a2, const __CFData *a3, const __CFData *a4, void *a5)
 {
   v10 = objc_autoreleasePoolPush();
   v11 = _os_activity_create(&dword_1887D2000, "SecKeyCreateEncryptedDataWithParameters", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -5874,7 +4167,7 @@ OSStatus SecKeyDecrypt(SecKeyRef key, SecPadding padding, const uint8_t *cipherT
   return result;
 }
 
-__CFData *SecKeyCreateDecryptedDataWithParameters(uint64_t a1, const void *a2, const __CFData *a3, const __CFData *a4, void *a5)
+__CFData *SecKeyCreateDecryptedDataWithParameters(void *a1, const void *a2, const __CFData *a3, const __CFData *a4, void *a5)
 {
   v10 = objc_autoreleasePoolPush();
   v11 = _os_activity_create(&dword_1887D2000, "SecKeyCreateDecryptedDataWithParameters", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -5909,7 +4202,7 @@ __CFData *SecKeyCreateDecryptedDataWithParameters(uint64_t a1, const void *a2, c
   return v13;
 }
 
-uint64_t SecKeyDigestAndSign(uint64_t a1, const SecAsn1Oid *a2, const UInt8 *a3, CFIndex a4, UInt8 *a5, CFIndex *a6)
+uint64_t SecKeyDigestAndSign(void *a1, const SecAsn1Oid *a2, const UInt8 *a3, CFIndex a4, UInt8 *a5, CFIndex *a6)
 {
   AlgorithmForSecAsn1AlgId = SecKeyGetAlgorithmForSecAsn1AlgId(a1, a2, 1u);
   if (!AlgorithmForSecAsn1AlgId)
@@ -5926,7 +4219,7 @@ uint64_t SecKeyDigestAndSign(uint64_t a1, const SecAsn1Oid *a2, const UInt8 *a3,
   return SecKeyPerformLegacyOperation(a3, a4, 0, 0, a5, a6, v13);
 }
 
-uint64_t SecKeyVerifyDigest(uint64_t a1, const SecAsn1Oid *a2, const UInt8 *a3, CFIndex a4, const UInt8 *a5, CFIndex a6)
+uint64_t SecKeyVerifyDigest(void *a1, const SecAsn1Oid *a2, const UInt8 *a3, CFIndex a4, const UInt8 *a5, CFIndex a6)
 {
   AlgorithmForSecAsn1AlgId = SecKeyGetAlgorithmForSecAsn1AlgId(a1, a2, 0);
   if (!AlgorithmForSecAsn1AlgId)
@@ -5956,7 +4249,7 @@ uint64_t __SecKeyVerifyDigest_block_invoke(uint64_t a1, CFDataRef signedData, CF
   }
 }
 
-uint64_t SecKeySignDigest(uint64_t a1, const SecAsn1Oid *a2, const UInt8 *a3, CFIndex a4, UInt8 *a5, CFIndex *a6)
+uint64_t SecKeySignDigest(void *a1, const SecAsn1Oid *a2, const UInt8 *a3, CFIndex a4, UInt8 *a5, CFIndex *a6)
 {
   AlgorithmForSecAsn1AlgId = SecKeyGetAlgorithmForSecAsn1AlgId(a1, a2, 0);
   if (!AlgorithmForSecAsn1AlgId)
@@ -6008,7 +4301,7 @@ LABEL_7:
 
 uint64_t SecKeyCopyPersistentRef(uint64_t a1, CFTypeRef *a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     v16 = secLogObjForScope("SecError");
@@ -6022,8 +4315,7 @@ LABEL_14:
 
 LABEL_15:
 
-    v12 = 4294967246;
-    goto LABEL_25;
+    return 4294967246;
   }
 
   if (!a2)
@@ -6049,9 +4341,9 @@ LABEL_15:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      *v25 = v12;
-      *&v25[4] = 2112;
-      *&v25[6] = a1;
+      *v24 = v12;
+      *&v24[4] = 2112;
+      *&v24[6] = a1;
       _os_log_impl(&dword_1887D2000, v13, OS_LOG_TYPE_DEFAULT, "SecKeyCopyPersistentRef: received status %i for key %@", buf, 0x12u);
     }
 
@@ -6060,9 +4352,9 @@ LABEL_15:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      *v25 = v14;
-      *&v25[8] = 1024;
-      *&v25[10] = v12;
+      *v24 = v14;
+      *&v24[8] = 1024;
+      *&v24[10] = v12;
       _os_log_impl(&dword_1887D2000, v15, OS_LOG_TYPE_DEFAULT, "stackshot report, reason: %@, code=%08x", buf, 0x12u);
     }
 
@@ -6089,9 +4381,9 @@ LABEL_21:
     {
       v20 = CFGetTypeID(result);
       *buf = 134218242;
-      *v25 = v20;
-      *&v25[8] = 2112;
-      *&v25[10] = a1;
+      *v24 = v20;
+      *&v24[8] = 2112;
+      *&v24[10] = a1;
       _os_log_impl(&dword_1887D2000, v19, OS_LOG_TYPE_DEFAULT, "SecKeyCopyPersistentRef: SecItemCopyMatching returned success, but we got type %lu instead of CFData for key %@.", buf, 0x16u);
     }
 
@@ -6108,12 +4400,10 @@ LABEL_23:
     CFRelease(v10);
   }
 
-LABEL_25:
-  v21 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
-uint64_t _SecKeyCopyWrapKey(uint64_t a1, int a2, int a3, int a4, void *a5, __CFString **a6)
+uint64_t _SecKeyCopyWrapKey(uint64_t a1, int a2, int a3, uint64_t a4, void *a5, __CFString **a6)
 {
   if (a6)
   {
@@ -6134,12 +4424,12 @@ uint64_t _SecKeyCopyWrapKey(uint64_t a1, int a2, int a3, int a4, void *a5, __CFS
 
   else
   {
-    SecError(-4, a6, @"No key wrap supported for key %@", a1);
+    SecError(-4, a6, @"No key wrap supported for key %@", a4, a1);
     return 0;
   }
 }
 
-uint64_t _SecKeyCopyUnwrapKey(uint64_t a1, int a2, int a3, int a4, void *a5, __CFString **a6)
+uint64_t _SecKeyCopyUnwrapKey(uint64_t a1, int a2, int a3, uint64_t a4, void *a5, __CFString **a6)
 {
   if (a6)
   {
@@ -6160,7 +4450,7 @@ uint64_t _SecKeyCopyUnwrapKey(uint64_t a1, int a2, int a3, int a4, void *a5, __C
 
   else
   {
-    SecError(-4, a6, @"No key unwrap for key %@", a1);
+    SecError(-4, a6, @"No key unwrap for key %@", a4, a1);
     return 0;
   }
 }
@@ -6191,7 +4481,7 @@ CFTypeRef SecKeyCreateDuplicate(void *a1)
   return v7;
 }
 
-BOOL SecKeySetParameter(uint64_t a1, uint64_t a2, uint64_t a3, __CFString **a4)
+BOOL SecKeySetParameter(void *a1, uint64_t a2, uint64_t a3, __CFString **a4)
 {
   v8 = objc_autoreleasePoolPush();
   v9 = _os_activity_create(&dword_1887D2000, "SecKeySetParameter", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -6199,7 +4489,7 @@ BOOL SecKeySetParameter(uint64_t a1, uint64_t a2, uint64_t a3, __CFString **a4)
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
   os_activity_scope_enter(v9, &state);
   _SecKeyCheck(a1, "SecKeySetParameter");
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   if (*v10 >= 4u && (v11 = *(v10 + 176)) != 0)
   {
     v14 = 0;
@@ -6273,7 +4563,7 @@ LABEL_6:
   return v14;
 }
 
-uint64_t SecKeyCreateEncapsulatedKey(uint64_t a1, const void *a2, uint64_t *a3, void *a4)
+uint64_t SecKeyCreateEncapsulatedKey(void *a1, const void *a2, uint64_t *a3, void *a4)
 {
   v8 = objc_autoreleasePoolPush();
   v9 = _os_activity_create(&dword_1887D2000, "SecKeyCreateEncapsulatedKey", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -6318,7 +4608,7 @@ uint64_t SecKeyCreateEncapsulatedKey(uint64_t a1, const void *a2, uint64_t *a3, 
   return v13;
 }
 
-__CFData *SecKeyCreateDecapsulatedKey(uint64_t a1, const void *a2, const __CFData *a3, void *a4)
+__CFData *SecKeyCreateDecapsulatedKey(void *a1, const void *a2, const __CFData *a3, void *a4)
 {
   v8 = objc_autoreleasePoolPush();
   v9 = _os_activity_create(&dword_1887D2000, "SecKeyCreateDecapsulatedKey", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -6353,7 +4643,7 @@ __CFData *SecKeyCreateDecapsulatedKey(uint64_t a1, const void *a2, const __CFDat
   return v11;
 }
 
-__CFData *SecKeyCreateMLDSASignature(uint64_t a1, const void *a2, const __CFData *a3, const __CFData *a4, void *a5)
+__CFData *SecKeyCreateMLDSASignature(void *a1, const void *a2, const __CFData *a3, const __CFData *a4, void *a5)
 {
   v10 = objc_autoreleasePoolPush();
   v11 = _os_activity_create(&dword_1887D2000, "SecKeyCreateMLDSASignature", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -6548,7 +4838,7 @@ __CFData *SecKeyAlgorithmAdaptorCopyResult_KeyExchange_ECDHStandardX963SHA1(uint
   return SecKeyECDHCopyX963Result(a1, v8, a2, a3, a4);
 }
 
-CFTypeRef SecKeyECIESCopyDecryptedData(void *a1, uint64_t a2, uint64_t (*a3)(void *, uint64_t, void, CFDataRef, CFDataRef, uint64_t, uint64_t, __CFString **), uint64_t (*a4)(const void *, CFDataRef, uint64_t, __CFString **), uint64_t a5, const __CFData *a6, uint64_t a7, __CFString **a8)
+CFTypeRef SecKeyECIESCopyDecryptedData(void *a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t, void, CFDataRef, CFDataRef, uint64_t, uint64_t, CFErrorRef *), uint64_t (*a4)(const void *, CFDataRef, uint64_t, CFErrorRef *), uint64_t a5, const __CFData *a6, uint64_t a7, CFErrorRef *a8)
 {
   v14 = SecKeyCopyAttributes(*a1);
   if (!v14)
@@ -6742,19 +5032,18 @@ __CFData *SecKeyECIESDecryptAESCBCCopyResult(const __CFData *a1, CFDataRef theDa
 
 __CFData *SecKeyECIESKeyExchangeSHA2562PubKeysCopyResult(uint64_t a1, const void *a2, uint64_t a3, const __CFData *a4, const __CFData *a5, uint64_t a6, uint64_t a7, __CFString **a8)
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   CFArrayAppendValue(*(a1 + 16), a2);
   *(a1 + 8) = 4;
   v12 = SecKeyRunAlgorithmAndCopyResult(a1, a4, 0, a8);
   if (v12 && !*(a1 + 24))
   {
     v13 = ccsha256_di();
-    v14 = *(v13 + 8) + *(v13 + 16) + 19;
     MEMORY[0x1EEE9AC00](v13);
-    v17 = v24 - v16;
-    if (v18 >= 8)
+    v16 = v22 - v15;
+    if (v17 >= 8)
     {
-      memset(v24 - v16, 170, v15);
+      memset(v22 - v15, 170, v14);
     }
 
     ccdigest_init();
@@ -6767,16 +5056,15 @@ __CFData *SecKeyECIESKeyExchangeSHA2562PubKeysCopyResult(uint64_t a1, const void
     CFDataGetLength(a5);
     CFDataGetBytePtr(a5);
     ccdigest_update();
-    v19 = *v13;
+    v18 = *v13;
     Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
-    CFDataSetLength(Mutable, v19);
+    CFDataSetLength(Mutable, v18);
     CFRelease(v12);
     MutableBytePtr = CFDataGetMutableBytePtr(Mutable);
-    (*(v13 + 56))(v13, v17, MutableBytePtr);
-    v12 = Mutable;
+    (*(v13 + 56))(v13, v16, MutableBytePtr);
+    return Mutable;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -6865,7 +5153,7 @@ LABEL_14:
 
 id SecKeyECIESKeyExchangeKDFX963CopyResult(uint64_t a1, const void *a2, int a3, void *a4, const __CFData *a5, int a6, void *a7, __CFString **a8)
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v34[2] = *MEMORY[0x1E69E9840];
   v15 = a7;
   CFArrayAppendValue(*(a1 + 16), a2);
   *(a1 + 8) = 4;
@@ -6877,8 +5165,8 @@ id SecKeyECIESKeyExchangeKDFX963CopyResult(uint64_t a1, const void *a2, int a3, 
 
   else
   {
-    *v32 = a8;
-    v33 = v15;
+    v31 = a8;
+    v32 = v15;
     v18 = [v15 objectForKeyedSubscript:@"symKeySize"];
     if (v18)
     {
@@ -6888,7 +5176,7 @@ id SecKeyECIESKeyExchangeKDFX963CopyResult(uint64_t a1, const void *a2, int a3, 
         SecError(-50, a8, @"Bad requested kSecKeyEncryptionParameterSymmetricKeySizeInBits: %@", v18);
 
         v29 = 0;
-        v15 = v33;
+        v15 = v32;
         goto LABEL_22;
       }
 
@@ -6916,21 +5204,21 @@ id SecKeyECIESKeyExchangeKDFX963CopyResult(uint64_t a1, const void *a2, int a3, 
     }
 
     v16 = [a4 mutableCopy];
-    v22 = [v33 objectForKeyedSubscript:@"sharedInfo"];
+    v22 = [v32 objectForKeyedSubscript:@"sharedInfo"];
     if (v22)
     {
       [v16 appendData:v22];
     }
 
-    v34[0] = @"sharedInfo";
-    v34[1] = @"requestedSize";
-    v35[0] = v16;
+    v33[0] = @"sharedInfo";
+    v33[1] = @"requestedSize";
+    v34[0] = v16;
     v23 = [MEMORY[0x1E696AD98] numberWithInteger:v21];
-    v35[1] = v23;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
+    v34[1] = v23;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
 
-    a8 = *v32;
-    v15 = v33;
+    a8 = v31;
+    v15 = v32;
   }
 
   if (a3)
@@ -6957,11 +5245,10 @@ id SecKeyECIESKeyExchangeKDFX963CopyResult(uint64_t a1, const void *a2, int a3, 
   v29 = v26;
 
 LABEL_22:
-  v30 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
-void *SecKeyRSAAESGCMCopyDecryptedData(uint64_t *a1, const void *a2, const __CFData *a3, __CFString **a4)
+void *SecKeyRSAAESGCMCopyDecryptedData(uint64_t *a1, const void *a2, const __CFData *a3, CFErrorRef *a4)
 {
   v8 = SecKeyCopyAttributes(*a1);
   if (!v8)
@@ -7149,7 +5436,7 @@ __CFData *SecKeyRSACopyDecryptedWithPadding(uint64_t a1, void *a2, const __CFDat
 
   v9 = *a1;
   _SecKeyCheck(*a1, "SecKeyGetBlockSize");
-  v10 = *(*(v9 + 16) + 80);
+  v10 = *(v9[2] + 80);
   if (v10)
   {
     v11 = v10(v9);
@@ -7173,7 +5460,7 @@ __CFData *SecKeyRSACopyDecryptedWithPadding(uint64_t a1, void *a2, const __CFDat
     v21 = 0;
     v14 = *a1;
     _SecKeyCheck(*a1, "SecKeyGetBlockSize");
-    v15 = *(*(v14 + 16) + 80);
+    v15 = *(v14[2] + 80);
     if (v15)
     {
       v16 = v15(v14);
@@ -7201,9 +5488,9 @@ __CFData *SecKeyRSACopyDecryptedWithPadding(uint64_t a1, void *a2, const __CFDat
   return SecKeyRunAlgorithmAndCopyResult(a1, 0, 0, a4);
 }
 
-void sub_1888E164C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1888E164C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7216,7 +5503,7 @@ void __SecKeyRSACopyDecryptedWithPadding_block_invoke(uint64_t a1, const __CFDat
     v4 = v3;
     v5 = **(a1 + 40);
     _SecKeyCheck(v5, "SecKeyGetBlockSize");
-    v6 = *(*(v5 + 16) + 80);
+    v6 = *(v5[2] + 80);
     if (v6)
     {
       v7 = v6(v5);
@@ -7238,42 +5525,37 @@ void __SecKeyRSACopyDecryptedWithPadding_block_invoke(uint64_t a1, const __CFDat
       v9 = ccrsa_oaep_decode();
     }
 
-    else
+    else if (*(**(a1 + 40) + 16) == &kSecRSAPrivateKeyDescriptor)
     {
-      v10 = **(a1 + 40);
-      if (*(v10 + 16) == &kSecRSAPrivateKeyDescriptor)
-      {
-        v11 = *(v10 + 24);
-        CFDataGetMutableBytePtr(*(*(*(a1 + 32) + 8) + 24));
-        CFDataGetBytePtr(v4);
-        v9 = ccrsa_eme_pkcs1v15_decode_safe();
-      }
-
-      else
-      {
-        CFDataGetMutableBytePtr(*(*(*(a1 + 32) + 8) + 24));
-        CFDataGetBytePtr(v4);
-        v9 = ccrsa_eme_pkcs1v15_decode();
-      }
-    }
-
-    v12 = v9;
-    v13 = *(*(a1 + 32) + 8);
-    v14 = *(v13 + 24);
-    if (v12)
-    {
-      if (v14)
-      {
-        *(v13 + 24) = 0;
-        CFRelease(v14);
-      }
-
-      SecError(-50, *(a1 + 48), @"RSAdecrypt wrong input (err %d)", v12, length);
+      CFDataGetMutableBytePtr(*(*(*(a1 + 32) + 8) + 24));
+      CFDataGetBytePtr(v4);
+      v9 = ccrsa_eme_pkcs1v15_decode_safe();
     }
 
     else
     {
-      CFDataSetLength(v14, length);
+      CFDataGetMutableBytePtr(*(*(*(a1 + 32) + 8) + 24));
+      CFDataGetBytePtr(v4);
+      v9 = ccrsa_eme_pkcs1v15_decode();
+    }
+
+    v10 = v9;
+    v11 = *(*(a1 + 32) + 8);
+    v12 = *(v11 + 24);
+    if (v10)
+    {
+      if (v12)
+      {
+        *(v11 + 24) = 0;
+        CFRelease(v12);
+      }
+
+      SecError(-50, *(a1 + 48), @"RSAdecrypt wrong input (err %d)", v10, length);
+    }
+
+    else
+    {
+      CFDataSetLength(v12, length);
     }
 
     CFRelease(v4);
@@ -7375,9 +5657,9 @@ __CFData *SecKeyAlgorithmAdaptorCopyCCUnitToBigEndian(uint64_t *a1, uint64_t a2,
   }
 }
 
-void sub_1888E1BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1888E1BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7391,7 +5673,7 @@ void __SecKeyAlgorithmAdaptorCopyCCUnitToBigEndian_block_invoke(uint64_t a1, con
   {
     v5 = **(a1 + 40);
     _SecKeyCheck(v5, "SecKeyGetBlockSize");
-    v6 = *(*(v5 + 16) + 80);
+    v6 = *(v5[2] + 80);
     if (v6)
     {
       v7 = v6(v5);
@@ -7429,18 +5711,17 @@ void __SecKeyAlgorithmAdaptorCopyCCUnitToBigEndian_block_invoke(uint64_t a1, con
   }
 }
 
-uint64_t __PerformWithCCUnitToBigEndian_block_invoke(uint64_t a1)
+uint64_t __PerformWithCCUnitToBigEndian_block_invoke(uint64_t a1, uint64_t a2)
 {
   CFDataGetLength(*(a1 + 40));
   CFDataGetBytePtr(*(a1 + 40));
-  v2 = *(a1 + 48);
   ccn_write_uint_padded();
   v3 = *(*(a1 + 32) + 16);
 
   return v3();
 }
 
-CFTypeRef SecKeyECIESCopyEncryptedData(uint64_t a1, const void *a2, int a3, const __CFData *a4, void *a5, __CFString **a6)
+CFTypeRef SecKeyECIESCopyEncryptedData(uint64_t a1, const void *a2, int a3, const __CFData *a4, void *a5, CFErrorRef *a6)
 {
   v11 = *a1;
   v12 = SecKeyCopyAttributes(*a1);
@@ -7636,7 +5917,7 @@ LABEL_34:
   return v37;
 }
 
-void *SecKeyRSAAESGCMCopyEncryptedData(uint64_t a1, const void *a2, const __CFData *a3, __CFString **a4)
+void *SecKeyRSAAESGCMCopyEncryptedData(uint64_t a1, const void *a2, const __CFData *a3, CFErrorRef *a4)
 {
   v8 = SecKeyCopyAttributes(*a1);
   if (!v8)
@@ -7771,7 +6052,7 @@ __CFData *SecKeyRSACopyEncryptedWithPadding(uint64_t a1, void *a2, uint64_t a3, 
   CFArrayAppendValue(*(a1 + 16), @"algid:encrypt:RSA:raw-cc");
   v8 = *a1;
   _SecKeyCheck(*a1, "SecKeyGetBlockSize");
-  v9 = *(*(v8 + 16) + 80);
+  v9 = *(v8[2] + 80);
   if (v9)
   {
     v10 = v9(v8);
@@ -7828,58 +6109,56 @@ void __SecKeyRSACopyEncryptedWithPadding_block_invoke(uint64_t a1, uint64_t a2, 
 {
   v5 = *(a1 + 40);
   ccrng();
-  v6 = *(a1 + 48);
   CFDataGetLength(*(a1 + 56));
   CFDataGetBytePtr(*(a1 + 56));
   if (v5)
   {
-    v7 = ccrsa_oaep_encode();
-    if (!v7)
+    v6 = ccrsa_oaep_encode();
+    if (!v6)
     {
       goto LABEL_3;
     }
 
 LABEL_7:
-    SecError(-50, *(a1 + 64), @"RSAencrypt wrong input size (err %d)", v7);
+    SecError(-50, *(a1 + 64), @"RSAencrypt wrong input size (err %d)", v6);
     return;
   }
 
-  v7 = ccrsa_eme_pkcs1v15_encode();
-  if (v7)
+  v6 = ccrsa_eme_pkcs1v15_encode();
+  if (v6)
   {
     goto LABEL_7;
   }
 
 LABEL_3:
-  v8 = *(a1 + 48);
   cc_clear();
-  v9 = SecKeyRunAlgorithmAndCopyResult(*(a1 + 72), a3, 0, *(a1 + 64));
-  *(*(*(a1 + 32) + 8) + 24) = v9;
-  if (v9)
+  v7 = SecKeyRunAlgorithmAndCopyResult(*(a1 + 72), a3, 0, *(a1 + 64));
+  *(*(*(a1 + 32) + 8) + 24) = v7;
+  if (v7)
   {
-    v10 = *(*(a1 + 32) + 8);
-    v11 = *(v10 + 24);
-    v12 = **(a1 + 72);
-    _SecKeyCheck(v12, "SecKeyGetBlockSize");
-    v13 = *(*(v12 + 16) + 80);
-    if (v13)
+    v8 = *(*(a1 + 32) + 8);
+    v9 = *(v8 + 24);
+    v10 = **(a1 + 72);
+    _SecKeyCheck(v10, "SecKeyGetBlockSize");
+    v11 = *(v10[2] + 80);
+    if (v11)
     {
-      v14 = v13(v12);
+      v12 = v11(v10);
     }
 
     else
     {
-      v14 = 0;
+      v12 = 0;
     }
 
-    v15 = SecKeyRSACopyCCUnitToBigEndian(v11, v14);
-    v16 = *(v10 + 24);
-    if (v16)
+    v13 = SecKeyRSACopyCCUnitToBigEndian(v9, v12);
+    v14 = *(v8 + 24);
+    if (v14)
     {
-      CFRelease(v16);
+      CFRelease(v14);
     }
 
-    *(v10 + 24) = v15;
+    *(v8 + 24) = v13;
   }
 }
 
@@ -7920,29 +6199,29 @@ __CFData *SecKeyAlgorithmAdaptorCopyResult_SignVerify_ECDSASignatureRFC4754(uint
 
 __CFData *SecKeyAlgorithmAdaptorCopyResult_Verify_ECDSASignatureRFC4754Converted(uint64_t a1, const void *a2, const __CFData *a3, const __CFData *a4, __CFString **a5)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   CFArrayAppendValue(*(a1 + 16), a2);
   if (*(a1 + 24) != 1)
   {
-    v11 = *a1;
-    v12 = _SecKeyCheck(*a1, "SecKeyGetBlockSize");
-    v13 = *(*(v11 + 16) + 80);
-    if (v13)
+    v10 = *a1;
+    v11 = _SecKeyCheck(*a1, "SecKeyGetBlockSize");
+    v12 = *(v10[2] + 80);
+    if (v12)
     {
-      v14 = v13(v11);
-      v15 = (8 * ((v14 + 7) >> 3) + 15) & 0xFFFFFFFFFFFFFFF0;
-      v12 = MEMORY[0x1EEE9AC00](v14);
-      if (v16 > 7)
+      v13 = v12(v10);
+      v14 = (8 * ((v13 + 7) >> 3) + 15) & 0xFFFFFFFFFFFFFFF0;
+      v11 = MEMORY[0x1EEE9AC00](v13);
+      if (v15 > 7)
       {
-        v24 = a3;
-        v17 = (v14 - 1) & 0xFFFFFFFFFFFFFFF8;
-        v18 = memset(&v23 - v15, 170, v17 + 8);
-        MEMORY[0x1EEE9AC00](v18);
-        a3 = v24;
-        memset(&v23 - v15, 170, v17 + 8);
+        v22 = a3;
+        v16 = (v13 - 1) & 0xFFFFFFFFFFFFFFF8;
+        v17 = memset(&v21 - v14, 170, v16 + 8);
+        MEMORY[0x1EEE9AC00](v17);
+        a3 = v22;
+        memset(&v21 - v14, 170, v16 + 8);
 LABEL_10:
         CFDataGetBytePtr(a4);
-        if (CFDataGetLength(a4) != 2 * v14 || ccn_read_uint() || ccn_read_uint())
+        if (CFDataGetLength(a4) != 2 * v13 || ccn_read_uint() || ccn_read_uint())
         {
           SecError(-67808, a5, @"Wrong ECDSA RFC4754 signature");
         }
@@ -7951,9 +6230,9 @@ LABEL_10:
         {
           ccder_sizeof_integer();
           ccder_sizeof_integer();
-          v21 = ccder_sizeof();
+          v19 = ccder_sizeof();
           Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
-          CFDataSetLength(Mutable, v21);
+          CFDataSetLength(Mutable, v19);
           CFDataGetMutableBytePtr(Mutable);
           ccder_encode_integer();
           ccder_encode_integer();
@@ -7961,9 +6240,9 @@ LABEL_10:
           {
             if (Mutable)
             {
-              v19 = SecKeyRunAlgorithmAndCopyResult(a1, a3, Mutable, a5);
+              v18 = SecKeyRunAlgorithmAndCopyResult(a1, a3, Mutable, a5);
               CFRelease(Mutable);
-              goto LABEL_15;
+              return v18;
             }
           }
 
@@ -7977,23 +6256,18 @@ LABEL_10:
           }
         }
 
-        v19 = 0;
-LABEL_15:
-        v20 = *MEMORY[0x1E69E9840];
-        return v19;
+        return 0;
       }
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
 
-    MEMORY[0x1EEE9AC00](v12);
+    MEMORY[0x1EEE9AC00](v11);
     goto LABEL_10;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return SecKeyRunAlgorithmAndCopyResult(a1, 0, 0, a5);
 }
@@ -8254,40 +6528,38 @@ __CFData *SecKeyAlgorithmAdaptorCopyResult_Verify_RSASignatureRaw(uint64_t a1, u
 
 __CFData *SecKeyAlgorithmAdaptorCopyResult_Sign_ECDSASignatureRFC4754Converted(uint64_t a1, const void *a2, const __CFData *a3, const __CFData *a4, __CFString **a5)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   CFArrayAppendValue(*(a1 + 16), a2);
   if (*(a1 + 24) != 1)
   {
-    v11 = SecKeyRunAlgorithmAndCopyResult(a1, a3, a4, a5);
-    v12 = v11;
-    if (!v11 || CFEqual(v11, *MEMORY[0x1E695E738]))
+    v10 = SecKeyRunAlgorithmAndCopyResult(a1, a3, a4, a5);
+    v11 = v10;
+    if (!v10 || CFEqual(v10, *MEMORY[0x1E695E738]))
     {
-LABEL_16:
-      v24 = *MEMORY[0x1E69E9840];
-      return v12;
+      return v11;
     }
 
-    v13 = *a1;
-    v14 = _SecKeyCheck(v13, "SecKeyGetBlockSize");
-    v15 = *(*(v13 + 16) + 80);
-    if (v15)
+    v12 = *a1;
+    v13 = _SecKeyCheck(v12, "SecKeyGetBlockSize");
+    v14 = *(v12[2] + 80);
+    if (v14)
     {
-      v16 = v15(v13);
-      v17 = (8 * ((v16 + 7) >> 3) + 15) & 0xFFFFFFFFFFFFFFF0;
-      v14 = MEMORY[0x1EEE9AC00](v16);
-      if (v18 > 7)
+      v15 = v14(v12);
+      v16 = (8 * ((v15 + 7) >> 3) + 15) & 0xFFFFFFFFFFFFFFF0;
+      v13 = MEMORY[0x1EEE9AC00](v15);
+      if (v17 > 7)
       {
-        v19 = (v16 - 1) & 0xFFFFFFFFFFFFFFF8;
-        v20 = memset(&v25[-v17], 170, v19 + 8);
-        MEMORY[0x1EEE9AC00](v20);
-        memset(&v25[-v17], 170, v19 + 8);
+        v18 = (v15 - 1) & 0xFFFFFFFFFFFFFFF8;
+        v19 = memset(&v23[-v16], 170, v18 + 8);
+        MEMORY[0x1EEE9AC00](v19);
+        memset(&v23[-v16], 170, v18 + 8);
 LABEL_12:
-        BytePtr = CFDataGetBytePtr(v12);
-        v22 = &BytePtr[CFDataGetLength(v12)];
-        if (ccder_decode_seqii() == v22)
+        BytePtr = CFDataGetBytePtr(v11);
+        v21 = &BytePtr[CFDataGetLength(v11)];
+        if (ccder_decode_seqii() == v21)
         {
           Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
-          CFDataSetLength(Mutable, 2 * v16);
+          CFDataSetLength(Mutable, 2 * v15);
           CFDataGetMutableBytePtr(Mutable);
           ccn_write_uint_padded();
           ccn_write_uint_padded();
@@ -8299,22 +6571,19 @@ LABEL_12:
           Mutable = 0;
         }
 
-        CFRelease(v12);
-        v12 = Mutable;
-        goto LABEL_16;
+        CFRelease(v11);
+        return Mutable;
       }
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
     }
 
-    MEMORY[0x1EEE9AC00](v14);
+    MEMORY[0x1EEE9AC00](v13);
     goto LABEL_12;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return SecKeyRunAlgorithmAndCopyResult(a1, 0, 0, a5);
 }
@@ -8459,52 +6728,49 @@ void __SecOTRFullDHKeyCopyFormatDescription_block_invoke(uint64_t a1, uint64_t a
 
 void withXandY(uint64_t **a1, uint64_t a2)
 {
-  v4 = **a1;
-  v5 = CCNCopyAsHex();
-  v6 = **a1;
-  v7 = CCNCopyAsHex();
-  (*(a2 + 16))(a2, v5, v7);
-  if (v5)
+  v4 = CCNCopyAsHex(**a1, (a1 + 2));
+  v5 = CCNCopyAsHex(**a1, &a1[**a1 + 2]);
+  (*(a2 + 16))(a2, v4, v5);
+  if (v4)
   {
-    CFRelease(v5);
+    CFRelease(v4);
   }
 
-  if (v7)
+  if (v5)
   {
 
-    CFRelease(v7);
+    CFRelease(v5);
   }
 }
 
-uint64_t CCNCopyAsHex()
+uint64_t CCNCopyAsHex(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v0 = ccn_write_uint_size();
-  v1 = MEMORY[0x1EEE9AC00](v0);
-  v3 = v7 - v2;
-  if (v1)
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = ccn_write_uint_size();
+  v3 = MEMORY[0x1EEE9AC00](v2);
+  v5 = v8 - v4;
+  if (v3)
   {
-    memset(v7 - v2, 170, v0);
+    memset(v8 - v4, 170, v2);
   }
 
   ccn_write_uint();
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2000000000;
-  v11 = 0;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 0x40000000;
-  v7[2] = __CCNCopyAsHex_block_invoke;
-  v7[3] = &unk_1E70E0998;
-  v7[4] = &v8;
-  BufferPerformWithHexString(v3, v0, v7);
-  v4 = v9[3];
-  _Block_object_dispose(&v8, 8);
-  v5 = *MEMORY[0x1E69E9840];
-  return v4;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2000000000;
+  v12 = 0;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 0x40000000;
+  v8[2] = __CCNCopyAsHex_block_invoke;
+  v8[3] = &unk_1E70E0998;
+  v8[4] = &v9;
+  BufferPerformWithHexString(v5, v2, v8);
+  v6 = v10[3];
+  _Block_object_dispose(&v9, 8);
+  return v6;
 }
 
-CFTypeRef __CCNCopyAsHex_block_invoke(CFTypeRef result, CFTypeRef cf)
+void *__CCNCopyAsHex_block_invoke(void *result, CFTypeRef cf)
 {
   v3 = result;
   if (cf)
@@ -8512,7 +6778,7 @@ CFTypeRef __CCNCopyAsHex_block_invoke(CFTypeRef result, CFTypeRef cf)
     result = CFRetain(cf);
   }
 
-  *(*(*(v3 + 32) + 8) + 24) = cf;
+  *(*(v3[4] + 8) + 24) = cf;
   return result;
 }
 
@@ -8575,7 +6841,7 @@ double SecOTRFullDHKeyDestroy(_OWORD *a1)
   return result;
 }
 
-uint64_t SecOTRFullDHKCreate()
+uint64_t SecOTRFullDHKCreate(uint64_t a1)
 {
   SecOTRFullDHKeyGetTypeID();
   Instance = _CFRuntimeCreateInstance();
@@ -8589,12 +6855,11 @@ uint64_t SecFDHKNewKey(uint64_t a1)
   MEMORY[0x18CFD9EA0]();
   ccec_compact_generate_key();
 
-  return GenerateHashForKey((a1 + 16));
+  return GenerateHashForKey((a1 + 16), a1 + 160);
 }
 
-uint64_t GenerateHashForKey(uint64_t *a1)
+uint64_t GenerateHashForKey(void *a1, uint64_t a2)
 {
-  v1 = *a1;
   v2 = cczp_bitlen();
   v3 = malloc_type_malloc(((v2 + 7) >> 2) | 1, 0x977C0B8FuLL);
   if (!v3)
@@ -8610,56 +6875,13 @@ uint64_t GenerateHashForKey(uint64_t *a1)
   return 0;
 }
 
-uint64_t *SecOTRFullDHKCreateFromBytes(uint64_t a1, unsigned int **a2, unint64_t *a3)
+void *SecOTRFullDHKCreateFromBytes(uint64_t a1, unsigned int **a2, unint64_t *a3)
 {
   SecOTRFullDHKeyGetTypeID();
   Instance = _CFRuntimeCreateInstance();
   Instance[2] = MEMORY[0x18CFD9EA0]();
-  if (!a2)
+  if (!a2 || !a3 || (v6 = *a3 - 4, *a3 < 4) || (v7 = bswap32(**a2), ++*a2, *a3 = v6, v6 < v7) || MEMORY[0x18CFD9F40]() || (v8 = *a3 - v7, *a3 = v8, v9 = (*a2 + v7), *a2 = v9, v8 < 5) || (v10 = bswap32(*v9), *a2 = v9 + 1, v11 = v8 - 4, *a3 = v11, v11 < v10) || (ccn_read_uint(), *a2 = (*a2 + v10), *a3 -= v10, GenerateHashForKey(Instance + 2, (Instance + 20))))
   {
-    goto LABEL_10;
-  }
-
-  if (!a3)
-  {
-    goto LABEL_10;
-  }
-
-  v6 = *a3 - 4;
-  if (*a3 < 4)
-  {
-    goto LABEL_10;
-  }
-
-  v7 = bswap32(*(*a2)++);
-  *a3 = v6;
-  if (v6 < v7)
-  {
-    goto LABEL_10;
-  }
-
-  if (MEMORY[0x18CFD9F40]())
-  {
-    goto LABEL_10;
-  }
-
-  v8 = *a3 - v7;
-  *a3 = v8;
-  v9 = (*a2 + v7);
-  *a2 = v9;
-  if (v8 < 5)
-  {
-    goto LABEL_10;
-  }
-
-  v10 = *Instance[2];
-  v11 = bswap32(*v9);
-  *a2 = v9 + 1;
-  v12 = v8 - 4;
-  *a3 = v12;
-  if (v12 < v11 || (ccn_read_uint(), *a2 = (*a2 + v11), *a3 -= v11, GenerateHashForKey(Instance + 2)))
-  {
-LABEL_10:
     CFRelease(Instance);
     return 0;
   }
@@ -8670,41 +6892,38 @@ LABEL_10:
 uint64_t SecFDHKAppendSerialization(uint64_t a1, __CFData *a2)
 {
   AppendECPublicKeyAsDATA(a2, (a1 + 16));
-  v4 = **(a1 + 16);
-  v5 = ccn_write_uint_size();
-  *bytes = bswap32(v5);
+  v3 = ccn_write_uint_size();
+  *bytes = bswap32(v3);
   CFDataAppendBytes(a2, bytes, 4);
   CFDataGetLength(a2);
-  CFDataIncreaseLength(a2, v5);
+  CFDataIncreaseLength(a2, v3);
   CFDataGetMutableBytePtr(a2);
   return ccn_write_uint();
 }
 
-uint64_t AppendECPublicKeyAsDATA(__CFData *a1, uint64_t *a2)
+uint64_t AppendECPublicKeyAsDATA(__CFData *a1, void *a2)
 {
-  v3 = *a2;
-  v4 = cczp_bitlen();
-  v5 = ((v4 + 7) >> 2) | 1;
-  bytes[0] = (v4 + 7) >> 26;
-  bytes[1] = (v4 + 7) >> 18;
-  bytes[2] = (v4 + 7) >> 10;
-  bytes[3] = ((v4 + 7) >> 2) | 1;
+  v3 = cczp_bitlen();
+  v4 = ((v3 + 7) >> 2) | 1;
+  bytes[0] = (v3 + 7) >> 26;
+  bytes[1] = (v3 + 7) >> 18;
+  bytes[2] = (v3 + 7) >> 10;
+  bytes[3] = ((v3 + 7) >> 2) | 1;
   CFDataAppendBytes(a1, bytes, 4);
   CFDataGetLength(a1);
-  CFDataIncreaseLength(a1, v5);
+  CFDataIncreaseLength(a1, v4);
   CFDataGetMutableBytePtr(a1);
   return ccec_export_pub();
 }
 
 uint64_t SecFDHKAppendPublicSerialization(uint64_t a1, __CFData *a2)
 {
-  v4 = (a1 + 16);
-  v3 = *(a1 + 16);
+  v3 = (a1 + 16);
   result = cczp_bitlen();
   if (result == 256)
   {
 
-    return AppendECPublicKeyAsDATA(a2, v4);
+    return AppendECPublicKeyAsDATA(a2, v3);
   }
 
   return result;
@@ -8712,15 +6931,12 @@ uint64_t SecFDHKAppendPublicSerialization(uint64_t a1, __CFData *a2)
 
 uint64_t SecFDHKAppendCompactPublicSerialization(uint64_t a1, const __CFData *a2)
 {
-  v4 = (a1 + 16);
-  v3 = *(a1 + 16);
   result = cczp_bitlen();
   if (result == 256)
   {
-    v6 = *v4;
-    v7 = (cczp_bitlen() + 7) >> 3;
+    v4 = (cczp_bitlen() + 7) >> 3;
     CFDataGetLength(a2);
-    CFDataIncreaseLength(a2, v7);
+    CFDataIncreaseLength(a2, v4);
     CFDataGetMutableBytePtr(a2);
 
     return ccec_compact_export();
@@ -8810,7 +7026,7 @@ uint64_t SecOTRPublicDHKCreateFromFullKey(uint64_t a1, uint64_t a2)
   return Instance;
 }
 
-uint64_t *SecOTRPublicDHKCreateFromSerialization(uint64_t a1, unsigned int **a2, unint64_t *a3)
+void *SecOTRPublicDHKCreateFromSerialization(uint64_t a1, unsigned int **a2, unint64_t *a3)
 {
   v5 = 0;
   if (a2 && a3)
@@ -8846,12 +7062,12 @@ uint64_t *SecOTRPublicDHKCreateFromSerialization(uint64_t a1, unsigned int **a2,
   return v5;
 }
 
-uint64_t *SecOTRPublicDHKCreateFromBytes(uint64_t a1, void *a2, void *a3)
+void *SecOTRPublicDHKCreateFromBytes(uint64_t a1, void *a2, void *a3)
 {
   SecOTRPublicDHKeyGetTypeID();
   Instance = _CFRuntimeCreateInstance();
   v6 = MEMORY[0x18CFD9EA0]();
-  if (MEMORY[0x18CFD9F40](v6, *a3, *a2, Instance + 2) || (*a2 += *a3, *a3 = 0, GenerateHashForKey(Instance + 2)))
+  if (MEMORY[0x18CFD9F40](v6, *a3, *a2, Instance + 2) || (*a2 += *a3, *a3 = 0, GenerateHashForKey(Instance + 2, (Instance + 16))))
   {
     if (Instance)
     {
@@ -8863,13 +7079,13 @@ uint64_t *SecOTRPublicDHKCreateFromBytes(uint64_t a1, void *a2, void *a3)
   return Instance;
 }
 
-uint64_t *SecOTRPublicDHKCreateFromCompactSerialization(uint64_t a1, uint64_t *a2, unint64_t *a3)
+void *SecOTRPublicDHKCreateFromCompactSerialization(uint64_t a1, void *a2, unint64_t *a3)
 {
   SecOTRPublicDHKeyGetTypeID();
   Instance = _CFRuntimeCreateInstance();
   MEMORY[0x18CFD9EA0]();
   v6 = (cczp_bitlen() + 7) >> 3;
-  if (v6 > *a3 || (v7 = *a2, ccec_compact_import_pub()) || (*a3 -= v6, *a2 += v6, GenerateHashForKey(Instance + 2)))
+  if (v6 > *a3 || ccec_compact_import_pub() || (*a3 -= v6, *a2 += v6, GenerateHashForKey(Instance + 2, (Instance + 16))))
   {
     if (Instance)
     {
@@ -8883,81 +7099,76 @@ uint64_t *SecOTRPublicDHKCreateFromCompactSerialization(uint64_t a1, uint64_t *a
 
 BOOL SecDHKIsGreater(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 16);
-  v4 = cczp_bitlen();
-  v5 = *(a2 + 16);
-  v6 = v4 + 7;
-  v7 = ((v4 + 7) >> 2) | 1;
-  v8 = ((cczp_bitlen() + 7) >> 2) | 1;
-  if (v7 == v8)
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = cczp_bitlen() + 7;
+  v3 = (v2 >> 2) | 1;
+  v4 = ((cczp_bitlen() + 7) >> 2) | 1;
+  if (v3 == v4)
   {
-    if (v6 < 0x108)
+    if (v2 < 0x108)
     {
-      v21 = -86;
-      *&v12 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v19 = v12;
-      v20 = v12;
-      *buf = v12;
-      v18 = v12;
       v16 = -86;
-      v15[2] = v12;
-      v15[3] = v12;
-      v15[0] = v12;
-      v15[1] = v12;
+      *&v8 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v14 = v8;
+      v15 = v8;
+      *buf = v8;
+      v13 = v8;
+      v11 = -86;
+      v10[2] = v8;
+      v10[3] = v8;
+      v10[0] = v8;
+      v10[1] = v8;
       ccec_export_pub();
       ccec_export_pub();
-      v11 = memcmp(buf, v15, v7);
+      v7 = memcmp(buf, v10, v3);
     }
 
     else
     {
-      v9 = secLogObjForScope("SecError");
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-      v11 = 0;
-      if (v10)
+      v5 = secLogObjForScope("SecError");
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+      v7 = 0;
+      if (v6)
       {
         *buf = 0;
-        _os_log_impl(&dword_1887D2000, v9, OS_LOG_TYPE_DEFAULT, "The size of an SecOTRDHKey is larger than 65 bytes.                      This is not supported in SecOTR and will result in malformed ciphertexts.", buf, 2u);
-        v11 = 0;
+        _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "The size of an SecOTRDHKey is larger than 65 bytes.                      This is not supported in SecOTR and will result in malformed ciphertexts.", buf, 2u);
+        v7 = 0;
       }
     }
   }
 
-  else if (v8 < v7)
+  else if (v4 < v3)
   {
-    v11 = -1;
+    v7 = -1;
   }
 
   else
   {
-    v11 = 1;
+    v7 = 1;
   }
 
-  result = v11 > 0;
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7 > 0;
 }
 
 void SecOTRDHKGenerateOTRKeys(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
   *&v13 = 0xAAAAAAAAAAAAAAAALL;
   *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v29 = v13;
-  v30 = v13;
-  v27 = v13;
   v28 = v13;
-  v25 = v13;
+  v29 = v13;
   v26 = v13;
-  v23 = v13;
+  v27 = v13;
   v24 = v13;
-  v21 = v13;
+  v25 = v13;
   v22 = v13;
-  v19 = v13;
+  v23 = v13;
   v20 = v13;
+  v21 = v13;
+  v18 = v13;
+  v19 = v13;
   ccn_zero();
   *bytes = 192;
   ccec_compute_key();
@@ -8989,34 +7200,31 @@ void SecOTRDHKGenerateOTRKeys(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a
   {
     CFRelease(Mutable);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t DeriveKeys(uint64_t result, unint64_t a2, uint64_t a3)
+const __CFData *DeriveKeys(const __CFData *result, unint64_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (a2 | a3)
   {
     v5 = result;
-    memset(v7, 170, sizeof(v7));
+    memset(v6, 170, sizeof(v6));
     ccsha1_di();
     CFDataGetLength(v5);
     CFDataGetBytePtr(v5);
     result = ccdigest();
     if (a2)
     {
-      *a2 = *v7;
+      *a2 = *v6;
     }
 
     if (a3)
     {
       ccsha1_di();
-      result = ccdigest();
+      return ccdigest();
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9107,11 +7315,11 @@ uint64_t SecOTRFullIdentityCreate(const __CFAllocator *a1, __CFString **a2)
 
   if (SecKeyGeneratePair(v5, &publicKey, &privateKey))
   {
-    v10 = secLogObjForScope("SecError");
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = secLogObjForScope("SecError");
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_1887D2000, v10, OS_LOG_TYPE_DEFAULT, "keygen failed", v11, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1887D2000, v9, OS_LOG_TYPE_DEFAULT, "keygen failed", v10, 2u);
     }
   }
 
@@ -9131,7 +7339,6 @@ uint64_t SecOTRFullIdentityCreate(const __CFAllocator *a1, __CFString **a2)
     CFRelease(v6);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -9151,7 +7358,6 @@ uint64_t SecOTRFIPurgeFromKeychainByValue(void *a1)
     CFRelease(v1);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -9263,7 +7469,6 @@ uint64_t SecOTRFullIdentityCreateFromBytes(const __CFAllocator *a1, const UInt8 
         LODWORD(valuePtr) = 256;
         v22 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
         v23 = CFDataCreate(a1, *a2, v21);
-        v42 = *MEMORY[0x1E695E4C0];
         v31 = CFDictionaryCreateForCFTypes(*MEMORY[0x1E695E480], v24, v25, v26, v27, v28, v29, v30, @"type", @"73");
         error = 0xAAAAAAAAAAAAAAAALL;
         v32 = SecKeyCreateWithData(v23, v31, &error);
@@ -9558,9 +7763,7 @@ BOOL SecOTRFIPurgeAllFromKeychain(CFErrorRef *a1)
     SecOTRCreateError(1, v8, @"OSStatus returned in error code", 0, a1);
   }
 
-  result = v8 == 0;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return v8 == 0;
 }
 
 BOOL SecOTRFIAppendSerialization(uint64_t a1, CFDataRef theData, CFErrorRef *a3)
@@ -9603,46 +7806,41 @@ LABEL_5:
 
 uint64_t AES_CTR_HighHalf_Transform(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v8[0] = HIBYTE(a3);
-  v8[1] = BYTE6(a3);
-  v8[2] = BYTE5(a3);
-  v8[3] = BYTE4(a3);
-  v8[4] = BYTE3(a3);
-  v8[5] = BYTE2(a3);
-  v8[6] = BYTE1(a3);
-  v8[7] = a3;
-  v9 = 0;
-  result = AES_CTR_Transform(a1, a2, v8, a4, a5, a6);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v9 = *MEMORY[0x1E69E9840];
+  v7[0] = HIBYTE(a3);
+  v7[1] = BYTE6(a3);
+  v7[2] = BYTE5(a3);
+  v7[3] = BYTE4(a3);
+  v7[4] = BYTE3(a3);
+  v7[5] = BYTE2(a3);
+  v7[6] = BYTE1(a3);
+  v7[7] = a3;
+  v8 = 0;
+  return AES_CTR_Transform(a1, a2, v7, a4, a5, a6);
 }
 
 uint64_t AES_CTR_Transform(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v12 = ccaes_ctr_crypt_mode();
-  v13 = *v12 + 15;
   MEMORY[0x1EEE9AC00](v12);
-  v15 = v20 - v14;
-  if (v16 >= 0x10)
+  v14 = v18 - v13;
+  if (v15 >= 0x10)
   {
-    v17 = (v20 - v14);
+    v16 = (v18 - v13);
     do
     {
-      *v17 = 0xAAAAAAAAAAAAAAAALL;
-      v17[1] = 0xAAAAAAAAAAAAAAAALL;
-      v17 += 2;
-      v14 -= 16;
+      *v16 = 0xAAAAAAAAAAAAAAAALL;
+      v16[1] = 0xAAAAAAAAAAAAAAAALL;
+      v16 += 2;
+      v13 -= 16;
     }
 
-    while (v14);
+    while (v13);
   }
 
-  (*(v12 + 24))(v12, v15, a1, a2, a3);
-  result = (*(v12 + 40))(v15, a4, a5, a6);
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  (*(v12 + 24))(v12, v14, a1, a2, a3);
+  return (*(v12 + 40))(v14, a4, a5, a6);
 }
 
 void HashMPIWithPrefix(UInt8 a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4)
@@ -9667,14 +7865,14 @@ void HashMPIWithPrefix(UInt8 a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4)
   }
 }
 
-void DeriveOTR128BitPairFromS(UInt8 a1, uint64_t a2, uint64_t a3, unint64_t a4, void *a5, unint64_t a6, void *a7)
+void DeriveOTR128BitPairFromS(UInt8 a1, uint64_t a2, uint64_t a3, size_t a4, void *a5, size_t a6, void *a7)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *&v11 = 0xAAAAAAAAAAAAAAAALL;
   *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v15[0] = v11;
-  v15[1] = v11;
-  HashMPIWithPrefix(a1, a2, a3, v15);
+  v14[0] = v11;
+  v14[1] = v11;
+  HashMPIWithPrefix(a1, a2, a3, v14);
   if (a5)
   {
     if (a4 >= 0x10)
@@ -9687,7 +7885,7 @@ void DeriveOTR128BitPairFromS(UInt8 a1, uint64_t a2, uint64_t a3, unint64_t a4, 
       v12 = a4;
     }
 
-    memcpy(a5, v15, v12);
+    memcpy(a5, v14, v12);
   }
 
   if (a7)
@@ -9702,20 +7900,18 @@ void DeriveOTR128BitPairFromS(UInt8 a1, uint64_t a2, uint64_t a3, unint64_t a4, 
       v13 = a6;
     }
 
-    memcpy(a7, v15, v13);
+    memcpy(a7, v14, v13);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void *DeriveOTR64BitsFromS(UInt8 a1, uint64_t a2, uint64_t a3, unint64_t a4, void *a5)
+void *DeriveOTR64BitsFromS(UInt8 a1, uint64_t a2, uint64_t a3, size_t a4, void *a5)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v11[0] = v7;
-  v11[1] = v7;
-  HashMPIWithPrefix(a1, a2, a3, v11);
+  v10[0] = v7;
+  v10[1] = v7;
+  HashMPIWithPrefix(a1, a2, a3, v10);
   if (a4 >= 0x10)
   {
     v8 = 16;
@@ -9726,16 +7922,13 @@ void *DeriveOTR64BitsFromS(UInt8 a1, uint64_t a2, uint64_t a3, unint64_t a4, voi
     v8 = a4;
   }
 
-  result = memcpy(a5, v11, v8);
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return memcpy(a5, v10, v8);
 }
 
-void SecKEMPublicKeyDestroy(uint64_t *a1)
+void SecKEMPublicKeyDestroy(void *a1)
 {
   if (a1)
   {
-    v2 = *a1;
     cckem_sizeof_pub_ctx();
 
     free(a1);
@@ -9763,4 +7956,2272 @@ __CFData *SecKEMPublicKeyCopyData(uint64_t a1, __CFString **a2)
   }
 
   return v6;
+}
+
+uint64_t SecKEMPublicKeyBlockSize(uint64_t a1)
+{
+  if (a1)
+  {
+
+    return cckem_pubkey_nbytes_ctx();
+  }
+
+  else
+  {
+    v6 = v1;
+    v7 = v2;
+    v4 = secLogObjForScope("SecError");
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *v5 = 0;
+      _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "Invalid key data: The provided key does not contain a valid KEM context.", v5, 2u);
+    }
+
+    return 0;
+  }
+}
+
+void SecKEMPrivateKeyDestroy(void *a1)
+{
+  if (a1)
+  {
+    cckem_sizeof_full_ctx();
+
+    free(a1);
+  }
+}
+
+uint64_t SecKEMPrivateKeyBlockSize(uint64_t a1)
+{
+  if (a1)
+  {
+    cckem_public_ctx();
+
+    return cckem_privkey_nbytes_ctx();
+  }
+
+  else
+  {
+    v2 = secLogObjForScope("SecError");
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    {
+      *v3 = 0;
+      _os_log_impl(&dword_1887D2000, v2, OS_LOG_TYPE_DEFAULT, "Invalid key data: The provided key does not contain a valid KEM context.", v3, 2u);
+    }
+
+    return 0;
+  }
+}
+
+__CFData *SecKEMPrivateKeyCopyExternalRepresentation(uint64_t a1, __CFString **a2)
+{
+  if (*(a1 + 24))
+  {
+    cckem_public_ctx();
+    v4 = cckem_pubkey_nbytes_ctx();
+    if (SecCFAllocatorZeroize_sOnce != -1)
+    {
+      dispatch_once(&SecCFAllocatorZeroize_sOnce, &__block_literal_global_9069);
+    }
+
+    v5 = SecCFAllocatorZeroize_sAllocator;
+    v6 = cckem_privkey_nbytes_ctx();
+    Mutable = CFDataCreateMutable(v5, 0);
+    CFDataSetLength(Mutable, v6 + v4);
+    v11 = [(__CFData *)Mutable length];
+    cckem_public_ctx();
+    [(__CFData *)Mutable mutableBytes];
+    if (cckem_export_pubkey())
+    {
+      SecError(-26275, a2, @"Failed to export public part of %@", a1);
+    }
+
+    else
+    {
+      v10 = [(__CFData *)Mutable length]- v11;
+      [(__CFData *)Mutable mutableBytes];
+      if (!cckem_export_privkey())
+      {
+        [(__CFData *)Mutable setLength:v10 + v11];
+        v8 = Mutable;
+        goto LABEL_10;
+      }
+
+      SecError(-26275, a2, @"Failed to export %@", a1);
+    }
+
+    v8 = 0;
+LABEL_10:
+
+    return v8;
+  }
+
+  SecError(-50, a2, @"Invalid key data: The provided key does not contain a valid KEM context.");
+  return 0;
+}
+
+__CFString *SecKEMGenerateHexDump(uint64_t a1)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v1 = cckem_pubkey_nbytes_ctx();
+  v2 = [MEMORY[0x1E696AD60] stringWithCapacity:2 * v1];
+  v3 = *MEMORY[0x1E695E480];
+  v4 = cckem_pubkey_nbytes_ctx();
+  Mutable = CFDataCreateMutable(v3, 0);
+  CFDataSetLength(Mutable, v4);
+  v12 = [(__CFData *)Mutable length];
+  [(__CFData *)Mutable mutableBytes];
+  v6 = cckem_export_pubkey();
+  if (v6)
+  {
+    v7 = v6;
+    v8 = secLogObjForScope("SecWarning");
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      v14 = v7;
+      _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "Failed to export public key: error code %d.", buf, 8u);
+    }
+
+    v9 = &stru_1EFA8C6C8;
+  }
+
+  else
+  {
+    [(__CFData *)Mutable setLength:v12];
+    if (v1)
+    {
+      for (i = 0; i != v1; ++i)
+      {
+        [v2 appendFormat:@"%02X", *(-[__CFData bytes](Mutable, "bytes") + i)];
+      }
+    }
+
+    v9 = v2;
+  }
+
+  return v9;
+}
+
+id SecKEMCreateKeyAttributeDictionary(void *a1, void *a2, void *a3, void *a4, void *a5)
+{
+  v19[23] = *MEMORY[0x1E69E9840];
+  v9 = a1;
+  v10 = a2;
+  v11 = a3;
+  v12 = a4;
+  v13 = a5;
+  v18[0] = @"class";
+  v18[1] = @"type";
+  v19[0] = @"keys";
+  v19[1] = v9;
+  v18[2] = @"bsiz";
+  v18[3] = @"esiz";
+  v19[2] = v10;
+  v19[3] = v10;
+  v18[4] = @"kcls";
+  v18[5] = @"klbl";
+  v14 = v12;
+  v19[4] = v11;
+  if (!v12)
+  {
+    v14 = [MEMORY[0x1E695DEF0] data];
+  }
+
+  v19[5] = v14;
+  v19[6] = MEMORY[0x1E695E118];
+  v18[6] = @"perm";
+  v18[7] = @"priv";
+  v19[7] = MEMORY[0x1E695E118];
+  v19[8] = MEMORY[0x1E695E118];
+  v18[8] = @"modi";
+  v18[9] = @"sens";
+  v19[9] = MEMORY[0x1E695E110];
+  v19[10] = MEMORY[0x1E695E110];
+  v18[10] = @"asen";
+  v18[11] = @"extr";
+  v19[11] = MEMORY[0x1E695E118];
+  v19[12] = MEMORY[0x1E695E110];
+  v18[12] = @"next";
+  v18[13] = @"encr";
+  v19[13] = MEMORY[0x1E695E110];
+  v19[14] = MEMORY[0x1E695E110];
+  v18[14] = @"decr";
+  v18[15] = @"drve";
+  v19[15] = MEMORY[0x1E695E110];
+  v19[16] = MEMORY[0x1E695E110];
+  v18[16] = @"sign";
+  v18[17] = @"vrfy";
+  v19[17] = MEMORY[0x1E695E110];
+  v19[18] = MEMORY[0x1E695E110];
+  v18[18] = @"snrc";
+  v18[19] = @"vyrc";
+  v19[19] = MEMORY[0x1E695E110];
+  v19[20] = MEMORY[0x1E695E110];
+  v18[20] = @"wrap";
+  v18[21] = @"unwp";
+  v19[21] = MEMORY[0x1E695E110];
+  v15 = v13;
+  v18[22] = @"v_Data";
+  if (!v13)
+  {
+    v15 = [MEMORY[0x1E695DEF0] data];
+  }
+
+  v19[22] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:23];
+  if (v13)
+  {
+    if (v12)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+
+    if (v12)
+    {
+      goto LABEL_7;
+    }
+  }
+
+LABEL_7:
+
+  return v16;
+}
+
+__CFData *SecKEMDecapsulateSharedKey(uint64_t a1, void *a2, __CFString **a3)
+{
+  if (*(a1 + 24))
+  {
+    v5 = a2;
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) != 0 && (v6 = [v5 length], v6 == cckem_encapsulated_key_nbytes_info()))
+    {
+      if (SecCFAllocatorZeroize_sOnce != -1)
+      {
+        dispatch_once(&SecCFAllocatorZeroize_sOnce, &__block_literal_global_9069);
+      }
+
+      v7 = SecCFAllocatorZeroize_sAllocator;
+      v8 = cckem_shared_key_nbytes_info();
+      Mutable = CFDataCreateMutable(v7, 0);
+      CFDataSetLength(Mutable, v8);
+      [v5 length];
+      [v5 bytes];
+      [(__CFData *)Mutable length];
+      [(__CFData *)Mutable mutableBytes];
+      v10 = cckem_decapsulate();
+      if (v10)
+      {
+        SecError(-26275, a3, @"KEM Key decapsulation failed, err=%d for key %@", v10, a1);
+      }
+    }
+
+    else
+    {
+      v11 = cckem_encapsulated_key_nbytes_info();
+      SecError(-50, a3, @"KEM decapsulation failed: expecting input data of size %dbytes", v11);
+      Mutable = 0;
+    }
+  }
+
+  else
+  {
+    SecError(-50, a3, @"Invalid key data: The provided key does not contain a valid KEM context.");
+    Mutable = 0;
+  }
+
+  return Mutable;
+}
+
+void SecOTRAppendDHMessage(uint64_t a1, __CFData *a2)
+{
+  if (a1)
+  {
+    Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
+    if (Mutable)
+    {
+      v5 = Mutable;
+      *bytes = 512;
+      CFDataAppendBytes(a2, bytes, 2);
+      v12 = 2;
+      CFDataAppendBytes(a2, &v12, 1);
+      SecFDHKAppendPublicSerialization(*(a1 + 80), v5);
+      Length = CFDataGetLength(v5);
+      if (Length)
+      {
+        v7 = Length;
+        BytePtr = CFDataGetBytePtr(v5);
+        *v13 = bswap32(v7);
+        CFDataAppendBytes(a2, v13, 4);
+        v9 = CFDataGetLength(a2);
+        CFDataIncreaseLength(a2, v7);
+        MutableBytePtr = CFDataGetMutableBytePtr(a2);
+        AES_CTR_Transform(16, a1 + 40, &kIVZero, v7, BytePtr, &MutableBytePtr[v9]);
+        *v14 = 0x20000000;
+        CFDataAppendBytes(a2, v14, 4);
+        CFDataGetLength(a2);
+        CFDataIncreaseLength(a2, 32);
+        CFDataGetMutableBytePtr(a2);
+        ccsha256_di();
+        ccdigest();
+      }
+
+      CFRelease(v5);
+    }
+  }
+}
+
+uint64_t SecOTRAppendDHKeyMessage(uint64_t a1, CFMutableDataRef theData)
+{
+  *bytes = 512;
+  CFDataAppendBytes(theData, bytes, 2);
+  v6 = 10;
+  CFDataAppendBytes(theData, &v6, 1);
+  return SecFDHKAppendPublicSerialization(*(a1 + 80), theData);
+}
+
+void SecOTRAppendRevealSignatureMessage(uint64_t a1, CFMutableDataRef theData)
+{
+  *bytes = 512;
+  CFDataAppendBytes(theData, bytes, 2);
+  v6 = 17;
+  CFDataAppendBytes(theData, &v6, 1);
+  *v7 = 0x10000000;
+  CFDataAppendBytes(theData, v7, 4);
+  Length = CFDataGetLength(theData);
+  CFDataIncreaseLength(theData, 16);
+  *&CFDataGetMutableBytePtr(theData)[Length] = *(a1 + 40);
+  AppendMACedEncryptedSignature(a1, 0, theData);
+}
+
+void AppendMACedEncryptedSignature(uint64_t a1, int a2, const __CFData *a3)
+{
+  v38 = *MEMORY[0x1E69E9840];
+  *&v5 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v34[10] = v5;
+  v34[11] = v5;
+  v34[8] = v5;
+  v34[9] = v5;
+  v34[6] = v5;
+  v34[7] = v5;
+  v34[4] = v5;
+  v34[5] = v5;
+  v34[2] = v5;
+  v34[3] = v5;
+  v34[0] = v5;
+  v34[1] = v5;
+  ccn_zero();
+  *bytes = 192;
+  ccec_compute_key();
+  CFDataGetLength(a3);
+  v6 = *MEMORY[0x1E695E480];
+  Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
+  v8 = CFDataCreateMutable(v6, 0);
+  v9 = CFDataCreateMutable(v6, 0);
+  SecFDHKAppendPublicSerialization(*(a1 + 80), v8);
+  AppendECPublicKeyAsDATA(v8, (*(a1 + 112) + 16));
+  Length = CFDataGetLength(v8);
+  v11 = SecOTRPublicIdentityCopyFromPrivate(v6, *(a1 + 24), 0);
+  *bytes = 240;
+  CFDataAppendBytes(v8, bytes, 2);
+  v12 = CFDataCreateMutable(v6, 0);
+  SecOTRPIAppendSerialization(v11, v12, 0);
+  v13 = CFDataGetLength(v12);
+  BytePtr = CFDataGetBytePtr(v12);
+  *bytes = bswap32(v13);
+  CFDataAppendBytes(v8, bytes, 4);
+  CFDataAppendBytes(v8, BytePtr, v13);
+  if (v12)
+  {
+    CFRelease(v12);
+  }
+
+  if (v11)
+  {
+    CFRelease(v11);
+  }
+
+  *bytes = bswap32(*(a1 + 72));
+  CFDataAppendBytes(v8, bytes, 4);
+  CFDataGetLength(v8);
+  CFDataGetBytePtr(v8);
+  *&v15 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *bytes = v15;
+  v37 = v15;
+  if (a2)
+  {
+    v16 = 4;
+  }
+
+  else
+  {
+    v16 = 2;
+  }
+
+  HashMPIWithPrefix(v16, 24, v34, bytes);
+  CFDataGetLength(v9);
+  CFDataIncreaseLength(v9, 32);
+  CFDataGetMutableBytePtr(v9);
+  ccsha256_di();
+  cchmac();
+  v39.location = 0;
+  v39.length = Length;
+  CFDataDeleteBytes(v8, v39);
+  v17 = *(a1 + 24);
+  Size = SecKeyGetSize(*(v17 + 16), 1);
+  v19 = CFDataGetLength(v9);
+  v20 = CFDataGetBytePtr(v9);
+  v21 = CFDataGetLength(Mutable);
+  if ((Size & 0x8000000000000000) == 0)
+  {
+    CFDataIncreaseLength(Mutable, Size + 1);
+    v22 = &CFDataGetMutableBytePtr(Mutable)[v21];
+    *bytes = Size;
+    if (!SecKeyDigestAndSign(*(v17 + 24), kOTRSignatureAlgIDPtr, v20, v19, v22 + 1, bytes))
+    {
+      v23 = *bytes;
+      if (*bytes <= 0xFFuLL)
+      {
+        *v22 = bytes[0];
+        v21 += v23 + 1;
+      }
+    }
+  }
+
+  CFDataSetLength(Mutable, v21);
+  if (v9)
+  {
+    CFRelease(v9);
+  }
+
+  v24 = CFDataGetLength(Mutable);
+  v25 = CFDataGetBytePtr(Mutable);
+  *bytes = bswap32(v24);
+  CFDataAppendBytes(v8, bytes, 4);
+  CFDataAppendBytes(v8, v25, v24);
+  if (Mutable)
+  {
+    CFRelease(Mutable);
+  }
+
+  v26 = CFDataGetLength(v8);
+  CFDataGetLength(a3);
+  *bytes = bswap32(v26);
+  CFDataAppendBytes(a3, bytes, 4);
+  v27 = CFDataGetLength(a3);
+  CFDataIncreaseLength(a3, v26);
+  MutableBytePtr = CFDataGetMutableBytePtr(a3);
+  *&v35 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v35 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *&v29 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v29 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *bytes = v29;
+  v37 = v29;
+  HashMPIWithPrefix(1u, 24, v34, bytes);
+  v35 = *bytes;
+  v30 = CFDataGetBytePtr(v8);
+  AES_CTR_Transform(16, &v35, &kIVZero, v26, v30, &MutableBytePtr[v27]);
+  v35 = 0uLL;
+  if (v8)
+  {
+    CFRelease(v8);
+  }
+
+  CFDataGetMutableBytePtr(a3);
+  CFDataGetLength(a3);
+  *&v31 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v31 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *bytes = v31;
+  v37 = v31;
+  if (a2)
+  {
+    v32 = 5;
+  }
+
+  else
+  {
+    v32 = 3;
+  }
+
+  HashMPIWithPrefix(v32, 24, v34, bytes);
+  CFDataGetLength(a3);
+  CFDataIncreaseLength(a3, 32);
+  CFDataGetMutableBytePtr(a3);
+  ccsha256_di();
+  cchmac();
+  v40.location = CFDataGetLength(a3) - 12;
+  v40.length = 12;
+  CFDataDeleteBytes(a3, v40);
+}
+
+void SecOTRAppendSignatureMessage(uint64_t a1, CFMutableDataRef theData)
+{
+  *bytes = 512;
+  CFDataAppendBytes(theData, bytes, 2);
+  v5 = 18;
+  CFDataAppendBytes(theData, &v5, 1);
+  AppendMACedEncryptedSignature(a1, 1, theData);
+}
+
+uint64_t SecOTRPublicIdentityGetTypeID()
+{
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 0x40000000;
+  block[2] = __SecOTRPublicIdentityGetTypeID_block_invoke;
+  block[3] = &__block_descriptor_tmp_12502;
+  block[4] = &SecOTRPublicIdentityGetTypeID_sSecOTRPublicIdentityGetTypeIDSingleton;
+  if (SecOTRPublicIdentityGetTypeID_sSecOTRPublicIdentityGetTypeIDOnce != -1)
+  {
+    dispatch_once(&SecOTRPublicIdentityGetTypeID_sSecOTRPublicIdentityGetTypeIDOnce, block);
+  }
+
+  return SecOTRPublicIdentityGetTypeID_sSecOTRPublicIdentityGetTypeIDSingleton;
+}
+
+uint64_t __SecOTRPublicIdentityGetTypeID_block_invoke(uint64_t a1)
+{
+  result = _CFRuntimeRegisterClass();
+  **(a1 + 32) = result;
+  return result;
+}
+
+CFStringRef SecOTRPublicIdentityCopyDescription(unsigned __int8 *a1)
+{
+  SecGetDebugDescriptionFormatOptions();
+
+  return SecOTRPublicIdentityCopyFormatDescription(a1);
+}
+
+void SecOTRPublicIdentityDestroy(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  if (v2)
+  {
+    *(a1 + 16) = 0;
+    CFRelease(v2);
+  }
+}
+
+void *SecOTRPublicIdentityCopyFromPrivate(uint64_t a1, uint64_t a2, CFErrorRef *a3)
+{
+  SecOTRPublicIdentityGetTypeID();
+  Instance = _CFRuntimeCreateInstance();
+  if (EnsureOTRAlgIDInited_kSignatureAlgID_ONCE != -1)
+  {
+    dispatch_once(&EnsureOTRAlgIDInited_kSignatureAlgID_ONCE, &__block_literal_global_12412);
+  }
+
+  v6 = *(a2 + 16);
+  Instance[2] = v6;
+  CFRetain(v6);
+  if ((SecOTRPICacheHash(Instance, a3) & 1) == 0)
+  {
+    CFRelease(Instance);
+    return 0;
+  }
+
+  return Instance;
+}
+
+uint64_t SecOTRPICacheHash(uint64_t a1, CFErrorRef *a2)
+{
+  Mutable = CFDataCreateMutable(0, 0);
+  v5 = SecOTRPIAppendSerialization(a1, Mutable, a2);
+  if (v5)
+  {
+    CFDataGetBytePtr(Mutable);
+    CFDataGetLength(Mutable);
+    CCDigest();
+  }
+
+  if (Mutable)
+  {
+    CFRelease(Mutable);
+  }
+
+  return v5;
+}
+
+uint64_t SecOTRPIAppendSerialization(uint64_t a1, CFDataRef theData, CFErrorRef *a3)
+{
+  Length = CFDataGetLength(theData);
+  Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
+  if (appendPublicOctetsAndSize(*(a1 + 16), Mutable))
+  {
+    goto LABEL_11;
+  }
+
+  CFDataGetLength(Mutable);
+  ccder_sizeof();
+  if (sAdvertiseHashes == 1)
+  {
+    ccder_sizeof();
+  }
+
+  v8 = ccder_sizeof();
+  CFDataIncreaseLength(theData, v8);
+  v9 = &CFDataGetMutableBytePtr(theData)[Length];
+  CFDataGetLength(Mutable);
+  CFDataGetBytePtr(Mutable);
+  if (sAdvertiseHashes == 1)
+  {
+    ccder_encode_implicit_raw_octet_string();
+  }
+
+  ccder_encode_implicit_raw_octet_string();
+  if (ccder_encode_constructed_tl() != v9)
+  {
+LABEL_11:
+    if (Mutable)
+    {
+      CFRelease(Mutable);
+    }
+
+    CFDataSetLength(theData, Length);
+    SecOTRCreateError(0, -10, @"Unable to create public key bytes", 0, a3);
+    return 0;
+  }
+
+  else
+  {
+    if (Mutable)
+    {
+      CFRelease(Mutable);
+    }
+
+    return 1;
+  }
+}
+
+CFTypeRef *SecOTRPublicIdentityCreateFromSecKeyRef(uint64_t a1, const void *a2, CFErrorRef *a3)
+{
+  SecOTRPublicIdentityGetTypeID();
+  Instance = _CFRuntimeCreateInstance();
+  Instance[2] = a2;
+  CFRetain(a2);
+  if ((SecOTRPICacheHash(Instance, a3) & 1) == 0)
+  {
+    CFRelease(Instance[2]);
+    CFRelease(Instance);
+    return 0;
+  }
+
+  return Instance;
+}
+
+uint64_t SecOTRPublicIdentityCreateFromBytes(uint64_t a1, uint64_t *a2, void *a3, CFErrorRef *a4)
+{
+  cf = 0;
+  SecOTRPublicIdentityGetTypeID();
+  Instance = _CFRuntimeCreateInstance();
+  if (EnsureOTRAlgIDInited_kSignatureAlgID_ONCE != -1)
+  {
+    dispatch_once(&EnsureOTRAlgIDInited_kSignatureAlgID_ONCE, &__block_literal_global_12412);
+  }
+
+  v12 = *a2 + *a3;
+  if (!ccder_decode_sequence_tl())
+  {
+    SecOTRCreateError(0, -9, @"Error creating public identity from bytes", 0, a4);
+    if (!Instance)
+    {
+      return Instance;
+    }
+
+    goto LABEL_16;
+  }
+
+  v8 = *a2;
+  v14 = 0xAAAAAAAAAAAAAAAALL;
+  v15 = ccder_decode_tl();
+  v9 = CreateECPublicKeyFrom(&v15, &v14);
+  if (!v9 || v14)
+  {
+    if (v9)
+    {
+      CFRelease(v9);
+    }
+
+    v11 = 0;
+    *(Instance + 16) = 0;
+    goto LABEL_15;
+  }
+
+  *(Instance + 16) = v9;
+  *(Instance + 24) = ccder_decode_tl() != 0;
+  if ((SecOTRPICacheHash(Instance, &cf) & 1) == 0)
+  {
+    v11 = cf;
+LABEL_15:
+    SecOTRCreateError(0, -9, @"Error creating public identity from bytes", v11, a4);
+LABEL_16:
+    CFRelease(Instance);
+    return 0;
+  }
+
+  *a2 += v12 - v8;
+  *a3 -= v12 - v8;
+  return Instance;
+}
+
+uint64_t SecOTRPublicIdentityCreateFromData(uint64_t a1, CFDataRef theData, CFErrorRef *a3)
+{
+  if (!theData)
+  {
+    return 0;
+  }
+
+  Length = CFDataGetLength(theData);
+  BytePtr = CFDataGetBytePtr(theData);
+  return SecOTRPublicIdentityCreateFromBytes(a1, &BytePtr, &Length, a3);
+}
+
+void __SecOTRPIEqualToBytes_block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 32);
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 0x40000000;
+  v12 = __SecOTRPIEqualToBytes_block_invoke_2;
+  v13 = &__block_descriptor_tmp_5_12526;
+  v14 = a2;
+  if (v2)
+  {
+    v3 = *MEMORY[0x1E695E480];
+    Length = CFDataGetLength(v2);
+    Mutable = CFStringCreateMutable(v3, 2 * Length);
+    BytePtr = CFDataGetBytePtr(v2);
+    v7 = CFDataGetLength(v2);
+    if (v7 >= 1)
+    {
+      v8 = v7;
+      do
+      {
+        v9 = *BytePtr++;
+        CFStringAppendFormat(Mutable, 0, @"%02X", v9, v10, v11);
+        --v8;
+      }
+
+      while (v8);
+    }
+  }
+
+  else
+  {
+    Mutable = @"(null)";
+  }
+
+  v12(&v10, Mutable);
+  CFRelease(Mutable);
+}
+
+void __SecOTRPIEqualToBytes_block_invoke_2(uint64_t a1, uint64_t a2)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v4 = secLogObjForScope("otr");
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = *(a1 + 32);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = a2;
+    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "ID Comparison failed: d: %@ id: %@", &v6, 0x16u);
+  }
+}
+
+uint64_t SecOTRPIRecreateSignature(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  v22 = *MEMORY[0x1E69E9840];
+  v8 = MEMORY[0x18CFD9EA0]();
+  v9 = *v8;
+  v10 = 8 * *v8;
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = (v10 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v12 = &v19 - v11;
+  if (v9)
+  {
+    v13 = memset(&v19 - v11, 170, v10);
+    MEMORY[0x1EEE9AC00](v13);
+    v14 = &v19 - v11;
+    memset(v14, 170, v10);
+  }
+
+  else
+  {
+    v14 = &v21;
+  }
+
+  v20 = a1 + a2;
+  v15 = ccder_decode_sequence_tl();
+  v16 = mp_decode_forced_uint(v9, v12, v15, v20);
+  mp_decode_forced_uint(v9, v14, v16, v20);
+  v17 = *a3 + *a4;
+  ccder_encode_integer();
+  ccder_encode_integer();
+  result = ccder_encode_constructed_tl();
+  *a3 = result;
+  *a4 = (v17 - result) & ~((v17 - result) >> 63);
+  return result;
+}
+
+uint64_t mp_decode_forced_uint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = ccder_decode_tl();
+  if (result)
+  {
+    v5 = result;
+    if ((ccn_read_uint() & 0x80000000) != 0)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return v5 - 0x5555555555555556;
+    }
+  }
+
+  return result;
+}
+
+void sub_1888E9438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+{
+  objc_destroyWeak((v14 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_1888E9A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__12633(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+id SecRemoteKeyCopyOperationResult(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v15 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v16 = v15;
+  if (a6)
+  {
+    [v15 addObject:a6];
+    if (a7)
+    {
+      [v16 addObject:a7];
+    }
+  }
+
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__12633;
+  v25 = __Block_byref_object_dispose__12634;
+  v26 = 0;
+  v17 = [SecKeyProxy targetForKey:a1 error:a8];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __SecRemoteKeyCopyOperationResult_block_invoke;
+  v20[3] = &unk_1E70E0C58;
+  v20[4] = &v21;
+  v20[5] = a8;
+  [v17 performOperation:a2 mode:a5 algorithm:a3 parameters:v16 reply:v20];
+
+  v18 = v22[5];
+  _Block_object_dispose(&v21, 8);
+
+  return v18;
+}
+
+void sub_1888E9D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __SecRemoteKeyCopyOperationResult_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v9 = a2;
+  v5 = a3;
+  if ([v9 count])
+  {
+    v6 = [v9 objectAtIndexedSubscript:0];
+    v7 = *(*(a1 + 32) + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
+  }
+
+  else if (*(a1 + 40))
+  {
+    **(a1 + 40) = v5;
+  }
+}
+
+id SecRemoteKeyCopyPublicKey(uint64_t a1)
+{
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x3032000000;
+  v8 = __Block_byref_object_copy__12633;
+  v9 = __Block_byref_object_dispose__12634;
+  v10 = 0;
+  v1 = [SecKeyProxy targetForKey:a1 error:0];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __SecRemoteKeyCopyPublicKey_block_invoke;
+  v4[3] = &unk_1E70E0C30;
+  v4[4] = &v5;
+  [v1 getPublicKey:v4];
+
+  v2 = v6[5];
+  _Block_object_dispose(&v5, 8);
+
+  return v2;
+}
+
+void sub_1888E9ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __SecRemoteKeyCopyPublicKey_block_invoke(uint64_t result, uint64_t a2)
+{
+  if (a2)
+  {
+    *(*(*(result + 32) + 8) + 40) = [SecKeyProxy createKeyFromEndpoint:a2 error:0];
+
+    return MEMORY[0x1EEE66BB8]();
+  }
+
+  return result;
+}
+
+id SecRemoteKeyCopyExternalRepresentation(uint64_t a1, void *a2)
+{
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__12633;
+  v19 = __Block_byref_object_dispose__12634;
+  v20 = 0;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__12633;
+  v13 = __Block_byref_object_dispose__12634;
+  v14 = 0;
+  v3 = [SecKeyProxy targetForKey:a1 error:a2];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __SecRemoteKeyCopyExternalRepresentation_block_invoke;
+  v8[3] = &unk_1E70E0C08;
+  v8[4] = &v15;
+  v8[5] = &v9;
+  [v3 getExternalRepresentationWithReply:v8];
+
+  v4 = v16;
+  v5 = v16[5];
+  if (a2 && !v5)
+  {
+    *a2 = v10[5];
+    v5 = v4[5];
+  }
+
+  v6 = v5;
+  _Block_object_dispose(&v9, 8);
+
+  _Block_object_dispose(&v15, 8);
+  return v6;
+}
+
+void sub_1888EA0B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v13 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+void __SecRemoteKeyCopyExternalRepresentation_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  v7 = *(*(a1 + 32) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v5;
+  v11 = v5;
+
+  v9 = *(*(a1 + 40) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v6;
+}
+
+uint64_t SecRemoteKeyGetAlgorithmID(uint64_t a1)
+{
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v8 = 0;
+  v1 = [SecKeyProxy targetForKey:a1 error:0];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __SecRemoteKeyGetAlgorithmID_block_invoke;
+  v4[3] = &unk_1E70E0BE0;
+  v4[4] = &v5;
+  [v1 getAlgorithmIDWithReply:v4];
+
+  v2 = v6[3];
+  _Block_object_dispose(&v5, 8);
+  return v2;
+}
+
+void sub_1888EA224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id SecRemoteKeyCopyDescription(uint64_t a1)
+{
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x3032000000;
+  v8 = __Block_byref_object_copy__12633;
+  v9 = __Block_byref_object_dispose__12634;
+  v10 = 0;
+  v1 = [SecKeyProxy targetForKey:a1 error:0];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __SecRemoteKeyCopyDescription_block_invoke;
+  v4[3] = &unk_1E70E0BB8;
+  v4[4] = &v5;
+  [v1 getDescriptionWithReply:v4];
+
+  v2 = v6[5];
+  _Block_object_dispose(&v5, 8);
+
+  return v2;
+}
+
+void sub_1888EA344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __SecRemoteKeyCopyDescription_block_invoke(uint64_t a1, uint64_t a2)
+{
+  *(*(*(a1 + 32) + 8) + 40) = [MEMORY[0x1E696AEC0] stringWithFormat:@"<SecKeyRef remoteKey: %@>", a2];
+
+  return MEMORY[0x1EEE66BB8]();
+}
+
+uint64_t SecRemoteKeyCopyAttributeDictionary(uint64_t a1)
+{
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__12633;
+  v13 = __Block_byref_object_dispose__12634;
+  v14 = 0;
+  v1 = [SecKeyProxy targetForKey:a1 error:0];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __SecRemoteKeyCopyAttributeDictionary_block_invoke;
+  v8[3] = &unk_1E70E0B90;
+  v8[4] = &v9;
+  [v1 getAttributesWithReply:v8];
+
+  v2 = [v10[5] objectForKeyedSubscript:@"accc"];
+  if (v2)
+  {
+    v7 = 0;
+    v3 = SecAccessControlCreateFromData(*MEMORY[0x1E695E480], v2, &v7);
+    v4 = v10[5];
+    if (v3)
+    {
+      [v4 setObject:v3 forKeyedSubscript:@"accc"];
+    }
+
+    else
+    {
+      [v4 removeObjectForKey:@"accc"];
+    }
+  }
+
+  v5 = [v10[5] copy];
+
+  _Block_object_dispose(&v9, 8);
+  return v5;
+}
+
+void sub_1888EA534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __SecRemoteKeyCopyAttributeDictionary_block_invoke(uint64_t a1, void *a2)
+{
+  *(*(*(a1 + 32) + 8) + 40) = [a2 mutableCopy];
+
+  return MEMORY[0x1EEE66BB8]();
+}
+
+uint64_t SecRemoteKeyBlockSize(uint64_t a1)
+{
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v8 = 0;
+  v1 = [SecKeyProxy targetForKey:a1 error:0];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __SecRemoteKeyBlockSize_block_invoke;
+  v4[3] = &unk_1E70E0B68;
+  v4[4] = &v5;
+  [v1 getBlockSizeWithReply:v4];
+
+  v2 = v6[3];
+  _Block_object_dispose(&v5, 8);
+  return v2;
+}
+
+void sub_1888EA660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void SecRemoteKeyDestroy(uint64_t a1)
+{
+  v1 = *(a1 + 24);
+  [v1 invalidate];
+}
+
+uint64_t SecOTRSessionGetTypeID()
+{
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 0x40000000;
+  block[2] = __SecOTRSessionGetTypeID_block_invoke;
+  block[3] = &__block_descriptor_tmp_12700;
+  block[4] = &SecOTRSessionGetTypeID_sSecOTRSessionGetTypeIDSingleton;
+  if (SecOTRSessionGetTypeID_sSecOTRSessionGetTypeIDOnce != -1)
+  {
+    dispatch_once(&SecOTRSessionGetTypeID_sSecOTRSessionGetTypeIDOnce, block);
+  }
+
+  return SecOTRSessionGetTypeID_sSecOTRSessionGetTypeIDSingleton;
+}
+
+uint64_t __SecOTRSessionGetTypeID_block_invoke(uint64_t a1)
+{
+  result = _CFRuntimeRegisterClass();
+  **(a1 + 32) = result;
+  return result;
+}
+
+CFStringRef SecOTRSessionCopyDescription(uint64_t a1)
+{
+  SecGetDebugDescriptionFormatOptions();
+
+  return SecOTRSessionCopyFormatDescription(a1);
+}
+
+CFStringRef SecOTRSessionCopyFormatDescription(uint64_t a1)
+{
+  Current = CFAbsoluteTimeGetCurrent();
+  v3 = *(a1 + 16);
+  if (v3 > 4)
+  {
+    v4 = "InvalidState";
+  }
+
+  else
+  {
+    v4 = off_1E70E0F88[v3];
+  }
+
+  v5 = *(a1 + 672);
+  v6 = "e";
+  if (v5 != 0.0 && v5 > Current)
+  {
+    v6 = "E";
+  }
+
+  v8 = "s";
+  if (*(a1 + 664))
+  {
+    v8 = "S";
+  }
+
+  v9 = "r";
+  v10 = "m";
+  if (*(a1 + 681))
+  {
+    v9 = "R";
+  }
+
+  if (*(a1 + 680))
+  {
+    v10 = "M";
+  }
+
+  v11 = "t";
+  if (*(a1 + 112))
+  {
+    v11 = "T";
+  }
+
+  if (*(a1 + 104))
+  {
+    v12 = "P";
+  }
+
+  else
+  {
+    v12 = "p";
+  }
+
+  if (*(a1 + 64))
+  {
+    v13 = "K";
+  }
+
+  else
+  {
+    v13 = "k";
+  }
+
+  if (*(a1 + 56))
+  {
+    v14 = "D";
+  }
+
+  else
+  {
+    v14 = "d";
+  }
+
+  if (*(a1 + 32))
+  {
+    v15 = "P";
+  }
+
+  else
+  {
+    v15 = "p";
+  }
+
+  if (*(a1 + 24))
+  {
+    v16 = "F";
+  }
+
+  else
+  {
+    v16 = "f";
+  }
+
+  if (*(a1 + 650))
+  {
+    v17 = "I";
+  }
+
+  else
+  {
+    v17 = "i";
+  }
+
+  if (*(a1 + 649))
+  {
+    v18 = "C";
+  }
+
+  else
+  {
+    v18 = "c";
+  }
+
+  return CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"<%s %s %s %s%s%s%s %d:%d %s%s %llu %s%s%s%s>", Current, v4, v18, v17, v16, v15, v14, v13, *(a1 + 72), *(a1 + 96), v12, v11, *(a1 + 656), v10, v9, v8, v6);
+}
+
+void SecOTRSessionDestroy(void *a1)
+{
+  v2 = a1[7];
+  if (v2)
+  {
+    a1[7] = 0;
+    CFRelease(v2);
+  }
+
+  v3 = a1[8];
+  if (v3)
+  {
+    a1[8] = 0;
+    CFRelease(v3);
+  }
+
+  v4 = a1[3];
+  if (v4)
+  {
+    a1[3] = 0;
+    CFRelease(v4);
+  }
+
+  v5 = a1[10];
+  if (v5)
+  {
+    a1[10] = 0;
+    CFRelease(v5);
+  }
+
+  v6 = a1[11];
+  if (v6)
+  {
+    a1[11] = 0;
+    CFRelease(v6);
+  }
+
+  v7 = a1[4];
+  if (v7)
+  {
+    a1[4] = 0;
+    CFRelease(v7);
+  }
+
+  v8 = a1[14];
+  if (v8)
+  {
+    a1[14] = 0;
+    CFRelease(v8);
+  }
+
+  v9 = a1[13];
+  if (v9)
+  {
+    a1[13] = 0;
+    CFRelease(v9);
+  }
+
+  v10 = a1[15];
+  if (v10)
+  {
+    a1[15] = 0;
+    CFRelease(v10);
+  }
+
+  v11 = a1[16];
+
+  dispatch_release(v11);
+}
+
+const char *SecOTRPacketTypeString(const __CFData *a1)
+{
+  if (!a1)
+  {
+    return "NoMessage";
+  }
+
+  v1 = SecOTRSGetMessageType(a1);
+  if (v1 > 0x1F)
+  {
+    if (v1 <= 47)
+    {
+      if (v1 == 32)
+      {
+        return "kEvenCompactDatamessage (0x20)";
+      }
+
+      if (v1 == 33)
+      {
+        return "kOddCompactDataMessage (0x21)";
+      }
+    }
+
+    else
+    {
+      switch(v1)
+      {
+        case 48:
+          return "kEvenCompactDatamessage (0x30)";
+        case 49:
+          return "kOddCompactDataMessage (0x31)";
+        case 255:
+          return "InvalidMessage (0xFF)";
+      }
+    }
+  }
+
+  else if (v1 <= 9)
+  {
+    if (v1 == 2)
+    {
+      return "DHMessage (0x02)";
+    }
+
+    if (v1 == 3)
+    {
+      return "DataMessage (0x03)";
+    }
+  }
+
+  else
+  {
+    switch(v1)
+    {
+      case 10:
+        return "DHKeyMessage (0x0A)";
+      case 17:
+        return "RevealSignatureMessage (0x11)";
+      case 18:
+        return "SignatureMessage (0x12)";
+    }
+  }
+
+  return "UnknownMessage";
+}
+
+uint64_t SecOTRSGetMessageType(const __CFData *a1)
+{
+  v1 = SecOTRCopyIncomingBytes(a1);
+  BytePtr = CFDataGetBytePtr(v1);
+  if (CFDataGetLength(v1) > 2 && __rev16(*BytePtr) == 2)
+  {
+    v3 = BytePtr[2];
+  }
+
+  else
+  {
+    v3 = *CFDataGetBytePtr(v1);
+    if (v3 > 0x31 || ((1 << v3) & 0x3000300000000) == 0)
+    {
+      v3 = 255;
+    }
+  }
+
+  if (v1)
+  {
+    CFRelease(v1);
+  }
+
+  return v3;
+}
+
+double SecOTRSessionResetInternal(uint64_t a1)
+{
+  *(a1 + 16) = 0;
+  v2 = *(a1 + 56);
+  if (v2)
+  {
+    *(a1 + 56) = 0;
+    CFRelease(v2);
+  }
+
+  v3 = *(a1 + 64);
+  if (v3)
+  {
+    *(a1 + 64) = 0;
+    CFRelease(v3);
+  }
+
+  *(a1 + 72) = 0;
+  v4 = *(a1 + 80);
+  if (v4)
+  {
+    *(a1 + 80) = 0;
+    CFRelease(v4);
+  }
+
+  v5 = *(a1 + 88);
+  if (v5)
+  {
+    *(a1 + 88) = 0;
+    CFRelease(v5);
+  }
+
+  *(a1 + 96) = 0;
+  v6 = *(a1 + 112);
+  if (v6)
+  {
+    *(a1 + 112) = 0;
+    CFRelease(v6);
+  }
+
+  v7 = *(a1 + 104);
+  if (v7)
+  {
+    *(a1 + 104) = 0;
+    CFRelease(v7);
+  }
+
+  v8 = *(a1 + 120);
+  if (v8)
+  {
+    *(a1 + 120) = 0;
+    CFRelease(v8);
+  }
+
+  Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
+  result = 0.0;
+  *(a1 + 136) = 0u;
+  v11 = (a1 + 136);
+  *(v11 - 2) = Mutable;
+  v11[1] = 0u;
+  v11[2] = 0u;
+  v11[3] = 0u;
+  v11[4] = 0u;
+  v11[5] = 0u;
+  v11[6] = 0u;
+  v11[7] = 0u;
+  v11[8] = 0u;
+  v11[9] = 0u;
+  v11[10] = 0u;
+  v11[11] = 0u;
+  v11[12] = 0u;
+  v11[13] = 0u;
+  v11[14] = 0u;
+  v11[15] = 0u;
+  v11[16] = 0u;
+  v11[17] = 0u;
+  v11[18] = 0u;
+  v11[19] = 0u;
+  v11[20] = 0u;
+  v11[21] = 0u;
+  v11[22] = 0u;
+  v11[23] = 0u;
+  v11[24] = 0u;
+  v11[25] = 0u;
+  v11[26] = 0u;
+  v11[27] = 0u;
+  v11[28] = 0u;
+  v11[29] = 0u;
+  v11[30] = 0u;
+  v11[31] = 0u;
+  return result;
+}
+
+uint64_t SecOTRSessionCreateFromID(uint64_t a1, const void *a2, const void *a3)
+{
+  SecOTRSessionGetTypeID();
+  Instance = _CFRuntimeCreateInstance();
+  if (SecOTRGetDefaultsWriteSeconds_sdOnceToken != -1)
+  {
+    dispatch_once(&SecOTRGetDefaultsWriteSeconds_sdOnceToken, &__block_literal_global_12746);
+  }
+
+  *(Instance + 128) = dispatch_queue_create("OTRSession", 0);
+  if (a2)
+  {
+    CFRetain(a2);
+  }
+
+  *(Instance + 24) = a2;
+  if (a3)
+  {
+    CFRetain(a3);
+  }
+
+  *(Instance + 32) = a3;
+  *(Instance + 648) = 0;
+  *(Instance + 650) = 0;
+  *(Instance + 672) = 0;
+  *(Instance + 664) = 0;
+  *(Instance + 656) = 0;
+  *(Instance + 56) = 0;
+  *(Instance + 64) = 0;
+  *(Instance + 80) = 0;
+  *(Instance + 88) = 0;
+  *(Instance + 112) = 0;
+  *(Instance + 120) = 0;
+  *(Instance + 104) = 0;
+  *(Instance + 680) = 1;
+  SecOTRSessionResetInternal(Instance);
+  v6 = SecOTRPublicIdentityCopyFromPrivate(*MEMORY[0x1E695E480], *(Instance + 24), 0);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 0x40000000;
+  v8[2] = __SecOTRSessionCreateFromID_block_invoke;
+  v8[3] = &__block_descriptor_tmp_18_12748;
+  v8[4] = Instance;
+  SecOTRPIPerformWithSerializationString(v6, v8);
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+
+  return Instance;
+}
+
+void __SecOTRSessionCreateFromID_block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 32);
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 0x40000000;
+  v4[2] = __SecOTRSessionCreateFromID_block_invoke_2;
+  v4[3] = &__block_descriptor_tmp_17_12756;
+  v4[4] = v2;
+  v4[5] = a2;
+  SecOTRPIPerformWithSerializationString(v3, v4);
+}
+
+void SecOTRPIPerformWithSerializationString(uint64_t a1, uint64_t a2)
+{
+  v4 = *MEMORY[0x1E695E480];
+  Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
+  SecOTRPIAppendSerialization(a1, Mutable, 0);
+  if (Mutable)
+  {
+    Length = CFDataGetLength(Mutable);
+    v7 = CFStringCreateMutable(v4, 2 * Length);
+    BytePtr = CFDataGetBytePtr(Mutable);
+    v9 = CFDataGetLength(Mutable);
+    if (v9 >= 1)
+    {
+      v10 = v9;
+      do
+      {
+        v11 = *BytePtr++;
+        CFStringAppendFormat(v7, 0, @"%02X", v11);
+        --v10;
+      }
+
+      while (v10);
+    }
+
+    (*(a2 + 16))(a2, v7);
+    CFRelease(v7);
+  }
+
+  else
+  {
+    Mutable = @"(null)";
+    (*(a2 + 16))(a2, @"(null)");
+  }
+
+  CFRelease(Mutable);
+}
+
+void __SecOTRSessionCreateFromID_block_invoke_2(uint64_t a1, uint64_t a2)
+{
+  v13 = *MEMORY[0x1E69E9840];
+  v4 = secLogObjForScope("otr");
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v7 = 138412802;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2112;
+    v12 = a2;
+    _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "%@ Creating with M: %@, T: %@", &v7, 0x20u);
+  }
+}
+
+CFIndex __SecOTRGetDefaultsWriteSeconds_block_invoke()
+{
+  keyExistsAndHasValidFormat = 0;
+  result = CFPreferencesGetAppIntegerValue(@"OTR", @"com.apple.security", &keyExistsAndHasValidFormat);
+  v1 = 900;
+  if (keyExistsAndHasValidFormat)
+  {
+    v1 = result;
+  }
+
+  SecOTRGetDefaultsWriteSeconds_seconds = v1;
+  return result;
+}
+
+uint64_t SecOTRSessionCreateFromIDAndFlags(uint64_t a1, const void *a2, const void *a3, char a4)
+{
+  if (SecOTRGetDefaultsWriteSeconds_sdOnceToken != -1)
+  {
+    dispatch_once(&SecOTRGetDefaultsWriteSeconds_sdOnceToken, &__block_literal_global_12746);
+  }
+
+  v8 = SecOTRGetDefaultsWriteSeconds_seconds;
+  result = SecOTRSessionCreateFromID(a1, a2, a3);
+  if (a4)
+  {
+    *(result + 648) = 1;
+    if ((a4 & 2) == 0)
+    {
+LABEL_5:
+      if ((a4 & 4) == 0)
+      {
+        goto LABEL_6;
+      }
+
+      goto LABEL_11;
+    }
+  }
+
+  else if ((a4 & 2) == 0)
+  {
+    goto LABEL_5;
+  }
+
+  *(result + 649) = 1;
+  if ((a4 & 4) == 0)
+  {
+LABEL_6:
+    if ((a4 & 8) == 0)
+    {
+      return result;
+    }
+
+    goto LABEL_7;
+  }
+
+LABEL_11:
+  *(result + 650) = 1;
+  if ((a4 & 8) == 0)
+  {
+    return result;
+  }
+
+LABEL_7:
+  *(result + 656) = v8;
+  return result;
+}
+
+uint64_t SecOTRSessionCreateFromData(uint64_t a1, const __CFData *a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  SecOTRSessionGetTypeID();
+  Instance = _CFRuntimeCreateInstance();
+  BytePtr = CFDataGetBytePtr(a2);
+  bytes = BytePtr;
+  Length = CFDataGetLength(a2);
+  v68 = Length;
+  if (SecOTRGetDefaultsWriteSeconds_sdOnceToken != -1)
+  {
+    dispatch_once(&SecOTRGetDefaultsWriteSeconds_sdOnceToken, &__block_literal_global_12746);
+  }
+
+  v6 = dispatch_queue_create("OTRSession", 0);
+  *(Instance + 104) = 0;
+  *(Instance + 128) = v6;
+  *(Instance + 80) = 0;
+  *(Instance + 56) = 0;
+  *(Instance + 648) = 0;
+  *(Instance + 672) = 0;
+  *(Instance + 664) = 0;
+  *(Instance + 656) = 0;
+  *(Instance + 24) = 0;
+  *(Instance + 32) = 0;
+  *(Instance + 64) = 0;
+  *(Instance + 88) = 0;
+  *(Instance + 112) = 0;
+  *(Instance + 680) = 1;
+  *(Instance + 232) = 0u;
+  *(Instance + 248) = 0u;
+  *(Instance + 200) = 0u;
+  *(Instance + 216) = 0u;
+  *(Instance + 168) = 0u;
+  *(Instance + 184) = 0u;
+  *(Instance + 152) = 0u;
+  *(Instance + 136) = 0u;
+  *(Instance + 616) = 0u;
+  *(Instance + 632) = 0u;
+  *(Instance + 584) = 0u;
+  *(Instance + 600) = 0u;
+  *(Instance + 552) = 0u;
+  *(Instance + 568) = 0u;
+  *(Instance + 520) = 0u;
+  *(Instance + 536) = 0u;
+  *(Instance + 488) = 0u;
+  *(Instance + 504) = 0u;
+  *(Instance + 456) = 0u;
+  *(Instance + 472) = 0u;
+  *(Instance + 424) = 0u;
+  *(Instance + 440) = 0u;
+  *(Instance + 392) = 0u;
+  *(Instance + 408) = 0u;
+  *(Instance + 360) = 0u;
+  *(Instance + 376) = 0u;
+  *(Instance + 328) = 0u;
+  *(Instance + 344) = 0u;
+  *(Instance + 296) = 0u;
+  *(Instance + 312) = 0u;
+  *(Instance + 264) = 0u;
+  *(Instance + 280) = 0u;
+  if (!Length)
+  {
+    goto LABEL_76;
+  }
+
+  v7 = *BytePtr;
+  bytes = BytePtr + 1;
+  v68 = Length - 1;
+  if (v7 > 6)
+  {
+    goto LABEL_76;
+  }
+
+  if (Length < 5)
+  {
+    goto LABEL_76;
+  }
+
+  *(Instance + 16) = bswap32(*(BytePtr + 1));
+  v68 = Length - 5;
+  bytes = BytePtr + 5;
+  v8 = *MEMORY[0x1E695E480];
+  v9 = SecOTRFullIdentityCreateFromBytes(*MEMORY[0x1E695E480], &bytes, &v68, 0);
+  *(Instance + 24) = v9;
+  if (!v9)
+  {
+    goto LABEL_76;
+  }
+
+  v10 = SecOTRPublicIdentityCreateFromBytes(v8, &bytes, &v68, 0);
+  *(Instance + 32) = v10;
+  if (!v10)
+  {
+    goto LABEL_76;
+  }
+
+  v11 = v68;
+  v12 = v68 - 17;
+  if (v68 < 0x11)
+  {
+    goto LABEL_76;
+  }
+
+  v13 = bytes;
+  *(Instance + 40) = *bytes;
+  v14 = v13[16];
+  v15 = v13 + 17;
+  v68 = v12;
+  bytes = v13 + 17;
+  if (v14)
+  {
+    if (v12 < 4 || (v16 = bswap32(*(v13 + 17)), v15 = v13 + 21, v12 = v11 - 21, v68 = v11 - 21, bytes = v13 + 21, v11 - 21 < v16))
+    {
+      Mutable = 0;
+    }
+
+    else
+    {
+      Mutable = CFDataCreateMutable(v8, 0);
+      CFDataAppendBytes(Mutable, bytes, v16);
+      v15 = &bytes[v16];
+      v12 = v68 - v16;
+      v68 -= v16;
+      bytes += v16;
+    }
+
+    *(Instance + 56) = Mutable;
+  }
+
+  if (v7 < 2)
+  {
+    goto LABEL_25;
+  }
+
+  if (v12)
+  {
+    v18 = v15 + 1;
+    v19 = *v15;
+    v20 = v12 - 1;
+    v68 = v12 - 1;
+    bytes = v15 + 1;
+    if (v19)
+    {
+      v21 = v12 >= 5;
+      v22 = v12 - 5;
+      if (v21)
+      {
+        v23 = bswap32(*(v15 + 1));
+        v18 = v15 + 5;
+        v68 = v22;
+        bytes = v15 + 5;
+        if (v22 < v23)
+        {
+          v66 = 0;
+          v20 = v22;
+        }
+
+        else
+        {
+          v66 = CFDataCreateMutable(v8, 0);
+          CFDataAppendBytes(v66, bytes, v23);
+          v18 = &bytes[v23];
+          v20 = v68 - v23;
+          v68 -= v23;
+          bytes += v23;
+        }
+      }
+
+      else
+      {
+        v66 = 0;
+      }
+
+      *(Instance + 64) = v66;
+    }
+
+    v15 = v18;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  v12 = v20;
+  if (v7 == 2)
+  {
+LABEL_25:
+    if (!v12)
+    {
+      goto LABEL_76;
+    }
+
+    v24 = *v15++;
+    v20 = v12 - 1;
+    v68 = v12 - 1;
+    bytes = v15;
+    if (v24 && !*(Instance + 16))
+    {
+      *(Instance + 16) = 4;
+    }
+  }
+
+  v25 = v20 - 4;
+  if (v20 < 4)
+  {
+    goto LABEL_76;
+  }
+
+  v26 = bswap32(*v15);
+  *(Instance + 72) = v26;
+  v68 = v25;
+  bytes = v15 + 4;
+  if (v26)
+  {
+    v27 = SecOTRFullDHKCreateFromBytes(v8, &bytes, &v68);
+    *(Instance + 80) = v27;
+    if (!v27)
+    {
+      goto LABEL_76;
+    }
+
+    v28 = SecOTRFullDHKCreateFromBytes(v8, &bytes, &v68);
+    *(Instance + 88) = v28;
+    if (!v28)
+    {
+      goto LABEL_76;
+    }
+
+    v25 = v68;
+  }
+
+  if (!v25 || (v29 = bytes, v30 = *bytes, ++bytes, v68 = v25 - 1, v31 = v25 - 5, v25 < 5))
+  {
+LABEL_76:
+    CFRelease(Instance);
+    return 0;
+  }
+
+  v32 = bswap32(*(v29 + 1));
+  *(Instance + 96) = v32;
+  v68 = v31;
+  bytes = v29 + 5;
+  if (v7 > 4)
+  {
+    if (!v30)
+    {
+      goto LABEL_44;
+    }
+
+    if (v30 == 1)
+    {
+      goto LABEL_43;
+    }
+
+    goto LABEL_42;
+  }
+
+  if (!v32)
+  {
+    goto LABEL_44;
+  }
+
+  if (v32 != 1)
+  {
+LABEL_42:
+    v33 = SecOTRPublicDHKCreateFromSerialization(v8, &bytes, &v68);
+    *(Instance + 104) = v33;
+    if (!v33)
+    {
+      goto LABEL_76;
+    }
+  }
+
+LABEL_43:
+  v34 = SecOTRPublicDHKCreateFromSerialization(v8, &bytes, &v68);
+  *(Instance + 112) = v34;
+  if (!v34)
+  {
+    goto LABEL_76;
+  }
+
+LABEL_44:
+  v67 = 0xAAAAAAAAAAAAAAAALL;
+  SecOTRSFindKeysForMessage(Instance, *(Instance + 80), *(Instance + 112), 0, 0, 0, &v67);
+  if (!v67)
+  {
+    goto LABEL_76;
+  }
+
+  v35 = v68 - 8;
+  if (v68 < 8)
+  {
+    goto LABEL_76;
+  }
+
+  v36 = bytes + 8;
+  *v67 = bswap64(*bytes);
+  v68 = v35;
+  bytes = v36;
+  SecOTRSFindKeysForMessage(Instance, *(Instance + 80), *(Instance + 112), 1, 0, 0, &v67);
+  if (!v67)
+  {
+    goto LABEL_76;
+  }
+
+  v37 = v68 - 8;
+  if (v68 < 8)
+  {
+    goto LABEL_76;
+  }
+
+  v38 = bytes + 8;
+  *v67 = bswap64(*bytes);
+  v68 = v37;
+  bytes = v38;
+  SecOTRSFindKeysForMessage(Instance, *(Instance + 80), *(Instance + 104), 0, 0, 0, &v67);
+  if (!v67)
+  {
+    goto LABEL_76;
+  }
+
+  v39 = v68 - 8;
+  if (v68 < 8)
+  {
+    goto LABEL_76;
+  }
+
+  v40 = bytes + 8;
+  *v67 = bswap64(*bytes);
+  v68 = v39;
+  bytes = v40;
+  SecOTRSFindKeysForMessage(Instance, *(Instance + 80), *(Instance + 104), 1, 0, 0, &v67);
+  if (!v67)
+  {
+    goto LABEL_76;
+  }
+
+  v41 = v68 - 8;
+  if (v68 < 8)
+  {
+    goto LABEL_76;
+  }
+
+  v42 = bytes + 8;
+  *v67 = bswap64(*bytes);
+  v68 = v41;
+  bytes = v42;
+  SecOTRSFindKeysForMessage(Instance, *(Instance + 88), *(Instance + 112), 0, 0, 0, &v67);
+  if (!v67)
+  {
+    goto LABEL_76;
+  }
+
+  v43 = v68 - 8;
+  if (v68 < 8)
+  {
+    goto LABEL_76;
+  }
+
+  v44 = bytes + 8;
+  *v67 = bswap64(*bytes);
+  v68 = v43;
+  bytes = v44;
+  SecOTRSFindKeysForMessage(Instance, *(Instance + 88), *(Instance + 112), 1, 0, 0, &v67);
+  if (!v67)
+  {
+    goto LABEL_76;
+  }
+
+  v45 = v68 - 8;
+  if (v68 < 8)
+  {
+    goto LABEL_76;
+  }
+
+  v46 = bytes + 8;
+  *v67 = bswap64(*bytes);
+  v68 = v45;
+  bytes = v46;
+  SecOTRSFindKeysForMessage(Instance, *(Instance + 88), *(Instance + 104), 0, 0, 0, &v67);
+  if (!v67)
+  {
+    goto LABEL_76;
+  }
+
+  v47 = v68 - 8;
+  if (v68 < 8)
+  {
+    goto LABEL_76;
+  }
+
+  v48 = bytes + 8;
+  *v67 = bswap64(*bytes);
+  v68 = v47;
+  bytes = v48;
+  SecOTRSFindKeysForMessage(Instance, *(Instance + 88), *(Instance + 104), 1, 0, 0, &v67);
+  if (!v67)
+  {
+    goto LABEL_76;
+  }
+
+  v49 = v68;
+  v50 = v68 - 8;
+  if (v68 < 8)
+  {
+    goto LABEL_76;
+  }
+
+  v51 = bytes;
+  v52 = bytes + 8;
+  *v67 = bswap64(*bytes);
+  v68 = v50;
+  bytes = v52;
+  if (v50 < 4 || (v53 = bswap32(*(v51 + 2)), v68 = v49 - 12, bytes = v51 + 12, v49 - 12 < v53))
+  {
+    *(Instance + 120) = 0;
+    goto LABEL_76;
+  }
+
+  v54 = CFDataCreateMutable(v8, 0);
+  CFDataAppendBytes(v54, bytes, v53);
+  v55 = v68;
+  v56 = &bytes[v53];
+  v57 = v68 - v53;
+  v68 -= v53;
+  bytes += v53;
+  *(Instance + 120) = v54;
+  if (!v54 || v55 == v53)
+  {
+    goto LABEL_76;
+  }
+
+  v58 = *v56;
+  bytes = v56 + 1;
+  v68 = v57 - 1;
+  *(Instance + 648) = v58 != 0;
+  if (v7 < 4)
+  {
+    return Instance;
+  }
+
+  if (v57 == 1)
+  {
+    goto LABEL_76;
+  }
+
+  v59 = v56[1];
+  bytes = v56 + 2;
+  v68 = v57 - 2;
+  *(Instance + 649) = v59 != 0;
+  if (v7 == 4)
+  {
+    return Instance;
+  }
+
+  if (v57 == 2)
+  {
+    goto LABEL_76;
+  }
+
+  v60 = v56[2];
+  bytes = v56 + 3;
+  v68 = v57 - 3;
+  *(Instance + 650) = v60 != 0;
+  if (v7 == 6)
+  {
+    if ((v57 - 3) >= 8)
+    {
+      *(Instance + 656) = bswap64(*(v56 + 3));
+      v68 = v57 - 11;
+      bytes = v56 + 11;
+      if (v57 != 11)
+      {
+        v61 = v56[11];
+        bytes = v56 + 12;
+        v68 = v57 - 12;
+        *(Instance + 664) = v61 != 0;
+        if ((v57 - 12) >= 8)
+        {
+          v62 = *(v56 + 12);
+          bytes = v56 + 20;
+          v68 = v57 - 20;
+          if (v57 != 20)
+          {
+            v63 = v56[20];
+            v64 = v56 + 21;
+            *(Instance + 680) = v63 != 0;
+            v68 = v57 - 21;
+            bytes = v64;
+            if (v57 != 21)
+            {
+              *(Instance + 681) = *v64 != 0;
+              *(Instance + 672) = bswap64(v62);
+              return Instance;
+            }
+          }
+        }
+      }
+    }
+
+    goto LABEL_76;
+  }
+
+  return Instance;
 }

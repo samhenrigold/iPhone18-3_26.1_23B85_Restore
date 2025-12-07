@@ -2,6 +2,8 @@
 - (void)dealloc;
 - (void)dismiss;
 - (void)show;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MCAlertController
@@ -24,6 +26,30 @@
   rootViewController = [(UIWindow *)[(MCAlertController *)self alertWindow] rootViewController];
 
   [(UIViewController *)rootViewController dismissViewControllerAnimated:1 completion:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MCAlertController;
+  [(MCAlertController *)&v4 viewWillAppear:appear];
+  if ([(MCAlertController *)self viewWillAppearHandler])
+  {
+    (*([(MCAlertController *)self viewWillAppearHandler]+ 16))();
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = MCAlertController;
+  [(MCAlertController *)&v4 viewDidDisappear:disappear];
+  [(UIWindow *)[(MCAlertController *)self alertWindow] setHidden:1];
+  [(MCAlertController *)self setAlertWindow:0];
+  if ([(MCAlertController *)self viewDidDisappearHandler])
+  {
+    (*([(MCAlertController *)self viewDidDisappearHandler]+ 16))();
+  }
 }
 
 - (void)dealloc

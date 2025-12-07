@@ -37,10 +37,10 @@
 
 - (MTRDeviceControllerFactory)init
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = MTRDeviceControllerFactory;
-  v2 = [(MTRDeviceControllerFactory *)&v14 init];
+  v19 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = MTRDeviceControllerFactory;
+  v2 = [(MTRDeviceControllerFactory *)&v16 init];
   v3 = v2;
   v4 = v2;
   if (v2)
@@ -57,43 +57,42 @@
     }
 
     objc_storeStrong(&v3->_chipWorkQueue, qword_27DF7BCD0);
-    v4->_controllerFactory = sub_238DC7780();
+    v4->_controllerFactory = sub_238DC7780(v6, v7);
     sub_2394AEAF0(&v3->_groupDataProvider, &v3->_groupStorageDelegate);
     v4->_groupDataProvider.mSessionKeystore = &v3->_sessionKeystore;
     if (!(*(v4->_groupDataProvider._vptr$GroupDataProvider + 2))(&v3->_groupDataProvider))
     {
       v4->_controllersLock._os_unfair_lock_opaque = 0;
-      v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
       controllers = v4->_controllers;
-      v4->_controllers = v6;
+      v4->_controllers = v8;
 
       v4->_serverEndpointsLock._os_unfair_lock_opaque = 0;
-      v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
       serverEndpoints = v4->_serverEndpoints;
-      v4->_serverEndpoints = v8;
+      v4->_serverEndpoints = v10;
 
       operator new();
     }
 
-    v12 = sub_2393D9044(0);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_2393D9044(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v13 = sub_2393C9138();
+      v14 = sub_2393C9138();
       *buf = 136315138;
-      v16 = v13;
-      _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "GroupDataProviderImpl::Init() failed: %s", buf, 0xCu);
+      v18 = v14;
+      _os_log_impl(&dword_238DAE000, v13, OS_LOG_TYPE_ERROR, "GroupDataProviderImpl::Init() failed: %s", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393C9138();
-      sub_2393D5320(0, 1);
+      v15 = sub_2393C9138();
+      sub_2393D5320(0, 1, "GroupDataProviderImpl::Init() failed: %s", v15);
     }
 
     abort();
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -154,33 +153,33 @@
 
 - (void)stopControllerFactory
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sub_238DC7868(self);
   sub_238DC7F40(self, @"Controller Factory Stop");
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = [(NSMutableArray *)self->_controllers copy];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v10 + 1) + 8 * v6++) shutdown];
+        [*(*(&v9 + 1) + 8 * v6++) shutdown];
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -193,7 +192,6 @@
   block[3] = &unk_278A72320;
   block[4] = self;
   dispatch_sync(chipWorkQueue, block);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (MTRDeviceController)createControllerOnExistingFabric:(MTRDeviceControllerStartupParams *)startupParams error:(NSError *)error
@@ -211,7 +209,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Can't createControllerOnExistingFabric when using per-controller data store");
     }
 
     if (error)
@@ -246,7 +244,7 @@
       v14[3] = &unk_278A72380;
       v14[4] = self;
       v15 = v6;
-      v8 = sub_238DC871C(&self->super.isa, v12, v15, v14, error);
+      v8 = sub_238DC871C(self, v12, v15, v14, error);
     }
   }
 
@@ -271,7 +269,7 @@
       v16[3] = &unk_278A72380;
       v16[4] = self;
       v17 = v6;
-      v11 = sub_238DC871C(&self->super.isa, v10, v17, v16, error);
+      v11 = sub_238DC871C(self, v10, v17, v16, error);
 
       goto LABEL_19;
     }
@@ -285,7 +283,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Must provide a root certificate when using an intermediate certificate");
     }
 
     if (error)
@@ -306,7 +304,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Must provide vendor id when starting controller on new fabric");
     }
 
     if (error)
@@ -371,55 +369,55 @@ LABEL_6:
 
 - (id)neededReadPrivilegeForClusterID:(id)d attributeID:(id)iD
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   sub_23947632C("/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDeviceControllerFactory.mm", 1078);
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   selfCopy = self;
   obj = [(MTRServerEndpoint *)self->_otaProviderEndpoint serverClusters];
-  v8 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v8 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v8)
   {
-    v28 = *v39;
+    v27 = *v38;
     do
     {
-      v27 = v8;
-      for (i = 0; i != v27; ++i)
+      v26 = v8;
+      for (i = 0; i != v26; ++i)
       {
-        if (*v39 != v28)
+        if (*v38 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v38 + 1) + 8 * i);
+        v10 = *(*(&v37 + 1) + 8 * i);
         clusterID = [v10 clusterID];
         v12 = [clusterID isEqual:dCopy];
 
         if (v12)
         {
-          v36 = 0u;
-          v37 = 0u;
-          v34 = 0u;
           v35 = 0u;
+          v36 = 0u;
+          v33 = 0u;
+          v34 = 0u;
           attributes = [v10 attributes];
-          v14 = [attributes countByEnumeratingWithState:&v34 objects:v43 count:16];
+          v14 = [attributes countByEnumeratingWithState:&v33 objects:v42 count:16];
           if (v14)
           {
-            v15 = *v35;
+            v15 = *v34;
             while (2)
             {
               for (j = 0; j != v14; ++j)
               {
-                if (*v35 != v15)
+                if (*v34 != v15)
                 {
                   objc_enumerationMutation(attributes);
                 }
 
-                v17 = *(*(&v34 + 1) + 8 * j);
+                v17 = *(*(&v33 + 1) + 8 * j);
                 attributeID = [v17 attributeID];
                 v19 = [attributeID isEqual:iDCopy];
 
@@ -431,7 +429,7 @@ LABEL_6:
                 }
               }
 
-              v14 = [attributes countByEnumeratingWithState:&v34 objects:v43 count:16];
+              v14 = [attributes countByEnumeratingWithState:&v33 objects:v42 count:16];
               if (v14)
               {
                 continue;
@@ -443,31 +441,31 @@ LABEL_6:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v8 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
     }
 
     while (v8);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = sub_238DC9394(selfCopy);
-  v20 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
+  v20 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
   if (v20)
   {
-    v21 = *v31;
+    v21 = *v30;
 LABEL_20:
     v22 = 0;
     while (1)
     {
-      if (*v31 != v21)
+      if (*v30 != v21)
       {
         objc_enumerationMutation(obj);
       }
 
-      v23 = [*(*(&v30 + 1) + 8 * v22) neededReadPrivilegeForClusterID:dCopy attributeID:iDCopy];
+      v23 = [*(*(&v29 + 1) + 8 * v22) neededReadPrivilegeForClusterID:dCopy attributeID:iDCopy];
       if (v23)
       {
         break;
@@ -475,7 +473,7 @@ LABEL_20:
 
       if (v20 == ++v22)
       {
-        v20 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
+        v20 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
         if (v20)
         {
           goto LABEL_20;
@@ -493,8 +491,6 @@ LABEL_26:
   }
 
 LABEL_28:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }

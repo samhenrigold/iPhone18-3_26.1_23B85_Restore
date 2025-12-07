@@ -28,8 +28,9 @@ LABEL_9:
   return result;
 }
 
-uint64_t celt_decoder_init(void *a1, int a2, unsigned int a3)
+uint64_t celt_decoder_init(void *a1, uint64_t a2, unsigned int a3)
 {
+  v4 = a2;
   v6 = opus_custom_mode_create(48000, 960, 0);
   if (a3 > 2)
   {
@@ -53,7 +54,7 @@ uint64_t celt_decoder_init(void *a1, int a2, unsigned int a3)
   a1[4] = 1;
   *(a1 + 13) = 0;
   opus_custom_decoder_ctl(a1, 4028, v10, v11, v12, v13, v14, v15, v17);
-  v16 = resampling_factor(a2);
+  v16 = resampling_factor(v4);
   *(a1 + 5) = v16;
   if (v16)
   {
@@ -66,7 +67,7 @@ uint64_t celt_decoder_init(void *a1, int a2, unsigned int a3)
   }
 }
 
-uint64_t celt_decode_with_ec(int32x2_t *a1, unsigned __int8 *a2, unsigned int a3, _WORD *a4, int a5, uint64_t *a6)
+uint64_t celt_decode_with_ec(int32x2_t *a1, unsigned __int8 *a2, uint64_t a3, _WORD *a4, int a5, uint64_t *a6)
 {
   v8 = a1;
   v9 = 0;
@@ -96,11 +97,11 @@ uint64_t celt_decode_with_ec(int32x2_t *a1, unsigned __int8 *a2, unsigned int a3
   }
 
   v18 = a1[2].i32[1];
-  v19 = &a1[10] + 1;
+  v19 = &a1[10] + 4;
   do
   {
     v243[v9++] = v19;
-    v19 += v16;
+    v19 += 4 * v16;
   }
 
   while (v17 != v9);
@@ -113,8 +114,8 @@ uint64_t celt_decode_with_ec(int32x2_t *a1, unsigned __int8 *a2, unsigned int a3
   v227 = v17;
   v21 = 0;
   v22 = (v18 * a5);
-  v15 = &a1[10] + 1;
-  v23 = &a1[6 * v10 + 10] + 2 * v16 * v10 + 2;
+  v15 = &a1[10] + 4;
+  v23 = &a1[6 * v10 + 10] + 4 * v16 * v10 + 4;
   v24 = 2 * v13;
   v25 = 16;
   v26 = &tf_select_table;
@@ -149,9 +150,9 @@ uint64_t celt_decode_with_ec(int32x2_t *a1, unsigned __int8 *a2, unsigned int a3
     v238 = 0;
     v208 = 24 * v10;
     v207 = 2 * v13;
-    v224 = &v15[v209 + v208 / 2];
-    v212 = &v23[v24];
-    v211 = &v212[v24];
+    v224 = &v15[4 * v209 + 2 * v208];
+    v212 = &v23[2 * v24];
+    v211 = &v212[2 * v24];
     v234 = v12;
     v226 = v14;
     LODWORD(v228) = a3;
@@ -159,7 +160,7 @@ uint64_t celt_decode_with_ec(int32x2_t *a1, unsigned __int8 *a2, unsigned int a3
     {
       a6 = v240;
       ec_dec_init(v240, a2, a3);
-      a3 = v228;
+      LODWORD(a3) = v228;
       v23 = v224;
     }
 
@@ -172,12 +173,13 @@ uint64_t celt_decode_with_ec(int32x2_t *a1, unsigned __int8 *a2, unsigned int a3
       do
       {
         v33 = *v32;
-        if (v33 <= v32[v13])
+        if (v33 <= *&v32[2 * v13])
         {
-          LOWORD(v33) = v32[v13];
+          LOWORD(v33) = *&v32[2 * v13];
         }
 
-        *v32++ = v33;
+        *v32 = v33;
+        v32 += 2;
         v31 += 2;
       }
 
@@ -189,7 +191,7 @@ uint64_t celt_decode_with_ec(int32x2_t *a1, unsigned __int8 *a2, unsigned int a3
     v36 = *(a6 + 6) + v35 - 32;
     v223 = 8 * a3;
     v210 = a4;
-    if (v36 < (8 * a3))
+    if (v36 < 8 * a3)
     {
       if (v36 != 1)
       {
@@ -807,8 +809,8 @@ LABEL_39:
       v172 = v224;
       do
       {
-        v172[v162] = *v172;
-        ++v172;
+        *&v172[2 * v162] = *v172;
+        v172 += 2;
         v170 += 2;
       }
 
@@ -832,14 +834,14 @@ LABEL_39:
 
         do
         {
-          v174 = v165[v164];
+          v174 = *&v165[2 * v164];
           if (v174 >= *v165)
           {
             LOWORD(v174) = *v165;
           }
 
-          v165[v164] = v174;
-          ++v165;
+          *&v165[2 * v164] = v174;
+          v165 += 2;
           --v173;
         }
 
@@ -862,8 +864,10 @@ LABEL_39:
       v176 = v175;
       do
       {
-        v177 = *v166++;
-        *v167++ = v177;
+        v177 = *v166;
+        v166 += 2;
+        *v167 = v177;
+        v167 += 2;
         --v176;
       }
 
@@ -872,22 +876,22 @@ LABEL_39:
       v179 = v165;
       do
       {
-        v179[v164] = *v179;
-        ++v179;
+        *&v179[2 * v164] = *v179;
+        v179 += 2;
         --v178;
       }
 
       while (v178);
       do
       {
-        v180 = v168 + v165[3 * v164];
+        v180 = v168 + *&v165[6 * v164];
         if (v180 >= *v165)
         {
           LOWORD(v180) = *v165;
         }
 
-        v165[3 * v164] = v180;
-        ++v165;
+        *&v165[6 * v164] = v180;
+        v165 += 2;
         --v175;
       }
 
@@ -962,7 +966,7 @@ LABEL_39:
   return result;
 }
 
-uint64_t celt_decode_lost(_DWORD *a1, _WORD *a2, uint64_t a3, int a4)
+uint64_t celt_decode_lost(unsigned int *a1, uint64_t a2, uint64_t a3, int a4)
 {
   LODWORD(v193) = a4;
   v4 = a3;
@@ -997,7 +1001,7 @@ uint64_t celt_decode_lost(_DWORD *a1, _WORD *a2, uint64_t a3, int a4)
   v13 = a1;
   do
   {
-    v197[v7 / 8] = v13 + 21;
+    v197[v7 / 8] = (v13 + 21);
     v196[v7 / 8] = v13 + 8276 - 4 * a3;
     v7 += 8;
     v13 += v10;
@@ -1043,7 +1047,7 @@ uint64_t celt_decode_lost(_DWORD *a1, _WORD *a2, uint64_t a3, int a4)
     else
     {
       bzero(&v164 - 256, 0x800uLL);
-      pitch_downsample(v197, &v164 - 2048, 2048, v8);
+      pitch_downsample(v197, &v164 - 2048, 0x800u, v8);
       pitch_search(&v164 - 664, &v164 - 1024, 1328, 620, &v194);
       v31 = 720 - v194;
       a1[12] = 720 - v194;
@@ -1119,7 +1123,7 @@ uint64_t celt_decode_lost(_DWORD *a1, _WORD *a2, uint64_t a3, int a4)
         }
 
         while (v82 != 100);
-        _celt_lpc((v69 + 48 * v74), &v195, 24);
+        _celt_lpc(&v69[12 * v74], &v195, 24);
       }
 
       v93 = 0;
@@ -1139,7 +1143,7 @@ uint64_t celt_decode_lost(_DWORD *a1, _WORD *a2, uint64_t a3, int a4)
       }
 
       while (v93 != 48);
-      v192 = (v193 + 48 * v74);
+      v192 = &v193[12 * v74];
       celt_fir(&v181[-v96], v192, &v181[-v96], v96, 24, &v195);
       v98 = 1024 - v96;
       if (v94 < 1)
@@ -1317,7 +1321,7 @@ uint64_t celt_decode_lost(_DWORD *a1, _WORD *a2, uint64_t a3, int a4)
 
       while (v135 != 48);
       v137 = v79 + 2048;
-      celt_iir(&v79[v182 + 2048], v192, &v79[v182 + 2048], v124, 24, &v195);
+      celt_iir(&v79[v182 + 2048], v192, &v79[v182 + 2048], v124, 0x18u, &v195);
       v138 = v190;
       if (v190 < 1)
       {
@@ -1447,7 +1451,7 @@ LABEL_122:
     }
   }
 
-  v182 = v15 + 48 * v8;
+  v182 = &v15[12 * v8];
   v23 = v17;
   v24 = a1[7];
   LODWORD(v25) = *(v167 + 12);
@@ -1628,7 +1632,7 @@ LABEL_134:
   return result;
 }
 
-unsigned int *compute_inv_mdcts(unsigned int *result, unsigned int a2, uint64_t a3, uint64_t a4, int a5, int a6)
+unsigned int *compute_inv_mdcts(unsigned int *result, unsigned int a2, uint64_t a3, uint64_t a4, unsigned int a5, int a6)
 {
   v7 = result;
   v8 = result[1];
@@ -1686,7 +1690,7 @@ unsigned int *compute_inv_mdcts(unsigned int *result, unsigned int a2, uint64_t 
   return result;
 }
 
-uint64_t deemphasis(uint64_t result, _WORD *a2, int a3, int a4, int a5, __int16 *a6, uint64_t a7, _DWORD *a8)
+uint64_t deemphasis(uint64_t result, _WORD *a2, int a3, unsigned int a4, int a5, __int16 *a6, uint64_t a7, _DWORD *a8)
 {
   v8 = 0;
   v9 = 0;
@@ -1956,9 +1960,10 @@ LABEL_37:
   return result;
 }
 
-uint64_t quant_coarse_energy(uint64_t a1, int a2, int a3, int a4, uint64_t a5, char *a6, unsigned int a7, void *a8, uint64_t a9, int a10, unsigned int a11, int a12, int a13, int *a14, int a15, int a16, int a17)
+void *quant_coarse_energy(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, char *a6, unsigned int a7, void *a8, uint64_t *a9, unsigned int a10, unsigned int a11, int a12, int a13, int *a14, int a15, int a16, int a17)
 {
   v81 = a8;
+  v17 = a2;
   v85 = a11;
   v86 = a6;
   v94 = *MEMORY[0x277D85DE8];
@@ -2000,11 +2005,11 @@ uint64_t quant_coarse_energy(uint64_t a1, int a2, int a3, int a4, uint64_t a5, c
   v26 = (a5 + 2 * a2);
   do
   {
-    if (a2 < a4)
+    if (v17 < a4)
     {
       v27 = v26;
       v28 = v24;
-      v29 = a4 - a2;
+      v29 = a4 - v17;
       do
       {
         v30 = *v27++;
@@ -2026,10 +2031,10 @@ uint64_t quant_coarse_energy(uint64_t a1, int a2, int a3, int a4, uint64_t a5, c
   while (v20 != v23);
   v82 = a5;
   v84 = a1;
-  v33 = (a9 + 32);
-  v34 = __clz(*(a9 + 32));
-  v35 = *(a9 + 24);
-  v73 = *(a9 + 28);
+  v33 = a9 + 4;
+  v34 = __clz(*(a9 + 8));
+  v35 = *(a9 + 6);
+  v73 = *(a9 + 7);
   v36 = v35 + v34;
   v37 = a15 != 0;
   if (v36 - 29 > a7)
@@ -2061,7 +2066,7 @@ uint64_t quant_coarse_energy(uint64_t a1, int a2, int a3, int a4, uint64_t a5, c
   }
 
   v77 = v36 - 32;
-  if (a3 - a2 <= 10)
+  if (a3 - v17 <= 10)
   {
     v40 = 0x4000;
   }
@@ -2074,15 +2079,16 @@ uint64_t quant_coarse_energy(uint64_t a1, int a2, int a3, int a4, uint64_t a5, c
   v41 = v40;
   v93[0] = *a9;
   *(v93 + 12) = *(a9 + 12);
-  v92 = *(a9 + 48);
+  v92 = a9[6];
   v91 = *v33;
-  v42 = 2 * v22 * a10;
+  v42 = 2 * (v22 * a10);
+  v43 = a3;
   v44 = &v65 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v44, v42);
   v45 = v44;
   bzero(v44, v42);
   memcpy(v44, v86, v42);
-  v75 = a3;
+  v75 = v43;
   v74 = a17;
   v71 = v41;
   v83 = v85;
@@ -2092,10 +2098,10 @@ uint64_t quant_coarse_energy(uint64_t a1, int a2, int a3, int a4, uint64_t a5, c
     v46 = v84;
     v49 = v78;
     v50 = v77;
-    v47 = quant_coarse_energy_impl(v84, a2, a3, v82, v44, v78, v77, &e_prob_model + 84 * v85 + 42, v44, a9, a10, v85, 1, v64, a17);
+    v47 = quant_coarse_energy_impl(v84, v17, v43, v82, v44, v78, v77, &e_prob_model + 84 * v85 + 42, v44, a9, a10, v85, 1, v64, a17);
     if (v70)
     {
-      memcpy(v86, v44, 2 * *(v46 + 8) * a10);
+      memcpy(v86, v44, 2 * (*(v46 + 8) * a10));
       v48 = *(v46 + 8) * a10;
       goto LABEL_36;
     }
@@ -2116,11 +2122,11 @@ uint64_t quant_coarse_energy(uint64_t a1, int a2, int a3, int a4, uint64_t a5, c
 
   v77 = ec_tell_frac(a9);
   v51 = *a9;
-  v87 = *(a9 + 8);
-  v52 = *(a9 + 28);
-  v88 = *(a9 + 24);
+  v87 = *(a9 + 1);
+  v52 = *(a9 + 7);
+  v88 = *(a9 + 6);
   v89 = *v33;
-  v90 = *(a9 + 48);
+  v90 = a9[6];
   v53 = v73;
   v78 = v52;
   v54 = (v52 - v73);
@@ -2129,10 +2135,10 @@ uint64_t quant_coarse_energy(uint64_t a1, int a2, int a3, int a4, uint64_t a5, c
   memcpy(v55, (v51 + v53), v54);
   *a9 = v93[0];
   *(a9 + 12) = *(v93 + 12);
-  *(a9 + 28) = v53;
+  *(a9 + 7) = v53;
   *v33 = v91;
-  *(a9 + 48) = v92;
-  result = quant_coarse_energy_impl(v84, a2, v75, v82, v86, v49, v50, &e_prob_model + 84 * v83, v81, a9, v76, v85, 0, v71, v74);
+  a9[6] = v92;
+  result = quant_coarse_energy_impl(v84, v17, v75, v82, v86, v49, v50, &e_prob_model + 84 * v83, v81, a9, v76, v85, 0, v71, v74);
   if (!v72 || v70 >= result && (v70 != result || (v62 = v68 * v69 / v67, result = ec_tell_frac(a9), (result + v62) <= v77)))
   {
     v63 = ((pred_coef[v83] * pred_coef[v83]) >> 15);
@@ -2142,16 +2148,16 @@ uint64_t quant_coarse_energy(uint64_t a1, int a2, int a3, int a4, uint64_t a5, c
   }
 
   *a9 = v51;
-  *(a9 + 8) = v87;
+  *(a9 + 1) = v87;
   v57 = v78;
-  *(a9 + 24) = v88;
-  *(a9 + 28) = v57;
+  *(a9 + 6) = v88;
+  *(a9 + 7) = v57;
   *v33 = v89;
-  *(a9 + 48) = v90;
+  a9[6] = v90;
   memcpy((v51 + v53), v55, v54);
   v58 = v84;
   v59 = v76;
-  memcpy(v86, v66, 2 * *(v84 + 8) * v76);
+  memcpy(v86, v66, 2 * (*(v84 + 8) * v76));
   v48 = *(v58 + 8) * v59;
 LABEL_36:
   result = memcpy(v81, v45, 2 * v48);
@@ -2162,7 +2168,7 @@ LABEL_40:
   return result;
 }
 
-uint64_t quant_coarse_energy_impl(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, int a6, int a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, int a12, int a13, __int16 a14, int a15)
+uint64_t quant_coarse_energy_impl(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, int a6, int a7, uint64_t a8, uint64_t a9, uint64_t a10, unsigned int a11, int a12, int a13, __int16 a14, int a15)
 {
   v58[1] = *MEMORY[0x277D85DE8];
   v58[0] = 0;
@@ -2410,7 +2416,7 @@ uint64_t *quant_fine_energy(uint64_t *result, int a2, int a3, uint64_t a4, uint6
       {
         v16 = 0;
         v23 = 0x10000 << v15 >> 16;
-        v17 = *(v12 + 2);
+        v17 = *(v12 + 8);
         do
         {
           v18 = (*(a5 + 2 * v14 + 2 * v17 * v16) + 512) >> (10 - v15);
@@ -2422,7 +2428,7 @@ uint64_t *quant_fine_energy(uint64_t *result, int a2, int a3, uint64_t a4, uint6
           v19 = v18 & ~(v18 >> 31);
           result = ec_enc_bits(a7, v19, v15);
           v15 = *(a6 + 4 * v14);
-          v17 = *(v12 + 2);
+          v17 = *(v12 + 8);
           v20 = v14 + v17 * v16;
           v21 = (((v19 << 10) | 0x200u) >> v15) - 512;
           *(a4 + 2 * v20) += v21;
@@ -2475,7 +2481,7 @@ uint64_t *quant_energy_finalise(uint64_t *result, int a2, int a3, uint64_t a4, u
         {
           v32 = a8;
           v18 = 0;
-          v19 = *(v11 + 2);
+          v19 = *(v11 + 8);
           do
           {
             v20 = *(a5 + 2 * v17 + 2 * v19 * v18);
@@ -2491,7 +2497,7 @@ uint64_t *quant_energy_finalise(uint64_t *result, int a2, int a3, uint64_t a4, u
               v22 = -512;
             }
 
-            v19 = *(v11 + 2);
+            v19 = *(v11 + 8);
             *(a4 + 2 * v17 + 2 * v19 * v18++) += v22 >> (*(a6 + 4 * v17) + 1);
           }
 
@@ -2517,7 +2523,7 @@ uint64_t *quant_energy_finalise(uint64_t *result, int a2, int a3, uint64_t a4, u
   return result;
 }
 
-uint64_t unquant_coarse_energy(uint64_t result, int a2, int a3, uint64_t a4, int a5, uint64_t a6, int a7, int a8)
+uint64_t unquant_coarse_energy(uint64_t result, int a2, int a3, uint64_t a4, int a5, uint64_t *a6, unsigned int a7, int a8)
 {
   v10 = a2;
   v27 = result;
@@ -2538,7 +2544,7 @@ uint64_t unquant_coarse_energy(uint64_t result, int a2, int a3, uint64_t a4, int
   if (a2 < a3)
   {
     v11 = &e_prob_model + 84 * a8 + 42 * a5;
-    v12 = 8 * *(a6 + 8) + 32;
+    v12 = 8 * *(a6 + 2) + 32;
     if (a7 <= 1)
     {
       v13 = 1;
@@ -2566,7 +2572,7 @@ uint64_t unquant_coarse_energy(uint64_t result, int a2, int a3, uint64_t a4, int
       v24 = 2 * v15;
       do
       {
-        v16 = v12 - *(a6 + 24) - __clz(*(a6 + 32));
+        v16 = v12 - *(a6 + 6) - __clz(*(a6 + 8));
         if (v16 < 15)
         {
           if (v16 < 2)
@@ -2787,27 +2793,31 @@ uint64_t amp2Log2(uint64_t result, int a2, int a3, uint64_t a4, uint64_t a5, int
   return result;
 }
 
-uint64_t alg_quant(__int16 *a1, int a2, int a3, int a4, int a5, uint64_t *a6)
+uint64_t alg_quant(__int16 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
   v56 = a6;
+  v6 = a5;
+  v7 = a4;
+  v8 = a3;
+  v9 = a2;
   v57 = *MEMORY[0x277D85DE8];
   v11 = 2 * a2;
   v12 = &v54[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
   bzero(v12, v11);
-  v13 = 4 * a2;
+  v13 = 4 * v9;
   v14 = &v54[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
   bzero(v14, v13);
   bzero(v12, v11);
-  exp_rotation(a1, a2, 1, a5, a3, a4);
+  exp_rotation(a1, v9, 1, v6, v8, v7);
   v15 = 0;
-  if (a2 <= 1)
+  if (v9 <= 1)
   {
     v16 = 1;
   }
 
   else
   {
-    v16 = a2;
+    v16 = v9;
   }
 
   do
@@ -2830,11 +2840,11 @@ uint64_t alg_quant(__int16 *a1, int a2, int a3, int a4, int a5, uint64_t *a6)
   }
 
   while (v16 != v15);
-  if (a3 <= a2 >> 1)
+  if (v8 <= v9 >> 1)
   {
     v24 = 0;
     v25 = 0;
-    v31 = a3;
+    v31 = v8;
   }
 
   else
@@ -2847,19 +2857,19 @@ uint64_t alg_quant(__int16 *a1, int a2, int a3, int a4, int a5, uint64_t *a6)
     }
 
     while (v16 != v19);
-    v55 = a5;
-    if (v20 <= a3)
+    v55 = v6;
+    if (v20 <= v8)
     {
       v20 = 0x4000;
       *a1 = 0x4000;
-      if (a2 <= 2)
+      if (v9 <= 2)
       {
         v21 = 2;
       }
 
       else
       {
-        v21 = a2;
+        v21 = v9;
       }
 
       bzero(a1 + 1, 2 * (v21 - 1));
@@ -2869,12 +2879,12 @@ uint64_t alg_quant(__int16 *a1, int a2, int a3, int a4, int a5, uint64_t *a6)
     v23 = celt_rcp(v20);
     v24 = 0;
     LOWORD(v25) = 0;
-    v26 = ((v22 & 0xFFFF0000 | v23) * (a3 - 1)) >> 16;
+    v26 = ((v22 & 0xFFFF0000 | v23) * (v8 - 1)) >> 16;
     v27 = v16;
     v28 = a1;
     v29 = v14;
     v30 = v12;
-    v31 = a3;
+    v31 = v8;
     do
     {
       v32 = *v28++;
@@ -2888,10 +2898,10 @@ uint64_t alg_quant(__int16 *a1, int a2, int a3, int a4, int a5, uint64_t *a6)
     }
 
     while (v27);
-    a5 = v55;
+    v6 = v55;
   }
 
-  if (v31 <= a2 + 3)
+  if (v31 <= v9 + 3)
   {
     if (v31 >= 1)
     {
@@ -2900,7 +2910,7 @@ uint64_t alg_quant(__int16 *a1, int a2, int a3, int a4, int a5, uint64_t *a6)
         v35 = 0;
         v36 = 0;
         v37 = 0;
-        v38 = 32 - __clz(a3 - v31 + 1 + i);
+        v38 = 32 - __clz(v8 - v31 + 1 + i);
         v39 = v25 + 1;
         v40 = -32767;
         do
@@ -2942,16 +2952,16 @@ uint64_t alg_quant(__int16 *a1, int a2, int a3, int a4, int a5, uint64_t *a6)
     }
   }
 
-  encode_pulses(v14, a2, a3, v56);
-  if (a5 < 2)
+  encode_pulses(v14, v9, v8, v56);
+  if (v6 < 2)
   {
     return 1;
   }
 
   v47 = 0;
   LODWORD(result) = 0;
-  v48 = a2 / a5;
-  if (a2 / a5 <= 1)
+  v48 = v9 / v6;
+  if (v9 / v6 <= 1)
   {
     v49 = 1;
   }
@@ -2978,11 +2988,11 @@ uint64_t alg_quant(__int16 *a1, int a2, int a3, int a4, int a5, uint64_t *a6)
     v14 = (v14 + v50);
   }
 
-  while (v47 != a5);
+  while (v47 != v6);
   return result;
 }
 
-uint64_t exp_rotation(uint64_t result, int a2, int a3, int a4, int a5, int a6)
+__int16 *exp_rotation(__int16 *result, int a2, int a3, int a4, int a5, int a6)
 {
   if (a2 > 2 * a5 && a6)
   {
@@ -3058,7 +3068,7 @@ LABEL_15:
   return result;
 }
 
-uint64_t alg_unquant(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t a6, int a7)
+uint64_t alg_unquant(__int16 *a1, int a2, int a3, int a4, int a5, uint64_t a6, int a7)
 {
   v36[1] = *MEMORY[0x277D85DE8];
   v14 = 4 * a2;
@@ -3105,7 +3115,7 @@ uint64_t alg_unquant(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t a6, i
   v26 = celt_rsqrt_norm(v25);
   for (i = 0; i != v17; ++i)
   {
-    *(a1 + 2 * i) = (((1 << (v22 + 1)) >> 1) + *&v15[4 * i] * ((2 * a7 * v26 + 0x8000) >> 16)) >> (v22 + 1);
+    a1[i] = (((1 << (v22 + 1)) >> 1) + *&v15[4 * i] * ((2 * a7 * v26 + 0x8000) >> 16)) >> (v22 + 1);
   }
 
   exp_rotation(a1, a2, -1, a5, a3, a4);
@@ -3197,7 +3207,7 @@ uint64_t renormalise_vector(__int16 *a1, int a2, int a3)
   return result;
 }
 
-uint64_t stereo_itheta(__int16 *a1, __int16 *a2, int a3, int a4)
+uint64_t stereo_itheta(__int16 *a1, __int16 *a2, int a3, unsigned int a4)
 {
   if (a3)
   {
@@ -3621,19 +3631,20 @@ void _celt_lpc(_WORD *a1, signed int *a2, int a3)
   }
 }
 
-uint64_t celt_fir(__int16 *a1, uint64_t a2, uint64_t a3, int a4, int a5, _WORD *a6)
+uint64_t celt_fir(__int16 *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, _WORD *a6)
 {
+  v7 = a5;
   v58 = *MEMORY[0x277D85DE8];
   v12 = 2 * a5;
   v13 = &v52 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v13, v12);
-  v14 = 2 * (a5 + a4);
+  v14 = 2 * (v7 + a4);
   v56 = &v52 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v56, v14);
-  if (a5 >= 1)
+  if (v7 >= 1)
   {
-    v18 = (a2 + 2 * a5 - 2);
-    v19 = a5;
+    v18 = (a2 + 2 * v7 - 2);
+    v19 = v7;
     v20 = (&v52 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
     do
     {
@@ -3643,8 +3654,8 @@ uint64_t celt_fir(__int16 *a1, uint64_t a2, uint64_t a3, int a4, int a5, _WORD *
     }
 
     while (v19);
-    v22 = &a6[a5 - 1];
-    v23 = a5;
+    v22 = &a6[v7 - 1];
+    v23 = v7;
     v24 = v56;
     do
     {
@@ -3662,9 +3673,9 @@ uint64_t celt_fir(__int16 *a1, uint64_t a2, uint64_t a3, int a4, int a5, _WORD *
     memcpy(&v56[v12], a1, (2 * a4));
   }
 
-  if (a5 >= 1)
+  if (v7 >= 1)
   {
-    v27 = a5;
+    v27 = v7;
     do
     {
       *a6++ = a1[v26--];
@@ -3674,7 +3685,7 @@ uint64_t celt_fir(__int16 *a1, uint64_t a2, uint64_t a3, int a4, int a5, _WORD *
     while (v27);
   }
 
-  v53 = a5;
+  v53 = v7;
   v54 = a3;
   v55 = a4;
   v28 = 0;
@@ -3686,7 +3697,7 @@ uint64_t celt_fir(__int16 *a1, uint64_t a2, uint64_t a3, int a4, int a5, _WORD *
     do
     {
       v57 = 0uLL;
-      xcorr_kernel(v13, v31, &v57, a5, v15, v16, v17);
+      xcorr_kernel(v13, v31, &v57, v7, v15, v16, v17);
       v32 = v57.i32[1];
       v33 = *(v29 - 2) + ((v57.i32[0] + 2048) >> 12);
       if (v33 <= -32768)
@@ -3755,7 +3766,7 @@ uint64_t celt_fir(__int16 *a1, uint64_t a2, uint64_t a3, int a4, int a5, _WORD *
     v42 = &v56[2 * v28];
     do
     {
-      if (a5 < 1)
+      if (v7 < 1)
       {
         v50 = 0;
       }
@@ -3805,7 +3816,7 @@ const __int16 *xcorr_kernel(const __int16 *result, __int16 *a2, int32x4_t *a3, i
 {
   a7.i16[0] = *a2;
   a7.i16[2] = a2[1];
-  v7 = (a2 + 3);
+  v7 = a2 + 3;
   v8 = a2[2];
   if (a4 < 4)
   {
@@ -3826,7 +3837,8 @@ const __int16 *xcorr_kernel(const __int16 *result, __int16 *a2, int32x4_t *a3, i
       v13 = result + 2;
       v14 = result + 3;
       v15 = result + 4;
-      v16 = *v7++;
+      v16 = *v7;
+      v7 += 4;
       v17 = v16;
       v18 = vmovl_s16(v16);
       v20 = vld1_dup_s16(result);
@@ -3861,8 +3873,7 @@ const __int16 *xcorr_kernel(const __int16 *result, __int16 *a2, int32x4_t *a3, i
   {
     v32 = *result++;
     v31 = v32;
-    v33 = v7->i16[0];
-    v7 = (v7 + 2);
+    v33 = *v7++;
     v27 = v33;
     v34 = a3->i32[1] + v31 * v29;
     a3->i32[0] += v31 * v28;
@@ -3879,8 +3890,7 @@ const __int16 *xcorr_kernel(const __int16 *result, __int16 *a2, int32x4_t *a3, i
   {
     v40 = *result++;
     v39 = v40;
-    v41 = v7->i16[0];
-    v7 = (v7 + 2);
+    v41 = *v7++;
     v28 = v41;
     v42 = a3->i32[1] + v39 * v8;
     a3->i32[0] += v39 * v29;
@@ -3895,7 +3905,7 @@ const __int16 *xcorr_kernel(const __int16 *result, __int16 *a2, int32x4_t *a3, i
   {
     v45 = *result;
     v46 = a3->i32[1];
-    v47 = v7->i16[0];
+    v47 = *v7;
     a3->i32[0] += v45 * v8;
     a3->i32[1] = v46 + v45 * v38;
     v48 = a3->i32[3] + v47 * v45;
@@ -3906,7 +3916,7 @@ const __int16 *xcorr_kernel(const __int16 *result, __int16 *a2, int32x4_t *a3, i
   return result;
 }
 
-void celt_iir(int32x4_t *a1, __int16 *a2, uint64_t a3, uint64_t a4, int a5, _WORD *a6)
+void celt_iir(int32x4_t *a1, __int16 *a2, uint64_t a3, uint64_t a4, unsigned int a5, _WORD *a6)
 {
   v63 = *MEMORY[0x277D85DE8];
   v12 = a5;
@@ -4056,7 +4066,7 @@ void celt_iir(int32x4_t *a1, __int16 *a2, uint64_t a3, uint64_t a4, int a5, _WOR
   }
 }
 
-uint64_t _celt_autocorr(char *a1, unsigned int *a2, uint64_t a3, int a4, int a5, int a6)
+uint64_t _celt_autocorr(char *a1, unsigned int *a2, uint64_t a3, unsigned int a4, int a5, int a6)
 {
   v45[1] = *MEMORY[0x277D85DE8];
   v12 = 2 * a6;
@@ -4109,7 +4119,7 @@ uint64_t _celt_autocorr(char *a1, unsigned int *a2, uint64_t a3, int a4, int a5,
     {
       v18 += ((*(v22 - 1) * *(v22 - 1)) >> 9) + ((*v22 * *v22) >> 9);
       v21 += 2;
-      v22 += 2;
+      v22 += 4;
     }
 
     while (v21 < a6);
@@ -4133,7 +4143,8 @@ uint64_t _celt_autocorr(char *a1, unsigned int *a2, uint64_t a3, int a4, int a5,
       {
         v27 = *v15;
         v15 += 2;
-        *v26++ = (((1 << v24) >> 1) + v27) >> v24;
+        *v26 = (((1 << v24) >> 1) + v27) >> v24;
+        v26 += 2;
         --v25;
       }
 
@@ -4243,7 +4254,7 @@ uint64_t _celt_autocorr(char *a1, unsigned int *a2, uint64_t a3, int a4, int a5,
   return v28;
 }
 
-void pitch_downsample(int **a1, char *a2, int a3, int a4)
+void pitch_downsample(int **a1, char *a2, unsigned int a3, int a4)
 {
   v4 = a2;
   v51 = *MEMORY[0x277D85DE8];
@@ -4363,7 +4374,8 @@ LABEL_28:
     v26 = v23 - 1;
     do
     {
-      *v25++ = (*(v24 - 1) + ((*v24 + *(v24 - 2)) >> 1)) >> 1 >> v22;
+      *v25 = (*(v24 - 1) + ((*v24 + *(v24 - 2)) >> 1)) >> 1 >> v22;
+      v25 += 2;
       v24 += 2;
       --v26;
     }
@@ -4383,7 +4395,8 @@ LABEL_28:
       v31 = v23 - 1;
       do
       {
-        *v30++ += (*(v29 - 1) + ((*v29 + *(v29 - 2)) >> 1)) >> 1 >> v22;
+        *v30 += (*(v29 - 1) + ((*v29 + *(v29 - 2)) >> 1)) >> 1 >> v22;
+        v30 += 2;
         v29 += 2;
         --v31;
       }
@@ -4941,7 +4954,7 @@ LABEL_51:
   return result;
 }
 
-uint64_t find_best_pitch(uint64_t result, __int16 *a2, int a3, int a4, uint64_t a5, char a6, unsigned int a7)
+uint64_t find_best_pitch(uint64_t result, __int16 *a2, unsigned int a3, unsigned int a4, uint64_t a5, char a6, unsigned int a7)
 {
   *a5 = 0x100000000;
   if (a3 < 1)
@@ -5540,13 +5553,13 @@ double ec_enc_init(uint64_t a1, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t *ec_encode(uint64_t *result, int a2, int a3, unsigned int a4)
+uint64_t *ec_encode(uint64_t *a1, int a2, int a3, unsigned int a4)
 {
-  v4 = *(result + 8);
+  v4 = *(a1 + 8);
   v5 = v4 / a4;
   if (a2)
   {
-    *(result + 9) += v4 + v5 * (a2 - a4);
+    *(a1 + 9) += v4 + v5 * (a2 - a4);
     v6 = v5 * (a3 - a2);
   }
 
@@ -5555,8 +5568,8 @@ uint64_t *ec_encode(uint64_t *result, int a2, int a3, unsigned int a4)
     v6 = v4 + v5 * (a3 - a4);
   }
 
-  *(result + 8) = v6;
-  return ec_enc_normalize(result);
+  *(a1 + 8) = v6;
+  return ec_enc_normalize(a1);
 }
 
 uint64_t *ec_enc_normalize(uint64_t *result)
@@ -5568,11 +5581,11 @@ uint64_t *ec_enc_normalize(uint64_t *result)
     do
     {
       result = ec_enc_carry_out(v1, v2 >> 23);
-      v2 = (*(v1 + 9) & 0x7FFFFF) << 8;
-      v3 = *(v1 + 8) << 8;
-      *(v1 + 8) = v3;
-      *(v1 + 9) = v2;
-      *(v1 + 6) += 8;
+      v2 = (*(v1 + 36) & 0x7FFFFF) << 8;
+      v3 = *(v1 + 32) << 8;
+      *(v1 + 32) = v3;
+      *(v1 + 36) = v2;
+      *(v1 + 24) += 8;
     }
 
     while (v3 < 0x800001);
@@ -5616,7 +5629,7 @@ uint64_t *ec_enc_bit_logp(uint64_t *result, int a2, char a3)
   return ec_enc_normalize(result);
 }
 
-uint64_t *ec_enc_icdf(uint64_t *result, int a2, uint64_t a3, char a4)
+uint64_t *ec_enc_icdf(uint64_t *result, unsigned int a2, uint64_t a3, char a4)
 {
   v4 = *(result + 8);
   v5 = v4 >> a4;
@@ -5743,10 +5756,10 @@ void *ec_enc_shrink(uint64_t a1, unsigned int a2)
   return result;
 }
 
-void ec_enc_done(uint64_t a1)
+void ec_enc_done(uint64_t *a1)
 {
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 36);
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 9);
   v4 = __clz(v3);
   v5 = ((0x7FFFFFFFu >> v4) + v2) & (0x80000000 >> v4);
   if ((v5 | (0x7FFFFFFFu >> v4)) >= v2 + v3)
@@ -5771,16 +5784,16 @@ void ec_enc_done(uint64_t a1)
 
   while (v4 != 0 && v8);
 LABEL_6:
-  if ((*(a1 + 44) & 0x80000000) == 0 || *(a1 + 40))
+  if ((*(a1 + 11) & 0x80000000) == 0 || *(a1 + 10))
   {
     ec_enc_carry_out(a1, 0);
   }
 
-  v9 = *(a1 + 16);
-  v10 = *(a1 + 20);
+  v9 = *(a1 + 4);
+  v10 = *(a1 + 5);
   if (v10 <= 7)
   {
-    if (*(a1 + 48))
+    if (*(a1 + 12))
     {
       return;
     }
@@ -5790,9 +5803,9 @@ LABEL_6:
 
   do
   {
-    v12 = *(a1 + 8);
-    v11 = *(a1 + 12);
-    if (v11 + *(a1 + 28) >= v12)
+    v12 = *(a1 + 2);
+    v11 = *(a1 + 3);
+    if (v11 + *(a1 + 7) >= v12)
     {
       v13 = -1;
     }
@@ -5802,12 +5815,12 @@ LABEL_6:
       v13 = 0;
       v14 = *a1;
       v15 = v11 + 1;
-      *(a1 + 12) = v15;
+      *(a1 + 3) = v15;
       *(v14 + v12 - v15) = v9;
     }
 
-    v16 = *(a1 + 48) | v13;
-    *(a1 + 48) = v16;
+    v16 = *(a1 + 12) | v13;
+    *(a1 + 12) = v16;
     v9 >>= 8;
     v17 = v10 - 8;
     v18 = v10 <= 15;
@@ -5819,22 +5832,22 @@ LABEL_6:
   if (!v16)
   {
 LABEL_18:
-    bzero((*a1 + *(a1 + 28)), (*(a1 + 8) - (*(a1 + 28) + *(a1 + 12))));
+    bzero((*a1 + *(a1 + 7)), (*(a1 + 2) - (*(a1 + 7) + *(a1 + 3))));
     if (v10 >= 1)
     {
-      v20 = *(a1 + 8);
-      v19 = *(a1 + 12);
+      v20 = *(a1 + 2);
+      v19 = *(a1 + 3);
       if (v19 >= v20)
       {
-        *(a1 + 48) = -1;
+        *(a1 + 12) = -1;
       }
 
       else
       {
-        if (*(a1 + 28) + v19 >= v20 && v10 > -v4)
+        if (*(a1 + 7) + v19 >= v20 && v10 > -v4)
         {
           v9 &= ~(-1 << -v4);
-          *(a1 + 48) = -1;
+          *(a1 + 12) = -1;
         }
 
         *(*a1 + v20 + ~v19) |= v9;
@@ -5899,15 +5912,15 @@ uint64_t *ec_enc_carry_out(uint64_t *result, int a2)
   return result;
 }
 
-uint64_t *ec_dec_init(uint64_t *result, unsigned __int8 *a2, int a3)
+uint64_t *ec_dec_init(uint64_t *a1, unsigned __int8 *a2, int a3)
 {
-  *result = a2;
-  *(result + 2) = a3;
-  *(result + 12) = xmmword_26ED6BA90;
-  *(result + 28) = 0x8000000000;
+  *a1 = a2;
+  *(a1 + 2) = a3;
+  *(a1 + 12) = xmmword_26ED6BA90;
+  *(a1 + 28) = 0x8000000000;
   if (a3)
   {
-    *(result + 7) = 1;
+    *(a1 + 7) = 1;
     v3 = *a2;
   }
 
@@ -5916,10 +5929,10 @@ uint64_t *ec_dec_init(uint64_t *result, unsigned __int8 *a2, int a3)
     v3 = 0;
   }
 
-  *(result + 9) = (v3 >> 1) ^ 0x7F;
-  *(result + 11) = v3;
-  *(result + 12) = 0;
-  return ec_dec_normalize(result);
+  *(a1 + 9) = (v3 >> 1) ^ 0x7F;
+  *(a1 + 11) = v3;
+  *(a1 + 12) = 0;
+  return ec_dec_normalize(a1);
 }
 
 uint64_t *ec_dec_normalize(uint64_t *result)
@@ -6178,7 +6191,7 @@ uint64_t ec_tell_frac(uint64_t a1)
   return 8 * *(a1 + 24) - v3;
 }
 
-uint64_t hysteresis_decision(int a1, uint64_t a2, uint64_t a3, int a4, int a5)
+uint64_t hysteresis_decision(int a1, uint64_t a2, uint64_t a3, unsigned int a4, int a5)
 {
   if (a4 < 1)
   {
@@ -6227,7 +6240,7 @@ uint64_t hysteresis_decision(int a1, uint64_t a2, uint64_t a3, int a4, int a5)
   return v5;
 }
 
-uint64_t compute_band_energies(uint64_t result, uint64_t a2, uint64_t a3, int a4, int a5, int a6)
+uint64_t compute_band_energies(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, int a6)
 {
   v32 = result;
   v8 = 0;
@@ -6326,7 +6339,7 @@ uint64_t compute_band_energies(uint64_t result, uint64_t a2, uint64_t a3, int a4
   return result;
 }
 
-uint64_t normalise_bands(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7)
+uint64_t normalise_bands(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, unsigned int a6, int a7)
 {
   v12 = 0;
   v13 = *(a1 + 24);
@@ -6408,7 +6421,7 @@ uint64_t normalise_bands(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int
   return result;
 }
 
-void denormalise_bands(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8)
+void denormalise_bands(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, unsigned int a7, int a8)
 {
   v11 = 0;
   v12 = 0;
@@ -6539,7 +6552,7 @@ LABEL_22:
   while (v11 != v43);
 }
 
-__int16 *anti_collapse(__int16 *result, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13)
+__int16 *anti_collapse(__int16 *result, uint64_t a2, uint64_t a3, int a4, unsigned int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13)
 {
   if (a7 < a8)
   {
@@ -6803,7 +6816,7 @@ LABEL_62:
   return result;
 }
 
-uint64_t spreading_decision(uint64_t a1, uint64_t a2, _DWORD *a3, int a4, _DWORD *a5, int *a6, int a7, int a8, int a9, int a10)
+uint64_t spreading_decision(uint64_t a1, uint64_t a2, _DWORD *a3, int a4, _DWORD *a5, int *a6, int a7, int a8, unsigned int a9, int a10)
 {
   v10 = *(a1 + 24);
   if ((v10[a8] - v10[a8 - 1]) * a10 < 9)
@@ -6954,14 +6967,14 @@ uint64_t spreading_decision(uint64_t a1, uint64_t a2, _DWORD *a3, int a4, _DWORD
   return 2;
 }
 
-__int16 *haar1(__int16 *result, int a2, unsigned int a3)
+__int16 *haar1(__int16 *result, int a2, int a3)
 {
   if (a3 >= 1)
   {
     v3 = 0;
     v4 = (a2 >> 1);
     v5 = a3;
-    v6 = 4 * a3;
+    v6 = 2 * (2 * a3);
     v7 = 4 * a3;
     v8 = &result[a3];
     do
@@ -6996,7 +7009,7 @@ __int16 *haar1(__int16 *result, int a2, unsigned int a3)
   return result;
 }
 
-void quant_all_bands(int a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, __int16 *a8, uint64_t a9, int a10, int a11, int a12, unsigned int a13, uint64_t a14, int a15, int a16, uint64_t a17, int a18, unsigned int a19, _DWORD *a20)
+void quant_all_bands(int a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, __int16 *a8, uint64_t a9, int a10, int a11, int a12, unsigned int a13, uint64_t a14, int a15, int a16, uint64_t a17, int a18, int a19, _DWORD *a20)
 {
   v209 = a8;
   v194 = a5;
@@ -7729,7 +7742,7 @@ LABEL_136:
   *v164 = v33;
 }
 
-uint64_t quant_band(int *a1, __int16 *a2, int a3, int a4, int a5, __int16 *a6, int a7, _WORD *a8, __int16 a9, __int16 *a10, int a11)
+uint64_t quant_band(int *a1, __int16 *a2, uint64_t a3, int a4, int a5, __int16 *a6, int a7, _WORD *a8, __int16 a9, __int16 *a10, int a11)
 {
   v11 = a2;
   if (a3 == 1)
@@ -7759,10 +7772,14 @@ uint64_t quant_band(int *a1, __int16 *a2, int a3, int a4, int a5, __int16 *a6, i
 
     if (a3 >= 1)
     {
-      for (i = 0; i != a3; ++i)
+      v19 = 0;
+      do
       {
-        a10[i] = a6[i];
+        a10[v19] = a6[v19];
+        ++v19;
       }
+
+      while (a3 != v19);
     }
 
     v13 = a10;
@@ -7777,16 +7794,16 @@ LABEL_26:
 
   v35 = a3 / a5;
   v40 = a5;
-  for (j = 0; j != v17; ++j)
+  for (i = 0; i != v17; ++i)
   {
     if (v16)
     {
-      haar1(v11, a3 >> j, 1 << j);
+      haar1(v11, a3 >> i, 1 << i);
     }
 
     if (v13)
     {
-      haar1(v13, a3 >> j, 1 << j);
+      haar1(v13, a3 >> i, 1 << i);
     }
 
     a11 = quant_band_bit_interleave_table[a11 & 0xF] | (4 * quant_band_bit_interleave_table[a11 >> 4]);
@@ -7797,7 +7814,7 @@ LABEL_26:
   v18 = v35;
 LABEL_27:
   v23 = 0;
-  v24 = a5 >> v44;
+  v24 = (a5 >> v44);
   v25 = v18 << v44;
   if (((v18 << v44) & 1) != 0 || (v17 & 0x80000000) == 0)
   {
@@ -7820,7 +7837,7 @@ LABEL_27:
       }
 
       a11 |= a11 << v24;
-      v24 *= 2;
+      v24 = (2 * v24);
       v26 = v25 >> 1;
       ++v23;
       if ((v25 & 2) != 0)
@@ -7848,7 +7865,7 @@ LABEL_46:
       v29 = a8;
       do
       {
-        v24 >>= 1;
+        LODWORD(v24) = v24 >> 1;
         v26 *= 2;
         LODWORD(v12) = (v12 >> v24) | v12;
         haar1(v11, v26, v24);
@@ -7923,12 +7940,12 @@ LABEL_54:
   return v12;
 }
 
-uint64_t quant_band_n1(uint64_t result, __int16 *a2, __int16 *a3, _WORD *a4)
+int *quant_band_n1(int *result, __int16 *a2, __int16 *a3, _WORD *a4)
 {
   v7 = result;
   v8 = *result;
-  v9 = *(result + 32);
-  v10 = *(result + 40);
+  v9 = *(result + 4);
+  v10 = result[10];
   v11 = 1;
   v12 = a2;
   do
@@ -7990,11 +8007,11 @@ LABEL_13:
   return result;
 }
 
-void deinterleave_hadamard(_WORD *a1, int a2, int a3, int a4)
+void deinterleave_hadamard(_WORD *a1, unsigned int a2, int a3, int a4)
 {
   v22[1] = *MEMORY[0x277D85DE8];
   v8 = a3 * a2;
-  v9 = 2 * a3 * a2;
+  v9 = 2 * (a3 * a2);
   v10 = v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v10, v9);
   if (a4)
@@ -8065,15 +8082,16 @@ void deinterleave_hadamard(_WORD *a1, int a2, int a3, int a4)
   }
 }
 
-uint64_t quant_partition(uint64_t a1, __int16 *a2, int a3, int a4, int a5, __int16 *a6, int a7, int a8, int a9)
+uint64_t quant_partition(int *a1, __int16 *a2, uint64_t a3, int a4, uint64_t a5, __int16 *a6, int a7, int a8, int a9)
 {
+  v10 = a5;
   v13 = a9;
   v80 = a4;
   v14 = *a1;
-  v15 = *(a1 + 8);
-  v16 = *(a1 + 16);
-  v17 = *(a1 + 24);
-  v18 = *(a1 + 32);
+  v15 = *(a1 + 1);
+  v16 = a1[4];
+  v17 = a1[6];
+  v18 = *(a1 + 4);
   v20 = *(v15 + 128);
   v19 = *(v15 + 136);
   if (a7 != -1)
@@ -8119,7 +8137,7 @@ uint64_t quant_partition(uint64_t a1, __int16 *a2, int a3, int a4, int a5, __int
           v31 = HIDWORD(v78);
         }
 
-        if (a5 >= 2)
+        if (v10 >= 2)
         {
           v28 = v31;
         }
@@ -8136,10 +8154,10 @@ uint64_t quant_partition(uint64_t a1, __int16 *a2, int a3, int a4, int a5, __int
         }
 
         v34 = v33 & ~(v33 >> 31);
-        v70 = a5;
+        v70 = v10;
         v35 = v80 - v34;
-        v36 = *(a1 + 40) - HIDWORD(v79);
-        *(a1 + 40) = v36;
+        v36 = a1[10] - HIDWORD(v79);
+        a1[10] = v36;
         if (a6)
         {
           v37 = &a6[v24];
@@ -8156,7 +8174,7 @@ uint64_t quant_partition(uint64_t a1, __int16 *a2, int a3, int a4, int a5, __int
           v67 = v27;
           v69 = v37;
           v72 = quant_partition(a1, a2, v24, v34, v25, a6, v76, ((v26 * a8 + 0x4000) >> 15), a9);
-          v55 = *(a1 + 40) - v36 + v34;
+          v55 = a1[10] - v36 + v34;
           if (v29)
           {
             v56 = v55 <= 24;
@@ -8177,14 +8195,14 @@ uint64_t quant_partition(uint64_t a1, __int16 *a2, int a3, int a4, int a5, __int
             v57 = v55 - 24;
           }
 
-          return (quant_partition(a1, v73, v24, (v57 + v35), v25, v69, v76, ((v67 * a8 + 0x4000) >> 15), v38 >> v25) << (v70 >> 1)) | v72;
+          return (quant_partition(a1, v73, v24, v57 + v35, v25, v69, v76, ((v67 * a8 + 0x4000) >> 15), v38 >> v25) << (v70 >> 1)) | v72;
         }
 
         else
         {
           v68 = v26;
-          v74 = quant_partition(a1, v73, v24, (v32 - v34), v25, v37, v76, ((v27 * a8 + 0x4000) >> 15), a9 >> v25) << (v70 >> 1);
-          v39 = *(a1 + 40) - v36 + v35;
+          v74 = quant_partition(a1, v73, v24, v32 - v34, v25, v37, v76, ((v27 * a8 + 0x4000) >> 15), a9 >> v25) << (v70 >> 1);
+          v39 = a1[10] - v36 + v35;
           if (v29 == 0x4000 || v39 <= 24)
           {
             v41 = 0;
@@ -8195,7 +8213,7 @@ uint64_t quant_partition(uint64_t a1, __int16 *a2, int a3, int a4, int a5, __int
             v41 = v39 - 24;
           }
 
-          return quant_partition(a1, a2, v24, (v41 + v34), v25, a6, v76, ((v68 * a8 + 0x4000) >> 15), v38) | v74;
+          return quant_partition(a1, a2, v24, v41 + v34, v25, a6, v76, ((v68 * a8 + 0x4000) >> 15), v38) | v74;
         }
       }
     }
@@ -8244,7 +8262,7 @@ uint64_t quant_partition(uint64_t a1, __int16 *a2, int a3, int a4, int a5, __int
 
   if (!v49)
   {
-LABEL_50:
+LABEL_51:
     if (!v14)
     {
       v42 = (1 << a5) - 1;
@@ -8254,7 +8272,7 @@ LABEL_50:
         {
           if (a3 >= 1)
           {
-            v58 = *(a1 + 56);
+            v58 = a1[14];
             v59 = a2;
             v60 = a3;
             do
@@ -8277,7 +8295,7 @@ LABEL_50:
             }
 
             while (v60);
-            *(a1 + 56) = v58;
+            a1[14] = v58;
           }
 
           v42 = v42 & v13;
@@ -8285,7 +8303,7 @@ LABEL_50:
 
         else if (a3 >= 1)
         {
-          v64 = *(a1 + 56);
+          v64 = a1[14];
           v65 = a2;
           v66 = a3;
           do
@@ -8296,7 +8314,7 @@ LABEL_50:
           }
 
           while (v66);
-          *(a1 + 56) = v64;
+          a1[14] = v64;
         }
 
         renormalise_vector(a2, a3, a8);
@@ -8313,23 +8331,23 @@ LABEL_50:
   }
 
   v50 = v44[v49] + 1;
-  v51 = *(a1 + 40) - v50;
-  *(a1 + 40) = v51;
+  v51 = a1[10] - v50;
+  a1[10] = v51;
   if (v51 < 0 && v49 >= 1)
   {
     v52 = v49 - 1;
     do
     {
       v53 = v50 + v51;
-      *(a1 + 40) = v53;
+      a1[10] = v53;
       if (!v52)
       {
-        goto LABEL_50;
+        goto LABEL_51;
       }
 
       v50 = v44[v52] + 1;
       v51 = v53 - v50;
-      *(a1 + 40) = v51;
+      a1[10] = v51;
       LODWORD(v49) = v49 - 1;
       --v52;
     }
@@ -8339,7 +8357,12 @@ LABEL_50:
 
   if (v49 >= 8)
   {
-    LODWORD(v49) = (v49 & 7 | 8) << ((v49 >> 3) - 1);
+    v49 = (v49 & 7 | 8) << ((v49 >> 3) - 1);
+  }
+
+  else
+  {
+    v49 = v49;
   }
 
   if (v14)
@@ -8355,11 +8378,11 @@ LABEL_50:
   }
 }
 
-void interleave_hadamard(char *a1, int a2, int a3, int a4)
+void interleave_hadamard(char *a1, unsigned int a2, int a3, int a4)
 {
   v24[1] = *MEMORY[0x277D85DE8];
   v8 = a3 * a2;
-  v9 = 2 * a3 * a2;
+  v9 = 2 * (a3 * a2);
   v10 = v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v10, v9);
   if (a4)
@@ -8409,7 +8432,8 @@ void interleave_hadamard(char *a1, int a2, int a3, int a4)
         v22 = v19;
         do
         {
-          v23 = *v22++;
+          v23 = *v22;
+          v22 += 2;
           *v21 = v23;
           v21 += a3;
           --v20;
@@ -8419,7 +8443,7 @@ void interleave_hadamard(char *a1, int a2, int a3, int a4)
       }
 
       ++v17;
-      v19 += a2;
+      v19 += 2 * a2;
       ++v18;
     }
 
@@ -8432,7 +8456,7 @@ void interleave_hadamard(char *a1, int a2, int a3, int a4)
   }
 }
 
-uint64_t compute_theta(int *a1, uint64_t a2, __int16 *a3, __int16 *a4, int a5, int *a6, char a7, int a8, int a9, int a10, _DWORD *a11)
+uint64_t compute_theta(int *a1, uint64_t a2, __int16 *a3, __int16 *a4, uint64_t a5, int *a6, char a7, int a8, int a9, int a10, _DWORD *a11)
 {
   v12 = a5;
   v13 = a4;
@@ -8788,7 +8812,7 @@ LABEL_87:
   return result;
 }
 
-uint64_t intensity_stereo(uint64_t a1, __int16 *a2, __int16 *a3, uint64_t a4, int a5, int a6)
+uint64_t intensity_stereo(uint64_t a1, __int16 *a2, __int16 *a3, uint64_t a4, int a5, unsigned int a6)
 {
   v9 = *(a4 + 4 * a5);
   v10 = *(a4 + 4 * (*(a1 + 8) + a5));
@@ -8889,7 +8913,7 @@ uint64_t resampling_factor(int a1)
   return 0;
 }
 
-char *comb_filter(char *result, char *a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, __int16 *a10, int a11)
+char *comb_filter(char *result, char *a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, __int16 *a10, unsigned int a11)
 {
   if (a7 | a6)
   {
@@ -9063,17 +9087,17 @@ const char *opus_strerror(int a1)
   }
 }
 
-void silk_decode_parameters(uint64_t a1, uint64_t a2, int a3)
+void silk_decode_parameters(uint64_t a1, __int16 *a2, int a3)
 {
   v24 = *MEMORY[0x277D85DE8];
-  silk_gains_dequant(a2 + 16, (a1 + 2760), (a1 + 2312), a3 == 2, *(a1 + 2324));
+  silk_gains_dequant((a2 + 8), (a1 + 2760), (a1 + 2312), a3 == 2, *(a1 + 2324));
   silk_NLSF_decode(__src, (a1 + 2768), *(a1 + 2752));
-  silk_NLSF2A((a2 + 64), __src, *(a1 + 2340));
+  silk_NLSF2A(a2 + 32, __src, *(a1 + 2340));
   if (*(a1 + 2376) == 1)
   {
     *(a1 + 2791) = 4;
 LABEL_8:
-    memcpy((a2 + 32), (a2 + 64), 2 * *(a1 + 2340));
+    memcpy(a2 + 16, a2 + 32, 2 * *(a1 + 2340));
     goto LABEL_9;
   }
 
@@ -9102,14 +9126,14 @@ LABEL_8:
     while (v10);
   }
 
-  silk_NLSF2A((a2 + 32), v22, v6);
+  silk_NLSF2A(a2 + 16, v22, v6);
 LABEL_9:
   v14 = *(a1 + 2340);
   memcpy((a1 + 2344), __src, 2 * v14);
   if (*(a1 + 4184))
   {
-    silk_bwexpander((a2 + 32), v14, 63570);
-    silk_bwexpander((a2 + 64), *(a1 + 2340), 63570);
+    silk_bwexpander(a2 + 16, v14, 63570);
+    silk_bwexpander(a2 + 32, *(a1 + 2340), 63570);
   }
 
   if (*(a1 + 2789) == 2)
@@ -9120,20 +9144,20 @@ LABEL_9:
     {
       v16 = 0;
       v17 = *(&silk_LTP_vq_ptrs_Q7 + *(a1 + 2792));
-      v18 = a2 + 96;
+      v18 = a2 + 48;
       do
       {
         v19 = 0;
         v20 = v17 + 5 * *(a1 + 2764 + v16);
         do
         {
-          *(v18 + 2 * v19) = *(v20 + v19) << 7;
+          *(v18 + v19) = *(v20 + v19) << 7;
           ++v19;
         }
 
         while (v19 != 5);
         ++v16;
-        v18 += 10;
+        v18 = (v18 + 10);
       }
 
       while (v16 != v15);
@@ -9145,15 +9169,15 @@ LABEL_9:
   else
   {
     bzero(a2, 4 * *(a1 + 2324));
-    bzero((a2 + 96), 10 * *(a1 + 2324));
+    bzero(a2 + 48, 10 * *(a1 + 2324));
     v21 = 0;
     *(a1 + 2792) = 0;
   }
 
-  *(a2 + 136) = v21;
+  *(a2 + 34) = v21;
 }
 
-uint64_t silk_gains_quant(uint64_t result, uint64_t a2, _BYTE *a3, int a4, int a5)
+uint64_t silk_gains_quant(uint64_t result, uint64_t a2, _BYTE *a3, int a4, unsigned int a5)
 {
   if (a5 >= 1)
   {
@@ -9250,7 +9274,7 @@ uint64_t silk_gains_quant(uint64_t result, uint64_t a2, _BYTE *a3, int a4, int a
   return result;
 }
 
-uint64_t silk_gains_dequant(uint64_t result, char *a2, _BYTE *a3, int a4, int a5)
+uint64_t silk_gains_dequant(uint64_t result, char *a2, _BYTE *a3, int a4, unsigned int a5)
 {
   if (a5 >= 1)
   {
@@ -9299,7 +9323,7 @@ uint64_t silk_gains_dequant(uint64_t result, char *a2, _BYTE *a3, int a4, int a5
   return result;
 }
 
-uint64_t silk_gains_ID(char *a1, int a2)
+uint64_t silk_gains_ID(char *a1, unsigned int a2)
 {
   if (a2 < 1)
   {
@@ -9766,7 +9790,7 @@ LABEL_41:
   return result;
 }
 
-_WORD *silk_interpolate(_WORD *result, __int16 *a2, __int16 *a3, __int16 a4, int a5)
+_WORD *silk_interpolate(_WORD *result, __int16 *a2, __int16 *a3, __int16 a4, unsigned int a5)
 {
   if (a5 >= 1)
   {

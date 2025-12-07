@@ -149,18 +149,17 @@ void sub_1C65D7608(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::Parse> *,BOOL (*&)(std::shared_ptr<QP::Parse>&,std::shared_ptr<QP::Parse>&)>(__int128 *a1, void *a2, uint64_t (**a3)(__int128 *, void *))
+__int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<QP::Parse> *,BOOL (*&)(std::shared_ptr<QP::Parse>&,std::shared_ptr<QP::Parse>&)>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   v4 = a2;
   v17 = *a1;
-  *a1 = 0;
-  *(a1 + 1) = 0;
-  if ((*a3)(&v17, a2 - 2))
+  *a1 = 0uLL;
+  if ((*a3)(&v17, a2 - 1))
   {
     v6 = a1;
     do
     {
-      v6 += 2;
+      ++v6;
     }
 
     while (((*a3)(&v17, v6) & 1) == 0);
@@ -178,7 +177,7 @@ void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,
       }
 
       v8 = (*a3)(&v17, v7);
-      v7 = v6 + 2;
+      v7 = v6 + 1;
     }
 
     while (!v8);
@@ -188,7 +187,7 @@ void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,
   {
     do
     {
-      v4 -= 2;
+      --v4;
     }
 
     while (((*a3)(&v17, v4) & 1) != 0);
@@ -199,25 +198,25 @@ void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,
     v9 = *v6;
     *v6 = *v4;
     *v4 = v9;
-    v10 = v6[1];
-    v6[1] = v4[1];
-    v4[1] = v10;
+    v10 = *(v6 + 1);
+    *(v6 + 1) = *(v4 + 1);
+    *(v4 + 1) = v10;
     do
     {
-      v6 += 2;
+      ++v6;
     }
 
     while (!(*a3)(&v17, v6));
     do
     {
-      v4 -= 2;
+      --v4;
     }
 
     while (((*a3)(&v17, v4) & 1) != 0);
   }
 
-  v11 = (v6 - 2);
-  if (v6 - 2 != a1)
+  v11 = v6 - 1;
+  if (v6 - 1 != a1)
   {
     v12 = *v11;
     *v11 = 0;
@@ -261,8 +260,7 @@ __int128 *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
 {
   v6 = 0;
   v19 = *a1;
-  *a1 = 0;
-  *(a1 + 1) = 0;
+  *a1 = 0uLL;
   do
   {
     v7 = (*a3)(&a1[++v6], &v19);
@@ -589,7 +587,7 @@ LABEL_35:
         v37 -= 16;
         if ((v41 & 1) == 0)
         {
-          v42 = a1 + v37 + 48;
+          v42 = (a1 + v37 + 48);
           goto LABEL_45;
         }
       }
@@ -598,7 +596,7 @@ LABEL_35:
 LABEL_45:
       v43 = v46;
       v46 = 0uLL;
-      v44 = *(v42 + 8);
+      v44 = v42[1];
       *v42 = v43;
       if (v44)
       {
@@ -636,7 +634,7 @@ void sub_1C65D7D64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*,std::shared_ptr<QP::Parse>*>(uint64_t a1, uint64_t a2, __int128 *a3, unsigned int (**a4)(__int128 *, uint64_t))
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*,std::shared_ptr<QP::Parse>*>(char *a1, char *a2, char *a3, uint64_t (**a4)(uint64_t, __int128 *))
 {
   if (a1 != a2)
   {
@@ -646,7 +644,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = (a1 + 16 * v9);
+      v11 = &a1[16 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*>(a1, a4, v8, v11--);
@@ -668,12 +666,12 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
           *v12 = *a1;
           *a1 = v13;
           v14 = *(v12 + 1);
-          *(v12 + 1) = *(a1 + 8);
-          *(a1 + 8) = v14;
+          *(v12 + 1) = *(a1 + 1);
+          *(a1 + 1) = v14;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*>(a1, a4, v8, a1);
         }
 
-        ++v12;
+        v12 += 16;
       }
 
       while (v12 != a3);
@@ -696,7 +694,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
   return a3;
 }
 
-void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*>(uint64_t a1, unsigned int (**a2)(__int128 *, uint64_t), uint64_t a3, __int128 *a4)
+void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*>(uint64_t a1, uint64_t (**a2)(uint64_t, __int128 *), uint64_t a3, __int128 *a4)
 {
   v4 = a3 - 2;
   if (a3 >= 2)
@@ -707,11 +705,11 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
     {
       v10 = (a4 - a1) >> 3;
       v11 = v10 + 1;
-      v12 = (a1 + 16 * (v10 + 1));
+      v12 = a1 + 16 * (v10 + 1);
       v13 = v10 + 2;
-      if (v10 + 2 < a3 && (*a2)(v12, (v12 + 1)))
+      if (v10 + 2 < a3 && (*a2)(v12, (v12 + 16)))
       {
-        ++v12;
+        v12 += 16;
         v11 = v13;
       }
 
@@ -725,7 +723,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
           v14 = v12;
           v15 = *v12;
           *v12 = 0;
-          *(v12 + 1) = 0;
+          *(v12 + 8) = 0;
           v16 = *(v5 + 1);
           *v5 = v15;
           if (v16)
@@ -739,16 +737,16 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
           }
 
           v17 = (2 * v11) | 1;
-          v12 = (a1 + 16 * v17);
+          v12 = a1 + 16 * v17;
           v11 = 2 * v11 + 2;
           if (v11 >= a3)
           {
             v11 = v17;
           }
 
-          else if ((*a2)((a1 + 16 * v17), (v12 + 1)))
+          else if ((*a2)(a1 + 16 * v17, (v12 + 16)))
           {
-            ++v12;
+            v12 += 16;
           }
 
           else
@@ -762,7 +760,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared
         while (!(*a2)(v12, &v20));
         v18 = v20;
         v20 = 0uLL;
-        v19 = *(v14 + 1);
+        v19 = *(v14 + 8);
         *v14 = v18;
         if (v19)
         {
@@ -788,14 +786,13 @@ void sub_1C65D8008(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*>(uint64_t a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::shared_ptr<QP::Parse> &,std::shared_ptr<QP::Parse> &),std::shared_ptr<QP::Parse>*>(__int128 *a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
 {
   if (a4 >= 2)
   {
     v8 = *a1;
-    v7 = *(a1 + 8);
-    *a1 = 0;
-    *(a1 + 8) = 0;
+    v7 = *(a1 + 1);
+    *a1 = 0uLL;
     v9 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::shared_ptr<QP::GraphStructureStack::Node> &,std::shared_ptr<QP::GraphStructureStack::Node> &),std::shared_ptr<QP::GraphStructureStack::Node>*>(a1, a3, a4);
     v10 = v9;
     if (v9 == (a2 - 16))
@@ -926,7 +923,7 @@ void *std::__shared_ptr_emplace<QP::ParseAttribute>::__shared_ptr_emplace[abi:ne
   return a1;
 }
 
-void *std::__shared_ptr_emplace<QP::Parse>::__shared_ptr_emplace[abi:ne200100]<nlp::CFScopedPtr<__CFString const*> &,long,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),std::allocator<QP::Parse>,0>(void *a1, const void **a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+void *std::__shared_ptr_emplace<QP::Parse>::__shared_ptr_emplace[abi:ne200100]<nlp::CFScopedPtr<__CFString const*> &,long,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),std::allocator<QP::Parse>,0>(void *a1, const void **a2, uint64_t *a3, uint64_t *a4, void **a5)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -935,7 +932,7 @@ void *std::__shared_ptr_emplace<QP::Parse>::__shared_ptr_emplace[abi:ne200100]<n
   return a1;
 }
 
-uint64_t std::construct_at[abi:ne200100]<QP::Parse,nlp::CFScopedPtr<__CFString const*> &,long,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),QP::Parse*>(uint64_t a1, const void **a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+uint64_t std::construct_at[abi:ne200100]<QP::Parse,nlp::CFScopedPtr<__CFString const*> &,long,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),QP::Parse*>(uint64_t a1, const void **a2, uint64_t *a3, uint64_t *a4, void **a5)
 {
   v6 = *a2;
   v7 = *a3;
@@ -948,14 +945,14 @@ uint64_t std::construct_at[abi:ne200100]<QP::Parse,nlp::CFScopedPtr<__CFString c
   return a1;
 }
 
-void sub_1C65D84E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65D84E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::__shared_ptr_emplace<QP::Parse>::__shared_ptr_emplace[abi:ne200100]<nlp::CFScopedPtr<__CFString const*> &,int,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),std::allocator<QP::Parse>,0>(void *a1, const void **a2, int *a3, uint64_t *a4, uint64_t *a5)
+void *std::__shared_ptr_emplace<QP::Parse>::__shared_ptr_emplace[abi:ne200100]<nlp::CFScopedPtr<__CFString const*> &,int,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),std::allocator<QP::Parse>,0>(void *a1, const void **a2, int *a3, uint64_t *a4, void **a5)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -964,7 +961,7 @@ void *std::__shared_ptr_emplace<QP::Parse>::__shared_ptr_emplace[abi:ne200100]<n
   return a1;
 }
 
-uint64_t std::construct_at[abi:ne200100]<QP::Parse,nlp::CFScopedPtr<__CFString const*> &,int,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),QP::Parse*>(uint64_t a1, const void **a2, int *a3, uint64_t *a4, uint64_t *a5)
+uint64_t std::construct_at[abi:ne200100]<QP::Parse,nlp::CFScopedPtr<__CFString const*> &,int,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),QP::Parse*>(uint64_t a1, const void **a2, int *a3, uint64_t *a4, void **a5)
 {
   v6 = *a2;
   v7 = *a3;
@@ -977,9 +974,9 @@ uint64_t std::construct_at[abi:ne200100]<QP::Parse,nlp::CFScopedPtr<__CFString c
   return a1;
 }
 
-void sub_1C65D8688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65D8688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -993,7 +990,7 @@ void *std::__shared_ptr_emplace<QP::ParseAttribute>::__shared_ptr_emplace[abi:ne
   return a1;
 }
 
-void *std::__shared_ptr_emplace<QP::Parse>::__shared_ptr_emplace[abi:ne200100]<nlp::CFScopedPtr<__CFString const*> &,unsigned long,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),BOOL,std::allocator<QP::Parse>,0>(void *a1, const void **a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t a6, char *a7)
+void *std::__shared_ptr_emplace<QP::Parse>::__shared_ptr_emplace[abi:ne200100]<nlp::CFScopedPtr<__CFString const*> &,unsigned long,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),BOOL,std::allocator<QP::Parse>,0>(void *a1, const void **a2, uint64_t *a3, uint64_t *a4, void **a5, uint64_t a6, char *a7)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -1002,7 +999,7 @@ void *std::__shared_ptr_emplace<QP::Parse>::__shared_ptr_emplace[abi:ne200100]<n
   return a1;
 }
 
-uint64_t std::construct_at[abi:ne200100]<QP::Parse,nlp::CFScopedPtr<__CFString const*> &,unsigned long,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),BOOL,QP::Parse*>(uint64_t a1, const void **a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t a6, char *a7)
+uint64_t std::construct_at[abi:ne200100]<QP::Parse,nlp::CFScopedPtr<__CFString const*> &,unsigned long,long,std::vector<std::shared_ptr<QP::ParseAttribute>> &,decltype(nullptr),BOOL,QP::Parse*>(uint64_t a1, const void **a2, uint64_t *a3, uint64_t *a4, void **a5, uint64_t a6, char *a7)
 {
   v9 = *a2;
   v10 = *a3;
@@ -1015,9 +1012,9 @@ uint64_t std::construct_at[abi:ne200100]<QP::Parse,nlp::CFScopedPtr<__CFString c
   return a1;
 }
 
-void sub_1C65D8944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65D8944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1038,8 +1035,7 @@ uint64_t std::construct_at[abi:ne200100]<QP::Parse,nlp::CFScopedPtr<__CFString c
   v8 = *a4;
   v10 = *a5;
   v11 = *(a5 + 2);
-  *(a5 + 1) = 0;
-  *(a5 + 2) = 0;
+  *(a5 + 8) = 0uLL;
   *a5 = 0;
   QP::Parse::Parse(a1, v6, v7, v8, &v10, 0, 0);
   v12 = &v10;
@@ -1047,9 +1043,9 @@ uint64_t std::construct_at[abi:ne200100]<QP::Parse,nlp::CFScopedPtr<__CFString c
   return a1;
 }
 
-void sub_1C65D8AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65D8AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::shared_ptr<QP::GraphStructureStack::Node>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1602,34 +1598,34 @@ QP::ParserConfiguration *QP::ParserConfiguration::ParserConfiguration(QP::Parser
   return this;
 }
 
-void sub_1C65D9B50(_Unwind_Exception *a1, uint64_t a2, void *a3, const void **a4, const void **a5, uint64_t a6, const void **a7, const void **a8, const void **a9, const void **a10, const void **a11, uint64_t a12, ...)
+void sub_1C65D9B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, const void **a4, const void **a5, uint64_t a6, const void **a7, const void **a8, const void **a9, const void **a10, const void **a11, const void **a12, uint64_t a13, const void **a14, const void **a15, const void **a16, const void **a17, const void **a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   nlp::CFScopedPtr<__CFArray const*>::reset(va, 0);
-  std::__list_imp<QP::Subscriber *>::clear(a3);
-  nlp::CFScopedPtr<__CFString const*>::reset(v12 + 32, 0);
-  nlp::CFScopedPtr<__CFString const*>::reset(v12 + 31, 0);
-  nlp::CFScopedPtr<__CFArray const*>::reset(a7, 0);
-  nlp::CFScopedPtr<__CFDictionary const*>::reset(v12 + 29, 0);
-  nlp::CFScopedPtr<__CFDictionary const*>::reset(a5, 0);
-  nlp::CFScopedPtr<__CFString const*>::reset(v12 + 27, 0);
-  nlp::CFScopedPtr<__CFDictionary const*>::reset(v12 + 26, 0);
-  nlp::CFScopedPtr<__CFString const*>::reset(v12 + 25, 0);
-  nlp::CFScopedPtr<__CFString const*>::reset(a10, 0);
-  nlp::CFScopedPtr<__CFString const*>::reset(v12 + 23, 0);
-  nlp::CFScopedPtr<__CFURL const*>::reset(a8, 0);
-  nlp::CFScopedPtr<__CFArray const*>::reset(v12 + 21, 0);
-  nlp::CFScopedPtr<__CFString const*>::reset(v12 + 20, 0);
-  nlp::CFScopedPtr<__CFString const*>::reset(v12 + 19, 0);
-  nlp::CFScopedPtr<__CFString const*>::reset(v12 + 18, 0);
-  nlp::CFScopedPtr<__CFString const*>::reset(v12 + 17, 0);
-  nlp::CFScopedPtr<__CFString const*>::reset(v12 + 16, 0);
-  nlp::CFScopedPtr<__CFString const*>::reset(v12 + 15, 0);
-  nlp::CFScopedPtr<__CFLocale const*>::reset(a11, 0);
-  nlp::CFScopedPtr<__CFTimeZone const*>::reset(v12 + 13, 0);
-  nlp::CFScopedPtr<__CFCalendar *>::reset(a9, 0);
-  nlp::CFScopedPtr<__CFCalendar *>::reset(v12 + 11, 0);
-  nlp::CFScopedPtr<__CFDate const*>::reset(a4, 0);
+  std::__list_imp<QP::Subscriber *>::clear(a10);
+  nlp::CFScopedPtr<__CFString const*>::reset(v19 + 32, 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(v19 + 31, 0);
+  nlp::CFScopedPtr<__CFArray const*>::reset(a14, 0);
+  nlp::CFScopedPtr<__CFDictionary const*>::reset(v19 + 29, 0);
+  nlp::CFScopedPtr<__CFDictionary const*>::reset(a12, 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(v19 + 27, 0);
+  nlp::CFScopedPtr<__CFDictionary const*>::reset(v19 + 26, 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(v19 + 25, 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(a17, 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(v19 + 23, 0);
+  nlp::CFScopedPtr<__CFURL const*>::reset(a15, 0);
+  nlp::CFScopedPtr<__CFArray const*>::reset(v19 + 21, 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(v19 + 20, 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(v19 + 19, 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(v19 + 18, 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(v19 + 17, 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(v19 + 16, 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(v19 + 15, 0);
+  nlp::CFScopedPtr<__CFLocale const*>::reset(a18, 0);
+  nlp::CFScopedPtr<__CFTimeZone const*>::reset(v19 + 13, 0);
+  nlp::CFScopedPtr<__CFCalendar *>::reset(a16, 0);
+  nlp::CFScopedPtr<__CFCalendar *>::reset(v19 + 11, 0);
+  nlp::CFScopedPtr<__CFDate const*>::reset(a11, 0);
   _Unwind_Resume(a1);
 }
 
@@ -1843,9 +1839,9 @@ LABEL_37:
   return 1;
 }
 
-void sub_1C65DA238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65DA238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFLocale const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -2105,14 +2101,14 @@ LABEL_24:
   return v4;
 }
 
-void sub_1C65DA9D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65DA9D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-BOOL QP::ParserConfiguration::setCustomFieldSpecifications(QP::ParserConfiguration *this, const __CFDictionary *a2, int a3)
+uint64_t QP::ParserConfiguration::setCustomFieldSpecifications(QP::ParserConfiguration *this, const __CFDictionary *a2, int a3)
 {
   value[1] = *MEMORY[0x1E69E9840];
   v6 = (this + 232);
@@ -2122,43 +2118,42 @@ BOOL QP::ParserConfiguration::setCustomFieldSpecifications(QP::ParserConfigurati
     if (v5)
     {
       Count = CFDictionaryGetCount(v5);
-      if (Count != CFDictionaryGetCount(a2))
+      v9 = CFDictionaryGetCount(a2);
+      if (Count != v9)
       {
-        goto LABEL_14;
+        return 0;
       }
 
-      v35 = a3;
-      (MEMORY[0x1EEE9AC00])();
-      v9 = (&v34 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
-      bzero(v9, 8 * Count);
-      (MEMORY[0x1EEE9AC00])();
-      v10 = v9;
-      bzero(v9, 8 * Count);
-      CFDictionaryGetKeysAndValues(a2, v9, v9);
+      v36 = a3;
+      MEMORY[0x1EEE9AC00](v9);
+      v10 = (&v35 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
+      bzero(v10, 8 * Count);
+      MEMORY[0x1EEE9AC00](v11);
+      v12 = v10;
+      bzero(v10, 8 * Count);
+      CFDictionaryGetKeysAndValues(a2, v10, v10);
       if (Count < 1)
       {
-LABEL_14:
-        v21 = 0;
-        goto LABEL_29;
+        return 0;
       }
 
-      v11 = *MEMORY[0x1E695E480];
+      v13 = *MEMORY[0x1E695E480];
       while (1)
       {
-        v12 = CFGetTypeID(*v9);
-        if (v12 != CFStringGetTypeID())
+        v14 = CFGetTypeID(*v10);
+        if (v14 != CFStringGetTypeID())
         {
           break;
         }
 
-        v13 = CFGetTypeID(*v10);
-        if (v13 != CFDictionaryGetTypeID())
+        v15 = CFGetTypeID(*v12);
+        if (v15 != CFDictionaryGetTypeID())
         {
           break;
         }
 
-        MutableCopy = CFStringCreateMutableCopy(v11, 0, *v9);
-        v15 = MutableCopy;
+        MutableCopy = CFStringCreateMutableCopy(v13, 0, *v10);
+        v17 = MutableCopy;
         if (!MutableCopy)
         {
           break;
@@ -2166,43 +2161,43 @@ LABEL_14:
 
         CFStringLowercase(MutableCopy, *(this + 14));
         value[0] = 0;
-        v16 = CFDictionaryGetValueIfPresent(*(this + 29), v15, value) == 0;
-        CFRelease(v15);
-        if (v16)
+        v18 = CFDictionaryGetValueIfPresent(*(this + 29), v17, value) == 0;
+        CFRelease(v17);
+        if (v18)
         {
           break;
         }
 
-        v17 = CFGetTypeID(value[0]);
-        if (v17 != CFDictionaryGetTypeID())
+        v19 = CFGetTypeID(value[0]);
+        if (v19 != CFDictionaryGetTypeID())
         {
           break;
         }
 
-        v18 = CFDictionaryCreateMutableCopy(v11, 0, value[0]);
-        v19 = v18;
-        if (!v18)
+        v20 = CFDictionaryCreateMutableCopy(v13, 0, value[0]);
+        v21 = v20;
+        if (!v20)
         {
           break;
         }
 
-        CFDictionaryRemoveValue(v18, @"ORIGINAL_TEXT");
-        v20 = CFEqual(*v10, v19) == 0;
-        CFRelease(v19);
-        if (v20)
+        CFDictionaryRemoveValue(v20, @"ORIGINAL_TEXT");
+        v22 = CFEqual(*v12, v21) == 0;
+        CFRelease(v21);
+        if (v22)
         {
           break;
         }
 
+        ++v12;
         ++v10;
-        ++v9;
         if (!--Count)
         {
-          goto LABEL_14;
+          return 0;
         }
       }
 
-      a3 = v35;
+      a3 = v36;
     }
 
     if (configLogger(void)::token != -1)
@@ -2210,60 +2205,60 @@ LABEL_14:
       QP::ParserConfiguration::setCustomFieldSpecifications();
     }
 
-    v35 = a3;
-    v22 = configLogger(void)::log;
+    v36 = a3;
+    v24 = configLogger(void)::log;
     if (os_log_type_enabled(configLogger(void)::log, OS_LOG_TYPE_INFO))
     {
       LOWORD(value[0]) = 0;
-      _os_log_impl(&dword_1C6584000, v22, OS_LOG_TYPE_INFO, "QueryParser: custom field specifications changed", value, 2u);
+      _os_log_impl(&dword_1C6584000, v24, OS_LOG_TYPE_INFO, "QueryParser: custom field specifications changed", value, 2u);
     }
 
     nlp::CFScopedPtr<__CFDictionary const*>::reset(v6, 0);
-    v23 = *MEMORY[0x1E695E480];
+    v25 = *MEMORY[0x1E695E480];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v25 = CFDictionaryGetCount(a2);
-    v34 = &v34;
-    MEMORY[0x1EEE9AC00](v25);
-    v27 = (&v34 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0));
-    bzero(v27, v26);
-    CFDictionaryGetKeysAndValues(a2, v27, 0);
-    if (v25 >= 1)
+    v27 = CFDictionaryGetCount(a2);
+    v35 = &v35;
+    MEMORY[0x1EEE9AC00](v27);
+    v29 = (&v35 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0));
+    bzero(v29, v28);
+    CFDictionaryGetKeysAndValues(a2, v29, 0);
+    if (v27 >= 1)
     {
       do
       {
-        v28 = CFStringCreateMutableCopy(v23, 0, *v27);
-        value[0] = v28;
-        v29 = CFDictionaryGetValue(a2, v28);
-        v30 = CFDictionaryCreateMutableCopy(v23, 0, v29);
-        Copy = CFStringCreateCopy(v23, v28);
-        CFDictionarySetValue(v30, @"ORIGINAL_TEXT", Copy);
-        CFStringLowercase(v28, *(this + 14));
-        CFDictionarySetValue(Mutable, v28, v30);
-        CFRelease(v30);
-        if (v28)
+        v30 = CFStringCreateMutableCopy(v25, 0, *v29);
+        value[0] = v30;
+        v31 = CFDictionaryGetValue(a2, v30);
+        v32 = CFDictionaryCreateMutableCopy(v25, 0, v31);
+        Copy = CFStringCreateCopy(v25, v30);
+        CFDictionarySetValue(v32, @"ORIGINAL_TEXT", Copy);
+        CFStringLowercase(v30, *(this + 14));
+        CFDictionarySetValue(Mutable, v30, v32);
+        CFRelease(v32);
+        if (v30)
         {
-          CFRelease(v28);
+          CFRelease(v30);
         }
 
-        ++v27;
-        --v25;
+        ++v29;
+        --v27;
       }
 
-      while (v25);
+      while (v27);
     }
 
     nlp::CFScopedPtr<__CFDictionary const*>::reset(v6, Mutable);
-    if (v35)
+    if (v36)
     {
       (*(*this + 32))(this);
     }
 
-    v21 = 1;
+    return 1;
   }
 
   else
   {
-    v21 = v5 != 0;
+    v23 = v5 != 0;
     nlp::CFScopedPtr<__CFDictionary const*>::reset(v6, 0);
     if (a3)
     {
@@ -2271,9 +2266,7 @@ LABEL_14:
     }
   }
 
-LABEL_29:
-  v32 = *MEMORY[0x1E69E9840];
-  return v21;
+  return v23;
 }
 
 void sub_1C65DAF1C(_Unwind_Exception *exception_object, int a2)
@@ -2297,22 +2290,22 @@ _BYTE *QP::ParserConfiguration::setIsEntitySearch(_BYTE *this, const __CFBoolean
 
 void QP::ParserConfiguration::loadConfigurationResource(QP::ParserConfiguration *this, const __CFURL *a2, __CFError **a3, __CFError **a4)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   *(this + 34) = 0;
   if (!a2)
   {
-    goto LABEL_86;
+    return;
   }
 
   cf = 0;
   DictionaryWithContentsOfURL = nlp::createDictionaryWithContentsOfURL(a2, &cf, a3, a4);
   v7 = DictionaryWithContentsOfURL;
-  v40[2] = DictionaryWithContentsOfURL;
+  v39[2] = DictionaryWithContentsOfURL;
   if (!cf)
   {
     if (!DictionaryWithContentsOfURL)
     {
-      goto LABEL_86;
+      return;
     }
 
     if (*(this + 14))
@@ -2334,9 +2327,9 @@ void QP::ParserConfiguration::loadConfigurationResource(QP::ParserConfiguration 
     if (os_log_type_enabled(configLogger(void)::log, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v43 = v9;
-      v44 = 2112;
-      v45 = a2;
+      v42 = v9;
+      v43 = 2112;
+      v44 = a2;
       _os_log_impl(&dword_1C6584000, v10, OS_LOG_TYPE_INFO, "QueryParser: loading %@ from %@", buf, 0x16u);
     }
 
@@ -2359,7 +2352,7 @@ void QP::ParserConfiguration::loadConfigurationResource(QP::ParserConfiguration 
     {
       v15 = CFDictionaryGetValue(ValueAtIndex, @"Version");
       v16 = CFNumberCreate(*v14, kCFNumberCFIndexType, &QPPARSER_MIN_DATES_VERSION);
-      v40[0] = v16;
+      v39[0] = v16;
       if (configLogger(void)::token != -1)
       {
         QP::ParserConfiguration::setCustomFieldSpecifications();
@@ -2369,7 +2362,7 @@ void QP::ParserConfiguration::loadConfigurationResource(QP::ParserConfiguration 
       if (os_log_type_enabled(configLogger(void)::log, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v43 = v15;
+        v42 = v15;
         _os_log_impl(&dword_1C6584000, v17, OS_LOG_TYPE_INFO, "QueryParser: loading %@ dates version", buf, 0xCu);
       }
 
@@ -2384,7 +2377,7 @@ void QP::ParserConfiguration::loadConfigurationResource(QP::ParserConfiguration 
         if (os_log_type_enabled(configLogger(void)::log, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v43 = v16;
+          v42 = v16;
           _os_log_impl(&dword_1C6584000, v18, OS_LOG_TYPE_INFO, "QueryParser: expected %@ dates version (error)", buf, 0xCu);
         }
 
@@ -2407,7 +2400,7 @@ void QP::ParserConfiguration::loadConfigurationResource(QP::ParserConfiguration 
     {
       v20 = CFDictionaryGetValue(v19, @"Version");
       v21 = CFNumberCreate(*v14, kCFNumberCFIndexType, &QPPARSER_MIN_LEXICON_VERSION);
-      v40[0] = v21;
+      v39[0] = v21;
       if (configLogger(void)::token != -1)
       {
         QP::ParserConfiguration::setCustomFieldSpecifications();
@@ -2417,7 +2410,7 @@ void QP::ParserConfiguration::loadConfigurationResource(QP::ParserConfiguration 
       if (os_log_type_enabled(configLogger(void)::log, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v43 = v20;
+        v42 = v20;
         _os_log_impl(&dword_1C6584000, v22, OS_LOG_TYPE_INFO, "QueryParser: loading %@ lexicon version", buf, 0xCu);
       }
 
@@ -2432,7 +2425,7 @@ void QP::ParserConfiguration::loadConfigurationResource(QP::ParserConfiguration 
         if (os_log_type_enabled(configLogger(void)::log, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v43 = v21;
+          v42 = v21;
           _os_log_impl(&dword_1C6584000, v23, OS_LOG_TYPE_INFO, "QueryParser: expected %@ lexicon version (error)", buf, 0xCu);
         }
 
@@ -2455,7 +2448,7 @@ void QP::ParserConfiguration::loadConfigurationResource(QP::ParserConfiguration 
     {
       v25 = CFDictionaryGetValue(v24, @"Version");
       v26 = CFNumberCreate(*v14, kCFNumberCFIndexType, &QPPARSER_MIN_RULES_VERSION);
-      v40[0] = v26;
+      v39[0] = v26;
       if (configLogger(void)::token != -1)
       {
         QP::ParserConfiguration::setCustomFieldSpecifications();
@@ -2465,7 +2458,7 @@ void QP::ParserConfiguration::loadConfigurationResource(QP::ParserConfiguration 
       if (os_log_type_enabled(configLogger(void)::log, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v43 = v25;
+        v42 = v25;
         _os_log_impl(&dword_1C6584000, v27, OS_LOG_TYPE_INFO, "QueryParser: loading %@ rules version", buf, 0xCu);
       }
 
@@ -2480,7 +2473,7 @@ void QP::ParserConfiguration::loadConfigurationResource(QP::ParserConfiguration 
         if (os_log_type_enabled(configLogger(void)::log, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v43 = v26;
+          v42 = v26;
           _os_log_impl(&dword_1C6584000, v28, OS_LOG_TYPE_INFO, "QueryParser: expected %@ rules version (error)", buf, 0xCu);
         }
 
@@ -2522,8 +2515,8 @@ LABEL_60:
         v32 = configLogger(void)::log;
         if (os_log_type_enabled(configLogger(void)::log, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v40[0]) = 0;
-          _os_log_impl(&dword_1C6584000, v32, OS_LOG_TYPE_INFO, "QueryParser: suggestions enabled", v40, 2u);
+          LOWORD(v39[0]) = 0;
+          _os_log_impl(&dword_1C6584000, v32, OS_LOG_TYPE_INFO, "QueryParser: suggestions enabled", v39, 2u);
         }
       }
     }
@@ -2556,7 +2549,7 @@ LABEL_60:
         goto LABEL_81;
       }
 
-      LOWORD(v40[0]) = 0;
+      LOWORD(v39[0]) = 0;
       v36 = "QueryParser: private parsing enabled";
     }
 
@@ -2573,11 +2566,11 @@ LABEL_60:
         goto LABEL_81;
       }
 
-      LOWORD(v40[0]) = 0;
+      LOWORD(v39[0]) = 0;
       v36 = "QueryParser: parsing enabled";
     }
 
-    _os_log_impl(&dword_1C6584000, v35, OS_LOG_TYPE_INFO, v36, v40, 2u);
+    _os_log_impl(&dword_1C6584000, v35, OS_LOG_TYPE_INFO, v36, v39, 2u);
 LABEL_81:
     if (CFDictionaryContainsKey(v7, @"SpaceDelimited"))
     {
@@ -2615,9 +2608,6 @@ LABEL_81:
 LABEL_85:
     CFRelease(v7);
   }
-
-LABEL_86:
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C65DB7E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
@@ -2710,9 +2700,9 @@ LABEL_11:
   return 1;
 }
 
-void sub_1C65DBAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65DBAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -2886,9 +2876,9 @@ LABEL_17:
   return (v14 & 1) == 0;
 }
 
-void sub_1C65DBF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65DBF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -2948,9 +2938,9 @@ LABEL_11:
   return result;
 }
 
-void sub_1C65DC078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65DC078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -3037,12 +3027,12 @@ os_log_t ___ZL12configLoggerv_block_invoke()
   return result;
 }
 
-uint64_t std::list<QP::Subscriber *>::remove(uint64_t a1, void *a2)
+uint64_t std::list<QP::Subscriber *>::remove(void *a1, void *a2)
 {
   v11[0] = v11;
   v11[1] = v11;
   v12 = 0;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (v2 == a1)
   {
     v9 = 0;
@@ -3096,9 +3086,9 @@ uint64_t std::list<QP::Subscriber *>::remove(uint64_t a1, void *a2)
   return v9;
 }
 
-void sub_1C65DC474(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65DC474(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<QP::Subscriber *>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -3678,297 +3668,290 @@ LABEL_12:
 
 void QP::ParserGrammar::loadResources(QP::ParserGrammar *this, BOOL a2, __CFError **a3, __CFError **a4)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v4 = *(this + 5);
-  if (!v4)
+  if (v4)
   {
-    goto LABEL_27;
-  }
-
-  if (!*(v4 + 184))
-  {
-    goto LABEL_27;
-  }
-
-  v6 = *(this + 7);
-  if (!v6)
-  {
-    goto LABEL_27;
-  }
-
-  v50 = 0;
-  v8 = nlp::createDictionaryWithContentsOfURL(v6, &v50, a3, a4);
-  v49 = v8;
-  if (v50)
-  {
-    CFRelease(v50);
-LABEL_6:
-    Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v10 = Mutable;
-    v11 = *(this + 5);
-    v12 = *(v11 + 184);
-    if (v12)
+    if (*(v4 + 184))
     {
-      CFDictionarySetValue(Mutable, kQPQueryParserOptionContextIdentifierKey, v12);
-      v11 = *(this + 5);
-    }
-
-    v13 = *(v11 + 112);
-    if (v13)
-    {
-      CFDictionarySetValue(v10, kQPQueryParserOptionLocaleKey, v13);
-      v11 = *(this + 5);
-    }
-
-    v14 = *(v11 + 168);
-    if (v14)
-    {
-      CFDictionarySetValue(v10, kQPQueryParserOptionPreferredLanguagesKey, v14);
-      v11 = *(this + 5);
-    }
-
-    v15 = *(v11 + 96);
-    if (v15)
-    {
-      CFDictionarySetValue(v10, kQPQueryParserOptionReferenceCalendarKey, v15);
-      v11 = *(this + 5);
-    }
-
-    v16 = *(v11 + 80);
-    if (v16)
-    {
-      CFDictionarySetValue(v10, kQPQueryParserOptionReferenceDateKey, v16);
-      v11 = *(this + 5);
-    }
-
-    if (*(v11 + 23) == 1)
-    {
-      CFDictionarySetValue(v10, kQPQueryParserOptionIgnoreFutureDatesKey, *MEMORY[0x1E695E4D0]);
-      v11 = *(this + 5);
-    }
-
-    if (*(v11 + 24) == 1)
-    {
-      CFDictionarySetValue(v10, kQPQueryParserOptionIgnorePastDatesKey, *MEMORY[0x1E695E4D0]);
-      v11 = *(this + 5);
-    }
-
-    if (*(v11 + 26) == 1)
-    {
-      CFDictionarySetValue(v10, kQPQueryParserOptionResolveDatesInFutureKey, *MEMORY[0x1E695E4D0]);
-      v11 = *(this + 5);
-    }
-
-    if (*(v11 + 27) == 1)
-    {
-      CFDictionarySetValue(v10, kQPQueryParserOptionResolveDatesInPastKey, *MEMORY[0x1E695E4D0]);
-    }
-
-    nlp::CFScopedPtr<__CFDictionary const*>::reset(this, v10);
-    goto LABEL_25;
-  }
-
-  if (!v8)
-  {
-    goto LABEL_6;
-  }
-
-  v18 = CFURLGetString(*(this + 7));
-  HasSuffix = CFStringHasSuffix(v18, @".bplist");
-  if (!HasSuffix || !QP::bplistMissingAnything(v49, v19))
-  {
-    if (grammarLogger(void)::token != -1)
-    {
-      QP::ParserGrammar::loadParserGrammarResource();
-    }
-
-    v21 = grammarLogger(void)::log;
-    if (os_log_type_enabled(grammarLogger(void)::log, OS_LOG_TYPE_INFO))
-    {
-      v22 = CFURLGetString(*(this + 7));
-      CStringPtr = CFStringGetCStringPtr(v22, 0x8000100u);
-      LODWORD(buf) = 136315138;
-      *(&buf + 4) = CStringPtr;
-      _os_log_impl(&dword_1C6584000, v21, OS_LOG_TYPE_INFO, "Processing plist loaded fromProcessing plist loaded from %s", &buf, 0xCu);
-    }
-
-    if (_os_feature_enabled_impl() && (Count = CFDictionaryGetCount(v49), HasSuffix) && Count == 1)
-    {
-      QP::ParserGrammar::loadUTIs(this, v49, *(*(this + 5) + 184));
-      v25 = (*(this + 5) + 184);
-    }
-
-    else
-    {
-      v25 = &kQPParseAttributeQueryParserContextIdentifier;
-      QP::ParserGrammar::loadUTIs(this, v49, kQPParseAttributeQueryParserContextIdentifier);
-    }
-
-    QP::ParserGrammar::loadFileExtensions(this, v49, *v25);
-    QP::ParserGrammar::loadCFG(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadAttributes(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadValues(this, v49, *(*(this + 5) + 184));
-    if (_os_feature_enabled_impl() && CFDictionaryGetCount(v49) == 1 && HasSuffix && (v26 = *(this + 5), *(v26 + 16) == 1))
-    {
-      v27 = (v26 + 184);
-    }
-
-    else
-    {
-      if (!CFDictionaryContainsKey(v49, kQPParseAttributeSpotlightContextIdentifier) || *(*(this + 5) + 16) != 1)
+      v6 = *(this + 7);
+      if (v6)
       {
-        goto LABEL_50;
-      }
-
-      v27 = &kQPParseAttributeSpotlightContextIdentifier;
-    }
-
-    Value = CFDictionaryGetValue(v49, *v27);
-    QP::ParserGrammar::loadCategories(this, Value);
-LABEL_50:
-    QP::ParserGrammar::loadTokens(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadProperties(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadActions(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadIntentActions(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadU2ArgActions(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadLLMArgsMap(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadTranslations(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadIgnoredTerms(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadReplacements(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadLLMStatusActionMap(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadAttributeImpactGroup(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadLLMRankingArgsMap(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadRankingTranslations(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadRankingPhraseWeights(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadRankingWeights(this, v49, *(*(this + 5) + 184));
-    QP::ParserGrammar::loadImpactGroupCoefficients(this, v49, *(*(this + 5) + 184));
-    if (_os_feature_enabled_impl() && (v29 = CFDictionaryGetCount(v49), HasSuffix) && v29 == 1)
-    {
-      v30 = CFDictionaryGetValue(v49, *(*(this + 5) + 184));
-      v31 = v30;
-      if (v30)
-      {
-        v32 = CFGetTypeID(v30);
-        if (v32 == CFDictionaryGetTypeID())
+        v49 = 0;
+        v8 = nlp::createDictionaryWithContentsOfURL(v6, &v49, a3, a4);
+        v48 = v8;
+        if (v49)
         {
-          v33 = *(this + 1);
-          if (v33)
+          CFRelease(v49);
+LABEL_6:
+          Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+          v10 = Mutable;
+          v11 = *(this + 5);
+          v12 = *(v11 + 184);
+          if (v12)
           {
-            nlp::BurstTrieRelease(v33);
-            *(this + 1) = 0;
+            CFDictionarySetValue(Mutable, kQPQueryParserOptionContextIdentifierKey, v12);
+            v11 = *(this + 5);
           }
 
-          QP::loadCompletionsFromPlist(v31, (this + 8), this + 2, this + 3, this + 4);
+          v13 = *(v11 + 112);
+          if (v13)
+          {
+            CFDictionarySetValue(v10, kQPQueryParserOptionLocaleKey, v13);
+            v11 = *(this + 5);
+          }
+
+          v14 = *(v11 + 168);
+          if (v14)
+          {
+            CFDictionarySetValue(v10, kQPQueryParserOptionPreferredLanguagesKey, v14);
+            v11 = *(this + 5);
+          }
+
+          v15 = *(v11 + 96);
+          if (v15)
+          {
+            CFDictionarySetValue(v10, kQPQueryParserOptionReferenceCalendarKey, v15);
+            v11 = *(this + 5);
+          }
+
+          v16 = *(v11 + 80);
+          if (v16)
+          {
+            CFDictionarySetValue(v10, kQPQueryParserOptionReferenceDateKey, v16);
+            v11 = *(this + 5);
+          }
+
+          if (*(v11 + 23) == 1)
+          {
+            CFDictionarySetValue(v10, kQPQueryParserOptionIgnoreFutureDatesKey, *MEMORY[0x1E695E4D0]);
+            v11 = *(this + 5);
+          }
+
+          if (*(v11 + 24) == 1)
+          {
+            CFDictionarySetValue(v10, kQPQueryParserOptionIgnorePastDatesKey, *MEMORY[0x1E695E4D0]);
+            v11 = *(this + 5);
+          }
+
+          if (*(v11 + 26) == 1)
+          {
+            CFDictionarySetValue(v10, kQPQueryParserOptionResolveDatesInFutureKey, *MEMORY[0x1E695E4D0]);
+            v11 = *(this + 5);
+          }
+
+          if (*(v11 + 27) == 1)
+          {
+            CFDictionarySetValue(v10, kQPQueryParserOptionResolveDatesInPastKey, *MEMORY[0x1E695E4D0]);
+          }
+
+          nlp::CFScopedPtr<__CFDictionary const*>::reset(this, v10);
+          goto LABEL_25;
         }
-      }
-    }
 
-    else
-    {
-      v34 = *(this + 1);
-      if (!v34)
-      {
-        nlp::BurstTrieCreateMutableWithOptions(32, 0);
-        v34 = v35;
-        *(this + 1) = v35;
-      }
+        if (!v8)
+        {
+          goto LABEL_6;
+        }
 
-      v36 = *(this + 5);
-      BundleWithIdentifier = *(v36 + 200);
-      if (BundleWithIdentifier)
-      {
-        BundleWithIdentifier = CFBundleGetBundleWithIdentifier(BundleWithIdentifier);
-        v36 = *(this + 5);
-        v34 = *(this + 1);
-      }
+        v17 = CFURLGetString(*(this + 7));
+        HasSuffix = CFStringHasSuffix(v17, @".bplist");
+        if (HasSuffix && QP::bplistMissingAnything(v48, v18))
+        {
+          nlp::CFScopedPtr<__CFDictionary const*>::reset(&v48, 0);
+          QP::ParserGrammar::fallbackToCFG(this, a2);
+LABEL_25:
+          if (v48)
+          {
+            CFRelease(v48);
+          }
 
-      if (*(v36 + 8) == 2)
-      {
-        v38 = @"Mail";
-      }
+          return;
+        }
 
-      else
-      {
-        v38 = @"Search";
-      }
+        if (grammarLogger(void)::token != -1)
+        {
+          QP::ParserGrammar::loadParserGrammarResource();
+        }
 
-      QP::generateCompletions(BundleWithIdentifier, v38, *(v36 + 144), *(v36 + 112), v34, this + 2, this + 3, this + 4);
-    }
+        v20 = grammarLogger(void)::log;
+        if (os_log_type_enabled(grammarLogger(void)::log, OS_LOG_TYPE_INFO))
+        {
+          v21 = CFURLGetString(*(this + 7));
+          CStringPtr = CFStringGetCStringPtr(v21, 0x8000100u);
+          LODWORD(buf) = 136315138;
+          *(&buf + 4) = CStringPtr;
+          _os_log_impl(&dword_1C6584000, v20, OS_LOG_TYPE_INFO, "Processing plist loaded fromProcessing plist loaded from %s", &buf, 0xCu);
+        }
 
-    if (!a2)
-    {
-      QP::ParserGrammar::loadSuggestions(this, v49, *(*(this + 5) + 184));
-      QP::ParserGrammar::loadCompletions(this, v49, *(*(this + 5) + 184));
-    }
+        if (_os_feature_enabled_impl() && (Count = CFDictionaryGetCount(v48), HasSuffix) && Count == 1)
+        {
+          QP::ParserGrammar::loadUTIs(this, v48, *(*(this + 5) + 184));
+          v24 = (*(this + 5) + 184);
+        }
 
-    v39 = *(this + 5);
-    v40 = *(v39 + 232);
-    if (!v40)
-    {
-      goto LABEL_6;
-    }
+        else
+        {
+          v24 = &kQPParseAttributeQueryParserContextIdentifier;
+          QP::ParserGrammar::loadUTIs(this, v48, kQPParseAttributeQueryParserContextIdentifier);
+        }
 
-    v41 = CFDictionaryGetCount(*(v39 + 232));
-    MEMORY[0x1EEE9AC00](v41);
-    v43 = (v48 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0));
-    bzero(v43, v42);
-    CFDictionaryGetKeysAndValues(v40, v43, 0);
-    if (v41 < 1)
-    {
-      goto LABEL_6;
-    }
+        QP::ParserGrammar::loadFileExtensions(this, v48, *v24);
+        QP::ParserGrammar::loadCFG(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadAttributes(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadValues(this, v48, *(*(this + 5) + 184));
+        if (_os_feature_enabled_impl() && CFDictionaryGetCount(v48) == 1 && HasSuffix && (v25 = *(this + 5), *(v25 + 16) == 1))
+        {
+          v26 = (v25 + 184);
+        }
 
-    v44 = *MEMORY[0x1E695E480];
-    while (1)
-    {
-      MutableCopy = CFStringCreateMutableCopy(v44, 0, *v43);
-      v48[1] = MutableCopy;
-      CFStringLowercase(MutableCopy, *(*(this + 5) + 112));
-      buf = 0uLL;
-      v52 = 0;
-      QP::getUTF8StringFromCFString(MutableCopy, &buf);
-      v46 = v52 >= 0 ? &buf : buf;
-      v47 = v52 >= 0 ? HIBYTE(v52) : DWORD2(buf);
-      nlp::BurstTrieAdd(*(this + 1), v46, v47, 1);
-      if ((SHIBYTE(v52) & 0x80000000) == 0)
-      {
-        break;
-      }
+        else
+        {
+          if (!CFDictionaryContainsKey(v48, kQPParseAttributeSpotlightContextIdentifier) || *(*(this + 5) + 16) != 1)
+          {
+            goto LABEL_50;
+          }
 
-      operator delete(buf);
-      if (MutableCopy)
-      {
-        goto LABEL_81;
-      }
+          v26 = &kQPParseAttributeSpotlightContextIdentifier;
+        }
+
+        Value = CFDictionaryGetValue(v48, *v26);
+        QP::ParserGrammar::loadCategories(this, Value);
+LABEL_50:
+        QP::ParserGrammar::loadTokens(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadProperties(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadActions(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadIntentActions(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadU2ArgActions(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadLLMArgsMap(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadTranslations(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadIgnoredTerms(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadReplacements(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadLLMStatusActionMap(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadAttributeImpactGroup(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadLLMRankingArgsMap(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadRankingTranslations(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadRankingPhraseWeights(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadRankingWeights(this, v48, *(*(this + 5) + 184));
+        QP::ParserGrammar::loadImpactGroupCoefficients(this, v48, *(*(this + 5) + 184));
+        if (_os_feature_enabled_impl() && (v28 = CFDictionaryGetCount(v48), HasSuffix) && v28 == 1)
+        {
+          v29 = CFDictionaryGetValue(v48, *(*(this + 5) + 184));
+          v30 = v29;
+          if (v29)
+          {
+            v31 = CFGetTypeID(v29);
+            if (v31 == CFDictionaryGetTypeID())
+            {
+              v32 = *(this + 1);
+              if (v32)
+              {
+                nlp::BurstTrieRelease(v32);
+                *(this + 1) = 0;
+              }
+
+              QP::loadCompletionsFromPlist(v30, (this + 8), this + 2, this + 3, this + 4);
+            }
+          }
+        }
+
+        else
+        {
+          v33 = *(this + 1);
+          if (!v33)
+          {
+            nlp::BurstTrieCreateMutableWithOptions(32, 0);
+            v33 = v34;
+            *(this + 1) = v34;
+          }
+
+          v35 = *(this + 5);
+          BundleWithIdentifier = *(v35 + 200);
+          if (BundleWithIdentifier)
+          {
+            BundleWithIdentifier = CFBundleGetBundleWithIdentifier(BundleWithIdentifier);
+            v35 = *(this + 5);
+            v33 = *(this + 1);
+          }
+
+          if (*(v35 + 8) == 2)
+          {
+            v37 = @"Mail";
+          }
+
+          else
+          {
+            v37 = @"Search";
+          }
+
+          QP::generateCompletions(BundleWithIdentifier, v37, *(v35 + 144), *(v35 + 112), v33, this + 2, this + 3, this + 4);
+        }
+
+        if (!a2)
+        {
+          QP::ParserGrammar::loadSuggestions(this, v48, *(*(this + 5) + 184));
+          QP::ParserGrammar::loadCompletions(this, v48, *(*(this + 5) + 184));
+        }
+
+        v38 = *(this + 5);
+        v39 = *(v38 + 232);
+        if (!v39)
+        {
+          goto LABEL_6;
+        }
+
+        v40 = CFDictionaryGetCount(*(v38 + 232));
+        MEMORY[0x1EEE9AC00](v40);
+        v42 = (v47 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0));
+        bzero(v42, v41);
+        CFDictionaryGetKeysAndValues(v39, v42, 0);
+        if (v40 < 1)
+        {
+          goto LABEL_6;
+        }
+
+        v43 = *MEMORY[0x1E695E480];
+        while (1)
+        {
+          MutableCopy = CFStringCreateMutableCopy(v43, 0, *v42);
+          v47[1] = MutableCopy;
+          CFStringLowercase(MutableCopy, *(*(this + 5) + 112));
+          buf = 0uLL;
+          v51 = 0;
+          QP::getUTF8StringFromCFString(&buf, MutableCopy);
+          v45 = v51 >= 0 ? &buf : buf;
+          v46 = v51 >= 0 ? HIBYTE(v51) : DWORD2(buf);
+          nlp::BurstTrieAdd(*(this + 1), v45, v46, 1);
+          if ((SHIBYTE(v51) & 0x80000000) == 0)
+          {
+            break;
+          }
+
+          operator delete(buf);
+          if (MutableCopy)
+          {
+            goto LABEL_81;
+          }
 
 LABEL_82:
-      ++v43;
-      if (!--v41)
-      {
-        goto LABEL_6;
-      }
-    }
+          ++v42;
+          if (!--v40)
+          {
+            goto LABEL_6;
+          }
+        }
 
-    if (!MutableCopy)
-    {
-      goto LABEL_82;
-    }
+        if (!MutableCopy)
+        {
+          goto LABEL_82;
+        }
 
 LABEL_81:
-    CFRelease(MutableCopy);
-    goto LABEL_82;
+        CFRelease(MutableCopy);
+        goto LABEL_82;
+      }
+    }
   }
-
-  nlp::CFScopedPtr<__CFDictionary const*>::reset(&v49, 0);
-  QP::ParserGrammar::fallbackToCFG(this, a2);
-LABEL_25:
-  if (v49)
-  {
-    CFRelease(v49);
-  }
-
-LABEL_27:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t QP::ParserGrammar::loadCFG(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
@@ -3982,37 +3965,37 @@ uint64_t QP::ParserGrammar::loadCFG(QP::ParserGrammar *this, CFDictionaryRef the
     if (result)
     {
       v8 = CFDictionaryGetValue(Value, @"CFG");
-      v26 = &v26;
+      v25 = &v25;
       Count = CFDictionaryGetCount(v8);
       MEMORY[0x1EEE9AC00](Count);
-      v10 = (&v26 - v9);
-      bzero(&v26 - v9, v11);
-      v27 = v10;
-      v28 = v8;
+      v10 = (&v25 - v9);
+      bzero(&v25 - v9, v11);
+      v26 = v10;
+      v27 = v8;
       CFDictionaryGetKeysAndValues(v8, v10, 0);
       if (Count >= 1)
       {
         v12 = 0;
         do
         {
-          v31 = v12;
-          v13 = v27[v12];
-          v33 = CFDictionaryGetValue(v28, v13);
-          v32 = CFDictionaryGetCount(v33);
-          v30 = &v26;
-          MEMORY[0x1EEE9AC00](v32);
-          v15 = &v26 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v30 = v12;
+          v13 = v26[v12];
+          v32 = CFDictionaryGetValue(v27, v13);
+          v31 = CFDictionaryGetCount(v32);
+          v29 = &v25;
+          MEMORY[0x1EEE9AC00](v31);
+          v15 = &v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
           bzero(v15, v14);
-          CFDictionaryGetKeysAndValues(v33, v15, 0);
-          if (v32 >= 1)
+          CFDictionaryGetKeysAndValues(v32, v15, 0);
+          if (v31 >= 1)
           {
-            for (i = 0; i != v32; ++i)
+            for (i = 0; i != v31; ++i)
             {
               v17 = *&v15[8 * i];
-              v18 = CFDictionaryGetValue(v33, v17);
+              v18 = CFDictionaryGetValue(v32, v17);
               v19 = CFDictionaryGetCount(v18);
               MEMORY[0x1EEE9AC00](v19);
-              v21 = (&v26 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0));
+              v21 = (&v25 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0));
               bzero(v21, v20);
               CFDictionaryGetKeysAndValues(v18, v21, 0);
               if (v19 >= 1)
@@ -4023,24 +4006,24 @@ uint64_t QP::ParserGrammar::loadCFG(QP::ParserGrammar *this, CFDictionaryRef the
                   v23 = CFDictionaryGetValue(v18, *v21);
                   valuePtr[0] = 0.0;
                   CFNumberGetValue(v23, kCFNumberDoubleType, valuePtr);
-                  QP::getUTF8StringFromCFString(v13, v38);
-                  QP::getUTF8StringFromCFString(v17, v36);
-                  QP::getUTF8StringFromCFString(v22, v34);
+                  QP::getUTF8StringFromCFString(v37, v13);
+                  QP::getUTF8StringFromCFString(v35, v17);
+                  QP::getUTF8StringFromCFString(v33, v22);
                   v24 = valuePtr[0];
-                  QP::ParserGrammar::addRule(this, v38, v36, v34, v24);
-                  if (v35 < 0)
+                  QP::ParserGrammar::addRule(this, v37, v35, v33, v24);
+                  if (v34 < 0)
                   {
-                    operator delete(v34[0]);
+                    operator delete(v33[0]);
                   }
 
-                  if (v37 < 0)
+                  if (v36 < 0)
                   {
-                    operator delete(v36[0]);
+                    operator delete(v35[0]);
                   }
 
-                  if (v39 < 0)
+                  if (v38 < 0)
                   {
-                    operator delete(v38[0]);
+                    operator delete(v37[0]);
                   }
 
                   ++v21;
@@ -4052,17 +4035,16 @@ uint64_t QP::ParserGrammar::loadCFG(QP::ParserGrammar *this, CFDictionaryRef the
             }
           }
 
-          v12 = v31 + 1;
+          v12 = v30 + 1;
         }
 
-        while (v31 + 1 != Count);
+        while (v30 + 1 != Count);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4114,7 +4096,7 @@ LABEL_9:
     v51 = 0;
     v52 = 0;
     v50 = &v51;
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(a1 + 1008, &v49);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(a1 + 1008, &v49, &v49);
     std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::destroy(&v50, v51);
     std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::destroy(&v46, v47);
     v14 = *v13;
@@ -4238,7 +4220,7 @@ LABEL_48:
     v51 = 0;
     v52 = 0;
     v50 = &v51;
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(v34 + 40, &v49);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(v34 + 40, &v49, &v49);
     std::__tree<unsigned int>::destroy(&v50, v51);
     std::__tree<unsigned int>::destroy(&v46, v47);
     v14 = *v13;
@@ -4306,13 +4288,13 @@ LABEL_66:
   }
 
   v49 = v12 | (LODWORD(a5) << 32);
-  std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,float>>(v43 + 40, &v49);
+  std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,float>>(v43 + 40, &v49, &v49);
   QP::ParserGrammar::setModifier(a1, a2);
   QP::ParserGrammar::setModifier(a1, a3);
   QP::ParserGrammar::setModifier(a1, a4);
 }
 
-void sub_1C65DE5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15)
+void sub_1C65DE5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15)
 {
   std::__tree<unsigned int>::destroy(v15 + 8, a15);
   std::__tree<unsigned int>::destroy(&a10, a11);
@@ -4321,7 +4303,7 @@ void sub_1C65DE5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t QP::ParserGrammar::loadUTIs(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -4331,9 +4313,9 @@ uint64_t QP::ParserGrammar::loadUTIs(QP::ParserGrammar *this, CFDictionaryRef th
     {
       v8 = CFDictionaryGetValue(Value, @"UTI-CORE");
       Count = CFDictionaryGetCount(v8);
-      v19 = &v19;
+      v18 = &v18;
       MEMORY[0x1EEE9AC00](Count);
-      v10 = &v20[-1] - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0);
+      v10 = &v19[-1] - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v10, 8 * Count);
       MEMORY[0x1EEE9AC00](v11);
       bzero(v10, 8 * Count);
@@ -4350,28 +4332,27 @@ uint64_t QP::ParserGrammar::loadUTIs(QP::ParserGrammar *this, CFDictionaryRef th
             for (j = 0; j != v15; ++j)
             {
               ValueAtIndex = CFArrayGetValueAtIndex(v14, j);
-              QP::getUTF8StringFromCFString(v13, v22);
-              QP::getUTF8StringFromCFString(ValueAtIndex, v20);
-              QP::ParserGrammar::addUTI(this, v22, v20);
-              if (v21 < 0)
+              QP::getUTF8StringFromCFString(v21, v13);
+              QP::getUTF8StringFromCFString(v19, ValueAtIndex);
+              QP::ParserGrammar::addUTI(this, v21, v19);
+              if (v20 < 0)
               {
-                operator delete(v20[0]);
+                operator delete(v19[0]);
               }
 
-              if (v23 < 0)
+              if (v22 < 0)
               {
-                operator delete(v22[0]);
+                operator delete(v21[0]);
               }
             }
           }
         }
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4385,7 +4366,7 @@ void sub_1C65DE7D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t QP::ParserGrammar::addUTI(uint64_t a1, uint64_t a2, void **a3)
+void *QP::ParserGrammar::addUTI(uint64_t a1, uint64_t a2, uint64_t ***a3)
 {
   SymbolID = QP::ParserGrammar::getSymbolID(a1, a2);
   v6 = SymbolID;
@@ -4401,7 +4382,7 @@ uint64_t QP::ParserGrammar::addUTI(uint64_t a1, uint64_t a2, void **a3)
   v11 = v7;
   do
   {
-    v12 = *(v11 + 32);
+    v12 = *(v11 + 16);
     v13 = v12 >= SymbolID;
     v14 = v12 < SymbolID;
     if (v13)
@@ -4409,7 +4390,7 @@ uint64_t QP::ParserGrammar::addUTI(uint64_t a1, uint64_t a2, void **a3)
       v10 = v11;
     }
 
-    v11 = *(v11 + 8 * v14);
+    v11 = v11[v14];
   }
 
   while (v11);
@@ -4423,7 +4404,7 @@ LABEL_9:
     v23[0] = 0;
     v23[1] = 0;
     v22 = v23;
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>((v8 - 1), &v21);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>((v8 - 1), &v21, &v21);
     std::__tree<std::string>::destroy(&v22, v23[0]);
     std::__tree<std::string>::destroy(&v19, v20[0]);
     v7 = *v8;
@@ -4437,7 +4418,7 @@ LABEL_9:
   v15 = v8;
   do
   {
-    v16 = *(v7 + 32);
+    v16 = *(v7 + 16);
     v13 = v16 >= v6;
     v17 = v16 < v6;
     if (v13)
@@ -4445,7 +4426,7 @@ LABEL_9:
       v15 = v7;
     }
 
-    v7 = *(v7 + 8 * v17);
+    v7 = v7[v17];
   }
 
   while (v7);
@@ -4455,10 +4436,10 @@ LABEL_18:
     v15 = v8;
   }
 
-  return std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>((v15 + 5), a3);
+  return std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v15 + 5, a3, a3);
 }
 
-void sub_1C65DE91C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, char *a11, uint64_t a12, uint64_t a13, uint64_t a14, char *a15)
+void sub_1C65DE91C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char *a11, uint64_t a12, uint64_t a13, uint64_t a14, char *a15)
 {
   std::__tree<std::string>::destroy(v15 + 8, a15);
   std::__tree<std::string>::destroy(&a10, a11);
@@ -4467,7 +4448,7 @@ void sub_1C65DE91C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t QP::ParserGrammar::loadLLMArgsMap(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -4476,37 +4457,37 @@ uint64_t QP::ParserGrammar::loadLLMArgsMap(QP::ParserGrammar *this, CFDictionary
     if (result)
     {
       v8 = CFDictionaryGetValue(Value, @"LLMARGSMAP");
-      v27[1] = v27;
+      v26[1] = v26;
       Count = CFDictionaryGetCount(v8);
       v9 = 8 * Count;
       MEMORY[0x1EEE9AC00](Count);
-      v10 = v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v10 = v26 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v10, v9);
       MEMORY[0x1EEE9AC00](v11);
       bzero(v10, v9);
-      v29 = v10;
       v28 = v10;
+      v27 = v10;
       CFDictionaryGetKeysAndValues(v8, v10, v10);
       if (Count >= 1)
       {
         v12 = 0;
         do
         {
-          v13 = *&v29[8 * v12];
-          v32 = v12;
-          v14 = *&v28[8 * v12];
-          v33 = CFDictionaryGetCount(v14);
-          v31 = v27;
-          v15 = 8 * v33;
-          MEMORY[0x1EEE9AC00](v33);
-          v16 = v27 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v13 = *&v28[8 * v12];
+          v31 = v12;
+          v14 = *&v27[8 * v12];
+          v32 = CFDictionaryGetCount(v14);
+          v30 = v26;
+          v15 = 8 * v32;
+          MEMORY[0x1EEE9AC00](v32);
+          v16 = v26 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
           bzero(v16, v15);
           MEMORY[0x1EEE9AC00](v17);
           bzero(v16, v15);
           CFDictionaryGetKeysAndValues(v14, v16, v16);
-          if (v33 >= 1)
+          if (v32 >= 1)
           {
-            for (i = 0; i != v33; ++i)
+            for (i = 0; i != v32; ++i)
             {
               v19 = *&v16[8 * i];
               v20 = v19;
@@ -4520,23 +4501,23 @@ uint64_t QP::ParserGrammar::loadLLMArgsMap(QP::ParserGrammar *this, CFDictionary
                   do
                   {
                     ValueAtIndex = CFArrayGetValueAtIndex(v20, v23);
-                    QP::getUTF8StringFromCFString(v13, &v38);
-                    QP::getUTF8StringFromCFString(v19, v36);
-                    QP::getUTF8StringFromCFString(ValueAtIndex, v34);
-                    QP::ParserGrammar::addLLMArgMap(this, &v38, v36, v34);
-                    if (v35 < 0)
+                    QP::getUTF8StringFromCFString(&v37, v13);
+                    QP::getUTF8StringFromCFString(v35, v19);
+                    QP::getUTF8StringFromCFString(v33, ValueAtIndex);
+                    QP::ParserGrammar::addLLMArgMap(this, &v37, v35, v33);
+                    if (v34 < 0)
                     {
-                      operator delete(v34[0]);
+                      operator delete(v33[0]);
                     }
 
-                    if (v37 < 0)
+                    if (v36 < 0)
                     {
-                      operator delete(v36[0]);
+                      operator delete(v35[0]);
                     }
 
-                    if (v39 < 0)
+                    if (v38 < 0)
                     {
-                      operator delete(v38);
+                      operator delete(v37);
                     }
 
                     ++v23;
@@ -4549,39 +4530,38 @@ uint64_t QP::ParserGrammar::loadLLMArgsMap(QP::ParserGrammar *this, CFDictionary
               else
               {
                 v25 = CFStringCreateWithCString(0, "", 0x8000100u);
-                QP::getUTF8StringFromCFString(v13, &v44);
-                QP::getUTF8StringFromCFString(v19, v42);
-                QP::getUTF8StringFromCFString(v25, v40);
-                QP::ParserGrammar::addLLMArgMap(this, &v44, v42, v40);
-                if (v41 < 0)
+                QP::getUTF8StringFromCFString(&v43, v13);
+                QP::getUTF8StringFromCFString(v41, v19);
+                QP::getUTF8StringFromCFString(v39, v25);
+                QP::ParserGrammar::addLLMArgMap(this, &v43, v41, v39);
+                if (v40 < 0)
                 {
-                  operator delete(v40[0]);
+                  operator delete(v39[0]);
                 }
 
-                if (v43 < 0)
+                if (v42 < 0)
                 {
-                  operator delete(v42[0]);
+                  operator delete(v41[0]);
                 }
 
-                if (v45 < 0)
+                if (v44 < 0)
                 {
-                  operator delete(v44);
+                  operator delete(v43);
                 }
               }
             }
           }
 
-          v12 = v32 + 1;
+          v12 = v31 + 1;
         }
 
-        while (v32 + 1 != Count);
+        while (v31 + 1 != Count);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4605,7 +4585,7 @@ void sub_1C65DECE0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t QP::ParserGrammar::addLLMArgMap(uint64_t a1, __int128 *a2, void **a3, void **a4)
+void *QP::ParserGrammar::addLLMArgMap(uint64_t a1, __int128 *a2, char *a3, uint64_t ***a4)
 {
   if (a1 + 464 == std::__tree<std::string>::find<std::string>(a1 + 456, a2))
   {
@@ -4613,7 +4593,7 @@ uint64_t QP::ParserGrammar::addLLMArgMap(uint64_t a1, __int128 *a2, void **a3, v
     v16 = 0;
     v14 = &v15;
     std::pair<std::string,std::map<std::string,std::set<std::string>>>::pair[abi:ne200100]<std::string const&,std::map<std::string,std::set<std::string>>,0>(&__p, a2, &v14);
-    std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,std::set<std::string>>>>(a1 + 456, &__p.__r_.__value_.__l.__data_);
+    std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<std::string,std::set<std::string>>>>((a1 + 456), &__p, &__p);
     std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::destroy(&v18, v19);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -4622,22 +4602,22 @@ uint64_t QP::ParserGrammar::addLLMArgMap(uint64_t a1, __int128 *a2, void **a3, v
 
     std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::destroy(&v14, v15);
     __p.__r_.__value_.__r.__words[0] = a2;
-    v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 456, a2);
-    v9 = std::__tree<std::string>::find<std::string>(v8 + 56, a3);
+    v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 456), a2, &std::piecewise_construct, &__p, &v14);
+    v9 = std::__tree<std::string>::find<std::string>((v8 + 56), a3);
     __p.__r_.__value_.__r.__words[0] = a2;
-    if (std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 456, a2) + 64 != v9)
+    if (std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 456), a2, &std::piecewise_construct, &__p, &v14) + 64 != v9)
     {
       __p.__r_.__value_.__r.__words[0] = a2;
       goto LABEL_7;
     }
 
     __p.__r_.__value_.__r.__words[0] = a2;
-    v13 = std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 456, a2);
+    v13 = std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 456), a2, &std::piecewise_construct, &__p, &v14);
     v15 = 0;
     v16 = 0;
     v14 = &v15;
     std::pair<std::string,std::map<std::string,std::set<std::string>>>::pair[abi:ne200100]<std::string const&,std::map<std::string,std::set<std::string>>,0>(&__p, a3, &v14);
-    std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::set<std::string>>>(v13 + 56, &__p.__r_.__value_.__l.__data_);
+    std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::set<std::string>>>(v13 + 7, &__p, &__p);
     std::__tree<std::string>::destroy(&v18, v19);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -4649,27 +4629,27 @@ uint64_t QP::ParserGrammar::addLLMArgMap(uint64_t a1, __int128 *a2, void **a3, v
 
   __p.__r_.__value_.__r.__words[0] = a2;
 LABEL_7:
-  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 456, a2);
+  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 456), a2, &std::piecewise_construct, &__p, &v14);
   __p.__r_.__value_.__r.__words[0] = a3;
-  v11 = std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v10 + 56, a3);
-  return std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v11 + 56, a4);
+  v11 = std::__tree<std::__value_type<std::string,std::set<std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v10 + 7, a3, &std::piecewise_construct, &__p, &v14);
+  return std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v11 + 7, a4, a4);
 }
 
-void sub_1C65DEF68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65DEF68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, char *);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, char *);
+  v7 = va_arg(va1, void);
   std::pair<std::string,std::set<std::string>>::~pair(va1);
-  std::__tree<std::string>::destroy(va, v5);
+  std::__tree<std::string>::destroy(va, v6);
   _Unwind_Resume(a1);
 }
 
-uint64_t QP::ParserGrammar::loadLLMRankingArgsMap(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
+uint64_t QP::ParserGrammar::loadLLMRankingArgsMap(uint64_t **this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -4680,7 +4660,7 @@ uint64_t QP::ParserGrammar::loadLLMRankingArgsMap(QP::ParserGrammar *this, CFDic
       v8 = CFDictionaryGetValue(Value, @"LLMRANKINGARGSMAP");
       Count = CFDictionaryGetCount(v8);
       MEMORY[0x1EEE9AC00](Count);
-      v10 = (&v16 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
+      v10 = (&v15 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
       bzero(v10, 8 * Count);
       MEMORY[0x1EEE9AC00](v11);
       v12 = v10;
@@ -4691,19 +4671,19 @@ uint64_t QP::ParserGrammar::loadLLMRankingArgsMap(QP::ParserGrammar *this, CFDic
         do
         {
           v13 = *v12;
-          QP::getUTF8StringFromCFString(*v10, v18);
-          QP::getUTF8StringFromCFString(v13, &__str);
-          v20 = v18;
-          v14 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 480, v18);
+          QP::getUTF8StringFromCFString(v17, *v10);
+          QP::getUTF8StringFromCFString(&__str, v13);
+          v20[0] = v17;
+          v14 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 60, v17, &std::piecewise_construct, v20, &v19);
           std::string::operator=((v14 + 56), &__str);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
-          if (v19 < 0)
+          if (v18 < 0)
           {
-            operator delete(v18[0]);
+            operator delete(v17[0]);
           }
 
           ++v12;
@@ -4714,11 +4694,10 @@ uint64_t QP::ParserGrammar::loadLLMRankingArgsMap(QP::ParserGrammar *this, CFDic
         while (Count);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4732,9 +4711,9 @@ void sub_1C65DF17C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t QP::ParserGrammar::loadLLMStatusActionMap(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
+uint64_t QP::ParserGrammar::loadLLMStatusActionMap(uint64_t **this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -4745,7 +4724,7 @@ uint64_t QP::ParserGrammar::loadLLMStatusActionMap(QP::ParserGrammar *this, CFDi
       v8 = CFDictionaryGetValue(Value, @"LLMENTITYSTATUSARGSACTIONSMAP");
       Count = CFDictionaryGetCount(v8);
       MEMORY[0x1EEE9AC00](Count);
-      v10 = (&v16 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
+      v10 = (&v15 - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
       bzero(v10, 8 * Count);
       MEMORY[0x1EEE9AC00](v11);
       v12 = v10;
@@ -4756,19 +4735,19 @@ uint64_t QP::ParserGrammar::loadLLMStatusActionMap(QP::ParserGrammar *this, CFDi
         do
         {
           v13 = *v12;
-          QP::getUTF8StringFromCFString(*v10, v18);
-          QP::getUTF8StringFromCFString(v13, &__str);
-          v20 = v18;
-          v14 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 504, v18);
+          QP::getUTF8StringFromCFString(v17, *v10);
+          QP::getUTF8StringFromCFString(&__str, v13);
+          v20[0] = v17;
+          v14 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 63, v17, &std::piecewise_construct, v20, &v19);
           std::string::operator=((v14 + 56), &__str);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
-          if (v19 < 0)
+          if (v18 < 0)
           {
-            operator delete(v18[0]);
+            operator delete(v17[0]);
           }
 
           ++v12;
@@ -4779,11 +4758,10 @@ uint64_t QP::ParserGrammar::loadLLMStatusActionMap(QP::ParserGrammar *this, CFDi
         while (Count);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4799,7 +4777,7 @@ void sub_1C65DF380(_Unwind_Exception *exception_object)
 
 uint64_t QP::ParserGrammar::loadIntentActions(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -4812,75 +4790,74 @@ uint64_t QP::ParserGrammar::loadIntentActions(QP::ParserGrammar *this, CFDiction
       if (result)
       {
         v9 = CFDictionaryGetValue(v8, @"ACTIONS");
-        v25[1] = v25;
+        v24[1] = v24;
         Count = CFDictionaryGetCount(v9);
         MEMORY[0x1EEE9AC00](Count);
-        v11 = (v25 - v10);
-        bzero(v25 - v10, v12);
-        v26 = v11;
-        v27 = v9;
+        v11 = (v24 - v10);
+        bzero(v24 - v10, v12);
+        v25 = v11;
+        v26 = v9;
         CFDictionaryGetKeysAndValues(v9, v11, 0);
         if (Count >= 1)
         {
           v13 = 0;
           do
           {
-            v30 = v13;
-            v14 = v26[v13];
-            v31 = CFDictionaryGetValue(v27, v14);
-            v15 = CFDictionaryGetCount(v31);
-            v29 = v25;
+            v29 = v13;
+            v14 = v25[v13];
+            v30 = CFDictionaryGetValue(v26, v14);
+            v15 = CFDictionaryGetCount(v30);
+            v28 = v24;
             MEMORY[0x1EEE9AC00](v15);
-            v17 = v25 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+            v17 = v24 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
             bzero(v17, v16);
-            CFDictionaryGetKeysAndValues(v31, v17, 0);
+            CFDictionaryGetKeysAndValues(v30, v17, 0);
             if (v15 >= 1)
             {
               for (i = 0; i != v15; ++i)
               {
                 v19 = *&v17[8 * i];
-                v20 = CFDictionaryGetValue(v31, v19);
+                v20 = CFDictionaryGetValue(v30, v19);
                 v21 = CFArrayGetCount(v20);
                 if (v21 >= 1)
                 {
                   for (j = 0; j != v21; ++j)
                   {
                     ValueAtIndex = CFArrayGetValueAtIndex(v20, j);
-                    QP::getUTF8StringFromCFString(v14, &v36);
-                    QP::getUTF8StringFromCFString(v19, v34);
-                    QP::getUTF8StringFromCFString(ValueAtIndex, v32);
-                    QP::ParserGrammar::addIntentAction(this, &v36, v34, v32);
-                    if (v33 < 0)
+                    QP::getUTF8StringFromCFString(&v35, v14);
+                    QP::getUTF8StringFromCFString(v33, v19);
+                    QP::getUTF8StringFromCFString(v31, ValueAtIndex);
+                    QP::ParserGrammar::addIntentAction(this, &v35, v33, v31);
+                    if (v32 < 0)
                     {
-                      operator delete(v32[0]);
+                      operator delete(v31[0]);
                     }
 
-                    if (v35 < 0)
+                    if (v34 < 0)
                     {
-                      operator delete(v34[0]);
+                      operator delete(v33[0]);
                     }
 
-                    if (v37 < 0)
+                    if (v36 < 0)
                     {
-                      operator delete(v36);
+                      operator delete(v35);
                     }
                   }
                 }
               }
             }
 
-            v13 = v30 + 1;
+            v13 = v29 + 1;
           }
 
-          while (v30 + 1 != Count);
+          while (v29 + 1 != Count);
         }
 
-        result = 1;
+        return 1;
       }
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4904,7 +4881,7 @@ uint64_t *QP::ParserGrammar::addIntentAction(uint64_t a1, __int128 *a2, uint64_t
     v13 = 0;
     v11 = &v12;
     std::pair<std::string,std::map<std::string,std::set<std::string>>>::pair[abi:ne200100]<std::string const&,std::map<std::string,std::set<std::string>>,0>(&__p, a2, &v11);
-    std::__tree<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::set<unsigned short>>>>(a1 + 408, &__p.__r_.__value_.__l.__data_);
+    std::__tree<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::set<unsigned short>>>>((a1 + 408), &__p, &__p);
     std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::destroy(v15, v15[1]);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -4913,7 +4890,7 @@ uint64_t *QP::ParserGrammar::addIntentAction(uint64_t a1, __int128 *a2, uint64_t
 
     std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::destroy(&v11, v12);
     __p.__r_.__value_.__r.__words[0] = a2;
-    v7 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 408, a2);
+    v7 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 408), a2, &std::piecewise_construct, &__p, &v11);
     v12 = 0;
     v13 = 0;
     v11 = &v12;
@@ -4921,16 +4898,16 @@ uint64_t *QP::ParserGrammar::addIntentAction(uint64_t a1, __int128 *a2, uint64_t
     __p.__r_.__value_.__r.__words[2] = 0;
     v15[0] = 0;
     __p.__r_.__value_.__l.__size_ = &__p.__r_.__value_.__r.__words[2];
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(v7 + 56, &__p);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>((v7 + 7), &__p, &__p);
     std::__tree<unsigned int>::destroy(&__p.__r_.__value_.__l.__size_, __p.__r_.__value_.__r.__words[2]);
     std::__tree<unsigned int>::destroy(&v11, v12);
   }
 
   __p.__r_.__value_.__r.__words[0] = a2;
-  v8 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 408, a2);
+  v8 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::set<unsigned short>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 408), a2, &std::piecewise_construct, &__p, &v11);
   __p.__r_.__value_.__r.__words[0] = &v17;
-  v9 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v8 + 56, &v17);
-  return std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>((v9 + 5), &v16);
+  v9 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v8 + 7), &v17, &std::piecewise_construct, &__p);
+  return std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>((v9 + 5), &v16, &v16);
 }
 
 void sub_1C65DF840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14)
@@ -4942,7 +4919,7 @@ void sub_1C65DF840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t QP::ParserGrammar::loadU2ArgActions(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (CFDictionaryContainsKey(theDict, key))
   {
     Value = CFDictionaryGetValue(theDict, key);
@@ -4950,10 +4927,10 @@ uint64_t QP::ParserGrammar::loadU2ArgActions(QP::ParserGrammar *this, CFDictiona
     {
       v7 = CFDictionaryGetValue(Value, @"U2ARGACTIONS");
       Count = CFDictionaryGetCount(v7);
-      v20 = &v20;
+      v19 = &v19;
       MEMORY[0x1EEE9AC00](Count);
-      v10 = (&v21[-1] - v9);
-      bzero(&v21[-1] - v9, v11);
+      v10 = (&v20[-1] - v9);
+      bzero(&v20[-1] - v9, v11);
       CFDictionaryGetKeysAndValues(v7, v10, 0);
       if (Count >= 1)
       {
@@ -4967,17 +4944,17 @@ uint64_t QP::ParserGrammar::loadU2ArgActions(QP::ParserGrammar *this, CFDictiona
             for (j = 0; j != v15; ++j)
             {
               ValueAtIndex = CFArrayGetValueAtIndex(v14, j);
-              QP::getUTF8StringFromCFString(v13, &v23);
-              QP::getUTF8StringFromCFString(ValueAtIndex, v21);
-              QP::ParserGrammar::addU2ArgAction(this, &v23, v21);
-              if (v22 < 0)
+              QP::getUTF8StringFromCFString(&v22, v13);
+              QP::getUTF8StringFromCFString(v20, ValueAtIndex);
+              QP::ParserGrammar::addU2ArgAction(this, &v22, v20);
+              if (v21 < 0)
               {
-                operator delete(v21[0]);
+                operator delete(v20[0]);
               }
 
-              if (v24 < 0)
+              if (v23 < 0)
               {
-                operator delete(v23);
+                operator delete(v22);
               }
             }
           }
@@ -4986,7 +4963,6 @@ uint64_t QP::ParserGrammar::loadU2ArgActions(QP::ParserGrammar *this, CFDictiona
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -5014,7 +4990,7 @@ uint64_t *QP::ParserGrammar::addU2ArgAction(uint64_t a1, __int128 *a2, uint64_t 
     v8[1] = 0;
     v7 = v8;
     std::pair<std::string,std::map<std::string,std::set<std::string>>>::pair[abi:ne200100]<std::string const&,std::map<std::string,std::set<std::string>>,0>(&__p, a2, &v7);
-    std::__tree<std::__value_type<std::string,std::set<unsigned short>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<unsigned short>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<unsigned short>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::set<unsigned short>>>(a1 + 432, &__p.__r_.__value_.__l.__data_);
+    std::__tree<std::__value_type<std::string,std::set<unsigned short>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<unsigned short>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<unsigned short>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::set<unsigned short>>>((a1 + 432), &__p, &__p);
     std::__tree<unsigned int>::destroy(v10, v10[1]);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -5025,20 +5001,21 @@ uint64_t *QP::ParserGrammar::addU2ArgAction(uint64_t a1, __int128 *a2, uint64_t 
   }
 
   __p.__r_.__value_.__r.__words[0] = a2;
-  v5 = std::__tree<std::__value_type<std::string,std::set<unsigned short>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<unsigned short>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<unsigned short>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 432, a2);
-  return std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(v5 + 56, &SymbolID);
+  v5 = std::__tree<std::__value_type<std::string,std::set<unsigned short>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::set<unsigned short>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::set<unsigned short>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 432), a2, &std::piecewise_construct, &__p, &v7);
+  return std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>((v5 + 7), &SymbolID, &SymbolID);
 }
 
-void sub_1C65DFB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, char a12)
+void sub_1C65DFB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, ...)
 {
-  std::pair<std::string,std::set<unsigned short>>::~pair(&a12);
+  va_start(va, a11);
+  std::pair<std::string,std::set<unsigned short>>::~pair(va);
   std::__tree<unsigned int>::destroy(&a9, a10);
   _Unwind_Resume(a1);
 }
 
 uint64_t QP::ParserGrammar::loadActions(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -5047,101 +5024,100 @@ uint64_t QP::ParserGrammar::loadActions(QP::ParserGrammar *this, CFDictionaryRef
     if (result)
     {
       v8 = CFDictionaryGetValue(Value, @"ACTIONS");
-      v27[1] = v27;
+      v26[1] = v26;
       Count = CFDictionaryGetCount(v8);
       MEMORY[0x1EEE9AC00](Count);
-      v10 = (v27 - v9);
-      bzero(v27 - v9, v11);
-      v29 = v8;
-      v28 = v10;
+      v10 = (v26 - v9);
+      bzero(v26 - v9, v11);
+      v28 = v8;
+      v27 = v10;
       CFDictionaryGetKeysAndValues(v8, v10, 0);
       if (Count >= 1)
       {
         v12 = 0;
         do
         {
-          v32 = v12;
-          v13 = v28[v12];
-          v35 = CFDictionaryGetValue(v29, v13);
-          v34 = CFDictionaryGetCount(v35);
-          v31 = v27;
-          MEMORY[0x1EEE9AC00](v34);
-          v15 = v27 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v31 = v12;
+          v13 = v27[v12];
+          v34 = CFDictionaryGetValue(v28, v13);
+          v33 = CFDictionaryGetCount(v34);
+          v30 = v26;
+          MEMORY[0x1EEE9AC00](v33);
+          v15 = v26 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
           bzero(v15, v14);
-          v33 = v15;
-          CFDictionaryGetKeysAndValues(v35, v15, 0);
-          if (v34 >= 1)
+          v32 = v15;
+          CFDictionaryGetKeysAndValues(v34, v15, 0);
+          if (v33 >= 1)
           {
             v16 = 0;
             do
             {
-              v37 = v16;
-              v17 = *&v33[8 * v16];
-              v39 = CFDictionaryGetValue(v35, v17);
-              v38 = CFDictionaryGetCount(v39);
-              v36 = v27;
-              MEMORY[0x1EEE9AC00](v38);
-              v19 = v27 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+              v36 = v16;
+              v17 = *&v32[8 * v16];
+              v38 = CFDictionaryGetValue(v34, v17);
+              v37 = CFDictionaryGetCount(v38);
+              v35 = v26;
+              MEMORY[0x1EEE9AC00](v37);
+              v19 = v26 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
               bzero(v19, v18);
-              CFDictionaryGetKeysAndValues(v39, v19, 0);
-              if (v38 >= 1)
+              CFDictionaryGetKeysAndValues(v38, v19, 0);
+              if (v37 >= 1)
               {
-                for (i = 0; i != v38; ++i)
+                for (i = 0; i != v37; ++i)
                 {
                   v21 = *&v19[8 * i];
-                  v22 = CFDictionaryGetValue(v39, v21);
+                  v22 = CFDictionaryGetValue(v38, v21);
                   v23 = CFArrayGetCount(v22);
                   if (v23 >= 1)
                   {
                     for (j = 0; j != v23; ++j)
                     {
                       ValueAtIndex = CFArrayGetValueAtIndex(v22, j);
-                      QP::getUTF8StringFromCFString(v13, &v46);
-                      QP::getUTF8StringFromCFString(v17, v44);
-                      QP::getUTF8StringFromCFString(v21, v42);
-                      QP::getUTF8StringFromCFString(ValueAtIndex, v40);
-                      QP::ParserGrammar::addAction(this, &v46, v44, v42, v40);
-                      if (v41 < 0)
+                      QP::getUTF8StringFromCFString(&v45, v13);
+                      QP::getUTF8StringFromCFString(v43, v17);
+                      QP::getUTF8StringFromCFString(v41, v21);
+                      QP::getUTF8StringFromCFString(v39, ValueAtIndex);
+                      QP::ParserGrammar::addAction(this, &v45, v43, v41, v39);
+                      if (v40 < 0)
                       {
-                        operator delete(v40[0]);
+                        operator delete(v39[0]);
                       }
 
-                      if (v43 < 0)
+                      if (v42 < 0)
                       {
-                        operator delete(v42[0]);
+                        operator delete(v41[0]);
                       }
 
-                      if (v45 < 0)
+                      if (v44 < 0)
                       {
-                        operator delete(v44[0]);
+                        operator delete(v43[0]);
                       }
 
-                      if (v47 < 0)
+                      if (v46 < 0)
                       {
-                        operator delete(v46);
+                        operator delete(v45);
                       }
                     }
                   }
                 }
               }
 
-              v16 = v37 + 1;
+              v16 = v36 + 1;
             }
 
-            while (v37 + 1 != v34);
+            while (v36 + 1 != v33);
           }
 
-          v12 = v32 + 1;
+          v12 = v31 + 1;
         }
 
-        while (v32 + 1 != Count);
+        while (v31 + 1 != Count);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5160,7 +5136,7 @@ void sub_1C65DFF1C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t QP::ParserGrammar::addAction(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, void **a5)
+void *QP::ParserGrammar::addAction(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t ***a5)
 {
   SymbolID = QP::ParserGrammar::getSymbolID(a1, a3);
   v21 = QP::ParserGrammar::getSymbolID(a1, a4);
@@ -5170,7 +5146,7 @@ uint64_t QP::ParserGrammar::addAction(uint64_t a1, __int128 *a2, uint64_t a3, ui
     v18 = 0;
     v16 = &v17;
     std::pair<std::string,std::map<std::string,std::set<std::string>>>::pair[abi:ne200100]<std::string const&,std::map<std::string,std::set<std::string>>,0>(&__p, a2, &v16);
-    std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>(a1 + 360, &__p.__r_.__value_.__l.__data_);
+    std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>((a1 + 360), &__p, &__p);
     std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>>>::destroy(v20, v20[1]);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -5179,7 +5155,7 @@ uint64_t QP::ParserGrammar::addAction(uint64_t a1, __int128 *a2, uint64_t a3, ui
 
     std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>>>::destroy(&v16, v17);
     __p.__r_.__value_.__r.__words[0] = a2;
-    v10 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 360, a2);
+    v10 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 360), a2, &std::piecewise_construct, &__p, &v16);
     v17 = 0;
     v18 = 0;
     v16 = &v17;
@@ -5187,13 +5163,13 @@ uint64_t QP::ParserGrammar::addAction(uint64_t a1, __int128 *a2, uint64_t a3, ui
     __p.__r_.__value_.__r.__words[2] = 0;
     v20[0] = 0;
     __p.__r_.__value_.__l.__size_ = &__p.__r_.__value_.__r.__words[2];
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(v10 + 56, &__p);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>((v10 + 7), &__p, &__p);
     std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::destroy(&__p.__r_.__value_.__l.__size_, __p.__r_.__value_.__r.__words[2]);
     std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::destroy(&v16, v17);
     __p.__r_.__value_.__r.__words[0] = a2;
-    v11 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 360, a2);
+    v11 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 360), a2, &std::piecewise_construct, &__p, &v16);
     __p.__r_.__value_.__r.__words[0] = &SymbolID;
-    v12 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v11 + 56, &SymbolID);
+    v12 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v11 + 7), &SymbolID, &std::piecewise_construct, &__p);
     v17 = 0;
     v18 = 0;
     v16 = &v17;
@@ -5201,24 +5177,25 @@ uint64_t QP::ParserGrammar::addAction(uint64_t a1, __int128 *a2, uint64_t a3, ui
     __p.__r_.__value_.__r.__words[2] = 0;
     v20[0] = 0;
     __p.__r_.__value_.__l.__size_ = &__p.__r_.__value_.__r.__words[2];
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>((v12 + 5), &__p);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>((v12 + 5), &__p, &__p);
     std::__tree<std::string>::destroy(&__p.__r_.__value_.__l.__size_, __p.__r_.__value_.__r.__words[2]);
     std::__tree<std::string>::destroy(&v16, v17);
     __p.__r_.__value_.__r.__words[0] = a2;
-    v9 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 360, a2);
+    v9 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 360), a2, &std::piecewise_construct, &__p, &v16);
     __p.__r_.__value_.__r.__words[0] = &SymbolID;
   }
 
   else
   {
-    v9 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 360, a2);
+    __p.__r_.__value_.__r.__words[0] = a2;
+    v9 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 360), a2, &std::piecewise_construct, &__p, &v16);
     __p.__r_.__value_.__r.__words[0] = &SymbolID;
   }
 
-  v13 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v9 + 56, &SymbolID);
+  v13 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v9 + 7), &SymbolID, &std::piecewise_construct, &__p);
   __p.__r_.__value_.__r.__words[0] = &v21;
-  v14 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v13 + 5), &v21);
-  return std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>((v14 + 5), a5);
+  v14 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v13 + 5), &v21, &std::piecewise_construct, &__p);
+  return std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v14 + 5, a5, a5);
 }
 
 void sub_1C65E0200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char *a10, uint64_t a11, uint64_t a12, uint64_t a13, char *a14)
@@ -5230,7 +5207,7 @@ void sub_1C65E0200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t QP::ParserGrammar::loadAttributeImpactGroup(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -5239,101 +5216,100 @@ uint64_t QP::ParserGrammar::loadAttributeImpactGroup(QP::ParserGrammar *this, CF
     if (result)
     {
       v8 = CFDictionaryGetValue(Value, @"ATTRIBUTEIMPACTGROUP");
-      v27[1] = v27;
+      v26[1] = v26;
       Count = CFDictionaryGetCount(v8);
       MEMORY[0x1EEE9AC00](Count);
-      v10 = (v27 - v9);
-      bzero(v27 - v9, v11);
-      v29 = v8;
-      v28 = v10;
+      v10 = (v26 - v9);
+      bzero(v26 - v9, v11);
+      v28 = v8;
+      v27 = v10;
       CFDictionaryGetKeysAndValues(v8, v10, 0);
       if (Count >= 1)
       {
         v12 = 0;
         do
         {
-          v32 = v12;
-          v13 = v28[v12];
-          v35 = CFDictionaryGetValue(v29, v13);
-          v34 = CFDictionaryGetCount(v35);
-          v31 = v27;
-          MEMORY[0x1EEE9AC00](v34);
-          v15 = v27 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v31 = v12;
+          v13 = v27[v12];
+          v34 = CFDictionaryGetValue(v28, v13);
+          v33 = CFDictionaryGetCount(v34);
+          v30 = v26;
+          MEMORY[0x1EEE9AC00](v33);
+          v15 = v26 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
           bzero(v15, v14);
-          v33 = v15;
-          CFDictionaryGetKeysAndValues(v35, v15, 0);
-          if (v34 >= 1)
+          v32 = v15;
+          CFDictionaryGetKeysAndValues(v34, v15, 0);
+          if (v33 >= 1)
           {
             v16 = 0;
             do
             {
-              v37 = v16;
-              v17 = *&v33[8 * v16];
-              v39 = CFDictionaryGetValue(v35, v17);
-              v38 = CFDictionaryGetCount(v39);
-              v36 = v27;
-              MEMORY[0x1EEE9AC00](v38);
-              v19 = v27 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+              v36 = v16;
+              v17 = *&v32[8 * v16];
+              v38 = CFDictionaryGetValue(v34, v17);
+              v37 = CFDictionaryGetCount(v38);
+              v35 = v26;
+              MEMORY[0x1EEE9AC00](v37);
+              v19 = v26 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
               bzero(v19, v18);
-              CFDictionaryGetKeysAndValues(v39, v19, 0);
-              if (v38 >= 1)
+              CFDictionaryGetKeysAndValues(v38, v19, 0);
+              if (v37 >= 1)
               {
-                for (i = 0; i != v38; ++i)
+                for (i = 0; i != v37; ++i)
                 {
                   v21 = *&v19[8 * i];
-                  v22 = CFDictionaryGetValue(v39, v21);
+                  v22 = CFDictionaryGetValue(v38, v21);
                   v23 = CFArrayGetCount(v22);
                   if (v23 >= 1)
                   {
                     for (j = 0; j != v23; ++j)
                     {
                       ValueAtIndex = CFArrayGetValueAtIndex(v22, j);
-                      QP::getUTF8StringFromCFString(v13, &v46);
-                      QP::getUTF8StringFromCFString(v17, v44);
-                      QP::getUTF8StringFromCFString(v21, v42);
-                      QP::getUTF8StringFromCFString(ValueAtIndex, v40);
-                      QP::ParserGrammar::addImpactGroup(this, &v46, v44, v42, v40);
-                      if (v41 < 0)
+                      QP::getUTF8StringFromCFString(&v45, v13);
+                      QP::getUTF8StringFromCFString(v43, v17);
+                      QP::getUTF8StringFromCFString(v41, v21);
+                      QP::getUTF8StringFromCFString(v39, ValueAtIndex);
+                      QP::ParserGrammar::addImpactGroup(this, &v45, v43, v41, v39);
+                      if (v40 < 0)
                       {
-                        operator delete(v40[0]);
+                        operator delete(v39[0]);
                       }
 
-                      if (v43 < 0)
+                      if (v42 < 0)
                       {
-                        operator delete(v42[0]);
+                        operator delete(v41[0]);
                       }
 
-                      if (v45 < 0)
+                      if (v44 < 0)
                       {
-                        operator delete(v44[0]);
+                        operator delete(v43[0]);
                       }
 
-                      if (v47 < 0)
+                      if (v46 < 0)
                       {
-                        operator delete(v46);
+                        operator delete(v45);
                       }
                     }
                   }
                 }
               }
 
-              v16 = v37 + 1;
+              v16 = v36 + 1;
             }
 
-            while (v37 + 1 != v34);
+            while (v36 + 1 != v33);
           }
 
-          v12 = v32 + 1;
+          v12 = v31 + 1;
         }
 
-        while (v32 + 1 != Count);
+        while (v31 + 1 != Count);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5352,7 +5328,7 @@ void sub_1C65E05F0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t QP::ParserGrammar::addImpactGroup(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, void **a5)
+void *QP::ParserGrammar::addImpactGroup(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t ***a5)
 {
   SymbolID = QP::ParserGrammar::getSymbolID(a1, a3);
   v21 = QP::ParserGrammar::getSymbolID(a1, a4);
@@ -5362,7 +5338,7 @@ uint64_t QP::ParserGrammar::addImpactGroup(uint64_t a1, __int128 *a2, uint64_t a
     v18 = 0;
     v16 = &v17;
     std::pair<std::string,std::map<std::string,std::set<std::string>>>::pair[abi:ne200100]<std::string const&,std::map<std::string,std::set<std::string>>,0>(&__p, a2, &v16);
-    std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>(a1 + 384, &__p.__r_.__value_.__l.__data_);
+    std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>((a1 + 384), &__p, &__p);
     std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>>>::destroy(v20, v20[1]);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -5371,7 +5347,7 @@ uint64_t QP::ParserGrammar::addImpactGroup(uint64_t a1, __int128 *a2, uint64_t a
 
     std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::set<std::string>>>>>::destroy(&v16, v17);
     __p.__r_.__value_.__r.__words[0] = a2;
-    v10 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 384, a2);
+    v10 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 384), a2, &std::piecewise_construct, &__p, &v16);
     v17 = 0;
     v18 = 0;
     v16 = &v17;
@@ -5379,13 +5355,13 @@ uint64_t QP::ParserGrammar::addImpactGroup(uint64_t a1, __int128 *a2, uint64_t a
     __p.__r_.__value_.__r.__words[2] = 0;
     v20[0] = 0;
     __p.__r_.__value_.__l.__size_ = &__p.__r_.__value_.__r.__words[2];
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(v10 + 56, &__p);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>((v10 + 7), &__p, &__p);
     std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::destroy(&__p.__r_.__value_.__l.__size_, __p.__r_.__value_.__r.__words[2]);
     std::__tree<std::__value_type<unsigned short,std::set<std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<std::string>>>>::destroy(&v16, v17);
     __p.__r_.__value_.__r.__words[0] = a2;
-    v11 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 384, a2);
+    v11 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 384), a2, &std::piecewise_construct, &__p, &v16);
     __p.__r_.__value_.__r.__words[0] = &SymbolID;
-    v12 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v11 + 56, &SymbolID);
+    v12 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v11 + 7), &SymbolID, &std::piecewise_construct, &__p);
     v17 = 0;
     v18 = 0;
     v16 = &v17;
@@ -5393,24 +5369,25 @@ uint64_t QP::ParserGrammar::addImpactGroup(uint64_t a1, __int128 *a2, uint64_t a
     __p.__r_.__value_.__r.__words[2] = 0;
     v20[0] = 0;
     __p.__r_.__value_.__l.__size_ = &__p.__r_.__value_.__r.__words[2];
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>((v12 + 5), &__p);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>((v12 + 5), &__p, &__p);
     std::__tree<std::string>::destroy(&__p.__r_.__value_.__l.__size_, __p.__r_.__value_.__r.__words[2]);
     std::__tree<std::string>::destroy(&v16, v17);
     __p.__r_.__value_.__r.__words[0] = a2;
-    v9 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 384, a2);
+    v9 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 384), a2, &std::piecewise_construct, &__p, &v16);
     __p.__r_.__value_.__r.__words[0] = &SymbolID;
   }
 
   else
   {
-    v9 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 384, a2);
+    __p.__r_.__value_.__r.__words[0] = a2;
+    v9 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::set<std::string>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 384), a2, &std::piecewise_construct, &__p, &v16);
     __p.__r_.__value_.__r.__words[0] = &SymbolID;
   }
 
-  v13 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v9 + 56, &SymbolID);
+  v13 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v9 + 7), &SymbolID, &std::piecewise_construct, &__p);
   __p.__r_.__value_.__r.__words[0] = &v21;
-  v14 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v13 + 5), &v21);
-  return std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>((v14 + 5), a5);
+  v14 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v13 + 5), &v21, &std::piecewise_construct, &__p);
+  return std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v14 + 5, a5, a5);
 }
 
 void sub_1C65E08D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char *a10, uint64_t a11, uint64_t a12, uint64_t a13, char *a14)
@@ -5420,9 +5397,9 @@ void sub_1C65E08D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t QP::ParserGrammar::loadRankingPhraseWeights(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
+uint64_t QP::ParserGrammar::loadRankingPhraseWeights(uint64_t **this, CFDictionaryRef theDict, const __CFString *key)
 {
-  *&valuePtr[5] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -5433,8 +5410,8 @@ uint64_t QP::ParserGrammar::loadRankingPhraseWeights(QP::ParserGrammar *this, CF
       v8 = CFDictionaryGetValue(Value, @"RANKINGPHRASEWEIGHTS");
       Count = CFDictionaryGetCount(v8);
       MEMORY[0x1EEE9AC00](Count);
-      v11 = (&v25[-1] - v10);
-      bzero(&v25[-1] - v10, v12);
+      v11 = (&v24[-1] - v10);
+      bzero(&v24[-1] - v10, v12);
       CFDictionaryGetKeysAndValues(v8, v11, 0);
       if (Count >= 1)
       {
@@ -5460,18 +5437,18 @@ uint64_t QP::ParserGrammar::loadRankingPhraseWeights(QP::ParserGrammar *this, CF
                     v20 = CFGetTypeID(v18);
                     if (v20 == CFNumberGetTypeID())
                     {
-                      *valuePtr = 0;
-                      CFNumberGetValue(ValueAtIndex, kCFNumberFloatType, &valuePtr[1]);
-                      CFNumberGetValue(v18, kCFNumberFloatType, valuePtr);
-                      QP::getUTF8StringFromCFString(v13, v25);
-                      v21 = *valuePtr;
-                      *&valuePtr[3] = v25;
-                      v22 = std::__tree<std::__value_type<std::string,std::pair<float,float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<float,float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<float,float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 600, v25);
-                      *(v22 + 56) = HIDWORD(v21);
-                      *(v22 + 60) = v21;
-                      if (v26 < 0)
+                      valuePtr = 0;
+                      CFNumberGetValue(ValueAtIndex, kCFNumberFloatType, &valuePtr + 4);
+                      CFNumberGetValue(v18, kCFNumberFloatType, &valuePtr);
+                      QP::getUTF8StringFromCFString(v24, v13);
+                      v21 = valuePtr;
+                      v28[0] = v24;
+                      v22 = std::__tree<std::__value_type<std::string,std::pair<float,float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<float,float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<float,float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(this + 75, v24, &std::piecewise_construct, v28, &v27);
+                      *(v22 + 14) = HIDWORD(v21);
+                      *(v22 + 15) = v21;
+                      if (v25 < 0)
                       {
-                        operator delete(v25[0]);
+                        operator delete(v24[0]);
                       }
                     }
                   }
@@ -5487,11 +5464,10 @@ uint64_t QP::ParserGrammar::loadRankingPhraseWeights(QP::ParserGrammar *this, CF
         while (Count);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5507,7 +5483,7 @@ void sub_1C65E0B60(_Unwind_Exception *exception_object)
 
 uint64_t QP::ParserGrammar::loadRankingWeights(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -5517,21 +5493,21 @@ uint64_t QP::ParserGrammar::loadRankingWeights(QP::ParserGrammar *this, CFDictio
     {
       v8 = CFDictionaryGetValue(Value, @"RANKINGWEIGHTS");
       Count = CFDictionaryGetCount(v8);
-      v22 = &v22;
+      v21 = &v21;
       MEMORY[0x1EEE9AC00](Count);
-      v11 = (&v22 - v10);
-      bzero(&v22 - v10, v12);
-      v23 = v8;
+      v11 = (&v21 - v10);
+      bzero(&v21 - v10, v12);
+      v22 = v8;
       CFDictionaryGetKeysAndValues(v8, v11, 0);
       if (Count >= 1)
       {
         for (i = 0; i != Count; ++i)
         {
           v14 = v11[i];
-          v15 = CFDictionaryGetValue(v23, v14);
+          v15 = CFDictionaryGetValue(v22, v14);
           v16 = CFDictionaryGetCount(v15);
           MEMORY[0x1EEE9AC00](v16);
-          v18 = (&v22 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+          v18 = (&v21 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
           bzero(v18, v17);
           CFDictionaryGetKeysAndValues(v15, v18, 0);
           if (v16 >= 1)
@@ -5542,17 +5518,17 @@ uint64_t QP::ParserGrammar::loadRankingWeights(QP::ParserGrammar *this, CFDictio
               v20 = CFDictionaryGetValue(v15, *v18);
               valuePtr = 0.0;
               CFNumberGetValue(v20, kCFNumberFloatType, &valuePtr);
-              QP::getUTF8StringFromCFString(v14, v26);
-              QP::getUTF8StringFromCFString(v19, v24);
-              QP::ParserGrammar::addRankingWeights(this, v26, v24, valuePtr);
-              if (v25 < 0)
+              QP::getUTF8StringFromCFString(v25, v14);
+              QP::getUTF8StringFromCFString(v23, v19);
+              QP::ParserGrammar::addRankingWeights(this, v25, v23, valuePtr);
+              if (v24 < 0)
               {
-                operator delete(v24[0]);
+                operator delete(v23[0]);
               }
 
-              if (v27 < 0)
+              if (v26 < 0)
               {
-                operator delete(v26[0]);
+                operator delete(v25[0]);
               }
 
               ++v18;
@@ -5564,11 +5540,10 @@ uint64_t QP::ParserGrammar::loadRankingWeights(QP::ParserGrammar *this, CFDictio
         }
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5587,7 +5562,7 @@ void sub_1C65E0DA8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t QP::ParserGrammar::addRankingWeights(uint64_t a1, uint64_t a2, void **a3, float a4)
+float *QP::ParserGrammar::addRankingWeights(uint64_t a1, uint64_t a2, unsigned __int16 *a3, float a4)
 {
   SymbolID = QP::ParserGrammar::getSymbolID(a1, a2);
   v20 = SymbolID;
@@ -5622,16 +5597,16 @@ LABEL_9:
     v19[0] = 0;
     v19[1] = 0;
     v18 = v19;
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(a1 + 576, &v17);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(a1 + 576, &v17, &v17);
     std::__tree<std::string>::destroy(&v18, v19[0]);
     std::__tree<std::string>::destroy(&v15, v16[0]);
   }
 
   v17 = &v20;
-  v13 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a1 + 576, &v20);
+  v13 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a1 + 576, &v20, &std::piecewise_construct, &v17);
   v17 = a3;
-  result = std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v13 + 5), a3);
-  *(result + 56) = a4;
+  result = std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v13 + 5, a3, &std::piecewise_construct, &v17, &v15);
+  result[14] = a4;
   return result;
 }
 
@@ -5644,7 +5619,7 @@ void sub_1C65E0EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t QP::ParserGrammar::loadImpactGroupCoefficients(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -5654,21 +5629,21 @@ uint64_t QP::ParserGrammar::loadImpactGroupCoefficients(QP::ParserGrammar *this,
     {
       v8 = CFDictionaryGetValue(Value, @"IMPACTGROUPCOEFFICIENT");
       Count = CFDictionaryGetCount(v8);
-      v22 = &v22;
+      v21 = &v21;
       MEMORY[0x1EEE9AC00](Count);
-      v11 = (&v22 - v10);
-      bzero(&v22 - v10, v12);
-      v23 = v8;
+      v11 = (&v21 - v10);
+      bzero(&v21 - v10, v12);
+      v22 = v8;
       CFDictionaryGetKeysAndValues(v8, v11, 0);
       if (Count >= 1)
       {
         for (i = 0; i != Count; ++i)
         {
           v14 = v11[i];
-          v15 = CFDictionaryGetValue(v23, v14);
+          v15 = CFDictionaryGetValue(v22, v14);
           v16 = CFDictionaryGetCount(v15);
           MEMORY[0x1EEE9AC00](v16);
-          v18 = (&v22 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+          v18 = (&v21 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
           bzero(v18, v17);
           CFDictionaryGetKeysAndValues(v15, v18, 0);
           if (v16 >= 1)
@@ -5679,17 +5654,17 @@ uint64_t QP::ParserGrammar::loadImpactGroupCoefficients(QP::ParserGrammar *this,
               v20 = CFDictionaryGetValue(v15, *v18);
               valuePtr = 0.0;
               CFNumberGetValue(v20, kCFNumberFloatType, &valuePtr);
-              QP::getUTF8StringFromCFString(v14, v26);
-              QP::getUTF8StringFromCFString(v19, v24);
-              QP::ParserGrammar::addImpactGroupCoefficients(this, v26, v24, valuePtr);
-              if (v25 < 0)
+              QP::getUTF8StringFromCFString(v25, v14);
+              QP::getUTF8StringFromCFString(v23, v19);
+              QP::ParserGrammar::addImpactGroupCoefficients(this, v25, v23, valuePtr);
+              if (v24 < 0)
               {
-                operator delete(v24[0]);
+                operator delete(v23[0]);
               }
 
-              if (v27 < 0)
+              if (v26 < 0)
               {
-                operator delete(v26[0]);
+                operator delete(v25[0]);
               }
 
               ++v18;
@@ -5701,11 +5676,10 @@ uint64_t QP::ParserGrammar::loadImpactGroupCoefficients(QP::ParserGrammar *this,
         }
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5760,15 +5734,15 @@ LABEL_9:
     v19[0] = 0;
     v19[1] = 0;
     v18 = v19;
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(a1 + 624, &v17);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(a1 + 624, &v17, &v17);
     std::__tree<unsigned int>::destroy(&v18, v19[0]);
     std::__tree<unsigned int>::destroy(&v15, v16[0]);
   }
 
   v17 = &v21;
-  v13 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a1 + 624, &v21);
+  v13 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a1 + 624, &v21, &std::piecewise_construct, &v17);
   v17 = &v20;
-  result = std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v13 + 5), &v20);
+  result = std::__tree<std::__value_type<unsigned short,float>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,float>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,float>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v13 + 5), &v20, &std::piecewise_construct, &v17);
   *(result + 8) = a4;
   return result;
 }
@@ -5782,7 +5756,7 @@ void sub_1C65E12B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t QP::ParserGrammar::loadProperties(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -5792,10 +5766,10 @@ uint64_t QP::ParserGrammar::loadProperties(QP::ParserGrammar *this, CFDictionary
     {
       v8 = CFDictionaryGetValue(Value, @"PROPS");
       Count = CFDictionaryGetCount(v8);
-      v32[1] = v32;
+      v31[1] = v31;
       MEMORY[0x1EEE9AC00](Count);
-      v11 = (v32 - v10);
-      bzero(v32 - v10, v12);
+      v11 = (v31 - v10);
+      bzero(v31 - v10, v12);
       CFDictionaryGetKeysAndValues(v8, v11, 0);
       if (Count >= 1)
       {
@@ -5807,19 +5781,19 @@ uint64_t QP::ParserGrammar::loadProperties(QP::ParserGrammar *this, CFDictionary
             v15 = CFDictionaryGetValue(v8, v14);
             v16 = CFDictionaryGetCount(v15);
             MEMORY[0x1EEE9AC00](v16);
-            v18 = (v32 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+            v18 = (v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
             bzero(v18, v17);
             CFDictionaryGetKeysAndValues(v15, v18, 0);
             if (v16 >= 1)
             {
               do
               {
-                QP::getUTF8StringFromCFString(*v18, v39);
-                SymbolID = QP::ParserGrammar::getSymbolID(this, v39);
-                std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(this + 912, &SymbolID);
-                if (v40 < 0)
+                QP::getUTF8StringFromCFString(v38, *v18);
+                SymbolID = QP::ParserGrammar::getSymbolID(this, v38);
+                std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(this + 912, &SymbolID, &SymbolID);
+                if (v39 < 0)
                 {
-                  operator delete(v39[0]);
+                  operator delete(v38[0]);
                 }
 
                 ++v18;
@@ -5835,19 +5809,19 @@ uint64_t QP::ParserGrammar::loadProperties(QP::ParserGrammar *this, CFDictionary
             v19 = CFDictionaryGetValue(v8, v14);
             v20 = CFDictionaryGetCount(v19);
             MEMORY[0x1EEE9AC00](v20);
-            v22 = (v32 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0));
+            v22 = (v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0));
             bzero(v22, v21);
             CFDictionaryGetKeysAndValues(v19, v22, 0);
             if (v20 >= 1)
             {
               do
               {
-                QP::getUTF8StringFromCFString(*v22, v37);
-                SymbolID = QP::ParserGrammar::getSymbolID(this, v37);
-                std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(this + 984, &SymbolID);
-                if (v38 < 0)
+                QP::getUTF8StringFromCFString(v36, *v22);
+                SymbolID = QP::ParserGrammar::getSymbolID(this, v36);
+                std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(this + 984, &SymbolID, &SymbolID);
+                if (v37 < 0)
                 {
-                  operator delete(v37[0]);
+                  operator delete(v36[0]);
                 }
 
                 ++v22;
@@ -5863,19 +5837,19 @@ uint64_t QP::ParserGrammar::loadProperties(QP::ParserGrammar *this, CFDictionary
             v23 = CFDictionaryGetValue(v8, v14);
             v24 = CFDictionaryGetCount(v23);
             MEMORY[0x1EEE9AC00](v24);
-            v26 = (v32 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0));
+            v26 = (v31 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0));
             bzero(v26, v25);
             CFDictionaryGetKeysAndValues(v23, v26, 0);
             if (v24 >= 1)
             {
               do
               {
-                QP::getUTF8StringFromCFString(*v26, v35);
-                SymbolID = QP::ParserGrammar::getSymbolID(this, v35);
-                std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(this + 984, &SymbolID);
-                if (v36 < 0)
+                QP::getUTF8StringFromCFString(v34, *v26);
+                SymbolID = QP::ParserGrammar::getSymbolID(this, v34);
+                std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(this + 984, &SymbolID, &SymbolID);
+                if (v35 < 0)
                 {
-                  operator delete(v35[0]);
+                  operator delete(v34[0]);
                 }
 
                 ++v26;
@@ -5891,19 +5865,19 @@ uint64_t QP::ParserGrammar::loadProperties(QP::ParserGrammar *this, CFDictionary
             v27 = CFDictionaryGetValue(v8, v14);
             v28 = CFDictionaryGetCount(v27);
             MEMORY[0x1EEE9AC00](v28);
-            v30 = (v32 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
+            v30 = (v31 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
             bzero(v30, v29);
             CFDictionaryGetKeysAndValues(v27, v30, 0);
             if (v28 >= 1)
             {
               do
               {
-                QP::getUTF8StringFromCFString(*v30, v33);
-                SymbolID = QP::ParserGrammar::getSymbolID(this, v33);
-                std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(this + 888, &SymbolID);
-                if (v34 < 0)
+                QP::getUTF8StringFromCFString(v32, *v30);
+                SymbolID = QP::ParserGrammar::getSymbolID(this, v32);
+                std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(this + 888, &SymbolID, &SymbolID);
+                if (v33 < 0)
                 {
-                  operator delete(v33[0]);
+                  operator delete(v32[0]);
                 }
 
                 ++v30;
@@ -5916,11 +5890,10 @@ uint64_t QP::ParserGrammar::loadProperties(QP::ParserGrammar *this, CFDictionary
         }
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5955,7 +5928,7 @@ uint64_t QP::ParserGrammar::loadRankingTranslations(const void **this, CFDiction
 
 uint64_t QP::ParserGrammar::loadFileExtensions(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -5965,9 +5938,9 @@ uint64_t QP::ParserGrammar::loadFileExtensions(QP::ParserGrammar *this, CFDictio
     {
       v8 = CFDictionaryGetValue(Value, @"FILE-EXTENSIONS");
       Count = CFDictionaryGetCount(v8);
-      v19 = &v19;
+      v18 = &v18;
       MEMORY[0x1EEE9AC00](Count);
-      v10 = &v20[-1] - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0);
+      v10 = &v19[-1] - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v10, 8 * Count);
       MEMORY[0x1EEE9AC00](v11);
       bzero(v10, 8 * Count);
@@ -5984,28 +5957,27 @@ uint64_t QP::ParserGrammar::loadFileExtensions(QP::ParserGrammar *this, CFDictio
             for (j = 0; j != v15; ++j)
             {
               ValueAtIndex = CFArrayGetValueAtIndex(v14, j);
-              QP::getUTF8StringFromCFString(v13, v22);
-              QP::getUTF8StringFromCFString(ValueAtIndex, v20);
-              QP::ParserGrammar::addFileExtension(this, v22, v20);
-              if (v21 < 0)
+              QP::getUTF8StringFromCFString(v21, v13);
+              QP::getUTF8StringFromCFString(v19, ValueAtIndex);
+              QP::ParserGrammar::addFileExtension(this, v21, v19);
+              if (v20 < 0)
               {
-                operator delete(v20[0]);
+                operator delete(v19[0]);
               }
 
-              if (v23 < 0)
+              if (v22 < 0)
               {
-                operator delete(v22[0]);
+                operator delete(v21[0]);
               }
             }
           }
         }
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6019,7 +5991,7 @@ void sub_1C65E1A18(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t QP::ParserGrammar::addFileExtension(uint64_t a1, uint64_t a2, void **a3)
+void *QP::ParserGrammar::addFileExtension(uint64_t a1, uint64_t a2, uint64_t ***a3)
 {
   SymbolID = QP::ParserGrammar::getSymbolID(a1, a2);
   v6 = SymbolID;
@@ -6056,7 +6028,7 @@ LABEL_9:
     v22[0] = 0;
     v22[1] = 0;
     v21 = v22;
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(a1 + 264, &v20);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(a1 + 264, &v20, &v20);
     std::__tree<std::string>::destroy(&v21, v22[0]);
     std::__tree<std::string>::destroy(&v18, v19[0]);
     v8 = *v7;
@@ -6088,10 +6060,10 @@ LABEL_18:
     v14 = a1 + 272;
   }
 
-  return std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v14 + 40, a3);
+  return std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>((v14 + 40), a3, a3);
 }
 
-void sub_1C65E1B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, char *a11, uint64_t a12, uint64_t a13, uint64_t a14, char *a15)
+void sub_1C65E1B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char *a11, uint64_t a12, uint64_t a13, uint64_t a14, char *a15)
 {
   std::__tree<std::string>::destroy(v15 + 8, a15);
   std::__tree<std::string>::destroy(&a10, a11);
@@ -6100,7 +6072,7 @@ void sub_1C65E1B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t QP::ParserGrammar::loadValues(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -6109,25 +6081,25 @@ uint64_t QP::ParserGrammar::loadValues(QP::ParserGrammar *this, CFDictionaryRef 
     if (result)
     {
       v8 = CFDictionaryGetValue(Value, @"VALUES");
-      v22[1] = v22;
+      v21[1] = v21;
       Count = CFDictionaryGetCount(v8);
       v9 = 8 * Count;
       MEMORY[0x1EEE9AC00](Count);
-      v10 = v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v10 = v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v10, v9);
       MEMORY[0x1EEE9AC00](v11);
       bzero(v10, v9);
-      v23 = v10;
+      v22 = v10;
       CFDictionaryGetKeysAndValues(v8, v10, v10);
       if (Count >= 1)
       {
         for (i = 0; i != Count; ++i)
         {
-          v13 = *&v23[8 * i];
+          v13 = *&v22[8 * i];
           v14 = *&v10[8 * i];
           v15 = CFDictionaryGetCount(v14);
           MEMORY[0x1EEE9AC00](v15);
-          v16 = (v22 - ((8 * v15 + 15) & 0xFFFFFFFFFFFFFFF0));
+          v16 = (v21 - ((8 * v15 + 15) & 0xFFFFFFFFFFFFFFF0));
           bzero(v16, 8 * v15);
           MEMORY[0x1EEE9AC00](v17);
           v18 = v16;
@@ -6139,23 +6111,23 @@ uint64_t QP::ParserGrammar::loadValues(QP::ParserGrammar *this, CFDictionaryRef 
             {
               v19 = *v16;
               v20 = *v18;
-              QP::getUTF8StringFromCFString(v13, v28);
-              QP::getUTF8StringFromCFString(v19, v26);
-              QP::getUTF8StringFromCFString(v20, &v25);
-              QP::ParserGrammar::addValue(this, v28, v26, &v25);
-              if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+              QP::getUTF8StringFromCFString(v27, v13);
+              QP::getUTF8StringFromCFString(v25, v19);
+              QP::getUTF8StringFromCFString(&v24, v20);
+              QP::ParserGrammar::addValue(this, v27, v25, &v24);
+              if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v25.__r_.__value_.__l.__data_);
+                operator delete(v24.__r_.__value_.__l.__data_);
               }
 
-              if (v27 < 0)
+              if (v26 < 0)
               {
-                operator delete(v26[0]);
+                operator delete(v25[0]);
               }
 
-              if (v29 < 0)
+              if (v28 < 0)
               {
-                operator delete(v28[0]);
+                operator delete(v27[0]);
               }
 
               ++v18;
@@ -6168,11 +6140,10 @@ uint64_t QP::ParserGrammar::loadValues(QP::ParserGrammar *this, CFDictionaryRef 
         }
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6186,7 +6157,7 @@ void sub_1C65E1E24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void QP::ParserGrammar::addValue(uint64_t a1, uint64_t a2, void *a3, const std::string *a4)
+void QP::ParserGrammar::addValue(uint64_t a1, const void **a2, void *a3, const std::string *a4)
 {
   SymbolID = QP::ParserGrammar::getSymbolID(a1, a2);
   v27 = SymbolID;
@@ -6220,15 +6191,15 @@ LABEL_9:
     v26[0] = 0;
     v26[1] = 0;
     __p[1] = v26;
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(a1 + 552, __p);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(a1 + 552, __p, __p);
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&__p[1], v26[0]);
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v24, v24.__r_.__value_.__l.__size_);
   }
 
   __p[0] = &v27;
-  v14 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a1 + 552, &v27);
+  v14 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(a1 + 552, &v27, &std::piecewise_construct, __p);
   __p[0] = a3;
-  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v14 + 5), a3);
+  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v14 + 5, a3, &std::piecewise_construct, __p, &v24);
   std::string::operator=((v15 + 56), a4);
   if (*(a2 + 23) >= 0)
   {
@@ -6237,7 +6208,7 @@ LABEL_9:
 
   else
   {
-    v16 = *(a2 + 8);
+    v16 = a2[1];
   }
 
   memset(&v24, 0, sizeof(v24));
@@ -6317,7 +6288,7 @@ void sub_1C65E2068(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t QP::ParserGrammar::loadCategories(QP::ParserGrammar *this, CFDictionaryRef theDict)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, @"GROUPINGS");
   if (result)
   {
@@ -6330,9 +6301,9 @@ uint64_t QP::ParserGrammar::loadCategories(QP::ParserGrammar *this, CFDictionary
       {
         v6 = result;
         Count = CFDictionaryGetCount(result);
-        v17 = &v17;
+        v16 = &v16;
         MEMORY[0x1EEE9AC00](Count);
-        v8 = &v18[-1] - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0);
+        v8 = &v17[-1] - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0);
         bzero(v8, 8 * Count);
         MEMORY[0x1EEE9AC00](v9);
         bzero(v8, 8 * Count);
@@ -6349,29 +6320,28 @@ uint64_t QP::ParserGrammar::loadCategories(QP::ParserGrammar *this, CFDictionary
               for (j = 0; j != v13; ++j)
               {
                 ValueAtIndex = CFArrayGetValueAtIndex(v12, j);
-                QP::getUTF8StringFromCFString(v11, v20);
-                QP::getUTF8StringFromCFString(ValueAtIndex, v18);
-                QP::ParserGrammar::addCategory(this, v20, v18);
-                if (v19 < 0)
+                QP::getUTF8StringFromCFString(v19, v11);
+                QP::getUTF8StringFromCFString(v17, ValueAtIndex);
+                QP::ParserGrammar::addCategory(this, v19, v17);
+                if (v18 < 0)
                 {
-                  operator delete(v18[0]);
+                  operator delete(v17[0]);
                 }
 
-                if (v21 < 0)
+                if (v20 < 0)
                 {
-                  operator delete(v20[0]);
+                  operator delete(v19[0]);
                 }
               }
             }
           }
         }
 
-        result = 1;
+        return 1;
       }
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6385,7 +6355,7 @@ void sub_1C65E22AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t QP::ParserGrammar::addCategory(uint64_t a1, uint64_t a2, void **a3)
+void *QP::ParserGrammar::addCategory(uint64_t a1, uint64_t a2, uint64_t ***a3)
 {
   SymbolID = QP::ParserGrammar::getSymbolID(a1, a2);
   v6 = SymbolID;
@@ -6401,7 +6371,7 @@ uint64_t QP::ParserGrammar::addCategory(uint64_t a1, uint64_t a2, void **a3)
   v11 = v7;
   do
   {
-    v12 = *(v11 + 32);
+    v12 = *(v11 + 16);
     v13 = v12 >= SymbolID;
     v14 = v12 < SymbolID;
     if (v13)
@@ -6409,7 +6379,7 @@ uint64_t QP::ParserGrammar::addCategory(uint64_t a1, uint64_t a2, void **a3)
       v10 = v11;
     }
 
-    v11 = *(v11 + 8 * v14);
+    v11 = v11[v14];
   }
 
   while (v11);
@@ -6423,7 +6393,7 @@ LABEL_9:
     v23[0] = 0;
     v23[1] = 0;
     v22 = v23;
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>((v8 - 1), &v21);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>((v8 - 1), &v21, &v21);
     std::__tree<std::string>::destroy(&v22, v23[0]);
     std::__tree<std::string>::destroy(&v19, v20[0]);
     v7 = *v8;
@@ -6437,7 +6407,7 @@ LABEL_9:
   v15 = v8;
   do
   {
-    v16 = *(v7 + 32);
+    v16 = *(v7 + 16);
     v13 = v16 >= v6;
     v17 = v16 < v6;
     if (v13)
@@ -6445,7 +6415,7 @@ LABEL_9:
       v15 = v7;
     }
 
-    v7 = *(v7 + 8 * v17);
+    v7 = v7[v17];
   }
 
   while (v7);
@@ -6455,10 +6425,10 @@ LABEL_18:
     v15 = v8;
   }
 
-  return std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>((v15 + 5), a3);
+  return std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(v15 + 5, a3, a3);
 }
 
-void sub_1C65E23F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, char *a11, uint64_t a12, uint64_t a13, uint64_t a14, char *a15)
+void sub_1C65E23F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char *a11, uint64_t a12, uint64_t a13, uint64_t a14, char *a15)
 {
   std::__tree<std::string>::destroy(v15 + 8, a15);
   std::__tree<std::string>::destroy(&a10, a11);
@@ -6498,7 +6468,7 @@ uint64_t QP::ParserGrammar::loadCompletions(QP::ParserGrammar *this, CFDictionar
               __p = 0;
               v21 = 0;
               v22 = 0;
-              QP::getUTF8StringFromCFString(MutableCopy, &__p);
+              QP::getUTF8StringFromCFString(&__p, MutableCopy);
               v17 = v22 >= 0 ? &__p : __p;
               v18 = v22 >= 0 ? HIBYTE(v22) : v21;
               nlp::BurstTrieAdd(*(this + 1), v17, v18, 1);
@@ -6585,7 +6555,7 @@ uint64_t QP::ParserGrammar::loadTokens(const void **this, CFDictionaryRef theDic
 
 uint64_t QP::ParserGrammar::loadAttributes(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -6594,79 +6564,78 @@ uint64_t QP::ParserGrammar::loadAttributes(QP::ParserGrammar *this, CFDictionary
     if (result)
     {
       v8 = CFDictionaryGetValue(Value, @"ATTRIBUTES");
-      v24[1] = v24;
+      v23[1] = v23;
       Count = CFDictionaryGetCount(v8);
       v9 = 8 * Count;
       MEMORY[0x1EEE9AC00](Count);
-      v10 = v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v10 = v23 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v10, v9);
       MEMORY[0x1EEE9AC00](v11);
       bzero(v10, v9);
-      v25 = v10;
-      v26 = v8;
+      v24 = v10;
+      v25 = v8;
       CFDictionaryGetKeysAndValues(v8, v10, v10);
       if (Count >= 1)
       {
         v12 = 0;
         do
         {
-          v29 = v12;
-          v13 = *&v25[8 * v12];
-          v30 = CFDictionaryGetValue(v26, v13);
-          v14 = CFDictionaryGetCount(v30);
-          v28 = v24;
+          v28 = v12;
+          v13 = *&v24[8 * v12];
+          v29 = CFDictionaryGetValue(v25, v13);
+          v14 = CFDictionaryGetCount(v29);
+          v27 = v23;
           MEMORY[0x1EEE9AC00](v14);
-          v15 = v24 - ((8 * v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v15 = v23 - ((8 * v14 + 15) & 0xFFFFFFFFFFFFFFF0);
           bzero(v15, 8 * v14);
           MEMORY[0x1EEE9AC00](v16);
           bzero(v15, 8 * v14);
-          CFDictionaryGetKeysAndValues(v30, v15, v15);
+          CFDictionaryGetKeysAndValues(v29, v15, v15);
           if (v14 >= 1)
           {
             for (i = 0; i != v14; ++i)
             {
               v18 = *&v15[8 * i];
-              v19 = CFDictionaryGetValue(v30, v18);
+              v19 = CFDictionaryGetValue(v29, v18);
               v20 = CFArrayGetCount(v19);
               if (v20 >= 1)
               {
                 for (j = 0; j != v20; ++j)
                 {
                   ValueAtIndex = CFArrayGetValueAtIndex(v19, j);
-                  QP::getUTF8StringFromCFString(v18, v34);
-                  QP::getUTF8StringFromCFString(ValueAtIndex, v32);
-                  QP::getUTF8StringFromCFString(v13, &v31);
-                  QP::ParserGrammar::setAttribute(this, v34, v32, &v31);
-                  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+                  QP::getUTF8StringFromCFString(v33, v18);
+                  QP::getUTF8StringFromCFString(v31, ValueAtIndex);
+                  QP::getUTF8StringFromCFString(&v30, v13);
+                  QP::ParserGrammar::setAttribute(this, v33, v31, &v30);
+                  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    operator delete(v31.__r_.__value_.__l.__data_);
+                    operator delete(v30.__r_.__value_.__l.__data_);
                   }
 
-                  if (v33 < 0)
+                  if (v32 < 0)
                   {
-                    operator delete(v32[0]);
+                    operator delete(v31[0]);
                   }
 
-                  if (v35 < 0)
+                  if (v34 < 0)
                   {
-                    operator delete(v34[0]);
+                    operator delete(v33[0]);
                   }
                 }
               }
             }
           }
 
-          v12 = v29 + 1;
+          v12 = v28 + 1;
         }
 
-        while (v29 + 1 != Count);
+        while (v28 + 1 != Count);
       }
 
-      result = 1;
+      return 1;
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6717,7 +6686,7 @@ LABEL_9:
     v24[0] = 0;
     v24[1] = 0;
     v23 = v24;
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(a1 + 336, &v22);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(a1 + 336, &v22, &v22);
     std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::destroy(&v23, v24[0]);
     std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::destroy(&v20, v21[0]);
     v9 = *v8;
@@ -6750,7 +6719,7 @@ LABEL_18:
   }
 
   v22 = &v25;
-  v18 = std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v15 + 40, &v25);
+  v18 = std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v15 + 40, &v25, &std::piecewise_construct, &v22);
   return std::string::operator=((v18 + 5), a4);
 }
 
@@ -6763,11 +6732,11 @@ void sub_1C65E2BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t QP::ParserGrammar::loadSuggestions(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
-    v43 = this;
+    v42 = this;
     v7 = *(this + 5);
     v8 = *(v7 + 160);
     v9 = 152;
@@ -6776,7 +6745,7 @@ uint64_t QP::ParserGrammar::loadSuggestions(QP::ParserGrammar *this, CFDictionar
       v9 = 136;
     }
 
-    v47 = *(v7 + v9);
+    v46 = *(v7 + v9);
     v10 = 160;
     if (!v8)
     {
@@ -6791,74 +6760,72 @@ uint64_t QP::ParserGrammar::loadSuggestions(QP::ParserGrammar *this, CFDictionar
       v13 = CFGetTypeID(result);
       if (v13 != CFDictionaryGetTypeID())
       {
-        goto LABEL_39;
+        return 0;
       }
 
       result = CFDictionaryContainsKey(v12, @"SUGGESTIONS");
       if (!result)
       {
-        goto LABEL_40;
+        return result;
       }
 
       result = CFDictionaryGetValue(v12, @"SUGGESTIONS");
       if (!result)
       {
-        goto LABEL_40;
+        return result;
       }
 
       v14 = result;
       v15 = CFGetTypeID(result);
       if (v15 != CFDictionaryGetTypeID())
       {
-LABEL_39:
-        result = 0;
-        goto LABEL_40;
+        return 0;
       }
 
-      v38[0] = v38;
+      v37[0] = v37;
       Count = CFDictionaryGetCount(v14);
       MEMORY[0x1EEE9AC00](Count);
-      v17 = v38 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v17 = v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v17, v16);
-      v40 = v14;
-      v39 = v17;
+      v39 = v14;
+      v38 = v17;
       CFDictionaryGetKeysAndValues(v14, v17, 0);
       if (Count >= 1)
       {
         v18 = 0;
         while (1)
         {
-          v42 = v18;
-          v44 = *&v39[8 * v18];
-          Value = CFDictionaryGetValue(v40, v44);
+          v41 = v18;
+          v43 = *&v38[8 * v18];
+          Value = CFDictionaryGetValue(v39, v43);
           v19 = CFGetTypeID(Value);
           if (v19 == CFDictionaryGetTypeID())
           {
-            v46 = CFDictionaryGetCount(Value);
-            v38[1] = v38;
-            MEMORY[0x1EEE9AC00](v46);
-            v21 = v38 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+            v45 = CFDictionaryGetCount(Value);
+            v37[1] = v37;
+            MEMORY[0x1EEE9AC00](v45);
+            v21 = v37 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
             bzero(v21, v20);
-            v45 = v21;
+            v44 = v21;
             CFDictionaryGetKeysAndValues(Value, v21, 0);
-            if (v46 >= 1)
+            if (v45 >= 1)
             {
               break;
             }
           }
 
 LABEL_37:
-          v18 = v42 + 1;
-          if (v42 + 1 == Count)
+          v18 = v41 + 1;
+          if (v41 + 1 == Count)
           {
-            goto LABEL_38;
+            return 1;
           }
         }
 
         v22 = 0;
         while (1)
         {
-          v23 = *&v45[8 * v22];
+          v23 = *&v44[8 * v22];
           v24 = CFDictionaryGetValue(Value, v23);
           v25 = v24;
           if (v24)
@@ -6868,7 +6835,7 @@ LABEL_37:
             {
               v27 = CFDictionaryGetCount(v25);
               MEMORY[0x1EEE9AC00](v27);
-              v29 = (v38 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0));
+              v29 = (v37 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0));
               bzero(v29, v28);
               CFDictionaryGetKeysAndValues(v25, v29, 0);
               if (v27 >= 1)
@@ -6879,7 +6846,7 @@ LABEL_37:
           }
 
 LABEL_36:
-          if (++v22 == v46)
+          if (++v22 == v45)
           {
             goto LABEL_37;
           }
@@ -6905,9 +6872,9 @@ LABEL_36:
                 }
               }
 
-              else if (CFDictionaryContainsKey(v32, v47))
+              else if (CFDictionaryContainsKey(v32, v46))
               {
-                v34 = CFDictionaryGetValue(v32, v47);
+                v34 = CFDictionaryGetValue(v32, v46);
                 v35 = v34;
                 if (v34)
                 {
@@ -6915,29 +6882,29 @@ LABEL_26:
                   v36 = CFGetTypeID(v34);
                   if (v36 == CFStringGetTypeID())
                   {
-                    QP::getUTF8StringFromCFString(v44, &v55);
-                    QP::getUTF8StringFromCFString(v23, v53);
-                    QP::getUTF8StringFromCFString(v30, v51);
-                    QP::getUTF8StringFromCFString(v35, v49);
-                    QP::ParserGrammar::setSuggestion(v43, &v55, v53, v51, v49);
-                    if (v50 < 0)
+                    QP::getUTF8StringFromCFString(&v54, v43);
+                    QP::getUTF8StringFromCFString(v52, v23);
+                    QP::getUTF8StringFromCFString(v50, v30);
+                    QP::getUTF8StringFromCFString(v48, v35);
+                    QP::ParserGrammar::setSuggestion(v42, &v54, v52, v50, v48);
+                    if (v49 < 0)
                     {
-                      operator delete(v49[0]);
+                      operator delete(v48[0]);
                     }
 
-                    if (v52 < 0)
+                    if (v51 < 0)
                     {
-                      operator delete(v51[0]);
+                      operator delete(v50[0]);
                     }
 
-                    if (v54 < 0)
+                    if (v53 < 0)
                     {
-                      operator delete(v53[0]);
+                      operator delete(v52[0]);
                     }
 
-                    if (v56 < 0)
+                    if (v55 < 0)
                     {
-                      operator delete(v55);
+                      operator delete(v54);
                     }
                   }
                 }
@@ -6953,13 +6920,10 @@ LABEL_26:
         }
       }
 
-LABEL_38:
-      result = 1;
+      return 1;
     }
   }
 
-LABEL_40:
-  v37 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6989,7 +6953,7 @@ void QP::ParserGrammar::setSuggestion(uint64_t a1, __int128 *a2, uint64_t a3, ui
     v18 = 0;
     v16 = &v17;
     std::pair<std::string,std::map<std::string,std::set<std::string>>>::pair[abi:ne200100]<std::string const&,std::map<std::string,std::set<std::string>>,0>(&__p, a2, &v16);
-    std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>(a1 + 528, &__p.__r_.__value_.__l.__data_);
+    std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>((a1 + 528), &__p, &__p);
     std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::string>>>>::destroy(v20, v20[1]);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -6998,7 +6962,7 @@ void QP::ParserGrammar::setSuggestion(uint64_t a1, __int128 *a2, uint64_t a3, ui
 
     std::__tree<std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::map<unsigned short,std::string>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::map<unsigned short,std::string>>>>::destroy(&v16, v17);
     __p.__r_.__value_.__r.__words[0] = a2;
-    v13 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 528, a2);
+    v13 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 528), a2, &std::piecewise_construct, &__p, &v16);
     v17 = 0;
     v18 = 0;
     v16 = &v17;
@@ -7006,13 +6970,13 @@ void QP::ParserGrammar::setSuggestion(uint64_t a1, __int128 *a2, uint64_t a3, ui
     __p.__r_.__value_.__r.__words[2] = 0;
     v20[0] = 0;
     __p.__r_.__value_.__l.__size_ = &__p.__r_.__value_.__r.__words[2];
-    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>(v13 + 56, &__p);
+    std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::set<unsigned short>>>((v13 + 7), &__p, &__p);
     std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::destroy(&__p.__r_.__value_.__l.__size_, __p.__r_.__value_.__r.__words[2]);
     std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::destroy(&v16, v17);
     __p.__r_.__value_.__r.__words[0] = a2;
-    v14 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 528, a2);
+    v14 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 528), a2, &std::piecewise_construct, &__p, &v16);
     __p.__r_.__value_.__r.__words[0] = &v22;
-    v15 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v14 + 56, &v22);
+    v15 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v14 + 7), &v22, &std::piecewise_construct, &__p);
     LOWORD(__p.__r_.__value_.__l.__data_) = v9;
     if (*(a5 + 23) < 0)
     {
@@ -7025,7 +6989,7 @@ void QP::ParserGrammar::setSuggestion(uint64_t a1, __int128 *a2, uint64_t a3, ui
       v20[0] = *(a5 + 16);
     }
 
-    std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::string>>((v15 + 5), &__p);
+    std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::string>>((v15 + 5), &__p, &__p);
     if (SHIBYTE(v20[0]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__size_);
@@ -7034,10 +6998,12 @@ void QP::ParserGrammar::setSuggestion(uint64_t a1, __int128 *a2, uint64_t a3, ui
 
   else
   {
-    v10 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 528, a2);
-    v11 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(v10 + 56, &v22);
+    __p.__r_.__value_.__r.__words[0] = a2;
+    v10 = std::__tree<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<unsigned short,std::map<unsigned short,std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 528), a2, &std::piecewise_construct, &__p, &v16);
+    __p.__r_.__value_.__r.__words[0] = &v22;
+    v11 = std::__tree<std::__value_type<unsigned short,std::set<unsigned short>>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::set<unsigned short>>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::set<unsigned short>>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v10 + 7), &v22, &std::piecewise_construct, &__p);
     __p.__r_.__value_.__r.__words[0] = &v21;
-    v12 = std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v11 + 5), &v21);
+    v12 = std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((v11 + 5), &v21, &std::piecewise_construct, &__p);
     std::string::operator=((v12 + 5), a5);
   }
 }
@@ -7073,7 +7039,7 @@ uint64_t QP::ParserGrammar::loadTranslations(const void **this, CFDictionaryRef 
 
 uint64_t QP::ParserGrammar::loadReplacements(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
   {
@@ -7090,7 +7056,7 @@ uint64_t QP::ParserGrammar::loadReplacements(QP::ParserGrammar *this, CFDictiona
         {
           Count = CFDictionaryGetCount(v8);
           MEMORY[0x1EEE9AC00](Count);
-          v11 = (&v17[-1] - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
+          v11 = (&v16[-1] - ((8 * Count + 15) & 0xFFFFFFFFFFFFFFF0));
           bzero(v11, 8 * Count);
           MEMORY[0x1EEE9AC00](v12);
           v13 = v11;
@@ -7101,17 +7067,17 @@ uint64_t QP::ParserGrammar::loadReplacements(QP::ParserGrammar *this, CFDictiona
             do
             {
               v14 = *v13;
-              QP::getUTF8StringFromCFString(*v11, v19);
-              QP::getUTF8StringFromCFString(v14, v17);
-              QP::ParserGrammar::setReplacement(this, v19, v17);
-              if (v18 < 0)
+              QP::getUTF8StringFromCFString(v18, *v11);
+              QP::getUTF8StringFromCFString(v16, v14);
+              QP::ParserGrammar::setReplacement(this, v18, v16);
+              if (v17 < 0)
               {
-                operator delete(v17[0]);
+                operator delete(v16[0]);
               }
 
-              if (v20 < 0)
+              if (v19 < 0)
               {
-                operator delete(v19[0]);
+                operator delete(v18[0]);
               }
 
               ++v13;
@@ -7122,18 +7088,17 @@ uint64_t QP::ParserGrammar::loadReplacements(QP::ParserGrammar *this, CFDictiona
             while (Count);
           }
 
-          result = 1;
+          return 1;
         }
 
         else
         {
-          result = 0;
+          return 0;
         }
       }
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7151,10 +7116,10 @@ uint64_t *QP::ParserGrammar::setReplacement(uint64_t a1, uint64_t a2, uint64_t a
 {
   SymbolID = QP::ParserGrammar::getSymbolID(a1, a2);
   v7 = SymbolID | (QP::ParserGrammar::getSymbolID(a1, a3) << 16);
-  return std::__tree<std::__value_type<unsigned short,unsigned short>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned short>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned short>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,unsigned short>>(a1 + 312, &v7);
+  return std::__tree<std::__value_type<unsigned short,unsigned short>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,unsigned short>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,unsigned short>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,unsigned short>>(a1 + 312, &v7, &v7);
 }
 
-uint64_t QP::ParserGrammar::loadIgnoredTerms(QP::ParserGrammar *this, CFDictionaryRef theDict, const __CFString *key)
+uint64_t QP::ParserGrammar::loadIgnoredTerms(uint64_t **this, CFDictionaryRef theDict, const __CFString *key)
 {
   result = CFDictionaryContainsKey(theDict, key);
   if (result)
@@ -7171,7 +7136,7 @@ uint64_t QP::ParserGrammar::loadIgnoredTerms(QP::ParserGrammar *this, CFDictiona
         for (i = 0; i != v10; ++i)
         {
           ValueAtIndex = CFArrayGetValueAtIndex(v8, i);
-          QP::getUTF8StringFromCFString(ValueAtIndex, __p);
+          QP::getUTF8StringFromCFString(__p, ValueAtIndex);
           v13 = v16;
           v14 = v16;
           if ((v16 & 0x80u) != 0)
@@ -7181,7 +7146,7 @@ uint64_t QP::ParserGrammar::loadIgnoredTerms(QP::ParserGrammar *this, CFDictiona
 
           if (v13)
           {
-            std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(this + 120, __p);
+            std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(this + 15, __p, __p);
             v14 = v16;
           }
 
@@ -7209,7 +7174,7 @@ void sub_1C65E3740(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t QP::ParserGrammar::fallbackToCFG(CFURLRef *this, BOOL a2)
+void QP::ParserGrammar::fallbackToCFG(CFURLRef *this, BOOL a2)
 {
   v4 = *MEMORY[0x1E695E480];
   v5 = this + 7;
@@ -7237,7 +7202,7 @@ uint64_t QP::ParserGrammar::fallbackToCFG(CFURLRef *this, BOOL a2)
   v12 = CFURLCreateWithString(v4, MutableCopy, 0);
   nlp::CFScopedPtr<__CFURL const*>::reset(v5, v12);
   CFRelease(MutableCopy);
-  return QP::ParserGrammar::loadResources(this, a2);
+  QP::ParserGrammar::loadResources(this, a2, v13);
 }
 
 void QP::ParserGrammar::addSymbol(uint64_t a1, uint64_t a2)
@@ -7751,7 +7716,7 @@ LABEL_129:
     std::string::__init_copy_ctor_external(&v83, *a2, v51);
 LABEL_130:
     LOWORD(v84) = v4;
-    std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_unique_key_args<std::string,std::pair<std::string,unsigned short>>(a1 + 168, &v83.__r_.__value_.__l.__data_);
+    std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__emplace_unique_key_args<std::string,std::pair<std::string,unsigned short>>((a1 + 168), &v83, &v83);
     if (SHIBYTE(v83.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v83.__r_.__value_.__l.__data_);
@@ -7769,7 +7734,7 @@ LABEL_130:
       v84 = *(a2 + 16);
     }
 
-    std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::string>>(a1 + 144, &v83);
+    std::__tree<std::__value_type<unsigned short,std::string>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,std::string>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,std::string>>>::__emplace_unique_key_args<unsigned short,std::pair<unsigned short,std::string>>(a1 + 144, &v83, &v83);
     if (SHIBYTE(v84) < 0)
     {
       operator delete(v83.__r_.__value_.__l.__size_);
@@ -7795,7 +7760,7 @@ LABEL_139:
         }
 
         LOWORD(v83.__r_.__value_.__l.__data_) = QP::ParserGrammar::getSymbolID(a1, &v82);
-        std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a1 + 696, &v83);
+        std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a1 + 696, &v83, &v83);
         if (SHIBYTE(v82.__r_.__value_.__r.__words[2]) < 0)
         {
           v56 = &v82;
@@ -7833,7 +7798,7 @@ LABEL_144:
         }
 
         LOWORD(v83.__r_.__value_.__l.__data_) = QP::ParserGrammar::getSymbolID(a1, &v81);
-        std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a1 + 720, &v83);
+        std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a1 + 720, &v83, &v83);
         if (SHIBYTE(v81.__r_.__value_.__r.__words[2]) < 0)
         {
           v56 = &v81;
@@ -8013,7 +7978,7 @@ LABEL_207:
               }
 
               SymbolID = QP::ParserGrammar::getSymbolID(a1, &v72);
-              std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a1 + 840, &SymbolID);
+              std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a1 + 840, &SymbolID, &SymbolID);
               if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(v72.__r_.__value_.__l.__data_);
@@ -8043,7 +8008,7 @@ LABEL_257:
         }
 
         LOWORD(v83.__r_.__value_.__l.__data_) = QP::ParserGrammar::getSymbolID(a1, &v73);
-        std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a1 + 936, &v83);
+        std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a1 + 936, &v83, &v83);
         if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v73.__r_.__value_.__l.__data_);
@@ -8078,7 +8043,7 @@ LABEL_257:
       }
 
       LOWORD(v83.__r_.__value_.__l.__data_) = QP::ParserGrammar::getSymbolID(a1, &v80);
-      std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a1 + 672, &v83);
+      std::__tree<unsigned short>::__emplace_unique_key_args<unsigned short,unsigned short const&>(a1 + 672, &v83, &v83);
       if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
       {
         v56 = &v80;
@@ -8236,8 +8201,7 @@ void sub_1C65E4780(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::string *QP::ParserGrammar::symbol@<X0>(QP::ParserGrammar *this@<X0>, unsigned int a2@<W1>, std::string *a3@<X8>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
+  *&a3->__r_.__value_.__l.__data_ = 0uLL;
   a3->__r_.__value_.__r.__words[2] = 0;
   result = std::string::basic_string[abi:ne200100]<0>(a3, kQPSymbolNone);
   v9 = *(this + 19);
@@ -8576,7 +8540,7 @@ BOOL QP::ParserGrammar::hasFileExtensions(QP::ParserGrammar *this, unsigned int 
   return *(v9 + 7) != 0;
 }
 
-BOOL QP::ParserGrammar::hasValue(uint64_t a1, unsigned int a2, void **a3)
+BOOL QP::ParserGrammar::hasValue(uint64_t a1, unsigned int a2, char *a3)
 {
   v3 = *(a1 + 560);
   if (!v3)
@@ -8602,7 +8566,7 @@ BOOL QP::ParserGrammar::hasValue(uint64_t a1, unsigned int a2, void **a3)
   return v4 != a1 + 560 && *(v4 + 32) <= a2 && v4 + 48 != std::__tree<std::string>::find<std::string>(v4 + 40, a3);
 }
 
-void QP::ParserGrammar::value(uint64_t a1@<X0>, unsigned int a2@<W1>, void **a3@<X2>, std::string *a4@<X8>)
+void QP::ParserGrammar::value(uint64_t a1@<X0>, unsigned int a2@<W1>, char *a3@<X2>, std::string *a4@<X8>)
 {
   v5 = *(a1 + 560);
   if (!v5)
@@ -8815,7 +8779,7 @@ void sub_1C65E510C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void QP::ParserGrammar::tokens(uint64_t a1, const __CFString *a2, const __CFString *a3, const __CFString *a4, uint64_t a5)
 {
-  v83[1] = *MEMORY[0x1E69E9840];
+  v82[1] = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v6 = *(a1 + 80);
@@ -8851,7 +8815,7 @@ void QP::ParserGrammar::tokens(uint64_t a1, const __CFString *a2, const __CFStri
               v20 = CFDictionaryGetValue(v17, @"TYPE");
               if (v20)
               {
-                v79 = v20;
+                v78 = v20;
                 v21 = CFGetTypeID(v20);
                 if (v21 == CFStringGetTypeID())
                 {
@@ -8870,12 +8834,12 @@ void QP::ParserGrammar::tokens(uint64_t a1, const __CFString *a2, const __CFStri
                       v25 = 0;
                     }
 
-                    v78 = v25;
+                    v77 = v25;
                   }
 
                   else
                   {
-                    v78 = 0;
+                    v77 = 0;
                   }
 
                   v26 = CFDictionaryGetValue(v17, @"TOKEN");
@@ -8893,12 +8857,12 @@ void QP::ParserGrammar::tokens(uint64_t a1, const __CFString *a2, const __CFStri
                       v29 = 0;
                     }
 
-                    v80 = v29;
+                    v79 = v29;
                   }
 
                   else
                   {
-                    v80 = 0;
+                    v79 = 0;
                   }
 
                   v30 = CFDictionaryGetValue(v17, a3);
@@ -8906,11 +8870,11 @@ void QP::ParserGrammar::tokens(uint64_t a1, const __CFString *a2, const __CFStri
                   {
                     v34 = CFDictionaryGetValue(v17, @"TOKEN");
                     v35 = CFDictionaryGetValue(v17, @"ROOT");
-                    v80 = v34;
+                    v79 = v34;
                     if (v34)
                     {
                       v36 = v35;
-                      v37 = CFGetTypeID(v80);
+                      v37 = CFGetTypeID(v79);
                       if (v37 == CFStringGetTypeID())
                       {
                         if (v36)
@@ -8925,20 +8889,23 @@ void QP::ParserGrammar::tokens(uint64_t a1, const __CFString *a2, const __CFStri
                               v41 = CFGetTypeID(v39);
                               if (v41 == CFArrayGetTypeID())
                               {
-                                v83[0] = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%@-%@", a3, a4);
-                                v42 = _copyTokenText(a2, v36, v83[0], v13, v15, *(a1 + 88));
-                                v82 = v42;
+                                v82[0] = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%@-%@", a3, a4);
+                                v42 = _copyTokenText(a2, v36, v82[0], v13, v15, *(a1 + 88));
+                                v81 = v42;
                                 v43 = _copyTranslationStringWithContent(a4, v40);
-                                v81 = v43;
-                                if (v43 && v42)
+                                v80 = v43;
+                                if (v43)
                                 {
-                                  (*(a5 + 16))(a5, v80, v42, v79, v43);
+                                  if (v42)
+                                  {
+                                    (*(a5 + 16))(a5, v79, v42, v78, v43);
+                                  }
                                 }
 
+                                nlp::CFScopedPtr<__CFString const*>::reset(&v80, 0);
                                 nlp::CFScopedPtr<__CFString const*>::reset(&v81, 0);
-                                nlp::CFScopedPtr<__CFString const*>::reset(&v82, 0);
 LABEL_80:
-                                nlp::CFScopedPtr<__CFString const*>::reset(v83, 0);
+                                nlp::CFScopedPtr<__CFString const*>::reset(v82, 0);
                               }
                             }
                           }
@@ -8958,29 +8925,29 @@ LABEL_80:
                         v48 = CFGetTypeID(v47);
                         if (v48 == CFStringGetTypeID())
                         {
-                          v78 = CFDictionaryGetValue(v45, a3);
-                          if (v78)
+                          v77 = CFDictionaryGetValue(v45, a3);
+                          if (v77)
                           {
-                            v49 = CFGetTypeID(v78);
+                            v49 = CFGetTypeID(v77);
                             v50 = v49 == CFArrayGetTypeID();
-                            v51 = v79;
+                            v51 = v78;
                             if (v50)
                             {
-                              Count = CFArrayGetCount(v78);
+                              Count = CFArrayGetCount(v77);
                               if (Count >= 1)
                               {
                                 v52 = 0;
-                                v76[0] = a5 + 16;
+                                v75[0] = a5 + 16;
                                 do
                                 {
-                                  ValueAtIndex = CFArrayGetValueAtIndex(v78, v52);
+                                  ValueAtIndex = CFArrayGetValueAtIndex(v77, v52);
                                   v54 = CFGetTypeID(ValueAtIndex);
                                   if (v54 == CFDictionaryGetTypeID())
                                   {
                                     v55 = CFDictionaryGetCount(ValueAtIndex);
-                                    v76[1] = v76;
+                                    v75[1] = v75;
                                     MEMORY[0x1EEE9AC00](v55);
-                                    v56 = (v76 - ((8 * v55 + 15) & 0xFFFFFFFFFFFFFFF0));
+                                    v56 = (v75 - ((8 * v55 + 15) & 0xFFFFFFFFFFFFFFF0));
                                     bzero(v56, 8 * v55);
                                     MEMORY[0x1EEE9AC00](v57);
                                     v58 = v56;
@@ -8988,12 +8955,12 @@ LABEL_80:
                                     CFDictionaryGetKeysAndValues(ValueAtIndex, v56, v56);
                                     if (v55 < 1)
                                     {
-                                      v79 = 0;
+                                      v78 = 0;
                                     }
 
                                     else
                                     {
-                                      v79 = 0;
+                                      v78 = 0;
                                       v59 = 0;
                                       do
                                       {
@@ -9009,13 +8976,13 @@ LABEL_80:
                                           v62 = *v58;
                                           v63 = CFGetTypeID(*v58);
                                           v64 = CFStringGetTypeID();
-                                          v65 = v80;
+                                          v65 = v79;
                                           if (v63 == v64)
                                           {
                                             v65 = v62;
                                           }
 
-                                          v80 = v65;
+                                          v79 = v65;
                                         }
 
                                         else if (CFStringsAreEqual(@"TYPE", v59))
@@ -9033,13 +9000,13 @@ LABEL_80:
                                           v68 = *v58;
                                           v69 = CFGetTypeID(*v58);
                                           v70 = CFArrayGetTypeID();
-                                          v71 = v79;
+                                          v71 = v78;
                                           if (v69 == v70)
                                           {
                                             v71 = v68;
                                           }
 
-                                          v79 = v71;
+                                          v78 = v71;
                                         }
 
                                         ++v58;
@@ -9050,14 +9017,14 @@ LABEL_80:
                                       while (v55);
                                     }
 
-                                    if (a4 && v80 && v51)
+                                    if (a4 && v79 && v51)
                                     {
-                                      v83[0] = 0;
-                                      if (v79)
+                                      v82[0] = 0;
+                                      if (v78)
                                       {
-                                        v72 = _copyTranslationStringWithContent(0, v79);
-                                        nlp::CFScopedPtr<__CFString const*>::reset(v83, v72);
-                                        v73 = v83[0];
+                                        v72 = _copyTranslationStringWithContent(0, v78);
+                                        nlp::CFScopedPtr<__CFString const*>::reset(v82, v72);
+                                        v73 = v82[0];
                                       }
 
                                       else
@@ -9065,8 +9032,8 @@ LABEL_80:
                                         v73 = 0;
                                       }
 
-                                      (*(a5 + 16))(a5, v80, a4, v51, v73);
-                                      nlp::CFScopedPtr<__CFString const*>::reset(v83, 0);
+                                      (*(a5 + 16))(a5, v79, a4, v51, v73);
+                                      nlp::CFScopedPtr<__CFString const*>::reset(v82, 0);
                                     }
                                   }
 
@@ -9081,13 +9048,13 @@ LABEL_80:
                       }
                     }
 
-                    else if (v78 && v80)
+                    else if (v77 && v79)
                     {
-                      v74 = _copyTokenText(a2, v78, a3, v13, v15, *(a1 + 88));
-                      v83[0] = v74;
+                      v74 = _copyTokenText(a2, v77, a3, v13, v15, *(a1 + 88));
+                      v82[0] = v74;
                       if (v74)
                       {
-                        (*(a5 + 16))(a5, v80, v74, v79, 0);
+                        (*(a5 + 16))(a5, v79, v74, v78, 0);
                       }
 
                       goto LABEL_80;
@@ -9101,8 +9068,6 @@ LABEL_80:
       }
     }
   }
-
-  v75 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C65E5730(_Unwind_Exception *a1)
@@ -9265,70 +9230,70 @@ LABEL_14:
   }
 }
 
-void sub_1C65E5A3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65E5A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFArray *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
 void QP::ParserGrammar::tokenCompletions(uint64_t a1, CFStringRef theString, uint64_t a3)
 {
-  v50[4] = *MEMORY[0x1E69E9840];
+  v49[4] = *MEMORY[0x1E69E9840];
   if (theString && CFStringGetLength(theString) && *(a1 + 8) && *(a1 + 16) && *(a1 + 32) && *(a1 + 24))
   {
     v6 = *MEMORY[0x1E695E480];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    v40 = v6;
+    v39 = v6;
     MutableCopy = CFStringCreateMutableCopy(v6, 0, theString);
     CFStringLowercase(MutableCopy, *(*(a1 + 40) + 112));
+    v45 = 0;
     v46 = 0;
     v47 = 0;
-    v48 = 0;
-    QP::getUTF8StringFromCFString(MutableCopy, &v46);
-    v37 = a3;
+    QP::getUTF8StringFromCFString(&v45, MutableCopy);
+    v36 = a3;
     v8 = *(a1 + 8);
-    if (v48 >= 0)
+    if (v47 >= 0)
     {
-      v9 = &v46;
+      v9 = &v45;
     }
 
     else
     {
-      v9 = v46;
+      v9 = v45;
     }
 
-    v50[0] = &unk_1F45E9B88;
-    v50[1] = searchCompletions;
-    v50[3] = v50;
-    if (v48 >= 0)
+    v49[0] = &unk_1F45E9B88;
+    v49[1] = searchCompletions;
+    v49[3] = v49;
+    if (v47 >= 0)
     {
-      v10 = HIBYTE(v48);
+      v10 = HIBYTE(v47);
     }
 
     else
     {
-      v10 = v47;
+      v10 = v46;
     }
 
-    nlp::BurstTrieSearch(v8, v9, v10, Mutable, v50, -1);
-    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL *)>::~__value_func[abi:ne200100](v50);
+    nlp::BurstTrieSearch(v8, v9, v10, Mutable, v49, 0xFFFFFFFFLL);
+    std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL *)>::~__value_func[abi:ne200100](v49);
     v11 = Mutable;
     Count = CFDictionaryGetCount(Mutable);
-    v35 = &v32;
+    v34 = &v31;
     MEMORY[0x1EEE9AC00](Count);
     v13 = (8 * Count + 15) & 0xFFFFFFFFFFFFFFF0;
-    bzero(&v32 - v13, 8 * Count);
+    bzero(&v31 - v13, 8 * Count);
     MEMORY[0x1EEE9AC00](v14);
-    v15 = (&v32 - v13);
-    bzero(&v32 - v13, 8 * Count);
-    CFDictionaryGetKeysAndValues(v11, (&v32 - v13), (&v32 - v13));
-    v36 = v11;
-    v41 = CFSetCreateMutable(v40, 0, MEMORY[0x1E695E9F8]);
-    v45 = v41;
+    v15 = (&v31 - v13);
+    bzero(&v31 - v13, 8 * Count);
+    CFDictionaryGetKeysAndValues(v11, (&v31 - v13), (&v31 - v13));
+    v35 = v11;
+    v40 = CFSetCreateMutable(v39, 0, MEMORY[0x1E695E9F8]);
+    v44 = v40;
     if (Count >= 1)
     {
-      v32 = v37 + 16;
+      v31 = v36 + 16;
       while (1)
       {
         v16 = *v15;
@@ -9341,43 +9306,43 @@ void QP::ParserGrammar::tokenCompletions(uint64_t a1, CFStringRef theString, uin
         }
 
         v20 = v19;
-        if (!CFSetContainsValue(v41, Value))
+        if (!CFSetContainsValue(v40, Value))
         {
-          CFSetSetValue(v41, Value);
-          ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(v40, Value, @":");
+          CFSetSetValue(v40, Value);
+          ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(v39, Value, @":");
           v22 = ArrayBySeparatingStrings;
-          v44 = ArrayBySeparatingStrings;
+          v43 = ArrayBySeparatingStrings;
           if (ArrayBySeparatingStrings)
           {
             if (CFArrayGetCount(ArrayBySeparatingStrings) == 4)
             {
               ValueAtIndex = CFArrayGetValueAtIndex(v22, 0);
-              v39 = CFArrayGetValueAtIndex(v22, 1);
-              v38 = CFArrayGetValueAtIndex(v22, 2);
+              v38 = CFArrayGetValueAtIndex(v22, 1);
+              v37 = CFArrayGetValueAtIndex(v22, 2);
               v24 = CFArrayGetValueAtIndex(v22, 3);
-              v25 = CFStringCreateArrayBySeparatingStrings(v40, v24, @"-");
-              v43 = v25;
+              v25 = CFStringCreateArrayBySeparatingStrings(v39, v24, @"-");
+              v42 = v25;
               if (CFArrayGetCount(v25) == 2)
               {
                 v24 = CFArrayGetValueAtIndex(v25, 0);
-                v34 = CFArrayGetValueAtIndex(v25, 1);
-                v33 = 5;
+                v33 = CFArrayGetValueAtIndex(v25, 1);
+                v32 = 5;
               }
 
               else
               {
+                v32 = 0;
                 v33 = 0;
-                v34 = 0;
               }
 
               v26 = ValueAtIndex;
-              v27 = CFStringCreateWithFormat(v40, 0, @"TOKEN:%@", ValueAtIndex);
-              v42 = v27;
+              v27 = CFStringCreateWithFormat(v39, 0, @"TOKEN:%@", ValueAtIndex);
+              v41 = v27;
               v28 = CFDictionaryGetValue(*(a1 + 32), v27);
-              if (v20 && v18 && v26 && v39 && v38 && v24)
+              if (v20 && v18 && v26 && v38 && v37 && v24)
               {
-                LOWORD(v31) = v33;
-                (*(v37 + 16))(v37, v20, v28, v18, v26, v39, v38, v24, v34, v31, v32);
+                LOWORD(v30) = v32;
+                (*(v36 + 16))(v36, v20, v28, v18, v26, v38, v37, v24, v33, v30, v31);
               }
 
               if (v27)
@@ -9415,15 +9380,15 @@ void QP::ParserGrammar::tokenCompletions(uint64_t a1, CFStringRef theString, uin
     }
 
 LABEL_40:
-    CFRelease(v36);
-    if (v41)
+    CFRelease(v35);
+    if (v40)
     {
-      CFRelease(v41);
+      CFRelease(v40);
     }
 
-    if (SHIBYTE(v48) < 0)
+    if (SHIBYTE(v47) < 0)
     {
-      operator delete(v46);
+      operator delete(v45);
     }
 
     if (MutableCopy)
@@ -9431,8 +9396,6 @@ LABEL_40:
       CFRelease(MutableCopy);
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void searchCompletions(__CFDictionary *a1, uint64_t a2)
@@ -9506,16 +9469,16 @@ void ___ZNK2QP13ParserGrammar23fallbackDateCompletionsEPK10__CFStringU13block_po
   CFRelease(v10);
 }
 
-void sub_1C65E628C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C65E628C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
 void QP::ParserGrammar::completions(uint64_t a1, CFStringRef theString, uint64_t a3)
 {
-  v24[4] = *MEMORY[0x1E69E9840];
+  v23[4] = *MEMORY[0x1E69E9840];
   if (theString)
   {
     Length = CFStringGetLength(theString);
@@ -9527,44 +9490,44 @@ void QP::ParserGrammar::completions(uint64_t a1, CFStringRef theString, uint64_t
         v8 = *MEMORY[0x1E695E480];
         Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
         MutableCopy = CFStringCreateMutableCopy(v8, 0, theString);
-        v23 = MutableCopy;
+        v22 = MutableCopy;
         CFStringLowercase(MutableCopy, *(*(a1 + 40) + 112));
-        v25.location = 0;
-        v25.length = v7;
-        CFStringFindAndReplace(MutableCopy, @"’", @"'", v25, 0);
+        v24.location = 0;
+        v24.length = v7;
+        CFStringFindAndReplace(MutableCopy, @"’", @"'", v24, 0);
+        v19 = 0;
         v20 = 0;
         v21 = 0;
-        v22 = 0;
-        QP::getUTF8StringFromCFString(MutableCopy, &v20);
+        QP::getUTF8StringFromCFString(&v19, MutableCopy);
         v11 = *(a1 + 8);
-        if (v22 >= 0)
+        if (v21 >= 0)
         {
-          v12 = &v20;
+          v12 = &v19;
         }
 
         else
         {
-          v12 = v20;
+          v12 = v19;
         }
 
-        v24[0] = &unk_1F45E9B88;
-        v24[1] = searchCompletions;
-        v24[3] = v24;
-        if (v22 >= 0)
+        v23[0] = &unk_1F45E9B88;
+        v23[1] = searchCompletions;
+        v23[3] = v23;
+        if (v21 >= 0)
         {
-          v13 = HIBYTE(v22);
+          v13 = HIBYTE(v21);
         }
 
         else
         {
-          v13 = v21;
+          v13 = v20;
         }
 
-        nlp::BurstTrieSearch(v11, v12, v13, Mutable, v24, -1);
-        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL *)>::~__value_func[abi:ne200100](v24);
+        nlp::BurstTrieSearch(v11, v12, v13, Mutable, v23, 0xFFFFFFFFLL);
+        std::__function::__value_func<void ()(void *,nlp::_TrieCompletion *,BOOL *)>::~__value_func[abi:ne200100](v23);
         Count = CFDictionaryGetCount(Mutable);
         MEMORY[0x1EEE9AC00](Count);
-        v16 = (&v19 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
+        v16 = (&v18 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
         bzero(v16, v15);
         CFDictionaryGetKeysAndValues(Mutable, v16, 0);
         if (Count >= 1)
@@ -9585,28 +9548,24 @@ void QP::ParserGrammar::completions(uint64_t a1, CFStringRef theString, uint64_t
         }
 
         CFRelease(Mutable);
-        if ((SHIBYTE(v22) & 0x80000000) == 0)
+        if (SHIBYTE(v21) < 0)
         {
+          operator delete(v19);
           if (!MutableCopy)
           {
-            goto LABEL_19;
+            return;
           }
-
-          goto LABEL_18;
         }
 
-        operator delete(v20);
-        if (MutableCopy)
+        else if (!MutableCopy)
         {
-LABEL_18:
-          CFRelease(MutableCopy);
+          return;
         }
+
+        CFRelease(MutableCopy);
       }
     }
   }
-
-LABEL_19:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C65E64F8(_Unwind_Exception *exception_object, int a2)

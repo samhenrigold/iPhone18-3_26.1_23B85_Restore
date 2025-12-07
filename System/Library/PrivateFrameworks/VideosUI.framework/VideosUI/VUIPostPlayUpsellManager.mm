@@ -35,9 +35,9 @@ void __42__VUIPostPlayUpsellManager_sharedInstance__block_invoke()
 
 - (VUIPostPlayUpsellManager)init
 {
-  v12.receiver = self;
-  v12.super_class = VUIPostPlayUpsellManager;
-  v2 = [(VUIPostPlayUpsellManager *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = VUIPostPlayUpsellManager;
+  v2 = [(VUIPostPlayUpsellManager *)&v13 init];
   if (v2)
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -52,8 +52,8 @@ void __42__VUIPostPlayUpsellManager_sharedInstance__block_invoke()
     v2->_stateMachine = v7;
 
     v9 = v2->_stateMachine;
-    v10 = VUIDefaultLogObject();
-    [(TVPStateMachine *)v9 setLogObject:v10];
+    v11 = VUIDefaultLogObject(v10);
+    [(TVPStateMachine *)v9 setLogObject:v11];
 
     [(TVPStateMachine *)v2->_stateMachine setCallsStateChangeHandlerSynchronously:1];
     [(VUIPostPlayUpsellManager *)v2 _registerStateMachineHandlers];
@@ -119,8 +119,7 @@ __CFString *__57__VUIPostPlayUpsellManager__registerStateMachineHandlers__block_
 
   else
   {
-    [WeakRetained setCumulativeLivePlaybacktime:0.0];
-    v16 = VUIDefaultLogObject();
+    v16 = VUIDefaultLogObject([WeakRetained setCumulativeLivePlaybacktime:0.0]);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = [v7 playbackDate];
@@ -180,7 +179,7 @@ __CFString *__57__VUIPostPlayUpsellManager__registerStateMachineHandlers__block_
 
 - (void)_currentMediaItemWillChange:(id)change
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   object = [changeCopy object];
   currentMediaItem = [object currentMediaItem];
@@ -190,28 +189,29 @@ __CFString *__57__VUIPostPlayUpsellManager__registerStateMachineHandlers__block_
   {
     userInfo = [changeCopy userInfo];
     v10 = [userInfo objectForKey:*MEMORY[0x1E69D5F08]];
-    v11 = VUIDefaultLogObject();
+    v11 = VUIDefaultLogObject(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = [currentMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5DC0]];
-      v19 = 138412546;
-      v20 = v12;
-      v21 = 2112;
-      v22 = v10;
-      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellManager - _currentMediaItemWillChange: %@, reason: %@", &v19, 0x16u);
+      v21 = 138412546;
+      v22 = v12;
+      v23 = 2112;
+      v24 = v10;
+      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellManager - _currentMediaItemWillChange: %@, reason: %@", &v21, 0x16u);
     }
 
     [(VUIPostPlayUpsellManager *)self elapsedTime];
     v14 = v13;
     if ([(VUIPostPlayUpsellManager *)self _isFullScreenPlaybackUIShown])
     {
-      if ([v10 isEqualToString:*MEMORY[0x1E69D5F00]])
+      v15 = [v10 isEqualToString:*MEMORY[0x1E69D5F00]];
+      if (v15)
       {
-        v15 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = VUIDefaultLogObject(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v19) = 0;
-          _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellManager - Defer the processing of this media item upsell", &v19, 2u);
+          LOWORD(v21) = 0;
+          _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellManager - Defer the processing of this media item upsell", &v21, 2u);
         }
 
         [(VUIPostPlayUpsellManager *)self setDeferredMediaItem:currentMediaItem];
@@ -221,12 +221,12 @@ __CFString *__57__VUIPostPlayUpsellManager__registerStateMachineHandlers__block_
 
     else
     {
-      [(VUIPostPlayUpsellManager *)self cumulativeLivePlaybacktime];
-      if (v16 != 0.0)
+      cumulativeLivePlaybacktime = [(VUIPostPlayUpsellManager *)self cumulativeLivePlaybacktime];
+      if (v18 != 0.0)
       {
         [(VUIPostPlayUpsellManager *)self cumulativeLivePlaybacktime];
-        v14 = v17;
-        [(VUIPostPlayUpsellManager *)self setCumulativeLivePlaybacktime:0.0];
+        v14 = v19;
+        cumulativeLivePlaybacktime = [(VUIPostPlayUpsellManager *)self setCumulativeLivePlaybacktime:0.0];
       }
 
       if (v14 >= 0.0)
@@ -236,11 +236,11 @@ __CFString *__57__VUIPostPlayUpsellManager__registerStateMachineHandlers__block_
 
       else
       {
-        v18 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v20 = VUIDefaultLogObject(cumulativeLivePlaybacktime);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v19) = 0;
-          _os_log_impl(&dword_1E323F000, v18, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellManager - VUIPostPlayUpsellManager: Not triggering upsell because elapsed time is 0", &v19, 2u);
+          LOWORD(v21) = 0;
+          _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellManager - VUIPostPlayUpsellManager: Not triggering upsell because elapsed time is 0", &v21, 2u);
         }
       }
 
@@ -263,21 +263,25 @@ __CFString *__57__VUIPostPlayUpsellManager__registerStateMachineHandlers__block_
 
 - (void)_handleDeferredMediaItemUpsellIfNeeded
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   deferredMediaItem = [(VUIPostPlayUpsellManager *)self deferredMediaItem];
-  if (deferredMediaItem && ![(VUIPostPlayUpsellManager *)self _isFullScreenPlaybackUIShown])
+  if (deferredMediaItem)
   {
-    v4 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    _isFullScreenPlaybackUIShown = [(VUIPostPlayUpsellManager *)self _isFullScreenPlaybackUIShown];
+    if ((_isFullScreenPlaybackUIShown & 1) == 0)
     {
-      v5 = [deferredMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5DC0]];
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellManager - _handleDeferredMediaItemUpsellIfNeeded: %@", &v6, 0xCu);
-    }
+      v5 = VUIDefaultLogObject(_isFullScreenPlaybackUIShown);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        v6 = [deferredMediaItem mediaItemMetadataForProperty:*MEMORY[0x1E69D5DC0]];
+        v7 = 138412290;
+        v8 = v6;
+        _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUIPostPlayUpsellManager - _handleDeferredMediaItemUpsellIfNeeded: %@", &v7, 0xCu);
+      }
 
-    [(VUIPostPlayUpsellManager *)self deferredElapsedTime];
-    [(VUIPostPlayUpsellManager *)self _handleUpsellForMediaItem:deferredMediaItem elapsedTimeInterval:?];
+      [(VUIPostPlayUpsellManager *)self deferredElapsedTime];
+      [(VUIPostPlayUpsellManager *)self _handleUpsellForMediaItem:deferredMediaItem elapsedTimeInterval:?];
+    }
   }
 }
 
@@ -308,7 +312,7 @@ void __74__VUIPostPlayUpsellManager__handleUpsellForMediaItem_elapsedTimeInterva
 
   else
   {
-    v3 = VUIDefaultLogObject();
+    v3 = VUIDefaultLogObject(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;

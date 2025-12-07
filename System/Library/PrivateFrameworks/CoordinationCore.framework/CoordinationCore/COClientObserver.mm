@@ -18,13 +18,13 @@
 
 - (COClientObserver)initWithConnection:(id)connection domain:(id)domain cluster:(id)cluster
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   domainCopy = domain;
   clusterCopy = cluster;
-  v19.receiver = self;
-  v19.super_class = COClientObserver;
-  v11 = [(COCoordinationServiceClient *)&v19 initWithConnection:connectionCopy];
+  v18.receiver = self;
+  v18.super_class = COClientObserver;
+  v11 = [(COCoordinationServiceClient *)&v18 initWithConnection:connectionCopy];
   if (v11)
   {
     processIdentifier = [connectionCopy processIdentifier];
@@ -49,7 +49,6 @@
     objc_storeStrong(&v11->_cluster, cluster);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

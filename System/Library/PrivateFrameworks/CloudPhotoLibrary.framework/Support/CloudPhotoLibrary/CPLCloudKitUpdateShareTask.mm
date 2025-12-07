@@ -177,50 +177,13 @@
   lookupInfo = [userIdentity lookupInfo];
 
   emailAddress = [lookupInfo emailAddress];
-  if (emailAddress)
+  if (emailAddress && (v19 = emailAddress, [lookupInfo emailAddress], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(emailsCopy, "containsObject:", v20), v20, v19, (v21 & 1) != 0) || (objc_msgSend(lookupInfo, "phoneNumber"), (v22 = objc_claimAutoreleasedReturnValue()) != 0) && (v23 = v22, objc_msgSend(lookupInfo, "phoneNumber"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(numbersCopy, "containsObject:", v24), v24, v23, (v25 & 1) != 0) || (objc_msgSend(lookupInfo, "userRecordID"), (v26 = objc_claimAutoreleasedReturnValue()) != 0) && (v27 = v26, objc_msgSend(lookupInfo, "userRecordID"), v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(dsCopy, "containsObject:", v28), v28, v27, (v29 & 1) != 0))
   {
-    v19 = emailAddress;
-    emailAddress2 = [lookupInfo emailAddress];
-    v21 = [emailsCopy containsObject:emailAddress2];
-
-    if (v21)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  phoneNumber = [lookupInfo phoneNumber];
-  if (phoneNumber)
-  {
-    v23 = phoneNumber;
-    phoneNumber2 = [lookupInfo phoneNumber];
-    v25 = [numbersCopy containsObject:phoneNumber2];
-
-    if (v25)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  userRecordID = [lookupInfo userRecordID];
-  if (!userRecordID)
-  {
-    goto LABEL_8;
-  }
-
-  v27 = userRecordID;
-  userRecordID2 = [lookupInfo userRecordID];
-  v29 = [dsCopy containsObject:userRecordID2];
-
-  if (v29)
-  {
-LABEL_7:
     v30 = 1;
   }
 
   else
   {
-LABEL_8:
     participantID = [participantCopy participantID];
     if (participantID)
     {
@@ -243,133 +206,135 @@ LABEL_8:
   participantsCopy = participants;
   if ([participantsCopy count])
   {
-    v32 = shareCopy;
+    v34 = shareCopy;
     participants = [shareCopy participants];
+    v9 = participants;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = sub_100003744();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100003744(participants);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v57 = participantsCopy;
-        v58 = 2112;
-        v59 = participants;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Comparing new participants %@ with existing participants %@", buf, 0x16u);
+        v59 = participantsCopy;
+        v60 = 2112;
+        v61 = v9;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Comparing new participants %@ with existing participants %@", buf, 0x16u);
       }
     }
 
-    v38 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(participants, "count")}];
-    v37 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(participants, "count")}];
-    v36 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(participants, "count")}];
-    v35 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(participants, "count")}];
-    v47 = 0u;
-    v48 = 0u;
+    v40 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(v9, "count")}];
+    v39 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(v9, "count")}];
+    v38 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(v9, "count")}];
+    v37 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(v9, "count")}];
     v49 = 0u;
     v50 = 0u;
-    v10 = participants;
-    v11 = [v10 countByEnumeratingWithState:&v47 objects:v55 count:16];
-    if (v11)
+    v51 = 0u;
+    v52 = 0u;
+    v11 = v9;
+    v12 = [v11 countByEnumeratingWithState:&v49 objects:v57 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v48;
+      v13 = v12;
+      v14 = *v50;
       do
       {
-        for (i = 0; i != v12; i = i + 1)
+        for (i = 0; i != v13; i = i + 1)
         {
-          if (*v48 != v13)
+          if (*v50 != v14)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
-          [(CPLCloudKitUpdateShareTask *)self _addParticipant:*(*(&v47 + 1) + 8 * i) toEmails:v37 phoneNumbers:v38 userRecordIDs:v36 participantIDs:v35];
+          [(CPLCloudKitUpdateShareTask *)self _addParticipant:*(*(&v49 + 1) + 8 * i) toEmails:v39 phoneNumbers:v40 userRecordIDs:v38 participantIDs:v37];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v49 objects:v57 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
 
-    obj = v10;
+    obj = v11;
 
-    v15 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(participantsCopy, "count")}];
     v16 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(participantsCopy, "count")}];
     v17 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(participantsCopy, "count")}];
     v18 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(participantsCopy, "count")}];
-    v43 = 0u;
-    v44 = 0u;
+    v19 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(participantsCopy, "count")}];
     v45 = 0u;
     v46 = 0u;
-    v31 = participantsCopy;
-    v19 = participantsCopy;
-    v20 = [v19 countByEnumeratingWithState:&v43 objects:v54 count:16];
-    if (v20)
+    v47 = 0u;
+    v48 = 0u;
+    v33 = participantsCopy;
+    v20 = participantsCopy;
+    v21 = [v20 countByEnumeratingWithState:&v45 objects:v56 count:16];
+    if (v21)
     {
-      v21 = v20;
-      v22 = *v44;
+      v22 = v21;
+      v23 = *v46;
       do
       {
-        for (j = 0; j != v21; j = j + 1)
+        for (j = 0; j != v22; j = j + 1)
         {
-          if (*v44 != v22)
+          if (*v46 != v23)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v20);
           }
 
-          v24 = *(*(&v43 + 1) + 8 * j);
-          [(CPLCloudKitUpdateShareTask *)self _addParticipant:v24 toEmails:v16 phoneNumbers:v15 userRecordIDs:v17 participantIDs:v18, v31];
-          if (![(CPLCloudKitUpdateShareTask *)self _checkParticipant:v24 inEmails:v37 phoneNumbers:v38 userRecordIDs:v36 participantIDs:v35])
+          v25 = *(*(&v45 + 1) + 8 * j);
+          [(CPLCloudKitUpdateShareTask *)self _addParticipant:v25 toEmails:v17 phoneNumbers:v16 userRecordIDs:v18 participantIDs:v19, v33];
+          if (![(CPLCloudKitUpdateShareTask *)self _checkParticipant:v25 inEmails:v39 phoneNumbers:v40 userRecordIDs:v38 participantIDs:v37])
           {
-            sub_10019AEE0(buf, v24, &v57, v32);
+            sub_10019AEE0(buf, v25, &v59, v34);
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v43 objects:v54 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v45 objects:v56 count:16];
       }
 
-      while (v21);
+      while (v22);
     }
 
+    v43 = 0u;
+    v44 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
     obja = obj;
-    v25 = [obja countByEnumeratingWithState:&v39 objects:v53 count:16];
-    if (v25)
+    v26 = [obja countByEnumeratingWithState:&v41 objects:v55 count:16];
+    if (v26)
     {
-      v26 = v25;
-      v27 = *v40;
+      v27 = v26;
+      v28 = *v42;
       do
       {
-        for (k = 0; k != v26; k = k + 1)
+        for (k = 0; k != v27; k = k + 1)
         {
-          if (*v40 != v27)
+          if (*v42 != v28)
           {
             objc_enumerationMutation(obja);
           }
 
-          v29 = *(*(&v39 + 1) + 8 * k);
-          if (![(CPLCloudKitUpdateShareTask *)self _checkParticipant:v29 inEmails:v16 phoneNumbers:v15 userRecordIDs:v17 participantIDs:v18, v31]&& (_CPLSilentLogging & 1) == 0)
+          v30 = *(*(&v41 + 1) + 8 * k);
+          v31 = [(CPLCloudKitUpdateShareTask *)self _checkParticipant:v30 inEmails:v17 phoneNumbers:v16 userRecordIDs:v18 participantIDs:v19, v33];
+          if ((v31 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
           {
-            v30 = sub_100003744();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            v32 = sub_100003744(v31);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
-              *v51 = 138412290;
-              v52 = v29;
-              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Trying to remove participant %@ directly is unsupported", v51, 0xCu);
+              *v53 = 138412290;
+              v54 = v30;
+              _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Trying to remove participant %@ directly is unsupported", v53, 0xCu);
             }
           }
         }
 
-        v26 = [obja countByEnumeratingWithState:&v39 objects:v53 count:16];
+        v27 = [obja countByEnumeratingWithState:&v41 objects:v55 count:16];
       }
 
-      while (v26);
+      while (v27);
     }
 
-    participantsCopy = v31;
-    shareCopy = v32;
+    participantsCopy = v33;
+    shareCopy = v34;
   }
 }
 

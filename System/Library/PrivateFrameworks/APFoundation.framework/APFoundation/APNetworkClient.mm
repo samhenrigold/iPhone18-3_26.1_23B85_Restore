@@ -3,6 +3,7 @@
 + (void)createSharedNetworkClientWithConfig:(id)config;
 - (APNetworkClient)initWithConfig:(id)config;
 - (BOOL)cancelTasksForService:(id)service withCompletionHandler:(id)handler;
+- (BOOL)invalidateService:(id)service andCancelTasks:(BOOL)tasks;
 - (id)GET:(id)t client:(id)client headers:(id)headers withCompletionHandler:(id)handler;
 - (id)GET:(id)t headers:(id)headers withService:(id)service andCompletionHandler:(id)handler;
 - (id)HEAD:(id)d client:(id)client headers:(id)headers withCompletionHandler:(id)handler;
@@ -17,6 +18,7 @@
 - (id)temporarySessionForClient:(id)client;
 - (id)temporarySessionForDaemon;
 - (id)urlSessionForService:(id)service;
+- (void)_invalidateAllServicesAndCancelTasks:(BOOL)tasks;
 @end
 
 @implementation APNetworkClient
@@ -101,6 +103,16 @@ LABEL_7:
   return v8;
 }
 
+- (BOOL)invalidateService:(id)service andCancelTasks:(BOOL)tasks
+{
+  tasksCopy = tasks;
+  serviceCopy = service;
+  v10 = objc_msgSend_serviceManager(self, v7, v8, v9);
+  LOBYTE(tasksCopy) = objc_msgSend_invalidateService_andCancelTasks_(v10, v11, serviceCopy, tasksCopy);
+
+  return tasksCopy;
+}
+
 - (id)urlSessionForService:(id)service
 {
   v4 = objc_msgSend__billedSessionForRequester_(self, a2, service, v3);
@@ -117,6 +129,13 @@ LABEL_7:
   v13 = objc_msgSend_cancelTasksForService_withCompletionHandler_(v11, v12, serviceCopy, handlerCopy);
 
   return v13;
+}
+
+- (void)_invalidateAllServicesAndCancelTasks:(BOOL)tasks
+{
+  tasksCopy = tasks;
+  v7 = objc_msgSend_serviceManager(self, a2, tasks, v3);
+  objc_msgSend_invalidateAllServicesAndCancelTasks_(v7, v5, tasksCopy, v6);
 }
 
 - (id)sessionForClient:(id)client

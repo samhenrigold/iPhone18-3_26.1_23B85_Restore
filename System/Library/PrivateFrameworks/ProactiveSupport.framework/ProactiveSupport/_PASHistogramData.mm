@@ -73,7 +73,7 @@ LABEL_15:
 
     v10 = v9;
     _ZN12_GLOBAL__N_110SimdVectorIDv8_ffE6resizeEm(*ptr, v9);
-    _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm((*ptr + 4), v10);
+    _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm(*ptr + 4, v10);
     v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"scores"];
     if ([v11 length] == 4 * v10)
     {
@@ -259,12 +259,12 @@ LABEL_16:
 
     else
     {
-      v8 = v7[3];
+      v8 = *(v7 + 24);
       if (v8)
       {
         v9 = 0;
         v10 = 0;
-        v11 = v7[4];
+        v11 = *(v7 + 32);
         do
         {
           v12 = *(v11 + 4 * v9);
@@ -281,7 +281,7 @@ LABEL_16:
 
         while (v8 != v9);
         _ZN12_GLOBAL__N_110SimdVectorIDv8_ffE6resizeEm(v7, v10);
-        _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm(*ptr + 32, v10);
+        _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm((*ptr + 32), v10);
       }
 
       pthread_mutex_unlock((ptr + 8));
@@ -541,7 +541,7 @@ LABEL_8:
       if (v10)
       {
         v11 = 0;
-        while (*(v9[4] + 4 * v11) != (bCopy | (aCopy << 16)))
+        while (*&v9[4][4 * v11] != (bCopy | (aCopy << 16)))
         {
           if (v10 == ++v11)
           {
@@ -549,7 +549,7 @@ LABEL_8:
           }
         }
 
-        *(*v9 + 4 * v11) = fmaxf(*(*v9 + 4 * v11) + add, 0.0);
+        *&(*v9)[4 * v11] = fmaxf(*&(*v9)[4 * v11] + add, 0.0);
       }
 
       else
@@ -559,11 +559,11 @@ LABEL_7:
         {
           v12 = v9[3];
           _ZN12_GLOBAL__N_110SimdVectorIDv8_ffE6resizeEm(*ptr, v12 + 1);
-          *(*v9 + 4 * v12) = fmaxf(add, 0.0);
+          *&(*v9)[4 * v12] = fmaxf(add, 0.0);
           v13 = *ptr;
           v14 = *(*ptr + 56);
-          _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm(*ptr + 32, v14 + 1);
-          *(*(v13 + 32) + 4 * v14) = bCopy | (aCopy << 16);
+          _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm((*ptr + 32), (v14 + 1));
+          *&v13[4][4 * v14] = bCopy | (aCopy << 16);
         }
       }
 
@@ -584,17 +584,17 @@ LABEL_7:
   else
   {
     _ZN12_GLOBAL__N_110SimdVectorIDv8_ffE6resizeEm(*ptr, 0);
-    _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm(*ptr + 32, 0);
+    _ZN12_GLOBAL__N_110SimdVectorIDv8_ijE6resizeEm((*ptr + 32), 0);
     pthread_mutex_unlock((ptr + 8));
   }
 }
 
 - (_PASHistogramData)init
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = _PASHistogramData;
-  v2 = [(_PASHistogramData *)&v11 init];
+  v11 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = _PASHistogramData;
+  v2 = [(_PASHistogramData *)&v10 init];
   v3 = v2;
   if (v2)
   {
@@ -630,7 +630,6 @@ LABEL_7:
     operator new();
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

@@ -6,7 +6,7 @@
 
 - (int64_t)performActionWithManagedObjectContext:(id)context error:(id *)error
 {
-  v99 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v6 = objc_autoreleasePoolPush();
   predicateForFetchingAssetsToReset = [objc_opt_class() predicateForFetchingAssetsToReset];
@@ -14,9 +14,9 @@
   [v8 setPredicate:predicateForFetchingAssetsToReset];
   v9 = 1;
   [v8 setResultType:1];
-  v61 = 0;
-  v10 = [contextCopy executeFetchRequest:v8 error:&v61];
-  v11 = v61;
+  v65 = 0;
+  v10 = [contextCopy executeFetchRequest:v8 error:&v65];
+  v11 = v65;
   if (!v10)
   {
     v12 = PLMigrationGetLog();
@@ -28,6 +28,10 @@
 
       if (logger)
       {
+        v101 = 0u;
+        v102 = 0u;
+        v99 = 0u;
+        v100 = 0u;
         v97 = 0u;
         v98 = 0u;
         v95 = 0u;
@@ -54,35 +58,39 @@
         v76 = 0u;
         v73 = 0u;
         v74 = 0u;
-        v71 = 0u;
-        v72 = 0u;
-        v69 = 0u;
-        v70 = 0u;
         memset(buf, 0, sizeof(buf));
         v15 = PLMigrationGetLog();
-        os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-        v62 = 138543362;
-        v63 = v11;
-        LODWORD(v56) = 12;
-        v16 = _os_log_send_and_compose_impl();
-
-        v17 = [(PLModelMigrationActionCore *)self logger:&v62];
-        [v17 logWithMessage:v16 fromCodeLocation:"PLModelMigrationActions_17000.m" type:{265, 16}];
-
-        if (v16 != buf)
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          free(v16);
+          v16 = 3;
+        }
+
+        else
+        {
+          v16 = 2;
+        }
+
+        v66 = 138543362;
+        v67 = v11;
+        v17 = _os_log_send_and_compose_impl(v16, 0, buf, 512, &dword_19BF1F000, v15, 16, "[ResetExternalAssets] Failed to fetch external assets. Error: %{public}@", &v66, 12);
+
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v17 fromCodeLocation:"PLModelMigrationActions_17000.m" type:{265, 16}];
+
+        if (v17 != buf)
+        {
+          free(v17);
         }
       }
 
       else
       {
-        v18 = PLMigrationGetLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v19 = PLMigrationGetLog();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
           *&buf[4] = v11;
-          _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_ERROR, "[ResetExternalAssets] Failed to fetch external assets. Error: %{public}@", buf, 0xCu);
+          _os_log_impl(&dword_19BF1F000, v19, OS_LOG_TYPE_ERROR, "[ResetExternalAssets] Failed to fetch external assets. Error: %{public}@", buf, 0xCu);
         }
       }
     }
@@ -91,109 +99,21 @@
   }
 
   objc_autoreleasePoolPop(v6);
-  if (![v10 count])
+  if (!objc_msgSend_count(v10))
   {
-    v32 = PLMigrationGetLog();
-    v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+    v34 = PLMigrationGetLog();
+    v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
 
-    if (v33)
-    {
-      logger2 = [(PLModelMigrationActionCore *)self logger];
-
-      if (logger2)
-      {
-        v97 = 0u;
-        v98 = 0u;
-        v95 = 0u;
-        v96 = 0u;
-        v93 = 0u;
-        v94 = 0u;
-        v91 = 0u;
-        v92 = 0u;
-        v89 = 0u;
-        v90 = 0u;
-        v87 = 0u;
-        v88 = 0u;
-        v85 = 0u;
-        v86 = 0u;
-        v83 = 0u;
-        v84 = 0u;
-        v81 = 0u;
-        v82 = 0u;
-        v79 = 0u;
-        v80 = 0u;
-        v77 = 0u;
-        v78 = 0u;
-        v75 = 0u;
-        v76 = 0u;
-        v73 = 0u;
-        v74 = 0u;
-        v71 = 0u;
-        v72 = 0u;
-        v69 = 0u;
-        v70 = 0u;
-        memset(buf, 0, sizeof(buf));
-        v35 = PLMigrationGetLog();
-        os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
-        LOWORD(v62) = 0;
-        LODWORD(v56) = 2;
-        v36 = _os_log_send_and_compose_impl();
-
-        v37 = [(PLModelMigrationActionCore *)self logger:&v62];
-        [v37 logWithMessage:v36 fromCodeLocation:"PLModelMigrationActions_17000.m" type:{270, 0}];
-
-        if (v36 != buf)
-        {
-          free(v36);
-        }
-      }
-
-      else
-      {
-        v44 = PLMigrationGetLog();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_19BF1F000, v44, OS_LOG_TYPE_DEFAULT, "[ResetExternalAssets] No external assets available.", buf, 2u);
-        }
-      }
-    }
-
-    [(PLModelMigrationActionCore *)self finalizeProgress];
-    v23 = v11;
-    errorCopy2 = error;
-    if (v10)
-    {
-      goto LABEL_46;
-    }
-
-    goto LABEL_44;
-  }
-
-  context = objc_autoreleasePoolPush();
-  v19 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"asset", v10];
-  v66[0] = @"syndicationProcessingValue";
-  v66[1] = @"syndicationProcessingVersion";
-  v67[0] = &unk_1F0FBCE38;
-  v67[1] = &unk_1F0FBCE50;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:v66 count:2];
-  v21 = +[PLMediaAnalysisAssetAttributes entityName];
-  v60 = v11;
-  v22 = [PLModelMigrator executeBatchUpdateWithEntityName:v21 predicate:v19 propertiesToUpdate:v20 managedObjectContext:contextCopy error:&v60];
-  v23 = v60;
-
-  v24 = PLMigrationGetLog();
-  v25 = v24;
-  if (v22)
-  {
-    v26 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-
-    if (v26)
+    if (v35)
     {
       logger3 = [(PLModelMigrationActionCore *)self logger];
 
       if (logger3)
       {
+        v101 = 0u;
+        v102 = 0u;
+        v99 = 0u;
+        v100 = 0u;
         v97 = 0u;
         v98 = 0u;
         v95 = 0u;
@@ -220,37 +140,142 @@
         v76 = 0u;
         v73 = 0u;
         v74 = 0u;
-        v71 = 0u;
-        v72 = 0u;
-        v69 = 0u;
-        v70 = 0u;
         memset(buf, 0, sizeof(buf));
-        v28 = PLMigrationGetLog();
-        os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
-        v29 = [v10 count];
-        v62 = 134217984;
-        v63 = v29;
-        LODWORD(v57) = 12;
-        v30 = _os_log_send_and_compose_impl();
-
-        v31 = [(PLModelMigrationActionCore *)self logger:&v62];
-        [v31 logWithMessage:v30 fromCodeLocation:"PLModelMigrationActions_17000.m" type:{287, 0}];
-
-        if (v30 != buf)
+        v37 = PLMigrationGetLog();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
-          free(v30);
+          v38 = 3;
+        }
+
+        else
+        {
+          v38 = 2;
+        }
+
+        LOWORD(v66) = 0;
+        LODWORD(v60) = 2;
+        v39 = _os_log_send_and_compose_impl(v38, 0, buf, 512, &dword_19BF1F000, v37, 0, "[ResetExternalAssets] No external assets available.", &v66, v60);
+
+        logger4 = [(PLModelMigrationActionCore *)self logger];
+        [logger4 logWithMessage:v39 fromCodeLocation:"PLModelMigrationActions_17000.m" type:{270, 0}];
+
+        if (v39 != buf)
+        {
+          free(v39);
         }
       }
 
       else
       {
-        v46 = PLMigrationGetLog();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+        v48 = PLMigrationGetLog();
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
-          v47 = [v10 count];
+          *buf = 0;
+          _os_log_impl(&dword_19BF1F000, v48, OS_LOG_TYPE_DEFAULT, "[ResetExternalAssets] No external assets available.", buf, 2u);
+        }
+      }
+    }
+
+    [(PLModelMigrationActionCore *)self finalizeProgress];
+    v24 = v11;
+    errorCopy2 = error;
+    if (v10)
+    {
+      goto LABEL_58;
+    }
+
+    goto LABEL_56;
+  }
+
+  context = objc_autoreleasePoolPush();
+  v20 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"asset", v10];
+  v70[0] = @"syndicationProcessingValue";
+  v70[1] = @"syndicationProcessingVersion";
+  v71[0] = &unk_1F0FBCE38;
+  v71[1] = &unk_1F0FBCE50;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:v70 count:2];
+  v22 = +[PLMediaAnalysisAssetAttributes entityName];
+  v64 = v11;
+  v23 = [PLModelMigrator executeBatchUpdateWithEntityName:v22 predicate:v20 propertiesToUpdate:v21 managedObjectContext:contextCopy error:&v64];
+  v24 = v64;
+
+  v25 = PLMigrationGetLog();
+  v26 = v25;
+  if (v23)
+  {
+    v27 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+
+    if (v27)
+    {
+      logger5 = [(PLModelMigrationActionCore *)self logger];
+
+      if (logger5)
+      {
+        v101 = 0u;
+        v102 = 0u;
+        v99 = 0u;
+        v100 = 0u;
+        v97 = 0u;
+        v98 = 0u;
+        v95 = 0u;
+        v96 = 0u;
+        v93 = 0u;
+        v94 = 0u;
+        v91 = 0u;
+        v92 = 0u;
+        v89 = 0u;
+        v90 = 0u;
+        v87 = 0u;
+        v88 = 0u;
+        v85 = 0u;
+        v86 = 0u;
+        v83 = 0u;
+        v84 = 0u;
+        v81 = 0u;
+        v82 = 0u;
+        v79 = 0u;
+        v80 = 0u;
+        v77 = 0u;
+        v78 = 0u;
+        v75 = 0u;
+        v76 = 0u;
+        v73 = 0u;
+        v74 = 0u;
+        memset(buf, 0, sizeof(buf));
+        v29 = PLMigrationGetLog();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        {
+          v30 = 3;
+        }
+
+        else
+        {
+          v30 = 2;
+        }
+
+        v31 = objc_msgSend_count(v10);
+        v66 = 134217984;
+        v67 = v31;
+        v32 = _os_log_send_and_compose_impl(v30, 0, buf, 512, &dword_19BF1F000, v29, 0, "[ResetExternalAssets] Successfully reset external assets processing value and version on %tu assets", &v66);
+
+        logger6 = [(PLModelMigrationActionCore *)self logger];
+        [logger6 logWithMessage:v32 fromCodeLocation:"PLModelMigrationActions_17000.m" type:{287, 0}];
+
+        if (v32 != buf)
+        {
+          free(v32);
+        }
+      }
+
+      else
+      {
+        v50 = PLMigrationGetLog();
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+        {
+          v51 = objc_msgSend_count(v10);
           *buf = 134217984;
-          *&buf[4] = v47;
-          _os_log_impl(&dword_19BF1F000, v46, OS_LOG_TYPE_DEFAULT, "[ResetExternalAssets] Successfully reset external assets processing value and version on %tu assets", buf, 0xCu);
+          *&buf[4] = v51;
+          _os_log_impl(&dword_19BF1F000, v50, OS_LOG_TYPE_DEFAULT, "[ResetExternalAssets] Successfully reset external assets processing value and version on %tu assets", buf, 0xCu);
         }
       }
     }
@@ -258,14 +283,18 @@
 
   else
   {
-    v38 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+    v41 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
 
-    if (v38)
+    if (v41)
     {
-      logger4 = [(PLModelMigrationActionCore *)self logger];
+      logger7 = [(PLModelMigrationActionCore *)self logger];
 
-      if (logger4)
+      if (logger7)
       {
+        v101 = 0u;
+        v102 = 0u;
+        v99 = 0u;
+        v100 = 0u;
         v97 = 0u;
         v98 = 0u;
         v95 = 0u;
@@ -292,41 +321,46 @@
         v76 = 0u;
         v73 = 0u;
         v74 = 0u;
-        v71 = 0u;
-        v72 = 0u;
-        v69 = 0u;
-        v70 = 0u;
         memset(buf, 0, sizeof(buf));
-        v40 = PLMigrationGetLog();
-        os_log_type_enabled(v40, OS_LOG_TYPE_ERROR);
-        v41 = [v10 count];
-        v62 = 134218242;
-        v63 = v41;
-        v64 = 2114;
-        v65 = v23;
-        LODWORD(v57) = 22;
-        v42 = _os_log_send_and_compose_impl();
-
-        v43 = [(PLModelMigrationActionCore *)self logger:&v62];
-        [v43 logWithMessage:v42 fromCodeLocation:"PLModelMigrationActions_17000.m" type:{290, 16}];
-
-        if (v42 != buf)
+        v43 = PLMigrationGetLog();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          free(v42);
+          v44 = 3;
+        }
+
+        else
+        {
+          v44 = 2;
+        }
+
+        v45 = objc_msgSend_count(v10);
+        v66 = 134218242;
+        v67 = v45;
+        v68 = 2114;
+        v69 = v24;
+        LODWORD(v61) = 22;
+        v46 = _os_log_send_and_compose_impl(v44, 0, buf, 512, &dword_19BF1F000, v43, 16, "[ResetExternalAssets] Failed to reset external assets processing value and version on %tu assets. Error: %{public}@", &v66, v61);
+
+        logger8 = [(PLModelMigrationActionCore *)self logger];
+        [logger8 logWithMessage:v46 fromCodeLocation:"PLModelMigrationActions_17000.m" type:{290, 16}];
+
+        if (v46 != buf)
+        {
+          free(v46);
         }
       }
 
       else
       {
-        v48 = PLMigrationGetLog();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v52 = PLMigrationGetLog();
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
-          v49 = [v10 count];
+          v53 = objc_msgSend_count(v10);
           *buf = 134218242;
-          *&buf[4] = v49;
+          *&buf[4] = v53;
           *&buf[12] = 2114;
-          *&buf[14] = v23;
-          _os_log_impl(&dword_19BF1F000, v48, OS_LOG_TYPE_ERROR, "[ResetExternalAssets] Failed to reset external assets processing value and version on %tu assets. Error: %{public}@", buf, 0x16u);
+          *&buf[14] = v24;
+          _os_log_impl(&dword_19BF1F000, v52, OS_LOG_TYPE_ERROR, "[ResetExternalAssets] Failed to reset external assets processing value and version on %tu assets. Error: %{public}@", buf, 0x16u);
         }
       }
     }
@@ -337,11 +371,11 @@
   objc_autoreleasePoolPop(context);
   if (v9 != 3)
   {
-    v51 = objc_autoreleasePoolPush();
+    v55 = objc_autoreleasePoolPush();
     pathManager = [(PLModelMigrationActionCore *)self pathManager];
-    v53 = [PLModelMigrator rebuildMomentsInContext:contextCopy pathManager:pathManager deleteExistingMoments:0 targetedAssetOIDs:v10];
+    v57 = [PLModelMigrator rebuildMomentsInContext:contextCopy pathManager:pathManager deleteExistingMoments:0 targetedAssetOIDs:v10];
 
-    if (v53)
+    if (v57)
     {
       v9 = 1;
     }
@@ -351,36 +385,36 @@
       v9 = 3;
     }
 
-    objc_autoreleasePoolPop(v51);
+    objc_autoreleasePoolPop(v55);
     [(PLModelMigrationActionCore *)self finalizeProgress];
-    v23 = v23;
+    v24 = v24;
     errorCopy2 = error;
-    if (v53)
+    if (v57)
     {
-LABEL_46:
+LABEL_58:
 
-      goto LABEL_47;
+      goto LABEL_59;
     }
 
-LABEL_44:
+LABEL_56:
     if (errorCopy2)
     {
-      v54 = v23;
-      *errorCopy2 = v23;
+      v58 = v24;
+      *errorCopy2 = v24;
     }
 
-    goto LABEL_46;
+    goto LABEL_58;
   }
 
   [(PLModelMigrationActionCore *)self finalizeProgress];
   if (error)
   {
-    v50 = v23;
-    *error = v23;
+    v54 = v24;
+    *error = v24;
   }
 
   v9 = 3;
-LABEL_47:
+LABEL_59:
 
   return v9;
 }

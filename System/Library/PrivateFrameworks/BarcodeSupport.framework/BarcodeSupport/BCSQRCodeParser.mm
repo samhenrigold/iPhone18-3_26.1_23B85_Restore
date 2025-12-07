@@ -72,18 +72,18 @@ void __84__BCSQRCodeParser_parseCodeFromMetadataMachineReadableCodeObject_comple
 
 void __84__BCSQRCodeParser_parseCodeFromMetadataMachineReadableCodeObject_completionHandler___block_invoke_2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v4 = a1[4];
-      v9 = 134218242;
-      v10 = v4;
-      v11 = 2112;
-      v12 = objc_opt_class();
-      _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSQRCodeParser: AVMetadataMachineReadableCodeObject %p QR code has resolved to action of class %@", &v9, 0x16u);
+      v8 = 134218242;
+      v9 = v4;
+      v10 = 2112;
+      v11 = objc_opt_class();
+      _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSQRCodeParser: AVMetadataMachineReadableCodeObject %p QR code has resolved to action of class %@", &v8, 0x16u);
     }
 
     v5 = +[BCSAWDLogger sharedLogger];
@@ -96,30 +96,28 @@ void __84__BCSQRCodeParser_parseCodeFromMetadataMachineReadableCodeObject_comple
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      __84__BCSQRCodeParser_parseCodeFromMetadataMachineReadableCodeObject_completionHandler___block_invoke_2_cold_1(a1);
+      __84__BCSQRCodeParser_parseCodeFromMetadataMachineReadableCodeObject_completionHandler___block_invoke_2_cold_1();
     }
 
     v6 = a1[5];
     v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"BCSErrorDomain" code:4 userInfo:0];
     (*(v6 + 16))(v6, 0, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_qrCodeFeatureFromImage:(CGImage *)image
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBF758]) initWithCGImage:image options:0];
   v4 = MEMORY[0x277CBF748];
   v5 = *MEMORY[0x277CBF718];
   v6 = *MEMORY[0x277CBF6E0];
   v7 = *MEMORY[0x277CBF6F0];
-  v28[0] = *MEMORY[0x277CBF6D8];
-  v28[1] = v7;
-  v29[0] = v6;
-  v29[1] = &unk_28539D438;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v27[0] = *MEMORY[0x277CBF6D8];
+  v27[1] = v7;
+  v28[0] = v6;
+  v28[1] = &unk_28539D438;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
   v9 = [v4 detectorOfType:v5 context:0 options:v8];
 
   v10 = [v9 featuresInImage:v3];
@@ -151,26 +149,26 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
 LABEL_5:
     v15 = 0;
     while (1)
     {
-      if (*v23 != v14)
+      if (*v22 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      v16 = *(*(&v22 + 1) + 8 * v15);
+      v16 = *(*(&v21 + 1) + 8 * v15);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -179,7 +177,7 @@ LABEL_5:
 
       if (v13 == ++v15)
       {
-        v13 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
         if (v13)
         {
           goto LABEL_5;
@@ -214,14 +212,12 @@ LABEL_20:
   v19 = 0;
 LABEL_21:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (void)parseCodeFromImage:(CGImage *)image completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!self->_parsingServiceConnection)
   {
@@ -236,20 +232,20 @@ LABEL_21:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v19 = v9;
+      v18 = v9;
       _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSQRCodeParser: Start parsing CIQRCodeFeature %p", buf, 0xCu);
     }
 
     v10 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
     v11 = self->_parsingServiceConnection;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke;
-    v14[3] = &unk_278CFF260;
-    v15 = v9;
-    v16 = handlerCopy;
-    v17 = v10;
-    [(BCSParsingServiceConnection *)v11 parseQRCodeFeature:v15 withReply:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke;
+    v13[3] = &unk_278CFF260;
+    v14 = v9;
+    v15 = handlerCopy;
+    v16 = v10;
+    [(BCSParsingServiceConnection *)v11 parseQRCodeFeature:v14 withReply:v13];
   }
 
   else
@@ -257,13 +253,11 @@ LABEL_21:
     v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"BCSErrorDomain" code:2 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, 0, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -272,51 +266,49 @@ void __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke(u
     {
       v7 = *(a1 + 32);
       *buf = 134218240;
-      v16 = v7;
-      v17 = 2048;
-      v18 = [v5 type];
+      v15 = v7;
+      v16 = 2048;
+      v17 = [v5 type];
       _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSQRCodeParser: QR code from CIQRCodeFeature %p has type %ld", buf, 0x16u);
     }
 
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke_11;
-    v11[3] = &unk_278CFF210;
-    v12 = *(a1 + 32);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke_11;
+    v10[3] = &unk_278CFF210;
+    v11 = *(a1 + 32);
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
-    v13 = v8;
-    v14 = v9;
-    [BCSAction getActionWithData:v5 codePayload:0 completionHandler:v11];
+    v12 = v8;
+    v13 = v9;
+    [BCSAction getActionWithData:v5 codePayload:0 completionHandler:v10];
   }
 
   else
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke_cold_1(a1);
+      __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke_cold_1();
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke_11(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v4 = a1[4];
-      v9 = 134218242;
-      v10 = v4;
-      v11 = 2112;
-      v12 = objc_opt_class();
-      _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSQRCodeParser: QR code from CIQRCodeFeature %p has resolved to action of class %@", &v9, 0x16u);
+      v8 = 134218242;
+      v9 = v4;
+      v10 = 2112;
+      v11 = objc_opt_class();
+      _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSQRCodeParser: QR code from CIQRCodeFeature %p has resolved to action of class %@", &v8, 0x16u);
     }
 
     v5 = +[BCSAWDLogger sharedLogger];
@@ -329,15 +321,13 @@ void __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke_1
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke_11_cold_1(a1);
+      __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke_11_cold_1();
     }
 
     v6 = a1[5];
     v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"BCSErrorDomain" code:4 userInfo:0];
     (*(v6 + 16))(v6, 0, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseCodeFromString:(id)string completionHandler:(id)handler
@@ -408,11 +398,11 @@ void __57__BCSQRCodeParser_parseCodeFromString_completionHandler___block_invoke_
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      __57__BCSQRCodeParser_parseCodeFromString_completionHandler___block_invoke_13_cold_1();
+      __57__BCSQRCodeParser_parseCodeFromString_completionHandler___block_invoke_13_cold_1(v3, v4);
     }
 
-    v4 = +[BCSAWDLogger sharedLogger];
-    [v4 logBarcodeDetectedEventForAction:v3 startTime:*(a1 + 40)];
+    v5 = +[BCSAWDLogger sharedLogger];
+    [v5 logBarcodeDetectedEventForAction:v3 startTime:*(a1 + 40)];
 
     (*(*(a1 + 32) + 16))();
   }
@@ -424,9 +414,9 @@ void __57__BCSQRCodeParser_parseCodeFromString_completionHandler___block_invoke_
       __57__BCSQRCodeParser_parseCodeFromString_completionHandler___block_invoke_13_cold_2();
     }
 
-    v5 = *(a1 + 32);
-    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"BCSErrorDomain" code:4 userInfo:0];
-    (*(v5 + 16))(v5, 0, v6);
+    v6 = *(a1 + 32);
+    v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"BCSErrorDomain" code:4 userInfo:0];
+    (*(v6 + 16))(v6, 0, v7);
   }
 }
 
@@ -508,14 +498,14 @@ void __72__BCSQRCodeParser_postNotificationAfterParsingCodeFromImage_completion_
 
 - (void)_parseMetadataObject:(id)object reply:(id)reply completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   replyCopy = reply;
   handlerCopy = handler;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v30 = objectCopy;
+    v29 = objectCopy;
     _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSQRCodeParser: Start parsing AVMetadataMachineReadableCodeObject %p", buf, 0xCu);
   }
 
@@ -533,16 +523,16 @@ void __72__BCSQRCodeParser_postNotificationAfterParsingCodeFromImage_completion_
     if ([type isEqualToString:*MEMORY[0x277CE5A80]])
     {
       v15 = self->_parsingServiceConnection;
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_invoke;
-      v25[3] = &unk_278CFF320;
-      v26 = objectCopy;
-      v27 = handlerCopy;
-      v28 = replyCopy;
-      [(BCSParsingServiceConnection *)v15 parseQRCodeMetadata:basicDescriptor withReply:v25];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_invoke;
+      v24[3] = &unk_278CFF320;
+      v25 = objectCopy;
+      v26 = handlerCopy;
+      v27 = replyCopy;
+      [(BCSParsingServiceConnection *)v15 parseQRCodeMetadata:basicDescriptor withReply:v24];
 
-      v16 = v26;
+      v16 = v25;
 LABEL_18:
 
       goto LABEL_19;
@@ -556,21 +546,21 @@ LABEL_18:
       {
         integerValue = [v17 integerValue];
         *buf = 134218240;
-        v30 = objectCopy;
-        v31 = 2048;
-        v32 = integerValue;
+        v29 = objectCopy;
+        v30 = 2048;
+        v31 = integerValue;
         _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSQRCodeParser: AVMetadataMachineReadableCodeObject %p has app clip code version %ld", buf, 0x16u);
       }
 
       v19 = self->_parsingServiceConnection;
       integerValue2 = [v17 integerValue];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_invoke_18;
-      v22[3] = &unk_278CFF348;
-      v23 = objectCopy;
-      v24 = replyCopy;
-      [(BCSParsingServiceConnection *)v19 decodeAppClipCodeURLWithEncodedData:v16 codingVersion:integerValue2 requiresAuthorization:0 withReply:v22];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_invoke_18;
+      v21[3] = &unk_278CFF348;
+      v22 = objectCopy;
+      v23 = replyCopy;
+      [(BCSParsingServiceConnection *)v19 decodeAppClipCodeURLWithEncodedData:v16 codingVersion:integerValue2 requiresAuthorization:0 withReply:v21];
 
       goto LABEL_18;
     }
@@ -607,13 +597,11 @@ LABEL_17:
   }
 
 LABEL_19:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -621,11 +609,11 @@ void __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v7 = a1[4];
-      v11 = 134218240;
-      v12 = v7;
-      v13 = 2048;
-      v14 = [v5 type];
-      _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSQRCodeParser: AVMetadataMachineReadableCodeObject %p QR code has type %ld", &v11, 0x16u);
+      v10 = 134218240;
+      v11 = v7;
+      v12 = 2048;
+      v13 = [v5 type];
+      _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSQRCodeParser: AVMetadataMachineReadableCodeObject %p QR code has type %ld", &v10, 0x16u);
     }
 
     (*(a1[6] + 16))();
@@ -635,7 +623,7 @@ void __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_invoke_cold_1(a1);
+      __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_invoke_cold_1();
     }
 
     v8 = a1[5];
@@ -645,13 +633,11 @@ void __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_
       (*(v8 + 16))(v8, 0, v9);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_invoke_18(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -681,16 +667,14 @@ void __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v9 = *(a1 + 32);
-    v11 = 134218243;
-    v12 = v9;
-    v13 = 2113;
-    v14 = v5;
-    _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSQRCodeParser: AVMetadataMachineReadableCodeObject %p has app clip code with url %{private}@", &v11, 0x16u);
+    v10 = 134218243;
+    v11 = v9;
+    v12 = 2113;
+    v13 = v5;
+    _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSQRCodeParser: AVMetadataMachineReadableCodeObject %p has app clip code with url %{private}@", &v10, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BCSNotificationServiceConnection)notificationServiceConnection
@@ -828,106 +812,86 @@ void __81__BCSQRCodeParser_startQRCodeParsingSessionWithMetadataObject_completio
   [(BCSParsingServiceConnection *)parsingServiceConnection setPreferredBundleIdentifier:identifierCopy forURL:lCopy];
 }
 
-void __84__BCSQRCodeParser_parseCodeFromMetadataMachineReadableCodeObject_completionHandler___block_invoke_2_cold_1(uint64_t a1)
+void __84__BCSQRCodeParser_parseCodeFromMetadataMachineReadableCodeObject_completionHandler___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke_11_cold_1(uint64_t a1)
+void __56__BCSQRCodeParser_parseCodeFromImage_completionHandler___block_invoke_11_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __57__BCSQRCodeParser_parseCodeFromString_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 type];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_1(&dword_241993000, MEMORY[0x277D86220], v1, "BCSQRCodeParser: Detected QR code has type %ld", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_241993000, MEMORY[0x277D86220], v1, "BCSQRCodeParser: Detected QR code has type %ld", v2, v3, v4, v5);
 }
 
-void __57__BCSQRCodeParser_parseCodeFromString_completionHandler___block_invoke_13_cold_1()
+void __57__BCSQRCodeParser_parseCodeFromString_completionHandler___block_invoke_13_cold_1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_1(&dword_241993000, MEMORY[0x277D86220], v0, "BCSQRCodeParser: Detected QR code has resolved to action of class %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_241993000, MEMORY[0x277D86220], v2, "BCSQRCodeParser: Detected QR code has resolved to action of class %@", v3, v4, v5, v6);
 }
 
 void __72__BCSQRCodeParser_postNotificationAfterParsingCodeFromImage_completion___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 type];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_1(&dword_241993000, MEMORY[0x277D86220], v1, "BCSQRCodeParser: QR code from image has type %ld", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_241993000, MEMORY[0x277D86220], v1, "BCSQRCodeParser: QR code from image has type %ld", v2, v3, v4, v5);
 }
 
 void __72__BCSQRCodeParser_postNotificationAfterParsingCodeFromImage_completion___block_invoke_14_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_parseMetadataObject:(void *)a1 reply:completionHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 type];
+  v6 = [a1 type];
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_parseMetadataObject:reply:completionHandler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __64__BCSQRCodeParser__parseMetadataObject_reply_completionHandler___block_invoke_18_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

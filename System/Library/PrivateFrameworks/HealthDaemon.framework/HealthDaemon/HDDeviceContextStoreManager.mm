@@ -52,32 +52,32 @@
 
 - (id)numberOfDeviceContextsPerDeviceType:(id *)type
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = [(HDDeviceContextStoreManager *)self fetchAllEntriesWithError:type];
   v7 = v6;
   if (v6)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       obj = v7;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           v13 = MEMORY[0x277CCABB0];
           v14 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v12, "type")}];
           v15 = [v5 objectForKeyedSubscript:v14];
@@ -87,7 +87,7 @@
         }
 
         v7 = obj;
-        v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v9);
@@ -100,8 +100,6 @@
   {
     v18 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -318,7 +316,7 @@ BOOL __84__HDDeviceContextStoreManager_updateSoftwareVersionForCurrentSyncIdenti
 
 - (BOOL)ingestRemoteDeviceContexts:(id)contexts transaction:(id)transaction error:(id *)error
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   contextsCopy = contexts;
   selfCopy = self;
@@ -327,49 +325,49 @@ BOOL __84__HDDeviceContextStoreManager_updateSoftwareVersionForCurrentSyncIdenti
   currentSyncIdentity = [syncIdentityManager currentSyncIdentity];
   identity = [currentSyncIdentity identity];
 
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __76__HDDeviceContextStoreManager_ingestRemoteDeviceContexts_transaction_error___block_invoke;
-  v56[3] = &unk_27861D408;
-  v57 = identity;
-  v49 = identity;
-  v13 = [contextsCopy hk_filter:v56];
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __76__HDDeviceContextStoreManager_ingestRemoteDeviceContexts_transaction_error___block_invoke;
+  v55[3] = &unk_27861D408;
+  v56 = identity;
+  v48 = identity;
+  v13 = [contextsCopy hk_filter:v55];
 
   v14 = v13;
   v15 = transactionCopy;
-  v48 = v15;
+  v47 = v15;
   if (!selfCopy)
   {
 
-    v51 = 0;
+    v50 = 0;
     goto LABEL_43;
   }
 
-  *&v59 = 0;
-  *(&v59 + 1) = &v59;
-  *&v60 = 0x3032000000;
-  *(&v60 + 1) = __Block_byref_object_copy__67;
-  *&v61 = __Block_byref_object_dispose__67;
-  *(&v61 + 1) = 0;
+  *&v58 = 0;
+  *(&v58 + 1) = &v58;
+  *&v59 = 0x3032000000;
+  *(&v59 + 1) = __Block_byref_object_copy__67;
+  *&v60 = __Block_byref_object_dispose__67;
+  *(&v60 + 1) = 0;
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v64 = 1;
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __79__HDDeviceContextStoreManager__insertOrUpdateDeviceContexts_transaction_error___block_invoke;
-  v65[3] = &unk_27861D430;
-  v67 = buf;
-  v65[4] = selfCopy;
+  v63 = 1;
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __79__HDDeviceContextStoreManager__insertOrUpdateDeviceContexts_transaction_error___block_invoke;
+  v64[3] = &unk_27861D430;
+  v66 = buf;
+  v64[4] = selfCopy;
   v16 = v15;
-  v66 = v16;
-  v68 = &v59;
-  v50 = v14;
-  [v14 enumerateObjectsUsingBlock:v65];
+  v65 = v16;
+  v67 = &v58;
+  v49 = v14;
+  [v14 enumerateObjectsUsingBlock:v64];
   v17 = *(*&buf[8] + 24);
   if ((v17 & 1) == 0)
   {
-    v18 = *(*(&v59 + 1) + 40);
+    v18 = *(*(&v58 + 1) + 40);
     v19 = v18;
     if (v18)
     {
@@ -389,23 +387,23 @@ BOOL __84__HDDeviceContextStoreManager_updateSoftwareVersionForCurrentSyncIdenti
   }
 
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v58, 8);
 
   if ((v17 & 1) == 0)
   {
-    v51 = 0;
+    v50 = 0;
     goto LABEL_42;
   }
 
-  v55 = v14;
-  v52 = v16;
+  v54 = v14;
+  v51 = v16;
   profile2 = [(HDDeviceContextStoreManager *)selfCopy profile];
   deviceContextManager = [profile2 deviceContextManager];
-  v47 = [deviceContextManager fetchAllEntriesWithError:error];
+  v46 = [deviceContextManager fetchAllEntriesWithError:error];
 
-  if (!v47)
+  if (!v46)
   {
-    v51 = 0;
+    v50 = 0;
     goto LABEL_41;
   }
 
@@ -414,38 +412,38 @@ BOOL __84__HDDeviceContextStoreManager_updateSoftwareVersionForCurrentSyncIdenti
   currentSyncIdentity2 = [syncIdentityManager2 currentSyncIdentity];
   identity2 = [currentSyncIdentity2 identity];
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
-  v27 = v47;
-  v28 = [v27 countByEnumeratingWithState:&v59 objects:v65 count:16];
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v27 = v46;
+  v28 = [v27 countByEnumeratingWithState:&v58 objects:v64 count:16];
   if (!v28)
   {
-    v51 = 1;
+    v50 = 1;
     goto LABEL_40;
   }
 
-  v29 = *v60;
-  v51 = 1;
+  v29 = *v59;
+  v50 = 1;
   do
   {
     for (i = 0; i != v28; ++i)
     {
-      if (*v60 != v29)
+      if (*v59 != v29)
       {
         objc_enumerationMutation(v27);
       }
 
-      v31 = *(*(&v59 + 1) + 8 * i);
+      v31 = *(*(&v58 + 1) + 8 * i);
       syncIdentity = [v31 syncIdentity];
       v33 = [syncIdentity isEqual:identity2];
 
-      if ((v33 & 1) == 0 && ([v55 containsObject:v31] & 1) == 0)
+      if ((v33 & 1) == 0 && ([v54 containsObject:v31] & 1) == 0)
       {
-        v58 = 0;
-        v34 = [(HDDeviceContextStoreManager *)selfCopy deleteDeviceContext:v31 transaction:v52 error:&v58];
-        v35 = v58;
+        v57 = 0;
+        v34 = [(HDDeviceContextStoreManager *)selfCopy deleteDeviceContext:v31 transaction:v51 error:&v57];
+        v35 = v57;
         _HKInitializeLogging();
         v36 = *MEMORY[0x277CCC328];
         v37 = *MEMORY[0x277CCC328];
@@ -519,14 +517,14 @@ LABEL_31:
 
 LABEL_32:
 
-          v51 = 0;
+          v50 = 0;
         }
 
         continue;
       }
     }
 
-    v28 = [v27 countByEnumeratingWithState:&v59 objects:v65 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v58 objects:v64 count:16];
   }
 
   while (v28);
@@ -534,11 +532,10 @@ LABEL_40:
 
 LABEL_41:
 LABEL_42:
-  v14 = v50;
+  v14 = v49;
 LABEL_43:
 
-  v45 = *MEMORY[0x277D85DE8];
-  return v51 & 1;
+  return v50 & 1;
 }
 
 uint64_t __76__HDDeviceContextStoreManager_ingestRemoteDeviceContexts_transaction_error___block_invoke(uint64_t a1, void *a2)
@@ -551,7 +548,7 @@ uint64_t __76__HDDeviceContextStoreManager_ingestRemoteDeviceContexts_transactio
 
 void __79__HDDeviceContextStoreManager__insertOrUpdateDeviceContexts_transaction_error___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) profile];
   v5 = [v4 deviceContextManager];
@@ -568,19 +565,17 @@ void __79__HDDeviceContextStoreManager__insertOrUpdateDeviceContexts_transaction
     v9 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v12 = *(*(*(a1 + 56) + 8) + 40);
+      v10 = *(a1 + 32);
+      v11 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 138543874;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v3;
-      v18 = 2114;
-      v19 = v12;
+      v14 = v10;
+      v15 = 2114;
+      v16 = v3;
+      v17 = 2114;
+      v18 = v11;
       _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%{public}@: Failed to insert %{public}@ error: %{public}@", buf, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HDProfile)profile

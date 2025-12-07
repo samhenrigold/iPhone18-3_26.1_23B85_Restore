@@ -434,7 +434,7 @@ void __43__MPMusicPlayerController__queueDescriptor__block_invoke_2(uint64_t a1,
   }
 }
 
-uint64_t __75__MPMusicPlayerController_onServerAsync_errorHandler_timeout_retryEnabled___block_invoke(uint64_t result, uint64_t a2)
+id *__75__MPMusicPlayerController_onServerAsync_errorHandler_timeout_retryEnabled___block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
@@ -444,11 +444,11 @@ uint64_t __75__MPMusicPlayerController_onServerAsync_errorHandler_timeout_retryE
     v5 = os_log_create("com.apple.amp.mediaplayer", "SDKPlayback");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *v6 = 0;
+      v6[0] = 0;
       _os_log_impl(&dword_1A238D000, v5, OS_LOG_TYPE_ERROR, "ASYNC-WATCHDOG-1: Attempting to wake up the remote process", v6, 2u);
     }
 
-    return [*(v4 + 32) _establishConnectionIfNeeded];
+    return [v4[4] _establishConnectionIfNeeded];
   }
 
   return result;
@@ -558,7 +558,7 @@ void __75__MPMusicPlayerController_onServerAsync_errorHandler_timeout_retryEnabl
   [v8 disarm];
 }
 
-uint64_t __36__MPMusicPlayerController_onServer___block_invoke(uint64_t result, uint64_t a2)
+id *__36__MPMusicPlayerController_onServer___block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
@@ -568,17 +568,17 @@ uint64_t __36__MPMusicPlayerController_onServer___block_invoke(uint64_t result, 
     v5 = os_log_create("com.apple.amp.mediaplayer", "SDKPlayback");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *v6 = 0;
+      v6[0] = 0;
       _os_log_impl(&dword_1A238D000, v5, OS_LOG_TYPE_ERROR, "SYNC-WATCHDOG-1: Attempting to wake up the remote process", v6, 2u);
     }
 
-    return [*(v4 + 32) _establishConnectionIfNeeded];
+    return [v4[4] _establishConnectionIfNeeded];
   }
 
   return result;
 }
 
-uint64_t __36__MPMusicPlayerController_onServer___block_invoke_160(uint64_t result, uint64_t a2)
+id *__36__MPMusicPlayerController_onServer___block_invoke_160(id *result, uint64_t a2)
 {
   if (!a2)
   {
@@ -588,11 +588,11 @@ uint64_t __36__MPMusicPlayerController_onServer___block_invoke_160(uint64_t resu
     v5 = os_log_create("com.apple.amp.mediaplayer", "SDKPlayback");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *v6 = 0;
+      v6[0] = 0;
       _os_log_impl(&dword_1A238D000, v5, OS_LOG_TYPE_ERROR, "SYNC-WATCHDOG-2: Tearing down connection", v6, 2u);
     }
 
-    return [*(v4 + 32) _clearConnection];
+    return [v4[4] _clearConnection];
   }
 
   return result;
@@ -1393,7 +1393,7 @@ void __50__MPMusicPlayerController_setCurrentPlaybackTime___block_invoke_2(uint6
 - (double)currentPlaybackTime
 {
   _snapshot = [(MPMusicPlayerController *)self _snapshot];
-  [_snapshot currentTime];
+  objc_msgSend_currentTime(_snapshot);
   v4 = v3;
 
   return v4;

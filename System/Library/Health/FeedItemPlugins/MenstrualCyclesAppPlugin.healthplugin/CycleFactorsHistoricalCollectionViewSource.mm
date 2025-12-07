@@ -45,7 +45,7 @@
   sub_29E2BCF44();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_29DFB0D04(viewCopy);
+  v12 = sub_29DFB0D04(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 
@@ -57,11 +57,11 @@
   v6 = sub_29E2BCFB4();
   v7 = *(v6 - 8);
   MEMORY[0x2A1C7C4A8](v6);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_29E2BCF44();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_29DFB46A0();
+  LOBYTE(self) = sub_29DFB46A0(v12);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;

@@ -196,20 +196,20 @@ LABEL_16:
   allUnfilteredElements = [(VKCActionInfoButton *)self allUnfilteredElements];
   v7 = [allUnfilteredElements vk_compactMap:&__block_literal_global_40];
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   v8 = getkDataDetectorsAllResultsKeySymbolLoc_ptr_1;
-  v26 = getkDataDetectorsAllResultsKeySymbolLoc_ptr_1;
+  v27 = getkDataDetectorsAllResultsKeySymbolLoc_ptr_1;
   if (!getkDataDetectorsAllResultsKeySymbolLoc_ptr_1)
   {
     v9 = DataDetectorsUILibrary_5();
-    v24[3] = dlsym(v9, "kDataDetectorsAllResultsKey");
-    getkDataDetectorsAllResultsKeySymbolLoc_ptr_1 = v24[3];
-    v8 = v24[3];
+    v25[3] = dlsym(v9, "kDataDetectorsAllResultsKey");
+    getkDataDetectorsAllResultsKeySymbolLoc_ptr_1 = v25[3];
+    v8 = v25[3];
   }
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v24, 8);
   if (!v8)
   {
     getkDDRVInteractionDidFinishNotification_cold_1();
@@ -232,26 +232,27 @@ LABEL_16:
   }
 
   value2 = [scannerResult value];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   v17 = getkDataDetectorsMiddleTextSymbolLoc_ptr_0;
-  v26 = getkDataDetectorsMiddleTextSymbolLoc_ptr_0;
+  v27 = getkDataDetectorsMiddleTextSymbolLoc_ptr_0;
   if (!getkDataDetectorsMiddleTextSymbolLoc_ptr_0)
   {
     v18 = DataDetectorsUILibrary_5();
-    v24[3] = dlsym(v18, "kDataDetectorsMiddleText");
-    getkDataDetectorsMiddleTextSymbolLoc_ptr_0 = v24[3];
-    v17 = v24[3];
+    v25[3] = dlsym(v18, "kDataDetectorsMiddleText");
+    getkDataDetectorsMiddleTextSymbolLoc_ptr_0 = v25[3];
+    v17 = v25[3];
   }
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v24, 8);
   if (!v17)
   {
 LABEL_13:
-    v22 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v23, 8);
-    _Unwind_Resume(v22);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v23 = v22;
+    _Block_object_dispose(&v24, 8);
+    _Unwind_Resume(v23);
   }
 
   [v5 setObject:value2 forKeyedSubscript:*v17];
@@ -356,7 +357,7 @@ id __67__VKCActionInfoButton_buttonConfigurationTextAttributesTransformer__block
 
 - (id)translucentButtonConfiguration
 {
-  v3 = vk_solariumEnabled(self, a2);
+  v3 = vk_solariumEnabled(self);
   if (v3)
   {
     [MEMORY[0x1E69DC740] _glassButtonConfiguration];
@@ -437,7 +438,7 @@ id __67__VKCActionInfoButton_buttonConfigurationTextAttributesTransformer__block
 
 - (int64_t)overrideUserInterfaceStyle
 {
-  if (vk_solariumEnabled(self, a2))
+  if (vk_solariumEnabled(self))
   {
     return 0;
   }
@@ -450,7 +451,7 @@ id __67__VKCActionInfoButton_buttonConfigurationTextAttributesTransformer__block
 
 - (id)translucentSelectedButtonConfiguration
 {
-  v3 = vk_solariumEnabled(self, a2);
+  v3 = vk_solariumEnabled(self);
   if (v3)
   {
     [MEMORY[0x1E69DC740] _tintedGlassButtonConfiguration];

@@ -157,9 +157,9 @@
 
   if (v7 && v6)
   {
-    v8 = [(_UITabModel *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
 
-    if (v8)
+    if (isEqual)
     {
       goto LABEL_11;
     }
@@ -823,7 +823,7 @@ LABEL_11:
   {
     if (_currentPlatformMetrics)
     {
-      [_currentPlatformMetrics editModeTransform];
+      objc_msgSend_editModeTransform(_currentPlatformMetrics);
     }
 
     else
@@ -841,10 +841,10 @@ LABEL_11:
   }
 
   memset(&v20, 0, sizeof(v20));
-  [(_UIFloatingTabBar *)self additionalTransform];
+  objc_msgSend_additionalTransform(self);
   v18 = v21;
   CGAffineTransformConcat(&v20, &v18, &t2);
-  [(UIView *)self transform];
+  objc_msgSend_transform(self);
   v18 = v20;
   if (!CGAffineTransformEqualToTransform(&v18, &t2))
   {
@@ -1576,9 +1576,9 @@ LABEL_8:
     {
       if (v82 && pages)
       {
-        v84 = [pages isEqual:v82];
+        isEqual = objc_msgSend_isEqual_(pages);
 
-        if (v84)
+        if (isEqual)
         {
           goto LABEL_58;
         }
@@ -1918,9 +1918,9 @@ LABEL_11:
       if (v33)
       {
         _indexPathForSelectedItem = [(_UIFloatingTabBar *)self _indexPathForSelectedItem];
-        v35 = [_indexPathForSelectedItem isEqual:v8];
+        isEqual = objc_msgSend_isEqual_(_indexPathForSelectedItem);
 
-        if (!v35)
+        if (!isEqual)
         {
           v20 = 0;
           v19 = 1;
@@ -2231,9 +2231,9 @@ LABEL_10:
 
   if (v27 && v28)
   {
-    v30 = [v27 isEqual:v28];
+    isEqual = objc_msgSend_isEqual_(v27);
 
-    if (!v30)
+    if (!isEqual)
     {
       goto LABEL_12;
     }
@@ -2768,10 +2768,10 @@ LABEL_12:
 
   if (v10 && v7)
   {
-    v8 = [(NSIndexPath *)v10 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v10);
 
     v9 = v10;
-    if (v8)
+    if (isEqual)
     {
       goto LABEL_13;
     }
@@ -3442,10 +3442,10 @@ LABEL_11:
         goto LABEL_12;
       }
 
-      v12 = [selectedItem isEqual:v10];
+      isEqual = objc_msgSend_isEqual_(selectedItem);
 
       [(_UITabModel *)self->_tabModel selectTab:v11 notifyOnReselection:1];
-      if ((v12 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         goto LABEL_11;
       }
@@ -4176,10 +4176,10 @@ LABEL_12:
 
   if (v7 && v6)
   {
-    v8 = [(NSIndexPath *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
     v9 = v10;
-    if (v8)
+    if (isEqual)
     {
       goto LABEL_13;
     }
@@ -4454,12 +4454,12 @@ LABEL_8:
   pathCopy = path;
   cellCopy = cell;
   highlightedIndexPath = [(_UIFloatingTabBar *)self highlightedIndexPath];
-  [cellCopy setHighlighted:{objc_msgSend(pathCopy, "isEqual:", highlightedIndexPath)}];
+  [cellCopy setHighlighted:objc_msgSend_isEqual_(pathCopy)];
 
   selectionViewIndexPath = [(_UIFloatingTabBar *)self selectionViewIndexPath];
-  v10 = [pathCopy isEqual:selectionViewIndexPath];
+  isEqual = objc_msgSend_isEqual_(pathCopy);
 
-  [cellCopy setHasSelectionHighlight:v10];
+  [cellCopy setHasSelectionHighlight:isEqual];
 }
 
 - (id)_currentPlatformMetrics

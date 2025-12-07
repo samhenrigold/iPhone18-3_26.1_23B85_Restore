@@ -23,7 +23,7 @@
   v15 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   v13[0] = v14;
@@ -56,7 +56,7 @@
     objc_storeStrong(&v12->_accessAuthorization, authorization);
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -226,7 +226,7 @@
   v6 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else

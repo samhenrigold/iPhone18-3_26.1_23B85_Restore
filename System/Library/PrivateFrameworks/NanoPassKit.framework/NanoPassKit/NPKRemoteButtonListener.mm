@@ -41,31 +41,31 @@
   {
     enabledCopy = enabled;
     self->_enabled = enabled;
-    v5 = pk_General_log();
+    v5 = pk_General_log(self);
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
     if (v6)
     {
-      v7 = pk_General_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_General_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = @"disable";
+        v9 = @"disable";
         if (enabledCopy)
         {
-          v8 = @"enable";
+          v9 = @"enable";
         }
 
         v13 = 138412290;
-        v14 = v8;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Requested to %@ remote button listener.", &v13, 0xCu);
+        v14 = v9;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Requested to %@ remote button listener.", &v13, 0xCu);
       }
     }
 
     if (enabledCopy)
     {
-      v9 = [[NPKDoublePressDelegationAssertion alloc] initWithQueue:self->_internalQueue];
+      v10 = [[NPKDoublePressDelegationAssertion alloc] initWithQueue:self->_internalQueue];
       delegationAssertion = self->_delegationAssertion;
-      self->_delegationAssertion = v9;
+      self->_delegationAssertion = v10;
 
       [(NPKDoublePressDelegationAssertion *)self->_delegationAssertion setDelegate:self];
     }
@@ -74,12 +74,10 @@
     {
       [(NPKTransientAssertion *)self->_delegationAssertion invalidate];
       [(NPKDoublePressDelegationAssertion *)self->_delegationAssertion setDelegate:0];
-      v11 = self->_delegationAssertion;
+      v12 = self->_delegationAssertion;
       self->_delegationAssertion = 0;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doublePressDelegationAssertionDidReceiveDelegatedDoublePressEvent:(id)event authIntentSource:(unint64_t)source

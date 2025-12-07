@@ -40,7 +40,7 @@
   if (!convertToNSData)
   {
     v4 = [[NSMutableDictionary alloc] initWithCapacity:2];
-    v5 = sub_100063A54();
+    v5 = sub_100063A54(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -62,9 +62,9 @@
 {
   errorCopy = error;
   payloadCopy = payload;
-  v18.receiver = self;
-  v18.super_class = MSDPingRequest;
-  v8 = [(MSDServerRequest *)&v18 parseResponseForError:errorCopy andPayload:payloadCopy];
+  v19.receiver = self;
+  v19.super_class = MSDPingRequest;
+  v8 = [(MSDServerRequest *)&v19 parseResponseForError:errorCopy andPayload:payloadCopy];
   error = [v8 error];
 
   if (!error)
@@ -76,22 +76,22 @@
 
     if (!statusCode)
     {
-      v14 = sub_100063A54();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sub_100063A54(v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         getName = [(MSDServerRequest *)self getName];
         *buf = 138543618;
-        v20 = getName;
-        v21 = 2114;
-        v22 = @"statusCode";
-        _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}@ response payload does not contain: %{public}@", buf, 0x16u);
+        v21 = getName;
+        v22 = 2114;
+        v23 = @"statusCode";
+        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}@ response payload does not contain: %{public}@", buf, 0x16u);
       }
 
-      v17 = errorCopy;
-      sub_1000C1424(&v17, 3727744512, @"Unexpected server response.");
-      v15 = v17;
+      v18 = errorCopy;
+      sub_1000C1424(&v18, 3727744512, @"Unexpected server response.");
+      v16 = v18;
 
-      errorCopy = v15;
+      errorCopy = v16;
     }
   }
 

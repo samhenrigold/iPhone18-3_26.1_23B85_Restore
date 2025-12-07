@@ -5,6 +5,7 @@
 + (id)_typeRecordWithContext:(LSContext *)context forPromiseAtNode:(id)node error:(id *)error;
 + (id)_typeRecordWithContext:(LSContext *)context forPromiseResourceValues:(id)values error:(id *)error;
 + (id)_typeRecordWithContext:(LSContext *)context identifier:(id)identifier allowUndeclared:(BOOL)undeclared;
++ (id)_typeRecordWithIdentifier:(id)identifier allowUndeclared:(BOOL)undeclared;
 + (id)enumerator;
 + (id)typeRecordForImportedTypeWithIdentifier:(id)identifier conformingToIdentifier:(id)toIdentifier;
 + (id)typeRecordForPromiseAtURL:(id)l error:(id *)error;
@@ -22,9 +23,12 @@
 - (NSURL)referenceAccessoryURL;
 - (id)_initWithContext:(LSContext *)context persistentIdentifierData:(const LSPersistentIdentifierData *)data length:(unint64_t)length;
 - (id)debugDescription;
+- (id)iconDictionaryWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes;
+- (id)iconResourceBundleURLWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes;
 - (id)localizedDescriptionWithPreferredLocalizations:(id)localizations;
 - (id)preferredTagOfClass:(id)class;
 - (unint64_t)hash;
+- (void)_detachFromContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes;
 - (void)_enumerateRelatedTypesWithMaximumDegreeOfSeparation:(int64_t)separation block:(id)block;
 @end
 
@@ -45,9 +49,71 @@
   return v2;
 }
 
++ (id)_typeRecordWithIdentifier:(id)identifier allowUndeclared:(BOOL)undeclared
+{
+  undeclaredCopy = undeclared;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__55;
+  v27 = __Block_byref_object_dispose__55;
+  v28 = 0;
+  MayMapDatabase = _LSCurrentProcessMayMapDatabase();
+  if (MayMapDatabase)
+  {
+    CurrentContext = _LSDatabaseContextGetCurrentContext(MayMapDatabase);
+    v20 = 0;
+    v21 = 0;
+    v22 = 0;
+    v8 = +[_LSDServiceDomain defaultServiceDomain];
+    v9 = LaunchServices::Database::Context::_get(&CurrentContext, v8, 0);
+
+    if (v9)
+    {
+      v10 = [self _typeRecordWithContext:v9 identifier:identifier allowUndeclared:undeclaredCopy];
+      v11 = v24[5];
+      v24[5] = v10;
+    }
+
+    if (CurrentContext && v21 == 1)
+    {
+      _LSContextDestroy(CurrentContext);
+    }
+
+    v12 = v20;
+    CurrentContext = 0;
+    v20 = 0;
+
+    v21 = 0;
+    v13 = v22;
+    v22 = 0;
+  }
+
+  else if (_UTTypeIdentifierIsValid(identifier))
+  {
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __58__UTTypeRecord__typeRecordWithIdentifier_allowUndeclared___block_invoke;
+    v18[3] = &unk_1E6A192C8;
+    v18[4] = identifier;
+    v14 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __58__UTTypeRecord__typeRecordWithIdentifier_allowUndeclared___block_invoke_1;
+    v17[3] = &unk_1E6A1F000;
+    v17[4] = &v23;
+    [v14 getTypeRecordWithIdentifier:identifier allowUndeclared:undeclaredCopy completionHandler:v17];
+  }
+
+  v15 = v24[5];
+  _Block_object_dispose(&v23, 8);
+
+  return v15;
+}
+
 void __58__UTTypeRecord__typeRecordWithIdentifier_allowUndeclared___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = _LSDefaultLog();
+  v4 = _LSDefaultLog(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __58__UTTypeRecord__typeRecordWithIdentifier_allowUndeclared___block_invoke_cold_1(a1, a2, v4);
@@ -56,45 +122,45 @@ void __58__UTTypeRecord__typeRecordWithIdentifier_allowUndeclared___block_invoke
 
 + (id)typeRecordsWithIdentifiers:(id)identifiers
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__55;
-  v37 = __Block_byref_object_dispose__55;
-  v38 = 0;
+  v39 = *MEMORY[0x1E69E9840];
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__55;
+  v36 = __Block_byref_object_dispose__55;
+  v37 = 0;
   MayMapDatabase = _LSCurrentProcessMayMapDatabase();
   if (MayMapDatabase)
   {
     CurrentContext = _LSDatabaseContextGetCurrentContext(MayMapDatabase);
+    v29 = 0;
     v30 = 0;
     v31 = 0;
-    v32 = 0;
     v6 = +[_LSDServiceDomain defaultServiceDomain];
     v7 = LaunchServices::Database::Context::_get(&CurrentContext, v6, 0);
 
     if (v7)
     {
       v8 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(identifiers, "count")}];
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       identifiersCopy = identifiers;
-      v10 = [identifiersCopy countByEnumeratingWithState:&v25 objects:v39 count:16];
+      v10 = [identifiersCopy countByEnumeratingWithState:&v24 objects:v38 count:16];
       if (v10)
       {
-        v11 = *v26;
+        v11 = *v25;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v26 != v11)
+            if (*v25 != v11)
             {
               objc_enumerationMutation(identifiersCopy);
             }
 
-            v13 = *(*(&v25 + 1) + 8 * i);
+            v13 = *(*(&v24 + 1) + 8 * i);
             v14 = [self _typeRecordWithContext:v7 identifier:v13 allowUndeclared:0];
             if (v14)
             {
@@ -102,54 +168,52 @@ void __58__UTTypeRecord__typeRecordWithIdentifier_allowUndeclared___block_invoke
             }
           }
 
-          v10 = [identifiersCopy countByEnumeratingWithState:&v25 objects:v39 count:16];
+          v10 = [identifiersCopy countByEnumeratingWithState:&v24 objects:v38 count:16];
         }
 
         while (v10);
       }
 
       v15 = [v8 copy];
-      v16 = v34[5];
-      v34[5] = v15;
+      v16 = v33[5];
+      v33[5] = v15;
     }
 
-    if (CurrentContext && v31 == 1)
+    if (CurrentContext && v30 == 1)
     {
       _LSContextDestroy(CurrentContext);
     }
 
-    v17 = v30;
+    v17 = v29;
     CurrentContext = 0;
-    v30 = 0;
+    v29 = 0;
 
+    v30 = 0;
+    v18 = v31;
     v31 = 0;
-    v18 = v32;
-    v32 = 0;
   }
 
   else
   {
     v19 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:?];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __43__UTTypeRecord_typeRecordsWithIdentifiers___block_invoke_2;
-    v24[3] = &unk_1E6A1F028;
-    v24[4] = &v33;
-    [v19 getTypeRecordsWithIdentifiers:identifiers completionHandler:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __43__UTTypeRecord_typeRecordsWithIdentifiers___block_invoke_2;
+    v23[3] = &unk_1E6A1F028;
+    v23[4] = &v32;
+    [v19 getTypeRecordsWithIdentifiers:identifiers completionHandler:v23];
   }
 
-  v20 = v34[5];
+  v20 = v33[5];
   if (!v20)
   {
-    v34[5] = MEMORY[0x1E695E0F8];
+    v33[5] = MEMORY[0x1E695E0F8];
 
-    v20 = v34[5];
+    v20 = v33[5];
   }
 
   v21 = v20;
-  _Block_object_dispose(&v33, 8);
-
-  v22 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v32, 8);
 
   return v21;
 }
@@ -1106,7 +1170,7 @@ LABEL_20:
 
 - (id)_initWithContext:(LSContext *)context persistentIdentifierData:(const LSPersistentIdentifierData *)data length:(unint64_t)length
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   var3 = data->var3;
   if (var3 != *([(_LSDatabase *)context->db schema]+ 16))
   {
@@ -1116,24 +1180,23 @@ LABEL_20:
 
   if (length < 0x1D)
   {
-    var2 = data->var2;
-    if (_UTTypeGet(context->db))
+    if (_UTTypeGet(context->db, data->var2))
     {
-      v15 = [(LSRecord *)[_UTDeclaredTypeRecord alloc] _initWithContext:context tableID:data->var3 unitID:data->var2];
+      v14 = [(LSRecord *)[_UTDeclaredTypeRecord alloc] _initWithContext:context tableID:data->var3 unitID:data->var2];
     }
 
     else
     {
-      v16 = _LSRecordLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v15 = _LSRecordLog(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v17 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:data length:length freeWhenDone:0];
+        v16 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:data length:length freeWhenDone:0];
         *buf = 138412290;
-        v24 = v17;
-        _os_log_impl(&dword_18162D000, v16, OS_LOG_TYPE_DEBUG, "Failed to initialize type record with persistent identifier %@ because the type could not be found.", buf, 0xCu);
+        v22 = v16;
+        _os_log_impl(&dword_18162D000, v15, OS_LOG_TYPE_DEBUG, "Failed to initialize type record with persistent identifier %@ because the type could not be found.", buf, 0xCu);
       }
 
-      v15 = 0;
+      return 0;
     }
   }
 
@@ -1153,26 +1216,36 @@ LABEL_20:
         v13 = [[_UTUndeclaredTypeRecord alloc] _initWithContext:context identifier:v12];
       }
 
-      v15 = v13;
+      v14 = v13;
     }
 
     else
     {
-      v18 = _LSRecordLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v17 = _LSRecordLog(0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v19 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:data length:length freeWhenDone:0];
+        v18 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:data length:length freeWhenDone:0];
         *buf = 138412290;
-        v24 = v19;
-        _os_log_impl(&dword_18162D000, v18, OS_LOG_TYPE_DEBUG, "Failed to initialize type record with persistent identifier %@ because the stored type was not valid UTF-8.", buf, 0xCu);
+        v22 = v18;
+        _os_log_impl(&dword_18162D000, v17, OS_LOG_TYPE_DEBUG, "Failed to initialize type record with persistent identifier %@ because the stored type was not valid UTF-8.", buf, 0xCu);
       }
 
-      v15 = 0;
+      v14 = 0;
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v14;
+}
+
+- (void)_detachFromContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes
+{
+  [(UTTypeRecord *)self identifier:context];
+
+  v7 = [(LSRecord *)self _resolvedPropertyValueForGetter:sel__localizedDescription];
+  if (v7)
+  {
+    [v7 detach];
+  }
 }
 
 - (id)debugDescription
@@ -1246,16 +1319,128 @@ void __44__UTTypeRecord_ARKit__referenceAccessoryURL__block_invoke(uint64_t a1, 
   }
 }
 
+- (id)iconDictionaryWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
+{
+  if (bytes)
+  {
+    var10 = bytes->var10;
+    if (var10)
+    {
+      v9 = [_LSLazyPropertyList lazyPropertyListWithContext:context unit:var10, *&iD];
+      _expensiveDictionaryRepresentation = [v9 _expensiveDictionaryRepresentation];
+
+      v11 = _expensiveDictionaryRepresentation;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    v12 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:2];
+    v13 = _UTTypeGetIconName(context->db, bytes);
+    if (v13)
+    {
+      [v12 setObject:v13 forKeyedSubscript:@"UTTypeIconName"];
+    }
+
+    v14 = _UTTypeGetIconNames(context->db, bytes);
+    if ([v14 count])
+    {
+      [v12 setObject:v14 forKeyedSubscript:@"UTTypeIconFiles"];
+    }
+
+    v15 = _UTTypeGetGlyphName(context->db, bytes);
+    if (v15)
+    {
+      [v12 setObject:v15 forKeyedSubscript:@"UTTypeGlyphName"];
+    }
+
+    if ([v12 count])
+    {
+      [v12 addEntriesFromDictionary:v11];
+      v16 = [v12 copy];
+
+      v11 = v16;
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
+}
+
+- (id)iconResourceBundleURLWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
+{
+  if (!bytes)
+  {
+    v16 = 0;
+    goto LABEL_17;
+  }
+
+  v9 = [(UTTypeRecord *)self declaringBundleRecord:context];
+  v10 = [v9 URL];
+
+  if ((bytes->var2 & 0x2000) != 0 || !bytes->var11)
+  {
+    v16 = v10;
+    v11 = 0;
+    v15 = 0;
+  }
+
+  else
+  {
+    [(_LSDatabase *)context->db store];
+    v11 = _CSStringCopyCFString();
+    v12 = _LSBundleGet(context->db, bytes->var5);
+    v13 = v12;
+    if (v12 && *(v12 + 464))
+    {
+      [(_LSDatabase *)context->db store];
+      v14 = _CSStringCopyCFString();
+      if (v14)
+      {
+        v15 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v14 isDirectory:1 relativeToURL:v10];
+
+        v16 = 0;
+        if (v15 && v11)
+        {
+          v16 = [v15 URLByAppendingPathComponent:v11 isDirectory:1];
+        }
+
+        goto LABEL_16;
+      }
+
+      v17 = _LSDefaultLog(0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      {
+        [UTTypeRecord(IconServices) iconResourceBundleURLWithContext:(v13 + 464) tableID:v17 unitID:? unitBytes:?];
+      }
+    }
+
+    v15 = 0;
+    v16 = 0;
+  }
+
+LABEL_16:
+
+LABEL_17:
+
+  return v16;
+}
+
 void __58__UTTypeRecord__typeRecordWithIdentifier_allowUndeclared___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "could not reach database to find type for %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "could not reach database to find type for %@: %@", &v4, 0x16u);
 }
 
 @end

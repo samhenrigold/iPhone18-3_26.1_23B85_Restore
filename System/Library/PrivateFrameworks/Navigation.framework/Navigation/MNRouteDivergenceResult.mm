@@ -20,30 +20,28 @@
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  routeCoordinate = self->_routeCoordinate;
-  v5 = GEOPolylineCoordinateAsString();
-  v6 = v5;
-  routeID = self->_routeID;
+  v4 = GEOPolylineCoordinateAsString();
+  v5 = v4;
   resultType = self->_resultType;
-  v9 = @"None";
+  v7 = @"None";
   if (resultType == 1)
   {
-    v9 = @"Divergence";
+    v7 = @"Divergence";
   }
 
   if (resultType == 2)
   {
-    v10 = @"Convergence";
+    v8 = @"Convergence";
   }
 
   else
   {
-    v10 = v9;
+    v8 = v7;
   }
 
-  v11 = [v3 stringWithFormat:@"%@ (%f, %f) | %@ | %@", v5, *&self->_locationCoordinate.latitude, *&self->_locationCoordinate.longitude, self->_routeID, v10];
+  v9 = [v3 stringWithFormat:@"%@ (%f, %f) | %@ | %@", v4, *&self->_locationCoordinate.latitude, *&self->_locationCoordinate.longitude, self->_routeID, v8];
 
-  return v11;
+  return v9;
 }
 
 - (MNRouteDivergenceResult)init

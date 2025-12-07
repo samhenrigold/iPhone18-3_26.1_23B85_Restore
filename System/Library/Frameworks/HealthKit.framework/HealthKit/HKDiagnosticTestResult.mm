@@ -3,6 +3,7 @@
 + (id)cachedConceptRelationshipKeyPaths;
 + (id)defaultDisplayString;
 + (id)diagnosticTestResultWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 country:(id)self2 state:(unint64_t)self3 diagnosticTestCodingCollection:(id)self4 value:(id)self5 referenceRanges:(id)self6 effectiveStartDate:(id)self7 category:(id)self8 categoriesCodingCollections:(id)self9 issueDate:(id)issueDate effectiveEndDate:(id)endDate statusCoding:(id)coding interpretationCodingCollections:(id)codingCollections comments:(id)comments bodySiteCodingCollection:(id)codingCollection methodCodingCollection:(id)methodCodingCollection performers:(id)performers referenceRangeStatus:(int64_t)status;
++ (id)diagnosticTestResultWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 diagnosticTestCodingCollection:(id)self5 value:(id)self6 referenceRanges:(id)self7 effectiveStartDate:(id)self8 category:(id)self9 categoriesCodingCollections:(id)collections issueDate:(id)issueDate effectiveEndDate:(id)endDate statusCoding:(id)coding interpretationCodingCollections:(id)codingCollections comments:(id)comments bodySiteCodingCollection:(id)codingCollection methodCodingCollection:(id)methodCodingCollection performers:(id)performers referenceRangeStatus:(int64_t)status;
 + (id)indexableConceptKeyPaths;
 - (BOOL)applyConcepts:(id)concepts forKeyPath:(id)path error:(id *)error;
 - (BOOL)isEquivalent:(id)equivalent;
@@ -162,6 +163,13 @@ LABEL_4:
   return v60;
 }
 
++ (id)diagnosticTestResultWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 diagnosticTestCodingCollection:(id)self5 value:(id)self6 referenceRanges:(id)self7 effectiveStartDate:(id)self8 category:(id)self9 categoriesCodingCollections:(id)collections issueDate:(id)issueDate effectiveEndDate:(id)endDate statusCoding:(id)coding interpretationCodingCollections:(id)codingCollections comments:(id)comments bodySiteCodingCollection:(id)codingCollection methodCodingCollection:(id)methodCodingCollection performers:(id)performers referenceRangeStatus:(int64_t)status
+{
+  v29 = [self _newDiagnosticTestResultWithType:type note:note enteredInError:error modifiedDate:date originIdentifier:identifier locale:locale extractionVersion:version device:device metadata:metadata sortDate:sortDate country:country state:state diagnosticTestCodingCollection:collection value:value referenceRanges:ranges effectiveStartDate:startDate category:category categoriesCodingCollections:collections issueDate:issueDate effectiveEndDate:endDate statusCoding:coding interpretationCodingCollections:codingCollections comments:comments bodySiteCodingCollection:codingCollection methodCodingCollection:methodCodingCollection performers:performers referenceRangeStatus:status config:0];
+
+  return v29;
+}
+
 + (id)_newDiagnosticTestResultWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 diagnosticTestCodingCollection:(id)self5 value:(id)self6 referenceRanges:(id)self7 effectiveStartDate:(id)self8 category:(id)self9 categoriesCodingCollections:(id)collections issueDate:(id)issueDate effectiveEndDate:(id)endDate statusCoding:(id)coding interpretationCodingCollections:(id)codingCollections comments:(id)comments bodySiteCodingCollection:(id)codingCollection methodCodingCollection:(id)methodCodingCollection performers:(id)performers referenceRangeStatus:(int64_t)status config:(id)type0
 {
   errorCopy = error;
@@ -234,71 +242,73 @@ LABEL_4:
 
 uint64_t __450__HKDiagnosticTestResult__newDiagnosticTestResultWithType_note_enteredInError_modifiedDate_originIdentifier_locale_extractionVersion_device_metadata_sortDate_country_state_diagnosticTestCodingCollection_value_referenceRanges_effectiveStartDate_category_categoriesCodingCollections_issueDate_effectiveEndDate_statusCoding_interpretationCodingCollections_comments_bodySiteCodingCollection_methodCodingCollection_performers_referenceRangeStatus_config___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = a2;
+  v34 = a2;
   v3 = [*(a1 + 32) copy];
-  v4 = v33[22];
-  v33[22] = v3;
+  v4 = v34[22];
+  v34[22] = v3;
 
   v5 = [*(a1 + 40) copy];
-  v6 = v33[23];
-  v33[23] = v5;
+  v6 = v34[23];
+  v34[23] = v5;
 
   v7 = [*(a1 + 48) copy];
-  v8 = v33[24];
-  v33[24] = v7;
+  v8 = v34[24];
+  v34[24] = v7;
 
   v9 = [*(a1 + 56) copy];
-  v10 = v33[25];
-  v33[25] = v9;
+  v10 = v34[25];
+  v34[25] = v9;
 
   v11 = [*(a1 + 64) copy];
-  v12 = v33[26];
-  v33[26] = v11;
+  v12 = v34[26];
+  v34[26] = v11;
 
   v13 = [*(a1 + 72) copy];
-  v14 = v33[27];
-  v33[27] = v13;
+  v14 = v34[27];
+  v34[27] = v13;
 
   v15 = [*(a1 + 80) copy];
-  v16 = v33[28];
-  v33[28] = v15;
+  v16 = v34[28];
+  v34[28] = v15;
 
   v17 = [*(a1 + 88) copy];
-  v18 = v33[29];
-  v33[29] = v17;
+  v18 = v34[29];
+  v34[29] = v17;
 
   v19 = [*(a1 + 96) copy];
-  v20 = v33[30];
-  v33[30] = v19;
+  v20 = v34[30];
+  v34[30] = v19;
 
   v21 = [*(a1 + 104) copy];
-  v22 = v33[31];
-  v33[31] = v21;
+  v22 = v34[31];
+  v34[31] = v21;
 
   v23 = [*(a1 + 112) copy];
-  v24 = v33[32];
-  v33[32] = v23;
+  v24 = v34[32];
+  v34[32] = v23;
 
   v25 = [*(a1 + 120) copy];
-  v26 = v33[33];
-  v33[33] = v25;
+  v26 = v34[33];
+  v34[33] = v25;
 
   v27 = [*(a1 + 128) copy];
-  v28 = v33[34];
-  v33[34] = v27;
+  v28 = v34[34];
+  v34[34] = v27;
 
   v29 = [*(a1 + 136) copy];
-  v30 = v33[35];
-  v33[35] = v29;
+  v30 = v34[35];
+  v34[35] = v29;
 
-  v33[36] = *(a1 + 152);
-  v31 = *(a1 + 144);
-  if (v31)
+  v31 = v34;
+  v34[36] = *(a1 + 152);
+  v32 = *(a1 + 144);
+  if (v32)
   {
-    (*(v31 + 16))(v31, v33);
+    v32 = (*(v32 + 16))(v32, v34);
+    v31 = v34;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v32, v31);
 }
 
 - (HKDiagnosticTestResult)init
@@ -316,14 +326,12 @@ uint64_t __450__HKDiagnosticTestResult__newDiagnosticTestResultWithType_note_ent
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v11.receiver = self;
-  v11.super_class = HKDiagnosticTestResult;
-  v6 = [(HKSample *)&v11 description];
-  bodySiteCodingCollection = self->_bodySiteCodingCollection;
-  performers = self->_performers;
-  v9 = [v3 stringWithFormat:@"<%@:%p super=%@diagnosticTestCodingCollection = %@value = %@referenceRanges = %@effectiveStartDate = %@category = %@categoriesCodingCollections = %@issueDate = %@effectiveEndDate = %@statusCoding = %@interpretationCodingCollections = %@comments = %@bodySiteCodingCollection = %@methodCodingCollection = %@performers = %@referenceRangeStatus = %ld>", v5, self, v6, self->_diagnosticTestCodingCollection, self->_value, self->_referenceRanges, self->_effectiveStartDate, self->_category, self->_categoriesCodingCollections, self->_issueDate, self->_effectiveEndDate, self->_statusCoding, self->_interpretationCodingCollections, self->_comments, bodySiteCodingCollection, self->_methodCodingCollection, performers, self->_referenceRangeStatus];
+  v9.receiver = self;
+  v9.super_class = HKDiagnosticTestResult;
+  v6 = [(HKSample *)&v9 description];
+  v7 = [v3 stringWithFormat:@"<%@:%p super=%@diagnosticTestCodingCollection = %@value = %@referenceRanges = %@effectiveStartDate = %@category = %@categoriesCodingCollections = %@issueDate = %@effectiveEndDate = %@statusCoding = %@interpretationCodingCollections = %@comments = %@bodySiteCodingCollection = %@methodCodingCollection = %@performers = %@referenceRangeStatus = %ld>", v5, self, v6, self->_diagnosticTestCodingCollection, self->_value, self->_referenceRanges, self->_effectiveStartDate, self->_category, self->_categoriesCodingCollections, self->_issueDate, self->_effectiveEndDate, self->_statusCoding, self->_interpretationCodingCollections, self->_comments, self->_bodySiteCodingCollection, self->_methodCodingCollection, self->_performers, self->_referenceRangeStatus];
 
-  return v9;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -1036,7 +1044,7 @@ LABEL_107:
   value = self->_value;
   self->_value = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, value);
 }
 
 - (void)_setReferenceRanges:(id)ranges
@@ -1045,7 +1053,7 @@ LABEL_107:
   referenceRanges = self->_referenceRanges;
   self->_referenceRanges = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, referenceRanges);
 }
 
 - (void)_setEffectiveStartDate:(id)date
@@ -1054,7 +1062,7 @@ LABEL_107:
   effectiveStartDate = self->_effectiveStartDate;
   self->_effectiveStartDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, effectiveStartDate);
 }
 
 - (void)_setCategory:(id)category
@@ -1063,7 +1071,7 @@ LABEL_107:
   category = self->_category;
   self->_category = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, category);
 }
 
 - (void)_setCategoriesCodingCollections:(id)collections
@@ -1084,7 +1092,7 @@ LABEL_107:
   issueDate = self->_issueDate;
   self->_issueDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, issueDate);
 }
 
 - (void)_setEffectiveEndDate:(id)date
@@ -1093,7 +1101,7 @@ LABEL_107:
   effectiveEndDate = self->_effectiveEndDate;
   self->_effectiveEndDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, effectiveEndDate);
 }
 
 - (void)_setStatusCoding:(id)coding
@@ -1137,7 +1145,7 @@ LABEL_107:
   comments = self->_comments;
   self->_comments = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, comments);
 }
 
 - (void)_setBodySiteCodingCollection:(id)collection
@@ -1192,7 +1200,7 @@ LABEL_107:
   performers = self->_performers;
   self->_performers = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, performers);
 }
 
 - (HKConcept)diagnosticTest
@@ -1217,17 +1225,17 @@ LABEL_107:
   testCopy = test;
   if (!testCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [(HKDiagnosticTestResult *)v5 _setDiagnosticTest:v6, v7, v8, v9, v10, v11, v12];
+      [(HKDiagnosticTestResult *)v6 _setDiagnosticTest:v7, v8, v9, v10, v11, v12, v13];
     }
   }
 
-  v13 = [testCopy copy];
+  v14 = [testCopy copy];
   diagnosticTest = self->_diagnosticTest;
-  self->_diagnosticTest = v13;
+  self->_diagnosticTest = v14;
 }
 
 - (NSArray)categories
@@ -1252,17 +1260,17 @@ LABEL_107:
   categoriesCopy = categories;
   if (!categoriesCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [(HKDiagnosticTestResult *)v5 _setCategories:v6, v7, v8, v9, v10, v11, v12];
+      [(HKDiagnosticTestResult *)v6 _setCategories:v7, v8, v9, v10, v11, v12, v13];
     }
   }
 
-  v13 = [categoriesCopy copy];
+  v14 = [categoriesCopy copy];
   categories = self->_categories;
-  self->_categories = v13;
+  self->_categories = v14;
 }
 
 - (HKConcept)status
@@ -1287,17 +1295,17 @@ LABEL_107:
   statusCopy = status;
   if (!statusCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [(HKDiagnosticTestResult *)v5 _setStatus:v6, v7, v8, v9, v10, v11, v12];
+      [(HKDiagnosticTestResult *)v6 _setStatus:v7, v8, v9, v10, v11, v12, v13];
     }
   }
 
-  v13 = [statusCopy copy];
+  v14 = [statusCopy copy];
   status = self->_status;
-  self->_status = v13;
+  self->_status = v14;
 }
 
 - (NSArray)interpretation
@@ -1331,7 +1339,7 @@ LABEL_107:
   interpretation = self->_interpretation;
   self->_interpretation = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, interpretation);
 }
 
 - (HKConcept)bodySite
@@ -1365,7 +1373,7 @@ LABEL_107:
   bodySite = self->_bodySite;
   self->_bodySite = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, bodySite);
 }
 
 - (HKConcept)method
@@ -1399,7 +1407,7 @@ LABEL_107:
   method = self->_method;
   self->_method = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, method);
 }
 
 - (id)_validateWithConfiguration:(HKObjectValidationConfiguration)configuration
@@ -1492,7 +1500,7 @@ LABEL_14:
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = [HKConceptIndexUtilities firstComponentForKeyPath:pathCopy error:error];
   v8 = v7;
@@ -1506,9 +1514,9 @@ LABEL_14:
   {
     diagnosticTestCodingCollection = [(HKDiagnosticTestResult *)self diagnosticTestCodingCollection];
     v10 = [HKIndexableObject indexableObjectWithObject:diagnosticTestCodingCollection];
-    v27[0] = v10;
+    v26[0] = v10;
     v11 = MEMORY[0x1E695DEC8];
-    v12 = v27;
+    v12 = v26;
 LABEL_4:
     v13 = [v11 arrayWithObjects:v12 count:1];
 
@@ -1531,8 +1539,8 @@ LABEL_11:
     statusCoding = [(HKDiagnosticTestResult *)self statusCoding];
     v16 = [HKMedicalCodingCollection collectionWithCoding:statusCoding];
     v17 = [HKIndexableObject indexableObjectWithObject:v16];
-    v26 = v17;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+    v25 = v17;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
 
     goto LABEL_11;
   }
@@ -1558,9 +1566,9 @@ LABEL_11:
     {
       diagnosticTestCodingCollection = [(HKDiagnosticTestResult *)self bodySiteCodingCollection];
       v10 = [HKIndexableObject indexableObjectWithObject:diagnosticTestCodingCollection];
-      v25 = v10;
+      v24 = v10;
       v11 = MEMORY[0x1E695DEC8];
-      v12 = &v25;
+      v12 = &v24;
       goto LABEL_4;
     }
 
@@ -1575,9 +1583,9 @@ LABEL_11:
     {
       diagnosticTestCodingCollection = [(HKDiagnosticTestResult *)self methodCodingCollection];
       v10 = [HKIndexableObject indexableObjectWithObject:diagnosticTestCodingCollection];
-      v24 = v10;
+      v23 = v10;
       v11 = MEMORY[0x1E695DEC8];
-      v12 = &v24;
+      v12 = &v23;
       goto LABEL_4;
     }
 
@@ -1586,12 +1594,10 @@ LABEL_24:
     goto LABEL_12;
   }
 
-  v23.receiver = self;
-  v23.super_class = HKDiagnosticTestResult;
-  v13 = [(HKMedicalRecord *)&v23 codingsForKeyPath:pathCopy error:error];
+  v22.receiver = self;
+  v22.super_class = HKDiagnosticTestResult;
+  v13 = [(HKMedicalRecord *)&v22 codingsForKeyPath:pathCopy error:error];
 LABEL_12:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

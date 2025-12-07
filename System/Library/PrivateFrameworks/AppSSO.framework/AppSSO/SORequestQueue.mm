@@ -79,29 +79,28 @@ uint64_t __45__SORequestQueue_requestQueueWithIdentifier___block_invoke()
 
 - (void)enqueueRequest:(id)request
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  [(NSMutableArray *)selfCopy->_queue addObject:requestCopy];
-  v6 = SO_LOG_SORequestQueue();
+  v6 = SO_LOG_SORequestQueue([(NSMutableArray *)selfCopy->_queue addObject:requestCopy]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     identifier = selfCopy->_identifier;
     requestParameters = [requestCopy requestParameters];
     identifier = [requestParameters identifier];
-    v11 = [(NSMutableArray *)selfCopy->_queue count];
-    v12 = 138544386;
-    v13 = identifier;
-    v14 = 2048;
-    v15 = requestCopy;
-    v16 = 2114;
-    v17 = requestCopy;
-    v18 = 2114;
-    v19 = identifier;
-    v20 = 1024;
-    v21 = v11;
-    _os_log_debug_impl(&dword_1C1317000, v6, OS_LOG_TYPE_DEBUG, "%{public}@: enqueueRequest: %p, %{public}@, %{public}@, queue count: %d", &v12, 0x30u);
+    v10 = [(NSMutableArray *)selfCopy->_queue count];
+    v11 = 138544386;
+    v12 = identifier;
+    v13 = 2048;
+    v14 = requestCopy;
+    v15 = 2114;
+    v16 = requestCopy;
+    v17 = 2114;
+    v18 = identifier;
+    v19 = 1024;
+    v20 = v10;
+    _os_log_debug_impl(&dword_1C1317000, v6, OS_LOG_TYPE_DEBUG, "%{public}@: enqueueRequest: %p, %{public}@, %{public}@, queue count: %d", &v11, 0x30u);
   }
 
   if ([(NSMutableArray *)selfCopy->_queue count]== 1)
@@ -110,17 +109,14 @@ uint64_t __45__SORequestQueue_requestQueueWithIdentifier___block_invoke()
   }
 
   objc_sync_exit(selfCopy);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processNextRequest
 {
-  v6[3] = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  [(SORequestQueue *)selfCopy _itemCompleted];
-  v3 = SO_LOG_SORequestQueue();
+  v3 = SO_LOG_SORequestQueue([(SORequestQueue *)selfCopy _itemCompleted]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(SORequestQueue *)selfCopy->_identifier processNextRequest];
@@ -133,190 +129,190 @@ uint64_t __45__SORequestQueue_requestQueueWithIdentifier___block_invoke()
   }
 
   objc_sync_exit(selfCopy);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllRequestsWithBlock:(id)block
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v6 = SO_LOG_SORequestQueue();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v6 = objc_sync_enter(selfCopy);
+  v7 = SO_LOG_SORequestQueue(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    [(SORequestQueue *)selfCopy->_identifier removeAllRequestsWithBlock:v31];
+    [(SORequestQueue *)selfCopy->_identifier removeAllRequestsWithBlock:v32];
   }
 
   if (blockCopy)
   {
-    v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    v7 = [(NSMutableArray *)selfCopy->_queue copy];
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
-    if (v8)
+    v24 = 0u;
+    v8 = [(NSMutableArray *)selfCopy->_queue copy];
+    isRunning = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v10 = isRunning;
+    if (isRunning)
     {
-      v9 = *v23;
-      v21 = v7;
-      do
-      {
-        v10 = 0;
-        do
-        {
-          if (*v23 != v9)
-          {
-            objc_enumerationMutation(v7);
-          }
-
-          v11 = *(*(&v22 + 1) + 8 * v10);
-          v12 = SO_LOG_SORequestQueue();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
-          {
-            identifier = selfCopy->_identifier;
-            requestParameters = [v11 requestParameters];
-            identifier = [requestParameters identifier];
-            *buf = 138543618;
-            v27 = identifier;
-            v28 = 2114;
-            v29 = identifier;
-            _os_log_debug_impl(&dword_1C1317000, v12, OS_LOG_TYPE_DEBUG, "%{public}@: checking %{public}@", buf, 0x16u);
-
-            v7 = v21;
-          }
-
-          if (([v11 isRunning] & 1) == 0)
-          {
-            v13 = SO_LOG_SORequestQueue();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
-            {
-              v17 = selfCopy->_identifier;
-              requestParameters2 = [v11 requestParameters];
-              identifier2 = [requestParameters2 identifier];
-              *buf = 138543618;
-              v27 = v17;
-              v28 = 2114;
-              v29 = identifier2;
-              _os_log_debug_impl(&dword_1C1317000, v13, OS_LOG_TYPE_DEBUG, "%{public}@: removing %{public}@", buf, 0x16u);
-
-              v7 = v21;
-            }
-
-            blockCopy[2](blockCopy, selfCopy, v11);
-            [(NSMutableArray *)selfCopy->_queue removeObject:v11];
-          }
-
-          ++v10;
-        }
-
-        while (v8 != v10);
-        v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
-      }
-
-      while (v8);
-    }
-  }
-
-  objc_sync_exit(selfCopy);
-
-  v20 = *MEMORY[0x1E69E9840];
-}
-
-- (void)removeRequestWithIdentifier:(id)identifier block:(id)block
-{
-  v37 = *MEMORY[0x1E69E9840];
-  identifierCopy = identifier;
-  blockCopy = block;
-  selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v8 = SO_LOG_SORequestQueue();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-  {
-    [(SORequestQueue *)selfCopy removeRequestWithIdentifier:identifierCopy block:v8];
-  }
-
-  if (blockCopy)
-  {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v9 = [(NSMutableArray *)selfCopy->_queue copy];
-    v10 = [v9 countByEnumeratingWithState:&v28 objects:v36 count:16];
-    if (v10)
-    {
-      v11 = *v29;
-      v26 = identifierCopy;
+      v11 = *v24;
+      v22 = v8;
       do
       {
         v12 = 0;
         do
         {
-          if (*v29 != v11)
+          if (*v24 != v11)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v28 + 1) + 8 * v12);
-          v14 = SO_LOG_SORequestQueue();
+          v13 = *(*(&v23 + 1) + 8 * v12);
+          v14 = SO_LOG_SORequestQueue(isRunning);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             identifier = selfCopy->_identifier;
             requestParameters = [v13 requestParameters];
             identifier = [requestParameters identifier];
             *buf = 138543618;
-            identifierCopy2 = identifier;
-            v34 = 2114;
-            v35 = identifier;
+            v28 = identifier;
+            v29 = 2114;
+            v30 = identifier;
             _os_log_debug_impl(&dword_1C1317000, v14, OS_LOG_TYPE_DEBUG, "%{public}@: checking %{public}@", buf, 0x16u);
 
-            identifierCopy = v26;
+            v8 = v22;
           }
 
-          if (([v13 isRunning] & 1) == 0)
+          isRunning = [v13 isRunning];
+          if ((isRunning & 1) == 0)
           {
-            requestParameters2 = [v13 requestParameters];
-            identifier2 = [requestParameters2 identifier];
-            v17 = [identifier2 isEqualToString:identifierCopy];
-
-            if (v17)
+            v15 = SO_LOG_SORequestQueue(isRunning);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
             {
-              v18 = SO_LOG_SORequestQueue();
-              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-              {
-                v22 = selfCopy->_identifier;
-                requestParameters3 = [v13 requestParameters];
-                identifier3 = [requestParameters3 identifier];
-                *buf = 138543618;
-                identifierCopy2 = v22;
-                v34 = 2114;
-                v35 = identifier3;
-                _os_log_debug_impl(&dword_1C1317000, v18, OS_LOG_TYPE_DEBUG, "%{public}@: removing %{public}@", buf, 0x16u);
+              v19 = selfCopy->_identifier;
+              requestParameters2 = [v13 requestParameters];
+              identifier2 = [requestParameters2 identifier];
+              *buf = 138543618;
+              v28 = v19;
+              v29 = 2114;
+              v30 = identifier2;
+              _os_log_debug_impl(&dword_1C1317000, v15, OS_LOG_TYPE_DEBUG, "%{public}@: removing %{public}@", buf, 0x16u);
 
-                identifierCopy = v26;
-              }
-
-              blockCopy[2](blockCopy, selfCopy, v13);
-              [(NSMutableArray *)selfCopy->_queue removeObject:v13];
+              v8 = v22;
             }
+
+            blockCopy[2](blockCopy, selfCopy, v13);
+            isRunning = [(NSMutableArray *)selfCopy->_queue removeObject:v13];
           }
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v9 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        isRunning = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v10 = isRunning;
       }
 
-      while (v10);
+      while (isRunning);
     }
   }
 
   objc_sync_exit(selfCopy);
+}
 
-  v25 = *MEMORY[0x1E69E9840];
+- (void)removeRequestWithIdentifier:(id)identifier block:(id)block
+{
+  v38 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  blockCopy = block;
+  selfCopy = self;
+  v8 = objc_sync_enter(selfCopy);
+  v9 = SO_LOG_SORequestQueue(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    [(SORequestQueue *)selfCopy removeRequestWithIdentifier:identifierCopy block:v9];
+  }
+
+  if (blockCopy)
+  {
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v10 = [(NSMutableArray *)selfCopy->_queue copy];
+    isRunning = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v12 = isRunning;
+    if (isRunning)
+    {
+      v13 = *v30;
+      v27 = identifierCopy;
+      do
+      {
+        v14 = 0;
+        do
+        {
+          if (*v30 != v13)
+          {
+            objc_enumerationMutation(v10);
+          }
+
+          v15 = *(*(&v29 + 1) + 8 * v14);
+          v16 = SO_LOG_SORequestQueue(isRunning);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+          {
+            identifier = selfCopy->_identifier;
+            requestParameters = [v15 requestParameters];
+            identifier = [requestParameters identifier];
+            *buf = 138543618;
+            identifierCopy2 = identifier;
+            v35 = 2114;
+            v36 = identifier;
+            _os_log_debug_impl(&dword_1C1317000, v16, OS_LOG_TYPE_DEBUG, "%{public}@: checking %{public}@", buf, 0x16u);
+
+            identifierCopy = v27;
+          }
+
+          isRunning = [v15 isRunning];
+          if ((isRunning & 1) == 0)
+          {
+            requestParameters2 = [v15 requestParameters];
+            identifier2 = [requestParameters2 identifier];
+            v19 = [identifier2 isEqualToString:identifierCopy];
+
+            if (v19)
+            {
+              v20 = SO_LOG_SORequestQueue(isRunning);
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+              {
+                v24 = selfCopy->_identifier;
+                requestParameters3 = [v15 requestParameters];
+                identifier3 = [requestParameters3 identifier];
+                *buf = 138543618;
+                identifierCopy2 = v24;
+                v35 = 2114;
+                v36 = identifier3;
+                _os_log_debug_impl(&dword_1C1317000, v20, OS_LOG_TYPE_DEBUG, "%{public}@: removing %{public}@", buf, 0x16u);
+
+                identifierCopy = v27;
+              }
+
+              blockCopy[2](blockCopy, selfCopy, v15);
+              isRunning = [(NSMutableArray *)selfCopy->_queue removeObject:v15];
+            }
+          }
+
+          ++v14;
+        }
+
+        while (v12 != v14);
+        isRunning = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v12 = isRunning;
+      }
+
+      while (isRunning);
+    }
+  }
+
+  objc_sync_exit(selfCopy);
 }
 
 - (unint64_t)queueCount
@@ -342,11 +338,11 @@ uint64_t __45__SORequestQueue_requestQueueWithIdentifier___block_invoke()
 {
   itemCopy = item;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v7 = SO_LOG_SORequestQueue();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v7 = objc_sync_enter(selfCopy);
+  v8 = SO_LOG_SORequestQueue(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    [SORequestQueue _processItem:selfCopy];
+    [SORequestQueue _processItem:];
   }
 
   objc_storeStrong(&selfCopy->_processingItem, item);
@@ -361,13 +357,10 @@ uint64_t __45__SORequestQueue_requestQueueWithIdentifier___block_invoke()
 
 - (void)_itemCompleted
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 8);
-  v2 = *(self + 24);
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
-  v7 = v3;
-  _os_log_debug_impl(&dword_1C1317000, v4, OS_LOG_TYPE_DEBUG, "%{public}@: itemCompleted: %p", v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_debug_impl(&dword_1C1317000, v1, OS_LOG_TYPE_DEBUG, "%{public}@: itemCompleted: %p", v2, 0x16u);
 }
 
 - (id)description
@@ -382,21 +375,11 @@ uint64_t __45__SORequestQueue_requestQueueWithIdentifier___block_invoke()
 
 - (void)removeRequestWithIdentifier:(NSObject *)a3 block:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 8);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_10(&dword_1C1317000, a2, a3, "%{public}@: removeRequestWithIdentifier: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_processItem:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 8);
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_10(&dword_1C1317000, v2, v3, "%{public}@: processItem: %p");
-  v4 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 8);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_10(&dword_1C1317000, a2, a3, "%{public}@: removeRequestWithIdentifier: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

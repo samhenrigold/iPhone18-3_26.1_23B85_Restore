@@ -1,6 +1,5 @@
 @interface BWMeteorHeadroomNode
 - (BWMeteorHeadroomNode)initWithNodeConfiguration:(id)configuration sensorConfigurationsByPortType:(id)type;
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive;
 - (void)_releaseResources;
 - (void)dealloc;
 - (void)didReachEndOfDataForInput:(id)input;
@@ -141,59 +140,59 @@ LABEL_12:
 
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
 {
-  v6 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
+  v7 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
   AttachedMedia = BWSampleBufferGetAttachedMedia(buffer, 0x1F21AAE10);
-  v8 = CMGetAttachment(buffer, @"StillImageSettings", 0);
-  captureRequestIdentifier = [v8 captureRequestIdentifier];
-  v10 = CMGetAttachment(buffer, @"BWStillImageCaptureSettings", 0);
-  v11 = [CMGetAttachment(buffer @"StillImageProcessingFlags"];
+  v9 = CMGetAttachment(buffer, @"StillImageSettings", 0);
+  captureRequestIdentifier = [v9 captureRequestIdentifier];
+  v11 = CMGetAttachment(buffer, @"BWStillImageCaptureSettings", 0);
+  v12 = [CMGetAttachment(buffer @"StillImageProcessingFlags"];
   lastMeteorHeadroom = 0.0;
-  if (v11)
+  if (v12)
   {
-    v20 = 0x1E696A000;
+    v21 = 0x1E696A000;
     goto LABEL_42;
   }
 
-  v14 = v11;
-  if (![(NSString *)self->_lastCaptureRequestIdentifier isEqualToString:captureRequestIdentifier])
+  v15 = v12;
+  if ((objc_msgSend_isEqualToString_(self->_lastCaptureRequestIdentifier) & 1) == 0)
   {
 
     self->_lastCaptureRequestIdentifier = [captureRequestIdentifier copy];
     self->_lastMeteorHeadroom = 0.0;
   }
 
-  captureType = [v10 captureType];
-  if (([v10 captureType] == 10 || objc_msgSend(v10, "captureType") == 12 || objc_msgSend(v10, "captureType") == 13) && (objc_msgSend(v10, "captureFlags") & 0x100000) != 0)
+  captureType = [v11 captureType];
+  if (([v11 captureType] == 10 || objc_msgSend(v11, "captureType") == 12 || objc_msgSend(v11, "captureType") == 13) && (objc_msgSend(v11, "captureFlags") & 0x100000) != 0)
   {
-    v16 = ([v10 sceneFlags] >> 2) & 1;
+    v17 = ([v11 sceneFlags] >> 2) & 1;
   }
 
   else
   {
-    LOBYTE(v16) = 0;
+    LOBYTE(v17) = 0;
   }
 
-  v17 = [v10 captureFlags] & 0x800;
-  v18 = self->_gainMapMainImageDownscalingFactor != 0.0 && v17 == 0;
-  if (v18)
+  v18 = [v11 captureFlags] & 0x800;
+  v19 = self->_gainMapMainImageDownscalingFactor != 0.0 && v18 == 0;
+  if (v19)
   {
-    v19 = BWSampleBufferGetAttachedMedia(buffer, 0x1F217BF50);
-    LOBYTE(v16) = (v19 != 0) | v16;
+    v20 = BWSampleBufferGetAttachedMedia(buffer, 0x1F217BF50);
+    LOBYTE(v17) = (v20 != 0) | v17;
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  v18 = captureType == 3;
-  v20 = 0x1E696A000;
-  if (!v18 && (v16 & 1) == 0)
+  v19 = captureType == 3;
+  v21 = 0x1E696A000;
+  if (!v19 && (v17 & 1) == 0)
   {
     goto LABEL_42;
   }
 
-  if ((v14 & 0x40) != 0)
+  if ((v15 & 0x40) != 0)
   {
     lastMeteorHeadroom = self->_lastMeteorHeadroom;
     if (lastMeteorHeadroom != 0.0)
@@ -201,57 +200,60 @@ LABEL_12:
       goto LABEL_42;
     }
 
+    v73 = AttachedMedia;
     FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
-    v67 = 0;
-    type = OS_LOG_TYPE_DEFAULT;
+    LODWORD(v77) = 0;
+    LOBYTE(type) = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v65[0] = 0;
-    v23 = _os_log_send_and_compose_impl();
-    FigCapturePleaseFileRadar(FrameworkRadarComponent, v23, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWMeteorHeadroomNode.m", 339, @"LastShownDate:BWMeteorHeadroomNode.m:339", @"LastShownBuild:BWMeteorHeadroomNode.m:339", 0);
-    free(v23);
-    v20 = 0x1E696A000uLL;
+    v75[0] = 0;
+    v24 = _os_log_send_and_compose_impl();
+    v68 = 0;
+    FigCapturePleaseFileRadar(FrameworkRadarComponent, v24, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWMeteorHeadroomNode.m", 339, @"LastShownDate:BWMeteorHeadroomNode.m:339", @"LastShownBuild:BWMeteorHeadroomNode.m:339", 0);
+    free(v24);
+    v21 = 0x1E696A000uLL;
   }
 
-  v25 = *MEMORY[0x1E695F050];
-  v24 = *(MEMORY[0x1E695F050] + 8);
-  v27 = *(MEMORY[0x1E695F050] + 16);
-  v26 = *(MEMORY[0x1E695F050] + 24);
-  outputWidth = [v8 outputWidth];
-  v29 = outputWidth / [v8 outputHeight];
-  if (!v19 || (v30 = CMSampleBufferGetImageBuffer(v19)) == 0)
+  v26 = *MEMORY[0x1E695F050];
+  v25 = *(MEMORY[0x1E695F050] + 8);
+  v28 = *(MEMORY[0x1E695F050] + 16);
+  v27 = *(MEMORY[0x1E695F050] + 24);
+  outputWidth = [v9 outputWidth];
+  v30 = outputWidth / [v9 outputHeight];
+  if (!v20 || (v31 = CMSampleBufferGetImageBuffer(v20)) == 0)
   {
 LABEL_34:
-    bzero(v65, 0x200uLL);
+    bzero(v75, 0x200uLL);
     ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
     if (!ImageBuffer)
     {
       goto LABEL_42;
     }
 
-    v51 = ImageBuffer;
-    [v6 objectForKeyedSubscript:*off_1E798B218];
-    v70.origin.x = OUTLINED_FUNCTION_16_3();
-    if (!CGRectIsNull(v70))
+    v53 = ImageBuffer;
+    [v7 objectForKeyedSubscript:*off_1E798B218];
+    v80.origin.x = OUTLINED_FUNCTION_16_3();
+    if (!CGRectIsNull(v80))
     {
-      CVPixelBufferGetWidth(v51);
-      CVPixelBufferGetHeight(v51);
-      v52 = OUTLINED_FUNCTION_16_3();
-      FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v53, v54, v52, v55, v56, v57, v29);
-      if (CGRectIsNull(v71))
+      CVPixelBufferGetWidth(v53);
+      CVPixelBufferGetHeight(v53);
+      v54.n128_f64[0] = OUTLINED_FUNCTION_16_3();
+      v55.n128_f64[0] = v30;
+      FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v56, v57, v54, v58, v59, v60, v55, v61);
+      if (CGRectIsNull(v81))
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_3_51();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v67, v68, v69, v70, v71, v73, v4, v74);
         goto LABEL_42;
       }
     }
 
     if (self->_headroomProcessingType)
     {
-      v58 = OUTLINED_FUNCTION_16_3();
-      if ([v59 singleComponentGPUHistogramInputPixelBuffer:v58 validRect:? outputHistogram:?])
+      v62 = OUTLINED_FUNCTION_16_3();
+      if ([v63 singleComponentGPUHistogramInputPixelBuffer:v62 validRect:? outputHistogram:?])
       {
         goto LABEL_42;
       }
@@ -259,8 +261,8 @@ LABEL_34:
 
     else
     {
-      v60 = OUTLINED_FUNCTION_16_3();
-      if ([v61 singleComponentCPUHistogramInputPixelBuffer:v60 validRect:? subSampleX:? subSampleY:? outputHistogram:?])
+      v64 = OUTLINED_FUNCTION_16_3();
+      if ([v65 singleComponentCPUHistogramInputPixelBuffer:v64 validRect:? subSampleX:? subSampleY:? outputHistogram:?])
       {
         goto LABEL_42;
       }
@@ -269,94 +271,88 @@ LABEL_34:
     FigCaptureComputeImageGainFromMetadata();
   }
 
-  v31 = v30;
-  v64 = lastMeteorHeadroom;
-  v68.origin.x = OUTLINED_FUNCTION_16_3();
-  v63 = v29;
-  if (CGRectIsNull(v68))
+  v32 = v31;
+  v72 = lastMeteorHeadroom;
+  v78.origin.x = OUTLINED_FUNCTION_16_3();
+  *&v70 = v30;
+  if (CGRectIsNull(v78))
   {
-    x = v25;
-    y = v24;
-    width = v27;
-    height = v26;
+    x = v26;
+    y = v25;
+    width = v28;
+    height = v27;
   }
 
   else
   {
-    CVPixelBufferGetWidth(v31);
-    CVPixelBufferGetHeight(v31);
-    v36 = OUTLINED_FUNCTION_16_3();
-    v69.origin.x = FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRectForAttachedMedia(v37, v38, v36, v39, v40, v41, v29, v42);
-    x = v69.origin.x;
-    y = v69.origin.y;
-    width = v69.size.width;
-    height = v69.size.height;
-    if (CGRectIsNull(v69))
+    CVPixelBufferGetWidth(v32);
+    CVPixelBufferGetHeight(v32);
+    v37.n128_f64[0] = OUTLINED_FUNCTION_16_3();
+    v38.n128_f64[0] = v30;
+    v79.origin.x = FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRectForAttachedMedia(v39, v40, v37, v41, v42, v43, v38, v44);
+    x = v79.origin.x;
+    y = v79.origin.y;
+    width = v79.size.width;
+    height = v79.size.height;
+    if (CGRectIsNull(v79))
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_3_51();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v67, v68, v69, v70, v71, v73, v4, v74);
       goto LABEL_48;
     }
   }
 
-  bzero(v65, 0x200uLL);
-  if ([(FigMetalHistogram *)self->_histogram singleComponentGPUHistogramInputPixelBuffer:v31 validRect:v65 outputHistogram:x, y, width, height])
+  bzero(v75, 0x200uLL);
+  if ([(FigMetalHistogram *)self->_histogram singleComponentGPUHistogramInputPixelBuffer:v32 validRect:v75 outputHistogram:x, y, width, height])
   {
 LABEL_48:
-    lastMeteorHeadroom = v64;
+    lastMeteorHeadroom = v72;
     goto LABEL_42;
   }
 
-  v43 = 0;
-  v12 = 0.0;
-  lastMeteorHeadroom = v64;
+  v45 = 0;
+  v13 = 0.0;
+  lastMeteorHeadroom = v72;
   do
   {
-    v44 = vcvtq_f32_u32(*&v65[v43]);
-    *&v12 = (((*&v12 + v44.f32[0]) + v44.f32[1]) + v44.f32[2]) + v44.f32[3];
-    v43 += 8;
+    v46 = vcvtq_f32_u32(*&v75[v45]);
+    *&v13 = (((*&v13 + v46.f32[0]) + v46.f32[1]) + v46.f32[2]) + v46.f32[3];
+    v45 += 8;
   }
 
-  while (v43 != 512);
-  if (*&v12 != 0.0)
+  while (v45 != 512);
+  if (*&v13 != 0.0)
   {
     do
     {
       OUTLINED_FUNCTION_2_60();
     }
 
-    while (v47 != 1024);
-    v48 = v46 / *&v45;
-    *&v45 = v46 / *&v45;
-    CMSetAttachment(buffer, @"MeteorPlusGainMapAverage", [*(v20 + 3480) numberWithFloat:v45], 1u);
+    while (v49 != 1024);
+    v50 = v48 / *&v47;
+    *&v47 = v48 / *&v47;
+    CMSetAttachment(buffer, @"MeteorPlusGainMapAverage", [*(v21 + 3480) numberWithFloat:v47], 1u);
     if (AttachedMedia)
     {
-      *&v49 = v48;
-      CMSetAttachment(AttachedMedia, @"MeteorPlusGainMapAverage", [*(v20 + 3480) numberWithFloat:v49], 1u);
+      *&v51 = v50;
+      CMSetAttachment(AttachedMedia, @"MeteorPlusGainMapAverage", [*(v21 + 3480) numberWithFloat:v51], 1u);
     }
 
-    v29 = v63;
+    v30 = *&v70;
     goto LABEL_34;
   }
 
 LABEL_42:
-  *&v12 = lastMeteorHeadroom;
-  CMSetAttachment(buffer, @"MeteorHeadroom", [*(v20 + 3480) numberWithFloat:v12], 1u);
+  *&v13 = lastMeteorHeadroom;
+  CMSetAttachment(buffer, @"MeteorHeadroom", [*(v21 + 3480) numberWithFloat:v13], 1u);
   if (AttachedMedia)
   {
-    *&v62 = lastMeteorHeadroom;
-    CMSetAttachment(AttachedMedia, @"MeteorHeadroom", [*(v20 + 3480) numberWithFloat:v62], 1u);
+    *&v66 = lastMeteorHeadroom;
+    CMSetAttachment(AttachedMedia, @"MeteorHeadroom", [*(v21 + 3480) numberWithFloat:v66], 1u);
   }
 
   [(BWNodeOutput *)self->super._output emitSampleBuffer:buffer];
-}
-
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

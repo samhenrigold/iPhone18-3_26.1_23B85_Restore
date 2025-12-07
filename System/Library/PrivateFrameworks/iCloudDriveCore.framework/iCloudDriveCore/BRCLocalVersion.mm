@@ -6,8 +6,11 @@
 - (BRFieldContentSignature)versionSignature;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)descriptionWithContext:(id)context;
+- (id)initForPackage:(BOOL)package;
+- (id)initFromResultSet:(id)set pos:(int)pos;
 - (id)isPackageObj;
 - (unint64_t)diffAgainstLocalVersion:(id)version;
+- (void)_clearSignatures:(unint64_t)signatures isPackage:(BOOL)package;
 - (void)_learnVersionFromStoredLocalVersionIdentifier:(id)identifier;
 - (void)bumpLocalChangeCount;
 - (void)clearCKInfo;
@@ -173,6 +176,21 @@ LABEL_26:
   return v5;
 }
 
+- (id)initForPackage:(BOOL)package
+{
+  packageCopy = package;
+  v7.receiver = self;
+  v7.super_class = BRCLocalVersion;
+  v4 = [(BRCLocalVersion *)&v7 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(BRCLocalVersion *)v4 _clearSignatures:3 isPackage:packageCopy];
+  }
+
+  return v5;
+}
+
 - (BRCLocalVersion)initWithVersion:(id)version
 {
   v4.receiver = self;
@@ -274,6 +292,34 @@ LABEL_26:
   return 1;
 }
 
+- (void)_clearSignatures:(unint64_t)signatures isPackage:(BOOL)package
+{
+  if (signatures)
+  {
+    v6 = [MEMORY[0x277CBEA90] brc_pendingPlaceholderForPackage:package];
+    contentSignature = self->super._contentSignature;
+    self->super._contentSignature = v6;
+  }
+
+  if ((signatures & 2) != 0)
+  {
+    v8 = [MEMORY[0x277CBEA90] brc_pendingPlaceholderForPackage:{0, package}];
+    thumbnailSignature = self->super._thumbnailSignature;
+    self->super._thumbnailSignature = v8;
+  }
+
+  else if (!signatures && !self->_uploadedAssets && !self->_uploadError)
+  {
+    return;
+  }
+
+  uploadedAssets = self->_uploadedAssets;
+  self->_uploadedAssets = 0;
+
+  uploadError = self->_uploadError;
+  self->_uploadError = 0;
+}
+
 - (void)clearUploadedAssets
 {
   uploadedAssets = self->_uploadedAssets;
@@ -353,6 +399,77 @@ LABEL_26:
   return v2;
 }
 
+- (id)initFromResultSet:(id)set pos:(int)pos
+{
+  v4 = *&pos;
+  v31 = *MEMORY[0x277D85DE8];
+  setCopy = set;
+  v24.receiver = self;
+  v24.super_class = BRCLocalVersion;
+  v7 = [(BRCVersion *)&v24 initFromResultSet:setCopy pos:v4];
+  if (v7)
+  {
+    v8 = (v4 + 12);
+    v9 = (v4 + 13);
+    v10 = [setCopy unarchivedObjectOfClass:objc_opt_class() atIndex:v8];
+    v11 = v7[17];
+    v7[17] = v10;
+
+    if (_allowedClassesForErrors_once_0 != -1)
+    {
+      [BRCLocalVersion(BRCFPFSAdditions) initFromResultSet:pos:];
+    }
+
+    v12 = _allowedClassesForErrors_allowedClasses_0;
+    v13 = [setCopy unarchivedObjectOfClasses:v12 atIndex:v9];
+    v14 = v7[18];
+    v7[18] = v13;
+
+    v15 = [setCopy objectOfClass:objc_opt_class() atIndex:(v9 + 1)];
+    v16 = [setCopy numberAtIndex:(v9 + 2)];
+    v17 = v16;
+    if (v15 && v16)
+    {
+      v18 = [[BRCItemGlobalID alloc] initWithZoneRowID:v16 itemID:v15];
+      v19 = v7[19];
+      v7[19] = v18;
+    }
+
+    else
+    {
+      if (!(v15 | v16))
+      {
+LABEL_12:
+        v7[15] = [setCopy unsignedLongLongAtIndex:(v9 + 3)];
+        v21 = [setCopy unarchivedObjectOfClass:objc_opt_class() atIndex:(v9 + 4)];
+        v22 = v7[16];
+        v7[16] = v21;
+
+        goto LABEL_13;
+      }
+
+      v19 = brc_bread_crumbs();
+      v20 = brc_default_log();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      {
+        *buf = 138412802;
+        v26 = v15;
+        v27 = 2112;
+        v28 = v17;
+        v29 = 2112;
+        v30 = v19;
+        _os_log_fault_impl(&dword_223E7A000, v20, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Item has only one of the itemID %@ and zoneRowID %@ fields%@", buf, 0x20u);
+      }
+    }
+
+    goto LABEL_12;
+  }
+
+LABEL_13:
+
+  return v7;
+}
+
 - (BRCLocalVersion)initWithImportObject:(id)object
 {
   objectCopy = object;
@@ -421,49 +538,8 @@ LABEL_6:
   self->_oldVersionIdentifier = 0;
 }
 
-- (void)isMissingUploadsWithDiffs:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] we're a document with an xattr change%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isMissingUploadsWithDiffs:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] we're a document with an uploaded asset change%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isMissingUploadsWithDiffs:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] we're a document with an upload error change%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isMissingUploadsWithDiffs:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] we're a document missing a thumbnail signature%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isMissingUploadsWithDiffs:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] we're a document missing a content signature%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_learnVersionFromStoredLocalVersionIdentifier:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -471,10 +547,8 @@ LABEL_6:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: ![etag containsString:@;]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: ![etag containsString:@;]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -22,3 +22,23 @@ void sub_29C1674B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
+
+CGRect CGRectIntersection(CGRect r1, CGRect r2)
+{
+  MEMORY[0x2A1C59B60](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}
+
+CGRect UIAccessibilityConvertFrameToScreenCoordinates(CGRect rect, UIView *view)
+{
+  MEMORY[0x2A1C6A7E0](view, rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}

@@ -407,7 +407,7 @@ LABEL_48:
 {
   v15 = *MEMORY[0x1E69E9840];
   plistForEncoding = [(PFMetadata *)self plistForEncoding];
-  v5 = [plistForEncoding mutableCopy];
+  v5 = objc_msgSend_mutableCopy(plistForEncoding);
 
   cleanJSON(v5);
   v12[0] = 0;
@@ -1261,7 +1261,7 @@ LABEL_6:
 - (NSNumber)durationTimeInterval
 {
   memset(&v4[1], 0, sizeof(CMTime));
-  [(PFMetadata *)self duration];
+  objc_msgSend_duration(self, a2);
   v2 = 0;
   if (v4[1].flags)
   {
@@ -1309,7 +1309,7 @@ LABEL_6:
     }
   }
 
-  [(PFMetadata *)self duration];
+  objc_msgSend_duration(self);
   nominalFrameRate = [(PFMetadata *)self nominalFrameRate];
   if (nominalFrameRate)
   {
@@ -1472,8 +1472,8 @@ LABEL_6:
 - (void)_addImageLivePhotoPropertiesToSyndicationProperties:(id)properties
 {
   propertiesCopy = properties;
-  [(PFMetadata *)self duration];
-  [(PFMetadata *)self stillImageDisplayTime];
+  objc_msgSend_duration(self);
+  objc_msgSend_stillImageDisplayTime(self);
   livePhotoPairingIdentifier = [(PFMetadata *)self livePhotoPairingIdentifier];
   if (livePhotoPairingIdentifier)
   {
@@ -2208,7 +2208,7 @@ LABEL_6:
         v16 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:-*MEMORY[0x1E695E460]];
         if ([v15 isEqualToDate:v16])
         {
-          v17 = [fileURL mutableCopy];
+          v17 = objc_msgSend_mutableCopy(fileURL);
           v18 = [fileURL objectForKeyedSubscript:*MEMORY[0x1E696A350]];
           [v17 setObject:v18 forKeyedSubscript:v14];
 
@@ -2535,9 +2535,11 @@ LABEL_10:
 
 uint64_t __57__PFMetadata_initWithContentType_options_timeZoneLookup___block_invoke()
 {
-  metadataLog = os_log_create("com.apple.photos.photosformats.pfmetadata", "PFMetadata");
+  v0 = os_log_create("com.apple.photos.photosformats.pfmetadata", "PFMetadata");
+  v1 = metadataLog;
+  metadataLog = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)initForLimitedPropertiesWithPath:(id)path

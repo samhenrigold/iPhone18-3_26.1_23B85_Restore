@@ -20,8 +20,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[2] = *MEMORY[0x1E69E9840];
-  v12[0] = @"code";
+  v12[2] = *MEMORY[0x1E69E9840];
+  v11[0] = @"code";
   code = [(INSetTaskAttributeIntentResponse *)self code];
   v4 = code;
   if (code < (INSetTaskAttributeIntentResponseCodeFailure|INSetTaskAttributeIntentResponseCodeInProgress))
@@ -36,8 +36,8 @@
     v6 = 0;
   }
 
-  v12[1] = @"modifiedTask";
-  v13[0] = null;
+  v11[1] = @"modifiedTask";
+  v12[0] = null;
   modifiedTask = [(INSetTaskAttributeIntentResponse *)self modifiedTask];
   null2 = modifiedTask;
   if (!modifiedTask)
@@ -45,8 +45,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = null2;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   if (!modifiedTask)
   {
   }
@@ -54,8 +54,6 @@
   if (v4 >= 6)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -243,7 +241,7 @@ void __48__INSetTaskAttributeIntentResponse_setWarnings___block_invoke(uint64_t 
 
 - (INSetTaskAttributeIntentResponse)initWithCode:(INSetTaskAttributeIntentResponseCode)code userActivity:(NSUserActivity *)userActivity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = userActivity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -261,21 +259,20 @@ void __48__INSetTaskAttributeIntentResponse_setWarnings___block_invoke(uint64_t 
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INSetTaskAttributeIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
-    v18 = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v6;
+    v15 = "[INSetTaskAttributeIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
+    v17 = code;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v6;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INSetTaskAttributeIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:v6];
+  v13.receiver = self;
+  v13.super_class = INSetTaskAttributeIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:v6];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

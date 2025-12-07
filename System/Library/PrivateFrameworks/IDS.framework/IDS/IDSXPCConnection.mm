@@ -44,22 +44,20 @@
 
 + (id)errorForMissingEntitlement:(id)entitlement
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   entitlement = [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing entitlement %@", entitlement];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = entitlement;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = entitlement;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"IDSXPCConnectionErrorDomain" code:-2000 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (IDSXPCConnection)initWithQueue:(id)queue remoteObject:(id)object
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   objectCopy = object;
   if (!self->_forSyncMessaging && !self->_syncOntoMain)
@@ -71,15 +69,15 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v16 = objectCopy;
-    v17 = 2048;
+    v15 = objectCopy;
+    v16 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1959FF000, v9, OS_LOG_TYPE_DEFAULT, "Alloc'ing IDSXPCConnection {remoteObject: %{public}@, pointer: %p}", buf, 0x16u);
   }
 
-  v14.receiver = self;
-  v14.super_class = IDSXPCConnection;
-  v10 = [(IDSXPCConnection *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = IDSXPCConnection;
+  v10 = [(IDSXPCConnection *)&v13 init];
   v11 = v10;
   if (v10)
   {
@@ -87,7 +85,6 @@
     objc_storeStrong(&v11->_remoteObject, object);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -148,23 +145,22 @@
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E69A5270] xpc];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     remoteObject = self->_remoteObject;
     *buf = 138543618;
-    v8 = remoteObject;
-    v9 = 2048;
+    v7 = remoteObject;
+    v8 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "Dealloc'ing IDSXPCConnection {remoteObject: %{public}@, pointer: %p}", buf, 0x16u);
   }
 
   [(NSXPCConnection *)self->_connection invalidate];
-  v6.receiver = self;
-  v6.super_class = IDSXPCConnection;
-  [(IDSXPCConnection *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = IDSXPCConnection;
+  [(IDSXPCConnection *)&v5 dealloc];
 }
 
 - (id)remoteObjectProxyWithErrorHandler:(id)handler
@@ -279,19 +275,19 @@
 - (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply
 {
   replyCopy = reply;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   invocationCopy = invocation;
   if (!replyCopy || (objc_opt_respondsToSelector() & 1) == 0)
   {
 LABEL_9:
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = sub_195AE3930;
-    v27[3] = &unk_1E743E878;
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = sub_195AE3930;
+    v26[3] = &unk_1E743E878;
     v20 = invocationCopy;
-    v28 = v20;
-    v21 = MEMORY[0x19A8BBEF0](v27);
+    v27 = v20;
+    v21 = MEMORY[0x19A8BBEF0](v26);
     if ([(IDSXPCConnection *)self syncOntoMain])
     {
       [v20 retainArguments];
@@ -303,8 +299,8 @@ LABEL_9:
       block[1] = 3221225472;
       block[2] = sub_195AE3938;
       block[3] = &unk_1E7440988;
-      v25 = v21;
-      v26 = buf;
+      v24 = v21;
+      v25 = buf;
       dispatch_async(v22, block);
 
       pthread_dependency_wait_np();
@@ -315,7 +311,7 @@ LABEL_9:
       v21[2](v21);
     }
 
-    userInfo = v28;
+    userInfo = v27;
     goto LABEL_13;
   }
 
@@ -364,24 +360,23 @@ LABEL_8:
   }
 
 LABEL_13:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cleanupAllPendingTransactions
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E69A5270] xpc];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     pendingTransactions = [(IDSXPCConnection *)self pendingTransactions];
     remoteObject = [(IDSXPCConnection *)self remoteObject];
-    v9 = 138543874;
-    v10 = pendingTransactions;
-    v11 = 2114;
-    v12 = remoteObject;
-    v13 = 2048;
+    v8 = 138543874;
+    v9 = pendingTransactions;
+    v10 = 2114;
+    v11 = remoteObject;
+    v12 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "Dropping all pending transactions {pendingTransaction: %{public}@, remoteObject: %{public}@, pointer: %p}", &v9, 0x20u);
+    _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "Dropping all pending transactions {pendingTransaction: %{public}@, remoteObject: %{public}@, pointer: %p}", &v8, 0x20u);
   }
 
   pendingTransactions2 = [(IDSXPCConnection *)self pendingTransactions];
@@ -389,8 +384,6 @@ LABEL_13:
 
   pendingTransactions3 = [(IDSXPCConnection *)self pendingTransactions];
   [pendingTransactions3 removeAllObjects];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

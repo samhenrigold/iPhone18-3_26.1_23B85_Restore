@@ -243,33 +243,33 @@
 
 id __29__MTMetricsData_toDictionary__block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 mt_verifyEventData];
   v4 = [MTReflectUtil mergeAndCleanDictionaries:v3];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v21 + 1) + 8 * i) + 16))(*(*(&v21 + 1) + 8 * i));
+        (*(*(*(&v20 + 1) + 8 * i) + 16))(*(*(&v20 + 1) + 8 * i));
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
@@ -289,12 +289,10 @@ id __29__MTMetricsData_toDictionary__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v17 = MTError(301, @"The metrics data for the event is empty. Please make sure there are fields provided for the event.", v11, v12, v13, v14, v15, v16, v21);
+    v17 = MTError(301, @"The metrics data for the event is empty. Please make sure there are fields provided for the event.", v11, v12, v13, v14, v15, v16, v20);
     [MTPromise promiseWithError:v17];
   }
   v18 = ;
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -309,40 +307,40 @@ id __29__MTMetricsData_toDictionary__block_invoke(uint64_t a1, void *a2)
 
 id __38__MTMetricsData_userAndClientIDFields__block_invoke(uint64_t a1, void *a2)
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [MEMORY[0x277CBEB38] dictionary];
-  v20[0] = @"dsId";
-  v20[1] = @"userId";
-  v20[2] = @"clientId";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  v19[0] = @"dsId";
+  v19[1] = @"userId";
+  v19[2] = @"clientId";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v4 = v18 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = v17 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
-        v10 = [v2 objectForKeyedSubscript:{v9, v15}];
+        v9 = *(*(&v14 + 1) + 8 * i);
+        v10 = [v2 objectForKeyedSubscript:{v9, v14}];
         if (v10)
         {
           [v3 setObject:v10 forKeyedSubscript:v9];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -350,8 +348,6 @@ id __38__MTMetricsData_userAndClientIDFields__block_invoke(uint64_t a1, void *a2
 
   v11 = [v3 copy];
   v12 = [MTPromise promiseWithResult:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -418,7 +414,7 @@ uint64_t __28__MTMetricsData_recordEvent__block_invoke(uint64_t a1)
   if (v2 <= 199)
   {
     atomic_fetch_add_explicit(&_block_invoke_logCount, 1u, memory_order_relaxed);
-    v3 = MTMetricsKitOSLog();
+    v3 = MTMetricsKitOSLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       *v5 = 0;
@@ -462,20 +458,19 @@ void __28__MTMetricsData_recordEvent__block_invoke_3(uint64_t a1, void *a2)
 {
   v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = atomic_load(&_block_invoke_2_logCount);
-  if (v3 <= 199)
+  v3 = v2;
+  v4 = atomic_load(&_block_invoke_2_logCount);
+  if (v4 <= 199)
   {
     atomic_fetch_add_explicit(&_block_invoke_2_logCount, 1u, memory_order_relaxed);
-    v4 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = MTMetricsKitOSLog(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = 138412290;
-      v7 = v2;
-      _os_log_impl(&dword_258F4B000, v4, OS_LOG_TYPE_ERROR, "MetricsKit: Metrics event was not recorded. Error: %@", &v6, 0xCu);
+      v7 = v3;
+      _os_log_impl(&dword_258F4B000, v5, OS_LOG_TYPE_ERROR, "MetricsKit: Metrics event was not recorded. Error: %@", &v6, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)debugDescription

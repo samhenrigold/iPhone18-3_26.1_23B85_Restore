@@ -3,6 +3,8 @@
 - (_TtC3akd29AccountSharingRequestProvider)init;
 - (_TtC3akd29AccountSharingRequestProvider)initWithContext:(id)context url:(id)url;
 - (_TtC3akd29AccountSharingRequestProvider)initWithContext:(id)context urlBagKey:(id)key;
+- (_TtC3akd29AccountSharingRequestProvider)initWithContext:(id)context urlBagKey:(id)key shouldCacheResource:(BOOL)resource;
+- (_TtC3akd29AccountSharingRequestProvider)initWithContext:(id)context urlBagKey:(id)key shouldCacheResource:(BOOL)resource accountManager:(id)manager;
 - (_TtC3akd29AccountSharingRequestProvider)initWithUrlBagKey:(id)key;
 @end
 
@@ -45,25 +47,40 @@
   return [(AKURLRequestProviderImpl *)&v7 initWithContext:context urlBagKey:key];
 }
 
+- (_TtC3akd29AccountSharingRequestProvider)initWithContext:(id)context urlBagKey:(id)key shouldCacheResource:(BOOL)resource
+{
+  resourceCopy = resource;
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for AccountSharingRequestProvider();
+  return [(AKURLRequestProviderImpl *)&v9 initWithContext:context urlBagKey:key shouldCacheResource:resourceCopy];
+}
+
+- (_TtC3akd29AccountSharingRequestProvider)initWithContext:(id)context urlBagKey:(id)key shouldCacheResource:(BOOL)resource accountManager:(id)manager
+{
+  resourceCopy = resource;
+  v11.receiver = self;
+  v11.super_class = type metadata accessor for AccountSharingRequestProvider();
+  return [(AKURLRequestProviderImpl *)&v11 initWithContext:context urlBagKey:key shouldCacheResource:resourceCopy accountManager:manager];
+}
+
 - (_TtC3akd29AccountSharingRequestProvider)initWithContext:(id)context url:(id)url
 {
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin();
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   swift_unknownObjectRetain();
-  URL._bridgeToObjectiveC()(v11);
-  v13 = v12;
-  v14 = type metadata accessor for AccountSharingRequestProvider();
-  v17.receiver = self;
-  v17.super_class = v14;
-  v15 = [(AKURLRequestProviderImpl *)&v17 initWithContext:context url:v13];
+  URL._bridgeToObjectiveC()(v10);
+  v12 = v11;
+  v13 = type metadata accessor for AccountSharingRequestProvider();
+  v16.receiver = self;
+  v16.super_class = v13;
+  v14 = [(AKURLRequestProviderImpl *)&v16 initWithContext:context url:v12];
   swift_unknownObjectRelease();
 
-  (*(v7 + 8))(v10, v6);
-  return v15;
+  (*(v7 + 8))(v9, v6);
+  return v14;
 }
 
 - (_TtC3akd29AccountSharingRequestProvider)init

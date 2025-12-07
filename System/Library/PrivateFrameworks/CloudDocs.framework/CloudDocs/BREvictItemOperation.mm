@@ -39,39 +39,38 @@
 
 - (void)main
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v11 = 0uLL;
-  v12 = 0;
-  __brc_create_section(0, "[BREvictItemOperation main]", 33, 0, &v11);
+  v18 = *MEMORY[0x1E69E9840];
+  v10 = 0uLL;
+  v11 = 0;
+  __brc_create_section(0, "[BREvictItemOperation main]", 33, 0, &v10);
   v3 = brc_bread_crumbs("[BREvictItemOperation main]", 33);
   v4 = brc_default_log(1, 0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     url = self->_url;
     *buf = 134218498;
-    v14 = v11;
-    v15 = 2112;
-    v16 = url;
-    v17 = 2112;
-    v18 = v3;
+    v13 = v10;
+    v14 = 2112;
+    v15 = url;
+    v16 = 2112;
+    v17 = v3;
     _os_log_debug_impl(&dword_1AE2A9000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx evicting item at: %@%@", buf, 0x20u);
   }
 
-  *&self->_section.sectionID = v11;
-  *&self->_section.line = v12;
+  *&self->_section.sectionID = v10;
+  *&self->_section.line = v11;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v6 = self->_url;
-  v10 = 0;
-  [defaultManager evictUbiquitousItemAtURL:v6 error:&v10];
-  v7 = v10;
+  v9 = 0;
+  [defaultManager evictUbiquitousItemAtURL:v6 error:&v9];
+  v7 = v9;
 
   [(BROperation *)self completedWithResult:0 error:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishWithResult:(id)result error:(id)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   section = self->_section;
@@ -82,10 +81,10 @@
     url = self->_url;
     *buf = 134218498;
     sectionID = section.sectionID;
-    v18 = 2112;
-    v19 = url;
-    v20 = 2112;
-    v21 = v8;
+    v17 = 2112;
+    v18 = url;
+    v19 = 2112;
+    v20 = v8;
     _os_log_debug_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx eviction for %@ finished%@", buf, 0x20u);
   }
 
@@ -97,12 +96,10 @@
     [(BREvictItemOperation *)self setEvictionCompletionBlock:0];
   }
 
-  v14.receiver = self;
-  v14.super_class = BREvictItemOperation;
-  [(BROperation *)&v14 finishWithResult:resultCopy error:errorCopy];
+  v13.receiver = self;
+  v13.super_class = BREvictItemOperation;
+  [(BROperation *)&v13 finishWithResult:resultCopy error:errorCopy];
   __brc_leave_section(&section);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

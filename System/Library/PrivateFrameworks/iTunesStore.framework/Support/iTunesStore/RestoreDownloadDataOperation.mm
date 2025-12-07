@@ -65,14 +65,12 @@
       v60 = databaseID;
       v61 = 2112;
       v62 = bundleIdentifier2;
-      LODWORD(v47) = 32;
-      v45 = &v57;
-      v17 = _os_log_send_and_compose_impl();
+      v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Restoring mid based download: %lld bundleIdentifier: %@", &v57, 32);
 
       v8 = &CFDictionaryGetValue_ptr;
       if (v17)
       {
-        v18 = [NSString stringWithCString:v17 encoding:4, &v57, v47];
+        v18 = [NSString stringWithCString:v17 encoding:4];
         free(v17);
         v45 = v18;
         SSFileLog();
@@ -154,15 +152,14 @@
   v63 = 2112;
   v64 = v31;
   LODWORD(v47) = 42;
-  v46 = &v57;
-  v32 = _os_log_send_and_compose_impl();
+  v32 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Restoring MID hard failed with state: %ld download: %lld bundleIdentifier: %@", &v57, v47);
 
   v22 = v30;
   v3 = v54;
 
   if (v32)
   {
-    oSLogObject2 = [NSString stringWithCString:v32 encoding:4, &v57, v47];
+    oSLogObject2 = [NSString stringWithCString:v32 encoding:4];
     free(v32);
     v46 = oSLogObject2;
     SSFileLog();
@@ -218,14 +215,14 @@ LABEL_32:
   v63 = 2112;
   v64 = bundleIdentifier4;
   LODWORD(v47) = 42;
-  v44 = _os_log_send_and_compose_impl();
+  v44 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Restoring data done with state: %ld download: %lld bundleIdentifier: %@", &v57, v47);
 
   v20 = selfCopy;
   v22 = v50;
 
   if (v44)
   {
-    oSLogObject3 = [NSString stringWithCString:v44 encoding:4, &v57, v47];
+    oSLogObject3 = [NSString stringWithCString:v44 encoding:4];
     free(v44);
     SSFileLog();
 LABEL_43:
@@ -312,27 +309,26 @@ LABEL_43:
     if (v14)
     {
       v15 = objc_opt_class();
-      v81 = 138413058;
-      v82 = v15;
-      v83 = 2048;
-      *v84 = v8;
-      *&v84[8] = 2048;
-      *&v84[10] = databaseID;
-      *&v84[18] = 2112;
-      *&v84[20] = dCopy;
+      v82 = 138413058;
+      v83 = v15;
+      v84 = 2048;
+      *v85 = v8;
+      *&v85[8] = 2048;
+      *&v85[10] = databaseID;
+      *&v85[18] = 2112;
+      *&v85[20] = dCopy;
       v16 = v15;
-      LODWORD(v74) = 42;
-      v72 = &v81;
-      v17 = _os_log_send_and_compose_impl();
+      LODWORD(v75) = 42;
+      v17 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Restoring data (attempt %ld) for software download: %lld / %@", &v82, v75);
 
       if (!v17)
       {
         goto LABEL_14;
       }
 
-      oSLogObject = [NSString stringWithCString:v17 encoding:4, &v81, v74];
+      oSLogObject = [NSString stringWithCString:v17 encoding:4];
       free(v17);
-      v72 = oSLogObject;
+      v73 = oSLogObject;
       SSFileLog();
     }
 
@@ -371,13 +367,12 @@ LABEL_14:
       v24 = v23;
       download2 = [(FinishDownloadStepOperation *)self download];
       priority = [download2 priority];
-      v81 = 138412546;
-      v82 = v23;
-      v83 = 2048;
-      *v84 = priority;
-      LODWORD(v74) = 22;
-      v73 = &v81;
-      v27 = _os_log_send_and_compose_impl();
+      v82 = 138412546;
+      v83 = v23;
+      v84 = 2048;
+      *v85 = priority;
+      LODWORD(v75) = 22;
+      v27 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Restoring data with priority = %ld", &v82, v75);
 
       i = &CFDictionaryGetValue_ptr;
       if (!v27)
@@ -385,9 +380,9 @@ LABEL_14:
         goto LABEL_26;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v27 encoding:4, &v81, v74];
+      oSLogObject2 = [NSString stringWithCString:v27 encoding:4];
       free(v27);
-      v73 = oSLogObject2;
+      v74 = oSLogObject2;
       SSFileLog();
     }
 
@@ -397,9 +392,9 @@ LABEL_26:
     v30 = -[RestoreBackupOperation initWithBundleIdentifier:withPriority:isFailed:](v28, "initWithBundleIdentifier:withPriority:isFailed:", dCopy, [download3 priority], state == 1);
 
     [(RestoreBackupOperation *)v30 setDelegate:self];
-    v80 = v7;
-    v31 = [(RestoreDownloadDataOperation *)self runSubOperation:v30 returningError:&v80];
-    v32 = v80;
+    v81 = v7;
+    v31 = [(RestoreDownloadDataOperation *)self runSubOperation:v30 returningError:&v81];
+    v32 = v81;
 
     [(RestoreBackupOperation *)v30 setDelegate:0];
     if (v31)
@@ -435,19 +430,19 @@ LABEL_26:
       if (v46)
       {
         v47 = objc_opt_class();
-        v81 = 138412802;
-        v82 = v47;
-        v83 = 2048;
-        *v84 = databaseID;
-        *&v84[8] = 2112;
-        *&v84[10] = v32;
+        v82 = 138412802;
+        v83 = v47;
+        v84 = 2048;
+        *v85 = databaseID;
+        *&v85[8] = 2112;
+        *&v85[10] = v32;
         v48 = v47;
-        LODWORD(v74) = 32;
-        v49 = _os_log_send_and_compose_impl();
+        LODWORD(v75) = 32;
+        v49 = _os_log_send_and_compose_impl(v46, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Skipping data restore after fatal error: %lld / %@", &v82, v75);
 
         if (v49)
         {
-          oSLogObject3 = [NSString stringWithCString:v49 encoding:4, &v81, v74];
+          oSLogObject3 = [NSString stringWithCString:v49 encoding:4];
           free(v49);
           SSFileLog();
           goto LABEL_54;
@@ -495,19 +490,20 @@ LABEL_56:
       if (v55)
       {
         v56 = objc_opt_class();
-        v81 = 138412802;
-        v82 = v56;
-        v83 = 2048;
-        *v84 = databaseID;
-        *&v84[8] = 2112;
-        *&v84[10] = v32;
+        v82 = 138412802;
+        v83 = v56;
+        v84 = 2048;
+        *v85 = databaseID;
+        *&v85[8] = 2112;
+        *&v85[10] = v32;
         v57 = v56;
-        LODWORD(v74) = 32;
+        LODWORD(v75) = 32;
+        v58 = _os_log_send_and_compose_impl(v55, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%@: Giving up after transient error: %lld / %@", &v82, v75);
         goto LABEL_84;
       }
 
 LABEL_86:
-      v67 = context;
+      v68 = context;
       errorCopy3 = error;
 LABEL_87:
 
@@ -538,30 +534,31 @@ LABEL_87:
       oSLogObject4 = [sharedConfig OSLogObject];
       if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
       {
-        v64 = shouldLog5;
+        v65 = shouldLog5;
       }
 
       else
       {
-        v64 = shouldLog5 & 2;
+        v65 = shouldLog5 & 2;
       }
 
-      if (!v64)
+      if (!v65)
       {
         goto LABEL_86;
       }
 
-      v65 = objc_opt_class();
-      v81 = 138413058;
-      v82 = v65;
-      v83 = 2048;
-      *v84 = v8;
-      *&v84[8] = 2048;
-      *&v84[10] = databaseID;
-      *&v84[18] = 2112;
-      *&v84[20] = dCopy;
-      v57 = v65;
-      LODWORD(v74) = 42;
+      v66 = objc_opt_class();
+      v82 = 138413058;
+      v83 = v66;
+      v84 = 2048;
+      *v85 = v8;
+      *&v85[8] = 2048;
+      *&v85[10] = databaseID;
+      *&v85[18] = 2112;
+      *&v85[20] = dCopy;
+      v57 = v66;
+      LODWORD(v75) = 42;
+      v58 = _os_log_send_and_compose_impl(v65, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%@: Cancelled after %ld attempts for download: %lld / %@", &v82, v75);
       goto LABEL_84;
     }
 
@@ -590,16 +587,15 @@ LABEL_87:
     if (v38)
     {
       v39 = objc_opt_class();
-      v81 = 138412802;
-      v82 = v39;
-      v83 = 2048;
-      *v84 = databaseID;
-      *&v84[8] = 2112;
-      *&v84[10] = v32;
+      v82 = 138412802;
+      v83 = v39;
+      v84 = 2048;
+      *v85 = databaseID;
+      *&v85[8] = 2112;
+      *&v85[10] = v32;
       v40 = v39;
-      LODWORD(v74) = 32;
-      v71 = &v81;
-      v41 = _os_log_send_and_compose_impl();
+      LODWORD(v75) = 32;
+      v41 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%@: Waiting a bit before retrying after error: %lld / %@", &v82, v75);
 
       v42 = context;
       if (!v41)
@@ -607,9 +603,9 @@ LABEL_87:
         goto LABEL_43;
       }
 
-      oSLogObject5 = [NSString stringWithCString:v41 encoding:4, &v81, v74];
+      oSLogObject5 = [NSString stringWithCString:v41 encoding:4];
       free(v41);
-      v71 = oSLogObject5;
+      v72 = oSLogObject5;
       SSFileLog();
     }
 
@@ -626,11 +622,11 @@ LABEL_43:
   }
 
   sharedDaemonConfig6 = [i[412] sharedDaemonConfig];
-  v59 = i;
+  v60 = i;
   sharedConfig = sharedDaemonConfig6;
   if (!sharedDaemonConfig6)
   {
-    sharedConfig = [v59[412] sharedConfig];
+    sharedConfig = [v60[412] sharedConfig];
   }
 
   shouldLog7 = [sharedConfig shouldLog];
@@ -642,51 +638,52 @@ LABEL_43:
   oSLogObject4 = [sharedConfig OSLogObject];
   if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
   {
-    v61 = shouldLog7;
+    v62 = shouldLog7;
   }
 
   else
   {
-    v61 = shouldLog7 & 2;
+    v62 = shouldLog7 & 2;
   }
 
-  if (!v61)
+  if (!v62)
   {
     goto LABEL_86;
   }
 
-  v62 = objc_opt_class();
-  v81 = 138413058;
-  v82 = v62;
-  v83 = 1024;
-  *v84 = 3;
-  *&v84[4] = 2048;
-  *&v84[6] = databaseID;
-  *&v84[14] = 2112;
-  *&v84[16] = v32;
-  v57 = v62;
-  LODWORD(v74) = 38;
+  v63 = objc_opt_class();
+  v82 = 138413058;
+  v83 = v63;
+  v84 = 1024;
+  *v85 = 3;
+  *&v85[4] = 2048;
+  *&v85[6] = databaseID;
+  *&v85[14] = 2112;
+  *&v85[16] = v32;
+  v57 = v63;
+  LODWORD(v75) = 38;
+  v58 = _os_log_send_and_compose_impl(v62, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%@: Giving up after %d attempts for download: %lld / %@", &v82, v75);
 LABEL_84:
-  v66 = _os_log_send_and_compose_impl();
+  v67 = v58;
 
-  if (v66)
+  if (v67)
   {
-    v67 = context;
+    v68 = context;
     errorCopy3 = error;
-    oSLogObject4 = [NSString stringWithCString:v66 encoding:4, &v81, v74];
-    free(v66);
+    oSLogObject4 = [NSString stringWithCString:v67 encoding:4];
+    free(v67);
     SSFileLog();
     goto LABEL_87;
   }
 
-  v67 = context;
+  v68 = context;
   errorCopy3 = error;
 LABEL_89:
 
-  objc_autoreleasePoolPop(v67);
+  objc_autoreleasePoolPop(v68);
   if (errorCopy3)
   {
-    v69 = v32;
+    v70 = v32;
     v50 = 0;
     *errorCopy3 = v32;
   }

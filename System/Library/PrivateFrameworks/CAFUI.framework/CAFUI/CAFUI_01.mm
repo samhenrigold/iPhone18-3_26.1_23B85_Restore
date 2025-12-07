@@ -1,3 +1,27 @@
+uint64_t objectdestroyTm()
+{
+  swift_unknownObjectRelease();
+
+  return MEMORY[0x2821FE8E8](v0, 40, 7);
+}
+
+uint64_t partial apply for closure #1 in CAFUIAutomakerSettingObserver.settingUpdated(_:)()
+{
+  v1 = *(v0 + 24);
+  v2 = *(v0 + 32);
+  ObjectType = swift_getObjectType();
+  return (*(v1 + 8))(v2, ObjectType, v1);
+}
+
+uint64_t SoundSettingPage.__deallocating_deinit()
+{
+
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ())?(*(v0 + 40), *(v0 + 48));
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ())?(*(v0 + 56), *(v0 + 64));
+
+  return MEMORY[0x2821FE8D8](v0, 72, 7);
+}
+
 void CAFUISoundSettingsViewController.focusLockedSlider.setter(uint64_t a1)
 {
   v2 = v1;
@@ -20,119 +44,109 @@ void CAFUISoundSettingsViewController.focusLockedSlider.setter(uint64_t a1)
   *(v2 + v4) = a1;
 }
 
-unint64_t CAFUISoundSettingsViewController.activePage.getter()
+void CAFUISoundSettingsViewController.activePage.getter()
 {
   v1 = *&v0[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_pages];
   v2 = v1 >> 62;
   if (v1 >> 62)
   {
-    result = __CocoaSet.count.getter();
-    if (!result)
+    if (!__CocoaSet.count.getter())
     {
-      return result;
+      return;
     }
   }
 
-  else
+  else if (!*((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    result = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!result)
-    {
-      return result;
-    }
+    return;
   }
 
-  v4 = *&v0[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_segmentedControl];
-  if (!v4)
+  v3 = *&v0[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_segmentedControl];
+  if (!v3)
   {
     if (v2)
     {
-      result = __CocoaSet.count.getter();
-      if (!result)
+      if (!__CocoaSet.count.getter())
       {
-        return result;
+        return;
       }
     }
 
-    else
+    else if (!*((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
-      result = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (!result)
-      {
-        return result;
-      }
+      return;
     }
 
     if ((v1 & 0xC000000000000001) != 0)
     {
-      return MEMORY[0x245D0D9A0](0, v1);
+      MEMORY[0x245D0D9A0](0, v1);
+      return;
     }
 
     if (*((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
+
+      return;
     }
 
     __break(1u);
 LABEL_26:
-    v6 = MEMORY[0x245D0D9A0]();
+    MEMORY[0x245D0D9A0]();
     goto LABEL_16;
   }
 
-  v0 = v4;
+  v0 = v3;
   if (([v0 selectedSegmentIndex] & 0x8000000000000000) != 0)
   {
-LABEL_7:
-
-    return 0;
+    goto LABEL_16;
   }
 
-  v5 = [v0 selectedSegmentIndex];
+  v4 = [v0 selectedSegmentIndex];
   if (v2)
   {
-    if (v5 >= __CocoaSet.count.getter())
+    if (v4 >= __CocoaSet.count.getter())
     {
-      goto LABEL_7;
+      goto LABEL_16;
     }
   }
 
-  else if (v5 >= *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  else if (v4 >= *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    goto LABEL_7;
+    goto LABEL_16;
   }
 
-  result = [v0 selectedSegmentIndex];
+  v5 = [v0 selectedSegmentIndex];
   if ((v1 & 0xC000000000000001) != 0)
   {
     goto LABEL_26;
   }
 
-  if ((result & 0x8000000000000000) != 0)
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
   }
 
-  else if (result < *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  else if (v5 < *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    v6 = *(v1 + 8 * result + 32);
 
 LABEL_16:
 
-    return v6;
+    return;
   }
 
   __break(1u);
-  return result;
 }
 
-char *CAFUISoundSettingsViewController.__allocating_init(hasKnobSupport:audioSettings:audioLogo:)(char a1, void *a2, void *a3)
+char *CAFUISoundSettingsViewController.__allocating_init(hasKnobSupport:audioSettings:audioLogo:)(uint64_t a1, void *a2, void *a3)
 {
+  v6 = a1;
   v7 = objc_allocWithZone(v3);
-  v8 = specialized CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)(a1, a2, a3);
+  v8 = specialized CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)(v6, a2, a3);
 
   return v8;
 }
 
-char *CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)(char a1, void *a2, void *a3)
+char *CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)(uint64_t a1, void *a2, void *a3)
 {
   v5 = specialized CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)(a1, a2, a3);
 
@@ -148,14 +162,14 @@ uint64_t closure #2 in CAFUISoundSettingsViewController.init(hasKnobSupport:audi
     v10[1] = v1;
     v11 = *(result + 80);
     v2 = result;
-    outlined init with copy of NotificationModel.Symbol?(result, v9, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd);
-    outlined init with copy of NotificationModel.Symbol?(v10, v9, &_s7SwiftUI14ObservedObjectVy10CAFCombine30CAFSoundDistributionObservableCGMd);
+    outlined init with copy of NotificationModel.Symbol?(result, v9, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd, &_s5CAFUI20CAFUIBalanceFadeViewVSgMR);
+    outlined init with copy of NotificationModel.Symbol?(v10, v9, &_s7SwiftUI14ObservedObjectVy10CAFCombine30CAFSoundDistributionObservableCGMd, &_s7SwiftUI14ObservedObjectVy10CAFCombine30CAFSoundDistributionObservableCGMR);
     v3 = CAFSoundDistributionObservable.observed.getter();
-    outlined destroy of RequestTemporaryContentModel?(v10, &_s7SwiftUI14ObservedObjectVy10CAFCombine30CAFSoundDistributionObservableCGMd);
+    outlined destroy of RequestTemporaryContentModel?(v10, &_s7SwiftUI14ObservedObjectVy10CAFCombine30CAFSoundDistributionObservableCGMd, &_s7SwiftUI14ObservedObjectVy10CAFCombine30CAFSoundDistributionObservableCGMR);
     CAFSoundDistribution.reset()();
 
     v9[0] = v11;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVy5CAFUI20CAFUIBalanceFadeViewV15ImmediateValuesCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVy5CAFUI20CAFUIBalanceFadeViewV15ImmediateValuesCGMd, &_s7SwiftUI5StateVy5CAFUI20CAFUIBalanceFadeViewV15ImmediateValuesCGMR);
     State.wrappedValue.getter();
     swift_getKeyPath();
     swift_getKeyPath();
@@ -163,7 +177,7 @@ uint64_t closure #2 in CAFUISoundSettingsViewController.init(hasKnobSupport:audi
 
     v9[0] = _Q0;
     static Published.subscript.setter();
-    return outlined destroy of RequestTemporaryContentModel?(v2, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd);
+    return outlined destroy of RequestTemporaryContentModel?(v2, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd, &_s5CAFUI20CAFUIBalanceFadeViewVSgMR);
   }
 
   return result;
@@ -174,10 +188,10 @@ void closure #4 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSet
   v8 = *a1;
   v1 = *(&v8 + 1);
   v2 = CAFSoundDistributionObservable.observed.getter();
-  outlined destroy of RequestTemporaryContentModel?(&v8, &_s7SwiftUI14ObservedObjectVy10CAFCombine30CAFSoundDistributionObservableCGMd);
+  outlined destroy of RequestTemporaryContentModel?(&v8, &_s7SwiftUI14ObservedObjectVy10CAFCombine30CAFSoundDistributionObservableCGMd, &_s7SwiftUI14ObservedObjectVy10CAFCombine30CAFSoundDistributionObservableCGMR);
   CAFSoundDistribution.reset()();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVy5CAFUI20CAFUIBalanceFadeViewV15ImmediateValuesCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVy5CAFUI20CAFUIBalanceFadeViewV15ImmediateValuesCGMd, &_s7SwiftUI5StateVy5CAFUI20CAFUIBalanceFadeViewV15ImmediateValuesCGMR);
   State.wrappedValue.getter();
   swift_getKeyPath();
   swift_getKeyPath();
@@ -196,7 +210,7 @@ void closure #6 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSet
   }
 
   v2 = v1;
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFEqualizer);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFEqualizer, 0x277CF8490);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v3 >> 62)
@@ -251,42 +265,43 @@ LABEL_4:
 
 uint64_t key path getter for CAFObserved<>.observable : CAFEqualizer@<X0>(uint64_t *a1@<X8>)
 {
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFEqualizer);
-  lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFEqualizer and conformance CAFEqualizer, &lazy cache variable for type metadata for CAFEqualizer);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFEqualizer, 0x277CF8490);
+  lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFEqualizer and conformance CAFEqualizer, &lazy cache variable for type metadata for CAFEqualizer, 0x277CF8490, MEMORY[0x277CF3870]);
   result = CAFObserved<>.observable.getter();
   *a1 = result;
   return result;
 }
 
-void closure #8 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)()
+void closure #8 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     CAFUISoundSettingsViewController.updateResetButton()();
   }
 }
 
-void closure #10 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)()
+void closure #10 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     CAFUISoundSettingsViewController.removeFocusLockAndClearSliderFocus()();
-    v2 = CAFUISoundSettingsViewController.activePage.getter();
-    if (v2)
+    CAFUISoundSettingsViewController.activePage.getter();
+    if (v4)
     {
-      v3 = *(v2 + 40);
-      if (v3)
+      v5 = *(v4 + 40);
+      if (v5)
       {
+        v6 = *(v4 + 48);
 
-        v3(v4);
+        v5(v7);
 
-        outlined consume of (@escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ())?(v3);
+        outlined consume of (@escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ())?(v5, v6);
       }
 
       else
@@ -298,13 +313,13 @@ void closure #10 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSe
   }
 }
 
-void closure #11 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)()
+void closure #11 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     CAFUISoundSettingsViewController.removeFocusLockAndClearSliderFocus()();
   }
 }
@@ -314,7 +329,7 @@ void CAFUISoundSettingsViewController.init(coder:)(void *a1)
   swift_unknownObjectWeakInit();
   if (MEMORY[0x277D84F90] >> 62 && __CocoaSet.count.getter())
   {
-    v2 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5Tf4g_n(MEMORY[0x277D84F90]);
+    _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5Tf4g_n(MEMORY[0x277D84F90]);
   }
 
   else
@@ -339,12 +354,12 @@ Swift::Void __swiftcall CAFUISoundSettingsViewController.viewDidLoad()()
     v2 = objc_allocWithZone(MEMORY[0x277D75B80]);
     v3 = v1;
     v4 = [v2 initWithTarget:v0 action:sel_segmentedControlKnobSelectWithSender_];
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
     v5 = v4;
     isa = Array._bridgeToObjectiveC()().super.isa;
     [v5 setAllowedTouchTypes_];
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v7 = swift_allocObject();
     *(v7 + 16) = xmmword_242423BD0;
     *(v7 + 32) = [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithInteger_];
@@ -433,7 +448,7 @@ void CAFUISoundSettingsViewController.removeFocusLockAndClearSliderFocus()()
 
   *(v1 + v2) = 0;
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIFocusSystem);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIFocusSystem, 0x277D75518);
   v5 = static UIFocusSystem.focusSystem(for:)();
   if (v5)
   {
@@ -470,33 +485,35 @@ void CAFUISoundSettingsViewController.removeFocusLockAndClearSliderFocus()()
 
 void CAFUISoundSettingsViewController.updateResetButton()()
 {
-  v1 = CAFUISoundSettingsViewController.activePage.getter();
-  if (v1)
+  v1 = v0;
+  CAFUISoundSettingsViewController.activePage.getter();
+  if (v2)
   {
-    v2 = *(v1 + 56);
-    if (v2)
+    v3 = *(v2 + 56);
+    if (v3)
     {
+      v4 = *(v2 + 64);
 
-      v4 = v2(v3);
+      v6 = v3(v5);
 
-      outlined consume of (@escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ())?(v2);
-      if (v4)
+      outlined consume of (@escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ())?(v3, v4);
+      if (v6)
       {
-        v5 = [v0 navigationItem];
-        v6 = *&v0[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_audioLogo];
-        v16 = *&v0[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_resetButton];
-        v17 = v6;
-        v18 = MEMORY[0x277D84F90];
-        v7 = v6;
-        v8 = v16;
+        v7 = [v1 navigationItem];
+        v8 = *&v1[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_audioLogo];
+        v18 = *&v1[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_resetButton];
+        v19 = v8;
+        v20 = MEMORY[0x277D84F90];
+        v9 = v8;
+        v10 = v18;
         for (i = 0; i != 2; ++i)
         {
-          v10 = v15[i + 4];
-          if (v10)
+          v12 = v17[i + 4];
+          if (v12)
           {
-            v11 = v10;
+            v13 = v12;
             MEMORY[0x245D0D2F0]();
-            if (*((v18 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v18 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+            if (*((v20 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v20 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
             {
               specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
             }
@@ -505,7 +522,7 @@ void CAFUISoundSettingsViewController.updateResetButton()()
           }
         }
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15UIBarButtonItemCSgMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15UIBarButtonItemCSgMd, &_sSo15UIBarButtonItemCSgMR);
         swift_arrayDestroy();
         goto LABEL_16;
       }
@@ -516,15 +533,15 @@ void CAFUISoundSettingsViewController.updateResetButton()()
     }
   }
 
-  v5 = [v0 navigationItem];
-  v19 = *&v0[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_audioLogo];
-  v18 = MEMORY[0x277D84F90];
-  v12 = v19;
-  if (v19)
+  v7 = [v1 navigationItem];
+  v21 = *&v1[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_audioLogo];
+  v20 = MEMORY[0x277D84F90];
+  v14 = v21;
+  if (v21)
   {
-    v13 = v12;
+    v15 = v14;
     MEMORY[0x245D0D2F0]();
-    if (*((v18 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v18 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+    if (*((v20 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v20 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
     {
       specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
     }
@@ -532,12 +549,12 @@ void CAFUISoundSettingsViewController.updateResetButton()()
     specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
   }
 
-  outlined destroy of RequestTemporaryContentModel?(&v19, &_sSo15UIBarButtonItemCSgMd);
+  outlined destroy of RequestTemporaryContentModel?(&v21, &_sSo15UIBarButtonItemCSgMd, &_sSo15UIBarButtonItemCSgMR);
 LABEL_16:
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIBarButtonItem);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIBarButtonItem, 0x277D751E0);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  [v5 setRightBarButtonItems_];
+  [v7 setRightBarButtonItems_];
 }
 
 Swift::Void __swiftcall CAFUISoundSettingsViewController.didUpdateFocus(in:with:)(UIFocusUpdateContext in, UIFocusAnimationCoordinator with)
@@ -640,14 +657,14 @@ LABEL_9:
 void CAFUISoundSettingsViewController.pressesEnded(_:with:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIPress);
-  lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type UIPress and conformance NSObject, &lazy cache variable for type metadata for UIPress);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIPress, 0x277D758B8);
+  lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type UIPress and conformance NSObject, &lazy cache variable for type metadata for UIPress, 0x277D758B8, MEMORY[0x277D85378]);
   isa = Set._bridgeToObjectiveC()().super.isa;
   v17.receiver = v3;
   v17.super_class = type metadata accessor for CAFUISoundSettingsViewController();
   objc_msgSendSuper2(&v17, sel_pressesEnded_withEvent_, isa, a2);
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIFocusSystem);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIFocusSystem, 0x277D75518);
   v6 = static UIFocusSystem.focusSystem(for:)();
   if (!v6)
   {
@@ -715,42 +732,42 @@ LABEL_10:
 LABEL_15:
 }
 
-void CAFUISoundSettingsViewController.pressesCancelled(_:with:)(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, unint64_t *a5, SEL *a6)
+void CAFUISoundSettingsViewController.pressesCancelled(_:with:)(uint64_t a1, uint64_t a2, unint64_t *a3, void *a4, unint64_t *a5, SEL *a6)
 {
-  v10 = v6;
-  type metadata accessor for OS_os_log(0, a3);
-  lazy protocol witness table accessor for type UIPress and conformance NSObject(a5, a3);
+  v11 = v6;
+  type metadata accessor for OS_os_log(0, a3, a4);
+  lazy protocol witness table accessor for type UIPress and conformance NSObject(a5, a3, a4, MEMORY[0x277D85378]);
   isa = Set._bridgeToObjectiveC()().super.isa;
-  v16.receiver = v10;
-  v16.super_class = type metadata accessor for CAFUISoundSettingsViewController();
-  objc_msgSendSuper2(&v16, *a6, isa, a2);
+  v17.receiver = v11;
+  v17.super_class = type metadata accessor for CAFUISoundSettingsViewController();
+  objc_msgSendSuper2(&v17, *a6, isa, a2);
 
-  v13 = OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_focusLockedSlider;
-  v14 = *&v10[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_focusLockedSlider];
-  if (v14)
+  v14 = OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_focusLockedSlider;
+  v15 = *&v11[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_focusLockedSlider];
+  if (v15)
   {
-    v15 = v14;
+    v16 = v15;
     SliderView.VerticalSlider.focusLocked.willset(0);
-    v15[OBJC_IVAR____TtCV5CAFUI10SliderView14VerticalSlider_focusLocked] = 0;
+    v16[OBJC_IVAR____TtCV5CAFUI10SliderView14VerticalSlider_focusLocked] = 0;
 
-    v14 = *&v10[v13];
+    v15 = *&v11[v14];
   }
 
-  *&v10[v13] = 0;
+  *&v11[v14] = 0;
 }
 
-void @objc CAFUISoundSettingsViewController.pressesCancelled(_:with:)(void *a1, uint64_t a2, uint64_t a3, void *a4, unint64_t *a5, uint64_t a6, unint64_t *a7, SEL *a8)
+void @objc CAFUISoundSettingsViewController.pressesCancelled(_:with:)(void *a1, uint64_t a2, uint64_t a3, void *a4, unint64_t *a5, void *a6, unint64_t *a7, SEL *a8)
 {
-  type metadata accessor for OS_os_log(0, a5);
-  lazy protocol witness table accessor for type UIPress and conformance NSObject(a7, a5);
+  type metadata accessor for OS_os_log(0, a5, a6);
+  lazy protocol witness table accessor for type UIPress and conformance NSObject(a7, a5, a6, MEMORY[0x277D85378]);
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
-  v13 = a4;
-  v14 = a1;
+  v14 = a4;
+  v15 = a1;
   isa = Set._bridgeToObjectiveC()().super.isa;
 
-  v16.receiver = v14;
-  v16.super_class = type metadata accessor for CAFUISoundSettingsViewController();
-  objc_msgSendSuper2(&v16, *a8, isa, v13);
+  v17.receiver = v15;
+  v17.super_class = type metadata accessor for CAFUISoundSettingsViewController();
+  objc_msgSendSuper2(&v17, *a8, isa, v14);
 
   CAFUISoundSettingsViewController.focusLockedSlider.setter(0);
 }
@@ -760,7 +777,7 @@ id CAFUISoundSettingsViewController.__allocating_init(nibName:bundle:)(uint64_t 
   v4 = v3;
   if (a2)
   {
-    v6 = MEMORY[0x245D0D180]();
+    v6 = MEMORY[0x245D0D180](a1);
   }
 
   else
@@ -773,48 +790,48 @@ id CAFUISoundSettingsViewController.__allocating_init(nibName:bundle:)(uint64_t 
   return v7;
 }
 
-id CAFUISoundSettingsViewController.__deallocating_deinit()
+id CAFUISoundSettingsViewController.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for CAFUISoundSettingsViewController();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for CAFUISoundSettingsViewController();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 char *specialized CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:)(char a1, void *a2, void *a3)
 {
-  v164 = a3;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA18PassthroughSubjectCy5CAFUI10SliderViewV08VerticalH0Cs5NeverOGSo9NSRunLoopCGMd);
-  v159 = *(v6 - 8);
+  v165 = a3;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA18PassthroughSubjectCy5CAFUI10SliderViewV08VerticalH0Cs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA18PassthroughSubjectCy5CAFUI10SliderViewV08VerticalH0Cs5NeverOGSo9NSRunLoopCGMR);
+  v160 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v158 = &v146 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys4Int8Vs5NeverOGSo9NSRunLoopCGMd);
-  v156 = *(v8 - 8);
-  v157 = v8;
+  v159 = &v147 - v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys4Int8Vs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys4Int8Vs5NeverOGSo9NSRunLoopCGMR);
+  v157 = *(v8 - 8);
+  v158 = v8;
   MEMORY[0x28223BE20](v8);
-  v155 = &v146 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+  v156 = &v147 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
   MEMORY[0x28223BE20](v10 - 8);
-  v167 = &v146 - v11;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys4Int8VSgs5NeverOGSo9NSRunLoopCGMd);
-  v147 = *(v12 - 8);
-  v148 = v12;
+  v168 = &v147 - v11;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys4Int8VSgs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys4Int8VSgs5NeverOGSo9NSRunLoopCGMR);
+  v148 = *(v12 - 8);
+  v149 = v12;
   MEMORY[0x28223BE20](v12);
-  v146 = &v146 - v13;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9MergeManyVy_AA12AnyPublisherVys4Int8Vs5NeverOGGMd);
-  v150 = *(v14 - 8);
-  v151 = v14;
+  v147 = &v147 - v13;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9MergeManyVy_AA12AnyPublisherVys4Int8Vs5NeverOGGMd, &_s7Combine10PublishersO9MergeManyVy_AA12AnyPublisherVys4Int8Vs5NeverOGGMR);
+  v151 = *(v14 - 8);
+  v152 = v14;
   MEMORY[0x28223BE20](v14);
-  v149 = &v146 - v15;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO16RemoveDuplicatesVy_AC9MergeManyVy_AA12AnyPublisherVys4Int8Vs5NeverOGGGMd);
-  v153 = *(v16 - 8);
-  v154 = v16;
+  v150 = &v147 - v15;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO16RemoveDuplicatesVy_AC9MergeManyVy_AA12AnyPublisherVys4Int8Vs5NeverOGGGMd, &_s7Combine10PublishersO16RemoveDuplicatesVy_AC9MergeManyVy_AA12AnyPublisherVys4Int8Vs5NeverOGGGMR);
+  v154 = *(v16 - 8);
+  v155 = v16;
   MEMORY[0x28223BE20](v16);
-  v152 = &v146 - v17;
+  v153 = &v147 - v17;
   swift_unknownObjectWeakInit();
-  v160 = v6;
+  v161 = v6;
   if (MEMORY[0x277D84F90] >> 62 && __CocoaSet.count.getter())
   {
-    v18 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5Tf4g_n(MEMORY[0x277D84F90]);
+    _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5Tf4g_n(MEMORY[0x277D84F90]);
   }
 
   else
@@ -825,141 +842,142 @@ char *specialized CAFUISoundSettingsViewController.init(hasKnobSupport:audioSett
   *&v3[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_cancellables] = v18;
   *&v3[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_focusLockedSlider] = 0;
   swift_unknownObjectWeakAssign();
-  v169 = v3;
+  v19 = a1 & 1;
+  v170 = v3;
   v3[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_hasKnobSupport] = a1 & 1;
-  v199 = MEMORY[0x277D84F90];
-  v19 = [a2 soundDistribution];
-  v168 = v19;
-  v165 = a2;
-  if (v19)
+  v200 = MEMORY[0x277D84F90];
+  v20 = [a2 soundDistribution];
+  v169 = v20;
+  v166 = a2;
+  if (v20)
   {
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSoundDistribution);
-    lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFSoundDistribution and conformance CAFSoundDistribution, &lazy cache variable for type metadata for CAFSoundDistribution);
-    v20 = v19;
-    v21 = CAFObserved<>.observable.getter();
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSoundDistribution, 0x277CF8668);
+    lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFSoundDistribution and conformance CAFSoundDistribution, &lazy cache variable for type metadata for CAFSoundDistribution, 0x277CF8668, MEMORY[0x277CF38B0]);
+    v21 = v20;
+    v22 = CAFObserved<>.observable.getter();
 
-    v170 = v21;
-    CAFUIBalanceFadeView.init(soundDistributionObservable:showKnobControlButtons:)(v170, &v172);
-    v180 = v174;
+    v171 = v22;
+    CAFUIBalanceFadeView.init(soundDistributionObservable:showKnobControlButtons:)(v171, v19, &v173);
     v181 = v175;
     v182 = v176;
     v183 = v177;
-    v190 = v174;
+    v184 = v178;
     v191 = v175;
     v192 = v176;
     v193 = v177;
-    v178 = v172;
+    v194 = v178;
     v179 = v173;
-    v188 = v172;
+    v180 = v174;
     v189 = v173;
-    v219 = v176;
+    v190 = v174;
     v220 = v177;
-    v217 = v174;
+    v221 = v178;
     v218 = v175;
-    v215 = v172;
+    v219 = v176;
     v216 = v173;
-    v22 = v20;
-    v23 = MEMORY[0x245D0D180](0xD000000000000015, 0x80000002424297C0);
-    v24 = CAFUILocalizedStringForKey(v23);
+    v217 = v174;
+    v23 = v21;
+    v24 = MEMORY[0x245D0D180](0xD000000000000015, 0x80000002424297C0);
+    v25 = CAFUILocalizedStringForKey(v24);
 
-    v25 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v27 = v26;
+    v26 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v28 = v27;
 
-    v174 = v217;
     v175 = v218;
     v176 = v219;
     v177 = v220;
-    v172 = v215;
+    v178 = v221;
     v173 = v216;
-    v28 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy5CAFUI20CAFUIBalanceFadeViewVSgGMd));
-    outlined init with copy of CAFUIBalanceFadeView(&v178, &v200);
-    v29 = UIHostingController.init(rootView:)();
-    v30 = swift_allocObject();
-    *(v30 + 16) = v22;
+    v174 = v217;
+    v29 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy5CAFUI20CAFUIBalanceFadeViewVSgGMd, &_s7SwiftUI19UIHostingControllerCy5CAFUI20CAFUIBalanceFadeViewVSgGMR));
+    outlined init with copy of CAFUIBalanceFadeView(&v179, &v201);
+    v30 = UIHostingController.init(rootView:)();
     v31 = swift_allocObject();
-    v32 = v218;
-    v31[3] = v217;
-    v31[4] = v32;
-    v33 = v220;
-    v31[5] = v219;
-    v31[6] = v33;
-    v34 = v216;
-    v31[1] = v215;
-    v31[2] = v34;
+    *(v31 + 16) = v23;
+    v32 = swift_allocObject();
+    v33 = v219;
+    v32[3] = v218;
+    v32[4] = v33;
+    v34 = v221;
+    v32[5] = v220;
+    v32[6] = v34;
+    v35 = v217;
+    v32[1] = v216;
+    v32[2] = v35;
     type metadata accessor for SoundSettingPage();
-    v19 = swift_allocObject();
-    v19[2] = v25;
-    v19[3] = v27;
-    v19[7] = partial apply for closure #1 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:);
-    v19[8] = v30;
-    v19[4] = v29;
-    v19[5] = partial apply for closure #2 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:);
-    v19[6] = v31;
-    v35 = v22;
-    outlined init with copy of CAFUIBalanceFadeView(&v178, &v172);
+    v20 = swift_allocObject();
+    v20[2] = v26;
+    v20[3] = v28;
+    v20[7] = partial apply for closure #1 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:);
+    v20[8] = v31;
+    v20[4] = v30;
+    v20[5] = partial apply for closure #2 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:);
+    v20[6] = v32;
+    v36 = v23;
+    outlined init with copy of CAFUIBalanceFadeView(&v179, &v173);
 
-    result = [v29 view];
+    result = [v30 view];
     if (!result)
     {
       __break(1u);
       goto LABEL_92;
     }
 
-    v37 = result;
-    v38 = [objc_opt_self() clearColor];
-    [v37 setBackgroundColor_];
+    v38 = result;
+    v39 = [objc_opt_self() clearColor];
+    [v38 setBackgroundColor_];
 
-    v202 = v190;
     v203 = v191;
     v204 = v192;
     v205 = v193;
-    v200 = v188;
+    v206 = v194;
     v201 = v189;
-    a2 = v165;
+    v202 = v190;
+    a2 = v166;
   }
 
   else
   {
-    v170 = 0;
-    v204 = 0u;
+    v171 = 0;
     v205 = 0u;
-    v202 = 0u;
+    v206 = 0u;
     v203 = 0u;
-    v200 = 0u;
+    v204 = 0u;
     v201 = 0u;
+    v202 = 0u;
   }
 
-  v39 = &selRef_systemImageNamed_withConfiguration_;
-  v40 = [a2 equalizers];
-  v163 = v19;
-  if (!v40)
+  v40 = &selRef_systemImageNamed_withConfiguration_;
+  v41 = [a2 equalizers];
+  v164 = v20;
+  if (!v41)
   {
 LABEL_27:
-    if (!v19)
+    if (!v20)
     {
-      v162 = 0;
-      v82 = MEMORY[0x277D84F90];
-      v60 = v169;
+      v163 = 0;
+      v83 = MEMORY[0x277D84F90];
+      v61 = v170;
       goto LABEL_33;
     }
 
-    MEMORY[0x245D0D2F0](v83);
-    v60 = v169;
-    if (*((v199 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v199 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+    MEMORY[0x245D0D2F0](v84);
+    v61 = v170;
+    if (*((v200 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v200 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
     {
       specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
     }
 
     specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-    v162 = 0;
+    v163 = 0;
     goto LABEL_31;
   }
 
-  v41 = v40;
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFEqualizer);
-  v42 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v42 = v41;
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFEqualizer, 0x277CF8490);
+  v43 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  if (v42 >> 62)
+  if (v43 >> 62)
   {
     if (__CocoaSet.count.getter())
     {
@@ -969,7 +987,7 @@ LABEL_27:
     goto LABEL_26;
   }
 
-  if (!*((v42 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (!*((v43 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
 LABEL_26:
 
@@ -977,104 +995,104 @@ LABEL_26:
   }
 
 LABEL_10:
-  specialized CAFUIEqualizerGroup.init(equalizers:)(v42, &v206);
-  v43 = *(&v200 + 1);
-  v162 = v207;
-  if (*(&v200 + 1))
+  specialized CAFUIEqualizerGroup.init(equalizers:)(v43, &v207);
+  v44 = *(&v201 + 1);
+  v163 = v208;
+  if (*(&v201 + 1))
   {
-    v44 = v200;
-    v212 = v203;
+    v45 = v201;
     v213 = v204;
     v214 = v205;
-    v210 = v201;
+    v215 = v206;
     v211 = v202;
-    if (*(*(&v206 + 1) + 16) <= 3uLL)
+    v212 = v203;
+    if (*(*(&v207 + 1) + 16) <= 3uLL)
     {
-      v191 = v203;
       v192 = v204;
-      v189 = v201;
-      v190 = v202;
       v193 = v205;
+      v190 = v202;
+      v191 = v203;
       v194 = v206;
       v195 = v207;
       v196 = v208;
       v197 = v209;
-      v188 = v200;
-      outlined init with copy of NotificationModel.Symbol?(&v200, &v178, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd);
-      outlined init with copy of NotificationModel.Symbol?(&v200, &v178, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd);
+      v198 = v210;
+      v189 = v201;
+      outlined init with copy of NotificationModel.Symbol?(&v201, &v179, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd, &_s5CAFUI20CAFUIBalanceFadeViewVSgMR);
+      outlined init with copy of NotificationModel.Symbol?(&v201, &v179, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd, &_s5CAFUI20CAFUIBalanceFadeViewVSgMR);
 
-      outlined init with copy of CAFUIEqualizerGroup(&v206, &v178);
-      v62 = MEMORY[0x245D0D180](0x53474E4954544553, 0xEE00444E554F535FLL);
-      v63 = CAFUILocalizedStringForKey(v62);
+      outlined init with copy of CAFUIEqualizerGroup(&v207, &v179);
+      v63 = MEMORY[0x245D0D180](0x53474E4954544553, 0xEE00444E554F535FLL);
+      v64 = CAFUILocalizedStringForKey(v63);
 
-      v64 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v66 = v65;
+      v65 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v67 = v66;
 
-      v184 = v194;
       v185 = v195;
       v186 = v196;
       v187 = v197;
-      v180 = v190;
+      v188 = v198;
       v181 = v191;
       v182 = v192;
       v183 = v193;
-      v178 = v188;
+      v184 = v194;
       v179 = v189;
-      v67 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy5CAFUI14CAFUISoundViewVGMd));
-      outlined init with copy of CAFUISoundView(&v188, &v172);
-      v68 = UIHostingController.init(rootView:)();
-      v69 = swift_allocObject();
-      v70 = v168;
-      *(v69 + 16) = a2;
-      *(v69 + 24) = v70;
-      v71 = a2;
-      v72 = swift_allocObject();
-      *(v72 + 16) = v44;
-      *(v72 + 24) = v43;
-      v73 = v213;
-      *(v72 + 64) = v212;
-      *(v72 + 80) = v73;
-      *(v72 + 96) = v214;
-      v74 = v211;
-      *(v72 + 32) = v210;
-      *(v72 + 48) = v74;
-      *(v72 + 112) = v71;
+      v180 = v190;
+      v68 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy5CAFUI14CAFUISoundViewVGMd, &_s7SwiftUI19UIHostingControllerCy5CAFUI14CAFUISoundViewVGMR));
+      outlined init with copy of CAFUISoundView(&v189, &v173);
+      v69 = UIHostingController.init(rootView:)();
+      v70 = swift_allocObject();
+      v71 = v169;
+      *(v70 + 16) = a2;
+      *(v70 + 24) = v71;
+      v72 = a2;
+      v73 = swift_allocObject();
+      *(v73 + 16) = v45;
+      *(v73 + 24) = v44;
+      v74 = v214;
+      *(v73 + 64) = v213;
+      *(v73 + 80) = v74;
+      *(v73 + 96) = v215;
+      v75 = v212;
+      *(v73 + 32) = v211;
+      *(v73 + 48) = v75;
+      *(v73 + 112) = v72;
       type metadata accessor for SoundSettingPage();
-      v75 = swift_allocObject();
-      v75[2] = v64;
-      v75[3] = v66;
-      v75[7] = partial apply for closure #3 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:);
-      v75[8] = v69;
-      v75[4] = v68;
-      v75[5] = partial apply for closure #4 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:);
-      v75[6] = v72;
-      v76 = v71;
-      v77 = v70;
-      outlined init with copy of NotificationModel.Symbol?(&v200, &v178, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd);
-      v78 = v76;
+      v76 = swift_allocObject();
+      v76[2] = v65;
+      v76[3] = v67;
+      v76[7] = partial apply for closure #3 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:);
+      v76[8] = v70;
+      v76[4] = v69;
+      v76[5] = partial apply for closure #4 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:);
+      v76[6] = v73;
+      v77 = v72;
+      v78 = v71;
+      outlined init with copy of NotificationModel.Symbol?(&v201, &v179, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd, &_s5CAFUI20CAFUIBalanceFadeViewVSgMR);
+      v79 = v77;
 
-      result = [v68 view];
+      result = [v69 view];
       if (result)
       {
-        v79 = result;
-        v80 = [objc_opt_self() clearColor];
-        [v79 setBackgroundColor_];
+        v80 = result;
+        v81 = [objc_opt_self() clearColor];
+        [v80 setBackgroundColor_];
 
-        MEMORY[0x245D0D2F0](v81);
-        if (*((v199 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v199 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+        MEMORY[0x245D0D2F0](v82);
+        if (*((v200 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v200 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
         {
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
         specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-        outlined destroy of CAFUIEqualizerGroup(&v206);
+        outlined destroy of CAFUIEqualizerGroup(&v207);
 
-        outlined destroy of RequestTemporaryContentModel?(&v200, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd);
-        outlined destroy of CAFUISoundView(&v188);
-        v82 = v199;
-        a2 = v165;
-        v60 = v169;
-        v39 = 0x278D4A000;
+        outlined destroy of RequestTemporaryContentModel?(&v201, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd, &_s5CAFUI20CAFUIBalanceFadeViewVSgMR);
+        outlined destroy of CAFUISoundView(&v189);
+        v83 = v200;
+        a2 = v166;
+        v61 = v170;
+        v40 = 0x278D4A000;
         goto LABEL_33;
       }
 
@@ -1082,36 +1100,36 @@ LABEL_10:
     }
   }
 
-  v45 = MEMORY[0x245D0D180](0xD000000000000012, 0x80000002424297A0);
-  v46 = CAFUILocalizedStringForKey(v45);
+  v46 = MEMORY[0x245D0D180](0xD000000000000012, 0x80000002424297A0);
+  v47 = CAFUILocalizedStringForKey(v46);
 
-  v47 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v49 = v48;
+  v48 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v50 = v49;
 
-  v188 = v206;
   v189 = v207;
   v190 = v208;
-  *&v191 = v209;
-  v50 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy5CAFUI19CAFUIEqualizerGroupVGMd));
-  outlined init with copy of CAFUIEqualizerGroup(&v206, &v178);
-  v51 = a2;
-  v52 = UIHostingController.init(rootView:)();
-  v53 = swift_allocObject();
-  *(v53 + 16) = v51;
+  v191 = v209;
+  *&v192 = v210;
+  v51 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy5CAFUI19CAFUIEqualizerGroupVGMd, &_s7SwiftUI19UIHostingControllerCy5CAFUI19CAFUIEqualizerGroupVGMR));
+  outlined init with copy of CAFUIEqualizerGroup(&v207, &v179);
+  v52 = a2;
+  v53 = UIHostingController.init(rootView:)();
   v54 = swift_allocObject();
-  *(v54 + 16) = v51;
-  type metadata accessor for SoundSettingPage();
+  *(v54 + 16) = v52;
   v55 = swift_allocObject();
-  v55[2] = v47;
-  v55[3] = v49;
-  v55[7] = partial apply for closure #5 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:);
-  v55[8] = v53;
-  v55[4] = v52;
-  v55[5] = partial apply for closure #6 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:);
-  v55[6] = v54;
-  v56 = v51;
+  *(v55 + 16) = v52;
+  type metadata accessor for SoundSettingPage();
+  v56 = swift_allocObject();
+  v56[2] = v48;
+  v56[3] = v50;
+  v56[7] = partial apply for closure #5 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:);
+  v56[8] = v54;
+  v56[4] = v53;
+  v56[5] = partial apply for closure #6 in CAFUISoundSettingsViewController.init(hasKnobSupport:audioSettings:audioLogo:);
+  v56[6] = v55;
+  v57 = v52;
 
-  result = [v52 view];
+  result = [v53 view];
   if (!result)
   {
 LABEL_92:
@@ -1121,12 +1139,12 @@ LABEL_93:
     return result;
   }
 
-  v57 = result;
-  v58 = [objc_opt_self() clearColor];
-  [v57 setBackgroundColor_];
+  v58 = result;
+  v59 = [objc_opt_self() clearColor];
+  [v58 setBackgroundColor_];
 
-  MEMORY[0x245D0D2F0](v59);
-  if (*((v199 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v199 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+  MEMORY[0x245D0D2F0](v60);
+  if (*((v200 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v200 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
     goto LABEL_90;
   }
@@ -1134,122 +1152,122 @@ LABEL_93:
   while (1)
   {
     specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-    a2 = v165;
-    v60 = v169;
-    v39 = 0x278D4A000;
-    if (v19)
+    a2 = v166;
+    v61 = v170;
+    v40 = 0x278D4A000;
+    if (v20)
     {
 
-      MEMORY[0x245D0D2F0](v61);
-      if (*((v199 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v199 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      MEMORY[0x245D0D2F0](v62);
+      if (*((v200 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v200 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
       specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
-      outlined destroy of CAFUIEqualizerGroup(&v206);
+      outlined destroy of CAFUIEqualizerGroup(&v207);
 LABEL_31:
-      v82 = v199;
+      v83 = v200;
     }
 
     else
     {
-      v82 = v199;
+      v83 = v200;
 
-      outlined destroy of CAFUIEqualizerGroup(&v206);
+      outlined destroy of CAFUIEqualizerGroup(&v207);
     }
 
 LABEL_33:
-    v84 = OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_pages;
-    *(v60 + OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_pages) = v82;
-    if (v82 >> 62)
+    v85 = OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_pages;
+    *(v61 + OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_pages) = v83;
+    if (v83 >> 62)
     {
       goto LABEL_52;
     }
 
-    v85 = *((v82 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v86 = *((v83 & 0xFFFFFFFFFFFFFF8) + 0x10);
 LABEL_35:
-    v166 = v82;
-    if (v85 < 2)
+    v167 = v83;
+    if (v86 < 2)
     {
-      *(v60 + OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_segmentedControl) = 0;
+      *(v61 + OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_segmentedControl) = 0;
 
       goto LABEL_56;
     }
 
-    v86 = *(v60 + v84);
-    if (v86 >> 62)
+    v87 = *(v61 + v85);
+    if (v87 >> 62)
     {
       break;
     }
 
-    v39 = *((v86 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!v39)
+    v40 = *((v87 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v40)
     {
       goto LABEL_54;
     }
 
 LABEL_38:
-    *&v178 = MEMORY[0x277D84F90];
+    *&v179 = MEMORY[0x277D84F90];
 
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v39 & ~(v39 >> 63), 0);
-    if ((v39 & 0x8000000000000000) == 0)
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v40 & ~(v40 >> 63), 0);
+    if ((v40 & 0x8000000000000000) == 0)
     {
-      v60 = 0;
-      v84 = v178;
-      a2 = (v86 & 0xC000000000000001);
-      KeyPath = v86 & 0xFFFFFFFFFFFFFF8;
-      v82 = MEMORY[0x277D837D0];
+      v61 = 0;
+      v85 = v179;
+      a2 = (v87 & 0xC000000000000001);
+      KeyPath = v87 & 0xFFFFFFFFFFFFFF8;
+      v83 = MEMORY[0x277D837D0];
       while (1)
       {
         if (a2)
         {
-          v87 = MEMORY[0x245D0D9A0](v60, v86);
+          v88 = MEMORY[0x245D0D9A0](v61, v87);
         }
 
         else
         {
-          if ((v60 & 0x8000000000000000) != 0)
+          if ((v61 & 0x8000000000000000) != 0)
           {
             __break(1u);
 LABEL_51:
             __break(1u);
 LABEL_52:
-            v85 = __CocoaSet.count.getter();
+            v86 = __CocoaSet.count.getter();
             goto LABEL_35;
           }
 
-          if (v60 >= *(KeyPath + 16))
+          if (v61 >= *(KeyPath + 16))
           {
             goto LABEL_51;
           }
 
-          v87 = *(v86 + 8 * v60 + 32);
+          v88 = *(v87 + 8 * v61 + 32);
         }
 
-        v88 = *(v87 + 16);
-        v89 = *(v87 + 24);
-        *(&v189 + 1) = v82;
+        v89 = *(v88 + 16);
+        v90 = *(v88 + 24);
+        *(&v190 + 1) = v83;
 
-        *&v188 = v88;
-        *(&v188 + 1) = v89;
-        *&v178 = v84;
-        v91 = *(v84 + 16);
-        v90 = *(v84 + 24);
-        if (v91 >= v90 >> 1)
+        *&v189 = v89;
+        *(&v189 + 1) = v90;
+        *&v179 = v85;
+        v92 = *(v85 + 16);
+        v91 = *(v85 + 24);
+        if (v92 >= v91 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v90 > 1), v91 + 1, 1);
-          v84 = v178;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v91 > 1), v92 + 1, 1);
+          v85 = v179;
         }
 
-        ++v60;
-        *(v84 + 16) = v91 + 1;
-        outlined init with take of Any(&v188, (v84 + 32 * v91 + 32));
-        if (v39 == v60)
+        ++v61;
+        *(v85 + 16) = v92 + 1;
+        outlined init with take of Any(&v189, (v85 + 32 * v92 + 32));
+        if (v40 == v61)
         {
 
-          a2 = v165;
+          a2 = v166;
           goto LABEL_55;
         }
       }
@@ -1258,11 +1276,11 @@ LABEL_52:
     __break(1u);
 LABEL_90:
     specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-    v19 = v163;
+    v20 = v164;
   }
 
-  v39 = __CocoaSet.count.getter();
-  if (v39)
+  v40 = __CocoaSet.count.getter();
+  if (v40)
   {
     goto LABEL_38;
   }
@@ -1270,74 +1288,74 @@ LABEL_90:
 LABEL_54:
 
 LABEL_55:
-  v92 = objc_allocWithZone(type metadata accessor for CAFUISegmentedControl());
+  v93 = objc_allocWithZone(type metadata accessor for CAFUISegmentedControl());
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v94 = [v92 initWithItems_];
+  v95 = [v93 initWithItems_];
 
-  v95 = objc_opt_self();
-  v96 = v94;
-  v97 = [v95 secondarySystemFillColor];
-  [v96 setSelectedSegmentTintColor_];
+  v96 = objc_opt_self();
+  v97 = v95;
+  v98 = [v96 secondarySystemFillColor];
+  [v97 setSelectedSegmentTintColor_];
 
-  v98 = v96;
-  v99 = MEMORY[0x245D0D180](0xD00000000000001DLL, 0x8000000242429780);
-  [v98 setAccessibilityIdentifier_];
+  v99 = v97;
+  v100 = MEMORY[0x245D0D180](0xD00000000000001DLL, 0x8000000242429780);
+  [v99 setAccessibilityIdentifier_];
 
-  v60 = v169;
-  *&v169[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_segmentedControl] = v98;
-  v39 = &selRef_systemImageNamed_withConfiguration_;
+  v61 = v170;
+  *&v170[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_segmentedControl] = v99;
+  v40 = &selRef_systemImageNamed_withConfiguration_;
 LABEL_56:
-  v100 = MEMORY[0x245D0D180](0x53474E4954544553, 0xEE0054455345525FLL);
-  v101 = CAFUILocalizedStringForKey(v100);
+  v101 = MEMORY[0x245D0D180](0x53474E4954544553, 0xEE0054455345525FLL);
+  v102 = CAFUILocalizedStringForKey(v101);
 
-  v102 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v104 = v103;
+  v103 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v105 = v104;
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIBarButtonItem);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIBarButtonItem, 0x277D751E0);
 
-  v165 = v102;
-  v105.value._countAndFlagsBits = v102;
-  v161 = v104;
-  v105.value._object = v104;
-  v221.value.super.isa = 0;
-  v221.is_nil = 0;
-  v222.value.super.super.isa = 0;
-  *(v60 + OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_resetButton) = UIBarButtonItem.init(title:image:primaryAction:menu:)(v105, v221, v222, v223);
-  v106 = v164;
-  *(v60 + OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_audioLogo) = v164;
-  v107 = type metadata accessor for CAFUISoundSettingsViewController();
-  v198.receiver = v60;
-  v198.super_class = v107;
-  v108 = v106;
-  v169 = objc_msgSendSuper2(&v198, sel_initWithNibName_bundle_, 0, 0);
-  v109 = [a2 *(v39 + 768)];
-  if (v109)
+  v166 = v103;
+  v106.value._countAndFlagsBits = v103;
+  v162 = v105;
+  v106.value._object = v105;
+  v222.value.super.isa = 0;
+  v222.is_nil = 0;
+  v223.value.super.super.isa = 0;
+  *(v61 + OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_resetButton) = UIBarButtonItem.init(title:image:primaryAction:menu:)(v106, v222, v223, v224);
+  v107 = v165;
+  *(v61 + OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_audioLogo) = v165;
+  v108 = type metadata accessor for CAFUISoundSettingsViewController();
+  v199.receiver = v61;
+  v199.super_class = v108;
+  v109 = v107;
+  v170 = objc_msgSendSuper2(&v199, sel_initWithNibName_bundle_, 0, 0);
+  v110 = [a2 *(v40 + 768)];
+  if (v110)
   {
-    v110 = v109;
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFEqualizer);
-    v111 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v111 = v110;
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFEqualizer, 0x277CF8490);
+    v112 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     KeyPath = swift_getKeyPath();
-    *&v188 = MEMORY[0x277D84F90];
-    if (v111 >> 62)
+    *&v189 = MEMORY[0x277D84F90];
+    if (v112 >> 62)
     {
       goto LABEL_88;
     }
 
-    v112 = *((v111 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v113 = *((v112 & 0xFFFFFFFFFFFFFF8) + 0x10);
 LABEL_59:
 
-    if (v112)
+    if (v113)
     {
-      v113 = 0;
+      v114 = 0;
       while (1)
       {
-        if ((v111 & 0xC000000000000001) != 0)
+        if ((v112 & 0xC000000000000001) != 0)
         {
-          v114 = MEMORY[0x245D0D9A0](v113, v111);
-          v115 = v113 + 1;
-          if (__OFADD__(v113, 1))
+          v115 = MEMORY[0x245D0D9A0](v114, v112);
+          v116 = v114 + 1;
+          if (__OFADD__(v114, 1))
           {
             goto LABEL_86;
           }
@@ -1345,68 +1363,68 @@ LABEL_59:
 
         else
         {
-          if (v113 >= *((v111 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          if (v114 >= *((v112 & 0xFFFFFFFFFFFFFF8) + 0x10))
           {
             goto LABEL_87;
           }
 
-          v114 = *(v111 + 8 * v113 + 32);
-          v115 = v113 + 1;
-          if (__OFADD__(v113, 1))
+          v115 = *(v112 + 8 * v114 + 32);
+          v116 = v114 + 1;
+          if (__OFADD__(v114, 1))
           {
 LABEL_86:
             __break(1u);
 LABEL_87:
             __break(1u);
 LABEL_88:
-            v112 = __CocoaSet.count.getter();
+            v113 = __CocoaSet.count.getter();
             goto LABEL_59;
           }
         }
 
-        *&v178 = v114;
-        v116 = v114;
+        *&v179 = v115;
+        v117 = v115;
         swift_getAtKeyPath();
 
         MEMORY[0x245D0D2F0]();
-        if (*(v188 + 16) >= *(v188 + 24) >> 1)
+        if (*(v189 + 16) >= *(v189 + 24) >> 1)
         {
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
         specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-        ++v113;
-        if (v115 == v112)
+        ++v114;
+        if (v116 == v113)
         {
-          v117 = v188;
+          v118 = v189;
           goto LABEL_73;
         }
       }
     }
 
-    v117 = MEMORY[0x277D84F90];
+    v118 = MEMORY[0x277D84F90];
 LABEL_73:
 
-    *&v188 = v117;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVys4Int8Vs5NeverOGMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay7Combine12AnyPublisherVys4Int8Vs5NeverOGGMd);
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<Int8, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVys4Int8Vs5NeverOGMd);
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type [AnyPublisher<Int8, Never>] and conformance [A], &_sSay7Combine12AnyPublisherVys4Int8Vs5NeverOGGMd);
-    v119 = v149;
+    *&v189 = v118;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVys4Int8Vs5NeverOGMd, &_s7Combine12AnyPublisherVys4Int8Vs5NeverOGMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay7Combine12AnyPublisherVys4Int8Vs5NeverOGGMd, &_sSay7Combine12AnyPublisherVys4Int8Vs5NeverOGGMR);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<Int8, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVys4Int8Vs5NeverOGMd, &_s7Combine12AnyPublisherVys4Int8Vs5NeverOGMR, MEMORY[0x277CBCD90]);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type [AnyPublisher<Int8, Never>] and conformance [A], &_sSay7Combine12AnyPublisherVys4Int8Vs5NeverOGGMd, &_sSay7Combine12AnyPublisherVys4Int8Vs5NeverOGGMR, MEMORY[0x277D83970]);
+    v120 = v150;
     Publishers.MergeMany.init<A>(_:)();
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.MergeMany<AnyPublisher<Int8, Never>> and conformance Publishers.MergeMany<A>, &_s7Combine10PublishersO9MergeManyVy_AA12AnyPublisherVys4Int8Vs5NeverOGGMd);
-    v120 = v151;
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.MergeMany<AnyPublisher<Int8, Never>> and conformance Publishers.MergeMany<A>, &_s7Combine10PublishersO9MergeManyVy_AA12AnyPublisherVys4Int8Vs5NeverOGGMd, &_s7Combine10PublishersO9MergeManyVy_AA12AnyPublisherVys4Int8Vs5NeverOGGMR, MEMORY[0x277CBCD48]);
     v121 = v152;
+    v122 = v153;
     Publisher<>.removeDuplicates()();
-    (*(v150 + 8))(v119, v120);
+    (*(v151 + 8))(v120, v121);
     swift_allocObject();
-    v118 = v169;
+    v119 = v170;
     swift_unknownObjectWeakInit();
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.RemoveDuplicates<Publishers.MergeMany<AnyPublisher<Int8, Never>>> and conformance Publishers.RemoveDuplicates<A>, &_s7Combine10PublishersO16RemoveDuplicatesVy_AC9MergeManyVy_AA12AnyPublisherVys4Int8Vs5NeverOGGGMd);
-    v122 = v154;
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.RemoveDuplicates<Publishers.MergeMany<AnyPublisher<Int8, Never>>> and conformance Publishers.RemoveDuplicates<A>, &_s7Combine10PublishersO16RemoveDuplicatesVy_AC9MergeManyVy_AA12AnyPublisherVys4Int8Vs5NeverOGGGMd, &_s7Combine10PublishersO16RemoveDuplicatesVy_AC9MergeManyVy_AA12AnyPublisherVys4Int8Vs5NeverOGGGMR, MEMORY[0x277CBCBE0]);
+    v123 = v155;
     Publisher<>.sink(receiveValue:)();
 
-    (*(v153 + 8))(v121, v122);
+    (*(v154 + 8))(v122, v123);
     swift_beginAccess();
     AnyCancellable.store(in:)();
     swift_endAccess();
@@ -1415,41 +1433,41 @@ LABEL_73:
   else
   {
 
-    v118 = v169;
+    v119 = v170;
   }
 
-  v123 = &off_278D49000;
-  if (v170)
+  v124 = &off_278D49000;
+  if (v171)
   {
-    v124 = v170;
-    if (v168)
+    v125 = v171;
+    if (v169)
     {
-      v125 = v168;
-      v126 = v124;
-      if ([v125 hasFade])
+      v126 = v169;
+      v127 = v125;
+      if ([v126 hasFade])
       {
-        *&v188 = dispatch thunk of CAFSoundDistributionObservable.$fade.getter();
-        v127 = [objc_opt_self() mainRunLoop];
-        *&v178 = v127;
-        v128 = type metadata accessor for NSRunLoop.SchedulerOptions();
-        v129 = v167;
-        (*(*(v128 - 8) + 56))(v167, 1, 1, v128);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVys4Int8VSgs5NeverOGMd);
-        type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop);
-        lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<Int8?, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVys4Int8VSgs5NeverOGMd);
-        lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop);
-        v130 = v146;
-        v123 = &off_278D49000;
+        *&v189 = dispatch thunk of CAFSoundDistributionObservable.$fade.getter();
+        v128 = [objc_opt_self() mainRunLoop];
+        *&v179 = v128;
+        v129 = type metadata accessor for NSRunLoop.SchedulerOptions();
+        v130 = v168;
+        (*(*(v129 - 8) + 56))(v168, 1, 1, v129);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVys4Int8VSgs5NeverOGMd, &_s7Combine12AnyPublisherVys4Int8VSgs5NeverOGMR);
+        type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88);
+        lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<Int8?, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVys4Int8VSgs5NeverOGMd, &_s7Combine12AnyPublisherVys4Int8VSgs5NeverOGMR, MEMORY[0x277CBCD90]);
+        lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88, MEMORY[0x277CC9E80]);
+        v131 = v147;
+        v124 = &off_278D49000;
         Publisher.receive<A>(on:options:)();
-        outlined destroy of RequestTemporaryContentModel?(v129, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+        outlined destroy of RequestTemporaryContentModel?(v130, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
         swift_allocObject();
         swift_unknownObjectWeakInit();
-        lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<Int8?, Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys4Int8VSgs5NeverOGSo9NSRunLoopCGMd);
-        v131 = v148;
+        lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<Int8?, Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys4Int8VSgs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys4Int8VSgs5NeverOGSo9NSRunLoopCGMR, MEMORY[0x277CBCD60]);
+        v132 = v149;
         Publisher<>.sink(receiveValue:)();
 
-        (*(v147 + 8))(v130, v131);
+        (*(v148 + 8))(v131, v132);
         swift_beginAccess();
         AnyCancellable.store(in:)();
         swift_endAccess();
@@ -1459,88 +1477,88 @@ LABEL_73:
       {
       }
 
-      v124 = v170;
+      v125 = v171;
     }
 
     else
     {
-      v132 = v170;
+      v133 = v171;
     }
 
-    v170 = v124;
-    *&v188 = dispatch thunk of CAFSoundDistributionObservable.$balance.getter();
-    v133 = [objc_opt_self() v123[497]];
-    *&v178 = v133;
-    v134 = type metadata accessor for NSRunLoop.SchedulerOptions();
-    v135 = v167;
-    (*(*(v134 - 8) + 56))(v167, 1, 1, v134);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVys4Int8Vs5NeverOGMd);
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop);
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<Int8, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVys4Int8Vs5NeverOGMd);
-    lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop);
-    v136 = v155;
+    v171 = v125;
+    *&v189 = dispatch thunk of CAFSoundDistributionObservable.$balance.getter();
+    v134 = [objc_opt_self() v124[497]];
+    *&v179 = v134;
+    v135 = type metadata accessor for NSRunLoop.SchedulerOptions();
+    v136 = v168;
+    (*(*(v135 - 8) + 56))(v168, 1, 1, v135);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVys4Int8Vs5NeverOGMd, &_s7Combine12AnyPublisherVys4Int8Vs5NeverOGMR);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<Int8, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVys4Int8Vs5NeverOGMd, &_s7Combine12AnyPublisherVys4Int8Vs5NeverOGMR, MEMORY[0x277CBCD90]);
+    lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88, MEMORY[0x277CC9E80]);
+    v137 = v156;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v135, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v136, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
-    v118 = v169;
+    v119 = v170;
     swift_unknownObjectWeakInit();
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<Int8, Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys4Int8Vs5NeverOGSo9NSRunLoopCGMd);
-    v137 = v157;
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<Int8, Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys4Int8Vs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys4Int8Vs5NeverOGSo9NSRunLoopCGMR, MEMORY[0x277CBCD60]);
+    v138 = v158;
     Publisher<>.sink(receiveValue:)();
 
-    (*(v156 + 8))(v136, v137);
+    (*(v157 + 8))(v137, v138);
     swift_beginAccess();
     AnyCancellable.store(in:)();
     swift_endAccess();
   }
 
-  v138 = *&v118[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_resetButton];
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIAction);
+  v139 = *&v119[OBJC_IVAR____TtC5CAFUI32CAFUISoundSettingsViewController_resetButton];
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIAction, 0x277D750C8);
   swift_allocObject();
   swift_unknownObjectWeakInit();
-  v139 = v138;
-  v140 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
-  [v139 setPrimaryAction_];
+  v140 = v139;
+  v141 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
+  [v140 setPrimaryAction_];
 
-  if (v162)
+  if (v163)
   {
-    *&v188 = v162;
-    v141 = [objc_opt_self() mainRunLoop];
-    *&v178 = v141;
-    v142 = type metadata accessor for NSRunLoop.SchedulerOptions();
-    v143 = v167;
-    (*(*(v142 - 8) + 56))(v167, 1, 1, v142);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy5CAFUI10SliderViewV08VerticalE0Cs5NeverOGMd);
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop);
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type PassthroughSubject<SliderView.VerticalSlider, Never> and conformance PassthroughSubject<A, B>, &_s7Combine18PassthroughSubjectCy5CAFUI10SliderViewV08VerticalE0Cs5NeverOGMd);
-    lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop);
-    v144 = v158;
-    v118 = v169;
+    *&v189 = v163;
+    v142 = [objc_opt_self() mainRunLoop];
+    *&v179 = v142;
+    v143 = type metadata accessor for NSRunLoop.SchedulerOptions();
+    v144 = v168;
+    (*(*(v143 - 8) + 56))(v168, 1, 1, v143);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy5CAFUI10SliderViewV08VerticalE0Cs5NeverOGMd, &_s7Combine18PassthroughSubjectCy5CAFUI10SliderViewV08VerticalE0Cs5NeverOGMR);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type PassthroughSubject<SliderView.VerticalSlider, Never> and conformance PassthroughSubject<A, B>, &_s7Combine18PassthroughSubjectCy5CAFUI10SliderViewV08VerticalE0Cs5NeverOGMd, &_s7Combine18PassthroughSubjectCy5CAFUI10SliderViewV08VerticalE0Cs5NeverOGMR, MEMORY[0x277CBCE20]);
+    lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88, MEMORY[0x277CC9E80]);
+    v145 = v159;
+    v119 = v170;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v143, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v144, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
     swift_unknownObjectWeakInit();
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<PassthroughSubject<SliderView.VerticalSlider, Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA18PassthroughSubjectCy5CAFUI10SliderViewV08VerticalH0Cs5NeverOGSo9NSRunLoopCGMd);
-    v145 = v160;
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<PassthroughSubject<SliderView.VerticalSlider, Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA18PassthroughSubjectCy5CAFUI10SliderViewV08VerticalH0Cs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA18PassthroughSubjectCy5CAFUI10SliderViewV08VerticalH0Cs5NeverOGSo9NSRunLoopCGMR, MEMORY[0x277CBCD60]);
+    v146 = v161;
     Publisher<>.sink(receiveValue:)();
 
-    (*(v159 + 8))(v144, v145);
+    (*(v160 + 8))(v145, v146);
     swift_beginAccess();
     AnyCancellable.store(in:)();
     swift_endAccess();
 
-    outlined destroy of RequestTemporaryContentModel?(&v200, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(&v201, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd, &_s5CAFUI20CAFUIBalanceFadeViewVSgMR);
   }
 
   else
   {
 
-    outlined destroy of RequestTemporaryContentModel?(&v200, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(&v201, &_s5CAFUI20CAFUIBalanceFadeViewVSgMd, &_s5CAFUI20CAFUIBalanceFadeViewVSgMR);
   }
 
-  return v118;
+  return v119;
 }
 
 void specialized CAFUISoundSettingsViewController.changePage(index:animated:)(uint64_t a1)
@@ -1568,7 +1586,7 @@ void specialized CAFUISoundSettingsViewController.changePage(index:animated:)(ui
   v5 = v4;
   v6 = [v4 subviews];
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIView);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIView, 0x277D75D18);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v7 >> 62)
@@ -1670,7 +1688,7 @@ LABEL_26:
 
         [v1 addChildViewController_];
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
         v20 = swift_allocObject();
         *(v20 + 16) = xmmword_242423B90;
         v21 = [v15 topAnchor];
@@ -1718,7 +1736,7 @@ LABEL_26:
                 v45 = [v39 constraintEqualToAnchor_];
 
                 *(v20 + 56) = v45;
-                type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+                type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x277CCAAD0);
                 isa = Array._bridgeToObjectiveC()().super.isa;
 
                 [v42 activateConstraints_];
@@ -1769,12 +1787,12 @@ LABEL_42:
 LABEL_33:
 }
 
-uint64_t lazy protocol witness table accessor for type UIPress and conformance NSObject(unint64_t *a1, unint64_t *a2)
+uint64_t lazy protocol witness table accessor for type UIPress and conformance NSObject(unint64_t *a1, unint64_t *a2, void *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for OS_os_log(255, a2);
+    type metadata accessor for OS_os_log(255, a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -1831,7 +1849,7 @@ LABEL_10:
   MEMORY[0x2821F9730]();
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ())?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -1849,8 +1867,8 @@ uint64_t sub_242372014()
 
 uint64_t sub_2423720A8@<X0>(uint64_t *a1@<X8>)
 {
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFEqualizer);
-  lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFEqualizer and conformance CAFEqualizer, &lazy cache variable for type metadata for CAFEqualizer);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFEqualizer, 0x277CF8490);
+  lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFEqualizer and conformance CAFEqualizer, &lazy cache variable for type metadata for CAFEqualizer, 0x277CF8490, MEMORY[0x277CF3870]);
   result = CAFObserved<>.observable.getter();
   *a1 = result;
   return result;
@@ -1920,7 +1938,7 @@ id CAFUIHeaderFooterView.__allocating_init(reuseIdentifier:)(uint64_t a1, uint64
 {
   if (a2)
   {
-    v3 = MEMORY[0x245D0D180]();
+    v3 = MEMORY[0x245D0D180](a1);
   }
 
   else
@@ -1937,7 +1955,7 @@ id CAFUIHeaderFooterView.init(reuseIdentifier:)(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = MEMORY[0x245D0D180]();
+    v3 = MEMORY[0x245D0D180](a1);
   }
 
   else
@@ -1992,7 +2010,7 @@ uint64_t CAFUIFooterView.title.didset()
   return (*(v1 + 8))(v4, v0);
 }
 
-id @objc CAFUIHeaderView.init(reuseIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t (*a5)(uint64_t))
+id @objc CAFUIHeaderView.init(reuseIdentifier:)(char *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t (*a5)(uint64_t))
 {
   v7 = a1;
   if (a3)
@@ -2007,9 +2025,9 @@ id @objc CAFUIHeaderView.init(reuseIdentifier:)(uint64_t a1, uint64_t a2, uint64
   else
   {
     v10 = 0;
-    v11 = (a1 + *a4);
+    v11 = &a1[*a4];
     *v11 = 0;
-    v11[1] = 0;
+    *(v11 + 1) = 0;
   }
 
   v14.receiver = v7;
@@ -2019,7 +2037,7 @@ id @objc CAFUIHeaderView.init(reuseIdentifier:)(uint64_t a1, uint64_t a2, uint64
   return v12;
 }
 
-id @objc CAFUIHeaderView.init(coder:)(char *a1, uint64_t a2, void *a3, void *a4, uint64_t (*a5)(void))
+char *@objc CAFUIHeaderView.init(coder:)(char *a1, uint64_t a2, void *a3, void *a4, uint64_t (*a5)(void))
 {
   v6 = &a1[*a4];
   *v6 = 0;
@@ -2076,7 +2094,7 @@ Swift::Void __swiftcall CAFUITableCell.prepareForReuse()()
 
 uint64_t CAFUITableCell.updateConfiguration(using:)(uint64_t a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit26UIListContentConfigurationVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit26UIListContentConfigurationVSgMd, &_s5UIKit26UIListContentConfigurationVSgMR);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v28[-1] - v4;
   v6 = type metadata accessor for UIListContentConfiguration();
@@ -2112,7 +2130,7 @@ uint64_t CAFUITableCell.updateConfiguration(using:)(uint64_t a1)
   MEMORY[0x245D0D4D0](v28);
   if (v29)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit22UIContentConfiguration_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit22UIContentConfiguration_pMd, &_s5UIKit22UIContentConfiguration_pMR);
     v21 = swift_dynamicCast();
     (*(v7 + 56))(v5, v21 ^ 1u, 1, v6);
     if ((*(v7 + 48))(v5, 1, v6) != 1)
@@ -2138,11 +2156,11 @@ uint64_t CAFUITableCell.updateConfiguration(using:)(uint64_t a1)
 
   else
   {
-    outlined destroy of RequestTemporaryContentModel?(v28, &_s5UIKit22UIContentConfiguration_pSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v28, &_s5UIKit22UIContentConfiguration_pSgMd, &_s5UIKit22UIContentConfiguration_pSgMR);
     (*(v7 + 56))(v5, 1, 1, v6);
   }
 
-  return outlined destroy of RequestTemporaryContentModel?(v5, &_s5UIKit26UIListContentConfigurationVSgMd);
+  return outlined destroy of RequestTemporaryContentModel?(v5, &_s5UIKit26UIListContentConfigurationVSgMd, &_s5UIKit26UIListContentConfigurationVSgMR);
 }
 
 id specialized CAFUICellProtocol.defaultPrimaryTextColor.getter()
@@ -2253,7 +2271,7 @@ id CAFUIHeaderFooterView.__deallocating_deinit(uint64_t (*a1)(void))
 
 uint64_t one-time initialization function for cellsByIdentifiers()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yXlXptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yXlXptGMd, &_ss23_ContiguousArrayStorageCySS_yXlXptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_242424210;
   v1 = type metadata accessor for CAFUITableCell();
@@ -2285,17 +2303,17 @@ uint64_t one-time initialization function for cellsByIdentifiers()
   *(inited + 96) = v13;
   v19 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_yXlXpTt0g5Tf4g_n(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yXlXmTtMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yXlXmTtMd, &_sSS_yXlXmTtMR);
   result = swift_arrayDestroy();
   static CAFUITableCells.cellsByIdentifiers = v19;
   return result;
 }
 
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yXlXptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yXlXptGMd, &_ss23_ContiguousArrayStorageCySS_yXlXptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_242424210;
-  v1 = type metadata accessor for CAFUIAutomakerSettingCell();
+  v1 = type metadata accessor for CAFUIAutomakerSettingCell(0);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   v3 = NSStringFromClass(ObjCClassFromMetadata);
   v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -2313,7 +2331,7 @@ uint64_t one-time initialization function for cellsByIdentifiers()
   *(inited + 56) = v10;
   *(inited + 64) = v12;
   *(inited + 72) = v7;
-  v13 = type metadata accessor for CAFUIListItemCell();
+  v13 = type metadata accessor for CAFUIListItemCell(0);
   v14 = swift_getObjCClassFromMetadata();
   v15 = NSStringFromClass(v14);
   v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -2324,7 +2342,7 @@ uint64_t one-time initialization function for cellsByIdentifiers()
   *(inited + 96) = v13;
   v19 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_yXlXpTt0g5Tf4g_n(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yXlXmTtMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yXlXmTtMd, &_sSS_yXlXmTtMR);
   result = swift_arrayDestroy();
   static CAFUICollectionViewCells.cellsByIdentifiers = v19;
   return result;
@@ -2332,7 +2350,7 @@ uint64_t one-time initialization function for cellsByIdentifiers()
 
 uint64_t one-time initialization function for viewsByIdentifiers()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yXlXptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yXlXptGMd, &_ss23_ContiguousArrayStorageCySS_yXlXptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_242424220;
   v1 = type metadata accessor for CAFUIHeaderView();
@@ -2355,7 +2373,7 @@ uint64_t one-time initialization function for viewsByIdentifiers()
   *(inited + 72) = v7;
   v13 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_yXlXpTt0g5Tf4g_n(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yXlXmTtMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yXlXmTtMd, &_sSS_yXlXmTtMR);
   result = swift_arrayDestroy();
   static CAFUITableHeaderFooterViews.viewsByIdentifiers = v13;
   return result;
@@ -2365,7 +2383,7 @@ id specialized CAFUITableCell.init(style:reuseIdentifier:)(uint64_t a1, uint64_t
 {
   if (a2)
   {
-    v3 = MEMORY[0x245D0D180]();
+    v3 = MEMORY[0x245D0D180](a1);
   }
 
   else
@@ -2416,7 +2434,7 @@ id specialized CAFUIFocusRingTableCell.init(style:reuseIdentifier:)(uint64_t a1,
   v2[OBJC_IVAR____TtC5CAFUI23CAFUIFocusRingTableCell_showsFocusRing] = 0;
   if (a2)
   {
-    v3 = MEMORY[0x245D0D180]();
+    v3 = MEMORY[0x245D0D180](a1);
   }
 
   else
@@ -2559,7 +2577,7 @@ Swift::Int CAFUINumericDisplayKind.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t CAFUINumericRepresentable.configureCell(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t CAFUINumericRepresentable.configureCell(_:)(uint64_t a1, uint64_t (*a2)(void, uint64_t), uint64_t a3)
 {
   v105 = a1;
   v6 = type metadata accessor for UIListContentConfiguration();
@@ -2567,7 +2585,7 @@ uint64_t CAFUINumericRepresentable.configureCell(_:)(uint64_t a1, uint64_t a2, u
   v91 = v6;
   MEMORY[0x28223BE20](v6);
   v89 = &v87 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit26UIListContentConfigurationVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit26UIListContentConfigurationVSgMd, &_s5UIKit26UIListContentConfigurationVSgMR);
   v9 = MEMORY[0x28223BE20](v8 - 8);
   v88 = &v87 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v9);
@@ -2577,7 +2595,7 @@ uint64_t CAFUINumericRepresentable.configureCell(_:)(uint64_t a1, uint64_t a2, u
   v103 = v12;
   MEMORY[0x28223BE20](v12);
   v100 = (&v87 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   v15 = MEMORY[0x28223BE20](v14 - 8);
   v93 = &v87 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = MEMORY[0x28223BE20](v15);
@@ -2591,7 +2609,7 @@ uint64_t CAFUINumericRepresentable.configureCell(_:)(uint64_t a1, uint64_t a2, u
   v24 = *(a3 + 40);
   v107 = v3;
   v24(a2, a3);
-  specialized CAFUINumericRepresentable.settings_asDouble(_:)(v23);
+  specialized CAFUINumericRepresentable.settings_asDouble(_:)(v23, a2, a3);
   v26 = v25;
   v101[0] = *(v21 + 8);
   v101[1] = v21 + 8;
@@ -2601,7 +2619,7 @@ uint64_t CAFUINumericRepresentable.configureCell(_:)(uint64_t a1, uint64_t a2, u
   v106 = *(swift_getAssociatedConformanceWitness() + 24);
   CAFRange.minimumValue<A>()();
 
-  specialized CAFUINumericRepresentable.settings_asDouble(_:)(v23);
+  specialized CAFUINumericRepresentable.settings_asDouble(_:)(v23, a2, a3);
   v29 = v28;
   v30 = v101[0];
   (v101[0])(v23, AssociatedTypeWitness);
@@ -2609,13 +2627,13 @@ uint64_t CAFUINumericRepresentable.configureCell(_:)(uint64_t a1, uint64_t a2, u
   v32 = v99(a2, a3);
   CAFRange.maximumValue<A>()();
 
-  specialized CAFUINumericRepresentable.settings_asDouble(_:)(v23);
+  specialized CAFUINumericRepresentable.settings_asDouble(_:)(v23, a2, a3);
   v34 = v33;
   v30(v23, AssociatedTypeWitness);
   v35 = v31(a2, a3);
   CAFRange.stepValue<A>()();
 
-  specialized CAFUINumericRepresentable.settings_asDouble(_:)(v23);
+  specialized CAFUINumericRepresentable.settings_asDouble(_:)(v23, a2, a3);
   v37 = v36;
   v30(v23, AssociatedTypeWitness);
   (*(a3 + 32))(&v125, a2, a3);
@@ -2675,7 +2693,7 @@ uint64_t CAFUINumericRepresentable.configureCell(_:)(uint64_t a1, uint64_t a2, u
   v51 = v105;
   swift_beginAccess();
   v52 = v98;
-  outlined init with copy of NotificationModel.Symbol?(v51 + v50, v98, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  outlined init with copy of NotificationModel.Symbol?(v51 + v50, v98, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   v53 = v103;
   v54 = (*(v102 + 48))(v52, 1, v103);
   v55 = v104;
@@ -2684,7 +2702,7 @@ uint64_t CAFUINumericRepresentable.configureCell(_:)(uint64_t a1, uint64_t a2, u
     v81 = v100;
     outlined init with copy of CAFUITileCellConfiguration(v52, v100);
     swift_unknownObjectRetain();
-    outlined destroy of RequestTemporaryContentModel?(v52, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v52, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
     v82 = *(v81 + v53[8]);
     v83 = v82;
     outlined destroy of CAFUITileCellConfiguration(v81);
@@ -2705,19 +2723,22 @@ LABEL_14:
         return outlined destroy of CAFUINumericConfiguration(&v117);
       }
 
-      v86 = v85 + OBJC_IVAR____TtC5CAFUI21CAFUINumericInputView_config;
-      if (*(v85 + OBJC_IVAR____TtC5CAFUI21CAFUINumericInputView_config + 32) == v119 && *(v86 + 33) == BYTE1(v119) && ((v47)(v99, v106) & 1) == *(v86 + 96))
+      if (__PAIR64__(*(v85 + OBJC_IVAR____TtC5CAFUI21CAFUINumericInputView_config + 33), *(v85 + OBJC_IVAR____TtC5CAFUI21CAFUINumericInputView_config + 32)) == __PAIR64__(BYTE1(v119), v119))
       {
-        v114 = v122;
-        v115 = v123;
-        v109 = v117;
-        v110 = v118;
-        v111 = v119;
-        v116 = v124;
-        v112 = v120;
-        v113 = v121;
-        CAFUINumericInputView.update(config:)(&v109);
-        goto LABEL_14;
+        v86 = v85 + OBJC_IVAR____TtC5CAFUI21CAFUINumericInputView_config;
+        if (((v47)(v99, v106) & 1) == *(v86 + 96))
+        {
+          v114 = v122;
+          v115 = v123;
+          v109 = v117;
+          v110 = v118;
+          v111 = v119;
+          v116 = v124;
+          v112 = v120;
+          v113 = v121;
+          CAFUINumericInputView.update(config:)(&v109);
+          goto LABEL_14;
+        }
       }
     }
 
@@ -2725,7 +2746,7 @@ LABEL_14:
   }
 
   swift_unknownObjectRetain();
-  outlined destroy of RequestTemporaryContentModel?(v52, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  outlined destroy of RequestTemporaryContentModel?(v52, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
 LABEL_7:
   v101[1] = v50;
   v57 = v90;
@@ -2768,7 +2789,7 @@ LABEL_7:
   v67 = v66;
   v68 = v103;
   v69 = v100;
-  outlined init with copy of NotificationModel.Symbol?(v65, v100 + v103[5], &_s5UIKit26UIListContentConfigurationVSgMd);
+  outlined init with copy of NotificationModel.Symbol?(v65, v100 + v103[5], &_s5UIKit26UIListContentConfigurationVSgMd, &_s5UIKit26UIListContentConfigurationVSgMR);
   v70 = (*(v63 + 24))(v64, v63);
   v72 = v71;
   v73 = (*(v63 + 32))(v64, v63);
@@ -2788,35 +2809,35 @@ LABEL_7:
   v77 = v105;
   v78 = v101[1];
   v79 = v93;
-  outlined init with copy of NotificationModel.Symbol?(v105 + v101[1], v93, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  outlined init with copy of NotificationModel.Symbol?(v105 + v101[1], v93, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   swift_beginAccess();
   outlined assign with copy of CAFUITileCellConfiguration?(v76, v77 + v78);
   swift_endAccess();
   CAFUITileBaseCell.tileCellConfiguration.didset(v79);
   outlined destroy of CAFUINumericConfiguration(&v117);
-  outlined destroy of RequestTemporaryContentModel?(v79, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
-  outlined destroy of RequestTemporaryContentModel?(v76, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  outlined destroy of RequestTemporaryContentModel?(v79, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
+  outlined destroy of RequestTemporaryContentModel?(v76, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   outlined destroy of CAFUITileCellConfiguration(v69);
-  return outlined destroy of RequestTemporaryContentModel?(v104, &_s5UIKit26UIListContentConfigurationVSgMd);
+  return outlined destroy of RequestTemporaryContentModel?(v104, &_s5UIKit26UIListContentConfigurationVSgMd, &_s5UIKit26UIListContentConfigurationVSgMR);
 }
 
 uint64_t closure #1 in CAFUINumericRepresentable.configureCell(_:)(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
 {
-  v25 = a1;
+  v28 = a1;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v8 = type metadata accessor for Optional();
   v9 = *(v8 - 8);
   v10 = MEMORY[0x28223BE20](v8);
-  v12 = &v23 - v11;
+  v12 = &v26 - v11;
   v13 = *(AssociatedTypeWitness - 8);
   v14 = MEMORY[0x28223BE20](v10);
-  v16 = &v23 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = &v26 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v14);
-  v18 = &v23 - v17;
-  v26 = a4;
-  v24 = a2;
-  swift_getAssociatedConformanceWitness();
-  lazy protocol witness table accessor for type Double and conformance Double();
+  v18 = &v26 - v17;
+  v29 = a4;
+  v27 = a2;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  lazy protocol witness table accessor for type Double and conformance Double(AssociatedConformanceWitness, v20, v21);
   dispatch thunk of BinaryInteger.init<A>(exactly:)();
   if ((*(v13 + 48))(v12, 1, AssociatedTypeWitness) == 1)
   {
@@ -2824,18 +2845,18 @@ uint64_t closure #1 in CAFUINumericRepresentable.configureCell(_:)(uint64_t a1, 
   }
 
   (*(v13 + 32))(v18, v12, AssociatedTypeWitness);
-  v20 = v24;
-  (*(a3 + 40))(v24, a3);
-  v21 = dispatch thunk of static Equatable.== infix(_:_:)();
-  v22 = *(v13 + 8);
-  v22(v16, AssociatedTypeWitness);
-  if ((v21 & 1) == 0)
+  v23 = v27;
+  (*(a3 + 40))(v27, a3);
+  v24 = dispatch thunk of static Equatable.== infix(_:_:)();
+  v25 = *(v13 + 8);
+  v25(v16, AssociatedTypeWitness);
+  if ((v24 & 1) == 0)
   {
     (*(v13 + 16))(v16, v18, AssociatedTypeWitness);
-    (*(a3 + 48))(v16, v20, a3);
+    (*(a3 + 48))(v16, v23, a3);
   }
 
-  return (v22)(v18, AssociatedTypeWitness);
+  return (v25)(v18, AssociatedTypeWitness);
 }
 
 double CAFUINumericRepresentable.cellSelected()@<D0>(uint64_t a1@<X8>)
@@ -2853,7 +2874,7 @@ uint64_t CAFUIFloatingPointRepresentable.configureCell(_:)(uint64_t a1, uint64_t
   v74 = *(v72 - 8);
   MEMORY[0x28223BE20](v72);
   v73 = (&v65 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   v8 = MEMORY[0x28223BE20](v7 - 8);
   v68 = &v65 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = MEMORY[0x28223BE20](v8);
@@ -2865,7 +2886,7 @@ uint64_t CAFUIFloatingPointRepresentable.configureCell(_:)(uint64_t a1, uint64_t
   MEMORY[0x28223BE20](AssociatedTypeWitness);
   v16 = &v65 - v15;
   (*(a3 + 48))(a2, a3);
-  v17 = specialized CAFUIFloatingPointRepresentable.settings_asDouble(_:)(v16);
+  v17 = specialized CAFUIFloatingPointRepresentable.settings_asDouble(_:)(v16, a2, a3);
   v18 = *(v14 + 8);
   v70 = v14 + 8;
   v18(v16, AssociatedTypeWitness);
@@ -2875,17 +2896,17 @@ uint64_t CAFUIFloatingPointRepresentable.configureCell(_:)(uint64_t a1, uint64_t
   v76 = *(*(*(swift_getAssociatedConformanceWitness() + 16) + 16) + 8);
   CAFRange.minimumValue<A>()();
 
-  v21 = specialized CAFUIFloatingPointRepresentable.settings_asDouble(_:)(v16);
+  v21 = specialized CAFUIFloatingPointRepresentable.settings_asDouble(_:)(v16, a2, a3);
   v18(v16, AssociatedTypeWitness);
   v22 = v77(a2, a3);
   CAFRange.maximumValue<A>()();
 
-  v23 = specialized CAFUIFloatingPointRepresentable.settings_asDouble(_:)(v16);
+  v23 = specialized CAFUIFloatingPointRepresentable.settings_asDouble(_:)(v16, a2, a3);
   v18(v16, AssociatedTypeWitness);
   v24 = v77(a2, a3);
   CAFRange.stepValue<A>()();
 
-  v25 = specialized CAFUIFloatingPointRepresentable.settings_asDouble(_:)(v16);
+  v25 = specialized CAFUIFloatingPointRepresentable.settings_asDouble(_:)(v16, a2, a3);
   v18(v16, AssociatedTypeWitness);
   (*(a3 + 32))(&v88, a2, a3);
   LODWORD(v70) = v88;
@@ -2929,11 +2950,11 @@ uint64_t CAFUIFloatingPointRepresentable.configureCell(_:)(uint64_t a1, uint64_t
   swift_beginAccess();
   v38 = v35 + v37;
   v39 = v71;
-  outlined init with copy of NotificationModel.Symbol?(v38, v71, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  outlined init with copy of NotificationModel.Symbol?(v38, v71, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   if ((*(v74 + 48))(v39, 1, v36))
   {
     swift_unknownObjectRetain();
-    outlined destroy of RequestTemporaryContentModel?(v39, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v39, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
     v40 = v73;
 LABEL_7:
     v85 = v93;
@@ -2976,14 +2997,14 @@ LABEL_7:
     v61 = v75;
     v62 = v71;
     v63 = v68;
-    outlined init with copy of NotificationModel.Symbol?(v75 + v71, v68, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+    outlined init with copy of NotificationModel.Symbol?(v75 + v71, v68, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
     swift_beginAccess();
     outlined assign with copy of CAFUITileCellConfiguration?(v60, v61 + v62);
     swift_endAccess();
     CAFUITileBaseCell.tileCellConfiguration.didset(v63);
     outlined destroy of CAFUINumericConfiguration(&v88);
-    outlined destroy of RequestTemporaryContentModel?(v63, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
-    outlined destroy of RequestTemporaryContentModel?(v60, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v63, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
+    outlined destroy of RequestTemporaryContentModel?(v60, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
     return outlined destroy of CAFUITileCellConfiguration(v40);
   }
 
@@ -2991,7 +3012,7 @@ LABEL_7:
   v40 = v73;
   outlined init with copy of CAFUITileCellConfiguration(v39, v73);
   swift_unknownObjectRetain();
-  outlined destroy of RequestTemporaryContentModel?(v39, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  outlined destroy of RequestTemporaryContentModel?(v39, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   v42 = *(v40 + v36[8]);
   v43 = v42;
   outlined destroy of CAFUITileCellConfiguration(v40);
@@ -3026,10 +3047,10 @@ uint64_t closure #1 in CAFUIFloatingPointRepresentable.configureCell(_:)(double 
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v8 = type metadata accessor for Optional();
   MEMORY[0x28223BE20](v8 - 8);
-  v10 = v12 - v9;
-  *&v12[1] = a1;
-  swift_getAssociatedConformanceWitness();
-  lazy protocol witness table accessor for type Double and conformance Double();
+  v10 = v15 - v9;
+  *&v15[1] = a1;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  lazy protocol witness table accessor for type Double and conformance Double(AssociatedConformanceWitness, v12, v13);
   dispatch thunk of BinaryFloatingPoint.init<A>(exactly:)();
   result = (*(*(AssociatedTypeWitness - 8) + 48))(v10, 1, AssociatedTypeWitness);
   if (result != 1)
@@ -3041,55 +3062,53 @@ uint64_t closure #1 in CAFUIFloatingPointRepresentable.configureCell(_:)(double 
   return result;
 }
 
-uint64_t protocol witness for CAFListContentRepresentable.configureCell(_:) in conformance CAFIntegerSetting(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for CAFListContentRepresentable.configureCell(_:) in conformance CAFIntegerSetting(uint64_t a1, uint64_t (*a2)(void, uint64_t), uint64_t a3)
 {
   WitnessTable = swift_getWitnessTable();
 
   return CAFUINumericRepresentable.configureCell(_:)(a1, a2, WitnessTable);
 }
 
-uint64_t protocol witness for CAFListContentRepresentable.configureCell(_:) in conformance CAFFloatSetting(uint64_t a1, uint64_t (*a2)(void, uint64_t))
+uint64_t protocol witness for CAFListContentRepresentable.configureCell(_:) in conformance CAFFloatSetting(uint64_t a1, uint64_t (*a2)(void, uint64_t), uint64_t a3)
 {
   WitnessTable = swift_getWitnessTable();
 
   return CAFUIFloatingPointRepresentable.configureCell(_:)(a1, a2, WitnessTable);
 }
 
-uint64_t protocol witness for CAFListContentRepresentable.configureCell(_:) in conformance CAFVolume(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for CAFListContentRepresentable.configureCell(_:) in conformance CAFVolume(uint64_t a1, uint64_t (*a2)(void, uint64_t), uint64_t a3)
 {
   WitnessTable = swift_getWitnessTable();
 
   return CAFUINumericRepresentable.configureCell(_:)(a1, a2, WitnessTable);
 }
 
-double specialized CAFUIFloatingPointRepresentable.settings_asDouble(_:)(uint64_t a1)
+double specialized CAFUIFloatingPointRepresentable.settings_asDouble(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   MEMORY[0x28223BE20](AssociatedTypeWitness);
-  (*(v4 + 16))(v6 - v3, a1, AssociatedTypeWitness);
+  (*(v6 + 16))(v8 - v5, a1, AssociatedTypeWitness);
   swift_dynamicCast();
-  return v6[3];
+  return v8[3];
 }
 
-uint64_t specialized CAFUINumericRepresentable.settings_asDouble(_:)(uint64_t a1)
+void specialized CAFUINumericRepresentable.settings_asDouble(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(AssociatedTypeWitness - 8);
+  v5 = *(AssociatedTypeWitness - 8);
   MEMORY[0x28223BE20](AssociatedTypeWitness);
-  v5 = &v7 - v4;
+  v7 = &v8 - v6;
   if (swift_dynamicCastMetatype() || swift_dynamicCastMetatype() || swift_dynamicCastMetatype() || swift_dynamicCastMetatype() || swift_dynamicCastMetatype() || swift_dynamicCastMetatype() || swift_dynamicCastMetatype() || swift_dynamicCastMetatype() || swift_dynamicCastMetatype())
   {
-    (*(v3 + 16))(v5, a1, AssociatedTypeWitness);
-    return swift_dynamicCast();
+    (*(v5 + 16))(v7, a1, AssociatedTypeWitness);
+    swift_dynamicCast();
   }
 
   else
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
   }
-
-  return result;
 }
 
 uint64_t sub_24237660C()
@@ -3101,14 +3120,14 @@ uint64_t sub_24237660C()
 
 uint64_t outlined assign with take of UIListContentConfiguration?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit26UIListContentConfigurationVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit26UIListContentConfigurationVSgMd, &_s5UIKit26UIListContentConfigurationVSgMR);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined assign with copy of CAFUITileCellConfiguration?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
@@ -3119,21 +3138,21 @@ uint64_t specialized CAFUIFloatingPointRepresentable.isTracking(in:)(uint64_t a1
   v3 = *(v2 - 8);
   MEMORY[0x28223BE20](v2);
   v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v17 - v7;
   v9 = OBJC_IVAR____TtC5CAFUI17CAFUITileBaseCell_tileCellConfiguration;
   swift_beginAccess();
-  outlined init with copy of NotificationModel.Symbol?(a1 + v9, v8, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  outlined init with copy of NotificationModel.Symbol?(a1 + v9, v8, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   if ((*(v3 + 48))(v8, 1, v2))
   {
-    outlined destroy of RequestTemporaryContentModel?(v8, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v8, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   }
 
   else
   {
     outlined init with copy of CAFUITileCellConfiguration(v8, v5);
-    outlined destroy of RequestTemporaryContentModel?(v8, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v8, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
     v11 = *&v5[*(v2 + 32)];
     v12 = v11;
     outlined destroy of CAFUITileCellConfiguration(v5);
@@ -3164,7 +3183,7 @@ uint64_t specialized CAFUIFloatingPointRepresentable.isTracking(in:)(uint64_t a1
   return 0;
 }
 
-unint64_t lazy protocol witness table accessor for type CAFUINumericDisplayKind and conformance CAFUINumericDisplayKind()
+unint64_t lazy protocol witness table accessor for type CAFUINumericDisplayKind and conformance CAFUINumericDisplayKind(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type CAFUINumericDisplayKind and conformance CAFUINumericDisplayKind;
   if (!lazy protocol witness table cache variable for type CAFUINumericDisplayKind and conformance CAFUINumericDisplayKind)
@@ -3176,7 +3195,7 @@ unint64_t lazy protocol witness table accessor for type CAFUINumericDisplayKind 
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type Double and conformance Double()
+unint64_t lazy protocol witness table accessor for type Double and conformance Double(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type Double and conformance Double;
   if (!lazy protocol witness table cache variable for type Double and conformance Double)
@@ -3334,7 +3353,7 @@ unint64_t lazy protocol witness table accessor for type CAFAutomakerSetting and 
   result = lazy protocol witness table cache variable for type CAFAutomakerSetting and conformance NSObject;
   if (!lazy protocol witness table cache variable for type CAFAutomakerSetting and conformance NSObject)
   {
-    type metadata accessor for OS_os_log(255, &lazy cache variable for type metadata for CAFAutomakerSetting);
+    type metadata accessor for OS_os_log(255, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type CAFAutomakerSetting and conformance NSObject);
   }
@@ -3355,7 +3374,7 @@ unint64_t type metadata accessor for CAFAutomakerSetting()
   return result;
 }
 
-uint64_t CAFUIDetailedDescriptionViewController.init(detailedDescription:)(void *a1)
+char *CAFUIDetailedDescriptionViewController.init(detailedDescription:)(void *a1)
 {
   v3 = type metadata accessor for AttributedString();
   v4 = *(v3 - 8);
@@ -3363,7 +3382,7 @@ uint64_t CAFUIDetailedDescriptionViewController.init(detailedDescription:)(void 
   v7 = &v60 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v5);
   v64 = &v60 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
   v10 = MEMORY[0x28223BE20](v9 - 8);
   v12 = &v60 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = MEMORY[0x28223BE20](v10);
@@ -3393,14 +3412,14 @@ uint64_t CAFUIDetailedDescriptionViewController.init(detailedDescription:)(void 
 
     AttributedString.init(limitedMarkdown:)(v25, v27, v15);
     v20 = v63;
-    outlined destroy of RequestTemporaryContentModel?(v63, &_s10Foundation16AttributedStringVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v63, &_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
     v22(v15, 0, 1, v3);
-    outlined init with take of AttributedString?(v15, v20, &_s10Foundation16AttributedStringVSgMd);
+    outlined init with take of AttributedString?(v15, v20, &_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
     v7 = v60;
     v4 = v61;
   }
 
-  outlined init with copy of NotificationModel.Symbol?(v20, v12, &_s10Foundation16AttributedStringVSgMd);
+  outlined init with copy of NotificationModel.Symbol?(v20, v12, &_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
   if ((*(v4 + 48))(v12, 1, v3) == 1)
   {
     goto LABEL_19;
@@ -3411,7 +3430,7 @@ uint64_t CAFUIDetailedDescriptionViewController.init(detailedDescription:)(void 
   (*(v4 + 32))(v64, v12, v3);
   v12 = OBJC_IVAR____TtC5CAFUI38CAFUIDetailedDescriptionViewController_textView;
   v30 = *(v21 + OBJC_IVAR____TtC5CAFUI38CAFUIDetailedDescriptionViewController_textView);
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSAttributedString);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSAttributedString, 0x277CCA898);
   v31 = v4;
   (*(v4 + 16))(v7, v29, v28);
   v32 = v30;
@@ -3461,7 +3480,7 @@ LABEL_12:
         [v56 setBackgroundColor_];
 
         (*(v31 + 8))(v64, v28);
-        outlined destroy of RequestTemporaryContentModel?(v63, &_s10Foundation16AttributedStringVSgMd);
+        outlined destroy of RequestTemporaryContentModel?(v63, &_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
         return v40;
       }
 
@@ -3514,7 +3533,7 @@ LABEL_17:
 LABEL_18:
   __break(1u);
 LABEL_19:
-  outlined destroy of RequestTemporaryContentModel?(v12, &_s10Foundation16AttributedStringVSgMd);
+  outlined destroy of RequestTemporaryContentModel?(v12, &_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;
@@ -3522,44 +3541,44 @@ LABEL_19:
 
 uint64_t AttributedString.init(limitedMarkdown:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v24 = a2;
-  v23 = a1;
-  v21 = a3;
-  v22 = type metadata accessor for AttributedString.MarkdownParsingOptions.FailurePolicy();
-  v3 = *(v22 - 8);
-  MEMORY[0x28223BE20](v22);
-  v5 = &v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v30 = a2;
+  v29 = a1;
+  v27 = a3;
+  v28 = type metadata accessor for AttributedString.MarkdownParsingOptions.FailurePolicy();
+  v3 = *(v28 - 8);
+  MEMORY[0x28223BE20](v28);
+  v5 = &v26 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for AttributedString.MarkdownParsingOptions.InterpretedSyntax();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for AttributedString.MarkdownParsingOptions();
   MEMORY[0x28223BE20](v10 - 8);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20](v11 - 8);
-  v13 = &v20 - v12;
+  v13 = &v26 - v12;
   v14 = type metadata accessor for AttributedString();
-  v20 = *(v14 - 8);
+  v26 = *(v14 - 8);
   MEMORY[0x28223BE20](v14);
-  v16 = &v20 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = &v26 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = type metadata accessor for URL();
   (*(*(v17 - 8) + 56))(v13, 1, 1, v17);
   (*(v7 + 104))(v9, *MEMORY[0x277CC8BB0], v6);
-  (*(v3 + 104))(v5, *MEMORY[0x277CC8B98], v22);
+  (*(v3 + 104))(v5, *MEMORY[0x277CC8B98], v28);
   AttributedString.MarkdownParsingOptions.init(allowsExtendedAttributes:interpretedSyntax:failurePolicy:languageCode:)();
-  v18 = v25;
+  v18 = v31;
   result = AttributedString.init(markdown:options:baseURL:)();
   if (!v18)
   {
-    (*(v20 + 32))(v21, v16, v14);
-    v26 = [objc_opt_self() defaultParagraphStyle];
-    lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute();
+    (*(v26 + 32))(v27, v16, v14);
+    v32 = [objc_opt_self() defaultParagraphStyle];
+    lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute(v32, v20, v21);
     AttributedString.subscript.setter();
-    v26 = [objc_opt_self() preferredFontForTextStyle_];
-    lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute();
+    v32 = [objc_opt_self() preferredFontForTextStyle_];
+    lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute(v32, v22, v23);
     AttributedString.subscript.setter();
-    v26 = [objc_opt_self() labelColor];
-    lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute();
+    v32 = [objc_opt_self() labelColor];
+    lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute(v32, v24, v25);
     AttributedString.subscript.setter();
     AttributedString.processInlineIntents()();
     return AttributedString.processAttributeRuns()();
@@ -3573,7 +3592,7 @@ Swift::Void __swiftcall CAFUIDetailedDescriptionViewController.viewIsAppearing(_
   v135.receiver = v1;
   v135.super_class = type metadata accessor for CAFUIDetailedDescriptionViewController();
   objc_msgSendSuper2(&v135, sel_viewIsAppearing_, a1);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_2424244E0;
   v4 = *&v1[OBJC_IVAR____TtC5CAFUI38CAFUIDetailedDescriptionViewController_textView];
@@ -3818,7 +3837,7 @@ LABEL_35:
     v78 = v113 - v60 * v115;
 LABEL_19:
     v116 = objc_opt_self();
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x277CCAAD0);
     isa = Array._bridgeToObjectiveC()().super.isa;
     [v116 activateConstraints_];
 
@@ -3883,7 +3902,7 @@ void *CAFUIDetailedDescriptionViewController.textLayoutManager(_:textLayoutFragm
   v10 = *(v61 - 8);
   MEMORY[0x28223BE20](v61);
   v60 = &v51 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18PresentationIntentVSgMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18PresentationIntentVSgMd, &_s10Foundation18PresentationIntentVSgMR);
   MEMORY[0x28223BE20](v12 - 8);
   v57 = &v51 - v13;
   v14 = type metadata accessor for PresentationIntent();
@@ -3920,7 +3939,7 @@ LABEL_19:
   v25 = [result attributesAtIndex:v18 effectiveRange:0];
 
   type metadata accessor for NSAttributedStringKey(0);
-  lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
+  lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, &protocol conformance descriptor for NSAttributedStringKey);
   v26 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
   v27 = v64;
@@ -3942,7 +3961,7 @@ LABEL_19:
   if ((*(v33 + 48))(v30, 1, v31) == 1)
   {
 LABEL_14:
-    outlined destroy of RequestTemporaryContentModel?(v30, &_s10Foundation18PresentationIntentVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v30, &_s10Foundation18PresentationIntentVSgMd, &_s10Foundation18PresentationIntentVSgMR);
     goto LABEL_15;
   }
 
@@ -4195,7 +4214,7 @@ id one-time initialization function for semiboldFont(uint64_t a1, double *a2, SE
   return result;
 }
 
-void one-time initialization function for calloutDescriptor(uint64_t a1, uint64_t a2, id *a3, SEL *a4, void *a5)
+void one-time initialization function for calloutDescriptor(uint64_t a1, void *a2, id *a3, SEL *a4, void *a5)
 {
   v8 = objc_opt_self();
   v9 = *a3;
@@ -4248,7 +4267,7 @@ void BlockQuoteLayoutFragment.tightTextBounds.getter()
 {
   v1 = MEMORY[0x277CBF398];
   v2 = [v0 textLineFragments];
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSTextLineFragment);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSTextLineFragment, 0x277D742B0);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v3 >> 62)
@@ -4375,60 +4394,60 @@ uint64_t AttributedString.processInlineIntents()()
   v0 = type metadata accessor for AttributeContainer();
   v1 = *(v0 - 8);
   v2 = MEMORY[0x28223BE20](v0);
-  v4 = &v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = &v24 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v2);
-  v6 = &v16 - v5;
+  v6 = &v24 - v5;
   AttributeContainer.init()();
   v7 = 0;
   v8 = (v1 + 8);
   do
   {
-    v12 = *(&outlined read-only object #0 of AttributedString.processInlineIntents() + v7 + 32);
-    AttributeContainer.init()();
-    if (v12 == 4)
+    v15 = *(&outlined read-only object #0 of AttributedString.processInlineIntents() + v7 + 32);
+    v20 = AttributeContainer.init()();
+    if (v15 == 4)
     {
       if (one-time initialization token for inlineCode != -1)
       {
-        swift_once();
+        v20 = swift_once();
       }
 
-      v13 = static CAFUISettingInfoFontTypes.inlineCode;
-      v17 = static CAFUISettingInfoFontTypes.inlineCode;
-      lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute();
-      v14 = v13;
+      v16 = static CAFUISettingInfoFontTypes.inlineCode;
+      v25 = static CAFUISettingInfoFontTypes.inlineCode;
+      lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute(v20, v21, v22);
+      v17 = v16;
       AttributeContainer.subscript.setter();
-      v17 = [objc_opt_self() secondaryLabelColor];
-      lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute();
+      v25 = [objc_opt_self() secondaryLabelColor];
+      lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute(v25, v18, v19);
       goto LABEL_6;
     }
 
-    if (v12 == 2)
+    if (v15 == 2)
     {
       if (one-time initialization token for strongEmphasized != -1)
       {
-        swift_once();
+        v20 = swift_once();
       }
 
       v9 = static CAFUISettingInfoFontTypes.strongEmphasized;
 LABEL_5:
-      v17 = v9;
-      lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute();
+      v25 = v9;
+      lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute(v20, v21, v22);
       v10 = v9;
 LABEL_6:
-      AttributeContainer.subscript.setter();
-      v17 = v12;
-      v18 = 0;
-      lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute();
+      v11 = AttributeContainer.subscript.setter();
+      v25 = v15;
+      v26 = 0;
+      lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute(v11, v12, v13);
       AttributeContainer.subscript.setter();
       AttributedString.replaceAttributes(_:with:)();
       goto LABEL_7;
     }
 
-    if (v12 == 1)
+    if (v15 == 1)
     {
       if (one-time initialization token for emphasized != -1)
       {
-        swift_once();
+        v20 = swift_once();
       }
 
       v9 = static CAFUISettingInfoFontTypes.emphasized;
@@ -4436,737 +4455,737 @@ LABEL_6:
     }
 
 LABEL_7:
-    v11 = *v8;
+    v14 = *v8;
     (*v8)(v4, v0);
     v7 += 8;
   }
 
   while (v7 != 24);
-  return (v11)(v6, v0);
+  return (v14)(v6, v0);
 }
 
 uint64_t AttributedString.processAttributeRuns()()
 {
-  v277 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd);
-  v0 = MEMORY[0x28223BE20](v277);
-  v276 = &v257 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v308 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMR);
+  v0 = MEMORY[0x28223BE20](v308);
+  v307 = &v288 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v0);
-  v275 = &v257 - v2;
-  v269 = type metadata accessor for AttributedSubstring();
-  v338 = *(v269 - 8);
-  v3 = MEMORY[0x28223BE20](v269);
-  v263 = &v257 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v306 = &v288 - v2;
+  v300 = type metadata accessor for AttributedSubstring();
+  v369 = *(v300 - 8);
+  v3 = MEMORY[0x28223BE20](v300);
+  v294 = &v288 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v3);
-  v262 = &v257 - v5;
+  v293 = &v288 - v5;
   v6 = type metadata accessor for PresentationIntent.Kind();
   v7 = *(v6 - 8);
   v8 = MEMORY[0x28223BE20](v6);
-  v278 = &v257 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v309 = &v288 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = MEMORY[0x28223BE20](v8);
-  v259 = &v257 - v11;
+  v290 = &v288 - v11;
   v12 = MEMORY[0x28223BE20](v10);
-  v266 = &v257 - v13;
+  v297 = &v288 - v13;
   v14 = MEMORY[0x28223BE20](v12);
-  v270 = &v257 - v15;
+  v301 = &v288 - v15;
   v16 = MEMORY[0x28223BE20](v14);
-  v284 = &v257 - v17;
+  v315 = &v288 - v17;
   v18 = MEMORY[0x28223BE20](v16);
-  v296 = &v257 - v19;
+  v327 = &v288 - v19;
   v20 = MEMORY[0x28223BE20](v18);
-  v337 = &v257 - v21;
+  v368 = &v288 - v21;
   v22 = MEMORY[0x28223BE20](v20);
-  v325 = (&v257 - v23);
+  v356 = (&v288 - v23);
   MEMORY[0x28223BE20](v22);
-  v25 = &v257 - v24;
-  v324 = type metadata accessor for PresentationIntent.IntentType();
-  v271 = *(v324 - 8);
-  MEMORY[0x28223BE20](v324);
-  v323 = &v257 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18PresentationIntentVSgMd);
+  v25 = &v288 - v24;
+  v355 = type metadata accessor for PresentationIntent.IntentType();
+  v302 = *(v355 - 8);
+  MEMORY[0x28223BE20](v355);
+  v354 = &v288 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18PresentationIntentVSgMd, &_s10Foundation18PresentationIntentVSgMR);
   v28 = MEMORY[0x28223BE20](v27 - 8);
-  v261 = &v257 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v292 = &v288 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
   v30 = MEMORY[0x28223BE20](v28);
-  v260 = &v257 - v31;
+  v291 = &v288 - v31;
   MEMORY[0x28223BE20](v30);
-  v292 = &v257 - v32;
-  v299 = type metadata accessor for PresentationIntent();
-  v336 = *(v299 - 8);
-  v33 = MEMORY[0x28223BE20](v299);
-  v258 = &v257 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v323 = &v288 - v32;
+  v330 = type metadata accessor for PresentationIntent();
+  v367 = *(v330 - 8);
+  v33 = MEMORY[0x28223BE20](v330);
+  v289 = &v288 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
   v35 = MEMORY[0x28223BE20](v33);
-  v257 = &v257 - v36;
+  v288 = &v288 - v36;
   MEMORY[0x28223BE20](v35);
-  v289 = &v257 - v37;
-  v300 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSny10Foundation16AttributedStringV5IndexVGMd);
-  v38 = MEMORY[0x28223BE20](v300);
-  v287 = &v257 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v320 = &v288 - v37;
+  v331 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR);
+  v38 = MEMORY[0x28223BE20](v331);
+  v318 = &v288 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v38);
-  v307 = &v257 - v40;
-  v302 = type metadata accessor for AttributedString.Index();
-  v331 = *(v302 - 8);
-  MEMORY[0x28223BE20](v302);
-  v306 = &v257 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v291 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18PresentationIntentVSg_SnyAA16AttributedStringV5IndexVGtMd);
-  MEMORY[0x28223BE20](v291);
-  v290 = &v257 - v42;
+  v338 = &v288 - v40;
+  v333 = type metadata accessor for AttributedString.Index();
+  v362 = *(v333 - 8);
+  MEMORY[0x28223BE20](v333);
+  v337 = &v288 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v322 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18PresentationIntentVSg_SnyAA16AttributedStringV5IndexVGtMd, &_s10Foundation18PresentationIntentVSg_SnyAA16AttributedStringV5IndexVGtMR);
+  MEMORY[0x28223BE20](v322);
+  v321 = &v288 - v42;
   v43 = type metadata accessor for AttributedString.Runs();
   v44 = *(v43 - 8);
   MEMORY[0x28223BE20](v43);
-  v46 = &v257 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AC15AttributeScopesO0cG0V018PresentationIntentI0OGGMd);
+  v46 = &v288 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AC15AttributeScopesO0cG0V018PresentationIntentI0OGGMd, &_ss18ReversedCollectionVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AC15AttributeScopesO0cG0V018PresentationIntentI0OGGMR);
   MEMORY[0x28223BE20](v47 - 8);
-  v49 = &v257 - v48;
-  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionV8IteratorVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AE15AttributeScopesO0dH0V018PresentationIntentJ0OG_GMd);
+  v49 = &v288 - v48;
+  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionV8IteratorVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AE15AttributeScopesO0dH0V018PresentationIntentJ0OG_GMd, &_ss18ReversedCollectionV8IteratorVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AE15AttributeScopesO0dH0V018PresentationIntentJ0OG_GMR);
   v51 = v50 - 8;
   MEMORY[0x28223BE20](v50);
-  v53 = &v257 - v52;
-  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18PresentationIntentV4KindOSgMd);
+  v53 = &v288 - v52;
+  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18PresentationIntentV4KindOSgMd, &_s10Foundation18PresentationIntentV4KindOSgMR);
   v55 = MEMORY[0x28223BE20](v54 - 8);
-  v326 = &v257 - ((v56 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v357 = &v288 - ((v56 + 15) & 0xFFFFFFFFFFFFFFF0);
   v57 = MEMORY[0x28223BE20](v55);
-  v265 = &v257 - v58;
+  v296 = &v288 - v58;
   v59 = MEMORY[0x28223BE20](v57);
-  v308 = &v257 - v60;
+  v339 = &v288 - v60;
   v61 = MEMORY[0x28223BE20](v59);
-  v313 = &v257 - v62;
+  v344 = &v288 - v62;
   MEMORY[0x28223BE20](v61);
   v63 = *(v7 + 56);
-  v317 = v7 + 56;
-  v311 = &v257 - v64;
-  v316 = v63;
+  v348 = v7 + 56;
+  v342 = &v288 - v64;
+  v347 = v63;
   v63();
   AttributedString.runs.getter();
   KeyPath = swift_getKeyPath();
-  swift_getKeyPath();
-  v268 = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.PresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.PresentationIntentAttribute();
+  v65 = swift_getKeyPath();
+  v299 = lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.PresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.PresentationIntentAttribute(v65, v66, v67);
   AttributedString.Runs.subscript.getter();
 
   (*(v44 + 8))(v46, v43);
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018PresentationIntentG0OGMd);
-  v66 = *(v65 - 8);
-  (*(v66 + 16))(v53, v49, v65);
-  v67 = *(v51 + 44);
-  v293 = lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AttributedString.Runs.AttributesSlice1<AttributeScopes.FoundationAttributes.PresentationIntentAttribute> and conformance AttributedString.Runs.AttributesSlice1<A>, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018PresentationIntentG0OGMd);
+  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018PresentationIntentG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018PresentationIntentG0OGMR);
+  v69 = *(v68 - 8);
+  (*(v69 + 16))(v53, v49, v68);
+  v70 = *(v51 + 44);
+  v324 = lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AttributedString.Runs.AttributesSlice1<AttributeScopes.FoundationAttributes.PresentationIntentAttribute> and conformance AttributedString.Runs.AttributesSlice1<A>, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018PresentationIntentG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018PresentationIntentG0OGMR, MEMORY[0x277CC8BE8]);
   dispatch thunk of Collection.endIndex.getter();
-  v68 = v49;
-  v69 = v53;
-  (*(v66 + 8))(v68, v65);
-  v305 = v331 + 8;
-  v295 = (v336 + 48);
-  v283 = (v336 + 32);
-  v322 = v271 + 16;
-  v321 = (v271 + 8);
-  v335 = (v317 - 40);
-  v334 = (v317 + 32);
-  v303 = (v317 - 48);
-  v329 = (v317 + 48);
-  v320 = *MEMORY[0x277CC8D38];
-  v309 = (v317 - 8);
-  v315 = (v317 - 24);
-  v310 = (v317 + 40);
-  v314 = *MEMORY[0x277CC8D18];
-  v267 = (v338 + 8);
-  v282 = (v336 + 8);
-  v301 = *MEMORY[0x277CC8D08];
-  v274 = v331 + 16;
-  v273 = v331 + 32;
-  v297 = *MEMORY[0x277CC8D30];
-  v285 = *MEMORY[0x277CC8D48];
-  v272 = *MEMORY[0x277CC8D00];
-  v264 = *MEMORY[0x277CC8D10];
-  v319 = *MEMORY[0x277CC8D50];
-  v312 = v25;
-  v286 = v6;
-  v288 = v53;
-  v332 = v67;
-  v333 = v65;
+  v71 = v49;
+  v72 = v53;
+  (*(v69 + 8))(v71, v68);
+  v336 = v362 + 8;
+  v326 = (v367 + 48);
+  v314 = (v367 + 32);
+  v353 = v302 + 16;
+  v352 = (v302 + 8);
+  v366 = (v348 - 40);
+  v365 = (v348 + 32);
+  v334 = (v348 - 48);
+  v360 = (v348 + 48);
+  v351 = *MEMORY[0x277CC8D38];
+  v340 = (v348 - 8);
+  v346 = (v348 - 24);
+  v341 = (v348 + 40);
+  v345 = *MEMORY[0x277CC8D18];
+  v298 = (v369 + 8);
+  v313 = (v367 + 8);
+  v332 = *MEMORY[0x277CC8D08];
+  v305 = v362 + 16;
+  v304 = v362 + 32;
+  v328 = *MEMORY[0x277CC8D30];
+  v316 = *MEMORY[0x277CC8D48];
+  v303 = *MEMORY[0x277CC8D00];
+  v295 = *MEMORY[0x277CC8D10];
+  v350 = *MEMORY[0x277CC8D50];
+  v343 = v25;
+  v317 = v6;
+  v319 = v53;
+  v363 = v70;
+  v364 = v68;
   while (1)
   {
     while (1)
     {
-      v70 = v306;
+      v73 = v337;
       dispatch thunk of Collection.startIndex.getter();
-      v71 = lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString.Index and conformance AttributedString.Index, MEMORY[0x277CC8C20]);
-      v72 = v302;
-      v298 = v71;
-      v73 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v304 = *v305;
-      v304(v70, v72);
-      if (v73)
+      v74 = lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString.Index and conformance AttributedString.Index, MEMORY[0x277CC8C20], MEMORY[0x277CC8C30]);
+      v75 = v333;
+      v329 = v74;
+      v76 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v335 = *v336;
+      v335(v73, v75);
+      if (v76)
       {
-        outlined destroy of RequestTemporaryContentModel?(v69, &_ss18ReversedCollectionV8IteratorVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AE15AttributeScopesO0dH0V018PresentationIntentJ0OG_GMd);
-        return outlined destroy of RequestTemporaryContentModel?(v311, &_s10Foundation18PresentationIntentV4KindOSgMd);
+        outlined destroy of RequestTemporaryContentModel?(v72, &_ss18ReversedCollectionV8IteratorVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AE15AttributeScopesO0dH0V018PresentationIntentJ0OG_GMd, &_ss18ReversedCollectionV8IteratorVy10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AE15AttributeScopesO0dH0V018PresentationIntentJ0OG_GMR);
+        return outlined destroy of RequestTemporaryContentModel?(v342, &_s10Foundation18PresentationIntentV4KindOSgMd, &_s10Foundation18PresentationIntentV4KindOSgMR);
       }
 
-      lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AttributedString.Runs.AttributesSlice1<AttributeScopes.FoundationAttributes.PresentationIntentAttribute> and conformance AttributedString.Runs.AttributesSlice1<A>, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018PresentationIntentG0OGMd);
+      lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AttributedString.Runs.AttributesSlice1<AttributeScopes.FoundationAttributes.PresentationIntentAttribute> and conformance AttributedString.Runs.AttributesSlice1<A>, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018PresentationIntentG0OGMd, &_s10Foundation16AttributedStringV4RunsV16AttributesSlice1Vy__AA15AttributeScopesO0aE0V018PresentationIntentG0OGMR, MEMORY[0x277CC8BD8]);
       dispatch thunk of BidirectionalCollection.formIndex(before:)();
-      v74 = dispatch thunk of Collection.subscript.read();
-      v75 = v290;
-      outlined init with copy of NotificationModel.Symbol?(v76, v290, &_s10Foundation18PresentationIntentVSg_SnyAA16AttributedStringV5IndexVGtMd);
-      v74(&v343, 0);
-      v77 = v307;
-      outlined init with take of AttributedString?(v75 + *(v291 + 48), v307, &_sSny10Foundation16AttributedStringV5IndexVGMd);
-      v78 = v75;
-      v79 = v292;
-      outlined init with take of AttributedString?(v78, v292, &_s10Foundation18PresentationIntentVSgMd);
-      v80 = *v295;
-      v81 = v299;
-      if ((*v295)(v79, 1, v299) != 1)
+      v77 = dispatch thunk of Collection.subscript.read();
+      v78 = v321;
+      outlined init with copy of NotificationModel.Symbol?(v79, v321, &_s10Foundation18PresentationIntentVSg_SnyAA16AttributedStringV5IndexVGtMd, &_s10Foundation18PresentationIntentVSg_SnyAA16AttributedStringV5IndexVGtMR);
+      v77(&v374, 0);
+      v80 = v338;
+      outlined init with take of AttributedString?(v78 + *(v322 + 48), v338, &_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR);
+      v81 = v78;
+      v82 = v323;
+      outlined init with take of AttributedString?(v81, v323, &_s10Foundation18PresentationIntentVSgMd, &_s10Foundation18PresentationIntentVSgMR);
+      v83 = *v326;
+      v84 = v330;
+      if ((*v326)(v82, 1, v330) != 1)
       {
         break;
       }
 
-      outlined destroy of RequestTemporaryContentModel?(v77, &_sSny10Foundation16AttributedStringV5IndexVGMd);
-      outlined destroy of RequestTemporaryContentModel?(v79, &_s10Foundation18PresentationIntentVSgMd);
-      v69 = v288;
+      outlined destroy of RequestTemporaryContentModel?(v80, &_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR);
+      outlined destroy of RequestTemporaryContentModel?(v82, &_s10Foundation18PresentationIntentVSgMd, &_s10Foundation18PresentationIntentVSgMR);
+      v72 = v319;
     }
 
-    v279 = *v283;
-    v279(v289, v79, v81);
-    (v316)(v313, 1, 1, v6);
-    v82 = PresentationIntent.components.getter();
-    v83 = *(v82 + 16);
-    if (v83)
+    v310 = *v314;
+    v310(v320, v82, v84);
+    (v347)(v344, 1, 1, v6);
+    v85 = PresentationIntent.components.getter();
+    v86 = *(v85 + 16);
+    if (v86)
     {
-      v281 = v80;
-      v330 = 0;
-      v84 = (*(v271 + 80) + 32) & ~*(v271 + 80);
-      v280 = v82;
-      v85 = v82 + v84;
-      v328 = *(v271 + 72);
-      v327 = *(v271 + 16);
-      LODWORD(v331) = 1;
-      v86 = v335;
-      v87 = v303;
+      v312 = v83;
+      v361 = 0;
+      v87 = (*(v302 + 80) + 32) & ~*(v302 + 80);
+      v311 = v85;
+      v88 = v85 + v87;
+      v359 = *(v302 + 72);
+      v358 = *(v302 + 16);
+      LODWORD(v362) = 1;
+      v89 = v366;
+      v90 = v334;
       while (1)
       {
-        v338 = v83;
-        v89 = v323;
-        v90 = v324;
-        v327(v323, v85, v324);
+        v369 = v86;
+        v92 = v354;
+        v93 = v355;
+        v358(v354, v88, v355);
         PresentationIntent.IntentType.kind.getter();
-        (*v321)(v89, v90);
-        v91 = *v86;
-        v92 = v325;
-        v91(v325, v25, v6);
-        v93 = *v334;
-        v94 = (*v334)(v92, v6);
-        v95 = v329;
-        if (v94 == v320)
+        (*v352)(v92, v93);
+        v94 = *v89;
+        v95 = v356;
+        v94(v356, v25, v6);
+        v96 = *v365;
+        v97 = (*v365)(v95, v6);
+        v98 = v360;
+        if (v97 == v351)
         {
-          (*v310)(v92, v6);
-          v96 = v330;
-          if (v331)
+          (*v341)(v95, v6);
+          v99 = v361;
+          if (v362)
           {
-            v96 = *v92;
+            v99 = *v95;
           }
 
-          v330 = v96;
-          v97 = *v95;
-          LODWORD(v331) = 0;
-          v86 = v335;
+          v361 = v99;
+          v100 = *v98;
+          LODWORD(v362) = 0;
+          v89 = v366;
           goto LABEL_31;
         }
 
-        v318 = v329 & 0xFFFFFFFFFFFFLL | 0xB2E4000000000000;
-        v98 = *v87;
-        (*v87)(v92, v6);
-        v99 = v337;
-        v336 = *v95;
-        (v336)(v337, v314, v6);
-        v100 = MEMORY[0x245D0BC60](v25, v99);
-        v98(v99, v6);
-        if (v100 & 1) != 0 || (v101 = v337, (v336)(v337, v301, v6), v102 = MEMORY[0x245D0BC60](v25, v101), v98(v101, v6), (v102))
+        v349 = v360 & 0xFFFFFFFFFFFFLL | 0xB2E4000000000000;
+        v101 = *v90;
+        (*v90)(v95, v6);
+        v102 = v368;
+        v367 = *v98;
+        (v367)(v368, v345, v6);
+        v103 = MEMORY[0x245D0BC60](v25, v102);
+        v101(v102, v6);
+        if (v103 & 1) != 0 || (v104 = v368, (v367)(v368, v332, v6), v105 = MEMORY[0x245D0BC60](v25, v104), v101(v104, v6), (v105))
         {
-          v103 = v313;
-          v104 = v308;
-          outlined init with copy of NotificationModel.Symbol?(v313, v308, &_s10Foundation18PresentationIntentV4KindOSgMd);
-          if ((*v309)(v104, 1, v6) == 1)
+          v106 = v344;
+          v107 = v339;
+          outlined init with copy of NotificationModel.Symbol?(v344, v339, &_s10Foundation18PresentationIntentV4KindOSgMd, &_s10Foundation18PresentationIntentV4KindOSgMR);
+          if ((*v340)(v107, 1, v6) == 1)
           {
-            outlined destroy of RequestTemporaryContentModel?(v103, &_s10Foundation18PresentationIntentV4KindOSgMd);
-            outlined destroy of RequestTemporaryContentModel?(v104, &_s10Foundation18PresentationIntentV4KindOSgMd);
-            v25 = v312;
-            v105 = v335;
-            v91(v103, v312, v6);
-            v86 = v105;
-            (v316)(v103, 0, 1, v6);
+            outlined destroy of RequestTemporaryContentModel?(v106, &_s10Foundation18PresentationIntentV4KindOSgMd, &_s10Foundation18PresentationIntentV4KindOSgMR);
+            outlined destroy of RequestTemporaryContentModel?(v107, &_s10Foundation18PresentationIntentV4KindOSgMd, &_s10Foundation18PresentationIntentV4KindOSgMR);
+            v25 = v343;
+            v108 = v366;
+            v94(v106, v343, v6);
+            v89 = v108;
+            (v347)(v106, 0, 1, v6);
           }
 
           else
           {
-            outlined destroy of RequestTemporaryContentModel?(v104, &_s10Foundation18PresentationIntentV4KindOSgMd);
-            v25 = v312;
-            v86 = v335;
+            outlined destroy of RequestTemporaryContentModel?(v107, &_s10Foundation18PresentationIntentV4KindOSgMd, &_s10Foundation18PresentationIntentV4KindOSgMR);
+            v25 = v343;
+            v89 = v366;
           }
         }
 
         else
         {
-          v106 = v296;
-          v91(v296, v25, v6);
-          v107 = v93(v106, v6);
-          if (v107 == v297)
+          v109 = v327;
+          v94(v327, v25, v6);
+          v110 = v96(v109, v6);
+          if (v110 == v328)
           {
-            v108 = [objc_allocWithZone(MEMORY[0x277D74240]) init];
-            v109 = v306;
+            v111 = [objc_allocWithZone(MEMORY[0x277D74240]) init];
+            v112 = v337;
             AttributedString.startIndex.getter();
-            v110 = static AttributedString.Index.== infix(_:_:)();
-            v304(v109, v302);
-            if (v110)
+            v113 = static AttributedString.Index.== infix(_:_:)();
+            v335(v112, v333);
+            if (v113)
             {
-              v111 = 0.0;
+              v114 = 0.0;
             }
 
             else
             {
-              v111 = 16.0;
+              v114 = 16.0;
             }
 
-            [v108 setParagraphSpacingBefore_];
-            [v108 setParagraphSpacing_];
-            [v108 copy];
+            [v111 setParagraphSpacingBefore_];
+            [v111 setParagraphSpacing_];
+            [v111 copy];
             _bridgeAnyObjectToAny(_:)();
             swift_unknownObjectRelease();
-            type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSParagraphStyle);
+            type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSParagraphStyle, 0x277D74248);
             swift_dynamicCast();
-            v112 = v342;
-            lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Range<AttributedString.Index> and conformance Range<A>, &_sSny10Foundation16AttributedStringV5IndexVGMd);
-            v113 = AttributedString.subscript.modify();
-            v340 = v112;
-            lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute();
+            v115 = v373;
+            lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Range<AttributedString.Index> and conformance Range<A>, &_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR, MEMORY[0x277D83D30]);
+            v116 = AttributedString.subscript.modify();
+            v371 = v115;
+            lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute(v116, v117, v118);
             AttributedSubstring.subscript.setter();
-            v113(&v341, 0);
+            v116(&v372, 0);
             if (one-time initialization token for heading != -1)
             {
               swift_once();
             }
 
-            v114 = static CAFUISettingInfoFontTypes.heading;
-            v115 = static CAFUISettingInfoFontTypes.heading;
-            v116 = AttributedString.subscript.modify();
-            v341 = v114;
-            lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute();
+            v119 = static CAFUISettingInfoFontTypes.heading;
+            v120 = static CAFUISettingInfoFontTypes.heading;
+            v121 = AttributedString.subscript.modify();
+            v372 = v119;
+            lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute(v121, v122, v123);
             AttributedSubstring.subscript.setter();
-            v116(&v343, 0);
+            v121(&v374, 0);
           }
 
           else
           {
-            v98(v106, v6);
-            v117 = v284;
-            v91(v284, v25, v6);
-            LODWORD(v294) = v93(v117, v6);
-            v98(v117, v6);
-            if (v294 != v285)
+            v101(v109, v6);
+            v124 = v315;
+            v94(v315, v25, v6);
+            LODWORD(v325) = v96(v124, v6);
+            v101(v124, v6);
+            if (v325 != v316)
             {
-              v130 = v270;
-              v91(v270, v25, v6);
-              v131 = v93(v130, v6);
-              v87 = v303;
-              v98(v130, v6);
-              if (v131 == v272)
+              v143 = v301;
+              v94(v301, v25, v6);
+              v144 = v96(v143, v6);
+              v90 = v334;
+              v101(v143, v6);
+              if (v144 == v303)
               {
-                v132 = [objc_allocWithZone(MEMORY[0x277D74240]) init];
-                [v132 setFirstLineHeadIndent_];
-                [v132 setHeadIndent_];
-                v133 = v306;
+                v145 = [objc_allocWithZone(MEMORY[0x277D74240]) init];
+                [v145 setFirstLineHeadIndent_];
+                [v145 setHeadIndent_];
+                v146 = v337;
                 AttributedString.startIndex.getter();
-                v134 = static AttributedString.Index.== infix(_:_:)();
-                v304(v133, v302);
-                if (v134)
+                v147 = static AttributedString.Index.== infix(_:_:)();
+                v335(v146, v333);
+                if (v147)
                 {
-                  v135 = 0.0;
+                  v148 = 0.0;
                 }
 
                 else
                 {
-                  v135 = 16.0;
+                  v148 = 16.0;
                 }
 
-                [v132 setParagraphSpacingBefore_];
-                v294 = v132;
-                [v132 setParagraphSpacing_];
-                v136 = v265;
-                outlined init with copy of NotificationModel.Symbol?(v311, v265, &_s10Foundation18PresentationIntentV4KindOSgMd);
-                v137 = (*v309)(v136, 1, v6);
-                v97 = v336;
-                if (v137 == 1)
+                [v145 setParagraphSpacingBefore_];
+                v325 = v145;
+                [v145 setParagraphSpacing_];
+                v149 = v296;
+                outlined init with copy of NotificationModel.Symbol?(v342, v296, &_s10Foundation18PresentationIntentV4KindOSgMd, &_s10Foundation18PresentationIntentV4KindOSgMR);
+                v150 = (*v340)(v149, 1, v6);
+                v100 = v367;
+                if (v150 == 1)
                 {
-                  outlined destroy of RequestTemporaryContentModel?(v136, &_s10Foundation18PresentationIntentV4KindOSgMd);
-                  v138 = v294;
+                  outlined destroy of RequestTemporaryContentModel?(v149, &_s10Foundation18PresentationIntentV4KindOSgMd, &_s10Foundation18PresentationIntentV4KindOSgMR);
+                  v151 = v325;
                   goto LABEL_49;
                 }
 
-                v146 = v266;
-                (*v315)(v266, v136, v6);
-                v147 = v259;
-                v91(v259, v146, v6);
-                v148 = v93(v147, v6);
-                v138 = v294;
-                if (v148 == v297)
+                v163 = v297;
+                (*v346)(v297, v149, v6);
+                v164 = v290;
+                v94(v290, v163, v6);
+                v165 = v96(v164, v6);
+                v151 = v325;
+                if (v165 == v328)
                 {
                   goto LABEL_47;
                 }
 
-                if (v148 == v285)
+                if (v165 == v316)
                 {
-                  v98(v259, v6);
+                  v101(v290, v6);
                   goto LABEL_47;
                 }
 
-                if (v148 == v272)
+                if (v165 == v303)
                 {
 LABEL_47:
-                  [v138 setParagraphSpacing_];
-                  v149 = &v298;
+                  [v151 setParagraphSpacing_];
+                  v166 = &v329;
                 }
 
                 else
                 {
-                  v98(v266, v6);
-                  v149 = &v291;
+                  v101(v297, v6);
+                  v166 = &v322;
                 }
 
-                v98(*(v149 - 32), v6);
+                v101(*(v166 - 32), v6);
 LABEL_49:
-                [v138 copy];
+                [v151 copy];
                 _bridgeAnyObjectToAny(_:)();
                 swift_unknownObjectRelease();
-                type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSParagraphStyle);
+                type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSParagraphStyle, 0x277D74248);
                 swift_dynamicCast();
-                v150 = v342;
-                lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Range<AttributedString.Index> and conformance Range<A>, &_sSny10Foundation16AttributedStringV5IndexVGMd);
-                v151 = AttributedString.subscript.modify();
-                v340 = v150;
-                lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute();
+                v167 = v373;
+                lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Range<AttributedString.Index> and conformance Range<A>, &_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR, MEMORY[0x277D83D30]);
+                v168 = AttributedString.subscript.modify();
+                v371 = v167;
+                lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute(v168, v169, v170);
                 AttributedSubstring.subscript.setter();
-                v151(&v341, 0);
+                v168(&v372, 0);
                 if (one-time initialization token for blockQuote != -1)
                 {
                   swift_once();
                 }
 
-                v152 = static CAFUISettingInfoFontTypes.blockQuote;
-                v153 = static CAFUISettingInfoFontTypes.blockQuote;
-                v154 = AttributedString.subscript.modify();
-                v341 = v152;
-                lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute();
+                v171 = static CAFUISettingInfoFontTypes.blockQuote;
+                v172 = static CAFUISettingInfoFontTypes.blockQuote;
+                v173 = AttributedString.subscript.modify();
+                v372 = v171;
+                lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute(v173, v174, v175);
                 AttributedSubstring.subscript.setter();
-                v154(&v343, 0);
-                v155 = [objc_opt_self() labelColor];
-                v156 = AttributedString.subscript.modify();
-                v341 = v155;
-                lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute();
+                v173(&v374, 0);
+                v176 = [objc_opt_self() labelColor];
+                v177 = AttributedString.subscript.modify();
+                v372 = v176;
+                lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute(v177, v178, v179);
                 AttributedSubstring.subscript.setter();
-                v156(&v343, 0);
+                v177(&v374, 0);
 
 LABEL_52:
-                v25 = v312;
+                v25 = v343;
               }
 
               else
               {
-                v97 = v336;
-                v139 = v337;
-                (v336)(v337, v264, v6);
-                v140 = MEMORY[0x245D0BC60](v25, v139);
-                v98(v139, v6);
-                if (v140)
+                v100 = v367;
+                v152 = v368;
+                (v367)(v368, v295, v6);
+                v153 = MEMORY[0x245D0BC60](v25, v152);
+                v101(v152, v6);
+                if (v153)
                 {
-                  v141 = [objc_opt_self() secondaryLabelColor];
-                  v294 = lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Range<AttributedString.Index> and conformance Range<A>, &_sSny10Foundation16AttributedStringV5IndexVGMd);
-                  v142 = AttributedString.subscript.modify();
-                  v341 = v141;
-                  lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute();
+                  v154 = [objc_opt_self() secondaryLabelColor];
+                  v325 = lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Range<AttributedString.Index> and conformance Range<A>, &_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR, MEMORY[0x277D83D30]);
+                  v155 = AttributedString.subscript.modify();
+                  v372 = v154;
+                  lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute(v155, v156, v157);
                   AttributedSubstring.subscript.setter();
-                  v142(&v343, 0);
+                  v155(&v374, 0);
                   if (one-time initialization token for horizontalRule != -1)
                   {
                     swift_once();
                   }
 
-                  v143 = static CAFUISettingInfoFontTypes.horizontalRule;
-                  v144 = static CAFUISettingInfoFontTypes.horizontalRule;
-                  v145 = AttributedString.subscript.modify();
-                  v341 = v143;
-                  lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute();
+                  v158 = static CAFUISettingInfoFontTypes.horizontalRule;
+                  v159 = static CAFUISettingInfoFontTypes.horizontalRule;
+                  v160 = AttributedString.subscript.modify();
+                  v372 = v158;
+                  lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute(v160, v161, v162);
                   AttributedSubstring.subscript.setter();
-                  v145(&v343, 0);
+                  v160(&v374, 0);
                   goto LABEL_52;
                 }
               }
 
-              v86 = v335;
+              v89 = v366;
               goto LABEL_31;
             }
 
-            v118 = [objc_allocWithZone(MEMORY[0x277D74240]) init];
-            [v118 setFirstLineHeadIndent_];
-            [v118 setHeadIndent_];
-            [v118 setParagraphSpacingBefore_];
-            [v118 setParagraphSpacing_];
-            [v118 copy];
+            v125 = [objc_allocWithZone(MEMORY[0x277D74240]) init];
+            [v125 setFirstLineHeadIndent_];
+            [v125 setHeadIndent_];
+            [v125 setParagraphSpacingBefore_];
+            [v125 setParagraphSpacing_];
+            [v125 copy];
             _bridgeAnyObjectToAny(_:)();
             swift_unknownObjectRelease();
-            type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSParagraphStyle);
+            type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSParagraphStyle, 0x277D74248);
             swift_dynamicCast();
-            v119 = v342;
-            lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Range<AttributedString.Index> and conformance Range<A>, &_sSny10Foundation16AttributedStringV5IndexVGMd);
-            v120 = AttributedString.subscript.modify();
-            v340 = v119;
-            lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute();
+            v126 = v373;
+            lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Range<AttributedString.Index> and conformance Range<A>, &_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR, MEMORY[0x277D83D30]);
+            v127 = AttributedString.subscript.modify();
+            v371 = v126;
+            lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute(v127, v128, v129);
             AttributedSubstring.subscript.setter();
-            v120(&v341, 0);
+            v127(&v372, 0);
             if (one-time initialization token for code != -1)
             {
               swift_once();
             }
 
-            v121 = static CAFUISettingInfoFontTypes.code;
-            v122 = static CAFUISettingInfoFontTypes.code;
-            v123 = AttributedString.subscript.modify();
-            v341 = v121;
-            lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute();
+            v130 = static CAFUISettingInfoFontTypes.code;
+            v131 = static CAFUISettingInfoFontTypes.code;
+            v132 = AttributedString.subscript.modify();
+            v372 = v130;
+            lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute(v132, v133, v134);
             AttributedSubstring.subscript.setter();
-            v123(&v343, 0);
-            v124 = [objc_opt_self() secondaryLabelColor];
-            v125 = AttributedString.subscript.modify();
-            v341 = v124;
-            lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute();
+            v132(&v374, 0);
+            v135 = [objc_opt_self() secondaryLabelColor];
+            v136 = AttributedString.subscript.modify();
+            v372 = v135;
+            lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute(v136, v137, v138);
             AttributedSubstring.subscript.setter();
-            v125(&v343, 0);
+            v136(&v374, 0);
           }
 
-          v25 = v312;
-          v86 = v335;
-          v6 = v286;
-          v87 = v303;
+          v25 = v343;
+          v89 = v366;
+          v6 = v317;
+          v90 = v334;
         }
 
-        v97 = v336;
+        v100 = v367;
 LABEL_31:
-        v126 = v337;
-        (v97)(v337, v319, v6);
-        lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type PresentationIntent.Kind and conformance PresentationIntent.Kind, MEMORY[0x277CC8D60]);
-        v127 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v128 = *v87;
-        (*v87)(v126, v6);
-        if (v127)
+        v139 = v368;
+        (v100)(v368, v350, v6);
+        lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type PresentationIntent.Kind and conformance PresentationIntent.Kind, MEMORY[0x277CC8D60], MEMORY[0x277CC8D68]);
+        v140 = dispatch thunk of static Equatable.== infix(_:_:)();
+        v141 = *v90;
+        (*v90)(v139, v6);
+        if (v140)
         {
-          v128(v25, v6);
+          v141(v25, v6);
         }
 
         else
         {
-          v129 = v311;
-          outlined destroy of RequestTemporaryContentModel?(v311, &_s10Foundation18PresentationIntentV4KindOSgMd);
-          (*v315)(v129, v25, v6);
-          (v316)(v129, 0, 1, v6);
+          v142 = v342;
+          outlined destroy of RequestTemporaryContentModel?(v342, &_s10Foundation18PresentationIntentV4KindOSgMd, &_s10Foundation18PresentationIntentV4KindOSgMR);
+          (*v346)(v142, v25, v6);
+          (v347)(v142, 0, 1, v6);
         }
 
-        v88 = v326;
-        v85 += v328;
-        v83 = v338 - 1;
-        if (v338 == 1)
+        v91 = v357;
+        v88 += v359;
+        v86 = v369 - 1;
+        if (v369 == 1)
         {
 
-          v80 = v281;
+          v83 = v312;
           goto LABEL_57;
         }
       }
     }
 
-    v330 = 0;
-    LODWORD(v331) = 1;
-    v88 = v326;
+    v361 = 0;
+    LODWORD(v362) = 1;
+    v91 = v357;
 LABEL_57:
-    outlined init with copy of NotificationModel.Symbol?(v313, v88, &_s10Foundation18PresentationIntentV4KindOSgMd);
-    if ((*v309)(v88, 1, v6) == 1)
+    outlined init with copy of NotificationModel.Symbol?(v344, v91, &_s10Foundation18PresentationIntentV4KindOSgMd, &_s10Foundation18PresentationIntentV4KindOSgMR);
+    if ((*v340)(v91, 1, v6) == 1)
     {
-      outlined destroy of RequestTemporaryContentModel?(v88, &_s10Foundation18PresentationIntentV4KindOSgMd);
+      outlined destroy of RequestTemporaryContentModel?(v91, &_s10Foundation18PresentationIntentV4KindOSgMd, &_s10Foundation18PresentationIntentV4KindOSgMR);
       goto LABEL_89;
     }
 
-    v157 = v278;
-    (*v315)(v278, v88, v6);
-    v158 = v337;
-    (*v329)(v337, v314, v6);
-    LOBYTE(v157) = MEMORY[0x245D0BC60](v157, v158);
-    v159 = *v303;
-    (*v303)(v158, v6);
-    v338 = lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Range<AttributedString.Index> and conformance Range<A>, &_sSny10Foundation16AttributedStringV5IndexVGMd);
-    v336 = v159;
-    if ((v157 & 1) == 0)
+    v180 = v309;
+    (*v346)(v309, v91, v6);
+    v181 = v368;
+    (*v360)(v368, v345, v6);
+    LOBYTE(v180) = MEMORY[0x245D0BC60](v180, v181);
+    v182 = *v334;
+    (*v334)(v181, v6);
+    v369 = lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Range<AttributedString.Index> and conformance Range<A>, &_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR, MEMORY[0x277D83D30]);
+    v367 = v182;
+    if ((v180 & 1) == 0)
     {
-      v164 = v263;
+      v187 = v294;
       AttributedString.subscript.getter();
-      v165 = v261;
+      v188 = v292;
       AttributedSubstring.subscript.getter();
-      (*v267)(v164, v269);
-      v166 = v299;
-      if (v80(v165, 1, v299) == 1)
+      (*v298)(v187, v300);
+      v189 = v330;
+      if (v83(v188, 1, v330) == 1)
       {
-        outlined destroy of RequestTemporaryContentModel?(v165, &_s10Foundation18PresentationIntentVSgMd);
+        outlined destroy of RequestTemporaryContentModel?(v188, &_s10Foundation18PresentationIntentVSgMd, &_s10Foundation18PresentationIntentVSgMR);
       }
 
       else
       {
-        v202 = v258;
-        v279(v258, v165, v166);
-        v203 = PresentationIntent.indentationLevel.getter();
-        result = (*v282)(v202, v166);
-        v204 = v203 - 1;
-        if (__OFSUB__(v203, 1))
+        v229 = v289;
+        v310(v289, v188, v189);
+        v230 = PresentationIntent.indentationLevel.getter();
+        result = (*v313)(v229, v189);
+        v231 = v230 - 1;
+        if (__OFSUB__(v230, 1))
         {
           goto LABEL_97;
         }
 
-        if (v204 > 0)
+        if (v231 > 0)
         {
-          v205._countAndFlagsBits = 0x80E28780E28780E2;
-          v205._object = 0xA900000000000087;
-          v206 = String.init(repeating:count:)(v205, v204);
-          countAndFlagsBits = v206._countAndFlagsBits;
-          object = v206._object;
+          v232._countAndFlagsBits = 0x80E28780E28780E2;
+          v232._object = 0xA900000000000087;
+          v233 = String.init(repeating:count:)(v232, v231);
+          countAndFlagsBits = v233._countAndFlagsBits;
+          object = v233._object;
 LABEL_74:
-          v209 = v307;
-          v210 = String.count.getter();
-          if (v331)
+          v236 = v338;
+          v237 = String.count.getter();
+          if (v362)
           {
-            v211 = 0xA500000000000000;
-            v212 = 0x8780E22E31;
+            v238 = 0xA500000000000000;
+            v239 = 0x8780E22E31;
           }
 
           else
           {
-            v341 = v330;
-            v343._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-            v343._object = v213;
+            v372 = v361;
+            v374._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+            v374._object = v240;
             MEMORY[0x245D0D240](2273370670, 0xA400000000000000);
-            v212 = v343._countAndFlagsBits;
-            v211 = v343._object;
+            v239 = v374._countAndFlagsBits;
+            v238 = v374._object;
           }
 
-          if (String.count.getter() < v210)
+          if (String.count.getter() < v237)
           {
             result = String.count.getter();
-            v214 = v210 - result;
-            if (__OFSUB__(v210, result))
+            v241 = v237 - result;
+            if (__OFSUB__(v237, result))
             {
               goto LABEL_98;
             }
 
-            if (__OFSUB__(v214, 1))
+            if (__OFSUB__(v241, 1))
             {
               goto LABEL_99;
             }
 
-            v215._countAndFlagsBits = 8880354;
-            v215._object = 0xA300000000000000;
-            v343 = String.init(repeating:count:)(v215, v214 - 1);
+            v242._countAndFlagsBits = 8880354;
+            v242._object = 0xA300000000000000;
+            v374 = String.init(repeating:count:)(v242, v241 - 1);
 
-            MEMORY[0x245D0D240](v212, v211);
+            MEMORY[0x245D0D240](v239, v238);
 
-            v211 = v343._object;
-            v212 = v343._countAndFlagsBits;
+            v238 = v374._object;
+            v239 = v374._countAndFlagsBits;
           }
 
-          v343._countAndFlagsBits = countAndFlagsBits;
-          v343._object = object;
+          v374._countAndFlagsBits = countAndFlagsBits;
+          v374._object = object;
 
-          MEMORY[0x245D0D240](v212, v211);
+          MEMORY[0x245D0D240](v239, v238);
 
-          v217 = v343._countAndFlagsBits;
-          v216 = v343._object;
+          v244 = v374._countAndFlagsBits;
+          v243 = v374._object;
 
-          v218 = AttributedString.characters.modify();
-          specialized RangeReplaceableCollection.insert<A>(contentsOf:at:)(v217, v216, v209);
-          v218(&v343, 0);
-          v219 = [objc_allocWithZone(MEMORY[0x277D74240]) init];
-          [v219 setFirstLineHeadIndent_];
-          v331 = v219;
-          [v219 setParagraphSpacingBefore_];
+          v245 = AttributedString.characters.modify();
+          specialized RangeReplaceableCollection.insert<A>(contentsOf:at:)(v244, v243, v236);
+          v245(&v374, 0);
+          v246 = [objc_allocWithZone(MEMORY[0x277D74240]) init];
+          [v246 setFirstLineHeadIndent_];
+          v362 = v246;
+          [v246 setParagraphSpacingBefore_];
           String.count.getter();
-          v220 = type metadata accessor for AttributedString();
-          v221 = lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString and conformance AttributedString, MEMORY[0x277CC8C40]);
-          v222 = v306;
-          v330 = v220;
-          v328 = v221;
+          v247 = type metadata accessor for AttributedString();
+          v248 = lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString and conformance AttributedString, MEMORY[0x277CC8C40], MEMORY[0x277CC8C38]);
+          v249 = v337;
+          v361 = v247;
+          v359 = v248;
           AttributedStringProtocol.index(_:offsetByCharacters:)();
-          v223 = lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString.Index and conformance AttributedString.Index, MEMORY[0x277CC8C20]);
-          v224 = v302;
+          v250 = lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString.Index and conformance AttributedString.Index, MEMORY[0x277CC8C20], MEMORY[0x277CC8C28]);
+          v251 = v333;
           result = dispatch thunk of static Comparable.<= infix(_:_:)();
           if ((result & 1) == 0)
           {
             goto LABEL_95;
           }
 
-          v294 = v223;
-          v318 = v217;
-          v327 = v216;
-          v225 = v275;
-          v280 = *v274;
-          v280(v275, v209, v224);
-          v226 = v277;
-          v182 = v224;
-          v227 = *v273;
-          (*v273)(v225 + *(v277 + 48), v222, v224);
-          v228 = v276;
-          outlined init with copy of NotificationModel.Symbol?(v225, v276, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd);
-          v229 = *(v226 + 48);
-          v230 = v287;
-          v227(v287, v228, v182);
-          v231 = (v228 + v229);
-          v232 = v304;
-          v304(v231, v182);
-          outlined init with take of AttributedString?(v225, v228, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd);
-          v233 = *(v226 + 48);
-          v234 = v230;
-          v279 = *(v300 + 36);
-          v281 = v227;
-          v227(v279 + v230, v228 + v233, v182);
-          v232(v228, v182);
+          v325 = v250;
+          v349 = v244;
+          v358 = v243;
+          v252 = v306;
+          v311 = *v305;
+          v311(v306, v236, v251);
+          v253 = v308;
+          v205 = v251;
+          v254 = *v304;
+          (*v304)(v252 + *(v308 + 48), v249, v251);
+          v255 = v307;
+          outlined init with copy of NotificationModel.Symbol?(v252, v307, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMR);
+          v256 = *(v253 + 48);
+          v257 = v318;
+          v254(v318, v255, v205);
+          v258 = (v255 + v256);
+          v259 = v335;
+          v335(v258, v205);
+          outlined init with take of AttributedString?(v252, v255, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMR);
+          v260 = *(v253 + 48);
+          v261 = v257;
+          v310 = *(v331 + 36);
+          v312 = v254;
+          v254(v310 + v257, v255 + v260, v205);
+          v259(v255, v205);
           if (one-time initialization token for list != -1)
           {
             swift_once();
           }
 
-          v235 = static CAFUISettingInfoFontTypes.list;
-          v236 = static CAFUISettingInfoFontTypes.list;
-          v237 = AttributedString.subscript.modify();
-          v341 = v235;
-          v238 = lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute();
+          v262 = static CAFUISettingInfoFontTypes.list;
+          v263 = static CAFUISettingInfoFontTypes.list;
+          v264 = AttributedString.subscript.modify();
+          v372 = v262;
+          v267 = lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute(v264, v265, v266);
           AttributedSubstring.subscript.setter();
-          v237(&v343, 0);
-          [v331 copy];
+          v264(&v374, 0);
+          [v362 copy];
           _bridgeAnyObjectToAny(_:)();
           swift_unknownObjectRelease();
-          type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSParagraphStyle);
+          type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSParagraphStyle, 0x277D74248);
           swift_dynamicCast();
-          v239 = v342;
-          v240 = AttributedString.subscript.modify();
-          v340 = v239;
-          lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute();
+          v268 = v373;
+          v269 = AttributedString.subscript.modify();
+          v371 = v268;
+          lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute(v269, v270, v271);
           AttributedSubstring.subscript.setter();
-          (v240)(&v341, 0);
+          (v269)(&v372, 0);
           String.count.getter();
 
-          v241 = v306;
-          v242 = v307;
+          v272 = v337;
+          v273 = v338;
           AttributedStringProtocol.index(_:offsetByCharacters:)();
-          LOBYTE(v240) = dispatch thunk of static Comparable.<= infix(_:_:)();
-          result = outlined destroy of RequestTemporaryContentModel?(v234, &_sSny10Foundation16AttributedStringV5IndexVGMd);
-          if ((v240 & 1) == 0)
+          LOBYTE(v269) = dispatch thunk of static Comparable.<= infix(_:_:)();
+          result = outlined destroy of RequestTemporaryContentModel?(v261, &_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR);
+          if ((v269 & 1) == 0)
           {
             goto LABEL_96;
           }
 
-          v330 = v238;
-          v198 = v275;
-          v280(v275, v242, v182);
-          v199 = v277;
-          v200 = v198 + *(v277 + 48);
-          v201 = v241;
+          v361 = v267;
+          v225 = v306;
+          v311(v306, v273, v205);
+          v226 = v308;
+          v227 = v225 + *(v308 + 48);
+          v228 = v272;
           goto LABEL_86;
         }
       }
@@ -5176,170 +5195,170 @@ LABEL_74:
       goto LABEL_74;
     }
 
-    v160 = v262;
+    v183 = v293;
     AttributedString.subscript.getter();
-    v161 = v260;
+    v184 = v291;
     AttributedSubstring.subscript.getter();
-    (*v267)(v160, v269);
-    v162 = v299;
-    if (v80(v161, 1, v299) == 1)
+    (*v298)(v183, v300);
+    v185 = v330;
+    if (v83(v184, 1, v330) == 1)
     {
-      outlined destroy of RequestTemporaryContentModel?(v161, &_s10Foundation18PresentationIntentVSgMd);
-      v163 = 1;
+      outlined destroy of RequestTemporaryContentModel?(v184, &_s10Foundation18PresentationIntentVSgMd, &_s10Foundation18PresentationIntentVSgMR);
+      v186 = 1;
     }
 
     else
     {
-      v167 = v257;
-      v279(v257, v161, v162);
-      v163 = PresentationIntent.indentationLevel.getter();
-      (*v282)(v167, v162);
+      v190 = v288;
+      v310(v288, v184, v185);
+      v186 = PresentationIntent.indentationLevel.getter();
+      (*v313)(v190, v185);
     }
 
-    v168._countAndFlagsBits = 0x80E28780E28780E2;
-    v168._object = 0xA900000000000087;
-    v343 = String.init(repeating:count:)(v168, v163);
+    v191._countAndFlagsBits = 0x80E28780E28780E2;
+    v191._object = 0xA900000000000087;
+    v374 = String.init(repeating:count:)(v191, v186);
 
     MEMORY[0x245D0D240](2273370669, 0xA400000000000000);
 
-    v169 = v343._object;
-    v170 = v343._countAndFlagsBits;
+    v192 = v374._object;
+    v193 = v374._countAndFlagsBits;
 
-    v171 = AttributedString.characters.modify();
-    v172 = v307;
-    specialized RangeReplaceableCollection.insert<A>(contentsOf:at:)(v170, v169, v307);
-    v171(&v343, 0);
-    v173 = [objc_allocWithZone(MEMORY[0x277D74240]) init];
-    [v173 setFirstLineHeadIndent_];
-    v331 = v173;
-    [v173 setParagraphSpacingBefore_];
+    v194 = AttributedString.characters.modify();
+    v195 = v338;
+    specialized RangeReplaceableCollection.insert<A>(contentsOf:at:)(v193, v192, v338);
+    v194(&v374, 0);
+    v196 = [objc_allocWithZone(MEMORY[0x277D74240]) init];
+    [v196 setFirstLineHeadIndent_];
+    v362 = v196;
+    [v196 setParagraphSpacingBefore_];
     String.count.getter();
-    v174 = type metadata accessor for AttributedString();
-    v330 = lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString and conformance AttributedString, MEMORY[0x277CC8C40]);
-    v175 = v306;
-    v176 = v172;
+    v197 = type metadata accessor for AttributedString();
+    v361 = lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString and conformance AttributedString, MEMORY[0x277CC8C40], MEMORY[0x277CC8C38]);
+    v198 = v337;
+    v199 = v195;
     AttributedStringProtocol.index(_:offsetByCharacters:)();
-    v177 = lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString.Index and conformance AttributedString.Index, MEMORY[0x277CC8C20]);
-    v178 = v302;
+    v200 = lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString.Index and conformance AttributedString.Index, MEMORY[0x277CC8C20], MEMORY[0x277CC8C28]);
+    v201 = v333;
     result = dispatch thunk of static Comparable.<= infix(_:_:)();
     if ((result & 1) == 0)
     {
       break;
     }
 
-    v294 = v177;
-    v318 = v174;
-    v327 = v170;
-    v328 = v169;
-    v180 = v275;
-    v280 = *v274;
-    v280(v275, v176, v178);
-    v181 = v277;
-    v182 = v178;
-    v183 = *v273;
-    (*v273)(v180 + *(v277 + 48), v175, v178);
-    v184 = v276;
-    outlined init with copy of NotificationModel.Symbol?(v180, v276, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd);
-    v185 = *(v181 + 48);
-    v186 = v287;
-    v183(v287, v184, v182);
-    v187 = (v184 + v185);
-    v188 = v304;
-    v304(v187, v182);
-    outlined init with take of AttributedString?(v180, v184, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd);
-    v189 = *(v181 + 48);
-    v279 = *(v300 + 36);
-    v281 = v183;
-    v183(v279 + v186, v184 + v189, v182);
-    v188(v184, v182);
+    v325 = v200;
+    v349 = v197;
+    v358 = v193;
+    v359 = v192;
+    v203 = v306;
+    v311 = *v305;
+    v311(v306, v199, v201);
+    v204 = v308;
+    v205 = v201;
+    v206 = *v304;
+    (*v304)(v203 + *(v308 + 48), v198, v201);
+    v207 = v307;
+    outlined init with copy of NotificationModel.Symbol?(v203, v307, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMR);
+    v208 = *(v204 + 48);
+    v209 = v318;
+    v206(v318, v207, v205);
+    v210 = (v207 + v208);
+    v211 = v335;
+    v335(v210, v205);
+    outlined init with take of AttributedString?(v203, v207, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMR);
+    v212 = *(v204 + 48);
+    v310 = *(v331 + 36);
+    v312 = v206;
+    v206(v310 + v209, v207 + v212, v205);
+    v211(v207, v205);
     if (one-time initialization token for list != -1)
     {
       swift_once();
     }
 
-    v190 = static CAFUISettingInfoFontTypes.list;
-    v191 = static CAFUISettingInfoFontTypes.list;
-    v192 = AttributedString.subscript.modify();
-    v341 = v190;
-    v193 = lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute();
+    v213 = static CAFUISettingInfoFontTypes.list;
+    v214 = static CAFUISettingInfoFontTypes.list;
+    v215 = AttributedString.subscript.modify();
+    v372 = v213;
+    v218 = lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute(v215, v216, v217);
     AttributedSubstring.subscript.setter();
-    v192(&v343, 0);
-    [v331 copy];
+    v215(&v374, 0);
+    [v362 copy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSParagraphStyle);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSParagraphStyle, 0x277D74248);
     swift_dynamicCast();
-    v194 = v342;
-    v195 = AttributedString.subscript.modify();
-    v340 = v194;
-    lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute();
+    v219 = v373;
+    v220 = AttributedString.subscript.modify();
+    v371 = v219;
+    lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute(v220, v221, v222);
     AttributedSubstring.subscript.setter();
-    (v195)(&v341, 0);
+    (v220)(&v372, 0);
     String.count.getter();
 
-    v196 = v306;
-    v197 = v307;
+    v223 = v337;
+    v224 = v338;
     AttributedStringProtocol.index(_:offsetByCharacters:)();
-    LOBYTE(v195) = dispatch thunk of static Comparable.<= infix(_:_:)();
-    result = outlined destroy of RequestTemporaryContentModel?(v287, &_sSny10Foundation16AttributedStringV5IndexVGMd);
-    if ((v195 & 1) == 0)
+    LOBYTE(v220) = dispatch thunk of static Comparable.<= infix(_:_:)();
+    result = outlined destroy of RequestTemporaryContentModel?(v318, &_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR);
+    if ((v220 & 1) == 0)
     {
       goto LABEL_94;
     }
 
-    v330 = v193;
-    v198 = v275;
-    v280(v275, v197, v182);
-    v199 = v277;
-    v200 = v198 + *(v277 + 48);
-    v201 = v196;
+    v361 = v218;
+    v225 = v306;
+    v311(v306, v224, v205);
+    v226 = v308;
+    v227 = v225 + *(v308 + 48);
+    v228 = v223;
 LABEL_86:
-    v243 = v281;
-    v281(v200, v201, v182);
-    v244 = v276;
-    outlined init with copy of NotificationModel.Symbol?(v198, v276, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd);
-    v245 = *(v199 + 48);
-    v243(v287, v244, v182);
-    v246 = (v244 + v245);
-    v247 = v304;
-    v304(v246, v182);
-    v248 = v287;
-    outlined init with take of AttributedString?(v198, v244, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd);
-    v243(v279 + v248, v244 + *(v199 + 48), v182);
-    v247(v244, v182);
+    v274 = v312;
+    v312(v227, v228, v205);
+    v275 = v307;
+    outlined init with copy of NotificationModel.Symbol?(v225, v307, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMR);
+    v276 = *(v226 + 48);
+    v274(v318, v275, v205);
+    v277 = (v275 + v276);
+    v278 = v335;
+    v335(v277, v205);
+    v279 = v318;
+    outlined init with take of AttributedString?(v225, v275, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMR);
+    v274(v310 + v279, v275 + *(v226 + 48), v205);
+    v278(v275, v205);
     if (one-time initialization token for listItemNumberFont != -1)
     {
       swift_once();
     }
 
-    v249 = static CAFUISettingInfoFontTypes.listItemNumberFont;
-    v250 = static CAFUISettingInfoFontTypes.listItemNumberFont;
-    v251 = AttributedString.subscript.modify();
-    v341 = v249;
+    v280 = static CAFUISettingInfoFontTypes.listItemNumberFont;
+    v281 = static CAFUISettingInfoFontTypes.listItemNumberFont;
+    v282 = AttributedString.subscript.modify();
+    v372 = v280;
     AttributedSubstring.subscript.setter();
-    v251(&v343, 0);
+    v282(&v374, 0);
 
-    outlined destroy of RequestTemporaryContentModel?(v248, &_sSny10Foundation16AttributedStringV5IndexVGMd);
-    (v336)(v278, v6);
-    v25 = v312;
+    outlined destroy of RequestTemporaryContentModel?(v279, &_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR);
+    (v367)(v309, v6);
+    v25 = v343;
 LABEL_89:
-    v252 = v306;
+    v283 = v337;
     AttributedString.startIndex.getter();
-    v253 = v307;
-    v254 = v302;
-    v255 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v304(v252, v254);
-    if ((v255 & 1) == 0)
+    v284 = v338;
+    v285 = v333;
+    v286 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v335(v283, v285);
+    if ((v286 & 1) == 0)
     {
-      v256 = AttributedString.characters.modify();
-      specialized RangeReplaceableCollection.insert<A>(contentsOf:at:)(10, 0xE100000000000000, v253);
-      v256(&v343, 0);
+      v287 = AttributedString.characters.modify();
+      specialized RangeReplaceableCollection.insert<A>(contentsOf:at:)(10, 0xE100000000000000, v284);
+      v287(&v374, 0);
     }
 
-    outlined destroy of RequestTemporaryContentModel?(v313, &_s10Foundation18PresentationIntentV4KindOSgMd);
-    (*v282)(v289, v299);
-    outlined destroy of RequestTemporaryContentModel?(v253, &_sSny10Foundation16AttributedStringV5IndexVGMd);
-    v69 = v288;
+    outlined destroy of RequestTemporaryContentModel?(v344, &_s10Foundation18PresentationIntentV4KindOSgMd, &_s10Foundation18PresentationIntentV4KindOSgMR);
+    (*v313)(v320, v330);
+    outlined destroy of RequestTemporaryContentModel?(v284, &_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR);
+    v72 = v319;
   }
 
   __break(1u);
@@ -5361,42 +5380,42 @@ LABEL_99:
 uint64_t specialized RangeReplaceableCollection.insert<A>(contentsOf:at:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMR);
   v9 = MEMORY[0x28223BE20](v8);
-  v11 = v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = v28 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v9);
-  v13 = v25 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSny10Foundation16AttributedStringV5IndexVGMd);
+  v13 = v28 - v12;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR);
   MEMORY[0x28223BE20](v14);
-  v16 = v25 - v15;
-  v25[2] = a1;
-  v25[3] = a2;
+  v16 = v28 - v15;
+  v28[2] = a1;
+  v28[3] = a2;
   v17 = type metadata accessor for AttributedString.Index();
-  lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString.Index and conformance AttributedString.Index, MEMORY[0x277CC8C20]);
+  lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString.Index and conformance AttributedString.Index, MEMORY[0x277CC8C20], MEMORY[0x277CC8C28]);
   result = dispatch thunk of static Comparable.<= infix(_:_:)();
   if (result)
   {
     v19 = *(v17 - 8);
-    v25[0] = v14;
+    v28[0] = v14;
     v20 = v19;
     v21 = *(v19 + 16);
-    v25[1] = v4;
+    v28[1] = v4;
     v21(v13, a3, v17);
     v21(&v13[*(v8 + 48)], a3, v17);
-    outlined init with copy of NotificationModel.Symbol?(v13, v11, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd);
+    outlined init with copy of NotificationModel.Symbol?(v13, v11, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMR);
     v22 = *(v8 + 48);
     v23 = *(v20 + 32);
     v23(v16, v11, v17);
     v24 = *(v20 + 8);
     v24(&v11[v22], v17);
-    outlined init with take of AttributedString?(v13, v11, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd);
-    v23(&v16[*(v25[0] + 36)], &v11[*(v8 + 48)], v17);
+    outlined init with take of AttributedString?(v13, v11, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMd, &_s10Foundation16AttributedStringV5IndexV5lower_AE5uppertMR);
+    v23(&v16[*(v28[0] + 36)], &v11[*(v8 + 48)], v17);
     v24(v11, v17);
     type metadata accessor for AttributedString.CharacterView();
-    lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString.CharacterView and conformance AttributedString.CharacterView, MEMORY[0x277CC8B30]);
-    lazy protocol witness table accessor for type String and conformance String();
+    v25 = lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type AttributedString.CharacterView and conformance AttributedString.CharacterView, MEMORY[0x277CC8B30], MEMORY[0x277CC8B50]);
+    lazy protocol witness table accessor for type String and conformance String(v25, v26, v27);
     dispatch thunk of RangeReplaceableCollection.replaceSubrange<A>(_:with:)();
-    return outlined destroy of RequestTemporaryContentModel?(v16, &_sSny10Foundation16AttributedStringV5IndexVGMd);
+    return outlined destroy of RequestTemporaryContentModel?(v16, &_sSny10Foundation16AttributedStringV5IndexVGMd, &_sSny10Foundation16AttributedStringV5IndexVGMR);
   }
 
   else
@@ -5415,7 +5434,7 @@ uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+double outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
@@ -5424,20 +5443,22 @@ uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
       return result;
     }
   }
+
+  return result;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-unint64_t lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute()
+unint64_t lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute;
   if (!lazy protocol witness table cache variable for type AttributeScopes.UIKitAttributes.ParagraphStyleAttribute and conformance AttributeScopes.UIKitAttributes.ParagraphStyleAttribute)
@@ -5449,7 +5470,7 @@ unint64_t lazy protocol witness table accessor for type AttributeScopes.UIKitAtt
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute()
+unint64_t lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute;
   if (!lazy protocol witness table cache variable for type AttributeScopes.UIKitAttributes.FontAttribute and conformance AttributeScopes.UIKitAttributes.FontAttribute)
@@ -5461,7 +5482,7 @@ unint64_t lazy protocol witness table accessor for type AttributeScopes.UIKitAtt
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute()
+unint64_t lazy protocol witness table accessor for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute;
   if (!lazy protocol witness table cache variable for type AttributeScopes.UIKitAttributes.ForegroundColorAttribute and conformance AttributeScopes.UIKitAttributes.ForegroundColorAttribute)
@@ -5473,7 +5494,7 @@ unint64_t lazy protocol witness table accessor for type AttributeScopes.UIKitAtt
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.PresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.PresentationIntentAttribute()
+unint64_t lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.PresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.PresentationIntentAttribute(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.PresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.PresentationIntentAttribute;
   if (!lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.PresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.PresentationIntentAttribute)
@@ -5485,21 +5506,28 @@ unint64_t lazy protocol witness table accessor for type AttributeScopes.Foundati
   return result;
 }
 
-void sub_24237DA0C()
+void sub_24237DA0C(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.PresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.PresentationIntentAttribute();
+  lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.PresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.PresentationIntentAttribute(a1, a2, a3);
   AttributeDynamicLookup.subscript.getter();
   __break(1u);
 }
 
-uint64_t outlined init with take of AttributedString?(uint64_t a1, uint64_t a2, uint64_t *a3)
+double sub_24237DA48(uint64_t *a1, void *a2)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  *a2 = *a1;
+
+  return result;
+}
+
+uint64_t outlined init with take of AttributedString?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 32))(a2, a1, v6);
   return a2;
 }
 
-uint64_t lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5512,7 +5540,7 @@ uint64_t lazy protocol witness table accessor for type NSAttributedStringKey and
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type String and conformance String()
+unint64_t lazy protocol witness table accessor for type String and conformance String(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type String and conformance String;
   if (!lazy protocol witness table cache variable for type String and conformance String)
@@ -5546,7 +5574,7 @@ unint64_t lazy protocol witness table accessor for type String and conformance S
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute()
+unint64_t lazy protocol witness table accessor for type AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute;
   if (!lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute and conformance AttributeScopes.FoundationAttributes.InlinePresentationIntentAttribute)
@@ -5639,7 +5667,7 @@ uint64_t CAFUISwitchRepresentable.configureCell(_:)(uint64_t a1, uint64_t a2, ch
   v85 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
   v82 = (&v73 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   v9 = MEMORY[0x28223BE20](v8 - 8);
   v80 = &v73 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = MEMORY[0x28223BE20](v9);
@@ -5819,63 +5847,63 @@ uint64_t CAFUISwitchRepresentable.cellSelected()@<X0>(uint64_t a1@<X0>, uint64_t
 UIImage_optional __swiftcall UIImage.imageByScaling(targetHeight:)(Swift::Double targetHeight)
 {
   v2 = v1;
-  if (targetHeight <= 0.0 || ([v1 size], v4 <= 0.0))
+  if (targetHeight <= 0.0 || ([v1 size], v3 <= 0.0))
   {
     _StringGuts.grow(_:)(30);
     MEMORY[0x245D0D240](0x6548746567726174, 0xED00003D74686769);
     Double.write<A>(to:)();
     MEMORY[0x245D0D240](0x20656372756F7320, 0xED00003D657A6973);
     [v1 size];
-    v20 = CGSize.description.getter();
-    MEMORY[0x245D0D240](v20);
+    v16 = CGSize.description.getter();
+    MEMORY[0x245D0D240](v16);
 
     specialized static CAFUILogger.error(_:function:file:line:)(0, 0xE000000000000000, 0xD00000000000001DLL, 0x8000000242429C10, 13);
 
-    v18 = 0;
+    v14 = 0;
   }
 
   else
   {
     [v1 size];
-    v6 = targetHeight / v5;
-    v7 = [v1 size];
-    v9 = destructiveProjectEnumData for CAFNotificationSource.Destination(v7, v6 * v8, targetHeight);
-    v11 = v10;
-    v12 = [objc_allocWithZone(MEMORY[0x277D75560]) initWithSize_];
-    v13 = swift_allocObject();
-    *(v13 + 2) = v2;
-    v13[3] = v9;
-    v13[4] = v11;
-    v14 = swift_allocObject();
-    *(v14 + 16) = partial apply for closure #1 in UIImage.imageByScaling(targetHeight:);
-    *(v14 + 24) = v13;
-    v21[4] = partial apply for thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ();
-    v21[5] = v14;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 1107296256;
-    v21[2] = thunk for @escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ();
-    v21[3] = &block_descriptor_1;
-    v15 = _Block_copy(v21);
-    v16 = v2;
+    [v1 size];
+    destructiveProjectEnumData for CAFNotificationSource.Destination();
+    v5 = v4;
+    v7 = v6;
+    v8 = [objc_allocWithZone(MEMORY[0x277D75560]) initWithSize_];
+    v9 = swift_allocObject();
+    *(v9 + 2) = v2;
+    v9[3] = v5;
+    v9[4] = v7;
+    v10 = swift_allocObject();
+    *(v10 + 16) = partial apply for closure #1 in UIImage.imageByScaling(targetHeight:);
+    *(v10 + 24) = v9;
+    v17[4] = partial apply for thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ();
+    v17[5] = v10;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 1107296256;
+    v17[2] = thunk for @escaping @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ();
+    v17[3] = &block_descriptor_1;
+    v11 = _Block_copy(v17);
+    v12 = v2;
 
-    v17 = [v12 imageWithActions_];
+    v13 = [v8 imageWithActions_];
 
-    _Block_release(v15);
-    LOBYTE(v12) = swift_isEscapingClosureAtFileLocation();
+    _Block_release(v11);
+    LOBYTE(v8) = swift_isEscapingClosureAtFileLocation();
 
-    if (v12)
+    if (v8)
     {
       __break(1u);
     }
 
     else
     {
-      v18 = v17;
+      v14 = v13;
     }
   }
 
-  result.value.super.isa = v18;
-  result.is_nil = v19;
+  result.value.super.isa = v14;
+  result.is_nil = v15;
   return result;
 }
 
@@ -6036,11 +6064,13 @@ uint64_t sub_24237EE94()
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
 
-uint64_t block_copy_helper_1(uint64_t a1, uint64_t a2)
+double block_copy_helper_1(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 unint64_t CAFUISymbol.rawValue.getter(char a1)
@@ -6130,7 +6160,7 @@ unint64_t CAFUISymbol.rawValue.getter(char a1)
   return result;
 }
 
-unint64_t CAFUISymbol.symbolName.getter(char a1)
+uint64_t CAFUISymbol.symbolName.getter(char a1)
 {
   v32 = type metadata accessor for Unicode.Scalar.Properties();
   v2 = *(v32 - 8);
@@ -6144,7 +6174,7 @@ unint64_t CAFUISymbol.symbolName.getter(char a1)
     v9 = MEMORY[0x277D84F90];
 LABEL_38:
     v35 = v9;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
     lazy protocol witness table accessor for type [String] and conformance [A]();
     v29 = BidirectionalCollection<>.joined(separator:)();
 
@@ -6480,7 +6510,7 @@ unint64_t lazy protocol witness table accessor for type [String] and conformance
   result = lazy protocol witness table cache variable for type [String] and conformance [A];
   if (!lazy protocol witness table cache variable for type [String] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySSGMd, &_sSaySSGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String] and conformance [A]);
   }
@@ -6574,7 +6604,7 @@ LABEL_14:
   return result;
 }
 
-uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -6627,7 +6657,7 @@ id CAFUIPickerTableCell.__allocating_init(style:reuseIdentifier:)(uint64_t a1, u
 
 id CAFUIPickerTableCell.init(style:reuseIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit25UIBackgroundConfigurationVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit25UIBackgroundConfigurationVSgMd, &_s5UIKit25UIBackgroundConfigurationVSgMR);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v23 - v8;
   v10 = type metadata accessor for UIBackgroundConfiguration();
@@ -6743,11 +6773,11 @@ unint64_t CAFUIPickerTableCell.configure(for:indexPath:)(uint64_t a1, uint64_t a
   v7 = type metadata accessor for CharacterSet();
   v8 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
-  v10 = &v58 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v61 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = type metadata accessor for UIListContentConfiguration();
-  v62 = *(v11 - 8);
+  v65 = *(v11 - 8);
   MEMORY[0x28223BE20](v11);
-  v64 = &v58 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v67 = &v61 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = &v3[OBJC_IVAR____TtC5CAFUI20CAFUIPickerTableCell_representable];
   *v13 = a1;
   *(v13 + 1) = a2;
@@ -6759,7 +6789,7 @@ unint64_t CAFUIPickerTableCell.configure(for:indexPath:)(uint64_t a1, uint64_t a
   v15[8] = 0;
   ObjectType = swift_getObjectType();
   v17 = *(a2 + 16);
-  v63 = ObjectType;
+  v66 = ObjectType;
   v18 = v17(ObjectType, a2);
   result = IndexPath.row.getter();
   if ((result & 0x8000000000000000) != 0)
@@ -6775,34 +6805,34 @@ LABEL_21:
     return result;
   }
 
-  v59 = a2;
-  v60 = a3;
-  v61 = v11;
+  v62 = a2;
+  v63 = a3;
+  v64 = v11;
   v20 = v3;
   v21 = v18 + 40 * result;
   v22 = *(v21 + 48);
   v23 = *(v21 + 56);
 
-  v24 = v64;
+  v24 = v67;
   static UIListContentConfiguration.cell()();
   UIListContentConfiguration.text.setter();
   if (v23)
   {
-    v65[0] = v22;
-    v65[1] = v23;
-    static CharacterSet.whitespaces.getter();
-    lazy protocol witness table accessor for type String and conformance String();
-    v25 = StringProtocol.trimmingCharacters(in:)();
-    v27 = v26;
+    v68[0] = v22;
+    v68[1] = v23;
+    v25 = static CharacterSet.whitespaces.getter();
+    lazy protocol witness table accessor for type String and conformance String(v25, v26, v27);
+    v28 = StringProtocol.trimmingCharacters(in:)();
+    v30 = v29;
     (*(v8 + 8))(v10, v7);
 
-    v28 = HIBYTE(v27) & 0xF;
-    if ((v27 & 0x2000000000000000) == 0)
+    v31 = HIBYTE(v30) & 0xF;
+    if ((v30 & 0x2000000000000000) == 0)
     {
-      v28 = v25 & 0xFFFFFFFFFFFFLL;
+      v31 = v28 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v28)
+    if (v31)
     {
       UIListContentConfiguration.secondaryText.setter();
     }
@@ -6812,76 +6842,76 @@ LABEL_21:
     }
   }
 
-  v29 = v61;
-  v65[3] = v61;
-  v65[4] = MEMORY[0x277D74C30];
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v65);
-  v31 = v62;
-  (*(v62 + 16))(boxed_opaque_existential_1, v24, v29);
-  v32 = v20;
-  MEMORY[0x245D0D4E0](v65);
+  v32 = v64;
+  v68[3] = v64;
+  v68[4] = MEMORY[0x277D74C30];
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v68);
+  v34 = v65;
+  (*(v65 + 16))(boxed_opaque_existential_1, v24, v32);
+  v35 = v20;
+  MEMORY[0x245D0D4E0](v68);
   [v20 setAccessoryType_];
-  v33 = v59;
-  v34 = *(v59 + 24);
-  v35 = v34(v63, v59);
-  v36 = IndexPath.row.getter();
-  v37 = *(v35 + 16);
-  v38 = 32;
-  while (v37)
+  v36 = v62;
+  v37 = *(v62 + 24);
+  v38 = v37(v66, v62);
+  v39 = IndexPath.row.getter();
+  v40 = *(v38 + 16);
+  v41 = 32;
+  while (v40)
   {
-    v39 = *(v35 + v38);
-    v38 += 8;
-    --v37;
-    if (v39 == v36)
+    v42 = *(v38 + v41);
+    v41 += 8;
+    --v40;
+    if (v42 == v39)
     {
 
-      v40 = *MEMORY[0x277D76920];
-      v41 = objc_opt_self();
-      v42 = [v41 configurationWithTextStyle:v40 scale:2];
-      v43 = [v41 configurationWithWeight_];
-      v44 = [v42 configurationByApplyingConfiguration_];
+      v43 = *MEMORY[0x277D76920];
+      v44 = objc_opt_self();
+      v45 = [v44 configurationWithTextStyle:v43 scale:2];
+      v46 = [v44 configurationWithWeight_];
+      v47 = [v45 configurationByApplyingConfiguration_];
 
-      v45 = v44;
-      v46 = MEMORY[0x245D0D180](0x72616D6B63656863, 0xE90000000000006BLL);
-      v47 = [objc_opt_self() systemImageNamed:v46 withConfiguration:v45];
+      v48 = v47;
+      v49 = MEMORY[0x245D0D180](0x72616D6B63656863, 0xE90000000000006BLL);
+      v50 = [objc_opt_self() systemImageNamed:v49 withConfiguration:v48];
 
-      v48 = [objc_allocWithZone(MEMORY[0x277D755E8]) initWithImage_];
-      v49 = [objc_opt_self() _carSystemFocusColor];
-      [v48 setTintColor_];
+      v51 = [objc_allocWithZone(MEMORY[0x277D755E8]) initWithImage_];
+      v52 = [objc_opt_self() _carSystemFocusColor];
+      [v51 setTintColor_];
 
-      v29 = v61;
-      [v32 setAccessoryView_];
+      v32 = v64;
+      [v35 setAccessoryView_];
 
-      v31 = v62;
+      v34 = v65;
       goto LABEL_14;
     }
   }
 
-  [v32 setAccessoryView_];
+  [v35 setAccessoryView_];
 LABEL_14:
-  v50 = v34(v63, v33);
-  v51 = IndexPath.row.getter();
-  v52 = v50;
-  v53 = *(v50 + 16);
-  v54 = 32;
-  v55 = 3;
-  v56 = v64;
-  while (v53)
+  v53 = v37(v66, v36);
+  v54 = IndexPath.row.getter();
+  v55 = v53;
+  v56 = *(v53 + 16);
+  v57 = 32;
+  v58 = 3;
+  v59 = v67;
+  while (v56)
   {
-    v57 = *(v52 + v54);
-    v54 += 8;
-    --v53;
-    if (v57 == v51)
+    v60 = *(v55 + v57);
+    v57 += 8;
+    --v56;
+    if (v60 == v54)
     {
       goto LABEL_19;
     }
   }
 
-  v55 = 0;
+  v58 = 0;
 LABEL_19:
 
-  [v32 setAccessoryType_];
-  return (*(v31 + 8))(v56, v29);
+  [v35 setAccessoryType_];
+  return (*(v34 + 8))(v59, v32);
 }
 
 id CAFUIPickerTableCell.__deallocating_deinit()
@@ -7314,7 +7344,7 @@ uint64_t sub_2423815F0()
 
   if (*(v0 + 80))
   {
-    __swift_destroy_boxed_opaque_existential_0(v0 + 56);
+    __swift_destroy_boxed_opaque_existential_0((v0 + 56));
   }
 
   return MEMORY[0x2821FE8E8](v0, 96, 7);
@@ -7330,7 +7360,7 @@ uint64_t CAFSingleSelectImageSetting.selectedIndices.getter()
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_2424235A0;
   v4 = [v0 currentUserVisibleValue];
@@ -7352,7 +7382,7 @@ id key path getter for CAFSingleSelectImageSetting.selectedIndices : CAFSingleSe
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
     v7 = swift_allocObject();
     *(v7 + 16) = xmmword_2424235A0;
     result = [v3 currentUserVisibleValue];
@@ -7413,7 +7443,7 @@ LABEL_11:
   specialized static CAFUILogger.default(_:function:file:line:)(0xD000000000000023, 0x800000024242A5A0, 0x64657463656C6573, 0xEF73656369646E49, 68);
 }
 
-uint64_t (*CAFSingleSelectImageSetting.selectedIndices.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*CAFSingleSelectImageSetting.selectedIndices.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = [v1 currentUserVisibleValue];
@@ -7426,7 +7456,7 @@ uint64_t (*CAFSingleSelectImageSetting.selectedIndices.modify(uint64_t *a1))(uin
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
     v5 = swift_allocObject();
     *(v5 + 16) = xmmword_2424235A0;
     *(v5 + 32) = [v1 currentUserVisibleValue];
@@ -7471,7 +7501,7 @@ unint64_t CAFMultipleSelectImageSetting.detailLabel.getter()
 {
   v1 = &selRef_systemImageNamed_withConfiguration_;
   v2 = [v0 indicesUserVisibleValue];
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v3 >> 62)
@@ -7493,7 +7523,7 @@ LABEL_28:
       v21 = CAFUILocalizedStringForKey(v20);
 
       static String._unconditionallyBridgeFromObjectiveC(_:)();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
       v22 = swift_allocObject();
       *(v22 + 16) = xmmword_2424235A0;
       v23 = [v32 v1[179]];
@@ -7629,7 +7659,7 @@ LABEL_27:
 void CAFMultipleSelectImageSetting.detailImage.getter()
 {
   v1 = [v0 indicesUserVisibleValue];
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v2 >> 62)
@@ -7826,7 +7856,7 @@ char *CAFMultipleSelectImageSetting.selectedIndices.getter()
 {
   v1 = v0;
   v2 = [v0 indicesUserVisibleValue];
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v3 >> 62))
@@ -7840,52 +7870,51 @@ char *CAFMultipleSelectImageSetting.selectedIndices.getter()
 LABEL_22:
 
     v7 = MEMORY[0x277D84F90];
-    v14 = *(MEMORY[0x277D84F90] + 16);
-    if (v14)
+    v13 = *(MEMORY[0x277D84F90] + 16);
+    if (v13)
     {
 LABEL_12:
-      v15 = (v7 + 32);
-      v16 = MEMORY[0x277D84F90];
+      v14 = (v7 + 32);
+      v15 = MEMORY[0x277D84F90];
       do
       {
-        v20 = *v15++;
-        v19 = v20;
-        if ((v20 & 0x8000000000000000) == 0)
+        v19 = *v14++;
+        v18 = v19;
+        if ((v19 & 0x8000000000000000) == 0)
         {
-          v21 = *(CAFSingleSelectImageSetting.items.getter(isUniquelyReferenced_nonNull_native) + 16);
+          v20 = *(CAFSingleSelectImageSetting.items.getter() + 16);
 
-          if (v19 < v21)
+          if (v18 < v20)
           {
-            isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-            if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
-              isUniquelyReferenced_nonNull_native = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v16 + 16) + 1, 1);
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v15 + 16) + 1, 1);
             }
 
-            v18 = *(v16 + 16);
-            v17 = *(v16 + 24);
-            if (v18 >= v17 >> 1)
+            v17 = *(v15 + 16);
+            v16 = *(v15 + 24);
+            if (v17 >= v16 >> 1)
             {
-              isUniquelyReferenced_nonNull_native = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v17 > 1), v18 + 1, 1);
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1);
             }
 
-            *(v16 + 16) = v18 + 1;
-            *(v16 + 8 * v18 + 32) = v19;
+            *(v15 + 16) = v17 + 1;
+            *(v15 + 8 * v17 + 32) = v18;
           }
         }
 
-        --v14;
+        --v13;
       }
 
-      while (v14);
+      while (v13);
       goto LABEL_24;
     }
 
 LABEL_23:
-    v16 = MEMORY[0x277D84F90];
+    v15 = MEMORY[0x277D84F90];
 LABEL_24:
 
-    return v16;
+    return v15;
   }
 
   v4 = __CocoaSet.count.getter();
@@ -7895,13 +7924,13 @@ LABEL_24:
   }
 
 LABEL_3:
-  v23 = MEMORY[0x277D84F90];
+  v22 = MEMORY[0x277D84F90];
   result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v4 & ~(v4 >> 63), 0);
   if ((v4 & 0x8000000000000000) == 0)
   {
-    v22 = v1;
+    v21 = v1;
     v6 = 0;
-    v7 = v23;
+    v7 = v22;
     do
     {
       if ((v3 & 0xC000000000000001) != 0)
@@ -7917,22 +7946,22 @@ LABEL_3:
       v9 = v8;
       v10 = [v8 integerValue];
 
-      v12 = *(v23 + 16);
-      v11 = *(v23 + 24);
+      v12 = *(v22 + 16);
+      v11 = *(v22 + 24);
       if (v12 >= v11 >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v11 > 1), v12 + 1, 1);
       }
 
       ++v6;
-      *(v23 + 16) = v12 + 1;
-      *(v23 + 8 * v12 + 32) = v10;
+      *(v22 + 16) = v12 + 1;
+      *(v22 + 8 * v12 + 32) = v10;
     }
 
     while (v4 != v6);
 
-    v14 = *(v23 + 16);
-    if (v14)
+    v13 = *(v22 + 16);
+    if (v13)
     {
       goto LABEL_12;
     }
@@ -7944,33 +7973,32 @@ LABEL_3:
   return result;
 }
 
-void CAFMultipleSelectImageSetting.selectedIndices.setter(uint64_t isUniquelyReferenced_nonNull_native)
+void CAFMultipleSelectImageSetting.selectedIndices.setter(uint64_t a1)
 {
   v2 = v1;
-  v3 = *(isUniquelyReferenced_nonNull_native + 16);
+  v3 = *(a1 + 16);
   if (v3)
   {
-    v4 = (isUniquelyReferenced_nonNull_native + 32);
+    v4 = (a1 + 32);
     v5 = MEMORY[0x277D84F90];
     do
     {
       v9 = *v4++;
       v8 = v9;
-      v10 = *(CAFSingleSelectImageSetting.items.getter(isUniquelyReferenced_nonNull_native) + 16);
+      v10 = *(CAFSingleSelectImageSetting.items.getter() + 16);
 
       if (v9 < v10)
       {
-        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          isUniquelyReferenced_nonNull_native = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v5 + 16) + 1, 1);
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v5 + 16) + 1, 1);
         }
 
         v7 = *(v5 + 16);
         v6 = *(v5 + 24);
         if (v7 >= v6 >> 1)
         {
-          isUniquelyReferenced_nonNull_native = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v6 > 1), v7 + 1, 1);
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v6 > 1), v7 + 1, 1);
         }
 
         *(v5 + 16) = v7 + 1;
@@ -8007,13 +8035,13 @@ void CAFMultipleSelectImageSetting.selectedIndices.setter(uint64_t isUniquelyRef
     while (v11);
   }
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v2 setIndicesUserVisibleValue_];
 }
 
-uint64_t (*CAFMultipleSelectImageSetting.selectedIndices.modify(char **a1))(uint64_t *a1, char a2)
+uint64_t (*CAFMultipleSelectImageSetting.selectedIndices.modify(char **a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
   *a1 = CAFMultipleSelectImageSetting.selectedIndices.getter();
@@ -8077,7 +8105,7 @@ uint64_t CAFSingleSelectImageSetting.isEnabled.getter(uint64_t a1)
   return 0;
 }
 
-uint64_t (*protocol witness for CAFUIImageRepresentable.selectedIndices.modify in conformance CAFMultipleSelectImageSetting(char **a1))(uint64_t *a1, char a2)
+uint64_t (*protocol witness for CAFUIImageRepresentable.selectedIndices.modify in conformance CAFMultipleSelectImageSetting(char **a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
   *a1 = CAFMultipleSelectImageSetting.selectedIndices.getter();
@@ -8203,12 +8231,12 @@ id (*protocol witness for CAFUIButtonRepresentable.buttonAction.modify in confor
 uint64_t CAFDeepLinkSetting.configureCell(_:)(uint64_t a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   v5 = MEMORY[0x28223BE20](v4 - 8);
   v52 = &v46 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v5);
   v51 = &v46 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit26UIListContentConfigurationVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit26UIListContentConfigurationVSgMd, &_s5UIKit26UIListContentConfigurationVSgMR);
   MEMORY[0x28223BE20](v8 - 8);
   v10 = &v46 - v9;
   v11 = type metadata accessor for CAFUITileCellConfiguration(0);
@@ -8306,8 +8334,8 @@ uint64_t CAFDeepLinkSetting.configureCell(_:)(uint64_t a1)
   outlined assign with copy of CAFUITileCellConfiguration?(v41, v43 + v42);
   swift_endAccess();
   CAFUITileBaseCell.tileCellConfiguration.didset(v44);
-  outlined destroy of RequestTemporaryContentModel?(v44, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
-  outlined destroy of RequestTemporaryContentModel?(v41, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  outlined destroy of RequestTemporaryContentModel?(v44, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
+  outlined destroy of RequestTemporaryContentModel?(v41, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   outlined destroy of CAFUITileCellConfiguration(v13);
   return (v48)(v20, v50);
 }
@@ -8347,7 +8375,7 @@ uint64_t CAFDeepLinkSetting.requestContentManager.getter()
 
   else
   {
-    outlined destroy of RequestTemporaryContentModel?(v6, &_sypSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 }
@@ -8359,7 +8387,7 @@ uint64_t CAFDeepLinkSetting.requestContentManager.setter(void *a1)
   swift_endAccess();
 }
 
-void (*CAFDeepLinkSetting.requestContentManager.modify(uint64_t *a1))(uint64_t a1)
+uint64_t (*CAFDeepLinkSetting.requestContentManager.modify(uint64_t *a1))()
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -8377,17 +8405,17 @@ void (*CAFDeepLinkSetting.requestContentManager.modify(uint64_t *a1))(uint64_t a
   return CAFDeepLinkSetting.requestContentManager.modify;
 }
 
-void CAFDeepLinkSetting.requestContentManager.modify(uint64_t a1)
+void CAFDeepLinkSetting.requestContentManager.modify(void *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 24);
-  v3 = *(*a1 + 32);
+  v2 = *a1;
+  v3 = *(*a1 + 24);
+  v4 = *(*a1 + 32);
   swift_beginAccess();
 
-  objc_setAssociatedObject(v3, &static CAFUIListContentAssociatedObjects.CellValue, v2, 0);
+  objc_setAssociatedObject(v4, &static CAFUIListContentAssociatedObjects.CellValue, v3, 0);
   swift_endAccess();
 
-  free(v1);
+  free(v2);
 }
 
 uint64_t CAFDeepLinkSetting.isEnabled.getter()
@@ -8510,12 +8538,12 @@ void protocol witness for CAFListContentRepresentable.cellSelected() in conforma
 uint64_t CAFStaticSetting.configureCell(_:)(uint64_t a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   v5 = MEMORY[0x28223BE20](v4 - 8);
   v51 = &v42 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v5);
   v50 = &v42 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit26UIListContentConfigurationVSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit26UIListContentConfigurationVSgMd, &_s5UIKit26UIListContentConfigurationVSgMR);
   MEMORY[0x28223BE20](v8 - 8);
   v10 = &v42 - v9;
   v11 = type metadata accessor for CAFUITileCellConfiguration(0);
@@ -8596,8 +8624,8 @@ uint64_t CAFStaticSetting.configureCell(_:)(uint64_t a1)
   outlined assign with copy of CAFUITileCellConfiguration?(v38, v34 + v39);
   swift_endAccess();
   CAFUITileBaseCell.tileCellConfiguration.didset(v40);
-  outlined destroy of RequestTemporaryContentModel?(v40, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
-  outlined destroy of RequestTemporaryContentModel?(v38, &_s5CAFUI26CAFUITileCellConfigurationVSgMd);
+  outlined destroy of RequestTemporaryContentModel?(v40, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
+  outlined destroy of RequestTemporaryContentModel?(v38, &_s5CAFUI26CAFUITileCellConfigurationVSgMd, &_s5CAFUI26CAFUITileCellConfigurationVSgMR);
   outlined destroy of CAFUITileCellConfiguration(v13);
   return (v47)(v20, v49);
 }
@@ -8645,7 +8673,7 @@ uint64_t CAFStaticSetting.firstChild.getter()
   v6[1] = v5;
   if (*(&v5 + 1))
   {
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFAutomakerSetting, 0x277CF8328);
     if (swift_dynamicCast())
     {
       return v3;
@@ -8659,7 +8687,7 @@ uint64_t CAFStaticSetting.firstChild.getter()
 
   else
   {
-    outlined destroy of RequestTemporaryContentModel?(v6, &_sypSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 }
@@ -8707,7 +8735,7 @@ void CAFStaticSetting.firstChild.setter(void *a1)
   swift_endAccess();
 }
 
-void (*CAFStaticSetting.firstChild.modify(uint64_t *a1))(uint64_t a1, char a2)
+uint64_t (*CAFStaticSetting.firstChild.modify(uint64_t *a1))()
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -8725,7 +8753,7 @@ void (*CAFStaticSetting.firstChild.modify(uint64_t *a1))(uint64_t a1, char a2)
   return CAFStaticSetting.firstChild.modify;
 }
 
-void CAFStaticSetting.firstChild.modify(uint64_t a1, char a2)
+void CAFStaticSetting.firstChild.modify(void *a1, char a2)
 {
   v3 = *a1;
   v5 = (*a1 + 24);
@@ -8847,7 +8875,7 @@ uint64_t CAFSingleSelectSetting.selectedIndices.getter()
   v2 = [v0 selectSettingEntryList];
   v3 = [v2 selectSettingEntrys];
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSelectSettingEntry);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSelectSettingEntry, 0x277CF8618);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v4 >> 62)
@@ -8865,7 +8893,7 @@ uint64_t CAFSingleSelectSetting.selectedIndices.getter()
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_2424235A0;
   v7 = [v0 selectedEntryIndex];
@@ -8901,19 +8929,19 @@ LABEL_5:
   return result;
 }
 
-id CAFSingleSelectSetting.selectedIndices.setter(uint64_t a1)
+void *CAFSingleSelectSetting.selectedIndices.setter(void *result)
 {
-  if (!*(a1 + 16))
+  if (!result[2])
   {
     goto LABEL_5;
   }
 
-  v2 = *(a1 + 32);
+  v2 = result[4];
 
   if ((v2 & 0x8000000000000000) != 0)
   {
     __break(1u);
-    return result;
+    return v3;
   }
 
   if (v2 > 0xFF)
@@ -9020,7 +9048,7 @@ void *CAFSingleSelectSetting.availableItems.getter()
   v1 = [v0 selectSettingEntryList];
   v2 = [v1 selectSettingEntrys];
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSelectSettingEntry);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSelectSettingEntry, 0x277CF8618);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v3 >> 62))
@@ -9148,7 +9176,7 @@ uint64_t CAFSingleSelectImageSetting.rowDescription.getter()
 char *CAFMultipleSelectSetting.selectedIndices.getter()
 {
   v1 = [v0 selectedEntryIndices];
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v2 >> 62))
@@ -9178,7 +9206,7 @@ LABEL_12:
           v20 = [v24 v15[192]];
           v21 = [v20 selectSettingEntrys];
 
-          type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSelectSettingEntry);
+          type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSelectSettingEntry, 0x277CF8618);
           v22 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
           if (v22 >> 62)
@@ -9302,13 +9330,13 @@ void CAFMultipleSelectSetting.selectedIndices.setter(uint64_t a1)
     while (v3);
   }
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v1 setSelectedEntryIndices_];
 }
 
-uint64_t (*CAFMultipleSelectSetting.selectedIndices.modify(char **a1))(uint64_t *a1, char a2)
+uint64_t (*CAFMultipleSelectSetting.selectedIndices.modify(char **a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
   *a1 = CAFMultipleSelectSetting.selectedIndices.getter();
@@ -9330,7 +9358,7 @@ void CAFSingleSelectSetting.cellSelected()(uint64_t (*a1)(void)@<X0>, uint64_t a
   v5 = [v2 selectSettingEntryList];
   v6 = [v5 selectSettingEntrys];
 
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSelectSettingEntry);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSelectSettingEntry, 0x277CF8618);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v7 >> 62)
@@ -9367,7 +9395,7 @@ LABEL_6:
   *(a2 + 16) = v11;
 }
 
-uint64_t (*protocol witness for CAFUIPickerRepresentable.selectedIndices.modify in conformance CAFMultipleSelectSetting(char **a1))(uint64_t *a1, char a2)
+uint64_t (*protocol witness for CAFUIPickerRepresentable.selectedIndices.modify in conformance CAFMultipleSelectSetting(char **a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
   *a1 = CAFMultipleSelectSetting.selectedIndices.getter();
@@ -9427,7 +9455,7 @@ uint64_t specialized CAFListContentRepresentable.session.getter()
   v6[1] = v5;
   if (*(&v5 + 1))
   {
-    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CARSession);
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CARSession, 0x277CF89E0);
     if (swift_dynamicCast())
     {
       return v3;
@@ -9441,7 +9469,7 @@ uint64_t specialized CAFListContentRepresentable.session.getter()
 
   else
   {
-    outlined destroy of RequestTemporaryContentModel?(v6, &_sypSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v6, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 }
@@ -9457,7 +9485,7 @@ uint64_t specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(
   return outlined init with take of CAFUIImageRepresentableItemProtocol(&v12, v10 + 40 * a1 + 32);
 }
 
-uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_t a2)
+uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -9465,34 +9493,34 @@ uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_
     return v2;
   }
 
-  return result;
+  return v3;
 }
 
 id specialized CAFUICollectionViewController.init(setting:isRHD:)(void *a1, char a2, _BYTE *a3)
 {
-  v98 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySays5UInt8VGs5NeverOGSo9NSRunLoopCGMd);
+  v98 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySays5UInt8VGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySays5UInt8VGs5NeverOGSo9NSRunLoopCGMR);
   v97 = *(v98 - 8);
   MEMORY[0x28223BE20](v98);
   v96 = &v79 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMR);
   v88 = *(v7 - 8);
   MEMORY[0x28223BE20](v7);
   v9 = &v79 - v8;
-  v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMd);
+  v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMR);
   v81 = *(v82 - 8);
   MEMORY[0x28223BE20](v82);
   v80 = &v79 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
   MEMORY[0x28223BE20](v11 - 8);
   v13 = &v79 - v12;
-  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd);
+  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMR);
   v86 = *(v87 - 8);
   MEMORY[0x28223BE20](v87);
   v85 = &v79 - v14;
   *&a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_emptyView] = 0;
   if (MEMORY[0x277D84F90] >> 62 && __CocoaSet.count.getter())
   {
-    v15 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5Tf4g_n(MEMORY[0x277D84F90]);
+    _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5Tf4g_n(MEMORY[0x277D84F90]);
   }
 
   else
@@ -9520,7 +9548,7 @@ id specialized CAFUICollectionViewController.init(setting:isRHD:)(void *a1, char
   a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_isRHD] = a2 & 1;
   v21 = [objc_allocWithZone(MEMORY[0x277D752F0]) init];
   [v21 setMinimumLineSpacing_];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMd, &_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_242424220;
   v102 = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -9536,7 +9564,7 @@ id specialized CAFUICollectionViewController.init(setting:isRHD:)(void *a1, char
   *(inited + 144) = 0;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCs11AnyHashableV_ypTt0g5Tf4g_n(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11AnyHashableV_yptMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11AnyHashableV_yptMd, &_ss11AnyHashableV_yptMR);
   swift_arrayDestroy();
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
@@ -9564,8 +9592,8 @@ id specialized CAFUICollectionViewController.init(setting:isRHD:)(void *a1, char
   if (v35)
   {
     v36 = v35;
-    v97 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSingleSelectImageSetting);
-    v98 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFSingleSelectImageSetting and conformance CAFSingleSelectImageSetting, &lazy cache variable for type metadata for CAFSingleSelectImageSetting);
+    v97 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSingleSelectImageSetting, 0x277CF8650);
+    v98 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFSingleSelectImageSetting and conformance CAFSingleSelectImageSetting, &lazy cache variable for type metadata for CAFSingleSelectImageSetting, 0x277CF8650, MEMORY[0x277CF38F0]);
     v37 = CAFObserved<>.observable.getter();
     v38 = dispatch thunk of CAFSingleSelectImageSettingObservable.$listUserVisibleValue.getter();
     v96 = v36;
@@ -9583,20 +9611,20 @@ id specialized CAFUICollectionViewController.init(setting:isRHD:)(void *a1, char
     v94 = (v42 + 56);
     v92(v13, 1, 1, v41);
     v43 = v101;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySaySSGs5NeverOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySaySSGs5NeverOGMd, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMR);
     v83 = v9;
-    v79 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop);
+    v79 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88);
     v91 = MEMORY[0x277CBCD90];
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[String], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMd);
-    v90 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[String], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMd, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMR, MEMORY[0x277CBCD90]);
+    v90 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88, MEMORY[0x277CC9E80]);
     v44 = v85;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
     swift_unknownObjectWeakInit();
     v89 = MEMORY[0x277CBCD60];
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[String], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[String], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMR, MEMORY[0x277CBCD60]);
     v45 = v43;
     v46 = v87;
     Publisher<>.sink(receiveValue:)();
@@ -9613,15 +9641,15 @@ id specialized CAFUICollectionViewController.init(setting:isRHD:)(void *a1, char
     v49 = [v95 mainRunLoop];
     v104 = v49;
     v92(v13, 1, 1, v93);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMd);
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<UInt8, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMd, &_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMR);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<UInt8, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMd, &_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMR, v91);
     v50 = v80;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
     swift_unknownObjectWeakInit();
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<UInt8, Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMd);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<UInt8, Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMR, v89);
     v51 = v82;
     Publisher<>.sink(receiveValue:)();
 
@@ -9637,16 +9665,16 @@ id specialized CAFUICollectionViewController.init(setting:isRHD:)(void *a1, char
     v54 = [v95 mainRunLoop];
     v104 = v54;
     v92(v13, 1, 1, v93);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd);
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[Data], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMR);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[Data], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMR, v91);
     v55 = v83;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
     swift_unknownObjectWeakInit();
 
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[Data], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[Data], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMR, v89);
     v56 = v84;
     Publisher<>.sink(receiveValue:)();
 
@@ -9666,8 +9694,8 @@ id specialized CAFUICollectionViewController.init(setting:isRHD:)(void *a1, char
     }
 
     v58 = v57;
-    v81 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFMultipleSelectImageSetting);
-    v95 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFMultipleSelectImageSetting and conformance CAFMultipleSelectImageSetting, &lazy cache variable for type metadata for CAFMultipleSelectImageSetting);
+    v81 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFMultipleSelectImageSetting, 0x277CF8538);
+    v95 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFMultipleSelectImageSetting and conformance CAFMultipleSelectImageSetting, &lazy cache variable for type metadata for CAFMultipleSelectImageSetting, 0x277CF8538, MEMORY[0x277CF3900]);
     v59 = CAFObserved<>.observable.getter();
     v60 = dispatch thunk of CAFMultipleSelectImageSettingObservable.$listUserVisibleValue.getter();
 
@@ -9680,22 +9708,22 @@ id specialized CAFUICollectionViewController.init(setting:isRHD:)(void *a1, char
     v91 = *(v62 + 56);
     v93 = v62 + 56;
     v91(v13, 1, 1, v92);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySaySSGs5NeverOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySaySSGs5NeverOGMd, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMR);
     v83 = v9;
     v84 = v7;
-    v80 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop);
+    v80 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88);
     v90 = MEMORY[0x277CBCD90];
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[String], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMd);
-    v89 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[String], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMd, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMR, MEMORY[0x277CBCD90]);
+    v89 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88, MEMORY[0x277CC9E80]);
     v63 = v85;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
     v64 = v101;
     swift_unknownObjectWeakInit();
     v82 = MEMORY[0x277CBCD60];
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[String], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[String], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMR, MEMORY[0x277CBCD60]);
     v65 = v64;
     v66 = v87;
     Publisher<>.sink(receiveValue:)();
@@ -9713,15 +9741,15 @@ id specialized CAFUICollectionViewController.init(setting:isRHD:)(void *a1, char
     v69 = [v94 mainRunLoop];
     v104 = v69;
     v91(v13, 1, 1, v92);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySays5UInt8VGs5NeverOGMd);
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[UInt8], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySays5UInt8VGs5NeverOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySays5UInt8VGs5NeverOGMd, &_s7Combine12AnyPublisherVySays5UInt8VGs5NeverOGMR);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[UInt8], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySays5UInt8VGs5NeverOGMd, &_s7Combine12AnyPublisherVySays5UInt8VGs5NeverOGMR, v90);
     v70 = v96;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
     swift_unknownObjectWeakInit();
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[UInt8], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySays5UInt8VGs5NeverOGSo9NSRunLoopCGMd);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[UInt8], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySays5UInt8VGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySays5UInt8VGs5NeverOGSo9NSRunLoopCGMR, v82);
     v71 = v98;
     Publisher<>.sink(receiveValue:)();
 
@@ -9737,16 +9765,16 @@ id specialized CAFUICollectionViewController.init(setting:isRHD:)(void *a1, char
     v74 = [v94 mainRunLoop];
     v104 = v74;
     v91(v13, 1, 1, v92);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd);
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[Data], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMR);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[Data], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMR, v90);
     v75 = v83;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
     swift_unknownObjectWeakInit();
 
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[Data], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[Data], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMR, v82);
     v76 = v84;
     Publisher<>.sink(receiveValue:)();
 
@@ -9764,200 +9792,29 @@ LABEL_8:
 }
 
 {
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd);
-  v58 = *(v59 - 8);
-  MEMORY[0x28223BE20](v59);
-  v57 = v49 - v6;
-  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMd);
-  v55 = *(v56 - 8);
-  MEMORY[0x28223BE20](v56);
-  v54 = v49 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
-  MEMORY[0x28223BE20](v8 - 8);
-  v10 = v49 - v9;
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd);
-  v51 = *(v52 - 8);
-  MEMORY[0x28223BE20](v52);
-  v50 = v49 - v11;
-  *&a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_emptyView] = 0;
-  if (MEMORY[0x277D84F90] >> 62 && __CocoaSet.count.getter())
-  {
-    v12 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5Tf4g_n(MEMORY[0x277D84F90]);
-  }
-
-  else
-  {
-    v12 = MEMORY[0x277D84FA0];
-  }
-
-  *&a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_cancellables] = v12;
-  v13 = &a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_itemSize];
-  *v13 = 0;
-  *(v13 + 1) = 0;
-  v13[16] = 1;
-  v14 = &a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_collectionViewSize];
-  *v14 = 0;
-  *(v14 + 1) = 0;
-  v14[16] = 1;
-  v15 = &a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_minimumInteritemSpacing];
-  *v15 = 0;
-  v15[8] = 1;
-  v16 = &a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_setting];
-  *v16 = a1;
-  v16[1] = &protocol witness table for CAFSingleSelectImageSetting;
-  v17 = a1;
-  *&a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_items] = CAFSingleSelectImageSetting.items.getter();
-  a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_isRHD] = a2 & 1;
-  v18 = [objc_allocWithZone(MEMORY[0x277D752F0]) init];
-  [v18 setMinimumLineSpacing_];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMd);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_242424220;
-  v69 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v70 = v20;
-  AnyHashable.init<A>(_:)();
-  v21 = MEMORY[0x277D84CC0];
-  *(inited + 96) = MEMORY[0x277D84CC0];
-  *(inited + 72) = 0;
-  v69 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v70 = v22;
-  AnyHashable.init<A>(_:)();
-  *(inited + 168) = v21;
-  *(inited + 144) = 0;
-  _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCs11AnyHashableV_ypTt0g5Tf4g_n(inited);
-  swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11AnyHashableV_yptMd);
-  swift_arrayDestroy();
-  isa = Dictionary._bridgeToObjectiveC()().super.isa;
-
-  v53 = v18;
-  [v18 _setRowAlignmentsOptions_];
-
-  v24 = type metadata accessor for CAFUICollectionViewController();
-  v72.receiver = a3;
-  v72.super_class = v24;
-  v25 = objc_msgSendSuper2(&v72, sel_initWithCollectionViewLayout_, v18);
-  v49[1] = v17;
-  v26 = [v17 userVisibleLabel];
-  v27 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v29 = v28;
-
-  v30 = MEMORY[0x245D0D180](v27, v29);
-
-  [v25 setTitle_];
-
-  v49[0] = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSingleSelectImageSetting);
-  v68 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFSingleSelectImageSetting and conformance CAFSingleSelectImageSetting, &lazy cache variable for type metadata for CAFSingleSelectImageSetting);
-  v31 = CAFObserved<>.observable.getter();
-  v32 = dispatch thunk of CAFSingleSelectImageSettingObservable.$listUserVisibleValue.getter();
-
-  v69 = v32;
-  v67 = objc_opt_self();
-  v33 = [v67 mainRunLoop];
-  v71 = v33;
-  v65 = type metadata accessor for NSRunLoop.SchedulerOptions();
-  v34 = *(v65 - 8);
-  v64 = *(v34 + 56);
-  v66 = v34 + 56;
-  v64(v10, 1, 1, v65);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySaySSGs5NeverOGMd);
-  v62 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop);
-  v63 = MEMORY[0x277CBCD90];
-  lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[String], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMd);
-  v61 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop);
-  v35 = v50;
-  Publisher.receive<A>(on:options:)();
-  outlined destroy of RequestTemporaryContentModel?(v10, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
-
-  swift_allocObject();
-  swift_unknownObjectWeakInit();
-  v60 = MEMORY[0x277CBCD60];
-  lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[String], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd);
-  v36 = v25;
-  v37 = v52;
-  Publisher<>.sink(receiveValue:)();
-
-  (*(v51 + 8))(v35, v37);
-  swift_beginAccess();
-  AnyCancellable.store(in:)();
-  swift_endAccess();
-
-  v38 = CAFObserved<>.observable.getter();
-  v39 = dispatch thunk of CAFSingleSelectImageSettingObservable.$currentUserVisibleValue.getter();
-
-  v69 = v39;
-  v40 = [v67 mainRunLoop];
-  v71 = v40;
-  v64(v10, 1, 1, v65);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMd);
-  lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<UInt8, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMd);
-  v41 = v54;
-  Publisher.receive<A>(on:options:)();
-  outlined destroy of RequestTemporaryContentModel?(v10, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
-
-  swift_allocObject();
-  swift_unknownObjectWeakInit();
-  lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<UInt8, Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMd);
-  v42 = v56;
-  Publisher<>.sink(receiveValue:)();
-
-  (*(v55 + 8))(v41, v42);
-  swift_beginAccess();
-  AnyCancellable.store(in:)();
-  swift_endAccess();
-
-  v43 = CAFObserved<>.observable.getter();
-  v44 = dispatch thunk of CAFSingleSelectImageSettingObservable.$images.getter();
-
-  v69 = v44;
-  v45 = [v67 mainRunLoop];
-  v71 = v45;
-  v64(v10, 1, 1, v65);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd);
-  lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[Data], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd);
-  v46 = v57;
-  Publisher.receive<A>(on:options:)();
-  outlined destroy of RequestTemporaryContentModel?(v10, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
-
-  swift_allocObject();
-  swift_unknownObjectWeakInit();
-
-  lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[Data], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd);
-  v47 = v59;
-  Publisher<>.sink(receiveValue:)();
-
-  (*(v58 + 8))(v46, v47);
-  swift_beginAccess();
-  AnyCancellable.store(in:)();
-  swift_endAccess();
-
-  return v36;
-}
-
-{
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySays5UInt8VGs5NeverOGSo9NSRunLoopCGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySays5UInt8VGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySays5UInt8VGs5NeverOGSo9NSRunLoopCGMR);
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
   v88 = v75 - v8;
-  v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd);
+  v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMR);
   v94 = *(v95 - 8);
   MEMORY[0x28223BE20](v95);
   v93 = v75 - v9;
-  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMd);
+  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMR);
   v78 = *(v79 - 8);
   MEMORY[0x28223BE20](v79);
   v77 = v75 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
   MEMORY[0x28223BE20](v11 - 8);
   v13 = v75 - v12;
-  v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd);
+  v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMR);
   v90 = *(v91 - 8);
   MEMORY[0x28223BE20](v91);
   v89 = v75 - v14;
   *&a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_emptyView] = 0;
   if (MEMORY[0x277D84F90] >> 62 && __CocoaSet.count.getter())
   {
-    v15 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5Tf4g_n(MEMORY[0x277D84F90]);
+    _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5Tf4g_n(MEMORY[0x277D84F90]);
   }
 
   else
@@ -9981,11 +9838,11 @@ LABEL_8:
   *v19 = a1;
   v19[1] = &protocol witness table for CAFMultipleSelectImageSetting;
   v20 = a1;
-  *&a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_items] = CAFSingleSelectImageSetting.items.getter(v20);
+  *&a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_items] = CAFSingleSelectImageSetting.items.getter();
   a3[OBJC_IVAR____TtC5CAFUI29CAFUICollectionViewController_isRHD] = a2 & 1;
   v21 = [objc_allocWithZone(MEMORY[0x277D752F0]) init];
   [v21 setMinimumLineSpacing_];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMd, &_ss23_ContiguousArrayStorageCys11AnyHashableV_yptGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_242424220;
   v97 = static String._unconditionallyBridgeFromObjectiveC(_:)();
@@ -10001,7 +9858,7 @@ LABEL_8:
   *(inited + 144) = 0;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCs11AnyHashableV_ypTt0g5Tf4g_n(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11AnyHashableV_yptMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11AnyHashableV_yptMd, &_ss11AnyHashableV_yptMR);
   swift_arrayDestroy();
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
@@ -10026,8 +9883,8 @@ LABEL_8:
   if (v34)
   {
     v35 = v34;
-    v88 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSingleSelectImageSetting);
-    v76 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFSingleSelectImageSetting and conformance CAFSingleSelectImageSetting, &lazy cache variable for type metadata for CAFSingleSelectImageSetting);
+    v88 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFSingleSelectImageSetting, 0x277CF8650);
+    v76 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFSingleSelectImageSetting and conformance CAFSingleSelectImageSetting, &lazy cache variable for type metadata for CAFSingleSelectImageSetting, 0x277CF8650, MEMORY[0x277CF38F0]);
     v36 = CAFObserved<>.observable.getter();
     v37 = dispatch thunk of CAFSingleSelectImageSettingObservable.$listUserVisibleValue.getter();
 
@@ -10040,20 +9897,20 @@ LABEL_8:
     v84 = *(v39 + 56);
     v86 = (v39 + 56);
     v84(v13, 1, 1, v85);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySaySSGs5NeverOGMd);
-    v82 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySaySSGs5NeverOGMd, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMR);
+    v82 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88);
     v83 = MEMORY[0x277CBCD90];
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[String], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMd);
-    v81 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[String], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMd, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMR, MEMORY[0x277CBCD90]);
+    v81 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88, MEMORY[0x277CC9E80]);
     v40 = v89;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
     v41 = v96;
     swift_unknownObjectWeakInit();
     v80 = MEMORY[0x277CBCD60];
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[String], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[String], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMR, MEMORY[0x277CBCD60]);
     v42 = v41;
     v43 = v91;
     Publisher<>.sink(receiveValue:)();
@@ -10071,15 +9928,15 @@ LABEL_8:
     v46 = [v87 mainRunLoop];
     v99 = v46;
     v84(v13, 1, 1, v85);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMd);
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<UInt8, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMd, &_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMR);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<UInt8, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMd, &_s7Combine12AnyPublisherVys5UInt8Vs5NeverOGMR, v83);
     v47 = v77;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
     swift_unknownObjectWeakInit();
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<UInt8, Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMd);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<UInt8, Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVys5UInt8Vs5NeverOGSo9NSRunLoopCGMR, v80);
     v48 = v79;
     Publisher<>.sink(receiveValue:)();
 
@@ -10095,16 +9952,16 @@ LABEL_8:
     v51 = [v87 mainRunLoop];
     v99 = v51;
     v84(v13, 1, 1, v85);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd);
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[Data], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMR);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[Data], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMR, v83);
     v52 = v93;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
     swift_unknownObjectWeakInit();
 
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[Data], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[Data], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMR, v80);
     v53 = v95;
     Publisher<>.sink(receiveValue:)();
 
@@ -10113,8 +9970,8 @@ LABEL_8:
 
   else
   {
-    v77 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFMultipleSelectImageSetting);
-    v87 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFMultipleSelectImageSetting and conformance CAFMultipleSelectImageSetting, &lazy cache variable for type metadata for CAFMultipleSelectImageSetting);
+    v77 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for CAFMultipleSelectImageSetting, 0x277CF8538);
+    v87 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type CAFMultipleSelectImageSetting and conformance CAFMultipleSelectImageSetting, &lazy cache variable for type metadata for CAFMultipleSelectImageSetting, 0x277CF8538, MEMORY[0x277CF3900]);
     v54 = CAFObserved<>.observable.getter();
     v55 = dispatch thunk of CAFMultipleSelectImageSettingObservable.$listUserVisibleValue.getter();
 
@@ -10131,20 +9988,20 @@ LABEL_8:
     v83 = *(v59 + 56);
     v85 = v59 + 56;
     v83(v13, 1, 1, v58);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySaySSGs5NeverOGMd);
-    v76 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySaySSGs5NeverOGMd, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMR);
+    v76 = type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88);
     v82 = MEMORY[0x277CBCD90];
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[String], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMd);
-    v81 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[String], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMd, &_s7Combine12AnyPublisherVySaySSGs5NeverOGMR, MEMORY[0x277CBCD90]);
+    v81 = lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type NSRunLoop and conformance NSRunLoop, &lazy cache variable for type metadata for NSRunLoop, 0x277CBEB88, MEMORY[0x277CC9E80]);
     v60 = v89;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
     v61 = v96;
     swift_unknownObjectWeakInit();
     v80 = MEMORY[0x277CBCD60];
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[String], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[String], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySaySSGs5NeverOGSo9NSRunLoopCGMR, MEMORY[0x277CBCD60]);
     v62 = v61;
     v63 = v91;
     Publisher<>.sink(receiveValue:)();
@@ -10161,15 +10018,15 @@ LABEL_8:
     v66 = [v86 mainRunLoop];
     v99 = v66;
     v83(v13, 1, 1, v84);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySays5UInt8VGs5NeverOGMd);
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[UInt8], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySays5UInt8VGs5NeverOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySays5UInt8VGs5NeverOGMd, &_s7Combine12AnyPublisherVySays5UInt8VGs5NeverOGMR);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[UInt8], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySays5UInt8VGs5NeverOGMd, &_s7Combine12AnyPublisherVySays5UInt8VGs5NeverOGMR, v82);
     v67 = v88;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
     swift_unknownObjectWeakInit();
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[UInt8], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySays5UInt8VGs5NeverOGSo9NSRunLoopCGMd);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[UInt8], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySays5UInt8VGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySays5UInt8VGs5NeverOGSo9NSRunLoopCGMR, v80);
     v68 = v78;
     Publisher<>.sink(receiveValue:)();
 
@@ -10185,16 +10042,16 @@ LABEL_8:
     v71 = [v86 mainRunLoop];
     v99 = v71;
     v83(v13, 1, 1, v84);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd);
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[Data], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMR);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type AnyPublisher<[Data], Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMd, &_s7Combine12AnyPublisherVySay10Foundation4DataVGs5NeverOGMR, v82);
     v72 = v93;
     Publisher.receive<A>(on:options:)();
-    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+    outlined destroy of RequestTemporaryContentModel?(v13, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
     swift_allocObject();
     swift_unknownObjectWeakInit();
 
-    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[Data], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd);
+    lazy protocol witness table accessor for type AnyPublisher<RequestTemporaryContentModel?, Never> and conformance AnyPublisher<A, B>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<[Data], Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySay10Foundation4DataVGs5NeverOGSo9NSRunLoopCGMR, v80);
     v73 = v95;
     Publisher<>.sink(receiveValue:)();
 

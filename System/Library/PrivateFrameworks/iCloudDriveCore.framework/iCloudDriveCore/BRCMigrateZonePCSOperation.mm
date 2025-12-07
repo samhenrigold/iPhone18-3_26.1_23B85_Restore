@@ -73,7 +73,6 @@ void __51__BRCMigrateZonePCSOperation__createCloudDocsZone___block_invoke(uint64
 
   v7 = v6;
 
-  v8 = *(*(a1 + 40) + 504);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -178,7 +177,7 @@ void __58__BRCMigrateZonePCSOperation__fetchZonesNeedingMigration___block_invoke
 
 void __34__BRCMigrateZonePCSOperation_main__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -188,13 +187,13 @@ void __34__BRCMigrateZonePCSOperation_main__block_invoke(uint64_t a1, void *a2, 
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, 0x90u))
     {
-      v19 = *(a1 + 32);
+      v18 = *(a1 + 32);
       *buf = 138412802;
-      v23 = v19;
-      v24 = 2112;
-      v25 = v9;
-      v26 = 2112;
-      v27 = v10;
+      v22 = v18;
+      v23 = 2112;
+      v24 = v9;
+      v25 = 2112;
+      v26 = v10;
       _os_log_error_impl(&dword_223E7A000, v11, 0x90u, "[ERROR] Failed fetching zones to prep PCS for %@ - %@%@", buf, 0x20u);
     }
 
@@ -210,21 +209,21 @@ void __34__BRCMigrateZonePCSOperation_main__block_invoke(uint64_t a1, void *a2, 
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412802;
-        v23 = v7;
-        v24 = 2112;
-        v25 = v8;
-        v26 = 2112;
-        v27 = v12;
+        v22 = v7;
+        v23 = 2112;
+        v24 = v8;
+        v25 = 2112;
+        v26 = v12;
         _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] Prepping PCS for %@ -> %@%@", buf, 0x20u);
       }
 
       v14 = [objc_alloc(MEMORY[0x277CBC178]) initWithSourceZoneIDs:v7 targetZone:v8];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __34__BRCMigrateZonePCSOperation_main__block_invoke_22;
-      v20[3] = &unk_278505C50;
-      v20[4] = *(a1 + 32);
-      [v14 setAggregateZonePCSCompletionBlock:v20];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __34__BRCMigrateZonePCSOperation_main__block_invoke_22;
+      v19[3] = &unk_278505C50;
+      v19[4] = *(a1 + 32);
+      [v14 setAggregateZonePCSCompletionBlock:v19];
       [*(a1 + 32) addSubOperation:v14];
     }
 
@@ -247,8 +246,6 @@ void __34__BRCMigrateZonePCSOperation_main__block_invoke(uint64_t a1, void *a2, 
       dispatch_async(v17, block);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __34__BRCMigrateZonePCSOperation_main__block_invoke_18(uint64_t a1)
@@ -262,7 +259,7 @@ uint64_t __34__BRCMigrateZonePCSOperation_main__block_invoke_18(uint64_t a1)
 
 void __34__BRCMigrateZonePCSOperation_main__block_invoke_22(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -272,13 +269,13 @@ void __34__BRCMigrateZonePCSOperation_main__block_invoke_22(uint64_t a1, void *a
     v13 = brc_default_log();
     if (os_log_type_enabled(v13, 0x90u))
     {
-      v19 = *(a1 + 32);
+      v18 = *(a1 + 32);
       *buf = 138412802;
-      v22 = v19;
-      v23 = 2112;
-      v24 = v7;
-      v25 = 2112;
-      v26 = v12;
+      v21 = v18;
+      v22 = 2112;
+      v23 = v7;
+      v24 = 2112;
+      v25 = v12;
       _os_log_error_impl(&dword_223E7A000, v13, 0x90u, "[ERROR] Failed migrating PCS for %@ - %@%@", buf, 0x20u);
     }
   }
@@ -289,19 +286,19 @@ void __34__BRCMigrateZonePCSOperation_main__block_invoke_22(uint64_t a1, void *a
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v17 = @"not needed";
-      v18 = *(a1 + 32);
+      v16 = @"not needed";
+      v17 = *(a1 + 32);
       *buf = 138412802;
       if (!v7)
       {
-        v17 = @"complete";
+        v16 = @"complete";
       }
 
-      v22 = v17;
-      v23 = 2112;
-      v24 = v18;
-      v25 = 2112;
-      v26 = v8;
+      v21 = v16;
+      v22 = 2112;
+      v23 = v17;
+      v24 = 2112;
+      v25 = v8;
       _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] PCS migration %@ for %@%@", buf, 0x20u);
     }
 
@@ -320,17 +317,14 @@ void __34__BRCMigrateZonePCSOperation_main__block_invoke_22(uint64_t a1, void *a
   v14 = *(a1 + 32);
   v15 = [MEMORY[0x277CCABB0] numberWithInt:v7 == 0];
   [v14 completedWithResult:v15 error:v7];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __34__BRCMigrateZonePCSOperation_main__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] No zones need PCS prep currently%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] No zones need PCS prep currently%@", &v2, 0xCu);
 }
 
 @end

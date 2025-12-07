@@ -71,22 +71,24 @@
 
 - (id)localizedStingStringWithKey:(id)key
 {
-  sub_23D6C6068();
+  v4 = sub_23D6C6068();
+  v6 = v5;
   selfCopy = self;
-  _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC20localizedStingString3keyS2S_tF_0();
+  _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC20localizedStingString3keyS2S_tF_0(v4, v6);
 
-  v5 = sub_23D6C6058();
+  v8 = sub_23D6C6058();
 
-  return v5;
+  return v8;
 }
 
 - (BOOL)isPairedGizmoSupportedWithDeviceID:(id)d
 {
-  sub_23D6C6068();
+  v4 = sub_23D6C6068();
+  v6 = v5;
   selfCopy = self;
-  v5 = _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC22isPairedGizmoSupported8deviceIDSbSS_tF_0();
+  LOBYTE(v4) = _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC22isPairedGizmoSupported8deviceIDSbSS_tF_0(v4, v6);
 
-  return v5 & 1;
+  return v4 & 1;
 }
 
 - (id)pairedGizmoName
@@ -116,87 +118,80 @@
 {
   v5 = sub_23D6C5F98();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = aBlock - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v12 = aBlock - v11;
+  v7 = MEMORY[0x28223BE20](v5);
+  v9 = aBlock - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v11 = aBlock - v10;
   sub_23D6C5F88();
   sub_23D6C5F88();
   selfCopy = self;
   sub_23D6C5F78();
-  v15 = v14;
+  v14 = v13;
   sub_23D6C5F78();
-  v17 = v15 - v16;
-  v18 = *(selfCopy + OBJC_IVAR___AXDeviceRemoteScreenUtil_caSessionIntervalEvent);
-  v19 = *(selfCopy + OBJC_IVAR___AXDeviceRemoteScreenUtil_caSessionIntervalEvent + 8);
-  v20 = sub_23D6C6058();
-  v21 = swift_allocObject();
-  *(v21 + 16) = selfCopy;
-  *(v21 + 24) = v17;
+  v16 = v14 - v15;
+  v17 = sub_23D6C6058();
+  v18 = swift_allocObject();
+  *(v18 + 16) = selfCopy;
+  *(v18 + 24) = v16;
   aBlock[4] = sub_23D6C5EA4;
-  aBlock[5] = v21;
+  aBlock[5] = v18;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_23D6BC530;
   aBlock[3] = &block_descriptor_38;
-  v22 = _Block_copy(aBlock);
-  v23 = selfCopy;
+  v19 = _Block_copy(aBlock);
+  v20 = selfCopy;
 
   AnalyticsSendEventLazy();
-  _Block_release(v22);
+  _Block_release(v19);
 
-  v24 = *(v6 + 8);
-  v24(v10, v5);
-  v24(v12, v5);
+  v21 = *(v6 + 8);
+  v21(v9, v5);
+  v21(v11, v5);
 }
 
 - (void)logSessionErrorWithErrorName:(id)name
 {
   v4 = sub_23D6C6068();
   v6 = v5;
-  v7 = *(self + OBJC_IVAR___AXDeviceRemoteScreenUtil_caErrorEvent);
-  v8 = *(self + OBJC_IVAR___AXDeviceRemoteScreenUtil_caErrorEvent + 8);
   selfCopy = self;
-  v10 = sub_23D6C6058();
-  v11 = swift_allocObject();
-  v11[2] = selfCopy;
-  v11[3] = v4;
-  v11[4] = v6;
-  v14[4] = sub_23D6C5EC0;
-  v14[5] = v11;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 1107296256;
-  v14[2] = sub_23D6BC530;
-  v14[3] = &block_descriptor_31;
-  v12 = _Block_copy(v14);
-  v13 = selfCopy;
+  v8 = sub_23D6C6058();
+  v9 = swift_allocObject();
+  v9[2] = selfCopy;
+  v9[3] = v4;
+  v9[4] = v6;
+  v12[4] = sub_23D6C5EC0;
+  v12[5] = v9;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 1107296256;
+  v12[2] = sub_23D6BC530;
+  v12[3] = &block_descriptor_31;
+  v10 = _Block_copy(v12);
+  v11 = selfCopy;
 
   AnalyticsSendEventLazy();
 
-  _Block_release(v12);
+  _Block_release(v10);
 }
 
 - (void)logInactiveSession
 {
-  v2 = *(self + OBJC_IVAR___AXDeviceRemoteScreenUtil_caInactiveEvent);
-  v3 = *(self + OBJC_IVAR___AXDeviceRemoteScreenUtil_caInactiveEvent + 8);
   selfCopy = self;
-  v5 = sub_23D6C6058();
-  v6 = swift_allocObject();
-  *(v6 + 16) = selfCopy;
-  v9[4] = sub_23D6C5EB0;
-  v9[5] = v6;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 1107296256;
-  v9[2] = sub_23D6BC530;
-  v9[3] = &block_descriptor_24;
-  v7 = _Block_copy(v9);
-  v8 = selfCopy;
+  v3 = sub_23D6C6058();
+  v4 = swift_allocObject();
+  *(v4 + 16) = selfCopy;
+  v7[4] = sub_23D6C5EB0;
+  v7[5] = v4;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 1107296256;
+  v7[2] = sub_23D6BC530;
+  v7[3] = &block_descriptor_24;
+  v5 = _Block_copy(v7);
+  v6 = selfCopy;
 
   AnalyticsSendEventLazy();
 
-  _Block_release(v7);
+  _Block_release(v5);
 }
 
 @end

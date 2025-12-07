@@ -3,7 +3,7 @@
 - (id)_mtNextDateAfterDate:()MTUtilities matchingComponents:backwards:;
 - (id)_mtNextDateAfterDate:()MTUtilities matchingUnit:value:backwards:;
 - (id)_nextDateHelperAfterDate:()MTUtilities nextDateBlock:;
-- (uint64_t)mtDateRequiresSingularTimeString:()MTUtilities;
+- (void)mtDateRequiresSingularTimeString:()MTUtilities;
 @end
 
 @implementation NSCalendar(MTUtilities)
@@ -88,7 +88,7 @@ LABEL_8:
   }
 }
 
-- (uint64_t)mtDateRequiresSingularTimeString:()MTUtilities
+- (void)mtDateRequiresSingularTimeString:()MTUtilities
 {
   result = [self component:32 fromDate:a3];
   if (result != 1)

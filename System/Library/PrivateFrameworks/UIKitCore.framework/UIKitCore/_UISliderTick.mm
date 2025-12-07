@@ -90,23 +90,23 @@
   {
     v5 = equalCopy;
     v6 = v5;
-    if (*(v5 + 2) == self->_position && [v5[2] isEqualToString:self->_title])
+    if (*(v5 + 2) == self->_position && objc_msgSend_isEqualToString_(v5[2]))
     {
-      v7 = [v6[3] isEqual:self->_image];
+      isEqual = objc_msgSend_isEqual_(v6[3]);
     }
 
     else
     {
-      v7 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    isEqual = 0;
   }
 
-  return v7;
+  return isEqual;
 }
 
 @end

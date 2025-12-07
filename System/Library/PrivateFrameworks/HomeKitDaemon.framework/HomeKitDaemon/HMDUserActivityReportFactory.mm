@@ -6,7 +6,7 @@
 
 - (id)reportFromMessagePayload:(id)payload withUser:(id)user sourceDevice:(id)device
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   userCopy = user;
   deviceCopy = device;
@@ -20,13 +20,13 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v24 = 138543618;
-      v25 = v17;
-      v26 = 2112;
-      v27 = payloadCopy;
+      v23 = 138543618;
+      v24 = v17;
+      v25 = 2112;
+      v26 = payloadCopy;
       v18 = "%{public}@Contributor type is not set in payload: %@";
 LABEL_13:
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, v18, &v24, 0x16u);
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, v18, &v23, 0x16u);
     }
 
 LABEL_14:
@@ -74,10 +74,10 @@ LABEL_11:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = HMFGetLogIdentifier();
-        v24 = 138543618;
-        v25 = v17;
-        v26 = 2112;
-        v27 = v12;
+        v23 = 138543618;
+        v24 = v17;
+        v25 = 2112;
+        v26 = v12;
         v18 = "%{public}@Unknown contributor type: %@";
         goto LABEL_13;
       }
@@ -90,8 +90,6 @@ LABEL_11:
 
   v20 = v21;
 LABEL_20:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

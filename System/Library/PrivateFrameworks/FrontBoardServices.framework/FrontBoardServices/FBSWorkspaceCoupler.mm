@@ -45,9 +45,11 @@
 
 uint64_t __38__FBSWorkspaceCoupler__sharedInstance__block_invoke()
 {
-  _sharedInstance___sharedInstance = objc_alloc_init(FBSWorkspaceCoupler);
+  v0 = objc_alloc_init(FBSWorkspaceCoupler);
+  v1 = _sharedInstance___sharedInstance;
+  _sharedInstance___sharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)_isSharedInstance
@@ -63,13 +65,14 @@ uint64_t __38__FBSWorkspaceCoupler__sharedInstance__block_invoke()
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"must invalidate before dealloc"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = self;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -81,13 +84,14 @@ uint64_t __38__FBSWorkspaceCoupler__sharedInstance__block_invoke()
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"this instance may not invalidate"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = self;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -218,13 +222,14 @@ uint64_t __38__FBSWorkspaceCoupler__sharedInstance__block_invoke()
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"attempt to access _workspace on coupler before the workspace has checked in"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = self;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
@@ -234,27 +239,25 @@ uint64_t __38__FBSWorkspaceCoupler__sharedInstance__block_invoke()
 - (void)_setWorkspace:.cold.1()
 {
   OUTLINED_FUNCTION_9_0();
-  NSStringFromSelector(v1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_10();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(v1);
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_setWorkspace:.cold.2()
 {
   OUTLINED_FUNCTION_9_0();
-  NSStringFromSelector(v1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_10();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(v1);
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10);
 }
 
 @end

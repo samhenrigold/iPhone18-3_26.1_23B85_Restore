@@ -105,7 +105,7 @@ void __56__BLSHXPCAssertionServiceHostServer_domainSpecification__block_invoke()
     v20 = bls_assertions_log();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      [(BLSHXPCBacklightProxyHostServer *)v17 initWithLocalBacklightProxy:?];
+      [BLSHXPCBacklightProxyHostServer initWithLocalBacklightProxy:];
     }
 
     [v17[2] activate];
@@ -208,21 +208,18 @@ uint64_t __79__BLSHXPCAssertionServiceHostServer_listener_didReceiveConnection_w
 
 + (void)serverWithLocalAssertionService:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_4(&dword_21FD11000, v0, v1, "did startServer:%{public}@ withLocalAssertionService:%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BLSHXPCAssertionServiceHostServer_domainSpecification__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_fault_impl(&dword_21FD11000, v1, OS_LOG_TYPE_FAULT, "if we own the defaultShellMachName:%{public}@ then BacklightServices.assertions must be registered there not:%@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_fault_impl(&dword_21FD11000, v1, OS_LOG_TYPE_FAULT, "if we own the defaultShellMachName:%{public}@ then BacklightServices.assertions must be registered there not:%@", v2, 0x16u);
 }
 
 @end

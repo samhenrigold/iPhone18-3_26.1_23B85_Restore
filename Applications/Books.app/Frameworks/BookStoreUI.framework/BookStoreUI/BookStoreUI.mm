@@ -342,9 +342,9 @@ void sub_77A4(uint64_t a1)
   }
 }
 
-void sub_7C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_7C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -356,9 +356,9 @@ uint64_t sub_7C88(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_8E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_8E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -543,9 +543,9 @@ uint64_t sub_BB38(uint64_t a1)
   return _objc_release_x1();
 }
 
-void sub_BCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_BCE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -564,9 +564,9 @@ id sub_BD04(void *a1)
   return [v3 addObject:v2];
 }
 
-void sub_BED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_BED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -804,16 +804,16 @@ id BSUIGetLibraryItemStateUpdater()
   return v0;
 }
 
-id BSUIContentTasteControllerLog()
+id BSUIContentTasteControllerLog(uint64_t a1)
 {
   if (qword_3CA6F0 != -1)
   {
     sub_2BCEB4();
   }
 
-  v1 = qword_3CA6E8;
+  v2 = qword_3CA6E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_E06C(id a1)
@@ -870,10 +870,11 @@ void sub_E584(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = BSUIContentTasteControllerLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BSUIContentTasteControllerLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_2BCEDC();
     }
@@ -888,30 +889,30 @@ void sub_E584(uint64_t a1, void *a2, void *a3)
       [WeakRetained _explicitlyDeclinedFromTasteInteger:{objc_msgSend(v5, "taste")}];
     }
 
-    v13 = objc_retainBlock(*(a1 + 32));
-    v11 = v13;
-    if (v13)
+    v14 = objc_retainBlock(*(a1 + 32));
+    v12 = v14;
+    if (v14)
     {
-      v12 = v13[2];
+      v13 = v14[2];
       goto LABEL_14;
     }
   }
 
   else
   {
-    v9 = BSUIContentTasteControllerLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BSUIContentTasteControllerLog(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_2BCF4C();
     }
 
-    v10 = objc_retainBlock(*(a1 + 32));
-    v11 = v10;
-    if (v10)
+    v11 = objc_retainBlock(*(a1 + 32));
+    v12 = v11;
+    if (v11)
     {
-      v12 = v10[2];
+      v13 = v11[2];
 LABEL_14:
-      v12();
+      v13();
     }
   }
 }
@@ -927,10 +928,11 @@ void sub_E854(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = BSUIContentTasteControllerLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BSUIContentTasteControllerLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_2BCEDC();
     }
@@ -946,31 +948,31 @@ void sub_E854(uint64_t a1, void *a2, void *a3)
   {
     [v5 setTaste:{objc_msgSend(WeakRetained, "_tasteIntegerFromTasteType:explicitlyDeclined:", *(a1 + 64), objc_msgSend(WeakRetained, "_explicitlyDeclinedFromTasteInteger:", objc_msgSend(v5, "taste")))}];
     [v5 setTasteSyncedToStore:1];
-    v9 = *(a1 + 40);
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_EA2C;
-    v13[3] = &unk_3871E0;
-    objc_copyWeak(&v15, (a1 + 56));
-    v14 = *(a1 + 48);
-    [v9 setAssetDetail:v5 completion:v13];
+    v10 = *(a1 + 40);
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_EA2C;
+    v14[3] = &unk_3871E0;
+    objc_copyWeak(&v16, (a1 + 56));
+    v15 = *(a1 + 48);
+    [v10 setAssetDetail:v5 completion:v14];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v16);
   }
 
   else
   {
-    v10 = BSUIContentTasteControllerLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BSUIContentTasteControllerLog(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_2BCF88();
     }
 
-    v11 = objc_retainBlock(*(a1 + 48));
-    v12 = v11;
-    if (v11)
+    v12 = objc_retainBlock(*(a1 + 48));
+    v13 = v12;
+    if (v12)
     {
-      (*(v11 + 2))(v11, 0);
+      (*(v12 + 2))(v12, 0);
     }
   }
 }
@@ -979,46 +981,47 @@ void sub_EA2C(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
   v6 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (v6)
   {
-    v8 = BSUIContentTasteControllerLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = BSUIContentTasteControllerLog(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_2BCFC4();
     }
   }
 
-  if (WeakRetained)
+  if (v8)
   {
     if (a2)
     {
-      v9 = [WeakRetained syncTastesCallBlock];
-      [v9 signalWithCompletion:&stru_3871B8];
+      v10 = [v8 syncTastesCallBlock];
+      [v10 signalWithCompletion:&stru_3871B8];
     }
 
-    v10 = objc_retainBlock(*(a1 + 32));
-    v11 = v10;
-    if (v10)
+    v11 = objc_retainBlock(*(a1 + 32));
+    v12 = v11;
+    if (v11)
     {
-      v12 = v10[2];
+      v13 = v11[2];
 LABEL_14:
-      v12();
+      v13();
     }
   }
 
   else
   {
-    v13 = BSUIContentTasteControllerLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = BSUIContentTasteControllerLog(WeakRetained);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_2BCF88();
     }
 
-    v14 = objc_retainBlock(*(a1 + 32));
-    v11 = v14;
-    if (v14)
+    v15 = objc_retainBlock(*(a1 + 32));
+    v12 = v15;
+    if (v15)
     {
-      v12 = v14[2];
+      v13 = v15[2];
       goto LABEL_14;
     }
   }
@@ -1035,10 +1038,11 @@ void sub_ECDC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = BSUIContentTasteControllerLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BSUIContentTasteControllerLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_2BCEDC();
     }
@@ -1054,31 +1058,31 @@ void sub_ECDC(uint64_t a1, void *a2, void *a3)
   {
     [v5 setTaste:{objc_msgSend(*(a1 + 40), "_tasteIntegerFromTasteType:explicitlyDeclined:", objc_msgSend(*(a1 + 40), "_loveOrHateFromTasteInteger:", objc_msgSend(v5, "taste")), *(a1 + 72))}];
     [v5 setTasteSyncedToStore:1];
-    v9 = *(a1 + 48);
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_EEB8;
-    v13[3] = &unk_3871E0;
-    objc_copyWeak(&v15, (a1 + 64));
-    v14 = *(a1 + 56);
-    [v9 setAssetDetail:v5 completion:v13];
+    v10 = *(a1 + 48);
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_EEB8;
+    v14[3] = &unk_3871E0;
+    objc_copyWeak(&v16, (a1 + 64));
+    v15 = *(a1 + 56);
+    [v10 setAssetDetail:v5 completion:v14];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v16);
   }
 
   else
   {
-    v10 = BSUIContentTasteControllerLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BSUIContentTasteControllerLog(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_2BD034();
     }
 
-    v11 = objc_retainBlock(*(a1 + 56));
-    v12 = v11;
-    if (v11)
+    v12 = objc_retainBlock(*(a1 + 56));
+    v13 = v12;
+    if (v12)
     {
-      (*(v11 + 2))(v11, 0);
+      (*(v12 + 2))(v12, 0);
     }
   }
 }
@@ -1086,48 +1090,49 @@ void sub_ECDC(uint64_t a1, void *a2, void *a3)
 void sub_EEB8(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
   v6 = a4;
+  v7 = v6;
   if (v6)
   {
-    v7 = BSUIContentTasteControllerLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BSUIContentTasteControllerLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_2BCFC4();
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v9 = WeakRetained;
+  v10 = WeakRetained;
   if (WeakRetained)
   {
     if (a2)
     {
-      v10 = [WeakRetained syncTastesCallBlock];
-      [v10 signalWithCompletion:&stru_387228];
+      v11 = [WeakRetained syncTastesCallBlock];
+      [v11 signalWithCompletion:&stru_387228];
     }
 
-    v11 = objc_retainBlock(*(a1 + 32));
-    v12 = v11;
-    if (v11)
+    v12 = objc_retainBlock(*(a1 + 32));
+    v13 = v12;
+    if (v12)
     {
-      v13 = v11[2];
+      v14 = v12[2];
 LABEL_14:
-      v13();
+      v14();
     }
   }
 
   else
   {
-    v14 = BSUIContentTasteControllerLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = BSUIContentTasteControllerLog(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_2BD034();
     }
 
-    v15 = objc_retainBlock(*(a1 + 32));
-    v12 = v15;
-    if (v15)
+    v16 = objc_retainBlock(*(a1 + 32));
+    v13 = v16;
+    if (v16)
     {
-      v13 = v15[2];
+      v14 = v16[2];
       goto LABEL_14;
     }
   }
@@ -1137,153 +1142,156 @@ void sub_F0D0(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = BSUIContentTasteControllerLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BSUIContentTasteControllerLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_2BD070();
     }
   }
 
-  v19 = v6;
-  v8 = objc_alloc_init(NSMutableDictionary);
-  v20 = 0u;
+  v20 = v7;
+  v9 = objc_alloc_init(NSMutableDictionary);
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  if (v10)
+  v24 = 0u;
+  v10 = v5;
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v21;
+    v12 = v11;
+    v13 = *v22;
     do
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v12; i = i + 1)
       {
-        if (*v21 != v12)
+        if (*v22 != v13)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
-        if (([v14 deletedFlag] & 1) == 0)
+        v15 = *(*(&v21 + 1) + 8 * i);
+        if (([v15 deletedFlag] & 1) == 0)
         {
-          v15 = [v14 assetID];
-          if (v15)
+          v16 = [v15 assetID];
+          if (v16)
           {
-            v16 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [*(a1 + 32) _loveOrHateFromTasteInteger:{objc_msgSend(v14, "taste")}]);
-            [v8 setObject:v16 forKeyedSubscript:v15];
+            v17 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [*(a1 + 32) _loveOrHateFromTasteInteger:{objc_msgSend(v15, "taste")}]);
+            [v9 setObject:v17 forKeyedSubscript:v16];
           }
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
-  v17 = objc_retainBlock(*(a1 + 40));
-  if (v17)
+  v18 = objc_retainBlock(*(a1 + 40));
+  if (v18)
   {
-    v18 = [v8 copy];
-    v17[2](v17, v18);
+    v19 = [v9 copy];
+    v18[2](v18, v19);
   }
 }
 
 void sub_F41C(uint64_t a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
-  v26 = a3;
+  v27 = a3;
   v8 = a4;
+  v9 = v8;
   if (v8)
   {
-    v9 = BSUIContentTasteControllerLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BSUIContentTasteControllerLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_2BD0E0();
     }
   }
 
-  v25 = v8;
-  v31 = 0u;
+  v26 = v9;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v10 = v7;
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
-  if (v11)
+  v31 = 0u;
+  v11 = v7;
+  v12 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v30;
+    v13 = v12;
+    v14 = *v31;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      for (i = 0; i != v13; i = i + 1)
       {
-        if (*v30 != v13)
+        if (*v31 != v14)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * i);
-        v16 = [v15 assetID];
-        if (v16 && (objc_opt_class(), [*(a1 + 32) objectForKeyedSubscript:v16], v17 = objc_claimAutoreleasedReturnValue(), BUDynamicCast(), v18 = objc_claimAutoreleasedReturnValue(), v17, v18))
+        v16 = *(*(&v30 + 1) + 8 * i);
+        v17 = [v16 assetID];
+        if (v17 && (objc_opt_class(), [*(a1 + 32) objectForKeyedSubscript:v17], v18 = objc_claimAutoreleasedReturnValue(), BUDynamicCast(), v19 = objc_claimAutoreleasedReturnValue(), v18, v19))
         {
-          v19 = [*(a1 + 40) _loveOrHateFromTasteInteger:{objc_msgSend(v18, "shortValue")}];
+          v20 = [*(a1 + 40) _loveOrHateFromTasteInteger:{objc_msgSend(v19, "shortValue")}];
 
-          v20 = 0;
+          v21 = 0;
         }
 
         else
         {
-          v19 = 0;
-          v20 = 1;
+          v20 = 0;
+          v21 = 1;
         }
 
-        v21 = [*(a1 + 40) _loveOrHateFromTasteInteger:{objc_msgSend(v15, "taste")}];
-        if ((v20 & 1) == 0 && v19 == v21)
+        v22 = [*(a1 + 40) _loveOrHateFromTasteInteger:{objc_msgSend(v16, "taste")}];
+        if ((v21 & 1) == 0 && v20 == v22)
         {
-          [v15 setTasteSyncedToStore:2];
+          [v16 setTasteSyncedToStore:2];
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
-  v22 = [v10 valueForKey:@"assetID"];
-  v23 = [NSDictionary dictionaryWithObjects:v10 forKeys:v22];
+  v23 = [v11 valueForKey:@"assetID"];
+  v24 = [NSDictionary dictionaryWithObjects:v11 forKeys:v23];
 
-  v27[0] = _NSConcreteStackBlock;
-  v27[1] = 3221225472;
-  v27[2] = sub_F6DC;
-  v27[3] = &unk_3872A0;
-  v24 = *(a1 + 48);
-  v28 = *(a1 + 56);
-  [v24 setAssetDetails:v23 completion:v27];
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_F6DC;
+  v28[3] = &unk_3872A0;
+  v25 = *(a1 + 48);
+  v29 = *(a1 + 56);
+  [v25 setAssetDetails:v24 completion:v28];
 }
 
 void sub_F6DC(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v6 = a4;
+  v7 = v6;
   if (v6)
   {
-    v7 = BSUIContentTasteControllerLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BSUIContentTasteControllerLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_2BD150();
     }
   }
 
-  v8 = objc_retainBlock(*(a1 + 32));
-  v9 = v8;
-  if (v8)
+  v9 = objc_retainBlock(*(a1 + 32));
+  v10 = v9;
+  if (v9)
   {
-    (*(v8 + 2))(v8, a2);
+    (*(v9 + 2))(v9, a2);
   }
 }
 
@@ -1520,9 +1528,9 @@ void sub_13DD8(uint64_t a1)
   qword_3CA718 = v4;
 }
 
-void sub_14488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_14488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1557,9 +1565,9 @@ void sub_1450C(uint64_t a1)
   }
 }
 
-void sub_14710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_14710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1614,9 +1622,9 @@ void sub_148BC(uint64_t a1)
   }
 }
 
-void sub_14B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_14B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2127,16 +2135,16 @@ void sub_1BE2C(uint64_t a1)
   }
 }
 
-id BSUIDownloadPurchaseMonitorLog()
+id BSUIDownloadPurchaseMonitorLog(uint64_t a1)
 {
   if (qword_3CA778 != -1)
   {
     sub_2BD5D8();
   }
 
-  v1 = qword_3CA770;
+  v2 = qword_3CA770;
 
-  return v1;
+  return v2;
 }
 
 void sub_1E3AC(id a1)
@@ -2204,7 +2212,7 @@ void sub_1E9F0(uint64_t a1, int a2, uint64_t a3)
 {
   if (a3)
   {
-    v5 = BSUIDownloadPurchaseMonitorLog();
+    v5 = BSUIDownloadPurchaseMonitorLog(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_2BD5EC(v5, v6, v7, v8, v9, v10, v11, v12);
@@ -2231,21 +2239,22 @@ void sub_1E9F0(uint64_t a1, int a2, uint64_t a3)
 void sub_1EB28(void *a1, int a2, uint64_t a3, void *a4)
 {
   v6 = a4;
+  v7 = v6;
   if (a2)
   {
-    v7 = +[BAEventReporter sharedReporter];
-    [v7 emitAddToCollectionEventWithTracker:a1[4] collectionID:kBKCollectionDefaultIDWantToRead contentID:a1[5] contentAcquisitionType:1 contentType:0 supplementalContentCount:0 seriesType:0 productionType:a1[6]];
-
     v8 = +[BAEventReporter sharedReporter];
-    [v8 emitWantListAddEventWithTracker:a1[4] contentID:a1[5] contentAcquisitionType:1 contentType:0 supplementalContentCount:0 seriesType:0 productionType:a1[6]];
+    [v8 emitAddToCollectionEventWithTracker:a1[4] collectionID:kBKCollectionDefaultIDWantToRead contentID:a1[5] contentAcquisitionType:1 contentType:0 supplementalContentCount:0 seriesType:0 productionType:a1[6]];
+
+    v9 = +[BAEventReporter sharedReporter];
+    [v9 emitWantListAddEventWithTracker:a1[4] contentID:a1[5] contentAcquisitionType:1 contentType:0 supplementalContentCount:0 seriesType:0 productionType:a1[6]];
   }
 
-  if (v6)
+  if (v7)
   {
-    v9 = BSUIDownloadPurchaseMonitorLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BSUIDownloadPurchaseMonitorLog(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_2BD624(v9, v10, v11, v12, v13, v14, v15, v16);
+      sub_2BD624(v10, v11, v12, v13, v14, v15, v16, v17);
     }
   }
 }
@@ -2273,25 +2282,26 @@ void sub_1EDE0(uint64_t a1, uint64_t a2)
 void sub_1EEBC(void *a1, int a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = +[BAEventReporter sharedReporter];
-    [v6 emitRemoveFromCollectionEventWithTracker:a1[4] collectionID:kBKCollectionDefaultIDSamples contentID:a1[5] contentAcquisitionType:1 contentType:0 supplementalContentCount:0 seriesType:0 productionType:a1[6]];
+    v7 = +[BAEventReporter sharedReporter];
+    [v7 emitRemoveFromCollectionEventWithTracker:a1[4] collectionID:kBKCollectionDefaultIDSamples contentID:a1[5] contentAcquisitionType:1 contentType:0 supplementalContentCount:0 seriesType:0 productionType:a1[6]];
   }
 
-  if (v5)
+  if (v6)
   {
-    v7 = BSUIDownloadPurchaseMonitorLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BSUIDownloadPurchaseMonitorLog(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_2BD65C(v7, v8, v9, v10, v11, v12, v13, v14);
+      sub_2BD65C(v8, v9, v10, v11, v12, v13, v14, v15);
     }
   }
 }
 
-void sub_1F408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1F408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2445,64 +2455,65 @@ void sub_1FC08(uint64_t a1)
     v5 = *(v4 + 16);
     *(v4 + 16) = 0;
 
-    v6 = BSUIDownloadPurchaseMonitorLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = BSUIDownloadPurchaseMonitorLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [v3 componentsJoinedByString:{@", "}];
+      v8 = [v3 componentsJoinedByString:{@", "}];
       *buf = 138412290;
-      v19 = v7;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "BSUIDownloadPurchaseMonitor: Removing from My Samples: [%@]", buf, 0xCu);
+      v20 = v8;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "BSUIDownloadPurchaseMonitor: Removing from My Samples: [%@]", buf, 0xCu);
     }
 
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
-    v8 = v3;
-    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v9)
+    v15 = 0u;
+    v9 = v3;
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v14;
+      v11 = v10;
+      v12 = *v15;
       do
       {
-        v12 = 0;
+        v13 = 0;
         do
         {
-          if (*v14 != v11)
+          if (*v15 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          [*(a1 + 32) _removeStoreIDFromSamplesCollection:*(*(&v13 + 1) + 8 * v12) tracker:*(a1 + 40) productionType:{0, v13}];
-          v12 = v12 + 1;
+          [*(a1 + 32) _removeStoreIDFromSamplesCollection:*(*(&v14 + 1) + 8 * v13) tracker:*(a1 + 40) productionType:{0, v14}];
+          v13 = v13 + 1;
         }
 
-        while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        while (v11 != v13);
+        v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
   }
 }
 
-void sub_1FE54(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1FE54(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-id BSUIBundle()
+id BSUIBundle(uint64_t a1)
 {
   if (qword_3CA788 != -1)
   {
     sub_2BD694();
   }
 
-  v1 = qword_3CA780;
+  v2 = qword_3CA780;
 
-  return v1;
+  return v2;
 }
 
 void sub_204E4(id a1)
@@ -2623,9 +2634,9 @@ void sub_22528(uint64_t a1)
   [WeakRetained _dismiss];
 }
 
-void sub_22A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2644,9 +2655,9 @@ void sub_22A40(uint64_t a1)
   *(v1 + 40) = 0;
 }
 
-void sub_22C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2693,9 +2704,9 @@ void sub_22F5C(uint64_t a1)
   }
 }
 
-void sub_23188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2890,9 +2901,9 @@ void sub_25A8C(id a1)
   qword_3CA7A0 = v1;
 }
 
-void sub_26EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3073,9 +3084,9 @@ void sub_29C9C(void *a1)
   [v11 setObject:v5 forKey:v12];
 }
 
-void sub_2A000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2A000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3100,9 +3111,9 @@ void sub_2A020(uint64_t a1)
   }
 }
 
-void sub_2A2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2A2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3117,9 +3128,9 @@ void sub_2A31C(uint64_t a1)
   *(v4 + 40) = v3;
 }
 
-void sub_2A57C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2A57C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3134,9 +3145,9 @@ void sub_2A5A4(uint64_t a1)
   *(v4 + 40) = v3;
 }
 
-void sub_2A910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_2A910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3148,16 +3159,16 @@ uint64_t sub_2A938(uint64_t a1)
   return _objc_release_x1();
 }
 
-id BSUICloudAssetRatingsManagerLog()
+id BSUICloudAssetRatingsManagerLog(uint64_t a1)
 {
   if (qword_3CA7B8 != -1)
   {
     sub_2BD864();
   }
 
-  v1 = qword_3CA7B0;
+  v2 = qword_3CA7B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_2ABB8(id a1)
@@ -3789,9 +3800,9 @@ LABEL_12:
   [*(a1 + 32) _removePurchaseByItemID:*(a1 + 40)];
 }
 
-void sub_2F854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2F854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3891,9 +3902,9 @@ void sub_301B8(uint64_t a1)
   }
 }
 
-void sub_30818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_30818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4064,9 +4075,9 @@ void sub_30E98(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_311EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_311EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4120,9 +4131,9 @@ char *sub_31204(uint64_t a1)
   return result;
 }
 
-void sub_3151C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3151C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4268,9 +4279,9 @@ id BSUIGetFamilyMemberImage(void *a1)
   return v11;
 }
 
-void sub_35298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_35298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4289,16 +4300,16 @@ uint64_t sub_352C8(uint64_t a1)
   return _objc_release_x1();
 }
 
-id BSUINoticeViewControllerLog()
+id BSUINoticeViewControllerLog(uint64_t a1)
 {
   if (qword_3CA7F0 != -1)
   {
     sub_2BD9E0();
   }
 
-  v1 = qword_3CA7E8;
+  v2 = qword_3CA7E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_35650(id a1)
@@ -4409,11 +4420,11 @@ void sub_37D04(uint64_t a1)
   [v3 setTransform:&v4];
 }
 
-void sub_37EA4(void *a1)
+void sub_37EA4(void *a1, const char *a2)
 {
-  v2 = _UISolariumEnabled();
-  v3 = [UIImage systemImageNamed:a1[4]];
-  if (v2)
+  v3 = _UISolariumEnabled();
+  v4 = [UIImage systemImageNamed:a1[4]];
+  if (v3)
   {
     +[BSUINoticeViewController imageConfig];
   }
@@ -4422,11 +4433,11 @@ void sub_37EA4(void *a1)
   {
     [UIImageSymbolConfiguration configurationWithPointSize:31.0];
   }
-  v4 = ;
-  v6 = [v3 imageWithConfiguration:v4];
+  v5 = ;
+  v7 = [v4 imageWithConfiguration:v5];
 
-  v5 = [[BSUINoticeViewController alloc] initWithTitle:a1[5] message:a1[6] image:v6];
-  [(BSUINoticeViewController *)v5 show:1 options:a1[7]];
+  v6 = [[BSUINoticeViewController alloc] initWithTitle:a1[5] message:a1[6] image:v7];
+  [(BSUINoticeViewController *)v6 show:1 options:a1[7]];
 }
 
 void sub_3807C(void *a1)
@@ -4435,9 +4446,9 @@ void sub_3807C(void *a1)
   [(BSUINoticeViewController *)v2 show:1 options:a1[7]];
 }
 
-void sub_389D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_389D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4459,18 +4470,18 @@ void sub_38CD0(uint64_t a1)
     v3 = [v2 integerValue];
 
     v4 = *(a1 + 56);
-    v5 = BSUIBundle();
-    v6 = v5;
+    v6 = BSUIBundle(v5);
+    v7 = v6;
     if (v3 == &dword_4 + 2)
     {
       if (v4)
       {
-        v7 = @"The audiobook was removed from %@.";
+        v8 = @"The audiobook was removed from %@.";
       }
 
       else
       {
-        v7 = @"This audiobook was removed from %@.";
+        v8 = @"This audiobook was removed from %@.";
       }
     }
 
@@ -4478,98 +4489,99 @@ void sub_38CD0(uint64_t a1)
     {
       if (v4)
       {
-        v7 = @"The PDF was removed from %@.";
+        v8 = @"The PDF was removed from %@.";
       }
 
       else
       {
-        v7 = @"This PDF was removed from %@.";
+        v8 = @"This PDF was removed from %@.";
       }
     }
 
     else if (v4)
     {
-      v7 = @"The book was removed from %@.";
+      v8 = @"The book was removed from %@.";
     }
 
     else
     {
-      v7 = @"This book was removed from %@.";
+      v8 = @"This book was removed from %@.";
     }
 
-    v11 = [v5 localizedStringForKey:v7 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
-    v23 = [NSString localizedStringWithFormat:v11, *(a1 + 40)];
+    v14 = [v6 localizedStringForKey:v8 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
+    v26 = [NSString localizedStringWithFormat:v14, *(a1 + 40)];
   }
 
   else
   {
-    v6 = [NSSet setWithArray:*(a1 + 32)];
-    if ([v6 count] == &dword_0 + 1)
+    v7 = [NSSet setWithArray:*(a1 + 32)];
+    v9 = [v7 count];
+    if (v9 == &dword_0 + 1)
     {
-      v8 = [v6 anyObject];
-      v9 = [v8 integerValue];
+      v10 = [v7 anyObject];
+      v11 = [v10 integerValue];
 
-      v10 = *(a1 + 56);
-      v11 = BSUIBundle();
-      if (v9 == &dword_4 + 2)
+      v12 = *(a1 + 56);
+      v14 = BSUIBundle(v13);
+      if (v11 == &dword_4 + 2)
       {
-        if (v10)
+        if (v12)
         {
-          v12 = @"The audiobooks were removed from %@.";
+          v15 = @"The audiobooks were removed from %@.";
         }
 
         else
         {
-          v12 = @"These audiobooks were removed from %@.";
+          v15 = @"These audiobooks were removed from %@.";
         }
       }
 
-      else if (v9 == &dword_0 + 3)
+      else if (v11 == &dword_0 + 3)
       {
-        if (v10)
+        if (v12)
         {
-          v12 = @"The PDFs were removed from %@.";
+          v15 = @"The PDFs were removed from %@.";
         }
 
         else
         {
-          v12 = @"These PDFs were removed from %@.";
+          v15 = @"These PDFs were removed from %@.";
         }
       }
 
-      else if (v10)
+      else if (v12)
       {
-        v12 = @"The books were removed from %@.";
+        v15 = @"The books were removed from %@.";
       }
 
       else
       {
-        v12 = @"These books were removed from %@.";
+        v15 = @"These books were removed from %@.";
       }
     }
 
     else
     {
-      v13 = *(a1 + 56);
-      v11 = BSUIBundle();
-      if (v13)
+      v16 = *(a1 + 56);
+      v14 = BSUIBundle(v9);
+      if (v16)
       {
-        v12 = @"The items were removed from %@.";
+        v15 = @"The items were removed from %@.";
       }
 
       else
       {
-        v12 = @"These items were removed from %@.";
+        v15 = @"These items were removed from %@.";
       }
     }
 
-    v14 = [v11 localizedStringForKey:v12 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
-    v23 = [NSString localizedStringWithFormat:v14, *(a1 + 40)];
+    v17 = [v14 localizedStringForKey:v15 value:&stru_3960F8 table:@"BookStoreUILocalizable"];
+    v26 = [NSString localizedStringWithFormat:v17, *(a1 + 40)];
   }
 
-  v15 = _UISolariumEnabled();
-  v16 = [UIImage systemImageNamed:@"text.badge.minus"];
-  if (v15)
+  v18 = _UISolariumEnabled();
+  v19 = [UIImage systemImageNamed:@"text.badge.minus"];
+  if (v18)
   {
     +[BSUINoticeViewController imageConfig];
   }
@@ -4578,15 +4590,15 @@ void sub_38CD0(uint64_t a1)
   {
     [UIImageSymbolConfiguration configurationWithPointSize:192.0];
   }
-  v17 = ;
-  v18 = [v16 imageWithConfiguration:v17];
+  v20 = ;
+  v21 = [v19 imageWithConfiguration:v20];
 
-  v19 = [BSUINoticeViewController alloc];
-  v20 = BSUIBundle();
-  v21 = [v20 localizedStringForKey:@"Removed" value:&stru_3960F8 table:@"BookStoreUILocalizable"];
-  v22 = [(BSUINoticeViewController *)v19 initWithTitle:v21 message:v23 image:v18];
+  v22 = [BSUINoticeViewController alloc];
+  v23 = BSUIBundle(v22);
+  v24 = [v23 localizedStringForKey:@"Removed" value:&stru_3960F8 table:@"BookStoreUILocalizable"];
+  v25 = [(BSUINoticeViewController *)v22 initWithTitle:v24 message:v26 image:v21];
 
-  [(BSUINoticeViewController *)v22 show:1 options:*(a1 + 48)];
+  [(BSUINoticeViewController *)v25 show:1 options:*(a1 + 48)];
 }
 
 void sub_39188(uint64_t a1)
@@ -4623,25 +4635,25 @@ void sub_39188(uint64_t a1)
 
 void sub_39344(uint64_t a1)
 {
-  v2 = BSUIBundle();
-  v13 = [v2 localizedStringForKey:@"Renamed Collection" value:&stru_3960F8 table:@"BookStoreUILocalizable"];
+  v2 = BSUIBundle(a1);
+  v14 = [v2 localizedStringForKey:@"Renamed Collection" value:&stru_3960F8 table:@"BookStoreUILocalizable"];
 
-  v3 = BSUIBundle();
-  v4 = [v3 localizedStringForKey:@"Your \\U201CBooks\\U201D collection was renamed \\U201C%@\\U201D and added to your library." value:&stru_3960F8 table:@"BookStoreUILocalizable"];
+  v4 = BSUIBundle(v3);
+  v5 = [v4 localizedStringForKey:@"Your \\U201CBooks\\U201D collection was renamed \\U201C%@\\U201D and added to your library." value:&stru_3960F8 table:@"BookStoreUILocalizable"];
 
-  v5 = *(a1 + 32);
-  if (!v5)
+  v6 = *(a1 + 32);
+  if (!v6)
   {
-    v5 = &stru_3960F8;
+    v6 = &stru_3960F8;
   }
 
-  v6 = [NSString stringWithFormat:v4, v5];
-  v7 = BSUIBundle();
-  v8 = [v7 localizedStringForKey:@"GOT IT" value:&stru_3960F8 table:@"BookStoreUILocalizable"];
+  v7 = [NSString stringWithFormat:v5, v6];
+  v8 = BSUIBundle(v7);
+  v9 = [v8 localizedStringForKey:@"GOT IT" value:&stru_3960F8 table:@"BookStoreUILocalizable"];
 
-  LODWORD(v7) = _UISolariumEnabled();
-  v9 = [UIImage systemImageNamed:@"text.justifyleft"];
-  if (v7)
+  LODWORD(v8) = _UISolariumEnabled();
+  v10 = [UIImage systemImageNamed:@"text.justifyleft"];
+  if (v8)
   {
     +[BSUINoticeViewController imageConfig];
   }
@@ -4650,17 +4662,17 @@ void sub_39344(uint64_t a1)
   {
     [UIImageSymbolConfiguration configurationWithPointSize:262.0];
   }
-  v10 = ;
-  v11 = [v9 imageWithConfiguration:v10];
+  v11 = ;
+  v12 = [v10 imageWithConfiguration:v11];
 
-  v12 = [[BSUINoticeViewController alloc] initWithTitle:v13 message:v6 image:v11 confirmString:v8];
-  [(BSUINoticeViewController *)v12 setIconImageAlwaysTemplate:0];
-  [(BSUINoticeViewController *)v12 show:1 options:*(a1 + 40)];
+  v13 = [[BSUINoticeViewController alloc] initWithTitle:v14 message:v7 image:v12 confirmString:v9];
+  [(BSUINoticeViewController *)v13 setIconImageAlwaysTemplate:0];
+  [(BSUINoticeViewController *)v13 show:1 options:*(a1 + 40)];
 }
 
 void sub_39664(void *a1)
 {
-  v2 = BSUIBundle();
+  v2 = BSUIBundle(a1);
   v3 = [UIImageSymbolConfiguration configurationWithPointSize:262.0];
   v5 = [UIImage imageNamed:@"books.slash" inBundle:v2 withConfiguration:v3];
 
@@ -4668,9 +4680,9 @@ void sub_39664(void *a1)
   [(BSUINoticeViewController *)v4 show:1 options:a1[6]];
 }
 
-void sub_3A0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3A0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5005,6 +5017,13 @@ void sub_3D0CC(uint64_t a1)
   _Block_object_dispose(&v36, 8);
 }
 
+void sub_3D410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_3D55C(uint64_t a1)
 {
   v2 = BSUIStoreServicesLog();
@@ -5104,9 +5123,9 @@ void sub_3DA40(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_3DE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_3DE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5138,6 +5157,13 @@ void sub_3DEF0(uint64_t a1)
   *(v2 + 40) = 0;
 }
 
+void sub_3E344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_3E384(uint64_t a1, int a2)
 {
   if (a2)
@@ -5158,9 +5184,9 @@ void sub_3E3A4(uint64_t a1, int a2)
   dispatch_group_leave(*(a1 + 32));
 }
 
-void sub_3E59C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_3E59C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5676,9 +5702,9 @@ void sub_47B14(uint64_t a1, void *a2)
   [WeakRetained _feedContentDidLoad:v3 signpost:*(a1 + 40)];
 }
 
-void sub_48118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_48118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5722,16 +5748,16 @@ void sub_481E8(void *a1)
   }
 }
 
-void sub_48414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_48414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_4861C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_4861C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5917,9 +5943,9 @@ LABEL_4:
 LABEL_5:
 }
 
-void sub_49BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_49BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5954,9 +5980,9 @@ void sub_49BCC(uint64_t a1, void *a2, void *a3)
   _Block_object_dispose(&v18, 8);
 }
 
-void sub_49D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_49D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6027,9 +6053,9 @@ void sub_49D54(uint64_t a1, void *a2)
   [BSUIGoalsShareSheet presentShareSheetFromViewController:v24 sourceView:v15 sourceBarButtonItem:v17 image:v29 kind:v26 year:v28 title:v27 sharingUrls:v11 completion:v30];
 }
 
-void sub_4A818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_4A818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6339,12 +6365,12 @@ void sub_4DCC0(uint64_t a1)
   [v9 layoutIfNeeded];
 }
 
-void sub_4EDD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_4EDD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v9 + 56));
-  objc_destroyWeak((v10 - 120));
+  objc_destroyWeak((v16 + 56));
+  objc_destroyWeak((v17 - 120));
   _Unwind_Resume(a1);
 }
 
@@ -7162,9 +7188,9 @@ id sub_55D28(uint64_t a1)
   return v5;
 }
 
-void sub_569F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_569F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7327,7 +7353,7 @@ uint64_t sub_57E8C()
 {
   swift_beginAccess();
   v10[3] = type metadata accessor for BSUISharedWithYouController();
-  v10[4] = sub_66A08(&qword_3BD380, v1, type metadata accessor for BSUISharedWithYouController);
+  v10[4] = sub_66A08(&qword_3BD380, v1, type metadata accessor for BSUISharedWithYouController, &protocol conformance descriptor for BSUISharedWithYouController);
   v10[0] = v0;
 
   v2 = v0;
@@ -7344,7 +7370,7 @@ uint64_t sub_57E8C()
 
     do
     {
-      sub_6932C(v7, v9, &qword_3BB9D0);
+      sub_6932C(v7, v9, &qword_3BB9D0, &unk_2E15E8);
       Strong = swift_unknownObjectWeakLoadStrong();
       if (Strong)
       {
@@ -7352,7 +7378,7 @@ uint64_t sub_57E8C()
         swift_unknownObjectRelease();
       }
 
-      sub_69198(v9, &qword_3BB9D0);
+      sub_69198(v9, &qword_3BB9D0, &unk_2E15E8);
       v7 += 8;
       --v6;
     }
@@ -7381,7 +7407,7 @@ uint64_t sub_580B0(uint64_t a1, char a2)
   return result;
 }
 
-id sub_580E4()
+id sub_580E4(uint64_t a1)
 {
   result = [objc_allocWithZone(type metadata accessor for BSUISharedWithYouController()) init];
   qword_3BB718 = result;
@@ -7404,15 +7430,15 @@ char *sub_581CC()
 {
   v1 = v0;
   v2 = OBJC_IVAR____TtC11BookStoreUI27BSUISharedWithYouController_refreshPublisher;
-  sub_6620C(&qword_3BC148);
+  sub_6620C(&qword_3BC148, &qword_2E2E18);
   swift_allocObject();
   *&v0[v2] = sub_2C23E8();
   v3 = OBJC_IVAR____TtC11BookStoreUI27BSUISharedWithYouController_highlightCenter;
   *&v1[v3] = [objc_allocWithZone(SWHighlightCenter) init];
   *&v1[OBJC_IVAR____TtC11BookStoreUI27BSUISharedWithYouController_highlights] = 0;
   v4 = OBJC_IVAR____TtC11BookStoreUI27BSUISharedWithYouController_attributionViews;
-  *&v1[v4] = sub_6879C(&_swiftEmptyArrayStorage, &unk_3BC370);
-  *&v1[OBJC_IVAR____TtC11BookStoreUI27BSUISharedWithYouController_observers] = &_swiftEmptyArrayStorage;
+  *&v1[v4] = sub_6879C(_swiftEmptyArrayStorage, &unk_3BC370, &qword_2E3068);
+  *&v1[OBJC_IVAR____TtC11BookStoreUI27BSUISharedWithYouController_observers] = _swiftEmptyArrayStorage;
   v7.receiver = v1;
   v7.super_class = type metadata accessor for BSUISharedWithYouController();
   v5 = objc_msgSendSuper2(&v7, "init");
@@ -7424,9 +7450,9 @@ void _s11BookStoreUI27BSUISharedWithYouControllerC34highlightCenterHighlightsDid
 {
   v110 = sub_2BE3B8();
   v1 = *(v110 - 8);
-  v2 = __chkstk_darwin(v110);
-  v109 = &v90 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v2);
+  __chkstk_darwin(v110);
+  v109 = &v90 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
   v108 = &v90 - v4;
   v99 = sub_2BE5C8();
   v5 = *(v99 - 8);
@@ -7434,7 +7460,7 @@ void _s11BookStoreUI27BSUISharedWithYouControllerC34highlightCenterHighlightsDid
   v98 = &v90 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = OBJC_IVAR____TtC11BookStoreUI27BSUISharedWithYouController_highlights;
   swift_beginAccess();
-  v8 = &_swiftEmptyArrayStorage;
+  v8 = _swiftEmptyArrayStorage;
   if (*(v0 + v7))
   {
     v9 = *(v0 + v7);
@@ -7442,7 +7468,7 @@ void _s11BookStoreUI27BSUISharedWithYouControllerC34highlightCenterHighlightsDid
 
   else
   {
-    v9 = &_swiftEmptyArrayStorage;
+    v9 = _swiftEmptyArrayStorage;
   }
 
   v113 = v9;
@@ -7456,7 +7482,7 @@ void _s11BookStoreUI27BSUISharedWithYouControllerC34highlightCenterHighlightsDid
   v100 = v11;
 
   v13 = [v12 highlights];
-  v90 = sub_66278(0, &qword_3BB9A8);
+  v90 = sub_66278(0, &qword_3BB9A8, SWHighlight_ptr);
   v14 = sub_2C5B28();
 
   v91 = v14;
@@ -7483,7 +7509,7 @@ LABEL_6:
   *(v116 + v7) = v16;
 
   sub_57E8C();
-  v18 = sub_6879C(v8, &unk_3BC370);
+  v18 = sub_6879C(v8, &unk_3BC370, &qword_2E3068);
   *(v17 + v115) = v18;
 
   if (v101)
@@ -7640,7 +7666,7 @@ LABEL_37:
       v42 = sub_61354(v40, &v121);
       v103 = v41;
 
-      v1 = (v42 + 64);
+      v1 = v42 + 8;
       v43 = 1 << *(v42 + 32);
       if (v43 < 64)
       {
@@ -7652,7 +7678,7 @@ LABEL_37:
         v44 = -1;
       }
 
-      v8 = v44 & *(v42 + 64);
+      v8 = v44 & v42[8];
       v7 = (v43 + 63) >> 6;
       v117 = v42;
 
@@ -7662,10 +7688,10 @@ LABEL_37:
 LABEL_48:
         v52 = __clz(__rbit64(v8)) | (v45 << 6);
         v53 = v116;
-        v54 = *(v117 + 6) + 16 * v52;
+        v54 = v117[6] + 16 * v52;
         v5 = *v54;
         v55 = *(v54 + 8);
-        v56 = *(*(v117 + 7) + 8 * v52);
+        v56 = *(v117[7] + 8 * v52);
         v57 = v115;
         swift_beginAccess();
         swift_bridgeObjectRetain_n();
@@ -7696,7 +7722,7 @@ LABEL_48:
 
           else
           {
-            sub_635D8(&unk_3BC370);
+            sub_635D8(&unk_3BC370, &qword_2E3068);
             if (v65)
             {
               goto LABEL_41;
@@ -7706,7 +7732,7 @@ LABEL_48:
 
         else
         {
-          sub_5ECAC(v64, isUniquelyReferenced_nonNull_native, &unk_3BC370);
+          sub_5ECAC(v64, isUniquelyReferenced_nonNull_native, &unk_3BC370, &qword_2E3068);
           v66 = sub_5D228(v5, v55);
           if ((v65 & 1) != (v67 & 1))
           {
@@ -7911,13 +7937,13 @@ uint64_t sub_58E04(uint64_t (*a1)(void *), uint64_t a2, uint64_t a3)
 
 uint64_t sub_58ED8(uint64_t a1, uint64_t a2)
 {
-  v5 = sub_6620C(&qword_3BB9B0);
+  v5 = sub_6620C(&qword_3BB9B0, &qword_2E15D0);
   v6 = *(v5 - 8);
-  v7 = __chkstk_darwin(v5);
-  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
+  __chkstk_darwin(v5);
+  v8 = &v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
   v11 = &v22 - v10;
-  sub_6620C(&qword_3BB9B8);
+  sub_6620C(&qword_3BB9B8, &unk_2E15D8);
   sub_2BFB68();
   sub_2BFB68();
   v12 = OBJC_IVAR____TtC11BookStoreUI27BSUISharedWithYouController_highlights;
@@ -7927,7 +7953,7 @@ uint64_t sub_58ED8(uint64_t a1, uint64_t a2)
   {
     __chkstk_darwin(v13);
     *(&v22 - 4) = v11;
-    *(&v22 - 3) = v9;
+    *(&v22 - 3) = v8;
     *(&v22 - 2) = a1;
     *(&v22 - 1) = a2;
 
@@ -7951,7 +7977,7 @@ uint64_t sub_58ED8(uint64_t a1, uint64_t a2)
   }
 
   v20 = *(v6 + 8);
-  v20(v9, v5);
+  v20(v8, v5);
   v20(v11, v5);
   return v15;
 }
@@ -7967,16 +7993,16 @@ uint64_t sub_59118(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t
   v37 = *(v49 - 8);
   __chkstk_darwin(v49);
   v9 = v32 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_6620C(&qword_3BC340);
+  v10 = sub_6620C(&qword_3BC340, &qword_2E3018);
   __chkstk_darwin(v10 - 8);
   v12 = v32 - v11;
-  v44 = sub_6620C(&qword_3BC348);
+  v44 = sub_6620C(&qword_3BC348, &qword_2E3020);
   v13 = *(v44 - 8);
   __chkstk_darwin(v44);
   v38 = v32 - v14;
   v43 = *(a1 + 16);
-  sub_6620C(&qword_3BC350);
-  v15 = sub_6620C(&qword_3BB9B0);
+  sub_6620C(&qword_3BC350, &qword_2E3028);
+  v15 = sub_6620C(&qword_3BB9B0, &qword_2E15D0);
   v16 = *(v15 - 8);
   v17 = *(v16 + 72);
   v18 = (*(v16 + 80) + 32) & ~*(v16 + 80);
@@ -8019,7 +8045,7 @@ uint64_t sub_59118(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t
       (*v25)(v12, 1, 1, v44);
       v6 = 0;
 LABEL_5:
-      sub_69198(v12, &qword_3BC340);
+      sub_69198(v12, &qword_3BC340, &qword_2E3018);
       goto LABEL_6;
     }
 
@@ -8061,7 +8087,7 @@ LABEL_17:
   return 1;
 }
 
-void sub_59600(uint64_t a1, void *a2, uint64_t a3)
+void sub_59600(uint64_t a1, void *a2, void *a3)
 {
   v4 = v3;
   v32 = a3;
@@ -8130,7 +8156,7 @@ LABEL_21:
   v15 = v14;
   v16 = [v14 attributions];
 
-  sub_66278(0, &qword_3BB9C0);
+  sub_66278(0, &qword_3BB9C0, SLAttribution_ptr);
   v17 = sub_2C5B28();
 
   if (!(v17 >> 62))
@@ -8237,7 +8263,7 @@ LABEL_33:
   __break(1u);
 }
 
-char *sub_59A6C(uint64_t a1, void *a2, void *a3)
+char *sub_59A6C(void *a1, void *a2, void *a3)
 {
   v7 = OBJC_IVAR____TtC11BookStoreUI27BSUISharedWithYouController_highlights;
   swift_beginAccess();
@@ -8292,21 +8318,21 @@ char *sub_59A6C(uint64_t a1, void *a2, void *a3)
   return v10;
 }
 
-id sub_59CC4(uint64_t a1, void *a2)
+id sub_59CC4(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = v2;
-  v6 = OBJC_IVAR____TtC11BookStoreUI27BSUISharedWithYouController_highlights;
+  v4 = v3;
+  v7 = OBJC_IVAR____TtC11BookStoreUI27BSUISharedWithYouController_highlights;
   swift_beginAccess();
-  v7 = *(v2 + v6);
-  if (v7)
+  v8 = *(v3 + v7);
+  if (v8)
   {
-    v8 = (v7 + 40);
-    v9 = *(v7 + 16) + 1;
-    while (--v9)
+    v9 = (v8 + 40);
+    v10 = *(v8 + 16) + 1;
+    while (--v10)
     {
-      if (*(v8 - 1) != a1 || *v8 != a2)
+      if (*(v9 - 1) != a1 || *v9 != a2)
       {
-        v8 += 3;
+        v9 += 3;
         if ((sub_2C65B8() & 1) == 0)
         {
           continue;
@@ -8314,26 +8340,26 @@ id sub_59CC4(uint64_t a1, void *a2)
       }
 
       sub_2C6368();
-      v18._countAndFlagsBits = 43;
-      v18._object = 0xE100000000000000;
-      sub_2C5978(v18);
-      v19._countAndFlagsBits = a1;
-      v19._object = a2;
+      v19._countAndFlagsBits = 43;
+      v19._object = 0xE100000000000000;
       sub_2C5978(v19);
-      v11 = OBJC_IVAR____TtC11BookStoreUI27BSUISharedWithYouController_attributionViews;
+      v20._countAndFlagsBits = a1;
+      v20._object = a2;
+      sub_2C5978(v20);
+      v12 = OBJC_IVAR____TtC11BookStoreUI27BSUISharedWithYouController_attributionViews;
       swift_beginAccess();
-      v12 = *(v3 + v11);
-      if (*(v12 + 16))
+      v13 = *(v4 + v12);
+      if (*(v13 + 16))
       {
 
-        v13 = sub_5D228(0, 0xE000000000000000);
-        v15 = v14;
+        v14 = sub_5D228(0, 0xE000000000000000);
+        v16 = v15;
 
-        if (v15)
+        if (v16)
         {
-          v16 = *(*(v12 + 56) + 8 * v13);
+          v17 = *(*(v13 + 56) + 8 * v14);
 
-          return v16;
+          return v17;
         }
       }
 
@@ -8344,11 +8370,11 @@ id sub_59CC4(uint64_t a1, void *a2)
   return 0;
 }
 
-id BSUISharedWithYouController.__deallocating_deinit()
+id BSUISharedWithYouController.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for BSUISharedWithYouController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for BSUISharedWithYouController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 id BSUISharedWithYouController.attach(_:)(void *a1)
@@ -8374,7 +8400,7 @@ id BSUISharedWithYouController.attach(_:)(void *a1)
   }
 
   v4[2] = v7 + 1;
-  sub_69130(v9, &v4[v7 + 4], &qword_3BB9D0);
+  sub_69130(v9, &v4[v7 + 4], &qword_3BB9D0, &unk_2E15E8);
   *(v1 + v3) = v4;
   swift_endAccess();
   return [a1 update:v1];
@@ -8393,20 +8419,20 @@ uint64_t BSUISharedWithYouController.detach(_:)(uint64_t a1)
   {
     v7 = 0;
     v8 = v4 + 32;
-    v9 = &_swiftEmptyArrayStorage;
+    v9 = _swiftEmptyArrayStorage;
     while (v7 < *(v4 + 16))
     {
-      sub_6932C(v8, v18, &qword_3BB9D0);
+      sub_6932C(v8, v18, &qword_3BB9D0, &unk_2E15E8);
       Strong = swift_unknownObjectWeakLoadStrong();
       if (Strong && (v11 = Strong, swift_unknownObjectRelease(), v11 == a1) || !swift_unknownObjectWeakLoadStrong())
       {
-        result = sub_69198(v18, &qword_3BB9D0);
+        result = sub_69198(v18, &qword_3BB9D0, &unk_2E15E8);
       }
 
       else
       {
         swift_unknownObjectRelease();
-        sub_69130(v18, v17, &qword_3BB9D0);
+        sub_69130(v18, v17, &qword_3BB9D0, &unk_2E15E8);
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
         v19 = v9;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
@@ -8424,7 +8450,7 @@ uint64_t BSUISharedWithYouController.detach(_:)(uint64_t a1)
         }
 
         v9[2] = v14 + 1;
-        result = sub_69130(v17, &v9[v14 + 4], &qword_3BB9D0);
+        result = sub_69130(v17, &v9[v14 + 4], &qword_3BB9D0, &unk_2E15E8);
       }
 
       ++v7;
@@ -8440,7 +8466,7 @@ uint64_t BSUISharedWithYouController.detach(_:)(uint64_t a1)
 
   else
   {
-    v9 = &_swiftEmptyArrayStorage;
+    v9 = _swiftEmptyArrayStorage;
 LABEL_15:
 
     *(v16 + v15) = v9;
@@ -8462,22 +8488,22 @@ Swift::UInt sub_5A2AC()
   return result;
 }
 
-BOOL sub_5A304()
+BOOL sub_5A304(uint64_t a1, uint64_t a2)
 {
   Strong = swift_unknownObjectWeakLoadStrong();
-  v1 = swift_unknownObjectWeakLoadStrong();
+  v3 = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    if (v1)
+    if (v3)
     {
-      v2 = v1;
+      v4 = v3;
       swift_unknownObjectRelease();
       swift_unknownObjectRelease();
-      return Strong == v2;
+      return Strong == v4;
     }
   }
 
-  else if (!v1)
+  else if (!v3)
   {
     return 1;
   }
@@ -8493,7 +8519,7 @@ Swift::Int sub_5A370()
   return sub_2C6778();
 }
 
-Swift::Int sub_5A3C0()
+Swift::Int sub_5A3C0(uint64_t a1)
 {
   sub_2C6738();
   sub_5A2AC();
@@ -8514,13 +8540,6 @@ uint64_t sub_5A4BC(uint64_t a1, uint64_t a2)
   *a2 = 0;
   *(a2 + 8) = 1;
   return v3 & 1;
-}
-
-uint64_t sub_5A514@<X0>(void *a1@<X8>)
-{
-  result = sub_2BE7D8();
-  *a1 = v3;
-  return result;
 }
 
 void *sub_5A53C@<X0>(void *result@<X0>, uint64_t a2@<X8>)
@@ -8552,51 +8571,51 @@ uint64_t sub_5A648@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_5A68C@<X0>(void *a1@<X8>)
+uint64_t sub_5A68C@<X0>(uint64_t *a2@<X8>)
 {
   sub_2C58C8();
-  v2 = sub_2C5888();
+  v3 = sub_2C5888();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
-uint64_t sub_5A6D4()
+uint64_t sub_5A6D4(uint64_t a1)
 {
-  sub_66A08(&qword_3BC108, 255, type metadata accessor for ActivityType);
-  sub_66A08(&unk_3BC110, 255, type metadata accessor for ActivityType);
+  sub_66A08(&qword_3BC108, 255, type metadata accessor for ActivityType, &unk_2E1B70);
+  sub_66A08(&unk_3BC110, 255, type metadata accessor for ActivityType, &unk_2E1B18);
 
   return sub_2C63D8();
 }
 
-uint64_t sub_5A798()
+uint64_t sub_5A798(uint64_t a1)
 {
-  sub_66A08(&qword_3BC0F8, 255, type metadata accessor for MCatalogRequestRelationship);
-  sub_66A08(&qword_3BC100, 255, type metadata accessor for MCatalogRequestRelationship);
+  sub_66A08(&qword_3BC0F8, 255, type metadata accessor for MCatalogRequestRelationship, &unk_2E1CD0);
+  sub_66A08(&qword_3BC100, 255, type metadata accessor for MCatalogRequestRelationship, &unk_2E1C70);
 
   return sub_2C63D8();
 }
 
-uint64_t sub_5A85C()
+uint64_t sub_5A85C(uint64_t a1)
 {
-  sub_66A08(&qword_3BC0E8, 255, type metadata accessor for MCatalogRequestView);
-  sub_66A08(&qword_3BC0F0, 255, type metadata accessor for MCatalogRequestView);
+  sub_66A08(&qword_3BC0E8, 255, type metadata accessor for MCatalogRequestView, &unk_2E1E28);
+  sub_66A08(&qword_3BC0F0, 255, type metadata accessor for MCatalogRequestView, &unk_2E1DC8);
 
   return sub_2C63D8();
 }
 
-uint64_t sub_5A920()
+uint64_t sub_5A920(uint64_t a1)
 {
-  sub_66A08(&qword_3BC0D8, 255, type metadata accessor for AssetActivityItemProviderProperty);
-  sub_66A08(&qword_3BC0E0, 255, type metadata accessor for AssetActivityItemProviderProperty);
+  sub_66A08(&qword_3BC0D8, 255, type metadata accessor for AssetActivityItemProviderProperty, &unk_2E1F8C);
+  sub_66A08(&qword_3BC0E0, 255, type metadata accessor for AssetActivityItemProviderProperty, &unk_2E1F2C);
 
   return sub_2C63D8();
 }
 
-uint64_t sub_5A9E4()
+uint64_t sub_5A9E4(uint64_t a1)
 {
-  sub_66A08(&qword_3BC040, 255, type metadata accessor for Key);
-  sub_66A08(&qword_3BC048, 255, type metadata accessor for Key);
+  sub_66A08(&qword_3BC040, 255, type metadata accessor for Key, &unk_2E2C80);
+  sub_66A08(&qword_3BC048, 255, type metadata accessor for Key, &unk_2E2C20);
 
   return sub_2C63D8();
 }
@@ -8608,87 +8627,87 @@ double sub_5AAA8@<D0>(void *a1@<X8>)
   return result;
 }
 
-uint64_t sub_5AAB4()
+uint64_t sub_5AAB4(uint64_t a1)
 {
-  sub_66A08(&qword_3BC070, 255, type metadata accessor for Weight);
-  sub_66A08(&qword_3BC078, 255, type metadata accessor for Weight);
-  sub_68C10();
+  sub_66A08(&qword_3BC070, 255, type metadata accessor for Weight, &unk_2E286C);
+  v1 = sub_66A08(&qword_3BC078, 255, type metadata accessor for Weight, &unk_2E280C);
+  sub_68C10(v1, v2, v3);
   return sub_2C63D8();
 }
 
-uint64_t sub_5AB84()
+uint64_t sub_5AB84(uint64_t a1)
 {
-  sub_66A08(&qword_3BC088, 255, type metadata accessor for SystemDesign);
-  sub_66A08(&qword_3BC090, 255, type metadata accessor for SystemDesign);
-
-  return sub_2C63D8();
-}
-
-uint64_t sub_5AC48()
-{
-  sub_66A08(&qword_3BC468, 255, type metadata accessor for SeriesManagerSeriesType);
-  sub_66A08(&qword_3BC470, 255, type metadata accessor for SeriesManagerSeriesType);
+  sub_66A08(&qword_3BC088, 255, type metadata accessor for SystemDesign, &unk_2E2714);
+  sub_66A08(&qword_3BC090, 255, type metadata accessor for SystemDesign, &unk_2E26B4);
 
   return sub_2C63D8();
 }
 
-uint64_t sub_5AD0C()
+uint64_t sub_5AC48(uint64_t a1)
 {
-  sub_66A08(&unk_3C43C0, 255, type metadata accessor for FigaroKey);
-  sub_66A08(&qword_3BC0B0, 255, type metadata accessor for FigaroKey);
+  sub_66A08(&qword_3BC468, 255, type metadata accessor for SeriesManagerSeriesType, &unk_2E3374);
+  sub_66A08(&qword_3BC470, 255, type metadata accessor for SeriesManagerSeriesType, &unk_2E32C8);
 
   return sub_2C63D8();
 }
 
-uint64_t sub_5ADD0()
+uint64_t sub_5AD0C(uint64_t a1)
 {
-  sub_66A08(&qword_3BC478, 255, type metadata accessor for BSUINavigationControllerOptionsKey);
-  sub_66A08(&qword_3BC480, 255, type metadata accessor for BSUINavigationControllerOptionsKey);
+  sub_66A08(&unk_3C43C0, 255, type metadata accessor for FigaroKey, &unk_2E2D10);
+  sub_66A08(&qword_3BC0B0, 255, type metadata accessor for FigaroKey, &unk_2E236C);
 
   return sub_2C63D8();
 }
 
-uint64_t sub_5AE94()
+uint64_t sub_5ADD0(uint64_t a1)
 {
-  sub_66A08(&qword_3BC060, 255, type metadata accessor for TextStyle);
-  sub_66A08(&qword_3BC068, 255, type metadata accessor for TextStyle);
+  sub_66A08(&qword_3BC478, 255, type metadata accessor for BSUINavigationControllerOptionsKey, &unk_2E33B8);
+  sub_66A08(&qword_3BC480, 255, type metadata accessor for BSUINavigationControllerOptionsKey, &unk_2E31B4);
 
   return sub_2C63D8();
 }
 
-uint64_t sub_5AF58()
+uint64_t sub_5AE94(uint64_t a1)
 {
-  sub_66A08(&qword_3BC050, 255, type metadata accessor for UIContentSizeCategory);
-  sub_66A08(&qword_3BC058, 255, type metadata accessor for UIContentSizeCategory);
+  sub_66A08(&qword_3BC060, 255, type metadata accessor for TextStyle, &unk_2E29C4);
+  sub_66A08(&qword_3BC068, 255, type metadata accessor for TextStyle, &unk_2E2964);
 
   return sub_2C63D8();
 }
 
-uint64_t sub_5B01C()
+uint64_t sub_5AF58(uint64_t a1)
 {
-  sub_66A08(&qword_3BC0C8, 255, type metadata accessor for AttributeName);
-  sub_66A08(&qword_3BC0D0, 255, type metadata accessor for AttributeName);
+  sub_66A08(&qword_3BC050, 255, type metadata accessor for UIContentSizeCategory, &unk_2E2B1C);
+  sub_66A08(&qword_3BC058, 255, type metadata accessor for UIContentSizeCategory, &unk_2E2ABC);
 
   return sub_2C63D8();
 }
 
-uint64_t sub_5B0E0@<X0>(void *a1@<X8>)
+uint64_t sub_5B01C(uint64_t a1)
 {
-  v2 = sub_2C5888();
+  sub_66A08(&qword_3BC0C8, 255, type metadata accessor for AttributeName, &unk_2E2D54);
+  sub_66A08(&qword_3BC0D0, 255, type metadata accessor for AttributeName, &unk_2E2090);
 
-  *a1 = v2;
+  return sub_2C63D8();
+}
+
+uint64_t sub_5B0E0@<X0>(uint64_t *a2@<X8>)
+{
+  v3 = sub_2C5888();
+
+  *a2 = v3;
   return result;
 }
 
-uint64_t sub_5B128()
+uint64_t sub_5B128(uint64_t a1)
 {
-  sub_66A08(&qword_3BC0B8, 255, type metadata accessor for TraitKey);
-  sub_66A08(&qword_3BC0C0, 255, type metadata accessor for TraitKey);
+  sub_66A08(&qword_3BC0B8, 255, type metadata accessor for TraitKey, &unk_2E2204);
+  sub_66A08(&qword_3BC0C0, 255, type metadata accessor for TraitKey, &unk_2E21A4);
 
   return sub_2C63D8();
 }
 
-uint64_t sub_5B1F8@<X0>(void *a1@<X8>)
+uint64_t sub_5B1F8@<X0>(uint64_t *a1@<X8>)
 {
   sub_2C58C8();
   v2 = sub_2C5888();
@@ -8697,11 +8716,11 @@ uint64_t sub_5B1F8@<X0>(void *a1@<X8>)
   return result;
 }
 
-uint64_t sub_5B240()
+uint64_t sub_5B240(uint64_t a1)
 {
-  sub_66A08(&qword_3BC098, 255, type metadata accessor for FigaroEventType);
-  sub_66A08(&unk_3BC0A0, 255, type metadata accessor for FigaroEventType);
-  sub_66A08(&unk_3C43C0, 255, type metadata accessor for FigaroKey);
+  sub_66A08(&qword_3BC098, 255, type metadata accessor for FigaroEventType, &unk_2E24E0);
+  sub_66A08(&unk_3BC0A0, 255, type metadata accessor for FigaroEventType, &unk_2E2480);
+  sub_66A08(&unk_3C43C0, 255, type metadata accessor for FigaroKey, &unk_2E2D10);
 
   return sub_2C63D8();
 }
@@ -8736,20 +8755,20 @@ uint64_t sub_5B398(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t))
   return v5;
 }
 
-uint64_t sub_5B3DC()
+uint64_t sub_5B3DC(uint64_t a1)
 {
   sub_2C58C8();
   sub_2C5958();
 }
 
-Swift::Int sub_5B430()
+Swift::Int sub_5B430(uint64_t a1)
 {
   sub_2C58C8();
   sub_2C6738();
   sub_2C5958();
-  v0 = sub_2C6778();
+  v1 = sub_2C6778();
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_5B4A4()
@@ -8763,53 +8782,30 @@ uint64_t sub_5B4A4()
   return v1;
 }
 
-uint64_t sub_5B508()
+uint64_t sub_5B508(uint64_t a1)
 {
   sub_2C58C8();
-  v0 = sub_2C5888();
+  v1 = sub_2C5888();
 
   sub_2C58C8();
   sub_2C5958();
 }
 
-Swift::Int sub_5B584()
+Swift::Int sub_5B584(uint64_t a1)
 {
   sub_2C58C8();
-  v0 = sub_2C5888();
+  v1 = sub_2C5888();
 
   sub_2C58C8();
   sub_2C6738();
   sub_2C5958();
-  v1 = sub_2C6778();
+  v2 = sub_2C6778();
 
-  return v1;
+  return v2;
 }
 
-uint64_t sub_5B62C()
+uint64_t sub_5B62C(void *a1, uint64_t *a2)
 {
-  v0 = sub_2C58C8();
-  v2 = v1;
-  if (v0 == sub_2C58C8() && v2 == v3)
-  {
-    v5 = 1;
-  }
-
-  else
-  {
-    v5 = sub_2C65B8();
-  }
-
-  return v5 & 1;
-}
-
-uint64_t sub_5B6B4()
-{
-  sub_2C58C8();
-  v0 = sub_2C5888();
-
-  sub_2C58C8();
-  v1 = sub_2C5888();
-
   v2 = sub_2C58C8();
   v4 = v3;
   if (v2 == sub_2C58C8() && v4 == v5)
@@ -8823,6 +8819,29 @@ uint64_t sub_5B6B4()
   }
 
   return v7 & 1;
+}
+
+uint64_t sub_5B6B4(void *a1, uint64_t *a2)
+{
+  sub_2C58C8();
+  v2 = sub_2C5888();
+
+  sub_2C58C8();
+  v3 = sub_2C5888();
+
+  v4 = sub_2C58C8();
+  v6 = v5;
+  if (v4 == sub_2C58C8() && v6 == v7)
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    v9 = sub_2C65B8();
+  }
+
+  return v9 & 1;
 }
 
 void *sub_5B784(void *result, int64_t a2, char a3, void *a4)
@@ -8866,7 +8885,7 @@ void *sub_5B784(void *result, int64_t a2, char a3, void *a4)
 
   if (v9)
   {
-    sub_6620C(&qword_3BC360);
+    sub_6620C(&qword_3BC360, &qword_2E3058);
     v10 = swift_allocObject();
     v11 = j__malloc_size(v10);
     v10[2] = v8;
@@ -8875,7 +8894,7 @@ void *sub_5B784(void *result, int64_t a2, char a3, void *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   if (v5)
@@ -8890,7 +8909,7 @@ void *sub_5B784(void *result, int64_t a2, char a3, void *a4)
 
   else
   {
-    sub_6620C(&qword_3BC368);
+    sub_6620C(&qword_3BC368, &qword_2E3060);
     swift_arrayInitWithCopy();
   }
 

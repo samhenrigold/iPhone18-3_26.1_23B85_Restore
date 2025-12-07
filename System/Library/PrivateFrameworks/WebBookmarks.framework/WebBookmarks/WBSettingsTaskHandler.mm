@@ -51,9 +51,10 @@
 
 - (void)_enqueueTask:(id)task
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   taskCopy = task;
-  if ([(WBSettingsTaskHandler *)self _shouldEnqueueTask:taskCopy])
+  v5 = [(WBSettingsTaskHandler *)self _shouldEnqueueTask:taskCopy];
+  if (v5)
   {
     [(NSMutableArray *)self->_tasks addObject:taskCopy];
     [(WBSettingsTaskHandler *)self _performNextTask];
@@ -61,17 +62,15 @@
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v6 = v5;
-      v8 = 134217984;
+      v8 = v7;
+      v9 = 134217984;
       taskType = [taskCopy taskType];
-      _os_log_impl(&dword_272C20000, v6, OS_LOG_TYPE_INFO, "Not queueing settings task with type %ld since one has already been scheduled.", &v8, 0xCu);
+      _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Not queueing settings task with type %ld since one has already been scheduled.", &v9, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldEnqueueTask:(id)task
@@ -195,9 +194,9 @@ LABEL_13:
 
 - (void)_attemptCurrentTask
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_7(&dword_272C20000, a2, a3, "Dropping settings task with type %ld because maximum retry count exceeded", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_7(&dword_272C20000, a2, a3, "Dropping settings task with type %ld because maximum retry count exceeded", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __44__WBSettingsTaskHandler__attemptCurrentTask__block_invoke(uint64_t a1, void *a2)
@@ -262,79 +261,76 @@ void __44__WBSettingsTaskHandler__attemptCurrentTask__block_invoke_7(uint64_t a1
 
 - (void)_finishCurrentTask
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = WBS_LOG_CHANNEL_PREFIXWebsiteData(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     currentTask = self->_currentTask;
     v5 = v3;
-    v8 = 134217984;
+    v7 = 134217984;
     taskType = [(WBSettingsTask *)currentTask taskType];
-    _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "Marking current task with type %ld as finished. Attempting next available task", &v8, 0xCu);
+    _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "Marking current task with type %ld as finished. Attempting next available task", &v7, 0xCu);
   }
 
   v6 = self->_currentTask;
   self->_currentTask = 0;
 
   [(WBSettingsTaskHandler *)self _performNextTask];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_currentTaskAttemptDidFinishWithError:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   domain = [errorCopy domain];
   v6 = [domain isEqualToString:@"WebBookmarksXPCConnectionErrorDomain"];
 
   if (v6)
   {
-    objc_initWeak(&location, self);
-    v7 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    inited = objc_initWeak(&location, self);
+    v11 = WBS_LOG_CHANNEL_PREFIXWebsiteData(inited, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       taskType = [(WBSettingsTask *)self->_currentTask taskType];
       wb_privacyPreservingDescription = [errorCopy wb_privacyPreservingDescription];
-      [(WBSettingsTaskHandler *)wb_privacyPreservingDescription _currentTaskAttemptDidFinishWithError:buf, taskType, v7];
+      [(WBSettingsTaskHandler *)wb_privacyPreservingDescription _currentTaskAttemptDidFinishWithError:buf, taskType, v11];
     }
 
-    v10 = dispatch_time(0, 200000000);
+    v14 = dispatch_time(0, 200000000);
     queue = self->_queue;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __63__WBSettingsTaskHandler__currentTaskAttemptDidFinishWithError___block_invoke;
-    v17[3] = &unk_279E75450;
-    objc_copyWeak(&v18, &location);
-    dispatch_after(v10, queue, v17);
-    objc_destroyWeak(&v18);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __63__WBSettingsTaskHandler__currentTaskAttemptDidFinishWithError___block_invoke;
+    v20[3] = &unk_279E75450;
+    objc_copyWeak(&v21, &location);
+    dispatch_after(v14, queue, v20);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-    v13 = v12;
+    v16 = WBS_LOG_CHANNEL_PREFIXWebsiteData(v7, v8);
+    v17 = v16;
     if (errorCopy)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [(WBSettingsTaskHandler *)self _currentTaskAttemptDidFinishWithError:v13, errorCopy];
+        [(WBSettingsTaskHandler *)self _currentTaskAttemptDidFinishWithError:v17, errorCopy];
       }
     }
 
-    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       currentTask = self->_currentTask;
-      v15 = v13;
+      v19 = v17;
       *buf = 134217984;
       taskType2 = [(WBSettingsTask *)currentTask taskType];
-      _os_log_impl(&dword_272C20000, v15, OS_LOG_TYPE_INFO, "Successfully performed settings task with type: %ld", buf, 0xCu);
+      _os_log_impl(&dword_272C20000, v19, OS_LOG_TYPE_INFO, "Successfully performed settings task with type: %ld", buf, 0xCu);
     }
 
     [(WBSettingsTaskHandler *)self _finishCurrentTask];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __63__WBSettingsTaskHandler__currentTaskAttemptDidFinishWithError___block_invoke(uint64_t a1)
@@ -351,18 +347,16 @@ void __63__WBSettingsTaskHandler__currentTaskAttemptDidFinishWithError___block_i
 
 - (void)_currentTaskAttemptDidFinishWithError:(void *)a3 .cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 24);
   v5 = a2;
   v6 = [v4 taskType];
   v7 = [a3 wb_privacyPreservingDescription];
-  v9 = 134218242;
-  v10 = v6;
-  v11 = 2114;
-  v12 = v7;
-  _os_log_error_impl(&dword_272C20000, v5, OS_LOG_TYPE_ERROR, "Settings task with type %ld finished with a non-xpc error %{public}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 134218242;
+  v9 = v6;
+  v10 = 2114;
+  v11 = v7;
+  _os_log_error_impl(&dword_272C20000, v5, OS_LOG_TYPE_ERROR, "Settings task with type %ld finished with a non-xpc error %{public}@", &v8, 0x16u);
 }
 
 - (void)_currentTaskAttemptDidFinishWithError:(uint64_t)a3 .cold.2(void *a1, uint8_t *buf, uint64_t a3, os_log_t log)

@@ -75,6 +75,7 @@
 - (void)didRetrieveNumberOfFrequentlyVisitedSites:(unint64_t)sites;
 - (void)didRetrieveNumberOfRecommendations:(unint64_t)recommendations numberOfTopics:(unint64_t)topics;
 - (void)didRevealDownloadWithMIMEType:(id)type uti:(id)uti result:(int64_t)result;
+- (void)didSelectBrowserChoice:(id)choice browserAlreadyInstalled:(BOOL)installed browsersWithProductPagesViewed:(id)viewed browserList:(id)list userCohort:(int64_t)cohort listContainsDisabledBrowser:(BOOL)browser userTriedSelectingDisabledBrowser:(BOOL)disabledBrowser;
 - (void)didSelectFavoriteWithOpenLocation:(int64_t)location;
 - (void)didSelectFavoritesRow:(int64_t)row;
 - (void)didSelectFrequentlyVisitedSiteWithOpenLocation:(int64_t)location analyticsPayload:(id)payload;
@@ -256,13 +257,12 @@ void __126__WBSAnalyticsLogger_recordSearchResultPageImpressionWithDefaultSearch
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
   AnalyticsSendEventLazy();
 }
 
 id __126__WBSAnalyticsLogger_recordSearchResultPageImpressionWithDefaultSearchProviderIdentifier_searchProviderIdentifier_provenance___block_invoke_2(uint64_t a1)
 {
-  v14[6] = *MEMORY[0x1E69E9840];
+  v13[6] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) length];
   if ([*(a1 + 32) length])
   {
@@ -274,26 +274,26 @@ id __126__WBSAnalyticsLogger_recordSearchResultPageImpressionWithDefaultSearchPr
     v3 = 0;
   }
 
-  v13[0] = @"defaultSearchProviderIdentifier";
-  v13[1] = @"searchProviderIdentifier";
+  v12[0] = @"defaultSearchProviderIdentifier";
+  v12[1] = @"searchProviderIdentifier";
   v4 = *(a1 + 32);
   if (!v4)
   {
     v4 = &stru_1F3064D08;
   }
 
-  v14[0] = *(a1 + 40);
-  v14[1] = v4;
-  v13[2] = @"isSearch";
+  v13[0] = *(a1 + 40);
+  v13[1] = v4;
+  v12[2] = @"isSearch";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:v2 != 0];
-  v14[2] = v5;
-  v13[3] = @"usesDefaultSearchProvider";
+  v13[2] = v5;
+  v12[3] = @"usesDefaultSearchProvider";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:v3];
-  v14[3] = v6;
-  v13[4] = @"isReferredByUnifiedField";
+  v13[3] = v6;
+  v12[4] = @"isReferredByUnifiedField";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 48) == 1];
-  v14[4] = v7;
-  v13[5] = @"provenance";
+  v13[4] = v7;
+  v12[5] = @"provenance";
   v8 = *(a1 + 48) - 1;
   if (v8 > 2)
   {
@@ -305,10 +305,8 @@ id __126__WBSAnalyticsLogger_recordSearchResultPageImpressionWithDefaultSearchPr
     v9 = off_1E7CF0D20[v8];
   }
 
-  v14[5] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:6];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13[5] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:6];
 
   return v10;
 }
@@ -326,8 +324,8 @@ id __126__WBSAnalyticsLogger_recordSearchResultPageImpressionWithDefaultSearchPr
 
 id __53__WBSAnalyticsLogger_reportWeakPasswordWarningEvent___block_invoke_2(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"warningEvent";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"warningEvent";
   v1 = *(a1 + 32) - 1;
   if (v1 > 2)
   {
@@ -339,9 +337,8 @@ id __53__WBSAnalyticsLogger_reportWeakPasswordWarningEvent___block_invoke_2(uint
     v2 = off_1E7CF0D38[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -367,17 +364,16 @@ void __63__WBSAnalyticsLogger_didRevealDownloadWithMIMEType_uti_result___block_i
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
   AnalyticsSendEventLazy();
 }
 
 id __63__WBSAnalyticsLogger_didRevealDownloadWithMIMEType_uti_result___block_invoke_2(int64x2_t *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = @"MIMEType";
-  v6[1] = @"UTI";
-  v7 = vbslq_s8(vceqzq_s64(a1[2]), vdupq_n_s64(@"<unknown type>"), a1[2]);
-  v6[2] = @"result";
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = @"MIMEType";
+  v5[1] = @"UTI";
+  v6 = vbslq_s8(vceqzq_s64(a1[2]), vdupq_n_s64(@"<unknown type>"), a1[2]);
+  v5[2] = @"result";
   v1 = a1[3].i64[0] - 1;
   if (v1 > 2)
   {
@@ -389,9 +385,8 @@ id __63__WBSAnalyticsLogger_didRevealDownloadWithMIMEType_uti_result___block_inv
     v2 = off_1E7CF0D50[v1];
   }
 
-  v8 = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v7 forKeys:v6 count:3];
-  v4 = *MEMORY[0x1E69E9840];
+  v7 = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v6 forKeys:v5 count:3];
 
   return v3;
 }
@@ -412,13 +407,11 @@ id __63__WBSAnalyticsLogger_didRevealDownloadWithMIMEType_uti_result___block_inv
 
 id __70__WBSAnalyticsLogger_didMoveToBackgroundWithNumberOfOnGoingDownloads___block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"numberOfDownloads";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"numberOfDownloads";
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -439,28 +432,25 @@ id __70__WBSAnalyticsLogger_didMoveToBackgroundWithNumberOfOnGoingDownloads___bl
 
 void __83__WBSAnalyticsLogger_didSetDownloadFolderToProviderWithIdentifier_isDefaultFolder___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v1 = *(a1 + 32);
   AnalyticsSendEventLazy();
 }
 
 id __83__WBSAnalyticsLogger_didSetDownloadFolderToProviderWithIdentifier_isDefaultFolder___block_invoke_2(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (!v1)
   {
     v1 = @"Unspecified";
   }
 
-  v6[1] = @"isDefaultFolder";
-  v7[0] = v1;
-  v6[0] = @"providerIdentifier";
+  v5[1] = @"isDefaultFolder";
+  v6[0] = v1;
+  v5[0] = @"providerIdentifier";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40)];
-  v7[1] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[1] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }
@@ -517,16 +507,14 @@ void __48__WBSAnalyticsLogger_didBanWebsiteWithMetadata___block_invoke(uint64_t 
 
 id __72__WBSAnalyticsLogger_didRetrieveNumberOfRecommendations_numberOfTopics___block_invoke_2(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"recommendationCount";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"recommendationCount";
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v7[1] = @"topicCount";
-  v8[0] = v2;
+  v6[1] = @"topicCount";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 40)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -547,8 +535,7 @@ id __72__WBSAnalyticsLogger_didRetrieveNumberOfRecommendations_numberOfTopics___
 
 void __69__WBSAnalyticsLogger_didOpenRecommendationWithMetadata_withPosition___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v1 = *(a1 + 32);
   AnalyticsSendEventLazy();
 }
 
@@ -585,8 +572,8 @@ id __69__WBSAnalyticsLogger_didOpenRecommendationWithMetadata_withPosition___blo
 
 id __57__WBSAnalyticsLogger_didOpenReadingListItemWithPosition___block_invoke_2(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"openLocation";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"openLocation";
   v1 = *(a1 + 32);
   if (v1 > 4)
   {
@@ -598,9 +585,8 @@ id __57__WBSAnalyticsLogger_didOpenReadingListItemWithPosition___block_invoke_2(
     v2 = off_1E7CF12A0[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -618,8 +604,8 @@ id __57__WBSAnalyticsLogger_didOpenReadingListItemWithPosition___block_invoke_2(
 
 id __55__WBSAnalyticsLogger_didOpenCloudTabsItemWithPosition___block_invoke_2(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"openLocation";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"openLocation";
   v1 = *(a1 + 32);
   if (v1 > 4)
   {
@@ -631,9 +617,8 @@ id __55__WBSAnalyticsLogger_didOpenCloudTabsItemWithPosition___block_invoke_2(ui
     v2 = off_1E7CF12A0[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -651,8 +636,8 @@ id __55__WBSAnalyticsLogger_didOpenCloudTabsItemWithPosition___block_invoke_2(ui
 
 id __64__WBSAnalyticsLogger_didOpenRecentlyClosedTabsItemWithPosition___block_invoke_2(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"openLocation";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"openLocation";
   v1 = *(a1 + 32);
   if (v1 > 4)
   {
@@ -664,9 +649,8 @@ id __64__WBSAnalyticsLogger_didOpenRecentlyClosedTabsItemWithPosition___block_in
     v2 = off_1E7CF12A0[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -686,11 +670,11 @@ id __64__WBSAnalyticsLogger_didOpenRecentlyClosedTabsItemWithPosition___block_in
 
 id __70__WBSAnalyticsLogger_didToggleShowMoreButtonForSection_isShowingMore___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"section";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"section";
   v2 = [*(a1 + 32) _nameForStartPageSection:*(a1 + 40)];
-  v7[1] = @"result";
-  v8[0] = v2;
+  v6[1] = @"result";
+  v7[0] = v2;
   if (*(a1 + 48))
   {
     v3 = @"Show More";
@@ -701,10 +685,8 @@ id __70__WBSAnalyticsLogger_didToggleShowMoreButtonForSection_isShowingMore___bl
     v3 = @"Show Less";
   }
 
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -722,13 +704,11 @@ id __70__WBSAnalyticsLogger_didToggleShowMoreButtonForSection_isShowingMore___bl
 
 id __51__WBSAnalyticsLogger_didRetrieveNumberOfFavorites___block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"itemCount";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"itemCount";
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -746,13 +726,11 @@ id __51__WBSAnalyticsLogger_didRetrieveNumberOfFavorites___block_invoke_2(uint64
 
 id __64__WBSAnalyticsLogger_didRetrieveNumberOfFrequentlyVisitedSites___block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"itemCount";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"itemCount";
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -786,8 +764,7 @@ id __64__WBSAnalyticsLogger_didRetrieveNumberOfFrequentlyVisitedSites___block_in
 
 void __85__WBSAnalyticsLogger_didReceiveAnalyticsEventFromWebKitWithName_description_payload___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v1 = *(a1 + 40);
   AnalyticsSendEventLazy();
 }
 
@@ -809,55 +786,55 @@ void __85__WBSAnalyticsLogger_didReceiveAnalyticsEventFromWebKitWithName_descrip
 
 void __62__WBSAnalyticsLogger_reportStatusForExtensions_extensionType___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (AnalyticsIsEventUsed())
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     obj = *(a1 + 32);
-    v2 = [obj countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v2 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v2)
     {
-      v17 = *v20;
+      v16 = *v19;
       do
       {
-        v18 = v2;
-        for (i = 0; i != v18; ++i)
+        v17 = v2;
+        for (i = 0; i != v17; ++i)
         {
-          if (*v20 != v17)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v4 = *(*(&v19 + 1) + 8 * i);
-          v25[0] = @"extensionIdentifier";
+          v4 = *(*(&v18 + 1) + 8 * i);
+          v24[0] = @"extensionIdentifier";
           v5 = [v4 identifier];
-          v26[0] = v5;
-          v25[1] = @"enabled";
+          v25[0] = v5;
+          v24[1] = @"enabled";
           v6 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v4, "enabled")}];
-          v25[2] = @"extensionType";
+          v24[2] = @"extensionType";
           v7 = *(a1 + 40);
-          v26[1] = v6;
-          v26[2] = v7;
-          v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
+          v25[1] = v6;
+          v25[2] = v7;
+          v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
 
           if ([*(a1 + 40) isEqualToString:@"WebExtension"])
           {
-            v23[0] = @"manifestVersion";
+            v22[0] = @"manifestVersion";
             v9 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v4, "manifestVersion")}];
-            v24[0] = v9;
-            v23[1] = @"allWebsitesPermissionLevel";
+            v23[0] = v9;
+            v22[1] = @"allWebsitesPermissionLevel";
             v10 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v4, "allWebsitesPermissionLevel")}];
-            v24[1] = v10;
-            v23[2] = @"websitesGrantedAccessCount";
+            v23[1] = v10;
+            v22[2] = @"websitesGrantedAccessCount";
             v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v4, "websitesGrantedAccessCount")}];
-            v24[2] = v11;
-            v23[3] = @"websitesDeniedAccessCount";
+            v23[2] = v11;
+            v22[3] = @"websitesDeniedAccessCount";
             v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v4, "websitesDeniedAccessCount")}];
-            v24[3] = v12;
-            v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:4];
+            v23[3] = v12;
+            v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:4];
             v14 = [v8 safari_dictionaryByMergingWithDictionary:v13];
 
             v8 = v14;
@@ -866,14 +843,12 @@ void __62__WBSAnalyticsLogger_reportStatusForExtensions_extensionType___block_in
           AnalyticsSendEvent();
         }
 
-        v2 = [obj countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v2 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v2);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportNumberOfExtensionsWithFrequencyDictionaryProvider:(id)provider
@@ -931,13 +906,11 @@ void __78__WBSAnalyticsLogger_reportNumberOfExtensionsWithFrequencyDictionaryPro
 
 id __58__WBSAnalyticsLogger_didFinishPageLoadWithPageLoadStatus___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"loadStatus";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"loadStatus";
   v1 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -955,17 +928,15 @@ id __58__WBSAnalyticsLogger_didFinishPageLoadWithPageLoadStatus___block_invoke(u
 
 id __68__WBSAnalyticsLogger_didActivateLinkWithZoomScale_recentlyZoomedIn___block_invoke(uint64_t a1, double a2)
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"pageZoomScale";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"pageZoomScale";
   LODWORD(a2) = *(a1 + 32);
   v3 = [MEMORY[0x1E696AD98] numberWithFloat:a2];
-  v8[1] = @"pageRecentlyZoomedIn";
-  v9[0] = v3;
+  v7[1] = @"pageRecentlyZoomedIn";
+  v8[0] = v3;
   v4 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 36)];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -982,13 +953,11 @@ id __68__WBSAnalyticsLogger_didActivateLinkWithZoomScale_recentlyZoomedIn___bloc
 
 id __54__WBSAnalyticsLogger_didStartDragWithDragContentType___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"dragContentType";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"dragContentType";
   v1 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1008,20 +977,18 @@ id __54__WBSAnalyticsLogger_didStartDragWithDragContentType___block_invoke(uint6
 
 void __56__WBSAnalyticsLogger_reportStartPageOverrideStatistics___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"newTabPageIsOverridden";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"newTabPageIsOverridden";
   v1 = (a1 + 32);
   v2 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "newTabPageIsOverridden")}];
-  v7[1] = @"hasExtensionThatCanOverrideNewTabPage";
-  v8[0] = v2;
+  v6[1] = @"hasExtensionThatCanOverrideNewTabPage";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*v1, "hasExtensionThatCanOverrideNewTabPage")}];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   v5 = v4;
   AnalyticsSendEventLazy();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didConvertExtensionWithKeySupport:(id)support
@@ -1048,12 +1015,11 @@ void __56__WBSAnalyticsLogger_didConvertExtensionWithKeySupport___block_invoke_2
 
 id __56__WBSAnalyticsLogger_didConvertExtensionWithKeySupport___block_invoke_3(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 40);
-  v5 = *(a1 + 32);
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = *(a1 + 32);
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1074,18 +1040,16 @@ id __56__WBSAnalyticsLogger_didConvertExtensionWithKeySupport___block_invoke_3(u
 
 void __62__WBSAnalyticsLogger_webExtensionBackgroundPage_livedTooLong___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v6[0] = *(a1 + 32);
-  v5[0] = @"extensionIdentifier";
-  v5[1] = @"lifespan";
+  v5[2] = *MEMORY[0x1E69E9840];
+  v5[0] = *(a1 + 32);
+  v4[0] = @"extensionIdentifier";
+  v4[1] = @"lifespan";
   v1 = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 40)];
-  v6[1] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v5[1] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   v3 = v2;
   AnalyticsSendEventLazy();
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendEvent:(id)event usingBlock:(id)block
@@ -1102,13 +1066,6 @@ void __62__WBSAnalyticsLogger_webExtensionBackgroundPage_livedTooLong___block_in
   v9 = blockCopy;
   v10 = eventCopy;
   dispatch_async(analyticsSynchronizationQueue, v11);
-}
-
-uint64_t __44__WBSAnalyticsLogger__sendEvent_usingBlock___block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  return AnalyticsSendEventLazy();
 }
 
 - (void)_sendEventAddingVersionInfo:(id)info usingBlock:(id)block
@@ -1130,10 +1087,9 @@ uint64_t __44__WBSAnalyticsLogger__sendEvent_usingBlock___block_invoke(uint64_t 
 
 void __61__WBSAnalyticsLogger__sendEventAddingVersionInfo_usingBlock___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   if (AnalyticsIsEventUsed())
   {
-    v3 = (*(*(a1 + 48) + 16))();
+    v2 = (*(*(a1 + 48) + 16))();
     [*(a1 + 40) _sendEventAddingVersionInfo:*(a1 + 32) baseEvent:?];
   }
 }
@@ -1173,8 +1129,8 @@ void __61__WBSAnalyticsLogger__sendEventAddingVersionInfo_usingBlock___block_inv
 
 void __60__WBSAnalyticsLogger__sendEventAddingVersionInfo_baseEvent___block_invoke(void *a1)
 {
-  v14[3] = *MEMORY[0x1E69E9840];
-  v13[0] = @"safariClient";
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"safariClient";
   v2 = a1[4];
   v3 = *(a1[5] + 16) - 1;
   if (v3 > 5)
@@ -1194,10 +1150,10 @@ void __60__WBSAnalyticsLogger__sendEventAddingVersionInfo_baseEvent___block_invo
     v6 = *(a1[5] + 24);
   }
 
-  v14[0] = v4;
-  v14[1] = v6;
-  v13[1] = @"safariVersion";
-  v13[2] = @"safariComparableVersionNumber";
+  v12[0] = v4;
+  v12[1] = v6;
+  v11[1] = @"safariVersion";
+  v11[2] = @"safariComparableVersionNumber";
   v7 = [v5 safari_comparableSafariVersionNumberForAnalyticsFromNormalizedVersionString];
   v8 = v7;
   if (!v7)
@@ -1205,18 +1161,15 @@ void __60__WBSAnalyticsLogger__sendEventAddingVersionInfo_baseEvent___block_invo
     v8 = [MEMORY[0x1E696AB90] decimalNumberWithString:@"0.0"];
   }
 
-  v14[2] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v12[2] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   v10 = [v2 safari_dictionaryByMergingWithDictionary:v9];
 
   if (!v7)
   {
   }
 
-  v11 = a1[6];
   AnalyticsSendEvent();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didChangeStartPageSectionVisibility:(id)visibility visible:(BOOL)visible
@@ -1234,16 +1187,14 @@ void __60__WBSAnalyticsLogger__sendEventAddingVersionInfo_baseEvent___block_invo
 
 id __66__WBSAnalyticsLogger_didChangeStartPageSectionVisibility_visible___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v6[1] = @"isVisible";
-  v7[0] = v1;
-  v6[0] = @"section";
+  v5[1] = @"isVisible";
+  v6[0] = v1;
+  v5[0] = @"section";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40)];
-  v7[1] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[1] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }
@@ -1262,16 +1213,14 @@ id __66__WBSAnalyticsLogger_didChangeStartPageSectionVisibility_visible___block_
 
 id __63__WBSAnalyticsLogger_reportStartPageSectionVisibility_visible___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"section";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"section";
   v2 = [*(a1 + 32) _nameForStartPageSection:*(a1 + 40)];
-  v7[1] = @"isVisible";
-  v8[0] = v2;
+  v6[1] = @"isVisible";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 48)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -1288,15 +1237,13 @@ id __63__WBSAnalyticsLogger_reportStartPageSectionVisibility_visible___block_inv
 
 id __60__WBSAnalyticsLogger_reportStartPageBackgroundImageVisible___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v5[1] = @"isVisible";
-  v6[0] = @"Background Image";
-  v5[0] = @"section";
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[1] = @"isVisible";
+  v5[0] = @"Background Image";
+  v4[0] = @"section";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[1] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[1] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -1317,17 +1264,15 @@ id __60__WBSAnalyticsLogger_reportStartPageBackgroundImageVisible___block_invoke
 
 id __67__WBSAnalyticsLogger_didInteractWithOnboardingItem_userClosedCard___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
-  v7[0] = @"cardType";
-  v7[1] = @"interactionType";
-  v8[0] = v2;
+  v6[0] = @"cardType";
+  v6[1] = @"interactionType";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:v1];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -1344,15 +1289,13 @@ id __67__WBSAnalyticsLogger_didInteractWithOnboardingItem_userClosedCard___block
 
 id __56__WBSAnalyticsLogger_reportCustomizationSyncEnablement___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v5[1] = @"isVisible";
-  v6[0] = @"Customization Sync";
-  v5[0] = @"section";
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[1] = @"isVisible";
+  v5[0] = @"Customization Sync";
+  v4[0] = @"section";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[1] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[1] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -1371,12 +1314,11 @@ id __56__WBSAnalyticsLogger_reportCustomizationSyncEnablement___block_invoke(uin
 
 id __58__WBSAnalyticsLogger_reportPrivateRelayModulePromptEvent___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5 = @"privateRelayModulePromptEvent";
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"privateRelayModulePromptEvent";
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1415,13 +1357,11 @@ id __58__WBSAnalyticsLogger_reportPrivateRelayModulePromptEvent___block_invoke(u
 
 id __52__WBSAnalyticsLogger_reportStartPageBackgroundName___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"name";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"name";
   v1 = [*(a1 + 32) _builtInImageNameToSimpleName:*(a1 + 40)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1438,22 +1378,13 @@ id __52__WBSAnalyticsLogger_reportStartPageBackgroundName___block_invoke(uint64_
   dispatch_async(analyticsSynchronizationQueue, v4);
 }
 
-uint64_t __52__WBSAnalyticsLogger_didEngageWithStartPageSection___block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return AnalyticsSendEventLazy();
-}
-
 id __52__WBSAnalyticsLogger_didEngageWithStartPageSection___block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"name";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"name";
   v1 = [*(a1 + 32) _nameForStartPageSection:*(a1 + 40)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1475,14 +1406,13 @@ id __52__WBSAnalyticsLogger_didEngageWithStartPageSection___block_invoke_2(uint6
 
 id __51__WBSAnalyticsLogger_didSwitchToSafari_entryPoint___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"originBrowser";
-  v5[1] = @"entryPoint";
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"originBrowser";
+  v4[1] = @"entryPoint";
   v1 = *(a1 + 40);
-  v6[0] = *(a1 + 32);
-  v6[1] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = *(a1 + 32);
+  v5[1] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -1499,13 +1429,11 @@ id __51__WBSAnalyticsLogger_didSwitchToSafari_entryPoint___block_invoke(uint64_t
 
 id __68__WBSAnalyticsLogger_reportShowFullURLInSmartSearchFieldPreference___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"enabled";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"enabled";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1522,13 +1450,11 @@ id __68__WBSAnalyticsLogger_reportShowFullURLInSmartSearchFieldPreference___bloc
 
 id __59__WBSAnalyticsLogger_reportShowStandaloneTabBarPreference___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"enabled";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"enabled";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1549,8 +1475,8 @@ id __59__WBSAnalyticsLogger_reportShowStandaloneTabBarPreference___block_invoke(
 
 id __163__WBSAnalyticsLogger_reportUnifiedTabBarStatusWithLayout_numberOfTabsInCurrentTabBar_tabBarIsCurrentlyScrollable_tabsShowOnlyIcons_backgroundColorInTabBarEnabled___block_invoke(uint64_t a1)
 {
-  v12[5] = *MEMORY[0x1E69E9840];
-  v11[0] = @"layout";
+  v11[5] = *MEMORY[0x1E69E9840];
+  v10[0] = @"layout";
   if (*(a1 + 32))
   {
     v2 = @"separate";
@@ -1562,22 +1488,20 @@ id __163__WBSAnalyticsLogger_reportUnifiedTabBarStatusWithLayout_numberOfTabsInC
   }
 
   v3 = v2;
-  v12[0] = v3;
-  v11[1] = @"numberOfTabs";
+  v11[0] = v3;
+  v10[1] = @"numberOfTabs";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 40)];
-  v12[1] = v4;
-  v11[2] = @"tabBarIsCurrentlyScrollable";
+  v11[1] = v4;
+  v10[2] = @"tabBarIsCurrentlyScrollable";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 48)];
-  v12[2] = v5;
-  v11[3] = @"tabsShowOnlyIcons";
+  v11[2] = v5;
+  v10[3] = @"tabsShowOnlyIcons";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 49)];
-  v12[3] = v6;
-  v11[4] = @"backgroundColorInTabBarEnabled";
+  v11[3] = v6;
+  v10[4] = @"backgroundColorInTabBarEnabled";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 50)];
-  v12[4] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[4] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }
@@ -1594,13 +1518,11 @@ id __163__WBSAnalyticsLogger_reportUnifiedTabBarStatusWithLayout_numberOfTabsInC
 
 id __54__WBSAnalyticsLogger_reportOverlayStatusBarIsEnabled___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"enabled";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"enabled";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1617,13 +1539,11 @@ id __54__WBSAnalyticsLogger_reportOverlayStatusBarIsEnabled___block_invoke(uint6
 
 id __47__WBSAnalyticsLogger_reportNumberOfPinnedTabs___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"numberOfPinnedTabs";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"numberOfPinnedTabs";
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -1652,14 +1572,14 @@ id __47__WBSAnalyticsLogger_reportNumberOfPinnedTabs___block_invoke(uint64_t a1)
 
 id __207__WBSAnalyticsLogger_didDetectLanguageOfWebpage_primaryLocale_webpageCanBeTranslatedToPrimaryLocale_canOfferTranslation_firstNonPrimaryLocaleThatCanBeTranslatedTo_numberOfPreferredLocales_notificationLevel___block_invoke(int64x2_t *a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v13[0] = @"webpageLocale";
-  v13[1] = @"primaryLocale";
-  v14 = vbslq_s8(vceqzq_s64(a1[2]), vdupq_n_s64(@"unknown"), a1[2]);
-  v13[2] = @"canTranslateWebpageToPrimaryLocale";
+  v19 = *MEMORY[0x1E69E9840];
+  v12[0] = @"webpageLocale";
+  v12[1] = @"primaryLocale";
+  v13 = vbslq_s8(vceqzq_s64(a1[2]), vdupq_n_s64(@"unknown"), a1[2]);
+  v12[2] = @"canTranslateWebpageToPrimaryLocale";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:a1[4].u8[8]];
-  v15 = v2;
-  v13[3] = @"canTranslateToAnyPreferredLocale";
+  v14 = v2;
+  v12[3] = @"canTranslateToAnyPreferredLocale";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:a1[4].u8[9]];
   v4 = v3;
   v5 = &stru_1F3064D08;
@@ -1669,13 +1589,13 @@ id __207__WBSAnalyticsLogger_didDetectLanguageOfWebpage_primaryLocale_webpageCan
     v5 = a1[3].i64[0];
   }
 
-  v16 = v3;
-  v17 = v5;
-  v13[4] = @"firstNonPrimaryLocaleThatCanBeTranslatedTo";
-  v13[5] = @"numberOfPreferredLocales";
+  v15 = v3;
+  v16 = v5;
+  v12[4] = @"firstNonPrimaryLocaleThatCanBeTranslatedTo";
+  v12[5] = @"numberOfPreferredLocales";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v6];
-  v18 = v7;
-  v13[6] = @"notificationLevel";
+  v17 = v7;
+  v12[6] = @"notificationLevel";
   v8 = a1[4].u64[0];
   if (v8 > 2)
   {
@@ -1687,10 +1607,8 @@ id __207__WBSAnalyticsLogger_didDetectLanguageOfWebpage_primaryLocale_webpageCan
     v9 = off_1E7CF0DE0[v8];
   }
 
-  v19 = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:v13 count:7];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v18 = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:v12 count:7];
 
   return v10;
 }
@@ -1714,13 +1632,13 @@ id __207__WBSAnalyticsLogger_didDetectLanguageOfWebpage_primaryLocale_webpageCan
 
 id __106__WBSAnalyticsLogger_didRequestTranslatingToLocale_webpageLocale_requestType_isTargetLocalePrimaryLocale___block_invoke(int64x2_t *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v10[0] = @"webpageLocale";
-  v10[1] = @"targetLocale";
-  v11 = vbslq_s8(vceqzq_s64(a1[2]), vdupq_n_s64(@"unknown"), a1[2]);
+  v13 = *MEMORY[0x1E69E9840];
+  v9[0] = @"webpageLocale";
+  v9[1] = @"targetLocale";
+  v10 = vbslq_s8(vceqzq_s64(a1[2]), vdupq_n_s64(@"unknown"), a1[2]);
   v2 = [MEMORY[0x1E696AD98] numberWithBool:{a1[3].u8[8], @"webpageLocale", @"targetLocale", @"isTargetLocalePrimaryLocale"}];
-  v12 = v2;
-  v10[3] = @"requestType";
+  v11 = v2;
+  v9[3] = @"requestType";
   v3 = a1[3].i64[0];
   v4 = @"continued translation";
   if (v3 != 1)
@@ -1739,10 +1657,8 @@ id __106__WBSAnalyticsLogger_didRequestTranslatingToLocale_webpageLocale_request
   }
 
   v6 = v5;
-  v13 = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v12 = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:v9 count:4];
 
   return v7;
 }
@@ -1760,17 +1676,15 @@ id __106__WBSAnalyticsLogger_didRequestTranslatingToLocale_webpageLocale_request
 
 id __88__WBSAnalyticsLogger_reportFirstInteractionAfterTranslation_maxVisibleHeightPercentage___block_invoke(uint64_t a1)
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"millisecondsBetweenTranslationAndFirstInteraction";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"millisecondsBetweenTranslationAndFirstInteraction";
   v2 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v8[1] = @"maxVisibleHeightPercentage";
-  v9[0] = v2;
+  v7[1] = @"maxVisibleHeightPercentage";
+  v8[0] = v2;
   LODWORD(v3) = *(a1 + 40);
   v4 = [MEMORY[0x1E696AD98] numberWithFloat:v3];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -1787,8 +1701,8 @@ id __88__WBSAnalyticsLogger_reportFirstInteractionAfterTranslation_maxVisibleHei
 
 id __59__WBSAnalyticsLogger_didShowSafeBrowsingWarningWithSource___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"source";
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"source";
   v1 = *(a1 + 32);
   v2 = @"unknown";
   if (v1 == 1)
@@ -1807,10 +1721,8 @@ id __59__WBSAnalyticsLogger_didShowSafeBrowsingWarningWithSource___block_invoke(
   }
 
   v4 = v3;
-  v9[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }
@@ -1828,8 +1740,8 @@ id __59__WBSAnalyticsLogger_didShowSafeBrowsingWarningWithSource___block_invoke(
 
 id __62__WBSAnalyticsLogger_didPerformSafeBrowsingAction_fromSource___block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v9[0] = @"action";
+  v9[2] = *MEMORY[0x1E69E9840];
+  v8[0] = @"action";
   v1 = *(a1 + 32);
   v2 = @"unknown";
   v3 = @"unknown";
@@ -1838,8 +1750,8 @@ id __62__WBSAnalyticsLogger_didPerformSafeBrowsingAction_fromSource___block_invo
     v3 = off_1E7CF0DF8[v1];
   }
 
-  v9[1] = @"source";
-  v10[0] = v3;
+  v8[1] = @"source";
+  v9[0] = v3;
   v4 = *(a1 + 40);
   if (v4 == 1)
   {
@@ -1852,10 +1764,8 @@ id __62__WBSAnalyticsLogger_didPerformSafeBrowsingAction_fromSource___block_invo
   }
 
   v5 = v2;
-  v10[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[1] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
@@ -1872,8 +1782,8 @@ id __62__WBSAnalyticsLogger_didPerformSafeBrowsingAction_fromSource___block_invo
 
 id __40__WBSAnalyticsLogger_didLoadTabContent___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"tabContent";
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"tabContent";
   v1 = *(a1 + 32);
   v2 = @"is PDF document";
   if (v1 == 1)
@@ -1892,10 +1802,8 @@ id __40__WBSAnalyticsLogger_didLoadTabContent___block_invoke(uint64_t a1)
   }
 
   v4 = v3;
-  v9[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }
@@ -1912,8 +1820,8 @@ id __40__WBSAnalyticsLogger_didLoadTabContent___block_invoke(uint64_t a1)
 
 id __52__WBSAnalyticsLogger_didContinueUserActivityOfType___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"type";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"type";
   v1 = *(a1 + 32) - 1;
   if (v1 > 2)
   {
@@ -1925,9 +1833,8 @@ id __52__WBSAnalyticsLogger_didContinueUserActivityOfType___block_invoke(uint64_
     v2 = off_1E7CF0E10[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -1945,8 +1852,8 @@ id __52__WBSAnalyticsLogger_didContinueUserActivityOfType___block_invoke(uint64_
 
 id __66__WBSAnalyticsLogger_didClearBrowsingDataFromInterval_withMethod___block_invoke(uint64_t a1)
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"interval";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"interval";
   v1 = *(a1 + 32) - 1;
   if (v1 > 2)
   {
@@ -1958,8 +1865,8 @@ id __66__WBSAnalyticsLogger_didClearBrowsingDataFromInterval_withMethod___block_
     v2 = off_1E7CF0E28[v1];
   }
 
-  v9[0] = v2;
-  v8[1] = @"method";
+  v8[0] = v2;
+  v7[1] = @"method";
   if (*(a1 + 40))
   {
     v3 = @"settings";
@@ -1971,10 +1878,8 @@ id __66__WBSAnalyticsLogger_didClearBrowsingDataFromInterval_withMethod___block_
   }
 
   v4 = v3;
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -1991,13 +1896,11 @@ id __66__WBSAnalyticsLogger_didClearBrowsingDataFromInterval_withMethod___block_
 
 id __51__WBSAnalyticsLogger_didSetPrivateBrowsingEnabled___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"enabled";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"enabled";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2014,8 +1917,8 @@ id __51__WBSAnalyticsLogger_didSetPrivateBrowsingEnabled___block_invoke(uint64_t
 
 id __48__WBSAnalyticsLogger_didEnterTabViewWithMethod___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"method";
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"method";
   v1 = *(a1 + 32);
   v2 = @"tap button";
   if (v1 == 1)
@@ -2034,10 +1937,8 @@ id __48__WBSAnalyticsLogger_didEnterTabViewWithMethod___block_invoke(uint64_t a1
   }
 
   v4 = v3;
-  v9[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }
@@ -2057,19 +1958,19 @@ id __48__WBSAnalyticsLogger_didEnterTabViewWithMethod___block_invoke(uint64_t a1
 
 id __133__WBSAnalyticsLogger_reportUserPreferencesOnLaunchForJavaScriptEnabled_safeBrowsingEnabled_siteSpecificSearchEnabled_trackingPolicy___block_invoke(uint64_t a1)
 {
-  v13[5] = *MEMORY[0x1E69E9840];
-  v13[0] = MEMORY[0x1E695E118];
-  v12[0] = @"iconsInTabsEnabled";
-  v12[1] = @"javaScriptEnabled";
+  v12[5] = *MEMORY[0x1E69E9840];
+  v12[0] = MEMORY[0x1E695E118];
+  v11[0] = @"iconsInTabsEnabled";
+  v11[1] = @"javaScriptEnabled";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40)];
-  v13[1] = v2;
-  v12[2] = @"safeBrowsingEnabled";
+  v12[1] = v2;
+  v11[2] = @"safeBrowsingEnabled";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 41)];
-  v13[2] = v3;
-  v12[3] = @"siteSpecificSearchEnabled";
+  v12[2] = v3;
+  v11[3] = @"siteSpecificSearchEnabled";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 42)];
-  v13[3] = v4;
-  v12[4] = @"trackingPolicy";
+  v12[3] = v4;
+  v11[4] = @"trackingPolicy";
   v5 = *(a1 + 32);
   v6 = @"always";
   if (v5 == 1)
@@ -2088,10 +1989,8 @@ id __133__WBSAnalyticsLogger_reportUserPreferencesOnLaunchForJavaScriptEnabled_s
   }
 
   v8 = v7;
-  v13[4] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:5];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v12[4] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
 
   return v9;
 }
@@ -2111,22 +2010,20 @@ id __133__WBSAnalyticsLogger_reportUserPreferencesOnLaunchForJavaScriptEnabled_s
 
 id __147__WBSAnalyticsLogger_reportExperimentalFeaturesOnLaunchForWebXREnabled_webXRGamepadsModuleEnabled_webXRHandInputModuleEnabled_modelElementEnabled___block_invoke(unsigned __int8 *a1)
 {
-  v10[4] = *MEMORY[0x1E69E9840];
-  v9[0] = @"webXREnabled";
+  v9[4] = *MEMORY[0x1E69E9840];
+  v8[0] = @"webXREnabled";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:a1[32]];
-  v10[0] = v2;
-  v9[1] = @"webXRGamepadsModuleEnabled";
+  v9[0] = v2;
+  v8[1] = @"webXRGamepadsModuleEnabled";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:a1[33]];
-  v10[1] = v3;
-  v9[2] = @"webXRHandInputModuleEnabled";
+  v9[1] = v3;
+  v8[2] = @"webXRHandInputModuleEnabled";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:a1[34]];
-  v10[2] = v4;
-  v9[3] = @"modelElementEnabled";
+  v9[2] = v4;
+  v8[3] = @"modelElementEnabled";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:a1[35]];
-  v10[3] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[3] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
@@ -2143,13 +2040,11 @@ id __147__WBSAnalyticsLogger_reportExperimentalFeaturesOnLaunchForWebXREnabled_w
 
 id __51__WBSAnalyticsLogger_didRequestPageShowingSideBar___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"showingSideBar";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"showingSideBar";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2172,24 +2067,22 @@ id __51__WBSAnalyticsLogger_didRequestPageShowingSideBar___block_invoke(uint64_t
 
 id __128__WBSAnalyticsLogger_didDetectPossibleUserTrackingInHostApp_urlHasIDFA_urlHasQueryString_userInteracted_viewControllerIsHidden___block_invoke(uint64_t a1)
 {
-  v10[5] = *MEMORY[0x1E69E9840];
-  v10[0] = *(a1 + 32);
-  v9[0] = @"hostAppIdentifier";
-  v9[1] = @"urlHasIDFA";
+  v9[5] = *MEMORY[0x1E69E9840];
+  v9[0] = *(a1 + 32);
+  v8[0] = @"hostAppIdentifier";
+  v8[1] = @"urlHasIDFA";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40)];
-  v10[1] = v2;
-  v9[2] = @"urlHasQueryString";
+  v9[1] = v2;
+  v8[2] = @"urlHasQueryString";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 41)];
-  v10[2] = v3;
-  v9[3] = @"userInteracted";
+  v9[2] = v3;
+  v8[3] = @"userInteracted";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 42)];
-  v10[3] = v4;
-  v9[4] = @"viewControllerIsHidden";
+  v9[3] = v4;
+  v8[4] = @"viewControllerIsHidden";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 43)];
-  v10[4] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:5];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[4] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
 
   return v6;
 }
@@ -2206,8 +2099,8 @@ id __128__WBSAnalyticsLogger_didDetectPossibleUserTrackingInHostApp_urlHasIDFA_u
 
 id __54__WBSAnalyticsLogger_didAddReadingListItemWithMethod___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"method";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"method";
   v1 = *(a1 + 32) - 1;
   if (v1 > 4)
   {
@@ -2219,9 +2112,8 @@ id __54__WBSAnalyticsLogger_didAddReadingListItemWithMethod___block_invoke(uint6
     v2 = off_1E7CF0E40[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -2239,16 +2131,14 @@ id __54__WBSAnalyticsLogger_didAddReadingListItemWithMethod___block_invoke(uint6
 
 id __88__WBSAnalyticsLogger_didOpenReadingListItemWithReachableNetwork_isContinuousTransition___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"isNetworkReachable";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"isNetworkReachable";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v7[1] = @"isContinuousTransition";
-  v8[0] = v2;
+  v6[1] = @"isContinuousTransition";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 33)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -2265,13 +2155,11 @@ id __88__WBSAnalyticsLogger_didOpenReadingListItemWithReachableNetwork_isContinu
 
 id __59__WBSAnalyticsLogger_didManuallyMarkReadingListItemAsRead___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"read";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"read";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2288,13 +2176,11 @@ id __59__WBSAnalyticsLogger_didManuallyMarkReadingListItemAsRead___block_invoke(
 
 id __53__WBSAnalyticsLogger_didDetermineReaderAvailability___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"available";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"available";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2311,8 +2197,8 @@ id __53__WBSAnalyticsLogger_didDetermineReaderAvailability___block_invoke(uint64
 
 id __51__WBSAnalyticsLogger_didActivateReaderWithTrigger___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"triggerType";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"triggerType";
   v1 = *(a1 + 32) - 1;
   if (v1 > 2)
   {
@@ -2324,9 +2210,8 @@ id __51__WBSAnalyticsLogger_didActivateReaderWithTrigger___block_invoke(uint64_t
     v2 = off_1E7CF0E68[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -2345,11 +2230,11 @@ id __51__WBSAnalyticsLogger_didActivateReaderWithTrigger___block_invoke(uint64_t
 
 id __99__WBSAnalyticsLogger_didDismissCompletionListWithItemAccepted_goKeyTapped_unifiedFieldContentType___block_invoke(uint64_t a1)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11[0] = @"acceptedCompletionItem";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10[0] = @"acceptedCompletionItem";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40)];
-  v11[1] = @"unifiedFieldContentType";
-  v12[0] = v2;
+  v10[1] = @"unifiedFieldContentType";
+  v11[0] = v2;
   v3 = *(a1 + 41);
   if (v3 == 1)
   {
@@ -2378,13 +2263,11 @@ id __99__WBSAnalyticsLogger_didDismissCompletionListWithItemAccepted_goKeyTapped
     v7 = &stru_1F3064D08;
   }
 
-  v12[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (v3)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -2402,8 +2285,8 @@ id __99__WBSAnalyticsLogger_didDismissCompletionListWithItemAccepted_goKeyTapped
 
 id __59__WBSAnalyticsLogger_didAcceptCompletionItemOfType_atRank___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"type";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"type";
   v1 = *(a1 + 32) - 1;
   if (v1 > 9)
   {
@@ -2415,13 +2298,11 @@ id __59__WBSAnalyticsLogger_didAcceptCompletionItemOfType_atRank___block_invoke(
     v2 = off_1E7CF0E80[v1];
   }
 
-  v8[0] = v2;
-  v7[1] = @"rank";
+  v7[0] = v2;
+  v6[1] = @"rank";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 40)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -2438,8 +2319,8 @@ id __59__WBSAnalyticsLogger_didAcceptCompletionItemOfType_atRank___block_invoke(
 
 id __54__WBSAnalyticsLogger_didAcceptSearchSuggestionOfType___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"type";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"type";
   v1 = *(a1 + 32) - 1;
   if (v1 > 2)
   {
@@ -2451,9 +2332,8 @@ id __54__WBSAnalyticsLogger_didAcceptSearchSuggestionOfType___block_invoke(uint6
     v2 = off_1E7CF0ED0[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -2472,20 +2352,18 @@ id __54__WBSAnalyticsLogger_didAcceptSearchSuggestionOfType___block_invoke(uint6
 
 id __61__WBSAnalyticsLogger_didChooseTopHit_matchLength_matchScore___block_invoke(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x1E69E9840];
-  v9[0] = @"isTopHitChosen";
+  v9[3] = *MEMORY[0x1E69E9840];
+  v8[0] = @"isTopHitChosen";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 44)];
-  v10[0] = v2;
-  v9[1] = @"matchLength";
+  v9[0] = v2;
+  v8[1] = @"matchLength";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v10[1] = v3;
-  v9[2] = @"matchScore";
+  v9[1] = v3;
+  v8[2] = @"matchScore";
   LODWORD(v4) = *(a1 + 40);
   v5 = [MEMORY[0x1E696AD98] numberWithFloat:v4];
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -2502,13 +2380,11 @@ id __61__WBSAnalyticsLogger_didChooseTopHit_matchLength_matchScore___block_invok
 
 id __57__WBSAnalyticsLogger_didActivateVoiceSearchAccidentally___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"activatedAccidentally";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"activatedAccidentally";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2525,13 +2401,11 @@ id __57__WBSAnalyticsLogger_didActivateVoiceSearchAccidentally___block_invoke(ui
 
 id __44__WBSAnalyticsLogger_reportNumberOfWindows___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"windowCount";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"windowCount";
   v1 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2548,13 +2422,11 @@ id __44__WBSAnalyticsLogger_reportNumberOfWindows___block_invoke(uint64_t a1)
 
 id __50__WBSAnalyticsLogger_reportNumberOfTabsPerWindow___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"tabsPerWindowCount";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"tabsPerWindowCount";
   v1 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2571,13 +2443,11 @@ id __50__WBSAnalyticsLogger_reportNumberOfTabsPerWindow___block_invoke(uint64_t 
 
 id __41__WBSAnalyticsLogger_reportNumberOfTabs___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"tabCount";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"tabCount";
   v1 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2594,8 +2464,8 @@ id __41__WBSAnalyticsLogger_reportNumberOfTabs___block_invoke(uint64_t a1)
 
 id __46__WBSAnalyticsLogger_reportNewWindowBehavior___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"newWindowBehavior";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"newWindowBehavior";
   v1 = *(a1 + 32) - 1;
   if (v1 > 4)
   {
@@ -2607,9 +2477,8 @@ id __46__WBSAnalyticsLogger_reportNewWindowBehavior___block_invoke(uint64_t a1)
     v2 = off_1E7CF0EE8[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -2626,8 +2495,8 @@ id __46__WBSAnalyticsLogger_reportNewWindowBehavior___block_invoke(uint64_t a1)
 
 id __43__WBSAnalyticsLogger_reportNewTabBehavior___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"newTabBehavior";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"newTabBehavior";
   v1 = *(a1 + 32) - 1;
   if (v1 > 4)
   {
@@ -2639,9 +2508,8 @@ id __43__WBSAnalyticsLogger_reportNewTabBehavior___block_invoke(uint64_t a1)
     v2 = off_1E7CF0EE8[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -2658,8 +2526,8 @@ id __43__WBSAnalyticsLogger_reportNewTabBehavior___block_invoke(uint64_t a1)
 
 id __55__WBSAnalyticsLogger_didOpenVisualTabPickerWithMethod___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"openMethod";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"openMethod";
   if (*(a1 + 32))
   {
     v1 = @"open with pinching";
@@ -2671,10 +2539,8 @@ id __55__WBSAnalyticsLogger_didOpenVisualTabPickerWithMethod___block_invoke(uint
   }
 
   v2 = v1;
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -2691,8 +2557,8 @@ id __55__WBSAnalyticsLogger_didOpenVisualTabPickerWithMethod___block_invoke(uint
 
 id __56__WBSAnalyticsLogger_didCloseVisualTabPickerWithMethod___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"closeMethod";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"closeMethod";
   v1 = *(a1 + 32) - 1;
   if (v1 > 2)
   {
@@ -2704,9 +2570,8 @@ id __56__WBSAnalyticsLogger_didCloseVisualTabPickerWithMethod___block_invoke(uin
     v2 = off_1E7CF0F10[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -2723,8 +2588,8 @@ id __56__WBSAnalyticsLogger_didCloseVisualTabPickerWithMethod___block_invoke(uin
 
 id __57__WBSAnalyticsLogger_didPerformVisualTabPickerMiscEvent___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"miscEvent";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"miscEvent";
   v1 = *(a1 + 32) - 1;
   if (v1 > 2)
   {
@@ -2736,9 +2601,8 @@ id __57__WBSAnalyticsLogger_didPerformVisualTabPickerMiscEvent___block_invoke(ui
     v2 = off_1E7CF0F28[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -2757,12 +2621,11 @@ id __57__WBSAnalyticsLogger_didPerformVisualTabPickerMiscEvent___block_invoke(ui
 
 id __52__WBSAnalyticsLogger_didOpenClearHistoryFromSource___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5 = @"source";
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"source";
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2781,12 +2644,11 @@ id __52__WBSAnalyticsLogger_didOpenClearHistoryFromSource___block_invoke(uint64_
 
 id __50__WBSAnalyticsLogger_didTakeActionOnClearHistory___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5 = @"actionTaken";
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"actionTaken";
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -2803,8 +2665,8 @@ id __50__WBSAnalyticsLogger_didTakeActionOnClearHistory___block_invoke(uint64_t 
 
 id __47__WBSAnalyticsLogger_didFindOnPageWithTrigger___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"trigger";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"trigger";
   v1 = *(a1 + 32);
   if (v1 > 3)
   {
@@ -2816,9 +2678,8 @@ id __47__WBSAnalyticsLogger_didFindOnPageWithTrigger___block_invoke(uint64_t a1)
     v2 = off_1E7CF0F40[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -2838,8 +2699,8 @@ id __47__WBSAnalyticsLogger_didFindOnPageWithTrigger___block_invoke(uint64_t a1)
 
 id __103__WBSAnalyticsLogger_didCloseTabWithTrigger_tabClosingAction_numberOfTabsClosed_tabCollectionViewType___block_invoke(void *a1)
 {
-  v13[4] = *MEMORY[0x1E69E9840];
-  v12[0] = @"tabClosingTrigger";
+  v12[4] = *MEMORY[0x1E69E9840];
+  v11[0] = @"tabClosingTrigger";
   v2 = a1[4] - 1;
   if (v2 > 2)
   {
@@ -2851,8 +2712,8 @@ id __103__WBSAnalyticsLogger_didCloseTabWithTrigger_tabClosingAction_numberOfTab
     v3 = off_1E7CF0F60[v2];
   }
 
-  v13[0] = v3;
-  v12[1] = @"tabClosingAction";
+  v12[0] = v3;
+  v11[1] = @"tabClosingAction";
   v4 = a1[5] - 1;
   if (v4 > 3)
   {
@@ -2864,11 +2725,11 @@ id __103__WBSAnalyticsLogger_didCloseTabWithTrigger_tabClosingAction_numberOfTab
     v5 = off_1E7CF0F78[v4];
   }
 
-  v13[1] = v5;
-  v12[2] = @"numberOfTabsClosed";
+  v12[1] = v5;
+  v11[2] = @"numberOfTabsClosed";
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1[6]];
-  v13[2] = v6;
-  v12[3] = @"tabCollectionViewType";
+  v12[2] = v6;
+  v11[3] = @"tabCollectionViewType";
   v7 = a1[7] - 1;
   if (v7 > 2)
   {
@@ -2880,10 +2741,8 @@ id __103__WBSAnalyticsLogger_didCloseTabWithTrigger_tabClosingAction_numberOfTab
     v8 = off_1E7CF0FD8[v7];
   }
 
-  v13[3] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v12[3] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:4];
 
   return v9;
 }
@@ -2901,12 +2760,12 @@ id __103__WBSAnalyticsLogger_didCloseTabWithTrigger_tabClosingAction_numberOfTab
 
 id __74__WBSAnalyticsLogger_didOpenNewBlankTabWithTrigger_tabCollectionViewType___block_invoke(uint64_t a1)
 {
-  v9[4] = *MEMORY[0x1E69E9840];
-  v8[0] = @"withURL";
-  v8[1] = @"isExternalLink";
-  v9[0] = MEMORY[0x1E695E110];
-  v9[1] = MEMORY[0x1E695E110];
-  v8[2] = @"trigger";
+  v8[4] = *MEMORY[0x1E69E9840];
+  v7[0] = @"withURL";
+  v7[1] = @"isExternalLink";
+  v8[0] = MEMORY[0x1E695E110];
+  v8[1] = MEMORY[0x1E695E110];
+  v7[2] = @"trigger";
   v1 = *(a1 + 32) - 1;
   if (v1 > 2)
   {
@@ -2918,8 +2777,8 @@ id __74__WBSAnalyticsLogger_didOpenNewBlankTabWithTrigger_tabCollectionViewType_
     v2 = off_1E7CF0F98[v1];
   }
 
-  v9[2] = v2;
-  v8[3] = @"tabCollectionViewType";
+  v8[2] = v2;
+  v7[3] = @"tabCollectionViewType";
   v3 = *(a1 + 40) - 1;
   if (v3 > 2)
   {
@@ -2931,9 +2790,8 @@ id __74__WBSAnalyticsLogger_didOpenNewBlankTabWithTrigger_tabCollectionViewType_
     v4 = off_1E7CF0FD8[v3];
   }
 
-  v9[3] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:4];
-  v6 = *MEMORY[0x1E69E9840];
+  v8[3] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:4];
 
   return v5;
 }
@@ -2952,13 +2810,13 @@ id __74__WBSAnalyticsLogger_didOpenNewBlankTabWithTrigger_tabCollectionViewType_
 
 id __91__WBSAnalyticsLogger_didOpenNewTabWithURLWithTrigger_isExternalLink_tabCollectionViewType___block_invoke(uint64_t a1)
 {
-  v11[4] = *MEMORY[0x1E69E9840];
-  v11[0] = MEMORY[0x1E695E118];
-  v10[0] = @"withURL";
-  v10[1] = @"isExternalLink";
+  v10[4] = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E695E118];
+  v9[0] = @"withURL";
+  v9[1] = @"isExternalLink";
   v2 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 48)];
-  v11[1] = v2;
-  v10[2] = @"trigger";
+  v10[1] = v2;
+  v9[2] = @"trigger";
   v3 = *(a1 + 32) - 1;
   if (v3 > 4)
   {
@@ -2970,8 +2828,8 @@ id __91__WBSAnalyticsLogger_didOpenNewTabWithURLWithTrigger_isExternalLink_tabCo
     v4 = off_1E7CF0FB0[v3];
   }
 
-  v11[2] = v4;
-  v10[3] = @"tabCollectionViewType";
+  v10[2] = v4;
+  v9[3] = @"tabCollectionViewType";
   v5 = *(a1 + 40) - 1;
   if (v5 > 2)
   {
@@ -2983,10 +2841,8 @@ id __91__WBSAnalyticsLogger_didOpenNewTabWithURLWithTrigger_isExternalLink_tabCo
     v6 = off_1E7CF0FD8[v5];
   }
 
-  v11[3] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[3] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }
@@ -3012,12 +2868,11 @@ void __88__WBSAnalyticsLogger_didChooseIntervalFromAutomaticTabClosingFirstTimeE
 
 id __88__WBSAnalyticsLogger_didChooseIntervalFromAutomaticTabClosingFirstTimeExperiencePrompt___block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5 = @"interval";
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"interval";
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -3043,12 +2898,11 @@ void __56__WBSAnalyticsLogger_reportAutomaticTabClosingInterval___block_invoke(u
 
 id __56__WBSAnalyticsLogger_reportAutomaticTabClosingInterval___block_invoke_2(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5 = @"interval";
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"interval";
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -3069,24 +2923,21 @@ id __56__WBSAnalyticsLogger_reportAutomaticTabClosingInterval___block_invoke_2(u
 
 void __76__WBSAnalyticsLogger_didCloseTabsAutomaticallyWithCount_tabClosingInterval___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v1 = *(a1 + 32);
   AnalyticsSendEventLazy();
 }
 
 id __76__WBSAnalyticsLogger_didCloseTabsAutomaticallyWithCount_tabClosingInterval___block_invoke_2(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
-  v7[0] = @"interval";
-  v7[1] = @"closedTabCount";
-  v8[0] = v2;
+  v6[0] = @"interval";
+  v6[1] = @"closedTabCount";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v1];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -3103,8 +2954,8 @@ id __76__WBSAnalyticsLogger_didCloseTabsAutomaticallyWithCount_tabClosingInterva
 
 id __57__WBSAnalyticsLogger_didPerformActionOnDownloadsPopover___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"performedAction";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"performedAction";
   v1 = *(a1 + 32) - 1;
   if (v1 > 5)
   {
@@ -3116,9 +2967,8 @@ id __57__WBSAnalyticsLogger_didPerformActionOnDownloadsPopover___block_invoke(ui
     v2 = off_1E7CF0FF0[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -3139,8 +2989,8 @@ id __57__WBSAnalyticsLogger_didPerformActionOnDownloadsPopover___block_invoke(ui
 
 id __64__WBSAnalyticsLogger_didPerformDownloadsFileEvent_withFileType___block_invoke(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"downloadsFileEvent";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"downloadsFileEvent";
   v2 = *(a1 + 48);
   v3 = @"created destination";
   if (v2 == 1)
@@ -3159,13 +3009,11 @@ id __64__WBSAnalyticsLogger_didPerformDownloadsFileEvent_withFileType___block_in
   }
 
   v5 = v4;
-  v10[1] = @"fileType";
-  v11[0] = v5;
+  v9[1] = @"fileType";
+  v10[0] = v5;
   v6 = [*(a1 + 32) _sanitizedPathExtensionForAnalyticsForPathExtension:*(a1 + 40)];
-  v11[1] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[1] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v7;
 }
@@ -3197,8 +3045,8 @@ id __64__WBSAnalyticsLogger_didPerformDownloadsFileEvent_withFileType___block_in
 
 id __84__WBSAnalyticsLogger_didReloadEvent_withReloadType_withReloadProvenance_withLayout___block_invoke(void *a1)
 {
-  v14[4] = *MEMORY[0x1E69E9840];
-  v13[0] = @"reloadEvent";
+  v13[4] = *MEMORY[0x1E69E9840];
+  v12[0] = @"reloadEvent";
   v2 = a1[4] - 1;
   if (v2 > 2)
   {
@@ -3210,8 +3058,8 @@ id __84__WBSAnalyticsLogger_didReloadEvent_withReloadType_withReloadProvenance_w
     v3 = off_1E7CF1020[v2];
   }
 
-  v14[0] = v3;
-  v13[1] = @"reloadType";
+  v13[0] = v3;
+  v12[1] = @"reloadType";
   v4 = a1[5] - 1;
   if (v4 > 5)
   {
@@ -3223,8 +3071,8 @@ id __84__WBSAnalyticsLogger_didReloadEvent_withReloadType_withReloadProvenance_w
     v5 = off_1E7CF1038[v4];
   }
 
-  v14[1] = v5;
-  v13[2] = @"reloadProvenance";
+  v13[1] = v5;
+  v12[2] = @"reloadProvenance";
   if (a1[6])
   {
     v6 = @"reloaded within the reload button menu";
@@ -3236,8 +3084,8 @@ id __84__WBSAnalyticsLogger_didReloadEvent_withReloadType_withReloadProvenance_w
   }
 
   v7 = v6;
-  v14[2] = v7;
-  v13[3] = @"layout";
+  v13[2] = v7;
+  v12[3] = @"layout";
   v8 = a1[7] - 1;
   if (v8 > 4)
   {
@@ -3249,10 +3097,8 @@ id __84__WBSAnalyticsLogger_didReloadEvent_withReloadType_withReloadProvenance_w
     v9 = off_1E7CF1448[v8];
   }
 
-  v14[3] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13[3] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   return v10;
 }
@@ -3269,8 +3115,8 @@ id __84__WBSAnalyticsLogger_didReloadEvent_withReloadType_withReloadProvenance_w
 
 id __53__WBSAnalyticsLogger_reportAudioIndicatorClickEvent___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"audioIndicatorEvent";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"audioIndicatorEvent";
   v1 = *(a1 + 32);
   if (v1 > 4)
   {
@@ -3282,9 +3128,8 @@ id __53__WBSAnalyticsLogger_reportAudioIndicatorClickEvent___block_invoke(uint64
     v2 = off_1E7CF1068[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -3301,17 +3146,16 @@ id __53__WBSAnalyticsLogger_reportAudioIndicatorClickEvent___block_invoke(uint64
 
 id __50__WBSAnalyticsLogger_reportPictureInPictureEvent___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = @"didExit";
   if (!*(a1 + 32))
   {
     v1 = @"didEnter";
   }
 
-  v5 = @"pipEvent";
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"pipEvent";
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -3328,8 +3172,8 @@ id __50__WBSAnalyticsLogger_reportPictureInPictureEvent___block_invoke(uint64_t 
 
 id __49__WBSAnalyticsLogger_reportPrivateBrowsingUsage___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"usage";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"usage";
   if (*(a1 + 32))
   {
     v1 = @"is using private browsing in any window";
@@ -3341,10 +3185,8 @@ id __49__WBSAnalyticsLogger_reportPrivateBrowsingUsage___block_invoke(uint64_t a
   }
 
   v2 = v1;
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -3370,14 +3212,13 @@ id __49__WBSAnalyticsLogger_reportPrivateBrowsingUsage___block_invoke(uint64_t a
 
 id __57__WBSAnalyticsLogger_reportInvalidMessageFromWebProcess___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"message";
-  v5[1] = @"safariBundleVersion";
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"message";
+  v4[1] = @"safariBundleVersion";
   v1 = *(a1 + 40);
-  v6[0] = *(a1 + 32);
-  v6[1] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = *(a1 + 32);
+  v5[1] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -3399,8 +3240,8 @@ id __57__WBSAnalyticsLogger_reportInvalidMessageFromWebProcess___block_invoke(ui
 
 id __46__WBSAnalyticsLogger_reportUnifiedFieldEvent___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v6[0] = @"unifiedFieldEvent";
+  v6[2] = *MEMORY[0x1E69E9840];
+  v5[0] = @"unifiedFieldEvent";
   v1 = *(a1 + 40) - 1;
   if (v1 > 5)
   {
@@ -3412,11 +3253,10 @@ id __46__WBSAnalyticsLogger_reportUnifiedFieldEvent___block_invoke(uint64_t a1)
     v2 = off_1E7CF10C8[v1];
   }
 
-  v6[1] = @"value";
-  v7[0] = v2;
-  v7[1] = *(a1 + 32);
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = *MEMORY[0x1E69E9840];
+  v5[1] = @"value";
+  v6[0] = v2;
+  v6[1] = *(a1 + 32);
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }
@@ -3435,14 +3275,13 @@ id __46__WBSAnalyticsLogger_reportUnifiedFieldEvent___block_invoke(uint64_t a1)
 
 id __95__WBSAnalyticsLogger_reportUnifiedFieldHistoryItemURLAutocompletedEventWithDaysSinceLastVisit___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"unifiedFieldEvent";
-  v5[1] = @"value";
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"unifiedFieldEvent";
+  v4[1] = @"value";
   v1 = *(a1 + 32);
-  v6[0] = @"HistoryItemAutocompleted";
-  v6[1] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = @"HistoryItemAutocompleted";
+  v5[1] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -3459,13 +3298,11 @@ id __95__WBSAnalyticsLogger_reportUnifiedFieldHistoryItemURLAutocompletedEventWi
 
 id __55__WBSAnalyticsLogger_reportUnifiedFieldSearchSlowDown___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"duration";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"duration";
   v1 = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -3524,10 +3361,10 @@ id __55__WBSAnalyticsLogger_reportUnifiedFieldSearchSlowDown___block_invoke(uint
 
 id __104__WBSAnalyticsLogger_didModifyPerSitePreferencesWithPreferenceIdentifier_modificationLevel_type_method___block_invoke(void *a1)
 {
-  v11[4] = *MEMORY[0x1E69E9840];
-  v11[0] = a1[4];
-  v10[0] = @"identifier";
-  v10[1] = @"level";
+  v10[4] = *MEMORY[0x1E69E9840];
+  v10[0] = a1[4];
+  v9[0] = @"identifier";
+  v9[1] = @"level";
   if (a1[6])
   {
     v2 = @"domain";
@@ -3539,8 +3376,8 @@ id __104__WBSAnalyticsLogger_didModifyPerSitePreferencesWithPreferenceIdentifier
   }
 
   v3 = v2;
-  v11[1] = v3;
-  v10[2] = @"type";
+  v10[1] = v3;
+  v9[2] = @"type";
   if (a1[7])
   {
     v4 = @"clear";
@@ -3552,13 +3389,11 @@ id __104__WBSAnalyticsLogger_didModifyPerSitePreferencesWithPreferenceIdentifier
   }
 
   v5 = v4;
-  v10[3] = @"method";
+  v9[3] = @"method";
   v6 = a1[5];
-  v11[2] = v5;
-  v11[3] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[2] = v5;
+  v10[3] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }
@@ -3592,12 +3427,11 @@ id __104__WBSAnalyticsLogger_didModifyPerSitePreferencesWithPreferenceIdentifier
 
 id __58__WBSAnalyticsLogger_didOpenPerSitePreferencesPopoverVia___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 32);
-  v5 = @"location";
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"location";
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -3615,16 +3449,14 @@ id __58__WBSAnalyticsLogger_didOpenPerSitePreferencesPopoverVia___block_invoke(u
 
 id __101__WBSAnalyticsLogger_reportNumberOfDuplicateBookmarksWithTopLevelDuplicatesCount_allDuplicatesCount___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"topLevelDuplicatesCount";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"topLevelDuplicatesCount";
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v7[1] = @"allDuplicatesCount";
-  v8[0] = v2;
+  v6[1] = @"allDuplicatesCount";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 40)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -3642,8 +3474,8 @@ id __101__WBSAnalyticsLogger_reportNumberOfDuplicateBookmarksWithTopLevelDuplica
 
 id __81__WBSAnalyticsLogger_didVisitBookmarksWithOpenLocation_numberOfBookmarksVisited___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"openLocation";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"openLocation";
   v1 = *(a1 + 32);
   if (v1 > 4)
   {
@@ -3655,13 +3487,11 @@ id __81__WBSAnalyticsLogger_didVisitBookmarksWithOpenLocation_numberOfBookmarksV
     v2 = off_1E7CF12A0[v1];
   }
 
-  v8[0] = v2;
-  v7[1] = @"numberOfBookmarksVisited";
+  v7[0] = v2;
+  v6[1] = @"numberOfBookmarksVisited";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 40)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -3679,8 +3509,8 @@ id __81__WBSAnalyticsLogger_didVisitBookmarksWithOpenLocation_numberOfBookmarksV
 
 id __74__WBSAnalyticsLogger_didPreventBookmarkActionWithBookmarkType_actionType___block_invoke(uint64_t a1)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11[0] = @"bookmarkType";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10[0] = @"bookmarkType";
   v2 = *(a1 + 32);
   v3 = @"bookmark";
   if (v2 == 1)
@@ -3699,8 +3529,8 @@ id __74__WBSAnalyticsLogger_didPreventBookmarkActionWithBookmarkType_actionType_
   }
 
   v5 = v4;
-  v11[1] = @"actionType";
-  v12[0] = v5;
+  v10[1] = @"actionType";
+  v11[0] = v5;
   v6 = *(a1 + 40) - 1;
   if (v6 > 2)
   {
@@ -3712,10 +3542,8 @@ id __74__WBSAnalyticsLogger_didPreventBookmarkActionWithBookmarkType_actionType_
     v7 = off_1E7CF10F8[v6];
   }
 
-  v12[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   return v8;
 }
@@ -3767,14 +3595,13 @@ id __74__WBSAnalyticsLogger_didPreventBookmarkActionWithBookmarkType_actionType_
 
 id __61__WBSAnalyticsLogger__didAddBookmarkWithMethod_menuItemType___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"method";
-  v5[1] = @"menuItemType";
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"method";
+  v4[1] = @"menuItemType";
   v1 = *(a1 + 40);
-  v6[0] = *(a1 + 32);
-  v6[1] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = *(a1 + 32);
+  v5[1] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -3791,13 +3618,11 @@ id __61__WBSAnalyticsLogger__didAddBookmarkWithMethod_menuItemType___block_invok
 
 id __54__WBSAnalyticsLogger_didAddNumberOfBookmarksInMemory___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"numberOfBookmarksAdded";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"numberOfBookmarksAdded";
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -3814,13 +3639,11 @@ id __54__WBSAnalyticsLogger_didAddNumberOfBookmarksInMemory___block_invoke(uint6
 
 id __57__WBSAnalyticsLogger_didDeleteNumberOfBookmarksInMemory___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"numberOfBookmarksDeleted";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"numberOfBookmarksDeleted";
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -3837,13 +3660,11 @@ id __57__WBSAnalyticsLogger_didDeleteNumberOfBookmarksInMemory___block_invoke(ui
 
 id __74__WBSAnalyticsLogger_didShowPasswordGenerationPromptWithPasswordAccepted___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"passwordAccepted";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"passwordAccepted";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -3860,8 +3681,8 @@ id __74__WBSAnalyticsLogger_didShowPasswordGenerationPromptWithPasswordAccepted_
 
 id __79__WBSAnalyticsLogger_generatedPasswordDidOverwriteExistingPasswordWithTrigger___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"trigger";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"trigger";
   if (*(a1 + 32))
   {
     v1 = @"view close";
@@ -3873,10 +3694,8 @@ id __79__WBSAnalyticsLogger_generatedPasswordDidOverwriteExistingPasswordWithTri
   }
 
   v2 = v1;
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -3893,13 +3712,11 @@ id __79__WBSAnalyticsLogger_generatedPasswordDidOverwriteExistingPasswordWithTri
 
 id __70__WBSAnalyticsLogger_didSuggestUsernameInPromptAndUserKeptSuggestion___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"userKeptUsernameSuggestion";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"userKeptUsernameSuggestion";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -3925,14 +3742,14 @@ id __70__WBSAnalyticsLogger_didSuggestUsernameInPromptAndUserKeptSuggestion___bl
 
 id __155__WBSAnalyticsLogger_didSubmitFormOfType_withFieldType_elementType_isAutoFilled_isManuallyFilledByUser_modificationType_autoFillOfferedType_webpageLocale___block_invoke(uint64_t a1)
 {
-  v21[10] = *MEMORY[0x1E69E9840];
-  v20[0] = @"formType";
+  v20[10] = *MEMORY[0x1E69E9840];
+  v19[0] = @"formType";
   v2 = stringForFormType(*(a1 + 40));
-  v21[0] = v2;
-  v20[1] = @"fieldType";
+  v20[0] = v2;
+  v19[1] = @"fieldType";
   v3 = stringForFieldType(*(a1 + 48));
-  v21[1] = v3;
-  v20[2] = @"elementType";
+  v20[1] = v3;
+  v19[2] = @"elementType";
   v4 = *(a1 + 56);
   if (v4 > 4)
   {
@@ -3944,14 +3761,14 @@ id __155__WBSAnalyticsLogger_didSubmitFormOfType_withFieldType_elementType_isAut
     v5 = off_1E7CF1128[v4];
   }
 
-  v21[2] = v5;
-  v20[3] = @"isAutoFilled";
+  v20[2] = v5;
+  v19[3] = @"isAutoFilled";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 80)];
-  v21[3] = v6;
-  v20[4] = @"isManuallyFilledByUser";
+  v20[3] = v6;
+  v19[4] = @"isManuallyFilledByUser";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 81)];
-  v21[4] = v7;
-  v20[5] = @"modificationType";
+  v20[4] = v7;
+  v19[5] = @"modificationType";
   v8 = *(a1 + 64);
   if (v8 > 5)
   {
@@ -3963,8 +3780,8 @@ id __155__WBSAnalyticsLogger_didSubmitFormOfType_withFieldType_elementType_isAut
     v9 = off_1E7CF1150[v8];
   }
 
-  v21[5] = v9;
-  v20[6] = @"autoFillOfferedType";
+  v20[5] = v9;
+  v19[6] = @"autoFillOfferedType";
   v10 = *(a1 + 72);
   if (v10 > 4)
   {
@@ -3982,10 +3799,10 @@ id __155__WBSAnalyticsLogger_didSubmitFormOfType_withFieldType_elementType_isAut
     v12 = @"unknown";
   }
 
-  v21[6] = v11;
-  v21[7] = v12;
-  v20[7] = @"webpageLocale";
-  v20[8] = @"userRegion";
+  v20[6] = v11;
+  v20[7] = v12;
+  v19[7] = @"webpageLocale";
+  v19[8] = @"userRegion";
   v13 = [MEMORY[0x1E695DF58] currentLocale];
   v14 = [v13 countryCode];
   v15 = v14;
@@ -3999,12 +3816,10 @@ id __155__WBSAnalyticsLogger_didSubmitFormOfType_withFieldType_elementType_isAut
     v16 = @"unknown";
   }
 
-  v20[9] = @"autoFillTelemetryVersion";
-  v21[8] = v16;
-  v21[9] = &unk_1F308E180;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:10];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v19[9] = @"autoFillTelemetryVersion";
+  v20[8] = v16;
+  v20[9] = &unk_1F308E180;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:10];
 
   return v17;
 }
@@ -4027,9 +3842,9 @@ id __155__WBSAnalyticsLogger_didSubmitFormOfType_withFieldType_elementType_isAut
 
 id __91__WBSAnalyticsLogger_didSubmitFormOfType_withPerFormModificationsDictionary_webpageLocale___block_invoke(void *a1)
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   v2 = a1[4];
-  v14[0] = @"formType";
+  v13[0] = @"formType";
   v3 = stringForFormType(a1[6]);
   v4 = v3;
   v5 = a1[5];
@@ -4038,10 +3853,10 @@ id __91__WBSAnalyticsLogger_didSubmitFormOfType_withPerFormModificationsDictiona
     v5 = @"unknown";
   }
 
-  v15[0] = v3;
-  v15[1] = v5;
-  v14[1] = @"webpageLocale";
-  v14[2] = @"userRegion";
+  v14[0] = v3;
+  v14[1] = v5;
+  v13[1] = @"webpageLocale";
+  v13[2] = @"userRegion";
   v6 = [MEMORY[0x1E695DF58] currentLocale];
   v7 = [v6 countryCode];
   v8 = v7;
@@ -4055,13 +3870,11 @@ id __91__WBSAnalyticsLogger_didSubmitFormOfType_withPerFormModificationsDictiona
     v9 = @"unknown";
   }
 
-  v14[3] = @"autoFillTelemetryVersion";
-  v15[2] = v9;
-  v15[3] = &unk_1F308E180;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v13[3] = @"autoFillTelemetryVersion";
+  v14[2] = v9;
+  v14[3] = &unk_1F308E180;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
   v11 = [v2 safari_dictionaryByMergingWithDictionary:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -4084,9 +3897,9 @@ id __91__WBSAnalyticsLogger_didSubmitFormOfType_withPerFormModificationsDictiona
 
 id __83__WBSAnalyticsLogger_didSubmitFormOfType_withPerFormUsageDictionary_webpageLocale___block_invoke(void *a1)
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   v2 = a1[4];
-  v14[0] = @"formType";
+  v13[0] = @"formType";
   v3 = stringForFormType(a1[6]);
   v4 = v3;
   v5 = a1[5];
@@ -4095,10 +3908,10 @@ id __83__WBSAnalyticsLogger_didSubmitFormOfType_withPerFormUsageDictionary_webpa
     v5 = @"unknown";
   }
 
-  v15[0] = v3;
-  v15[1] = v5;
-  v14[1] = @"webpageLocale";
-  v14[2] = @"userRegion";
+  v14[0] = v3;
+  v14[1] = v5;
+  v13[1] = @"webpageLocale";
+  v13[2] = @"userRegion";
   v6 = [MEMORY[0x1E695DF58] currentLocale];
   v7 = [v6 countryCode];
   v8 = v7;
@@ -4112,13 +3925,11 @@ id __83__WBSAnalyticsLogger_didSubmitFormOfType_withPerFormUsageDictionary_webpa
     v9 = @"unknown";
   }
 
-  v14[3] = @"autoFillTelemetryVersion";
-  v15[2] = v9;
-  v15[3] = &unk_1F308E180;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v13[3] = @"autoFillTelemetryVersion";
+  v14[2] = v9;
+  v14[3] = &unk_1F308E180;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
   v11 = [v2 safari_dictionaryByMergingWithDictionary:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -4141,18 +3952,16 @@ id __83__WBSAnalyticsLogger_didSubmitFormOfType_withPerFormUsageDictionary_webpa
 
 id __98__WBSAnalyticsLogger_didUseCreditCardAutoFillEscapeHatchFillingNewType_forPreviousType_fieldType___block_invoke(void *a1)
 {
-  v7[3] = *MEMORY[0x1E69E9840];
-  v6[0] = @"newType";
-  v6[1] = @"previousType";
+  v6[3] = *MEMORY[0x1E69E9840];
+  v5[0] = @"newType";
+  v5[1] = @"previousType";
   v1 = a1[5];
-  v7[0] = a1[4];
-  v7[1] = v1;
-  v6[2] = @"fieldType";
+  v6[0] = a1[4];
+  v6[1] = v1;
+  v5[2] = @"fieldType";
   v2 = stringForFieldType(a1[6]);
-  v7[2] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[2] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
 
   return v3;
 }
@@ -4169,8 +3978,8 @@ id __98__WBSAnalyticsLogger_didUseCreditCardAutoFillEscapeHatchFillingNewType_fo
 
 id __56__WBSAnalyticsLogger_didSelectFavoriteWithOpenLocation___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"openLocation";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"openLocation";
   v1 = *(a1 + 32);
   if (v1 > 4)
   {
@@ -4182,9 +3991,8 @@ id __56__WBSAnalyticsLogger_didSelectFavoriteWithOpenLocation___block_invoke(uin
     v2 = off_1E7CF12A0[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -4201,13 +4009,11 @@ id __56__WBSAnalyticsLogger_didSelectFavoriteWithOpenLocation___block_invoke(uin
 
 id __44__WBSAnalyticsLogger_didSelectFavoritesRow___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"favoritesRow";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"favoritesRow";
   v1 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -4227,8 +4033,8 @@ id __44__WBSAnalyticsLogger_didSelectFavoritesRow___block_invoke(uint64_t a1)
 
 id __86__WBSAnalyticsLogger_didSelectFrequentlyVisitedSiteWithOpenLocation_analyticsPayload___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
-  v9 = @"openLocation";
+  v9[1] = *MEMORY[0x1E69E9840];
+  v8 = @"openLocation";
   v2 = *(a1 + 40);
   if (v2 > 4)
   {
@@ -4240,12 +4046,10 @@ id __86__WBSAnalyticsLogger_didSelectFrequentlyVisitedSiteWithOpenLocation_analy
     v3 = off_1E7CF12A0[v2];
   }
 
-  v10[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v5 = [*(a1 + 32) eventDictionaryDescription];
   v6 = [v4 safari_dictionaryByMergingWithDictionary:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -4291,12 +4095,11 @@ id __86__WBSAnalyticsLogger_didSelectFrequentlyVisitedSiteWithOpenLocation_analy
 
 id __65__WBSAnalyticsLogger_reportSafariVersion_safariAndWebKitVersion___block_invoke(int64x2_t *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4[0] = @"safariVariant";
-  v4[1] = @"safariWebkitVersion";
-  v5 = vbslq_s8(vceqzq_s64(a1[2]), vdupq_n_s64(&stru_1F3064D08), a1[2]);
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v5 forKeys:v4 count:2];
-  v2 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3[0] = @"safariVariant";
+  v3[1] = @"safariWebkitVersion";
+  v4 = vbslq_s8(vceqzq_s64(a1[2]), vdupq_n_s64(&stru_1F3064D08), a1[2]);
+  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v4 forKeys:v3 count:2];
 
   return v1;
 }
@@ -4319,13 +4122,11 @@ id __65__WBSAnalyticsLogger_reportSafariVersion_safariAndWebKitVersion___block_i
 
 id __49__WBSAnalyticsLogger_reportApplicationCacheSize___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"value";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"value";
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -4345,17 +4146,16 @@ id __49__WBSAnalyticsLogger_reportApplicationCacheSize___block_invoke(uint64_t a
 
 id __68__WBSAnalyticsLogger_logDiagnosticMessageWithKey_diagnosticMessage___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = &stru_1F3064D08;
   if (*(a1 + 32))
   {
     v1 = *(a1 + 32);
   }
 
-  v5 = @"diagnosticMessage";
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"diagnosticMessage";
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -4376,7 +4176,7 @@ id __68__WBSAnalyticsLogger_logDiagnosticMessageWithKey_diagnosticMessage___bloc
 
 id __75__WBSAnalyticsLogger_logDiagnosticMessageWithKey_diagnosticMessage_result___block_invoke(uint64_t a1)
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 40);
   if (*(a1 + 32))
   {
@@ -4388,9 +4188,9 @@ id __75__WBSAnalyticsLogger_logDiagnosticMessageWithKey_diagnosticMessage_result
     v2 = &stru_1F3064D08;
   }
 
-  v8[0] = @"diagnosticMessage";
-  v8[1] = @"result";
-  v9[0] = v2;
+  v7[0] = @"diagnosticMessage";
+  v7[1] = @"result";
+  v8[0] = v2;
   v3 = @"noop";
   if (v1 == 1)
   {
@@ -4403,10 +4203,8 @@ id __75__WBSAnalyticsLogger_logDiagnosticMessageWithKey_diagnosticMessage_result
   }
 
   v4 = v3;
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -4454,12 +4252,11 @@ LABEL_7:
 
 id __81__WBSAnalyticsLogger__logDiagnosticMessageWithKey_diagnosticMessage_stringValue___block_invoke(int64x2_t *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4[0] = @"diagnosticMessage";
-  v4[1] = @"stringValue";
-  v5 = vbslq_s8(vceqzq_s64(a1[2]), vdupq_n_s64(&stru_1F3064D08), a1[2]);
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v5 forKeys:v4 count:2];
-  v2 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3[0] = @"diagnosticMessage";
+  v3[1] = @"stringValue";
+  v4 = vbslq_s8(vceqzq_s64(a1[2]), vdupq_n_s64(&stru_1F3064D08), a1[2]);
+  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v4 forKeys:v3 count:2];
 
   return v1;
 }
@@ -4480,7 +4277,7 @@ id __81__WBSAnalyticsLogger__logDiagnosticMessageWithKey_diagnosticMessage_strin
 
 id __82__WBSAnalyticsLogger__logDiagnosticMessageWithKey_diagnosticMessage_integerValue___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 40);
   if (*(a1 + 32))
   {
@@ -4492,14 +4289,12 @@ id __82__WBSAnalyticsLogger__logDiagnosticMessageWithKey_diagnosticMessage_integ
     v2 = &stru_1F3064D08;
   }
 
-  v7[0] = @"diagnosticMessage";
-  v7[1] = @"integerValue";
-  v8[0] = v2;
+  v6[0] = @"diagnosticMessage";
+  v6[1] = @"integerValue";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:v1];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -4517,16 +4312,14 @@ id __82__WBSAnalyticsLogger__logDiagnosticMessageWithKey_diagnosticMessage_integ
 
 id __70__WBSAnalyticsLogger_reportAverageNumberOfTabsPerTabGroup_andMaximum___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"avgNumberOfTabs";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"avgNumberOfTabs";
   v2 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v7[1] = @"maximumNumberOfTabs";
-  v8[0] = v2;
+  v6[1] = @"maximumNumberOfTabs";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 40)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -4544,16 +4337,14 @@ id __70__WBSAnalyticsLogger_reportAverageNumberOfTabsPerTabGroup_andMaximum___bl
 
 id __68__WBSAnalyticsLogger_reportTabsForNonTabGroupUser_andAverageNumber___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"avgAgeOfOpenTabs";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"avgAgeOfOpenTabs";
   v2 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v7[1] = @"numOfOpenTabs";
-  v8[0] = v2;
+  v6[1] = @"numOfOpenTabs";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 40)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -4570,13 +4361,11 @@ id __68__WBSAnalyticsLogger_reportTabsForNonTabGroupUser_andAverageNumber___bloc
 
 id __46__WBSAnalyticsLogger_reportNumberOfTabGroups___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"totalNumberOfTabGroups";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"totalNumberOfTabGroups";
   v1 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -4594,16 +4383,14 @@ id __46__WBSAnalyticsLogger_reportNumberOfTabGroups___block_invoke(uint64_t a1)
 
 id __73__WBSAnalyticsLogger_didCreateTabGroupFromLocation_prepopulatedWithTabs___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"source";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"source";
   v2 = stringForTabGroupsActionSource(*(a1 + 32));
-  v7[1] = @"prepopulatedWithTabs";
-  v8[0] = v2;
+  v6[1] = @"prepopulatedWithTabs";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -4620,13 +4407,11 @@ id __73__WBSAnalyticsLogger_didCreateTabGroupFromLocation_prepopulatedWithTabs__
 
 id __54__WBSAnalyticsLogger_didSwitchToTabGroupFromLocation___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"source";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"source";
   v1 = stringForTabGroupsActionSource(*(a1 + 32));
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -4644,11 +4429,11 @@ id __54__WBSAnalyticsLogger_didSwitchToTabGroupFromLocation___block_invoke(uint6
 
 id __63__WBSAnalyticsLogger_reportMacOSToolbarButtonUsage_withLayout___block_invoke(uint64_t a1)
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"buttonName";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"buttonName";
   v2 = stringForToolbarButtonType(*(a1 + 32));
-  v8[1] = @"provenance";
-  v9[0] = v2;
+  v7[1] = @"provenance";
+  v8[0] = v2;
   v3 = *(a1 + 40) - 1;
   if (v3 > 4)
   {
@@ -4660,10 +4445,8 @@ id __63__WBSAnalyticsLogger_reportMacOSToolbarButtonUsage_withLayout___block_inv
     v4 = off_1E7CF1448[v3];
   }
 
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -4681,11 +4464,11 @@ id __63__WBSAnalyticsLogger_reportMacOSToolbarButtonUsage_withLayout___block_inv
 
 id __61__WBSAnalyticsLogger_reportIOSToolbarButtonUsage_withLayout___block_invoke(uint64_t a1)
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"buttonName";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"buttonName";
   v2 = stringForToolbarButtonType(*(a1 + 32));
-  v8[1] = @"provenance";
-  v9[0] = v2;
+  v7[1] = @"provenance";
+  v8[0] = v2;
   v3 = *(a1 + 40) - 1;
   if (v3 > 4)
   {
@@ -4697,10 +4480,8 @@ id __61__WBSAnalyticsLogger_reportIOSToolbarButtonUsage_withLayout___block_invok
     v4 = off_1E7CF1448[v3];
   }
 
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -4717,13 +4498,11 @@ id __61__WBSAnalyticsLogger_reportIOSToolbarButtonUsage_withLayout___block_invok
 
 id __50__WBSAnalyticsLogger_reportSVCToolbarButtonUsage___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"buttonName";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"buttonName";
   v1 = stringForToolbarButtonType(*(a1 + 32));
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -4740,8 +4519,8 @@ id __50__WBSAnalyticsLogger_reportSVCToolbarButtonUsage___block_invoke(uint64_t 
 
 id __47__WBSAnalyticsLogger_didPerformMoreMenuAction___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"actionType";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"actionType";
   v1 = *(a1 + 32) - 1;
   if (v1 > 0xA)
   {
@@ -4753,9 +4532,8 @@ id __47__WBSAnalyticsLogger_didPerformMoreMenuAction___block_invoke(uint64_t a1)
     v2 = off_1E7CF1470[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -4772,8 +4550,8 @@ id __47__WBSAnalyticsLogger_didPerformMoreMenuAction___block_invoke(uint64_t a1)
 
 id __42__WBSAnalyticsLogger_didUseSidebarAction___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"action";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"action";
   v1 = *(a1 + 32) - 1;
   if (v1 > 0x14)
   {
@@ -4785,9 +4563,8 @@ id __42__WBSAnalyticsLogger_didUseSidebarAction___block_invoke(uint64_t a1)
     v2 = off_1E7CF14C8[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -4804,13 +4581,11 @@ id __42__WBSAnalyticsLogger_didUseSidebarAction___block_invoke(uint64_t a1)
 
 id __40__WBSAnalyticsLogger_didFinishScribble___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"changesMade";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"changesMade";
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -4827,13 +4602,11 @@ id __40__WBSAnalyticsLogger_didFinishScribble___block_invoke(uint64_t a1)
 
 id __63__WBSAnalyticsLogger_reportNumberOfWebsitesWithScribbleActive___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"websites";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"websites";
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -4852,12 +4625,11 @@ id __63__WBSAnalyticsLogger_reportNumberOfWebsitesWithScribbleActive___block_inv
 
 id __48__WBSAnalyticsLogger_reportUserConsentStateSBA___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5 = @"consentState";
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"consentState";
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -4874,13 +4646,11 @@ id __48__WBSAnalyticsLogger_reportUserConsentStateSBA___block_invoke(uint64_t a1
 
 id __56__WBSAnalyticsLogger_didVisitWebpageSBAWithUserOptedIn___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"optedIn";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"optedIn";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -4919,21 +4689,19 @@ id __56__WBSAnalyticsLogger_didVisitWebpageSBAWithUserOptedIn___block_invoke(uin
 
 id __57__WBSAnalyticsLogger_reportBlockingSafariQuitWithReason___block_invoke(void *a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   if (a1[5])
   {
     *(a1[4] + 40) = 1;
   }
 
-  v7[0] = @"blockingReason";
+  v6[0] = @"blockingReason";
   v2 = [MEMORY[0x1E696AD98] numberWithInteger:?];
-  v7[1] = @"quitReason";
-  v8[0] = v2;
+  v6[1] = @"quitReason";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:a1[6]];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -4957,28 +4725,26 @@ id __57__WBSAnalyticsLogger_reportBlockingSafariQuitWithReason___block_invoke(vo
 
 id __173__WBSAnalyticsLogger_reportSafariTabStateMismatchWithError_systemTALEnabled_safariRestoreOnLaunchEnabled_excludePrivateWindows_systemSaysPreserveState_stringRepresentation___block_invoke(uint64_t a1)
 {
-  v12[6] = *MEMORY[0x1E69E9840];
-  v11[0] = @"errorType";
+  v11[6] = *MEMORY[0x1E69E9840];
+  v10[0] = @"errorType";
   v2 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 40)];
-  v12[0] = v2;
-  v11[1] = @"systemTALEnabled";
+  v11[0] = v2;
+  v10[1] = @"systemTALEnabled";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 48)];
-  v12[1] = v3;
-  v11[2] = @"safariRestoreOnLaunchEnabled";
+  v11[1] = v3;
+  v10[2] = @"safariRestoreOnLaunchEnabled";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 49)];
-  v12[2] = v4;
-  v11[3] = @"excludePrivateWindows";
+  v11[2] = v4;
+  v10[3] = @"excludePrivateWindows";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 50)];
-  v12[3] = v5;
-  v11[4] = @"preserveState";
+  v11[3] = v5;
+  v10[4] = @"preserveState";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 51)];
-  v11[5] = @"stringRepresentation";
+  v10[5] = @"stringRepresentation";
   v7 = *(a1 + 32);
-  v12[4] = v6;
-  v12[5] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[4] = v6;
+  v11[5] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:6];
 
   return v8;
 }
@@ -4995,13 +4761,11 @@ id __173__WBSAnalyticsLogger_reportSafariTabStateMismatchWithError_systemTALEnab
 
 id __66__WBSAnalyticsLogger_reportSafariRecoveredWindowStateWithSuccess___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"recovered";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"recovered";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -5032,14 +4796,13 @@ id __66__WBSAnalyticsLogger_reportSafariRecoveredWindowStateWithSuccess___block_
 
 id __59__WBSAnalyticsLogger_reportTabGroupSyncSuccessesWithCount___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"syncResult";
-  v5[1] = @"periodicCount";
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"syncResult";
+  v4[1] = @"periodicCount";
   v1 = *(a1 + 32);
-  v6[0] = &unk_1F308E198;
-  v6[1] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F308E198;
+  v5[1] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
@@ -5072,8 +4835,8 @@ id __59__WBSAnalyticsLogger_reportTabGroupSyncSuccessesWithCount___block_invoke(
 
 id __63__WBSAnalyticsLogger_reportAdvancedPrivacyProtectionPreference__block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"preference";
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"preference";
   v1 = *(a1 + 32);
   v2 = @"disabled";
   if (v1 == 1)
@@ -5092,10 +4855,8 @@ id __63__WBSAnalyticsLogger_reportAdvancedPrivacyProtectionPreference__block_inv
   }
 
   v4 = v3;
-  v9[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }
@@ -5112,8 +4873,8 @@ id __63__WBSAnalyticsLogger_reportAdvancedPrivacyProtectionPreference__block_inv
 
 id __53__WBSAnalyticsLogger_reportTabUpdatedWithUpdateType___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"tabUpdateChangeType";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"tabUpdateChangeType";
   v1 = *(a1 + 32) - 1;
   if (v1 > 0xB)
   {
@@ -5125,9 +4886,8 @@ id __53__WBSAnalyticsLogger_reportTabUpdatedWithUpdateType___block_invoke(uint64
     v2 = off_1E7CF1570[v1];
   }
 
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -5145,16 +4905,14 @@ id __53__WBSAnalyticsLogger_reportTabUpdatedWithUpdateType___block_invoke(uint64
 
 id __57__WBSAnalyticsLogger_reportNumberOfWebApps_andBookmarks___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"webAppCount";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"webAppCount";
   v2 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v7[1] = @"bookmarkCount";
-  v8[0] = v2;
+  v6[1] = @"bookmarkCount";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 40)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -5218,6 +4976,58 @@ void __51__WBSAnalyticsLogger__bundleIdDictionaryWithArray___block_invoke(uint64
   [(WBSAnalyticsLogger *)self _sendEvent:@"com.apple.Safari.BrowserChoice.didShowBrowserChoice" usingBlock:v6];
 }
 
+- (void)didSelectBrowserChoice:(id)choice browserAlreadyInstalled:(BOOL)installed browsersWithProductPagesViewed:(id)viewed browserList:(id)list userCohort:(int64_t)cohort listContainsDisabledBrowser:(BOOL)browser userTriedSelectingDisabledBrowser:(BOOL)disabledBrowser
+{
+  browserCopy = browser;
+  installedCopy = installed;
+  choiceCopy = choice;
+  viewedCopy = viewed;
+  listCopy = list;
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v19 = [(WBSAnalyticsLogger *)self _bundleIdDictionaryWithArray:listCopy];
+  v20 = [v19 mutableCopy];
+  [dictionary addEntriesFromDictionary:v20];
+
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __185__WBSAnalyticsLogger_didSelectBrowserChoice_browserAlreadyInstalled_browsersWithProductPagesViewed_browserList_userCohort_listContainsDisabledBrowser_userTriedSelectingDisabledBrowser___block_invoke;
+  v32[3] = &unk_1E7CF0D00;
+  v21 = dictionary;
+  v33 = v21;
+  v22 = viewedCopy;
+  v34 = v22;
+  [listCopy enumerateObjectsUsingBlock:v32];
+  v23 = [MEMORY[0x1E696AD98] numberWithInteger:cohort];
+  [v21 setObject:v23 forKeyedSubscript:@"userChoiceExperience"];
+
+  v24 = [MEMORY[0x1E696AD98] numberWithBool:browserCopy];
+  [v21 setObject:v24 forKeyedSubscript:@"listContainsDisabledBrowser"];
+
+  v25 = [MEMORY[0x1E696AD98] numberWithBool:disabledBrowser];
+  [v21 setObject:v25 forKeyedSubscript:@"userTriedSelectingDisabledBrowser"];
+
+  if (choiceCopy)
+  {
+    [v21 setObject:choiceCopy forKeyedSubscript:@"selectedBundleID"];
+    v26 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v22, "containsObject:", choiceCopy)}];
+    [v21 setObject:v26 forKeyedSubscript:@"selectedBundleIDProductPageViewed"];
+
+    v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(listCopy, "indexOfObject:", choiceCopy) + 1}];
+    [v21 setObject:v27 forKeyedSubscript:@"browserPosition"];
+
+    v28 = [MEMORY[0x1E696AD98] numberWithBool:installedCopy];
+    [v21 setObject:v28 forKeyedSubscript:@"alreadyInstalled"];
+  }
+
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __185__WBSAnalyticsLogger_didSelectBrowserChoice_browserAlreadyInstalled_browsersWithProductPagesViewed_browserList_userCohort_listContainsDisabledBrowser_userTriedSelectingDisabledBrowser___block_invoke_2;
+  v30[3] = &unk_1E7CF0800;
+  v29 = v21;
+  v31 = v29;
+  [(WBSAnalyticsLogger *)self _sendEvent:@"com.apple.Safari.BrowserChoice.didSelectBrowserChoice" usingBlock:v30];
+}
+
 void __185__WBSAnalyticsLogger_didSelectBrowserChoice_browserAlreadyInstalled_browsersWithProductPagesViewed_browserList_userCohort_listContainsDisabledBrowser_userTriedSelectingDisabledBrowser___block_invoke(uint64_t a1, void *a2, int a3)
 {
   v7 = a2;
@@ -5240,12 +5050,11 @@ void __185__WBSAnalyticsLogger_didSelectBrowserChoice_browserAlreadyInstalled_br
 
 id __48__WBSAnalyticsLogger_didViewBrowserProductPage___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v5 = @"bundleID";
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"bundleID";
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -5262,13 +5071,11 @@ id __48__WBSAnalyticsLogger_didViewBrowserProductPage___block_invoke(uint64_t a1
 
 id __54__WBSAnalyticsLogger_reportFolderOnTopModePreference___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"prefersFoldersOnTop";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"prefersFoldersOnTop";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -5302,13 +5109,11 @@ id __54__WBSAnalyticsLogger_reportFolderOnTopModePreference___block_invoke(uint6
 
 id __83__WBSAnalyticsLogger_reportIsUsingPasswordsApp_isUsingCredentialProviderExtension___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"passwordAutoFillProviderConfiguration";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"passwordAutoFillProviderConfiguration";
   v1 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -5341,13 +5146,11 @@ id __83__WBSAnalyticsLogger_reportIsUsingPasswordsApp_isUsingCredentialProviderE
 
 id __53__WBSAnalyticsLogger_reportVerificationCodeProvider___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"passwordAutoFillVerificationCodeProviderConfiguration";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"passwordAutoFillVerificationCodeProviderConfiguration";
   v1 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }

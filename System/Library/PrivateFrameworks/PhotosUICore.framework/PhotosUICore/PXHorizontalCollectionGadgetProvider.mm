@@ -95,8 +95,8 @@ void __63__PXHorizontalCollectionGadgetProvider__updateHorizontalGadget__block_i
   {
     enabledCopy = enabled;
     self->_prefersPagingEnabled = enabled;
-    layout = [(PXGadgetUIViewController *)self->_horizontalGadget layout];
-    [layout setPrefersPagingEnabled:enabledCopy];
+    v5 = objc_msgSend_layout(self->_horizontalGadget, a2);
+    [v5 setPrefersPagingEnabled:enabledCopy];
   }
 }
 

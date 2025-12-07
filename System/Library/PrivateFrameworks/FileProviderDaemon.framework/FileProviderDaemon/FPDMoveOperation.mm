@@ -63,12 +63,9 @@
 
 - (void)main
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *self;
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __24__FPDMoveOperation_main__block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -112,12 +109,12 @@ void __24__FPDMoveOperation_main__block_invoke_2(uint64_t a1)
   objc_destroyWeak(&v9);
 }
 
-void __24__FPDMoveOperation_main__block_invoke_3(uint64_t a1)
+void __24__FPDMoveOperation_main__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __24__FPDMoveOperation_main__block_invoke_3_cold_1(a1);
+    __24__FPDMoveOperation_main__block_invoke_3_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -174,18 +171,18 @@ void __24__FPDMoveOperation_main__block_invoke_5(uint64_t a1, void *a2)
   }
 }
 
-void __24__FPDMoveOperation_main__block_invoke_6(uint64_t a1)
+void __24__FPDMoveOperation_main__block_invoke_6(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __24__FPDMoveOperation_main__block_invoke_6_cold_1(a1);
   }
 
   [*(a1 + 40) setHasFinishedPreflight:1];
-  v3 = *(a1 + 40);
-  v4 = [v3 createdItemByRoot];
-  [v3 completedWithResult:v4 error:*(a1 + 32)];
+  v4 = *(a1 + 40);
+  v5 = [v4 createdItemByRoot];
+  [v4 completedWithResult:v5 error:*(a1 + 32)];
 }
 
 void __24__FPDMoveOperation_main__block_invoke_13(uint64_t a1, void *a2, uint64_t a3)
@@ -300,88 +297,86 @@ void __24__FPDMoveOperation_main__block_invoke_9(uint64_t a1, void *a2, void *a3
   }
 }
 
-void __24__FPDMoveOperation_main__block_invoke_10(id *a1)
+void __24__FPDMoveOperation_main__block_invoke_10(id *a1, uint64_t a2)
 {
   v33 = *MEMORY[0x1E69E9840];
-  v2 = a1 + 4;
-  v3 = a1[4];
-  v4 = fp_current_or_default_log();
-  v5 = v4;
-  if (v3)
+  v3 = a1 + 4;
+  v4 = a1[4];
+  v5 = fp_current_or_default_log();
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __24__FPDMoveOperation_main__block_invoke_10_cold_1(a1, v2);
+      __24__FPDMoveOperation_main__block_invoke_10_cold_1(a1, v3);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __24__FPDMoveOperation_main__block_invoke_10_cold_2(a1);
+    __24__FPDMoveOperation_main__block_invoke_10_cold_2();
   }
 
-  v6 = [a1[6] progressByRoot];
-  v7 = [v6 objectForKeyedSubscript:a1[5]];
+  v7 = [a1[6] progressByRoot];
+  v8 = [v7 objectForKeyedSubscript:a1[5]];
 
-  [v7 setCompletedUnitCount:{objc_msgSend(v7, "totalUnitCount")}];
-  v8 = [a1[6] completedRoots];
-  [v8 addObject:a1[5]];
+  [v8 setCompletedUnitCount:{objc_msgSend(v8, "totalUnitCount")}];
+  v9 = [a1[6] completedRoots];
+  [v9 addObject:a1[5]];
 
-  v9 = a1[4];
-  v10 = [a1[6] errorsByRoot];
-  [v10 setObject:v9 forKeyedSubscript:a1[5]];
+  v10 = a1[4];
+  v11 = [a1[6] errorsByRoot];
+  [v11 setObject:v10 forKeyedSubscript:a1[5]];
 
   v30 = 0u;
   v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v11 = [a1[6] progressCompletionsByRoot];
-  v12 = [v11 objectForKeyedSubscript:a1[5]];
+  v12 = [a1[6] progressCompletionsByRoot];
+  v13 = [v12 objectForKeyedSubscript:a1[5]];
 
-  v13 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
-  if (v13)
+  v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v14)
   {
-    v14 = v13;
-    v15 = *v29;
+    v15 = v14;
+    v16 = *v29;
     do
     {
-      v16 = 0;
+      v17 = 0;
       do
       {
-        if (*v29 != v15)
+        if (*v29 != v16)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v13);
         }
 
-        (*(*(*(&v28 + 1) + 8 * v16++) + 16))();
+        (*(*(*(&v28 + 1) + 8 * v17++) + 16))();
       }
 
-      while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      while (v15 != v17);
+      v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v14);
+    while (v15);
   }
 
-  v17 = [a1[6] progressCompletionsByRoot];
-  v18 = [v17 objectForKeyedSubscript:a1[5]];
-  [v18 removeAllObjects];
+  v18 = [a1[6] progressCompletionsByRoot];
+  v19 = [v18 objectForKeyedSubscript:a1[5]];
+  [v19 removeAllObjects];
 
-  v19 = [a1[6] createdItemByRoot];
-  v20 = [v19 objectForKeyedSubscript:a1[5]];
+  v20 = [a1[6] createdItemByRoot];
+  v21 = [v20 objectForKeyedSubscript:a1[5]];
 
   v24[0] = MEMORY[0x1E69E9820];
   v24[1] = 3221225472;
   v24[2] = __24__FPDMoveOperation_main__block_invoke_24;
   v24[3] = &unk_1E83BEC08;
-  v21 = a1[6];
+  v22 = a1[6];
   v25 = a1[5];
-  v26 = v20;
+  v26 = v21;
   v27 = a1[4];
-  v22 = v20;
-  [v21 forAllClients:v24];
-
-  v23 = *MEMORY[0x1E69E9840];
+  v23 = v21;
+  [v22 forAllClients:v24];
 }
 
 void __24__FPDMoveOperation_main__block_invoke_3_29(uint64_t a1, void *a2)
@@ -402,26 +397,26 @@ void __24__FPDMoveOperation_main__block_invoke_3_29(uint64_t a1, void *a2)
   }
 }
 
-void __24__FPDMoveOperation_main__block_invoke_4_30(uint64_t a1)
+void __24__FPDMoveOperation_main__block_invoke_4_30(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
+  v3 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = fp_current_or_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = fp_current_or_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __24__FPDMoveOperation_main__block_invoke_4_30_cold_1(v2);
+      __24__FPDMoveOperation_main__block_invoke_4_30_cold_1(v3);
     }
   }
 
-  v4 = *(a1 + 40);
-  v5 = [v4 createdItemByRoot];
-  [v4 completedWithResult:v5 error:*(a1 + 32)];
+  v5 = *(a1 + 40);
+  v6 = [v5 createdItemByRoot];
+  [v5 completedWithResult:v6 error:*(a1 + 32)];
 }
 
 - (void)sendPastUpdatesToClient:(id)client
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   callbackQueue = [(FPOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
@@ -430,7 +425,7 @@ void __24__FPDMoveOperation_main__block_invoke_4_30(uint64_t a1)
   v5 = fp_current_or_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    [FPDMoveOperation sendPastUpdatesToClient:?];
+    [FPDMoveOperation sendPastUpdatesToClient:];
   }
 
   if ([(FPOperation *)self isFinished])
@@ -449,26 +444,26 @@ void __24__FPDMoveOperation_main__block_invoke_4_30(uint64_t a1)
     if ([(FPDActionOperation *)self hasFinishedPreflight])
     {
       [clientCopy remoteOperationProgressesAreReady];
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       progressByRoot = [(FPDActionOperation *)self progressByRoot];
-      v8 = [progressByRoot countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v8 = [progressByRoot countByEnumeratingWithState:&v20 objects:v25 count:16];
       if (v8)
       {
-        v9 = *v22;
+        v9 = *v21;
         do
         {
           v10 = 0;
           do
           {
-            if (*v22 != v9)
+            if (*v21 != v9)
             {
               objc_enumerationMutation(progressByRoot);
             }
 
-            v11 = *(*(&v21 + 1) + 8 * v10);
+            v11 = *(*(&v20 + 1) + 8 * v10);
             createdItemByRoot = [(FPDActionOperation *)self createdItemByRoot];
             v13 = [createdItemByRoot objectForKeyedSubscript:v11];
 
@@ -492,7 +487,7 @@ void __24__FPDMoveOperation_main__block_invoke_4_30(uint64_t a1)
           }
 
           while (v8 != v10);
-          v8 = [progressByRoot countByEnumeratingWithState:&v21 objects:v26 count:16];
+          v8 = [progressByRoot countByEnumeratingWithState:&v20 objects:v25 count:16];
         }
 
         while (v8);
@@ -509,8 +504,6 @@ void __24__FPDMoveOperation_main__block_invoke_4_30(uint64_t a1)
   }
 
   __fp_leave_section_Debug();
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishWithResult:(id)result error:(id)error
@@ -558,12 +551,12 @@ void __24__FPDMoveOperation_main__block_invoke_4_30(uint64_t a1)
   dispatch_sync(callbackQueue, v7);
 }
 
-uint64_t __31__FPDMoveOperation_cancelRoot___block_invoke(uint64_t a1)
+uint64_t __31__FPDMoveOperation_cancelRoot___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __31__FPDMoveOperation_cancelRoot___block_invoke_cold_1(a1);
+    __31__FPDMoveOperation_cancelRoot___block_invoke_cold_1();
   }
 
   [*(*(a1 + 40) + 416) cancelRoot:*(a1 + 32)];
@@ -670,92 +663,69 @@ uint64_t __32__FPDMoveOperation_dumpStateTo___block_invoke(uint64_t a1)
   dispatch_sync(callbackQueue, block);
 }
 
-void __24__FPDMoveOperation_main__block_invoke_3_cold_1(uint64_t a1)
+void __24__FPDMoveOperation_main__block_invoke_3_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __24__FPDMoveOperation_main__block_invoke_6_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [*(a1 + 32) fp_prettyDescription];
+  v6 = [*(a1 + 32) fp_prettyDescription];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __24__FPDMoveOperation_main__block_invoke_10_cold_1(uint64_t a1, id *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v3 = [*a2 fp_prettyDescription];
+  v2 = [*a2 fp_prettyDescription];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void __24__FPDMoveOperation_main__block_invoke_10_cold_2(uint64_t a1)
+void __24__FPDMoveOperation_main__block_invoke_10_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __24__FPDMoveOperation_main__block_invoke_4_30_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [*a1 fp_prettyDescription];
+  v6 = [*a1 fp_prettyDescription];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-- (void)sendPastUpdatesToClient:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)sendPastUpdatesToClient:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_2();
-  v6 = 2112;
-  v7 = v2;
-  _os_log_debug_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx sending past updates to %@", v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1CEFC7000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx sending past updates to %@", v2, 0x16u);
 }
 
 - (void)finishWithResult:(void *)a1 error:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = [a1 createdItemByRoot];
   v5 = [a1 errorsByRoot];
   v6 = [a1 error];
   OUTLINED_FUNCTION_3_0();
-  v11 = v5;
-  v12 = v7;
-  v13 = v8;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] move operation finished with moved-roots:%@ errors-by-root:%@; %@", v10, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = v5;
+  v11 = v7;
+  v12 = v8;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] move operation finished with moved-roots:%@ errors-by-root:%@; %@", v9, 0x20u);
 }
 
-void __31__FPDMoveOperation_cancelRoot___block_invoke_cold_1(uint64_t a1)
+void __31__FPDMoveOperation_cancelRoot___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 @end

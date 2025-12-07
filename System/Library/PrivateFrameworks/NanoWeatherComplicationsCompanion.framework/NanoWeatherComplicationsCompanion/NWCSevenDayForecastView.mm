@@ -84,31 +84,30 @@ uint64_t __37__NWCSevenDayForecastView_initialize__block_invoke()
 
 - (void)_applyConstraints
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   horizontalStackView = [(NWCSevenDayForecastView *)self horizontalStackView];
   topAnchor = [horizontalStackView topAnchor];
   topAnchor2 = [(NWCSevenDayForecastView *)self topAnchor];
-  v17 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v21[0] = v17;
+  v16 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v20[0] = v16;
   bottomAnchor = [(NWCSevenDayForecastView *)self bottomAnchor];
   horizontalStackView2 = [(NWCSevenDayForecastView *)self horizontalStackView];
   bottomAnchor2 = [horizontalStackView2 bottomAnchor];
   v3 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v21[1] = v3;
+  v20[1] = v3;
   horizontalStackView3 = [(NWCSevenDayForecastView *)self horizontalStackView];
   leadingAnchor = [horizontalStackView3 leadingAnchor];
   leadingAnchor2 = [(NWCSevenDayForecastView *)self leadingAnchor];
   v7 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v21[2] = v7;
+  v20[2] = v7;
   trailingAnchor = [(NWCSevenDayForecastView *)self trailingAnchor];
   horizontalStackView4 = [(NWCSevenDayForecastView *)self horizontalStackView];
   trailingAnchor2 = [horizontalStackView4 trailingAnchor];
   v11 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v21[3] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+  v20[3] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
 
   [MEMORY[0x277CCAAD0] activateConstraints:v12];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initFullColorImageViewWithDevice:(id)device

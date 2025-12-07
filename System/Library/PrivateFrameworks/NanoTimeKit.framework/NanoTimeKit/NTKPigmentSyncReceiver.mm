@@ -106,13 +106,13 @@ void __60__NTKPigmentSyncReceiver_processSyncData_domain_deviceUUID___block_invo
   dispatch_sync(privateQueue, v8);
 }
 
-uint64_t __61__NTKPigmentSyncReceiver_finishSyncingForDeviceUUID_success___block_invoke(uint64_t result)
+void *__61__NTKPigmentSyncReceiver_finishSyncingForDeviceUUID_success___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 8) == 1)
   {
     v2 = result;
-    [*(v1 + 24) closeTransactionForDeviceUUID:*(result + 40)];
+    [*(v1 + 24) closeTransactionForDeviceUUID:result[5]];
     v3 = _NTKLoggingObjectForDomain(46, "NTKLoggingDomainPigment");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
@@ -121,7 +121,7 @@ uint64_t __61__NTKPigmentSyncReceiver_finishSyncingForDeviceUUID_success___block
     }
 
     result = [NTKDarwinNotificationCenter postNotification:@"NTKColorSyncDataUpdatedNotificationName"];
-    v1 = *(v2 + 32);
+    v1 = v2[4];
   }
 
   *(v1 + 8) = 0;

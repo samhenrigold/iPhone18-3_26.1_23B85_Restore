@@ -317,7 +317,7 @@
   aBlock[2] = __46__NTKPhotosFaceView__finalizeForSnapshotting___block_invoke;
   aBlock[3] = &unk_27877E960;
   v6 = snapshottingCopy;
-  v14 = v6;
+  v15 = v6;
   v7 = _Block_copy(aBlock);
   if ((self->_currentContent | 2) == 2)
   {
@@ -328,22 +328,22 @@
       _os_log_impl(&dword_22D9C5000, v8, OS_LOG_TYPE_DEFAULT, "NTKPhotosFaceView waiting for photos analysis", buf, 2u);
     }
 
-    v9 = _NTKPhotosAnalysisQueue();
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __46__NTKPhotosFaceView__finalizeForSnapshotting___block_invoke_66;
-    v11[3] = &unk_27877E960;
-    v12 = v7;
-    dispatch_async(v9, v11);
+    v10 = _NTKPhotosAnalysisQueue(v9);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __46__NTKPhotosFaceView__finalizeForSnapshotting___block_invoke_66;
+    v12[3] = &unk_27877E960;
+    v13 = v7;
+    dispatch_async(v10, v12);
   }
 
   else
   {
-    v10 = _NTKLoggingObjectForDomain(4, "NTKLoggingDomainSnapshot");
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _NTKLoggingObjectForDomain(4, "NTKLoggingDomainSnapshot");
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_22D9C5000, v10, OS_LOG_TYPE_DEFAULT, "NTKPhotosFaceView nothing to wait for", buf, 2u);
+      _os_log_impl(&dword_22D9C5000, v11, OS_LOG_TYPE_DEFAULT, "NTKPhotosFaceView nothing to wait for", buf, 2u);
     }
 
     v7[2](v7);
@@ -747,7 +747,7 @@ void __43__NTKPhotosFaceView__startBackgroundRefill__block_invoke_76(uint64_t a1
   *(v3 + 40) = v2;
 }
 
-uint64_t __43__NTKPhotosFaceView__startBackgroundRefill__block_invoke_2(uint64_t a1)
+void *__43__NTKPhotosFaceView__startBackgroundRefill__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _enqueuePreloadedPhoto:*(*(*(a1 + 48) + 8) + 40) ifMatchingGeneration:*(a1 + 56)];
   *(*(*(a1 + 40) + 8) + 24) = result ^ 1;
@@ -1096,7 +1096,7 @@ LABEL_4:
           image2 = [presentedPhoto3 image];
 
           dateAlignment = [(NTKBasePhotosFaceView *)self dateAlignment];
-          v19 = _NTKPhotosAnalysisQueue();
+          v19 = _NTKPhotosAnalysisQueue(dateAlignment);
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __62__NTKPhotosFaceView__updateDateAttributesAnimated_completion___block_invoke;
@@ -1233,7 +1233,7 @@ uint64_t __62__NTKPhotosFaceView__updateDateAttributesAnimated_completion___bloc
 
 - (BOOL)_canOperationProceed:(unint64_t)proceed
 {
-  v5 = _NTKPhotosAnalysisQueue();
+  v5 = _NTKPhotosAnalysisQueue(self);
   dispatch_assert_queue_V2(v5);
 
   v8 = 0;

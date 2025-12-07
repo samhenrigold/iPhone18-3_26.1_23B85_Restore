@@ -773,102 +773,93 @@
 {
   collectionCopy = collection;
   view = [(PUIDPointerRenderingRootViewController *)self view];
-  memset(&v208[1], 0, sizeof(CATransform3D));
+  memset(&v209[1], 0, sizeof(CATransform3D));
   pointerState = self->_pointerState;
   if (pointerState)
   {
-    [(PUIDPointerState *)pointerState clientCoordinateSpaceTransformToDisplay];
+    objc_msgSend_clientCoordinateSpaceTransformToDisplay(pointerState);
   }
 
-  memset(v208, 0, 128);
-  *b = v208[1];
-  [(PUIDPointerRenderingRootViewController *)self transformToLocalWindowForCoordinateSpaceTransformToDisplay:b];
+  memset(v209, 0, 128);
+  *b = v209[1];
+  objc_msgSend_transformToLocalWindowForCoordinateSpaceTransformToDisplay_(self);
   CATransform3DGetDecomposition_();
-  memset(&v207, 0, sizeof(v207));
-  CATransform3DMakeRotation(&v207, v211, 0.0, 0.0, 1.0);
-  v146 = sub_100019EA0();
+  v8 = v212;
+  memset(&v208, 0, sizeof(v208));
+  CATransform3DMakeRotation(&v208, v212, 0.0, 0.0, 1.0);
+  v147 = sub_100019EA0(v8);
   pointerPortalSourceCollection = [(PUIDPointerState *)self->_pointerState pointerPortalSourceCollection];
   pointerPortalSource = [pointerPortalSourceCollection pointerPortalSource];
   pointerPortalSource2 = [(PSPointerPortalSourceCollection *)self->_previousPointerPortalSourceCollection pointerPortalSource];
-  v161 = pointerPortalSource2;
+  v162 = pointerPortalSource2;
   if (pointerPortalSource)
   {
-    v11 = [(NSMutableDictionary *)self->_portalSourceToView objectForKey:pointerPortalSource];
-    v12 = v161;
-    v158 = v11;
-    if (v161)
+    v12 = [(NSMutableDictionary *)self->_portalSourceToView objectForKey:pointerPortalSource];
+    v13 = v162;
+    v159 = v12;
+    if (v162)
     {
 LABEL_5:
-      v157 = [(NSMutableDictionary *)self->_portalSourceToView objectForKey:v12];
+      v158 = [(NSMutableDictionary *)self->_portalSourceToView objectForKey:v13];
       goto LABEL_8;
     }
   }
 
   else
   {
-    v12 = pointerPortalSource2;
-    v158 = 0;
+    v13 = pointerPortalSource2;
+    v159 = 0;
     if (pointerPortalSource2)
     {
       goto LABEL_5;
     }
   }
 
-  v157 = 0;
+  v158 = 0;
 LABEL_8:
   overlayEffectPortalSource = [pointerPortalSourceCollection overlayEffectPortalSource];
   overlayEffectPortalSource2 = [(PSPointerPortalSourceCollection *)self->_previousPointerPortalSourceCollection overlayEffectPortalSource];
-  v151 = overlayEffectPortalSource;
+  v152 = overlayEffectPortalSource;
   if (overlayEffectPortalSource)
   {
-    v14 = [(NSMutableDictionary *)self->_portalSourceToView objectForKey:overlayEffectPortalSource];
+    v15 = [(NSMutableDictionary *)self->_portalSourceToView objectForKey:overlayEffectPortalSource];
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v15 = overlayEffectPortalSource2;
-  v160 = v14;
+  v16 = overlayEffectPortalSource2;
+  v161 = v15;
   if (overlayEffectPortalSource2)
   {
-    v16 = [(NSMutableDictionary *)self->_portalSourceToView objectForKey:overlayEffectPortalSource2];
+    v17 = [(NSMutableDictionary *)self->_portalSourceToView objectForKey:overlayEffectPortalSource2];
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  if (v14 != v16)
+  if (v15 != v17)
   {
-    [v16 contentPortalView];
-    v18 = v17 = pointerPortalSource;
-    [v18 setAlpha:0.0];
+    [v17 contentPortalView];
+    v19 = v18 = pointerPortalSource;
+    [v19 setAlpha:0.0];
 
-    contentPortalView = [v14 contentPortalView];
+    contentPortalView = [v15 contentPortalView];
     [contentPortalView setAlpha:1.0];
 
-    pointerPortalSource = v17;
+    pointerPortalSource = v18;
   }
 
-  v150 = v16;
+  v151 = v17;
   objc_storeStrong(&self->_previousPointerPortalSourceCollection, pointerPortalSourceCollection);
   contentMatchMoveSource = [(PUIDPointerState *)self->_pointerState contentMatchMoveSource];
   if (contentMatchMoveSource)
   {
-    v21 = [(NSMutableDictionary *)self->_matchMoveSourceToView objectForKey:contentMatchMoveSource];
-  }
-
-  else
-  {
-    v21 = 0;
-  }
-
-  if (self->_previousContentMatchMoveSource)
-  {
-    v22 = [(NSMutableDictionary *)self->_matchMoveSourceToView objectForKey:?];
+    v22 = [(NSMutableDictionary *)self->_matchMoveSourceToView objectForKey:contentMatchMoveSource];
   }
 
   else
@@ -876,111 +867,111 @@ LABEL_8:
     v22 = 0;
   }
 
-  objc_storeStrong(&self->_previousContentMatchMoveSource, contentMatchMoveSource);
-  [(PUIDPointerState *)self->_pointerState modelPointerReferencePosition];
-  v24 = v23;
-  v26 = v25;
-  sub_100022070(@"pointerStateModelReferencePosition", self->_pointerState, v23, v25);
-  [view convertPoint:0 fromView:{v24, v26}];
-  v28 = v27;
-  v30 = v29;
-  sub_100022070(@"relativeModelPosition", self->_pointerState, v27, v29);
-  [(PUIDPointerState *)self->_pointerState contentBounds];
-  y = CGPointZero.y;
-  pointerSlipValue = [(PUIDPointerState *)self->_pointerState pointerSlipValue];
-  v153 = v28;
-  path = *&y;
-  if (pointerSlipValue)
+  if (self->_previousContentMatchMoveSource)
   {
-    UIRectGetCenter();
-    *b = v208[0];
-    CA_CGPointApplyTransform();
-    x = v33;
-    v36 = v35;
-    sub_100022070(@"contentBoundsCenterInLocalWindowCoordinates", self->_pointerState, v33, v35);
-    [pointerSlipValue CGPointValue];
-    v38 = v37;
-    v40 = v39;
-    sub_100022070(@"pointerSlipValue", self->_pointerState, v37, v39);
-    if (v146)
-    {
-      v41 = v38;
-    }
-
-    else
-    {
-      v41 = v40;
-    }
-
-    if (v146)
-    {
-      v38 = v40;
-    }
-
-    sub_100022070(@"pointerSlipValue post transform", self->_pointerState, v38, v41);
-    v140 = v38;
-    v141 = v41;
-    [(PUIDPointerRenderingRootViewController *)self _positionForTargetWithCenter:x modelCursorPosition:v36 slip:v153, v30, v38, v41];
-    v28 = v42;
-    v44 = v43;
+    v23 = [(NSMutableDictionary *)self->_matchMoveSourceToView objectForKey:?];
   }
 
   else
   {
-    v140 = 1.0;
-    v141 = 1.0;
-    v44 = v30;
-    v36 = y;
-    x = CGPointZero.x;
+    v23 = 0;
   }
 
-  v152 = pointerPortalSourceCollection;
-  v148 = sub_100022070(@"relativeEffectedPosition", self->_pointerState, v28, v44);
-  v149 = pointerSlipValue;
-  if (v148)
+  objc_storeStrong(&self->_previousContentMatchMoveSource, contentMatchMoveSource);
+  [(PUIDPointerState *)self->_pointerState modelPointerReferencePosition];
+  v25 = v24;
+  v27 = v26;
+  sub_100022070(@"pointerStateModelReferencePosition", self->_pointerState, v24, v26);
+  [view convertPoint:0 fromView:{v25, v27}];
+  v29 = v28;
+  v31 = v30;
+  sub_100022070(@"relativeModelPosition", self->_pointerState, v28, v30);
+  [(PUIDPointerState *)self->_pointerState contentBounds];
+  y = CGPointZero.y;
+  pointerSlipValue = [(PUIDPointerState *)self->_pointerState pointerSlipValue];
+  v154 = v29;
+  path = *&y;
+  if (pointerSlipValue)
   {
-    v145 = view;
-    window = [view window];
-    screen = [window screen];
-    v47 = screen;
-    v135 = v30;
-    if (screen)
+    UIRectGetCenter();
+    *b = v209[0];
+    CA_CGPointApplyTransform();
+    x = v34;
+    v37 = v36;
+    sub_100022070(@"contentBoundsCenterInLocalWindowCoordinates", self->_pointerState, v34, v36);
+    [pointerSlipValue CGPointValue];
+    v39 = v38;
+    v41 = v40;
+    sub_100022070(@"pointerSlipValue", self->_pointerState, v38, v40);
+    if (v147)
     {
-      v48 = screen;
+      v42 = v39;
     }
 
     else
     {
-      v48 = +[UIScreen mainScreen];
+      v42 = v41;
     }
 
-    v52 = v48;
-    v143 = v21;
+    if (v147)
+    {
+      v39 = v41;
+    }
 
-    [v52 scale];
+    sub_100022070(@"pointerSlipValue post transform", self->_pointerState, v39, v42);
+    v141 = v39;
+    v142 = v42;
+    [(PUIDPointerRenderingRootViewController *)self _positionForTargetWithCenter:x modelCursorPosition:v37 slip:v154, v31, v39, v42];
+    v29 = v43;
+    v45 = v44;
+  }
+
+  else
+  {
+    v141 = 1.0;
+    v142 = 1.0;
+    v45 = v31;
+    v37 = y;
+    x = CGPointZero.x;
+  }
+
+  v153 = pointerPortalSourceCollection;
+  v149 = sub_100022070(@"relativeEffectedPosition", self->_pointerState, v29, v45);
+  v150 = pointerSlipValue;
+  if (v149)
+  {
+    v146 = view;
+    window = [view window];
+    screen = [window screen];
+    v48 = screen;
+    v136 = v31;
+    if (screen)
+    {
+      v49 = screen;
+    }
+
+    else
+    {
+      v49 = +[UIScreen mainScreen];
+    }
+
+    v53 = v49;
+    v144 = v22;
+
+    [v53 scale];
     BSPointRoundForScale();
-    v54 = v53;
-    v130 = v55;
+    v55 = v54;
+    v131 = v56;
     contentSlipValue = [(PUIDPointerState *)self->_pointerState contentSlipValue];
-    v57 = contentSlipValue;
-    v58 = CGPointZero.x;
-    v59 = path;
+    v58 = contentSlipValue;
+    v59 = CGPointZero.x;
+    v60 = path;
     if (contentSlipValue)
     {
       [contentSlipValue CGPointValue];
-      if (v146)
+      if (v147)
       {
-        v62 = v61;
-      }
-
-      else
-      {
-        v62 = v60;
-      }
-
-      if (v146)
-      {
-        v63 = v60;
+        v63 = v62;
       }
 
       else
@@ -988,118 +979,128 @@ LABEL_8:
         v63 = v61;
       }
 
-      [(PUIDPointerRenderingRootViewController *)self _positionForTargetWithCenter:x modelCursorPosition:v36 slip:v153, v30, v62, v63];
-      v206 = v207;
-      CATransform3DInvert(b, &v206);
+      if (v147)
+      {
+        v64 = v61;
+      }
+
+      else
+      {
+        v64 = v62;
+      }
+
+      [(PUIDPointerRenderingRootViewController *)self _positionForTargetWithCenter:x modelCursorPosition:v37 slip:v154, v31, v63, v64];
+      v207 = v208;
+      CATransform3DInvert(b, &v207);
       CA_CGPointApplyTransform();
     }
 
-    v131 = v59;
-    v147 = v58;
+    v132 = v60;
+    v148 = v59;
     pointerShape = [(PUIDPointerState *)self->_pointerState pointerShape];
     shapeType = [pointerShape shapeType];
-    v66 = shapeType;
-    v134 = contentMatchMoveSource;
-    v142 = v22;
-    v132 = v57;
+    v67 = shapeType;
+    v135 = contentMatchMoveSource;
+    v143 = v23;
+    v133 = v58;
     if (shapeType == 5)
     {
       [pointerShape pinnedPoint];
-      *b = v208[0];
+      *b = v209[0];
       CA_CGPointApplyTransform();
       BSPointRoundForScale();
-      v68 = v67;
-      v70 = v69;
+      v69 = v68;
+      v71 = v70;
       [(PUIDPointerSettings *)self->_settings systemPointerSize];
-      v72 = v71;
+      v73 = v72;
       [(PUIDPointerSettings *)self->_settings systemPointerPressedScale];
-      v74 = v72 * v73;
-      v75 = v72 * v73 * 0.5;
-      if (v68 >= v54)
+      v75 = v73 * v74;
+      v76 = v73 * v74 * 0.5;
+      if (v69 >= v55)
       {
-        v76 = v54;
+        v77 = v55;
       }
 
       else
       {
-        v76 = v68;
+        v77 = v69;
       }
 
-      v77 = v130;
-      if (v70 >= v130)
+      v78 = v131;
+      if (v71 >= v131)
       {
-        v78 = v130;
+        v79 = v131;
       }
 
       else
       {
-        v78 = v70;
+        v79 = v71;
       }
 
-      v79 = vabdd_f64(v68, v54);
-      v80 = vabdd_f64(v70, v130);
-      v215 = CGRectInset(*&v76, -(v74 * 0.5), -(v74 * 0.5));
-      v81 = v215.origin.x;
-      v82 = v215.origin.y;
-      width = v215.size.width;
-      height = v215.size.height;
-      v85 = v54;
-      v86 = CGRectGetMinX(v215) - v54;
-      v216.origin.x = v81;
-      v216.origin.y = v82;
-      v216.size.width = width;
-      v216.size.height = height;
-      v87 = CGRectGetMinY(v216) - v130;
-      v88 = v86;
-      v54 = v85;
-      v89 = [PSPointerShape roundedRectWithBounds:v88 cornerRadius:v87, width, height, v75];
+      v80 = vabdd_f64(v69, v55);
+      v81 = vabdd_f64(v71, v131);
+      v216 = CGRectInset(*&v77, -(v75 * 0.5), -(v75 * 0.5));
+      v82 = v216.origin.x;
+      v83 = v216.origin.y;
+      width = v216.size.width;
+      height = v216.size.height;
+      v86 = v55;
+      v87 = CGRectGetMinX(v216) - v55;
+      v217.origin.x = v82;
+      v217.origin.y = v83;
+      v217.size.width = width;
+      v217.size.height = height;
+      v88 = CGRectGetMinY(v217) - v131;
+      v89 = v87;
+      v55 = v86;
+      v90 = [PSPointerShape roundedRectWithBounds:v89 cornerRadius:v88, width, height, v76];
 
-      pointerShape = v89;
-      v90 = v135;
+      pointerShape = v90;
+      v91 = v136;
     }
 
     else
     {
       if ((shapeType - 2) <= 2)
       {
-        *b = v208[0];
+        *b = v209[0];
         CA_CGPointApplyTransform();
-        v92 = v91;
-        v94 = v93;
-        v206 = v208[0];
+        v93 = v92;
+        v95 = v94;
+        v207 = v209[0];
         if (![(PUIDPointerState *)self->_pointerState isPointerUnderlayingContent])
         {
-          *b = v208[0];
-          CATransform3DScale(&v206, b, 1.0 / v212, 1.0 / v213, 1.0 / v214);
+          *b = v209[0];
+          CATransform3DScale(&v207, b, 1.0 / v213, 1.0 / v214, 1.0 / v215);
         }
 
-        memset(&v205, 0, sizeof(v205));
-        CATransform3DMakeTranslation(b, -v92, -v94, 0.0);
-        a = v206;
-        CATransform3DConcat(&v205, &a, b);
+        memset(&v206, 0, sizeof(v206));
+        CATransform3DMakeTranslation(b, -v93, -v95, 0.0);
+        a = v207;
+        CATransform3DConcat(&v206, &a, b);
         if ([pointerShape shapeType] == 2)
         {
           [pointerShape bounds];
-          *b = v205;
+          *b = v206;
           CA_CGRectApplyTransform();
-          v95 = [PSPointerShape circleWithBounds:?];
+          v96 = [PSPointerShape circleWithBounds:?];
 
-          pointerShape = v95;
+          pointerShape = v96;
         }
 
         else if ([pointerShape shapeType] == 3)
         {
           [pointerShape bounds];
-          *b = v205;
+          *b = v206;
           CA_CGRectApplyTransform();
-          v97 = v96;
-          v99 = v98;
-          v101 = v100;
-          v103 = v102;
+          v98 = v97;
+          v100 = v99;
+          v102 = v101;
+          v104 = v103;
           [pointerShape cornerRadius];
-          v105 = v104;
+          v106 = v105;
           cornerCurve = [pointerShape cornerCurve];
-          patha = [PSPointerShape roundedRectWithBounds:cornerCurve cornerRadius:v97 cornerCurve:v99, v101, v103, v105];
+          patha = [PSPointerShape roundedRectWithBounds:cornerCurve cornerRadius:v98 cornerCurve:v100, v102, v104, v106];
 
           pointerShape = patha;
         }
@@ -1107,219 +1108,219 @@ LABEL_8:
         else if ([pointerShape shapeType] == 4)
         {
           pathb = [pointerShape path];
-          a = v205;
+          a = v206;
           Mutable = CGPathCreateMutable();
           *b = _NSConcreteStackBlock;
           *&b[8] = 3221225472;
           *&b[16] = sub_100025D58;
           *&b[24] = &unk_1000498B8;
           *&b[32] = a;
-          v210 = Mutable;
+          v211 = Mutable;
           CGPathApplyWithBlock(pathb, b);
           pathc = CGPathCreateCopy(Mutable);
           CGPathRelease(Mutable);
-          v129 = +[PSPointerShape customShapeWithPath:usesEvenOddFillRule:](PSPointerShape, "customShapeWithPath:usesEvenOddFillRule:", pathc, [pointerShape usesEvenOddFillRule]);
+          v130 = +[PSPointerShape customShapeWithPath:usesEvenOddFillRule:](PSPointerShape, "customShapeWithPath:usesEvenOddFillRule:", pathc, [pointerShape usesEvenOddFillRule]);
 
           CGPathRelease(pathc);
-          pointerShape = v129;
+          pointerShape = v130;
         }
       }
 
-      v90 = v135;
-      v77 = v130;
+      v91 = v136;
+      v78 = v131;
     }
 
     suppressPointerMirroring = [(PUIDPointerState *)self->_pointerState suppressPointerMirroring];
     layer = [(UIView *)self->_pointerRootView layer];
-    v110 = layer;
+    v111 = layer;
     if (suppressPointerMirroring)
     {
-      v111 = 18;
+      v112 = 18;
     }
 
     else
     {
-      v111 = 0;
+      v112 = 0;
     }
 
-    [layer setDisableUpdateMask:v111];
+    [layer setDisableUpdateMask:v112];
 
-    [(PUIDPointerRenderingRootViewController *)self _updateRampingPropertiesForPointerSlip:options & 1 animated:v140, v141];
-    v196[0] = _NSConcreteStackBlock;
-    v196[1] = 3221225472;
-    v196[2] = sub_1000221D4;
-    v196[3] = &unk_1000495B0;
-    v196[4] = self;
-    v112 = pointerShape;
-    v197 = v112;
-    v198 = v153;
-    v199 = v90;
-    v200 = v54;
-    v201 = v77;
-    v203 = options & 1;
+    [(PUIDPointerRenderingRootViewController *)self _updateRampingPropertiesForPointerSlip:options & 1 animated:v141, v142];
+    v197[0] = _NSConcreteStackBlock;
+    v197[1] = 3221225472;
+    v197[2] = sub_1000221D4;
+    v197[3] = &unk_1000495B0;
+    v197[4] = self;
+    v113 = pointerShape;
+    v198 = v113;
+    v199 = v154;
+    v200 = v91;
+    v201 = v55;
+    v202 = v78;
+    v204 = options & 1;
     optionsCopy = options;
-    [SBC2GroupCompletion perform:v196 finalCompletion:&stru_1000495F0];
+    [SBC2GroupCompletion perform:v197 finalCompletion:&stru_1000495F0];
     isPointerAutoHidden = [(PUIDPointerState *)self->_pointerState isPointerAutoHidden];
     if (isPointerAutoHidden)
     {
-      v114 = 1;
+      v115 = 1;
     }
 
     else
     {
-      v114 = 3;
+      v115 = 3;
     }
 
-    v133 = v52;
-    if (v66 != 5 && (isPointerAutoHidden & 1) == 0)
+    v134 = v53;
+    if (v67 != 5 && (isPointerAutoHidden & 1) == 0)
     {
       if ([(PUIDPointerState *)self->_pointerState isPressed])
       {
-        v114 = 2;
+        v115 = 2;
       }
 
       else
       {
-        v114 = 0;
+        v115 = 0;
       }
     }
 
     visibilityState = self->_visibilityState;
-    self->_visibilityState = v114;
-    v191[0] = _NSConcreteStackBlock;
-    v191[1] = 3221225472;
-    v191[2] = sub_1000228C8;
-    v191[3] = &unk_100049618;
-    v192 = v158;
-    v193 = v157;
+    self->_visibilityState = v115;
+    v192[0] = _NSConcreteStackBlock;
+    v192[1] = 3221225472;
+    v192[2] = sub_1000228C8;
+    v192[3] = &unk_100049618;
+    v193 = v159;
+    v194 = v158;
     selfCopy = self;
-    v195 = options & 1;
-    v189[0] = _NSConcreteStackBlock;
-    v189[1] = 3221225472;
-    v189[2] = sub_10002296C;
-    v189[3] = &unk_100048EE0;
-    v115 = collectionCopy;
-    v190 = v115;
-    [SBC2GroupCompletion perform:v191 finalCompletion:v189];
+    v196 = options & 1;
+    v190[0] = _NSConcreteStackBlock;
+    v190[1] = 3221225472;
+    v190[2] = sub_10002296C;
+    v190[3] = &unk_100048EE0;
+    v116 = collectionCopy;
+    v191 = v116;
+    [SBC2GroupCompletion perform:v192 finalCompletion:v190];
     pointerShapeView = self->_pointerShapeView;
     [(PUIDPointerState *)self->_pointerState shakeToFindPointerSizeMultiplier];
     [(PUIDPointerShapeView *)pointerShapeView setShakeToFindPointerSizeMultiplier:?];
     specularEffectMaskPointerShapeView = self->_specularEffectMaskPointerShapeView;
     [(PUIDPointerState *)self->_pointerState shakeToFindPointerSizeMultiplier];
     [(PUIDPointerShapeView *)specularEffectMaskPointerShapeView setShakeToFindPointerSizeMultiplier:?];
-    v186[0] = _NSConcreteStackBlock;
-    v186[1] = 3221225472;
-    v186[2] = sub_1000229C4;
-    v186[3] = &unk_100049640;
-    v186[4] = self;
-    v118 = v112;
-    v187 = v118;
-    v188 = options & 1;
-    v184[0] = _NSConcreteStackBlock;
-    v184[1] = 3221225472;
-    v184[2] = sub_100022AB0;
-    v184[3] = &unk_100048EE0;
-    v119 = v115;
-    v185 = v119;
-    [SBC2GroupCompletion perform:v186 finalCompletion:v184];
-    v178[0] = _NSConcreteStackBlock;
-    v178[1] = 3221225472;
-    v178[2] = sub_100022B08;
-    v178[3] = &unk_1000496E0;
-    v180 = v114;
-    v178[4] = self;
-    v120 = v118;
-    v179 = v120;
-    v181 = visibilityState;
-    v183 = (options & 2) != 0;
-    optionsCopy2 = options;
-    v176[0] = _NSConcreteStackBlock;
-    v176[1] = 3221225472;
-    v176[2] = sub_100023484;
-    v176[3] = &unk_100048EE0;
+    v187[0] = _NSConcreteStackBlock;
+    v187[1] = 3221225472;
+    v187[2] = sub_1000229C4;
+    v187[3] = &unk_100049640;
+    v187[4] = self;
+    v119 = v113;
+    v188 = v119;
+    v189 = options & 1;
+    v185[0] = _NSConcreteStackBlock;
+    v185[1] = 3221225472;
+    v185[2] = sub_100022AB0;
+    v185[3] = &unk_100048EE0;
+    v120 = v116;
+    v186 = v120;
+    [SBC2GroupCompletion perform:v187 finalCompletion:v185];
+    v179[0] = _NSConcreteStackBlock;
+    v179[1] = 3221225472;
+    v179[2] = sub_100022B08;
+    v179[3] = &unk_1000496E0;
+    v181 = v115;
+    v179[4] = self;
     v121 = v119;
-    v177 = v121;
-    [SBC2GroupCompletion perform:v178 finalCompletion:v176];
-    v169[0] = _NSConcreteStackBlock;
-    v169[1] = 3221225472;
-    v169[2] = sub_1000234DC;
-    v169[3] = &unk_100049758;
-    v169[4] = self;
-    v173 = v147;
-    v174 = v131;
-    v170 = v143;
-    v171 = v142;
-    v172 = v145;
-    v175 = options & 1;
-    v167[0] = _NSConcreteStackBlock;
-    v167[1] = 3221225472;
-    v167[2] = sub_100023940;
-    v167[3] = &unk_100048EE0;
-    v122 = v121;
-    v168 = v122;
-    [SBC2GroupCompletion perform:v169 finalCompletion:v167];
-    v164[0] = _NSConcreteStackBlock;
-    v164[1] = 3221225472;
-    v164[2] = sub_100023998;
-    v164[3] = &unk_100049640;
-    v164[4] = self;
-    v123 = v120;
-    v165 = v123;
-    v166 = options & 1;
-    v162[0] = _NSConcreteStackBlock;
-    v162[1] = 3221225472;
-    v162[2] = sub_100023CBC;
-    v162[3] = &unk_100048EE0;
-    v163 = v122;
-    [SBC2GroupCompletion perform:v164 finalCompletion:v162];
+    v180 = v121;
+    v182 = visibilityState;
+    v184 = (options & 2) != 0;
+    optionsCopy2 = options;
+    v177[0] = _NSConcreteStackBlock;
+    v177[1] = 3221225472;
+    v177[2] = sub_100023484;
+    v177[3] = &unk_100048EE0;
+    v122 = v120;
+    v178 = v122;
+    [SBC2GroupCompletion perform:v179 finalCompletion:v177];
+    v170[0] = _NSConcreteStackBlock;
+    v170[1] = 3221225472;
+    v170[2] = sub_1000234DC;
+    v170[3] = &unk_100049758;
+    v170[4] = self;
+    v174 = v148;
+    v175 = v132;
+    v171 = v144;
+    v172 = v143;
+    v173 = v146;
+    v176 = options & 1;
+    v168[0] = _NSConcreteStackBlock;
+    v168[1] = 3221225472;
+    v168[2] = sub_100023940;
+    v168[3] = &unk_100048EE0;
+    v123 = v122;
+    v169 = v123;
+    [SBC2GroupCompletion perform:v170 finalCompletion:v168];
+    v165[0] = _NSConcreteStackBlock;
+    v165[1] = 3221225472;
+    v165[2] = sub_100023998;
+    v165[3] = &unk_100049640;
+    v165[4] = self;
+    v124 = v121;
+    v166 = v124;
+    v167 = options & 1;
+    v163[0] = _NSConcreteStackBlock;
+    v163[1] = 3221225472;
+    v163[2] = sub_100023CBC;
+    v163[3] = &unk_100048EE0;
+    v164 = v123;
+    [SBC2GroupCompletion perform:v165 finalCompletion:v163];
     accessories = [(PUIDPointerState *)self->_pointerState accessories];
-    v50 = v152;
-    v15 = overlayEffectPortalSource2;
+    v51 = v153;
+    v16 = overlayEffectPortalSource2;
     if ([accessories count])
     {
       accessoryContainerView = self->_accessoryContainerView;
       if (!accessoryContainerView)
       {
-        v126 = objc_opt_new();
-        v127 = self->_accessoryContainerView;
-        self->_accessoryContainerView = v126;
+        v127 = objc_opt_new();
+        v128 = self->_accessoryContainerView;
+        self->_accessoryContainerView = v127;
 
         [(UIView *)self->_pointerRootView insertSubview:self->_accessoryContainerView atIndex:0];
         accessoryContainerView = self->_accessoryContainerView;
       }
 
-      *b = v207;
+      *b = v208;
       [(PUIDPointerAccessoryContainerView *)accessoryContainerView setTransform3D:b];
     }
 
     [(PUIDPointerAccessoryContainerView *)self->_accessoryContainerView setAccessories:accessories animated:1];
-    *b = v208[0];
+    *b = v209[0];
     [(PUIDPointerRenderingRootViewController *)self _debugVisualizationUpdate:b];
 
-    v51 = collectionCopy;
-    v21 = v143;
-    view = v145;
-    contentMatchMoveSource = v134;
-    v22 = v142;
+    v52 = collectionCopy;
+    v22 = v144;
+    view = v146;
+    contentMatchMoveSource = v135;
+    v23 = v143;
   }
 
   else
   {
-    v49 = PSLogCommon();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+    v50 = PSLogCommon();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
-      sub_10002843C(v49);
+      sub_10002843C(v50);
     }
 
-    v50 = v152;
-    v51 = collectionCopy;
+    v51 = v153;
+    v52 = collectionCopy;
     if (error)
     {
       *error = [NSError errorWithDomain:@"PUIDPointerRenderingRootViewControllerErrorDomain" code:-1002 userInfo:0];
     }
   }
 
-  return v148;
+  return v149;
 }
 
 - (CATransform3D)transformToLocalWindowForCoordinateSpaceTransformToDisplay:(SEL)display
@@ -1355,7 +1356,7 @@ LABEL_8:
   {
     if (settings)
     {
-      [settings rootWindowTransform];
+      objc_msgSend_rootWindowTransform(settings);
       v22 = *&m.m11;
       v23 = *&m.m13;
     }

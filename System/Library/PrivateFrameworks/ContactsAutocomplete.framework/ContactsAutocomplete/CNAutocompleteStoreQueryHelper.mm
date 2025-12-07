@@ -64,20 +64,18 @@
   userSession = [(CNAutocompleteStoreQueryHelper *)self userSession];
   v17 = [CNAutocompleteQuery queryWithRequest:requestCopy searchProvider:searchProvider delegate:v12 probeProvider:probeProvider scheduler:scheduler userSession:userSession delegateToken:tokenCopy];
 
-  v18 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = CNALoggingContextDebug(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v24 = v17;
-    _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "Query: %@", buf, 0xCu);
+    _os_log_impl(&dword_2155FE000, v19, OS_LOG_TYPE_DEFAULT, "Query: %@", buf, 0xCu);
   }
 
   queryContext = [(CNAutocompleteStoreQueryHelper *)self queryContext];
-  v20 = [v17 executeWithContext:queryContext];
+  v21 = [v17 executeWithContext:queryContext];
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v21;
 }
 
 @end

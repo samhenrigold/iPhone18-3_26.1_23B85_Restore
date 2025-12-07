@@ -35,6 +35,7 @@
 - (void)pauseAction:(id)action;
 - (void)resumeAction:(id)action;
 - (void)setContent:(id)content;
+- (void)setSpellOutContent:(BOOL)content;
 - (void)speakAction:(id)action withPreferredLanguage:(id)language;
 - (void)speakStatusWithLanguage:(id)language rate:(id)rate;
 - (void)stopAction:(id)action;
@@ -82,6 +83,13 @@
   return selectedContent;
 }
 
+- (void)setSpellOutContent:(BOOL)content
+{
+  contentCopy = content;
+  orator = [(AXQuickSpeak *)self orator];
+  [orator setSpellOutContent:contentCopy];
+}
+
 - (BOOL)spellOutContent
 {
   orator = [(AXQuickSpeak *)self orator];
@@ -104,14 +112,16 @@
 
 uint64_t __30__AXQuickSpeak_sharedInstance__block_invoke()
 {
-  sharedInstance__shared = objc_alloc_init(AXQuickSpeak);
+  v0 = objc_alloc_init(AXQuickSpeak);
+  v1 = sharedInstance__shared;
+  sharedInstance__shared = v0;
 
-  return MEMORY[0x2A1C71028]();
+  return MEMORY[0x2A1C71028](v0, v1);
 }
 
 + (BOOL)quickSpeakClassIsDenied:(id)denied
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   deniedCopy = denied;
   v4 = quickSpeakClassIsDenied__Denylist;
   if (!quickSpeakClassIsDenied__Denylist)
@@ -121,25 +131,25 @@ uint64_t __30__AXQuickSpeak_sharedInstance__block_invoke()
     quickSpeakClassIsDenied__Denylist = v5;
 
     v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:{@"PLStackView", @"WAllPhotosAlbumViewController", @"WInteractiveNavigationControllerView", @"WInteractiveNavigationController", @"PKTextAttachmentDrawingView", @"Files.DOCItemCollectionViewController", @"com_apple_DocumentManager_Service.DOCItemCollectionViewController", 0}];
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
-      v9 = *v24;
+      v9 = *v23;
       do
       {
         v10 = 0;
         do
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = NSClassFromString(*(*(&v23 + 1) + 8 * v10));
+          v11 = NSClassFromString(*(*(&v22 + 1) + 8 * v10));
           if (v11)
           {
             [quickSpeakClassIsDenied__Denylist addObject:v11];
@@ -149,7 +159,7 @@ uint64_t __30__AXQuickSpeak_sharedInstance__block_invoke()
         }
 
         while (v8 != v10);
-        v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v8);
@@ -158,28 +168,26 @@ uint64_t __30__AXQuickSpeak_sharedInstance__block_invoke()
     v4 = quickSpeakClassIsDenied__Denylist;
   }
 
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
-  v16[0] = MEMORY[0x29EDCA5F8];
-  v16[1] = 3221225472;
-  v16[2] = __40__AXQuickSpeak_quickSpeakClassIsDenied___block_invoke;
-  v16[3] = &unk_29F2F00D8;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
+  v15[0] = MEMORY[0x29EDCA5F8];
+  v15[1] = 3221225472;
+  v15[2] = __40__AXQuickSpeak_quickSpeakClassIsDenied___block_invoke;
+  v15[3] = &unk_29F2F00D8;
   v12 = deniedCopy;
-  v17 = v12;
-  v18 = &v19;
-  [v4 enumerateObjectsUsingBlock:v16];
-  v13 = *(v20 + 24);
+  v16 = v12;
+  v17 = &v18;
+  [v4 enumerateObjectsUsingBlock:v15];
+  v13 = *(v19 + 24);
 
-  _Block_object_dispose(&v19, 8);
-  v14 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v18, 8);
   return v13 & 1;
 }
 
 uint64_t __40__AXQuickSpeak_quickSpeakClassIsDenied___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v5 = *(a1 + 32);
   result = objc_opt_isKindOfClass();
   if (result)
   {
@@ -380,7 +388,7 @@ void __20__AXQuickSpeak_init__block_invoke_11(uint64_t a1, void *a2)
 
 - (void)speakAction:(id)action withPreferredLanguage:(id)language
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   actionCopy = action;
   languageCopy = language;
   mEMORY[0x29EDBDF80] = [MEMORY[0x29EDBDF80] sharedInstance];
@@ -400,9 +408,9 @@ void __20__AXQuickSpeak_init__block_invoke_11(uint64_t a1, void *a2)
     [orator2 setSpeakingContext:2];
 
     orator3 = [(AXQuickSpeak *)self orator];
-    v28 = 0;
-    v16 = [orator3 startSpeakingWithPreferredLanguage:languageCopy error:&v28];
-    v17 = v28;
+    v27 = 0;
+    v16 = [orator3 startSpeakingWithPreferredLanguage:languageCopy error:&v27];
+    v17 = v27;
 
     if (v16)
     {
@@ -437,16 +445,16 @@ void __20__AXQuickSpeak_init__block_invoke_11(uint64_t a1, void *a2)
       identifier = [MEMORY[0x29EDBD6C8] identifier];
       _accessibilitySpeakSelectionTextInputResponder = AXLoggerForFacility();
 
-      v25 = AXOSLogLevelFromAXLogLevel();
-      if (os_log_type_enabled(_accessibilitySpeakSelectionTextInputResponder, v25))
+      v24 = AXOSLogLevelFromAXLogLevel();
+      if (os_log_type_enabled(_accessibilitySpeakSelectionTextInputResponder, v24))
       {
-        v26 = AXColorizeFormatLog();
-        v27 = _AXStringForArgs();
-        if (os_log_type_enabled(_accessibilitySpeakSelectionTextInputResponder, v25))
+        v25 = AXColorizeFormatLog();
+        v26 = _AXStringForArgs();
+        if (os_log_type_enabled(_accessibilitySpeakSelectionTextInputResponder, v24))
         {
           *buf = 138543362;
-          v30 = v27;
-          _os_log_impl(&dword_29C1E5000, _accessibilitySpeakSelectionTextInputResponder, v25, "%{public}@", buf, 0xCu);
+          v29 = v26;
+          _os_log_impl(&dword_29C1E5000, _accessibilitySpeakSelectionTextInputResponder, v24, "%{public}@", buf, 0xCu);
         }
       }
     }
@@ -457,18 +465,16 @@ LABEL_11:
 
   [(AXQuickSpeak *)self resumeAction:0];
 LABEL_12:
-
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 - (void)pauseAction:(id)action
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   [(AXQuickSpeak *)self setPaused:1];
   orator = [(AXQuickSpeak *)self orator];
-  v15 = 0;
-  v5 = [orator pauseSpeaking:&v15];
-  v6 = v15;
+  v14 = 0;
+  v5 = [orator pauseSpeaking:&v14];
+  v6 = v14;
 
   if ((v5 & 1) == 0)
   {
@@ -488,24 +494,22 @@ LABEL_12:
         if (os_log_type_enabled(v10, v11))
         {
           *buf = 138543362;
-          v17 = v13;
+          v16 = v13;
           _os_log_impl(&dword_29C1E5000, v10, v11, "%{public}@", buf, 0xCu);
         }
       }
     }
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (void)resumeAction:(id)action
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   [(AXQuickSpeak *)self setPaused:0];
   orator = [(AXQuickSpeak *)self orator];
-  v15 = 0;
-  v5 = [orator resumeSpeaking:&v15];
-  v6 = v15;
+  v14 = 0;
+  v5 = [orator resumeSpeaking:&v14];
+  v6 = v14;
 
   if ((v5 & 1) == 0)
   {
@@ -525,14 +529,12 @@ LABEL_12:
         if (os_log_type_enabled(v10, v11))
         {
           *buf = 138543362;
-          v17 = v13;
+          v16 = v13;
           _os_log_impl(&dword_29C1E5000, v10, v11, "%{public}@", buf, 0xCu);
         }
       }
     }
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (void)stopAction:(id)action
@@ -609,40 +611,40 @@ void __27__AXQuickSpeak_stopAction___block_invoke_2(uint64_t a1)
 
 - (void)_manipulateOtherTextViews:(BOOL)views
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v24[0] = MEMORY[0x29EDCA5F8];
-  v24[1] = 3221225472;
-  v24[2] = __42__AXQuickSpeak__manipulateOtherTextViews___block_invoke;
-  v24[3] = &__block_descriptor_33_e16_v16__0__UIView_8l;
+  v26 = *MEMORY[0x29EDCA608];
+  v23[0] = MEMORY[0x29EDCA5F8];
+  v23[1] = 3221225472;
+  v23[2] = __42__AXQuickSpeak__manipulateOtherTextViews___block_invoke;
+  v23[3] = &__block_descriptor_33_e16_v16__0__UIView_8l;
   viewsCopy = views;
-  v5 = MEMORY[0x29C2EA130](v24, a2);
+  v5 = MEMORY[0x29C2EA130](v23, a2);
   if (!views)
   {
     _textSelectionViews = [(AXQuickSpeak *)self _textSelectionViews];
     [(AXQuickSpeak *)self setHiddenTextSelectionViews:_textSelectionViews];
 
     array = [MEMORY[0x29EDB8DE8] array];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     hiddenTextSelectionViews = [(AXQuickSpeak *)self hiddenTextSelectionViews];
-    v9 = [hiddenTextSelectionViews countByEnumeratingWithState:&v20 objects:v26 count:16];
+    v9 = [hiddenTextSelectionViews countByEnumeratingWithState:&v19 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         v12 = 0;
         do
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(hiddenTextSelectionViews);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * v12);
+          v13 = *(*(&v19 + 1) + 8 * v12);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -657,7 +659,7 @@ void __27__AXQuickSpeak_stopAction___block_invoke_2(uint64_t a1)
         }
 
         while (v10 != v12);
-        v10 = [hiddenTextSelectionViews countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v10 = [hiddenTextSelectionViews countByEnumeratingWithState:&v19 objects:v25 count:16];
       }
 
       while (v10);
@@ -667,15 +669,13 @@ void __27__AXQuickSpeak_stopAction___block_invoke_2(uint64_t a1)
   }
 
   hiddenTextSelectionViews2 = [(AXQuickSpeak *)self hiddenTextSelectionViews];
-  v18[0] = MEMORY[0x29EDCA5F8];
-  v18[1] = 3221225472;
-  v18[2] = __42__AXQuickSpeak__manipulateOtherTextViews___block_invoke_3;
-  v18[3] = &unk_29F2F01D8;
-  v19 = v5;
+  v17[0] = MEMORY[0x29EDCA5F8];
+  v17[1] = 3221225472;
+  v17[2] = __42__AXQuickSpeak__manipulateOtherTextViews___block_invoke_3;
+  v17[3] = &unk_29F2F01D8;
+  v18 = v5;
   v16 = v5;
-  [hiddenTextSelectionViews2 enumerateObjectsUsingBlock:v18];
-
-  v17 = *MEMORY[0x29EDCA608];
+  [hiddenTextSelectionViews2 enumerateObjectsUsingBlock:v17];
 }
 
 void __42__AXQuickSpeak__manipulateOtherTextViews___block_invoke(uint64_t a1, void *a2)
@@ -685,7 +685,6 @@ void __42__AXQuickSpeak__manipulateOtherTextViews___block_invoke(uint64_t a1, vo
   if (objc_opt_isKindOfClass())
   {
     v5 = v3;
-    v6 = *(a1 + 32);
     AXPerformSafeBlock();
   }
 
@@ -879,65 +878,60 @@ uint64_t __42__AXQuickSpeak__cleanupTextSelectionViews__block_invoke_3(uint64_t 
   y = rect.origin.y;
   x = rect.origin.x;
   view = view;
-  if (![(UIView *)view isHidden])
+  isHidden = [(UIView *)view isHidden];
+  viewCopy6 = view;
+  if ((isHidden & 1) == 0)
   {
-    window = [(UIView *)view window];
-    if (window)
+    isHidden = [(UIView *)view window];
+    viewCopy6 = view;
+    if (isHidden)
     {
-      v10 = window;
+      v11 = isHidden;
       isScrollEnabled = [(UIView *)view isScrollEnabled];
 
+      viewCopy6 = view;
       if (isScrollEnabled)
       {
-        [(UIView *)view contentOffset];
-        v13 = self->_lastQuickSpeakOffset.x;
-        if (vabdd_f64(v13, v14) >= 5.0)
+        isHidden = [(UIView *)view contentOffset];
+        v14 = self->_lastQuickSpeakOffset.x;
+        if (vabdd_f64(v14, v15) >= 5.0)
         {
-          v16 = 0;
-          v15 = self->_lastQuickSpeakOffset.y;
+          v17 = 0;
+          v16 = self->_lastQuickSpeakOffset.y;
         }
 
         else
         {
-          v15 = self->_lastQuickSpeakOffset.y;
-          v16 = vabdd_f64(v15, v12) < 5.0;
+          v16 = self->_lastQuickSpeakOffset.y;
+          v17 = vabdd_f64(v16, v13) < 5.0;
         }
 
-        v17 = v13 == *MEMORY[0x29EDB90B8];
-        if (v15 != *(MEMORY[0x29EDB90B8] + 8))
+        v18 = v14 == *MEMORY[0x29EDB90B8];
+        if (v16 != *(MEMORY[0x29EDB90B8] + 8))
         {
-          v17 = 0;
+          v18 = 0;
         }
 
-        if (v16 || v17)
+        viewCopy6 = view;
+        if (v17 || v18)
         {
-          v56.origin.x = x;
-          v56.origin.y = y;
-          v56.size.width = width;
-          v56.size.height = height;
-          UIAccessibilityZoomFocusChanged(4, v56, view);
+          v57.origin.x = x;
+          v57.origin.y = y;
+          v57.size.width = width;
+          v57.size.height = height;
+          UIAccessibilityZoomFocusChanged(4, v57, view);
           [(UIView *)view bounds];
-          v19 = v18;
-          v21 = v20;
-          v23 = v22;
-          rect = v24;
+          v20 = v19;
+          v22 = v21;
+          v24 = v23;
+          rect = v25;
           [(UIView *)view adjustedContentInset];
-          v29 = -v28;
-          v30 = v28 < -0.0;
-          v31 = 0.0;
-          if (v30)
+          v30 = -v29;
+          v31 = v29 < -0.0;
+          v32 = 0.0;
+          if (v31)
           {
-            v29 = 0.0;
-          }
-
-          if (v25 >= -0.0)
-          {
-            v32 = -v25;
-          }
-
-          else
-          {
-            v32 = 0.0;
+            v30 = 0.0;
           }
 
           if (v26 >= -0.0)
@@ -952,85 +946,98 @@ uint64_t __42__AXQuickSpeak__cleanupTextSelectionViews__block_invoke_3(uint64_t 
 
           if (v27 >= -0.0)
           {
-            v31 = -v27;
+            v34 = -v27;
           }
 
-          v34 = x + v32;
-          v35 = y + v29;
-          v36 = width - (v32 + v31);
-          v37 = height - (v29 + v33);
-          v57.origin.x = v19;
-          v57.origin.y = v21;
-          v57.size.width = v23;
-          v57.size.height = rect;
-          v58 = CGRectInset(v57, 0.0, 20.0);
-          v38 = v58.origin.x;
-          v39 = v58.origin.y;
-          v40 = v58.size.width;
-          v41 = v58.size.height;
-          v59.origin.x = v34;
-          v59.origin.y = v35;
-          v59.size.width = v36;
-          v59.size.height = v37;
-          if (!CGRectContainsRect(v58, v59) && v41 >= v37)
+          else
+          {
+            v34 = 0.0;
+          }
+
+          if (v28 >= -0.0)
+          {
+            v32 = -v28;
+          }
+
+          v35 = x + v33;
+          v36 = y + v30;
+          v37 = width - (v33 + v32);
+          v38 = height - (v30 + v34);
+          v58.origin.x = v20;
+          v58.origin.y = v22;
+          v58.size.width = v24;
+          v58.size.height = rect;
+          v59 = CGRectInset(v58, 0.0, 20.0);
+          v39 = v59.origin.x;
+          v40 = v59.origin.y;
+          v41 = v59.size.width;
+          v42 = v59.size.height;
+          v60.origin.x = v35;
+          v60.origin.y = v36;
+          v60.size.width = v37;
+          v60.size.height = v38;
+          isHidden = CGRectContainsRect(v59, v60);
+          viewCopy6 = view;
+          if ((isHidden & 1) == 0 && v42 >= v38)
           {
             [(UIView *)view contentOffset];
-            v44 = v34 + v36;
-            if (v34 < v38)
+            v45 = v35 + v37;
+            if (v35 < v39)
             {
-              v42 = v34;
+              v43 = v35;
             }
 
-            if (v44 >= v38 + v40)
+            if (v45 >= v39 + v41)
             {
-              v45 = v44 - v40;
-            }
-
-            else
-            {
-              v45 = v42;
-            }
-
-            v46 = v35 + v37;
-            if (v35 + v37 >= v39 + v41)
-            {
-              v46 = -25.0;
-              v47 = v35 + -25.0;
-            }
-
-            else if (v35 < v39)
-            {
-              v47 = v35;
+              v46 = v45 - v41;
             }
 
             else
             {
-              v47 = v43;
+              v46 = v43;
+            }
+
+            v47 = v36 + v38;
+            if (v36 + v38 >= v40 + v42)
+            {
+              v47 = -25.0;
+              v48 = v36 + -25.0;
+            }
+
+            else if (v36 < v40)
+            {
+              v48 = v36;
+            }
+
+            else
+            {
+              v48 = v44;
             }
 
             [(UIView *)view bounds];
-            v49 = v48;
+            v50 = v49;
             [(UIView *)view contentSize];
-            v51 = v47 + v49 - v50;
-            if (v51 > 0.0)
+            v52 = v48 + v50 - v51;
+            if (v52 > 0.0)
             {
-              v52 = v47 - v51;
-              if (v52 > 0.0)
+              v53 = v48 - v52;
+              if (v53 > 0.0)
               {
-                v47 = v52;
+                v48 = v53;
               }
             }
 
-            [(UIView *)view setContentOffset:1 animated:v45, v47];
-            self->_lastQuickSpeakOffset.x = v45;
-            self->_lastQuickSpeakOffset.y = v47;
+            isHidden = [(UIView *)view setContentOffset:1 animated:v46, v48];
+            viewCopy6 = view;
+            self->_lastQuickSpeakOffset.x = v46;
+            self->_lastQuickSpeakOffset.y = v48;
           }
         }
       }
     }
   }
 
-  MEMORY[0x2A1C71028]();
+  MEMORY[0x2A1C71028](isHidden, viewCopy6);
 }
 
 - (_NSRange)_updatedRangeForComposedCharacters:(_NSRange)characters string:(id)string lastKnownWholeCharacterLocation:(unint64_t)location lastKnownUnicharLocation:(unint64_t)unicharLocation
@@ -1124,35 +1131,35 @@ uint64_t __41__AXQuickSpeak__quickSpeakInputInitiator__block_invoke(uint64_t a1)
 
 - (id)_rectsByUnionSamelineRects:(id)rects
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   rectsCopy = rects;
   if (rectsCopy)
   {
     array = [MEMORY[0x29EDB8DE8] array];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     v5 = rectsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v12 + 1) + 8 * i) CGRectValue];
+          [*(*(&v11 + 1) + 8 * i) CGRectValue];
           QSUnionRectsWithRect();
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
@@ -1163,8 +1170,6 @@ uint64_t __41__AXQuickSpeak__quickSpeakInputInitiator__block_invoke(uint64_t a1)
   {
     array = 0;
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return array;
 }
@@ -1239,23 +1244,23 @@ uint64_t __41__AXQuickSpeak__quickSpeakInputInitiator__block_invoke(uint64_t a1)
 {
   length = range.length;
   location = range.location;
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   stringCopy = string;
   _quickSpeakInputInitiator = [(AXQuickSpeak *)self _quickSpeakInputInitiator];
   array = [MEMORY[0x29EDB8DE8] array];
   array2 = [MEMORY[0x29EDB8DE8] array];
   v11 = MEMORY[0x29EDB90E0];
   v12 = *(MEMORY[0x29EDB90E0] + 16);
-  v29.origin = *MEMORY[0x29EDB90E0];
-  v29.size = v12;
+  v28.origin = *MEMORY[0x29EDB90E0];
+  v28.size = v12;
   if (objc_opt_respondsToSelector())
   {
-    [(AXQuickSpeak *)self _quickSpeakTextRects:_quickSpeakInputInitiator withRange:location string:length highlightRects:stringCopy sentenceRects:array singleTextRect:array2, &v29];
+    [(AXQuickSpeak *)self _quickSpeakTextRects:_quickSpeakInputInitiator withRange:location string:length highlightRects:stringCopy sentenceRects:array singleTextRect:array2, &v28];
   }
 
   else if ([_quickSpeakInputInitiator conformsToProtocol:&unk_2A22C5028])
   {
-    [(AXQuickSpeak *)self _quickSpeakUITextInputTextRects:_quickSpeakInputInitiator withRange:location string:length highlightRects:stringCopy sentenceRects:array singleTextRect:array2, &v29];
+    [(AXQuickSpeak *)self _quickSpeakUITextInputTextRects:_quickSpeakInputInitiator withRange:location string:length highlightRects:stringCopy sentenceRects:array singleTextRect:array2, &v28];
   }
 
   else
@@ -1272,23 +1277,23 @@ uint64_t __41__AXQuickSpeak__quickSpeakInputInitiator__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v16, v17))
       {
         AXColorizeFormatLog();
-        v27 = v26 = _quickSpeakInputInitiator;
-        v28 = _AXStringForArgs();
+        v26 = v25 = _quickSpeakInputInitiator;
+        v27 = _AXStringForArgs();
         if (os_log_type_enabled(v16, v17))
         {
           *buf = 138543362;
-          v31 = v28;
+          v30 = v27;
           _os_log_impl(&dword_29C1E5000, v16, v17, "%{public}@", buf, 0xCu);
         }
       }
     }
 
-    [_quickSpeakInputInitiator _accessibilityQuickSpeakTextRectsWithRange:location string:length highlightRects:stringCopy sentenceRects:array singleTextRect:{array2, &v29, v26}];
+    [_quickSpeakInputInitiator _accessibilityQuickSpeakTextRectsWithRange:location string:length highlightRects:stringCopy sentenceRects:array singleTextRect:{array2, &v28, v25}];
   }
 
-  if ([array count] || !CGRectEqualToRect(*v11, v29))
+  if ([array count] || !CGRectEqualToRect(*v11, v28))
   {
-    [(AXQuickSpeak *)self _handleQuickSpeakHighlight:array sentenceRects:array2 textRect:_quickSpeakInputInitiator initiator:*&v29.origin, *&v29.size];
+    [(AXQuickSpeak *)self _handleQuickSpeakHighlight:array sentenceRects:array2 textRect:_quickSpeakInputInitiator initiator:*&v28.origin, *&v28.size];
   }
 
   else
@@ -1309,14 +1314,12 @@ uint64_t __41__AXQuickSpeak__quickSpeakInputInitiator__block_invoke(uint64_t a1)
         if (os_log_type_enabled(v21, v22))
         {
           *buf = 138543362;
-          v31 = v24;
+          v30 = v24;
           _os_log_impl(&dword_29C1E5000, v21, v22, "%{public}@", buf, 0xCu);
         }
       }
     }
   }
-
-  v25 = *MEMORY[0x29EDCA608];
 }
 
 - (_NSRange)modifiedRange:(_NSRange)range withString:(id)string
@@ -1378,7 +1381,7 @@ uint64_t __41__AXQuickSpeak__quickSpeakInputInitiator__block_invoke(uint64_t a1)
 {
   length = range.length;
   location = range.location;
-  v49 = *MEMORY[0x29EDCA608];
+  v48 = *MEMORY[0x29EDCA608];
   rectsCopy = rects;
   stringCopy = string;
   highlightRectsCopy = highlightRects;
@@ -1416,7 +1419,7 @@ uint64_t __41__AXQuickSpeak__quickSpeakInputInitiator__block_invoke(uint64_t a1)
     v27 = [rectsCopy textRangeFromPosition:v24 toPosition:v25];
     v28 = *(MEMORY[0x29EDB90E0] + 16);
     *buf = *MEMORY[0x29EDB90E0];
-    v48 = v28;
+    v47 = v28;
     if (objc_opt_respondsToSelector())
     {
       v29 = [stringCopy substringWithRange:{stringCopy, v18}];
@@ -1431,7 +1434,7 @@ uint64_t __41__AXQuickSpeak__quickSpeakInputInitiator__block_invoke(uint64_t a1)
     [highlightRectsCopy axSafelyAddObjectsFromArray:v30];
     v39 = [(AXQuickSpeak *)self _sentenceRects:rectsCopy speakingRange:v27];
     [sentenceRectsCopy axSafelyAddObjectsFromArray:v39];
-    v40 = v48;
+    v40 = v47;
     rect->origin = *buf;
     rect->size = v40;
 
@@ -1454,8 +1457,8 @@ LABEL_17:
       [v20 start];
       v36 = type = v34;
       v37 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:stringCopy];
-      v42 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:v18];
-      v44 = v35;
+      v41 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:v18];
+      v43 = v35;
       v38 = _AXStringForArgs();
 
       if (os_log_type_enabled(v27, type))
@@ -1470,13 +1473,11 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v41 = *MEMORY[0x29EDCA608];
 }
 
 - (id)_sliceRects:(id)rects withSentenceRects:(id)sentenceRects wordRects:(id)wordRects
 {
-  v60 = *MEMORY[0x29EDCA608];
+  v59 = *MEMORY[0x29EDCA608];
   rectsCopy = rects;
   sentenceRectsCopy = sentenceRects;
   wordRectsCopy = wordRects;
@@ -1484,38 +1485,38 @@ LABEL_18:
   if (sentenceRectsCopy)
   {
     array = [MEMORY[0x29EDB8DE8] array];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
-    v45 = sentenceRectsCopy;
+    v44 = sentenceRectsCopy;
     obj = sentenceRectsCopy;
-    v10 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+    v10 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
     if (!v10)
     {
       goto LABEL_30;
     }
 
     v11 = v10;
-    v48 = *v55;
+    v47 = *v54;
     while (1)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v55 != v48)
+        if (*v54 != v47)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v54 + 1) + 8 * i);
+        v13 = *(*(&v53 + 1) + 8 * i);
         [v13 rectValue];
         v15 = v14;
+        v49 = 0u;
         v50 = 0u;
         v51 = 0u;
         v52 = 0u;
-        v53 = 0u;
         v16 = v9;
-        v17 = [v16 countByEnumeratingWithState:&v50 objects:v58 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v49 objects:v57 count:16];
         if (!v17)
         {
 
@@ -1528,7 +1529,7 @@ LABEL_27:
         v19 = v9;
         v20 = 0;
         v21 = v15;
-        v22 = *v51;
+        v22 = *v50;
         v23 = v21;
         v24 = 1.17549435e-38;
         v25 = 3.40282347e38;
@@ -1536,12 +1537,12 @@ LABEL_27:
         {
           for (j = 0; j != v18; ++j)
           {
-            if (*v51 != v22)
+            if (*v50 != v22)
             {
               objc_enumerationMutation(v16);
             }
 
-            v27 = *(*(&v50 + 1) + 8 * j);
+            v27 = *(*(&v49 + 1) + 8 * j);
             [v27 rectValue];
             if (vabdd_f64(v23, v28) <= 1.0)
             {
@@ -1557,7 +1558,7 @@ LABEL_27:
               }
 
               [v27 rectValue];
-              Width = CGRectGetWidth(v62);
+              Width = CGRectGetWidth(v61);
               if (v24 < Width)
               {
                 v24 = Width;
@@ -1565,7 +1566,7 @@ LABEL_27:
             }
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v50 objects:v58 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v49 objects:v57 count:16];
         }
 
         while (v18);
@@ -1577,7 +1578,7 @@ LABEL_27:
         }
 
         [v13 rectValue];
-        Height = CGRectGetHeight(v63);
+        Height = CGRectGetHeight(v62);
         [v13 rectValue];
         v33 = v32;
         v34 = v33;
@@ -1594,12 +1595,12 @@ LABEL_27:
         v36 = vabdd_f64(v34, v35);
         v37 = Height;
         [v13 rectValue];
-        v38 = CGRectGetWidth(v64);
-        v65.origin.x = v34;
-        v65.origin.y = v23;
-        v65.size.width = v36;
-        v65.size.height = v37;
-        v39 = vabdd_f64(v38 - CGRectGetWidth(v65), v24);
+        v38 = CGRectGetWidth(v63);
+        v64.origin.x = v34;
+        v64.origin.y = v23;
+        v64.size.width = v36;
+        v64.size.height = v37;
+        v39 = vabdd_f64(v38 - CGRectGetWidth(v64), v24);
         v40 = [MEMORY[0x29EDBA168] valueWithCGRect:{v34, v23, v36, v37}];
         [rectsCopy addObject:v40];
 
@@ -1610,12 +1611,12 @@ LABEL_27:
         [array addObject:v42];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+      v11 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
       if (!v11)
       {
 LABEL_30:
 
-        sentenceRectsCopy = v45;
+        sentenceRectsCopy = v44;
         goto LABEL_32;
       }
     }
@@ -1623,8 +1624,6 @@ LABEL_30:
 
   array = wordRectsCopy;
 LABEL_32:
-
-  v43 = *MEMORY[0x29EDCA608];
 
   return array;
 }
@@ -1635,14 +1634,14 @@ LABEL_32:
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v127 = *MEMORY[0x29EDCA608];
+  v126 = *MEMORY[0x29EDCA608];
   highlightCopy = highlight;
   rectsCopy = rects;
   initiatorCopy = initiator;
   textInputView = [initiatorCopy textInputView];
   objc_opt_class();
-  v110 = initiatorCopy;
-  v111 = highlightCopy;
+  v109 = initiatorCopy;
+  v110 = highlightCopy;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     quickSpeakInitiator = [(AXQuickSpeak *)self quickSpeakInitiator];
@@ -1686,9 +1685,9 @@ LABEL_32:
   }
 
   v20 = _accessibilitySpeakSelectionAssociatedScrollView;
-  v115 = textInputView;
+  v114 = textInputView;
   [textInputView convertRect:v20 toView:{x, y, width, height}];
-  v109 = v20;
+  v108 = v20;
   [(AXQuickSpeak *)self _scrollToTextRect:v20 withScrollView:?];
   if (rectsCopy && [rectsCopy count])
   {
@@ -1699,30 +1698,30 @@ LABEL_32:
   }
 
   selfCopy = self;
-  v114 = rectsCopy;
+  v113 = rectsCopy;
   array = [MEMORY[0x29EDB8DE8] array];
+  v121 = 0u;
   v122 = 0u;
   v123 = 0u;
   v124 = 0u;
-  v125 = 0u;
   v23 = CachedSentenceRects;
-  v24 = [v23 countByEnumeratingWithState:&v122 objects:v126 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v121 objects:v125 count:16];
   v25 = 0x29EDBD000uLL;
   if (v24)
   {
     v26 = v24;
-    v27 = *v123;
+    v27 = *v122;
     do
     {
       v28 = 0;
       do
       {
-        if (*v123 != v27)
+        if (*v122 != v27)
         {
           objc_enumerationMutation(v23);
         }
 
-        v29 = *(*(&v122 + 1) + 8 * v28);
+        v29 = *(*(&v121 + 1) + 8 * v28);
         [v29 rectValue];
         v31 = v30;
         v33 = v32;
@@ -1755,7 +1754,7 @@ LABEL_32:
       }
 
       while (v26 != v28);
-      v44 = [v23 countByEnumeratingWithState:&v122 objects:v126 count:16];
+      v44 = [v23 countByEnumeratingWithState:&v121 objects:v125 count:16];
       v26 = v44;
     }
 
@@ -1769,13 +1768,13 @@ LABEL_32:
     sharedInstance3 = [*(v25 + 4000) sharedInstance];
     quickSpeakSentenceHighlightOption2 = [sharedInstance3 quickSpeakSentenceHighlightOption];
 
-    v50 = v110;
+    v50 = v109;
     v49 = highlightCopy;
-    v51 = v114;
+    v51 = v113;
     if (quickSpeakSentenceHighlightOption2 == 2)
     {
       selfCopy3 = self;
-      v53 = [(AXQuickSpeak *)self _sliceRects:array2 withSentenceRects:array wordRects:v111];
+      v53 = [(AXQuickSpeak *)self _sliceRects:array2 withSentenceRects:array wordRects:v110];
 
       v49 = v53;
       goto LABEL_31;
@@ -1785,15 +1784,15 @@ LABEL_32:
   else
   {
 
-    v50 = v110;
+    v50 = v109;
     v49 = highlightCopy;
-    v51 = v114;
+    v51 = v113;
   }
 
   [array2 addObjectsFromArray:array];
   selfCopy3 = self;
 LABEL_31:
-  v54 = v115;
+  v54 = v114;
   if (!_AXSQuickSpeakHighlightTextEnabled())
   {
     goto LABEL_85;
@@ -1813,7 +1812,7 @@ LABEL_31:
     mEMORY[0x29EDBDFA0] = [MEMORY[0x29EDBDFA0] sharedInstance];
     quickSpeakWordHighlightColor = [mEMORY[0x29EDBDFA0] quickSpeakWordHighlightColor];
 
-    v112 = v61;
+    v111 = v61;
     if (!quickSpeakWordHighlightColor)
     {
       if (objc_opt_respondsToSelector())
@@ -1827,25 +1826,25 @@ LABEL_31:
       }
       v73 = ;
       v72 = 0x29EDBD000;
-      v120 = 0.0;
-      v121 = 0.0;
-      v118 = 0;
       v119 = 0.0;
-      [v73 getRed:&v121 green:&v120 blue:&v119 alpha:&v118];
-      v74 = v121 * 0.9;
-      if (v121 * 0.9 < 0.0)
+      v120 = 0.0;
+      v117 = 0;
+      v118 = 0.0;
+      [v73 getRed:&v120 green:&v119 blue:&v118 alpha:&v117];
+      v74 = v120 * 0.9;
+      if (v120 * 0.9 < 0.0)
       {
         v74 = 0.0;
       }
 
-      v75 = v120 * 0.9;
-      if (v120 * 0.9 < 0.0)
+      v75 = v119 * 0.9;
+      if (v119 * 0.9 < 0.0)
       {
         v75 = 0.0;
       }
 
-      v76 = v119 * 0.9;
-      if (v119 * 0.9 < 0.0)
+      v76 = v118 * 0.9;
+      if (v118 * 0.9 < 0.0)
       {
         v76 = 0.0;
       }
@@ -1894,7 +1893,7 @@ LABEL_50:
     v80 = [MEMORY[0x29EDC7A00] colorWithCGColor:v79];
     v73 = [v80 colorWithAlphaComponent:0.5];
 
-    v61 = v112;
+    v61 = v111;
 LABEL_51:
     [v61 setSelectionColor:{v77, v77}];
     if ([array2 count])
@@ -1934,7 +1933,7 @@ LABEL_51:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          backgroundColor = [v115 backgroundColor];
+          backgroundColor = [v114 backgroundColor];
           if (backgroundColor)
           {
             v91 = AXInvertColorForColor();
@@ -1948,7 +1947,7 @@ LABEL_51:
     [v81 setUnderlineColor:labelColor];
 
     v92 = objc_opt_class();
-    v108 = v73;
+    v107 = v73;
     if (v92)
     {
       v93 = v92;
@@ -1978,24 +1977,24 @@ LABEL_65:
     }
 
     NSClassFromString(&cfstr_Sxcanvasview.isa);
-    v54 = v115;
+    v54 = v114;
     isKindOfClass = objc_opt_isKindOfClass();
     NSClassFromString(&cfstr_Tsdcanvasview.isa);
     selfCopy3 = selfCopy;
     if ((v95 | objc_opt_isKindOfClass()) & v84)
     {
-      superview2 = [v115 superview];
+      superview2 = [v114 superview];
 
       if (superview2)
       {
         if (v81)
         {
-          superview3 = [v115 superview];
+          superview3 = [v114 superview];
           [superview3 addSubview:v81];
         }
 
-        superview4 = [v115 superview];
-        [superview4 addSubview:v112];
+        superview4 = [v114 superview];
+        [superview4 addSubview:v111];
       }
     }
 
@@ -2003,26 +2002,26 @@ LABEL_65:
     {
       if (v81)
       {
-        [v115 addSubview:v81];
+        [v114 addSubview:v81];
       }
 
-      [v115 addSubview:v112];
+      [v114 addSubview:v111];
     }
 
     else
     {
-      [v115 insertSubview:v112 atIndex:0];
+      [v114 insertSubview:v111 atIndex:0];
       if (v81)
       {
-        [v115 insertSubview:v81 atIndex:0];
+        [v114 insertSubview:v81 atIndex:0];
       }
     }
 
-    [v115 bounds];
-    [v112 setFrame:?];
-    [v115 bounds];
+    [v114 bounds];
+    [v111 setFrame:?];
+    [v114 bounds];
     [v81 setFrame:?];
-    [(AXQuickSpeak *)selfCopy setHighlightView:v112];
+    [(AXQuickSpeak *)selfCopy setHighlightView:v111];
     highlightView2 = [(AXQuickSpeak *)selfCopy highlightView];
     superview5 = [highlightView2 superview];
     [superview5 setAutoresizesSubviews:1];
@@ -2035,14 +2034,14 @@ LABEL_65:
       [superview6 setAutoresizesSubviews:1];
     }
 
-    v117[0] = MEMORY[0x29EDCA5F8];
-    v117[1] = 3221225472;
-    v117[2] = __76__AXQuickSpeak__handleQuickSpeakHighlight_sentenceRects_textRect_initiator___block_invoke;
-    v117[3] = &unk_29F2F0140;
-    v117[4] = selfCopy;
-    [MEMORY[0x29EDC7DA0] animateWithDuration:v117 animations:0.25];
+    v116[0] = MEMORY[0x29EDCA5F8];
+    v116[1] = 3221225472;
+    v116[2] = __76__AXQuickSpeak__handleQuickSpeakHighlight_sentenceRects_textRect_initiator___block_invoke;
+    v116[3] = &unk_29F2F0140;
+    v116[4] = selfCopy;
+    [MEMORY[0x29EDC7DA0] animateWithDuration:v116 animations:0.25];
 
-    v51 = v114;
+    v51 = v113;
   }
 
   highlightView3 = [(AXQuickSpeak *)selfCopy3 highlightView];
@@ -2055,8 +2054,6 @@ LABEL_65:
   }
 
 LABEL_85:
-
-  v106 = *MEMORY[0x29EDCA608];
 }
 
 void __76__AXQuickSpeak__handleQuickSpeakHighlight_sentenceRects_textRect_initiator___block_invoke(uint64_t a1)
@@ -2095,7 +2092,7 @@ void __76__AXQuickSpeak__handleQuickSpeakHighlight_sentenceRects_textRect_initia
 
 - (BOOL)selectedContentRequiresUserChoice
 {
-  v38 = *MEMORY[0x29EDCA608];
+  v37 = *MEMORY[0x29EDCA608];
   selectedContent = [(AXQuickSpeak *)self selectedContent];
   mEMORY[0x29EDBDF80] = [MEMORY[0x29EDBDF80] sharedInstance];
   systemLanguageID = [mEMORY[0x29EDBDF80] systemLanguageID];
@@ -2115,25 +2112,25 @@ void __76__AXQuickSpeak__handleQuickSpeakHighlight_sentenceRects_textRect_initia
 
     if (v9 >= 2)
     {
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
       v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       ambiguousLangMaps = [selectedContent ambiguousLangMaps];
-      v11 = [ambiguousLangMaps countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v11 = [ambiguousLangMaps countByEnumeratingWithState:&v31 objects:v36 count:16];
       if (v11)
       {
-        v12 = *v33;
+        v12 = *v32;
         while (2)
         {
           for (i = 0; i != v11; i = i + 1)
           {
-            if (*v33 != v12)
+            if (*v32 != v12)
             {
               objc_enumerationMutation(ambiguousLangMaps);
             }
 
-            v14 = *(*(&v32 + 1) + 8 * i);
+            v14 = *(*(&v31 + 1) + 8 * i);
             generalLanguageID = [v14 generalLanguageID];
             v16 = [generalLanguageID isEqualToString:systemLanguageID];
 
@@ -2144,7 +2141,7 @@ void __76__AXQuickSpeak__handleQuickSpeakHighlight_sentenceRects_textRect_initia
             }
           }
 
-          v11 = [ambiguousLangMaps countByEnumeratingWithState:&v32 objects:v37 count:16];
+          v11 = [ambiguousLangMaps countByEnumeratingWithState:&v31 objects:v36 count:16];
           if (v11)
           {
             continue;
@@ -2156,26 +2153,26 @@ void __76__AXQuickSpeak__handleQuickSpeakHighlight_sentenceRects_textRect_initia
 
 LABEL_15:
 
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       ambiguousLangMaps2 = [selectedContent ambiguousLangMaps];
-      v18 = [ambiguousLangMaps2 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v18 = [ambiguousLangMaps2 countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v29;
+        v20 = *v28;
         while (2)
         {
           for (j = 0; j != v19; ++j)
           {
-            if (*v29 != v20)
+            if (*v28 != v20)
             {
               objc_enumerationMutation(ambiguousLangMaps2);
             }
 
-            v22 = *(*(&v28 + 1) + 8 * j);
+            v22 = *(*(&v27 + 1) + 8 * j);
             if (v11 != v22)
             {
               associatedAmbiguousLanguages = [v11 associatedAmbiguousLanguages];
@@ -2190,7 +2187,7 @@ LABEL_15:
             }
           }
 
-          v19 = [ambiguousLangMaps2 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v19 = [ambiguousLangMaps2 countByEnumeratingWithState:&v27 objects:v35 count:16];
           if (v19)
           {
             continue;
@@ -2211,7 +2208,6 @@ LABEL_26:
     }
   }
 
-  v26 = *MEMORY[0x29EDCA608];
   return v7;
 }
 

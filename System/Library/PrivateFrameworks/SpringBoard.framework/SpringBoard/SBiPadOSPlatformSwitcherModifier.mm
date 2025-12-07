@@ -168,18 +168,18 @@
   if (objc_opt_isKindOfClass())
   {
     v8 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v9 = SBAppendSwitcherModifierResponse(v8, v4);
+    v9 = SBAppendSwitcherModifierResponse();
 
     if (self->_currentUnlockedEnvironmentMode != 3)
     {
       v10 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:30 updateMode:3];
-      v11 = SBAppendSwitcherModifierResponse(v10, v9);
+      v11 = SBAppendSwitcherModifierResponse();
 
       v9 = v11;
     }
 
     v12 = [[SBInvalidateSnapshotCacheSwitcherEventResponse alloc] initWithDisplayItems:0];
-    v4 = SBAppendSwitcherModifierResponse(v12, v9);
+    v4 = SBAppendSwitcherModifierResponse();
 
     [(SBChainableModifier *)self removeChildModifier:v5];
     v13 = off_27839F4A0;
@@ -324,7 +324,7 @@ LABEL_5:
 - (char)jetsamModeForAppLayout:(id)layout
 {
   layoutCopy = layout;
-  if ([(NSSet *)self->_activatingLiveAppLayouts containsObject:layoutCopy])
+  if (objc_msgSend_containsObject_(self->_activatingLiveAppLayouts))
   {
     v5 = 0;
   }
@@ -342,7 +342,7 @@ LABEL_5:
 - (char)activityModeForAppLayout:(id)layout
 {
   layoutCopy = layout;
-  if ([(NSSet *)self->_activatingLiveAppLayouts containsObject:layoutCopy])
+  if (objc_msgSend_containsObject_(self->_activatingLiveAppLayouts))
   {
     v5 = 0;
   }

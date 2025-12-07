@@ -9,7 +9,7 @@
 + (id)itemServiceSyncProxyForURL:(id)l
 {
   lCopy = l;
-  v4 = BRCXPCBRItemServiceProtocolInterface();
+  v4 = BRCXPCBRItemServiceProtocolInterface(lCopy);
   v5 = _fetchSynchronousAutomaticErrorProxyFromURL(lCopy, @"com.apple.CloudDocs.private.BRItem", v4);
 
   return v5;
@@ -19,7 +19,7 @@
 {
   handlerCopy = handler;
   lCopy = l;
-  v7 = BRCXPCBRItemServiceProtocolInterface();
+  v7 = BRCXPCBRItemServiceProtocolInterface(lCopy);
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
   v9[2] = __74__BRFileProviderServicesFactory_fetchItemServiceAsyncProxyForURL_handler___block_invoke;
@@ -32,7 +32,7 @@
 + (id)clientSideServiceSyncProxyForURL:(id)l
 {
   lCopy = l;
-  v4 = BRCXPCICDFileProviderClientSideCollaborationProtocolInterface();
+  v4 = BRCXPCICDFileProviderClientSideCollaborationProtocolInterface(lCopy);
   v5 = _fetchSynchronousAutomaticErrorProxyFromURL(lCopy, @"com.apple.CloudDocs.private.ClientSideCollaboration", v4);
 
   return v5;

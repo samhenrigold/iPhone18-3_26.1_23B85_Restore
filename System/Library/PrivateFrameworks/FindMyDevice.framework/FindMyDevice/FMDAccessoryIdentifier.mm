@@ -6,6 +6,7 @@
 - (FMDAccessoryIdentifier)initWithCoder:(id)coder;
 - (FMDAccessoryIdentifier)initWithFMDCoder:(id)coder error:(id *)error;
 - (FMDAccessoryIdentifier)initWithString:(id)string;
+- (FMDAccessoryIdentifier)initWithVendorID:(unsigned __int16)d productID:(unsigned int)iD;
 - (id)computeAccessoryIdentifierWithAddress:(id)address;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
@@ -176,6 +177,22 @@
   lowercaseString = [fm_hexString lowercaseString];
 
   return lowercaseString;
+}
+
+- (FMDAccessoryIdentifier)initWithVendorID:(unsigned __int16)d productID:(unsigned int)iD
+{
+  v4 = *&iD;
+  dCopy = d;
+  v9.receiver = self;
+  v9.super_class = FMDAccessoryIdentifier;
+  v6 = [(FMDAccessoryIdentifier *)&v9 init];
+  if (v6)
+  {
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%hu_%u", dCopy, v4];
+    [(FMDAccessoryIdentifier *)v6 setString:v7];
+  }
+
+  return v6;
 }
 
 @end

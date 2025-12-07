@@ -3,6 +3,7 @@
 + (void)clearDeviceIdentifierWithPlistURL:(id)l;
 - (BOOL)encounteredErrorWhileObtainingUUID;
 - (NSUUID)UUID;
+- (WebBookmarkDeviceIdentifier)initWithPlistURL:(id)l readOnly:(BOOL)only;
 - (void)_cancelMonitoringMetaDataFile;
 - (void)_createOrLoadMetaData;
 - (void)_metaDataDidChange:(id)change;
@@ -17,12 +18,11 @@
 
 - (void)_createOrLoadMetaData
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *self;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_272C20000, a2, OS_LOG_TYPE_ERROR, "Failed to write bookmarks metadata file to %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_272C20000, a2, OS_LOG_TYPE_ERROR, "Failed to write bookmarks metadata file to %{public}@", &v3, 0xCu);
 }
 
 - (void)_cancelMonitoringMetaDataFile
@@ -129,6 +129,25 @@ uint64_t __52__WebBookmarkDeviceIdentifier__createOrLoadMetaData__block_invoke(u
   _Block_object_dispose(&v6, 8);
 
   return v3;
+}
+
+- (WebBookmarkDeviceIdentifier)initWithPlistURL:(id)l readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  lCopy = l;
+  v12.receiver = self;
+  v12.super_class = WebBookmarkDeviceIdentifier;
+  v7 = [(WebBookmarkDeviceIdentifier *)&v12 init];
+  if (v7)
+  {
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.WebBookmarkDeviceIdentifier.%p", v7];
+    v9 = dispatch_queue_create([v8 UTF8String], 0);
+
+    [(WebBookmarkDeviceIdentifier *)v7 _setUpWithPlistURL:lCopy readOnly:onlyCopy queue:v9];
+    v10 = v7;
+  }
+
+  return v7;
 }
 
 - (void)_setUpWithPlistURL:(id)l readOnly:(BOOL)only queue:(id)queue

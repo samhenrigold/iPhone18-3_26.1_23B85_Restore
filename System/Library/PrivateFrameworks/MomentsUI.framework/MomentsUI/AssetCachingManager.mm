@@ -6,7 +6,7 @@
 
 - (void)cache:(id)cache willEvictObject:(id)object
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = v10 - v5;
   swift_unknownObjectRetain();

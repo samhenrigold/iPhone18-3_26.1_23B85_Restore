@@ -81,40 +81,39 @@
 
 - (BRLTTextFormattingRanges)initWithCoder:(id)coder
 {
-  v25[2] = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = BRLTTextFormattingRanges;
+  v24[2] = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = BRLTTextFormattingRanges;
   coderCopy = coder;
-  v4 = [(BRLTTextFormattingRanges *)&v22 init];
+  v4 = [(BRLTTextFormattingRanges *)&v21 init];
   v5 = MEMORY[0x277CBEB98];
-  v25[0] = objc_opt_class();
-  v25[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  v24[0] = objc_opt_class();
+  v24[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
   v7 = [v5 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"underlineRanges"];
   underlineRanges = v4->_underlineRanges;
   v4->_underlineRanges = v8;
 
   v10 = MEMORY[0x277CBEB98];
-  v24[0] = objc_opt_class();
-  v24[1] = objc_opt_class();
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v23[0] = objc_opt_class();
+  v23[1] = objc_opt_class();
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
   v12 = [v10 setWithArray:v11];
   v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"italicRanges"];
   italicRanges = v4->_italicRanges;
   v4->_italicRanges = v13;
 
   v15 = MEMORY[0x277CBEB98];
-  v23[0] = objc_opt_class();
-  v23[1] = objc_opt_class();
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[0] = objc_opt_class();
+  v22[1] = objc_opt_class();
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   v17 = [v15 setWithArray:v16];
   v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"boldRanges"];
 
   boldRanges = v4->_boldRanges;
   v4->_boldRanges = v18;
 
-  v20 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

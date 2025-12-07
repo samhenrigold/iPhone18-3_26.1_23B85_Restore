@@ -224,7 +224,7 @@ LABEL_12:
   colorCopy = color;
   if (colorCopy == self)
   {
-    v10 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -235,20 +235,20 @@ LABEL_12:
       v6 = colorCopy;
       name = self->_name;
       name = [(_UICoreUICatalogColorWrapper *)v6 name];
-      if (name == name || (v9 = self->_name, [(_UICoreUICatalogColorWrapper *)v6 name], v3 = objc_claimAutoreleasedReturnValue(), [(NSString *)v9 isEqualToString:v3]))
+      if (name == name || (v9 = self->_name, [(_UICoreUICatalogColorWrapper *)v6 name], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend_isEqualToString_(v9)))
       {
         bundleID = self->_bundleID;
         bundleID = [(_UICoreUICatalogColorWrapper *)v6 bundleID];
         if (bundleID == bundleID)
         {
-          v10 = 1;
+          isEqualToString = 1;
         }
 
         else
         {
           v13 = self->_bundleID;
           bundleID2 = [(_UICoreUICatalogColorWrapper *)v6 bundleID];
-          v10 = [(NSString *)v13 isEqualToString:bundleID2];
+          isEqualToString = objc_msgSend_isEqualToString_(v13);
         }
 
         if (name == name)
@@ -259,19 +259,19 @@ LABEL_12:
 
       else
       {
-        v10 = 0;
+        isEqualToString = 0;
       }
 
 LABEL_13:
       goto LABEL_14;
     }
 
-    v10 = 0;
+    isEqualToString = 0;
   }
 
 LABEL_14:
 
-  return v10;
+  return isEqualToString;
 }
 
 - (BOOL)isEqual:(id)equal

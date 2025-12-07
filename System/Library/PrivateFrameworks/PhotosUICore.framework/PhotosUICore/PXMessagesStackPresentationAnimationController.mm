@@ -149,7 +149,7 @@ LABEL_17:
         v18 = 0u;
         if (dataSource)
         {
-          [dataSource lastItemIndexPath];
+          objc_msgSend_lastItemIndexPath(dataSource);
         }
 
 LABEL_14:
@@ -167,7 +167,7 @@ LABEL_16:
         v18 = 0u;
         if (dataSource)
         {
-          [dataSource firstItemIndexPath];
+          objc_msgSend_firstItemIndexPath(dataSource);
         }
 
         goto LABEL_14;
@@ -184,7 +184,7 @@ LABEL_18:
   return v7;
 }
 
-void __68__PXMessagesStackPresentationAnimationController_animateTransition___block_invoke(uint64_t a1, int a2)
+void __68__PXMessagesStackPresentationAnimationController_animateTransition___block_invoke(uint64_t a1, uint64_t a2)
 {
   v47 = *MEMORY[0x1E69E9840];
   if (a2)

@@ -71,13 +71,13 @@ LABEL_9:
   }
 
 LABEL_10:
-  if (softLinkUTTypeConformsTo(self->_sharedContentType, @"public.presentation") || [(NSString *)self->_sharedContentType isEqualToString:@"key"])
+  if (softLinkUTTypeConformsTo(self->_sharedContentType, @"public.presentation") || (objc_msgSend_isEqualToString_(self->_sharedContentType) & 1) != 0)
   {
     v6 = @"Presentation";
     goto LABEL_13;
   }
 
-  if (softLinkUTTypeConformsTo(self->_sharedContentType, @"public.spreadsheet") || [(NSString *)self->_sharedContentType isEqualToString:@"numbers"])
+  if (softLinkUTTypeConformsTo(self->_sharedContentType, @"public.spreadsheet") || (objc_msgSend_isEqualToString_(self->_sharedContentType) & 1) != 0)
   {
     v6 = @"Spreadsheet";
     goto LABEL_13;
@@ -89,7 +89,7 @@ LABEL_10:
     goto LABEL_13;
   }
 
-  if (softLinkUTTypeConformsTo(self->_sharedContentType, @"com.apple.iwork.pages.pages") || [(NSString *)self->_sharedContentType isEqualToString:@"pages"])
+  if (softLinkUTTypeConformsTo(self->_sharedContentType, @"com.apple.iwork.pages.pages") || (objc_msgSend_isEqualToString_(self->_sharedContentType) & 1) != 0)
   {
     v6 = @"Document";
     goto LABEL_13;

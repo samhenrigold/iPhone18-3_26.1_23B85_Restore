@@ -7,19 +7,19 @@
 
 - (id)NSObject
 {
-  v1 = *(self + 32);
-  v2 = *(self + 40);
+  v2 = *(self + 32);
+  v3 = *(self + 40);
 
-  v3 = v1(v2);
+  v4 = v2(v3, a2);
 
-  if (!v3)
+  if (!v4)
   {
     return 0;
   }
 
   type metadata accessor for NSObject();
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
-  v3;
+  v4;
   return isa;
 }
 

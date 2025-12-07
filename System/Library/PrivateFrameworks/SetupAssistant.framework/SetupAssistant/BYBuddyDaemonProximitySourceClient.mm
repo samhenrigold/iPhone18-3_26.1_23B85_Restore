@@ -83,7 +83,7 @@
 
 void __53__BYBuddyDaemonProximitySourceClient_connectToDaemon__block_invoke(uint64_t a1)
 {
-  v2 = _BYLoggingFacility();
+  v2 = _BYLoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -98,7 +98,7 @@ void __53__BYBuddyDaemonProximitySourceClient_connectToDaemon__block_invoke(uint
 
 void __53__BYBuddyDaemonProximitySourceClient_connectToDaemon__block_invoke_78(uint64_t a1)
 {
-  v2 = _BYLoggingFacility();
+  v2 = _BYLoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

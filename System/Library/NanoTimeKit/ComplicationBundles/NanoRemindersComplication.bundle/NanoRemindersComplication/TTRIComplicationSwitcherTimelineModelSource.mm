@@ -18,19 +18,16 @@
 
 - (TTRComplicationTimelineModel)model
 {
-  v3 = OBJC_IVAR____TtC25NanoRemindersComplication43TTRIComplicationSwitcherTimelineModelSource_model;
   swift_beginAccess();
-  v4 = *(self + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setModel:(id)model
 {
   v5 = OBJC_IVAR____TtC25NanoRemindersComplication43TTRIComplicationSwitcherTimelineModelSource_model;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = model;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();

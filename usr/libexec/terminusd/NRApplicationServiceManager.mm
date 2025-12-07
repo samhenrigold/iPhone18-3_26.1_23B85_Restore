@@ -58,27 +58,27 @@
 
 - (NRApplicationServiceManager)init
 {
-  v87.receiver = self;
-  v87.super_class = NRApplicationServiceManager;
-  v6 = [(NRApplicationServiceManager *)&v87 init];
+  v85.receiver = self;
+  v85.super_class = NRApplicationServiceManager;
+  v6 = [(NRApplicationServiceManager *)&v85 init];
   if (!v6)
   {
-    v78 = sub_100119370();
+    v75 = sub_100119370();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
-    v43 = "[NRApplicationServiceManager init]";
+    v40 = "[NRApplicationServiceManager init]";
     if (IsLevelEnabled)
     {
-      v80 = sub_100119370();
-      _NRLogWithArgs();
+      v77 = sub_100119370();
+      _NRLogWithArgs(v77, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRApplicationServiceManager init]"", 371);
     }
 
-    _os_log_pack_size();
-    v42 = &v83 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
-    v81 = *__error();
-    v82 = _os_log_pack_fill();
-    *v82 = 136446210;
-    *(v82 + 4) = "[NRApplicationServiceManager init]";
+    v78 = _os_log_pack_size();
+    v39 = &v81 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+    v79 = __error();
+    v80 = _os_log_pack_fill(v39, v78, *v79, &_mh_execute_header, "%{public}s [super init] failed");
+    *v80 = 136446210;
+    *(v80 + 4) = "[NRApplicationServiceManager init]";
     sub_100119370();
     _NRLogAbortWithPack();
     goto LABEL_38;
@@ -118,127 +118,124 @@
   policyIdentifier = v7->_policyIdentifier;
   v7->_policyIdentifier = v23;
 
-  v25 = v7->_queue;
-  v26 = nw_agent_create();
-  v117 = 0;
-  v118 = 0;
+  v25 = nw_agent_create();
+  v115 = 0;
+  v116 = 0;
   nw_agent_get_uuid();
-  v27 = [[NSUUID alloc] initWithUUIDBytes:&v117];
+  v26 = [[NSUUID alloc] initWithUUIDBytes:&v115];
   resolverAgentUUID = v7->_resolverAgentUUID;
-  v7->_resolverAgentUUID = v27;
+  v7->_resolverAgentUUID = v26;
 
-  v92 = _NSConcreteStackBlock;
-  v93 = 3221225472;
-  v86 = &v94;
-  v94 = sub_10011BAC4;
-  v95 = &unk_1001FBDD8;
-  v96 = v7;
-  *&v88 = _NSConcreteStackBlock;
-  *(&v88 + 1) = 3221225472;
-  v85 = &v89;
-  *&v89 = sub_10011BE74;
-  *(&v89 + 1) = &unk_1001FBE00;
-  *&v90 = v7;
+  v90 = _NSConcreteStackBlock;
+  v91 = 3221225472;
+  v84 = &v92;
+  v92 = sub_10011BAC4;
+  v93 = &unk_1001FBDD8;
+  v94 = v7;
+  *&v86 = _NSConcreteStackBlock;
+  *(&v86 + 1) = 3221225472;
+  v83 = &v87;
+  *&v87 = sub_10011BE74;
+  *(&v87 + 1) = &unk_1001FBE00;
+  *&v88 = v7;
   nw_agent_set_browse_handlers();
-  v111 = v7;
-  v112 = _NSConcreteStackBlock;
-  v113 = 3221225472;
-  v114 = sub_10011C3D4;
-  v115 = &unk_1001FBDD8;
-  v116 = v7;
-  v107 = _NSConcreteStackBlock;
-  v108 = 3221225472;
-  v109 = sub_10011C9A8;
-  v110 = &unk_1001FBE00;
+  v109 = v7;
+  v110 = _NSConcreteStackBlock;
+  v111 = 3221225472;
+  v112 = sub_10011C3D4;
+  v113 = &unk_1001FBDD8;
+  v114 = v7;
+  v105 = _NSConcreteStackBlock;
+  v106 = 3221225472;
+  v107 = sub_10011C9A8;
+  v108 = &unk_1001FBE00;
   nw_agent_add_resolve_handlers();
-  v29 = _os_feature_enabled_impl();
-  v7->_resolverHasCompleteOnConnect = v29;
-  if (v29)
+  v28 = _os_feature_enabled_impl();
+  v7->_resolverHasCompleteOnConnect = v28;
+  if (v28)
   {
     nw_agent_set_resolve_flags();
     if (v7->_resolverHasCompleteOnConnect)
     {
-      v102 = _NSConcreteStackBlock;
-      v103 = 3221225472;
-      v104 = sub_10011CDC0;
-      v105 = &unk_1001FBE28;
-      v106 = v7;
-      v97 = _NSConcreteStackBlock;
-      v98 = 3221225472;
-      v99 = sub_10011D0BC;
-      v100 = &unk_1001FBE00;
-      v101 = v7;
+      v100 = _NSConcreteStackBlock;
+      v101 = 3221225472;
+      v102 = sub_10011CDC0;
+      v103 = &unk_1001FBE28;
+      v104 = v7;
+      v95 = _NSConcreteStackBlock;
+      v96 = 3221225472;
+      v97 = sub_10011D0BC;
+      v98 = &unk_1001FBE00;
+      v99 = v7;
       nw_agent_set_assert_handlers();
     }
   }
 
   nw_agent_change_state();
   resolverAgent = v7->_resolverAgent;
-  v7->_resolverAgent = v26;
-  v31 = v26;
+  v7->_resolverAgent = v25;
+  v30 = v25;
 
-  v32 = v7->_queue;
-  v33 = nw_agent_create();
-  v117 = 0;
-  v118 = 0;
+  v31 = nw_agent_create();
+  v115 = 0;
+  v116 = 0;
   nw_agent_get_uuid();
-  v34 = [[NSUUID alloc] initWithUUIDBytes:&v117];
+  v32 = [[NSUUID alloc] initWithUUIDBytes:&v115];
   listenerAgentUUID = v7->_listenerAgentUUID;
-  v7->_listenerAgentUUID = v34;
+  v7->_listenerAgentUUID = v32;
 
-  v111 = v7;
-  v112 = _NSConcreteStackBlock;
-  v113 = 3221225472;
-  v114 = sub_10011A590;
-  v115 = &unk_1001FBDD8;
-  v116 = v7;
-  v107 = _NSConcreteStackBlock;
-  v108 = 3221225472;
-  v109 = sub_10011A8B4;
-  v110 = &unk_1001FBE00;
+  v109 = v7;
+  v110 = _NSConcreteStackBlock;
+  v111 = 3221225472;
+  v112 = sub_10011A590;
+  v113 = &unk_1001FBDD8;
+  v114 = v7;
+  v105 = _NSConcreteStackBlock;
+  v106 = 3221225472;
+  v107 = sub_10011A8B4;
+  v108 = &unk_1001FBE00;
   nw_agent_set_browse_handlers();
   nw_agent_change_state();
   listenerAgent = v7->_listenerAgent;
-  v7->_listenerAgent = v33;
-  v84 = v33;
+  v7->_listenerAgent = v31;
+  v82 = v31;
 
-  v37 = v7->_queue;
-  v38 = nw_agent_create();
-  v97 = 0;
-  v98 = 0;
+  v35 = nw_agent_create();
+  v95 = 0;
+  v96 = 0;
   nw_agent_get_uuid();
-  v39 = [[NSUUID alloc] initWithUUIDBytes:&v97];
+  v36 = [[NSUUID alloc] initWithUUIDBytes:&v95];
   incomingFlowAgentUUID = v7->_incomingFlowAgentUUID;
-  v7->_incomingFlowAgentUUID = v39;
+  v7->_incomingFlowAgentUUID = v36;
 
-  v92 = _NSConcreteStackBlock;
-  v93 = 3221225472;
-  v94 = sub_10011ACD8;
-  v95 = &unk_1001FBE28;
-  v96 = v7;
-  *&v88 = _NSConcreteStackBlock;
-  *(&v88 + 1) = 3221225472;
-  *&v89 = sub_10011AD4C;
-  *(&v89 + 1) = &unk_1001FBE00;
-  *&v90 = v7;
+  v90 = _NSConcreteStackBlock;
+  v91 = 3221225472;
+  v92 = sub_10011ACD8;
+  v93 = &unk_1001FBE28;
+  v94 = v7;
+  *&v86 = _NSConcreteStackBlock;
+  *(&v86 + 1) = 3221225472;
+  *&v87 = sub_10011AD4C;
+  *(&v87 + 1) = &unk_1001FBE00;
+  *&v88 = v7;
   nw_agent_set_assert_handlers();
   nw_agent_change_state();
   incomingFlowAgent = v7->_incomingFlowAgent;
-  v7->_incomingFlowAgent = v38;
-  v86 = v38;
+  v7->_incomingFlowAgent = v35;
+  v84 = v35;
 
   v3 = &dispatch_group_enter_ptr;
   v2 = v7;
-  v42 = [NEPolicyResult netAgentUUID:v7->_incomingFlowAgentUUID];
-  v43 = [NEPolicyCondition requiredAgentDomain:@"com.apple.networkrelay" agentType:@"ASListener"];
+  v39 = [NEPolicyResult netAgentUUID:v7->_incomingFlowAgentUUID];
+  v40 = [NEPolicyCondition requiredAgentDomain:@"com.apple.networkrelay" agentType:@"ASListener"];
   v4 = +[NEPolicyCondition isInbound];
-  v44 = [NEPolicy alloc];
-  v45 = +[NEPolicyCondition allInterfaces];
-  v102 = v45;
-  v103 = v43;
-  v104 = v4;
-  v46 = [NSArray arrayWithObjects:&v102 count:3];
-  v5 = [v44 initWithOrder:10 result:v42 conditions:v46];
+  v41 = [NEPolicy alloc];
+  v42 = +[NEPolicyCondition allInterfaces];
+  v100 = v42;
+  v101 = v40;
+  v102 = v4;
+  v43 = [NSArray arrayWithObjects:&v100 count:3];
+  v5 = [v41 initWithOrder:10 result:v39 conditions:v43];
 
   objc_opt_self();
   if (qword_100229410 != -1)
@@ -247,9 +244,9 @@ LABEL_38:
     dispatch_once(&qword_100229410, &stru_1001FCD98);
   }
 
-  v47 = qword_100229408;
-  v48 = v2;
-  v49 = sub_100159E00(v47, v2->_policyIdentifier, v5);
+  v44 = qword_100229408;
+  v45 = v2;
+  v46 = sub_100159E00(v44, v2->_policyIdentifier, v5);
 
   objc_opt_self();
   if (qword_100229410 != -1)
@@ -257,11 +254,11 @@ LABEL_38:
     dispatch_once(&qword_100229410, &stru_1001FCD98);
   }
 
-  v50 = qword_100229408;
-  sub_10015A52C(v50);
+  v47 = qword_100229408;
+  sub_10015A52C(v47);
 
-  v51 = v2->_resolverAgentUUID;
-  if (v51)
+  v48 = v2->_resolverAgentUUID;
+  if (v48)
   {
   }
 
@@ -270,44 +267,44 @@ LABEL_38:
     goto LABEL_26;
   }
 
-  v52 = objc_alloc_init(NSMutableArray);
+  v49 = objc_alloc_init(NSMutableArray);
   if (v2->_resolverAgentUUID)
   {
-    v53 = [v3[328] removeNetworkAgentUUID:?];
-    [v52 addObject:v53];
+    v50 = [v3[328] removeNetworkAgentUUID:?];
+    [v49 addObject:v50];
   }
 
   if (v2->_listenerAgentUUID)
   {
-    v54 = [v3[328] removeNetworkAgentUUID:?];
-    [v52 addObject:v54];
+    v51 = [v3[328] removeNetworkAgentUUID:?];
+    [v49 addObject:v51];
   }
 
-  v90 = 0u;
-  v91 = 0u;
   v88 = 0u;
   v89 = 0u;
-  v55 = v52;
-  v56 = [v55 countByEnumeratingWithState:&v88 objects:&v92 count:16];
-  if (v56)
+  v86 = 0u;
+  v87 = 0u;
+  v52 = v49;
+  v53 = [v52 countByEnumeratingWithState:&v86 objects:&v90 count:16];
+  if (v53)
   {
-    v57 = v56;
-    v58 = *v89;
+    v54 = v53;
+    v55 = *v87;
     do
     {
-      for (i = 0; i != v57; i = i + 1)
+      for (i = 0; i != v54; i = i + 1)
       {
-        if (*v89 != v58)
+        if (*v87 != v55)
         {
-          objc_enumerationMutation(v55);
+          objc_enumerationMutation(v52);
         }
 
-        v60 = *(*(&v88 + 1) + 8 * i);
-        v61 = [NEPolicy alloc];
-        v62 = +[NEPolicyCondition allInterfaces];
-        v107 = v62;
-        v63 = [NSArray arrayWithObjects:&v107 count:1];
-        v64 = [v61 initWithOrder:20 result:v60 conditions:v63];
+        v57 = *(*(&v86 + 1) + 8 * i);
+        v58 = [NEPolicy alloc];
+        v59 = +[NEPolicyCondition allInterfaces];
+        v105 = v59;
+        v60 = [NSArray arrayWithObjects:&v105 count:1];
+        v61 = [v58 initWithOrder:20 result:v57 conditions:v60];
 
         objc_opt_self();
         if (qword_100229410 != -1)
@@ -315,37 +312,37 @@ LABEL_38:
           dispatch_once(&qword_100229410, &stru_1001FCD98);
         }
 
-        v48 = v2;
-        v65 = qword_100229408;
-        v66 = sub_100159E00(v65, v2->_policyIdentifier, v64);
+        v45 = v2;
+        v62 = qword_100229408;
+        v63 = sub_100159E00(v62, v2->_policyIdentifier, v61);
       }
 
-      v57 = [v55 countByEnumeratingWithState:&v88 objects:&v92 count:16];
+      v54 = [v52 countByEnumeratingWithState:&v86 objects:&v90 count:16];
     }
 
-    while (v57);
+    while (v54);
   }
 
   v3 = &dispatch_group_enter_ptr;
 LABEL_26:
-  v67 = v48->_resolverAgentUUID;
-  if (v67)
+  v64 = v45->_resolverAgentUUID;
+  if (v64)
   {
   }
 
-  else if (!v48->_listenerAgentUUID)
+  else if (!v45->_listenerAgentUUID)
   {
     goto LABEL_32;
   }
 
-  v68 = [v3[328] skipWithOrder:21];
-  v69 = [NEPolicyCondition customEntitlement:@"com.apple.private.application-service-browse"];
-  v70 = [NEPolicy alloc];
-  v71 = +[NEPolicyCondition allInterfaces];
-  v112 = v71;
-  v113 = v69;
-  v72 = [NSArray arrayWithObjects:&v112 count:2];
-  v73 = [v70 initWithOrder:15 result:v68 conditions:v72];
+  v65 = [v3[328] skipWithOrder:21];
+  v66 = [NEPolicyCondition customEntitlement:@"com.apple.private.application-service-browse"];
+  v67 = [NEPolicy alloc];
+  v68 = +[NEPolicyCondition allInterfaces];
+  v110 = v68;
+  v111 = v66;
+  v69 = [NSArray arrayWithObjects:&v110 count:2];
+  v70 = [v67 initWithOrder:15 result:v65 conditions:v69];
 
   objc_opt_self();
   if (qword_100229410 != -1)
@@ -353,8 +350,8 @@ LABEL_26:
     dispatch_once(&qword_100229410, &stru_1001FCD98);
   }
 
-  v74 = qword_100229408;
-  v75 = sub_100159E00(v74, v48->_policyIdentifier, v73);
+  v71 = qword_100229408;
+  v72 = sub_100159E00(v71, v45->_policyIdentifier, v70);
 
 LABEL_32:
   objc_opt_self();
@@ -363,10 +360,10 @@ LABEL_32:
     dispatch_once(&qword_100229410, &stru_1001FCD98);
   }
 
-  v76 = qword_100229408;
-  sub_10015A52C(v76);
+  v73 = qword_100229408;
+  sub_10015A52C(v73);
 
-  return v48;
+  return v45;
 }
 
 @end

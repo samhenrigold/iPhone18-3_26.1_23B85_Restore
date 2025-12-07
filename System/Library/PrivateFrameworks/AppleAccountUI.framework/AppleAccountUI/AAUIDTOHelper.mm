@@ -175,7 +175,7 @@ void __52__AAUIDTOHelper_shouldAllowOpForContext_completion___block_invoke(uint6
 {
   v5 = a2;
   v6 = a3;
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __52__AAUIDTOHelper_shouldAllowOpForContext_completion___block_invoke_cold_1(v6, v7);
@@ -232,44 +232,46 @@ LABEL_15:
     v9 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
     v10 = [v9 localizedStringForKey:@"RATCHET_RC_ADD_NOT_ALLOWED_MESSAGE" value:&stru_1F447F790 table:@"Localizable"];
 
-    if (([MEMORY[0x1E6985DD8] isVirtualMachine] & 1) == 0)
+    isVirtualMachine = [MEMORY[0x1E6985DD8] isVirtualMachine];
+    if ((isVirtualMachine & 1) == 0)
     {
       goto LABEL_7;
     }
 
-    v11 = @"RATCHET_RC_ADD_NOT_ALLOWED_MESSAGE_VM";
+    v12 = @"RATCHET_RC_ADD_NOT_ALLOWED_MESSAGE_VM";
   }
 
   else
   {
-    v12 = [MEMORY[0x1E69DC938] modelSpecificLocalizedStringKeyForKey:@"RATCHET_RC_DELETE_NOT_ALLOWED_ALERT_TITLE"];
-    v8 = [v6 localizedStringForKey:v12 value:&stru_1F447F790 table:@"Localizable"];
+    v13 = [MEMORY[0x1E69DC938] modelSpecificLocalizedStringKeyForKey:@"RATCHET_RC_DELETE_NOT_ALLOWED_ALERT_TITLE"];
+    v8 = [v6 localizedStringForKey:v13 value:&stru_1F447F790 table:@"Localizable"];
 
-    v13 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v10 = [v13 localizedStringForKey:@"RATCHET_RC_DELETE_NOT_ALLOWED_MESSAGE" value:&stru_1F447F790 table:@"Localizable"];
+    v14 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v10 = [v14 localizedStringForKey:@"RATCHET_RC_DELETE_NOT_ALLOWED_MESSAGE" value:&stru_1F447F790 table:@"Localizable"];
 
-    if (![MEMORY[0x1E6985DD8] isVirtualMachine])
+    isVirtualMachine = [MEMORY[0x1E6985DD8] isVirtualMachine];
+    if (!isVirtualMachine)
     {
       goto LABEL_7;
     }
 
-    v11 = @"RATCHET_RC_DELETE_NOT_ALLOWED_MESSAGE_VM";
+    v12 = @"RATCHET_RC_DELETE_NOT_ALLOWED_MESSAGE_VM";
   }
 
-  v14 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v15 = [v14 localizedStringForKey:v11 value:&stru_1F447F790 table:@"Localizable"];
+  v15 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v16 = [v15 localizedStringForKey:v12 value:&stru_1F447F790 table:@"Localizable"];
 
-  v10 = v15;
+  v10 = v16;
 LABEL_7:
-  v16 = _AAUILogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = _AAUILogSystem(isVirtualMachine);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    [(AAUIDTOHelper *)v8 _makeOpNotAllowedAlertForAddCustodian:v10, v16];
+    [(AAUIDTOHelper *)v8 _makeOpNotAllowedAlertForAddCustodian:v10, v17];
   }
 
-  v17 = [MEMORY[0x1E69DC650] alertWithTitle:v8 message:v10 buttonTitle:v5];
+  v18 = [MEMORY[0x1E69DC650] alertWithTitle:v8 message:v10 buttonTitle:v5];
 
-  return v17;
+  return v18;
 }
 
 - (id)makeGenericRatchetFailedAlert

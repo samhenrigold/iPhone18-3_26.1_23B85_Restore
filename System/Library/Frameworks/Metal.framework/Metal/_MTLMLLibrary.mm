@@ -89,81 +89,80 @@
 
 - (id)reflectionForFunctionWithName:(id)name
 {
-  reflection = self->_reflection;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    v33 = 0;
-    return v33;
+    v32 = 0;
+    return v32;
   }
 
   if ([-[MPSGraphExecutableReflectionProxy functionNames](self->_reflection "functionNames")])
   {
-    v13 = [(MPSGraphExecutableReflectionProxy *)self->_reflection inputNamesForFunction:name];
-    v14 = [(MPSGraphExecutableReflectionProxy *)self->_reflection outputNamesForFunction:name];
-    v15 = [(MPSGraphExecutableReflectionProxy *)self->_reflection inputShapesForFunction:name];
-    v16 = [(MPSGraphExecutableReflectionProxy *)self->_reflection outputShapesForFunction:name];
-    v38 = v15;
-    v17 = [v15 count];
-    v18 = [v16 count] + v17;
-    std::vector<objc_object  {objcproto10MTLBinding}*>::vector[abi:ne200100](&v39, v18);
-    if (v18)
+    v12 = [(MPSGraphExecutableReflectionProxy *)self->_reflection inputNamesForFunction:name];
+    v13 = [(MPSGraphExecutableReflectionProxy *)self->_reflection outputNamesForFunction:name];
+    v14 = [(MPSGraphExecutableReflectionProxy *)self->_reflection inputShapesForFunction:name];
+    v15 = [(MPSGraphExecutableReflectionProxy *)self->_reflection outputShapesForFunction:name];
+    v37 = v14;
+    v16 = [v14 count];
+    v17 = [v15 count] + v16;
+    std::vector<objc_object  {objcproto10MTLBinding}*>::vector[abi:ne200100](&v38, v17);
+    if (v17)
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (v17 <= i)
+        if (v16 <= i)
         {
-          v20 = &stru_1EF478240;
-          if (i - v17 < [v14 count])
+          v19 = &stru_1EF478240;
+          if (i - v16 < [v13 count])
           {
-            v20 = [v14 objectAtIndexedSubscript:i - v17];
+            v19 = [v13 objectAtIndexedSubscript:i - v16];
           }
 
-          v21 = [v16 objectAtIndexedSubscript:i - v17];
+          v20 = [v15 objectAtIndexedSubscript:i - v16];
         }
 
         else
         {
-          v20 = &stru_1EF478240;
-          if ([v13 count] > i)
+          v19 = &stru_1EF478240;
+          if ([v12 count] > i)
           {
-            v20 = [v13 objectAtIndexedSubscript:i];
+            v19 = [v12 objectAtIndexedSubscript:i];
           }
 
-          v21 = [v38 objectAtIndexedSubscript:i];
+          v20 = [v37 objectAtIndexedSubscript:i];
         }
 
-        v22 = v21;
-        dataType = [v21 dataType];
-        v31 = MTLTensorDataTypeFromMPSDataType(dataType, v24, v25, v26, v27, v28, v29, v30);
-        v32 = -[MTLTensorBindingInternal initWithName:access:isActive:locationIndex:arrayLength:dataType:indexType:dimensions:]([MTLTensorBindingInternal alloc], "initWithName:access:isActive:locationIndex:arrayLength:dataType:indexType:dimensions:", v20, 2 * (v17 <= i), 1, i, 1, v31, 33, TensorExtentsFromMPSShape([v22 shape]));
-        v39[i] = v32;
+        v21 = v20;
+        dataType = [v20 dataType];
+        v30 = MTLTensorDataTypeFromMPSDataType(dataType, v23, v24, v25, v26, v27, v28, v29);
+        v31 = -[MTLTensorBindingInternal initWithName:access:isActive:locationIndex:arrayLength:dataType:indexType:dimensions:]([MTLTensorBindingInternal alloc], "initWithName:access:isActive:locationIndex:arrayLength:dataType:indexType:dimensions:", v19, 2 * (v16 <= i), 1, i, 1, v30, 33, TensorExtentsFromMPSShape([v21 shape]));
+        v38[i] = v31;
       }
     }
 
-    LODWORD(v37) = 0;
-    v33 = [MTLFunctionReflectionInternal initWithArguments:"initWithArguments:argumentCount:builtInArgumentCount:globalBindings:globalBindingCount:pluginReturnData:primitiveKind:tags:tagCount:returnType:userAnnotation:attributes:" argumentCount:0 builtInArgumentCount:0 globalBindings:v37 globalBindingCount:0 pluginReturnData:0 primitiveKind:0 tags:? tagCount:? returnType:? userAnnotation:? attributes:?];
+    LODWORD(v36) = 0;
+    v32 = [MTLFunctionReflectionInternal initWithArguments:"initWithArguments:argumentCount:builtInArgumentCount:globalBindings:globalBindingCount:pluginReturnData:primitiveKind:tags:tagCount:returnType:userAnnotation:attributes:" argumentCount:0 builtInArgumentCount:0 globalBindings:v36 globalBindingCount:0 pluginReturnData:0 primitiveKind:0 tags:? tagCount:? returnType:? userAnnotation:? attributes:?];
+    v33 = v38;
     v34 = v39;
-    v35 = v40;
-    if (v39 != v40)
+    if (v38 != v39)
     {
       do
       {
       }
 
-      while (v34 != v35);
-      v34 = v39;
+      while (v33 != v34);
+      v33 = v38;
     }
 
-    if (v34)
+    if (v33)
     {
-      v40 = v34;
-      operator delete(v34);
+      v39 = v33;
+      operator delete(v33);
     }
 
-    return v33;
+    return v32;
   }
 
-  [(_MTLMLLibrary *)name reflectionForFunctionWithName:v6, v7, v8, v9, v10, v11, v12];
+  [(_MTLMLLibrary *)name reflectionForFunctionWithName:v5, v6, v7, v8, v9, v10, v11];
   return 0;
 }
 

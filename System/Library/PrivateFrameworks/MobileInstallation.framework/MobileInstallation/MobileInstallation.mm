@@ -252,11 +252,11 @@ void sub_1BF3518A8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BF351FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BF351FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -267,55 +267,55 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1BF352308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BF352308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BF352600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BF35292C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BF352C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BF352EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BF352600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BF35308C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BF35292C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BF353268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BF352C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BF352EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BF35308C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BF353268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -537,113 +537,110 @@ id _FirstBuildInSeriesForBuildNumber(void *a1)
   return v3;
 }
 
-uint64_t MIPurgeExpendableAppsAndDataForRestore(__CFString *a1, int a2, uint64_t a3, uint64_t a4)
+uint64_t MIPurgeExpendableAppsAndDataForRestore(__CFString *a1, int a2, __CFString *a3, uint64_t a4)
 {
-  v101[16] = *MEMORY[0x1E69E9840];
-  v82 = a4;
-  v83 = 0;
+  v95[16] = *MEMORY[0x1E69E9840];
+  v76 = a4;
+  v77 = 0;
   if (!gLogHandle || *(gLogHandle + 44) >= 5)
   {
-    v77 = a3;
-    v78 = a4;
+    v71 = a3;
+    v72 = a4;
     v6 = 78;
     if (a2)
     {
       v6 = 89;
     }
 
-    v75 = a1;
-    v76 = v6;
+    v69 = a1;
+    v70 = v6;
     MOLogWrite();
   }
 
   context = objc_autoreleasePoolPush();
-  v80 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:a1 isDirectory:1 relativeToURL:0];
-  v7 = 0x1E695D000uLL;
+  v74 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:a1 isDirectory:1 relativeToURL:0];
   if (!a2)
   {
     goto LABEL_29;
   }
 
-  v8 = v80;
+  v7 = v74;
   if (!gLogHandle || *(gLogHandle + 44) >= 5)
   {
     MOLogWrite();
   }
 
+  v8 = 0;
   v9 = 0;
-  v10 = 0;
   while (1)
   {
-    v11 = qword_1BF375778[v10];
-    v12 = v8;
-    v13 = *(v7 + 3952);
-    v14 = objc_opt_new();
-    *&v88 = MEMORY[0x1E69E9820];
-    *(&v88 + 1) = 3221225472;
-    *&v89 = ___PurgeExpendableDataContainerContentForContainerClass_block_invoke;
-    *(&v89 + 1) = &unk_1E80B9E68;
-    v15 = v14;
-    *&v90 = v15;
-    v16 = MIEnumerateContainersOfClass(v12, v11, &v88);
-    if (v16 && (!gLogHandle || *(gLogHandle + 44) >= 3))
+    v10 = qword_1BF375778[v9];
+    v11 = v7;
+    v12 = objc_opt_new();
+    *&v82 = MEMORY[0x1E69E9820];
+    *(&v82 + 1) = 3221225472;
+    *&v83 = ___PurgeExpendableDataContainerContentForContainerClass_block_invoke;
+    *(&v83 + 1) = &unk_1E80B9E68;
+    v13 = v12;
+    *&v84 = v13;
+    v14 = MIEnumerateContainersOfClass(v11, v10, &v82);
+    if (v14 && (!gLogHandle || *(gLogHandle + 44) >= 3))
     {
-      v75 = v11;
-      v76 = v16;
+      v69 = v10;
+      v70 = v14;
       MOLogWrite();
     }
 
-    if (![v15 count])
+    if (![v13 count])
     {
 
       goto LABEL_26;
     }
 
-    v17 = [v15 sortedArrayUsingComparator:&__block_literal_global_82];
-    v99 = 0u;
-    v100 = 0u;
-    v97 = 0u;
-    v98 = 0u;
-    v18 = v15;
-    v19 = [v18 countByEnumeratingWithState:&v97 objects:v101 count:16];
-    if (v19)
+    v15 = [v13 sortedArrayUsingComparator:&__block_literal_global_82];
+    v93 = 0u;
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
+    v16 = v13;
+    v17 = [v16 countByEnumeratingWithState:&v91 objects:v95 count:16];
+    if (v17)
     {
       break;
     }
 
 LABEL_24:
 
-    v7 = 0x1E695D000;
 LABEL_26:
-    v9 = v10++ > 1;
-    if (v10 == 3)
+    v8 = v9++ > 1;
+    if (v9 == 3)
     {
 
       goto LABEL_29;
     }
   }
 
-  v20 = *v98;
+  v18 = *v92;
 LABEL_18:
-  v21 = v8;
-  v22 = 0;
+  v19 = v7;
+  v20 = 0;
   while (1)
   {
-    if (*v98 != v20)
+    if (*v92 != v18)
     {
-      objc_enumerationMutation(v18);
+      objc_enumerationMutation(v16);
     }
 
-    if (!_ProcessDataContainer(*(*(&v97 + 1) + 8 * v22), v11, &v82))
+    if (!_ProcessDataContainer(*(*(&v91 + 1) + 8 * v20), v10, &v76))
     {
       break;
     }
 
-    if (v19 == ++v22)
+    if (v17 == ++v20)
     {
-      v19 = [v18 countByEnumeratingWithState:&v97 objects:v101 count:16];
-      v8 = v21;
-      if (v19)
+      v17 = [v16 countByEnumeratingWithState:&v91 objects:v95 count:16];
+      v7 = v19;
+      if (v17)
       {
         goto LABEL_18;
       }
@@ -652,66 +649,65 @@ LABEL_18:
     }
   }
 
-  v7 = 0x1E695D000uLL;
-  if (!v9)
+  if (!v8)
   {
     goto LABEL_136;
   }
 
 LABEL_29:
-  v23 = v80;
-  v24 = MICopyCurrentBuildVersion();
-  v25 = [v23 MI_URLByAppendingPathComponents:&unk_1F3DE9A08 lastIsDirectory:0];
+  v21 = v74;
+  v22 = MICopyCurrentBuildVersion();
+  v23 = [v21 MI_URLByAppendingPathComponents:&unk_1F3DE9A08 lastIsDirectory:0];
 
-  if (v24)
+  if (v22)
   {
-    v101[0] = 0;
-    v26 = [MEMORY[0x1E695DF90] MI_dictionaryWithContentsOfURL:v25 options:1 error:v101];
-    v27 = v101[0];
-    v28 = v27;
-    if (v26)
+    v95[0] = 0;
+    v24 = [MEMORY[0x1E695DF90] MI_dictionaryWithContentsOfURL:v23 options:1 error:v95];
+    v25 = v95[0];
+    v26 = v25;
+    if (v24)
     {
-      v29 = [v26 objectForKeyedSubscript:@"LastSystemVersion"];
+      v27 = [v24 objectForKeyedSubscript:@"LastSystemVersion"];
       objc_opt_class();
-      v30 = v29;
+      v28 = v27;
       if (objc_opt_isKindOfClass())
       {
-        v31 = v30;
+        v29 = v28;
       }
 
       else
       {
-        v31 = 0;
+        v29 = 0;
       }
 
-      if (v31)
+      if (v29)
       {
-        if (([(__CFString *)v24 isEqualToString:v31]& 1) != 0)
+        if (([(__CFString *)v22 isEqualToString:v29]& 1) != 0)
         {
-          v34 = _FirstBuildInSeriesForBuildNumber(v24);
-          if (v34)
+          v32 = _FirstBuildInSeriesForBuildNumber(v22);
+          if (v32)
           {
             if (!gLogHandle || *(gLogHandle + 44) >= 3)
             {
-              v76 = v31;
-              v77 = v34;
-              v75 = @"LastSystemVersion";
+              v70 = v29;
+              v71 = v32;
+              v69 = @"LastSystemVersion";
               MOLogWrite();
             }
 
-            [v26 setObject:v34 forKeyedSubscript:{@"LastSystemVersion", v75, v76, v77}];
+            [v24 setObject:v32 forKeyedSubscript:{@"LastSystemVersion", v69, v70, v71}];
           }
 
           else
           {
             if (!gLogHandle || *(gLogHandle + 44) >= 3)
             {
-              v75 = v24;
-              v76 = @"LastSystemVersion";
+              v69 = v22;
+              v70 = @"LastSystemVersion";
               MOLogWrite();
             }
 
-            [v26 removeObjectForKey:{@"LastSystemVersion", v75, v76}];
+            [v24 removeObjectForKey:{@"LastSystemVersion", v69, v70}];
           }
 
           goto LABEL_61;
@@ -719,9 +715,9 @@ LABEL_29:
 
         if (!gLogHandle || *(gLogHandle + 44) >= 3)
         {
-          v76 = v31;
-          v77 = v24;
-          v75 = @"LastSystemVersion";
+          v70 = v29;
+          v71 = v22;
+          v69 = @"LastSystemVersion";
           MOLogWrite();
         }
 
@@ -730,27 +726,27 @@ LABEL_29:
 
       if (!gLogHandle || *(gLogHandle + 44) >= 3)
       {
-        v75 = @"LastSystemVersion";
+        v69 = @"LastSystemVersion";
         MOLogWrite();
       }
 
-      [v26 removeObjectForKey:{@"LastSystemVersion", v75}];
+      [v24 removeObjectForKey:{@"LastSystemVersion", v69}];
 LABEL_61:
-      *&v97 = v28;
-      v35 = [v26 MI_writeAtomicallyToURLMatchingCurrentFileMetadata:v25 format:200 error:&v97];
-      v32 = v97;
+      *&v91 = v26;
+      v33 = [v24 MI_writeAtomicallyToURLMatchingCurrentFileMetadata:v23 format:200 error:&v91];
+      v30 = v91;
 
-      if (v35)
+      if (v33)
       {
-        v28 = v32;
+        v26 = v30;
         goto LABEL_74;
       }
 
       if (!gLogHandle || *(gLogHandle + 44) >= 3)
       {
-        v33 = [v25 path];
-        v75 = v33;
-        v76 = v32;
+        v31 = [v23 path];
+        v69 = v31;
+        v70 = v30;
         MOLogWrite();
 LABEL_66:
       }
@@ -760,19 +756,19 @@ LABEL_66:
     {
       if (!gLogHandle || *(gLogHandle + 44) >= 3)
       {
-        v33 = [v25 path];
-        v75 = v33;
-        v76 = v28;
+        v31 = [v23 path];
+        v69 = v31;
+        v70 = v26;
         MOLogWrite();
-        v26 = 0;
-        v31 = 0;
-        v32 = v28;
+        v24 = 0;
+        v29 = 0;
+        v30 = v26;
         goto LABEL_66;
       }
 
-      v26 = 0;
-      v31 = 0;
-      v32 = v27;
+      v24 = 0;
+      v29 = 0;
+      v30 = v25;
     }
   }
 
@@ -783,171 +779,168 @@ LABEL_66:
       MOLogWrite();
     }
 
-    v32 = 0;
-    v26 = 0;
-    v31 = 0;
+    v30 = 0;
+    v24 = 0;
+    v29 = 0;
   }
 
-  v36 = [MEMORY[0x1E69A8D78] defaultManager];
-  *&v88 = v32;
-  v37 = [v36 removeItemAtURL:v25 error:&v88];
-  v28 = v88;
+  v34 = [MEMORY[0x1E69A8D78] defaultManager];
+  *&v82 = v30;
+  v35 = [v34 removeItemAtURL:v23 error:&v82];
+  v26 = v82;
 
-  v38 = gLogHandle;
-  if ((v37 & 1) == 0)
+  v36 = gLogHandle;
+  if ((v35 & 1) == 0)
   {
     if (gLogHandle && *(gLogHandle + 44) < 3)
     {
       goto LABEL_74;
     }
 
-    v75 = [v25 path];
-    v76 = v28;
+    v69 = [v23 path];
+    v70 = v26;
     MOLogWrite();
 
-    v38 = gLogHandle;
+    v36 = gLogHandle;
   }
 
-  if (!v38 || *(v38 + 44) >= 5)
+  if (!v36 || *(v36 + 44) >= 5)
   {
     MOLogWrite();
   }
 
 LABEL_74:
 
-  v39 = v23;
-  v40 = *(v7 + 3952);
-  v41 = objc_opt_new();
-  *&v88 = MEMORY[0x1E69E9820];
-  *(&v88 + 1) = 3221225472;
-  *&v89 = ___ResetLaunchServicesDatabase_block_invoke;
-  *(&v89 + 1) = &unk_1E80B9E68;
-  v42 = v41;
-  *&v90 = v42;
-  v43 = MEMORY[0x1BFB56710](&v88);
-  v44 = MIEnumerateContainersOfClass(v39, 12, v43);
-  if (v44 && (!gLogHandle || *(gLogHandle + 44) >= 3))
+  v37 = v21;
+  v38 = objc_opt_new();
+  *&v82 = MEMORY[0x1E69E9820];
+  *(&v82 + 1) = 3221225472;
+  *&v83 = ___ResetLaunchServicesDatabase_block_invoke;
+  *(&v83 + 1) = &unk_1E80B9E68;
+  v39 = v38;
+  *&v84 = v39;
+  v40 = MEMORY[0x1BFB56710](&v82);
+  v41 = MIEnumerateContainersOfClass(v37, 12, v40);
+  if (v41 && (!gLogHandle || *(gLogHandle + 44) >= 3))
   {
-    v75 = @"com.apple.lsd";
-    v76 = v44;
+    v69 = @"com.apple.lsd";
+    v70 = v41;
     MOLogWrite();
   }
 
-  v45 = MIEnumerateContainersOfClass(v39, 10, v43);
+  v42 = MIEnumerateContainersOfClass(v37, 10, v40);
 
-  if (v45 && (!gLogHandle || *(gLogHandle + 44) >= 3))
+  if (v42 && (!gLogHandle || *(gLogHandle + 44) >= 3))
   {
-    v75 = @"com.apple.lsd";
-    v76 = v45;
+    v69 = @"com.apple.lsd";
+    v70 = v42;
     MOLogWrite();
   }
 
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
-  v98 = 0u;
-  v46 = v42;
-  v47 = [v46 countByEnumeratingWithState:&v97 objects:v101 count:16];
-  if (v47)
+  v93 = 0u;
+  v94 = 0u;
+  v91 = 0u;
+  v92 = 0u;
+  v43 = v39;
+  v44 = [v43 countByEnumeratingWithState:&v91 objects:v95 count:16];
+  if (v44)
   {
-    v48 = *v98;
+    v45 = *v92;
     do
     {
-      for (i = 0; i != v47; ++i)
+      for (i = 0; i != v44; ++i)
       {
-        if (*v98 != v48)
+        if (*v92 != v45)
         {
-          objc_enumerationMutation(v46);
+          objc_enumerationMutation(v43);
         }
 
-        _ProcessDataContainer(*(*(&v97 + 1) + 8 * i), 0xC, &v82);
+        _ProcessDataContainer(*(*(&v91 + 1) + 8 * i), 0xC, &v76);
       }
 
-      v47 = [v46 countByEnumeratingWithState:&v97 objects:v101 count:16];
+      v44 = [v43 countByEnumeratingWithState:&v91 objects:v95 count:16];
     }
 
-    while (v47);
+    while (v44);
   }
 
-  if ([v46 count])
+  if ([v43 count])
   {
     if (!gLogHandle || *(gLogHandle + 44) >= 5)
     {
       MOLogWrite();
     }
 
-    v50 = v39;
+    v47 = v37;
     if (!gLogHandle || *(gLogHandle + 44) >= 5)
     {
       MOLogWrite();
     }
 
-    v51 = *(v7 + 3952);
-    v52 = objc_opt_new();
-    v53 = *(v7 + 3952);
-    v54 = objc_opt_new();
-    v93[0] = MEMORY[0x1E69E9820];
-    v93[1] = 3221225472;
-    v93[2] = ___OffloadApps_block_invoke;
-    v93[3] = &unk_1E80B9EB0;
-    v55 = v54;
-    v94 = v55;
-    v96 = a3;
-    v56 = v52;
-    v95 = v56;
-    v57 = MIEnumerateContainersOfClass(v50, 1, v93);
-    if (v57 && (!gLogHandle || *(gLogHandle + 44) >= 3))
+    v48 = objc_opt_new();
+    v49 = objc_opt_new();
+    v87[0] = MEMORY[0x1E69E9820];
+    v87[1] = 3221225472;
+    v87[2] = ___OffloadApps_block_invoke;
+    v87[3] = &unk_1E80B9EB0;
+    v50 = v49;
+    v88 = v50;
+    v90 = a3;
+    v51 = v48;
+    v89 = v51;
+    v52 = MIEnumerateContainersOfClass(v47, 1, v87);
+    if (v52 && (!gLogHandle || *(gLogHandle + 44) >= 3))
     {
-      v75 = v57;
+      v69 = v52;
       MOLogWrite();
     }
 
-    if ([v55 count] || objc_msgSend(v56, "count"))
+    if ([v50 count] || objc_msgSend(v51, "count"))
     {
-      [v55 sortUsingComparator:&__block_literal_global_146];
-      v92 = v57;
-      v58 = MIAssumeIdentityOfUsername();
-      v59 = v92;
+      [v50 sortUsingComparator:&__block_literal_global_146];
+      v86 = v52;
+      v53 = MIAssumeIdentityOfUsername();
+      v54 = v86;
 
-      v57 = v59;
-      if (v58)
+      v52 = v54;
+      if (v53)
       {
         if (!gLogHandle || *(gLogHandle + 44) >= 5)
         {
           MOLogWrite();
         }
 
-        v90 = 0u;
-        v91 = 0u;
-        v88 = 0u;
-        v89 = 0u;
-        v60 = v55;
-        v61 = [v60 countByEnumeratingWithState:&v88 objects:v101 count:16];
-        if (v61)
+        v84 = 0u;
+        v85 = 0u;
+        v82 = 0u;
+        v83 = 0u;
+        v55 = v50;
+        v56 = [v55 countByEnumeratingWithState:&v82 objects:v95 count:16];
+        if (v56)
         {
-          v62 = *v89;
+          v57 = *v83;
 LABEL_108:
-          v63 = 0;
+          v58 = 0;
           while (1)
           {
-            if (*v89 != v62)
+            if (*v83 != v57)
             {
-              objc_enumerationMutation(v60);
+              objc_enumerationMutation(v55);
             }
 
-            v64 = *(*(&v88 + 1) + 8 * v63);
-            v65 = objc_autoreleasePoolPush();
-            LODWORD(v64) = _ProcessBundleContainer(a3, v64, &v82);
-            objc_autoreleasePoolPop(v65);
-            if (!v64)
+            v59 = *(*(&v82 + 1) + 8 * v58);
+            v60 = objc_autoreleasePoolPush();
+            LODWORD(v59) = _ProcessBundleContainer(a3, v59, &v76);
+            objc_autoreleasePoolPop(v60);
+            if (!v59)
             {
               break;
             }
 
-            if (v61 == ++v63)
+            if (v56 == ++v58)
             {
-              v61 = [v60 countByEnumeratingWithState:&v88 objects:v101 count:16];
-              if (v61)
+              v56 = [v55 countByEnumeratingWithState:&v82 objects:v95 count:16];
+              if (v56)
               {
                 goto LABEL_108;
               }
@@ -963,46 +956,46 @@ LABEL_127:
         {
 LABEL_114:
 
-          v66 = [v56 count];
-          if (a3 && v66)
+          v61 = [v51 count];
+          if (a3 && v61)
           {
-            [v56 sortUsingComparator:&__block_literal_global_146];
+            [v51 sortUsingComparator:&__block_literal_global_146];
             if (!gLogHandle || *(gLogHandle + 44) >= 5)
             {
               MOLogWrite();
             }
 
-            v86 = 0u;
-            v87 = 0u;
-            v84 = 0u;
-            v85 = 0u;
-            v60 = v56;
-            v67 = [v60 countByEnumeratingWithState:&v84 objects:&v97 count:16];
-            if (v67)
+            v80 = 0u;
+            v81 = 0u;
+            v78 = 0u;
+            v79 = 0u;
+            v55 = v51;
+            v62 = [v55 countByEnumeratingWithState:&v78 objects:&v91 count:16];
+            if (v62)
             {
-              v68 = *v85;
+              v63 = *v79;
 LABEL_121:
-              v69 = 0;
+              v64 = 0;
               while (1)
               {
-                if (*v85 != v68)
+                if (*v79 != v63)
                 {
-                  objc_enumerationMutation(v60);
+                  objc_enumerationMutation(v55);
                 }
 
-                v70 = *(*(&v84 + 1) + 8 * v69);
-                v71 = objc_autoreleasePoolPush();
-                LODWORD(v70) = _ProcessBundleContainer(a3, v70, &v82);
-                objc_autoreleasePoolPop(v71);
-                if (!v70)
+                v65 = *(*(&v78 + 1) + 8 * v64);
+                v66 = objc_autoreleasePoolPush();
+                LODWORD(v65) = _ProcessBundleContainer(a3, v65, &v76);
+                objc_autoreleasePoolPop(v66);
+                if (!v65)
                 {
                   break;
                 }
 
-                if (v67 == ++v69)
+                if (v62 == ++v64)
                 {
-                  v67 = [v60 countByEnumeratingWithState:&v84 objects:&v97 count:16];
-                  if (v67)
+                  v62 = [v55 countByEnumeratingWithState:&v78 objects:&v91 count:16];
+                  if (v62)
                   {
                     goto LABEL_121;
                   }
@@ -1038,14 +1031,13 @@ LABEL_121:
 LABEL_136:
 
   objc_autoreleasePoolPop(context);
-  v72 = v83;
+  v67 = v77;
   if (!gLogHandle || *(gLogHandle + 44) >= 5)
   {
     MOLogWrite();
   }
 
-  v73 = *MEMORY[0x1E69E9840];
-  return v72;
+  return v67;
 }
 
 void sub_1BF357290(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
@@ -1524,9 +1516,9 @@ LABEL_96:
   return ShouldContinueAfterIncrementingFreed;
 }
 
-void sub_1BF358550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BF358550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1582,16 +1574,16 @@ void sub_1BF358C34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BF363BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF363BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BF363EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BF363EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1603,118 +1595,118 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1BF3640E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BF3640E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BF36430C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BF36430C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BF364528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1BF364528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
+  _Block_object_dispose((v22 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BF364754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BF364754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1BF3648F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1BF364AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BF3648F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1BF364AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t MobileInstallationInstallApp(void *a1, void *a2, uint64_t a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, void *a10)
 {
-  v32 = a1;
-  v31 = a2;
-  v30 = a4;
+  v31 = a1;
+  v30 = a2;
+  v29 = a4;
   v14 = a5;
   v15 = a9;
   v16 = a10;
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = __Block_byref_object_copy__1;
-  v63 = __Block_byref_object_dispose__1;
-  v64 = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__1;
-  v57 = __Block_byref_object_dispose__1;
   v58 = 0;
-  v51[0] = 0;
-  v51[1] = v51;
-  v51[2] = 0x2020000000;
+  v59 = &v58;
+  v60 = 0x3032000000;
+  v61 = __Block_byref_object_copy__1;
+  v62 = __Block_byref_object_dispose__1;
+  v63 = 0;
   v52 = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy__1;
-  v49 = __Block_byref_object_dispose__1;
-  v50 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__1;
+  v56 = __Block_byref_object_dispose__1;
+  v57 = 0;
+  v50[0] = 0;
+  v50[1] = v50;
+  v50[2] = 0x2020000000;
+  v51 = 0;
   v44 = 0;
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __MobileInstallationInstallApp_block_invoke;
-  v37[3] = &unk_1E80BA268;
-  v40 = v51;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy__1;
+  v48 = __Block_byref_object_dispose__1;
+  v49 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __MobileInstallationInstallApp_block_invoke;
+  v36[3] = &unk_1E80BA268;
+  v39 = v50;
   v17 = v15;
-  v39 = v17;
+  v38 = v17;
   v18 = v14;
-  v38 = v18;
-  v19 = MEMORY[0x1BFB56710](v37);
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __MobileInstallationInstallApp_block_invoke_3;
-  v34[3] = &unk_1E80BA240;
-  v20 = v16;
-  v36 = v20;
-  v21 = v18;
-  v35 = v21;
-  v22 = MEMORY[0x1BFB56710](v34);
-  v23 = [MIInstallerClient installerWithProgressBlock:v19 releaseTerminationAssertionBlock:v22];
+  v37 = v18;
+  v19 = MEMORY[0x1BFB56710](v36);
   v33[0] = MEMORY[0x1E69E9820];
   v33[1] = 3221225472;
-  v33[2] = __MobileInstallationInstallApp_block_invoke_5;
-  v33[3] = &unk_1E80BA2B8;
-  v33[4] = &v45;
-  v33[5] = &v53;
-  v33[6] = &v59;
-  v33[7] = &v41;
-  [v23 installURL:v32 identity:v31 targetingDomain:a3 withOptions:v30 returningResultInfo:a6 != 0 completion:v33];
+  v33[2] = __MobileInstallationInstallApp_block_invoke_3;
+  v33[3] = &unk_1E80BA240;
+  v20 = v16;
+  v35 = v20;
+  v21 = v18;
+  v34 = v21;
+  v22 = MEMORY[0x1BFB56710](v33);
+  v23 = [MIInstallerClient installerWithProgressBlock:v19 releaseTerminationAssertionBlock:v22];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __MobileInstallationInstallApp_block_invoke_5;
+  v32[3] = &unk_1E80BA2B8;
+  v32[4] = &v44;
+  v32[5] = &v52;
+  v32[6] = &v58;
+  v32[7] = &v40;
+  [v23 installURL:v31 identity:v30 targetingDomain:a3 withOptions:v29 returningResultInfo:a6 != 0 completion:v32];
 
-  if (v42[3])
+  if (v41[3])
   {
     if (a6)
     {
-      *a6 = v60[5];
+      *a6 = v59[5];
     }
   }
 
@@ -1722,42 +1714,42 @@ uint64_t MobileInstallationInstallApp(void *a1, void *a2, uint64_t a3, void *a4,
   {
     if (a8)
     {
-      *a8 = v46[5];
+      *a8 = v45[5];
     }
 
     else if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v26 = v46[5];
       MOLogWrite();
     }
 
-    _SendError(v19, v46[5]);
+    _SendError(v19, v45[5]);
   }
 
   if (a7)
   {
-    *a7 = v54[5];
+    *a7 = v53[5];
   }
 
-  v24 = *(v42 + 24);
+  v24 = *(v41 + 24);
 
-  _Block_object_dispose(&v41, 8);
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v44, 8);
 
-  _Block_object_dispose(v51, 8);
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(v50, 8);
+  _Block_object_dispose(&v52, 8);
 
-  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v58, 8);
   return v24;
 }
 
-void sub_1BF364FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
+void sub_1BF364FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
 {
+  va_start(va, a41);
   _Block_object_dispose(&a38, 8);
-  _Block_object_dispose(&a42, 8);
-  _Block_object_dispose((v42 - 232), 8);
-  _Block_object_dispose((v42 - 200), 8);
-  _Block_object_dispose((v42 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v41 - 232), 8);
+  _Block_object_dispose((v41 - 200), 8);
+  _Block_object_dispose((v41 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1921,59 +1913,58 @@ id MobileInstallationStageApplicationUpdate(void *a1, void *a2, uint64_t a3, voi
   v9 = a1;
   v10 = a2;
   v11 = a4;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__1;
-  v27 = __Block_byref_object_dispose__1;
-  v28 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__1;
-  v21 = __Block_byref_object_dispose__1;
   v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__1;
+  v26 = __Block_byref_object_dispose__1;
+  v27 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__1;
+  v20 = __Block_byref_object_dispose__1;
+  v21 = 0;
   v12 = objc_opt_new();
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __MobileInstallationStageApplicationUpdate_block_invoke;
-  v16[3] = &unk_1E80BA2E0;
-  v16[4] = &v17;
-  v16[5] = &v23;
-  [v12 stageInstallURL:v9 identity:v10 targetingDomain:a3 withOptions:v11 completion:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __MobileInstallationStageApplicationUpdate_block_invoke;
+  v15[3] = &unk_1E80BA2E0;
+  v15[4] = &v16;
+  v15[5] = &v22;
+  [v12 stageInstallURL:v9 identity:v10 targetingDomain:a3 withOptions:v11 completion:v15];
 
-  if (!v18[5])
+  if (!v17[5])
   {
     if (a5)
     {
-      *a5 = v24[5];
+      *a5 = v23[5];
     }
 
     else if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v15 = v24[5];
       MOLogWrite();
     }
   }
 
-  v13 = v18[5];
-  _Block_object_dispose(&v17, 8);
+  v13 = v17[5];
+  _Block_object_dispose(&v16, 8);
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
 
   return v13;
 }
 
-void sub_1BF365734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BF365734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2003,77 +1994,77 @@ void __MobileInstallationStageApplicationUpdate_block_invoke(uint64_t a1, void *
 
 uint64_t MobileInstallationInstallParallelPlaceholderForStagedUpdate(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
 {
-  v29 = a1;
-  v28 = a2;
+  v28 = a1;
+  v27 = a2;
   v13 = a3;
   v14 = a7;
   v15 = a8;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy__1;
-  v60 = __Block_byref_object_dispose__1;
-  v61 = 0;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__1;
-  v54 = __Block_byref_object_dispose__1;
   v55 = 0;
-  v48[0] = 0;
-  v48[1] = v48;
-  v48[2] = 0x2020000000;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__1;
+  v59 = __Block_byref_object_dispose__1;
+  v60 = 0;
   v49 = 0;
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__1;
-  v46 = __Block_byref_object_dispose__1;
-  v47 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__1;
+  v53 = __Block_byref_object_dispose__1;
+  v54 = 0;
+  v47[0] = 0;
+  v47[1] = v47;
+  v47[2] = 0x2020000000;
+  v48 = 0;
   v41 = 0;
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __MobileInstallationInstallParallelPlaceholderForStagedUpdate_block_invoke;
-  v34[3] = &unk_1E80BA268;
-  v37 = v48;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__1;
+  v45 = __Block_byref_object_dispose__1;
+  v46 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __MobileInstallationInstallParallelPlaceholderForStagedUpdate_block_invoke;
+  v33[3] = &unk_1E80BA268;
+  v36 = v47;
   v16 = v14;
-  v36 = v16;
+  v35 = v16;
   v17 = v13;
-  v35 = v17;
-  v18 = MEMORY[0x1BFB56710](v34);
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __MobileInstallationInstallParallelPlaceholderForStagedUpdate_block_invoke_3;
-  v31[3] = &unk_1E80BA240;
-  v19 = v15;
-  v33 = v19;
-  v20 = v17;
-  v32 = v20;
-  v21 = MEMORY[0x1BFB56710](v31);
-  v22 = [MIInstallerClient installerWithProgressBlock:v18 releaseTerminationAssertionBlock:v21];
+  v34 = v17;
+  v18 = MEMORY[0x1BFB56710](v33);
   v30[0] = MEMORY[0x1E69E9820];
   v30[1] = 3221225472;
-  v30[2] = __MobileInstallationInstallParallelPlaceholderForStagedUpdate_block_invoke_5;
-  v30[3] = &unk_1E80BA2B8;
-  v30[4] = &v42;
-  v30[5] = &v50;
-  v30[6] = &v56;
-  v30[7] = &v38;
-  [v22 installParallelPlaceholderForStagedIdentifier:v29 fromURL:v28 returningResultInfo:a4 != 0 completion:v30];
+  v30[2] = __MobileInstallationInstallParallelPlaceholderForStagedUpdate_block_invoke_3;
+  v30[3] = &unk_1E80BA240;
+  v19 = v15;
+  v32 = v19;
+  v20 = v17;
+  v31 = v20;
+  v21 = MEMORY[0x1BFB56710](v30);
+  v22 = [MIInstallerClient installerWithProgressBlock:v18 releaseTerminationAssertionBlock:v21];
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __MobileInstallationInstallParallelPlaceholderForStagedUpdate_block_invoke_5;
+  v29[3] = &unk_1E80BA2B8;
+  v29[4] = &v41;
+  v29[5] = &v49;
+  v29[6] = &v55;
+  v29[7] = &v37;
+  [v22 installParallelPlaceholderForStagedIdentifier:v28 fromURL:v27 returningResultInfo:a4 != 0 completion:v29];
 
-  if (v39[3])
+  if (v38[3])
   {
     if (a4)
     {
-      *a4 = v57[5];
+      *a4 = v56[5];
     }
 
     if (a5)
     {
-      *a5 = v51[5];
+      *a5 = v50[5];
     }
   }
 
@@ -2081,37 +2072,37 @@ uint64_t MobileInstallationInstallParallelPlaceholderForStagedUpdate(void *a1, v
   {
     if (a6)
     {
-      *a6 = v43[5];
+      *a6 = v42[5];
     }
 
     else if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v25 = v43[5];
       MOLogWrite();
     }
 
-    _SendError(v18, v43[5]);
+    _SendError(v18, v42[5]);
   }
 
-  v23 = *(v39 + 24);
+  v23 = *(v38 + 24);
 
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v41, 8);
 
-  _Block_object_dispose(v48, 8);
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(v47, 8);
+  _Block_object_dispose(&v49, 8);
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v55, 8);
   return v23;
 }
 
-void sub_1BF365BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+void sub_1BF365BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
 {
+  va_start(va, a39);
   _Block_object_dispose(&a36, 8);
-  _Block_object_dispose(&a40, 8);
-  _Block_object_dispose((v40 - 232), 8);
-  _Block_object_dispose((v40 - 200), 8);
-  _Block_object_dispose((v40 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v39 - 232), 8);
+  _Block_object_dispose((v39 - 200), 8);
+  _Block_object_dispose((v39 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2196,76 +2187,76 @@ void __MobileInstallationInstallParallelPlaceholderForStagedUpdate_block_invoke_
 
 uint64_t MobileInstallationMakeStagedUpdateLiveForIdentifier(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
 {
-  v26 = a1;
+  v25 = a1;
   v11 = a2;
   v12 = a6;
   v13 = a7;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__1;
-  v57 = __Block_byref_object_dispose__1;
-  v58 = 0;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy__1;
-  v51 = __Block_byref_object_dispose__1;
   v52 = 0;
-  v45[0] = 0;
-  v45[1] = v45;
-  v45[2] = 0x2020000000;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__1;
+  v56 = __Block_byref_object_dispose__1;
+  v57 = 0;
   v46 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__1;
-  v43 = __Block_byref_object_dispose__1;
-  v44 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy__1;
+  v50 = __Block_byref_object_dispose__1;
+  v51 = 0;
+  v44[0] = 0;
+  v44[1] = v44;
+  v44[2] = 0x2020000000;
+  v45 = 0;
   v38 = 0;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __MobileInstallationMakeStagedUpdateLiveForIdentifier_block_invoke;
-  v31[3] = &unk_1E80BA268;
-  v34 = v45;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__1;
+  v42 = __Block_byref_object_dispose__1;
+  v43 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __MobileInstallationMakeStagedUpdateLiveForIdentifier_block_invoke;
+  v30[3] = &unk_1E80BA268;
+  v33 = v44;
   v14 = v12;
-  v33 = v14;
+  v32 = v14;
   v15 = v11;
-  v32 = v15;
-  v16 = MEMORY[0x1BFB56710](v31);
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __MobileInstallationMakeStagedUpdateLiveForIdentifier_block_invoke_3;
-  v28[3] = &unk_1E80BA240;
-  v17 = v13;
-  v30 = v17;
-  v18 = v15;
-  v29 = v18;
-  v19 = MEMORY[0x1BFB56710](v28);
-  v20 = [MIInstallerClient installerWithProgressBlock:v16 releaseTerminationAssertionBlock:v19];
+  v31 = v15;
+  v16 = MEMORY[0x1BFB56710](v30);
   v27[0] = MEMORY[0x1E69E9820];
   v27[1] = 3221225472;
-  v27[2] = __MobileInstallationMakeStagedUpdateLiveForIdentifier_block_invoke_5;
-  v27[3] = &unk_1E80BA2B8;
-  v27[4] = &v39;
-  v27[5] = &v47;
-  v27[6] = &v53;
-  v27[7] = &v35;
-  [v20 finalizeStagedInstallForIdentifier:v26 returningResultInfo:a3 != 0 completion:v27];
+  v27[2] = __MobileInstallationMakeStagedUpdateLiveForIdentifier_block_invoke_3;
+  v27[3] = &unk_1E80BA240;
+  v17 = v13;
+  v29 = v17;
+  v18 = v15;
+  v28 = v18;
+  v19 = MEMORY[0x1BFB56710](v27);
+  v20 = [MIInstallerClient installerWithProgressBlock:v16 releaseTerminationAssertionBlock:v19];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __MobileInstallationMakeStagedUpdateLiveForIdentifier_block_invoke_5;
+  v26[3] = &unk_1E80BA2B8;
+  v26[4] = &v38;
+  v26[5] = &v46;
+  v26[6] = &v52;
+  v26[7] = &v34;
+  [v20 finalizeStagedInstallForIdentifier:v25 returningResultInfo:a3 != 0 completion:v26];
 
-  if (v36[3])
+  if (v35[3])
   {
     if (a3)
     {
-      *a3 = v54[5];
+      *a3 = v53[5];
     }
 
     if (a4)
     {
-      *a4 = v48[5];
+      *a4 = v47[5];
     }
   }
 
@@ -2273,37 +2264,37 @@ uint64_t MobileInstallationMakeStagedUpdateLiveForIdentifier(void *a1, void *a2,
   {
     if (a5)
     {
-      *a5 = v40[5];
+      *a5 = v39[5];
     }
 
     else if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v23 = v40[5];
       MOLogWrite();
     }
 
-    _SendError(v16, v40[5]);
+    _SendError(v16, v39[5]);
   }
 
-  v21 = *(v36 + 24);
+  v21 = *(v35 + 24);
 
-  _Block_object_dispose(&v35, 8);
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v38, 8);
 
-  _Block_object_dispose(v45, 8);
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(v44, 8);
+  _Block_object_dispose(&v46, 8);
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   return v21;
 }
 
-void sub_1BF3662B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_1BF3662B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
+  va_start(va, a37);
   _Block_object_dispose(&a34, 8);
-  _Block_object_dispose(&a38, 8);
-  _Block_object_dispose((v38 - 232), 8);
-  _Block_object_dispose((v38 - 200), 8);
-  _Block_object_dispose((v38 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v37 - 232), 8);
+  _Block_object_dispose((v37 - 200), 8);
+  _Block_object_dispose((v37 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2389,54 +2380,53 @@ void __MobileInstallationMakeStagedUpdateLiveForIdentifier_block_invoke_5(void *
 uint64_t MobileInstallationCancelUpdateForStagedIdentifiersWithError(void *a1, void *a2)
 {
   v3 = a1;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__1;
-  v17 = __Block_byref_object_dispose__1;
-  v18 = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
   v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1;
+  v16 = __Block_byref_object_dispose__1;
+  v17 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
   v4 = objc_opt_new();
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __MobileInstallationCancelUpdateForStagedIdentifiersWithError_block_invoke;
-  v8[3] = &unk_1E80BA308;
-  v8[4] = &v9;
-  v8[5] = &v13;
-  [v4 cancelUpdateForStagedIdentifiers:v3 completion:v8];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __MobileInstallationCancelUpdateForStagedIdentifiersWithError_block_invoke;
+  v7[3] = &unk_1E80BA308;
+  v7[4] = &v8;
+  v7[5] = &v12;
+  [v4 cancelUpdateForStagedIdentifiers:v3 completion:v7];
 
-  if ((v10[3] & 1) == 0)
+  if ((v9[3] & 1) == 0)
   {
     if (a2)
     {
-      *a2 = v14[5];
+      *a2 = v13[5];
     }
 
     else if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v7 = v14[5];
       MOLogWrite();
     }
   }
 
-  v5 = *(v10 + 24);
-  _Block_object_dispose(&v9, 8);
-  _Block_object_dispose(&v13, 8);
+  v5 = *(v9 + 24);
+  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v12, 8);
 
   return v5;
 }
 
-void sub_1BF36674C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BF36674C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2456,54 +2446,53 @@ void __MobileInstallationCancelUpdateForStagedIdentifiersWithError_block_invoke(
 
 id MobileInstallationGetAllStagedUpdateIdentifiers(void *a1)
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__1;
-  v17 = __Block_byref_object_dispose__1;
-  v18 = 0;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3032000000;
-  v10 = __Block_byref_object_copy__1;
-  v11 = __Block_byref_object_dispose__1;
   v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1;
+  v16 = __Block_byref_object_dispose__1;
+  v17 = 0;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__1;
+  v10 = __Block_byref_object_dispose__1;
+  v11 = 0;
   v2 = objc_opt_new();
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __MobileInstallationGetAllStagedUpdateIdentifiers_block_invoke;
-  v6[3] = &unk_1E80B9DD8;
-  v6[4] = &v13;
-  v6[5] = &v7;
-  [v2 allStagedUpdatesWithCompletion:v6];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __MobileInstallationGetAllStagedUpdateIdentifiers_block_invoke;
+  v5[3] = &unk_1E80B9DD8;
+  v5[4] = &v12;
+  v5[5] = &v6;
+  [v2 allStagedUpdatesWithCompletion:v5];
 
-  if (!v8[5])
+  if (!v7[5])
   {
     if (a1)
     {
-      *a1 = v14[5];
+      *a1 = v13[5];
     }
 
     else if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v5 = v14[5];
       MOLogWrite();
     }
   }
 
-  v3 = v8[5];
-  _Block_object_dispose(&v7, 8);
+  v3 = v7[5];
+  _Block_object_dispose(&v6, 8);
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v12, 8);
 
   return v3;
 }
 
-void sub_1BF3669A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BF3669A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2532,54 +2521,53 @@ void __MobileInstallationGetAllStagedUpdateIdentifiers_block_invoke(uint64_t a1,
 id MobileInstallationRegisterPlaceholderForReference(void *a1, void *a2)
 {
   v3 = a1;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__1;
-  v19 = __Block_byref_object_dispose__1;
-  v20 = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__1;
-  v13 = __Block_byref_object_dispose__1;
   v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__1;
+  v18 = __Block_byref_object_dispose__1;
+  v19 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy__1;
+  v12 = __Block_byref_object_dispose__1;
+  v13 = 0;
   v4 = objc_opt_new();
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __MobileInstallationRegisterPlaceholderForReference_block_invoke;
-  v8[3] = &unk_1E80BA330;
-  v8[4] = &v15;
-  v8[5] = &v9;
-  [v4 registerPlaceholderForReference:v3 completion:v8];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __MobileInstallationRegisterPlaceholderForReference_block_invoke;
+  v7[3] = &unk_1E80BA330;
+  v7[4] = &v14;
+  v7[5] = &v8;
+  [v4 registerPlaceholderForReference:v3 completion:v7];
 
-  if (!v16[5])
+  if (!v15[5])
   {
     if (a2)
     {
-      *a2 = v10[5];
+      *a2 = v9[5];
     }
 
     else if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v7 = v10[5];
       MOLogWrite();
     }
   }
 
-  v5 = v16[5];
-  _Block_object_dispose(&v9, 8);
+  v5 = v15[5];
+  _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v5;
 }
 
-void sub_1BF366C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BF366C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2625,64 +2613,64 @@ uint64_t MobileInstallationRevertApplicationWithIdentityAndAssertionBlockWithErr
   v14 = a3;
   v15 = a6;
   v16 = a7;
-  v59[0] = 0;
-  v59[1] = v59;
-  v59[2] = 0x2020000000;
-  v60 = 0;
-  v57[0] = 0;
-  v57[1] = v57;
-  v57[2] = 0x3032000000;
-  v57[3] = __Block_byref_object_copy__1;
-  v57[4] = __Block_byref_object_dispose__1;
-  v58 = 0;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = __Block_byref_object_copy__1;
-  v55 = __Block_byref_object_dispose__1;
-  v56 = 0;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
+  v58[0] = 0;
+  v58[1] = v58;
+  v58[2] = 0x2020000000;
+  v59 = 0;
+  v56[0] = 0;
+  v56[1] = v56;
+  v56[2] = 0x3032000000;
+  v56[3] = __Block_byref_object_copy__1;
+  v56[4] = __Block_byref_object_dispose__1;
+  v57 = 0;
   v50 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__1;
-  v45 = __Block_byref_object_dispose__1;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy__1;
+  v54 = __Block_byref_object_dispose__1;
+  v55 = 0;
   v46 = 0;
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __MobileInstallationRevertApplicationWithIdentityAndAssertionBlockWithError_block_invoke;
-  v37[3] = &unk_1E80BA268;
-  v40 = v59;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__1;
+  v44 = __Block_byref_object_dispose__1;
+  v45 = 0;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __MobileInstallationRevertApplicationWithIdentityAndAssertionBlockWithError_block_invoke;
+  v36[3] = &unk_1E80BA268;
+  v39 = v58;
   v17 = v15;
-  v39 = v17;
+  v38 = v17;
   v18 = v14;
-  v38 = v18;
-  v19 = MEMORY[0x1BFB56710](v37);
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __MobileInstallationRevertApplicationWithIdentityAndAssertionBlockWithError_block_invoke_3;
-  v34[3] = &unk_1E80BA240;
+  v37 = v18;
+  v19 = MEMORY[0x1BFB56710](v36);
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __MobileInstallationRevertApplicationWithIdentityAndAssertionBlockWithError_block_invoke_3;
+  v33[3] = &unk_1E80BA240;
   v20 = v16;
-  v36 = v20;
+  v35 = v20;
   v21 = v18;
-  v35 = v21;
-  v23 = MEMORY[0x1BFB56710](v34);
+  v34 = v21;
+  v23 = MEMORY[0x1BFB56710](v33);
   if (v12)
   {
     v24 = objc_autoreleasePoolPush();
     v25 = [MIInstallerClient installerWithProgressBlock:v19 releaseTerminationAssertionBlock:v23];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __MobileInstallationRevertApplicationWithIdentityAndAssertionBlockWithError_block_invoke_5;
-    v33[3] = &unk_1E80BA2B8;
-    v33[4] = &v41;
-    v33[5] = v57;
-    v33[6] = &v51;
-    v33[7] = &v47;
-    [v25 revertIdentity:v12 withOptions:v13 completion:v33];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __MobileInstallationRevertApplicationWithIdentityAndAssertionBlockWithError_block_invoke_5;
+    v32[3] = &unk_1E80BA2B8;
+    v32[4] = &v40;
+    v32[5] = v56;
+    v32[6] = &v50;
+    v32[7] = &v46;
+    [v25 revertIdentity:v12 withOptions:v13 completion:v32];
 
     objc_autoreleasePoolPop(v24);
   }
@@ -2690,50 +2678,50 @@ uint64_t MobileInstallationRevertApplicationWithIdentityAndAssertionBlockWithErr
   else
   {
     v26 = _CreateAndLogError("MobileInstallationRevertApplicationWithIdentityAndAssertionBlockWithError", 1872, *MEMORY[0x1E69A8D00], 25, 0, &unk_1F3DE99C8, @"Bundle ID supplied to revert was nil.", v22, v30);
-    v27 = v42[5];
-    v42[5] = v26;
+    v27 = v41[5];
+    v41[5] = v26;
   }
 
-  if (a4 && *(v48 + 24))
+  if (a4 && *(v47 + 24))
   {
-    *a4 = v52[5];
+    *a4 = v51[5];
   }
 
-  else if ((v48[3] & 1) == 0)
+  else if ((v47[3] & 1) == 0)
   {
     if (a5)
     {
-      *a5 = v42[5];
+      *a5 = v41[5];
     }
 
     else if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v31 = v42[5];
       MOLogWrite();
     }
 
-    _SendError(v19, v42[5]);
+    _SendError(v19, v41[5]);
   }
 
-  v28 = *(v48 + 24);
+  v28 = *(v47 + 24);
 
-  _Block_object_dispose(&v41, 8);
-  _Block_object_dispose(&v47, 8);
-  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v50, 8);
 
-  _Block_object_dispose(v57, 8);
-  _Block_object_dispose(v59, 8);
+  _Block_object_dispose(v56, 8);
+  _Block_object_dispose(v58, 8);
 
   return v28;
 }
 
-void sub_1BF3671B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_1BF3671B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
+  va_start(va, a37);
   _Block_object_dispose(&a32, 8);
-  _Block_object_dispose(&a38, 8);
-  _Block_object_dispose((v38 - 232), 8);
-  _Block_object_dispose((v38 - 184), 8);
-  _Block_object_dispose((v38 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v37 - 232), 8);
+  _Block_object_dispose((v37 - 184), 8);
+  _Block_object_dispose((v37 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2831,72 +2819,72 @@ id MobileInstallationICLRecordsUninstallForInstallCoordinationWithError(void *a1
   v10 = a2;
   v11 = a3;
   v12 = a5;
-  v41[0] = 0;
-  v41[1] = v41;
-  v41[2] = 0x2020000000;
-  v42 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__1;
-  v39 = __Block_byref_object_dispose__1;
-  v40 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__1;
-  v33 = __Block_byref_object_dispose__1;
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x2020000000;
+  v41 = 0;
   v34 = 0;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __MobileInstallationICLRecordsUninstallForInstallCoordinationWithError_block_invoke;
-  v25[3] = &unk_1E80BA268;
-  v28 = v41;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__1;
+  v38 = __Block_byref_object_dispose__1;
+  v39 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__1;
+  v32 = __Block_byref_object_dispose__1;
+  v33 = 0;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __MobileInstallationICLRecordsUninstallForInstallCoordinationWithError_block_invoke;
+  v24[3] = &unk_1E80BA268;
+  v27 = v40;
   v13 = v12;
-  v27 = v13;
+  v26 = v13;
   v14 = v11;
-  v26 = v14;
-  v15 = MEMORY[0x1BFB56710](v25);
+  v25 = v14;
+  v15 = MEMORY[0x1BFB56710](v24);
   v16 = [MIInstallerClient installerWithProgressBlock:v13];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __MobileInstallationICLRecordsUninstallForInstallCoordinationWithError_block_invoke_3;
-  v21[3] = &unk_1E80BA358;
-  v23 = &v29;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __MobileInstallationICLRecordsUninstallForInstallCoordinationWithError_block_invoke_3;
+  v20[3] = &unk_1E80BA358;
+  v22 = &v28;
   v17 = v15;
-  v22 = v17;
-  v24 = &v35;
-  [v16 uninstallIdentifiers:v9 withOptions:v10 completion:v21];
+  v21 = v17;
+  v23 = &v34;
+  [v16 uninstallIdentifiers:v9 withOptions:v10 completion:v20];
 
-  if (!v36[5])
+  if (!v35[5])
   {
     if (a4)
     {
-      *a4 = v30[5];
+      *a4 = v29[5];
     }
 
     else if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v20 = v30[5];
       MOLogWrite();
     }
   }
 
-  v18 = v36[5];
+  v18 = v35[5];
 
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v34, 8);
 
-  _Block_object_dispose(v41, 8);
+  _Block_object_dispose(v40, 8);
 
   return v18;
 }
 
-void sub_1BF3677F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1BF3677F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2956,51 +2944,50 @@ uint64_t MobileInstallationUninstallAppWithIdentity(void *a1, void *a2, void *a3
 {
   v5 = a1;
   v6 = a2;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__1;
-  v16 = __Block_byref_object_dispose__1;
   v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__1;
+  v15 = __Block_byref_object_dispose__1;
+  v16 = 0;
   v7 = objc_opt_new();
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __MobileInstallationUninstallAppWithIdentity_block_invoke;
-  v11[3] = &unk_1E80BA380;
-  v11[4] = &v12;
-  v11[5] = &v18;
-  [v7 uninstallIdentity:v5 withOptions:v6 completion:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __MobileInstallationUninstallAppWithIdentity_block_invoke;
+  v10[3] = &unk_1E80BA380;
+  v10[4] = &v11;
+  v10[5] = &v17;
+  [v7 uninstallIdentity:v5 withOptions:v6 completion:v10];
 
-  if ((v19[3] & 1) == 0)
+  if ((v18[3] & 1) == 0)
   {
     if (a3)
     {
-      *a3 = v13[5];
+      *a3 = v12[5];
     }
 
     else if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v10 = v13[5];
       MOLogWrite();
     }
   }
 
-  v8 = *(v19 + 24);
-  _Block_object_dispose(&v12, 8);
+  v8 = *(v18 + 24);
+  _Block_object_dispose(&v11, 8);
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
   return v8;
 }
 
-void sub_1BF367B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BF367B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3023,54 +3010,53 @@ void __MobileInstallationUninstallAppWithIdentity_block_invoke(uint64_t a1, void
 id MIFinalizeReferenceForInstalledAppWithError(void *a1, void *a2)
 {
   v3 = a1;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__1;
-  v19 = __Block_byref_object_dispose__1;
-  v20 = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__1;
-  v13 = __Block_byref_object_dispose__1;
   v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__1;
+  v18 = __Block_byref_object_dispose__1;
+  v19 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy__1;
+  v12 = __Block_byref_object_dispose__1;
+  v13 = 0;
   v4 = objc_opt_new();
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __MIFinalizeReferenceForInstalledAppWithError_block_invoke;
-  v8[3] = &unk_1E80BA330;
-  v8[4] = &v9;
-  v8[5] = &v15;
-  [v4 finalizeReference:v3 withCompletion:v8];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __MIFinalizeReferenceForInstalledAppWithError_block_invoke;
+  v7[3] = &unk_1E80BA330;
+  v7[4] = &v8;
+  v7[5] = &v14;
+  [v4 finalizeReference:v3 withCompletion:v7];
 
-  if (!v10[5])
+  if (!v9[5])
   {
     if (a2)
     {
-      *a2 = v16[5];
+      *a2 = v15[5];
     }
 
     else if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v7 = v16[5];
       MOLogWrite();
     }
   }
 
-  v5 = v10[5];
-  _Block_object_dispose(&v9, 8);
+  v5 = v9[5];
+  _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v5;
 }
 
-void sub_1BF367DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BF367DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3100,59 +3086,58 @@ id MIAcquireReferenceForInstalledAppWithError(void *a1, uint64_t a2, void *a3, v
 {
   v7 = a1;
   v8 = a3;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__1;
-  v24 = __Block_byref_object_dispose__1;
-  v25 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__1;
-  v18 = __Block_byref_object_dispose__1;
   v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__1;
+  v23 = __Block_byref_object_dispose__1;
+  v24 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__1;
+  v17 = __Block_byref_object_dispose__1;
+  v18 = 0;
   v9 = objc_opt_new();
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __MIAcquireReferenceForInstalledAppWithError_block_invoke;
-  v13[3] = &unk_1E80BA3A8;
-  v13[4] = &v14;
-  v13[5] = &v20;
-  [v9 acquireReferenceforInstalledAppWithIdentity:v7 inDomain:a2 matchingInstallSessionID:v8 withCompletion:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __MIAcquireReferenceForInstalledAppWithError_block_invoke;
+  v12[3] = &unk_1E80BA3A8;
+  v12[4] = &v13;
+  v12[5] = &v19;
+  [v9 acquireReferenceforInstalledAppWithIdentity:v7 inDomain:a2 matchingInstallSessionID:v8 withCompletion:v12];
 
-  if (!v15[5])
+  if (!v14[5])
   {
     if (a4)
     {
-      *a4 = v21[5];
+      *a4 = v20[5];
     }
 
     else if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v12 = v21[5];
       MOLogWrite();
     }
   }
 
-  v10 = v15[5];
-  _Block_object_dispose(&v14, 8);
+  v10 = v14[5];
+  _Block_object_dispose(&v13, 8);
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v19, 8);
 
   return v10;
 }
 
-void sub_1BF368084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BF368084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3183,54 +3168,53 @@ void __MIAcquireReferenceForInstalledAppWithError_block_invoke(uint64_t a1, void
 uint64_t MIInvalidateReferenceForInstalledAppWithError(void *a1, void *a2)
 {
   v3 = a1;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__1;
-  v17 = __Block_byref_object_dispose__1;
-  v18 = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
   v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__1;
+  v16 = __Block_byref_object_dispose__1;
+  v17 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = 0;
   v4 = objc_opt_new();
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __MIInvalidateReferenceForInstalledAppWithError_block_invoke;
-  v8[3] = &unk_1E80BA380;
-  v8[4] = &v13;
-  v8[5] = &v9;
-  [v4 invalidateReference:v3 withCompletion:v8];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __MIInvalidateReferenceForInstalledAppWithError_block_invoke;
+  v7[3] = &unk_1E80BA380;
+  v7[4] = &v12;
+  v7[5] = &v8;
+  [v4 invalidateReference:v3 withCompletion:v7];
 
-  if ((v10[3] & 1) == 0)
+  if ((v9[3] & 1) == 0)
   {
     if (a2)
     {
-      *a2 = v14[5];
+      *a2 = v13[5];
     }
 
     else if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v7 = v14[5];
       MOLogWrite();
     }
   }
 
-  v5 = *(v10 + 24);
-  _Block_object_dispose(&v9, 8);
-  _Block_object_dispose(&v13, 8);
+  v5 = *(v9 + 24);
+  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v12, 8);
 
   return v5;
 }
 
-void sub_1BF3682B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BF3682B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3278,9 +3262,9 @@ uint64_t MobileInstallationLookupUninstalled(uint64_t a1)
   return v3;
 }
 
-void sub_1BF368434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF368434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3338,9 +3322,9 @@ uint64_t MobileInstallationClearUninstalled(const __CFArray *a1, uint64_t a2)
   return v5;
 }
 
-void sub_1BF3685FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF3685FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3386,9 +3370,9 @@ uint64_t MobileInstallationLookupSystemAppState(uint64_t a1)
   return v4;
 }
 
-void sub_1BF368778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF368778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3432,9 +3416,9 @@ uint64_t MobileInstallationUpdateSystemAppState(uint64_t a1, uint64_t a2)
   return v6;
 }
 
-void sub_1BF368928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF368928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3506,14 +3490,14 @@ uint64_t MobileInstallationRegisterContentsForDiskImageAtURL(void *a1, void *a2)
   return v6 & 1;
 }
 
-void sub_1BF368B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF368B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3577,14 +3561,14 @@ uint64_t MobileInstallationUnregisterContentsForDiskImageAtURL(void *a1, void *a
   return v6 & 1;
 }
 
-void sub_1BF368DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF368DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3648,14 +3632,14 @@ uint64_t MobileInstallationRegisterContentsOnOSModuleAtURL(void *a1, void *a2)
   return v6 & 1;
 }
 
-void sub_1BF368FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF368FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3719,14 +3703,14 @@ uint64_t MobileInstallationUnregisterContentsOnOSModuleAtURL(void *a1, void *a2)
   return v6 & 1;
 }
 
-void sub_1BF369200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF369200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3790,14 +3774,14 @@ uint64_t MobileInstallationReconcileContentsOnKnownOSModules(void *a1, void *a2)
   return v6 & 1;
 }
 
-void sub_1BF36942C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36942C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3848,9 +3832,9 @@ id MobileInstallationEnumerateAllInstalledItemDictionaries(void *a1, void *a2)
   return v6;
 }
 
-void sub_1BF369628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF369628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3879,9 +3863,9 @@ id MobileInstallationUpdatePlaceholderMetadata(void *a1, uint64_t a2, uint64_t a
   return v12;
 }
 
-void sub_1BF3697A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF3697A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3925,16 +3909,16 @@ id MobileInstallationCopyAppMetadata(void *a1, void *a2)
   return v6;
 }
 
-void sub_1BF369950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF369950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3994,16 +3978,16 @@ id MobileInstallationCopyFrameworkInfoForLaunchServices(void *a1, void *a2, void
   return v9;
 }
 
-void sub_1BF369B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF369B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4062,16 +4046,16 @@ id MobileInstallationGetFrameworkBundleRecordsForLaunchServices(void *a1, void *
   return v9;
 }
 
-void sub_1BF369DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF369DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4142,16 +4126,16 @@ id MobileInstallationGetContainerizedAppBundleRecordsForLaunchServices(void *a1,
   return v10;
 }
 
-void sub_1BF36A090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36A090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4219,7 +4203,7 @@ BOOL MobileInstallationUpdateiTunesMetadataForInstallCoordinationWithWrapperURL(
 
 uint64_t MobileInstallationCopyDiskUsageForLaunchServices(void *a1, uint64_t a2)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v4 = objc_autoreleasePoolPush();
   if (!a2)
   {
@@ -4252,8 +4236,8 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v12[0] = a1;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = a1;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
 LABEL_9:
   v7 = v6;
   v8 = [MEMORY[0x1E69A8D60] defaultWorkspace];
@@ -4261,7 +4245,6 @@ LABEL_9:
 
 LABEL_14:
   objc_autoreleasePoolPop(v4);
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -4338,16 +4321,16 @@ uint64_t MobileInstallationRegisterSafeHarborForContainerClassWithIdentity(void 
   return v16 & 1;
 }
 
-void sub_1BF36A6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36A6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4454,11 +4437,11 @@ uint64_t MobileInstallationRemoveSafeHarborForContainerClassWithIdentity(void *a
   return v13 & 1;
 }
 
-void sub_1BF36AA90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36AA90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4558,16 +4541,16 @@ LABEL_6:
   return v16;
 }
 
-void sub_1BF36AE0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36AE0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4624,9 +4607,9 @@ uint64_t MobileInstallationCheckCapabilitiesMatch(uint64_t a1, uint64_t a2)
   return v6;
 }
 
-void sub_1BF36AFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36AFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4692,16 +4675,16 @@ id MobileInstallationUpdateSinfDataForInstallCoordination(void *a1, void *a2, vo
   return v13;
 }
 
-void sub_1BF36B25C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36B25C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4770,9 +4753,9 @@ BOOL MobileInstallationUpdateiTunesMetadataForInstallCoordination(void *a1, void
   return v10;
 }
 
-void sub_1BF36B484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36B484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4853,14 +4836,14 @@ uint64_t MobileInstallationWatchKitInstallerSnapshotWKApp(uint64_t a1, uint64_t 
   return v11;
 }
 
-void sub_1BF36B72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36B72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4931,9 +4914,9 @@ BOOL MobileInstallationSetSystemAppMigrationComplete(void *a1)
   return v6;
 }
 
-void sub_1BF36B930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36B930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4990,14 +4973,14 @@ uint64_t MobileInstallationWaitForSystemAppMigrationToComplete(void *a1)
   return v5 & 1;
 }
 
-void sub_1BF36BAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36BAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5086,9 +5069,9 @@ uint64_t MobileInstallationGetSystemAppMigrationStatus(_BYTE *a1, void *a2)
   return v8;
 }
 
-void sub_1BF36BD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36BD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5369,16 +5352,16 @@ uint64_t MICreateSerializedPlaceholderForInstalledApplication(void *a1, void *a2
   return v11 & 1;
 }
 
-void sub_1BF36C7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36C7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5437,16 +5420,16 @@ uint64_t MISetLaunchWarning(void *a1, void *a2, void *a3, void *a4)
   return v11 & 1;
 }
 
-void sub_1BF36C9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36C9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5507,16 +5490,16 @@ id MIGetReferencesForBundleWithIdentifier(void *a1, uint64_t a2, void *a3)
   return v8;
 }
 
-void sub_1BF36CBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36CBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5580,14 +5563,14 @@ uint64_t MobileInstallationSetPersonaForDataSeparatedApps(void *a1, void *a2, vo
   return v8 & 1;
 }
 
-void sub_1BF36CE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36CE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5645,14 +5628,14 @@ uint64_t MobileInstallationAddDataSeparatedAppsToPersona(void *a1, void *a2, voi
   return v8 & 1;
 }
 
-void sub_1BF36CFF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36CFF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5710,14 +5693,14 @@ uint64_t MobileInstallationRemoveDataSeparatedAppsFromPersona(void *a1, void *a2
   return v8 & 1;
 }
 
-void sub_1BF36D1F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36D1F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5789,11 +5772,11 @@ id MobileInstallationLinkedBundleIDsForIdentity(void *a1, void *a2)
   return v8;
 }
 
-void sub_1BF36D460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF36D460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5855,29 +5838,29 @@ uint64_t MIGetBooleanEntitlement(void *a1, void *a2, uint64_t a3)
 
 uint64_t MIGetFirstTrueBooleanEntitlement(void *a1, void *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a1;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = a2;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        if (MIGetBooleanEntitlement(v5, *(*(&v14 + 1) + 8 * v10), a3))
+        if (MIGetBooleanEntitlement(v5, *(*(&v13 + 1) + 8 * v10), a3))
         {
           v11 = 1;
           goto LABEL_11;
@@ -5887,7 +5870,7 @@ uint64_t MIGetFirstTrueBooleanEntitlement(void *a1, void *a2, uint64_t a3)
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         continue;
@@ -5900,7 +5883,6 @@ uint64_t MIGetFirstTrueBooleanEntitlement(void *a1, void *a2, uint64_t a3)
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -5941,15 +5923,15 @@ id _MICommonCopyGroupEntitlement(void *a1, void *a2)
 
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  objc_opt_class();
+  v6 = objc_opt_class();
   if (isKindOfClass)
   {
-    if (MIArrayContainsOnlyClass(v4))
+    if (MIArrayContainsOnlyClass(v4, v6))
     {
-      v6 = v4;
+      v7 = v4;
 LABEL_7:
-      v7 = [MEMORY[0x1E695DFD8] setWithArray:v6];
-      v8 = [v7 allObjects];
+      v8 = [MEMORY[0x1E695DFD8] setWithArray:v7];
+      v9 = [v8 allObjects];
 
       goto LABEL_16;
     }
@@ -5962,7 +5944,7 @@ LABEL_7:
 LABEL_13:
     MOLogWrite();
 LABEL_14:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_15;
   }
 
@@ -5977,19 +5959,17 @@ LABEL_14:
   }
 
   v11[0] = v4;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
-  if (v6)
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  if (v7)
   {
     goto LABEL_7;
   }
 
 LABEL_15:
-  v8 = 0;
+  v9 = 0;
 LABEL_16:
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v9;
 }
 
 BOOL MIHasAnyApplicationGroupEntitlements(void *a1)
@@ -6038,17 +6018,17 @@ id MICopyParentIdentifiersEntitlement(void *a1)
     v3 = 0;
   }
 
-  if (v3 && (objc_opt_class(), MIArrayContainsOnlyClass(v3)))
+  if (v3 && (v4 = objc_opt_class(), MIArrayContainsOnlyClass(v3, v4)))
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 id MICopyApplicationIdentifierEntitlement(void *a1)
@@ -6072,10 +6052,10 @@ id MICopyApplicationIdentifierEntitlement(void *a1)
 id MICopyPreviousApplicationIdentifiersEntitlement(void *a1)
 {
   v1 = [a1 objectForKeyedSubscript:@"previous-application-identifiers"];
-  objc_opt_class();
-  v2 = MIArrayifyThing(v1);
+  v2 = objc_opt_class();
+  v3 = MIArrayifyThing(v1, v2);
 
-  return v2;
+  return v3;
 }
 
 id MICopyKeychainAccessGroupEntitlement(void *a1)
@@ -6093,17 +6073,17 @@ id MICopyKeychainAccessGroupEntitlement(void *a1)
     v3 = 0;
   }
 
-  if (v3 && (objc_opt_class(), MIArrayContainsOnlyClass(v3)))
+  if (v3 && (v4 = objc_opt_class(), MIArrayContainsOnlyClass(v3, v4)))
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 id MICopyAppManagementDomainEntitlement(void *a1)
@@ -6177,17 +6157,17 @@ id MICopyNetworkExtensionEntitlement(void *a1)
     v3 = 0;
   }
 
-  if (v3 && (objc_opt_class(), MIArrayContainsOnlyClass(v3)))
+  if (v3 && (v4 = objc_opt_class(), MIArrayContainsOnlyClass(v3, v4)))
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 id MICopyAssociatedAppClipsEntitlement(void *a1)
@@ -6205,17 +6185,17 @@ id MICopyAssociatedAppClipsEntitlement(void *a1)
     v3 = 0;
   }
 
-  if (v3 && (objc_opt_class(), MIArrayContainsOnlyClass(v3)))
+  if (v3 && (v4 = objc_opt_class(), MIArrayContainsOnlyClass(v3, v4)))
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 id MICopyDataProtectionClassEntitlement(void *a1)
@@ -6298,8 +6278,8 @@ id MICopyDataProtectionIfAvailableEntitlement(void *a1)
     if (v6)
     {
       v7 = v5;
-      objc_opt_class();
-      v4 = MIArrayFilteredToContainOnlyClass(v7);
+      v8 = objc_opt_class();
+      v4 = MIArrayFilteredToContainOnlyClass(v7, v8);
     }
 
     else
@@ -6368,42 +6348,41 @@ uint64_t MIBooleanValue(void *a1, uint64_t a2)
   return a2;
 }
 
-uint64_t MIArrayContainsOnlyClass(void *a1)
+uint64_t MIArrayContainsOnlyClass(void *a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v2)
+  v2 = a1;
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v3)
   {
-    v3 = v2;
-    v4 = *v11;
+    v4 = v3;
+    v5 = *v10;
     while (2)
     {
-      v5 = 0;
+      v6 = 0;
       do
       {
-        if (*v11 != v4)
+        if (*v10 != v5)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * v5);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           v7 = 0;
           goto LABEL_11;
         }
 
-        ++v5;
+        ++v6;
       }
 
-      while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
-      if (v3)
+      while (v4 != v6);
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v4)
       {
         continue;
       }
@@ -6415,51 +6394,49 @@ uint64_t MIArrayContainsOnlyClass(void *a1)
   v7 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
-id MIArrayFilteredToContainOnlyClass(void *a1)
+id MIArrayFilteredToContainOnlyClass(void *a1, uint64_t a2)
 {
   v17 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v1, "count")}];
+  v2 = a1;
+  v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v4)
+  v4 = v2;
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v13;
+    v6 = v5;
+    v7 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v6)
+        if (*v13 != v7)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          [v2 addObject:{v8, v12}];
+          [v3 addObject:{v9, v12}];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 
-  v9 = [v2 copy];
-  v10 = *MEMORY[0x1E69E9840];
+  v10 = [v3 copy];
 
-  return v9;
+  return v10;
 }
 
 uint64_t MIDictionaryContainsOnlyClasses(void *a1, uint64_t a2, uint64_t a3)
@@ -6483,9 +6460,9 @@ uint64_t MIDictionaryContainsOnlyClasses(void *a1, uint64_t a2, uint64_t a3)
   return v6;
 }
 
-void sub_1BF36F9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BF36F9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6528,20 +6505,20 @@ id MIStringifyObject(void *a1)
   return v3;
 }
 
-id MIArrayifyThing(void *a1)
+id MIArrayifyThing(void *a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  if (v1)
+  v8[1] = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  if (v3)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if (MIArrayContainsOnlyClass(v1))
+      if (MIArrayContainsOnlyClass(v3, a2))
       {
-        v2 = v1;
+        v4 = v3;
 LABEL_7:
-        v3 = v2;
+        v5 = v4;
         goto LABEL_12;
       }
     }
@@ -6550,23 +6527,23 @@ LABEL_7:
     {
       if (objc_opt_isKindOfClass())
       {
-        v7[0] = v1;
-        v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+        v8[0] = v3;
+        v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
         goto LABEL_7;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v4 = [v1 allObjects];
-        if (MIArrayContainsOnlyClass(v4))
+        v6 = [v3 allObjects];
+        if (MIArrayContainsOnlyClass(v6, a2))
         {
-          v3 = v4;
+          v5 = v6;
         }
 
         else
         {
-          v3 = 0;
+          v5 = 0;
         }
 
         goto LABEL_12;
@@ -6574,12 +6551,10 @@ LABEL_7:
     }
   }
 
-  v3 = 0;
+  v5 = 0;
 LABEL_12:
 
-  v5 = *MEMORY[0x1E69E9840];
-
-  return v3;
+  return v5;
 }
 
 BOOL MICompareObjects(void *a1, void *a2)
@@ -6594,7 +6569,7 @@ BOOL MICompareObjects(void *a1, void *a2)
 
 void *MIEnumerateContainersOfClass(void *a1, uint64_t a2, void *a3)
 {
-  v26[4] = *MEMORY[0x1E69E9840];
+  v25[4] = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a3;
   v7 = [MEMORY[0x1E69A8D78] defaultManager];
@@ -6606,23 +6581,23 @@ void *MIEnumerateContainersOfClass(void *a1, uint64_t a2, void *a3)
     {
       if (a2 == 2)
       {
-        v26[0] = @"mobile";
-        v26[1] = @"Containers";
-        v26[2] = @"Data";
-        v26[3] = @"Application";
+        v25[0] = @"mobile";
+        v25[1] = @"Containers";
+        v25[2] = @"Data";
+        v25[3] = @"Application";
         v10 = MEMORY[0x1E695DEC8];
-        v11 = v26;
+        v11 = v25;
         goto LABEL_22;
       }
 
       if (a2 == 4)
       {
-        v25[0] = @"mobile";
-        v25[1] = @"Containers";
-        v25[2] = @"Data";
-        v25[3] = @"PluginKitPlugin";
+        v24[0] = @"mobile";
+        v24[1] = @"Containers";
+        v24[2] = @"Data";
+        v24[3] = @"PluginKitPlugin";
         v10 = MEMORY[0x1E695DEC8];
-        v11 = v25;
+        v11 = v24;
         goto LABEL_22;
       }
 
@@ -6663,12 +6638,12 @@ LABEL_20:
 
   if (a2 == 7)
   {
-    v24[0] = @"mobile";
-    v24[1] = @"Containers";
-    v24[2] = @"Shared";
-    v24[3] = @"AppGroup";
+    v23[0] = @"mobile";
+    v23[1] = @"Containers";
+    v23[2] = @"Shared";
+    v23[3] = @"AppGroup";
     v10 = MEMORY[0x1E695DEC8];
-    v11 = v24;
+    v11 = v23;
     goto LABEL_22;
   }
 
@@ -6677,12 +6652,12 @@ LABEL_20:
     goto LABEL_14;
   }
 
-  v23[0] = @"mobile";
-  v23[1] = @"Containers";
-  v23[2] = @"Data";
-  v23[3] = @"InternalDaemon";
+  v22[0] = @"mobile";
+  v22[1] = @"Containers";
+  v22[2] = @"Data";
+  v22[3] = @"InternalDaemon";
   v10 = MEMORY[0x1E695DEC8];
-  v11 = v23;
+  v11 = v22;
 LABEL_22:
   v15 = [v10 arrayWithObjects:v11 count:4];
   v14 = [v9 MI_URLByAppendingPathComponents:v15 lastIsDirectory:1];
@@ -6696,12 +6671,12 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __MIEnumerateContainersOfClass_block_invoke;
-  v21[3] = &unk_1E80BA538;
-  v22 = v6;
-  v16 = [v7 enumerateURLsForItemsInDirectoryAtURL:v14 ignoreSymlinks:1 withBlock:v21];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __MIEnumerateContainersOfClass_block_invoke;
+  v20[3] = &unk_1E80BA538;
+  v21 = v6;
+  v16 = [v7 enumerateURLsForItemsInDirectoryAtURL:v14 ignoreSymlinks:1 withBlock:v20];
 
   if (!v16)
   {
@@ -6715,7 +6690,6 @@ LABEL_27:
 LABEL_28:
   v18 = v16;
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -6865,9 +6839,9 @@ LABEL_21:
   [AITransactionLog logStep:a1 byParty:7 phase:a2 success:a3 forBundleID:v14 persona:v15 description:v21];
 }
 
-void sub_1BF371610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BF371610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6879,21 +6853,20 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1BF372604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BF372604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id _UUIDData()
 {
-  v3[2] = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
-  v3[1] = 0;
-  MEMORY[0x1BFB56A30](v3);
-  v0 = [MEMORY[0x1E695DEF0] dataWithBytes:v3 length:16];
-  v1 = *MEMORY[0x1E69E9840];
+  v2[2] = *MEMORY[0x1E69E9840];
+  v2[0] = 0;
+  v2[1] = 0;
+  MEMORY[0x1BFB56A30](v2);
+  v0 = [MEMORY[0x1E695DEF0] dataWithBytes:v2 length:16];
 
   return v0;
 }

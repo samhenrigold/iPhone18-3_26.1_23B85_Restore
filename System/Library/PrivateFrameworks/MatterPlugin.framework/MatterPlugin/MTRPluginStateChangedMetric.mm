@@ -19,13 +19,11 @@
 
 - (id)additionalCoreAnalyticsEventDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"state";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"state";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[MTRPluginStateChangedMetric state](self, "state")}];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

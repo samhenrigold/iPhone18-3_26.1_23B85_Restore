@@ -39,21 +39,19 @@
 
 void __70__KMProviderHistoryLog_recordChangesAcceptedWithVersion_historyToken___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _recordVersion:*(a1 + 56)];
   v3 = [*(a1 + 32) _recordHistoryToken:*(a1 + 40)];
   v4 = [*(a1 + 32) _recordDonationEndTime];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
-  v8[0] = @"version";
-  v8[1] = @"historyToken";
-  v8[2] = @"donationEndTime";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v7[0] = @"version";
+  v7[1] = @"historyToken";
+  v7[2] = @"donationEndTime";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
   *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 32) + 8) writeUpdatedObjects:v5 forKeys:v6 error:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_recordDonationEndTime
@@ -294,10 +292,7 @@ LABEL_7:
 
 uint64_t __54__KMProviderHistoryLog_initWithDirectory_originAppId___block_invoke(uint64_t a1)
 {
-  v2 = [objc_alloc(MEMORY[0x277D22D10]) initWithFilename:@"provider_log" directory:*(a1 + 32) readOnly:0 error:0];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [objc_alloc(MEMORY[0x277D22D10]) initWithFilename:@"provider_log" directory:*(a1 + 32) readOnly:0 error:0];
 
   return MEMORY[0x2821F96F8]();
 }

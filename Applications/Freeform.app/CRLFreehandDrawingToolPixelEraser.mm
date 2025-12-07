@@ -72,7 +72,7 @@
 
     if (pointCopy)
     {
-      [pointCopy PKInputPoint];
+      objc_msgSend_PKInputPoint(pointCopy);
     }
 
     else
@@ -100,7 +100,7 @@
   {
     if (pointCopy)
     {
-      [pointCopy PKInputPoint];
+      objc_msgSend_PKInputPoint(pointCopy);
     }
 
     else
@@ -135,7 +135,7 @@
   canvasView = [_tiledView canvasView];
   if (pointCopy)
   {
-    [pointCopy PKInputPoint];
+    objc_msgSend_PKInputPoint(pointCopy);
   }
 
   else
@@ -657,7 +657,7 @@
             }
 
             memset(buf, 0, 48);
-            [v16 pureTransformInRoot];
+            objc_msgSend_pureTransformInRoot(v16);
             v172[0] = _NSConcreteStackBlock;
             v172[1] = 3221225472;
             v172[2] = sub_1001C209C;
@@ -1201,7 +1201,7 @@ LABEL_46:
                 pathSource = [v40 pathSource];
                 bezierPath = [pathSource bezierPath];
 
-                [v40 pureTransformInRoot];
+                objc_msgSend_pureTransformInRoot(v40);
                 [bezierPath transformUsingAffineTransform:buf];
                 [(CRLBezierHitTester *)self->_fillHitTester addPath:bezierPath filled:1 clippedToRect:v20, v22, v24, v26];
                 [(NSMutableArray *)self->_allHitTesterFillPathsZOrdered addObject:bezierPath];

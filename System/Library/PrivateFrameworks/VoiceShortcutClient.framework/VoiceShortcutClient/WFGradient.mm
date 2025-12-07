@@ -6,6 +6,7 @@
 - (WFGradient)initWithColor:(id)color;
 - (WFGradient)initWithStartColor:(id)color endColor:(id)endColor;
 - (double)perceivedBrightness;
+- (id)baseColorForDarkMode:(BOOL)mode highContrast:(BOOL)contrast;
 - (id)debugDescription;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
@@ -101,54 +102,82 @@
   return selfCopy;
 }
 
+- (id)baseColorForDarkMode:(BOOL)mode highContrast:(BOOL)contrast
+{
+  if (mode && contrast)
+  {
+    darkAccessibilityBaseColor = [(WFGradient *)self darkAccessibilityBaseColor];
+  }
+
+  else if (mode)
+  {
+    darkAccessibilityBaseColor = [(WFGradient *)self darkBaseColor:mode];
+  }
+
+  else
+  {
+    if (contrast)
+    {
+      [(WFGradient *)self accessibilityBaseColor];
+    }
+
+    else
+    {
+      [(WFGradient *)self baseColor];
+    }
+    darkAccessibilityBaseColor = ;
+  }
+
+  return darkAccessibilityBaseColor;
+}
+
 - (id)debugDescription
 {
-  v22[7] = *MEMORY[0x1E69E9840];
+  v21[7] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = [v3 stringWithFormat:@"<%@: %p, {\n", v5, self];
 
   v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:v6];
-  v22[0] = @"baseColor";
-  v22[1] = @"darkBaseColor";
-  v22[2] = @"accessibilityBaseColor";
-  v22[3] = @"accessibilityBaseColor";
-  v22[4] = @"darkAccessibilityBaseColor";
-  v22[5] = @"startColor";
-  v22[6] = @"endColor";
-  [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:7];
+  v21[0] = @"baseColor";
+  v21[1] = @"darkBaseColor";
+  v21[2] = @"accessibilityBaseColor";
+  v21[3] = @"accessibilityBaseColor";
+  v21[4] = @"darkAccessibilityBaseColor";
+  v21[5] = @"startColor";
+  v21[6] = @"endColor";
+  [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:7];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = v20 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = v19 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         v14 = [(WFGradient *)self valueForKey:v13];
-        [v7 appendFormat:@"\t%@: %@\n", v13, v14, v17];
+        [v7 appendFormat:@"\t%@: %@\n", v13, v14, v16];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   [v7 appendString:@"}>"];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -291,18 +320,17 @@ LABEL_33:
 
 - (CGGradient)CGGradient
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v5[2] = *MEMORY[0x1E69E9840];
   result = self->_CGGradient;
   if (!result)
   {
-    v6[0] = [(WFColor *)self->_startColor CGColor];
-    v6[1] = [(WFColor *)self->_endColor CGColor];
-    v5 = xmmword_1B1F36780;
-    result = CGGradientCreateWithColors(0, [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2], &v5);
+    v5[0] = [(WFColor *)self->_startColor CGColor];
+    v5[1] = [(WFColor *)self->_endColor CGColor];
+    v4 = xmmword_1B1F36780;
+    result = CGGradientCreateWithColors(0, [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2], &v4);
     self->_CGGradient = result;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 

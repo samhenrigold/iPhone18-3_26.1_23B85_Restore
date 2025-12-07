@@ -306,7 +306,7 @@
     v22 = [v20 initWithPayload:payload senderURI:v18 recipientURI:v19];
 
     timestamp = [v12 timestamp];
-    [timestamp doubleValue];
+    objc_msgSend_doubleValue(timestamp);
     v25 = [NSDate dateWithTimeIntervalSince1970:v24 / 1000000000.0];
     [v22 setDate:v25];
 

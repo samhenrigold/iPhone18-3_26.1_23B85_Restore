@@ -69,9 +69,9 @@
   {
     cachedSizeCategory = [(UIKeyboardInputMode *)self cachedSizeCategory];
     preferredContentSizeCategory = [UIApp preferredContentSizeCategory];
-    v9 = [cachedSizeCategory isEqual:preferredContentSizeCategory];
+    isEqual = objc_msgSend_isEqual_(cachedSizeCategory);
 
-    if ((v9 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       [(NSMutableDictionary *)self->_cachedIcons removeAllObjects];
     }
@@ -95,7 +95,7 @@
   v15 = +[UIKeyboardInputModeController sharedInputModeController];
   v16 = [v15 keyboardLanguageForDictationLanguage:languageCopy];
 
-  if ([v16 isEqualToString:languageCopy])
+  if (objc_msgSend_isEqualToString_(v16))
   {
     v17 = +[UIKeyboardInputModeController sharedInputModeController];
     activeInputModes = [v17 activeInputModes];
@@ -165,10 +165,10 @@ LABEL_19:
 
 uint64_t __70__UIDictationInputMode_indicatorIconForDictationLanguage_scaleFactor___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 normalizedIdentifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 normalizedIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 @end

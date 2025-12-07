@@ -33,9 +33,9 @@
       {
         insertionText3 = [(_UIInputViewKeyboardOutput *)self insertionText];
         insertionText4 = [v5 insertionText];
-        v12 = [insertionText3 isEqualToString:insertionText4];
+        isEqualToString = objc_msgSend_isEqualToString_(insertionText3);
 
-        if (!v12)
+        if (!isEqualToString)
         {
           goto LABEL_5;
         }

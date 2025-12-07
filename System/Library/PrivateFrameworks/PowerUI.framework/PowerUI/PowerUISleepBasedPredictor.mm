@@ -23,7 +23,7 @@
 
 - (id)predictFullChargeDateWithBatteryLevel:(unint64_t)level
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = [objc_alloc(MEMORY[0x277D62528]) initWithIdentifier:@"com.apple.das.smartcharging"];
   v5 = [v4 currentSleepScheduleWithError:0];
   if (v5)
@@ -41,9 +41,9 @@
       log = self->_log;
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 134217984;
-        v24 = v11;
-        _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Currently in winddown, offset until sleep starts: %f", &v23, 0xCu);
+        v22 = 134217984;
+        v23 = v11;
+        _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Currently in winddown, offset until sleep starts: %f", &v22, 0xCu);
       }
 
       v13 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:v11];
@@ -60,11 +60,11 @@
       v18 = self->_log;
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 138412546;
-        v24 = *&v16;
-        v25 = 2112;
-        v26 = distantPast;
-        _os_log_impl(&dword_21B766000, v18, OS_LOG_TYPE_DEFAULT, "Wake up time set to: %@ - Target (adjusted) deadline: %@", &v23, 0x16u);
+        v22 = 138412546;
+        v23 = *&v16;
+        v24 = 2112;
+        v25 = distantPast;
+        _os_log_impl(&dword_21B766000, v18, OS_LOG_TYPE_DEFAULT, "Wake up time set to: %@ - Target (adjusted) deadline: %@", &v22, 0x16u);
       }
     }
 
@@ -91,25 +91,23 @@
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return distantPast;
 }
 
 + (BOOL)shouldUseSleepPredictorWithLog:(id)log
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   logCopy = log;
   v4 = [objc_alloc(MEMORY[0x277D62528]) initWithIdentifier:@"com.apple.das.smartcharging"];
-  v15 = 0;
-  v5 = [v4 currentSleepScheduleWithError:&v15];
-  v6 = v15;
+  v14 = 0;
+  v5 = [v4 currentSleepScheduleWithError:&v14];
+  v6 = v14;
   if (!v5)
   {
     if (os_log_type_enabled(logCopy, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v17 = v6;
+      v16 = v6;
       v10 = "No sleep schedule found, use regular model. Error: %@";
       v11 = logCopy;
       v12 = 12;
@@ -152,7 +150,6 @@ LABEL_10:
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

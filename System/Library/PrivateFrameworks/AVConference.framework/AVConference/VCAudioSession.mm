@@ -60,18 +60,18 @@
   return sharedVoiceChatInstance__VCAudioSessionVoiceChat;
 }
 
-void __41__VCAudioSession_sharedVoiceChatInstance__block_invoke()
+void __41__VCAudioSession_sharedVoiceChatInstance__block_invoke(uint64_t a1)
 {
   if (!sharedVoiceChatInstance__VCAudioSessionVoiceChat)
   {
-    v0 = VCFeatureFlagManager_UseAvconferencedOniOSSpecficFeatures();
-    v1 = off_1E85F1F28;
-    if (!v0)
+    v1 = VCFeatureFlagManager_UseAvconferencedOniOSSpecficFeatures(a1);
+    v2 = off_1E85F1F28;
+    if (!v1)
     {
-      v1 = off_1E85F1F30;
+      v2 = off_1E85F1F30;
     }
 
-    sharedVoiceChatInstance__VCAudioSessionVoiceChat = [objc_alloc(*v1) initWithMode:0];
+    sharedVoiceChatInstance__VCAudioSessionVoiceChat = [objc_alloc(*v2) initWithMode:0];
   }
 }
 
@@ -85,16 +85,16 @@ void __41__VCAudioSession_sharedVoiceChatInstance__block_invoke()
   return sharedSystemAudioOutputInstance__VCAudioSessionSystemAudioOutput;
 }
 
-uint64_t __49__VCAudioSession_sharedSystemAudioOutputInstance__block_invoke()
+void *__49__VCAudioSession_sharedSystemAudioOutputInstance__block_invoke(uint64_t a1)
 {
-  v0 = VCFeatureFlagManager_UseAvconferencedOniOSSpecficFeatures();
-  v1 = off_1E85F1F28;
-  if (!v0)
+  v1 = VCFeatureFlagManager_UseAvconferencedOniOSSpecficFeatures(a1);
+  v2 = off_1E85F1F28;
+  if (!v1)
   {
-    v1 = off_1E85F1F30;
+    v2 = off_1E85F1F30;
   }
 
-  result = [objc_alloc(*v1) initWithMode:1];
+  result = [objc_alloc(*v2) initWithMode:1];
   sharedSystemAudioOutputInstance__VCAudioSessionSystemAudioOutput = result;
   return result;
 }
@@ -109,16 +109,16 @@ uint64_t __49__VCAudioSession_sharedSystemAudioOutputInstance__block_invoke()
   return sharedSystemAudioInputInstance__VCAudioSessionSystemAudioInput;
 }
 
-uint64_t __48__VCAudioSession_sharedSystemAudioInputInstance__block_invoke()
+void *__48__VCAudioSession_sharedSystemAudioInputInstance__block_invoke(uint64_t a1)
 {
-  v0 = VCFeatureFlagManager_UseAvconferencedOniOSSpecficFeatures();
-  v1 = off_1E85F1F28;
-  if (!v0)
+  v1 = VCFeatureFlagManager_UseAvconferencedOniOSSpecficFeatures(a1);
+  v2 = off_1E85F1F28;
+  if (!v1)
   {
-    v1 = off_1E85F1F30;
+    v2 = off_1E85F1F30;
   }
 
-  result = [objc_alloc(*v1) initWithMode:2];
+  result = [objc_alloc(*v2) initWithMode:2];
   sharedSystemAudioInputInstance__VCAudioSessionSystemAudioInput = result;
   return result;
 }
@@ -890,7 +890,7 @@ uint64_t __48__VCAudioSession_setBlockSizeOnSampleRateChange__block_invoke(uint6
   v53[5] = *MEMORY[0x1E69E9840];
   if (properties)
   {
-    [properties inputFormat];
+    objc_msgSend_inputFormat(properties, a2);
     if (HIDWORD(v40) >= 2)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 5)
@@ -899,7 +899,7 @@ uint64_t __48__VCAudioSession_setBlockSizeOnSampleRateChange__block_invoke(uint6
         v6 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          [properties inputFormat];
+          objc_msgSend_inputFormat(properties);
           *buf = 136315906;
           v43 = v5;
           v44 = 2080;
@@ -930,7 +930,7 @@ uint64_t __48__VCAudioSession_setBlockSizeOnSampleRateChange__block_invoke(uint6
   *&v37[24] = v7;
   if (properties)
   {
-    [properties inputFormat];
+    objc_msgSend_inputFormat(properties, a2);
   }
 
   else
@@ -946,7 +946,7 @@ uint64_t __48__VCAudioSession_setBlockSizeOnSampleRateChange__block_invoke(uint6
   *(&v36[1] + 8) = v9;
   if (properties)
   {
-    [properties outputFormat];
+    objc_msgSend_outputFormat(properties);
   }
 
   else
@@ -961,7 +961,7 @@ uint64_t __48__VCAudioSession_setBlockSizeOnSampleRateChange__block_invoke(uint6
   v13 = MEMORY[0x1E696AD98];
   if (properties)
   {
-    [properties outputFormat];
+    objc_msgSend_outputFormat(properties);
     v14 = v35 > 1;
   }
 
@@ -1055,9 +1055,9 @@ uint64_t __48__VCAudioSession_setBlockSizeOnSampleRateChange__block_invoke(uint6
     {
       if (properties)
       {
-        [properties inputFormat];
+        objc_msgSend_inputFormat(properties);
         v30 = v34;
-        [properties outputFormat];
+        objc_msgSend_outputFormat(properties);
         v31 = v33;
       }
 
@@ -1541,7 +1541,7 @@ void __41__VCAudioSession_shouldResetAudioSession__block_invoke(uint64_t a1)
   return v6;
 }
 
-uint64_t __63__VCAudioSession_resetClient_mediaSetting_interruptSuccessful___block_invoke(uint64_t a1)
+void *__63__VCAudioSession_resetClient_mediaSetting_interruptSuccessful___block_invoke(uint64_t a1)
 {
   v28 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -1835,7 +1835,7 @@ LABEL_18:
   dispatch_async(dispatchQueue, v3);
 }
 
-uint64_t __46__VCAudioSession_didAvailableSampleRateChange__block_invoke(uint64_t a1)
+void *__46__VCAudioSession_didAvailableSampleRateChange__block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -1864,7 +1864,7 @@ uint64_t __46__VCAudioSession_didAvailableSampleRateChange__block_invoke(uint64_
           [v6 didSessionSampleRateChange];
         }
 
-        ++v5;
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
@@ -1890,7 +1890,7 @@ uint64_t __46__VCAudioSession_didAvailableSampleRateChange__block_invoke(uint64_
   dispatch_async(dispatchQueue, v3);
 }
 
-uint64_t __30__VCAudioSession_serverDidDie__block_invoke(uint64_t a1)
+void *__30__VCAudioSession_serverDidDie__block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   v7 = 0u;
@@ -1913,7 +1913,8 @@ uint64_t __30__VCAudioSession_serverDidDie__block_invoke(uint64_t a1)
           objc_enumerationMutation(v1);
         }
 
-        [objc_msgSend(*(*(&v7 + 1) + 8 * v5++) "notificationClient")];
+        [objc_msgSend(*(*(&v7 + 1) + 8 * v5) "notificationClient")];
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
@@ -1939,7 +1940,7 @@ uint64_t __30__VCAudioSession_serverDidDie__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, v3);
 }
 
-uint64_t __26__VCAudioSession_didPause__block_invoke(uint64_t a1)
+void *__26__VCAudioSession_didPause__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 208) clientType];
   if (result == 1)
@@ -1994,7 +1995,7 @@ uint64_t __27__VCAudioSession_didResume__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, v3);
 }
 
-uint64_t __25__VCAudioSession_didStop__block_invoke(uint64_t a1)
+void *__25__VCAudioSession_didStop__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 208) clientType];
   if (result == 1)
@@ -2636,7 +2637,7 @@ LABEL_20:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Client has already been started", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Client has already been started", v2, v3, v4, v5);
 }
 
 - (void)validNewStartingClient:.cold.2()

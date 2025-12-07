@@ -76,22 +76,22 @@
 
 - (id)generateStatementsForStore:(id)store
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v5 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
   return 0;
 }
 
 - (id)dropStatementsForStore:(id)store
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v5 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
   return 0;
 }
 
 - (id)bulkUpdateStatementsForStore:(id)store
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v5 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
   return 0;
 }
 

@@ -16,7 +16,7 @@
   if (v3)
   {
     v3->_parked = 0;
-    v5 = _assertionQueue();
+    v5 = _assertionQueue(v3);
     dispatch_sync(v5, &__block_literal_global_16);
   }
 
@@ -25,7 +25,7 @@
 
 - (void)dealloc
 {
-  v3 = _assertionQueue();
+  v3 = _assertionQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __28__DMCPowerAssertion_dealloc__block_invoke;
@@ -38,17 +38,17 @@
   [(DMCProcessAssertion *)&v4 dealloc];
 }
 
-void __28__DMCPowerAssertion_dealloc__block_invoke(uint64_t a1)
+void __28__DMCPowerAssertion_dealloc__block_invoke(uint64_t result, uint64_t a2)
 {
-  if ((*(*(a1 + 32) + 24) & 1) == 0)
+  if ((*(*(result + 32) + 24) & 1) == 0)
   {
-    _releasePowerAssertion();
+    _releasePowerAssertion(result, a2);
   }
 }
 
 - (void)park
 {
-  v3 = _assertionQueue();
+  v3 = _assertionQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __25__DMCPowerAssertion_park__block_invoke;
@@ -57,23 +57,23 @@ void __28__DMCPowerAssertion_dealloc__block_invoke(uint64_t a1)
   dispatch_sync(v3, block);
 }
 
-void __25__DMCPowerAssertion_park__block_invoke(uint64_t a1)
+void __25__DMCPowerAssertion_park__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
-  if (*(v3 + 24) == 1)
+  v4 = *(a1 + 32);
+  if (*(v4 + 24) == 1)
   {
-    v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Trying to park a power assertion that's already parked." userInfo:{0, v1, v2}];
-    objc_exception_throw(v4);
+    v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Trying to park a power assertion that's already parked." userInfo:{0, v2, v3}];
+    objc_exception_throw(v5);
   }
 
-  *(v3 + 24) = 1;
+  *(v4 + 24) = 1;
 
-  _releasePowerAssertion();
+  _releasePowerAssertion(a1, a2);
 }
 
 - (void)unpark
 {
-  v3 = _assertionQueue();
+  v3 = _assertionQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __27__DMCPowerAssertion_unpark__block_invoke;
@@ -82,18 +82,18 @@ void __25__DMCPowerAssertion_park__block_invoke(uint64_t a1)
   dispatch_sync(v3, block);
 }
 
-void __27__DMCPowerAssertion_unpark__block_invoke(uint64_t a1)
+void __27__DMCPowerAssertion_unpark__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
-  if ((*(v3 + 24) & 1) == 0)
+  v4 = *(a1 + 32);
+  if ((*(v4 + 24) & 1) == 0)
   {
-    v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Trying to unpark a power assertion that's not parked." userInfo:{0, v1, v2}];
-    objc_exception_throw(v4);
+    v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Trying to unpark a power assertion that's not parked." userInfo:{0, v2, v3}];
+    objc_exception_throw(v5);
   }
 
-  *(v3 + 24) = 0;
+  *(v4 + 24) = 0;
 
-  _retainPowerAssertion();
+  _retainPowerAssertion(a1, a2);
 }
 
 @end

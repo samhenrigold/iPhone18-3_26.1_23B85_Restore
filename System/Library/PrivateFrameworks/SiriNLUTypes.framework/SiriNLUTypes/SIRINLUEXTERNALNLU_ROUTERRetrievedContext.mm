@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -64,7 +65,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 24);
   if (*&self->_has)
   {
     if ((*(equalCopy + 24) & 1) == 0 || self->_type != *(equalCopy + 2))
@@ -76,24 +76,24 @@
   else if (*(equalCopy + 24))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   typedValue = self->_typedValue;
   if (typedValue | *(equalCopy + 2))
   {
-    v7 = [(SIRINLUEXTERNALNLU_ROUTERTypedValue *)typedValue isEqual:?];
+    v6 = [(SIRINLUEXTERNALNLU_ROUTERTypedValue *)typedValue isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -133,18 +133,17 @@ LABEL_10:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_typedValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -246,6 +245,53 @@ LABEL_15:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string <= 27)
+  {
+    if (string)
+    {
+      if (string != 1)
+      {
+LABEL_22:
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"CONTEXT_TYPE_APP_IN_FOCUS_BUNDLE_ID";
+    }
+
+    else
+    {
+      v4 = @"CONTEXT_TYPE_UNKNOWN";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 28:
+        v4 = @"CONTEXT_TYPE_HAS_FOCUSED_ON_SCREEN_IMAGE";
+
+        break;
+      case 29:
+        v4 = @"CONTEXT_TYPE_HAS_FOCUSED_ON_SCREEN_DOCUMENT";
+
+        break;
+      case 50:
+        v4 = @"CONTEXT_TYPE_OTHER";
+
+        return v4;
+      default:
+        goto LABEL_22;
+    }
   }
 
   return v4;

@@ -184,18 +184,28 @@ LABEL_9:
   v8 = fromCopy[3];
   if (unitCoding)
   {
-    if (v8)
+    if (!v8)
     {
-      [(HDCodableMedicalCoding *)unitCoding mergeFrom:?];
+      goto LABEL_15;
     }
+
+    unitCoding = [(HDCodableMedicalCoding *)unitCoding mergeFrom:?];
   }
 
-  else if (v8)
+  else
   {
-    [(HDCodableCodedQuantity *)self setUnitCoding:?];
+    if (!v8)
+    {
+      goto LABEL_15;
+    }
+
+    unitCoding = [(HDCodableCodedQuantity *)self setUnitCoding:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v9;
+LABEL_15:
+
+  MEMORY[0x2821F96F8](unitCoding, fromCopy);
 }
 
 @end

@@ -1,6 +1,7 @@
 @interface BCSAppClipCodeURLDecoder
 + (id)sharedDecoder;
 - (BCSAppClipCodeURLDecoder)init;
+- (void)decodeURLWithEncodedData:(id)data codingVersion:(unint64_t)version requiresAuthorization:(BOOL)authorization completionHandler:(id)handler;
 - (void)parseEncodedURLData:(id)data version:(unint64_t)version completion:(id)completion;
 @end
 
@@ -40,6 +41,23 @@ uint64_t __41__BCSAppClipCodeURLDecoder_sharedDecoder__block_invoke()
   }
 
   return v2;
+}
+
+- (void)decodeURLWithEncodedData:(id)data codingVersion:(unint64_t)version requiresAuthorization:(BOOL)authorization completionHandler:(id)handler
+{
+  authorizationCopy = authorization;
+  handlerCopy = handler;
+  v11 = handlerCopy;
+  if (handlerCopy)
+  {
+    serviceConnection = self->_serviceConnection;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __107__BCSAppClipCodeURLDecoder_decodeURLWithEncodedData_codingVersion_requiresAuthorization_completionHandler___block_invoke;
+    v13[3] = &unk_278CFF1E8;
+    v14 = handlerCopy;
+    [(BCSParsingServiceConnection *)serviceConnection decodeAppClipCodeURLWithEncodedData:data codingVersion:version requiresAuthorization:authorizationCopy withReply:v13];
+  }
 }
 
 - (void)parseEncodedURLData:(id)data version:(unint64_t)version completion:(id)completion
@@ -96,18 +114,18 @@ void __67__BCSAppClipCodeURLDecoder_parseEncodedURLData_version_completion___blo
 
 void __67__BCSAppClipCodeURLDecoder_parseEncodedURLData_version_completion___block_invoke_2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v4 = a1[4];
-      v9 = 134218242;
-      v10 = v4;
-      v11 = 2112;
-      v12 = objc_opt_class();
-      _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSAppClipCodeURLDecoder: App clip code [%p] has resolved to action of class %@", &v9, 0x16u);
+      v8 = 134218242;
+      v9 = v4;
+      v10 = 2112;
+      v11 = objc_opt_class();
+      _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSAppClipCodeURLDecoder: App clip code [%p] has resolved to action of class %@", &v8, 0x16u);
     }
 
     v5 = +[BCSAWDLogger sharedLogger];
@@ -127,18 +145,15 @@ void __67__BCSAppClipCodeURLDecoder_parseEncodedURLData_version_completion___blo
     v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"BCSErrorDomain" code:4 userInfo:0];
     (*(v6 + 16))(v6, 0, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __67__BCSAppClipCodeURLDecoder_parseEncodedURLData_version_completion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v3 = 134217984;
-  v4 = v1;
-  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSAppClipCodeURLDecoder: App clip code payload [%p] is not actionable", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = v1;
+  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSAppClipCodeURLDecoder: App clip code payload [%p] is not actionable", &v2, 0xCu);
 }
 
 @end

@@ -15,41 +15,39 @@
 
 - (void)setup
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   buildOuterCircleLayers = [(SHListeningOuterCirclesLayer *)self buildOuterCircleLayers];
   [(SHListeningOuterCirclesLayer *)self setOuterCircleLayers:buildOuterCircleLayers];
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   outerCircleLayers = [(SHListeningOuterCirclesLayer *)self outerCircleLayers];
-  v5 = [outerCircleLayers countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [outerCircleLayers countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(outerCircleLayers);
         }
 
-        [(SHListeningOuterCirclesLayer *)self addSublayer:*(*(&v10 + 1) + 8 * v8++)];
+        [(SHListeningOuterCirclesLayer *)self addSublayer:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [outerCircleLayers countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [outerCircleLayers countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)buildOuterCircleLayers
@@ -150,23 +148,23 @@
 
 - (void)addCoreAnimationToOuterCircleLayer:(id)layer withStartOffset:(double)offset
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   outerCircleCoreSizeAnimation = [(SHListeningOuterCirclesLayer *)self outerCircleCoreSizeAnimation];
   outerCircleCoreBorderWidthAnimation = [(SHListeningOuterCirclesLayer *)self outerCircleCoreBorderWidthAnimation];
   outerCircleCoreScaleAnimation = [(SHListeningOuterCirclesLayer *)self outerCircleCoreScaleAnimation];
   animation = [MEMORY[0x277CD9E00] animation];
-  v24[0] = outerCircleCoreSizeAnimation;
-  v24[1] = outerCircleCoreBorderWidthAnimation;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v23[0] = outerCircleCoreSizeAnimation;
+  v23[1] = outerCircleCoreBorderWidthAnimation;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
   [animation setAnimations:v11];
 
   [animation setDuration:1.50000004];
   v12 = *MEMORY[0x277CDA230];
   [animation setFillMode:*MEMORY[0x277CDA230]];
   animation2 = [MEMORY[0x277CD9E00] animation];
-  v23 = outerCircleCoreScaleAnimation;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+  v22 = outerCircleCoreScaleAnimation;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
   [animation2 setAnimations:v14];
 
   [animation2 setDuration:1.50000004];
@@ -186,86 +184,81 @@
   circleContainerLayer = [layerCopy circleContainerLayer];
 
   [circleContainerLayer addAnimation:v17 forKey:@"SHListeningOuterCircleCoreAnimationGroup2Key"];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)scaleNullAnimation
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"transform.scale"];
   [v3 setValues:&unk_2877ACFC8];
   [v3 setKeyTimes:&unk_2877ACFE0];
   linearTimingFunction = [(SHListeningOuterCirclesLayer *)self linearTimingFunction];
-  v9[0] = linearTimingFunction;
+  v8[0] = linearTimingFunction;
   inOutSineTimingFunction = [(SHListeningOuterCirclesLayer *)self inOutSineTimingFunction];
-  v9[1] = inOutSineTimingFunction;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = inOutSineTimingFunction;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   [v3 setTimingFunctions:v6];
 
   [v3 setDuration:1.58333337];
   [v3 setFillMode:*MEMORY[0x277CDA238]];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)outerCircleCoreSizeAnimation
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"transform.scale"];
   [v3 setValues:&unk_2877ACFF8];
   [v3 setKeyTimes:&unk_2877AD010];
   inOutSineTimingFunction = [(SHListeningOuterCirclesLayer *)self inOutSineTimingFunction];
-  v9[0] = inOutSineTimingFunction;
+  v8[0] = inOutSineTimingFunction;
   linearTimingFunction = [(SHListeningOuterCirclesLayer *)self linearTimingFunction];
-  v9[1] = linearTimingFunction;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = linearTimingFunction;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   [v3 setTimingFunctions:v6];
 
   [v3 setDuration:1.50000004];
   [v3 setFillMode:*MEMORY[0x277CDA238]];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)outerCircleCoreBorderWidthAnimation
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"borderWidth"];
   [v3 setValues:&unk_2877AD028];
   [v3 setKeyTimes:&unk_2877AD040];
   inOutQuartTimingFunction = [(SHListeningOuterCirclesLayer *)self inOutQuartTimingFunction];
   linearTimingFunction = [(SHListeningOuterCirclesLayer *)self linearTimingFunction];
-  v10[1] = linearTimingFunction;
+  v9[1] = linearTimingFunction;
   inOutQuartTimingFunction2 = [(SHListeningOuterCirclesLayer *)self inOutQuartTimingFunction];
-  v10[2] = inOutQuartTimingFunction2;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
+  v9[2] = inOutQuartTimingFunction2;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
   [v3 setTimingFunctions:v7];
 
   [v3 setDuration:1.50000004];
   [v3 setFillMode:*MEMORY[0x277CDA238]];
-  v8 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)outerCircleCoreScaleAnimation
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CD9EC8] animationWithKeyPath:@"transform.scale"];
   [v3 setValues:&unk_2877AD058];
   [v3 setKeyTimes:&unk_2877AD070];
   inOutSineTimingFunction = [(SHListeningOuterCirclesLayer *)self inOutSineTimingFunction];
-  v9[0] = inOutSineTimingFunction;
+  v8[0] = inOutSineTimingFunction;
   linearTimingFunction = [(SHListeningOuterCirclesLayer *)self linearTimingFunction];
-  v9[1] = linearTimingFunction;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = linearTimingFunction;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   [v3 setTimingFunctions:v6];
 
   [v3 setDuration:1.50000004];
   [v3 setFillMode:*MEMORY[0x277CDA238]];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

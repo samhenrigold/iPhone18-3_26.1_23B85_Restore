@@ -418,30 +418,14 @@ LABEL_39:
       pp_airports = [self pp_airports];
       second = [pp_airports second];
 
-      if (!second)
+      if (second && ([second name], (v57 = objc_claimAutoreleasedReturnValue()) != 0) && (v58 = v57, objc_msgSend(second, "name"), v59 = objc_claimAutoreleasedReturnValue(), v60 = objc_msgSend(v59, "length"), v59, v58, v60))
       {
-        goto LABEL_43;
-      }
-
-      name = [second name];
-      if (!name)
-      {
-        goto LABEL_43;
-      }
-
-      v58 = name;
-      name2 = [second name];
-      v60 = [name2 length];
-
-      if (v60)
-      {
-        name3 = [second name];
+        name = [second name];
       }
 
       else
       {
-LABEL_43:
-        name3 = [second iataCode];
+        name = [second iataCode];
       }
 
       goto LABEL_34;
@@ -459,9 +443,9 @@ LABEL_43:
 
 LABEL_33:
     second = [self structuredLocation];
-    name3 = [second title];
+    name = [second title];
 LABEL_34:
-    v54 = name3;
+    v54 = name;
 
     goto LABEL_59;
   }

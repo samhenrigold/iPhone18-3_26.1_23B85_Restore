@@ -11,62 +11,62 @@
 
 + (id)hostURLForEnvironment:(id)environment
 {
-  v3 = WeatherFoundationInternalUserDefaults();
+  v3 = WeatherFoundationInternalUserDefaults(self);
   v4 = [v3 stringForKey:@"WDSEndpointOverride"];
 
-  if (v4 && ([v4 isEqualToString:@"default"] & 1) == 0)
+  if (v4 && (v5 = [v4 isEqualToString:@"default"], (v5 & 1) == 0))
   {
-    v9 = [MEMORY[0x277CBEBC0] URLWithString:v4];
+    v10 = [MEMORY[0x277CBEBC0] URLWithString:v4];
   }
 
   else
   {
-    v5 = WeatherFoundationInternalUserDefaults();
-    v6 = [v5 stringForKey:@"WDSEnvironment"];
+    v6 = WeatherFoundationInternalUserDefaults(v5);
+    v7 = [v6 stringForKey:@"WDSEnvironment"];
 
-    if ([v6 isEqualToString:@"wdsv1_prod_origin"])
+    if ([v7 isEqualToString:@"wdsv1_prod_origin"])
     {
-      v7 = MEMORY[0x277CBEBC0];
-      v8 = @"https://weather-data-origin.apple.com";
+      v8 = MEMORY[0x277CBEBC0];
+      v9 = @"https://weather-data-origin.apple.com";
     }
 
-    else if ([v6 isEqualToString:@"wdsv1_dev"])
+    else if ([v7 isEqualToString:@"wdsv1_dev"])
     {
-      v7 = MEMORY[0x277CBEBC0];
-      v8 = @"https://devel.weather-data.newsapps.apple.com";
+      v8 = MEMORY[0x277CBEBC0];
+      v9 = @"https://devel.weather-data.newsapps.apple.com";
     }
 
-    else if ([v6 isEqualToString:@"wdsv1_test"])
+    else if ([v7 isEqualToString:@"wdsv1_test"])
     {
-      v7 = MEMORY[0x277CBEBC0];
-      v8 = @"https://test.weather-data.newsapps.apple.com";
+      v8 = MEMORY[0x277CBEBC0];
+      v9 = @"https://test.weather-data.newsapps.apple.com";
     }
 
-    else if ([v6 isEqualToString:@"wdsv1_qa"])
+    else if ([v7 isEqualToString:@"wdsv1_qa"])
     {
-      v7 = MEMORY[0x277CBEBC0];
-      v8 = @"https://qa.weather-data.newsapps.apple.com";
+      v8 = MEMORY[0x277CBEBC0];
+      v9 = @"https://qa.weather-data.newsapps.apple.com";
     }
 
     else
     {
-      v10 = [v6 isEqualToString:@"wdsv1_staging"];
-      v7 = MEMORY[0x277CBEBC0];
-      if (v10)
+      v11 = [v7 isEqualToString:@"wdsv1_staging"];
+      v8 = MEMORY[0x277CBEBC0];
+      if (v11)
       {
-        v8 = @"https://staging-weather-data.apple.com";
+        v9 = @"https://staging-weather-data.apple.com";
       }
 
       else
       {
-        v8 = @"https://weather-data.apple.com";
+        v9 = @"https://weather-data.apple.com";
       }
     }
 
-    v9 = [v7 URLWithString:v8];
+    v10 = [v8 URLWithString:v9];
   }
 
-  return v9;
+  return v10;
 }
 
 + (id)hostURLForService
@@ -480,7 +480,7 @@ LABEL_9:
 {
   v1 = [a1 URL];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_272B94000, v2, v3, "formatted WDS forecast request: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_2(&dword_272B94000, v2, v3, "formatted WDS forecast request: %@", v4, v5, v6, v7);
 }
 
 + (void)forecastRequest:forLocation:withUnits:locale:date:rules:options:.cold.3()
@@ -494,7 +494,7 @@ LABEL_9:
 {
   v1 = [a1 URL];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_272B94000, v2, v3, "formatted WDS AQI scale request: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_2(&dword_272B94000, v2, v3, "formatted WDS AQI scale request: %@", v4, v5, v6, v7);
 }
 
 + (void)geocodePathForLocation:rules:.cold.1()

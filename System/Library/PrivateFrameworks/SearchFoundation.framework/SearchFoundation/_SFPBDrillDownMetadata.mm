@@ -30,7 +30,7 @@
 
 - (_SFPBDrillDownMetadata)initWithFacade:(id)facade
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBDrillDownMetadata *)self init];
   if (v5)
@@ -54,32 +54,32 @@
       v9 = 0;
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     cardIdentifiers2 = [facadeCopy cardIdentifiers];
-    v11 = [cardIdentifiers2 countByEnumeratingWithState:&v53 objects:v58 count:16];
+    v11 = [cardIdentifiers2 countByEnumeratingWithState:&v52 objects:v57 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v54;
+      v13 = *v53;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v54 != v13)
+          if (*v53 != v13)
           {
             objc_enumerationMutation(cardIdentifiers2);
           }
 
-          if (*(*(&v53 + 1) + 8 * i))
+          if (*(*(&v52 + 1) + 8 * i))
           {
             [v9 addObject:?];
           }
         }
 
-        v12 = [cardIdentifiers2 countByEnumeratingWithState:&v53 objects:v58 count:16];
+        v12 = [cardIdentifiers2 countByEnumeratingWithState:&v52 objects:v57 count:16];
       }
 
       while (v12);
@@ -97,32 +97,32 @@
       v16 = 0;
     }
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     cardDomains2 = [facadeCopy cardDomains];
-    v18 = [cardDomains2 countByEnumeratingWithState:&v49 objects:v57 count:16];
+    v18 = [cardDomains2 countByEnumeratingWithState:&v48 objects:v56 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v50;
+      v20 = *v49;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v50 != v20)
+          if (*v49 != v20)
           {
             objc_enumerationMutation(cardDomains2);
           }
 
-          if (*(*(&v49 + 1) + 8 * j))
+          if (*(*(&v48 + 1) + 8 * j))
           {
             [v16 addObject:?];
           }
         }
 
-        v19 = [cardDomains2 countByEnumeratingWithState:&v49 objects:v57 count:16];
+        v19 = [cardDomains2 countByEnumeratingWithState:&v48 objects:v56 count:16];
       }
 
       while (v19);
@@ -216,17 +216,16 @@
     v46 = v5;
   }
 
-  v47 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBDrillDownMetadata)initWithDictionary:(id)dictionary
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v55.receiver = self;
-  v55.super_class = _SFPBDrillDownMetadata;
-  v5 = [(_SFPBDrillDownMetadata *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = _SFPBDrillDownMetadata;
+  v5 = [(_SFPBDrillDownMetadata *)&v54 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"cardIdentifier"];
@@ -237,32 +236,32 @@
       [(_SFPBDrillDownMetadata *)v5 setCardIdentifier:v7];
     }
 
-    v46 = v6;
+    v45 = v6;
     v8 = [dictionaryCopy objectForKeyedSubscript:@"cardIdentifiers"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
       v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
       v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v51 objects:v57 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v50 objects:v56 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v52;
+        v12 = *v51;
         do
         {
           v13 = 0;
           do
           {
-            if (*v52 != v12)
+            if (*v51 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v51 + 1) + 8 * v13);
+            v14 = *(*(&v50 + 1) + 8 * v13);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -274,7 +273,7 @@
           }
 
           while (v11 != v13);
-          v11 = [v9 countByEnumeratingWithState:&v51 objects:v57 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v50 objects:v56 count:16];
         }
 
         while (v11);
@@ -285,27 +284,27 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
       v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
       v17 = v16;
-      v18 = [v17 countByEnumeratingWithState:&v47 objects:v56 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v46 objects:v55 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v48;
+        v20 = *v47;
         do
         {
           v21 = 0;
           do
           {
-            if (*v48 != v20)
+            if (*v47 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v47 + 1) + 8 * v21);
+            v22 = *(*(&v46 + 1) + 8 * v21);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -317,7 +316,7 @@
           }
 
           while (v19 != v21);
-          v19 = [v17 countByEnumeratingWithState:&v47 objects:v56 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v46 objects:v55 count:16];
         }
 
         while (v19);
@@ -340,7 +339,7 @@
       [(_SFPBDrillDownMetadata *)v5 setViewConfigName:v27];
     }
 
-    v44 = v16;
+    v43 = v16;
     v28 = [dictionaryCopy objectForKeyedSubscript:@"cardOnlyMetadata"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -349,7 +348,7 @@
       [(_SFPBDrillDownMetadata *)v5 setCardOnlyMetadata:v29];
     }
 
-    v45 = v8;
+    v44 = v8;
     v30 = [dictionaryCopy objectForKeyedSubscript:@"entitySearchOnlyMetadata"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -393,7 +392,6 @@
     v40 = v5;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -861,7 +859,7 @@ LABEL_58:
 
 - (void)writeTo:(id)to
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   toCopy = to;
   cardIdentifier = [(_SFPBDrillDownMetadata *)self cardIdentifier];
   if (cardIdentifier)
@@ -870,67 +868,65 @@ LABEL_58:
   }
 
   cardIdentifiers = [(_SFPBDrillDownMetadata *)self cardIdentifiers];
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v7 = [cardIdentifiers countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v7 = [cardIdentifiers countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v32;
+    v9 = *v29;
     do
     {
       v10 = 0;
       do
       {
-        if (*v32 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(cardIdentifiers);
         }
 
-        v11 = *(*(&v31 + 1) + 8 * v10);
         PBDataWriterWriteStringField();
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [cardIdentifiers countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v8 = [cardIdentifiers countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v8);
   }
 
   cardDomains = [(_SFPBDrillDownMetadata *)self cardDomains];
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v13 = [cardDomains countByEnumeratingWithState:&v27 objects:v35 count:16];
-  if (v13)
+  v12 = [cardDomains countByEnumeratingWithState:&v24 objects:v32 count:16];
+  if (v12)
   {
-    v14 = v13;
-    v15 = *v28;
+    v13 = v12;
+    v14 = *v25;
     do
     {
-      v16 = 0;
+      v15 = 0;
       do
       {
-        if (*v28 != v15)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(cardDomains);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * v16);
         PBDataWriterWriteStringField();
-        ++v16;
+        ++v15;
       }
 
-      while (v14 != v16);
-      v14 = [cardDomains countByEnumeratingWithState:&v27 objects:v35 count:16];
+      while (v13 != v15);
+      v13 = [cardDomains countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
-    while (v14);
+    while (v13);
   }
 
   qtype = [(_SFPBDrillDownMetadata *)self qtype];
@@ -980,24 +976,18 @@ LABEL_58:
   {
     PBDataWriterWriteStringField();
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setParams:(id)params
 {
-  v4 = [params copy];
-  params = self->_params;
-  self->_params = v4;
+  self->_params = [params copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setDebugParams:(id)params
 {
-  v4 = [params copy];
-  debugParams = self->_debugParams;
-  self->_debugParams = v4;
+  self->_debugParams = [params copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -1138,18 +1128,14 @@ LABEL_58:
 
 - (void)setViewConfigName:(id)name
 {
-  v4 = [name copy];
-  viewConfigName = self->_viewConfigName;
-  self->_viewConfigName = v4;
+  self->_viewConfigName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setQtype:(id)qtype
 {
-  v4 = [qtype copy];
-  qtype = self->_qtype;
-  self->_qtype = v4;
+  self->_qtype = [qtype copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -1174,9 +1160,7 @@ LABEL_58:
 
 - (void)setCardDomains:(id)domains
 {
-  v4 = [domains copy];
-  cardDomains = self->_cardDomains;
-  self->_cardDomains = v4;
+  self->_cardDomains = [domains copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -1201,18 +1185,14 @@ LABEL_58:
 
 - (void)setCardIdentifiers:(id)identifiers
 {
-  v4 = [identifiers copy];
-  cardIdentifiers = self->_cardIdentifiers;
-  self->_cardIdentifiers = v4;
+  self->_cardIdentifiers = [identifiers copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCardIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  cardIdentifier = self->_cardIdentifier;
-  self->_cardIdentifier = v4;
+  self->_cardIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

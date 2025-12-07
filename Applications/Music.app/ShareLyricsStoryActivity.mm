@@ -19,7 +19,7 @@
 
 - (NSString)activityTitle
 {
-  sub_10044BB14();
+  sub_10044BB14(*(&self->super.super.isa + OBJC_IVAR____TtC5Music24ShareLyricsStoryActivity_socialNetwork));
   v2 = String._bridgeToObjectiveC()();
 
   return v2;
@@ -63,7 +63,7 @@
 
   selfCopy = self;
   sub_100771190(items, v8, v7);
-  sub_100020438(v8);
+  sub_100020438(v8, v7);
 }
 
 - (_TtC5Music24ShareLyricsStoryActivity)init

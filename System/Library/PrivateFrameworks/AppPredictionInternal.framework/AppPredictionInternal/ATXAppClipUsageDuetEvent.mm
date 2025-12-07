@@ -111,7 +111,8 @@
   value = [valueCopy value];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     self = [(ATXAppClipUsageDuetEvent *)self initWithContext:value modifiedDate:lastModifiedDate];
     selfCopy = self;
@@ -119,10 +120,10 @@
 
   else
   {
-    v8 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = __atxlog_handle_hero(isKindOfClass);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [(ATXAppClipUsageDuetEvent *)value initWithContextValue:v8];
+      [(ATXAppClipUsageDuetEvent *)value initWithContextValue:v9];
     }
 
     selfCopy = 0;
@@ -135,29 +136,30 @@
 {
   eventCopy = event;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = eventCopy;
-    launchDate = [v5 launchDate];
-    launchDate2 = [v5 launchDate];
+    v6 = eventCopy;
+    launchDate = [v6 launchDate];
+    launchDate2 = [v6 launchDate];
     [launchDate2 timeIntervalSinceNow];
-    v9 = -v8;
-    urlHash = [v5 urlHash];
-    clipBundleID = [v5 clipBundleID];
-    parentAppBundleID = [v5 parentAppBundleID];
-    webAppBundleID = [v5 webAppBundleID];
-    launchReason = [v5 launchReason];
+    v10 = -v9;
+    urlHash = [v6 urlHash];
+    clipBundleID = [v6 clipBundleID];
+    parentAppBundleID = [v6 parentAppBundleID];
+    webAppBundleID = [v6 webAppBundleID];
+    launchReason = [v6 launchReason];
 
-    self = [(ATXAppClipUsageDuetEvent *)self initWithLaunchDate:launchDate timeSinceDownload:urlHash urlHash:clipBundleID clipBundleId:parentAppBundleID parentAppBundleId:webAppBundleID webClipBundleId:[(ATXAppClipUsageDuetEvent *)self launchReasonFromATXAppClipUsageEvent:launchReason] launchReason:v9];
+    self = [(ATXAppClipUsageDuetEvent *)self initWithLaunchDate:launchDate timeSinceDownload:urlHash urlHash:clipBundleID clipBundleId:parentAppBundleID parentAppBundleId:webAppBundleID webClipBundleId:[(ATXAppClipUsageDuetEvent *)self launchReasonFromATXAppClipUsageEvent:launchReason] launchReason:v10];
     selfCopy = self;
   }
 
   else
   {
-    v16 = __atxlog_handle_default();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(ATXAppClipUsageDuetEvent *)eventCopy initWithATXEvent:v16];
+      [(ATXAppClipUsageDuetEvent *)eventCopy initWithATXEvent:v17];
     }
 
     selfCopy = 0;
@@ -194,10 +196,10 @@
 
     if ((v14 & 1) == 0)
     {
-      v15 = __atxlog_handle_hero();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = __atxlog_handle_hero(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [ATXAppClipUsageDuetEvent loadStringFromMetadata:keyCopy key:v15];
+        [ATXAppClipUsageDuetEvent loadStringFromMetadata:keyCopy key:v16];
       }
     }
 
@@ -214,16 +216,16 @@
 
   if (v4)
   {
-    v5 = [&unk_283A58E48 objectForKeyedSubscript:stringCopy];
-    intValue = [v5 intValue];
+    v6 = [&unk_283A58E48 objectForKeyedSubscript:stringCopy];
+    intValue = [v6 intValue];
   }
 
   else
   {
-    v7 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_hero(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(ATXAppClipUsageDuetEvent *)stringCopy launchReasonFromString:v7];
+      [(ATXAppClipUsageDuetEvent *)stringCopy launchReasonFromString:v8];
     }
 
     intValue = 9;
@@ -257,48 +259,42 @@
 
 - (void)initWithContextValue:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Clip usage context value was %@ instead of NSDictionary", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Clip usage context value was %@ instead of NSDictionary", &v5, 0xCu);
 }
 
 - (void)initWithATXEvent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Value of event was %@, not %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Value of event was %@, not %@", &v7, 0x16u);
 }
 
 - (void)loadStringFromMetadata:(uint64_t)a1 key:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Value for key %@ not the expected type", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Value for key %@ not the expected type", &v2, 0xCu);
 }
 
 - (void)launchReasonFromString:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Encountered unexpected launch reason %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Encountered unexpected launch reason %@", &v2, 0xCu);
 }
 
 @end

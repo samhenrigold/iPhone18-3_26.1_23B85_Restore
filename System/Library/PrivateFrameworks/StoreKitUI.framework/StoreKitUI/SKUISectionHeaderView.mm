@@ -490,7 +490,7 @@ LABEL_10:
     v14 = 0;
   }
 
-  v51 = v4;
+  v53 = v4;
   if (button)
   {
     v15 = [(NSMapTable *)self->_views objectForKey:button];
@@ -510,26 +510,26 @@ LABEL_10:
 
     else
     {
-      v84.origin.x = v4;
-      v84.origin.y = v6;
-      v84.size.width = v8;
-      v84.size.height = v10;
-      v25 = CGRectGetMaxX(v84) - self->_contentInset.right - v17;
+      v86.origin.x = v4;
+      v86.origin.y = v6;
+      v86.size.width = v8;
+      v86.size.height = v10;
+      v25 = CGRectGetMaxX(v86) - self->_contentInset.right - v17;
       top = self->_contentInset.top;
     }
 
     v34 = v17;
     v35 = v19;
-    v85 = CGRectIntegral(*&v25);
-    x = v85.origin.x;
-    y = v85.origin.y;
-    width = v85.size.width;
-    height = v85.size.height;
+    v87 = CGRectIntegral(*&v25);
+    x = v87.origin.x;
+    y = v87.origin.y;
+    width = v87.size.width;
+    height = v87.size.height;
     v36 = v4;
     v27 = v6;
     v37 = v6;
     v28 = v8;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v85.origin.x, v85.origin.y, v85.size.width, v85.size.height, v36, v37, v8, v10);
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v87.origin.x, v87.origin.y, v87.size.width, v87.size.height, v36, v37, v8, v10, v38, v39);
     [v15 setFrame:?];
     v29 = v10;
     if (!v14)
@@ -551,87 +551,87 @@ LABEL_10:
     height = *(MEMORY[0x277CBF3A0] + 24);
   }
 
-  v80 = 0;
-  v81 = &v80;
-  v82 = 0x2020000000;
-  v83 = 0;
+  v82 = 0;
+  v83 = &v82;
+  v84 = 0x2020000000;
+  v85 = 0;
   titleLabels2 = [(SKUIHeaderViewElement *)self->_header titleLabels];
   if (self->_lastFitSize.width <= 600.0)
   {
-    v76 = 0;
-    v77 = &v76;
-    v41 = self->_contentInset.top;
-    v78 = 0x2020000000;
-    v79 = v41;
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __39__SKUISectionHeaderView_layoutSubviews__block_invoke;
-    v64[3] = &unk_2781FA4D0;
-    v64[4] = self;
-    v66 = &v76;
-    v68 = v51;
-    v69 = v27;
-    v70 = v28;
-    v71 = v29;
-    v72 = x;
-    v73 = y;
-    v74 = width;
-    v75 = height;
-    v65 = button;
-    v67 = &v80;
-    [titleLabels2 enumerateObjectsUsingBlock:v64];
+    v78 = 0;
+    v79 = &v78;
+    v43 = self->_contentInset.top;
+    v80 = 0x2020000000;
+    v81 = v43;
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = __39__SKUISectionHeaderView_layoutSubviews__block_invoke;
+    v66[3] = &unk_2781FA4D0;
+    v66[4] = self;
+    v68 = &v78;
+    v70 = v53;
+    v71 = v27;
+    v72 = v28;
+    v73 = v29;
+    v74 = x;
+    v75 = y;
+    v76 = width;
+    v77 = height;
+    v67 = button;
+    v69 = &v82;
+    [titleLabels2 enumerateObjectsUsingBlock:v66];
 
-    _Block_object_dispose(&v76, 8);
+    _Block_object_dispose(&v78, 8);
   }
 
   else
   {
-    v76 = 0;
-    v77 = &v76;
-    v39 = self->_contentInset.top;
-    v78 = 0x2020000000;
-    v79 = v39;
+    v78 = 0;
+    v79 = &v78;
+    v41 = self->_contentInset.top;
+    v80 = 0x2020000000;
+    v81 = v41;
     lines = self->_lines;
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __39__SKUISectionHeaderView_layoutSubviews__block_invoke_2;
-    v52[3] = &unk_2781FA4F8;
-    v52[4] = self;
-    v56 = v51;
-    v57 = v27;
-    v58 = v28;
-    v59 = v29;
-    v53 = button;
-    v54 = &v76;
-    v60 = x;
-    v61 = y;
-    v62 = width;
-    v63 = height;
-    v55 = &v80;
-    [(NSArray *)lines enumerateObjectsUsingBlock:v52];
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __39__SKUISectionHeaderView_layoutSubviews__block_invoke_2;
+    v54[3] = &unk_2781FA4F8;
+    v54[4] = self;
+    v58 = v53;
+    v59 = v27;
+    v60 = v28;
+    v61 = v29;
+    v55 = button;
+    v56 = &v78;
+    v62 = x;
+    v63 = y;
+    v64 = width;
+    v65 = height;
+    v57 = &v82;
+    [(NSArray *)lines enumerateObjectsUsingBlock:v54];
 
-    _Block_object_dispose(&v76, 8);
+    _Block_object_dispose(&v78, 8);
   }
 
   if (v15 != 0 && !v14)
   {
     [v15 frame];
-    v43 = v42;
     v45 = v44;
     v47 = v46;
-    v48 = self->_contentInset.top;
-    v49 = v81[3];
+    v49 = v48;
+    v50 = self->_contentInset.top;
+    v51 = v83[3];
     [v15 baselineOffset];
-    *&v50 = v48 + v49 - v50;
-    [v15 setFrame:{v43, roundf(*&v50), v45, v47}];
+    *&v52 = v50 + v51 - v52;
+    [v15 setFrame:{v45, roundf(*&v52), v47, v49}];
   }
 
-  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v82, 8);
 }
 
 void __39__SKUISectionHeaderView_layoutSubviews__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v31 = a2;
+  v33 = a2;
   v5 = [*(*(a1 + 32) + 488) objectForKey:?];
   [v5 sizeThatFits:{*(MEMORY[0x277CBF390] + 16), *(MEMORY[0x277CBF390] + 24)}];
   v8 = v7;
@@ -658,7 +658,7 @@ void __39__SKUISectionHeaderView_layoutSubviews__block_invoke(uint64_t a1, void 
     v8 = v12 - v17;
   }
 
-  v19 = [v31 style];
+  v19 = [v33 style];
   v20 = SKUIViewElementAlignmentForStyle(v19);
 
   if (v20 > 5)
@@ -673,20 +673,20 @@ void __39__SKUISectionHeaderView_layoutSubviews__block_invoke(uint64_t a1, void 
 
   else if (v20 == 2)
   {
-    v27 = *(*(a1 + 32) + 432);
-    v28 = (v13 - v8) * 0.5;
-    v29 = floorf(v28);
-    v21 = v27 + v29;
+    v29 = *(*(a1 + 32) + 432);
+    v30 = (v13 - v8) * 0.5;
+    v31 = floorf(v30);
+    v21 = v29 + v31;
     if (*(a1 + 40))
     {
-      v36.origin.x = v27 + v29;
-      v36.origin.y = v10;
-      v36.size.width = v8;
-      v36.size.height = v9;
-      if (CGRectIntersectsRect(v36, *(a1 + 96)))
+      v38.origin.x = v29 + v31;
+      v38.origin.y = v10;
+      v38.size.width = v8;
+      v38.size.height = v9;
+      if (CGRectIntersectsRect(v38, *(a1 + 96)))
       {
-        v30 = (v18 - v8) * 0.5;
-        v21 = *(*(a1 + 32) + 432) + floorf(v30);
+        v32 = (v18 - v8) * 0.5;
+        v21 = *(*(a1 + 32) + 432) + floorf(v32);
       }
     }
   }
@@ -696,44 +696,44 @@ void __39__SKUISectionHeaderView_layoutSubviews__block_invoke(uint64_t a1, void 
     v21 = v12 - v8;
   }
 
-  v33.origin.x = v21;
-  v33.origin.y = v10;
-  v33.size.width = v8;
-  v33.size.height = v9;
-  v34 = CGRectIntegral(v33);
-  x = v34.origin.x;
-  y = v34.origin.y;
-  width = v34.size.width;
-  height = v34.size.height;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v34.origin.x, v34.origin.y, v34.size.width, v34.size.height, *(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88));
+  v35.origin.x = v21;
+  v35.origin.y = v10;
+  v35.size.width = v8;
+  v35.size.height = v9;
+  v36 = CGRectIntegral(v35);
+  x = v36.origin.x;
+  y = v36.origin.y;
+  width = v36.size.width;
+  height = v36.size.height;
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v36.origin.x, v36.origin.y, v36.size.width, v36.size.height, *(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88), v26, v27);
   [v5 setFrame:?];
   if (!a3)
   {
     [v5 baselineOffset];
-    *(*(*(a1 + 56) + 8) + 24) = v26;
+    *(*(*(a1 + 56) + 8) + 24) = v28;
   }
 
-  v35.origin.x = x;
-  v35.origin.y = y;
-  v35.size.width = width;
-  v35.size.height = height;
-  *(*(*(a1 + 48) + 8) + 24) = CGRectGetMaxY(v35);
+  v37.origin.x = x;
+  v37.origin.y = y;
+  v37.size.width = width;
+  v37.size.height = height;
+  *(*(*(a1 + 48) + 8) + 24) = CGRectGetMaxY(v37);
 }
 
 void __39__SKUISectionHeaderView_layoutSubviews__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = *(*(a1 + 32) + 432);
+  v44 = 0u;
+  v45 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v7 = [v5 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v42 objects:v47 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v41;
+    v9 = *v43;
     v10 = *MEMORY[0x277CBF3A0];
     v11 = *(MEMORY[0x277CBF3A0] + 8);
     v12 = *(MEMORY[0x277CBF390] + 16);
@@ -744,20 +744,20 @@ void __39__SKUISectionHeaderView_layoutSubviews__block_invoke_2(uint64_t a1, voi
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v41 != v9)
+        if (*v43 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v17 = [*(*(a1 + 32) + 488) objectForKey:*(*(&v40 + 1) + 8 * i)];
+        v17 = [*(*(a1 + 32) + 488) objectForKey:*(*(&v42 + 1) + 8 * i)];
         [v17 sizeThatFits:{v12, v13}];
-        v47.size.width = v18;
-        v47.size.height = v19;
-        v47.origin.x = v10;
-        v47.origin.y = v11;
-        v48 = CGRectIntegral(v47);
-        height = v48.size.height;
-        [v17 setFrame:{v48.origin.x, v48.origin.y, v48.size.width}];
+        v49.size.width = v18;
+        v49.size.height = v19;
+        v49.origin.x = v10;
+        v49.origin.y = v11;
+        v50 = CGRectIntegral(v49);
+        height = v50.size.height;
+        [v17 setFrame:{v50.origin.x, v50.origin.y, v50.size.width}];
         [v17 baselineOffset];
         if (v14 < v21)
         {
@@ -770,7 +770,7 @@ void __39__SKUISectionHeaderView_layoutSubviews__block_invoke_2(uint64_t a1, voi
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v42 objects:v47 count:16];
     }
 
     while (v8);
@@ -785,58 +785,58 @@ void __39__SKUISectionHeaderView_layoutSubviews__block_invoke_2(uint64_t a1, voi
   v22 = *(a1 + 80) - *(*(a1 + 32) + 448);
   if (*(a1 + 40))
   {
-    v50.origin.x = *(*(a1 + 32) + 432);
-    v50.size.width = v22 - v50.origin.x;
-    v50.origin.y = *(*(*(a1 + 48) + 8) + 24);
-    v50.size.height = v15;
-    if (CGRectIntersectsRect(*(a1 + 96), v50))
+    v52.origin.x = *(*(a1 + 32) + 432);
+    v52.size.width = v22 - v52.origin.x;
+    v52.origin.y = *(*(*(a1 + 48) + 8) + 24);
+    v52.size.height = v15;
+    if (CGRectIntersectsRect(*(a1 + 96), v52))
     {
       v22 = *(a1 + 96);
     }
   }
 
+  v40 = 0u;
+  v41 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
   v23 = v5;
-  v24 = [v23 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v37;
+    v26 = *v39;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v37 != v26)
+        if (*v39 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = [*(*(a1 + 32) + 488) objectForKey:{*(*(&v36 + 1) + 8 * j), v36}];
+        v28 = [*(*(a1 + 32) + 488) objectForKey:{*(*(&v38 + 1) + 8 * j), v38}];
         [v28 frame];
         v30 = v29;
         v32 = v31;
         v33 = v14 + *(*(*(a1 + 48) + 8) + 24);
-        [v28 baselineOffset];
-        *&v34 = v33 - v34;
-        v35 = roundf(*&v34);
+        v34 = [v28 baselineOffset];
+        *&v36 = v33 - v36;
+        v37 = roundf(*&v36);
         if (v30 >= v22 - v6)
         {
           v30 = v22 - v6;
         }
 
-        SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v6, v35, v30, v32, *(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88));
+        SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v6, v37, v30, v32, *(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88), v34, v35);
         [v28 setFrame:?];
-        v49.origin.x = v6;
-        v49.origin.y = v35;
-        v49.size.width = v30;
-        v49.size.height = v32;
-        v6 = CGRectGetMaxX(v49) + 10.0;
+        v51.origin.x = v6;
+        v51.origin.y = v37;
+        v51.size.width = v30;
+        v51.size.height = v32;
+        v6 = CGRectGetMaxX(v51) + 10.0;
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v38 objects:v46 count:16];
     }
 
     while (v25);
@@ -993,7 +993,7 @@ void __39__SKUISectionHeaderView_layoutSubviews__block_invoke_2(uint64_t a1, voi
     {
       if (integerValue != 1)
       {
-        v10 = SKUIFontPreferredFontForTextStyle(1);
+        v10 = SKUIFontPreferredFontForTextStyle(1, v14);
         if (v12)
         {
           goto LABEL_17;
@@ -1006,8 +1006,8 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      v16 = [MEMORY[0x277D74310] preferredFontDescriptorWithTextStyle:*MEMORY[0x277D76938] addingSymbolicTraits:2 options:0];
-      v10 = [MEMORY[0x277D74300] fontWithDescriptor:v16 size:0.0];
+      v17 = [MEMORY[0x277D74310] preferredFontDescriptorWithTextStyle:*MEMORY[0x277D76938] addingSymbolicTraits:2 options:0];
+      v10 = [MEMORY[0x277D74300] fontWithDescriptor:v17 size:0.0];
     }
 
     if (v12)
@@ -1030,7 +1030,7 @@ LABEL_16:
 
   if (integerValue == 1)
   {
-    v10 = SKUIFontPreferredFontForTextStyle(8);
+    v10 = SKUIFontPreferredFontForTextStyle(8, v14);
     if (v12)
     {
       goto LABEL_17;
@@ -1039,32 +1039,32 @@ LABEL_16:
     goto LABEL_14;
   }
 
-  v10 = SKUIFontPreferredFontForTextStyle(21);
+  v10 = SKUIFontPreferredFontForTextStyle(21, v14);
   if (!v12)
   {
 LABEL_5:
     if (integerValue != 1)
     {
-      v14 = MEMORY[0x277D75348];
-      v15 = 0.6;
+      v15 = MEMORY[0x277D75348];
+      v16 = 0.6;
 LABEL_15:
-      labelColor = [v14 colorWithWhite:0.0 alpha:v15];
+      labelColor = [v15 colorWithWhite:0.0 alpha:v16];
       goto LABEL_16;
     }
 
 LABEL_14:
-    v14 = MEMORY[0x277D75348];
-    v15 = 0.8;
+    v15 = MEMORY[0x277D75348];
+    v16 = 0.8;
     goto LABEL_15;
   }
 
 LABEL_17:
-  v18 = SKUIViewElementAlignmentForStyle(style);
-  v19 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v18);
+  v19 = SKUIViewElementAlignmentForStyle(style);
+  v21 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v19, v20);
   text = [labelCopy text];
-  v21 = [text attributedStringWithDefaultFont:v10 foregroundColor:v12 textAlignment:v19 style:style];
+  v23 = [text attributedStringWithDefaultFont:v10 foregroundColor:v12 textAlignment:v21 style:style];
 
-  return v21;
+  return v23;
 }
 
 + (id)_linesForViewElement:(id)element width:(double)width buttonSize:(CGSize)size context:(id)context
@@ -1098,11 +1098,35 @@ LABEL_17:
   return result;
 }
 
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISectionHeaderView initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISectionHeaderView prefetchResourcesForViewElement:reason:context:]";
+}
+
 + (void)preferredSizeForViewElement:context:.cold.1()
 {
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "+[SKUISectionHeaderView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISectionHeaderView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISectionHeaderView sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

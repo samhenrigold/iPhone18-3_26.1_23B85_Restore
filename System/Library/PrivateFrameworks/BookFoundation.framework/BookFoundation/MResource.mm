@@ -7,12 +7,10 @@
 
 - (NSString)id
 {
-  v2 = *(self + OBJC_IVAR____TtC14BookFoundation9MResource_id);
-  v3 = *(self + OBJC_IVAR____TtC14BookFoundation9MResource_id + 8);
 
-  v4 = sub_241CF9008();
+  v2 = sub_241CF9008();
 
-  return v4;
+  return v2;
 }
 
 - (_TtC14BookFoundation9MResource)init

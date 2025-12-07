@@ -617,9 +617,9 @@ void sub_2180FF040(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ValueInference::Tensor<int>::FromIRTensorValue(void *a1@<X0>, uint64_t a2@<X8>)
+void MIL::ValueInference::Tensor<int>::FromIRTensorValue(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  MIL::IRTensorValue::TryGetDataView<int>(&v12, *a1);
+  MIL::IRTensorValue::TryGetDataView<int>();
   if ((v12 & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -643,7 +643,7 @@ LABEL_10:
   MIL::GetTensorShapeWithDimensionsAllKnown(v4, v5, &v11);
   v10 = 0;
   __p = 0uLL;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, v13, v13 + 4 * v14, v14);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, v13, &v13[v14], v14);
   MIL::ValueInference::Tensor<int>::Tensor(a2, &v11, &__p);
   if (__p.n128_u64[0])
   {
@@ -748,34 +748,36 @@ double MIL::ValueInference::Tensor<int>::Tensor(uint64_t a1)
   return result;
 }
 
-void MIL::ValueInference::Tensor<int>::ForEach(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void MIL::ValueInference::Tensor<int>::ForEach(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  std::vector<int>::vector[abi:ne200100](&v11, (a1[5] - a1[4]) >> 2);
+  v14 = *MEMORY[0x277D85DE8];
+  v6 = (*(a1 + 40) - *(a1 + 32)) >> 2;
+  __p.n128_u32[0] = 0;
+  std::vector<int>::vector[abi:ne200100](&v12, v6, &__p);
   __p = 0uLL;
-  v10 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, a1[1], a1[2], (a1[2] - a1[1]) >> 3);
-  v7 = a1[4];
-  v6 = a1[5];
-  v8 = v11.n128_u64[0];
-  std::__function::__value_func<int ()(int)>::__value_func[abi:ne200100](v12, a2);
-  while (v7 != v6)
+  v11 = 0;
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *(a1 + 8), *(a1 + 16), (*(a1 + 16) - *(a1 + 8)) >> 3);
+  v8 = *(a1 + 32);
+  v7 = *(a1 + 40);
+  v9 = v12.n128_u64[0];
+  std::__function::__value_func<int ()(int)>::__value_func[abi:ne200100](v13, a2);
+  while (v8 != v7)
   {
-    *v8++ = std::function<int ()(int)>::operator()(v12, *v7++);
+    *v9++ = std::function<int ()(int)>::operator()(v13, *v8++);
   }
 
-  std::__function::__value_func<int ()(int)>::~__value_func[abi:ne200100](v12);
-  MIL::ValueInference::Tensor<int>::Tensor(a3, &__p, &v11);
+  std::__function::__value_func<int ()(int)>::~__value_func[abi:ne200100](v13);
+  MIL::ValueInference::Tensor<int>::Tensor(a3, &__p, &v12);
   if (__p.n128_u64[0])
   {
     __p.n128_u64[1] = __p.n128_u64[0];
     operator delete(__p.n128_u64[0]);
   }
 
-  if (v11.n128_u64[0])
+  if (v12.n128_u64[0])
   {
-    v11.n128_u64[1] = v11.n128_u64[0];
-    operator delete(v11.n128_u64[0]);
+    v12.n128_u64[1] = v12.n128_u64[0];
+    operator delete(v12.n128_u64[0]);
   }
 }
 
@@ -801,7 +803,7 @@ uint64_t MIL::ValueInference::Tensor<int>::GetScalarData(void *a1)
   return *v1;
 }
 
-void MIL::ValueInference::Tensor<int>::Reshape(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void MIL::ValueInference::Tensor<int>::Reshape(void *a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X8>)
 {
   v6 = *a2;
   v7 = a2[1];
@@ -855,11 +857,11 @@ void MIL::ValueInference::Tensor<int>::Reshape(void *a1@<X0>, uint64_t *a2@<X1>,
 
   v22 = 0uLL;
   v23 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v22, v6, v7, (v7 - v6) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v22, v6, v7, v7 - v6);
   v11 = a1[4];
   v12 = a1[5];
   memset(&__p, 0, sizeof(__p));
-  std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&__p, v11, v12, (v12 - v11) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(&__p, v11, v12, v12 - v11);
   MIL::ValueInference::Tensor<int>::Tensor(a3, &v22, &__p);
   if (__p.__r_.__value_.__r.__words[0])
   {
@@ -896,11 +898,11 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void MIL::ValueInference::Tensor<int>::NonZero(uint64_t a1@<X0>, void *a2@<X8>)
+void MIL::ValueInference::Tensor<int>::NonZero(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
   v3 = *(a1 + 56);
   if (v3)
   {
@@ -921,7 +923,7 @@ void MIL::ValueInference::Tensor<int>::NonZero(uint64_t a1@<X0>, void *a2@<X8>)
   }
 }
 
-void MIL::ValueInference::Tensor<int>::SubTensor(void *a1@<X0>, uint64_t **a2@<X1>, void *a3@<X8>)
+void MIL::ValueInference::Tensor<int>::SubTensor(void *a1@<X0>, char **a2@<X1>, void *a3@<X8>)
 {
   v5 = (a2[1] - *a2) >> 4;
   v6 = a1 + 1;
@@ -943,8 +945,8 @@ void MIL::ValueInference::Tensor<int>::SubTensor(void *a1@<X0>, uint64_t **a2@<X
     v10 = 0;
     while (1)
     {
-      v11 = (*a2)[v9];
-      v12 = (*a2)[v9 + 1];
+      v11 = *&(*a2)[v9];
+      v12 = *&(*a2)[v9 + 8];
       v13 = v12 >= v11;
       v14 = (v12 - v11);
       if (!v13)
@@ -968,7 +970,7 @@ LABEL_27:
       std::vector<unsigned long long>::push_back[abi:ne200100](&v37, &v33);
       ++v10;
       v8 = a1[1];
-      v9 += 2;
+      v9 += 16;
       if (v10 >= (a1[2] - v8) >> 3)
       {
         goto LABEL_8;
@@ -1029,7 +1031,7 @@ LABEL_8:
         do
         {
           v23 = *v21;
-          v21 += 2;
+          v21 += 16;
           *v22++ += v23;
           --v20;
         }
@@ -1710,9 +1712,9 @@ void sub_218100A58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ValueInference::Tensor<long long>::FromIRTensorValue(void *a1@<X0>, uint64_t a2@<X8>)
+void MIL::ValueInference::Tensor<long long>::FromIRTensorValue(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  MIL::IRTensorValue::TryGetDataView<long long>(&v12, *a1);
+  MIL::IRTensorValue::TryGetDataView<long long>();
   if ((v12 & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1736,7 +1738,7 @@ LABEL_10:
   MIL::GetTensorShapeWithDimensionsAllKnown(v4, v5, &v11);
   v10 = 0;
   __p = 0uLL;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>(&__p, v13, v13 + 8 * v14, v14);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>(&__p, v13, &v13[v14], v14);
   MIL::ValueInference::Tensor<long long>::Tensor(a2, &v11, &__p);
   if (__p.n128_u64[0])
   {
@@ -1841,34 +1843,36 @@ double MIL::ValueInference::Tensor<long long>::Tensor(uint64_t a1)
   return result;
 }
 
-void MIL::ValueInference::Tensor<long long>::ForEach(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void MIL::ValueInference::Tensor<long long>::ForEach(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  std::vector<long long>::vector[abi:ne200100](&v11, (a1[5] - a1[4]) >> 3);
+  v14 = *MEMORY[0x277D85DE8];
+  v6 = (*(a1 + 40) - *(a1 + 32)) >> 3;
+  __p.n128_u64[0] = 0;
+  std::vector<long long>::vector[abi:ne200100](&v12, v6, &__p);
   __p = 0uLL;
-  v10 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, a1[1], a1[2], (a1[2] - a1[1]) >> 3);
-  v7 = a1[4];
-  v6 = a1[5];
-  v8 = v11.n128_u64[0];
-  std::__function::__value_func<long long ()(long long)>::__value_func[abi:ne200100](v12, a2);
-  while (v7 != v6)
+  v11 = 0;
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *(a1 + 8), *(a1 + 16), (*(a1 + 16) - *(a1 + 8)) >> 3);
+  v8 = *(a1 + 32);
+  v7 = *(a1 + 40);
+  v9 = v12.n128_u64[0];
+  std::__function::__value_func<long long ()(long long)>::__value_func[abi:ne200100](v13, a2);
+  while (v8 != v7)
   {
-    *v8++ = std::function<long long ()(long long)>::operator()(v12, *v7++);
+    *v9++ = std::function<long long ()(long long)>::operator()(v13, *v8++);
   }
 
-  std::__function::__value_func<long long ()(long long)>::~__value_func[abi:ne200100](v12);
-  MIL::ValueInference::Tensor<long long>::Tensor(a3, &__p, &v11);
+  std::__function::__value_func<long long ()(long long)>::~__value_func[abi:ne200100](v13);
+  MIL::ValueInference::Tensor<long long>::Tensor(a3, &__p, &v12);
   if (__p.n128_u64[0])
   {
     __p.n128_u64[1] = __p.n128_u64[0];
     operator delete(__p.n128_u64[0]);
   }
 
-  if (v11.n128_u64[0])
+  if (v12.n128_u64[0])
   {
-    v11.n128_u64[1] = v11.n128_u64[0];
-    operator delete(v11.n128_u64[0]);
+    v12.n128_u64[1] = v12.n128_u64[0];
+    operator delete(v12.n128_u64[0]);
   }
 }
 
@@ -1894,7 +1898,7 @@ uint64_t MIL::ValueInference::Tensor<long long>::GetScalarData(void *a1)
   return *v1;
 }
 
-void MIL::ValueInference::Tensor<long long>::Reshape(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void MIL::ValueInference::Tensor<long long>::Reshape(void *a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X8>)
 {
   v6 = *a2;
   v7 = a2[1];
@@ -1948,11 +1952,11 @@ void MIL::ValueInference::Tensor<long long>::Reshape(void *a1@<X0>, uint64_t *a2
 
   v22 = 0uLL;
   v23 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v22, v6, v7, (v7 - v6) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v22, v6, v7, v7 - v6);
   v11 = a1[4];
   v12 = a1[5];
   memset(&__p, 0, sizeof(__p));
-  std::vector<long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>(&__p, v11, v12, (v12 - v11) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<long long const*>,std::__wrap_iter<long long const*>>(&__p, v11, v12, v12 - v11);
   MIL::ValueInference::Tensor<long long>::Tensor(a3, &v22, &__p);
   if (__p.__r_.__value_.__r.__words[0])
   {
@@ -1989,11 +1993,11 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void MIL::ValueInference::Tensor<long long>::NonZero(uint64_t a1@<X0>, void *a2@<X8>)
+void MIL::ValueInference::Tensor<long long>::NonZero(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
   v3 = *(a1 + 56);
   if (v3)
   {
@@ -2014,7 +2018,7 @@ void MIL::ValueInference::Tensor<long long>::NonZero(uint64_t a1@<X0>, void *a2@
   }
 }
 
-void MIL::ValueInference::Tensor<long long>::SubTensor(void *a1@<X0>, uint64_t **a2@<X1>, void *a3@<X8>)
+void MIL::ValueInference::Tensor<long long>::SubTensor(void *a1@<X0>, char **a2@<X1>, void *a3@<X8>)
 {
   v5 = (a2[1] - *a2) >> 4;
   v6 = a1 + 1;
@@ -2036,8 +2040,8 @@ void MIL::ValueInference::Tensor<long long>::SubTensor(void *a1@<X0>, uint64_t *
     v10 = 0;
     while (1)
     {
-      v11 = (*a2)[v9];
-      v12 = (*a2)[v9 + 1];
+      v11 = *&(*a2)[v9];
+      v12 = *&(*a2)[v9 + 8];
       v13 = v12 >= v11;
       v14 = (v12 - v11);
       if (!v13)
@@ -2061,7 +2065,7 @@ LABEL_27:
       std::vector<unsigned long long>::push_back[abi:ne200100](&v37, &v33);
       ++v10;
       v8 = a1[1];
-      v9 += 2;
+      v9 += 16;
       if (v10 >= (a1[2] - v8) >> 3)
       {
         goto LABEL_8;
@@ -2122,7 +2126,7 @@ LABEL_8:
         do
         {
           v23 = *v21;
-          v21 += 2;
+          v21 += 16;
           *v22++ += v23;
           --v20;
         }
@@ -2803,9 +2807,9 @@ void sub_218102474(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ValueInference::Tensor<BOOL>::FromIRTensorValue(void *a1@<X0>, uint64_t a2@<X8>)
+void MIL::ValueInference::Tensor<BOOL>::FromIRTensorValue(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  MIL::IRTensorValue::TryGetDataView<BOOL>(&v12, *a1);
+  MIL::IRTensorValue::TryGetDataView<BOOL>();
   if ((v12 & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -2829,7 +2833,7 @@ LABEL_10:
   MIL::GetTensorShapeWithDimensionsAllKnown(v4, v5, &v11);
   v10 = 0;
   __p = 0uLL;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<BOOL const*,BOOL const*>(&__p, v13, v13 + v14, v14);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<BOOL const*,BOOL const*>(&__p, v13, &v13[v14], v14);
   MIL::ValueInference::Tensor<BOOL>::Tensor(a2, &v11, &__p);
   if (__p.n128_u64[0])
   {
@@ -2934,34 +2938,36 @@ double MIL::ValueInference::Tensor<BOOL>::Tensor(uint64_t a1)
   return result;
 }
 
-void MIL::ValueInference::Tensor<BOOL>::ForEach(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void MIL::ValueInference::Tensor<BOOL>::ForEach(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  std::vector<unsigned char>::vector[abi:ne200100](&v11, a1[5] - a1[4]);
+  v14 = *MEMORY[0x277D85DE8];
+  v6 = *(a1 + 40) - *(a1 + 32);
+  __p.n128_u8[0] = 0;
+  std::vector<unsigned char>::vector[abi:ne200100](&v12, v6, &__p);
   __p = 0uLL;
-  v10 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, a1[1], a1[2], (a1[2] - a1[1]) >> 3);
-  v7 = a1[4];
-  v6 = a1[5];
-  v8 = v11.n128_u64[0];
-  std::__function::__value_func<unsigned char ()(unsigned char)>::__value_func[abi:ne200100](v12, a2);
-  while (v7 != v6)
+  v11 = 0;
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *(a1 + 8), *(a1 + 16), (*(a1 + 16) - *(a1 + 8)) >> 3);
+  v8 = *(a1 + 32);
+  v7 = *(a1 + 40);
+  v9 = v12.n128_u64[0];
+  std::__function::__value_func<unsigned char ()(unsigned char)>::__value_func[abi:ne200100](v13, a2);
+  while (v8 != v7)
   {
-    *v8++ = std::function<unsigned char ()(unsigned char)>::operator()(v12, *v7++);
+    *v9++ = std::function<unsigned char ()(unsigned char)>::operator()(v13, *v8++);
   }
 
-  std::__function::__value_func<unsigned char ()(unsigned char)>::~__value_func[abi:ne200100](v12);
-  MIL::ValueInference::Tensor<BOOL>::Tensor(a3, &__p, &v11);
+  std::__function::__value_func<unsigned char ()(unsigned char)>::~__value_func[abi:ne200100](v13);
+  MIL::ValueInference::Tensor<BOOL>::Tensor(a3, &__p, &v12);
   if (__p.n128_u64[0])
   {
     __p.n128_u64[1] = __p.n128_u64[0];
     operator delete(__p.n128_u64[0]);
   }
 
-  if (v11.n128_u64[0])
+  if (v12.n128_u64[0])
   {
-    v11.n128_u64[1] = v11.n128_u64[0];
-    operator delete(v11.n128_u64[0]);
+    v12.n128_u64[1] = v12.n128_u64[0];
+    operator delete(v12.n128_u64[0]);
   }
 }
 
@@ -2987,7 +2993,7 @@ uint64_t MIL::ValueInference::Tensor<BOOL>::GetScalarData(void *a1)
   return *v1;
 }
 
-void MIL::ValueInference::Tensor<BOOL>::Reshape(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void MIL::ValueInference::Tensor<BOOL>::Reshape(void *a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X8>)
 {
   v6 = *a2;
   v7 = a2[1];
@@ -3041,7 +3047,7 @@ void MIL::ValueInference::Tensor<BOOL>::Reshape(void *a1@<X0>, uint64_t *a2@<X1>
 
   v22 = 0uLL;
   v23 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v22, v6, v7, (v7 - v6) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v22, v6, v7, v7 - v6);
   v11 = a1[4];
   v12 = a1[5];
   memset(&__p, 0, sizeof(__p));
@@ -3082,11 +3088,11 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void MIL::ValueInference::Tensor<BOOL>::NonZero(uint64_t a1@<X0>, void *a2@<X8>)
+void MIL::ValueInference::Tensor<BOOL>::NonZero(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
   v3 = *(a1 + 56);
   if (v3)
   {
@@ -3107,7 +3113,7 @@ void MIL::ValueInference::Tensor<BOOL>::NonZero(uint64_t a1@<X0>, void *a2@<X8>)
   }
 }
 
-void MIL::ValueInference::Tensor<BOOL>::SubTensor(void *a1@<X0>, uint64_t **a2@<X1>, void *a3@<X8>)
+void MIL::ValueInference::Tensor<BOOL>::SubTensor(void *a1@<X0>, char **a2@<X1>, void *a3@<X8>)
 {
   v5 = (a2[1] - *a2) >> 4;
   v6 = a1 + 1;
@@ -3129,8 +3135,8 @@ void MIL::ValueInference::Tensor<BOOL>::SubTensor(void *a1@<X0>, uint64_t **a2@<
     v10 = 0;
     while (1)
     {
-      v11 = (*a2)[v9];
-      v12 = (*a2)[v9 + 1];
+      v11 = *&(*a2)[v9];
+      v12 = *&(*a2)[v9 + 8];
       v13 = v12 >= v11;
       v14 = (v12 - v11);
       if (!v13)
@@ -3154,7 +3160,7 @@ LABEL_27:
       std::vector<unsigned long long>::push_back[abi:ne200100](&v36, &v32);
       ++v10;
       v8 = a1[1];
-      v9 += 2;
+      v9 += 16;
       if (v10 >= (a1[2] - v8) >> 3)
       {
         goto LABEL_8;
@@ -3214,7 +3220,7 @@ LABEL_8:
         do
         {
           v22 = *v20;
-          v20 += 2;
+          v20 += 16;
           *v21++ += v22;
           --v19;
         }
@@ -3885,9 +3891,9 @@ void sub_218103E28(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ValueInference::Tensor<MIL::Bf16>::FromIRTensorValue(void *a1@<X0>, uint64_t a2@<X8>)
+void MIL::ValueInference::Tensor<MIL::Bf16>::FromIRTensorValue(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  MIL::IRTensorValue::TryGetDataView<MIL::Bf16>(&v12, *a1);
+  MIL::IRTensorValue::TryGetDataView<MIL::Bf16>(*a1, &v12);
   if ((v12 & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -3911,7 +3917,7 @@ LABEL_10:
   MIL::GetTensorShapeWithDimensionsAllKnown(v4, v5, &v11);
   v10 = 0;
   __p = 0uLL;
-  std::vector<MIL::Bf16>::__init_with_size[abi:ne200100]<MIL::Bf16 const*,MIL::Bf16 const*>(&__p, v13, v13 + 2 * v14, v14);
+  std::vector<MIL::Bf16>::__init_with_size[abi:ne200100]<MIL::Bf16 const*,MIL::Bf16 const*>(&__p, v13, &v13[v14], v14);
   MIL::ValueInference::Tensor<MIL::Bf16>::Tensor(a2, &v11, &__p);
   if (__p.n128_u64[0])
   {
@@ -4028,7 +4034,7 @@ uint64_t MIL::ValueInference::Tensor<MIL::Bf16>::GetScalarData(void *a1)
   return *v1;
 }
 
-void MIL::ValueInference::Tensor<MIL::Bf16>::Reshape(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void MIL::ValueInference::Tensor<MIL::Bf16>::Reshape(void *a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X8>)
 {
   v6 = *a2;
   v7 = a2[1];
@@ -4082,11 +4088,11 @@ void MIL::ValueInference::Tensor<MIL::Bf16>::Reshape(void *a1@<X0>, uint64_t *a2
 
   v22 = 0uLL;
   v23 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v22, v6, v7, (v7 - v6) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v22, v6, v7, v7 - v6);
   v11 = a1[4];
   v12 = a1[5];
   memset(&__p, 0, sizeof(__p));
-  std::vector<MIL::Bf16>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::Bf16 const*>,std::__wrap_iter<MIL::Bf16 const*>>(&__p, v11, v12, (v12 - v11) >> 1);
+  std::vector<MIL::Bf16>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::Bf16 const*>,std::__wrap_iter<MIL::Bf16 const*>>(&__p, v11, v12, v12 - v11);
   MIL::ValueInference::Tensor<MIL::Bf16>::Tensor(a3, &v22, &__p);
   if (__p.__r_.__value_.__r.__words[0])
   {
@@ -4123,11 +4129,11 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void MIL::ValueInference::Tensor<MIL::Bf16>::NonZero(uint64_t a1@<X0>, void *a2@<X8>)
+void MIL::ValueInference::Tensor<MIL::Bf16>::NonZero(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
   if (*(a1 + 56))
   {
     v4 = 0;
@@ -4151,7 +4157,7 @@ void MIL::ValueInference::Tensor<MIL::Bf16>::NonZero(uint64_t a1@<X0>, void *a2@
   }
 }
 
-void MIL::ValueInference::Tensor<MIL::Bf16>::SubTensor(void *a1@<X0>, uint64_t **a2@<X1>, void *a3@<X8>)
+void MIL::ValueInference::Tensor<MIL::Bf16>::SubTensor(void *a1@<X0>, char **a2@<X1>, void *a3@<X8>)
 {
   v5 = (a2[1] - *a2) >> 4;
   v6 = a1 + 1;
@@ -4173,8 +4179,8 @@ void MIL::ValueInference::Tensor<MIL::Bf16>::SubTensor(void *a1@<X0>, uint64_t *
     v10 = 0;
     while (1)
     {
-      v11 = (*a2)[v9];
-      v12 = (*a2)[v9 + 1];
+      v11 = *&(*a2)[v9];
+      v12 = *&(*a2)[v9 + 8];
       v13 = v12 >= v11;
       v14 = (v12 - v11);
       if (!v13)
@@ -4198,7 +4204,7 @@ LABEL_27:
       std::vector<unsigned long long>::push_back[abi:ne200100](&v38, &v34);
       ++v10;
       v8 = a1[1];
-      v9 += 2;
+      v9 += 16;
       if (v10 >= (a1[2] - v8) >> 3)
       {
         goto LABEL_8;
@@ -4259,7 +4265,7 @@ LABEL_8:
         do
         {
           v23 = *v21;
-          v21 += 2;
+          v21 += 16;
           *v22++ += v23;
           --v20;
         }
@@ -4943,9 +4949,9 @@ void sub_218105718(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ValueInference::Tensor<MIL::Fp16>::FromIRTensorValue(void *a1@<X0>, uint64_t a2@<X8>)
+void MIL::ValueInference::Tensor<MIL::Fp16>::FromIRTensorValue(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  MIL::IRTensorValue::TryGetDataView<MIL::Fp16>(&v12, *a1);
+  MIL::IRTensorValue::TryGetDataView<MIL::Fp16>(*a1, &v12);
   if ((v12 & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -4969,7 +4975,7 @@ LABEL_10:
   MIL::GetTensorShapeWithDimensionsAllKnown(v4, v5, &v11);
   v10 = 0;
   __p = 0uLL;
-  std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(&__p, v13, v13 + 2 * v14, v14);
+  std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(&__p, v13, &v13[v14], v14);
   MIL::ValueInference::Tensor<MIL::Fp16>::Tensor(a2, &v11, &__p);
   if (__p.n128_u64[0])
   {
@@ -5086,7 +5092,7 @@ uint64_t MIL::ValueInference::Tensor<MIL::Fp16>::GetScalarData(void *a1)
   return *v1;
 }
 
-void MIL::ValueInference::Tensor<MIL::Fp16>::Reshape(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void MIL::ValueInference::Tensor<MIL::Fp16>::Reshape(void *a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X8>)
 {
   v6 = *a2;
   v7 = a2[1];
@@ -5140,11 +5146,11 @@ void MIL::ValueInference::Tensor<MIL::Fp16>::Reshape(void *a1@<X0>, uint64_t *a2
 
   v22 = 0uLL;
   v23 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v22, v6, v7, (v7 - v6) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v22, v6, v7, v7 - v6);
   v11 = a1[4];
   v12 = a1[5];
   memset(&__p, 0, sizeof(__p));
-  std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::Fp16 const*>,std::__wrap_iter<MIL::Fp16 const*>>(&__p, v11, v12, (v12 - v11) >> 1);
+  std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::Fp16 const*>,std::__wrap_iter<MIL::Fp16 const*>>(&__p, v11, v12, v12 - v11);
   MIL::ValueInference::Tensor<MIL::Fp16>::Tensor(a3, &v22, &__p);
   if (__p.__r_.__value_.__r.__words[0])
   {
@@ -5181,11 +5187,11 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void MIL::ValueInference::Tensor<MIL::Fp16>::NonZero(uint64_t a1@<X0>, void *a2@<X8>)
+void MIL::ValueInference::Tensor<MIL::Fp16>::NonZero(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
   if (*(a1 + 56))
   {
     v4 = 0;
@@ -5209,7 +5215,7 @@ void MIL::ValueInference::Tensor<MIL::Fp16>::NonZero(uint64_t a1@<X0>, void *a2@
   }
 }
 
-void MIL::ValueInference::Tensor<MIL::Fp16>::SubTensor(void *a1@<X0>, uint64_t **a2@<X1>, void *a3@<X8>)
+void MIL::ValueInference::Tensor<MIL::Fp16>::SubTensor(void *a1@<X0>, char **a2@<X1>, void *a3@<X8>)
 {
   v5 = (a2[1] - *a2) >> 4;
   v6 = a1 + 1;
@@ -5231,8 +5237,8 @@ void MIL::ValueInference::Tensor<MIL::Fp16>::SubTensor(void *a1@<X0>, uint64_t *
     v10 = 0;
     while (1)
     {
-      v11 = (*a2)[v9];
-      v12 = (*a2)[v9 + 1];
+      v11 = *&(*a2)[v9];
+      v12 = *&(*a2)[v9 + 8];
       v13 = v12 >= v11;
       v14 = (v12 - v11);
       if (!v13)
@@ -5256,7 +5262,7 @@ LABEL_27:
       std::vector<unsigned long long>::push_back[abi:ne200100](&v38, &v34);
       ++v10;
       v8 = a1[1];
-      v9 += 2;
+      v9 += 16;
       if (v10 >= (a1[2] - v8) >> 3)
       {
         goto LABEL_8;
@@ -5317,7 +5323,7 @@ LABEL_8:
         do
         {
           v23 = *v21;
-          v21 += 2;
+          v21 += 16;
           *v22++ += v23;
           --v20;
         }
@@ -6016,7 +6022,7 @@ void MIL::ValueInference::BinaryOp<float,float>(void *a1@<X0>, void *a2@<X1>, ui
     LODWORD(v32[0]) = v24;
     v37 = 0;
     v36 = 0uLL;
-    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v36, v32, v32 + 4, 1uLL);
+    std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&v36, v32, v32 + 1, 1uLL);
     MIL::ValueInference::Tensor<float>::Tensor(a5, &v38, &v36);
   }
 
@@ -6034,16 +6040,16 @@ void MIL::ValueInference::BinaryOp<float,float>(void *a1@<X0>, void *a2@<X1>, ui
 
     v13 = (a1[2] - a1[1]) >> 3;
     v36.n128_u64[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v38, v13);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v38, v13, &v36);
     v14 = (a2[2] - a2[1]) >> 3;
     v32[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v36, v14);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v36, v14, v32);
     v15 = (a4[1] - *a4) >> 3;
     __s2 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](v32, v15);
+    std::vector<unsigned long long>::vector[abi:ne200100](v32, v15, &__s2);
     v16 = (a4[1] - *a4) >> 3;
     *&v28 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16);
+    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16, &v28);
     v17 = __s2;
     *__s2 = **a4;
     while (1)
@@ -6243,7 +6249,7 @@ void MIL::ValueInference::BinaryOp<MIL::Fp16,MIL::Fp16>(void *a1@<X0>, void *a2@
     LOWORD(v31[0]) = std::function<MIL::Fp16 ()(MIL::Fp16,MIL::Fp16)>::operator()(a3, ScalarData, v23);
     v36 = 0;
     v35 = 0uLL;
-    std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(&v35, v31, v31 + 2, 1);
+    std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<MIL::Fp16 const*,MIL::Fp16 const*>(&v35, v31, v31 + 1, 1);
     MIL::ValueInference::Tensor<MIL::Fp16>::Tensor(a5, &v37, &v35);
   }
 
@@ -6261,16 +6267,16 @@ void MIL::ValueInference::BinaryOp<MIL::Fp16,MIL::Fp16>(void *a1@<X0>, void *a2@
 
     v13 = (a1[2] - a1[1]) >> 3;
     v35.n128_u64[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13, &v35);
     v14 = (a2[2] - a2[1]) >> 3;
     v31[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14, v31);
     v15 = (a4[1] - *a4) >> 3;
     __s2 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15);
+    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15, &__s2);
     v16 = (a4[1] - *a4) >> 3;
     *&v27 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16);
+    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16, &v27);
     v17 = __s2;
     *__s2 = **a4;
     while (1)
@@ -6379,7 +6385,7 @@ void MIL::ValueInference::BinaryOp<MIL::Bf16,MIL::Bf16>(void *a1@<X0>, void *a2@
     LOWORD(v31[0]) = std::function<MIL::Bf16 ()(MIL::Bf16,MIL::Bf16)>::operator()(a3, ScalarData, v23);
     v36 = 0;
     v35 = 0uLL;
-    std::vector<MIL::Bf16>::__init_with_size[abi:ne200100]<MIL::Bf16 const*,MIL::Bf16 const*>(&v35, v31, v31 + 2, 1);
+    std::vector<MIL::Bf16>::__init_with_size[abi:ne200100]<MIL::Bf16 const*,MIL::Bf16 const*>(&v35, v31, v31 + 1, 1);
     MIL::ValueInference::Tensor<MIL::Bf16>::Tensor(a5, &v37, &v35);
   }
 
@@ -6397,16 +6403,16 @@ void MIL::ValueInference::BinaryOp<MIL::Bf16,MIL::Bf16>(void *a1@<X0>, void *a2@
 
     v13 = (a1[2] - a1[1]) >> 3;
     v35.n128_u64[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13, &v35);
     v14 = (a2[2] - a2[1]) >> 3;
     v31[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14, v31);
     v15 = (a4[1] - *a4) >> 3;
     __s2 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15);
+    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15, &__s2);
     v16 = (a4[1] - *a4) >> 3;
     *&v27 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16);
+    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16, &v27);
     v17 = __s2;
     *__s2 = **a4;
     while (1)
@@ -6515,7 +6521,7 @@ void MIL::ValueInference::BinaryOp<int,int>(void *a1@<X0>, void *a2@<X1>, uint64
     LODWORD(v31[0]) = std::function<int ()(int,int)>::operator()(a3, ScalarData, v23);
     v36 = 0;
     v35 = 0uLL;
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v35, v31, v31 + 4, 1uLL);
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v35, v31, v31 + 1, 1uLL);
     MIL::ValueInference::Tensor<int>::Tensor(a5, &v37, &v35);
   }
 
@@ -6533,16 +6539,16 @@ void MIL::ValueInference::BinaryOp<int,int>(void *a1@<X0>, void *a2@<X1>, uint64
 
     v13 = (a1[2] - a1[1]) >> 3;
     v35.n128_u64[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13, &v35);
     v14 = (a2[2] - a2[1]) >> 3;
     v31[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14, v31);
     v15 = (a4[1] - *a4) >> 3;
     __s2 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15);
+    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15, &__s2);
     v16 = (a4[1] - *a4) >> 3;
     *&v27 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16);
+    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16, &v27);
     v17 = __s2;
     *__s2 = **a4;
     while (1)
@@ -6669,16 +6675,16 @@ void MIL::ValueInference::BinaryOp<BOOL,BOOL>(void *a1@<X0>, void *a2@<X1>, uint
 
     v13 = (a1[2] - a1[1]) >> 3;
     v35.n128_u64[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13, &v35);
     v14 = (a2[2] - a2[1]) >> 3;
     v31[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14, v31);
     v15 = (a4[1] - *a4) >> 3;
     __s2 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15);
+    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15, &__s2);
     v16 = (a4[1] - *a4) >> 3;
     *&v27 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16);
+    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16, &v27);
     v17 = __s2;
     *__s2 = **a4;
     while (1)
@@ -6805,16 +6811,16 @@ void MIL::ValueInference::BinaryOp<float,BOOL>(void *a1@<X0>, void *a2@<X1>, uin
 
     v13 = (a1[2] - a1[1]) >> 3;
     v35.n128_u64[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13, &v35);
     v14 = (a2[2] - a2[1]) >> 3;
     v31[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14, v31);
     v15 = (a4[1] - *a4) >> 3;
     __s2 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15);
+    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15, &__s2);
     v16 = (a4[1] - *a4) >> 3;
     *&v27 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16);
+    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16, &v27);
     v17 = __s2;
     *__s2 = **a4;
     while (1)
@@ -6954,16 +6960,16 @@ void MIL::ValueInference::BinaryOp<int,BOOL>(void *a1@<X0>, void *a2@<X1>, uint6
 
     v13 = (a1[2] - a1[1]) >> 3;
     v35.n128_u64[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13, &v35);
     v14 = (a2[2] - a2[1]) >> 3;
     v31[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14, v31);
     v15 = (a4[1] - *a4) >> 3;
     __s2 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15);
+    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15, &__s2);
     v16 = (a4[1] - *a4) >> 3;
     *&v27 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16);
+    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16, &v27);
     v17 = __s2;
     *__s2 = **a4;
     while (1)
@@ -7103,16 +7109,16 @@ void MIL::ValueInference::BinaryOp<MIL::Fp16,BOOL>(void *a1@<X0>, void *a2@<X1>,
 
     v13 = (a1[2] - a1[1]) >> 3;
     v35.n128_u64[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13, &v35);
     v14 = (a2[2] - a2[1]) >> 3;
     v31[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14, v31);
     v15 = (a4[1] - *a4) >> 3;
     __s2 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15);
+    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15, &__s2);
     v16 = (a4[1] - *a4) >> 3;
     *&v27 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16);
+    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16, &v27);
     v17 = __s2;
     *__s2 = **a4;
     while (1)
@@ -7252,16 +7258,16 @@ void MIL::ValueInference::BinaryOp<MIL::Bf16,BOOL>(void *a1@<X0>, void *a2@<X1>,
 
     v13 = (a1[2] - a1[1]) >> 3;
     v35.n128_u64[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v37, v13, &v35);
     v14 = (a2[2] - a2[1]) >> 3;
     v31[0] = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14);
+    std::vector<unsigned long long>::vector[abi:ne200100](&v35, v14, v31);
     v15 = (a4[1] - *a4) >> 3;
     __s2 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15);
+    std::vector<unsigned long long>::vector[abi:ne200100](v31, v15, &__s2);
     v16 = (a4[1] - *a4) >> 3;
     *&v27 = 0;
-    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16);
+    std::vector<unsigned long long>::vector[abi:ne200100](&__s2, v16, &v27);
     v17 = __s2;
     *__s2 = **a4;
     while (1)
@@ -7369,13 +7375,13 @@ uint64_t std::function<unsigned char ()(MIL::Bf16,MIL::Bf16)>::operator()(uint64
   return (*(*v3 + 48))(v3, &v6, &v5);
 }
 
-void MIL::ValueInference::Tensor<MIL::Bf16>::ForEach(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void MIL::ValueInference::Tensor<MIL::Bf16>::ForEach(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v16 = *MEMORY[0x277D85DE8];
   v13 = 0uLL;
   v14 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&v13, (a1[5] - a1[4]) >> 1);
-  if (a1[5] != a1[4])
+  std::vector<MIL::Fp16>::reserve(&v13, (*(a1 + 40) - *(a1 + 32)) >> 1);
+  if (*(a1 + 40) != *(a1 + 32))
   {
     v7 = 0;
     do
@@ -7385,14 +7391,14 @@ void MIL::ValueInference::Tensor<MIL::Bf16>::ForEach(uint64_t *a1@<X0>, uint64_t
       ++v7;
     }
 
-    while (v7 < (a1[5] - a1[4]) >> 1);
+    while (v7 < (*(a1 + 40) - *(a1 + 32)) >> 1);
   }
 
   __p = 0uLL;
   v12 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, a1[1], a1[2], (a1[2] - a1[1]) >> 3);
-  v9 = a1[4];
-  v8 = a1[5];
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *(a1 + 8), *(a1 + 16), (*(a1 + 16) - *(a1 + 8)) >> 3);
+  v9 = *(a1 + 32);
+  v8 = *(a1 + 40);
   v10 = v13.n128_u64[0];
   std::__function::__value_func<MIL::Bf16 ()(MIL::Bf16)>::__value_func[abi:ne200100](v15, a2);
   while (v9 != v8)
@@ -7425,13 +7431,13 @@ void sub_218109750(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ValueInference::Tensor<MIL::Fp16>::ForEach(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void MIL::ValueInference::Tensor<MIL::Fp16>::ForEach(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v16 = *MEMORY[0x277D85DE8];
   v13 = 0uLL;
   v14 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&v13, (a1[5] - a1[4]) >> 1);
-  if (a1[5] != a1[4])
+  std::vector<MIL::Fp16>::reserve(&v13, (*(a1 + 40) - *(a1 + 32)) >> 1);
+  if (*(a1 + 40) != *(a1 + 32))
   {
     v7 = 0;
     do
@@ -7441,14 +7447,14 @@ void MIL::ValueInference::Tensor<MIL::Fp16>::ForEach(uint64_t *a1@<X0>, uint64_t
       ++v7;
     }
 
-    while (v7 < (a1[5] - a1[4]) >> 1);
+    while (v7 < (*(a1 + 40) - *(a1 + 32)) >> 1);
   }
 
   __p = 0uLL;
   v12 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, a1[1], a1[2], (a1[2] - a1[1]) >> 3);
-  v9 = a1[4];
-  v8 = a1[5];
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&__p, *(a1 + 8), *(a1 + 16), (*(a1 + 16) - *(a1 + 8)) >> 3);
+  v9 = *(a1 + 32);
+  v8 = *(a1 + 40);
   v10 = v13.n128_u64[0];
   std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::__value_func[abi:ne200100](v15, a2);
   while (v9 != v8)
@@ -7487,7 +7493,7 @@ void MIL::ValueInference::Tensor<MIL::Bf16>::Cast<BOOL>(void *a1@<X0>, uint64_t 
   v5 = a1[2];
   v13 = 0;
   v12 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, v5 - v4);
   __p = 0uLL;
   v11 = 0;
   std::vector<unsigned char>::reserve(&__p, (a1[5] - a1[4]) >> 1);
@@ -7537,19 +7543,19 @@ void sub_218109A1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ValueInference::Tensor<MIL::Bf16>::Cast<MIL::Bf16>(void *a1@<X0>, uint64_t a2@<X8>)
+void MIL::ValueInference::Tensor<MIL::Bf16>::Cast<MIL::Bf16>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  v4 = a1[1];
-  v5 = a1[2];
+  v4 = a2[1];
+  v5 = a2[2];
   v11 = 0;
   v10 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v10, v4, v5, (v5 - v4) >> 3);
-  v6 = a1[4];
-  v7 = a1[5];
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v10, v4, v5, v5 - v4);
+  v6 = a2[4];
+  v7 = a2[5];
   v9 = 0;
   __p = 0uLL;
-  std::vector<MIL::Bf16>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::Bf16 const*>,std::__wrap_iter<MIL::Bf16 const*>>(&__p, v6, v7, (v7 - v6) >> 1);
-  MIL::ValueInference::Tensor<MIL::Bf16>::Tensor(a2, &v10, &__p);
+  std::vector<MIL::Bf16>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::Bf16 const*>,std::__wrap_iter<MIL::Bf16 const*>>(&__p, v6, v7, v7 - v6);
+  MIL::ValueInference::Tensor<MIL::Bf16>::Tensor(a1, &v10, &__p);
   if (__p.n128_u64[0])
   {
     __p.n128_u64[1] = __p.n128_u64[0];
@@ -7584,7 +7590,7 @@ void MIL::ValueInference::Tensor<MIL::Fp16>::Cast<MIL::Bf16>(void *a1@<X0>, uint
   v5 = a1[2];
   v15 = 0;
   v14 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v14, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v14, v4, v5, v5 - v4);
   __p = 0uLL;
   v13 = 0;
   std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 1);
@@ -7641,10 +7647,10 @@ void MIL::ValueInference::Tensor<float>::Cast<MIL::Bf16>(void *a1@<X0>, uint64_t
   v5 = a1[2];
   v13 = 0;
   v12 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, v5 - v4);
   __p = 0uLL;
   v11 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 2);
+  std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 2);
   v7 = a1[4];
   if (a1[5] != v7)
   {
@@ -7695,10 +7701,10 @@ void MIL::ValueInference::Tensor<int>::Cast<MIL::Bf16>(void *a1@<X0>, uint64_t a
   v5 = a1[2];
   v13 = 0;
   v12 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, v5 - v4);
   __p = 0uLL;
   v11 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 2);
+  std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 2);
   v7 = a1[4];
   if (a1[5] != v7)
   {
@@ -7749,10 +7755,10 @@ void MIL::ValueInference::Tensor<short>::Cast<MIL::Bf16>(void *a1@<X0>, uint64_t
   v5 = a1[2];
   v13 = 0;
   v12 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, v5 - v4);
   __p = 0uLL;
   v11 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 1);
+  std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 1);
   v7 = a1[4];
   if (a1[5] != v7)
   {
@@ -7803,10 +7809,10 @@ void MIL::ValueInference::Tensor<unsigned short>::Cast<MIL::Bf16>(void *a1@<X0>,
   v5 = a1[2];
   v14 = 0;
   v13 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v13, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v13, v4, v5, v5 - v4);
   __p = 0uLL;
   v12 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 1);
+  std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 1);
   v8 = a1[4];
   if (a1[5] != v8)
   {
@@ -7858,10 +7864,10 @@ void MIL::ValueInference::Tensor<signed char>::Cast<MIL::Bf16>(void *a1@<X0>, ui
   v5 = a1[2];
   v13 = 0;
   v12 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, v5 - v4);
   __p = 0uLL;
   v11 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, a1[5] - a1[4]);
+  std::vector<MIL::Fp16>::reserve(&__p, a1[5] - a1[4]);
   v7 = a1[4];
   if (a1[5] != v7)
   {
@@ -7912,10 +7918,10 @@ void MIL::ValueInference::Tensor<unsigned char>::Cast<MIL::Bf16>(void *a1@<X0>, 
   v5 = a1[2];
   v14 = 0;
   v13 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v13, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v13, v4, v5, v5 - v4);
   __p = 0uLL;
   v12 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, a1[5] - a1[4]);
+  std::vector<MIL::Fp16>::reserve(&__p, a1[5] - a1[4]);
   v8 = a1[4];
   if (a1[5] != v8)
   {
@@ -7967,10 +7973,10 @@ void MIL::ValueInference::Tensor<BOOL>::Cast<MIL::Bf16>(void *a1@<X0>, uint64_t 
   v5 = a1[2];
   v14 = 0;
   v13 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v13, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v13, v4, v5, v5 - v4);
   __p = 0uLL;
   v12 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, a1[5] - a1[4]);
+  std::vector<MIL::Fp16>::reserve(&__p, a1[5] - a1[4]);
   v8 = a1[4];
   if (a1[5] != v8)
   {
@@ -8022,7 +8028,7 @@ void MIL::ValueInference::Tensor<MIL::Fp16>::Cast<BOOL>(void *a1@<X0>, uint64_t 
   v5 = a1[2];
   v13 = 0;
   v12 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, v5 - v4);
   __p = 0uLL;
   v11 = 0;
   std::vector<unsigned char>::reserve(&__p, (a1[5] - a1[4]) >> 1);
@@ -8078,7 +8084,7 @@ void MIL::ValueInference::Tensor<MIL::Bf16>::Cast<MIL::Fp16>(void *a1@<X0>, uint
   v5 = a1[2];
   v15 = 0;
   v14 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v14, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v14, v4, v5, v5 - v4);
   __p = 0uLL;
   v13 = 0;
   std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 1);
@@ -8129,19 +8135,19 @@ void sub_21810A568(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::ValueInference::Tensor<MIL::Fp16>::Cast<MIL::Fp16>(void *a1@<X0>, uint64_t a2@<X8>)
+void MIL::ValueInference::Tensor<MIL::Fp16>::Cast<MIL::Fp16>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  v4 = a1[1];
-  v5 = a1[2];
+  v4 = a2[1];
+  v5 = a2[2];
   v11 = 0;
   v10 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v10, v4, v5, (v5 - v4) >> 3);
-  v6 = a1[4];
-  v7 = a1[5];
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v10, v4, v5, v5 - v4);
+  v6 = a2[4];
+  v7 = a2[5];
   v9 = 0;
   __p = 0uLL;
-  std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::Fp16 const*>,std::__wrap_iter<MIL::Fp16 const*>>(&__p, v6, v7, (v7 - v6) >> 1);
-  MIL::ValueInference::Tensor<MIL::Fp16>::Tensor(a2, &v10, &__p);
+  std::vector<MIL::Fp16>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::Fp16 const*>,std::__wrap_iter<MIL::Fp16 const*>>(&__p, v6, v7, v7 - v6);
+  MIL::ValueInference::Tensor<MIL::Fp16>::Tensor(a1, &v10, &__p);
   if (__p.n128_u64[0])
   {
     __p.n128_u64[1] = __p.n128_u64[0];
@@ -8176,10 +8182,10 @@ void MIL::ValueInference::Tensor<float>::Cast<MIL::Fp16>(void *a1@<X0>, uint64_t
   v5 = a1[2];
   v13 = 0;
   v12 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, v5 - v4);
   __p = 0uLL;
   v11 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 2);
+  std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 2);
   v7 = a1[4];
   if (a1[5] != v7)
   {
@@ -8230,10 +8236,10 @@ void MIL::ValueInference::Tensor<int>::Cast<MIL::Fp16>(void *a1@<X0>, uint64_t a
   v5 = a1[2];
   v13 = 0;
   v12 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, v5 - v4);
   __p = 0uLL;
   v11 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 2);
+  std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 2);
   v7 = a1[4];
   if (a1[5] != v7)
   {
@@ -8284,10 +8290,10 @@ void MIL::ValueInference::Tensor<short>::Cast<MIL::Fp16>(void *a1@<X0>, uint64_t
   v5 = a1[2];
   v13 = 0;
   v12 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, v5 - v4);
   __p = 0uLL;
   v11 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 1);
+  std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 1);
   v7 = a1[4];
   if (a1[5] != v7)
   {
@@ -8338,10 +8344,10 @@ void MIL::ValueInference::Tensor<unsigned short>::Cast<MIL::Fp16>(void *a1@<X0>,
   v5 = a1[2];
   v14 = 0;
   v13 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v13, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v13, v4, v5, v5 - v4);
   __p = 0uLL;
   v12 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 1);
+  std::vector<MIL::Fp16>::reserve(&__p, (a1[5] - a1[4]) >> 1);
   v8 = a1[4];
   if (a1[5] != v8)
   {
@@ -8393,10 +8399,10 @@ void MIL::ValueInference::Tensor<unsigned char>::Cast<MIL::Fp16>(void *a1@<X0>, 
   v5 = a1[2];
   v14 = 0;
   v13 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v13, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v13, v4, v5, v5 - v4);
   __p = 0uLL;
   v12 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, a1[5] - a1[4]);
+  std::vector<MIL::Fp16>::reserve(&__p, a1[5] - a1[4]);
   v8 = a1[4];
   if (a1[5] != v8)
   {
@@ -8448,10 +8454,10 @@ void MIL::ValueInference::Tensor<signed char>::Cast<MIL::Fp16>(void *a1@<X0>, ui
   v5 = a1[2];
   v13 = 0;
   v12 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v12, v4, v5, v5 - v4);
   __p = 0uLL;
   v11 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, a1[5] - a1[4]);
+  std::vector<MIL::Fp16>::reserve(&__p, a1[5] - a1[4]);
   v7 = a1[4];
   if (a1[5] != v7)
   {
@@ -8502,10 +8508,10 @@ void MIL::ValueInference::Tensor<BOOL>::Cast<MIL::Fp16>(void *a1@<X0>, uint64_t 
   v5 = a1[2];
   v14 = 0;
   v13 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v13, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v13, v4, v5, v5 - v4);
   __p = 0uLL;
   v12 = 0;
-  v6 = std::vector<MIL::Fp16>::reserve(&__p, a1[5] - a1[4]);
+  std::vector<MIL::Fp16>::reserve(&__p, a1[5] - a1[4]);
   v8 = a1[4];
   if (a1[5] != v8)
   {
@@ -8557,7 +8563,7 @@ void MIL::ValueInference::Tensor<float>::Cast<BOOL>(void *a1@<X0>, uint64_t a2@<
   v5 = a1[2];
   v12 = 0;
   v11 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v11, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v11, v4, v5, v5 - v4);
   __p = 0uLL;
   v10 = 0;
   std::vector<unsigned char>::reserve(&__p, (a1[5] - a1[4]) >> 2);
@@ -8611,7 +8617,7 @@ void MIL::ValueInference::Tensor<int>::Cast<BOOL>(void *a1@<X0>, uint64_t a2@<X8
   v5 = a1[2];
   v12 = 0;
   v11 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v11, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v11, v4, v5, v5 - v4);
   __p = 0uLL;
   v10 = 0;
   std::vector<unsigned char>::reserve(&__p, (a1[5] - a1[4]) >> 2);
@@ -8665,7 +8671,7 @@ void MIL::ValueInference::Tensor<short>::Cast<BOOL>(void *a1@<X0>, uint64_t a2@<
   v5 = a1[2];
   v12 = 0;
   v11 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v11, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v11, v4, v5, v5 - v4);
   __p = 0uLL;
   v10 = 0;
   std::vector<unsigned char>::reserve(&__p, (a1[5] - a1[4]) >> 1);
@@ -8719,7 +8725,7 @@ void MIL::ValueInference::Tensor<unsigned short>::Cast<BOOL>(void *a1@<X0>, uint
   v5 = a1[2];
   v12 = 0;
   v11 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v11, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v11, v4, v5, v5 - v4);
   __p = 0uLL;
   v10 = 0;
   std::vector<unsigned char>::reserve(&__p, (a1[5] - a1[4]) >> 1);
@@ -8773,7 +8779,7 @@ void MIL::ValueInference::Tensor<signed char>::Cast<BOOL>(void *a1@<X0>, uint64_
   v5 = a1[2];
   v12 = 0;
   v11 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v11, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v11, v4, v5, v5 - v4);
   __p = 0uLL;
   v10 = 0;
   std::vector<unsigned char>::reserve(&__p, a1[5] - a1[4]);
@@ -8827,7 +8833,7 @@ void MIL::ValueInference::Tensor<unsigned char>::Cast<BOOL>(void *a1@<X0>, uint6
   v5 = a1[2];
   v12 = 0;
   v11 = 0uLL;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v11, v4, v5, (v5 - v4) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(&v11, v4, v5, v5 - v4);
   __p = 0uLL;
   v10 = 0;
   std::vector<unsigned char>::reserve(&__p, a1[5] - a1[4]);
@@ -9089,7 +9095,7 @@ uint64_t std::__function::__value_func<MIL::Fp16 ()(MIL::Fp16)>::~__value_func[a
   return a1;
 }
 
-uint64_t std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long long>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned long long const*>,std::__wrap_iter<unsigned long long const*>>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9111,7 +9117,7 @@ void sub_21810B974(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(uint64_t *result, float *a2, float *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9133,7 +9139,7 @@ void sub_21810B9EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<short>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<short>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(uint64_t *result, float *a2, float *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9155,7 +9161,7 @@ void sub_21810BA64(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<std::__wrap_iter<float const*>,std::__wrap_iter<float const*>>(uint64_t *result, float *a2, float *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9177,7 +9183,7 @@ void sub_21810BADC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9199,7 +9205,7 @@ void sub_21810BB50(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9221,7 +9227,7 @@ void sub_21810BBC8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<short>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<short>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t *result, int *a2, int *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9243,7 +9249,7 @@ void sub_21810BC3C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t *result, int *a2, int *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9265,7 +9271,7 @@ void sub_21810BCB0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<signed char>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<signed char>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t *result, int *a2, int *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9287,7 +9293,7 @@ void sub_21810BD24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<int const*>,std::__wrap_iter<int const*>>(uint64_t *result, int *a2, int *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9309,7 +9315,7 @@ void sub_21810BD98(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9331,7 +9337,7 @@ void sub_21810BE0C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(uint64_t *result, unsigned __int8 *a2, unsigned __int8 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9353,7 +9359,7 @@ void sub_21810BE84(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(uint64_t *result, unsigned __int8 *a2, unsigned __int8 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9375,7 +9381,7 @@ void sub_21810BEF8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<short>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<short>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(uint64_t *result, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9397,7 +9403,7 @@ void sub_21810BF6C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(uint64_t *result, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9419,7 +9425,7 @@ void sub_21810BFE0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<signed char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<signed char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9441,7 +9447,7 @@ void sub_21810C054(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<short>::__init_with_size[abi:ne200100]<std::__wrap_iter<short const*>,std::__wrap_iter<short const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<short>::__init_with_size[abi:ne200100]<std::__wrap_iter<short const*>,std::__wrap_iter<short const*>>(uint64_t *result, __int16 *a2, __int16 *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9463,7 +9469,7 @@ void sub_21810C0C8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<signed char>::__init_with_size[abi:ne200100]<std::__wrap_iter<short const*>,std::__wrap_iter<short const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<signed char>::__init_with_size[abi:ne200100]<std::__wrap_iter<short const*>,std::__wrap_iter<short const*>>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9485,7 +9491,7 @@ void sub_21810C13C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<short const*>,std::__wrap_iter<short const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<short const*>,std::__wrap_iter<short const*>>(uint64_t *result, __int16 *a2, __int16 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9507,7 +9513,7 @@ void sub_21810C1B4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<short const*>,std::__wrap_iter<short const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<short const*>,std::__wrap_iter<short const*>>(uint64_t *result, __int16 *a2, __int16 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9529,7 +9535,7 @@ void sub_21810C228(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<std::__wrap_iter<short const*>,std::__wrap_iter<short const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<std::__wrap_iter<short const*>,std::__wrap_iter<short const*>>(uint64_t *result, __int16 *a2, __int16 *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9551,7 +9557,7 @@ void sub_21810C29C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<short const*>,std::__wrap_iter<short const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<short const*>,std::__wrap_iter<short const*>>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9573,7 +9579,7 @@ void sub_21810C310(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(uint64_t *result, __int16 *a2, __int16 *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9595,7 +9601,7 @@ void sub_21810C384(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<signed char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<signed char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9617,7 +9623,7 @@ void sub_21810C3F8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(uint64_t *result, unsigned __int16 *a2, unsigned __int16 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9639,7 +9645,7 @@ void sub_21810C470(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(uint64_t *result, unsigned __int16 *a2, unsigned __int16 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9661,7 +9667,7 @@ void sub_21810C4E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<short>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<short>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(uint64_t *result, __int16 *a2, __int16 *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9683,7 +9689,7 @@ void sub_21810C558(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned short const*>,std::__wrap_iter<unsigned short const*>>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9705,7 +9711,7 @@ void sub_21810C5CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<signed char>::__init_with_size[abi:ne200100]<std::__wrap_iter<signed char const*>,std::__wrap_iter<signed char const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<signed char>::__init_with_size[abi:ne200100]<std::__wrap_iter<signed char const*>,std::__wrap_iter<signed char const*>>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9727,7 +9733,7 @@ void sub_21810C640(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<signed char const*>,std::__wrap_iter<signed char const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<std::__wrap_iter<signed char const*>,std::__wrap_iter<signed char const*>>(uint64_t *result, char *a2, char *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9749,7 +9755,7 @@ void sub_21810C6B8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<signed char const*>,std::__wrap_iter<signed char const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<std::__wrap_iter<signed char const*>,std::__wrap_iter<signed char const*>>(uint64_t *result, char *a2, char *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9771,7 +9777,7 @@ void sub_21810C72C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<short>::__init_with_size[abi:ne200100]<std::__wrap_iter<signed char const*>,std::__wrap_iter<signed char const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<short>::__init_with_size[abi:ne200100]<std::__wrap_iter<signed char const*>,std::__wrap_iter<signed char const*>>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9793,7 +9799,7 @@ void sub_21810C7A0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned short>::__init_with_size[abi:ne200100]<std::__wrap_iter<signed char const*>,std::__wrap_iter<signed char const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned short>::__init_with_size[abi:ne200100]<std::__wrap_iter<signed char const*>,std::__wrap_iter<signed char const*>>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9815,7 +9821,7 @@ void sub_21810C814(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<signed char const*>,std::__wrap_iter<signed char const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<signed char const*>,std::__wrap_iter<signed char const*>>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -9837,7 +9843,7 @@ void sub_21810C888(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<MIL::Bf16>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::Bf16 const*>,std::__wrap_iter<MIL::Bf16 const*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<MIL::Bf16>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::Bf16 const*>,std::__wrap_iter<MIL::Bf16 const*>>(uint64_t *result, __int16 *a2, __int16 *a3, uint64_t a4)
 {
   if (a4)
   {

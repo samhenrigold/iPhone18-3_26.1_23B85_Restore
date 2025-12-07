@@ -30,10 +30,7 @@
 
 uint64_t __41__SidecarTransferReceiver_handleMessage___block_invoke(uint64_t a1)
 {
-  v2 = SidecarTransferReceiverHandleMessage(*(a1 + 32), *(a1 + 40));
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = SidecarTransferReceiverHandleMessage(*(a1 + 32), *(a1 + 40));
 
   return MEMORY[0x2821F96F8]();
 }

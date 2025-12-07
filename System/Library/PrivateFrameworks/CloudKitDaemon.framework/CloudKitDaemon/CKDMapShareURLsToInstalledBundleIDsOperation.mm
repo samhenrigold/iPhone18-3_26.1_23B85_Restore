@@ -160,79 +160,77 @@
 
 - (void)_fetchRegisteredBundleIDs
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_container(self, a2, v2);
-  v67 = objc_msgSend_processScopedClientProxy(v4, v5, v6);
+  v66 = objc_msgSend_processScopedClientProxy(v4, v5, v6);
 
   v9 = objc_msgSend_container(self, v7, v8);
-  v66 = objc_msgSend_logicalDeviceScopedClientProxy(v9, v10, v11);
+  v65 = objc_msgSend_logicalDeviceScopedClientProxy(v9, v10, v11);
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   selfCopy = self;
   obj = objc_msgSend_shareURLs(self, v12, v13);
-  v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v73, v77, 16);
-  if (v68)
+  v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v72, v76, 16);
+  if (v67)
   {
-    v64 = *v74;
+    v63 = *v73;
     do
     {
       v17 = 0;
       do
       {
-        if (*v74 != v64)
+        if (*v73 != v63)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v73 + 1) + 8 * v17);
-        v70 = v18;
+        v18 = *(*(&v72 + 1) + 8 * v17);
+        v69 = v18;
         v19 = objc_msgSend_shareMetadatasByURL(selfCopy, v15, v16);
-        v71 = objc_msgSend_objectForKeyedSubscript_(v19, v20, v18);
+        v70 = objc_msgSend_objectForKeyedSubscript_(v19, v20, v18);
 
         v21 = [CKDAppContainerTuple alloc];
         v22 = [CKDApplicationID alloc];
         v24 = objc_msgSend_initWithApplicationBundleIdentifier_(v22, v23, @"com.apple.cloudd");
-        v27 = objc_msgSend_containerID(v71, v25, v26);
+        v27 = objc_msgSend_containerID(v70, v25, v26);
         v30 = objc_msgSend_container(selfCopy, v28, v29);
         v33 = objc_msgSend_personaID(v30, v31, v32);
-        v69 = v17;
+        v68 = v17;
         v35 = objc_msgSend_initWithApplicationID_containerID_personaID_(v21, v34, v24, v27, v33);
 
         v38 = objc_msgSend_container(selfCopy, v36, v37);
         v41 = objc_msgSend_entitlements(v38, v39, v40);
         v44 = objc_msgSend_container(selfCopy, v42, v43);
         v47 = objc_msgSend_options(v44, v45, v46);
-        v50 = objc_msgSend_clientConnection(v67, v48, v49);
+        v50 = objc_msgSend_clientConnection(v66, v48, v49);
         v53 = objc_msgSend_sharedContainers(v50, v51, v52);
-        v55 = objc_msgSend_containerWithAppContainerTuple_processScopedClientProxy_logicalDeviceScopedClientProxy_containerEntitlements_containerOptions_sharedContainerTable_(CKDContainer, v54, v35, v67, v66, v41, v47, v53);
+        v55 = objc_msgSend_containerWithAppContainerTuple_processScopedClientProxy_logicalDeviceScopedClientProxy_containerEntitlements_containerOptions_sharedContainerTable_(CKDContainer, v54, v35, v66, v65, v41, v47, v53);
 
         v56 = objc_opt_class();
         v57 = objc_opt_new();
-        v72[0] = MEMORY[0x277D85DD0];
-        v72[1] = 3221225472;
-        v72[2] = sub_225237B54;
-        v72[3] = &unk_278548C48;
-        v72[4] = v70;
-        v72[5] = selfCopy;
-        objc_msgSend_spawnAndRunOperationOfClass_operationInfo_spawnQueue_container_operationConfigurationBlock_(selfCopy, v58, v56, v57, 0, v55, v72);
+        v71[0] = MEMORY[0x277D85DD0];
+        v71[1] = 3221225472;
+        v71[2] = sub_225237B54;
+        v71[3] = &unk_278548C48;
+        v71[4] = v69;
+        v71[5] = selfCopy;
+        objc_msgSend_spawnAndRunOperationOfClass_operationInfo_spawnQueue_container_operationConfigurationBlock_(selfCopy, v58, v56, v57, 0, v55, v71);
 
         v61 = objc_msgSend_stateTransitionGroup(selfCopy, v59, v60);
         dispatch_group_enter(v61);
 
-        v17 = v69 + 1;
+        v17 = v68 + 1;
       }
 
-      while (v68 != v69 + 1);
-      v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v73, v77, 16);
+      while (v67 != v68 + 1);
+      v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v72, v76, 16);
     }
 
-    while (v68);
+    while (v67);
   }
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
@@ -246,7 +244,7 @@
 
 - (void)main
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -255,29 +253,28 @@
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v12 = v3;
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
-    v16 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v15, 1, 0, 0);
-    v19 = objc_msgSend_CKPropertiesStyleString(v16, v17, v18);
-    v21 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v20, 0, 1, 0);
-    v24 = objc_msgSend_CKPropertiesStyleString(v21, v22, v23);
-    v25 = 138544130;
-    v26 = v14;
-    v27 = 2048;
+    v11 = v3;
+    v12 = objc_opt_class();
+    v13 = NSStringFromClass(v12);
+    v15 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v14, 1, 0, 0);
+    v18 = objc_msgSend_CKPropertiesStyleString(v15, v16, v17);
+    v20 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v19, 0, 1, 0);
+    v23 = objc_msgSend_CKPropertiesStyleString(v20, v21, v22);
+    v24 = 138544130;
+    v25 = v13;
+    v26 = 2048;
     selfCopy = self;
-    v29 = 2114;
-    v30 = v19;
-    v31 = 2112;
-    v32 = v24;
-    _os_log_debug_impl(&dword_22506F000, v12, OS_LOG_TYPE_DEBUG, "Starting mapping share urls to bundleIDs operation <%{public}@: %p; %{public}@, %@>", &v25, 0x2Au);
+    v28 = 2114;
+    v29 = v18;
+    v30 = 2112;
+    v31 = v23;
+    _os_log_debug_impl(&dword_22506F000, v11, OS_LOG_TYPE_DEBUG, "Starting mapping share urls to bundleIDs operation <%{public}@: %p; %{public}@, %@>", &v24, 0x2Au);
   }
 
   v6 = objc_msgSend_shareURLs(self, v4, v5);
   v9 = objc_msgSend_count(v6, v7, v8) == 0;
 
   objc_msgSend_makeStateTransition_(self, v10, v9);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

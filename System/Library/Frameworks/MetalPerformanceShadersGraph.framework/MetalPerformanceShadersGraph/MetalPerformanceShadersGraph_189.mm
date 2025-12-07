@@ -129,7 +129,7 @@ LABEL_29:
   {
     v16 = ((a3 - __src - 4) & 0xFFFFFFFFFFFFFFFCLL) + 4;
     result = memcpy(result, __src, v16);
-    v15 += v16;
+    v15 = (v15 + v16);
   }
 
   v6[1] = v15;
@@ -144,7 +144,7 @@ void std::__shared_ptr_emplace<mlir::anec::ANECIRUnit>::~__shared_ptr_emplace(st
   operator delete(v1);
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::MatMul,mlir::detail::TypedValue<mlir::MemRefType>,mlir::mps::ConstantOp &,mlir::FloatAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t *a5)
+char *mlir::OpBuilder::create<mlir::anec::MatMul,mlir::detail::TypedValue<mlir::MemRefType>,mlir::mps::ConstantOp &,mlir::FloatAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t *a5)
 {
   v19[38] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -158,7 +158,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::MatMul,mlir::detail::TypedValue<mli
   mlir::OperationState::OperationState(v19, a2, v11);
   mlir::anec::MatMul::build(a1, v19, *a3, *a4 - 16, *a5);
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::MatMul,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::MatMul,void>::id)
   {
     v14 = v13;
   }
@@ -172,7 +172,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::MatMul,mlir::detail::TypedValue<mli
   return v14;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::GOC,mlir::ShapedType &,mlir::Value &,mlir::Value &,mlir::Value &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
+char *mlir::OpBuilder::create<mlir::anec::GOC,mlir::ShapedType &,mlir::Value &,mlir::Value &,mlir::Value &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
 {
   v22[38] = *MEMORY[0x1E69E9840];
   v19 = a2;
@@ -186,7 +186,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::GOC,mlir::ShapedType &,mlir::Value 
   mlir::OperationState::OperationState(v22, a2, v13);
   mlir::anec::GOC::build(v15, v22, *a3, *a4, *a5, *a6);
   v16 = mlir::OpBuilder::create(a1, v22);
-  if (*(*(v16 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::GOC,void>::id)
+  if (*(*(v16 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::GOC,void>::id)
   {
     v17 = v16;
   }
@@ -200,7 +200,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::GOC,mlir::ShapedType &,mlir::Value 
   return v17;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::GOC,mlir::ShapedType &,mlir::Value &,mlir::Value &,mlir::mps::ConstantOp &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, void *a6)
+char *mlir::OpBuilder::create<mlir::anec::GOC,mlir::ShapedType &,mlir::Value &,mlir::Value &,mlir::mps::ConstantOp &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, void *a6)
 {
   v22[38] = *MEMORY[0x1E69E9840];
   v19 = a2;
@@ -214,7 +214,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::GOC,mlir::ShapedType &,mlir::Value 
   mlir::OperationState::OperationState(v22, a2, v13);
   mlir::anec::GOC::build(v15, v22, *a3, *a4, *a5, *a6 - 16);
   v16 = mlir::OpBuilder::create(a1, v22);
-  if (*(*(v16 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::GOC,void>::id)
+  if (*(*(v16 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::GOC,void>::id)
   {
     v17 = v16;
   }
@@ -228,7 +228,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::GOC,mlir::ShapedType &,mlir::Value 
   return v17;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::GOC,mlir::ShapedType &,mlir::Value &,mlir::mps::ConstantOp &,mlir::Value &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, void *a5, uint64_t *a6)
+char *mlir::OpBuilder::create<mlir::anec::GOC,mlir::ShapedType &,mlir::Value &,mlir::mps::ConstantOp &,mlir::Value &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, void *a5, uint64_t *a6)
 {
   v22[38] = *MEMORY[0x1E69E9840];
   v19 = a2;
@@ -242,7 +242,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::GOC,mlir::ShapedType &,mlir::Value 
   mlir::OperationState::OperationState(v22, a2, v13);
   mlir::anec::GOC::build(v15, v22, *a3, *a4, *a5 - 16, *a6);
   v16 = mlir::OpBuilder::create(a1, v22);
-  if (*(*(v16 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::GOC,void>::id)
+  if (*(*(v16 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::GOC,void>::id)
   {
     v17 = v16;
   }
@@ -445,16 +445,16 @@ void mlir::anec::ANECIRUnit::~ANECIRUnit(mlir::anec::ANECIRUnit *this)
 
 double mlir::anec::PrependProcNameToNameAndShorten(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(a3, a1);
-  mlir::anec::PrependProcNameToName(a1);
-  if (!v4)
+  v5 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(a3, a1);
+  mlir::anec::PrependProcNameToName(a1, a2);
+  if (!v5)
   {
     if (*(a1 + 23) < 0)
     {
-      v6 = *(a1 + 8);
-      if (v6 < 0x40)
+      v7 = *(a1 + 8);
+      if (v7 < 0x40)
       {
-        std::string::__init_copy_ctor_external(&v22, *a1, v6);
+        std::string::__init_copy_ctor_external(&v23, *a1, v7);
         if (*(a1 + 23) < 0)
         {
           goto LABEL_27;
@@ -463,14 +463,14 @@ double mlir::anec::PrependProcNameToNameAndShorten(uint64_t a1, uint64_t a2, voi
         goto LABEL_28;
       }
 
-      v7 = *a1;
+      v8 = *a1;
     }
 
     else
     {
       if (*(a1 + 23) <= 0x3Fu)
       {
-        v22 = *a1;
+        v23 = *a1;
         if (*(a1 + 23) < 0)
         {
           goto LABEL_27;
@@ -479,84 +479,84 @@ double mlir::anec::PrependProcNameToNameAndShorten(uint64_t a1, uint64_t a2, voi
         goto LABEL_28;
       }
 
-      v7 = a1;
+      v8 = a1;
     }
 
-    v8 = operator new(0x30uLL);
-    v24.__r_.__value_.__r.__words[0] = v8;
-    *&v24.__r_.__value_.__r.__words[1] = xmmword_1E0982A20;
-    v9 = *(v7 + 4);
-    v11 = *v7;
-    v10 = *(v7 + 1);
-    v8[20] = *(v7 + 20);
-    *(v8 + 4) = v9;
-    *v8 = v11;
-    *(v8 + 1) = v10;
-    *(v8 + 42) = 0;
-    v12 = std::string::append(&v24, "_");
-    v13 = v12->__r_.__value_.__r.__words[2];
-    *&v25.__r_.__value_.__l.__data_ = *&v12->__r_.__value_.__l.__data_;
-    v25.__r_.__value_.__r.__words[2] = v13;
-    v12->__r_.__value_.__l.__size_ = 0;
-    v12->__r_.__value_.__r.__words[2] = 0;
-    v12->__r_.__value_.__r.__words[0] = 0;
-    v14 = *(a1 + 23);
-    if (v14 >= 0)
+    v9 = operator new(0x30uLL);
+    v25.__r_.__value_.__r.__words[0] = v9;
+    *&v25.__r_.__value_.__r.__words[1] = xmmword_1E0982A20;
+    v10 = *(v8 + 32);
+    v12 = *v8;
+    v11 = *(v8 + 16);
+    v9[20] = *(v8 + 40);
+    *(v9 + 4) = v10;
+    *v9 = v12;
+    *(v9 + 1) = v11;
+    *(v9 + 42) = 0;
+    v13 = std::string::append(&v25, "_");
+    v14 = v13->__r_.__value_.__r.__words[2];
+    *&v26.__r_.__value_.__l.__data_ = *&v13->__r_.__value_.__l.__data_;
+    v26.__r_.__value_.__r.__words[2] = v14;
+    v13->__r_.__value_.__l.__size_ = 0;
+    v13->__r_.__value_.__r.__words[2] = 0;
+    v13->__r_.__value_.__r.__words[0] = 0;
+    v15 = *(a1 + 23);
+    if (v15 >= 0)
     {
-      v15 = a1;
-    }
-
-    else
-    {
-      v15 = *a1;
-    }
-
-    if (v14 >= 0)
-    {
-      v16 = *(a1 + 23);
+      v16 = a1;
     }
 
     else
     {
-      v16 = *(a1 + 8);
+      v16 = *a1;
     }
 
-    v17 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v23, v15, v16);
-    std::to_string(&v23, v17);
-    if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if (v15 >= 0)
     {
-      v18 = &v23;
-    }
-
-    else
-    {
-      v18 = v23.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v23.__r_.__value_.__r.__words[2]);
+      v17 = *(a1 + 23);
     }
 
     else
     {
-      size = v23.__r_.__value_.__l.__size_;
+      v17 = *(a1 + 8);
     }
 
-    v20 = std::string::append(&v25, v18, size);
-    v21 = v20->__r_.__value_.__r.__words[2];
-    *&v22.__r_.__value_.__l.__data_ = *&v20->__r_.__value_.__l.__data_;
-    v22.__r_.__value_.__r.__words[2] = v21;
-    v20->__r_.__value_.__l.__size_ = 0;
-    v20->__r_.__value_.__r.__words[2] = 0;
-    v20->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+    v18 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v24, v16, v17);
+    std::to_string(&v24, v18);
+    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      operator delete(v23.__r_.__value_.__l.__data_);
-      if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      v19 = &v24;
+    }
+
+    else
+    {
+      v19 = v24.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      size = HIBYTE(v24.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      size = v24.__r_.__value_.__l.__size_;
+    }
+
+    v21 = std::string::append(&v26, v19, size);
+    v22 = v21->__r_.__value_.__r.__words[2];
+    *&v23.__r_.__value_.__l.__data_ = *&v21->__r_.__value_.__l.__data_;
+    v23.__r_.__value_.__r.__words[2] = v22;
+    v21->__r_.__value_.__l.__size_ = 0;
+    v21->__r_.__value_.__r.__words[2] = 0;
+    v21->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v24.__r_.__value_.__l.__data_);
+      if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_25:
-        if ((SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_26;
         }
@@ -565,13 +565,13 @@ LABEL_25:
       }
     }
 
-    else if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    else if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_25;
     }
 
-    operator delete(v25.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    operator delete(v26.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_26:
       if (*(a1 + 23) < 0)
@@ -581,13 +581,13 @@ LABEL_27:
       }
 
 LABEL_28:
-      result = *&v22.__r_.__value_.__l.__data_;
-      *a1 = v22;
+      result = *&v23.__r_.__value_.__l.__data_;
+      *a1 = v23;
       return result;
     }
 
 LABEL_32:
-    operator delete(v24.__r_.__value_.__l.__data_);
+    operator delete(v25.__r_.__value_.__l.__data_);
     if ((*(a1 + 23) & 0x80000000) == 0)
     {
       goto LABEL_28;
@@ -599,78 +599,78 @@ LABEL_32:
   return result;
 }
 
-void mlir::anec::PrependProcNameToName(uint64_t a1)
+void mlir::anec::PrependProcNameToName(uint64_t a1, uint64_t a2)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   std::operator+<char>();
-  v2 = std::string::append(&v10, "__");
-  v3 = v2->__r_.__value_.__r.__words[2];
-  *&v11.__r_.__value_.__l.__data_ = *&v2->__r_.__value_.__l.__data_;
-  v11.__r_.__value_.__r.__words[2] = v3;
-  v2->__r_.__value_.__l.__size_ = 0;
-  v2->__r_.__value_.__r.__words[2] = 0;
-  v2->__r_.__value_.__r.__words[0] = 0;
-  v4 = *(a1 + 23);
-  if (v4 >= 0)
+  v3 = std::string::append(&v11, "__");
+  v4 = v3->__r_.__value_.__r.__words[2];
+  *&v12.__r_.__value_.__l.__data_ = *&v3->__r_.__value_.__l.__data_;
+  v12.__r_.__value_.__r.__words[2] = v4;
+  v3->__r_.__value_.__l.__size_ = 0;
+  v3->__r_.__value_.__r.__words[2] = 0;
+  v3->__r_.__value_.__r.__words[0] = 0;
+  v5 = *(a1 + 23);
+  if (v5 >= 0)
   {
-    v5 = a1;
+    v6 = a1;
   }
 
   else
   {
-    v5 = *a1;
+    v6 = *a1;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a1 + 23);
+    v7 = *(a1 + 23);
   }
 
   else
   {
-    v6 = *(a1 + 8);
+    v7 = *(a1 + 8);
   }
 
-  v7 = std::string::append(&v11, v5, v6);
-  v8 = v7->__r_.__value_.__r.__words[0];
-  v12[0] = v7->__r_.__value_.__l.__size_;
-  *(v12 + 7) = *(&v7->__r_.__value_.__r.__words[1] + 7);
-  v9 = HIBYTE(v7->__r_.__value_.__r.__words[2]);
-  v7->__r_.__value_.__l.__size_ = 0;
-  v7->__r_.__value_.__r.__words[2] = 0;
-  v7->__r_.__value_.__r.__words[0] = 0;
+  v8 = std::string::append(&v12, v6, v7);
+  v9 = v8->__r_.__value_.__r.__words[0];
+  v13[0] = v8->__r_.__value_.__l.__size_;
+  *(v13 + 7) = *(&v8->__r_.__value_.__r.__words[1] + 7);
+  v10 = HIBYTE(v8->__r_.__value_.__r.__words[2]);
+  v8->__r_.__value_.__l.__size_ = 0;
+  v8->__r_.__value_.__r.__words[2] = 0;
+  v8->__r_.__value_.__r.__words[0] = 0;
   if (*(a1 + 23) < 0)
   {
     operator delete(*a1);
   }
 
-  *a1 = v8;
-  *(a1 + 8) = v12[0];
-  *(a1 + 15) = *(v12 + 7);
-  *(a1 + 23) = v9;
-  if ((SHIBYTE(v11.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  *a1 = v9;
+  *(a1 + 8) = v13[0];
+  *(a1 + 15) = *(v13 + 7);
+  *(a1 + 23) = v10;
+  if ((SHIBYTE(v12.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if ((SHIBYTE(v10.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v11.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       return;
     }
 
 LABEL_13:
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v11.__r_.__value_.__l.__data_);
     return;
   }
 
-  operator delete(v11.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  operator delete(v12.__r_.__value_.__l.__data_);
+  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_13;
   }
 }
 
-uint64_t **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v2 = a2;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v5 = *(a2 + 23);
@@ -716,15 +716,15 @@ uint64_t **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<st
   v13 = *v12;
   if (*v12)
   {
-    v14 = v2[23];
+    v14 = *(v2 + 23);
     if (v14 >= 0)
     {
-      v15 = v2[23];
+      v15 = *(v2 + 23);
     }
 
     else
     {
-      v15 = *(v2 + 1);
+      v15 = v2[1];
     }
 
     if (v14 < 0)
@@ -781,9 +781,9 @@ uint64_t **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<st
   return v13;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
+uint64_t **std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t ***a1, const void **a2, uint64_t a3, __int128 **a4)
 {
-  v7 = a1 + 1;
+  v7 = (a1 + 1);
   v6 = a1[1];
   if (v6)
   {
@@ -890,7 +890,7 @@ uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_valu
 
   else
   {
-    v11 = a1 + 1;
+    v11 = (a1 + 1);
 LABEL_27:
     v23 = operator new(0x50uLL);
     v24 = v23;
@@ -1036,72 +1036,71 @@ void std::__shared_ptr_pointer<mlir::anec::ANECIRGOCUnit *,std::shared_ptr<mlir:
 
 void llvm::SmallVectorTemplateBase<std::pair<std::string,mlir::anec::ANECIRDataType>,false>::grow(uint64_t a1, unint64_t a2)
 {
-  v18 = 0;
+  v17 = 0;
   v3 = (a1 + 16);
-  llvm::SmallVectorBase<unsigned int>::mallocForGrow(a1, (a1 + 16), a2, 32, &v18);
-  v5 = v4;
-  v6 = *a1;
-  v7 = *(a1 + 8);
-  if (v7)
+  v4 = llvm::SmallVectorBase<unsigned int>::mallocForGrow(a1, (a1 + 16), a2, 32, &v17);
+  v5 = *a1;
+  v6 = *(a1 + 8);
+  if (v6)
   {
-    v8 = &v6[32 * v7];
-    v9 = v5;
+    v7 = &v5[32 * v6];
+    v8 = v4;
     do
     {
-      v10 = *v6;
-      *(v9 + 16) = *(v6 + 2);
-      *v9 = v10;
-      *(v6 + 1) = 0;
-      *(v6 + 2) = 0;
-      *v6 = 0;
-      *(v9 + 24) = *(v6 + 6);
-      v9 += 32;
-      v6 += 32;
+      v9 = *v5;
+      v8[2] = *(v5 + 2);
+      *v8 = v9;
+      *(v5 + 1) = 0;
+      *(v5 + 2) = 0;
+      *v5 = 0;
+      *(v8 + 6) = *(v5 + 6);
+      v8 += 4;
+      v5 += 32;
     }
 
-    while (v6 != v8);
-    v6 = *a1;
-    v11 = *(a1 + 8);
-    if (v11)
+    while (v5 != v7);
+    v5 = *a1;
+    v10 = *(a1 + 8);
+    if (v10)
     {
-      v12 = 32 * v11;
-      v13 = &v6[32 * v11 - 9];
-      v14 = -v12;
-      v15 = v13;
+      v11 = 32 * v10;
+      v12 = &v5[32 * v10 - 9];
+      v13 = -v11;
+      v14 = v12;
       do
       {
-        v16 = *v15;
-        v15 -= 32;
-        if (v16 < 0)
+        v15 = *v14;
+        v14 -= 32;
+        if (v15 < 0)
         {
-          operator delete(*(v13 - 23));
+          operator delete(*(v12 - 23));
         }
 
-        v13 = v15;
-        v14 += 32;
+        v12 = v14;
+        v13 += 32;
       }
 
-      while (v14);
-      v6 = *a1;
+      while (v13);
+      v5 = *a1;
     }
   }
 
-  v17 = v18;
-  if (v6 != v3)
+  v16 = v17;
+  if (v5 != v3)
   {
-    free(v6);
+    free(v5);
   }
 
-  *a1 = v5;
-  *(a1 + 12) = v17;
+  *a1 = v4;
+  *(a1 + 12) = v16;
 }
 
-void **std::map<ZinIrDimension,__CFString const*>::map[abi:nn200100](void **a1, int *a2, uint64_t a3)
+uint64_t ***std::map<ZinIrDimension,__CFString const*>::map[abi:nn200100](uint64_t ***a1, int *a2, uint64_t a3)
 {
   a1[1] = 0;
   v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 16 * a3;
@@ -1144,9 +1143,9 @@ void **std::map<ZinIrDimension,__CFString const*>::map[abi:nn200100](void **a1, 
   return a1;
 }
 
-uint64_t *std::__tree<std::__value_type<ZinIrDimension,__CFString const*>,std::__map_value_compare<ZinIrDimension,std::__value_type<ZinIrDimension,__CFString const*>,std::less<ZinIrDimension>,true>,std::allocator<std::__value_type<ZinIrDimension,__CFString const*>>>::__find_equal<ZinIrDimension>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t **a4, int *a5)
+uint64_t *std::__tree<std::__value_type<ZinIrDimension,__CFString const*>,std::__map_value_compare<ZinIrDimension,std::__value_type<ZinIrDimension,__CFString const*>,std::less<ZinIrDimension>,true>,std::allocator<std::__value_type<ZinIrDimension,__CFString const*>>>::__find_equal<ZinIrDimension>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t **a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -1173,7 +1172,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -1234,7 +1233,7 @@ LABEL_17:
 
     else
     {
-      v19 = a1 + 1;
+      v19 = (a1 + 1);
     }
 
 LABEL_25:
@@ -1330,7 +1329,7 @@ LABEL_25:
 
       else
       {
-        v23 = a1 + 1;
+        v23 = (a1 + 1);
       }
 
 LABEL_41:
@@ -1632,7 +1631,7 @@ LABEL_5:
   operator delete(this);
 }
 
-void mlir::anec::ANECIROutput::UpdateNamesWithProcName(uint64_t a1, uint64_t a2, uint64_t **a3, void *a4)
+void mlir::anec::ANECIROutput::UpdateNamesWithProcName(uint64_t a1, uint64_t a2, uint64_t ***a3, void *a4)
 {
   v8 = (a1 + 8);
   if (*(a1 + 31) < 0)
@@ -1646,7 +1645,7 @@ void mlir::anec::ANECIROutput::UpdateNamesWithProcName(uint64_t a1, uint64_t a2,
     __p.__r_.__value_.__r.__words[2] = *(a1 + 24);
   }
 
-  mlir::anec::PrependProcNameToName(v8);
+  mlir::anec::PrependProcNameToName(v8, a2);
   mlir::anec::PrependProcNameToNameAndShorten(a1 + 112, a2, a4);
   v11 = v8;
   v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a3, v8, &std::piecewise_construct, &v11);
@@ -1827,7 +1826,7 @@ void *mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::Model(void *a
   mlir::detail::InterfaceMap::insertModel<mlir::detail::FormableRegionOpInterfaceInterfaceTraits::Model<mlir::anec::A11Legacy>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::RegionPerformanceInterfaceInterfaceTraits::Model<mlir::anec::A11Legacy>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::ExecutionCostOpInterfaceInterfaceTraits::Model<mlir::anec::A11Legacy>>(&v9);
-  mlir::OperationName::Impl::Impl(a1, "anec.A11Legacy", 14, a2, &mlir::detail::TypeIDResolver<mlir::anec::A11Legacy,void>::id, &v9);
+  mlir::OperationName::Impl::Impl(a1, "anec.A11Legacy", 0xEuLL, a2, &mlir::detail::TypeIDResolver<mlir::anec::A11Legacy,void>::id, &v9);
   v4 = v9;
   if (v10)
   {
@@ -1915,8 +1914,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::~Model(void *_
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9A11LegacyEJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS13_ILS14_3EE4ImplENS13_ILS14_4EE4ImplENS13_ILS14_5EE4ImplENS13_ILS14_6EE4ImplENS13_ILS14_7EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1O_vE9CallbacksE + 2;
-  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9A11LegacyEJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS13_ILS14_3EE4ImplENS13_ILS14_4EE4ImplENS13_ILS14_5EE4ImplENS13_ILS14_6EE4ImplENS13_ILS14_7EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1O_vE9CallbacksE[0]();
+  v9 = &_ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9A11LegacyEJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS13_ILS14_3EE4ImplENS13_ILS14_4EE4ImplENS13_ILS14_5EE4ImplENS13_ILS14_6EE4ImplENS13_ILS14_7EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1O_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec9A11LegacyEJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS13_ILS14_3EE4ImplENS13_ILS14_4EE4ImplENS13_ILS14_5EE4ImplENS13_ILS14_6EE4ImplENS13_ILS14_7EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1O_vE9CallbacksE(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -1942,22 +1941,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9A11LegacyEJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENSU_ILSV_3EE4ImplENSU_ILSV_4EE4ImplENSU_ILSV_5EE4ImplENSU_ILSV_6EE4ImplENSU_ILSV_7EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS1F_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9A11LegacyEJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENSU_ILSV_3EE4ImplENSU_ILSV_4EE4ImplENSU_ILSV_5EE4ImplENSU_ILSV_6EE4ImplENSU_ILSV_7EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS1F_vE9CallbacksE(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9A11LegacyEJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENSY_ILSZ_3EE4ImplENSY_ILSZ_4EE4ImplENSY_ILSZ_5EE4ImplENSY_ILSZ_6EE4ImplENSY_ILSZ_7EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1J_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9A11LegacyEJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENSY_ILSZ_3EE4ImplENSY_ILSZ_4EE4ImplENSY_ILSZ_5EE4ImplENSY_ILSZ_6EE4ImplENSY_ILSZ_7EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1J_vE9CallbacksE(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9A11LegacyEJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENSU_ILSV_3EE4ImplENSU_ILSV_4EE4ImplENSU_ILSV_5EE4ImplENSU_ILSV_6EE4ImplENSU_ILSV_7EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS1F_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec9A11LegacyEJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENSU_ILSV_3EE4ImplENSU_ILSV_4EE4ImplENSU_ILSV_5EE4ImplENSU_ILSV_6EE4ImplENSU_ILSV_7EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS1F_vE9CallbacksE[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::A11Legacy,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)4>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)5>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)6>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)7>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -1966,92 +2028,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::hasTrait(uint6
   return result;
 }
 
-void mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::verifyRegionInvariants()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9A11LegacyEJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENSY_ILSZ_3EE4ImplENSY_ILSZ_4EE4ImplENSY_ILSZ_5EE4ImplENSY_ILSZ_6EE4ImplENSY_ILSZ_7EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1J_vE9CallbacksE + 2;
-  (_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec9A11LegacyEJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENSY_ILSZ_3EE4ImplENSY_ILSZ_4EE4ImplENSY_ILSZ_5EE4ImplENSY_ILSZ_6EE4ImplENSY_ILSZ_7EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1J_vE9CallbacksE[0])(v8, a2, a3, a4, a5);
-  v6 = v9;
-  if (v9 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::A11Legacy,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)4>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)5>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)6>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)7>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v9 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v9 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v7 = v8;
+        v3 = v5;
       }
 
-      else
-      {
-        v7 = v8[0];
-      }
-
-      (*((v9 & 0xFFFFFFFFFFFFFFF8) + 16))(v7, v5);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v6 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v8[0], v8[1]);
-    }
-  }
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::A11Legacy,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)4>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)5>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)6>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)7>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::A11Legacy,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)4>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)5>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)6>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)7>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -2077,7 +2078,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::setInherentAtt
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A11Legacy>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -2309,7 +2310,7 @@ uint64_t mlir::detail::FunctionOpInterfaceInterfaceTraits::Model<mlir::anec::A11
   return mlir::FunctionType::clone(&AttrDictionary, a3, a4, a5, a6);
 }
 
-uint64_t mlir::detail::FunctionOpInterfaceTrait<mlir::anec::A11Legacy>::verifyBody(mlir::Operation **a1)
+BOOL mlir::detail::FunctionOpInterfaceTrait<mlir::anec::A11Legacy>::verifyBody(mlir::Operation **a1)
 {
   v72 = *MEMORY[0x1E69E9840];
   v2 = *a1;
@@ -3594,16 +3595,16 @@ void llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter 
   mlir::function_interface_impl::printFunctionOp(a3, a2, InterfaceFor, 0, AttrData, v9, **(*(a2 + 48) + 96), *(*(*(a2 + 48) + 96) + 16));
 }
 
-BOOL mlir::detail::SymbolOpInterfaceTrait<mlir::anec::A11Legacy>::verifyTrait(mlir::detail *a1, mlir::Operation *a2)
+BOOL mlir::detail::SymbolOpInterfaceTrait<mlir::anec::A11Legacy>::verifyTrait(mlir::Block **a1, mlir::Operation *a2)
 {
   v28 = *MEMORY[0x1E69E9840];
   v18 = a1;
-  if (!mlir::detail::verifySymbol(a1, a2))
+  if ((mlir::detail::verifySymbol(a1, a2) & 1) == 0)
   {
     return 0;
   }
 
-  v3 = *(a1 + 2);
+  v3 = a1[2];
   if (!v3)
   {
     return 1;
@@ -3702,7 +3703,7 @@ BOOL mlir::detail::SymbolOpInterfaceTrait<mlir::anec::A11Legacy>::verifyTrait(ml
   return result;
 }
 
-uint64_t mlir::function_interface_impl::verifyTrait<mlir::anec::A11Legacy>(mlir::Operation *a1)
+BOOL mlir::function_interface_impl::verifyTrait<mlir::anec::A11Legacy>(mlir::Operation *a1)
 {
   v175 = *MEMORY[0x1E69E9840];
   v164 = a1;
@@ -3750,7 +3751,7 @@ uint64_t mlir::function_interface_impl::verifyTrait<mlir::anec::A11Legacy>(mlir:
             {
               v150 = &v166[-1] - v63;
               v151 = v62;
-              llvm::SmallVectorBase<unsigned int>::grow_pod(v62 + 24, v62 + 40, v64 + 1, 24);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(v62 + 24, (v62 + 40), v64 + 1, 24);
               v62 = v151;
               v63 = *(v151 + 24);
               v65 = &v150[v63];
@@ -3758,7 +3759,7 @@ uint64_t mlir::function_interface_impl::verifyTrait<mlir::anec::A11Legacy>(mlir:
 
             else
             {
-              llvm::SmallVectorBase<unsigned int>::grow_pod(v60 + 24, v60 + 40, v64 + 1, 24);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(v60 + 24, (v60 + 40), v64 + 1, 24);
               v62 = v60;
               v63 = *(v60 + 24);
               v65 = &v165;
@@ -3786,7 +3787,7 @@ uint64_t mlir::function_interface_impl::verifyTrait<mlir::anec::A11Legacy>(mlir:
             {
               v152 = &v166[-1] - v69;
               v153 = v68;
-              llvm::SmallVectorBase<unsigned int>::grow_pod(v68 + 24, v68 + 40, v70 + 1, 24);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(v68 + 24, (v68 + 40), v70 + 1, 24);
               v68 = v153;
               v69 = *(v153 + 24);
               v71 = &v152[v69];
@@ -3795,7 +3796,7 @@ uint64_t mlir::function_interface_impl::verifyTrait<mlir::anec::A11Legacy>(mlir:
             else
             {
               v148 = v68;
-              llvm::SmallVectorBase<unsigned int>::grow_pod(v68 + 24, v68 + 40, v70 + 1, 24);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(v68 + 24, (v68 + 40), v70 + 1, 24);
               v68 = v148;
               v69 = *(v148 + 24);
               v71 = &v165;
@@ -3900,14 +3901,14 @@ LABEL_143:
                 if (v119 <= &v165 && v119 + 24 * v120 > &v165)
                 {
                   v158 = &v166[-1] - v119;
-                  llvm::SmallVectorBase<unsigned int>::grow_pod(v118, v114 + 40, v120 + 1, 24);
+                  llvm::SmallVectorBase<unsigned int>::grow_pod(v118, (v114 + 40), v120 + 1, 24);
                   v119 = *(v114 + 24);
                   v117 = &v158[v119];
                 }
 
                 else
                 {
-                  llvm::SmallVectorBase<unsigned int>::grow_pod(v118, v114 + 40, v120 + 1, 24);
+                  llvm::SmallVectorBase<unsigned int>::grow_pod(v118, (v114 + 40), v120 + 1, 24);
                   v119 = *(v114 + 24);
                   v117 = &v165;
                 }
@@ -4153,7 +4154,7 @@ LABEL_6:
             {
               v154 = &v166[-1] - v84;
               v155 = v83;
-              llvm::SmallVectorBase<unsigned int>::grow_pod(v83 + 24, v83 + 40, v85 + 1, 24);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(v83 + 24, (v83 + 40), v85 + 1, 24);
               v83 = v155;
               v84 = *(v155 + 24);
               v86 = &v154[v84];
@@ -4161,7 +4162,7 @@ LABEL_6:
 
             else
             {
-              llvm::SmallVectorBase<unsigned int>::grow_pod(v81 + 24, v81 + 40, v85 + 1, 24);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(v81 + 24, (v81 + 40), v85 + 1, 24);
               v83 = v81;
               v84 = *(v81 + 24);
               v86 = &v165;
@@ -4189,7 +4190,7 @@ LABEL_6:
             {
               v156 = &v166[-1] - v90;
               v157 = v89;
-              llvm::SmallVectorBase<unsigned int>::grow_pod(v89 + 24, v89 + 40, v91 + 1, 24);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(v89 + 24, (v89 + 40), v91 + 1, 24);
               v89 = v157;
               v90 = *(v157 + 24);
               v92 = &v156[v90];
@@ -4198,7 +4199,7 @@ LABEL_6:
             else
             {
               v149 = v89;
-              llvm::SmallVectorBase<unsigned int>::grow_pod(v89 + 24, v89 + 40, v91 + 1, 24);
+              llvm::SmallVectorBase<unsigned int>::grow_pod(v89 + 24, (v89 + 40), v91 + 1, 24);
               v89 = v149;
               v90 = *(v149 + 24);
               v92 = &v165;
@@ -4303,14 +4304,14 @@ LABEL_163:
                 if (v136 <= &v165 && v136 + 24 * v137 > &v165)
                 {
                   v159 = &v166[-1] - v136;
-                  llvm::SmallVectorBase<unsigned int>::grow_pod(v135, v131 + 40, v137 + 1, 24);
+                  llvm::SmallVectorBase<unsigned int>::grow_pod(v135, (v131 + 40), v137 + 1, 24);
                   v136 = *(v131 + 24);
                   v134 = &v159[v136];
                 }
 
                 else
                 {
-                  llvm::SmallVectorBase<unsigned int>::grow_pod(v135, v131 + 40, v137 + 1, 24);
+                  llvm::SmallVectorBase<unsigned int>::grow_pod(v135, (v131 + 40), v137 + 1, 24);
                   v136 = *(v131 + 24);
                   v134 = &v165;
                 }
@@ -4782,30 +4783,30 @@ uint64_t mlir::Operation::getParentWithTrait<mlir::OpTrait::anec::MinimumFamily<
   return 0;
 }
 
-uint64_t mlir::Operation::getParentWithTrait<mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)7>::Impl>(uint64_t ParentOp)
+uint64_t mlir::Operation::getParentWithTrait<mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)7>::Impl>(uint64_t a1)
 {
   while (1)
   {
-    v2 = *(ParentOp + 16);
+    v2 = *(a1 + 16);
     if (!v2)
     {
       break;
     }
 
-    ParentOp = mlir::Block::getParentOp(v2);
-    if (ParentOp)
+    a1 = mlir::Block::getParentOp(v2);
+    if (a1)
     {
       {
         mlir::anec::getOpMinimumFamily();
       }
 
-      if (!(*(**(ParentOp + 48) + 32))(*(ParentOp + 48), mlir::detail::TypeIDResolver<mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)7>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)7>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id))
+      if (!(*(**(a1 + 48) + 32))(*(a1 + 48), mlir::detail::TypeIDResolver<mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)7>::Impl<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)7>::Impl>(void)::Empty>,void>::resolveTypeID(void)::id))
       {
         continue;
       }
     }
 
-    return ParentOp;
+    return a1;
   }
 
   return 0;
@@ -4823,7 +4824,7 @@ void *mlir::RegisteredOperationName::Model<mlir::anec::A12>::Model(void *a1, uin
   mlir::detail::InterfaceMap::insertModel<mlir::detail::FormableRegionOpInterfaceInterfaceTraits::Model<mlir::anec::A12>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::RegionPerformanceInterfaceInterfaceTraits::Model<mlir::anec::A12>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::ExecutionCostOpInterfaceInterfaceTraits::Model<mlir::anec::A12>>(&v9);
-  mlir::OperationName::Impl::Impl(a1, "anec.A12", 8, a2, &mlir::detail::TypeIDResolver<mlir::anec::A12,void>::id, &v9);
+  mlir::OperationName::Impl::Impl(a1, "anec.A12", 8uLL, a2, &mlir::detail::TypeIDResolver<mlir::anec::A12,void>::id, &v9);
   v4 = v9;
   if (v10)
   {
@@ -4911,8 +4912,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::A12>::~Model(void *__p)
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A12>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
-  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks[0]();
+  v9 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &>::CallbacksHolder<mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1},mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getFoldHookFn(void)::{lambda(mlir::Operation *,llvm::ArrayRef<mlir::Attribute>,llvm::SmallVectorImpl<mlir::OpFoldResult> &)#1} const,void>::Callbacks(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -4938,22 +4939,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A12>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::A12>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A12>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A12>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A12>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -4962,92 +5026,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::A12>::hasTrait(uint64_t a1
   return result;
 }
 
-void mlir::RegisteredOperationName::Model<mlir::anec::A12>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A12>::verifyRegionInvariants()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks + 2;
-  (llvm::detail::UniqueFunctionBase<void,mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef>::CallbacksHolder<mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1},mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::getPrintAssemblyFn(void)::{lambda(mlir::Operation *,mlir::OpAsmPrinter &,llvm::StringRef)#1} const,void>::Callbacks[0])(v8, a2, a3, a4, a5);
-  v6 = v9;
-  if (v9 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v9 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v9 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v7 = v8;
+        v3 = v5;
       }
 
-      else
-      {
-        v7 = v8[0];
-      }
-
-      (*((v9 & 0xFFFFFFFFFFFFFFF8) + 16))(v7, v5);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v6 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v8[0], v8[1]);
-    }
-  }
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A12>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A12>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::A12,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -5073,7 +5076,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::A12>::setInherentAttr(uint
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A12>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -5750,7 +5753,7 @@ void *mlir::RegisteredOperationName::Model<mlir::anec::A13>::Model(void *a1, uin
   mlir::detail::InterfaceMap::insertModel<mlir::detail::FormableRegionOpInterfaceInterfaceTraits::Model<mlir::anec::A13>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::RegionPerformanceInterfaceInterfaceTraits::Model<mlir::anec::A13>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::ExecutionCostOpInterfaceInterfaceTraits::Model<mlir::anec::A13>>(&v9);
-  mlir::OperationName::Impl::Impl(a1, "anec.A13", 8, a2, &mlir::detail::TypeIDResolver<mlir::anec::A13,void>::id, &v9);
+  mlir::OperationName::Impl::Impl(a1, "anec.A13", 8uLL, a2, &mlir::detail::TypeIDResolver<mlir::anec::A13,void>::id, &v9);
   v4 = v9;
   if (v10)
   {
@@ -5838,8 +5841,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::A13>::~Model(void *__p)
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A13>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A13EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1C_vE9CallbacksE + 2;
-  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A13EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1C_vE9CallbacksE[0]();
+  v9 = &_ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A13EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1C_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A13EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1C_vE9CallbacksE(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -5865,22 +5868,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A13>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::A13>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A13>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A13EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS13_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A13EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS13_vE9CallbacksE(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A13>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A13EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS17_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A13EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS17_vE9CallbacksE(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A13>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A13EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS13_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A13EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS13_vE9CallbacksE[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::A13,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -5889,92 +5955,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::A13>::hasTrait(uint64_t a1
   return result;
 }
 
-void mlir::RegisteredOperationName::Model<mlir::anec::A13>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A13>::verifyRegionInvariants()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A13EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS17_vE9CallbacksE + 2;
-  (_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A13EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS17_vE9CallbacksE[0])(v8, a2, a3, a4, a5);
-  v6 = v9;
-  if (v9 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::A13,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v9 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v9 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v7 = v8;
+        v3 = v5;
       }
 
-      else
-      {
-        v7 = v8[0];
-      }
-
-      (*((v9 & 0xFFFFFFFFFFFFFFF8) + 16))(v7, v5);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v6 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v8[0], v8[1]);
-    }
-  }
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A13>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::A13,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A13>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::A13,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -6000,7 +6005,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::A13>::setInherentAttr(uint
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A13>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -6714,7 +6719,7 @@ void *mlir::RegisteredOperationName::Model<mlir::anec::A14>::Model(void *a1, uin
   mlir::detail::InterfaceMap::insertModel<mlir::detail::FormableRegionOpInterfaceInterfaceTraits::Model<mlir::anec::A14>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::RegionPerformanceInterfaceInterfaceTraits::Model<mlir::anec::A14>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::ExecutionCostOpInterfaceInterfaceTraits::Model<mlir::anec::A14>>(&v9);
-  mlir::OperationName::Impl::Impl(a1, "anec.A14", 8, a2, &mlir::detail::TypeIDResolver<mlir::anec::A14,void>::id, &v9);
+  mlir::OperationName::Impl::Impl(a1, "anec.A14", 8uLL, a2, &mlir::detail::TypeIDResolver<mlir::anec::A14,void>::id, &v9);
   v4 = v9;
   if (v10)
   {
@@ -6802,8 +6807,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::A14>::~Model(void *__p)
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A14>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A14EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1E_vE9CallbacksE + 2;
-  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A14EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1E_vE9CallbacksE[0]();
+  v9 = &_ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A14EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1E_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A14EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1E_vE9CallbacksE(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -6829,22 +6834,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A14>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::A14>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A14>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A14EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS15_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A14EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS15_vE9CallbacksE(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A14>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A14EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS19_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A14EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS19_vE9CallbacksE(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A14>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A14EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS15_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A14EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS15_vE9CallbacksE[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::A14,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -6853,92 +6921,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::A14>::hasTrait(uint64_t a1
   return result;
 }
 
-void mlir::RegisteredOperationName::Model<mlir::anec::A14>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A14>::verifyRegionInvariants()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A14EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS19_vE9CallbacksE + 2;
-  (_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A14EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS19_vE9CallbacksE[0])(v8, a2, a3, a4, a5);
-  v6 = v9;
-  if (v9 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::A14,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v9 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v9 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v7 = v8;
+        v3 = v5;
       }
 
-      else
-      {
-        v7 = v8[0];
-      }
-
-      (*((v9 & 0xFFFFFFFFFFFFFFF8) + 16))(v7, v5);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v6 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v8[0], v8[1]);
-    }
-  }
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A14>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::A14,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A14>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::A14,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -6964,7 +6971,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::A14>::setInherentAttr(uint
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A14>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -7717,7 +7724,7 @@ void *mlir::RegisteredOperationName::Model<mlir::anec::A15>::Model(void *a1, uin
   mlir::detail::InterfaceMap::insertModel<mlir::detail::FormableRegionOpInterfaceInterfaceTraits::Model<mlir::anec::A15>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::RegionPerformanceInterfaceInterfaceTraits::Model<mlir::anec::A15>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::ExecutionCostOpInterfaceInterfaceTraits::Model<mlir::anec::A15>>(&v9);
-  mlir::OperationName::Impl::Impl(a1, "anec.A15", 8, a2, &mlir::detail::TypeIDResolver<mlir::anec::A15,void>::id, &v9);
+  mlir::OperationName::Impl::Impl(a1, "anec.A15", 8uLL, a2, &mlir::detail::TypeIDResolver<mlir::anec::A15,void>::id, &v9);
   v4 = v9;
   if (v10)
   {
@@ -7805,8 +7812,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::A15>::~Model(void *__p)
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A15>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A15EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS13_ILS14_3EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1G_vE9CallbacksE + 2;
-  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A15EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS13_ILS14_3EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1G_vE9CallbacksE[0]();
+  v9 = &_ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A15EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS13_ILS14_3EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1G_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A15EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS13_ILS14_3EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1G_vE9CallbacksE(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -7832,22 +7839,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A15>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::A15>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A15>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A15EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENSU_ILSV_3EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS17_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A15EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENSU_ILSV_3EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS17_vE9CallbacksE(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A15>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A15EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENSY_ILSZ_3EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1B_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A15EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENSY_ILSZ_3EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1B_vE9CallbacksE(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A15>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A15EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENSU_ILSV_3EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS17_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A15EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENSU_ILSV_3EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS17_vE9CallbacksE[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::A15,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -7856,92 +7926,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::A15>::hasTrait(uint64_t a1
   return result;
 }
 
-void mlir::RegisteredOperationName::Model<mlir::anec::A15>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A15>::verifyRegionInvariants()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A15EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENSY_ILSZ_3EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1B_vE9CallbacksE + 2;
-  (_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A15EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENSY_ILSZ_3EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1B_vE9CallbacksE[0])(v8, a2, a3, a4, a5);
-  v6 = v9;
-  if (v9 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::A15,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v9 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v9 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v7 = v8;
+        v3 = v5;
       }
 
-      else
-      {
-        v7 = v8[0];
-      }
-
-      (*((v9 & 0xFFFFFFFFFFFFFFF8) + 16))(v7, v5);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v6 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v8[0], v8[1]);
-    }
-  }
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A15>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::A15,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A15>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::A15,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -7967,7 +7976,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::A15>::setInherentAttr(uint
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A15>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -8761,7 +8770,7 @@ void *mlir::RegisteredOperationName::Model<mlir::anec::A16>::Model(void *a1, uin
   mlir::detail::InterfaceMap::insertModel<mlir::detail::FormableRegionOpInterfaceInterfaceTraits::Model<mlir::anec::A16>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::RegionPerformanceInterfaceInterfaceTraits::Model<mlir::anec::A16>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::ExecutionCostOpInterfaceInterfaceTraits::Model<mlir::anec::A16>>(&v9);
-  mlir::OperationName::Impl::Impl(a1, "anec.A16", 8, a2, &mlir::detail::TypeIDResolver<mlir::anec::A16,void>::id, &v9);
+  mlir::OperationName::Impl::Impl(a1, "anec.A16", 8uLL, a2, &mlir::detail::TypeIDResolver<mlir::anec::A16,void>::id, &v9);
   v4 = v9;
   if (v10)
   {
@@ -8849,8 +8858,8 @@ void mlir::RegisteredOperationName::Model<mlir::anec::A16>::~Model(void *__p)
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A16>::foldHook()
 {
   v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A16EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS13_ILS14_3EE4ImplENS13_ILS14_4EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE + 2;
-  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A16EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS13_ILS14_3EE4ImplENS13_ILS14_4EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE[0]();
+  v9 = &_ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A16EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS13_ILS14_3EE4ImplENS13_ILS14_4EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseINS_13LogicalResultEJPN4mlir9OperationENS_8ArrayRefINS3_9AttributeEEERNS_15SmallVectorImplINS3_12OpFoldResultEEEEE15CallbacksHolderIZNS3_2OpINS3_4anec3A16EJNS3_7OpTrait9OneRegionENSI_11ZeroResultsENSI_14ZeroSuccessorsENSI_12ZeroOperandsENSI_12OpInvariantsENS3_17SymbolOpInterface5TraitENS3_19CallableOpInterface5TraitENS3_19FunctionOpInterface5TraitENSI_19IsIsolatedFromAboveENSI_8RegionOpENS3_24TargetLegalizerInterface5TraitENS3_25FormableRegionOpInterface5TraitENSG_26RegionPerformanceInterface5TraitENSI_4anec13MinimumFamilyILNSG_6FamilyE0EE4ImplENS13_ILS14_1EE4ImplENS13_ILS14_2EE4ImplENS13_ILS14_3EE4ImplENS13_ILS14_4EE4ImplENS3_24ExecutionCostOpInterface5TraitEEE13getFoldHookFnEvEUlS5_S8_SC_E_KS1I_vE9CallbacksE(v8);
   v5 = v9;
   if (v9 >= 8)
   {
@@ -8876,22 +8885,85 @@ uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A16>::foldHook()
   return result;
 }
 
-BOOL mlir::RegisteredOperationName::Model<mlir::anec::A16>::hasTrait(uint64_t a1, uint64_t a2)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A16>::hasTrait()
+{
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = &_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A16EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENSU_ILSV_3EE4ImplENSU_ILSV_4EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A16EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENSU_ILSV_3EE4ImplENSU_ILSV_4EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE(v3);
+  v1 = v4;
+  if (v4 >= 8)
+  {
+    if ((v4 & 4) != 0)
+    {
+      v2 = result;
+      (*((v4 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      result = v2;
+    }
+
+    if ((v1 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v3[0], v3[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A16>::printAssembly()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v5 = &_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A16EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENSY_ILSZ_3EE4ImplENSY_ILSZ_4EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE + 2;
+  result = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A16EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENSY_ILSZ_3EE4ImplENSY_ILSZ_4EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE(v4);
+  v2 = v5;
+  if (v5 >= 8)
+  {
+    if ((v5 & 4) != 0)
+    {
+      if ((v5 & 2) != 0)
+      {
+        v3 = v4;
+      }
+
+      else
+      {
+        v3 = v4[0];
+      }
+
+      result = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+    }
+
+    if ((v2 & 2) == 0)
+    {
+      llvm::deallocate_buffer(v4[0], v4[1]);
+    }
+  }
+
+  return result;
+}
+
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A16>::verifyInvariants()
 {
   v7 = *MEMORY[0x1E69E9840];
-  v6 = _ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A16EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENSU_ILSV_3EE4ImplENSU_ILSV_4EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE + 2;
-  result = (_ZN4llvm6detail18UniqueFunctionBaseIbJN4mlir6TypeIDEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A16EJNS2_7OpTrait9OneRegionENS9_11ZeroResultsENS9_14ZeroSuccessorsENS9_12ZeroOperandsENS9_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENS9_19IsIsolatedFromAboveENS9_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENS7_26RegionPerformanceInterface5TraitENS9_4anec13MinimumFamilyILNS7_6FamilyE0EE4ImplENSU_ILSV_1EE4ImplENSU_ILSV_2EE4ImplENSU_ILSV_3EE4ImplENSU_ILSV_4EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE13getHasTraitFnEvEUlS3_E_KS19_vE9CallbacksE[0])(v5, a2);
-  v3 = v6;
+  v5[0] = mlir::Op<mlir::anec::A16,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)4>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
   if (v6 >= 8)
   {
     if ((v6 & 4) != 0)
     {
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
+      {
+        v3 = v5;
+      }
+
       v4 = result;
-      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))();
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
       result = v4;
     }
 
-    if ((v3 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
       llvm::deallocate_buffer(v5[0], v5[1]);
     }
@@ -8900,92 +8972,31 @@ BOOL mlir::RegisteredOperationName::Model<mlir::anec::A16>::hasTrait(uint64_t a1
   return result;
 }
 
-void mlir::RegisteredOperationName::Model<mlir::anec::A16>::printAssembly(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A16>::verifyRegionInvariants()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = _ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A16EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENSY_ILSZ_3EE4ImplENSY_ILSZ_4EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE + 2;
-  (_ZN4llvm6detail18UniqueFunctionBaseIvJPN4mlir9OperationERNS2_12OpAsmPrinterENS_9StringRefEEE15CallbacksHolderIZNS2_2OpINS2_4anec3A16EJNS2_7OpTrait9OneRegionENSD_11ZeroResultsENSD_14ZeroSuccessorsENSD_12ZeroOperandsENSD_12OpInvariantsENS2_17SymbolOpInterface5TraitENS2_19CallableOpInterface5TraitENS2_19FunctionOpInterface5TraitENSD_19IsIsolatedFromAboveENSD_8RegionOpENS2_24TargetLegalizerInterface5TraitENS2_25FormableRegionOpInterface5TraitENSB_26RegionPerformanceInterface5TraitENSD_4anec13MinimumFamilyILNSB_6FamilyE0EE4ImplENSY_ILSZ_1EE4ImplENSY_ILSZ_2EE4ImplENSY_ILSZ_3EE4ImplENSY_ILSZ_4EE4ImplENS2_24ExecutionCostOpInterface5TraitEEE18getPrintAssemblyFnEvEUlS4_S6_S7_E_KS1D_vE9CallbacksE[0])(v8, a2, a3, a4, a5);
-  v6 = v9;
-  if (v9 >= 8)
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = mlir::Op<mlir::anec::A16,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)4>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
+  v6 = &llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
+  result = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks(v5);
+  v2 = v6;
+  if (v6 >= 8)
   {
-    if ((v9 & 4) != 0)
+    if ((v6 & 4) != 0)
     {
-      if ((v9 & 2) != 0)
+      v3 = v5[0];
+      if ((v6 & 2) != 0)
       {
-        v7 = v8;
+        v3 = v5;
       }
 
-      else
-      {
-        v7 = v8[0];
-      }
-
-      (*((v9 & 0xFFFFFFFFFFFFFFF8) + 16))(v7, v5);
+      v4 = result;
+      (*((v6 & 0xFFFFFFFFFFFFFFF8) + 16))(v3, v1);
+      result = v4;
     }
 
-    if ((v6 & 2) == 0)
+    if ((v2 & 2) == 0)
     {
-      llvm::deallocate_buffer(v8[0], v8[1]);
-    }
-  }
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A16>::verifyInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::A16,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)4>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
-    }
-  }
-
-  return result;
-}
-
-uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A16>::verifyRegionInvariants(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7[0] = mlir::Op<mlir::anec::A16,mlir::OpTrait::OneRegion,mlir::OpTrait::ZeroResults,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::ZeroOperands,mlir::OpTrait::OpInvariants,mlir::SymbolOpInterface::Trait,mlir::CallableOpInterface::Trait,mlir::FunctionOpInterface::Trait,mlir::OpTrait::IsIsolatedFromAbove,mlir::OpTrait::RegionOp,mlir::TargetLegalizerInterface::Trait,mlir::FormableRegionOpInterface::Trait,mlir::anec::RegionPerformanceInterface::Trait,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)1>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)2>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)3>::Impl,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)4>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyRegionInvariants;
-  v8 = llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks + 2;
-  result = (llvm::detail::UniqueFunctionBase<llvm::LogicalResult,mlir::Operation *>::CallbacksHolder<llvm::LogicalResult (*)(mlir::Operation *),llvm::LogicalResult (* const)(mlir::Operation *),void>::Callbacks[0])(v7, a2);
-  v4 = v8;
-  if (v8 >= 8)
-  {
-    if ((v8 & 4) != 0)
-    {
-      v5 = v7[0];
-      if ((v8 & 2) != 0)
-      {
-        v5 = v7;
-      }
-
-      v6 = result;
-      (*((v8 & 0xFFFFFFFFFFFFFFF8) + 16))(v5, v3);
-      result = v6;
-    }
-
-    if ((v4 & 2) == 0)
-    {
-      llvm::deallocate_buffer(v7[0], v7[1]);
+      llvm::deallocate_buffer(v5[0], v5[1]);
     }
   }
 
@@ -9011,7 +9022,7 @@ void mlir::RegisteredOperationName::Model<mlir::anec::A16>::setInherentAttr(uint
 uint64_t mlir::RegisteredOperationName::Model<mlir::anec::A16>::setPropertiesFromAttr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *__return_ptr, uint64_t), uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  a5(v15, a6);
+  (a5)(v15, a6, a2, a3, a4);
   mlir::InFlightDiagnostic::operator<<<char const(&)[44]>(v15, "this operation does not support properties");
   if (v15[0])
   {
@@ -9846,7 +9857,7 @@ void *mlir::RegisteredOperationName::Model<mlir::anec::A17>::Model(void *a1, uin
   mlir::detail::InterfaceMap::insertModel<mlir::detail::FormableRegionOpInterfaceInterfaceTraits::Model<mlir::anec::A17>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::anec::detail::RegionPerformanceInterfaceInterfaceTraits::Model<mlir::anec::A17>>(&v9);
   mlir::detail::InterfaceMap::insertModel<mlir::detail::ExecutionCostOpInterfaceInterfaceTraits::Model<mlir::anec::A17>>(&v9);
-  mlir::OperationName::Impl::Impl(a1, "anec.A17", 8, a2, &mlir::detail::TypeIDResolver<mlir::anec::A17,void>::id, &v9);
+  mlir::OperationName::Impl::Impl(a1, "anec.A17", 8uLL, a2, &mlir::detail::TypeIDResolver<mlir::anec::A17,void>::id, &v9);
   v4 = v9;
   if (v10)
   {

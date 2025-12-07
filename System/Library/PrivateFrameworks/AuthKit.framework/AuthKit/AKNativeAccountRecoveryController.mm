@@ -63,7 +63,6 @@
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -148,7 +147,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __75__AKNativeAccountRecoveryController_presentNativeRecoveryUIWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -217,7 +215,6 @@ void __75__AKNativeAccountRecoveryController_presentNativeRecoveryUIWithCompleti
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)dismissNativeRecoveryUIWithCompletion:(id)completion
@@ -292,7 +289,6 @@ void __82__AKNativeAccountRecoveryController_cdpContext_performSilentRecoveryTok
   objc_storeStrong(v7, 0);
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)cdpContext:(id)context verifyMasterKey:(id)key completion:(id)completion
@@ -489,7 +485,6 @@ void __82__AKNativeAccountRecoveryController_cdpContext_performSilentRecoveryTok
   objc_storeStrong(&v40, 0);
   objc_storeStrong(&v41, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v5 = v44;
 
   return v5;
@@ -571,7 +566,6 @@ LABEL_13:
   objc_storeStrong(v24, 0);
   objc_storeStrong(&v25, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 + (id)postBodyForiCSCServerUIResponseWithContext:(id)context recoveryError:(id)error
@@ -703,7 +697,6 @@ LABEL_13:
 
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 

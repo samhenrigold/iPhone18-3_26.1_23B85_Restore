@@ -19,14 +19,12 @@
 + (HMMRadarRequestFilter)defaultFilter
 {
   sharedPreferences = [objc_opt_self() sharedPreferences];
-  v3 = sub_22A4DC1DC();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  sub_22A4DC1DC();
   swift_allocObject();
-  v6 = sub_22A4DC1CC();
-  v7 = sub_2295A8970(sharedPreferences, v6);
+  v3 = sub_22A4DC1CC();
+  v4 = sub_2295A8970(sharedPreferences, v3, sub_2295A896C, 0);
 
-  return v7;
+  return v4;
 }
 
 - (void)handleResetLastTTRTime:(id)time
@@ -178,7 +176,7 @@
 
 void __125__HMDTTRManager_initiateRadarWithTitle_componentName_componentVersion_componentID_displayReason_attachments_isUserInitiated___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -188,22 +186,20 @@ void __125__HMDTTRManager_initiateRadarWithTitle_componentName_componentVersion_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error trying to create radar draft: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error trying to create radar draft: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isTTRServiceAuthorized
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   ttrService = [(HMDTTRManager *)self ttrService];
 
   if (!ttrService)
@@ -215,63 +211,59 @@ void __125__HMDTTRManager_initiateRadarWithTitle_componentName_componentVersion_
   serviceSettings = [ttrService2 serviceSettings];
   authorizationStatus = [serviceSettings authorizationStatus];
 
-  if (authorizationStatus == 2)
+  switch(authorizationStatus)
   {
-    v7 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v10;
-      v11 = "%{public}@Failing to initiate a radar: TapToRadarService is rate-limiting us";
-      goto LABEL_11;
-    }
-  }
+    case 2:
+      v7 = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v9 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = HMFGetLogIdentifier();
+        v15 = 138543362;
+        v16 = v10;
+        v11 = "%{public}@Failing to initiate a radar: TapToRadarService is rate-limiting us";
+        goto LABEL_11;
+      }
 
-  else if (authorizationStatus == 1)
-  {
-    v7 = objc_autoreleasePoolPush();
-    selfCopy2 = self;
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v10;
-      v11 = "%{public}@Failing to initiate a radar: TapToRadarService has been disallowed by the user";
-      goto LABEL_11;
-    }
-  }
+      goto LABEL_12;
+    case 1:
+      v7 = objc_autoreleasePoolPush();
+      selfCopy2 = self;
+      v9 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = HMFGetLogIdentifier();
+        v15 = 138543362;
+        v16 = v10;
+        v11 = "%{public}@Failing to initiate a radar: TapToRadarService has been disallowed by the user";
+        goto LABEL_11;
+      }
 
-  else
-  {
-    if (authorizationStatus)
-    {
-      result = 1;
-      goto LABEL_14;
-    }
+LABEL_12:
 
-    v7 = objc_autoreleasePoolPush();
-    selfCopy3 = self;
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v10;
-      v11 = "%{public}@Failing to initiate a radar: TapToRadarService is not authorized";
+      objc_autoreleasePoolPop(v7);
+      return 0;
+    case 0:
+      v7 = objc_autoreleasePoolPush();
+      selfCopy3 = self;
+      v9 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = HMFGetLogIdentifier();
+        v15 = 138543362;
+        v16 = v10;
+        v11 = "%{public}@Failing to initiate a radar: TapToRadarService is not authorized";
 LABEL_11:
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, v11, &v16, 0xCu);
-    }
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, v11, &v15, 0xCu);
+
+        goto LABEL_12;
+      }
+
+      goto LABEL_12;
   }
 
-  objc_autoreleasePoolPop(v7);
-  result = 0;
-LABEL_14:
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (void)requestRadarWithDisplayReason:(id)reason radarTitle:(id)title componentName:(id)name componentVersion:(id)version componentID:(int64_t)d attachments:(id)attachments waitForResponse:(BOOL)response
@@ -300,7 +292,7 @@ LABEL_14:
 
 void __129__HMDTTRManager_requestRadarWithDisplayReason_radarTitle_componentName_componentVersion_componentID_attachments_waitForResponse___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) requestFilter];
   if ([v2 shouldRequestRadarForDisplayReason:*(a1 + 40)])
   {
@@ -313,9 +305,9 @@ void __129__HMDTTRManager_requestRadarWithDisplayReason_radarTitle_componentName
       v6 = HMFGetLogIdentifier();
       v7 = *(a1 + 40);
       *buf = 138543618;
-      v27 = v6;
-      v28 = 2114;
-      v29 = v7;
+      v26 = v6;
+      v27 = 2114;
+      v28 = v7;
       _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Requesting radar because %{public}@", buf, 0x16u);
     }
 
@@ -324,19 +316,19 @@ void __129__HMDTTRManager_requestRadarWithDisplayReason_radarTitle_componentName
     v9 = *(a1 + 32);
     v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"HomeKit requests you file a radar because %@.", *(a1 + 40)];
     v11 = *(a1 + 80);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __129__HMDTTRManager_requestRadarWithDisplayReason_radarTitle_componentName_componentVersion_componentID_attachments_waitForResponse___block_invoke_22;
-    v20[3] = &unk_278686C70;
-    v20[4] = *(a1 + 32);
-    v21 = *(a1 + 48);
-    v22 = *(a1 + 56);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __129__HMDTTRManager_requestRadarWithDisplayReason_radarTitle_componentName_componentVersion_componentID_attachments_waitForResponse___block_invoke_22;
+    v19[3] = &unk_278686C70;
+    v19[4] = *(a1 + 32);
+    v20 = *(a1 + 48);
+    v21 = *(a1 + 56);
     v12 = *(a1 + 64);
     v13 = *(a1 + 72);
-    v23 = v12;
-    v25 = v13;
-    v24 = *(a1 + 40);
-    [v8 displayInternalTTRErrorWithContext:v9 message:v10 waitForResponse:v11 completionHandler:v20];
+    v22 = v12;
+    v24 = v13;
+    v23 = *(a1 + 40);
+    [v8 displayInternalTTRErrorWithContext:v9 message:v10 waitForResponse:v11 completionHandler:v19];
   }
 
   else
@@ -349,24 +341,22 @@ void __129__HMDTTRManager_requestRadarWithDisplayReason_radarTitle_componentName
       v17 = HMFGetLogIdentifier();
       v18 = *(a1 + 40);
       *buf = 138543618;
-      v27 = v17;
-      v28 = 2112;
-      v29 = v18;
+      v26 = v17;
+      v27 = 2112;
+      v28 = v18;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Radar request filtered out: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __129__HMDTTRManager_requestRadarWithDisplayReason_radarTitle_componentName_componentVersion_componentID_attachments_waitForResponse___block_invoke_22(uint64_t result, int a2)
+id *__129__HMDTTRManager_requestRadarWithDisplayReason_radarTitle_componentName_componentVersion_componentID_attachments_waitForResponse___block_invoke_22(id *result, int a2)
 {
   if (a2)
   {
     LOBYTE(v2) = 1;
-    return [*(result + 32) initiateRadarWithTitle:*(result + 40) componentName:*(result + 48) componentVersion:*(result + 56) componentID:*(result + 72) displayReason:*(result + 64) attachments:0 isUserInitiated:v2];
+    return [result[4] initiateRadarWithTitle:result[5] componentName:result[6] componentVersion:result[7] componentID:result[9] displayReason:result[8] attachments:0 isUserInitiated:v2];
   }
 
   return result;
@@ -379,7 +369,7 @@ uint64_t __129__HMDTTRManager_requestRadarWithDisplayReason_radarTitle_component
   v15.receiver = self;
   v15.super_class = HMDTTRManager;
   v9 = [(HMDTTRManager *)&v15 init];
-  if (v9 && TapToRadarKitLibraryCore())
+  if (v9 && TapToRadarKitLibraryCore(0))
   {
     v17 = 0;
     v18 = &v17;
@@ -469,31 +459,32 @@ void __30__HMDTTRManager_namespaceUUID__block_invoke()
 
 void __30__HMDTTRManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  if (isInternalBuild() && TapToRadarKitLibraryCore())
+  v15[1] = *MEMORY[0x277D85DE8];
+  if (isInternalBuild())
   {
-    v2 = [HMDTTRManager alloc];
-    v3 = +[HMDUIDialogPresenter sharedUIDialogPresenter];
-    v4 = [*(a1 + 32) defaultFilter];
-    v5 = [(HMDTTRManager *)v2 initWithDialog:v3 requestFilter:v4];
-    v6 = sharedManager_defaultManager;
-    sharedManager_defaultManager = v5;
+    if (TapToRadarKitLibraryCore(0))
+    {
+      v2 = [HMDTTRManager alloc];
+      v3 = +[HMDUIDialogPresenter sharedUIDialogPresenter];
+      v4 = [*(a1 + 32) defaultFilter];
+      v5 = [(HMDTTRManager *)v2 initWithDialog:v3 requestFilter:v4];
+      v6 = sharedManager_defaultManager;
+      sharedManager_defaultManager = v5;
 
-    v7 = +[HMDMessageDispatcher defaultDispatcher];
-    v8 = sharedManager_defaultManager;
-    v9 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-    v16[0] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-    [v7 registerForMessage:@"presentTTRDialog" receiver:v8 policies:v10 selector:sel_handlePresentTTRDialog_];
+      v7 = +[HMDMessageDispatcher defaultDispatcher];
+      v8 = sharedManager_defaultManager;
+      v9 = [HMDXPCMessagePolicy policyWithEntitlements:5];
+      v15[0] = v9;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+      [v7 registerForMessage:@"presentTTRDialog" receiver:v8 policies:v10 selector:sel_handlePresentTTRDialog_];
 
-    v11 = sharedManager_defaultManager;
-    v12 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-    v15 = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-    [v7 registerForMessage:@"resetLastTTRTime" receiver:v11 policies:v13 selector:sel_handleResetLastTTRTime_];
+      v11 = sharedManager_defaultManager;
+      v12 = [HMDXPCMessagePolicy policyWithEntitlements:5];
+      v14 = v12;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+      [v7 registerForMessage:@"resetLastTTRTime" receiver:v11 policies:v13 selector:sel_handleResetLastTTRTime_];
+    }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

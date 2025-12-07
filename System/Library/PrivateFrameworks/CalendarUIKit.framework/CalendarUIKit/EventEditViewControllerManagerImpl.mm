@@ -91,12 +91,12 @@
   v7 = sub_1CACAA368();
   sub_1CACF79B8(v7, v4, v5);
 
-  sub_1CABC6E64(v4);
+  sub_1CABC6E64(v4, v5);
 }
 
 - (void)updateEKEventForDockedView
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4679C0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4679C0, &qword_1CAD5A400);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v12 - v4;
   selfCopy = self;
@@ -116,7 +116,7 @@
 
 - (void)saveWithSpan:(int64_t)span completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4679C0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4679C0, &qword_1CAD5A400);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v18 - v8;
   v10 = _Block_copy(completion);
@@ -138,7 +138,7 @@
   (*(*(v14 - 8) + 56))(v9, 1, 1, v14);
   sub_1CAD4E2C4();
 
-  sub_1CAB380F0(v10);
+  sub_1CAB380F0(v10, v11);
   v15 = sub_1CAD4E2B4();
   v16 = swift_allocObject();
   v17 = MEMORY[0x1E69E85E0];
@@ -150,7 +150,7 @@
   v16[7] = v11;
   sub_1CACA6D34(0, 0, v9, &unk_1CAD65020, v16);
 
-  sub_1CABC6E64(v10);
+  sub_1CABC6E64(v10, v11);
 }
 
 - (void)cancel
@@ -279,8 +279,8 @@
 {
   selfCopy = self;
   v3 = sub_1CACA8F9C();
-  swift_getKeyPath();
-  sub_1CACACFCC(&qword_1EC466AE0, type metadata accessor for EventEditViewModel);
+  swift_getKeyPath(byte_1CAD64FB8);
+  sub_1CACACFCC(&qword_1EC466AE0, type metadata accessor for EventEditViewModel, &unk_1CAD68088);
   sub_1CAD4C424();
 
   v4 = *(v3 + OBJC_IVAR____TtC13CalendarUIKit18EventEditViewModel__precommitSerializedEvent);

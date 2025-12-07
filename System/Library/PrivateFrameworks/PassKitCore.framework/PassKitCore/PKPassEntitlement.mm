@@ -449,9 +449,9 @@ LABEL_28:
     goto LABEL_9;
   }
 
-  v9 = [(__CFString *)v7 isEqualToString:@"carKeyEntitlementTemplateV2"];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v9)
+  if (isEqualToString)
   {
 LABEL_7:
     [v3 setObject:self->_value forKeyedSubscript:@"accessProfile"];
@@ -942,9 +942,9 @@ LABEL_76:
             goto LABEL_75;
           }
 
-          v27 = [(NSString *)v24 isEqualToString:v25];
+          isEqualToString = objc_msgSend_isEqualToString_(v24);
 
-          if (!v27)
+          if (!isEqualToString)
           {
             goto LABEL_75;
           }

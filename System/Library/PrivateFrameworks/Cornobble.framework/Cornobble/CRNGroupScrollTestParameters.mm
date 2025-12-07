@@ -36,7 +36,7 @@
 
 - (RCPSyntheticEventStream)eventStream
 {
-  if (RecapLibraryCore_0())
+  if (RecapLibraryCore_0(0))
   {
     v9 = 0;
     v10 = &v9;

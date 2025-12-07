@@ -36,7 +36,7 @@
 
 void __40__HMCameraView__fillSlotForCameraSource__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [*(a1 + 40) cameraSource];
@@ -49,9 +49,9 @@ void __40__HMCameraView__fillSlotForCameraSource__block_invoke(uint64_t a1, void
     block[3] = &unk_1E7547B40;
     v10 = v3;
     v11 = *(a1 + 40);
-    v14 = v10;
-    v15 = v11;
-    v16 = *(a1 + 48);
+    v13 = v10;
+    v14 = v11;
+    v15 = *(a1 + 48);
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
@@ -64,19 +64,17 @@ void __40__HMCameraView__fillSlotForCameraSource__block_invoke(uint64_t a1, void
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Ignoring fill slot completion because camera source has changed", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __40__HMCameraView__fillSlotForCameraSource__block_invoke_1(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = objc_autoreleasePoolPush();
@@ -86,11 +84,11 @@ void __40__HMCameraView__fillSlotForCameraSource__block_invoke_1(uint64_t a1)
     {
       v5 = HMFGetLogIdentifier();
       v6 = *(a1 + 32);
-      v15 = 138543618;
-      v16 = v5;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_ERROR, "%{public}@Failed to fill slot for camera source: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_ERROR, "%{public}@Failed to fill slot for camera source: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -111,11 +109,11 @@ void __40__HMCameraView__fillSlotForCameraSource__block_invoke_1(uint64_t a1)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Setting layer contents: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v8;
+      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Setting layer contents: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -124,8 +122,6 @@ void __40__HMCameraView__fillSlotForCameraSource__block_invoke_1(uint64_t a1)
 
     [MEMORY[0x1E6979518] commit];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)willMoveToWindow:(id)window
@@ -141,7 +137,7 @@ void __40__HMCameraView__fillSlotForCameraSource__block_invoke_1(uint64_t a1)
 
 - (void)setCameraSource:(HMCameraSource *)cameraSource
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = cameraSource;
   cameraSource = [(HMCameraView *)self cameraSource];
 
@@ -154,11 +150,11 @@ void __40__HMCameraView__fillSlotForCameraSource__block_invoke_1(uint64_t a1)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Set camera source to %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Set camera source to %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -181,8 +177,6 @@ void __40__HMCameraView__fillSlotForCameraSource__block_invoke_1(uint64_t a1)
       [MEMORY[0x1E6979518] commit];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (HMCameraView)init
@@ -206,12 +200,11 @@ void __40__HMCameraView__fillSlotForCameraSource__block_invoke_1(uint64_t a1)
 
 uint64_t __27__HMCameraView_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_15001;
-  logCategory__hmf_once_v5_15001 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_15001;
+  logCategory__hmf_once_v5_15001 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

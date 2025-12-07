@@ -65,43 +65,41 @@
 
 - (id)description
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 appendFormat:@"HID, "];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v4 = self->_personalities;
-  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         vendorID = [v9 vendorID];
         productID = [v9 productID];
-        [v3 appendFormat:@"<VID/PID = 0x%04x/0x%04x> ", vendorID, productID, v15];
+        [v3 appendFormat:@"<VID/PID = 0x%04x/0x%04x> ", vendorID, productID, v14];
       }
 
-      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
   v12 = [MEMORY[0x277CCACA8] stringWithString:v3];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -110,56 +108,52 @@
 {
   iDCopy = iD;
   dCopy = d;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self->_vendorID == d && self->_productID == iD)
   {
-    v6 = 1;
+    return 1;
   }
 
-  else
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v7 = self->_personalities;
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v8)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v7 = self->_personalities;
-    v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v8)
+    v9 = v8;
+    v10 = *v15;
+    while (2)
     {
-      v9 = v8;
-      v10 = *v16;
-      while (2)
+      for (i = 0; i != v9; ++i)
       {
-        for (i = 0; i != v9; ++i)
+        if (*v15 != v10)
         {
-          if (*v16 != v10)
-          {
-            objc_enumerationMutation(v7);
-          }
-
-          v12 = *(*(&v15 + 1) + 8 * i);
-          if ([v12 vendorID] != dCopy && objc_msgSend(v12, "productID") == iDCopy)
-          {
-            v6 = 1;
-            goto LABEL_15;
-          }
+          objc_enumerationMutation(v7);
         }
 
-        v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-        if (v9)
+        v12 = *(*(&v14 + 1) + 8 * i);
+        if ([v12 vendorID] != dCopy && objc_msgSend(v12, "productID") == iDCopy)
         {
-          continue;
+          v6 = 1;
+          goto LABEL_15;
         }
-
-        break;
       }
-    }
 
-    v6 = 0;
-LABEL_15:
+      v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v9)
+      {
+        continue;
+      }
+
+      break;
+    }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+LABEL_15:
+
   return v6;
 }
 

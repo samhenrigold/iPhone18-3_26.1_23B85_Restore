@@ -1,7 +1,9 @@
 @interface NetworkQualityRemoteConfiguration
 - (NetworkQualityRemoteConfiguration)initWithData:(id)data andConfig:(id)config;
 - (NetworkQualityRemoteConfiguration)initWithDictionary:(id)dictionary andConfig:(id)config;
+- (id)URLForURLType:(int)type;
 - (id)portForURLType:(int)type;
+- (id)testEndpoint:(int)endpoint;
 @end
 
 @implementation NetworkQualityRemoteConfiguration
@@ -9,9 +11,10 @@
 - (NetworkQualityRemoteConfiguration)initWithData:(id)data andConfig:(id)config
 {
   configCopy = config;
-  v11 = 0;
-  v7 = [MEMORY[0x277CCAAA0] JSONObjectWithData:data options:0 error:&v11];
-  v8 = v11;
+  v13 = 0;
+  v7 = [MEMORY[0x277CCAAA0] JSONObjectWithData:data options:0 error:&v13];
+  v8 = v13;
+  v10 = v8;
   if (v7)
   {
     self = [(NetworkQualityRemoteConfiguration *)self initWithDictionary:v7 andConfig:configCopy];
@@ -20,7 +23,7 @@
 
   else
   {
-    netqual_log_init();
+    netqual_log_init(v8, v9);
     if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
     {
       [NetworkQualityRemoteConfiguration initWithData:andConfig:];
@@ -34,38 +37,40 @@
 
 - (NetworkQualityRemoteConfiguration)initWithDictionary:(id)dictionary andConfig:(id)config
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   configCopy = config;
-  v60.receiver = self;
-  v60.super_class = NetworkQualityRemoteConfiguration;
-  v50 = [(NetworkQualityRemoteConfiguration *)&v60 init];
-  v6 = v50;
-  if (!v50)
+  v72.receiver = self;
+  v72.super_class = NetworkQualityRemoteConfiguration;
+  v6 = [(NetworkQualityRemoteConfiguration *)&v72 init];
+  v62 = v6;
+  v8 = v6;
+  if (!v6)
   {
     goto LABEL_58;
   }
 
-  netqual_log_init();
-  v7 = os_log_netqual;
+  netqual_log_init(v6, v7);
+  v9 = os_log_netqual;
   if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v64 = "[NetworkQualityRemoteConfiguration initWithDictionary:andConfig:]";
-    v65 = 1024;
-    v66 = 50;
-    v67 = 2112;
-    v68 = dictionaryCopy;
-    _os_log_impl(&dword_25B962000, v7, OS_LOG_TYPE_DEFAULT, "%s:%u - [Staging] Got configuration: %@", buf, 0x1Cu);
+    v76 = "[NetworkQualityRemoteConfiguration initWithDictionary:andConfig:]";
+    v77 = 1024;
+    v78 = 50;
+    v79 = 2112;
+    v80 = dictionaryCopy;
+    _os_log_impl(&dword_25B962000, v9, OS_LOG_TYPE_DEFAULT, "%s:%u - [Staging] Got configuration: %@", buf, 0x1Cu);
   }
 
   config = [(NSString *)dictionaryCopy objectForKeyedSubscript:@"version", config];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
 
 LABEL_33:
-    netqual_log_init();
+    netqual_log_init(isKindOfClass, v11);
     if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
     {
       [NetworkQualityRemoteConfiguration initWithDictionary:andConfig:];
@@ -79,92 +84,92 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  v8 = [(NSString *)dictionaryCopy objectForKeyedSubscript:@"urls"];
+  v12 = [(NSString *)dictionaryCopy objectForKeyedSubscript:@"urls"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 
-    v8 = 0;
+    v12 = 0;
   }
 
-  if (![v8 count])
+  if (![v12 count])
   {
-    netqual_log_init();
+    netqual_log_init(0, v13);
     if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
     {
       [NetworkQualityRemoteConfiguration initWithDictionary:andConfig:];
     }
 
 LABEL_41:
-    v26 = 0;
+    v37 = 0;
     goto LABEL_59;
   }
 
-  v51 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v9 = [&unk_286D22D40 countByEnumeratingWithState:&v56 objects:v62 count:16];
-  if (!v9)
+  v63 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  v14 = [&unk_286D22D40 countByEnumeratingWithState:&v68 objects:v74 count:16];
+  if (!v14)
   {
     goto LABEL_20;
   }
 
-  v10 = *v57;
+  v15 = *v69;
   do
   {
-    for (i = 0; i != v9; ++i)
+    for (i = 0; i != v14; ++i)
     {
-      if (*v57 != v10)
+      if (*v69 != v15)
       {
         objc_enumerationMutation(&unk_286D22D40);
       }
 
-      v12 = *(*(&v56 + 1) + 8 * i);
-      v13 = [v8 objectForKeyedSubscript:v12];
+      v17 = *(*(&v68 + 1) + 8 * i);
+      v18 = [v12 objectForKeyedSubscript:v17];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        if (!v13)
+        if (!v18)
         {
           continue;
         }
 
-        v14 = [&unk_286D22D40 objectForKeyedSubscript:v12];
-        v15 = [MEMORY[0x277CBEBC0] URLWithString:v13];
-        [v51 setObject:v15 forKeyedSubscript:v14];
+        v19 = [&unk_286D22D40 objectForKeyedSubscript:v17];
+        v20 = [MEMORY[0x277CBEBC0] URLWithString:v18];
+        [v63 setObject:v20 forKeyedSubscript:v19];
       }
     }
 
-    v9 = [&unk_286D22D40 countByEnumeratingWithState:&v56 objects:v62 count:16];
+    v14 = [&unk_286D22D40 countByEnumeratingWithState:&v68 objects:v74 count:16];
   }
 
-  while (v9);
+  while (v14);
 LABEL_20:
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v16 = [&unk_286D22D68 countByEnumeratingWithState:&v52 objects:v61 count:16];
-  if (v16)
+  v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v21 = [&unk_286D22D68 countByEnumeratingWithState:&v64 objects:v73 count:16];
+  if (v21)
   {
-    v17 = *v53;
+    v22 = *v65;
     while (2)
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v21; ++j)
       {
-        if (*v53 != v17)
+        if (*v65 != v22)
         {
           objc_enumerationMutation(&unk_286D22D68);
         }
 
-        v19 = [v51 objectForKeyedSubscript:*(*(&v52 + 1) + 8 * j)];
-        v20 = v19 == 0;
+        v24 = [v63 objectForKeyedSubscript:*(*(&v64 + 1) + 8 * j)];
+        v25 = v24 == 0;
 
-        if (v20)
+        if (v25)
         {
-          netqual_log_init();
+          netqual_log_init(v26, v27);
           if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
           {
             [NetworkQualityRemoteConfiguration initWithDictionary:andConfig:];
@@ -174,8 +179,8 @@ LABEL_20:
         }
       }
 
-      v16 = [&unk_286D22D68 countByEnumeratingWithState:&v52 objects:v61 count:16];
-      if (v16)
+      v21 = [&unk_286D22D68 countByEnumeratingWithState:&v64 objects:v73 count:16];
+      if (v21)
       {
         continue;
       }
@@ -184,122 +189,131 @@ LABEL_20:
     }
   }
 
-  objc_storeStrong(&v50->_urls, v51);
-  v21 = [(NSString *)dictionaryCopy objectForKeyedSubscript:@"test_endpoint"];
+  objc_storeStrong(&v62->_urls, v63);
+  v28 = [(NSString *)dictionaryCopy objectForKeyedSubscript:@"test_endpoint"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  v29 = objc_opt_isKindOfClass();
+  if ((v29 & 1) == 0)
   {
 
 LABEL_43:
-    netqual_log_init();
+    netqual_log_init(v29, v30);
     if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_DEBUG))
     {
       [NetworkQualityRemoteConfiguration initWithDictionary:andConfig:];
     }
 
-    v27 = MEMORY[0x277CBEBC0];
+    v38 = MEMORY[0x277CBEBC0];
     configuration = [configCopy configuration];
-    v29 = [v27 URLWithString:configuration];
+    v40 = [v38 URLWithString:configuration];
 
-    port = [v29 port];
-    v31 = port == 0;
+    port = [v40 port];
+    v42 = port == 0;
 
-    if (v31)
+    if (v42)
     {
-      scheme = [v29 scheme];
-      v36 = [scheme isEqualToString:@"https"];
+      scheme = [v40 scheme];
+      v47 = [scheme isEqualToString:@"https"];
 
-      if (v36)
+      if (v47)
       {
-        v37 = v50;
-        port = v50->_port;
-        v38 = @"443";
+        v48 = v62;
+        port = v62->_port;
+        v49 = @"443";
       }
 
       else
       {
-        scheme2 = [v29 scheme];
-        v40 = [scheme2 isEqualToString:@"http"];
+        scheme2 = [v40 scheme];
+        v51 = [scheme2 isEqualToString:@"http"];
 
-        if (!v40)
+        if (!v51)
         {
 LABEL_53:
 
-          v21 = 0;
+          v28 = 0;
           goto LABEL_54;
         }
 
-        v37 = v50;
-        port = v50->_port;
-        v38 = @"80";
+        v48 = v62;
+        port = v62->_port;
+        v49 = @"80";
       }
 
-      v37->_port = &v38->isa;
+      v48->_port = &v49->isa;
     }
 
     else
     {
-      port = [v29 port];
+      port = [v40 port];
       stringValue = [port stringValue];
-      v34 = v50->_port;
-      v50->_port = stringValue;
+      v45 = v62->_port;
+      v62->_port = stringValue;
     }
 
     goto LABEL_53;
   }
 
-  if (!v21)
+  if (!v28)
   {
     goto LABEL_43;
   }
 
-  v22 = v50->_port;
-  v50->_port = @"443";
+  v31 = v62->_port;
+  v62->_port = @"443";
 
-  netqual_log_init();
-  v23 = os_log_netqual;
+  netqual_log_init(v32, v33);
+  v34 = os_log_netqual;
   if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_INFO))
   {
-    v24 = v50;
-    v25 = v50->_port;
+    v35 = v62;
+    v36 = v62->_port;
     *buf = 136315650;
-    v64 = "[NetworkQualityRemoteConfiguration initWithDictionary:andConfig:]";
-    v65 = 1024;
-    v66 = 103;
-    v67 = 2112;
-    v68 = v25;
-    _os_log_impl(&dword_25B962000, v23, OS_LOG_TYPE_INFO, "%s:%u - Assuming port %@", buf, 0x1Cu);
+    v76 = "[NetworkQualityRemoteConfiguration initWithDictionary:andConfig:]";
+    v77 = 1024;
+    v78 = 103;
+    v79 = 2112;
+    v80 = v36;
+    _os_log_impl(&dword_25B962000, v34, OS_LOG_TYPE_INFO, "%s:%u - Assuming port %@", buf, 0x1Cu);
     goto LABEL_55;
   }
 
 LABEL_54:
-  v24 = v50;
+  v35 = v62;
 LABEL_55:
-  [(NetworkQualityRemoteConfiguration *)v24 setTestEndpoint:v21];
-  netqual_log_init();
-  v41 = os_log_netqual;
+  v52 = [(NetworkQualityRemoteConfiguration *)v35 setTestEndpoint:v28];
+  netqual_log_init(v52, v53);
+  v54 = os_log_netqual;
   if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_INFO))
   {
-    v42 = v41;
-    testEndpoint = [(NetworkQualityRemoteConfiguration *)v50 testEndpoint];
+    v55 = v54;
+    testEndpoint = [(NetworkQualityRemoteConfiguration *)v62 testEndpoint];
     *buf = 136315650;
-    v64 = "[NetworkQualityRemoteConfiguration initWithDictionary:andConfig:]";
-    v65 = 1024;
-    v66 = 107;
-    v67 = 2112;
-    v68 = testEndpoint;
-    _os_log_impl(&dword_25B962000, v42, OS_LOG_TYPE_INFO, "%s:%u - test endpoint: %@", buf, 0x1Cu);
+    v76 = "[NetworkQualityRemoteConfiguration initWithDictionary:andConfig:]";
+    v77 = 1024;
+    v78 = 107;
+    v79 = 2112;
+    v80 = testEndpoint;
+    _os_log_impl(&dword_25B962000, v55, OS_LOG_TYPE_INFO, "%s:%u - test endpoint: %@", buf, 0x1Cu);
   }
 
-  objc_storeStrong(&v50->_config, obj);
+  objc_storeStrong(&v62->_config, obj);
 
-  v6 = v50;
+  v8 = v62;
 LABEL_58:
-  v26 = v6;
+  v37 = v8;
 LABEL_59:
 
-  v44 = *MEMORY[0x277D85DE8];
-  return v26;
+  return v37;
+}
+
+- (id)URLForURLType:(int)type
+{
+  urls = self->_urls;
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*&type];
+  v5 = [(NSDictionary *)urls objectForKeyedSubscript:v4];
+
+  return v5;
 }
 
 - (id)portForURLType:(int)type
@@ -317,61 +331,89 @@ LABEL_59:
   return v4;
 }
 
+- (id)testEndpoint:(int)endpoint
+{
+  v3 = *&endpoint;
+  if ([(NetworkQualityConfiguration *)self->_config edgeRelay]|| [(NetworkQualityConfiguration *)self->_config edgeRelayRemote])
+  {
+    goto LABEL_3;
+  }
+
+  hostOverride = [(NetworkQualityConfiguration *)self->_config hostOverride];
+
+  if (hostOverride)
+  {
+    hostOverride2 = [(NetworkQualityConfiguration *)self->_config hostOverride];
+  }
+
+  else
+  {
+    testEndpoint = [(NetworkQualityRemoteConfiguration *)self testEndpoint];
+
+    if (!testEndpoint)
+    {
+LABEL_3:
+      host = 0;
+      goto LABEL_9;
+    }
+
+    hostOverride2 = [(NetworkQualityRemoteConfiguration *)self testEndpoint];
+  }
+
+  v9 = hostOverride2;
+  uTF8String = [hostOverride2 UTF8String];
+  v11 = [(NetworkQualityRemoteConfiguration *)self portForURLType:v3];
+  host = nw_endpoint_create_host(uTF8String, [v11 UTF8String]);
+
+LABEL_9:
+
+  return host;
+}
+
 - (void)initWithData:andConfig:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDictionary:andConfig:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDictionary:andConfig:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDictionary:andConfig:.cold.3()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_1();
-  *(&v2[3] + 2) = 90;
-  _os_log_debug_impl(&dword_25B962000, v0, OS_LOG_TYPE_DEBUG, "%s:%u - server response without test_endpoint specified", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  *(&v1[3] + 2) = 90;
+  _os_log_debug_impl(&dword_25B962000, v0, OS_LOG_TYPE_DEBUG, "%s:%u - server response without test_endpoint specified", v1, 0x12u);
 }
 
 - (void)initWithDictionary:andConfig:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDictionary:andConfig:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -3,7 +3,7 @@
 
 @implementation AXSApplicationAccessibilityEnabled
 
-uint64_t ___AXSApplicationAccessibilityEnabled_block_invoke()
+void *___AXSApplicationAccessibilityEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

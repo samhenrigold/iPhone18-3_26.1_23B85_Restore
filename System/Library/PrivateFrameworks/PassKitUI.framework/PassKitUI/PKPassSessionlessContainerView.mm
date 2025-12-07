@@ -162,9 +162,9 @@
 
 - (void)layoutSubviews
 {
-  v41.receiver = self;
-  v41.super_class = PKPassSessionlessContainerView;
-  [(PKPassFooterContentView *)&v41 layoutSubviews];
+  v47.receiver = self;
+  v47.super_class = PKPassSessionlessContainerView;
+  [(PKPassFooterContentView *)&v47 layoutSubviews];
   bottomRule = [(PKPassFooterContentView *)self bottomRule];
   superview = [bottomRule superview];
   if (superview)
@@ -189,7 +189,7 @@
   if (v6)
   {
     [bottomRule frame];
-    v17 = CGRectGetMinY(v42) - v16;
+    v17 = CGRectGetMinY(v48) - v16;
   }
 
   else
@@ -205,52 +205,56 @@
   if ([(PKPassSessionlessContainerView *)self _shouldDisplayPrimaryView])
   {
     [(UIView *)self->_displayedPrimaryView sizeThatFits:v12, 1.79769313e308];
-    v19 = v18;
+    v19 = v18.n128_f64[0];
     displayedPrimaryView = self->_displayedPrimaryView;
-    PKSizeAlignedInRect();
+    v21.n128_f64[0] = v8 + 0.0;
+    v22.n128_f64[0] = v16;
+    v23.n128_f64[0] = v12;
+    v24.n128_f64[0] = v17;
+    PKSizeAlignedInRect(1, v25, v18, v21, v22, v23, v24, v26);
     [(UIView *)displayedPrimaryView setFrame:?];
-    v43.origin.x = v8 + 0.0;
-    v43.origin.y = v16;
-    v43.size.width = v12;
-    v43.size.height = v17;
-    CGRectDivide(v43, &slice, &remainder, v19, CGRectMinYEdge);
+    v49.origin.x = v8 + 0.0;
+    v49.origin.y = v16;
+    v49.size.width = v12;
+    v49.size.height = v17;
+    CGRectDivide(v49, &slice, &remainder, v19, CGRectMinYEdge);
     CGRectDivide(remainder, &slice, &remainder, 10.0, CGRectMinYEdge);
   }
 
-  v44.origin.x = v8 + 0.0;
-  v44.origin.y = v16;
-  v44.size.width = v12;
-  v44.size.height = v17;
-  MaxY = CGRectGetMaxY(v44);
+  v50.origin.x = v8 + 0.0;
+  v50.origin.y = v16;
+  v50.size.width = v12;
+  v50.size.height = v17;
+  MaxY = CGRectGetMaxY(v50);
   actionButton = self->_actionButton;
   if (actionButton)
   {
     [(UIButton *)actionButton frame];
-    CGRectGetHeight(v45);
+    CGRectGetHeight(v51);
     UIRectCenteredXInRect();
-    v24 = v23;
-    v26 = v25;
-    v28 = v27;
     v30 = v29;
+    v32 = v31;
+    v34 = v33;
+    v36 = v35;
     [(UIButton *)self->_actionButton setFrame:?];
-    v46.origin.x = v24;
-    v46.origin.y = v26;
-    v46.size.width = v28;
-    v46.size.height = v30;
-    MaxY = CGRectGetMinY(v46);
+    v52.origin.x = v30;
+    v52.origin.y = v32;
+    v52.size.width = v34;
+    v52.size.height = v36;
+    MaxY = CGRectGetMinY(v52);
   }
 
   [(UITextView *)self->_bottomTextView frame];
-  v32 = v31;
-  v34 = v33;
-  [(UITextView *)self->_bottomTextView sizeThatFits:v12, 1.79769313e308];
-  v36 = v35;
   v38 = v37;
-  v47.origin.x = v32;
-  v47.origin.y = v34;
-  v47.size.width = v36;
-  v47.size.height = v38;
-  CGRectGetHeight(v47);
+  v40 = v39;
+  [(UITextView *)self->_bottomTextView sizeThatFits:v12, 1.79769313e308];
+  v42 = v41;
+  v44 = v43;
+  v53.origin.x = v38;
+  v53.origin.y = v40;
+  v53.size.width = v42;
+  v53.size.height = v44;
+  CGRectGetHeight(v53);
   UIRectCenteredXInRect();
   [(UITextView *)self->_bottomTextView setFrame:?];
 }
@@ -1718,29 +1722,33 @@ void __50__PKPassSessionlessContainerView__buttonForState___block_invoke(uint64_
 {
   actionCopy = action;
   titleCopy = title;
-  PKFloatRoundToPixel();
-  v8 = v7;
-  v9 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], *MEMORY[0x1E69DDC40]);
-  [v9 lineHeight];
-  PKFloatRoundToPixel();
-  v14 = v10;
-  v15 = xmmword_1BE0B69E0;
-  v16 = vdupq_n_s64(2uLL);
-  v11 = [[PKContinuousButton alloc] initWithConfiguration:&v14];
-  [(PKContinuousButton *)v11 setContentEdgeInsets:v8, 25.0, 16.0 - v8, 25.0];
-  titleLabel = [(PKContinuousButton *)v11 titleLabel];
-  [titleLabel setFont:v9];
+  v7.n128_u64[0] = 8.0;
+  PKFloatRoundToPixel(v7, v8);
+  v10 = v9;
+  v11 = 16.0 - v9;
+  v12 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], *MEMORY[0x1E69DDC40]);
+  [v12 lineHeight];
+  v14.n128_u64[0] = 0.5;
+  v15.n128_f64[0] = (v11 + v10 + v13) * 0.5;
+  PKFloatRoundToPixel(v15, v14);
+  v20 = v16;
+  v21 = xmmword_1BE0B69E0;
+  v22 = vdupq_n_s64(2uLL);
+  v17 = [[PKContinuousButton alloc] initWithConfiguration:&v20];
+  [(PKContinuousButton *)v17 setContentEdgeInsets:v10, 25.0, 16.0 - v10, 25.0];
+  titleLabel = [(PKContinuousButton *)v17 titleLabel];
+  [titleLabel setFont:v12];
   [titleLabel setMinimumScaleFactor:0.5];
   [titleLabel setTextAlignment:1];
   [titleLabel setLineBreakMode:4];
-  [(PKContinuousButton *)v11 setTitle:titleCopy forState:0];
+  [(PKContinuousButton *)v17 setTitle:titleCopy forState:0];
 
-  [(PKContinuousButton *)v11 _setTouchInsets:-10.0, -10.0, -10.0, -10.0];
-  [(PKContinuousButton *)v11 setExclusiveTouch:1];
-  [(PKContinuousButton *)v11 sizeToFit];
-  [(PKContinuousButton *)v11 addAction:actionCopy forControlEvents:64];
+  [(PKContinuousButton *)v17 _setTouchInsets:-10.0, -10.0, -10.0, -10.0];
+  [(PKContinuousButton *)v17 setExclusiveTouch:1];
+  [(PKContinuousButton *)v17 sizeToFit];
+  [(PKContinuousButton *)v17 addAction:actionCopy forControlEvents:64];
 
-  return v11;
+  return v17;
 }
 
 - (void)passStateProvider:(id)provider didUpdatePassState:(id)state

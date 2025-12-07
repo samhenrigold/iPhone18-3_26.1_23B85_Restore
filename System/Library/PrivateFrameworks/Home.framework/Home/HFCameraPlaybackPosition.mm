@@ -110,7 +110,7 @@ LABEL_3:
   v7 = v6;
 
   clip2 = [(HFCameraPlaybackPosition *)self clip];
-  [clip2 duration];
+  objc_msgSend_duration(clip2);
   LOBYTE(clipPlaybackDate) = v9 - v7 > 0.00000011920929;
 
   return clipPlaybackDate;
@@ -166,7 +166,7 @@ uint64_t __39__HFCameraPlaybackPosition_na_identity__block_invoke_4(uint64_t a1,
 
 - (NSString)description
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contentType = [(HFCameraPlaybackPosition *)self contentType];
   if (contentType)
   {
@@ -192,9 +192,9 @@ uint64_t __39__HFCameraPlaybackPosition_na_identity__block_invoke_4(uint64_t a1,
       v13 = HFLogForCategory(0x17uLL);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HFCameraPlaybackPosition contentType](self, "contentType")}];
+        v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HFCameraPlaybackPosition contentType](self, "contentType")}];
         *buf = 138412290;
-        v20 = v18;
+        v19 = v17;
         _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "Unknown content type %@", buf, 0xCu);
       }
 
@@ -208,8 +208,6 @@ uint64_t __39__HFCameraPlaybackPosition_na_identity__block_invoke_4(uint64_t a1,
   {
     build = @"[Live]";
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return build;
 }

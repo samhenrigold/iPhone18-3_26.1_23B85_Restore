@@ -5,6 +5,7 @@
 - (PGGraphFeatureNodeCollection)memoryFeatureNodes;
 - (PGUpNextMemoryBasedMatchingInfo)initWithMemoryNodeAsCollection:(id)collection;
 - (PGUpNextMemoryBasedMatchingInfo)initWithMemoryNodeAsCollection:(id)collection momentNodes:(id)nodes;
+- (PGUpNextMemoryBasedMatchingInfo)initWithMemoryNodeAsCollection:(id)collection momentNodes:(id)nodes personNodes:(id)personNodes sceneNodes:(id)sceneNodes meaningNodes:(id)meaningNodes isTripMemory:(BOOL)memory representativeLocation:(id)location representativeDate:(id)self0 memoryFeatureNodes:(id)self1;
 - (unint64_t)nodeIdentifier;
 @end
 
@@ -71,6 +72,24 @@
   return v9;
 }
 
+- (PGUpNextMemoryBasedMatchingInfo)initWithMemoryNodeAsCollection:(id)collection momentNodes:(id)nodes personNodes:(id)personNodes sceneNodes:(id)sceneNodes meaningNodes:(id)meaningNodes isTripMemory:(BOOL)memory representativeLocation:(id)location representativeDate:(id)self0 memoryFeatureNodes:(id)self1
+{
+  memoryCopy = memory;
+  collectionCopy = collection;
+  featureNodesCopy = featureNodes;
+  v23.receiver = self;
+  v23.super_class = PGUpNextMemoryBasedMatchingInfo;
+  v18 = [(PGUpNextMomentCollectionBasedMatchingInfo *)&v23 initWithMomentNodes:nodes personNodes:personNodes sceneNodes:sceneNodes meaningNodes:meaningNodes isTripMemory:memoryCopy representativeLocation:location representativeDate:date];
+  v19 = v18;
+  if (v18)
+  {
+    objc_storeStrong(&v18->_memoryNodeAsCollection, collection);
+    objc_storeStrong(&v19->_memoryFeatureNodes, featureNodes);
+  }
+
+  return v19;
+}
+
 - (PGUpNextMemoryBasedMatchingInfo)initWithMemoryNodeAsCollection:(id)collection
 {
   collectionCopy = collection;
@@ -89,25 +108,25 @@
 
 + (id)matchingInfosWithMemoryNodes:(id)nodes
 {
-  v79[2] = *MEMORY[0x277D85DE8];
+  v78[2] = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   graph = [nodesCopy graph];
-  v58 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(nodesCopy, "count")}];
+  v57 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(nodesCopy, "count")}];
   v5 = MEMORY[0x277D22BF8];
   v6 = +[PGGraphMemoryNode momentOfMemory];
   v7 = objc_opt_self();
-  v61 = [v5 adjacencyWithSources:nodesCopy relation:v6 targetsClass:v7];
+  v60 = [v5 adjacencyWithSources:nodesCopy relation:v6 targetsClass:v7];
 
-  targets = [v61 targets];
+  targets = [v60 targets];
   v9 = MEMORY[0x277D22BF8];
   v10 = +[PGGraphMomentNode personExcludingMeInMoment];
   v11 = objc_opt_self();
-  v56 = [v9 adjacencyWithSources:targets relation:v10 targetsClass:v11];
+  v55 = [v9 adjacencyWithSources:targets relation:v10 targetsClass:v11];
 
   v12 = MEMORY[0x277D22BF8];
   v13 = +[PGGraphMomentNode sceneOfMoment];
   v14 = objc_opt_self();
-  v54 = [v12 adjacencyWithSources:targets relation:v13 targetsClass:v14];
+  v53 = [v12 adjacencyWithSources:targets relation:v13 targetsClass:v14];
 
   v15 = MEMORY[0x277D22BF8];
   v16 = +[PGGraphMomentNode meaningOfMoment];
@@ -115,13 +134,13 @@
   v18 = [v15 adjacencyWithSources:targets relation:v16 targetsClass:v17];
 
   v19 = @"Gathering";
-  v79[0] = @"Gathering";
+  v78[0] = @"Gathering";
   v20 = @"HolidayEvent";
-  v79[1] = @"HolidayEvent";
-  v60 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:2];
+  v78[1] = @"HolidayEvent";
+  v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:2];
 
-  v57 = [PGGraphMeaningNodeCollection meaningNodesWithMeaningLabels:v60 inGraph:graph];
-  v21 = [v18 subtractingTargetsWith:v57];
+  v56 = [PGGraphMeaningNodeCollection meaningNodesWithMeaningLabels:v59 inGraph:graph];
+  v21 = [v18 subtractingTargetsWith:v56];
 
   v22 = MEMORY[0x277D22BF8];
   v23 = +[PGGraphMomentNode addressOfMoment];
@@ -133,7 +152,7 @@
   v28 = objc_opt_self();
   v29 = [v26 adjacencyWithSources:nodesCopy relation:v27 targetsClass:v28];
 
-  v55 = graph;
+  v54 = graph;
   v30 = [(PGGraphNodeCollection *)PGGraphOverTheYearsNodeCollection nodesInGraph:graph];
   featureNodeCollection = [v30 featureNodeCollection];
   v32 = [v29 subtractingTargetsWith:featureNodeCollection];
@@ -141,59 +160,58 @@
   v33 = [PGGraphMemoryNodeCollection memoryNodesOfCategory:19 inGraph:graph];
   v34 = objc_alloc_init(MEMORY[0x277CBEB38]);
   targets2 = [v25 targets];
-  v77[0] = MEMORY[0x277D85DD0];
-  v77[1] = 3221225472;
-  v77[2] = __64__PGUpNextMemoryBasedMatchingInfo_matchingInfosWithMemoryNodes___block_invoke;
-  v77[3] = &unk_278889878;
+  v76[0] = MEMORY[0x277D85DD0];
+  v76[1] = 3221225472;
+  v76[2] = __64__PGUpNextMemoryBasedMatchingInfo_matchingInfosWithMemoryNodes___block_invoke;
+  v76[3] = &unk_278889878;
   v36 = v34;
-  v78 = v36;
-  [targets2 enumerateNodesUsingBlock:v77];
+  v77 = v36;
+  [targets2 enumerateNodesUsingBlock:v76];
 
   v37 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v75[0] = MEMORY[0x277D85DD0];
-  v75[1] = 3221225472;
-  v75[2] = __64__PGUpNextMemoryBasedMatchingInfo_matchingInfosWithMemoryNodes___block_invoke_2;
-  v75[3] = &unk_2788898A0;
+  v74[0] = MEMORY[0x277D85DD0];
+  v74[1] = 3221225472;
+  v74[2] = __64__PGUpNextMemoryBasedMatchingInfo_matchingInfosWithMemoryNodes___block_invoke_2;
+  v74[3] = &unk_2788898A0;
   v38 = v37;
-  v76 = v38;
-  [targets enumerateUniversalStartDatesUsingBlock:v75];
+  v75 = v38;
+  [targets enumerateUniversalStartDatesUsingBlock:v74];
   v39 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v73[0] = MEMORY[0x277D85DD0];
-  v73[1] = 3221225472;
-  v73[2] = __64__PGUpNextMemoryBasedMatchingInfo_matchingInfosWithMemoryNodes___block_invoke_3;
-  v73[3] = &unk_2788898A0;
+  v72[0] = MEMORY[0x277D85DD0];
+  v72[1] = 3221225472;
+  v72[2] = __64__PGUpNextMemoryBasedMatchingInfo_matchingInfosWithMemoryNodes___block_invoke_3;
+  v72[3] = &unk_2788898A0;
   v40 = v39;
-  v74 = v40;
-  [targets enumerateUniversalEndDatesUsingBlock:v73];
-  v62[0] = MEMORY[0x277D85DD0];
-  v62[1] = 3221225472;
-  v62[2] = __64__PGUpNextMemoryBasedMatchingInfo_matchingInfosWithMemoryNodes___block_invoke_4;
-  v62[3] = &unk_2788898F0;
-  v63 = v56;
-  v64 = v54;
-  v65 = v21;
-  v66 = v25;
-  v67 = v36;
-  v68 = v33;
-  v69 = v38;
-  v70 = v40;
-  v71 = v32;
-  v41 = v58;
-  v72 = v41;
-  v59 = v32;
+  v73 = v40;
+  [targets enumerateUniversalEndDatesUsingBlock:v72];
+  v61[0] = MEMORY[0x277D85DD0];
+  v61[1] = 3221225472;
+  v61[2] = __64__PGUpNextMemoryBasedMatchingInfo_matchingInfosWithMemoryNodes___block_invoke_4;
+  v61[3] = &unk_2788898F0;
+  v62 = v55;
+  v63 = v53;
+  v64 = v21;
+  v65 = v25;
+  v66 = v36;
+  v67 = v33;
+  v68 = v38;
+  v69 = v40;
+  v70 = v32;
+  v41 = v57;
+  v71 = v41;
+  v58 = v32;
   v42 = v40;
   v43 = v38;
-  v53 = v33;
+  v52 = v33;
   v44 = v36;
   v45 = v25;
   v46 = v21;
-  v47 = v54;
-  v48 = v56;
-  [v61 enumerateTargetsBySourceWithBlock:v62];
-  v49 = v72;
+  v47 = v53;
+  v48 = v55;
+  [v60 enumerateTargetsBySourceWithBlock:v61];
+  v49 = v71;
   v50 = v41;
 
-  v51 = *MEMORY[0x277D85DE8];
   return v41;
 }
 

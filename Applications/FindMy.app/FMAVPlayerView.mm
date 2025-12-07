@@ -10,7 +10,7 @@
 
 + (Class)layerClass
 {
-  sub_10000905C(0, &qword_1006BAF68);
+  sub_10000905C(0, &qword_1006BAF68, AVPlayerLayer_ptr);
 
   return swift_getObjCClassFromMetadata();
 }

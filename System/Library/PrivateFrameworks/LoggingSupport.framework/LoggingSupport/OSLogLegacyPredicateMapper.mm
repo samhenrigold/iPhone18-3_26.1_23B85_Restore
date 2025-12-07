@@ -11,27 +11,27 @@ void __68___OSLogLegacyPredicateMapper_mapLeftExpression_andRightExpression___bl
 
 void __44___OSLogLegacyPredicateMapper_validKeyPaths__block_invoke()
 {
-  v10[11] = *MEMORY[0x277D85DE8];
+  v9[11] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v1 = validKeyPaths__legacyValidKeyPaths;
   validKeyPaths__legacyValidKeyPaths = v0;
 
-  v10[0] = objc_opt_class();
-  v10[1] = objc_opt_class();
-  v10[2] = objc_opt_class();
-  v10[3] = objc_opt_class();
-  v10[4] = objc_opt_class();
-  v10[5] = objc_opt_class();
-  v10[6] = objc_opt_class();
-  v10[7] = objc_opt_class();
-  v10[8] = objc_opt_class();
-  v10[9] = objc_opt_class();
+  v9[0] = objc_opt_class();
+  v9[1] = objc_opt_class();
+  v9[2] = objc_opt_class();
+  v9[3] = objc_opt_class();
+  v9[4] = objc_opt_class();
+  v9[5] = objc_opt_class();
+  v9[6] = objc_opt_class();
+  v9[7] = objc_opt_class();
+  v9[8] = objc_opt_class();
+  v9[9] = objc_opt_class();
   v2 = 0;
-  v10[10] = objc_opt_class();
+  v9[10] = objc_opt_class();
   do
   {
     outCount = 0;
-    v3 = class_copyPropertyList(v10[v2], &outCount);
+    v3 = class_copyPropertyList(v9[v2], &outCount);
     if (v3)
     {
       v4 = v3;
@@ -52,7 +52,6 @@ void __44___OSLogLegacyPredicateMapper_validKeyPaths__block_invoke()
   }
 
   while (v2 != 11);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

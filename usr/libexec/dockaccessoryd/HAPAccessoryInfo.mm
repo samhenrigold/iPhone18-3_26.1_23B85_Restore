@@ -18,7 +18,7 @@
   ppidCopy = ppid;
   if (!nameCopy)
   {
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10007FAFC(0);

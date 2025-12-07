@@ -115,10 +115,7 @@
 
 uint64_t __41__MGRemoteQueryClientWatchdog_pingClient__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) ping];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) ping];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -179,7 +176,7 @@ void __41__MGRemoteQueryClientWatchdog__timerInit__block_invoke(uint64_t a1)
 
 - (void)_timerFired
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(MGRemoteQueryClientWatchdog *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -187,15 +184,14 @@ void __41__MGRemoteQueryClientWatchdog__timerInit__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     target = [(MGRemoteQueryClientWatchdog *)self target];
-    v7 = 134218242;
+    v6 = 134218242;
     selfCopy = self;
-    v9 = 2112;
-    v10 = target;
-    _os_log_impl(&dword_25863A000, v4, OS_LOG_TYPE_DEFAULT, "%p watchdog fired, pinging target %@", &v7, 0x16u);
+    v8 = 2112;
+    v9 = target;
+    _os_log_impl(&dword_25863A000, v4, OS_LOG_TYPE_DEFAULT, "%p watchdog fired, pinging target %@", &v6, 0x16u);
   }
 
   [(MGRemoteQueryClientWatchdog *)self _pingStart];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pingStart
@@ -213,7 +209,7 @@ void __41__MGRemoteQueryClientWatchdog__timerInit__block_invoke(uint64_t a1)
 
 void __41__MGRemoteQueryClientWatchdog__pingStart__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) ping];
 
   if (!v2)
@@ -230,11 +226,11 @@ void __41__MGRemoteQueryClientWatchdog__pingStart__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(a1 + 32);
-      v13 = 134218242;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_25863A000, v10, OS_LOG_TYPE_DEFAULT, "%p watchdog pinging with %@", &v13, 0x16u);
+      v12 = 134218242;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v5;
+      _os_log_impl(&dword_25863A000, v10, OS_LOG_TYPE_DEFAULT, "%p watchdog pinging with %@", &v12, 0x16u);
     }
 
     goto LABEL_7;
@@ -245,30 +241,28 @@ void __41__MGRemoteQueryClientWatchdog__pingStart__block_invoke(uint64_t a1)
   {
     v4 = *(a1 + 32);
     v5 = [v4 ping];
-    v13 = 134218242;
-    v14 = v4;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_error_impl(&dword_25863A000, v3, OS_LOG_TYPE_ERROR, "%p watchdog ping already in process with %@", &v13, 0x16u);
+    v12 = 134218242;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_error_impl(&dword_25863A000, v3, OS_LOG_TYPE_ERROR, "%p watchdog ping already in process with %@", &v12, 0x16u);
 LABEL_7:
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pingFinished:(BOOL)finished
 {
   finishedCopy = finished;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(MGRemoteQueryClientWatchdog *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __45__MGRemoteQueryClientWatchdog__pingFinished___block_invoke;
-  v12[3] = &unk_27989ED90;
-  v12[4] = self;
-  [(MGRemoteQueryClientWatchdog *)self _withPingLock:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __45__MGRemoteQueryClientWatchdog__pingFinished___block_invoke;
+  v11[3] = &unk_27989ED90;
+  v11[4] = self;
+  [(MGRemoteQueryClientWatchdog *)self _withPingLock:v11];
   v6 = MGLogForCategory(6);
   v7 = v6;
   if (finishedCopy)
@@ -290,8 +284,8 @@ LABEL_7:
       target = [(MGRemoteQueryClientWatchdog *)self target];
       *buf = 134218242;
       selfCopy2 = self;
-      v15 = 2112;
-      v16 = target;
+      v14 = 2112;
+      v15 = target;
       _os_log_error_impl(&dword_25863A000, v7, OS_LOG_TYPE_ERROR, "%p watchdog ping failed for %@", buf, 0x16u);
     }
 
@@ -302,8 +296,6 @@ LABEL_7:
       [delegate watchdogFired:self];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_withPingLock:(id)lock
@@ -334,23 +326,23 @@ LABEL_7:
 
 void __59__MGRemoteQueryClientWatchdog_clientInvalidated_withError___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __59__MGRemoteQueryClientWatchdog_clientInvalidated_withError___block_invoke_2;
-  v10[3] = &unk_27989EEF8;
-  v13 = &v14;
+  v21 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __59__MGRemoteQueryClientWatchdog_clientInvalidated_withError___block_invoke_2;
+  v9[3] = &unk_27989EEF8;
+  v12 = &v13;
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 32);
-  v11 = v3;
-  v12 = v4;
-  [v2 _withPingLock:v10];
-  if (*(v15 + 24) == 1)
+  v10 = v3;
+  v11 = v4;
+  [v2 _withPingLock:v9];
+  if (*(v14 + 24) == 1)
   {
     v5 = *(a1 + 48);
     if (v5)
@@ -358,12 +350,12 @@ void __59__MGRemoteQueryClientWatchdog_clientInvalidated_withError___block_invok
       v6 = MGLogForCategory(6);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v8 = *(a1 + 32);
-        v9 = *(a1 + 48);
+        v7 = *(a1 + 32);
+        v8 = *(a1 + 48);
         *buf = 134218242;
-        v19 = v8;
-        v20 = 2112;
-        v21 = v9;
+        v18 = v7;
+        v19 = 2112;
+        v20 = v8;
         _os_log_error_impl(&dword_25863A000, v6, OS_LOG_TYPE_ERROR, "%p watchdog ping failed with error %@", buf, 0x16u);
       }
     }
@@ -371,8 +363,7 @@ void __59__MGRemoteQueryClientWatchdog_clientInvalidated_withError___block_invok
     [*(a1 + 32) _pingFinished:v5 == 0];
   }
 
-  _Block_object_dispose(&v14, 8);
-  v7 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
 }
 
 void __59__MGRemoteQueryClientWatchdog_clientInvalidated_withError___block_invoke_2(uint64_t a1)

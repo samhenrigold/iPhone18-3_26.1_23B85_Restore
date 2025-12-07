@@ -83,7 +83,7 @@ uint64_t __69__SLDTaskManager_startAggregateTask_withTimeout_cancellationHandler
   if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
   {
     v1 = result;
-    v2 = SLDaemonLogHandle();
+    v2 = SLDaemonLogHandle(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __69__SLDTaskManager_startAggregateTask_withTimeout_cancellationHandler___block_invoke_cold_1(v1, v2);
@@ -109,13 +109,13 @@ void __69__SLDTaskManager_startAggregateTask_withTimeout_cancellationHandler___b
   dispatch_async(v2, block);
 }
 
-uint64_t __69__SLDTaskManager_startAggregateTask_withTimeout_cancellationHandler___block_invoke_2(void *a1)
+void *__69__SLDTaskManager_startAggregateTask_withTimeout_cancellationHandler___block_invoke_2(void *a1)
 {
   *(*(a1[5] + 8) + 24) = 1;
   result = [*(*(a1[6] + 8) + 40) isValid];
   if (result)
   {
-    v3 = SLDaemonLogHandle();
+    v3 = SLDaemonLogHandle(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __69__SLDTaskManager_startAggregateTask_withTimeout_cancellationHandler___block_invoke_2_cold_1(v3);
@@ -222,12 +222,11 @@ void __50__SLDTaskManager_startSubtask_withProgress_timer___block_invoke(uint64_
 
 void __69__SLDTaskManager_startAggregateTask_withTimeout_cancellationHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[SLDTaskManager] aggregate task timeout timer fired after %f seconds", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[SLDTaskManager] aggregate task timeout timer fired after %f seconds", &v3, 0xCu);
 }
 
 @end

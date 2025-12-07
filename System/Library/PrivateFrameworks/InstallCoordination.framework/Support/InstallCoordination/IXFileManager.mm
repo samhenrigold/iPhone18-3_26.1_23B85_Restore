@@ -4,10 +4,12 @@
 - (BOOL)_removeACLAtPath:(const char *)path isDir:(BOOL)dir error:(id *)error;
 - (BOOL)_traverseDirectory:(id)directory ignoringFTSErrors:(BOOL)errors error:(id *)error withBlock:(id)block;
 - (BOOL)_validateSymlink:(id)symlink withStartingDepth:(unsigned int)depth andEndingDepth:(unsigned int *)endingDepth;
+- (BOOL)copyACLFrom:(id)from toAllChildrenOfPath:(id)path ignoringCopyErrors:(BOOL)errors error:(id *)error;
 - (BOOL)createSymbolicLinkAtURL:(id)l withDestinationURL:(id)rL error:(id *)error;
 - (BOOL)dataProtectionClassOfItemAtURL:(id)l class:(int *)class error:(id *)error;
 - (BOOL)itemDoesNotExistAtURL:(id)l;
 - (BOOL)releaseSandboxExtensionToken:(int64_t)token error:(id *)error;
+- (BOOL)setDataProtectionClassOfItemAtURL:(id)l toClass:(int)class ifPredicate:(id)predicate error:(id *)error;
 - (BOOL)setPermissions:(unsigned __int16)permissions onAllChildrenOfPath:(id)path error:(id *)error;
 - (BOOL)setPermissionsOfItemAtURL:(id)l toMode:(unsigned __int16)mode error:(id *)error;
 - (BOOL)standardizeOwnershipAtURL:(id)l toUID:(unsigned int)d toGID:(unsigned int)iD error:(id *)error;
@@ -502,6 +504,61 @@ LABEL_36:
   return v7;
 }
 
+- (BOOL)copyACLFrom:(id)from toAllChildrenOfPath:(id)path ignoringCopyErrors:(BOOL)errors error:(id *)error
+{
+  errorsCopy = errors;
+  fromCopy = from;
+  pathCopy = path;
+  fileSystemRepresentation = [fromCopy fileSystemRepresentation];
+  link_np = acl_get_link_np(fileSystemRepresentation, ACL_TYPE_EXTENDED);
+  if (link_np)
+  {
+    v14 = link_np;
+    v23 = 0;
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_10004186C;
+    v21[3] = &unk_1001025F8;
+    v21[4] = link_np;
+    v22 = errorsCopy;
+    v15 = [(IXFileManager *)self _traverseDirectory:pathCopy ignoringFTSErrors:errorsCopy error:&v23 withBlock:v21];
+    v16 = v23;
+    acl_free(v14);
+    if (!error)
+    {
+      goto LABEL_11;
+    }
+
+    goto LABEL_9;
+  }
+
+  v18 = *__error();
+  if (v18 == 2 && [(IXFileManager *)self itemExistsAtURL:fromCopy])
+  {
+    sub_1000405FC("[IXFileManager copyACLFrom:toAllChildrenOfPath:ignoringCopyErrors:error:]", 374, NSPOSIXErrorDomain, 0x5DuLL, 0, 0, @"acl_get_link_np found no ACLs on %s", v17, fileSystemRepresentation);
+  }
+
+  else
+  {
+    sub_1000405FC("[IXFileManager copyACLFrom:toAllChildrenOfPath:ignoringCopyErrors:error:]", 379, NSPOSIXErrorDomain, v18, 0, 0, @"acl_get_link_np failed for %s", v17, fileSystemRepresentation);
+  }
+  v16 = ;
+  v15 = 0;
+  if (error)
+  {
+LABEL_9:
+    if (!v15)
+    {
+      v19 = v16;
+      *error = v16;
+    }
+  }
+
+LABEL_11:
+
+  return v15;
+}
+
 - (BOOL)createSymbolicLinkAtURL:(id)l withDestinationURL:(id)rL error:(id *)error
 {
   lCopy = l;
@@ -679,6 +736,91 @@ LABEL_9:
 LABEL_10:
 
   return v23;
+}
+
+- (BOOL)setDataProtectionClassOfItemAtURL:(id)l toClass:(int)class ifPredicate:(id)predicate error:(id *)error
+{
+  v8 = *&class;
+  lCopy = l;
+  predicateCopy = predicate;
+  v11 = open([lCopy fileSystemRepresentation], 256);
+  v12 = v11;
+  if (v11 < 0)
+  {
+    v17 = NSPOSIXErrorDomain;
+    v18 = *__error();
+    fileSystemRepresentation = [lCopy fileSystemRepresentation];
+    v20 = __error();
+    v32 = fileSystemRepresentation;
+    strerror(*v20);
+    v22 = @"Failed to open %s : %s";
+    v23 = 545;
+  }
+
+  else
+  {
+    if (!predicateCopy)
+    {
+LABEL_5:
+      if (fcntl(v12, 64, v8))
+      {
+        v14 = *__error();
+        [lCopy fileSystemRepresentation];
+        v15 = __error();
+        strerror(*v15);
+        sub_1000405FC("[IXFileManager setDataProtectionClassOfItemAtURL:toClass:ifPredicate:error:]", 562, NSPOSIXErrorDomain, v14, 0, 0, @"Failed to setclass(%d) on file %s: %s", v16, v8);
+        goto LABEL_11;
+      }
+
+LABEL_8:
+      v24 = 0;
+      v25 = 1;
+LABEL_14:
+      close(v12);
+      v30 = v25;
+      goto LABEL_15;
+    }
+
+    v13 = fcntl(v11, 63);
+    if ((v13 & 0x80000000) == 0)
+    {
+      if (!predicateCopy[2](predicateCopy, v13))
+      {
+        goto LABEL_8;
+      }
+
+      goto LABEL_5;
+    }
+
+    v17 = NSPOSIXErrorDomain;
+    v18 = *__error();
+    fileSystemRepresentation2 = [lCopy fileSystemRepresentation];
+    v27 = __error();
+    v32 = fileSystemRepresentation2;
+    strerror(*v27);
+    v22 = @"Failed to getclass of file %s: %s";
+    v23 = 553;
+  }
+
+  sub_1000405FC("[IXFileManager setDataProtectionClassOfItemAtURL:toClass:ifPredicate:error:]", v23, v17, v18, 0, 0, v22, v21, v32);
+  v28 = LABEL_11:;
+  v24 = v28;
+  if (error)
+  {
+    v29 = v28;
+    *error = v24;
+  }
+
+  v25 = 0;
+  v30 = 0;
+  if ((v12 & 0x80000000) == 0)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_15:
+
+  return v30;
 }
 
 - (BOOL)setPermissionsOfItemAtURL:(id)l toMode:(unsigned __int16)mode error:(id *)error

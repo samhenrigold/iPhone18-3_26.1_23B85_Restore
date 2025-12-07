@@ -104,47 +104,47 @@
 {
   v2 = objc_alloc_init(CNContactStore);
   v3 = [CNContainer predicateForLocalContainerIncludingDisabled:1];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_10002F5D0;
-  v25 = sub_10002F5E0;
-  v26 = 0;
-  v18 = 0;
-  v19[0] = &v18;
-  v19[1] = 0x3032000000;
-  v19[2] = sub_10002F5D0;
-  v19[3] = sub_10002F5E0;
   v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_10002F5D0;
+  v24 = sub_10002F5E0;
+  v25 = 0;
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x3032000000;
+  v18[3] = sub_10002F5D0;
+  v18[4] = sub_10002F5E0;
+  v19 = 0;
   v10 = _NSConcreteStackBlock;
   v11 = 3221225472;
   v12 = sub_10002F5E8;
   v13 = &unk_10005D920;
-  v16 = &v21;
+  v16 = &v20;
   v4 = v2;
   v14 = v4;
   v5 = v3;
   v15 = v5;
-  v17 = &v18;
+  v17 = v18;
   v6 = sub_100004D58(&v10);
-  v7 = v22[5];
+  v7 = v21[5];
   if (v7 && [v7 count] == 1)
   {
-    firstObject = [v22[5] firstObject];
+    firstObject = [v21[5] firstObject];
   }
 
   else
   {
     if (os_log_type_enabled(*(qword_100071D00 + 8), OS_LOG_TYPE_ERROR))
     {
-      sub_10003B7C0(v19);
+      sub_10003B7C0();
     }
 
     firstObject = 0;
   }
 
-  _Block_object_dispose(&v18, 8);
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(v18, 8);
+  _Block_object_dispose(&v20, 8);
 
   return firstObject;
 }

@@ -231,23 +231,21 @@
 
 - (id)playbackQueueIdentifierForPodcastAdamId:(id)id sampPlaybackOrder:(id)order
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   orderCopy = order;
   if (!orderCopy)
   {
     orderCopy = *MEMORY[0x277D48610];
   }
 
-  v16[0] = @"storeCollectionId";
-  v16[1] = @"playbackOrder";
-  v17[0] = id;
-  v17[1] = orderCopy;
+  v15[0] = @"storeCollectionId";
+  v15[1] = @"playbackOrder";
+  v16[0] = id;
+  v16[1] = orderCopy;
   v7 = MEMORY[0x277CBEAC0];
   idCopy = id;
-  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v7, v9, v17, v16, 2);
+  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v7, v9, v16, v15, 2);
   v13 = objc_msgSend__playbackRequestIdentifierWithHost_queryComponents_(self, v11, @"playPodcast", v10, v12);
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -307,21 +305,20 @@
 
 - (_MRSystemAppPlaybackQueue)playbackQueueWithDsid:(id)dsid forIdentifiers:(id)identifiers
 {
-  v5 = *MEMORY[0x277CBECE8];
   identifiersCopy = identifiers;
-  v7 = MRSystemAppPlaybackQueueCreate();
+  v6 = MRSystemAppPlaybackQueueCreate();
   MRSystemAppPlaybackQueueSetGenericTrackIdentifiers();
 
   if (dsid)
   {
     dsidCopy = dsid;
     keys = @"enqueuerDSID";
-    v8 = CFDictionaryCreate(0, &keys, &dsidCopy, 1, 0, MEMORY[0x277CBF150]);
+    v7 = CFDictionaryCreate(0, &keys, &dsidCopy, 1, 0, MEMORY[0x277CBF150]);
     MRSystemAppPlaybackQueueSetUserInfo();
-    CFRelease(v8);
+    CFRelease(v7);
   }
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)_playQueueTypeForRequestURL:(id)l
@@ -352,54 +349,52 @@
 
 - (id)_playbackRequestIdentifierWithHost:(id)host queryKey:(id)key value:(id)value
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v20[0] = value;
+  v19[0] = value;
   v8 = MEMORY[0x277CBEAC0];
   valueCopy = value;
   keyCopy2 = key;
   hostCopy = host;
-  v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v8, v12, v20, &keyCopy, 1);
+  v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v8, v12, v19, &keyCopy, 1);
 
   v16 = objc_msgSend__playbackRequestIdentifierWithHost_queryComponents_(self, v14, hostCopy, v13, v15);
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)_playbackRequestIdentifierWithHost:(id)host queryComponents:(id)components
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   hostCopy = host;
   componentsCopy = components;
   v7 = objc_alloc_init(MEMORY[0x277CCACE0]);
   objc_msgSend_setScheme_(v7, v8, @"podcasts", v9, v10);
-  v53 = hostCopy;
+  v52 = hostCopy;
   objc_msgSend_setHost_(v7, v11, hostCopy, v12, v13);
   v14 = MEMORY[0x277CBEB18];
   v19 = objc_msgSend_count(componentsCopy, v15, v16, v17, v18);
   v23 = objc_msgSend_arrayWithCapacity_(v14, v20, v19, v21, v22);
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   v24 = componentsCopy;
-  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v54, v58, 16);
+  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v53, v57, 16);
   if (v26)
   {
     v27 = v26;
-    v28 = *v55;
+    v28 = *v54;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v55 != v28)
+        if (*v54 != v28)
         {
           objc_enumerationMutation(v24);
         }
 
-        v30 = *(*(&v54 + 1) + 8 * i);
+        v30 = *(*(&v53 + 1) + 8 * i);
         v31 = objc_alloc(MEMORY[0x277CCAD18]);
         v35 = objc_msgSend_objectForKeyedSubscript_(v24, v32, v30, v33, v34);
         v38 = objc_msgSend_initWithName_value_(v31, v36, v30, v35, v37);
@@ -407,7 +402,7 @@
         objc_msgSend_addObject_(v23, v39, v38, v40, v41);
       }
 
-      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v42, &v54, v58, 16);
+      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v42, &v53, v57, 16);
     }
 
     while (v27);
@@ -415,8 +410,6 @@
 
   objc_msgSend_setQueryItems_(v7, v43, v23, v44, v45);
   v50 = objc_msgSend_string(v7, v46, v47, v48, v49);
-
-  v51 = *MEMORY[0x277D85DE8];
 
   return v50;
 }
@@ -506,29 +499,29 @@
 
 + (id)__queryStringToQueryDictionary:(id)dictionary
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_componentsSeparatedByString_(dictionary, a2, @"&", v3, v4);
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = v5;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v36, v40, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v35, v39, 16);
   if (v8)
   {
     v12 = v8;
-    v13 = *v37;
+    v13 = *v36;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v37 != v13)
+        if (*v36 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = objc_msgSend_componentsSeparatedByString_(*(*(&v36 + 1) + 8 * i), v9, @"=", v10, v11);
+        v15 = objc_msgSend_componentsSeparatedByString_(*(*(&v35 + 1) + 8 * i), v9, @"=", v10, v11);
         v19 = objc_msgSend_objectAtIndex_(v15, v16, 0, v17, v18);
         v24 = objc_msgSend_null(MEMORY[0x277CBEB68], v20, v21, v22, v23);
         if (objc_msgSend_count(v15, v25, v26, v27, v28) >= 2)
@@ -541,13 +534,11 @@
         objc_msgSend_setObject_forKey_(v6, v29, v24, v19, v31);
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v36, v40, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v35, v39, 16);
     }
 
     while (v12);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

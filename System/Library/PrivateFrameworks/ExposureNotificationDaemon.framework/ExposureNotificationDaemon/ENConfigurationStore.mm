@@ -147,46 +147,46 @@
 
 void __46__ENConfigurationStore_initWithDirectoryPath___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) subdivisionListCacheURL];
   v2 = [MEMORY[0x277CCAA08] defaultManager];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v3 = *MEMORY[0x277CBE860];
-  v22 = *MEMORY[0x277CBE860];
-  v4 = [MEMORY[0x277CBEA68] arrayWithObjects:&v22 count:1];
+  v21 = *MEMORY[0x277CBE860];
+  v4 = [MEMORY[0x277CBEA68] arrayWithObjects:&v21 count:1];
   v5 = [v2 contentsOfDirectoryAtURL:v1 includingPropertiesForKeys:v4 options:4 error:0];
 
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v16 = v1;
+    v15 = v1;
     v8 = 0;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       v10 = 0;
       do
       {
         v11 = v8;
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * v10);
-        v17 = 0;
-        v13 = [v12 getResourceValue:&v17 forKey:v3 error:{0, v16}];
-        v8 = v17;
+        v12 = *(*(&v17 + 1) + 8 * v10);
+        v16 = 0;
+        v13 = [v12 getResourceValue:&v16 forKey:v3 error:{0, v15}];
+        v8 = v16;
 
         if (v13 && ([v8 BOOLValue] & 1) == 0)
         {
           if (gLogCategory_ENConfigurationStore <= 30 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
           {
-            __46__ENConfigurationStore_initWithDirectoryPath___block_invoke_cold_1();
+            __46__ENConfigurationStore_initWithDirectoryPath___block_invoke_cold_1(v12);
           }
 
           [v2 removeItemAtURL:v12 error:0];
@@ -196,16 +196,14 @@ void __46__ENConfigurationStore_initWithDirectoryPath___block_invoke(uint64_t a1
       }
 
       while (v7 != v10);
-      v14 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v14 = [v5 countByEnumeratingWithState:&v17 objects:v22 count:16];
       v7 = v14;
     }
 
     while (v14);
 
-    v1 = v16;
+    v1 = v15;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)configurationForRegion:(id)region
@@ -254,11 +252,17 @@ void __47__ENConfigurationStore_configurationForRegion___block_invoke(uint64_t a
     {
       if (gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        v15 = "response";
+        if (v5)
+        {
+          v15 = "configuration";
+        }
+
+        LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _configurationForRegion:]", 90, "No Server %s for Region: %@", v15, regionCopy);
       }
 
       v14 = 0;
-      goto LABEL_19;
+      goto LABEL_21;
     }
 
     v8 = [(ENConfigurationStore *)self _existingConfigurationForRegion:regionCopy];
@@ -285,12 +289,12 @@ LABEL_11:
 
         else
         {
-          [(ENConfigurationStore *)v8 _configurationForRegion:regionCopy, &v16];
-          v14 = v16;
+          [(ENConfigurationStore *)v8 _configurationForRegion:regionCopy, &v17];
+          v14 = v17;
         }
 
-LABEL_19:
-        goto LABEL_20;
+LABEL_21:
+        goto LABEL_22;
       }
 
       userConsent = [v7 legalConsentVersion];
@@ -302,8 +306,8 @@ LABEL_19:
   }
 
   [ENConfigurationStore _configurationForRegion:?];
-  v14 = v16;
-LABEL_20:
+  v14 = v17;
+LABEL_22:
 
   return v14;
 }
@@ -383,7 +387,7 @@ LABEL_9:
         {
           if (gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _existingConfigurationForRegionPath:]", 90, "Error unarchiving Configuration for Region: %@ - %@", pathCopy, v12);
           }
 
           v11 = 0;
@@ -437,7 +441,7 @@ LABEL_17:
   return configurationCopy;
 }
 
-uint64_t __54__ENConfigurationStore_saveRegionConfiguration_error___block_invoke(uint64_t a1)
+void *__54__ENConfigurationStore_saveRegionConfiguration_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _saveRegionConfiguration:*(a1 + 40) error:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -449,7 +453,7 @@ uint64_t __54__ENConfigurationStore_saveRegionConfiguration_error___block_invoke
   configurationCopy = configuration;
   if (MKBDeviceUnlockedSinceBoot() != 1)
   {
-    v17 = ENErrorF();
+    v17 = ENErrorF(11, "Unable to save, device not first unlocked");
     v21 = 0;
     goto LABEL_30;
   }
@@ -472,7 +476,7 @@ uint64_t __54__ENConfigurationStore_saveRegionConfiguration_error___block_invoke
 
       if (gLogCategory_ENConfigurationStore <= 30 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
       {
-        [ENConfigurationStore _saveRegionConfiguration:error:];
+        [ENConfigurationStore _saveRegionConfiguration:v13 error:?];
       }
     }
   }
@@ -481,7 +485,7 @@ uint64_t __54__ENConfigurationStore_saveRegionConfiguration_error___block_invoke
   {
     if (gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      [ENConfigurationStore _saveRegionConfiguration:error:];
+      [ENConfigurationStore _saveRegionConfiguration:v10 error:?];
     }
 
     v17 = 0;
@@ -491,28 +495,26 @@ uint64_t __54__ENConfigurationStore_saveRegionConfiguration_error___block_invoke
 
   uRLByDeletingLastPathComponent = [v9 URLByDeletingLastPathComponent];
   defaultManager = [MEMORY[0x277CCAA08] defaultManager];
-  v29 = 0;
-  v16 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v29];
-  v17 = v29;
+  v27 = 0;
+  v16 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v27];
+  v17 = v27;
 
   if (v16)
   {
     v18 = *MEMORY[0x277CBE870];
-    v28 = v17;
-    v19 = [uRLByDeletingLastPathComponent setResourceValue:MEMORY[0x277CBEC20] forKey:v18 error:&v28];
-    v20 = v28;
+    v26 = v17;
+    v19 = [uRLByDeletingLastPathComponent setResourceValue:MEMORY[0x277CBEC20] forKey:v18 error:&v26];
+    v20 = v26;
 
     if ((v19 & 1) == 0 && gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      v25 = uRLByDeletingLastPathComponent;
-      v26 = v20;
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _saveRegionConfiguration:error:]", 90, "Failed to include %@ from backup with error - %@", uRLByDeletingLastPathComponent, v20);
     }
 
-    v27 = v20;
+    v25 = v20;
     v21 = 1;
-    v22 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:v13 requiringSecureCoding:1 error:{&v27, v25, v26}];
-    v17 = v27;
+    v22 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:v13 requiringSecureCoding:1 error:&v25];
+    v17 = v25;
 
     if (!v17)
     {
@@ -520,7 +522,7 @@ uint64_t __54__ENConfigurationStore_saveRegionConfiguration_error___block_invoke
       {
         if (gLogCategory_ENConfigurationStore <= 10 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
         {
-          [ENConfigurationStore _saveRegionConfiguration:error:];
+          [ENConfigurationStore _saveRegionConfiguration:v9 error:?];
         }
       }
 
@@ -587,7 +589,7 @@ LABEL_30:
   return self;
 }
 
-uint64_t __64__ENConfigurationStore_saveCountrySubdivisionList_region_error___block_invoke(uint64_t a1)
+void *__64__ENConfigurationStore_saveCountrySubdivisionList_region_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _saveCountrySubdivisionList:*(a1 + 40) country:*(a1 + 48) error:*(a1 + 64)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -621,7 +623,7 @@ uint64_t __64__ENConfigurationStore_saveCountrySubdivisionList_region_error___bl
   return self;
 }
 
-uint64_t __52__ENConfigurationStore_saveRegionHash_region_error___block_invoke(uint64_t a1)
+void *__52__ENConfigurationStore_saveRegionHash_region_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _saveRegionHash:*(a1 + 40) region:*(a1 + 48) error:*(a1 + 64)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -652,7 +654,7 @@ uint64_t __52__ENConfigurationStore_saveRegionHash_region_error___block_invoke(u
   return responseCopy;
 }
 
-uint64_t __62__ENConfigurationStore_saveServerConfigurationResponse_error___block_invoke(uint64_t a1)
+void *__62__ENConfigurationStore_saveServerConfigurationResponse_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _saveServerConfigurationResponse:*(a1 + 40) error:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -680,26 +682,24 @@ uint64_t __62__ENConfigurationStore_saveServerConfigurationResponse_error___bloc
 
       if (v16)
       {
-        v32 = v7;
+        v30 = v7;
         v17 = *MEMORY[0x277CBE870];
-        v33 = 0;
-        v18 = [uRLByDeletingLastPathComponent setResourceValue:MEMORY[0x277CBEC20] forKey:v17 error:&v33];
-        v19 = v33;
+        v31 = 0;
+        v18 = [uRLByDeletingLastPathComponent setResourceValue:MEMORY[0x277CBEC20] forKey:v17 error:&v31];
+        v19 = v31;
         if ((v18 & 1) == 0 && gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
         {
-          v29 = uRLByDeletingLastPathComponent;
-          v30 = v19;
-          LogPrintF_safe();
+          LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _saveServerConfigurationResponse:error:]", 90, "Failed to include %@ from backup with error - %@", uRLByDeletingLastPathComponent, v19);
         }
 
-        v31 = v19;
-        v20 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:responseCopy requiringSecureCoding:1 error:{error, v29, v30}];
+        v29 = v19;
+        v20 = [MEMORY[0x277CCAAB8] archivedDataWithRootObject:responseCopy requiringSecureCoding:1 error:error];
         v21 = v20;
         if (v20 && [v20 writeToURL:v13 options:1 error:error])
         {
           if (gLogCategory_ENConfigurationStore <= 10 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
           {
-            [ENConfigurationStore _saveServerConfigurationResponse:error:];
+            [ENConfigurationStore _saveServerConfigurationResponse:v13 error:?];
           }
 
           v22 = [(ENConfigurationStore *)self _existingConfigurationForRegion:v11];
@@ -727,7 +727,7 @@ uint64_t __62__ENConfigurationStore_saveServerConfigurationResponse_error___bloc
           v27 = 0;
         }
 
-        v7 = v32;
+        v7 = v30;
       }
 
       else
@@ -738,7 +738,7 @@ uint64_t __62__ENConfigurationStore_saveServerConfigurationResponse_error___bloc
 
     else if (error)
     {
-      ENErrorF();
+      ENErrorF(15, "Server Configuration Response Invalid Region.");
       *error = v27 = 0;
     }
 
@@ -750,7 +750,7 @@ uint64_t __62__ENConfigurationStore_saveServerConfigurationResponse_error___bloc
 
   else if (error)
   {
-    ENErrorF();
+    ENErrorF(15, "Server Configuration Response Invalid Version.");
     *error = v27 = 0;
   }
 
@@ -853,7 +853,7 @@ void __64__ENConfigurationStore_removeConfigurationsForRegionCode_error___block_
 
     if (gLogCategory_ENConfigurationStore <= 10 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      __64__ENConfigurationStore_removeConfigurationsForRegionCode_error___block_invoke_cold_1();
+      __64__ENConfigurationStore_removeConfigurationsForRegionCode_error___block_invoke_cold_1(v3);
     }
   }
 
@@ -870,7 +870,7 @@ void __64__ENConfigurationStore_removeConfigurationsForRegionCode_error___block_
 
     if (gLogCategory_ENConfigurationStore <= 10 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      __64__ENConfigurationStore_removeConfigurationsForRegionCode_error___block_invoke_cold_2();
+      __64__ENConfigurationStore_removeConfigurationsForRegionCode_error___block_invoke_cold_2(v8);
     }
   }
 }
@@ -899,7 +899,7 @@ void __64__ENConfigurationStore_removeConfigurationsForRegionCode_error___block_
   return regionCopy;
 }
 
-uint64_t __61__ENConfigurationStore_removeSubdivisionListForRegion_error___block_invoke(uint64_t a1)
+void *__61__ENConfigurationStore_removeSubdivisionListForRegion_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _removeSubdivisionListForRegion:*(a1 + 40) error:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1092,47 +1092,47 @@ void __40__ENConfigurationStore_allCachedRegions__block_invoke_2(uint64_t a1, ui
 
 - (void)allCachedCountryCodesServerResponseWithDirectoryURL:(id)l handler:(id)handler
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
   handlerCopy = handler;
   defaultManager = [MEMORY[0x277CCAA08] defaultManager];
   v7 = *MEMORY[0x277CBE8F0];
   v8 = *MEMORY[0x277CBE860];
-  v37[0] = *MEMORY[0x277CBE8F0];
-  v37[1] = v8;
-  v9 = [MEMORY[0x277CBEA68] arrayWithObjects:v37 count:2];
-  v26 = lCopy;
+  v36[0] = *MEMORY[0x277CBE8F0];
+  v36[1] = v8;
+  v9 = [MEMORY[0x277CBEA68] arrayWithObjects:v36 count:2];
+  v25 = lCopy;
   v10 = [defaultManager enumeratorAtURL:lCopy includingPropertiesForKeys:v9 options:5 errorHandler:&__block_literal_global_4];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = v10;
-  v11 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v11 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v33;
+    v13 = *v32;
     do
     {
       v14 = 0;
-      v28 = v12;
+      v27 = v12;
       do
       {
-        if (*v33 != v13)
+        if (*v32 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v32 + 1) + 8 * v14);
+        v15 = *(*(&v31 + 1) + 8 * v14);
         v16 = objc_autoreleasePoolPush();
-        v31 = 0;
-        [v15 getResourceValue:&v31 forKey:v7 error:0];
-        v17 = v31;
         v30 = 0;
-        [v15 getResourceValue:&v30 forKey:v8 error:0];
-        v18 = v30;
+        [v15 getResourceValue:&v30 forKey:v7 error:0];
+        v17 = v30;
+        v29 = 0;
+        [v15 getResourceValue:&v29 forKey:v8 error:0];
+        v18 = v29;
         if (([v18 BOOLValue] & 1) == 0)
         {
           v19 = v8;
@@ -1143,14 +1143,14 @@ void __40__ENConfigurationStore_allCachedRegions__block_invoke_2(uint64_t a1, ui
 
           if (isSensitiveLoggingAllowed && gLogCategory_ENConfigurationStore <= 10 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
           {
-            [ENConfigurationStore allCachedCountryCodesServerResponseWithDirectoryURL:handler:];
+            [ENConfigurationStore allCachedCountryCodesServerResponseWithDirectoryURL:v21 handler:?];
           }
 
           handlerCopy[2](handlerCopy, v21);
 
           v7 = v20;
           v8 = v19;
-          v12 = v28;
+          v12 = v27;
         }
 
         objc_autoreleasePoolPop(v16);
@@ -1158,14 +1158,12 @@ void __40__ENConfigurationStore_allCachedRegions__block_invoke_2(uint64_t a1, ui
       }
 
       while (v12 != v14);
-      v24 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v24 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
       v12 = v24;
     }
 
     while (v24);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __84__ENConfigurationStore_allCachedCountryCodesServerResponseWithDirectoryURL_handler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1174,7 +1172,7 @@ BOOL __84__ENConfigurationStore_allCachedCountryCodesServerResponseWithDirectory
   v5 = a3;
   if (v5 && gLogCategory__ENConfigurationStore <= 90 && (gLogCategory__ENConfigurationStore != -1 || _LogCategory_Initialize()))
   {
-    __84__ENConfigurationStore_allCachedCountryCodesServerResponseWithDirectoryURL_handler___block_invoke_cold_1();
+    __84__ENConfigurationStore_allCachedCountryCodesServerResponseWithDirectoryURL_handler___block_invoke_cold_1(v5);
   }
 
   return v5 == 0;
@@ -1182,12 +1180,12 @@ BOOL __84__ENConfigurationStore_allCachedCountryCodesServerResponseWithDirectory
 
 - (id)allRegionConfigurations
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__7;
-  v25 = __Block_byref_object_dispose__7;
+  v27 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__7;
+  v24 = __Block_byref_object_dispose__7;
   array = [MEMORY[0x277CBEA68] array];
   storeQueue = [(ENConfigurationStore *)self storeQueue];
   block[0] = MEMORY[0x277D85DD0];
@@ -1195,53 +1193,51 @@ BOOL __84__ENConfigurationStore_allCachedCountryCodesServerResponseWithDirectory
   block[2] = __47__ENConfigurationStore_allRegionConfigurations__block_invoke;
   block[3] = &unk_278FD2370;
   block[4] = self;
-  block[5] = &v21;
+  block[5] = &v20;
   dispatch_async_and_wait(storeQueue, block);
 
-  v4 = [MEMORY[0x277CBEB10] arrayWithCapacity:{objc_msgSend(v22[5], "count")}];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
+  v4 = [MEMORY[0x277CBEB10] arrayWithCapacity:{objc_msgSend(v21[5], "count")}];
   v17 = 0u;
-  obj = v22[5];
-  v5 = [obj countByEnumeratingWithState:&v16 objects:v27 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  obj = v21[5];
+  v5 = [obj countByEnumeratingWithState:&v15 objects:v26 count:16];
   if (v5)
   {
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [objc_alloc(MEMORY[0x277CC5CD0]) initWithServerResponseDictionary:*(*(&v16 + 1) + 8 * i)];
+        v8 = [objc_alloc(MEMORY[0x277CC5CD0]) initWithServerResponseDictionary:*(*(&v15 + 1) + 8 * i)];
         if (v8)
         {
           storeQueue2 = [(ENConfigurationStore *)self storeQueue];
-          v14[0] = MEMORY[0x277D85DD0];
-          v14[1] = 3221225472;
-          v14[2] = __47__ENConfigurationStore_allRegionConfigurations__block_invoke_2;
-          v14[3] = &unk_278FD1240;
-          v14[4] = self;
-          v14[5] = v8;
-          v15 = v4;
-          dispatch_sync(storeQueue2, v14);
+          v13[0] = MEMORY[0x277D85DD0];
+          v13[1] = 3221225472;
+          v13[2] = __47__ENConfigurationStore_allRegionConfigurations__block_invoke_2;
+          v13[3] = &unk_278FD1240;
+          v13[4] = self;
+          v13[5] = v8;
+          v14 = v4;
+          dispatch_sync(storeQueue2, v13);
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v16 objects:v27 count:16];
+      v5 = [obj countByEnumeratingWithState:&v15 objects:v26 count:16];
     }
 
     while (v5);
   }
 
   v10 = [v4 copy];
-  _Block_object_dispose(&v21, 8);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 
   return v10;
 }
@@ -1283,32 +1279,32 @@ void __47__ENConfigurationStore_allRegionConfigurations__block_invoke_2(uint64_t
 
 void __62__ENConfigurationStore_allRegionConfigurationsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEB10] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       v9 = 0;
       do
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * v9);
+        v10 = *(*(&v18 + 1) + 8 * v9);
         v11 = objc_alloc(MEMORY[0x277CC5CD0]);
-        v12 = [v11 initWithServerResponseDictionary:{v10, v19}];
+        v12 = [v11 initWithServerResponseDictionary:{v10, v18}];
         v13 = v12;
         if (v12)
         {
@@ -1326,7 +1322,7 @@ void __62__ENConfigurationStore_allRegionConfigurationsWithCompletion___block_in
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -1337,69 +1333,65 @@ void __62__ENConfigurationStore_allRegionConfigurationsWithCompletion___block_in
   {
     (*(v17 + 16))(v17, v4);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allRegionServerConfigurationsForCountryCode:(id)code
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   codeCopy = code;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__7;
-  v29 = __Block_byref_object_dispose__7;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__7;
+  v28 = __Block_byref_object_dispose__7;
   array = [MEMORY[0x277CBEA68] array];
   storeQueue = [(ENConfigurationStore *)self storeQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __68__ENConfigurationStore_allRegionServerConfigurationsForCountryCode___block_invoke;
   block[3] = &unk_278FD10D0;
-  v24 = &v25;
+  v23 = &v24;
   block[4] = self;
   v6 = codeCopy;
-  v23 = v6;
+  v22 = v6;
   dispatch_async_and_wait(storeQueue, block);
 
-  v7 = [MEMORY[0x277CBEB10] arrayWithCapacity:{objc_msgSend(v26[5], "count")}];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
+  v7 = [MEMORY[0x277CBEB10] arrayWithCapacity:{objc_msgSend(v25[5], "count")}];
   v19 = 0u;
-  v8 = v26[5];
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v31 count:16];
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v8 = v25[5];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v30 count:16];
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = objc_alloc(MEMORY[0x277CC5CD0]);
-        v14 = [v13 initWithServerResponseDictionary:{v12, v18}];
+        v14 = [v13 initWithServerResponseDictionary:{v12, v17}];
         if (v14)
         {
           [v7 addObject:v14];
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v18 objects:v31 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v17 objects:v30 count:16];
     }
 
     while (v9);
   }
 
   v15 = [v7 copy];
-  _Block_object_dispose(&v25, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
 
   return v15;
 }
@@ -1426,32 +1418,32 @@ void __68__ENConfigurationStore_allRegionServerConfigurationsForCountryCode___bl
 
 void __68__ENConfigurationStore_allRegionServerConfigurationsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEB10] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         v11 = objc_alloc(MEMORY[0x277CC5CD0]);
-        v12 = [v11 initWithServerResponseDictionary:{v10, v15}];
+        v12 = [v11 initWithServerResponseDictionary:{v10, v14}];
         if (v12)
         {
           [v4 addObject:v12];
@@ -1461,7 +1453,7 @@ void __68__ENConfigurationStore_allRegionServerConfigurationsWithCompletion___bl
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -1472,8 +1464,6 @@ void __68__ENConfigurationStore_allRegionServerConfigurationsWithCompletion___bl
   {
     (*(v13 + 16))(v13, v4);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allAgencyServerRegionConfigurationsWithCompletion:(id)completion
@@ -1491,29 +1481,29 @@ void __68__ENConfigurationStore_allRegionServerConfigurationsWithCompletion___bl
 
 void __74__ENConfigurationStore_allAgencyServerRegionConfigurationsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v16 = [MEMORY[0x277CBEB10] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+  v15 = [MEMORY[0x277CBEB10] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         v10 = [*(a1 + 32) regionFromServerResponse:v9];
         if (v10)
         {
@@ -1523,12 +1513,12 @@ void __74__ENConfigurationStore_allAgencyServerRegionConfigurationsWithCompletio
 
           if (v13)
           {
-            [v16 addObject:v13];
+            [v15 addObject:v13];
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -1537,10 +1527,8 @@ void __74__ENConfigurationStore_allAgencyServerRegionConfigurationsWithCompletio
   v14 = *(a1 + 40);
   if (v14)
   {
-    (*(v14 + 16))(v14, v16);
+    (*(v14 + 16))(v14, v15);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)serverConfigurationResponseForRegion:(id)region
@@ -1668,7 +1656,7 @@ LABEL_11:
 
       if ((v15 || !v14) && gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _serverConfigurationResponseForFileURL:]", 90, "Error unarchiving Configuration for Region: %@ - %@", v4, v15);
       }
 
       goto LABEL_18;
@@ -1737,30 +1725,13 @@ void __88__ENConfigurationStore_allCachedServerResponseConfigurationsWithCountry
 
 - (id)_directoryURLForCachedConfigurations
 {
-  if ([(ENConfigurationStore *)self developerServerConfiguration])
+  if (-[ENConfigurationStore developerServerConfiguration](self, "developerServerConfiguration") || (-[ENConfigurationStore regionIdentifierOverride](self, "regionIdentifierOverride"), (v3 = objc_claimAutoreleasedReturnValue()) != 0) && (v4 = v3, -[ENConfigurationStore regionIdentifierOverride](self, "regionIdentifierOverride"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 length], v5, v4, v6))
   {
-    goto LABEL_4;
-  }
-
-  regionIdentifierOverride = [(ENConfigurationStore *)self regionIdentifierOverride];
-  if (!regionIdentifierOverride)
-  {
-    goto LABEL_5;
-  }
-
-  v4 = regionIdentifierOverride;
-  regionIdentifierOverride2 = [(ENConfigurationStore *)self regionIdentifierOverride];
-  v6 = [regionIdentifierOverride2 length];
-
-  if (v6)
-  {
-LABEL_4:
     developerConfigurationsURL = [(ENConfigurationStore *)self developerConfigurationsURL];
   }
 
   else
   {
-LABEL_5:
     developerConfigurationsURL = [(ENConfigurationStore *)self serverConfigurationCacheURL];
   }
 
@@ -1769,49 +1740,49 @@ LABEL_5:
 
 - (void)_enumerateCachedServerResponseConfigurationsWithDirectoryURL:(id)l prefix:(id)prefix handler:(id)handler
 {
-  v50[2] = *MEMORY[0x277D85DE8];
+  v49[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
   prefixCopy = prefix;
   handlerCopy = handler;
   defaultManager = [MEMORY[0x277CCAA08] defaultManager];
   v10 = *MEMORY[0x277CBE8F0];
   v11 = *MEMORY[0x277CBE860];
-  v50[0] = *MEMORY[0x277CBE8F0];
-  v50[1] = v11;
-  v12 = [MEMORY[0x277CBEA68] arrayWithObjects:v50 count:2];
-  v33 = lCopy;
+  v49[0] = *MEMORY[0x277CBE8F0];
+  v49[1] = v11;
+  v12 = [MEMORY[0x277CBEA68] arrayWithObjects:v49 count:2];
+  v32 = lCopy;
   v13 = [defaultManager enumeratorAtURL:lCopy includingPropertiesForKeys:v12 options:5 errorHandler:&__block_literal_global_72];
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = v13;
-  v41 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
-  if (v41)
+  v40 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+  if (v40)
   {
-    v40 = *v46;
-    v37 = v10;
-    v38 = prefixCopy;
-    v36 = v11;
+    v39 = *v45;
+    v36 = v10;
+    v37 = prefixCopy;
+    v35 = v11;
     do
     {
       v14 = 0;
       do
       {
-        if (*v46 != v40)
+        if (*v45 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v45 + 1) + 8 * v14);
+        v15 = *(*(&v44 + 1) + 8 * v14);
         v16 = objc_autoreleasePoolPush();
-        v44 = 0;
-        [v15 getResourceValue:&v44 forKey:v10 error:0];
-        v17 = v44;
         v43 = 0;
-        [v15 getResourceValue:&v43 forKey:v11 error:0];
-        v18 = v43;
+        [v15 getResourceValue:&v43 forKey:v10 error:0];
+        v17 = v43;
+        v42 = 0;
+        [v15 getResourceValue:&v42 forKey:v11 error:0];
+        v18 = v42;
         if (([v18 BOOLValue] & 1) == 0)
         {
           if (![prefixCopy length] || (objc_msgSend(prefixCopy, "lowercaseString"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v17, "hasPrefix:", v19), v19, v20))
@@ -1824,36 +1795,36 @@ LABEL_5:
               v24 = objc_opt_class();
               v25 = objc_opt_class();
               v26 = [v22 setWithObjects:{v23, v24, v25, objc_opt_class(), 0}];
-              v42 = 0;
-              v27 = [MEMORY[0x277CCAAC0] unarchivedObjectOfClasses:v26 fromData:v21 error:&v42];
-              v28 = v42;
+              v41 = 0;
+              v27 = [MEMORY[0x277CCAAC0] unarchivedObjectOfClasses:v26 fromData:v21 error:&v41];
+              v28 = v41;
               if (v28)
               {
-                v10 = v37;
+                v10 = v36;
                 if (gLogCategory__ENConfigurationStore <= 90 && (gLogCategory__ENConfigurationStore != -1 || _LogCategory_Initialize()))
                 {
-                  [ENConfigurationStore _enumerateCachedServerResponseConfigurationsWithDirectoryURL:prefix:handler:];
+                  [ENConfigurationStore _enumerateCachedServerResponseConfigurationsWithDirectoryURL:v28 prefix:? handler:?];
                 }
               }
 
               else
               {
-                v35 = v27;
+                v34 = v27;
                 v29 = +[ENLoggingPrefs sharedENLoggingPrefs];
                 isSensitiveLoggingAllowed = [v29 isSensitiveLoggingAllowed];
 
                 if (isSensitiveLoggingAllowed && gLogCategory_ENConfigurationStore <= 10 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
                 {
-                  [ENConfigurationStore _enumerateCachedServerResponseConfigurationsWithDirectoryURL:prefix:handler:];
+                  [ENConfigurationStore _enumerateCachedServerResponseConfigurationsWithDirectoryURL:v15 prefix:? handler:?];
                 }
 
-                v27 = v35;
-                (handlerCopy)[2](handlerCopy, v35);
-                v10 = v37;
+                v27 = v34;
+                (handlerCopy)[2](handlerCopy, v34);
+                v10 = v36;
               }
 
-              prefixCopy = v38;
-              v11 = v36;
+              prefixCopy = v37;
+              v11 = v35;
             }
           }
         }
@@ -1862,15 +1833,13 @@ LABEL_5:
         ++v14;
       }
 
-      while (v41 != v14);
-      v31 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
-      v41 = v31;
+      while (v40 != v14);
+      v31 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v40 = v31;
     }
 
     while (v31);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __100__ENConfigurationStore__enumerateCachedServerResponseConfigurationsWithDirectoryURL_prefix_handler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1879,7 +1848,7 @@ BOOL __100__ENConfigurationStore__enumerateCachedServerResponseConfigurationsWit
   v5 = a3;
   if (v5 && gLogCategory__ENConfigurationStore <= 90 && (gLogCategory__ENConfigurationStore != -1 || _LogCategory_Initialize()))
   {
-    __100__ENConfigurationStore__enumerateCachedServerResponseConfigurationsWithDirectoryURL_prefix_handler___block_invoke_cold_1();
+    __100__ENConfigurationStore__enumerateCachedServerResponseConfigurationsWithDirectoryURL_prefix_handler___block_invoke_cold_1(v5);
   }
 
   return v5 == 0;
@@ -1972,7 +1941,7 @@ void __49__ENConfigurationStore_subdivisionListForRegion___block_invoke(uint64_t
 
     if (gLogCategory_ENConfigurationStore <= 30 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      [ENConfigurationStore _subdivisionListForRegion:v5];
+      [(ENConfigurationStore *)v5 _subdivisionListForRegion:path];
     }
 
     defaultManager = [MEMORY[0x277CCAA08] defaultManager];
@@ -2044,7 +2013,7 @@ void __44__ENConfigurationStore_regionHashForRegion___block_invoke(uint64_t a1)
     path = [v7 path];
     if (gLogCategory_ENConfigurationStore <= 30 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      [ENConfigurationStore _regionHashForRegion:v5];
+      [(ENConfigurationStore *)v5 _regionHashForRegion:v7];
     }
 
     defaultManager = [MEMORY[0x277CCAA08] defaultManager];
@@ -2057,7 +2026,7 @@ void __44__ENConfigurationStore_regionHashForRegion___block_invoke(uint64_t a1)
       v12 = v14;
       if (!v11 && gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _regionHashForRegion:]", 90, "Failed to get region hash from fileURL %@: %@", v7, v12);
       }
     }
 
@@ -2112,38 +2081,38 @@ void __51__ENConfigurationStore_localeIdentifiersForRegion___block_invoke(uint64
 
 - (id)_localeIdentifiersForRegion:(id)region
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   regionCopy = region;
   if (regionCopy)
   {
-    v31 = regionCopy;
-    v30 = [(ENConfigurationStore *)self _serverConfigurationResponseForRegion:regionCopy];
-    v5 = [v30 objectForKeyedSubscript:@"config"];
+    v28 = regionCopy;
+    v27 = [(ENConfigurationStore *)self _serverConfigurationResponseForRegion:regionCopy];
+    v5 = [v27 objectForKeyedSubscript:@"config"];
     array = [MEMORY[0x277CBEB10] array];
+    v31 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v29 = v5;
+    v26 = v5;
     allKeys = [v5 allKeys];
-    v8 = [allKeys countByEnumeratingWithState:&v34 objects:v40 count:16];
+    v8 = [allKeys countByEnumeratingWithState:&v31 objects:v37 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v35;
-      v32 = *v35;
+      v10 = *v32;
+      v29 = *v32;
       do
       {
         v11 = 0;
-        v33 = v9;
+        v30 = v9;
         do
         {
-          if (*v35 != v10)
+          if (*v32 != v10)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v12 = *(*(&v34 + 1) + 8 * v11);
+          v12 = *(*(&v31 + 1) + 8 * v11);
           if ([v12 hasPrefix:@"agencyMessage"])
           {
             v13 = [v12 componentsSeparatedByString:@"_"];
@@ -2160,9 +2129,9 @@ void __51__ENConfigurationStore_localeIdentifiersForRegion___block_invoke(uint64
 
               array = v19;
               allKeys = v16;
-              v9 = v33;
+              v9 = v30;
 
-              v10 = v32;
+              v10 = v29;
               [v19 addObject:v21];
             }
           }
@@ -2171,18 +2140,16 @@ void __51__ENConfigurationStore_localeIdentifiersForRegion___block_invoke(uint64
         }
 
         while (v9 != v11);
-        v9 = [allKeys countByEnumeratingWithState:&v34 objects:v40 count:16];
+        v9 = [allKeys countByEnumeratingWithState:&v31 objects:v37 count:16];
       }
 
       while (v9);
     }
 
-    regionCopy = v31;
+    regionCopy = v28;
     if (gLogCategory_ENConfigurationStore <= 10 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      v27 = v31;
-      v28 = array;
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _localeIdentifiersForRegion:]", 10, "Locales in configuration: %@ - %@", v28, array);
     }
 
     if ([array count])
@@ -2192,23 +2159,21 @@ void __51__ENConfigurationStore_localeIdentifiersForRegion___block_invoke(uint64
 
     else
     {
-      [(ENConfigurationStore *)&v39 _localeIdentifiersForRegion:?];
-      v22 = v38;
+      [(ENConfigurationStore *)&v36 _localeIdentifiersForRegion:?];
+      v22 = v35;
     }
 
-    localeIdentifier = v29;
-    currentLocale = v30;
+    localeIdentifier = v26;
+    currentLocale = v27;
   }
 
   else
   {
     currentLocale = [MEMORY[0x277CBEAF0] currentLocale];
     localeIdentifier = [currentLocale localeIdentifier];
-    v41[0] = localeIdentifier;
-    v22 = [MEMORY[0x277CBEA68] arrayWithObjects:v41 count:1];
+    v38[0] = localeIdentifier;
+    v22 = [MEMORY[0x277CBEA68] arrayWithObjects:v38 count:1];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -2282,34 +2247,35 @@ void __40__ENConfigurationStore_localeForRegion___block_invoke(uint64_t a1)
 void __36__ENConfigurationStore_prefsChanged__block_invoke(uint64_t a1)
 {
   Int64 = CFPrefs_GetInt64();
-  v4 = *(a1 + 32);
-  v3 = (a1 + 32);
-  if ((Int64 != 0) != [v4 developerServerConfiguration])
+  v3 = Int64 != 0;
+  v5 = *(a1 + 32);
+  v4 = (a1 + 32);
+  if (v3 != [v5 developerServerConfiguration])
   {
     if (gLogCategory_ENConfigurationStore <= 30 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      __36__ENConfigurationStore_prefsChanged__block_invoke_cold_1(v3);
+      __36__ENConfigurationStore_prefsChanged__block_invoke_cold_1(v4, v3);
     }
 
-    [*v3 setDeveloperServerConfiguration:Int64 != 0];
+    [*v4 setDeveloperServerConfiguration:Int64 != 0];
   }
 
   CFStringGetTypeID();
-  v5 = CFPrefs_CopyTypedValue();
-  v6 = [*v3 regionIdentifierOverride];
-  v9 = v5;
-  v7 = v6;
-  if (v9 == v7)
+  v6 = CFPrefs_CopyTypedValue();
+  v7 = [*v4 regionIdentifierOverride];
+  v10 = v6;
+  v8 = v7;
+  if (v10 == v8)
   {
 
     goto LABEL_16;
   }
 
-  if ((v9 != 0) != (v7 == 0))
+  if ((v10 != 0) != (v8 == 0))
   {
-    v8 = [v9 isEqual:v7];
+    v9 = [v10 isEqual:v8];
 
-    if (v8)
+    if (v9)
     {
       goto LABEL_16;
     }
@@ -2321,141 +2287,151 @@ void __36__ENConfigurationStore_prefsChanged__block_invoke(uint64_t a1)
 
   if (gLogCategory_ENConfigurationStore <= 30 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
   {
-    __36__ENConfigurationStore_prefsChanged__block_invoke_cold_2(v3);
+    __36__ENConfigurationStore_prefsChanged__block_invoke_cold_2(v4, v10);
   }
 
-  [*v3 setRegionIdentifierOverride:v9];
+  [*v4 setRegionIdentifierOverride:v10];
 LABEL_16:
 }
 
 - (BOOL)saveTemporaryServerConfigurations:(id)configurations error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__7;
-  v42 = __Block_byref_object_dispose__7;
-  v43 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
   v37 = 0;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __64__ENConfigurationStore_saveTemporaryServerConfigurations_error___block_invoke;
-  v33[3] = &unk_278FD2858;
-  v33[5] = &v38;
-  v33[6] = error;
-  v33[4] = &v34;
-  v24 = MEMORY[0x24C214430](v33);
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__7;
+  v41 = __Block_byref_object_dispose__7;
+  v42 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __64__ENConfigurationStore_saveTemporaryServerConfigurations_error___block_invoke;
+  v32[3] = &unk_278FD2858;
+  v32[5] = &v37;
+  v32[6] = error;
+  v32[4] = &v33;
+  v23 = MEMORY[0x24C214430](v32);
   if (-[ENConfigurationStore developerServerConfiguration](self, "developerServerConfiguration") || (-[ENConfigurationStore regionIdentifierOverride](self, "regionIdentifierOverride"), (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (-[ENConfigurationStore regionIdentifierOverride](self, "regionIdentifierOverride"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 length] == 0, v7, v6, !v8))
   {
     defaultManager = [MEMORY[0x277CCAA08] defaultManager];
     developerConfigurationsURL = [(ENConfigurationStore *)self developerConfigurationsURL];
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     obj = configurationsCopy;
-    v11 = [obj countByEnumeratingWithState:&v29 objects:v44 count:16];
+    v11 = [obj countByEnumeratingWithState:&v28 objects:v43 count:16];
     if (!v11)
     {
       goto LABEL_27;
     }
 
-    v12 = *v30;
-    while (2)
+    v12 = *v29;
+LABEL_6:
+    v13 = 0;
+    while (1)
     {
-      for (i = 0; i != v11; ++i)
+      if (*v29 != v12)
       {
-        if (*v30 != v12)
+        objc_enumerationMutation(obj);
+      }
+
+      v14 = *(*(&v28 + 1) + 8 * v13);
+      if (!v14)
+      {
+        break;
+      }
+
+      v15 = (v38 + 5);
+      v27 = v38[5];
+      v16 = [defaultManager createDirectoryAtURL:developerConfigurationsURL withIntermediateDirectories:1 attributes:0 error:&v27];
+      objc_storeStrong(v15, v27);
+      if (!v16)
+      {
+        break;
+      }
+
+      storeQueue = [(ENConfigurationStore *)self storeQueue];
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __64__ENConfigurationStore_saveTemporaryServerConfigurations_error___block_invoke_2;
+      block[3] = &unk_278FD23C0;
+      block[4] = self;
+      block[5] = v14;
+      block[6] = &v33;
+      block[7] = &v37;
+      dispatch_sync(storeQueue, block);
+
+      if (v11 == ++v13)
+      {
+        v11 = [obj countByEnumeratingWithState:&v28 objects:v43 count:16];
+        if (v11)
         {
-          objc_enumerationMutation(obj);
+          goto LABEL_6;
         }
 
-        v14 = *(*(&v29 + 1) + 8 * i);
-        if (!v14 || (v15 = (v39 + 5), v28 = v39[5], v16 = [defaultManager createDirectoryAtURL:developerConfigurationsURL withIntermediateDirectories:1 attributes:0 error:&v28], objc_storeStrong(v15, v28), !v16))
+        goto LABEL_27;
+      }
+    }
+
+    v18 = v38[5];
+    if (v18)
+    {
+      if (gLogCategory_ENConfigurationStore > 90)
+      {
+        goto LABEL_27;
+      }
+
+      if (gLogCategory_ENConfigurationStore == -1)
+      {
+        if (!_LogCategory_Initialize())
         {
-          if (v39[5])
-          {
-            if (gLogCategory_ENConfigurationStore > 90)
-            {
-              goto LABEL_27;
-            }
-
-            if (gLogCategory_ENConfigurationStore == -1)
-            {
-              if (!_LogCategory_Initialize())
-              {
-                goto LABEL_27;
-              }
-
-              v21 = v39[5];
-            }
-          }
-
-          else
-          {
-            v19 = ENErrorF();
-            v20 = v39[5];
-            v39[5] = v19;
-
-            if (gLogCategory_ENConfigurationStore > 90 || gLogCategory_ENConfigurationStore == -1 && !_LogCategory_Initialize())
-            {
-              goto LABEL_27;
-            }
-          }
-
-          LogPrintF_safe();
           goto LABEL_27;
         }
 
-        storeQueue = [(ENConfigurationStore *)self storeQueue];
-        block[0] = MEMORY[0x277D85DD0];
-        block[1] = 3221225472;
-        block[2] = __64__ENConfigurationStore_saveTemporaryServerConfigurations_error___block_invoke_2;
-        block[3] = &unk_278FD23C0;
-        block[4] = self;
-        block[5] = v14;
-        block[6] = &v34;
-        block[7] = &v38;
-        dispatch_sync(storeQueue, block);
+        v18 = v38[5];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v29 objects:v44 count:16];
-      if (v11)
-      {
-        continue;
-      }
+      LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore saveTemporaryServerConfigurations:error:]", 90, "Error Saving Temporary Server Configuration: %@", v18);
+      goto LABEL_27;
+    }
 
-      break;
+    v20 = ENErrorF(15, "Unsupported Server Developer Test Configuration");
+    v21 = v38[5];
+    v38[5] = v20;
+
+    if (gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore saveTemporaryServerConfigurations:error:]", 90, "Error Saving Temporary Server Configuration: ");
     }
 
 LABEL_27:
 
-    v18 = *(v35 + 24);
+    v19 = *(v34 + 24);
   }
 
   else if (error)
   {
-    ENErrorF();
-    *error = v18 = 0;
+    ENErrorF(10, "Custom Server Configurations Not Enabled");
+    *error = v19 = 0;
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  v24[2](v24);
+  v23[2](v23);
 
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v37, 8);
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v18 & 1;
+  return v19 & 1;
 }
 
 void __64__ENConfigurationStore_saveTemporaryServerConfigurations_error___block_invoke(uint64_t a1)
@@ -2470,7 +2446,7 @@ void __64__ENConfigurationStore_saveTemporaryServerConfigurations_error___block_
 
     else
     {
-      v3 = ENErrorF();
+      v3 = ENErrorF(11, "Unknown error setting configuration");
       **(a1 + 48) = v3;
     }
   }
@@ -2527,7 +2503,7 @@ void __64__ENConfigurationStore_saveTemporaryServerConfigurations_error___block_
 
   else if (gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
   {
-    [ENConfigurationStore resetStore];
+    [(ENConfigurationStore *)v6 resetStore];
   }
 
   defaultManager2 = [MEMORY[0x277CCAA08] defaultManager];
@@ -2546,7 +2522,7 @@ void __64__ENConfigurationStore_saveTemporaryServerConfigurations_error___block_
 
   else if (gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
   {
-    [ENConfigurationStore resetStore];
+    [(ENConfigurationStore *)v10 resetStore];
   }
 
   defaultManager3 = [MEMORY[0x277CCAA08] defaultManager];
@@ -2565,7 +2541,7 @@ void __64__ENConfigurationStore_saveTemporaryServerConfigurations_error___block_
 
   else if (gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
   {
-    [ENConfigurationStore resetStore];
+    [(ENConfigurationStore *)v14 resetStore];
   }
 }
 
@@ -2634,30 +2610,13 @@ void __64__ENConfigurationStore_saveTemporaryServerConfigurations_error___block_
 - (id)fileURLforRegionServerConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  if ([(ENConfigurationStore *)self developerServerConfiguration])
+  if (-[ENConfigurationStore developerServerConfiguration](self, "developerServerConfiguration") || (-[ENConfigurationStore regionIdentifierOverride](self, "regionIdentifierOverride"), (v5 = objc_claimAutoreleasedReturnValue()) != 0) && (v6 = v5, -[ENConfigurationStore regionIdentifierOverride](self, "regionIdentifierOverride"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 length], v7, v6, v8))
   {
-    goto LABEL_4;
-  }
-
-  regionIdentifierOverride = [(ENConfigurationStore *)self regionIdentifierOverride];
-  if (!regionIdentifierOverride)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = regionIdentifierOverride;
-  regionIdentifierOverride2 = [(ENConfigurationStore *)self regionIdentifierOverride];
-  v8 = [regionIdentifierOverride2 length];
-
-  if (v8)
-  {
-LABEL_4:
     developerConfigurationsURL = [(ENConfigurationStore *)self developerConfigurationsURL];
   }
 
   else
   {
-LABEL_5:
     developerConfigurationsURL = [(ENConfigurationStore *)self serverConfigurationCacheURL];
   }
 
@@ -2706,30 +2665,13 @@ LABEL_5:
 - (id)fileURLforCountrySubdivisionList:(id)list
 {
   listCopy = list;
-  if ([(ENConfigurationStore *)self developerServerConfiguration])
+  if (-[ENConfigurationStore developerServerConfiguration](self, "developerServerConfiguration") || (-[ENConfigurationStore regionIdentifierOverride](self, "regionIdentifierOverride"), (v5 = objc_claimAutoreleasedReturnValue()) != 0) && (v6 = v5, -[ENConfigurationStore regionIdentifierOverride](self, "regionIdentifierOverride"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 length], v7, v6, v8))
   {
-    goto LABEL_4;
-  }
-
-  regionIdentifierOverride = [(ENConfigurationStore *)self regionIdentifierOverride];
-  if (!regionIdentifierOverride)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = regionIdentifierOverride;
-  regionIdentifierOverride2 = [(ENConfigurationStore *)self regionIdentifierOverride];
-  v8 = [regionIdentifierOverride2 length];
-
-  if (v8)
-  {
-LABEL_4:
     developerSubdivisionListCacheURL = [(ENConfigurationStore *)self developerSubdivisionListCacheURL];
   }
 
   else
   {
-LABEL_5:
     developerSubdivisionListCacheURL = [(ENConfigurationStore *)self serverSubdivisionListCacheURL];
   }
 
@@ -2745,30 +2687,13 @@ LABEL_5:
 - (id)fileURLForCountryRegionHash:(id)hash
 {
   hashCopy = hash;
-  if ([(ENConfigurationStore *)self developerServerConfiguration])
+  if (-[ENConfigurationStore developerServerConfiguration](self, "developerServerConfiguration") || (-[ENConfigurationStore regionIdentifierOverride](self, "regionIdentifierOverride"), (v5 = objc_claimAutoreleasedReturnValue()) != 0) && (v6 = v5, -[ENConfigurationStore regionIdentifierOverride](self, "regionIdentifierOverride"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 length], v7, v6, v8))
   {
-    goto LABEL_4;
-  }
-
-  regionIdentifierOverride = [(ENConfigurationStore *)self regionIdentifierOverride];
-  if (!regionIdentifierOverride)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = regionIdentifierOverride;
-  regionIdentifierOverride2 = [(ENConfigurationStore *)self regionIdentifierOverride];
-  v8 = [regionIdentifierOverride2 length];
-
-  if (v8)
-  {
-LABEL_4:
     developerSubdivisionListCacheURL = [(ENConfigurationStore *)self developerSubdivisionListCacheURL];
   }
 
   else
   {
-LABEL_5:
     developerSubdivisionListCacheURL = [(ENConfigurationStore *)self serverSubdivisionListCacheURL];
   }
 
@@ -2806,7 +2731,7 @@ void __41__ENConfigurationStore_legacyAppCacheURL__block_invoke()
 
     if (v3 && gLogCategory_ENConfigurationStore <= 30 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      __41__ENConfigurationStore_legacyAppCacheURL__block_invoke_cold_1();
+      __41__ENConfigurationStore_legacyAppCacheURL__block_invoke_cold_1(v1);
     }
 
     v4 = [MEMORY[0x277CBEBC8] fileURLWithFileSystemRepresentation:v1 isDirectory:1 relativeToURL:0];
@@ -2866,9 +2791,9 @@ void __69__ENConfigurationStore_cachedAppConfiguationForBundleID_forRegionID___b
       v7 = MEMORY[0x277CBEB90];
       v8 = objc_opt_class();
       v9 = [v7 setWithObjects:{v8, objc_opt_class(), 0}];
-      v19 = 0;
-      v10 = [MEMORY[0x277CCAAC0] unarchivedObjectOfClasses:v9 fromData:v6 error:&v19];
-      v11 = v19;
+      v18 = 0;
+      v10 = [MEMORY[0x277CCAAC0] unarchivedObjectOfClasses:v9 fromData:v6 error:&v18];
+      v11 = v18;
       v12 = *(a1[6] + 8);
       v13 = *(v12 + 40);
       *(v12 + 40) = v10;
@@ -2877,8 +2802,7 @@ void __69__ENConfigurationStore_cachedAppConfiguationForBundleID_forRegionID___b
       {
         if (gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
         {
-          v18 = a1[5];
-          LogPrintF_safe();
+          LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore cachedAppConfiguationForBundleID:forRegionID:]_block_invoke", 90, "Error unarchiving App Configuration for bundle ID: %@ - %@", a1[5], v11);
         }
 
         v16 = *(a1[6] + 8);
@@ -2888,7 +2812,7 @@ void __69__ENConfigurationStore_cachedAppConfiguationForBundleID_forRegionID___b
 
       else if (gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
       {
-        __69__ENConfigurationStore_cachedAppConfiguationForBundleID_forRegionID___block_invoke_cold_1((a1 + 6));
+        __69__ENConfigurationStore_cachedAppConfiguationForBundleID_forRegionID___block_invoke_cold_1();
       }
     }
   }
@@ -2938,55 +2862,55 @@ void __69__ENConfigurationStore_cachedAppConfiguationForBundleID_forRegionID___b
 
 void __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___block_invoke(uint64_t a1)
 {
-  v47[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   if (gLogCategory_ENConfigurationStore <= 30 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
   {
     __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___block_invoke_cold_1(a1);
   }
 
   v2 = +[ENConfigurationStore legacyAppCacheURL];
-  v35 = (a1 + 32);
+  v32 = (a1 + 32);
   v3 = [v2 URLByAppendingPathComponent:*(a1 + 32)];
 
   v4 = [MEMORY[0x277CCAA08] defaultManager];
   v5 = *MEMORY[0x277CBE8F0];
   v6 = *MEMORY[0x277CBE860];
-  v47[0] = *MEMORY[0x277CBE8F0];
-  v47[1] = v6;
-  v7 = [MEMORY[0x277CBEA68] arrayWithObjects:v47 count:2];
-  v33 = v3;
+  v44[0] = *MEMORY[0x277CBE8F0];
+  v44[1] = v6;
+  v7 = [MEMORY[0x277CBEA68] arrayWithObjects:v44 count:2];
+  v30 = v3;
   v8 = [v4 enumeratorAtURL:v3 includingPropertiesForKeys:v7 options:4 errorHandler:&__block_literal_global_168];
 
-  v44 = 0u;
-  v45 = 0u;
+  v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v43;
-    v34 = v9;
-    v37 = *v43;
+    v12 = *v40;
+    v31 = v9;
+    v34 = *v40;
     while (2)
     {
       v13 = 0;
-      v38 = v11;
+      v35 = v11;
       do
       {
-        if (*v43 != v12)
+        if (*v40 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v42 + 1) + 8 * v13);
-        v41 = 0;
-        [v14 getResourceValue:&v41 forKey:v5 error:{0, v31, v32}];
-        v15 = v41;
-        v40 = 0;
-        [v14 getResourceValue:&v40 forKey:v6 error:0];
-        v16 = v40;
+        v14 = *(*(&v39 + 1) + 8 * v13);
+        v38 = 0;
+        [v14 getResourceValue:&v38 forKey:v5 error:0];
+        v15 = v38;
+        v37 = 0;
+        [v14 getResourceValue:&v37 forKey:v6 error:0];
+        v16 = v37;
         if (([v16 BOOLValue] & 1) == 0)
         {
           v17 = [MEMORY[0x277CBEA98] dataWithContentsOfURL:v14];
@@ -2994,9 +2918,7 @@ void __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___bloc
           {
             v18 = MEMORY[0x277CBEB90];
             v19 = objc_opt_class();
-            v31 = objc_opt_class();
-            v32 = 0;
-            v39 = [v18 setWithObjects:v19];
+            v36 = [v18 setWithObjects:{v19, objc_opt_class(), 0}];
             v20 = [MEMORY[0x277CCAAC0] unarchivedObjectOfClasses:? fromData:? error:?];
             v21 = 0;
             v22 = *(*(a1 + 40) + 8);
@@ -3007,9 +2929,7 @@ void __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___bloc
             {
               if (gLogCategory__ENConfigurationStore <= 90 && (gLogCategory__ENConfigurationStore != -1 || _LogCategory_Initialize()))
               {
-                v31 = *v35;
-                v32 = v21;
-                LogPrintF_safe();
+                LogPrintF_safe(&gLogCategory__ENConfigurationStore, "[ENConfigurationStore legacyAppConfiguationForMobileCountryCode:]_block_invoke", 90, "Error unarchiving App Configuration for: %@ with error: %@", *v32, v21);
               }
 
               v28 = *(*(a1 + 40) + 8);
@@ -3021,33 +2941,33 @@ void __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___bloc
             {
               v24 = a1;
               v25 = [*(*(*(a1 + 40) + 8) + 40) regionID];
-              v36 = [v25 isEqualToString:*v35];
+              v33 = [v25 isEqualToString:*v32];
 
               v26 = +[ENLoggingPrefs sharedENLoggingPrefs];
               v27 = [v26 isSensitiveLoggingAllowed];
 
-              if (v36)
+              if (v33)
               {
                 a1 = v24;
                 if (v27 && gLogCategory_ENConfigurationStore <= 30 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
                 {
-                  __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___block_invoke_cold_3(v24 + 40);
+                  __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___block_invoke_cold_3();
                 }
 
-                v9 = v34;
+                v9 = v31;
                 goto LABEL_33;
               }
 
               a1 = v24;
-              v9 = v34;
+              v9 = v31;
               if (v27 && gLogCategory_ENConfigurationStore <= 30 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
               {
-                __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___block_invoke_cold_2(a1 + 40);
+                __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___block_invoke_cold_2();
               }
             }
 
-            v12 = v37;
-            v11 = v38;
+            v12 = v34;
+            v11 = v35;
           }
         }
 
@@ -3055,7 +2975,7 @@ void __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___bloc
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v39 objects:v43 count:16];
       if (v11)
       {
         continue;
@@ -3069,10 +2989,8 @@ LABEL_33:
 
   if (!*(*(*(a1 + 40) + 8) + 40) && gLogCategory__ENConfigurationStore <= 90 && (gLogCategory__ENConfigurationStore != -1 || _LogCategory_Initialize()))
   {
-    __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___block_invoke_cold_4(v35);
+    __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___block_invoke_cold_4(v32);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -3081,7 +2999,7 @@ BOOL __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___bloc
   v5 = a3;
   if (v5 && gLogCategory__ENConfigurationStore <= 90 && (gLogCategory__ENConfigurationStore != -1 || _LogCategory_Initialize()))
   {
-    __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___block_invoke_2_cold_1();
+    __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___block_invoke_2_cold_1(v5);
   }
 
   return v5 == 0;
@@ -3100,20 +3018,18 @@ BOOL __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___bloc
   if (v14)
   {
     v15 = *MEMORY[0x277CBE870];
-    v22 = 0;
-    v16 = [uRLByDeletingLastPathComponent setResourceValue:MEMORY[0x277CBEC20] forKey:v15 error:&v22];
-    v17 = v22;
+    v20 = 0;
+    v16 = [uRLByDeletingLastPathComponent setResourceValue:MEMORY[0x277CBEC20] forKey:v15 error:&v20];
+    v17 = v20;
     if ((v16 & 1) == 0 && gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      v20 = uRLByDeletingLastPathComponent;
-      v21 = v17;
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _saveCountrySubdivisionList:country:error:]", 90, "Failed to include %@ from backup with error - %@", uRLByDeletingLastPathComponent, v17);
     }
 
-    v18 = [listCopy writeToURL:v10 error:{error, v20, v21}];
+    v18 = [listCopy writeToURL:v10 error:error];
     if (v18 && gLogCategory_ENConfigurationStore <= 10 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _saveCountrySubdivisionList:country:error:]", 10, "Stored country subdivision list to: %@", v10);
     }
   }
 
@@ -3147,7 +3063,7 @@ BOOL __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___bloc
   v17 = v27;
   if ((v16 & 1) == 0 && gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _saveRegionHash:region:error:]", 90, "Failed to set NO for excluded from backup %@ with error - %@", uRLByDeletingLastPathComponent, v17);
   }
 
   if (!hashCopy)
@@ -3174,7 +3090,7 @@ BOOL __66__ENConfigurationStore_legacyAppConfiguationForMobileCountryCode___bloc
 LABEL_12:
     if (gLogCategory_ENConfigurationStore <= 10 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _saveRegionHash:region:error:]", 10, "Stored country region hash to: %@", v10);
     }
 
     v24 = 1;
@@ -3339,7 +3255,7 @@ LABEL_24:
       {
         if (gLogCategory_ENConfigurationStore <= 30 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore regionFromServerResponse:]", 30, "Invalid subdivisionCode in configuration: %@ - %@", v5, v8);
         }
 
         v7 = 0;
@@ -3390,7 +3306,7 @@ LABEL_13:
   {
     if (gLogCategory_ENConfigurationStore <= 30 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore clearTemporaryCountrySubdivisionList]_block_invoke", 30, "---- Removed Temporary Country Subdivision List ----");
     }
 
     goto LABEL_13;
@@ -3398,7 +3314,7 @@ LABEL_13:
 
   if (gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore clearTemporaryCountrySubdivisionList]_block_invoke", 90, "Error Removing Temporary Country Subdivision List: %@", v15);
   }
 
 LABEL_14:
@@ -3427,7 +3343,7 @@ LABEL_13:
   {
     if (gLogCategory_ENConfigurationStore <= 30 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore clearTemporaryServerConfigurations]_block_invoke", 30, "---- Removed Temporary Server Configuration ----");
     }
 
     goto LABEL_13;
@@ -3435,7 +3351,7 @@ LABEL_13:
 
   if (gLogCategory_ENConfigurationStore <= 90 && (gLogCategory_ENConfigurationStore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore clearTemporaryServerConfigurations]_block_invoke", 90, "Error Removing Temporary Server Configuration: %@", v15);
   }
 
 LABEL_14:
@@ -3446,7 +3362,7 @@ LABEL_14:
   [a1 regionCacheURL];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_4();
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore initWithDirectoryPath:]", 90, "Failed to include %@ from backup with error - %@");
 }
 
 - (void)initWithDirectoryPath:(void *)a1 .cold.2(void *a1)
@@ -3454,7 +3370,7 @@ LABEL_14:
   [a1 configurationCacheURL];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_4();
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore initWithDirectoryPath:]", 90, "Failed to include %@ from backup with error - %@");
 }
 
 - (void)initWithDirectoryPath:(void *)a1 .cold.3(void *a1)
@@ -3462,28 +3378,28 @@ LABEL_14:
   [a1 systemConfigurationCacheURL];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_4();
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore initWithDirectoryPath:]", 90, "Failed to include %@ from backup with error - %@");
 }
 
 - (void)_configurationForRegion:(void *)a3 .cold.1(void *a1, uint64_t a2, void *a3)
 {
   if (gLogCategory__ENConfigurationStore <= 90 && (gLogCategory__ENConfigurationStore != -1 || _LogCategory_Initialize()))
   {
-    v5 = [a1 region];
-    LogPrintF_safe();
+    v6 = [a1 region];
+    LogPrintF_safe(&gLogCategory__ENConfigurationStore, "[ENConfigurationStore _configurationForRegion:]", 90, "Configuration region %@ and requested region mismatched %@", v6, a2);
   }
 
   *a3 = 0;
 }
 
-- (uint64_t)_configurationForRegion:(uint64_t)result .cold.2(uint64_t result)
+- (void)_configurationForRegion:(void *)result .cold.2(void *result)
 {
   v1 = result;
   if (gLogCategory_ENConfigurationStore <= 90)
   {
     if (gLogCategory_ENConfigurationStore != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF_safe();
+      result = LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _configurationForRegion:]", 90, "Invalid Region Provided");
     }
   }
 
@@ -3491,14 +3407,14 @@ LABEL_14:
   return result;
 }
 
-- (uint64_t)_existingConfigurationForRegion:(uint64_t)result .cold.1(uint64_t result)
+- (void)_existingConfigurationForRegion:(void *)result .cold.1(void *result)
 {
   v1 = result;
   if (gLogCategory_ENConfigurationStore <= 90)
   {
     if (gLogCategory_ENConfigurationStore != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF_safe();
+      result = LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _existingConfigurationForRegion:]", 90, "Invalid Region Provided For System Configuration");
     }
   }
 
@@ -3506,13 +3422,14 @@ LABEL_14:
   return result;
 }
 
-- (uint64_t)_existingConfigurationForRegionPath:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
+- (uint64_t)_existingConfigurationForRegionPath:(uint64_t)result .cold.1(uint64_t result, void *a2)
 {
   if (gLogCategory_ENConfigurationStore <= 10)
   {
+    v3 = result;
     if (gLogCategory_ENConfigurationStore != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF_safe();
+      result = LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _existingConfigurationForRegionPath:]", 10, "Region Configuration does not exist for %@", v3);
     }
   }
 
@@ -3525,17 +3442,17 @@ LABEL_14:
   [a1 lastPathComponent];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_4();
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _existingConfigurationForRegionPath:]", 90, "_existingConfigurationForRegionPath could not open %@ - %@");
 }
 
-- (uint64_t)_existingConfigurationForRegionPath:(uint64_t)result .cold.3(uint64_t result)
+- (void)_existingConfigurationForRegionPath:(void *)result .cold.3(void *result)
 {
   v1 = result;
   if (gLogCategory_ENConfigurationStore <= 90)
   {
     if (gLogCategory_ENConfigurationStore != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF_safe();
+      result = LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _existingConfigurationForRegionPath:]", 90, "Invalid Path Provided For System Configuration");
     }
   }
 
@@ -3546,7 +3463,7 @@ LABEL_14:
 - (void)_saveRegionConfiguration:(void *)a1 error:.cold.2(void *a1)
 {
   v1 = [a1 region];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory__ENConfigurationStore, "[ENConfigurationStore _saveRegionConfiguration:error:]", 90, "Failed to write %@'s Region Configuration with error - %@", v1, 0);
 }
 
 - (void)_serverConfigurationResponseForFileURL:(void *)a1 .cold.1(void *a1)
@@ -3554,17 +3471,17 @@ LABEL_14:
   [a1 lastPathComponent];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_1_4();
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _serverConfigurationResponseForFileURL:]", 90, "_serverConfigurationResponseForFileURL could not open %@ - %@");
 }
 
-- (uint64_t)_serverConfigurationResponseForFileURL:(uint64_t)result .cold.2(uint64_t result)
+- (void)_serverConfigurationResponseForFileURL:(void *)result .cold.2(void *result)
 {
   v1 = result;
   if (gLogCategory_ENConfigurationStore <= 90)
   {
     if (gLogCategory_ENConfigurationStore != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF_safe();
+      result = LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _serverConfigurationResponseForFileURL:]", 90, "Invalid file path");
     }
   }
 
@@ -3572,20 +3489,20 @@ LABEL_14:
   return result;
 }
 
-- (void)_subdivisionListForRegion:(void *)a1 .cold.1(void *a1)
+- (void)_subdivisionListForRegion:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v1 = [a1 countryCode];
-  LogPrintF_safe();
+  v3 = [a1 countryCode];
+  LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _subdivisionListForRegion:]", 30, "Getting Subdivision List for %@ from %@", v3, a2);
 }
 
-- (uint64_t)_subdivisionListForRegion:(uint64_t)result .cold.2(uint64_t result)
+- (void)_subdivisionListForRegion:(void *)result .cold.2(void *result)
 {
   v1 = result;
   if (gLogCategory_ENConfigurationStore <= 90)
   {
     if (gLogCategory_ENConfigurationStore != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF_safe();
+      result = LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _subdivisionListForRegion:]", 90, "Invalid region provided to get subdivisionList");
     }
   }
 
@@ -3593,20 +3510,20 @@ LABEL_14:
   return result;
 }
 
-- (void)_regionHashForRegion:(void *)a1 .cold.1(void *a1)
+- (void)_regionHashForRegion:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v1 = [a1 countryCode];
-  LogPrintF_safe();
+  v3 = [a1 countryCode];
+  LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _regionHashForRegion:]", 30, "Getting region hash for %@ from %@", v3, a2);
 }
 
-- (uint64_t)_regionHashForRegion:(uint64_t)result .cold.2(uint64_t result)
+- (void)_regionHashForRegion:(void *)result .cold.2(void *result)
 {
   v1 = result;
   if (gLogCategory_ENConfigurationStore <= 90)
   {
     if (gLogCategory_ENConfigurationStore != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF_safe();
+      result = LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore _regionHashForRegion:]", 90, "Invalid region provided to get region hash");
     }
   }
 
@@ -3622,10 +3539,10 @@ LABEL_14:
   *a2 = [MEMORY[0x277CBEA68] arrayWithObjects:a1 count:1];
 }
 
-void __36__ENConfigurationStore_prefsChanged__block_invoke_cold_2(id *a1)
+void __36__ENConfigurationStore_prefsChanged__block_invoke_cold_2(id *a1, uint64_t a2)
 {
-  v1 = [*a1 regionIdentifierOverride];
-  LogPrintF_safe();
+  v3 = [*a1 regionIdentifierOverride];
+  LogPrintF_safe(&gLogCategory_ENConfigurationStore, "[ENConfigurationStore prefsChanged]_block_invoke", 30, "RegionIdentifierOverride: %@ -> %@", v3, a2);
 }
 
 @end

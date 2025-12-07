@@ -186,7 +186,7 @@ void __57__CNPropertyAction_presentDisambiguationAlertWithSender___block_invoke_
 
   else
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyAction.m", 89, 6, @"%@ doesn’t define a default action URL", v5, v6, v7, v8, itemCopy);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyAction.m", 89, 6u, @"%@ doesn’t define a default action URL", v5, v6, v7, v8, itemCopy);
   }
 }
 

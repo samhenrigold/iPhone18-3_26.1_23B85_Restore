@@ -34,56 +34,54 @@
 
 - (void)_setupConstraints
 {
-  v35[10] = *MEMORY[0x1E69E9840];
-  v24 = MEMORY[0x1E696ACD8];
+  v34[10] = *MEMORY[0x1E69E9840];
+  v23 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(UIStackView *)self->_labelStackView leadingAnchor];
   leadingAnchor2 = [(MUNearestStationRowView *)self leadingAnchor];
-  v32 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
-  v35[0] = v32;
+  v31 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
+  v34[0] = v31;
   topAnchor = [(UIStackView *)self->_labelStackView topAnchor];
   topAnchor2 = [(MUNearestStationRowView *)self topAnchor];
-  v29 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:16.0];
-  v35[1] = v29;
+  v28 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:16.0];
+  v34[1] = v28;
   bottomAnchor = [(UIStackView *)self->_labelStackView bottomAnchor];
   bottomAnchor2 = [(MUNearestStationRowView *)self bottomAnchor];
-  v26 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-16.0];
-  v35[2] = v26;
+  v25 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-16.0];
+  v34[2] = v25;
   trailingAnchor = [(UIStackView *)self->_labelStackView trailingAnchor];
   leadingAnchor3 = [(UIImageView *)self->_stopImageView leadingAnchor];
-  v22 = [trailingAnchor constraintEqualToAnchor:leadingAnchor3 constant:-8.0];
-  v35[3] = v22;
+  v21 = [trailingAnchor constraintEqualToAnchor:leadingAnchor3 constant:-8.0];
+  v34[3] = v21;
   topAnchor3 = [(UIImageView *)self->_stopImageView topAnchor];
   topAnchor4 = [(MUNearestStationRowView *)self topAnchor];
-  v19 = [topAnchor3 constraintGreaterThanOrEqualToAnchor:topAnchor4 constant:16.0];
-  v35[4] = v19;
+  v18 = [topAnchor3 constraintGreaterThanOrEqualToAnchor:topAnchor4 constant:16.0];
+  v34[4] = v18;
   bottomAnchor3 = [(UIImageView *)self->_stopImageView bottomAnchor];
   bottomAnchor4 = [(MUNearestStationRowView *)self bottomAnchor];
-  v16 = [bottomAnchor3 constraintLessThanOrEqualToAnchor:bottomAnchor4 constant:-16.0];
-  v35[5] = v16;
+  v15 = [bottomAnchor3 constraintLessThanOrEqualToAnchor:bottomAnchor4 constant:-16.0];
+  v34[5] = v15;
   centerYAnchor = [(UIImageView *)self->_stopImageView centerYAnchor];
   centerYAnchor2 = [(MUNearestStationRowView *)self centerYAnchor];
   v3 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v35[6] = v3;
+  v34[6] = v3;
   trailingAnchor2 = [(UIImageView *)self->_stopImageView trailingAnchor];
   trailingAnchor3 = [(MUNearestStationRowView *)self trailingAnchor];
   v6 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3 constant:-16.0];
-  v35[7] = v6;
+  v34[7] = v6;
   widthAnchor = [(UIImageView *)self->_stopImageView widthAnchor];
   v8 = [widthAnchor constraintEqualToConstant:48.0];
-  v35[8] = v8;
+  v34[8] = v8;
   heightAnchor = [(UIImageView *)self->_stopImageView heightAnchor];
   widthAnchor2 = [(UIImageView *)self->_stopImageView widthAnchor];
   v11 = [heightAnchor constraintEqualToAnchor:widthAnchor2];
-  v35[9] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:10];
-  [v24 activateConstraints:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v34[9] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:10];
+  [v23 activateConstraints:v12];
 }
 
 - (void)_setupSubviews
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69DCAE0]);
   v4 = *MEMORY[0x1E695F058];
   v5 = *(MEMORY[0x1E695F058] + 8);
@@ -138,11 +136,9 @@
 
   [(MULoadingOverlayController *)self->_loadingOverlayController attachLoadingOverlay];
   v22 = objc_opt_self();
-  v26[0] = v22;
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+  v25[0] = v22;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
   v24 = [(MUNearestStationRowView *)self registerForTraitChanges:v23 withAction:sel__updateFonts];
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateAppearance

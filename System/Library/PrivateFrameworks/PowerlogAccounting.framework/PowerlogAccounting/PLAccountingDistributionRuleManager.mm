@@ -73,7 +73,6 @@
 
 uint64_t __53__PLAccountingDistributionRuleManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sharedInstance_0 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -159,14 +158,14 @@ uint64_t __53__PLAccountingDistributionRuleManager_sharedInstance__block_invoke(
   return v24;
 }
 
-uint64_t __79__PLAccountingDistributionRuleManager_distributionRuleForRootNodeID_andNodeID___block_invoke(uint64_t a1)
+void *__79__PLAccountingDistributionRuleManager_distributionRuleForRootNodeID_andNodeID___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   distributionRuleForRootNodeID_andNodeID__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __79__PLAccountingDistributionRuleManager_distributionRuleForRootNodeID_andNodeID___block_invoke_18(uint64_t a1)
+void *__79__PLAccountingDistributionRuleManager_distributionRuleForRootNodeID_andNodeID___block_invoke_18(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   distributionRuleForRootNodeID_andNodeID__classDebugEnabled_17 = result;
@@ -435,28 +434,28 @@ uint64_t __79__PLAccountingDistributionRuleManager_distributionRuleForRootNodeID
   return v52;
 }
 
-uint64_t __68__PLAccountingDistributionRuleManager_ruleWithString_withEntryDate___block_invoke(uint64_t a1)
+void *__68__PLAccountingDistributionRuleManager_ruleWithString_withEntryDate___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   ruleWithString_withEntryDate__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __68__PLAccountingDistributionRuleManager_ruleWithString_withEntryDate___block_invoke_45(uint64_t a1)
+void *__68__PLAccountingDistributionRuleManager_ruleWithString_withEntryDate___block_invoke_45(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   ruleWithString_withEntryDate__classDebugEnabled_44 = result;
   return result;
 }
 
-uint64_t __68__PLAccountingDistributionRuleManager_ruleWithString_withEntryDate___block_invoke_51(uint64_t a1)
+void *__68__PLAccountingDistributionRuleManager_ruleWithString_withEntryDate___block_invoke_51(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   ruleWithString_withEntryDate__classDebugEnabled_50 = result;
   return result;
 }
 
-uint64_t __68__PLAccountingDistributionRuleManager_ruleWithString_withEntryDate___block_invoke_58(uint64_t a1)
+void *__68__PLAccountingDistributionRuleManager_ruleWithString_withEntryDate___block_invoke_58(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   ruleWithString_withEntryDate__classDebugEnabled_57 = result;
@@ -565,14 +564,14 @@ uint64_t __68__PLAccountingDistributionRuleManager_ruleWithString_withEntryDate_
   }
 }
 
-uint64_t __49__PLAccountingDistributionRuleManager_indexRule___block_invoke(uint64_t a1)
+void *__49__PLAccountingDistributionRuleManager_indexRule___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   indexRule__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __49__PLAccountingDistributionRuleManager_indexRule___block_invoke_68(uint64_t a1)
+void *__49__PLAccountingDistributionRuleManager_indexRule___block_invoke_68(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   indexRule__classDebugEnabled_67 = result;

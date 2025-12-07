@@ -19,6 +19,7 @@
 + (void)fp_tempDirectoryForEnterprisePersona;
 - (BOOL)fp_associateThumbnailFromDocumentAtURL:()FPAdditions error:;
 - (BOOL)fp_associateThumbnailToVersionAtURL:()FPAdditions thumbnailMetadata:error:;
+- (BOOL)fp_checkSandboxFileMetadataRead;
 - (BOOL)fp_isInSyncableRootFast;
 - (BOOL)fp_isLocationOrInLocation:()FPAdditions relativeTo:;
 - (BOOL)fp_matchesAlternateContentsURL:()FPAdditions;
@@ -43,7 +44,6 @@
 - (uint64_t)_fp_partOfAppInboxWithURLComponents:()FPAdditions;
 - (uint64_t)_fp_relationshipToItemAtURL:()FPAdditions bothAreRealpaths:;
 - (uint64_t)fp_attachSecurityScopeFromURL:()FPAdditions;
-- (uint64_t)fp_checkSandboxFileMetadataRead;
 - (uint64_t)fp_hasThumbnailOnImmutableDocument;
 - (uint64_t)fp_isAppInboxOrDescendants;
 - (uint64_t)fp_isFolder;
@@ -182,36 +182,35 @@
   return fp_prettyPath;
 }
 
-- (uint64_t)fp_checkSandboxFileMetadataRead
+- (BOOL)fp_checkSandboxFileMetadataRead
 {
   getpid();
-  v2 = (*MEMORY[0x1E69E9BD0] | *MEMORY[0x1E69E9BC8]);
   path = [self path];
   fileSystemRepresentation = [path fileSystemRepresentation];
-  v4 = sandbox_check();
+  v3 = sandbox_check();
 
-  if (!v4)
+  if (!v3)
   {
     return 1;
   }
 
-  v13 = 0;
-  v5 = [self checkResourceIsReachableAndReturnError:{&v13, fileSystemRepresentation}];
-  v6 = v13;
-  if (v5 && (v12 = 0, [self getResourceValue:&v12 forKey:*MEMORY[0x1E695DBC8] error:0]) && objc_msgSend(v12, "BOOLValue"))
+  v12 = 0;
+  v4 = [self checkResourceIsReachableAndReturnError:{&v12, fileSystemRepresentation}];
+  v5 = v12;
+  if (v4 && (v11 = 0, [self getResourceValue:&v11 forKey:*MEMORY[0x1E695DBC8] error:0]) && objc_msgSend(v11, "BOOLValue"))
   {
     path2 = [self path];
     stringByDeletingLastPathComponent = [path2 stringByDeletingLastPathComponent];
     [stringByDeletingLastPathComponent fileSystemRepresentation];
-    v9 = sandbox_check() == 0;
+    v8 = sandbox_check() == 0;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (void)fp_issueSandboxExtensionOfClass:()FPAdditions report:error:
@@ -224,22 +223,20 @@
     path = v9;
   }
 
-  v10 = *MEMORY[0x1E69E9BE8];
-  v11 = *MEMORY[0x1E69E9BF0];
   [path fileSystemRepresentation];
-  v12 = sandbox_extension_issue_file();
-  if (v12)
+  v10 = sandbox_extension_issue_file();
+  if (v10)
   {
-    a5 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v12 length:strlen(v12) + 1 freeWhenDone:1];
+    a5 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v10 length:strlen(v10) + 1 freeWhenDone:1];
   }
 
   else if (a5)
   {
-    v13 = MEMORY[0x1E696ABC0];
-    v14 = *__error();
+    v11 = MEMORY[0x1E696ABC0];
+    v12 = *__error();
     path2 = [self path];
-    v16 = __error();
-    *a5 = [v13 fp_errorWithPOSIXCode:v14 description:{@"couldn't issue sandbox extension %s for '%@': %s", a3, path2, strerror(*v16)}];
+    v14 = __error();
+    *a5 = [v11 fp_errorWithPOSIXCode:v12 description:{@"couldn't issue sandbox extension %s for '%@': %s", a3, path2, strerror(*v14)}];
 
     a5 = 0;
   }
@@ -431,9 +428,9 @@
     +[NSURL(FPAdditions) fp_secureTempDirectoryIgnoringPersona];
   }
 
-  v1 = fp_secureTempDirectoryIgnoringPersona_sandboxedTemporaryDirectory;
+  v2 = fp_secureTempDirectoryIgnoringPersona_sandboxedTemporaryDirectory;
 
-  return v1;
+  return v2;
 }
 
 + (id)fp_insecureTempDirectory
@@ -1008,17 +1005,16 @@ LABEL_29:
 {
   fileSystemRepresentation = [self fileSystemRepresentation];
   getpid();
-  v5 = (*MEMORY[0x1E69E9BD0] | *MEMORY[0x1E69E9BC8]);
   if (sandbox_check())
   {
-    v6 = fp_current_or_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v5 = fp_current_or_default_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [NSURL(FPAdditions) fp_addDocumentTrackingWithError:];
     }
 
-    v7 = 0;
-    v8 = *__error();
+    v6 = 0;
+    v7 = *__error();
     if (!a3)
     {
       goto LABEL_22;
@@ -1027,14 +1023,14 @@ LABEL_29:
     goto LABEL_20;
   }
 
-  v9 = open(fileSystemRepresentation, 260, fileSystemRepresentation);
-  if (v9 < 0)
+  v8 = open(fileSystemRepresentation, 260, fileSystemRepresentation);
+  if (v8 < 0)
   {
-    v8 = *__error();
-    if (v8 == 2)
+    v7 = *__error();
+    if (v7 == 2)
     {
-      v7 = 0;
-      v8 = 2;
+      v6 = 0;
+      v7 = 2;
       if (!a3)
       {
         goto LABEL_22;
@@ -1043,46 +1039,46 @@ LABEL_29:
       goto LABEL_20;
     }
 
-    v13 = fp_current_or_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = fp_current_or_default_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [NSURL(FPAdditions) fp_addDocumentTrackingWithError:];
     }
 
-    v7 = 0;
+    v6 = 0;
     if (a3)
     {
 LABEL_20:
-      if (!v7)
+      if (!v6)
       {
-        *a3 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:v8 userInfo:0];
+        *a3 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:v7 userInfo:0];
       }
     }
   }
 
   else
   {
-    v10 = v9;
+    v9 = v8;
     DocumentId = GSLibraryGetOrAllocateDocumentId();
     if (DocumentId)
     {
-      v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:DocumentId];
-      v8 = 0;
+      v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:DocumentId];
+      v7 = 0;
     }
 
     else
     {
-      v8 = *__error();
-      v12 = fp_current_or_default_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v7 = *__error();
+      v11 = fp_current_or_default_log();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [NSURL(FPAdditions) fp_addDocumentTrackingWithError:];
       }
 
-      v7 = 0;
+      v6 = 0;
     }
 
-    close(v10);
+    close(v9);
     if (a3)
     {
       goto LABEL_20;
@@ -1091,17 +1087,21 @@ LABEL_20:
 
 LABEL_22:
 
-  return v7;
+  return v6;
 }
 
 - (uint64_t)fp_attachSecurityScopeFromURL:()FPAdditions
 {
-  if (MEMORY[0x1AC593480](a3))
+  v4 = MEMORY[0x1AC593480](a3, a2);
+  v5 = v4;
+  if (v4)
   {
-    MEMORY[0x1AC593440](self);
+    v7 = v4;
+    v4 = MEMORY[0x1AC593440](self);
+    v5 = v7;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v4, v5);
 }
 
 - (BOOL)fp_associateThumbnailFromDocumentAtURL:()FPAdditions error:
@@ -1188,24 +1188,24 @@ LABEL_15:
 
 - (BOOL)fp_associateThumbnailToVersionAtURL:()FPAdditions thumbnailMetadata:error:
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   startAccessingSecurityScopedResource = [self startAccessingSecurityScopedResource];
   startAccessingSecurityScopedResource2 = [v8 startAccessingSecurityScopedResource];
   QLThumbnailAdditionClass = getQLThumbnailAdditionClass();
-  v20 = *MEMORY[0x1E695DA70];
-  v21[0] = v8;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
-  v19 = 0;
-  LODWORD(QLThumbnailAdditionClass) = [QLThumbnailAdditionClass associateThumbnailImagesDictionary:v13 serializedQuickLookMetadata:v9 withImmutableDocument:1 atURL:self error:&v19];
+  v19 = *MEMORY[0x1E695DA70];
+  v20[0] = v8;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v18 = 0;
+  LODWORD(QLThumbnailAdditionClass) = [QLThumbnailAdditionClass associateThumbnailImagesDictionary:v13 serializedQuickLookMetadata:v9 withImmutableDocument:1 atURL:self error:&v18];
 
-  v14 = v19;
+  v14 = v18;
   if (QLThumbnailAdditionClass)
   {
     [self fp_hasThumbnailOnImmutableDocument];
-    v18 = fp_current_or_default_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v17 = fp_current_or_default_log();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       [NSURL(FPAdditions) fp_associateThumbnailToVersionAtURL:thumbnailMetadata:error:];
     }
@@ -1250,7 +1250,6 @@ LABEL_5:
 
 LABEL_6:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14 == 0;
 }
 
@@ -1332,7 +1331,7 @@ LABEL_6:
 
 - (id)fp_moveToTempFolderWithFilename:()FPAdditions error:
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   lastPathComponent = a3;
   v7 = [self fp_uniqueTempFolderWithError:a4];
   if (v7)
@@ -1352,13 +1351,13 @@ LABEL_6:
     {
       if ([defaultManager moveItemAtURL:self toURL:v8 error:a4])
       {
-        v22 = *MEMORY[0x1E696A3A0];
-        v23[0] = *MEMORY[0x1E696A388];
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+        v21 = *MEMORY[0x1E696A3A0];
+        v22[0] = *MEMORY[0x1E696A388];
+        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
         path2 = [v8 path];
-        v21 = 0;
-        v15 = [defaultManager setAttributes:v13 ofItemAtPath:path2 error:&v21];
-        v16 = v21;
+        v20 = 0;
+        v15 = [defaultManager setAttributes:v13 ofItemAtPath:path2 error:&v20];
+        v16 = v20;
 
         if ((v15 & 1) == 0)
         {
@@ -1385,8 +1384,6 @@ LABEL_6:
   {
     v12 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1554,36 +1551,36 @@ LABEL_6:
     +[NSURL(FPAdditions) fp_additionalContainerPathsForBookmarks];
   }
 
-  v1 = fp_additionalContainerPathsForBookmarks_additionalContainerPathsForBookmarks;
+  v2 = fp_additionalContainerPathsForBookmarks_additionalContainerPathsForBookmarks;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)fp_matchesOtherBookmarkContainersURL:()FPAdditions
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = [MEMORY[0x1E695DFF8] fp_additionalContainerPathsForBookmarks];
-  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v18 != v7)
+      if (*v17 != v7)
       {
         objc_enumerationMutation(obj);
       }
 
       v9 = 1;
-      v10 = [v4 URLByAppendingPathComponent:*(*(&v17 + 1) + 8 * v8) isDirectory:1];
+      v10 = [v4 URLByAppendingPathComponent:*(*(&v16 + 1) + 8 * v8) isDirectory:1];
       v11 = [v10 fp_relativePathWithRealpath:self];
       pathComponents = [v11 pathComponents];
       v13 = [pathComponents count];
@@ -1595,7 +1592,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -1612,7 +1609,6 @@ LABEL_9:
     v9 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1823,8 +1819,8 @@ LABEL_16:
 
 - (uint64_t)fp_matchesFileProviderHeuristics:()FPAdditions options:
 {
-  v16 = *MEMORY[0x1E69E9840];
-  bzero(v15, 0x878uLL);
+  v15 = *MEMORY[0x1E69E9840];
+  bzero(v14, 0x878uLL);
   [self fileSystemRepresentation];
   if (statfs_ext())
   {
@@ -1838,10 +1834,9 @@ LABEL_16:
     }
   }
 
-  else if ((v15[32] & 0x1200) != 0x1000)
+  else if ((v14[32] & 0x1200) != 0x1000)
   {
-    v12 = 1;
-    goto LABEL_22;
+    return 1;
   }
 
   if ((a4 & 2) != 0)
@@ -1868,8 +1863,6 @@ LABEL_16:
     v12 = [v9 fp_matchesAlternateContentsURL:fp_realpathURL];
   }
 
-LABEL_22:
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -1915,7 +1908,7 @@ LABEL_22:
 
 - (id)fp_commonDirectDescendantOf:()FPAdditions
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4 && ([self path], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "path"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "hasPrefix:", v6), v6, v5, v7))
   {
@@ -1926,29 +1919,29 @@ LABEL_22:
       v10 = [pathComponents objectAtIndexedSubscript:0];
       v11 = [v9 URLWithString:v10];
 
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
-      v24 = pathComponents;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
+      v23 = pathComponents;
       v12 = [pathComponents subarrayWithRange:{1, objc_msgSend(pathComponents, "count") - 1}];
-      v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v26;
+        v15 = *v25;
         while (2)
         {
           v16 = 0;
           v17 = v11;
           do
           {
-            if (*v26 != v15)
+            if (*v25 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v18 = *(*(&v25 + 1) + 8 * v16);
+            v18 = *(*(&v24 + 1) + 8 * v16);
             path = [v4 path];
             path2 = [v17 path];
             v21 = [path hasPrefix:path2];
@@ -1966,7 +1959,7 @@ LABEL_22:
           }
 
           while (v14 != v16);
-          v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
           if (v14)
           {
             continue;
@@ -1978,7 +1971,7 @@ LABEL_22:
 
 LABEL_15:
 
-      pathComponents = v24;
+      pathComponents = v23;
     }
 
     else
@@ -1991,8 +1984,6 @@ LABEL_15:
   {
     v11 = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -2014,13 +2005,13 @@ LABEL_15:
 
 - (id)fp_volumeUUID
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v8[0] = 0;
-  v8[1] = 0;
-  v9 = 0;
-  v6 = xmmword_1AAC26570;
-  v7 = 0;
-  if (getattrlist([self fileSystemRepresentation], &v6, v8, 0x14uLL, 0) < 0)
+  v9 = *MEMORY[0x1E69E9840];
+  v7[0] = 0;
+  v7[1] = 0;
+  v8 = 0;
+  v5 = xmmword_1AAC26570;
+  v6 = 0;
+  if (getattrlist([self fileSystemRepresentation], &v5, v7, 0x14uLL, 0) < 0)
   {
     v3 = fp_current_or_default_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -2033,21 +2024,19 @@ LABEL_15:
 
   else
   {
-    v2 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v8 + 4];
+    v2 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v7 + 4];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (id)fp_mountOnName
 {
-  v10 = *MEMORY[0x1E69E9840];
-  bzero(v8, 0x40CuLL);
-  v6 = xmmword_1AAC26588;
-  v7 = 0;
-  if (getattrlist([self fileSystemRepresentation], &v6, v8, 0x40CuLL, 1u) < 0)
+  v9 = *MEMORY[0x1E69E9840];
+  bzero(v7, 0x40CuLL);
+  v5 = xmmword_1AAC26588;
+  v6 = 0;
+  if (getattrlist([self fileSystemRepresentation], &v5, v7, 0x40CuLL, 1u) < 0)
   {
     v2 = fp_current_or_default_log();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
@@ -2060,11 +2049,9 @@ LABEL_15:
 
   else
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v9 + v9[0]];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v8 + v8[0]];
     v3 = [MEMORY[0x1E695DFF8] fileURLWithPath:v2 isDirectory:1];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -2075,14 +2062,13 @@ LABEL_15:
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   [mEMORY[0x1E69DF068] isSharedIPad];
 
-  v7 = *MEMORY[0x1E69E9980];
   if ((a4 & 1) == 0)
   {
     mEMORY[0x1E69DF068]2 = [MEMORY[0x1E69DF068] sharedManager];
     currentPersona = [mEMORY[0x1E69DF068]2 currentPersona];
 
     userPersonaUniqueString = [currentPersona userPersonaUniqueString];
-    v11 = userPersonaUniqueString;
+    v10 = userPersonaUniqueString;
     if (userPersonaUniqueString)
     {
       [userPersonaUniqueString UTF8String];
@@ -2093,7 +2079,7 @@ LABEL_15:
 
   container_query_create();
   container_query_set_class();
-  v12 = xpc_string_create([v5 UTF8String]);
+  v11 = xpc_string_create([v5 UTF8String]);
   container_query_set_group_identifiers();
 
   container_query_set_transient();
@@ -2101,31 +2087,31 @@ LABEL_15:
   container_query_set_persona_unique_string();
   if (container_query_get_single_result())
   {
-    v13 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:container_get_path() isDirectory:1 relativeToURL:0];
+    v12 = [MEMORY[0x1E695DFF8] fileURLWithFileSystemRepresentation:container_get_path() isDirectory:1 relativeToURL:0];
   }
 
   else
   {
     container_query_get_last_error();
-    v14 = container_error_copy_unlocalized_description();
-    v15 = fp_current_or_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v13 = container_error_copy_unlocalized_description();
+    v14 = fp_current_or_default_log();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[NSURL(FPAdditions) fp_uncachedContainerURLForSecurityApplicationGroupIdentifier:forPrimaryPersona:];
     }
 
-    free(v14);
-    v13 = 0;
+    free(v13);
+    v12 = 0;
   }
 
   container_query_free();
 
-  return v13;
+  return v12;
 }
 
 - (id)fp_fpfsProviderDomainID:()FPAdditions skipTypeCheck:error:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     selfCopy = [self fp_fpfsRootURL];
@@ -2152,9 +2138,9 @@ LABEL_24:
     goto LABEL_32;
   }
 
-  bzero(v25, 0x401uLL);
+  bzero(v24, 0x401uLL);
   size = 0;
-  v8 = fpfs_path_return_assigned_provider_domain_xattr([v7 fileSystemRepresentation], &size, v25, 0x401uLL);
+  v8 = fpfs_path_return_assigned_provider_domain_xattr([v7 fileSystemRepresentation], &size, v24, 0x401uLL);
   if (!v8)
   {
     if (!a5)
@@ -2229,18 +2215,16 @@ LABEL_31:
     goto LABEL_20;
   }
 
-  v12 = v25;
+  v12 = v24;
 LABEL_16:
   v12[v10] = 0;
   v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v12];
-  if (v12 != v25)
+  if (v12 != v24)
   {
     free(v12);
   }
 
 LABEL_32:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -2432,178 +2416,122 @@ LABEL_51:
 
 + (void)fp_personaSharedDirectoryPathForUserID:()FPAdditions .cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fp_personaSharedDirectoryPathForUserID:()FPAdditions .cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fp_tempDirectoryForEnterprisePersona
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fp_hideExtension:()FPAdditions .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fp_removeFileProviderXattrsWithError:()FPAdditions .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696ABC0] fp_errorWithPOSIXCode:*__error()];
-  v6 = 138412546;
-  v7 = a1;
+  v5 = 138412546;
+  v6 = a1;
   OUTLINED_FUNCTION_16();
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] failed to open %@, error %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] failed to open %@, error %@", &v5, 0x16u);
 }
 
 - (void)fp_removeACLWithError:()FPAdditions .cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_9();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fp_makeWritableOnFD:()FPAdditions error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] fixed up permissions on %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fp_makeWritableOnFD:()FPAdditions error:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] fixed up ownership on %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fp_makeWritableOnFD:()FPAdditions error:.cold.4()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fp_addDocumentTrackingWithError:()FPAdditions .cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] sandbox_check for file-write-flags failed at %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)fp_addDocumentTrackingWithError:()FPAdditions .cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fp_addDocumentTrackingWithError:()FPAdditions .cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] open failed at %s, errno:%{errno}d", v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] open failed at %s, errno:%{errno}d", v2, 0x12u);
 }
 
 - (void)fp_associateThumbnailToVersionAtURL:()FPAdditions thumbnailMetadata:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fp_moveToTempFolderWithFilename:()FPAdditions error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fp_matchesFileProviderHeuristics:()FPAdditions options:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_shortDescription];
-  v2 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 - (void)fp_volumeUUID
 {
-  v9 = *MEMORY[0x1E69E9840];
   fp_shortDescription = [self fp_shortDescription];
   v2 = __error();
   strerror(*v2);
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fp_mountOnName
 {
-  v9 = *MEMORY[0x1E69E9840];
   fp_shortDescription = [self fp_shortDescription];
-  v2 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 + (void)fp_uncachedContainerURLForSecurityApplicationGroupIdentifier:()FPAdditions forPrimaryPersona:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2080;
-  v5 = v0;
-  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] Error fetching group container for %@: %s", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2080;
+  v4 = v0;
+  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] Error fetching group container for %@: %s", v2, 0x16u);
 }
 
 @end

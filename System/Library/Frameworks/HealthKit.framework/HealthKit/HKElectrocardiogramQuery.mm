@@ -42,9 +42,7 @@ void __71__HKElectrocardiogramQuery_initWithElectrocardiogram_lead_dataHandler__
   [v11 doubleValueForUnit:v12];
   v14 = v13;
 
-  v15 = *(*(a1[6] + 8) + 24);
   (*(a1[5] + 16))(v14);
-
   ++*(*(a1[6] + 8) + 24);
 }
 

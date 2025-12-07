@@ -87,7 +87,7 @@ LABEL_9:
   objc_sync_enter(selfCopy);
   if (selfCopy->_userSetMinimumDeploymentTarget)
   {
-    [(MPSGraphExecutableSerializationDescriptor *)selfCopy getDeploymentTargetAsOSVersion];
+    objc_msgSend_getDeploymentTargetAsOSVersion(selfCopy);
     *&retstr->var0.var0 = v6;
     retstr->var0.var1.var2 = v7;
     retstr->var1 = 1;

@@ -13,7 +13,7 @@
   sessionCopy = session;
   errorCopy = error;
   selfCopy = self;
-  sub_236ECCEA8();
+  sub_236ECCEA8(errorCopy);
 }
 
 - (void)sesSession:(id)session didCreateKey:(id)key forVehicle:(id)vehicle

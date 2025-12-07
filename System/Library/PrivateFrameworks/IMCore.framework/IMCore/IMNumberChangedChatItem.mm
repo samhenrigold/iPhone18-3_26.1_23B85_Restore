@@ -8,18 +8,18 @@
 {
   itemCopy = item;
   handleCopy = handle;
-  v18.receiver = self;
-  v18.super_class = IMNumberChangedChatItem;
-  v8 = [(IMChatItem *)&v18 _initWithItem:itemCopy];
+  v14.receiver = self;
+  v14.super_class = IMNumberChangedChatItem;
+  v8 = [(IMChatItem *)&v14 _initWithItem:itemCopy];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(v8 + 7, handle);
     v10 = MEMORY[0x1E696AEC0];
-    v13 = objc_msgSend_guid(itemCopy, v11, v12);
-    v15 = objc_msgSend_stringWithFormat_(v10, v14, @"%@%@", @"nc:", v13);
+    guid = [itemCopy guid];
+    v12 = [v10 stringWithFormat:@"%@%@", @"nc:", guid];
 
-    objc_msgSend__setGUID_(v9, v16, v15);
+    [v9 _setGUID:v12];
   }
 
   return v9;

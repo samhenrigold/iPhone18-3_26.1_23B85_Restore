@@ -55,42 +55,44 @@
   return v3;
 }
 
-uint64_t __42__ATXGamePlayKitRandomSource_sharedRandom__block_invoke()
+uint64_t __42__ATXGamePlayKitRandomSource_sharedRandom__block_invoke(uint64_t a1, uint64_t a2)
 {
-  +[ATXGamePlayKitRandomSource sharedRandom]::source = objc_opt_new();
+  v2 = objc_opt_new();
+  v3 = +[ATXGamePlayKitRandomSource sharedRandom]::source;
+  +[ATXGamePlayKitRandomSource sharedRandom]::source = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (id)arrayByShufflingObjectsInArray:(id)array
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if ([arrayCopy count] > 1)
   {
     v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(arrayCopy, "count")}];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v6 = arrayCopy;
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       v8 = 0;
-      v9 = *v19;
+      v9 = *v18;
       do
       {
         v10 = 0;
         v11 = v8;
         do
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * v10);
+          v12 = *(*(&v17 + 1) + 8 * v10);
           v8 = v11 + 1;
           v13 = [(ATXGamePlayKitRandomSource *)self nextIntWithUpperBound:(v11 + 1)];
           if (v13 == v11)
@@ -111,7 +113,7 @@ uint64_t __42__ATXGamePlayKitRandomSource_sharedRandom__block_invoke()
         }
 
         while (v7 != v10);
-        v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v7);
@@ -124,8 +126,6 @@ uint64_t __42__ATXGamePlayKitRandomSource_sharedRandom__block_invoke()
   {
     v4 = [objc_alloc(MEMORY[0x277CBEA60]) initWithArray:arrayCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -175,8 +175,8 @@ LABEL_7:
   testCoordinator = [(MapsAppTest *)self testCoordinator];
   [testCoordinator pptTestResetForLaunchURL];
 
-  options = [(MapsAppTest *)self options];
-  _mapstest_directionsPlan = [options _mapstest_directionsPlan];
+  v4 = objc_msgSend_options(self);
+  _mapstest_directionsPlan = [v4 _mapstest_directionsPlan];
 
   v6 = +[NSNotificationCenter defaultCenter];
   [v6 addObserver:self selector:"_waitForTileAvailability" name:@"MapsRoutePlanningShowingRoutesNotification" object:0];

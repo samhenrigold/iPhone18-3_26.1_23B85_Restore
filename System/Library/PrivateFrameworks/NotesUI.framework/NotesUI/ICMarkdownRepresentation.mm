@@ -836,7 +836,7 @@ void __60__ICMarkdownRepresentation_createRenderableAttributedString__block_invo
       v9 = [v6 parentIntent];
       v10 = *(*(*(a1 + 64) + 8) + 40);
       v11 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v9, "identity")}];
-      v12 = [v10 objectForKeyedSubscript:v11];
+      v12 = objc_msgSend_objectForKeyedSubscript_(v10);
 
       if (!v12)
       {
@@ -1009,21 +1009,21 @@ void __60__ICMarkdownRepresentation_createRenderableAttributedString__block_invo
   [v4 setTextBlocks:v6];
 }
 
-uint64_t __60__ICMarkdownRepresentation_createRenderableAttributedString__block_invoke_4(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__60__ICMarkdownRepresentation_createRenderableAttributedString__block_invoke_4(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) addAttribute:*MEMORY[0x1E69DB670] value:a2 range:{a3, a4}];
+    return [result[4] addAttribute:*MEMORY[0x1E69DB670] value:a2 range:{a3, a4}];
   }
 
   return result;
 }
 
-uint64_t __60__ICMarkdownRepresentation_createRenderableAttributedString__block_invoke_5(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__60__ICMarkdownRepresentation_createRenderableAttributedString__block_invoke_5(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return [*(result + 32) addAttribute:*MEMORY[0x1E69DB670] value:a2 range:{a3, a4}];
+    return [result[4] addAttribute:*MEMORY[0x1E69DB670] value:a2 range:{a3, a4}];
   }
 
   return result;
@@ -1040,7 +1040,7 @@ void __60__ICMarkdownRepresentation_createRenderableAttributedString__block_invo
   }
 }
 
-uint64_t __60__ICMarkdownRepresentation_createRenderableAttributedString__block_invoke_7(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__60__ICMarkdownRepresentation_createRenderableAttributedString__block_invoke_7(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   result = [a2 BOOLValue];
   if (result)

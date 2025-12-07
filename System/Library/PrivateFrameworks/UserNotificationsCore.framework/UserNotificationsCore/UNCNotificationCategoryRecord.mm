@@ -307,145 +307,32 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (!equalCopy)
-  {
-    goto LABEL_27;
-  }
-
-  v5 = objc_opt_class();
-  if (v5 != objc_opt_class())
-  {
-    goto LABEL_27;
-  }
-
-  actions = [(UNCNotificationCategoryRecord *)self actions];
-  actions2 = [equalCopy actions];
-  v8 = UNEqualObjects();
-
-  if (!v8)
-  {
-    goto LABEL_27;
-  }
-
-  hasCustomDismissAction = [(UNCNotificationCategoryRecord *)self hasCustomDismissAction];
-  if (hasCustomDismissAction != [equalCopy hasCustomDismissAction])
-  {
-    goto LABEL_27;
-  }
-
-  hasFollowActivityAction = [(UNCNotificationCategoryRecord *)self hasFollowActivityAction];
-  if (hasFollowActivityAction != [equalCopy hasFollowActivityAction])
-  {
-    goto LABEL_27;
-  }
-
-  hasCustomSilenceAction = [(UNCNotificationCategoryRecord *)self hasCustomSilenceAction];
-  if (hasCustomSilenceAction != [equalCopy hasCustomSilenceAction])
-  {
-    goto LABEL_27;
-  }
-
-  identifier = [(UNCNotificationCategoryRecord *)self identifier];
-  identifier2 = [equalCopy identifier];
-  v14 = UNEqualObjects();
-
-  if (!v14)
-  {
-    goto LABEL_27;
-  }
-
-  intentIdentifiers = [(UNCNotificationCategoryRecord *)self intentIdentifiers];
-  intentIdentifiers2 = [equalCopy intentIdentifiers];
-  v17 = UNEqualObjects();
-
-  if (!v17)
-  {
-    goto LABEL_27;
-  }
-
-  listPriority = [(UNCNotificationCategoryRecord *)self listPriority];
-  listPriority2 = [equalCopy listPriority];
-  v20 = UNEqualObjects();
-
-  if (!v20)
-  {
-    goto LABEL_27;
-  }
-
-  minimalActions = [(UNCNotificationCategoryRecord *)self minimalActions];
-  minimalActions2 = [equalCopy minimalActions];
-  v23 = UNEqualObjects();
-
-  if (!v23)
-  {
-    goto LABEL_27;
-  }
-
-  shouldAllowInCarPlay = [(UNCNotificationCategoryRecord *)self shouldAllowInCarPlay];
-  if (shouldAllowInCarPlay != [equalCopy shouldAllowInCarPlay])
-  {
-    goto LABEL_27;
-  }
-
-  privateBody = [(UNCNotificationCategoryRecord *)self privateBody];
-  privateBody2 = [equalCopy privateBody];
-  v27 = UNEqualObjects();
-
-  if (!v27)
-  {
-    goto LABEL_27;
-  }
-
-  privacyOptionShowTitle = [(UNCNotificationCategoryRecord *)self privacyOptionShowTitle];
-  if (privacyOptionShowTitle != [equalCopy privacyOptionShowTitle])
-  {
-    goto LABEL_27;
-  }
-
-  privacyOptionShowSubtitle = [(UNCNotificationCategoryRecord *)self privacyOptionShowSubtitle];
-  if (privacyOptionShowSubtitle != [equalCopy privacyOptionShowSubtitle])
-  {
-    goto LABEL_27;
-  }
-
-  preventAutomaticRemovalFromRecent = [(UNCNotificationCategoryRecord *)self preventAutomaticRemovalFromRecent];
-  if (preventAutomaticRemovalFromRecent != [equalCopy preventAutomaticRemovalFromRecent])
-  {
-    goto LABEL_27;
-  }
-
-  revealAdditionalContentWhenPresented = [(UNCNotificationCategoryRecord *)self revealAdditionalContentWhenPresented];
-  if (revealAdditionalContentWhenPresented != [equalCopy revealAdditionalContentWhenPresented])
-  {
-    goto LABEL_27;
-  }
-
-  preventDismissWhenClosed = [(UNCNotificationCategoryRecord *)self preventDismissWhenClosed];
-  if (preventDismissWhenClosed != [equalCopy preventDismissWhenClosed])
-  {
-    goto LABEL_27;
-  }
-
-  summaryFormat = [(UNCNotificationCategoryRecord *)self summaryFormat];
-  summaryFormat2 = [equalCopy summaryFormat];
-  v35 = UNEqualObjects();
-
-  if (!v35)
-  {
-    goto LABEL_27;
-  }
-
-  backgroundStyle = [(UNCNotificationCategoryRecord *)self backgroundStyle];
-  backgroundStyle2 = [equalCopy backgroundStyle];
-  v38 = UNEqualObjects();
-
-  if (!v38)
-  {
-    goto LABEL_27;
-  }
-
-  shouldAllowActionsInCarPlay = [(UNCNotificationCategoryRecord *)self shouldAllowActionsInCarPlay];
-  if (shouldAllowActionsInCarPlay == [equalCopy shouldAllowActionsInCarPlay] && (v40 = -[UNCNotificationCategoryRecord shouldAllowPersistentBannersInCarPlay](self, "shouldAllowPersistentBannersInCarPlay"), v40 == objc_msgSend(equalCopy, "shouldAllowPersistentBannersInCarPlay")) && (v41 = -[UNCNotificationCategoryRecord playMediaWhenRaised](self, "playMediaWhenRaised"), v41 == objc_msgSend(equalCopy, "playMediaWhenRaised")) && (v42 = -[UNCNotificationCategoryRecord preventClearFromList](self, "preventClearFromList"), v42 == objc_msgSend(equalCopy, "preventClearFromList")) && (v43 = -[UNCNotificationCategoryRecord alwaysDisplayNotificationsIndicator](self, "alwaysDisplayNotificationsIndicator"), v43 == objc_msgSend(equalCopy, "alwaysDisplayNotificationsIndicator")) && (v44 = -[UNCNotificationCategoryRecord suppressDelayForForwardedNotifications](self, "suppressDelayForForwardedNotifications"), v44 == objc_msgSend(equalCopy, "suppressDelayForForwardedNotifications")) && (v45 = -[UNCNotificationCategoryRecord suppressDismissActionInCarPlay](self, "suppressDismissActionInCarPlay"), v45 == objc_msgSend(equalCopy, "suppressDismissActionInCarPlay")))
+  if (equalCopy
+    && (v5 = objc_opt_class(), v5 == objc_opt_class())
+    && (-[UNCNotificationCategoryRecord actions](self, "actions"), v6 = objc_claimAutoreleasedReturnValue(), [equalCopy actions], v7 = objc_claimAutoreleasedReturnValue(), v8 = UNEqualObjects(), v7, v6, v8)
+    && (v9 = -[UNCNotificationCategoryRecord hasCustomDismissAction](self, "hasCustomDismissAction"), v9 == [equalCopy hasCustomDismissAction])
+    && (v10 = -[UNCNotificationCategoryRecord hasFollowActivityAction](self, "hasFollowActivityAction"), v10 == [equalCopy hasFollowActivityAction])
+    && (v11 = -[UNCNotificationCategoryRecord hasCustomSilenceAction](self, "hasCustomSilenceAction"), v11 == [equalCopy hasCustomSilenceAction])
+    && (-[UNCNotificationCategoryRecord identifier](self, "identifier"), v12 = objc_claimAutoreleasedReturnValue(), [equalCopy identifier], v13 = objc_claimAutoreleasedReturnValue(), v14 = UNEqualObjects(), v13, v12, v14)
+    && (-[UNCNotificationCategoryRecord intentIdentifiers](self, "intentIdentifiers"), v15 = objc_claimAutoreleasedReturnValue(), [equalCopy intentIdentifiers], v16 = objc_claimAutoreleasedReturnValue(), v17 = UNEqualObjects(), v16, v15, v17)
+    && (-[UNCNotificationCategoryRecord listPriority](self, "listPriority"), v18 = objc_claimAutoreleasedReturnValue(), [equalCopy listPriority], v19 = objc_claimAutoreleasedReturnValue(), v20 = UNEqualObjects(), v19, v18, v20)
+    && (-[UNCNotificationCategoryRecord minimalActions](self, "minimalActions"), v21 = objc_claimAutoreleasedReturnValue(), [equalCopy minimalActions], v22 = objc_claimAutoreleasedReturnValue(), v23 = UNEqualObjects(), v22, v21, v23)
+    && (v24 = -[UNCNotificationCategoryRecord shouldAllowInCarPlay](self, "shouldAllowInCarPlay"), v24 == [equalCopy shouldAllowInCarPlay])
+    && (-[UNCNotificationCategoryRecord privateBody](self, "privateBody"), v25 = objc_claimAutoreleasedReturnValue(), [equalCopy privateBody], v26 = objc_claimAutoreleasedReturnValue(), v27 = UNEqualObjects(), v26, v25, v27)
+    && (v28 = -[UNCNotificationCategoryRecord privacyOptionShowTitle](self, "privacyOptionShowTitle"), v28 == [equalCopy privacyOptionShowTitle])
+    && (v29 = -[UNCNotificationCategoryRecord privacyOptionShowSubtitle](self, "privacyOptionShowSubtitle"), v29 == [equalCopy privacyOptionShowSubtitle])
+    && (v30 = -[UNCNotificationCategoryRecord preventAutomaticRemovalFromRecent](self, "preventAutomaticRemovalFromRecent"), v30 == [equalCopy preventAutomaticRemovalFromRecent])
+    && (v31 = -[UNCNotificationCategoryRecord revealAdditionalContentWhenPresented](self, "revealAdditionalContentWhenPresented"), v31 == [equalCopy revealAdditionalContentWhenPresented])
+    && (v32 = -[UNCNotificationCategoryRecord preventDismissWhenClosed](self, "preventDismissWhenClosed"), v32 == [equalCopy preventDismissWhenClosed])
+    && (-[UNCNotificationCategoryRecord summaryFormat](self, "summaryFormat"), v33 = objc_claimAutoreleasedReturnValue(), [equalCopy summaryFormat], v34 = objc_claimAutoreleasedReturnValue(), v35 = UNEqualObjects(), v34, v33, v35)
+    && (-[UNCNotificationCategoryRecord backgroundStyle](self, "backgroundStyle"), v36 = objc_claimAutoreleasedReturnValue(), [equalCopy backgroundStyle], v37 = objc_claimAutoreleasedReturnValue(), v38 = UNEqualObjects(), v37, v36, v38)
+    && (v39 = -[UNCNotificationCategoryRecord shouldAllowActionsInCarPlay](self, "shouldAllowActionsInCarPlay"), v39 == [equalCopy shouldAllowActionsInCarPlay])
+    && (v40 = -[UNCNotificationCategoryRecord shouldAllowPersistentBannersInCarPlay](self, "shouldAllowPersistentBannersInCarPlay"), v40 == [equalCopy shouldAllowPersistentBannersInCarPlay])
+    && (v41 = -[UNCNotificationCategoryRecord playMediaWhenRaised](self, "playMediaWhenRaised"), v41 == [equalCopy playMediaWhenRaised])
+    && (v42 = -[UNCNotificationCategoryRecord preventClearFromList](self, "preventClearFromList"), v42 == [equalCopy preventClearFromList])
+    && (v43 = -[UNCNotificationCategoryRecord alwaysDisplayNotificationsIndicator](self, "alwaysDisplayNotificationsIndicator"), v43 == [equalCopy alwaysDisplayNotificationsIndicator])
+    && (v44 = -[UNCNotificationCategoryRecord suppressDelayForForwardedNotifications](self, "suppressDelayForForwardedNotifications"), v44 == [equalCopy suppressDelayForForwardedNotifications])
+    && (v45 = -[UNCNotificationCategoryRecord suppressDismissActionInCarPlay](self, "suppressDismissActionInCarPlay"), v45 == [equalCopy suppressDismissActionInCarPlay]))
   {
     suppressPresentationInAmbient = [(UNCNotificationCategoryRecord *)self suppressPresentationInAmbient];
     v46 = suppressPresentationInAmbient ^ [equalCopy suppressPresentationInAmbient] ^ 1;
@@ -453,7 +340,6 @@
 
   else
   {
-LABEL_27:
     LOBYTE(v46) = 0;
   }
 
@@ -469,23 +355,22 @@ LABEL_27:
 
 - (UNCNotificationCategoryRecord)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
+  v11 = objc_opt_class();
   v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = objc_opt_class();
   v15 = objc_opt_class();
   v16 = objc_opt_class();
   v17 = objc_opt_class();
-  v18 = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:7];
-  v7 = [v4 setWithArray:{v6, v12, v13, v14, v15, v16, v17}];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:7];
+  v7 = [v4 setWithArray:{v6, v11, v12, v13, v14, v15, v16}];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"dictionary"];
 
   v9 = [[UNCNotificationCategoryRecord alloc] initWithDictionaryRepresentation:v8];
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

@@ -4,6 +4,7 @@
 - (id)resolveCounterRange:(_NSRange)range;
 - (int64_t)type;
 - (unint64_t)count;
+- (void)fillWithByte:(unsigned __int8)byte;
 - (void)invalidateCounterRange:(_NSRange)range;
 - (void)setLabel:(id)label;
 @end
@@ -61,6 +62,14 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject resolveCounterRange:{location, length}];
+}
+
+- (void)fillWithByte:(unsigned __int8)byte
+{
+  byteCopy = byte;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject fillWithByte:byteCopy];
 }
 
 @end

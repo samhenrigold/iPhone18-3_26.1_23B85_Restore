@@ -14,9 +14,9 @@
     +[NSDateFormatter(TVPlaybackAdditions) tvp_ISO8601CombinedDateAndTimeFormatter];
   }
 
-  v1 = tvp_ISO8601CombinedDateAndTimeFormatter_iso8601Formatter;
+  v2 = tvp_ISO8601CombinedDateAndTimeFormatter_iso8601Formatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)tvp_RFC1123DateFormatter
@@ -26,9 +26,9 @@
     +[NSDateFormatter(TVPlaybackAdditions) tvp_RFC1123DateFormatter];
   }
 
-  v1 = tvp_RFC1123DateFormatter_rfc1123Formatter;
+  v2 = tvp_RFC1123DateFormatter_rfc1123Formatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)tvp_RFC850DateFormatter
@@ -38,9 +38,9 @@
     +[NSDateFormatter(TVPlaybackAdditions) tvp_RFC850DateFormatter];
   }
 
-  v1 = tvp_RFC850DateFormatter_rfc850Formatter;
+  v2 = tvp_RFC850DateFormatter_rfc850Formatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)tvp_asctimeDateFormatter
@@ -50,9 +50,9 @@
     +[NSDateFormatter(TVPlaybackAdditions) tvp_asctimeDateFormatter];
   }
 
-  v1 = tvp_asctimeDateFormatter_asctimeFormatter;
+  v2 = tvp_asctimeDateFormatter_asctimeFormatter;
 
-  return v1;
+  return v2;
 }
 
 @end

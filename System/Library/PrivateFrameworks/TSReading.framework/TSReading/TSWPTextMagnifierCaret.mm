@@ -374,9 +374,9 @@ uint64_t __43__TSWPTextMagnifierCaret_zoomDownAnimation__block_invoke_2(uint64_t
   v19 = v18;
   TSUScreenScale();
   v21 = v20;
-  v35.width = v17;
-  v35.height = v19;
-  UIGraphicsBeginImageContextWithOptions(v35, 1, v21);
+  v38.width = v17;
+  v38.height = v19;
+  UIGraphicsBeginImageContextWithOptions(v38, 1, v21);
   CurrentContext = UIGraphicsGetCurrentContext();
   objc_opt_class();
   v23 = TSUDynamicCast();
@@ -389,11 +389,11 @@ uint64_t __43__TSWPTextMagnifierCaret_zoomDownAnimation__block_invoke_2(uint64_t
     if (backgroundColorForMagnifier)
     {
       CGContextSetFillColorWithColor(CurrentContext, [backgroundColorForMagnifier CGColor]);
-      v36.origin.x = 0.0;
-      v36.origin.y = 0.0;
-      v36.size.width = v17;
-      v36.size.height = v19;
-      CGContextFillRect(CurrentContext, v36);
+      v39.origin.x = 0.0;
+      v39.origin.y = 0.0;
+      v39.size.width = v17;
+      v39.size.height = v19;
+      CGContextFillRect(CurrentContext, v39);
     }
   }
 
@@ -412,18 +412,20 @@ uint64_t __43__TSWPTextMagnifierCaret_zoomDownAnimation__block_invoke_2(uint64_t
   ImageFromCurrentImageContext = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
   CGContextSaveGState(context);
-  v32 = [objc_msgSend(MEMORY[0x277D755B8] imageNamed:-[TSWPTextMagnifierCaret maskImageName](self inBundle:"maskImageName") compatibleWithTraitCollection:{TSWPBundle(), 0), "CGImage"}];
-  v37.origin.x = 0.0;
-  v37.origin.y = 0.0;
-  v37.size.width = v17;
-  v37.size.height = v19;
-  CGContextClipToMask(context, v37, v32);
+  v32 = MEMORY[0x277D755B8];
+  maskImageName = [(TSWPTextMagnifierCaret *)self maskImageName];
+  v35 = [objc_msgSend(v32 imageNamed:maskImageName inBundle:TSWPBundle(maskImageName compatibleWithTraitCollection:{v34), 0), "CGImage"}];
+  v40.origin.x = 0.0;
+  v40.origin.y = 0.0;
+  v40.size.width = v17;
+  v40.size.height = v19;
+  CGContextClipToMask(context, v40, v35);
   cGImage = [(UIImage *)ImageFromCurrentImageContext CGImage];
-  v38.origin.x = 0.0;
-  v38.origin.y = 0.0;
-  v38.size.width = v17;
-  v38.size.height = v19;
-  CGContextDrawImage(context, v38, cGImage);
+  v41.origin.x = 0.0;
+  v41.origin.y = 0.0;
+  v41.size.width = v17;
+  v41.size.height = v19;
+  CGContextDrawImage(context, v41, cGImage);
 
   CGContextRestoreGState(context);
 }

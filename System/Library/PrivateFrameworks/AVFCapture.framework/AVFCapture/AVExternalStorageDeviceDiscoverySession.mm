@@ -22,6 +22,8 @@
 
   if (dword_1EB385998)
   {
+    v5 = 0;
+    v4 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -47,7 +49,7 @@ AVExternalStorageDeviceDiscoverySession *__56__AVExternalStorageDeviceDiscoveryS
   return isSupported_sIsSupported;
 }
 
-uint64_t __54__AVExternalStorageDeviceDiscoverySession_isSupported__block_invoke()
+void *__54__AVExternalStorageDeviceDiscoverySession_isSupported__block_invoke()
 {
   result = FigExternalStorageDeviceManagerRemoteSupported();
   if (result)
@@ -213,8 +215,9 @@ uint64_t __54__AVExternalStorageDeviceDiscoverySession_isSupported__block_invoke
 
   else
   {
+    v6 = qword_1EB385990;
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, 4294948023, "<<<< AVExternalStorageDevice >>>>", 440);
   }
 
   return result;

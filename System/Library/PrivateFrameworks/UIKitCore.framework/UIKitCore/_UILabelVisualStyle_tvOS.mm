@@ -49,7 +49,7 @@ LABEL_11:
   defaultFont = [(_UILabelVisualStyle_tvOS *)self defaultFont];
   [labelCopy setFont:defaultFont];
 
-  v8 = +[UIColor blackColor];
+  v8 = objc_msgSend_blackColor(UIColor);
   [labelCopy _setFallbackTextColor:v8 forUserInterfaceStyle:1];
 
   v9 = +[UIColor whiteColor];

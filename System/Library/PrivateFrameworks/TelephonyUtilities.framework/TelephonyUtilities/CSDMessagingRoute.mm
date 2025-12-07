@@ -4,6 +4,7 @@
 - (TURoute)tuRoute;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)deviceTypeAsString:(int)string;
 - (id)dictionaryRepresentation;
 - (int)StringAsDeviceType:(id)type;
 - (int)deviceType;
@@ -11,9 +12,12 @@
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
 - (void)mergeFrom:(id)from;
+- (void)setCurrentlyPicked:(BOOL)picked;
+- (void)setGuest:(BOOL)guest;
 - (void)setHasProtoCurrentlyPicked:(BOOL)picked;
 - (void)setHasProtoGuest:(BOOL)guest;
 - (void)setHasProtoSupportsRelay:(BOOL)relay;
+- (void)setSupportsRelay:(BOOL)relay;
 - (void)setTURouteDeviceType:(int64_t)type;
 - (void)writeTo:(id)to;
 @end
@@ -31,6 +35,21 @@
   {
     return 0;
   }
+}
+
+- (id)deviceTypeAsString:(int)string
+{
+  if (string < 0x28 && ((0xF6BFFFFFFFuLL >> string) & 1) != 0)
+  {
+    v4 = off_10061ECF0[string];
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDeviceType:(id)type
@@ -361,25 +380,24 @@ LABEL_15:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_uniqueIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_name)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    deviceType = self->_deviceType;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -398,9 +416,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  protoCurrentlyPicked = self->_protoCurrentlyPicked;
   PBDataWriterWriteBOOLField();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -414,15 +431,13 @@ LABEL_8:
   }
 
 LABEL_15:
-  protoGuest = self->_protoGuest;
   PBDataWriterWriteBOOLField();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_9:
-    protoSupportsRelay = self->_protoSupportsRelay;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_10:
@@ -601,7 +616,6 @@ LABEL_5:
       goto LABEL_33;
     }
 
-    v8 = *(equalCopy + 32);
     if (self->_protoCurrentlyPicked)
     {
       if ((*(equalCopy + 32) & 1) == 0)
@@ -628,7 +642,6 @@ LABEL_5:
       goto LABEL_33;
     }
 
-    v9 = *(equalCopy + 33);
     if (self->_protoGuest)
     {
       if ((*(equalCopy + 33) & 1) == 0)
@@ -976,6 +989,36 @@ LABEL_40:
       break;
     default:
       return;
+  }
+}
+
+- (void)setCurrentlyPicked:(BOOL)picked
+{
+  pickedCopy = picked;
+  if (picked || [(CSDMessagingRoute *)self protoCurrentlyPicked])
+  {
+
+    [(CSDMessagingRoute *)self setProtoCurrentlyPicked:pickedCopy];
+  }
+}
+
+- (void)setGuest:(BOOL)guest
+{
+  guestCopy = guest;
+  if (guest || [(CSDMessagingRoute *)self protoGuest])
+  {
+
+    [(CSDMessagingRoute *)self setProtoGuest:guestCopy];
+  }
+}
+
+- (void)setSupportsRelay:(BOOL)relay
+{
+  relayCopy = relay;
+  if (relay || [(CSDMessagingRoute *)self protoSupportsRelay])
+  {
+
+    [(CSDMessagingRoute *)self setProtoSupportsRelay:relayCopy];
   }
 }
 

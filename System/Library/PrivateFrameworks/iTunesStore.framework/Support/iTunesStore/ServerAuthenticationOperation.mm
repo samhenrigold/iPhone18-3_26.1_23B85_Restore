@@ -27,7 +27,7 @@
 {
   if (!+[SSDevice deviceIsInternalBuild])
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v3 = +[SSLogConfig sharedAccountsAuthenticationConfig];
@@ -39,49 +39,52 @@
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
   v7 = objc_opt_class();
   v8 = v7;
   v9 = +[SSStackShot generateSymbolicatedStackShot];
-  v15 = 138543618;
-  v16 = v7;
-  v17 = 2114;
-  v18 = v9;
-  LODWORD(v13) = 22;
-  v12 = &v15;
-  v10 = _os_log_send_and_compose_impl();
+  v14 = 138543618;
+  v15 = v7;
+  v16 = 2114;
+  v17 = v9;
+  v10 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Creating an ServerAuthenticationOperation. callStack = %{public}@", &v14, 22);
 
   if (v10)
   {
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, &v15, v13];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     v12 = oSLogObject;
     SSFileLog();
-LABEL_12:
+LABEL_13:
   }
 
-LABEL_14:
-  v14.receiver = self;
-  v14.super_class = ServerAuthenticationOperation;
-  result = [(ServerAuthenticationOperation *)&v14 init];
+LABEL_15:
+  v13.receiver = self;
+  v13.super_class = ServerAuthenticationOperation;
+  result = [(ServerAuthenticationOperation *)&v13 init];
   if (result)
   {
     result->_performsButtonAction = 1;
@@ -198,18 +201,18 @@ LABEL_14:
 
   else
   {
+    v25 = 0;
     v26 = 0;
-    v27 = 0;
-    v6 = [(ServerAuthenticationOperation *)self _copySelectedButton:&v27 returningError:&v26];
-    firstObject = v27;
-    v5 = v26;
+    v6 = [(ServerAuthenticationOperation *)self _copySelectedButton:&v26 returningError:&v25];
+    firstObject = v26;
+    v5 = v25;
     if (!v6)
     {
       v12 = 0;
       v11 = 0;
-LABEL_30:
+LABEL_31:
 
-      goto LABEL_31;
+      goto LABEL_32;
     }
   }
 
@@ -217,12 +220,12 @@ LABEL_30:
   {
     if ([(ServerAuthenticationOperation *)self _shouldAuthenticateForButton:firstObject])
     {
-      v24 = v5;
-      v25 = 0;
-      v7 = [(ServerAuthenticationOperation *)self _copyAccountIdentifier:&v25 returningError:&v24];
-      v8 = v25;
-      v9 = v25;
-      v10 = v24;
+      v23 = v5;
+      v24 = 0;
+      v7 = [(ServerAuthenticationOperation *)self _copyAccountIdentifier:&v24 returningError:&v23];
+      v8 = v24;
+      v9 = v24;
+      v10 = v23;
 
       if (v7)
       {
@@ -231,14 +234,14 @@ LABEL_30:
         [(ServerAuthenticationOperation *)self unlock];
         [(ServerAuthenticationOperation *)self _handleSelectedButton:firstObject];
         v11 = 1;
-LABEL_29:
+LABEL_30:
         v12 = firstObject;
         [(ServerAuthenticationOperation *)self lock];
         objc_storeStrong(&self->_selectedButton, firstObject);
         [(ServerAuthenticationOperation *)self unlock];
         firstObject = v9;
         v5 = v10;
-        goto LABEL_30;
+        goto LABEL_31;
       }
 
       if (ISErrorIsEqual())
@@ -257,9 +260,9 @@ LABEL_29:
         firstObject = 0;
       }
 
-LABEL_28:
+LABEL_29:
       v11 = 0;
-      goto LABEL_29;
+      goto LABEL_30;
     }
 
     v13 = +[SSLogConfig sharedAccountsAuthenticationConfig];
@@ -271,16 +274,21 @@ LABEL_28:
     shouldLog = [v13 shouldLog];
     if ([v13 shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
     oSLogObject = [v13 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
@@ -288,16 +296,14 @@ LABEL_28:
     if (v15)
     {
       v17 = objc_opt_class();
-      v28 = 138543362;
-      v29 = v17;
+      v27 = 138543362;
+      v28 = v17;
       v18 = v17;
-      LODWORD(v23) = 12;
-      v22 = &v28;
-      v19 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: User picked non-actionable button", &v27, 12);
 
       if (!v19)
       {
-LABEL_21:
+LABEL_22:
 
         v10 = ISError();
 
@@ -315,21 +321,21 @@ LABEL_21:
         }
 
         v9 = 0;
-        goto LABEL_28;
+        goto LABEL_29;
       }
 
-      oSLogObject = [NSString stringWithCString:v19 encoding:4, &v28, v23];
+      oSLogObject = [NSString stringWithCString:v19 encoding:4];
       free(v19);
       v22 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
   v12 = 0;
   v11 = 0;
-LABEL_31:
+LABEL_32:
   [(ServerAuthenticationOperation *)self setError:v5];
   [(ServerAuthenticationOperation *)self setSuccess:v11];
 }
@@ -378,14 +384,12 @@ LABEL_31:
     v40 = v15;
     v41 = 2114;
     v42 = redirectURL;
-    LODWORD(v33) = 32;
-    v32 = &v37;
-    v17 = _os_log_send_and_compose_impl();
+    v17 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@]: [%{public}@] Performing authentication. redirectURL = %{public}@.", &v37, 32);
 
     v7 = &CFDictionaryGetValue_ptr;
     if (v17)
     {
-      v18 = [NSString stringWithCString:v17 encoding:4, &v37, v33];
+      v18 = [NSString stringWithCString:v17 encoding:4];
       free(v17);
       v32 = v18;
       SSFileLog();
@@ -435,7 +439,7 @@ LABEL_31:
       v40 = v21;
       v27 = v26;
       LODWORD(v33) = 22;
-      v28 = _os_log_send_and_compose_impl();
+      v28 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%{public}@: Could not authenticate. error = %@", &v37, v33);
 
       if (!v28)
       {
@@ -444,7 +448,7 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v28 encoding:4, &v37, v33];
+      oSLogObject2 = [NSString stringWithCString:v28 encoding:4];
       free(v28);
       SSFileLog();
     }
@@ -563,12 +567,11 @@ LABEL_26:
       v76 = 2114;
       v77 = v27;
       LODWORD(v62) = 22;
-      v60 = &v74;
-      v28 = _os_log_send_and_compose_impl();
+      v28 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%{public}@: Appending server-driven title: %{public}@", &v74, v62);
 
       if (v28)
       {
-        v29 = [NSString stringWithCString:v28 encoding:4, &v74, v62];
+        v29 = [NSString stringWithCString:v28 encoding:4];
         free(v28);
         v60 = v29;
         SSFileLog();
@@ -631,15 +634,14 @@ LABEL_26:
   v76 = 2114;
   v77 = v41;
   LODWORD(v62) = 22;
-  v61 = &v74;
-  v42 = _os_log_send_and_compose_impl();
+  v42 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%{public}@: Appending server-driven reason: %{public}@", &v74, v62);
 
   dialog3 = v40;
   v34 = v67;
 
   if (v42)
   {
-    oSLogObject2 = [NSString stringWithCString:v42 encoding:4, &v74, v62];
+    oSLogObject2 = [NSString stringWithCString:v42 encoding:4];
     free(v42);
     v61 = oSLogObject2;
     SSFileLog();
@@ -716,7 +718,7 @@ LABEL_36:
           v76 = 2114;
           v77 = v57;
           LODWORD(v62) = 22;
-          v58 = _os_log_send_and_compose_impl();
+          v58 = _os_log_send_and_compose_impl(v55, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%{public}@: Appending server-driven buy button label: %{public}@", &v74, v62);
 
           dialog3 = v68;
           if (!v58)
@@ -726,7 +728,7 @@ LABEL_59:
             goto LABEL_60;
           }
 
-          oSLogObject3 = [NSString stringWithCString:v58 encoding:4, &v74, v62];
+          oSLogObject3 = [NSString stringWithCString:v58 encoding:4];
           free(v58);
           SSFileLog();
         }
@@ -866,16 +868,16 @@ LABEL_12:
     redirectURL = self->_redirectURL;
     self->_redirectURL = parameter;
 
-LABEL_19:
+LABEL_20:
     [(ServerAuthenticationOperation *)self unlock];
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   if (![(ServerAuthenticationOperation *)self performsButtonAction])
   {
     [(ServerAuthenticationOperation *)self lock];
     objc_storeStrong(&self->_performedButton, button);
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   v7 = +[SSLogConfig sharedAccountsAuthenticationConfig];
@@ -887,43 +889,47 @@ LABEL_19:
   shouldLog = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
   oSLogObject = [v7 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
-  LODWORD(v17) = 138543362;
-  *(&v17 + 4) = objc_opt_class();
-  v11 = *(&v17 + 4);
-  LODWORD(v16) = 12;
-  v12 = _os_log_send_and_compose_impl();
+  v16 = 138543362;
+  v17 = objc_opt_class();
+  v11 = v17;
+  v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Performing default action instead of redirecting", &v16, 12);
 
   if (v12)
   {
-    oSLogObject = [NSString stringWithCString:v12 encoding:4, &v17, v16, v17];
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog();
-LABEL_15:
+LABEL_16:
   }
 
   dialog = [(ServerAuthenticationOperation *)self dialog];
   [buttonCopy performDefaultActionForDialog:dialog];
 
-LABEL_20:
+LABEL_21:
 }
 
 - (BOOL)_isLocalizationAlreadyConfiguredForAuthContext:(id)context
@@ -987,26 +993,35 @@ LABEL_20:
     shouldLog = [_copyAuthenticationContext shouldLog];
     if ([_copyAuthenticationContext shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [_copyAuthenticationContext OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (!v8)
     {
-      goto LABEL_13;
+      goto LABEL_15;
     }
 
-    goto LABEL_10;
+    *v33 = 138543362;
+    *&v33[4] = objc_opt_class();
+    v10 = *&v33[4];
+    v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Skipping explanation because of password default", v33, 12, *v33, *&v33[8]);
+    goto LABEL_12;
   }
 
   title = [dialogCopy title];
@@ -1017,9 +1032,9 @@ LABEL_20:
   else
   {
     message = [dialogCopy message];
-    v16 = [message length];
+    v17 = [message length];
 
-    if (!v16)
+    if (!v17)
     {
       _copyAuthenticationContext = +[SSLogConfig sharedAccountsAuthenticationConfig];
       if (!_copyAuthenticationContext)
@@ -1030,32 +1045,37 @@ LABEL_20:
       shouldLog2 = [_copyAuthenticationContext shouldLog];
       if ([_copyAuthenticationContext shouldLogToDisk])
       {
-        v23 = shouldLog2 | 2;
+        LODWORD(v25) = shouldLog2 | 2;
       }
 
       else
       {
-        v23 = shouldLog2;
+        LODWORD(v25) = shouldLog2;
       }
 
       oSLogObject = [_copyAuthenticationContext OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v23 &= 2u;
+        v25 = v25;
       }
 
-      if (!v23)
+      else
       {
-        goto LABEL_13;
+        v25 &= 2u;
       }
 
-LABEL_10:
-      *v32 = 138543362;
-      *&v32[4] = objc_opt_class();
-      v10 = *&v32[4];
-      LODWORD(v31) = 12;
-      v11 = _os_log_send_and_compose_impl();
-      goto LABEL_11;
+      if (!v25)
+      {
+        goto LABEL_15;
+      }
+
+      *v33 = 138543362;
+      *&v33[4] = objc_opt_class();
+      v10 = *&v33[4];
+      v11 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Skipping explanation as strings are empty", v33, 12, *v33, *&v33[8]);
+LABEL_12:
+      v12 = v11;
+      goto LABEL_13;
     }
   }
 
@@ -1063,35 +1083,35 @@ LABEL_10:
   {
     if ([dialogCopy authorizationIsForced])
     {
-      v12 = 0;
-      goto LABEL_16;
+      v13 = 0;
+      goto LABEL_18;
     }
 
     _copyAuthenticationContext = [(ServerAuthenticationOperation *)self _copyAuthenticationContext];
     if (+[SSAccountStore isExpiredForTokenType:](SSAccountStore, "isExpiredForTokenType:", [_copyAuthenticationContext tokenType]))
     {
-      goto LABEL_57;
+      goto LABEL_62;
     }
 
-    v20 = +[SSAccountStore defaultStore];
+    v22 = +[SSAccountStore defaultStore];
     requiredUniqueIdentifier = [_copyAuthenticationContext requiredUniqueIdentifier];
     if (requiredUniqueIdentifier)
     {
-      [v20 accountWithUniqueIdentifier:requiredUniqueIdentifier];
+      [v22 accountWithUniqueIdentifier:requiredUniqueIdentifier];
     }
 
     else
     {
-      [v20 activeAccount];
+      [v22 activeAccount];
     }
-    v24 = ;
-    isAuthenticated = [v24 isAuthenticated];
+    v26 = ;
+    isAuthenticated = [v26 isAuthenticated];
 
     if (!isAuthenticated)
     {
-LABEL_57:
-      v12 = 0;
-      goto LABEL_15;
+LABEL_62:
+      v13 = 0;
+      goto LABEL_17;
     }
 
     oSLogObject = +[SSLogConfig sharedAccountsAuthenticationConfig];
@@ -1103,39 +1123,43 @@ LABEL_57:
     shouldLog3 = [oSLogObject shouldLog];
     if ([oSLogObject shouldLogToDisk])
     {
-      v27 = shouldLog3 | 2;
+      LODWORD(v29) = shouldLog3 | 2;
     }
 
     else
     {
-      v27 = shouldLog3;
+      LODWORD(v29) = shouldLog3;
     }
 
     v9OSLogObject = [oSLogObject OSLogObject];
-    if (!os_log_type_enabled(v9OSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9OSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v27 &= 2u;
+      v29 = v29;
     }
 
-    if (v27)
+    else
     {
-      *v32 = 138543362;
-      *&v32[4] = objc_opt_class();
-      v29 = *&v32[4];
-      LODWORD(v31) = 12;
-      v30 = _os_log_send_and_compose_impl();
+      v29 &= 2u;
+    }
 
-      if (!v30)
+    if (v29)
+    {
+      *v33 = 138543362;
+      *&v33[4] = objc_opt_class();
+      v31 = *&v33[4];
+      v32 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, v9OSLogObject, 0, "%{public}@: Skipping dialog because we are authenticated and not forced", v33, 12);
+
+      if (!v32)
       {
-        goto LABEL_13;
+        goto LABEL_15;
       }
 
-      v9OSLogObject = [NSString stringWithCString:v30 encoding:4, v32, v31, *v32];
-      free(v30);
+      v9OSLogObject = [NSString stringWithCString:v32 encoding:4];
+      free(v32);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_15;
   }
 
   _copyAuthenticationContext = +[SSLogConfig sharedAccountsAuthenticationConfig];
@@ -1147,48 +1171,53 @@ LABEL_57:
   shouldLog4 = [_copyAuthenticationContext shouldLog];
   if ([_copyAuthenticationContext shouldLogToDisk])
   {
-    v18 = shouldLog4 | 2;
+    LODWORD(v19) = shouldLog4 | 2;
   }
 
   else
   {
-    v18 = shouldLog4;
+    LODWORD(v19) = shouldLog4;
   }
 
   oSLogObject = [_copyAuthenticationContext OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    v18 &= 2u;
+    v19 = v19;
   }
 
-  if (!v18)
+  else
   {
-    goto LABEL_13;
+    v19 &= 2u;
   }
 
-  v19 = objc_opt_class();
-  v10 = v19;
-  AMSLogKey();
-  *v32 = 138543618;
-  *&v32[4] = v19;
-  *&v32[14] = *&v32[12] = 2114;
-  LODWORD(v31) = 22;
-  v11 = _os_log_send_and_compose_impl();
-
-LABEL_11:
-  if (v11)
+  if (!v19)
   {
-    oSLogObject = [NSString stringWithCString:v11 encoding:4, v32, v31];
-    free(v11);
-    SSFileLog();
+    goto LABEL_15;
+  }
+
+  v20 = objc_opt_class();
+  v10 = v20;
+  v21 = AMSLogKey();
+  *v33 = 138543618;
+  *&v33[4] = v20;
+  *&v33[12] = 2114;
+  *&v33[14] = v21;
+  v12 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: [%{public}@] Skipping explanation because of consolidated auth dialogs", v33, 22);
+
 LABEL_13:
+  if (v12)
+  {
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
+    free(v12);
+    SSFileLog();
+LABEL_15:
   }
 
-  v12 = 1;
-LABEL_15:
+  v13 = 1;
+LABEL_17:
 
-LABEL_16:
-  return v12;
+LABEL_18:
+  return v13;
 }
 
 @end

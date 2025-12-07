@@ -599,9 +599,11 @@
 
 uint64_t __36__PIHeadroomSettings_sharedInstance__block_invoke()
 {
-  sharedInstance_headroomSettings = objc_alloc_init(PIHeadroomSettings);
+  v0 = objc_alloc_init(PIHeadroomSettings);
+  v1 = sharedInstance_headroomSettings;
+  sharedInstance_headroomSettings = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

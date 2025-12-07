@@ -62,65 +62,66 @@
 
 - (void)writeBookmarkToFile:(id)file
 {
-  v6 = 0;
-  [file saveBookmarkWithError:&v6];
-  v4 = v6;
+  v7 = 0;
+  [file saveBookmarkWithError:&v7];
+  v4 = v7;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(ATXModeSetupExperienceMetricsLogger *)self writeBookmarkToFile:v4, v5];
+      [(ATXModeSetupExperienceMetricsLogger *)self writeBookmarkToFile:v5, v6];
     }
   }
 }
 
 - (void)logHomeScreenFocusSuggestionMetrics
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   generateSuggestedHomePageStreamBookmark = [(ATXHomeScreenFocusSuggestionLogger *)self generateSuggestedHomePageStreamBookmark];
   stream = [(ATXHomeScreenFocusSuggestionLogger *)self stream];
   v6 = [stream publisherFromStartTime:0.0];
   bookmark = [generateSuggestedHomePageStreamBookmark bookmark];
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __73__ATXHomeScreenFocusSuggestionLogger_logHomeScreenFocusSuggestionMetrics__block_invoke;
-  v51[3] = &unk_27859EB48;
-  v38 = generateSuggestedHomePageStreamBookmark;
-  v52 = v38;
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __73__ATXHomeScreenFocusSuggestionLogger_logHomeScreenFocusSuggestionMetrics__block_invoke;
+  v50[3] = &unk_27859EB48;
+  v37 = generateSuggestedHomePageStreamBookmark;
+  v51 = v37;
   selfCopy = self;
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __73__ATXHomeScreenFocusSuggestionLogger_logHomeScreenFocusSuggestionMetrics__block_invoke_16;
-  v49[3] = &unk_278596F60;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __73__ATXHomeScreenFocusSuggestionLogger_logHomeScreenFocusSuggestionMetrics__block_invoke_16;
+  v48[3] = &unk_278596F60;
   v8 = v3;
-  v50 = v8;
-  v9 = [v6 sinkWithBookmark:bookmark completion:v51 receiveInput:v49];
+  v49 = v8;
+  v9 = [v6 sinkWithBookmark:bookmark completion:v50 receiveInput:v48];
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
-  v41 = v8;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v40 = v8;
   obj = [v8 allKeys];
-  v42 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
-  if (v42)
+  v41 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+  if (v41)
   {
-    v40 = *v46;
+    v39 = *v45;
     do
     {
-      for (i = 0; i != v42; ++i)
+      for (i = 0; i != v41; ++i)
       {
-        if (*v46 != v40)
+        if (*v45 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v45 + 1) + 8 * i);
+        v11 = *(*(&v44 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         v13 = objc_opt_new();
-        v14 = [v41 objectForKeyedSubscript:v11];
+        v14 = [v40 objectForKeyedSubscript:v11];
         v15 = [v14 count];
         v16 = v15 - 1;
         if (v15 < 1)
@@ -157,13 +158,13 @@ LABEL_12:
         if (v20 && ([v14 objectAtIndexedSubscript:v16], v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "eventBody"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "action"), v24, v23, v25 == 1))
         {
           v26 = [v14 objectAtIndexedSubscript:v16];
-          v43[0] = MEMORY[0x277D85DD0];
-          v43[1] = 3221225472;
-          v43[2] = __73__ATXHomeScreenFocusSuggestionLogger_logHomeScreenFocusSuggestionMetrics__block_invoke_2;
-          v43[3] = &unk_27859A798;
+          v42[0] = MEMORY[0x277D85DD0];
+          v42[1] = 3221225472;
+          v42[2] = __73__ATXHomeScreenFocusSuggestionLogger_logHomeScreenFocusSuggestionMetrics__block_invoke_2;
+          v42[3] = &unk_27859A798;
           v27 = v26;
-          v44 = v27;
-          v28 = [v14 _pas_filteredArrayWithTest:v43];
+          v43 = v27;
+          v28 = [v14 _pas_filteredArrayWithTest:v42];
           firstObject = [v28 firstObject];
 
           v33 = 0;
@@ -204,13 +205,11 @@ LABEL_12:
         objc_autoreleasePoolPop(v12);
       }
 
-      v42 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
+      v41 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
     }
 
-    while (v42);
+    while (v41);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __73__ATXHomeScreenFocusSuggestionLogger_logHomeScreenFocusSuggestionMetrics__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -222,15 +221,19 @@ void __73__ATXHomeScreenFocusSuggestionLogger_logHomeScreenFocusSuggestionMetric
   {
   }
 
-  else if (![v5 state])
+  else
   {
-    goto LABEL_7;
+    v8 = [v5 state];
+    if (!v8)
+    {
+      goto LABEL_7;
+    }
   }
 
-  v8 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = __atxlog_handle_modes(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __49__ATXModeSetupExperienceMetricsLogger_logMetrics__block_invoke_2_cold_1(v5, v8);
+    __49__ATXModeSetupExperienceMetricsLogger_logMetrics__block_invoke_2_cold_1(v5, v9);
   }
 
 LABEL_7:

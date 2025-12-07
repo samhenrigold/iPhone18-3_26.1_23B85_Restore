@@ -844,7 +844,7 @@ LABEL_17:
     goto LABEL_10;
   }
 
-  _AXLogWithFacility();
+  _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Went all the way up the container chain from %@, but could not find any container that was one of the ordered children of %@.  This may be acceptable if it happened right around a layout change, but it would be best to double check by swiping left/right to see if you can get to all elements.");
   v10 = 0;
 LABEL_10:
   v11 = v10;
@@ -1674,6 +1674,13 @@ LABEL_34:
   *&v3[12] = 2114;
   *&v3[14] = a1;
   OUTLINED_FUNCTION_1(&dword_1A9B83000, a2, a3, "Getting %lu accessibility elements, with options %{public}@.", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
+}
+
+- (void)_handleSupplementaryViewIfNeededWithElementOrOrderedChildrenContainer:()UIAccessibilityElementTraversal childOfElementOrOrderedChildrenContainer:headerIndex:footerIndex:allowedElementsForTraversal:.cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_3(&dword_1A9B83000, a2, a3, "The original elementOrOrderedChildrenContainer was actually a sibling since self was one of its supplementary views.  Correcting for this yields %{public}@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_accessibilityEnumerateSiblingsWithParent:()UIAccessibilityElementTraversal options:usingBlock:.cold.3(void *a1, NSObject *a2)

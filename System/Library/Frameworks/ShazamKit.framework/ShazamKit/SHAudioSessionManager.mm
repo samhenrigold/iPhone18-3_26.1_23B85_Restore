@@ -21,7 +21,6 @@
 {
   runningCopy = running;
   os_unfair_lock_lock(&self->_mediaSafetyNetLock);
-  hasStartedSafetynetException = self->_hasStartedSafetynetException;
   if (runningCopy)
   {
     if (!self->_hasStartedSafetynetException)

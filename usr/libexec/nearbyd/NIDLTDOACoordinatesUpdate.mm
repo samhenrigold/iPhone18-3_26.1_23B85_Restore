@@ -88,7 +88,7 @@ LABEL_6:
     self->_coordinatesType = [coderCopy decodeIntForKey:@"CoordinatesType"];
     if (v5)
     {
-      [v5 decodeDoubleVector3ForKey:@"Coordinates"];
+      objc_msgSend_decodeDoubleVector3ForKey_(v5);
       v7 = v10;
       v8 = vextq_s8(v7, v7, 8uLL).u64[0];
       *&v6 = v11;
@@ -129,7 +129,7 @@ LABEL_6:
       v17 = *self->_coordinates;
       if (v5)
       {
-        [(NIDLTDOACoordinatesUpdate *)v5 coordinates];
+        objc_msgSend_coordinates(v5);
         v9 = v18;
         v10 = vextq_s8(v9, v9, 8uLL).u64[0];
         v11.f64[0] = v19;

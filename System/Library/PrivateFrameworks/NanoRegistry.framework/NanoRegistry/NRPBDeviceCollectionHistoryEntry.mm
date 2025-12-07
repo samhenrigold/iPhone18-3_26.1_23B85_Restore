@@ -54,26 +54,24 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    index = self->_index;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    date = self->_date;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_diff)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -118,7 +116,6 @@
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 32);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_index != *(equalCopy + 2))
@@ -130,7 +127,7 @@
   else if ((*(equalCopy + 32) & 2) != 0)
   {
 LABEL_14:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
@@ -150,17 +147,17 @@ LABEL_14:
   diff = self->_diff;
   if (diff | *(equalCopy + 3))
   {
-    v7 = [(NRPBDeviceCollectionDiff *)diff isEqual:?];
+    v6 = [(NRPBDeviceCollectionDiff *)diff isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_15:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

@@ -21,41 +21,40 @@
   imageCopy = image;
   providerCopy = provider;
   infoCopy = info;
-  v201.receiver = self;
-  v201.super_class = AXStyleProviderUIAlert;
-  v18 = [(AXStyleProviderUIAlert *)&v201 init];
+  v199.receiver = self;
+  v199.super_class = AXStyleProviderUIAlert;
+  v18 = [(AXStyleProviderUIAlert *)&v199 init];
   v19 = v18;
   if (!v18)
   {
-    goto LABEL_144;
+    goto LABEL_143;
   }
 
-  v190 = infoCopy;
+  v188 = infoCopy;
   [(AXUIAlert *)v18 setUserInfo:infoCopy];
   v20 = [providerCopy alertBackgroundStyleForType:type];
   v21 = v20;
   v22 = 0;
-  v23 = 0x277D75000uLL;
-  v199 = providerCopy;
+  v197 = providerCopy;
   if (v20 > 3)
   {
     if (v20 > 5)
     {
       if (v20 != 6)
       {
-        v24 = 0;
+        v23 = 0;
         if (v20 == 7)
         {
           v22 = objc_alloc_init(MEMORY[0x277D75D18]);
-          v24 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2010];
-          [v24 _setContinuousCornerRadius:47.0];
-          [v22 addSubview:v24];
+          v23 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2010];
+          [v23 _setContinuousCornerRadius:47.0];
+          [v22 addSubview:v23];
           layer = [v22 layer];
           [layer setShadowRadius:25.0];
 
           layer2 = [v22 layer];
-          LODWORD(v38) = 1036831949;
-          [layer2 setShadowOpacity:v38];
+          LODWORD(v37) = 1036831949;
+          [layer2 setShadowOpacity:v37];
 
           layer3 = [v22 layer];
           [layer3 setShadowOffset:{0.0, 15.0}];
@@ -63,30 +62,28 @@
           layer4 = [v22 layer];
           blackColor = [MEMORY[0x277D75348] blackColor];
           [layer4 setShadowColor:{objc_msgSend(blackColor, "CGColor")}];
-
-          v23 = 0x277D75000;
         }
 
-        goto LABEL_35;
+        goto LABEL_34;
       }
 
       v22 = objc_alloc_init(MEMORY[0x277D75D18]);
-      v52 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2030];
+      v51 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2030];
       traitCollection = [(AXStyleProviderUIAlert *)v19 traitCollection];
       userInterfaceStyle = [traitCollection userInterfaceStyle];
 
-      v196 = imageCopy;
+      v194 = imageCopy;
       if (userInterfaceStyle == 2)
       {
-        v29 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2030];
+        v28 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2030];
       }
 
       else
       {
-        v29 = v52;
+        v28 = v51;
       }
 
-      v57 = 20.0;
+      v56 = 20.0;
     }
 
     else
@@ -95,659 +92,651 @@
       {
         if (_UISolariumEnabled())
         {
-          v50 = objc_alloc_init(MEMORY[0x277D75D68]);
+          v49 = objc_alloc_init(MEMORY[0x277D75D68]);
         }
 
         else
         {
-          v55 = objc_alloc(MEMORY[0x277D75D68]);
-          v56 = [MEMORY[0x277D75210] effectWithStyle:1200];
-          v50 = [v55 initWithEffect:v56];
-
-          v23 = 0x277D75000uLL;
+          v54 = objc_alloc(MEMORY[0x277D75D68]);
+          v55 = [MEMORY[0x277D75210] effectWithStyle:1200];
+          v49 = [v54 initWithEffect:v55];
         }
 
-        v51 = v50;
+        v50 = v49;
         goto LABEL_27;
       }
 
       v22 = objc_alloc_init(MEMORY[0x277D75D18]);
-      v26 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2010];
+      v25 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2010];
       traitCollection2 = [(AXStyleProviderUIAlert *)v19 traitCollection];
       userInterfaceStyle2 = [traitCollection2 userInterfaceStyle];
 
-      v196 = imageCopy;
+      v194 = imageCopy;
       if (userInterfaceStyle2 == 2)
       {
-        v29 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2030];
+        v28 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2030];
       }
 
       else
       {
-        v29 = v26;
+        v28 = v25;
       }
 
-      v57 = 30.0;
+      v56 = 30.0;
       if (type == 3)
       {
-        v57 = 10.0;
+        v56 = 10.0;
       }
     }
 
-    [v29 _setContinuousCornerRadius:v57];
-    layer5 = [v29 layer];
+    [v28 _setContinuousCornerRadius:v56];
+    layer5 = [v28 layer];
     [layer5 setShadowRadius:10.0];
 
-    layer6 = [v29 layer];
-    LODWORD(v60) = 1050253722;
-    [layer6 setShadowOpacity:v60];
+    layer6 = [v28 layer];
+    LODWORD(v59) = 1050253722;
+    [layer6 setShadowOpacity:v59];
 
-    layer7 = [v29 layer];
+    layer7 = [v28 layer];
     [layer7 setShadowOffset:{0.0, 10.0}];
 
-    layer8 = [v29 layer];
+    layer8 = [v28 layer];
     blackColor2 = [MEMORY[0x277D75348] blackColor];
     [layer8 setShadowColor:{objc_msgSend(blackColor2, "CGColor")}];
 
-    [v22 addSubview:v29];
-    [v29 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v64 = MEMORY[0x277CCAAD0];
-    v65 = _NSDictionaryOfVariableBindings(&cfstr_Backdropview.isa, v29, 0);
-    v66 = [v64 constraintsWithVisualFormat:@"H:|-[backdropView]-|" options:0 metrics:0 views:v65];
-    [v22 addConstraints:v66];
+    [v22 addSubview:v28];
+    [v28 setTranslatesAutoresizingMaskIntoConstraints:0];
+    v63 = MEMORY[0x277CCAAD0];
+    v64 = _NSDictionaryOfVariableBindings(&cfstr_Backdropview.isa, v28, 0);
+    v65 = [v63 constraintsWithVisualFormat:@"H:|-[backdropView]-|" options:0 metrics:0 views:v64];
+    [v22 addConstraints:v65];
 
-    v24 = v29;
-    v67 = MEMORY[0x277CCAAD0];
-    v68 = _NSDictionaryOfVariableBindings(&cfstr_Backdropview.isa, v29, 0);
-    v69 = [v67 constraintsWithVisualFormat:@"V:|-[backdropView]-|" options:0 metrics:0 views:v68];
-    [v22 addConstraints:v69];
+    v23 = v28;
+    v66 = MEMORY[0x277CCAAD0];
+    v67 = _NSDictionaryOfVariableBindings(&cfstr_Backdropview.isa, v28, 0);
+    v68 = [v66 constraintsWithVisualFormat:@"V:|-[backdropView]-|" options:0 metrics:0 views:v67];
+    [v22 addConstraints:v68];
 
-    imageCopy = v196;
-LABEL_34:
-    v23 = 0x277D75000uLL;
-    goto LABEL_35;
+    imageCopy = v194;
+    goto LABEL_34;
   }
 
   if (v20 > 1)
   {
     if (v20 == 2)
     {
-      v25 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2030];
+      v24 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2030];
       goto LABEL_22;
     }
 
     v22 = objc_alloc_init(MEMORY[0x277D75D18]);
-    v24 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2010];
-    [v24 _setContinuousCornerRadius:10.0];
-    [v22 addSubview:v24];
-    [v24 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v30 = MEMORY[0x277CCAAD0];
-    v31 = _NSDictionaryOfVariableBindings(&cfstr_Backdropview.isa, v24, 0);
-    v32 = [v30 constraintsWithVisualFormat:@"H:|-[backdropView]-|" options:0 metrics:0 views:v31];
-    [v22 addConstraints:v32];
+    v23 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2010];
+    [v23 _setContinuousCornerRadius:10.0];
+    [v22 addSubview:v23];
+    [v23 setTranslatesAutoresizingMaskIntoConstraints:0];
+    v29 = MEMORY[0x277CCAAD0];
+    v30 = _NSDictionaryOfVariableBindings(&cfstr_Backdropview.isa, v23, 0);
+    v31 = [v29 constraintsWithVisualFormat:@"H:|-[backdropView]-|" options:0 metrics:0 views:v30];
+    [v22 addConstraints:v31];
 
-    v33 = MEMORY[0x277CCAAD0];
-    providerCopy = v199;
-    v34 = _NSDictionaryOfVariableBindings(&cfstr_Backdropview.isa, v24, 0);
-    v35 = [v33 constraintsWithVisualFormat:@"V:|-[backdropView]-|" options:0 metrics:0 views:v34];
-    [v22 addConstraints:v35];
-
-    goto LABEL_34;
+    v32 = MEMORY[0x277CCAAD0];
+    providerCopy = v197;
+    v33 = _NSDictionaryOfVariableBindings(&cfstr_Backdropview.isa, v23, 0);
+    v34 = [v32 constraintsWithVisualFormat:@"V:|-[backdropView]-|" options:0 metrics:0 views:v33];
+    [v22 addConstraints:v34];
   }
 
-  if (v20)
+  else if (v20)
   {
-    v24 = 0;
+    v23 = 0;
     if (v20 == 1)
     {
-      v25 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2020];
+      v24 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:2020];
 LABEL_22:
-      v51 = v25;
+      v50 = v24;
 LABEL_27:
-      v22 = v51;
-      v24 = v51;
+      v22 = v50;
+      v23 = v50;
     }
   }
 
   else
   {
-    v42 = [providerCopy alertBackgroundImageForType:type];
+    v41 = [providerCopy alertBackgroundImageForType:type];
     [providerCopy alertBackgroundImageCapInsetsForType:type];
-    v44.f64[0] = v43;
-    v44.f64[1] = v45;
-    v47.f64[0] = v46;
-    v47.f64[1] = v48;
-    if ((vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(v44, *MEMORY[0x277D768C8]), vceqq_f64(v47, *(MEMORY[0x277D768C8] + 16))))) & 1) == 0)
+    v43.f64[0] = v42;
+    v43.f64[1] = v44;
+    v46.f64[0] = v45;
+    v46.f64[1] = v47;
+    if ((vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(v43, *MEMORY[0x277D768C8]), vceqq_f64(v46, *(MEMORY[0x277D768C8] + 16))))) & 1) == 0)
     {
-      v49 = [v42 resizableImageWithCapInsets:?];
+      v48 = [v41 resizableImageWithCapInsets:?];
 
-      v42 = v49;
-      v23 = 0x277D75000uLL;
+      v41 = v48;
     }
 
-    v22 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v42];
+    v22 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v41];
 
-    v24 = 0;
+    v23 = 0;
   }
 
-LABEL_35:
-  [v24 _continuousCornerRadius];
-  v71 = v70;
+LABEL_34:
+  [v23 _continuousCornerRadius];
+  v70 = v69;
   if (objc_opt_respondsToSelector())
   {
     [providerCopy alertBackgroundCornerRadiusForType:type];
-    v71 = v72;
-    if (fabs(v72) >= 2.22044605e-16)
+    v70 = v71;
+    if (fabs(v71) >= 2.22044605e-16)
     {
-      [v24 _setContinuousCornerRadius:v72];
+      [v23 _setContinuousCornerRadius:v71];
     }
   }
 
-  v193 = textCopy;
+  v191 = textCopy;
   if (_UISolariumEnabled())
   {
-    [v24 ax_setWantsGlassAppearance:1];
-    layer9 = [v24 layer];
-    [layer9 setCornerRadius:v71];
+    [v23 ax_setWantsGlassAppearance:1];
+    layer9 = [v23 layer];
+    [layer9 setCornerRadius:v70];
 
-    [(AXStyleProviderUIAlert *)v19 setGlassView:v24];
+    [(AXStyleProviderUIAlert *)v19 setGlassView:v23];
   }
 
-  v189 = v24;
+  v187 = v23;
   [v22 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v195 = v22;
+  v193 = v22;
   [(AXStyleProviderUIAlert *)v19 addSubview:v22];
   layer10 = [(AXStyleProviderUIAlert *)v19 layer];
   [layer10 setAllowsGroupOpacity:v21 == 0];
 
-  v75 = *(v23 + 3352);
-  v76 = objc_opt_new();
-  [v76 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [(AXStyleProviderUIAlert *)v19 addSubview:v76];
-  v77 = imageCopy == 0;
-  v78 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:&stru_284FF7328 attributes:0];
-  v194 = v78;
+  v74 = objc_opt_new();
+  [v74 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [(AXStyleProviderUIAlert *)v19 addSubview:v74];
+  v75 = imageCopy == 0;
+  v76 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:&stru_284FF7328 attributes:0];
+  v192 = v76;
   if (type == 7)
   {
-    v79 = [v199 alertTextColorForType:7];
-    v80 = [v199 alertTextFontForType:7];
-    [v199 alertTextLineHeightOffsetForType:7];
-    [AXStyleProviderUIAlert _appendParagraphWithText:v19 withImage:"_appendParagraphWithText:withImage:withTextColor:font:textAlignment:lineSpacing:paragraphSpacingBefore:toAttributedString:" withTextColor:v193 font:imageCopy textAlignment:v79 lineSpacing:v80 paragraphSpacingBefore:1 toAttributedString:v78];
+    v77 = [v197 alertTextColorForType:7];
+    v78 = [v197 alertTextFontForType:7];
+    [v197 alertTextLineHeightOffsetForType:7];
+    [AXStyleProviderUIAlert _appendParagraphWithText:v19 withImage:"_appendParagraphWithText:withImage:withTextColor:font:textAlignment:lineSpacing:paragraphSpacingBefore:toAttributedString:" withTextColor:v191 font:imageCopy textAlignment:v77 lineSpacing:v78 paragraphSpacingBefore:1 toAttributedString:v76];
 
-    v188 = 0;
+    v186 = 0;
     imageCopy = 0;
-LABEL_45:
-    v200 = type == 7;
-    goto LABEL_46;
-  }
-
-  v81 = [v199 alertTextColorForType:type];
-  v82 = [v199 alertTextFontForType:type];
-  [v199 alertTextLineHeightOffsetForType:type];
-  [AXStyleProviderUIAlert _appendParagraphWithText:v19 withTextColor:"_appendParagraphWithText:withTextColor:font:textAlignment:lineSpacing:paragraphSpacingBefore:toAttributedString:" font:v193 textAlignment:v81 lineSpacing:v82 paragraphSpacingBefore:imageCopy == 0 toAttributedString:v78];
-
-  v188 = type == 8;
-  v200 = 1;
-  if (type != 6 && type != 8)
-  {
+LABEL_44:
+    v198 = type == 7;
     goto LABEL_45;
   }
 
-LABEL_46:
-  v197 = imageCopy;
-  v83 = objc_opt_new();
-  [v83 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v192 = v83;
+  v79 = [v197 alertTextColorForType:type];
+  v80 = [v197 alertTextFontForType:type];
+  [v197 alertTextLineHeightOffsetForType:type];
+  [AXStyleProviderUIAlert _appendParagraphWithText:v19 withTextColor:"_appendParagraphWithText:withTextColor:font:textAlignment:lineSpacing:paragraphSpacingBefore:toAttributedString:" font:v191 textAlignment:v79 lineSpacing:v80 paragraphSpacingBefore:imageCopy == 0 toAttributedString:v76];
+
+  v186 = type == 8;
+  v198 = 1;
+  if (type != 6 && type != 8)
+  {
+    goto LABEL_44;
+  }
+
+LABEL_45:
+  v195 = imageCopy;
+  v81 = objc_opt_new();
+  [v81 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v190 = v81;
   if (subtitleTextCopy)
   {
-    v84 = v200 ^ 1;
+    v82 = v198 ^ 1;
     if (type == 3)
     {
-      v84 = 0;
+      v82 = 0;
     }
 
-    if (v84)
+    if (v82)
     {
-      v85 = [v199 alertSubtitleTextColorForType:type];
-      v91 = [v199 alertSubtitleTextFontForType:type];
-      [v199 alertSubtitleTextLineHeightOffsetForType:type];
-      v93 = v92;
-      [v199 alertSubtitleTextVerticalSpacingHeightWithTextForType:type];
-      [(AXStyleProviderUIAlert *)v19 _appendParagraphWithText:subtitleTextCopy withTextColor:v85 font:v91 textAlignment:v77 lineSpacing:v194 paragraphSpacingBefore:v93 toAttributedString:v94];
+      v83 = [v197 alertSubtitleTextColorForType:type];
+      v89 = [v197 alertSubtitleTextFontForType:type];
+      [v197 alertSubtitleTextLineHeightOffsetForType:type];
+      v91 = v90;
+      [v197 alertSubtitleTextVerticalSpacingHeightWithTextForType:type];
+      [(AXStyleProviderUIAlert *)v19 _appendParagraphWithText:subtitleTextCopy withTextColor:v83 font:v89 textAlignment:v75 lineSpacing:v192 paragraphSpacingBefore:v91 toAttributedString:v92];
     }
 
     else
     {
-      v85 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:&stru_284FF7328 attributes:0];
-      v86 = [v199 alertSubtitleTextColorForType:type];
-      v87 = [v199 alertSubtitleTextFontForType:type];
-      [v199 alertSubtitleTextLineHeightOffsetForType:type];
-      v89 = v88;
-      [v199 alertSubtitleTextVerticalSpacingHeightWithTextForType:type];
-      [(AXStyleProviderUIAlert *)v19 _appendParagraphWithText:subtitleTextCopy withTextColor:v86 font:v87 textAlignment:v77 lineSpacing:v85 paragraphSpacingBefore:v89 toAttributedString:v90];
+      v83 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:&stru_284FF7328 attributes:0];
+      v84 = [v197 alertSubtitleTextColorForType:type];
+      v85 = [v197 alertSubtitleTextFontForType:type];
+      [v197 alertSubtitleTextLineHeightOffsetForType:type];
+      v87 = v86;
+      [v197 alertSubtitleTextVerticalSpacingHeightWithTextForType:type];
+      [(AXStyleProviderUIAlert *)v19 _appendParagraphWithText:subtitleTextCopy withTextColor:v84 font:v85 textAlignment:v75 lineSpacing:v83 paragraphSpacingBefore:v87 toAttributedString:v88];
 
-      [v83 setNumberOfLines:2];
-      [v83 setAttributedText:v85];
-      [v83 setLineBreakMode:4];
+      [v81 setNumberOfLines:2];
+      [v81 setAttributedText:v83];
+      [v81 setLineBreakMode:4];
     }
   }
 
-  [v76 addSubview:v83];
-  v95 = objc_opt_new();
-  [v95 setNumberOfLines:0];
-  [v95 setAttributedText:v194];
-  [v95 setLineBreakMode:0];
-  [v95 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v74 addSubview:v81];
+  v93 = objc_opt_new();
+  [v93 setNumberOfLines:0];
+  [v93 setAttributedText:v192];
+  [v93 setLineBreakMode:0];
+  [v93 setTranslatesAutoresizingMaskIntoConstraints:0];
   if (type == 3)
   {
-    [v95 setNumberOfLines:1];
-    if ((v200 & 1) == 0 && !_UISolariumEnabled())
+    [v93 setNumberOfLines:1];
+    if ((v198 & 1) == 0 && !_UISolariumEnabled())
     {
-      v96 = objc_alloc(MEMORY[0x277D75D68]);
-      v97 = MEMORY[0x277D75D00];
-      v98 = [MEMORY[0x277D75210] effectWithStyle:5];
-      v99 = [v97 effectForBlurEffect:v98];
-      v100 = [v96 initWithEffect:v99];
-
-LABEL_59:
-      [v100 setTranslatesAutoresizingMaskIntoConstraints:0];
-      [v76 addSubview:v100];
-      contentView = [v100 contentView];
-      [contentView addSubview:v95];
-
-      contentView2 = [v100 contentView];
-      v103 = MEMORY[0x277CCAAD0];
-      _NSDictionaryOfVariableBindings(&cfstr_Label.isa, v95, 0);
-      v105 = v104 = v100;
-      v106 = [v103 constraintsWithVisualFormat:@"H:|[label]|" options:0 metrics:0 views:v105];
-      [contentView2 addConstraints:v106];
-
-      v191 = v104;
-      contentView3 = [v104 contentView];
-      v108 = MEMORY[0x277CCAAD0];
-      v109 = _NSDictionaryOfVariableBindings(&cfstr_Label.isa, v95, 0);
-      v110 = [v108 constraintsWithVisualFormat:@"V:|[label]|" options:0 metrics:0 views:v109];
-      [contentView3 addConstraints:v110];
-
-      providerCopy = v199;
-      v22 = v195;
-      goto LABEL_61;
-    }
+      v94 = objc_alloc(MEMORY[0x277D75D68]);
+      v95 = MEMORY[0x277D75D00];
+      v96 = [MEMORY[0x277D75210] effectWithStyle:5];
+      v97 = [v95 effectForBlurEffect:v96];
+      v98 = [v94 initWithEffect:v97];
 
 LABEL_58:
-    v100 = objc_alloc_init(MEMORY[0x277D75D68]);
-    goto LABEL_59;
-  }
+      [v98 setTranslatesAutoresizingMaskIntoConstraints:0];
+      [v74 addSubview:v98];
+      contentView = [v98 contentView];
+      [contentView addSubview:v93];
 
-  providerCopy = v199;
-  if (v200)
-  {
+      contentView2 = [v98 contentView];
+      v101 = MEMORY[0x277CCAAD0];
+      _NSDictionaryOfVariableBindings(&cfstr_Label.isa, v93, 0);
+      v103 = v102 = v98;
+      v104 = [v101 constraintsWithVisualFormat:@"H:|[label]|" options:0 metrics:0 views:v103];
+      [contentView2 addConstraints:v104];
+
+      v189 = v102;
+      contentView3 = [v102 contentView];
+      v106 = MEMORY[0x277CCAAD0];
+      v107 = _NSDictionaryOfVariableBindings(&cfstr_Label.isa, v93, 0);
+      v108 = [v106 constraintsWithVisualFormat:@"V:|[label]|" options:0 metrics:0 views:v107];
+      [contentView3 addConstraints:v108];
+
+      providerCopy = v197;
+      v22 = v193;
+      goto LABEL_60;
+    }
+
+LABEL_57:
+    v98 = objc_alloc_init(MEMORY[0x277D75D68]);
     goto LABEL_58;
   }
 
-  [v76 addSubview:v95];
-  v191 = 0;
-LABEL_61:
-  imageCopy = v197;
-  infoCopy = v190;
-  if (!v197)
+  providerCopy = v197;
+  if (v198)
+  {
+    goto LABEL_57;
+  }
+
+  [v74 addSubview:v93];
+  v189 = 0;
+LABEL_60:
+  imageCopy = v195;
+  infoCopy = v188;
+  if (!v195)
   {
     if (type == 3)
     {
-      v126 = 1;
+      v124 = 1;
     }
 
     else
     {
-      v126 = v200;
+      v124 = v198;
     }
 
-    if (v126)
+    if (v124)
     {
-      goto LABEL_73;
+      goto LABEL_72;
     }
 
-    [v95 ax_constrainLayoutAttribute:3 asGreaterThanOrEqualToValueOfView:v76];
+    [v93 ax_constrainLayoutAttribute:3 asGreaterThanOrEqualToValueOfView:v74];
+    goto LABEL_82;
+  }
+
+  v109 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v195];
+  [v109 setTranslatesAutoresizingMaskIntoConstraints:0];
+  if (type == 3)
+  {
+    v110 = 1;
+  }
+
+  else
+  {
+    v110 = v198;
+  }
+
+  if ((v110 & 1) == 0)
+  {
+    [v74 addSubview:v109];
+    [v93 ax_constrainLayoutAttribute:3 asGreaterThanOrEqualToValueOfView:v74];
+    if (v109)
+    {
+LABEL_83:
+      [v93 ax_constrainLayoutAttribute:2 asEqualToValueOfView:v74];
+      [v93 ax_constrainLayoutAttribute:4 asLessThanOrEqualToValueOfView:v74];
+      LODWORD(v130) = 1144750080;
+      [v93 ax_constrainLayoutAttribute:3 asEqualToValueOfView:v74 priority:v130];
+      LODWORD(v131) = 1144750080;
+      [v93 ax_constrainLayoutAttribute:4 asEqualToValueOfView:v74 priority:v131];
+      if (!v109)
+      {
+        goto LABEL_114;
+      }
+
+      v132 = 0;
+      goto LABEL_100;
+    }
+
+LABEL_82:
+    [v93 ax_constrainLayoutAttribute:1 asEqualToValueOfView:v74];
+    v109 = 0;
     goto LABEL_83;
   }
 
-  v111 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v197];
-  [v111 setTranslatesAutoresizingMaskIntoConstraints:0];
-  if (type == 3)
-  {
-    v112 = 1;
-  }
-
-  else
-  {
-    v112 = v200;
-  }
-
-  if ((v112 & 1) == 0)
-  {
-    [v76 addSubview:v111];
-    [v95 ax_constrainLayoutAttribute:3 asGreaterThanOrEqualToValueOfView:v76];
-    if (v111)
-    {
-LABEL_84:
-      [v95 ax_constrainLayoutAttribute:2 asEqualToValueOfView:v76];
-      [v95 ax_constrainLayoutAttribute:4 asLessThanOrEqualToValueOfView:v76];
-      LODWORD(v132) = 1144750080;
-      [v95 ax_constrainLayoutAttribute:3 asEqualToValueOfView:v76 priority:v132];
-      LODWORD(v133) = 1144750080;
-      [v95 ax_constrainLayoutAttribute:4 asEqualToValueOfView:v76 priority:v133];
-      if (!v111)
-      {
-        goto LABEL_115;
-      }
-
-      v134 = 0;
-      goto LABEL_101;
-    }
-
-LABEL_83:
-    [v95 ax_constrainLayoutAttribute:1 asEqualToValueOfView:v76];
-    v111 = 0;
-    goto LABEL_84;
-  }
-
-  layer11 = [v111 layer];
+  layer11 = [v109 layer];
   [layer11 setCornerRadius:4.0];
 
-  layer12 = [v111 layer];
+  layer12 = [v109 layer];
   [layer12 setMasksToBounds:1];
 
-  [v76 addSubview:v111];
-  if (v111)
+  [v74 addSubview:v109];
+  if (v109)
   {
-    v115 = [MEMORY[0x277CCAAD0] constraintWithItem:v191 attribute:5 relatedBy:0 toItem:v111 attribute:6 multiplier:1.0 constant:10.0];
-    [v76 addConstraint:v115];
+    v113 = [MEMORY[0x277CCAAD0] constraintWithItem:v189 attribute:5 relatedBy:0 toItem:v109 attribute:6 multiplier:1.0 constant:10.0];
+    [v74 addConstraint:v113];
 
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
     preferredContentSizeCategory = [mEMORY[0x277D75128] preferredContentSizeCategory];
-    v118 = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory, *MEMORY[0x277D767F8]);
+    v116 = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory, *MEMORY[0x277D767F8]);
 
-    if (v118 == NSOrderedDescending)
+    if (v116 == NSOrderedDescending)
     {
-      [v95 setNumberOfLines:0];
-      v119 = MEMORY[0x277CCAAD0];
-      v120 = 1.0;
-      v121 = 10.0;
-      v122 = v191;
+      [v93 setNumberOfLines:0];
+      v117 = MEMORY[0x277CCAAD0];
+      v118 = 1.0;
+      v119 = 10.0;
+      v120 = v189;
+      v121 = 3;
+      v122 = v74;
       v123 = 3;
-      v124 = v76;
-      v125 = 3;
     }
 
     else
     {
-      v119 = MEMORY[0x277CCAAD0];
-      v120 = 1.0;
-      v121 = 0.0;
-      v122 = v191;
+      v117 = MEMORY[0x277CCAAD0];
+      v118 = 1.0;
+      v119 = 0.0;
+      v120 = v189;
+      v121 = 10;
+      v122 = v109;
       v123 = 10;
-      v124 = v111;
-      v125 = 10;
     }
 
-    v135 = [v119 constraintWithItem:v122 attribute:v123 relatedBy:0 toItem:v124 attribute:v125 multiplier:v120 constant:v121];
-    [v76 addConstraint:v135];
+    v133 = [v117 constraintWithItem:v120 attribute:v121 relatedBy:0 toItem:v122 attribute:v123 multiplier:v118 constant:v119];
+    [v74 addConstraint:v133];
 
-    v131 = [MEMORY[0x277CCAAD0] constraintWithItem:v191 attribute:6 relatedBy:0 toItem:v76 attribute:6 multiplier:1.0 constant:-5.0];
-    goto LABEL_88;
+    v129 = [MEMORY[0x277CCAAD0] constraintWithItem:v189 attribute:6 relatedBy:0 toItem:v74 attribute:6 multiplier:1.0 constant:-5.0];
+    goto LABEL_87;
   }
 
-LABEL_73:
-  if (v200)
+LABEL_72:
+  if (v198)
   {
-    v127 = 24.0;
-  }
-
-  else
-  {
-    v127 = 5.0;
-  }
-
-  if (v200)
-  {
-    v128 = 8.0;
+    v125 = 24.0;
   }
 
   else
   {
-    v128 = 13.0;
+    v125 = 5.0;
   }
 
-  v129 = [MEMORY[0x277CCAAD0] constraintWithItem:v191 attribute:5 relatedBy:0 toItem:v76 attribute:5 multiplier:1.0 constant:v127];
-  [v76 addConstraint:v129];
-
-  v130 = [MEMORY[0x277CCAAD0] constraintWithItem:v191 attribute:6 relatedBy:0 toItem:v76 attribute:6 multiplier:1.0 constant:-v127];
-  [v76 addConstraint:v130];
-
-  v131 = [MEMORY[0x277CCAAD0] constraintWithItem:v191 attribute:3 relatedBy:0 toItem:v76 attribute:3 multiplier:1.0 constant:v128];
-  v111 = 0;
-LABEL_88:
-  [v76 addConstraint:v131];
-
-  if (v192)
+  if (v198)
   {
-    v136 = 0.0;
-    if (v200)
-    {
-      v137 = 24.0;
-    }
-
-    else
-    {
-      v136 = 5.0;
-      v137 = 15.0;
-    }
-
-    if (v200)
-    {
-      v138 = -8.0;
-    }
-
-    else
-    {
-      v138 = -10.0;
-    }
-
-    if (v200)
-    {
-      v139 = -24.0;
-    }
-
-    else
-    {
-      v139 = -12.0;
-    }
-
-    v140 = [MEMORY[0x277CCAAD0] constraintWithItem:v192 attribute:3 relatedBy:0 toItem:v191 attribute:4 multiplier:1.0 constant:v136];
-    [v76 addConstraint:v140];
-
-    v141 = [MEMORY[0x277CCAAD0] constraintWithItem:v192 attribute:4 relatedBy:0 toItem:v76 attribute:4 multiplier:1.0 constant:v138];
-    [v76 addConstraint:v141];
-
-    v142 = [MEMORY[0x277CCAAD0] constraintWithItem:v192 attribute:5 relatedBy:0 toItem:v76 attribute:5 multiplier:1.0 constant:v137];
-    [v76 addConstraint:v142];
-
-    v143 = [MEMORY[0x277CCAAD0] constraintWithItem:v192 attribute:6 relatedBy:0 toItem:v76 attribute:6 multiplier:1.0 constant:v139];
-    [v76 addConstraint:v143];
+    v126 = 8.0;
   }
 
-  imageCopy = v197;
-  providerCopy = v199;
-  infoCopy = v190;
-  if (v111)
+  else
   {
-    [v111 ax_constrainLayoutAttribute:3 asEqualToValueOfView:v76 withOffset:13.0];
-    v134 = 1;
-    [v111 ax_constrainLayoutAttribute:1 asEqualToValueOfView:v76 withOffset:13.0];
-LABEL_101:
+    v126 = 13.0;
+  }
+
+  v127 = [MEMORY[0x277CCAAD0] constraintWithItem:v189 attribute:5 relatedBy:0 toItem:v74 attribute:5 multiplier:1.0 constant:v125];
+  [v74 addConstraint:v127];
+
+  v128 = [MEMORY[0x277CCAAD0] constraintWithItem:v189 attribute:6 relatedBy:0 toItem:v74 attribute:6 multiplier:1.0 constant:-v125];
+  [v74 addConstraint:v128];
+
+  v129 = [MEMORY[0x277CCAAD0] constraintWithItem:v189 attribute:3 relatedBy:0 toItem:v74 attribute:3 multiplier:1.0 constant:v126];
+  v109 = 0;
+LABEL_87:
+  [v74 addConstraint:v129];
+
+  if (v190)
+  {
+    v134 = 0.0;
+    if (v198)
+    {
+      v135 = 24.0;
+    }
+
+    else
+    {
+      v134 = 5.0;
+      v135 = 15.0;
+    }
+
+    if (v198)
+    {
+      v136 = -8.0;
+    }
+
+    else
+    {
+      v136 = -10.0;
+    }
+
+    if (v198)
+    {
+      v137 = -24.0;
+    }
+
+    else
+    {
+      v137 = -12.0;
+    }
+
+    v138 = [MEMORY[0x277CCAAD0] constraintWithItem:v190 attribute:3 relatedBy:0 toItem:v189 attribute:4 multiplier:1.0 constant:v134];
+    [v74 addConstraint:v138];
+
+    v139 = [MEMORY[0x277CCAAD0] constraintWithItem:v190 attribute:4 relatedBy:0 toItem:v74 attribute:4 multiplier:1.0 constant:v136];
+    [v74 addConstraint:v139];
+
+    v140 = [MEMORY[0x277CCAAD0] constraintWithItem:v190 attribute:5 relatedBy:0 toItem:v74 attribute:5 multiplier:1.0 constant:v135];
+    [v74 addConstraint:v140];
+
+    v141 = [MEMORY[0x277CCAAD0] constraintWithItem:v190 attribute:6 relatedBy:0 toItem:v74 attribute:6 multiplier:1.0 constant:v137];
+    [v74 addConstraint:v141];
+  }
+
+  imageCopy = v195;
+  providerCopy = v197;
+  infoCopy = v188;
+  if (v109)
+  {
+    [v109 ax_constrainLayoutAttribute:3 asEqualToValueOfView:v74 withOffset:13.0];
+    v132 = 1;
+    [v109 ax_constrainLayoutAttribute:1 asEqualToValueOfView:v74 withOffset:13.0];
+LABEL_100:
     if (type == 7)
     {
-      [v111 ax_constrainLayoutAttribute:3 asEqualToValueOfView:v76 withOffset:13.0];
-      [v111 ax_constrainLayoutAttribute:1 asEqualToValueOfView:v76 withOffset:18.0];
+      [v109 ax_constrainLayoutAttribute:3 asEqualToValueOfView:v74 withOffset:13.0];
+      [v109 ax_constrainLayoutAttribute:1 asEqualToValueOfView:v74 withOffset:18.0];
     }
 
     else
     {
       [providerCopy alertIconImageEdgeInsetsForType:type];
+      v143 = v142;
       v145 = v144;
       v147 = v146;
-      v149 = v148;
-      [v111 ax_constrainLayoutAttribute:1 asEqualToValueOfView:v76 withOffset:v150];
-      [v111 ax_constrainLayoutAttribute:2 asEqualToLayoutAttribute:1 ofView:v95 withOffset:-v149];
-      [v111 ax_constrainLayoutAttribute:3 asGreaterThanOrEqualToValueOfView:v76 withOffset:v145];
-      [v111 ax_constrainLayoutAttribute:4 asLessThanOrEqualToValueOfView:v76 withOffset:-v147];
-      [v111 ax_constrainLayoutAttribute:10 asEqualToValueOfView:v76 withOffset:(v145 - v147) * 0.5];
-      LODWORD(v151) = 1132068864;
-      [v111 ax_constrainLayoutAttribute:3 asEqualToValueOfView:v76 withOffset:v145 priority:v151];
-      LODWORD(v152) = 1132068864;
-      [v111 ax_constrainLayoutAttribute:4 asEqualToValueOfView:v76 withOffset:-v147 priority:v152];
+      [v109 ax_constrainLayoutAttribute:1 asEqualToValueOfView:v74 withOffset:v148];
+      [v109 ax_constrainLayoutAttribute:2 asEqualToLayoutAttribute:1 ofView:v93 withOffset:-v147];
+      [v109 ax_constrainLayoutAttribute:3 asGreaterThanOrEqualToValueOfView:v74 withOffset:v143];
+      [v109 ax_constrainLayoutAttribute:4 asLessThanOrEqualToValueOfView:v74 withOffset:-v145];
+      [v109 ax_constrainLayoutAttribute:10 asEqualToValueOfView:v74 withOffset:(v143 - v145) * 0.5];
+      LODWORD(v149) = 1132068864;
+      [v109 ax_constrainLayoutAttribute:3 asEqualToValueOfView:v74 withOffset:v143 priority:v149];
+      LODWORD(v150) = 1132068864;
+      [v109 ax_constrainLayoutAttribute:4 asEqualToValueOfView:v74 withOffset:-v145 priority:v150];
     }
 
     [imageCopy size];
-    v155 = v154;
-    if (v134)
+    v153 = v152;
+    if (v132)
     {
       mEMORY[0x277D75128]2 = [MEMORY[0x277D75128] sharedApplication];
       preferredContentSizeCategory2 = [mEMORY[0x277D75128]2 preferredContentSizeCategory];
-      v158 = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory2, *MEMORY[0x277D767F8]);
+      v156 = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory2, *MEMORY[0x277D767F8]);
 
-      if (v158 == NSOrderedDescending)
+      if (v156 == NSOrderedDescending)
       {
-        v159 = 40.0;
+        v157 = 40.0;
       }
 
       else
       {
         mEMORY[0x277D75128]3 = [MEMORY[0x277D75128] sharedApplication];
         preferredContentSizeCategory3 = [mEMORY[0x277D75128]3 preferredContentSizeCategory];
-        v163 = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory3, *MEMORY[0x277D76818]);
+        v161 = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory3, *MEMORY[0x277D76818]);
 
-        v159 = 30.0;
-        if (v163 != NSOrderedDescending)
+        v157 = 30.0;
+        if (v161 != NSOrderedDescending)
         {
           mEMORY[0x277D75128]4 = [MEMORY[0x277D75128] sharedApplication];
           preferredContentSizeCategory4 = [mEMORY[0x277D75128]4 preferredContentSizeCategory];
-          v166 = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory4, *MEMORY[0x277D76828]);
+          v164 = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory4, *MEMORY[0x277D76828]);
 
-          v159 = 20.0;
-          if (v166 == NSOrderedDescending)
+          v157 = 20.0;
+          if (v164 == NSOrderedDescending)
           {
-            v159 = 25.0;
+            v157 = 25.0;
           }
         }
       }
 
-      if (v159 < v155)
+      if (v157 < v153)
       {
-        v155 = v159;
+        v153 = v157;
       }
 
-      v160 = v155;
-      imageCopy = v197;
-      providerCopy = v199;
+      v158 = v153;
+      imageCopy = v195;
+      providerCopy = v197;
     }
 
     else
     {
-      v160 = v153;
+      v158 = v151;
     }
 
-    [v111 ax_constrainLayoutAttribute:7 asEqualToConstant:v155];
-    [v111 ax_constrainLayoutAttribute:8 asEqualToConstant:v160];
+    [v109 ax_constrainLayoutAttribute:7 asEqualToConstant:v153];
+    [v109 ax_constrainLayoutAttribute:8 asEqualToConstant:v158];
   }
 
-LABEL_115:
+LABEL_114:
   [providerCopy alertBackgroundSizeForType:type];
-  v169 = v167;
-  v170 = v168;
-  v171 = v167 > 0.0 && vabdd_f64(v167, *&AXUIAlertSizeMetricFitting) >= 2.22044605e-16 && vabdd_f64(v167, *&AXUIAlertSizeMetricFillingContainer) >= 2.22044605e-16;
-  if (v168 > 0.0 && vabdd_f64(v168, *&AXUIAlertSizeMetricFitting) >= 2.22044605e-16)
+  v167 = v165;
+  v168 = v166;
+  v169 = v165 > 0.0 && vabdd_f64(v165, *&AXUIAlertSizeMetricFitting) >= 2.22044605e-16 && vabdd_f64(v165, *&AXUIAlertSizeMetricFillingContainer) >= 2.22044605e-16;
+  if (v166 > 0.0 && vabdd_f64(v166, *&AXUIAlertSizeMetricFitting) >= 2.22044605e-16)
   {
-    v172 = vabdd_f64(v168, *&AXUIAlertSizeMetricFillingContainer) >= 2.22044605e-16;
-    if (!v171)
+    v170 = vabdd_f64(v166, *&AXUIAlertSizeMetricFillingContainer) >= 2.22044605e-16;
+    if (!v169)
     {
-      goto LABEL_126;
+      goto LABEL_125;
     }
   }
 
   else
   {
-    v172 = 0;
-    if (!v171)
+    v170 = 0;
+    if (!v169)
     {
-LABEL_126:
-      if (v172)
+LABEL_125:
+      if (v170)
       {
-        goto LABEL_127;
+        goto LABEL_126;
       }
 
-      goto LABEL_134;
+      goto LABEL_133;
     }
   }
 
   if ([providerCopy alertShouldGrowInAxis:0 forType:type])
   {
-    [v22 ax_constrainLayoutAttribute:7 asGreaterThanOrEqualToConstant:v169];
-    goto LABEL_126;
+    [v22 ax_constrainLayoutAttribute:7 asGreaterThanOrEqualToConstant:v167];
+    goto LABEL_125;
   }
 
-  [v22 ax_constrainLayoutAttribute:7 asEqualToConstant:v169];
-  if (v172)
+  [v22 ax_constrainLayoutAttribute:7 asEqualToConstant:v167];
+  if (v170)
   {
-LABEL_127:
+LABEL_126:
     if ([providerCopy alertShouldGrowInAxis:1 forType:type])
     {
-      [v22 ax_constrainLayoutAttribute:8 asGreaterThanOrEqualToConstant:v170];
+      [v22 ax_constrainLayoutAttribute:8 asGreaterThanOrEqualToConstant:v168];
     }
 
-    else if (type != 3 && v200 != type)
+    else if (type != 3 && v198 != type)
     {
-      [v22 ax_constrainLayoutAttribute:8 asEqualToConstant:v170];
+      [v22 ax_constrainLayoutAttribute:8 asEqualToConstant:v168];
     }
   }
 
-LABEL_134:
+LABEL_133:
   [providerCopy alertContentEdgeInsetsForType:type];
+  v172 = v171;
   v174 = v173;
   v176 = v175;
-  v178 = v177;
-  [v76 ax_constrainLayoutAttribute:1 asEqualToValueOfView:v19 withOffset:v179];
-  [v76 ax_constrainLayoutAttribute:2 asEqualToValueOfView:v19 withOffset:-v178];
+  [v74 ax_constrainLayoutAttribute:1 asEqualToValueOfView:v19 withOffset:v177];
+  [v74 ax_constrainLayoutAttribute:2 asEqualToValueOfView:v19 withOffset:-v176];
   if ((AXDeviceHasHomeButton() & 1) != 0 || !AXDeviceIsPhone())
   {
-    [v76 ax_constrainLayoutAttribute:3 asEqualToValueOfView:v19 withOffset:v174];
+    [v74 ax_constrainLayoutAttribute:3 asEqualToValueOfView:v19 withOffset:v172];
   }
 
   else
   {
-    topAnchor = [v76 topAnchor];
+    topAnchor = [v74 topAnchor];
     safeAreaLayoutGuide = [(AXStyleProviderUIAlert *)v19 safeAreaLayoutGuide];
     topAnchor2 = [safeAreaLayoutGuide topAnchor];
-    v183 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    [v183 setActive:1];
+    v181 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    [v181 setActive:1];
 
-    imageCopy = v197;
-    providerCopy = v199;
+    imageCopy = v195;
+    providerCopy = v197;
   }
 
-  [v76 ax_constrainLayoutAttribute:4 asEqualToValueOfView:v19 withOffset:-v176];
+  [v74 ax_constrainLayoutAttribute:4 asEqualToValueOfView:v19 withOffset:-v174];
   [v22 ax_constrainLayoutAttribute:9 asEqualToValueOfView:v19];
   [v22 ax_constrainLayoutAttribute:7 asEqualToValueOfView:v19];
-  if (v200)
+  if (v198)
   {
     [v22 ax_constrainLayoutAttribute:8 asEqualToValueOfView:v19 withOffset:10.0];
-    v184 = 3.0;
-    if (v188)
+    v182 = 3.0;
+    if (v186)
     {
-      v184 = -3.0;
+      v182 = -3.0;
     }
 
-    [v22 ax_constrainLayoutAttribute:4 asEqualToValueOfView:v19 withOffset:v184];
+    [v22 ax_constrainLayoutAttribute:4 asEqualToValueOfView:v19 withOffset:v182];
   }
 
   else
@@ -758,14 +747,14 @@ LABEL_134:
 
   [(AXStyleProviderUIAlert *)v19 setAlertType:type];
   [(AXStyleProviderUIAlert *)v19 setStyleProvider:providerCopy];
-  v185 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:v19 action:sel__handleTapGestureRecognizer_];
-  [v76 addGestureRecognizer:v185];
-  v186 = [objc_alloc(MEMORY[0x277D757F8]) initWithTarget:v19 action:sel__handlePanGestureRecognizer_];
-  [v186 setMaximumNumberOfTouches:1];
-  [v76 addGestureRecognizer:v186];
+  v183 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:v19 action:sel__handleTapGestureRecognizer_];
+  [v74 addGestureRecognizer:v183];
+  v184 = [objc_alloc(MEMORY[0x277D757F8]) initWithTarget:v19 action:sel__handlePanGestureRecognizer_];
+  [v184 setMaximumNumberOfTouches:1];
+  [v74 addGestureRecognizer:v184];
 
-  textCopy = v193;
-LABEL_144:
+  textCopy = v191;
+LABEL_143:
 
   return v19;
 }
@@ -872,16 +861,11 @@ LABEL_13:
   [gesture translationInView:self];
   v5 = v4;
   [(AXStyleProviderUIAlert *)self frame];
-  if (self->_backgroundViewDismissalOrigin.y >= v5 + self->_dismissalGestureYOffset)
-  {
-    v6 = v5 + self->_dismissalGestureYOffset;
-  }
-
   [(AXStyleProviderUIAlert *)self setFrame:?];
   [(AXStyleProviderUIAlert *)self frame];
-  v7 = -v5 / CGRectGetHeight(v9);
+  v6 = -v5 / CGRectGetHeight(v8);
 
-  [(AXStyleProviderUIAlert *)self _updateViewForDismissalPercentage:v7];
+  [(AXStyleProviderUIAlert *)self _updateViewForDismissalPercentage:v6];
 }
 
 - (void)_updateViewForDismissalPercentage:(double)percentage
@@ -1146,7 +1130,7 @@ LABEL_13:
 
 - (void)_appendParagraphWithText:(id)text withTextColor:(id)color font:(id)font textAlignment:(int64_t)alignment lineSpacing:(double)spacing paragraphSpacingBefore:(double)before toAttributedString:(id)string
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   colorCopy = color;
   stringCopy = string;
   fontCopy = font;
@@ -1164,9 +1148,9 @@ LABEL_13:
     [v24 lineHeight];
     [v22 setParagraphSpacingBefore:before - v25];
 
-    v40 = *v20;
-    v41[0] = v22;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+    v39 = *v20;
+    v40[0] = v22;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
     v27 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:@"\n\n" attributes:v26];
     [stringCopy appendAttributedString:v27];
   }
@@ -1206,8 +1190,6 @@ LABEL_13:
 
   v37 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:textCopy attributes:v36];
   [stringCopy appendAttributedString:v37];
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_appendParagraphWithText:(id)text withImage:(id)image withTextColor:(id)color font:(id)font textAlignment:(int64_t)alignment lineSpacing:(double)spacing paragraphSpacingBefore:(double)before toAttributedString:(id)self0

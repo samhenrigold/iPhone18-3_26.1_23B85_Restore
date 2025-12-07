@@ -114,65 +114,65 @@ LABEL_18:
 
 - (uint64_t)cs_variantWeightRange
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v15 = 0u;
+  v21 = *MEMORY[0x1E69E9840];
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v0 = CTFontCopyVariationAxesInternal();
-  v1 = [v0 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v1)
+  v19 = 0u;
+  v1 = CTFontCopyVariationAxesInternal();
+  v2 = [v1 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v2)
   {
-    v2 = *v16;
-    v3 = *MEMORY[0x1E6965910];
-    v14 = *MEMORY[0x1E6965920];
-    v4 = *MEMORY[0x1E6965918];
+    v3 = *v17;
+    v4 = *MEMORY[0x1E6965910];
+    v15 = *MEMORY[0x1E6965920];
+    v5 = *MEMORY[0x1E6965918];
     do
     {
-      for (i = 0; i != v1; ++i)
+      for (i = 0; i != v2; ++i)
       {
-        if (*v16 != v2)
+        if (*v17 != v3)
         {
-          objc_enumerationMutation(v0);
+          objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v15 + 1) + 8 * i);
-        v7 = [v6 objectForKeyedSubscript:v3];
-        v8 = v7;
-        if (v7 && [v7 unsignedIntegerValue] == 2003265652)
+        v7 = *(*(&v16 + 1) + 8 * i);
+        v8 = [v7 objectForKeyedSubscript:v4];
+        v9 = v8;
+        if (v8 && [v8 unsignedIntegerValue] == 2003265652)
         {
-          v9 = [v6 objectForKeyedSubscript:v14];
-          v10 = [v6 objectForKeyedSubscript:v4];
-          v11 = v10;
-          if (v9)
+          v10 = [v7 objectForKeyedSubscript:v15];
+          v11 = [v7 objectForKeyedSubscript:v5];
+          v12 = v11;
+          if (v10)
           {
-            v12 = v10 == 0;
+            v13 = v11 == 0;
           }
 
           else
           {
-            v12 = 1;
+            v13 = 1;
           }
 
-          if (!v12)
+          if (!v13)
           {
-            v1 = [v9 unsignedIntValue] + 1;
-            [v11 unsignedIntValue];
+            v2 = [v10 unsignedIntValue] + 1;
+            [v12 unsignedIntValue];
 
             goto LABEL_16;
           }
         }
       }
 
-      v1 = [v0 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v1);
+    while (v2);
   }
 
 LABEL_16:
 
-  return v1;
+  return v2;
 }
 
 - (id)cs_fontWithVariantWeight:()CSAdditions

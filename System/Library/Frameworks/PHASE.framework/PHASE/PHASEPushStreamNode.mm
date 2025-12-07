@@ -25,7 +25,7 @@
   v12 = **(v6 + 8);
   v19 = 0;
   v18 = 1;
-  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 48, &v19, &v18);
+  v13 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v12, 0x30uLL, &v19, &v18);
   if (!v13)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -87,7 +87,7 @@
   v17 = **(v10 + 8);
   v25 = 0;
   v24 = 1;
-  v18 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v17, 64, &v25, &v24);
+  v18 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v17, 0x40uLL, &v25, &v24);
   if (!v18)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -151,7 +151,7 @@
   v18 = **(v11 + 8);
   v25 = 0;
   v24 = 1;
-  v19 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v18, 64, &v25, &v24);
+  v19 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v18, 0x40uLL, &v25, &v24);
   if (!v19)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -220,7 +220,7 @@
   v21 = **(v16 + 8);
   v31 = 0;
   v30 = 1;
-  v22 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v21, 80, &v31, &v30);
+  v22 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v21, 0x50uLL, &v31, &v30);
   if (!v22)
   {
     Instance = Phase::Logger::GetInstance(0);

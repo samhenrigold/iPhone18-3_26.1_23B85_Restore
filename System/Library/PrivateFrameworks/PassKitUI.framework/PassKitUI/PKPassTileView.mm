@@ -222,140 +222,150 @@
   objc_storeStrong((animated + 1048), *(animated + 1016));
   *(animated + 984) = *MEMORY[0x1E695F060];
   [*(animated + 1016) _bodyLeading];
-  v310 = a2;
-  v307 = v6;
-  v308 = metadata;
+  v314 = a2;
+  v311 = v6;
+  v312 = metadata;
   if (v12 == 1)
   {
-    v34 = 9.0;
-    v35 = 10.0;
+    v36 = 9.0;
+    v37 = 10.0;
   }
 
   else
   {
-    PKFloatRoundToPixel();
-    v35 = v36 + 10.0;
-    if (*(animated + 979) == 1)
+    v38 = v34.n128_f64[0];
+    v34.n128_u64[0] = 0x3FD3333333333333;
+    v35.n128_u64[0] = 0x3FC999999999999ALL;
+    if ((isDynamic | *(animated + 979)))
     {
-      PKFloatRoundToPixel();
+      v34.n128_f64[0] = 0.2;
     }
 
-    v34 = v36 + 10.0;
+    v34.n128_f64[0] = v38 * v34.n128_f64[0];
+    PKFloatRoundToPixel(v34, v35);
+    v37 = v39.n128_f64[0] + 10.0;
+    if (*(animated + 979) == 1)
+    {
+      v39.n128_f64[0] = v38 * 0.31;
+      PKFloatRoundToPixel(v39, v40);
+    }
+
+    v36 = v39.n128_f64[0] + 10.0;
   }
 
-  v37 = *(animated + 979);
-  v38 = 0.0;
-  v39 = 18.0;
+  v41 = *(animated + 979);
+  v42 = 0.0;
+  v43 = 18.0;
   if (isDynamic)
   {
-    v38 = 2.0;
+    v42 = 2.0;
   }
 
   else
   {
-    v39 = 0.0;
+    v43 = 0.0;
   }
 
   if (v12 == 1)
   {
-    v40 = 4.0;
+    v44 = 4.0;
   }
 
   else
   {
-    v40 = v39;
+    v44 = v43;
   }
 
   if (*(animated + 979))
   {
-    v41 = 16.0;
+    v45 = 16.0;
   }
 
   else
   {
-    v41 = 13.0;
+    v45 = 13.0;
   }
 
-  v42 = *(animated + 880);
-  v333 = *(animated + 864);
-  v334 = v42;
-  v43 = *(animated + 912);
-  v335 = *(animated + 896);
-  v336 = v43;
-  if (v37)
+  v46 = *(animated + 880);
+  v337 = *(animated + 864);
+  v338 = v46;
+  v47 = *(animated + 912);
+  v339 = *(animated + 896);
+  v340 = v47;
+  if (v41)
   {
-    v44 = -2.0;
+    v48 = -2.0;
   }
 
   else
   {
-    v44 = v38;
+    v48 = v42;
   }
 
   image = [*(animated + 840) image];
   image2 = [*(animated + 848) image];
-  v47 = *(animated + 816) != 0;
-  *(animated + 864) = v35;
-  *(animated + 872) = v41;
-  *(animated + 880) = v34;
-  *(animated + 888) = v41;
-  *(animated + 896) = v40;
-  *(animated + 904) = v41;
-  *(animated + 912) = v44;
-  *(animated + 920) = v37;
+  v51 = *(animated + 816) != 0;
+  *(animated + 864) = v37;
+  *(animated + 872) = v45;
+  *(animated + 880) = v36;
+  *(animated + 888) = v45;
+  *(animated + 896) = v44;
+  *(animated + 904) = v45;
+  *(animated + 912) = v48;
+  *(animated + 920) = v41;
   *(animated + 921) = 0;
   *(animated + 922) = image != 0;
   *(animated + 923) = image2 != 0;
-  *(animated + 924) = v47;
+  *(animated + 924) = v51;
 
-  v309 = *(animated + 936);
-  v48 = [PKPassTileView_State alloc];
-  v49 = *(animated + 1096);
-  v50 = *(animated + 928);
-  v51 = *(animated + 952);
-  v52 = *(animated + 1032);
-  v53 = *(animated + 1040);
-  v54 = *(animated + 1048);
-  v55 = *(animated + 1024);
-  v298 = *(animated + 1089);
-  v56 = *(animated + 1112);
-  v318 = v49;
-  v57 = v50;
-  v58 = v51;
-  v322 = v52;
-  v59 = v53;
-  v60 = v54;
-  v320 = v55;
-  if (!v48)
+  v313 = *(animated + 936);
+  v52 = [PKPassTileView_State alloc];
+  v53 = *(animated + 1096);
+  v54 = *(animated + 928);
+  v55 = *(animated + 952);
+  v56 = *(animated + 1032);
+  v57 = *(animated + 1040);
+  v58 = *(animated + 1048);
+  v59 = *(animated + 1024);
+  v302 = *(animated + 1089);
+  v60 = *(animated + 1112);
+  v322 = v53;
+  v61 = v54;
+  v62 = v55;
+  v326 = v56;
+  v63 = v57;
+  v64 = v58;
+  v324 = v59;
+  if (!v52)
   {
-    v62 = 0;
-    goto LABEL_100;
+    v66 = 0;
+    goto LABEL_102;
   }
 
-  *v327 = v48;
-  *&v327[8] = PKPassTileView_State;
-  v61 = objc_msgSendSuper2(v327, sel_init);
-  v62 = v61;
-  if (!v61)
+  *v331 = v52;
+  *&v331[8] = PKPassTileView_State;
+  v65 = objc_msgSendSuper2(v331, sel_init);
+  v66 = v65;
+  if (!v65)
   {
-LABEL_100:
-    v63 = v318;
-    goto LABEL_101;
+LABEL_102:
+    v67 = v322;
+    goto LABEL_103;
   }
 
-  objc_storeStrong(v61 + 1, v49);
-  v63 = v318;
-  metadata2 = [v318 metadata];
+  objc_storeStrong(v65 + 1, v53);
+  v67 = v322;
+  metadata2 = [v322 metadata];
   [metadata2 preferredStyle];
 
-  v303 = v57;
-  type = [v57 type];
+  v307 = v61;
+  type = [v61 type];
   icon = 0;
-  v67 = NAN;
-  v302 = v58;
-  v304 = v60;
-  v299 = v56;
-  v68 = v59;
+  v71 = NAN;
+  v306 = v62;
+  v308 = v64;
+  v303 = v60;
+  v72 = v63;
   if (type > 1)
   {
     if (type != 2)
@@ -365,16 +375,16 @@ LABEL_100:
       bodyImage = 0;
       accessory = 0;
       obj = 0;
-      v71 = 0;
-      v72 = 0;
+      v75 = 0;
+      v76 = 0;
       if (type != 5)
       {
-        goto LABEL_82;
+        goto LABEL_84;
       }
 
-      stateTypeForeignView = [v303 stateTypeForeignView];
+      stateTypeForeignView = [v307 stateTypeForeignView];
       adaptorProvider = [stateTypeForeignView adaptorProvider];
-      v71 = adaptorProvider[2]();
+      v75 = adaptorProvider[2]();
 
       preferredStyle = [stateTypeForeignView preferredStyle];
       icon = 0;
@@ -383,47 +393,47 @@ LABEL_100:
       bodyImage = 0;
       accessory = 0;
       obj = 0;
-LABEL_59:
+LABEL_61:
       if ((preferredStyle & 0xFFFFFFFFFFFFFFFELL) == 2)
       {
-        v72 = &stru_1F3BD7330;
+        v76 = &stru_1F3BD7330;
       }
 
       else
       {
-        v72 = 0;
+        v76 = 0;
       }
 
-LABEL_62:
-      v67 = NAN;
-      v58 = v302;
-      goto LABEL_82;
+LABEL_64:
+      v71 = NAN;
+      v62 = v306;
+      goto LABEL_84;
     }
 
-    stateTypeCheckIn = [v303 stateTypeCheckIn];
+    stateTypeCheckIn = [v307 stateTypeCheckIn];
     obj = [stateTypeCheckIn secondaryAccessory];
     date = [MEMORY[0x1E695DF00] date];
     availableFrom = [stateTypeCheckIn availableFrom];
     date2 = [availableFrom date];
 
     [date2 timeIntervalSinceDate:date];
-    if (!date2 || v86 <= 0.0)
+    if (!date2 || v90 <= 0.0)
     {
       title2 = PKLocalizedPaymentString(&cfstr_PassTileChecki.isa);
       body2 = PKLocalizedPaymentString(&cfstr_PassTileChecki_0.isa);
-      v107 = MEMORY[0x1E69B8A98];
-      v108 = PKLocalizedPaymentString(&cfstr_PassTileChecki_1.isa);
-      v109 = v107;
-      v110 = v108;
-      accessory = [v109 createWithTitle:v108 spinnerEnabled:0];
-      v67 = NAN;
-LABEL_80:
+      v111 = MEMORY[0x1E69B8A98];
+      v112 = PKLocalizedPaymentString(&cfstr_PassTileChecki_1.isa);
+      v113 = v111;
+      v114 = v112;
+      accessory = [v113 createWithTitle:v112 spinnerEnabled:0];
+      v71 = NAN;
+LABEL_82:
 
       icon = 0;
-      goto LABEL_81;
+      goto LABEL_83;
     }
 
-    v294 = date;
+    v298 = date;
     availableFrom2 = [stateTypeCheckIn availableFrom];
     timeZone = [availableFrom2 timeZone];
 
@@ -432,105 +442,105 @@ LABEL_80:
     secondsFromGMT2 = [localTimeZone secondsFromGMT];
 
     currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
-    v300 = timeZone;
+    v304 = timeZone;
     [currentCalendar setTimeZone:timeZone];
-    v91 = [currentCalendar components:30 fromDate:date2];
-    v92 = [currentCalendar dateFromComponents:v91];
+    v95 = [currentCalendar components:30 fromDate:date2];
+    v96 = [currentCalendar dateFromComponents:v95];
 
-    v93 = objc_alloc_init(MEMORY[0x1E695DF10]);
-    [v93 setDay:-1];
-    v297 = v92;
-    v295 = [currentCalendar dateByAddingComponents:v93 toDate:v92 options:0];
+    v97 = objc_alloc_init(MEMORY[0x1E695DF10]);
+    [v97 setDay:-1];
+    v301 = v96;
+    v299 = [currentCalendar dateByAddingComponents:v97 toDate:v96 options:0];
     weekdaySymbols = [currentCalendar weekdaySymbols];
-    v95 = [weekdaySymbols count];
+    v99 = [weekdaySymbols count];
 
-    v296 = 0;
-    if (v95 >= 2)
+    v300 = 0;
+    if (v99 >= 2)
     {
-      [v93 setDay:-v95];
-      v296 = [currentCalendar dateByAddingComponents:v93 toDate:v297 options:0];
+      [v97 setDay:-v99];
+      v300 = [currentCalendar dateByAddingComponents:v97 toDate:v301 options:0];
     }
 
-    v293 = currentCalendar;
-    v313 = PKLocalizedHourOfDate();
-    v96 = objc_alloc_init(MEMORY[0x1E696AB78]);
+    v297 = currentCalendar;
+    v317 = PKLocalizedHourOfDate();
+    v100 = objc_alloc_init(MEMORY[0x1E696AB78]);
     autoupdatingCurrentLocale = [MEMORY[0x1E695DF58] autoupdatingCurrentLocale];
-    [v96 setLocale:autoupdatingCurrentLocale];
+    [v100 setLocale:autoupdatingCurrentLocale];
 
-    [v96 setLocalizedDateFormatFromTemplate:@"j:mm a"];
-    [v96 setTimeZone:v300];
-    v98 = [v96 stringFromDate:date2];
+    [v100 setLocalizedDateFormatFromTemplate:@"j:mm a"];
+    [v100 setTimeZone:v304];
+    v102 = [v100 stringFromDate:date2];
 
-    date = v294;
-    v99 = v296;
+    date = v298;
+    v103 = v300;
     if (secondsFromGMT != secondsFromGMT2)
     {
-      goto LABEL_71;
+      goto LABEL_73;
     }
 
-    [v294 timeIntervalSinceDate:v297];
-    if (v100 >= 0.0)
+    [v298 timeIntervalSinceDate:v301];
+    if (v104 >= 0.0)
     {
       title2 = PKLocalizedPaymentString(&cfstr_PassTileChecki_2.isa);
-      body2 = PKLocalizedPaymentString(&cfstr_PassTileChecki_3.isa, &cfstr_Lu_0.isa, v313, v98);
-      v111 = date2;
+      body2 = PKLocalizedPaymentString(&cfstr_PassTileChecki_3.isa, &cfstr_Lu_0.isa, v317, v102);
+      v115 = date2;
     }
 
     else
     {
-      [v294 timeIntervalSinceDate:v295];
-      if (v101 < 0.0)
+      [v298 timeIntervalSinceDate:v299];
+      if (v105 < 0.0)
       {
-LABEL_71:
-        v102 = v295;
-        if (v296 && ([v294 timeIntervalSinceDate:v296], v102 = v296, v103 >= 0.0))
+LABEL_73:
+        v106 = v299;
+        if (v300 && ([v298 timeIntervalSinceDate:v300], v106 = v300, v107 >= 0.0))
         {
-          v112 = objc_alloc_init(MEMORY[0x1E696AB78]);
+          v116 = objc_alloc_init(MEMORY[0x1E696AB78]);
           autoupdatingCurrentLocale2 = [MEMORY[0x1E695DF58] autoupdatingCurrentLocale];
-          [v112 setLocale:autoupdatingCurrentLocale2];
+          [v116 setLocale:autoupdatingCurrentLocale2];
 
-          [v112 setLocalizedDateFormatFromTemplate:@"cccc"];
-          [v112 setTimeZone:v300];
-          v114 = [v112 stringFromDate:date2];
+          [v116 setLocalizedDateFormatFromTemplate:@"cccc"];
+          [v116 setTimeZone:v304];
+          v118 = [v116 stringFromDate:date2];
           title2 = PKLocalizedPaymentString(&cfstr_PassTileChecki_6.isa);
-          body2 = PKLocalizedPaymentString(&cfstr_PassTileChecki_7.isa, &cfstr_Lu_1.isa, v313, v114, v98);
-          v67 = MEMORY[0x1BFB41080](v295);
+          body2 = PKLocalizedPaymentString(&cfstr_PassTileChecki_7.isa, &cfstr_Lu_1.isa, v317, v118, v102);
+          v71 = MEMORY[0x1BFB41080](v299);
 
-          v99 = v296;
+          v103 = v300;
         }
 
         else
         {
-          v104 = objc_alloc_init(MEMORY[0x1E696AB78]);
+          v108 = objc_alloc_init(MEMORY[0x1E696AB78]);
           autoupdatingCurrentLocale3 = [MEMORY[0x1E695DF58] autoupdatingCurrentLocale];
-          [v104 setLocale:autoupdatingCurrentLocale3];
+          [v108 setLocale:autoupdatingCurrentLocale3];
 
-          [v104 setLocalizedDateFormatFromTemplate:@"MMM d"];
-          [v104 setTimeZone:v300];
-          v106 = [v104 stringFromDate:date2];
+          [v108 setLocalizedDateFormatFromTemplate:@"MMM d"];
+          [v108 setTimeZone:v304];
+          v110 = [v108 stringFromDate:date2];
           title2 = PKLocalizedPaymentString(&cfstr_PassTileChecki_8.isa);
-          body2 = PKLocalizedPaymentString(&cfstr_PassTileChecki_9.isa, &cfstr_Lu_1.isa, v313, v106, v98);
-          v67 = MEMORY[0x1BFB41080](v102);
+          body2 = PKLocalizedPaymentString(&cfstr_PassTileChecki_9.isa, &cfstr_Lu_1.isa, v317, v110, v102);
+          v71 = MEMORY[0x1BFB41080](v106);
 
-          v99 = v296;
-          date = v294;
+          v103 = v300;
+          date = v298;
         }
 
-        goto LABEL_79;
+        goto LABEL_81;
       }
 
       title2 = PKLocalizedPaymentString(&cfstr_PassTileChecki_4.isa);
-      body2 = PKLocalizedPaymentString(&cfstr_PassTileChecki_5.isa, &cfstr_Lu_0.isa, v313, v98);
-      v111 = v297;
+      body2 = PKLocalizedPaymentString(&cfstr_PassTileChecki_5.isa, &cfstr_Lu_0.isa, v317, v102);
+      v115 = v301;
     }
 
-    v67 = MEMORY[0x1BFB41080](v111);
-LABEL_79:
+    v71 = MEMORY[0x1BFB41080](v115);
+LABEL_81:
 
     accessory = 0;
-    v110 = v300;
-    v58 = v302;
-    goto LABEL_80;
+    v114 = v304;
+    v62 = v306;
+    goto LABEL_82;
   }
 
   if (type)
@@ -540,85 +550,85 @@ LABEL_79:
     bodyImage = 0;
     accessory = 0;
     obj = 0;
-    v71 = 0;
-    v72 = 0;
+    v75 = 0;
+    v76 = 0;
     if (type != 1)
     {
-      goto LABEL_82;
+      goto LABEL_84;
     }
 
-    stateTypeDefaultV2 = [v303 stateTypeDefaultV2];
-    icon = [v303 icon];
+    stateTypeDefaultV2 = [v307 stateTypeDefaultV2];
+    icon = [v307 icon];
     accessory = [stateTypeDefaultV2 accessory];
     obj = [stateTypeDefaultV2 secondaryAccessory];
     title = [stateTypeDefaultV2 title];
-    title2 = [title displayableStringWithPassState:v58 inContext:0];
+    title2 = [title displayableStringWithPassState:v62 inContext:0];
 
     body = [stateTypeDefaultV2 body];
-    body2 = [body displayableStringWithPassState:v58 inContext:1];
+    body2 = [body displayableStringWithPassState:v62 inContext:1];
 
     bodyImage = [stateTypeDefaultV2 bodyImage];
     footer = [stateTypeDefaultV2 footer];
-    v77 = v58;
-    v78 = footer;
-    v72 = [footer displayableStringWithPassState:v77 inContext:2];
+    v81 = v62;
+    v82 = footer;
+    v76 = [footer displayableStringWithPassState:v81 inContext:2];
 
     preferredStyle = [stateTypeDefaultV2 preferredStyle];
-    v71 = 0;
-    if (v72)
+    v75 = 0;
+    if (v76)
     {
-      goto LABEL_62;
+      goto LABEL_64;
     }
 
-    goto LABEL_59;
+    goto LABEL_61;
   }
 
-  stateTypeCheckIn = [v303 stateTypeDefault];
-  icon = [v303 icon];
+  stateTypeCheckIn = [v307 stateTypeDefault];
+  icon = [v307 icon];
   title2 = [stateTypeCheckIn title];
   body2 = [stateTypeCheckIn body];
   accessory = [stateTypeCheckIn accessory];
   obj = [stateTypeCheckIn secondaryAccessory];
-  v67 = NAN;
-LABEL_81:
+  v71 = NAN;
+LABEL_83:
 
   bodyImage = 0;
-  v71 = 0;
-  v72 = 0;
-LABEL_82:
-  objc_storeStrong(v62 + 4, icon);
-  v115 = PKPassTileImageToUIImage(icon, v320);
-  v116 = v62[5];
-  v62[5] = v115;
+  v75 = 0;
+  v76 = 0;
+LABEL_84:
+  objc_storeStrong(v66 + 4, icon);
+  v119 = PKPassTileImageToUIImage(icon, v324);
+  v120 = v66[5];
+  v66[5] = v119;
 
-  AttributedString = CreateAttributedString(title2, v322);
-  v118 = v62[10];
-  v62[10] = AttributedString;
+  AttributedString = CreateAttributedString(title2, v326);
+  v122 = v66[10];
+  v66[10] = AttributedString;
 
-  v119 = CreateAttributedString(body2, v68);
-  v120 = v62[11];
-  v62[11] = v119;
+  v123 = CreateAttributedString(body2, v72);
+  v124 = v66[11];
+  v66[11] = v123;
 
-  objc_storeStrong(v62 + 12, bodyImage);
-  v301 = v68;
-  v121 = PKPassTileImageToUIImage(bodyImage, v68);
-  v122 = v62[13];
-  v62[13] = v121;
+  objc_storeStrong(v66 + 12, bodyImage);
+  v305 = v72;
+  v125 = PKPassTileImageToUIImage(bodyImage, v72);
+  v126 = v66[13];
+  v66[13] = v125;
 
-  v123 = CreateAttributedString(v72, v304);
-  v124 = v62[14];
-  v62[14] = v123;
+  v127 = CreateAttributedString(v76, v308);
+  v128 = v66[14];
+  v66[14] = v127;
 
-  *(v62 + 17) = v67;
-  *(v62 + 16) = v62[5] != 0;
-  v125 = vand_s8(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqzq_s64(*(v62 + 5)), vceqzq_s64(*(v62 + 13))))), 0x1000100010001);
-  *(v62 + 17) = vuzp1_s8(v125, v125).u32[0];
-  if (v299 == 2)
+  *(v66 + 17) = v71;
+  *(v66 + 16) = v66[5] != 0;
+  v129 = vand_s8(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqzq_s64(*(v66 + 5)), vceqzq_s64(*(v66 + 13))))), 0x1000100010001);
+  *(v66 + 17) = vuzp1_s8(v129, v129).u32[0];
+  if (v303 == 2)
   {
     createDefaultDisclosureAccessoryImage = [MEMORY[0x1E69B8AA0] createDefaultDisclosureAccessoryImage];
 
     accessory = createDefaultDisclosureAccessoryImage;
-    v58 = v302;
+    v62 = v306;
   }
 
   if (accessory)
@@ -626,450 +636,450 @@ LABEL_82:
     type2 = [accessory type];
     if (!type2)
     {
-      if ((v298 & 1) == 0)
+      if ((v302 & 1) == 0)
       {
-        objc_storeStrong(v62 + 6, accessory);
-        *(v62 + 22) = 1;
+        objc_storeStrong(v66 + 6, accessory);
+        *(v66 + 22) = 1;
       }
 
-      goto LABEL_96;
+      goto LABEL_98;
     }
 
     if (type2 != 2)
     {
       if (type2 == 1)
       {
-        objc_storeStrong(v62 + 6, accessory);
-        *(v62 + 21) = 1;
+        objc_storeStrong(v66 + 6, accessory);
+        *(v66 + 21) = 1;
       }
 
-      goto LABEL_96;
+      goto LABEL_98;
     }
 
-    objc_storeStrong(v62 + 6, accessory);
-    v128 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD28], *MEMORY[0x1E69DDC38], 2, 0);
+    objc_storeStrong(v66 + 6, accessory);
+    v132 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD28], *MEMORY[0x1E69DDC38], 2, 0);
     accessoryTypeImage = [accessory accessoryTypeImage];
     image3 = [accessoryTypeImage image];
-    v135 = PKPassTileImageToUIImage(image3, v128);
-    v136 = v62[7];
-    v62[7] = v135;
+    v139 = PKPassTileImageToUIImage(image3, v132);
+    v140 = v66[7];
+    v66[7] = v139;
 
-    v63 = v318;
-    *(v62 + 23) = 1;
+    v67 = v322;
+    *(v66 + 23) = 1;
   }
 
   else
   {
     if (!obj || [obj type] != 2)
     {
-      goto LABEL_96;
+      goto LABEL_98;
     }
 
-    objc_storeStrong(v62 + 8, obj);
-    v128 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD28], *MEMORY[0x1E69DDC38], 0, 0);
+    objc_storeStrong(v66 + 8, obj);
+    v132 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD28], *MEMORY[0x1E69DDC38], 0, 0);
     accessoryTypeImage2 = [obj accessoryTypeImage];
     image4 = [accessoryTypeImage2 image];
-    v131 = PKPassTileImageToUIImage(image4, v128);
-    v132 = v62[9];
-    v62[9] = v131;
+    v135 = PKPassTileImageToUIImage(image4, v132);
+    v136 = v66[9];
+    v66[9] = v135;
 
-    v63 = v318;
-    *(v62 + 24) = 1;
+    v67 = v322;
+    *(v66 + 24) = 1;
   }
 
-  v58 = v302;
-LABEL_96:
-  if (v71)
+  v62 = v306;
+LABEL_98:
+  if (v75)
   {
-    objc_storeStrong(v62 + 15, v71);
-    view = [v71 view];
-    v138 = v62[16];
-    v62[16] = view;
+    objc_storeStrong(v66 + 15, v75);
+    view = [v75 view];
+    v142 = v66[16];
+    v66[16] = view;
 
-    *(v62 + 25) = 1;
+    *(v66 + 25) = 1;
   }
 
-  v57 = v303;
-  v60 = v304;
-  v59 = v301;
-LABEL_101:
+  v61 = v307;
+  v64 = v308;
+  v63 = v305;
+LABEL_103:
 
-  v139 = *(animated + 936);
-  *(animated + 936) = v62;
+  v143 = *(animated + 936);
+  *(animated + 936) = v66;
 
-  v140 = *(animated + 968);
-  if (v140)
+  v144 = *(animated + 968);
+  if (v144)
   {
-    dispatch_source_cancel(v140);
-    v141 = *(animated + 968);
+    dispatch_source_cancel(v144);
+    v145 = *(animated + 968);
     *(animated + 968) = 0;
   }
 
-  v142 = *(animated + 936);
-  v143 = v310;
-  if (v142)
+  v146 = *(animated + 936);
+  v147 = v314;
+  if (v146)
   {
-    v144 = *(v142 + 136);
+    v148 = *(v146 + 136);
   }
 
   else
   {
-    v144 = 0.0;
+    v148 = 0.0;
   }
 
-  v145 = fmax(v144 - CFAbsoluteTimeGetCurrent(), 1.0);
-  v146 = MEMORY[0x1E69E96A0];
-  v147 = MEMORY[0x1E69E96A0];
-  v148 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, v146);
-  v149 = *(animated + 968);
-  *(animated + 968) = v148;
+  v149 = fmax(v148 - CFAbsoluteTimeGetCurrent(), 1.0);
+  v150 = MEMORY[0x1E69E96A0];
+  v151 = MEMORY[0x1E69E96A0];
+  v152 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, v150);
+  v153 = *(animated + 968);
+  *(animated + 968) = v152;
 
-  v150 = *(animated + 968);
-  v151 = dispatch_walltime(0, (v145 * 1000000000.0));
-  dispatch_source_set_timer(v150, v151, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
-  objc_initWeak(v327, animated);
-  v152 = *(animated + 968);
+  v154 = *(animated + 968);
+  v155 = dispatch_walltime(0, (v149 * 1000000000.0));
+  dispatch_source_set_timer(v154, v155, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+  objc_initWeak(v331, animated);
+  v156 = *(animated + 968);
   handler[0] = MEMORY[0x1E69E9820];
   handler[1] = 3221225472;
   handler[2] = __42__PKPassTileView__updateSubviewsAnimated___block_invoke;
   handler[3] = &unk_1E8010998;
-  objc_copyWeak(&v332, v327);
-  dispatch_source_set_event_handler(v152, handler);
+  objc_copyWeak(&v336, v331);
+  dispatch_source_set_event_handler(v156, handler);
   dispatch_resume(*(animated + 968));
-  objc_destroyWeak(&v332);
-  objc_destroyWeak(v327);
-  v153 = *(animated + 936);
-  v154 = v309;
-  v155 = v153;
-  v156 = objc_opt_self();
-  if (v154 == v155)
+  objc_destroyWeak(&v336);
+  objc_destroyWeak(v331);
+  v157 = *(animated + 936);
+  v158 = v313;
+  v159 = v157;
+  v160 = objc_opt_self();
+  if (v158 == v159)
   {
-    v157 = 2;
+    v161 = 2;
   }
 
-  else if ((v154 == 0) != (v155 == 0))
+  else if ((v158 == 0) != (v159 == 0))
   {
-    v157 = 0;
+    v161 = 0;
   }
 
   else
   {
-    v157 = [(PKPassTileView_State *)v156 visuallyCompareTile:v155[1] toTile:?];
+    v161 = [(PKPassTileView_State *)v160 visuallyCompareTile:v159[1] toTile:?];
   }
 
-  v158 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
-  v159 = *(animated + 936);
-  if (v159)
-  {
-    v159 = v159[4];
-  }
-
-  v160 = v159;
-  v161 = *(animated + 936);
-  if (v161)
-  {
-    v161 = v161[10];
-  }
-
-  v162 = v161;
+  v162 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
   v163 = *(animated + 936);
   if (v163)
   {
-    v163 = v163[11];
+    v163 = v163[4];
   }
 
   v164 = v163;
   v165 = *(animated + 936);
   if (v165)
   {
-    v165 = v165[12];
+    v165 = v165[10];
   }
 
-  v319 = v165;
-  v166 = *(animated + 936);
-  if (v166)
-  {
-    v166 = v166[14];
-  }
-
-  v314 = v166;
+  v166 = v165;
   v167 = *(animated + 936);
   if (v167)
   {
-    v167 = v167[6];
+    v167 = v167[11];
   }
 
-  v323 = v167;
-  v168 = *(animated + 936);
-  if (v168)
-  {
-    v168 = v168[8];
-  }
-
-  v317 = v168;
+  v168 = v167;
   v169 = *(animated + 936);
   if (v169)
   {
-    v169 = v169[15];
+    v169 = v169[12];
   }
 
-  v321 = v169;
-  v329 = *(animated + 752);
-  v330 = *(animated + 768);
-  if (v310)
+  v323 = v169;
+  v170 = *(animated + 936);
+  if (v170)
   {
-    if (!v154)
+    v170 = v170[14];
+  }
+
+  v318 = v170;
+  v171 = *(animated + 936);
+  if (v171)
+  {
+    v171 = v171[6];
+  }
+
+  v327 = v171;
+  v172 = *(animated + 936);
+  if (v172)
+  {
+    v172 = v172[8];
+  }
+
+  v321 = v172;
+  v173 = *(animated + 936);
+  if (v173)
+  {
+    v173 = v173[15];
+  }
+
+  v325 = v173;
+  v333 = *(animated + 752);
+  v334 = *(animated + 768);
+  if (v314)
+  {
+    if (!v158)
     {
-      v174 = 0.0;
-      if (!v157)
+      v178 = 0.0;
+      if (!v161)
       {
-        v143 = v310;
-        goto LABEL_176;
+        v147 = v314;
+        goto LABEL_178;
       }
 
-      v197 = 0;
-      v143 = v310;
-LABEL_166:
-      v198 = v197;
-      LOBYTE(v157) = PKEqualObjects();
+      v201 = 0;
+      v147 = v314;
+LABEL_168:
+      v202 = v201;
+      LOBYTE(v161) = PKEqualObjects();
 
-      if (v154)
+      if (v158)
       {
-LABEL_167:
-        if (*(v154 + 21) == 1 && (v157 & 1) == 0)
+LABEL_169:
+        if (*(v158 + 21) == 1 && (v161 & 1) == 0)
         {
-          *v327 = v333;
-          *&v327[16] = v334;
-          v199 = v336;
-          *&v327[32] = v335;
+          *v331 = v337;
+          *&v331[16] = v338;
+          v203 = v340;
+          *&v331[32] = v339;
           *(animated + 765) = 1;
-          v200 = *(animated + 824);
-          v328 = v199;
-          v174 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v200 type:2 state:v327], v174);
+          v204 = *(animated + 824);
+          v332 = v203;
+          v178 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v204 type:2 state:v331], v178);
         }
 
-        if (!(v157 & 1 | ((*(v154 + 22) & 1) == 0)))
+        if (!(v161 & 1 | ((*(v158 + 22) & 1) == 0)))
         {
-          *v327 = v333;
-          *&v327[16] = v334;
-          v201 = v336;
-          *&v327[32] = v335;
+          *v331 = v337;
+          *&v331[16] = v338;
+          v205 = v340;
+          *&v331[32] = v339;
           *(animated + 766) = 1;
-          v202 = *(animated + 832);
-          v328 = v201;
-          v174 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v202 type:3 state:v327], v174);
+          v206 = *(animated + 832);
+          v332 = v205;
+          v178 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v206 type:3 state:v331], v178);
         }
 
-        if (!(v157 & 1 | ((*(v154 + 23) & 1) == 0)))
+        if (!(v161 & 1 | ((*(v158 + 23) & 1) == 0)))
         {
-          *v327 = v333;
-          *&v327[16] = v334;
-          v203 = v336;
-          *&v327[32] = v335;
+          *v331 = v337;
+          *&v331[16] = v338;
+          v207 = v340;
+          *&v331[32] = v339;
           *(animated + 767) = 1;
-          v204 = *(animated + 840);
-          v328 = v203;
-          v174 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v204 type:4 state:v327], v174);
+          v208 = *(animated + 840);
+          v332 = v207;
+          v178 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v208 type:4 state:v331], v178);
         }
 
-        if (!(v157 & 1 | ((v154[3] & 1) == 0)))
+        if (!(v161 & 1 | ((v158[3] & 1) == 0)))
         {
-          *v327 = v333;
-          *&v327[16] = v334;
-          v205 = v336;
-          *&v327[32] = v335;
+          *v331 = v337;
+          *&v331[16] = v338;
+          v209 = v340;
+          *&v331[32] = v339;
           *(animated + 768) = 1;
-          v206 = *(animated + 848);
-          v328 = v205;
-          v174 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v206 type:4 state:v327], v174);
+          v210 = *(animated + 848);
+          v332 = v209;
+          v178 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v210 type:4 state:v331], v178);
         }
       }
 
-LABEL_176:
-      *(animated + 752) = fmax(*(animated + 752), v174 * 0.65);
-      goto LABEL_177;
+LABEL_178:
+      *(animated + 752) = fmax(*(animated + 752), v178 * 0.65);
+      goto LABEL_179;
     }
 
-    v170 = *(v154 + 16);
-    if (v170 == 1 && v157)
+    v174 = *(v158 + 16);
+    if (v174 == 1 && v161)
     {
-      v171 = v154[4];
-      v172 = v160;
-      v173 = PKEqualObjects();
+      v175 = v158[4];
+      v176 = v164;
+      v177 = PKEqualObjects();
 
-      v174 = 0.0;
-      if ((v173 & 1) == 0)
+      v178 = 0.0;
+      if ((v177 & 1) == 0)
       {
-        goto LABEL_133;
+        goto LABEL_135;
       }
     }
 
     else
     {
-      v172 = v160;
-      v174 = 0.0;
-      if (v170)
+      v176 = v164;
+      v178 = 0.0;
+      if (v174)
       {
-LABEL_133:
+LABEL_135:
         *(animated + 760) = 1;
-        v175 = *(animated + 776);
-        *v327 = v333;
-        *&v327[16] = v334;
-        *&v327[32] = v335;
-        v328 = v336;
-        v174 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v175 type:0 state:v327], 0.0);
+        v179 = *(animated + 776);
+        *v331 = v337;
+        *&v331[16] = v338;
+        *&v331[32] = v339;
+        v332 = v340;
+        v178 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v179 type:0 state:v331], 0.0);
       }
     }
 
-    v176 = *(v154 + 17);
-    if (v176 == 1 && v157)
+    v180 = *(v158 + 17);
+    if (v180 == 1 && v161)
     {
-      v177 = v154[10];
-      v178 = PKEqualObjects();
+      v181 = v158[10];
+      v182 = PKEqualObjects();
 
-      if (v178)
+      if (v182)
       {
-        goto LABEL_140;
+        goto LABEL_142;
       }
     }
 
-    else if ((v176 & 1) == 0)
+    else if ((v180 & 1) == 0)
     {
-LABEL_140:
-      v180 = *(v154 + 18);
-      if (v180 == 1 && v157 > 1)
+LABEL_142:
+      v184 = *(v158 + 18);
+      if (v184 == 1 && v161 > 1)
       {
-        v181 = v154[11];
-        v182 = PKEqualObjects();
+        v185 = v158[11];
+        v186 = PKEqualObjects();
 
-        if (v182)
+        if (v186)
         {
-          goto LABEL_146;
+          goto LABEL_148;
         }
       }
 
-      else if ((v180 & 1) == 0)
+      else if ((v184 & 1) == 0)
       {
-LABEL_146:
-        v184 = *(v154 + 19);
-        if (v184 == 1 && v157)
+LABEL_148:
+        v188 = *(v158 + 19);
+        if (v188 == 1 && v161)
         {
-          v185 = v154[12];
-          v186 = PKEqualObjects();
+          v189 = v158[12];
+          v190 = PKEqualObjects();
 
-          if (v186)
+          if (v190)
           {
-            goto LABEL_152;
+            goto LABEL_154;
           }
         }
 
-        else if ((v184 & 1) == 0)
+        else if ((v188 & 1) == 0)
         {
-LABEL_152:
-          v189 = *(v154 + 20);
-          if (v189 == 1 && v157)
+LABEL_154:
+          v193 = *(v158 + 20);
+          if (v193 == 1 && v161)
           {
-            v190 = v154[14];
-            v191 = PKEqualObjects();
+            v194 = v158[14];
+            v195 = PKEqualObjects();
 
-            if (v191)
+            if (v195)
             {
-              goto LABEL_158;
+              goto LABEL_160;
             }
           }
 
-          else if ((v189 & 1) == 0)
+          else if ((v193 & 1) == 0)
           {
-LABEL_158:
-            v193 = *(v154 + 25);
-            if (v193 == 1 && v157)
+LABEL_160:
+            v197 = *(v158 + 25);
+            if (v197 == 1 && v161)
             {
-              v194 = *(animated + 816);
-              v195 = v154[15];
-              LOBYTE(v194) = [v321 isViewEqualToOther:v194 withAdaptor:v195];
+              v198 = *(animated + 816);
+              v199 = v158[15];
+              LOBYTE(v198) = [v325 isViewEqualToOther:v198 withAdaptor:v199];
 
-              v160 = v172;
-              if (v194)
+              v164 = v176;
+              if (v198)
               {
-                v158 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
-LABEL_165:
-                v197 = v154[6];
-                goto LABEL_166;
+                v162 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
+LABEL_167:
+                v201 = v158[6];
+                goto LABEL_168;
               }
             }
 
             else
             {
-              v160 = v172;
-              if ((v193 & 1) == 0)
+              v164 = v176;
+              if ((v197 & 1) == 0)
               {
-                goto LABEL_164;
+                goto LABEL_166;
               }
             }
 
             *(animated + 769) = 1;
-            v196 = *(animated + 816);
-            *v327 = v333;
-            *&v327[16] = v334;
-            *&v327[32] = v335;
-            v328 = v336;
-            v174 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v196 type:5 state:v327], v174);
-LABEL_164:
-            v158 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
-            if (!v157)
+            v200 = *(animated + 816);
+            *v331 = v337;
+            *&v331[16] = v338;
+            *&v331[32] = v339;
+            v332 = v340;
+            v178 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v200 type:5 state:v331], v178);
+LABEL_166:
+            v162 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
+            if (!v161)
             {
-              goto LABEL_167;
+              goto LABEL_169;
             }
 
-            goto LABEL_165;
+            goto LABEL_167;
           }
 
           *(animated + 764) = 1;
-          v192 = *(animated + 808);
-          *v327 = v333;
-          *&v327[16] = v334;
-          *&v327[32] = v335;
-          v328 = v336;
-          v174 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v192 type:1 state:v327], v174);
-          goto LABEL_158;
+          v196 = *(animated + 808);
+          *v331 = v337;
+          *&v331[16] = v338;
+          *&v331[32] = v339;
+          v332 = v340;
+          v178 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v196 type:1 state:v331], v178);
+          goto LABEL_160;
         }
 
-        *v327 = v333;
-        *&v327[16] = v334;
-        v187 = v336;
-        *&v327[32] = v335;
+        *v331 = v337;
+        *&v331[16] = v338;
+        v191 = v340;
+        *&v331[32] = v339;
         *(animated + 760) = 1;
-        v188 = *(animated + 800);
-        v328 = v187;
-        v174 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v188 type:5 state:v327], v174);
-        goto LABEL_152;
+        v192 = *(animated + 800);
+        v332 = v191;
+        v178 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v192 type:5 state:v331], v178);
+        goto LABEL_154;
       }
 
       *(animated + 762) = 1;
-      v183 = *(animated + 792);
-      *v327 = v333;
-      *&v327[16] = v334;
-      *&v327[32] = v335;
-      v328 = v336;
-      v174 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v183 type:1 state:v327], v174);
-      goto LABEL_146;
+      v187 = *(animated + 792);
+      *v331 = v337;
+      *&v331[16] = v338;
+      *&v331[32] = v339;
+      v332 = v340;
+      v178 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v187 type:1 state:v331], v178);
+      goto LABEL_148;
     }
 
     *(animated + 761) = 1;
-    v179 = *(animated + 784);
-    *v327 = v333;
-    *&v327[16] = v334;
-    *&v327[32] = v335;
-    v328 = v336;
-    v174 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v179 type:1 state:v327], v174);
-    goto LABEL_140;
+    v183 = *(animated + 784);
+    *v331 = v337;
+    *&v331[16] = v338;
+    *&v331[32] = v339;
+    v332 = v340;
+    v178 = fmax([(PKPassTileView *)animated _prepareViewForReuse:v183 type:1 state:v331], v178);
+    goto LABEL_142;
   }
 
-LABEL_177:
-  v207 = *(animated + 928);
-  if (v207)
+LABEL_179:
+  v211 = *(animated + 928);
+  if (v211)
   {
-    isEnabled = [v207 isEnabled];
+    isEnabled = [v211 isEnabled];
   }
 
   else
@@ -1078,318 +1088,318 @@ LABEL_177:
   }
 
   *(animated + 976) = isEnabled;
-  v209 = *(animated + 928);
-  if (v209)
-  {
-    LOBYTE(v209) = [v209 isSelected];
-  }
-
-  *(animated + 977) = v209;
-  [animated setEnabled:*(animated + 976)];
-  [animated setSelected:*(animated + 977)];
-  v210 = *(animated + 776);
-  v211 = *(animated + 936);
-  if (v211)
-  {
-    v211 = v211[5];
-  }
-
-  v212 = v211;
-  [v210 setImage:v212];
-
-  v213 = *(animated + 784);
+  v213 = *(animated + 928);
   if (v213)
   {
-    [v213 setAttributedText:v162];
+    LOBYTE(v213) = [v213 isSelected];
   }
 
-  v214 = *(animated + 792);
-  if (v214)
-  {
-    [v214 setAttributedText:v164];
-  }
-
-  v215 = *(animated + 808);
+  *(animated + 977) = v213;
+  [animated setEnabled:*(animated + 976)];
+  [animated setSelected:*(animated + 977)];
+  v214 = *(animated + 776);
+  v215 = *(animated + 936);
   if (v215)
   {
-    [v215 setAttributedText:v314];
+    v215 = v215[5];
   }
 
-  if (v319 && (v216 = *(animated + v158[304])) != 0 && *(v216 + 19) == 1)
+  v216 = v215;
+  [v214 setImage:v216];
+
+  v217 = *(animated + 784);
+  if (v217)
   {
-    v217 = *(animated + 800);
-    if (v217 || (v218 = objc_alloc_init(MEMORY[0x1E69DCAE0]), v219 = *(animated + 800), *(animated + 800) = v218, v219, *(animated + 763) = 1, [*(animated + 800) setAlpha:0.0], objc_msgSend(*(animated + 744), "addSubview:", *(animated + 800)), v217 = *(animated + 800), (v216 = *(animated + 936)) != 0))
-    {
-      v216 = *(v216 + 104);
-    }
-
-    v220 = v216;
-    [v217 setImage:v220];
+    [v217 setAttributedText:v166];
   }
 
-  else
+  v218 = *(animated + 792);
+  if (v218)
+  {
+    [v218 setAttributedText:v168];
+  }
+
+  v219 = *(animated + 808);
+  if (v219)
+  {
+    [v219 setAttributedText:v318];
+  }
+
+  if (v323 && (v220 = *(animated + v162[304])) != 0 && *(v220 + 19) == 1)
   {
     v221 = *(animated + 800);
-    if (v221)
+    if (v221 || (v222 = objc_alloc_init(MEMORY[0x1E69DCAE0]), v223 = *(animated + 800), *(animated + 800) = v222, v223, *(animated + 763) = 1, [*(animated + 800) setAlpha:0.0], objc_msgSend(*(animated + 744), "addSubview:", *(animated + 800)), v221 = *(animated + 800), (v220 = *(animated + 936)) != 0))
     {
-      [v221 setImage:0];
-    }
-  }
-
-  if (!v321 || (v222 = *(animated + v158[304])) == 0 || *(v222 + 25) != 1)
-  {
-    v232 = *(animated + 816);
-    if (!v232)
-    {
-      goto LABEL_209;
+      v220 = *(v220 + 104);
     }
 
-    [v232 removeFromSuperview];
-    v233 = *(animated + 816);
-    *(animated + 816) = 0;
-
-    v231 = *(animated + 744);
-    isUserInteractionEnabled = 0;
-    goto LABEL_208;
-  }
-
-  v223 = *(animated + 816);
-  if (v154)
-  {
-    v224 = v154[15];
+    v224 = v220;
+    [v221 setImage:v224];
   }
 
   else
   {
-    v224 = 0;
+    v225 = *(animated + 800);
+    if (v225)
+    {
+      [v225 setImage:0];
+    }
   }
 
-  v225 = v224;
-  v226 = [v321 isViewEqualToOther:v223 withAdaptor:v225];
+  if (!v325 || (v226 = *(animated + v162[304])) == 0 || *(v226 + 25) != 1)
+  {
+    v236 = *(animated + 816);
+    if (!v236)
+    {
+      goto LABEL_211;
+    }
 
-  if ((v226 & 1) == 0)
+    [v236 removeFromSuperview];
+    v237 = *(animated + 816);
+    *(animated + 816) = 0;
+
+    v235 = *(animated + 744);
+    isUserInteractionEnabled = 0;
+    goto LABEL_210;
+  }
+
+  v227 = *(animated + 816);
+  if (v158)
+  {
+    v228 = v158[15];
+  }
+
+  else
+  {
+    v228 = 0;
+  }
+
+  v229 = v228;
+  v230 = [v325 isViewEqualToOther:v227 withAdaptor:v229];
+
+  if ((v230 & 1) == 0)
   {
     [*(animated + 816) removeFromSuperview];
-    view2 = [v321 view];
-    v228 = *(animated + 816);
+    view2 = [v325 view];
+    v232 = *(animated + 816);
     *(animated + 816) = view2;
 
-    *(animated + 1064) = [v321 viewPreferredSizing];
+    *(animated + 1064) = [v325 viewPreferredSizing];
     *(animated + 769) = 1;
     [*(animated + 816) setAlpha:0.0];
     [*(animated + 744) addSubview:*(animated + 816)];
-    v229 = *(animated + 744);
+    v233 = *(animated + 744);
     isUserInteractionEnabled = [*(animated + 816) isUserInteractionEnabled];
-    v231 = v229;
-LABEL_208:
-    [v231 setHitTestEnabled:isUserInteractionEnabled];
+    v235 = v233;
+LABEL_210:
+    [v235 setHitTestEnabled:isUserInteractionEnabled];
   }
 
-LABEL_209:
+LABEL_211:
   type3 = [*(animated + 928) type];
-  v235 = *(animated + 856);
-  v236 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
+  v239 = *(animated + 856);
+  v240 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
   if (type3 == 6)
   {
-    if (!v235)
+    if (!v239)
     {
       WeakRetained = objc_loadWeakRetained((animated + 1128));
-      v238 = objc_opt_respondsToSelector();
+      v242 = objc_opt_respondsToSelector();
 
-      if (v238)
+      if (v242)
       {
-        v239 = objc_loadWeakRetained((animated + 1128));
-        paymentOfferSelectorCustomViewProvider = [v239 paymentOfferSelectorCustomViewProvider];
+        v243 = objc_loadWeakRetained((animated + 1128));
+        paymentOfferSelectorCustomViewProvider = [v243 paymentOfferSelectorCustomViewProvider];
 
-        v241 = [paymentOfferSelectorCustomViewProvider rewardsRedemptionTransactionSourceCollectionForPassTileView:animated];
+        v245 = [paymentOfferSelectorCustomViewProvider rewardsRedemptionTransactionSourceCollectionForPassTileView:animated];
         [paymentOfferSelectorCustomViewProvider paymentOffersControllerForPassTileView:animated];
-        v242 = obja = v160;
+        v246 = obja = v164;
         paymentPass = [*(animated + 944) paymentPass];
-        v326[0] = MEMORY[0x1E69E9820];
-        v326[1] = 3221225472;
-        v326[2] = __42__PKPassTileView__updateSubviewsAnimated___block_invoke_3;
-        v326[3] = &unk_1E8012720;
-        v326[4] = animated;
-        v143 = v310;
-        v244 = [PKPaymentOfferSelectionView createWithPaymentPass:paymentPass transactionSourceCollection:v241 paymentOffersController:v242 beginSuppressCardEmulation:v326];
-        v245 = *(animated + 856);
-        *(animated + 856) = v244;
+        v330[0] = MEMORY[0x1E69E9820];
+        v330[1] = 3221225472;
+        v330[2] = __42__PKPassTileView__updateSubviewsAnimated___block_invoke_3;
+        v330[3] = &unk_1E8012720;
+        v330[4] = animated;
+        v147 = v314;
+        v248 = [PKPaymentOfferSelectionView createWithPaymentPass:paymentPass transactionSourceCollection:v245 paymentOffersController:v246 beginSuppressCardEmulation:v330];
+        v249 = *(animated + 856);
+        *(animated + 856) = v248;
 
-        v236 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
+        v240 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
         [*(animated + 744) addSubview:*(animated + 856)];
         [*(animated + 744) setHitTestEnabled:1];
 
-        v160 = obja;
+        v164 = obja;
       }
     }
   }
 
-  else if (v235)
+  else if (v239)
   {
-    [v235 removeFromSuperview];
-    v246 = *(animated + 856);
+    [v239 removeFromSuperview];
+    v250 = *(animated + 856);
     *(animated + 856) = 0;
 
-    v236 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
+    v240 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
     [*(animated + 744) setHitTestEnabled:0];
   }
 
-  if (v323 && (v247 = *(animated + v236[304])) != 0 && *(v247 + 21) == 1)
+  if (v327 && (v251 = *(animated + v240[304])) != 0 && *(v251 + 21) == 1)
   {
     if (!*(animated + 824))
     {
-      v248 = [objc_alloc(MEMORY[0x1E69DC638]) initWithActivityIndicatorStyle:100];
-      v249 = *(animated + 824);
-      *(animated + 824) = v248;
+      v252 = [objc_alloc(MEMORY[0x1E69DC638]) initWithActivityIndicatorStyle:100];
+      v253 = *(animated + 824);
+      *(animated + 824) = v252;
 
       *(animated + 765) = 1;
       [*(animated + 824) setAlpha:0.0];
       [*(animated + 744) addSubview:*(animated + 824)];
     }
 
-    accessoryTypeSpinner = [v323 accessoryTypeSpinner];
+    accessoryTypeSpinner = [v327 accessoryTypeSpinner];
     isSpinnerEnabled = [accessoryTypeSpinner isSpinnerEnabled];
 
-    v236 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
+    v240 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
     if (isSpinnerEnabled != [*(animated + 824) isAnimating])
     {
-      v252 = *(animated + 824);
+      v256 = *(animated + 824);
       if (isSpinnerEnabled)
       {
-        [v252 startAnimating];
+        [v256 startAnimating];
       }
 
       else
       {
-        [v252 stopAnimating];
+        [v256 stopAnimating];
       }
     }
   }
 
   else
   {
-    v253 = *(animated + 824);
-    if (v253)
+    v257 = *(animated + 824);
+    if (v257)
     {
-      [v253 stopAnimating];
+      [v257 stopAnimating];
     }
 
-    if (!v323)
+    if (!v327)
     {
-      goto LABEL_231;
+      goto LABEL_233;
     }
   }
 
-  v254 = *(animated + v236[304]);
-  if (v254 && *(v254 + 22) == 1)
+  v258 = *(animated + v240[304]);
+  if (v258 && *(v258 + 22) == 1)
   {
-    v311 = v164;
-    v255 = v162;
-    v256 = v143;
-    v257 = v160;
-    v258 = *(animated + 832);
-    if (!v258)
+    v315 = v168;
+    v259 = v166;
+    v260 = v147;
+    v261 = v164;
+    v262 = *(animated + 832);
+    if (!v262)
     {
-      v259 = [PKContinuousButton alloc];
-      *v327 = 0;
-      *&v327[8] = vdupq_n_s64(2uLL);
-      *&v327[24] = *&v327[8];
-      v260 = [(PKContinuousButton *)v259 initWithConfiguration:v327];
-      v261 = *(animated + 832);
-      *(animated + 832) = v260;
+      v263 = [PKContinuousButton alloc];
+      *v331 = 0;
+      *&v331[8] = vdupq_n_s64(2uLL);
+      *&v331[24] = *&v331[8];
+      v264 = [(PKContinuousButton *)v263 initWithConfiguration:v331];
+      v265 = *(animated + 832);
+      *(animated + 832) = v264;
 
       [*(animated + 832) setContentEdgeInsets:{12.0, 16.0, 12.0, 16.0}];
-      v262 = *(animated + 832);
+      v266 = *(animated + 832);
       labelColor = [MEMORY[0x1E69DC888] labelColor];
-      [v262 setTintColor:labelColor];
+      [v266 setTintColor:labelColor];
 
-      v264 = *(animated + 832);
+      v268 = *(animated + 832);
       secondarySystemGroupedBackgroundColor = [MEMORY[0x1E69DC888] secondarySystemGroupedBackgroundColor];
-      [v264 updateTitleColorWithColor:secondarySystemGroupedBackgroundColor];
+      [v268 updateTitleColorWithColor:secondarySystemGroupedBackgroundColor];
 
       *(animated + 766) = 1;
       [*(animated + 832) setAlpha:0.0];
       [*(animated + 744) addSubview:*(animated + 832)];
-      v258 = *(animated + 832);
+      v262 = *(animated + 832);
     }
 
-    titleLabel = [v258 titleLabel];
+    titleLabel = [v262 titleLabel];
     [titleLabel setFont:*(animated + 1056)];
-    accessoryTypeButton = [v323 accessoryTypeButton];
-    v268 = *(animated + 832);
+    accessoryTypeButton = [v327 accessoryTypeButton];
+    v272 = *(animated + 832);
     title3 = [accessoryTypeButton title];
-    [v268 setTitle:title3 forState:0];
+    [v272 setTitle:title3 forState:0];
 
     [*(animated + 832) setShowSpinner:{objc_msgSend(accessoryTypeButton, "isSpinnerEnabled")}];
-    v160 = v257;
-    v143 = v256;
-    v162 = v255;
-    v164 = v311;
-    v270 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
-    goto LABEL_234;
+    v164 = v261;
+    v147 = v260;
+    v166 = v259;
+    v168 = v315;
+    v274 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
+    goto LABEL_236;
   }
 
-LABEL_231:
-  v271 = *(animated + 832);
-  if (v271)
+LABEL_233:
+  v275 = *(animated + 832);
+  if (v275)
   {
-    [v271 setTitle:0 forState:0];
+    [v275 setTitle:0 forState:0];
     [*(animated + 832) setShowSpinner:0];
   }
 
-  v270 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
-  if (!v323)
+  v274 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
+  if (!v327)
   {
-    goto LABEL_240;
-  }
-
-LABEL_234:
-  v272 = *(animated + v270[304]);
-  if (!v272 || *(v272 + 23) != 1)
-  {
-LABEL_240:
-    v277 = *(animated + 840);
-    if (v277)
-    {
-      [v277 setImage:0];
-    }
-
     goto LABEL_242;
   }
 
-  v273 = *(animated + 840);
-  if (v273 || (v274 = objc_alloc_init(MEMORY[0x1E69DCAE0]), v275 = *(animated + 840), *(animated + 840) = v274, v275, *(animated + 767) = 1, [*(animated + 840) setAlpha:0.0], objc_msgSend(*(animated + 744), "addSubview:", *(animated + 840)), v273 = *(animated + 840), (v272 = *(animated + 936)) != 0))
+LABEL_236:
+  v276 = *(animated + v274[304]);
+  if (!v276 || *(v276 + 23) != 1)
   {
-    v272 = *(v272 + 56);
-  }
-
-  v276 = v272;
-  [v273 setImage:v276];
-
-  v270 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
 LABEL_242:
-  if (v317 && (v278 = *(animated + v270[304])) != 0 && *(v278 + 24) == 1)
-  {
-    v279 = *(animated + 848);
-    if (v279 || (v280 = objc_alloc_init(MEMORY[0x1E69DCAE0]), v281 = *(animated + 848), *(animated + 848) = v280, v281, *(animated + 768) = 1, [*(animated + 848) setAlpha:0.0], objc_msgSend(*(animated + 744), "addSubview:", *(animated + 848)), v279 = *(animated + 848), (v278 = *(animated + 936)) != 0))
+    v281 = *(animated + 840);
+    if (v281)
     {
-      v278 = *(v278 + 72);
+      [v281 setImage:0];
     }
 
-    v283 = v307;
-    v282 = v308;
-    v284 = v278;
-    [v279 setImage:v284];
+    goto LABEL_244;
+  }
+
+  v277 = *(animated + 840);
+  if (v277 || (v278 = objc_alloc_init(MEMORY[0x1E69DCAE0]), v279 = *(animated + 840), *(animated + 840) = v278, v279, *(animated + 767) = 1, [*(animated + 840) setAlpha:0.0], objc_msgSend(*(animated + 744), "addSubview:", *(animated + 840)), v277 = *(animated + 840), (v276 = *(animated + 936)) != 0))
+  {
+    v276 = *(v276 + 56);
+  }
+
+  v280 = v276;
+  [v277 setImage:v280];
+
+  v274 = &OBJC_IVAR___PKAdjustableSingleCellView__subDetailLineBreakMode;
+LABEL_244:
+  if (v321 && (v282 = *(animated + v274[304])) != 0 && *(v282 + 24) == 1)
+  {
+    v283 = *(animated + 848);
+    if (v283 || (v284 = objc_alloc_init(MEMORY[0x1E69DCAE0]), v285 = *(animated + 848), *(animated + 848) = v284, v285, *(animated + 768) = 1, [*(animated + 848) setAlpha:0.0], objc_msgSend(*(animated + 744), "addSubview:", *(animated + 848)), v283 = *(animated + 848), (v282 = *(animated + 936)) != 0))
+    {
+      v282 = *(v282 + 72);
+    }
+
+    v287 = v311;
+    v286 = v312;
+    v288 = v282;
+    [v283 setImage:v288];
   }
 
   else
   {
-    v285 = *(animated + 848);
-    v283 = v307;
-    v282 = v308;
-    if (v285)
+    v289 = *(animated + 848);
+    v287 = v311;
+    v286 = v312;
+    if (v289)
     {
-      [v285 setImage:0];
+      [v289 setImage:0];
     }
   }
 
@@ -1397,44 +1407,44 @@ LABEL_242:
   aBlock[1] = 3221225472;
   aBlock[2] = __42__PKPassTileView__updateSubviewsAnimated___block_invoke_4;
   aBlock[3] = &unk_1E8012748;
-  v325 = v143;
+  v329 = v147;
   aBlock[4] = animated;
-  v286 = _Block_copy(aBlock);
-  v287 = v286;
-  v288 = *(animated + 936);
-  if (v288)
+  v290 = _Block_copy(aBlock);
+  v291 = v290;
+  v292 = *(animated + 936);
+  if (v292)
   {
-    LOBYTE(v288) = *(v288 + 17);
+    LOBYTE(v292) = *(v292 + 17);
   }
 
-  (*(v286 + 2))(v286, *(animated + 784), v288 & 1, *(animated + 761));
-  v289 = *(animated + 936);
-  if (v289)
+  (*(v290 + 2))(v290, *(animated + 784), v292 & 1, *(animated + 761));
+  v293 = *(animated + 936);
+  if (v293)
   {
-    LOBYTE(v289) = *(v289 + 18);
+    LOBYTE(v293) = *(v293 + 18);
   }
 
-  v287[2](v287, *(animated + 792), v289 & 1, *(animated + 762));
-  v290 = *(animated + 936);
-  if (v290)
+  v291[2](v291, *(animated + 792), v293 & 1, *(animated + 762));
+  v294 = *(animated + 936);
+  if (v294)
   {
-    LOBYTE(v290) = *(v290 + 20);
+    LOBYTE(v294) = *(v294 + 20);
   }
 
-  v287[2](v287, *(animated + 808), v290 & 1, *(animated + 764));
-  v291 = *(animated + 936);
-  if (v291)
+  v291[2](v291, *(animated + 808), v294 & 1, *(animated + 764));
+  v295 = *(animated + 936);
+  if (v295)
   {
-    LOBYTE(v291) = *(v291 + 25);
+    LOBYTE(v295) = *(v295 + 25);
   }
 
-  v287[2](v287, *(animated + 816), v291 & 1, *(animated + 769));
-  [(PKPassTileView *)animated _updateStyleAnimated:v143];
-  [(PKPassTileView *)animated _updateBackgroundAnimated:v143];
+  v291[2](v291, *(animated + 816), v295 & 1, *(animated + 769));
+  [(PKPassTileView *)animated _updateStyleAnimated:v147];
+  [(PKPassTileView *)animated _updateBackgroundAnimated:v147];
   [animated setNeedsLayout];
   [animated layoutIfNeeded];
-  *(animated + 752) = v329;
-  *(animated + 768) = v330;
+  *(animated + 752) = v333;
+  *(animated + 768) = v334;
 }
 
 - (void)dealloc
@@ -1467,7 +1477,7 @@ LABEL_242:
 
 - (double)_layoutWithBounds:(double)bounds applyLayout:(double)layout
 {
-  v298 = *MEMORY[0x1E69E9840];
+  v349 = *MEMORY[0x1E69E9840];
   if (!self)
   {
     return 0.0;
@@ -1492,28 +1502,28 @@ LABEL_242:
   v18 = *(self + 864);
   v17 = *(self + 872);
   v19 = v17 + *(self + 888);
-  v259 = a5;
+  v308 = a5;
   v20 = a6 - (v18 + *(self + 880));
   v21 = *MEMORY[0x1E695EFF8];
   v22 = *(MEMORY[0x1E695EFF8] + 8);
-  v285 = 0;
-  v286 = &v285;
-  v287 = 0x4010000000;
-  v288 = &unk_1BE347799;
-  v279 = 0;
-  v280 = &v279;
-  v281 = 0x4010000000;
-  v282 = &unk_1BE347799;
-  v283 = 0u;
-  v284 = 0u;
-  v263 = v22;
-  v264 = v21;
-  v289 = v21;
-  v290 = v22;
-  v265 = v20;
-  v266 = a5 - v19;
-  v291 = a5 - v19;
-  v292 = v20;
+  v336 = 0;
+  v337 = &v336;
+  v338 = 0x4010000000;
+  v339 = &unk_1BE347799;
+  v330 = 0;
+  v331 = &v330;
+  v332 = 0x4010000000;
+  v333 = &unk_1BE347799;
+  v334 = 0u;
+  v335 = 0u;
+  v313 = v22;
+  v314 = v21;
+  v340 = v21;
+  v341 = v22;
+  v315 = v20;
+  v316 = a5 - v19;
+  v342 = a5 - v19;
+  v343 = v20;
   if (v13 == 1)
   {
     v23 = 24.0;
@@ -1529,22 +1539,22 @@ LABEL_242:
     v23 = PKScaledValueForValueWithMaximumContentSizeCategory(*MEMORY[0x1E69DDC20], 34.0);
   }
 
-  v253 = a6;
-  v270 = v17;
+  v302 = a6;
+  v320 = v17;
   if (v16 <= 0.0)
   {
-    v28 = v280;
+    v28 = v331;
     v29 = *MEMORY[0x1E695F058];
     v30 = *(MEMORY[0x1E695F058] + 16);
-    v280[1].origin = *MEMORY[0x1E695F058];
+    v331[1].origin = *MEMORY[0x1E695F058];
     v28[3] = v30;
     slice.origin = v29;
     slice.size = v30;
     v31 = 0.0;
-    height = v265;
-    width = v266;
-    x = v264;
-    y = v263;
+    height = v315;
+    width = v316;
+    x = v314;
+    y = v313;
   }
 
   else
@@ -1559,34 +1569,34 @@ LABEL_242:
       v24 = v14;
     }
 
-    CGRectDivide(v286[1], v280 + 1, v286 + 1, v23, v24);
-    v25 = v280;
-    size = v280[1].size;
-    slice.origin = v280[1].origin;
+    CGRectDivide(v337[1], v331 + 1, v337 + 1, v23, v24);
+    v25 = v331;
+    size = v331[1].size;
+    slice.origin = v331[1].origin;
     slice.size = size;
     if (isDynamic)
     {
       v27 = *(self + 896);
       if (v13 != 1)
       {
-        CGRectDivide(v280[1], &slice, v280 + 1, v23, v14);
-        v25 = v280;
+        CGRectDivide(v331[1], &slice, v331 + 1, v23, v14);
+        v25 = v331;
       }
 
-      CGRectDivide(v286[1], v25 + 1, v286 + 1, *(self + 896), CGRectMinYEdge);
+      CGRectDivide(v337[1], v25 + 1, v337 + 1, *(self + 896), CGRectMinYEdge);
       v31 = v23 + v27;
     }
 
     else
     {
       v31 = 0.0;
-      CGRectDivide(v286[1], v280 + 1, v286 + 1, *(self + 904), v14);
+      CGRectDivide(v337[1], v331 + 1, v337 + 1, *(self + 904), v14);
     }
 
-    x = v286[1].origin.x;
-    y = v286[1].origin.y;
-    width = v286[1].size.width;
-    height = v286[1].size.height;
+    x = v337[1].origin.x;
+    y = v337[1].origin.y;
+    width = v337[1].size.width;
+    height = v337[1].size.height;
   }
 
   r1 = v16;
@@ -1595,26 +1605,34 @@ LABEL_242:
   if (v34)
   {
     [*(self + 784) frame];
-    v252 = v37;
-    v261 = v38;
+    v301 = v37;
+    v311 = v38;
     [*(self + 792) frame];
-    v239 = v39;
-    v241 = v40;
+    v281 = v39;
+    v283 = v40;
     [*(self + 800) frame];
-    v238 = v41;
-    v240 = v42;
+    v280 = v41;
+    v282 = v42;
     [*(self + 808) frame];
-    v251 = v43;
+    v300 = v43;
     v45 = v44;
     [*(self + 816) frame];
-    v249 = v46;
-    v260 = v47;
+    v298 = v46;
+    v309 = v47;
     [*(self + 824) frame];
+    v292 = v49;
+    v295 = v48;
     [*(self + 832) frame];
+    v290 = v50;
+    v291 = v51;
     [*(self + 840) frame];
+    v286 = v53;
+    v288 = v52;
     [*(self + 848) frame];
+    v284 = v54;
+    v56 = v55;
     [*(self + 856) frame];
-    v250 = v48;
+    v299 = v57;
   }
 
   else
@@ -1627,28 +1645,28 @@ LABEL_242:
       if (isDynamic)
       {
         [*(self + 784) pkui_sizeThatFits:1 forceWordWrap:{*(self + 984), *(self + 992)}];
-        v261 = v36;
+        v311 = v36;
       }
 
       else
       {
         [*(self + 1032) _bodyLeading];
-        v261 = v49;
+        v311 = v58;
       }
 
-      v252 = width;
+      v301 = width;
     }
 
     else
     {
-      v252 = *MEMORY[0x1E695F060];
-      v261 = *(MEMORY[0x1E695F060] + 8);
+      v301 = *MEMORY[0x1E695F060];
+      v311 = *(MEMORY[0x1E695F060] + 8);
     }
 
     [*(self + 1040) _bodyLeading];
-    v241 = v50;
+    v283 = v59;
     image = [*(self + 800) image];
-    v52 = image;
+    v61 = image;
     if (isFullBleed)
     {
       boundsCopy = bounds;
@@ -1671,158 +1689,178 @@ LABEL_242:
 
     if (isFullBleed)
     {
-      v55 = v259;
+      v64 = v308;
     }
 
     else
     {
-      v55 = width;
+      v64 = width;
     }
 
     if (isFullBleed)
     {
-      v56 = v253;
+      v65 = v302;
     }
 
     else
     {
-      v56 = height;
+      v65 = height;
     }
 
     if (image)
     {
-      v296 = 0;
-      v294 = 0u;
-      v295 = 0u;
-      v293 = 0u;
-      [image pkui_alignmentSizeThatFits:v55 maximumScale:{v56, 1.0}];
-      v57.n128_f64[0] = boundsCopy + (v55 - *&v293) * 0.5 + *(&v294 + 1);
-      v58.n128_f64[0] = *&v294 + layoutCopy + (v56 - *(&v293 + 1)) * 0.5;
-      v59.n128_f64[0] = *&v293 - (*(&v294 + 1) + *(&v295 + 1));
-      v60.n128_f64[0] = *&v294 + *&v295;
-      v61.n128_f64[0] = *(&v293 + 1) - (*&v294 + *&v295);
-      PKRectRoundToPixel(v57, v58, v59, v61, v60);
-      v238 = v62;
-      v240 = v63;
+      v347 = 0;
+      v345 = 0u;
+      v346 = 0u;
+      v344 = 0u;
+      objc_msgSend_pkui_alignmentSizeThatFits_maximumScale_(image, v64, v65, 1.0);
+      v66.n128_f64[0] = boundsCopy + (v64 - *&v344) * 0.5 + *(&v345 + 1);
+      v67.n128_f64[0] = *&v345 + layoutCopy + (v65 - *(&v344 + 1)) * 0.5;
+      v68.n128_f64[0] = *&v344 - (*(&v345 + 1) + *(&v346 + 1));
+      v69.n128_f64[0] = *&v345 + *&v346;
+      v70.n128_f64[0] = *(&v344 + 1) - (*&v345 + *&v346);
+      PKRectRoundToPixel(v66, v67, v68, v70, v69);
+      v280 = v71;
+      v282 = v72;
     }
 
     else
     {
-      v238 = *(MEMORY[0x1E695F058] + 16);
-      v240 = *(MEMORY[0x1E695F058] + 24);
+      v280 = *(MEMORY[0x1E695F058] + 16);
+      v282 = *(MEMORY[0x1E695F058] + 24);
     }
 
     text2 = [*(self + 808) text];
     if (text2)
     {
       [*(self + 1048) _bodyLeading];
-      v45 = v65;
-      v251 = width;
+      v45 = v74;
+      v300 = width;
     }
 
     else
     {
       v45 = *(MEMORY[0x1E695F060] + 8);
-      v251 = *MEMORY[0x1E695F060];
+      v300 = *MEMORY[0x1E695F060];
     }
 
-    v68 = *(self + 1064);
-    if (v68)
+    v77 = *(self + 1064);
+    if (v77)
     {
-      v260 = 0.0;
-      v249 = 0.0;
-      if (v68 == 1)
+      v309 = 0.0;
+      v298 = 0.0;
+      if (v77 == 1)
       {
         [*(self + 816) sizeThatFits:{width, 1.79769313e308}];
-        v249 = v69;
-        v260 = v70;
+        v298 = v78;
+        v309 = v79;
       }
     }
 
     else
     {
-      LODWORD(v66) = 1148846080;
-      LODWORD(v67) = 1112014848;
-      [*(self + 816) systemLayoutSizeFittingSize:width withHorizontalFittingPriority:*(MEMORY[0x1E69DE098] + 8) verticalFittingPriority:{v66, v67}];
-      v249 = v71;
-      v260 = v72;
+      LODWORD(v75) = 1148846080;
+      LODWORD(v76) = 1112014848;
+      [*(self + 816) systemLayoutSizeFittingSize:width withHorizontalFittingPriority:*(MEMORY[0x1E69DE098] + 8) verticalFittingPriority:{v75, v76}];
+      v298 = v80;
+      v309 = v81;
     }
 
     [*(self + 824) intrinsicContentSize];
+    v292 = v83;
+    v295 = v82;
     [*(self + 832) sizeThatFits:{width, height}];
+    v290 = v84;
+    v291 = v85;
     image2 = [*(self + 840) image];
-    v74 = image2;
+    v87 = image2;
     if (image2)
     {
-      v296 = 0;
-      v294 = 0u;
-      v295 = 0u;
-      v293 = 0u;
-      [image2 pkui_alignmentSizeThatFits:width maximumScale:{height, 1.0}];
-      v75.n128_f64[0] = x + (width - *&v293) * 0.5 + *(&v294 + 1);
-      v76.n128_f64[0] = *&v294 + y + (height - *(&v293 + 1)) * 0.5;
-      v77.n128_f64[0] = *&v293 - (*(&v294 + 1) + *(&v295 + 1));
-      v78.n128_f64[0] = *&v294 + *&v295;
-      v79.n128_f64[0] = *(&v293 + 1) - (*&v294 + *&v295);
-      PKRectRoundToPixel(v75, v76, v77, v79, v78);
+      v347 = 0;
+      v345 = 0u;
+      v346 = 0u;
+      v344 = 0u;
+      objc_msgSend_pkui_alignmentSizeThatFits_maximumScale_(image2, width, height, 1.0);
+      v88.n128_f64[0] = x + (width - *&v344) * 0.5 + *(&v345 + 1);
+      v89.n128_f64[0] = *&v345 + y + (height - *(&v344 + 1)) * 0.5;
+      v90.n128_f64[0] = *&v344 - (*(&v345 + 1) + *(&v346 + 1));
+      v91.n128_f64[0] = *&v345 + *&v346;
+      v92.n128_f64[0] = *(&v344 + 1) - (*&v345 + *&v346);
+      PKRectRoundToPixel(v88, v89, v90, v92, v91);
+      v286 = v94;
+      v288 = v93;
+    }
+
+    else
+    {
+      v286 = *(MEMORY[0x1E695F058] + 24);
+      v288 = *(MEMORY[0x1E695F058] + 16);
     }
 
     image3 = [*(self + 848) image];
-    v81 = image3;
+    v96 = image3;
     if (image3)
     {
-      v296 = 0;
-      v294 = 0u;
-      v295 = 0u;
-      v293 = 0u;
-      [image3 pkui_alignmentSizeThatFits:width maximumScale:{height, 1.0}];
-      v82.n128_f64[0] = x + (width - *&v293) * 0.5 + *(&v294 + 1);
-      v83.n128_f64[0] = *&v294 + y + (height - *(&v293 + 1)) * 0.5;
-      v84.n128_f64[0] = *&v293 - (*(&v294 + 1) + *(&v295 + 1));
-      v85.n128_f64[0] = *&v294 + *&v295;
-      v86.n128_f64[0] = *(&v293 + 1) - (*&v294 + *&v295);
-      PKRectRoundToPixel(v82, v83, v84, v86, v85);
+      v347 = 0;
+      v345 = 0u;
+      v346 = 0u;
+      v344 = 0u;
+      objc_msgSend_pkui_alignmentSizeThatFits_maximumScale_(image3, width, height, 1.0);
+      v97.n128_f64[0] = x + (width - *&v344) * 0.5 + *(&v345 + 1);
+      v98.n128_f64[0] = *&v345 + y + (height - *(&v344 + 1)) * 0.5;
+      v99.n128_f64[0] = *&v344 - (*(&v345 + 1) + *(&v346 + 1));
+      v100.n128_f64[0] = *&v345 + *&v346;
+      v101.n128_f64[0] = *(&v344 + 1) - (*&v345 + *&v346);
+      PKRectRoundToPixel(v97, v98, v99, v101, v100);
+      v284 = v102;
+      v56 = v103;
+    }
+
+    else
+    {
+      v56 = *(MEMORY[0x1E695F058] + 16);
+      v284 = *(MEMORY[0x1E695F058] + 24);
     }
 
     [*(self + 856) sizeThatFits:{width, 1.79769313e308}];
-    v250 = v87;
-    v239 = width;
+    v299 = v104;
+    v281 = width;
   }
 
   image4 = [*(self + 800) image];
 
   text3 = [*(self + 792) text];
 
-  v91 = v260;
+  v108 = v309;
   if (!*(self + 816))
   {
-    v91 = v250;
+    v108 = v299;
     if (!*(self + 856))
     {
-      v91 = 0.0;
+      v108 = 0.0;
       if (image4 | text3)
       {
-        v92 = 0.0;
+        v109 = 0.0;
         if (text3)
         {
-          v92 = v241;
+          v109 = v283;
         }
 
         if (image4)
         {
-          v91 = v240;
+          v108 = v282;
         }
 
         else
         {
-          v91 = v92;
+          v108 = v109;
         }
 
-        v90 = v261;
-        if (v261 > 0.0)
+        v107 = v311;
+        if (v311 > 0.0)
         {
-          v90 = *(self + 912);
-          v91 = v91 + v90;
+          v107 = *(self + 912);
+          v108 = v108 + v107;
         }
       }
     }
@@ -1831,155 +1869,177 @@ LABEL_242:
   text4 = [*(self + 808) text];
   if (text4)
   {
-    v94 = v45 + *(self + 912);
+    v111 = v45 + *(self + 912);
   }
 
   else
   {
-    v94 = 0.0;
+    v111 = 0.0;
   }
 
-  v96.n128_f64[0] = v31 + v261 + v91 + v94;
+  v113.n128_f64[0] = v31 + v311 + v108 + v111;
   if ((isFullBleed & 1) == 0)
   {
-    v95.n128_u64[0] = *(self + 880);
-    v96.n128_f64[0] = v96.n128_f64[0] + *(self + 864) + v95.n128_f64[0];
+    v112.n128_u64[0] = *(self + 880);
+    v113.n128_f64[0] = v113.n128_f64[0] + *(self + 864) + v112.n128_f64[0];
   }
 
-  PKFloatCeilToPixel(v96, v95);
+  PKFloatCeilToPixel(v113, v112);
   if (a2)
   {
-    [*(self + 744) setFrame:{bounds + v270, layout + v18, v266, v265}];
+    [*(self + 744) setFrame:{bounds + v320, layout + v18, v316, v315}];
     image5 = [*(self + 776) image];
-    v98 = slice.origin.x;
-    v99 = slice.origin.y;
-    v100 = slice.size.width;
-    v101 = slice.size.height;
-    v102 = image5;
+    v115 = slice.origin.x;
+    v116 = slice.origin.y;
+    v117 = slice.size.width;
+    v118 = slice.size.height;
+    v119 = image5;
     if (image5)
     {
-      v296 = 0;
-      v294 = 0u;
-      v295 = 0u;
-      v293 = 0u;
-      [image5 pkui_alignmentSizeThatFits:slice.size.width maximumScale:{slice.size.height, 1.0}];
-      v103.n128_f64[0] = v98 + (v100 - *&v293) * 0.5 + *(&v294 + 1);
-      v104.n128_f64[0] = *&v294 + v99 + (v101 - *(&v293 + 1)) * 0.5;
-      v105.n128_f64[0] = *&v293 - (*(&v294 + 1) + *(&v295 + 1));
-      v106.n128_f64[0] = *&v294 + *&v295;
-      v107.n128_f64[0] = *(&v293 + 1) - (*&v294 + *&v295);
-      PKRectRoundToPixel(v103, v104, v105, v107, v106);
-      PKSizeAlignedInRect();
-      v98 = v108;
-      v99 = v109;
-      v100 = v110;
-      v101 = v111;
+      v347 = 0;
+      v345 = 0u;
+      v346 = 0u;
+      v344 = 0u;
+      objc_msgSend_pkui_alignmentSizeThatFits_maximumScale_(image5, slice.size.width, slice.size.height, 1.0);
+      v120.n128_f64[0] = v115 + (v117 - *&v344) * 0.5 + *(&v345 + 1);
+      v121.n128_f64[0] = *&v345 + v116 + (v118 - *(&v344 + 1)) * 0.5;
+      v122.n128_f64[0] = *&v344 - (*(&v345 + 1) + *(&v346 + 1));
+      v123.n128_f64[0] = *&v345 + *&v346;
+      v124.n128_f64[0] = *(&v344 + 1) - (*&v345 + *&v346);
+      PKRectRoundToPixel(v120, v121, v122, v124, v123);
+      v125.n128_u64[0] = *&slice.origin.x;
+      v126.n128_u64[0] = *&slice.size.width;
+      v127.n128_u64[0] = *&slice.size.height;
+      v129.n128_u64[0] = v128;
+      v131.n128_u64[0] = v130;
+      v132.n128_u64[0] = *&slice.origin.x;
+      v133.n128_u64[0] = *&slice.origin.y;
+      PKSizeAlignedInRect(0x100000001, v129, v131, v132, v133, v126, v127, v125);
+      v115 = v134;
+      v116 = v135;
+      v117 = v136;
+      v118 = v137;
     }
 
-    v237 = v45;
+    v279 = v45;
     if (r1 > 0.0)
     {
-      v112 = *(selfCopy + 1072);
+      v138 = *(selfCopy + 1072);
     }
 
     else
     {
-      v112 = 0;
+      v138 = 0;
     }
 
-    [*(selfCopy + 776) pkui_setFrame:v112 animated:{v98, v99, v100, v101}];
+    [*(selfCopy + 776) pkui_setFrame:v138 animated:{v115, v116, v117, v118}];
     [*(selfCopy + 824) sizeToFit];
-    PKFloatRoundToPixel();
-    v114 = *MEMORY[0x1E695F050];
-    v113 = *(MEMORY[0x1E695F050] + 8);
-    v115 = *(MEMORY[0x1E695F050] + 24);
+    v139.n128_f64[0] = width * 0.5;
+    PKFloatRoundToPixel(v139, v140);
+    v278 = v141.n128_f64[0];
+    v149 = *MEMORY[0x1E695F050];
+    v148 = *(MEMORY[0x1E695F050] + 8);
+    v150 = *(MEMORY[0x1E695F050] + 24);
     r1a = *(MEMORY[0x1E695F050] + 16);
-    v116 = v102;
+    v151 = v119;
+    v321 = HIDWORD(v14);
     if (*(selfCopy + 848))
     {
-      v117 = *(MEMORY[0x1E695F050] + 8);
-      PKSizeAlignedInRect();
-      v242 = v118;
-      r2 = v119;
-      v121 = v120;
-      v123 = v122;
+      v141.n128_u64[0] = v56;
+      v152 = *(MEMORY[0x1E695F050] + 8);
+      v142.n128_u64[0] = v284;
+      v143.n128_f64[0] = x;
+      v144.n128_f64[0] = y;
+      v145.n128_f64[0] = width;
+      v146.n128_f64[0] = height;
+      PKSizeAlignedInRect(HIDWORD(v14), v141, v142, v143, v144, v145, v146, v147);
+      v285 = v153;
+      r2 = v154;
+      v156 = v155;
+      v158 = v157;
       [*(selfCopy + 848) alpha];
-      v125 = v124;
-      if (v124 > 0.0)
+      v160 = v159;
+      if (v159 > 0.0)
       {
-        v126 = *(selfCopy + 1072);
+        v161 = *(selfCopy + 1072);
       }
 
       else
       {
-        v126 = 0;
+        v161 = 0;
       }
 
-      [*(selfCopy + 848) pkui_setFrame:v126 animated:{v242, v121, v123, r2}];
-      if (v125 <= 0.0)
+      [*(selfCopy + 848) pkui_setFrame:v161 animated:{v285, v156, v158, r2}];
+      if (v160 <= 0.0)
       {
-        v113 = v117;
+        v148 = v152;
       }
 
       else
       {
-        v299.origin.x = v114;
-        v299.origin.y = v117;
-        v299.size.width = r1a;
-        v299.size.height = v115;
-        v310.origin.x = v242;
-        v310.origin.y = v121;
-        v310.size.width = v123;
-        v310.size.height = r2;
-        v300 = CGRectUnion(v299, v310);
-        r1a = v300.size.width;
-        v114 = v300.origin.x;
-        v113 = v300.origin.y;
-        v115 = v300.size.height;
+        v350.origin.x = v149;
+        v350.origin.y = v152;
+        v350.size.width = r1a;
+        v350.size.height = v150;
+        v358.origin.x = v285;
+        v358.origin.y = v156;
+        v358.size.width = v158;
+        v358.size.height = r2;
+        *v141.n128_u64 = CGRectUnion(v350, v358);
+        r1a = v143.n128_f64[0];
+        v149 = v141.n128_f64[0];
+        v148 = v142.n128_f64[0];
+        v150 = v144.n128_f64[0];
       }
     }
 
     if (*(selfCopy + 840))
     {
-      v127 = v113;
-      PKSizeAlignedInRect();
-      v243 = v129;
-      v244 = v128;
-      v131 = v130;
-      v133 = v132;
+      v162 = v148;
+      v142.n128_u64[0] = v286;
+      v141.n128_u64[0] = v288;
+      v143.n128_f64[0] = x;
+      v144.n128_f64[0] = y;
+      v145.n128_f64[0] = width;
+      v146.n128_f64[0] = height;
+      PKSizeAlignedInRect(v321 | 0x100000000, v141, v142, v143, v144, v145, v146, v147);
+      v287 = v164;
+      v289 = v163;
+      v166 = v165;
+      v168 = v167;
       [*(selfCopy + 840) alpha];
-      v135 = v134;
-      if (v134 > 0.0)
+      v170 = v169;
+      if (v169 > 0.0)
       {
-        v136 = *(selfCopy + 1072);
+        v171 = *(selfCopy + 1072);
       }
 
       else
       {
-        v136 = 0;
+        v171 = 0;
       }
 
-      [*(selfCopy + 840) pkui_setFrame:v136 animated:{v244, v131, v133, v243}];
-      if (v135 <= 0.0)
+      [*(selfCopy + 840) pkui_setFrame:v171 animated:{v289, v166, v168, v287}];
+      if (v170 <= 0.0)
       {
-        v113 = v127;
+        v148 = v162;
       }
 
       else
       {
-        v301.origin.x = v114;
-        v301.origin.y = v127;
-        v301.size.width = r1a;
-        v301.size.height = v115;
-        v311.size.height = v243;
-        v311.origin.x = v244;
-        v311.origin.y = v131;
-        v311.size.width = v133;
-        v302 = CGRectUnion(v301, v311);
-        r1a = v302.size.width;
-        v114 = v302.origin.x;
-        v113 = v302.origin.y;
-        v115 = v302.size.height;
+        v351.origin.x = v149;
+        v351.origin.y = v162;
+        v351.size.width = r1a;
+        v351.size.height = v150;
+        v359.size.height = v287;
+        v359.origin.x = v289;
+        v359.origin.y = v166;
+        v359.size.width = v168;
+        *v141.n128_u64 = CGRectUnion(v351, v359);
+        r1a = v143.n128_f64[0];
+        v149 = v141.n128_f64[0];
+        v148 = v142.n128_f64[0];
+        v150 = v144.n128_f64[0];
       }
     }
 
@@ -1987,112 +2047,136 @@ LABEL_242:
     {
       if (*(selfCopy + 920))
       {
-        v303.origin.x = x;
-        v303.origin.y = y;
-        v303.size.width = width;
-        v303.size.height = height;
-        CGRectInset(v303, -4.0, -2.0);
+        v352.origin.x = x;
+        v352.origin.y = y;
+        v352.size.width = width;
+        v352.size.height = height;
+        *v141.n128_u64 = CGRectInset(v352, -4.0, -2.0);
+        v147.n128_u64[0] = v141.n128_u64[0];
+        v172 = v142.n128_u64[0];
+        v145.n128_u64[0] = v143.n128_u64[0];
+        v146.n128_u64[0] = v144.n128_u64[0];
+        v173 = 0;
       }
 
-      PKSizeAlignedInRect();
-      v245 = v138;
-      v247 = v137;
-      v140 = v139;
-      v142 = v141;
-      v143 = v113;
+      else
+      {
+        v173 = 0x100000000;
+        v147.n128_f64[0] = x;
+        v172 = *&y;
+        v145.n128_f64[0] = width;
+        v146.n128_f64[0] = height;
+      }
+
+      v142.n128_u64[0] = v292;
+      v141.n128_u64[0] = v295;
+      v143.n128_u64[0] = v147.n128_u64[0];
+      v144.n128_u64[0] = v172;
+      PKSizeAlignedInRect(v173 | v321, v141, v142, v143, v144, v145, v146, v147);
+      v293 = v175;
+      v296 = v174;
+      v177 = v176;
+      v179 = v178;
+      v180 = v148;
       [*(selfCopy + 824) alpha];
-      v145 = v144;
-      if (v144 > 0.0)
+      v182 = v181;
+      if (v181 > 0.0)
       {
-        v146 = *(selfCopy + 1072);
+        v183 = *(selfCopy + 1072);
       }
 
       else
       {
-        v146 = 0;
+        v183 = 0;
       }
 
-      [*(selfCopy + 824) pkui_setFrame:v146 animated:{v247, v140, v142, v245}];
-      if (v145 <= 0.0)
+      [*(selfCopy + 824) pkui_setFrame:v183 animated:{v296, v177, v179, v293}];
+      if (v182 <= 0.0)
       {
-        v113 = v143;
+        v148 = v180;
       }
 
       else
       {
-        v304.origin.x = v114;
-        v304.origin.y = v143;
-        v304.size.width = r1a;
-        v304.size.height = v115;
-        v312.size.height = v245;
-        v312.origin.x = v247;
-        v312.origin.y = v140;
-        v312.size.width = v142;
-        v305 = CGRectUnion(v304, v312);
-        r1a = v305.size.width;
-        v114 = v305.origin.x;
-        v113 = v305.origin.y;
-        v115 = v305.size.height;
+        v353.origin.x = v149;
+        v353.origin.y = v180;
+        v353.size.width = r1a;
+        v353.size.height = v150;
+        v360.size.height = v293;
+        v360.origin.x = v296;
+        v360.origin.y = v177;
+        v360.size.width = v179;
+        *v141.n128_u64 = CGRectUnion(v353, v360);
+        r1a = v143.n128_f64[0];
+        v149 = v141.n128_f64[0];
+        v148 = v142.n128_f64[0];
+        v150 = v144.n128_f64[0];
       }
     }
 
     if (*(selfCopy + 832))
     {
-      v147 = v113;
-      PKSizeAlignedInRect();
-      v246 = v149;
-      v248 = v148;
-      v151 = v150;
-      v153 = v152;
+      v184 = v148;
+      v141.n128_f64[0] = fmin(v278, v290);
+      v142.n128_u64[0] = v291;
+      v143.n128_f64[0] = x;
+      v144.n128_f64[0] = y;
+      v145.n128_f64[0] = width;
+      v146.n128_f64[0] = height;
+      PKSizeAlignedInRect(v321 | 0x100000000, v141, v142, v143, v144, v145, v146, v147);
+      v294 = v186;
+      v297 = v185;
+      v188 = v187;
+      v190 = v189;
       [*(selfCopy + 832) alpha];
-      v155 = v154;
-      if (v154 > 0.0)
+      v192 = v191;
+      if (v191 > 0.0)
       {
-        v156 = *(selfCopy + 1072);
+        v193 = *(selfCopy + 1072);
       }
 
       else
       {
-        v156 = 0;
+        v193 = 0;
       }
 
-      [*(selfCopy + 832) pkui_setFrame:v156 animated:{v248, v151, v153, v246}];
-      if (v155 <= 0.0)
+      [*(selfCopy + 832) pkui_setFrame:v193 animated:{v297, v188, v190, v294}];
+      if (v192 <= 0.0)
       {
-        v113 = v147;
+        v148 = v184;
       }
 
       else
       {
-        v306.origin.x = v114;
-        v306.origin.y = v147;
-        v306.size.width = r1a;
-        v306.size.height = v115;
-        v313.size.height = v246;
-        v313.origin.x = v248;
-        v313.origin.y = v151;
-        v313.size.width = v153;
-        v307 = CGRectUnion(v306, v313);
-        r1a = v307.size.width;
-        v114 = v307.origin.x;
-        v113 = v307.origin.y;
-        v115 = v307.size.height;
+        v354.origin.x = v149;
+        v354.origin.y = v184;
+        v354.size.width = r1a;
+        v354.size.height = v150;
+        v361.size.height = v294;
+        v361.origin.x = v297;
+        v361.origin.y = v188;
+        v361.size.width = v190;
+        v355 = CGRectUnion(v354, v361);
+        r1a = v355.size.width;
+        v149 = v355.origin.x;
+        v148 = v355.origin.y;
+        v150 = v355.size.height;
       }
     }
 
-    v308.origin.x = v114;
-    v308.origin.y = v113;
-    v308.size.width = r1a;
-    v308.size.height = v115;
-    IsNull = CGRectIsNull(v308);
-    v158 = v114 + -2.0;
-    p_x = &v286->origin.x;
-    v286[1].origin.x = x;
+    v356.origin.x = v149;
+    v356.origin.y = v148;
+    v356.size.width = r1a;
+    v356.size.height = v150;
+    IsNull = CGRectIsNull(v356);
+    v195 = v149 + -2.0;
+    p_x = &v337->origin.x;
+    v337[1].origin.x = x;
     p_x[5] = y;
-    v160 = r1a + 2.0;
+    v197 = r1a + 2.0;
     if (IsNull)
     {
-      v160 = r1a;
+      v197 = r1a;
     }
 
     p_x[6] = width;
@@ -2101,243 +2185,307 @@ LABEL_242:
     aBlock[1] = 3221225472;
     aBlock[2] = __48__PKPassTileView__layoutWithBounds_applyLayout___block_invoke;
     aBlock[3] = &unk_1E80126F8;
-    aBlock[6] = &v279;
+    aBlock[6] = &v330;
     if ((IsNull | _shouldReverseLayoutDirection))
     {
-      v158 = v114;
+      v195 = v149;
     }
 
-    v277 = !IsNull;
-    *&aBlock[7] = v158;
-    *&aBlock[8] = v113;
-    *&aBlock[9] = v160;
-    *&aBlock[10] = v115;
+    v328 = !IsNull;
+    *&aBlock[7] = v195;
+    *&aBlock[8] = v148;
+    *&aBlock[9] = v197;
+    *&aBlock[10] = v150;
     aBlock[11] = v14;
     aBlock[4] = selfCopy;
-    aBlock[5] = &v285;
+    aBlock[5] = &v336;
     r1b = _Block_copy(aBlock);
     if (v13 == 1)
     {
-      v161 = 0x100000001;
+      v198 = 0x100000001;
     }
 
     else
     {
-      v161 = v14 & 2 | 0x100000000;
+      v198 = v14 & 2 | 0x100000000;
     }
 
-    v162 = v261;
-    v262 = v161;
-    r1b[2](v252, v162);
+    v199 = v311;
+    v312 = v198;
+    r1b[2](v301, v199);
     if (*(selfCopy + 816))
     {
       if (isFullBleed)
       {
         [*(selfCopy + 816) alpha];
-        v166 = v165;
-        v167 = *(selfCopy + 744);
-        superview = [v167 superview];
-        [v167 convertRect:superview fromView:{bounds, layout, v259, v260}];
-        v170 = v169;
-        v172 = v171;
-        v174 = v173;
-        v176 = v175;
+        v203 = v202;
+        v204 = *(selfCopy + 744);
+        superview = [v204 superview];
+        [v204 convertRect:superview fromView:{bounds, layout, v308, v309}];
+        v207 = v206;
+        v209 = v208;
+        v211 = v210;
+        v213 = v212;
 
-        [*(selfCopy + 816) pkui_setFrame:*(selfCopy + 1072) & (v166 > 0.0) animated:{v170, v172, v174, v176}];
+        [*(selfCopy + 816) pkui_setFrame:*(selfCopy + 1072) & (v203 > 0.0) animated:{v207, v209, v211, v213}];
       }
 
       else
       {
-        r1b[2](v249, v260);
+        r1b[2](v298, v309);
       }
 
-      goto LABEL_130;
+      goto LABEL_133;
     }
 
     if (*(selfCopy + 856))
     {
-      v177 = *(selfCopy + 744);
-      superview2 = [v177 superview];
-      [v177 convertRect:superview2 fromView:{bounds, layout, v259, v250}];
-      v180 = v179;
-      v182 = v181;
-      v184 = v183;
-      v186 = v185;
+      v214 = *(selfCopy + 744);
+      superview2 = [v214 superview];
+      [v214 convertRect:superview2 fromView:{bounds, layout, v308, v299}];
+      v217 = v216;
+      v219 = v218;
+      v221 = v220;
+      v223 = v222;
 
-      [*(selfCopy + 856) pkui_setFrame:*(selfCopy + 1072) animated:{v180, v182, v184, v186}];
-LABEL_130:
-      (r1b[2])(r1b, *(selfCopy + 808), v262, v251, v237);
-      v274 = 0u;
-      v275 = 0u;
-      v272 = 0u;
-      v273 = 0u;
-      v201 = *(selfCopy + 1000);
-      v202 = [v201 countByEnumeratingWithState:&v272 objects:v297 count:16];
-      if (!v202)
+      [*(selfCopy + 856) pkui_setFrame:*(selfCopy + 1072) animated:{v217, v219, v221, v223}];
+LABEL_133:
+      (r1b[2])(r1b, *(selfCopy + 808), v312, v300, v279);
+      v325 = 0u;
+      v326 = 0u;
+      v323 = 0u;
+      v324 = 0u;
+      v238 = *(selfCopy + 1000);
+      v239 = [v238 countByEnumeratingWithState:&v323 objects:v348 count:16];
+      if (!v239)
       {
-        goto LABEL_158;
+        goto LABEL_164;
       }
 
-      v203 = *v273;
-      v204 = MEMORY[0x1E69DDCE0];
+      v240 = *v324;
+      v310 = *MEMORY[0x1E69BB7F8];
+      v241 = MEMORY[0x1E69DDCE0];
       rect = width;
       while (1)
       {
-        v205 = 0;
+        v242 = 0;
         do
         {
-          if (*v273 != v203)
+          if (*v324 != v240)
           {
-            objc_enumerationMutation(v201);
+            objc_enumerationMutation(v238);
           }
 
-          v206 = height;
-          v207 = *(*(&v272 + 1) + 8 * v205);
-          if (v207)
+          v243 = height;
+          v244 = *(*(&v323 + 1) + 8 * v242);
+          if (v244)
           {
-            v208 = *(v207 + 112);
-            v209 = v204 + 1;
-            v210 = v204 + 2;
-            v211 = v204 + 3;
-            v212 = (v207 + 24);
-            v213 = (v207 + 32);
-            v214 = (v207 + 40);
-            v215 = (v207 + 48);
-            v217 = v207 + 8;
-            v207 = *(v207 + 8);
-            v216 = *(v217 + 8);
-            if (v216)
+            v245 = *(v244 + 112);
+            v246 = v241 + 1;
+            v247 = v241 + 2;
+            v248 = v241 + 3;
+            v249 = (v244 + 24);
+            v250 = (v244 + 32);
+            v251 = (v244 + 40);
+            v252 = (v244 + 48);
+            v254 = v244 + 8;
+            v244 = *(v244 + 8);
+            v253 = *(v254 + 8);
+            if (v253)
             {
-              v212 = v204;
+              v249 = v241;
             }
 
             else
             {
-              v211 = v215;
-              v210 = v214;
-              v209 = v213;
+              v248 = v252;
+              v247 = v251;
+              v246 = v250;
             }
 
-            v218 = *v212;
-            v219 = *v209;
-            v220 = *v210;
-            v221 = *v211;
+            v255 = *v249;
+            v256 = *v246;
+            v257 = *v247;
+            v258 = *v248;
           }
 
           else
           {
-            v216 = 0;
-            v208 = 0;
-            v221 = 0.0;
-            v220 = 0.0;
-            v219 = 0.0;
-            v218 = 0.0;
+            v253 = 0;
+            v245 = 0;
+            v258 = 0.0;
+            v257 = 0.0;
+            v256 = 0.0;
+            v255 = 0.0;
           }
 
-          v222 = v207;
-          [v222 frame];
-          v224 = v219 + v223;
-          v226 = v218 + v225;
-          v228 = v227 - (v221 + v219);
-          v230 = v229 - (v220 + v218);
-          if (v216 <= 2)
+          v259 = v244;
+          [v259 frame];
+          v266.n128_f64[0] = v256 + v266.n128_f64[0];
+          v267 = v255 + v260.n128_f64[0];
+          v268 = v261.n128_f64[0] - (v258 + v256);
+          v269 = v262.n128_f64[0] - (v257 + v255);
+          if (v253 > 2)
           {
-            if (v216)
+            switch(v253)
             {
-              if (v216 == 1)
-              {
-                PKSizeAlignedInRect();
-                goto LABEL_154;
-              }
+              case 3:
+                v266.n128_f64[0] = v261.n128_f64[0] - (v258 + v256);
+                v260.n128_f64[0] = v262.n128_f64[0] - (v257 + v255);
+                v261.n128_f64[0] = x;
+                v262.n128_f64[0] = y;
+                v263.n128_f64[0] = rect;
+                v264.n128_f64[0] = v243;
+                PKSizeAlignedInRect(v321 | 0x100000000, v266, v260, v261, v262, v263, v264, v265);
+                break;
+              case 4:
+                v266.n128_f64[0] = v261.n128_f64[0] - (v258 + v256);
+                v260.n128_f64[0] = v262.n128_f64[0] - (v257 + v255);
+                v261.n128_f64[0] = x;
+                v262.n128_f64[0] = y;
+                v263.n128_f64[0] = rect;
+                v264.n128_f64[0] = v243;
+                PKSizeAlignedInRect(v321, v266, v260, v261, v262, v263, v264, v265);
+                break;
+              case 5:
+                v266.n128_f64[0] = v261.n128_f64[0] - (v258 + v256);
+                v260.n128_f64[0] = v262.n128_f64[0] - (v257 + v255);
+                v262.n128_f64[0] = v313;
+                v261.n128_f64[0] = v314;
+                v264.n128_f64[0] = v315;
+                v263.n128_f64[0] = v316;
+                PKSizeAlignedInRect(0x100000001, v266, v260, v261, v262, v263, v264, v265);
+                break;
+              default:
+                goto LABEL_160;
+            }
+          }
 
-              if (v216 != 2)
-              {
-                goto LABEL_154;
-              }
-
-              if (v208)
-              {
-                v309.origin.x = x;
-                v309.origin.y = y;
-                v309.size.width = rect;
-                v309.size.height = v206;
-                CGRectInset(v309, -4.0, -2.0);
-              }
+          else if (v253)
+          {
+            if (v253 == 1)
+            {
+              v266.n128_f64[0] = v261.n128_f64[0] - (v258 + v256);
+              v260.n128_f64[0] = v262.n128_f64[0] - (v257 + v255);
+              v261.n128_f64[0] = x;
+              v262.n128_f64[0] = y;
+              v263.n128_f64[0] = rect;
+              v264.n128_f64[0] = v243;
+              PKSizeAlignedInRect(v312, v266, v260, v261, v262, v263, v264, v265);
+              goto LABEL_160;
             }
 
-LABEL_153:
-            PKSizeAlignedInRect();
-            v226 = v231;
-            v228 = v232;
-            v230 = v233;
-            goto LABEL_154;
+            if (v253 != 2)
+            {
+              goto LABEL_160;
+            }
+
+            if (v245)
+            {
+              v357.origin.x = x;
+              v357.origin.y = y;
+              v357.size.width = rect;
+              v357.size.height = v243;
+              *v266.n128_u64 = CGRectInset(v357, -4.0, -2.0);
+              v263.n128_u64[0] = v266.n128_u64[0];
+              v264.n128_u64[0] = v260.n128_u64[0];
+              v265.n128_u64[0] = v261.n128_u64[0];
+              v270 = v262.n128_u64[0];
+              v271 = 0;
+            }
+
+            else
+            {
+              v271 = 0x100000000;
+              v263.n128_f64[0] = x;
+              v264.n128_f64[0] = y;
+              v265.n128_f64[0] = rect;
+              v270 = *&v243;
+            }
+
+            v266.n128_f64[0] = v268;
+            v260.n128_f64[0] = v269;
+            v261.n128_u64[0] = v263.n128_u64[0];
+            v262.n128_u64[0] = v264.n128_u64[0];
+            v263.n128_u64[0] = v265.n128_u64[0];
+            v264.n128_u64[0] = v270;
+            PKSizeAlignedInRect(v271 | v321, v266, v260, v261, v262, v263, v264, v265);
           }
 
-          if (v216 == 3 || v216 == 4 || v216 == 5)
+          else
           {
-            goto LABEL_153;
+            v261.n128_u64[0] = *&slice.origin.x;
+            v262.n128_u64[0] = *&slice.origin.y;
+            v263.n128_u64[0] = *&slice.size.width;
+            v264.n128_u64[0] = *&slice.size.height;
+            v266.n128_f64[0] = v268;
+            v260.n128_f64[0] = v269;
+            PKSizeAlignedInRect(v310, v266, v260, v261, v262, v263, v264, v265);
           }
 
-LABEL_154:
-          [v222 pkui_setFrame:*(selfCopy + 1072) animated:{v224 - v219, v226 - v218, v228 - (-v221 - v219), v230 - (-v220 - v218)}];
+          v267 = v272;
+          v268 = v273;
+          v269 = v274;
+LABEL_160:
+          [v259 pkui_setFrame:*(selfCopy + 1072) animated:{v266.n128_f64[0] - v256, v267 - v255, v268 - (-v258 - v256), v269 - (-v257 - v255)}];
 
-          height = v206;
-          ++v205;
+          height = v243;
+          ++v242;
         }
 
-        while (v202 != v205);
-        v116 = v102;
-        v234 = [v201 countByEnumeratingWithState:&v272 objects:v297 count:16];
-        v202 = v234;
-        if (!v234)
+        while (v239 != v242);
+        v151 = v119;
+        v275 = [v238 countByEnumeratingWithState:&v323 objects:v348 count:16];
+        v239 = v275;
+        if (!v275)
         {
-LABEL_158:
+LABEL_164:
 
-          goto LABEL_159;
+          goto LABEL_165;
         }
       }
     }
 
     if (image4)
     {
-      v187 = *(selfCopy + 800);
+      v224 = *(selfCopy + 800);
       if (isFullBleed)
       {
         [*(selfCopy + 800) alpha];
-        v189 = v188;
-        v190 = *(selfCopy + 744);
-        superview3 = [v190 superview];
-        [v190 convertRect:superview3 fromView:{bounds, layout, v259, v253}];
-        v193 = v192;
-        v195 = v194;
-        v197 = v196;
-        v199 = v198;
+        v226 = v225;
+        v227 = *(selfCopy + 744);
+        superview3 = [v227 superview];
+        [v227 convertRect:superview3 fromView:{bounds, layout, v308, v302}];
+        v230 = v229;
+        v232 = v231;
+        v234 = v233;
+        v236 = v235;
 
-        [*(selfCopy + 800) pkui_setFrame:*(selfCopy + 1072) & (v189 > 0.0) animated:{v193, v195, v197, v199}];
-        goto LABEL_130;
+        [*(selfCopy + 800) pkui_setFrame:*(selfCopy + 1072) & (v226 > 0.0) animated:{v230, v232, v234, v236}];
+        goto LABEL_133;
       }
 
-      v200 = 0x100000001;
-      v164.n128_f64[0] = v240;
-      v163.n128_u64[0] = v238;
+      v237 = 0x100000001;
+      v201.n128_f64[0] = v282;
+      v200.n128_u64[0] = v280;
     }
 
     else
     {
-      v187 = *(selfCopy + 792);
-      v163.n128_f64[0] = v239;
-      v200 = v262;
-      v164.n128_f64[0] = v241;
+      v224 = *(selfCopy + 792);
+      v200.n128_f64[0] = v281;
+      v237 = v312;
+      v201.n128_f64[0] = v283;
     }
 
-    (r1b[2])(r1b, v187, v200, v163, v164);
-    goto LABEL_130;
+    (r1b[2])(r1b, v224, v237, v200, v201);
+    goto LABEL_133;
   }
 
-LABEL_159:
-  _Block_object_dispose(&v279, 8);
-  _Block_object_dispose(&v285, 8);
-  return v259;
+LABEL_165:
+  _Block_object_dispose(&v330, 8);
+  _Block_object_dispose(&v336, 8);
+  return v308;
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -2365,87 +2513,83 @@ LABEL_159:
   return v3;
 }
 
-void __48__PKPassTileView__layoutWithBounds_applyLayout___block_invoke(uint64_t a1, void *a2, double a3, CGFloat a4)
+void __48__PKPassTileView__layoutWithBounds_applyLayout___block_invoke(uint64_t a1, void *a2, uint64_t a3, double a4, CGFloat a5)
 {
-  v7 = a2;
-  v8 = *(*(a1 + 40) + 8);
-  v33 = *(v8 + 32);
-  v34 = *(v8 + 48);
-  v32 = v7;
-  [v7 alpha];
-  v10 = v9;
-  v11 = *(*(a1 + 40) + 8);
-  v36.origin.x = v11[1].origin.x;
-  v36.origin.y = v11[1].origin.y;
-  ++v11;
-  v36.size.width = v11->size.width;
-  v36.size.height = v11->size.height;
-  CGRectDivide(v36, (*(*(a1 + 48) + 8) + 32), v11, a4, CGRectMinYEdge);
-  if (*(a1 + 96))
+  v9 = a2;
+  v10 = *(*(a1 + 40) + 8);
+  v44 = *(v10 + 32);
+  v45 = *(v10 + 48);
+  v43 = v9;
+  [v9 alpha];
+  v12 = v11;
+  v13 = *(*(a1 + 40) + 8);
+  v47.origin.x = v13[1].origin.x;
+  v47.origin.y = v13[1].origin.y;
+  ++v13;
+  v47.size.width = v13->size.width;
+  v47.size.height = v13->size.height;
+  CGRectDivide(v47, (*(*(a1 + 48) + 8) + 32), v13, a5, CGRectMinYEdge);
+  v21 = *(*(a1 + 48) + 8);
+  if ((*(a1 + 96) & 1) == 0)
   {
-    v30 = a3;
-    v31 = v10;
-    v12 = *(a1 + 92);
-    v13 = *(a1 + 56);
-    v14 = *(a1 + 64);
-    v15 = *(a1 + 72);
-    v16 = *(a1 + 80);
-    v37 = CGRectStandardize(*(*(*(a1 + 48) + 8) + 32));
-    x = v37.origin.x;
-    y = v37.origin.y;
-    width = v37.size.width;
-    height = v37.size.height;
-    v39.origin.x = v13;
-    v39.origin.y = v14;
-    v39.size.width = v15;
-    v39.size.height = v16;
-    v38 = CGRectIntersection(v37, v39);
-    v21 = v38.origin.x;
-    v22 = v38.origin.y;
-    v23 = v38.size.width;
-    v24 = v38.size.height;
-    if (CGRectIsNull(v38))
-    {
-LABEL_3:
-      v10 = v31;
-      v25 = *(*(a1 + 48) + 8);
-      v25[4] = x;
-      v25[5] = y;
-      v25[6] = width;
-      v25[7] = height;
-      goto LABEL_4;
-    }
+    v18.n128_u64[0] = *(v21 + 48);
+    goto LABEL_5;
+  }
 
-    if (v12 > 1)
+  v40 = a4;
+  v41 = a5;
+  v42 = v12;
+  v22 = *(a1 + 92);
+  v23 = *(a1 + 56);
+  v24 = *(a1 + 64);
+  v25 = *(a1 + 72);
+  v26 = *(a1 + 80);
+  v48 = CGRectStandardize(*(v21 + 32));
+  x = v48.origin.x;
+  y = v48.origin.y;
+  width = v48.size.width;
+  height = v48.size.height;
+  v50.origin.x = v23;
+  v50.origin.y = v24;
+  v50.size.width = v25;
+  v50.size.height = v26;
+  v49 = CGRectIntersection(v48, v50);
+  v31 = v49.origin.x;
+  v32 = v49.origin.y;
+  v33 = v49.size.width;
+  v34 = v49.size.height;
+  if (!CGRectIsNull(v49))
+  {
+    if (v22 > 1)
     {
-      if (v12 == 2)
+      if (v22 == 2)
       {
-        width = fmax(v21 - x, 0.0);
+        width = fmax(v31 - x, 0.0);
         goto LABEL_3;
       }
 
-      if (v12 == 3)
+      if (v22 == 3)
       {
-        height = fmax(v22 - y, 0.0);
+        height = fmax(v32 - y, 0.0);
         goto LABEL_3;
       }
     }
 
     else
     {
-      if (!v12)
+      if (!v22)
       {
-        v29 = x + width;
-        x = fmin(v21 + v23, x + width);
-        width = v29 - x;
+        v39 = x + width;
+        x = fmin(v31 + v33, x + width);
+        width = v39 - x;
         goto LABEL_3;
       }
 
-      if (v12 == 1)
+      if (v22 == 1)
       {
-        v28 = y + height;
-        y = fmin(v22 + v24, y + height);
-        height = v28 - y;
+        v38 = y + height;
+        y = fmin(v32 + v34, y + height);
+        height = v38 - y;
         goto LABEL_3;
       }
     }
@@ -2454,29 +2598,45 @@ LABEL_3:
     return;
   }
 
-LABEL_4:
-  PKSizeAlignedInRect();
-  if (v10 > 0.0)
+LABEL_3:
+  a5 = v41;
+  v12 = v42;
+  v35 = *(*(a1 + 48) + 8);
+  v35[4] = x;
+  v35[5] = y;
+  v35[6] = width;
+  v35[7] = height;
+  v21 = *(*(a1 + 48) + 8);
+  v18.n128_u64[0] = *(v21 + 48);
+  a4 = fmin(v40, v18.n128_f64[0]);
+LABEL_5:
+  v16.n128_u64[0] = *(v21 + 32);
+  v17.n128_u64[0] = *(v21 + 40);
+  v19.n128_u64[0] = *(v21 + 56);
+  v14.n128_f64[0] = a4;
+  v15.n128_f64[0] = a5;
+  PKSizeAlignedInRect(a3, v14, v15, v16, v17, v18, v19, v20);
+  if (v12 > 0.0)
   {
-    v26 = *(*(a1 + 32) + 1072);
+    v36 = *(*(a1 + 32) + 1072);
   }
 
   else
   {
-    v26 = 0;
+    v36 = 0;
   }
 
-  [v32 pkui_setFrame:v26 animated:*&v30];
-  v27 = *(*(a1 + 40) + 8);
-  if (v10 <= 0.0)
+  [v43 pkui_setFrame:v36 animated:{*&v40, *&v41, *&v42}];
+  v37 = *(*(a1 + 40) + 8);
+  if (v12 <= 0.0)
   {
-    *(v27 + 32) = v33;
-    *(v27 + 48) = v34;
+    *(v37 + 32) = v44;
+    *(v37 + 48) = v45;
   }
 
   else
   {
-    CGRectDivide(*(v27 + 32), (*(*(a1 + 48) + 8) + 32), (v27 + 32), *(*(a1 + 32) + 912), CGRectMinYEdge);
+    CGRectDivide(*(v37 + 32), (*(*(a1 + 48) + 8) + 32), (v37 + 32), *(*(a1 + 32) + 912), CGRectMinYEdge);
   }
 }
 
@@ -2898,7 +3058,7 @@ id __42__PKPassTileView__updateSubviewsAnimated___block_invoke_3(uint64_t a1)
   return v3;
 }
 
-void __42__PKPassTileView__updateSubviewsAnimated___block_invoke_4(uint64_t a1, void *a2, unsigned int a3, int a4)
+void __42__PKPassTileView__updateSubviewsAnimated___block_invoke_4(uint64_t a1, void *a2, unsigned int a3, uint64_t a4)
 {
   v6 = a3;
   if (*(a1 + 40) == 1)
@@ -2920,7 +3080,7 @@ void __42__PKPassTileView__updateSubviewsAnimated___block_invoke_4(uint64_t a1, 
   else
   {
 
-    [a2 pkui_setAlpha:0 animated:v6];
+    [a2 pkui_setAlpha:0 animated:{a4, v6}];
   }
 }
 
@@ -3424,7 +3584,7 @@ LABEL_93:
   }
 }
 
-void __39__PKPassTileView__updateStyleAnimated___block_invoke(uint64_t a1, void *a2, int a3, int a4, double a5)
+void __39__PKPassTileView__updateStyleAnimated___block_invoke(uint64_t a1, void *a2, int a3, uint64_t a4, double a5)
 {
   v7 = 0.0;
   if (!a3)
@@ -3450,7 +3610,7 @@ void __39__PKPassTileView__updateStyleAnimated___block_invoke(uint64_t a1, void 
   else
   {
 
-    [a2 pkui_setAlpha:0 animated:a5];
+    [a2 pkui_setAlpha:0 animated:{a4, a5}];
   }
 }
 

@@ -112,29 +112,26 @@ LABEL_7:
     [NPKProtoNewLibraryHashRequest writeTo:];
   }
 
-  v10 = toCopy;
+  v7 = toCopy;
   PBDataWriterWriteSubmessage();
   has = self->_has;
   if ((has & 2) != 0)
   {
-    resyncID = self->_resyncID;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    lastKnownResyncID = self->_lastKnownResyncID;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
-  v8 = v10;
+  v6 = v7;
   if ((has & 4) != 0)
   {
-    syncID = self->_syncID;
     PBDataWriterWriteUint32Field();
-    v8 = v10;
+    v6 = v7;
   }
 }
 

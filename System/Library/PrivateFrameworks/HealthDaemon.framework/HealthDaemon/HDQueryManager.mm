@@ -11,6 +11,7 @@
 - (void)_performAsyncWithUnitTestDelegate:(void *)delegate;
 - (void)dealloc;
 - (void)logDiagnostics;
+- (void)processWithBundleIdentifier:(id)identifier didTransitionFromState:(unsigned int)state toState:(unsigned int)toState;
 - (void)scheduleDatabaseAccessForQueryServer:(id)server block:(id)block;
 - (void)startQueryServer:(id)server completion:(id)completion;
 - (void)unitTest_suspendWithCount:(unint64_t)count;
@@ -63,7 +64,7 @@
 
 - (void)startQueryServer:(id)server completion:(id)completion
 {
-  v75[2] = *MEMORY[0x277D85DE8];
+  v74[2] = *MEMORY[0x277D85DE8];
   serverCopy = server;
   completionCopy = completion;
   v9 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:self activityName:@"Start"];
@@ -71,48 +72,48 @@
   aBlock[1] = 3221225472;
   aBlock[2] = __46__HDQueryManager_startQueryServer_completion___block_invoke;
   aBlock[3] = &unk_278616CC8;
-  v68 = completionCopy;
-  v59 = v9;
-  v67 = v59;
-  v62 = _Block_copy(aBlock);
+  v67 = completionCopy;
+  v58 = v9;
+  v66 = v58;
+  v61 = _Block_copy(aBlock);
   if (serverCopy)
   {
     objc_initWeak(&location, self);
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = __46__HDQueryManager_startQueryServer_completion___block_invoke_2;
-    v63[3] = &unk_278616CF0;
-    objc_copyWeak(&v64, &location);
-    [serverCopy setQueryDidFinishHandler:v63];
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __46__HDQueryManager_startQueryServer_completion___block_invoke_2;
+    v62[3] = &unk_278616CF0;
+    objc_copyWeak(&v63, &location);
+    [serverCopy setQueryDidFinishHandler:v62];
     daemon = [(HDQueryManager *)self daemon];
     [daemon unitTest_queryServerDidInit:serverCopy];
 
     os_unfair_lock_lock(&self->_lock);
-    v58 = serverCopy;
-    v57 = v62;
+    v57 = serverCopy;
+    v56 = v61;
     if (!self)
     {
 LABEL_33:
 
       os_unfair_lock_unlock(&self->_lock);
-      objc_destroyWeak(&v64);
+      objc_destroyWeak(&v63);
       objc_destroyWeak(&location);
       goto LABEL_34;
     }
 
     os_unfair_lock_assert_owner(&self->_lock);
-    v69 = 0;
-    v11 = v58;
+    v68 = 0;
+    v11 = v57;
     os_unfair_lock_assert_owner(&self->_lock);
     queryUUID = [v11 queryUUID];
-    v61 = [(NSMutableDictionary *)self->_queryServersByUUID objectForKey:queryUUID];
+    v60 = [(NSMutableDictionary *)self->_queryServersByUUID objectForKey:queryUUID];
     v12 = MEMORY[0x277CCC308];
-    if (v61)
+    if (v60)
     {
       _HKInitializeLogging();
       v13 = *v12;
       v14 = *v12;
-      if (v61 == v11)
+      if (v60 == v11)
       {
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
@@ -121,7 +122,7 @@ LABEL_33:
           _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "Ignoring duplicate attempt to start query server %{public}@", buf, 0xCu);
         }
 
-        [MEMORY[0x277CCA9B8] hk_assignError:&v69 code:3 description:@"Attempt to start a query with the same identifier."];
+        [MEMORY[0x277CCA9B8] hk_assignError:&v68 code:3 description:@"Attempt to start a query with the same identifier."];
         v22 = 0;
         goto LABEL_29;
       }
@@ -133,42 +134,42 @@ LABEL_33:
         _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "Replacing existing query server %{public}@ with a new instance", buf, 0xCu);
       }
 
-      [(HDQueryManager *)self _lock_unregisterQueryServer:v61];
+      [(HDQueryManager *)self _lock_unregisterQueryServer:v60];
     }
 
     client = [v11 client];
     process = [client process];
 
-    v55 = [(HDQueryManager *)self _monitoringIdentifierForProcess:process];
-    if (!v55)
+    v54 = [(HDQueryManager *)self _monitoringIdentifierForProcess:process];
+    if (!v54)
     {
       _HKInitializeLogging();
       v43 = *v12;
       if (os_log_type_enabled(*v12, OS_LOG_TYPE_ERROR))
       {
-        v50 = v43;
-        v51 = objc_opt_class();
-        v52 = v51;
+        v49 = v43;
+        v50 = objc_opt_class();
+        v51 = v50;
         name = [process name];
         processIdentifier = [process processIdentifier];
         *buf = 138544130;
-        *&buf[4] = v51;
+        *&buf[4] = v50;
         *&buf[12] = 2114;
         *&buf[14] = queryUUID;
         *&buf[22] = 2112;
-        v71 = name;
-        LOWORD(v72) = 1024;
-        *(&v72 + 2) = processIdentifier;
-        _os_log_error_impl(&dword_228986000, v50, OS_LOG_TYPE_ERROR, "Ignoring attempt to start query server of class %{public}@ for UUID %{public}@: process %@ (%d) has no bundle identifier", buf, 0x26u);
+        v70 = name;
+        LOWORD(v71) = 1024;
+        *(&v71 + 2) = processIdentifier;
+        _os_log_error_impl(&dword_228986000, v49, OS_LOG_TYPE_ERROR, "Ignoring attempt to start query server of class %{public}@ for UUID %{public}@: process %@ (%d) has no bundle identifier", buf, 0x26u);
       }
 
-      [MEMORY[0x277CCA9B8] hk_assignError:&v69 code:3 description:@"Missing process bundle identifier"];
+      [MEMORY[0x277CCA9B8] hk_assignError:&v68 code:3 description:@"Missing process bundle identifier"];
       v22 = 0;
       goto LABEL_25;
     }
 
     v16 = v11;
-    v17 = v55;
+    v17 = v54;
     os_unfair_lock_assert_owner(&self->_lock);
     _HKInitializeLogging();
     v18 = *v12;
@@ -202,15 +203,15 @@ LABEL_16:
 
         if ((isBackgroundRunning & 1) == 0)
         {
-          v75[0] = @"queryType";
+          v74[0] = @"queryType";
           v31 = objc_opt_class();
           v32 = NSStringFromClass(v31);
           *buf = v32;
-          v75[1] = @"queryId";
+          v74[1] = @"queryId";
           queryUUID3 = [v28 queryUUID];
           uUIDString = [queryUUID3 UUIDString];
           *&buf[8] = uUIDString;
-          v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v75 count:2];
+          v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v74 count:2];
           v36 = [v35 mutableCopy];
 
           sampleType = [v28 sampleType];
@@ -229,7 +230,7 @@ LABEL_16:
 LABEL_25:
 LABEL_29:
 
-        v44 = v69;
+        v44 = v68;
         if (v22)
         {
           v45 = *(v22 + 40);
@@ -237,11 +238,11 @@ LABEL_29:
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __52__HDQueryManager__lock_startQueryServer_completion___block_invoke_2;
-          v71 = &unk_278616D18;
-          v72 = v11;
-          v47 = v57;
-          v73 = v45;
-          v74 = v47;
+          v70 = &unk_278616D18;
+          v71 = v11;
+          v47 = v56;
+          v72 = v45;
+          v73 = v47;
           v48 = v45;
           dispatch_async(v46, buf);
         }
@@ -251,12 +252,12 @@ LABEL_29:
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __52__HDQueryManager__lock_startQueryServer_completion___block_invoke;
-          v71 = &unk_278614008;
-          v73 = v57;
-          v72 = v44;
+          v70 = &unk_278614008;
+          v72 = v56;
+          v71 = v44;
           HKDispatchAsyncOnGlobalConcurrentQueue();
 
-          v48 = v73;
+          v48 = v72;
         }
 
         goto LABEL_33;
@@ -273,10 +274,9 @@ LABEL_29:
   }
 
   v42 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:@"nil query server"];
-  (*(v62 + 2))(v62, 0, v42);
+  (*(v61 + 2))(v61, 0, v42);
 
 LABEL_34:
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__HDQueryManager_startQueryServer_completion___block_invoke(uint64_t a1)
@@ -345,7 +345,7 @@ void __52__HDQueryManager__lock_startQueryServer_completion___block_invoke_2(uin
   {
     v26 = v11;
     *&v11->_executingDatabaseAccessBlocks = CFAbsoluteTimeGetCurrent();
-    v12 = [v9 copy];
+    v12 = objc_msgSend_copy(v9);
     v13 = *&v26->_lock._os_unfair_lock_opaque;
     *&v26->_lock._os_unfair_lock_opaque = v12;
 
@@ -353,7 +353,7 @@ void __52__HDQueryManager__lock_startQueryServer_completion___block_invoke_2(uin
     client = [v10 client];
     process = [client process];
     bundleIdentifier = [process bundleIdentifier];
-    v17 = [bundleIdentifier copy];
+    v17 = objc_msgSend_copy(bundleIdentifier);
     queryCollectionsByProcessBundleIdentifier = v26->_queryCollectionsByProcessBundleIdentifier;
     v26->_queryCollectionsByProcessBundleIdentifier = v17;
 
@@ -641,91 +641,90 @@ LABEL_52:
 
 void __51__HDQueryManager__lock_executeDatabaseAccessBlocks__block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCC308];
-  v3 = *MEMORY[0x277CCC308];
-  v4 = _HKLogSignpostIDGenerate();
+  v3 = _HKLogSignpostIDGenerate();
   Current = CFAbsoluteTimeGetCurrent();
   [*(a1 + 32) activationTime];
-  v7 = v6;
-  v8 = CFAbsoluteTimeGetCurrent();
-  v9 = *(a1 + 40);
-  if (v9)
+  v6 = v5;
+  v7 = CFAbsoluteTimeGetCurrent();
+  v8 = *(a1 + 40);
+  if (v8)
   {
-    v10 = *(v9 + 40);
+    v9 = *(v8 + 40);
   }
 
   else
   {
-    v10 = 0.0;
+    v9 = 0.0;
   }
 
   _HKInitializeLogging();
-  v11 = *v2;
+  v10 = *v2;
   if (os_log_type_enabled(*v2, OS_LOG_TYPE_INFO))
   {
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138543874;
-    *&buf[4] = v12;
+    *&buf[4] = v11;
     *&buf[12] = 2048;
-    *&buf[14] = Current - v7;
+    *&buf[14] = Current - v6;
     *&buf[22] = 2048;
-    v31 = v8 - v10;
-    _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_INFO, "%{public}@: Total activation delay: %.3fs, database access delay: %.3fs", buf, 0x20u);
+    v29 = v7 - v9;
+    _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "%{public}@: Total activation delay: %.3fs, database access delay: %.3fs", buf, 0x20u);
   }
 
   _HKInitializeLogging();
-  v13 = *v2;
+  v12 = *v2;
   if (os_signpost_enabled(*v2))
   {
+    v13 = v12;
     v14 = v13;
-    v15 = v14;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
-      v16 = *(a1 + 32);
+      v15 = *(a1 + 32);
       *buf = 138543362;
-      *&buf[4] = v16;
-      _os_signpost_emit_with_name_impl(&dword_228986000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v4, "query-run", "server=%{public}@", buf, 0xCu);
+      *&buf[4] = v15;
+      _os_signpost_emit_with_name_impl(&dword_228986000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v3, "query-run", "server=%{public}@", buf, 0xCu);
     }
   }
 
-  v17 = *(a1 + 48);
-  v18 = [*(a1 + 32) createDatabaseTransactionContext];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __51__HDQueryManager__lock_executeDatabaseAccessBlocks__block_invoke_314;
-  v28[3] = &unk_278616D40;
-  v29 = *(a1 + 40);
-  [v17 performWithTransactionContext:v18 error:0 block:v28];
+  v16 = *(a1 + 48);
+  v17 = [*(a1 + 32) createDatabaseTransactionContext];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __51__HDQueryManager__lock_executeDatabaseAccessBlocks__block_invoke_314;
+  v26[3] = &unk_278616D40;
+  v27 = *(a1 + 40);
+  [v16 performWithTransactionContext:v17 error:0 block:v26];
 
   _HKInitializeLogging();
-  v19 = *v2;
+  v18 = *v2;
   if (os_signpost_enabled(*v2))
   {
+    v19 = v18;
     v20 = v19;
-    v21 = v20;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_228986000, v21, OS_SIGNPOST_INTERVAL_END, v4, "query-run", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_228986000, v20, OS_SIGNPOST_INTERVAL_END, v3, "query-run", "", buf, 2u);
     }
   }
 
-  v22 = *(a1 + 56);
-  v23 = *(a1 + 40);
-  if (v22)
+  v21 = *(a1 + 56);
+  v22 = *(a1 + 40);
+  if (v21)
   {
-    os_unfair_lock_lock((v22 + 8));
-    [*(v22 + 40) removeObject:v23];
-    if (v23)
+    os_unfair_lock_lock((v21 + 8));
+    [*(v21 + 40) removeObject:v22];
+    if (v22)
     {
-      v24 = *(v23 + 4) + 1;
-      if (v24 > 0x22 || ((1 << v24) & 0x404000001) == 0)
+      v23 = *(v22 + 4) + 1;
+      if (v23 > 0x22 || ((1 << v23) & 0x404000001) == 0)
       {
-        --*(v22 + 48);
+        --*(v21 + 48);
       }
 
-      WeakRetained = objc_loadWeakRetained(v23 + 2);
+      WeakRetained = objc_loadWeakRetained(v22 + 2);
     }
 
     else
@@ -736,16 +735,14 @@ void __51__HDQueryManager__lock_executeDatabaseAccessBlocks__block_invoke(uint64
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __49__HDQueryManager__didExecuteDatabaseAccessBlock___block_invoke;
-    v31 = COERCE_DOUBLE(&unk_278616D90);
-    v32 = v22;
-    v33 = WeakRetained;
-    v26 = WeakRetained;
-    [(HDQueryManager *)v22 _performAsyncWithUnitTestDelegate:buf];
-    [(HDQueryManager *)v22 _lock_executeDatabaseAccessBlocks];
-    os_unfair_lock_unlock((v22 + 8));
+    v29 = COERCE_DOUBLE(&unk_278616D90);
+    v30 = v21;
+    v31 = WeakRetained;
+    v25 = WeakRetained;
+    [(HDQueryManager *)v21 _performAsyncWithUnitTestDelegate:buf];
+    [(HDQueryManager *)v21 _lock_executeDatabaseAccessBlocks];
+    os_unfair_lock_unlock((v21 + 8));
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__HDQueryManager__lock_executeDatabaseAccessBlocks__block_invoke_314(uint64_t a1)
@@ -784,7 +781,7 @@ uint64_t __51__HDQueryManager__lock_executeDatabaseAccessBlocks__block_invoke_31
 
 - (void)_lock_unregisterQueryServer:(uint64_t)server
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   os_unfair_lock_assert_owner((server + 8));
   _HKInitializeLogging();
@@ -792,9 +789,9 @@ uint64_t __51__HDQueryManager__lock_executeDatabaseAccessBlocks__block_invoke_31
   v5 = *MEMORY[0x277CCC308];
   if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_DEBUG))
   {
-    v19 = 138543362;
-    v20 = v3;
-    _os_log_debug_impl(&dword_228986000, v5, OS_LOG_TYPE_DEBUG, "Unregistering query server %{public}@", &v19, 0xCu);
+    v18 = 138543362;
+    v19 = v3;
+    _os_log_debug_impl(&dword_228986000, v5, OS_LOG_TYPE_DEBUG, "Unregistering query server %{public}@", &v18, 0xCu);
   }
 
   queryUUID = [v3 queryUUID];
@@ -829,13 +826,11 @@ uint64_t __51__HDQueryManager__lock_executeDatabaseAccessBlocks__block_invoke_31
     v8 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
-      v20 = queryUUID;
-      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring attempt to unregister untracked query server for %{public}@ ", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = queryUUID;
+      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring attempt to unregister untracked query server for %{public}@ ", &v18, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_monitoringIdentifierForProcess:(uint64_t)process
@@ -899,7 +894,7 @@ LABEL_7:
           queue = v6->_queue;
           v6->_queue = v9;
 
-          v11 = [v8 copy];
+          v11 = objc_msgSend_copy(v8);
           processBundleIdentifier = v6->_processBundleIdentifier;
           v6->_processBundleIdentifier = v11;
 
@@ -983,32 +978,32 @@ id __51__HDQueryManager__lock_foregroundBundleIdentifiers__block_invoke(uint64_t
 
 id __72__HDQueryManager_foregroundAnchoredObjectQueryBundleIdentifiersForType___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [(_HDProcessQueryCollection *)v3 queryServers];
   v5 = [v4 count];
 
   if (v5)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v6 = [(_HDProcessQueryCollection *)v3 queryServers];
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v7)
     {
-      v8 = *v20;
+      v8 = *v19;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * i);
+          v10 = *(*(&v18 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -1023,7 +1018,7 @@ id __72__HDQueryManager_foregroundAnchoredObjectQueryBundleIdentifiersForType___
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v7)
         {
           continue;
@@ -1072,22 +1067,78 @@ LABEL_14:
     v13 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v13;
+}
+
+- (void)processWithBundleIdentifier:(id)identifier didTransitionFromState:(unsigned int)state toState:(unsigned int)toState
+{
+  v5 = *&toState;
+  identifierCopy = identifier;
+  os_unfair_lock_lock(&self->_lock);
+  v7 = [(HDQueryManager *)self _lock_queryCollectionForBundleIdentifier:identifierCopy createIfNecessary:0];
+  if (v7)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_daemon);
+    behavior = [WeakRetained behavior];
+    isAppleWatch = [behavior isAppleWatch];
+    if (v5 == 4 && (isAppleWatch & 1) != 0)
+    {
+      daemon = [(HDQueryManager *)self daemon];
+      processStateManager = [daemon processStateManager];
+      v13 = [processStateManager isApplicationInExtendedRuntimeSessionForBundleIdentifier:identifierCopy];
+
+      v5 = (v13 & 1) != 0 ? 8 : 4;
+    }
+
+    else
+    {
+    }
+
+    if ([v7[5] applicationState] != v5)
+    {
+      v14 = [[HDQueryServerClientState alloc] initWithApplicationState:v5];
+      objc_setProperty_nonatomic_copy(v7, v15, v14, 40);
+
+      v16 = v7;
+      if (self)
+      {
+        os_unfair_lock_assert_owner(&self->_lock);
+        v17 = v16[4];
+        queryServers = [(_HDProcessQueryCollection *)v16 queryServers];
+        v19 = objc_msgSend_copy(queryServers);
+
+        v20 = v7[5];
+        v21 = v16[3];
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = __67__HDQueryManager__lock_handleClientStateChangeWithQueryCollection___block_invoke;
+        block[3] = &unk_278616D68;
+        v27 = v16;
+        v28 = v17;
+        v29 = v19;
+        v30 = v20;
+        v22 = v20;
+        v23 = v19;
+        v24 = v17;
+        dispatch_async(v21, block);
+      }
+    }
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
 }
 
 void __67__HDQueryManager__lock_handleClientStateChangeWithQueryCollection___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __67__HDQueryManager__lock_handleClientStateChangeWithQueryCollection___block_invoke_2;
-  v29[3] = &unk_278613920;
+  v35 = *MEMORY[0x277D85DE8];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __67__HDQueryManager__lock_handleClientStateChangeWithQueryCollection___block_invoke_2;
+  v28[3] = &unk_278613920;
   v2 = *(a1 + 32);
-  v30 = *(a1 + 40);
-  v31 = *(a1 + 48);
-  v3 = v29;
+  v29 = *(a1 + 40);
+  v30 = *(a1 + 48);
+  v3 = v28;
   if (v2)
   {
     dispatch_assert_queue_V2(*(v2 + 24));
@@ -1105,125 +1156,122 @@ void __67__HDQueryManager__lock_handleClientStateChangeWithQueryCollection___blo
     handler[1] = 3221225472;
     handler[2] = __77___HDProcessQueryCollection_queue_startStateChangeTimerWithInterval_handler___block_invoke;
     handler[3] = &unk_278613658;
-    v33 = v3;
+    v32 = v3;
     dispatch_source_set_event_handler(v9, handler);
     dispatch_resume(*(v2 + 16));
   }
 
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v10 = *(a1 + 48);
-  v11 = [v10 countByEnumeratingWithState:&v25 objects:v35 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v26;
+    v13 = *v25;
     do
     {
       v14 = 0;
       do
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v25 + 1) + 8 * v14++) clientStateWillChange:*(a1 + 56)];
+        [*(*(&v24 + 1) + 8 * v14++) clientStateWillChange:*(a1 + 56)];
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v25 objects:v35 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v24 objects:v34 count:16];
     }
 
     while (v12);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v15 = *(a1 + 48);
-  v16 = [v15 countByEnumeratingWithState:&v21 objects:v34 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v20 objects:v33 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v22;
+    v18 = *v21;
     do
     {
       v19 = 0;
       do
       {
-        if (*v22 != v18)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [*(*(&v21 + 1) + 8 * v19++) clientStateDidChange:{*(a1 + 56), v21}];
+        [*(*(&v20 + 1) + 8 * v19++) clientStateDidChange:{*(a1 + 56), v20}];
       }
 
       while (v17 != v19);
-      v17 = [v15 countByEnumeratingWithState:&v21 objects:v34 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v20 objects:v33 count:16];
     }
 
     while (v17);
   }
 
   [(_HDProcessQueryCollection *)*(a1 + 32) queue_cancelStateChangeTimer];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HDQueryManager__lock_handleClientStateChangeWithQueryCollection___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC308];
   if (os_log_type_enabled(*MEMORY[0x277CCC308], OS_LOG_TYPE_FAULT))
   {
-    v5 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v6 = v2;
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 2048;
-    v10 = [v4 count];
-    _os_log_fault_impl(&dword_228986000, v6, OS_LOG_TYPE_FAULT, "Failed to finish client state transition in time for process %@ (%lu queries)", &v7, 0x16u);
+    v4 = *(a1 + 32);
+    v3 = *(a1 + 40);
+    v5 = v2;
+    v6 = 138412546;
+    v7 = v4;
+    v8 = 2048;
+    v9 = [v3 count];
+    _os_log_fault_impl(&dword_228986000, v5, OS_LOG_TYPE_FAULT, "Failed to finish client state transition in time for process %@ (%lu queries)", &v6, 0x16u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (id)diagnosticDescription
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
-  v3 = [(NSMutableArray *)self->_executingDatabaseAccessBlocks copy];
-  v4 = [(NSMutableArray *)self->_pendingDatabaseAccessBlocks copy];
+  v3 = objc_msgSend_copy(self->_executingDatabaseAccessBlocks);
+  v4 = objc_msgSend_copy(self->_pendingDatabaseAccessBlocks);
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   queryCollectionsByProcessBundleIdentifier = self->_queryCollectionsByProcessBundleIdentifier;
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = __39__HDQueryManager_diagnosticDescription__block_invoke;
-  v61[3] = &unk_278616E00;
-  v44 = v5;
-  v62 = v44;
-  [(NSMutableDictionary *)queryCollectionsByProcessBundleIdentifier enumerateKeysAndObjectsUsingBlock:v61];
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = __39__HDQueryManager_diagnosticDescription__block_invoke;
+  v60[3] = &unk_278616E00;
+  v43 = v5;
+  v61 = v43;
+  [(NSMutableDictionary *)queryCollectionsByProcessBundleIdentifier enumerateKeysAndObjectsUsingBlock:v60];
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v8 = self->_queryCollectionsByProcessBundleIdentifier;
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __39__HDQueryManager_diagnosticDescription__block_invoke_2;
-  v59[3] = &unk_278616E00;
-  v43 = v7;
-  v60 = v43;
-  [(NSMutableDictionary *)v8 enumerateKeysAndObjectsUsingBlock:v59];
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __39__HDQueryManager_diagnosticDescription__block_invoke_2;
+  v58[3] = &unk_278616E00;
+  v42 = v7;
+  v59 = v42;
+  [(NSMutableDictionary *)v8 enumerateKeysAndObjectsUsingBlock:v58];
   os_unfair_lock_unlock(&self->_lock);
   v9 = [MEMORY[0x277CCAB68] stringWithFormat:@"%@ (%ld active queries)", objc_opt_class(), -[NSMutableDictionary count](self->_queryServersByUUID, "count")];
   [v9 appendFormat:@"\nQuery blocks pending:%lu", objc_msgSend(v4, "count")];
-  v45 = v4;
-  v46 = v3;
-  v48 = v9;
+  v44 = v4;
+  v45 = v3;
+  v47 = v9;
   if ([v4 count])
   {
     if ([v4 count])
@@ -1237,18 +1285,18 @@ void __67__HDQueryManager__lock_handleClientStateChangeWithQueryCollection___blo
         {
           v14 = WeakRetained;
           v15 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v12[5]];
-          v50 = objc_opt_class();
+          v49 = objc_opt_class();
           queryUUID = [v14 queryUUID];
           uUIDString = [queryUUID UUIDString];
           client = [v14 client];
           process = [client process];
           bundleIdentifier = [process bundleIdentifier];
           v21 = HKDiagnosticStringFromDate();
-          [v48 appendFormat:@"\n%@ %@ %@ created %@", v50, uUIDString, bundleIdentifier, v21];
+          [v47 appendFormat:@"\n%@ %@ %@ created %@", v49, uUIDString, bundleIdentifier, v21];
 
-          v9 = v48;
-          v4 = v45;
-          v3 = v46;
+          v9 = v47;
+          v4 = v44;
+          v3 = v45;
         }
 
         else
@@ -1277,26 +1325,26 @@ void __67__HDQueryManager__lock_handleClientStateChangeWithQueryCollection___blo
   if ([v3 count])
   {
     [v9 appendFormat:@"\nQuery blocks executing:"];
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     obj = v3;
-    v51 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
-    if (v51)
+    v50 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
+    if (v50)
     {
-      v49 = *v56;
+      v48 = *v55;
       do
       {
         v24 = 0;
         do
         {
-          if (*v56 != v49)
+          if (*v55 != v48)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v55 + 1) + 8 * v24);
+          v25 = *(*(&v54 + 1) + 8 * v24);
           if (v25 && (v26 = objc_loadWeakRetained((v25 + 16))) != 0)
           {
             v27 = v26;
@@ -1308,9 +1356,9 @@ void __67__HDQueryManager__lock_handleClientStateChangeWithQueryCollection___blo
             process2 = [client2 process];
             bundleIdentifier2 = [process2 bundleIdentifier];
             v35 = HKDiagnosticStringFromDate();
-            v42 = v29;
-            v9 = v48;
-            [v48 appendFormat:@"\n%@ %@ %@ created %@", v42, uUIDString2, bundleIdentifier2, v35];
+            v41 = v29;
+            v9 = v47;
+            [v47 appendFormat:@"\n%@ %@ %@ created %@", v41, uUIDString2, bundleIdentifier2, v35];
           }
 
           else
@@ -1321,15 +1369,15 @@ void __67__HDQueryManager__lock_handleClientStateChangeWithQueryCollection___blo
           ++v24;
         }
 
-        while (v51 != v24);
-        v51 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
+        while (v50 != v24);
+        v50 = [obj countByEnumeratingWithState:&v54 objects:v62 count:16];
       }
 
-      while (v51);
+      while (v50);
     }
 
-    v4 = v45;
-    v3 = v46;
+    v4 = v44;
+    v3 = v45;
   }
 
   else
@@ -1337,19 +1385,18 @@ void __67__HDQueryManager__lock_handleClientStateChangeWithQueryCollection___blo
     [v9 appendFormat:@"\nQuery blocks executing:%lu", objc_msgSend(v3, "count")];
   }
 
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __39__HDQueryManager_diagnosticDescription__block_invoke_3;
-  v52[3] = &unk_278616E48;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __39__HDQueryManager_diagnosticDescription__block_invoke_3;
+  v51[3] = &unk_278616E48;
   v36 = v9;
-  v53 = v36;
-  v54 = v43;
-  v37 = v43;
-  [v44 enumerateKeysAndObjectsUsingBlock:v52];
-  v38 = v54;
+  v52 = v36;
+  v53 = v42;
+  v37 = v42;
+  [v43 enumerateKeysAndObjectsUsingBlock:v51];
+  v38 = v53;
   v39 = v36;
 
-  v40 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
@@ -1372,7 +1419,7 @@ uint64_t __39__HDQueryManager_diagnosticDescription__block_invoke_2(uint64_t a1,
 
 void __39__HDQueryManager_diagnosticDescription__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) appendFormat:@"\n\nProcess: %@", v5];
@@ -1386,7 +1433,7 @@ void __39__HDQueryManager_diagnosticDescription__block_invoke_3(uint64_t a1, voi
   }
 
   v11 = [*(a1 + 40) objectForKeyedSubscript:v5];
-  v23 = v5;
+  v22 = v5;
   if ([v11 isSuspended])
   {
     v12 = *(a1 + 32);
@@ -1410,41 +1457,39 @@ void __39__HDQueryManager_diagnosticDescription__block_invoke_3(uint64_t a1, voi
 
   [v12 appendFormat:v13];
   [*(a1 + 32) appendFormat:@" (%lu queries)", objc_msgSend(v6, "count")];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v15 = v6;
-  v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v25;
+    v18 = *v24;
     do
     {
       v19 = 0;
       do
       {
-        if (*v25 != v18)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
         v20 = *(a1 + 32);
-        v21 = [*(*(&v24 + 1) + 8 * v19) diagnosticDescription];
-        [v20 appendFormat:@"\n%@", v21, v23, v24];
+        v21 = [*(*(&v23 + 1) + 8 * v19) diagnosticDescription];
+        [v20 appendFormat:@"\n%@", v21, v22, v23];
 
         ++v19;
       }
 
       while (v17 != v19);
-      v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v17);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 id __39__HDQueryManager_diagnosticDescription__block_invoke_4(uint64_t a1, void *a2)
@@ -1459,46 +1504,44 @@ id __39__HDQueryManager_diagnosticDescription__block_invoke_4(uint64_t a1, void 
 
 - (void)logDiagnostics
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   diagnosticDescription = [(HDQueryManager *)self diagnosticDescription];
   v3 = [diagnosticDescription componentsSeparatedByString:@"\n"];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     v7 = MEMORY[0x277CCC308];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         _HKInitializeLogging();
         v10 = *v7;
         if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v17 = v9;
+          v16 = v9;
           _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unitTest_suspendWithCount:(unint64_t)count

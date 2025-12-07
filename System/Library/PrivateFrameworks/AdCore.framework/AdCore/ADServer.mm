@@ -35,7 +35,6 @@
 
 uint64_t __26__ADServer_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance_3 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -109,31 +108,31 @@ uint64_t __26__ADServer_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)buildConfigurationDictionary:(id)dictionary
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   aD_maxServerTime = [MEMORY[0x277CBEAA8] AD_maxServerTime];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v26 = dictionaryCopy;
+  v25 = dictionaryCopy;
   obj = [dictionaryCopy theConfigurations];
-  v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v28;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * i);
+        v10 = *(*(&v27 + 1) + 8 * i);
         [v10 expirationDate];
         if (v11 < aD_maxServerTime)
         {
@@ -168,7 +167,7 @@ uint64_t __26__ADServer_sharedInstance__block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v7);
@@ -176,9 +175,9 @@ uint64_t __26__ADServer_sharedInstance__block_invoke(uint64_t a1)
 
   objc_storeStrong(&self->_configurations, dictionary);
   self->_configurationExpirationTime = aD_maxServerTime;
-  if ([v26 hasResourceConnectProxyURL])
+  if ([v25 hasResourceConnectProxyURL])
   {
-    resourceConnectProxyURL = [v26 resourceConnectProxyURL];
+    resourceConnectProxyURL = [v25 resourceConnectProxyURL];
     resourceConnectProxyURL = self->_resourceConnectProxyURL;
     self->_resourceConnectProxyURL = resourceConnectProxyURL;
   }
@@ -187,8 +186,6 @@ uint64_t __26__ADServer_sharedInstance__block_invoke(uint64_t a1)
   aD_jsonString = [(NSDictionary *)self->_configurations AD_jsonString];
   v23 = [v21 stringWithFormat:@"Configuration Dictionary: %@", aD_jsonString];
   _ADLog(@"iAdServerRequestLogging", v23, 0);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreConfiguration
@@ -247,7 +244,7 @@ uint64_t __26__ADServer_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)deserializeMessage:(id)message error:(id *)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v6 = messageCopy;
   if (!messageCopy || [messageCopy length] <= 7)
@@ -260,31 +257,29 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v13 = 0;
-  [v6 getBytes:&v13 + 4 range:{0, 4}];
-  HIDWORD(v13) = bswap32(HIDWORD(v13));
-  [v6 getBytes:&v13 range:{4, 4}];
-  v10 = bswap32(v13);
-  LODWORD(v13) = v10;
-  if (v10 + 8 <= [v6 length])
+  v12 = 0;
+  [v6 getBytes:&v12 + 4 range:{0, 4}];
+  HIDWORD(v12) = bswap32(HIDWORD(v12));
+  [v6 getBytes:&v12 range:{4, 4}];
+  v9 = bswap32(v12);
+  LODWORD(v12) = v9;
+  if (v9 + 8 <= [v6 length])
   {
-    error = [v6 subdataWithRange:{8, v10}];
+    error = [v6 subdataWithRange:{8, v9}];
   }
 
   else if (error)
   {
-    v11 = MEMORY[0x277CCA9B8];
-    v14 = *MEMORY[0x277CCA450];
-    v15[0] = @"Bad protocol response header; is the server up-to-date?";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-    *error = [v11 errorWithDomain:@"com.apple.AdPlatforms" code:1 userInfo:v12];
+    v10 = MEMORY[0x277CCA9B8];
+    v13 = *MEMORY[0x277CCA450];
+    v14[0] = @"Bad protocol response header; is the server up-to-date?";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    *error = [v10 errorWithDomain:@"com.apple.AdPlatforms" code:1 userInfo:v11];
 
     goto LABEL_4;
   }
 
 LABEL_5:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -322,22 +317,22 @@ LABEL_5:
 
   if (!v19)
   {
-    v20 = ADAdsOptions();
-    v19 = [v20 objectForKeyedSubscript:@"protocolVersion"];
+    v21 = ADAdsOptions(v20);
+    v19 = [v21 objectForKeyedSubscript:@"protocolVersion"];
   }
 
-  v21 = [lCopy URLByAppendingPathComponent:v19];
-  v22 = [v21 URLByAppendingPathComponent:v17];
+  v22 = [lCopy URLByAppendingPathComponent:v19];
+  v23 = [v22 URLByAppendingPathComponent:v17];
 
-  v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"serverURLForMessageClass %@ %@ ", class, v22];
-  _ADLog(@"iAdServerRequestLogging", v23, 0);
+  v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"serverURLForMessageClass %@ %@ ", class, v23];
+  _ADLog(@"iAdServerRequestLogging", v24, 0);
 
-  return v22;
+  return v23;
 }
 
 - (void)handleRequest:(id)request serverURL:(id)l responseHandler:(id)handler
 {
-  v73[6] = *MEMORY[0x277D85DE8];
+  v72[6] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   lCopy = l;
   handlerCopy = handler;
@@ -355,9 +350,9 @@ LABEL_5:
   v15 = +[ADCoreSettings sharedInstance];
   v16 = MEMORY[0x277CCAB70];
   [v15 adServerTimeoutInterval];
-  v67 = v14;
-  v69 = [v16 requestWithURL:v14 cachePolicy:0 timeoutInterval:?];
-  [v69 setHTTPMethod:@"POST"];
+  v66 = v14;
+  v68 = [v16 requestWithURL:v14 cachePolicy:0 timeoutInterval:?];
+  [v68 setHTTPMethod:@"POST"];
   deviceModel = [v15 deviceModel];
 
   if (deviceModel)
@@ -406,7 +401,7 @@ LABEL_5:
   selfCopy = self;
   iTunesStorefront = [v15 iTunesStorefront];
 
-  v65 = requestCopy;
+  v64 = requestCopy;
   v27 = bundleIdentifier2;
   if (iTunesStorefront)
   {
@@ -432,24 +427,24 @@ LABEL_5:
   iTunesStorefront3 = [v15 iTunesStorefront];
   v37 = [v32 stringWithFormat:@"%@ %@; %@; %@", deviceModel3, osVersionAndBuild3, bundleIdentifier3, iTunesStorefront3];;
 
-  v72[0] = @"timestamp";
-  v72[1] = @"User-Agent";
-  v62 = v37;
-  v63 = v31;
-  v73[0] = v31;
-  v73[1] = v37;
-  v72[2] = @"bundleID";
-  v72[3] = @"device";
-  v61 = v27;
-  v73[2] = v27;
-  v73[3] = deviceModel2;
-  v72[4] = @"os_Version";
-  v72[5] = @"storefront";
-  v60 = osVersionAndBuild2;
-  v73[4] = osVersionAndBuild2;
-  v73[5] = iTunesStorefront2;
-  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:6];
-  [v69 setAllHTTPHeaderFields:v38];
+  v71[0] = @"timestamp";
+  v71[1] = @"User-Agent";
+  v61 = v37;
+  v62 = v31;
+  v72[0] = v31;
+  v72[1] = v37;
+  v71[2] = @"bundleID";
+  v71[3] = @"device";
+  v60 = v27;
+  v72[2] = v27;
+  v72[3] = deviceModel2;
+  v71[4] = @"os_Version";
+  v71[5] = @"storefront";
+  v59 = osVersionAndBuild2;
+  v72[4] = osVersionAndBuild2;
+  v72[5] = iTunesStorefront2;
+  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:6];
+  [v68 setAllHTTPHeaderFields:v38];
 
   v39 = objc_opt_class();
   if (v39 == objc_opt_class())
@@ -467,20 +462,20 @@ LABEL_5:
       v42 = @"true";
     }
 
-    [v69 addValue:v42 forHTTPHeaderField:@"limitAdTracking"];
+    [v68 addValue:v42 forHTTPHeaderField:@"limitAdTracking"];
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  allHTTPHeaderFields = [v69 allHTTPHeaderFields];
+  allHTTPHeaderFields = [v68 allHTTPHeaderFields];
   [dictionary setObject:allHTTPHeaderFields forKey:@"headers"];
 
-  dictionaryRepresentation = [v65 dictionaryRepresentation];
+  dictionaryRepresentation = [v64 dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation forKey:@"body"];
 
   v46 = MEMORY[0x277CCACA8];
   v47 = objc_opt_class();
   v48 = objc_opt_class();
-  v49 = [v69 URL];
+  v49 = [v68 URL];
   absoluteString = [v49 absoluteString];
   aD_jsonString = [dictionary AD_jsonString];
   v52 = [v46 stringWithFormat:@"[%@ handleRequest]: Sending request %@ to AdPlatforms %@ with object: %@", v47, v48, absoluteString, aD_jsonString];
@@ -490,24 +485,23 @@ LABEL_5:
   v54 = objc_opt_class();
   [v53 logIDs:{@"[%@ handleRequest]: IDs for %@", v54, objc_opt_class()}];
 
-  v55 = [(ADServer *)selfCopy serializeMessage:v65];
+  v55 = [(ADServer *)selfCopy serializeMessage:v64];
   session = [(ADServer *)selfCopy session];
-  v70[0] = MEMORY[0x277D85DD0];
-  v70[1] = 3221225472;
-  v70[2] = __52__ADServer_handleRequest_serverURL_responseHandler___block_invoke;
-  v70[3] = &unk_278C55408;
-  v70[4] = selfCopy;
-  v71 = handlerCopy;
+  v69[0] = MEMORY[0x277D85DD0];
+  v69[1] = 3221225472;
+  v69[2] = __52__ADServer_handleRequest_serverURL_responseHandler___block_invoke;
+  v69[3] = &unk_278C55408;
+  v69[4] = selfCopy;
+  v70 = handlerCopy;
   v57 = handlerCopy;
-  v58 = [session uploadTaskWithRequest:v69 fromData:v55 completionHandler:v70];
+  v58 = [session uploadTaskWithRequest:v68 fromData:v55 completionHandler:v69];
 
   [v58 resume];
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 void __52__ADServer_handleRequest_serverURL_responseHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -529,9 +523,9 @@ void __52__ADServer_handleRequest_serverURL_responseHandler___block_invoke(uint6
         v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v7 encoding:4];
         v15 = MEMORY[0x277CCA9B8];
         v16 = [v12 statusCode];
-        v28 = *MEMORY[0x277CCA450];
-        v29[0] = v14;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+        v27 = *MEMORY[0x277CCA450];
+        v28[0] = v14;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
         v10 = [v15 errorWithDomain:@"com.apple.AdPlatforms" code:v16 userInfo:v17];
 
         v11 = 0;
@@ -541,9 +535,9 @@ void __52__ADServer_handleRequest_serverURL_responseHandler___block_invoke(uint6
       else if ([v13 hasPrefix:@"application/octet-stream"])
       {
         v18 = *(a1 + 32);
-        v27 = 0;
-        v11 = [v18 deserializeMessage:v7 error:&v27];
-        v10 = v27;
+        v26 = 0;
+        v11 = [v18 deserializeMessage:v7 error:&v26];
+        v10 = v26;
       }
 
       else
@@ -564,18 +558,16 @@ void __52__ADServer_handleRequest_serverURL_responseHandler___block_invoke(uint6
   if (v19)
   {
     v20 = _staticWorkQueue;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __52__ADServer_handleRequest_serverURL_responseHandler___block_invoke_2;
-    v22[3] = &unk_278C553E0;
-    v26 = v19;
-    v23 = v11;
-    v24 = v8;
-    v25 = v10;
-    [v20 addOperationWithBlock:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __52__ADServer_handleRequest_serverURL_responseHandler___block_invoke_2;
+    v21[3] = &unk_278C553E0;
+    v25 = v19;
+    v22 = v11;
+    v23 = v8;
+    v24 = v10;
+    [v20 addOperationWithBlock:v21];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error

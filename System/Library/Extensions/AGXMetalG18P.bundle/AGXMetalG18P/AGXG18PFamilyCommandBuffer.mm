@@ -1256,7 +1256,7 @@ LABEL_8:
 
 - (void)getDriverEncoderInfoData:(id)data
 {
-  v70 = *MEMORY[0x29EDCA608];
+  v69 = *MEMORY[0x29EDCA608];
   impl = self->_impl;
   v59 = 0;
   v60 = &v59;
@@ -1273,10 +1273,10 @@ LABEL_8:
   v56 = ___ZNK3AGX13CommandBufferINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE39processDebugBufferAndUpdateEncoderInfosEP7NSArrayIPU38objcproto27MTLCommandBufferEncoderInfo11objc_objectE_block_invoke;
   v57 = &unk_29F341310;
   v58 = &v59;
-  v68 = 0;
+  *&v68[0] = 0;
   *&v51 = 0;
-  [v5 getDebugBufferPointerStart:&v68 end:&v51];
-  if (v68 && v51 && (v51 - v68) >= 8)
+  [v5 getDebugBufferPointerStart:v68 end:&v51];
+  if (*&v68[0] && v51 && (v51 - *&v68[0]) >= 8)
   {
     (v56)(v55);
   }
@@ -1296,7 +1296,7 @@ LABEL_7:
 
       v8 = *(v6 + 16);
       v9 = v60;
-      v10 = v60[7];
+      v10 = *(v60 + 14);
       if (!*&v10)
       {
         goto LABEL_29;
@@ -1318,7 +1318,7 @@ LABEL_7:
         v12 = (*&v10 - 1) & v8;
       }
 
-      v13 = v60[6];
+      v13 = *(v60 + 6);
       v14 = *(v13 + 8 * v12);
       if (!v14 || (v15 = *v14) == 0)
       {
@@ -1345,10 +1345,10 @@ LABEL_29:
       {
         while (1)
         {
-          v17 = v15[1];
+          v17 = *(v15 + 1);
           if (v17 == v8)
           {
-            if (v15[2] == v8)
+            if (*(v15 + 2) == v8)
             {
               goto LABEL_33;
             }
@@ -1369,10 +1369,10 @@ LABEL_29:
 
       while (1)
       {
-        v18 = v15[1];
+        v18 = *(v15 + 1);
         if (v18 == v8)
         {
-          if (v15[2] == v8)
+          if (*(v15 + 2) == v8)
           {
 LABEL_33:
             if (v11.u32[0] > 1uLL)
@@ -1398,12 +1398,12 @@ LABEL_33:
             }
 
             while (v23 != v15);
-            if (v24 == v60 + 8)
+            if (v24 == v60 + 16)
             {
               goto LABEL_50;
             }
 
-            v25 = v24[1];
+            v25 = *(v24 + 1);
             if (v11.u32[0] > 1uLL)
             {
               if (v25 >= *&v10)
@@ -1449,7 +1449,7 @@ LABEL_51:
             v27 = *v15;
             if (*v15)
             {
-              v28 = *(v27 + 8);
+              v28 = *(v27 + 1);
               if (v11.u32[0] > 1uLL)
               {
                 if (v28 >= *&v10)
@@ -1472,11 +1472,11 @@ LABEL_51:
 
             *v24 = v27;
             *v15 = 0;
-            --v9[9];
+            --*(v9 + 9);
             operator delete(v15);
-            v68 = *(v6 + 8);
-            v69 = v22;
-            std::__hash_table<std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,AGXSDebugBuffer::KickStatus>>(v60 + 6, v68);
+            *&v68[0] = *(v6 + 8);
+            BYTE8(v68[0]) = v22;
+            std::__hash_table<std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,AGXSDebugBuffer::KickStatus>>(v60 + 12, *&v68[0], v68);
             v6 += 24;
             for (i = impl[69]; v6 != i; v6 += 24)
             {
@@ -1487,9 +1487,9 @@ LABEL_51:
 
               if (!**v6)
               {
-                v68 = *(v6 + 8);
-                v69 = 0;
-                std::__hash_table<std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,AGXSDebugBuffer::KickStatus>>(v60 + 6, v68);
+                *&v68[0] = *(v6 + 8);
+                BYTE8(v68[0]) = 0;
+                std::__hash_table<std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,AGXSDebugBuffer::KickStatus>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,AGXSDebugBuffer::KickStatus>>(v60 + 12, *&v68[0], v68);
                 i = impl[69];
               }
             }
@@ -1522,13 +1522,13 @@ LABEL_51:
     break;
   }
 
-  if (v60[9])
+  if (*(v60 + 9))
   {
     v53 = 0u;
     v54 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v29 = [data countByEnumeratingWithState:&v51 objects:&v68 count:16];
+    v29 = [data countByEnumeratingWithState:&v51 objects:v68 count:16];
     if (!v29)
     {
       goto LABEL_106;
@@ -1547,7 +1547,7 @@ LABEL_51:
 
         v32 = *(*(&v51 + 1) + 8 * v31);
         uniqueID = [v32 uniqueID];
-        v34 = v60[7];
+        v34 = *(v60 + 14);
         if (!*&v34)
         {
           goto LABEL_91;
@@ -1569,7 +1569,7 @@ LABEL_51:
           v36 = (*&v34 - 1) & uniqueID;
         }
 
-        v37 = *(v60[6] + 8 * v36);
+        v37 = *(*(v60 + 6) + 8 * v36);
         if (!v37 || (v38 = *v37) == 0)
         {
 LABEL_91:
@@ -1653,7 +1653,7 @@ LABEL_92:
       }
 
       while (v31 != v29);
-      v44 = [data countByEnumeratingWithState:&v51 objects:&v68 count:16];
+      v44 = [data countByEnumeratingWithState:&v51 objects:v68 count:16];
       v29 = v44;
       if (!v44)
       {
@@ -1666,7 +1666,7 @@ LABEL_92:
   v54 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v45 = [data countByEnumeratingWithState:&v51 objects:&v68 count:16];
+  v45 = [data countByEnumeratingWithState:&v51 objects:v68 count:16];
   if (v45)
   {
     v46 = *v52;
@@ -1682,7 +1682,7 @@ LABEL_92:
         [*(*(&v51 + 1) + 8 * j) setErrorState:1];
       }
 
-      v45 = [data countByEnumeratingWithState:&v51 objects:&v68 count:16];
+      v45 = [data countByEnumeratingWithState:&v51 objects:v68 count:16];
     }
 
     while (v45);

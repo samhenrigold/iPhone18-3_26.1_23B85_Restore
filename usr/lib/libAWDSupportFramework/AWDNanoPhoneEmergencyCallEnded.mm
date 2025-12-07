@@ -180,7 +180,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -200,7 +199,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  callDuration = self->_callDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -215,7 +213,6 @@ LABEL_4:
   }
 
 LABEL_10:
-  callConnected = self->_callConnected;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -227,7 +224,6 @@ LABEL_5:
     }
 
 LABEL_12:
-    callFailed = self->_callFailed;
     PBDataWriterWriteBOOLField();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -238,7 +234,6 @@ LABEL_12:
   }
 
 LABEL_11:
-  remoteEnded = self->_remoteEnded;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 8) != 0)
@@ -253,7 +248,6 @@ LABEL_6:
   }
 
 LABEL_13:
-  userEnded = self->_userEnded;
 
   PBDataWriterWriteBOOLField();
 }
@@ -461,7 +455,6 @@ LABEL_7:
         goto LABEL_42;
       }
 
-      v6 = *(equal + 24);
       if (self->_callConnected)
       {
         if ((*(equal + 24) & 1) == 0)
@@ -488,7 +481,6 @@ LABEL_7:
         goto LABEL_42;
       }
 
-      v7 = *(equal + 26);
       if (self->_remoteEnded)
       {
         if ((*(equal + 26) & 1) == 0)
@@ -515,7 +507,6 @@ LABEL_7:
         goto LABEL_42;
       }
 
-      v8 = *(equal + 25);
       if (self->_callFailed)
       {
         if ((*(equal + 25) & 1) == 0)

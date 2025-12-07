@@ -136,7 +136,7 @@ uint64_t __88__NSFileProviderXPCMessenger__makeProvider_provideItemAtURL_withInf
     v10 = *(a1 + 64);
     if (v10)
     {
-      [v10 readerAuditToken];
+      objc_msgSend_readerAuditToken(v10);
       v11 = v25;
     }
 
@@ -328,7 +328,7 @@ uint64_t __74__NSFileProviderXPCMessenger_provideItemAtURL_withInfo_completionHa
       v8 = *(a1 + 48);
       if (v8)
       {
-        [v8 readerAuditToken];
+        objc_msgSend_readerAuditToken(v8);
       }
 
       else
@@ -546,7 +546,7 @@ void __89__NSFileProviderXPCMessenger_observePresentationChangeOfKind_forPresent
 {
   v8 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) didBegin];
-  if ([*(a1 + 40) isEqualToString:@"added"])
+  if (objc_msgSend_isEqualToString_(*(a1 + 40)))
   {
     if (objc_opt_respondsToSelector())
     {
@@ -558,7 +558,7 @@ void __89__NSFileProviderXPCMessenger_observePresentationChangeOfKind_forPresent
       v2 = *(a1 + 64);
       if (v2)
       {
-        [v2 presenterAuditToken];
+        objc_msgSend_presenterAuditToken(v2);
         v3 = v7;
         v2 = *(a1 + 64);
       }
@@ -573,7 +573,7 @@ void __89__NSFileProviderXPCMessenger_observePresentationChangeOfKind_forPresent
     }
   }
 
-  else if ([*(a1 + 40) isEqualToString:@"removed"])
+  else if (objc_msgSend_isEqualToString_(*(a1 + 40)))
   {
     if (objc_opt_respondsToSelector())
     {
@@ -583,7 +583,7 @@ void __89__NSFileProviderXPCMessenger_observePresentationChangeOfKind_forPresent
     +[NSFileCoordinator _removeInfoForID:](NSFileCoordinator, "_removeInfoForID:", [*(a1 + 64) presenterID]);
   }
 
-  else if ([*(a1 + 40) isEqualToString:@"itemMoved"] && (objc_opt_respondsToSelector() & 1) != 0)
+  else if (objc_msgSend_isEqualToString_(*(a1 + 40)) && (objc_opt_respondsToSelector() & 1) != 0)
   {
     [*(*(a1 + 48) + 8) _providedItemAtURL:*(a1 + 56) withPresenterWithID:objc_msgSend(*(a1 + 64) didMoveToURL:{"presenterID"), objc_msgSend(*(a1 + 64), "changedURL")}];
   }

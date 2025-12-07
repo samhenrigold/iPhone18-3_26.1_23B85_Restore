@@ -74,13 +74,13 @@
   v3 = MEMORY[0x277D6F410];
   inputCopy = input;
   v5 = objc_alloc_init(v3);
-  string = [inputCopy string];
+  v6 = objc_msgSend_string(inputCopy);
 
-  if (string)
+  if (v6)
   {
-    string2 = [inputCopy string];
+    v7 = objc_msgSend_string(inputCopy);
 
-    [v5 setInsertionText:string2];
+    [v5 setInsertionText:v7];
   }
 
   else

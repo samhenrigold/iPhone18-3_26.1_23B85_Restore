@@ -132,10 +132,7 @@ char *__56__TUIPredictionViewCellAccessibility_accessibilityLabel__block_invoke(
   result = [*(a1 + 32) action];
   if (result == sel_showWritingTools_)
   {
-    v3 = accessibilityLocalizedString(@"text.assistant.keyboard.button");
-    v4 = *(*(a1 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(a1 + 40) + 8) + 40) = accessibilityLocalizedString(@"text.assistant.keyboard.button");
 
     return MEMORY[0x2A1C71028]();
   }
@@ -272,25 +269,23 @@ void __53__TUIPredictionViewCellAccessibility__axIsSmartReply__block_invoke(uint
 
 - (id)accessibilityCustomActions
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   if (_AXSQuickTypePredictionFeedbackEnabled() && UIAccessibilityIsSwitchControlRunning())
   {
     v3 = objc_alloc(MEMORY[0x29EDC78E0]);
     v4 = accessibilityLocalizedString(@"speak.prediction");
     v5 = [v3 initWithName:v4 target:self selector:sel__axActivateSpeaking_];
 
-    v10[0] = v5;
-    accessibilityCustomActions = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
+    v9[0] = v5;
+    accessibilityCustomActions = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = TUIPredictionViewCellAccessibility;
-    accessibilityCustomActions = [(TUIPredictionViewCellAccessibility *)&v9 accessibilityCustomActions];
+    v8.receiver = self;
+    v8.super_class = TUIPredictionViewCellAccessibility;
+    accessibilityCustomActions = [(TUIPredictionViewCellAccessibility *)&v8 accessibilityCustomActions];
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 
   return accessibilityCustomActions;
 }

@@ -264,7 +264,7 @@
 
 - (void)_updateWithIntentCodableDescription:(id)description
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   _localizationTable = [descriptionCopy _localizationTable];
   [(INCodableDescription *)self _setCustomLocalizationTable:_localizationTable];
@@ -296,28 +296,28 @@
   }
 
   v15 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   attributes = [(INIntentCodableDescription *)self attributes];
   allValues = [attributes allValues];
 
-  v18 = [allValues countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v18 = [allValues countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v35;
+    v20 = *v34;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v35 != v20)
+        if (*v34 != v20)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v22 = *(*(&v34 + 1) + 8 * i);
+        v22 = *(*(&v33 + 1) + 8 * i);
         propertyName3 = [v22 propertyName];
         v24 = [descriptionCopy attributeByName:propertyName3];
 
@@ -350,7 +350,7 @@
         }
       }
 
-      v19 = [allValues countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v19 = [allValues countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v19);
@@ -363,8 +363,6 @@
 
   semanticRoot = [descriptionCopy semanticRoot];
   [(INCodableDescription *)self setSemanticRoot:semanticRoot];
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __66__INIntentCodableDescription__updateWithIntentCodableDescription___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -379,13 +377,13 @@ uint64_t __66__INIntentCodableDescription__updateWithIntentCodableDescription___
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v98[18] = *MEMORY[0x1E69E9840];
+  v97[18] = *MEMORY[0x1E69E9840];
   localizerCopy = localizer;
-  v95.receiver = self;
-  v95.super_class = INIntentCodableDescription;
-  v78 = [(INCodableDescription *)&v95 dictionaryRepresentationWithLocalizer:localizerCopy];
+  v94.receiver = self;
+  v94.super_class = INIntentCodableDescription;
+  v77 = [(INCodableDescription *)&v94 dictionaryRepresentationWithLocalizer:localizerCopy];
   __ClassNameKey = [objc_opt_class() __ClassNameKey];
-  v97[0] = __ClassNameKey;
+  v96[0] = __ClassNameKey;
   className = [(INCodableDescription *)self className];
   v6 = className;
   if (!className)
@@ -393,10 +391,10 @@ uint64_t __66__INIntentCodableDescription__updateWithIntentCodableDescription___
     className = [MEMORY[0x1E695DFB0] null];
   }
 
-  v57 = className;
-  v98[0] = className;
+  v56 = className;
+  v97[0] = className;
   __TitleKey = [objc_opt_class() __TitleKey];
-  v97[1] = __TitleKey;
+  v96[1] = __TitleKey;
   null = [(INIntentCodableDescription *)self localizedTitleWithLocalizer:localizerCopy];
   v8 = null;
   if (!null)
@@ -404,10 +402,10 @@ uint64_t __66__INIntentCodableDescription__updateWithIntentCodableDescription___
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v56 = null;
-  v98[1] = null;
+  v55 = null;
+  v97[1] = null;
   __TitleIDKey = [objc_opt_class() __TitleIDKey];
-  v97[2] = __TitleIDKey;
+  v96[2] = __TitleIDKey;
   titleLocID = [(INIntentCodableDescription *)self titleLocID];
   v10 = titleLocID;
   if (!titleLocID)
@@ -415,10 +413,10 @@ uint64_t __66__INIntentCodableDescription__updateWithIntentCodableDescription___
     titleLocID = [MEMORY[0x1E695DFB0] null];
   }
 
-  v55 = titleLocID;
-  v98[2] = titleLocID;
+  v54 = titleLocID;
+  v97[2] = titleLocID;
   __DescriptionKey = [objc_opt_class() __DescriptionKey];
-  v97[3] = __DescriptionKey;
+  v96[3] = __DescriptionKey;
   null2 = [(INIntentCodableDescription *)self localizedDescriptiveTextWithLocalizer:localizerCopy];
   v12 = null2;
   if (!null2)
@@ -426,10 +424,10 @@ uint64_t __66__INIntentCodableDescription__updateWithIntentCodableDescription___
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v54 = null2;
-  v98[3] = null2;
+  v53 = null2;
+  v97[3] = null2;
   __DescriptionIDKey = [objc_opt_class() __DescriptionIDKey];
-  v97[4] = __DescriptionIDKey;
+  v96[4] = __DescriptionIDKey;
   descriptiveTextLocID = [(INIntentCodableDescription *)self descriptiveTextLocID];
   v14 = descriptiveTextLocID;
   if (!descriptiveTextLocID)
@@ -437,10 +435,10 @@ uint64_t __66__INIntentCodableDescription__updateWithIntentCodableDescription___
     descriptiveTextLocID = [MEMORY[0x1E695DFB0] null];
   }
 
-  v53 = descriptiveTextLocID;
-  v98[4] = descriptiveTextLocID;
+  v52 = descriptiveTextLocID;
+  v97[4] = descriptiveTextLocID;
   __VerbKey = [objc_opt_class() __VerbKey];
-  v97[5] = __VerbKey;
+  v96[5] = __VerbKey;
   verb = [(INIntentCodableDescription *)self verb];
   v16 = verb;
   if (!verb)
@@ -448,10 +446,10 @@ uint64_t __66__INIntentCodableDescription__updateWithIntentCodableDescription___
     verb = [MEMORY[0x1E695DFB0] null];
   }
 
-  v52 = verb;
-  v98[5] = verb;
+  v51 = verb;
+  v97[5] = verb;
   __CategoryKey = [objc_opt_class() __CategoryKey];
-  v97[6] = __CategoryKey;
+  v96[6] = __CategoryKey;
   intentCategory = [(INIntentCodableDescription *)self intentCategory];
   if ((intentCategory - 1) > 0x13)
   {
@@ -463,12 +461,12 @@ uint64_t __66__INIntentCodableDescription__updateWithIntentCodableDescription___
     v18 = off_1E7286400[intentCategory - 1];
   }
 
-  v86 = v8;
-  v88 = v6;
-  v76 = v18;
-  v98[6] = v76;
+  v85 = v8;
+  v87 = v6;
+  v75 = v18;
+  v97[6] = v75;
   __DefaultImageNameKey = [objc_opt_class() __DefaultImageNameKey];
-  v97[7] = __DefaultImageNameKey;
+  v96[7] = __DefaultImageNameKey;
   defaultImageName = [(INIntentCodableDescription *)self defaultImageName];
   v20 = defaultImageName;
   if (!defaultImageName)
@@ -476,55 +474,55 @@ uint64_t __66__INIntentCodableDescription__updateWithIntentCodableDescription___
     defaultImageName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v51 = defaultImageName;
-  v98[7] = defaultImageName;
+  v50 = defaultImageName;
+  v97[7] = defaultImageName;
   __UserConfirmationRequiredKey = [objc_opt_class() __UserConfirmationRequiredKey];
-  v97[8] = __UserConfirmationRequiredKey;
+  v96[8] = __UserConfirmationRequiredKey;
   null3 = [MEMORY[0x1E696AD98] numberWithBool:{-[INIntentCodableDescription userConfirmationRequired](self, "userConfirmationRequired")}];
-  v72 = null3;
+  v71 = null3;
   if (!null3)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v50 = null3;
-  v98[8] = null3;
+  v49 = null3;
+  v97[8] = null3;
   __InputKey = [objc_opt_class() __InputKey];
-  v97[9] = __InputKey;
+  v96[9] = __InputKey;
   _inputAttributeName = [(INIntentCodableDescription *)self _inputAttributeName];
-  v70 = _inputAttributeName;
+  v69 = _inputAttributeName;
   if (!_inputAttributeName)
   {
     _inputAttributeName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v49 = _inputAttributeName;
-  v98[9] = _inputAttributeName;
+  v48 = _inputAttributeName;
+  v97[9] = _inputAttributeName;
   __KeyParameterKey = [objc_opt_class() __KeyParameterKey];
-  v97[10] = __KeyParameterKey;
+  v96[10] = __KeyParameterKey;
   _keyAttributeName = [(INIntentCodableDescription *)self _keyAttributeName];
-  v90 = _keyAttributeName;
+  v89 = _keyAttributeName;
   if (!_keyAttributeName)
   {
     _keyAttributeName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v48 = _keyAttributeName;
-  v98[10] = _keyAttributeName;
+  v47 = _keyAttributeName;
+  v97[10] = _keyAttributeName;
   __ConfigurableKey = [objc_opt_class() __ConfigurableKey];
-  v97[11] = __ConfigurableKey;
-  v67 = [MEMORY[0x1E696AD98] numberWithBool:{-[INIntentCodableDescription isConfigurable](self, "isConfigurable")}];
-  v98[11] = v67;
+  v96[11] = __ConfigurableKey;
+  v66 = [MEMORY[0x1E696AD98] numberWithBool:{-[INIntentCodableDescription isConfigurable](self, "isConfigurable")}];
+  v97[11] = v66;
   __ForegroundKey = [objc_opt_class() __ForegroundKey];
-  v97[12] = __ForegroundKey;
-  v65 = [MEMORY[0x1E696AD98] numberWithBool:{-[INIntentCodableDescription isForeground](self, "isForeground")}];
-  v98[12] = v65;
+  v96[12] = __ForegroundKey;
+  v64 = [MEMORY[0x1E696AD98] numberWithBool:{-[INIntentCodableDescription isForeground](self, "isForeground")}];
+  v97[12] = v64;
   __DeprecatedKey = [objc_opt_class() __DeprecatedKey];
-  v97[13] = __DeprecatedKey;
-  v63 = [MEMORY[0x1E696AD98] numberWithBool:{-[INIntentCodableDescription isDeprecated](self, "isDeprecated")}];
-  v98[13] = v63;
+  v96[13] = __DeprecatedKey;
+  v62 = [MEMORY[0x1E696AD98] numberWithBool:{-[INIntentCodableDescription isDeprecated](self, "isDeprecated")}];
+  v97[13] = v62;
   __EntityKey = [objc_opt_class() __EntityKey];
-  v97[14] = __EntityKey;
+  v96[14] = __EntityKey;
   semanticRoot = [(INCodableDescription *)self semanticRoot];
   v25 = semanticRoot;
   if (!semanticRoot)
@@ -532,25 +530,25 @@ uint64_t __66__INIntentCodableDescription__updateWithIntentCodableDescription___
     semanticRoot = [MEMORY[0x1E695DFB0] null];
   }
 
-  v74 = v20;
-  v80 = v14;
-  v82 = v12;
-  v84 = v10;
-  v47 = semanticRoot;
-  v98[14] = semanticRoot;
+  v73 = v20;
+  v79 = v14;
+  v81 = v12;
+  v83 = v10;
+  v46 = semanticRoot;
+  v97[14] = semanticRoot;
   __VerbAssociationsKey = [objc_opt_class() __VerbAssociationsKey];
-  v97[15] = __VerbAssociationsKey;
+  v96[15] = __VerbAssociationsKey;
   entityVerbs = [(INIntentCodableDescription *)self entityVerbs];
-  v60 = entityVerbs;
+  v59 = entityVerbs;
   if (!entityVerbs)
   {
     entityVerbs = [MEMORY[0x1E695DFB0] null];
   }
 
-  v46 = entityVerbs;
-  v98[15] = entityVerbs;
+  v45 = entityVerbs;
+  v97[15] = entityVerbs;
   __PhrasesKey = [objc_opt_class() __PhrasesKey];
-  v97[16] = __PhrasesKey;
+  v96[16] = __PhrasesKey;
   phrases = [(INIntentCodableDescription *)self phrases];
   v28 = [phrases count];
 
@@ -560,30 +558,30 @@ uint64_t __66__INIntentCodableDescription__updateWithIntentCodableDescription___
   }
 
   v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v90 = 0u;
   v91 = 0u;
   v92 = 0u;
   v93 = 0u;
-  v94 = 0u;
-  v30 = [(INIntentCodableDescription *)self phrases:v46];
-  v31 = [v30 countByEnumeratingWithState:&v91 objects:v96 count:16];
+  v30 = [(INIntentCodableDescription *)self phrases:v45];
+  v31 = [v30 countByEnumeratingWithState:&v90 objects:v95 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v92;
+    v33 = *v91;
     do
     {
       for (i = 0; i != v32; ++i)
       {
-        if (*v92 != v33)
+        if (*v91 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        v35 = [*(*(&v91 + 1) + 8 * i) dictionaryRepresentationWithLocalizer:localizerCopy];
+        v35 = [*(*(&v90 + 1) + 8 * i) dictionaryRepresentationWithLocalizer:localizerCopy];
         [v29 if_addObjectIfNonNil:v35];
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v91 objects:v96 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v90 objects:v95 count:16];
     }
 
     while (v32);
@@ -603,9 +601,9 @@ LABEL_38:
     v36 = 1;
   }
 
-  v98[16] = null4;
+  v97[16] = null4;
   __HashKey = [objc_opt_class() __HashKey];
-  v97[17] = __HashKey;
+  v96[17] = __HashKey;
   versioningHash = [(INIntentCodableDescription *)self versioningHash];
   null5 = versioningHash;
   if (!versioningHash)
@@ -613,9 +611,9 @@ LABEL_38:
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v98[17] = null5;
-  v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v98 forKeys:v97 count:18];
-  v59 = [v78 if_dictionaryByAddingEntriesFromDictionary:v41];
+  v97[17] = null5;
+  v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v97 forKeys:v96 count:18];
+  v58 = [v77 if_dictionaryByAddingEntriesFromDictionary:v41];
 
   if (!versioningHash)
   {
@@ -625,7 +623,7 @@ LABEL_38:
   {
   }
 
-  if (!v60)
+  if (!v59)
   {
   }
 
@@ -633,22 +631,22 @@ LABEL_38:
   {
   }
 
-  v42 = v90;
-  if (!v90)
+  v42 = v89;
+  if (!v89)
   {
 
     v42 = 0;
   }
 
-  if (!v70)
+  if (!v69)
   {
   }
 
-  if (!v72)
+  if (!v71)
   {
   }
 
-  if (!v74)
+  if (!v73)
   {
   }
 
@@ -656,40 +654,38 @@ LABEL_38:
   {
   }
 
-  if (!v80)
+  if (!v79)
   {
   }
 
-  if (!v82)
+  if (!v81)
   {
   }
 
-  if (!v84)
+  if (!v83)
   {
   }
 
-  if (!v86)
+  if (!v85)
   {
   }
 
-  if (!v88)
+  if (!v87)
   {
   }
 
-  if_dictionaryWithNonEmptyValues = [v59 if_dictionaryWithNonEmptyValues];
-
-  v44 = *MEMORY[0x1E69E9840];
+  if_dictionaryWithNonEmptyValues = [v58 if_dictionaryWithNonEmptyValues];
 
   return if_dictionaryWithNonEmptyValues;
 }
 
 - (void)updateWithDictionary:(id)dictionary
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v66.receiver = self;
-  v66.super_class = INIntentCodableDescription;
-  [(INCodableDescription *)&v66 updateWithDictionary:dictionaryCopy];
+  v65.receiver = self;
+  v65.super_class = INIntentCodableDescription;
+  [(INCodableDescription *)&v65 updateWithDictionary:dictionaryCopy];
   v5 = [objc_opt_class() _intentClassNameWithDictionary:dictionaryCopy];
   [(INCodableDescription *)self setClassName:v5];
 
@@ -814,29 +810,29 @@ LABEL_38:
 
   if ([v49 count])
   {
-    v60 = v10;
-    v61 = dictionaryCopy;
+    v59 = v10;
+    v60 = dictionaryCopy;
     v50 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
     v51 = v49;
-    v52 = [v51 countByEnumeratingWithState:&v62 objects:v67 count:16];
+    v52 = [v51 countByEnumeratingWithState:&v61 objects:v66 count:16];
     if (v52)
     {
       v53 = v52;
-      v54 = *v63;
+      v54 = *v62;
       do
       {
         for (i = 0; i != v53; ++i)
         {
-          if (*v63 != v54)
+          if (*v62 != v54)
           {
             objc_enumerationMutation(v51);
           }
 
-          v56 = *(*(&v62 + 1) + 8 * i);
+          v56 = *(*(&v61 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -847,7 +843,7 @@ LABEL_38:
           }
         }
 
-        v53 = [v51 countByEnumeratingWithState:&v62 objects:v67 count:16];
+        v53 = [v51 countByEnumeratingWithState:&v61 objects:v66 count:16];
       }
 
       while (v53);
@@ -856,11 +852,9 @@ LABEL_38:
     phrases = self->_phrases;
     self->_phrases = v50;
 
-    dictionaryCopy = v61;
-    v10 = v60;
+    dictionaryCopy = v60;
+    v10 = v59;
   }
-
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 - (id)localizedDescriptiveTextWithLocalizer:(id)localizer
@@ -957,50 +951,50 @@ LABEL_38:
 
 - (id)resolvableParameterCombinationsWithParameterCombinations:(id)combinations
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   combinationsCopy = combinations;
-  v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v24 = combinationsCopy;
+  v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v23 = combinationsCopy;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = [combinationsCopy allKeys];
-  v5 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v5 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v31;
+    v7 = *v30;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v31 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * i);
+        v9 = *(*(&v29 + 1) + 8 * i);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         v10 = v9;
-        v11 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v27;
+          v13 = *v26;
           while (2)
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v27 != v13)
+              if (*v26 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = [(INCodableDescription *)self attributeByName:*(*(&v26 + 1) + 8 * j)];
+              v15 = [(INCodableDescription *)self attributeByName:*(*(&v25 + 1) + 8 * j)];
               supportsResolution = [v15 supportsResolution];
 
               if (!supportsResolution)
@@ -1010,7 +1004,7 @@ LABEL_38:
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v25 objects:v33 count:16];
             if (v12)
             {
               continue;
@@ -1026,19 +1020,18 @@ LABEL_16:
         v18 = [v10 count];
         if ((v17 & 1) == 0 && v18)
         {
-          v19 = [v24 objectForKeyedSubscript:v10];
-          [v23 setObject:v19 forKeyedSubscript:v10];
+          v19 = [v23 objectForKeyedSubscript:v10];
+          [v22 setObject:v19 forKeyedSubscript:v10];
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v6 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v6);
   }
 
-  v20 = [v23 copy];
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = [v22 copy];
 
   return v20;
 }

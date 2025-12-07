@@ -54,7 +54,7 @@
   {
     if (moveableCamera)
     {
-      [moveableCamera cameraState];
+      objc_msgSend_cameraState(moveableCamera);
     }
 
     else
@@ -119,7 +119,7 @@
   {
     if (moveableCamera)
     {
-      [moveableCamera cameraState];
+      objc_msgSend_cameraState(moveableCamera);
     }
 
     else
@@ -195,91 +195,92 @@
   v19 = v18;
   [v6 rightVector];
   v20 = fmin(fmax(v15, 0.0), v13 + 0.0698131701);
-  v47[0] = v21;
-  v47[1] = v22;
-  v47[2] = v23;
-  gm::quaternionFromAngleAxis<double>(v48, v47, v20 - v19);
-  gm::Quaternion<double>::operator*(v47, v48, [v6 orientation]);
+  v48[0] = v21;
+  v48[1] = v22;
+  v48[2] = v23;
+  gm::quaternionFromAngleAxis<double>(v49, v48, v20 - v19);
+  gm::Quaternion<double>::operator*(v48, v49, [v6 orientation]);
   v24 = objc_loadWeakRetained(&self->super._cameraController);
   [v24 centerScreenPoint];
   if (v6)
   {
-    [v6 groundPointFromScreenPoint:?];
+    objc_msgSend_groundPointFromScreenPoint_(v6);
   }
 
   else
   {
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
   }
 
-  if (BYTE8(v46))
+  if (BYTE8(v47))
   {
-    *&v43 = gm::rotateAboutPoint<double>([v6 position], v48, &v45);
-    *(&v43 + 1) = v25;
-    *&v44 = v26;
-    [v6 setPosition:&v43];
-    [v6 setOrientation:v47];
+    v25 = objc_msgSend_position(v6);
+    *&v44 = gm::rotateAboutPoint<double>(v25, v49, &v46);
+    *(&v44 + 1) = v26;
+    *&v45 = v27;
+    [v6 setPosition:&v44];
+    [v6 setOrientation:v48];
   }
 
   else
   {
-    [v6 setOrientation:v47];
-    v27 = objc_loadWeakRetained(&self->super._cameraController);
-    [v27 centerScreenPoint];
+    [v6 setOrientation:v48];
+    v28 = objc_loadWeakRetained(&self->super._cameraController);
+    [v28 centerScreenPoint];
     if (v6)
     {
-      [v6 groundPointFromScreenPoint:?];
+      objc_msgSend_groundPointFromScreenPoint_(v6);
     }
 
     else
     {
-      v43 = 0u;
       v44 = 0u;
+      v45 = 0u;
     }
 
-    if ((BYTE8(v44) & 1) == 0)
+    if ((BYTE8(v45) & 1) == 0)
     {
-      v39 = std::__throw_bad_optional_access[abi:nn200100]();
+      v40 = std::__throw_bad_optional_access[abi:nn200100]();
       selfCopy = self;
-      v41 = v39;
+      v42 = v40;
 
-      _Unwind_Resume(v41);
+      _Unwind_Resume(v42);
     }
 
-    position = [v6 position];
+    v29 = objc_msgSend_position(v6);
     for (i = 0; i != 3; ++i)
     {
-      *&v49[i] = *(&v43 + i * 8) - *(position + i * 8);
+      *&v50[i] = *(&v44 + i * 8) - *(v29 + i * 8);
     }
 
-    v31 = *v49;
-    v30 = *&v49[1];
-    v32 = *[v6 position];
-    v33 = *([v6 position] + 8);
-    v34 = *([v6 position] + 16);
-    v42[0] = v32 - v31;
-    v42[1] = v33 - v30;
-    v42[2] = v34;
-    [v6 setPosition:v42];
+    v32 = *v50;
+    v31 = *&v50[1];
+    v33 = *objc_msgSend_position(v6);
+    v34 = *(objc_msgSend_position(v6) + 8);
+    v35 = *(objc_msgSend_position(v6) + 16);
+    v43[0] = v33 - v32;
+    v43[1] = v34 - v31;
+    v43[2] = v35;
+    [v6 setPosition:v43];
   }
 
   self->_currentPitch = v20;
-  v35 = objc_loadWeakRetained(&self->super._cameraController);
-  isPitched2 = [v35 isPitched];
+  v36 = objc_loadWeakRetained(&self->super._cameraController);
+  isPitched2 = [v36 isPitched];
 
   if (!(isPitched & 1 | ((isPitched2 & 1) == 0)))
   {
-    v37 = objc_loadWeakRetained(&self->super._cameraController);
-    cameraDelegate = [v37 cameraDelegate];
+    v38 = objc_loadWeakRetained(&self->super._cameraController);
+    cameraDelegate = [v38 cameraDelegate];
     [cameraDelegate mapLayerDidBecomePitched:1];
     goto LABEL_20;
   }
 
   if (!(isPitched2 & 1 | ((isPitched & 1) == 0)))
   {
-    v37 = objc_loadWeakRetained(&self->super._cameraController);
-    cameraDelegate = [v37 cameraDelegate];
+    v38 = objc_loadWeakRetained(&self->super._cameraController);
+    cameraDelegate = [v38 cameraDelegate];
     [cameraDelegate mapLayerDidBecomePitched:0];
 LABEL_20:
   }
@@ -327,91 +328,92 @@ LABEL_20:
   v23 = v22;
   [v7 rightVector];
   v24 = fmin(fmax(v19, 0.0), v17 + 0.0698131701);
-  v51[0] = v25;
-  v51[1] = v26;
-  v51[2] = v27;
-  gm::quaternionFromAngleAxis<double>(v52, v51, v24 - v23);
-  gm::Quaternion<double>::operator*(v51, v52, [v7 orientation]);
+  v52[0] = v25;
+  v52[1] = v26;
+  v52[2] = v27;
+  gm::quaternionFromAngleAxis<double>(v53, v52, v24 - v23);
+  gm::Quaternion<double>::operator*(v52, v53, [v7 orientation]);
   v28 = objc_loadWeakRetained(&self->super._cameraController);
   [v28 centerScreenPoint];
   if (v7)
   {
-    [v7 groundPointFromScreenPoint:?];
+    objc_msgSend_groundPointFromScreenPoint_(v7);
   }
 
   else
   {
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
   }
 
-  if (BYTE8(v50))
+  if (BYTE8(v51))
   {
-    *&v47 = gm::rotateAboutPoint<double>([v7 position], v52, &v49);
-    *(&v47 + 1) = v29;
-    *&v48 = v30;
-    [v7 setPosition:&v47];
-    [v7 setOrientation:v51];
+    v29 = objc_msgSend_position(v7);
+    *&v48 = gm::rotateAboutPoint<double>(v29, v53, &v50);
+    *(&v48 + 1) = v30;
+    *&v49 = v31;
+    [v7 setPosition:&v48];
+    [v7 setOrientation:v52];
   }
 
   else
   {
-    [v7 setOrientation:v51];
-    v31 = objc_loadWeakRetained(&self->super._cameraController);
-    [v31 centerScreenPoint];
+    [v7 setOrientation:v52];
+    v32 = objc_loadWeakRetained(&self->super._cameraController);
+    [v32 centerScreenPoint];
     if (v7)
     {
-      [v7 groundPointFromScreenPoint:?];
+      objc_msgSend_groundPointFromScreenPoint_(v7);
     }
 
     else
     {
-      v47 = 0u;
       v48 = 0u;
+      v49 = 0u;
     }
 
-    if ((BYTE8(v48) & 1) == 0)
+    if ((BYTE8(v49) & 1) == 0)
     {
-      v43 = std::__throw_bad_optional_access[abi:nn200100]();
+      v44 = std::__throw_bad_optional_access[abi:nn200100]();
       selfCopy = self;
-      v45 = v43;
+      v46 = v44;
 
-      _Unwind_Resume(v45);
+      _Unwind_Resume(v46);
     }
 
-    position = [v7 position];
+    v33 = objc_msgSend_position(v7);
     for (i = 0; i != 3; ++i)
     {
-      *&v53[i] = *(&v47 + i * 8) - *(position + i * 8);
+      *&v54[i] = *(&v48 + i * 8) - *(v33 + i * 8);
     }
 
-    v35 = *v53;
-    v34 = *&v53[1];
-    v36 = *[v7 position];
-    v37 = *([v7 position] + 8);
-    v38 = *([v7 position] + 16);
-    v46[0] = v36 - v35;
-    v46[1] = v37 - v34;
-    v46[2] = v38;
-    [v7 setPosition:v46];
+    v36 = *v54;
+    v35 = *&v54[1];
+    v37 = *objc_msgSend_position(v7);
+    v38 = *(objc_msgSend_position(v7) + 8);
+    v39 = *(objc_msgSend_position(v7) + 16);
+    v47[0] = v37 - v36;
+    v47[1] = v38 - v35;
+    v47[2] = v39;
+    [v7 setPosition:v47];
   }
 
   self->_currentPitch = v24;
-  v39 = objc_loadWeakRetained(&self->super._cameraController);
-  isPitched2 = [v39 isPitched];
+  v40 = objc_loadWeakRetained(&self->super._cameraController);
+  isPitched2 = [v40 isPitched];
 
   if (!(isPitched & 1 | ((isPitched2 & 1) == 0)))
   {
-    v41 = objc_loadWeakRetained(&self->super._cameraController);
-    cameraDelegate = [v41 cameraDelegate];
+    v42 = objc_loadWeakRetained(&self->super._cameraController);
+    cameraDelegate = [v42 cameraDelegate];
     [cameraDelegate mapLayerDidBecomePitched:1];
     goto LABEL_23;
   }
 
   if (!(isPitched2 & 1 | ((isPitched & 1) == 0)))
   {
-    v41 = objc_loadWeakRetained(&self->super._cameraController);
-    cameraDelegate = [v41 cameraDelegate];
+    v42 = objc_loadWeakRetained(&self->super._cameraController);
+    cameraDelegate = [v42 cameraDelegate];
     [cameraDelegate mapLayerDidBecomePitched:0];
 LABEL_23:
   }
@@ -432,7 +434,7 @@ LABEL_23:
   v9 = moveableCamera;
   if (moveableCamera)
   {
-    [moveableCamera groundPointFromScreenPoint:{x, y}];
+    objc_msgSend_groundPointFromScreenPoint_(moveableCamera, x, y);
     if (v24)
     {
       v10 = rotate * 0.5;
@@ -445,7 +447,7 @@ LABEL_23:
       v20 = v25;
       v21 = v26;
       v22 = cos(v10);
-      position = [v9 position];
+      v13 = objc_msgSend_position(v9);
       if ((v24 & 1) == 0)
       {
         v17 = std::__throw_bad_optional_access[abi:nn200100]();
@@ -453,7 +455,7 @@ LABEL_23:
         _Unwind_Resume(v17);
       }
 
-      [(VKMapGestureCameraController *)self positionClampedToCameraRestriction:gm::rotateAboutPoint<double>(position, &v20, v23)];
+      [(VKMapGestureCameraController *)self positionClampedToCameraRestriction:gm::rotateAboutPoint<double>(v13, &v20, v23)];
       v19[0] = v14;
       v19[1] = v15;
       v19[2] = v16;
@@ -488,7 +490,7 @@ LABEL_23:
     [v17 centerScreenPoint];
     if (moveableCamera)
     {
-      [moveableCamera groundPointFromScreenPoint:?];
+      objc_msgSend_groundPointFromScreenPoint_(moveableCamera);
     }
 
     else
@@ -499,7 +501,7 @@ LABEL_23:
 
     if (BYTE8(v42))
     {
-      position = [moveableCamera position];
+      v20 = objc_msgSend_position(moveableCamera);
       if ((BYTE8(v42) & 1) == 0)
       {
         v34 = std::__throw_bad_optional_access[abi:nn200100]();
@@ -507,12 +509,12 @@ LABEL_23:
         _Unwind_Resume(v34);
       }
 
-      v22 = gm::rotateAboutPoint<double>(position, v46, &v41);
+      v22 = gm::rotateAboutPoint<double>(v20, v46, &v41);
       v24 = v23;
       v25 = v21;
       if (moveableCamera)
       {
-        [moveableCamera cameraState];
+        objc_msgSend_cameraState(moveableCamera);
       }
 
       else
@@ -556,8 +558,8 @@ LABEL_19:
 
           v28 = v36.var0._rotation._imaginary._e[1];
           v29 = v36.var0._rotation._imaginary._e[2];
-          position2 = [moveableCamera position];
-          [(VKMapGestureCameraController *)self positionClampedToCameraRestriction:*position2 delta:position2[1], position2[2], v28, v29, 0.0];
+          v30 = objc_msgSend_position(moveableCamera);
+          [(VKMapGestureCameraController *)self positionClampedToCameraRestriction:*v30 delta:v30[1], v30[2], v28, v29, 0.0];
           v35[0] = v31;
           v35[1] = v32;
           v35[2] = v33;
@@ -571,7 +573,7 @@ LABEL_19:
 
   else if (moveableCamera)
   {
-    [moveableCamera groundPointFromScreenPoint:{v7, v6}];
+    objc_msgSend_groundPointFromScreenPoint_(moveableCamera, v7, v6);
     var1_low = LOBYTE(v36.var1);
     if (LOBYTE(v36.var1))
     {
@@ -579,7 +581,7 @@ LABEL_19:
       scalar = v36.var0._rotation._scalar;
     }
 
-    [moveableCamera groundPointFromScreenPoint:{x, y}];
+    objc_msgSend_groundPointFromScreenPoint_(moveableCamera, x, y);
     if (LOBYTE(v36.var1))
     {
       v47 = *&v36.var0._rotation._imaginary._e[1];
@@ -616,16 +618,16 @@ LABEL_19:
 
   if (moveableCamera)
   {
-    [moveableCamera groundPointFromScreenPoint:{x, y}];
+    objc_msgSend_groundPointFromScreenPoint_(moveableCamera, x, y);
     if (v42)
     {
-      position = [moveableCamera position];
+      v13 = objc_msgSend_position(moveableCamera);
       v14 = 0;
       v15 = val;
       v16 = v15;
-      v17 = (position[1].f64[0] - v41 * v16) / (1.0 - v16);
+      v17 = (v13[1].f64[0] - v41 * v16) / (1.0 - v16);
       v18 = 1.0 - 1.0 / newFactor;
-      v38 = vdivq_f64(vmlsq_lane_f64(*position, v40, v16, 0), vdupq_lane_s64(COERCE__INT64(1.0 - v16), 0));
+      v38 = vdivq_f64(vmlsq_lane_f64(*v13, v40, v16, 0), vdupq_lane_s64(COERCE__INT64(1.0 - v16), 0));
       v43 = v38;
       v44 = v17;
       do
@@ -643,7 +645,7 @@ LABEL_19:
         p_rubberbandZoomStartFactor = &self->_rubberbandZoomStartFactor;
         if (self->_rubberbandZoomStartFactor.__engaged_)
         {
-          [moveableCamera position];
+          objc_msgSend_position(moveableCamera);
           if (!self->_rubberbandZoomStartFactor.__engaged_ || (v25 = p_rubberbandZoomStartFactor->var0.__val_, GEOConfigGetDouble(), v27 = rubberBandOffsetForOffset(v18, 1.0 - 1.0 / v25, 1.0 - 1.0 / v25, v26), (v42 & 1) == 0))
           {
             v37 = std::__throw_bad_optional_access[abi:nn200100]();
@@ -691,7 +693,7 @@ LABEL_19:
 LABEL_22:
       self->_zoomPreviousT.var0.__val_ = v18;
       self->_zoomPreviousT.__engaged_ = 1;
-      if (v29 != *([moveableCamera position] + 16))
+      if (v29 != *(objc_msgSend_position(moveableCamera, *&v38) + 16))
       {
         [(VKMapGestureCameraController *)self positionClampedToCameraRestriction:v19, v20, v29];
         v39[0] = v34;
@@ -715,16 +717,16 @@ LABEL_22:
   moveableCamera = self->_moveableCamera;
   if (moveableCamera)
   {
-    vkCamera = moveableCamera;
+    v3 = moveableCamera;
   }
 
   else
   {
     WeakRetained = objc_loadWeakRetained(&self->super._cameraController);
-    vkCamera = [WeakRetained vkCamera];
+    v3 = objc_msgSend_vkCamera(WeakRetained);
   }
 
-  return vkCamera;
+  return v3;
 }
 
 @end

@@ -32,7 +32,7 @@
 
   else
   {
-    v9 = __atxlog_handle_default();
+    v9 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *v11 = 0;
@@ -95,7 +95,7 @@ void __64__ATXTrialClientWrapper_initWithClientIdentifier_namespaceName___block_
 
   else
   {
-    v4 = __atxlog_handle_default();
+    v4 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *v6 = 0;
@@ -121,77 +121,78 @@ void __64__ATXTrialClientWrapper_initWithClientIdentifier_namespaceName___block_
 
 - (id)dictionaryForTrialResource:(id)resource
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
   v5 = [(ATXTrialClientWrapper *)self filePathForTrialResource:resourceCopy];
   if (v5)
   {
-    v16 = 0;
-    v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:v5 options:1 error:&v16];
-    v7 = v16;
+    v18 = 0;
+    v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfFile:v5 options:1 error:&v18];
+    v7 = v18;
+    v8 = v7;
     if (v6)
     {
-      if ([v6 length] >= 3 && ((v8 = objc_msgSend(v6, "bytes"), *v8 == 19536) ? (v9 = *(v8 + 2) == 80) : (v9 = 0), v9))
+      if ([v6 length] >= 3 && ((v9 = objc_msgSend(v6, "bytes"), *v9 == 19536) ? (v10 = *(v9 + 2) == 80) : (v10 = 0), v10))
       {
-        *buf = v7;
-        v10 = [MEMORY[0x1E69C5D40] dictionaryWithData:v6 error:buf];
+        *buf = v8;
+        v11 = [MEMORY[0x1E69C5D40] dictionaryWithData:v6 error:buf];
       }
 
       else
       {
         *buf = 0;
-        v10 = [MEMORY[0x1E696AE40] propertyListWithData:v6 options:0 format:0 error:buf];
+        v11 = [MEMORY[0x1E696AE40] propertyListWithData:v6 options:0 format:0 error:buf];
       }
 
-      v11 = v10;
-      v12 = *buf;
+      v12 = v11;
+      v13 = *buf;
 
-      if (v11)
+      if (v12)
       {
         goto LABEL_19;
       }
 
-      v13 = __atxlog_handle_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_default(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(ATXTrialClientWrapper *)v5 dictionaryForTrialResource:v12, v13];
+        [(ATXTrialClientWrapper *)v5 dictionaryForTrialResource:v13, v15];
       }
 
-      v7 = v12;
+      v8 = v13;
     }
 
     else
     {
-      v13 = __atxlog_handle_default();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v15 = __atxlog_handle_default(v7);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
         *&buf[4] = v5;
-        v18 = 2112;
-        v19 = v7;
-        _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_INFO, "ATXTrialClientWrapper: Error loading plist %@: %@", buf, 0x16u);
+        v20 = 2112;
+        v21 = v8;
+        _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_INFO, "ATXTrialClientWrapper: Error loading plist %@: %@", buf, 0x16u);
       }
     }
 
-    v11 = 0;
-    v12 = v7;
+    v12 = 0;
+    v13 = v8;
 LABEL_19:
 
     goto LABEL_20;
   }
 
-  v14 = __atxlog_handle_default();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v16 = __atxlog_handle_default(0);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
     *&buf[4] = resourceCopy;
-    _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_INFO, "ATXTrialClientWrapper: Could not get file path for resource: %@", buf, 0xCu);
+    _os_log_impl(&dword_1BF549000, v16, OS_LOG_TYPE_INFO, "ATXTrialClientWrapper: Could not get file path for resource: %@", buf, 0xCu);
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_20:
 
-  return v11;
+  return v12;
 }
 
 - (id)filePathForTrialResource:(id)resource

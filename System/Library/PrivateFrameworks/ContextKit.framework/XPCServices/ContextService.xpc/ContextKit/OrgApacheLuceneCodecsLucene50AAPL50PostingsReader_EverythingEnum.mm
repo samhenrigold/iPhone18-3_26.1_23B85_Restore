@@ -203,7 +203,7 @@ LABEL_15:
       }
 
       intCopy = int;
-      v7 = new_OrgApacheLuceneCodecsLucene50Lucene50SkipReader_initWithOrgApacheLuceneStoreIndexInput_withInt_withBoolean_withBoolean_withBoolean_([(OrgApacheLuceneStoreIndexInput *)docIn clone], 10, 1, self->indexHasOffsets_, self->indexHasPayloads_);
+      v7 = new_OrgApacheLuceneCodecsLucene50Lucene50SkipReader_initWithOrgApacheLuceneStoreIndexInput_withInt_withBoolean_withBoolean_withBoolean_([(OrgApacheLuceneStoreIndexInput *)docIn clone], 0xAu, 1, self->indexHasOffsets_, self->indexHasPayloads_);
       JreStrongAssignAndConsume(&self->skipper_, v7);
       skipper = self->skipper_;
       int = intCopy;

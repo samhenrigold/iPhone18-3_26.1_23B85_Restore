@@ -1,3 +1,17 @@
+void _removePreference(const __CFString *a1, const __CFString *a2)
+{
+  _setPreferenceAppWithNotification(a1, 0, 0, a2);
+
+  _updateAccessibilitySettings(v2);
+}
+
+void _AXSetPreferenceWithNotification(const __CFString *a1, const void *a2, const __CFString *a3)
+{
+  _setPreferenceAppWithNotification(a1, 0, a2, a3);
+
+  _updateAccessibilitySettings(v3);
+}
+
 float _getFloatPreference(const __CFString *a1, uint64_t a2, _BYTE *a3)
 {
   v5 = objc_autoreleasePoolPush();
@@ -27,32 +41,32 @@ float _getFloatPreference(const __CFString *a1, uint64_t a2, _BYTE *a3)
   return v8;
 }
 
-void _AXSAssistiveTouchKickstart()
+void _AXSAssistiveTouchKickstart(uint64_t a1)
 {
-  v0 = ASTLogKickStart();
-  v1 = os_signpost_id_generate(v0);
+  v1 = ASTLogKickStart(a1);
+  v2 = os_signpost_id_generate(v1);
 
-  v2 = ASTLogKickStart();
-  v3 = v2;
-  if (v1 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
+  v4 = ASTLogKickStart(v3);
+  v5 = v4;
+  if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_186307000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v1, "Kickstart AST", &unk_186340A7D, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_186307000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v2, "Kickstart AST", &unk_186340A7D, buf, 2u);
   }
 
   _kickstartProcess("com.apple.assistivetouchd");
-  v4 = ASTLogKickStart();
-  v5 = v4;
-  if (v1 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v7 = ASTLogKickStart(v6);
+  v8 = v7;
+  if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    *v6 = 0;
-    _os_signpost_emit_with_name_impl(&dword_186307000, v5, OS_SIGNPOST_INTERVAL_END, v1, "Kickstart AST", &unk_186340A7D, v6, 2u);
+    *v9 = 0;
+    _os_signpost_emit_with_name_impl(&dword_186307000, v8, OS_SIGNPOST_INTERVAL_END, v2, "Kickstart AST", &unk_186340A7D, v9, 2u);
   }
 }
 
 void _kickstartProcess(char *service_name)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   sp = 0;
   v2 = bootstrap_look_up(*MEMORY[0x1E69E99F8], service_name, &sp);
   if (sp)
@@ -65,10 +79,41 @@ void _kickstartProcess(char *service_name)
     v3 = 0;
   }
 
-  if (!v3)
+  if (v3)
+  {
+    *&msg.msgh_bits = 0x1800001413;
+    msg.msgh_remote_port = sp;
+    msg.msgh_local_port = 0;
+    msg.msgh_voucher_port = 0;
+    msg.msgh_id = 1776;
+    v12 = mach_msg(&msg, 17, 0x18u, 0, 0, 0, 0);
+    if (!v12)
+    {
+      return;
+    }
+
+    v13 = v12;
+    v5 = AXSupportLogCommon(v12);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      v16 = service_name;
+      v17 = 1024;
+      v18 = v13;
+      v19 = 1024;
+      v20 = sp;
+      v8 = "Could not kickstart %s [%d - port: %d]";
+      p_msg = buf;
+      v10 = v5;
+      v11 = 24;
+      goto LABEL_12;
+    }
+  }
+
+  else
   {
     v4 = v2;
-    v5 = AXSupportLogCommon();
+    v5 = AXSupportLogCommon(v2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = sp;
@@ -79,52 +124,19 @@ void _kickstartProcess(char *service_name)
       *(&msg.msgh_local_port + 2) = v4;
       HIWORD(msg.msgh_voucher_port) = 1024;
       msg.msgh_id = v6;
-      v23 = 2080;
-      v24 = v7;
+      v22 = 2080;
+      v23 = v7;
       v8 = "Could not look up process with name: %s [%d - port: %d] - error: %s";
       p_msg = &msg;
       v10 = v5;
       v11 = 34;
 LABEL_12:
       _os_log_error_impl(&dword_186307000, v10, OS_LOG_TYPE_ERROR, v8, p_msg, v11);
-      goto LABEL_9;
     }
-
-    goto LABEL_9;
   }
-
-  *&msg.msgh_bits = 0x1800001413;
-  msg.msgh_remote_port = sp;
-  msg.msgh_local_port = 0;
-  msg.msgh_voucher_port = 0;
-  msg.msgh_id = 1776;
-  v12 = mach_msg(&msg, 17, 0x18u, 0, 0, 0, 0);
-  if (v12)
-  {
-    v13 = v12;
-    v5 = AXSupportLogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315650;
-      v17 = service_name;
-      v18 = 1024;
-      v19 = v13;
-      v20 = 1024;
-      v21 = sp;
-      v8 = "Could not kickstart %s [%d - port: %d]";
-      p_msg = buf;
-      v10 = v5;
-      v11 = 24;
-      goto LABEL_12;
-    }
-
-LABEL_9:
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t _isProcessDistributedNotificationSender()
+uint64_t _isProcessDistributedNotificationSender(uint64_t a1, uint64_t a2)
 {
   if (_AXSCurrentProcessIsWebContent_onceToken != -1)
   {
@@ -134,7 +146,7 @@ uint64_t _isProcessDistributedNotificationSender()
   return _AXSCurrentProcessIsWebContent_IsWebContent ^ 1u;
 }
 
-uint64_t _AXSCurrentProcessIsWebContent()
+uint64_t _AXSCurrentProcessIsWebContent(uint64_t a1, uint64_t a2)
 {
   if (_AXSCurrentProcessIsWebContent_onceToken != -1)
   {
@@ -198,14 +210,15 @@ void _AXSForcePreferenceUpdate(const __CFString *a1)
   }
 }
 
-void _AXSSetInUnitTestMode(int a1)
+void _AXSSetInUnitTestMode(uint64_t a1)
 {
+  v1 = a1;
   _inUnitTestMode = a1;
-  v2 = _AXSApplicationAccessibilityEnabled();
-  if (a1 || !v2)
+  v2 = _AXSApplicationAccessibilityEnabled(a1);
+  if (v1 || !v2)
   {
-    v4 = _AXSApplicationAccessibilityEnabled();
-    if (!a1 || v4)
+    v4 = _AXSApplicationAccessibilityEnabled(v2);
+    if (!v1 || v4)
     {
       return;
     }
@@ -215,7 +228,7 @@ void _AXSSetInUnitTestMode(int a1)
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    if (!_AXSCanDisableApplicationAccessibility(v2))
     {
       return;
     }
@@ -226,7 +239,7 @@ void _AXSSetInUnitTestMode(int a1)
   _AXSApplicationAccessibilitySetEnabled(v3);
 }
 
-uint64_t _AXSFaceTimeCaptionsEnabled()
+uint64_t _AXSFaceTimeCaptionsEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSFaceTimeCaptionsEnabled_onceToken != -1)
   {
@@ -241,10 +254,10 @@ void _AXSSetFaceTimeCaptionsEnabled(uint64_t a1)
   _kAXSCacheFaceTimeCaptionsEnabled = a1;
   _setPreferenceAppWithNotification(kAXSFaceTimeCaptionsPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.FaceTimeCaptions");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSInPerformanceTestMode()
+uint64_t _AXSInPerformanceTestMode(uint64_t a1, uint64_t a2)
 {
   if (_AXSInPerformanceTestMode_onceToken != -1)
   {
@@ -259,7 +272,7 @@ void _AXSSetInPerformanceTestMode(uint64_t a1)
   _kAXSCacheInPerformanceTestMode = a1;
   _setPreferenceAppWithNotification(kAXSInPerformanceTestModePreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.performance.testing.mode");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSCurrentAccessibilitySettingsCanSupportLoginUI()
@@ -334,10 +347,10 @@ void _AXSSetAllowOpaqueTouchGestures(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSAllowOpaqueTouchGesturesPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], kAXSAllowOpaqueTouchGesturesChangedNotification);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSPencilExtendedSqueezeRangeEnabled()
+uint64_t _AXSPencilExtendedSqueezeRangeEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSPencilExtendedSqueezeRangeEnabled_onceToken != -1)
   {
@@ -352,7 +365,7 @@ void _AXSSetPencilExtendedSqueezeRangeEnabled(uint64_t a1)
   _kAXSCachePencilExtendedSqueezeRangeEnabled = a1 != 0;
   _setPreferenceAppWithNotification(@"AXSPencilExtendedSqueezeRangeEnabledPreference", 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.pencil.extended.squeeze.range");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSSpatialAudioHeadTracking()
@@ -360,37 +373,38 @@ uint64_t _AXSSpatialAudioHeadTracking()
   v10 = *MEMORY[0x1E69E9840];
   v7 = 0;
   v0 = _copyValuePreferenceApp(@"AXSAirPodsSpatialAudioLockToDevice", 0, &v7);
+  v1 = v0;
   if (v0)
   {
-    v1 = v7 == 0;
+    v2 = v7 == 0;
   }
 
   else
   {
-    v1 = 1;
+    v2 = 1;
   }
 
-  if (!v1)
+  if (!v2)
   {
-    v2 = AXLogAirPodSettings();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = AXLogAirPodSettings(v0);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v9 = v0;
-      _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_INFO, "Migrated lock to device to spatial audio %@", buf, 0xCu);
+      v9 = v1;
+      _os_log_impl(&dword_186307000, v3, OS_LOG_TYPE_INFO, "Migrated lock to device to spatial audio %@", buf, 0xCu);
     }
 
-    if ([v0 BOOLValue])
+    if ([v1 BOOLValue])
     {
-      v3 = 3;
+      v4 = 3;
     }
 
     else
     {
-      v3 = 0;
+      v4 = 0;
     }
 
-    _kAXSCacheSpatialAudioHeadTracking = v3;
+    _kAXSCacheSpatialAudioHeadTracking = v4;
     _setPreferenceAppWithNotification(@"AXSSpatialAudioHeadTracking", 0, [MEMORY[0x1E696AD98] numberWithLong:?], @"com.apple.accessibility.SpatialAudioHeadTracking.notification");
     _setPreferenceAppWithNotification(@"AXSAirPodsSpatialAudioLockToDevice", 0, 0, 0);
   }
@@ -400,10 +414,9 @@ uint64_t _AXSSpatialAudioHeadTracking()
     _AXSSpatialAudioHeadTracking_cold_1();
   }
 
-  v4 = _kAXSCacheSpatialAudioHeadTracking;
+  v5 = _kAXSCacheSpatialAudioHeadTracking;
 
-  v5 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v5;
 }
 
 void _AXSSetSpatialAudioHeadTracking(uint64_t a1)
@@ -414,7 +427,7 @@ void _AXSSetSpatialAudioHeadTracking(uint64_t a1)
   _setPreferenceAppWithNotification(@"AXSSpatialAudioHeadTracking", 0, v1, @"com.apple.accessibility.SpatialAudioHeadTracking.notification");
 }
 
-uint64_t _AXSAirPodsSpatialAudioLockToDevice()
+uint64_t _AXSAirPodsSpatialAudioLockToDevice(uint64_t a1, uint64_t a2)
 {
   if (_AXSAirPodsSpatialAudioLockToDevice_onceToken != -1)
   {
@@ -429,7 +442,7 @@ void _AXSSetAirPodsSpatialAudioLockToDevice(uint64_t a1)
   _kAXSCacheAirPodsSpatialAudioLockToDeviceEnabled = a1 != 0;
   _setPreferenceAppWithNotification(@"AXSAirPodsSpatialAudioLockToDevice", 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.airpod.spatial.audio.lock.to.device");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 id AXSAirPodsDictionaryForPreference(const __CFString *a1)
@@ -469,87 +482,86 @@ id AXSAirPodsUpdatedDictionaryForPreference(const __CFString *a1, uint64_t a2, v
   return v8;
 }
 
-id _AXSAirPodSettingForDevice(const __CFString *a1, uint64_t a2)
+id _AXSAirPodSettingForDevice(const __CFString *a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
-    v3 = AXSAirPodsDictionaryForPreference(a1);
-    v4 = v3;
-    if (v3)
+    v4 = AXSAirPodsDictionaryForPreference(a1);
+    v5 = v4;
+    if (v4)
     {
-      v5 = [v3 objectForKeyedSubscript:a2];
+      v6 = [v4 objectForKeyedSubscript:a2];
       if (objc_opt_isKindOfClass())
       {
-        v6 = v5;
+        v7 = v6;
       }
 
       else
       {
-        v6 = 0;
+        v7 = 0;
       }
     }
 
     else
     {
-      v6 = 0;
+      v7 = 0;
     }
   }
 
   else
   {
-    v7 = AXLogAirPodSettings();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = AXLogAirPodSettings(a1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       _AXSAirPodSettingForDevice_cold_1();
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 void _AXSAirPodSettingSetForDevice(const __CFString *a1, uint64_t a2, const __CFString *a3, void *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = a4;
+  v8 = v7;
   if (a2)
   {
-    v8 = AXSAirPodsUpdatedDictionaryForPreference(a1, a2, v7);
-    _setPreferenceAppWithNotification(a1, 0, v8, a3);
-    v9 = AXLogAirPodSettings();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v9 = AXSAirPodsUpdatedDictionaryForPreference(a1, a2, v7);
+    _setPreferenceAppWithNotification(a1, 0, v9, a3);
+    v11 = AXLogAirPodSettings(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412802;
-      v12 = a1;
-      v13 = 2112;
-      v14 = a2;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_impl(&dword_186307000, v9, OS_LOG_TYPE_INFO, "Setting AirPods %@:%@ %@", &v11, 0x20u);
+      v12 = 138412802;
+      v13 = a1;
+      v14 = 2112;
+      v15 = a2;
+      v16 = 2112;
+      v17 = v8;
+      _os_log_impl(&dword_186307000, v11, OS_LOG_TYPE_INFO, "Setting AirPods %@:%@ %@", &v12, 0x20u);
     }
   }
 
   else
   {
-    v8 = AXLogAirPodSettings();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = AXLogAirPodSettings(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       _AXSAirPodSettingSetForDevice_cold_1();
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _AXSAirPodsNoiseCancellationWithOneUnit(uint64_t a1)
 {
   v2 = kAXSAirPodsNoiseCancellationWithOneUnitPreference;
-  objc_opt_class();
-  v3 = _AXSAirPodSettingForDevice(v2, a1);
-  v4 = [v3 BOOLValue];
+  v3 = objc_opt_class();
+  v4 = _AXSAirPodSettingForDevice(v2, a1, v3);
+  v5 = [v4 BOOLValue];
 
-  return v4;
+  return v5;
 }
 
 void _AXSSetAirPodsNoiseCancellationWithOneUnit(uint64_t a1, uint64_t a2)
@@ -563,21 +575,21 @@ void _AXSSetAirPodsNoiseCancellationWithOneUnit(uint64_t a1, uint64_t a2)
 float _AXSAirPodsTapSpeed(uint64_t a1)
 {
   v2 = kAXSAirPodsTouchTapSpeedPreference;
-  objc_opt_class();
-  v3 = _AXSAirPodSettingForDevice(v2, a1);
-  v4 = v3;
-  if (v3)
+  v3 = objc_opt_class();
+  v4 = _AXSAirPodSettingForDevice(v2, a1, v3);
+  v5 = v4;
+  if (v4)
   {
-    [v3 floatValue];
-    v6 = v5;
+    [v4 floatValue];
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0.25;
+    v7 = 0.25;
   }
 
-  return v6;
+  return v7;
 }
 
 void _AXSSetAirPodsTapSpeed(uint64_t a1)
@@ -591,20 +603,20 @@ void _AXSSetAirPodsTapSpeed(uint64_t a1)
 uint64_t _AXSAirPodsDefaultToneVolume(uint64_t a1)
 {
   v2 = kAXSAirPodsDefaultToneVolumePreference;
-  objc_opt_class();
-  v3 = _AXSAirPodSettingForDevice(v2, a1);
-  v4 = v3;
-  if (v3)
+  v3 = objc_opt_class();
+  v4 = _AXSAirPodSettingForDevice(v2, a1, v3);
+  v5 = v4;
+  if (v4)
   {
-    v5 = [v3 unsignedIntValue];
+    v6 = [v4 unsignedIntValue];
   }
 
   else
   {
-    v5 = 80;
+    v6 = 80;
   }
 
-  return v5;
+  return v6;
 }
 
 void _AXSSetAirPodsDefaultToneVolume(uint64_t a1, uint64_t a2)
@@ -623,20 +635,20 @@ void _AXSSetAirPodsDefaultToneVolume(uint64_t a1, uint64_t a2)
 uint64_t _AXSAirPodsToneVolume(uint64_t a1)
 {
   v2 = kAXSAirPodsToneVolumePreference;
-  objc_opt_class();
-  v3 = _AXSAirPodSettingForDevice(v2, a1);
-  v4 = v3;
-  if (v3)
+  v3 = objc_opt_class();
+  v4 = _AXSAirPodSettingForDevice(v2, a1, v3);
+  v5 = v4;
+  if (v4)
   {
-    v5 = [v3 unsignedIntValue];
+    v6 = [v4 unsignedIntValue];
   }
 
   else
   {
-    v5 = 80;
+    v6 = 80;
   }
 
-  return v5;
+  return v6;
 }
 
 void _AXSSetAirPodsToneVolume(unsigned int a1, uint64_t a2)
@@ -675,20 +687,20 @@ void _AXSSetAirPodsToneVolume(unsigned int a1, uint64_t a2)
 uint64_t _AXSHeadsetCaseTonesEnabled(uint64_t a1)
 {
   v2 = kAXSHeadsetCaseTonesPreference;
-  objc_opt_class();
-  v3 = _AXSAirPodSettingForDevice(v2, a1);
-  v4 = v3;
-  if (v3)
+  v3 = objc_opt_class();
+  v4 = _AXSAirPodSettingForDevice(v2, a1, v3);
+  v5 = v4;
+  if (v4)
   {
-    v5 = [v3 BOOLValue];
+    v6 = [v4 BOOLValue];
   }
 
   else
   {
-    v5 = 1;
+    v6 = 1;
   }
 
-  return v5;
+  return v6;
 }
 
 void _AXSSetHeadsetCaseTonesEnabled(uint64_t a1, uint64_t a2)
@@ -707,21 +719,21 @@ void _AXSSetHeadsetCaseTonesEnabled(uint64_t a1, uint64_t a2)
 float _AXSAirPodsHoldDuration(uint64_t a1)
 {
   v2 = kAXSAirPodsHoldDurationPreference;
-  objc_opt_class();
-  v3 = _AXSAirPodSettingForDevice(v2, a1);
-  v4 = v3;
-  if (v3)
+  v3 = objc_opt_class();
+  v4 = _AXSAirPodSettingForDevice(v2, a1, v3);
+  v5 = v4;
+  if (v4)
   {
-    [v3 floatValue];
-    v6 = v5;
+    [v4 floatValue];
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0.5;
+    v7 = 0.5;
   }
 
-  return v6;
+  return v7;
 }
 
 void _AXSSetAirPodsHoldDuration(uint64_t a1)
@@ -735,20 +747,20 @@ void _AXSSetAirPodsHoldDuration(uint64_t a1)
 uint64_t _AXSAirPodsVolumeSwipeEnabled(uint64_t a1)
 {
   v2 = kAXSAirPodsVolumeSwipeEnabledPreference;
-  objc_opt_class();
-  v3 = _AXSAirPodSettingForDevice(v2, a1);
-  v4 = v3;
-  if (v3)
+  v3 = objc_opt_class();
+  v4 = _AXSAirPodSettingForDevice(v2, a1, v3);
+  v5 = v4;
+  if (v4)
   {
-    v5 = [v3 BOOLValue];
+    v6 = [v4 BOOLValue];
   }
 
   else
   {
-    v5 = 1;
+    v6 = 1;
   }
 
-  return v5;
+  return v6;
 }
 
 void _AXSSetAirPodsVolumeSwipeEnabled(uint64_t a1, uint64_t a2)
@@ -767,21 +779,21 @@ void _AXSSetAirPodsVolumeSwipeEnabled(uint64_t a1, uint64_t a2)
 float _AXSAirPodsVolumeSwipeDuration(uint64_t a1)
 {
   v2 = kAXSAirPodsVolumeSwipeDurationPreference;
-  objc_opt_class();
-  v3 = _AXSAirPodSettingForDevice(v2, a1);
-  v4 = v3;
-  if (v3)
+  v3 = objc_opt_class();
+  v4 = _AXSAirPodSettingForDevice(v2, a1, v3);
+  v5 = v4;
+  if (v4)
   {
-    [v3 floatValue];
-    v6 = v5;
+    [v4 floatValue];
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0.5;
+    v7 = 0.5;
   }
 
-  return v6;
+  return v7;
 }
 
 void _AXSSetAirPodsVolumeSwipeDuration(uint64_t a1)
@@ -813,7 +825,7 @@ void _AXSSetAccessibilityHasNoticedOpaqueTouchDevice(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSOpaqueTouchDeviceEverNoticedPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], 0);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSAccessibilityHasNoticedOpaqueTouchDevice()
@@ -831,65 +843,66 @@ uint64_t _AXSAccessibilityHasNoticedOpaqueTouchDevice()
   }
 }
 
-void AXCatchUserDefaultsInconsistencies()
+void AXCatchUserDefaultsInconsistencies(uint64_t a1)
 {
-  if (!_AXSCanDisableApplicationAccessibility() && !_AXSApplicationAccessibilityEnabled())
+  v1 = _AXSCanDisableApplicationAccessibility(a1);
+  if (!v1 && !_AXSApplicationAccessibilityEnabled(v1))
   {
-    v0 = AXLogCommon();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+    v2 = AXLogCommon();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v1 = 0;
-      _os_log_impl(&dword_186307000, v0, OS_LOG_TYPE_INFO, "Checking for user defaults inconsistencies and can't disable AX just yet.", v1, 2u);
+      *v3 = 0;
+      _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_INFO, "Checking for user defaults inconsistencies and can't disable AX just yet.", v3, 2u);
     }
 
     _AXSApplicationAccessibilitySetEnabled(1);
   }
 }
 
-uint64_t _AXSCanDisableApplicationAccessibility()
+uint64_t _AXSCanDisableApplicationAccessibility(uint64_t a1)
 {
   v20 = *MEMORY[0x1E69E9840];
-  v0 = _AXSAccessibilityEnablers();
+  v1 = _AXSAccessibilityEnablers(a1);
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v1 = [v0 allKeys];
-  v2 = [v1 countByEnumeratingWithState:&v13 objects:v19 count:16];
-  if (v2)
+  v2 = [v1 allKeys];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  if (v3)
   {
-    v3 = v2;
-    v4 = *v14;
+    v4 = v3;
+    v5 = *v14;
     while (2)
     {
-      for (i = 0; i != v3; ++i)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v4)
+        if (*v14 != v5)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v13 + 1) + 8 * i);
-        v7 = [v0 objectForKey:v6];
-        v8 = v7[2]();
+        v7 = *(*(&v13 + 1) + 8 * i);
+        v8 = [v1 objectForKey:v7];
+        v9 = v8[2]();
 
-        if (v8)
+        if (v9)
         {
-          v10 = AXLogCommon();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v11 = AXLogCommon();
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v18 = v6;
-            _os_log_impl(&dword_186307000, v10, OS_LOG_TYPE_DEFAULT, "Still an ax enabler: %@", buf, 0xCu);
+            v18 = v7;
+            _os_log_impl(&dword_186307000, v11, OS_LOG_TYPE_DEFAULT, "Still an ax enabler: %@", buf, 0xCu);
           }
 
-          v9 = 0;
+          v10 = 0;
           goto LABEL_13;
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v13 objects:v19 count:16];
-      if (v3)
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      if (v4)
       {
         continue;
       }
@@ -898,69 +911,69 @@ uint64_t _AXSCanDisableApplicationAccessibility()
     }
   }
 
-  v9 = 1;
+  v10 = 1;
 LABEL_13:
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v10;
 }
 
-id _AXSPreferenceKeysToNotifications()
+id _AXSPreferenceKeysToNotifications(uint64_t a1)
 {
   if (_AXSPreferenceKeysToNotifications_onceToken != -1)
   {
     _AXSPreferenceKeysToNotifications_cold_1();
   }
 
-  v1 = _AXSPreferenceKeysToNotifications_PrefKeysToNotifications;
+  v2 = _AXSPreferenceKeysToNotifications_PrefKeysToNotifications;
 
-  return v1;
+  return v2;
 }
 
 void AXBeginListeningToUserDefaultsChanges()
 {
   v17 = *MEMORY[0x1E69E9840];
-  if (_processIsResponsibleForPreferenceObserving())
+  IsResponsibleForPreferenceObserving = _processIsResponsibleForPreferenceObserving();
+  if (IsResponsibleForPreferenceObserving)
   {
-    v0 = _AXSPreferenceKeysToNotifications();
+    v1 = _AXSPreferenceKeysToNotifications(IsResponsibleForPreferenceObserving);
     v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    obj = [v0 allKeys];
-    v1 = [obj countByEnumeratingWithState:&v11 objects:v16 count:16];
-    if (v1)
+    obj = [v1 allKeys];
+    v2 = [obj countByEnumeratingWithState:&v11 objects:v16 count:16];
+    if (v2)
     {
-      v2 = v1;
-      v3 = *v12;
-      v4 = MEMORY[0x1E69E96A0];
+      v3 = v2;
+      v4 = *v12;
+      v5 = MEMORY[0x1E69E96A0];
       do
       {
-        for (i = 0; i != v2; ++i)
+        for (i = 0; i != v3; ++i)
         {
-          if (*v12 != v3)
+          if (*v12 != v4)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v11 + 1) + 8 * i);
-          [v0 objectForKeyedSubscript:v6];
-          v8 = v7 = v0;
+          v7 = *(*(&v11 + 1) + 8 * i);
+          [v1 objectForKeyedSubscript:v7];
+          v9 = v8 = v1;
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __ObservePreferenceDistributed_block_invoke;
           block[3] = &__block_descriptor_48_e5_v8__0l;
-          block[4] = v8;
-          block[5] = v6;
-          dispatch_async(v4, block);
+          block[4] = v9;
+          block[5] = v7;
+          dispatch_async(v5, block);
 
-          v0 = v7;
+          v1 = v8;
         }
 
-        v2 = [obj countByEnumeratingWithState:&v11 objects:v16 count:16];
+        v3 = [obj countByEnumeratingWithState:&v11 objects:v16 count:16];
       }
 
-      while (v2);
+      while (v3);
     }
 
     [DefaultsObserver startObservingPreference:kAXSVoiceOverTouchEnabledPreference andPerformBlock:&__block_literal_global_1879];
@@ -968,29 +981,26 @@ void AXBeginListeningToUserDefaultsChanges()
     [DefaultsObserver startObservingPreference:kAXSApplicationAccessibilityEnabledPreference andPerformBlock:&__block_literal_global_1884];
     [DefaultsObserver startObservingPreference:kAXSAssistiveTouchScannerEnabledPreference andPerformBlock:&__block_literal_global_1886];
     [DefaultsObserver startObservingPreference:kAXSInvertColorsEnabledPreference andPerformBlock:&__block_literal_global_1888];
-    [DefaultsObserver startObservingPreference:kAXSClassicInvertColorsPreference andPerformBlock:&__block_literal_global_1888];
-    AXCatchUserDefaultsInconsistencies();
+    AXCatchUserDefaultsInconsistencies([DefaultsObserver startObservingPreference:kAXSClassicInvertColorsPreference andPerformBlock:&__block_literal_global_1888]);
   }
 
   else
   {
-    v0 = AXSupportLogCommon();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+    v1 = AXSupportLogCommon(IsResponsibleForPreferenceObserving);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(block[0]) = 0;
-      _os_log_impl(&dword_186307000, v0, OS_LOG_TYPE_DEFAULT, "This process is not responsible for listening to AX user defaults changes. Please file a bug.", block, 2u);
+      _os_log_impl(&dword_186307000, v1, OS_LOG_TYPE_DEFAULT, "This process is not responsible for listening to AX user defaults changes. Please file a bug.", block, 2u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __AXBeginListeningToUserDefaultsChanges_block_invoke()
 {
   BooleanPreference = _getBooleanPreference(kAXSVoiceOverTouchEnabledPreference, 0);
-  v3 = 0;
-  v1 = _getBooleanPreference(kAXSVoiceOverTouchEnabledByiTunesPreference, &v3);
-  if (v3)
+  v4 = 0;
+  v1 = _getBooleanPreference(kAXSVoiceOverTouchEnabledByiTunesPreference, &v4);
+  if (v4)
   {
     v2 = v1 == BooleanPreference;
   }
@@ -1003,7 +1013,7 @@ void __AXBeginListeningToUserDefaultsChanges_block_invoke()
   if (!v2)
   {
     _setPreferenceAppWithNotification(kAXSVoiceOverTouchEnabledByiTunesPreference, 0, 0, 0);
-    _updateAccessibilitySettings();
+    _updateAccessibilitySettings(v3);
   }
 
   if (BooleanPreference)
@@ -1025,7 +1035,8 @@ void __AXBeginListeningToUserDefaultsChanges_block_invoke()
 
 void __AXBeginListeningToUserDefaultsChanges_block_invoke_2()
 {
-  if (_getBooleanPreference(kAXSAssistiveTouchEnabledPreference, 0))
+  BooleanPreference = _getBooleanPreference(kAXSAssistiveTouchEnabledPreference, 0);
+  if (BooleanPreference)
   {
     if (_AXSAssistiveTouchScannerEnabled_onceToken != -1)
     {
@@ -1037,20 +1048,20 @@ void __AXBeginListeningToUserDefaultsChanges_block_invoke_2()
       _AXSAssistiveTouchScannerSetEnabled(0);
     }
 
-    _AXSAssistiveTouchKickstart();
+    _AXSAssistiveTouchKickstart(BooleanPreference);
   }
 
   else
   {
     _setPreferenceAppWithNotification(kAXSAssistiveTouchHardwareEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:0], kAXSAssistiveTouchHardwareChangedNotification);
 
-    _updateAccessibilitySettings();
+    _updateAccessibilitySettings(v1);
   }
 }
 
-void __AXBeginListeningToUserDefaultsChanges_block_invoke_3()
+void __AXBeginListeningToUserDefaultsChanges_block_invoke_3(uint64_t a1)
 {
-  if (!_AXSCanDisableApplicationAccessibility())
+  if (!_AXSCanDisableApplicationAccessibility(a1))
   {
 
     _AXSApplicationAccessibilitySetEnabled(1);
@@ -1064,7 +1075,7 @@ void __AXBeginListeningToUserDefaultsChanges_block_invoke_4()
     _disableConflictingSettingsForSwitchControl();
     _AXSApplicationAccessibilitySetEnabled(1);
 
-    _AXSAssistiveTouchKickstart();
+    _AXSAssistiveTouchKickstart(v0);
   }
 }
 
@@ -1089,8 +1100,8 @@ void _disableConflictingSettingsForSwitchControl()
   {
     _kAXSCacheFullKeyboardAccessEnabled = 0;
     _setPreferenceAppWithNotification(kAXSFullKeyboardAccessEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:0], @"com.apple.accessibility.cache.full.keyboard.access");
-    _updateAccessibilitySettings();
-    if (_AXSCanDisableApplicationAccessibility())
+    _updateAccessibilitySettings(v0);
+    if (_AXSCanDisableApplicationAccessibility(v1))
     {
 
       _AXSApplicationAccessibilitySetEnabled(0);
@@ -1116,23 +1127,22 @@ uint64_t __AXBeginListeningToUserDefaultsChanges_block_invoke_5()
   return _AXSInvertColorsDisplaySetEnabled(v2);
 }
 
-uint64_t _AXSInvertColorsDisplaySetEnabled(int a1)
+uint64_t _AXSInvertColorsDisplaySetEnabled(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = AXSupportLogCommon();
+  v1 = a1;
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = AXSupportLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = a1;
-    _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_DEFAULT, "Invert colors HW display toggled: %d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = v1;
+    _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_DEFAULT, "Invert colors HW display toggled: %d", v4, 8u);
   }
 
-  if (a1)
+  if (v1)
   {
     MADisplayFilterPrefSetType();
-LABEL_5:
-    result = MADisplayFilterPrefSetCategoryEnabled();
-    goto LABEL_8;
+    return MADisplayFilterPrefSetCategoryEnabled();
   }
 
   result = MADisplayFilterPrefGetType();
@@ -1141,12 +1151,10 @@ LABEL_5:
     result = MADisplayFilterPrefGetCategoryEnabled();
     if (result)
     {
-      goto LABEL_5;
+      return MADisplayFilterPrefSetCategoryEnabled();
     }
   }
 
-LABEL_8:
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1155,19 +1163,19 @@ void _AXSAssistiveTouchSetEnabled(uint64_t a1)
   v1 = a1;
   _kAXSAssistiveTouchEnabledCache = a1;
   _setPreferenceAppWithNotification(kAXSAssistiveTouchEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.ast");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (!v1)
   {
     _setPreferenceAppWithNotification(kAXSAssistiveTouchHardwareEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:0], kAXSAssistiveTouchHardwareChangedNotification);
-    _updateAccessibilitySettings();
+    _updateAccessibilitySettings(v3);
   }
 
-  v3 = 0;
-  BooleanPreference = _getBooleanPreference(kAXSAssistiveTouchEnabledByiTunesPreference, &v3);
-  if (v3 && BooleanPreference != v1)
+  v6 = 0;
+  BooleanPreference = _getBooleanPreference(kAXSAssistiveTouchEnabledByiTunesPreference, &v6);
+  if (v6 && BooleanPreference != v1)
   {
     _setPreferenceAppWithNotification(kAXSAssistiveTouchEnabledByiTunesPreference, 0, 0, 0);
-    _updateAccessibilitySettings();
+    _updateAccessibilitySettings(v5);
   }
 
   if (v1)
@@ -1184,7 +1192,7 @@ void _AXSAssistiveTouchSetEnabled(uint64_t a1)
   }
 }
 
-uint64_t _AXSDwellControlEnabled()
+uint64_t _AXSDwellControlEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSDwellControlEnabled_onceToken != -1)
   {
@@ -1199,38 +1207,38 @@ void _AXSDwellControlSetEnabled(uint64_t a1)
   _kAXSCacheDwellControlEnabled = a1;
   _setPreferenceAppWithNotification(kAXSDwellControlEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.dwell.control");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSSoundActionEnabledForSwitchControl()
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v0 = [NSClassFromString(&cfstr_Axsettings.isa) valueForKey:@"sharedInstance"];
   v1 = [v0 valueForKey:@"assistiveTouchSwitches"];
 
   if (v1)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v2 = v1;
-    v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v13;
+      v5 = *v12;
       while (2)
       {
         v6 = 0;
         do
         {
-          if (*v13 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = [*(*(&v12 + 1) + 8 * v6) source];
+          v7 = [*(*(&v11 + 1) + 8 * v6) source];
           v8 = [v7 isEqualToString:@"SCATSwitchSourceSound"];
 
           if (v8)
@@ -1243,7 +1251,7 @@ uint64_t _AXSSoundActionEnabledForSwitchControl()
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v4)
         {
           continue;
@@ -1262,7 +1270,6 @@ LABEL_12:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1303,7 +1310,7 @@ void _AXSSetAccessibilityNeedsCameraOnLockScreen(uint64_t a1)
   _kAXSCacheNeedsCameraOnLockScreen = a1;
   _setPreferenceAppWithNotification(kAXSAccessibilityNeedsCameraOnLockScreenPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.needs.camera.cache");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSSwitchControlEnabledAndNeedsMicrophoneOnLockScreen()
@@ -1343,13 +1350,13 @@ void _AXSSetAccessibilityNeedsMicrophoneOnLockScreen(uint64_t a1)
   _kAXSCacheNeedsMicrophoneOnLockScreen = a1;
   _setPreferenceAppWithNotification(kAXSAccessibilityNeedsMicrophoneOnLockScreenPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.needs.microphone.cache");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSAssistiveTouchSetRepairIncarnationModeEnabled(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSAssistiveTouchRepairIncarnationModePreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], 0);
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   _AXSAssistiveTouchSetEnabled(a1);
 
   _AXSAssistiveTouchSetUIEnabled(a1);
@@ -1359,13 +1366,13 @@ void _AXSAssistiveTouchSetUIEnabled(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSAssistiveTouchUIEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], 0);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSAssistiveTouchSetHardwareEnabled(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSAssistiveTouchHardwareEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], kAXSAssistiveTouchHardwareChangedNotification);
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (a1)
   {
     if (_AXSAssistiveTouchEnabled_onceToken != -1)
@@ -1407,18 +1414,18 @@ void _AXSAssistiveTouchScannerSetEnabled(uint64_t a1)
   {
     _kAXSCacheSwitchControlEnabled = a1;
     _setPreferenceAppWithNotification(kAXSAssistiveTouchScannerEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.switch.control");
-    _updateAccessibilitySettings();
+    _updateAccessibilitySettings(v2);
   }
 
   if (v1)
   {
     _disableConflictingSettingsForSwitchControl();
 
-    _AXSAssistiveTouchKickstart();
+    _AXSAssistiveTouchKickstart(v3);
   }
 }
 
-uint64_t _AXSAccessibilitySecureIntentProvider()
+uint64_t _AXSAccessibilitySecureIntentProvider(uint64_t a1, uint64_t a2)
 {
   if (_AXSAccessibilitySecureIntentProvider_onceToken != -1)
   {
@@ -1437,7 +1444,7 @@ void _AXSAccessibilitySetSecureIntentProvider(uint64_t a1)
   _setPreferenceAppWithNotification(v1, 0, v2, @"com.apple.accessibility.cache.secure.intent.provider");
 }
 
-uint64_t _AXSSwitchControlExtendedKeyboardPredictionsEnabled()
+uint64_t _AXSSwitchControlExtendedKeyboardPredictionsEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSSwitchControlExtendedKeyboardPredictionsEnabled_onceToken != -1)
   {
@@ -1447,7 +1454,7 @@ uint64_t _AXSSwitchControlExtendedKeyboardPredictionsEnabled()
   return _kAXSCacheSwitchControlUseExtendedKeyboardPredictionsEnabled;
 }
 
-uint64_t _AXSAssistiveTouchExtendedKeyboardPredictionsEnabled()
+uint64_t _AXSAssistiveTouchExtendedKeyboardPredictionsEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSAssistiveTouchExtendedKeyboardPredictionsEnabled_onceToken != -1)
   {
@@ -1462,7 +1469,7 @@ void _AXSSwitchControlExtendedKeyboardPredictionsSetEnabled(uint64_t a1)
   _kAXSCacheSwitchControlUseExtendedKeyboardPredictionsEnabled = a1;
   _setPreferenceAppWithNotification(kAXSSwitchControlUseExtendedKeyboardPredictionsEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.switch.control.useextendedkeyboardpredictions");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSAssistiveTouchExtendedKeyboardPredictionsSetEnabled(uint64_t a1)
@@ -1470,52 +1477,53 @@ void _AXSAssistiveTouchExtendedKeyboardPredictionsSetEnabled(uint64_t a1)
   _kAXSCacheAssistiveTouchUseExtendedKeyboardPredictionsEnabled = a1;
   _setPreferenceAppWithNotification(kAXSAssistiveTouchUseExtendedKeyboardPredictionsEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.assistivetouch.useextendedkeyboardpredictions");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-void _AXSUpdateAccessibilityKeyboardContinuousPathEnabled(int a1)
+void _AXSUpdateAccessibilityKeyboardContinuousPathEnabled(uint64_t a1, uint64_t a2)
 {
+  v2 = a1;
   if (_AXSAssistiveTouchScannerEnabled_onceToken != -1)
   {
     _updateAccessibilitySettings_cold_3();
   }
 
-  if (_kAXSCacheSwitchControlEnabled && _AXSSwitchControlKeyboardContinuousPathEnabled())
+  if (_kAXSCacheSwitchControlEnabled && (a1 = _AXSSwitchControlKeyboardContinuousPathEnabled(a1, a2), a1))
   {
-    v2 = 1;
+    v3 = 1;
   }
 
-  else if (_AXSDwellKeyboardContinuousPathEnabled())
+  else if (_AXSDwellKeyboardContinuousPathEnabled(a1, a2))
   {
     if (_AXSAssistiveTouchEnabled_onceToken != -1)
     {
       _updateAccessibilitySettings_cold_2();
     }
 
-    v2 = _kAXSAssistiveTouchEnabledCache != 0;
+    v3 = _kAXSAssistiveTouchEnabledCache != 0;
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  if (_kAXSCacheAccessibilityKeyboardContinuousPathEnabled != v2)
+  if (_kAXSCacheAccessibilityKeyboardContinuousPathEnabled != v3)
   {
-    _kAXSCacheAccessibilityKeyboardContinuousPathEnabled = v2;
-    if (a1)
+    _kAXSCacheAccessibilityKeyboardContinuousPathEnabled = v3;
+    if (v2)
     {
       LocalCenter = CFNotificationCenterGetLocalCenter();
-      v4 = kAXSAccessibilityKeyboardContinuousPathEnabledNotification;
+      v5 = kAXSAccessibilityKeyboardContinuousPathEnabledNotification;
 
-      CFNotificationCenterPostNotification(LocalCenter, v4, 0, 0, 1u);
+      CFNotificationCenterPostNotification(LocalCenter, v5, 0, 0, 1u);
     }
   }
 }
 
-uint64_t _AXSSwitchControlKeyboardContinuousPathEnabled()
+uint64_t _AXSSwitchControlKeyboardContinuousPathEnabled(uint64_t a1, uint64_t a2)
 {
-  result = AXRuntimeCheck_DwellKeyboardSwipe();
+  result = AXRuntimeCheck_DwellKeyboardSwipe(a1, a2);
   if (result)
   {
     if (_AXSSwitchControlKeyboardContinuousPathEnabled_onceToken != -1)
@@ -1529,9 +1537,9 @@ uint64_t _AXSSwitchControlKeyboardContinuousPathEnabled()
   return result;
 }
 
-uint64_t _AXSDwellKeyboardContinuousPathEnabled()
+uint64_t _AXSDwellKeyboardContinuousPathEnabled(uint64_t a1, uint64_t a2)
 {
-  result = AXRuntimeCheck_DwellKeyboardSwipe();
+  result = AXRuntimeCheck_DwellKeyboardSwipe(a1, a2);
   if (result)
   {
     if (_AXSDwellKeyboardContinuousPathEnabled_onceToken != -1)
@@ -1545,7 +1553,7 @@ uint64_t _AXSDwellKeyboardContinuousPathEnabled()
   return result;
 }
 
-uint64_t _AXSDidSetDwellKeyboardContinuousPathEnabled()
+uint64_t _AXSDidSetDwellKeyboardContinuousPathEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSDidSetDwellKeyboardContinuousPathEnabled_onceToken != -1)
   {
@@ -1555,7 +1563,7 @@ uint64_t _AXSDidSetDwellKeyboardContinuousPathEnabled()
   return _kAXSCacheDidSetDwellKeyboardContinuousPathEnabled;
 }
 
-void _AXSSetDwellKeyboardContinuousPathEnabled(uint64_t a1)
+void _AXSSetDwellKeyboardContinuousPathEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSDidSetDwellKeyboardContinuousPathEnabled_onceToken != -1)
   {
@@ -1566,13 +1574,13 @@ void _AXSSetDwellKeyboardContinuousPathEnabled(uint64_t a1)
   {
     _kAXSCacheDidSetDwellKeyboardContinuousPathEnabled = 1;
     _setPreferenceAppWithNotification(kAXSDidSetDwellKeyboardContinuousPathEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:1], 0);
-    _updateAccessibilitySettings();
+    _updateAccessibilitySettings(v3);
   }
 
   _kAXSCacheDwellKeyboardContinuousPathEnabled = a1;
   _setPreferenceAppWithNotification(kAXSDwellKeyboardContinuousPathEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.dwell.keyboardcontinuouspath");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v4);
 }
 
 void _AXSSetSwitchControlKeyboardContinuousPathEnabled(uint64_t a1)
@@ -1580,7 +1588,7 @@ void _AXSSetSwitchControlKeyboardContinuousPathEnabled(uint64_t a1)
   _kAXSCacheSwitchControlKeyboardContinuousPathEnabled = a1;
   _setPreferenceAppWithNotification(kAXSSwitchControlKeyboardContinuousPathEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.switch.control.keyboardcontinuouspath");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _accessibilityEnabled()
@@ -1640,7 +1648,7 @@ void _AXSTripleClickAddOption(uint64_t a1)
 
 uint64_t _isComputedTripleClickOption(uint64_t a1)
 {
-  v2 = _computedTripleClickOptions();
+  v2 = _computedTripleClickOptions(a1);
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a1];
   v4 = [v2 containsObject:v3];
 
@@ -1652,10 +1660,11 @@ void _AXSSetTripleClickOptions(void *a1)
   v24 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DFB8] orderedSetWithArray:a1];
   v3 = [a1 count];
-  if (v3 != [v2 count])
+  v4 = [v2 count];
+  if (v3 != v4)
   {
-    v4 = AXSupportLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = AXSupportLogCommon(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       _AXSSetTripleClickOptions_cold_1();
     }
@@ -1665,62 +1674,60 @@ void _AXSSetTripleClickOptions(void *a1)
   v20 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v5 = _computedTripleClickOptions();
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
-  if (v6)
+  v6 = _computedTripleClickOptions(v4);
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  if (v7)
   {
-    v7 = v6;
-    v8 = *v18;
+    v8 = v7;
+    v9 = *v18;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v8)
+        if (*v18 != v9)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        if ([v2 containsObject:{v10, v17}])
+        v11 = *(*(&v17 + 1) + 8 * i);
+        if ([v2 containsObject:{v11, v17}])
         {
-          v11 = [v2 mutableCopy];
-          [v11 removeObject:v10];
+          v12 = [v2 mutableCopy];
+          [v12 removeObject:v11];
 
-          v2 = v11;
+          v2 = v12;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 
-  v12 = [v2 array];
-  v13 = AXLogCommon();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v13 = [v2 array];
+  v14 = AXLogCommon();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v22 = a1;
-    _os_log_impl(&dword_186307000, v13, OS_LOG_TYPE_DEFAULT, "Setting triple click options: %@", buf, 0xCu);
+    _os_log_impl(&dword_186307000, v14, OS_LOG_TYPE_DEFAULT, "Setting triple click options: %@", buf, 0xCu);
   }
 
   if (os_variant_has_internal_ui())
   {
-    v14 = AXLogCommon();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = AXLogCommon();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = [MEMORY[0x1E696AF00] callStackSymbols];
+      v16 = [MEMORY[0x1E696AF00] callStackSymbols];
       *buf = 138412290;
-      v22 = v15;
-      _os_log_impl(&dword_186307000, v14, OS_LOG_TYPE_DEFAULT, "Setting triple click options: %@", buf, 0xCu);
+      v22 = v16;
+      _os_log_impl(&dword_186307000, v15, OS_LOG_TYPE_DEFAULT, "Setting triple click options: %@", buf, 0xCu);
     }
   }
 
-  _setPreferenceAppWithNotification(kAXSTripleClickPreference, 0, v12, 0);
+  _setPreferenceAppWithNotification(kAXSTripleClickPreference, 0, v13, 0);
   _didUpdateTripleClickOptions();
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void _AXSTripleClickRemoveOption(uint64_t a1)
@@ -1767,26 +1774,25 @@ uint64_t _AXSGuidedAccessEnabledNoCaching()
   return _getBooleanPreference(v2, 0);
 }
 
-void _AXSHandleTripleClickHomeButtonPress()
+void _AXSHandleTripleClickHomeButtonPress(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v0 = AXUtilsBackBoardServer();
-  if (objc_opt_respondsToSelector())
+  v5 = *MEMORY[0x1E69E9840];
+  v1 = AXUtilsBackBoardServer();
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    [v0 tripleClickHomeButtonPress];
+    [v1 tripleClickHomeButtonPress];
   }
 
   else
   {
-    v1 = AXSupportLogCommon();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    v3 = AXSupportLogCommon(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_186307000, v1, OS_LOG_TYPE_DEFAULT, "BB Server does not respond to triple click", v3, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_186307000, v3, OS_LOG_TYPE_DEFAULT, "BB Server does not respond to triple click", v4, 2u);
     }
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1863207B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9)
@@ -1794,7 +1800,7 @@ void sub_1863207B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   if (a2 == 1)
   {
     v9 = objc_begin_catch(exception_object);
-    v10 = AXSupportLogCommon();
+    v10 = AXSupportLogCommon(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(a9) = 138412290;
@@ -1811,14 +1817,12 @@ void sub_1863207B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 id AXUtilsBackBoardServer()
 {
-  v3 = *MEMORY[0x1E69E9840];
   if (AXUtilsBackBoardServer_onceToken != -1)
   {
     AXUtilsBackBoardServer_cold_1();
   }
 
   v0 = [NSClassFromString(&cfstr_Axbackboardser_0.isa) valueForKey:@"server"];
-  v1 = *MEMORY[0x1E69E9840];
 
   return v0;
 }
@@ -1828,7 +1832,7 @@ void sub_1863208DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   if (a2 == 1)
   {
     v9 = objc_begin_catch(exception_object);
-    v10 = AXSupportLogCommon();
+    v10 = AXSupportLogCommon(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(a9) = 138412290;
@@ -1845,39 +1849,36 @@ void sub_1863208DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t _AXSHandleHomeButtonPressSwallowedForGuidedAccess()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2 = AXUtilsBackBoardServer();
+  v1 = AXUtilsBackBoardServer();
   if (objc_opt_respondsToSelector())
   {
-    [v2 homeClickSwallowedForGuidedAccess];
+    [v1 homeClickSwallowedForGuidedAccess];
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
-id _computedTripleClickOptions()
+id _computedTripleClickOptions(uint64_t a1)
 {
   if (_computedTripleClickOptions_onceToken != -1)
   {
     _computedTripleClickOptions_cold_1();
   }
 
-  v1 = _computedTripleClickOptions_ComputedOptions;
+  v2 = _computedTripleClickOptions_ComputedOptions;
 
-  return v1;
+  return v2;
 }
 
-uint64_t _didUpdateTripleClickOptions()
+void _didUpdateTripleClickOptions()
 {
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, kAXSTripleHomeEnabledNotification, 0, 0, 1u);
 
-  return _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSGenericAccessibilityClientEnabled()
+uint64_t _AXSGenericAccessibilityClientEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSGenericAccessibilityClientEnabled_onceToken != -1)
   {
@@ -1892,26 +1893,26 @@ void _AXSSetGenericAccessibilityClientEnabled(uint64_t a1)
   v1 = a1;
   _kAXSCacheGenericAccessibilityClientEnabled = a1;
   _setPreferenceAppWithNotification(kAXSGenericAccessibilityClientEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.generic.accessibility.client");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (v1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    if (!_AXSCanDisableApplicationAccessibility(v3))
     {
       return;
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  _AXSApplicationAccessibilitySetEnabled(v2);
+  _AXSApplicationAccessibilitySetEnabled(v4);
 }
 
-uint64_t _AXSClarityUIEnabled()
+uint64_t _AXSClarityUIEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSClarityUIEnabled_onceToken != -1)
   {
@@ -1921,13 +1922,13 @@ uint64_t _AXSClarityUIEnabled()
   return _kAXSCacheClarityUIEnabled;
 }
 
-uint64_t _AXSClarityUISetEnabled(uint64_t a1)
+void _AXSClarityUISetEnabled(uint64_t a1)
 {
   _kAXSCacheClarityUIEnabled = a1;
   _setPreferenceAppWithNotification(kAXSClarityUIEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.clarityui");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 
-  return _didUpdateTripleClickOptions();
+  _didUpdateTripleClickOptions();
 }
 
 id _AXSClarityUIConvertBundleIdentifier(void *a1, int a2)
@@ -1956,69 +1957,66 @@ id _AXSClarityUIConvertBundleIdentifier(void *a1, int a2)
 void _AXSCommandAndControlSetEnabled(uint64_t a1)
 {
   v1 = a1;
-  v6 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   _kAXSCacheCommandAndControlEnabled = a1;
   _setPreferenceAppWithNotification(kAXSCommandAndControlEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.command.and.control");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (v1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    v5 = _AXSCanDisableApplicationAccessibility(v3);
+    if (!v5)
     {
       goto LABEL_6;
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  _AXSApplicationAccessibilitySetEnabled(v2);
+  _AXSApplicationAccessibilitySetEnabled(v4);
 LABEL_6:
-  v3 = AXSupportLogCommon();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v6 = AXSupportLogCommon(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = v1;
-    _os_log_impl(&dword_186307000, v3, OS_LOG_TYPE_DEFAULT, "Set Voice Control enabled: %d", v5, 8u);
+    v7[0] = 67109120;
+    v7[1] = v1;
+    _os_log_impl(&dword_186307000, v6, OS_LOG_TYPE_DEFAULT, "Set Voice Control enabled: %d", v7, 8u);
   }
 
   if (v1)
   {
     _kickstartProcess("com.apple.commandandcontrol");
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void _AXSCommandAndControlCarPlaySetEnabled(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = AXSupportLogCommon();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = AXSupportLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4[0] = 67109120;
-    v4[1] = a1;
-    _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_DEFAULT, "Set Voice Control CarPlay enabled: %d", v4, 8u);
+    v5[0] = 67109120;
+    v5[1] = a1;
+    _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_DEFAULT, "Set Voice Control CarPlay enabled: %d", v5, 8u);
   }
 
   _kAXSCacheCommandAndControlCarPlayEnabled = a1;
   _setPreferenceAppWithNotification(kAXSCommandAndControlCarPlayEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.command.and.control.carplay");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v3);
   if (a1)
   {
     _AXSApplicationAccessibilitySetEnabled(1);
     _kickstartProcess("com.apple.commandandcontrol");
   }
 
-  else if (_AXSCanDisableApplicationAccessibility())
+  else if (_AXSCanDisableApplicationAccessibility(v4))
   {
     _AXSApplicationAccessibilitySetEnabled(0);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void _AXSFullKeyboardAccessSetEnabled(uint64_t a1)
@@ -2026,7 +2024,7 @@ void _AXSFullKeyboardAccessSetEnabled(uint64_t a1)
   v1 = a1;
   _kAXSCacheFullKeyboardAccessEnabled = a1;
   _setPreferenceAppWithNotification(kAXSFullKeyboardAccessEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.full.keyboard.access");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (v1)
   {
     _AXSApplicationAccessibilitySetEnabled(1);
@@ -2043,14 +2041,14 @@ void _AXSFullKeyboardAccessSetEnabled(uint64_t a1)
     _kickstartProcess("com.apple.fullkeyboardaccess");
   }
 
-  else if (_AXSCanDisableApplicationAccessibility())
+  else if (_AXSCanDisableApplicationAccessibility(v3))
   {
 
     _AXSApplicationAccessibilitySetEnabled(0);
   }
 }
 
-uint64_t _AXSFullKeyboardAccessFocusRingEnabled()
+uint64_t _AXSFullKeyboardAccessFocusRingEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSFullKeyboardAccessFocusRingEnabled_onceToken != -1)
   {
@@ -2065,10 +2063,10 @@ void _AXSFullKeyboardAccessSetFocusRingEnabled(uint64_t a1)
   _kAXSCacheFullKeyboardAccessFocusRingEnabled = a1;
   _setPreferenceAppWithNotification(kAXSFullKeyboardAccessFocusRingEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.full.keyboard.access.focus.ring");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSFullKeyboardAccessPassthroughModeEnabled()
+uint64_t _AXSFullKeyboardAccessPassthroughModeEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSFullKeyboardAccessPassthroughModeEnabled_onceToken != -1)
   {
@@ -2083,10 +2081,10 @@ void _AXSFullKeyboardAccessSetPassthroughModeEnabled(uint64_t a1)
   _kAXSCacheFullKeyboardAccessPassthroughModeEnabled = a1;
   _setPreferenceAppWithNotification(kAXSFullKeyboardAccessPassthroughModeEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.full.keyboard.access.passthrough.mode");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSFullKeyboardAccessUsesSimulatedKeyboardForAutomation()
+uint64_t _AXSFullKeyboardAccessUsesSimulatedKeyboardForAutomation(uint64_t a1, uint64_t a2)
 {
   if (_AXSFullKeyboardAccessUsesSimulatedKeyboardForAutomation_onceToken != -1)
   {
@@ -2096,7 +2094,7 @@ uint64_t _AXSFullKeyboardAccessUsesSimulatedKeyboardForAutomation()
   return _AXSFullKeyboardAccessUsesSimulatedKeyboardForAutomation_UsesSimulatedKeyboard;
 }
 
-uint64_t _AXSLiveTranscriptionEnabled()
+uint64_t _AXSLiveTranscriptionEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSLiveTranscriptionEnabled_onceToken != -1)
   {
@@ -2111,7 +2109,7 @@ void _AXSLiveTranscriptionSetEnabled(uint64_t a1)
   _kAXSCacheLiveTranscriptionEnabled = a1;
   _setPreferenceAppWithNotification(kAXSLiveTranscriptionEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"_AXSCacheLiveTranscriptionNotification");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSLiveTranscriptionInCallSetEnabled(uint64_t a1)
@@ -2160,7 +2158,7 @@ void _AXSLiveCaptionsSetBoldTextEnabled(uint64_t a1)
   _setPreferenceAppWithNotification(v1, 0, v2, 0);
 }
 
-uint64_t _AXSUIFocusRingEnabled()
+uint64_t _AXSUIFocusRingEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSUIFocusRingEnabled_onceToken != -1)
   {
@@ -2175,20 +2173,23 @@ void _AXSSetUIFocusRingEnabled(uint64_t a1)
   _kAXSCacheUIFocusRingEnabled = a1;
   _setPreferenceAppWithNotification(kAXSUIFocusRingEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.ui.focus.ring");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-void _AXSSetPrefersNonBlinkingCursorIndicatorApp(int a1, __CFString *a2)
+void _AXSSetPrefersNonBlinkingCursorIndicatorApp(uint64_t a1, __CFString *a2)
 {
+  v3 = a1;
   v4 = a1;
   _subscribeOnCacheNotificationsIfNeeded(kAXSPrefersNonBlinkingCursorIndicatorPreference, a1, _AXSPrefersNonBlinkingCursorIndicator);
-  _updateCachePreferenceAfterChange(kAXSPrefersNonBlinkingCursorIndicatorPreference, a2, &_kAXSCachePrefersNonBlinkingCursorIndicator, a1);
+  _updateCachePreferenceAfterChange(kAXSPrefersNonBlinkingCursorIndicatorPreference, a2, &_kAXSCachePrefersNonBlinkingCursorIndicator, v3);
   _setNumberPreferenceApp(kAXSPrefersNonBlinkingCursorIndicatorPreference, kCFNumberIntType, &v4, @"com.apple.accessibility.cache.non.blinking.cursor.status", a2);
 }
 
-void _subscribeOnCacheNotificationsIfNeeded(uint64_t a1, int a2, void (*a3)(void))
+void _subscribeOnCacheNotificationsIfNeeded(uint64_t isProcessDistributedNotificationSender_cold_1, uint64_t a2, uint64_t (*a3)(void))
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v4 = a2;
+  v5 = isProcessDistributedNotificationSender_cold_1;
+  v11 = *MEMORY[0x1E69E9840];
   if (_AXSCurrentProcessIsWebContent_onceToken != -1)
   {
     _isProcessDistributedNotificationSender_cold_1();
@@ -2198,27 +2199,26 @@ void _subscribeOnCacheNotificationsIfNeeded(uint64_t a1, int a2, void (*a3)(void
   {
     if (a3)
     {
-      a3();
+      isProcessDistributedNotificationSender_cold_1 = a3();
     }
 
-    v6 = AXSupportLogCommon();
+    v6 = AXSupportLogCommon(isProcessDistributedNotificationSender_cold_1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412546;
-      v9 = a1;
-      v10 = 1024;
-      v11 = a2;
-      _os_log_impl(&dword_186307000, v6, OS_LOG_TYPE_INFO, "API Setting value for Web: preference = %@, value = %d", &v8, 0x12u);
+      v7 = 138412546;
+      v8 = v5;
+      v9 = 1024;
+      v10 = v4;
+      _os_log_impl(&dword_186307000, v6, OS_LOG_TYPE_INFO, "API Setting value for Web: preference = %@, value = %d", &v7, 0x12u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void _updateCachePreferenceAfterChange(const __CFString *a1, CFStringRef theString1, _DWORD *a3, int a4)
+void _updateCachePreferenceAfterChange(uint64_t CachePreference, CFStringRef theString1, _DWORD *a3, int a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v16 = a4;
+  v6 = CachePreference;
+  v22 = *MEMORY[0x1E69E9840];
+  v15 = a4;
   if (cachedAppID_onceToken != -1)
   {
     _AXSProcessLoadsInvertBundlesForPerAppSmartInvert_cold_2();
@@ -2227,91 +2227,93 @@ void _updateCachePreferenceAfterChange(const __CFString *a1, CFStringRef theStri
   v7 = cachedAppID_CachedAppID;
   if (!theString1)
   {
-    v11 = &v16;
-    v9 = a1;
+    v11 = &v15;
+    v9 = v6;
     v10 = cachedAppID_CachedAppID;
     v8 = 0;
     goto LABEL_8;
   }
 
-  if (cachedAppID_CachedAppID && CFStringCompare(theString1, cachedAppID_CachedAppID, 0) == kCFCompareEqualTo)
+  if (cachedAppID_CachedAppID)
   {
-    v8 = &v16;
-    v9 = a1;
-    v10 = v7;
-    v11 = 0;
+    CachePreference = CFStringCompare(theString1, cachedAppID_CachedAppID, 0);
+    if (!CachePreference)
+    {
+      v8 = &v15;
+      v9 = v6;
+      v10 = v7;
+      v11 = 0;
 LABEL_8:
-    *a3 = _fetchCachePreference(v9, v10, v11, v8);
+      CachePreference = _fetchCachePreference(v9, v10, v11, v8);
+      *a3 = CachePreference;
+    }
   }
 
-  v12 = AXSupportLogCommon();
+  v12 = AXSupportLogCommon(CachePreference);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v14 = *a3;
-    if (v14 == -1)
+    v13 = *a3;
+    if (v13 == -1)
     {
-      v15 = @"Empty";
+      v14 = @"Empty";
     }
 
     else
     {
-      v15 = [MEMORY[0x1E696AD98] numberWithInt:v14];
+      v14 = [MEMORY[0x1E696AD98] numberWithInt:v13];
     }
 
     *buf = 138412802;
-    v18 = theString1;
-    v19 = 2112;
-    v20 = a1;
-    v21 = 2112;
-    v22 = v15;
+    v17 = theString1;
+    v18 = 2112;
+    v19 = v6;
+    v20 = 2112;
+    v21 = v14;
     _os_log_debug_impl(&dword_186307000, v12, OS_LOG_TYPE_DEBUG, "Settings Update Cache Value: appID = %@, preference = %@, result = %@", buf, 0x20u);
-    if (v14 != -1)
+    if (v13 != -1)
     {
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void _setNumberPreferenceApp(const __CFString *a1, CFNumberType a2, const void *a3, const __CFString *a4, __CFString *a5)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v8 = CFNumberCreate(*MEMORY[0x1E695E480], a2, a3);
-    v9 = AXSupportLogCommon();
+    v9 = AXSupportLogCommon(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 138412802;
-      v12 = a5;
-      v13 = 2112;
-      v14 = a1;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_debug_impl(&dword_186307000, v9, OS_LOG_TYPE_DEBUG, "Settings Setting Value: appID = %@, preference = %@, value = %@ (-1 - empty, 0 - false, 1 - true)", &v11, 0x20u);
+      v10 = 138412802;
+      v11 = a5;
+      v12 = 2112;
+      v13 = a1;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_debug_impl(&dword_186307000, v9, OS_LOG_TYPE_DEBUG, "Settings Setting Value: appID = %@, preference = %@, value = %@ (-1 - empty, 0 - false, 1 - true)", &v10, 0x20u);
     }
 
     _setPreferenceAppWithNotification(a1, a5, v8, a4);
     CFRelease(v8);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void _AXSSetPreferActionSliderAlternative(int a1)
 {
   v1 = a1 != 0;
-  v2 = v1;
+  v2 = a1 != 0;
   _subscribeOnCacheNotificationsIfNeeded(kAXSPreferActionSliderAlternativePreference, v1, _AXSGetPreferActionSliderAlternative);
   _updateCachePreferenceAfterChange(kAXSPreferActionSliderAlternativePreference, 0, &_kAXSCachePreferActionSliderAlternative, v1);
   _setNumberPreferenceApp(kAXSPreferActionSliderAlternativePreference, kCFNumberIntType, &v2, @"com.apple.accessibility.cache.prefer.action.slider.alternative.status", 0);
 }
 
-void _AXSSetPrefersHorizontalTextLayoutApp(int a1, __CFString *a2)
+void _AXSSetPrefersHorizontalTextLayoutApp(uint64_t a1, __CFString *a2)
 {
+  v3 = a1;
   v4 = a1;
   _subscribeOnCacheNotificationsIfNeeded(kAXSPrefersHorizontalTextPreference, a1, _AXSPrefersHorizontalTextLayout);
-  _updateCachePreferenceAfterChange(kAXSPrefersHorizontalTextPreference, a2, _kAXSCachePrefersHorizontalText, a1);
+  _updateCachePreferenceAfterChange(kAXSPrefersHorizontalTextPreference, a2, _kAXSCachePrefersHorizontalText, v3);
   _setNumberPreferenceApp(kAXSPrefersHorizontalTextPreference, kCFNumberIntType, &v4, @"com.apple.accessibility.cache.prefers.horizontal.text", a2);
 }
 
@@ -2338,16 +2340,16 @@ uint64_t _AXSAutoBrightnessEnabled()
   }
 }
 
-uint64_t _AXSGuidedAccessSetEnabled(uint64_t a1)
+void _AXSGuidedAccessSetEnabled(uint64_t a1)
 {
   _kAXSCacheGuidedAccessEnabled = a1;
   _setPreferenceAppWithNotification(kAXSGuidedAccessEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.guided.access");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 
-  return _didUpdateTripleClickOptions();
+  _didUpdateTripleClickOptions();
 }
 
-uint64_t _AXSGuidedAccessEnabledByManagedConfiguration()
+uint64_t _AXSGuidedAccessEnabledByManagedConfiguration(uint64_t a1, uint64_t a2)
 {
   if (_AXSGuidedAccessEnabledByManagedConfiguration_onceToken != -1)
   {
@@ -2362,10 +2364,10 @@ void _AXSGuidedAccessSetEnabledByManagedConfiguration(uint64_t a1)
   _kAXSCacheGuidedAccessEnabledByManagedConfiguration = a1;
   _setPreferenceAppWithNotification(kAXSGuidedAccessEnabledByManagedConfigurationPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.guided.access.via.mdm");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSGuidedAccessHasPasscode()
+uint64_t _AXSGuidedAccessHasPasscode(uint64_t a1, uint64_t a2)
 {
   if (_AXSGuidedAccessHasPasscode_onceToken != -1)
   {
@@ -2380,7 +2382,7 @@ void _AXSGuidedAccessSetHasPasscode(uint64_t a1)
   _kAXSCacheGuidedAccessHasPasscode = a1;
   _setPreferenceAppWithNotification(kAXSGuidedAccessHasPasscodePreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.gax.haspasscode");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSSideButtonClickSpeedEnabled()
@@ -2573,7 +2575,7 @@ float _AXSLockClickVarianceScaleFactor()
   return result;
 }
 
-uint64_t _AXSPearlAuthenticationHapticsEnabled()
+uint64_t _AXSPearlAuthenticationHapticsEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSPearlAuthenticationHapticsEnabled_onceToken != -1)
   {
@@ -2586,7 +2588,7 @@ uint64_t _AXSPearlAuthenticationHapticsEnabled()
 void _AXSSetPearlAuthenticationHapticsEnabled(uint64_t a1)
 {
   v5 = *MEMORY[0x1E69E9840];
-  v2 = AXSupportLogCommon();
+  v2 = AXSupportLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
@@ -2596,8 +2598,7 @@ void _AXSSetPearlAuthenticationHapticsEnabled(uint64_t a1)
 
   _kAXSCachePearlAuthenticationHapticsEnabled = a1;
   _setPreferenceAppWithNotification(kAXSPearlAuthenticationHapticsPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.perl.auth.haptics");
-  _updateAccessibilitySettings();
-  v3 = *MEMORY[0x1E69E9840];
+  _updateAccessibilitySettings(v3);
 }
 
 uint64_t _AXSPearlRestingUnlock()
@@ -2607,15 +2608,15 @@ uint64_t _AXSPearlRestingUnlock()
   return v1;
 }
 
-uint64_t _AXSPearlRestingUnlockEverSet()
+uint64_t _AXSPearlRestingUnlockEverSet(uint64_t a1)
 {
   v4 = *MEMORY[0x1E69E9840];
-  v0 = AXSupportLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = AXSupportLogCommon(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v3[0] = 67109120;
     v3[1] = _kAXSCacheRestingPearlUnlockEnabled;
-    _os_log_impl(&dword_186307000, v0, OS_LOG_TYPE_DEFAULT, "Retrieving pearl-resting unlock: %d", v3, 8u);
+    _os_log_impl(&dword_186307000, v1, OS_LOG_TYPE_DEFAULT, "Retrieving pearl-resting unlock: %d", v3, 8u);
   }
 
   if (_AXSPearlRestingUnlockEverSet_onceToken != -1)
@@ -2623,15 +2624,13 @@ uint64_t _AXSPearlRestingUnlockEverSet()
     _AXSPearlRestingUnlockEverSet_cold_1();
   }
 
-  result = _kAXSCacheRestingPearlUnlockEnabled;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return _kAXSCacheRestingPearlUnlockEnabled;
 }
 
 void _AXSPearlSetRestingUnlock(uint64_t a1)
 {
   v5 = *MEMORY[0x1E69E9840];
-  v2 = AXSupportLogCommon();
+  v2 = AXSupportLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
@@ -2641,14 +2640,13 @@ void _AXSPearlSetRestingUnlock(uint64_t a1)
 
   _kAXSCacheRestingPearlUnlockEnabled = a1;
   _setPreferenceAppWithNotification(kAXSRestingPearlUnlockPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.resting.home.button.unlock");
-  _updateAccessibilitySettings();
-  v3 = *MEMORY[0x1E69E9840];
+  _updateAccessibilitySettings(v3);
 }
 
 void _AXSSetAttentionAwarenessFeaturesEnabled(uint64_t a1)
 {
   v5 = *MEMORY[0x1E69E9840];
-  v2 = AXSupportLogCommon();
+  v2 = AXSupportLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
@@ -2658,11 +2656,10 @@ void _AXSSetAttentionAwarenessFeaturesEnabled(uint64_t a1)
 
   _kAXSCacheAttentionAwarenessFeaturesEnabled = a1;
   _setPreferenceAppWithNotification(kAXSAttentionAwarenessFeaturesEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.attention.awareness");
-  _updateAccessibilitySettings();
-  v3 = *MEMORY[0x1E69E9840];
+  _updateAccessibilitySettings(v3);
 }
 
-uint64_t _AXSUserEnabledPasscodeForPurchases()
+uint64_t _AXSUserEnabledPasscodeForPurchases(uint64_t a1, uint64_t a2)
 {
   if (_AXSUserEnabledPasscodeForPurchases_onceToken != -1)
   {
@@ -2677,7 +2674,7 @@ void _AXSSetUserEnabledPasscodeForPurchases(uint64_t a1)
   _kAXSCachePasscodeForPurchases = a1;
   _setPreferenceAppWithNotification(kAXSPasscodeForPurchasesPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.passcode.purchases");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSHomeButtonRestingUnlockEverSet()
@@ -2699,20 +2696,21 @@ uint64_t _AXSHomeButtonRestingUnlockPreferredForDevice()
   return result;
 }
 
-uint64_t _AXSHomeButtonRestingUnlock()
+uint64_t _AXSHomeButtonRestingUnlock(uint64_t a1)
 {
   v4 = *MEMORY[0x1E69E9840];
   if (_kAXSCacheRestingHomeButtonUnlockEnabled == -1)
   {
-    _kAXSCacheRestingHomeButtonUnlockEnabled = _AXSHomeButtonRestingUnlockPreferredForDevice();
+    a1 = _AXSHomeButtonRestingUnlockPreferredForDevice();
+    _kAXSCacheRestingHomeButtonUnlockEnabled = a1;
   }
 
-  v0 = AXSupportLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = AXSupportLogCommon(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v3[0] = 67109120;
     v3[1] = _kAXSCacheRestingHomeButtonUnlockEnabled;
-    _os_log_impl(&dword_186307000, v0, OS_LOG_TYPE_DEFAULT, "Retrieving resting unlock: %d", v3, 8u);
+    _os_log_impl(&dword_186307000, v1, OS_LOG_TYPE_DEFAULT, "Retrieving resting unlock: %d", v3, 8u);
   }
 
   if (_AXSHomeButtonRestingUnlock_onceToken != -1)
@@ -2720,15 +2718,13 @@ uint64_t _AXSHomeButtonRestingUnlock()
     _AXSHomeButtonRestingUnlock_cold_1();
   }
 
-  result = _kAXSCacheRestingHomeButtonUnlockEnabled;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return _kAXSCacheRestingHomeButtonUnlockEnabled;
 }
 
 void _AXSHomeButtonSetRestingUnlock(uint64_t a1)
 {
   v5 = *MEMORY[0x1E69E9840];
-  v2 = AXSupportLogCommon();
+  v2 = AXSupportLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
@@ -2738,14 +2734,13 @@ void _AXSHomeButtonSetRestingUnlock(uint64_t a1)
 
   _kAXSCacheRestingHomeButtonUnlockEnabled = a1;
   _setPreferenceAppWithNotification(kAXSRestingHomeButtonUnlockPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.resting.home.button.unlock");
-  _updateAccessibilitySettings();
-  v3 = *MEMORY[0x1E69E9840];
+  _updateAccessibilitySettings(v3);
 }
 
 void _AXSAXInspectorSetEnabled(uint64_t a1)
 {
   v5 = *MEMORY[0x1E69E9840];
-  v2 = AXSupportLogCommon();
+  v2 = AXSupportLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
@@ -2755,11 +2750,10 @@ void _AXSAXInspectorSetEnabled(uint64_t a1)
 
   _kAXSCacheAXInspectorEnabled = a1;
   _setPreferenceAppWithNotification(kAXSAXInspectorPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.internal.axinspector");
-  _updateAccessibilitySettings();
-  v3 = *MEMORY[0x1E69E9840];
+  _updateAccessibilitySettings(v3);
 }
 
-uint64_t _AXSAXInspectorEnabled()
+uint64_t _AXSAXInspectorEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSAXInspectorEnabled_onceToken != -1)
   {
@@ -2769,7 +2763,7 @@ uint64_t _AXSAXInspectorEnabled()
   return _kAXSCacheAXInspectorEnabled;
 }
 
-uint64_t _AXSLogValidationErrors()
+uint64_t _AXSLogValidationErrors(uint64_t a1, uint64_t a2)
 {
   if (_AXSLogValidationErrors_onceToken != -1)
   {
@@ -2784,10 +2778,10 @@ void _AXSSetLogValidationErrors(uint64_t a1)
   _kAXSCacheLogValidationErrors = a1;
   _setPreferenceAppWithNotification(kAXSLogValidationErrorsPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.internal.logvalidationerrors");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSReportValidationErrors()
+uint64_t _AXSReportValidationErrors(uint64_t a1, uint64_t a2)
 {
   if (_AXSReportValidationErrors_onceToken != -1)
   {
@@ -2802,10 +2796,10 @@ void _AXSSetReportValidationErrors(uint64_t a1)
   _kAXSCacheReportValidationErrors = a1;
   _setPreferenceAppWithNotification(kAXSReportValidationErrorsPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.internal.reportvalidationerrors");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSCrashOnValidationErrors()
+uint64_t _AXSCrashOnValidationErrors(uint64_t a1, uint64_t a2)
 {
   if (_AXSCrashOnValidationErrors_onceToken != -1)
   {
@@ -2820,10 +2814,10 @@ void _AXSSetCrashOnValidationErrors(uint64_t a1)
   _kAXSCacheCrashOnValidationErrors = a1;
   _setPreferenceAppWithNotification(kAXSCrashOnValidationErrorsPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.internal.crashonvalidationerrors");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSClassicInvertColorsEnabled()
+uint64_t _AXSClassicInvertColorsEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSClassicInvertColorsEnabled_onceToken != -1)
   {
@@ -2833,64 +2827,64 @@ uint64_t _AXSClassicInvertColorsEnabled()
   return _kAXSCacheClassicInvertColorsEnabled;
 }
 
-BOOL _AXSInvertColorsEnabledAppCached(_BOOL8 result)
+const __CFString *_AXSInvertColorsEnabledAppCached(const __CFString *result)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
     valuePtr = -1;
-    v2 = cachedSmartInvertPreferences();
+    v2 = cachedSmartInvertPreferences(result);
     v3 = [v2 valueForKey:v1];
 
     if (!v3 || (CFNumberGetValue(v3, kCFNumberIntType, &valuePtr), v4 = valuePtr, valuePtr == -2))
     {
-      v17 = -1;
+      v20 = -1;
       NumberPreference = _getNumberPreference(kAXSInvertColorsEnabledPreference, v1);
       v6 = AXLogCommon();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v19 = NumberPreference;
+        v22 = NumberPreference;
         _os_log_impl(&dword_186307000, v6, OS_LOG_TYPE_DEFAULT, "Update invert status global: %@", buf, 0xCu);
       }
 
-      if (!NumberPreference || (CFNumberGetValue(NumberPreference, kCFNumberIntType, &v17), v17 == -1))
+      if (!NumberPreference || (Value = CFNumberGetValue(NumberPreference, kCFNumberIntType, &v20), v20 == -1))
       {
-        v7 = _kAXSCacheInvertColorsGlobal;
+        v8 = _kAXSCacheInvertColorsGlobal;
         if (_kAXSCacheInvertColorsGlobal == -1)
         {
-          v7 = 0;
+          v8 = 0;
         }
 
-        v17 = v7;
+        v20 = v8;
       }
 
-      v8 = cachedSmartInvertPreferences();
-      v9 = [MEMORY[0x1E696AD98] numberWithInt:v17];
-      [v8 setValue:v9 forKey:v1];
+      v9 = cachedSmartInvertPreferences(Value);
+      v10 = [MEMORY[0x1E696AD98] numberWithInt:v20];
+      [v9 setValue:v10 forKey:v1];
 
-      v10 = cachedSmartInvertPreferences();
-      v11 = [v10 valueForKey:v1];
+      v12 = cachedSmartInvertPreferences(v11);
+      v13 = [v12 valueForKey:v1];
 
       if (valuePtr != -2)
       {
         DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
         CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, _axsHandleSmartInvertPrefChangedApp, @"com.apple.accessibility.cache.invert.colors", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
-        v13 = AXSupportLogCommon();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v17 = AXSupportLogCommon(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           _AXSInvertColorsEnabledAppCached_cold_1();
         }
       }
 
-      if (v11)
+      if (v13)
       {
-        CFNumberGetValue(v11, kCFNumberIntType, &valuePtr);
+        v14 = CFNumberGetValue(v13, kCFNumberIntType, &valuePtr);
       }
 
-      v14 = AXSupportLogCommon();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v18 = AXSupportLogCommon(v14);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         _AXSInvertColorsEnabledAppCached_cold_2(v1, &valuePtr);
       }
@@ -2898,23 +2892,22 @@ BOOL _AXSInvertColorsEnabledAppCached(_BOOL8 result)
       v4 = valuePtr;
     }
 
-    result = v4 == 1;
+    return (v4 == 1);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-id cachedSmartInvertPreferences()
+id cachedSmartInvertPreferences(uint64_t a1)
 {
   if (cachedSmartInvertPreferences_onceToken != -1)
   {
     cachedSmartInvertPreferences_cold_1();
   }
 
-  v1 = cachedSmartInvertPreferences_CachedSmartInvertPreferences;
+  v2 = cachedSmartInvertPreferences_CachedSmartInvertPreferences;
 
-  return v1;
+  return v2;
 }
 
 void _axsHandleSmartInvertPrefChangedApp(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2948,10 +2941,9 @@ void _AXSInvertColorsSetEnabledApp(uint64_t a1, __CFString *a2)
     CFNotificationCenterPostNotification(DarwinNotifyCenter, kAXSPreLoadInvertColorsEnabledNotification, 0, 0, 1u);
   }
 
-  _updateAccessibilitySettings();
-  v7 = CFNotificationCenterGetDarwinNotifyCenter();
-  CFNotificationCenterPostNotification(v7, kAXSInvertColorsStatusDidChangeNotification, 0, 0, 1u);
-  v8 = *MEMORY[0x1E69E9840];
+  _updateAccessibilitySettings(v6);
+  v8 = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterPostNotification(v8, kAXSInvertColorsStatusDidChangeNotification, 0, 0, 1u);
 }
 
 void _AXSClassicInvertColorsSetEnabled(uint64_t a1)
@@ -2965,7 +2957,7 @@ void _AXSClassicInvertColorsSetEnabled(uint64_t a1)
   _AXSInvertColorsDisplaySetEnabled(a1);
   _setPreferenceAppWithNotification(kAXSClassicInvertColorsPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.classic.invert.colors");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
 }
 
 void _AXSInvertColorsMarkInvertColorsPreloadComplete()
@@ -2994,7 +2986,7 @@ uint64_t _AXSGrayscaleSetEnabled(uint64_t a1)
   v1 = a1;
   _kAXSCacheGrayscaleEnabled = a1;
   _setPreferenceAppWithNotification(kAXSGrayscaleEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.grayscale");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (v1)
   {
     MADisplayFilterPrefSetType();
@@ -3032,10 +3024,10 @@ void _AXSUpdateGrayscaleEnabledCache()
 
   _kAXSCacheGrayscaleEnabled = v0;
   _setPreferenceAppWithNotification(kAXSGrayscaleEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:?], 0);
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
   _setPreferenceAppWithNotification(kAXSDidCheckGrayscalePreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:1], 0);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
 }
 
 uint64_t _AXSRedGreenFilterEnabled()
@@ -3074,7 +3066,7 @@ uint64_t _AXSRedGreenFilterSetEnabled(int a1)
   return MADisplayFilterPrefSetCategoryEnabled();
 }
 
-uint64_t _AXSRedGreenFilterSetIntensity()
+uint64_t _AXSRedGreenFilterSetIntensity(double a1)
 {
   MADisplayFilterPrefSuspendNotifications();
   MADisplayFilterPrefSetRedColorCorrectionIntensity();
@@ -3120,7 +3112,7 @@ uint64_t _AXSGreenRedFilterSetEnabled(int a1)
   return MADisplayFilterPrefSetCategoryEnabled();
 }
 
-uint64_t _AXSGreenRedFilterSetIntensity()
+uint64_t _AXSGreenRedFilterSetIntensity(double a1)
 {
   MADisplayFilterPrefSuspendNotifications();
   MADisplayFilterPrefSetGreenColorCorrectionIntensity();
@@ -3166,7 +3158,7 @@ uint64_t _AXSBlueYellowFilterSetEnabled(int a1)
   return MADisplayFilterPrefSetCategoryEnabled();
 }
 
-uint64_t _AXSBlueYellowFilterSetIntensity()
+uint64_t _AXSBlueYellowFilterSetIntensity(double a1)
 {
   MADisplayFilterPrefSuspendNotifications();
   MADisplayFilterPrefSetBlueColorCorrectionIntensity();
@@ -3212,7 +3204,7 @@ uint64_t _AXSColorTintSetEnabled(int a1)
   return MADisplayFilterPrefSetCategoryEnabled();
 }
 
-uint64_t _AXSScreenFilterShowInitialAlert()
+uint64_t _AXSScreenFilterShowInitialAlert(uint64_t a1, uint64_t a2)
 {
   if (_AXSScreenFilterShowInitialAlert_onceToken != -1)
   {
@@ -3227,10 +3219,10 @@ void _AXSScreenFilterSetShowInitialAlert(uint64_t a1)
   _kAXSCacheDisplayFilterShowInitialAlert = a1;
   _setPreferenceAppWithNotification(kAXSDisplayFilterShowInitialAlertPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.displayfilter.showinitialalert");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSDisableScreenFilters()
+void *_AXSDisableScreenFilters()
 {
   if (_AXSInvertColorsEnabled())
   {
@@ -3309,44 +3301,33 @@ void _AXSClosedCaptionsSetEnabled(int a1)
     v2 = kMACaptionAppearanceDisplayTypeAutomatic;
   }
 
-  if (a1)
-  {
-    v3 = MEMORY[0x1E695E4D0];
-  }
-
-  else
-  {
-    v3 = MEMORY[0x1E695E4C0];
-  }
-
   MACaptionAppearanceSetDisplayType(kMACaptionAppearanceDomainDefault, v2);
-  v4 = *v3;
   MACaptionAppearancePrefSetPreferAccessibleCaptions();
-  v9 = 0;
-  BooleanPreference = _getBooleanPreference(kAXSClosedCaptioningEnabledByiTunesPreference, &v9);
-  if (v9)
+  v8 = 0;
+  BooleanPreference = _getBooleanPreference(kAXSClosedCaptioningEnabledByiTunesPreference, &v8);
+  if (v8)
   {
-    v6 = BooleanPreference == a1;
+    v4 = BooleanPreference == a1;
   }
 
   else
   {
-    v6 = 1;
+    v4 = 1;
   }
 
-  if (!v6)
+  if (!v4)
   {
     _setPreferenceAppWithNotification(kAXSClosedCaptioningEnabledByiTunesPreference, 0, 0, 0);
-    _updateAccessibilitySettings();
+    _updateAccessibilitySettings(v5);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.mobileipod.notify.MovieClosedCaptioningEnabledSetting", 0, 0, 1u);
-  v8 = CFNotificationCenterGetDarwinNotifyCenter();
-  CFNotificationCenterPostNotification(v8, @"com.apple.accessibility.cache.captioning", 0, 0, 1u);
+  v7 = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterPostNotification(v7, @"com.apple.accessibility.cache.captioning", 0, 0, 1u);
 }
 
-uint64_t _AXSExtendedVoiceIsolationMediaModesEnabled()
+uint64_t _AXSExtendedVoiceIsolationMediaModesEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSExtendedVoiceIsolationMediaModesEnabled_onceToken != -1)
   {
@@ -3361,119 +3342,121 @@ void _AXSSetExtendedVoiceIsolationMediaModesEnabled(uint64_t a1)
   _kAXSCacheExtendedVoiceIsolationMediaModesEnabled = a1;
   _setPreferenceAppWithNotification(kAXSExtendedVoiceIsolationMediaModesEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.extendedvoiceisolationmodes");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSSetPreferredContentSizeCategoryNameApp(const void *a1, __CFString *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (a2)
   {
-    v21 = 0;
-    v4 = [objc_alloc(getLSApplicationRecordClass()) initWithBundleIdentifier:a2 allowPlaceholder:0 error:&v21];
-    v5 = v21;
+    v26 = 0;
+    v4 = [objc_alloc(getLSApplicationRecordClass()) initWithBundleIdentifier:a2 allowPlaceholder:0 error:&v26];
+    v5 = v26;
+    v6 = v5;
     if (v5)
     {
-      v6 = AXSupportLogCommon();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = AXSupportLogCommon(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         _copyValuePreferenceApp_cold_2();
       }
     }
 
-    v7 = [v4 dataContainerURL];
-    v8 = [v7 path];
+    v8 = [v4 dataContainerURL];
+    v9 = [v8 path];
 
-    if (v8)
+    if (v9)
     {
       if (![(__CFString *)a2 hasPrefix:@"com.apple."])
       {
 LABEL_17:
-        _CFPreferencesSetAppValueWithContainer();
-        v14 = AXSupportLogCommon();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v18 = _CFPreferencesSetAppValueWithContainer();
+        v19 = AXSupportLogCommon(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412802;
-          *v23 = v8;
-          *&v23[8] = 2112;
-          *&v23[10] = a2;
-          *&v23[18] = 2112;
-          v24 = a1;
-          _os_log_debug_impl(&dword_186307000, v14, OS_LOG_TYPE_DEBUG, "CF Save CategoryName to Container: domain = %@, appID = %@, category name = %@", buf, 0x20u);
+          *v28 = v9;
+          *&v28[8] = 2112;
+          *&v28[10] = a2;
+          *&v28[18] = 2112;
+          v29 = a1;
+          _os_log_debug_impl(&dword_186307000, v19, OS_LOG_TYPE_DEBUG, "CF Save CategoryName to Container: domain = %@, appID = %@, category name = %@", buf, 0x20u);
         }
 
-        v15 = AXSupportLogCommon();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v21 = AXSupportLogCommon(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          *v23 = a1;
-          _os_log_impl(&dword_186307000, v15, OS_LOG_TYPE_DEFAULT, "Saved CategoryName to Contaier: category name = %@", buf, 0xCu);
+          *v28 = a1;
+          _os_log_impl(&dword_186307000, v21, OS_LOG_TYPE_DEFAULT, "Saved CategoryName to Contaier: category name = %@", buf, 0xCu);
         }
 
         goto LABEL_22;
       }
 
-      v9 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v9 = 1;
+      v10 = 1;
     }
 
-    v10 = a2;
+    v11 = a2;
   }
 
   else
   {
-    v10 = [AXCPSharedResourcesDirectory() stringByAppendingPathComponent:@"/Library/Preferences/com.apple.UIKit"];
-    v8 = 0;
-    v9 = 1;
+    v11 = [AXCPSharedResourcesDirectory() stringByAppendingPathComponent:@"/Library/Preferences/com.apple.UIKit"];
+    v9 = 0;
+    v10 = 1;
   }
 
-  CFPreferencesSetAppValue(@"UIPreferredContentSizeCategoryName", a1, v10);
-  v11 = CFPreferencesAppSynchronize(v10);
-  v12 = AXSupportLogCommon();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  CFPreferencesSetAppValue(@"UIPreferredContentSizeCategoryName", a1, v11);
+  v12 = CFPreferencesAppSynchronize(v11);
+  v13 = v12;
+  v14 = AXSupportLogCommon(v12);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    *v23 = v10;
-    *&v23[8] = 2112;
-    *&v23[10] = a2;
-    *&v23[18] = 2112;
-    v24 = a1;
-    _os_log_debug_impl(&dword_186307000, v12, OS_LOG_TYPE_DEBUG, "CF Save CategoryName: domain = %@, appID = %@, category name = %@", buf, 0x20u);
+    *v28 = v11;
+    *&v28[8] = 2112;
+    *&v28[10] = a2;
+    *&v28[18] = 2112;
+    v29 = a1;
+    _os_log_debug_impl(&dword_186307000, v14, OS_LOG_TYPE_DEBUG, "CF Save CategoryName: domain = %@, appID = %@, category name = %@", buf, 0x20u);
   }
 
-  v13 = AXSupportLogCommon();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v16 = AXSupportLogCommon(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109634;
-    *v23 = a2 != 0;
-    *&v23[4] = 2112;
-    *&v23[6] = a1;
-    *&v23[14] = 1024;
-    *&v23[16] = v11;
-    _os_log_impl(&dword_186307000, v13, OS_LOG_TYPE_DEFAULT, "Saved CategoryName to Domain: per-app = %d, category name = %@, synced = %d", buf, 0x18u);
+    *v28 = a2 != 0;
+    *&v28[4] = 2112;
+    *&v28[6] = a1;
+    *&v28[14] = 1024;
+    *&v28[16] = v13;
+    _os_log_impl(&dword_186307000, v16, OS_LOG_TYPE_DEFAULT, "Saved CategoryName to Domain: per-app = %d, category name = %@, synced = %d", buf, 0x18u);
   }
 
-  if ((v9 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
     goto LABEL_17;
   }
 
 LABEL_22:
-  v16 = AXSupportLogCommon();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v22 = AXSupportLogCommon(v17);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = geteuid();
+    v23 = geteuid();
     *buf = 67109634;
-    *v23 = a2 != 0;
-    *&v23[4] = 2112;
-    *&v23[6] = a1;
-    *&v23[14] = 1024;
-    *&v23[16] = v17 != 0;
-    _os_log_impl(&dword_186307000, v16, OS_LOG_TYPE_DEFAULT, "Saved CategoryName: per-app = %d, category name = %@, usermode = %d", buf, 0x18u);
+    *v28 = a2 != 0;
+    *&v28[4] = 2112;
+    *&v28[6] = a1;
+    *&v28[14] = 1024;
+    *&v28[16] = v23 != 0;
+    _os_log_impl(&dword_186307000, v22, OS_LOG_TYPE_DEFAULT, "Saved CategoryName: per-app = %d, category name = %@, usermode = %d", buf, 0x18u);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -3483,8 +3466,6 @@ LABEL_22:
     LocalCenter = CFNotificationCenterGetLocalCenter();
     CFNotificationCenterPostNotification(LocalCenter, kAXSApplePreferredContentSizeCategoryNotification, 0, 0, 1u);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 id getLSApplicationRecordClass()
@@ -3511,9 +3492,9 @@ id getLSApplicationRecordClass()
   return v1;
 }
 
-void sub_1863247F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1863247F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3527,7 +3508,7 @@ void _AXSSetLargeTextUsesExtendedRange(int a1)
   CFPreferencesSetAppValue(v1, v2, v3);
 }
 
-float _AXSPreferredFontSize()
+float _AXSPreferredFontSize(uint64_t a1, uint64_t a2)
 {
   if (_AXSPreferredFontSize_onceToken != -1)
   {
@@ -3544,7 +3525,7 @@ void _AXSPreferredFontSizeSetSize(float a1)
   _setNumberPreferenceApp(kAXSPreferredFontSizePreference, kCFNumberFloatType, &v1, @"com.apple.accessibility.cache.large.text.change", 0);
 }
 
-uint64_t _AXSPhoneLockToEndCallEnabled()
+uint64_t _AXSPhoneLockToEndCallEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSPhoneLockToEndCallEnabled_onceToken != -1)
   {
@@ -3559,7 +3540,7 @@ void _AXSPhoneLockToEndCallSetEnabled(uint64_t a1)
   _kAXSCachePhoneLockToEndCall = a1;
   _setPreferenceAppWithNotification(kAXSPhoneLockToEndCallPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.lock.to.end.call");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSSetDefaultRouteForCall(uint64_t a1)
@@ -3601,13 +3582,13 @@ void _AXSEarpieceNoiseCancellationSetEnabled(uint64_t a1)
   _kAXSCacheEarpieceNoiseCancellation = a1;
   _setPreferenceAppWithNotification(kAXSEarpieceNoiseCancellationPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.earpiece.noise");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSHearingAidsSetPaired(uint64_t a1)
 {
   v5 = *MEMORY[0x1E69E9840];
-  v2 = AXSupportLogCommon();
+  v2 = AXSupportLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v4[0] = 67109120;
@@ -3617,11 +3598,10 @@ void _AXSHearingAidsSetPaired(uint64_t a1)
 
   _kAXSCacheHearingAidPaired = a1;
   _setPreferenceAppWithNotification(kAXSHearingAidPairedPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.hearing.aid.paired");
-  _updateAccessibilitySettings();
-  v3 = *MEMORY[0x1E69E9840];
+  _updateAccessibilitySettings(v3);
 }
 
-uint64_t _AXSHearingAidRingtoneStreamingEnabled()
+uint64_t _AXSHearingAidRingtoneStreamingEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSHearingAidRingtoneStreamingEnabled_onceToken != -1)
   {
@@ -3636,7 +3616,7 @@ void _AXSHearingAidRingtoneStreamingSetEnabled(uint64_t a1)
   _kAXSCacheHearingAidRingtonStreamingEnabled = a1;
   _setPreferenceAppWithNotification(kAXSHearingAidRingtoneStreamingPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], kAXSHearingAidRingtoneStreamPreferenceChangedNotification);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSMonoAudioSetEnabled(uint64_t a1)
@@ -3644,27 +3624,27 @@ void _AXSMonoAudioSetEnabled(uint64_t a1)
   v1 = a1;
   _kAXSCacheMonoAudioEnabled = a1;
   _setPreferenceAppWithNotification(kAXSMonoAudioEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.mono.audio");
-  _updateAccessibilitySettings();
-  v4 = 0;
-  BooleanPreference = _getBooleanPreference(kAXSMonoAudioEnabledByiTunesPreference, &v4);
-  if (v4)
+  _updateAccessibilitySettings(v2);
+  v6 = 0;
+  BooleanPreference = _getBooleanPreference(kAXSMonoAudioEnabledByiTunesPreference, &v6);
+  if (v6)
   {
-    v3 = BooleanPreference == v1;
+    v4 = BooleanPreference == v1;
   }
 
   else
   {
-    v3 = 1;
+    v4 = 1;
   }
 
-  if (!v3)
+  if (!v4)
   {
     _setPreferenceAppWithNotification(kAXSMonoAudioEnabledByiTunesPreference, 0, 0, 0);
-    _updateAccessibilitySettings();
+    _updateAccessibilitySettings(v5);
   }
 }
 
-uint64_t _AXSAlwaysShowVolumeControlEnabled()
+uint64_t _AXSAlwaysShowVolumeControlEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSAlwaysShowVolumeControlEnabled_onceToken != -1)
   {
@@ -3679,7 +3659,7 @@ void _AXSAlwaysShowVolumeControlSetEnabled(uint64_t a1)
   _kAXSCacheAlwaysShowVolumeControlsEnabled = a1;
   _setPreferenceAppWithNotification(kAXSAlwaysShowVolumeControlEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.alwaysshowvolume");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSHearingAidComplianceSetEnabled(uint64_t a1)
@@ -3687,7 +3667,7 @@ void _AXSHearingAidComplianceSetEnabled(uint64_t a1)
   _kAXSCacheHearingAidComplianceEnabled = a1;
   _setPreferenceAppWithNotification(kAXSHearingAidCompliancePreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.hac.audio");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSHearingDevicePairedEars()
@@ -3731,7 +3711,7 @@ void _AXSHearingSetDeviceStreamingEars(uint64_t a1)
   _setPreferenceAppWithNotification(v1, 0, v2, v3);
 }
 
-uint64_t _AXSSoftwareTTYEnabled()
+uint64_t _AXSSoftwareTTYEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSSoftwareTTYEnabled_onceToken != -1)
   {
@@ -3746,19 +3726,19 @@ void _AXSSoftwareTTYSetEnabled(uint64_t a1)
   _kAXSCacheSoftwareTTYEnabled = a1;
   _setPreferenceAppWithNotification(kAXSSoftwareTTYPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.softwaretty");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-id _AXSHearingCCAllOptions()
+id _AXSHearingCCAllOptions(uint64_t a1)
 {
   if (_AXSHearingCCAllOptions_registerOnce != -1)
   {
     _AXSHearingCCAllOptions_cold_1();
   }
 
-  v1 = _AXSHearingCCAllOptions_hearingCCOptions;
+  v2 = _AXSHearingCCAllOptions_hearingCCOptions;
 
-  return v1;
+  return v2;
 }
 
 id _AXSHearingCCEnabledOptions()
@@ -3816,7 +3796,7 @@ uint64_t _AXSSetLeftRightAudioBalance(float a1)
   return notify_post([kAXSLeftRightBalanceChangedNotification UTF8String]);
 }
 
-uint64_t _AXSHomeButtonAssistant()
+uint64_t _AXSHomeButtonAssistant(uint64_t a1, uint64_t a2)
 {
   if (_AXSHomeButtonAssistant_onceToken != -1)
   {
@@ -3850,7 +3830,7 @@ void _AXSSpeechSettingsSetDisabledByManagedConfiguration(uint64_t a1)
   _kAXSCacheSpeechSettingsDisabledByManagedConfiguration = a1;
   _setPreferenceAppWithNotification(kAXSSpeechSettingsDisabledByManagedConfigurationPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.speech.settings.disabled.by.mc");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSQuickSpeakSetEnabled(uint64_t a1)
@@ -3863,7 +3843,7 @@ void _AXSQuickSpeakSetEnabled(uint64_t a1)
   _kAXSCacheQuickSpeakEnabled = a1;
   _setPreferenceAppWithNotification(kAXSQuickSpeakEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.quick.speak");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
 }
 
 void _AXSQuickSpeakSetPreferredLocaleForLanguage(const void *a1, const void *a2)
@@ -3889,7 +3869,7 @@ void _AXSQuickSpeakSetPreferredLocaleForLanguage(const void *a1, const void *a2)
   CFRelease(MutableCopy);
 }
 
-uint64_t _AXSQuickSpeakHighlightTextEnabled()
+uint64_t _AXSQuickSpeakHighlightTextEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSQuickSpeakHighlightTextEnabled_onceToken != -1)
   {
@@ -3904,22 +3884,22 @@ void _AXSQuickSpeakSetHighlightTextEnabled(uint64_t a1)
   _kAXSCacheQuickSpeakHighlightTextEnabled = a1;
   _setPreferenceAppWithNotification(kAXSQuickSpeakHighlightTextEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.quick.speak.highlight.text");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-id _AXSAccessibilityEnablers()
+id _AXSAccessibilityEnablers(uint64_t a1)
 {
   if (_AXSAccessibilityEnablers_onceToken != -1)
   {
     _AXSAccessibilityEnablers_cold_1();
   }
 
-  v1 = _AXSAccessibilityEnablers_Enablers;
+  v2 = _AXSAccessibilityEnablers_Enablers;
 
-  return v1;
+  return v2;
 }
 
-uint64_t _AXSSiriSemanticContextEnabled()
+uint64_t _AXSSiriSemanticContextEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSSiriSemanticContextEnabled_onceToken != -1)
   {
@@ -3929,7 +3909,7 @@ uint64_t _AXSSiriSemanticContextEnabled()
   return _kAXSCacheSiriSemanticContextEnabled;
 }
 
-uint64_t _AXSZoomSpeakUnderFingerEnabled()
+uint64_t _AXSZoomSpeakUnderFingerEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSZoomSpeakUnderFingerEnabled_onceToken != -1)
   {
@@ -3971,29 +3951,30 @@ void _AXSSetSpeakThisEnabled(uint64_t a1)
   v1 = a1;
   _kAXSCacheSpeakThisEnabled = a1;
   _setPreferenceAppWithNotification(kAXSSpeakThisEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.speak.this");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (v1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    v5 = _AXSCanDisableApplicationAccessibility(v3);
+    if (!v5)
     {
       goto LABEL_6;
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  _AXSApplicationAccessibilitySetEnabled(v2);
+  _AXSApplicationAccessibilitySetEnabled(v4);
 LABEL_6:
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v5);
 }
 
-uint64_t _AXSSpeakThisHighlightVisible()
+uint64_t _AXSSpeakThisHighlightVisible(uint64_t a1, uint64_t a2)
 {
   if (_AXSSpeakThisHighlightVisible_onceToken != -1)
   {
@@ -4010,7 +3991,7 @@ void _AXSSpeakThisSetHighlightVisible(uint64_t a1)
     goto LABEL_5;
   }
 
-  v2 = AXLogSpeakScreen();
+  v2 = AXLogSpeakScreen(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     _AXSSpeakThisSetHighlightVisible_cold_1();
@@ -4021,40 +4002,40 @@ void _AXSSpeakThisSetHighlightVisible(uint64_t a1)
 LABEL_5:
     _kAXSCacheSpeakThisHighlightVisible = a1;
     _setPreferenceAppWithNotification(kAXSSpeakThisHighlightVisiblePreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.speak.this.highlight.visible");
-    _updateAccessibilitySettings();
+    _updateAccessibilitySettings(v3);
   }
 }
 
 void _AXSSetAutomationEnabled(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = AXSupportLogCommon();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = AXSupportLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = a1;
-    _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_DEFAULT, "Setting automation enabled: %d", v5, 8u);
+    v6[0] = 67109120;
+    v6[1] = a1;
+    _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_DEFAULT, "Setting automation enabled: %d", v6, 8u);
   }
 
   _kAXSCacheAutomationEnabled = a1;
   _setPreferenceAppWithNotification(kAXSAutomationEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.automation.enabled");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v3);
   if (a1)
   {
-    v3 = 1;
-LABEL_7:
-    _AXSApplicationAccessibilitySetEnabled(v3);
-    goto LABEL_8;
+    v5 = 1;
   }
 
-  if (_AXSCanDisableApplicationAccessibility())
+  else
   {
-    v3 = 0;
-    goto LABEL_7;
+    if (!_AXSCanDisableApplicationAccessibility(v4))
+    {
+      return;
+    }
+
+    v5 = 0;
   }
 
-LABEL_8:
-  v4 = *MEMORY[0x1E69E9840];
+  _AXSApplicationAccessibilitySetEnabled(v5);
 }
 
 void _AXSSetLocalizationCaptionModeEnabled(uint64_t a1)
@@ -4062,23 +4043,23 @@ void _AXSSetLocalizationCaptionModeEnabled(uint64_t a1)
   _kAXSCacheLocalizationCaptionModeEnabled = a1;
   _AXSAutomationLocalizedStringLookupInfoSetEnabled(a1);
   _setPreferenceAppWithNotification(kAXSLocalizationCaptionModeEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.loc.caption.mode.enabled");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (a1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    if (!_AXSCanDisableApplicationAccessibility(v3))
     {
       return;
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  _AXSApplicationAccessibilitySetEnabled(v2);
+  _AXSApplicationAccessibilitySetEnabled(v4);
 }
 
 void _AXSAutomationLocalizedStringLookupInfoSetEnabled(uint64_t a1)
@@ -4086,10 +4067,10 @@ void _AXSAutomationLocalizedStringLookupInfoSetEnabled(uint64_t a1)
   _kAXSCacheAutomationLocalizedStringLookup = a1;
   _setPreferenceAppWithNotification(kAXSAutomationLocalizedStringLookupInfoEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.automation.localized.lookup");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSAutomationHitpointWarpingEnabled()
+uint64_t _AXSAutomationHitpointWarpingEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSAutomationHitpointWarpingEnabled_onceToken != -1)
   {
@@ -4103,14 +4084,14 @@ void _AXSAutomationSetHitpointWarpingEnabled(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSAutomationHitpointWarpingEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.automation.hitpoint_warping.enabled");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSAutomationSetFauxTableViewCellsEnabled(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSAutomationEnableFauxTableViewCellsPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], 0);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSAutomationFauxTableViewCellsEnabled()
@@ -4132,10 +4113,10 @@ void _AXSAutomationSetFauxCollectionViewCellsEnabled(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSAutomationEnableFauxCollectionCellsPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], 0);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSAutomationLocalizedStringLookupInfoEnabled()
+uint64_t _AXSAutomationLocalizedStringLookupInfoEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSAutomationLocalizedStringLookupInfoEnabled_onceToken != -1)
   {
@@ -4145,7 +4126,7 @@ uint64_t _AXSAutomationLocalizedStringLookupInfoEnabled()
   return _kAXSCacheAutomationLocalizedStringLookup;
 }
 
-uint64_t _AXSAutomationPreferredLocalization()
+uint64_t _AXSAutomationPreferredLocalization(uint64_t a1, uint64_t a2)
 {
   if (_AXSAutomationPreferredLocalization_onceToken != -1)
   {
@@ -4160,23 +4141,23 @@ void _AXSSetSiriSemanticContextEnabled(uint64_t a1)
   v1 = a1;
   _kAXSCacheSiriSemanticContextEnabled = a1;
   _setPreferenceAppWithNotification(kAXSSiriSemanticContextEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.siri.semantic.context.enabled");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (v1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    if (!_AXSCanDisableApplicationAccessibility(v3))
     {
       return;
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  _AXSApplicationAccessibilitySetEnabled(v2);
+  _AXSApplicationAccessibilitySetEnabled(v4);
 }
 
 uint64_t _AXSContextKitAppIsAllowed()
@@ -4206,46 +4187,46 @@ void _AXSSetAuditInspectionModeEnabled(uint64_t a1)
   v1 = a1;
   _kAXSCacheAuditInspectionModeModeEnabled = a1;
   _setPreferenceAppWithNotification(kAXSAuditInspectionModeEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.audit.inspection.mode");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (v1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    if (!_AXSCanDisableApplicationAccessibility(v3))
     {
       return;
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  _AXSApplicationAccessibilitySetEnabled(v2);
+  _AXSApplicationAccessibilitySetEnabled(v4);
 }
 
 void _AXSSetNocturneAccessibilityModeEnabled(uint64_t a1)
 {
   _kAXSCacheNocturneAccessibilityModeEnabled = a1;
   _setPreferenceAppWithNotification(kAXSNocturneAccessibilityModeEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.nocturne.enabled");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (a1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    if (!_AXSCanDisableApplicationAccessibility(v3))
     {
       goto LABEL_6;
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  _AXSApplicationAccessibilitySetEnabled(v2);
+  _AXSApplicationAccessibilitySetEnabled(v4);
 LABEL_6:
 
   _AXSAutomationLocalizedStringLookupInfoSetEnabled(a1);
@@ -4255,23 +4236,23 @@ void _AXSSetClipTracerAccessibilityModeEnabled(uint64_t a1)
 {
   _kAXSCacheClipTracerAccessibilityModeEnabled = a1;
   _setPreferenceAppWithNotification(kAXSClipTracerAccessibilityModeEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.clip.tracer.enabled");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (a1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    if (!_AXSCanDisableApplicationAccessibility(v3))
     {
       goto LABEL_6;
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  _AXSApplicationAccessibilitySetEnabled(v2);
+  _AXSApplicationAccessibilitySetEnabled(v4);
 LABEL_6:
 
   _AXSAutomationLocalizedStringLookupInfoSetEnabled(a1);
@@ -4282,7 +4263,7 @@ void _AXSVisualAlertSetEnabled(uint64_t a1)
   _kAXSCacheVisualAlertEnabled = a1;
   _setPreferenceAppWithNotification(kAXSVisualAlertEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.visual.alert");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 CFComparisonResult _langSort(const __CFDictionary *a1, const __CFDictionary *a2)
@@ -4305,7 +4286,7 @@ uint64_t _AXSVoiceOverTouchLanguageRotorItemsExist()
   return result;
 }
 
-uint64_t AXRetrieveSupportedAccessibilityLanguages()
+uint64_t AXRetrieveSupportedAccessibilityLanguages(uint64_t a1, uint64_t a2)
 {
   if (AXRetrieveSupportedAccessibilityLanguages_registerOnce != -1)
   {
@@ -4318,7 +4299,7 @@ uint64_t AXRetrieveSupportedAccessibilityLanguages()
 void __AXRetrieveSupportedAccessibilityLanguages_block_invoke()
 {
   v5 = [MEMORY[0x1E695DFA8] set];
-  v0 = AXCLanguageToLocales();
+  v0 = AXCLanguageToLocales(v5);
   v1 = [v0 allValues];
   [v5 addObjectsFromArray:v1];
 
@@ -4433,7 +4414,7 @@ void _AXSVoiceOverTouchSetEnabledThroughAccessory(uint64_t a1)
 
   _setPreferenceAppWithNotification(kAXSVoiceOverTouchEnabledThroughAccessoryPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], kAXSVoiceOverTouchEnabledThroughAccessoryNotification);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
 }
 
 void _AXSVoiceOverTouchSetUsageConfirmed(uint64_t a1)
@@ -4441,10 +4422,10 @@ void _AXSVoiceOverTouchSetUsageConfirmed(uint64_t a1)
   _kAXSCacheVoiceOverUsageConfirmation = a1;
   _setPreferenceAppWithNotification(kAXSVoiceOverTouchUsageConfirmedPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.vo.usage.confirm");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSVoiceOverTouchActive2DBrailleDisplays()
+uint64_t _AXSVoiceOverTouchActive2DBrailleDisplays(uint64_t a1, uint64_t a2)
 {
   if (_AXSVoiceOverTouchActive2DBrailleDisplays_onceToken != -1)
   {
@@ -4454,7 +4435,7 @@ uint64_t _AXSVoiceOverTouchActive2DBrailleDisplays()
   return _kAXSCacheActive2DBrailleDisplays;
 }
 
-CFTypeID _AXSVoiceOverTouchUpdateActive2DBrailleDisplays()
+uint64_t _AXSVoiceOverTouchUpdateActive2DBrailleDisplays()
 {
   if (_kAXSCacheActive2DBrailleDisplays)
   {
@@ -4516,17 +4497,17 @@ void _AXSVoiceOverTouchSetUIEnabled(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSVoiceOverTouchUIEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], 0);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSVoiceOverTouchSetShouldRouteToSpeakerWithProximity(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSVoiceOverTouchShouldRouteToSpeakerWithProximityPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], 0);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSVoiceOverTouchSpeakTimeOnWake()
+uint64_t _AXSVoiceOverTouchSpeakTimeOnWake(uint64_t a1, uint64_t a2)
 {
   if (_AXSVoiceOverTouchSpeakTimeOnWake_onceToken != -1)
   {
@@ -4541,10 +4522,10 @@ void _AXSVoiceOverTouchSetSpeakTimeOnWake(uint64_t a1)
   _kAXSCacheVoiceOverSpeakTimeOnWake = a1;
   _setPreferenceAppWithNotification(kAXSVoiceOverTouchSpeakTimeOnWakePreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.AXSCacheVoiceOverSpeakTimeOnWakeNotification");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSWalkieTalkieTapToTalkEnabled()
+uint64_t _AXSWalkieTalkieTapToTalkEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSWalkieTalkieTapToTalkEnabled_onceToken != -1)
   {
@@ -4559,10 +4540,10 @@ void _AXSWalkieTalkieSetTapToTalkEnabled(uint64_t a1)
   _kAXSCacheWalkieTalkieTapToTalk = a1;
   _setPreferenceAppWithNotification(kAXSWalkieTalkieTapToTalkPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.AXSCacheWalkieTalkieTapToTalkNotification");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSAppSwitcherAutoSelectEnabled()
+uint64_t _AXSAppSwitcherAutoSelectEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSAppSwitcherAutoSelectEnabled_onceToken != -1)
   {
@@ -4577,10 +4558,10 @@ void _AXSAppSwitcherSetAutoSelectEnabled(uint64_t a1)
   _kAXSCacheAppSwitcherAutoSelect = a1;
   _setPreferenceAppWithNotification(kAXSAppSwitcherAutoSelectPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.AXSCacheAppSwitcherAutoSelectNotification");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSCharacterVoiceDefaultSupportedLanguages()
+uint64_t _AXSCharacterVoiceDefaultSupportedLanguages(uint64_t a1, uint64_t a2)
 {
   if (_AXSCharacterVoiceDefaultSupportedLanguages_onceToken != -1)
   {
@@ -4596,18 +4577,18 @@ uint64_t _AXSCharacterVoiceSupportedForLocale(uint64_t result)
   {
     v1 = MEMORY[0x1866047C0]();
 
-    return _AXSCharacterVoiceSupportedForLocaleIdentifier(v1);
+    return _AXSCharacterVoiceSupportedForLocaleIdentifier(v1, v2);
   }
 
   return result;
 }
 
-uint64_t _AXSCharacterVoiceSupportedForLocaleIdentifier(void *a1)
+uint64_t _AXSCharacterVoiceSupportedForLocaleIdentifier(void *a1, uint64_t a2)
 {
   v20 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    goto LABEL_5;
+    return 1;
   }
 
   if (_AXSCharacterVoiceDefaultSupportedLanguages_onceToken != -1)
@@ -4615,82 +4596,80 @@ uint64_t _AXSCharacterVoiceSupportedForLocaleIdentifier(void *a1)
     _AXSCharacterVoiceDefaultSupportedLanguages_cold_1();
   }
 
-  v2 = _AXSCharacterVoiceDefaultSupportedLanguages_supportedLanguages;
+  v3 = _AXSCharacterVoiceDefaultSupportedLanguages_supportedLanguages;
   v21.length = CFArrayGetCount(_AXSCharacterVoiceDefaultSupportedLanguages_supportedLanguages);
   v21.location = 0;
-  if (CFArrayContainsValue(v2, v21, a1))
+  if (CFArrayContainsValue(v3, v21, a1))
   {
-LABEL_5:
-    v3 = 1;
-    goto LABEL_29;
+    return 1;
   }
 
-  v4 = [a1 stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
-  v5 = [v4 lowercaseString];
+  v5 = [a1 stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+  v6 = [v5 lowercaseString];
 
-  if ([v5 isEqualToString:@"ca-es"] & 1) != 0 || (objc_msgSend(v5, "hasPrefix:", @"ca"))
+  if ([v6 isEqualToString:@"ca-es"] & 1) != 0 || (objc_msgSend(v6, "hasPrefix:", @"ca"))
   {
-    v6 = @"es-ES";
+    v7 = @"es-ES";
   }
 
   else
   {
-    if (![v5 hasPrefix:@"nb"])
+    if (![v6 hasPrefix:@"nb"])
     {
       goto LABEL_10;
     }
 
-    v6 = @"no-NO";
+    v7 = @"no-NO";
   }
 
-  v5 = v6;
+  v6 = v7;
 LABEL_10:
-  if (([(__CFArray *)v2 containsObject:v5]& 1) != 0)
+  if (([(__CFArray *)v3 containsObject:v6]& 1) != 0)
   {
-    v3 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v7 = [v5 rangeOfString:@"-"];
-    if (v7 == 0x7FFFFFFFFFFFFFFFLL)
+    v8 = [v6 rangeOfString:@"-"];
+    if (v8 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v8 = v5;
+      v9 = v6;
     }
 
     else
     {
-      v8 = [v5 substringToIndex:v7 + 1];
+      v9 = [v6 substringToIndex:v8 + 1];
     }
 
-    v9 = v8;
+    v10 = v9;
     v17 = 0u;
     v18 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v10 = v2;
-    v3 = [(__CFArray *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v3)
+    v11 = v3;
+    v4 = [(__CFArray *)v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v4)
     {
-      v11 = *v16;
+      v12 = *v16;
       while (2)
       {
-        for (i = 0; i != v3; ++i)
+        for (i = 0; i != v4; ++i)
         {
-          if (*v16 != v11)
+          if (*v16 != v12)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
-          if ([*(*(&v15 + 1) + 8 * i) hasPrefix:{v9, v15}])
+          if ([*(*(&v15 + 1) + 8 * i) hasPrefix:{v10, v15}])
           {
-            v3 = 1;
+            v4 = 1;
             goto LABEL_27;
           }
         }
 
-        v3 = [(__CFArray *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
-        if (v3)
+        v4 = [(__CFArray *)v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        if (v4)
         {
           continue;
         }
@@ -4702,9 +4681,7 @@ LABEL_10:
 LABEL_27:
   }
 
-LABEL_29:
-  v13 = *MEMORY[0x1E69E9840];
-  return v3;
+  return v4;
 }
 
 void _AXSVoiceOverTouchSetEnabledAppTemporaryOverride(uint64_t a1)
@@ -4717,24 +4694,24 @@ void _AXSVoiceOverTouchSetEnabledAppTemporaryOverride(uint64_t a1)
 
 void _AXSVoiceOverTouchSetEnabled(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = AXSupportLogCommon();
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = AXSupportLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109120;
-    v7[1] = a1;
-    _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_INFO, "Requesting VoiceOver enabled: %d", v7, 8u);
+    v10[0] = 67109120;
+    v10[1] = a1;
+    _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_INFO, "Requesting VoiceOver enabled: %d", v10, 8u);
   }
 
   _kAXSCacheVoiceOverTouchEnabled = a1;
   _setPreferenceAppWithNotification(kAXSVoiceOverTouchEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.vot");
-  _updateAccessibilitySettings();
-  LOBYTE(v7[0]) = 0;
-  BooleanPreference = _getBooleanPreference(kAXSVoiceOverTouchEnabledByiTunesPreference, v7);
-  if (LOBYTE(v7[0]) && BooleanPreference != a1)
+  _updateAccessibilitySettings(v3);
+  LOBYTE(v10[0]) = 0;
+  BooleanPreference = _getBooleanPreference(kAXSVoiceOverTouchEnabledByiTunesPreference, v10);
+  if (LOBYTE(v10[0]) && BooleanPreference != a1)
   {
     _setPreferenceAppWithNotification(kAXSVoiceOverTouchEnabledByiTunesPreference, 0, 0, 0);
-    _updateAccessibilitySettings();
+    _updateAccessibilitySettings(v5);
   }
 
   if (a1)
@@ -4750,21 +4727,22 @@ void _AXSVoiceOverTouchSetEnabled(uint64_t a1)
     }
 
     _kickstartProcess("com.apple.VoiceOverTouch");
-    v4 = 1;
-    goto LABEL_13;
+    v6 = 1;
   }
 
-  _setPreferenceAppWithNotification(kAXSBrailleInputDeviceConnectedPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:0], @"com.apple.accessibility.cache.braille.input.connection.changed");
-  _updateAccessibilitySettings();
-  v5 = _AXSCanDisableApplicationAccessibility();
-  v4 = 0;
-  if (v5)
+  else
   {
-LABEL_13:
-    _AXSApplicationAccessibilitySetEnabled(v4);
+    _setPreferenceAppWithNotification(kAXSBrailleInputDeviceConnectedPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:0], @"com.apple.accessibility.cache.braille.input.connection.changed");
+    _updateAccessibilitySettings(v7);
+    v9 = _AXSCanDisableApplicationAccessibility(v8);
+    v6 = 0;
+    if (!v9)
+    {
+      return;
+    }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
+  _AXSApplicationAccessibilitySetEnabled(v6);
 }
 
 void _AXSVoiceOverTouchSetEnabledAndAutoConfirmUsage(uint64_t a1)
@@ -4778,7 +4756,7 @@ void _AXSVoiceOverTouchSetEnabledAndAutoConfirmUsage(uint64_t a1)
   _AXSVoiceOverTouchSetEnabled(a1);
 }
 
-uint64_t _AXSVoiceOverTouchUsageConfirmed()
+uint64_t _AXSVoiceOverTouchUsageConfirmed(uint64_t a1, uint64_t a2)
 {
   if (_AXSVoiceOverTouchUsageConfirmed_onceToken != -1)
   {
@@ -4788,7 +4766,7 @@ uint64_t _AXSVoiceOverTouchUsageConfirmed()
   return _kAXSCacheVoiceOverUsageConfirmation;
 }
 
-uint64_t _AXSVoiceOverTouchUserHasReadNoHomeButtonGestureDescription()
+uint64_t _AXSVoiceOverTouchUserHasReadNoHomeButtonGestureDescription(uint64_t a1, uint64_t a2)
 {
   if (_AXSVoiceOverTouchUserHasReadNoHomeButtonGestureDescription_onceToken != -1)
   {
@@ -4802,10 +4780,10 @@ void _AXSVoiceOverTouchSetUserHasReadNoHomeButtonGestureDescription(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSVoiceOverTouchUserHasReadNoHomeButtonGesturePreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.vo.user.has.read.no.home.button.gesture");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSVoiceOverTouchScreenCurtainEnabled()
+uint64_t _AXSVoiceOverTouchScreenCurtainEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSVoiceOverTouchScreenCurtainEnabled_onceToken != -1)
   {
@@ -4820,10 +4798,10 @@ void _AXSVoiceOverTouchSetScreenCurtainEnabled(uint64_t a1)
   _kAXSCacheVoiceOverScreenCurtain = a1;
   _setPreferenceAppWithNotification(kAXSVoiceOverTouchScreenCurtainPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.vo.screen.curtain");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-float _AXSVoiceOverTouchVolume()
+float _AXSVoiceOverTouchVolume(uint64_t a1, uint64_t a2)
 {
   if (_AXSVoiceOverTouchVolume_onceToken != -1)
   {
@@ -4915,7 +4893,7 @@ void _AXSVoiceOverTouchSetBrailleEightDotMode(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSVoiceOverTouchBrailleEightDotModePreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], kAXSVoiceOverTouchBrailleEightDotModeChangedNotification);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSVoiceOverTouchBrailleDisplayDisconnectOnSleep()
@@ -4937,7 +4915,7 @@ void _AXSVoiceOverTouchSetBrailleDisplayDisconnectOnSleep(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSVoiceOverTouchBrailleDisplayDisconnectOnSleepPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], kAXSVoiceOverTouchBrailleBrailleDisplayDisconnectOnSleepChangedNotification);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSVoiceOverTouchSetTypingMode(uint64_t a1)
@@ -4969,10 +4947,10 @@ void _AXSSetWebAccessibilityEventsEnabled(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSWebAccessibilityEventsEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.web.accessibility.events.enabled");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSVoiceOverMediaDuckingMode()
+uint64_t _AXSVoiceOverMediaDuckingMode(uint64_t a1, uint64_t a2)
 {
   if (_AXSVoiceOverMediaDuckingMode_onceToken != -1)
   {
@@ -4989,7 +4967,7 @@ void _AXSVoiceOverMediaDuckingSetMode(uint64_t a1)
   _setNumberPreferenceApp(kAXSVoiceOverTouchMediaDuckingModePreference, kCFNumberIntType, &v1, @"com.apple.accessibility.cache.vot.media.ducking.mode", 0);
 }
 
-uint64_t _AXSVoiceOverTouchTutorialUsageConfirmed()
+uint64_t _AXSVoiceOverTouchTutorialUsageConfirmed(uint64_t a1, uint64_t a2)
 {
   if (_AXSVoiceOverTouchTutorialUsageConfirmed_onceToken != -1)
   {
@@ -5004,7 +4982,7 @@ void _AXSVoiceOverTouchSetTutorialUsageConfirmed(uint64_t a1)
   _kAXSCacheVoiceOverTutorialUsageConfirmation = a1;
   _setPreferenceAppWithNotification(kAXSVoiceOverTouchTutorialUsageConfirmedPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.vo.usage.tutorial.confirm");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSBrailleScreenInputEnabled()
@@ -5028,7 +5006,7 @@ uint64_t _AXSBrailleScreenInputSetEnabled(uint64_t a1)
   v1 = a1;
   _kAXSCacheBrailleScreenInputEnabled = a1;
   _setPreferenceAppWithNotification(kAXSBrailleScreenInputEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.bsi");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   LODWORD(result) = _AXSBrailleScreenInputSetEnabled_token;
   if (_AXSBrailleScreenInputSetEnabled_token != -1 || (notify_register_check("com.apple.accessibility.bsi.8.dot.mode", &_AXSBrailleScreenInputSetEnabled_token), result = _AXSBrailleScreenInputSetEnabled_token, _AXSBrailleScreenInputSetEnabled_token != -1))
   {
@@ -5045,7 +5023,7 @@ void _AXSHoverTextSetEnabled(uint64_t a1)
   _kAXSCacheHoverTextEnabled = a1;
   _setPreferenceAppWithNotification(kAXSHoverTextEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.hovertext");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSHoverTextTypingSetEnabled(uint64_t a1)
@@ -5053,10 +5031,10 @@ void _AXSHoverTextTypingSetEnabled(uint64_t a1)
   _kAXSCacheHoverTextTypingEnabled = a1;
   _setPreferenceAppWithNotification(kAXSHoverTextTypingEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.hovertext.typing");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSHoverTextTypingDisplayMode()
+uint64_t _AXSHoverTextTypingDisplayMode(uint64_t a1, uint64_t a2)
 {
   if (_AXSHoverTextTypingDisplayMode_onceToken != -1)
   {
@@ -5125,7 +5103,7 @@ void *_AXSHoverTextTypingCopyBorderColorData()
   return result;
 }
 
-float _AXSHoverTextFontSize()
+float _AXSHoverTextFontSize(uint64_t a1, uint64_t a2)
 {
   if (_AXSHoverTextFontSize_onceToken != -1)
   {
@@ -5142,7 +5120,7 @@ void _AXSHoverTextSetFontSize(float a1)
   _setNumberPreferenceApp(kAXSHoverTextFontSizePreference, kCFNumberFloatType, &v1, @"com.apple.accessibility.cache.hovertext.fontsize.change", 0);
 }
 
-float _AXSHoverTextBackgroundOpacity()
+float _AXSHoverTextBackgroundOpacity(uint64_t a1, uint64_t a2)
 {
   if (_AXSHoverTextBackgroundOpacity_onceToken != -1)
   {
@@ -5167,7 +5145,7 @@ float _AXSHoverTextSetBackgroundOpacity(float a1)
   return result;
 }
 
-uint64_t _AXSHoverTextDisplayMode()
+uint64_t _AXSHoverTextDisplayMode(uint64_t a1, uint64_t a2)
 {
   if (_AXSHoverTextDisplayMode_onceToken != -1)
   {
@@ -5184,7 +5162,7 @@ void _AXSHoverTextSetDisplayMode(uint64_t a1)
   _setNumberPreferenceApp(kAXSHoverTextDisplayModePreference, kCFNumberIntType, &v1, @"com.apple.accessibility.cache.hovertext.displaymode.change", 0);
 }
 
-uint64_t _AXSLiveSpeechEnabled()
+uint64_t _AXSLiveSpeechEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSLiveSpeechEnabled_onceToken != -1)
   {
@@ -5199,21 +5177,21 @@ void _AXSLiveSpeechSetEnabled(uint64_t a1)
   _kAXSCacheLiveSpeechEnabled = a1;
   _setPreferenceAppWithNotification(kAXSLiveSpeechEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.livespeech");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSZoomTouchSetToggledByVoiceOver(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSZoomTouchToggledByVoiceOverPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], 0);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSZoomTouchSetToggledByPreferenceSwitch(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSZoomTouchToggledByPreferenceSwitchPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], 0);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSZoomSpeakUnderFingerSetEnabled(uint64_t a1)
@@ -5221,7 +5199,7 @@ void _AXSZoomSpeakUnderFingerSetEnabled(uint64_t a1)
   v1 = a1;
   _kAXSCacheZoomSpeakUnderFingerEnabled = a1;
   _setPreferenceAppWithNotification(kAXSZoomSpeakUnderFingerEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.zoom.speakunderfinger");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (_AXSZoomTouchEnabled_onceToken != -1)
   {
     _updateAccessibilitySettings_cold_1();
@@ -5231,24 +5209,24 @@ void _AXSZoomSpeakUnderFingerSetEnabled(uint64_t a1)
   {
     if (v1)
     {
-      v2 = 1;
+      v4 = 1;
     }
 
     else
     {
-      if (!_AXSCanDisableApplicationAccessibility())
+      if (!_AXSCanDisableApplicationAccessibility(v3))
       {
         return;
       }
 
-      v2 = 0;
+      v4 = 0;
     }
 
-    _AXSApplicationAccessibilitySetEnabled(v2);
+    _AXSApplicationAccessibilitySetEnabled(v4);
   }
 }
 
-uint64_t _AXSZoomTouchSmoothScalingDisabled()
+uint64_t _AXSZoomTouchSmoothScalingDisabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSZoomTouchSmoothScalingDisabled_onceToken != -1)
   {
@@ -5263,7 +5241,7 @@ void _AXSZoomTouchSetSmoothScalingDisabled(uint64_t a1)
   _kAXSCacheZoomTouchSmoothScalingDisabled = a1;
   _setPreferenceAppWithNotification(kAXSZoomTouchSmoothScalingPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.zoom.smoothscaling");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSZoomTouchSetEnabled(uint64_t a1)
@@ -5271,23 +5249,23 @@ void _AXSZoomTouchSetEnabled(uint64_t a1)
   v1 = a1;
   _kAXSCacheZoomTouchEnabled = a1;
   _setPreferenceAppWithNotification(kAXSZoomTouchEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.zoom");
-  _updateAccessibilitySettings();
-  v5 = 0;
-  BooleanPreference = _getBooleanPreference(kAXSZoomTouchEnabledByiTunesPreference, &v5);
-  if (v5)
+  _updateAccessibilitySettings(v2);
+  v7 = 0;
+  BooleanPreference = _getBooleanPreference(kAXSZoomTouchEnabledByiTunesPreference, &v7);
+  if (v7)
   {
-    v3 = BooleanPreference == v1;
+    v4 = BooleanPreference == v1;
   }
 
   else
   {
-    v3 = 1;
+    v4 = 1;
   }
 
-  if (!v3)
+  if (!v4)
   {
     _setPreferenceAppWithNotification(kAXSZoomTouchEnabledByiTunesPreference, 0, 0, 0);
-    _updateAccessibilitySettings();
+    _updateAccessibilitySettings(v5);
   }
 
   if (_AXSZoomSpeakUnderFingerEnabled_onceToken != -1)
@@ -5299,24 +5277,24 @@ void _AXSZoomTouchSetEnabled(uint64_t a1)
   {
     if (v1)
     {
-      v4 = 1;
+      v6 = 1;
     }
 
     else
     {
-      if (!_AXSCanDisableApplicationAccessibility())
+      if (!_AXSCanDisableApplicationAccessibility(BooleanPreference))
       {
         return;
       }
 
-      v4 = 0;
+      v6 = 0;
     }
 
-    _AXSApplicationAccessibilitySetEnabled(v4);
+    _AXSApplicationAccessibilitySetEnabled(v6);
   }
 }
 
-uint64_t _AXSZoomTouchReadyForObservers()
+uint64_t _AXSZoomTouchReadyForObservers(uint64_t a1, uint64_t a2)
 {
   if (_AXSZoomTouchReadyForObservers_onceToken != -1)
   {
@@ -5331,14 +5309,15 @@ void _AXSZoomTouchSetReadyForObservers(uint64_t a1)
   _kAXSCacheZoomTouchReadyForObservers = a1;
   _setPreferenceAppWithNotification(kAXSZoomTouchReadyForObserversPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.zoom.readyForObservers");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-void _AXSSetEnhanceTextLegibilityEnabledApp(int a1, __CFString *a2)
+void _AXSSetEnhanceTextLegibilityEnabledApp(uint64_t a1, __CFString *a2)
 {
+  v3 = a1;
   v4 = a1;
   _subscribeOnCacheNotificationsIfNeeded(kAXSEnhanceTextLegibilityPreference, a1, _AXSEnhanceTextLegibilityEnabled);
-  _updateCachePreferenceAfterChange(kAXSEnhanceTextLegibilityPreference, a2, _kAXSCacheEnhanceTextLegibility, a1);
+  _updateCachePreferenceAfterChange(kAXSEnhanceTextLegibilityPreference, a2, _kAXSCacheEnhanceTextLegibility, v3);
   _setNumberPreferenceApp(kAXSEnhanceTextLegibilityPreference, kCFNumberIntType, &v4, @"com.apple.accessibility.cache.enhance.text.legibility", a2);
 }
 
@@ -5347,29 +5326,31 @@ void _AXSSetCarPlayEnhanceTextLegibilityEnabled(uint64_t a1)
   _kAXSCacheCarPlayEnhanceTextLegibility = a1;
   _setPreferenceAppWithNotification(@"CarPlayEnhancedTextLegibilityEnabled", 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.carplay.enhance.text.legibility");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSSetEnhanceTextTrackingEnabled(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSEnhanceTextTrackingPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], 0);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-void _AXSSetEnhanceBackgroundContrastEnabledApp(int a1, __CFString *a2)
+void _AXSSetEnhanceBackgroundContrastEnabledApp(uint64_t a1, __CFString *a2)
 {
+  v3 = a1;
   v4 = a1;
   _subscribeOnCacheNotificationsIfNeeded(kAXSEnhanceBackgroundContrastPreference, a1, _AXSEnhanceBackgroundContrastEnabled);
-  _updateCachePreferenceAfterChange(kAXSEnhanceBackgroundContrastPreference, a2, _kAXSCacheEnhanceBackgroundContrast, a1);
+  _updateCachePreferenceAfterChange(kAXSEnhanceBackgroundContrastPreference, a2, _kAXSCacheEnhanceBackgroundContrast, v3);
   _setNumberPreferenceApp(kAXSEnhanceBackgroundContrastPreference, kCFNumberIntType, &v4, @"com.apple.accessibility.cache.enhance.background.contrast", a2);
 }
 
-void _AXSSetDifferentiateWithoutColorEnabledApp(int a1, __CFString *a2)
+void _AXSSetDifferentiateWithoutColorEnabledApp(uint64_t a1, __CFString *a2)
 {
+  v3 = a1;
   v4 = a1;
   _subscribeOnCacheNotificationsIfNeeded(kAXSDifferentiateWithoutColorPreference, a1, _AXSDifferentiateWithoutColorEnabled);
-  _updateCachePreferenceAfterChange(kAXSDifferentiateWithoutColorPreference, a2, _kAXSCacheDifferentiateWithoutColor, a1);
+  _updateCachePreferenceAfterChange(kAXSDifferentiateWithoutColorPreference, a2, _kAXSCacheDifferentiateWithoutColor, v3);
   _setNumberPreferenceApp(kAXSDifferentiateWithoutColorPreference, kCFNumberIntType, &v4, @"com.apple.accessibility.cache.differentiate.without.color", a2);
 }
 
@@ -5401,11 +5382,12 @@ void _AXSSetReduceMotionEnabled(int a1)
   }
 }
 
-void _AXSSetReduceMotionEnabledApp(int a1, __CFString *a2)
+void _AXSSetReduceMotionEnabledApp(uint64_t a1, __CFString *a2)
 {
+  v3 = a1;
   v4 = a1;
   _subscribeOnCacheNotificationsIfNeeded(kAXSReduceMotionPreference, a1, _AXSReduceMotionEnabled);
-  _updateCachePreferenceAfterChange(kAXSReduceMotionPreference, a2, _kAXSCacheReduceMotion, a1);
+  _updateCachePreferenceAfterChange(kAXSReduceMotionPreference, a2, _kAXSCacheReduceMotion, v3);
   _setNumberPreferenceApp(kAXSReduceMotionPreference, kCFNumberIntType, &v4, @"com.apple.accessibility.cache.reduce.motion", a2);
 }
 
@@ -5414,7 +5396,7 @@ void _AXSPointerAllowAppCustomizationSetEnabled(uint64_t a1)
   _kAXSCachePointerAllowAppCustomizationEnabled = a1;
   _setPreferenceAppWithNotification(kAXSPointerAllowAppCustomizationEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.pointer.allow.app.customization");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSPointerEffectScalingSetEnabled(uint64_t a1)
@@ -5422,7 +5404,7 @@ void _AXSPointerEffectScalingSetEnabled(uint64_t a1)
   _kAXSCachePointerEffectScalingEnabled = a1;
   _setPreferenceAppWithNotification(kAXSPointerEffectScalingEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.pointer.effect.scaling");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSSetReduceMotionAutoplayAnimatedImagesEnabled(uint64_t a1)
@@ -5430,18 +5412,19 @@ void _AXSSetReduceMotionAutoplayAnimatedImagesEnabled(uint64_t a1)
   _kAXSCacheReduceMotionAutoplayAnimatedImagesEnabled = a1;
   _setPreferenceAppWithNotification(kAXSReduceMotionAutoplayAnimatedImagesPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.reduce.motion.autoplay.animated.images");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-void _AXSSetReduceMotionReduceSlideTransitionsEnabledApp(int a1, __CFString *a2)
+void _AXSSetReduceMotionReduceSlideTransitionsEnabledApp(uint64_t a1, __CFString *a2)
 {
+  v3 = a1;
   v4 = a1;
   _subscribeOnCacheNotificationsIfNeeded(kAXSReduceMotionReduceSlideTransitionsPreference, a1, _AXSReduceMotionReduceSlideTransitionsEnabled);
-  _updateCachePreferenceAfterChange(kAXSReduceMotionReduceSlideTransitionsPreference, a2, _kAXSCacheReduceMotionReduceSlideTransitions, a1);
+  _updateCachePreferenceAfterChange(kAXSReduceMotionReduceSlideTransitionsPreference, a2, _kAXSCacheReduceMotionReduceSlideTransitions, v3);
   _setNumberPreferenceApp(kAXSReduceMotionReduceSlideTransitionsPreference, kCFNumberIntType, &v4, @"com.apple.accessibility.cache.reduce.motion.reduce.slide.transitions", a2);
 }
 
-uint64_t _AXSReduceMotionAutoplayMessagesEffectsEnabled()
+uint64_t _AXSReduceMotionAutoplayMessagesEffectsEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSReduceMotionAutoplayMessagesEffectsEnabled_onceToken != -1)
   {
@@ -5456,7 +5439,7 @@ void _AXSSetReduceMotionAutoplayMessagesEffectsEnabled(uint64_t a1)
   _kAXSCacheReduceMotionAutoplayMessagesEffectsEnabled = a1;
   _setPreferenceAppWithNotification(kAXSReduceMotionAutoplayMessagesEffectsPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.reduce.motion.autoplay.messages.effects");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 BOOL _AXSReduceMotionAutoplayVideoPreviewsEnabledValueFromValueRespectingVoiceOverDefault(int a1)
@@ -5486,17 +5469,18 @@ BOOL _AXSReduceMotionAutoplayVideoPreviewsEnabledGlobal()
   }
 }
 
-void _AXSSetReduceMotionAutoplayVideoPreviewsEnabledApp(int a1, __CFString *a2)
+void _AXSSetReduceMotionAutoplayVideoPreviewsEnabledApp(uint64_t a1, __CFString *a2)
 {
+  v3 = a1;
   v4 = a1;
   _subscribeOnCacheNotificationsIfNeeded(kAXSReduceMotionAutoplayVideoPreviewsPreference, a1, _AXSReduceMotionAutoplayVideoPreviewsEnabled);
-  _updateCachePreferenceAfterChange(kAXSReduceMotionAutoplayVideoPreviewsPreference, a2, &_kAXSCacheReduceMotionAutoplayVideoPreviews, a1);
+  _updateCachePreferenceAfterChange(kAXSReduceMotionAutoplayVideoPreviewsPreference, a2, &_kAXSCacheReduceMotionAutoplayVideoPreviews, v3);
   _setNumberPreferenceApp(kAXSReduceMotionAutoplayVideoPreviewsPreference, kCFNumberIntType, &v4, @"com.apple.accessibility.cache.reduce.motion.autoplay.video.previews", a2);
 }
 
-uint64_t _AXSUpdateWebAccessibilitySettings()
+void *_AXSUpdateWebAccessibilitySettings()
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v0 = AXLogCommon();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
@@ -5510,9 +5494,9 @@ uint64_t _AXSUpdateWebAccessibilitySettings()
   _updateCachePreferenceAndRepostNotification(kAXSReduceMotionPreference, kAXSReduceMotionChangedNotification, 0, _kAXSCacheReduceMotion);
   _updateCachePreferenceAndRepostNotification(kAXSEnhanceTextLegibilityPreference, kAXSEnhanceTextLegibilityChangedNotification, 0, _kAXSCacheEnhanceTextLegibility);
   _updateCachePreferenceAndRepostNotification(kAXSDarkenSystemColorsEnabledPreference, kAXSDarkenSystemColorsEnabledNotification, 0, &_kAXSCacheDarkenSystemColors);
-  v10 = -1;
-  _updateCachePreferenceAndRepostNotification(@"AXSAirPodsSpatialAudioLockToDevice", kAXSAirPodSpatialAudioLockToDeviceChangedNotification, 0, &v10);
-  _kAXSCacheAirPodsSpatialAudioLockToDeviceEnabled = v10 == 1;
+  v9 = -1;
+  _updateCachePreferenceAndRepostNotification(@"AXSAirPodsSpatialAudioLockToDevice", kAXSAirPodSpatialAudioLockToDeviceChangedNotification, 0, &v9);
+  _kAXSCacheAirPodsSpatialAudioLockToDeviceEnabled = v9 == 1;
   v1 = AXLogCommon();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
@@ -5520,15 +5504,15 @@ uint64_t _AXSUpdateWebAccessibilitySettings()
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:_kAXSCacheApplicationAccessibilityEnabled];
     *buf = 138412546;
     *&buf[4] = v2;
-    v12 = 2112;
-    v13 = v3;
+    v11 = 2112;
+    v12 = v3;
     _os_log_impl(&dword_186307000, v1, OS_LOG_TYPE_DEFAULT, "New accessibility: %@, app ax: %@", buf, 0x16u);
   }
 
-  v9 = 0;
-  v4 = _copyValuePreferenceApp(@"AXSSpatialAudioHeadTracking", 0, &v9);
+  v8 = 0;
+  v4 = _copyValuePreferenceApp(@"AXSSpatialAudioHeadTracking", 0, &v8);
   v5 = v4;
-  if (v9 && v4)
+  if (v8 && v4)
   {
     v6 = CFGetTypeID(v4);
     if (v6 == CFNumberGetTypeID())
@@ -5550,28 +5534,29 @@ LABEL_10:
   _updateCacheSmartInvertAndRepostNotification(0);
   result = _getBooleanPreference(kAXSGrayscaleEnabledPreference, 0);
   _kAXSCacheGrayscaleEnabled = result;
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void _updateBoolCachePreferenceAndRepostNotification(const __CFString *a1, const __CFString *a2, unsigned __int8 *a3)
+void _updateBoolCachePreferenceAndRepostNotification(__CFString *a1, const __CFString *a2, BOOL *a3)
 {
-  *a3 = _fetchCachePreference(a1, 0, 0, 0) == 1;
-  v6 = AXSupportLogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  CachePreference = _fetchCachePreference(a1, 0, 0, 0);
+  *a3 = CachePreference == 1;
+  v7 = AXSupportLogCommon(CachePreference);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    _updateBoolCachePreferenceAndRepostNotification_cold_1(a1, a3, v6);
+    _updateBoolCachePreferenceAndRepostNotification_cold_1(a1, a3, v7);
   }
 
   postNotification(a2);
 }
 
-void _updateCachePreferenceAndRepostNotification(const __CFString *a1, const __CFString *a2, const __CFString *a3, _DWORD *a4)
+void _updateCachePreferenceAndRepostNotification(__CFString *a1, const __CFString *a2, __CFString *a3, _DWORD *a4)
 {
   v18 = *MEMORY[0x1E69E9840];
-  *a4 = _fetchCachePreference(a1, a3, 0, 0);
-  v8 = AXSupportLogCommon();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  CachePreference = _fetchCachePreference(a1, a3, 0, 0);
+  *a4 = CachePreference;
+  v9 = AXSupportLogCommon(CachePreference);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v10 = *a4;
     if (v10 == -1)
@@ -5590,55 +5575,54 @@ void _updateCachePreferenceAndRepostNotification(const __CFString *a1, const __C
     v15 = a1;
     v16 = 2112;
     v17 = v11;
-    _os_log_debug_impl(&dword_186307000, v8, OS_LOG_TYPE_DEBUG, "Update Cache Value On Notification: appID = %@, preference = %@, result = %@", &v12, 0x20u);
+    _os_log_debug_impl(&dword_186307000, v9, OS_LOG_TYPE_DEBUG, "Update Cache Value On Notification: appID = %@, preference = %@, result = %@", &v12, 0x20u);
     if (v10 != -1)
     {
     }
   }
 
   postNotification(a2);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void _updateCacheSmartInvertAndRepostNotification(const __CFString *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   valuePtr = -1;
   NumberPreference = _getNumberPreference(kAXSInvertColorsEnabledPreference, a1);
   v3 = AXLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = NumberPreference;
+    v17 = NumberPreference;
     _os_log_impl(&dword_186307000, v3, OS_LOG_TYPE_DEFAULT, "Read Per-App on Update: Smart invert = %@", buf, 0xCu);
   }
 
   if (NumberPreference)
   {
-    CFNumberGetValue(NumberPreference, kCFNumberIntType, &valuePtr);
-    v4 = AXSupportLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    Value = CFNumberGetValue(NumberPreference, kCFNumberIntType, &valuePtr);
+    v5 = AXSupportLogCommon(Value);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       _updateCacheSmartInvertAndRepostNotification_cold_1(a1, &valuePtr);
     }
   }
 
   _kAXSCacheInvertColors = valuePtr;
-  v5 = _getNumberPreference(kAXSInvertColorsEnabledPreference, 0);
-  v6 = AXLogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = _getNumberPreference(kAXSInvertColorsEnabledPreference, 0);
+  v7 = AXLogCommon();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = v5;
-    _os_log_impl(&dword_186307000, v6, OS_LOG_TYPE_DEFAULT, "Smart invert status global: %@", buf, 0xCu);
+    v17 = v6;
+    _os_log_impl(&dword_186307000, v7, OS_LOG_TYPE_DEFAULT, "Smart invert status global: %@", buf, 0xCu);
   }
 
-  if (v5)
+  if (v6)
   {
-    CFNumberGetValue(v5, kCFNumberIntType, &valuePtr);
+    v9 = CFNumberGetValue(v6, kCFNumberIntType, &valuePtr);
     _kAXSCacheInvertColorsGlobal = valuePtr;
-    v7 = AXSupportLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v10 = AXSupportLogCommon(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       _updateCacheSmartInvertAndRepostNotification_cold_2(a1, &valuePtr);
     }
@@ -5649,16 +5633,16 @@ void _updateCacheSmartInvertAndRepostNotification(const __CFString *a1)
     _kAXSCacheInvertColors = _kAXSCacheInvertColorsGlobal;
   }
 
-  v8 = AXSupportLogCommon();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v11 = AXSupportLogCommon(v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     _updateCacheSmartInvertAndRepostNotification_cold_3();
   }
 
   if (_kAXSCacheInvertColors == 1 && _kAXSCacheInvertColorsGlobal != 1)
   {
-    v9 = AXSupportLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v13 = AXSupportLogCommon(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       _updateCacheSmartInvertAndRepostNotification_cold_4();
     }
@@ -5676,7 +5660,6 @@ void _updateCacheSmartInvertAndRepostNotification(const __CFString *a1)
   }
 
   postNotification(kAXSInvertColorsEnabledNotification);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void _AXSSetIncreaseButtonLegibilityApp(int a1, __CFString *a2)
@@ -5686,11 +5669,12 @@ void _AXSSetIncreaseButtonLegibilityApp(int a1, __CFString *a2)
   _updateCachePreferenceAfterChange(kAXSIncreaseButtonLegibilityPreference, a2, _kAXSCacheIncreaseButtonLegibility, v3);
 }
 
-void _AXSSetButtonShapesEnabledApp(int a1, __CFString *a2)
+void _AXSSetButtonShapesEnabledApp(uint64_t a1, __CFString *a2)
 {
+  v3 = a1;
   v4 = a1;
   _subscribeOnCacheNotificationsIfNeeded(kAXSButtonShapesEnabledPreference, a1, _AXSButtonShapesEnabled);
-  _updateCachePreferenceAfterChange(kAXSButtonShapesEnabledPreference, a2, _kAXSCacheButtonShapes, a1);
+  _updateCachePreferenceAfterChange(kAXSButtonShapesEnabledPreference, a2, _kAXSCacheButtonShapes, v3);
   _setNumberPreferenceApp(kAXSButtonShapesEnabledPreference, kCFNumberIntType, &v4, @"com.apple.accessibility.cache.button.shapes.enabled", a2);
 }
 
@@ -5728,7 +5712,7 @@ void _AXSSetUseDarkerKeyboard(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSUseDarkerKeyboardPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.use.darker.keyboard.enabled");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSSetHighContrastFocusIndicatorsEnabled(uint64_t a1)
@@ -5736,7 +5720,7 @@ void _AXSSetHighContrastFocusIndicatorsEnabled(uint64_t a1)
   _kAXSCacheHighContrastFocusIndicatorsEnabled = a1;
   _setPreferenceAppWithNotification(kAXSHighContrastFocusIndicatorsEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.use.prominent.focus.indicators");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSSetUseSingleSystemColor(uint64_t a1)
@@ -5744,7 +5728,7 @@ void _AXSSetUseSingleSystemColor(uint64_t a1)
   _kAXSCacheUseSingleSystemColor = a1;
   _setPreferenceAppWithNotification(kAXSUseSingleSystemColorPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.use.single.system.color.enabled");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSSingleSystemColorValues(uint64_t result, int *a2, int *a3, int *a4, _DWORD *a5)
@@ -5872,7 +5856,7 @@ void _AXSPointerIncreasedContrastSetEnabled(uint64_t a1)
   _kAXSCachePointerIncreasedContrastEnabled = a1;
   _setPreferenceAppWithNotification(kAXSPointerIncreasedContrastEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.pointer.increased.contrast");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSSetShakeToUndoDisabled(uint64_t a1)
@@ -5884,7 +5868,7 @@ void _AXSSetShakeToUndoDisabled(uint64_t a1)
   _setPreferenceAppWithNotification(v1, 0, v2, v3);
 }
 
-uint64_t _AXSVibrationDisabled()
+uint64_t _AXSVibrationDisabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSVibrationDisabled_onceToken != -1)
   {
@@ -5898,13 +5882,13 @@ void _AXSSetVibrationDisabled(uint64_t a1)
 {
   _kAXSCacheVibrationDisabled = a1;
   _setPreferenceAppWithNotification(kAXSVibrationDisabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.VibrationDisabled");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
 
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"VibrationDisabledPreferenceDidChange", 0, 0, 1u);
 }
 
-uint64_t _AXSForceTouchEnabled()
+uint64_t _AXSForceTouchEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSForceTouchEnabled_onceToken != -1)
   {
@@ -5919,10 +5903,10 @@ void _AXSSetForceTouchEnabled(uint64_t a1)
   _kAXSCachedForceTouchEnabled = a1;
   _setPreferenceAppWithNotification(kAXSForceTouchEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.forcetouch.enabled.changed");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSForceTouchTimeDuration()
+uint64_t _AXSForceTouchTimeDuration(uint64_t a1, uint64_t a2)
 {
   if (_AXSForceTouchTimeDuration_onceToken != -1)
   {
@@ -5939,7 +5923,7 @@ void _AXSSetForceTouchTimeDuration(unsigned int a1)
   _setNumberPreferenceApp(kAXSForceTouchTimingPreference, kCFNumberIntType, &v1, @"com.apple.accessibility.cache.forcetouch.timing.changed", 0);
 }
 
-float _AXSForceTouchSensitivity()
+float _AXSForceTouchSensitivity(uint64_t a1, uint64_t a2)
 {
   if (_AXSForceTouchSensitivity_onceToken != -1)
   {
@@ -5961,7 +5945,7 @@ void _AXSSetLowercaseKeyboardDisplayEnabled(uint64_t a1)
   _kAXSCacheLowercaseKeyboardEnabled = a1;
   _setPreferenceAppWithNotification(kAXSLowerCaseKeyboardEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.lower.case.keyboard.enabled");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSSetSlowKeysEnabled(uint64_t a1)
@@ -6073,23 +6057,23 @@ void _AXSSetPhoneticFeedbackEnabled(uint64_t a1)
 {
   v1 = a1;
   _setPreferenceAppWithNotification(kAXSPhoneticFeedbackEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], objc_msgSend(kAXSPhoneticFeedbackEnabledPreference, "stringByAppendingString:", @".notification"));
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (v1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    if (!_AXSCanDisableApplicationAccessibility(v3))
     {
       return;
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  _AXSApplicationAccessibilitySetEnabled(v2);
+  _AXSApplicationAccessibilitySetEnabled(v4);
 }
 
 void _handleLetterFeedbackPrefsChangedNotification()
@@ -6110,23 +6094,23 @@ void _AXSSetLetterFeedbackEnabled(uint64_t a1)
 {
   v1 = a1;
   _setPreferenceAppWithNotification(kAXSLetterFeedbackEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], objc_msgSend(kAXSLetterFeedbackEnabledPreference, "stringByAppendingString:", @".notification"));
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (v1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    if (!_AXSCanDisableApplicationAccessibility(v3))
     {
       return;
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  _AXSApplicationAccessibilitySetEnabled(v2);
+  _AXSApplicationAccessibilitySetEnabled(v4);
 }
 
 void _handleQuickTypePredictionFeedbackPrefsChangedNotification()
@@ -6147,23 +6131,23 @@ void _AXSSetQuickTypePredictionFeedbackEnabled(uint64_t a1)
 {
   v1 = a1;
   _setPreferenceAppWithNotification(kAXSQuickTypePredictionFeedbackEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], objc_msgSend(kAXSQuickTypePredictionFeedbackEnabledPreference, "stringByAppendingString:", @".notification"));
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (v1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    if (!_AXSCanDisableApplicationAccessibility(v3))
     {
       return;
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  _AXSApplicationAccessibilitySetEnabled(v2);
+  _AXSApplicationAccessibilitySetEnabled(v4);
 }
 
 void _handleWordFeedbackPrefsChangedNotification()
@@ -6184,26 +6168,26 @@ void _AXSSetWordFeedbackEnabled(uint64_t a1)
 {
   v1 = a1;
   _setPreferenceAppWithNotification(kAXSWordFeedbackEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], objc_msgSend(kAXSWordFeedbackEnabledPreference, "stringByAppendingString:", @".notification"));
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (v1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    if (!_AXSCanDisableApplicationAccessibility(v3))
     {
       return;
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  _AXSApplicationAccessibilitySetEnabled(v2);
+  _AXSApplicationAccessibilitySetEnabled(v4);
 }
 
-uint64_t _AXSWebProcessAllowsSecondaryThreadAccess()
+uint64_t _AXSWebProcessAllowsSecondaryThreadAccess(uint64_t a1, uint64_t a2)
 {
   if (_AXSWebProcessAllowsSecondaryThreadAccess_onceToken != -1)
   {
@@ -6218,10 +6202,10 @@ void _AXSSetWebProcessAllowsSecondaryThreadAccess(uint64_t a1)
   _kAXSCacheWebProcessAllowsSecondaryThreadEnabled = a1;
   _setPreferenceAppWithNotification(kAXSWebProcessAllowsSecondaryThreadEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.allows.notification");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSPointerAllowAppCustomizationEnabled()
+uint64_t _AXSPointerAllowAppCustomizationEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSPointerAllowAppCustomizationEnabled_onceToken != -1)
   {
@@ -6236,10 +6220,10 @@ void _AXSPointerInertiaSetEnabled(uint64_t a1)
   _kAXSCachePointerInertiaEnabled = a1;
   _setPreferenceAppWithNotification(kAXSPointerInertiaEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.pointer.inertia");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSPointerInertiaEnabled()
+uint64_t _AXSPointerInertiaEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSPointerInertiaEnabled_onceToken != -1)
   {
@@ -6249,7 +6233,7 @@ uint64_t _AXSPointerInertiaEnabled()
   return _kAXSCachePointerInertiaEnabled;
 }
 
-uint64_t _AXSPointerEffectScalingEnabled()
+uint64_t _AXSPointerEffectScalingEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSPointerEffectScalingEnabled_onceToken != -1)
   {
@@ -6272,7 +6256,7 @@ void _AXSPointerSetSizeMultiplier(float a1)
   _setNumberPreferenceApp(kAXSPointerSizeMultiplierPreference, kCFNumberFloatType, &v2, @"com.apple.accessibility.cache.pointer.size.multiplier", 0);
 }
 
-float _AXSPointerSizeMultiplier()
+float _AXSPointerSizeMultiplier(uint64_t a1, uint64_t a2)
 {
   if (_AXSPointerSizeMultiplier_onceToken != -1)
   {
@@ -6282,7 +6266,7 @@ float _AXSPointerSizeMultiplier()
   return *&_kAXSCachePointerSizeMultiplier;
 }
 
-BOOL _AXSPointerShouldShowCenterPoint()
+BOOL _AXSPointerShouldShowCenterPoint(uint64_t a1, uint64_t a2)
 {
   if (_AXSPointerSizeMultiplier_onceToken != -1)
   {
@@ -6292,7 +6276,7 @@ BOOL _AXSPointerShouldShowCenterPoint()
   return *&_kAXSCachePointerSizeMultiplier >= 3.0;
 }
 
-uint64_t _AXSPointerIncreasedContrastEnabled()
+uint64_t _AXSPointerIncreasedContrastEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSPointerIncreasedContrastEnabled_onceToken != -1)
   {
@@ -6307,10 +6291,10 @@ void _AXSPointerAutoHideSetEnabled(uint64_t a1)
   _kAXSCachePointerAutoHideEnabled = a1;
   _setPreferenceAppWithNotification(kAXSPointerAutoHideEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.pointer.auto.hide");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSPointerAutoHideEnabled()
+uint64_t _AXSPointerAutoHideEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSPointerAutoHideEnabled_onceToken != -1)
   {
@@ -6327,7 +6311,7 @@ void _AXSPointerSetAutoHideDuration(float a1)
   _setNumberPreferenceApp(kAXSPointerAutoHideDurationPreference, kCFNumberFloatType, &v1, @"com.apple.accessibility.cache.pointer.auto.hide.duration", 0);
 }
 
-float _AXSPointerAutoHideDuration()
+float _AXSPointerAutoHideDuration(uint64_t a1, uint64_t a2)
 {
   if (_AXSPointerAutoHideDuration_onceToken != -1)
   {
@@ -6344,7 +6328,7 @@ void _AXSPointerSetStrokeColorWidth(float a1)
   _setNumberPreferenceApp(kAXSPointerStrokeColorWidthPreference, kCFNumberFloatType, &v1, @"com.apple.accessibility.cache.pointer.stroke.color.width", 0);
 }
 
-float _AXSPointerStrokeColorWidth()
+float _AXSPointerStrokeColorWidth(uint64_t a1, uint64_t a2)
 {
   if (_AXSPointerStrokeColorWidth_onceToken != -1)
   {
@@ -6361,7 +6345,7 @@ void _AXSPointerSetStrokeColor(int a1)
   _setNumberPreferenceApp(kAXSPointerStrokeColorPreference, kCFNumberIntType, &v1, @"com.apple.accessibility.cache.pointer.stroke.color", 0);
 }
 
-uint64_t _AXSPointerStrokeColor()
+uint64_t _AXSPointerStrokeColor(uint64_t a1, uint64_t a2)
 {
   if (_AXSPointerStrokeColor_onceToken != -1)
   {
@@ -6655,7 +6639,7 @@ void _AXSPointerSetVoiceOverCursorOption(int a1)
   _setNumberPreferenceApp(kAXSPointerVoiceOverCursorOptionPreference, kCFNumberIntType, &v1, @"com.apple.accessibility.cache.pointer.voiceover.option", 0);
 }
 
-uint64_t _AXSPointerVoiceOverCursorOption()
+uint64_t _AXSPointerVoiceOverCursorOption(uint64_t a1, uint64_t a2)
 {
   if (_AXSPointerVoiceOverCursorOption_onceToken != -1)
   {
@@ -6670,10 +6654,10 @@ void _AXSVoiceOverSpeakUnderPointerSetEnabled(uint64_t a1)
   _kAXSCacheVoiceOverSpeakUnderPointer = a1;
   _setPreferenceAppWithNotification(kAXSVoiceOverSpeakUnderPointerPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.voiceover.speak.under.pointer");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSVoiceOverSpeakUnderPointerEnabled()
+uint64_t _AXSVoiceOverSpeakUnderPointerEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSVoiceOverSpeakUnderPointerEnabled_onceToken != -1)
   {
@@ -6690,7 +6674,7 @@ void _AXSVoiceOverSpeakUnderPointerSetDelay(float a1)
   _setNumberPreferenceApp(kAXSVoiceOverSpeakUnderPointerDelayPreference, kCFNumberFloatType, &v1, @"com.apple.accessibility.cache.voiceover.speak.under.pointer", 0);
 }
 
-float _AXSVoiceOverSpeakUnderPointerDelay()
+float _AXSVoiceOverSpeakUnderPointerDelay(uint64_t a1, uint64_t a2)
 {
   if (_AXSVoiceOverSpeakUnderPointerDelay_onceToken != -1)
   {
@@ -6705,10 +6689,10 @@ void _AXSPointerScaleWithZoomLevelSetEnabled(uint64_t a1)
   _kAXSCachePointerScaleWithZoomLevelEnabled = a1;
   _setPreferenceAppWithNotification(kAXSPointerScaleWithZoomLevelEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.pointer.scale.with.zoom.level");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSPointerScaleWithZoomLevelEnabled()
+uint64_t _AXSPointerScaleWithZoomLevelEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSPointerScaleWithZoomLevelEnabled_onceToken != -1)
   {
@@ -6721,7 +6705,7 @@ uint64_t _AXSPointerScaleWithZoomLevelEnabled()
 void _AXSSetHapticMusicEnabled(uint64_t a1)
 {
   v10 = *MEMORY[0x1E69E9840];
-  v2 = AXLogHapticMusic();
+  v2 = AXLogHapticMusic(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1];
@@ -6735,13 +6719,12 @@ void _AXSSetHapticMusicEnabled(uint64_t a1)
 
   _kAXSCacheHapticMusicEnabled = a1 != 0;
   _setPreferenceAppWithNotification(kAXSHapticMusicEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], _kAXSCacheHapticMusicDidChangeNotification);
-  _updateAccessibilitySettings();
-  v5 = *MEMORY[0x1E69E9840];
+  _updateAccessibilitySettings(v5);
 }
 
-uint64_t _AXSHapticMusicEnabled()
+uint64_t _AXSHapticMusicEnabled(uint64_t a1, uint64_t a2)
 {
-  result = AXDeviceSupportsHapticMusic();
+  result = AXDeviceSupportsHapticMusic(a1, a2);
   if (result)
   {
     if (_AXSHapticMusicEnabled_onceToken != -1)
@@ -6760,10 +6743,10 @@ void _AXSSetAudioDonationSiriImprovementEnabled(uint64_t a1)
   _kAXSCacheAudioDonationSiriImprovementEnabled = a1 != 0;
   _setPreferenceAppWithNotification(kAXSAudioDonationSiriImprovementEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], _kAXSCacheAudioDonationSiriImprovementDidChangeNotification);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSAudioDonationSiriImprovementEnabled()
+uint64_t _AXSAudioDonationSiriImprovementEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSAudioDonationSiriImprovementEnabled_onceToken != -1)
   {
@@ -6776,7 +6759,7 @@ uint64_t _AXSAudioDonationSiriImprovementEnabled()
 void _AXSSetMotionCuesActive(uint64_t a1)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = AXLogMotionCues();
+  v2 = AXLogMotionCues(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1];
@@ -6787,11 +6770,10 @@ void _AXSSetMotionCuesActive(uint64_t a1)
 
   _kAXSCacheMotionCuesActive = a1 != 0;
   _setPreferenceAppWithNotification(@"AXSMotionCuesActive", 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], _kAXSCacheMotionCuesActiveDidChangeNotification);
-  _updateAccessibilitySettings();
-  v4 = *MEMORY[0x1E69E9840];
+  _updateAccessibilitySettings(v4);
 }
 
-uint64_t _AXSMotionCuesActive()
+uint64_t _AXSMotionCuesActive(uint64_t a1, uint64_t a2)
 {
   if (_AXSMotionCuesActive_onceToken != -1)
   {
@@ -6804,7 +6786,7 @@ uint64_t _AXSMotionCuesActive()
 void _AXSSetMotionCuesShouldShowBanner(uint64_t a1)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = AXLogMotionCues();
+  v2 = AXLogMotionCues(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1];
@@ -6815,11 +6797,10 @@ void _AXSSetMotionCuesShouldShowBanner(uint64_t a1)
 
   _kAXSCacheMotionCuesShouldShowBanner = a1 != 0;
   _setPreferenceAppWithNotification(@"AXSMotionCuesShouldShowBanner", 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], _kAXSCacheMotionCuesShouldShowBannerDidChangeNotification);
-  _updateAccessibilitySettings();
-  v4 = *MEMORY[0x1E69E9840];
+  _updateAccessibilitySettings(v4);
 }
 
-uint64_t _AXSMotionCuesShouldShowBanner()
+uint64_t _AXSMotionCuesShouldShowBanner(uint64_t a1, uint64_t a2)
 {
   if (_AXSMotionCuesShouldShowBanner_onceToken != -1)
   {
@@ -6832,7 +6813,7 @@ uint64_t _AXSMotionCuesShouldShowBanner()
 void _AXSSetMotionCuesEnabled(uint64_t a1)
 {
   v5 = *MEMORY[0x1E69E9840];
-  v2 = AXLogMotionCues();
+  v2 = AXLogMotionCues(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
@@ -6842,11 +6823,10 @@ void _AXSSetMotionCuesEnabled(uint64_t a1)
 
   _kAXSCacheMotionCuesEnabled = a1 != 0;
   _setPreferenceAppWithNotification(kAXSMotionCuesEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], _kAXSCacheMotionCuesDidChangeNotification);
-  _updateAccessibilitySettings();
-  v3 = *MEMORY[0x1E69E9840];
+  _updateAccessibilitySettings(v3);
 }
 
-uint64_t _AXSMotionCuesEnabled()
+uint64_t _AXSMotionCuesEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSMotionCuesEnabled_onceToken != -1)
   {
@@ -6856,31 +6836,32 @@ uint64_t _AXSMotionCuesEnabled()
   return _kAXSCacheMotionCuesEnabled;
 }
 
-void _AXSSetMotionCuesModeAndShowBanner(unsigned int a1, int a2)
+void _AXSSetMotionCuesModeAndShowBanner(uint64_t a1, int a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7 = a1;
+  v3 = a1;
+  v9 = *MEMORY[0x1E69E9840];
+  v6 = a1;
   if (_AXSMotionCuesMode_onceToken != -1)
   {
     _AXSSetMotionCuesModeAndShowBanner_cold_1();
   }
 
-  if (a2 && _kAXSCacheMotionCuesMode != a1)
+  if (a2 && _kAXSCacheMotionCuesMode != v3)
   {
     _AXSSetMotionCuesShouldShowBanner(1);
   }
 
-  v4 = AXLogMotionCues();
+  v4 = AXLogMotionCues(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v9 = a1;
+    v8 = v3;
     _os_log_impl(&dword_186307000, v4, OS_LOG_TYPE_DEFAULT, "Set mode=%d", buf, 8u);
   }
 
-  if (a1 > 1)
+  if (v3 > 1)
   {
-    if (a1 == 2)
+    if (v3 == 2)
     {
       if (_AXSMotionCuesEnabled_onceToken != -1)
       {
@@ -6910,12 +6891,11 @@ LABEL_18:
     }
   }
 
-  _kAXSCacheMotionCuesMode = a1;
-  _setNumberPreferenceApp(kAXSMotionCuesModePreference, kCFNumberIntType, &v7, _kAXSCacheMotionCuesModeDidChangeNotification, 0);
-  v6 = *MEMORY[0x1E69E9840];
+  _kAXSCacheMotionCuesMode = v3;
+  _setNumberPreferenceApp(kAXSMotionCuesModePreference, kCFNumberIntType, &v6, _kAXSCacheMotionCuesModeDidChangeNotification, 0);
 }
 
-uint64_t _AXSMotionCuesMode()
+uint64_t _AXSMotionCuesMode(uint64_t a1, uint64_t a2)
 {
   if (_AXSMotionCuesMode_onceToken != -1)
   {
@@ -6927,23 +6907,22 @@ uint64_t _AXSMotionCuesMode()
 
 void _AXSSetMotionCuesStyle(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5 = a1;
-  v2 = AXLogMotionCues();
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = a1;
+  v2 = AXLogMotionCues(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [MEMORY[0x1E696AD98] numberWithInt:a1];
     *buf = 138412290;
-    v7 = v3;
+    v6 = v3;
     _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_DEFAULT, "Set motion cues style: %@", buf, 0xCu);
   }
 
   _kAXSCacheMotionCuesStyle = a1;
-  _setNumberPreferenceApp(kAXSMotionCuesStylePreference, kCFNumberIntType, &v5, _kAXSCacheMotionCuesStyleDidChangeNotification, 0);
-  v4 = *MEMORY[0x1E69E9840];
+  _setNumberPreferenceApp(kAXSMotionCuesStylePreference, kCFNumberIntType, &v4, _kAXSCacheMotionCuesStyleDidChangeNotification, 0);
 }
 
-uint64_t _AXSMotionCuesStyle()
+uint64_t _AXSMotionCuesStyle(uint64_t a1, uint64_t a2)
 {
   if (_AXSMotionCuesStyle_onceToken != -1)
   {
@@ -6955,23 +6934,22 @@ uint64_t _AXSMotionCuesStyle()
 
 void _AXSSetMotionCuesTintColor(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5 = a1;
-  v2 = AXLogMotionCues();
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = a1;
+  v2 = AXLogMotionCues(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [MEMORY[0x1E696AD98] numberWithInt:a1];
     *buf = 138412290;
-    v7 = v3;
+    v6 = v3;
     _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_DEFAULT, "Set motion cues tintColor: %@", buf, 0xCu);
   }
 
   _kAXSCacheMotionCuesTintColor = a1;
-  _setNumberPreferenceApp(kAXSMotionCuesTintColorPreference, kCFNumberIntType, &v5, _kAXSCacheMotionCuesTintColorDidChangeNotification, 0);
-  v4 = *MEMORY[0x1E69E9840];
+  _setNumberPreferenceApp(kAXSMotionCuesTintColorPreference, kCFNumberIntType, &v4, _kAXSCacheMotionCuesTintColorDidChangeNotification, 0);
 }
 
-uint64_t _AXSMotionCuesTintColor()
+uint64_t _AXSMotionCuesTintColor(uint64_t a1, uint64_t a2)
 {
   if (_AXSMotionCuesTintColor_onceToken != -1)
   {
@@ -6983,23 +6961,22 @@ uint64_t _AXSMotionCuesTintColor()
 
 void _AXSSetMotionCuesIntensity(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5 = a1;
-  v2 = AXLogMotionCues();
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = a1;
+  v2 = AXLogMotionCues(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [MEMORY[0x1E696AD98] numberWithInt:a1];
     *buf = 138412290;
-    v7 = v3;
+    v6 = v3;
     _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_DEFAULT, "Set motion cues intensity: %@", buf, 0xCu);
   }
 
   _kAXSCacheMotionCuesIntensity = a1;
-  _setNumberPreferenceApp(kAXSMotionCuesIntensityPreference, kCFNumberIntType, &v5, _kAXSCacheMotionCuesIntensityDidChangeNotification, 0);
-  v4 = *MEMORY[0x1E69E9840];
+  _setNumberPreferenceApp(kAXSMotionCuesIntensityPreference, kCFNumberIntType, &v4, _kAXSCacheMotionCuesIntensityDidChangeNotification, 0);
 }
 
-uint64_t _AXSMotionCuesIntensity()
+uint64_t _AXSMotionCuesIntensity(uint64_t a1, uint64_t a2)
 {
   if (_AXSMotionCuesIntensity_onceToken != -1)
   {
@@ -7016,7 +6993,7 @@ void _AXSSetIsolatedTreeMode(int a1)
   _setNumberPreferenceApp(kAXSIsolatedTreeModeEnabledPreference, kCFNumberIntType, &v1, @"com.apple.accessibility.cache.isolated.tree.mode", 0);
 }
 
-uint64_t _AXSIsolatedTreeMode()
+uint64_t _AXSIsolatedTreeMode(uint64_t a1, uint64_t a2)
 {
   if (_AXSIsolatedTreeMode_onceToken != -1)
   {
@@ -7031,10 +7008,10 @@ void _AXSSetShowAudioTranscriptions(uint64_t a1)
   _kAXSCacheShowAudioTranscriptionsEnabled = a1;
   _setPreferenceAppWithNotification(kAXSShowAudioTranscriptionsEnabled, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.show.audio.transcriptions");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSShowAudioTranscriptions()
+uint64_t _AXSShowAudioTranscriptions(uint64_t a1, uint64_t a2)
 {
   if (_AXSShowAudioTranscriptions_onceToken != -1)
   {
@@ -7044,7 +7021,7 @@ uint64_t _AXSShowAudioTranscriptions()
   return _kAXSCacheShowAudioTranscriptionsEnabled;
 }
 
-uint64_t _AXSBackTapEnabled()
+uint64_t _AXSBackTapEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSBackTapEnabled_onceToken != -1)
   {
@@ -7059,7 +7036,7 @@ void _AXSBackTapSetEnabled(uint64_t a1)
   _kAXSCacheBackTapEnabled = a1;
   _setPreferenceAppWithNotification(kAXSBackTapEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.back.tap.enabled");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSBrailleInputDeviceSetConnected(uint64_t a1)
@@ -7067,7 +7044,7 @@ void _AXSBrailleInputDeviceSetConnected(uint64_t a1)
   _kAXSCacheBrailleInputDeviceConnected = a1;
   _setPreferenceAppWithNotification(kAXSBrailleInputDeviceConnectedPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.braille.input.connection.changed");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSBrailleInputDeviceConnected()
@@ -7086,7 +7063,7 @@ uint64_t _AXSBrailleInputDeviceConnected()
   return result;
 }
 
-uint64_t _AXSLiveHeadphoneLevelEnabled()
+uint64_t _AXSLiveHeadphoneLevelEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSLiveHeadphoneLevelEnabled_onceToken != -1)
   {
@@ -7100,7 +7077,7 @@ void _AXSLiveHeadphoneLevelSetEnabled(uint64_t a1)
 {
   _setPreferenceAppWithNotification(kAXSLiveHeadphoneLevelEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], kAXSLiveHeadphoneLevelEnabledDidChangeNotification);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 CFTypeRef _AXSLiveHeadphoneLevelAutomationSampleData()
@@ -7110,7 +7087,7 @@ CFTypeRef _AXSLiveHeadphoneLevelAutomationSampleData()
   return CFAutorelease(v0);
 }
 
-uint64_t __AXSSoundDetectionState()
+uint64_t __AXSSoundDetectionState(uint64_t a1, uint64_t a2)
 {
   if (__AXSSoundDetectionState_onceToken != -1)
   {
@@ -7120,14 +7097,14 @@ uint64_t __AXSSoundDetectionState()
   return _kAXSCacheSoundDetectionState;
 }
 
-uint64_t _AXSSoundDetectionRunning()
+uint64_t _AXSSoundDetectionRunning(uint64_t a1, uint64_t a2)
 {
   if (__AXSSoundDetectionState_onceToken != -1)
   {
     __AXSSoundDetectionState_cold_1();
   }
 
-  v0 = _kAXSCacheSoundDetectionState;
+  v2 = _kAXSCacheSoundDetectionState;
   if (_AXSAssistiveTouchScannerEnabled_onceToken != -1)
   {
     _updateAccessibilitySettings_cold_3();
@@ -7135,18 +7112,18 @@ uint64_t _AXSSoundDetectionRunning()
 
   if (_kAXSCacheSwitchControlEnabled)
   {
-    v1 = _AXSSoundActionEnabledForSwitchControl();
+    v3 = _AXSSoundActionEnabledForSwitchControl();
   }
 
   else
   {
-    v1 = 0;
+    v3 = 0;
   }
 
-  return (v0 != 0) | v1 & 1u;
+  return (v2 != 0) | v3 & 1u;
 }
 
-uint64_t _AXSWatchTypeToSiriEnabled()
+uint64_t _AXSWatchTypeToSiriEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSWatchTypeToSiriEnabled_onceToken != -1)
   {
@@ -7161,10 +7138,10 @@ void _AXSWatchTypeToSiriSetEnabled(uint64_t a1)
   _kAXSCacheWatchTypeToSiriEnabled = a1;
   _setPreferenceAppWithNotification(kAXSWatchTypeToSiriEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.watch.typetosiri.enabled");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSWatchQuickActionsState()
+uint64_t _AXSWatchQuickActionsState(uint64_t a1, uint64_t a2)
 {
   if (_AXSWatchQuickActionsState_onceToken != -1)
   {
@@ -7181,19 +7158,19 @@ void _AXSWatchQuickActionsSetState(int a1)
   _setNumberPreferenceApp(kAXSWatchQuickActionsStatePreference, kCFNumberIntType, &v1, @"com.apple.accessibility.cache.watch.quickactions.state", 0);
 }
 
-uint64_t _AXSWatchQuickActionsEnabled()
+uint64_t _AXSWatchQuickActionsEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSWatchQuickActionsState_onceToken != -1)
   {
     _AXSWatchQuickActionsState_cold_1();
   }
 
-  v1 = _kAXSCacheWatchQuickActionsState;
+  v3 = _kAXSCacheWatchQuickActionsState;
 
-  return _AXSWatchQuickActionsResolvedEnabledStateForState(v1);
+  return _AXSWatchQuickActionsResolvedEnabledStateForState(v3, a2);
 }
 
-uint64_t _AXSWatchQuickActionsResolvedEnabledStateForState(int a1)
+uint64_t _AXSWatchQuickActionsResolvedEnabledStateForState(uint64_t a1, uint64_t a2)
 {
   if (a1 == 2)
   {
@@ -7213,7 +7190,7 @@ uint64_t _AXSWatchQuickActionsResolvedEnabledStateForState(int a1)
   return _kAXSCacheWatchControlEnabled;
 }
 
-uint64_t _AXSWatchQuickActionBannerAppearance()
+uint64_t _AXSWatchQuickActionBannerAppearance(uint64_t a1, uint64_t a2)
 {
   if (_AXSWatchQuickActionBannerAppearance_onceToken != -1)
   {
@@ -7235,23 +7212,23 @@ void _AXSWatchControlSetEnabled(uint64_t a1)
   v1 = a1;
   _kAXSCacheWatchControlEnabled = a1;
   _setPreferenceAppWithNotification(kAXSWatchControlEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.watch.control.enabled");
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v2);
   if (v1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    if (!_AXSCanDisableApplicationAccessibility())
+    if (!_AXSCanDisableApplicationAccessibility(v3))
     {
       return;
     }
 
-    v2 = 0;
+    v4 = 0;
   }
 
-  _AXSApplicationAccessibilitySetEnabled(v2);
+  _AXSApplicationAccessibilitySetEnabled(v4);
 }
 
 void _AXSPhotosensitiveMitigationSetEnabled(uint64_t a1)
@@ -7259,10 +7236,10 @@ void _AXSPhotosensitiveMitigationSetEnabled(uint64_t a1)
   _kAXSCachePhotosensitiveMitigationEnabled = a1;
   _setPreferenceAppWithNotification(@"PhotosensitiveMitigation", 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.pse.mitigation");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSPhotosensitiveSourceCopyDebuggingEnabled()
+uint64_t _AXSPhotosensitiveSourceCopyDebuggingEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSPhotosensitiveSourceCopyDebuggingEnabled_onceToken != -1)
   {
@@ -7277,10 +7254,10 @@ void _AXSPhotosensitiveSourceCopyDebuggingSetEnabled(uint64_t a1)
   _kAXSCachePhotosensitiveSourceCopyDebuggingEnabled = a1;
   _setPreferenceAppWithNotification(@"PhotosensitiveSourceCopyDebugging", 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.pse.source.copy.debugging");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSPhotosensitiveVisualDebuggingEnabled()
+uint64_t _AXSPhotosensitiveVisualDebuggingEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSPhotosensitiveVisualDebuggingEnabled_onceToken != -1)
   {
@@ -7295,10 +7272,10 @@ void _AXSPhotosensitiveVisualDebuggingSetEnabled(uint64_t a1)
   _kAXSCachePhotosensitiveVisualDebuggingEnabled = a1;
   _setPreferenceAppWithNotification(@"PhotosensitiveVisualDebugging", 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.pse.visual.debugging");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSTwiceRemoteScreenEnabled()
+uint64_t _AXSTwiceRemoteScreenEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSTwiceRemoteScreenEnabled_onceToken != -1)
   {
@@ -7313,10 +7290,10 @@ void _AXSTwiceRemoteScreenSetEnabled(uint64_t a1)
   _kAXSCacheTwiceRemoteScreenEnabled = a1;
   _setPreferenceAppWithNotification(kAXSTwiceRemoteScreenEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.twice.remote.screen.enabled");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSTwiceRemoteScreenPlatform()
+uint64_t _AXSTwiceRemoteScreenPlatform(uint64_t a1, uint64_t a2)
 {
   if (_AXSTwiceRemoteScreenPlatform_onceToken != -1)
   {
@@ -7333,7 +7310,7 @@ void _AXSTwiceRemoteScreenSetPlatform(uint64_t a1)
   _setNumberPreferenceApp(kAXSTwiceRemoteScreenPlatformPreference, kCFNumberCFIndexType, &v1, @"com.apple.accessibility.cache.twice.remote.screen.platform", 0);
 }
 
-uint64_t _AXSIncreaseBrightnessFloorEnabled()
+uint64_t _AXSIncreaseBrightnessFloorEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSIncreaseBrightnessFloorEnabled_onceToken != -1)
   {
@@ -7348,7 +7325,7 @@ void _AXSIncreaseBrightnessFloorSetEnabled(uint64_t a1)
   _kAXSCacheIncreaseBrightnessFloorEnabled = a1;
   _setPreferenceAppWithNotification(kAXSIncreaseBrightnessFloorEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.increase.brightness.floor.enabled");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 void _AXSSetAppleTVRemoteUsesSimpleGestures(uint64_t a1)
@@ -7356,10 +7333,10 @@ void _AXSSetAppleTVRemoteUsesSimpleGestures(uint64_t a1)
   _kAXSCacheAppleTVSimpleGesturesEnabled = a1;
   _setPreferenceAppWithNotification(kAXSAppleTVSimpleGesturesEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.apple.tv.simple.gestures");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSAppleTVRemoteUsesSimpleGestures()
+uint64_t _AXSAppleTVRemoteUsesSimpleGestures(uint64_t a1, uint64_t a2)
 {
   if (_AXSAppleTVRemoteUsesSimpleGestures_onceToken != -1)
   {
@@ -7374,10 +7351,10 @@ void _AXSSetAppleTVRemoteForceLiveTVButtons(uint64_t a1)
   _kAXSCacheAppleTVForceLiveTVButtonsEnabled = a1;
   _setPreferenceAppWithNotification(kAXSAppleTVForceLiveTVButtonsEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.apple.tv.live.tv.buttons");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSAppleTVRemoteForceLiveTVButtons()
+uint64_t _AXSAppleTVRemoteForceLiveTVButtons(uint64_t a1, uint64_t a2)
 {
   if (_AXSAppleTVRemoteForceLiveTVButtons_onceToken != -1)
   {
@@ -7392,10 +7369,10 @@ void _AXSSetAppleTVRemoteClickpadTapsForDirectionalNavigationEnabled(uint64_t a1
   _kAXSCacheAppleTVRemoteClickpadTapsForDirectionalNavigationEnabled = a1;
   _setPreferenceAppWithNotification(kAXSAppleTVRemoteClickpadTapsForDirectionalNavigationEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.AppleTVRemoteClickpadTapsForDirectionalNavigationEnabled");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSAppleTVRemoteClickpadTapsForDirectionalNavigationEnabled()
+uint64_t _AXSAppleTVRemoteClickpadTapsForDirectionalNavigationEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSAppleTVRemoteClickpadTapsForDirectionalNavigationEnabled_onceToken != -1)
   {
@@ -7410,10 +7387,10 @@ void _AXSSetAppleTVScaledUIEnabled(uint64_t a1)
   _kAXSCacheAppleTVScaledUIEnabled = a1;
   _setPreferenceAppWithNotification(kAXSAppleTVScaledUIEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.AppleTVScaledUIEnabled");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSAppleTVScaledUIEnabled()
+uint64_t _AXSAppleTVScaledUIEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSAppleTVScaledUIEnabled_onceToken != -1)
   {
@@ -7423,7 +7400,7 @@ uint64_t _AXSAppleTVScaledUIEnabled()
   return _kAXSCacheAppleTVScaledUIEnabled;
 }
 
-uint64_t _AXSGetUSBRMDisablers()
+uint64_t _AXSGetUSBRMDisablers(uint64_t a1, uint64_t a2)
 {
   if (_AXSGetUSBRMDisablers_onceToken != -1)
   {
@@ -7476,9 +7453,9 @@ id getAXBuddyDataPackageClass()
   return v1;
 }
 
-void sub_18632FBB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18632FBB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7533,7 +7510,7 @@ id AXNSLocalizedStringForLocale(void *a1, void *a2, void *a3, void *a4, void *a5
   return v16;
 }
 
-CFTypeRef AXLocalizedStringForLocale(uint64_t a1, uint64_t a2, int a3, CFBundleRef bundle, void *a5)
+CFTypeRef AXLocalizedStringForLocale(uint64_t a1, uint64_t a2, uint64_t a3, CFBundleRef bundle, void *a5)
 {
   if (!bundle)
   {
@@ -7571,25 +7548,23 @@ LABEL_10:
 id AXLocalizationForLocale(void *a1, void *a2)
 {
   v2 = 0;
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (a1 && a2)
   {
     v4 = MEMORY[0x1E696AAE8];
     v5 = a1;
     v6 = [a2 localizations];
-    v11[0] = v5;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+    v10[0] = v5;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
     v8 = [v4 preferredLocalizationsFromArray:v6 forPreferences:v7];
 
     v2 = [v8 firstObject];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
-uint64_t _AXSAutomaticSubtitlesShowWhenLanguageMismatch()
+uint64_t _AXSAutomaticSubtitlesShowWhenLanguageMismatch(uint64_t a1, uint64_t a2)
 {
   if (_AXSAutomaticSubtitlesShowWhenLanguageMismatch_onceToken != -1)
   {
@@ -7604,10 +7579,10 @@ void _AXSSetAutomaticSubtitlesShowWhenLanguageMismatch(uint64_t a1)
   _kAXSCacheAutomaticSubtitlesShowWhenLanguageMismatch = a1;
   _setPreferenceAppWithNotification(kAXSAutomaticSubtitlesShowWhenLanguageMismatchPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.AutomaticSubtitlesShowWhenLanguageMismatch");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSAutomaticSubtitlesShowWhenMuted()
+uint64_t _AXSAutomaticSubtitlesShowWhenMuted(uint64_t a1, uint64_t a2)
 {
   if (_AXSAutomaticSubtitlesShowWhenMuted_onceToken != -1)
   {
@@ -7622,10 +7597,10 @@ void _AXSSetAutomaticSubtitlesShowWhenMuted(uint64_t a1)
   _kAXSCacheAutomaticSubtitlesShowWhenMuted = a1;
   _setPreferenceAppWithNotification(kAXSAutomaticSubtitlesShowWhenMutedPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.AutomationSubtitlesShowWhenMuted");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSAutomaticSubtitlesShowOnSkipBack()
+uint64_t _AXSAutomaticSubtitlesShowOnSkipBack(uint64_t a1, uint64_t a2)
 {
   if (_AXSAutomaticSubtitlesShowOnSkipBack_onceToken != -1)
   {
@@ -7640,10 +7615,10 @@ void _AXSSetAutomaticSubtitlesShowOnSkipBack(uint64_t a1)
   _kAXSCacheAutomaticSubtitlesShowOnSkipBack = a1;
   _setPreferenceAppWithNotification(kAXSAutomaticSubtitlesShowOnSkipBackPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.AutomationSubtitlesShowOnSkipBack");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
-uint64_t _AXSRosebudLoggingEnabled()
+uint64_t _AXSRosebudLoggingEnabled(uint64_t a1, uint64_t a2)
 {
   if (_AXSRosebudLoggingEnabled_onceToken != -1)
   {
@@ -7658,7 +7633,7 @@ void _AXSRosebudLoggingSetEnabled(uint64_t a1)
   _kAXSCacheRosebudLoggingEnabled = a1;
   _setPreferenceAppWithNotification(kAXSRosebudLoggingEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.rosebud.logging.enabled");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 uint64_t _AXSSpeechSynthesisOptions()
@@ -7686,7 +7661,7 @@ void _AXSSpeechSynthesisSetOptions(uint64_t a1)
   }
 }
 
-uint64_t _AXSAllowsMixToUplink()
+uint64_t _AXSAllowsMixToUplink(uint64_t a1, uint64_t a2)
 {
   if (_AXSAllowsMixToUplink_onceToken != -1)
   {
@@ -7701,7 +7676,7 @@ void _AXSSetAllowsMixToUplink(uint64_t a1)
   _kAXSCacheAllowsMixToUplink = a1;
   _setPreferenceAppWithNotification(@"AXSAllowsMixToUplinkPreference", 0, [MEMORY[0x1E696AD98] numberWithUnsignedChar:a1], @"com.apple.accessibility.cache.mix.to.uplink.notification");
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v1);
 }
 
 const __CFBoolean *_AXSOnDeviceEyeTrackingEnabled()
@@ -7729,42 +7704,38 @@ void *__getAXMediaPreferencesParticipatingInGuestPassSymbolLoc_block_invoke(uint
 
 uint64_t AccessibilityUtilitiesLibrary()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
+  v5 = *MEMORY[0x1E69E9840];
+  v2[0] = 0;
   if (!AccessibilityUtilitiesLibraryCore_frameworkLibrary)
   {
-    v3[1] = MEMORY[0x1E69E9820];
-    v3[2] = 3221225472;
-    v3[3] = __AccessibilityUtilitiesLibraryCore_block_invoke;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_1E6F456B8;
-    v5 = 0;
+    v2[1] = MEMORY[0x1E69E9820];
+    v2[2] = 3221225472;
+    v2[3] = __AccessibilityUtilitiesLibraryCore_block_invoke;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v3 = xmmword_1E6F456B8;
+    v4 = 0;
     AccessibilityUtilitiesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = AccessibilityUtilitiesLibraryCore_frameworkLibrary;
   if (!AccessibilityUtilitiesLibraryCore_frameworkLibrary)
   {
-    AccessibilityUtilitiesLibrary_cold_1(v3);
+    AccessibilityUtilitiesLibrary_cold_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AccessibilityUtilitiesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7777,19 +7748,19 @@ void *__getAXProcessIsBackboardSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void _invalidateAllCacheSmartInvertPreferences()
+void _invalidateAllCacheSmartInvertPreferences(uint64_t a1)
 {
-  v0 = cachedSmartInvertPreferences();
-  [v0 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_2677];
+  v1 = cachedSmartInvertPreferences(a1);
+  [v1 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_2677];
 }
 
 void _invalidateCacheSmartInvertPreference(uint64_t a1)
 {
-  v2 = cachedSmartInvertPreferences();
+  v2 = cachedSmartInvertPreferences(a1);
   [v2 setValue:&unk_1EF5506B8 forKey:a1];
 
-  v3 = AXSupportLogCommon();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = AXSupportLogCommon(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     _invalidateCacheSmartInvertPreference_cold_1();
   }
@@ -7841,16 +7812,16 @@ void __ObservePreferenceDistributed_block_invoke_3(uint64_t a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, _axsHandlePrefChanged, v3, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
 }
 
-uint64_t _handlePrefsChangedNotification()
+uint64_t _handlePrefsChangedNotification(uint64_t a1)
 {
   if (_AXSAccessibilityPreferenceDomain_onceToken != -1)
   {
     _handlePhoneticFeedbackPrefsChangedNotification_cold_1();
   }
 
-  v1 = _AXSAccessibilityPreferenceDomain_Domain;
+  v2 = _AXSAccessibilityPreferenceDomain_Domain;
 
-  return CFPreferencesAppSynchronize(v1);
+  return CFPreferencesAppSynchronize(v2);
 }
 
 void _handlePreferenceChangeWithLocalNotification(const __CFString *a1)
@@ -7884,7 +7855,7 @@ void ___computedTripleClickOptions_block_invoke()
   _computedTripleClickOptions_ComputedOptions = &unk_1EF550790;
 }
 
-uint64_t _fetchCachePreference(const __CFString *a1, const __CFString *a2, unsigned int *p_valuePtr, unsigned int *a4)
+uint64_t _fetchCachePreference(__CFString *a1, __CFString *a2, unsigned int *p_valuePtr, unsigned int *a4)
 {
   v25 = *MEMORY[0x1E69E9840];
   valuePtr = -1;
@@ -7940,11 +7911,11 @@ LABEL_12:
 LABEL_13:
   if (!p_valuePtr)
   {
-    v14 = _getNumberPreference(a1, 0);
-    if (v14)
+    v13 = _getNumberPreference(a1, 0);
+    if (v13)
     {
-      CFNumberGetValue(v14, kCFNumberIntType, &valuePtr);
-      v15 = AXSupportLogCommon();
+      Value = CFNumberGetValue(v13, kCFNumberIntType, &valuePtr);
+      v15 = AXSupportLogCommon(Value);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         v16 = valuePtr;
@@ -7977,23 +7948,20 @@ LABEL_13:
 LABEL_14:
   if (*p_valuePtr == -1)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = *p_valuePtr;
+    return *p_valuePtr;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void ___updateInvertColorsValueFromMediaAccessibility_block_invoke()
 {
   _setPreferenceAppWithNotification(kAXSInvertColorsEnabledPreference, 0, [MEMORY[0x1E696AD98] numberWithInt:_kAXSCacheInvertColors], 0);
 
-  _updateAccessibilitySettings();
+  _updateAccessibilitySettings(v0);
 }
 
 uint64_t __cachedSmartInvertPreferences_block_invoke()
@@ -8005,28 +7973,28 @@ uint64_t __cachedSmartInvertPreferences_block_invoke()
 
 Class __getLSApplicationRecordClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!CoreServicesLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __CoreServicesLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E6F45738;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __CoreServicesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E6F45738;
+    v5 = 0;
     CoreServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!CoreServicesLibraryCore_frameworkLibrary)
   {
-    __getLSApplicationRecordClass_block_invoke_cold_2(v4);
+    __getLSApplicationRecordClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("LSApplicationRecord");
@@ -8037,17 +8005,13 @@ Class __getLSApplicationRecordClass_block_invoke(uint64_t a1)
   }
 
   getLSApplicationRecordClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CoreServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8085,22 +8049,25 @@ Class __getAXBuddyDataPackageClass_block_invoke(uint64_t a1)
   return result;
 }
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 uint64_t AXRuntimeCheck_HasANE()
@@ -8123,7 +8090,7 @@ uint64_t AXRuntimeCheck_isANEDeviceH13plus()
   return AXRuntimeCheck_isANEDeviceH13plus_isANEH13plus;
 }
 
-uint64_t AXRuntimeCheck_SupportsMedina()
+uint64_t AXRuntimeCheck_SupportsMedina(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_SupportsMedina_onceToken != -1)
   {
@@ -8133,9 +8100,9 @@ uint64_t AXRuntimeCheck_SupportsMedina()
   return AXRuntimeCheck_SupportsMedina__supportsMedina;
 }
 
-void sub_186331580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_186331580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8145,7 +8112,14 @@ uint64_t AXRuntimeCheck_SupportsNearbyDeviceControl()
   result = _os_feature_enabled_impl();
   if (result)
   {
-    if (AXDeviceIsPhone() || AXDeviceIsPod())
+    IsPhone = AXDeviceIsPhone(result, v1);
+    if (IsPhone)
+    {
+      return 1;
+    }
+
+    IsPod = AXDeviceIsPod(IsPhone, v3);
+    if (IsPod)
     {
       return 1;
     }
@@ -8153,14 +8127,14 @@ uint64_t AXRuntimeCheck_SupportsNearbyDeviceControl()
     else
     {
 
-      return AXDeviceIsWatch();
+      return AXDeviceIsWatch(IsPod, v5);
     }
   }
 
   return result;
 }
 
-uint64_t AXRuntimeCheck_SupportsMacAXV2()
+uint64_t AXRuntimeCheck_SupportsMacAXV2(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_SupportsMacAXV2_onceToken != -1)
   {
@@ -8170,7 +8144,7 @@ uint64_t AXRuntimeCheck_SupportsMacAXV2()
   return AXRuntimeCheck_SupportsMacAXV2__supportsMacAXV2;
 }
 
-uint64_t AXRuntimeCheck_VoiceOverSupportsNeuralVoices()
+uint64_t AXRuntimeCheck_VoiceOverSupportsNeuralVoices(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_VoiceOverSupportsNeuralVoices_onceToken != -1)
   {
@@ -8180,7 +8154,7 @@ uint64_t AXRuntimeCheck_VoiceOverSupportsNeuralVoices()
   return AXRuntimeCheck_VoiceOverSupportsNeuralVoices__supportsMacAXV2;
 }
 
-uint64_t AXRuntimeCheck_MauiSSE()
+uint64_t AXRuntimeCheck_MauiSSE(uint64_t a1)
 {
   if (AXRuntimeCheck_MauiSSE_onceToken != -1)
   {
@@ -8189,7 +8163,7 @@ uint64_t AXRuntimeCheck_MauiSSE()
 
   if (AXRuntimeCheck_MauiSSE__mauiSSE)
   {
-    v0 = 1;
+    v1 = 1;
   }
 
   else
@@ -8199,13 +8173,13 @@ uint64_t AXRuntimeCheck_MauiSSE()
       AXRuntimeCheck_MauiSSE_cold_2();
     }
 
-    v0 = AXRuntimeCheck_MauiSSEOnly__ffEnabled_MauiSSEOnly;
+    v1 = AXRuntimeCheck_MauiSSEOnly__ffEnabled_MauiSSEOnly;
   }
 
-  return v0 & 1;
+  return v1 & 1;
 }
 
-uint64_t AXRuntimeCheck_MauiSSEOnly()
+uint64_t AXRuntimeCheck_MauiSSEOnly(uint64_t a1)
 {
   if (AXRuntimeCheck_MauiSSEOnly_onceToken_MauiSSEOnly != -1)
   {
@@ -8215,7 +8189,7 @@ uint64_t AXRuntimeCheck_MauiSSEOnly()
   return AXRuntimeCheck_MauiSSEOnly__ffEnabled_MauiSSEOnly;
 }
 
-uint64_t AXRuntimeCheck_PerVoiceSettings()
+uint64_t AXRuntimeCheck_PerVoiceSettings(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_PerVoiceSettings_onceToken_PerVoiceSettings != -1)
   {
@@ -8225,7 +8199,7 @@ uint64_t AXRuntimeCheck_PerVoiceSettings()
   return AXRuntimeCheck_PerVoiceSettings__ffEnabled_PerVoiceSettings;
 }
 
-uint64_t AXRuntimeCheck_SiriSSEOnly()
+uint64_t AXRuntimeCheck_SiriSSEOnly(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_SiriSSEOnly_onceToken_SiriSSEOnly != -1)
   {
@@ -8235,7 +8209,7 @@ uint64_t AXRuntimeCheck_SiriSSEOnly()
   return AXRuntimeCheck_SiriSSEOnly__ffEnabled_SiriSSEOnly;
 }
 
-uint64_t AXRuntimeCheck_SpeakUp()
+uint64_t AXRuntimeCheck_SpeakUp(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_SpeakUp_onceToken_SpeakUp != -1)
   {
@@ -8245,7 +8219,7 @@ uint64_t AXRuntimeCheck_SpeakUp()
   return AXRuntimeCheck_SpeakUp__ffEnabled_SpeakUp;
 }
 
-uint64_t AXRuntimeCheck_DwellKeyboardKeyTimer()
+uint64_t AXRuntimeCheck_DwellKeyboardKeyTimer(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_DwellKeyboardKeyTimer_onceToken_DwellKeyboardKeyTimer != -1)
   {
@@ -8255,7 +8229,7 @@ uint64_t AXRuntimeCheck_DwellKeyboardKeyTimer()
   return AXRuntimeCheck_DwellKeyboardKeyTimer__ffEnabled_DwellKeyboardKeyTimer;
 }
 
-uint64_t AXRuntimeCheck_DwellKeyboardSwipe_iPad()
+uint64_t AXRuntimeCheck_DwellKeyboardSwipe_iPad(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_DwellKeyboardSwipe_iPad_onceToken_DwellKeyboardSwipe_iPad != -1)
   {
@@ -8265,7 +8239,7 @@ uint64_t AXRuntimeCheck_DwellKeyboardSwipe_iPad()
   return AXRuntimeCheck_DwellKeyboardSwipe_iPad__ffEnabled_DwellKeyboardSwipe_iPad;
 }
 
-uint64_t AXRuntimeCheck_DwellKeyboardSwipeContinuous()
+uint64_t AXRuntimeCheck_DwellKeyboardSwipeContinuous(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_DwellKeyboardSwipeContinuous_onceToken_DwellKeyboardSwipeContinuous != -1)
   {
@@ -8275,9 +8249,9 @@ uint64_t AXRuntimeCheck_DwellKeyboardSwipeContinuous()
   return AXRuntimeCheck_DwellKeyboardSwipeContinuous__ffEnabled_DwellKeyboardSwipeContinuous;
 }
 
-uint64_t AXRuntimeCheck_DwellKeyboardSwipe()
+uint64_t AXRuntimeCheck_DwellKeyboardSwipe(uint64_t a1, uint64_t a2)
 {
-  if (!AXDeviceIsPad())
+  if (!AXDeviceIsPad(a1, a2))
   {
     goto LABEL_5;
   }
@@ -8289,7 +8263,7 @@ uint64_t AXRuntimeCheck_DwellKeyboardSwipe()
 
   if (AXRuntimeCheck_DwellKeyboardSwipe_iPad__ffEnabled_DwellKeyboardSwipe_iPad != 1)
   {
-    v0 = 0;
+    v2 = 0;
   }
 
   else
@@ -8300,13 +8274,13 @@ LABEL_5:
       AXRuntimeCheck_DwellKeyboardSwipe_cold_2();
     }
 
-    v0 = AXRuntimeCheck_DwellKeyboardSwipe__ffEnabled_DwellKeyboardSwipe;
+    v2 = AXRuntimeCheck_DwellKeyboardSwipe__ffEnabled_DwellKeyboardSwipe;
   }
 
-  return v0 & 1;
+  return v2 & 1;
 }
 
-uint64_t AXRuntimeCheck_MediaAnalysisSupport()
+uint64_t AXRuntimeCheck_MediaAnalysisSupport(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_MediaAnalysisSupport_onceToken != -1)
   {
@@ -8316,7 +8290,7 @@ uint64_t AXRuntimeCheck_MediaAnalysisSupport()
   return AXRuntimeCheck_MediaAnalysisSupport__supportsMediaAnalysisServices;
 }
 
-uint64_t AXRuntimeCheck_ScreenRecognitionSupport()
+uint64_t AXRuntimeCheck_ScreenRecognitionSupport(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_ScreenRecognitionSupport_onceToken != -1)
   {
@@ -8328,34 +8302,30 @@ uint64_t AXRuntimeCheck_ScreenRecognitionSupport()
 
 uint64_t AXRuntimeCheck_LiveCaptionsSupportsLanguageExpansion()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  if (_os_feature_enabled_impl())
+  v4 = *MEMORY[0x1E69E9840];
+  if (!_os_feature_enabled_impl())
   {
-    if (AXRuntimeCheck_isANEDeviceH13plus_onceToken != -1)
-    {
-      AXRuntimeCheck_isANEDeviceH13plus_cold_1();
-    }
-
-    v0 = AXRuntimeCheck_isANEDeviceH13plus_isANEH13plus;
-    v1 = AXLogLiveTranscription();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
-    {
-      v4[0] = 67109120;
-      v4[1] = v0;
-      _os_log_impl(&dword_186307000, v1, OS_LOG_TYPE_DEFAULT, "Live Captions supports language expansion %d", v4, 8u);
-    }
+    return 0;
   }
 
-  else
+  if (AXRuntimeCheck_isANEDeviceH13plus_onceToken != -1)
   {
-    v0 = 0;
+    AXRuntimeCheck_isANEDeviceH13plus_cold_1();
   }
 
-  v2 = *MEMORY[0x1E69E9840];
+  v0 = AXRuntimeCheck_isANEDeviceH13plus_isANEH13plus;
+  v1 = AXLogLiveTranscription();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  {
+    v3[0] = 67109120;
+    v3[1] = v0;
+    _os_log_impl(&dword_186307000, v1, OS_LOG_TYPE_DEFAULT, "Live Captions supports language expansion %d", v3, 8u);
+  }
+
   return v0;
 }
 
-uint64_t AXRuntimeCheck_SoundRecognitionMedinaSupportEnabled()
+uint64_t AXRuntimeCheck_SoundRecognitionMedinaSupportEnabled(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_SupportsMedina_onceToken != -1)
   {
@@ -8370,7 +8340,7 @@ uint64_t AXRuntimeCheck_SoundRecognitionMedinaSupportEnabled()
   return _os_feature_enabled_impl();
 }
 
-uint64_t AXRuntimeCheck_SoundRecognitionMedinaKShotEnrollmentEnabled()
+uint64_t AXRuntimeCheck_SoundRecognitionMedinaKShotEnrollmentEnabled(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_SupportsMedina_onceToken != -1)
   {
@@ -8380,7 +8350,7 @@ uint64_t AXRuntimeCheck_SoundRecognitionMedinaKShotEnrollmentEnabled()
   return 0;
 }
 
-uint64_t AXRuntimeCheck_SupportsIncreaseBrightnessFloor()
+uint64_t AXRuntimeCheck_SupportsIncreaseBrightnessFloor(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_SupportsIncreaseBrightnessFloor_onceToken != -1)
   {
@@ -8390,7 +8360,7 @@ uint64_t AXRuntimeCheck_SupportsIncreaseBrightnessFloor()
   return AXRuntimeCheck_SupportsIncreaseBrightnessFloor__supportsIncreaseBrightnessFloor;
 }
 
-uint64_t AXRuntimeCheck_SupportsDoseAnalysis()
+uint64_t AXRuntimeCheck_SupportsDoseAnalysis(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_SupportsDoseAnalysis_onceToken != -1)
   {
@@ -8400,7 +8370,7 @@ uint64_t AXRuntimeCheck_SupportsDoseAnalysis()
   return AXRuntimeCheck_SupportsDoseAnalysis__supportsDoseAnalysis;
 }
 
-uint64_t AXRuntimeCheck_SupportsVoiceoverIndepedentVolume()
+uint64_t AXRuntimeCheck_SupportsVoiceoverIndepedentVolume(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_SupportsVoiceoverIndepedentVolume_onceToken != -1)
   {
@@ -8410,7 +8380,7 @@ uint64_t AXRuntimeCheck_SupportsVoiceoverIndepedentVolume()
   return AXRuntimeCheck_SupportsVoiceoverIndepedentVolume__supportsVoiceoverIndepedentVolume;
 }
 
-uint64_t AXRuntimeCheck_SupportsBrailleUI()
+uint64_t AXRuntimeCheck_SupportsBrailleUI(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_SupportsBrailleUI_onceToken != -1)
   {
@@ -8420,7 +8390,7 @@ uint64_t AXRuntimeCheck_SupportsBrailleUI()
   return AXRuntimeCheck_SupportsBrailleUI__supportsBrailleUI;
 }
 
-uint64_t AXRuntimeCheck_SupportsWatchControlAXFocusSystem()
+uint64_t AXRuntimeCheck_SupportsWatchControlAXFocusSystem(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_SupportsWatchControlAXFocusSystem_onceToken != -1)
   {
@@ -8430,7 +8400,7 @@ uint64_t AXRuntimeCheck_SupportsWatchControlAXFocusSystem()
   return AXRuntimeCheck_SupportsWatchControlAXFocusSystem__supportsWatchControlAXFocusSystem;
 }
 
-uint64_t AXRuntimeCheck_SupportsVoiceOverReadPrefixes()
+uint64_t AXRuntimeCheck_SupportsVoiceOverReadPrefixes(uint64_t a1, uint64_t a2)
 {
   if (AXRuntimeCheck_SupportsVoiceOverReadPrefixes_onceToken != -1)
   {
@@ -8442,75 +8412,68 @@ uint64_t AXRuntimeCheck_SupportsVoiceOverReadPrefixes()
 
 uint64_t __AppleNeuralEngineLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppleNeuralEngineLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void *__getMGGetBoolAnswerSymbolLoc_block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v13 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v2 = libMobileGestaltLibraryCore_frameworkLibrary;
-  v11 = libMobileGestaltLibraryCore_frameworkLibrary;
+  v10 = libMobileGestaltLibraryCore_frameworkLibrary;
   if (!libMobileGestaltLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __libMobileGestaltLibraryCore_block_invoke;
-    v5[4] = &unk_1E6F45788;
-    v6 = &v8;
-    v7 = v5;
-    v12 = xmmword_1E6F45768;
-    v13 = 0;
-    v9[3] = _sl_dlopen();
-    libMobileGestaltLibraryCore_frameworkLibrary = *(v6[1] + 24);
-    v2 = v9[3];
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __libMobileGestaltLibraryCore_block_invoke;
+    v4[4] = &unk_1E6F45788;
+    v5 = &v7;
+    v6 = v4;
+    v11 = xmmword_1E6F45768;
+    v12 = 0;
+    v8[3] = _sl_dlopen();
+    libMobileGestaltLibraryCore_frameworkLibrary = *(v5[1] + 24);
+    v2 = v8[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v7, 8);
   if (!v2)
   {
-    __getMGGetBoolAnswerSymbolLoc_block_invoke_cold_1(v5);
+    __getMGGetBoolAnswerSymbolLoc_block_invoke_cold_1(v4);
   }
 
-  if (v5[0])
+  if (v4[0])
   {
-    free(v5[0]);
+    free(v4[0]);
   }
 
   result = dlsym(v2, "MGGetBoolAnswer");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getMGGetBoolAnswerSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_186332204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_186332204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __libMobileGestaltLibraryCore_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   libMobileGestaltLibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-BOOL AXDeviceIsPad()
+BOOL AXDeviceIsPad(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceGetType__AXCurrentDeviceTypeOnceToken != -1)
   {
@@ -8520,7 +8483,7 @@ BOOL AXDeviceIsPad()
   return AXDeviceGetType__AXDeviceType == 3;
 }
 
-uint64_t AXDeviceGetType()
+uint64_t AXDeviceGetType(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceGetType__AXCurrentDeviceTypeOnceToken != -1)
   {
@@ -8530,7 +8493,7 @@ uint64_t AXDeviceGetType()
   return AXDeviceGetType__AXDeviceType;
 }
 
-BOOL AXDeviceIsPhone()
+BOOL AXDeviceIsPhone(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceGetType__AXCurrentDeviceTypeOnceToken != -1)
   {
@@ -8571,14 +8534,14 @@ uint64_t __AXDeviceGetType_block_invoke()
   return result;
 }
 
-void sub_186332488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_186332488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-BOOL AXDeviceIsPod()
+BOOL AXDeviceIsPod(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceGetType__AXCurrentDeviceTypeOnceToken != -1)
   {
@@ -8588,7 +8551,7 @@ BOOL AXDeviceIsPod()
   return AXDeviceGetType__AXDeviceType == 2;
 }
 
-BOOL AXDeviceIsWatch()
+BOOL AXDeviceIsWatch(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceGetType__AXCurrentDeviceTypeOnceToken != -1)
   {
@@ -8598,7 +8561,7 @@ BOOL AXDeviceIsWatch()
   return AXDeviceGetType__AXDeviceType == 5;
 }
 
-uint64_t AXDeviceSupportsHapticMusic()
+uint64_t AXDeviceSupportsHapticMusic(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceSupportsHapticMusic_onceToken != -1)
   {
@@ -8610,50 +8573,14 @@ uint64_t AXDeviceSupportsHapticMusic()
 
 uint64_t __AXDeviceSupportsHapticMusic_block_invoke()
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   result = _os_feature_enabled_impl();
   if (result)
   {
-    v19 = -1431778695;
-    v18 = xmmword_186336E58;
-    if (soft_MGIsDeviceOfType(&v18))
+    v18 = -1431778695;
+    v17 = xmmword_186336E58;
+    if (soft_MGIsDeviceOfType(&v17) & 1) != 0 || (v16 = -121925081, v15 = xmmword_186336E6C, (soft_MGIsDeviceOfType(&v15)) || (v14 = -820493242, v13 = xmmword_186336E80, (soft_MGIsDeviceOfType(&v13)) || (v12 = -235416490, v11 = xmmword_186336E94, (soft_MGIsDeviceOfType(&v11)) || (v10 = -61007701, v9 = xmmword_186336EA8, (soft_MGIsDeviceOfType(&v9)) || (v8 = -1843102369, v7 = xmmword_186336EBC, (soft_MGIsDeviceOfType(&v7)) || (v6 = -427474227, v5 = xmmword_186336ED0, (soft_MGIsDeviceOfType(&v5)) || (v4 = 1477534141, v3 = xmmword_186336EE4, (soft_MGIsDeviceOfType(&v3)) || (v2 = -232427879, v1 = xmmword_186336EF8, (soft_MGIsDeviceOfType(&v1)))
     {
-      goto LABEL_11;
-    }
-
-    v17 = -121925081;
-    v16 = xmmword_186336E6C;
-    if (soft_MGIsDeviceOfType(&v16))
-    {
-      goto LABEL_11;
-    }
-
-    v15 = -820493242;
-    v14 = xmmword_186336E80;
-    if (soft_MGIsDeviceOfType(&v14))
-    {
-      goto LABEL_11;
-    }
-
-    v13 = -235416490;
-    v12 = xmmword_186336E94;
-    if (soft_MGIsDeviceOfType(&v12))
-    {
-      goto LABEL_11;
-    }
-
-    v11 = -61007701;
-    v10 = xmmword_186336EA8;
-    if (soft_MGIsDeviceOfType(&v10))
-    {
-      goto LABEL_11;
-    }
-
-    v9 = -1843102369;
-    v8 = xmmword_186336EBC;
-    if (soft_MGIsDeviceOfType(&v8) & 1) != 0 || (v7 = -427474227, v6 = xmmword_186336ED0, (soft_MGIsDeviceOfType(&v6)) || (v5 = 1477534141, v4 = xmmword_186336EE4, (soft_MGIsDeviceOfType(&v4)) || (v3 = -232427879, v2 = xmmword_186336EF8, (soft_MGIsDeviceOfType(&v2)))
-    {
-LABEL_11:
       result = 0;
     }
 
@@ -8665,7 +8592,6 @@ LABEL_11:
     AXDeviceSupportsHapticMusic_Supported = result;
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8693,9 +8619,9 @@ uint64_t soft_MGIsDeviceOfType(uint64_t a1)
   return v2(a1);
 }
 
-void sub_186332828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_186332828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8724,14 +8650,14 @@ uint64_t soft_MGGetBoolAnswer()
   return v0(@"cBy4BcYs5YWtFHbBpt4C6A");
 }
 
-void sub_186332924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_186332924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t AXDeviceSupportsLiveRecognition()
+uint64_t AXDeviceSupportsLiveRecognition(uint64_t a1, uint64_t a2)
 {
   if (AXDeviceSupportsLiveRecognition_onceToken != -1)
   {
@@ -8763,58 +8689,54 @@ void *__getMGGetSInt32AnswerSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t libMobileGestaltLibrary()
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
+  v11 = *MEMORY[0x1E69E9840];
+  v2[0] = 0;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
   v0 = libMobileGestaltLibraryCore_frameworkLibrary_0;
-  v9 = libMobileGestaltLibraryCore_frameworkLibrary_0;
+  v8 = libMobileGestaltLibraryCore_frameworkLibrary_0;
   if (!libMobileGestaltLibraryCore_frameworkLibrary_0)
   {
-    v3[1] = MEMORY[0x1E69E9820];
-    v3[2] = 3221225472;
-    v3[3] = __libMobileGestaltLibraryCore_block_invoke_0;
-    v3[4] = &unk_1E6F45788;
-    v4 = &v6;
-    v5 = v3;
-    v10 = xmmword_1E6F457A8;
-    v11 = 0;
-    v7[3] = _sl_dlopen();
-    libMobileGestaltLibraryCore_frameworkLibrary_0 = *(v4[1] + 24);
-    v0 = v7[3];
+    v2[1] = MEMORY[0x1E69E9820];
+    v2[2] = 3221225472;
+    v2[3] = __libMobileGestaltLibraryCore_block_invoke_0;
+    v2[4] = &unk_1E6F45788;
+    v3 = &v5;
+    v4 = v2;
+    v9 = xmmword_1E6F457A8;
+    v10 = 0;
+    v6[3] = _sl_dlopen();
+    libMobileGestaltLibraryCore_frameworkLibrary_0 = *(v3[1] + 24);
+    v0 = v6[3];
   }
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v5, 8);
   if (!v0)
   {
-    libMobileGestaltLibrary_cold_1(v3);
+    libMobileGestaltLibrary_cold_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
-void sub_186332B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_186332B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __libMobileGestaltLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   libMobileGestaltLibraryCore_frameworkLibrary_0 = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8836,29 +8758,25 @@ void *__getMGGetBoolAnswerSymbolLoc_block_invoke_0(uint64_t a1)
   return result;
 }
 
-void __AXSGetCachedPreference_block_invoke_3_cold_1(uint64_t *a1, unsigned int **a2)
+void __AXSGetCachedPreference_block_invoke_3_cold_1(uint64_t a1, unsigned int **a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = **a2;
-  if (v3 == -1)
+  v2 = **a2;
+  if (v2 == -1)
   {
-    v4 = @"Empty";
+    v3 = @"Empty";
   }
 
   else
   {
-    v4 = [MEMORY[0x1E696AD98] numberWithInt:**a2];
+    v3 = [MEMORY[0x1E696AD98] numberWithInt:**a2];
   }
 
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-  if (v3 != -1)
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
+  if (v2 != -1)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void _axsHandleSystemUILoadInvertBundles_cold_1()
@@ -8870,7 +8788,6 @@ void _axsHandleSystemUILoadInvertBundles_cold_1()
 
 void __AXSInitializeAsynchronouslyPerAppSmartInvert_block_invoke_cold_3(unsigned int *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = *a1;
   if (v1 == -1)
   {
@@ -8883,17 +8800,14 @@ void __AXSInitializeAsynchronouslyPerAppSmartInvert_block_invoke_cold_3(unsigned
   }
 
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_186307000, v3, v4, "Read Per-App: preference = %@, result = %@", v5, v6, v7, v8, v10);
+  OUTLINED_FUNCTION_2(&dword_186307000, v3, v4, "Read Per-App: preference = %@, result = %@", v5, v6, v7, v8);
   if (v1 != -1)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __AXSInitializeAsynchronouslyPerAppSmartInvert_block_invoke_cold_4()
 {
-  v10 = *MEMORY[0x1E69E9840];
   v0 = _kAXSCacheInvertColors;
   if (_kAXSCacheInvertColors == -1)
   {
@@ -8906,12 +8820,10 @@ void __AXSInitializeAsynchronouslyPerAppSmartInvert_block_invoke_cold_4()
   }
 
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_186307000, v2, v3, "Updated cache: preference = %@, result = %@", v4, v5, v6, v7, v9);
+  OUTLINED_FUNCTION_2(&dword_186307000, v2, v3, "Updated cache: preference = %@, result = %@", v4, v5, v6, v7);
   if (v0 != -1)
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __AXSInitializeAsynchronouslyPerAppSmartInvert_block_invoke_cold_5()
@@ -8930,7 +8842,6 @@ void __AXSInitializeAsynchronouslyPerAppSmartInvert_block_invoke_cold_6()
 
 void __AXSGetCachedSmartInvert_block_invoke_cold_1(unsigned int *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = *a1;
   if (v1 == -1)
   {
@@ -8943,12 +8854,10 @@ void __AXSGetCachedSmartInvert_block_invoke_cold_1(unsigned int *a1)
   }
 
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_186307000, v3, v4, "Read Global: preference = %@, result = %@", v5, v6, v7, v8, v10);
+  OUTLINED_FUNCTION_2(&dword_186307000, v3, v4, "Read Global: preference = %@, result = %@", v5, v6, v7, v8);
   if (v1 != -1)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void _updateAccessibilitySettings_cold_16()
@@ -8956,22 +8865,6 @@ void _updateAccessibilitySettings_cold_16()
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void _updateAccessibilitySettings_cold_17()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void _copyValuePreferenceApp_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5(&dword_186307000, v0, v1, "Request for application info error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void _setPreferenceAppWithNotification_cold_1()
@@ -8983,67 +8876,29 @@ void _setPreferenceAppWithNotification_cold_1()
   __break(1u);
 }
 
-void _setPreferenceAppWithNotification_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5(&dword_186307000, v0, v1, "Error setting Per-App Setting pref: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void _setPreferenceAppWithNotification_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void _AXSAirPodSettingForDevice_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5(&dword_186307000, v0, v1, "Need to pass in the device address to %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _AXSAirPodSettingSetForDevice_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5(&dword_186307000, v0, v1, "No device address for setting %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void _AXSSetTripleClickOptions_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
-  _os_log_fault_impl(&dword_186307000, v0, OS_LOG_TYPE_FAULT, "Invalid attempt to insert duplicates into the triple click menu: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void _AXSAttentionAwarenessFeaturesEnabled_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_186307000, v0, OS_LOG_TYPE_FAULT, "Invalid attempt to insert duplicates into the triple click menu: %@", v1, 0xCu);
 }
 
 void _AXSInvertColorsEnabledAppCached_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _AXSInvertColorsEnabledAppCached_cold_2(uint64_t a1, unsigned int *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = *a2;
   if (*a2 == -1)
   {
@@ -9056,42 +8911,35 @@ void _AXSInvertColorsEnabledAppCached_cold_2(uint64_t a1, unsigned int *a2)
   }
 
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_186307000, v4, v5, "Fetched cachedSmartInvertPreferences to App: appID = %@, res = %@", v6, v7, v8, v9, v11);
+  OUTLINED_FUNCTION_2(&dword_186307000, v4, v5, "Fetched cachedSmartInvertPreferences to App: appID = %@, res = %@", v6, v7, v8, v9);
   if (v2 != -1)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void _AXSSetDefaultRouteForCall_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a1];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void _updateBoolCachePreferenceAndRepostNotification_cold_1(uint64_t a1, unsigned __int8 *a2, os_log_t log)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v5 = 138412802;
-  v6 = 0;
-  v7 = 2112;
-  v8 = a1;
-  v9 = 1024;
-  v10 = v3;
-  _os_log_debug_impl(&dword_186307000, log, OS_LOG_TYPE_DEBUG, "Update Cache Value On Notification: appID = %@, preference = %@, result = %d", &v5, 0x1Cu);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412802;
+  v5 = 0;
+  v6 = 2112;
+  v7 = a1;
+  v8 = 1024;
+  v9 = v3;
+  _os_log_debug_impl(&dword_186307000, log, OS_LOG_TYPE_DEBUG, "Update Cache Value On Notification: appID = %@, preference = %@, result = %d", &v4, 0x1Cu);
 }
 
 void _updateCacheSmartInvertAndRepostNotification_cold_1(uint64_t a1, unsigned int *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = *a2;
   if (*a2 == -1)
   {
@@ -9110,13 +8958,10 @@ void _updateCacheSmartInvertAndRepostNotification_cold_1(uint64_t a1, unsigned i
   if (v2 != -1)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void _updateCacheSmartInvertAndRepostNotification_cold_2(uint64_t a1, unsigned int *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = *a2;
   if (*a2 == -1)
   {
@@ -9135,13 +8980,10 @@ void _updateCacheSmartInvertAndRepostNotification_cold_2(uint64_t a1, unsigned i
   if (v2 != -1)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void _updateCacheSmartInvertAndRepostNotification_cold_3()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v0 = _kAXSCacheInvertColors;
   if (_kAXSCacheInvertColors == -1)
   {
@@ -9160,8 +9002,6 @@ void _updateCacheSmartInvertAndRepostNotification_cold_3()
   if (v0 != -1)
   {
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void _updateCacheSmartInvertAndRepostNotification_cold_4()
@@ -9182,11 +9022,9 @@ void AccessibilityUtilitiesLibrary_cold_1(void *a1)
 
 void _invalidateCacheSmartInvertPreference_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __getLSApplicationRecordClass_block_invoke_cold_1()

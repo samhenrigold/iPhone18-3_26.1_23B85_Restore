@@ -86,33 +86,33 @@ LABEL_9:
 - (id)_additionalInfoWithAnswerReasonRemovedForQuestionType:(unsigned __int16)type additionalInfo:(id)info
 {
   typeCopy = type;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   allKeys = [infoCopy allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     v11 = *MEMORY[0x277D3C8B8];
-    v21 = *MEMORY[0x277D3C8E0];
-    v19 = *MEMORY[0x277D3C8D8];
-    v20 = *MEMORY[0x277D3C8F0];
+    v20 = *MEMORY[0x277D3C8E0];
+    v18 = *MEMORY[0x277D3C8D8];
+    v19 = *MEMORY[0x277D3C8F0];
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         if (([v13 isEqualToString:v11] & 1) == 0)
         {
           if (typeCopy != 25)
@@ -120,7 +120,7 @@ LABEL_9:
             if (typeCopy == 14)
             {
               v14 = v13;
-              v15 = v20;
+              v15 = v19;
 LABEL_12:
               if ([v14 isEqualToString:v15])
               {
@@ -134,24 +134,22 @@ LABEL_12:
             continue;
           }
 
-          if ([v13 isEqualToString:v21])
+          if ([v13 isEqualToString:v20])
           {
             continue;
           }
 
           v14 = v13;
-          v15 = v19;
+          v15 = v18;
           goto LABEL_12;
         }
       }
 
-      v9 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v9);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

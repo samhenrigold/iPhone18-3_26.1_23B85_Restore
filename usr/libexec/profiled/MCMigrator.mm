@@ -82,6 +82,8 @@
 - (void)_updateProfileRestrictions;
 - (void)_validateCloudConfiguration;
 - (void)_wakeDaemonsPostMigration;
+- (void)migrateCleanupMigratorWithContext:(int)context;
+- (void)migratePostDataMigratorWithContext:(int)context passcodeWasSetInBackup:(BOOL)backup;
 - (void)migrateWithPostMigrationTaskQueue:(id)queue;
 - (void)setSystemMetadataDictionary:(id)dictionary;
 - (void)setUserMetadataDictionary:(id)dictionary;
@@ -405,27 +407,27 @@ LABEL_23:
 
 - (void)_removeHardwareBoundPayloads
 {
-  v78 = +[MCManifest sharedManifest];
-  [v78 allInstalledProfileIdentifiers];
+  v76 = +[MCManifest sharedManifest];
+  [v76 allInstalledProfileIdentifiers];
+  v97 = 0u;
+  v98 = 0u;
   v99 = 0u;
-  v100 = 0u;
-  v101 = 0u;
-  v2 = v102 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v99 objects:v110 count:16];
+  v2 = v100 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v97 objects:v108 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v100;
+    v5 = *v98;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v100 != v5)
+      if (*v98 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v7 = [v78 installedProfileWithIdentifier:*(*(&v99 + 1) + 8 * v6)];
+      v7 = [v76 installedProfileWithIdentifier:*(*(&v97 + 1) + 8 * v6)];
       v8 = [v7 payloadsWithClass:objc_opt_class()];
       v9 = [v8 count];
 
@@ -436,7 +438,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [v2 countByEnumeratingWithState:&v99 objects:v110 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v97 objects:v108 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -453,28 +455,28 @@ LABEL_9:
     v7 = 0;
   }
 
-  v97 = 0u;
-  v98 = 0u;
   v95 = 0u;
   v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
   payloads = [v7 payloads];
-  v11 = [payloads countByEnumeratingWithState:&v95 objects:v109 count:16];
+  v11 = [payloads countByEnumeratingWithState:&v93 objects:v107 count:16];
   v12 = &selRef_markStoredProfileAsInstalled;
-  v68 = v7;
+  v66 = v7;
   if (v11)
   {
     v13 = v11;
-    v14 = *v96;
+    v14 = *v94;
     while (2)
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v96 != v14)
+        if (*v94 != v14)
         {
           objc_enumerationMutation(payloads);
         }
 
-        if ([MCMigrator payloadHasHardwareBoundKey:*(*(&v95 + 1) + 8 * i)])
+        if ([MCMigrator payloadHasHardwareBoundKey:*(*(&v93 + 1) + 8 * i)])
         {
           v16 = _MCLogObjects[12];
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
@@ -487,15 +489,15 @@ LABEL_9:
           identifier = [v7 identifier];
           [v17 removeProfileWithIdentifier:identifier installationType:objc_msgSend(v7 source:{"installType"), @"Hardware-bound Profile Removal"}];
 
-          allInstalledProfileIdentifiers = [v78 allInstalledProfileIdentifiers];
+          allInstalledProfileIdentifiers = [v76 allInstalledProfileIdentifiers];
 
-          v67 = 1;
+          v65 = 1;
           v2 = allInstalledProfileIdentifiers;
           goto LABEL_22;
         }
       }
 
-      v13 = [payloads countByEnumeratingWithState:&v95 objects:v109 count:16];
+      v13 = [payloads countByEnumeratingWithState:&v93 objects:v107 count:16];
       if (v13)
       {
         continue;
@@ -505,111 +507,109 @@ LABEL_9:
     }
   }
 
-  v67 = 0;
+  v65 = 0;
 LABEL_22:
 
   context = objc_autoreleasePoolPush();
-  v70 = +[NSMutableArray array];
+  v68 = +[NSMutableArray array];
+  v89 = 0u;
+  v90 = 0u;
   v91 = 0u;
   v92 = 0u;
-  v93 = 0u;
-  v94 = 0u;
   obj = v2;
-  v72 = [obj countByEnumeratingWithState:&v91 objects:v108 count:16];
-  if (v72)
+  v70 = [obj countByEnumeratingWithState:&v89 objects:v106 count:16];
+  if (v70)
   {
-    v71 = *v92;
+    v69 = *v90;
     v20 = kAppSSOKerberosExtensionID;
-    v21 = &MCRestrictedBoolValueKey_ptr;
-    v75 = kAppSSOKerberosExtensionID;
+    v73 = kAppSSOKerberosExtensionID;
     do
     {
-      v22 = 0;
+      v21 = 0;
       do
       {
-        if (*v92 != v71)
+        if (*v90 != v69)
         {
           objc_enumerationMutation(obj);
         }
 
-        v74 = v22;
-        v23 = [v78 installedProfileWithIdentifier:*(*(&v91 + 1) + 8 * v22)];
+        v72 = v21;
+        v22 = [v76 installedProfileWithIdentifier:*(*(&v89 + 1) + 8 * v21)];
+        v85 = 0u;
+        v86 = 0u;
         v87 = 0u;
         v88 = 0u;
-        v89 = 0u;
-        v90 = 0u;
-        payloads2 = [v23 payloads];
-        v25 = [payloads2 countByEnumeratingWithState:&v87 objects:v107 count:16];
-        if (v25)
+        payloads2 = [v22 payloads];
+        v24 = [payloads2 countByEnumeratingWithState:&v85 objects:v105 count:16];
+        if (v24)
         {
-          v26 = v25;
-          v27 = *v88;
-          v73 = v23;
-          v76 = *v88;
-          v77 = payloads2;
+          v25 = v24;
+          v26 = *v86;
+          v71 = v22;
+          v74 = *v86;
+          v75 = payloads2;
           while (2)
           {
-            for (j = 0; j != v26; j = j + 1)
+            for (j = 0; j != v25; j = j + 1)
             {
-              if (*v88 != v27)
+              if (*v86 != v26)
               {
                 objc_enumerationMutation(payloads2);
               }
 
-              v29 = *(*(&v87 + 1) + 8 * j);
-              if ([v12 + 349 payloadHasHardwareBoundKey:v29])
+              v28 = *(*(&v85 + 1) + 8 * j);
+              if ([v12 + 349 payloadHasHardwareBoundKey:v28])
               {
-                v23 = v73;
-                [v70 addObject:v73];
+                v22 = v71;
+                [v68 addObject:v71];
                 goto LABEL_54;
               }
 
-              v30 = v21[56];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v31 = v29;
-                esso_extensionIdentifier = [v31 esso_extensionIdentifier];
-                v33 = [esso_extensionIdentifier isEqualToString:v20];
+                v29 = v28;
+                esso_extensionIdentifier = [v29 esso_extensionIdentifier];
+                v31 = [esso_extensionIdentifier isEqualToString:v20];
 
-                if (v33)
+                if (v31)
                 {
-                  esso_extensionData = [v31 esso_extensionData];
-                  v35 = [esso_extensionData objectForKeyedSubscript:@"certificateUUID"];
+                  esso_extensionData = [v29 esso_extensionData];
+                  v33 = [esso_extensionData objectForKeyedSubscript:@"certificateUUID"];
 
-                  if (v35)
+                  if (v33)
                   {
-                    v85 = 0u;
-                    v86 = 0u;
                     v83 = 0u;
                     v84 = 0u;
-                    allInstalledProfileIdentifiers2 = [v78 allInstalledProfileIdentifiers];
-                    v37 = [allInstalledProfileIdentifiers2 countByEnumeratingWithState:&v83 objects:v106 count:16];
-                    if (v37)
+                    v81 = 0u;
+                    v82 = 0u;
+                    allInstalledProfileIdentifiers2 = [v76 allInstalledProfileIdentifiers];
+                    v35 = [allInstalledProfileIdentifiers2 countByEnumeratingWithState:&v81 objects:v104 count:16];
+                    if (v35)
                     {
-                      v38 = v37;
-                      v39 = *v84;
+                      v36 = v35;
+                      v37 = *v82;
 LABEL_38:
-                      v40 = 0;
+                      v38 = 0;
                       while (1)
                       {
-                        if (*v84 != v39)
+                        if (*v82 != v37)
                         {
                           objc_enumerationMutation(allInstalledProfileIdentifiers2);
                         }
 
-                        v41 = [v78 installedProfileWithIdentifier:*(*(&v83 + 1) + 8 * v40)];
-                        v42 = [v41 payloadWithUUID:v35];
-                        if (v42)
+                        v39 = [v76 installedProfileWithIdentifier:*(*(&v81 + 1) + 8 * v38)];
+                        v40 = [v39 payloadWithUUID:v33];
+                        if (v40)
                         {
                           break;
                         }
 
-                        if (v38 == ++v40)
+                        if (v36 == ++v38)
                         {
-                          v38 = [allInstalledProfileIdentifiers2 countByEnumeratingWithState:&v83 objects:v106 count:16];
+                          v36 = [allInstalledProfileIdentifiers2 countByEnumeratingWithState:&v81 objects:v104 count:16];
                           v12 = &selRef_markStoredProfileAsInstalled;
-                          if (v38)
+                          if (v36)
                           {
                             goto LABEL_38;
                           }
@@ -618,37 +618,35 @@ LABEL_38:
                         }
                       }
 
-                      v43 = v42;
+                      v41 = v40;
                       v12 = &selRef_markStoredProfileAsInstalled;
-                      if (![MCMigrator payloadHasHardwareBoundKey:v42])
+                      if (![MCMigrator payloadHasHardwareBoundKey:v40])
                       {
 
                         goto LABEL_47;
                       }
 
-                      v23 = v73;
-                      [v70 addObject:v73];
+                      v22 = v71;
+                      [v68 addObject:v71];
 
-                      v20 = v75;
-                      v21 = &MCRestrictedBoolValueKey_ptr;
-                      payloads2 = v77;
+                      v20 = v73;
+                      payloads2 = v75;
                       goto LABEL_54;
                     }
 
 LABEL_47:
 
-                    v20 = v75;
-                    v27 = v76;
-                    v21 = &MCRestrictedBoolValueKey_ptr;
-                    payloads2 = v77;
+                    v20 = v73;
+                    v26 = v74;
+                    payloads2 = v75;
                   }
                 }
               }
             }
 
-            v26 = [payloads2 countByEnumeratingWithState:&v87 objects:v107 count:16];
-            v23 = v73;
-            if (v26)
+            v25 = [payloads2 countByEnumeratingWithState:&v85 objects:v105 count:16];
+            v22 = v71;
+            if (v25)
             {
               continue;
             }
@@ -659,91 +657,91 @@ LABEL_47:
 
 LABEL_54:
 
-        v22 = v74 + 1;
+        v21 = v72 + 1;
       }
 
-      while ((v74 + 1) != v72);
-      v44 = [obj countByEnumeratingWithState:&v91 objects:v108 count:16];
-      v72 = v44;
+      while ((v72 + 1) != v70);
+      v42 = [obj countByEnumeratingWithState:&v89 objects:v106 count:16];
+      v70 = v42;
     }
 
-    while (v44);
+    while (v42);
   }
 
-  v81 = 0u;
-  v82 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v45 = v70;
-  v46 = [v45 countByEnumeratingWithState:&v79 objects:v105 count:16];
-  if (v46)
+  v77 = 0u;
+  v78 = 0u;
+  v43 = v68;
+  v44 = [v43 countByEnumeratingWithState:&v77 objects:v103 count:16];
+  if (v44)
   {
-    v47 = v46;
-    v48 = *v80;
+    v45 = v44;
+    v46 = *v78;
     do
     {
-      for (k = 0; k != v47; k = k + 1)
+      for (k = 0; k != v45; k = k + 1)
       {
-        if (*v80 != v48)
+        if (*v78 != v46)
         {
-          objc_enumerationMutation(v45);
+          objc_enumerationMutation(v43);
         }
 
-        v50 = *(*(&v79 + 1) + 8 * k);
-        identifier2 = [v50 identifier];
-        v52 = _MCLogObjects[12];
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v48 = *(*(&v77 + 1) + 8 * k);
+        identifier2 = [v48 identifier];
+        v50 = _MCLogObjects[12];
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v104 = identifier2;
-          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "MCCleanupMigrator: Removing profile with PayloadIdentifier %@ because it referenced a hardware-bound key", buf, 0xCu);
+          v102 = identifier2;
+          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "MCCleanupMigrator: Removing profile with PayloadIdentifier %@ because it referenced a hardware-bound key", buf, 0xCu);
         }
 
-        v53 = +[MCInstaller sharedInstaller];
-        [v53 removeProfileWithIdentifier:identifier2 installationType:objc_msgSend(v50 source:{"installType"), @"Hardware-bound Profile Removal"}];
+        v51 = +[MCInstaller sharedInstaller];
+        [v51 removeProfileWithIdentifier:identifier2 installationType:objc_msgSend(v48 source:{"installType"), @"Hardware-bound Profile Removal"}];
       }
 
-      v47 = [v45 countByEnumeratingWithState:&v79 objects:v105 count:16];
+      v45 = [v43 countByEnumeratingWithState:&v77 objects:v103 count:16];
     }
 
-    while (v47);
+    while (v45);
   }
 
   objc_autoreleasePoolPop(context);
-  if (v67)
+  if (v65)
   {
-    v54 = MCCloudConfigurationDetailsFilePath();
-    v55 = [NSMutableDictionary dictionaryWithContentsOfFile:v54];
+    v52 = MCCloudConfigurationDetailsFilePath();
+    v53 = [NSMutableDictionary dictionaryWithContentsOfFile:v52];
 
-    if (v55)
+    if (v53)
     {
-      v56 = [v55 objectForKeyedSubscript:kCCConfigurationSourceKey];
+      v54 = [v53 objectForKeyedSubscript:kCCConfigurationSourceKey];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && [v56 intValue] == 1)
+      if ((objc_opt_isKindOfClass() & 1) != 0 && [v54 intValue] == 1)
       {
-        v57 = _MCLogObjects[12];
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        v55 = _MCLogObjects[12];
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "MCCleanupMigrator: Removing cloud configuration for DEP device that was unenrolled due to hardware-bound key", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "MCCleanupMigrator: Removing cloud configuration for DEP device that was unenrolled due to hardware-bound key", buf, 2u);
         }
 
+        v56 = +[NSFileManager defaultManager];
+        v57 = MCCloudConfigurationDetailsFilePath();
+        [v56 removeItemAtPath:v57 error:0];
+
         v58 = +[NSFileManager defaultManager];
-        v59 = MCCloudConfigurationDetailsFilePath();
+        v59 = MCLegacyCloudConfigurationDetailsFilePath();
         [v58 removeItemAtPath:v59 error:0];
 
+        MCSendCloudConfigurationDetailsChangedNotification();
         v60 = +[NSFileManager defaultManager];
-        v61 = MCLegacyCloudConfigurationDetailsFilePath();
+        v61 = MCPostSetupAutoInstallProfilePathNF();
         [v60 removeItemAtPath:v61 error:0];
 
-        MCSendCloudConfigurationDetailsChangedNotification();
         v62 = +[NSFileManager defaultManager];
-        v63 = MCPostSetupAutoInstallProfilePathNF();
+        v63 = MCLegacyPostSetupAutoInstallProfilePath();
         [v62 removeItemAtPath:v63 error:0];
-
-        v64 = +[NSFileManager defaultManager];
-        v65 = MCLegacyPostSetupAutoInstallProfilePath();
-        [v64 removeItemAtPath:v65 error:0];
       }
     }
   }
@@ -776,6 +774,74 @@ LABEL_54:
   else
   {
     return *(&off_10011C3C8 + context);
+  }
+}
+
+- (void)migratePostDataMigratorWithContext:(int)context passcodeWasSetInBackup:(BOOL)backup
+{
+  backupCopy = backup;
+  v5 = *&context;
+  v7 = [[DMCPowerAssertion alloc] initWithReason:@"profiled-MigratePostDataMigrator"];
+  v8 = [MCMigrator stringWithContext:v5];
+  v9 = _MCLogObjects[12];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v26 = 138543618;
+    v27 = v8;
+    v28 = 1024;
+    v29 = backupCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Beginning post-DataMigrator migration. Context: %{public}@, passcode was set in backup: %d", &v26, 0x12u);
+  }
+
+  [(MCMigrator *)self _tellAMFIIfWeAreSupervised];
+  v10 = +[MCRestrictionManager sharedManager];
+  v11 = [v10 valueForFeature:MCFeaturePasscodeHistoryCount];
+  v12 = [v11 unsignedIntValue] != 0;
+
+  [(MCMigrator *)self _migratePasscodeDidRestore:(v5 & 0xFFFFFFFE) == 2 passcodeWasSet:backupCopy historyRequired:v12];
+  v13 = +[MCRestrictionManagerWriter sharedManager];
+  [v13 notifyClientsToRecomputeCompliance];
+  if (v5 == 3)
+  {
+    [(MCMigrator *)self _removeiPCUCertificates];
+  }
+
+  v14 = +[MCServerSideHacks sharedHacks];
+  [v14 recomputeAppRulesForNetworkExtension];
+
+  v15 = +[MCServerSideHacks sharedHacks];
+  effectiveUserSettings = [v13 effectiveUserSettings];
+  [v15 recomputeAppOptionsEffectiveUserSettings:effectiveUserSettings outEffectiveChangeDetected:0];
+
+  v17 = +[MCServerSideHacks sharedHacks];
+  effectiveUserSettings2 = [v13 effectiveUserSettings];
+  [v17 recomputeWebContentFilterEffectiveUserSettings:effectiveUserSettings2 outEffectiveChangeDetected:0 outMechanismChangedDetected:0];
+
+  v19 = +[MCServerSideHacks sharedHacks];
+  recomputeAccountVPNAssociations = [v19 recomputeAccountVPNAssociations];
+
+  v21 = kMCPreferencesLockdownActivationIndicatesCloudConfigurationAvailableKey;
+  v22 = kMCNotBackedUpPreferencesDomain;
+  v23 = CFPreferencesCopyAppValue(kMCPreferencesLockdownActivationIndicatesCloudConfigurationAvailableKey, kMCNotBackedUpPreferencesDomain);
+  v24 = CFPreferencesCopyAppValue(kMCPreferencesLockdownCloudConfigurationAvailableKey, v22);
+  if ([v24 BOOLValue] && !v23)
+  {
+    CFPreferencesSetAppValue(v21, kCFBooleanTrue, v22);
+    CFPreferencesAppSynchronize(v22);
+  }
+
+  if (v5 == 2)
+  {
+    [v13 clearAllPasscodeComplianceCaches];
+    [v13 recomputeNagMetadata];
+    MCSendClientTruthChangedNotification();
+  }
+
+  v25 = _MCLogObjects[12];
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v26) = 0;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Post-DataMigrator migration complete.", &v26, 2u);
   }
 }
 
@@ -1177,6 +1243,201 @@ LABEL_12:
   [v4 MCWriteToBinaryFile:v5];
 
   MCSendCloudConfigurationDetailsChangedNotification();
+}
+
+- (void)migrateCleanupMigratorWithContext:(int)context
+{
+  v3 = *&context;
+  v5 = [[DMCPowerAssertion alloc] initWithReason:@"profiled-MigrationCleanup"];
+  v6 = [MCMigrator stringWithContext:v3];
+  v7 = _MCLogObjects[12];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    v59 = v6;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "MCCleanupMigrator: work beginning, context: %{public}@", buf, 0xCu);
+  }
+
+  v8 = MCProductBuildVersion();
+  systemMetadataDictionary = [(MCMigrator *)self systemMetadataDictionary];
+  [systemMetadataDictionary setObject:v8 forKey:kMCMetaLastMDMMigratedBuildKey];
+  [(MCMigrator *)self setSystemMetadataDictionary:systemMetadataDictionary];
+  v10 = +[MCInstaller sharedInstaller];
+  if (v3)
+  {
+    if (v3 == 2)
+    {
+      [(MCMigrator *)self _removeCloudConfigAndMDMProfileIfNeeded];
+      v33 = +[MDMClient sharedClient];
+      [v33 scheduleTokenUpdate];
+    }
+
+    else if (v3 == 3)
+    {
+      v41 = systemMetadataDictionary;
+      v11 = +[NSFileManager defaultManager];
+      v12 = MCCloudConfigurationDetailsFilePath();
+      v13 = [v11 fileExistsAtPath:v12];
+
+      if (v13)
+      {
+        v14 = _MCLogObjects[12];
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_FAULT, "MCCleanupMigrator: Cloud config file still exists after MCProfileMigrator!", buf, 2u);
+        }
+
+        [(MCMigrator *)self _removeCloudConfigAndAutoInstallProfile];
+      }
+
+      selfCopy = self;
+      v44 = v6;
+      v15 = _MCLogObjects[12];
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "MCCleanupMigrator: removing profiles", buf, 2u);
+      }
+
+      v42 = v8;
+      v45 = v5;
+      v16 = [v10 identifiersOfInstalledProfilesWithFilterFlags:19];
+      v56 = kMCRemoveProfileOptionRemovedDueToMigrationFromOtherDevice;
+      v57 = &__kCFBooleanTrue;
+      v17 = [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+      v50 = 0u;
+      v51 = 0u;
+      v52 = 0u;
+      v53 = 0u;
+      v18 = v16;
+      v19 = [v18 countByEnumeratingWithState:&v50 objects:v55 count:16];
+      if (v19)
+      {
+        v20 = v19;
+        v21 = *v51;
+        do
+        {
+          for (i = 0; i != v20; i = i + 1)
+          {
+            if (*v51 != v21)
+            {
+              objc_enumerationMutation(v18);
+            }
+
+            v23 = *(*(&v50 + 1) + 8 * i);
+            v24 = objc_autoreleasePoolPush();
+            [v10 removeProfileWithIdentifier:v23 installationType:1 options:v17 source:@"Migrator System Profile Removal"];
+            objc_autoreleasePoolPop(v24);
+          }
+
+          v20 = [v18 countByEnumeratingWithState:&v50 objects:v55 count:16];
+        }
+
+        while (v20);
+      }
+
+      [v10 identifiersOfInstalledProfilesWithFilterFlags:9];
+      v46 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v3 = v49 = 0u;
+      v25 = [v3 countByEnumeratingWithState:&v46 objects:v54 count:16];
+      if (v25)
+      {
+        v26 = v25;
+        v27 = *v47;
+        do
+        {
+          for (j = 0; j != v26; j = j + 1)
+          {
+            if (*v47 != v27)
+            {
+              objc_enumerationMutation(v3);
+            }
+
+            v29 = *(*(&v46 + 1) + 8 * j);
+            v30 = objc_autoreleasePoolPush();
+            [v10 removeProfileWithIdentifier:v29 installationType:2 options:v17 source:@"Migrator User Profile Removal"];
+            objc_autoreleasePoolPop(v30);
+          }
+
+          v26 = [v3 countByEnumeratingWithState:&v46 objects:v54 count:16];
+        }
+
+        while (v26);
+      }
+
+      SecTrustStoreForDomain();
+      v31 = SecTrustStoreRemoveAll();
+      v32 = _MCLogObjects[12];
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      {
+        *buf = 67109120;
+        LODWORD(v59) = v31;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "MCCleanupMigrator: removed all certificate trust settings (%i)", buf, 8u);
+      }
+
+      v6 = v44;
+      v5 = v45;
+      v8 = v42;
+      self = selfCopy;
+      systemMetadataDictionary = v41;
+      LODWORD(v3) = 3;
+    }
+  }
+
+  else
+  {
+    [(MCMigrator *)self _cleanupForReturnToServiceIfNeeded];
+  }
+
+  v34 = +[MCProfileConnection sharedConnection];
+  [v34 checkCarrierProfile];
+
+  if ((v3 - 1) <= 1)
+  {
+    [(MCMigrator *)self _removeOSXServerPayloadAccount];
+  }
+
+  if ((v3 & 0xFFFFFFFE) == 2)
+  {
+    [(MCMigrator *)self _removeHardwareBoundPayloads];
+    v35 = +[MCRestrictionManagerWriter sharedManager];
+    [v35 setBoolValue:1 forSetting:MCFeatureDefaultBrowserPromptingAllowed sender:@"MCCleanupMigrator.migrateCleanupMigratorWithContext"];
+  }
+
+  else if (!v3)
+  {
+    goto LABEL_39;
+  }
+
+  v36 = _MCLogObjects[9];
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Fixing orphaned accounts...", buf, 2u);
+  }
+
+  +[MCAccountUtilities checkAccountConsistencyAndReleaseOrphanedAccounts];
+  +[DMCEnrollmentAccountUtilities removeOrphanedEnrollmentAccounts];
+LABEL_39:
+  v37 = +[MCProfileConnection sharedConnection];
+  unverifiedInstalledMDMProfileIdentifier = [v37 unverifiedInstalledMDMProfileIdentifier];
+
+  if (unverifiedInstalledMDMProfileIdentifier)
+  {
+    v39 = +[MCProvisioningProfileJanitor sharedJanitor];
+    [v39 didEnrollInMDMWithPasscodeContext:0 duringMigration:1];
+  }
+
+  [(MCNotifier *)self->_notifier sendCleanupMigrationFinishedNotification];
+  v40 = _MCLogObjects[12];
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "MCCleanupMigrator: work complete", buf, 2u);
+  }
 }
 
 - (void)migrateWithPostMigrationTaskQueue:(id)queue
@@ -2740,9 +3001,9 @@ LABEL_25:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v76 = [v10 objectForKey:@"Profile"];
-      v81 = [v10 objectForKey:@"Service"];
-      v73 = [v10 objectForKey:@"SCEP"];
+      v75 = [v10 objectForKey:@"Profile"];
+      v80 = [v10 objectForKey:@"Service"];
+      v72 = [v10 objectForKey:@"SCEP"];
       v11 = [NSData dataWithContentsOfFile:v8];
       v12 = [NSPropertyListSerialization MCSafePropertyListWithData:v11 options:2 format:0 error:0];
 
@@ -2754,66 +3015,66 @@ LABEL_25:
           v13 = [v12 objectForKey:@"HiddenProfiles"];
           v14 = [v13 mutableCopy];
 
-          v64 = v12;
+          v63 = v12;
           v15 = [v12 objectForKey:@"OrderedProfiles"];
           v16 = [v15 mutableCopy];
 
-          v91 = 0u;
-          v92 = 0u;
-          v89 = 0u;
           v90 = 0u;
+          v91 = 0u;
+          v88 = 0u;
+          v89 = 0u;
           v17 = v14;
-          v18 = [v17 countByEnumeratingWithState:&v89 objects:v96 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v88 objects:v95 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v90;
+            v20 = *v89;
             do
             {
               for (i = 0; i != v19; i = i + 1)
               {
-                if (*v90 != v20)
+                if (*v89 != v20)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                [v16 removeObject:*(*(&v89 + 1) + 8 * i)];
+                [v16 removeObject:*(*(&v88 + 1) + 8 * i)];
               }
 
-              v19 = [v17 countByEnumeratingWithState:&v89 objects:v96 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v88 objects:v95 count:16];
             }
 
             while (v19);
           }
 
           selfCopy = self;
-          v69 = v10;
-          v66 = v3;
-          v67 = v8;
-          v65 = v6;
-          v70 = v17;
+          v68 = v10;
+          v65 = v3;
+          v66 = v8;
+          v64 = v6;
+          v69 = v17;
 
-          v71 = +[NSMutableArray array];
+          v70 = +[NSMutableArray array];
+          v84 = 0u;
           v85 = 0u;
           v86 = 0u;
           v87 = 0u;
-          v88 = 0u;
           obj = v16;
-          v22 = v76;
-          v83 = [obj countByEnumeratingWithState:&v85 objects:v95 count:16];
-          if (v83)
+          v22 = v75;
+          v82 = [obj countByEnumeratingWithState:&v84 objects:v94 count:16];
+          if (v82)
           {
-            v82 = *v86;
+            v81 = *v85;
             do
             {
-              for (j = 0; j != v83; j = j + 1)
+              for (j = 0; j != v82; j = j + 1)
               {
-                if (*v86 != v82)
+                if (*v85 != v81)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v24 = *(*(&v85 + 1) + 8 * j);
+                v24 = *(*(&v84 + 1) + 8 * j);
                 v25 = objc_autoreleasePoolPush();
                 v26 = MCSystemProfileStorageDirectory();
                 v27 = [v24 MCHashedFilenameWithExtension:@"stub"];
@@ -2824,7 +3085,7 @@ LABEL_25:
                 v31 = [v22 objectForKey:v30];
                 if (v31)
                 {
-                  v32 = [v81 objectForKey:v31];
+                  v32 = [v80 objectForKey:v31];
                   mCMutableDeepCopy = [v32 MCMutableDeepCopy];
 
                   if (mCMutableDeepCopy)
@@ -2839,36 +3100,36 @@ LABEL_25:
                       v37 = [v35 objectForKey:@"SCEP"];
                       if (v37)
                       {
-                        v38 = [v73 objectForKey:v37];
+                        v38 = [v72 objectForKey:v37];
                         if (v38)
                         {
-                          v74 = v38;
+                          v73 = v38;
                           v39 = [v38 objectForKey:@"Persistent Reference"];
                           if (v39)
                           {
-                            v77 = v39;
-                            [v71 addObject:v39];
-                            [v36 setObject:v77 forKey:@"EnrollmentIdentityPersistentID"];
+                            v76 = v39;
+                            [v70 addObject:v39];
+                            [v36 setObject:v76 forKey:@"EnrollmentIdentityPersistentID"];
                             [v36 removeObjectForKey:@"SCEP"];
                             [v29 setObject:mCMutableDeepCopy forKey:@"OTAProfileStub"];
                             [v29 MCWriteToBinaryFile:v28];
                             log = _MCLogObjects[12];
                             v40 = os_log_type_enabled(log, OS_LOG_TYPE_INFO);
-                            v39 = v77;
+                            v39 = v76;
                             if (v40)
                             {
                               *buf = 138543362;
-                              v94 = v24;
+                              v93 = v24;
                               _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "Migrated OTA profile %{public}@", buf, 0xCu);
-                              v39 = v77;
+                              v39 = v76;
                             }
                           }
 
-                          v38 = v74;
+                          v38 = v73;
                         }
                       }
 
-                      v22 = v76;
+                      v22 = v75;
                     }
                   }
                 }
@@ -2876,18 +3137,18 @@ LABEL_25:
                 objc_autoreleasePoolPop(v25);
               }
 
-              v83 = [obj countByEnumeratingWithState:&v85 objects:v95 count:16];
+              v82 = [obj countByEnumeratingWithState:&v84 objects:v94 count:16];
             }
 
-            while (v83);
+            while (v82);
           }
 
-          v41 = v70;
-          v8 = v67;
+          v41 = v69;
+          v8 = v66;
           self = selfCopy;
-          v10 = v69;
+          v10 = v68;
           v42 = &kSecCMSAdditionalCerts_ptr;
-          if ([v70 count])
+          if ([v69 count])
           {
             v43 = 0;
             do
@@ -2899,61 +3160,61 @@ LABEL_25:
               v48 = [v46 stringByAppendingPathComponent:v47];
 
               v49 = [v42[89] dictionaryWithContentsOfFile:v48];
-              if (v49 && (v50 = v42[89], objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+              if (v49 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
-                v51 = [v49 objectForKey:@"PayloadContent"];
-                if (v51 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v51 count])
+                v50 = [v49 objectForKey:@"PayloadContent"];
+                if (v50 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v50 count])
                 {
-                  v52 = [v51 objectAtIndex:0];
-                  v84 = v52;
-                  if (v52 && (v53 = v52, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                  v51 = [v50 objectAtIndex:0];
+                  v83 = v51;
+                  if (v51 && (v52 = v51, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                   {
-                    v54 = [v53 objectForKey:@"PERSISTENT_REF"];
-                    if (v54 && [v71 containsObject:v54])
+                    v53 = [v52 objectForKey:@"PERSISTENT_REF"];
+                    if (v53 && [v70 containsObject:v53])
                     {
-                      v55 = _MCLogObjects[12];
-                      if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+                      v54 = _MCLogObjects[12];
+                      if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
                       {
                         *buf = 138543362;
-                        v94 = v45;
-                        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "Removing unused hidden profile %{public}@", buf, 0xCu);
+                        v93 = v45;
+                        _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_INFO, "Removing unused hidden profile %{public}@", buf, 0xCu);
                       }
 
-                      [v70 removeObjectAtIndex:v43];
+                      [v69 removeObjectAtIndex:v43];
                       fileManager = [(MCMigrator *)self fileManager];
-                      v78 = MCSystemProfileStorageDirectory();
+                      v77 = MCSystemProfileStorageDirectory();
                       mCOldStyleSafeFilenameHash = [v45 MCOldStyleSafeFilenameHash];
-                      v58 = [v78 stringByAppendingPathComponent:mCOldStyleSafeFilenameHash];
-                      [fileManager removeItemAtPath:v58 error:0];
+                      v57 = [v77 stringByAppendingPathComponent:mCOldStyleSafeFilenameHash];
+                      [fileManager removeItemAtPath:v57 error:0];
 
                       fileManager2 = [(MCMigrator *)selfCopy fileManager];
-                      v79 = MCSystemProfileStorageDirectory();
-                      v59 = [v45 MCHashedFilenameWithExtension:@"stub"];
-                      v60 = [v79 stringByAppendingPathComponent:v59];
-                      [fileManager2 removeItemAtPath:v60 error:0];
+                      v78 = MCSystemProfileStorageDirectory();
+                      v58 = [v45 MCHashedFilenameWithExtension:@"stub"];
+                      v59 = [v78 stringByAppendingPathComponent:v58];
+                      [fileManager2 removeItemAtPath:v59 error:0];
 
                       self = selfCopy;
-                      v61 = 0;
-                      v8 = v67;
+                      v60 = 0;
+                      v8 = v66;
                     }
 
                     else
                     {
-                      v61 = 1;
+                      v60 = 1;
                     }
 
-                    v10 = v69;
+                    v10 = v68;
                   }
 
                   else
                   {
-                    v61 = 1;
+                    v60 = 1;
                   }
                 }
 
                 else
                 {
-                  v61 = 1;
+                  v60 = 1;
                 }
 
                 v42 = &kSecCMSAdditionalCerts_ptr;
@@ -2961,24 +3222,24 @@ LABEL_25:
 
               else
               {
-                v61 = 1;
+                v60 = 1;
               }
 
-              v43 += v61;
+              v43 += v60;
               objc_autoreleasePoolPop(v44);
-              v41 = v70;
+              v41 = v69;
             }
 
-            while (v43 < [v70 count]);
+            while (v43 < [v69 count]);
           }
 
-          v12 = v64;
-          [v64 setObject:v41 forKey:@"HiddenProfiles"];
-          [v64 setObject:obj forKey:@"OrderedProfiles"];
-          [v64 MCWriteToBinaryFile:v8];
+          v12 = v63;
+          [v63 setObject:v41 forKey:@"HiddenProfiles"];
+          [v63 setObject:obj forKey:@"OrderedProfiles"];
+          [v63 MCWriteToBinaryFile:v8];
 
-          v6 = v65;
-          v3 = v66;
+          v6 = v64;
+          v3 = v65;
         }
       }
     }
@@ -2987,11 +3248,11 @@ LABEL_25:
   fileManager3 = [(MCMigrator *)self fileManager];
   [fileManager3 removeItemAtPath:v6 error:0];
 
-  v63 = _MCLogObjects[12];
-  if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+  v62 = _MCLogObjects[12];
+  if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "Completed migrating OTA profiles.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "Completed migrating OTA profiles.", buf, 2u);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -3717,16 +3978,16 @@ LABEL_37:
   v6 = MCRestrictedBoolKey;
   if (buf[0])
   {
-    v144 = MCRestrictedBoolKey;
-    v142 = MCFeatureAllowVoiceDialing;
-    v140 = MCSettingParameterValueKey;
+    v143 = MCRestrictedBoolKey;
+    v141 = MCFeatureAllowVoiceDialing;
+    v139 = MCSettingParameterValueKey;
     v7 = [NSNumber numberWithUnsignedChar:AppBooleanValue];
-    v141 = v7;
-    v8 = [NSDictionary dictionaryWithObjects:&v141 forKeys:&v140 count:1];
-    v143 = v8;
-    v9 = [NSDictionary dictionaryWithObjects:&v143 forKeys:&v142 count:1];
-    v145 = v9;
-    v10 = [NSDictionary dictionaryWithObjects:&v145 forKeys:&v144 count:1];
+    v140 = v7;
+    v8 = [NSDictionary dictionaryWithObjects:&v140 forKeys:&v139 count:1];
+    v142 = v8;
+    v9 = [NSDictionary dictionaryWithObjects:&v142 forKeys:&v141 count:1];
+    v144 = v9;
+    v10 = [NSDictionary dictionaryWithObjects:&v144 forKeys:&v143 count:1];
 
     v11 = +[MCRestrictionManagerWriter sharedManager];
     [v11 setParametersForSettingsByType:v10 sender:@"MCMigrator.MigrateSettings"];
@@ -3737,56 +3998,56 @@ LABEL_37:
 
   v14 = [systemUserSettings objectForKey:v6];
   v15 = MCRestrictedValueKey;
-  v116 = systemUserSettings;
-  v114 = [systemUserSettings objectForKey:MCRestrictedValueKey];
+  v115 = systemUserSettings;
+  v113 = [systemUserSettings objectForKey:MCRestrictedValueKey];
   v16 = +[NSMutableDictionary dictionary];
   v17 = +[NSMutableDictionary dictionary];
-  v112 = v6;
+  v111 = v6;
   [v16 setObject:v17 forKey:v6];
   v18 = +[NSMutableDictionary dictionary];
-  v120 = v15;
+  v119 = v15;
   [v16 setObject:v18 forKey:v15];
-  v138[0] = @"explicitContent";
-  v138[1] = @"applicationInstallation";
+  v137[0] = @"explicitContent";
+  v137[1] = @"applicationInstallation";
   v19 = MCFeatureAppInstallationAllowed;
-  v139[0] = MCFeatureExplicitContentAllowed;
-  v139[1] = MCFeatureAppInstallationAllowed;
-  v138[2] = @"camera";
-  v138[3] = @"screenShot";
+  v138[0] = MCFeatureExplicitContentAllowed;
+  v138[1] = MCFeatureAppInstallationAllowed;
+  v137[2] = @"camera";
+  v137[3] = @"screenShot";
   v20 = MCFeatureCameraAllowed;
-  v139[2] = MCFeatureCameraAllowed;
-  v139[3] = MCFeatureScreenShotAllowed;
-  v138[4] = @"inAppPurchases";
-  v139[4] = MCFeatureInAppPurchasesAllowed;
-  v21 = [NSDictionary dictionaryWithObjects:v139 forKeys:v138 count:5];
+  v138[2] = MCFeatureCameraAllowed;
+  v138[3] = MCFeatureScreenShotAllowed;
+  v137[4] = @"inAppPurchases";
+  v138[4] = MCFeatureInAppPurchasesAllowed;
+  v21 = [NSDictionary dictionaryWithObjects:v138 forKeys:v137 count:5];
   [(MCMigrator *)self _migrateBoolRestrictions:v17 withAppID:v4 forKey:@"SBParentalControlsCapabilities" valuesToRestrictions:v21 currentBoolUserSettings:v14];
   CFPreferencesSetAppValue(@"SBParentalControlsMCCapabilities", 0, v4);
-  v136[0] = MCSafariBundleIdentifier;
-  v136[1] = MCCameraBundleIdentifier;
-  v137[0] = MCFeatureSafariAllowed;
-  v137[1] = v20;
-  v136[2] = @"com.apple.youtube";
+  v135[0] = MCSafariBundleIdentifier;
+  v135[1] = MCCameraBundleIdentifier;
+  v136[0] = MCFeatureSafariAllowed;
+  v136[1] = v20;
+  v135[2] = @"com.apple.youtube";
+  v135[3] = MCFeatureITunesAllowed;
+  v136[2] = MCFeatureYouTubeAllowed;
   v136[3] = MCFeatureITunesAllowed;
-  v137[2] = MCFeatureYouTubeAllowed;
-  v137[3] = MCFeatureITunesAllowed;
-  v136[4] = MCAppStoreBundleIdentifier;
-  v137[4] = v19;
-  v22 = [NSDictionary dictionaryWithObjects:v137 forKeys:v136 count:5];
-  v115 = v14;
+  v135[4] = MCAppStoreBundleIdentifier;
+  v136[4] = v19;
+  v22 = [NSDictionary dictionaryWithObjects:v136 forKeys:v135 count:5];
+  v114 = v14;
   [(MCMigrator *)self _migrateBoolRestrictions:v17 withAppID:v4 forKey:@"SBParentalControlsApplications" valuesToRestrictions:v22 currentBoolUserSettings:v14];
   CFPreferencesSetAppValue(@"SBParentalControlsMCApplications", 0, v4);
-  v134[0] = @"apps";
-  v134[1] = @"tvshows";
-  v118 = MCFeatureMaximumAppsRating;
-  v135[0] = MCFeatureMaximumAppsRating;
-  v135[1] = MCFeatureMaximumTVShowsRating;
-  v134[2] = @"movies";
-  v135[2] = MCFeatureMaximumMoviesRating;
-  v23 = [NSDictionary dictionaryWithObjects:v135 forKeys:v134 count:3];
+  v133[0] = @"apps";
+  v133[1] = @"tvshows";
+  v117 = MCFeatureMaximumAppsRating;
+  v134[0] = MCFeatureMaximumAppsRating;
+  v134[1] = MCFeatureMaximumTVShowsRating;
+  v133[2] = @"movies";
+  v134[2] = MCFeatureMaximumMoviesRating;
+  v23 = [NSDictionary dictionaryWithObjects:v134 forKeys:v133 count:3];
   selfCopy = self;
-  [(MCMigrator *)self _migrateValueRestrictions:v18 withAppID:v4 forKey:@"SBParentalControlsMCContentRestrictions" keysToRestricitons:v23 currentValueUserSettings:v114];
-  v24 = [v114 objectForKeyedSubscript:MCFeatureMaximumFailedPasscodeAttempts];
-  v113 = MCRestrictedValueValueKey;
+  [(MCMigrator *)self _migrateValueRestrictions:v18 withAppID:v4 forKey:@"SBParentalControlsMCContentRestrictions" keysToRestricitons:v23 currentValueUserSettings:v113];
+  v24 = [v113 objectForKeyedSubscript:MCFeatureMaximumFailedPasscodeAttempts];
+  v112 = MCRestrictedValueValueKey;
   v25 = [v24 objectForKeyedSubscript:?];
 
   if (v25)
@@ -3816,7 +4077,7 @@ LABEL_37:
 
   v29 = +[NSMutableDictionary dictionary];
   v30 = +[NSMutableDictionary dictionary];
-  [v29 setObject:v30 forKey:v120];
+  [v29 setObject:v30 forKey:v119];
   v31 = CFPreferencesCopyAppValue(@"SBAutoLockTime", v4);
   v32 = &kSecCMSAdditionalCerts_ptr;
   v33 = &sem_close_ptr;
@@ -3833,10 +4094,10 @@ LABEL_37:
         *buf = 0x7FFFFFFF;
       }
 
-      v132 = v113;
+      v131 = v112;
       v36 = [NSNumber numberWithInt:?];
-      v133 = v36;
-      v37 = [NSDictionary dictionaryWithObjects:&v133 forKeys:&v132 count:1];
+      v132 = v36;
+      v37 = [NSDictionary dictionaryWithObjects:&v132 forKeys:&v131 count:1];
       [v30 setObject:v37 forKeyedSubscript:MCFeatureAutoLockTime];
 
       v33 = &sem_close_ptr;
@@ -3851,10 +4112,10 @@ LABEL_37:
     v39 = v38;
     *buf = 0;
     CFNumberGetValue(v38, kCFNumberLongType, buf);
-    v130 = v113;
+    v129 = v112;
     v40 = [NSNumber numberWithUnsignedLong:*buf];
-    v131 = v40;
-    v41 = [NSDictionary dictionaryWithObjects:&v131 forKeys:&v130 count:1];
+    v130 = v40;
+    v41 = [NSDictionary dictionaryWithObjects:&v130 forKeys:&v129 count:1];
     [v30 setObject:v41 forKeyedSubscript:MCFeaturePasscodeLockGraceTime];
 
     v33 = &sem_close_ptr;
@@ -3891,10 +4152,10 @@ LABEL_37:
   {
     v51 = +[MCRestrictionManagerWriter sharedManager];
     v52 = MCLocalizedFormat();
-    v122 = 0;
-    LOBYTE(v110) = 0;
-    [v51 setClientRestrictions:0 overrideRestrictions:0 appsAndOptions:0 system:1 clientType:@"com.apple.profiled.trustedcodesigningidentities" clientUUID:@"com.apple.profiled.trustedcodesigningidentities" sender:@"MCMigrator._migrateSettings" localizedClientDescription:v52 localizedWarning:0 shouldRecomputeNag:v110 outRestrictionsChanged:0 outEffectiveSettingsChanged:0 outRecomputedNag:0 outError:&v122];
-    v53 = v122;
+    v121 = 0;
+    LOBYTE(v109) = 0;
+    [v51 setClientRestrictions:0 overrideRestrictions:0 appsAndOptions:0 system:1 clientType:@"com.apple.profiled.trustedcodesigningidentities" clientUUID:@"com.apple.profiled.trustedcodesigningidentities" sender:@"MCMigrator._migrateSettings" localizedClientDescription:v52 localizedWarning:0 shouldRecomputeNag:v109 outRestrictionsChanged:0 outEffectiveSettingsChanged:0 outRecomputedNag:0 outError:&v121];
+    v53 = v121;
 
     v54 = _MCLogObjects[12];
     if (v53)
@@ -3933,7 +4194,7 @@ LABEL_31:
     v60 = v59;
     v61 = +[NSMutableDictionary dictionary];
     v62 = +[NSMutableDictionary dictionary];
-    [v61 setObject:v62 forKey:v112];
+    [v61 setObject:v62 forKey:v111];
     v63 = +[NSMutableDictionary dictionary];
     [v62 setObject:v63 forKey:MCFeatureAssistantWhileLockedAllowed];
     v64 = [v33[244] numberWithBool:v60 == 0];
@@ -4044,58 +4305,57 @@ LABEL_31:
   v81 = [v80 stringByAppendingPathComponent:@"/System/Library/OnBoardingBundles/com.apple.onboarding.improvehealth.bundle/ImproveHealth.plist"];
 
   v82 = [NSURL fileURLWithPath:v81 isDirectory:0];
-  v121 = 0;
-  v83 = [NSDictionary dictionaryWithContentsOfURL:v82 error:&v121];
-  v84 = v121;
+  v120 = 0;
+  v83 = [NSDictionary dictionaryWithContentsOfURL:v82 error:&v120];
+  v84 = v120;
   if (v83)
   {
     v85 = [v83 objectForKeyedSubscript:@"ContentVersion"];
-    v86 = v33[244];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       integerValue = [v85 integerValue];
-      v88 = CFPreferencesCopyAppValue(@"MCFeatureHealthDataSubmissionAllowedVersion", @"com.apple.managedconfiguration.profiled");
-      integerValue2 = [v88 integerValue];
+      v87 = CFPreferencesCopyAppValue(@"MCFeatureHealthDataSubmissionAllowedVersion", @"com.apple.managedconfiguration.profiled");
+      integerValue2 = [v87 integerValue];
 
-      v90 = _MCLogObjects[12];
-      if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+      v89 = _MCLogObjects[12];
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
         *&buf[4] = integerValue;
-        v128 = 2048;
-        v129 = integerValue2;
-        _os_log_impl(&_mh_execute_header, v90, OS_LOG_TYPE_DEFAULT, "ImproveHealth currentContentVersion: %ld lastResetVersion: %ld", buf, 0x16u);
+        v127 = 2048;
+        v128 = integerValue2;
+        _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, "ImproveHealth currentContentVersion: %ld lastResetVersion: %ld", buf, 0x16u);
       }
 
-      v91 = integerValue2 < integerValue;
+      v90 = integerValue2 < integerValue;
       v32 = &kSecCMSAdditionalCerts_ptr;
-      if (!v91)
+      if (!v90)
       {
         goto LABEL_70;
       }
 
-      v92 = +[MCRestrictionManagerWriter sharedManager];
-      [v92 removeBoolSetting:MCFeatureHealthDataSubmissionAllowed sender:@"MCMigrator.MigrateSettings"];
+      v91 = +[MCRestrictionManagerWriter sharedManager];
+      [v91 removeBoolSetting:MCFeatureHealthDataSubmissionAllowed sender:@"MCMigrator.MigrateSettings"];
 
       v32 = &kSecCMSAdditionalCerts_ptr;
       CFPreferencesSetAppValue(@"MCFeatureHealthDataSubmissionAllowedVersion", [NSNumber numberWithInteger:integerValue], @"com.apple.managedconfiguration.profiled");
-      v93 = _MCLogObjects[12];
-      if (!os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
+      v92 = _MCLogObjects[12];
+      if (!os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_70;
       }
 
       *buf = 0;
-      v94 = "Reset Allow Health Data Submission.";
-      v95 = v93;
-      v96 = OS_LOG_TYPE_DEFAULT;
+      v93 = "Reset Allow Health Data Submission.";
+      v94 = v92;
+      v95 = OS_LOG_TYPE_DEFAULT;
     }
 
     else
     {
-      v98 = _MCLogObjects[12];
-      if (!os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+      v97 = _MCLogObjects[12];
+      if (!os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
       {
 LABEL_70:
 
@@ -4103,54 +4363,54 @@ LABEL_70:
       }
 
       *buf = 0;
-      v94 = "Failed to read ContentVersion from OnBoardingBundle.";
-      v95 = v98;
-      v96 = OS_LOG_TYPE_ERROR;
+      v93 = "Failed to read ContentVersion from OnBoardingBundle.";
+      v94 = v97;
+      v95 = OS_LOG_TYPE_ERROR;
     }
 
-    _os_log_impl(&_mh_execute_header, v95, v96, v94, buf, 2u);
+    _os_log_impl(&_mh_execute_header, v94, v95, v93, buf, 2u);
     goto LABEL_70;
   }
 
-  v97 = _MCLogObjects[12];
-  if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+  v96 = _MCLogObjects[12];
+  if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
     *&buf[4] = v84;
-    _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_ERROR, "Failed to load ImproveHealth OnBoardingBundle. Error: %{public}@", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_ERROR, "Failed to load ImproveHealth OnBoardingBundle. Error: %{public}@", buf, 0xCu);
   }
 
 LABEL_71:
 
-  v99 = +[MCRestrictionManager sharedManager];
-  userSettings = [v99 userSettings];
-  v101 = [userSettings objectForKeyedSubscript:v120];
-  v102 = [v101 objectForKeyedSubscript:v118];
-  v103 = [v102 mutableCopy];
+  v98 = +[MCRestrictionManager sharedManager];
+  userSettings = [v98 userSettings];
+  v100 = [userSettings objectForKeyedSubscript:v119];
+  v101 = [v100 objectForKeyedSubscript:v117];
+  v102 = [v101 mutableCopy];
 
-  v104 = MCSettingParameterRangeMaximumKey;
-  v105 = [v103 objectForKeyedSubscript:MCSettingParameterRangeMaximumKey];
-  LOBYTE(v101) = [v105 isEqualToNumber:&off_1001271B0];
+  v103 = MCSettingParameterRangeMaximumKey;
+  v104 = [v102 objectForKeyedSubscript:MCSettingParameterRangeMaximumKey];
+  LOBYTE(v100) = [v104 isEqualToNumber:&off_1001271B0];
 
-  if ((v101 & 1) == 0)
+  if ((v100 & 1) == 0)
   {
-    [v103 setObject:&off_1001271B0 forKeyedSubscript:v104];
-    v124 = v103;
-    v125 = v120;
-    v123 = v118;
-    v106 = [v32[89] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
-    v126 = v106;
-    v107 = [v32[89] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
+    [v102 setObject:&off_1001271B0 forKeyedSubscript:v103];
+    v123 = v102;
+    v124 = v119;
+    v122 = v117;
+    v105 = [v32[89] dictionaryWithObjects:&v123 forKeys:&v122 count:1];
+    v125 = v105;
+    v106 = [v32[89] dictionaryWithObjects:&v125 forKeys:&v124 count:1];
 
-    v108 = +[MCRestrictionManagerWriter sharedManager];
-    [v108 setParametersForSettingsByType:v107 sender:@"MCMigrator.MigrateSettings"];
+    v107 = +[MCRestrictionManagerWriter sharedManager];
+    [v107 setParametersForSettingsByType:v106 sender:@"MCMigrator.MigrateSettings"];
   }
 
-  v109 = _MCLogObjects[12];
-  if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
+  v108 = _MCLogObjects[12];
+  if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v109, OS_LOG_TYPE_DEFAULT, "Completed migrating settings.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_DEFAULT, "Completed migrating settings.", buf, 2u);
   }
 
   objc_autoreleasePoolPop(context);
@@ -6008,7 +6268,7 @@ LABEL_33:
 
 - (void)_tagIMAPAccountsWithProfileAndPayloadProperties
 {
-  v34 = objc_autoreleasePoolPush();
+  v32 = objc_autoreleasePoolPush();
   v2 = _MCLogObjects[12];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -6016,161 +6276,158 @@ LABEL_33:
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Adding missing tags to IMAP accounts...", buf, 2u);
   }
 
-  v41 = +[MailAccount mailAccounts];
+  v39 = +[MailAccount mailAccounts];
+  v59 = 0u;
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
-  v64 = 0u;
   v3 = +[MCManifest sharedManifest];
   allInstalledProfileIdentifiers = [v3 allInstalledProfileIdentifiers];
 
   obj = allInstalledProfileIdentifiers;
-  v38 = [allInstalledProfileIdentifiers countByEnumeratingWithState:&v61 objects:v69 count:16];
+  v36 = [allInstalledProfileIdentifiers countByEnumeratingWithState:&v59 objects:v67 count:16];
   v5 = 0;
-  if (v38)
+  if (v36)
   {
-    v37 = *v62;
+    v35 = *v60;
     v6 = MailAccountManagedTag;
-    v47 = kMCAccountProfileUUIDKey;
-    v45 = MailAccountManagedTag;
-    v46 = kMCAccountPayloadUUIDKey;
-    v7 = &MCRestrictedBoolValueKey_ptr;
+    v45 = kMCAccountProfileUUIDKey;
+    v43 = MailAccountManagedTag;
+    v44 = kMCAccountPayloadUUIDKey;
     do
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        if (*v62 != v37)
+        if (*v60 != v35)
         {
-          v9 = v8;
+          v8 = v7;
           objc_enumerationMutation(obj);
-          v8 = v9;
+          v7 = v8;
         }
 
-        v40 = v8;
-        v10 = *(*(&v61 + 1) + 8 * v8);
+        v38 = v7;
+        v9 = *(*(&v59 + 1) + 8 * v7);
         context = objc_autoreleasePoolPush();
-        v11 = +[MCManifest sharedManifest];
-        v12 = [v11 installedProfileWithIdentifier:v10];
+        v10 = +[MCManifest sharedManifest];
+        v11 = [v10 installedProfileWithIdentifier:v9];
 
-        v59 = 0u;
-        v60 = 0u;
         v57 = 0u;
         v58 = 0u;
-        v48 = v12;
-        payloads = [v12 payloads];
-        v13 = [payloads countByEnumeratingWithState:&v57 objects:v68 count:16];
-        if (v13)
+        v55 = 0u;
+        v56 = 0u;
+        v46 = v11;
+        payloads = [v11 payloads];
+        v12 = [payloads countByEnumeratingWithState:&v55 objects:v66 count:16];
+        if (v12)
         {
-          v14 = v13;
-          v15 = *v58;
-          v42 = *v58;
+          v13 = v12;
+          v14 = *v56;
+          v40 = *v56;
           do
           {
-            v16 = 0;
-            v43 = v14;
+            v15 = 0;
+            v41 = v13;
             do
             {
-              if (*v58 != v15)
+              if (*v56 != v14)
               {
                 objc_enumerationMutation(payloads);
               }
 
-              v17 = *(*(&v57 + 1) + 8 * v16);
-              v18 = objc_autoreleasePoolPush();
-              v19 = v7[55];
+              v16 = *(*(&v55 + 1) + 8 * v15);
+              v17 = objc_autoreleasePoolPush();
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v50 = v17;
-                persistentResourceID = [v50 persistentResourceID];
+                v48 = v16;
+                persistentResourceID = [v48 persistentResourceID];
+                v51 = 0u;
+                v52 = 0u;
                 v53 = 0u;
                 v54 = 0u;
-                v55 = 0u;
-                v56 = 0u;
-                v51 = v41;
-                v21 = [v51 countByEnumeratingWithState:&v53 objects:v67 count:16];
-                if (v21)
+                v49 = v39;
+                v19 = [v49 countByEnumeratingWithState:&v51 objects:v65 count:16];
+                if (v19)
                 {
-                  v22 = v21;
-                  v23 = *v54;
-                  v49 = persistentResourceID;
+                  v20 = v19;
+                  v21 = *v52;
+                  v47 = persistentResourceID;
                   do
                   {
-                    for (i = 0; i != v22; i = i + 1)
+                    for (i = 0; i != v20; i = i + 1)
                     {
-                      if (*v54 != v23)
+                      if (*v52 != v21)
                       {
-                        objc_enumerationMutation(v51);
+                        objc_enumerationMutation(v49);
                       }
 
-                      v25 = *(*(&v53 + 1) + 8 * i);
-                      v26 = [v25 accountPropertyForKey:v6];
-                      v27 = v26;
-                      if (v26 && [v26 isEqualToString:persistentResourceID])
+                      v23 = *(*(&v51 + 1) + 8 * i);
+                      v24 = [v23 accountPropertyForKey:v6];
+                      v25 = v24;
+                      if (v24 && [v24 isEqualToString:persistentResourceID])
                       {
-                        [v48 UUID];
-                        v28 = v52 = v5;
-                        [v25 setAccountProperty:v28 forKey:v47];
+                        [v46 UUID];
+                        v26 = v50 = v5;
+                        [v23 setAccountProperty:v26 forKey:v45];
 
-                        uUID = [v50 UUID];
-                        [v25 setAccountProperty:uUID forKey:v46];
+                        uUID = [v48 UUID];
+                        [v23 setAccountProperty:uUID forKey:v44];
 
-                        deliveryAccount = [v25 deliveryAccount];
-                        uUID2 = [v48 UUID];
-                        [deliveryAccount setAccountProperty:uUID2 forKey:v47];
+                        deliveryAccount = [v23 deliveryAccount];
+                        uUID2 = [v46 UUID];
+                        [deliveryAccount setAccountProperty:uUID2 forKey:v45];
 
-                        uUID3 = [v50 UUID];
-                        [deliveryAccount setAccountProperty:uUID3 forKey:v46];
+                        uUID3 = [v48 UUID];
+                        [deliveryAccount setAccountProperty:uUID3 forKey:v44];
 
-                        v6 = v45;
-                        persistentResourceID = v49;
-                        v5 = v52 + 1;
+                        v6 = v43;
+                        persistentResourceID = v47;
+                        v5 = v50 + 1;
                       }
                     }
 
-                    v22 = [v51 countByEnumeratingWithState:&v53 objects:v67 count:16];
+                    v20 = [v49 countByEnumeratingWithState:&v51 objects:v65 count:16];
                   }
 
-                  while (v22);
+                  while (v20);
                 }
 
-                v7 = &MCRestrictedBoolValueKey_ptr;
-                v15 = v42;
-                v14 = v43;
+                v14 = v40;
+                v13 = v41;
               }
 
-              objc_autoreleasePoolPop(v18);
-              v16 = v16 + 1;
+              objc_autoreleasePoolPop(v17);
+              v15 = v15 + 1;
             }
 
-            while (v16 != v14);
-            v14 = [payloads countByEnumeratingWithState:&v57 objects:v68 count:16];
+            while (v15 != v13);
+            v13 = [payloads countByEnumeratingWithState:&v55 objects:v66 count:16];
           }
 
-          while (v14);
+          while (v13);
         }
 
         objc_autoreleasePoolPop(context);
-        v8 = v40 + 1;
+        v7 = v38 + 1;
       }
 
-      while ((v40 + 1) != v38);
-      v38 = [obj countByEnumeratingWithState:&v61 objects:v69 count:16];
+      while ((v38 + 1) != v36);
+      v36 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
     }
 
-    while (v38);
+    while (v36);
   }
 
-  v33 = _MCLogObjects[12];
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v31 = _MCLogObjects[12];
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v66 = v5;
-    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Done adding missing tags to %d IMAP accounts.", buf, 8u);
+    v64 = v5;
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Done adding missing tags to %d IMAP accounts.", buf, 8u);
   }
 
-  objc_autoreleasePoolPop(v35);
+  objc_autoreleasePoolPop(v33);
 }
 
 - (void)_validateCloudConfiguration

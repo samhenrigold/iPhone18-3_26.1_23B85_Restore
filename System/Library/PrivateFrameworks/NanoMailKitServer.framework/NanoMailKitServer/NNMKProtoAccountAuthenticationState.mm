@@ -69,42 +69,41 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_accountId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    standaloneState = self->_standaloneState;
     PBDataWriterWriteUint32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_displayName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_subsectionId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_emailAddressToken)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_pccEmailAddress)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -198,7 +197,6 @@
     }
   }
 
-  v6 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_standaloneState != *(equalCopy + 10))
@@ -210,7 +208,7 @@
   else if (*(equalCopy + 56))
   {
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
@@ -241,17 +239,17 @@ LABEL_17:
   pccEmailAddress = self->_pccEmailAddress;
   if (pccEmailAddress | *(equalCopy + 4))
   {
-    v11 = [(NSString *)pccEmailAddress isEqual:?];
+    v10 = [(NSString *)pccEmailAddress isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_18:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash

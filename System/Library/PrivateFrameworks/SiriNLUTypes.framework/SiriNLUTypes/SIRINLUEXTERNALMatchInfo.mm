@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)matchedAliasTypesAsString:(int)string;
 - (int)StringAsMatchedAliasTypes:(id)types;
 - (int)matchedAliasTypesAtIndex:(unint64_t)index;
 - (unint64_t)hash;
@@ -259,7 +260,6 @@ LABEL_51:
     goto LABEL_24;
   }
 
-  v5 = *(equalCopy + 104);
   if (*&self->_has)
   {
     if ((*(equalCopy + 104) & 1) == 0 || self->_matchSignalBitset != *(equalCopy + 12))
@@ -464,75 +464,73 @@ LABEL_25:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v7 = toCopy;
   if (*&self->_has)
   {
-    matchSignalBitset = self->_matchSignalBitset;
     PBDataWriterWriteFixed32Field();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   if (self->_matchScore)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   if (self->_maxTokenCount)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   if (self->_matchedTokenCount)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   if (self->_maxStopWordCount)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   if (self->_matchedStopWordCount)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   if (self->_editDistance)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   if (self->_maxAliasCount)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   if (self->_matchedAliasCount)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   p_matchedAliasTypes = &self->_matchedAliasTypes;
   if (p_matchedAliasTypes->count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = p_matchedAliasTypes->list[v7];
       PBDataWriterWriteInt32Field();
-      toCopy = v9;
-      ++v7;
+      toCopy = v7;
+      ++v6;
     }
 
-    while (v7 < p_matchedAliasTypes->count);
+    while (v6 < p_matchedAliasTypes->count);
   }
 }
 
@@ -713,6 +711,21 @@ LABEL_25:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)matchedAliasTypesAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8328420[string];
   }
 
   return v4;

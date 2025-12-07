@@ -29,37 +29,38 @@
   namespaceCopy = namespace;
   environmentCopy = environment;
   endowmentCopy = endowment;
+  v11 = endowmentCopy;
   if (!namespaceCopy)
   {
-    v11 = rbs_state_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = rbs_state_log(endowmentCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      [RBSProcessEndowmentInfo _initWithNamespace:v11 environment:? encodedEndowment:?];
+      [RBSProcessEndowmentInfo _initWithNamespace:v12 environment:? encodedEndowment:?];
     }
   }
 
-  v20.receiver = self;
-  v20.super_class = RBSProcessEndowmentInfo;
-  v12 = [(RBSProcessEndowmentInfo *)&v20 init];
-  if (v12)
+  v21.receiver = self;
+  v21.super_class = RBSProcessEndowmentInfo;
+  v13 = [(RBSProcessEndowmentInfo *)&v21 init];
+  if (v13)
   {
-    v13 = [namespaceCopy copy];
-    endowmentNamespace = v12->_endowmentNamespace;
-    v12->_endowmentNamespace = v13;
+    v14 = [namespaceCopy copy];
+    endowmentNamespace = v13->_endowmentNamespace;
+    v13->_endowmentNamespace = v14;
 
-    v15 = [environmentCopy copy];
-    environment = v12->_environment;
-    v12->_environment = v15;
+    v16 = [environmentCopy copy];
+    environment = v13->_environment;
+    v13->_environment = v16;
 
-    objc_storeStrong(&v12->_encodedEndowment, endowment);
-    v17 = [(OS_xpc_object *)v12->_encodedEndowment description];
-    v12->_encodedEndowmentHash = [v17 hash];
+    objc_storeStrong(&v13->_encodedEndowment, endowment);
+    v18 = [(OS_xpc_object *)v13->_encodedEndowment description];
+    v13->_encodedEndowmentHash = [v18 hash];
 
-    v18 = [(NSString *)v12->_endowmentNamespace hash];
-    v12->_hash = [(NSString *)v12->_environment hash]^ v18;
+    v19 = [(NSString *)v13->_endowmentNamespace hash];
+    v13->_hash = [(NSString *)v13->_environment hash]^ v19;
   }
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)isEqual:(id)equal

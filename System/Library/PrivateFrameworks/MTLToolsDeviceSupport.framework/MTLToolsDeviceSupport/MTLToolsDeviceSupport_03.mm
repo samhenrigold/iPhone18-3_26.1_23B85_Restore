@@ -1,4 +1,4 @@
-uint64_t GPUTools::MTL::GetResourcesBoundByFunction(int *a1, uint64_t a2)
+uint64_t GPUTools::MTL::GetResourcesBoundByFunction(int *a1, const void **a2)
 {
   v4 = 0;
   v5 = *a1;
@@ -24,8 +24,8 @@ uint64_t GPUTools::MTL::GetResourcesBoundByFunction(int *a1, uint64_t a2)
               for (i = 0; i != v140; ++i)
               {
                 v142 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), i);
-                v144 = *(a2 + 8);
-                v143 = *(a2 + 16);
+                v144 = a2[1];
+                v143 = a2[2];
                 if (v144 >= v143)
                 {
                   v146 = *a2;
@@ -60,12 +60,12 @@ LABEL_490:
                   }
 
                   *(8 * v148) = v142;
-                  v145 = 8 * v148 + 8;
+                  v145 = (8 * v148 + 8);
                   memcpy(0, v146, v147);
                   v152 = *a2;
                   *a2 = 0;
-                  *(a2 + 8) = v145;
-                  *(a2 + 16) = 0;
+                  a2[1] = v145;
+                  a2[2] = 0;
                   if (v152)
                   {
                     operator delete(v152);
@@ -75,10 +75,10 @@ LABEL_490:
                 else
                 {
                   *v144 = v142;
-                  v145 = (v144 + 1);
+                  v145 = v144 + 8;
                 }
 
-                *(a2 + 8) = v145;
+                a2[1] = v145;
                 v4 = 1;
               }
 
@@ -102,8 +102,8 @@ LABEL_490:
               for (j = 0; j != v224; ++j)
               {
                 v226 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), j);
-                v228 = *(a2 + 8);
-                v227 = *(a2 + 16);
+                v228 = a2[1];
+                v227 = a2[2];
                 if (v228 >= v227)
                 {
                   v230 = *a2;
@@ -137,12 +137,12 @@ LABEL_490:
                   }
 
                   *(8 * v232) = v226;
-                  v229 = 8 * v232 + 8;
+                  v229 = (8 * v232 + 8);
                   memcpy(0, v230, v231);
                   v236 = *a2;
                   *a2 = 0;
-                  *(a2 + 8) = v229;
-                  *(a2 + 16) = 0;
+                  a2[1] = v229;
+                  a2[2] = 0;
                   if (v236)
                   {
                     operator delete(v236);
@@ -152,10 +152,10 @@ LABEL_490:
                 else
                 {
                   *v228 = v226;
-                  v229 = (v228 + 1);
+                  v229 = v228 + 8;
                 }
 
-                *(a2 + 8) = v229;
+                a2[1] = v229;
                 v4 = 1;
               }
 
@@ -174,8 +174,8 @@ LABEL_490:
               for (k = 0; k != v182; ++k)
               {
                 v184 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), k);
-                v186 = *(a2 + 8);
-                v185 = *(a2 + 16);
+                v186 = a2[1];
+                v185 = a2[2];
                 if (v186 >= v185)
                 {
                   v188 = *a2;
@@ -209,12 +209,12 @@ LABEL_490:
                   }
 
                   *(8 * v190) = v184;
-                  v187 = 8 * v190 + 8;
+                  v187 = (8 * v190 + 8);
                   memcpy(0, v188, v189);
                   v194 = *a2;
                   *a2 = 0;
-                  *(a2 + 8) = v187;
-                  *(a2 + 16) = 0;
+                  a2[1] = v187;
+                  a2[2] = 0;
                   if (v194)
                   {
                     operator delete(v194);
@@ -224,10 +224,10 @@ LABEL_490:
                 else
                 {
                   *v186 = v184;
-                  v187 = (v186 + 1);
+                  v187 = v186 + 8;
                 }
 
-                *(a2 + 8) = v187;
+                a2[1] = v187;
                 v4 = 1;
               }
 
@@ -256,8 +256,8 @@ LABEL_490:
               for (m = 0; m != v168; ++m)
               {
                 v170 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), m);
-                v172 = *(a2 + 8);
-                v171 = *(a2 + 16);
+                v172 = a2[1];
+                v171 = a2[2];
                 if (v172 >= v171)
                 {
                   v174 = *a2;
@@ -291,12 +291,12 @@ LABEL_490:
                   }
 
                   *(8 * v176) = v170;
-                  v173 = 8 * v176 + 8;
+                  v173 = (8 * v176 + 8);
                   memcpy(0, v174, v175);
                   v180 = *a2;
                   *a2 = 0;
-                  *(a2 + 8) = v173;
-                  *(a2 + 16) = 0;
+                  a2[1] = v173;
+                  a2[2] = 0;
                   if (v180)
                   {
                     operator delete(v180);
@@ -306,10 +306,10 @@ LABEL_490:
                 else
                 {
                   *v172 = v170;
-                  v173 = (v172 + 1);
+                  v173 = v172 + 8;
                 }
 
-                *(a2 + 8) = v173;
+                a2[1] = v173;
                 v4 = 1;
               }
 
@@ -340,8 +340,8 @@ LABEL_490:
           for (n = 0; n != v95; ++n)
           {
             v97 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), n);
-            v99 = *(a2 + 8);
-            v98 = *(a2 + 16);
+            v99 = a2[1];
+            v98 = a2[2];
             if (v99 >= v98)
             {
               v101 = *a2;
@@ -375,12 +375,12 @@ LABEL_490:
               }
 
               *(8 * v103) = v97;
-              v100 = 8 * v103 + 8;
+              v100 = (8 * v103 + 8);
               memcpy(0, v101, v102);
               v107 = *a2;
               *a2 = 0;
-              *(a2 + 8) = v100;
-              *(a2 + 16) = 0;
+              a2[1] = v100;
+              a2[2] = 0;
               if (v107)
               {
                 operator delete(v107);
@@ -390,10 +390,10 @@ LABEL_490:
             else
             {
               *v99 = v97;
-              v100 = (v99 + 1);
+              v100 = v99 + 8;
             }
 
-            *(a2 + 8) = v100;
+            a2[1] = v100;
             v4 = 1;
           }
 
@@ -411,7 +411,7 @@ LABEL_490:
           {
             v321 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), 0);
             std::vector<unsigned long long>::emplace_back<unsigned long long>(a2, &v321);
-            v138 = (a1 + 24);
+            v138 = a1 + 24;
 LABEL_439:
             v321 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(v138, 0);
             std::vector<unsigned long long>::emplace_back<unsigned long long>(a2, &v321);
@@ -420,7 +420,7 @@ LABEL_439:
 
           if (v5 == -15878)
           {
-            v136 = (a1 + 18);
+            v136 = a1 + 18;
             goto LABEL_420;
           }
 
@@ -442,7 +442,7 @@ LABEL_439:
 
           v321 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 36), 0);
           std::vector<unsigned long long>::emplace_back<unsigned long long>(a2, &v321);
-          v22 = (a1 + 60);
+          v22 = a1 + 60;
 LABEL_267:
           v321 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(v22, 0);
           std::vector<unsigned long long>::emplace_back<unsigned long long>(a2, &v321);
@@ -450,7 +450,7 @@ LABEL_267:
         }
 
 LABEL_243:
-        v22 = (a1 + 24);
+        v22 = a1 + 24;
         goto LABEL_267;
       }
 
@@ -496,8 +496,8 @@ LABEL_243:
                 for (ii = 0; ii != v252; ++ii)
                 {
                   v254 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), ii);
-                  v256 = *(a2 + 8);
-                  v255 = *(a2 + 16);
+                  v256 = a2[1];
+                  v255 = a2[2];
                   if (v256 >= v255)
                   {
                     v258 = *a2;
@@ -531,12 +531,12 @@ LABEL_243:
                     }
 
                     *(8 * v260) = v254;
-                    v257 = 8 * v260 + 8;
+                    v257 = (8 * v260 + 8);
                     memcpy(0, v258, v259);
                     v264 = *a2;
                     *a2 = 0;
-                    *(a2 + 8) = v257;
-                    *(a2 + 16) = 0;
+                    a2[1] = v257;
+                    a2[2] = 0;
                     if (v264)
                     {
                       operator delete(v264);
@@ -546,10 +546,10 @@ LABEL_243:
                   else
                   {
                     *v256 = v254;
-                    v257 = (v256 + 1);
+                    v257 = v256 + 8;
                   }
 
-                  *(a2 + 8) = v257;
+                  a2[1] = v257;
                   v4 = 1;
                 }
               }
@@ -569,8 +569,8 @@ LABEL_243:
                   for (jj = 0; jj != v52; ++jj)
                   {
                     v54 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), jj);
-                    v56 = *(a2 + 8);
-                    v55 = *(a2 + 16);
+                    v56 = a2[1];
+                    v55 = a2[2];
                     if (v56 >= v55)
                     {
                       v58 = *a2;
@@ -604,12 +604,12 @@ LABEL_243:
                       }
 
                       *(8 * v60) = v54;
-                      v57 = 8 * v60 + 8;
+                      v57 = (8 * v60 + 8);
                       memcpy(0, v58, v59);
                       v64 = *a2;
                       *a2 = 0;
-                      *(a2 + 8) = v57;
-                      *(a2 + 16) = 0;
+                      a2[1] = v57;
+                      a2[2] = 0;
                       if (v64)
                       {
                         operator delete(v64);
@@ -619,10 +619,10 @@ LABEL_243:
                     else
                     {
                       *v56 = v54;
-                      v57 = (v56 + 1);
+                      v57 = v56 + 8;
                     }
 
-                    *(a2 + 8) = v57;
+                    a2[1] = v57;
                     v4 = 1;
                   }
                 }
@@ -644,8 +644,8 @@ LABEL_243:
               for (kk = 0; kk != v154; ++kk)
               {
                 v156 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), kk);
-                v158 = *(a2 + 8);
-                v157 = *(a2 + 16);
+                v158 = a2[1];
+                v157 = a2[2];
                 if (v158 >= v157)
                 {
                   v160 = *a2;
@@ -679,12 +679,12 @@ LABEL_243:
                   }
 
                   *(8 * v162) = v156;
-                  v159 = 8 * v162 + 8;
+                  v159 = (8 * v162 + 8);
                   memcpy(0, v160, v161);
                   v166 = *a2;
                   *a2 = 0;
-                  *(a2 + 8) = v159;
-                  *(a2 + 16) = 0;
+                  a2[1] = v159;
+                  a2[2] = 0;
                   if (v166)
                   {
                     operator delete(v166);
@@ -694,10 +694,10 @@ LABEL_243:
                 else
                 {
                   *v158 = v156;
-                  v159 = (v158 + 1);
+                  v159 = v158 + 8;
                 }
 
-                *(a2 + 8) = v159;
+                a2[1] = v159;
                 v4 = 1;
               }
             }
@@ -721,8 +721,8 @@ LABEL_243:
               for (mm = 0; mm != v308; ++mm)
               {
                 v310 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), mm);
-                v312 = *(a2 + 8);
-                v311 = *(a2 + 16);
+                v312 = a2[1];
+                v311 = a2[2];
                 if (v312 >= v311)
                 {
                   v314 = *a2;
@@ -756,12 +756,12 @@ LABEL_243:
                   }
 
                   *(8 * v316) = v310;
-                  v313 = 8 * v316 + 8;
+                  v313 = (8 * v316 + 8);
                   memcpy(0, v314, v315);
                   v320 = *a2;
                   *a2 = 0;
-                  *(a2 + 8) = v313;
-                  *(a2 + 16) = 0;
+                  a2[1] = v313;
+                  a2[2] = 0;
                   if (v320)
                   {
                     operator delete(v320);
@@ -771,10 +771,10 @@ LABEL_243:
                 else
                 {
                   *v312 = v310;
-                  v313 = (v312 + 1);
+                  v313 = v312 + 8;
                 }
 
-                *(a2 + 8) = v313;
+                a2[1] = v313;
                 v4 = 1;
               }
             }
@@ -794,8 +794,8 @@ LABEL_243:
                 for (nn = 0; nn != v80; ++nn)
                 {
                   v82 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), nn);
-                  v84 = *(a2 + 8);
-                  v83 = *(a2 + 16);
+                  v84 = a2[1];
+                  v83 = a2[2];
                   if (v84 >= v83)
                   {
                     v86 = *a2;
@@ -829,12 +829,12 @@ LABEL_243:
                     }
 
                     *(8 * v88) = v82;
-                    v85 = 8 * v88 + 8;
+                    v85 = (8 * v88 + 8);
                     memcpy(0, v86, v87);
                     v92 = *a2;
                     *a2 = 0;
-                    *(a2 + 8) = v85;
-                    *(a2 + 16) = 0;
+                    a2[1] = v85;
+                    a2[2] = 0;
                     if (v92)
                     {
                       operator delete(v92);
@@ -844,10 +844,10 @@ LABEL_243:
                   else
                   {
                     *v84 = v82;
-                    v85 = (v84 + 1);
+                    v85 = v84 + 8;
                   }
 
-                  *(a2 + 8) = v85;
+                  a2[1] = v85;
                   v4 = 1;
                 }
               }
@@ -871,8 +871,8 @@ LABEL_243:
               for (i1 = 0; i1 != v294; ++i1)
               {
                 v296 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), i1);
-                v298 = *(a2 + 8);
-                v297 = *(a2 + 16);
+                v298 = a2[1];
+                v297 = a2[2];
                 if (v298 >= v297)
                 {
                   v300 = *a2;
@@ -906,12 +906,12 @@ LABEL_243:
                   }
 
                   *(8 * v302) = v296;
-                  v299 = 8 * v302 + 8;
+                  v299 = (8 * v302 + 8);
                   memcpy(0, v300, v301);
                   v306 = *a2;
                   *a2 = 0;
-                  *(a2 + 8) = v299;
-                  *(a2 + 16) = 0;
+                  a2[1] = v299;
+                  a2[2] = 0;
                   if (v306)
                   {
                     operator delete(v306);
@@ -921,10 +921,10 @@ LABEL_243:
                 else
                 {
                   *v298 = v296;
-                  v299 = (v298 + 1);
+                  v299 = v298 + 8;
                 }
 
-                *(a2 + 8) = v299;
+                a2[1] = v299;
                 v4 = 1;
               }
             }
@@ -955,8 +955,8 @@ LABEL_243:
             for (i2 = 0; i2 != v123; ++i2)
             {
               v125 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), i2);
-              v127 = *(a2 + 8);
-              v126 = *(a2 + 16);
+              v127 = a2[1];
+              v126 = a2[2];
               if (v127 >= v126)
               {
                 v129 = *a2;
@@ -990,12 +990,12 @@ LABEL_243:
                 }
 
                 *(8 * v131) = v125;
-                v128 = 8 * v131 + 8;
+                v128 = (8 * v131 + 8);
                 memcpy(0, v129, v130);
                 v135 = *a2;
                 *a2 = 0;
-                *(a2 + 8) = v128;
-                *(a2 + 16) = 0;
+                a2[1] = v128;
+                a2[2] = 0;
                 if (v135)
                 {
                   operator delete(v135);
@@ -1005,10 +1005,10 @@ LABEL_243:
               else
               {
                 *v127 = v125;
-                v128 = (v127 + 1);
+                v128 = v127 + 8;
               }
 
-              *(a2 + 8) = v128;
+              a2[1] = v128;
               v4 = 1;
             }
 
@@ -1035,8 +1035,8 @@ LABEL_243:
           for (i3 = 0; i3 != v238; ++i3)
           {
             v240 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), i3);
-            v242 = *(a2 + 8);
-            v241 = *(a2 + 16);
+            v242 = a2[1];
+            v241 = a2[2];
             if (v242 >= v241)
             {
               v244 = *a2;
@@ -1070,12 +1070,12 @@ LABEL_243:
               }
 
               *(8 * v246) = v240;
-              v243 = 8 * v246 + 8;
+              v243 = (8 * v246 + 8);
               memcpy(0, v244, v245);
               v250 = *a2;
               *a2 = 0;
-              *(a2 + 8) = v243;
-              *(a2 + 16) = 0;
+              a2[1] = v243;
+              a2[2] = 0;
               if (v250)
               {
                 operator delete(v250);
@@ -1085,10 +1085,10 @@ LABEL_243:
             else
             {
               *v242 = v240;
-              v243 = (v242 + 1);
+              v243 = v242 + 8;
             }
 
-            *(a2 + 8) = v243;
+            a2[1] = v243;
             v4 = 1;
           }
 
@@ -1101,7 +1101,7 @@ LABEL_243:
         }
 
 LABEL_440:
-        v22 = (a1 + 30);
+        v22 = a1 + 30;
         goto LABEL_267;
       }
 
@@ -1150,11 +1150,11 @@ LABEL_265:
             }
 
 LABEL_200:
-            v93 = (a1 + 18);
+            v93 = a1 + 18;
 LABEL_401:
             v321 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(v93, 0);
             std::vector<unsigned long long>::emplace_back<unsigned long long>(a2, &v321);
-            v22 = (a1 + 48);
+            v22 = a1 + 48;
             goto LABEL_267;
           }
 
@@ -1168,7 +1168,7 @@ LABEL_401:
         }
 
 LABEL_266:
-        v22 = (a1 + 18);
+        v22 = a1 + 18;
         goto LABEL_267;
       }
 
@@ -1178,7 +1178,7 @@ LABEL_266:
         {
           v321 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 30), 0);
           std::vector<unsigned long long>::emplace_back<unsigned long long>(a2, &v321);
-          v22 = (a1 + 42);
+          v22 = a1 + 42;
           goto LABEL_267;
         }
 
@@ -1197,7 +1197,7 @@ LABEL_266:
       }
 
 LABEL_421:
-      v22 = (a1 + 36);
+      v22 = a1 + 36;
       goto LABEL_267;
     }
 
@@ -1217,8 +1217,8 @@ LABEL_421:
               for (i4 = 0; i4 != v280; ++i4)
               {
                 v282 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), i4);
-                v284 = *(a2 + 8);
-                v283 = *(a2 + 16);
+                v284 = a2[1];
+                v283 = a2[2];
                 if (v284 >= v283)
                 {
                   v286 = *a2;
@@ -1252,12 +1252,12 @@ LABEL_421:
                   }
 
                   *(8 * v288) = v282;
-                  v285 = 8 * v288 + 8;
+                  v285 = (8 * v288 + 8);
                   memcpy(0, v286, v287);
                   v292 = *a2;
                   *a2 = 0;
-                  *(a2 + 8) = v285;
-                  *(a2 + 16) = 0;
+                  a2[1] = v285;
+                  a2[2] = 0;
                   if (v292)
                   {
                     operator delete(v292);
@@ -1267,10 +1267,10 @@ LABEL_421:
                 else
                 {
                   *v284 = v282;
-                  v285 = (v284 + 1);
+                  v285 = v284 + 8;
                 }
 
-                *(a2 + 8) = v285;
+                a2[1] = v285;
                 v4 = 1;
               }
             }
@@ -1286,8 +1286,8 @@ LABEL_421:
               for (i5 = 0; i5 != v24; ++i5)
               {
                 v26 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), i5);
-                v28 = *(a2 + 8);
-                v27 = *(a2 + 16);
+                v28 = a2[1];
+                v27 = a2[2];
                 if (v28 >= v27)
                 {
                   v30 = *a2;
@@ -1321,12 +1321,12 @@ LABEL_421:
                   }
 
                   *(8 * v32) = v26;
-                  v29 = 8 * v32 + 8;
+                  v29 = (8 * v32 + 8);
                   memcpy(0, v30, v31);
                   v36 = *a2;
                   *a2 = 0;
-                  *(a2 + 8) = v29;
-                  *(a2 + 16) = 0;
+                  a2[1] = v29;
+                  a2[2] = 0;
                   if (v36)
                   {
                     operator delete(v36);
@@ -1336,10 +1336,10 @@ LABEL_421:
                 else
                 {
                   *v28 = v26;
-                  v29 = (v28 + 1);
+                  v29 = v28 + 8;
                 }
 
-                *(a2 + 8) = v29;
+                a2[1] = v29;
                 v4 = 1;
               }
             }
@@ -1368,8 +1368,8 @@ LABEL_421:
         for (i6 = 0; i6 != v66; ++i6)
         {
           v68 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), i6);
-          v70 = *(a2 + 8);
-          v69 = *(a2 + 16);
+          v70 = a2[1];
+          v69 = a2[2];
           if (v70 >= v69)
           {
             v72 = *a2;
@@ -1403,12 +1403,12 @@ LABEL_421:
             }
 
             *(8 * v74) = v68;
-            v71 = 8 * v74 + 8;
+            v71 = (8 * v74 + 8);
             memcpy(0, v72, v73);
             v78 = *a2;
             *a2 = 0;
-            *(a2 + 8) = v71;
-            *(a2 + 16) = 0;
+            a2[1] = v71;
+            a2[2] = 0;
             if (v78)
             {
               operator delete(v78);
@@ -1418,10 +1418,10 @@ LABEL_421:
           else
           {
             *v70 = v68;
-            v71 = (v70 + 1);
+            v71 = v70 + 8;
           }
 
-          *(a2 + 8) = v71;
+          a2[1] = v71;
           v4 = 1;
         }
 
@@ -1445,7 +1445,7 @@ LABEL_421:
         std::vector<unsigned long long>::emplace_back<unsigned long long>(a2, &v321);
       }
 
-      v93 = (a1 + 36);
+      v93 = a1 + 36;
       goto LABEL_401;
     }
 
@@ -1454,7 +1454,7 @@ LABEL_421:
       goto LABEL_421;
     }
 
-    v136 = (a1 + 24);
+    v136 = a1 + 24;
 LABEL_420:
     v321 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(v136, 0);
     std::vector<unsigned long long>::emplace_back<unsigned long long>(a2, &v321);
@@ -1477,8 +1477,8 @@ LABEL_420:
             for (i7 = 0; i7 != v109; ++i7)
             {
               v111 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), i7);
-              v113 = *(a2 + 8);
-              v112 = *(a2 + 16);
+              v113 = a2[1];
+              v112 = a2[2];
               if (v113 >= v112)
               {
                 v115 = *a2;
@@ -1512,12 +1512,12 @@ LABEL_420:
                 }
 
                 *(8 * v117) = v111;
-                v114 = 8 * v117 + 8;
+                v114 = (8 * v117 + 8);
                 memcpy(0, v115, v116);
                 v121 = *a2;
                 *a2 = 0;
-                *(a2 + 8) = v114;
-                *(a2 + 16) = 0;
+                a2[1] = v114;
+                a2[2] = 0;
                 if (v121)
                 {
                   operator delete(v121);
@@ -1527,10 +1527,10 @@ LABEL_420:
               else
               {
                 *v113 = v111;
-                v114 = (v113 + 1);
+                v114 = v113 + 8;
               }
 
-              *(a2 + 8) = v114;
+              a2[1] = v114;
               v4 = 1;
             }
           }
@@ -1553,8 +1553,8 @@ LABEL_420:
             for (i8 = 0; i8 != v196; ++i8)
             {
               v198 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), i8);
-              v200 = *(a2 + 8);
-              v199 = *(a2 + 16);
+              v200 = a2[1];
+              v199 = a2[2];
               if (v200 >= v199)
               {
                 v202 = *a2;
@@ -1588,12 +1588,12 @@ LABEL_420:
                 }
 
                 *(8 * v204) = v198;
-                v201 = 8 * v204 + 8;
+                v201 = (8 * v204 + 8);
                 memcpy(0, v202, v203);
                 v208 = *a2;
                 *a2 = 0;
-                *(a2 + 8) = v201;
-                *(a2 + 16) = 0;
+                a2[1] = v201;
+                a2[2] = 0;
                 if (v208)
                 {
                   operator delete(v208);
@@ -1603,10 +1603,10 @@ LABEL_420:
               else
               {
                 *v200 = v198;
-                v201 = (v200 + 1);
+                v201 = v200 + 8;
               }
 
-              *(a2 + 8) = v201;
+              a2[1] = v201;
               v4 = 1;
             }
           }
@@ -1633,8 +1633,8 @@ LABEL_420:
           for (i9 = 0; i9 != v266; ++i9)
           {
             v268 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), i9);
-            v270 = *(a2 + 8);
-            v269 = *(a2 + 16);
+            v270 = a2[1];
+            v269 = a2[2];
             if (v270 >= v269)
             {
               v272 = *a2;
@@ -1668,12 +1668,12 @@ LABEL_420:
               }
 
               *(8 * v274) = v268;
-              v271 = 8 * v274 + 8;
+              v271 = (8 * v274 + 8);
               memcpy(0, v272, v273);
               v278 = *a2;
               *a2 = 0;
-              *(a2 + 8) = v271;
-              *(a2 + 16) = 0;
+              a2[1] = v271;
+              a2[2] = 0;
               if (v278)
               {
                 operator delete(v278);
@@ -1683,10 +1683,10 @@ LABEL_420:
             else
             {
               *v270 = v268;
-              v271 = (v270 + 1);
+              v271 = v270 + 8;
             }
 
-            *(a2 + 8) = v271;
+            a2[1] = v271;
             v4 = 1;
           }
         }
@@ -1706,8 +1706,8 @@ LABEL_420:
             for (i10 = 0; i10 != v9; ++i10)
             {
               v11 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), i10);
-              v13 = *(a2 + 8);
-              v12 = *(a2 + 16);
+              v13 = a2[1];
+              v12 = a2[2];
               if (v13 >= v12)
               {
                 v15 = *a2;
@@ -1741,12 +1741,12 @@ LABEL_420:
                 }
 
                 *(8 * v17) = v11;
-                v14 = 8 * v17 + 8;
+                v14 = (8 * v17 + 8);
                 memcpy(0, v15, v16);
                 v21 = *a2;
                 *a2 = 0;
-                *(a2 + 8) = v14;
-                *(a2 + 16) = 0;
+                a2[1] = v14;
+                a2[2] = 0;
                 if (v21)
                 {
                   operator delete(v21);
@@ -1756,10 +1756,10 @@ LABEL_420:
               else
               {
                 *v13 = v11;
-                v14 = (v13 + 1);
+                v14 = v13 + 8;
               }
 
-              *(a2 + 8) = v14;
+              a2[1] = v14;
               v4 = 1;
             }
           }
@@ -1794,8 +1794,8 @@ LABEL_420:
           for (i11 = 0; i11 != v210; ++i11)
           {
             v212 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), i11);
-            v214 = *(a2 + 8);
-            v213 = *(a2 + 16);
+            v214 = a2[1];
+            v213 = a2[2];
             if (v214 >= v213)
             {
               v216 = *a2;
@@ -1829,12 +1829,12 @@ LABEL_420:
               }
 
               *(8 * v218) = v212;
-              v215 = 8 * v218 + 8;
+              v215 = (8 * v218 + 8);
               memcpy(0, v216, v217);
               v222 = *a2;
               *a2 = 0;
-              *(a2 + 8) = v215;
-              *(a2 + 16) = 0;
+              a2[1] = v215;
+              a2[2] = 0;
               if (v222)
               {
                 operator delete(v222);
@@ -1844,10 +1844,10 @@ LABEL_420:
             else
             {
               *v214 = v212;
-              v215 = (v214 + 1);
+              v215 = v214 + 8;
             }
 
-            *(a2 + 8) = v215;
+            a2[1] = v215;
             v4 = 1;
           }
         }
@@ -1867,8 +1867,8 @@ LABEL_420:
             for (i12 = 0; i12 != v38; ++i12)
             {
               v40 = GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>((a1 + 18), i12);
-              v42 = *(a2 + 8);
-              v41 = *(a2 + 16);
+              v42 = a2[1];
+              v41 = a2[2];
               if (v42 >= v41)
               {
                 v44 = *a2;
@@ -1902,12 +1902,12 @@ LABEL_420:
                 }
 
                 *(8 * v46) = v40;
-                v43 = 8 * v46 + 8;
+                v43 = (8 * v46 + 8);
                 memcpy(0, v44, v45);
                 v50 = *a2;
                 *a2 = 0;
-                *(a2 + 8) = v43;
-                *(a2 + 16) = 0;
+                a2[1] = v43;
+                a2[2] = 0;
                 if (v50)
                 {
                   operator delete(v50);
@@ -1917,10 +1917,10 @@ LABEL_420:
               else
               {
                 *v42 = v40;
-                v43 = (v42 + 1);
+                v43 = v42 + 8;
               }
 
-              *(a2 + 8) = v43;
+              a2[1] = v43;
               v4 = 1;
             }
           }
@@ -1938,7 +1938,7 @@ LABEL_420:
       goto LABEL_265;
     }
 
-    v138 = (a1 + 18);
+    v138 = a1 + 18;
     goto LABEL_439;
   }
 
@@ -1973,7 +1973,7 @@ LABEL_199:
   return v4;
 }
 
-void *std::vector<unsigned long long>::emplace_back<unsigned long long>(const void **a1, void *a2)
+char *std::vector<unsigned long long>::emplace_back<unsigned long long>(const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2007,7 +2007,7 @@ void *std::vector<unsigned long long>::emplace_back<unsigned long long>(const vo
 
     v13 = (8 * (v8 >> 3));
     *v13 = *a2;
-    v6 = v13 + 1;
+    v6 = (v13 + 1);
     memcpy(0, v7, v8);
     v14 = *a1;
     *a1 = 0;
@@ -2022,11 +2022,11 @@ void *std::vector<unsigned long long>::emplace_back<unsigned long long>(const vo
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
-  return v6 - 1;
+  return v6 - 8;
 }
 
 unint64_t GPUTools::FD::Argument::ViewAsScalarArray<unsigned long long>(uint64_t a1, unint64_t a2)
@@ -7308,33 +7308,33 @@ void *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsig
   return result;
 }
 
-uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int>(void *a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -7342,47 +7342,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void GPUTools::MTL::InstallMTLInternalDataStringTable(GPUTools::MTL *this)
+void GPUTools::MTL::InstallMTLInternalDataStringTable(uint64_t this)
 {
   if (GPUTools::MTL::InstallMTLInternalDataStringTable(void)::sOnce != -1)
   {
@@ -7392,20 +7392,19 @@ void GPUTools::MTL::InstallMTLInternalDataStringTable(GPUTools::MTL *this)
 
 uint64_t ___ZN8GPUTools3MTL33InstallMTLInternalDataStringTableEv_block_invoke()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   memcpy(__dst, &unk_27984EFB0, sizeof(__dst));
-  result = DYAddInternalDataNameEntries();
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return DYAddInternalDataNameEntries();
 }
 
 void MTLDeviceInfo::MTLDeviceInfo(uint64_t a1, void *a2)
 {
-  *a1 = a2;
+  v3 = a2;
+  *a1 = v3;
   *(a1 + 8) = 0;
-  v3 = DYGetMTLGuestAppClient();
-  v4 = [v3 graphicsSemaphore];
-  dispatch_semaphore_wait(v4, 0xFFFFFFFFFFFFFFFFLL);
+  v5 = DYGetMTLGuestAppClient(v3, v4);
+  v6 = [v5 graphicsSemaphore];
+  dispatch_semaphore_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
 
   operator new();
 }
@@ -7430,46 +7429,46 @@ void _swapDeviceInfoMap(unint64_t a1)
   dispatch_after(v2, v3, block);
 }
 
-void MTLDeviceInfo::~MTLDeviceInfo(id *this)
+void MTLDeviceInfo::~MTLDeviceInfo(id *this, uint64_t a2)
 {
-  v2 = DYGetMTLGuestAppClient();
-  v3 = [v2 graphicsSemaphore];
-  dispatch_semaphore_wait(v3, 0xFFFFFFFFFFFFFFFFLL);
+  v3 = DYGetMTLGuestAppClient(this, a2);
+  v4 = [v3 graphicsSemaphore];
+  dispatch_semaphore_wait(v4, 0xFFFFFFFFFFFFFFFFLL);
 
-  v4 = *(MTLDeviceInfo::activeDeviceInfoMap + 8);
-  if (!v4)
+  v5 = *(MTLDeviceInfo::activeDeviceInfoMap + 8);
+  if (!v5)
   {
     goto LABEL_9;
   }
 
-  v5 = *this;
-  v6 = MTLDeviceInfo::activeDeviceInfoMap + 8;
+  v6 = *this;
+  v7 = MTLDeviceInfo::activeDeviceInfoMap + 8;
   do
   {
-    v7 = *(v4 + 32);
-    v8 = v7 >= v5;
-    v9 = v7 < v5;
-    if (v8)
+    v8 = *(v5 + 32);
+    v9 = v8 >= v6;
+    v10 = v8 < v6;
+    if (v9)
     {
-      v6 = v4;
+      v7 = v5;
     }
 
-    v4 = *(v4 + 8 * v9);
+    v5 = *(v5 + 8 * v10);
   }
 
-  while (v4);
-  if (v6 == MTLDeviceInfo::activeDeviceInfoMap + 8 || v5 < *(v6 + 32))
+  while (v5);
+  if (v7 == MTLDeviceInfo::activeDeviceInfoMap + 8 || v6 < *(v7 + 32))
   {
 LABEL_9:
-    v6 = MTLDeviceInfo::activeDeviceInfoMap + 8;
+    v7 = MTLDeviceInfo::activeDeviceInfoMap + 8;
   }
 
-  if (*(v6 + 40) == this)
+  if (*(v7 + 40) == this)
   {
     operator new();
   }
 
-  dispatch_semaphore_signal(v3);
+  dispatch_semaphore_signal(v4);
 }
 
 uint64_t ___ZL18_swapDeviceInfoMapPNSt3__13mapIU8__strongP14MTLToolsDeviceP13MTLDeviceInfoNS_4lessIS3_EENS_9allocatorINS_4pairIU8__strongKS2_S5_EEEEEE_block_invoke(uint64_t result)
@@ -7505,7 +7504,7 @@ void *std::map<MTLToolsDevice * {__strong},MTLDeviceInfo *>::map[abi:ne200100](v
   return a1;
 }
 
-uint64_t std::map<MTLToolsDevice * {__strong},MTLDeviceInfo *>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__tree_node<std::__value_type,void *> *,long>>>(uint64_t result, void *a2, void *a3)
+void *std::map<MTLToolsDevice * {__strong},MTLDeviceInfo *>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__tree_node<std::__value_type,void *> *,long>>>(void *result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -7513,7 +7512,7 @@ uint64_t std::map<MTLToolsDevice * {__strong},MTLDeviceInfo *>::insert[abi:ne200
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__map_value_compare<MTLToolsDevice * {__strong},std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::less<MTLToolsDevice * {__strong}>,true>,std::allocator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>>>::__emplace_hint_unique_key_args<MTLToolsDevice * {__strong},std::pair<MTLToolsDevice * const {__strong},MTLDeviceInfo *> const&>(v5, v5 + 1, v4 + 4);
+      result = std::__tree<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__map_value_compare<MTLToolsDevice * {__strong},std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::less<MTLToolsDevice * {__strong}>,true>,std::allocator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>>>::__emplace_hint_unique_key_args<MTLToolsDevice * {__strong},std::pair<MTLToolsDevice * const {__strong},MTLDeviceInfo *> const&>(v5, (v5 + 8), v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -7547,15 +7546,15 @@ uint64_t std::map<MTLToolsDevice * {__strong},MTLDeviceInfo *>::insert[abi:ne200
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__map_value_compare<MTLToolsDevice * {__strong},std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::less<MTLToolsDevice * {__strong}>,true>,std::allocator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>>>::__emplace_hint_unique_key_args<MTLToolsDevice * {__strong},std::pair<MTLToolsDevice * const {__strong},MTLDeviceInfo *> const&>(void *a1, void *a2, unint64_t *a3)
+void *std::__tree<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__map_value_compare<MTLToolsDevice * {__strong},std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::less<MTLToolsDevice * {__strong}>,true>,std::allocator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>>>::__emplace_hint_unique_key_args<MTLToolsDevice * {__strong},std::pair<MTLToolsDevice * const {__strong},MTLDeviceInfo *> const&>(uint64_t **a1, void *a2, unint64_t *a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__map_value_compare<MTLToolsDevice * {__strong},std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::less<MTLToolsDevice * {__strong}>,true>,std::allocator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>>>::__find_equal<MTLToolsDevice * {__strong}>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__map_value_compare<MTLToolsDevice * {__strong},std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::less<MTLToolsDevice * {__strong}>,true>,std::allocator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>>>::__find_equal<MTLToolsDevice * {__strong}>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__map_value_compare<MTLToolsDevice * {__strong},std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::less<MTLToolsDevice * {__strong}>,true>,std::allocator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>>>::__find_equal<MTLToolsDevice * {__strong}>(void *a1, void *a2, void *a3, void *a4, unint64_t *a5)
@@ -7798,7 +7797,7 @@ uint64_t std::__tree<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo
   return 1;
 }
 
-uint64_t *std::__tree<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__map_value_compare<MTLToolsDevice * {__strong},std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::less<MTLToolsDevice * {__strong}>,true>,std::allocator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>>>::erase(uint64_t **a1, uint64_t a2)
+uint64_t *std::__tree<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__map_value_compare<MTLToolsDevice * {__strong},std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::less<MTLToolsDevice * {__strong}>,true>,std::allocator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>>>::erase(uint64_t **a1, id *a2)
 {
   v3 = std::__tree<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__map_value_compare<MTLToolsDevice * {__strong},std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::less<MTLToolsDevice * {__strong}>,true>,std::allocator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>>>::__remove_node_pointer(a1, a2);
 
@@ -7936,31 +7935,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -7969,211 +7967,211 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
-void *std::__tree<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__map_value_compare<MTLToolsDevice * {__strong},std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::less<MTLToolsDevice * {__strong}>,true>,std::allocator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>>>::__emplace_unique_key_args<MTLToolsDevice * {__strong},std::pair<MTLToolsDevice * const {__strong},MTLDeviceInfo *>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::__map_value_compare<MTLToolsDevice * {__strong},std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>,std::less<MTLToolsDevice * {__strong}>,true>,std::allocator<std::__value_type<MTLToolsDevice * {__strong},MTLDeviceInfo *>>>::__emplace_unique_key_args<MTLToolsDevice * {__strong},std::pair<MTLToolsDevice * const {__strong},MTLDeviceInfo *>>(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -8190,9 +8188,9 @@ void init_interpose_api()
 }
 
 {
-  dlerror();
-  v0 = dy_abort();
-  GPUTools::MTL::CaptureHelper::~CaptureHelper(v0);
+  v0 = dlerror();
+  v1 = dy_abort("failed to dlopen interpose dylib: %s", v0);
+  GPUTools::MTL::CaptureHelper::~CaptureHelper(v1);
 }
 
 void GPUTools::MTL::CaptureHelper::~CaptureHelper(GPUTools::MTL::CaptureHelper *this)

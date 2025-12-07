@@ -881,11 +881,11 @@ void __60__SKUIProductPageReviewsViewController__writeAReviewAction___block_invo
 
 - (id)_bottomBorderColorForScheme:(id)scheme
 {
-  primaryTextColor = [scheme primaryTextColor];
-  v4 = primaryTextColor;
-  if (primaryTextColor)
+  v3 = objc_msgSend_primaryTextColor(scheme, a2);
+  v4 = v3;
+  if (v3)
   {
-    v5 = primaryTextColor;
+    v5 = v3;
   }
 
   else

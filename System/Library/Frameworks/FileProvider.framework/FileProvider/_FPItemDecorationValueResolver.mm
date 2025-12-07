@@ -53,24 +53,8 @@
   keyCopy = key;
   if (([keyCopy isEqualToString:@"ownerNameComponents"] & 1) != 0 || objc_msgSend(keyCopy, "isEqualToString:", @"mostRecentEditorNameComponents"))
   {
-    if (self->_style)
+    if (self->_style || (v7 = MEMORY[0x1E696AEC0], [keyCopy substringToIndex:1], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "capitalizedString"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(keyCopy, "substringFromIndex:", 1), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "stringWithFormat:", @"preformatted%@%@", v9, v10), v11 = objc_claimAutoreleasedReturnValue(), v10, v9, v8, objc_msgSend(v11, "substringToIndex:", objc_msgSend(v11, "length") - objc_msgSend(@"Components", "length")), v12 = objc_claimAutoreleasedReturnValue(), v11, -[FPItem valueForKey:](self->_item, "valueForKey:", v12), v6 = objc_claimAutoreleasedReturnValue(), v12, !v6))
     {
-      goto LABEL_4;
-    }
-
-    v7 = MEMORY[0x1E696AEC0];
-    v8 = [keyCopy substringToIndex:1];
-    capitalizedString = [v8 capitalizedString];
-    v10 = [keyCopy substringFromIndex:1];
-    v11 = [v7 stringWithFormat:@"preformatted%@%@", capitalizedString, v10];
-
-    v12 = [v11 substringToIndex:{objc_msgSend(v11, "length") - objc_msgSend(@"Components", "length")}];
-
-    v6 = [(FPItem *)self->_item valueForKey:v12];
-
-    if (!v6)
-    {
-LABEL_4:
       v5 = [(FPItem *)self->_item valueForKey:keyCopy];
       if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {

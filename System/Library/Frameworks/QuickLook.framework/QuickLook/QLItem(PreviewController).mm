@@ -1,10 +1,10 @@
 @interface QLItem(PreviewController)
-- (uint64_t)isEdited;
+- (BOOL)isEdited;
 @end
 
 @implementation QLItem(PreviewController)
 
-- (uint64_t)isEdited
+- (BOOL)isEdited
 {
   if ([self originalContentWasUpdated])
   {

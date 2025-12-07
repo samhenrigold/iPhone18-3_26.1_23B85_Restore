@@ -155,9 +155,9 @@
 
 - (void)layoutSubviews
 {
-  v32.receiver = self;
-  v32.super_class = EKEventAttachmentCell;
-  [(EKEventAttachmentCell *)&v32 layoutSubviews];
+  v34.receiver = self;
+  v34.super_class = EKEventAttachmentCell;
+  [(EKEventAttachmentCell *)&v34 layoutSubviews];
   traitCollection = [(EKEventAttachmentCell *)self traitCollection];
   if (!EKUIUsesLargeTextLayout(traitCollection))
   {
@@ -190,40 +190,40 @@
       [imageView5 setContentMode:1];
 
       traitCollection = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDCF8]];
-      [traitCollection _scaledValueForValue:57.0];
-      if (v20 >= v17)
+      v20 = [traitCollection _scaledValueForValue:57.0];
+      if (v22 >= v17)
       {
-        v21 = v17;
+        v23 = v17;
       }
 
       else
       {
-        v21 = v20;
+        v23 = v22;
       }
 
-      v22 = v18 * v21;
-      if (CalInterfaceIsLeftToRight())
+      v24 = v18 * v23;
+      if (CalInterfaceIsLeftToRight(v20, v21))
       {
         textLabel = [(EKEventAttachmentCell *)self textLabel];
         [textLabel frame];
-        v25 = (v24 - v22) * 0.5;
+        v27 = (v26 - v24) * 0.5;
       }
 
       else
       {
         [(EKEventAttachmentCell *)self bounds];
-        v27 = v26;
+        v29 = v28;
         textLabel2 = [(EKEventAttachmentCell *)self textLabel];
         [textLabel2 frame];
-        MaxX = CGRectGetMaxX(v33);
+        MaxX = CGRectGetMaxX(v35);
 
-        v25 = MaxX + (v27 - MaxX - v22) * 0.5;
+        v27 = MaxX + (v29 - MaxX - v24) * 0.5;
       }
 
       [(EKEventAttachmentCell *)self frame];
-      v31 = (v30 - v21) * 0.5;
+      v33 = (v32 - v23) * 0.5;
       imageView = [(EKEventAttachmentCell *)self imageView];
-      [imageView setFrame:{v25, v31, v22, v21}];
+      [imageView setFrame:{v27, v33, v24, v23}];
     }
   }
 }

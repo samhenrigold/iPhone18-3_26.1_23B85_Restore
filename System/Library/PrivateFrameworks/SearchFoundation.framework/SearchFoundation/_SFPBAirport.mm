@@ -745,81 +745,63 @@ LABEL_58:
 
 - (void)setName:(id)name
 {
-  v4 = [name copy];
-  name = self->_name;
-  self->_name = v4;
+  self->_name = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCountry:(id)country
 {
-  v4 = [country copy];
-  country = self->_country;
-  self->_country = v4;
+  self->_country = [country copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCountryCode:(id)code
 {
-  v4 = [code copy];
-  countryCode = self->_countryCode;
-  self->_countryCode = v4;
+  self->_countryCode = [code copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPostalCode:(id)code
 {
-  v4 = [code copy];
-  postalCode = self->_postalCode;
-  self->_postalCode = v4;
+  self->_postalCode = [code copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setState:(id)state
 {
-  v4 = [state copy];
-  state = self->_state;
-  self->_state = v4;
+  self->_state = [state copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setDistrict:(id)district
 {
-  v4 = [district copy];
-  district = self->_district;
-  self->_district = v4;
+  self->_district = [district copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setStreet:(id)street
 {
-  v4 = [street copy];
-  street = self->_street;
-  self->_street = v4;
+  self->_street = [street copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCity:(id)city
 {
-  v4 = [city copy];
-  city = self->_city;
-  self->_city = v4;
+  self->_city = [city copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCode:(id)code
 {
-  v4 = [code copy];
-  code = self->_code;
-  self->_code = v4;
+  self->_code = [code copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -50,6 +50,8 @@
   controllerCopy = controller;
   selfCopy = self;
   sub_1BD160B6C(v6);
+
+  v6, v9, v10, v11, v12, v13, v14, v15;
 }
 
 @end

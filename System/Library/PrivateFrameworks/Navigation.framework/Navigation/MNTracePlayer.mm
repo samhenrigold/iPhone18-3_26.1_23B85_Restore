@@ -401,36 +401,34 @@ uint64_t __45__MNTracePlayer__locationRowBeforeTimestamp___block_invoke(uint64_t
     }
   }
 
-  v31 = 0u;
-  memset(v32, 0, 28);
-  v30 = 0u;
+  v29 = 0u;
+  memset(v30, 0, 28);
   v28 = 0u;
-  memset(v29, 0, sizeof(v29));
   v26 = 0u;
-  v27 = 0u;
+  memset(v27, 0, sizeof(v27));
+  v24 = 0u;
   v25 = 0u;
+  v23 = 0u;
   if (dateCopy)
   {
-    [dateCopy clientLocation];
+    objc_msgSend_clientLocation(dateCopy);
   }
 
-  *(v29 + 12) = v6;
+  *(v27 + 12) = v6;
   v14 = [MNLocation alloc];
   matchInfo = [dateCopy matchInfo];
-  v23[6] = v30;
-  v23[7] = v31;
-  v24[0] = v32[0];
-  *(v24 + 12) = *(v32 + 12);
-  v23[2] = v27;
-  v23[3] = v28;
-  v23[4] = v29[0];
-  v23[5] = v29[1];
-  v23[0] = v25;
-  v23[1] = v26;
-  v16 = [(MNLocation *)v14 initWithClientLocation:v23 matchInfo:matchInfo];
+  v21[6] = v28;
+  v21[7] = v29;
+  v22[0] = v30[0];
+  *(v22 + 12) = *(v30 + 12);
+  v21[2] = v25;
+  v21[3] = v26;
+  v21[4] = v27[0];
+  v21[5] = v27[1];
+  v21[0] = v23;
+  v21[1] = v24;
+  v16 = [(MNLocation *)v14 initWithClientLocation:v21 matchInfo:matchInfo];
 
-  v17 = *MEMORY[0x1E69A19F8];
-  v18 = *(MEMORY[0x1E69A19F8] + 8);
   if (GEOConfigGetBOOL())
   {
     uuid = [(MNLocation *)v16 uuid];
@@ -710,7 +708,7 @@ void __42__MNTracePlayer_setShouldPlayETARequests___block_invoke(uint64_t a1, ui
 
 void __39__MNTracePlayer__createTimelineStreams__block_invoke(uint64_t a1, uint64_t a2, double a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v6 = WeakRetained;
   if (WeakRetained)
@@ -725,11 +723,11 @@ void __39__MNTracePlayer__createTimelineStreams__block_invoke(uint64_t a1, uint6
     v13 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v19[0] = 67109376;
-      v19[1] = a2;
-      v20 = 2048;
-      v21 = a3;
-      _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_INFO, "Trace index: %d | timestamp: %0.2f\n", v19, 0x12u);
+      v18[0] = 67109376;
+      v18[1] = a2;
+      v19 = 2048;
+      v20 = a3;
+      _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_INFO, "Trace index: %d | timestamp: %0.2f\n", v18, 0x12u);
     }
 
     switch(v10)
@@ -738,8 +736,8 @@ void __39__MNTracePlayer__createTimelineStreams__block_invoke(uint64_t a1, uint6
         v17 = GEOFindOrCreateLog();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v19[0]) = 0;
-          _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_INFO, "Trace resumes location updates.", v19, 2u);
+          LOWORD(v18[0]) = 0;
+          _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_INFO, "Trace resumes location updates.", v18, 2u);
         }
 
         [v6[3] tracePlayerDidResumeLocationUpdates:v6];
@@ -748,8 +746,8 @@ void __39__MNTracePlayer__createTimelineStreams__block_invoke(uint64_t a1, uint6
         v16 = GEOFindOrCreateLog();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v19[0]) = 0;
-          _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_INFO, "Trace paused location updates.", v19, 2u);
+          LOWORD(v18[0]) = 0;
+          _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_INFO, "Trace paused location updates.", v18, 2u);
         }
 
         [v6[3] tracePlayerDidPauseLocationUpdates:v6];
@@ -777,8 +775,6 @@ LABEL_17:
         break;
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __39__MNTracePlayer__createTimelineStreams__block_invoke_119(uint64_t a1, uint64_t a2, void *a3)
@@ -1130,14 +1126,14 @@ uint64_t __28__MNTracePlayer_jumpToTime___block_invoke(uint64_t a1, void *a2, vo
 
 - (BOOL)requestDirectionsNearTimestamp:(double)timestamp withHandler:(id)handler
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   directions = [(MNTrace *)self->_trace directions];
-  v8 = [directions countByEnumeratingWithState:&v41 objects:v51 count:16];
+  v8 = [directions countByEnumeratingWithState:&v40 objects:v50 count:16];
   if (!v8)
   {
 
@@ -1146,18 +1142,18 @@ uint64_t __28__MNTracePlayer_jumpToTime___block_invoke(uint64_t a1, void *a2, vo
 
   v9 = v8;
   v10 = 0;
-  v11 = *v42;
+  v11 = *v41;
   v12 = 978307200.0;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v42 != v11)
+      if (*v41 != v11)
       {
         objc_enumerationMutation(directions);
       }
 
-      v14 = *(*(&v41 + 1) + 8 * i);
+      v14 = *(*(&v40 + 1) + 8 * i);
       [v14 requestTimestamp];
       v16 = vabdd_f64(v15, timestamp);
       if (v16 < v12)
@@ -1169,7 +1165,7 @@ uint64_t __28__MNTracePlayer_jumpToTime___block_invoke(uint64_t a1, void *a2, vo
       }
     }
 
-    v9 = [directions countByEnumeratingWithState:&v41 objects:v51 count:16];
+    v9 = [directions countByEnumeratingWithState:&v40 objects:v50 count:16];
   }
 
   while (v9);
@@ -1185,9 +1181,9 @@ uint64_t __28__MNTracePlayer_jumpToTime___block_invoke(uint64_t a1, void *a2, vo
         v32 = v31;
         [(MNTracePlayer *)self position];
         *buf = 134218240;
-        v46 = v32;
-        v47 = 2048;
-        v48 = v33;
+        v45 = v32;
+        v46 = 2048;
+        v47 = v33;
         _os_log_impl(&dword_1D311E000, v30, OS_LOG_TYPE_INFO, "Found directions request, but request time (%0.2f) was not close to current playback time (%0.2f)", buf, 0x16u);
       }
 
@@ -1218,32 +1214,31 @@ LABEL_19:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     *buf = 134218496;
-    v46 = v21;
-    v47 = 2048;
-    v48 = v24;
-    v49 = 2048;
-    v50 = v23;
+    v45 = v21;
+    v46 = 2048;
+    v47 = v24;
+    v48 = 2048;
+    v49 = v23;
     _os_log_impl(&dword_1D311E000, v25, OS_LOG_TYPE_INFO, "Found nearby request with timestamp %0.2f. Playing back with response delay of %0.1f seconds (original delay %0.1f seconds)", buf, 0x20u);
   }
 
   v26 = dispatch_time(0, (v24 * 1000000000.0));
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __60__MNTracePlayer_requestDirectionsNearTimestamp_withHandler___block_invoke;
-  v36[3] = &unk_1E842FF40;
-  v37 = response;
-  v39 = error;
-  v40 = handlerCopy;
-  v38 = v10;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __60__MNTracePlayer_requestDirectionsNearTimestamp_withHandler___block_invoke;
+  v35[3] = &unk_1E842FF40;
+  v36 = response;
+  v38 = error;
+  v39 = handlerCopy;
+  v37 = v10;
   v27 = error;
   v10 = v10;
   v28 = response;
-  dispatch_after(v26, MEMORY[0x1E69E96A0], v36);
+  dispatch_after(v26, MEMORY[0x1E69E96A0], v35);
 
   v29 = 1;
 LABEL_22:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
@@ -1286,13 +1281,13 @@ void __60__MNTracePlayer_requestDirectionsNearTimestamp_withHandler___block_invo
 
 - (id)guidanceEventNearTimestamp:(double)timestamp
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   navigationEvents = [(MNTrace *)self->_trace navigationEvents];
-  v6 = [navigationEvents countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [navigationEvents countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (!v6)
   {
 
@@ -1304,18 +1299,18 @@ LABEL_15:
 
   v7 = v6;
   v8 = 0;
-  v9 = *v20;
+  v9 = *v19;
   v10 = 978307200.0;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v20 != v9)
+      if (*v19 != v9)
       {
         objc_enumerationMutation(navigationEvents);
       }
 
-      v12 = *(*(&v19 + 1) + 8 * i);
+      v12 = *(*(&v18 + 1) + 8 * i);
       [v12 relativeTimestamp];
       v14 = vabdd_f64(v13, timestamp);
       if (v14 < v10)
@@ -1327,7 +1322,7 @@ LABEL_15:
       }
     }
 
-    v7 = [navigationEvents countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [navigationEvents countByEnumeratingWithState:&v18 objects:v22 count:16];
   }
 
   while (v7);
@@ -1347,8 +1342,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -1398,75 +1391,71 @@ LABEL_16:
 
 - (void)startAtLocationIndex:(unint64_t)index
 {
-  v28 = *MEMORY[0x1E69E9840];
-  if (self->_isPlaying)
+  v26 = *MEMORY[0x1E69E9840];
+  if (!self->_isPlaying)
   {
-LABEL_15:
-    v22 = *MEMORY[0x1E69E9840];
-    return;
-  }
+    locations = [(MNTrace *)self->_trace locations];
+    v6 = [locations count];
 
-  locations = [(MNTrace *)self->_trace locations];
-  v6 = [locations count];
-
-  if (!v6)
-  {
-    v19 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    if (v6)
     {
-      *buf = 0;
-      _os_log_impl(&dword_1D311E000, v19, OS_LOG_TYPE_ERROR, "Trace is empty", buf, 2u);
+      locations2 = [(MNTrace *)self->_trace locations];
+      v8 = [locations2 count];
+
+      if (v8 <= index)
+      {
+        v19 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        {
+          locations3 = [(MNTrace *)self->_trace locations];
+          *buf = 67109376;
+          indexCopy = index;
+          v24 = 1024;
+          v25 = [locations3 count];
+          _os_log_impl(&dword_1D311E000, v19, OS_LOG_TYPE_ERROR, "Starting index (%d) out of bounds of location array: [0,%d]", buf, 0xEu);
+        }
+      }
+
+      else
+      {
+        if (self->_traceStartTimestamp == 0.0)
+        {
+          locations4 = [(MNTrace *)self->_trace locations];
+          firstObject = [locations4 firstObject];
+
+          location = [firstObject location];
+          timestamp = [location timestamp];
+          [timestamp timeIntervalSinceReferenceDate];
+          self->_traceStartTimestamp = v13;
+        }
+
+        *&self->_isPlaying = 1;
+        [(MNTracePlayerScheduler *)self->_scheduler resume];
+        v14 = +[MNTimeManager sharedManager];
+        [v14 setProvider:self];
+
+        [(GEOObserverHashTable *)self->_observers tracePlayerDidStart:self];
+        locations5 = [(MNTrace *)self->_trace locations];
+        v21 = [locations5 objectAtIndex:index];
+
+        location2 = [v21 location];
+        v17 = [(MNTracePlayer *)self _locationWithCurrentDate:location2];
+        [(GEOObserverHashTable *)self->_observers tracePlayer:self didUpdateLocation:v17];
+        [v21 timestamp];
+        [(MNTracePlayerScheduler *)self->_scheduler setPosition:?];
+      }
     }
 
-    goto LABEL_15;
-  }
-
-  locations2 = [(MNTrace *)self->_trace locations];
-  v8 = [locations2 count];
-
-  if (v8 <= index)
-  {
-    v20 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    else
     {
-      locations3 = [(MNTrace *)self->_trace locations];
-      *buf = 67109376;
-      indexCopy = index;
-      v26 = 1024;
-      v27 = [locations3 count];
-      _os_log_impl(&dword_1D311E000, v20, OS_LOG_TYPE_ERROR, "Starting index (%d) out of bounds of location array: [0,%d]", buf, 0xEu);
+      v18 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_ERROR, "Trace is empty", buf, 2u);
+      }
     }
-
-    goto LABEL_15;
   }
-
-  if (self->_traceStartTimestamp == 0.0)
-  {
-    locations4 = [(MNTrace *)self->_trace locations];
-    firstObject = [locations4 firstObject];
-
-    location = [firstObject location];
-    timestamp = [location timestamp];
-    [timestamp timeIntervalSinceReferenceDate];
-    self->_traceStartTimestamp = v13;
-  }
-
-  *&self->_isPlaying = 1;
-  [(MNTracePlayerScheduler *)self->_scheduler resume];
-  v14 = +[MNTimeManager sharedManager];
-  [v14 setProvider:self];
-
-  [(GEOObserverHashTable *)self->_observers tracePlayerDidStart:self];
-  locations5 = [(MNTrace *)self->_trace locations];
-  v23 = [locations5 objectAtIndex:index];
-
-  location2 = [v23 location];
-  v17 = [(MNTracePlayer *)self _locationWithCurrentDate:location2];
-  [(GEOObserverHashTable *)self->_observers tracePlayer:self didUpdateLocation:v17];
-  [v23 timestamp];
-  [(MNTracePlayerScheduler *)self->_scheduler setPosition:?];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

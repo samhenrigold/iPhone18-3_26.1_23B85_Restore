@@ -44,29 +44,27 @@
 
 - (id)description
 {
-  v21[3] = *MEMORY[0x1E69E9840];
+  v20[3] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v20.receiver = self;
-  v20.super_class = SASTestingInput;
-  v4 = [(SASTestingInput *)&v20 description];
+  v19.receiver = self;
+  v19.super_class = SASTestingInput;
+  v4 = [(SASTestingInput *)&v19 description];
   v5 = objc_alloc(MEMORY[0x1E696AEC0]);
   type = self->_type;
   v7 = SASTestingInputTypeGetName(type);
   v8 = [v5 initWithFormat:@"type = %ld (%@)", type, v7];
-  v21[0] = v8;
+  v20[0] = v8;
   v9 = objc_alloc(MEMORY[0x1E696AEC0]);
   v10 = [(NSString *)self->_text description];
   v11 = [v9 initWithFormat:@"text = %@", v10];
-  v21[1] = v11;
+  v20[1] = v11;
   v12 = objc_alloc(MEMORY[0x1E696AEC0]);
   v13 = [(NSURL *)self->_recordedSpeechURL description];
   v14 = [v12 initWithFormat:@"recordedSpeechURL = %@", v13];
-  v21[2] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
+  v20[2] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
   v16 = [v15 componentsJoinedByString:{@", "}];
   v17 = [v3 initWithFormat:@"%@ {%@}", v4, v16];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

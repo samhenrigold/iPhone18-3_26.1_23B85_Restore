@@ -52,7 +52,7 @@
 
 - (id)newTextureWithDescriptor:(id)descriptor error:(id *)error
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   v7 = [(MTLDevice *)self->_device heapTextureSizeAndAlignWithDescriptor:descriptorCopy];
   v8 = v7;
@@ -148,13 +148,13 @@
             CFRelease(v29);
             if (IsBiplanar(v11))
             {
-              v82 = (width2 + 1) >> 1;
-              v80 = BytesPerElement(826486840);
-              v84 = BytesPerElement(843264056);
-              v81 = ElementWidth(826486840);
-              v83 = ElementWidth(843264056);
+              v81 = (width2 + 1) >> 1;
+              v79 = BytesPerElement(826486840);
+              v83 = BytesPerElement(843264056);
+              v80 = ElementWidth(826486840);
+              v82 = ElementWidth(843264056);
               v30 = MinBytesPerRow(826486840, width2);
-              v31 = MinBytesPerRow(843264056, v82);
+              v31 = MinBytesPerRow(843264056, v81);
               if (v30 <= v31)
               {
                 v32 = v31;
@@ -180,69 +180,69 @@
               valuePtr = v38;
               v39 = *MEMORY[0x277CD2B50];
               key = *MEMORY[0x277CD2B50];
-              v87 = width2;
-              v40 = CFNumberCreate(0, kCFNumberIntType, &v87);
+              v86 = width2;
+              v40 = CFNumberCreate(0, kCFNumberIntType, &v86);
               CFDictionarySetValue(v38, v39, v40);
               CFRelease(v40);
               v41 = *MEMORY[0x277CD2B18];
-              v78 = *MEMORY[0x277CD2B18];
-              v87 = v22;
-              v42 = CFNumberCreate(0, kCFNumberIntType, &v87);
+              v77 = *MEMORY[0x277CD2B18];
+              v86 = v22;
+              v42 = CFNumberCreate(0, kCFNumberIntType, &v86);
               CFDictionarySetValue(v38, v41, v42);
               CFRelease(v42);
               v43 = *MEMORY[0x277CD2B38];
-              v77 = *MEMORY[0x277CD2B38];
-              v87 = 0;
-              v44 = CFNumberCreate(0, kCFNumberIntType, &v87);
+              v76 = *MEMORY[0x277CD2B38];
+              v86 = 0;
+              v44 = CFNumberCreate(0, kCFNumberIntType, &v86);
               CFDictionarySetValue(v38, v43, v44);
               CFRelease(v44);
               v45 = *MEMORY[0x277CD2AA0];
-              v87 = v33;
-              v46 = CFNumberCreate(0, kCFNumberIntType, &v87);
+              v86 = v33;
+              v46 = CFNumberCreate(0, kCFNumberIntType, &v86);
               CFDictionarySetValue(v38, v45, v46);
               CFRelease(v46);
               v47 = *MEMORY[0x277CD2A98];
-              v87 = v80;
-              v48 = CFNumberCreate(0, kCFNumberIntType, &v87);
+              v86 = v79;
+              v48 = CFNumberCreate(0, kCFNumberIntType, &v86);
               CFDictionarySetValue(v38, v47, v48);
               CFRelease(v48);
               v49 = *MEMORY[0x277CD2AF0];
-              v87 = v81;
-              v50 = CFNumberCreate(0, kCFNumberIntType, &v87);
+              v86 = v80;
+              v50 = CFNumberCreate(0, kCFNumberIntType, &v86);
               CFDictionarySetValue(v38, v49, v50);
               CFRelease(v50);
               v51 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-              v91 = v51;
-              v87 = v82;
-              v52 = CFNumberCreate(0, kCFNumberIntType, &v87);
+              v90 = v51;
+              v86 = v81;
+              v52 = CFNumberCreate(0, kCFNumberIntType, &v86);
               CFDictionarySetValue(v51, key, v52);
               CFRelease(v52);
-              v87 = (v22 + 1) >> 1;
-              v53 = CFNumberCreate(0, kCFNumberIntType, &v87);
-              CFDictionarySetValue(v51, v78, v53);
+              v86 = (v22 + 1) >> 1;
+              v53 = CFNumberCreate(0, kCFNumberIntType, &v86);
+              CFDictionarySetValue(v51, v77, v53);
               CFRelease(v53);
-              v87 = v33 * v22;
-              v54 = CFNumberCreate(0, kCFNumberIntType, &v87);
-              CFDictionarySetValue(v51, v77, v54);
+              v86 = v33 * v22;
+              v54 = CFNumberCreate(0, kCFNumberIntType, &v86);
+              CFDictionarySetValue(v51, v76, v54);
               CFRelease(v54);
-              v87 = v33;
+              v86 = v33;
               v55 = theDict;
-              v56 = CFNumberCreate(0, kCFNumberIntType, &v87);
+              v56 = CFNumberCreate(0, kCFNumberIntType, &v86);
               CFDictionarySetValue(v51, v45, v56);
               CFRelease(v56);
-              v87 = v84;
-              v57 = CFNumberCreate(0, kCFNumberIntType, &v87);
+              v86 = v83;
+              v57 = CFNumberCreate(0, kCFNumberIntType, &v86);
               CFDictionarySetValue(v51, v47, v57);
               CFRelease(v57);
-              v87 = v83;
-              v58 = CFNumberCreate(0, kCFNumberIntType, &v87);
+              v86 = v82;
+              v58 = CFNumberCreate(0, kCFNumberIntType, &v86);
               CFDictionarySetValue(v51, v49, v58);
               CFRelease(v58);
               v59 = CFArrayCreate(0, &valuePtr, 2, MEMORY[0x277CBF128]);
               CFDictionarySetValue(theDict, *MEMORY[0x277CD2B30], v59);
               CFRelease(v59);
               CFRelease(valuePtr);
-              v60 = v91;
+              v60 = v90;
             }
 
             else
@@ -280,7 +280,7 @@
       }
     }
 
-    v9 = [(MTLDevice *)self->_device newTextureWithDescriptor:descriptorCopy iosurface:v21 plane:0, v77];
+    v9 = [(MTLDevice *)self->_device newTextureWithDescriptor:descriptorCopy iosurface:v21 plane:0, v76];
   }
 
   v69 = v9;
@@ -293,10 +293,10 @@
 
   else
   {
-    v88 = @"GTErrorKeyMTLTextureDescriptor";
+    v87 = @"GTErrorKeyMTLTextureDescriptor";
     v72 = SerializeMTLTextureDescriptorToDictionary(descriptorCopy);
-    v89 = v72;
-    v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+    v88 = v72;
+    v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
 
     GTMTLReplay_fillError(error, 101, v73);
     if (error)
@@ -312,7 +312,6 @@
     GTMTLReplay_handleNSError(v74);
   }
 
-  v75 = *MEMORY[0x277D85DE8];
   return v69;
 }
 

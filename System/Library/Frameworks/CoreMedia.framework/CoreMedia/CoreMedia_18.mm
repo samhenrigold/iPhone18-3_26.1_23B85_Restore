@@ -1,3 +1,64 @@
+__CFString *ftbCopyDebugDesc(uint64_t a1)
+{
+  v2 = CFGetAllocator(a1);
+  Mutable = CFStringCreateMutable(v2, 0);
+  OUTLINED_FUNCTION_17(a1, &v53);
+  v4 = CFGetAllocator(a1);
+  OUTLINED_FUNCTION_31(v4, v5, v6, v7, v8, v9, v10, v11, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, time.value, *&time.timescale, time.epoch, *&v53.value);
+  v13 = CMTimeCopyDescription(v12, &time);
+  OUTLINED_FUNCTION_31(v13, v14, v15, v16, v17, v18, v19, v20, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, time.value, *&time.timescale, time.epoch, *&v53.value);
+  Seconds = CMTimeGetSeconds(&time);
+  v22 = "(UNKNOWN TYPE)";
+  v23 = *(a1 + 16);
+  if (v23 == 1)
+  {
+    v22 = "(Looping)";
+  }
+
+  if (v23 == 2)
+  {
+    v22 = "(ReadOnly)";
+  }
+
+  if (v23)
+  {
+    v24 = v22;
+  }
+
+  else
+  {
+    v24 = "";
+  }
+
+  v25 = *(a1 + 24);
+  v26 = CFGetRetainCount(a1);
+  v27 = CFGetAllocator(a1);
+  v28 = *(a1 + 128);
+  if (v28)
+  {
+    v29 = "clock";
+  }
+
+  else
+  {
+    v29 = "timebase";
+  }
+
+  if (!v28)
+  {
+    v28 = *(a1 + 136);
+  }
+
+  Rate = CMTimebaseGetRate(a1);
+  CFStringAppendFormat(Mutable, 0, @"FigTimebase: %p %s targetTimebase: %p retainCount: %d allocator: %p master %s: %p rate: %f time: %@ = %f seconds\n", a1, v24, v25, v26, v27, v29, v28, *&Rate, v13, *&Seconds);
+  if (v13)
+  {
+    CFRelease(v13);
+  }
+
+  return Mutable;
+}
+
 size_t figTimebaseReflectNotification(int a1, uint64_t a2, CFTypeRef cf1, uint64_t a4, const void *a5)
 {
   v9 = FigCFEqual(cf1, @"CMTimebaseTimeJumped");
@@ -10,75 +71,75 @@ size_t figTimebaseReflectNotification(int a1, uint64_t a2, CFTypeRef cf1, uint64
     {
       if (v9 | v11 || FigCFEqual(cf1, @"CMTimebaseEffectiveRateChanged"))
       {
-        memset(&v37, 0, sizeof(v37));
+        memset(&v42, 0, sizeof(v42));
         if (a5)
         {
-          v12 = CFGetTypeID(a5);
-          if (v12 == CFDictionaryGetTypeID())
+          v17 = CFGetTypeID(a5);
+          if (v17 == CFDictionaryGetTypeID())
           {
             Value = CFDictionaryGetValue(a5, @"CMTimebaseEventTime");
-            CMTimeMakeFromDictionary(&v37, Value);
+            CMTimeMakeFromDictionary(&v42, Value);
           }
         }
 
-        if ((v37.flags & 1) == 0)
+        if ((v42.flags & 1) == 0)
         {
-          OUTLINED_FUNCTION_17(*(a2 + 24), &v39);
-          OUTLINED_FUNCTION_8_2(v14, v15, v16, v17, v18, v19, v20, v21, v37.value, *&v37.timescale, v37.epoch, v38, *&v39.value);
+          OUTLINED_FUNCTION_17(*(a2 + 24), &v44);
+          OUTLINED_FUNCTION_8_2(v19, v20, v21, v22, v23, v24, v25, v26, v42.value, *&v42.timescale, v42.epoch, v43, *&v44.value);
         }
 
-        v39 = v37;
+        v44 = v42;
         EffectiveRate = CMTimebaseGetEffectiveRate(a2);
-        v31 = *(a2 + 320);
+        v36 = *(a2 + 320);
         if (EffectiveRate > 0.0)
         {
-          v32 = 1;
+          v37 = 1;
         }
 
         else
         {
-          v32 = -1;
+          v37 = -1;
         }
 
         if (EffectiveRate == 0.0)
         {
-          v32 = *(a2 + 320);
+          v37 = *(a2 + 320);
         }
 
-        *(a2 + 320) = v32;
+        *(a2 + 320) = v37;
         if (v11)
         {
-          v33 = 1;
+          v38 = 1;
         }
 
         else
         {
-          v33 = v31 == v32;
+          v38 = v36 == v37;
         }
 
-        v35 = v33 && v9 == 0;
+        v40 = v38 && v9 == 0;
         if (*(a2 + 280))
         {
-          OUTLINED_FUNCTION_8_2(v22, v23, v24, v25, v26, v27, v28, v29, v37.value, *&v37.timescale, v37.epoch, v38, *&v39.value);
-          rescheduleValidAndRemoveInvalidTimers(a2, &v37, v35);
+          OUTLINED_FUNCTION_8_2(v27, v28, v29, v30, v31, v32, v33, v34, v42.value, *&v42.timescale, v42.epoch, v43, *&v44.value);
+          rescheduleValidAndRemoveInvalidTimers(a2, &v42, v40);
         }
 
         if (*(a2 + 304))
         {
-          OUTLINED_FUNCTION_8_2(v22, v23, v24, v25, v26, v27, v28, v29, v37.value, *&v37.timescale, v37.epoch, v38, *&v39.value);
-          rescheduleValidAndRemoveCancelledTimerSources(a2, &v37, v35);
+          OUTLINED_FUNCTION_8_2(v27, v28, v29, v30, v31, v32, v33, v34, v42.value, *&v42.timescale, v42.epoch, v43, *&v44.value);
+          rescheduleValidAndRemoveCancelledTimerSources(a2, &v42.value, v40);
         }
       }
 
       FigReentrantMutexUnlock(*(a2 + 112));
-      return figTimebasePostNotification(a2, cf1, a5);
+      return figTimebasePostNotification(a2, cf1, a5, v12, v13, v14, v15, v16, v42.value);
     }
 
     else
     {
-      v36 = *(a2 + 112);
+      v41 = *(a2 + 112);
 
-      return FigReentrantMutexUnlock(v36);
+      return FigReentrantMutexUnlock(v41);
     }
   }
 
@@ -98,18 +159,18 @@ size_t figTimebaseSetAnchorTimeMaybeNowMaybeNotifying()
   v10 = v2;
   v11 = v1;
   v12 = v0;
-  result = figTimebaseVerifyReadWrite(v0, v1, v2, v3, v4, v5, v6, v7);
+  result = figTimebaseVerifyReadWrite(v0, v1, v2, v3, v4, v5, v6, v7, v44.value);
   if (!result)
   {
     FigReentrantMutexLock(*(v12 + 112));
-    if (*(v12 + 184) != 0.0 || (figTimebaseGetTime_MaybeUpdatingAnchorTimeFromLoopiness(&time1, v12, 0, 0), OUTLINED_FUNCTION_13_0(), CMTimeCompare(&time1, &v38)))
+    if (*(v12 + 184) != 0.0 || (figTimebaseGetTime_MaybeUpdatingAnchorTimeFromLoopiness(v12, 0, 0, &time1), OUTLINED_FUNCTION_13_0(), CMTimeCompare(&time1, &v44)))
     {
       if (v9)
       {
-        figTimebaseGetMasterTime(&time1, v12);
+        figTimebaseGetMasterTime(v12, &time1);
         *v10 = time1;
-        v42 = *v11;
-        v43 = *(v11 + 16);
+        v48 = *v11;
+        v49 = *(v11 + 16);
       }
 
       v21 = *&v10->value;
@@ -131,18 +192,18 @@ size_t figTimebaseSetAnchorTimeMaybeNowMaybeNotifying()
 
       if (!v9)
       {
-        figTimebaseGetTime_MaybeUpdatingAnchorTimeFromLoopiness(&v42, v12, 0, 0);
+        figTimebaseGetTime_MaybeUpdatingAnchorTimeFromLoopiness(v12, 0, 0, &v48);
       }
 
       if (*(v12 + 280))
       {
-        OUTLINED_FUNCTION_0_18(v23, v14, v15, v16, v17, v18, v19, v20, *&v38.value, *&v38.timescale, *&v38.epoch, v39, *&time1.value, *&time1.timescale, *&time1.epoch, v41, *&v42);
+        OUTLINED_FUNCTION_0_18(v23, v14, v15, v16, v17, v18, v19, v20, *&v44.value, *&v44.timescale, *&v44.epoch, v45, *&time1.value, *&time1.timescale, *&time1.epoch, v47, *&v48);
         rescheduleValidAndRemoveInvalidTimers(v12, v25, 0);
       }
 
       if (*(v12 + 304))
       {
-        OUTLINED_FUNCTION_0_18(v23, v14, v15, v16, v17, v18, v19, v20, *&v38.value, *&v38.timescale, *&v38.epoch, v39, *&time1.value, *&time1.timescale, *&time1.epoch, v41, *&v42);
+        OUTLINED_FUNCTION_0_18(v23, v14, v15, v16, v17, v18, v19, v20, *&v44.value, *&v44.timescale, *&v44.epoch, v45, *&time1.value, *&time1.timescale, *&time1.epoch, v47, *&v48);
         rescheduleValidAndRemoveCancelledTimerSources(v12, v26, 0);
       }
 
@@ -150,9 +211,9 @@ size_t figTimebaseSetAnchorTimeMaybeNowMaybeNotifying()
       if (v8 == 1)
       {
         CFGetAllocator(v12);
-        OUTLINED_FUNCTION_0_18(v27, v28, v29, v30, v31, v32, v33, v34, *&v38.value, *&v38.timescale, *&v38.epoch, v39, *&time1.value, *&time1.timescale, *&time1.epoch, v41, *&v42);
+        OUTLINED_FUNCTION_0_18(v27, v28, v29, v30, v31, v32, v33, v34, *&v44.value, *&v44.timescale, *&v44.epoch, v45, *&time1.value, *&time1.timescale, *&time1.epoch, v47, *&v48);
         PayloadForNotificationAtTime = figTimebaseCreatePayloadForNotificationAtTime(v35, v36);
-        OUTLINED_FUNCTION_20(PayloadForNotificationAtTime, @"CMTimebaseTimeJumped");
+        OUTLINED_FUNCTION_20(PayloadForNotificationAtTime, @"CMTimebaseTimeJumped", v38, v39, v40, v41, v42, v43, v44.value);
         if (PayloadForNotificationAtTime)
         {
           CFRelease(PayloadForNotificationAtTime);
@@ -171,14 +232,14 @@ size_t figTimebaseSetAnchorTimeMaybeNowMaybeNotifying()
   return result;
 }
 
-size_t figTimebaseCreate_cold_1(const CMBlockBufferCustomBlockSource *a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t figTimebaseCreate_cold_1(const CMBlockBufferCustomBlockSource *a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED4CC298, 0xFFFFCE32uLL, "<<< timebase >>>", a1, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED4CC298, 0xFFFFCE32uLL, "<<< timebase >>>", a1, v8, a7, a8, v11);
   *a2 = result;
   return result;
 }
 
-double CMTimebaseGetTimeAndHostClockTimePairClampedAboveAnchorTime_cold_1(CMTime *a1, void *a2, CMTime *a3)
+double CMTimebaseGetTimeAndHostClockTimePairClampedAboveAnchorTime_cold_1(CMTime *a1, os_unfair_lock_s **a2, CMTime *a3)
 {
   OUTLINED_FUNCTION_17(a2, a1);
   HostTimeClock = CMClockGetHostTimeClock();
@@ -188,14 +249,14 @@ double CMTimebaseGetTimeAndHostClockTimePairClampedAboveAnchorTime_cold_1(CMTime
   return result;
 }
 
-size_t CMTimebaseGetTimeAndHostClockTimePairClampedAboveAnchorTime_cold_2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t CMTimebaseGetTimeAndHostClockTimePairClampedAboveAnchorTime_cold_2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED4CC298, 0xFFFFCE2FuLL, "<<< timebase >>>", 0xF8D, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED4CC298, 0xFFFFCE2FuLL, "<<< timebase >>>", 0xF8D, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-void figTimebaseGetTimeAtMasterTime_cold_1(void *a1, CMTime *a2)
+void figTimebaseGetTimeAtMasterTime_cold_1(os_unfair_lock_s **a1, CMTime *a2)
 {
   v4 = FigTimebaseCopyTargetTimebase(a1);
   OUTLINED_FUNCTION_19(v4);
@@ -209,7 +270,7 @@ void figTimebaseGetTimeAtMasterTime_cold_1(void *a1, CMTime *a2)
   else
   {
     OUTLINED_FUNCTION_2_8();
-    FigSyncApplyTransform(&v6, v2 + 160, a2);
+    FigSyncApplyTransform(&v6, v2 + 160, a2, v6.value);
   }
 
   a2->flags &= ~2u;
@@ -222,7 +283,7 @@ void fpm_globalPerformanceMonitorInitOnce()
   cf = 0;
   v1 = *MEMORY[0x1E695E480];
   FigThreadRunOnce(&FigPerformanceMonitorGetClassID_sRegisterFigPerformanceMonitorBaseTypeOnce, RegisterFigPerformanceMonitorBaseType);
-  if (CMDerivedObjectCreate(v1, &kFigPerformanceMonitor_VTable, _MergedGlobals_13, &cf, v2, v3, v4, v5))
+  if (CMDerivedObjectCreate(v1, kFigPerformanceMonitor_VTable, _MergedGlobals_13, &cf, v2, v3, v4, v5, v44))
   {
     goto LABEL_15;
   }
@@ -242,7 +303,7 @@ void fpm_globalPerformanceMonitorInitOnce()
     v29 = v0;
     v30 = 866;
 LABEL_23:
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v28, 0xFFFFCE0EuLL, "< FigPerformanceMonitor >", v30, v29, v9, v10);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v28, 0xFFFFCE0EuLL, "< FigPerformanceMonitor >", v30, v29, v9, v10, v45);
     goto LABEL_15;
   }
 
@@ -251,7 +312,7 @@ LABEL_23:
   if (!v12)
   {
     OUTLINED_FUNCTION_0_19();
-    if (FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v31, 0xFFFFCE0EuLL, "< FigPerformanceMonitor >", 0x244, v32, v33, v34))
+    if (FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v31, 0xFFFFCE0EuLL, "< FigPerformanceMonitor >", 0x244, v32, v33, v34, v45))
     {
       goto LABEL_15;
     }
@@ -278,7 +339,7 @@ LABEL_23:
   else
   {
     OUTLINED_FUNCTION_0_19();
-    v18 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35, 0xFFFFCE0EuLL, "< FigPerformanceMonitor >", 0x247, v36, v37, v38);
+    v18 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35, 0xFFFFCE0EuLL, "< FigPerformanceMonitor >", 0x247, v36, v37, v38, v45);
   }
 
   CFRelease(v13);
@@ -302,19 +363,19 @@ LABEL_8:
         {
           *(v7 + 56) = arc4random();
           v24 = objc_autoreleasePoolPush();
-          v45[0] = MEMORY[0x1E69E9820];
-          v45[1] = 3221225472;
-          v45[2] = __fpm_performanceMonitorCreate_block_invoke;
-          v45[3] = &__block_descriptor_40_e5_v8__0l;
-          v45[4] = v7;
-          [*(v7 + 584) setScreenOnChangedHandler:v45];
+          v47[0] = MEMORY[0x1E69E9820];
+          v47[1] = 3221225472;
+          v47[2] = __fpm_performanceMonitorCreate_block_invoke;
+          v47[3] = &__block_descriptor_40_e5_v8__0l;
+          v47[4] = v7;
+          [*(v7 + 584) setScreenOnChangedHandler:v47];
           v25 = *(v7 + 584);
-          v44[0] = MEMORY[0x1E69E9820];
-          v44[1] = 3221225472;
-          v44[2] = __fpm_performanceMonitorCreate_block_invoke_3;
-          v44[3] = &__block_descriptor_40_e5_v8__0l;
-          v44[4] = v7;
-          [v25 activateWithCompletion:v44];
+          v46[0] = MEMORY[0x1E69E9820];
+          v46[1] = 3221225472;
+          v46[2] = __fpm_performanceMonitorCreate_block_invoke_3;
+          v46[3] = &__block_descriptor_40_e5_v8__0l;
+          v46[4] = v7;
+          [v25 activateWithCompletion:v46];
           objc_autoreleasePoolPop(v24);
           Mutable = CFArrayCreateMutable(v1, 0, MEMORY[0x1E695E9C0]);
           *(v7 + 64) = Mutable;
@@ -355,7 +416,7 @@ LABEL_14:
         v43 = 875;
       }
 
-      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v39, 0xFFFFCE0EuLL, "< FigPerformanceMonitor >", v43, v40, v41, v42);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v39, 0xFFFFCE0EuLL, "< FigPerformanceMonitor >", v43, v40, v41, v42, v45);
       goto LABEL_14;
     }
 
@@ -371,9 +432,9 @@ LABEL_15:
   }
 }
 
-size_t __FigPerformanceMonitorUpdateOSTransactionData_block_invoke_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t __FigPerformanceMonitorUpdateOSTransactionData_block_invoke_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CD80, 0xFFFFB582uLL, "< FigPerformanceMonitor >", 0x1A0, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CD80, 0xFFFFB582uLL, "< FigPerformanceMonitor >", 0x1A0, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
@@ -424,23 +485,23 @@ void fpm_timerCallback_cold_1(uint64_t a1, void *a2, CFIndex a3, CFArrayRef *a4)
   *(a1 + 624) = v9 / 0x3B9ACA00uLL;
 }
 
-size_t fpm_timerCallback_cold_2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t fpm_timerCallback_cold_2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CD80, 0xFFFFB582uLL, "< FigPerformanceMonitor >", 0x11C, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CD80, 0xFFFFB582uLL, "< FigPerformanceMonitor >", 0x11C, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t fpm_timerCallback_cold_3(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t fpm_timerCallback_cold_3(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CD80, 0xFFFFB582uLL, "< FigPerformanceMonitor >", 0x119, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CD80, 0xFFFFB582uLL, "< FigPerformanceMonitor >", 0x119, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t fpm_timerCallback_cold_4(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t fpm_timerCallback_cold_4(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CD80, 0xFFFFB582uLL, "< FigPerformanceMonitor >", 0xF9, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CD80, 0xFFFFB582uLL, "< FigPerformanceMonitor >", 0xF9, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
@@ -473,16 +534,16 @@ void fpm_timerCallback_cold_9()
   __break(1u);
 }
 
-size_t fpm_timerCallback_cold_10(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t fpm_timerCallback_cold_10(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CD80, 0xFFFFB582uLL, "< FigPerformanceMonitor >", 0x165, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CD80, 0xFFFFB582uLL, "< FigPerformanceMonitor >", 0x165, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t fpm_reportingDataForInternalUsingCoreAnalytics_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t fpm_reportingDataForInternalUsingCoreAnalytics_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CD80, 0xFFFFB57DuLL, "< FigPerformanceMonitor >", 0x156, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CD80, 0xFFFFB57DuLL, "< FigPerformanceMonitor >", 0x156, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
@@ -501,7 +562,7 @@ void __getRTCReportingClass_block_invoke_cold_1()
   __break(1u);
 }
 
-uint64_t metserver_replyingMessageHandler(_xpc_connection_s *a1, void *a2, void *a3)
+size_t metserver_replyingMessageHandler(_xpc_connection_s *a1, void *a2, void *a3)
 {
   HIDWORD(v72) = 0;
   OpCode = FigXPCMessageGetOpCode(a2, &v72 + 1);
@@ -543,11 +604,11 @@ uint64_t metserver_replyingMessageHandler(_xpc_connection_s *a1, void *a2, void 
           if (!v24)
           {
             v25 = FigGetAllocatorForMedia();
-            v26 = metserver_createCompanion(v25, &cf);
+            Companion = metserver_createCompanion(v25, &cf);
             v27 = cf;
-            if (v26)
+            if (Companion)
             {
-              v15 = v26;
+              v15 = Companion;
             }
 
             else
@@ -600,7 +661,7 @@ LABEL_55:
         v71 = 172;
       }
 
-      v24 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFB405uLL, "metricevent", v71, v70, v68, v69);
+      v24 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFB405uLL, "metricevent", v71, v70, v68, v69, v72);
       goto LABEL_55;
     case 0x64697370:
       uint64 = xpc_dictionary_get_uint64(a2, ".objectID");
@@ -784,7 +845,7 @@ size_t metserver_copyEventTimelineAndCompanion(_xpc_connection_s *a1, xpc_object
   if (!uint64)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v9 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFB406uLL, "metricevent", 0x8E, v4, v14, v15);
+    v9 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFB406uLL, "metricevent", 0x8E, v4, v14, v15, cf);
     goto LABEL_14;
   }
 
@@ -828,10 +889,10 @@ LABEL_10:
   return v11;
 }
 
-void __FigMetricEventTimelineStartServer_block_invoke_cold_1(void *a1, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+void __FigMetricEventTimelineStartServer_block_invoke_cold_1(void *a1, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   FigCFDictionarySetInt32(a1, @"xpcServerOption_QueuePriority", 44, a4, a5, a6, a7, a8);
-  *(*(*a3 + 8) + 24) = FigXPCServerStart("com.apple.coremedia.mediaplaybackd.figmetriceventtimeline.xpc", a2, a1, &gFigMetricEventTimelineServer);
+  *(*(*a3 + 8) + 24) = FigXPCServerStart("com.apple.coremedia.mediaplaybackd.figmetriceventtimeline.xpc", a2, a1, &gFigMetricEventTimelineServer, v11, v12, v13, v14);
   if (!*(*(*a3 + 8) + 24))
   {
     FigXPCServerActivate(gFigMetricEventTimelineServer);
@@ -844,7 +905,7 @@ size_t __FigMetricEventTimelineStartServer_block_invoke_cold_2(uint64_t a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB405uLL, "metricevent", 0x1A1, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB405uLL, "metricevent", 0x1A1, v3, v4, v5, v7);
   *(*(*a1 + 8) + 24) = result;
   return result;
 }
@@ -853,7 +914,7 @@ size_t FigMetricEventTimelineGetIDByAssociatingWithClientConnection_cold_1(_DWOR
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB406uLL, "metricevent", 0x1B8, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB406uLL, "metricevent", 0x1B8, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -862,7 +923,7 @@ size_t FigMetricEventTimelineGetIDByAssociatingWithClientConnection_cold_2(_DWOR
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB406uLL, "metricevent", 0x1B7, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB406uLL, "metricevent", 0x1B7, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -871,7 +932,7 @@ size_t FigMetricEventTimelineGetIDByAssociatingWithClientConnection_cold_3(_DWOR
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB406uLL, "metricevent", 0x1B6, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB406uLL, "metricevent", 0x1B6, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -880,7 +941,7 @@ void metserver_createCompanion_cold_1(const void *a1, _DWORD *a2)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  *a2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFB405uLL, "metricevent", 0x7C, v5, v6, v7);
+  *a2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFB405uLL, "metricevent", 0x7C, v5, v6, v7, v8);
   CFRelease(a1);
 }
 
@@ -888,7 +949,7 @@ size_t metserver_createCompanion_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB405uLL, "metricevent", 0x79, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB405uLL, "metricevent", 0x79, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -897,7 +958,7 @@ size_t metserver_createCompanion_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB406uLL, "metricevent", 0x76, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB406uLL, "metricevent", 0x76, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -957,7 +1018,7 @@ size_t FigCaptionFontFamilyNameListCreateMutable_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0xC2, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0xC2, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -966,7 +1027,7 @@ size_t FigCaptionFontFamilyNameListCreateMutable_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0xBA, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0xBA, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -975,7 +1036,7 @@ void FigCaptionFontFamilyNameListCreateMutableCopy_cold_1(const void *a1, _DWORD
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  *a2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFCE0EuLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0xE3, v5, v6, v7);
+  *a2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFCE0EuLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0xE3, v5, v6, v7, v8);
 
   CFRelease(a1);
 }
@@ -984,7 +1045,7 @@ size_t FigCaptionFontFamilyNameListCreateMutableCopy_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0xE0, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0xE0, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -993,7 +1054,7 @@ size_t FigCaptionFontFamilyNameListCreateMutableCopy_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0xD8, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0xD8, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1002,7 +1063,7 @@ size_t FigCaptionFontFamilyNameListAppend_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0x105, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0x105, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1011,7 +1072,7 @@ size_t FigCaptionFontFamilyNameListAppend_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0x104, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0x104, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1020,7 +1081,7 @@ size_t FigCaptionFontFamilyNameListAppend_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0x101, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0x101, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1029,7 +1090,7 @@ size_t FigCaptionFontFamilyNameListCopyFamilyKindAndNameAtIndex_cold_1(_DWORD *a
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0x11E, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0x11E, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1038,7 +1099,7 @@ size_t FigCaptionFontFamilyNameListCopyFamilyKindAndNameAtIndex_cold_2(_DWORD *a
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0x11F, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0x11F, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1047,59 +1108,59 @@ size_t FigCaptionFontFamilyNameListCopyFamilyKindAndNameAtIndex_cold_3(_DWORD *a
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0x11D, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigCaptionFontFamilyNameList >>>>", 0x11D, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
 
-size_t FigCPECryptorRemoteRetainCopiedCryptor(uint64_t a1, const void *a2, void *a3)
+size_t FigCPECryptorRemoteRetainCopiedCryptor(uint64_t a1, CMBlockBufferRef *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
-  v25 = 0;
+  v36 = 0;
   if (a2)
   {
     if (a3)
     {
-      v27 = 0;
-      v28 = &v27;
-      v29 = 0x2000000000;
-      v30 = 0;
+      v38 = 0;
+      v39 = &v38;
+      v40 = 0x2000000000;
+      v41 = 0;
       cf[0] = MEMORY[0x1E69E9820];
       cf[1] = 0x40000000;
       cf[2] = __cryptorRemote_EnsureClientEstablished_block_invoke;
       cf[3] = &unk_1E749ED60;
-      cf[4] = &v27;
+      cf[4] = &v38;
       if (qword_1ED4CC528 != -1)
       {
         dispatch_once(&qword_1ED4CC528, cf);
       }
 
-      FigXPCRemoteClientKillServerOnTimeout(_MergedGlobals_14, *(v28 + 6), "cryptorRemote_EnsureClientEstablished", 0);
-      v6 = *(v28 + 6);
-      _Block_object_dispose(&v27, 8);
-      if (v6)
+      FigXPCRemoteClientKillServerOnTimeout();
+      v12 = *(v39 + 6);
+      _Block_object_dispose(&v38, 8);
+      if (v12)
       {
-        return v6;
+        return v12;
       }
 
-      v6 = FigXPCRemoteClientRetainCopiedObject(_MergedGlobals_14, a2, &v25);
-      v7 = v25;
-      if (v6)
+      v12 = FigXPCRemoteClientRetainCopiedObject(_MergedGlobals_14, a2, &v36);
+      v13 = v36;
+      if (v12)
       {
         goto LABEL_17;
       }
 
-      if (v25)
+      if (v36)
       {
 LABEL_15:
-        v6 = 0;
-        *a3 = v7;
-        return v6;
+        v12 = 0;
+        *a3 = v13;
+        return v12;
       }
 
       cf[0] = 0;
       ClassID = FigCPECryptorGetClassID();
-      v13 = CMDerivedObjectCreate(a1, &kFigCPECryptorRemote_VTable, ClassID, cf, v9, v10, v11, v12);
-      if (!v13)
+      v19 = CMDerivedObjectCreate(a1, kFigCPECryptorRemote_VTable, ClassID, cf, v15, v16, v17, v18, v36);
+      if (!v19)
       {
         if (cf[0])
         {
@@ -1110,10 +1171,10 @@ LABEL_15:
           *(DerivedStorage + 24) = 0;
           *(DerivedStorage + 32) = 0;
           *(DerivedStorage + 48) = FigSimpleMutexCreate();
-          v6 = FigXPCRemoteClientAssociateObject(_MergedGlobals_14, cf[0], a2);
-          if (!v6)
+          v12 = FigXPCRemoteClientAssociateObject(_MergedGlobals_14, cf[0], a2, v21, v22, v23, v24, v25, v36);
+          if (!v12)
           {
-            v25 = CFRetain(cf[0]);
+            v36 = CFRetain(cf[0]);
           }
 
 LABEL_12:
@@ -1122,56 +1183,56 @@ LABEL_12:
             CFRelease(cf[0]);
           }
 
-          v7 = v25;
-          if (!v6)
+          v13 = v36;
+          if (!v12)
           {
             goto LABEL_15;
           }
 
 LABEL_17:
-          if (v7)
+          if (v13)
           {
-            CFRelease(v7);
+            CFRelease(v13);
           }
 
-          return v6;
+          return v12;
         }
 
         fig_log_get_emitter("com.apple.coremedia", "");
         OUTLINED_FUNCTION_0_20();
-        v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v21, 0xFFFFBB5DuLL, "<<< FigCPECryptorRemote >>>", 0x2C6, v22, v23, v24);
+        v19 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v32, 0xFFFFBB5DuLL, "<<< FigCPECryptorRemote >>>", 0x2C6, v33, v34, v35, v36);
       }
 
-      v6 = v13;
+      v12 = v19;
       goto LABEL_12;
     }
 
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0_20();
-    v20 = 738;
+    v31 = 738;
   }
 
   else
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0_20();
-    v20 = 737;
+    v31 = 737;
   }
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v16, 0xFFFFCE14uLL, "<<< FigCPECryptorRemote >>>", v20, v17, v18, v19);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v27, 0xFFFFCE14uLL, "<<< FigCPECryptorRemote >>>", v31, v28, v29, v30, a9);
 }
 
-size_t FigCPECryptorRemoteGetID(uint64_t a1, void *a2)
+size_t FigCPECryptorRemoteGetID(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
-  v9 = 0;
+  v16 = 0;
   if (a1)
   {
     if (a2)
     {
-      result = cryptorRemote_GetObjectID(a1, &v9);
+      result = cryptorRemote_GetObjectID(a1, &v16);
       if (!result)
       {
-        *a2 = v9;
+        *a2 = v16;
       }
 
       return result;
@@ -1179,17 +1240,17 @@ size_t FigCPECryptorRemoteGetID(uint64_t a1, void *a2)
 
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0();
-    v8 = 766;
+    v15 = 766;
   }
 
   else
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0();
-    v8 = 765;
+    v15 = 765;
   }
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", v8, v5, v6, v7);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v11, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", v15, v12, v13, v14, a9);
 }
 
 uint64_t cryptorRemote_Invalidate(uint64_t a1)
@@ -1216,72 +1277,65 @@ uint64_t cryptorRemote_Invalidate(uint64_t a1)
   return v4;
 }
 
-uint64_t cryptorRemote_Finalize(uint64_t a1)
+void cryptorRemote_Finalize(uint64_t a1)
 {
-  v6 = 0;
+  v10 = 0;
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
-  FigXPCRemoteClientDisassociateObject(_MergedGlobals_14, *(DerivedStorage + 8));
-  if (!*(DerivedStorage + 1) && ((v2 = FigXPCCreateBasicMessage(0x64697370u, *(DerivedStorage + 8), &v6), v2) || (v2 = FigXPCRemoteClientSendAsyncMessage(_MergedGlobals_14, v6), v2)))
-  {
-    v4 = v2;
-  }
-
-  else
+  FigXPCRemoteClientDisassociateObject(_MergedGlobals_14, *(DerivedStorage + 8), v2, v3, v4, v5, v6, v7, v9);
+  if (*(DerivedStorage + 1) || !FigXPCCreateBasicMessage(0x64697370u, *(DerivedStorage + 8), &v10) && !FigXPCRemoteClientSendAsyncMessage(_MergedGlobals_14, v10))
   {
     FigSimpleMutexDestroy(*(DerivedStorage + 48));
-    v3 = *(DerivedStorage + 40);
-    if (v3)
+    v8 = *(DerivedStorage + 40);
+    if (v8)
     {
-      CFRelease(v3);
+      CFRelease(v8);
     }
-
-    v4 = 0;
   }
 
-  FigXPCRelease(v6);
-  return FigXPCRemoteClientKillServerOnTimeout(_MergedGlobals_14, v4, "cryptorRemote_Finalize", 0);
+  FigXPCRelease(v10);
+  FigXPCRemoteClientKillServerOnTimeout();
 }
 
-size_t cryptorRemote_CopyProperty(uint64_t a1, const void *a2, uint64_t a3, void *a4)
+size_t cryptorRemote_CopyProperty(uint64_t a1, const void *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
-  v26 = 0;
+  v31 = 0;
   if (a4)
   {
-    v9 = DerivedStorage;
-    ObjectID = cryptorRemote_GetObjectID(a1, &v26);
+    v14 = DerivedStorage;
+    ObjectID = cryptorRemote_GetObjectID(a1, &v31);
     if (!ObjectID)
     {
       if (CFEqual(a2, @"UUIDString"))
       {
-        FigSimpleMutexLock(*(v9 + 48));
-        v19 = (v9 + 40);
-        if (*(v9 + 40))
+        FigSimpleMutexLock(*(v14 + 48));
+        v24 = (v14 + 40);
+        if (*(v14 + 40))
         {
-          FigSimpleMutexUnlock(*(v9 + 48));
+          FigSimpleMutexUnlock(*(v14 + 48));
 LABEL_9:
-          v21 = *v19;
-          if (*v19)
+          v26 = *v24;
+          if (*v24)
           {
-            v21 = CFRetain(v21);
+            v26 = CFRetain(v26);
           }
 
-          v20 = 0;
-          *a4 = v21;
-          return v20;
+          v25 = 0;
+          *a4 = v26;
+          return v25;
         }
 
-        v20 = FigXPCSendStdCopyPropertyMessage(_MergedGlobals_14, v26, @"UUIDString", v9 + 40, v15, v16, v17, v18);
-        FigSimpleMutexUnlock(*(v9 + 48));
-        if (!v20)
+        v25 = FigXPCSendStdCopyPropertyMessage(_MergedGlobals_14, v31, @"UUIDString", v14 + 40, v20, v21, v22, v23);
+        FigSimpleMutexUnlock(*(v14 + 48));
+        if (!v25)
         {
           goto LABEL_9;
         }
 
-        return v20;
+        return v25;
       }
 
-      return FigXPCSendStdCopyPropertyMessage(_MergedGlobals_14, v26, a2, a4, v11, v12, v13, v14);
+      return FigXPCSendStdCopyPropertyMessage(_MergedGlobals_14, v31, a2, a4, v16, v17, v18, v19);
     }
 
     return ObjectID;
@@ -1289,33 +1343,33 @@ LABEL_9:
 
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0x1E8, v4, v24, v25);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0x1E8, v9, v29, v30, a9);
 }
 
-uint64_t cryptorRemote_SetProperty(uint64_t a1, const void *a2, void *a3)
+uint64_t cryptorRemote_SetProperty(uint64_t a1, const void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
-  v32 = 0;
+  v38 = 0;
   if (a2)
   {
     if (a3)
     {
-      ObjectID = cryptorRemote_GetObjectID(a1, &v32);
+      ObjectID = cryptorRemote_GetObjectID(a1, &v38);
       if (!ObjectID)
       {
         if (CFEqual(a2, @"KeyRequestError"))
         {
-          v6 = CFGetTypeID(a3);
-          if (v6 == CFErrorGetTypeID())
+          v12 = CFGetTypeID(a3);
+          if (v12 == CFErrorGetTypeID())
           {
             OUTLINED_FUNCTION_2_10();
-            v9 = FigXPCCreateBasicMessage(0x736B7272u, v7, v8);
-            if (v9)
+            v15 = FigXPCCreateBasicMessage(0x736B7272u, v13, v14);
+            if (v15)
             {
               goto LABEL_19;
             }
 
-            v9 = FigXPCMessageSetCFError(*v33, "KeyRequestError", a3);
-            if (v9)
+            v15 = FigXPCMessageSetCFError(*v39, "KeyRequestError", a3);
+            if (v15)
             {
               goto LABEL_19;
             }
@@ -1325,24 +1379,24 @@ uint64_t cryptorRemote_SetProperty(uint64_t a1, const void *a2, void *a3)
 
           fig_log_get_emitter("com.apple.coremedia", "");
           OUTLINED_FUNCTION_0_20();
-          v31 = 456;
-          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v27, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", v31, v28, v29, v30);
+          v37 = 456;
+          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v33, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", v37, v34, v35, v36, v38);
         }
 
         if (CFEqual(a2, @"CPEBAESCP_VideoFormatDescription"))
         {
-          v10 = CFGetTypeID(a3);
-          if (v10 == CMFormatDescriptionGetTypeID())
+          v16 = CFGetTypeID(a3);
+          if (v16 == CMFormatDescriptionGetTypeID())
           {
             OUTLINED_FUNCTION_2_10();
-            v9 = FigXPCCreateBasicMessage(0x73666D74u, v11, v12);
-            if (v9)
+            v15 = FigXPCCreateBasicMessage(0x73666D74u, v17, v18);
+            if (v15)
             {
               goto LABEL_19;
             }
 
-            v9 = FigXPCMessageSetFormatDescription(*v33, "FormatDescription", a3);
-            if (v9)
+            v15 = FigXPCMessageSetFormatDescription(*v39, "FormatDescription", a3);
+            if (v15)
             {
               goto LABEL_19;
             }
@@ -1352,43 +1406,43 @@ uint64_t cryptorRemote_SetProperty(uint64_t a1, const void *a2, void *a3)
 
           fig_log_get_emitter("com.apple.coremedia", "");
           OUTLINED_FUNCTION_0_20();
-          v31 = 461;
-          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v27, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", v31, v28, v29, v30);
+          v37 = 461;
+          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v33, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", v37, v34, v35, v36, v38);
         }
 
         if (CFEqual(a2, @"CPEAESCP_SUBAUXDATA"))
         {
-          v17 = CFGetTypeID(a3);
-          if (v17 == CFDataGetTypeID())
+          v23 = CFGetTypeID(a3);
+          if (v23 == CFDataGetTypeID())
           {
             OUTLINED_FUNCTION_2_10();
-            v9 = FigXPCCreateBasicMessage(0x73736164u, v18, v19);
-            if (v9)
+            v15 = FigXPCCreateBasicMessage(0x73736164u, v24, v25);
+            if (v15)
             {
               goto LABEL_19;
             }
 
-            v9 = FigXPCMessageSetCFData(*v33, "SubsampleAuxiliaryData", a3);
-            if (v9)
+            v15 = FigXPCMessageSetCFData(*v39, "SubsampleAuxiliaryData", a3);
+            if (v15)
             {
               goto LABEL_19;
             }
 
 LABEL_18:
-            v9 = FigXPCRemoteClientSendSyncMessage(_MergedGlobals_14, *v33);
+            v15 = FigXPCRemoteClientSendSyncMessage(_MergedGlobals_14, *v39);
 LABEL_19:
-            v20 = v9;
-            FigXPCRelease(*v33);
-            return v20;
+            v26 = v15;
+            FigXPCRelease(*v39);
+            return v26;
           }
 
           fig_log_get_emitter("com.apple.coremedia", "");
           OUTLINED_FUNCTION_0_20();
-          v31 = 466;
-          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v27, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", v31, v28, v29, v30);
+          v37 = 466;
+          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v33, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", v37, v34, v35, v36, v38);
         }
 
-        return FigXPCSendStdSetPropertyMessage(_MergedGlobals_14, v32, a2, a3, v13, v14, v15, v16);
+        return FigXPCSendStdSetPropertyMessage(_MergedGlobals_14, v38, a2, a3, v19, v20, v21, v22);
       }
 
       return ObjectID;
@@ -1396,31 +1450,31 @@ LABEL_19:
 
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0_20();
-    v26 = 450;
+    v32 = 450;
   }
 
   else
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0_20();
-    v26 = 449;
+    v32 = 449;
   }
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v22, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", v26, v23, v24, v25);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v28, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", v32, v29, v30, v31, a9);
 }
 
-size_t cryptorRemote_getNativeSession(uint64_t a1, void *a2)
+size_t cryptorRemote_getNativeSession(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
   if (a1)
   {
     if (a2)
     {
-      v5 = DerivedStorage;
+      v12 = DerivedStorage;
       result = cryptorRemote_ensureStateUpdatedFromServer(a1);
       if (!result)
       {
-        *a2 = *(v5 + 24);
+        *a2 = *(v12 + 24);
       }
     }
 
@@ -1435,22 +1489,22 @@ size_t cryptorRemote_getNativeSession(uint64_t a1, void *a2)
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0_20();
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0x330, v8, v9, v10);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0x330, v15, v16, v17, a9);
   }
 
   return result;
 }
 
-size_t cryptorRemote_getExternalProtectionMethods(uint64_t a1, _DWORD *a2)
+size_t cryptorRemote_getExternalProtectionMethods(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
   if (a1)
   {
     if (a2)
     {
-      v5 = DerivedStorage;
+      v12 = DerivedStorage;
       result = cryptorRemote_ensureStateUpdatedFromServer(a1);
-      *a2 = *(v5 + 32);
+      *a2 = *(v12 + 32);
     }
 
     else
@@ -1464,7 +1518,7 @@ size_t cryptorRemote_getExternalProtectionMethods(uint64_t a1, _DWORD *a2)
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0_20();
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0x340, v8, v9, v10);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0x340, v15, v16, v17, a9);
   }
 
   return result;
@@ -1527,15 +1581,15 @@ uint64_t cryptorRemote_SetKeyRequestResponse(uint64_t a1, const void *a2, void *
   return v8;
 }
 
-size_t cryptorRemote_GetSerializationToken(uint64_t a1, void *a2)
+size_t cryptorRemote_GetSerializationToken(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
-  v8 = 0;
+  v15 = 0;
   if (a2)
   {
-    result = cryptorRemote_GetObjectID(a1, &v8);
+    result = cryptorRemote_GetObjectID(a1, &v15);
     if (!result)
     {
-      *a2 = v8;
+      *a2 = v15;
     }
   }
 
@@ -1544,7 +1598,7 @@ size_t cryptorRemote_GetSerializationToken(uint64_t a1, void *a2)
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0_20();
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0x174, v5, v6, v7);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v11, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0x174, v12, v13, v14, a9);
   }
 
   return result;
@@ -1552,25 +1606,25 @@ size_t cryptorRemote_GetSerializationToken(uint64_t a1, void *a2)
 
 unint64_t cryptorRemote_CopyPropertyForFormat(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, __CFDictionary **a5)
 {
-  *v16 = 0;
-  v17 = 0;
-  v15 = 0;
+  *v22 = 0;
+  v23 = 0;
+  v21 = 0;
   if (a5)
   {
-    ObjectID = cryptorRemote_GetObjectID(a1, &v17);
+    ObjectID = cryptorRemote_GetObjectID(a1, &v23);
     if (!ObjectID)
     {
-      ObjectID = FigXPCCreateBasicMessage(0x63706666u, v17, v16);
+      ObjectID = FigXPCCreateBasicMessage(0x63706666u, v23, v22);
       if (!ObjectID)
       {
-        ObjectID = FigXPCMessageSetCFString(*v16, ".PropertyName", a2);
+        ObjectID = FigXPCMessageSetCFString(*v22, ".PropertyName", a2);
         if (!ObjectID)
         {
-          FigXPCMessageSetUInt32(*v16, "Format", a3);
-          ObjectID = FigXPCRemoteClientSendSyncMessageCreatingReply(_MergedGlobals_14, *v16, &v15);
+          FigXPCMessageSetUInt32(*v22, "Format", a3, v10, v11, v12, v13, v14);
+          ObjectID = FigXPCRemoteClientSendSyncMessageCreatingReply(_MergedGlobals_14, *v22, &v21);
           if (!ObjectID)
           {
-            ObjectID = FigXPCMessageCopyCFObject(v15, ".Value", a5);
+            ObjectID = FigXPCMessageCopyCFObject(v21, ".Value", a5);
           }
         }
       }
@@ -1580,13 +1634,13 @@ unint64_t cryptorRemote_CopyPropertyForFormat(uint64_t a1, const void *a2, uint6
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    ObjectID = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0x20A, v5, v13, v14);
+    ObjectID = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0x20A, v5, v18, v19, v20);
   }
 
-  v10 = ObjectID;
-  FigXPCRelease(*v16);
-  FigXPCRelease(v15);
-  return v10;
+  v15 = ObjectID;
+  FigXPCRelease(*v22);
+  FigXPCRelease(v21);
+  return v15;
 }
 
 uint64_t cryptorRemote_TestAndSetKeyRequestState(uint64_t a1, uint64_t a2, uint64_t a3, BOOL *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -1675,29 +1729,29 @@ uint64_t cryptorRemote_setKeyResponseForAirPlay(uint64_t a1, uint64_t a2, const 
   return v10;
 }
 
-size_t cryptorRemote_copySerializedCryptorRecipe(uint64_t a1, CFDataRef *a2)
+size_t cryptorRemote_copySerializedCryptorRecipe(uint64_t a1, CFDataRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
   if (a1)
   {
     if (a2)
     {
-      v6 = DerivedStorage;
+      v13 = DerivedStorage;
       result = cryptorRemote_ensureStateUpdatedFromServer(a1);
       if (!result)
       {
-        v15 = *(v6 + 24);
-        v8 = *(v6 + 32);
-        *&v9 = v8;
-        *(&v9 + 1) = HIDWORD(v8);
-        v16 = v9;
-        v10 = CFDataCreate(*MEMORY[0x1E695E480], &v15, 24);
-        if (v10)
+        v22 = *(v13 + 24);
+        v15 = *(v13 + 32);
+        *&v16 = v15;
+        *(&v16 + 1) = HIDWORD(v15);
+        v23 = v16;
+        v17 = CFDataCreate(*MEMORY[0x1E695E480], &v22, 24);
+        if (v17)
         {
-          v11 = v10;
+          v18 = v17;
           result = 0;
-          *a2 = v11;
+          *a2 = v18;
         }
 
         else
@@ -1717,7 +1771,7 @@ size_t cryptorRemote_copySerializedCryptorRecipe(uint64_t a1, CFDataRef *a2)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0x352, v2, v13, v14);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0x352, v9, v20, v21, a9);
   }
 
   return result;
@@ -1727,7 +1781,7 @@ size_t cryptorRemote_GetObjectID_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBB5BuLL, "<<< FigCPECryptorRemote >>>", 0xA5, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBB5BuLL, "<<< FigCPECryptorRemote >>>", 0xA5, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1736,7 +1790,7 @@ size_t cryptorRemote_GetObjectID_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBB5AuLL, "<<< FigCPECryptorRemote >>>", 0xA6, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBB5AuLL, "<<< FigCPECryptorRemote >>>", 0xA6, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1745,7 +1799,7 @@ size_t cryptorRemote_GetObjectID_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0xA4, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBB5EuLL, "<<< FigCPECryptorRemote >>>", 0xA4, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1754,7 +1808,7 @@ size_t cryptorRemote_ensureStateUpdatedFromServer_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBB5BuLL, "<<< FigCPECryptorRemote >>>", 0x311, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBB5BuLL, "<<< FigCPECryptorRemote >>>", 0x311, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1763,7 +1817,7 @@ size_t cryptorRemote_ensureStateUpdatedFromServer_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBB5AuLL, "<<< FigCPECryptorRemote >>>", 0x312, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBB5AuLL, "<<< FigCPECryptorRemote >>>", 0x312, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1774,7 +1828,7 @@ size_t FigMetricEventClassInstallEventDeserializeHandler(uint64_t a1, uint64_t a
   SInt64 = FigCFNumberCreateSInt64(AllocatorForMedia, a1);
   if (!a2)
   {
-    v9 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDA0, 0xFFFFB3FCuLL, "metricevent", 0xA0, v2, v6, v7);
+    v9 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDA0, 0xFFFFB3FCuLL, "metricevent", 0xA0, v2, v6, v7, v15);
     goto LABEL_12;
   }
 
@@ -1802,7 +1856,7 @@ size_t FigMetricEventClassInstallEventDeserializeHandler(uint64_t a1, uint64_t a
 
     else
     {
-      v9 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDA0, 0xFFFFB3FBuLL, "metricevent", 0x90, v2, v11, v12);
+      v9 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDA0, 0xFFFFB3FBuLL, "metricevent", 0x90, v2, v11, v12, v15, *(&v15 + 1));
       if (v9)
       {
         goto LABEL_12;
@@ -1875,7 +1929,7 @@ size_t FigMetricEventDeserializeEventAndCopy(void *a1, CFTypeRef *a2)
     v17 = 186;
   }
 
-  v12 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, v16, "metricevent", v17, v15, v7, v8);
+  v12 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, v16, "metricevent", v17, v15, v7, v8, v18);
   if (SInt64)
   {
 LABEL_7:
@@ -1891,124 +1945,124 @@ LABEL_8:
   return v12;
 }
 
-size_t FigMetricMockEventForTestCreate_cold_3(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigMetricMockEventForTestCreate_cold_3(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDA0, 0xFFFFB3FCuLL, "metricevent", 0x134, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDA0, 0xFFFFB3FCuLL, "metricevent", 0x134, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t __ensureGlobalDeserializeRegister_block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t __ensureGlobalDeserializeRegister_block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDA0, 0xFFFFB3FBuLL, "metricevent", 0x5B, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDA0, 0xFFFFB3FBuLL, "metricevent", 0x5B, v8, a7, a8, vars0);
   dword_1ED4CC534 = result;
   return result;
 }
 
-size_t CMByteStreamCreateCompositeForRead(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t *a4, uint64_t *a5, CFTypeRef *a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t CMByteStreamCreateCompositeForRead(uint64_t a1, uint64_t a2, CFTypeRef *a3, uint64_t *a4, uint64_t *a5, CFTypeRef *a6, size_t a7, CMBlockBufferFlags a8, CMBlockBufferRef *a9)
 {
-  if (a2 >= 1 && (v9 = a3) != 0 && (v10 = a4) != 0 && (v11 = a5) != 0 && a6)
+  if (a2 >= 1 && (v10 = a3) != 0 && (v11 = a4) != 0 && (v12 = a5) != 0 && a6)
   {
     cf = 0;
     ClassID = CMByteStreamGetClassID();
-    v20 = CMDerivedObjectCreate(a1, &kFigCompositeByteStreamVTable, ClassID, &cf, v16, v17, v18, v19);
-    if (v20)
+    v21 = CMDerivedObjectCreate(a1, kFigCompositeByteStreamVTable, ClassID, &cf, v17, v18, v19, v20, v34);
+    if (v21)
     {
-      return v20;
+      return v21;
     }
 
     DerivedStorage = CMBaseObjectGetDerivedStorage(cf);
     *DerivedStorage = a2;
     DerivedStorage[2] = 0;
-    v22 = malloc_type_malloc(32 * a2, 0x1020040B07D1DCCuLL);
-    DerivedStorage[1] = v22;
-    if (v22)
+    v23 = malloc_type_malloc(32 * a2, 0x1020040B07D1DCCuLL);
+    DerivedStorage[1] = v23;
+    if (v23)
     {
-      v25 = -16;
-      v26 = a2;
+      v26 = -16;
+      v27 = a2;
       do
       {
-        v27 = CFRetain(*v9);
-        v28 = DerivedStorage[1];
-        v29 = (v28 + v25);
-        v30 = *v10++;
-        v29[2] = v27;
-        v29[3] = v30;
+        v28 = CFRetain(*v10);
+        v29 = DerivedStorage[1];
+        v30 = (v29 + v26);
         v31 = *v11++;
-        v29[5] = v31;
-        if (v25 == -16)
+        v30[2] = v28;
+        v30[3] = v31;
+        v32 = *v12++;
+        v30[5] = v32;
+        if (v26 == -16)
         {
-          *(v28 + 16) = 0;
+          *(v29 + 16) = 0;
         }
 
         else
         {
-          v29[4] = v29[1] + *v29;
+          v30[4] = v30[1] + *v30;
         }
 
-        v25 += 32;
-        ++v9;
-        --v26;
+        v26 += 32;
+        ++v10;
+        --v27;
       }
 
-      while (v26);
-      DerivedStorage[3] = *(v28 + 32 * a2 - 8) + *(v28 + 32 * a2 - 16);
+      while (v27);
+      DerivedStorage[3] = *(v29 + 32 * a2 - 8) + *(v29 + 32 * a2 - 16);
       *a6 = cf;
     }
 
     else
     {
-      v26 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE0EuLL, "(Fig)", 0x19F, v8, v23, v24);
+      v27 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE0EuLL, "(Fig)", 0x19F, v9, v24, v25, v35);
       CFRelease(cf);
     }
 
-    return v26;
+    return v27;
   }
 
   else
   {
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCDB8uLL, "(Fig)", 0x194, v8, a7, a8);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCDB8uLL, "(Fig)", 0x194, v9, a7, a8, a9);
   }
 }
 
-size_t FigCompositeByteStreamGetAvailableLengthAtOffset_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigCompositeByteStreamGetAvailableLengthAtOffset_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCDB8uLL, "(Fig)", 0x116, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCDB8uLL, "(Fig)", 0x116, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t CMByteStreamCreateForBlockBuffer(uint64_t a1, const void *a2, uint64_t a3, void *a4)
+size_t CMByteStreamCreateForBlockBuffer(uint64_t a1, const void *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (a3)
   {
     OUTLINED_FUNCTION_0_22();
 
-    return FigSignalErrorAtGM(v4, v5, v6, v7, 0x228, v8, v9, v10);
+    return FigSignalErrorAtGM(v9, v10, v11, v12, 0x228, v13, v14, v15, a9);
   }
 
   else
   {
-    v22 = 0;
+    v28 = 0;
     ClassID = CMByteStreamGetClassID();
-    result = CMDerivedObjectCreate(a1, &kFigBBufByteStreamVTable, ClassID, &v22, v16, v17, v18, v19);
+    result = CMDerivedObjectCreate(a1, kFigBBufByteStreamVTable, ClassID, &v28, v21, v22, v23, v24, v27);
     if (!result)
     {
-      DerivedStorage = CMBaseObjectGetDerivedStorage(v22);
+      DerivedStorage = CMBaseObjectGetDerivedStorage(v28);
       if (a2)
       {
-        v21 = CFRetain(a2);
+        v26 = CFRetain(a2);
       }
 
       else
       {
-        v21 = 0;
+        v26 = 0;
       }
 
       result = 0;
-      *DerivedStorage = v21;
-      *a4 = v22;
+      *DerivedStorage = v26;
+      *a4 = v28;
     }
   }
 
@@ -2017,8 +2071,8 @@ size_t CMByteStreamCreateForBlockBuffer(uint64_t a1, const void *a2, uint64_t a3
 
 size_t FigBBufByteStreamWrite(uint64_t a1, size_t a2, size_t a3, char *a4, size_t *a5)
 {
-  CMBaseObject = CMByteStreamGetCMBaseObject(a1);
-  DerivedStorage = CMBaseObjectGetDerivedStorage(CMBaseObject);
+  CMByteStreamGetCMBaseObject();
+  DerivedStorage = CMBaseObjectGetDerivedStorage(v10);
   DataLength = CMBlockBufferGetDataLength(*DerivedStorage);
   if (!*(DerivedStorage + 40))
   {
@@ -2029,7 +2083,7 @@ size_t FigBBufByteStreamWrite(uint64_t a1, size_t a2, size_t a3, char *a4, size_
     v30 = 4294954419;
     v31 = 258;
 LABEL_42:
-    result = FigSignalErrorAtGM(v27, v29, v30, v28, v31, v26, v13, v14);
+    result = FigSignalErrorAtGM(v27, v29, v30, v28, v31, v26, v13, v14, v32);
     goto LABEL_43;
   }
 
@@ -2199,7 +2253,7 @@ LABEL_36:
 size_t CMByteStreamCreateWritableForBlockBuffer_cold_1(uint64_t a1, _DWORD *a2)
 {
   OUTLINED_FUNCTION_0_22();
-  result = FigSignalErrorAtGM(v3, v4, v5, v6, v7, v8, v9, v10);
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, v7, v8, v9, v10, v12);
   *a2 = result;
   return result;
 }
@@ -2207,7 +2261,7 @@ size_t CMByteStreamCreateWritableForBlockBuffer_cold_1(uint64_t a1, _DWORD *a2)
 size_t FigBBufByteStreamSetProperty_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0_22();
-  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x192, v6, v7, v8);
+  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x192, v6, v7, v8, v10);
   *a1 = result;
   return result;
 }
@@ -2215,7 +2269,7 @@ size_t FigBBufByteStreamSetProperty_cold_1(_DWORD *a1)
 size_t FigBBufByteStreamSetProperty_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0_22();
-  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x19B, v6, v7, v8);
+  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x19B, v6, v7, v8, v10);
   *a1 = result;
   return result;
 }
@@ -2223,7 +2277,7 @@ size_t FigBBufByteStreamSetProperty_cold_2(_DWORD *a1)
 size_t FigBBufByteStreamSetProperty_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0_22();
-  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x1A4, v6, v7, v8);
+  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x1A4, v6, v7, v8, v10);
   *a1 = result;
   return result;
 }
@@ -2231,7 +2285,7 @@ size_t FigBBufByteStreamSetProperty_cold_3(_DWORD *a1)
 size_t FigBBufByteStreamSetProperty_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0_22();
-  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x1AE, v6, v7, v8);
+  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x1AE, v6, v7, v8, v10);
   *a1 = result;
   return result;
 }
@@ -2239,7 +2293,7 @@ size_t FigBBufByteStreamSetProperty_cold_4(_DWORD *a1)
 size_t FigBBufByteStreamRead_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0_22();
-  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0xD2, v6, v7, v8);
+  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0xD2, v6, v7, v8, v10);
   *a1 = result;
   return result;
 }
@@ -2247,7 +2301,7 @@ size_t FigBBufByteStreamRead_cold_1(_DWORD *a1)
 size_t FigBBufByteStreamReadAndCreateBlockBuffer_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0_22();
-  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x1DB, v6, v7, v8);
+  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x1DB, v6, v7, v8, v10);
   *a1 = result;
   return result;
 }
@@ -2270,7 +2324,7 @@ CFIndex FigCaptionDynamicStyleGetKeyFrameCount(CFIndex result)
   return result;
 }
 
-size_t FigCaptionDynamicStyleCopyKeyFrameValueAtIndex(CFIndex a1, CFIndex a2, void *a3, void *a4)
+size_t FigCaptionDynamicStyleCopyKeyFrameValueAtIndex(CFIndex a1, CFIndex a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   KeyFrameCount = FigCaptionDynamicStyleGetKeyFrameCount(a1);
   if (a1)
@@ -2279,21 +2333,21 @@ size_t FigCaptionDynamicStyleCopyKeyFrameValueAtIndex(CFIndex a1, CFIndex a2, vo
     {
       OUTLINED_FUNCTION_2_11();
       OUTLINED_FUNCTION_0_2();
-      v20 = 352;
+      v25 = 352;
     }
 
     else
     {
       if (KeyFrameCount > a2)
       {
-        v9 = *(a1 + 24);
-        if (!v9)
+        v14 = *(a1 + 24);
+        if (!v14)
         {
           fcds_initializeSortedKeyFrameValues(a1);
-          v9 = *(a1 + 24);
+          v14 = *(a1 + 24);
         }
 
-        ValueAtIndex = CFArrayGetValueAtIndex(v9, a2);
+        ValueAtIndex = CFArrayGetValueAtIndex(v14, a2);
         if (a3)
         {
           *a3 = *ValueAtIndex;
@@ -2301,13 +2355,13 @@ size_t FigCaptionDynamicStyleCopyKeyFrameValueAtIndex(CFIndex a1, CFIndex a2, vo
 
         if (a4)
         {
-          v11 = ValueAtIndex[1];
-          if (v11)
+          v16 = ValueAtIndex[1];
+          if (v16)
           {
-            v11 = CFRetain(v11);
+            v16 = CFRetain(v16);
           }
 
-          *a4 = v11;
+          *a4 = v16;
         }
 
         return 0;
@@ -2315,7 +2369,7 @@ size_t FigCaptionDynamicStyleCopyKeyFrameValueAtIndex(CFIndex a1, CFIndex a2, vo
 
       OUTLINED_FUNCTION_2_11();
       OUTLINED_FUNCTION_0_2();
-      v20 = 353;
+      v25 = 353;
     }
   }
 
@@ -2323,68 +2377,68 @@ size_t FigCaptionDynamicStyleCopyKeyFrameValueAtIndex(CFIndex a1, CFIndex a2, vo
   {
     OUTLINED_FUNCTION_2_11();
     OUTLINED_FUNCTION_0_2();
-    v20 = 351;
+    v25 = 351;
   }
 
-  return FigSignalErrorAtGM(v13, v14, v15, v16, v20, v17, v18, v19);
+  return FigSignalErrorAtGM(v18, v19, v20, v21, v25, v22, v23, v24, a9);
 }
 
-size_t FigCaptionDynamicStyleCopyKeyFrameValueAtRelativeTime(CFIndex a1, void *a2, void *a3, double a4)
+size_t FigCaptionDynamicStyleCopyKeyFrameValueAtRelativeTime(CFIndex a1, void *a2, void *a3, double a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, CMBlockBufferRef *a10)
 {
   KeyFrameCount = FigCaptionDynamicStyleGetKeyFrameCount(a1);
   if (a1)
   {
-    v9 = KeyFrameCount;
+    v15 = KeyFrameCount;
     if (KeyFrameCount > 0)
     {
-      v10 = *(a1 + 24);
-      if (!v10)
+      v16 = *(a1 + 24);
+      if (!v16)
       {
         fcds_initializeSortedKeyFrameValues(a1);
-        v10 = *(a1 + 24);
+        v16 = *(a1 + 24);
       }
 
-      v27[0] = a4;
-      v27[1] = 0.0;
-      v29.location = 0;
-      v29.length = v9;
-      v11 = CFArrayBSearchValues(v10, v29, v27, fcds_compareRelativeTime, 0);
-      if (v11 >= v9)
+      v33[0] = a4;
+      v33[1] = 0.0;
+      v35.location = 0;
+      v35.length = v15;
+      v17 = CFArrayBSearchValues(v16, v35, v33, fcds_compareRelativeTime, 0);
+      if (v17 >= v15)
       {
-        v15 = v9 - 1;
+        v21 = v15 - 1;
       }
 
       else
       {
-        v12 = v11;
-        if (v11)
+        v18 = v17;
+        if (v17)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 24), v11);
-          v14 = v27[0] > *ValueAtIndex || v27[0] < *ValueAtIndex;
-          v15 = v12 - v14;
+          ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 24), v17);
+          v20 = v33[0] > *ValueAtIndex || v33[0] < *ValueAtIndex;
+          v21 = v18 - v20;
         }
 
         else
         {
-          v15 = 0;
+          v21 = 0;
         }
       }
 
-      v16 = CFArrayGetValueAtIndex(*(a1 + 24), v15);
+      v22 = CFArrayGetValueAtIndex(*(a1 + 24), v21);
       if (a2)
       {
-        *a2 = *v16;
+        *a2 = *v22;
       }
 
       if (a3)
       {
-        v17 = v16[1];
-        if (v17)
+        v23 = v22[1];
+        if (v23)
         {
-          v17 = CFRetain(v17);
+          v23 = CFRetain(v23);
         }
 
-        *a3 = v17;
+        *a3 = v23;
       }
 
       return 0;
@@ -2392,17 +2446,17 @@ size_t FigCaptionDynamicStyleCopyKeyFrameValueAtRelativeTime(CFIndex a1, void *a
 
     OUTLINED_FUNCTION_2_11();
     OUTLINED_FUNCTION_0_2();
-    v26 = 381;
+    v32 = 381;
   }
 
   else
   {
     OUTLINED_FUNCTION_2_11();
     OUTLINED_FUNCTION_0_2();
-    v26 = 380;
+    v32 = 380;
   }
 
-  return FigSignalErrorAtGM(v19, v20, v21, v22, v26, v23, v24, v25);
+  return FigSignalErrorAtGM(v25, v26, v27, v28, v32, v29, v30, v31, a10);
 }
 
 CFTypeRef *fcds_Equal(CFTypeRef *result, CFTypeRef *a2)
@@ -2455,23 +2509,23 @@ uint64_t fcds_Hash(const void *a1)
     return 0;
   }
 
-  v4 = KeyFrameCount;
-  v5 = 0;
-  v6 = 0;
-  v8 = 0.0;
+  v8 = KeyFrameCount;
+  v9 = 0;
+  v10 = 0;
+  v13 = 0.0;
   do
   {
-    if (FigCaptionDynamicStyleCopyKeyFrameValueAtIndex(a1, v5, &v8, 0))
+    if (FigCaptionDynamicStyleCopyKeyFrameValueAtIndex(a1, v9, &v13, 0, v4, v5, v6, v7, v12))
     {
       break;
     }
 
-    v6 ^= (v8 * 1000.0);
-    ++v5;
+    v10 ^= (v13 * 1000.0);
+    ++v9;
   }
 
-  while (v4 != v5);
-  return v6;
+  while (v8 != v9);
+  return v10;
 }
 
 __CFString *fcds_CopyDebugDesc(CFIndex a1)
@@ -2479,20 +2533,22 @@ __CFString *fcds_CopyDebugDesc(CFIndex a1)
   Mutable = CFStringCreateMutable(0, 0);
   KeyFrameCount = FigCaptionDynamicStyleGetKeyFrameCount(a1);
   cf = 0;
-  CFStringAppendFormat(Mutable, 0, @"FigCaptionDynamicStyle (number of values = %ld)\n", KeyFrameCount);
+  v10 = KeyFrameCount;
+  CFStringAppendFormat(Mutable, 0, @"FigCaptionDynamicStyle (number of values = %ld)\n");
   if (KeyFrameCount)
   {
-    v4 = 0;
-    v7 = 0;
-    while (!FigCaptionDynamicStyleCopyKeyFrameValueAtIndex(a1, v4, &v7, &cf))
+    v8 = 0;
+    v12 = 0;
+    while (!FigCaptionDynamicStyleCopyKeyFrameValueAtIndex(a1, v8, &v12, &cf, v4, v5, v6, v7, v10))
     {
-      CFStringAppendFormat(Mutable, 0, @"  %3.2f : %@\n", v7, cf);
-      if (KeyFrameCount - 1 == v4)
+      v10 = v12;
+      CFStringAppendFormat(Mutable, 0, @"  %3.2f : %@\n");
+      if (KeyFrameCount - 1 == v8)
       {
         break;
       }
 
-      ++v4;
+      ++v8;
       if (cf)
       {
         CFRelease(cf);
@@ -2512,7 +2568,7 @@ __CFString *fcds_CopyDebugDesc(CFIndex a1)
 size_t FigCaptionDynamicStyleCreateMutable_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x106, v6, v7, v8);
+  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x106, v6, v7, v8, v10);
   *a1 = result;
   return result;
 }
@@ -2520,14 +2576,14 @@ size_t FigCaptionDynamicStyleCreateMutable_cold_3(_DWORD *a1)
 size_t FigCaptionDynamicStyleCreateMutable_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x105, v6, v7, v8);
+  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x105, v6, v7, v8, v10);
   *a1 = result;
   return result;
 }
 
-size_t FigCaptionDynamicStyleAddKeyFrameValue_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigCaptionDynamicStyleAddKeyFrameValue_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE0EuLL, "(Fig)", 0x13B, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE0EuLL, "(Fig)", 0x13B, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
@@ -2535,7 +2591,7 @@ size_t FigCaptionDynamicStyleAddKeyFrameValue_cold_1(_DWORD *a1, uint64_t a2, ui
 size_t FigCaptionDynamicStyleAddKeyFrameValue_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x138, v6, v7, v8);
+  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x138, v6, v7, v8, v10);
   *a1 = result;
   return result;
 }
@@ -2543,7 +2599,7 @@ size_t FigCaptionDynamicStyleAddKeyFrameValue_cold_2(_DWORD *a1)
 size_t FigCaptionDynamicStyleAddKeyFrameValue_cold_3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x137, v6, v7, v8);
+  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x137, v6, v7, v8, v10);
   *a1 = result;
   return result;
 }
@@ -2551,7 +2607,7 @@ size_t FigCaptionDynamicStyleAddKeyFrameValue_cold_3(_DWORD *a1)
 size_t FigCaptionDynamicStyleAddKeyFrameValue_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x136, v6, v7, v8);
+  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x136, v6, v7, v8, v10);
   *a1 = result;
   return result;
 }
@@ -2559,7 +2615,7 @@ size_t FigCaptionDynamicStyleAddKeyFrameValue_cold_4(_DWORD *a1)
 size_t FigCaptionDynamicStyleCreate_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_0_2();
-  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x122, v6, v7, v8);
+  result = FigSignalErrorAtGM(v2, v3, v4, v5, 0x122, v6, v7, v8, v10);
   *a1 = result;
   return result;
 }
@@ -2567,7 +2623,7 @@ size_t FigCaptionDynamicStyleCreate_cold_1(_DWORD *a1)
 size_t FigEndpointXPCDemuxCreate_cold_2(_DWORD *a1)
 {
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14uLL, "<< FigEndpointXPCDemux >>", 0x1DB, v1, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14uLL, "<< FigEndpointXPCDemux >>", 0x1DB, v1, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -2575,12 +2631,12 @@ size_t FigEndpointXPCDemuxCreate_cold_2(_DWORD *a1)
 size_t FigEndpointXPCDemuxCreate_cold_3(_DWORD *a1)
 {
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14uLL, "<< FigEndpointXPCDemux >>", 0x1DA, v1, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14uLL, "<< FigEndpointXPCDemux >>", 0x1DA, v1, v4, v5, v7);
   *a1 = result;
   return result;
 }
 
-size_t FigSecCopyOutmostBundleSignedWithSameCertificateAsCodeAtURL(const __CFURL *a1, CFURLRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigSecCopyOutmostBundleSignedWithSameCertificateAsCodeAtURL(const __CFURL *a1, CFURLRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   cf[128] = *MEMORY[0x1E69E9840];
   staticCode = 0;
@@ -2621,7 +2677,7 @@ size_t FigSecCopyOutmostBundleSignedWithSameCertificateAsCodeAtURL(const __CFURL
 
   cf[0] = 0;
   v16 = SecCodeCopyPath(staticCode, 0, cf);
-  v70 = a2;
+  v71 = a2;
   if (v16)
   {
     v18 = 0;
@@ -2712,7 +2768,7 @@ LABEL_21:
       v31 = 120;
     }
 
-    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v27, 0xFFFFBB2CuLL, "<<<< FigSecurityUtilities >>>>", v31, v28, v29, v30);
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v27, 0xFFFFBB2CuLL, "<<<< FigSecurityUtilities >>>>", v31, v28, v29, v30, v70);
   }
 
   v26 = v20;
@@ -2746,7 +2802,7 @@ LABEL_31:
       {
         fig_log_get_emitter("com.apple.coremedia", "");
         OUTLINED_FUNCTION_0_3();
-        v26 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v66, 0xFFFFBB2CuLL, "<<<< FigSecurityUtilities >>>>", 0x95, v67, v68, v69);
+        v26 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v66, 0xFFFFBB2CuLL, "<<<< FigSecurityUtilities >>>>", 0x95, v67, v68, v69, v70);
         Mutable = 0;
       }
 
@@ -2767,7 +2823,7 @@ LABEL_31:
 
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0_3();
-  v26 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v62, 0xFFFFBB2CuLL, "<<<< FigSecurityUtilities >>>>", 0x92, v63, v64, v65);
+  v26 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v62, 0xFFFFBB2CuLL, "<<<< FigSecurityUtilities >>>>", 0x92, v63, v64, v65, v70);
   Mutable = 0;
   v40 = 0;
   if (v33)
@@ -2962,7 +3018,7 @@ LABEL_54:
   v58 = v19;
 LABEL_88:
   v16 = 0;
-  *v70 = v58;
+  *v71 = v58;
   v18 = v59;
 LABEL_89:
   if (staticCode)
@@ -2995,66 +3051,66 @@ void EstablishOutmostContainerURLOfMainBundle()
   }
 }
 
-uint64_t CMByteStreamWriteBlockBuffer()
+uint64_t CMByteStreamWriteBlockBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = MEMORY[0x1EEE9AC00]();
-  v7 = v6;
-  v26 = *MEMORY[0x1E69E9840];
-  if (v4)
+  v9 = MEMORY[0x1EEE9AC00](a1, a2, a3, a4, a5, a6, a7, a8);
+  v15 = v14;
+  v34 = *MEMORY[0x1E69E9840];
+  if (v12)
   {
-    v8 = v5;
-    v9 = v4;
-    v10 = v3;
-    v11 = v2;
-    v12 = v1;
+    v16 = v13;
+    v17 = v12;
+    v18 = v11;
+    v19 = v10;
+    v20 = v9;
     dataPointerOut = 0;
-    v13 = 0;
-    v23 = 0;
+    v21 = 0;
+    v31 = 0;
     lengthAtOffsetOut = 0;
     while (1)
     {
-      result = CMBlockBufferGetDataPointer(v11, v13 + v10, &lengthAtOffsetOut, 0, &dataPointerOut);
+      result = CMBlockBufferGetDataPointer(v19, v21 + v18, &lengthAtOffsetOut, 0, &dataPointerOut);
       if (result)
       {
         break;
       }
 
-      v15 = lengthAtOffsetOut;
-      if (lengthAtOffsetOut >= v9 - v13)
+      v23 = lengthAtOffsetOut;
+      if (lengthAtOffsetOut >= v17 - v21)
       {
-        lengthAtOffsetOut = v9 - v13;
-        v15 = v9 - v13;
+        lengthAtOffsetOut = v17 - v21;
+        v23 = v17 - v21;
       }
 
       else if (!(lengthAtOffsetOut >> 14))
       {
-        if (v9 - v13 >= 0x4000)
+        if (v17 - v21 >= 0x4000)
         {
-          v16 = 0x4000;
+          v24 = 0x4000;
         }
 
         else
         {
-          v16 = v9 - v13;
+          v24 = v17 - v21;
         }
 
-        lengthAtOffsetOut = v16;
-        result = CMBlockBufferCopyDataBytes(v11, v13 + v10, v16, destination);
+        lengthAtOffsetOut = v24;
+        result = CMBlockBufferCopyDataBytes(v19, v21 + v18, v24, destination);
         if (result)
         {
           break;
         }
 
         dataPointerOut = destination;
-        v15 = lengthAtOffsetOut;
+        v23 = lengthAtOffsetOut;
       }
 
-      v17 = dataPointerOut;
-      v18 = *(*(CMBaseObjectGetVTable(v12) + 16) + 16);
-      if (!v18)
+      v25 = dataPointerOut;
+      v26 = *(*(CMBaseObjectGetVTable(v20) + 16) + 16);
+      if (!v26)
       {
         result = 4294954514;
-        if (v7)
+        if (v15)
         {
           goto LABEL_22;
         }
@@ -3062,17 +3118,17 @@ uint64_t CMByteStreamWriteBlockBuffer()
         return result;
       }
 
-      result = v18(v12, v15, v13 + v8, v17, &v23);
+      result = v26(v20, v23, v21 + v16, v25, &v31);
       if (result)
       {
         break;
       }
 
-      if (!v23)
+      if (!v31)
       {
         emitter = fig_log_get_emitter("com.apple.coremedia", "");
-        result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCDB7uLL, "<<<< FigByteStream >>>>", 0x180, v0, v20, v21);
-        if (v7)
+        result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCDB7uLL, "<<<< FigByteStream >>>>", 0x180, v8, v28, v29, v8);
+        if (v15)
         {
           goto LABEL_22;
         }
@@ -3080,8 +3136,8 @@ uint64_t CMByteStreamWriteBlockBuffer()
         return result;
       }
 
-      v13 += v23;
-      if (v13 >= v9)
+      v21 += v31;
+      if (v21 >= v17)
       {
         goto LABEL_20;
       }
@@ -3090,15 +3146,15 @@ uint64_t CMByteStreamWriteBlockBuffer()
 
   else
   {
-    v13 = 0;
+    v21 = 0;
 LABEL_20:
     result = 0;
   }
 
-  if (v7)
+  if (v15)
   {
 LABEL_22:
-    *v7 = v13;
+    *v15 = v21;
   }
 
   return result;
@@ -3132,19 +3188,19 @@ uint64_t CMByteStreamAppend(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 }
 
-uint64_t CMByteStreamAppendBlockBuffer(uint64_t a1)
+uint64_t CMByteStreamAppendBlockBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(*(CMBaseObjectGetVTable(a1) + 16) + 24);
-  if (!v2)
+  v10 = *(*(CMBaseObjectGetVTable(a1) + 16) + 24);
+  if (!v10)
   {
     return 4294954514;
   }
 
-  v4 = 0;
-  result = v2(a1, 0, &v4);
+  v14 = 0;
+  result = v10(a1, 0, &v14);
   if (!result)
   {
-    return CMByteStreamWriteBlockBuffer();
+    return CMByteStreamWriteBlockBuffer(a1, a2, a3, a4, v14, a5, v12, v13);
   }
 
   return result;
@@ -3236,7 +3292,7 @@ size_t CMCreateContiguousBlockBufferFromStream_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFFF94uLL, "<<<< FigByteStream >>>>", 0x13F, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFFF94uLL, "<<<< FigByteStream >>>>", 0x13F, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -3245,7 +3301,7 @@ size_t FigByteStreamCopySHA1Digest_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigByteStream >>>>", 0x2AE, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigByteStream >>>>", 0x2AE, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -3254,7 +3310,7 @@ size_t FigByteStreamCopySHA1Digest_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigByteStream >>>>", 0x2A8, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigByteStream >>>>", 0x2A8, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -3523,7 +3579,7 @@ size_t CMByteStreamCreateForFileURL(uint64_t a1, const void *a2, unsigned int a3
 {
   cf = 0;
   ClassID = CMByteStreamGetClassID();
-  v13 = CMDerivedObjectCreate(a1, &kFigFileByteStreamVTable, ClassID, &cf, v9, v10, v11, v12);
+  v13 = CMDerivedObjectCreate(a1, kFigFileByteStreamVTable, ClassID, &cf, v9, v10, v11, v12, v19);
   if (v13)
   {
     return v13;
@@ -3559,7 +3615,7 @@ LABEL_9:
 uint64_t FigFileByteStreamWriteBlockBufferOptimized(uint64_t a1, OpaqueCMBlockBuffer *a2, size_t a3, size_t a4, off_t a5, void *a6)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
-  v43 = 0;
+  v44 = 0;
   lengthAtOffsetOut = 0;
   if (a4)
   {
@@ -3641,7 +3697,7 @@ uint64_t FigFileByteStreamWriteBlockBufferOptimized(uint64_t a1, OpaqueCMBlockBu
 
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_1_2();
-    v22 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v36, 0xFFFFCDB6uLL, "<<< FigByteStream_File >>>", 0x23D, v37, v38, v39);
+    v22 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v36, 0xFFFFCDB6uLL, "<<< FigByteStream_File >>>", 0x23D, v37, v38, v39, v40);
 LABEL_28:
     v27 = v22;
     v28 = 0;
@@ -3656,12 +3712,12 @@ LABEL_28:
       v18 = v25;
       LODWORD(v11) = 0;
 LABEL_18:
-      v26 = FigFileForkWriteIOVecArray(*(DerivedStorage + 8), *(DerivedStorage + 4216), v18, v11, a5, &v43);
+      v26 = FigFileForkWriteIOVecArray(*(DerivedStorage + 8), *(DerivedStorage + 4216), v18, v11, a5, &v44);
       v27 = v26;
-      v28 = v43;
+      v28 = v44;
       if (a6 && !v26)
       {
-        *a6 = v43;
+        *a6 = v44;
       }
     }
 
@@ -3673,7 +3729,7 @@ LABEL_29:
       v34 = 4294954420;
       v35 = 565;
 LABEL_25:
-      DataPointer = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v30, v34, "<<< FigByteStream_File >>>", v35, v31, v32, v33);
+      DataPointer = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v30, v34, "<<< FigByteStream_File >>>", v35, v31, v32, v33, v40);
 LABEL_26:
       v27 = DataPointer;
       v28 = 0;
@@ -3696,7 +3752,7 @@ LABEL_26:
 size_t fbs_SetupSmallReadBuffer_cold_1(_DWORD *a1)
 {
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE0EuLL, "<<< FigByteStream_File >>>", 0x135, v1, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE0EuLL, "<<< FigByteStream_File >>>", 0x135, v1, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -3704,7 +3760,7 @@ size_t fbs_SetupSmallReadBuffer_cold_1(_DWORD *a1)
 size_t FigFileByteStreamGetAvailableLengthAtOffset_cold_1(_DWORD *a1)
 {
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCDB8uLL, "<<< FigByteStream_File >>>", 0x2F2, v1, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCDB8uLL, "<<< FigByteStream_File >>>", 0x2F2, v1, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -3724,7 +3780,7 @@ size_t PeruseActivatedEndpoints(const void *a1)
   if (!MutableCopy)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBE06uLL, "<<< StdHALPlugin >>>", 0x163, v1, v36, v37);
+    v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBE06uLL, "<<< StdHALPlugin >>>", 0x163, v1, v36, v37, v38);
 LABEL_22:
     v33 = v5;
     goto LABEL_18;
@@ -3742,9 +3798,9 @@ LABEL_22:
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(*(DerivedStorage + 72), v11);
-        v39.length = CFArrayGetCount(v7);
-        v39.location = 0;
-        FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v7, v39, ValueAtIndex);
+        v40.length = CFArrayGetCount(v7);
+        v40.location = 0;
+        FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v7, v40, ValueAtIndex);
         if (FirstIndexOfValue == -1)
         {
           CMNotificationCenterGetDefaultLocalCenter();
@@ -3809,7 +3865,7 @@ size_t plugin_CreateStandardPluginObjectInternal_cold_1(const CMBlockBufferCusto
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFBE06uLL, "<<< StdHALPlugin >>>", a1, v5, v6, v7);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFBE06uLL, "<<< StdHALPlugin >>>", a1, v5, v6, v7, v9);
   *a2 = result;
   return result;
 }
@@ -3818,7 +3874,7 @@ size_t plugin_GetPropertyData_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0x2173697AuLL, "<<< StdHALPlugin >>>", 0x293, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0x2173697AuLL, "<<< StdHALPlugin >>>", 0x293, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -3827,7 +3883,7 @@ size_t plugin_GetPropertyData_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0x2173697AuLL, "<<< StdHALPlugin >>>", 0x294, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0x2173697AuLL, "<<< StdHALPlugin >>>", 0x294, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -3836,7 +3892,7 @@ size_t plugin_GetPropertyData_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0x2173697AuLL, "<<< StdHALPlugin >>>", 0x292, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0x2173697AuLL, "<<< StdHALPlugin >>>", 0x292, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -3845,14 +3901,14 @@ size_t PeruseAudioStreamsForEndpoint_cold_1()
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFFBE06uLL, "<<< StdHALPlugin >>>", 0x118, v1, v2, v3);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFFBE06uLL, "<<< StdHALPlugin >>>", 0x118, v1, v2, v3, v5);
 }
 
 void FigMachPortHolderCreateWithMachSendRight_cold_2(const void *a1, _DWORD *a2)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  *a2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFB30AuLL, "(Fig)", 0xA5, v5, v6, v7);
+  *a2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFB30AuLL, "(Fig)", 0xA5, v5, v6, v7, v8);
 
   CFRelease(a1);
 }
@@ -3861,7 +3917,7 @@ size_t FigMachPortHolderCreateWithMachSendRight_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB30BuLL, "(Fig)", 0xA2, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB30BuLL, "(Fig)", 0xA2, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -3870,7 +3926,7 @@ size_t FigMachPortHolderCreateWithMachSendRight_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB30CuLL, "(Fig)", 0x9F, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB30CuLL, "(Fig)", 0x9F, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -3879,7 +3935,7 @@ size_t FigMachPortHolderCreateWithMachSendRight_cold_5(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB30CuLL, "(Fig)", 0x9E, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFB30CuLL, "(Fig)", 0x9E, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -3911,50 +3967,45 @@ uint64_t FigNetworkHistorySetRequestSentTimestamp()
   DerivedStorage = CMBaseObjectGetDerivedStorage(v3);
   if (*(DerivedStorage + 41) && FigNetworkHistoryGetGlobal() != v2)
   {
-    Global = FigNetworkHistoryGetGlobal();
-    FigNetworkHistorySetRequestSentTimestamp(Global, *(v1 + 64), v0);
+    FigNetworkHistoryGetGlobal();
+    FigNetworkHistorySetRequestSentTimestamp();
   }
 
-  v5 = *(DerivedStorage + 32);
-  if (v5)
+  if (*(DerivedStorage + 32) && *(v1 + 72))
   {
-    v6 = *(v1 + 72);
-    if (v6)
-    {
-      FigNetworkHistorySetRequestSentTimestamp(v5, v6, v0);
-    }
+    FigNetworkHistorySetRequestSentTimestamp();
   }
 
   FigSimpleMutexLock(*DerivedStorage);
-  v7 = CMBaseObjectGetDerivedStorage(v2);
-  if (*(v7 + 136))
+  v5 = CMBaseObjectGetDerivedStorage(v2);
+  if (*(v5 + 136))
   {
-    v8 = *(v7 + 160);
-    if (v8)
+    v6 = *(v5 + 160);
+    if (v6)
     {
-      while (v8[7] != v1)
+      while (v6[7] != v1)
       {
-        v8 = v8[11];
-        if (!v8)
+        v6 = v6[11];
+        if (!v6)
         {
           goto LABEL_11;
         }
       }
 
-      v8[1] = v0;
+      v6[1] = v0;
     }
 
     else
     {
 LABEL_11:
       OUTLINED_FUNCTION_2_11();
-      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0xD97, v10, v11, v12);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0xD97, v8, v9, v10, v13);
     }
   }
 
-  v13 = OUTLINED_FUNCTION_7_4();
+  v11 = OUTLINED_FUNCTION_7_4();
   FigSimpleMutexUnlock(*DerivedStorage);
-  return v13;
+  return v11;
 }
 
 uint64_t FigNetworkHistorySetRequestLatency(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -3996,7 +4047,7 @@ uint64_t FigNetworkHistorySetRequestLatency(const void *a1, uint64_t a2, uint64_
 
     else
     {
-      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0xDA6, v4, v13, v14);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0xDA6, v4, v13, v14, v19);
     }
   }
 
@@ -4026,7 +4077,7 @@ uint64_t FigNetworkHistoryRequestReceivedBytes(const void *a1, uint64_t a2, uint
 
   FigSimpleMutexLock(*DerivedStorage);
   v14 = CMBaseObjectGetDerivedStorage(a1);
-  v27 = 0;
+  v28 = 0;
   if (*(v14 + 136))
   {
     v17 = v14;
@@ -4043,11 +4094,11 @@ uint64_t FigNetworkHistoryRequestReceivedBytes(const void *a1, uint64_t a2, uint
       }
 
       v19 = CFGetAllocator(a1);
-      if (!fnh_createBytesReceivedEntry(v19, a4, &v27))
+      if (!fnh_createBytesReceivedEntry(v19, a4, &v28))
       {
-        v20 = v27;
-        v21 = v27;
-        *(v27 + 48) = 0;
+        v20 = v28;
+        v21 = v28;
+        *(v28 + 48) = 0;
         v22 = v18[9];
         v23 = v18[10];
         *(v20 + 56) = v22;
@@ -4065,7 +4116,7 @@ uint64_t FigNetworkHistoryRequestReceivedBytes(const void *a1, uint64_t a2, uint
     else
     {
 LABEL_11:
-      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0xDB7, v5, v15, v16);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0xDB7, v5, v15, v16, v27);
     }
   }
 
@@ -4074,68 +4125,68 @@ LABEL_11:
   return v24;
 }
 
-size_t fnh_requestReceivedBytesCommand(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t fnh_requestReceivedBytesCommand(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8, CMBlockBufferRef *a9)
 {
-  v9 = *(a1 + 8);
-  v10 = *(a1 + 16);
-  if (*(v9 + 32) > v10)
+  v10 = *(a1 + 8);
+  v11 = *(a1 + 16);
+  if (*(v10 + 32) > v11)
   {
-    v20 = qword_1EAF1CDC0;
-    v21 = v8;
-    v22 = 1111;
+    v21 = qword_1EAF1CDC0;
+    v22 = v9;
+    v23 = 1111;
   }
 
   else
   {
-    v11 = *(v9 + 16);
-    if (v11 > v10)
+    v12 = *(v10 + 16);
+    if (v12 > v11)
     {
-      v20 = qword_1EAF1CDC0;
-      v21 = v8;
-      v22 = 1112;
+      v21 = qword_1EAF1CDC0;
+      v22 = v9;
+      v23 = 1112;
     }
 
     else
     {
-      if (v11 > 0)
+      if (v12 > 0)
       {
-        v12 = *a1;
-        v13 = *(a1 + 24);
-        v14 = *(a1 + 40);
+        v13 = *a1;
+        v14 = *(a1 + 24);
+        v15 = *(a1 + 40);
         CMBaseObjectGetDerivedStorage(*a1);
-        if (*(v9 + 56) < v14)
+        if (*(v10 + 56) < v15)
         {
-          *(v9 + 56) = v14;
+          *(v10 + 56) = v15;
         }
 
-        BytesSentTimestampForRequestEntry = *(v9 + 32);
+        BytesSentTimestampForRequestEntry = *(v10 + 32);
         if (!BytesSentTimestampForRequestEntry)
         {
-          BytesSentTimestampForRequestEntry = fnh_firstBytesSentTimestampForRequestEntry(v9, v10);
-          *(v9 + 32) = BytesSentTimestampForRequestEntry;
+          BytesSentTimestampForRequestEntry = fnh_firstBytesSentTimestampForRequestEntry(v10, v11);
+          *(v10 + 32) = BytesSentTimestampForRequestEntry;
         }
 
-        result = fnh_addBytesToBytesReceivedEntriesBetweenTimestamps(v12, v13, BytesSentTimestampForRequestEntry, v10, v10);
+        result = fnh_addBytesToBytesReceivedEntriesBetweenTimestamps(v13, v14, BytesSentTimestampForRequestEntry, v11, v11);
         if (!result)
         {
-          if ((v17 = *(v9 + 56), v18 = *(v9 + 48), !v17) && !v18 || (result = fnh_addRTTToBytesReceivedEntriesBetweenTimestamps(v12, v17, v18, *(v9 + 16), *(v9 + 32), v10, v10), !result))
+          if ((v18 = *(v10 + 56), v19 = *(v10 + 48), !v18) && !v19 || (result = fnh_addRTTToBytesReceivedEntriesBetweenTimestamps(v13, v18, v19, *(v10 + 16), *(v10 + 32), v11, v11), !result))
           {
-            v19 = *(v9 + 40) + v13;
-            *(v9 + 32) = v10;
-            *(v9 + 40) = v19;
+            v20 = *(v10 + 40) + v14;
+            *(v10 + 32) = v11;
+            *(v10 + 40) = v20;
           }
         }
 
         return result;
       }
 
-      v20 = qword_1EAF1CDC0;
-      v21 = v8;
-      v22 = 1113;
+      v21 = qword_1EAF1CDC0;
+      v22 = v9;
+      v23 = 1113;
     }
   }
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v20, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", v22, v21, a7, a8);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v21, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", v23, v22, a7, a8, a9);
 }
 
 uint64_t FigNetworkHistoryRequestBecameInactive()
@@ -4144,114 +4195,109 @@ uint64_t FigNetworkHistoryRequestBecameInactive()
   DerivedStorage = CMBaseObjectGetDerivedStorage(v3);
   if (*(DerivedStorage + 41) && FigNetworkHistoryGetGlobal() != v2)
   {
-    Global = FigNetworkHistoryGetGlobal();
-    FigNetworkHistoryRequestBecameInactive(Global, *(v1 + 64), v0);
+    FigNetworkHistoryGetGlobal();
+    FigNetworkHistoryRequestBecameInactive();
   }
 
-  v5 = *(DerivedStorage + 32);
-  if (v5)
+  if (*(DerivedStorage + 32) && *(v1 + 72))
   {
-    v6 = *(v1 + 72);
-    if (v6)
-    {
-      FigNetworkHistoryRequestBecameInactive(v5, v6, v0);
-    }
+    FigNetworkHistoryRequestBecameInactive();
   }
 
   FigSimpleMutexLock(*DerivedStorage);
-  v7 = CMBaseObjectGetDerivedStorage(v2);
-  if (*(v7 + 136))
+  v5 = CMBaseObjectGetDerivedStorage(v2);
+  if (*(v5 + 136))
   {
-    v8 = *(v7 + 160);
-    if (v8)
+    v6 = *(v5 + 160);
+    if (v6)
     {
-      while (*(v8 + 56) != v1)
+      while (*(v6 + 56) != v1)
       {
-        v8 = *(v8 + 88);
-        if (!v8)
+        v6 = *(v6 + 88);
+        if (!v6)
         {
           goto LABEL_11;
         }
       }
 
-      *(v8 + 24) = v0;
-      v13 = (v8 + 88);
-      v14 = *(v8 + 88);
-      v15 = *(v8 + 96);
-      v16 = (v7 + 168);
-      if (v14)
+      *(v6 + 24) = v0;
+      v11 = (v6 + 88);
+      v12 = *(v6 + 88);
+      v13 = *(v6 + 96);
+      v14 = (v5 + 168);
+      if (v12)
       {
-        v16 = (v14 + 96);
+        v14 = (v12 + 96);
       }
 
-      *v16 = v15;
-      *v15 = v14;
-      --*(v7 + 176);
-      *v13 = 0;
-      v17 = *(v7 + 192);
-      *(v8 + 96) = v17;
-      *v17 = v8;
-      *(v7 + 192) = v13;
-      ++*(v7 + 200);
-      v18 = *(v8 + 80);
-      v19 = *(v7 + 152) + v18;
-      v20 = *(v7 + 156) - v18;
-      *(v7 + 152) = v19;
-      *(v7 + 156) = v20;
+      *v14 = v13;
+      *v13 = v12;
+      --*(v5 + 176);
+      *v11 = 0;
+      v15 = *(v5 + 192);
+      *(v6 + 96) = v15;
+      *v15 = v6;
+      *(v5 + 192) = v11;
+      ++*(v5 + 200);
+      v16 = *(v6 + 80);
+      v17 = *(v5 + 152) + v16;
+      v18 = *(v5 + 156) - v16;
+      *(v5 + 152) = v17;
+      *(v5 + 156) = v18;
     }
 
     else
     {
 LABEL_11:
       OUTLINED_FUNCTION_2_11();
-      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0xDD1, v10, v11, v12);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0xDD1, v8, v9, v10, v21);
     }
   }
 
-  v21 = OUTLINED_FUNCTION_7_4();
+  v19 = OUTLINED_FUNCTION_7_4();
   FigSimpleMutexUnlock(*DerivedStorage);
-  return v21;
+  return v19;
 }
 
-uint64_t fnh_requestBecameInactiveCommand(uint64_t *a1)
+uint64_t fnh_requestBecameInactiveCommand(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
-  v1 = *a1;
-  v2 = a1[1];
-  v3 = a1[2];
+  v9 = *a1;
+  v10 = a1[1];
+  v11 = a1[2];
   DerivedStorage = CMBaseObjectGetDerivedStorage(*a1);
-  v5 = *(v2 + 40);
-  v6 = *(v2 + 48);
-  if (v6 < v5)
+  v13 = *(v10 + 40);
+  v14 = *(v10 + 48);
+  if (v14 < v13)
   {
-    *(v2 + 48) = v5;
+    *(v10 + 48) = v13;
   }
 
-  *(v2 + 24) = v3;
-  if (*v2 > v3)
+  *(v10 + 24) = v11;
+  if (*v10 > v11)
   {
     OUTLINED_FUNCTION_2_11();
-    v17 = 1205;
+    v25 = 1205;
   }
 
   else
   {
-    if (*(v2 + 16) <= v3)
+    if (*(v10 + 16) <= v11)
     {
-      CMBaseObjectGetDerivedStorage(v1);
-      fnh_purgeExpiredListEntriesOnQueue(v1, v3);
-      fnh_updateEarliestActiveRequestFirstBytesSentTimestamp(v1, v3);
-      BytesSentTimestampForRequestEntry = fnh_firstBytesSentTimestampForRequestEntry(v2, v3);
-      if (BytesSentTimestampForRequestEntry == 0x7FFFFFFFFFFFFFFFLL || (result = fnh_addBytesToBytesReceivedEntriesBetweenTimestamps(v1, 0, BytesSentTimestampForRequestEntry, *(v2 + 24), v3), !result))
+      CMBaseObjectGetDerivedStorage(v9);
+      fnh_purgeExpiredListEntriesOnQueue(v9, v11);
+      fnh_updateEarliestActiveRequestFirstBytesSentTimestamp(v9, v11);
+      BytesSentTimestampForRequestEntry = fnh_firstBytesSentTimestampForRequestEntry(v10, v11);
+      if (BytesSentTimestampForRequestEntry == 0x7FFFFFFFFFFFFFFFLL || (result = fnh_addBytesToBytesReceivedEntriesBetweenTimestamps(v9, 0, BytesSentTimestampForRequestEntry, *(v10 + 24), v11), !result))
       {
-        if (v6 >= v5 || (result = fnh_addRTTToBytesReceivedEntriesBetweenTimestamps(v1, *(v2 + 56), *(v2 + 48), *(v2 + 16), BytesSentTimestampForRequestEntry, *(v2 + 24), v3), !result))
+        if (v14 >= v13 || (result = fnh_addRTTToBytesReceivedEntriesBetweenTimestamps(v9, *(v10 + 56), *(v10 + 48), *(v10 + 16), BytesSentTimestampForRequestEntry, *(v10 + 24), v11), !result))
         {
-          result = CMBaseObjectGetDerivedStorage(v1);
+          result = CMBaseObjectGetDerivedStorage(v9);
           if (*(result + 80) == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v9 = *(DerivedStorage + 8);
+            v17 = *(DerivedStorage + 8);
             DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
 
-            return FigDispatchAsyncPostNotification(v9, DefaultLocalCenter, @"NetworkHistoryNotification_NetworkBecameInactive", v1, 0, 0, v11, v12);
+            return FigDispatchAsyncPostNotification(v17, DefaultLocalCenter, @"NetworkHistoryNotification_NetworkBecameInactive", v9, 0, 0, v19, v20);
           }
         }
       }
@@ -4260,10 +4306,10 @@ uint64_t fnh_requestBecameInactiveCommand(uint64_t *a1)
     }
 
     OUTLINED_FUNCTION_2_11();
-    v17 = 1206;
+    v25 = 1206;
   }
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v13, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", v17, v14, v15, v16);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v21, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", v25, v22, v23, v24, a9);
 }
 
 uint64_t fnh_getFirstBytesReceivedEntryAfterTime(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, int a5)
@@ -4607,7 +4653,7 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x679, v2, v16, v17);
+    v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x679, v2, v16, v17, v20);
   }
 
   v18 = v13;
@@ -4651,18 +4697,18 @@ size_t fnh_addBytesToBytesReceivedEntriesBetweenTimestamps(const void *a1, uint6
   v11 = (DerivedStorage + 64);
   v12 = (DerivedStorage + 72);
   v13 = **(*(DerivedStorage + 72) + 8);
-  v82 = 0;
-  v83 = v13;
+  v83 = 0;
+  v84 = v13;
   if (!v13)
   {
     v14 = CFGetAllocator(a1);
-    result = fnh_createBytesReceivedEntry(v14, a4, &v83);
+    result = fnh_createBytesReceivedEntry(v14, a4, &v84);
     if (result)
     {
       return result;
     }
 
-    v13 = v83;
+    v13 = v84;
     OUTLINED_FUNCTION_3_6(*v11);
     if (v54)
     {
@@ -4679,21 +4725,21 @@ size_t fnh_addBytesToBytesReceivedEntriesBetweenTimestamps(const void *a1, uint6
     v13[7] = v11;
   }
 
-  v77 = a4 - a3;
+  v78 = a4 - a3;
   while (*v13 > a4)
   {
     v13 = **(v13[7] + 8);
     if (!v13)
     {
-      v83 = 0;
+      v84 = 0;
       v19 = CFGetAllocator(a1);
-      result = fnh_createBytesReceivedEntry(v19, a4, &v83);
+      result = fnh_createBytesReceivedEntry(v19, a4, &v84);
       if (result)
       {
         return result;
       }
 
-      v13 = v83;
+      v13 = v84;
       OUTLINED_FUNCTION_3_6(*v11);
       if (v54)
       {
@@ -4716,7 +4762,7 @@ LABEL_24:
   if (a3 > v13[1] || (OUTLINED_FUNCTION_4_6(), v23 < a4))
   {
     v24 = CFGetAllocator(a1);
-    result = fnh_createBytesReceivedEntry(v24, a4, &v82);
+    result = fnh_createBytesReceivedEntry(v24, a4, &v83);
     if (result)
     {
       return result;
@@ -4772,28 +4818,28 @@ LABEL_25:
         v42 = v34;
       }
 
-      if (v77 < 1)
+      if (v78 < 1)
       {
         v43 = 1.0;
       }
 
       else
       {
-        v43 = (v42 - v41) / v77;
+        v43 = (v42 - v41) / v78;
       }
 
       v44 = (v43 * v38);
-      v80 = 0u;
       v81 = 0u;
+      v82 = 0u;
       __s1 = 0u;
-      v79 = 0u;
+      v80 = 0u;
       v45 = *v39;
       v46 = *(v39 + 1);
       v47 = *(v39 + 3);
-      v80 = *(v39 + 2);
-      v81 = v47;
+      v81 = *(v39 + 2);
+      v82 = v47;
       __s1 = v45;
-      v79 = v46;
+      v80 = v46;
       if (v32 >= v41)
       {
         v32 = v41;
@@ -4810,12 +4856,12 @@ LABEL_25:
       if (!v37 && !memcmp(&__s1, v39, 0x40uLL))
       {
         v37 = 0;
-        v76 = 1;
+        v77 = 1;
       }
 
       else
       {
-        v76 = 0;
+        v77 = 0;
         v39[2] = a5;
         v37 = 1;
       }
@@ -4880,22 +4926,22 @@ LABEL_25:
 
       v59 = CMBaseObjectGetDerivedStorage(a1);
       v60 = *v39 - 1;
-      v84 = **(v39[7] + 8);
-      v13 = v84;
-      if (v84)
+      v85 = **(v39[7] + 8);
+      v13 = v85;
+      if (v85)
       {
-        if (v60 > v84[1])
+        if (v60 > v85[1])
         {
           v61 = CFGetAllocator(a1);
-          result = fnh_createBytesReceivedEntry(v61, v60, &v84);
+          result = fnh_createBytesReceivedEntry(v61, v60, &v85);
           if (result)
           {
             return result;
           }
 
           v62 = v39[7];
-          v13 = v84;
-          v84[7] = v62;
+          v13 = v85;
+          v85[7] = v62;
           v13[6] = v39;
           *v62 = v13;
           v39[7] = (v13 + 6);
@@ -4906,7 +4952,7 @@ LABEL_25:
       {
         v63 = v59;
         v64 = CFGetAllocator(a1);
-        result = fnh_createBytesReceivedEntry(v64, v60, &v84);
+        result = fnh_createBytesReceivedEntry(v64, v60, &v85);
         if (result)
         {
           return result;
@@ -4914,9 +4960,9 @@ LABEL_25:
 
         v66 = *(v63 + 64);
         v65 = (v63 + 64);
-        v13 = v84;
-        v67 = v84;
-        v84[6] = v66;
+        v13 = v85;
+        v67 = v85;
+        v85[6] = v66;
         v68 = v67 + 6;
         v69 = (v66 + 56);
         if (v66)
@@ -4938,7 +4984,7 @@ LABEL_25:
       if (v71 && v13[1] > *v71)
       {
         OUTLINED_FUNCTION_0_27();
-        result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v72, 0xFFFFBABCuLL, "<<<< FigNetworkHistory >>>>", 0x3A1, v73, v74, v75);
+        result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v72, 0xFFFFBABCuLL, "<<<< FigNetworkHistory >>>>", 0x3A1, v73, v74, v75, v76);
         v13 = v39;
         if (result)
         {
@@ -4961,9 +5007,9 @@ LABEL_25:
 
   else
   {
-    v76 = 1;
+    v77 = 1;
 LABEL_77:
-    if ((v76 & 1) == 0)
+    if ((v77 & 1) == 0)
     {
       do
       {
@@ -5514,7 +5560,7 @@ LABEL_25:
       memcpy(v3, __src, 0x58uLL);
       goto LABEL_27;
     default:
-      v30 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBAB9uLL, "<<<< FigNetworkHistory >>>>", 0xC95, v1, v10, v11);
+      v30 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBAB9uLL, "<<<< FigNetworkHistory >>>>", 0xC95, v1, v10, v11, v175);
 LABEL_12:
       v25 = v30;
       goto LABEL_27;
@@ -5967,7 +6013,7 @@ void fnhp_medianAlgorithmForLatency(uint64_t a1, uint64_t a2, const void *a3, ui
 
   else
   {
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x8C6, v8, v21, v22);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x8C6, v8, v21, v22, v53);
   }
 
   FigSimpleMutexUnlock(*(v7 + 8));
@@ -6144,7 +6190,7 @@ LABEL_18:
     else
     {
       OUTLINED_FUNCTION_0_27();
-      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v145, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x808, v146, v147, v148);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v145, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x808, v146, v147, v148, v149);
     }
 
     v213 = 0;
@@ -6261,7 +6307,7 @@ LABEL_22:
     if (v88 < 0.0)
     {
       OUTLINED_FUNCTION_0_27();
-      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v123, 0xFFFFBAB9uLL, "<<<< FigNetworkHistory >>>>", 0xA28, v124, v125, v126);
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v123, 0xFFFFBAB9uLL, "<<<< FigNetworkHistory >>>>", 0xA28, v124, v125, v126, v149);
       goto LABEL_93;
     }
 
@@ -6364,7 +6410,7 @@ LABEL_22:
           else
           {
             OUTLINED_FUNCTION_0_27();
-            v97 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v109, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x7F9, v110, v111, v112);
+            v97 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v109, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x7F9, v110, v111, v112, v149);
           }
 
           CFRelease(v95);
@@ -6373,7 +6419,7 @@ LABEL_22:
         else
         {
           OUTLINED_FUNCTION_0_27();
-          v97 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v105, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x7F8, v106, v107, v108);
+          v97 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v105, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x7F8, v106, v107, v108, v149);
         }
 
         if (v97)
@@ -6530,16 +6576,16 @@ void fnhp_timeWeightedConstantLatencyPredictionAlgorithm(uint64_t a1, uint64_t a
   fnhp_constantLatencyTimeWeightedAlgorithmForBandwidth(a1, v14, a4, __dst, a2, a3, a6, a6 + 8, a6 + 16, a6 + 48);
 }
 
-size_t FigNetworkHistoryEndImmutability_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigNetworkHistoryEndImmutability_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0x207, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0x207, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-BOOL FigNetworkHistoryRequestBecameActive_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+BOOL FigNetworkHistoryRequestBecameActive_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  v10 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x2BC, v8, a7, a8);
+  v10 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x2BC, v8, a7, a8, v12);
   *a1 = v10;
   return v10 == 0;
 }
@@ -6590,51 +6636,51 @@ void FigNetworkHistoryGetGlobal_cold_2()
   gNetworkHistory = v19;
 }
 
-size_t fnh_runOrEnqueueCommand_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t fnh_runOrEnqueueCommand_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x1E5, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x1E5, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t FigNetworkHistoricalPredictorCreate_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigNetworkHistoricalPredictorCreate_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0xD15, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0xD15, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t FigNetworkHistoricalPredictorCreate_cold_2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigNetworkHistoricalPredictorCreate_cold_2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0xD12, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0xD12, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t FigNetworkHistoricalPredictorCreate_cold_3(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigNetworkHistoricalPredictorCreate_cold_3(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBAB9uLL, "<<<< FigNetworkHistory >>>>", 0xD08, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBAB9uLL, "<<<< FigNetworkHistory >>>>", 0xD08, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t FigNetworkHistoryCreate_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigNetworkHistoryCreate_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x71F, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x71F, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t FigNetworkHistoryCreate_cold_2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigNetworkHistoryCreate_cold_2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x71C, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x71C, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t FigNetworkHistoryCreate_cold_3(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigNetworkHistoryCreate_cold_3(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0x712, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0x712, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
@@ -6642,22 +6688,22 @@ size_t FigNetworkHistoryCreate_cold_3(_DWORD *a1, uint64_t a2, uint64_t a3, uint
 void FigNetworkHistoryCopySerializedRecordData_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   OUTLINED_FUNCTION_11_1();
-  *a4 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0xE64, v8, v9, v10);
+  *a4 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0xE64, v8, v9, v10, v11);
   FigSimpleMutexUnlock(*v6);
 
   CFAllocatorDeallocate(v5, v4);
 }
 
-size_t FigNetworkHistoryCopySerializedRecordData_cold_2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigNetworkHistoryCopySerializedRecordData_cold_2(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0xE3D, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFBABEuLL, "<<<< FigNetworkHistory >>>>", 0xE3D, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-size_t fnh_createBytesReceivedEntry_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t fnh_createBytesReceivedEntry_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x254, v8, a7, a8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CDC0, 0xFFFFCE0EuLL, "<<<< FigNetworkHistory >>>>", 0x254, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
@@ -6747,6 +6793,7 @@ uint64_t ntcxpc_handleClientMessage(void *a1, void *a2)
         type = OS_LOG_TYPE_DEFAULT;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v26, &type);
         v7 = v26;
+        v8 = type;
         if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
         {
           v9 = v7;
@@ -6763,7 +6810,7 @@ uint64_t ntcxpc_handleClientMessage(void *a1, void *a2)
           *&length[4] = "ntcxpc_handleInit";
           v28 = 1024;
           v29 = dword_1ED4CC598;
-          v10 = _os_log_send_and_compose_impl();
+          v10 = _os_log_send_and_compose_impl(v9, 0, theBuffer, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v8, "<<<< NeroTransportConnectionXPCServer >>>> %s: connected from client pid %d", length, 18);
           LOBYTE(v7) = v26;
         }
 
@@ -6772,7 +6819,7 @@ uint64_t ntcxpc_handleClientMessage(void *a1, void *a2)
           v10 = 0;
         }
 
-        fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v10, v10 != theBuffer, v7, 0, v8);
+        fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v10, v10 != theBuffer, v7);
         FigSimpleMutexUnlock(qword_1ED4CC590);
       }
 
@@ -6902,7 +6949,7 @@ uint64_t FigReadSchedulerExpediteRequest(dispatch_queue_t *a1, uint64_t a2, int 
     v19 = 4294949515;
     v20 = 3468;
 LABEL_14:
-    v7 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v15, v19, "<< FigReadScheduler >>", v20, v16, v17, v18);
+    v7 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v15, v19, "<< FigReadScheduler >>", v20, v16, v17, v18, v21);
     goto LABEL_15;
   }
 
@@ -6968,7 +7015,7 @@ uint64_t FigReadSchedulerCancelAllClientRequests(dispatch_queue_t *a1, uint64_t 
     v19 = 4294949515;
     v20 = 3526;
 LABEL_14:
-    v7 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v15, v19, "<< FigReadScheduler >>", v20, v16, v17, v18);
+    v7 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v15, v19, "<< FigReadScheduler >>", v20, v16, v17, v18, v21);
     goto LABEL_15;
   }
 
@@ -7034,7 +7081,7 @@ uint64_t FigReadSchedulerExpediteAllClientRequests(dispatch_queue_t *a1, uint64_
     v19 = 4294949515;
     v20 = 3562;
 LABEL_14:
-    v7 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v15, v19, "<< FigReadScheduler >>", v20, v16, v17, v18);
+    v7 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v15, v19, "<< FigReadScheduler >>", v20, v16, v17, v18, v21);
     goto LABEL_15;
   }
 
@@ -7094,7 +7141,7 @@ void FigReadSchedulerCopyForByteStream_cold_3(const CMBlockBufferCustomBlockSour
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  *a3 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", a1, v7, v8, v9);
+  *a3 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", a1, v7, v8, v9, v10);
   CFRelease(a2);
 }
 
@@ -7102,7 +7149,7 @@ size_t FigReadSchedulerCopyForByteStream_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0x242, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0x242, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7111,7 +7158,7 @@ size_t FigReadSchedulerCopyForByteStream_cold_5(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0xBF2, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0xBF2, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7120,7 +7167,7 @@ size_t FigReadSchedulerCopyForByteStream_cold_6(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xBD9, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xBD9, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7129,7 +7176,7 @@ size_t FigReadSchedulerCopyForByteStream_cold_7(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xBD8, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xBD8, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7138,7 +7185,7 @@ size_t FigReadSchedulerCreateBatch_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC20, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC20, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7147,7 +7194,7 @@ size_t FigReadSchedulerCreateBatch_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC1F, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC1F, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7156,7 +7203,7 @@ void rsBatch_Create_cold_2(const CMBlockBufferCustomBlockSource *a1, const void 
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  *a3 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", a1, v7, v8, v9);
+  *a3 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", a1, v7, v8, v9, v10);
 
   CFRelease(a2);
 }
@@ -7165,7 +7212,7 @@ size_t rsBatch_Create_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0x3C6, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0x3C6, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7174,7 +7221,7 @@ size_t FigReadSchedulerBatchAddReadWithDeadline_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA89uLL, "<< FigReadScheduler >>", 0xC3B, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA89uLL, "<< FigReadScheduler >>", 0xC3B, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7183,7 +7230,7 @@ size_t FigReadSchedulerBatchAddReadWithDeadline_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC41, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC41, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7192,7 +7239,7 @@ size_t FigReadSchedulerBatchAddReadWithDeadline_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC3E, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC3E, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7201,7 +7248,7 @@ size_t FigReadSchedulerBatchAddReadWithDeadline_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC3D, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC3D, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7210,7 +7257,7 @@ size_t FigReadSchedulerBatchAddReadWithDeadline_cold_5(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC3C, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC3C, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7219,7 +7266,7 @@ size_t FigReadSchedulerBatchAddReadWithDeadline_cold_6(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC37, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC37, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7228,7 +7275,7 @@ size_t rsRequest_Create_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0x361, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0x361, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7237,7 +7284,7 @@ size_t FigReadSchedulerBatchAddBackgroundRead_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA89uLL, "<< FigReadScheduler >>", 0xC5F, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA89uLL, "<< FigReadScheduler >>", 0xC5F, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7246,7 +7293,7 @@ size_t FigReadSchedulerBatchAddBackgroundRead_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC65, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC65, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7255,7 +7302,7 @@ size_t FigReadSchedulerBatchAddBackgroundRead_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC62, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC62, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7264,7 +7311,7 @@ size_t FigReadSchedulerBatchAddBackgroundRead_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC61, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC61, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7273,7 +7320,7 @@ size_t FigReadSchedulerBatchAddBackgroundRead_cold_5(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC60, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC60, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7282,7 +7329,7 @@ size_t FigReadSchedulerBatchAddBackgroundRead_cold_6(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC5B, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC5B, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7291,7 +7338,7 @@ size_t FigReadSchedulerBatchCommit_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0xC8B, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0xC8B, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7300,7 +7347,7 @@ size_t FigReadSchedulerBatchCommit_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC86, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC86, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7309,7 +7356,7 @@ size_t FigReadSchedulerBatchCommit_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC7F, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xC7F, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7318,7 +7365,7 @@ size_t FigReadSchedulerBatchCancel_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0xCAC, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0xCAC, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7327,7 +7374,7 @@ size_t FigReadSchedulerBatchCancel_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xCA7, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xCA7, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7336,7 +7383,7 @@ size_t FigReadSchedulerBatchCancel_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xCA0, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xCA0, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7345,7 +7392,7 @@ size_t FigReadSchedulerBatchExpedite_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0xCD3, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0xCD3, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7354,7 +7401,7 @@ size_t FigReadSchedulerBatchExpedite_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xCCE, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xCCE, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7363,24 +7410,24 @@ size_t FigReadSchedulerBatchExpedite_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xCC7, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xCC7, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
 
-size_t readScheduler_HandleCommittedBatchExpedite_cold_1()
+size_t readScheduler_HandleCommittedBatchExpedite_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0xB86, v1, v2, v3);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0xB86, v10, v11, v12, a9);
 }
 
 size_t FigReadSchedulerBatchAwaitCompletion_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA87uLL, "<< FigReadScheduler >>", 0xD13, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA87uLL, "<< FigReadScheduler >>", 0xD13, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7389,7 +7436,7 @@ size_t FigReadSchedulerBatchAwaitCompletion_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA88uLL, "<< FigReadScheduler >>", 0xD0C, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA88uLL, "<< FigReadScheduler >>", 0xD0C, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7398,7 +7445,7 @@ size_t FigReadSchedulerBatchAwaitCompletion_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD06, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD06, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7407,7 +7454,7 @@ size_t FigReadSchedulerGetNewClientID_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD2A, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD2A, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7416,7 +7463,7 @@ size_t FigReadSchedulerGetNewClientID_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD29, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD29, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7439,7 +7486,7 @@ size_t FigReadSchedulerRequestReadWithDeadline_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD3A, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD3A, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7448,7 +7495,7 @@ size_t FigReadSchedulerRequestReadWithDeadline_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD39, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD39, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7457,7 +7504,7 @@ size_t FigReadSchedulerRequestReadWithDeadline_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD38, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD38, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7466,7 +7513,7 @@ size_t FigReadSchedulerRequestReadWithDeadline_cold_5(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD37, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD37, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7475,7 +7522,7 @@ size_t FigReadSchedulerRequestBackgroundRead_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD5D, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD5D, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7484,7 +7531,7 @@ size_t FigReadSchedulerRequestBackgroundRead_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD5C, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD5C, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7493,7 +7540,7 @@ size_t FigReadSchedulerRequestBackgroundRead_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD5B, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD5B, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7502,7 +7549,7 @@ size_t FigReadSchedulerRequestBackgroundRead_cold_5(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD5A, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD5A, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7511,7 +7558,7 @@ size_t FigReadSchedulerCancelRequest_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0xD7B, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0xD7B, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7520,7 +7567,7 @@ size_t FigReadSchedulerCancelRequest_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD76, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD76, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7529,7 +7576,7 @@ size_t FigReadSchedulerCancelRequest_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD75, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8BuLL, "<< FigReadScheduler >>", 0xD75, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7538,7 +7585,7 @@ void readScheduler_IngestRequest_cold_2(const void *a1, _DWORD *a2)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  *a2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0x303, v5, v6, v7);
+  *a2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0x303, v5, v6, v7, v8);
 
   CFRelease(a1);
 }
@@ -7547,18 +7594,18 @@ size_t readScheduler_IngestRequest_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0x300, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBA8CuLL, "<< FigReadScheduler >>", 0x300, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
 
-void figNTPClient_addressInfoCallBack(uint64_t a1, char a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, uint64_t a8)
+void figNTPClient_addressInfoCallBack(uint64_t a1, char a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, size_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   if (a4)
   {
-    v13 = qword_1EAF1CDE0;
+    v14 = qword_1EAF1CDE0;
 
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v13, 0xFFFFC1FEuLL, "<<<< FigNTP >>>>", 0xD2, v8, a7, a8);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, 0xFFFFC1FEuLL, "<<<< FigNTP >>>>", 0xD2, v9, a7, a8, a9);
   }
 
   else if (a1 && a6)
@@ -7577,22 +7624,23 @@ void figNTPClient_addressInfoCallBack(uint64_t a1, char a2, uint64_t a3, int a4,
 
     if ((a2 & 1) == 0)
     {
-      v12 = *(a8 + 48);
+      v13 = *(a8 + 48);
 
-      dispatch_semaphore_signal(v12);
+      dispatch_semaphore_signal(v13);
     }
   }
 }
 
-size_t FigSandboxRegistrationRemoteCreate(int a1, const char *a2, const void *a3, const void *a4, NSObject *a5, void *a6)
+size_t FigSandboxRegistrationRemoteCreate(uint64_t a1, const char *a2, const void *a3, const void *a4, NSObject *a5, void *a6)
 {
+  v12 = a1;
   xdict = 0;
-  *v34 = 0;
+  *v40 = 0;
   v13 = *MEMORY[0x1E695E480];
   if (qword_1ED4CC5E8 != -1)
   {
     OUTLINED_FUNCTION_0_29();
-    dispatch_once_f(v25, v26, v27);
+    dispatch_once_f(v31, v32, v33);
   }
 
   Instance = _CFRuntimeCreateInstance();
@@ -7600,16 +7648,16 @@ size_t FigSandboxRegistrationRemoteCreate(int a1, const char *a2, const void *a3
   if (!Instance)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v31 = v6;
-    v32 = 185;
+    v37 = v6;
+    v38 = 185;
 LABEL_20:
-    v16 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBBA3uLL, "<<<< SandboxRegRemote(XPC) >>>>", v32, v31, v29, v30);
+    v16 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBBA3uLL, "<<<< SandboxRegRemote(XPC) >>>>", v38, v37, v35, v36, xdict, *v40);
 LABEL_21:
-    v23 = v16;
+    v29 = v16;
     goto LABEL_14;
   }
 
-  v16 = remoteSandboxReg_copyRemoteClientForProcess(a1, (Instance + 56));
+  v16 = remoteSandboxReg_copyRemoteClientForProcess(v12, (Instance + 56));
   if (v16)
   {
     goto LABEL_21;
@@ -7620,7 +7668,7 @@ LABEL_21:
   v15[3] = a5;
   v15[4] = v17;
   dispatch_retain(a5);
-  v16 = FigXPCCreateBasicMessage(0x63726538u, 0, v34);
+  v16 = FigXPCCreateBasicMessage(0x63726538u, 0, v40);
   if (v16)
   {
     goto LABEL_21;
@@ -7631,35 +7679,35 @@ LABEL_21:
   if (!v19)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    v31 = v6;
-    v32 = 200;
+    v37 = v6;
+    v38 = 200;
     goto LABEL_20;
   }
 
   v20 = v19;
-  v21 = FigXPCMessageSetCFData(*v34, "ExtensionTokenData", v19);
+  v21 = FigXPCMessageSetCFData(*v40, "ExtensionTokenData", v19);
   if (v21)
   {
     goto LABEL_17;
   }
 
-  if (FigIsItOKToLogURLs())
+  if (FigIsItOKToLogURLs(v21, v22))
   {
-    FigXPCMessageSetCFString(*v34, "ExtensionPath", a3);
+    FigXPCMessageSetCFString(*v40, "ExtensionPath", a3);
   }
 
-  v21 = FigXPCRemoteClientSendSyncMessageCreatingReply(v15[7], *v34, &xdict);
+  v21 = FigXPCRemoteClientSendSyncMessageCreatingReply(v15[7], *v40, &xdict);
   if (v21)
   {
 LABEL_17:
-    v23 = v21;
+    v29 = v21;
   }
 
   else
   {
     uint64 = xpc_dictionary_get_uint64(xdict, ".objectID");
-    v23 = FigXPCRemoteClientAssociateObject(v15[7], v15, uint64);
-    if (!v23)
+    v29 = FigXPCRemoteClientAssociateObject(v15[7], v15, uint64, v24, v25, v26, v27, v28, xdict);
+    if (!v29)
     {
       v15[5] = uint64;
       *a6 = v15;
@@ -7669,14 +7717,14 @@ LABEL_17:
 
   CFRelease(v20);
 LABEL_14:
-  FigXPCRelease(*v34);
+  FigXPCRelease(*v40);
   FigXPCRelease(xdict);
   if (v15)
   {
     CFRelease(v15);
   }
 
-  return v23;
+  return v29;
 }
 
 uint64_t remoteSandboxReg_copyRemoteClientForProcess(int a1, void *a2)
@@ -7750,7 +7798,7 @@ size_t FigSandboxRegistrationRemoteGetObjectID_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBBA4uLL, "<<<< SandboxRegRemote(XPC) >>>>", 0xED, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBBA4uLL, "<<<< SandboxRegRemote(XPC) >>>>", 0xED, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7759,7 +7807,7 @@ size_t FigSandboxRegistrationRemoteGetObjectID_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBBA4uLL, "<<<< SandboxRegRemote(XPC) >>>>", 0xEC, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBBA4uLL, "<<<< SandboxRegRemote(XPC) >>>>", 0xEC, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7768,7 +7816,7 @@ size_t FigSandboxRegistrationRemoteGetObjectID_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBBA4uLL, "<<<< SandboxRegRemote(XPC) >>>>", 0xEB, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFBBA4uLL, "<<<< SandboxRegRemote(XPC) >>>>", 0xEB, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -7803,15 +7851,15 @@ uint64_t FigExternalSphericalBridge_ParseV2SphericalBox(uint64_t a1, uint64_t a2
   return result;
 }
 
-uint64_t FigExternalSphericalBridge_ParseV2StereoModeBox(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t FigExternalSphericalBridge_ParseV2StereoModeBox(uint64_t a1, CMBlockBufferRef *a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (a4)
   {
-    v19[0] = a2;
-    v19[1] = a3;
-    v20 = *a4;
-    v21 = 0;
+    v19 = a2;
+    v20 = a3;
+    v21 = *a4;
+    v22 = 0;
     if (a6 == 5)
     {
       v10 = 0;
@@ -7833,8 +7881,8 @@ LABEL_6:
           v10 = 1;
 LABEL_7:
           v13 = *MEMORY[0x1E695E4D0];
-          svReader_appendKeyAndValue(v19, @"HasLeftStereoEyeView", *MEMORY[0x1E695E4D0]);
-          svReader_appendKeyAndValue(v19, @"HasRightStereoEyeView", v13);
+          svReader_appendKeyAndValue(&v19, @"HasLeftStereoEyeView", *MEMORY[0x1E695E4D0]);
+          svReader_appendKeyAndValue(&v19, @"HasRightStereoEyeView", v13);
           if (v10)
           {
             if (v11)
@@ -7850,21 +7898,21 @@ LABEL_7:
             v14 = kFigFormatDescriptionViewPackingKind_OverUnder;
           }
 
-          svReader_appendKeyAndValue(v19, @"ViewPackingKind", *v14);
+          svReader_appendKeyAndValue(&v19, @"ViewPackingKind", *v14);
 LABEL_12:
           if ((v12 & 1) == 0)
           {
-            svReader_appendKeyAndValue(v19, @"HasEyeViewsReversed", v13);
+            svReader_appendKeyAndValue(&v19, @"HasEyeViewsReversed", v13);
           }
 
 LABEL_14:
-          *a4 = v20;
+          *a4 = v21;
           break;
         default:
-          strcpy(v22, "The spherical stereo mode box contains an unrecognized value.");
+          strcpy(v23, "The spherical stereo mode box contains an unrecognized value.");
           emitter = fig_log_get_emitter("com.apple.coremedia", "");
-          FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0, "<<<< SphericalBridge >>>>", 0x1B6, v7, v17, v18);
-          figBridge_ReportParsingFailureMessage(a7, v22);
+          FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0, "<<<< SphericalBridge >>>>", 0x1B6, v7, v17, v18, v19, v20);
+          figBridge_ReportParsingFailureMessage(a7, v23);
           goto LABEL_14;
       }
     }
@@ -7915,7 +7963,7 @@ uint64_t parseSphericalHeaderBox(uint64_t a1, uint64_t a2)
   strcpy(v13, "Invalid size of spherical header box.");
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
   v5 = 4294954584;
-  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE58uLL, "<<<< SphericalBridge >>>>", 0x13B, v2, v8, v9);
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE58uLL, "<<<< SphericalBridge >>>>", 0x13B, v2, v8, v9, v11);
   figBridge_ReportParsingFailureMessage(*(a2 + 24), v13);
   return v5;
 }
@@ -7954,44 +8002,44 @@ uint64_t parseProjectionHeaderBox(uint64_t a1, uint64_t a2)
   strcpy(v13, "Unrecognized size of spherical projection header box.");
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
   v5 = 4294954584;
-  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE58uLL, "<<<< SphericalBridge >>>>", 0xDB, v2, v8, v9);
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE58uLL, "<<<< SphericalBridge >>>>", 0xDB, v2, v8, v9, v11);
   figBridge_ReportParsingFailureMessage(*(a2 + 24), v13);
   return v5;
 }
 
 uint64_t parseEquirectangularProjectionBox(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v19 = 0;
-  v18 = 0;
-  v15 = 0;
-  v16 = 0;
+  v23 = *MEMORY[0x1E69E9840];
+  v21 = 0;
+  v20 = 0;
   v17 = 0;
-  CurrentAtomTypeAndDataLength = FigAtomStreamGetCurrentAtomTypeAndDataLength(a1, &v19, &v18);
+  v18 = 0;
+  v19 = 0;
+  CurrentAtomTypeAndDataLength = FigAtomStreamGetCurrentAtomTypeAndDataLength(a1, &v21, &v20);
   if (CurrentAtomTypeAndDataLength)
   {
     return CurrentAtomTypeAndDataLength;
   }
 
-  if (v18 != 20)
+  if (v20 != 20)
   {
-    strcpy(v20, "Unrecognized size of spherical equirectangular projection box.");
+    strcpy(v22, "Unrecognized size of spherical equirectangular projection box.");
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
     v7 = 4294954584;
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE58uLL, "<<<< SphericalBridge >>>>", 0xF5, v2, v10, v11);
-    figBridge_ReportParsingFailureMessage(a2[3], v20);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE58uLL, "<<<< SphericalBridge >>>>", 0xF5, v2, v10, v11, v15);
+    figBridge_ReportParsingFailureMessage(a2[3], v22);
     v12 = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v12, 0xFFFFCE58uLL, "<<<< SphericalBridge >>>>", 0xF7, v2, v13, v14);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v12, 0xFFFFCE58uLL, "<<<< SphericalBridge >>>>", 0xF7, v2, v13, v14, v16);
     return v7;
   }
 
-  CurrentAtomTypeAndDataLength = FigAtomStreamReadCurrentAtomData(a1, 0, 20, &v15);
+  CurrentAtomTypeAndDataLength = FigAtomStreamReadCurrentAtomData(a1, 0, 20, &v17);
   if (CurrentAtomTypeAndDataLength)
   {
     return CurrentAtomTypeAndDataLength;
   }
 
-  if (bswap32(v17) + bswap32(HIDWORD(v16)) < 0x7FFFFFFF)
+  if (bswap32(v19) + bswap32(HIDWORD(v18)) < 0x7FFFFFFF)
   {
     v6 = kFigFormatDescriptionProjectionKind_Equirectangular;
   }
@@ -8009,7 +8057,7 @@ size_t FigExternalSphericalBridge_ParseVersion1Properties_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE55uLL, "<<<< SphericalBridge >>>>", 0x1EE, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE55uLL, "<<<< SphericalBridge >>>>", 0x1EE, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8018,7 +8066,7 @@ size_t FigExternalSphericalBridge_ParseVersion1Properties_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE55uLL, "<<<< SphericalBridge >>>>", 0x1E9, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE55uLL, "<<<< SphericalBridge >>>>", 0x1E9, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8027,7 +8075,7 @@ size_t FigExternalSphericalBridge_ParseVersion1Properties_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE58uLL, "<<<< SphericalBridge >>>>", 0x1E0, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE58uLL, "<<<< SphericalBridge >>>>", 0x1E0, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8036,7 +8084,7 @@ size_t FigExternalSphericalBridge_ParseVersion1Properties_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE58uLL, "<<<< SphericalBridge >>>>", 0x1DF, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE58uLL, "<<<< SphericalBridge >>>>", 0x1DF, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8045,7 +8093,7 @@ size_t parseSphericalChildBoxes_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE57uLL, "<<<< SphericalBridge >>>>", 0xAD, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE57uLL, "<<<< SphericalBridge >>>>", 0xAD, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8054,7 +8102,7 @@ size_t FigCaptionDataCreateMutableCopy_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x30C, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x30C, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8063,7 +8111,7 @@ size_t FigCaptionDataCreateMutableCopy_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x328, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x328, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8072,7 +8120,7 @@ size_t FigCaptionDataCreateMutableCopy_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x2E2, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x2E2, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8081,7 +8129,7 @@ size_t FigCaptionDataCreateMutableCopy_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x2DF, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x2DF, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8090,24 +8138,24 @@ size_t FigCaptionDataCreateMutableCopy_cold_5(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x2DE, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x2DE, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
 
-size_t fmcd_createStylePropertyRunIDKey_cold_1()
+size_t fmcd_createStylePropertyRunIDKey_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0xEA, v1, v2, v3);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0xEA, v10, v11, v12, a9);
 }
 
 size_t FigCaptionDataCreateMutable_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x356, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x356, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8116,7 +8164,7 @@ size_t FigCaptionDataCreateMutable_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x353, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x353, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8125,7 +8173,7 @@ size_t FigCaptionDataCreateMutable_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x350, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x350, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8134,32 +8182,32 @@ size_t FigCaptionDataCreateMutable_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x344, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x344, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
 
-size_t fmcd_Equal_cold_1()
+size_t fmcd_Equal_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x157, v1, v2, v3);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x157, v10, v11, v12, a9);
 }
 
-size_t fmcd_Equal_cold_2()
+size_t fmcd_Equal_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x158, v1, v2, v3);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x158, v10, v11, v12, a9);
 }
 
 size_t fmcd_CopyProperty_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x11C, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x11C, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8168,7 +8216,7 @@ size_t fmcd_CopyProperty_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x10C, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x10C, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8177,7 +8225,7 @@ size_t fmcd_CopyProperty_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x193, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x193, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8186,7 +8234,7 @@ size_t fmcd_CopyProperty_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x199, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x199, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8195,7 +8243,7 @@ size_t fmcd_CopyProperty_cold_5(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x180, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x180, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8204,7 +8252,7 @@ size_t fmcd_CopyProperty_cold_6(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x17F, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x17F, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8213,7 +8261,7 @@ size_t fmcd_SetProperty_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1BA, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1BA, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8222,7 +8270,7 @@ size_t fmcd_SetProperty_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1B8, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1B8, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8231,7 +8279,7 @@ size_t fmcd_SetProperty_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1C3, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1C3, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8240,7 +8288,7 @@ size_t fmcd_SetProperty_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1C2, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1C2, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8249,7 +8297,7 @@ size_t fmcd_SetProperty_cold_5(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1C9, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1C9, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8258,7 +8306,7 @@ size_t fmcd_SetProperty_cold_6(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1CA, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1CA, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8267,7 +8315,7 @@ size_t fmcd_SetProperty_cold_7(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1D0, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1D0, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8276,7 +8324,7 @@ size_t fmcd_SetProperty_cold_8(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1CF, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1CF, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8285,7 +8333,7 @@ size_t fmcd_SetProperty_cold_9(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1DA, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1DA, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8294,7 +8342,7 @@ size_t fmcd_SetProperty_cold_10(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1D6, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1D6, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8303,7 +8351,7 @@ size_t fmcd_SetProperty_cold_11(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1D5, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1D5, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8312,7 +8360,7 @@ size_t fmcd_SetProperty_cold_12(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1DF, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1DF, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8321,7 +8369,7 @@ size_t fmcd_SetProperty_cold_13(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1DE, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1DE, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8330,7 +8378,7 @@ size_t fmcd_SetProperty_cold_14(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1E4, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1E4, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8339,7 +8387,7 @@ size_t fmcd_SetProperty_cold_15(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1E3, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1E3, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8348,7 +8396,7 @@ size_t fmcd_SetProperty_cold_16(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1E8, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1E8, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8357,7 +8405,7 @@ size_t fmcd_SetProperty_cold_17(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1EE, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1EE, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8366,7 +8414,7 @@ size_t fmcd_SetProperty_cold_18(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1ED, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1ED, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8375,7 +8423,7 @@ size_t fmcd_SetProperty_cold_19(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1F4, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1F4, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8384,7 +8432,7 @@ size_t fmcd_SetProperty_cold_20(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1F3, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1F3, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8393,7 +8441,7 @@ size_t fmcd_SetProperty_cold_21(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1F9, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1F9, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8402,7 +8450,7 @@ size_t fmcd_SetProperty_cold_22(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1F8, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1F8, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8411,7 +8459,7 @@ size_t fmcd_SetProperty_cold_23(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1FE, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1FE, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8420,7 +8468,7 @@ size_t fmcd_SetProperty_cold_24(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1FD, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1FD, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8429,7 +8477,7 @@ size_t fmcd_SetProperty_cold_25(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x203, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x203, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8438,7 +8486,7 @@ size_t fmcd_SetProperty_cold_26(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x202, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x202, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8447,7 +8495,7 @@ size_t fmcd_SetProperty_cold_27(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x207, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x207, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8456,7 +8504,7 @@ size_t fmcd_SetProperty_cold_28(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x206, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x206, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8465,7 +8513,7 @@ size_t fmcd_SetProperty_cold_29(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1B4, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1B4, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8474,32 +8522,32 @@ size_t fmcd_SetProperty_cold_30(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1B3, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x1B3, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
 
-size_t fmcd_GetCaptionText_cold_1()
+size_t fmcd_GetCaptionText_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFFCE10uLL, "<<<< FigMutableCaptionData >>>>", 0x131, v1, v2, v3);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, 0xFFFFCE10uLL, "<<<< FigMutableCaptionData >>>>", 0x131, v10, v11, v12, a9);
 }
 
-size_t fmcd_GetCaptionText_cold_2()
+size_t fmcd_GetCaptionText_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x130, v1, v2, v3);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x130, v10, v11, v12, a9);
 }
 
 size_t fmcd_SetCaptionText_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x145, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0EuLL, "<<<< FigMutableCaptionData >>>>", 0x145, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8508,7 +8556,7 @@ size_t fmcd_SetCaptionText_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x142, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x142, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8517,7 +8565,7 @@ size_t fmcd_CopyStylePropertyAtIndex_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x23B, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x23B, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8526,7 +8574,7 @@ size_t fmcd_CopyStylePropertyAtIndex_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x239, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x239, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8535,7 +8583,7 @@ size_t fmcd_SetStylePropertyInRange_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x275, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x275, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8544,7 +8592,7 @@ size_t fmcd_SetStylePropertyInRange_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x277, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x277, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8553,7 +8601,7 @@ size_t fmcd_SetStylePropertyInRange_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x273, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x273, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8562,7 +8610,7 @@ size_t fmcd_SetStylePropertyInRange_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x272, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x272, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8571,7 +8619,7 @@ size_t fmcd_SetStylePropertyInRange_cold_5(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x271, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x271, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8580,7 +8628,7 @@ size_t fmcd_RemoveStylePropertyInRange_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x298, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x298, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8589,7 +8637,7 @@ size_t fmcd_RemoveStylePropertyInRange_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x29A, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x29A, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8598,46 +8646,46 @@ size_t fmcd_RemoveStylePropertyInRange_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x296, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE14uLL, "<<<< FigMutableCaptionData >>>>", 0x296, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
 
-uint64_t remoteFigVirtualCaptureCard_Finalize(uint64_t a1)
+void remoteFigVirtualCaptureCard_Finalize(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
-  v6 = 0;
-  FigXPCRemoteClientDisassociateObject(gFigVirtualCaptureCardRemoteClient, *DerivedStorage);
+  v12 = 0;
+  FigXPCRemoteClientDisassociateObject(gFigVirtualCaptureCardRemoteClient, *DerivedStorage, v2, v3, v4, v5, v6, v7, v11);
   if (*(DerivedStorage + 9))
   {
-    v2 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v3 = FigXPCCreateBasicMessage(0x64697370u, *DerivedStorage, &v6);
-    v2 = v6;
-    if (!v3)
+    v9 = FigXPCCreateBasicMessage(0x64697370u, *DerivedStorage, &v12);
+    v8 = v12;
+    if (!v9)
     {
-      FigXPCRemoteClientSendAsyncMessage(gFigVirtualCaptureCardRemoteClient, v6);
-      v2 = v6;
+      FigXPCRemoteClientSendAsyncMessage(gFigVirtualCaptureCardRemoteClient, v12);
+      v8 = v12;
     }
   }
 
-  FigXPCRelease(v2);
-  return OUTLINED_FUNCTION_1_19(gFigVirtualCaptureCardRemoteClient, v4, "remoteFigVirtualCaptureCard_Finalize");
+  FigXPCRelease(v8);
+  OUTLINED_FUNCTION_1_19(gFigVirtualCaptureCardRemoteClient, v10, "remoteFigVirtualCaptureCard_Finalize");
 }
 
 size_t remoteFigVirtualCaptureCard_CopyProperty(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v19 = 0;
+  v20 = 0;
   if (!a2)
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0();
     v18 = 180;
 LABEL_8:
-    ObjectID = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, 0xFFFFBCC6uLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", v18, v15, v16, v17);
+    ObjectID = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, 0xFFFFBCC6uLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", v18, v15, v16, v17, v19);
     goto LABEL_5;
   }
 
@@ -8650,10 +8698,10 @@ LABEL_8:
   }
 
   *a4 = 0;
-  ObjectID = remoteVirtualCaptureCardClient_GetObjectID(a1, &v19);
+  ObjectID = remoteVirtualCaptureCardClient_GetObjectID(a1, &v20);
   if (!ObjectID)
   {
-    ObjectID = FigXPCSendStdCopyPropertyMessage(gFigVirtualCaptureCardRemoteClient, v19, a2, a4, v8, v9, v10, v11);
+    ObjectID = FigXPCSendStdCopyPropertyMessage(gFigVirtualCaptureCardRemoteClient, v20, a2, a4, v8, v9, v10, v11);
   }
 
 LABEL_5:
@@ -8664,24 +8712,24 @@ LABEL_5:
 
 size_t remoteFigVirtualCaptureCard_SetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v16 = 0;
+  v17 = 0;
   if (a2)
   {
-    ObjectID = remoteVirtualCaptureCardClient_GetObjectID(a1, &v16);
+    ObjectID = remoteVirtualCaptureCardClient_GetObjectID(a1, &v17);
     if (!ObjectID)
     {
-      ObjectID = FigXPCSendStdSetPropertyMessage(gFigVirtualCaptureCardRemoteClient, v16, a2, a3, v7, v8, v9, v10);
+      ObjectID = FigXPCSendStdSetPropertyMessage(gFigVirtualCaptureCardRemoteClient, v17, a2, a3, v7, v8, v9, v10);
     }
   }
 
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    ObjectID = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCC6uLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", 0xD0, v3, v14, v15);
+    ObjectID = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBCC6uLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", 0xD0, v3, v14, v15, v16);
   }
 
   v11 = ObjectID;
-  FigXPCRemoteClientKillServerOnTimeout(gFigVirtualCaptureCardRemoteClient, ObjectID, "remoteFigVirtualCaptureCard_SetProperty", 0);
+  FigXPCRemoteClientKillServerOnTimeout();
   return v11;
 }
 
@@ -8707,13 +8755,13 @@ uint64_t remoteFigVirtualCaptureCard_showSystemUserInterface(uint64_t a1)
 
 size_t remoteFigVirtualCaptureCard_reserveForCaptureToFile(uint64_t a1, const __CFURL *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   xdict = 0;
-  v11 = 0;
-  ObjectID = remoteVirtualCaptureCardClient_GetObjectID(a1, &v11);
+  v12 = 0;
+  ObjectID = remoteVirtualCaptureCardClient_GetObjectID(a1, &v12);
   if (!ObjectID)
   {
-    ObjectID = FigXPCCreateBasicMessage(0x72657376u, v11, &xdict);
+    ObjectID = FigXPCCreateBasicMessage(0x72657376u, v12, &xdict);
     if (!ObjectID)
     {
       if (CFURLGetFileSystemRepresentation(a2, 1u, buffer, 1024))
@@ -8726,13 +8774,13 @@ size_t remoteFigVirtualCaptureCard_reserveForCaptureToFile(uint64_t a1, const __
       {
         fig_log_get_emitter("com.apple.coremedia", "");
         OUTLINED_FUNCTION_0();
-        ObjectID = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFBCBEuLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", 0x100, v5, v6, v7);
+        ObjectID = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFBCBEuLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", 0x100, v5, v6, v7, v10);
       }
     }
   }
 
   v8 = ObjectID;
-  FigXPCRemoteClientKillServerOnTimeout(gFigVirtualCaptureCardRemoteClient, ObjectID, "remoteFigVirtualCaptureCard_reserveForCaptureToFile", 0);
+  FigXPCRemoteClientKillServerOnTimeout();
   FigXPCRelease(xdict);
   return v8;
 }
@@ -8761,7 +8809,7 @@ size_t remoteVirtualCaptureCardClient_EnsureClientEstablished_cold_1(uint64_t a1
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFBCC3uLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", 0x6F, v5, v6, v7);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 0xFFFFBCC3uLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", 0x6F, v5, v6, v7, v9);
   *a2 = result;
   *(*a1 + 24) = result;
   return result;
@@ -8771,7 +8819,7 @@ size_t remoteVirtualCaptureCardClient_GetObjectID_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0FuLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", 0x43, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0FuLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", 0x43, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8780,7 +8828,7 @@ size_t remoteVirtualCaptureCardClient_GetObjectID_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0FuLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", 0x44, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0FuLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", 0x44, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -8789,28 +8837,28 @@ size_t remoteVirtualCaptureCardClient_GetObjectID_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter("com.apple.coremedia", "");
   OUTLINED_FUNCTION_0();
-  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0FuLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", 0x42, v3, v4, v5);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFFCE0FuLL, "<<<< FigVirtualCaptureCardRemoteXPC >>>>", 0x42, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
 
-size_t FigAV1Bridge_parseav1c(char *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6, _DWORD *a7, unsigned int *a8)
+size_t FigAV1Bridge_parseav1c(char *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6, _DWORD *a7, unsigned int *a8, CMBlockBufferRef *a9)
 {
   if (!a1)
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0();
-    v18 = 3127;
+    v19 = 3127;
 LABEL_28:
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", v18, v15, v16, v17);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v15, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", v19, v16, v17, v18, a9);
   }
 
   if (!a3)
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0();
-    v18 = 3128;
+    v19 = 3128;
     goto LABEL_28;
   }
 
@@ -8818,7 +8866,7 @@ LABEL_28:
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0();
-    v18 = 3129;
+    v19 = 3129;
     goto LABEL_28;
   }
 
@@ -8826,7 +8874,7 @@ LABEL_28:
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0();
-    v18 = 3130;
+    v19 = 3130;
     goto LABEL_28;
   }
 
@@ -8834,7 +8882,7 @@ LABEL_28:
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0();
-    v18 = 3131;
+    v19 = 3131;
     goto LABEL_28;
   }
 
@@ -8843,52 +8891,52 @@ LABEL_28:
     *a7 = 0;
   }
 
-  v8 = *a1;
-  if ((v8 & 0x80000000) == 0)
+  v9 = *a1;
+  if ((v9 & 0x80000000) == 0)
   {
     return 4294954582;
   }
 
-  if ((v8 & 0x7F) != 1)
+  if ((v9 & 0x7F) != 1)
   {
     return 4294954579;
   }
 
-  v9 = a1[1];
-  *a8 = v9 >> 5;
-  if (v9 > 0x5F)
+  v10 = a1[1];
+  *a8 = v10 >> 5;
+  if (v10 > 0x5F)
   {
     return 4294954582;
   }
 
   a8[1] = a1[1] & 0x1F;
   a8[2] = a1[2] >> 7;
-  v11 = a1[2];
-  a8[4] = (v11 >> 4) & 1;
+  v12 = a1[2];
+  a8[4] = (v12 >> 4) & 1;
   a8[5] = (a1[2] >> 3) & 1;
   a8[6] = (a1[2] >> 2) & 1;
   a8[7] = a1[2] & 3;
-  if ((v11 & 0x40) != 0)
+  if ((v12 & 0x40) != 0)
   {
-    v12 = 10;
+    v13 = 10;
   }
 
   else
   {
-    v12 = 8;
+    v13 = 8;
   }
 
-  if ((v11 & 0x20) != 0)
+  if ((v12 & 0x20) != 0)
   {
-    v13 = 12;
+    v14 = 12;
   }
 
   else
   {
-    v13 = v12;
+    v14 = v13;
   }
 
-  a8[3] = v13;
+  a8[3] = v14;
   if (a7)
   {
     *a7 |= 0x20u;
@@ -8905,19 +8953,19 @@ LABEL_28:
   }
 }
 
-uint64_t FigAV1Bridge_parseOBU(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, _DWORD *a10, _DWORD *a11)
+size_t FigAV1Bridge_parseOBU(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, _DWORD *a10, _DWORD *a11)
 {
-  v2177 = *MEMORY[0x1E69E9840];
-  v2169 = 0u;
-  v2170 = 0u;
-  v2168 = 0u;
+  v2449 = *MEMORY[0x1E69E9840];
+  v2441 = 0u;
+  v2442 = 0u;
+  v2440 = 0u;
   if (a2 <= 2)
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0();
-    v1321 = 2860;
+    v1323 = 2860;
 LABEL_810:
-    v29 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1317, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", v1321, v1318, v1319, v1320);
+    v29 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1319, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", v1323, v1320, v1321, v1322, v1354);
     v91 = 0;
     v88 = 0;
     LODWORD(v87) = 0;
@@ -8928,7 +8976,7 @@ LABEL_810:
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0();
-    v1321 = 2861;
+    v1323 = 2861;
     goto LABEL_810;
   }
 
@@ -8937,7 +8985,7 @@ LABEL_810:
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0();
-    v1321 = 2862;
+    v1323 = 2862;
     goto LABEL_810;
   }
 
@@ -8945,7 +8993,7 @@ LABEL_810:
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0();
-    v1321 = 2863;
+    v1323 = 2863;
     goto LABEL_810;
   }
 
@@ -8953,48 +9001,48 @@ LABEL_810:
   {
     fig_log_get_emitter("com.apple.coremedia", "");
     OUTLINED_FUNCTION_0();
-    v1321 = 2864;
+    v1323 = 2864;
     goto LABEL_810;
   }
 
   v15 = a8;
-  v2168 = 0uLL;
-  *(&v2169 + 1) = a1;
-  *&v2170 = a1;
-  *(&v2170 + 1) = a1 + a2;
-  LODWORD(v2169) = 0;
-  v19 = OUTLINED_FUNCTION_5_7(a1, a2, a3, a4, a5, a6, a7, a8, v1352, v1432, v1512, v1592, v1673, v1754, v1833, v1881, v1923, v1964, v2005, v2047, v2087, a5, 0);
+  v2440 = 0uLL;
+  *(&v2441 + 1) = a1;
+  *&v2442 = a1;
+  *(&v2442 + 1) = a1 + a2;
+  LODWORD(v2441) = 0;
+  v19 = OUTLINED_FUNCTION_5_7(a1, a2, a3, a4, a5, a6, a7, a8, v1354, v1432, v1512, v1592, v1673, v1754, v1833, v1915, v1991, v2066, v2141, v2217, v2291, a5, 0);
   bits = av1_get_bits(v19, v20);
-  v29 = v2168;
-  if (v2168)
+  v29 = v2440;
+  if (v2440)
   {
     return v29;
   }
 
-  v30 = OUTLINED_FUNCTION_14_1(bits, v22, v23, v24, v25, v26, v27, v28, v1353, v1433, v1513, v1593, v1674, v1755);
-  HIDWORD(v2088) = v30;
-  v38 = OUTLINED_FUNCTION_5_7(v30, v31, v32, v33, v34, v35, v36, v37, v1354, v1434, v1514, v1594, v1675, v1756, v1834, v1882, v11, v1965, v2006, v2048, v2088, v2129, 0);
+  v30 = OUTLINED_FUNCTION_14_1(bits, v22, v23, v24, v25, v26, v27, v28, v1355, v1433, v1513, v1593, v1674, v1755, v1834, v1916, v1992, v2067, v2142, v2218, v2292, v2367);
+  HIDWORD(v2293) = v30;
+  v38 = OUTLINED_FUNCTION_5_7(v30, v31, v32, v33, v34, v35, v36, v37, v1356, v1434, v1514, v1594, v1675, v1756, v1835, v1917, v11, v2068, v2143, v2219, v2293, v2368, 0);
   v40 = av1_get_bits(v38, v39);
-  v29 = v2168;
-  if (v2168)
+  v29 = v2440;
+  if (v2440)
   {
     return v29;
   }
 
   v48 = v40;
-  v49 = OUTLINED_FUNCTION_5_7(v40, v41, v42, v43, v44, v45, v46, v47, v1355, v1435, v1515, v1595, v1676, v1757, v1835, v1883, v1924, a3, v2007, v2049, v2089, v2130, 0);
+  v49 = OUTLINED_FUNCTION_5_7(v40, v41, v42, v43, v44, v45, v46, v47, v1357, v1435, v1515, v1595, v1676, v1757, v1836, v1918, v1993, a3, v2144, v2220, v2294, v2369, 0);
   v51 = av1_get_bits(v49, v50);
-  v29 = v2168;
-  if (v2168)
+  v29 = v2440;
+  if (v2440)
   {
     return v29;
   }
 
   v59 = v51;
-  v60 = OUTLINED_FUNCTION_5_7(v51, v52, v53, v54, v55, v56, v57, v58, v1356, v1436, v1516, v1596, v1677, v1758, v1836, v1884, v1925, v1966, v2008, v2050, v2090, v2131, 0);
+  v60 = OUTLINED_FUNCTION_5_7(v51, v52, v53, v54, v55, v56, v57, v58, v1358, v1436, v1516, v1596, v1677, v1758, v1837, v1919, v1994, v2069, v2145, v2221, v2295, v2370, 0);
   uleb128 = av1_get_bits(v60, v61);
-  v29 = v2168;
-  if (v2168)
+  v29 = v2440;
+  if (v2440)
   {
     return v29;
   }
@@ -9002,7 +9050,7 @@ LABEL_810:
   if (!v48)
   {
     v71 = 0;
-    HIDWORD(v2009) = 0;
+    HIDWORD(v2146) = 0;
     if (v59)
     {
       goto LABEL_12;
@@ -9013,47 +9061,47 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v70 = OUTLINED_FUNCTION_10_3(uleb128, v63, v64, v65, v66, v67, v68, v69, v1357, v1437, v1517, v1597, v1678, v1759);
+  v70 = OUTLINED_FUNCTION_10_3(uleb128, v63, v64, v65, v66, v67, v68, v69, v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2222, v2296, v2371);
   v71 = v70;
-  v79 = OUTLINED_FUNCTION_8_4(v70, v72, v73, v74, v75, v76, v77, v78, v1358, v1438, v1518, v1598, v1679, v1760);
-  HIDWORD(v2009) = v79;
-  uleb128 = OUTLINED_FUNCTION_10_3(v79, v80, v81, v82, v83, v84, v85, v86, v1359, v1439, v1519, v1599, v1680, v1761);
+  v79 = OUTLINED_FUNCTION_8_4(v70, v72, v73, v74, v75, v76, v77, v78, v1360, v1438, v1518, v1598, v1679, v1760, v1839, v1921, v1996, v2071, v2147, v2223, v2297, v2372);
+  HIDWORD(v2148) = v79;
+  uleb128 = OUTLINED_FUNCTION_10_3(v79, v80, v81, v82, v83, v84, v85, v86, v1361, v1439, v1519, v1599, v1680, v1761, v1840, v1922, v1997, v2072, v2148, v2224, v2298, v2373);
   if (!v59)
   {
     goto LABEL_15;
   }
 
 LABEL_12:
-  uleb128 = av1_get_uleb128(&v2168);
-  v29 = v2168;
-  if (v2168)
+  uleb128 = av1_get_uleb128(&v2440);
+  v29 = v2440;
+  if (v2440)
   {
     return v29;
   }
 
   v87 = uleb128;
 LABEL_16:
-  v88 = 8 * (DWORD2(v2169) - v2170) - v2169;
+  v88 = 8 * (DWORD2(v2441) - v2442) - v2441;
   if ((v88 & 7) != 0)
   {
     return 4294954582;
   }
 
-  v2051 = a7;
+  v2225 = a7;
   v89 = v88 >> 3;
   if (v89 > a2)
   {
     return 4294954582;
   }
 
-  if ((HIDWORD(v2091) - 3) <= 0xFFFFFFFD)
+  if ((HIDWORD(v2296) - 3) <= 0xFFFFFFFD)
   {
     if (v48)
     {
       v90 = *(v13 + 6052);
       if (v90)
       {
-        if ((((1 << (BYTE4(v2009) + 8)) | (1 << v71)) & ~v90) != 0)
+        if ((((1 << (BYTE4(v2146) + 8)) | (1 << v71)) & ~v90) != 0)
         {
           v91 = 0;
           v29 = 0;
@@ -9065,34 +9113,34 @@ LABEL_16:
 
   v91 = 0;
   v29 = 0;
-  switch(HIDWORD(v2091))
+  switch(HIDWORD(v2296))
   {
     case 1:
-      v99 = 8 * (DWORD2(v2169) - v2170) - v2169;
-      v100 = OUTLINED_FUNCTION_10_3(uleb128, v63, v64, v65, v66, v67, v68, v69, v1357, v1437, v1517, v1597, v1678, v1759);
-      v108 = v2132;
-      *v2132 = v100;
+      v99 = 8 * (DWORD2(v2441) - v2442) - v2441;
+      v100 = OUTLINED_FUNCTION_10_3(uleb128, v63, v64, v65, v66, v67, v68, v69, v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2225, v2296, v2371);
+      v108 = v2374;
+      *v2374 = v100;
       if (v100 > 1)
       {
         v1766 = v13;
-        v212 = 1118;
+        v214 = 1118;
 LABEL_72:
         fig_log_get_emitter("com.apple.coremedia", "");
         OUTLINED_FUNCTION_1_20();
-        v219 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v215, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", v212, v216, v217, v218);
-        if (v219)
+        v221 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v217, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", v214, v218, v219, v220, v1362);
+        if (v221)
         {
-          return v219;
+          return v221;
         }
 
         goto LABEL_781;
       }
 
       v109 = v100;
-      v110 = OUTLINED_FUNCTION_5_7(v100, v101, v102, v103, v104, v105, v106, v107, v1360, v1440, v1520, v1600, v1681, v1762, v1837, v1885, v1926, v1967, v2009, v2051, v2091, v2132, v2168);
+      v110 = OUTLINED_FUNCTION_5_7(v100, v101, v102, v103, v104, v105, v106, v107, v1362, v1440, v1520, v1600, v1681, v1762, v1842, v1923, v1998, v2073, v2149, v2225, v2299, v2374, v2440);
       v112 = OUTLINED_FUNCTION_9_4(v110, v111);
       v108[235] = v112;
-      v120 = OUTLINED_FUNCTION_5_7(v112, v113, v114, v115, v116, v117, v118, v119, v1361, v1441, v1521, v1601, v1682, v1763, v1839, v1886, v1927, v1968, v2010, v2052, v2092, v2133, v2168);
+      v120 = OUTLINED_FUNCTION_5_7(v112, v113, v114, v115, v116, v117, v118, v119, v1363, v1441, v1521, v1601, v1682, v1763, v1843, v1924, v1999, v2074, v2150, v2226, v2300, v2375, v2440);
       v122 = av1_get_bits(v120, v121);
       v108[236] = v122;
       if (v122)
@@ -9107,91 +9155,91 @@ LABEL_72:
         v108[247] = 0;
         v108[10] = 1;
         v108[14] = 0;
-        v130 = OUTLINED_FUNCTION_10_3(v122, v123, v124, v125, v126, v127, v128, v129, v1362, v1442, v1522, v1602, v1683, v13);
+        v130 = OUTLINED_FUNCTION_10_3(v122, v123, v124, v125, v126, v127, v128, v129, v1364, v1442, v1522, v1602, v1683, v13, v1844, v1925, v2000, v2075, v2151, v2227, v2301, v2376);
         v108[11] = v130;
-        v138 = OUTLINED_FUNCTION_8_4(v130, v131, v132, v133, v134, v135, v136, v137, v1363, v1443, v1523, v1603, v1684, v1765);
+        v138 = OUTLINED_FUNCTION_8_4(v130, v131, v132, v133, v134, v135, v136, v137, v1365, v1443, v1523, v1603, v1684, v1765, v1845, v1926, v2001, v2076, v2152, v2228, v2302, v2377);
         v108[12] = v138;
         *(v108 + 8) = 0;
         v108[15] = 0;
 LABEL_681:
-        v970 = OUTLINED_FUNCTION_14_1(v138, v139, v140, v141, v142, v143, v144, v145, v1364, v1444, v1524, v1604, v1685, v1766);
-        v971 = v970 + 1;
-        v108[248] = v970 + 1;
-        v979 = OUTLINED_FUNCTION_14_1(v970, v972, v973, v974, v975, v976, v977, v978, v1405, v1485, v1565, v1646, v1726, v1806);
-        v980 = v979 + 1;
-        v108[249] = v979 + 1;
-        v108[1] = OUTLINED_FUNCTION_28_0(v979, v981, v982, v983, v984, v985, v986, v987, v1406, v1486, v1566, v1647, v1727, v1807) + 1;
-        v988 = av1_get_bits(&v2168, v980);
-        v108[2] = v988 + 1;
-        v996 = v108[236];
-        if (v996)
+        v972 = OUTLINED_FUNCTION_14_1(v138, v139, v140, v141, v142, v143, v144, v145, v1366, v1444, v1524, v1604, v1685, v1766, v1846, v1927, v2002, v2077, v2153, v2225, v2303, v2374);
+        v973 = v972 + 1;
+        v108[248] = v972 + 1;
+        v981 = OUTLINED_FUNCTION_14_1(v972, v974, v975, v976, v977, v978, v979, v980, v1405, v1485, v1565, v1646, v1726, v1806, v1888, v1964, v2039, v2114, v2190, v2264, v2340, v2413);
+        v982 = v981 + 1;
+        v108[249] = v981 + 1;
+        v108[1] = OUTLINED_FUNCTION_28_0(v981, v983, v984, v985, v986, v987, v988, v989, v1406, v1486, v1566, v1647, v1727, v1807, v1889, v1965, v2040, v2115, v2191, v2265, v2341, v2414) + 1;
+        v990 = av1_get_bits(&v2440, v982);
+        v108[2] = v990 + 1;
+        v998 = v108[236];
+        if (v998)
         {
-          v997 = 0;
-          v998 = 250;
+          v999 = 0;
+          v1000 = 250;
         }
 
         else
         {
-          v999 = OUTLINED_FUNCTION_5_7(v988, v989, v990, v991, v992, v993, v994, v995, v1407, v1487, v1567, v1648, v1728, v1808, v1840, v1887, v1928, v1969, v2011, v2051, v2093, v2132, v2168);
-          v988 = av1_get_bits(v999, v1000);
-          v108[250] = v988;
-          if (!v988)
+          v1001 = OUTLINED_FUNCTION_5_7(v990, v991, v992, v993, v994, v995, v996, v997, v1407, v1487, v1567, v1648, v1728, v1808, v1890, v1966, v2041, v2116, v2192, v2266, v2342, v2415, v2440);
+          v990 = av1_get_bits(v1001, v1002);
+          v108[250] = v990;
+          if (!v990)
           {
             goto LABEL_686;
           }
 
-          v1001 = OUTLINED_FUNCTION_9_4(&v2168, 4u);
-          v108[251] = v1001 + 2;
-          v988 = OUTLINED_FUNCTION_10_3(v1001, v1002, v1003, v1004, v1005, v1006, v1007, v1008, v1407, v1487, v1567, v1648, v1728, v1808);
-          v997 = v971 + v988 + 3;
-          v998 = 252;
+          v1003 = OUTLINED_FUNCTION_9_4(&v2440, 4u);
+          v108[251] = v1003 + 2;
+          v990 = OUTLINED_FUNCTION_10_3(v1003, v1004, v1005, v1006, v1007, v1008, v1009, v1010, v1407, v1487, v1567, v1648, v1728, v1808, v1890, v1966, v2041, v2116, v2192, v2266, v2342, v2415);
+          v999 = v973 + v990 + 3;
+          v1000 = 252;
         }
 
-        v108[v998] = v997;
+        v108[v1000] = v999;
 LABEL_686:
-        v1009 = OUTLINED_FUNCTION_5_7(v988, v989, v990, v991, v992, v993, v994, v995, v1407, v1487, v1567, v1648, v1728, v1808, v1840, v1887, v1928, v1969, v2011, v2051, v2093, v2132, v2168);
-        v1011 = av1_get_bits(v1009, v1010);
-        v108[253] = v1011;
-        v1019 = OUTLINED_FUNCTION_5_7(v1011, v1012, v1013, v1014, v1015, v1016, v1017, v1018, v1408, v1488, v1568, v1649, v1729, v1809, v1865, v1907, v1948, v1989, v2031, v2071, v2113, v2152, v2168);
-        v1021 = av1_get_bits(v1019, v1020);
-        v108[254] = v1021;
-        v1029 = OUTLINED_FUNCTION_5_7(v1021, v1022, v1023, v1024, v1025, v1026, v1027, v1028, v1409, v1489, v1569, v1650, v1730, v1810, v1866, v1908, v1949, v1990, v2032, v2072, v2114, v2153, v2168);
-        v1031 = av1_get_bits(v1029, v1030);
-        v108[255] = v1031;
-        if (v996)
+        v1011 = OUTLINED_FUNCTION_5_7(v990, v991, v992, v993, v994, v995, v996, v997, v1407, v1487, v1567, v1648, v1728, v1808, v1890, v1966, v2041, v2116, v2192, v2266, v2342, v2415, v2440);
+        v1013 = av1_get_bits(v1011, v1012);
+        v108[253] = v1013;
+        v1021 = OUTLINED_FUNCTION_5_7(v1013, v1014, v1015, v1016, v1017, v1018, v1019, v1020, v1408, v1488, v1568, v1649, v1729, v1809, v1891, v1967, v2042, v2117, v2193, v2267, v2343, v2416, v2440);
+        v1023 = av1_get_bits(v1021, v1022);
+        v108[254] = v1023;
+        v1031 = OUTLINED_FUNCTION_5_7(v1023, v1024, v1025, v1026, v1027, v1028, v1029, v1030, v1409, v1489, v1569, v1650, v1730, v1810, v1892, v1968, v2043, v2118, v2194, v2268, v2344, v2417, v2440);
+        v1033 = av1_get_bits(v1031, v1032);
+        v108[255] = v1033;
+        if (v998)
         {
           v108[265] = 0;
           *(v108 + 128) = 0;
           *(v108 + 130) = 0;
           *(v108 + 129) = 0;
-          v1039 = 2;
-          v1040 = 264;
+          v1041 = 2;
+          v1042 = 264;
           *(v108 + 131) = 0x200000000;
           goto LABEL_699;
         }
 
-        v1041 = OUTLINED_FUNCTION_5_7(v1031, v1032, v1033, v1034, v1035, v1036, v1037, v1038, v1410, v1490, v1570, v1651, v1731, v1811, v1867, v1909, v1950, v1991, v2033, v2073, v2115, v2154, v2168);
-        v1043 = av1_get_bits(v1041, v1042);
-        v108[256] = v1043;
-        v1051 = OUTLINED_FUNCTION_5_7(v1043, v1044, v1045, v1046, v1047, v1048, v1049, v1050, v1411, v1491, v1571, v1652, v1732, v1812, v1868, v1910, v1951, v1992, v2034, v2074, v2116, v2155, v2168);
-        v1053 = av1_get_bits(v1051, v1052);
-        v108[257] = v1053;
-        v1061 = OUTLINED_FUNCTION_5_7(v1053, v1054, v1055, v1056, v1057, v1058, v1059, v1060, v1412, v1492, v1572, v1653, v1733, v1813, v1869, v1911, v1952, v1993, v2035, v2075, v2117, v2156, v2168);
-        v1063 = av1_get_bits(v1061, v1062);
-        v108[258] = v1063;
-        v1071 = OUTLINED_FUNCTION_5_7(v1063, v1064, v1065, v1066, v1067, v1068, v1069, v1070, v1413, v1493, v1573, v1654, v1734, v1814, v1870, v1912, v1953, v1994, v2036, v2076, v2118, v2157, v2168);
-        v1073 = av1_get_bits(v1071, v1072);
-        v108[259] = v1073;
-        v1081 = OUTLINED_FUNCTION_5_7(v1073, v1074, v1075, v1076, v1077, v1078, v1079, v1080, v1414, v1494, v1574, v1655, v1735, v1815, v1871, v1913, v1954, v1995, v2037, v2077, v2119, v2158, v2168);
-        v1083 = OUTLINED_FUNCTION_9_4(v1081, v1082);
-        v108[260] = v1083;
-        if (v1083)
+        v1043 = OUTLINED_FUNCTION_5_7(v1033, v1034, v1035, v1036, v1037, v1038, v1039, v1040, v1410, v1490, v1570, v1651, v1731, v1811, v1893, v1969, v2044, v2119, v2195, v2269, v2345, v2418, v2440);
+        v1045 = av1_get_bits(v1043, v1044);
+        v108[256] = v1045;
+        v1053 = OUTLINED_FUNCTION_5_7(v1045, v1046, v1047, v1048, v1049, v1050, v1051, v1052, v1411, v1491, v1571, v1652, v1732, v1812, v1894, v1970, v2045, v2120, v2196, v2270, v2346, v2419, v2440);
+        v1055 = av1_get_bits(v1053, v1054);
+        v108[257] = v1055;
+        v1063 = OUTLINED_FUNCTION_5_7(v1055, v1056, v1057, v1058, v1059, v1060, v1061, v1062, v1412, v1492, v1572, v1653, v1733, v1813, v1895, v1971, v2046, v2121, v2197, v2271, v2347, v2420, v2440);
+        v1065 = av1_get_bits(v1063, v1064);
+        v108[258] = v1065;
+        v1073 = OUTLINED_FUNCTION_5_7(v1065, v1066, v1067, v1068, v1069, v1070, v1071, v1072, v1413, v1493, v1573, v1654, v1734, v1814, v1896, v1972, v2047, v2122, v2198, v2272, v2348, v2421, v2440);
+        v1075 = av1_get_bits(v1073, v1074);
+        v108[259] = v1075;
+        v1083 = OUTLINED_FUNCTION_5_7(v1075, v1076, v1077, v1078, v1079, v1080, v1081, v1082, v1414, v1494, v1574, v1655, v1735, v1815, v1897, v1973, v2048, v2123, v2199, v2273, v2349, v2422, v2440);
+        v1085 = OUTLINED_FUNCTION_9_4(v1083, v1084);
+        v108[260] = v1085;
+        if (v1085)
         {
-          v1091 = OUTLINED_FUNCTION_5_7(v1083, v1084, v1085, v1086, v1087, v1088, v1089, v1090, v1415, v1495, v1575, v1656, v1736, v1816, v1872, v1914, v1955, v1996, v2038, v2078, v2120, v2159, v2168);
-          v1093 = av1_get_bits(v1091, v1092);
-          v108[261] = v1093;
-          v1101 = OUTLINED_FUNCTION_5_7(v1093, v1094, v1095, v1096, v1097, v1098, v1099, v1100, v1416, v1496, v1576, v1657, v1737, v1817, v1873, v1915, v1956, v1997, v2039, v2079, v2121, v2160, v2168);
-          v1083 = av1_get_bits(v1101, v1102);
+          v1093 = OUTLINED_FUNCTION_5_7(v1085, v1086, v1087, v1088, v1089, v1090, v1091, v1092, v1415, v1495, v1575, v1656, v1736, v1816, v1898, v1974, v2049, v2124, v2200, v2274, v2350, v2423, v2440);
+          v1095 = av1_get_bits(v1093, v1094);
+          v108[261] = v1095;
+          v1103 = OUTLINED_FUNCTION_5_7(v1095, v1096, v1097, v1098, v1099, v1100, v1101, v1102, v1416, v1496, v1576, v1657, v1737, v1817, v1899, v1975, v2050, v2125, v2201, v2275, v2351, v2424, v2440);
+          v1085 = av1_get_bits(v1103, v1104);
         }
 
         else
@@ -9200,95 +9248,95 @@ LABEL_686:
           v108[265] = 0;
         }
 
-        v108[262] = v1083;
-        v1103 = OUTLINED_FUNCTION_5_7(v1083, v1084, v1085, v1086, v1087, v1088, v1089, v1090, v1415, v1495, v1575, v1656, v1736, v1816, v1872, v1914, v1955, v1996, v2038, v2078, v2120, v2159, v2168);
-        v1105 = av1_get_bits(v1103, v1104);
-        if (v1105)
+        v108[262] = v1085;
+        v1105 = OUTLINED_FUNCTION_5_7(v1085, v1086, v1087, v1088, v1089, v1090, v1091, v1092, v1415, v1495, v1575, v1656, v1736, v1816, v1898, v1974, v2049, v2124, v2200, v2274, v2350, v2423, v2440);
+        v1107 = av1_get_bits(v1105, v1106);
+        if (v1107)
         {
           v108[263] = 2;
         }
 
         else
         {
-          v1106 = OUTLINED_FUNCTION_5_7(v1105, v1032, v1033, v1034, v1035, v1036, v1037, v1038, v1410, v1490, v1570, v1651, v1731, v1811, v1867, v1909, v1950, v1991, v2033, v2073, v2115, v2154, v2168);
-          v1105 = av1_get_bits(v1106, v1107);
-          v108[263] = v1105;
-          if (!v1105)
+          v1108 = OUTLINED_FUNCTION_5_7(v1107, v1034, v1035, v1036, v1037, v1038, v1039, v1040, v1410, v1490, v1570, v1651, v1731, v1811, v1893, v1969, v2044, v2119, v2195, v2269, v2345, v2418, v2440);
+          v1107 = av1_get_bits(v1108, v1109);
+          v108[263] = v1107;
+          if (!v1107)
           {
             goto LABEL_695;
           }
         }
 
-        v1108 = OUTLINED_FUNCTION_5_7(v1105, v1032, v1033, v1034, v1035, v1036, v1037, v1038, v1410, v1490, v1570, v1651, v1731, v1811, v1867, v1909, v1950, v1991, v2033, v2073, v2115, v2154, v2168);
-        v1110 = av1_get_bits(v1108, v1109);
-        if (!v1110)
+        v1110 = OUTLINED_FUNCTION_5_7(v1107, v1034, v1035, v1036, v1037, v1038, v1039, v1040, v1410, v1490, v1570, v1651, v1731, v1811, v1893, v1969, v2044, v2119, v2195, v2269, v2345, v2418, v2440);
+        v1112 = av1_get_bits(v1110, v1111);
+        if (!v1112)
         {
-          v1111 = OUTLINED_FUNCTION_5_7(v1110, v1032, v1033, v1034, v1035, v1036, v1037, v1038, v1410, v1490, v1570, v1651, v1731, v1811, v1867, v1909, v1950, v1991, v2033, v2073, v2115, v2154, v2168);
-          v1031 = av1_get_bits(v1111, v1112);
+          v1113 = OUTLINED_FUNCTION_5_7(v1112, v1034, v1035, v1036, v1037, v1038, v1039, v1040, v1410, v1490, v1570, v1651, v1731, v1811, v1893, v1969, v2044, v2119, v2195, v2269, v2345, v2418, v2440);
+          v1033 = av1_get_bits(v1113, v1114);
           goto LABEL_697;
         }
 
 LABEL_695:
-        v1031 = 2;
+        v1033 = 2;
 LABEL_697:
-        v108[264] = v1031;
-        if (!v971)
+        v108[264] = v1033;
+        if (!v973)
         {
           goto LABEL_700;
         }
 
-        v1031 = OUTLINED_FUNCTION_10_3(v1031, v1032, v1033, v1034, v1035, v1036, v1037, v1038, v1410, v1490, v1570, v1651, v1731, v1811);
-        v1039 = v1031 + 1;
-        v1040 = 265;
+        v1033 = OUTLINED_FUNCTION_10_3(v1033, v1034, v1035, v1036, v1037, v1038, v1039, v1040, v1410, v1490, v1570, v1651, v1731, v1811, v1893, v1969, v2044, v2119, v2195, v2269, v2345, v2418);
+        v1041 = v1033 + 1;
+        v1042 = 265;
 LABEL_699:
-        v108[v1040] = v1039;
+        v108[v1042] = v1041;
 LABEL_700:
-        v1113 = OUTLINED_FUNCTION_5_7(v1031, v1032, v1033, v1034, v1035, v1036, v1037, v1038, v1410, v1490, v1570, v1651, v1731, v1811, v1867, v1909, v1950, v1991, v2033, v2073, v2115, v2154, v2168);
-        v1115 = av1_get_bits(v1113, v1114);
-        v108[266] = v1115;
-        v1123 = OUTLINED_FUNCTION_5_7(v1115, v1116, v1117, v1118, v1119, v1120, v1121, v1122, v1417, v1497, v1577, v1658, v1738, v1818, v1874, v1916, v1957, v1998, v2040, v2080, v2122, v2161, v2168);
-        v1125 = av1_get_bits(v1123, v1124);
-        v108[267] = v1125;
-        v1133 = OUTLINED_FUNCTION_5_7(v1125, v1126, v1127, v1128, v1129, v1130, v1131, v1132, v1418, v1498, v1578, v1659, v1739, v1819, v1875, v1917, v1958, v1999, v2041, v2081, v2123, v2162, v2168);
-        v1135 = av1_get_bits(v1133, v1134);
-        v108[268] = v1135;
-        v1143 = OUTLINED_FUNCTION_5_7(v1135, v1136, v1137, v1138, v1139, v1140, v1141, v1142, v1419, v1499, v1579, v1660, v1740, v1820, v1876, v1918, v1959, v2000, v2042, v2082, v2124, v2163, v2168);
-        v1145 = OUTLINED_FUNCTION_9_4(v1143, v1144);
-        v108[8] = v1145;
+        v1115 = OUTLINED_FUNCTION_5_7(v1033, v1034, v1035, v1036, v1037, v1038, v1039, v1040, v1410, v1490, v1570, v1651, v1731, v1811, v1893, v1969, v2044, v2119, v2195, v2269, v2345, v2418, v2440);
+        v1117 = av1_get_bits(v1115, v1116);
+        v108[266] = v1117;
+        v1125 = OUTLINED_FUNCTION_5_7(v1117, v1118, v1119, v1120, v1121, v1122, v1123, v1124, v1417, v1497, v1577, v1658, v1738, v1818, v1900, v1976, v2051, v2126, v2202, v2276, v2352, v2425, v2440);
+        v1127 = av1_get_bits(v1125, v1126);
+        v108[267] = v1127;
+        v1135 = OUTLINED_FUNCTION_5_7(v1127, v1128, v1129, v1130, v1131, v1132, v1133, v1134, v1418, v1498, v1578, v1659, v1739, v1819, v1901, v1977, v2052, v2127, v2203, v2277, v2353, v2426, v2440);
+        v1137 = av1_get_bits(v1135, v1136);
+        v108[268] = v1137;
+        v1145 = OUTLINED_FUNCTION_5_7(v1137, v1138, v1139, v1140, v1141, v1142, v1143, v1144, v1419, v1499, v1579, v1660, v1740, v1820, v1902, v1978, v2053, v2128, v2204, v2278, v2354, v2427, v2440);
+        v1147 = OUTLINED_FUNCTION_9_4(v1145, v1146);
+        v108[8] = v1147;
         if (v109 == 1)
         {
-          v1153 = 0;
+          v1155 = 0;
         }
 
         else
         {
-          v1154 = OUTLINED_FUNCTION_5_7(v1145, v1146, v1147, v1148, v1149, v1150, v1151, v1152, v1420, v1500, v1580, v1661, v1741, v1821, v1877, v1919, v1960, v2001, v2043, v2083, v2125, v2164, v2168);
-          v1145 = av1_get_bits(v1154, v1155);
-          v1153 = v1145;
+          v1156 = OUTLINED_FUNCTION_5_7(v1147, v1148, v1149, v1150, v1151, v1152, v1153, v1154, v1420, v1500, v1580, v1661, v1741, v1821, v1903, v1979, v2054, v2129, v2205, v2279, v2355, v2428, v2440);
+          v1147 = av1_get_bits(v1156, v1157);
+          v1155 = v1147;
         }
 
-        v108[271] = v1153;
-        v1156 = OUTLINED_FUNCTION_5_7(v1145, v1146, v1147, v1148, v1149, v1150, v1151, v1152, v1420, v1500, v1580, v1661, v1741, v1821, v1877, v1919, v1960, v2001, v2043, v2083, v2125, v2164, v2168);
-        v1158 = av1_get_bits(v1156, v1157);
-        v108[272] = v1158;
-        if (v1158)
+        v108[271] = v1155;
+        v1158 = OUTLINED_FUNCTION_5_7(v1147, v1148, v1149, v1150, v1151, v1152, v1153, v1154, v1420, v1500, v1580, v1661, v1741, v1821, v1903, v1979, v2054, v2129, v2205, v2279, v2355, v2428, v2440);
+        v1160 = av1_get_bits(v1158, v1159);
+        v108[272] = v1160;
+        if (v1160)
         {
-          v1166 = OUTLINED_FUNCTION_11_2(v1158, v1159, v1160, v1161, v1162, v1163, v1164, v1165, v1421, v1501, v1581, v1662, v1742, v1822);
-          v1167 = v1166;
-          v108[4] = v1166;
-          v1175 = OUTLINED_FUNCTION_11_2(v1166, v1168, v1169, v1170, v1171, v1172, v1173, v1174, v1422, v1502, v1582, v1663, v1743, v1823);
-          v1176 = v108;
-          v1177 = v1175;
-          v1176[5] = v1175;
-          v1158 = OUTLINED_FUNCTION_11_2(v1175, v1178, v1179, v1180, v1181, v1182, v1183, v1184, v1423, v1503, v1583, v1664, v1744, v1824);
-          v1176[6] = v1158;
-          if (!v1153)
+          v1168 = OUTLINED_FUNCTION_11_2(v1160, v1161, v1162, v1163, v1164, v1165, v1166, v1167, v1421, v1501, v1581, v1662, v1742, v1822, v1904, v1980, v2055, v2130, v2206, v2280, v2356, v2429);
+          v1169 = v1168;
+          v108[4] = v1168;
+          v1177 = OUTLINED_FUNCTION_11_2(v1168, v1170, v1171, v1172, v1173, v1174, v1175, v1176, v1422, v1502, v1582, v1663, v1743, v1823, v1905, v1981, v2056, v2131, v2207, v2281, v2357, v2430);
+          v1178 = v108;
+          v1179 = v1177;
+          v1178[5] = v1177;
+          v1160 = OUTLINED_FUNCTION_11_2(v1177, v1180, v1181, v1182, v1183, v1184, v1185, v1186, v1423, v1503, v1583, v1664, v1744, v1824, v1906, v1982, v2057, v2132, v2208, v2282, v2358, v2431);
+          v1178[6] = v1160;
+          if (!v1155)
           {
-            v1185 = v1167 == 1 && v1177 == 13;
-            if (v1185 && !v1158)
+            v1187 = v1169 == 1 && v1179 == 13;
+            if (v1187 && !v1160)
             {
               OUTLINED_FUNCTION_23_0();
-              v1176[9] = 1;
+              v1178[9] = 1;
               if (v109 != 1)
               {
                 return 4294954584;
@@ -9298,38 +9346,38 @@ LABEL_700:
             }
 
 LABEL_715:
-            v1198 = OUTLINED_FUNCTION_5_7(v1158, v1159, v1160, v1161, v1162, v1163, v1164, v1165, v1421, v1501, v1581, v1662, v1742, v1822, v1878, v1920, v1961, v2002, v2044, v2084, v2126, v2165, v2168);
-            v1200 = av1_get_bits(v1198, v1199);
-            v1176[9] = v1200;
+            v1200 = OUTLINED_FUNCTION_5_7(v1160, v1161, v1162, v1163, v1164, v1165, v1166, v1167, v1421, v1501, v1581, v1662, v1742, v1822, v1904, v1980, v2055, v2130, v2206, v2280, v2356, v2429, v2440);
+            v1202 = av1_get_bits(v1200, v1201);
+            v1178[9] = v1202;
             if (v109)
             {
               if (v109 == 1)
               {
                 OUTLINED_FUNCTION_23_0();
 LABEL_774:
-                v1197 = 7;
+                v1199 = 7;
 LABEL_775:
-                v1176[v1197] = v1196;
-                if (v1176[271])
+                v1178[v1199] = v1198;
+                if (v1178[271])
                 {
-                  v1289 = 0;
+                  v1291 = 0;
 LABEL_780:
-                  v1176[273] = v1289;
-                  v1290 = OUTLINED_FUNCTION_5_7(v1196, v1188, v1189, v1190, v1191, v1192, v1193, v1194, v1421, v1501, v1581, v1662, v1742, v1822, v1878, v1920, v1961, v2002, v2044, v2084, v2126, v2165, v2168);
-                  v1292 = av1_get_bits(v1290, v1291);
-                  v1176[274] = v1292;
-                  v1300 = OUTLINED_FUNCTION_5_7(v1292, v1293, v1294, v1295, v1296, v1297, v1298, v1299, v1430, v1510, v1590, v1671, v1751, v1831, v1880, v1922, v1963, v2004, v2046, v2086, v2128, v2167, v2168);
-                  av1_get_bits(v1300, v1301);
+                  v1178[273] = v1291;
+                  v1292 = OUTLINED_FUNCTION_5_7(v1198, v1190, v1191, v1192, v1193, v1194, v1195, v1196, v1421, v1501, v1581, v1662, v1742, v1822, v1904, v1980, v2055, v2130, v2206, v2280, v2356, v2429, v2440);
+                  v1294 = av1_get_bits(v1292, v1293);
+                  v1178[274] = v1294;
+                  v1302 = OUTLINED_FUNCTION_5_7(v1294, v1295, v1296, v1297, v1298, v1299, v1300, v1301, v1430, v1510, v1590, v1671, v1751, v1831, v1913, v1989, v2064, v2139, v2215, v2289, v2365, v2438, v2440);
+                  av1_get_bits(v1302, v1303);
 LABEL_781:
-                  v219 = check_for_overrun(&v2168, v99, v87);
-                  if (v219)
+                  v221 = check_for_overrun(&v2440, v99, v87);
+                  if (v221)
                   {
-                    return v219;
+                    return v221;
                   }
 
                   v13 = v1766;
-                  *(v1766 + 3312) = v2132;
-                  if (v2169 <= 7)
+                  *(v1766 + 3312) = v2374;
+                  if (v2441 <= 7)
                   {
                     v29 = 0;
                   }
@@ -9345,25 +9393,25 @@ LABEL_781:
                 }
 
 LABEL_777:
-                v1196 = OUTLINED_FUNCTION_4_8(&v2168);
-                v1289 = !v332;
+                v1198 = OUTLINED_FUNCTION_4_8(&v2440);
+                v1291 = !v334;
                 goto LABEL_780;
               }
 
-              if (v1176[269] != 1 || v1176[270] != 1)
+              if (v1178[269] != 1 || v1178[270] != 1)
               {
-                v1196 = 0;
+                v1198 = 0;
                 goto LABEL_774;
               }
             }
 
             else
             {
-              v1176[3] = 1;
-              *(v1176 + 269) = 0x100000001;
+              v1178[3] = 1;
+              *(v1178 + 269) = 0x100000001;
             }
 
-            v1196 = OUTLINED_FUNCTION_8_4(v1200, v1188, v1189, v1190, v1191, v1192, v1193, v1194, v1421, v1501, v1581, v1662, v1742, v1822);
+            v1198 = OUTLINED_FUNCTION_8_4(v1202, v1190, v1191, v1192, v1193, v1194, v1195, v1196, v1421, v1501, v1581, v1662, v1742, v1822, v1904, v1980, v2055, v2130, v2206, v2280, v2356, v2429);
             goto LABEL_774;
           }
         }
@@ -9372,191 +9420,191 @@ LABEL_777:
         {
           *(v108 + 2) = 0x200000002;
           v108[6] = 2;
-          v1176 = v108;
-          if (!v1153)
+          v1178 = v108;
+          if (!v1155)
           {
             goto LABEL_715;
           }
         }
 
-        v1186 = OUTLINED_FUNCTION_5_7(v1158, v1159, v1160, v1161, v1162, v1163, v1164, v1165, v1421, v1501, v1581, v1662, v1742, v1822, v1878, v1920, v1961, v2002, v2044, v2084, v2126, v2165, v2168);
-        v1195 = av1_get_bits(v1186, v1187);
-        v1196 = 0;
-        v1176[9] = v1195;
-        v1176[3] = 0;
-        *(v1176 + 269) = 0x100000001;
-        v1176[7] = 0;
-        v1197 = 273;
+        v1188 = OUTLINED_FUNCTION_5_7(v1160, v1161, v1162, v1163, v1164, v1165, v1166, v1167, v1421, v1501, v1581, v1662, v1742, v1822, v1904, v1980, v2055, v2130, v2206, v2280, v2356, v2429, v2440);
+        v1197 = av1_get_bits(v1188, v1189);
+        v1198 = 0;
+        v1178[9] = v1197;
+        v1178[3] = 0;
+        *(v1178 + 269) = 0x100000001;
+        v1178[7] = 0;
+        v1199 = 273;
         goto LABEL_775;
       }
 
-      v183 = OUTLINED_FUNCTION_5_7(v122, v123, v124, v125, v126, v127, v128, v129, v1362, v1442, v1522, v1602, v1683, v1764, v1840, v1887, v1928, v1969, v2011, v2051, v2093, v2132, v2168);
-      v185 = av1_get_bits(v183, v184);
-      v108[237] = v185;
+      v185 = OUTLINED_FUNCTION_5_7(v122, v123, v124, v125, v126, v127, v128, v129, v1364, v1442, v1522, v1602, v1683, v1764, v1844, v1925, v2000, v2075, v2151, v2227, v2301, v2376, v2440);
+      v187 = av1_get_bits(v185, v186);
+      v108[237] = v187;
       v1767 = v13;
-      if (!v185)
+      if (!v187)
       {
-        v353 = 0;
-        v354 = 242;
+        v355 = 0;
+        v356 = 242;
         goto LABEL_662;
       }
 
-      v108[238] = av1_get_bits(&v2168, 0x20u);
-      v193 = av1_get_bits(&v2168, 0x20u);
-      v108[239] = v193;
-      v201 = OUTLINED_FUNCTION_5_7(v193, v194, v195, v196, v197, v198, v199, v200, v1365, v1445, v1525, v1605, v1686, v13, v1841, v1888, v1929, v1970, v2012, v2053, v2094, v2134, v2168);
-      v203 = av1_get_bits(v201, v202);
-      v108[240] = v203;
-      if (!v203)
+      v108[238] = av1_get_bits(&v2440, 0x20u);
+      v195 = av1_get_bits(&v2440, 0x20u);
+      v108[239] = v195;
+      v203 = OUTLINED_FUNCTION_5_7(v195, v196, v197, v198, v199, v200, v201, v202, v1367, v1445, v1525, v1605, v1686, v13, v1847, v1928, v2003, v2078, v2154, v2229, v2304, v2378, v2440);
+      v205 = av1_get_bits(v203, v204);
+      v108[240] = v205;
+      if (!v205)
       {
         goto LABEL_660;
       }
 
-      v211 = 0;
-      v212 = 1153;
+      v213 = 0;
+      v214 = 1153;
       while (1)
       {
-        v213 = OUTLINED_FUNCTION_5_7(v203, v204, v205, v206, v207, v208, v209, v210, v1366, v1446, v1526, v1606, v1687, v1766, v1842, v1889, v1930, v1971, v2013, v2051, v2095, v2132, v2168);
-        v203 = av1_get_bits(v213, v214);
-        if (v203)
+        v215 = OUTLINED_FUNCTION_5_7(v205, v206, v207, v208, v209, v210, v211, v212, v1362, v1446, v1526, v1606, v1687, v1766, v1848, v1929, v2004, v2079, v2155, v2225, v2305, v2374, v2440);
+        v205 = av1_get_bits(v215, v216);
+        if (v205)
         {
           break;
         }
 
-        if (++v211 == 32)
+        if (++v213 == 32)
         {
           goto LABEL_72;
         }
       }
 
-      if (v211)
+      if (v213)
       {
-        v203 = av1_get_bits(&v2168, v211);
-        v497 = v203 + ~(-1 << v211);
-        if (v497 == -1)
+        v205 = av1_get_bits(&v2440, v213);
+        v499 = v205 + ~(-1 << v213);
+        if (v499 == -1)
         {
-          v212 = 1153;
+          v214 = 1153;
           goto LABEL_72;
         }
       }
 
       else
       {
-        v497 = 0;
+        v499 = 0;
       }
 
-      v29 = v2168;
-      if (!v2168)
+      v29 = v2440;
+      if (!v2440)
       {
-        v108 = v2132;
-        v2132[241] = v497 + 1;
+        v108 = v2374;
+        v2374[241] = v499 + 1;
 LABEL_660:
-        v897 = OUTLINED_FUNCTION_5_7(v203, v204, v205, v206, v207, v208, v209, v210, v1366, v1446, v1526, v1606, v1687, v1766, v1842, v1889, v1930, v1971, v2013, v2051, v2095, v2132, v2168);
-        v185 = av1_get_bits(v897, v898);
-        v108[242] = v185;
-        if (!v185)
+        v899 = OUTLINED_FUNCTION_5_7(v205, v206, v207, v208, v209, v210, v211, v212, v1362, v1446, v1526, v1606, v1687, v1766, v1848, v1929, v2004, v2079, v2155, v2225, v2305, v2374, v2440);
+        v187 = av1_get_bits(v899, v900);
+        v108[242] = v187;
+        if (!v187)
         {
 LABEL_663:
-          v915 = OUTLINED_FUNCTION_5_7(v185, v186, v187, v188, v189, v190, v191, v192, v1365, v1445, v1525, v1605, v1686, v1767, v1841, v1888, v1929, v1970, v2012, v2053, v2094, v2134, v2168);
-          v917 = av1_get_bits(v915, v916);
-          v108[247] = v917;
-          v138 = OUTLINED_FUNCTION_27_0(v917, v918, v919, v920, v921, v922, v923, v924, v1401, v1481, v1561, v1642, v1722, v1802);
-          v925 = (v138 + 1);
-          v108[10] = v925;
+          v917 = OUTLINED_FUNCTION_5_7(v187, v188, v189, v190, v191, v192, v193, v194, v1367, v1445, v1525, v1605, v1686, v1767, v1847, v1928, v2003, v2078, v2154, v2229, v2304, v2378, v2440);
+          v919 = av1_get_bits(v917, v918);
+          v108[247] = v919;
+          v138 = OUTLINED_FUNCTION_27_0(v919, v920, v921, v922, v923, v924, v925, v926, v1401, v1481, v1561, v1642, v1722, v1802, v1884, v1960, v2035, v2110, v2186, v2260, v2336, v2409);
+          v927 = (v138 + 1);
+          v108[10] = v927;
           if (v138 > 0x7FFFFFFE)
           {
             goto LABEL_681;
           }
 
-          v926 = v108 + 11;
-          v927 = v108 + 277;
+          v928 = v108 + 11;
+          v929 = v108 + 277;
           while (1)
           {
-            v928 = av1_get_bits(&v2168, 0xCu);
-            v926[3] = v928;
-            if (v928 && (!v928 || (v928 & 0xF00) == 0))
+            v930 = av1_get_bits(&v2440, 0xCu);
+            v928[3] = v930;
+            if (v930 && (!v930 || (v930 & 0xF00) == 0))
             {
               goto LABEL_781;
             }
 
-            v936 = OUTLINED_FUNCTION_10_3(v928, v929, v930, v931, v932, v933, v934, v935, v1364, v1444, v1524, v1604, v1685, v1766);
-            v937 = v936 + 2;
-            *v926 = v936 + 2;
-            v945 = OUTLINED_FUNCTION_8_4(v936, v938, v939, v940, v941, v942, v943, v944, v1402, v1482, v1562, v1643, v1723, v1803);
-            v926[1] = v945;
-            if (v937 < 4)
+            v938 = OUTLINED_FUNCTION_10_3(v930, v931, v932, v933, v934, v935, v936, v937, v1366, v1444, v1524, v1604, v1685, v1766, v1846, v1927, v2002, v2077, v2153, v2225, v2303, v2374);
+            v939 = v938 + 2;
+            *v928 = v938 + 2;
+            v947 = OUTLINED_FUNCTION_8_4(v938, v940, v941, v942, v943, v944, v945, v946, v1402, v1482, v1562, v1643, v1723, v1803, v1885, v1961, v2036, v2111, v2187, v2261, v2337, v2410);
+            v928[1] = v947;
+            if (v939 < 4)
             {
               v138 = 0;
             }
 
             else
             {
-              v946 = OUTLINED_FUNCTION_5_7(v945, v139, v140, v141, v142, v143, v144, v145, v1364, v1444, v1524, v1604, v1685, v1766, v1840, v1887, v1928, v1969, v2011, v2051, v2093, v2132, v2168);
-              v138 = av1_get_bits(v946, v947);
+              v948 = OUTLINED_FUNCTION_5_7(v947, v139, v140, v141, v142, v143, v144, v145, v1366, v1444, v1524, v1604, v1685, v1766, v1846, v1927, v2002, v2077, v2153, v2225, v2303, v2374, v2440);
+              v138 = av1_get_bits(v948, v949);
             }
 
-            v108 = v2132;
-            v926[4] = v138;
-            if (v2132[242])
+            v108 = v2374;
+            v928[4] = v138;
+            if (v2374[242])
             {
-              v138 = OUTLINED_FUNCTION_3_8(&v2168);
-              v926[5] = v948;
+              v138 = OUTLINED_FUNCTION_3_8(&v2440);
+              v928[5] = v950;
               if (v138)
               {
-                v949 = OUTLINED_FUNCTION_28_0(v138, v139, v140, v141, v142, v143, v144, v145, v1364, v1444, v1524, v1604, v1685, v1766);
-                *(v927 - 2) = v949;
-                v957 = OUTLINED_FUNCTION_28_0(v949, v950, v951, v952, v953, v954, v955, v956, v1403, v1483, v1563, v1644, v1724, v1804);
-                *(v927 - 1) = v957;
-                v965 = OUTLINED_FUNCTION_5_7(v957, v958, v959, v960, v961, v962, v963, v964, v1404, v1484, v1564, v1645, v1725, v1805, v1840, v1887, v1928, v1969, v2011, v2051, v2093, v2132, v2168);
-                v138 = av1_get_bits(v965, v966);
-                *v927 = v138;
+                v951 = OUTLINED_FUNCTION_28_0(v138, v139, v140, v141, v142, v143, v144, v145, v1366, v1444, v1524, v1604, v1685, v1766, v1846, v1927, v2002, v2077, v2153, v2225, v2303, v2374);
+                *(v929 - 2) = v951;
+                v959 = OUTLINED_FUNCTION_28_0(v951, v952, v953, v954, v955, v956, v957, v958, v1403, v1483, v1563, v1644, v1724, v1804, v1886, v1962, v2037, v2112, v2188, v2262, v2338, v2411);
+                *(v929 - 1) = v959;
+                v967 = OUTLINED_FUNCTION_5_7(v959, v960, v961, v962, v963, v964, v965, v966, v1404, v1484, v1564, v1645, v1725, v1805, v1887, v1963, v2038, v2113, v2189, v2263, v2339, v2412, v2440);
+                v138 = av1_get_bits(v967, v968);
+                *v929 = v138;
               }
             }
 
             else
             {
-              v926[5] = 0;
+              v928[5] = 0;
             }
 
-            v967 = v108[247];
-            if (!v967)
+            v969 = v108[247];
+            if (!v969)
             {
               break;
             }
 
-            v138 = OUTLINED_FUNCTION_3_8(&v2168);
-            v926[6] = v968;
+            v138 = OUTLINED_FUNCTION_3_8(&v2440);
+            v928[6] = v970;
             if (v138)
             {
-              v138 = OUTLINED_FUNCTION_14_1(v138, v139, v140, v141, v142, v143, v144, v145, v1364, v1444, v1524, v1604, v1685, v1766);
-              v967 = v138 + 1;
-              v969 = 2;
+              v138 = OUTLINED_FUNCTION_14_1(v138, v139, v140, v141, v142, v143, v144, v145, v1366, v1444, v1524, v1604, v1685, v1766, v1846, v1927, v2002, v2077, v2153, v2225, v2303, v2374);
+              v969 = v138 + 1;
+              v971 = 2;
 LABEL_679:
-              v926[v969] = v967;
+              v928[v971] = v969;
             }
 
-            v926 += 7;
-            v927 += 3;
-            if (!--v925)
+            v928 += 7;
+            v929 += 3;
+            if (!--v927)
             {
               goto LABEL_681;
             }
           }
 
-          v969 = 6;
+          v971 = 6;
           goto LABEL_679;
         }
 
-        v108[243] = OUTLINED_FUNCTION_27_0(v185, v186, v187, v188, v189, v190, v191, v192, v1365, v1445, v1525, v1605, v1686, v1767) + 1;
-        v899 = av1_get_bits(&v2168, 0x20u);
-        v108[244] = v899;
-        v907 = OUTLINED_FUNCTION_27_0(v899, v900, v901, v902, v903, v904, v905, v906, v1399, v1479, v1559, v1640, v1720, v1800);
-        v108[245] = v907 + 1;
-        v185 = OUTLINED_FUNCTION_27_0(v907, v908, v909, v910, v911, v912, v913, v914, v1400, v1480, v1560, v1641, v1721, v1801);
-        v353 = v185 + 1;
-        v354 = 246;
+        v108[243] = OUTLINED_FUNCTION_27_0(v187, v188, v189, v190, v191, v192, v193, v194, v1367, v1445, v1525, v1605, v1686, v1767, v1847, v1928, v2003, v2078, v2154, v2229, v2304, v2378) + 1;
+        v901 = av1_get_bits(&v2440, 0x20u);
+        v108[244] = v901;
+        v909 = OUTLINED_FUNCTION_27_0(v901, v902, v903, v904, v905, v906, v907, v908, v1399, v1479, v1559, v1640, v1720, v1800, v1882, v1958, v2033, v2108, v2184, v2258, v2334, v2407);
+        v108[245] = v909 + 1;
+        v187 = OUTLINED_FUNCTION_27_0(v909, v910, v911, v912, v913, v914, v915, v916, v1400, v1480, v1560, v1641, v1721, v1801, v1883, v1959, v2034, v2109, v2185, v2259, v2335, v2408);
+        v355 = v187 + 1;
+        v356 = 246;
 LABEL_662:
-        v108[v354] = v353;
+        v108[v356] = v355;
         goto LABEL_663;
       }
 
@@ -9582,45 +9630,45 @@ LABEL_28:
         goto LABEL_552;
       }
 
-      LODWORD(v1885) = 8 * (DWORD2(v2169) - v2170) - v2169;
+      LODWORD(v1920) = 8 * (DWORD2(v2441) - v2442) - v2441;
       v157 = v87;
-      v2172 = v2169;
-      v2173 = v2170;
-      v2171 = v2168;
-      v158 = DWORD2(v2169);
-      v159 = v2170;
-      v160 = v2169;
-      v161 = av1_get_uleb128(&v2171);
-      v29 = v2171;
-      if (v2171)
+      v2444 = v2441;
+      v2445 = v2442;
+      v2443 = v2440;
+      v158 = DWORD2(v2441);
+      v159 = v2442;
+      v160 = v2441;
+      v161 = av1_get_uleb128(&v2443);
+      v29 = v2443;
+      if (v2443)
       {
         goto LABEL_820;
       }
 
-      v88 = v1885;
-      v170 = v87 - ((8 * (v158 - v159) - v160 - v1885) >> 3);
-      if ((v170 + v89) > a2)
+      v88 = v1920;
+      v171 = v87 - ((8 * (v158 - v159) - v160 - v1920) >> 3);
+      if ((v171 + v89) > a2)
       {
         fig_log_get_emitter("com.apple.coremedia", "");
         OUTLINED_FUNCTION_1_20();
-        v1330 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1326, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", 0xAE5, v1327, v1328, v1329);
-        v88 = v1885;
-        v29 = v1330;
+        v1332 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1328, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", 0xAE5, v1329, v1330, v1331, v1359);
+        v88 = v1920;
+        v29 = v1332;
         v91 = 0;
         goto LABEL_829;
       }
 
-      if (v170 < 1)
+      if (v171 < 1)
       {
         goto LABEL_57;
       }
 
-      while (!*(a1 + (v89 - 1 + v170)))
+      while (!*(a1 + (v89 - 1 + v171)))
       {
-        v171 = __OFSUB__(v170--, 1);
-        if ((v170 < 0) ^ v171 | (v170 == 0))
+        v172 = __OFSUB__(v171--, 1);
+        if ((v171 < 0) ^ v172 | (v171 == 0))
         {
-          v170 = 0;
+          v171 = 0;
           break;
         }
       }
@@ -9629,42 +9677,42 @@ LABEL_57:
       switch(v161)
       {
         case 1:
-          if (v170 <= 5)
+          if (v171 <= 5)
           {
             fig_log_get_emitter("com.apple.coremedia", "");
             OUTLINED_FUNCTION_1_20();
-            v1335 = 2816;
+            v1337 = 2816;
             goto LABEL_818;
           }
 
-          OUTLINED_FUNCTION_20_1(v161, v162, v163, v164, v165, v166, v167, v168, v1357, v1437, v1517, v1597, v1678, v1759, v1837, v1885, v1926, v1967, v2009, v2051, v2091, v2132, v2168, *(&v2168 + 1), v2169, *(&v2169 + 1), v2170, *(&v2170 + 1), v2171, v2172, v169);
-          v369 = malloc_type_malloc(4uLL, 0x100004052888210uLL);
-          *(v13 + 3344) = v369;
-          if (v369)
+          OUTLINED_FUNCTION_20_1(v161, v162, v163, v164, v165, v166, v167, v168, v169, v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2225, v2296, v2371, v2440, *(&v2440 + 1), v2441, *(&v2441 + 1), v2442, *(&v2442 + 1), v2443, v2444, v170);
+          v371 = malloc_type_malloc(4uLL, 0x100004052888210uLL);
+          *(v13 + 3344) = v371;
+          if (v371)
           {
-            v370 = v369;
-            *v369 = OUTLINED_FUNCTION_15_1();
-            v371 = OUTLINED_FUNCTION_15_1();
-            v370[1] = v371;
-            if (!OUTLINED_FUNCTION_6_7(v371, v372, v373, v374, v375, v376, v377, v378, v1370, v1450, v1530, v1611, v1691, v1771, v1845, v1885))
+            v372 = v371;
+            *v371 = OUTLINED_FUNCTION_15_1();
+            v373 = OUTLINED_FUNCTION_15_1();
+            v372[1] = v373;
+            if (!OUTLINED_FUNCTION_6_7(v373, v374, v375, v376, v377, v378, v379, v380, v1371, v1450, v1530, v1611, v1691, v1771, v1852, v1920))
             {
               if ((v15 & 0x100) == 0)
               {
-                v379 = *(v13 + 3344);
-                if (v379)
+                v381 = *(v13 + 3344);
+                if (v381)
                 {
                   *(v13 + 3344) = 0;
-                  free(v379);
+                  free(v381);
                 }
               }
 
               v29 = 0;
-              v182 = 256;
+              v184 = 256;
               goto LABEL_827;
             }
 
-            v1336 = *(v13 + 3344);
-            if (v1336)
+            v1338 = *(v13 + 3344);
+            if (v1338)
             {
               *(v13 + 3344) = 0;
               goto LABEL_825;
@@ -9673,161 +9721,161 @@ LABEL_57:
 
           break;
         case 2:
-          if (v170 <= 25)
+          if (v171 <= 25)
           {
             fig_log_get_emitter("com.apple.coremedia", "");
             OUTLINED_FUNCTION_1_20();
-            v1335 = 2823;
+            v1337 = 2823;
             goto LABEL_818;
           }
 
-          OUTLINED_FUNCTION_20_1(v161, v162, v163, v164, v165, v166, v167, v168, v1357, v1437, v1517, v1597, v1678, v1759, v1837, v1885, v1926, v1967, v2009, v2051, v2091, v2132, v2168, *(&v2168 + 1), v2169, *(&v2169 + 1), v2170, *(&v2170 + 1), v2171, v2172, v169);
-          v356 = malloc_type_malloc(0x18uLL, 0x1000040504FFAC1uLL);
-          *(v13 + 3360) = v356;
-          if (v356)
+          OUTLINED_FUNCTION_20_1(v161, v162, v163, v164, v165, v166, v167, v168, v169, v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2225, v2296, v2371, v2440, *(&v2440 + 1), v2441, *(&v2441 + 1), v2442, *(&v2442 + 1), v2443, v2444, v170);
+          v358 = malloc_type_malloc(0x18uLL, 0x1000040504FFAC1uLL);
+          *(v13 + 3360) = v358;
+          if (v358)
           {
-            v357 = v356;
-            v358 = v356 + 2;
-            v359 = 3;
+            v359 = v358;
+            v360 = v358 + 2;
+            v361 = 3;
             do
             {
-              *(v358 - 1) = OUTLINED_FUNCTION_15_1();
-              *v358 = OUTLINED_FUNCTION_15_1();
-              v358 += 2;
-              --v359;
+              *(v360 - 1) = OUTLINED_FUNCTION_15_1();
+              *v360 = OUTLINED_FUNCTION_15_1();
+              v360 += 2;
+              --v361;
             }
 
-            while (v359);
-            *(v357 + 6) = OUTLINED_FUNCTION_15_1();
-            *(v357 + 7) = OUTLINED_FUNCTION_15_1();
-            *(v357 + 4) = av1_get_bits(&v2174, 0x20u);
-            v360 = av1_get_bits(&v2174, 0x20u);
-            *(v357 + 5) = v360;
-            if (!OUTLINED_FUNCTION_6_7(v360, v361, v362, v363, v364, v365, v366, v367, v1369, v1449, v1529, v1610, v1690, v1770, v1844, v1885))
+            while (v361);
+            *(v359 + 6) = OUTLINED_FUNCTION_15_1();
+            *(v359 + 7) = OUTLINED_FUNCTION_15_1();
+            *(v359 + 4) = av1_get_bits(&v2446, 0x20u);
+            v362 = av1_get_bits(&v2446, 0x20u);
+            *(v359 + 5) = v362;
+            if (!OUTLINED_FUNCTION_6_7(v362, v363, v364, v365, v366, v367, v368, v369, v1370, v1449, v1529, v1610, v1690, v1770, v1851, v1920))
             {
               if ((v15 & 0x200) == 0)
               {
-                v368 = *(v13 + 3360);
-                if (v368)
+                v370 = *(v13 + 3360);
+                if (v370)
                 {
                   *(v13 + 3360) = 0;
-                  free(v368);
+                  free(v370);
                 }
               }
 
               v29 = 0;
-              v182 = 512;
+              v184 = 512;
               goto LABEL_827;
             }
 
-            v1336 = *(v13 + 3360);
-            if (v1336)
+            v1338 = *(v13 + 3360);
+            if (v1338)
             {
               *(v13 + 3360) = 0;
 LABEL_825:
-              free(v1336);
+              free(v1338);
             }
           }
 
           break;
         case 4:
-          if (v170 > 7)
+          if (v171 > 7)
           {
-            v172 = av1_get_bits(&v2171, 8u);
-            *(v13 + 3376) = v172;
-            if (v172 == -1)
+            v173 = av1_get_bits(&v2443, 8u);
+            *(v13 + 3376) = v173;
+            if (v173 == -1)
             {
-              *(v13 + 3377) = av1_get_bits(&v2171, 8u);
+              *(v13 + 3377) = av1_get_bits(&v2443, 8u);
             }
 
-            v173 = check_for_overrun(&v2171, v1885, v87);
-            if (!v173)
+            v174 = check_for_overrun(&v2443, v1920, v87);
+            if (!v174)
             {
               if ((v15 & 0x40) == 0)
               {
-                v88 = v1885;
+                v88 = v1920;
                 if ((v15 & 0x80) == 0)
                 {
                   goto LABEL_66;
                 }
 
-                OUTLINED_FUNCTION_20_1(v87, v174, v175, v176, v177, v178, v179, v180, v1357, v1437, v1517, v1597, v1678, v1759, v1837, v1885, v1926, v1967, v2009, v2051, v2091, v2132, v2168, *(&v2168 + 1), v2169, *(&v2169 + 1), v2170, *(&v2170 + 1), v2171, v2172, v181);
-                LODWORD(v87) = v875;
+                OUTLINED_FUNCTION_20_1(v87, v175, v176, v177, v178, v179, v180, v181, v182, v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2225, v2296, v2371, v2440, *(&v2440 + 1), v2441, *(&v2441 + 1), v2442, *(&v2442 + 1), v2443, v2444, v183);
+                LODWORD(v87) = v877;
                 if (*(v13 + 3376) != 181)
                 {
                   v29 = 0;
 LABEL_802:
-                  v1316 = *(v13 + 3400);
-                  if (v1316)
+                  v1318 = *(v13 + 3400);
+                  if (v1318)
                   {
                     *(v13 + 3400) = 0;
-                    free(v1316);
-                    v88 = v1885;
+                    free(v1318);
+                    v88 = v1920;
                     LODWORD(v87) = v157;
                   }
 
-                  v182 = 0;
+                  v184 = 0;
                   goto LABEL_828;
                 }
 
-                v876 = v875 - ((8 * (DWORD2(v2175) - v2176) - (v2175 + v88)) >> 3);
-                v877 = (v876 + 1);
-                if (v876 == -1)
+                v878 = v877 - ((8 * (DWORD2(v2447) - v2448) - (v2447 + v88)) >> 3);
+                v879 = (v878 + 1);
+                if (v878 == -1)
                 {
                   fig_log_get_emitter("com.apple.coremedia", "");
                   OUTLINED_FUNCTION_1_20();
-                  v1344 = 2646;
+                  v1346 = 2646;
                 }
 
                 else
                 {
-                  if (v877 < 0x201)
+                  if (v879 < 0x201)
                   {
-                    if (v877 > 7)
+                    if (v879 > 7)
                     {
-                      v878 = malloc_type_malloc((v876 + 1), 0xC58E25C6uLL);
-                      *(v13 + 3400) = v878;
-                      if (v878)
+                      v880 = malloc_type_malloc((v878 + 1), 0xC58E25C6uLL);
+                      *(v13 + 3400) = v880;
+                      if (v880)
                       {
-                        *v878 = *(v13 + 3376);
-                        v879 = OUTLINED_FUNCTION_15_1();
-                        *(v13 + 3378) = v879;
-                        *(*(v13 + 3400) + 1) = HIBYTE(v879);
+                        *v880 = *(v13 + 3376);
+                        v881 = OUTLINED_FUNCTION_15_1();
+                        *(v13 + 3378) = v881;
+                        *(*(v13 + 3400) + 1) = HIBYTE(v881);
                         *(*(v13 + 3400) + 2) = *(v13 + 3378);
-                        v880 = OUTLINED_FUNCTION_15_1();
-                        *(v13 + 3380) = v880;
-                        *(*(v13 + 3400) + 3) = HIBYTE(v880);
+                        v882 = OUTLINED_FUNCTION_15_1();
+                        *(v13 + 3380) = v882;
+                        *(*(v13 + 3400) + 3) = HIBYTE(v882);
                         *(*(v13 + 3400) + 4) = *(v13 + 3380);
                         if (*(v13 + 3378) == 60 && *(v13 + 3380) == 1)
                         {
-                          v881 = OUTLINED_FUNCTION_12_2();
-                          *(v882 + 5) = v881;
-                          if (v881 == 4)
+                          v883 = OUTLINED_FUNCTION_12_2();
+                          *(v884 + 5) = v883;
+                          if (v883 == 4)
                           {
-                            v883 = OUTLINED_FUNCTION_12_2();
-                            *(v884 + 6) = v883;
-                            if (v883 == 1)
+                            v885 = OUTLINED_FUNCTION_12_2();
+                            *(v886 + 6) = v885;
+                            if (v885 == 1)
                             {
-                              v885 = OUTLINED_FUNCTION_12_2();
-                              *(v886 + 7) = v885;
+                              v887 = OUTLINED_FUNCTION_12_2();
+                              *(v888 + 7) = v887;
                               if ((*(*(v13 + 3400) + 7) & 0xC0) == 0x40)
                               {
-                                if (v877 != 8)
+                                if (v879 != 8)
                                 {
-                                  for (i = 8; i != v877; ++i)
+                                  for (i = 8; i != v879; ++i)
                                   {
-                                    v888 = OUTLINED_FUNCTION_12_2();
-                                    *(v896 + i) = v888;
+                                    v890 = OUTLINED_FUNCTION_12_2();
+                                    *(v898 + i) = v890;
                                   }
 
-                                  v29 = OUTLINED_FUNCTION_6_7(v888, v889, v890, v891, v892, v893, v894, v895, v1398, v1478, v1558, v1639, v1719, v1799, v1864, v1885);
+                                  v29 = OUTLINED_FUNCTION_6_7(v890, v891, v892, v893, v894, v895, v896, v897, v1398, v1478, v1558, v1639, v1719, v1799, v1881, v1920);
                                   if (!v29)
                                   {
-                                    *(v13 + 3384) = v877;
-                                    v182 = 128;
+                                    *(v13 + 3384) = v879;
+                                    v184 = 128;
 LABEL_827:
                                     LODWORD(v87) = v157;
-                                    v88 = v1885;
+                                    v88 = v1920;
                                     goto LABEL_828;
                                   }
 
@@ -9836,16 +9884,16 @@ LABEL_827:
 
                                 fig_log_get_emitter("com.apple.coremedia", "");
                                 OUTLINED_FUNCTION_1_20();
-                                v1350 = 4294954579;
-                                v1351 = 2685;
+                                v1352 = 4294954579;
+                                v1353 = 2685;
                               }
 
                               else
                               {
                                 fig_log_get_emitter("com.apple.coremedia", "");
                                 OUTLINED_FUNCTION_1_20();
-                                v1350 = 4294954579;
-                                v1351 = 2684;
+                                v1352 = 4294954579;
+                                v1353 = 2684;
                               }
                             }
 
@@ -9853,8 +9901,8 @@ LABEL_827:
                             {
                               fig_log_get_emitter("com.apple.coremedia", "");
                               OUTLINED_FUNCTION_1_20();
-                              v1350 = 4294954579;
-                              v1351 = 2679;
+                              v1352 = 4294954579;
+                              v1353 = 2679;
                             }
                           }
 
@@ -9862,8 +9910,8 @@ LABEL_827:
                           {
                             fig_log_get_emitter("com.apple.coremedia", "");
                             OUTLINED_FUNCTION_1_20();
-                            v1350 = 4294954579;
-                            v1351 = 2675;
+                            v1352 = 4294954579;
+                            v1353 = 2675;
                           }
 
                           goto LABEL_850;
@@ -9879,74 +9927,74 @@ LABEL_827:
 
 LABEL_801:
                       LODWORD(v87) = v157;
-                      v88 = v1885;
+                      v88 = v1920;
                       goto LABEL_802;
                     }
 
                     fig_log_get_emitter("com.apple.coremedia", "");
                     OUTLINED_FUNCTION_1_20();
-                    v1350 = 4294954584;
-                    v1351 = 2648;
+                    v1352 = 4294954584;
+                    v1353 = 2648;
 LABEL_850:
-                    v29 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1346, v1350, "<<<< AV1Bridge >>>>", v1351, v1347, v1348, v1349);
+                    v29 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1348, v1352, "<<<< AV1Bridge >>>>", v1353, v1349, v1350, v1351, v1398);
                     goto LABEL_801;
                   }
 
                   fig_log_get_emitter("com.apple.coremedia", "");
                   OUTLINED_FUNCTION_1_20();
-                  v1344 = 2647;
+                  v1346 = 2647;
                 }
 
-                v1345 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1340, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", v1344, v1341, v1342, v1343);
-                v88 = v1885;
+                v1347 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1342, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", v1346, v1343, v1344, v1345, v1398);
+                v88 = v1920;
                 LODWORD(v87) = v157;
-                v29 = v1345;
+                v29 = v1347;
                 goto LABEL_802;
               }
 
-              v2175 = v2172;
-              v2176 = v2173;
-              v2174 = v2171;
-              if (v87 - ((8 * (DWORD2(v2172) - v2173) - (v2172 + v1885)) >> 3) + 1 <= 6)
+              v2447 = v2444;
+              v2448 = v2445;
+              v2446 = v2443;
+              if (v87 - ((8 * (DWORD2(v2444) - v2445) - (v2444 + v1920)) >> 3) + 1 <= 6)
               {
                 fig_log_get_emitter("com.apple.coremedia", "");
                 OUTLINED_FUNCTION_1_20();
-                v1286 = 4294954584;
-                v1287 = 2528;
+                v1288 = 4294954584;
+                v1289 = 2528;
               }
 
               else
               {
-                v498 = OUTLINED_FUNCTION_15_1();
-                v499 = v498;
-                *(v13 + 3378) = v498;
-                v500 = av1_get_bits(&v2174, 0x20u);
+                v500 = OUTLINED_FUNCTION_15_1();
+                v501 = v500;
+                *(v13 + 3378) = v500;
+                v502 = av1_get_bits(&v2446, 0x20u);
                 v29 = 0;
-                *(v13 + 3380) = v500;
-                if (v499 != 59 || v500 != 2048)
+                *(v13 + 3380) = v502;
+                if (v501 != 59 || v502 != 2048)
                 {
                   goto LABEL_765;
                 }
 
-                v501 = OUTLINED_FUNCTION_9_4(&v2174, 2u);
-                v509 = OUTLINED_FUNCTION_6_7(v501, v502, v503, v504, v505, v506, v507, v508, v1357, v1437, v1517, v1597, v1678, v1759, v1837, v1885);
-                if (v509)
+                v503 = OUTLINED_FUNCTION_9_4(&v2446, 2u);
+                v511 = OUTLINED_FUNCTION_6_7(v503, v504, v505, v506, v507, v508, v509, v510, v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920);
+                if (v511)
                 {
                   goto LABEL_764;
                 }
 
-                if (a1 || av1_get_bits(&v2174, 3u) != 6 || OUTLINED_FUNCTION_26_0() != 31 || OUTLINED_FUNCTION_26_0() != 6 || OUTLINED_FUNCTION_16_0() != 1 || OUTLINED_FUNCTION_26_0() != 1 || OUTLINED_FUNCTION_16_0())
+                if (a1 || av1_get_bits(&v2446, 3u) != 6 || OUTLINED_FUNCTION_26_0() != 31 || OUTLINED_FUNCTION_26_0() != 6 || OUTLINED_FUNCTION_16_0() != 1 || OUTLINED_FUNCTION_26_0() != 1 || OUTLINED_FUNCTION_16_0())
                 {
                   v29 = 0;
 LABEL_765:
-                  v1288 = *(v13 + 3400);
-                  if (v1288)
+                  v1290 = *(v13 + 3400);
+                  if (v1290)
                   {
                     *(v13 + 3400) = 0;
-                    free(v1288);
+                    free(v1290);
                   }
 
-                  v182 = 0;
+                  v184 = 0;
                   goto LABEL_827;
                 }
 
@@ -9954,32 +10002,32 @@ LABEL_765:
                 {
                   fig_log_get_emitter("com.apple.coremedia", "");
                   OUTLINED_FUNCTION_1_20();
-                  v1286 = 4294954579;
-                  v1287 = 2561;
+                  v1288 = 4294954579;
+                  v1289 = 2561;
                 }
 
                 else if (OUTLINED_FUNCTION_16_0())
                 {
                   fig_log_get_emitter("com.apple.coremedia", "");
                   OUTLINED_FUNCTION_1_20();
-                  v1286 = 4294954579;
-                  v1287 = 2563;
+                  v1288 = 4294954579;
+                  v1289 = 2563;
                 }
 
                 else if (OUTLINED_FUNCTION_16_0())
                 {
                   fig_log_get_emitter("com.apple.coremedia", "");
                   OUTLINED_FUNCTION_1_20();
-                  v1286 = 4294954579;
-                  v1287 = 2565;
+                  v1288 = 4294954579;
+                  v1289 = 2565;
                 }
 
                 else if (OUTLINED_FUNCTION_16_0())
                 {
                   fig_log_get_emitter("com.apple.coremedia", "");
                   OUTLINED_FUNCTION_1_20();
-                  v1286 = 4294954579;
-                  v1287 = 2567;
+                  v1288 = 4294954579;
+                  v1289 = 2567;
                 }
 
                 else
@@ -9990,30 +10038,30 @@ LABEL_765:
                     goto LABEL_765;
                   }
 
-                  v1272 = 0;
+                  v1274 = 0;
                   do
                   {
-                    v1273 = av1_get_bits(&v2174, 8u);
-                    v1274 = OUTLINED_FUNCTION_9_4(&v2174, 1u);
-                    if (OUTLINED_FUNCTION_6_7(v1274, v1275, v1276, v1277, v1278, v1279, v1280, v1281, v1377, v1457, v1537, v1618, v1698, v1778, v1851, v1885))
+                    v1275 = av1_get_bits(&v2446, 8u);
+                    v1276 = OUTLINED_FUNCTION_9_4(&v2446, 1u);
+                    if (OUTLINED_FUNCTION_6_7(v1276, v1277, v1278, v1279, v1280, v1281, v1282, v1283, v1359, v1457, v1537, v1618, v1698, v1778, v1859, v1920))
                     {
                       break;
                     }
 
-                    v1272 = ((v1273 + v1272) << 8) + 256;
+                    v1274 = ((v1275 + v1274) << 8) + 256;
                   }
 
-                  while (!v2174);
+                  while (!v2446);
                   fig_log_get_emitter("com.apple.coremedia", "");
                   OUTLINED_FUNCTION_1_20();
-                  v1286 = 4294954582;
-                  v1287 = 2573;
+                  v1288 = 4294954582;
+                  v1289 = 2573;
                 }
               }
 
-              v509 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1282, v1286, "<<<< AV1Bridge >>>>", v1287, v1283, v1284, v1285);
+              v511 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1284, v1288, "<<<< AV1Bridge >>>>", v1289, v1285, v1286, v1287, v1359);
 LABEL_764:
-              v29 = v509;
+              v29 = v511;
               goto LABEL_765;
             }
 
@@ -10022,24 +10070,24 @@ LABEL_764:
 
           fig_log_get_emitter("com.apple.coremedia", "");
           OUTLINED_FUNCTION_1_20();
-          v1335 = 2798;
+          v1337 = 2798;
 LABEL_818:
-          v173 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1331, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", v1335, v1332, v1333, v1334);
+          v174 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1333, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", v1337, v1334, v1335, v1336, v1359);
 LABEL_819:
-          v29 = v173;
+          v29 = v174;
 LABEL_820:
           v91 = 0;
           goto LABEL_547;
         default:
 LABEL_66:
-          v182 = 0;
+          v184 = 0;
           v29 = 0;
 LABEL_828:
-          v91 = v182 | 0x10;
+          v91 = v184 | 0x10;
           goto LABEL_829;
       }
 
-      v182 = 0;
+      v184 = 0;
       v29 = 0;
       goto LABEL_827;
     case 7:
@@ -10059,8 +10107,8 @@ LABEL_828:
 LABEL_31:
       v1517 = v88 >> 3;
       v29 = 4294954584;
-      v92 = v2051;
-      if (!v2051)
+      v92 = v2225;
+      if (!v2225)
       {
         return v29;
       }
@@ -10072,32 +10120,31 @@ LABEL_31:
       }
 
       HIDWORD(v1437) = v15;
-      v94 = v2132;
-      LODWORD(v1885) = 8 * (DWORD2(v2169) - v2170) - v2169;
-      HIDWORD(v1885) = v71;
+      v94 = v2371;
+      v1920 = __PAIR64__(v71, v88);
       HIDWORD(v1678) = v87;
-      if (v2132[236])
+      if (v2371[236])
       {
         v95 = 0;
         *(a6 + 232) = 0;
         *(a6 + 260) = 0;
-        v1838 = a6 + 232;
+        v1841 = a6 + 232;
         *(a6 + 276) = 1;
         v96 = (a6 + 276);
         goto LABEL_35;
       }
 
-      v146 = OUTLINED_FUNCTION_3_8(&v2168);
+      v146 = OUTLINED_FUNCTION_3_8(&v2440);
       *(a6 + 260) = v154;
       if (!v146)
       {
-        v95 = OUTLINED_FUNCTION_8_4(v146, v147, v148, v149, v150, v151, v152, v153, v1357, v1437, v1517, v1597, v1678, v1759);
+        v95 = OUTLINED_FUNCTION_8_4(v146, v147, v148, v149, v150, v151, v152, v153, v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2225, v2296, v2371);
         *(a6 + 232) = v95;
         v97 = 1;
-        uleb128 = OUTLINED_FUNCTION_3_8(&v2168);
+        uleb128 = OUTLINED_FUNCTION_3_8(&v2440);
         v96 = (a6 + 276);
-        v1838 = a6 + 232;
-        *(a6 + 276) = v220;
+        v1841 = a6 + 232;
+        *(a6 + 276) = v222;
         if (!uleb128)
         {
           v98 = 280;
@@ -10105,94 +10152,94 @@ LABEL_31:
         }
 
 LABEL_35:
-        if (!v2132[242] || v2132[240])
+        if (!v94[242] || v94[240])
         {
           goto LABEL_78;
         }
 
-        v97 = v2132[246];
+        v97 = v94[246];
         v98 = 272;
 LABEL_77:
-        uleb128 = av1_get_bits(&v2168, v97);
+        uleb128 = av1_get_bits(&v2440, v97);
         *(a6 + v98) = uleb128;
         v95 = *(a6 + 232);
 LABEL_78:
         v1607 = v96;
-        if (v95 == 3 || !v95 && *v96 || v2132[236])
+        if (v95 == 3 || !v95 && *v96 || v94[236])
         {
-          v221 = 1;
+          v223 = 1;
         }
 
         else
         {
-          uleb128 = OUTLINED_FUNCTION_4_8(&v2168);
-          v221 = !v332;
+          uleb128 = OUTLINED_FUNCTION_4_8(&v2440);
+          v223 = !v334;
         }
 
-        *(a6 + 284) = v221;
-        v222 = OUTLINED_FUNCTION_5_7(uleb128, v63, v64, v65, v66, v67, v68, v69, v1357, v1437, v1517, v1607, v1678, v1759, v1838, v1885, v1926, v1967, v2009, v2051, v2091, v2132, v2168);
-        *(a6 + 288) = av1_get_bits(v222, v223);
-        v231 = v94[263];
-        if (v231 == 2)
+        *(a6 + 284) = v223;
+        v224 = OUTLINED_FUNCTION_5_7(uleb128, v63, v64, v65, v66, v67, v68, v69, v1359, v1437, v1517, v1607, v1678, v1759, v1841, v1920, v1995, v2070, v2146, v2225, v2296, v2371, v2440);
+        *(a6 + 288) = av1_get_bits(v224, v225);
+        v233 = v94[263];
+        if (v233 == 2)
         {
-          v232 = OUTLINED_FUNCTION_5_7(v231, v224, v225, v226, v227, v228, v229, v230, v1367, v1447, v1527, v1608, v1688, v1768, v1843, v1890, v1931, v1972, v2014, v2054, v2096, v2135, v2168);
-          LODWORD(v231) = av1_get_bits(v232, v233);
+          v234 = OUTLINED_FUNCTION_5_7(v233, v226, v227, v228, v229, v230, v231, v232, v1368, v1447, v1527, v1608, v1688, v1768, v1849, v1930, v2005, v2080, v2156, v2230, v2306, v2379, v2440);
+          LODWORD(v233) = av1_get_bits(v234, v235);
         }
 
-        *(a6 + 292) = v231;
-        if (v231)
+        *(a6 + 292) = v233;
+        if (v233)
         {
-          v231 = v94[264];
-          if (v231 == 2)
+          v233 = v94[264];
+          if (v233 == 2)
           {
-            v234 = OUTLINED_FUNCTION_5_7(v231, v224, v225, v226, v227, v228, v229, v230, v1367, v1447, v1527, v1608, v1688, v1768, v1843, v1890, v1931, v1972, v2014, v2054, v2096, v2135, v2168);
-            LODWORD(v231) = av1_get_bits(v234, v235);
+            v236 = OUTLINED_FUNCTION_5_7(v233, v226, v227, v228, v229, v230, v231, v232, v1368, v1447, v1527, v1608, v1688, v1768, v1849, v1930, v2005, v2080, v2156, v2230, v2306, v2379, v2440);
+            LODWORD(v233) = av1_get_bits(v236, v237);
           }
         }
 
         if (*(a6 + 232))
         {
-          v236 = v231;
+          v238 = v233;
         }
 
         else
         {
-          v236 = 1;
+          v238 = 1;
         }
 
-        *(a6 + 296) = v236;
+        *(a6 + 296) = v238;
         if (v94[250])
         {
-          *(a6 + 268) = av1_get_bits(&v2168, v94[252]);
+          *(a6 + 268) = av1_get_bits(&v2440, v94[252]);
         }
 
         if (v94[236])
         {
-          v237 = v13;
-          v238 = 0;
+          v239 = v13;
+          v240 = 0;
         }
 
         else
         {
           OUTLINED_FUNCTION_24_0();
-          v237 = v13;
-          if (v240 == 3)
+          v239 = v13;
+          if (v242 == 3)
           {
-            v238 = 1;
+            v240 = 1;
           }
 
           else
           {
-            v241 = OUTLINED_FUNCTION_5_7(v239, v224, v225, v226, v227, v228, v229, v230, v1367, v1447, v1527, v1608, v1688, v1768, v1843, v1890, v1931, v1972, v2014, v2054, v2096, v2135, v2168);
-            v238 = av1_get_bits(v241, v242);
+            v243 = OUTLINED_FUNCTION_5_7(v241, v226, v227, v228, v229, v230, v231, v232, v1368, v1447, v1527, v1608, v1688, v1768, v1849, v1930, v2005, v2080, v2156, v2230, v2306, v2379, v2440);
+            v240 = av1_get_bits(v243, v244);
           }
         }
 
-        *(a6 + 300) = v238;
-        v243 = v2135[260];
-        if (v243)
+        *(a6 + 300) = v240;
+        v245 = v2379[260];
+        if (v245)
         {
-          OUTLINED_FUNCTION_9_4(&v2168, v2135[265]);
+          OUTLINED_FUNCTION_9_4(&v2440, v2379[265]);
         }
 
         else
@@ -10201,68 +10248,68 @@ LABEL_78:
         }
 
         *(a6 + 248) = v95;
-        LODWORD(v1447) = v238;
-        if (!v221 && (OUTLINED_FUNCTION_18_1(), (v245 & 1) != 0))
+        LODWORD(v1447) = v240;
+        if (!v223 && (OUTLINED_FUNCTION_18_1(), (v247 & 1) != 0))
         {
-          v246 = OUTLINED_FUNCTION_10_3(v244, v224, v225, v226, v227, v228, v229, v230, v1367, v1447, v1527, v1608, v1688, v1768);
+          v248 = OUTLINED_FUNCTION_10_3(v246, v226, v227, v228, v229, v230, v231, v232, v1368, v1447, v1527, v1608, v1688, v1768, v1849, v1930, v2005, v2080, v2156, v2230, v2306, v2379);
         }
 
         else
         {
-          v246 = 7;
+          v248 = 7;
         }
 
-        *(a6 + 304) = v246;
-        if (v2135[242])
+        *(a6 + 304) = v248;
+        if (v2379[242])
         {
-          v247 = OUTLINED_FUNCTION_5_7(v246, v224, v225, v226, v227, v228, v229, v230, v1367, v1447, v1527, v1608, v1688, v1768, v1843, v1890, v1931, v1972, v2014, v2054, v2096, v2135, v2168);
-          v249 = av1_get_bits(v247, v248);
-          *(a6 + 308) = v249;
-          if (v249)
+          v249 = OUTLINED_FUNCTION_5_7(v248, v226, v227, v228, v229, v230, v231, v232, v1368, v1447, v1527, v1608, v1688, v1768, v1849, v1930, v2005, v2080, v2156, v2230, v2306, v2379, v2440);
+          v251 = av1_get_bits(v249, v250);
+          *(a6 + 308) = v251;
+          if (v251)
           {
-            v250 = *(v93 + 40);
-            if (v250 >= 1)
+            v252 = *(v93 + 40);
+            if (v252 >= 1)
             {
-              v251 = 0;
-              v252 = v2135 + 16;
+              v253 = 0;
+              v254 = v2379 + 16;
               do
               {
-                if (*v252)
+                if (*v254)
                 {
-                  v253 = *(v252 - 2);
-                  if (!v253 || (((1 << (*(a6 + 256) + 8)) | (1 << *(a6 + 252))) & ~v253) == 0)
+                  v255 = *(v254 - 2);
+                  if (!v255 || (((1 << (*(a6 + 256) + 8)) | (1 << *(a6 + 252))) & ~v255) == 0)
                   {
-                    *(a6 + 312 + 4 * v251) = av1_get_bits(&v2168, v2135[245]);
-                    v250 = *(v93 + 40);
+                    *(a6 + 312 + 4 * v253) = av1_get_bits(&v2440, v2379[245]);
+                    v252 = *(v93 + 40);
                   }
                 }
 
-                ++v251;
-                v252 += 7;
+                ++v253;
+                v254 += 7;
               }
 
-              while (v251 < v250);
+              while (v253 < v252);
             }
           }
         }
 
         OUTLINED_FUNCTION_24_0();
-        if ((v262 & 1) == 0)
+        if ((v264 & 1) == 0)
         {
-          if (v262 || !*v1608)
+          if (v264 || !*v1608)
           {
-            v263 = OUTLINED_FUNCTION_11_2(v254, v255, v256, v257, v258, v259, v260, v261, v1367, v1447, v1527, v1608, v1688, v1768);
-            *(a6 + 440) = v263;
-            if (v243 && v221 && v263 != 255)
+            v265 = OUTLINED_FUNCTION_11_2(v256, v257, v258, v259, v260, v261, v262, v263, v1368, v1447, v1527, v1608, v1688, v1768, v1849, v1930, v2005, v2080, v2156, v2230, v2306, v2379);
+            *(a6 + 440) = v265;
+            if (v245 && v223 && v265 != 255)
             {
-              v271 = 8;
+              v273 = 8;
               do
               {
-                v263 = OUTLINED_FUNCTION_28_0(v263, v264, v265, v266, v267, v268, v269, v270, v1367, v1447, v1527, v1608, v1688, v1768);
-                --v271;
+                v265 = OUTLINED_FUNCTION_28_0(v265, v266, v267, v268, v269, v270, v271, v272, v1368, v1447, v1527, v1608, v1688, v1768, v1849, v1930, v2005, v2080, v2156, v2230, v2306, v2379);
+                --v273;
               }
 
-              while (v271);
+              while (v273);
             }
           }
 
@@ -10271,354 +10318,354 @@ LABEL_78:
             *(a6 + 440) = 255;
           }
 
-          v291 = v237;
-          v343 = v237;
-          v298 = v2135;
-          frame_size = read_frame_size(v343, &v2168, a6, v2135, 0);
+          v293 = v239;
+          v345 = v239;
+          v300 = v2379;
+          frame_size = read_frame_size(v345, &v2440, a6, v2379, 0);
           if (*(a6 + 292) && !*(a6 + 456))
           {
-            frame_size = OUTLINED_FUNCTION_4_8(&v2168);
-            v352 = !v332;
+            frame_size = OUTLINED_FUNCTION_4_8(&v2440);
+            v354 = !v334;
           }
 
           else
           {
-            v352 = 0;
+            v354 = 0;
           }
 
-          v355 = 0;
-          *(a6 + 464) = v352;
+          v357 = 0;
+          *(a6 + 464) = v354;
 LABEL_254:
-          *(a6 + 512) = v355;
-          if (v298[236] || *(a6 + 288))
+          *(a6 + 512) = v357;
+          if (v300[236] || *(a6 + 288))
           {
-            v393 = 0;
+            v395 = 0;
           }
 
           else
           {
-            frame_size = OUTLINED_FUNCTION_4_8(&v2168);
-            v393 = v332;
+            frame_size = OUTLINED_FUNCTION_4_8(&v2440);
+            v395 = v334;
           }
 
-          *(a6 + 516) = v393;
-          v394 = OUTLINED_FUNCTION_5_7(frame_size, v345, v346, v347, v348, v349, v350, v351, v1367, v1447, v1527, v1608, v1688, v1768, v1843, v1890, v1931, v1972, v2014, v2054, v2096, v2135, v2168);
-          uniform = av1_get_bits(v394, v395);
+          *(a6 + 516) = v395;
+          v396 = OUTLINED_FUNCTION_5_7(frame_size, v347, v348, v349, v350, v351, v352, v353, v1368, v1447, v1527, v1608, v1688, v1768, v1849, v1930, v2005, v2080, v2156, v2230, v2306, v2379, v2440);
+          uniform = av1_get_bits(v396, v397);
           *(a6 + 520) = uniform;
-          v404 = v298[253];
-          v405 = (64 << v404) - 1;
-          v406 = v404 + 6;
-          LODWORD(v407) = (v405 + *(a6 + 236)) >> v406;
-          v408 = *(a6 + 244);
-          v409 = 0x1000u >> v406;
-          v410 = -1;
-          do
-          {
-            ++v410;
-          }
-
-          while ((v409 << v410) < v407);
-          *(a6 + 528) = v410;
-          if (v407 >= 64)
-          {
-            v411 = 64;
-          }
-
-          else
-          {
-            v411 = v407;
-          }
-
+          v406 = v300[253];
+          v407 = (64 << v406) - 1;
+          v408 = v406 + 6;
+          LODWORD(v409) = (v407 + *(a6 + 236)) >> v408;
+          v410 = *(a6 + 244);
+          v411 = 0x1000u >> v408;
           v412 = -1;
           do
           {
             ++v412;
           }
 
-          while (1 << v412 < v411);
-          v413 = (v408 + v405) >> v406;
-          *(a6 + 532) = v412;
-          if (v413 >= 64)
+          while ((v411 << v412) < v409);
+          *(a6 + 528) = v412;
+          if (v409 >= 64)
           {
-            v414 = 64;
+            v413 = 64;
           }
 
           else
           {
-            v414 = (v408 + v405) >> v406;
+            v413 = v409;
           }
 
-          v415 = -1;
+          v414 = -1;
           do
           {
-            ++v415;
+            ++v414;
           }
 
-          while (1 << v415 < v414);
-          v1773 = v291;
-          v416 = 0x900000u >> (2 * v406);
-          *(a6 + 548) = v415;
-          v417 = v407 * v413;
-          v418 = -1;
+          while (1 << v414 < v413);
+          v415 = (v410 + v407) >> v408;
+          *(a6 + 532) = v414;
+          if (v415 >= 64)
+          {
+            v416 = 64;
+          }
+
+          else
+          {
+            v416 = (v410 + v407) >> v408;
+          }
+
+          v417 = -1;
           do
           {
-            ++v418;
+            ++v417;
           }
 
-          while ((v416 << v418) < v417);
-          v419 = v410;
-          if (v418 > v410)
+          while (1 << v417 < v416);
+          v1773 = v293;
+          v418 = 0x900000u >> (2 * v408);
+          *(a6 + 548) = v417;
+          v419 = v409 * v415;
+          v420 = -1;
+          do
           {
-            v419 = -1;
+            ++v420;
+          }
+
+          while ((v418 << v420) < v419);
+          v421 = v412;
+          if (v420 > v412)
+          {
+            v421 = -1;
             do
             {
-              ++v419;
+              ++v421;
             }
 
-            while ((v416 << v419) < v417);
+            while ((v418 << v421) < v419);
           }
 
           if (uniform)
           {
             while (1)
             {
-              *(a6 + 536) = v410;
-              if (v410 >= v412)
+              *(a6 + 536) = v412;
+              if (v412 >= v414)
               {
                 break;
               }
 
-              v420 = OUTLINED_FUNCTION_5_7(uniform, v397, v398, v399, v400, v401, v402, v403, v1372, v1452, v1532, v1613, v1693, v1773, v1847, v1892, v1933, v1974, v2016, v2056, v2098, v2137, v2168);
-              uniform = av1_get_bits(v420, v421);
+              v422 = OUTLINED_FUNCTION_5_7(uniform, v399, v400, v401, v402, v403, v404, v405, v1373, v1452, v1532, v1613, v1693, v1773, v1854, v1933, v2008, v2083, v2159, v2233, v2309, v2382, v2440);
+              uniform = av1_get_bits(v422, v423);
               if (!uniform)
               {
                 break;
               }
 
-              ++v410;
+              ++v412;
             }
 
-            if (v407 < 1)
+            if (v409 < 1)
             {
-              LODWORD(v423) = 0;
-              v92 = v2056;
-            }
-
-            else
-            {
-              v422 = 0;
-              v423 = 0;
-              v92 = v2056;
-              do
-              {
-                *(a6 + 560 + 2 * v423++) = v422;
-                v422 += ((v407 - 1) >> v410) + 1;
-              }
-
-              while (v422 < v407);
-            }
-
-            *(a6 + 540) = v423;
-            v429 = (v419 - v410) & ~((v419 - v410) >> 31);
-            *(a6 + 544) = v429;
-            while (1)
-            {
-              *(a6 + 552) = v429;
-              if (v429 >= v415)
-              {
-                break;
-              }
-
-              v430 = OUTLINED_FUNCTION_5_7(uniform, v397, v398, v399, v400, v401, v402, v403, v1372, v1452, v1532, v1613, v1693, v1773, v1847, v1892, v1933, v1974, v2016, v2056, v2098, v2137, v2168);
-              uniform = av1_get_bits(v430, v431);
-              if (!uniform)
-              {
-                break;
-              }
-
-              ++v429;
-            }
-
-            if (v413 < 1)
-            {
-              LODWORD(v433) = 0;
-            }
-
-            else
-            {
-              v432 = 0;
-              v433 = 0;
-              do
-              {
-                *(a6 + 690 + 2 * v433++) = v432;
-                v432 += ((v413 - 1) >> v429) + 1;
-              }
-
-              while (v432 < v413);
-            }
-
-            *(a6 + 556) = v433;
-          }
-
-          else
-          {
-            *(a6 + 540) = 0;
-            if (v407 < 1)
-            {
-              LODWORD(v423) = 0;
-              v425 = 0;
+              LODWORD(v425) = 0;
+              v92 = v2233;
             }
 
             else
             {
               v424 = 0;
               v425 = 0;
-              v426 = 0;
+              v92 = v2233;
               do
               {
-                if (v407 - v426 >= v409)
-                {
-                  v397 = v409;
-                }
-
-                else
-                {
-                  v397 = (v407 - v426);
-                }
-
-                if (v397 < 2)
-                {
-                  v427 = 1;
-                }
-
-                else
-                {
-                  uniform = av1_get_uniform(&v2168, v397);
-                  v427 = uniform + 1;
-                }
-
-                *(a6 + 560 + 2 * v424) = v426;
-                v426 += v427;
-                if (v425 <= v427)
-                {
-                  v425 = v427;
-                }
-
-                *(a6 + 540) = v424 + 1;
-                v300 = v424++ > 0x3E;
+                *(a6 + 560 + 2 * v425++) = v424;
+                v424 += ((v409 - 1) >> v412) + 1;
               }
 
-              while (!v300 && v426 < v407);
-              LODWORD(v423) = v424;
+              while (v424 < v409);
             }
 
-            v410 = -1;
-            v92 = v2056;
-            do
+            *(a6 + 540) = v425;
+            v431 = (v421 - v412) & ~((v421 - v412) >> 31);
+            *(a6 + 544) = v431;
+            while (1)
             {
-              ++v410;
+              *(a6 + 552) = v431;
+              if (v431 >= v417)
+              {
+                break;
+              }
+
+              v432 = OUTLINED_FUNCTION_5_7(uniform, v399, v400, v401, v402, v403, v404, v405, v1373, v1452, v1532, v1613, v1693, v1773, v1854, v1933, v2008, v2083, v2159, v2233, v2309, v2382, v2440);
+              uniform = av1_get_bits(v432, v433);
+              if (!uniform)
+              {
+                break;
+              }
+
+              ++v431;
             }
 
-            while (1 << v410 < v423);
-            *(a6 + 536) = v410;
-            if (v419)
+            if (v415 < 1)
             {
-              v434 = v419 + 1;
+              LODWORD(v435) = 0;
             }
 
             else
             {
               v434 = 0;
+              v435 = 0;
+              do
+              {
+                *(a6 + 690 + 2 * v435++) = v434;
+                v434 += ((v415 - 1) >> v431) + 1;
+              }
+
+              while (v434 < v415);
             }
 
-            v435 = v417 >> v434;
-            if (v425 <= 1)
+            *(a6 + 556) = v435;
+          }
+
+          else
+          {
+            *(a6 + 540) = 0;
+            if (v409 < 1)
             {
-              v436 = 1;
+              LODWORD(v425) = 0;
+              v427 = 0;
             }
 
             else
             {
-              v436 = v425;
+              v426 = 0;
+              v427 = 0;
+              v428 = 0;
+              do
+              {
+                if (v409 - v428 >= v411)
+                {
+                  v399 = v411;
+                }
+
+                else
+                {
+                  v399 = (v409 - v428);
+                }
+
+                if (v399 < 2)
+                {
+                  v429 = 1;
+                }
+
+                else
+                {
+                  uniform = av1_get_uniform(&v2440, v399);
+                  v429 = uniform + 1;
+                }
+
+                *(a6 + 560 + 2 * v426) = v428;
+                v428 += v429;
+                if (v427 <= v429)
+                {
+                  v427 = v429;
+                }
+
+                *(a6 + 540) = v426 + 1;
+                v302 = v426++ > 0x3E;
+              }
+
+              while (!v302 && v428 < v409);
+              LODWORD(v425) = v426;
             }
 
-            v437 = v435 / v436;
-            if (v437 <= 1)
+            v412 = -1;
+            v92 = v2233;
+            do
+            {
+              ++v412;
+            }
+
+            while (1 << v412 < v425);
+            *(a6 + 536) = v412;
+            if (v421)
+            {
+              v436 = v421 + 1;
+            }
+
+            else
+            {
+              v436 = 0;
+            }
+
+            v437 = v419 >> v436;
+            if (v427 <= 1)
             {
               v438 = 1;
             }
 
             else
             {
-              v438 = v437;
+              v438 = v427;
             }
 
-            *(a6 + 556) = 0;
-            if (v413 < 1)
+            v439 = v437 / v438;
+            if (v439 <= 1)
             {
-              LODWORD(v433) = 0;
+              v440 = 1;
             }
 
             else
             {
-              v433 = 0;
-              v439 = 0;
+              v440 = v439;
+            }
+
+            *(a6 + 556) = 0;
+            if (v415 < 1)
+            {
+              LODWORD(v435) = 0;
+            }
+
+            else
+            {
+              v435 = 0;
+              v441 = 0;
               do
               {
-                if (v413 - v439 >= v438)
+                if (v415 - v441 >= v440)
                 {
-                  v397 = v438;
+                  v399 = v440;
                 }
 
                 else
                 {
-                  v397 = (v413 - v439);
+                  v399 = (v415 - v441);
                 }
 
-                if (v397 < 2)
+                if (v399 < 2)
                 {
-                  v440 = 1;
+                  v442 = 1;
                 }
 
                 else
                 {
-                  uniform = av1_get_uniform(&v2168, v397);
-                  v440 = uniform + 1;
+                  uniform = av1_get_uniform(&v2440, v399);
+                  v442 = uniform + 1;
                 }
 
-                *(a6 + 690 + 2 * v433) = v439;
-                v439 += v440;
-                *(a6 + 556) = v433 + 1;
-                v300 = v433++ > 0x3E;
+                *(a6 + 690 + 2 * v435) = v441;
+                v441 += v442;
+                *(a6 + 556) = v435 + 1;
+                v302 = v435++ > 0x3E;
               }
 
-              while (!v300 && v439 < v413);
+              while (!v302 && v441 < v415);
             }
 
-            v429 = -1;
+            v431 = -1;
             do
             {
-              ++v429;
+              ++v431;
             }
 
-            while (1 << v429 < v433);
-            *(a6 + 552) = v429;
+            while (1 << v431 < v435);
+            *(a6 + 552) = v431;
           }
 
-          *(a6 + 2 * v423 + 560) = v407;
-          *(a6 + 2 * v433 + 690) = v413;
-          v442 = v410 | v429;
-          if (v410 | v429)
+          *(a6 + 2 * v425 + 560) = v409;
+          *(a6 + 2 * v435 + 690) = v415;
+          v444 = v412 | v431;
+          if (v412 | v431)
           {
-            v443 = av1_get_bits(&v2168, v410 + v429);
-            *(a6 + 820) = v443;
-            if (v443 >= v433 * v423)
+            v445 = av1_get_bits(&v2440, v412 + v431);
+            *(a6 + 820) = v445;
+            if (v445 >= v435 * v425)
             {
               return 4294954584;
             }
 
-            uniform = OUTLINED_FUNCTION_8_4(v443, v444, v445, v446, v447, v448, v449, v450, v1372, v1452, v1532, v1613, v1693, v1773);
-            v442 = uniform + 1;
+            uniform = OUTLINED_FUNCTION_8_4(v445, v446, v447, v448, v449, v450, v451, v452, v1373, v1452, v1532, v1613, v1693, v1773, v1854, v1933, v2008, v2083, v2159, v2233, v2309, v2382);
+            v444 = uniform + 1;
           }
 
           else
@@ -10626,124 +10673,124 @@ LABEL_254:
             *(a6 + 820) = 0;
           }
 
-          *(a6 + 524) = v442;
-          v451 = OUTLINED_FUNCTION_11_2(uniform, v397, v398, v399, v400, v401, v402, v403, v1372, v1452, v1532, v1613, v1693, v1773);
-          *(a6 + 824) = v451;
-          v459 = OUTLINED_FUNCTION_5_7(v451, v452, v453, v454, v455, v456, v457, v458, v1373, v1453, v1533, v1614, v1694, v1774, v1847, v1892, v1933, v1974, v2016, v2056, v2098, v2137, v2168);
-          v461 = av1_get_bits(v459, v460);
-          v469 = v1775;
-          if (v461)
+          *(a6 + 524) = v444;
+          v453 = OUTLINED_FUNCTION_11_2(uniform, v399, v400, v401, v402, v403, v404, v405, v1373, v1452, v1532, v1613, v1693, v1773, v1854, v1933, v2008, v2083, v2159, v2233, v2309, v2382);
+          *(a6 + 824) = v453;
+          v461 = OUTLINED_FUNCTION_5_7(v453, v454, v455, v456, v457, v458, v459, v460, v1374, v1453, v1533, v1614, v1694, v1774, v1855, v1934, v2009, v2084, v2160, v2234, v2310, v2383, v2440);
+          v463 = av1_get_bits(v461, v462);
+          v471 = v1775;
+          if (v463)
           {
-            v461 = OUTLINED_FUNCTION_13_2(v461, v462, v463, v464, v465, v466, v467, v468, v1374, v1454, v1534, v1615, v1695, v1775);
-            v470 = (v461 << 25) >> 25;
+            v463 = OUTLINED_FUNCTION_13_2(v463, v464, v465, v466, v467, v468, v469, v470, v1375, v1454, v1534, v1615, v1695, v1775, v1856, v1935, v2010, v2085, v2161, v2235, v2311, v2384);
+            v472 = (v463 << 25) >> 25;
           }
 
           else
           {
-            v470 = 0;
+            v472 = 0;
           }
 
-          *(a6 + 828) = v470;
-          if (!*(v2138 + 1084))
+          *(a6 + 828) = v472;
+          if (!*(v2384 + 1084))
           {
-            if (*(v2138 + 1092))
+            if (*(v2384 + 1092))
             {
-              v461 = OUTLINED_FUNCTION_4_8(&v2168);
-              v471 = v332;
+              v463 = OUTLINED_FUNCTION_4_8(&v2440);
+              v473 = v334;
             }
 
             else
             {
-              v471 = 1;
+              v473 = 1;
             }
 
-            v473 = OUTLINED_FUNCTION_5_7(v461, v462, v463, v464, v465, v466, v467, v468, v1374, v1454, v1534, v1615, v1695, v1775, v1848, v1893, v1934, v1975, v2017, v2057, v2099, v2138, v2168);
-            v475 = av1_get_bits(v473, v474);
-            if (v475)
+            v475 = OUTLINED_FUNCTION_5_7(v463, v464, v465, v466, v467, v468, v469, v470, v1375, v1454, v1534, v1615, v1695, v1775, v1856, v1935, v2010, v2085, v2161, v2235, v2311, v2384, v2440);
+            v477 = av1_get_bits(v475, v476);
+            if (v477)
             {
-              v475 = OUTLINED_FUNCTION_13_2(v475, v476, v477, v478, v479, v480, v481, v482, v1375, v1455, v1535, v1616, v1696, v1776);
-              LODWORD(v407) = (v475 << 25) >> 25;
-            }
-
-            else
-            {
-              LODWORD(v407) = 0;
-            }
-
-            *(a6 + 832) = v407;
-            v483 = OUTLINED_FUNCTION_5_7(v475, v476, v477, v478, v479, v480, v481, v482, v1375, v1455, v1535, v1616, v1696, v1776, v1849, v1894, v1935, v1976, v2018, v2058, v2100, v2139, v2168);
-            v461 = av1_get_bits(v483, v484);
-            if (v461)
-            {
-              v461 = OUTLINED_FUNCTION_7_5(&v2168);
+              v477 = OUTLINED_FUNCTION_13_2(v477, v478, v479, v480, v481, v482, v483, v484, v1376, v1455, v1535, v1616, v1696, v1776, v1857, v1936, v2011, v2086, v2162, v2236, v2312, v2385);
+              LODWORD(v409) = (v477 << 25) >> 25;
             }
 
             else
             {
-              v485 = 0;
+              LODWORD(v409) = 0;
             }
 
-            *(a6 + 836) = v485;
-            if (v471)
+            *(a6 + 832) = v409;
+            v485 = OUTLINED_FUNCTION_5_7(v477, v478, v479, v480, v481, v482, v483, v484, v1376, v1455, v1535, v1616, v1696, v1776, v1857, v1936, v2011, v2086, v2162, v2236, v2312, v2385, v2440);
+            v463 = av1_get_bits(v485, v486);
+            if (v463)
             {
-              *(a6 + 840) = v407;
+              v463 = OUTLINED_FUNCTION_7_5(&v2440);
             }
 
             else
             {
-              v486 = OUTLINED_FUNCTION_5_7(v461, v462, v463, v464, v465, v466, v467, v468, v1374, v1454, v1534, v1615, v1695, v1775, v1848, v1893, v1934, v1975, v2017, v2057, v2099, v2138, v2168);
-              v488 = av1_get_bits(v486, v487);
-              if (v488)
+              v487 = 0;
+            }
+
+            *(a6 + 836) = v487;
+            if (v473)
+            {
+              *(a6 + 840) = v409;
+            }
+
+            else
+            {
+              v488 = OUTLINED_FUNCTION_5_7(v463, v464, v465, v466, v467, v468, v469, v470, v1375, v1454, v1534, v1615, v1695, v1775, v1856, v1935, v2010, v2085, v2161, v2235, v2311, v2384, v2440);
+              v490 = av1_get_bits(v488, v489);
+              if (v490)
               {
-                v488 = OUTLINED_FUNCTION_7_5(&v2168);
+                v490 = OUTLINED_FUNCTION_7_5(&v2440);
               }
 
               else
               {
-                v496 = 0;
+                v498 = 0;
               }
 
-              *(a6 + 840) = v496;
-              v510 = OUTLINED_FUNCTION_5_7(v488, v489, v490, v491, v492, v493, v494, v495, v1376, v1456, v1536, v1617, v1697, v1777, v1850, v1895, v1936, v1977, v2019, v2059, v2101, v2140, v2168);
-              v461 = av1_get_bits(v510, v511);
-              if (v461)
+              *(a6 + 840) = v498;
+              v512 = OUTLINED_FUNCTION_5_7(v490, v491, v492, v493, v494, v495, v496, v497, v1377, v1456, v1536, v1617, v1697, v1777, v1858, v1937, v2012, v2087, v2163, v2237, v2313, v2386, v2440);
+              v463 = av1_get_bits(v512, v513);
+              if (v463)
               {
-                v461 = OUTLINED_FUNCTION_7_5(&v2168);
+                v463 = OUTLINED_FUNCTION_7_5(&v2440);
               }
 
               else
               {
-                v485 = 0;
+                v487 = 0;
               }
             }
 
-            *(a6 + 844) = v485;
+            *(a6 + 844) = v487;
           }
 
-          v512 = OUTLINED_FUNCTION_5_7(v461, v462, v463, v464, v465, v466, v467, v468, v1374, v1454, v1534, v1615, v1695, v1775, v1848, v1893, v1934, v1975, v2017, v2057, v2099, v2138, v2168);
-          v514 = av1_get_bits(v512, v513);
-          *(a6 + 848) = v514;
-          if (v514)
+          v514 = OUTLINED_FUNCTION_5_7(v463, v464, v465, v466, v467, v468, v469, v470, v1375, v1454, v1534, v1615, v1695, v1775, v1856, v1935, v2010, v2085, v2161, v2235, v2311, v2384, v2440);
+          v516 = av1_get_bits(v514, v515);
+          *(a6 + 848) = v516;
+          if (v516)
           {
-            v522 = OUTLINED_FUNCTION_14_1(v514, v515, v516, v517, v518, v519, v520, v521, v1378, v1458, v1538, v1619, v1699, v1779);
-            *(a6 + 852) = v522;
-            v514 = OUTLINED_FUNCTION_14_1(v522, v523, v524, v525, v526, v527, v528, v529, v1379, v1459, v1539, v1620, v1700, v1780);
-            *(a6 + 856) = v514;
-            if (*(v2141 + 1092))
+            v524 = OUTLINED_FUNCTION_14_1(v516, v517, v518, v519, v520, v521, v522, v523, v1378, v1458, v1538, v1619, v1699, v1779, v1860, v1938, v2013, v2088, v2164, v2238, v2314, v2387);
+            *(a6 + 852) = v524;
+            v516 = OUTLINED_FUNCTION_14_1(v524, v525, v526, v527, v528, v529, v530, v531, v1379, v1459, v1539, v1620, v1700, v1780, v1861, v1939, v2014, v2089, v2165, v2239, v2315, v2388);
+            *(a6 + 856) = v516;
+            if (*(v2387 + 1092))
             {
-              v514 = OUTLINED_FUNCTION_14_1(v514, v515, v516, v517, v518, v519, v520, v521, v1378, v1458, v1538, v1619, v1699, v1779);
+              v516 = OUTLINED_FUNCTION_14_1(v516, v517, v518, v519, v520, v521, v522, v523, v1378, v1458, v1538, v1619, v1699, v1779, v1860, v1938, v2013, v2088, v2164, v2238, v2314, v2387);
             }
 
-            *(a6 + 860) = v514;
+            *(a6 + 860) = v516;
           }
 
-          v530 = OUTLINED_FUNCTION_5_7(v514, v515, v516, v517, v518, v519, v520, v521, v1378, v1458, v1538, v1619, v1699, v1779, v1852, v1896, v1937, v1978, v2020, v2060, v2102, v2141, v2168);
-          v532 = OUTLINED_FUNCTION_9_4(v530, v531);
-          *(a6 + 864) = v532;
-          if (v532)
+          v532 = OUTLINED_FUNCTION_5_7(v516, v517, v518, v519, v520, v521, v522, v523, v1378, v1458, v1538, v1619, v1699, v1779, v1860, v1938, v2013, v2088, v2164, v2238, v2314, v2387, v2440);
+          v534 = OUTLINED_FUNCTION_9_4(v532, v533);
+          *(a6 + 864) = v534;
+          if (v534)
           {
-            v540 = *(a6 + 304);
-            if (v540 == 7)
+            v542 = *(a6 + 304);
+            if (v542 == 7)
             {
               *(a6 + 868) = 1;
               *(a6 + 872) = 0x100000000;
@@ -10751,98 +10798,98 @@ LABEL_254:
 
             else
             {
-              v542 = OUTLINED_FUNCTION_5_7(v532, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168);
-              v544 = av1_get_bits(v542, v543);
-              *(a6 + 868) = v544;
-              if (v544)
+              v544 = OUTLINED_FUNCTION_5_7(v534, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389, v2440);
+              v546 = av1_get_bits(v544, v545);
+              *(a6 + 868) = v546;
+              if (v546)
               {
-                v552 = OUTLINED_FUNCTION_5_7(v544, v545, v546, v547, v548, v549, v550, v551, v1381, v1461, v1541, v1622, v1702, v1782, v1854, v1898, v1939, v1980, v2022, v2062, v2104, v2143, v2168);
-                v544 = av1_get_bits(v552, v553);
+                v554 = OUTLINED_FUNCTION_5_7(v546, v547, v548, v549, v550, v551, v552, v553, v1381, v1461, v1541, v1622, v1702, v1782, v1863, v1941, v2016, v2091, v2167, v2241, v2317, v2390, v2440);
+                v546 = av1_get_bits(v554, v555);
               }
 
-              *(a6 + 872) = v544;
-              v554 = OUTLINED_FUNCTION_5_7(v544, v545, v546, v547, v548, v549, v550, v551, v1381, v1461, v1541, v1622, v1702, v1782, v1854, v1898, v1939, v1980, v2022, v2062, v2104, v2143, v2168);
-              v532 = av1_get_bits(v554, v555);
-              *(a6 + 876) = v532;
-              if (!v532)
+              *(a6 + 872) = v546;
+              v556 = OUTLINED_FUNCTION_5_7(v546, v547, v548, v549, v550, v551, v552, v553, v1381, v1461, v1541, v1622, v1702, v1782, v1863, v1941, v2016, v2091, v2167, v2241, v2317, v2390, v2440);
+              v534 = av1_get_bits(v556, v557);
+              *(a6 + 876) = v534;
+              if (!v534)
               {
-                v653 = *(v469 + 328 * *(a6 + 4 * v540 + 472) + 3432);
-                if (!v653)
+                v655 = *(v471 + 328 * *(a6 + 4 * v542 + 472) + 3432);
+                if (!v655)
                 {
                   return 4294954584;
                 }
 
-                v532 = memcpy((a6 + 880), (v653 + 880), 0x108uLL);
-                if (v451)
+                v534 = memcpy((a6 + 880), (v655 + 880), 0x108uLL);
+                if (v453)
                 {
 LABEL_419:
-                  v636 = OUTLINED_FUNCTION_5_7(v532, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168);
-                  v638 = av1_get_bits(v636, v637);
-                  *(a6 + 1208) = v638;
-                  v639 = v1781;
-                  if (v638)
+                  v638 = OUTLINED_FUNCTION_5_7(v534, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389, v2440);
+                  v640 = av1_get_bits(v638, v639);
+                  *(a6 + 1208) = v640;
+                  v641 = v1781;
+                  if (v640)
                   {
-                    *(a6 + 1212) = OUTLINED_FUNCTION_8_4(v638, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781);
+                    *(a6 + 1212) = OUTLINED_FUNCTION_8_4(v640, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389);
                     if (!*(a6 + 464))
                     {
-                      v640 = OUTLINED_FUNCTION_3_8(&v2168);
-                      *(a6 + 1216) = v641;
-                      if (v640)
+                      v642 = OUTLINED_FUNCTION_3_8(&v2440);
+                      *(a6 + 1216) = v643;
+                      if (v642)
                       {
-                        v642 = OUTLINED_FUNCTION_8_4(v640, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781);
-                        *(a6 + 1220) = v642;
-                        v650 = OUTLINED_FUNCTION_5_7(v642, v643, v644, v645, v646, v647, v648, v649, v1389, v1469, v1549, v1630, v1710, v1790, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168);
-                        v652 = av1_get_bits(v650, v651);
+                        v644 = OUTLINED_FUNCTION_8_4(v642, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389);
+                        *(a6 + 1220) = v644;
+                        v652 = OUTLINED_FUNCTION_5_7(v644, v645, v646, v647, v648, v649, v650, v651, v1389, v1469, v1549, v1630, v1710, v1790, v1871, v1949, v2024, v2099, v2175, v2249, v2325, v2398, v2440);
+                        v654 = av1_get_bits(v652, v653);
                         goto LABEL_429;
                       }
 
 LABEL_428:
-                      v652 = 0;
+                      v654 = 0;
                       *(a6 + 1220) = 0;
 LABEL_429:
-                      *(a6 + 1224) = v652;
-                      v654 = !v470 && !*(a6 + 832) && !*(a6 + 836) && !*(a6 + 840) && *(a6 + 844) == 0;
+                      *(a6 + 1224) = v654;
+                      v656 = !v472 && !*(a6 + 832) && !*(a6 + 836) && !*(a6 + 840) && *(a6 + 844) == 0;
                       *(a6 + 1228) = 1;
-                      v655 = 880;
-                      v656 = 1176;
+                      v657 = 880;
+                      v658 = 1176;
                       do
                       {
-                        v657 = v451;
-                        if (v407)
+                        v659 = v453;
+                        if (v409)
                         {
-                          v658 = *(a6 + v655) + v451;
-                          if (v658 >= 0xFF)
+                          v660 = *(a6 + v657) + v453;
+                          if (v660 >= 0xFF)
                           {
-                            v659 = 255;
+                            v661 = 255;
                           }
 
                           else
                           {
-                            v659 = *(a6 + v655) + v451;
+                            v661 = *(a6 + v657) + v453;
                           }
 
-                          if (v658 >= 0)
+                          if (v660 >= 0)
                           {
-                            v657 = v659;
+                            v659 = v661;
                           }
 
                           else
                           {
-                            v657 = 0;
+                            v659 = 0;
                           }
                         }
 
-                        *(a6 + v656) = v657;
-                        v660 = v657 == 0 && v654;
-                        *(a6 + v656 - 32) = v660;
-                        v661 = *(a6 + 1228) & v660;
-                        *(a6 + 1228) = v661;
-                        v655 += 32;
-                        v656 += 4;
+                        *(a6 + v658) = v659;
+                        v662 = v659 == 0 && v656;
+                        *(a6 + v658 - 32) = v662;
+                        v663 = *(a6 + 1228) & v662;
+                        *(a6 + 1228) = v663;
+                        v657 += 32;
+                        v658 += 4;
                       }
 
-                      while (v655 != 1136);
-                      if (v661 || *(a6 + 464))
+                      while (v657 != 1136);
+                      if (v663 || *(a6 + 464))
                       {
                         *(a6 + 1296) = 0;
                         *(a6 + 1232) = 0u;
@@ -10850,432 +10897,432 @@ LABEL_429:
                         *(a6 + 1256) = default_mode_ref_deltas;
                         *(a6 + 1272) = unk_197165640;
                         *(a6 + 1288) = -1;
-                        v662 = v2142;
+                        v664 = v2389;
                       }
 
                       else
                       {
-                        v805 = OUTLINED_FUNCTION_9_4(&v2168, 6u);
-                        *(a6 + 1232) = v805;
-                        v813 = OUTLINED_FUNCTION_19_1(v805, v806, v807, v808, v809, v810, v811, v812, v1380, v1460, v1540, v1621, v1701, v1781);
-                        *(a6 + 1236) = v813;
-                        v662 = v2142;
-                        if (!*(v2142 + 1084) && v407 | v813)
+                        v807 = OUTLINED_FUNCTION_9_4(&v2440, 6u);
+                        *(a6 + 1232) = v807;
+                        v815 = OUTLINED_FUNCTION_19_1(v807, v808, v809, v810, v811, v812, v813, v814, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389);
+                        *(a6 + 1236) = v815;
+                        v664 = v2402;
+                        if (!*(v2402 + 1084) && v409 | v815)
                         {
-                          v821 = OUTLINED_FUNCTION_19_1(v813, v814, v815, v816, v817, v818, v819, v820, v1393, v1473, v1553, v1634, v1714, v1794);
-                          *(a6 + 1240) = v821;
-                          v813 = OUTLINED_FUNCTION_19_1(v821, v822, v823, v824, v825, v826, v827, v828, v1394, v1474, v1554, v1635, v1715, v1795);
-                          *(a6 + 1244) = v813;
+                          v823 = OUTLINED_FUNCTION_19_1(v815, v816, v817, v818, v819, v820, v821, v822, v1393, v1473, v1553, v1634, v1714, v1794, v1876, v1953, v2028, v2103, v2179, v2253, v2329, v2402);
+                          *(a6 + 1240) = v823;
+                          v815 = OUTLINED_FUNCTION_19_1(v823, v824, v825, v826, v827, v828, v829, v830, v1394, v1474, v1554, v1635, v1715, v1795, v1877, v1954, v2029, v2104, v2180, v2254, v2330, v2403);
+                          *(a6 + 1244) = v815;
                         }
 
-                        v829 = OUTLINED_FUNCTION_10_3(v813, v814, v815, v816, v817, v818, v819, v820, v1393, v1473, v1553, v1634, v1714, v1794);
-                        *(a6 + 1296) = v829;
-                        v837 = OUTLINED_FUNCTION_5_7(v829, v830, v831, v832, v833, v834, v835, v836, v1395, v1475, v1555, v1636, v1716, v1796, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168);
-                        v652 = av1_get_bits(v837, v838);
-                        *(a6 + 1248) = v652;
-                        if (!v652 || (v839 = OUTLINED_FUNCTION_5_7(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168), v652 = av1_get_bits(v839, v840), (*(a6 + 1252) = v652) == 0))
+                        v831 = OUTLINED_FUNCTION_10_3(v815, v816, v817, v818, v819, v820, v821, v822, v1393, v1473, v1553, v1634, v1714, v1794, v1876, v1953, v2028, v2103, v2179, v2253, v2329, v2402);
+                        *(a6 + 1296) = v831;
+                        v839 = OUTLINED_FUNCTION_5_7(v831, v832, v833, v834, v835, v836, v837, v838, v1395, v1475, v1555, v1636, v1716, v1796, v1878, v1955, v2030, v2105, v2181, v2255, v2331, v2404, v2440);
+                        v654 = av1_get_bits(v839, v840);
+                        *(a6 + 1248) = v654;
+                        if (!v654 || (v841 = OUTLINED_FUNCTION_5_7(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389, v2440), v654 = av1_get_bits(v841, v842), (*(a6 + 1252) = v654) == 0))
                         {
 LABEL_447:
-                          if (v662[267] && !*(a6 + 464))
+                          if (v664[267] && !*(a6 + 464))
                           {
-                            v848 = OUTLINED_FUNCTION_8_4(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781);
-                            *(a6 + 1300) = v848 + 3;
-                            v652 = OUTLINED_FUNCTION_8_4(v848, v849, v850, v851, v852, v853, v854, v855, v1396, v1476, v1556, v1637, v1717, v1797);
-                            *(a6 + 1304) = v652;
-                            if (v652 == 31)
+                            v850 = OUTLINED_FUNCTION_8_4(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389);
+                            *(a6 + 1300) = v850 + 3;
+                            v654 = OUTLINED_FUNCTION_8_4(v850, v851, v852, v853, v854, v855, v856, v857, v1396, v1476, v1556, v1637, v1717, v1797, v1879, v1956, v2031, v2106, v2182, v2256, v2332, v2405);
+                            *(a6 + 1304) = v654;
+                            if (v654 == 31)
                             {
 LABEL_452:
-                              if (v662[268] && !*(a6 + 464))
+                              if (v664[268] && !*(a6 + 464))
                               {
-                                v652 = OUTLINED_FUNCTION_8_4(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781);
-                                v735 = v652;
-                                *(a6 + 1372) = v652;
-                                if (v662[271])
+                                v654 = OUTLINED_FUNCTION_8_4(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389);
+                                v737 = v654;
+                                *(a6 + 1372) = v654;
+                                if (v664[271])
                                 {
-                                  LODWORD(v407) = 0;
+                                  LODWORD(v409) = 0;
                                   *(a6 + 1376) = 0;
-                                  v736 = 1;
+                                  v738 = 1;
                                 }
 
                                 else
                                 {
-                                  v857 = OUTLINED_FUNCTION_8_4(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781);
-                                  v858 = v857;
-                                  *(a6 + 1376) = v857;
-                                  v652 = OUTLINED_FUNCTION_8_4(v857, v859, v860, v861, v862, v863, v864, v865, v1397, v1477, v1557, v1638, v1718, v1798);
-                                  LODWORD(v407) = v652;
-                                  v736 = v858 == 0;
+                                  v859 = OUTLINED_FUNCTION_8_4(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389);
+                                  v860 = v859;
+                                  *(a6 + 1376) = v859;
+                                  v654 = OUTLINED_FUNCTION_8_4(v859, v861, v862, v863, v864, v865, v866, v867, v1397, v1477, v1557, v1638, v1718, v1798, v1880, v1957, v2032, v2107, v2183, v2257, v2333, v2406);
+                                  LODWORD(v409) = v654;
+                                  v738 = v860 == 0;
                                 }
 
-                                *(a6 + 1380) = v407;
-                                if (v735 || !v736 || v407)
+                                *(a6 + 1380) = v409;
+                                if (v737 || !v738 || v409)
                                 {
-                                  v866 = v662[253];
-                                  v867 = v866 + 6;
-                                  *(a6 + 1384) = v866 + 6;
-                                  v868 = OUTLINED_FUNCTION_5_7(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168);
-                                  v652 = av1_get_bits(v868, v869);
-                                  if (v652)
+                                  v868 = v664[253];
+                                  v869 = v868 + 6;
+                                  *(a6 + 1384) = v868 + 6;
+                                  v870 = OUTLINED_FUNCTION_5_7(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389, v2440);
+                                  v654 = av1_get_bits(v870, v871);
+                                  if (v654)
                                   {
-                                    v867 = v866 + 7;
-                                    *(a6 + 1384) = v866 + 7;
-                                    if (!v662[253])
+                                    v869 = v868 + 7;
+                                    *(a6 + 1384) = v868 + 7;
+                                    if (!v664[253])
                                     {
-                                      v870 = OUTLINED_FUNCTION_5_7(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168);
-                                      v652 = av1_get_bits(v870, v871);
-                                      v867 += v652;
-                                      *(a6 + 1384) = v867;
+                                      v872 = OUTLINED_FUNCTION_5_7(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389, v2440);
+                                      v654 = av1_get_bits(v872, v873);
+                                      v869 += v654;
+                                      *(a6 + 1384) = v869;
                                     }
                                   }
 
-                                  *(a6 + 1388) = v867;
-                                  if (v407)
+                                  *(a6 + 1388) = v869;
+                                  if (v409)
                                   {
-                                    v872 = 0;
+                                    v874 = 0;
                                   }
 
                                   else
                                   {
-                                    v872 = v736;
+                                    v874 = v738;
                                   }
 
-                                  v71 = HIDWORD(v1897);
-                                  if (!v872 && v662[269] == 1 && v662[270] == 1)
+                                  v71 = HIDWORD(v1940);
+                                  if (!v874 && v664[269] == 1 && v664[270] == 1)
                                   {
-                                    v873 = OUTLINED_FUNCTION_5_7(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168);
-                                    v652 = av1_get_bits(v873, v874);
-                                    *(a6 + 1388) = v867 - v652;
+                                    v875 = OUTLINED_FUNCTION_5_7(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389, v2440);
+                                    v654 = av1_get_bits(v875, v876);
+                                    *(a6 + 1388) = v869 - v654;
                                   }
 
 LABEL_456:
-                                  if (v661)
+                                  if (v663)
                                   {
-                                    v663 = 0;
+                                    v665 = 0;
                                   }
 
                                   else
                                   {
-                                    v652 = OUTLINED_FUNCTION_4_8(&v2168);
-                                    if (v332)
+                                    v654 = OUTLINED_FUNCTION_4_8(&v2440);
+                                    if (v334)
                                     {
-                                      v663 = 1;
+                                      v665 = 1;
                                     }
 
                                     else
                                     {
-                                      v663 = 2;
+                                      v665 = 2;
                                     }
 
-                                    v71 = HIDWORD(v1897);
+                                    v71 = HIDWORD(v1940);
                                   }
 
-                                  *(a6 + 1392) = v663;
+                                  *(a6 + 1392) = v665;
                                   if (*(a6 + 232))
                                   {
-                                    v665 = OUTLINED_FUNCTION_5_7(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168);
-                                    v664 = av1_get_bits(v665, v666);
-                                    *(a6 + 1396) = v664;
-                                    if (v664)
+                                    v667 = OUTLINED_FUNCTION_5_7(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389, v2440);
+                                    v666 = av1_get_bits(v667, v668);
+                                    *(a6 + 1396) = v666;
+                                    if (v666)
                                     {
                                       OUTLINED_FUNCTION_18_1();
-                                      if ((v667 & 1) == 0 || !v662[260])
+                                      if ((v669 & 1) == 0 || !v664[260])
                                       {
                                         goto LABEL_498;
                                       }
 
-                                      v668 = 0;
-                                      v669 = 0;
                                       v670 = 0;
-                                      v671 = *(a6 + 248);
-                                      v672 = v639 + 3424;
-                                      v673 = a6 + 472;
-                                      v674 = v662[265];
-                                      v675 = 1 << (v674 - 1);
-                                      v676 = v675 - 1;
-                                      v677 = 0xFFFFFFFFLL;
-                                      v533 = 328;
-                                      v678 = -1;
+                                      v671 = 0;
+                                      v672 = 0;
+                                      v673 = *(a6 + 248);
+                                      v674 = v641 + 3424;
+                                      v675 = a6 + 472;
+                                      v676 = v664[265];
+                                      v677 = 1 << (v676 - 1);
+                                      v678 = v677 - 1;
+                                      v679 = 0xFFFFFFFFLL;
+                                      v535 = 328;
+                                      v680 = -1;
                                       do
                                       {
-                                        if (v674)
+                                        if (v676)
                                         {
-                                          v534 = *(v672 + 328 * *(v673 + 4 * v668) + 16);
-                                          v536 = (v534 - v671) & v676;
-                                          v535 = v536 - ((v534 - v671) & v675);
-                                          if (v535 < 1)
+                                          v536 = *(v674 + 328 * *(v675 + 4 * v670) + 16);
+                                          v538 = (v536 - v673) & v678;
+                                          v537 = v538 - ((v536 - v673) & v677);
+                                          if (v537 < 1)
                                           {
-                                            if ((v535 & 0x80000000) != 0)
+                                            if ((v537 & 0x80000000) != 0)
                                             {
-                                              if (v678 == -1 || (v536 = (v534 - v678) & v676, v535 = (v534 - v678) & v675, v536 > v535))
+                                              if (v680 == -1 || (v538 = (v536 - v680) & v678, v537 = (v536 - v680) & v677, v538 > v537))
                                               {
-                                                v678 = *(v672 + 328 * *(v673 + 4 * v668) + 16);
-                                                v670 = v668;
+                                                v680 = *(v674 + 328 * *(v675 + 4 * v670) + 16);
+                                                v672 = v670;
                                               }
                                             }
                                           }
 
-                                          else if (v677 == -1 || (v536 = (v677 - v534) & v676, v535 = (v677 - v534) & v675, v536 > v535))
+                                          else if (v679 == -1 || (v538 = (v679 - v536) & v678, v537 = (v679 - v536) & v677, v538 > v537))
                                           {
-                                            v677 = *(v672 + 328 * *(v673 + 4 * v668) + 16);
-                                            v669 = v668;
+                                            v679 = *(v674 + 328 * *(v675 + 4 * v670) + 16);
+                                            v671 = v670;
                                           }
                                         }
 
-                                        ++v668;
+                                        ++v670;
                                       }
 
-                                      while (v668 != 7);
-                                      if (v678 != -1 && v677 != -1)
+                                      while (v670 != 7);
+                                      if (v680 != -1 && v679 != -1)
                                       {
                                         goto LABEL_492;
                                       }
 
-                                      if (v678 == -1)
+                                      if (v680 == -1)
                                       {
                                         goto LABEL_498;
                                       }
 
-                                      v680 = 0;
-                                      v669 = 0;
-                                      v681 = -1;
-                                      v677 = 328;
+                                      v682 = 0;
+                                      v671 = 0;
+                                      v683 = -1;
+                                      v679 = 328;
                                       do
                                       {
-                                        if (v674)
+                                        if (v676)
                                         {
-                                          v533 = *(v672 + 328 * *(v673 + 4 * v680) + 16);
-                                          v535 = (v533 - v678) & v676;
-                                          v534 = (v533 - v678) & v675;
-                                          if (v535 < v534)
+                                          v535 = *(v674 + 328 * *(v675 + 4 * v682) + 16);
+                                          v537 = (v535 - v680) & v678;
+                                          v536 = (v535 - v680) & v677;
+                                          if (v537 < v536)
                                           {
-                                            if (v681 == -1 || (v535 = (v533 - v681) & v676, v534 = (v533 - v681) & v675, v535 > v534))
+                                            if (v683 == -1 || (v537 = (v535 - v683) & v678, v536 = (v535 - v683) & v677, v537 > v536))
                                             {
-                                              v681 = *(v672 + 328 * *(v673 + 4 * v680) + 16);
-                                              v669 = v680;
+                                              v683 = *(v674 + 328 * *(v675 + 4 * v682) + 16);
+                                              v671 = v682;
                                             }
                                           }
                                         }
 
-                                        ++v680;
+                                        ++v682;
                                       }
 
-                                      while (v680 != 7);
-                                      if (v681 == -1)
+                                      while (v682 != 7);
+                                      if (v683 == -1)
                                       {
 LABEL_498:
-                                        v664 = 0;
+                                        v666 = 0;
                                       }
 
                                       else
                                       {
 LABEL_492:
-                                        if (v670 >= v669)
+                                        if (v672 >= v671)
                                         {
-                                          v682 = v669;
+                                          v684 = v671;
                                         }
 
                                         else
                                         {
-                                          v682 = v670;
+                                          v684 = v672;
                                         }
 
-                                        *(a6 + 1408) = v682;
-                                        if (v670 <= v669)
+                                        *(a6 + 1408) = v684;
+                                        if (v672 <= v671)
                                         {
-                                          v670 = v669;
+                                          v672 = v671;
                                         }
 
-                                        *(a6 + 1412) = v670;
+                                        *(a6 + 1412) = v672;
                                         *(a6 + 1400) = 1;
-                                        v683 = OUTLINED_FUNCTION_5_7(v677, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168);
-                                        v664 = av1_get_bits(v683, v684);
+                                        v685 = OUTLINED_FUNCTION_5_7(v679, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389, v2440);
+                                        v666 = av1_get_bits(v685, v686);
                                       }
                                     }
                                   }
 
                                   else
                                   {
-                                    v664 = 0;
+                                    v666 = 0;
                                     *(a6 + 1396) = 0;
                                   }
 
-                                  *(a6 + 1404) = v664;
-                                  if (!*(a6 + 284) && (OUTLINED_FUNCTION_18_1(), (v685 & 1) != 0))
+                                  *(a6 + 1404) = v666;
+                                  if (!*(a6 + 284) && (OUTLINED_FUNCTION_18_1(), (v687 & 1) != 0))
                                   {
-                                    v686 = v662[258];
-                                    if (v686)
+                                    v688 = v664[258];
+                                    if (v688)
                                     {
-                                      v664 = OUTLINED_FUNCTION_3_8(&v2168);
+                                      v666 = OUTLINED_FUNCTION_3_8(&v2440);
                                     }
                                   }
 
                                   else
                                   {
-                                    v686 = 0;
+                                    v688 = 0;
                                   }
 
-                                  *(a6 + 1416) = v686;
-                                  v687 = OUTLINED_FUNCTION_5_7(v664, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168);
-                                  *(a6 + 1420) = av1_get_bits(v687, v688);
+                                  *(a6 + 1416) = v688;
+                                  v689 = OUTLINED_FUNCTION_5_7(v666, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389, v2440);
+                                  *(a6 + 1420) = av1_get_bits(v689, v690);
                                   for (j = 1424; j != 1676; j += 36)
                                   {
-                                    v690 = a6 + j;
-                                    *v690 = dav1d_default_wm_params;
-                                    *(v690 + 16) = *&dword_197165668;
-                                    *(v690 + 32) = 0;
+                                    v692 = a6 + j;
+                                    *v692 = dav1d_default_wm_params;
+                                    *(v692 + 16) = *&dword_197165668;
+                                    *(v692 + 32) = 0;
                                   }
 
                                   OUTLINED_FUNCTION_18_1();
-                                  if (v699)
+                                  if (v701)
                                   {
-                                    v700 = v1759 + 3424;
-                                    v701 = (a6 + 1448);
-                                    v702 = 1424;
+                                    v702 = v1759 + 3424;
+                                    v703 = (a6 + 1448);
+                                    v704 = 1424;
                                     while (1)
                                     {
-                                      v703 = OUTLINED_FUNCTION_5_7(bits_subexp, v692, v693, v694, v695, v696, v697, v698, v1357, v1437, v1517, v1597, v1678, v1759, v1837, v1885, v1926, v1967, v2009, v2051, v2091, v2132, v2168);
-                                      bits_subexp = av1_get_bits(v703, v704);
+                                      v705 = OUTLINED_FUNCTION_5_7(bits_subexp, v694, v695, v696, v697, v698, v699, v700, v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2225, v2296, v2371, v2440);
+                                      bits_subexp = av1_get_bits(v705, v706);
                                       if (bits_subexp)
                                       {
                                         break;
                                       }
 
-                                      *(v701 - 6) = 0;
+                                      *(v703 - 6) = 0;
 LABEL_529:
-                                      v701 += 9;
-                                      v702 += 36;
-                                      if (v702 == 1676)
+                                      v703 += 9;
+                                      v704 += 36;
+                                      if (v704 == 1676)
                                       {
                                         goto LABEL_530;
                                       }
                                     }
 
-                                    v705 = OUTLINED_FUNCTION_5_7(bits_subexp, v692, v693, v694, v695, v696, v697, v698, v1357, v1437, v1517, v1597, v1678, v1759, v1837, v1885, v1926, v1967, v2009, v2051, v2091, v2132, v2168);
-                                    if (av1_get_bits(v705, v706))
+                                    v707 = OUTLINED_FUNCTION_5_7(bits_subexp, v694, v695, v696, v697, v698, v699, v700, v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2225, v2296, v2371, v2440);
+                                    if (av1_get_bits(v707, v708))
                                     {
-                                      v707 = 2;
+                                      v709 = 2;
                                     }
 
                                     else
                                     {
-                                      OUTLINED_FUNCTION_4_8(&v2168);
-                                      if (v332)
+                                      OUTLINED_FUNCTION_4_8(&v2440);
+                                      if (v334)
                                       {
-                                        v707 = 3;
+                                        v709 = 3;
                                       }
 
                                       else
                                       {
-                                        v707 = 1;
+                                        v709 = 1;
                                       }
                                     }
 
-                                    *(v701 - 6) = v707;
-                                    v708 = *(a6 + 304);
-                                    v709 = &dav1d_default_wm_params;
-                                    if (v708 != 7)
+                                    *(v703 - 6) = v709;
+                                    v710 = *(a6 + 304);
+                                    v711 = &dav1d_default_wm_params;
+                                    if (v710 != 7)
                                     {
-                                      v710 = *(v700 + 328 * *(a6 + 472 + 4 * v708) + 8);
-                                      if (!v710)
+                                      v712 = *(v702 + 328 * *(a6 + 472 + 4 * v710) + 8);
+                                      if (!v712)
                                       {
                                         return 4294954584;
                                       }
 
-                                      v709 = (v710 + v702);
+                                      v711 = (v712 + v704);
                                     }
 
-                                    if (v707 <= 1)
+                                    if (v709 <= 1)
                                     {
                                       if (*(a6 + 500))
                                       {
-                                        LODWORD(v407) = 9;
+                                        LODWORD(v409) = 9;
                                       }
 
                                       else
                                       {
-                                        LODWORD(v407) = 8;
+                                        LODWORD(v409) = 8;
                                       }
 
                                       if (*(a6 + 500))
                                       {
-                                        v713 = 13;
+                                        v715 = 13;
                                       }
 
                                       else
                                       {
-                                        v713 = 14;
+                                        v715 = 14;
                                       }
 
-                                      v711 = *(v701 - 3);
-                                      v712 = *(v701 - 2);
+                                      v713 = *(v703 - 3);
+                                      v714 = *(v703 - 2);
                                     }
 
                                     else
                                     {
-                                      LODWORD(v407) = 12;
-                                      v711 = 2 * av1_get_bits_subexp(&v2168, (v709[3] - 0x10000) >> 1, 12) + 0x10000;
-                                      *(v701 - 3) = v711;
-                                      v712 = 2 * OUTLINED_FUNCTION_21_1(v709[4], v1357, v1437, v1517, v1597, v1678, v1759, v1837, v1885, v1926, v1967, v2009, v2051, v2091, v2132);
-                                      *(v701 - 2) = v712;
-                                      if (v707 == 3)
+                                      LODWORD(v409) = 12;
+                                      v713 = 2 * av1_get_bits_subexp(&v2440, (v711[3] - 0x10000) >> 1, 12) + 0x10000;
+                                      *(v703 - 3) = v713;
+                                      v714 = 2 * OUTLINED_FUNCTION_21_1(v711[4], v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2225, v2296, v2371);
+                                      *(v703 - 2) = v714;
+                                      if (v709 == 3)
                                       {
-                                        *(v701 - 1) = 2 * OUTLINED_FUNCTION_21_1(v709[5], v1357, v1437, v1517, v1597, v1678, v1759, v1837, v1885, v1926, v1967, v2009, v2051, v2091, v2132);
-                                        v711 = 2 * OUTLINED_FUNCTION_21_1(v709[6] - 0x10000, v1390, v1470, v1550, v1631, v1711, v1791, v1862, v1906, v1947, v1988, v2030, v2070, v2112, v2151) + 0x10000;
-                                        v713 = 10;
+                                        *(v703 - 1) = 2 * OUTLINED_FUNCTION_21_1(v711[5], v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2225, v2296, v2371);
+                                        v713 = 2 * OUTLINED_FUNCTION_21_1(v711[6] - 0x10000, v1390, v1470, v1550, v1631, v1711, v1791, v1872, v1950, v2025, v2100, v2176, v2250, v2326, v2399) + 0x10000;
+                                        v715 = 10;
 LABEL_528:
-                                        *v701 = v711;
-                                        *(v701 - 5) = av1_get_bits_subexp(&v2168, v709[1] >> v713, v407) << v713;
-                                        bits_subexp = av1_get_bits_subexp(&v2168, v709[2] >> v713, v407);
-                                        *(v701 - 4) = bits_subexp << v713;
-                                        v92 = v2051;
-                                        v71 = HIDWORD(v1885);
+                                        *v703 = v713;
+                                        *(v703 - 5) = av1_get_bits_subexp(&v2440, v711[1] >> v715, v409) << v715;
+                                        bits_subexp = av1_get_bits_subexp(&v2440, v711[2] >> v715, v409);
+                                        *(v703 - 4) = bits_subexp << v715;
+                                        v92 = v2225;
+                                        v71 = HIDWORD(v1920);
                                         goto LABEL_529;
                                       }
 
-                                      v713 = 10;
+                                      v715 = 10;
                                     }
 
-                                    *(v701 - 1) = -v712;
+                                    *(v703 - 1) = -v714;
                                     goto LABEL_528;
                                   }
 
 LABEL_530:
-                                  v714 = v2132;
-                                  if (v2132[274] && (*v1597 || *(a6 + 280)))
+                                  v716 = v2371;
+                                  if (v2371[274] && (*v1597 || *(a6 + 280)))
                                   {
-                                    v715 = OUTLINED_FUNCTION_3_8(&v2168);
-                                    *(a6 + 224) = v716;
+                                    v717 = OUTLINED_FUNCTION_3_8(&v2440);
+                                    *(a6 + 224) = v718;
                                     v13 = v1759;
-                                    if (v715)
+                                    if (v717)
                                     {
-                                      OUTLINED_FUNCTION_9_4(&v2168, 0x10u);
+                                      OUTLINED_FUNCTION_9_4(&v2440, 0x10u);
                                       OUTLINED_FUNCTION_24_0();
-                                      if (v725 == 1)
+                                      if (v727 == 1)
                                       {
-                                        v717 = OUTLINED_FUNCTION_3_8(&v2168);
-                                        *(a6 + 228) = v726;
-                                        if (!v717)
+                                        v719 = OUTLINED_FUNCTION_3_8(&v2440);
+                                        *(a6 + 228) = v728;
+                                        if (!v719)
                                         {
-                                          v727 = OUTLINED_FUNCTION_10_3(v717, v718, v719, v720, v721, v722, v723, v724, v1357, v1437, v1517, v1597, v1678, v1759);
-                                          v728 = 472;
+                                          v729 = OUTLINED_FUNCTION_10_3(v719, v720, v721, v722, v723, v724, v725, v726, v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2225, v2296, v2371);
+                                          v730 = 472;
                                           v29 = 4294954584;
-                                          while (*(a6 + v728) != v727)
+                                          while (*(a6 + v730) != v729)
                                           {
-                                            v728 += 4;
-                                            if (v728 == 500)
+                                            v730 += 4;
+                                            if (v730 == 500)
                                             {
                                               return v29;
                                             }
                                           }
 
-                                          v1271 = *(v13 + 328 * v727 + 3432);
-                                          if (!v1271)
+                                          v1273 = *(v13 + 328 * v729 + 3432);
+                                          if (!v1273)
                                           {
                                             return 4294954584;
                                           }
 
-                                          uleb128 = memcpy(a6, v1271, 0xE0uLL);
-                                          *a6 = v407;
+                                          uleb128 = memcpy(a6, v1273, 0xE0uLL);
+                                          *a6 = v409;
                                           goto LABEL_542;
                                         }
                                       }
@@ -11285,98 +11332,98 @@ LABEL_530:
                                         *(a6 + 228) = 1;
                                       }
 
-                                      *a6 = v407;
-                                      v786 = OUTLINED_FUNCTION_14_1(v717, v718, v719, v720, v721, v722, v723, v724, v1357, v1437, v1517, v1597, v1678, v1759);
-                                      *(a6 + 4) = v786;
-                                      if (v786 > 14)
+                                      *a6 = v409;
+                                      v788 = OUTLINED_FUNCTION_14_1(v719, v720, v721, v722, v723, v724, v725, v726, v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2225, v2296, v2371);
+                                      *(a6 + 4) = v788;
+                                      if (v788 > 14)
                                       {
                                         return 4294954584;
                                       }
 
-                                      v794 = v786;
-                                      if (v786 >= 1)
+                                      v796 = v788;
+                                      if (v788 >= 1)
                                       {
-                                        v795 = 0;
-                                        v796 = (a6 + 9);
+                                        v797 = 0;
+                                        v798 = (a6 + 9);
                                         do
                                         {
-                                          v797 = OUTLINED_FUNCTION_11_2(v786, v787, v788, v789, v790, v791, v792, v793, v1391, v1471, v1551, v1632, v1712, v1792);
-                                          *(v796 - 1) = v797;
-                                          if (v795)
+                                          v799 = OUTLINED_FUNCTION_11_2(v788, v789, v790, v791, v792, v793, v794, v795, v1391, v1471, v1551, v1632, v1712, v1792, v1873, v1951, v2026, v2101, v2177, v2251, v2327, v2400);
+                                          *(v798 - 1) = v799;
+                                          if (v797)
                                           {
-                                            if (*(v796 - 3) >= v797)
+                                            if (*(v798 - 3) >= v799)
                                             {
                                               return 4294954584;
                                             }
                                           }
 
-                                          v786 = OUTLINED_FUNCTION_11_2(v797, v798, v799, v800, v801, v802, v803, v804, v1392, v1472, v1552, v1633, v1713, v1793);
-                                          *v796 = v786;
-                                          v796 += 2;
+                                          v788 = OUTLINED_FUNCTION_11_2(v799, v800, v801, v802, v803, v804, v805, v806, v1392, v1472, v1552, v1633, v1713, v1793, v1874, v1952, v2027, v2102, v2178, v2252, v2328, v2401);
+                                          *v798 = v788;
+                                          v798 += 2;
                                         }
 
-                                        while (v794 != ++v795);
+                                        while (v796 != ++v797);
                                       }
 
-                                      if (v2132[271])
+                                      if (v716[271])
                                       {
                                         *(a6 + 36) = 0;
-                                        v1863 = a6 + 36;
+                                        v1875 = a6 + 36;
                                       }
 
                                       else
                                       {
-                                        v786 = OUTLINED_FUNCTION_3_8(&v2168);
-                                        *(a6 + 36) = v1201;
-                                        v1863 = a6 + 36;
-                                        if (!v786 && (v2132[270] != 1 || v794 || v2132[269] != 1))
+                                        v788 = OUTLINED_FUNCTION_3_8(&v2440);
+                                        *(a6 + 36) = v1203;
+                                        v1875 = a6 + 36;
+                                        if (!v788 && (v716[270] != 1 || v796 || v716[269] != 1))
                                         {
-                                          v1302 = 0;
-                                          v1303 = 1;
+                                          v1304 = 0;
+                                          v1305 = 1;
                                           while (1)
                                           {
-                                            v1304 = v1303;
-                                            v786 = OUTLINED_FUNCTION_14_1(v786, v787, v788, v789, v790, v791, v792, v793, v1391, v1471, v1551, v1632, v1712, v1792);
-                                            *(a6 + 40 + 4 * v1302) = v786;
-                                            if (v786 > 10)
+                                            v1306 = v1305;
+                                            v788 = OUTLINED_FUNCTION_14_1(v788, v789, v790, v791, v792, v793, v794, v795, v1391, v1471, v1551, v1632, v1712, v1792, v1875, v1951, v2026, v2101, v2177, v2251, v2327, v2400);
+                                            *(a6 + 40 + 4 * v1304) = v788;
+                                            if (v788 > 10)
                                             {
                                               return 4294954584;
                                             }
 
-                                            if (v786 >= 1)
+                                            if (v788 >= 1)
                                             {
                                               break;
                                             }
 
 LABEL_797:
-                                            v1303 = 0;
-                                            v1302 = 1;
-                                            if ((v1304 & 1) == 0)
+                                            v1305 = 0;
+                                            v1304 = 1;
+                                            if ((v1306 & 1) == 0)
                                             {
-                                              v714 = v2132;
+                                              v716 = v2400;
                                               goto LABEL_721;
                                             }
                                           }
 
-                                          v1305 = 0;
-                                          v1306 = v786;
-                                          v1307 = (a6 + 49 + 20 * v1302);
+                                          v1307 = 0;
+                                          v1308 = v788;
+                                          v1309 = (a6 + 49 + 20 * v1304);
                                           while (1)
                                           {
-                                            v1308 = OUTLINED_FUNCTION_11_2(v786, v787, v788, v789, v790, v791, v792, v793, v1391, v1471, v1551, v1632, v1712, v1792);
-                                            *(v1307 - 1) = v1308;
-                                            if (v1305)
+                                            v1310 = OUTLINED_FUNCTION_11_2(v788, v789, v790, v791, v792, v793, v794, v795, v1391, v1471, v1551, v1632, v1712, v1792, v1875, v1951, v2026, v2101, v2177, v2251, v2327, v2400);
+                                            *(v1309 - 1) = v1310;
+                                            if (v1307)
                                             {
-                                              if (*(v1307 - 3) >= v1308)
+                                              if (*(v1309 - 3) >= v1310)
                                               {
                                                 return 4294954584;
                                               }
                                             }
 
-                                            v786 = OUTLINED_FUNCTION_11_2(v1308, v1309, v1310, v1311, v1312, v1313, v1314, v1315, v1431, v1511, v1591, v1672, v1752, v1832);
-                                            *v1307 = v786;
-                                            v1307 += 2;
-                                            if (++v1305 >= v1306)
+                                            v788 = OUTLINED_FUNCTION_11_2(v1310, v1311, v1312, v1313, v1314, v1315, v1316, v1317, v1431, v1511, v1591, v1672, v1752, v1832, v1914, v1990, v2065, v2140, v2216, v2290, v2366, v2439);
+                                            *v1309 = v788;
+                                            v1309 += 2;
+                                            if (++v1307 >= v1308)
                                             {
                                               goto LABEL_797;
                                             }
@@ -11386,119 +11433,119 @@ LABEL_797:
 
                                       *(a6 + 40) = 0;
 LABEL_721:
-                                      if (v714[269] == 1 && v714[270] == 1 && (*(a6 + 40) != 0) == (*(a6 + 44) == 0))
+                                      if (v716[269] == 1 && v716[270] == 1 && (*(a6 + 40) != 0) == (*(a6 + 44) == 0))
                                       {
                                         return 4294954584;
                                       }
 
-                                      v1202 = OUTLINED_FUNCTION_8_4(v786, v787, v788, v789, v790, v791, v792, v793, v1391, v1471, v1551, v1632, v1712, v1792);
-                                      *(a6 + 88) = v1202 + 8;
-                                      v1210 = OUTLINED_FUNCTION_8_4(v1202, v1203, v1204, v1205, v1206, v1207, v1208, v1209, v1424, v1504, v1584, v1665, v1745, v1825);
-                                      *(a6 + 92) = v1210;
-                                      v1218 = v1210 + v1210 * v1210;
-                                      v1219 = 2 * v1218;
-                                      if (v794 && v1219 >= 1)
+                                      v1204 = OUTLINED_FUNCTION_8_4(v788, v789, v790, v791, v792, v793, v794, v795, v1391, v1471, v1551, v1632, v1712, v1792, v1875, v1951, v2026, v2101, v2177, v2251, v2327, v2400);
+                                      *(a6 + 88) = v1204 + 8;
+                                      v1212 = OUTLINED_FUNCTION_8_4(v1204, v1205, v1206, v1207, v1208, v1209, v1210, v1211, v1424, v1504, v1584, v1665, v1745, v1825, v1907, v1983, v2058, v2133, v2209, v2283, v2359, v2432);
+                                      *(a6 + 92) = v1212;
+                                      v1220 = v1212 + v1212 * v1212;
+                                      v1221 = 2 * v1220;
+                                      if (v796 && v1221 >= 1)
                                       {
-                                        v1220 = (a6 + 96);
-                                        v1221 = (2 * v1218);
+                                        v1222 = (a6 + 96);
+                                        v1223 = (2 * v1220);
                                         do
                                         {
-                                          v1210 = OUTLINED_FUNCTION_11_2(v1210, v1211, v1212, v1213, v1214, v1215, v1216, v1217, v1425, v1505, v1585, v1666, v1746, v1826);
-                                          *v1220++ = v1210 ^ 0x80;
-                                          --v1221;
+                                          v1212 = OUTLINED_FUNCTION_11_2(v1212, v1213, v1214, v1215, v1216, v1217, v1218, v1219, v1425, v1505, v1585, v1666, v1746, v1826, v1908, v1984, v2059, v2134, v2210, v2284, v2360, v2433);
+                                          *v1222++ = v1212 ^ 0x80;
+                                          --v1223;
                                         }
 
-                                        while (v1221);
+                                        while (v1223);
                                       }
 
-                                      v1222 = 0;
-                                      v1223 = a6 + 40;
-                                      v1224 = a6 + 120;
-                                      v1225 = 1;
+                                      v1224 = 0;
+                                      v1225 = a6 + 40;
+                                      v1226 = a6 + 120;
+                                      v1227 = 1;
                                       do
                                       {
-                                        v1226 = v1225;
-                                        if (*(v1223 + 4 * v1222) || (OUTLINED_FUNCTION_24_0(), v1227))
+                                        v1228 = v1227;
+                                        if (*(v1225 + 4 * v1224) || (OUTLINED_FUNCTION_24_0(), v1229))
                                         {
-                                          v1228 = *(a6 + 4);
-                                          if (v1228)
+                                          v1230 = *(a6 + 4);
+                                          if (v1230)
                                           {
-                                            v1229 = (v1219 + 1);
+                                            v1231 = (v1221 + 1);
                                           }
 
                                           else
                                           {
-                                            v1229 = v1219;
+                                            v1231 = v1221;
                                           }
 
-                                          if (v1229 >= 1)
+                                          if (v1231 >= 1)
                                           {
-                                            v1230 = (v1224 + 28 * v1222);
-                                            v1231 = v1229;
+                                            v1232 = (v1226 + 28 * v1224);
+                                            v1233 = v1231;
                                             do
                                             {
-                                              v1210 = OUTLINED_FUNCTION_11_2(v1210, v1211, v1212, v1213, v1214, v1215, v1216, v1217, v1425, v1505, v1585, v1666, v1746, v1826);
-                                              *v1230++ = v1210 ^ 0x80;
-                                              --v1231;
+                                              v1212 = OUTLINED_FUNCTION_11_2(v1212, v1213, v1214, v1215, v1216, v1217, v1218, v1219, v1425, v1505, v1585, v1666, v1746, v1826, v1908, v1984, v2059, v2134, v2210, v2284, v2360, v2433);
+                                              *v1232++ = v1212 ^ 0x80;
+                                              --v1233;
                                             }
 
-                                            while (v1231);
+                                            while (v1233);
                                           }
 
-                                          if (!v1228)
+                                          if (!v1230)
                                           {
-                                            *(v1224 + 28 * v1222 + v1229) = 0;
+                                            *(v1226 + 28 * v1224 + v1231) = 0;
                                           }
                                         }
 
-                                        v1225 = 0;
-                                        v1222 = 1;
+                                        v1227 = 0;
+                                        v1224 = 1;
                                       }
 
-                                      while ((v1226 & 1) != 0);
-                                      v1232 = OUTLINED_FUNCTION_8_4(v1210, v1211, v1212, v1213, v1214, v1215, v1216, v1217, v1425, v1505, v1585, v1666, v1746, v1826);
-                                      *(a6 + 176) = (v1232 + 6);
-                                      v1240 = OUTLINED_FUNCTION_8_4(v1232, v1233, v1234, v1235, v1236, v1237, v1238, v1239, v1426, v1506, v1586, v1667, v1747, v1827);
-                                      v1248 = 0;
-                                      *(a6 + 184) = v1240;
-                                      v1249 = 1;
+                                      while ((v1228 & 1) != 0);
+                                      v1234 = OUTLINED_FUNCTION_8_4(v1212, v1213, v1214, v1215, v1216, v1217, v1218, v1219, v1425, v1505, v1585, v1666, v1746, v1826, v1908, v1984, v2059, v2134, v2210, v2284, v2360, v2433);
+                                      *(a6 + 176) = (v1234 + 6);
+                                      v1242 = OUTLINED_FUNCTION_8_4(v1234, v1235, v1236, v1237, v1238, v1239, v1240, v1241, v1426, v1506, v1586, v1667, v1747, v1827, v1909, v1985, v2060, v2135, v2211, v2285, v2361, v2434);
+                                      v1250 = 0;
+                                      *(a6 + 184) = v1242;
+                                      v1251 = 1;
                                       v13 = v1828;
-                                      v92 = v2051;
+                                      v92 = v2286;
                                       do
                                       {
-                                        v1250 = v1249;
-                                        if (*(v1223 + 4 * v1248))
+                                        v1252 = v1251;
+                                        if (*(v1225 + 4 * v1250))
                                         {
-                                          v1251 = OUTLINED_FUNCTION_11_2(v1240, v1241, v1242, v1243, v1244, v1245, v1246, v1247, v1427, v1507, v1587, v1668, v1748, v1828);
-                                          *(a6 + 188 + 4 * v1248) = v1251 - 128;
-                                          *(a6 + 196 + 4 * v1248) = OUTLINED_FUNCTION_11_2(v1251, v1252, v1253, v1254, v1255, v1256, v1257, v1258, v1428, v1508, v1588, v1669, v1749, v1829) - 128;
-                                          v1240 = av1_get_bits(&v2168, 9u);
-                                          *(a6 + 204 + 4 * v1248) = v1240 - 256;
+                                          v1253 = OUTLINED_FUNCTION_11_2(v1242, v1243, v1244, v1245, v1246, v1247, v1248, v1249, v1427, v1507, v1587, v1668, v1748, v1828, v1910, v1986, v2061, v2136, v2212, v2286, v2362, v2435);
+                                          *(a6 + 188 + 4 * v1250) = v1253 - 128;
+                                          *(a6 + 196 + 4 * v1250) = OUTLINED_FUNCTION_11_2(v1253, v1254, v1255, v1256, v1257, v1258, v1259, v1260, v1428, v1508, v1588, v1669, v1749, v1829, v1911, v1987, v2062, v2137, v2213, v2287, v2363, v2436) - 128;
+                                          v1242 = av1_get_bits(&v2440, 9u);
+                                          *(a6 + 204 + 4 * v1250) = v1242 - 256;
                                         }
 
-                                        v1249 = 0;
-                                        v1248 = 1;
+                                        v1251 = 0;
+                                        v1250 = 1;
                                       }
 
-                                      while ((v1250 & 1) != 0);
-                                      v1259 = OUTLINED_FUNCTION_5_7(v1240, v1241, v1242, v1243, v1244, v1245, v1246, v1247, v1427, v1507, v1587, v1668, v1748, v1828, v1863, v1885, v1926, v1967, v2009, v2051, v2091, v2132, v2168);
-                                      v1261 = av1_get_bits(v1259, v1260);
-                                      *(a6 + 212) = v1261;
-                                      v1269 = OUTLINED_FUNCTION_5_7(v1261, v1262, v1263, v1264, v1265, v1266, v1267, v1268, v1429, v1509, v1589, v1670, v1750, v1830, v1879, v1921, v1962, v2003, v2045, v2085, v2127, v2166, v2168);
-                                      uleb128 = av1_get_bits(v1269, v1270);
+                                      while ((v1252 & 1) != 0);
+                                      v1261 = OUTLINED_FUNCTION_5_7(v1242, v1243, v1244, v1245, v1246, v1247, v1248, v1249, v1427, v1507, v1587, v1668, v1748, v1828, v1910, v1986, v2061, v2136, v2212, v2286, v2362, v2435, v2440);
+                                      v1263 = av1_get_bits(v1261, v1262);
+                                      *(a6 + 212) = v1263;
+                                      v1271 = OUTLINED_FUNCTION_5_7(v1263, v1264, v1265, v1266, v1267, v1268, v1269, v1270, v1429, v1509, v1589, v1670, v1750, v1830, v1912, v1988, v2063, v2138, v2214, v2288, v2364, v2437, v2440);
+                                      uleb128 = av1_get_bits(v1271, v1272);
                                       *(a6 + 216) = uleb128;
-                                      v71 = HIDWORD(v1885);
+                                      v71 = HIDWORD(v1920);
 LABEL_542:
                                       *(v13 + 3328) = a6;
                                       *(a6 + 252) = v71;
-                                      *(a6 + 256) = HIDWORD(v2009);
+                                      *(a6 + 256) = HIDWORD(v2146);
                                       *(v92 + 12) = 0;
                                       *(v92 + 16) = 0;
-                                      if (HIDWORD(v2091) != 6)
+                                      if (HIDWORD(v2296) != 6)
                                       {
-                                        v729 = OUTLINED_FUNCTION_5_7(uleb128, v63, v155, v65, v66, v67, v68, v69, v1357, v1437, v1517, v1597, v1678, v1759, v1837, v1885, v1926, v1967, v2009, v2051, v2091, v2132, v2168);
-                                        av1_get_bits(v729, v730);
-                                        v29 = check_for_overrun(&v2168, v1885, v1753);
+                                        v731 = OUTLINED_FUNCTION_5_7(uleb128, v63, v155, v65, v66, v67, v68, v69, v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2225, v2296, v2371, v2440);
+                                        av1_get_bits(v731, v732);
+                                        v29 = check_for_overrun(&v2440, v1920, v1753);
                                         if (v29)
                                         {
                                           return v29;
@@ -11507,27 +11554,27 @@ LABEL_542:
                                         v91 = 0;
                                         LODWORD(v87) = v1753;
 LABEL_547:
-                                        v88 = v1885;
+                                        v88 = v1920;
 LABEL_829:
                                         if (!*(v13 + 3312))
                                         {
                                           goto LABEL_838;
                                         }
 
-                                        v1337 = *(v13 + 3328);
-                                        if (!v1337)
+                                        v1339 = *(v13 + 3328);
+                                        if (!v1339)
                                         {
                                           goto LABEL_838;
                                         }
 
-                                        if (!v1337[65])
+                                        if (!v1339[65])
                                         {
-                                          if (*(v2051 + 16) != v1337[139] * v1337[135])
+                                          if (*(v2225 + 16) != v1339[139] * v1339[135])
                                           {
                                             goto LABEL_838;
                                           }
 
-                                          if (!*(v2051 + 12))
+                                          if (!*(v2225 + 12))
                                           {
                                             v91 |= 0x40000000u;
                                             goto LABEL_838;
@@ -11535,15 +11582,15 @@ LABEL_829:
 
                                           if (a9 == 1)
                                           {
-                                            v1338 = v88;
+                                            v1340 = v88;
                                             dav1d_submit_frame(v13);
-                                            v88 = v1338;
+                                            v88 = v1340;
                                           }
                                         }
 
                                         *(v13 + 3328) = 0;
 LABEL_838:
-                                        if (*(&v2169 + 1) && !v29)
+                                        if (*(&v2441 + 1) && !v29)
                                         {
                                           if (a10)
                                           {
@@ -11566,16 +11613,16 @@ LABEL_838:
                                         v29 = 0;
                                         *(v13 + 3328) = 0;
                                         LODWORD(v87) = HIDWORD(v1678);
-                                        v88 = v1885;
+                                        v88 = v1920;
                                         goto LABEL_838;
                                       }
 
-                                      v731 = v2169;
-                                      LODWORD(v2169) = 0;
-                                      *(&v2168 + 1) = 0;
+                                      v733 = v2441;
+                                      LODWORD(v2441) = 0;
+                                      *(&v2440 + 1) = 0;
                                       v87 = HIDWORD(v1678);
-                                      v88 = v1885;
-                                      if (v731 <= 7)
+                                      v88 = v1920;
+                                      if (v733 <= 7)
                                       {
                                         LOBYTE(v15) = BYTE4(v1437);
                                         LODWORD(v89) = v1517;
@@ -11590,37 +11637,37 @@ LABEL_552:
                                             goto LABEL_829;
                                           }
 
-                                          v732 = *(v13 + 3328);
-                                          if (v732)
+                                          v734 = *(v13 + 3328);
+                                          if (v734)
                                           {
-                                            v733 = *(v2051 + 12);
-                                            if (v733)
+                                            v735 = *(v2225 + 12);
+                                            if (v735)
                                             {
-                                              v734 = v88;
+                                              v736 = v88;
                                             }
 
                                             else
                                             {
-                                              v734 = v88;
-                                              if (*(v2051 + 8) < 1)
+                                              v736 = v88;
+                                              if (*(v2225 + 8) < 1)
                                               {
-                                                uleb128 = malloc_type_realloc(*v2051, 0x48uLL, 0x1070040C633F987uLL);
+                                                uleb128 = malloc_type_realloc(*v2225, 0x48uLL, 0x1070040C633F987uLL);
                                                 if (!uleb128)
                                                 {
                                                   return 4294954584;
                                                 }
 
-                                                *v2051 = uleb128;
-                                                v737 = uleb128 + 72 * *(v2051 + 12);
-                                                *(v737 + 64) = 0;
-                                                *(v737 + 32) = 0u;
-                                                *(v737 + 48) = 0u;
-                                                *v737 = 0u;
-                                                *(v737 + 16) = 0u;
-                                                v733 = *(v2051 + 12);
-                                                *(v2051 + 8) = v733 + 1;
-                                                v732 = *(v13 + 3328);
-                                                if (!v732)
+                                                *v2225 = uleb128;
+                                                v739 = uleb128 + 72 * *(v2225 + 12);
+                                                *(v739 + 64) = 0;
+                                                *(v739 + 32) = 0u;
+                                                *(v739 + 48) = 0u;
+                                                *v739 = 0u;
+                                                *(v739 + 16) = 0u;
+                                                v735 = *(v2225 + 12);
+                                                *(v2225 + 8) = v735 + 1;
+                                                v734 = *(v13 + 3328);
+                                                if (!v734)
                                                 {
                                                   return 4294954584;
                                                 }
@@ -11628,185 +11675,185 @@ LABEL_552:
 
                                               else
                                               {
-                                                v733 = 0;
+                                                v735 = 0;
                                               }
                                             }
 
-                                            v738 = v732[139] * v732[135];
-                                            v739 = v738 - 1;
-                                            if (v738 > 1 && (v740 = OUTLINED_FUNCTION_5_7(uleb128, v63, v87, v65, v66, v67, v68, v69, v1357, v1437, v1517, v1597, v1678, v1759, v1837, v1885, v1926, v1967, v2009, v2051, v2091, v2132, v2168), v742 = v741, LODWORD(v87) = v741, av1_get_bits(v740, v743)))
+                                            v740 = v734[139] * v734[135];
+                                            v741 = v740 - 1;
+                                            if (v740 > 1 && (v742 = OUTLINED_FUNCTION_5_7(uleb128, v63, v87, v65, v66, v67, v68, v69, v1359, v1437, v1517, v1597, v1678, v1759, v1838, v1920, v1995, v2070, v2146, v2225, v2296, v2371, v2440), v744 = v743, LODWORD(v87) = v743, av1_get_bits(v742, v745)))
                                             {
-                                              v744 = v732[134];
-                                              v745 = v732[138];
-                                              v746 = av1_get_bits(&v2168, v745 + v744);
-                                              v747 = *v2051;
-                                              v748 = v733;
-                                              v749 = *v2051 + 72 * v733;
-                                              *(v749 + 64) = v746;
-                                              LODWORD(v87) = v742;
-                                              *(v749 + 68) = av1_get_bits(&v2168, v745 + v744);
+                                              v746 = v734[134];
+                                              v747 = v734[138];
+                                              v748 = av1_get_bits(&v2440, v747 + v746);
+                                              v749 = *v2225;
+                                              v750 = v735;
+                                              v751 = *v2225 + 72 * v735;
+                                              *(v751 + 64) = v748;
+                                              LODWORD(v87) = v744;
+                                              *(v751 + 68) = av1_get_bits(&v2440, v747 + v746);
                                             }
 
                                             else
                                             {
-                                              v747 = *v2051;
-                                              v748 = v733;
-                                              v750 = *v2051 + 72 * v733;
-                                              *(v750 + 64) = 0;
-                                              *(v750 + 68) = v739;
+                                              v749 = *v2225;
+                                              v750 = v735;
+                                              v752 = *v2225 + 72 * v735;
+                                              *(v752 + 64) = 0;
+                                              *(v752 + 68) = v741;
                                             }
 
-                                            v751 = &v747[72 * v748];
-                                            v752 = *(v751 + 16);
-                                            if (v752 > *(v751 + 17) || v752 != *(v2051 + 16))
+                                            v753 = &v749[72 * v750];
+                                            v754 = *(v753 + 16);
+                                            if (v754 > *(v753 + 17) || v754 != *(v2225 + 16))
                                             {
-                                              *(v2051 + 12) = 0;
-                                              *(v2051 + 16) = 0;
+                                              *(v2225 + 12) = 0;
+                                              *(v2225 + 16) = 0;
                                             }
 
-                                            v753 = v2169;
-                                            LODWORD(v2169) = 0;
-                                            *(&v2168 + 1) = 0;
-                                            if (v753 <= 7)
+                                            v755 = v2441;
+                                            LODWORD(v2441) = 0;
+                                            *(&v2440 + 1) = 0;
+                                            if (v755 <= 7)
                                             {
-                                              v219 = check_for_overrun(&v2168, v734, v87);
-                                              if (v219)
+                                              v221 = check_for_overrun(&v2440, v736, v87);
+                                              if (v221)
                                               {
-                                                return v219;
+                                                return v221;
                                               }
 
-                                              v754 = 8 * (DWORD2(v2169) - v2170) - v2169;
-                                              if (v89 + v87 < v754 >> 3)
+                                              v756 = 8 * (DWORD2(v2441) - v2442) - v2441;
+                                              if (v89 + v87 < v756 >> 3)
                                               {
                                                 fig_log_get_emitter("com.apple.coremedia", "");
                                                 OUTLINED_FUNCTION_1_20();
-                                                v29 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1322, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", 0xBC5, v1323, v1324, v1325);
-                                                v88 = v734;
+                                                v29 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v1324, 0xFFFFCE58uLL, "<<<< AV1Bridge >>>>", 0xBC5, v1325, v1326, v1327, v1359);
+                                                v88 = v736;
                                                 goto LABEL_838;
                                               }
 
-                                              v755 = *v2051;
-                                              v756 = *(v2051 + 12);
-                                              v757 = v756.i32[0];
-                                              v758 = *v2051 + 72 * v756.i32[0];
-                                              v759 = v754 >> 3;
-                                              v760 = *(v758 + 68) - *(v758 + 64) + 1;
-                                              *v758 = *(&v2169 + 1);
-                                              *(v758 + 8) = v89 + v87 - v759;
-                                              v761.i32[0] = 1;
-                                              v761.i32[1] = v760;
-                                              v762 = vadd_s32(v761, v756);
-                                              *(v2051 + 12) = v762;
-                                              if (v757 < 0)
+                                              v757 = *v2225;
+                                              v758 = *(v2225 + 12);
+                                              v759 = v758.i32[0];
+                                              v760 = *v2225 + 72 * v758.i32[0];
+                                              v761 = v756 >> 3;
+                                              v762 = *(v760 + 68) - *(v760 + 64) + 1;
+                                              *v760 = *(&v2441 + 1);
+                                              *(v760 + 8) = v89 + v87 - v761;
+                                              v763.i32[0] = 1;
+                                              v763.i32[1] = v762;
+                                              v764 = vadd_s32(v763, v758);
+                                              *(v2225 + 12) = v764;
+                                              if (v759 < 0)
                                               {
 LABEL_597:
                                                 v29 = 0;
                                                 v91 |= 8u;
-                                                v88 = v734;
+                                                v88 = v736;
                                                 goto LABEL_829;
                                               }
 
-                                              v763 = 0;
-                                              v764 = v2051 + 536;
-                                              v765 = v759 + v1967;
-                                              v766 = v2051 + 24;
+                                              v765 = 0;
+                                              v766 = v2225 + 536;
+                                              v767 = v761 + v2070;
+                                              v768 = v2225 + 24;
                                               while (1)
                                               {
-                                                v767 = &v755[9 * v763];
-                                                v768 = *(v767 + 16);
-                                                v769 = *(v767 + 17);
-                                                if (v768 <= v769)
+                                                v769 = &v757[9 * v765];
+                                                v770 = *(v769 + 16);
+                                                v771 = *(v769 + 17);
+                                                if (v770 <= v771)
                                                 {
                                                   break;
                                                 }
 
 LABEL_596:
-                                                if (++v763 == v762.u32[0])
+                                                if (++v765 == v764.u32[0])
                                                 {
                                                   goto LABEL_597;
                                                 }
                                               }
 
-                                              v771 = *v767;
-                                              v770 = v755[9 * v763 + 1];
+                                              v773 = *v769;
+                                              v772 = v757[9 * v765 + 1];
                                               while (1)
                                               {
-                                                v772 = 8 * v768;
-                                                if (v768 == v769)
+                                                v774 = 8 * v770;
+                                                if (v770 == v771)
                                                 {
-                                                  *(v764 + 8 * v769) = v770;
-                                                  v771 += v770;
-                                                  if (v768 < 1)
+                                                  *(v766 + 8 * v771) = v772;
+                                                  v773 += v772;
+                                                  if (v770 < 1)
                                                   {
-                                                    v770 = 0;
-                                                    v775 = *(v13 + 3328);
+                                                    v772 = 0;
+                                                    v777 = *(v13 + 3328);
 LABEL_594:
-                                                    v785 = (v765 + *(v775 + 524));
+                                                    v787 = (v767 + *(v777 + 524));
                                                     goto LABEL_595;
                                                   }
 
-                                                  v770 = 0;
-                                                  v773 = 0;
-                                                  v774 = *(v764 + v772 - 8) + *(v766 + v772 - 8);
+                                                  v772 = 0;
+                                                  v775 = 0;
+                                                  v776 = *(v766 + v774 - 8) + *(v768 + v774 - 8);
                                                 }
 
                                                 else
                                                 {
-                                                  v775 = *(v13 + 3328);
-                                                  v776 = *(v775 + 524);
-                                                  v777 = v770 >= v776;
-                                                  v778 = v770 - v776;
-                                                  if (!v777)
+                                                  v777 = *(v13 + 3328);
+                                                  v778 = *(v777 + 524);
+                                                  v779 = v772 >= v778;
+                                                  v780 = v772 - v778;
+                                                  if (!v779)
                                                   {
                                                     return 4294954584;
                                                   }
 
-                                                  if (v776)
+                                                  if (v778)
                                                   {
-                                                    v779 = 0;
-                                                    v780 = 0;
-                                                    v781 = (v776 - 1);
-                                                    v782 = v771;
+                                                    v781 = 0;
+                                                    v782 = 0;
+                                                    v783 = (v778 - 1);
+                                                    v784 = v773;
                                                     do
                                                     {
-                                                      v783 = *v782++;
-                                                      v780 |= (v783 << v779);
-                                                      v779 += 8;
-                                                      LODWORD(v776) = v776 - 1;
+                                                      v785 = *v784++;
+                                                      v782 |= (v785 << v781);
+                                                      v781 += 8;
+                                                      LODWORD(v778) = v778 - 1;
                                                     }
 
-                                                    while (v776);
-                                                    v771 += v781 + 1;
-                                                    v784 = v780 + 1;
+                                                    while (v778);
+                                                    v773 += v783 + 1;
+                                                    v786 = v782 + 1;
                                                   }
 
                                                   else
                                                   {
-                                                    v784 = 1;
+                                                    v786 = 1;
                                                   }
 
-                                                  v777 = v778 >= v784;
-                                                  v770 = v778 - v784;
-                                                  if (!v777)
+                                                  v779 = v780 >= v786;
+                                                  v772 = v780 - v786;
+                                                  if (!v779)
                                                   {
                                                     return 4294954584;
                                                   }
 
-                                                  *(v764 + 8 * v768) = v784;
-                                                  v771 += v784;
-                                                  if (v768 <= 0)
+                                                  *(v766 + 8 * v770) = v786;
+                                                  v773 += v786;
+                                                  if (v770 <= 0)
                                                   {
                                                     goto LABEL_594;
                                                   }
 
-                                                  v774 = *(v764 + v772 - 8) + *(v766 + v772 - 8);
-                                                  v773 = *(v775 + 524);
+                                                  v776 = *(v766 + v774 - 8) + *(v768 + v774 - 8);
+                                                  v775 = *(v777 + 524);
                                                 }
 
-                                                v785 = v774 + v773;
+                                                v787 = v776 + v775;
 LABEL_595:
-                                                *(v766 + 8 * v768++) = v785;
-                                                if (v769 + 1 == v768)
+                                                *(v768 + 8 * v770++) = v787;
+                                                if (v771 + 1 == v770)
                                                 {
                                                   goto LABEL_596;
                                                 }
@@ -11832,7 +11879,7 @@ LABEL_595:
 
                                 *(a6 + 1384) = 8;
 LABEL_455:
-                                v71 = HIDWORD(v1897);
+                                v71 = HIDWORD(v1940);
                                 goto LABEL_456;
                               }
 
@@ -11842,25 +11889,25 @@ LABEL_454:
                               goto LABEL_455;
                             }
 
-                            v856 = (a6 + 1340);
-                            v407 = (1 << v652);
+                            v858 = (a6 + 1340);
+                            v409 = (1 << v654);
                             do
                             {
-                              v652 = OUTLINED_FUNCTION_19_1(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781);
-                              *(v856 - 8) = v652;
-                              if (!v662[271])
+                              v654 = OUTLINED_FUNCTION_19_1(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389);
+                              *(v858 - 8) = v654;
+                              if (!v664[271])
                               {
-                                v652 = OUTLINED_FUNCTION_19_1(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781);
-                                *v856 = v652;
+                                v654 = OUTLINED_FUNCTION_19_1(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389);
+                                *v858 = v654;
                               }
 
-                              ++v856;
-                              --v407;
+                              ++v858;
+                              --v409;
                             }
 
-                            while (v407);
+                            while (v409);
 LABEL_450:
-                            if (v661 && !*(a6 + 456))
+                            if (v663 && !*(a6 + 456))
                             {
                               goto LABEL_454;
                             }
@@ -11874,38 +11921,38 @@ LABEL_449:
                           goto LABEL_450;
                         }
 
-                        v841 = 8;
+                        v843 = 8;
                         do
                         {
-                          v842 = OUTLINED_FUNCTION_5_7(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168);
-                          v652 = av1_get_bits(v842, v843);
-                          if (v652)
+                          v844 = OUTLINED_FUNCTION_5_7(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389, v2440);
+                          v654 = av1_get_bits(v844, v845);
+                          if (v654)
                           {
-                            v652 = OUTLINED_FUNCTION_13_2(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781);
+                            v654 = OUTLINED_FUNCTION_13_2(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389);
                           }
 
-                          --v841;
+                          --v843;
                         }
 
-                        while (v841);
-                        v844 = 1;
+                        while (v843);
+                        v846 = 1;
                         do
                         {
-                          v845 = v844;
-                          v846 = OUTLINED_FUNCTION_5_7(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168);
-                          v652 = av1_get_bits(v846, v847);
-                          if (v652)
+                          v847 = v846;
+                          v848 = OUTLINED_FUNCTION_5_7(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389, v2440);
+                          v654 = av1_get_bits(v848, v849);
+                          if (v654)
                           {
-                            v652 = OUTLINED_FUNCTION_13_2(v652, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781);
+                            v654 = OUTLINED_FUNCTION_13_2(v654, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389);
                           }
 
-                          v844 = 0;
+                          v846 = 0;
                         }
 
-                        while ((v845 & 1) != 0);
+                        while ((v847 & 1) != 0);
                       }
 
-                      if (v661)
+                      if (v663)
                       {
                         goto LABEL_449;
                       }
@@ -11925,125 +11972,125 @@ LABEL_426:
 
 LABEL_425:
                 *(a6 + 1208) = 0;
-                v639 = v1781;
+                v641 = v1781;
                 goto LABEL_426;
               }
             }
 
-            v556 = 0;
+            v558 = 0;
             *(a6 + 1136) = 0xFFFFFFFF00000000;
-            v557 = (a6 + 908);
+            v559 = (a6 + 908);
             do
             {
-              v558 = OUTLINED_FUNCTION_5_7(v532, v533, v534, v535, v536, v537, v538, v539, v1380, v1460, v1540, v1621, v1701, v1781, v1853, v1897, v1938, v1979, v2021, v2061, v2103, v2142, v2168);
-              v560 = av1_get_bits(v558, v559);
-              if (v560)
+              v560 = OUTLINED_FUNCTION_5_7(v534, v535, v536, v537, v538, v539, v540, v541, v1380, v1460, v1540, v1621, v1701, v1781, v1862, v1940, v2015, v2090, v2166, v2240, v2316, v2389, v2440);
+              v562 = av1_get_bits(v560, v561);
+              if (v562)
               {
-                v560 = av1_get_bits(&v2168, 9u);
-                v568 = (v560 << 23) >> 23;
-                *(a6 + 1140) = v556;
+                v562 = av1_get_bits(&v2440, 9u);
+                v570 = (v562 << 23) >> 23;
+                *(a6 + 1140) = v558;
               }
 
               else
               {
-                v568 = 0;
+                v570 = 0;
               }
 
-              *(v557 - 7) = v568;
-              v569 = OUTLINED_FUNCTION_5_7(v560, v561, v562, v563, v564, v565, v566, v567, v1382, v1462, v1542, v1623, v1703, v1783, v1855, v1899, v1940, v1981, v2023, v2063, v2105, v2144, v2168);
-              v571 = av1_get_bits(v569, v570);
-              if (v571)
+              *(v559 - 7) = v570;
+              v571 = OUTLINED_FUNCTION_5_7(v562, v563, v564, v565, v566, v567, v568, v569, v1382, v1462, v1542, v1623, v1703, v1783, v1864, v1942, v2017, v2092, v2168, v2242, v2318, v2391, v2440);
+              v573 = av1_get_bits(v571, v572);
+              if (v573)
               {
-                v571 = OUTLINED_FUNCTION_7_5(&v2168);
-                *(a6 + 1140) = v556;
-              }
-
-              else
-              {
-                v579 = 0;
-              }
-
-              *(v557 - 6) = v579;
-              v580 = OUTLINED_FUNCTION_5_7(v571, v572, v573, v574, v575, v576, v577, v578, v1383, v1463, v1543, v1624, v1704, v1784, v1856, v1900, v1941, v1982, v2024, v2064, v2106, v2145, v2168);
-              v582 = av1_get_bits(v580, v581);
-              if (v582)
-              {
-                v582 = OUTLINED_FUNCTION_7_5(&v2168);
-                *(a6 + 1140) = v556;
+                v573 = OUTLINED_FUNCTION_7_5(&v2440);
+                *(a6 + 1140) = v558;
               }
 
               else
               {
-                v590 = 0;
+                v581 = 0;
               }
 
-              *(v557 - 5) = v590;
-              v591 = OUTLINED_FUNCTION_5_7(v582, v583, v584, v585, v586, v587, v588, v589, v1384, v1464, v1544, v1625, v1705, v1785, v1857, v1901, v1942, v1983, v2025, v2065, v2107, v2146, v2168);
-              v593 = av1_get_bits(v591, v592);
-              if (v593)
+              *(v559 - 6) = v581;
+              v582 = OUTLINED_FUNCTION_5_7(v573, v574, v575, v576, v577, v578, v579, v580, v1383, v1463, v1543, v1624, v1704, v1784, v1865, v1943, v2018, v2093, v2169, v2243, v2319, v2392, v2440);
+              v584 = av1_get_bits(v582, v583);
+              if (v584)
               {
-                v593 = OUTLINED_FUNCTION_7_5(&v2168);
-                *(a6 + 1140) = v556;
-              }
-
-              else
-              {
-                v601 = 0;
-              }
-
-              *(v557 - 4) = v601;
-              v602 = OUTLINED_FUNCTION_5_7(v593, v594, v595, v596, v597, v598, v599, v600, v1385, v1465, v1545, v1626, v1706, v1786, v1858, v1902, v1943, v1984, v2026, v2066, v2108, v2147, v2168);
-              v604 = av1_get_bits(v602, v603);
-              if (v604)
-              {
-                v604 = OUTLINED_FUNCTION_7_5(&v2168);
-                *(a6 + 1140) = v556;
+                v584 = OUTLINED_FUNCTION_7_5(&v2440);
+                *(a6 + 1140) = v558;
               }
 
               else
               {
-                v612 = 0;
+                v592 = 0;
               }
 
-              *(v557 - 3) = v612;
-              v613 = OUTLINED_FUNCTION_5_7(v604, v605, v606, v607, v608, v609, v610, v611, v1386, v1466, v1546, v1627, v1707, v1787, v1859, v1903, v1944, v1985, v2027, v2067, v2109, v2148, v2168);
-              v615 = av1_get_bits(v613, v614);
-              if (v615)
+              *(v559 - 5) = v592;
+              v593 = OUTLINED_FUNCTION_5_7(v584, v585, v586, v587, v588, v589, v590, v591, v1384, v1464, v1544, v1625, v1705, v1785, v1866, v1944, v2019, v2094, v2170, v2244, v2320, v2393, v2440);
+              v595 = av1_get_bits(v593, v594);
+              if (v595)
               {
-                v623 = OUTLINED_FUNCTION_10_3(v615, v616, v617, v618, v619, v620, v621, v622, v1387, v1467, v1547, v1628, v1708, v1788);
-                *(a6 + 1140) = v556;
+                v595 = OUTLINED_FUNCTION_7_5(&v2440);
+                *(a6 + 1140) = v558;
+              }
+
+              else
+              {
+                v603 = 0;
+              }
+
+              *(v559 - 4) = v603;
+              v604 = OUTLINED_FUNCTION_5_7(v595, v596, v597, v598, v599, v600, v601, v602, v1385, v1465, v1545, v1626, v1706, v1786, v1867, v1945, v2020, v2095, v2171, v2245, v2321, v2394, v2440);
+              v606 = av1_get_bits(v604, v605);
+              if (v606)
+              {
+                v606 = OUTLINED_FUNCTION_7_5(&v2440);
+                *(a6 + 1140) = v558;
+              }
+
+              else
+              {
+                v614 = 0;
+              }
+
+              *(v559 - 3) = v614;
+              v615 = OUTLINED_FUNCTION_5_7(v606, v607, v608, v609, v610, v611, v612, v613, v1386, v1466, v1546, v1627, v1707, v1787, v1868, v1946, v2021, v2096, v2172, v2246, v2322, v2395, v2440);
+              v617 = av1_get_bits(v615, v616);
+              if (v617)
+              {
+                v625 = OUTLINED_FUNCTION_10_3(v617, v618, v619, v620, v621, v622, v623, v624, v1387, v1467, v1547, v1628, v1708, v1788, v1869, v1947, v2022, v2097, v2173, v2247, v2323, v2396);
+                *(a6 + 1140) = v558;
                 *(a6 + 1136) = 1;
               }
 
               else
               {
-                v623 = 0xFFFFFFFFLL;
+                v625 = 0xFFFFFFFFLL;
               }
 
-              *(v557 - 2) = v623;
-              v624 = OUTLINED_FUNCTION_5_7(v623, v616, v617, v618, v619, v620, v621, v622, v1387, v1467, v1547, v1628, v1708, v1788, v1860, v1904, v1945, v1986, v2028, v2068, v2110, v2149, v2168);
-              v626 = av1_get_bits(v624, v625);
-              *(v557 - 1) = v626;
-              if (v626)
+              *(v559 - 2) = v625;
+              v626 = OUTLINED_FUNCTION_5_7(v625, v618, v619, v620, v621, v622, v623, v624, v1387, v1467, v1547, v1628, v1708, v1788, v1869, v1947, v2022, v2097, v2173, v2247, v2323, v2396, v2440);
+              v628 = av1_get_bits(v626, v627);
+              *(v559 - 1) = v628;
+              if (v628)
               {
-                *(a6 + 1140) = v556;
+                *(a6 + 1140) = v558;
                 *(a6 + 1136) = 1;
               }
 
-              v634 = OUTLINED_FUNCTION_5_7(v626, v627, v628, v629, v630, v631, v632, v633, v1388, v1468, v1548, v1629, v1709, v1789, v1861, v1905, v1946, v1987, v2029, v2069, v2111, v2150, v2168);
-              v532 = av1_get_bits(v634, v635);
-              *v557 = v532;
-              if (v532)
+              v636 = OUTLINED_FUNCTION_5_7(v628, v629, v630, v631, v632, v633, v634, v635, v1388, v1468, v1548, v1629, v1709, v1789, v1870, v1948, v2023, v2098, v2174, v2248, v2324, v2397, v2440);
+              v534 = av1_get_bits(v636, v637);
+              *v559 = v534;
+              if (v534)
               {
-                *(a6 + 1140) = v556;
+                *(a6 + 1140) = v558;
                 *(a6 + 1136) = 1;
               }
 
-              ++v556;
-              v557 += 8;
+              ++v558;
+              v559 += 8;
             }
 
-            while (v556 != 8);
+            while (v558 != 8);
           }
 
           else
@@ -12055,7 +12102,7 @@ LABEL_425:
             }
           }
 
-          if (v451)
+          if (v453)
           {
             goto LABEL_419;
           }
@@ -12064,205 +12111,205 @@ LABEL_425:
         }
 
         *(a6 + 464) = 0;
-        if (v262 == 3)
+        if (v264 == 3)
         {
-          v272 = 255;
+          v274 = 255;
         }
 
         else
         {
-          v272 = OUTLINED_FUNCTION_11_2(v254, v255, v256, v257, v258, v259, v260, v261, v1367, v1447, v1527, v1608, v1688, v1768);
+          v274 = OUTLINED_FUNCTION_11_2(v256, v257, v258, v259, v260, v261, v262, v263, v1368, v1447, v1527, v1608, v1688, v1768, v1849, v1930, v2005, v2080, v2156, v2230, v2306, v2379);
         }
 
-        *(a6 + 440) = v272;
-        if (v221)
+        *(a6 + 440) = v274;
+        if (v223)
         {
-          if (!v243)
+          if (!v245)
           {
             goto LABEL_199;
           }
 
-          v273 = v2135[265];
-          v274 = 8;
+          v275 = v2379[265];
+          v276 = 8;
           do
           {
-            v272 = av1_get_bits(&v2168, v273);
-            --v274;
+            v274 = av1_get_bits(&v2440, v275);
+            --v276;
           }
 
-          while (v274);
+          while (v276);
         }
 
-        if (v243)
+        if (v245)
         {
-          v275 = 1;
-          v272 = OUTLINED_FUNCTION_3_8(&v2168);
-          *(a6 + 468) = v276;
-          if (v272)
+          v277 = 1;
+          v274 = OUTLINED_FUNCTION_3_8(&v2440);
+          *(a6 + 468) = v278;
+          if (v274)
           {
-            v277 = OUTLINED_FUNCTION_10_3(v272, v255, v256, v257, v258, v259, v260, v261, v1367, v1447, v1527, v1608, v1688, v1768);
-            v278 = v277;
-            v279 = a6 + 472;
-            *(a6 + 472) = v277;
+            v279 = OUTLINED_FUNCTION_10_3(v274, v257, v258, v259, v260, v261, v262, v263, v1368, v1447, v1527, v1608, v1688, v1768, v1849, v1930, v2005, v2080, v2156, v2230, v2306, v2379);
+            v280 = v279;
+            v281 = a6 + 472;
+            *(a6 + 472) = v279;
             *(a6 + 476) = -1;
-            v287 = OUTLINED_FUNCTION_10_3(v277, v280, v281, v282, v283, v284, v285, v286, v1368, v1448, v1528, v1609, v1689, v1769);
-            v288 = 0;
-            *(a6 + 484) = v287;
+            v289 = OUTLINED_FUNCTION_10_3(v279, v282, v283, v284, v285, v286, v287, v288, v1369, v1448, v1528, v1609, v1689, v1769, v1850, v1931, v2006, v2081, v2157, v2231, v2307, v2380);
+            v290 = 0;
+            *(a6 + 484) = v289;
             *(a6 + 496) = -1;
             *(a6 + 488) = -1;
-            v289 = v2135[265];
-            v290 = 1 << (v289 - 1);
-            v291 = v237;
-            v292 = (v237 + 3440);
+            v291 = v2379[265];
+            v292 = 1 << (v291 - 1);
+            v293 = v239;
+            v294 = (v239 + 3440);
             do
             {
-              if (!*(v292 - 1))
+              if (!*(v294 - 1))
               {
                 return 4294954584;
               }
 
-              if (v289)
+              if (v291)
               {
-                v293 = ((*v292 - v95) & (v290 - 1)) - ((*v292 - v95) & v290);
+                v295 = ((*v294 - v95) & (v292 - 1)) - ((*v294 - v95) & v292);
               }
 
               else
               {
-                v293 = 0;
+                v295 = 0;
               }
 
-              *(&v2174 + v288) = v293 + v290;
-              v288 += 4;
-              v292 += 82;
+              *(&v2446 + v290) = v295 + v292;
+              v290 += 4;
+              v294 += 82;
             }
 
-            while (v288 != 32);
-            v294 = 0;
-            v2171 = 0u;
-            v2172 = 0u;
-            v295 = &v2171;
-            *(&v2171 + v278) = 1;
-            *(&v2171 + v287) = 1;
-            v296 = &v2174;
-            v297 = -1;
-            v298 = v2135;
+            while (v290 != 32);
+            v296 = 0;
+            v2443 = 0u;
+            v2444 = 0u;
+            v297 = &v2443;
+            *(&v2443 + v280) = 1;
+            *(&v2443 + v289) = 1;
+            v298 = &v2446;
+            v299 = -1;
+            v300 = v2379;
             do
             {
-              v299 = *(v296 + v294);
-              if (*(v295 + v294))
+              v301 = *(v298 + v296);
+              if (*(v297 + v296))
               {
-                v300 = 1;
+                v302 = 1;
               }
 
               else
               {
-                v300 = v299 < v290;
+                v302 = v301 < v292;
               }
 
-              if (!v300 && v299 >= v297)
+              if (!v302 && v301 >= v299)
               {
-                *(a6 + 496) = v294;
+                *(a6 + 496) = v296;
               }
 
               OUTLINED_FUNCTION_25_0();
             }
 
-            while (!v332);
-            if (v297 != -1)
+            while (!v334);
+            if (v299 != -1)
             {
-              *(&v2171 + v302) = 1;
+              *(&v2443 + v304) = 1;
             }
 
             OUTLINED_FUNCTION_17_0();
             do
             {
-              v308 = *(v306 + 4 * v304);
-              if (*(v307 + 4 * v304))
+              v310 = *(v308 + 4 * v306);
+              if (*(v309 + 4 * v306))
               {
-                v309 = 1;
+                v311 = 1;
               }
 
               else
               {
-                v309 = v308 < v303;
+                v311 = v310 < v305;
               }
 
-              if (!v309 && v308 < v305)
+              if (!v311 && v310 < v307)
               {
-                *(a6 + 488) = v304;
+                *(a6 + 488) = v306;
               }
 
               OUTLINED_FUNCTION_25_0();
             }
 
-            while (!v332);
-            if (v305 != 0x7FFFFFFF)
+            while (!v334);
+            if (v307 != 0x7FFFFFFF)
             {
-              *(&v2171 + v311) = 1;
+              *(&v2443 + v313) = 1;
             }
 
             OUTLINED_FUNCTION_17_0();
             do
             {
-              v317 = *(v315 + 4 * v313);
-              if (*(v316 + 4 * v313))
+              v319 = *(v317 + 4 * v315);
+              if (*(v318 + 4 * v315))
               {
-                v318 = 1;
+                v320 = 1;
               }
 
               else
               {
-                v318 = v317 < v312;
+                v320 = v319 < v314;
               }
 
-              if (!v318 && v317 < v314)
+              if (!v320 && v319 < v316)
               {
-                *(a6 + 492) = v313;
+                *(a6 + 492) = v315;
               }
 
               OUTLINED_FUNCTION_25_0();
             }
 
-            while (!v332);
-            if (v314 != 0x7FFFFFFF)
+            while (!v334);
+            if (v316 != 0x7FFFFFFF)
             {
-              *(&v2171 + v320) = 1;
+              *(&v2443 + v322) = 1;
             }
 
             for (m = 1; m != 7; ++m)
             {
-              v322 = *(v279 + 4 * m);
-              if (v322 < 0)
+              v324 = *(v281 + 4 * m);
+              if (v324 < 0)
               {
-                v323 = 0;
-                v324 = -1;
+                v325 = 0;
+                v326 = -1;
                 do
                 {
-                  v325 = *(&v2174 + v323);
-                  if (*(&v2171 + v323))
+                  v327 = *(&v2446 + v325);
+                  if (*(&v2443 + v325))
                   {
-                    v326 = 0;
+                    v328 = 0;
                   }
 
                   else
                   {
-                    v326 = v325 < v312;
+                    v328 = v327 < v314;
                   }
 
-                  if (v326 && v325 >= v324)
+                  if (v328 && v327 >= v326)
                   {
-                    *(v279 + 4 * m) = v323;
-                    v322 = v323;
+                    *(v281 + 4 * m) = v325;
                     v324 = v325;
+                    v326 = v327;
                   }
 
-                  ++v323;
+                  ++v325;
                 }
 
-                while (v323 != 8);
-                if (v324 != -1)
+                while (v325 != 8);
+                if (v326 != -1)
                 {
-                  *(&v2171 + v322) = 1;
+                  *(&v2443 + v324) = 1;
                 }
               }
             }
@@ -12272,128 +12319,128 @@ LABEL_425:
               OUTLINED_FUNCTION_25_0();
             }
 
-            while (!v332);
+            while (!v334);
             for (n = 0; n != 28; n += 4)
             {
-              if ((*(v279 + n) & 0x80000000) != 0)
+              if ((*(v281 + n) & 0x80000000) != 0)
               {
-                *(v279 + n) = v328;
+                *(v281 + n) = v330;
               }
             }
 
-            v275 = 0;
+            v277 = 0;
 LABEL_201:
             for (ii = 472; ii != 500; ii += 4)
             {
-              if (v275)
+              if (v277)
               {
-                v272 = OUTLINED_FUNCTION_10_3(v272, v255, v256, v257, v258, v259, v260, v261, v1367, v1447, v1527, v1608, v1688, v1768);
-                *(a6 + ii) = v272;
+                v274 = OUTLINED_FUNCTION_10_3(v274, v257, v258, v259, v260, v261, v262, v263, v1368, v1447, v1527, v1608, v1688, v1768, v1849, v1930, v2005, v2080, v2156, v2230, v2306, v2379);
+                *(a6 + ii) = v274;
               }
 
-              if (v298[250])
+              if (v300[250])
               {
-                v272 = av1_get_bits(&v2168, v298[251]);
-                v331 = *(v291 + 3424 + 328 * *(a6 + ii) + 8);
-                if (!v331 || *(v331 + 268) != ((*(a6 + 268) + (1 << v298[252]) + ~v272) & ((1 << v298[252]) - 1)))
+                v274 = av1_get_bits(&v2440, v300[251]);
+                v333 = *(v293 + 3424 + 328 * *(a6 + ii) + 8);
+                if (!v333 || *(v333 + 268) != ((*(a6 + 268) + (1 << v300[252]) + ~v274) & ((1 << v300[252]) - 1)))
                 {
                   return 4294954584;
                 }
               }
             }
 
-            if (v221)
+            if (v223)
             {
-              v332 = 1;
+              v334 = 1;
             }
 
             else
             {
-              v332 = v1447 == 0;
+              v334 = v1447 == 0;
             }
 
-            v333 = !v332;
-            v334 = read_frame_size(v291, &v2168, a6, v298, v333);
+            v335 = !v334;
+            v336 = read_frame_size(v293, &v2440, a6, v300, v335);
             if (*(a6 + 296))
             {
-              v342 = 0;
+              v344 = 0;
             }
 
             else
             {
-              v334 = OUTLINED_FUNCTION_4_8(&v2168);
-              v342 = !v332;
+              v336 = OUTLINED_FUNCTION_4_8(&v2440);
+              v344 = !v334;
             }
 
-            *(a6 + 500) = v342;
-            v380 = OUTLINED_FUNCTION_5_7(v334, v335, v336, v337, v338, v339, v340, v341, v1367, v1447, v1527, v1608, v1688, v1768, v1843, v1890, v1931, v1972, v2014, v2054, v2096, v2135, v2168);
-            v382 = av1_get_bits(v380, v381);
-            if (v382)
+            *(a6 + 500) = v344;
+            v382 = OUTLINED_FUNCTION_5_7(v336, v337, v338, v339, v340, v341, v342, v343, v1368, v1447, v1527, v1608, v1688, v1768, v1849, v1930, v2005, v2080, v2156, v2230, v2306, v2379, v2440);
+            v384 = av1_get_bits(v382, v383);
+            if (v384)
             {
-              v390 = 4;
+              v392 = 4;
             }
 
             else
             {
-              v390 = OUTLINED_FUNCTION_8_4(v382, v383, v384, v385, v386, v387, v388, v389, v1371, v1451, v1531, v1612, v1692, v1772);
+              v392 = OUTLINED_FUNCTION_8_4(v384, v385, v386, v387, v388, v389, v390, v391, v1372, v1451, v1531, v1612, v1692, v1772, v1853, v1932, v2007, v2082, v2158, v2232, v2308, v2381);
             }
 
-            *(a6 + 504) = v390;
-            v391 = OUTLINED_FUNCTION_5_7(v390, v383, v384, v385, v386, v387, v388, v389, v1371, v1451, v1531, v1612, v1692, v1772, v1846, v1891, v1932, v1973, v2015, v2055, v2097, v2136, v2168);
-            frame_size = av1_get_bits(v391, v392);
+            *(a6 + 504) = v392;
+            v393 = OUTLINED_FUNCTION_5_7(v392, v385, v386, v387, v388, v389, v390, v391, v1372, v1451, v1531, v1612, v1692, v1772, v1853, v1932, v2007, v2082, v2158, v2232, v2308, v2381, v2440);
+            frame_size = av1_get_bits(v393, v394);
             *(a6 + 508) = frame_size;
             if (!*(a6 + 284))
             {
-              v355 = v298[262];
-              if (!v355)
+              v357 = v300[262];
+              if (!v357)
               {
                 goto LABEL_254;
               }
 
-              v355 = v298[260];
-              if (!v355)
+              v357 = v300[260];
+              if (!v357)
               {
                 goto LABEL_254;
               }
 
               OUTLINED_FUNCTION_18_1();
-              if (v472)
+              if (v474)
               {
-                frame_size = OUTLINED_FUNCTION_3_8(&v2168);
+                frame_size = OUTLINED_FUNCTION_3_8(&v2440);
                 goto LABEL_254;
               }
             }
 
-            v355 = 0;
+            v357 = 0;
             goto LABEL_254;
           }
 
 LABEL_200:
-          v291 = v237;
-          v298 = v2135;
+          v293 = v239;
+          v300 = v2379;
           goto LABEL_201;
         }
 
 LABEL_199:
         *(a6 + 468) = 0;
-        v275 = 1;
+        v277 = 1;
         goto LABEL_200;
       }
 
-      uleb128 = OUTLINED_FUNCTION_9_4(&v2168, 3u);
+      uleb128 = OUTLINED_FUNCTION_9_4(&v2440, 3u);
       *(a6 + 264) = uleb128;
-      if (v2132[242] && !v2132[240])
+      if (v2371[242] && !v2371[240])
       {
-        uleb128 = av1_get_bits(&v2168, v2132[246]);
+        uleb128 = av1_get_bits(&v2440, v2371[246]);
         *(a6 + 272) = uleb128;
       }
 
-      if (!v2132[250])
+      if (!v2371[250])
       {
         goto LABEL_542;
       }
 
-      uleb128 = av1_get_bits(&v2168, v2132[252]);
+      uleb128 = av1_get_bits(&v2440, v2371[252]);
       *(a6 + 268) = uleb128;
       v156 = *(v13 + 328 * a1 + 3432);
       if (v156)

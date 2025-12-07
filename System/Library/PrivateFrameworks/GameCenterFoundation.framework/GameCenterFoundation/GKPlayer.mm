@@ -45,6 +45,7 @@
 - (NSString)referenceKey;
 - (NSString)teamPlayerID;
 - (id)description;
+- (id)displayNameWithOptions:(unsigned __int8)options;
 - (id)methodSignatureForSelector:(SEL)selector;
 - (id)minimalPlayer;
 - (id)searchName;
@@ -366,7 +367,7 @@ void __24__GKPlayer_isArcadeGame__block_invoke()
 
 - (void)logAndReportIllegalArcadeAccessTo:(id)to
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   toCopy = to;
   v4 = +[GKPreferences shared];
   isInternalBuild = [v4 isInternalBuild];
@@ -400,16 +401,14 @@ void __24__GKPlayer_isArcadeGame__block_invoke()
   }
 
   v9 = +[GKAPIReporter reporter];
-  v12[0] = @"eventType";
-  v12[1] = @"apiType";
-  v13[0] = @"deprecatedAPIUsage";
-  v13[1] = @"property";
-  v12[2] = @"apiName";
-  v13[2] = toCopy;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v11[0] = @"eventType";
+  v11[1] = @"apiType";
+  v12[0] = @"deprecatedAPIUsage";
+  v12[1] = @"property";
+  v11[2] = @"apiName";
+  v12[2] = toCopy;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
   [v9 recordPerformanceMetrics:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)scopedIDsArePersistent
@@ -499,7 +498,7 @@ LABEL_9:
 
 - (void)logAndReportScopedIDsError:(id)error
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = +[GKPreferences shared];
   isInternalBuild = [v5 isInternalBuild];
@@ -520,19 +519,17 @@ LABEL_9:
   }
 
   v9 = +[GKAPIReporter reporter];
-  v12[0] = @"eventType";
-  v12[1] = @"errorType";
-  v13[0] = @"scopedIDsError";
-  v13[1] = errorCopy;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = @"eventType";
+  v11[1] = @"errorType";
+  v12[0] = @"scopedIDsError";
+  v12[1] = errorCopy;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   [v9 recordPerformanceMetrics:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateScopedIDs:(id)ds
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   internal = [(GKPlayer *)self internal];
   playerID = [internal playerID];
@@ -554,9 +551,9 @@ LABEL_9:
       if (os_log_type_enabled(os_log_GKTrace, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v21 = playerID;
-        v22 = 2112;
-        v23 = v7;
+        v20 = playerID;
+        v21 = 2112;
+        v22 = v7;
         _os_log_impl(&dword_227904000, v11, OS_LOG_TYPE_INFO, "Not updating persistent scoped ids for playerID: %@ gameBundleID: %@", buf, 0x16u);
       }
 
@@ -566,18 +563,18 @@ LABEL_9:
     else
     {
       objc_initWeak(buf, self);
-      v19 = playerID;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __28__GKPlayer_updateScopedIDs___block_invoke;
-      v16[3] = &unk_2785DFC48;
-      objc_copyWeak(&v18, buf);
-      v16[4] = self;
-      v17 = dsCopy;
-      [GKPlayer loadScopedIDsForPlayerIDs:v14 gameBundleID:v7 handler:v16];
+      v18 = playerID;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __28__GKPlayer_updateScopedIDs___block_invoke;
+      v15[3] = &unk_2785DFC48;
+      objc_copyWeak(&v17, buf);
+      v15[4] = self;
+      v16 = dsCopy;
+      [GKPlayer loadScopedIDsForPlayerIDs:v14 gameBundleID:v7 handler:v15];
 
-      objc_destroyWeak(&v18);
+      objc_destroyWeak(&v17);
       objc_destroyWeak(buf);
     }
   }
@@ -598,8 +595,6 @@ LABEL_9:
 
     dsCopy[2](dsCopy);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __28__GKPlayer_updateScopedIDs___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -632,7 +627,7 @@ void __28__GKPlayer_updateScopedIDs___block_invoke(uint64_t a1, void *a2, void *
 
 + (void)loadScopedIDsForPlayerIDs:(id)ds gameBundleID:(id)d handler:(id)handler
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   dCopy = d;
   handlerCopy = handler;
@@ -641,29 +636,27 @@ void __28__GKPlayer_updateScopedIDs___block_invoke(uint64_t a1, void *a2, void *
     v10 = +[GKDaemonProxy proxyForLocalPlayer];
     profileService = [v10 profileService];
 
-    v18[0] = dCopy;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __59__GKPlayer_loadScopedIDsForPlayerIDs_gameBundleID_handler___block_invoke;
-    v14[3] = &unk_2785DE568;
-    v15 = dsCopy;
-    v16 = dCopy;
-    v17 = handlerCopy;
-    [profileService loadScopedPlayerIDs:v15 gameBundleIDs:v12 handler:v14];
+    v17[0] = dCopy;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __59__GKPlayer_loadScopedIDsForPlayerIDs_gameBundleID_handler___block_invoke;
+    v13[3] = &unk_2785DE568;
+    v14 = dsCopy;
+    v15 = dCopy;
+    v16 = handlerCopy;
+    [profileService loadScopedPlayerIDs:v14 gameBundleIDs:v12 handler:v13];
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, MEMORY[0x277CBEC10], 0);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __59__GKPlayer_loadScopedIDsForPlayerIDs_gameBundleID_handler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = os_log_GKGeneral;
@@ -675,17 +668,17 @@ void __59__GKPlayer_loadScopedIDsForPlayerIDs_gameBundleID_handler___block_invok
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v12 = a1[4];
-    v13 = a1[5];
-    v14 = 138413058;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v13;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_debug_impl(&dword_227904000, v7, OS_LOG_TYPE_DEBUG, "Loaded scoped ids: %@ for playerIDs: %@, gameBundleID: %@, error: %@", &v14, 0x2Au);
+    v11 = a1[4];
+    v12 = a1[5];
+    v13 = 138413058;
+    v14 = v5;
+    v15 = 2112;
+    v16 = v11;
+    v17 = 2112;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_debug_impl(&dword_227904000, v7, OS_LOG_TYPE_DEBUG, "Loaded scoped ids: %@ for playerIDs: %@, gameBundleID: %@, error: %@", &v13, 0x2Au);
   }
 
   v9 = a1[6];
@@ -699,8 +692,6 @@ void __59__GKPlayer_loadScopedIDsForPlayerIDs_gameBundleID_handler___block_invok
     v10 = [GKScopedIDs makePlayerIDtoScopedIDsDictFromScopedIDs:v5];
     (*(v9 + 16))(v9, v10, 0);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSNumber)friendLevel
@@ -781,9 +772,11 @@ void __59__GKPlayer_loadScopedIDsForPlayerIDs_gameBundleID_handler___block_invok
 
 uint64_t __17__GKPlayer_alias__block_invoke()
 {
-  alias_sUnknownPlayerNickname = +[_TtC20GameCenterFoundation19GCFLocalizedStrings UNKNOWN_PLAYER_NICKNAME];
+  v0 = +[_TtC20GameCenterFoundation19GCFLocalizedStrings UNKNOWN_PLAYER_NICKNAME];
+  v1 = alias_sUnknownPlayerNickname;
+  alias_sUnknownPlayerNickname = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (int64_t)avatarType
@@ -1253,7 +1246,7 @@ void __61__GKPlayer__loadPlayersForIdentifiers_withCompletionHandler___block_inv
 
 void __61__GKPlayer__loadPlayersForIdentifiers_withCompletionHandler___block_invoke_130(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:*(a1 + 88) + 1];
   v3 = [*(a1 + 32) internal];
   v4 = [v3 playerID];
@@ -1266,26 +1259,26 @@ void __61__GKPlayer__loadPlayersForIdentifiers_withCompletionHandler___block_inv
     [v2 setObject:v5 forKeyedSubscript:v7];
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v8 = *(a1 + 40);
-  v9 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v31;
+    v11 = *v30;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v31 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [[GKPlayer alloc] initWithInternalRepresentation:*(*(&v30 + 1) + 8 * i)];
+        v13 = [[GKPlayer alloc] initWithInternalRepresentation:*(*(&v29 + 1) + 8 * i)];
         v14 = [(GKPlayer *)v13 internal];
         v15 = [v14 playerID];
 
@@ -1295,31 +1288,31 @@ void __61__GKPlayer__loadPlayersForIdentifiers_withCompletionHandler___block_inv
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v10);
   }
 
   v16 = *(a1 + 48);
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __61__GKPlayer__loadPlayersForIdentifiers_withCompletionHandler___block_invoke_2_132;
-  v28[3] = &unk_2785DFD30;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __61__GKPlayer__loadPlayersForIdentifiers_withCompletionHandler___block_invoke_2_132;
+  v27[3] = &unk_2785DFD30;
   v17 = v2;
-  v29 = v17;
-  [v16 enumerateObjectsUsingBlock:v28];
+  v28 = v17;
+  [v16 enumerateObjectsUsingBlock:v27];
   v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:*(a1 + 88)];
   v19 = *(a1 + 56);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __61__GKPlayer__loadPlayersForIdentifiers_withCompletionHandler___block_invoke_3_133;
-  v25[3] = &unk_2785DFD08;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __61__GKPlayer__loadPlayersForIdentifiers_withCompletionHandler___block_invoke_3_133;
+  v24[3] = &unk_2785DFD08;
   v20 = v17;
-  v26 = v20;
+  v25 = v20;
   v21 = v18;
-  v27 = v21;
-  [v19 enumerateObjectsUsingBlock:v25];
+  v26 = v21;
+  [v19 enumerateObjectsUsingBlock:v24];
   v22 = os_log_GKGeneral;
   if (!os_log_GKGeneral)
   {
@@ -1335,8 +1328,6 @@ void __61__GKPlayer__loadPlayersForIdentifiers_withCompletionHandler___block_inv
   [*(a1 + 64) setObject:v21 forKeyedSubscript:@"players"];
   [*(a1 + 64) setError:*(a1 + 72)];
   (*(*(a1 + 80) + 16))();
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __61__GKPlayer__loadPlayersForIdentifiers_withCompletionHandler___block_invoke_2_132(uint64_t a1, void *a2)
@@ -1919,39 +1910,36 @@ LABEL_4:
 
 void __61__GKPlayer_loadProfileDiscardingStaleData_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = *(a1 + 32);
+    v4 = *(a1 + 32);
   }
 
   else
   {
-    v5 = +[GKLocalPlayer localPlayer];
+    v4 = +[GKLocalPlayer localPlayer];
   }
 
-  v6 = v5;
-  v7 = [GKDaemonProxy proxyForPlayer:v5];
-  v8 = [v7 profileService];
-  v19[0] = *(a1 + 40);
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-  v10 = *(a1 + 56);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __61__GKPlayer_loadProfileDiscardingStaleData_completionHandler___block_invoke_2;
-  v15[3] = &unk_2785DE568;
-  v11 = *(a1 + 48);
-  v12 = *(a1 + 32);
-  v16 = v11;
-  v17 = v12;
-  v18 = v3;
-  v13 = v3;
-  [v8 getProfilesForPlayerIDs:v9 discardingStaleData:v10 handler:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v5 = v4;
+  v6 = [GKDaemonProxy proxyForPlayer:v4];
+  v7 = [v6 profileService];
+  v17[0] = *(a1 + 40);
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v9 = *(a1 + 56);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __61__GKPlayer_loadProfileDiscardingStaleData_completionHandler___block_invoke_2;
+  v13[3] = &unk_2785DE568;
+  v10 = *(a1 + 48);
+  v11 = *(a1 + 32);
+  v14 = v10;
+  v15 = v11;
+  v16 = v3;
+  v12 = v3;
+  [v7 getProfilesForPlayerIDs:v8 discardingStaleData:v9 handler:v13];
 }
 
 void __61__GKPlayer_loadProfileDiscardingStaleData_completionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -2002,6 +1990,15 @@ id __60__GKPlayer_loadCompletePlayersForPlayers_completionHandler___block_invoke
   v3 = [v2 playerID];
 
   return v3;
+}
+
+- (id)displayNameWithOptions:(unsigned __int8)options
+{
+  optionsCopy = options;
+  internal = [(GKPlayer *)self internal];
+  v5 = [internal displayNameWithOptions:optionsCopy];
+
+  return v5;
 }
 
 - (id)sortName
@@ -2231,120 +2228,84 @@ id __60__GKPlayer_loadCompletePlayersForPlayers_completionHandler___block_invoke
 
 - (void)initWithInternalRepresentation:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_227904000, v0, OS_LOG_TYPE_DEBUG, "Initialized player with internal representation: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)logAndReportIllegalArcadeAccessTo:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_227904000, v0, v1, "ERROR: Illegal access to '%{public}@'", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_227904000, v0, OS_LOG_TYPE_DEBUG, "Initialized player with internal representation: %@", v1, 0xCu);
 }
 
 - (void)logAndReportIllegalArcadeAccessTo:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_227904000, v0, OS_LOG_TYPE_FAULT, "Arcade game is attempting to read '%@'", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_227904000, v0, OS_LOG_TYPE_FAULT, "Arcade game is attempting to read '%@'", v1, 0xCu);
 }
 
 - (void)logAndReportScopedIDsError:(void *)a3 .cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 internal];
   v7 = +[GKPlayer gameBundleID];
-  v9 = 138412802;
-  v10 = a1;
-  v11 = 2112;
-  v12 = v6;
-  v13 = 2112;
-  v14 = v7;
-  _os_log_fault_impl(&dword_227904000, v5, OS_LOG_TYPE_FAULT, "%@ scoped ids for player: %@ game bundle id: %@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412802;
+  v9 = a1;
+  v10 = 2112;
+  v11 = v6;
+  v12 = 2112;
+  v13 = v7;
+  _os_log_fault_impl(&dword_227904000, v5, OS_LOG_TYPE_FAULT, "%@ scoped ids for player: %@ game bundle id: %@", &v8, 0x20u);
 }
 
 - (void)updateScopedIDs:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 internal];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_227904000, v3, OS_LOG_TYPE_DEBUG, "Attempting to load scoped ids for invalid internal: %@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_227904000, v3, OS_LOG_TYPE_DEBUG, "Attempting to load scoped ids for invalid internal: %@", v5, 0xCu);
 }
 
 void __28__GKPlayer_updateScopedIDs___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [v4 internal];
   v7 = [v6 playerID];
   v8 = +[GKPlayer gameBundleID];
-  v10 = 138412802;
-  v11 = v7;
-  v12 = 2112;
-  v13 = v8;
-  v14 = 2112;
-  v15 = a3;
-  _os_log_error_impl(&dword_227904000, v5, OS_LOG_TYPE_ERROR, "Failed to load scoped ids for playerID: %@, gameBundleID: %@, error: %@", &v10, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __60__GKPlayer_loadPlayersForIdentifiers_withCompletionHandler___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_227904000, v0, v1, "***The current application is not allowed to use this API***:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61__GKPlayer__loadPlayersForIdentifiers_withCompletionHandler___block_invoke_4_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_227904000, v0, v1, "GKPlayer: _loadPlayersForIdentifiers: - Failed to get profiles and scoped IDs for Player IDs due to error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v9 = 138412802;
+  v10 = v7;
+  v11 = 2112;
+  v12 = v8;
+  v13 = 2112;
+  v14 = a3;
+  _os_log_error_impl(&dword_227904000, v5, OS_LOG_TYPE_ERROR, "Failed to load scoped ids for playerID: %@, gameBundleID: %@, error: %@", &v9, 0x20u);
 }
 
 void __61__GKPlayer__loadPlayersForIdentifiers_withCompletionHandler___block_invoke_130_cold_1(void **a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v5 = a2;
-  v7 = 134218240;
-  v8 = [v4 count];
-  v9 = 2048;
-  v10 = [a3 count];
-  _os_log_debug_impl(&dword_227904000, v5, OS_LOG_TYPE_DEBUG, "ScopedIDs number of Guests: %lu vs Friends: %lu", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218240;
+  v7 = [v4 count];
+  v8 = 2048;
+  v9 = [a3 count];
+  _os_log_debug_impl(&dword_227904000, v5, OS_LOG_TYPE_DEBUG, "ScopedIDs number of Guests: %lu vs Friends: %lu", &v6, 0x16u);
 }
 
 void __61__GKPlayer__loadPlayersForIdentifiers_withCompletionHandler___block_invoke_3_133_cold_1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1 gamePlayerID];
   v5 = [a1 teamPlayerID];
-  v7 = 138412802;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v4;
-  v11 = 2112;
-  v12 = v5;
-  _os_log_debug_impl(&dword_227904000, v3, OS_LOG_TYPE_DEBUG, "ScopedIDs for Player: %@ gameID: %@ teamID: %@", &v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412802;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v4;
+  v10 = 2112;
+  v11 = v5;
+  _os_log_debug_impl(&dword_227904000, v3, OS_LOG_TYPE_DEBUG, "ScopedIDs for Player: %@ gameID: %@ teamID: %@", &v6, 0x20u);
 }
 
 @end

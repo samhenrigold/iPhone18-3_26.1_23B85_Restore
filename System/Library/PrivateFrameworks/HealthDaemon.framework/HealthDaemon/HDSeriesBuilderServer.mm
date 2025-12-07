@@ -32,7 +32,7 @@
     queue = v11->_queue;
     v11->_queue = v12;
 
-    v14 = [configurationCopy copy];
+    v14 = objc_msgSend_copy(configurationCopy);
     configuration = v11->_configuration;
     v11->_configuration = v14;
 
@@ -51,16 +51,16 @@
 
 void __68__HDSeriesBuilderServer_initWithUUID_configuration_client_delegate___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (v1)
   {
     dispatch_assert_queue_V2(*(v1 + 48));
     v2 = [v1 taskUUID];
     v3 = [v1 profile];
-    v18 = 0;
-    v4 = [HDSeriesBuilderEntity persistentEntityForBuilderIdentifier:v2 profile:v3 error:&v18];
-    v5 = v18;
+    v17 = 0;
+    v4 = [HDSeriesBuilderEntity persistentEntityForBuilderIdentifier:v2 profile:v3 error:&v17];
+    v5 = v17;
     v6 = *(v1 + 72);
     *(v1 + 72) = v4;
 
@@ -72,56 +72,51 @@ void __68__HDSeriesBuilderServer_initWithUUID_configuration_client_delegate___bl
       {
 LABEL_4:
 
-        goto LABEL_7;
+        return;
       }
 
       *buf = 138543362;
-      v20 = v5;
-      v16 = "Couldn't recover series builder with error %{public}@";
+      v19 = v5;
+      v15 = "Couldn't recover series builder with error %{public}@";
+LABEL_12:
+      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, v15, buf, 0xCu);
+      goto LABEL_4;
+    }
+
+    if (*(v1 + 72))
+    {
+      [v1 queue_recoverBuilder];
     }
 
     else
     {
-      if (*(v1 + 72))
+      v8 = [v1 taskUUID];
+      v9 = [v1 seriesSample];
+      v10 = [v9 sampleType];
+      v11 = *(v1 + 56);
+      v12 = [v1 profile];
+      v16 = 0;
+      v13 = [HDSeriesBuilderEntity createPersistentEntityForBuilderIdentifier:v8 seriesType:v10 state:v11 profile:v12 error:&v16];
+      v5 = v16;
+      v14 = *(v1 + 72);
+      *(v1 + 72) = v13;
+
+      if (v5)
       {
-        [v1 queue_recoverBuilder];
-        goto LABEL_7;
+        _HKInitializeLogging();
+        v7 = *MEMORY[0x277CCC330];
+        if (!os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_4;
+        }
+
+        *buf = 138543362;
+        v19 = v5;
+        v15 = "Couldn't create persistent entity for series builder with error %{public}@";
+        goto LABEL_12;
       }
-
-      v9 = [v1 taskUUID];
-      v10 = [v1 seriesSample];
-      v11 = [v10 sampleType];
-      v12 = *(v1 + 56);
-      v13 = [v1 profile];
-      v17 = 0;
-      v14 = [HDSeriesBuilderEntity createPersistentEntityForBuilderIdentifier:v9 seriesType:v11 state:v12 profile:v13 error:&v17];
-      v5 = v17;
-      v15 = *(v1 + 72);
-      *(v1 + 72) = v14;
-
-      if (!v5)
-      {
-        goto LABEL_7;
-      }
-
-      _HKInitializeLogging();
-      v7 = *MEMORY[0x277CCC330];
-      if (!os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_4;
-      }
-
-      *buf = 138543362;
-      v20 = v5;
-      v16 = "Couldn't create persistent entity for series builder with error %{public}@";
     }
-
-    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, v16, buf, 0xCu);
-    goto LABEL_4;
   }
-
-LABEL_7:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -129,11 +124,10 @@ LABEL_7:
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   taskUUID = [(HDStandardTaskServer *)self taskUUID];
-  queue_state = self->_queue_state;
-  v7 = HKSeriesBuilderStateToString();
-  v8 = [v3 stringWithFormat:@"<%@:%p %@ %@>", v4, self, taskUUID, v7];
+  v6 = HKSeriesBuilderStateToString();
+  v7 = [v3 stringWithFormat:@"<%@:%p %@ %@>", v4, self, taskUUID, v6];
 
-  return v8;
+  return v7;
 }
 
 - (void)associateToWorkoutBuilderWithCompletion:(id)completion
@@ -285,7 +279,7 @@ void __55__HDSeriesBuilderServer_remote_addMetadata_completion___block_invoke(ui
 
 void __54__HDSeriesBuilderServer_remote_discardWithCompletion___block_invoke(uint64_t a1)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if ((v2[7] & 0xFFFFFFFFFFFFFFFELL) == 2)
   {
@@ -294,9 +288,8 @@ void __54__HDSeriesBuilderServer_remote_discardWithCompletion___block_invoke(uin
     v5 = *(v3 + 16);
     v6 = v3;
 LABEL_8:
-    v18 = v4;
+    v16 = v4;
     v5(v6, 0);
-    v17 = *MEMORY[0x277D85DE8];
 
     return;
   }
@@ -305,10 +298,10 @@ LABEL_8:
 
   if (!v7)
   {
-    v16 = *(a1 + 40);
+    v15 = *(a1 + 40);
     v4 = [MEMORY[0x277CCA9B8] hk_error:100 format:@"Unexpected error encoutered while discarding series"];
-    v5 = *(v16 + 16);
-    v6 = v16;
+    v5 = *(v15 + 16);
+    v6 = v15;
     goto LABEL_8;
   }
 
@@ -321,23 +314,21 @@ LABEL_8:
     v11 = [v10 sampleSavingDelegate];
     v12 = [(dispatch_queue_t *)v8 seriesSample];
     v13 = [v12 sampleType];
-    v23[0] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __66__HDSeriesBuilderServer__queue_discardIfAuthorizedWithCompletion___block_invoke;
-    v21[3] = &unk_2786200A8;
-    v21[4] = v8;
-    v22 = v9;
+    v21[0] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     v19[0] = MEMORY[0x277D85DD0];
     v19[1] = 3221225472;
-    v19[2] = __66__HDSeriesBuilderServer__queue_discardIfAuthorizedWithCompletion___block_invoke_2;
-    v19[3] = &unk_2786200D0;
-    v20 = v22;
-    [v11 performIfAuthorizedToDeleteObjectTypes:v14 usingBlock:v21 errorHandler:v19];
+    v19[2] = __66__HDSeriesBuilderServer__queue_discardIfAuthorizedWithCompletion___block_invoke;
+    v19[3] = &unk_2786200A8;
+    v19[4] = v8;
+    v20 = v9;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __66__HDSeriesBuilderServer__queue_discardIfAuthorizedWithCompletion___block_invoke_2;
+    v17[3] = &unk_2786200D0;
+    v18 = v20;
+    [v11 performIfAuthorizedToDeleteObjectTypes:v14 usingBlock:v19 errorHandler:v17];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_freezeWithCompletion:(id)completion
@@ -412,21 +403,21 @@ void __54__HDSeriesBuilderServer_remote_recoverWithCompletion___block_invoke(uin
 
 void __52__HDSeriesBuilderServer__setClientState_completion___block_invoke(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
   {
-    v7 = a1[4];
-    v8 = a1[6];
-    v9 = 138543874;
-    v10 = v7;
-    v11 = 2048;
-    v12 = v8;
-    v13 = 2114;
-    v14 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of state change to %ld with error: %{public}@", &v9, 0x20u);
+    v6 = a1[4];
+    v7 = a1[6];
+    v8 = 138543874;
+    v9 = v6;
+    v10 = 2048;
+    v11 = v7;
+    v12 = 2114;
+    v13 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to notify client of state change to %ld with error: %{public}@", &v8, 0x20u);
   }
 
   v5 = a1[5];
@@ -434,28 +425,33 @@ void __52__HDSeriesBuilderServer__setClientState_completion___block_invoke(void 
   {
     (*(v5 + 16))();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __52__HDSeriesBuilderServer__setClientState_completion___block_invoke_324(uint64_t a1, int a2, void *a3)
 {
-  a3;
+  v5 = a3;
   if (a2)
   {
-    v5 = *(a1 + 32);
-    if (v5)
+    v6 = *(a1 + 32);
+    if (!v6)
     {
-      (*(v5 + 16))();
+      goto LABEL_6;
     }
+
+    v8 = v5;
+    v6 = (*(v6 + 16))();
   }
 
   else
   {
-    (*(*(a1 + 40) + 16))();
+    v8 = v5;
+    v6 = (*(*(a1 + 40) + 16))();
   }
 
-  return MEMORY[0x2821F96F8]();
+  v5 = v8;
+LABEL_6:
+
+  return MEMORY[0x2821F96F8](v6, v5);
 }
 
 void __55__HDSeriesBuilderServer__queue_addMetadata_completion___block_invoke(uint64_t a1)
@@ -553,23 +549,23 @@ LABEL_12:
 
 - (void)queue_recoverBuilder
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v13 = 0;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
+  v12 = 0;
   profile = [(HDStandardTaskServer *)self profile];
   database = [profile database];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __45__HDSeriesBuilderServer_queue_recoverBuilder__block_invoke;
-  v8[3] = &unk_278619398;
-  v8[5] = &v10;
-  v9 = 0;
-  v8[4] = self;
-  [(HDHealthEntity *)HDSeriesBuilderEntity performReadTransactionWithHealthDatabase:database error:&v9 block:v8];
-  v5 = v9;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __45__HDSeriesBuilderServer_queue_recoverBuilder__block_invoke;
+  v7[3] = &unk_278619398;
+  v7[5] = &v9;
+  v8 = 0;
+  v7[4] = self;
+  [(HDHealthEntity *)HDSeriesBuilderEntity performReadTransactionWithHealthDatabase:database error:&v8 block:v7];
+  v5 = v8;
 
   if (v5)
   {
@@ -578,34 +574,32 @@ LABEL_12:
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v5;
+      v14 = v5;
       _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Couldn't recover state for series builder with error %{public}@", buf, 0xCu);
     }
   }
 
-  [(HDSeriesBuilderServer *)self queue_setState:v11[3] completion:0];
-  _Block_object_dispose(&v10, 8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(HDSeriesBuilderServer *)self queue_setState:v10[3] completion:0];
+  _Block_object_dispose(&v9, 8);
 }
 
 - (void)queue_setState:(int64_t)state completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
   self->_queue_state = state;
   profile = [(HDStandardTaskServer *)self profile];
   database = [profile database];
-  v13[5] = state;
-  v14 = 0;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __51__HDSeriesBuilderServer_queue_setState_completion___block_invoke;
-  v13[3] = &unk_278619348;
-  v13[4] = self;
-  v9 = [(HDHealthEntity *)HDSeriesBuilderEntity performWriteTransactionWithHealthDatabase:database error:&v14 block:v13];
-  v10 = v14;
+  v12[5] = state;
+  v13 = 0;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __51__HDSeriesBuilderServer_queue_setState_completion___block_invoke;
+  v12[3] = &unk_278619348;
+  v12[4] = self;
+  v9 = [(HDHealthEntity *)HDSeriesBuilderEntity performWriteTransactionWithHealthDatabase:database error:&v13 block:v12];
+  v10 = v13;
 
   if (!v9)
   {
@@ -615,15 +609,13 @@ LABEL_12:
     {
       *buf = 138543618;
       selfCopy = self;
-      v17 = 2114;
-      v18 = v10;
+      v16 = 2114;
+      v17 = v10;
       _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Failed to persist state change with error: %{public}@", buf, 0x16u);
     }
   }
 
   [(HDSeriesBuilderServer *)self _setClientState:state completion:completionCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__HDSeriesBuilderServer_queue_setState_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -638,7 +630,7 @@ uint64_t __51__HDSeriesBuilderServer_queue_setState_completion___block_invoke(ui
 
 - (HDSeriesBuilderEntity)persistentEntity
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   persistentEntity = self->_persistentEntity;
   if (persistentEntity)
   {
@@ -649,9 +641,9 @@ uint64_t __51__HDSeriesBuilderServer_queue_setState_completion___block_invoke(ui
   {
     taskUUID = [(HDStandardTaskServer *)self taskUUID];
     profile = [(HDStandardTaskServer *)self profile];
-    v13 = 0;
-    v7 = [HDSeriesBuilderEntity persistentEntityForBuilderIdentifier:taskUUID profile:profile error:&v13];
-    v8 = v13;
+    v12 = 0;
+    v7 = [HDSeriesBuilderEntity persistentEntityForBuilderIdentifier:taskUUID profile:profile error:&v12];
+    v8 = v12;
     v9 = self->_persistentEntity;
     self->_persistentEntity = v7;
 
@@ -663,16 +655,14 @@ uint64_t __51__HDSeriesBuilderServer_queue_setState_completion___block_invoke(ui
       {
         *buf = 138543618;
         selfCopy = self;
-        v16 = 2114;
-        v17 = v8;
+        v15 = 2114;
+        v16 = v8;
         _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch series builer persistent entity: %{public}@", buf, 0x16u);
       }
     }
 
     v3 = self->_persistentEntity;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -696,7 +686,7 @@ uint64_t __51__HDSeriesBuilderServer_queue_setState_completion___block_invoke(ui
 
 void __54__HDSeriesBuilderServer__discardSeriesWithCompletion___block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v1)
@@ -705,23 +695,23 @@ void __54__HDSeriesBuilderServer__discardSeriesWithCompletion___block_invoke(uin
     v3 = [(dispatch_queue_t *)v1 profile];
     v4 = [v3 dataManager];
     v5 = [(dispatch_queue_t *)v1 seriesSample];
-    v16[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-    v15 = 0;
-    v7 = [v4 deleteDataObjects:v6 restrictedSourceEntities:0 failIfNotFound:1 recursiveDeleteAuthorizationBlock:0 error:&v15];
-    v8 = v15;
+    v15[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14 = 0;
+    v7 = [v4 deleteDataObjects:v6 restrictedSourceEntities:0 failIfNotFound:1 recursiveDeleteAuthorizationBlock:0 error:&v14];
+    v8 = v14;
 
     v9 = [v8 hk_isErrorInDomain:*MEMORY[0x277D10A78] code:1];
     if ((v7 & 1) != 0 || v9)
     {
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __60__HDSeriesBuilderServer__queue_discardSeriesWithCompletion___block_invoke;
-      v11[3] = &unk_278616460;
-      v13 = v2;
-      v14 = v7;
-      v12 = v8;
-      [(dispatch_queue_t *)v1 queue_setState:3 completion:v11];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __60__HDSeriesBuilderServer__queue_discardSeriesWithCompletion___block_invoke;
+      v10[3] = &unk_278616460;
+      v12 = v2;
+      v13 = v7;
+      v11 = v8;
+      [(dispatch_queue_t *)v1 queue_setState:3 completion:v10];
     }
 
     else
@@ -729,8 +719,6 @@ void __54__HDSeriesBuilderServer__discardSeriesWithCompletion___block_invoke(uin
       (*(v2 + 2))(v2, 0, v8);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionInvalidated
@@ -746,7 +734,7 @@ void __54__HDSeriesBuilderServer__discardSeriesWithCompletion___block_invoke(uin
 
 void __46__HDSeriesBuilderServer_connectionInvalidated__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -754,13 +742,11 @@ void __46__HDSeriesBuilderServer_connectionInvalidated__block_invoke(uint64_t a1
     v5 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Couldn't discard invalidated series with error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "Couldn't discard invalidated series with error: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -70,7 +70,7 @@
 {
   necessaryCopy = necessary;
   name = [necessaryCopy name];
-  v5 = [(NSMutableSet *)self->_accessoryNamesInLowPower containsObject:name];
+  v5 = objc_msgSend_containsObject_(self->_accessoryNamesInLowPower);
   if ([necessaryCopy isLowBattery] && objc_msgSend(necessaryCopy, "isConnected"))
   {
     if ((v5 & 1) == 0)

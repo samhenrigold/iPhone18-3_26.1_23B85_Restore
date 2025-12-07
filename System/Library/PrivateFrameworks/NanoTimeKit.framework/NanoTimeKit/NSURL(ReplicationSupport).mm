@@ -12,9 +12,9 @@
     +[NSURL(ReplicationSupport) _galleryLiteSupportDirectory];
   }
 
-  v1 = _galleryLiteSupportDirectory_url;
+  v2 = _galleryLiteSupportDirectory_url;
 
-  return v1;
+  return v2;
 }
 
 + (id)galleryLiteSupportDirectoryForDevice:()ReplicationSupport

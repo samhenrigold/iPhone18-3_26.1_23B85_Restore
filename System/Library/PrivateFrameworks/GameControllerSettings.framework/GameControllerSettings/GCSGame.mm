@@ -61,7 +61,7 @@
 
 - (id)profileForController:(id)controller profiles:(id)profiles
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   controllerToProfileMappings = self->_controllerToProfileMappings;
   persistentIdentifier = [controller persistentIdentifier];
@@ -69,25 +69,25 @@
 
   if (v9)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = profilesCopy;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v11)
     {
-      v12 = *v20;
+      v12 = *v19;
       while (2)
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
+          v14 = *(*(&v18 + 1) + 8 * i);
           uuid = [v14 uuid];
           v16 = [uuid isEqual:v9];
 
@@ -98,7 +98,7 @@
           }
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v11)
         {
           continue;
@@ -115,8 +115,6 @@ LABEL_12:
   {
     v11 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -285,24 +283,22 @@ LABEL_12:
 
 - (GCSJSONObject)jsonObject
 {
-  v11[5] = *MEMORY[0x277D85DE8];
-  v10[0] = @"modifiedDate";
+  v10[5] = *MEMORY[0x277D85DE8];
+  v9[0] = @"modifiedDate";
   jsonObject = [(NSDate *)self->_modifiedDate jsonObject];
   bundleIdentifier = self->_bundleIdentifier;
-  v11[0] = jsonObject;
-  v11[1] = bundleIdentifier;
-  v10[1] = @"bundleIdentifier";
-  v10[2] = @"title";
-  v11[2] = self->_title;
-  v10[3] = @"controllerToProfileMappings";
+  v10[0] = jsonObject;
+  v10[1] = bundleIdentifier;
+  v9[1] = @"bundleIdentifier";
+  v9[2] = @"title";
+  v10[2] = self->_title;
+  v9[3] = @"controllerToProfileMappings";
   v5 = [MEMORY[0x277CBEAC0] _gcs_jsonObjectForSerializableDictionary:self->_controllerToProfileMappings];
-  v11[3] = v5;
-  v10[4] = @"controllerToCompatibilityModeMappings";
+  v10[3] = v5;
+  v9[4] = @"controllerToCompatibilityModeMappings";
   v6 = [MEMORY[0x277CBEAC0] _gcs_jsonObjectForSerializableDictionary:self->_controllerToCompatibilityModeMappings];
-  v11[4] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[4] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:5];
 
   return v7;
 }

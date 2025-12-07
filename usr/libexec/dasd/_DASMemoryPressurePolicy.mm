@@ -20,9 +20,9 @@
 
 - (_DASMemoryPressurePolicy)init
 {
-  v18.receiver = self;
-  v18.super_class = _DASMemoryPressurePolicy;
-  v2 = [(_DASMemoryPressurePolicy *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = _DASMemoryPressurePolicy;
+  v2 = [(_DASMemoryPressurePolicy *)&v17 init];
   v3 = v2;
   if (v2)
   {
@@ -38,23 +38,22 @@
     timer = v3->_timer;
     v3->_timer = v8;
 
-    v10 = v3->_timer;
     dispatch_set_qos_class_fallback();
     dispatch_source_set_timer(v3->_timer, 0, 0x37E11D600uLL, 0x3B9ACA00uLL);
-    v11 = v3->_timer;
+    v10 = v3->_timer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_100002D44;
     handler[3] = &unk_1001B5668;
-    v12 = v3;
-    v17 = v12;
-    dispatch_source_set_event_handler(v11, handler);
-    v13 = +[_DASTrialManager sharedInstance];
-    v14 = v12[9];
-    v12[9] = v13;
+    v11 = v3;
+    v16 = v11;
+    dispatch_source_set_event_handler(v10, handler);
+    v12 = +[_DASTrialManager sharedInstance];
+    v13 = v11[9];
+    v11[9] = v12;
 
-    [v12[9] addDelegate:v12];
-    [v12 updateTrialParameters];
+    [v11[9] addDelegate:v11];
+    [v11 updateTrialParameters];
     dispatch_activate(v3->_timer);
   }
 

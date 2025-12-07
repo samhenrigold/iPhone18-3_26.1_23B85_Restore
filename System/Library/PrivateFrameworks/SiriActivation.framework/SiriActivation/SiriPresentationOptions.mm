@@ -14,11 +14,11 @@
 
 - (id)description
 {
-  v36[8] = *MEMORY[0x1E69E9840];
-  v33 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v35.receiver = self;
-  v35.super_class = SiriPresentationOptions;
-  v3 = [(SiriPresentationOptions *)&v35 description];
+  v35[8] = *MEMORY[0x1E69E9840];
+  v32 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v34.receiver = self;
+  v34.super_class = SiriPresentationOptions;
+  v3 = [(SiriPresentationOptions *)&v34 description];
   v4 = objc_alloc(MEMORY[0x1E696AEC0]);
   if (self->_wakeScreen)
   {
@@ -30,8 +30,8 @@
     v5 = @"NO";
   }
 
-  v34 = [v4 initWithFormat:@"wakeScreen = %@", v5];
-  v36[0] = v34;
+  v33 = [v4 initWithFormat:@"wakeScreen = %@", v5];
+  v35[0] = v33;
   v6 = objc_alloc(MEMORY[0x1E696AEC0]);
   if (self->_hideOtherWindowsDuringAppearance)
   {
@@ -43,8 +43,8 @@
     v7 = @"NO";
   }
 
-  v32 = [v6 initWithFormat:@"hideOtherWindowsDuringAppearance = %@", v7];
-  v36[1] = v32;
+  v31 = [v6 initWithFormat:@"hideOtherWindowsDuringAppearance = %@", v7];
+  v35[1] = v31;
   v8 = objc_alloc(MEMORY[0x1E696AEC0]);
   if (self->_shouldAllowBiometricAutoUnlock)
   {
@@ -56,8 +56,8 @@
     v9 = @"NO";
   }
 
-  v31 = [v8 initWithFormat:@"shouldAllowBiometricAutoUnlock = %@", v9];
-  v36[2] = v31;
+  v30 = [v8 initWithFormat:@"shouldAllowBiometricAutoUnlock = %@", v9];
+  v35[2] = v30;
   v10 = objc_alloc(MEMORY[0x1E696AEC0]);
   if (self->_shouldDeactivateScenesBelow)
   {
@@ -69,30 +69,28 @@
     v11 = @"NO";
   }
 
-  v30 = [v10 initWithFormat:@"shouldDeactivateScenesBelow = %@", v11];
-  v36[3] = v30;
+  v29 = [v10 initWithFormat:@"shouldDeactivateScenesBelow = %@", v11];
+  v35[3] = v29;
   v12 = objc_alloc(MEMORY[0x1E696AEC0]);
   rotationStyle = self->_rotationStyle;
-  v29 = SiriPresentationRotationStyleGetName(rotationStyle);
-  v28 = [v12 initWithFormat:@"rotationStyle = %ld (%@)", rotationStyle, v29];
-  v36[4] = v28;
+  v28 = SiriPresentationRotationStyleGetName(rotationStyle);
+  v27 = [v12 initWithFormat:@"rotationStyle = %ld (%@)", rotationStyle, v28];
+  v35[4] = v27;
   v14 = objc_alloc(MEMORY[0x1E696AEC0]);
   v15 = [MEMORY[0x1E696AD98] numberWithInteger:self->_requestSource];
   v16 = [v14 initWithFormat:@"requestSource = %@", v15];
-  v36[5] = v16;
+  v35[5] = v16;
   v17 = objc_alloc(MEMORY[0x1E696AEC0]);
   v18 = [MEMORY[0x1E696AD98] numberWithInteger:self->_inputType];
   v19 = [v17 initWithFormat:@"inputType = %@", v18];
-  v36[6] = v19;
+  v35[6] = v19;
   v20 = objc_alloc(MEMORY[0x1E696AEC0]);
   v21 = [(NSSet *)self->_launchActions description];
   v22 = [v20 initWithFormat:@"launchActions = %@", v21];
-  v36[7] = v22;
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:8];
+  v35[7] = v22;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:8];
   v24 = [v23 componentsJoinedByString:{@", "}];
-  v25 = [v33 initWithFormat:@"%@ {%@}", v3, v24];
-
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = [v32 initWithFormat:@"%@ {%@}", v3, v24];
 
   return v25;
 }

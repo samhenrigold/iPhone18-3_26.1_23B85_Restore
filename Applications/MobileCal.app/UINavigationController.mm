@@ -152,19 +152,21 @@
   v6 = EKUICurrentWindowInterfaceParadigm();
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  v8 = controllerCopy;
+  if (isKindOfClass)
   {
     if (v6 == 8)
     {
-      v7 = prefersToBePresentedFromUINavigationController;
+      v9 = prefersToBePresentedFromUINavigationController;
     }
 
     else
     {
-      v7 = 0;
+      v9 = 0;
     }
 
-    if (v7 == 1)
+    if (v9 == 1)
     {
       navigationItem3 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0 target:self action:"_doneButtonTapped"];
       navigationItem = [controllerCopy navigationItem];
@@ -176,6 +178,7 @@
       navigationItem2 = [controllerCopy navigationItem];
       leftBarButtonItem = [navigationItem2 leftBarButtonItem];
 
+      v8 = controllerCopy;
       if (!leftBarButtonItem)
       {
         goto LABEL_13;
@@ -184,11 +187,13 @@
       navigationItem3 = [controllerCopy navigationItem];
       [navigationItem3 setLeftBarButtonItem:0];
     }
+
+    v8 = controllerCopy;
   }
 
 LABEL_13:
 
-  _objc_release_x1();
+  _objc_release_x1(isKindOfClass, v8);
 }
 
 - (void)popViewControllersAfterAndIncluding:(id)including animated:(BOOL)animated

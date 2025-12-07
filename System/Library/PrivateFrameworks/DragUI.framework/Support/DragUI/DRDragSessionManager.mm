@@ -2,6 +2,7 @@
 + (id)sharedSessionManager;
 - (BOOL)_addBeginningTouchesToExistingSessions:(id)sessions viewController:(id)controller touchWindow:(id)window;
 - (BOOL)destinationIsSystemConnection:(id)connection;
+- (BOOL)dragSession:(id)session destinationIsDragMonitorConnection:(int)connection;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (BOOL)xpcQueue_hasTouchBasedDragSessionForEventsForDisplayIdentifier:(id)identifier;
 - (BOOL)xpcQueue_shouldAcceptNewDestinationConnection:(id)connection;
@@ -39,6 +40,7 @@
 - (void)presentationDidUpdate:(id)update forSession:(unsigned int)session;
 - (void)requestImagesForSessionID:(unsigned int)d client:(id)client itemIndexSet:(id)set;
 - (void)resetDestinationClientForDragSession:(id)session;
+- (void)sawFirstDragEventWithSessionID:(unsigned int)d systemPolicy:(BOOL)policy destination:(id)destination completion:(id)completion;
 - (void)startup;
 - (void)teardownPortalViewsForDragSessionOriginatingFromViewController:(id)controller;
 - (void)touchTrackingWindow:(id)window touchesBegan:(id)began;
@@ -1195,7 +1197,7 @@ LABEL_17:
           view2 = [controllerCopy view];
           window2 = [view2 window];
           screen2 = [window2 screen];
-          v22 = sub_100002334(screen, screen2, CGRectZero.origin.x);
+          v22 = sub_100002334(screen, screen2, CGRectZero.origin.x, y, width, height);
           v24 = v23;
           v26 = v25;
           v28 = v27;
@@ -1265,6 +1267,170 @@ LABEL_17:
     }
 
     while (v8);
+  }
+}
+
+- (void)sawFirstDragEventWithSessionID:(unsigned int)d systemPolicy:(BOOL)policy destination:(id)destination completion:(id)completion
+{
+  policyCopy = policy;
+  destinationCopy = destination;
+  completionCopy = completion;
+  v12 = +[NSXPCConnection currentConnection];
+  processIdentifier = [v12 processIdentifier];
+  if (policyCopy)
+  {
+    if ([(DRDragSessionManager *)self destinationIsSystemConnection:v12])
+    {
+      policyCopy = 1;
+    }
+
+    else
+    {
+      v14 = DRLogTarget();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000315BC(self, processIdentifier, v14);
+      }
+
+      policyCopy = 0;
+    }
+  }
+
+  v15 = DRLogTarget();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = [NSNumber numberWithBool:policyCopy];
+    *buf = 67109634;
+    dCopy2 = processIdentifier;
+    v43 = 1024;
+    dCopy = d;
+    v45 = 2112;
+    v46 = v16;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Received sawFirstDragEvent for PID %d session %u isSystemPolicy: %@", buf, 0x18u);
+  }
+
+  if (!destinationCopy || !completionCopy)
+  {
+    goto LABEL_24;
+  }
+
+  v30 = v12;
+  v17 = destinationCopy;
+  v18 = processIdentifier;
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v19 = self->_dragSessions;
+  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  if (!v20)
+  {
+LABEL_19:
+
+    processIdentifier = v18;
+    destinationCopy = v17;
+    v12 = v30;
+LABEL_24:
+    v28 = DRLogTarget();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000316D0();
+    }
+
+    goto LABEL_26;
+  }
+
+  v21 = v20;
+  v22 = *v37;
+LABEL_13:
+  v23 = 0;
+  while (1)
+  {
+    if (*v37 != v22)
+    {
+      objc_enumerationMutation(v19);
+    }
+
+    v24 = *(*(&v36 + 1) + 8 * v23);
+    if ([v24 identifier] == d)
+    {
+      break;
+    }
+
+    if (v21 == ++v23)
+    {
+      v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      if (v21)
+      {
+        goto LABEL_13;
+      }
+
+      goto LABEL_19;
+    }
+  }
+
+  v25 = v24;
+
+  processIdentifier = v18;
+  destinationCopy = v17;
+  v12 = v30;
+  if (!v25)
+  {
+    goto LABEL_24;
+  }
+
+  v26 = [v25 addDestination:destinationCopy onConnection:v30 systemPolicy:policyCopy];
+  v27 = DRLogTarget();
+  v28 = v27;
+  if (v26)
+  {
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      dCopy2 = d;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Added destination to session %u", buf, 8u);
+    }
+
+    goto LABEL_27;
+  }
+
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  {
+    sub_10003165C();
+  }
+
+  v28 = v25;
+LABEL_26:
+  v25 = 0;
+LABEL_27:
+
+  if (completionCopy)
+  {
+    if (v25)
+    {
+      v31[0] = _NSConcreteStackBlock;
+      v31[1] = 3221225472;
+      v31[2] = sub_1000293CC;
+      v31[3] = &unk_1000562B0;
+      v32 = v25;
+      v35 = processIdentifier;
+      v34 = completionCopy;
+      v33 = destinationCopy;
+      [v32 performAfterReceivingOutsideAppSourceOperationMask:v31];
+    }
+
+    else
+    {
+      v29 = DRLogTarget();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109120;
+        dCopy2 = processIdentifier;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Replying to destination PID %d sawFirstDragEvent with nil session", buf, 8u);
+      }
+
+      (*(completionCopy + 2))(completionCopy, 0, 0, 0, 0);
+    }
   }
 }
 
@@ -1693,30 +1859,47 @@ LABEL_17:
   }
 }
 
+- (BOOL)dragSession:(id)session destinationIsDragMonitorConnection:(int)connection
+{
+  v4 = *&connection;
+  sessionCopy = session;
+  if ([(DRDragMonitorConnection *)self->_ensembleConnection dragMonitorProcessIdentifier]== v4)
+  {
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = [(DRDragSessionManager *)self dragSession:sessionCopy destinationIsOnenessConnection:v4];
+  }
+
+  return v7;
+}
+
 - (void)touchTrackingWindow:(id)window touchesBegan:(id)began
 {
-  v45[0] = _NSConcreteStackBlock;
-  v45[1] = 3221225472;
-  v45[2] = sub_10002B9E0;
-  v45[3] = &unk_1000563F0;
+  v47[0] = _NSConcreteStackBlock;
+  v47[1] = 3221225472;
+  v47[2] = sub_10002B9E0;
+  v47[3] = &unk_1000563F0;
   windowCopy = window;
-  v46 = windowCopy;
+  v48 = windowCopy;
   selfCopy = self;
-  v32 = [(DRDragSessionManager *)self _filterTouchesForPointer:began performingBlockForPointerTouch:v45];
+  v34 = [(DRDragSessionManager *)self _filterTouchesForPointer:began performingBlockForPointerTouch:v47];
   [DRDragSessionManager _forEachTouch:"_forEachTouch:performBlockForSession:" performBlockForSession:?];
+  v45 = 0u;
+  v46 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
   selfCopy2 = self;
   delegate = [(DRDragSessionManager *)self delegate];
   allDisplayIdentifiers = [delegate allDisplayIdentifiers];
 
   obj = allDisplayIdentifiers;
-  v33 = [allDisplayIdentifiers countByEnumeratingWithState:&v41 objects:v49 count:16];
-  if (v33)
+  v35 = [allDisplayIdentifiers countByEnumeratingWithState:&v43 objects:v51 count:16];
+  if (v35)
   {
-    v31 = *v42;
+    v33 = *v44;
     v9 = kSBSCGPointInvalid[0];
     v10 = kSBSCGPointInvalid[1];
     do
@@ -1724,52 +1907,53 @@ LABEL_17:
       v11 = 0;
       do
       {
-        if (*v42 != v31)
+        if (*v44 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v36 = v11;
-        v12 = *(*(&v41 + 1) + 8 * v11);
+        v38 = v11;
+        v12 = *(*(&v43 + 1) + 8 * v11);
         delegate2 = [(DRDragSessionManager *)selfCopy2 delegate];
         v14 = [delegate2 contentWindowForHardwareDisplayIdentifier:v12];
 
         rootViewController = [v14 rootViewController];
         v15 = +[NSMutableSet set];
-        v37 = 0u;
-        v38 = 0u;
         v39 = 0u;
         v40 = 0u;
-        v16 = v32;
-        v17 = [v16 countByEnumeratingWithState:&v37 objects:v48 count:16];
+        v41 = 0u;
+        v42 = 0u;
+        v16 = v34;
+        v17 = [v16 countByEnumeratingWithState:&v39 objects:v50 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v38;
+          v19 = *v40;
           do
           {
             for (i = 0; i != v18; i = i + 1)
             {
-              if (*v38 != v19)
+              if (*v40 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v21 = *(*(&v37 + 1) + 8 * i);
+              v21 = *(*(&v39 + 1) + 8 * i);
               [v21 locationInView:windowCopy];
               v23 = v22;
+              v25 = v24;
               screen = [windowCopy screen];
               screen2 = [v14 screen];
-              v26 = sub_100002024(screen, screen2, v23);
-              v28 = v27;
+              v28 = sub_100002024(screen, screen2, v23, v25);
+              v30 = v29;
 
-              if (v26 != v9 || v28 != v10)
+              if (v28 != v9 || v30 != v10)
               {
                 [v15 addObject:v21];
               }
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v37 objects:v48 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v39 objects:v50 count:16];
           }
 
           while (v18);
@@ -1780,14 +1964,14 @@ LABEL_17:
           [rootViewController updateWithTouches:v15];
         }
 
-        v11 = v36 + 1;
+        v11 = v38 + 1;
       }
 
-      while ((v36 + 1) != v33);
-      v33 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+      while ((v38 + 1) != v35);
+      v35 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
     }
 
-    while (v33);
+    while (v35);
   }
 }
 
@@ -1878,7 +2062,7 @@ LABEL_17:
         v65 = 0u;
         if (v24)
         {
-          [v24 velocity];
+          objc_msgSend_velocity(v24);
           v31 = *(&v64 + 1);
           v32 = *&v64;
         }

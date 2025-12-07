@@ -26,7 +26,7 @@
 
 - (id)parameterOverrides
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   metadata = [(WFAppIntentExecutionAction *)self metadata];
   actionConfiguration = [metadata actionConfiguration];
 
@@ -37,23 +37,21 @@
 
   else
   {
-    v16 = @"workoutStyle";
+    v15 = @"workoutStyle";
     v5 = [WFParameterDefinition alloc];
-    v14[0] = @"Class";
+    v13[0] = @"Class";
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
-    v14[1] = @"DisallowedVariableTypes";
-    v15[0] = v7;
-    v13 = @"Variable";
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
-    v15[1] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v13[1] = @"DisallowedVariableTypes";
+    v14[0] = v7;
+    v12 = @"Variable";
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
+    v14[1] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
     v10 = [(WFParameterDefinition *)v5 initWithDictionary:v9];
-    v17[0] = v10;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = v10;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

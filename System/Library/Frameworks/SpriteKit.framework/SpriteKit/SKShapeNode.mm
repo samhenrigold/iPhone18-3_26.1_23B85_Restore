@@ -677,7 +677,7 @@ LABEL_21:
 - (void)setAntialiased:(BOOL)antialiased
 {
   skcShapeNode = self->_skcShapeNode;
-  *(skcShapeNode + 644) = antialiased;
+  skcShapeNode[644] = antialiased;
   SKCNode::setDirty(skcShapeNode);
 }
 
@@ -708,14 +708,14 @@ LABEL_21:
 - (void)setLineCap:(CGLineCap)lineCap
 {
   skcShapeNode = self->_skcShapeNode;
-  *(skcShapeNode + 153) = lineCap;
+  skcShapeNode[153] = lineCap;
   SKCNode::setDirty(skcShapeNode);
 }
 
 - (void)setLineJoin:(CGLineJoin)lineJoin
 {
   skcShapeNode = self->_skcShapeNode;
-  *(skcShapeNode + 152) = lineJoin;
+  skcShapeNode[152] = lineJoin;
   SKCNode::setDirty(skcShapeNode);
 }
 

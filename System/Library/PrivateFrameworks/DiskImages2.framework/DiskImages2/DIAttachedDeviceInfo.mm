@@ -474,10 +474,10 @@ LABEL_8:
 
 + (id)copyAllMountPoints
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v16 = 0;
-  v3 = getmntinfo_r_np(&v16, 2);
+  v20 = 0;
+  v3 = getmntinfo_r_np(&v20, 2);
   if (v3)
   {
     if (v3 >= 1)
@@ -486,8 +486,8 @@ LABEL_8:
       v5 = 2168 * v3;
       do
       {
-        v6 = [DIHelpers copyDevicePathWithStatfs:&v16[v4 / 0x878]];
-        v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v16[v4 / 0x878].f_mntonname];
+        v6 = [DIHelpers copyDevicePathWithStatfs:&v20[v4 / 0x878]];
+        v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v20[v4 / 0x878].f_mntonname];
         if (v6)
         {
           if ([v6 hasPrefix:@"/dev/disk"])
@@ -513,52 +513,63 @@ LABEL_8:
       while (v5 != v4);
     }
 
-    free(v16);
+    free(v20);
   }
 
   else
   {
     v10 = *__error();
-    if (DIForwardLogs())
+    v11 = DIForwardLogs();
+    if (v11)
     {
-      v11 = getDIOSLog();
-      os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
-      *buf = 68157954;
-      v18 = 42;
-      v19 = 2080;
-      v20 = "+[DIAttachedDeviceInfo copyAllMountPoints]";
-      v12 = _os_log_send_and_compose_impl();
-
-      if (v12)
+      v19 = 0;
+      v13 = getDIOSLog(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v12);
-        free(v12);
+        v14 = 3;
+      }
+
+      else
+      {
+        v14 = 2;
+      }
+
+      *buf = 68157954;
+      v22 = 42;
+      v23 = 2080;
+      v24 = "+[DIAttachedDeviceInfo copyAllMountPoints]";
+      LODWORD(v18) = 18;
+      v15 = _os_log_send_and_compose_impl(v14, &v19, 0, 0, &dword_248DE0000, v13, 16, "%.*s: Failed getting mounts list", buf, v18);
+
+      if (v15)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v15);
+        free(v15);
       }
     }
 
     else
     {
-      v13 = getDIOSLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = getDIOSLog(v11, v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 68157954;
-        v18 = 42;
-        v19 = 2080;
-        v20 = "+[DIAttachedDeviceInfo copyAllMountPoints]";
-        _os_log_impl(&dword_248DE0000, v13, OS_LOG_TYPE_ERROR, "%.*s: Failed getting mounts list", buf, 0x12u);
+        v22 = 42;
+        v23 = 2080;
+        v24 = "+[DIAttachedDeviceInfo copyAllMountPoints]";
+        _os_log_impl(&dword_248DE0000, v16, OS_LOG_TYPE_ERROR, "%.*s: Failed getting mounts list", buf, 0x12u);
       }
     }
 
     *__error() = v10;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return dictionary;
 }
 
 + (id)newEntityDictWithIOMedia:(id)media mountPoints:(id)points
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   mediaCopy = media;
   pointsCopy = points;
   bSDName = [mediaCopy BSDName];
@@ -566,9 +577,9 @@ LABEL_8:
   if (bSDName)
   {
     v9 = MEMORY[0x277CBEB38];
-    v16 = @"BSD Name";
-    v17[0] = bSDName;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = @"BSD Name";
+    v16[0] = bSDName;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v11 = [v9 dictionaryWithDictionary:v10];
 
     v12 = [pointsCopy objectForKeyedSubscript:v8];
@@ -583,7 +594,6 @@ LABEL_8:
     v11 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -639,31 +649,31 @@ LABEL_8:
 
 - (id)toDictionary
 {
-  v25[7] = *MEMORY[0x277D85DE8];
+  v24[7] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
-  v24[0] = @"BSD Name";
+  v23[0] = @"BSD Name";
   bSDName = [(DIAttachedDeviceInfo *)self BSDName];
-  v25[0] = bSDName;
-  v24[1] = @"DiskImages Framework";
+  v24[0] = bSDName;
+  v23[1] = @"DiskImages Framework";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{-[DIAttachedDeviceInfo frameworkNum](self, "frameworkNum")}];
-  v25[1] = v4;
-  v24[2] = @"DiskImageURL";
+  v24[1] = v4;
+  v23[2] = @"DiskImageURL";
   imageURL = [(DIAttachedDeviceInfo *)self imageURL];
   v6 = [imageURL description];
-  v25[2] = v6;
-  v24[3] = @"Size";
+  v24[2] = v6;
+  v23[3] = @"Size";
   mediaSize = [(DIAttachedDeviceInfo *)self mediaSize];
-  v25[3] = mediaSize;
-  v24[4] = @"Preferred Block Size";
+  v24[3] = mediaSize;
+  v23[4] = @"Preferred Block Size";
   blockSize = [(DIAttachedDeviceInfo *)self blockSize];
-  v25[4] = blockSize;
-  v24[5] = @"System Entities";
+  v24[4] = blockSize;
+  v23[5] = @"System Entities";
   copyEntitiesList = [(DIAttachedDeviceInfo *)self copyEntitiesList];
-  v25[5] = copyEntitiesList;
-  v24[6] = @"Daemon PID";
+  v24[5] = copyEntitiesList;
+  v23[6] = @"Daemon PID";
   v10 = [(DIAttachedDeviceInfo *)self pid];
-  v25[6] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:7];
+  v24[6] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:7];
   v12 = [v3 dictionaryWithDictionary:v11];
 
   shadowURL = [(DIAttachedDeviceInfo *)self shadowURL];
@@ -691,8 +701,6 @@ LABEL_8:
     instanceId2 = [(DIAttachedDeviceInfo *)self instanceId];
     [v12 setObject:instanceId2 forKeyedSubscript:@"InstanceID"];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

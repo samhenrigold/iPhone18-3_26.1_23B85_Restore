@@ -32,7 +32,7 @@
   self->_options = [attributesCopy animationCalculationModeAndCurveForNode:node.var0];
   if (attributesCopy)
   {
-    [attributesCopy springTimingParametersForAttribute:204 node:node.var0];
+    objc_msgSend_springTimingParametersForAttribute_node_(attributesCopy);
   }
 
   else

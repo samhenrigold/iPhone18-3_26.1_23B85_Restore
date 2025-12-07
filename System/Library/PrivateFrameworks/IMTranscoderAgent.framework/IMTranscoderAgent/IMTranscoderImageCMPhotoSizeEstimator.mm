@@ -41,53 +41,49 @@
 
 - (unint64_t)optimizedEstimatedSizeForOutputUTI:(id)i maximumDimension:(int64_t)dimension quality:(double)quality
 {
-  v41[4] = *MEMORY[0x277D85DE8];
+  v25[4] = *MEMORY[0x277D85DE8];
   if (UTTypeConformsTo(i, *MEMORY[0x277CC20C8]))
   {
-    v13 = 1785750887;
+    v9 = 1785750887;
   }
 
   else
   {
-    v13 = 1752589105;
+    v9 = 1752589105;
   }
 
-  v40[0] = *MEMORY[0x277CF6DA0];
-  v41[0] = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v8, dimension, v9, v10, v11, v12, 0);
-  v40[1] = *MEMORY[0x277CF6CF0];
-  v19 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v14, v13, v15, v16, v17, v18);
-  v20 = *MEMORY[0x277CF6D38];
-  v41[1] = v19;
-  v41[2] = &unk_28669CC30;
-  v21 = *MEMORY[0x277CF6D30];
-  v40[2] = v20;
-  v40[3] = v21;
-  v38 = *MEMORY[0x277CF6DD8];
-  v39 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v22, v23, v24, v25, v26, v27, quality);
-  v41[3] = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v28, &v39, &v38, 1, v29, v30);
-  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v31, v41, v40, 4, v32, v33);
-  container = self->_container;
+  v24[0] = *MEMORY[0x277CF6DA0];
+  v25[0] = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v7, dimension, v8, 0);
+  v24[1] = *MEMORY[0x277CF6CF0];
+  v12 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v10, v9, v11);
+  v13 = *MEMORY[0x277CF6D38];
+  v25[1] = v12;
+  v25[2] = &unk_28669CC30;
+  v14 = *MEMORY[0x277CF6D30];
+  v24[2] = v13;
+  v24[3] = v14;
+  v22 = *MEMORY[0x277CF6DD8];
+  v23 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v15, v16, v17, quality);
+  v25[3] = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v18, &v23, &v22, 1);
+  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, v25, v24, 4);
   if (CMPhotoDecompressionContainerPredictTranscodedSize())
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = v37;
+    return v21;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (unint64_t)estimatedSizeForOutputUTI:(id)i maximumDimension:(int64_t)dimension quality:(double)quality
 {
-  if (!UTTypeConformsTo(i, *MEMORY[0x277CC20C8]) && !UTTypeConformsTo(i, @"public.heif-standard") || (result = objc_msgSend_optimizedEstimatedSizeForOutputUTI_maximumDimension_quality_(self, v9, i, dimension, v10, v11, v12, quality)) == 0)
+  if (!UTTypeConformsTo(i, *MEMORY[0x277CC20C8]) && !UTTypeConformsTo(i, @"public.heif-standard") || (result = objc_msgSend_optimizedEstimatedSizeForOutputUTI_maximumDimension_quality_(self, v9, i, dimension, quality)) == 0)
   {
-    v14.receiver = self;
-    v14.super_class = IMTranscoderImageCMPhotoSizeEstimator;
-    return [(IMTranscoderImageSizeEstimator *)&v14 estimatedSizeForOutputUTI:i maximumDimension:dimension quality:quality];
+    v11.receiver = self;
+    v11.super_class = IMTranscoderImageCMPhotoSizeEstimator;
+    return [(IMTranscoderImageSizeEstimator *)&v11 estimatedSizeForOutputUTI:i maximumDimension:dimension quality:quality];
   }
 
   return result;

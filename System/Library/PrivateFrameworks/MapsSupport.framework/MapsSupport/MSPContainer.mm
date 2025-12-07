@@ -156,7 +156,7 @@
 
 void __51__MSPContainer_accessContentsUsingConcurrentBlock___block_invoke(void **a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v9 = WeakRetained;
   if (WeakRetained)
@@ -172,33 +172,30 @@ void __51__MSPContainer_accessContentsUsingConcurrentBlock___block_invoke(void *
 
     else
     {
-      _MSPLogForContainer(a1[4], @"An access attempt occurred, but objects are not loaded (memory pressure?). Perform an initial load and postpone the access.", v3, v4, v5, v6, v7, v8, v15[0]);
-      v13 = a1[4];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __51__MSPContainer_accessContentsUsingConcurrentBlock___block_invoke_50;
-      v15[3] = &unk_279868010;
-      v15[4] = v13;
-      v16 = a1[5];
-      [v13 _performInitialLoadNotifyingObservers:0 kickOffSynchronously:0 completion:v15];
+      _MSPLogForContainer(a1[4], @"An access attempt occurred, but objects are not loaded (memory pressure?). Perform an initial load and postpone the access.", v3, v4, v5, v6, v7, v8, v13[0]);
+      v12 = a1[4];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __51__MSPContainer_accessContentsUsingConcurrentBlock___block_invoke_50;
+      v13[3] = &unk_279868010;
+      v13[4] = v12;
+      v14 = a1[5];
+      [v12 _performInitialLoadNotifyingObservers:0 kickOffSynchronously:0 completion:v13];
     }
   }
 
   else
   {
-    v11 = *MEMORY[0x277D0E798];
-    v12 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "[MSPContainer accessContentsUsingConcurrentBlock:]_block_invoke";
-      v19 = 1024;
-      v20 = 175;
-      _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
+      v16 = "[MSPContainer accessContentsUsingConcurrentBlock:]_block_invoke";
+      v17 = 1024;
+      v18 = 175;
+      _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)containerHasLoadedContents
@@ -232,7 +229,7 @@ void __51__MSPContainer_accessContentsUsingConcurrentBlock___block_invoke(void *
 
 void __56__MSPContainer_accessStateSnapshotUsingConcurrentBlock___block_invoke(void **a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v9 = WeakRetained;
   if (WeakRetained)
@@ -248,33 +245,30 @@ void __56__MSPContainer_accessStateSnapshotUsingConcurrentBlock___block_invoke(v
 
     else
     {
-      _MSPLogForContainer(a1[4], @"An access attempt occurred, but the state snapshot isn't loaded (memory pressure?). Perform an initial load and postpone the access.", v3, v4, v5, v6, v7, v8, v15[0]);
-      v13 = a1[4];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __56__MSPContainer_accessStateSnapshotUsingConcurrentBlock___block_invoke_55;
-      v15[3] = &unk_279868010;
-      v15[4] = v13;
-      v16 = a1[5];
-      [v13 _performInitialLoadNotifyingObservers:0 kickOffSynchronously:0 completion:v15];
+      _MSPLogForContainer(a1[4], @"An access attempt occurred, but the state snapshot isn't loaded (memory pressure?). Perform an initial load and postpone the access.", v3, v4, v5, v6, v7, v8, v13[0]);
+      v12 = a1[4];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __56__MSPContainer_accessStateSnapshotUsingConcurrentBlock___block_invoke_55;
+      v13[3] = &unk_279868010;
+      v13[4] = v12;
+      v14 = a1[5];
+      [v12 _performInitialLoadNotifyingObservers:0 kickOffSynchronously:0 completion:v13];
     }
   }
 
   else
   {
-    v11 = *MEMORY[0x277D0E798];
-    v12 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "[MSPContainer accessStateSnapshotUsingConcurrentBlock:]_block_invoke";
-      v19 = 1024;
-      v20 = 199;
-      _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
+      v16 = "[MSPContainer accessStateSnapshotUsingConcurrentBlock:]_block_invoke";
+      v17 = 1024;
+      v18 = 199;
+      _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearObjectCacheIfNeeded
@@ -293,7 +287,7 @@ void __56__MSPContainer_accessStateSnapshotUsingConcurrentBlock___block_invoke(v
 
 void __41__MSPContainer__clearObjectCacheIfNeeded__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -307,19 +301,16 @@ void __41__MSPContainer__clearObjectCacheIfNeeded__block_invoke(uint64_t a1)
 
   else
   {
-    v5 = *MEMORY[0x277D0E798];
-    v6 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "[MSPContainer _clearObjectCacheIfNeeded]_block_invoke";
-      v10 = 1024;
-      v11 = 216;
-      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v8, 0x12u);
+      v6 = 136315394;
+      v7 = "[MSPContainer _clearObjectCacheIfNeeded]_block_invoke";
+      v8 = 1024;
+      v9 = 216;
+      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", &v6, 0x12u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performInitialLoadNotifyingObservers:(BOOL)observers kickOffSynchronously:(BOOL)synchronously completion:(id)completion
@@ -354,7 +345,7 @@ void __41__MSPContainer__clearObjectCacheIfNeeded__block_invoke(uint64_t a1)
 
 void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronously_completion___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -365,106 +356,103 @@ void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronous
     _MSPLogForContainer(v4, @"Starting initial load from persister %p (%@)", v6, v7, v8, v9, v10, v11, v5);
     dispatch_suspend(v3[1]);
     v12 = v3[5];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronously_completion___block_invoke_59;
-    v17[3] = &unk_2798680C0;
-    objc_copyWeak(&v19, (a1 + 48));
-    v20 = *(a1 + 56);
-    v17[4] = *(a1 + 32);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronously_completion___block_invoke_59;
+    v15[3] = &unk_2798680C0;
+    objc_copyWeak(&v17, (a1 + 48));
+    v18 = *(a1 + 56);
+    v15[4] = *(a1 + 32);
     v13 = *(a1 + 40);
-    v17[5] = v3;
-    v18 = v13;
-    [v12 fetchStateSnapshotWithCompletion:v17];
+    v15[5] = v3;
+    v16 = v13;
+    [v12 fetchStateSnapshotWithCompletion:v15];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v17);
   }
 
   else
   {
-    v14 = *MEMORY[0x277D0E798];
-    v15 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v14 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "[MSPContainer _performInitialLoadNotifyingObservers:kickOffSynchronously:completion:]_block_invoke";
-      v23 = 1024;
-      v24 = 226;
-      _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
+      v20 = "[MSPContainer _performInitialLoadNotifyingObservers:kickOffSynchronously:completion:]_block_invoke";
+      v21 = 1024;
+      v22 = 226;
+      _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronously_completion___block_invoke_59(uint64_t a1, void *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v31 = a2;
+  v44 = *MEMORY[0x277D85DE8];
+  v28 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v32 = WeakRetained;
+  v29 = WeakRetained;
   if (WeakRetained)
   {
     objc_storeStrong(WeakRetained + 2, a2);
-    v5 = [v31 contents];
-    v6 = [v32 _processedContentsForPersisterContents:v5];
-    v7 = v32;
-    v8 = v32[3];
-    v32[3] = v6;
+    v5 = [v28 contents];
+    v6 = [v29 _processedContentsForPersisterContents:v5];
+    v7 = v29;
+    v8 = v29[3];
+    v29[3] = v6;
 
     if (*(a1 + 64) == 1)
     {
-      v9 = v32[4];
+      v9 = v29[4];
       objc_sync_enter(v9);
-      v10 = [v32[4] allObjects];
+      v10 = [v29[4] allObjects];
       objc_sync_exit(v9);
 
-      v40 = 0u;
-      v41 = 0u;
+      v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       obj = v10;
-      v11 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v11 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
       if (v11)
       {
-        v12 = *v39;
+        v12 = *v36;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v39 != v12)
+            if (*v36 != v12)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v38 + 1) + 8 * i);
+            v14 = *(*(&v35 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
               if ((objc_opt_respondsToSelector() & 1) == 0 || ([v14 observationQueueForContainer:*(a1 + 32)], v15 = objc_claimAutoreleasedReturnValue(), (v16 = v15) == 0))
               {
                 v15 = 0;
-                v16 = v32[1];
+                v16 = v29[1];
               }
 
               block[0] = MEMORY[0x277D85DD0];
               block[1] = 3221225472;
               block[2] = __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronously_completion___block_invoke_64;
               block[3] = &unk_2798678B0;
-              objc_copyWeak(&v37, (a1 + 56));
+              objc_copyWeak(&v34, (a1 + 56));
               block[4] = *(a1 + 32);
               block[5] = v14;
               dispatch_async(v16, block);
-              objc_destroyWeak(&v37);
+              objc_destroyWeak(&v34);
             }
           }
 
-          v11 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+          v11 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
         }
 
         while (v11);
       }
 
-      v7 = v32;
+      v7 = v29;
     }
 
     v17 = v7;
@@ -472,12 +460,12 @@ void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronous
     *(v17 + 105) = 1;
     objc_sync_exit(v17);
 
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronously_completion___block_invoke_70;
-    v34[3] = &unk_279868098;
-    objc_copyWeak(&v35, (a1 + 56));
-    [v17 _forEachObserver:v34];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronously_completion___block_invoke_70;
+    v31[3] = &unk_279868098;
+    objc_copyWeak(&v32, (a1 + 56));
+    [v17 _forEachObserver:v31];
     v18 = *(a1 + 48);
     if (v18)
     {
@@ -487,32 +475,28 @@ void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronous
     v19 = *(a1 + 32);
     v20 = *(*(a1 + 40) + 40);
     objc_opt_class();
-    v30 = *(*(a1 + 40) + 16);
     _MSPLogForContainer(v19, @"Loaded from persister %p (%@) + resuming service on access queue -- snapshot: %@", v21, v22, v23, v24, v25, v26, v20);
     dispatch_resume(*(*(a1 + 40) + 8));
-    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v32);
   }
 
   else
   {
-    v27 = *MEMORY[0x277D0E798];
-    v28 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v27 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v44 = "[MSPContainer _performInitialLoadNotifyingObservers:kickOffSynchronously:completion:]_block_invoke";
-      v45 = 1024;
-      v46 = 231;
-      _os_log_impl(&dword_25813A000, v28, OS_LOG_TYPE_ERROR, "strongSelf2 went away in %s line %d", buf, 0x12u);
+      v41 = "[MSPContainer _performInitialLoadNotifyingObservers:kickOffSynchronously:completion:]_block_invoke";
+      v42 = 1024;
+      v43 = 231;
+      _os_log_impl(&dword_25813A000, v27, OS_LOG_TYPE_ERROR, "strongSelf2 went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronously_completion___block_invoke_64(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -520,31 +504,28 @@ void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronous
     v9 = *(a1 + 40);
     v10 = WeakRetained[3];
     v11 = +[_MSPContainerEditReplacedEntirely sharedInstance];
-    v15 = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+    v13 = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
     [v9 container:WeakRetained didEditWithNewContents:v10 orderedEdits:v12 cause:1 context:0];
   }
 
   else
   {
-    v13 = *MEMORY[0x277D0E798];
     v11 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v17 = "[MSPContainer _performInitialLoadNotifyingObservers:kickOffSynchronously:completion:]_block_invoke";
-      v18 = 1024;
-      v19 = 248;
+      v15 = "[MSPContainer _performInitialLoadNotifyingObservers:kickOffSynchronously:completion:]_block_invoke";
+      v16 = 1024;
+      v17 = 248;
       _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_ERROR, "strongSelf3 went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronously_completion___block_invoke_70(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -557,24 +538,21 @@ void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronous
 
   else
   {
-    v5 = *MEMORY[0x277D0E798];
-    v6 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "[MSPContainer _performInitialLoadNotifyingObservers:kickOffSynchronously:completion:]_block_invoke";
-      v10 = 1024;
-      v11 = 261;
-      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_ERROR, "strongSelf3 went away in %s line %d", &v8, 0x12u);
+      v6 = 136315394;
+      v7 = "[MSPContainer _performInitialLoadNotifyingObservers:kickOffSynchronously:completion:]_block_invoke";
+      v8 = 1024;
+      v9 = 261;
+      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_ERROR, "strongSelf3 went away in %s line %d", &v6, 0x12u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_processedContentsForPersisterContents:(id)contents
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   contentsCopy = contents;
   if (contentsCopy)
   {
@@ -584,58 +562,58 @@ void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronous
     v7 = [(MSPContainer *)self _objectsWithDuplicateStorageIdentifiersFromArray:v6];
     if ([v7 count] && !-[MSPContainerPersister duplicatesPolicy](self->_persister, "duplicatesPolicy"))
     {
-      v24 = v6;
+      v23 = v6;
       v8 = [v6 mutableCopy];
+      v29 = 0u;
       v30 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v33 = 0u;
-      v25 = v7;
+      v24 = v7;
       v9 = v7;
-      v10 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v31;
+        v12 = *v30;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v31 != v12)
+            if (*v30 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v30 + 1) + 8 * i);
+            v14 = *(*(&v29 + 1) + 8 * i);
+            v25 = 0u;
             v26 = 0u;
             v27 = 0u;
             v28 = 0u;
-            v29 = 0u;
             v15 = [v9 objectForKeyedSubscript:v14];
-            v16 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
             if (v16)
             {
               v17 = v16;
-              v18 = *v27;
+              v18 = *v26;
               v19 = 1;
               do
               {
                 for (j = 0; j != v17; ++j)
                 {
-                  if (*v27 != v18)
+                  if (*v26 != v18)
                   {
                     objc_enumerationMutation(v15);
                   }
 
                   if ((v19 & 1) == 0)
                   {
-                    [v8 removeObject:*(*(&v26 + 1) + 8 * j)];
+                    [v8 removeObject:*(*(&v25 + 1) + 8 * j)];
                   }
 
                   v19 = 0;
                 }
 
-                v17 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+                v17 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
                 v19 = 0;
               }
 
@@ -643,14 +621,14 @@ void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronous
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
         }
 
         while (v11);
       }
 
       v6 = [v8 copy];
-      v7 = v25;
+      v7 = v24;
     }
 
     v21 = v6;
@@ -661,43 +639,41 @@ void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronous
     v21 = MEMORY[0x277CBEBF8];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (id)_objectsWithDuplicateStorageIdentifiersFromArray:(id)array
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v5 = arrayCopy;
-  v6 = [v5 countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v41 objects:v47 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v43;
+    v8 = *v42;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v43 != v8)
+        if (*v42 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        storageIdentifier = [*(*(&v42 + 1) + 8 * i) storageIdentifier];
+        storageIdentifier = [*(*(&v41 + 1) + 8 * i) storageIdentifier];
         if (storageIdentifier)
         {
           [v4 addObject:storageIdentifier];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v41 objects:v47 count:16];
     }
 
     while (v7);
@@ -713,29 +689,29 @@ void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronous
 
   else
   {
-    v32 = v12;
-    v33 = v11;
+    v31 = v12;
+    v32 = v11;
     v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     v15 = v5;
-    v16 = [v15 countByEnumeratingWithState:&v38 objects:v47 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v37 objects:v46 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v39;
+      v18 = *v38;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v39 != v18)
+          if (*v38 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v38 + 1) + 8 * j);
+          v20 = *(*(&v37 + 1) + 8 * j);
           storageIdentifier2 = [v20 storageIdentifier];
           v22 = [v14 objectForKeyedSubscript:storageIdentifier2];
           if (!v22)
@@ -747,50 +723,48 @@ void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronous
           [v22 addObject:v20];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v38 objects:v47 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v37 objects:v46 count:16];
       }
 
       while (v17);
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
-    v11 = v33;
-    v23 = v33;
-    v24 = [v23 countByEnumeratingWithState:&v34 objects:v46 count:16];
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v11 = v32;
+    v23 = v32;
+    v24 = [v23 countByEnumeratingWithState:&v33 objects:v45 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v35;
+      v26 = *v34;
       do
       {
         for (k = 0; k != v25; ++k)
         {
-          if (*v35 != v26)
+          if (*v34 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          v28 = *(*(&v34 + 1) + 8 * k);
-          v29 = [v14 objectForKeyedSubscript:{v28, v32}];
+          v28 = *(*(&v33 + 1) + 8 * k);
+          v29 = [v14 objectForKeyedSubscript:{v28, v31}];
           if ([v29 count] <= 1)
           {
             [v14 removeObjectForKey:v28];
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v34 objects:v46 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v33 objects:v45 count:16];
       }
 
       while (v25);
     }
 
-    v12 = v32;
+    v12 = v31;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -837,7 +811,7 @@ void __86__MSPContainer__performInitialLoadNotifyingObservers_kickOffSynchronous
 
 void __91__MSPContainer_editByMergingStateSnapshot_mergeOptions_context_completionQueue_completion___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 80));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -846,50 +820,47 @@ void __91__MSPContainer_editByMergingStateSnapshot_mergeOptions_context_completi
     v4 = v3[5];
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __91__MSPContainer_editByMergingStateSnapshot_mergeOptions_context_completionQueue_completion___block_invoke_85;
-    v14[3] = &unk_279868110;
-    objc_copyWeak(&v17, (a1 + 80));
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __91__MSPContainer_editByMergingStateSnapshot_mergeOptions_context_completionQueue_completion___block_invoke_85;
+    v12[3] = &unk_279868110;
+    objc_copyWeak(&v15, (a1 + 80));
     v7 = *(a1 + 72);
     *&v8 = *(a1 + 48);
     *(&v8 + 1) = *(a1 + 56);
-    v13 = v8;
+    v11 = v8;
     *&v9 = *(a1 + 64);
     *(&v9 + 1) = v7;
-    v15 = v13;
-    v16 = v9;
-    [v4 commitByMergingWithStateSnapshot:v5 mergeOptions:v6 completion:v14];
+    v13 = v11;
+    v14 = v9;
+    [v4 commitByMergingWithStateSnapshot:v5 mergeOptions:v6 completion:v12];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v15);
   }
 
   else
   {
-    v10 = *MEMORY[0x277D0E798];
-    v11 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "[MSPContainer editByMergingStateSnapshot:mergeOptions:context:completionQueue:completion:]_block_invoke";
-      v20 = 1024;
-      v21 = 393;
-      _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
+      v17 = "[MSPContainer editByMergingStateSnapshot:mergeOptions:context:completionQueue:completion:]_block_invoke";
+      v18 = 1024;
+      v19 = 393;
+      _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __91__MSPContainer_editByMergingStateSnapshot_mergeOptions_context_completionQueue_completion___block_invoke_85(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v81 = *MEMORY[0x277D85DE8];
-  v53 = a2;
-  v55 = a3;
+  v79 = *MEMORY[0x277D85DE8];
+  v51 = a2;
+  v53 = a3;
   v8 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v10 = WeakRetained;
-  v54 = v8;
+  v52 = v8;
   if (WeakRetained)
   {
     if (v8)
@@ -908,238 +879,234 @@ LABEL_57:
         v12 = WeakRetained[1];
       }
 
-      v56 = WeakRetained;
+      v54 = WeakRetained;
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __91__MSPContainer_editByMergingStateSnapshot_mergeOptions_context_completionQueue_completion___block_invoke_86;
       block[3] = &unk_2798674D8;
-      v71 = v11;
-      v70 = v54;
+      v69 = v11;
+      v68 = v52;
       dispatch_async(v12, block);
 
-      v13 = v71;
+      v13 = v69;
     }
 
     else
     {
-      v59 = a1;
-      v56 = WeakRetained;
-      if (v55 && (v16 = objc_opt_new()) != 0)
+      v57 = a1;
+      v54 = WeakRetained;
+      if (v53 && (v15 = objc_opt_new()) != 0)
       {
-        v52 = v16;
-        v17 = v10[3];
-        if (v17)
+        v50 = v15;
+        v16 = v10[3];
+        if (v16)
         {
-          v18 = v17;
-          v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v17 = v16;
+          v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v70 = 0u;
+          v71 = 0u;
           v72 = 0u;
           v73 = 0u;
-          v74 = 0u;
-          v75 = 0u;
-          v20 = v18;
-          v21 = [v20 countByEnumeratingWithState:&v72 objects:buf count:16];
-          if (v21)
+          v19 = v17;
+          v20 = [v19 countByEnumeratingWithState:&v70 objects:buf count:16];
+          if (v20)
           {
-            v22 = *v73;
+            v21 = *v71;
             do
             {
-              for (i = 0; i != v21; ++i)
+              for (i = 0; i != v20; ++i)
               {
-                if (*v73 != v22)
+                if (*v71 != v21)
                 {
-                  objc_enumerationMutation(v20);
+                  objc_enumerationMutation(v19);
                 }
 
-                v24 = [*(*(&v72 + 1) + 8 * i) storageIdentifier];
-                if (v24)
+                v23 = [*(*(&v70 + 1) + 8 * i) storageIdentifier];
+                if (v23)
                 {
-                  [v19 addObject:v24];
+                  [v18 addObject:v23];
                 }
               }
 
-              v21 = [v20 countByEnumeratingWithState:&v72 objects:buf count:16];
+              v20 = [v19 countByEnumeratingWithState:&v70 objects:buf count:16];
             }
 
-            while (v21);
+            while (v20);
           }
 
-          v25 = [v19 copy];
-          [v52 addObjectsFromArray:v25];
+          v24 = [v18 copy];
+          [v50 addObjectsFromArray:v24];
 
-          v26 = 0;
-          a1 = v59;
+          v25 = 0;
+          a1 = v57;
         }
 
         else
         {
-          v26 = 0;
+          v25 = 0;
         }
       }
 
       else
       {
-        v52 = 0;
-        v26 = 1;
+        v50 = 0;
+        v25 = 1;
       }
 
-      v27 = *(a1 + 40);
-      v28 = [v53 contents];
-      v29 = [v27 _processedContentsForPersisterContents:v28];
-      v57 = [v29 copy];
+      v26 = *(a1 + 40);
+      v27 = [v51 contents];
+      v28 = [v26 _processedContentsForPersisterContents:v27];
+      v55 = [v28 copy];
 
-      objc_storeStrong(v56 + 2, a2);
-      objc_storeStrong(v56 + 3, v57);
-      if ((v26 & 1) == 0)
+      objc_storeStrong(v54 + 2, a2);
+      objc_storeStrong(v54 + 3, v55);
+      if ((v25 & 1) == 0)
       {
-        v30 = v56[3];
-        if (v30)
+        v29 = v54[3];
+        if (v29)
         {
-          v31 = v30;
-          v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          v74 = 0u;
-          v75 = 0u;
+          v30 = v29;
+          v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
           v72 = 0u;
           v73 = 0u;
-          v33 = v31;
-          v34 = [v33 countByEnumeratingWithState:&v72 objects:buf count:16];
-          if (v34)
+          v70 = 0u;
+          v71 = 0u;
+          v32 = v30;
+          v33 = [v32 countByEnumeratingWithState:&v70 objects:buf count:16];
+          if (v33)
           {
-            v35 = *v73;
+            v34 = *v71;
             do
             {
-              for (j = 0; j != v34; ++j)
+              for (j = 0; j != v33; ++j)
               {
-                if (*v73 != v35)
+                if (*v71 != v34)
                 {
-                  objc_enumerationMutation(v33);
+                  objc_enumerationMutation(v32);
                 }
 
-                v37 = [*(*(&v72 + 1) + 8 * j) storageIdentifier];
-                if (v37)
+                v36 = [*(*(&v70 + 1) + 8 * j) storageIdentifier];
+                if (v36)
                 {
-                  [v32 addObject:v37];
+                  [v31 addObject:v36];
                 }
               }
 
-              v34 = [v33 countByEnumeratingWithState:&v72 objects:buf count:16];
+              v33 = [v32 countByEnumeratingWithState:&v70 objects:buf count:16];
             }
 
-            while (v34);
+            while (v33);
           }
 
-          v38 = [v32 copy];
-          [v52 addObjectsFromArray:v38];
+          v37 = [v31 copy];
+          [v50 addObjectsFromArray:v37];
         }
       }
 
-      if (!v55 || (v39 = [v52 count], objc_msgSend(v52, "minusSet:", v55), objc_msgSend(v52, "count") != v39))
+      if (!v53 || (v38 = [v50 count], objc_msgSend(v50, "minusSet:", v53), objc_msgSend(v50, "count") != v38))
       {
-        v40 = v56[4];
-        objc_sync_enter(v40);
-        v41 = [v56[4] allObjects];
-        objc_sync_exit(v40);
+        v39 = v54[4];
+        objc_sync_enter(v39);
+        v40 = [v54[4] allObjects];
+        objc_sync_exit(v39);
 
-        v67 = 0u;
-        v68 = 0u;
         v65 = 0u;
         v66 = 0u;
-        obj = v41;
-        v42 = [obj countByEnumeratingWithState:&v65 objects:v76 count:16];
-        if (v42)
+        v63 = 0u;
+        v64 = 0u;
+        obj = v40;
+        v41 = [obj countByEnumeratingWithState:&v63 objects:v74 count:16];
+        if (v41)
         {
-          v43 = *v66;
+          v42 = *v64;
           do
           {
-            for (k = 0; k != v42; ++k)
+            for (k = 0; k != v41; ++k)
             {
-              if (*v66 != v43)
+              if (*v64 != v42)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v45 = *(*(&v65 + 1) + 8 * k);
+              v44 = *(*(&v63 + 1) + 8 * k);
               if (objc_opt_respondsToSelector())
               {
-                if ((objc_opt_respondsToSelector() & 1) == 0 || ([v45 observationQueueForContainer:*(v59 + 40)], v46 = objc_claimAutoreleasedReturnValue(), (v47 = v46) == 0))
+                if ((objc_opt_respondsToSelector() & 1) == 0 || ([v44 observationQueueForContainer:*(v57 + 40)], v45 = objc_claimAutoreleasedReturnValue(), (v46 = v45) == 0))
                 {
-                  v46 = 0;
-                  v47 = v56[1];
+                  v45 = 0;
+                  v46 = v54[1];
                 }
 
-                v62[0] = MEMORY[0x277D85DD0];
-                v62[1] = 3221225472;
-                v62[2] = __91__MSPContainer_editByMergingStateSnapshot_mergeOptions_context_completionQueue_completion___block_invoke_4;
-                v62[3] = &unk_279865F98;
-                v48 = *(v59 + 40);
-                v62[4] = v45;
-                v62[5] = v48;
-                v63 = v57;
-                v64 = *(v59 + 48);
-                dispatch_async(v47, v62);
+                v60[0] = MEMORY[0x277D85DD0];
+                v60[1] = 3221225472;
+                v60[2] = __91__MSPContainer_editByMergingStateSnapshot_mergeOptions_context_completionQueue_completion___block_invoke_4;
+                v60[3] = &unk_279865F98;
+                v47 = *(v57 + 40);
+                v60[4] = v44;
+                v60[5] = v47;
+                v61 = v55;
+                v62 = *(v57 + 48);
+                dispatch_async(v46, v60);
               }
             }
 
-            v42 = [obj countByEnumeratingWithState:&v65 objects:v76 count:16];
+            v41 = [obj countByEnumeratingWithState:&v63 objects:v74 count:16];
           }
 
-          while (v42);
+          while (v41);
         }
       }
 
-      v49 = *(v59 + 56);
-      if (v49)
+      v48 = *(v57 + 56);
+      if (v48)
       {
-        v50 = *(v59 + 32);
-        if (v50)
+        v49 = *(v57 + 32);
+        if (v49)
         {
-          v60[0] = MEMORY[0x277D85DD0];
-          v60[1] = 3221225472;
-          v60[2] = __91__MSPContainer_editByMergingStateSnapshot_mergeOptions_context_completionQueue_completion___block_invoke_5;
-          v60[3] = &unk_2798676D0;
-          v61 = v49;
-          dispatch_async(v50, v60);
+          v58[0] = MEMORY[0x277D85DD0];
+          v58[1] = 3221225472;
+          v58[2] = __91__MSPContainer_editByMergingStateSnapshot_mergeOptions_context_completionQueue_completion___block_invoke_5;
+          v58[3] = &unk_2798676D0;
+          v59 = v48;
+          dispatch_async(v49, v58);
         }
 
         else
         {
-          v49[2](v49, 0);
+          v48[2](v48, 0);
         }
       }
 
-      v13 = v52;
+      v13 = v50;
     }
 
-    v10 = v56;
+    v10 = v54;
     goto LABEL_57;
   }
 
-  v14 = *MEMORY[0x277D0E798];
-  v15 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v14 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v78 = "[MSPContainer editByMergingStateSnapshot:mergeOptions:context:completionQueue:completion:]_block_invoke";
-    v79 = 1024;
-    v80 = 398;
-    _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_ERROR, "strongSelf2 went away in %s line %d", buf, 0x12u);
+    v76 = "[MSPContainer editByMergingStateSnapshot:mergeOptions:context:completionQueue:completion:]_block_invoke";
+    v77 = 1024;
+    v78 = 398;
+    _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_ERROR, "strongSelf2 went away in %s line %d", buf, 0x12u);
   }
 
 LABEL_58:
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void __91__MSPContainer_editByMergingStateSnapshot_mergeOptions_context_completionQueue_completion___block_invoke_4(void *a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[5];
   v4 = a1[6];
   v5 = +[_MSPContainerEditReplacedEntirely sharedInstance];
-  v8[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   [v2 container:v3 didEditWithNewContents:v4 orderedEdits:v6 cause:0 context:a1[7]];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eraseFromStorageTypes:(unint64_t)types withCompletionQueue:(id)queue completion:(id)completion
@@ -1223,20 +1190,20 @@ void __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___b
 
 void __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___block_invoke_2(uint64_t a1, void *a2, int a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v7 = WeakRetained;
   if (WeakRetained)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___block_invoke_97;
-    v17[3] = &unk_279868160;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___block_invoke_97;
+    v15[3] = &unk_279868160;
     v8 = *(a1 + 56);
-    v17[4] = WeakRetained;
-    v17[5] = v8;
-    [(dispatch_object_t *)WeakRetained _forEachObserver:v17];
+    v15[4] = WeakRetained;
+    v15[5] = v8;
+    [(dispatch_object_t *)WeakRetained _forEachObserver:v15];
     v9 = *(a1 + 40);
     if (v9)
     {
@@ -1246,13 +1213,13 @@ void __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___b
         v10 = v7[1];
       }
 
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___block_invoke_2_100;
-      v14[3] = &unk_2798674D8;
-      v16 = v9;
-      v15 = v5;
-      dispatch_async(v10, v14);
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___block_invoke_2_100;
+      v12[3] = &unk_2798674D8;
+      v14 = v9;
+      v13 = v5;
+      dispatch_async(v10, v12);
     }
 
     if (a3)
@@ -1263,19 +1230,16 @@ void __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___b
 
   else
   {
-    v11 = *MEMORY[0x277D0E798];
-    v12 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "[MSPContainer eraseFromStorageTypes:withCompletionQueue:completion:]_block_invoke_2";
-      v20 = 1024;
-      v21 = 497;
-      _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
+      v17 = "[MSPContainer eraseFromStorageTypes:withCompletionQueue:completion:]_block_invoke_2";
+      v18 = 1024;
+      v19 = 497;
+      _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___block_invoke_97(uint64_t a1, void *a2)
@@ -1289,24 +1253,24 @@ void __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___b
 
 void __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___block_invoke_3(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
     if (*(a1 + 56))
     {
-      _MSPLogForContainer(*(a1 + 32), @"Will erase persister contents", v2, v3, v4, v5, v6, v7, v13);
-      v11 = WeakRetained[1];
+      _MSPLogForContainer(*(a1 + 32), @"Will erase persister contents", v2, v3, v4, v5, v6, v7, v11);
+      v10 = WeakRetained[1];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___block_invoke_105;
       block[3] = &unk_2798681D8;
       block[4] = WeakRetained;
-      objc_copyWeak(&v16, (a1 + 48));
-      v15 = *(a1 + 40);
-      dispatch_barrier_async(v11, block);
+      objc_copyWeak(&v14, (a1 + 48));
+      v13 = *(a1 + 40);
+      dispatch_barrier_async(v10, block);
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v14);
     }
 
     else
@@ -1317,19 +1281,16 @@ void __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___b
 
   else
   {
-    v9 = *MEMORY[0x277D0E798];
-    v10 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v18 = "[MSPContainer eraseFromStorageTypes:withCompletionQueue:completion:]_block_invoke_3";
-      v19 = 1024;
-      v20 = 517;
-      _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
+      v16 = "[MSPContainer eraseFromStorageTypes:withCompletionQueue:completion:]_block_invoke_3";
+      v17 = 1024;
+      v18 = 517;
+      _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___block_invoke_105(uint64_t a1)
@@ -1349,7 +1310,7 @@ void __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___b
 
 void __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___block_invoke_2_106(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -1361,30 +1322,27 @@ void __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___b
 
     else
     {
-      v8[0] = MEMORY[0x277D85DD0];
-      v8[1] = 3221225472;
-      v8[2] = __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___block_invoke_107;
-      v8[3] = &unk_2798676D0;
-      v9 = *(a1 + 32);
-      [WeakRetained _performInitialLoadNotifyingObservers:1 kickOffSynchronously:1 completion:v8];
+      v6[0] = MEMORY[0x277D85DD0];
+      v6[1] = 3221225472;
+      v6[2] = __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___block_invoke_107;
+      v6[3] = &unk_2798676D0;
+      v7 = *(a1 + 32);
+      [WeakRetained _performInitialLoadNotifyingObservers:1 kickOffSynchronously:1 completion:v6];
     }
   }
 
   else
   {
-    v5 = *MEMORY[0x277D0E798];
-    v6 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "[MSPContainer eraseFromStorageTypes:withCompletionQueue:completion:]_block_invoke_2";
-      v12 = 1024;
-      v13 = 529;
-      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_ERROR, "strongSelf2 went away in %s line %d", buf, 0x12u);
+      v9 = "[MSPContainer eraseFromStorageTypes:withCompletionQueue:completion:]_block_invoke_2";
+      v10 = 1024;
+      v11 = 529;
+      _os_log_impl(&dword_25813A000, v5, OS_LOG_TYPE_ERROR, "strongSelf2 went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)editContentsUsingBarrierBlock:(id)block context:(id)context completionQueue:(id)queue completion:(id)completion
@@ -1426,7 +1384,7 @@ void __69__MSPContainer_eraseFromStorageTypes_withCompletionQueue_completion___b
 
 void __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v5 = WeakRetained;
@@ -1437,109 +1395,106 @@ void __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_co
     block[1] = 3221225472;
     block[2] = __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_121;
     block[3] = &unk_279868310;
-    objc_copyWeak(&v19, (a1 + 72));
-    v15 = v3;
+    objc_copyWeak(&v17, (a1 + 72));
+    v13 = v3;
     v7 = *(a1 + 56);
-    v13 = *(a1 + 32);
-    v8 = *(&v13 + 1);
-    v18 = *(a1 + 64);
+    v11 = *(a1 + 32);
+    v8 = *(&v11 + 1);
+    v16 = *(a1 + 64);
     *&v9 = *(a1 + 48);
     *(&v9 + 1) = v7;
-    v16 = v13;
-    v17 = v9;
+    v14 = v11;
+    v15 = v9;
     dispatch_barrier_async(v6, block);
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v17);
   }
 
   else
   {
-    v10 = *MEMORY[0x277D0E798];
-    v11 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[MSPContainer editContentsUsingBarrierBlock:context:completionQueue:completion:]_block_invoke_2";
-      v22 = 1024;
-      v23 = 579;
-      _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
+      v19 = "[MSPContainer editContentsUsingBarrierBlock:context:completionQueue:completion:]_block_invoke_2";
+      v20 = 1024;
+      v21 = 579;
+      _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_ERROR, "strongSelf went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_121(uint64_t a1)
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 80));
-  v56 = WeakRetained;
+  v53 = WeakRetained;
   if (WeakRetained)
   {
     dispatch_suspend(WeakRetained[1]);
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v4 = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
-    v80 = 0u;
-    v81 = 0u;
+    v77 = 0u;
     v78 = 0u;
-    v79 = 0u;
+    v75 = 0u;
+    v76 = 0u;
     v5 = *(a1 + 32);
-    v6 = [v5 countByEnumeratingWithState:&v78 objects:v91 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v75 objects:v88 count:16];
     if (v6)
     {
-      v7 = *v79;
+      v7 = *v76;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v79 != v7)
+          if (*v76 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v78 + 1) + 8 * i);
+          v9 = *(*(&v75 + 1) + 8 * i);
           v10 = [v9 mutableCopy];
           [v3 addObject:v10];
           [v4 setObject:v9 forKey:v10];
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v78 objects:v91 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v75 objects:v88 count:16];
       }
 
       while (v6);
     }
 
-    v57 = [[_MSPContainerEditsRecorder alloc] initWithMutableArray:v3];
+    v54 = [[_MSPContainerEditsRecorder alloc] initWithMutableArray:v3];
     v11 = *(a1 + 64);
-    v12 = [(_MSPContainerEditsRecorder *)v57 recordableMutableArray];
+    v12 = [(_MSPContainerEditsRecorder *)v54 recordableMutableArray];
     (*(v11 + 16))(v11, v12);
 
-    v13 = [(_MSPContainerEditsRecorder *)v57 recordableMutableArray];
-    [(dispatch_object_t *)v56 _processNewEditedContents:v13];
+    v13 = [(_MSPContainerEditsRecorder *)v54 recordableMutableArray];
+    [(dispatch_object_t *)v53 _processNewEditedContents:v13];
 
     v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v76 = 0u;
-    v77 = 0u;
+    v73 = 0u;
     v74 = 0u;
-    v75 = 0u;
+    v71 = 0u;
+    v72 = 0u;
     v15 = v3;
-    v16 = [v15 countByEnumeratingWithState:&v74 objects:v90 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v71 objects:v87 count:16];
     if (v16)
     {
-      v17 = *v75;
+      v17 = *v72;
 LABEL_11:
       v18 = 0;
       while (1)
       {
-        if (*v75 != v17)
+        if (*v72 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        v19 = *(*(&v74 + 1) + 8 * v18);
-        v73 = 0;
-        v20 = [v19 transferToImmutableIfValidWithError:&v73];
-        v21 = v73;
+        v19 = *(*(&v71 + 1) + 8 * v18);
+        v70 = 0;
+        v20 = [v19 transferToImmutableIfValidWithError:&v70];
+        v21 = v70;
         v22 = v21;
         if (!v20)
         {
@@ -1551,7 +1506,7 @@ LABEL_11:
 
         if (v16 == ++v18)
         {
-          v16 = [v15 countByEnumeratingWithState:&v74 objects:v90 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v71 objects:v87 count:16];
           if (v16)
           {
             goto LABEL_11;
@@ -1572,27 +1527,27 @@ LABEL_17:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v87 = __Block_byref_object_copy__6;
-    v88 = __Block_byref_object_dispose__6;
-    v89 = 0;
+    v84 = __Block_byref_object_copy__6;
+    v85 = __Block_byref_object_dispose__6;
+    v86 = 0;
     if (!v22)
     {
-      v72[0] = MEMORY[0x277D85DD0];
-      v72[1] = 3221225472;
-      v72[2] = __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_124;
-      v72[3] = &unk_279868270;
-      v72[4] = buf;
-      [(_MSPContainerEditsRecorder *)v57 useImmutableObjectsForEditsFromMap:v4 intermediateMutableObjectTransferBlock:v72];
+      v69[0] = MEMORY[0x277D85DD0];
+      v69[1] = 3221225472;
+      v69[2] = __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_124;
+      v69[3] = &unk_279868270;
+      v69[4] = buf;
+      [(_MSPContainerEditsRecorder *)v54 useImmutableObjectsForEditsFromMap:v4 intermediateMutableObjectTransferBlock:v69];
       v23 = *(*&buf[8] + 40);
     }
 
     if ([v23 count])
     {
       v24 = MEMORY[0x277CCA9B8];
-      v84 = @"MSPUnderlyingErrors";
+      v81 = @"MSPUnderlyingErrors";
       v25 = [*(*&buf[8] + 40) copy];
-      v85 = v25;
-      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+      v82 = v25;
+      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
       v27 = [v24 errorWithDomain:@"com.apple.MapsSupport.MSPContainer" code:2 userInfo:v26];
 
       v22 = v27;
@@ -1608,21 +1563,20 @@ LABEL_17:
       v28 = [v14 copy];
     }
 
-    v30 = *(a1 + 40);
-    v31 = [(_MSPContainerEditsRecorder *)v57 orderedEdits];
-    v55 = *(*&buf[8] + 40);
-    _MSPLogForContainer(v30, @"Has terminated the run, which caused the following edits: %@ -- final contents %@, transfer error if any %@", v32, v33, v34, v35, v36, v37, v31);
+    v29 = *(a1 + 40);
+    v30 = [(_MSPContainerEditsRecorder *)v54 orderedEdits];
+    _MSPLogForContainer(v29, @"Has terminated the run, which caused the following edits: %@ -- final contents %@, transfer error if any %@", v31, v32, v33, v34, v35, v36, v30);
 
     if (!v22)
     {
-      v38 = [(dispatch_object_t *)v56 _objectsWithDuplicateStorageIdentifiersFromArray:v28];
-      if ([v38 count])
+      v37 = [(dispatch_object_t *)v53 _objectsWithDuplicateStorageIdentifiersFromArray:v28];
+      if ([v37 count])
       {
-        v39 = MEMORY[0x277CCA9B8];
-        v82 = @"MSPDuplicateStorageIdentifiersObjects";
-        v83 = v38;
-        v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
-        v22 = [v39 errorWithDomain:@"com.apple.MapsSupport.MSPContainer" code:3 userInfo:v40];
+        v38 = MEMORY[0x277CCA9B8];
+        v79 = @"MSPDuplicateStorageIdentifiersObjects";
+        v80 = v37;
+        v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+        v22 = [v38 errorWithDomain:@"com.apple.MapsSupport.MSPContainer" code:3 userInfo:v39];
 
         v28 = MEMORY[0x277CBEBF8];
       }
@@ -1633,54 +1587,53 @@ LABEL_17:
       }
     }
 
-    v41 = [(_MSPContainerEditsRecorder *)v57 orderedEdits];
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_2_131;
-    v64[3] = &unk_2798682C0;
-    objc_copyWeak(&v71, (a1 + 80));
-    v42 = *(a1 + 48);
-    v64[4] = *(a1 + 40);
-    v65 = v42;
-    v43 = v28;
-    v66 = v43;
-    v44 = v41;
-    v67 = v44;
-    v70 = *(a1 + 72);
-    v68 = *(a1 + 56);
-    v69 = v56;
-    v51 = MEMORY[0x259C7AD60](v64);
+    v40 = [(_MSPContainerEditsRecorder *)v54 orderedEdits];
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_2_131;
+    v61[3] = &unk_2798682C0;
+    objc_copyWeak(&v68, (a1 + 80));
+    v41 = *(a1 + 48);
+    v61[4] = *(a1 + 40);
+    v62 = v41;
+    v42 = v28;
+    v63 = v42;
+    v43 = v40;
+    v64 = v43;
+    v67 = *(a1 + 72);
+    v65 = *(a1 + 56);
+    v66 = v53;
+    v50 = MEMORY[0x259C7AD60](v61);
     if (v22)
     {
-      _MSPLogForContainer(*(a1 + 40), @"Not committing due to immutable transfer error.", v45, v46, v47, v48, v49, v50, v54);
-      (v51)[2](v51, 0, v22);
+      _MSPLogForContainer(*(a1 + 40), @"Not committing due to immutable transfer error.", v44, v45, v46, v47, v48, v49, v52);
+      (v50)[2](v50, 0, v22);
     }
 
     else
     {
-      v52 = *(a1 + 48);
-      v58[0] = MEMORY[0x277D85DD0];
-      v58[1] = 3221225472;
-      v58[2] = __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_3;
-      v58[3] = &unk_2798682E8;
-      objc_copyWeak(&v63, (a1 + 80));
-      v58[4] = *(a1 + 40);
-      v62 = v51;
-      v59 = v43;
-      v60 = v44;
-      v61 = *(a1 + 32);
-      [(dispatch_object_t *)v56 _commitEditWithFinalContents:v14 context:v52 completion:v58];
+      v51 = *(a1 + 48);
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_3;
+      v55[3] = &unk_2798682E8;
+      objc_copyWeak(&v60, (a1 + 80));
+      v55[4] = *(a1 + 40);
+      v59 = v50;
+      v56 = v42;
+      v57 = v43;
+      v58 = *(a1 + 32);
+      [(dispatch_object_t *)v53 _commitEditWithFinalContents:v14 context:v51 completion:v55];
 
-      objc_destroyWeak(&v63);
+      objc_destroyWeak(&v60);
     }
 
-    objc_destroyWeak(&v71);
+    objc_destroyWeak(&v68);
     _Block_object_dispose(buf, 8);
   }
 
   else
   {
-    v29 = *MEMORY[0x277D0E798];
     v15 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
@@ -1691,8 +1644,6 @@ LABEL_17:
       _os_log_impl(&dword_25813A000, v15, OS_LOG_TYPE_ERROR, "strongSelf2 went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 id __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_124(uint64_t a1, void *a2)
@@ -1721,7 +1672,7 @@ id __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_comp
 
 void __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_2_131(uint64_t a1, void *a2, void *a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 88));
@@ -1737,15 +1688,15 @@ void __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_co
       WeakRetained[3] = v16;
 
       _MSPLogForContainer(*(a1 + 32), @"Committed edit with new snapshot: %@", v18, v19, v20, v21, v22, v23, WeakRetained[2]);
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_138;
-      v36[3] = &unk_279868298;
-      v36[4] = WeakRetained;
-      v37 = *(a1 + 48);
-      v38 = *(a1 + 56);
-      v39 = *(a1 + 40);
-      [WeakRetained _forEachObserver:v36];
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_138;
+      v34[3] = &unk_279868298;
+      v34[4] = WeakRetained;
+      v35 = *(a1 + 48);
+      v36 = *(a1 + 56);
+      v37 = *(a1 + 40);
+      [WeakRetained _forEachObserver:v34];
     }
 
     v24 = *(a1 + 80);
@@ -1761,8 +1712,8 @@ void __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_co
       block[1] = 3221225472;
       block[2] = __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_2_139;
       block[3] = &unk_2798674D8;
-      v35 = v24;
-      v34 = v7;
+      v33 = v24;
+      v32 = v7;
       dispatch_async(v25, block);
     }
 
@@ -1782,19 +1733,16 @@ void __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_co
 
   else
   {
-    v30 = *MEMORY[0x277D0E798];
-    v31 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v30 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v41 = "[MSPContainer editContentsUsingBarrierBlock:context:completionQueue:completion:]_block_invoke_2";
-      v42 = 1024;
-      v43 = 659;
-      _os_log_impl(&dword_25813A000, v31, OS_LOG_TYPE_ERROR, "strongSelf3 went away in %s line %d", buf, 0x12u);
+      v39 = "[MSPContainer editContentsUsingBarrierBlock:context:completionQueue:completion:]_block_invoke_2";
+      v40 = 1024;
+      v41 = 659;
+      _os_log_impl(&dword_25813A000, v30, OS_LOG_TYPE_ERROR, "strongSelf3 went away in %s line %d", buf, 0x12u);
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_138(void *a1, void *a2)
@@ -1808,7 +1756,7 @@ void __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_co
 
 void __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v11 = WeakRetained;
@@ -1816,7 +1764,7 @@ void __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_co
   {
     if (v3)
     {
-      _MSPLogForContainer(*(a1 + 32), @"Not committing due to _commitEdit... hook error.", v5, v6, v7, v8, v9, v10, *v15);
+      _MSPLogForContainer(*(a1 + 32), @"Not committing due to _commitEdit... hook error.", v5, v6, v7, v8, v9, v10, *v13);
       (*(*(a1 + 64) + 16))();
     }
 
@@ -1828,19 +1776,16 @@ void __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_co
 
   else
   {
-    v12 = *MEMORY[0x277D0E798];
-    v13 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      *v15 = 136315394;
-      *&v15[4] = "[MSPContainer editContentsUsingBarrierBlock:context:completionQueue:completion:]_block_invoke_3";
-      v16 = 1024;
-      v17 = 693;
-      _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_ERROR, "strongSelf3 went away in %s line %d", v15, 0x12u);
+      *v13 = 136315394;
+      *&v13[4] = "[MSPContainer editContentsUsingBarrierBlock:context:completionQueue:completion:]_block_invoke_3";
+      v14 = 1024;
+      v15 = 693;
+      _os_log_impl(&dword_25813A000, v12, OS_LOG_TYPE_ERROR, "strongSelf3 went away in %s line %d", v13, 0x12u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)editObjectsWithIdentifiers:(id)identifiers usingBarrierBlock:(id)block context:(id)context completionQueue:(id)queue completion:(id)completion
@@ -1867,27 +1812,27 @@ void __81__MSPContainer_editContentsUsingBarrierBlock_context_completionQueue_co
 
 void __96__MSPContainer_editObjectsWithIdentifiers_usingBarrierBlock_context_completionQueue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         v9 = [v8 storageIdentifier];
         if ([*(a1 + 32) containsObject:v9])
         {
@@ -1895,16 +1840,13 @@ void __96__MSPContainer_editObjectsWithIdentifiers_usingBarrierBlock_context_com
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
-  v10 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer
@@ -1927,7 +1869,7 @@ void __96__MSPContainer_editObjectsWithIdentifiers_usingBarrierBlock_context_com
 
 - (void)_forEachObserver:(id)observer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   context = objc_autoreleasePoolPush();
   v5 = self->_observers;
@@ -1935,26 +1877,26 @@ void __96__MSPContainer_editObjectsWithIdentifiers_usingBarrierBlock_context_com
   allObjects = [(NSHashTable *)self->_observers allObjects];
   objc_sync_exit(v5);
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   obj = allObjects;
-  v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       v9 = 0;
       do
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * v9);
+        v10 = *(*(&v18 + 1) + 8 * v9);
         if ((objc_opt_respondsToSelector() & 1) == 0 || ([v10 observationQueueForContainer:{self, context}], v11 = objc_claimAutoreleasedReturnValue(), (accessQueue = v11) == 0))
         {
           v11 = 0;
@@ -1967,27 +1909,25 @@ void __96__MSPContainer_editObjectsWithIdentifiers_usingBarrierBlock_context_com
         block[3] = &unk_2798674D8;
         v13 = observerCopy;
         block[4] = v10;
-        v18 = v13;
+        v17 = v13;
         dispatch_async(accessQueue, block);
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
   objc_autoreleasePoolPop(context);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __33__MSPContainer__forEachObserver___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 
   objc_autoreleasePoolPop(v2);
@@ -2259,154 +2199,146 @@ void __105__MSPContainer__checkAndAddCoalescedEditForContext_identifiers_enqueue
 
 void __49__MSPContainer__commitPendingCoalescedEditsIfAny__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __49__MSPContainer__commitPendingCoalescedEditsIfAny__block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __49__MSPContainer__commitPendingCoalescedEditsIfAny__block_invoke_3(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __49__MSPContainer__commitPendingCoalescedEditsIfAny__block_invoke_4(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v8) + 16))(*(*(&v10 + 1) + 8 * v8));
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

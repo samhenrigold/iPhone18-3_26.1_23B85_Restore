@@ -30,7 +30,7 @@
     *(&v2->_lastIndoorError.m_storage.dummy_.aligner_ + 126) = 0x4049000000000000;
     *(&v2->_lastIndoorError.m_storage.dummy_.aligner_ + 142) = objc_alloc_init(CLAvailableVenuesStateMachine);
     *(&v3->_lastIndoorError.m_storage.dummy_.aligner_ + 39) = 257;
-    [CLIndoorState getFitnessModeDebounceParamsWithOptionalAvailabilityTile:0];
+    objc_msgSend_getFitnessModeDebounceParamsWithOptionalAvailabilityTile_(CLIndoorState);
     operator new();
   }
 
@@ -113,11 +113,11 @@
     v7 = *(&self->_lastIndoorError.m_storage.dummy_.aligner_ + 86);
     v8 = *(&self->_lastIndoorError.m_storage.dummy_.aligner_ + 118);
     *buf = 134349568;
-    v18 = v6;
-    v19 = 2050;
-    v20 = v7;
-    v21 = 2050;
-    v22 = v8;
+    v28 = v6;
+    v29 = 2050;
+    v30 = v7;
+    v31 = 2050;
+    v32 = v8;
     _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_INFO, "Prefetch indoor parameters updated, maxFloors=%{public}lu radiusMeters=%{public}f clusterMergeRadius=%{public}f", buf, 0x20u);
   }
 
@@ -129,11 +129,21 @@
       sub_101869E5C();
     }
 
-    v16 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLIndoorState updatePrefetchParameters:]", "%s\n", v16);
-    if (v16 != buf)
+    v16 = *(&self->_lastIndoorError.m_storage.dummy_.aligner_ + 102);
+    v17 = *(&self->_lastIndoorError.m_storage.dummy_.aligner_ + 86);
+    v18 = *(&self->_lastIndoorError.m_storage.dummy_.aligner_ + 118);
+    v21 = 134349568;
+    v22 = v16;
+    v23 = 2050;
+    v24 = v17;
+    v25 = 2050;
+    v26 = v18;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4628, 1, "Prefetch indoor parameters updated, maxFloors=%{public}lu radiusMeters=%{public}f clusterMergeRadius=%{public}f", &v21, 32);
+    v20 = v19;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLIndoorState updatePrefetchParameters:]", "%s\n", v19);
+    if (v20 != buf)
     {
-      free(v16);
+      free(v20);
     }
   }
 
@@ -181,11 +191,11 @@
     v13 = *(&self->_lastIndoorError.m_storage.dummy_.aligner_ + 94);
     v14 = *(&self->_lastIndoorError.m_storage.dummy_.aligner_ + 126);
     *buf = 134349568;
-    v18 = v12;
-    v19 = 2050;
-    v20 = v13;
-    v21 = 2050;
-    v22 = v14;
+    v28 = v12;
+    v29 = 2050;
+    v30 = v13;
+    v31 = 2050;
+    v32 = v14;
     _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_INFO, "Prefetch regional parameters updated, maxFloors=%{public}lu radiusMeters=%{public}f clusterMergeRadius=%{public}f", buf, 0x20u);
   }
 
@@ -195,7 +205,7 @@
   }
 
   fitnessModeStateMachine = [(CLIndoorState *)self fitnessModeStateMachine];
-  [CLIndoorState getFitnessModeDebounceParamsWithOptionalAvailabilityTile:parameters];
+  objc_msgSend_getFitnessModeDebounceParamsWithOptionalAvailabilityTile_(CLIndoorState);
   sub_10025C9DC(fitnessModeStateMachine, buf);
 }
 

@@ -23,31 +23,31 @@
 
 - (void)migrateWorkflow
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = [(WFWorkflowMigration *)self actions];
-  v3 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v3 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v20;
+    v5 = *v19;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * i);
+        v7 = *(*(&v18 + 1) + 8 * i);
         actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
         v9 = [v7 objectForKey:actionIdentifierKey];
 
-        if ([v9 isEqualToString:@"is.workflow.actions.documentpicker.save"])
+        if (objc_msgSend_isEqualToString_(v9))
         {
           actionParametersKey = [(WFWorkflowMigration *)self actionParametersKey];
           v11 = [v7 objectForKeyedSubscript:actionParametersKey];
@@ -74,8 +74,8 @@
 
           v14 = v13;
 
-          v15 = [v14 isEqualToString:@"Dropbox"];
-          if (v15)
+          isEqualToString = objc_msgSend_isEqualToString_(v14);
+          if (isEqualToString)
           {
             actionIdentifierKey2 = [(WFWorkflowMigration *)self actionIdentifierKey];
             [v7 setObject:@"is.workflow.actions.dropbox.savefile" forKey:actionIdentifierKey2];
@@ -85,14 +85,13 @@
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v4);
   }
 
   [(WFWorkflowMigration *)self finish];
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -11,6 +11,7 @@
 - (BOOL)_setSWCSetting:(id)setting forKey:(id)key error:(id *)error;
 - (BOOL)isEnabled;
 - (BOOL)removeSettingsReturningError:(id *)error;
+- (BOOL)setEnabled:(BOOL)enabled error:(id *)error;
 - (_LSSharedWebCredentialsAppLink)initWithCoder:(id)coder;
 - (id).cxx_construct;
 - (id)_SWCSettingsReturningError:(id *)error;
@@ -55,7 +56,7 @@
 + (id)_SWCSettingsWithApplicationIdentifier:(id)identifier error:(id *)error
 {
   v5 = [self _SWCSpecifierForSettingsWithApplicationIdentifier:identifier];
-  v6 = [_LSSWCServiceSettingsClass() serviceSettingsWithServiceSpecifier:v5 error:error];
+  v6 = [(objc_class *)_LSSWCServiceSettingsClass() serviceSettingsWithServiceSpecifier:v5 error:error];
 
   return v6;
 }
@@ -211,33 +212,41 @@ LABEL_11:
   return v2;
 }
 
+- (BOOL)setEnabled:(BOOL)enabled error:(id *)error
+{
+  v6 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  LOBYTE(error) = [(_LSSharedWebCredentialsAppLink *)self _setSWCSetting:v6 forKey:@"com.apple.LaunchServices.enabled" error:error];
+
+  return error;
+}
+
 + (int64_t)settingsSwitchStateForApplicationIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = [self _SWCSpecifierForSettingsWithApplicationIdentifier:identifier];
-  v5 = [_LSSWCServiceDetailsClass() serviceDetailsWithServiceSpecifier:v4 error:0];
-  v21 = 0;
+  v5 = [(objc_class *)_LSSWCServiceDetailsClass() serviceDetailsWithServiceSpecifier:v4 error:0];
+  v20 = 0;
   v6 = [v5 count];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = v5;
   v8 = 0;
-  v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v9 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v9)
   {
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         if ([v12 isAlwaysEnabled])
         {
           --v6;
@@ -245,11 +254,11 @@ LABEL_11:
 
         else
         {
-          v8 += [self _areAppLinksEnabledForServiceDetails:v12 cachedSettings:&v21];
+          v8 += [self _areAppLinksEnabledForServiceDetails:v12 cachedSettings:&v20];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v9);
@@ -273,13 +282,12 @@ LABEL_11:
     v13 = -1;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (BOOL)setSettingsSwitchState:(int64_t)state forApplicationIdentifier:(id)identifier error:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if ((state | 2) == 2)
   {
@@ -289,15 +297,14 @@ LABEL_11:
 
   else if (error)
   {
-    v13 = *MEMORY[0x1E696A278];
-    v14[0] = @"state";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x1E696A278];
+    v13[0] = @"state";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v10, "+[_LSSharedWebCredentialsAppLink setSettingsSwitchState:forApplicationIdentifier:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSAppLinkPlugIn.mm", 391);
 
     LOBYTE(error) = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -314,18 +321,18 @@ LABEL_11:
 
 - (BOOL)removeSettingsReturningError:(id *)error
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   _SWCSpecifierForSettings = [(_LSSharedWebCredentialsAppLink *)self _SWCSpecifierForSettings];
   v5 = _LSSWCServiceSettingsClass();
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v12[0] = @"com.apple.LaunchServices.enabled";
-    v12[1] = @"com.apple.LaunchServices.browserSettings";
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+    v11[0] = @"com.apple.LaunchServices.enabled";
+    v11[1] = @"com.apple.LaunchServices.browserSettings";
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
     v8 = [v6 setWithArray:v7];
 
-    v9 = [v5 removeObjectsForKeys:v8 serviceSpecifier:_SWCSpecifierForSettings error:error];
+    v9 = [(objc_class *)v5 removeObjectsForKeys:v8 serviceSpecifier:_SWCSpecifierForSettings error:error];
   }
 
   else if (error)
@@ -339,25 +346,24 @@ LABEL_11:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (BOOL)removeAllSettingsReturningError:(id *)error
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v4 = _LSSWCServiceSettingsClass();
   if (v4)
   {
     v5 = v4;
     v6 = MEMORY[0x1E695DFD8];
-    v13[0] = @"com.apple.LaunchServices.enabled";
-    v13[1] = @"com.apple.LaunchServices.browserSettings";
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+    v12[0] = @"com.apple.LaunchServices.enabled";
+    v12[1] = @"com.apple.LaunchServices.browserSettings";
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
     v8 = [v6 setWithArray:v7];
 
     v9 = _LSSWCServiceTypeAppLinks();
-    v10 = [v5 removeObjectsForKeys:v8 serviceType:v9 error:error];
+    v10 = [(objc_class *)v5 removeObjectsForKeys:v8 serviceType:v9 error:error];
   }
 
   else if (error)
@@ -368,10 +374,9 @@ LABEL_11:
 
   else
   {
-    v10 = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

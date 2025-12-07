@@ -425,8 +425,6 @@ LABEL_47:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  creationDate = self->_creationDate;
-  v24 = toCopy;
   PBDataWriterWriteDoubleField();
   if (!self->_creatorIdentifier)
   {
@@ -437,14 +435,12 @@ LABEL_47:
   has = self->_has;
   if ((has & 0x200) != 0)
   {
-    deleted = self->_deleted;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 0x400) != 0)
   {
-    isUnderline = self->_isUnderline;
     PBDataWriterWriteBOOLField();
   }
 
@@ -453,7 +449,6 @@ LABEL_47:
     PBDataWriterWriteStringField();
   }
 
-  modificationDate = self->_modificationDate;
   PBDataWriterWriteDoubleField();
   if (self->_note)
   {
@@ -470,17 +465,15 @@ LABEL_47:
     PBDataWriterWriteStringField();
   }
 
-  v10 = self->_has;
-  if ((v10 & 0x80) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x80) != 0)
   {
-    style = self->_style;
     PBDataWriterWriteUint32Field();
-    v10 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v10 & 0x100) != 0)
+  if ((v5 & 0x100) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteUint32Field();
   }
 
@@ -500,49 +493,47 @@ LABEL_47:
     PBDataWriterWriteStringField();
   }
 
-  v13 = v24;
+  v6 = toCopy;
   if (self->_assetVersion)
   {
     PBDataWriterWriteStringField();
-    v13 = v24;
+    v6 = toCopy;
   }
 
   if (self->_attachments)
   {
     PBDataWriterWriteStringField();
-    v13 = v24;
+    v6 = toCopy;
   }
 
   if (self->_chapterTitle)
   {
     PBDataWriterWriteStringField();
-    v13 = v24;
+    v6 = toCopy;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    userModificationDate = self->_userModificationDate;
     PBDataWriterWriteDoubleField();
-    v13 = v24;
+    v6 = toCopy;
   }
 
   if (self->_selectedTextRange)
   {
     PBDataWriterWriteSubmessage();
-    v13 = v24;
+    v6 = toCopy;
   }
 
-  v15 = self->_has;
-  if ((v15 & 0x40) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x40) != 0)
   {
-    readingProgressHighWaterMark = self->_readingProgressHighWaterMark;
     PBDataWriterWriteFloatField();
-    v13 = v24;
-    v15 = self->_has;
-    if ((v15 & 0x800) == 0)
+    v6 = toCopy;
+    v7 = self->_has;
+    if ((v7 & 0x800) == 0)
     {
 LABEL_35:
-      if ((v15 & 0x20) == 0)
+      if ((v7 & 0x20) == 0)
       {
         goto LABEL_37;
       }
@@ -556,41 +547,38 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  spineIndexUpdated = self->_spineIndexUpdated;
   PBDataWriterWriteBOOLField();
-  v13 = v24;
+  v6 = toCopy;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_36:
-    readingProgress = self->_readingProgress;
     PBDataWriterWriteFloatField();
-    v13 = v24;
+    v6 = toCopy;
   }
 
 LABEL_37:
   if (self->_futureProofing11)
   {
     PBDataWriterWriteStringField();
-    v13 = v24;
+    v6 = toCopy;
   }
 
   if (self->_futureProofing12)
   {
     PBDataWriterWriteStringField();
-    v13 = v24;
+    v6 = toCopy;
   }
 
-  v17 = self->_has;
-  if ((v17 & 4) != 0)
+  v8 = self->_has;
+  if ((v8 & 4) != 0)
   {
-    plAbsolutePhysicalLocation = self->_plAbsolutePhysicalLocation;
     PBDataWriterWriteInt32Field();
-    v13 = v24;
-    v17 = self->_has;
-    if ((v17 & 8) == 0)
+    v6 = toCopy;
+    v8 = self->_has;
+    if ((v8 & 8) == 0)
     {
 LABEL_43:
-      if ((v17 & 0x10) == 0)
+      if ((v8 & 0x10) == 0)
       {
         goto LABEL_45;
       }
@@ -599,40 +587,37 @@ LABEL_43:
     }
   }
 
-  else if ((v17 & 8) == 0)
+  else if ((v8 & 8) == 0)
   {
     goto LABEL_43;
   }
 
-  plLocationRangeEnd = self->_plLocationRangeEnd;
   PBDataWriterWriteInt32Field();
-  v13 = v24;
+  v6 = toCopy;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_44:
-    plLocationRangeStart = self->_plLocationRangeStart;
     PBDataWriterWriteInt32Field();
-    v13 = v24;
+    v6 = toCopy;
   }
 
 LABEL_45:
   if (self->_plLocationStorageUUID)
   {
     PBDataWriterWriteStringField();
-    v13 = v24;
+    v6 = toCopy;
   }
 
   if (self->_plUserData)
   {
     PBDataWriterWriteDataField();
-    v13 = v24;
+    v6 = toCopy;
   }
 
   if (*&self->_has)
   {
-    locationModificationDate = self->_locationModificationDate;
     PBDataWriterWriteDoubleField();
-    v13 = v24;
+    v6 = toCopy;
   }
 }
 
@@ -1034,7 +1019,6 @@ LABEL_19:
     }
   }
 
-  v6 = *(equalCopy + 102);
   if ((*&self->_has & 0x200) != 0)
   {
     if ((*(equalCopy + 102) & 0x200) == 0)
@@ -1042,7 +1026,6 @@ LABEL_19:
       goto LABEL_106;
     }
 
-    v12 = *(equalCopy + 200);
     if (self->_deleted)
     {
       if ((*(equalCopy + 200) & 1) == 0)
@@ -1069,7 +1052,6 @@ LABEL_19:
       goto LABEL_106;
     }
 
-    v13 = *(equalCopy + 201);
     if (self->_isUnderline)
     {
       if ((*(equalCopy + 201) & 1) == 0)
@@ -1127,16 +1109,16 @@ LABEL_19:
     }
   }
 
-  v11 = *(equalCopy + 102);
+  v10 = *(equalCopy + 102);
   if ((*&self->_has & 0x80) != 0)
   {
-    if ((v11 & 0x80) == 0 || self->_style != *(equalCopy + 46))
+    if ((v10 & 0x80) == 0 || self->_style != *(equalCopy + 46))
     {
       goto LABEL_106;
     }
   }
 
-  else if ((v11 & 0x80) != 0)
+  else if ((v10 & 0x80) != 0)
   {
     goto LABEL_106;
   }
@@ -1206,16 +1188,16 @@ LABEL_19:
   }
 
   has = self->_has;
-  v21 = *(equalCopy + 102);
+  v18 = *(equalCopy + 102);
   if ((has & 2) != 0)
   {
-    if ((v21 & 2) == 0 || self->_userModificationDate != *(equalCopy + 4))
+    if ((v18 & 2) == 0 || self->_userModificationDate != *(equalCopy + 4))
     {
       goto LABEL_106;
     }
   }
 
-  else if ((v21 & 2) != 0)
+  else if ((v18 & 2) != 0)
   {
     goto LABEL_106;
   }
@@ -1231,16 +1213,16 @@ LABEL_19:
     has = self->_has;
   }
 
-  v23 = *(equalCopy + 102);
+  v20 = *(equalCopy + 102);
   if ((has & 0x40) != 0)
   {
-    if ((v23 & 0x40) == 0 || self->_readingProgressHighWaterMark != *(equalCopy + 39))
+    if ((v20 & 0x40) == 0 || self->_readingProgressHighWaterMark != *(equalCopy + 39))
     {
       goto LABEL_106;
     }
   }
 
-  else if ((v23 & 0x40) != 0)
+  else if ((v20 & 0x40) != 0)
   {
     goto LABEL_106;
   }
@@ -1253,7 +1235,7 @@ LABEL_19:
     }
 
 LABEL_106:
-    v32 = 0;
+    v28 = 0;
     goto LABEL_107;
   }
 
@@ -1262,7 +1244,6 @@ LABEL_106:
     goto LABEL_106;
   }
 
-  v24 = *(equalCopy + 202);
   if (self->_spineIndexUpdated)
   {
     if ((*(equalCopy + 202) & 1) == 0)
@@ -1279,13 +1260,13 @@ LABEL_106:
 LABEL_67:
   if ((has & 0x20) != 0)
   {
-    if ((v23 & 0x20) == 0 || self->_readingProgress != *(equalCopy + 38))
+    if ((v20 & 0x20) == 0 || self->_readingProgress != *(equalCopy + 38))
     {
       goto LABEL_106;
     }
   }
 
-  else if ((v23 & 0x20) != 0)
+  else if ((v20 & 0x20) != 0)
   {
     goto LABEL_106;
   }
@@ -1305,43 +1286,43 @@ LABEL_67:
     }
   }
 
-  v27 = self->_has;
-  v28 = *(equalCopy + 102);
-  if ((v27 & 4) != 0)
+  v23 = self->_has;
+  v24 = *(equalCopy + 102);
+  if ((v23 & 4) != 0)
   {
-    if ((v28 & 4) == 0 || self->_plAbsolutePhysicalLocation != *(equalCopy + 30))
+    if ((v24 & 4) == 0 || self->_plAbsolutePhysicalLocation != *(equalCopy + 30))
     {
       goto LABEL_106;
     }
   }
 
-  else if ((v28 & 4) != 0)
+  else if ((v24 & 4) != 0)
   {
     goto LABEL_106;
   }
 
-  if ((v27 & 8) != 0)
+  if ((v23 & 8) != 0)
   {
-    if ((v28 & 8) == 0 || self->_plLocationRangeEnd != *(equalCopy + 31))
+    if ((v24 & 8) == 0 || self->_plLocationRangeEnd != *(equalCopy + 31))
     {
       goto LABEL_106;
     }
   }
 
-  else if ((v28 & 8) != 0)
+  else if ((v24 & 8) != 0)
   {
     goto LABEL_106;
   }
 
-  if ((v27 & 0x10) != 0)
+  if ((v23 & 0x10) != 0)
   {
-    if ((v28 & 0x10) == 0 || self->_plLocationRangeStart != *(equalCopy + 32))
+    if ((v24 & 0x10) == 0 || self->_plLocationRangeStart != *(equalCopy + 32))
     {
       goto LABEL_106;
     }
   }
 
-  else if ((v28 & 0x10) != 0)
+  else if ((v24 & 0x10) != 0)
   {
     goto LABEL_106;
   }
@@ -1361,25 +1342,25 @@ LABEL_67:
     }
   }
 
-  v31 = *(equalCopy + 102);
+  v27 = *(equalCopy + 102);
   if (*&self->_has)
   {
-    if ((v31 & 1) == 0 || self->_locationModificationDate != *(equalCopy + 2))
+    if ((v27 & 1) == 0 || self->_locationModificationDate != *(equalCopy + 2))
     {
       goto LABEL_106;
     }
 
-    v32 = 1;
+    v28 = 1;
   }
 
   else
   {
-    v32 = (v31 & 1) == 0;
+    v28 = (v27 & 1) == 0;
   }
 
 LABEL_107:
 
-  return v32;
+  return v28;
 }
 
 - (unint64_t)hash

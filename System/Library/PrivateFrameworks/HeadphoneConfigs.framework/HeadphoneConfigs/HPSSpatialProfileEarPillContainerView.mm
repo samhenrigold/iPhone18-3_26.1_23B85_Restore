@@ -1,5 +1,6 @@
 @interface HPSSpatialProfileEarPillContainerView
 - (BOOL)fillPillsAroundAngle:(double)angle forTutorial:(BOOL)tutorial;
+- (BOOL)unstashPillStatesIfNeededAnimated:(BOOL)animated;
 - (CGPoint)enrollViewCenter;
 - (HPSSpatialProfileEarPillContainerView)init;
 - (double)percentOfPillsCompleted;
@@ -13,9 +14,11 @@
 - (void)fillLeftPillsWithCompletion:(id)completion;
 - (void)fillRightPillsWithCompletion:(id)completion;
 - (void)layoutSubviews;
+- (void)setAllPillState:(unint64_t)state animated:(BOOL)animated completion:(id)completion;
 - (void)setRadius:(double)radius center:(CGPoint)center animated:(BOOL)animated completion:(id)completion;
 - (void)stashPillStates;
 - (void)traitCollectionDidChange:(id)change;
+- (void)unstashPillStatesAnimated:(BOOL)animated;
 @end
 
 @implementation HPSSpatialProfileEarPillContainerView
@@ -32,52 +35,51 @@
     pillViews = v2->_pillViews;
     v2->_pillViews = v3;
 
-    v5 = 0;
-    *&v6 = 134217984;
-    v13 = v6;
+    v6 = 0;
+    *&v7 = 134217984;
+    v13 = v7;
     do
     {
-      v7 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sharedBluetoothSettingsLogComponent(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = v13;
-        v16 = v5;
-        _os_log_impl(&dword_251143000, v7, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Pill: init: %lu", buf, 0xCu);
+        v16 = v6;
+        _os_log_impl(&dword_251143000, v8, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Pill: init: %lu", buf, 0xCu);
       }
 
-      v8 = objc_opt_new();
-      [v8 setRadius:0.0];
-      [v8 setPillCornerRadius:2.0];
-      [v8 setNumberOfPills:11.0];
-      [v8 setRingHeight:3.5];
-      if (v5 <= 0xA && ((1 << v5) & 0x421) != 0)
+      v9 = objc_opt_new();
+      [v9 setRadius:0.0];
+      [v9 setPillCornerRadius:2.0];
+      [v9 setNumberOfPills:11.0];
+      [v9 setRingHeight:3.5];
+      if (v6 <= 0xA && ((1 << v6) & 0x421) != 0)
       {
-        v9 = 25.0;
-        v10 = 20.0;
+        v10 = 25.0;
+        v11 = 20.0;
       }
 
       else
       {
-        v9 = 15.0;
-        v10 = 10.0;
+        v10 = 15.0;
+        v11 = 10.0;
       }
 
-      [v8 setPillInitialHeight:{v10, v13}];
-      [v8 setPillCompletedHeight:v9];
-      [(NSMutableArray *)v2->_pillViews addObject:v8];
-      [(HPSSpatialProfileEarPillContainerView *)v2 addSubview:v8];
+      [v9 setPillInitialHeight:{v11, v13}];
+      [v9 setPillCompletedHeight:v10];
+      [(NSMutableArray *)v2->_pillViews addObject:v9];
+      [(HPSSpatialProfileEarPillContainerView *)v2 addSubview:v9];
 
-      ++v5;
+      ++v6;
     }
 
-    while (v5 != 11);
+    while (v6 != 11);
     v2->_clockwise = 0;
     v2->_counterwise = 0;
     v2->_lastAngle = 0;
     [(HPSSpatialProfileEarPillContainerView *)v2 resetPillsAnimated:0];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -139,7 +141,7 @@ LABEL_7:
 
 - (void)_animateToFinishedCompletion:(id)completion
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   block = completion;
   firstObject = [(NSMutableArray *)self->_pillViews firstObject];
   [firstObject ringHeight];
@@ -174,15 +176,15 @@ LABEL_7:
   v23 = dispatch_group_create();
   dispatch_group_enter(v23);
   objc_initWeak(&location, self);
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __70__HPSSpatialProfileEarPillContainerView__animateToFinishedCompletion___block_invoke;
-  v42[3] = &unk_2796ADEF8;
-  objc_copyWeak(&v44, &location);
-  v45 = v12;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __70__HPSSpatialProfileEarPillContainerView__animateToFinishedCompletion___block_invoke;
+  v41[3] = &unk_2796ADEF8;
+  objc_copyWeak(&v43, &location);
+  v44 = v12;
   v24 = v23;
-  v43 = v24;
-  [(HPSSpatialProfileEarPillContainerView *)self setAllPillState:5 animated:v12 ^ 1 completion:v42];
+  v42 = v24;
+  [(HPSSpatialProfileEarPillContainerView *)self setAllPillState:5 animated:v12 ^ 1 completion:v41];
   if (v12)
   {
     v25 = 0.0;
@@ -193,43 +195,43 @@ LABEL_7:
     v25 = 0.5;
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v26 = self->_pillViews;
-  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v38 objects:v47 count:16];
+  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v37 objects:v46 count:16];
   if (v27)
   {
-    v28 = *v39;
+    v28 = *v38;
     v29 = MEMORY[0x277D85DD0];
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v39 != v28)
+        if (*v38 != v28)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v38 + 1) + 8 * i);
+        v31 = *(*(&v37 + 1) + 8 * i);
         dispatch_group_enter(v24);
         objc_initWeak(&from, v31);
-        v34[0] = v29;
-        v34[1] = 3221225472;
-        v34[2] = __70__HPSSpatialProfileEarPillContainerView__animateToFinishedCompletion___block_invoke_2;
-        v34[3] = &unk_2796ADF20;
-        objc_copyWeak(v36, &from);
-        v36[1] = *&v14;
-        v36[2] = *&v25;
-        v35 = v24;
-        [v31 setRadius:v34 animationDuration:v14 * 0.899999976 completion:v25 * 0.7];
+        v33[0] = v29;
+        v33[1] = 3221225472;
+        v33[2] = __70__HPSSpatialProfileEarPillContainerView__animateToFinishedCompletion___block_invoke_2;
+        v33[3] = &unk_2796ADF20;
+        objc_copyWeak(v35, &from);
+        v35[1] = *&v14;
+        v35[2] = *&v25;
+        v34 = v24;
+        [v31 setRadius:v33 animationDuration:v14 * 0.899999976 completion:v25 * 0.7];
 
-        objc_destroyWeak(v36);
+        objc_destroyWeak(v35);
         objc_destroyWeak(&from);
       }
 
-      v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v37 objects:v46 count:16];
     }
 
     while (v27);
@@ -240,10 +242,8 @@ LABEL_7:
     dispatch_group_notify(v24, MEMORY[0x277D85CD0], block);
   }
 
-  objc_destroyWeak(&v44);
+  objc_destroyWeak(&v43);
   objc_destroyWeak(&location);
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HPSSpatialProfileEarPillContainerView__animateToFinishedCompletion___block_invoke(uint64_t a1)
@@ -298,6 +298,58 @@ void __70__HPSSpatialProfileEarPillContainerView__animateToFinishedCompletion___
   return v8 / _numberOfVisiblePillViews;
 }
 
+- (void)setAllPillState:(unint64_t)state animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  v25 = *MEMORY[0x277D85DE8];
+  block = completion;
+  v8 = dispatch_group_create();
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  obj = self->_pillViews;
+  v9 = [(NSMutableArray *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v21;
+    do
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v21 != v11)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v13 = *(*(&v20 + 1) + 8 * i);
+        dispatch_group_enter(v8);
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __77__HPSSpatialProfileEarPillContainerView_setAllPillState_animated_completion___block_invoke;
+        v18[3] = &unk_2796AD618;
+        v19 = v8;
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __77__HPSSpatialProfileEarPillContainerView_setAllPillState_animated_completion___block_invoke_2;
+        v16[3] = &unk_2796AD618;
+        v17 = v19;
+        [v13 setState:state animated:animatedCopy animationDelay:v18 completion:v16 failure:0.0];
+      }
+
+      v10 = [(NSMutableArray *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+    }
+
+    while (v10);
+  }
+
+  if (block)
+  {
+    dispatch_group_notify(v8, MEMORY[0x277D85CD0], block);
+  }
+}
+
 - (void)stashPillStates
 {
   if ([(NSMutableArray *)self->_pillViews count])
@@ -321,6 +373,43 @@ void __70__HPSSpatialProfileEarPillContainerView__animateToFinishedCompletion___
   }
 
   self->_hasPillStateStash = 1;
+}
+
+- (void)unstashPillStatesAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = 0;
+  stashedPillStates = self->_stashedPillStates;
+  do
+  {
+    if (!stashedPillStates[v5])
+    {
+      [HPSSpatialProfileEarPillContainerView unstashPillStatesAnimated:];
+    }
+
+    if (v5 < [(NSMutableArray *)self->_pillViews count])
+    {
+      v7 = stashedPillStates[v5];
+      v8 = [(NSMutableArray *)self->_pillViews objectAtIndexedSubscript:v5];
+      [v8 setState:v7 animated:animatedCopy animationDelay:0 completion:0 failure:0.0];
+    }
+
+    stashedPillStates[v5++] = 0;
+  }
+
+  while (v5 != 11);
+  self->_hasPillStateStash = 0;
+}
+
+- (BOOL)unstashPillStatesIfNeededAnimated:(BOOL)animated
+{
+  hasPillStateStash = self->_hasPillStateStash;
+  if (hasPillStateStash)
+  {
+    [(HPSSpatialProfileEarPillContainerView *)self unstashPillStatesAnimated:animated];
+  }
+
+  return hasPillStateStash;
 }
 
 - (int64_t)_indexForPillAtAngle:(double)angle
@@ -477,7 +566,7 @@ LABEL_24:
   animatedCopy = animated;
   y = center.y;
   x = center.x;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   [(HPSSpatialProfileEarPillContainerView *)self setEnrollViewCenter:x, y];
   [(HPSSpatialProfileEarPillContainerView *)self setNeedsLayout];
@@ -492,40 +581,40 @@ LABEL_24:
   }
 
   v13 = dispatch_group_create();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v14 = self->_pillViews;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       v18 = 0;
       do
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v23 + 1) + 8 * v18);
+        v19 = *(*(&v22 + 1) + 8 * v18);
         dispatch_group_enter(v13);
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __78__HPSSpatialProfileEarPillContainerView_setRadius_center_animated_completion___block_invoke;
-        v21[3] = &unk_2796AD618;
-        v22 = v13;
-        [v19 setRadius:v21 animationDuration:radius completion:v12];
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __78__HPSSpatialProfileEarPillContainerView_setRadius_center_animated_completion___block_invoke;
+        v20[3] = &unk_2796AD618;
+        v21 = v13;
+        [v19 setRadius:v20 animationDuration:radius completion:v12];
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v16);
@@ -535,8 +624,6 @@ LABEL_24:
   {
     dispatch_group_notify(v13, MEMORY[0x277D85CD0], completionCopy);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)animateToState:(int)state completion:(id)completion
@@ -598,7 +685,7 @@ LABEL_12:
 {
   v19 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(completionCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -609,22 +696,22 @@ LABEL_12:
   for (i = 0; i != 4; ++i)
   {
     dispatch_group_enter(v5);
-    v7 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sharedBluetoothSettingsLogComponent(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       v18 = i;
-      _os_log_impl(&dword_251143000, v7, OS_LOG_TYPE_DEFAULT, "Spatial Profile: fillLeftPills filling: %lu", buf, 0xCu);
+      _os_log_impl(&dword_251143000, v8, OS_LOG_TYPE_DEFAULT, "Spatial Profile: fillLeftPills filling: %lu", buf, 0xCu);
     }
 
-    v8 = [(NSMutableArray *)self->_pillViews objectAtIndexedSubscript:i];
+    v9 = [(NSMutableArray *)self->_pillViews objectAtIndexedSubscript:i];
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
     v15[2] = __69__HPSSpatialProfileEarPillContainerView_fillLeftPillsWithCompletion___block_invoke;
     v15[3] = &unk_2796AD618;
-    v9 = v5;
-    v16 = v9;
-    [v8 setState:3 animated:1 animationDelay:v15 completion:0 failure:0.0];
+    v10 = v5;
+    v16 = v10;
+    [v9 setState:3 animated:1 animationDelay:v15 completion:0 failure:0.0];
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -632,10 +719,8 @@ LABEL_12:
   block[2] = __69__HPSSpatialProfileEarPillContainerView_fillLeftPillsWithCompletion___block_invoke_2;
   block[3] = &unk_2796AD5A0;
   v14 = completionCopy;
-  v10 = completionCopy;
-  dispatch_group_notify(v9, MEMORY[0x277D85CD0], block);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = completionCopy;
+  dispatch_group_notify(v10, MEMORY[0x277D85CD0], block);
 }
 
 uint64_t __69__HPSSpatialProfileEarPillContainerView_fillLeftPillsWithCompletion___block_invoke_2(uint64_t a1)
@@ -651,9 +736,9 @@ uint64_t __69__HPSSpatialProfileEarPillContainerView_fillLeftPillsWithCompletion
 
 - (void)fillCentralPillsWithCompletion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -661,69 +746,67 @@ uint64_t __69__HPSSpatialProfileEarPillContainerView_fillLeftPillsWithCompletion
   }
 
   v6 = dispatch_group_create();
-  v7 = sharedBluetoothSettingsLogComponent();
+  v7 = sharedBluetoothSettingsLogComponent(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v27 = 5;
+    v28 = 5;
     _os_log_impl(&dword_251143000, v7, OS_LOG_TYPE_DEFAULT, "Spatial Profile: fillCentralPills filling: %lu", buf, 0xCu);
   }
 
   dispatch_group_enter(v6);
   v8 = [(NSMutableArray *)self->_pillViews objectAtIndexedSubscript:5];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __72__HPSSpatialProfileEarPillContainerView_fillCentralPillsWithCompletion___block_invoke;
-  v24[3] = &unk_2796AD618;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __72__HPSSpatialProfileEarPillContainerView_fillCentralPillsWithCompletion___block_invoke;
+  v25[3] = &unk_2796AD618;
   v9 = v6;
-  v25 = v9;
-  [v8 setState:3 animated:1 animationDelay:v24 completion:0 failure:0.0];
+  v26 = v9;
+  [v8 setState:3 animated:1 animationDelay:v25 completion:0 failure:0.0];
 
-  v10 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sharedBluetoothSettingsLogComponent(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v27 = 6;
-    _os_log_impl(&dword_251143000, v10, OS_LOG_TYPE_DEFAULT, "Spatial Profile: fillCentralPills filling: %lu", buf, 0xCu);
+    v28 = 6;
+    _os_log_impl(&dword_251143000, v11, OS_LOG_TYPE_DEFAULT, "Spatial Profile: fillCentralPills filling: %lu", buf, 0xCu);
   }
 
   dispatch_group_enter(v9);
-  v11 = [(NSMutableArray *)self->_pillViews objectAtIndexedSubscript:6];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __72__HPSSpatialProfileEarPillContainerView_fillCentralPillsWithCompletion___block_invoke_13;
-  v22[3] = &unk_2796AD618;
-  v12 = v9;
-  v23 = v12;
-  [v11 setState:3 animated:1 animationDelay:v22 completion:0 failure:0.0];
+  v12 = [(NSMutableArray *)self->_pillViews objectAtIndexedSubscript:6];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __72__HPSSpatialProfileEarPillContainerView_fillCentralPillsWithCompletion___block_invoke_13;
+  v23[3] = &unk_2796AD618;
+  v13 = v9;
+  v24 = v13;
+  [v12 setState:3 animated:1 animationDelay:v23 completion:0 failure:0.0];
 
-  v13 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v15 = sharedBluetoothSettingsLogComponent(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v27 = 4;
-    _os_log_impl(&dword_251143000, v13, OS_LOG_TYPE_DEFAULT, "Spatial Profile: fillCentralPills filling: %lu", buf, 0xCu);
+    v28 = 4;
+    _os_log_impl(&dword_251143000, v15, OS_LOG_TYPE_DEFAULT, "Spatial Profile: fillCentralPills filling: %lu", buf, 0xCu);
   }
 
-  dispatch_group_enter(v12);
-  v14 = [(NSMutableArray *)self->_pillViews objectAtIndexedSubscript:4];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __72__HPSSpatialProfileEarPillContainerView_fillCentralPillsWithCompletion___block_invoke_14;
-  v20[3] = &unk_2796AD618;
-  v21 = v12;
-  v15 = v12;
-  [v14 setState:3 animated:1 animationDelay:v20 completion:0 failure:0.0];
+  dispatch_group_enter(v13);
+  v16 = [(NSMutableArray *)self->_pillViews objectAtIndexedSubscript:4];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __72__HPSSpatialProfileEarPillContainerView_fillCentralPillsWithCompletion___block_invoke_14;
+  v21[3] = &unk_2796AD618;
+  v22 = v13;
+  v17 = v13;
+  [v16 setState:3 animated:1 animationDelay:v21 completion:0 failure:0.0];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __72__HPSSpatialProfileEarPillContainerView_fillCentralPillsWithCompletion___block_invoke_2;
-  v18[3] = &unk_2796AD5A0;
-  v19 = completionCopy;
-  v16 = completionCopy;
-  dispatch_group_notify(v15, MEMORY[0x277D85CD0], v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __72__HPSSpatialProfileEarPillContainerView_fillCentralPillsWithCompletion___block_invoke_2;
+  v19[3] = &unk_2796AD5A0;
+  v20 = completionCopy;
+  v18 = completionCopy;
+  dispatch_group_notify(v17, MEMORY[0x277D85CD0], v19);
 }
 
 uint64_t __72__HPSSpatialProfileEarPillContainerView_fillCentralPillsWithCompletion___block_invoke_2(uint64_t a1)
@@ -741,7 +824,7 @@ uint64_t __72__HPSSpatialProfileEarPillContainerView_fillCentralPillsWithComplet
 {
   v19 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(completionCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -749,25 +832,26 @@ uint64_t __72__HPSSpatialProfileEarPillContainerView_fillCentralPillsWithComplet
   }
 
   v5 = dispatch_group_create();
+  v6 = v5;
   for (i = 10; i > 6; --i)
   {
-    v7 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sharedBluetoothSettingsLogComponent(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       v18 = i;
-      _os_log_impl(&dword_251143000, v7, OS_LOG_TYPE_DEFAULT, "Spatial Profile: fillRightPills filling: %lu", buf, 0xCu);
+      _os_log_impl(&dword_251143000, v8, OS_LOG_TYPE_DEFAULT, "Spatial Profile: fillRightPills filling: %lu", buf, 0xCu);
     }
 
-    dispatch_group_enter(v5);
-    v8 = [(NSMutableArray *)self->_pillViews objectAtIndexedSubscript:i];
+    dispatch_group_enter(v6);
+    v9 = [(NSMutableArray *)self->_pillViews objectAtIndexedSubscript:i];
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
     v15[2] = __70__HPSSpatialProfileEarPillContainerView_fillRightPillsWithCompletion___block_invoke;
     v15[3] = &unk_2796AD618;
-    v9 = v5;
-    v16 = v9;
-    [v8 setState:3 animated:1 animationDelay:v15 completion:0 failure:0.0];
+    v10 = v6;
+    v16 = v10;
+    [v9 setState:3 animated:1 animationDelay:v15 completion:0 failure:0.0];
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -775,10 +859,8 @@ uint64_t __72__HPSSpatialProfileEarPillContainerView_fillCentralPillsWithComplet
   block[2] = __70__HPSSpatialProfileEarPillContainerView_fillRightPillsWithCompletion___block_invoke_2;
   block[3] = &unk_2796AD5A0;
   v14 = completionCopy;
-  v10 = completionCopy;
-  dispatch_group_notify(v9, MEMORY[0x277D85CD0], block);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = completionCopy;
+  dispatch_group_notify(v10, MEMORY[0x277D85CD0], block);
 }
 
 uint64_t __70__HPSSpatialProfileEarPillContainerView_fillRightPillsWithCompletion___block_invoke_2(uint64_t a1)

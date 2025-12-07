@@ -295,7 +295,7 @@ uint64_t __72__SBSharedModalAlertItemPresenter_dismissAlertItem_animated_complet
 {
   disappearCopy = disappear;
   viewControllers = [(SBModalViewControllerStack *)self->_modalViewControllerStack viewControllers];
-  v6 = [viewControllers containsObject:disappearCopy];
+  v6 = objc_msgSend_containsObject_(viewControllers);
 
   if (v6)
   {

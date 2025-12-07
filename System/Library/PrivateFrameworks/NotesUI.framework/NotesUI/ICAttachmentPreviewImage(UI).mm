@@ -27,9 +27,9 @@
     +[ICAttachmentPreviewImage(UI) imageCache];
   }
 
-  v1 = imageCache_imageCache;
+  v2 = imageCache_imageCache;
 
-  return v1;
+  return v2;
 }
 
 - (id)cachedImage
@@ -192,7 +192,7 @@
     v5 = attachmentModel;
     if (attachmentModel)
     {
-      [attachmentModel previewImageOrientationTransform];
+      objc_msgSend_previewImageOrientationTransform(attachmentModel);
     }
 
     else
@@ -264,7 +264,7 @@
 {
   v5 = MEMORY[0x1E69B76B8];
   image = [self image];
-  [self orientedImageTransform];
+  objc_msgSend_orientedImageTransform(self);
   v7 = *(MEMORY[0x1E695EFD0] + 16);
   v10[0] = *MEMORY[0x1E695EFD0];
   v10[1] = v7;
@@ -278,8 +278,8 @@
 {
   v5 = MEMORY[0x1E69B76B8];
   image = [self image];
-  [self orientedImageTransform];
-  [self orientedImageTransform];
+  objc_msgSend_orientedImageTransform(self);
+  objc_msgSend_orientedImageTransform(self);
   v7 = [v5 orientedImage:image withTransform:v10 background:a3 backgroundTransform:&v9];
 
   return v7;

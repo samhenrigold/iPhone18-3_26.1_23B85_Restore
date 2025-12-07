@@ -34,6 +34,7 @@
 - (int64_t)typeCompare:(id)compare;
 - (unsigned)currentFrequency;
 - (unsigned)mediaSourceSemanticType;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -443,6 +444,188 @@
   v3 = mediaItemImagesCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if (([characteristicType isEqual:@"0x0000000032000007"] & 1) == 0)
+  {
+
+LABEL_5:
+    characteristicType2 = [updateCopy characteristicType];
+    if ([characteristicType2 isEqual:@"0x0000000032000026"])
+    {
+      uniqueIdentifier = [updateCopy uniqueIdentifier];
+      currentMediaItemIdentifierCharacteristic = [(CAFMediaSource *)self currentMediaItemIdentifierCharacteristic];
+      uniqueIdentifier2 = [currentMediaItemIdentifierCharacteristic uniqueIdentifier];
+      v17 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+      if (v17)
+      {
+        observers = [(CAFService *)self observers];
+        currentMediaItemIdentifier = [(CAFMediaSource *)self currentMediaItemIdentifier];
+        [observers mediaSourceService:self didUpdateCurrentMediaItemIdentifier:currentMediaItemIdentifier];
+LABEL_25:
+
+        goto LABEL_26;
+      }
+    }
+
+    else
+    {
+    }
+
+    characteristicType3 = [updateCopy characteristicType];
+    if ([characteristicType3 isEqual:@"0x0000000032000012"])
+    {
+      uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+      mediaItemsCharacteristic = [(CAFMediaSource *)self mediaItemsCharacteristic];
+      uniqueIdentifier4 = [mediaItemsCharacteristic uniqueIdentifier];
+      v23 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+      if (v23)
+      {
+        observers = [(CAFService *)self observers];
+        currentMediaItemIdentifier = [(CAFMediaSource *)self mediaItems];
+        [observers mediaSourceService:self didUpdateMediaItems:currentMediaItemIdentifier];
+        goto LABEL_25;
+      }
+    }
+
+    else
+    {
+    }
+
+    characteristicType4 = [updateCopy characteristicType];
+    if ([characteristicType4 isEqual:@"0x0000000030000001"])
+    {
+      uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+      userVisibleLabelCharacteristic = [(CAFMediaSource *)self userVisibleLabelCharacteristic];
+      uniqueIdentifier6 = [userVisibleLabelCharacteristic uniqueIdentifier];
+      v28 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+      if (v28)
+      {
+        observers2 = [(CAFService *)self observers];
+        userVisibleLabel = [(CAFMediaSource *)self userVisibleLabel];
+        [observers2 mediaSourceService:self didUpdateUserVisibleLabel:userVisibleLabel];
+
+LABEL_24:
+        observers = [(CAFService *)self observers];
+        currentMediaItemIdentifier = [(CAFMediaSource *)self name];
+        [observers mediaSourceService:self didUpdateName:currentMediaItemIdentifier];
+        goto LABEL_25;
+      }
+    }
+
+    else
+    {
+    }
+
+    characteristicType5 = [updateCopy characteristicType];
+    if ([characteristicType5 isEqual:@"0x0000000030000019"])
+    {
+      uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+      identifierCharacteristic = [(CAFMediaSource *)self identifierCharacteristic];
+      uniqueIdentifier8 = [identifierCharacteristic uniqueIdentifier];
+      v35 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+      if (v35)
+      {
+        observers = [(CAFService *)self observers];
+        currentMediaItemIdentifier = [(CAFMediaSource *)self identifier];
+        [observers mediaSourceService:self didUpdateIdentifier:currentMediaItemIdentifier];
+        goto LABEL_25;
+      }
+    }
+
+    else
+    {
+    }
+
+    characteristicType6 = [updateCopy characteristicType];
+    if ([characteristicType6 isEqual:@"0x0000000032000025"])
+    {
+      uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+      mediaSourceSemanticTypeCharacteristic = [(CAFMediaSource *)self mediaSourceSemanticTypeCharacteristic];
+      uniqueIdentifier10 = [mediaSourceSemanticTypeCharacteristic uniqueIdentifier];
+      v40 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+      if (v40)
+      {
+        observers2 = [(CAFService *)self observers];
+        [observers2 mediaSourceService:self didUpdateMediaSourceSemanticType:{-[CAFMediaSource mediaSourceSemanticType](self, "mediaSourceSemanticType")}];
+        goto LABEL_24;
+      }
+    }
+
+    else
+    {
+    }
+
+    characteristicType7 = [updateCopy characteristicType];
+    if ([characteristicType7 isEqual:@"0x0000000032000011"])
+    {
+      uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+      disabledCharacteristic = [(CAFMediaSource *)self disabledCharacteristic];
+      uniqueIdentifier12 = [disabledCharacteristic uniqueIdentifier];
+      v45 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+      if (v45)
+      {
+        observers = [(CAFService *)self observers];
+        [observers mediaSourceService:self didUpdateDisabled:{-[CAFMediaSource disabled](self, "disabled")}];
+        goto LABEL_26;
+      }
+    }
+
+    else
+    {
+    }
+
+    observers = [updateCopy characteristicType];
+    if (![observers isEqual:@"0x0000000032000031"])
+    {
+      goto LABEL_26;
+    }
+
+    uniqueIdentifier13 = [updateCopy uniqueIdentifier];
+    mediaItemImagesCharacteristic = [(CAFMediaSource *)self mediaItemImagesCharacteristic];
+    uniqueIdentifier14 = [mediaItemImagesCharacteristic uniqueIdentifier];
+    v49 = [uniqueIdentifier13 isEqual:uniqueIdentifier14];
+
+    if (!v49)
+    {
+      goto LABEL_27;
+    }
+
+    observers = [(CAFService *)self observers];
+    currentMediaItemIdentifier = [(CAFMediaSource *)self mediaItemImages];
+    [observers mediaSourceService:self didUpdateMediaItemImages:currentMediaItemIdentifier];
+    goto LABEL_25;
+  }
+
+  uniqueIdentifier15 = [updateCopy uniqueIdentifier];
+  currentFrequencyCharacteristic = [(CAFMediaSource *)self currentFrequencyCharacteristic];
+  uniqueIdentifier16 = [currentFrequencyCharacteristic uniqueIdentifier];
+  v11 = [uniqueIdentifier15 isEqual:uniqueIdentifier16];
+
+  if (!v11)
+  {
+    goto LABEL_5;
+  }
+
+  observers = [(CAFService *)self observers];
+  [observers mediaSourceService:self didUpdateCurrentFrequency:{-[CAFMediaSource currentFrequency](self, "currentFrequency")}];
+LABEL_26:
+
+LABEL_27:
+  v50.receiver = self;
+  v50.super_class = CAFMediaSource;
+  [(CAFService *)&v50 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForCurrentFrequency

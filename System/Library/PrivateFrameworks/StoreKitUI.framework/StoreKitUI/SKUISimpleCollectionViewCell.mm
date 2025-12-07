@@ -106,29 +106,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUISimpleCollectionViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v20.receiver = self;
-  v20.super_class = SKUISimpleCollectionViewCell;
-  [(SKUISimpleCollectionViewCell *)&v20 layoutSubviews];
-  contentView = [(SKUISimpleCollectionViewCell *)self contentView];
-  [contentView bounds];
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
-
-  [(UIView *)self->_contentChildView setFrame:v13 + self->_contentInsets.left, v15 + self->_contentInsets.top, v17 - (self->_contentInsets.left + self->_contentInsets.right), v19 - (self->_contentInsets.top + self->_contentInsets.bottom)];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISimpleCollectionViewCell layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -163,6 +142,30 @@
   result.left = left;
   result.top = top;
   return result;
+}
+
+- (void)setContentChildView:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISimpleCollectionViewCell setContentChildView:]";
+}
+
+- (void)setContentInsets:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISimpleCollectionViewCell setContentInsets:]";
+}
+
+- (void)applyLayoutAttributes:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISimpleCollectionViewCell applyLayoutAttributes:]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISimpleCollectionViewCell setBackgroundColor:]";
 }
 
 @end

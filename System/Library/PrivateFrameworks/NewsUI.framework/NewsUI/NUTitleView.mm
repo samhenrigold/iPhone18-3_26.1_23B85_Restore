@@ -6,6 +6,7 @@
 - (void)applyTitleViewUpdate:(id)update animation:(unint64_t)animation;
 - (void)finishDisplayingTitleViewUpdate:(id)update finished:(id)finished;
 - (void)layoutSubviews;
+- (void)relayoutWithAnimation:(BOOL)animation;
 - (void)setStyler:(id)styler;
 - (void)titleViewHandleTapGesture;
 @end
@@ -73,10 +74,10 @@ LABEL_5:
 - (NUTitleView)initWithStyler:(id)styler
 {
   stylerCopy = styler;
-  v24.receiver = self;
-  v24.super_class = NUTitleView;
+  v25.receiver = self;
+  v25.super_class = NUTitleView;
   v6 = MEMORY[0x277CBF3A0];
-  v7 = [(NUTitleView *)&v24 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v7 = [(NUTitleView *)&v25 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   v8 = v7;
   if (v7)
   {
@@ -91,32 +92,32 @@ LABEL_5:
     slideAnimator = v8->_slideAnimator;
     v8->_slideAnimator = v12;
 
-    v14 = NUTranslationAnimationTimingFunction();
-    [(NUSlideViewAnimator *)v8->_slideAnimator setMediaTimingFunction:v14];
+    v15 = NUTranslationAnimationTimingFunction(v14);
+    [(NUSlideViewAnimator *)v8->_slideAnimator setMediaTimingFunction:v15];
 
-    v15 = objc_alloc_init(NUFadeViewAnimator);
+    v16 = objc_alloc_init(NUFadeViewAnimator);
     fadeAnimator = v8->_fadeAnimator;
-    v8->_fadeAnimator = v15;
+    v8->_fadeAnimator = v16;
 
-    v17 = v6[1];
+    v18 = v6[1];
     v8->_lastLayoutBounds.origin = *v6;
-    v8->_lastLayoutBounds.size = v17;
-    v18 = [[NUCrossFadeTitleView alloc] initWithStyler:stylerCopy];
+    v8->_lastLayoutBounds.size = v18;
+    v19 = [[NUCrossFadeTitleView alloc] initWithStyler:stylerCopy];
     titleView = v8->_titleView;
-    v8->_titleView = v18;
+    v8->_titleView = v19;
 
     [(NUCrossFadeTitleView *)v8->_titleView setAutoresizingMask:2];
     [(NUCrossFadeTitleView *)v8->_titleView setClipsToBounds:1];
     [(NUTitleView *)v8 addSubview:v8->_titleView];
-    v20 = [[NUCrossFadeTitleView alloc] initWithStyler:stylerCopy];
+    v21 = [[NUCrossFadeTitleView alloc] initWithStyler:stylerCopy];
     incomingTitleView = v8->_incomingTitleView;
-    v8->_incomingTitleView = v20;
+    v8->_incomingTitleView = v21;
 
     [(NUCrossFadeTitleView *)v8->_incomingTitleView setAutoresizingMask:2];
     [(NUCrossFadeTitleView *)v8->_incomingTitleView setClipsToBounds:1];
     [(NUTitleView *)v8 insertSubview:v8->_incomingTitleView belowSubview:v8->_titleView];
-    v22 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:v8 action:sel_titleViewHandleTapGesture];
-    [(NUTitleView *)v8 addGestureRecognizer:v22];
+    v23 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:v8 action:sel_titleViewHandleTapGesture];
+    [(NUTitleView *)v8 addGestureRecognizer:v23];
     [(UIView *)v8 nu_supportViewDebugging];
   }
 
@@ -364,6 +365,13 @@ void __46__NUTitleView_applyTitleViewUpdate_animation___block_invoke_8(uint64_t 
   }
 }
 
+- (void)relayoutWithAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  titleView = [(NUTitleView *)self titleView];
+  [titleView relayoutWithAnimation:animationCopy];
+}
+
 - (void)titleViewHandleTapGesture
 {
   delegate = [(NUTitleView *)self delegate];
@@ -439,7 +447,7 @@ void __56__NUTitleView_finishDisplayingTitleViewUpdate_finished___block_invoke(i
 
 - (id)createMaskingLayerForTranslation
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   layer = [MEMORY[0x277CD9EB0] layer];
   titleView = [(NUTitleView *)self titleView];
   [titleView visibleFrame];
@@ -449,32 +457,31 @@ void __56__NUTitleView_finishDisplayingTitleViewUpdate_finished___block_invoke(i
   v12 = v11;
   incomingTitleView = [(NUTitleView *)self incomingTitleView];
   [incomingTitleView visibleFrame];
-  v29.origin.x = v14;
-  v29.origin.y = v15;
-  v29.size.width = v16;
-  v29.size.height = v17;
-  v27.origin.x = v6;
-  v27.origin.y = v8;
-  v27.size.width = v10;
-  v27.size.height = v12;
-  v28 = CGRectUnion(v27, v29);
-  [layer setFrame:{v28.origin.x, v28.origin.y, v28.size.width, v28.size.height}];
+  v28.origin.x = v14;
+  v28.origin.y = v15;
+  v28.size.width = v16;
+  v28.size.height = v17;
+  v26.origin.x = v6;
+  v26.origin.y = v8;
+  v26.size.width = v10;
+  v26.size.height = v12;
+  v27 = CGRectUnion(v26, v28);
+  [layer setFrame:{v27.origin.x, v27.origin.y, v27.size.width, v27.size.height}];
 
   [(NUTitleView *)self center];
   [layer setPosition:?];
   v18 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.0];
-  v25[0] = [v18 CGColor];
+  v24[0] = [v18 CGColor];
   v19 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:1.0];
-  v25[1] = [v19 CGColor];
+  v24[1] = [v19 CGColor];
   v20 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:1.0];
-  v25[2] = [v20 CGColor];
+  v24[2] = [v20 CGColor];
   v21 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.0];
-  v25[3] = [v21 CGColor];
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+  v24[3] = [v21 CGColor];
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
   [layer setColors:v22];
 
   [layer setLocations:&unk_286E12E78];
-  v23 = *MEMORY[0x277D85DE8];
 
   return layer;
 }

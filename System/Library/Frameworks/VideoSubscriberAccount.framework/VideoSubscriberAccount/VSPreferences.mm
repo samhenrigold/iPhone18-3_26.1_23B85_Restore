@@ -114,7 +114,7 @@
   v17 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
-  v8 = VSDefaultLogObject();
+  v8 = VSDefaultLogObject(keyCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412546;

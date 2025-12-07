@@ -5,8 +5,6 @@
 - (id)newNodeForJoint:(unint64_t)joint;
 - (id)newNodeForLimb:(unint64_t)limb;
 - (id)newRoundCylinderForRoot;
-- (uint64_t)setTransform:(__n128)transform node:(__n128)node;
-- (uint64_t)setTransform:(double)transform forJoint:(double)joint;
 - (void)addNode:(id)node joint:(unint64_t)joint node:(id)a5;
 - (void)addNode:(id)node limb:(unint64_t)limb node:(id)a5;
 - (void)buildPersonGeometry:(id)geometry;
@@ -15,6 +13,8 @@
 - (void)setFriction:(float)friction;
 - (void)setMass:(float)mass;
 - (void)setOpacity:(float)opacity;
+- (void)setTransform:(__n128)transform node:(__n128)node;
+- (void)setTransform:(double)transform forJoint:(double)joint;
 - (void)updateConeLimbGeometry:(id)geometry upperRadius:(float)radius lowerRadius:(float)lowerRadius length:(float)length;
 - (void)updateCylinderLimbGeometry:(id)geometry length:(float)length;
 - (void)updateSimpleGeometry:(float)geometry;
@@ -50,7 +50,7 @@
   [(OZPerson3DSCNSceneBuilder *)self runOnAllBodyGeometry:v3];
 }
 
-uint64_t __43__OZPerson3DSCNSceneBuilder_enablePhysics___block_invoke(uint64_t a1, int a2, void *a3)
+void *__43__OZPerson3DSCNSceneBuilder_enablePhysics___block_invoke(uint64_t a1, int a2, void *a3)
 {
   if (a2)
   {
@@ -71,7 +71,7 @@ uint64_t __43__OZPerson3DSCNSceneBuilder_enablePhysics___block_invoke(uint64_t a
   return [a3 setPhysicsBody:v5];
 }
 
-uint64_t __43__OZPerson3DSCNSceneBuilder_enablePhysics___block_invoke_2(uint64_t a1, void *a2)
+char *__43__OZPerson3DSCNSceneBuilder_enablePhysics___block_invoke_2(uint64_t a1, void *a2)
 {
   v14 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 56))
@@ -250,11 +250,11 @@ uint64_t __40__OZPerson3DSCNSceneBuilder_setOpacity___block_invoke(uint64_t a1, 
   }
 }
 
-- (uint64_t)setTransform:(double)transform forJoint:(double)joint
+- (void)setTransform:(double)transform forJoint:(double)joint
 {
-  v8[0] = a7;
-  v8[2] = v8;
-  return [self setTransform:std::__tree<std::__value_type<unsigned long long node:{PCNSRef<SCNRenderer *>>, std::__map_value_compare<unsigned long long, std::__value_type<unsigned long long, PCNSRef<SCNRenderer *>>, std::less<unsigned long long>, true>, std::allocator<std::__value_type<unsigned long long, PCNSRef<SCNRenderer *>>>>::__emplace_unique_key_args<unsigned long long, std::piecewise_construct_t const&, std::tuple<unsigned long long const&>, std::tuple<>>(self + 8, v8)[5], a2, transform, joint, a5}];
+  v8 = a7;
+  v9 = &v8;
+  return [self setTransform:std::__tree<std::__value_type<unsigned long long node:{PCNSRef<SCNRenderer *>>, std::__map_value_compare<unsigned long long, std::__value_type<unsigned long long, PCNSRef<SCNRenderer *>>, std::less<unsigned long long>, true>, std::allocator<std::__value_type<unsigned long long, PCNSRef<SCNRenderer *>>>>::__emplace_unique_key_args<unsigned long long, std::piecewise_construct_t const&, std::tuple<unsigned long long const&>, std::tuple<>>(self + 8, &v8, &std::piecewise_construct, &v9)[5], a2, transform, joint, a5}];
 }
 
 - (void)updateSimpleGeometry:(float)geometry
@@ -325,7 +325,7 @@ uint64_t __40__OZPerson3DSCNSceneBuilder_setOpacity___block_invoke(uint64_t a1, 
   }
 }
 
-- (uint64_t)setTransform:(__n128)transform node:(__n128)node
+- (void)setTransform:(__n128)transform node:(__n128)node
 {
   v8[0] = self;
   v8[1] = a2;
@@ -336,17 +336,17 @@ uint64_t __40__OZPerson3DSCNSceneBuilder_setOpacity___block_invoke(uint64_t a1, 
 
 - (void)addNode:(id)node joint:(unint64_t)joint node:(id)a5
 {
-  v7[0] = joint;
-  v7[1] = node;
-  std::__tree<std::__value_type<unsigned long,SCNNode *>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,SCNNode *>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,SCNNode *>>>::__emplace_unique_key_args<unsigned long,std::pair<unsigned long const,SCNNode *>>(&self->_jointNodeMap, v7);
+  *&v7 = joint;
+  *(&v7 + 1) = node;
+  std::__tree<std::__value_type<unsigned long,SCNNode *>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,SCNNode *>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,SCNNode *>>>::__emplace_unique_key_args<unsigned long,std::pair<unsigned long const,SCNNode *>>(&self->_jointNodeMap, &v7, &v7);
   [a5 addChildNode:node];
 }
 
 - (void)addNode:(id)node limb:(unint64_t)limb node:(id)a5
 {
-  v7[0] = limb;
-  v7[2] = v7;
-  std::__tree<std::__value_type<unsigned long long,PCNSRef<SCNRenderer *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,PCNSRef<SCNRenderer *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,PCNSRef<SCNRenderer *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_limbNodeMap, v7)[5] = node;
+  limbCopy = limb;
+  v8 = &limbCopy;
+  std::__tree<std::__value_type<unsigned long long,PCNSRef<SCNRenderer *>>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,PCNSRef<SCNRenderer *>>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,PCNSRef<SCNRenderer *>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_limbNodeMap, &limbCopy, &std::piecewise_construct, &v8)[5] = node;
   [a5 addChildNode:node];
 }
 

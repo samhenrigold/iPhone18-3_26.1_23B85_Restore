@@ -11,7 +11,7 @@ uint64_t mmcs_http_request_copy(void *a1, void *a2)
   }
 
   *a1 = 0;
-  v4 = C3TypeRegister(&mmcs_http_requestGetTypeID_typeID);
+  v4 = C3TypeRegister(&mmcs_http_requestGetTypeID_typeID, &kmmcs_http_requestContextClass);
   result = C3TypeCreateInstance_(0, v4, 0x30uLL);
   if (result)
   {
@@ -72,24 +72,24 @@ CFStringRef mmcs_http_request_copy_description(uint64_t a1)
 
 void mmcs_http_request_override_url_expiry(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = CFAbsoluteTimeGetCurrent() + a2;
   String = XCFAbsoluteTimeDateFormatterCreateString(v3);
-  v5 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = mmcs_logging_logger_default(String, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"overriding url expiry for http request %p with %@", a1, String);
-    v7 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"overriding url expiry for http request %p with %@", a1, String);
+    v9 = mmcs_logging_logger_default(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+      v11 = v7;
+      _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
 
-    if (v6)
+    if (v7)
     {
-      CFRelease(v6);
+      CFRelease(v7);
     }
   }
 
@@ -99,7 +99,6 @@ void mmcs_http_request_override_url_expiry(uint64_t a1, int a2)
   }
 
   *(a1 + 40) = v3;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void mmcs_http_request_make_request_requirements(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -242,25 +241,25 @@ void _mmcs_http_requestCFFinalize(void *a1)
 
 BOOL _validate_string(char *a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    v10 = mmcs_logging_logger_default();
-    result = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    v14 = mmcs_logging_logger_default(0, a2);
+    result = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_23;
+      return result;
     }
 
-    v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"NULL %s", a2);
-    v12 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"NULL %s", a2);
+    v17 = mmcs_logging_logger_default(v15, v16);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_20;
     }
 
     *buf = 138543362;
-    v16 = v11;
+    v21 = v15;
     goto LABEL_19;
   }
 
@@ -269,65 +268,62 @@ BOOL _validate_string(char *a1, uint64_t a2)
   {
     if (gMMCS_DebugLevel >= 5)
     {
-      v5 = hextostrdup(a1, v4);
+      v6 = hextostrdup(a1, v4);
+      v8 = v6;
       if (gMMCS_DebugLevel >= 5)
       {
-        v6 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        v9 = mmcs_logging_logger_default(v6, v7);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%s is %s 0x%s", a2, a1, v5);
-          v8 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+          v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%s is %s 0x%s", a2, a1, v8);
+          v12 = mmcs_logging_logger_default(v10, v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v16 = v7;
-            _os_log_impl(&dword_2577D8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+            v21 = v10;
+            _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
           }
 
-          if (v7)
+          if (v10)
           {
-            CFRelease(v7);
+            CFRelease(v10);
           }
         }
       }
 
-      if (v5)
+      if (v8)
       {
-        free(v5);
+        free(v8);
       }
     }
 
-    result = 1;
-    goto LABEL_23;
+    return 1;
   }
 
-  v13 = mmcs_logging_logger_default();
-  result = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+  v18 = mmcs_logging_logger_default(0, v5);
+  result = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
   if (!result)
   {
-    goto LABEL_23;
+    return result;
   }
 
-  v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%s is empty string", a2);
-  v12 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v15 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%s is empty string", a2);
+  v17 = mmcs_logging_logger_default(v15, v19);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v16 = v11;
+    v21 = v15;
 LABEL_19:
-    _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+    _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
   }
 
 LABEL_20:
-  if (v11)
+  if (v15)
   {
-    CFRelease(v11);
+    CFRelease(v15);
   }
 
-  result = 0;
-LABEL_23:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 BOOL mmcs_zcmp(int8x16_t *a1, unint64_t a2)
@@ -483,81 +479,82 @@ uint64_t mmcs_request_queue_set_server_upper_bound_requests_inflight(uint64_t a1
 
 uint64_t mmcs_request_queue_enqueue_request(uint64_t a1, uint64_t a2, double a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  if (CFDictionaryContainsKey(*(a1 + 96), *(a2 + 8)))
+  v32 = *MEMORY[0x277D85DE8];
+  v6 = CFDictionaryContainsKey(*(a1 + 96), *(a2 + 8));
+  if (v6)
   {
-    v6 = mmcs_logging_logger_default();
-    result = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    v8 = mmcs_logging_logger_default(v6, v7);
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"duplicate request object %p", *(a2 + 8));
-      v9 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"duplicate request object %p", *(a2 + 8));
+      v12 = mmcs_logging_logger_default(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v8;
-        _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        *&buf[4] = v10;
+        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v8)
+      if (v10)
       {
-        CFRelease(v8);
+        CFRelease(v10);
       }
 
-      result = 0;
+      return 0;
     }
   }
 
   else
   {
-    v10 = *(a2 + 16);
+    v13 = *(a2 + 16);
     if (gMMCS_DebugLevel >= 4)
     {
-      v11 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v14 = mmcs_logging_logger_default(v6, v7);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v12 = *MEMORY[0x277CBECE8];
-        v13 = *(a2 + 8);
-        v14 = mmcs_request_queue_requests_enqueued_count_for_behavior_type(a1, v10);
-        v15 = CFStringCreateWithFormat(v12, 0, @"Enqueued request object %p. Queue depth %ld", v13, v14 + 1);
-        v16 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        v15 = *MEMORY[0x277CBECE8];
+        v16 = *(a2 + 8);
+        v17 = mmcs_request_queue_requests_enqueued_count_for_behavior_type(a1, v13);
+        v18 = CFStringCreateWithFormat(v15, 0, @"Enqueued request object %p. Queue depth %ld", v16, v17 + 1);
+        v20 = mmcs_logging_logger_default(v18, v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          *&buf[4] = v15;
-          _os_log_impl(&dword_2577D8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          *&buf[4] = v18;
+          _os_log_impl(&dword_2577D8000, v20, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        if (v15)
+        if (v18)
         {
-          CFRelease(v15);
+          CFRelease(v18);
         }
       }
 
       if (gMMCS_DebugLevel >= 5)
       {
-        v17 = *MEMORY[0x277CBECE8];
+        v21 = *MEMORY[0x277CBECE8];
         Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
         mmcs_request_queue_context_append_description(a2, Mutable);
         if (Mutable)
         {
           if (gMMCS_DebugLevel >= 5)
           {
-            v19 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+            v25 = mmcs_logging_logger_default(v23, v24);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
             {
-              v20 = CFStringCreateWithFormat(v17, 0, @"%@", Mutable);
-              v21 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+              v26 = CFStringCreateWithFormat(v21, 0, @"%@", Mutable);
+              v28 = mmcs_logging_logger_default(v26, v27);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138543362;
-                *&buf[4] = v20;
-                _os_log_impl(&dword_2577D8000, v21, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                *&buf[4] = v26;
+                _os_log_impl(&dword_2577D8000, v28, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
               }
 
-              if (v20)
+              if (v26)
               {
-                CFRelease(v20);
+                CFRelease(v26);
               }
             }
           }
@@ -572,21 +569,20 @@ uint64_t mmcs_request_queue_enqueue_request(uint64_t a1, uint64_t a2, double a3)
     if (result)
     {
       mmcs_request_queue_entry_ensure_minimum_bytes_per_period_requirement(*buf, *(a1 + 1528), *(a1 + 1536));
-      v22 = *buf;
+      v29 = *buf;
       *(*buf + 24) = 1;
-      CFBinaryHeapAddValue(*(a1 + 8 * v10 + 16), v22);
+      CFBinaryHeapAddValue(*(a1 + 8 * v13 + 16), v29);
       CFDictionarySetValue(*(a1 + 96), *(a2 + 8), *buf);
       if (*buf)
       {
         C3BaseRelease(*buf);
       }
 
-      mmcs_request_queue_schedule(a1, a3);
-      result = 1;
+      mmcs_request_queue_schedule(a1, v30, a3);
+      return 1;
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -611,212 +607,221 @@ uint64_t mmcs_request_queue_requests_enqueued_count_for_behavior_type(uint64_t a
   return v5;
 }
 
-void mmcs_request_queue_schedule(uint64_t a1, double a2)
+void mmcs_request_queue_schedule(uint64_t Count, uint64_t a2, double a3)
 {
-  v98 = *MEMORY[0x277D85DE8];
-  v4 = a2 - *(a1 + 208);
-  v5 = MEMORY[0x277CBECE8];
-  if (v4 >= 0.05)
+  v4 = Count;
+  v117 = *MEMORY[0x277D85DE8];
+  v5 = a3 - *(Count + 208);
+  v6 = MEMORY[0x277CBECE8];
+  if (v5 >= 0.05)
   {
-    mmcs_request_queue_estimate_bandwidth_context_init((a1 + 200), a2);
-    v9 = *(a1 + 184);
-    if (v9)
+    mmcs_request_queue_estimate_bandwidth_context_init((Count + 200), a3);
+    v11 = *(v4 + 184);
+    if (v11)
     {
-      v99.length = CFArrayGetCount(*(a1 + 184));
-      v99.location = 0;
-      CFArrayApplyFunction(v9, v99, mmcs_network_activity_estimate_bandwidth_network_activity_applier, (a1 + 200));
+      v118.length = CFArrayGetCount(*(v4 + 184));
+      v118.location = 0;
+      CFArrayApplyFunction(v11, v118, mmcs_network_activity_estimate_bandwidth_network_activity_applier, (v4 + 200));
     }
 
-    *&context = a1 + 200;
-    *(&context + 1) = a2;
-    CFDictionaryApplyFunction(*(a1 + 96), mmcs_request_queue_estimate_bandwidth_applier, &context);
-    if (a2 - *(a1 + 192) >= 1.0)
+    *&context = v4 + 200;
+    *(&context + 1) = a3;
+    CFDictionaryApplyFunction(*(v4 + 96), mmcs_request_queue_estimate_bandwidth_applier, &context);
+    if (a3 - *(v4 + 192) >= 1.0)
     {
-      v10 = 0;
-      *(a1 + 192) = a2;
+      v12 = 0;
+      *(v4 + 192) = a3;
       alloc = *MEMORY[0x277CBECE8];
-      v11 = 1;
+      v13 = 1;
       do
       {
-        v12 = v11;
-        v13 = (a1 + 216 + 40 * v10);
-        if (*v13)
+        v14 = v13;
+        Count = v4 + 216 + 40 * v12;
+        if (*Count)
         {
-          v90 = 0.0;
-          v91 = 0;
-          mmcs_request_queue_estimate_bandwidth_measurement_calculate_bps(v13, &v90, &v91);
-          v14 = v90;
-          v15 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v109 = 0.0;
+          v110 = 0;
+          mmcs_request_queue_estimate_bandwidth_measurement_calculate_bps(Count, &v109, &v110);
+          v15 = v109;
+          v18 = mmcs_logging_logger_default(v16, v17);
+          Count = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+          if (Count)
           {
-            v16 = mmcs_network_activity_type_as_c_string(v10);
+            v19 = mmcs_network_activity_type_as_c_string(v12);
             *buf = 136315650;
-            *&buf[4] = v16;
+            *&buf[4] = v19;
             *&buf[12] = 2048;
-            *&buf[14] = v91;
+            *&buf[14] = v110;
             *&buf[22] = 2048;
-            *&buf[24] = v14 * 8.0 / 1000.0 / 1000.0;
-            _os_log_impl(&dword_2577D8000, v15, OS_LOG_TYPE_DEFAULT, "average bandwidth for %s estimated over %.0f secs, %.03f Mbps.", buf, 0x20u);
+            *&buf[24] = v15 * 8.0 / 1000.0 / 1000.0;
+            _os_log_impl(&dword_2577D8000, v18, OS_LOG_TYPE_DEFAULT, "average bandwidth for %s estimated over %.0f secs, %.03f Mbps.", buf, 0x20u);
           }
         }
 
         else if (gMMCS_DebugLevel >= 5)
         {
-          v17 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          v20 = mmcs_logging_logger_default(Count, a2);
+          Count = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
+          if (Count)
           {
-            v18 = mmcs_network_activity_type_as_c_string(v10);
-            v19 = CFStringCreateWithFormat(alloc, 0, @"average bandwidth for %s cannot be estimated", v18);
-            v20 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+            v21 = mmcs_network_activity_type_as_c_string(v12);
+            v22 = CFStringCreateWithFormat(alloc, 0, @"average bandwidth for %s cannot be estimated", v21);
+            v24 = mmcs_logging_logger_default(v22, v23);
+            Count = os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG);
+            if (Count)
             {
               *buf = 138543362;
-              *&buf[4] = v19;
-              _os_log_impl(&dword_2577D8000, v20, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              *&buf[4] = v22;
+              _os_log_impl(&dword_2577D8000, v24, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v19)
+            if (v22)
             {
-              CFRelease(v19);
+              CFRelease(v22);
             }
           }
         }
 
-        v11 = 0;
-        v10 = 1;
+        v13 = 0;
+        v12 = 1;
       }
 
-      while ((v12 & 1) != 0);
+      while ((v14 & 1) != 0);
     }
 
-    v5 = MEMORY[0x277CBECE8];
+    v6 = MEMORY[0x277CBECE8];
   }
 
   else if (gMMCS_DebugLevel >= 5)
   {
-    v6 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = mmcs_logging_logger_default(Count, a2);
+    Count = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+    if (Count)
     {
-      v7 = CFStringCreateWithFormat(*v5, 0, @"Perform bandwidth estimation at most every %.0f ms, it has only been %.3f ms", 0x4049000000000000, v4 * 1000.0);
-      v8 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v8 = CFStringCreateWithFormat(*v6, 0, @"Perform bandwidth estimation at most every %.0f ms, it has only been %.3f ms", 0x4049000000000000, v5 * 1000.0);
+      v10 = mmcs_logging_logger_default(v8, v9);
+      Count = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+      if (Count)
       {
         *buf = 138543362;
-        *&buf[4] = v7;
-        _os_log_impl(&dword_2577D8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        *&buf[4] = v8;
+        _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v7)
+      if (v8)
       {
-        CFRelease(v7);
+        CFRelease(v8);
       }
     }
   }
 
-  v21 = 0;
-  v22 = 0;
-  v89 = *v5;
-  v23 = a1 + 16;
+  v25 = 0;
+  v26 = 0;
+  v108 = *v6;
+  v27 = v4 + 16;
   do
   {
-    if (v21)
+    if (v25)
     {
       if (gMMCS_DebugLevel >= 5)
       {
-        v24 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+        v28 = mmcs_logging_logger_default(Count, a2);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
-          v25 = CFStringCreateWithFormat(v89, 0, @"Deferring start of background requests in favor of queued foreground requests");
-          v26 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+          v29 = CFStringCreateWithFormat(v108, 0, @"Deferring start of background requests in favor of queued foreground requests");
+          v31 = mmcs_logging_logger_default(v29, v30);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            *&buf[4] = v25;
-            _os_log_impl(&dword_2577D8000, v26, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+            *&buf[4] = v29;
+            _os_log_impl(&dword_2577D8000, v31, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
           }
 
-          if (v25)
+          if (v29)
           {
-            CFRelease(v25);
+            CFRelease(v29);
           }
         }
 
-        v27 = mmcs_request_queue_copy_description(a1);
+        Count = mmcs_request_queue_copy_description(v4);
+        v32 = Count;
         if (gMMCS_DebugLevel >= 5)
         {
-          v28 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+          v33 = mmcs_logging_logger_default(Count, a2);
+          Count = os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG);
+          if (Count)
           {
-            v29 = CFStringCreateWithFormat(v89, 0, @"%@", v27);
-            v30 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+            v34 = CFStringCreateWithFormat(v108, 0, @"%@", v32);
+            v36 = mmcs_logging_logger_default(v34, v35);
+            Count = os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG);
+            if (Count)
             {
               *buf = 138543362;
-              *&buf[4] = v29;
-              _os_log_impl(&dword_2577D8000, v30, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              *&buf[4] = v34;
+              _os_log_impl(&dword_2577D8000, v36, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v29)
+            if (v34)
             {
-              CFRelease(v29);
+              CFRelease(v34);
             }
           }
         }
 
-        if (v27)
+        if (v32)
         {
-          CFRelease(v27);
+          CFRelease(v32);
         }
       }
 
-      v21 = 1;
+      v25 = 1;
       goto LABEL_110;
     }
 
-    if (v22 < 3)
+    if (v26 < 3)
     {
-      v31 = 0;
-      v32 = 1;
+      v37 = 0;
+      v38 = 1;
       while (1)
       {
-        v86 = v32;
-        v33 = mmcs_request_type_for_behavior_and_activity(v22, v31);
-        v34 = (a1 + 296 + 96 * v33);
-        v35 = a1 + 216 + 40 * v31;
-        alloca = (40 * v31 + 248);
-        while (_is_request_done(a1, v33))
+        v105 = v38;
+        v39 = mmcs_request_type_for_behavior_and_activity(v26, v37);
+        v40 = (v4 + 296 + 96 * v39);
+        v41 = v4 + 216 + 40 * v37;
+        alloca = (40 * v37 + 248);
+        while (_is_request_done(v4, v39))
         {
-          v36 = v34[3];
-          v94 = v34[2];
-          v95 = v36;
-          v37 = v34[5];
-          v96 = v34[4];
-          v97 = v37;
-          v38 = v34[1];
-          *buf = *v34;
-          *&buf[16] = v38;
-          Minimum = CFBinaryHeapGetMinimum(*(v23 + 8 * v33));
+          v42 = v40[3];
+          v113 = v40[2];
+          v114 = v42;
+          v43 = v40[5];
+          v115 = v40[4];
+          v116 = v43;
+          v44 = v40[1];
+          *buf = *v40;
+          *&buf[16] = v44;
+          Minimum = CFBinaryHeapGetMinimum(*(v27 + 8 * v39));
           C3BaseRetain(Minimum);
-          mmcs_request_requirements_add_requirement(buf, Minimum[4] + 32, v40, v41);
-          if (*v35)
+          mmcs_request_requirements_add_requirement(buf, Minimum[4] + 32, v46, v47);
+          if (*v41)
           {
-            v43 = *(v35 + 16);
-            v42 = *(v35 + 24);
-            if (v42 <= v43)
+            v49 = *(v41 + 16);
+            v48 = *(v41 + 24);
+            if (v48 <= v49)
             {
-              v44 = 1.0;
+              v50 = 1.0;
             }
 
             else
             {
-              v44 = v42 - v43;
+              v50 = v48 - v49;
             }
 
-            v45 = (*(v35 + 8) / v44);
-            v46 = 8 * *&buf[8];
-            if (v46 <= v45)
+            v51 = (*(v41 + 8) / v50);
+            v52 = 8 * *&buf[8];
+            if (v52 <= v51)
             {
-              behavior_type = mmcs_request_type_get_behavior_type(v33);
+              behavior_type = mmcs_request_type_get_behavior_type(v39);
               if (behavior_type < 0)
               {
 LABEL_63:
@@ -825,16 +830,16 @@ LABEL_63:
                   goto LABEL_90;
                 }
 
-                v57 = mmcs_logging_logger_default();
-                if (!os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
+                v70 = mmcs_logging_logger_default(behavior_type, v67);
+                if (!os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
                 {
                   goto LABEL_90;
                 }
 
-                v58 = mmcs_request_type_as_c_string(v33);
-                v59 = CFStringCreateWithFormat(v89, 0, @"Planning to schedule %s. Bps needed %ld avail %ld", v58, v46, v45);
-                v60 = mmcs_logging_logger_default();
-                if (!os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+                v71 = mmcs_request_type_as_c_string(v39);
+                v72 = CFStringCreateWithFormat(v108, 0, @"Planning to schedule %s. Bps needed %ld avail %ld", v71, v52, v51);
+                v74 = mmcs_logging_logger_default(v72, v73);
+                if (!os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
                 {
                   goto LABEL_88;
                 }
@@ -842,31 +847,32 @@ LABEL_63:
                 goto LABEL_87;
               }
 
-              v55 = behavior_type + 1;
-              v56 = alloca;
-              while (!*(v56 + a1))
+              v68 = behavior_type + 1;
+              v69 = alloca;
+              while (!*(v69 + v4))
               {
-                v56 = (v56 + 1);
-                if (!--v55)
+                v69 = (v69 + 1);
+                if (!--v68)
                 {
                   goto LABEL_63;
                 }
               }
 
-              if (!mmcs_request_queue_total_requests_inflight_for_behavior_type(a1, v33))
+              v81 = mmcs_request_queue_total_requests_inflight_for_behavior_type(v4, v39);
+              if (!v81)
               {
                 mmcs_request_queue_schedule_cold_1();
               }
 
               if (gMMCS_DebugLevel >= 5)
               {
-                v65 = mmcs_logging_logger_default();
-                if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+                v83 = mmcs_logging_logger_default(v81, v82);
+                if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
                 {
-                  v66 = mmcs_request_type_as_c_string(v33);
-                  v49 = CFStringCreateWithFormat(v89, 0, @"Not planning to schedule %s. Outstanding tasks below required throughput.", v66);
-                  v50 = mmcs_logging_logger_default();
-                  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+                  v84 = mmcs_request_type_as_c_string(v39);
+                  v57 = CFStringCreateWithFormat(v108, 0, @"Not planning to schedule %s. Outstanding tasks below required throughput.", v84);
+                  v59 = mmcs_logging_logger_default(v57, v85);
+                  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
                   {
                     goto LABEL_79;
                   }
@@ -878,23 +884,24 @@ LABEL_63:
 
             else
             {
-              if (!mmcs_request_queue_total_requests_inflight_for_behavior_type(a1, v33))
+              v53 = mmcs_request_queue_total_requests_inflight_for_behavior_type(v4, v39);
+              if (!v53)
               {
                 if (gMMCS_DebugLevel < 5)
                 {
                   goto LABEL_90;
                 }
 
-                v63 = mmcs_logging_logger_default();
-                if (!os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
+                v78 = mmcs_logging_logger_default(v53, v54);
+                if (!os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
                 {
                   goto LABEL_90;
                 }
 
-                v64 = mmcs_request_type_as_c_string(v33);
-                v59 = CFStringCreateWithFormat(v89, 0, @"Planning to schedule %s. Not enough bandwidth available but no other request is in-flight", v64);
-                v60 = mmcs_logging_logger_default();
-                if (!os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+                v79 = mmcs_request_type_as_c_string(v39);
+                v72 = CFStringCreateWithFormat(v108, 0, @"Planning to schedule %s. Not enough bandwidth available but no other request is in-flight", v79);
+                v74 = mmcs_logging_logger_default(v72, v80);
+                if (!os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
                 {
                   goto LABEL_88;
                 }
@@ -904,13 +911,13 @@ LABEL_63:
 
               if (gMMCS_DebugLevel >= 5)
               {
-                v47 = mmcs_logging_logger_default();
-                if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+                v55 = mmcs_logging_logger_default(v53, v54);
+                if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
                 {
-                  v48 = mmcs_request_type_as_c_string(v33);
-                  v49 = CFStringCreateWithFormat(v89, 0, @"Not planning to schedule %s. Bps needed %ld avail %ld", v48, v46, v45);
-                  v50 = mmcs_logging_logger_default();
-                  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+                  v56 = mmcs_request_type_as_c_string(v39);
+                  v57 = CFStringCreateWithFormat(v108, 0, @"Not planning to schedule %s. Bps needed %ld avail %ld", v56, v52, v51);
+                  v59 = mmcs_logging_logger_default(v57, v58);
+                  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
                   {
                     goto LABEL_79;
                   }
@@ -923,190 +930,194 @@ LABEL_63:
 
           else
           {
-            if (!mmcs_request_queue_total_requests_inflight_for_behavior_type(a1, v33))
+            v60 = mmcs_request_queue_total_requests_inflight_for_behavior_type(v4, v39);
+            if (!v60)
             {
               if (gMMCS_DebugLevel < 5)
               {
                 goto LABEL_90;
               }
 
-              v61 = mmcs_logging_logger_default();
-              if (!os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+              v75 = mmcs_logging_logger_default(v60, v61);
+              if (!os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
               {
                 goto LABEL_90;
               }
 
-              v62 = mmcs_request_type_as_c_string(v33);
-              v59 = CFStringCreateWithFormat(v89, 0, @"Planning to schedule %s. No bandwidth measurement available but no other request is in-flight", v62);
-              v60 = mmcs_logging_logger_default();
-              if (!os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+              v76 = mmcs_request_type_as_c_string(v39);
+              v72 = CFStringCreateWithFormat(v108, 0, @"Planning to schedule %s. No bandwidth measurement available but no other request is in-flight", v76);
+              v74 = mmcs_logging_logger_default(v72, v77);
+              if (!os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
               {
                 goto LABEL_88;
               }
 
 LABEL_87:
               LODWORD(context) = 138543362;
-              *(&context + 4) = v59;
-              _os_log_impl(&dword_2577D8000, v60, OS_LOG_TYPE_DEBUG, "%{public}@", &context, 0xCu);
+              *(&context + 4) = v72;
+              _os_log_impl(&dword_2577D8000, v74, OS_LOG_TYPE_DEBUG, "%{public}@", &context, 0xCu);
               goto LABEL_88;
             }
 
             if (gMMCS_DebugLevel >= 5)
             {
-              v51 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+              v62 = mmcs_logging_logger_default(v60, v61);
+              if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
               {
-                v52 = mmcs_request_type_as_c_string(v33);
-                v53 = mmcs_request_queue_total_requests_inflight_for_behavior_type(a1, v33);
-                v49 = CFStringCreateWithFormat(v89, 0, @"Not planning to schedule %s. No bandwidth measurement available and %d requests are in-flight", v52, v53);
-                v50 = mmcs_logging_logger_default();
-                if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+                v63 = mmcs_request_type_as_c_string(v39);
+                v64 = mmcs_request_queue_total_requests_inflight_for_behavior_type(v4, v39);
+                v57 = CFStringCreateWithFormat(v108, 0, @"Not planning to schedule %s. No bandwidth measurement available and %d requests are in-flight", v63, v64);
+                v59 = mmcs_logging_logger_default(v57, v65);
+                if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
                 {
 LABEL_79:
                   LODWORD(context) = 138543362;
-                  *(&context + 4) = v49;
-                  _os_log_impl(&dword_2577D8000, v50, OS_LOG_TYPE_DEBUG, "%{public}@", &context, 0xCu);
+                  *(&context + 4) = v57;
+                  _os_log_impl(&dword_2577D8000, v59, OS_LOG_TYPE_DEBUG, "%{public}@", &context, 0xCu);
                 }
 
 LABEL_80:
-                if (v49)
+                if (v57)
                 {
-                  CFRelease(v49);
+                  CFRelease(v57);
                 }
               }
             }
           }
 
-          if (*(a1 + 1304) && mmcs_request_queue_entry_is_small_request(Minimum))
+          if (*(v4 + 1304))
           {
-            if (gMMCS_DebugLevel >= 5)
+            is_small_request = mmcs_request_queue_entry_is_small_request(Minimum);
+            if (is_small_request)
             {
-              v67 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
+              if (gMMCS_DebugLevel >= 5)
               {
-                v68 = mmcs_request_type_as_c_string(v33);
-                v59 = CFStringCreateWithFormat(v89, 0, @"Planning to schedule %s. This is a small request.", v68);
-                v60 = mmcs_logging_logger_default();
-                if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+                v88 = mmcs_logging_logger_default(is_small_request, v87);
+                if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
                 {
-                  goto LABEL_87;
-                }
+                  v89 = mmcs_request_type_as_c_string(v39);
+                  v72 = CFStringCreateWithFormat(v108, 0, @"Planning to schedule %s. This is a small request.", v89);
+                  v74 = mmcs_logging_logger_default(v72, v90);
+                  if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
+                  {
+                    goto LABEL_87;
+                  }
 
 LABEL_88:
-                if (v59)
-                {
-                  CFRelease(v59);
+                  if (v72)
+                  {
+                    CFRelease(v72);
+                  }
                 }
               }
-            }
 
 LABEL_90:
-            LOBYTE(context) = 0;
-            _do_schedule(a1, Minimum, v33, &context);
-            v69 = context == 0;
-            if (context)
-            {
-              v70 = *&buf[16];
-              *v34 = *buf;
-              v34[1] = v70;
-              v71 = v97;
-              v34[4] = v96;
-              v34[5] = v71;
-              v72 = v95;
-              v34[2] = v94;
-              v34[3] = v72;
-              v73 = Minimum[4];
-              if (*(v73 + 32) > 0.0 && *(v73 + 8 * *(v73 + 16) + 48) > 0x10000uLL)
+              LOBYTE(context) = 0;
+              _do_schedule(v4, Minimum, v39, &context);
+              v91 = context == 0;
+              if (context)
               {
-                *(v35 + 32 + v22) = 1;
+                v92 = *&buf[16];
+                *v40 = *buf;
+                v40[1] = v92;
+                v93 = v116;
+                v40[4] = v115;
+                v40[5] = v93;
+                v94 = v114;
+                v40[2] = v113;
+                v40[3] = v94;
+                v95 = Minimum[4];
+                if (*(v95 + 32) > 0.0 && *(v95 + 8 * *(v95 + 16) + 48) > 0x10000uLL)
+                {
+                  *(v41 + 32 + v26) = 1;
+                }
               }
-            }
 
-            goto LABEL_95;
+              goto LABEL_95;
+            }
           }
 
-          v69 = 0;
+          v91 = 0;
 LABEL_95:
           if (Minimum)
           {
             C3BaseRelease(Minimum);
           }
 
-          if (!v69)
+          if (!v91)
           {
             break;
           }
         }
 
-        v32 = 0;
-        v31 = 1;
-        if ((v86 & 1) == 0)
+        v38 = 0;
+        v37 = 1;
+        if ((v105 & 1) == 0)
         {
           goto LABEL_107;
         }
       }
     }
 
-    v74 = 0;
-    v75 = 1;
+    v96 = 0;
+    v97 = 1;
     do
     {
-      v76 = v75;
-      v77 = mmcs_request_type_for_behavior_and_activity(v22, v74);
+      v98 = v97;
+      v99 = mmcs_request_type_for_behavior_and_activity(v26, v96);
       buf[0] = 0;
       do
       {
-        if (!_is_request_done(a1, v77))
+        if (!_is_request_done(v4, v99))
         {
           break;
         }
 
-        v78 = CFBinaryHeapGetMinimum(*(v23 + 8 * v77));
-        C3BaseRetain(v78);
-        _do_schedule(a1, v78, v77, buf);
-        if (v78)
+        v100 = CFBinaryHeapGetMinimum(*(v27 + 8 * v99));
+        C3BaseRetain(v100);
+        _do_schedule(v4, v100, v99, buf);
+        if (v100)
         {
-          C3BaseRelease(v78);
+          C3BaseRelease(v100);
         }
       }
 
       while (!buf[0]);
-      v75 = 0;
-      v74 = 1;
+      v97 = 0;
+      v96 = 1;
     }
 
-    while ((v76 & 1) != 0);
+    while ((v98 & 1) != 0);
 LABEL_107:
-    v79 = 0;
-    v80 = 0;
-    v81 = 1;
+    a2 = 0;
+    v101 = 0;
+    v102 = 1;
     do
     {
-      v82 = v81;
-      v83 = mmcs_request_type_for_behavior_and_activity(v22, v79);
-      Count = CFBinaryHeapGetCount(*(v23 + 8 * v83));
-      v81 = 0;
-      v80 += Count;
-      v79 = 1;
+      v103 = v102;
+      v104 = mmcs_request_type_for_behavior_and_activity(v26, a2);
+      Count = CFBinaryHeapGetCount(*(v27 + 8 * v104));
+      v102 = 0;
+      v101 += Count;
+      a2 = 1;
     }
 
-    while ((v82 & 1) != 0);
-    v21 = v80 != 0;
+    while ((v103 & 1) != 0);
+    v25 = v101 != 0;
 LABEL_110:
-    ++v22;
+    ++v26;
   }
 
-  while (v22 != 5);
-  v85 = *MEMORY[0x277D85DE8];
+  while (v26 != 5);
 }
 
-uint64_t mmcs_request_queue_cancel_request(uint64_t a1, const void *a2, uint64_t a3, double a4)
+uint64_t mmcs_request_queue_cancel_request(uint64_t a1, const void *a2, double a3, uint64_t a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   Value = CFDictionaryGetValue(*(a1 + 96), a2);
   if (!Value)
   {
-    goto LABEL_5;
+    return 0;
   }
 
   v8 = Value;
@@ -1114,30 +1125,28 @@ uint64_t mmcs_request_queue_cancel_request(uint64_t a1, const void *a2, uint64_t
   {
     if (Value[26] || Value[27])
     {
-LABEL_5:
-      v9 = 0;
-      goto LABEL_20;
+      return 0;
     }
 
     Value[26] = 1;
-    C3BaseRetain(Value);
+    v29 = C3BaseRetain(Value);
     if (gMMCS_DebugLevel >= 4)
     {
-      v24 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v31 = mmcs_logging_logger_default(v29, v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
-        v25 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Cancelling request for object %p", *(*(v8 + 4) + 8));
-        v26 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v32 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Cancelling request for object %p", *(*(v8 + 4) + 8));
+        v34 = mmcs_logging_logger_default(v32, v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v28 = v25;
-          _os_log_impl(&dword_2577D8000, v26, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          v36 = v32;
+          _os_log_impl(&dword_2577D8000, v34, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        if (v25)
+        if (v32)
         {
-          CFRelease(v25);
+          CFRelease(v32);
         }
       }
     }
@@ -1148,117 +1157,115 @@ LABEL_5:
     }
 
     C3BaseRelease(v8);
-    v9 = 1;
+    return 1;
   }
 
   else
   {
-    v9 = mmcs_request_queue_callback_cancel_request_with_entry(Value, a3);
-    v10 = *(*(v8 + 4) + 16);
+    v10 = mmcs_request_queue_callback_cancel_request_with_entry(Value, a4);
+    v9 = v10;
+    v12 = *(*(v8 + 4) + 16);
     if (gMMCS_DebugLevel >= 4)
     {
-      v11 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v13 = mmcs_logging_logger_default(v10, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v12 = *MEMORY[0x277CBECE8];
-        v13 = *(*(v8 + 4) + 8);
-        v14 = mmcs_request_queue_total_requests_inflight_for_behavior_type(a1, v10) - 1;
-        v15 = mmcs_request_queue_requests_enqueued_count_for_behavior_type(a1, v10);
-        v16 = CFStringCreateWithFormat(v12, 0, @"Request for object %p cancelled. %d requests now in-flight, %ld total requests enqueued", v13, v14, v15);
-        v17 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v14 = *MEMORY[0x277CBECE8];
+        v15 = *(*(v8 + 4) + 8);
+        v16 = mmcs_request_queue_total_requests_inflight_for_behavior_type(a1, v12) - 1;
+        v17 = mmcs_request_queue_requests_enqueued_count_for_behavior_type(a1, v12);
+        v18 = CFStringCreateWithFormat(v14, 0, @"Request for object %p cancelled. %d requests now in-flight, %ld total requests enqueued", v15, v16, v17);
+        v20 = mmcs_logging_logger_default(v18, v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v28 = v16;
-          _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          v36 = v18;
+          _os_log_impl(&dword_2577D8000, v20, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        if (v16)
+        if (v18)
         {
-          CFRelease(v16);
+          CFRelease(v18);
         }
       }
     }
 
     CFDictionaryRemoveValue(*(a1 + 96), *(*(v8 + 4) + 8));
-    v18 = *(a1 + 104 + 4 * v10);
-    if (v18)
+    v23 = *(a1 + 104 + 4 * v12);
+    if (v23)
     {
-      *(a1 + 104 + 4 * v10) = v18 - 1;
+      *(a1 + 104 + 4 * v12) = v23 - 1;
     }
 
     else
     {
-      v19 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v24 = mmcs_logging_logger_default(v21, v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        v20 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"requestsInflightCount underflow");
-        v21 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v25 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"requestsInflightCount underflow");
+        v27 = mmcs_logging_logger_default(v25, v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v28 = v20;
-          _os_log_impl(&dword_2577D8000, v21, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+          v36 = v25;
+          _os_log_impl(&dword_2577D8000, v27, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
         }
 
-        if (v20)
+        if (v25)
         {
-          CFRelease(v20);
+          CFRelease(v25);
         }
       }
     }
 
-    mmcs_request_queue_schedule(a1, a4);
+    mmcs_request_queue_schedule(a1, v22, a3);
   }
 
-LABEL_20:
-  v22 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t mmcs_request_queue_callback_cancel_request_with_entry(uint64_t cf, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (cf)
   {
     v2 = cf;
     if (*(cf + 25) || *(cf + 26) || *(cf + 27))
     {
-      cf = 0;
+      return 0;
     }
 
     else
     {
       *(cf + 25) = 1;
-      C3BaseRetain(cf);
+      v4 = C3BaseRetain(cf);
       if (gMMCS_DebugLevel >= 4)
       {
-        v5 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+        v6 = mmcs_logging_logger_default(v4, v5);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
-          v6 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Callback cancelling request for object %p", *(v2[4] + 8));
-          v7 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+          v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Callback cancelling request for object %p", *(v2[4] + 8));
+          v9 = mmcs_logging_logger_default(v7, v8);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v9 = v6;
-            _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+            v11 = v7;
+            _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
           }
 
-          if (v6)
+          if (v7)
           {
-            CFRelease(v6);
+            CFRelease(v7);
           }
         }
       }
 
       (*(v2[4] + 136))(*(v2[4] + 8), a2);
       C3BaseRelease(v2);
-      cf = 1;
+      return 1;
     }
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return cf;
 }
 
@@ -1296,7 +1303,7 @@ uint64_t mmcs_request_queue_total_requests_inflight_for_behavior_type(uint64_t a
 
 uint64_t mmcs_request_queue_request_did_transmit(uint64_t a1, const void *a2, uint64_t a3, double a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   result = CFDictionaryGetValue(*(a1 + 96), a2);
   if (result)
   {
@@ -1306,68 +1313,67 @@ uint64_t mmcs_request_queue_request_did_transmit(uint64_t a1, const void *a2, ui
       v10 = mmcs_network_activity_copy_description(a3);
       if (v10)
       {
-        v11 = v10;
+        v12 = v10;
         if (gMMCS_DebugLevel >= 5)
         {
-          v12 = mmcs_logging_logger_default();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v13 = mmcs_logging_logger_default(v10, v11);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            v13 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"object (%p) did %@", a2, v11);
-            v14 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+            v14 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"object (%p) did %@", a2, v12);
+            v16 = mmcs_logging_logger_default(v14, v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v22 = v13;
-              _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+              v24 = v14;
+              _os_log_impl(&dword_2577D8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
 
-            if (v13)
+            if (v14)
             {
-              CFRelease(v13);
+              CFRelease(v14);
             }
           }
         }
 
-        CFRelease(v11);
+        CFRelease(v12);
       }
     }
 
     mmcs_request_queue_entry_did_transmit(v9, a3, a4 + -10.0);
-    v15 = *(a1 + 184);
-    if (v15)
+    v18 = *(a1 + 184);
+    if (v18)
     {
       Count = CFArrayGetCount(*(a1 + 184));
       if (Count >= 1)
       {
-        v17 = Count + 1;
+        v20 = Count + 1;
         do
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v15, v17 - 2);
+          ValueAtIndex = CFArrayGetValueAtIndex(v18, v20 - 2);
           if (*(ValueAtIndex + 1) < a4 + -10.0)
           {
-            v19 = ValueAtIndex;
-            CFArrayRemoveValueAtIndex(v15, v17 - 2);
-            free(v19);
+            v22 = ValueAtIndex;
+            CFArrayRemoveValueAtIndex(v18, v20 - 2);
+            free(v22);
           }
 
-          --v17;
+          --v20;
         }
 
-        while (v17 > 1);
+        while (v20 > 1);
       }
     }
 
-    mmcs_request_queue_schedule(a1, a4);
-    result = 1;
+    mmcs_request_queue_schedule(a1, v17, a4);
+    return 1;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t mmcs_request_queue_request_did_complete(uint64_t a1, const void *a2, CFErrorRef err, int a4, BOOL *a5, double a6)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   if (!err)
   {
     goto LABEL_37;
@@ -1479,36 +1485,36 @@ LABEL_38:
   v24 = CFDictionaryGetValue(*(a1 + 96), a2);
   if (!v24)
   {
-    v31 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v33 = mmcs_logging_logger_default(0, v25);
+    if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_50;
     }
 
-    v27 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Unknown request for object %p completed", a2);
-    v32 = mmcs_logging_logger_default();
-    if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v28 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Unknown request for object %p completed", a2);
+    v35 = mmcs_logging_logger_default(v28, v34);
+    if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_48;
     }
 
     LODWORD(buf) = 138543362;
-    *(&buf + 4) = v27;
-    v29 = v32;
-    v30 = OS_LOG_TYPE_ERROR;
+    *(&buf + 4) = v28;
+    v31 = v35;
+    v32 = OS_LOG_TYPE_ERROR;
     goto LABEL_47;
   }
 
-  v25 = v24;
+  v26 = v24;
   if (!*(v24 + 27))
   {
-    v37 = *(v24 + 5);
-    if (v37)
+    Count = v24[5];
+    if (Count)
     {
-      Count = CFArrayGetCount(v37);
+      Count = CFArrayGetCount(Count);
       if (Count >= 1)
       {
-        v39 = Count;
+        v40 = Count;
         Mutable = *(a1 + 184);
         if (!Mutable)
         {
@@ -1516,57 +1522,57 @@ LABEL_38:
           *(a1 + 184) = Mutable;
         }
 
-        v72.location = 0;
-        v72.length = v39;
-        CFArrayAppendArray(Mutable, *(v25 + 40), v72);
-        CFArrayRemoveAllValues(*(v25 + 40));
+        v79.location = 0;
+        v79.length = v40;
+        CFArrayAppendArray(Mutable, *(v26 + 40), v79);
+        CFArrayRemoveAllValues(*(v26 + 40));
       }
     }
 
-    v41 = *(*(v25 + 32) + 16);
+    v42 = *(*(v26 + 32) + 16);
     if (gMMCS_DebugLevel >= 4)
     {
-      v42 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+      v43 = mmcs_logging_logger_default(Count, v25);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
       {
-        v43 = *MEMORY[0x277CBECE8];
+        v44 = *MEMORY[0x277CBECE8];
         if (v22)
         {
-          v44 = " with network error";
+          v45 = " with network error";
         }
 
         else
         {
-          v44 = "";
+          v45 = "";
         }
 
-        v45 = mmcs_request_queue_total_requests_inflight_for_behavior_type(a1, v41) - 1;
-        v46 = mmcs_request_queue_requests_enqueued_count_for_behavior_type(a1, v41);
-        v47 = CFStringCreateWithFormat(v43, 0, @"Request for object %p completed%s. %d requests now in-flight, %ld total requests enqueued", a2, v44, v45, v46);
-        v48 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+        v46 = mmcs_request_queue_total_requests_inflight_for_behavior_type(a1, v42) - 1;
+        v47 = mmcs_request_queue_requests_enqueued_count_for_behavior_type(a1, v42);
+        v48 = CFStringCreateWithFormat(v44, 0, @"Request for object %p completed%s. %d requests now in-flight, %ld total requests enqueued", a2, v45, v46, v47);
+        v50 = mmcs_logging_logger_default(v48, v49);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
         {
           LODWORD(buf) = 138543362;
-          *(&buf + 4) = v47;
-          _os_log_impl(&dword_2577D8000, v48, OS_LOG_TYPE_DEBUG, "%{public}@", &buf, 0xCu);
+          *(&buf + 4) = v48;
+          _os_log_impl(&dword_2577D8000, v50, OS_LOG_TYPE_DEBUG, "%{public}@", &buf, 0xCu);
         }
 
-        if (v47)
+        if (v48)
         {
-          CFRelease(v47);
+          CFRelease(v48);
         }
       }
     }
 
-    C3BaseRetain(v25);
+    C3BaseRetain(v26);
     CFDictionaryRemoveValue(*(a1 + 96), a2);
-    v49 = a1 + 104;
-    v50 = *(a1 + 104 + 4 * v41);
-    if (v50)
+    v53 = a1 + 104;
+    v54 = *(a1 + 104 + 4 * v42);
+    if (v54)
     {
-      v51 = v50 - 1;
-      *(v49 + 4 * v41) = v51;
-      if (v51)
+      v55 = v54 - 1;
+      *(v53 + 4 * v42) = v55;
+      if (v55)
       {
         goto LABEL_69;
       }
@@ -1574,25 +1580,27 @@ LABEL_38:
 
     else
     {
-      v64 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+      v69 = mmcs_logging_logger_default(behavior_type, v52);
+      behavior_type = os_log_type_enabled(v69, OS_LOG_TYPE_ERROR);
+      if (behavior_type)
       {
-        v65 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"requestsInflightCount underflow");
-        v66 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v70 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"requestsInflightCount underflow");
+        v72 = mmcs_logging_logger_default(v70, v71);
+        behavior_type = os_log_type_enabled(v72, OS_LOG_TYPE_ERROR);
+        if (behavior_type)
         {
           LODWORD(buf) = 138543362;
-          *(&buf + 4) = v65;
-          _os_log_impl(&dword_2577D8000, v66, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
+          *(&buf + 4) = v70;
+          _os_log_impl(&dword_2577D8000, v72, OS_LOG_TYPE_ERROR, "%{public}@", &buf, 0xCu);
         }
 
-        if (v65)
+        if (v70)
         {
-          CFRelease(v65);
+          CFRelease(v70);
         }
       }
 
-      if (*(v49 + 4 * v41))
+      if (*(v53 + 4 * v42))
       {
 LABEL_69:
         if (v22)
@@ -1604,92 +1612,93 @@ LABEL_69:
       }
     }
 
-    activity_type = mmcs_request_type_get_activity_type(v41);
-    *(a1 + 40 * activity_type + mmcs_request_type_get_behavior_type(v41) + 248) = 0;
+    activity_type = mmcs_request_type_get_activity_type(v42);
+    behavior_type = mmcs_request_type_get_behavior_type(v42);
+    *(a1 + 40 * activity_type + behavior_type + 248) = 0;
     if (v22)
     {
 LABEL_70:
-      v34 = 0;
+      v37 = 0;
       *(a1 + 1304) = 0;
       if (!*(a1 + 1524))
       {
-        v52 = *(a1 + 1300);
-        if (v52 != -1)
+        v56 = *(a1 + 1300);
+        if (v56 != -1)
         {
-          *(a1 + 1300) = ++v52;
+          *(a1 + 1300) = ++v56;
         }
 
-        if (v52 <= *(a1 + 1296))
+        if (v56 <= *(a1 + 1296))
         {
-          v34 = 1;
+          v37 = 1;
         }
 
         else
         {
-          v53 = *(a1 + 1472);
-          if (v53 >= 16.0)
+          v57 = *(a1 + 1472);
+          if (v57 >= 16.0)
           {
-            v54 = v53 + v53;
+            v58 = v57 + v57;
           }
 
           else
           {
-            v54 = 16.0;
+            v58 = 16.0;
           }
 
-          if (v54 > 2048.0)
+          if (v58 > 2048.0)
           {
-            v54 = 2048.0;
+            v58 = 2048.0;
           }
 
-          *(a1 + 1472) = v54;
-          v55 = mmcs_logging_logger_default();
-          v56 = os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT);
-          v57 = *MEMORY[0x277CBECE8];
-          if (v56)
-          {
-            v58 = CFStringCreateWithFormat(v57, 0, @"There were %d failures in a row. Cancelling all requests and requesting retry in %d seconds", *(a1 + 1300), *(a1 + 1472));
-            v59 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
-            {
-              LODWORD(buf) = 138543362;
-              *(&buf + 4) = v58;
-              _os_log_impl(&dword_2577D8000, v59, OS_LOG_TYPE_DEFAULT, "%{public}@", &buf, 0xCu);
-            }
-
-            if (v58)
-            {
-              CFRelease(v58);
-            }
-          }
-
-          v60 = CFStringCreateWithFormat(v57, 0, @"%d", *(a1 + 1472));
-          *&buf = @"Retry-After";
-          *(&buf + 1) = @"kMMCSErrorRetryClientInitiatedKey";
-          v61 = *MEMORY[0x277CBED28];
-          values[0] = v60;
-          values[1] = v61;
-          v62 = CFDictionaryCreate(v57, &buf, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-          v63 = mmcs_cferror_create_with_swiss_army_knife(@"com.apple.mmcs", 16, 0, v62, 0, 0, 0, @"Last %u requests failed with a network error. Retry after %@ seconds", *(a1 + 1300), v60);
-          if (v62)
-          {
-            CFRelease(v62);
-          }
-
-          mmcs_request_queue_callback_cancel_request_with_entry(v25, v63);
-          *(v25 + 27) = 1;
-          mmcs_request_queue_request_cancel_all_queued_and_inflight_requests(a1, v63);
-          if (v63)
-          {
-            CFRelease(v63);
-          }
-
+          *(a1 + 1472) = v58;
+          v59 = mmcs_logging_logger_default(behavior_type, v52);
+          v60 = os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT);
+          v61 = *MEMORY[0x277CBECE8];
           if (v60)
           {
-            CFRelease(v60);
+            v62 = CFStringCreateWithFormat(v61, 0, @"There were %d failures in a row. Cancelling all requests and requesting retry in %d seconds", *(a1 + 1300), *(a1 + 1472));
+            v64 = mmcs_logging_logger_default(v62, v63);
+            if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+            {
+              LODWORD(buf) = 138543362;
+              *(&buf + 4) = v62;
+              _os_log_impl(&dword_2577D8000, v64, OS_LOG_TYPE_DEFAULT, "%{public}@", &buf, 0xCu);
+            }
+
+            if (v62)
+            {
+              CFRelease(v62);
+            }
           }
 
-          v34 = 0;
+          v65 = CFStringCreateWithFormat(v61, 0, @"%d", *(a1 + 1472));
+          *&buf = @"Retry-After";
+          *(&buf + 1) = @"kMMCSErrorRetryClientInitiatedKey";
+          v66 = *MEMORY[0x277CBED28];
+          values[0] = v65;
+          values[1] = v66;
+          v67 = CFDictionaryCreate(v61, &buf, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+          v68 = mmcs_cferror_create_with_swiss_army_knife(@"com.apple.mmcs", 16, 0, v67, 0, 0, 0, @"Last %u requests failed with a network error. Retry after %@ seconds", *(a1 + 1300), v65);
+          if (v67)
+          {
+            CFRelease(v67);
+          }
+
+          mmcs_request_queue_callback_cancel_request_with_entry(v26, v68);
+          *(v26 + 27) = 1;
+          mmcs_request_queue_request_cancel_all_queued_and_inflight_requests(a1, v68);
+          if (v68)
+          {
+            CFRelease(v68);
+          }
+
+          if (v65)
+          {
+            CFRelease(v65);
+          }
+
+          v37 = 0;
         }
       }
 
@@ -1697,23 +1706,23 @@ LABEL_70:
     }
 
 LABEL_98:
-    v68 = *(a1 + 1304);
-    if (v68 != -1)
+    v74 = *(a1 + 1304);
+    if (v74 != -1)
     {
-      *(a1 + 1304) = v68 + 1;
+      *(a1 + 1304) = v74 + 1;
     }
 
     *(a1 + 1300) = 0;
     *(a1 + 1472) = 0;
-    v34 = *(a1 + 1524) == 0;
+    v37 = *(a1 + 1524) == 0;
 LABEL_101:
-    v33 = 1;
-    *(v25 + 27) = 1;
-    C3BaseRelease(v25);
-    mmcs_request_queue_schedule(a1, a6);
+    v36 = 1;
+    *(v26 + 27) = 1;
+    C3BaseRelease(v26);
+    mmcs_request_queue_schedule(a1, v75, a6);
     if (!a5)
     {
-      goto LABEL_52;
+      return v36;
     }
 
     goto LABEL_51;
@@ -1724,42 +1733,40 @@ LABEL_101:
     goto LABEL_50;
   }
 
-  v26 = mmcs_logging_logger_default();
-  if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v27 = mmcs_logging_logger_default(v24, v25);
+  if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
     goto LABEL_50;
   }
 
-  v27 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Request for object %p already done", a2);
-  v28 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+  v28 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Request for object %p already done", a2);
+  v30 = mmcs_logging_logger_default(v28, v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
     LODWORD(buf) = 138543362;
-    *(&buf + 4) = v27;
-    v29 = v28;
-    v30 = OS_LOG_TYPE_DEBUG;
+    *(&buf + 4) = v28;
+    v31 = v30;
+    v32 = OS_LOG_TYPE_DEBUG;
 LABEL_47:
-    _os_log_impl(&dword_2577D8000, v29, v30, "%{public}@", &buf, 0xCu);
+    _os_log_impl(&dword_2577D8000, v31, v32, "%{public}@", &buf, 0xCu);
   }
 
 LABEL_48:
-  if (v27)
+  if (v28)
   {
-    CFRelease(v27);
+    CFRelease(v28);
   }
 
 LABEL_50:
-  v33 = 0;
-  v34 = 1;
+  v36 = 0;
+  v37 = 1;
   if (a5)
   {
 LABEL_51:
-    *a5 = v34;
+    *a5 = v37;
   }
 
-LABEL_52:
-  v35 = *MEMORY[0x277D85DE8];
-  return v33;
+  return v36;
 }
 
 void mmcs_request_queue_request_cancel_all_queued_and_inflight_requests(uint64_t a1, uint64_t a2)
@@ -1864,141 +1871,140 @@ BOOL _is_request_done(uint64_t a1, uint64_t a2)
 
 void _do_schedule(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v8 = a1 + 16;
   CFBinaryHeapRemoveMinimumValue(*(a1 + 16 + 8 * a3));
-  v9 = *(*(a2 + 32) + 128);
-  v41 = 0;
-  v10 = a1 + 104;
+  v11 = *(*(a2 + 32) + 128);
+  v48 = 0;
+  v12 = a1 + 104;
   ++*(a1 + 104 + 4 * a3);
   if (gMMCS_DebugLevel >= 5)
   {
-    v11 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = mmcs_logging_logger_default(v9, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v39 = v9;
-      v40 = a4;
+      v46 = v11;
+      v47 = a4;
       alloc = *MEMORY[0x277CBECE8];
-      v12 = *(v10 + 4 * a3);
-      v13 = mmcs_request_type_as_c_string(a3);
-      v14 = *(*(a2 + 32) + 8);
+      v14 = *(v12 + 4 * a3);
       v15 = mmcs_request_type_as_c_string(a3);
+      v16 = *(*(a2 + 32) + 8);
+      v17 = mmcs_request_type_as_c_string(a3);
       Count = CFBinaryHeapGetCount(*(v8 + 8 * a3));
-      v17 = CFStringCreateWithFormat(alloc, 0, @"Planning to schedule in-flight request %d for %s request object %p, resulting request %s queue depth %ld", v12, v13, v14, v15, Count);
-      v18 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v19 = CFStringCreateWithFormat(alloc, 0, @"Planning to schedule in-flight request %d for %s request object %p, resulting request %s queue depth %ld", v14, v15, v16, v17, Count);
+      v21 = mmcs_logging_logger_default(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v43 = v17;
-        _os_log_impl(&dword_2577D8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v50 = v19;
+        _os_log_impl(&dword_2577D8000, v21, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      v9 = v39;
-      a4 = v40;
-      if (v17)
+      v11 = v46;
+      a4 = v47;
+      if (v19)
       {
-        CFRelease(v17);
+        CFRelease(v19);
       }
     }
 
-    v19 = mmcs_request_queue_copy_description(a1);
+    v22 = mmcs_request_queue_copy_description(a1);
+    v24 = v22;
     if (gMMCS_DebugLevel >= 5)
     {
-      v20 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v25 = mmcs_logging_logger_default(v22, v23);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
-        v21 = v9;
-        v22 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@", v19);
-        v23 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v26 = v11;
+        v27 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@", v24);
+        v29 = mmcs_logging_logger_default(v27, v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v43 = v22;
-          _os_log_impl(&dword_2577D8000, v23, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          v50 = v27;
+          _os_log_impl(&dword_2577D8000, v29, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        v9 = v21;
-        if (v22)
+        v11 = v26;
+        if (v27)
         {
-          CFRelease(v22);
+          CFRelease(v27);
         }
       }
     }
 
-    if (v19)
+    if (v24)
     {
-      CFRelease(v19);
+      CFRelease(v24);
     }
   }
 
-  v24 = a1 + 8 * a3;
-  v25 = *(v24 + 1312);
+  v30 = a1 + 8 * a3;
+  v31 = *(v30 + 1312);
   if (CFBinaryHeapGetCount(*(v8 + 8 * a3)) > 19)
   {
-    v26 = 20;
+    v32 = 20;
   }
 
   else
   {
-    v26 = CFBinaryHeapGetCount(*(v8 + 8 * a3));
+    v32 = CFBinaryHeapGetCount(*(v8 + 8 * a3));
   }
 
-  ++*(v25 + 4 * v26);
-  v27 = *(v10 + 4 * a3);
-  if (v27 >= 0x14)
+  ++*(v31 + 4 * v32);
+  v33 = *(v12 + 4 * a3);
+  if (v33 >= 0x14)
   {
-    v27 = 20;
+    v33 = 20;
   }
 
-  ++*(*(v24 + 1392) + 4 * v27);
+  ++*(*(v30 + 1392) + 4 * v33);
   *(a2 + 24) = 0;
-  v28 = v9(*(*(a2 + 32) + 8), &v41);
-  if (v28 && v41)
+  v34 = v11(*(*(a2 + 32) + 8), &v48);
+  v36 = v34;
+  if (v34 && v48)
   {
     *a4 = 1;
   }
 
   else
   {
-    v29 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v37 = mmcs_logging_logger_default(v34, v35);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
-      v30 = *MEMORY[0x277CBECE8];
-      v31 = *(v10 + 4 * a3);
-      v32 = mmcs_request_type_as_c_string(a3);
-      v33 = *(*(a2 + 32) + 8);
-      v34 = "failed";
-      if (!v28)
+      v38 = *MEMORY[0x277CBECE8];
+      v39 = *(v12 + 4 * a3);
+      v40 = mmcs_request_type_as_c_string(a3);
+      v41 = "failed";
+      if (!v36)
       {
-        v34 = "succeeded but nothing was scheduled";
+        v41 = "succeeded but nothing was scheduled";
       }
 
-      v35 = CFStringCreateWithFormat(v30, 0, @"Scheduling of in-flight request %d for %s request object %p, %s. Attempting to schedule another.", v31, v32, *(*(a2 + 32) + 8), v34);
-      v36 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+      v42 = CFStringCreateWithFormat(v38, 0, @"Scheduling of in-flight request %d for %s request object %p, %s. Attempting to schedule another.", v39, v40, *(*(a2 + 32) + 8), v41);
+      v44 = mmcs_logging_logger_default(v42, v43);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v43 = v35;
-        _os_log_impl(&dword_2577D8000, v36, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v50 = v42;
+        _os_log_impl(&dword_2577D8000, v44, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v35)
+      if (v42)
       {
-        CFRelease(v35);
+        CFRelease(v42);
       }
     }
 
     CFDictionaryRemoveValue(*(a1 + 96), *(*(a2 + 32) + 8));
-    --*(v10 + 4 * a3);
+    --*(v12 + 4 * a3);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t mmcs_request_queue_entry_create(void *a1, uint64_t a2)
 {
   *a1 = 0;
-  v4 = C3TypeRegister(&mmcs_request_queue_entryGetTypeID_typeID);
+  v4 = C3TypeRegister(&mmcs_request_queue_entryGetTypeID_typeID, &kmmcs_request_queue_entryContextClass);
   result = C3TypeCreateInstance_(0, v4, 0x20uLL);
   if (result)
   {
@@ -2202,17 +2208,17 @@ void mmcs_request_queue_estimate_bandwidth_measurement_calculate_bps(uint64_t a1
   {
     if (v6 == v7)
     {
-      v9 = mmcs_logging_logger_default();
+      v9 = mmcs_logging_logger_default(a1, a2);
       v8 = 0.001;
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Instantaneous transfer");
-        v11 = mmcs_logging_logger_default();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = mmcs_logging_logger_default(v10, v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           v13 = 138543362;
           v14 = v10;
-          _os_log_impl(&dword_2577D8000, v11, OS_LOG_TYPE_ERROR, "%{public}@", &v13, 0xCu);
+          _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, "%{public}@", &v13, 0xCu);
         }
 
         if (v10)
@@ -2235,7 +2241,6 @@ void mmcs_request_queue_estimate_bandwidth_measurement_calculate_bps(uint64_t a1
 
   *a2 = *(a1 + 8) / v8;
   *a3 = v8;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 double mmcs_request_queue_estimate_bandwidth_context_init(double *a1, double a2)
@@ -2255,67 +2260,65 @@ double mmcs_request_queue_estimate_bandwidth_context_init(double *a1, double a2)
 
 void mmcs_network_activity_estimate_bandwidth_network_activity_applier(uint64_t a1, double *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24) <= 1uLL)
   {
-    v18 = 6.3113904e10;
-    v19 = 0;
-    v17 = 0.0;
-    if (mmcs_network_activity_bytes_for_start_end(a1, &v19, &v18, &v17, *a2, a2[1]))
+    v19 = 6.3113904e10;
+    v20 = 0;
+    v18 = 0.0;
+    if (mmcs_network_activity_bytes_for_start_end(a1, &v20, &v19, &v18, *a2, a2[1]))
     {
-      if (gMMCS_DebugLevel >= 6 && v17 - v18 == 0.0)
+      if (gMMCS_DebugLevel >= 6 && v18 - v19 == 0.0)
       {
         v4 = mmcs_network_activity_copy_description(a1);
         if (v4)
         {
-          v5 = v4;
+          v6 = v4;
           if (gMMCS_DebugLevel >= 5)
           {
-            v6 = mmcs_logging_logger_default();
-            if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+            v7 = mmcs_logging_logger_default(v4, v5);
+            if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
             {
-              v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"applied all of %@", v5);
-              v8 = mmcs_logging_logger_default();
-              if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+              v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"applied all of %@", v6);
+              v10 = mmcs_logging_logger_default(v8, v9);
+              if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138543362;
-                v21 = v7;
-                _os_log_impl(&dword_2577D8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+                v22 = v8;
+                _os_log_impl(&dword_2577D8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
               }
 
-              if (v7)
+              if (v8)
               {
-                CFRelease(v7);
+                CFRelease(v8);
               }
             }
           }
 
-          CFRelease(v5);
+          CFRelease(v6);
         }
       }
 
-      v9 = *(a1 + 24);
-      v10 = &a2[5 * v9 + 2];
-      *v10 = 1;
-      *(v10 + 8) += v19;
-      v12 = *(v10 + 16);
-      v11 = (v10 + 16);
-      if (v18 < v12)
+      v11 = *(a1 + 24);
+      v12 = &a2[5 * v11 + 2];
+      *v12 = 1;
+      *(v12 + 1) += v20;
+      v14 = v12[2];
+      v13 = v12 + 2;
+      if (v19 < v14)
       {
-        *v11 = v18;
+        *v13 = v19;
       }
 
-      v13 = &a2[5 * v9 + 2];
-      v15 = *(v13 + 24);
-      v14 = (v13 + 24);
-      if (v17 > v15)
+      v15 = &a2[5 * v11 + 2];
+      v17 = v15[3];
+      v16 = v15 + 3;
+      if (v18 > v17)
       {
-        *v14 = v17;
+        *v16 = v18;
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 double mmcs_request_requirements_add_requirement(uint64_t a1, uint64_t a2, double a3, double a4)
@@ -2411,7 +2414,7 @@ void mmcs_request_queue_entry_estimate_bandwidth(uint64_t a1, uint64_t a2, doubl
   }
 }
 
-uint64_t mmcs_request_queue_entry_ensure_minimum_bytes_per_period_requirement(uint64_t result, unsigned int a2, double a3)
+uint64_t mmcs_request_queue_entry_ensure_minimum_bytes_per_period_requirement(uint64_t result, uint64_t a2, double a3)
 {
   if (!result || (v3 = *(result + 32)) == 0)
   {
@@ -2449,72 +2452,72 @@ uint64_t mmcs_request_queue_entry_did_transmit(uint64_t a1, uint64_t a2, double 
     Count = CFArrayGetCount(Mutable);
     if (Count >= 1)
     {
-      v8 = Count + 1;
+      v9 = Count + 1;
       do
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 40), v8 - 2);
+        ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 40), v9 - 2);
         if (*(ValueAtIndex + 1) < a3)
         {
-          v10 = ValueAtIndex;
-          CFArrayRemoveValueAtIndex(*(a1 + 40), v8 - 2);
-          free(v10);
+          v11 = ValueAtIndex;
+          CFArrayRemoveValueAtIndex(*(a1 + 40), v9 - 2);
+          free(v11);
         }
 
-        --v8;
+        --v9;
       }
 
-      while (v8 > 1);
+      while (v9 > 1);
     }
 
-    v11 = CFArrayGetCount(*(a1 + 40));
-    if (v11 < 1)
+    v12 = CFArrayGetCount(*(a1 + 40));
+    if (v12 < 1)
     {
       goto LABEL_17;
     }
 
-    v12 = 0;
-    v13 = v11 + 1;
+    v13 = 0;
+    v14 = v12 + 1;
     do
     {
-      v14 = CFArrayGetValueAtIndex(*(a1 + 40), v13 - 2);
-      v15 = v14[1];
-      v16 = *(a2 + 8);
-      if (floor(v15 / 0.1) < floor(v16 / 0.1))
+      v15 = CFArrayGetValueAtIndex(*(a1 + 40), v14 - 2);
+      v16 = v15[1];
+      v17 = *(a2 + 8);
+      if (floor(v16 / 0.1) < floor(v17 / 0.1))
       {
         break;
       }
 
-      if (*(v14 + 3) == *(a2 + 24))
+      if (*(v15 + 3) == *(a2 + 24))
       {
-        *(v14 + 2) += *(a2 + 16);
-        if (v15 <= v16)
+        *(v15 + 2) += *(a2 + 16);
+        if (v16 <= v17)
         {
-          v15 = v16;
+          v16 = v17;
         }
 
-        v14[1] = v15;
-        v12 = 1;
+        v15[1] = v16;
+        v13 = 1;
       }
 
-      --v13;
+      --v14;
     }
 
-    while (v13 > 1);
-    if (!v12)
+    while (v14 > 1);
+    if (!v13)
     {
 LABEL_17:
       mmcs_network_activity_copy(a2);
-      CFArrayAppendValue(*(a1 + 40), v17);
+      CFArrayAppendValue(*(a1 + 40), v18);
     }
   }
 
   else
   {
-    v19 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = mmcs_logging_logger_default(0, v7);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_2577D8000, v19, OS_LOG_TYPE_ERROR, "Network activities are not expected to be NULL and an allocation might have failed due to unknown reason.", v20, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_2577D8000, v20, OS_LOG_TYPE_ERROR, "Network activities are not expected to be NULL and an allocation might have failed due to unknown reason.", v21, 2u);
     }
   }
 
@@ -2569,7 +2572,7 @@ void _CFArrayApplierFunction_Free_0(void *a1)
 uint64_t mmcs_transaction_create(uint64_t *a1, const void *a2)
 {
   *a1 = 0;
-  v4 = C3TypeRegister(&mmcs_transactionGetTypeID_typeID);
+  v4 = C3TypeRegister(&mmcs_transactionGetTypeID_typeID, &kmmcs_transactionContextClass);
   result = C3TypeCreateInstance_(0, v4, 0x38uLL);
   if (result)
   {
@@ -2630,16 +2633,16 @@ uint64_t mmcs_transaction_cancel_enqueued(unsigned int *a1, uint64_t a2, uint64_
   v14 = *MEMORY[0x277D85DE8];
   if (gMMCS_DebugLevel >= 5)
   {
-    v6 = mmcs_logging_logger_default();
+    v6 = mmcs_logging_logger_default(a1, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v7 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"transaction (%p) cancel state %d", a1, a1[12]);
-      v8 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = mmcs_logging_logger_default(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
         v13 = v7;
-        _os_log_impl(&dword_2577D8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        _os_log_impl(&dword_2577D8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
       if (v7)
@@ -2656,9 +2659,7 @@ uint64_t mmcs_transaction_cancel_enqueued(unsigned int *a1, uint64_t a2, uint64_
 
   a1[12] = 4;
   Current = CFAbsoluteTimeGetCurrent();
-  result = mmcs_request_queue_cancel_request(a2, a1, a3, Current);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return mmcs_request_queue_cancel_request(a2, a1, Current, a3);
 }
 
 void mmcs_transaction_cancel_not_enqueued(uint64_t a1, __CFError *a2)
@@ -2666,16 +2667,16 @@ void mmcs_transaction_cancel_not_enqueued(uint64_t a1, __CFError *a2)
   v10 = *MEMORY[0x277D85DE8];
   if (gMMCS_DebugLevel >= 5)
   {
-    v4 = mmcs_logging_logger_default();
+    v4 = mmcs_logging_logger_default(a1, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"transaction (%p) cancel state %d", a1, *(a1 + 48));
-      v6 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = mmcs_logging_logger_default(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
         v9 = v5;
-        _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
       if (v5)
@@ -2692,102 +2693,98 @@ void mmcs_transaction_cancel_not_enqueued(uint64_t a1, __CFError *a2)
 
   *(a1 + 48) = 4;
   mmcs_http_context_should_cancel(*(a1 + 16), a2);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void mmcs_transaction_append_description(uint64_t a1)
+void mmcs_transaction_append_description(uint64_t *a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
+  v20 = *MEMORY[0x277D85DE8];
+  v3 = *a1;
   if (*a1)
   {
-    v3 = *(a1 + 16);
+    v4 = *(a1 + 1);
     *buf = *a1;
-    v17 = v3;
-    v18 = *(a1 + 32);
-    if ((*(v2 + 48) & 0xFFFFFFFE) == 2)
+    v18 = v4;
+    v19 = *(a1 + 2);
+    if ((*(v3 + 48) & 0xFFFFFFFE) != 2)
     {
-      mmcs_op_requestor_context_indent(a1);
-      v4 = *(v2 + 48);
-      if (v4 == 3)
+      return;
+    }
+
+    mmcs_op_requestor_context_indent(a1);
+    v5 = *(v3 + 48);
+    if (v5 == 3)
+    {
+      ++a1[4];
+      ++*(&v18 + 1);
+      v15 = *(v3 + 64);
+      v16 = "cloud";
+      if (v15 && *(v15 + 24) == v3)
       {
-        ++*(a1 + 32);
-        ++*(&v17 + 1);
-        v13 = *(v2 + 64);
-        v14 = "cloud";
-        if (v13 && *(v13 + 24) == v2)
+        v16 = "proxy";
+      }
+
+      CFStringAppendFormat(a1[2], 0, @"<%s transaction>", v16);
+      CFStringAppendFormat(a1[2], 0, @" in-flight\n");
+      if (*(v3 + 16))
+      {
+        *buf = *(v3 + 16);
+        mmcs_http_context_append_description(buf);
+      }
+    }
+
+    else
+    {
+      if (v5 == 2)
+      {
+        v6 = a1[5];
+        a1[5] = v6 + 1;
+        if (v6 > 9)
         {
-          v14 = "proxy";
+          return;
         }
 
-        CFStringAppendFormat(*(a1 + 16), 0, @"<%s transaction>", v14);
-        CFStringAppendFormat(*(a1 + 16), 0, @" in-flight\n");
-        if (*(v2 + 16))
+        v7 = *(v3 + 64);
+        v8 = "cloud";
+        if (v7 && *(v7 + 24) == v3)
         {
-          *buf = *(v2 + 16);
-          mmcs_http_context_append_description(buf);
+          v8 = "proxy";
+        }
+
+        CFStringAppendFormat(a1[2], 0, @"<%s transaction>", v8);
+        CFStringAppendFormat(a1[2], 0, @" enqueued");
+        v9 = mmcs_http_request_copy_description(*(v3 + 24));
+        if (v9)
+        {
+          v10 = v9;
+          CFStringAppendFormat(a1[2], 0, @" %@", v9);
+          CFRelease(v10);
         }
       }
 
-      else
-      {
-        if (v4 != 2)
-        {
-LABEL_11:
-          CFStringAppendFormat(*(a1 + 16), 0, @"\n");
-          goto LABEL_22;
-        }
-
-        v5 = *(a1 + 40);
-        *(a1 + 40) = v5 + 1;
-        if (v5 <= 9)
-        {
-          v6 = *(v2 + 64);
-          v7 = "cloud";
-          if (v6 && *(v6 + 24) == v2)
-          {
-            v7 = "proxy";
-          }
-
-          CFStringAppendFormat(*(a1 + 16), 0, @"<%s transaction>", v7);
-          CFStringAppendFormat(*(a1 + 16), 0, @" enqueued");
-          v8 = mmcs_http_request_copy_description(*(v2 + 24));
-          if (v8)
-          {
-            v9 = v8;
-            CFStringAppendFormat(*(a1 + 16), 0, @" %@", v8);
-            CFRelease(v9);
-          }
-
-          goto LABEL_11;
-        }
-      }
+      CFStringAppendFormat(a1[2], 0, @"\n");
     }
   }
 
   else
   {
-    v10 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = mmcs_logging_logger_default(a1, a2);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"null transaction in opContext %p payload!", a1);
-      v12 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v12 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"null transaction in opContext %p payload!", a1);
+      v14 = mmcs_logging_logger_default(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v11;
-        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        *&buf[4] = v12;
+        _os_log_impl(&dword_2577D8000, v14, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v11)
+      if (v12)
       {
-        CFRelease(v11);
+        CFRelease(v12);
       }
     }
   }
-
-LABEL_22:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 __CFArray *mmcs_transaction_make_req_context_metrics(__CFArray *result, uint64_t a2, uint64_t a3, const void *a4, const void *a5)
@@ -2801,7 +2798,7 @@ __CFArray *mmcs_transaction_make_req_context_metrics(__CFArray *result, uint64_t
       v7 = *(v5 + 8);
       if (v7)
       {
-        LOBYTE(v7) = *(v7 + 24) == v5;
+        v7 = *(v7 + 24) == v5;
       }
 
       mmcs_http_context_make_metrics(result, a4, a5, a3, v7);
@@ -2815,44 +2812,27 @@ __CFArray *mmcs_transaction_make_req_context_metrics(__CFArray *result, uint64_t
   return result;
 }
 
-void mmcs_transaction_log_timing(uint64_t a1)
+void mmcs_transaction_log_timing(uint64_t a1, uint64_t a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v2 = mmcs_logging_logger_summary();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG) && *(a1 + 16))
+  v58 = *MEMORY[0x277D85DE8];
+  v3 = mmcs_logging_logger_summary(a1, a2);
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+  if (v4 && *(a1 + 16))
   {
-    v3 = mmcs_logging_logger_summary();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-    {
-      v4 = *MEMORY[0x277CBECE8];
-      v5 = mmcs_http_context_class_description(*(a1 + 16));
-      v6 = CFStringCreateWithFormat(v4, 0, @"\t        http class:\t%@", v5);
-      v7 = mmcs_logging_logger_summary();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 138543362;
-        v38 = v6;
-        _os_log_impl(&dword_2577D8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-      }
-
-      if (v6)
-      {
-        CFRelease(v6);
-      }
-    }
-
-    v8 = mmcs_logging_logger_summary();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v6 = mmcs_logging_logger_summary(v4, v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+    if (v7)
     {
       v9 = *MEMORY[0x277CBECE8];
-      v10 = mmcs_http_context_enqueued_seconds(*(a1 + 16));
-      v11 = CFStringCreateWithFormat(v9, 0, @"\t        queue time:\t%0.4lf sec.", *&v10);
-      v12 = mmcs_logging_logger_summary();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v10 = mmcs_http_context_class_description(*(a1 + 16));
+      v11 = CFStringCreateWithFormat(v9, 0, @"\t        http class:\t%@", v10);
+      v13 = mmcs_logging_logger_summary(v11, v12);
+      v7 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
+      if (v7)
       {
         *buf = 138543362;
-        v38 = v11;
-        _os_log_impl(&dword_2577D8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v57 = v11;
+        _os_log_impl(&dword_2577D8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
       if (v11)
@@ -2861,97 +2841,119 @@ void mmcs_transaction_log_timing(uint64_t a1)
       }
     }
 
-    v13 = mmcs_logging_logger_summary();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = mmcs_logging_logger_summary(v7, v8);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
+    if (v15)
     {
-      v14 = *MEMORY[0x277CBECE8];
-      v15 = mmcs_http_context_elapsed_seconds(*(a1 + 16));
-      v16 = CFStringCreateWithFormat(v14, 0, @"\t     transfer time:\t%0.4lf sec.", *&v15);
-      v17 = mmcs_logging_logger_summary();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v17 = *MEMORY[0x277CBECE8];
+      v18 = mmcs_http_context_enqueued_seconds(*(a1 + 16), v16);
+      v19 = CFStringCreateWithFormat(v17, 0, @"\t        queue time:\t%0.4lf sec.", *&v18);
+      v21 = mmcs_logging_logger_summary(v19, v20);
+      v15 = os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG);
+      if (v15)
       {
         *buf = 138543362;
-        v38 = v16;
-        _os_log_impl(&dword_2577D8000, v17, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v57 = v19;
+        _os_log_impl(&dword_2577D8000, v21, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v16)
+      if (v19)
       {
-        CFRelease(v16);
+        CFRelease(v19);
       }
     }
 
-    v18 = mmcs_logging_logger_summary();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v22 = mmcs_logging_logger_summary(v15, v16);
+    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
+    if (v23)
     {
-      v19 = *MEMORY[0x277CBECE8];
-      v20 = mmcs_http_context_actual_bytes_read(*(a1 + 16));
-      v21 = CFStringCreateWithFormat(v19, 0, @"\t     bytes read:\t%lld bytes", v20);
-      v22 = mmcs_logging_logger_summary();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v25 = *MEMORY[0x277CBECE8];
+      v26 = mmcs_http_context_elapsed_seconds(*(a1 + 16));
+      v27 = CFStringCreateWithFormat(v25, 0, @"\t     transfer time:\t%0.4lf sec.", *&v26);
+      v29 = mmcs_logging_logger_summary(v27, v28);
+      v23 = os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG);
+      if (v23)
       {
         *buf = 138543362;
-        v38 = v21;
-        _os_log_impl(&dword_2577D8000, v22, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+        v57 = v27;
+        _os_log_impl(&dword_2577D8000, v29, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
       }
 
-      if (v21)
+      if (v27)
       {
-        CFRelease(v21);
+        CFRelease(v27);
+      }
+    }
+
+    v30 = mmcs_logging_logger_summary(v23, v24);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    {
+      v31 = *MEMORY[0x277CBECE8];
+      v32 = mmcs_http_context_actual_bytes_read(*(a1 + 16));
+      v33 = CFStringCreateWithFormat(v31, 0, @"\t     bytes read:\t%lld bytes", v32);
+      v35 = mmcs_logging_logger_summary(v33, v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138543362;
+        v57 = v33;
+        _os_log_impl(&dword_2577D8000, v35, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+      }
+
+      if (v33)
+      {
+        CFRelease(v33);
       }
     }
 
     if (mmcs_http_context_elapsed_seconds(*(a1 + 16)) > 0.0)
     {
-      v23 = mmcs_logging_logger_summary();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v38 = mmcs_logging_logger_summary(v36, v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
-        v24 = *MEMORY[0x277CBECE8];
-        v25 = mmcs_http_context_actual_bytes_read(*(a1 + 16));
-        v26 = mmcs_http_context_elapsed_seconds(*(a1 + 16));
-        v27 = CFStringCreateWithFormat(v24, 0, @"\t        throughput:\t%.3lf bytes/sec", v25 / v26);
-        v28 = mmcs_logging_logger_summary();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        v39 = *MEMORY[0x277CBECE8];
+        v40 = mmcs_http_context_actual_bytes_read(*(a1 + 16));
+        v41 = mmcs_http_context_elapsed_seconds(*(a1 + 16));
+        v42 = CFStringCreateWithFormat(v39, 0, @"\t        throughput:\t%.3lf bytes/sec", v40 / v41);
+        v44 = mmcs_logging_logger_summary(v42, v43);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v38 = v27;
-          _os_log_impl(&dword_2577D8000, v28, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          v57 = v42;
+          _os_log_impl(&dword_2577D8000, v44, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        if (v27)
+        if (v42)
         {
-          CFRelease(v27);
+          CFRelease(v42);
         }
       }
     }
 
     if (mmcs_http_context_elapsed_seconds(*(a1 + 16)) > 0.0)
     {
-      v29 = mmcs_logging_logger_summary();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v47 = mmcs_logging_logger_summary(v45, v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
       {
-        v30 = *MEMORY[0x277CBECE8];
-        v31 = mmcs_http_context_actual_bytes_read(*(a1 + 16));
-        v32 = mmcs_http_context_elapsed_seconds(*(a1 + 16));
-        v33 = mmcs_http_context_enqueued_seconds(*(a1 + 16));
-        v34 = CFStringCreateWithFormat(v30, 0, @"\t effective throughput:\t%.3lf bytes/sec", v31 / (v32 + v33));
-        v35 = mmcs_logging_logger_summary();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+        v48 = *MEMORY[0x277CBECE8];
+        v49 = mmcs_http_context_actual_bytes_read(*(a1 + 16));
+        v50 = mmcs_http_context_elapsed_seconds(*(a1 + 16));
+        v52 = mmcs_http_context_enqueued_seconds(*(a1 + 16), v51);
+        v53 = CFStringCreateWithFormat(v48, 0, @"\t effective throughput:\t%.3lf bytes/sec", v49 / (v50 + v52));
+        v55 = mmcs_logging_logger_summary(v53, v54);
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v38 = v34;
-          _os_log_impl(&dword_2577D8000, v35, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
+          v57 = v53;
+          _os_log_impl(&dword_2577D8000, v55, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
         }
 
-        if (v34)
+        if (v53)
         {
-          CFRelease(v34);
+          CFRelease(v53);
         }
       }
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t mmcs_transaction_get_bytes_from_caching_server(uint64_t a1)
@@ -2962,70 +2964,69 @@ uint64_t mmcs_transaction_get_bytes_from_caching_server(uint64_t a1)
     return 0;
   }
 
-  v3 = *(a1 + 16);
+  v4 = *(a1 + 16);
 
-  return mmcs_http_context_bytes_read(v3);
+  return mmcs_http_context_bytes_read(v4, v3);
 }
 
-void _mmcs_transactionCFFinalize(uint64_t a1)
+void _mmcs_transactionCFFinalize(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) == 2)
   {
-    v2 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = mmcs_logging_logger_default(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v3 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Finalizing transaction %p while it is still enqueued", a1);
-      v4 = mmcs_logging_logger_default();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Finalizing transaction %p while it is still enqueued", a1);
+      v6 = mmcs_logging_logger_default(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v12 = v3;
-        _os_log_impl(&dword_2577D8000, v4, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+        v13 = v4;
+        _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
       }
 
-      if (v3)
+      if (v4)
       {
-        CFRelease(v3);
+        CFRelease(v4);
       }
     }
   }
 
-  v5 = *(a1 + 16);
-  if (v5)
+  v7 = *(a1 + 16);
+  if (v7)
   {
-    mmcs_http_context_invalidate(v5);
-    v6 = *(a1 + 16);
-    if (v6)
+    mmcs_http_context_invalidate(v7);
+    v8 = *(a1 + 16);
+    if (v8)
     {
-      C3BaseRelease(v6);
+      C3BaseRelease(v8);
     }
   }
 
   *(a1 + 16) = 0;
-  v7 = *(a1 + 40);
-  if (v7)
+  v9 = *(a1 + 40);
+  if (v9)
   {
-    v14.length = CFArrayGetCount(*(a1 + 40));
-    v14.location = 0;
-    CFArrayApplyFunction(v7, v14, _free_methodCompletionInfo, 0);
-    v8 = *(a1 + 40);
-    if (v8)
+    v15.length = CFArrayGetCount(*(a1 + 40));
+    v15.location = 0;
+    CFArrayApplyFunction(v9, v15, _free_methodCompletionInfo, 0);
+    v10 = *(a1 + 40);
+    if (v10)
     {
-      CFRelease(v8);
+      CFRelease(v10);
     }
 
     *(a1 + 40) = 0;
   }
 
-  v9 = *(a1 + 24);
-  if (v9)
+  v11 = *(a1 + 24);
+  if (v11)
   {
-    C3BaseRelease(v9);
+    C3BaseRelease(v11);
   }
 
   *(a1 + 24) = 0;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 double metricsinfo__httpmetrics_info__init(_OWORD *a1)
@@ -3043,7 +3044,7 @@ double metricsinfo__httpmetrics_info__init(_OWORD *a1)
   a1[7] = unk_279846220;
   *a1 = metricsinfo__httpmetrics_info__init_init_value;
   a1[1] = unk_2798461C0;
-  result = dbl_2798461E0[0];
+  result = 0.0;
   a1[2] = xmmword_2798461D0;
   a1[3] = *dbl_2798461E0;
   return result;
@@ -3091,7 +3092,7 @@ void **metricsinfo__socket_info__free_unpacked(void **result, uint64_t (**a2)())
 uint64_t mmcs_update_item_create(uint64_t *a1, const __CFData *a2, const __CFString *a3, CFTypeRef *a4, CFTypeRef *a5)
 {
   *a1 = 0;
-  v10 = C3TypeRegister(&mmcs_update_itemGetTypeID_typeID);
+  v10 = C3TypeRegister(&mmcs_update_itemGetTypeID_typeID, &kmmcs_update_itemContextClass);
   result = C3TypeCreateInstance_(0, v10, 0x78uLL);
   if (result)
   {
@@ -3616,50 +3617,50 @@ uint64_t protobuf_c_message_get_packed_size(uint64_t a1)
 
   for (j = 0; j < *(a1 + 8); ++j)
   {
-    v5 += unknown_field_get_packed_size(*(a1 + 16) + 24 * j);
+    v5 += unknown_field_get_packed_size((*(a1 + 16) + 24 * j));
   }
 
   return v5;
 }
 
-uint64_t required_field_get_packed_size(uint64_t a1, int *a2)
+const char *required_field_get_packed_size(uint64_t a1, const char **a2)
 {
   tag_size = get_tag_size(*(a1 + 8));
   switch(*(a1 + 16))
   {
     case 0:
     case 0xD:
-      v9 = tag_size + int32_size(*a2);
+      v9 = (tag_size + int32_size(*a2));
       break;
     case 1:
-      v9 = tag_size + sint32_size(*a2);
+      v9 = (tag_size + sint32_size(*a2));
       break;
     case 2:
     case 7:
-      v9 = tag_size + 4;
+      v9 = (tag_size + 4);
       break;
     case 3:
     case 8:
-      v9 = tag_size + uint64_size(*a2);
+      v9 = (tag_size + uint64_size(*a2));
       break;
     case 4:
-      v9 = tag_size + sint64_size(*a2);
+      v9 = (tag_size + sint64_size(*a2));
       break;
     case 5:
     case 9:
-      v9 = tag_size + 8;
+      v9 = (tag_size + 8);
       break;
     case 6:
-      v9 = tag_size + uint32_size(*a2);
+      v9 = (tag_size + uint32_size(*a2));
       break;
     case 0xA:
-      v9 = tag_size + 4;
+      v9 = (tag_size + 4);
       break;
     case 0xB:
-      v9 = tag_size + 8;
+      v9 = (tag_size + 8);
       break;
     case 0xC:
-      v9 = tag_size + 1;
+      v9 = (tag_size + 1);
       break;
     case 0xE:
       if (*a2)
@@ -3672,11 +3673,11 @@ uint64_t required_field_get_packed_size(uint64_t a1, int *a2)
         v4 = 0;
       }
 
-      v9 = tag_size + uint32_size(v4) + v4;
+      v9 = (tag_size + uint32_size(v4) + v4);
       break;
     case 0xF:
       v5 = *a2;
-      v9 = tag_size + uint32_size(*a2) + v5;
+      v9 = &v5[tag_size + uint32_size(*a2)];
       break;
     case 0x10:
       if (*a2)
@@ -3689,7 +3690,7 @@ uint64_t required_field_get_packed_size(uint64_t a1, int *a2)
         packed_size = 0;
       }
 
-      v9 = tag_size + uint32_size(packed_size) + packed_size;
+      v9 = (tag_size + uint32_size(packed_size) + packed_size);
       break;
     default:
       __assert_rtn("required_field_get_packed_size", "protobuf-c.c", 461, "0");
@@ -3698,7 +3699,7 @@ uint64_t required_field_get_packed_size(uint64_t a1, int *a2)
   return v9;
 }
 
-uint64_t oneof_field_get_packed_size(uint64_t a1, int a2, int *a3)
+const char *oneof_field_get_packed_size(uint64_t a1, int a2, const char **a3)
 {
   if (a2 != *(a1 + 8))
   {
@@ -3713,7 +3714,7 @@ uint64_t oneof_field_get_packed_size(uint64_t a1, int a2, int *a3)
   return required_field_get_packed_size(a1, a3);
 }
 
-uint64_t optional_field_get_packed_size(uint64_t a1, int a2, int *a3)
+const char *optional_field_get_packed_size(uint64_t a1, int a2, const char **a3)
 {
   if (*(a1 + 16) != 16 && *(a1 + 16) != 14)
   {
@@ -3733,7 +3734,7 @@ uint64_t optional_field_get_packed_size(uint64_t a1, int a2, int *a3)
   return 0;
 }
 
-uint64_t unlabeled_field_get_packed_size(uint64_t a1, int *a2)
+const char *unlabeled_field_get_packed_size(uint64_t a1, const char **a2)
 {
   if (field_is_zeroish(a1, a2))
   {
@@ -3746,7 +3747,7 @@ uint64_t unlabeled_field_get_packed_size(uint64_t a1, int *a2)
   }
 }
 
-uint64_t repeated_field_get_packed_size(unsigned int *a1, unint64_t a2, uint64_t *a3)
+unint64_t repeated_field_get_packed_size(unsigned int *a1, unint64_t a2, uint64_t *a3)
 {
   v16 = 0;
   v7 = *a3;
@@ -3893,77 +3894,75 @@ uint64_t protobuf_c_message_pack(uint64_t a1, uint64_t a2)
 
   for (j = 0; j < *(a1 + 8); ++j)
   {
-    v6 += unknown_field_pack(*(a1 + 16) + 24 * j, (a2 + v6));
+    v6 += unknown_field_pack((*(a1 + 16) + 24 * j), (a2 + v6));
   }
 
   return v6;
 }
 
-uint64_t required_field_pack(uint64_t a1, signed int *a2, _BYTE *a3)
+uint64_t required_field_pack(uint64_t a1, uint64_t *a2, _BYTE *a3)
 {
-  v6 = tag_pack(*(a1 + 8), a3);
+  v4 = tag_pack(*(a1 + 8), a3);
   switch(*(a1 + 16))
   {
     case 0:
     case 0xD:
       *a3 = *a3;
-      v10 = v6 + int32_pack(*a2, &a3[v6]);
+      v8 = v4 + int32_pack(*a2, &a3[v4]);
       break;
     case 1:
       *a3 = *a3;
-      v10 = v6 + sint32_pack(*a2, &a3[v6]);
+      v8 = v4 + sint32_pack(*a2, &a3[v4]);
       break;
     case 2:
     case 7:
     case 0xA:
       *a3 |= 5u;
-      v3 = *a2;
-      v10 = v6 + fixed32_pack();
+      v8 = v4 + fixed32_pack(*a2, &a3[v4]);
       break;
     case 3:
     case 8:
       *a3 = *a3;
-      v10 = v6 + uint64_pack(*a2, &a3[v6]);
+      v8 = v4 + uint64_pack(*a2, &a3[v4]);
       break;
     case 4:
       *a3 = *a3;
-      v10 = v6 + sint64_pack(*a2, &a3[v6]);
+      v8 = v4 + sint64_pack(*a2, &a3[v4]);
       break;
     case 5:
     case 9:
     case 0xB:
       *a3 |= 1u;
-      v4 = *a2;
-      v10 = v6 + fixed64_pack();
+      v8 = v4 + fixed64_pack(*a2, &a3[v4]);
       break;
     case 6:
       *a3 = *a3;
-      v10 = v6 + uint32_pack(*a2, &a3[v6]);
+      v8 = v4 + uint32_pack(*a2, &a3[v4]);
       break;
     case 0xC:
       *a3 = *a3;
-      v10 = v6 + BOOLean_pack(*a2, &a3[v6]);
+      v8 = v4 + BOOLean_pack(*a2, &a3[v4]);
       break;
     case 0xE:
       *a3 |= 2u;
-      v10 = v6 + string_pack(*a2, &a3[v6]);
+      v8 = v4 + string_pack(*a2, &a3[v4]);
       break;
     case 0xF:
       *a3 |= 2u;
-      v10 = v6 + binary_data_pack(a2, &a3[v6]);
+      v8 = v4 + binary_data_pack(a2, &a3[v4]);
       break;
     case 0x10:
       *a3 |= 2u;
-      v10 = v6 + prefixed_message_pack(*a2, &a3[v6]);
+      v8 = v4 + prefixed_message_pack(*a2, &a3[v4]);
       break;
     default:
       __assert_rtn("required_field_pack", "protobuf-c.c", 1137, "0");
   }
 
-  return v10;
+  return v8;
 }
 
-uint64_t oneof_field_pack(uint64_t a1, int a2, signed int *a3, _BYTE *a4)
+uint64_t oneof_field_pack(uint64_t a1, int a2, uint64_t *a3, _BYTE *a4)
 {
   if (a2 != *(a1 + 8))
   {
@@ -3978,7 +3977,7 @@ uint64_t oneof_field_pack(uint64_t a1, int a2, signed int *a3, _BYTE *a4)
   return required_field_pack(a1, a3, a4);
 }
 
-uint64_t optional_field_pack(uint64_t a1, int a2, signed int *a3, _BYTE *a4)
+uint64_t optional_field_pack(uint64_t a1, int a2, uint64_t *a3, _BYTE *a4)
 {
   if (*(a1 + 16) != 16 && *(a1 + 16) != 14)
   {
@@ -3998,7 +3997,7 @@ uint64_t optional_field_pack(uint64_t a1, int a2, signed int *a3, _BYTE *a4)
   return 0;
 }
 
-uint64_t unlabeled_field_pack(uint64_t a1, signed int *a2, _BYTE *a3)
+uint64_t unlabeled_field_pack(uint64_t a1, uint64_t *a2, _BYTE *a3)
 {
   if (field_is_zeroish(a1, a2))
   {
@@ -4011,7 +4010,7 @@ uint64_t unlabeled_field_pack(uint64_t a1, signed int *a2, _BYTE *a3)
   }
 }
 
-uint64_t repeated_field_pack(_DWORD *a1, unint64_t a2, signed int **a3, _BYTE *a4)
+uint64_t repeated_field_pack(unsigned int *a1, unint64_t a2, uint64_t **a3, _BYTE *a4)
 {
   v21 = *a3;
   if (a1[12])
@@ -4027,59 +4026,59 @@ uint64_t repeated_field_pack(_DWORD *a1, unint64_t a2, signed int **a3, _BYTE *a
       v6 = &a4[v13];
       switch(a1[4])
       {
-        case 0:
-        case 0xD:
+        case 0u:
+        case 0xDu:
           for (i = 0; i < a2; ++i)
           {
-            v6 += int32_pack(v21[i], v6);
+            v6 += int32_pack(*(v21 + i), v6);
           }
 
           break;
-        case 1:
+        case 1u:
           for (j = 0; j < a2; ++j)
           {
-            v6 += sint32_pack(v21[j], v6);
+            v6 += sint32_pack(*(v21 + j), v6);
           }
 
           break;
-        case 2:
-        case 7:
-        case 0xA:
-          copy_to_little_endian_32();
+        case 2u:
+        case 7u:
+        case 0xAu:
+          copy_to_little_endian_32(v6, v21, a2);
           LODWORD(v6) = v6 + 4 * a2;
           break;
-        case 3:
-        case 8:
+        case 3u:
+        case 8u:
           for (k = 0; k < a2; ++k)
           {
-            v6 += uint64_pack(*&v21[2 * k], v6);
+            v6 += uint64_pack(v21[k], v6);
           }
 
           break;
-        case 4:
+        case 4u:
           for (m = 0; m < a2; ++m)
           {
-            v6 += sint64_pack(*&v21[2 * m], v6);
+            v6 += sint64_pack(v21[m], v6);
           }
 
           break;
-        case 5:
-        case 9:
-        case 0xB:
-          copy_to_little_endian_64();
+        case 5u:
+        case 9u:
+        case 0xBu:
+          copy_to_little_endian_64(v6, v21, a2);
           LODWORD(v6) = v6 + 8 * a2;
           break;
-        case 6:
+        case 6u:
           for (n = 0; n < a2; ++n)
           {
-            v6 += uint32_pack(v21[n], v6);
+            v6 += uint32_pack(*(v21 + n), v6);
           }
 
           break;
-        case 0xC:
+        case 0xCu:
           for (ii = 0; ii < a2; ++ii)
           {
-            v6 += BOOLean_pack(v21[ii], v6);
+            v6 += BOOLean_pack(*(v21 + ii), v6);
           }
 
           break;
@@ -4124,14 +4123,12 @@ uint64_t repeated_field_pack(_DWORD *a1, unint64_t a2, signed int **a3, _BYTE *a
   }
 }
 
-uint64_t unknown_field_pack(uint64_t a1, _BYTE *a2)
+uint64_t unknown_field_pack(unsigned int *a1, _BYTE *a2)
 {
-  v5 = tag_pack(*a1, a2);
-  *a2 |= *(a1 + 4);
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 8);
+  v3 = tag_pack(*a1, a2);
+  *a2 |= a1[1];
   __memcpy_chk();
-  return v5 + *(a1 + 8);
+  return v3 + *(a1 + 1);
 }
 
 void *protobuf_c_message_unpack(uint64_t a1, uint64_t (**a2)(), unint64_t a3, _BYTE *a4)
@@ -4167,263 +4164,137 @@ void *protobuf_c_message_unpack(uint64_t a1, uint64_t (**a2)(), unint64_t a3, _B
   }
 
   v46 = do_alloc(v49, *(v50 + 40));
-  if (v46)
+  if (!v46)
   {
-    __b[0] = &v54;
-    v35 = (*(v50 + 48) + 7) / 8u;
-    if (v35 > 0x10uLL)
-    {
-      v34 = do_alloc(v49, v35);
-      if (!v34)
-      {
-        do_free(v49, v46);
-        v51 = 0;
-        goto LABEL_112;
-      }
+    return 0;
+  }
 
-      v33 = 1;
+  __b[0] = &v54;
+  v35 = (*(v50 + 48) + 7) / 8u;
+  if (v35 > 0x10uLL)
+  {
+    v34 = do_alloc(v49, v35);
+    if (!v34)
+    {
+      do_free(v49, v46);
+      return 0;
     }
 
-    __memset_chk();
-    if (*(v50 + 88))
+    v33 = 1;
+  }
+
+  __memset_chk();
+  if (*(v50 + 88))
+  {
+    protobuf_c_message_init(v50, v46);
+  }
+
+  else
+  {
+    message_init_generic(v50, v46);
+  }
+
+  while (v45)
+  {
+    v32 = 0;
+    v31 = 0;
+    v30 = parse_tag_and_wiretype(v45, v44, &v32, &v31);
+    v29 = 0;
+    v27 = 0u;
+    v28 = 0u;
+    if (!v30)
     {
-      protobuf_c_message_init(v50, v46);
+      goto LABEL_106;
+    }
+
+    if (v43 && v43[2] == v32)
+    {
+      v29 = v43;
     }
 
     else
     {
-      message_init_generic(v50, v46);
+      v26 = int_range_lookup(*(v50 + 72), *(v50 + 80), v32);
+      if ((v26 & 0x80000000) != 0)
+      {
+        v29 = 0;
+        ++v40;
+      }
+
+      else
+      {
+        v29 = (*(v50 + 56) + 72 * v26);
+        v43 = v29;
+        v36 = v26;
+      }
     }
 
-    while (v45)
+    if (v29 && !v29[3])
     {
-      v32 = 0;
-      v31 = 0;
-      v30 = parse_tag_and_wiretype(v45, v44, &v32, &v31);
-      v29 = 0;
-      v27 = 0u;
-      v28 = 0u;
-      if (!v30)
+      v34[v36 / 8] |= 1 << (v36 % 8);
+    }
+
+    v44 += v30;
+    v45 -= v30;
+    LODWORD(v27) = v32;
+    WORD2(v27) = v31;
+    *(&v27 + 1) = v29;
+    *(&v28 + 1) = v44;
+    if (v31)
+    {
+      if (v31 == 1)
       {
-        goto LABEL_106;
+        if (v45 < 8)
+        {
+          goto LABEL_106;
+        }
+
+        *&v28 = 8;
       }
 
-      if (v43 && v43[2] == v32)
+      else if (v31 == 2)
       {
-        v29 = v43;
-      }
-
-      else
-      {
-        v26 = int_range_lookup(*(v50 + 72), *(v50 + 80), v32);
-        if ((v26 & 0x80000000) != 0)
+        v23 = 0;
+        *&v28 = scan_length_prefixed_data(v45, v44, &v23);
+        if (!v28)
         {
-          v29 = 0;
-          ++v40;
+          goto LABEL_106;
         }
 
-        else
-        {
-          v29 = (*(v50 + 56) + 72 * v26);
-          v43 = v29;
-          v36 = v26;
-        }
-      }
-
-      if (v29 && !v29[3])
-      {
-        v34[v36 / 8] |= 1 << (v36 % 8);
-      }
-
-      v44 += v30;
-      v45 -= v30;
-      LODWORD(v27) = v32;
-      WORD2(v27) = v31;
-      *(&v27 + 1) = v29;
-      *(&v28 + 1) = v44;
-      if (v31)
-      {
-        if (v31 == 1)
-        {
-          if (v45 < 8)
-          {
-            goto LABEL_106;
-          }
-
-          *&v28 = 8;
-        }
-
-        else if (v31 == 2)
-        {
-          v23 = 0;
-          *&v28 = scan_length_prefixed_data(v45, v44, &v23);
-          if (!v28)
-          {
-            goto LABEL_106;
-          }
-
-          BYTE5(v27) = v23;
-        }
-
-        else
-        {
-          if (v31 != 5 || v45 < 4)
-          {
-            goto LABEL_106;
-          }
-
-          *&v28 = 4;
-        }
+        BYTE5(v27) = v23;
       }
 
       else
       {
-        if (v45 >= 0xA)
+        if (v31 != 5 || v45 < 4)
         {
-          v11 = 10;
+          goto LABEL_106;
         }
 
-        else
-        {
-          v11 = v45;
-        }
+        *&v28 = 4;
+      }
+    }
 
-        v25 = v11;
-          ;
-        }
+    else
+    {
+      if (v45 >= 0xA)
+      {
+        v11 = 10;
+      }
 
-        if (i == v25)
-        {
+      else
+      {
+        v11 = v45;
+      }
+
+      v25 = v11;
+        ;
+      }
+
+      if (i == v25)
+      {
 LABEL_106:
-          do_free(v49, v46);
-          for (j = 1; j <= v42; ++j)
-          {
-            do_free(v49, __b[j]);
-          }
-
-          if (v33)
-          {
-            do_free(v49, v34);
-          }
-
-          v51 = 0;
-          goto LABEL_112;
-        }
-
-        *&v28 = i + 1;
-      }
-
-      if (v41 == 1 << (v42 + 4))
-      {
-        v22 = 0;
-        v41 = 0;
-        if (v42 == 22)
-        {
-          goto LABEL_106;
-        }
-
-        v22 = 32 << (++v42 + 4);
-        v4 = do_alloc(v49, v22);
-        __b[v42] = v4;
-        if (!__b[v42])
-        {
-          goto LABEL_106;
-        }
-      }
-
-      v5 = __b[v42];
-      v6 = v41++;
-      v7 = (v5 + 32 * v6);
-      *v7 = v27;
-      v7[1] = v28;
-      if (v29 && v29[3] == 2)
-      {
-        v21 = (v46 + v29[5]);
-        if (v31 == 2 && ((v29[12] & 1) != 0 || is_packable_type(v29[4])))
-        {
-          v20 = 0;
-          if (!count_packed_elements(v29[4], v28 - BYTE5(v27), (*(&v28 + 1) + BYTE5(v27)), &v20))
-          {
-            goto LABEL_106;
-          }
-
-          *v21 += v20;
-        }
-
-        else
-        {
-          ++*v21;
-        }
-      }
-
-      v44 += v28;
-      v45 -= v28;
-    }
-
-    for (k = 0; k < *(v50 + 48); ++k)
-    {
-      v17 = *(v50 + 56) + 72 * k;
-      if (*(v17 + 12) == 2)
-      {
-        v16 = sizeof_elt_in_repeated_array(*(v17 + 16));
-        v15 = (v46 + *(v17 + 20));
-        if (*v15)
-        {
-          v14 = *v15;
-          *v15 = 0;
-          if (!*v46)
-          {
-            __assert_rtn("protobuf_c_message_unpack", "protobuf-c.c", 3242, "rv->descriptor != NULL");
-          }
-
-          v13 = do_alloc(v49, v16 * v14);
-          if (!v13)
-          {
-            ++k;
-            while (k < *(v50 + 48))
-            {
-              v18 = *(v50 + 56) + 72 * k;
-              if (*(v18 + 12) == 2)
-              {
-                *(v46 + *(v18 + 20)) = 0;
-              }
-
-              ++k;
-            }
-
-            goto LABEL_100;
-          }
-
-          *(v46 + *(v17 + 24)) = v13;
-        }
-      }
-
-      else if (!*(v17 + 12) && !*(v17 + 40) && (v34[k / 8] & (1 << (k % 8))) == 0)
-      {
-        ++k;
-        while (k < *(v50 + 48))
-        {
-          v19 = *(v50 + 56) + 72 * k;
-          if (*(v19 + 12) == 2)
-          {
-            *(v46 + *(v19 + 20)) = 0;
-          }
-
-          ++k;
-        }
-
-        goto LABEL_100;
-      }
-    }
-
-    if (v40)
-    {
-      v8 = do_alloc(v49, 24 * v40);
-      v46[2] = v8;
-      if (!v46[2])
-      {
-LABEL_100:
-        protobuf_c_message_free_unpacked(v46, v49);
+        do_free(v49, v46);
         for (j = 1; j <= v42; ++j)
         {
           do_free(v49, __b[j]);
@@ -4434,74 +4305,189 @@ LABEL_100:
           do_free(v49, v34);
         }
 
-        v51 = 0;
-        goto LABEL_112;
+        return 0;
+      }
+
+      *&v28 = i + 1;
+    }
+
+    if (v41 == 1 << (v42 + 4))
+    {
+      v22 = 0;
+      v41 = 0;
+      if (v42 == 22)
+      {
+        goto LABEL_106;
+      }
+
+      v22 = 32 << (++v42 + 4);
+      v4 = do_alloc(v49, v22);
+      __b[v42] = v4;
+      if (!__b[v42])
+      {
+        goto LABEL_106;
       }
     }
 
-    for (m = 0; m <= v42; ++m)
+    v5 = __b[v42];
+    v6 = v41++;
+    v7 = (v5 + 32 * v6);
+    *v7 = v27;
+    v7[1] = v28;
+    if (v29 && v29[3] == 2)
     {
-      if (m == v42)
+      v21 = (v46 + v29[5]);
+      if (v31 == 2 && ((v29[12] & 1) != 0 || is_packable_type(v29[4])))
       {
-        LODWORD(v10) = v41;
+        v20 = 0;
+        if (!count_packed_elements(v29[4], v28 - BYTE5(v27), (*(&v28 + 1) + BYTE5(v27)), &v20))
+        {
+          goto LABEL_106;
+        }
+
+        *v21 += v20;
       }
 
       else
       {
-        v10 = 1 << (m + 4);
+        ++*v21;
       }
+    }
 
-      v12 = __b[m];
-      for (j = 0; j < v10; ++j)
+    v44 += v28;
+    v45 -= v28;
+  }
+
+  for (k = 0; k < *(v50 + 48); ++k)
+  {
+    v17 = *(v50 + 56) + 72 * k;
+    if (*(v17 + 12) == 2)
+    {
+      v16 = sizeof_elt_in_repeated_array(*(v17 + 16));
+      v15 = (v46 + *(v17 + 20));
+      if (*v15)
       {
-        if (!parse_member(v12 + 32 * j, v46, v49))
+        v14 = *v15;
+        *v15 = 0;
+        if (!*v46)
         {
+          __assert_rtn("protobuf_c_message_unpack", "protobuf-c.c", 3242, "rv->descriptor != NULL");
+        }
+
+        v13 = do_alloc(v49, v16 * v14);
+        if (!v13)
+        {
+          ++k;
+          while (k < *(v50 + 48))
+          {
+            v18 = *(v50 + 56) + 72 * k;
+            if (*(v18 + 12) == 2)
+            {
+              *(v46 + *(v18 + 20)) = 0;
+            }
+
+            ++k;
+          }
+
           goto LABEL_100;
         }
+
+        *(v46 + *(v17 + 24)) = v13;
       }
     }
 
-    for (j = 1; j <= v42; ++j)
+    else if (!*(v17 + 12) && !*(v17 + 40) && (v34[k / 8] & (1 << (k % 8))) == 0)
     {
-      do_free(v49, __b[j]);
-    }
+      ++k;
+      while (k < *(v50 + 48))
+      {
+        v19 = *(v50 + 56) + 72 * k;
+        if (*(v19 + 12) == 2)
+        {
+          *(v46 + *(v19 + 20)) = 0;
+        }
 
-    if (v33)
-    {
-      do_free(v49, v34);
-    }
+        ++k;
+      }
 
-    v51 = v46;
+      goto LABEL_100;
+    }
   }
 
-  else
+  if (v40)
   {
-    v51 = 0;
+    v8 = do_alloc(v49, 24 * v40);
+    v46[2] = v8;
+    if (!v46[2])
+    {
+LABEL_100:
+      protobuf_c_message_free_unpacked(v46, v49);
+      for (j = 1; j <= v42; ++j)
+      {
+        do_free(v49, __b[j]);
+      }
+
+      if (v33)
+      {
+        do_free(v49, v34);
+      }
+
+      return 0;
+    }
   }
 
-LABEL_112:
-  *MEMORY[0x277D85DE8];
-  return v51;
+  for (m = 0; m <= v42; ++m)
+  {
+    if (m == v42)
+    {
+      LODWORD(v10) = v41;
+    }
+
+    else
+    {
+      v10 = 1 << (m + 4);
+    }
+
+    v12 = __b[m];
+    for (j = 0; j < v10; ++j)
+    {
+      if (!parse_member(v12 + 32 * j, v46, v49))
+      {
+        goto LABEL_100;
+      }
+    }
+  }
+
+  for (j = 1; j <= v42; ++j)
+  {
+    do_free(v49, __b[j]);
+  }
+
+  if (v33)
+  {
+    do_free(v49, v34);
+  }
+
+  return v46;
 }
 
 uint64_t message_init_generic(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 40);
   result = __memset_chk();
   *a2 = a1;
   for (i = 0; i < *(a1 + 48); ++i)
   {
     if (*(*(a1 + 56) + 72 * i + 40) && *(*(a1 + 56) + 72 * i + 12) != 2)
     {
-      v4 = *(*(a1 + 56) + 72 * i + 16);
-      if (v4 <= 2 || v4 - 3 <= 2 || v4 == 7 || v4 == 6 || v4 == 9 || v4 == 8 || v4 == 10 || v4 == 11 || v4 == 12 || v4 == 13)
+      v3 = *(*(a1 + 56) + 72 * i + 16);
+      if (v3 <= 2 || v3 - 3 <= 2 || v3 == 7 || v3 == 6 || v3 == 9 || v3 == 8 || v3 == 10 || v3 == 11 || v3 == 12 || v3 == 13)
       {
 LABEL_19:
         result = __memcpy_chk();
         continue;
       }
 
-      switch(v4)
+      switch(v3)
       {
         case 0xEu:
           goto LABEL_21;
@@ -4664,7 +4650,7 @@ BOOL is_packable_type(int a1)
   return v2;
 }
 
-uint64_t count_packed_elements(int a1, unint64_t a2, _BYTE *a3, void *a4)
+uint64_t count_packed_elements(int a1, unint64_t a2, _BYTE *a3, unint64_t *a4)
 {
   switch(a1)
   {
@@ -4768,21 +4754,18 @@ uint64_t sizeof_elt_in_repeated_array(unsigned int a1)
 
 uint64_t parse_member(uint64_t a1, uint64_t a2, uint64_t (**a3)())
 {
-  v12 = *(a1 + 8);
-  if (!v12)
+  v9 = *(a1 + 8);
+  if (!v9)
   {
     v3 = *(a2 + 16);
     v4 = (*(a2 + 8))++;
-    v10 = v3 + 24 * v4;
-    *v10 = *a1;
-    *(v10 + 4) = *(a1 + 4);
-    *(v10 + 8) = *(a1 + 16);
-    *(v10 + 16) = do_alloc(a3, *(a1 + 16));
-    if (*(v10 + 16))
+    v7 = v3 + 24 * v4;
+    *v7 = *a1;
+    *(v7 + 4) = *(a1 + 4);
+    *(v7 + 8) = *(a1 + 16);
+    *(v7 + 16) = do_alloc(a3, *(a1 + 16));
+    if (*(v7 + 16))
     {
-      v5 = *(v10 + 16);
-      v6 = *(a1 + 24);
-      v7 = *(v10 + 8);
       __memcpy_chk();
       return 1;
     }
@@ -4793,55 +4776,55 @@ uint64_t parse_member(uint64_t a1, uint64_t a2, uint64_t (**a3)())
     }
   }
 
-  v11 = (a2 + v12[6]);
-  v9 = v12[3];
-  if (!v9)
+  v8 = (a2 + v9[6]);
+  v6 = v9[3];
+  if (!v6)
   {
-    return parse_required_member(a1, v11, a3, 1);
+    return parse_required_member(a1, v8, a3, 1);
   }
 
-  if (v9 == 1)
+  if (v6 == 1)
   {
     goto LABEL_11;
   }
 
-  if (v9 != 2)
+  if (v6 != 2)
   {
-    if (v9 != 3)
+    if (v6 != 3)
     {
       __assert_rtn("parse_member", "protobuf-c.c", 2931, "0");
     }
 
 LABEL_11:
-    if ((v12[12] & 4) != 0)
+    if ((v9[12] & 4) != 0)
     {
-      return parse_oneof_member(a1, v11, a2, a3);
+      return parse_oneof_member(a1, v8, a2, a3);
     }
 
     else
     {
-      return parse_optional_member(a1, v11, a2, a3);
+      return parse_optional_member(a1, v8, a2, a3);
     }
   }
 
-  if (*(a1 + 4) == 2 && ((v12[12] & 1) != 0 || is_packable_type(v12[4])))
+  if (*(a1 + 4) == 2 && ((v9[12] & 1) != 0 || is_packable_type(v9[4])))
   {
-    return parse_packed_repeated_member(a1, v11, a2);
+    return parse_packed_repeated_member(a1, v8, a2);
   }
 
   else
   {
-    return parse_repeated_member(a1, v11, a2, a3);
+    return parse_repeated_member(a1, v8, a2, a3);
   }
 }
 
 void *protobuf_c_message_free_unpacked(void *result, uint64_t (**a2)())
 {
-  v17 = result;
-  v16 = a2;
+  v15 = result;
+  v14 = a2;
   if (result)
   {
-    v15 = *result;
+    v13 = *result;
     if (**result != 682290937)
     {
       __assert_rtn("protobuf_c_message_free_unpacked", "protobuf-c.c", 3330, "((message)->descriptor)->magic == PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC");
@@ -4849,81 +4832,77 @@ void *protobuf_c_message_free_unpacked(void *result, uint64_t (**a2)())
 
     if (!a2)
     {
-      v16 = protobuf_c__allocator;
+      v14 = protobuf_c__allocator;
     }
 
     *result = 0;
-    for (i = 0; i < v15[12]; ++i)
+    for (i = 0; i < v13[12]; ++i)
     {
-      if ((*(*(v15 + 7) + 72 * i + 48) & 4) == 0 || *(*(v15 + 7) + 72 * i + 8) == *(v17 + *(*(v15 + 7) + 72 * i + 20)))
+      if ((*(*(v13 + 7) + 72 * i + 48) & 4) == 0 || *(*(v13 + 7) + 72 * i + 8) == *(v15 + *(*(v13 + 7) + 72 * i + 20)))
       {
-        if (*(*(v15 + 7) + 72 * i + 12) == 2)
+        if (*(*(v13 + 7) + 72 * i + 12) == 2)
         {
-          v12 = *(v17 + *(*(v15 + 7) + 72 * i + 20));
-          v11 = *(v17 + *(*(v15 + 7) + 72 * i + 24));
-          if (v11)
+          v10 = *(v15 + *(*(v13 + 7) + 72 * i + 20));
+          v9 = *(v15 + *(*(v13 + 7) + 72 * i + 24));
+          if (v9)
           {
-            switch(*(*(v15 + 7) + 72 * i + 16))
+            switch(*(*(v13 + 7) + 72 * i + 16))
             {
               case 0xE:
-                for (j = 0; j < v12; ++j)
+                for (j = 0; j < v10; ++j)
                 {
-                  do_free(v16, *(v11 + 8 * j));
+                  do_free(v14, *(v9 + 8 * j));
                 }
 
                 break;
               case 0xF:
-                for (k = 0; k < v12; ++k)
+                for (k = 0; k < v10; ++k)
                 {
-                  do_free(v16, *(v11 + 16 * k + 8));
+                  do_free(v14, *(v9 + 16 * k + 8));
                 }
 
                 break;
               case 0x10:
-                for (m = 0; m < v12; ++m)
+                for (m = 0; m < v10; ++m)
                 {
-                  protobuf_c_message_free_unpacked(*(v11 + 8 * m), v16);
+                  protobuf_c_message_free_unpacked(*(v9 + 8 * m), v14);
                 }
 
                 break;
             }
 
-            do_free(v16, v11);
+            do_free(v14, v9);
           }
         }
 
         else
         {
-          switch(*(*(v15 + 7) + 72 * i + 16))
+          switch(*(*(v13 + 7) + 72 * i + 16))
           {
             case 0xE:
-              v7 = *(v17 + *(*(v15 + 7) + 72 * i + 24));
-              if (v7 && v7 != *(*(v15 + 7) + 72 * i + 40))
+              v5 = *(v15 + *(*(v13 + 7) + 72 * i + 24));
+              if (v5 && v5 != *(*(v13 + 7) + 72 * i + 40))
               {
-                do_free(v16, v7);
+                do_free(v14, v5);
               }
 
               break;
             case 0xF:
-              v6 = *(v17 + *(*(v15 + 7) + 72 * i + 24) + 8);
-              v5 = *(*(v15 + 7) + 72 * i + 40);
-              if (v6)
+              v4 = *(v15 + *(*(v13 + 7) + 72 * i + 24) + 8);
+              v3 = *(*(v13 + 7) + 72 * i + 40);
+              if (v4 && (!v3 || *(v3 + 8) != v4))
               {
-                v2 = *(*(v15 + 7) + 72 * i + 40);
-                if (!v5 || (v3 = *(v17 + *(*(v15 + 7) + 72 * i + 24) + 8), *(v5 + 8) != v6))
-                {
-                  do_free(v16, v6);
-                }
+                do_free(v14, v4);
               }
 
               break;
             case 0x10:
-              v4 = *(v17 + *(*(v15 + 7) + 72 * i + 24));
-              if (v4)
+              v2 = *(v15 + *(*(v13 + 7) + 72 * i + 24));
+              if (v2)
               {
-                if (v4 != *(*(v15 + 7) + 72 * i + 40))
+                if (v2 != *(*(v13 + 7) + 72 * i + 40))
                 {
-                  protobuf_c_message_free_unpacked(v4, v16);
+                  protobuf_c_message_free_unpacked(v2, v14);
                 }
               }
 
@@ -4933,17 +4912,17 @@ void *protobuf_c_message_free_unpacked(void *result, uint64_t (**a2)())
       }
     }
 
-    for (n = 0; n < *(v17 + 8); ++n)
+    for (n = 0; n < *(v15 + 2); ++n)
     {
-      do_free(v16, *(*(v17 + 16) + 24 * n + 16));
+      do_free(v14, *(v15[2] + 24 * n + 16));
     }
 
-    if (*(v17 + 16))
+    if (v15[2])
     {
-      do_free(v16, *(v17 + 16));
+      do_free(v14, v15[2]);
     }
 
-    return do_free(v16, v17);
+    return do_free(v14, v15);
   }
 
   return result;
@@ -5124,7 +5103,7 @@ uint64_t tag_pack(unsigned int a1, _BYTE *a2)
   }
 }
 
-uint64_t int32_pack(signed int a1, _BYTE *a2)
+uint64_t int32_pack(int a1, _BYTE *a2)
 {
   if ((a1 & 0x80000000) == 0)
   {
@@ -5174,7 +5153,7 @@ uint64_t uint32_pack(unsigned int a1, _BYTE *a2)
   }
 
   a2[v3] = v4;
-  return v3 + 1;
+  return (v3 + 1);
 }
 
 uint64_t uint64_pack(uint64_t a1, _BYTE *a2)
@@ -5211,7 +5190,7 @@ uint64_t uint64_pack(uint64_t a1, _BYTE *a2)
   }
 }
 
-uint64_t string_pack(const char *a1, _BYTE *a2)
+size_t string_pack(const char *a1, _BYTE *a2)
 {
   if (a1)
   {
@@ -5230,18 +5209,17 @@ uint64_t string_pack(const char *a1, _BYTE *a2)
 
 uint64_t binary_data_pack(uint64_t *a1, _BYTE *a2)
 {
-  v5 = *a1;
-  v4 = uint32_pack(*a1, a2);
-  v2 = a1[1];
+  v4 = *a1;
+  v3 = uint32_pack(*a1, a2);
   __memcpy_chk();
-  return v4 + v5;
+  return v3 + v4;
 }
 
 uint64_t prefixed_message_pack(uint64_t a1, _BYTE *a2)
 {
   if (a1)
   {
-    v3 = protobuf_c_message_pack(a1, a2 + 1);
+    v3 = protobuf_c_message_pack(a1, (a2 + 1));
     if (uint32_size(v3) != 1)
     {
       __memmove_chk();
@@ -5292,33 +5270,33 @@ uint64_t max_b128_numbers(uint64_t a1, _BYTE *a2)
 
 BOOL parse_required_member(uint64_t a1, uint64_t *a2, uint64_t (**a3)(), int a4)
 {
-  v17 = *(a1 + 16);
-  v16 = *(a1 + 24);
-  v15 = *(a1 + 4);
+  v15 = *(a1 + 16);
+  v14 = *(a1 + 24);
+  v13 = *(a1 + 4);
   switch(*(*(a1 + 8) + 16))
   {
     case 0:
     case 0xD:
-      if (v15)
+      if (v13)
       {
         return 0;
       }
 
       else
       {
-        *a2 = parse_int32(v17, v16);
+        *a2 = parse_int32(v15, v14);
         return 1;
       }
 
     case 1:
-      if (v15)
+      if (v13)
       {
         return 0;
       }
 
       else
       {
-        v4 = parse_uint32(v17, v16);
+        v4 = parse_uint32(v15, v14);
         *a2 = unzigzag32(v4);
         return 1;
       }
@@ -5326,9 +5304,9 @@ BOOL parse_required_member(uint64_t a1, uint64_t *a2, uint64_t (**a3)(), int a4)
     case 2:
     case 7:
     case 0xA:
-      if (v15 == 5)
+      if (v13 == 5)
       {
-        *a2 = parse_fixed_uint32(v16);
+        *a2 = parse_fixed_uint32(v14);
         return 1;
       }
 
@@ -5339,26 +5317,26 @@ BOOL parse_required_member(uint64_t a1, uint64_t *a2, uint64_t (**a3)(), int a4)
 
     case 3:
     case 8:
-      if (v15)
+      if (v13)
       {
         return 0;
       }
 
       else
       {
-        *a2 = parse_uint64(v17, v16);
+        *a2 = parse_uint64(v15, v14);
         return 1;
       }
 
     case 4:
-      if (v15)
+      if (v13)
       {
         return 0;
       }
 
       else
       {
-        v5 = parse_uint64(v17, v16);
+        v5 = parse_uint64(v15, v14);
         *a2 = unzigzag64(v5);
         return 1;
       }
@@ -5366,9 +5344,9 @@ BOOL parse_required_member(uint64_t a1, uint64_t *a2, uint64_t (**a3)(), int a4)
     case 5:
     case 9:
     case 0xB:
-      if (v15 == 1)
+      if (v13 == 1)
       {
-        *a2 = parse_fixed_uint64(v16);
+        *a2 = parse_fixed_uint64(v14);
         return 1;
       }
 
@@ -5378,35 +5356,34 @@ BOOL parse_required_member(uint64_t a1, uint64_t *a2, uint64_t (**a3)(), int a4)
       }
 
     case 6:
-      if (v15)
+      if (v13)
       {
         return 0;
       }
 
       else
       {
-        *a2 = parse_uint32(v17, v16);
+        *a2 = parse_uint32(v15, v14);
         return 1;
       }
 
     case 0xC:
-      *a2 = parse_BOOLean(v17, v16);
+      *a2 = parse_BOOLean(v15, v14);
       return 1;
     case 0xE:
-      v14 = *(a1 + 5);
-      if (v15 == 2)
+      v12 = *(a1 + 5);
+      if (v13 == 2)
       {
         if (a4 && *a2 && *a2 != *(*(a1 + 8) + 40))
         {
           do_free(a3, *a2);
         }
 
-        *a2 = do_alloc(a3, v17 - v14 + 1);
+        *a2 = do_alloc(a3, v15 - v12 + 1);
         if (*a2)
         {
-          v6 = *a2;
           __memcpy_chk();
-          *(*a2 + v17 - v14) = 0;
+          *(*a2 + v15 - v12) = 0;
           return 1;
         }
 
@@ -5422,27 +5399,26 @@ BOOL parse_required_member(uint64_t a1, uint64_t *a2, uint64_t (**a3)(), int a4)
       }
 
     case 0xF:
-      v12 = *(a1 + 5);
-      if (v15 != 2)
+      v10 = *(a1 + 5);
+      if (v13 != 2)
       {
         return 0;
       }
 
-      v13 = *(*(a1 + 8) + 40);
-      if (a4 && a2[1] && (!v13 || a2[1] != *(v13 + 8)))
+      v11 = *(*(a1 + 8) + 40);
+      if (a4 && a2[1] && (!v11 || a2[1] != *(v11 + 8)))
       {
         do_free(a3, a2[1]);
       }
 
-      if (v17 > v12)
+      if (v15 > v10)
       {
-        a2[1] = do_alloc(a3, v17 - v12);
+        a2[1] = do_alloc(a3, v15 - v10);
         if (!a2[1])
         {
           return 0;
         }
 
-        v7 = a2[1];
         __memcpy_chk();
       }
 
@@ -5451,26 +5427,26 @@ BOOL parse_required_member(uint64_t a1, uint64_t *a2, uint64_t (**a3)(), int a4)
         a2[1] = 0;
       }
 
-      *a2 = v17 - v12;
+      *a2 = v15 - v10;
       return 1;
     case 0x10:
-      v9 = 1;
-      if (v15 == 2)
+      v7 = 1;
+      if (v13 == 2)
       {
-        v10 = *(*(a1 + 8) + 40);
-        v11 = protobuf_c_message_unpack(*(*(a1 + 8) + 32), a3, v17 - *(a1 + 5), v16 + *(a1 + 5));
-        if (a4 && *a2 && *a2 != v10)
+        v8 = *(*(a1 + 8) + 40);
+        v9 = protobuf_c_message_unpack(*(*(a1 + 8) + 32), a3, v15 - *(a1 + 5), v14 + *(a1 + 5));
+        if (a4 && *a2 && *a2 != v8)
         {
-          if (v11)
+          if (v9)
           {
-            v9 = merge_messages(*a2, v11, a3);
+            v7 = merge_messages(*a2, v9, a3);
           }
 
           protobuf_c_message_free_unpacked(*a2, a3);
         }
 
-        *a2 = v11;
-        return v11 && v9;
+        *a2 = v9;
+        return v9 && v7;
       }
 
       else
@@ -5788,158 +5764,153 @@ uint64_t parse_BOOLean(unsigned int a1, uint64_t a2)
 
 uint64_t merge_messages(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v32 = *(*a2 + 56);
+  v27 = *(*a2 + 56);
   for (i = 0; i < *(*a2 + 48); ++i)
   {
-    if (*(v32 + 72 * i + 12) == 2)
+    if (*(v27 + 72 * i + 12) == 2)
     {
-      v31 = (a1 + *(v32 + 72 * i + 20));
-      v30 = (a1 + *(v32 + 72 * i + 24));
-      v29 = (a2 + *(v32 + 72 * i + 20));
-      v28 = (a2 + *(v32 + 72 * i + 24));
-      if (*v31)
+      v26 = (a1 + *(v27 + 72 * i + 20));
+      v25 = (a1 + *(v27 + 72 * i + 24));
+      v24 = (a2 + *(v27 + 72 * i + 20));
+      v23 = (a2 + *(v27 + 72 * i + 24));
+      if (*v26)
       {
-        if (*v29)
+        if (*v24)
         {
-          v27 = sizeof_elt_in_repeated_array(*(v32 + 72 * i + 16));
-          v26 = do_alloc(a3, (*v31 + *v29) * v27);
-          if (!v26)
+          v22 = sizeof_elt_in_repeated_array(*(v27 + 72 * i + 16));
+          v21 = do_alloc(a3, (*v26 + *v24) * v22);
+          if (!v21)
           {
             return 0;
           }
 
-          v3 = *v30;
-          v4 = *v31;
           __memcpy_chk();
-          v5 = v26 + *v31 * v27;
-          v6 = *v28;
-          v7 = *v29;
           __memcpy_chk();
-          do_free(a3, *v28);
-          do_free(a3, *v30);
-          *v28 = v26;
-          *v29 += *v31;
+          do_free(a3, *v23);
+          do_free(a3, *v25);
+          *v23 = v21;
+          *v24 += *v26;
         }
 
         else
         {
-          *v29 = *v31;
-          *v28 = *v30;
+          *v24 = *v26;
+          *v23 = *v25;
         }
 
-        *v31 = 0;
-        *v30 = 0;
+        *v26 = 0;
+        *v25 = 0;
       }
     }
 
-    else if (*(v32 + 72 * i + 12) == 1 || *(v32 + 72 * i + 12) == 3)
+    else if (*(v27 + 72 * i + 12) == 1 || *(v27 + 72 * i + 12) == 3)
     {
-      v24 = (a1 + *(v32 + 72 * i + 20));
-      v23 = (a2 + *(v32 + 72 * i + 20));
-      v22 = 0;
-      if ((*(v32 + 72 * i + 48) & 4) != 0)
+      v19 = (a1 + *(v27 + 72 * i + 20));
+      v18 = (a2 + *(v27 + 72 * i + 20));
+      v17 = 0;
+      if ((*(v27 + 72 * i + 48) & 4) != 0)
       {
-        if (*v23)
+        if (*v18)
         {
           continue;
         }
 
-        v18 = int_range_lookup(*(*a2 + 72), *(*a2 + 80), *v24);
-        if (v18 < 0)
+        v13 = int_range_lookup(*(*a2 + 72), *(*a2 + 80), *v19);
+        if (v13 < 0)
         {
           return 0;
         }
 
-        v25 = *(*a2 + 56) + 72 * v18;
+        v20 = *(*a2 + 56) + 72 * v13;
       }
 
       else
       {
-        v25 = v32 + 72 * i;
+        v20 = v27 + 72 * i;
       }
 
-      v21 = (a1 + *(v25 + 24));
-      v20 = (a2 + *(v25 + 24));
-      v19 = *(v25 + 40);
-      v14 = *(v25 + 16);
-      switch(v14)
+      v16 = (a1 + *(v20 + 24));
+      v15 = (a2 + *(v20 + 24));
+      v14 = *(v20 + 40);
+      v9 = *(v20 + 16);
+      switch(v9)
       {
         case 14:
-          v10 = 0;
-          if (*v21 != v19)
+          v5 = 0;
+          if (*v16 != v14)
           {
-            v10 = *v20 == v19;
+            v5 = *v15 == v14;
           }
 
-          v22 = v10;
+          v17 = v5;
           break;
         case 15:
-          v16 = v21[1];
-          v15 = v20[1];
-          v13 = 0;
-          if (v16)
+          v11 = v16[1];
+          v10 = v15[1];
+          v8 = 0;
+          if (v11)
           {
-            if (!v19 || (v13 = 0, v16 != *(v19 + 8)))
+            if (!v14 || (v8 = 0, v11 != *(v14 + 8)))
             {
-              v12 = 1;
-              if (v15)
+              v7 = 1;
+              if (v10)
               {
-                v11 = 0;
-                if (v19)
+                v6 = 0;
+                if (v14)
                 {
-                  v11 = v15 == *(v19 + 8);
+                  v6 = v10 == *(v14 + 8);
                 }
 
-                v12 = v11;
+                v7 = v6;
               }
 
-              v13 = v12;
+              v8 = v7;
             }
           }
 
-          v22 = v13 & 1;
+          v17 = v8 & 1;
           break;
         case 16:
-          v17 = *v20;
-          if (*v21)
+          v12 = *v15;
+          if (*v16)
           {
-            if (v17)
+            if (v12)
             {
-              if (!merge_messages(*v21, v17, a3))
+              if (!merge_messages(*v16, v12, a3))
               {
                 return 0;
               }
 
-              v22 = 0;
+              v17 = 0;
             }
 
             else
             {
-              v22 = 1;
+              v17 = 1;
             }
           }
 
           break;
         default:
-          v9 = 0;
-          if (*v24)
+          v4 = 0;
+          if (*v19)
           {
-            v9 = *v23 == 0;
+            v4 = *v18 == 0;
           }
 
-          v22 = v9;
+          v17 = v4;
           break;
       }
 
-      if (v22)
+      if (v17)
       {
-        sizeof_elt_in_repeated_array(*(v25 + 16));
+        sizeof_elt_in_repeated_array(*(v20 + 16));
         __memcpy_chk();
         __memset_chk();
-        if (*(v25 + 20))
+        if (*(v20 + 20))
         {
-          *v23 = *v24;
-          *v24 = 0;
+          *v18 = *v19;
+          *v19 = 0;
         }
       }
     }
@@ -5970,66 +5941,67 @@ uint64_t scan_varint(unsigned int a1, uint64_t a2)
   }
 }
 
-void mmcs_padded_chunk_length_with_policy_and_chunk_length_cold_5(uint64_t a1)
+void mmcs_padded_chunk_length_with_policy_and_chunk_length_cold_5(uint64_t a1, uint64_t a2)
 {
-  v2 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = mmcs_logging_logger_default(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v3 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Unsupported MMCSPaddingPolicy %ld requested", a1);
-    v4 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"Unsupported MMCSPaddingPolicy %ld requested", a1);
+    v6 = mmcs_logging_logger_default(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v6 = v3;
-      _os_log_impl(&dword_2577D8000, v4, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+      v8 = v4;
+      _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
-    if (v3)
+    if (v4)
     {
-      CFRelease(v3);
+      CFRelease(v4);
     }
   }
 
   __assert_rtn("mmcs_padded_chunk_length_with_policy_and_chunk_length", "mmcs_chunk.c", 426, "false && Unsupported MMCSPaddingPolicy Requested");
 }
 
-void send_request_downloadChunks_cold_9(const __CFAllocator *a1)
+void send_request_downloadChunks_cold_9(const __CFAllocator *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = mmcs_logging_logger_default(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v3 = CFStringCreateWithFormat(a1, 0, @"unable to find first item for authGetChunks");
-    v4 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = CFStringCreateWithFormat(a1, 0, @"unable to find first item for authGetChunks");
+    v6 = mmcs_logging_logger_default(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_0(&dword_2577D8000, v5, v6, "%{public}@", v7, v8, v9, v10, 2u);
+      LODWORD(v13) = 138543362;
+      *(&v13 + 4) = v4;
+      OUTLINED_FUNCTION_0(&dword_2577D8000, v7, v8, "%{public}@", v9, v10, v11, v12, v13, DWORD2(v13));
     }
 
-    if (v3)
+    if (v4)
     {
-      CFRelease(v3);
+      CFRelease(v4);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void send_request_downloadChunks_cold_10(const __CFAllocator *a1)
+void send_request_downloadChunks_cold_10(const __CFAllocator *a1, uint64_t a2)
 {
-  v2 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = mmcs_logging_logger_default(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v3 = CFStringCreateWithFormat(a1, 0, @"unable to add token header");
-    v4 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = CFStringCreateWithFormat(a1, 0, @"unable to add token header");
+    v6 = mmcs_logging_logger_default(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_0(&dword_2577D8000, v5, v6, "%{public}@", v7, v8, v9, v10, 2u);
+      LODWORD(v13) = 138543362;
+      *(&v13 + 4) = v4;
+      OUTLINED_FUNCTION_0(&dword_2577D8000, v7, v8, "%{public}@", v9, v10, v11, v12, v13, DWORD2(v13));
     }
 
-    if (v3)
+    if (v4)
     {
-      CFRelease(v3);
+      CFRelease(v4);
     }
   }
 
@@ -6038,43 +6010,40 @@ void send_request_downloadChunks_cold_10(const __CFAllocator *a1)
 
 void HttpContextPerformBlockAsync_cold_1(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CBECE8];
   [a1 isValid];
   [a1 isTaskDone];
   OUTLINED_FUNCTION_0_0();
   v3 = CFStringCreateWithFormat(v2, 0, @"HTTPContext %@ is %s and %s but is missing runloop or mode");
-  v4 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = mmcs_logging_logger_default(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_1(&dword_2577D8000, v5, v6, "%{public}@", v7, v8, v9, v10, v12, v13, v14, v15, 2u);
+    OUTLINED_FUNCTION_1(&dword_2577D8000, v6, v7, "%{public}@", v8, v9, v10, v11, v12, v13, v14, v15);
   }
 
   if (v3)
   {
     CFRelease(v3);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void mmcs_get_file_candidate_completed_with_success_cold_2(uint64_t a1)
+void mmcs_get_file_candidate_completed_with_success_cold_2(uint64_t a1, uint64_t a2)
 {
-  v2 = mmcs_logging_logger_default();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = mmcs_logging_logger_default(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v3 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"outstanding chunk references is not empty! %@", *(*a1 + 280));
-    v4 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"outstanding chunk references is not empty! %@", *(*a1 + 280));
+    v6 = mmcs_logging_logger_default(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v6 = v3;
-      _os_log_impl(&dword_2577D8000, v4, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
+      v8 = v4;
+      _os_log_impl(&dword_2577D8000, v6, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
-    if (v3)
+    if (v4)
     {
-      CFRelease(v3);
+      CFRelease(v4);
     }
   }
 
@@ -6083,16 +6052,14 @@ void mmcs_get_file_candidate_completed_with_success_cold_2(uint64_t a1)
 
 void mmcs_get_state_decrement_outstanding_chunk_references_count_cold_1(uint64_t *a1, uint64_t a2)
 {
-  v4 = mmcs_logging_logger_default();
+  v4 = mmcs_logging_logger_default(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v13 = *a1;
-    v14 = a2;
-    v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"chunk count %ld for %@ went out of whack");
-    v6 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"chunk count %ld for %@ went out of whack", *a1, a2);
+    v7 = mmcs_logging_logger_default(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_0_1(&dword_2577D8000, v7, v8, "%{public}@", v9, v10, v11, v12, v13, v14, 2u);
+      OUTLINED_FUNCTION_0_1(&dword_2577D8000, v8, v9, "%{public}@", v10, v11, v12, v13, v14, v15);
     }
 
     if (v5)
@@ -6106,16 +6073,14 @@ void mmcs_get_state_decrement_outstanding_chunk_references_count_cold_1(uint64_t
 
 void mmcs_get_state_decrement_outstanding_chunk_references_count_cold_4(uint64_t *a1, uint64_t a2)
 {
-  v4 = mmcs_logging_logger_default();
+  v4 = mmcs_logging_logger_default(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v13 = a2;
-    v14 = *a1;
-    v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"couldn't find %@ in %@");
-    v6 = mmcs_logging_logger_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"couldn't find %@ in %@", a2, *a1);
+    v7 = mmcs_logging_logger_default(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_0_1(&dword_2577D8000, v7, v8, "%{public}@", v9, v10, v11, v12, v13, v14, 2u);
+      OUTLINED_FUNCTION_0_1(&dword_2577D8000, v8, v9, "%{public}@", v10, v11, v12, v13, v14, v15);
     }
 
     if (v5)

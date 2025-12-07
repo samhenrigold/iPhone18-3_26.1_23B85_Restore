@@ -12,7 +12,7 @@
   v5 = sub_10076341C();
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = OBJC_IVAR____TtC20ProductPageExtension27ParagraphCollectionViewCell_expandableTextView;
-  sub_100016F40(0, &qword_100942F10);
+  sub_100016F40(0, &qword_100942F10, UIColor_ptr);
   v7 = sub_100770D2C();
   v8 = objc_allocWithZone(type metadata accessor for ExpandableTextView());
   *(&self->super.super.super.super.super.isa + v6) = sub_10073C780(v7, 0.0, 0.0, 0.0, 0.0);
@@ -28,7 +28,7 @@
   v2 = v17.receiver;
   [(ParagraphCollectionViewCell *)&v17 layoutSubviews];
   contentView = [v2 contentView];
-  sub_100016F40(0, &qword_1009441F0);
+  sub_100016F40(0, &qword_1009441F0, UIView_ptr);
   sub_10076422C();
   v5 = v4;
   v7 = v6;
@@ -57,10 +57,10 @@
 
 - (void)prepareForReuse
 {
-  v7.receiver = self;
-  v7.super_class = swift_getObjectType();
-  v2 = v7.receiver;
-  [(ParagraphCollectionViewCell *)&v7 prepareForReuse];
+  v9.receiver = self;
+  v9.super_class = swift_getObjectType();
+  v2 = v9.receiver;
+  [(ParagraphCollectionViewCell *)&v9 prepareForReuse];
   v3 = OBJC_IVAR____TtC20ProductPageExtension27ParagraphCollectionViewCell_expandableTextView;
   sub_10073CEFC(0, 0);
   *(*&v2[v3] + OBJC_IVAR____TtC20ProductPageExtension18ExpandableTextView_hasMoreButton) = 0;
@@ -68,10 +68,11 @@
   v4 = *&v2[v3];
   v5 = (v4 + OBJC_IVAR____TtC20ProductPageExtension18ExpandableTextView_moreTapHandler);
   v6 = *(v4 + OBJC_IVAR____TtC20ProductPageExtension18ExpandableTextView_moreTapHandler);
+  v7 = *(v4 + OBJC_IVAR____TtC20ProductPageExtension18ExpandableTextView_moreTapHandler + 8);
   *v5 = 0;
   v5[1] = 0;
-  sub_1000167E0(v6);
-  [*(v4 + OBJC_IVAR____TtC20ProductPageExtension18ExpandableTextView_moreButton) setUserInteractionEnabled:{0, v7.receiver, v7.super_class}];
+  v8 = sub_1000167E0(v6, v7);
+  [*(v4 + OBJC_IVAR____TtC20ProductPageExtension18ExpandableTextView_moreButton) setUserInteractionEnabled:{0, v8, v9.receiver, v9.super_class}];
 }
 
 @end

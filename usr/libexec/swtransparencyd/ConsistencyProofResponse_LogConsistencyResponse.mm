@@ -4,6 +4,7 @@
 - (unint64_t)verifyWithError:(id *)error;
 - (void)checkSplitsFor:(id)for;
 - (void)setFollowUp:(id)up;
+- (void)setForwards:(BOOL)forwards;
 - (void)setMetadataValue:(id)value key:(id)key;
 - (void)setOptInServer:(id)server;
 - (void)setResult:(unint64_t)result treeHead:(id)head error:(id)error;
@@ -51,6 +52,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setForwards:(BOOL)forwards
+{
+  v4 = [NSNumber numberWithBool:forwards];
+  objc_setAssociatedObject(self, @"directionKey", v4, 1);
 }
 
 - (void)setOptInServer:(id)server

@@ -1,14 +1,14 @@
 @interface ABActionSelectorDriver
 - (_BYTE)didRevealScene;
+- (_BYTE)occlusionDidChange:(_BYTE *)result;
 - (double)overlayRenderInputs;
 - (double)sceneRenderInputs;
 - (id)_buttonBaseColor;
 - (id)_sceneParamsForState:(int64_t)state;
 - (id)initWithItems:(void *)items selectedIndex:(int)index isInWelcomeMode:(void *)mode renderBlock:;
+- (id)resume;
 - (uint64_t)isInWelcomeMode;
 - (uint64_t)items;
-- (uint64_t)pause;
-- (uint64_t)resume;
 - (uint64_t)selectedIndex;
 - (void)_scheduleZoomOutIfNeeded;
 - (void)_updateForDisplayLink:(id)link;
@@ -17,11 +17,11 @@
 - (void)_updateTransitionSchedulerState;
 - (void)_updateWithState:(int64_t)state dragProgress:(id)progress;
 - (void)endDragging;
-- (void)occlusionDidChange:(void *)change;
+- (void)pause;
 - (void)startDragging;
 - (void)updateDragProgress:(void *)progress;
-- (void)updateItems:(int)items animateButtonColor:;
-- (void)updateSelectedIndex:(int)index animateButtonColor:;
+- (void)updateItems:(uint64_t)items animateButtonColor:;
+- (void)updateSelectedIndex:(uint64_t)index animateButtonColor:;
 - (void)updateWithZoomedOutSceneParamsOverride:(void *)override zoomedInSceneParamsOverride:;
 - (void)zoomIn;
 - (void)zoomOut;
@@ -210,10 +210,10 @@ void __69__ABActionSelectorDriver__updateSceneInterpolatorsResettingToTarget___b
 
   self->_state = state;
   objc_storeStrong(&self->_dragProgress, progress);
-  v8 = self->_state;
-  if (v8 != state)
+  v9 = self->_state;
+  if (v9 != state)
   {
-    if (v8 == 2)
+    if (v9 == 2)
     {
       if (!self->_isInWelcomeMode)
       {
@@ -224,18 +224,18 @@ LABEL_10:
       }
 
       self->_isInWelcomeMode = 0;
-      v9 = ABDefaultZoomedOutSceneParams();
+      v10 = ABDefaultZoomedOutSceneParams(v8);
       zoomedOutParams = self->_zoomedOutParams;
-      self->_zoomedOutParams = v9;
+      self->_zoomedOutParams = v10;
 
-      v11 = ABDefaultZoomedInSceneParams();
+      v13 = ABDefaultZoomedInSceneParams(v12);
       zoomedInParams = self->_zoomedInParams;
-      self->_zoomedInParams = v11;
+      self->_zoomedInParams = v13;
 
-      v8 = self->_state;
+      v9 = self->_state;
     }
 
-    if ((v8 | 2) == 3)
+    if ((v9 | 2) == 3)
     {
       [(ABDelayedBlockExecutor *)&self->_transitionScheduler->super.isa cancelPendingBlock];
     }
@@ -382,23 +382,23 @@ LABEL_12:
 
 - (void)_updateForDisplayLink:(id)link
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   linkCopy = link;
   v5 = [(NSDictionary *)self->_sceneInterpolators objectForKeyedSubscript:?];
   [v5 value];
   v7 = v6;
 
   v8 = [(ABActionSelectorDriver *)self _sceneParamsForState:self->_state];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   allValues = [(NSDictionary *)self->_sceneInterpolators allValues];
-  v10 = [allValues countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v10 = [allValues countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v37;
+    v12 = *v36;
     v13 = (1.0 - v7 + -0.1) * -1.2 / 0.2 + 2.0;
     if (1.0 - v7 >= 0.3)
     {
@@ -419,12 +419,12 @@ LABEL_12:
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v37 != v12)
+        if (*v36 != v12)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v16 = *(*(&v36 + 1) + 8 * i);
+        v16 = *(*(&v35 + 1) + 8 * i);
         [v16 parameters];
         v18 = v17;
         v20 = v19;
@@ -442,7 +442,7 @@ LABEL_12:
         [v16 step:?];
       }
 
-      v11 = [allValues countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v11 = [allValues countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v11);
@@ -468,15 +468,13 @@ LABEL_20:
   }
 
 LABEL_21:
-  [(ABDeviceButtonAnimator *)self->_buttonAnimator update];
+  [(ABDeviceButtonAnimator *)&self->_buttonAnimator->super.isa update];
   [(ABActionSelectorDriver *)self _updateRenderInputs];
   renderBlock = self->_renderBlock;
   [(CADisplayLink *)self->_displayLink targetTimestamp];
   v33 = v32;
   [(CADisplayLink *)self->_displayLink duration];
   renderBlock[2](renderBlock, v33, v34);
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleZoomOutIfNeeded
@@ -580,22 +578,22 @@ LABEL_21:
 
 - (id)initWithItems:(void *)items selectedIndex:(int)index isInWelcomeMode:(void *)mode renderBlock:
 {
-  v44[10] = *MEMORY[0x277D85DE8];
+  v45[10] = *MEMORY[0x277D85DE8];
   v10 = a2;
   modeCopy = mode;
   if (self)
   {
-    v42.receiver = self;
-    v42.super_class = ABActionSelectorDriver;
-    v12 = objc_msgSendSuper2(&v42, sel_init);
+    v43.receiver = self;
+    v43.super_class = ABActionSelectorDriver;
+    v12 = objc_msgSendSuper2(&v43, sel_init);
     self = v12;
     if (v12)
     {
-      v41 = v10;
+      v42 = v10;
       objc_storeStrong(v12 + 11, a2);
       self[12] = items;
       *(self + 82) = index;
-      v40 = modeCopy;
+      v41 = modeCopy;
       v13 = MEMORY[0x23EF01A70](modeCopy);
       v14 = self[1];
       self[1] = v13;
@@ -607,97 +605,97 @@ LABEL_21:
       }
 
       self[7] = v15;
-      v43[0] = @"Rotation";
-      v39 = objc_opt_new();
-      v44[0] = v39;
-      v43[1] = @"Scale";
+      v44[0] = @"Rotation";
+      v40 = objc_opt_new();
+      v45[0] = v40;
+      v44[1] = @"Scale";
       v16 = objc_opt_new();
-      v44[1] = v16;
-      v43[2] = @"xOffset";
+      v45[1] = v16;
+      v44[2] = @"xOffset";
       v17 = objc_opt_new();
-      v44[2] = v17;
-      v43[3] = @"yOffset";
+      v45[2] = v17;
+      v44[3] = @"yOffset";
       v18 = objc_opt_new();
-      v44[3] = v18;
-      v43[4] = @"zOffset";
+      v45[3] = v18;
+      v44[4] = @"zOffset";
       v19 = objc_opt_new();
-      v44[4] = v19;
-      v43[5] = @"FocusDistance";
+      v45[4] = v19;
+      v44[5] = @"FocusDistance";
       v20 = objc_opt_new();
-      v44[5] = v20;
-      v43[6] = @"FocalLength";
+      v45[5] = v20;
+      v44[6] = @"FocalLength";
       v21 = objc_opt_new();
-      v44[6] = v21;
-      v43[7] = @"fStop";
+      v45[6] = v21;
+      v44[7] = @"fStop";
       v22 = objc_opt_new();
-      v44[7] = v22;
-      v43[8] = @"LightingIntensity";
+      v45[7] = v22;
+      v44[8] = @"LightingIntensity";
       v23 = objc_opt_new();
-      v44[8] = v23;
-      v43[9] = @"ZoomInProgress";
+      v45[8] = v23;
+      v44[9] = @"ZoomInProgress";
       v24 = objc_opt_new();
-      v44[9] = v24;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:10];
+      v45[9] = v24;
+      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:10];
       v26 = self[2];
       self[2] = v25;
 
       if (*(self + 82))
       {
-        ABWelcomeModeZoomedOutSceneParams();
+        ABWelcomeModeZoomedOutSceneParams(v27);
       }
 
       else
       {
-        ABDefaultZoomedOutSceneParams();
+        ABDefaultZoomedOutSceneParams(v27);
       }
-      v27 = ;
-      v28 = self[5];
-      self[5] = v27;
+      v28 = ;
+      v29 = self[5];
+      self[5] = v28;
 
-      v10 = v41;
+      v10 = v42;
       if (*(self + 82))
       {
-        ABWelcomeModeZoomedInSceneParams();
+        ABWelcomeModeZoomedInSceneParams(v30);
       }
 
       else
       {
-        ABDefaultZoomedInSceneParams();
+        ABDefaultZoomedInSceneParams(v30);
       }
-      v29 = ;
-      v30 = self[6];
-      self[6] = v29;
+      v31 = ;
+      v32 = self[6];
+      self[6] = v31;
 
-      v31 = [ABDeviceButtonAnimator alloc];
+      v33 = [ABDeviceButtonAnimator alloc];
       _buttonBaseColor = [self _buttonBaseColor];
-      v33 = [(ABDeviceButtonAnimator *)&v31->super.isa initWithBaseColor:_buttonBaseColor];
-      v34 = self[3];
-      self[3] = v33;
+      v35 = [(ABDeviceButtonAnimator *)&v33->super.isa initWithBaseColor:_buttonBaseColor];
+      v36 = self[3];
+      self[3] = v35;
 
-      v35 = objc_opt_new();
-      v36 = self[4];
-      self[4] = v35;
+      v37 = objc_opt_new();
+      v38 = self[4];
+      self[4] = v37;
 
-      modeCopy = v40;
+      modeCopy = v41;
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return self;
 }
 
-- (uint64_t)resume
+- (id)resume
 {
-  v15 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
-    if (!*(result + 64))
+    if (!result[8])
     {
       v2 = ABLogger();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
-        OUTLINED_FUNCTION_0(&dword_23DE18000, v3, v4, "(%{public}@) resume scene updates", v5, v6, v7, v8, 2u);
+        LODWORD(v14) = 138543362;
+        *(&v14 + 4) = v1;
+        OUTLINED_FUNCTION_0(&dword_23DE18000, v3, v4, "(%{public}@) resume scene updates", v5, v6, v7, v8, v14, DWORD2(v14));
       }
 
       v9 = [MEMORY[0x277CD9E48] displayLinkWithTarget:v1 selector:sel__updateForDisplayLink_];
@@ -713,26 +711,26 @@ LABEL_21:
 
       [v1 _updateSceneInterpolatorsResettingToTarget:1];
       [v1 _updateTransitionSchedulerState];
-      result = [v1 _updateButtonAnimatorActiveState];
+      return [v1 _updateButtonAnimatorActiveState];
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-- (uint64_t)pause
+- (void)pause
 {
-  v13 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
-    if (*(result + 64))
+    if (result[8])
     {
       v2 = ABLogger();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
-        OUTLINED_FUNCTION_0(&dword_23DE18000, v3, v4, "(%{public}@) pause scene updates", v5, v6, v7, v8, 2u);
+        LODWORD(v12) = 138543362;
+        *(&v12 + 4) = v1;
+        OUTLINED_FUNCTION_0(&dword_23DE18000, v3, v4, "(%{public}@) pause scene updates", v5, v6, v7, v8, v12, DWORD2(v12));
       }
 
       v9 = v1[8];
@@ -743,19 +741,19 @@ LABEL_21:
       v1[8] = 0;
 
       [v1 _updateTransitionSchedulerState];
-      result = [v1 _updateButtonAnimatorActiveState];
+      return [v1 _updateButtonAnimatorActiveState];
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-- (void)updateSelectedIndex:(int)index animateButtonColor:
+- (void)updateSelectedIndex:(uint64_t)index animateButtonColor:
 {
   if (self)
   {
-    v6 = [*(self + 88) count] - 1;
+    indexCopy = index;
+    v6 = ([*(self + 88) count] - 1);
     if (v6 >= a2)
     {
       v6 = a2;
@@ -774,25 +772,26 @@ LABEL_21:
 
     v7 = *(self + 24);
     _buttonBaseColor = [self _buttonBaseColor];
-    [(ABDeviceButtonAnimator *)v7 setBaseColor:_buttonBaseColor animated:index];
+    [(ABDeviceButtonAnimator *)v7 setBaseColor:_buttonBaseColor animated:indexCopy];
   }
 }
 
 - (void)zoomIn
 {
-  if (self)
+  if (result)
   {
-    if ((*(self + 7) - 1) >= 2)
+    if ((result[7] - 1) >= 2)
     {
-      return [self _updateWithState:1 dragProgress:*(self + 9)];
+      return [result _updateWithState:1 dragProgress:result[9]];
     }
   }
 
-  return self;
+  return result;
 }
 
-- (void)updateItems:(int)items animateButtonColor:
+- (void)updateItems:(uint64_t)items animateButtonColor:
 {
+  itemsCopy = items;
   v10 = a2;
   if (self)
   {
@@ -808,15 +807,15 @@ LABEL_21:
     [self _scheduleZoomOutIfNeeded];
     v8 = *(self + 24);
     _buttonBaseColor = [self _buttonBaseColor];
-    [(ABDeviceButtonAnimator *)v8 setBaseColor:_buttonBaseColor animated:items];
+    [(ABDeviceButtonAnimator *)v8 setBaseColor:_buttonBaseColor animated:itemsCopy];
   }
 }
 
 - (void)zoomOut
 {
-  if (self)
+  if (result)
   {
-    v2 = *(self + 7);
+    v2 = result[7];
     if (v2)
     {
       v3 = v2 == 3;
@@ -829,11 +828,11 @@ LABEL_21:
 
     if (!v3)
     {
-      return [self _updateWithState:3 dragProgress:*(self + 9)];
+      return [result _updateWithState:3 dragProgress:result[9]];
     }
   }
 
-  return self;
+  return result;
 }
 
 void __44__ABActionSelectorDriver_zoomOutAfterDelay___block_invoke(uint64_t a1)
@@ -893,7 +892,7 @@ void __44__ABActionSelectorDriver_zoomOutAfterDelay___block_invoke(uint64_t a1)
       }
     }
 
-    v6 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+    v6 = [MEMORY[0x277CCABB0] numberWithDouble:a2];
     [progress _updateWithState:v3 dragProgress:v6];
   }
 }
@@ -947,34 +946,34 @@ void __44__ABActionSelectorDriver_zoomOutAfterDelay___block_invoke(uint64_t a1)
   return result;
 }
 
-- (void)occlusionDidChange:(void *)change
+- (_BYTE)occlusionDidChange:(_BYTE *)result
 {
-  if (change)
+  if (result)
   {
-    if (*(change + 80) != a2)
+    if (result[80] != a2)
     {
-      *(change + 80) = a2;
-      return [change _updateTransitionSchedulerState];
+      result[80] = a2;
+      return [result _updateTransitionSchedulerState];
     }
   }
 
-  return change;
+  return result;
 }
 
 - (void)updateWithZoomedOutSceneParamsOverride:(void *)override zoomedInSceneParamsOverride:
 {
-  v10 = a2;
+  v11 = a2;
   overrideCopy = override;
   if (self)
   {
-    if (v10)
+    if (v11)
     {
-      v6 = v10;
+      v6 = v11;
     }
 
     else
     {
-      v6 = ABDefaultZoomedOutSceneParams();
+      v6 = ABDefaultZoomedOutSceneParams(0);
     }
 
     v7 = self[5];
@@ -982,16 +981,16 @@ void __44__ABActionSelectorDriver_zoomOutAfterDelay___block_invoke(uint64_t a1)
 
     if (overrideCopy)
     {
-      v8 = overrideCopy;
+      v9 = overrideCopy;
     }
 
     else
     {
-      v8 = ABDefaultZoomedInSceneParams();
+      v9 = ABDefaultZoomedInSceneParams(v8);
     }
 
-    v9 = self[6];
-    self[6] = v8;
+    v10 = self[6];
+    self[6] = v9;
 
     [self _updateSceneInterpolatorsResettingToTarget:1];
   }

@@ -31,7 +31,7 @@ void __49____PSAccessoriesListController_refreshDADevices__block_invoke_2(uint64
   v25 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v2 = _PSLoggingFacility();
+    v2 = _PSLoggingFacility(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 32);

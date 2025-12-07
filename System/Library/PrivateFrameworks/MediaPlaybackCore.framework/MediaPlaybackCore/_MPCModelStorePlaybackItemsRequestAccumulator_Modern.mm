@@ -585,7 +585,7 @@ LABEL_38:
 {
   v16 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
-  [(_MPCModelStorePlaybackItemsRequestAccumulator_Modern *)self _locked_requestableIDsWithShouldPop:1];
+  objc_msgSend__locked_requestableIDsWithShouldPop_(self);
   array = [0 array];
   if ([array count])
   {
@@ -1086,7 +1086,7 @@ LABEL_17:
 - (MPCModelStorePlaybackItemsRequestAccumulatorResult)_locked_accumulatorResult
 {
   os_unfair_lock_assert_owner(&self->_lock);
-  [(_MPCModelStorePlaybackItemsRequestAccumulator_Modern *)self _locked_requestableIDsWithShouldPop:0];
+  objc_msgSend__locked_requestableIDsWithShouldPop_(self);
   if ([0 count])
   {
     v3 = 0;
@@ -1143,7 +1143,7 @@ LABEL_17:
         }
 
         v11 = *(*(&v41 + 1) + 8 * i);
-        if (([(_MPCAccumulatorProgressiveResult *)v11 isResolved]& 1) != 0)
+        if ([(_MPCAccumulatorProgressiveResult *)v11 isResolved])
         {
           allSections = [(MPMutableSectionedCollection *)self->_progressiveResults allSections];
           v13 = [allSections indexOfObject:v11];
@@ -1196,7 +1196,7 @@ LABEL_17:
         }
 
         v24 = *(*(&v37 + 1) + 8 * j);
-        if (([(_MPCAccumulatorProgressiveResult *)v24 isResolved]& 1) == 0)
+        if (![(_MPCAccumulatorProgressiveResult *)v24 isResolved])
         {
           v25 = v24;
           nextLoadableStoreID2 = [(_MPCAccumulatorProgressiveResult *)v25 nextLoadableStoreID];

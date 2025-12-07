@@ -9,7 +9,7 @@
 {
   attributesCopy = attributes;
   selfCopy = self;
-  sub_100558F48(attributesCopy);
+  sub_100558F48(attributesCopy, v5);
 }
 
 - (_TtC8AppStore26SearchResultBackgroundView)initWithFrame:(CGRect)frame

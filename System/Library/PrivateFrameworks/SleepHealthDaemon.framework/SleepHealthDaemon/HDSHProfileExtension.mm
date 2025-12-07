@@ -8,11 +8,11 @@
 
 - (HDSHProfileExtension)initWithProfile:(id)profile
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
-  v36.receiver = self;
-  v36.super_class = HDSHProfileExtension;
-  v5 = [(HDSHProfileExtension *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = HDSHProfileExtension;
+  v5 = [(HDSHProfileExtension *)&v35 init];
   v6 = v5;
   if (!v5)
   {
@@ -86,14 +86,13 @@ LABEL_10:
     v31 = v30;
     v32 = objc_opt_class();
     *buf = 138543362;
-    v38 = v32;
+    v37 = v32;
     v33 = v32;
     _os_log_impl(&dword_269C02000, v31, OS_LOG_TYPE_DEFAULT, "[%{public}@] Plugin loaded", buf, 0xCu);
   }
 
 LABEL_13:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

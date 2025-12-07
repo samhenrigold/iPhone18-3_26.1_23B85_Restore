@@ -38,9 +38,7 @@
 {
   if (self->_reason != reason)
   {
-    v5 = [reason copy];
-    reason = self->_reason;
-    self->_reason = v5;
+    self->_reason = [reason copy];
 
     MEMORY[0x2821F96F8]();
   }

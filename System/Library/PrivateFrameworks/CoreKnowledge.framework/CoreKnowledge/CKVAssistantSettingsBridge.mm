@@ -66,12 +66,12 @@
   return v4;
 }
 
-void __59__CKVAssistantSettingsBridge_currentDictationLanguageCodes__block_invoke(uint64_t a1, void *a2)
+void __59__CKVAssistantSettingsBridge_currentDictationLanguageCodes__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
+  v4 = a2;
   if (AFOfflineDictationStatusStringIsInstalled())
   {
-    [*(*(*(a1 + 32) + 8) + 40) addObject:v3];
+    [*(*(*(a1 + 32) + 8) + 40) addObject:v4];
   }
 }
 

@@ -7,7 +7,7 @@
 
 - (AMSMetricsEventAnomaliesDetector)initWithAnomalyDetectors:(id)detectors
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAE155C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAE155C0, &qword_192FCD1C8);
   v3 = sub_192F96B0C();
   return MetricsEventAnomaliesDetector.init(anomalyDetectors:)(v3);
 }
@@ -18,7 +18,7 @@
   selfCopy = self;
   MetricsEventAnomaliesDetector.detectAnomalies(for:)(eventCopy);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAE155B8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAE155B8, &qword_192FCD1C0);
   v6 = sub_192F96AFC();
 
   return v6;

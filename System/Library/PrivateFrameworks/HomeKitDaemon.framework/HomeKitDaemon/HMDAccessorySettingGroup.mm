@@ -44,7 +44,7 @@
 
 - (void)description:(id)description indent:(id)indent
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   indentCopy = indent;
   name = [(HMDAccessorySettingGroup *)self name];
@@ -57,67 +57,65 @@
   [descriptionCopy appendFormat:@"\n %@ name = %@, identifier = %@, group = %tu, settings = %tu, media-system-settings-group = %@\n", indentCopy, name, identifier, v11, v13, mediaSystemSettingGroup];
 
   v15 = [indentCopy indentationByLevels:1];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   groups2 = [(HMDAccessorySettingGroup *)self groups];
-  v17 = [groups2 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v17 = [groups2 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v32;
+    v19 = *v31;
     do
     {
       v20 = 0;
       do
       {
-        if (*v32 != v19)
+        if (*v31 != v19)
         {
           objc_enumerationMutation(groups2);
         }
 
-        [*(*(&v31 + 1) + 8 * v20++) description:descriptionCopy indent:v15];
+        [*(*(&v30 + 1) + 8 * v20++) description:descriptionCopy indent:v15];
       }
 
       while (v18 != v20);
-      v18 = [groups2 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v18 = [groups2 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v18);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   settings2 = [(HMDAccessorySettingGroup *)self settings];
-  v22 = [settings2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v22 = [settings2 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v28;
+    v24 = *v27;
     do
     {
       v25 = 0;
       do
       {
-        if (*v28 != v24)
+        if (*v27 != v24)
         {
           objc_enumerationMutation(settings2);
         }
 
-        [*(*(&v27 + 1) + 8 * v25++) description:descriptionCopy indent:v15];
+        [*(*(&v26 + 1) + 8 * v25++) description:descriptionCopy indent:v15];
       }
 
       while (v23 != v25);
-      v23 = [settings2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v23 = [settings2 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v23);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fullDescription
@@ -125,7 +123,7 @@
   v3 = [MEMORY[0x277CCAB68] stringWithFormat:@"\n"];
   indentation = [MEMORY[0x277D0F908] indentation];
   [(HMDAccessorySettingGroup *)self description:v3 indent:indentation];
-  v5 = [v3 copy];
+  v5 = objc_msgSend_copy(v3);
 
   return v5;
 }
@@ -158,7 +156,7 @@
 
 - (BOOL)compareSettingsTree:(id)tree
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   treeCopy = tree;
   name = [(HMDAccessorySettingGroup *)self name];
   name2 = [treeCopy name];
@@ -177,9 +175,9 @@
     v56 = HMFGetLogIdentifier();
     name3 = [treeCopy name];
     *buf = 138543618;
-    v78 = v56;
-    v79 = 2112;
-    v80 = name3;
+    v77 = v56;
+    v78 = 2112;
+    v79 = name3;
     v58 = "%{public}@Name is not matching: %@";
     goto LABEL_27;
   }
@@ -206,9 +204,9 @@
     v56 = HMFGetLogIdentifier();
     name3 = [treeCopy name];
     *buf = 138543618;
-    v78 = v56;
-    v79 = 2112;
-    v80 = name3;
+    v77 = v56;
+    v78 = 2112;
+    v79 = name3;
     v58 = "%{public}@Sub-groups are not matching: %@";
     goto LABEL_27;
   }
@@ -234,9 +232,9 @@
     v56 = HMFGetLogIdentifier();
     name3 = [treeCopy name];
     *buf = 138543618;
-    v78 = v56;
-    v79 = 2112;
-    v80 = name3;
+    v77 = v56;
+    v78 = 2112;
+    v79 = name3;
     v58 = "%{public}@Sub-settings are not matching: %@";
 LABEL_27:
     _os_log_impl(&dword_229538000, v55, OS_LOG_TYPE_INFO, v58, buf, 0x16u);
@@ -248,29 +246,29 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   settings3 = [(HMDAccessorySettingGroup *)self settings];
-  v24 = [settings3 copy];
+  v24 = objc_msgSend_copy(settings3);
 
   obj = v24;
-  v25 = [v24 countByEnumeratingWithState:&v71 objects:v76 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v70 objects:v75 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v72;
+    v27 = *v71;
     while (2)
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v72 != v27)
+        if (*v71 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v71 + 1) + 8 * i);
+        v29 = *(*(&v70 + 1) + 8 * i);
         v30 = MEMORY[0x277CCAC30];
         name4 = [v29 name];
         v32 = [v30 predicateWithFormat:@"name == %@", name4];
@@ -283,28 +281,28 @@ LABEL_29:
         anyObject = [v36 anyObject];
         if (([v29 compareConstraints:anyObject] & 1) == 0)
         {
-          v61 = objc_autoreleasePoolPush();
+          v60 = objc_autoreleasePoolPush();
           selfCopy4 = self;
-          v63 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+          v62 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
           {
-            v64 = HMFGetLogIdentifier();
+            v63 = HMFGetLogIdentifier();
             name5 = [v29 name];
             *buf = 138543618;
-            v78 = v64;
-            v79 = 2112;
-            v80 = name5;
-            _os_log_impl(&dword_229538000, v63, OS_LOG_TYPE_INFO, "%{public}@Constraints on settings are not matching: %@", buf, 0x16u);
+            v77 = v63;
+            v78 = 2112;
+            v79 = name5;
+            _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_INFO, "%{public}@Constraints on settings are not matching: %@", buf, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v61);
+          objc_autoreleasePoolPop(v60);
           goto LABEL_29;
         }
 
         v8 = 0x277CBE000uLL;
       }
 
-      v26 = [obj countByEnumeratingWithState:&v71 objects:v76 count:16];
+      v26 = [obj countByEnumeratingWithState:&v70 objects:v75 count:16];
       if (v26)
       {
         continue;
@@ -314,26 +312,26 @@ LABEL_29:
     }
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   groups3 = [(HMDAccessorySettingGroup *)self groups];
-  v39 = [groups3 countByEnumeratingWithState:&v67 objects:v75 count:16];
+  v39 = [groups3 countByEnumeratingWithState:&v66 objects:v74 count:16];
   if (v39)
   {
     v40 = v39;
-    v41 = *v68;
+    v41 = *v67;
     while (2)
     {
       for (j = 0; j != v40; ++j)
       {
-        if (*v68 != v41)
+        if (*v67 != v41)
         {
           objc_enumerationMutation(groups3);
         }
 
-        v43 = *(*(&v67 + 1) + 8 * j);
+        v43 = *(*(&v66 + 1) + 8 * j);
         v44 = MEMORY[0x277CCAC30];
         name6 = [v43 name];
         v46 = [v44 predicateWithFormat:@"name == %@", name6];
@@ -355,7 +353,7 @@ LABEL_29:
         v8 = 0x277CBE000;
       }
 
-      v40 = [groups3 countByEnumeratingWithState:&v67 objects:v75 count:16];
+      v40 = [groups3 countByEnumeratingWithState:&v66 objects:v74 count:16];
       if (v40)
       {
         continue;
@@ -369,33 +367,32 @@ LABEL_29:
 LABEL_35:
 
 LABEL_30:
-  v59 = *MEMORY[0x277D85DE8];
   return v52;
 }
 
 - (void)intersectSettingGroup:(id)group groupMetadata:(id)metadata shouldAddMissingItems:(BOOL)items
 {
   itemsCopy = items;
-  v180 = *MEMORY[0x277D85DE8];
+  v179 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   metadataCopy = metadata;
   v8 = objc_autoreleasePoolPush();
   selfCopy = self;
   v10 = HMFGetOSLogHandle();
-  v130 = metadataCopy;
+  v129 = metadataCopy;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
     name = [(HMDAccessorySettingGroup *)selfCopy name];
     *buf = 138543874;
-    v175 = v11;
-    v176 = 2112;
-    v177 = name;
-    v178 = 1024;
-    v179 = itemsCopy;
+    v174 = v11;
+    v175 = 2112;
+    v176 = name;
+    v177 = 1024;
+    v178 = itemsCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Group name is %@, intersecting. addMissing: %d", buf, 0x1Cu);
 
-    metadataCopy = v130;
+    metadataCopy = v129;
   }
 
   objc_autoreleasePoolPop(v8);
@@ -409,12 +406,12 @@ LABEL_30:
       v16 = HMFGetLogIdentifier();
       name2 = [(HMDAccessorySettingGroup *)v14 name];
       *buf = 138543618;
-      v175 = v16;
-      v176 = 2112;
-      v177 = name2;
+      v174 = v16;
+      v175 = 2112;
+      v176 = name2;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Skipping private group %@", buf, 0x16u);
 
-      metadataCopy = v130;
+      metadataCopy = v129;
     }
 
 LABEL_91:
@@ -439,10 +436,10 @@ LABEL_91:
     {
       v124 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v175 = v124;
+      v174 = v124;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Received metadata is nil, not intersecting", buf, 0xCu);
 
-      metadataCopy = v130;
+      metadataCopy = v129;
     }
 
     goto LABEL_91;
@@ -458,66 +455,66 @@ LABEL_91:
   v24 = [groups2 hmf_objectsPassingTest:&__block_literal_global_40_221752];
   v25 = [v22 setWithArray:v24];
 
-  v135 = v25;
+  v134 = v25;
   [(NSMutableSet *)v21 intersectSet:v25];
-  v136 = v21;
+  v135 = v21;
   objc_storeStrong(&selfCopy->_groups, v21);
   v26 = MEMORY[0x277CBEB38];
   groups3 = [metadataCopy groups];
   v28 = [v26 dictionaryWithCapacity:{objc_msgSend(groups3, "count")}];
 
-  v165 = 0u;
-  v166 = 0u;
-  v163 = 0u;
   v164 = 0u;
+  v165 = 0u;
+  v162 = 0u;
+  v163 = 0u;
   groups4 = [metadataCopy groups];
-  v30 = [groups4 countByEnumeratingWithState:&v163 objects:v173 count:16];
+  v30 = [groups4 countByEnumeratingWithState:&v162 objects:v172 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v164;
+    v32 = *v163;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v164 != v32)
+        if (*v163 != v32)
         {
           objc_enumerationMutation(groups4);
         }
 
-        v34 = *(*(&v163 + 1) + 8 * i);
+        v34 = *(*(&v162 + 1) + 8 * i);
         name3 = [v34 name];
         [v28 setObject:v34 forKey:name3];
       }
 
-      v31 = [groups4 countByEnumeratingWithState:&v163 objects:v173 count:16];
+      v31 = [groups4 countByEnumeratingWithState:&v162 objects:v172 count:16];
     }
 
     while (v31);
   }
 
-  v161 = 0u;
-  v162 = 0u;
-  v159 = 0u;
   v160 = 0u;
+  v161 = 0u;
+  v158 = 0u;
+  v159 = 0u;
   groups5 = [(HMDAccessorySettingGroup *)selfCopy groups];
-  v37 = [groups5 copy];
+  v37 = objc_msgSend_copy(groups5);
 
-  v38 = [v37 countByEnumeratingWithState:&v159 objects:v172 count:16];
+  v38 = [v37 countByEnumeratingWithState:&v158 objects:v171 count:16];
   if (v38)
   {
     v39 = v38;
-    v40 = *v160;
+    v40 = *v159;
     do
     {
       for (j = 0; j != v39; ++j)
       {
-        if (*v160 != v40)
+        if (*v159 != v40)
         {
           objc_enumerationMutation(v37);
         }
 
-        v42 = *(*(&v159 + 1) + 8 * j);
+        v42 = *(*(&v158 + 1) + 8 * j);
         name4 = [v42 name];
         v44 = [v28 objectForKey:name4];
 
@@ -527,7 +524,7 @@ LABEL_91:
         }
       }
 
-      v39 = [v37 countByEnumeratingWithState:&v159 objects:v172 count:16];
+      v39 = [v37 countByEnumeratingWithState:&v158 objects:v171 count:16];
     }
 
     while (v39);
@@ -535,35 +532,35 @@ LABEL_91:
 
   p_isa = &selfCopy->super.super.isa;
 
-  v157 = 0u;
-  v158 = 0u;
-  v155 = 0u;
   v156 = 0u;
-  groups6 = [v130 groups];
-  v46 = [groups6 countByEnumeratingWithState:&v155 objects:v171 count:16];
+  v157 = 0u;
+  v154 = 0u;
+  v155 = 0u;
+  groups6 = [v129 groups];
+  v46 = [groups6 countByEnumeratingWithState:&v154 objects:v170 count:16];
   if (v46)
   {
     v47 = v46;
-    v48 = *v156;
+    v48 = *v155;
     do
     {
       v49 = 0;
       do
       {
-        if (*v156 != v48)
+        if (*v155 != v48)
         {
           objc_enumerationMutation(groups6);
         }
 
-        v50 = *(*(&v155 + 1) + 8 * v49);
+        v50 = *(*(&v154 + 1) + 8 * v49);
         v51 = MEMORY[0x277CCAC30];
         name5 = [v50 name];
         v53 = [v51 predicateWithFormat:@"name == %@", name5];
 
-        v54 = [(NSMutableSet *)v136 filteredSetUsingPredicate:v53];
+        v54 = [(NSMutableSet *)v135 filteredSetUsingPredicate:v53];
         anyObject = [v54 anyObject];
 
-        v56 = [v135 filteredSetUsingPredicate:v53];
+        v56 = [v134 filteredSetUsingPredicate:v53];
         anyObject2 = [v56 anyObject];
 
         if (anyObject)
@@ -580,7 +577,7 @@ LABEL_91:
       }
 
       while (v47 != v49);
-      v58 = [groups6 countByEnumeratingWithState:&v155 objects:v171 count:16];
+      v58 = [groups6 countByEnumeratingWithState:&v154 objects:v170 count:16];
       v47 = v58;
     }
 
@@ -588,63 +585,63 @@ LABEL_91:
   }
 
   v59 = MEMORY[0x277CBEB38];
-  settings = [v130 settings];
+  settings = [v129 settings];
   v61 = [v59 dictionaryWithCapacity:{objc_msgSend(settings, "count")}];
 
-  v153 = 0u;
-  v154 = 0u;
-  v151 = 0u;
   v152 = 0u;
-  settings2 = [v130 settings];
-  v63 = [settings2 countByEnumeratingWithState:&v151 objects:v170 count:16];
+  v153 = 0u;
+  v150 = 0u;
+  v151 = 0u;
+  settings2 = [v129 settings];
+  v63 = [settings2 countByEnumeratingWithState:&v150 objects:v169 count:16];
   if (v63)
   {
     v64 = v63;
-    v65 = *v152;
+    v65 = *v151;
     do
     {
       for (k = 0; k != v64; ++k)
       {
-        if (*v152 != v65)
+        if (*v151 != v65)
         {
           objc_enumerationMutation(settings2);
         }
 
-        v67 = *(*(&v151 + 1) + 8 * k);
+        v67 = *(*(&v150 + 1) + 8 * k);
         name6 = [v67 name];
         [v61 setObject:v67 forKey:name6];
       }
 
-      v64 = [settings2 countByEnumeratingWithState:&v151 objects:v170 count:16];
+      v64 = [settings2 countByEnumeratingWithState:&v150 objects:v169 count:16];
     }
 
     while (v64);
   }
 
-  v149 = 0u;
-  v150 = 0u;
-  v147 = 0u;
   v148 = 0u;
+  v149 = 0u;
+  v146 = 0u;
+  v147 = 0u;
   settings3 = [p_isa settings];
-  v70 = [settings3 copy];
+  v70 = objc_msgSend_copy(settings3);
 
-  v71 = [v70 countByEnumeratingWithState:&v147 objects:v169 count:16];
+  v71 = [v70 countByEnumeratingWithState:&v146 objects:v168 count:16];
   if (v71)
   {
     v72 = v71;
-    v73 = *v148;
+    v73 = *v147;
     do
     {
       v74 = 0;
-      v133 = v72;
+      v132 = v72;
       do
       {
-        if (*v148 != v73)
+        if (*v147 != v73)
         {
           objc_enumerationMutation(v70);
         }
 
-        v75 = *(*(&v147 + 1) + 8 * v74);
+        v75 = *(*(&v146 + 1) + 8 * v74);
         name7 = [v75 name];
         v77 = [v61 objectForKey:name7];
 
@@ -660,15 +657,15 @@ LABEL_91:
             v82 = v73;
             v84 = v83 = v70;
             *buf = 138543618;
-            v175 = v84;
-            v176 = 2112;
-            v177 = v75;
+            v174 = v84;
+            v175 = 2112;
+            v176 = v75;
             _os_log_impl(&dword_229538000, v80, OS_LOG_TYPE_INFO, "%{public}@Setting %@ does not have metadata, cannot merge", buf, 0x16u);
 
             v70 = v83;
             v73 = v82;
             v61 = v81;
-            v72 = v133;
+            v72 = v132;
           }
 
           objc_autoreleasePoolPop(v78);
@@ -679,7 +676,7 @@ LABEL_91:
       }
 
       while (v72 != v74);
-      v72 = [v70 countByEnumeratingWithState:&v147 objects:v169 count:16];
+      v72 = [v70 countByEnumeratingWithState:&v146 objects:v168 count:16];
     }
 
     while (v72);
@@ -692,29 +689,29 @@ LABEL_91:
 
   v89 = MEMORY[0x277CBEB98];
   settings5 = [groupCopy settings];
-  v134 = [v89 setWithArray:settings5];
+  v133 = [v89 setWithArray:settings5];
 
-  v145 = 0u;
-  v146 = 0u;
-  v143 = 0u;
   v144 = 0u;
-  obj = [v130 settings];
-  v91 = [obj countByEnumeratingWithState:&v143 objects:v168 count:16];
-  v131 = v88;
+  v145 = 0u;
+  v142 = 0u;
+  v143 = 0u;
+  obj = [v129 settings];
+  v91 = [obj countByEnumeratingWithState:&v142 objects:v167 count:16];
+  v130 = v88;
   if (v91)
   {
     v92 = v91;
-    v93 = *v144;
+    v93 = *v143;
     do
     {
       for (m = 0; m != v92; ++m)
       {
-        if (*v144 != v93)
+        if (*v143 != v93)
         {
           objc_enumerationMutation(obj);
         }
 
-        v95 = *(*(&v143 + 1) + 8 * m);
+        v95 = *(*(&v142 + 1) + 8 * m);
         v96 = MEMORY[0x277CCAC30];
         name8 = [v95 name];
         v98 = [v96 predicateWithFormat:@"name == %@", name8];
@@ -722,7 +719,7 @@ LABEL_91:
         v99 = [v88 filteredSetUsingPredicate:v98];
         anyObject3 = [v99 anyObject];
 
-        v101 = [v134 filteredSetUsingPredicate:v98];
+        v101 = [v133 filteredSetUsingPredicate:v98];
         anyObject4 = [v101 anyObject];
 
         if (anyObject3)
@@ -757,46 +754,46 @@ LABEL_91:
             {
               v109 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v175 = v109;
-              v176 = 2112;
-              v177 = anyObject3;
+              v174 = v109;
+              v175 = 2112;
+              v176 = anyObject3;
               _os_log_impl(&dword_229538000, v108, OS_LOG_TYPE_INFO, "%{public}@Failed to merge setting %@, cannot merge", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v106);
             [v107[2] removeObject:anyObject3];
             v86 = p_isa;
-            v88 = v131;
+            v88 = v130;
           }
         }
       }
 
-      v92 = [obj countByEnumeratingWithState:&v143 objects:v168 count:16];
+      v92 = [obj countByEnumeratingWithState:&v142 objects:v167 count:16];
     }
 
     while (v92);
   }
 
-  v141 = 0u;
-  v142 = 0u;
-  v139 = 0u;
   v140 = 0u;
+  v141 = 0u;
+  v138 = 0u;
+  v139 = 0u;
   groups7 = [v86 groups];
-  v111 = [groups7 countByEnumeratingWithState:&v139 objects:v167 count:16];
+  v111 = [groups7 countByEnumeratingWithState:&v138 objects:v166 count:16];
   if (v111)
   {
     v112 = v111;
-    v113 = *v140;
+    v113 = *v139;
     do
     {
       for (n = 0; n != v112; ++n)
       {
-        if (*v140 != v113)
+        if (*v139 != v113)
         {
           objc_enumerationMutation(groups7);
         }
 
-        v115 = *(*(&v139 + 1) + 8 * n);
+        v115 = *(*(&v138 + 1) + 8 * n);
         groups8 = [v115 groups];
         if ([groups8 count])
         {
@@ -816,9 +813,9 @@ LABEL_91:
             {
               v122 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v175 = v122;
-              v176 = 2112;
-              v177 = v115;
+              v174 = v122;
+              v175 = 2112;
+              v176 = v115;
               _os_log_impl(&dword_229538000, v121, OS_LOG_TYPE_INFO, "%{public}@No subgroup or settings, removing group %@", buf, 0x16u);
             }
 
@@ -828,22 +825,20 @@ LABEL_91:
         }
       }
 
-      v112 = [groups7 countByEnumeratingWithState:&v139 objects:v167 count:16];
+      v112 = [groups7 countByEnumeratingWithState:&v138 objects:v166 count:16];
     }
 
     while (v112);
   }
 
-  metadataCopy = v130;
-  settings = v136;
+  metadataCopy = v129;
+  settings = v135;
 LABEL_92:
-
-  v128 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)dataSourceShouldEncodeSetting:(id)setting withCoder:(id)coder
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   coderCopy = coder;
   dataSource = [(HMDAccessorySettingGroup *)self dataSource];
@@ -859,15 +854,15 @@ LABEL_92:
       v14 = HMFGetLogIdentifier();
       keyPath = [settingCopy keyPath];
       v16 = HMFBooleanToString();
-      v21 = 138544130;
-      v22 = v14;
-      v23 = 2112;
-      v24 = v9;
-      v25 = 2112;
-      v26 = keyPath;
-      v27 = 2112;
-      v28 = v16;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@dataSource: %@, shouldEncodeSetting = %@, %@", &v21, 0x2Au);
+      v20 = 138544130;
+      v21 = v14;
+      v22 = 2112;
+      v23 = v9;
+      v24 = 2112;
+      v25 = keyPath;
+      v26 = 2112;
+      v27 = v16;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@dataSource: %@, shouldEncodeSetting = %@, %@", &v20, 0x2Au);
     }
   }
 
@@ -879,43 +874,42 @@ LABEL_92:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v18;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode settings due to no data source", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v18;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode settings due to no data source", &v20, 0xCu);
     }
 
     v10 = 0;
   }
 
   objc_autoreleasePoolPop(v11);
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)_encodeWithCoder:(id)coder
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if ([(HMDAccessorySettingGroup *)self shouldEncodeForCoder:coderCopy])
   {
     groups = [(HMDAccessorySettingGroup *)self groups];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __45__HMDAccessorySettingGroup__encodeWithCoder___block_invoke;
-    v29[3] = &unk_2786817A8;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __45__HMDAccessorySettingGroup__encodeWithCoder___block_invoke;
+    v28[3] = &unk_2786817A8;
     v6 = coderCopy;
-    v30 = v6;
-    v7 = [groups hmf_objectsPassingTest:v29];
+    v29 = v6;
+    v7 = [groups hmf_objectsPassingTest:v28];
 
     settings = [(HMDAccessorySettingGroup *)self settings];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __45__HMDAccessorySettingGroup__encodeWithCoder___block_invoke_2;
-    v27[3] = &unk_2786817D0;
-    v27[4] = self;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __45__HMDAccessorySettingGroup__encodeWithCoder___block_invoke_2;
+    v26[3] = &unk_2786817D0;
+    v26[4] = self;
     v9 = v6;
-    v28 = v9;
-    v10 = [settings na_filter:v27];
+    v27 = v9;
+    v10 = [settings na_filter:v26];
 
     v11 = MEMORY[0x277CBEB98];
     settings2 = [(HMDAccessorySettingGroup *)self settings];
@@ -928,23 +922,23 @@ LABEL_92:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       HMFGetLogIdentifier();
-      v18 = v26 = v7;
+      v18 = v25 = v7;
       dataSource = [(HMDAccessorySettingGroup *)selfCopy dataSource];
       [v13 na_setByRemovingObjectsFromSet:v14];
-      v25 = v14;
+      v24 = v14;
       v21 = v20 = v13;
       *buf = 138543874;
-      v32 = v18;
-      v33 = 2112;
-      v34 = dataSource;
-      v35 = 2112;
-      v36 = v21;
+      v31 = v18;
+      v32 = 2112;
+      v33 = dataSource;
+      v34 = 2112;
+      v35 = v21;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@dataSource = %@, subtracted values = %@", buf, 0x20u);
 
       v13 = v20;
-      v14 = v25;
+      v14 = v24;
 
-      v7 = v26;
+      v7 = v25;
     }
 
     objc_autoreleasePoolPop(v15);
@@ -957,8 +951,6 @@ LABEL_92:
     [v9 encodeObject:v10 forKey:*MEMORY[0x277CCED50]];
     [v9 encodeObject:v7 forKey:*MEMORY[0x277CCED38]];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -971,37 +963,37 @@ LABEL_92:
 
 - (BOOL)shouldEncodeForCoder:(id)coder
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if ([coderCopy hmd_isForNonAdminSharedUser])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     settings = [(HMDAccessorySettingGroup *)self settings];
-    v6 = [settings countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v6 = [settings countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(settings);
         }
 
-        if ([(HMDAccessorySettingGroup *)self dataSourceShouldEncodeSetting:*(*(&v19 + 1) + 8 * v9) withCoder:coderCopy])
+        if ([(HMDAccessorySettingGroup *)self dataSourceShouldEncodeSetting:*(*(&v18 + 1) + 8 * v9) withCoder:coderCopy])
         {
           break;
         }
 
         if (v7 == ++v9)
         {
-          v7 = [settings countByEnumeratingWithState:&v19 objects:v24 count:16];
+          v7 = [settings countByEnumeratingWithState:&v18 objects:v23 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -1016,12 +1008,12 @@ LABEL_4:
     {
 LABEL_10:
 
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       settings = [(HMDAccessorySettingGroup *)self groups];
-      v10 = [settings countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v10 = [settings countByEnumeratingWithState:&v14 objects:v22 count:16];
       if (!v10)
       {
 LABEL_21:
@@ -1029,24 +1021,24 @@ LABEL_21:
         goto LABEL_22;
       }
 
-      v11 = *v16;
+      v11 = *v15;
 LABEL_12:
       v12 = 0;
       while (1)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(settings);
         }
 
-        if ([*(*(&v15 + 1) + 8 * v12) shouldEncodeForCoder:coderCopy])
+        if ([*(*(&v14 + 1) + 8 * v12) shouldEncodeForCoder:coderCopy])
         {
           break;
         }
 
         if (v10 == ++v12)
         {
-          v10 = [settings countByEnumeratingWithState:&v15 objects:v23 count:16];
+          v10 = [settings countByEnumeratingWithState:&v14 objects:v22 count:16];
           if (v10)
           {
             goto LABEL_12;
@@ -1064,13 +1056,12 @@ LABEL_12:
   LOBYTE(v10) = 1;
 LABEL_22:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (id)_initWithCoder:(id)coder
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277CCED48]];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277CCED40]];
@@ -1082,14 +1073,14 @@ LABEL_22:
     v9 = +[HMDAccessorySettingGroup supportedSettingsClasses];
     v10 = [coderCopy decodeObjectOfClasses:v9 forKey:*MEMORY[0x277CCED50]];
 
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __43__HMDAccessorySettingGroup__initWithCoder___block_invoke;
-    v47[3] = &unk_278681780;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __43__HMDAccessorySettingGroup__initWithCoder___block_invoke;
+    v46[3] = &unk_278681780;
     v11 = v8;
-    v48 = v11;
-    v36 = v10;
-    v12 = [v10 na_filter:v47];
+    v47 = v11;
+    v35 = v10;
+    v12 = [v10 na_filter:v46];
     if (v12)
     {
       v13 = v12;
@@ -1097,31 +1088,31 @@ LABEL_22:
       v15 = v11[2];
       v11[2] = v14;
 
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
       v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       v16 = v11[2];
-      v17 = [v16 countByEnumeratingWithState:&v43 objects:v50 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v42 objects:v49 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v44;
+        v19 = *v43;
         do
         {
           v20 = 0;
           do
           {
-            if (*v44 != v19)
+            if (*v43 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            [*(*(&v43 + 1) + 8 * v20++) setGroup:v11];
+            [*(*(&v42 + 1) + 8 * v20++) setGroup:v11];
           }
 
           while (v18 != v20);
-          v18 = [v16 countByEnumeratingWithState:&v43 objects:v50 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v42 objects:v49 count:16];
         }
 
         while (v18);
@@ -1133,63 +1124,62 @@ LABEL_22:
     v21 = +[HMDAccessorySettingGroup supportedGroupsClasses];
     v22 = [coderCopy decodeObjectOfClasses:v21 forKey:*MEMORY[0x277CCED38]];
 
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __43__HMDAccessorySettingGroup__initWithCoder___block_invoke_35;
-    v41[3] = &unk_278681780;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __43__HMDAccessorySettingGroup__initWithCoder___block_invoke_35;
+    v40[3] = &unk_278681780;
     v23 = v11;
-    v42 = v23;
-    v24 = [v22 na_filter:v41];
+    v41 = v23;
+    v24 = [v22 na_filter:v40];
     if (v24)
     {
-      v34 = v12;
-      v35 = v5;
+      v33 = v12;
+      v34 = v5;
       v25 = [MEMORY[0x277CBEB58] setWithArray:v24];
       v26 = v23[3];
       v23[3] = v25;
 
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       v27 = v23[3];
-      v28 = [v27 countByEnumeratingWithState:&v37 objects:v49 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v36 objects:v48 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v38;
+        v30 = *v37;
         do
         {
           v31 = 0;
           do
           {
-            if (*v38 != v30)
+            if (*v37 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            [*(*(&v37 + 1) + 8 * v31++) _setParentGroup:v23];
+            [*(*(&v36 + 1) + 8 * v31++) _setParentGroup:v23];
           }
 
           while (v29 != v31);
-          v29 = [v27 countByEnumeratingWithState:&v37 objects:v49 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v36 objects:v48 count:16];
         }
 
         while (v29);
       }
 
-      v12 = v34;
-      v5 = v35;
+      v12 = v33;
+      v5 = v34;
     }
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 BOOL __43__HMDAccessorySettingGroup__initWithCoder___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1212,21 +1202,20 @@ BOOL __43__HMDAccessorySettingGroup__initWithCoder___block_invoke(uint64_t a1, v
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unexpected type found while decoding accessory setting", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unexpected type found while decoding accessory setting", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5 != 0;
 }
 
 BOOL __43__HMDAccessorySettingGroup__initWithCoder___block_invoke_35(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1249,15 +1238,14 @@ BOOL __43__HMDAccessorySettingGroup__initWithCoder___block_invoke_35(uint64_t a1
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unexpected type found while decoding accessory group", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unexpected type found while decoding accessory group", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5 != 0;
 }
 
@@ -1319,7 +1307,7 @@ BOOL __43__HMDAccessorySettingGroup__initWithCoder___block_invoke_35(uint64_t a1
 
 - (void)_setParentGroup:(id)group
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   identifier = [groupCopy identifier];
   parentIdentifier = self->_parentIdentifier;
@@ -1333,67 +1321,65 @@ BOOL __43__HMDAccessorySettingGroup__initWithCoder___block_invoke_35(uint64_t a1
 
   allObjects = [(NSMutableSet *)self->_groups allObjects];
   allObjects2 = [(NSMutableSet *)self->_settings allObjects];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v13 = allObjects;
-  v14 = [v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v29;
+    v16 = *v28;
     do
     {
       v17 = 0;
       do
       {
-        if (*v29 != v16)
+        if (*v28 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [*(*(&v28 + 1) + 8 * v17++) _reevaluateParentGroup:self];
+        [*(*(&v27 + 1) + 8 * v17++) _reevaluateParentGroup:self];
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v15);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v18 = allObjects2;
-  v19 = [v18 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v25;
+    v21 = *v24;
     do
     {
       v22 = 0;
       do
       {
-        if (*v25 != v21)
+        if (*v24 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        [*(*(&v24 + 1) + 8 * v22++) setGroup:self];
+        [*(*(&v23 + 1) + 8 * v22++) setGroup:self];
       }
 
       while (v20 != v22);
-      v20 = [v18 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v20);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reevaluateParentGroup:(id)group
@@ -1406,28 +1392,28 @@ BOOL __43__HMDAccessorySettingGroup__initWithCoder___block_invoke_35(uint64_t a1
 
 - (HMDAccessorySettingGroup)groupWithIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   os_unfair_lock_lock_with_options();
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = self->_groups;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqual:identifierCopy];
 
@@ -1438,7 +1424,7 @@ BOOL __43__HMDAccessorySettingGroup__initWithCoder___block_invoke_35(uint64_t a1
         }
       }
 
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -1451,7 +1437,6 @@ BOOL __43__HMDAccessorySettingGroup__initWithCoder___block_invoke_35(uint64_t a1
 LABEL_11:
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1502,28 +1487,28 @@ LABEL_11:
 
 - (id)settingWithIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   os_unfair_lock_lock_with_options();
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = self->_settings;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqual:identifierCopy];
 
@@ -1534,7 +1519,7 @@ LABEL_11:
         }
       }
 
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -1547,7 +1532,6 @@ LABEL_11:
 LABEL_11:
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1580,7 +1564,7 @@ LABEL_11:
 
 - (id)copyReplica
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = [HMDAccessorySettingGroup alloc];
   name = [(HMDAccessorySettingGroup *)self name];
   uUID = [MEMORY[0x277CCAD78] UUID];
@@ -1591,27 +1575,27 @@ LABEL_11:
   [(HMDAccessorySettingGroup *)v7 setDataSource:dataSource];
 
   array = [MEMORY[0x277CBEB18] array];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   groups = [(HMDAccessorySettingGroup *)self groups];
-  v11 = [groups countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v11 = [groups countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v34;
+    v13 = *v33;
     do
     {
       v14 = 0;
       do
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(groups);
         }
 
-        copyReplica = [*(*(&v33 + 1) + 8 * v14) copyReplica];
+        copyReplica = [*(*(&v32 + 1) + 8 * v14) copyReplica];
         [copyReplica _setParentGroup:v7];
         [array addObject:copyReplica];
 
@@ -1619,7 +1603,7 @@ LABEL_11:
       }
 
       while (v12 != v14);
-      v12 = [groups countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v12 = [groups countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v12);
@@ -1630,27 +1614,27 @@ LABEL_11:
   [(NSMutableSet *)groups setSet:v17];
 
   array2 = [MEMORY[0x277CBEB18] array];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   settings = [(HMDAccessorySettingGroup *)self settings];
-  v20 = [settings countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v20 = [settings countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v30;
+    v22 = *v29;
     do
     {
       v23 = 0;
       do
       {
-        if (*v30 != v22)
+        if (*v29 != v22)
         {
           objc_enumerationMutation(settings);
         }
 
-        copyReplica2 = [*(*(&v29 + 1) + 8 * v23) copyReplica];
+        copyReplica2 = [*(*(&v28 + 1) + 8 * v23) copyReplica];
         [copyReplica2 setGroup:v7];
         [array2 addObject:copyReplica2];
 
@@ -1658,7 +1642,7 @@ LABEL_11:
       }
 
       while (v21 != v23);
-      v21 = [settings countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v21 = [settings countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v21);
@@ -1668,13 +1652,12 @@ LABEL_11:
   v26 = [MEMORY[0x277CBEB98] setWithArray:array2];
   [(NSMutableSet *)settings setSet:v26];
 
-  v27 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)copyIdentical
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = [HMDAccessorySettingGroup alloc];
   name = [(HMDAccessorySettingGroup *)self name];
   identifier = [(HMDAccessorySettingGroup *)self identifier];
@@ -1685,27 +1668,27 @@ LABEL_11:
   [(HMDAccessorySettingGroup *)v7 setDataSource:dataSource];
 
   array = [MEMORY[0x277CBEB18] array];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   groups = [(HMDAccessorySettingGroup *)self groups];
-  v11 = [groups countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v11 = [groups countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v34;
+    v13 = *v33;
     do
     {
       v14 = 0;
       do
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(groups);
         }
 
-        copyIdentical = [*(*(&v33 + 1) + 8 * v14) copyIdentical];
+        copyIdentical = [*(*(&v32 + 1) + 8 * v14) copyIdentical];
         [copyIdentical _setParentGroup:v7];
         [array addObject:copyIdentical];
 
@@ -1713,7 +1696,7 @@ LABEL_11:
       }
 
       while (v12 != v14);
-      v12 = [groups countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v12 = [groups countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v12);
@@ -1724,27 +1707,27 @@ LABEL_11:
   [(NSMutableSet *)groups setSet:v17];
 
   array2 = [MEMORY[0x277CBEB18] array];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   settings = [(HMDAccessorySettingGroup *)self settings];
-  v20 = [settings countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v20 = [settings countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v30;
+    v22 = *v29;
     do
     {
       v23 = 0;
       do
       {
-        if (*v30 != v22)
+        if (*v29 != v22)
         {
           objc_enumerationMutation(settings);
         }
 
-        copyIdentical2 = [*(*(&v29 + 1) + 8 * v23) copyIdentical];
+        copyIdentical2 = [*(*(&v28 + 1) + 8 * v23) copyIdentical];
         [copyIdentical2 setGroup:v7];
         [array2 addObject:copyIdentical2];
 
@@ -1752,7 +1735,7 @@ LABEL_11:
       }
 
       while (v21 != v23);
-      v21 = [settings countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v21 = [settings countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v21);
@@ -1762,7 +1745,6 @@ LABEL_11:
   v26 = [MEMORY[0x277CBEB98] setWithArray:array2];
   [(NSMutableSet *)settings setSet:v26];
 
-  v27 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1814,7 +1796,7 @@ LABEL_11:
 
 - (id)_settingWithKeys:(id)keys
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   if ([keysCopy count] >= 2)
   {
@@ -1847,13 +1829,13 @@ LABEL_11:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v18 = 138543874;
-        v19 = v14;
-        v20 = 2112;
-        v21 = firstObject;
-        v22 = 2112;
-        v23 = selfCopy;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unexpected group name: %@ for group: %@", &v18, 0x20u);
+        v17 = 138543874;
+        v18 = v14;
+        v19 = 2112;
+        v20 = firstObject;
+        v21 = 2112;
+        v22 = selfCopy;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unexpected group name: %@ for group: %@", &v17, 0x20u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -1865,8 +1847,6 @@ LABEL_11:
   {
     v5 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1943,7 +1923,7 @@ uint64_t __45__HMDAccessorySettingGroup_subGroupWithName___block_invoke(uint64_t
       name = v12->_name;
       v12->_name = hm_truncatedNameString;
 
-      v15 = [nameCopy copy];
+      v15 = objc_msgSend_copy(nameCopy);
       keyPath = v12->_keyPath;
       v12->_keyPath = v15;
 
@@ -2009,16 +1989,14 @@ uint64_t __45__HMDAccessorySettingGroup_subGroupWithName___block_invoke(uint64_t
 
 void __50__HMDAccessorySettingGroup_supportedGroupsClasses__block_invoke()
 {
-  v5[2] = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
   v2 = [v0 setWithArray:v1];
   v3 = supportedGroupsClasses_supportedGroupsClasses;
   supportedGroupsClasses_supportedGroupsClasses = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)supportedSettingsClasses
@@ -2035,16 +2013,14 @@ void __50__HMDAccessorySettingGroup_supportedGroupsClasses__block_invoke()
 
 void __52__HMDAccessorySettingGroup_supportedSettingsClasses__block_invoke()
 {
-  v5[2] = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
   v2 = [v0 setWithArray:v1];
   v3 = supportedSettingsClasses_supportedSettingsClasses;
   supportedSettingsClasses_supportedSettingsClasses = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -2061,10 +2037,9 @@ void __52__HMDAccessorySettingGroup_supportedSettingsClasses__block_invoke()
 
 void __39__HMDAccessorySettingGroup_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v12_221810;
-  logCategory__hmf_once_v12_221810 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v12_221810;
+  logCategory__hmf_once_v12_221810 = v0;
 }
 
 @end

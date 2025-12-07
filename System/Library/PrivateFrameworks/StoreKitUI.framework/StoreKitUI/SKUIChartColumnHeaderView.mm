@@ -9,6 +9,7 @@
 - (void)setSelectedTitleIndex:(int64_t)index;
 - (void)setTitles:(id)titles;
 - (void)sizeToFit;
+- (void)titles;
 @end
 
 @implementation SKUIChartColumnHeaderView
@@ -223,83 +224,40 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIChartColumnHeaderView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  [(SKUIChartColumnHeaderView *)self bounds];
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  v19 = [(NSArray *)self->_buttons count];
-  v20 = v19 - 1;
-  if (v19 >= 1)
-  {
-    v21 = v19;
-    [(SKUIChartColumnHeaderView *)self edgePadding];
-    v23 = (v16 + v22 * -2.0 + (v20 * -25.0)) / v21;
-    v27[0] = 0;
-    v27[1] = v27;
-    v27[2] = 0x2020000000;
-    [(SKUIChartColumnHeaderView *)self edgePadding];
-    v27[3] = v24;
-    buttons = self->_buttons;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __43__SKUIChartColumnHeaderView_layoutSubviews__block_invoke;
-    v26[3] = &unk_2781FF4F8;
-    v26[6] = v12;
-    v26[7] = v14;
-    *&v26[8] = v16;
-    v26[9] = v18;
-    *&v26[10] = v23;
-    v26[11] = v21;
-    v26[4] = self;
-    v26[5] = v27;
-    [(NSArray *)buttons enumerateObjectsUsingBlock:v26];
-    _Block_object_dispose(v27, 8);
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIChartColumnHeaderView layoutSubviews]";
 }
 
 CGFloat __43__SKUIChartColumnHeaderView_layoutSubviews__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  [v5 frame];
-  v8 = v7;
-  v9 = *(*(a1 + 40) + 8);
-  v10 = *(v9 + 24);
-  v11 = *(a1 + 72);
-  v12 = (v11 - v7) * 0.5;
-  v13 = floorf(v12);
-  if (v6 >= *(a1 + 80))
+  v6 = [v5 frame];
+  v10 = v9;
+  v11 = *(*(a1 + 40) + 8);
+  v12 = *(v11 + 24);
+  v13 = *(a1 + 72);
+  v14 = (v13 - v9) * 0.5;
+  v15 = floorf(v14);
+  if (v8 >= *(a1 + 80))
   {
-    v14 = *(a1 + 80);
+    v16 = *(a1 + 80);
   }
 
   else
   {
-    v14 = v6;
+    v16 = v8;
   }
 
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(*(v9 + 24), v13, v14, v7, *(a1 + 48), *(a1 + 56), *(a1 + 64), v11);
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(*(v11 + 24), v15, v16, v9, *(a1 + 48), *(a1 + 56), *(a1 + 64), v13, v6, v7);
   [v5 setFrame:?];
-  v15 = *(a1 + 88) >= 2 && *(*(a1 + 32) + 464) == a3;
-  [v5 setSelected:v15];
+  v17 = *(a1 + 88) >= 2 && *(*(a1 + 32) + 464) == a3;
+  [v5 setSelected:v17];
 
-  v17.origin.x = v10;
-  v17.origin.y = v13;
-  v17.size.width = v14;
-  v17.size.height = v8;
-  result = CGRectGetMaxX(v17) + 25.0;
+  v19.origin.x = v12;
+  v19.origin.y = v15;
+  v19.size.width = v16;
+  v19.size.height = v10;
+  result = CGRectGetMaxX(v19) + 25.0;
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
@@ -417,6 +375,30 @@ CGFloat __43__SKUIChartColumnHeaderView_layoutSubviews__block_invoke(uint64_t a1
       [v6 setSelected:v8];
     }
   }
+}
+
+- (void)setSelectedTitleIndex:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIChartColumnHeaderView setSelectedTitleIndex:]";
+}
+
+- (void)setTitles:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIChartColumnHeaderView setTitles:]";
+}
+
+- (void)titles
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIChartColumnHeaderView titles]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIChartColumnHeaderView setBackgroundColor:]";
 }
 
 @end

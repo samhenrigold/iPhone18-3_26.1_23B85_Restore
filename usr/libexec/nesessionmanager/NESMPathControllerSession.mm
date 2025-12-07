@@ -10,6 +10,7 @@
 - (void)handleNetworkConfigurationChange:(int64_t)change;
 - (void)handleNetworkDetectionNotification:(int)notification;
 - (void)handleStartMessage:(id)message;
+- (void)handleStopMessageWithReason:(int)reason;
 - (void)install;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)uninstall;
@@ -967,58 +968,57 @@ LABEL_165:
       sub_1000AB668(self, a2);
     }
 
-    watchingFallbackNotifications = self->_watchingFallbackNotifications;
     if (self->_needsFallbackNotifications)
     {
       if (!self->_watchingFallbackNotifications)
       {
-        v20 = +[NSMutableArray array];
-        objc_setProperty_atomic(self, v21, v20, 456);
+        v19 = +[NSMutableArray array];
+        objc_setProperty_atomic(self, v20, v19, 456);
 
-        v22 = +[NSMutableArray array];
-        objc_setProperty_atomic(self, v23, v22, 464);
+        v21 = +[NSMutableArray array];
+        objc_setProperty_atomic(self, v22, v21, 464);
 
-        v24 = +[NSMutableSet set];
-        objc_setProperty_atomic(self, v25, v24, 472);
+        v23 = +[NSMutableSet set];
+        objc_setProperty_atomic(self, v24, v23, 472);
 
-        v26 = +[NSMutableDictionary dictionary];
-        objc_setProperty_atomic(self, v27, v26, 480);
+        v25 = +[NSMutableDictionary dictionary];
+        objc_setProperty_atomic(self, v26, v25, 480);
 
         self->_fallbackInUseToken = -1;
         queue = [(NESMSession *)self queue];
-        v29 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, queue);
+        v28 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, queue);
 
-        v30 = dispatch_time(0, -1);
-        dispatch_source_set_timer(v29, v30, 0xFFFFFFFFFFFFFFFFLL, 0x1DCD6500uLL);
+        v29 = dispatch_time(0, -1);
+        dispatch_source_set_timer(v28, v29, 0xFFFFFFFFFFFFFFFFLL, 0x1DCD6500uLL);
         *&handler = _NSConcreteStackBlock;
         *(&handler + 1) = 3221225472;
-        v48 = sub_1000AC418;
-        v49 = &unk_1000EB1C0;
+        v47 = sub_1000AC418;
+        v48 = &unk_1000EB1C0;
         selfCopy = self;
-        dispatch_source_set_event_handler(v29, &handler);
-        dispatch_resume(v29);
-        objc_setProperty_atomic(self, v31, v29, 488);
+        dispatch_source_set_event_handler(v28, &handler);
+        dispatch_resume(v28);
+        objc_setProperty_atomic(self, v30, v28, 488);
 
-        v32 = objc_alloc_init(off_1000FD220());
-        objc_setProperty_atomic(self, v33, v32, 512);
+        v31 = objc_alloc_init(off_1000FD220());
+        objc_setProperty_atomic(self, v32, v31, 512);
 
-        if (objc_getProperty(self, v34, 512, 1))
+        if (objc_getProperty(self, v33, 512, 1))
         {
-          v36 = objc_getProperty(self, v35, 512, 1);
+          v35 = objc_getProperty(self, v34, 512, 1);
           queue2 = [(NESMSession *)self queue];
-          [v36 setQueue:queue2];
+          [v35 setQueue:queue2];
 
+          [objc_getProperty(self v37];
           [objc_getProperty(self v38];
-          [objc_getProperty(self v39];
         }
 
         else
         {
-          v40 = ne_log_obj();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v39 = ne_log_obj();
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             LOWORD(handler) = 0;
-            _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "NWNetworkOfInterestManager alloc failed", &handler, 2u);
+            _os_log_error_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "NWNetworkOfInterestManager alloc failed", &handler, 2u);
           }
         }
 
@@ -1039,20 +1039,20 @@ LABEL_165:
   }
 
   sub_1000ABF54(self, a2);
-  v43 = ne_log_obj();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+  v42 = ne_log_obj();
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(handler) = 138412290;
     *(&handler + 4) = self;
-    _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "%@: Updating policies and agent on install", &handler, 0xCu);
+    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "%@: Updating policies and agent on install", &handler, 0xCu);
   }
 
   if (self)
   {
-    sub_1000A94A8(self, v44);
+    sub_1000A94A8(self, v43);
     self->_policyInstallAttemptCount = 0;
     sub_1000A83A0(self, 1, 1);
-    Property = objc_getProperty(self, v45, 368, 1);
+    Property = objc_getProperty(self, v44, 368, 1);
   }
 
   else
@@ -1227,6 +1227,41 @@ LABEL_165:
   return v11;
 }
 
+- (void)handleStopMessageWithReason:(int)reason
+{
+  v3 = *&reason;
+  v5 = ne_log_obj();
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v3 == 36)
+  {
+    if (v6)
+    {
+      *buf = 138412290;
+      selfCopy2 = self;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@: Resetting policies", buf, 0xCu);
+    }
+
+    [(NESMSession *)self setRestartPending:0];
+    sub_1000A83A0(self, 1, 0);
+  }
+
+  else
+  {
+    if (v6)
+    {
+      *buf = 138412290;
+      selfCopy2 = self;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@: Uninstalling", buf, 0xCu);
+    }
+
+    v8.receiver = self;
+    v8.super_class = NESMPathControllerSession;
+    [(NESMSession *)&v8 handleStopMessageWithReason:v3];
+    server = [(NESMSession *)self server];
+    [server requestUninstallForSession:self];
+  }
+}
+
 - (void)handleStartMessage:(id)message
 {
   v5.receiver = self;
@@ -1239,9 +1274,9 @@ LABEL_165:
 - (NESMPathControllerSession)initWithConfiguration:(id)configuration andServer:(id)server
 {
   configurationCopy = configuration;
-  v17.receiver = self;
-  v17.super_class = NESMPathControllerSession;
-  v7 = [(NESMSession *)&v17 initWithConfiguration:configurationCopy andServer:server];
+  v18.receiver = self;
+  v18.super_class = NESMPathControllerSession;
+  v7 = [(NESMSession *)&v18 initWithConfiguration:configurationCopy andServer:server];
   v8 = v7;
   if (v7)
   {
@@ -1263,7 +1298,7 @@ LABEL_165:
 
     [(NESMSession *)v8 setPolicySession:v13];
 
-    sub_10008E79C(v8);
+    sub_10008E79C(v8, v16);
   }
 
   return v8;

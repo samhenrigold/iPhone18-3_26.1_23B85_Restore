@@ -89,7 +89,7 @@ uint64_t std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,s
   return a1;
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -134,35 +134,35 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
   }
 }
 
-std::__split_buffer<std::string>::pointer nlv4_inference_orchestrator::vocabulary::Vocabulary::insertToken(void *a1, const void **a2)
+std::__split_buffer<std::string>::pointer nlv4_inference_orchestrator::vocabulary::Vocabulary::insertToken(void *a1, const void **a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100]((a1 + 18), a2);
-  v5 = v4;
-  v6 = a1[19];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100]((a1 + 18), a2);
+  v6 = v5;
+  v7 = a1[19];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(a1[18] + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(a1[18] + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -170,54 +170,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100]((a1 + 18), v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100]((a1 + 18), v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  v13 = a1[24];
-  v14 = (a1 + 23);
-  if (v13 >= a1[25])
+  v14 = a1[24];
+  v15 = (a1 + 23);
+  if (v14 >= a1[25])
   {
-    result = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(v14, a2);
+    result = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(v15, a2);
   }
 
   else
   {
-    std::vector<std::string>::__construct_one_at_end[abi:ne200100]<std::string const&>(v14, a2);
-    result = v13 + 1;
+    std::vector<std::string>::__construct_one_at_end[abi:ne200100]<std::string const&>(v15, a2);
+    result = v14 + 1;
   }
 
   a1[24] = result;
@@ -244,9 +244,9 @@ void std::vector<std::string>::__construct_one_at_end[abi:ne200100]<std::string 
 
 uint64_t nlv4_inference_orchestrator::vocabulary::Vocabulary::Vocabulary(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v22[19] = *MEMORY[0x277D85DE8];
+  v19[19] = *MEMORY[0x277D85DE8];
   v6 = std::string::basic_string[abi:ne200100]<0>(a1, "[UNK]");
-  std::string::basic_string[abi:ne200100]<0>(v6 + 24, "[PAD]");
+  std::string::basic_string[abi:ne200100]<0>(v6 + 3, "[PAD]");
   std::string::basic_string[abi:ne200100]<0>((a1 + 48), "[CLS]");
   std::string::basic_string[abi:ne200100]<0>((a1 + 72), "[SEP]");
   *(a1 + 144) = 0u;
@@ -261,62 +261,59 @@ uint64_t nlv4_inference_orchestrator::vocabulary::Vocabulary::Vocabulary(uint64_
   *(a1 + 184) = 0;
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
-  v7 = std::ifstream::basic_ifstream(v20, a2);
-  v8 = *(a1 + 128);
+  v7 = std::ifstream::basic_ifstream(v17, a2);
   MEMORY[0x28223BE20](v7);
-  v9 = *(a1 + 128);
-  (*(v21[0] + 24))(v21);
-  if ((*(&v21[2] + *(v20[0] - 24)) & 5) != 0)
+  (*(v18[0] + 24))(v18);
+  if ((*(&v18[2] + *(v17[0] - 24)) & 5) != 0)
   {
-    std::ifstream::close(v20);
+    std::ifstream::close(v17);
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    std::runtime_error::runtime_error(exception, &v19);
+    std::runtime_error::runtime_error(exception, &v16);
     exception->__vftable = &unk_2835E9238;
   }
 
-  nlv4_inference_orchestrator::vocabulary::Vocabulary::initializeFromStream(a1, v20);
+  nlv4_inference_orchestrator::vocabulary::Vocabulary::initializeFromStream(a1, v17);
   if (!std::filebuf::close())
   {
-    std::ios_base::clear((v20 + *(v20[0] - 24)), *(&v21[2] + *(v20[0] - 24)) | 4);
+    std::ios_base::clear((v17 + *(v17[0] - 24)), *(&v18[2] + *(v17[0] - 24)) | 4);
   }
 
-  v10 = std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>((a1 + 144), (a1 + 24));
-  if (v10)
+  v8 = std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>((a1 + 144), (a1 + 24));
+  if (v8)
   {
-    v11 = v10[5];
-    v12 = 1;
+    v9 = v8[5];
+    v10 = 1;
   }
 
   else
   {
+    v10 = 0;
+    v9 = 0;
+  }
+
+  *(a1 + 112) = v9;
+  *(a1 + 120) = v10;
+  v11 = std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>((a1 + 144), a1);
+  if (v11)
+  {
+    v12 = v11[5];
+    v13 = 1;
+  }
+
+  else
+  {
+    v13 = 0;
     v12 = 0;
-    v11 = 0;
   }
 
-  *(a1 + 112) = v11;
-  *(a1 + 120) = v12;
-  v13 = std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>((a1 + 144), a1);
-  if (v13)
-  {
-    v14 = v13[5];
-    v15 = 1;
-  }
-
-  else
-  {
-    v15 = 0;
-    v14 = 0;
-  }
-
-  *(a1 + 96) = v14;
-  *(a1 + 104) = v15;
-  v20[0] = *MEMORY[0x277D82808];
-  *(v20 + *(v20[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-  MEMORY[0x223DC47C0](v21);
+  *(a1 + 96) = v12;
+  *(a1 + 104) = v13;
+  v17[0] = *MEMORY[0x277D82808];
+  *(v17 + *(v17[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+  MEMORY[0x223DC47C0](v18);
   std::istream::~istream();
-  MEMORY[0x223DC4C10](v22);
-  v16 = *MEMORY[0x277D85DE8];
+  MEMORY[0x223DC4C10](v19);
   return a1;
 }
 
@@ -372,8 +369,6 @@ void std::vector<std::string>::reserve(std::vector<std::string> *this, std::vect
   {
     if (__n < 0xAAAAAAAAAAAAAABLL)
     {
-      v2 = this->__end_ - this->__begin_;
-      v3.__end_cap_.__value_ = this;
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(this, __n);
     }
 
@@ -431,7 +426,7 @@ LABEL_2:
   {
     std::vector<std::string>::reserve((a1 + 184), *(a1 + 136));
     std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__rehash<true>(a1 + 144, vcvtps_u32_f32(*(a1 + 136) / *(a1 + 176)));
-    nlv4_inference_orchestrator::vocabulary::Vocabulary::insertToken(a1, &__p);
+    nlv4_inference_orchestrator::vocabulary::Vocabulary::insertToken(a1, &__p, 0);
     v7 = 1;
   }
 
@@ -456,8 +451,7 @@ LABEL_2:
 
     if (v13)
     {
-      nlv4_inference_orchestrator::vocabulary::Vocabulary::insertToken(a1, &__p);
-      ++v7;
+      nlv4_inference_orchestrator::vocabulary::Vocabulary::insertToken(a1, &__p, v7++);
     }
   }
 
@@ -548,50 +542,50 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::variant<i
 
 void snlp::ssu::espresso::SSUNessieModel::getEspressoE5Model(snlp::ssu::espresso::SSUNessieModel *this@<X0>, std::string::size_type a2@<X8>)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  memset(&v14, 0, sizeof(v14));
-  std::string::append[abi:ne200100]<char const*,0>(&v14.__pn_, "nessie_e5.bundle/universal.bundle/universal.e5", "");
+  v15 = *MEMORY[0x277D85DE8];
+  memset(&v12, 0, sizeof(v12));
+  std::string::append[abi:ne200100]<char const*,0>(&v12.__pn_, "nessie_e5.bundle/universal.bundle/universal.e5", "");
   memset(&__p, 0, sizeof(__p));
   std::string::append[abi:ne200100]<char const*,0>(&__p, "nessie.mlmodelc/model.bundle/universal.bundle/universal.e5", "");
-  std::__fs::filesystem::operator/[abi:ne200100](&v12.__pn_, this, &__p);
-  std::__fs::filesystem::__status(&v12, 0);
-  if (v15 && v15 != 255)
+  std::__fs::filesystem::operator/[abi:ne200100](&v10.__pn_, this, &__p);
+  std::__fs::filesystem::__status(&v10, 0);
+  if (v13 && v13 != 255)
   {
-    if ((SHIBYTE(v12.__pn_.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v10.__pn_.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      v5 = 0;
-      *a2 = v12;
+      v4 = 0;
+      *a2 = v10;
       goto LABEL_17;
     }
 
-    std::string::__init_copy_ctor_external(a2, v12.__pn_.__r_.__value_.__l.__data_, v12.__pn_.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(a2, v10.__pn_.__r_.__value_.__l.__data_, v10.__pn_.__r_.__value_.__l.__size_);
     goto LABEL_16;
   }
 
-  std::__fs::filesystem::operator/[abi:ne200100](a2, this, &v14);
+  std::__fs::filesystem::operator/[abi:ne200100](a2, this, &v12);
   std::__fs::filesystem::__status(a2, 0);
-  if (v15 && v15 != 255)
+  if (v13 && v13 != 255)
   {
-    v6 = SNLPOSLoggerForCategory(8);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v5 = SNLPOSLoggerForCategory(8);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       if (*(a2 + 23) >= 0)
       {
-        v7 = a2;
+        v6 = a2;
       }
 
       else
       {
-        v7 = *a2;
+        v6 = *a2;
       }
 
       LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
-      *(buf.__r_.__value_.__r.__words + 4) = v7;
-      _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_DEBUG, "Falling back on deprecated Espresso model file: %s", &buf, 0xCu);
+      *(buf.__r_.__value_.__r.__words + 4) = v6;
+      _os_log_impl(&dword_22284A000, v5, OS_LOG_TYPE_DEBUG, "Falling back on deprecated Espresso model file: %s", &buf, 0xCu);
     }
 
 LABEL_16:
-    v5 = 0;
+    v4 = 0;
     goto LABEL_17;
   }
 
@@ -600,14 +594,14 @@ LABEL_16:
     operator delete(*a2);
   }
 
-  v5 = 1;
+  v4 = 1;
 LABEL_17:
-  if (SHIBYTE(v12.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v10.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v12.__pn_.__r_.__value_.__l.__data_);
+    operator delete(v10.__pn_.__r_.__value_.__l.__data_);
   }
 
-  if (v5)
+  if (v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     if (*(this + 23) < 0)
@@ -620,14 +614,14 @@ LABEL_17:
       buf = *this;
     }
 
-    v10 = std::string::insert(&buf, 0, "Could not find Espresso model in ");
-    v11 = *&v10->__r_.__value_.__l.__data_;
-    v12.__pn_.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-    *&v12.__pn_.__r_.__value_.__l.__data_ = v11;
-    v10->__r_.__value_.__l.__size_ = 0;
-    v10->__r_.__value_.__r.__words[2] = 0;
-    v10->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(exception, &v12.__pn_);
+    v8 = std::string::insert(&buf, 0, "Could not find Espresso model in ");
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v10.__pn_.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v10.__pn_.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(exception, &v10.__pn_);
     exception->__vftable = &unk_2835E9238;
   }
 
@@ -636,12 +630,10 @@ LABEL_17:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v14.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v12.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v14.__pn_.__r_.__value_.__l.__data_);
+    operator delete(v12.__pn_.__r_.__value_.__l.__data_);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22285F378(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
@@ -693,341 +685,341 @@ void sub_22285F434(void *a1, int a2)
 
 void snlp::ssu::espresso::SSUNessieModel::buildFromAssetsDirectory(snlp::ssu::espresso::SSUNessieModel *a1)
 {
-  v52 = *MEMORY[0x277D85DE8];
-  snlp::ssu::espresso::SSUNessieModel::getEspressoE5Model(a1, &v34);
-  std::__fs::filesystem::path::path[abi:ne200100]<char [12],void>(&v33.__pn_, "config.json");
-  std::__fs::filesystem::operator/[abi:ne200100](&v32, a1, &v33);
-  v2 = SNLPOSLoggerForCategory(8);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v55 = *MEMORY[0x277D85DE8];
+  snlp::ssu::espresso::SSUNessieModel::getEspressoE5Model(a1, &v37);
+  std::__fs::filesystem::path::path[abi:ne200100]<char [12],void>(&v36.__pn_, "config.json");
+  std::__fs::filesystem::operator/[abi:ne200100](&v35, a1, &v36);
+  v5 = SNLPOSLoggerForCategory(8);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v47, v34.__r_.__value_.__l.__data_, v34.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v50, v37.__r_.__value_.__l.__data_, v37.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v47 = v34;
+      v50 = v37;
     }
 
-    if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v50.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v3 = &v47;
-    }
-
-    else
-    {
-      v3 = v47.__r_.__value_.__r.__words[0];
-    }
-
-    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v39, v32.__r_.__value_.__l.__data_, v32.__r_.__value_.__l.__size_);
+      v6 = &v50;
     }
 
     else
     {
-      v39 = v32;
+      v6 = v50.__r_.__value_.__r.__words[0];
     }
 
-    v4 = &v39;
-    if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
     {
-      v4 = v39.__r_.__value_.__r.__words[0];
+      std::string::__init_copy_ctor_external(&v42, v35.__r_.__value_.__l.__data_, v35.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v42 = v35;
+    }
+
+    v7 = &v42;
+    if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v7 = v42.__r_.__value_.__r.__words[0];
     }
 
     *buf = 136315394;
-    *&buf[4] = v3;
+    *&buf[4] = v6;
     *&buf[12] = 2080;
-    *&buf[14] = v4;
-    _os_log_impl(&dword_22284A000, v2, OS_LOG_TYPE_DEBUG, "Building SSU Nessie model using E5 path %s and config JSON path %s", buf, 0x16u);
-    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+    *&buf[14] = v7;
+    _os_log_impl(&dword_22284A000, v5, OS_LOG_TYPE_DEBUG, "Building SSU Nessie model using E5 path %s and config JSON path %s", buf, 0x16u);
+    if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v39.__r_.__value_.__l.__data_);
+      operator delete(v42.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v47.__r_.__value_.__l.__data_);
-    }
-  }
-
-  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v31, v32.__r_.__value_.__l.__data_, v32.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v31 = v32;
-  }
-
-  std::ifstream::basic_ifstream(&v47, &v31);
-  std::string::basic_string[abi:ne200100]<0>(v37, "SSU");
-  if ((*(&v47 + *(v47.__r_.__value_.__r.__words[0] - 24) + 32) & 5) != 0)
-  {
-    std::operator+<char>();
-    v5 = std::string::append(&v50, ".");
-    v6 = *&v5->__r_.__value_.__l.__data_;
-    v39.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
-    *&v39.__r_.__value_.__l.__data_ = v6;
-    v5->__r_.__value_.__l.__size_ = 0;
-    v5->__r_.__value_.__r.__words[2] = 0;
-    v5->__r_.__value_.__r.__words[0] = 0;
     if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v50.__r_.__value_.__l.__data_);
     }
+  }
 
-    v7 = SNLPOSLoggerForCategory(4);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v34, v35.__r_.__value_.__l.__data_, v35.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v34 = v35;
+  }
+
+  std::ifstream::basic_ifstream(&v50, &v34);
+  std::string::basic_string[abi:ne200100]<0>(v40, "SSU");
+  if ((*(&v50 + *(v50.__r_.__value_.__r.__words[0] - 24) + 32) & 5) != 0)
+  {
+    std::operator+<char>();
+    v8 = std::string::append(&v53, ".");
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v42.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v42.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
     {
-      v8 = v37;
-      if (v38 < 0)
+      operator delete(v53.__r_.__value_.__l.__data_);
+    }
+
+    v10 = SNLPOSLoggerForCategory(4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v11 = v40;
+      if (v41 < 0)
       {
-        v8 = v37[0];
+        v11 = v40[0];
       }
 
-      v9 = &v39;
-      if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v12 = &v42;
+      if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v9 = v39.__r_.__value_.__r.__words[0];
+        v12 = v42.__r_.__value_.__r.__words[0];
       }
 
-      LODWORD(v50.__r_.__value_.__l.__data_) = 136315394;
-      *(v50.__r_.__value_.__r.__words + 4) = v8;
-      WORD2(v50.__r_.__value_.__r.__words[1]) = 2080;
-      *(&v50.__r_.__value_.__r.__words[1] + 6) = v9;
-      _os_log_impl(&dword_22284A000, v7, OS_LOG_TYPE_ERROR, "[%s] %s", &v50, 0x16u);
+      LODWORD(v53.__r_.__value_.__l.__data_) = 136315394;
+      *(v53.__r_.__value_.__r.__words + 4) = v11;
+      WORD2(v53.__r_.__value_.__r.__words[1]) = 2080;
+      *(&v53.__r_.__value_.__r.__words[1] + 6) = v12;
+      _os_log_impl(&dword_22284A000, v10, OS_LOG_TYPE_ERROR, "[%s] %s", &v53, 0x16u);
     }
 
     memset(buf, 0, sizeof(buf));
-    v46 = 1065353216;
-    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+    v49 = 1065353216;
+    if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v39.__r_.__value_.__l.__data_);
+      operator delete(v42.__r_.__value_.__l.__data_);
     }
 
     goto LABEL_102;
   }
 
-  v35[0] = 0;
-  v36 = 0;
-  nlohmann::operator>>(&v47, v35);
+  v38[0] = 0;
+  v39 = 0;
+  nlohmann::operator>>(&v50, v38);
   memset(buf, 0, sizeof(buf));
-  v46 = 1065353216;
+  v49 = 1065353216;
   std::string::basic_string[abi:ne200100]<0>(__p, "SSU");
-  v50.__r_.__value_.__r.__words[0] = v35;
-  *&v50.__r_.__value_.__r.__words[1] = 0uLL;
-  v51 = 0x8000000000000000;
-  v10 = v35[0];
-  if (v35[0])
+  v53.__r_.__value_.__r.__words[0] = v38;
+  *&v53.__r_.__value_.__r.__words[1] = 0uLL;
+  v54 = 0x8000000000000000;
+  v13 = v38[0];
+  if (v38[0])
   {
-    if (v35[0] == 2)
+    if (v38[0] == 2)
     {
-      v50.__r_.__value_.__r.__words[2] = *v36;
+      v53.__r_.__value_.__r.__words[2] = *v39;
     }
 
-    else if (v35[0] == 1)
+    else if (v38[0] == 1)
     {
-      v50.__r_.__value_.__l.__size_ = *v36;
+      v53.__r_.__value_.__l.__size_ = *v39;
     }
 
     else
     {
-      v51 = 0;
+      v54 = 0;
     }
   }
 
   else
   {
-    v51 = 1;
+    v54 = 1;
   }
 
   while (1)
   {
-    *&v39.__r_.__value_.__r.__words[1] = 0uLL;
-    v39.__r_.__value_.__r.__words[0] = v35;
-    v40[0] = 0x8000000000000000;
-    if (v10 == 2)
+    *&v42.__r_.__value_.__r.__words[1] = 0uLL;
+    v42.__r_.__value_.__r.__words[0] = v38;
+    v43[0] = 0x8000000000000000;
+    if (v13 == 2)
     {
-      v39.__r_.__value_.__r.__words[2] = v36[1];
+      v42.__r_.__value_.__r.__words[2] = v39[1];
     }
 
-    else if (v10 == 1)
+    else if (v13 == 1)
     {
-      v39.__r_.__value_.__l.__size_ = (v36 + 1);
+      v42.__r_.__value_.__l.__size_ = (v39 + 1);
     }
 
     else
     {
-      v40[0] = 1;
+      v43[0] = 1;
     }
 
-    if (nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator==<nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>,(decltype(nullptr))0>(&v50, &v39))
+    if (nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator==<nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>,(decltype(nullptr))0>(&v53, &v42))
     {
-      std::string::basic_string[abi:ne200100]<0>(&v39, "component_name");
-      v50.__r_.__value_.__r.__words[0] = &v39;
-      v42.__r_.__value_.__r.__words[0] = __p;
-      std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<std::string const&>>(buf, &v39.__r_.__value_.__l.__data_);
-      if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v42, "component_name");
+      v53.__r_.__value_.__r.__words[0] = &v42;
+      v45.__r_.__value_.__r.__words[0] = __p;
+      std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<std::string const&>>(buf, &v42.__r_.__value_.__l.__data_, &v53, &v45);
+      if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v39.__r_.__value_.__l.__data_);
+        operator delete(v42.__r_.__value_.__l.__data_);
       }
 
-      if (v44 < 0)
+      if (v47 < 0)
       {
         operator delete(__p[0]);
       }
 
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v36, v35[0]);
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v39, v38[0]);
 LABEL_102:
-      if (v38 < 0)
+      if (v41 < 0)
       {
-        operator delete(v37[0]);
+        operator delete(v40[0]);
       }
 
-      v47.__r_.__value_.__r.__words[0] = *MEMORY[0x277D82808];
-      *(v47.__r_.__value_.__r.__words + *(v47.__r_.__value_.__r.__words[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-      MEMORY[0x223DC47C0](&v47.__r_.__value_.__r.__words[2]);
+      v50.__r_.__value_.__r.__words[0] = *MEMORY[0x277D82808];
+      *(v50.__r_.__value_.__r.__words + *(v50.__r_.__value_.__r.__words[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+      MEMORY[0x223DC47C0](&v50.__r_.__value_.__r.__words[2]);
       std::istream::~istream();
-      MEMORY[0x223DC4C10](&v48);
-      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v31.__r_.__value_.__l.__data_);
-      }
-
+      MEMORY[0x223DC4C10](&v51);
       if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v47, v34.__r_.__value_.__l.__data_, v34.__r_.__value_.__l.__size_);
+        operator delete(v34.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+      {
+        std::string::__init_copy_ctor_external(&v50, v37.__r_.__value_.__l.__data_, v37.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v47 = v34;
+        v50 = v37;
       }
 
       operator new();
     }
 
-    v11 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::key(*v50.__r_.__value_.__l.__data_, v50.__r_.__value_.__l.__size_);
-    if (*(v11 + 23) < 0)
+    v14 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::key(*v53.__r_.__value_.__l.__data_, v53.__r_.__value_.__l.__size_);
+    if (*(v14 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v42, *v11, *(v11 + 8));
+      std::string::__init_copy_ctor_external(&v45, *v14, *(v14 + 8));
     }
 
     else
     {
-      v12 = *v11;
-      v42.__r_.__value_.__r.__words[2] = *(v11 + 16);
-      *&v42.__r_.__value_.__l.__data_ = v12;
+      v15 = *v14;
+      v45.__r_.__value_.__r.__words[2] = *(v14 + 16);
+      *&v45.__r_.__value_.__l.__data_ = v15;
     }
 
-    if (*nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v50) == 5)
+    if (*nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v53) == 5)
     {
       break;
     }
 
-    if (*nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v50) == 6)
+    if (*nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v53) == 6)
     {
-      v15 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v50);
-      LODWORD(v39.__r_.__value_.__l.__data_) = 0;
-      nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,unsigned int,0>(v15, &v39);
-      data = v39.__r_.__value_.__l.__data_;
-      if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+      v18 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v53);
+      LODWORD(v42.__r_.__value_.__l.__data_) = 0;
+      nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,unsigned int,0>(v18, &v42);
+      data = v42.__r_.__value_.__l.__data_;
+      if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v39, v42.__r_.__value_.__l.__data_, v42.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v42, v45.__r_.__value_.__l.__data_, v45.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v39 = v42;
+        v42 = v45;
       }
 
-      LODWORD(v40[0]) = data;
-      v41 = 1;
-      std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<int,unsigned int,float,BOOL,std::string>>>(buf, &v39.__r_.__value_.__l.__data_);
+      LODWORD(v43[0]) = data;
+      v44 = 1;
+      std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<int,unsigned int,float,BOOL,std::string>>>(buf, &v42.__r_.__value_.__l.__data_, &v42);
       goto LABEL_81;
     }
 
-    if (*nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v50) == 7)
+    if (*nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v53) == 7)
     {
-      v17 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v50);
-      LODWORD(v39.__r_.__value_.__l.__data_) = 0;
-      nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,float,0>(v17, &v39, v18);
-      v19 = v39.__r_.__value_.__l.__data_;
-      if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+      v20 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v53);
+      LODWORD(v42.__r_.__value_.__l.__data_) = 0;
+      nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,float,0>(v20, &v42, v21);
+      v22 = v42.__r_.__value_.__l.__data_;
+      if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v39, v42.__r_.__value_.__l.__data_, v42.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v42, v45.__r_.__value_.__l.__data_, v45.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v39 = v42;
+        v42 = v45;
       }
 
-      LODWORD(v40[0]) = v19;
-      v41 = 2;
-      std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<int,unsigned int,float,BOOL,std::string>>>(buf, &v39.__r_.__value_.__l.__data_);
+      LODWORD(v43[0]) = v22;
+      v44 = 2;
+      std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<int,unsigned int,float,BOOL,std::string>>>(buf, &v42.__r_.__value_.__l.__data_, &v42);
       goto LABEL_81;
     }
 
-    if (*nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v50) == 4)
+    if (*nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v53) == 4)
     {
-      v20 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v50);
-      v39.__r_.__value_.__s.__data_[0] = 0;
-      nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(v20, &v39);
-      v21 = v39.__r_.__value_.__s.__data_[0];
-      if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+      v23 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v53);
+      v42.__r_.__value_.__s.__data_[0] = 0;
+      nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(v23, &v42);
+      v24 = v42.__r_.__value_.__s.__data_[0];
+      if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v39, v42.__r_.__value_.__l.__data_, v42.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v42, v45.__r_.__value_.__l.__data_, v45.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v39 = v42;
+        v42 = v45;
       }
 
-      LOBYTE(v40[0]) = v21;
-      v41 = 3;
-      std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<int,unsigned int,float,BOOL,std::string>>>(buf, &v39.__r_.__value_.__l.__data_);
+      LOBYTE(v43[0]) = v24;
+      v44 = 3;
+      std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<int,unsigned int,float,BOOL,std::string>>>(buf, &v42.__r_.__value_.__l.__data_, &v42);
       goto LABEL_81;
     }
 
-    if (*nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v50) != 3)
+    if (*nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v53) != 3)
     {
-      if (*nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v50))
+      if (*nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v53))
       {
         std::operator+<char>();
-        v24 = std::string::append(&v49, ".");
-        v25 = *&v24->__r_.__value_.__l.__data_;
-        v39.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
-        *&v39.__r_.__value_.__l.__data_ = v25;
-        v24->__r_.__value_.__l.__size_ = 0;
-        v24->__r_.__value_.__r.__words[2] = 0;
-        v24->__r_.__value_.__r.__words[0] = 0;
-        if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
+        v27 = std::string::append(&v52, ".");
+        v28 = *&v27->__r_.__value_.__l.__data_;
+        v42.__r_.__value_.__r.__words[2] = v27->__r_.__value_.__r.__words[2];
+        *&v42.__r_.__value_.__l.__data_ = v28;
+        v27->__r_.__value_.__l.__size_ = 0;
+        v27->__r_.__value_.__r.__words[2] = 0;
+        v27->__r_.__value_.__r.__words[0] = 0;
+        if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v49.__r_.__value_.__l.__data_);
+          operator delete(v52.__r_.__value_.__l.__data_);
         }
 
-        v26 = SNLPOSLoggerForCategory(4);
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v29 = SNLPOSLoggerForCategory(4);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
-          v27 = __p;
-          if (v44 < 0)
+          v30 = __p;
+          if (v47 < 0)
           {
-            v27 = __p[0];
+            v30 = __p[0];
           }
 
-          if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v28 = &v39;
+            v31 = &v42;
           }
 
           else
           {
-            v28 = v39.__r_.__value_.__r.__words[0];
+            v31 = v42.__r_.__value_.__r.__words[0];
           }
 
           goto LABEL_96;
@@ -1037,110 +1029,110 @@ LABEL_102:
       else
       {
         std::operator+<char>();
-        v29 = std::string::append(&v49, " is null.  This is currently expected behaviour.");
-        v30 = *&v29->__r_.__value_.__l.__data_;
-        v39.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
-        *&v39.__r_.__value_.__l.__data_ = v30;
-        v29->__r_.__value_.__l.__size_ = 0;
-        v29->__r_.__value_.__r.__words[2] = 0;
-        v29->__r_.__value_.__r.__words[0] = 0;
-        if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
+        v32 = std::string::append(&v52, " is null.  This is currently expected behaviour.");
+        v33 = *&v32->__r_.__value_.__l.__data_;
+        v42.__r_.__value_.__r.__words[2] = v32->__r_.__value_.__r.__words[2];
+        *&v42.__r_.__value_.__l.__data_ = v33;
+        v32->__r_.__value_.__l.__size_ = 0;
+        v32->__r_.__value_.__r.__words[2] = 0;
+        v32->__r_.__value_.__r.__words[0] = 0;
+        if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v49.__r_.__value_.__l.__data_);
+          operator delete(v52.__r_.__value_.__l.__data_);
         }
 
-        v26 = SNLPOSLoggerForCategory(4);
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v29 = SNLPOSLoggerForCategory(4);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
-          v27 = __p;
-          if (v44 < 0)
+          v30 = __p;
+          if (v47 < 0)
           {
-            v27 = __p[0];
+            v30 = __p[0];
           }
 
-          if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v28 = &v39;
+            v31 = &v42;
           }
 
           else
           {
-            v28 = v39.__r_.__value_.__r.__words[0];
+            v31 = v42.__r_.__value_.__r.__words[0];
           }
 
 LABEL_96:
-          LODWORD(v49.__r_.__value_.__l.__data_) = 136315394;
-          *(v49.__r_.__value_.__r.__words + 4) = v27;
-          WORD2(v49.__r_.__value_.__r.__words[1]) = 2080;
-          *(&v49.__r_.__value_.__r.__words[1] + 6) = v28;
-          _os_log_impl(&dword_22284A000, v26, OS_LOG_TYPE_DEBUG, "[%s] %s", &v49, 0x16u);
+          LODWORD(v52.__r_.__value_.__l.__data_) = 136315394;
+          *(v52.__r_.__value_.__r.__words + 4) = v30;
+          WORD2(v52.__r_.__value_.__r.__words[1]) = 2080;
+          *(&v52.__r_.__value_.__r.__words[1] + 6) = v31;
+          _os_log_impl(&dword_22284A000, v29, OS_LOG_TYPE_DEBUG, "[%s] %s", &v52, 0x16u);
         }
       }
 
 LABEL_82:
-      if ((SHIBYTE(v39.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v42.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_85;
       }
 
-      v23 = v39.__r_.__value_.__r.__words[0];
+      v26 = v42.__r_.__value_.__r.__words[0];
       goto LABEL_84;
     }
 
-    v22 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v50);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get_impl<std::string,0>(&v49, v22);
-    std::pair<std::string const,std::variant<int,unsigned int,float,BOOL,std::string>>::pair[abi:ne200100]<std::string&,std::string const&,0>(&v39, &v42, &v49);
-    std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<int,unsigned int,float,BOOL,std::string>>>(buf, &v39.__r_.__value_.__l.__data_);
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<int,unsigned int,float,BOOL,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v40);
-    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v39.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
-    {
-      v23 = v49.__r_.__value_.__r.__words[0];
-LABEL_84:
-      operator delete(v23);
-    }
-
-LABEL_85:
+    v25 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v53);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::get_impl<std::string,0>(&v52, v25);
+    std::pair<std::string const,std::variant<int,unsigned int,float,BOOL,std::string>>::pair[abi:ne200100]<std::string&,std::string const&,0>(&v42, &v45, &v52);
+    std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<int,unsigned int,float,BOOL,std::string>>>(buf, &v42.__r_.__value_.__l.__data_, &v42);
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<int,unsigned int,float,BOOL,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v43);
     if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v42.__r_.__value_.__l.__data_);
     }
 
-    nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator++(&v50);
-    v10 = v35[0];
+    if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+    {
+      v26 = v52.__r_.__value_.__r.__words[0];
+LABEL_84:
+      operator delete(v26);
+    }
+
+LABEL_85:
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v45.__r_.__value_.__l.__data_);
+    }
+
+    nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator++(&v53);
+    v13 = v38[0];
   }
 
-  v13 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v50);
-  LODWORD(v39.__r_.__value_.__l.__data_) = 0;
-  nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,int,0>(v13, &v39);
-  v14 = v39.__r_.__value_.__l.__data_;
-  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  v16 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> const>::operator*(&v53);
+  LODWORD(v42.__r_.__value_.__l.__data_) = 0;
+  nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,int,0>(v16, &v42);
+  v17 = v42.__r_.__value_.__l.__data_;
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v39, v42.__r_.__value_.__l.__data_, v42.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v42, v45.__r_.__value_.__l.__data_, v45.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v39 = v42;
+    v42 = v45;
   }
 
-  LODWORD(v40[0]) = v14;
-  v41 = 0;
-  std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<int,unsigned int,float,BOOL,std::string>>>(buf, &v39.__r_.__value_.__l.__data_);
+  LODWORD(v43[0]) = v17;
+  v44 = 0;
+  std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<int,unsigned int,float,BOOL,std::string>>>(buf, &v42.__r_.__value_.__l.__data_, &v42);
 LABEL_81:
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<int,unsigned int,float,BOOL,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v40);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<int,unsigned int,float,BOOL,std::string>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v43);
   goto LABEL_82;
 }
 
-void sub_22285FE54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, unsigned __int8 a36, uint64_t *a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *__p, uint64_t a53, int a54, __int16 a55, char a56, char a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
+void sub_22285FE54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, unsigned __int8 a36, void *a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *__p, uint64_t a53, int a54, __int16 a55, char a56, char a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
 {
-  if (*(v70 - 169) < 0)
+  if (*(v65 - 169) < 0)
   {
-    operator delete(*(v70 - 192));
+    operator delete(*(v65 - 192));
   }
 
   if (a57 < 0)
@@ -1160,7 +1152,7 @@ void sub_22285FE54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a38);
   }
 
-  std::ifstream::~ifstream(&a70, MEMORY[0x277D82808]);
+  std::ifstream::~ifstream(&a65, MEMORY[0x277D82808]);
   MEMORY[0x223DC4C10](&STACK[0x2E8]);
   if (a16 < 0)
   {
@@ -1270,18 +1262,17 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatc
   result = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
   *v2 = result;
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
+  *(a2 + 8) = 0uLL;
   a2->n128_u64[0] = 0;
   return result;
 }
 
 int *nlv4_inference_orchestrator::span_matching::MatchedSpansFeaturizer::MatchedSpansFeaturizer(int *a1, uint64_t *a2, uint64_t a3, void *a4, int *a5)
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   *a1 = *a5;
   *(a1 + 2) = 0u;
-  v59 = a1 + 2;
+  v58 = a1 + 2;
   *(a1 + 6) = 0u;
   a1[10] = 1065353216;
   nlv4_inference_orchestrator::vocabulary::Vocabulary::Vocabulary((a1 + 12), a2, 32);
@@ -1292,7 +1283,7 @@ int *nlv4_inference_orchestrator::span_matching::MatchedSpansFeaturizer::Matched
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(a1 + 256, "[NO_SPAN]");
+  std::string::basic_string[abi:ne200100]<0>(a1 + 32, "[NO_SPAN]");
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -1314,14 +1305,14 @@ int *nlv4_inference_orchestrator::span_matching::MatchedSpansFeaturizer::Matched
   }
 
   std::string::basic_string[abi:ne200100]<0>(buf, "common_Integer");
-  std::string::basic_string[abi:ne200100]<0>(v68, "common_MixedFraction");
-  std::string::basic_string[abi:ne200100]<0>(v71, "common_ListPosition");
+  std::string::basic_string[abi:ne200100]<0>(&v67, "common_MixedFraction");
+  std::string::basic_string[abi:ne200100]<0>(v70, "common_ListPosition");
   std::unordered_set<std::string>::unordered_set((a1 + 98), buf, 3);
-  for (i = 0; i != -72; i -= 24)
+  for (i = 0; i != -9; i -= 3)
   {
-    if (v74[i - 1] < 0)
+    if (*(&v72 + i * 8) < 0)
     {
-      operator delete(*&v71[i]);
+      operator delete(v70[i]);
     }
   }
 
@@ -1332,21 +1323,21 @@ int *nlv4_inference_orchestrator::span_matching::MatchedSpansFeaturizer::Matched
   *(a1 + 34) = 0u;
   *buf = 0;
   std::string::basic_string[abi:ne200100]<0>(&buf[8], "DataDetector");
-  v69[0] = 2;
-  std::string::basic_string[abi:ne200100]<0>(v70, "UserVocabMatcher");
-  v72 = 3;
-  std::string::basic_string[abi:ne200100]<0>(v74, "SingleTrieMatcher");
-  v75 = 4;
-  std::string::basic_string[abi:ne200100]<0>(v76, "ContextMatcher");
-  v77 = 5;
-  std::string::basic_string[abi:ne200100]<0>(v78, "OvertonMatcher");
-  v79 = 6;
-  std::string::basic_string[abi:ne200100]<0>(v80, "MRRDetector");
-  v81 = 7;
-  std::string::basic_string[abi:ne200100]<0>(v82, "MRRMatcher");
-  v57 = a4;
-  v83 = 8;
-  std::string::basic_string[abi:ne200100]<0>(v84, "RegexSpanMatcher");
+  v68[0] = 2;
+  std::string::basic_string[abi:ne200100]<0>(&v69, "UserVocabMatcher");
+  v71 = 3;
+  std::string::basic_string[abi:ne200100]<0>(v73, "SingleTrieMatcher");
+  v74 = 4;
+  std::string::basic_string[abi:ne200100]<0>(v75, "ContextMatcher");
+  v76 = 5;
+  std::string::basic_string[abi:ne200100]<0>(v77, "OvertonMatcher");
+  v78 = 6;
+  std::string::basic_string[abi:ne200100]<0>(v79, "MRRDetector");
+  v80 = 7;
+  std::string::basic_string[abi:ne200100]<0>(v81, "MRRMatcher");
+  v56 = a4;
+  v82 = 8;
+  std::string::basic_string[abi:ne200100]<0>(v83, "RegexSpanMatcher");
   v11 = 0;
   *(a1 + 33) = 0u;
   *(a1 + 34) = 0u;
@@ -1427,20 +1418,20 @@ LABEL_26:
 
   while (v11 != 256);
   v19 = 0;
-  v20 = v59;
+  v20 = v58;
   do
   {
-    if (v84[v19 + 23] < 0)
+    if (SHIBYTE(v83[v19 + 2]) < 0)
     {
-      operator delete(*&v84[v19]);
+      operator delete(v83[v19]);
     }
 
-    v19 -= 32;
+    v19 -= 4;
   }
 
-  while (v19 != -256);
-  *(a1 + 71) = *v57;
-  v21 = v57[1];
+  while (v19 != -32);
+  *(a1 + 71) = *v56;
+  v21 = v56[1];
   *(a1 + 72) = v21;
   if (v21)
   {
@@ -1456,15 +1447,15 @@ LABEL_26:
     {
       for (j = 0; j != v22; ++j)
       {
-        *(*v59 + 8 * j) = 0;
+        *(*v58 + 8 * j) = 0;
       }
     }
 
     *(a1 + 4) = 0;
   }
 
-  v24 = *v59;
-  *v59 = 0;
+  v24 = *v58;
+  *v58 = 0;
   if (v24)
   {
     operator delete(v24);
@@ -1479,7 +1470,7 @@ LABEL_26:
   {
     std::ifstream::basic_ifstream(buf, a3);
     v25 = *buf;
-    if ((*(v69 + *(*buf - 24)) & 5) != 0)
+    if ((*(v68 + *(*buf - 24)) & 5) != 0)
     {
       goto LABEL_86;
     }
@@ -1488,9 +1479,9 @@ LABEL_26:
     v26 = MEMORY[0x277D82680];
 LABEL_45:
     std::ios_base::getloc(&buf[*(v25 - 24)]);
-    v27 = std::locale::use_facet(&v62, v26);
+    v27 = std::locale::use_facet(&v61, v26);
     v28 = (v27->__vftable[2].~facet_0)(v27, 10);
-    std::locale::~locale(&v62);
+    std::locale::~locale(&v61);
     v29 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(buf, &__str, v28);
     if ((*(v29 + *(*v29 - 24) + 32) & 5) == 0)
     {
@@ -1544,10 +1535,10 @@ LABEL_52:
       }
 
       v35 = v26;
-      v60[0] = " ";
-      v60[1] = 1;
-      nlv4_inference_orchestrator::trees::split(&v62, &__str, v60);
-      v36 = std::__string_hash<char>::operator()[abi:ne200100](v20, &v62);
+      v59[0] = " ";
+      v59[1] = 1;
+      nlv4_inference_orchestrator::trees::split(&v61, &__str, v59);
+      v36 = std::__string_hash<char>::operator()[abi:ne200100](v20, &v61);
       v37 = v36;
       v38 = *(a1 + 4);
       if (!*&v38)
@@ -1584,18 +1575,18 @@ LABEL_75:
         v44 = v43[1];
         if (v44 == v37)
         {
-          if (std::equal_to<std::string>::operator()[abi:ne200100](v59, v43 + 2, &v62.__r_.__value_.__l.__data_))
+          if (std::equal_to<std::string>::operator()[abi:ne200100](v58, v43 + 2, &v61.__r_.__value_.__l.__data_))
           {
-            if (v64 < 0)
+            if (v63 < 0)
             {
               operator delete(__p);
             }
 
-            v20 = v59;
+            v20 = v58;
             v26 = v35;
-            if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v62.__r_.__value_.__l.__data_);
+              operator delete(v61.__r_.__value_.__l.__data_);
             }
 
 LABEL_80:
@@ -1649,11 +1640,11 @@ LABEL_86:
         v50 = "<UNDEFINED_COMPONENT>";
         if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
-          v86 = 136315394;
-          v87 = "<UNDEFINED_COMPONENT>";
-          v88 = 2048;
-          v89 = v49;
-          _os_log_impl(&dword_22284A000, v52, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", &v86, 0x16u);
+          v85 = 136315394;
+          v86 = "<UNDEFINED_COMPONENT>";
+          v87 = 2048;
+          v88 = v49;
+          _os_log_impl(&dword_22284A000, v52, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", &v85, 0x16u);
         }
       }
 
@@ -1678,20 +1669,20 @@ LABEL_86:
         v54 = *a3;
       }
 
-      LODWORD(v62.__r_.__value_.__l.__data_) = 136315650;
-      *(v62.__r_.__value_.__r.__words + 4) = v50;
-      WORD2(v62.__r_.__value_.__r.__words[1]) = 2048;
-      *(&v62.__r_.__value_.__r.__words[1] + 6) = v53;
-      HIWORD(v62.__r_.__value_.__r.__words[2]) = 2080;
-      __p = v54;
-      _os_log_impl(&dword_22284A000, v48, OS_LOG_TYPE_DEBUG, "[%s] Read %lu label mappings from %s", &v62, 0x20u);
+      LODWORD(v61.__r_.__value_.__l.__data_) = 136315650;
+      *(v61.__r_.__value_.__r.__words + 4) = v50;
+      WORD2(v61.__r_.__value_.__r.__words[1]) = 2048;
+      *(&v61.__r_.__value_.__r.__words[1] + 6) = v53;
+      HIWORD(v61.__r_.__value_.__r.__words[2]) = 2080;
+      *&__p = v54;
+      _os_log_impl(&dword_22284A000, v48, OS_LOG_TYPE_DEBUG, "[%s] Read %lu label mappings from %s", &v61, 0x20u);
     }
 
     *buf = *MEMORY[0x277D82808];
     *&buf[*(*buf - 24)] = *(MEMORY[0x277D82808] + 24);
-    MEMORY[0x223DC47C0](&v67 + 2);
+    MEMORY[0x223DC47C0](&v66 + 2);
     std::istream::~istream();
-    MEMORY[0x223DC4C10](&v85);
+    MEMORY[0x223DC4C10](&v84);
   }
 
   else
@@ -1708,8 +1699,8 @@ LABEL_86:
         {
           *buf = 136315394;
           *&buf[4] = "<UNDEFINED_COMPONENT>";
-          v66 = 2048;
-          v67 = v46;
+          v65 = 2048;
+          v66 = v46;
           _os_log_impl(&dword_22284A000, v51, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", buf, 0x16u);
         }
       }
@@ -1725,7 +1716,6 @@ LABEL_86:
     }
   }
 
-  v55 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -1741,14 +1731,14 @@ void sub_222861358(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
   std::__hash_table<std::__hash_value_type<snlp::common::espresso_inference::e5ml::WeightsHandler::EspressoWeightType,std::string>,std::__unordered_map_hasher<snlp::common::espresso_inference::e5ml::WeightsHandler::EspressoWeightType,std::__hash_value_type<snlp::common::espresso_inference::e5ml::WeightsHandler::EspressoWeightType,std::string>,std::hash<snlp::common::espresso_inference::e5ml::WeightsHandler::EspressoWeightType>,std::equal_to<snlp::common::espresso_inference::e5ml::WeightsHandler::EspressoWeightType>,true>,std::__unordered_map_equal<snlp::common::espresso_inference::e5ml::WeightsHandler::EspressoWeightType,std::__hash_value_type<snlp::common::espresso_inference::e5ml::WeightsHandler::EspressoWeightType,std::string>,std::equal_to<snlp::common::espresso_inference::e5ml::WeightsHandler::EspressoWeightType>,std::hash<snlp::common::espresso_inference::e5ml::WeightsHandler::EspressoWeightType>,true>,std::allocator<std::__hash_value_type<snlp::common::espresso_inference::e5ml::WeightsHandler::EspressoWeightType,std::string>>>::~__hash_table(v27);
   MEMORY[0x223DC3180](v26 + 440);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v26 + 392);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v26 + 392));
   nlv4_inference_orchestrator::span_matching::SpanEncoder::~SpanEncoder((v26 + 256));
   nlv4_inference_orchestrator::vocabulary::Vocabulary::~Vocabulary((v26 + 48));
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(a11);
   _Unwind_Resume(a1);
 }
 
-unsigned __int8 *nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,unsigned int,0>(unsigned __int8 *result, unsigned int *a2)
+double *nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,unsigned int,0>(double *result, unsigned int *a2)
 {
   v2 = result;
   v3 = *result;
@@ -1756,7 +1746,7 @@ unsigned __int8 *nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::
   {
     if (v3 == 7)
     {
-      v4 = *(result + 1);
+      v4 = result[1];
       goto LABEL_11;
     }
 
@@ -1791,7 +1781,7 @@ LABEL_7:
 
   if (v3 == 4)
   {
-    v4 = result[8];
+    v4 = *(result + 8);
     goto LABEL_11;
   }
 
@@ -1833,35 +1823,35 @@ LABEL_8:
   goto LABEL_8;
 }
 
-BOOL std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<std::string const&>>(void *a1, const void **a2)
+BOOL std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<std::string const&>>(void *a1, const void **a2, __int128 **a3, __int128 **a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -1869,39 +1859,39 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2);
+  result = std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2);
   if (!result)
   {
     goto LABEL_17;
@@ -1910,44 +1900,44 @@ LABEL_17:
   return result;
 }
 
-void sub_222861960(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_222861960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 39) < 0)
+  va_start(va, a3);
+  if (*(v3 + 39) < 0)
   {
-    operator delete(*(v2 + 16));
+    operator delete(*(v3 + 16));
   }
 
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::__emplace_unique_key_args<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::piecewise_construct_t const&,std::tuple<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType&&>,std::tuple<std::__fs::filesystem::path&&>>(void *result, int a2)
+void std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::__emplace_unique_key_args<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::piecewise_construct_t const&,std::tuple<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType&&>,std::tuple<std::__fs::filesystem::path&&>>(float *a1, int a2, _DWORD **a3, uint64_t *a4)
 {
-  v2 = result[1];
-  if (!v2)
+  v4 = *(a1 + 1);
+  if (!v4)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v6 = a2;
+    if (v4 <= a2)
     {
-      v4 = a2 % v2;
+      v6 = a2 % v4;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v6 = (v4 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -1955,44 +1945,42 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v9 = v8[1];
+    if (v9 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v9 >= v4)
       {
-        v7 %= v2;
+        v9 %= v4;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v9 &= v4 - 1;
     }
 
-    if (v7 != v4)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v8 + 4) != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 void snlp::common::e5ml::asset_finder::AssetFinder::findAssetTypesPresent(std::__fs::filesystem::path *this@<X0>, const std::__fs::filesystem::path *a2@<X1>, uint64_t a3@<X8>)
@@ -2013,7 +2001,7 @@ void snlp::common::e5ml::asset_finder::AssetFinder::findAssetTypesPresent(std::_
     std::__fs::filesystem::operator/[abi:ne200100](&v10.__pn_, a2, this);
     __p.__r_.__value_.__r.__words[0] = &v9;
     v11 = &v10;
-    std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::__emplace_unique_key_args<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::piecewise_construct_t const&,std::tuple<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType&&>,std::tuple<std::__fs::filesystem::path&&>>(a3, 0);
+    std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::__emplace_unique_key_args<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::piecewise_construct_t const&,std::tuple<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType&&>,std::tuple<std::__fs::filesystem::path&&>>(a3, 0, &__p, &v11);
     goto LABEL_9;
   }
 
@@ -2030,7 +2018,7 @@ void snlp::common::e5ml::asset_finder::AssetFinder::findAssetTypesPresent(std::_
     std::__fs::filesystem::operator/[abi:ne200100](&v10.__pn_, a2, this + 2);
     __p.__r_.__value_.__r.__words[0] = &v9;
     v11 = &v10;
-    std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::__emplace_unique_key_args<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::piecewise_construct_t const&,std::tuple<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType&&>,std::tuple<std::__fs::filesystem::path&&>>(a3, 0);
+    std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::__emplace_unique_key_args<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::piecewise_construct_t const&,std::tuple<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType&&>,std::tuple<std::__fs::filesystem::path&&>>(a3, 0, &__p, &v11);
 LABEL_9:
     if (SHIBYTE(v10.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -2103,7 +2091,7 @@ LABEL_26:
     std::__fs::filesystem::operator/[abi:ne200100](&v10.__pn_, a2, this + 1);
     __p.__r_.__value_.__r.__words[0] = &v9;
     v11 = &v10;
-    std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::__emplace_unique_key_args<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::piecewise_construct_t const&,std::tuple<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType&&>,std::tuple<std::__fs::filesystem::path&&>>(a3, 2);
+    std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::__emplace_unique_key_args<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::piecewise_construct_t const&,std::tuple<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType&&>,std::tuple<std::__fs::filesystem::path&&>>(a3, 2, &__p, &v11);
     goto LABEL_29;
   }
 
@@ -2111,7 +2099,7 @@ LABEL_26:
   std::__fs::filesystem::operator/[abi:ne200100](&v10.__pn_, a2, this + 1);
   __p.__r_.__value_.__r.__words[0] = &v9;
   v11 = &v10;
-  std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::__emplace_unique_key_args<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::piecewise_construct_t const&,std::tuple<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType&&>,std::tuple<std::__fs::filesystem::path&&>>(a3, 1);
+  std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::__emplace_unique_key_args<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::piecewise_construct_t const&,std::tuple<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType&&>,std::tuple<std::__fs::filesystem::path&&>>(a3, 1, &__p, &v11);
 LABEL_29:
   if (SHIBYTE(v10.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2130,109 +2118,109 @@ void sub_22286209C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void nlv4_inference_orchestrator::inference_engine::EspressoBertModel::createModule(std::__fs::filesystem::path *a1, std::string *a2, void *a3)
+void nlv4_inference_orchestrator::inference_engine::EspressoBertModel::createModule(std::__fs::filesystem::path *a1, std::string *x1_0, void *a2)
 {
-  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&__p, a2);
-  std::__fs::filesystem::path::parent_path[abi:ne200100](&__p, &v38);
+  std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&__p, x1_0);
+  std::__fs::filesystem::path::parent_path[abi:ne200100](&__p, &v39);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  snlp::common::e5ml::asset_finder::AssetFinder::findAssetTypesPresent(a1 + 5, &v38, &__p);
-  std::string::basic_string[abi:ne200100]<0>(v39, "locale");
-  v5 = std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>(a3, v39);
-  if (v5 && *(v5 + 16) == 4)
+  snlp::common::e5ml::asset_finder::AssetFinder::findAssetTypesPresent(a1 + 5, &v39, &__p);
+  std::string::basic_string[abi:ne200100]<0>(v40, "locale");
+  v6 = std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>(a2, v40);
+  if (v6 && *(v6 + 16) == 4)
   {
-    if (*(v5 + 63) < 0)
+    if (*(v6 + 63) < 0)
     {
-      std::string::__init_copy_ctor_external(&v41, v5[5], v5[6]);
+      std::string::__init_copy_ctor_external(&v42, v6[5], v6[6]);
     }
 
     else
     {
-      v41 = *(v5 + 5);
+      v42 = *(v6 + 5);
     }
 
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v6 = 0;
-    v41.__r_.__value_.__s.__data_[0] = 0;
+    v7 = 0;
+    v42.__r_.__value_.__s.__data_[0] = 0;
   }
 
-  v42 = v6;
-  if (SHIBYTE(v40) < 0)
+  v43 = v7;
+  if (SHIBYTE(v41) < 0)
   {
-    operator delete(v39[0]);
+    operator delete(v40[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v39, "os_release");
-  v7 = std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>(a3, v39);
-  if (v7 && *(v7 + 16) == 1)
+  std::string::basic_string[abi:ne200100]<0>(v40, "os_release");
+  v8 = std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>(a2, v40);
+  if (v8 && *(v8 + 16) == 1)
   {
-    v8 = v7[5] & 0xFFFFFF00;
-    v9 = *(v7 + 10);
-    v10 = 1;
+    v9 = v8[5] & 0xFFFFFF00;
+    v10 = *(v8 + 10);
+    v11 = 1;
   }
 
   else
   {
+    v11 = 0;
     v10 = 0;
     v9 = 0;
-    v8 = 0;
   }
 
-  if (SHIBYTE(v40) < 0)
+  if (SHIBYTE(v41) < 0)
   {
-    operator delete(v39[0]);
+    operator delete(v40[0]);
   }
 
-  if ((v10 & v42) == 1)
+  if ((v11 & v43) == 1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v39, "zh_CN");
-    if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v40, "zh_CN");
+    if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v41.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v42.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v41.__r_.__value_.__l.__size_;
+      size = v42.__r_.__value_.__l.__size_;
     }
 
-    v12 = HIBYTE(v40);
-    v13 = SHIBYTE(v40);
-    if (v40 < 0)
+    v13 = HIBYTE(v41);
+    v14 = SHIBYTE(v41);
+    if (v41 < 0)
     {
-      v12 = v39[1];
+      v13 = v40[1];
     }
 
-    if (size == v12 && ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v14 = &v41) : (v14 = v41.__r_.__value_.__r.__words[0]), (v15 = v39[0], v40 >= 0) ? (v16 = v39) : (v16 = v39[0]), !memcmp(v14, v16, size) && (v17 = v8 | v9, v17 >= 0xC84)))
+    if (size == v13 && ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v15 = &v42) : (v15 = v42.__r_.__value_.__r.__words[0]), (v16 = v40[0], v41 >= 0) ? (v17 = v40) : (v17 = v40[0]), !memcmp(v15, v17, size) && (v18 = v9 | v10, v18 >= 0xC84)))
     {
-      if (v13 < 0)
+      if (v14 < 0)
       {
-        operator delete(v15);
+        operator delete(v16);
       }
 
-      if (v17 < 0xCE4)
+      if (v18 < 0xCE4)
       {
-        v18 = 1;
+        v19 = 1;
 LABEL_40:
-        if (v42 == 1 && SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+        if (v43 == 1 && SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v41.__r_.__value_.__l.__data_);
+          operator delete(v42.__r_.__value_.__l.__data_);
         }
 
-        if (v18)
+        if (v19)
         {
-          v19 = SNLPOSLoggerForCategory(5);
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+          v20 = SNLPOSLoggerForCategory(5);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            LOWORD(v41.__r_.__value_.__l.__data_) = 0;
-            _os_log_impl(&dword_22284A000, v19, OS_LOG_TYPE_DEBUG, "CN OWL asset fix to [SydneyE, Dawn), Asset Type identified as non-reshapable E5ML OWL", &v41, 2u);
+            LOWORD(v42.__r_.__value_.__l.__data_) = 0;
+            _os_log_impl(&dword_22284A000, v20, OS_LOG_TYPE_DEBUG, "CN OWL asset fix to [SydneyE, Dawn), Asset Type identified as non-reshapable E5ML OWL", &v42, 2u);
           }
 
           if (std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::find<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>(__p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, 2))
@@ -2243,79 +2231,79 @@ LABEL_40:
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
         }
 
-        v20 = *&__p.__r_.__value_.__l.__data_;
+        v21 = *&__p.__r_.__value_.__l.__data_;
         if (std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::find<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>(__p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, 2))
-        {
-          v21 = SNLPOSLoggerForCategory(5);
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
-          {
-            LOWORD(v41.__r_.__value_.__l.__data_) = 0;
-            _os_log_impl(&dword_22284A000, v21, OS_LOG_TYPE_DEBUG, "Asset Type identified as Reshapable E5ML OWL", &v41, 2u);
-          }
-
-          if (std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::find<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>(__p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, 2))
-          {
-            if (SHIBYTE(v38.__pn_.__r_.__value_.__r.__words[2]) < 0)
-            {
-              std::string::__init_copy_ctor_external(&pn, v38.__pn_.__r_.__value_.__l.__data_, v38.__pn_.__r_.__value_.__l.__size_);
-            }
-
-            else
-            {
-              pn = v38.__pn_;
-            }
-
-            v23 = std::string::append(&pn, "/");
-            v24 = *&v23->__r_.__value_.__l.__data_;
-            v36.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
-            *&v36.__r_.__value_.__l.__data_ = v24;
-            v23->__r_.__value_.__l.__size_ = 0;
-            v23->__r_.__value_.__r.__words[2] = 0;
-            v23->__r_.__value_.__r.__words[0] = 0;
-            data = a1[4].__pn_.__r_.__value_.__l.__data_;
-            v26 = a1 + 4;
-            v25 = data;
-            v28 = SHIBYTE(v26->__pn_.__r_.__value_.__r.__words[2]);
-            if (v28 >= 0)
-            {
-              v29 = v26;
-            }
-
-            else
-            {
-              v29 = v25;
-            }
-
-            if (v28 >= 0)
-            {
-              v30 = HIBYTE(v26->__pn_.__r_.__value_.__r.__words[2]);
-            }
-
-            else
-            {
-              v30 = v26->__pn_.__r_.__value_.__l.__size_;
-            }
-
-            v31 = std::string::append(&v36, v29, v30);
-            v32 = *&v31->__r_.__value_.__l.__data_;
-            v40 = v31->__r_.__value_.__r.__words[2];
-            *v39 = v32;
-            v31->__r_.__value_.__l.__size_ = 0;
-            v31->__r_.__value_.__r.__words[2] = 0;
-            v31->__r_.__value_.__r.__words[0] = 0;
-            operator new();
-          }
-
-          std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
-        }
-
-        if (std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::find<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>(v20, *(&v20 + 1), 1))
         {
           v22 = SNLPOSLoggerForCategory(5);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
-            LOWORD(v41.__r_.__value_.__l.__data_) = 0;
-            _os_log_impl(&dword_22284A000, v22, OS_LOG_TYPE_DEBUG, "Asset Type identified as non-reshapable E5ML OWL", &v41, 2u);
+            LOWORD(v42.__r_.__value_.__l.__data_) = 0;
+            _os_log_impl(&dword_22284A000, v22, OS_LOG_TYPE_DEBUG, "Asset Type identified as Reshapable E5ML OWL", &v42, 2u);
+          }
+
+          if (std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::find<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>(__p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, 2))
+          {
+            if (SHIBYTE(v39.__pn_.__r_.__value_.__r.__words[2]) < 0)
+            {
+              std::string::__init_copy_ctor_external(&pn, v39.__pn_.__r_.__value_.__l.__data_, v39.__pn_.__r_.__value_.__l.__size_);
+            }
+
+            else
+            {
+              pn = v39.__pn_;
+            }
+
+            v24 = std::string::append(&pn, "/");
+            v25 = *&v24->__r_.__value_.__l.__data_;
+            v37.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
+            *&v37.__r_.__value_.__l.__data_ = v25;
+            v24->__r_.__value_.__l.__size_ = 0;
+            v24->__r_.__value_.__r.__words[2] = 0;
+            v24->__r_.__value_.__r.__words[0] = 0;
+            data = a1[4].__pn_.__r_.__value_.__l.__data_;
+            v27 = a1 + 4;
+            v26 = data;
+            v29 = SHIBYTE(v27->__pn_.__r_.__value_.__r.__words[2]);
+            if (v29 >= 0)
+            {
+              v30 = v27;
+            }
+
+            else
+            {
+              v30 = v26;
+            }
+
+            if (v29 >= 0)
+            {
+              v31 = HIBYTE(v27->__pn_.__r_.__value_.__r.__words[2]);
+            }
+
+            else
+            {
+              v31 = v27->__pn_.__r_.__value_.__l.__size_;
+            }
+
+            v32 = std::string::append(&v37, v30, v31);
+            v33 = *&v32->__r_.__value_.__l.__data_;
+            v41 = v32->__r_.__value_.__r.__words[2];
+            *v40 = v33;
+            v32->__r_.__value_.__l.__size_ = 0;
+            v32->__r_.__value_.__r.__words[2] = 0;
+            v32->__r_.__value_.__r.__words[0] = 0;
+            operator new();
+          }
+
+          std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
+        }
+
+        if (std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::find<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>(v21, *(&v21 + 1), 1))
+        {
+          v23 = SNLPOSLoggerForCategory(5);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          {
+            LOWORD(v42.__r_.__value_.__l.__data_) = 0;
+            _os_log_impl(&dword_22284A000, v23, OS_LOG_TYPE_DEBUG, "Asset Type identified as non-reshapable E5ML OWL", &v42, 2u);
           }
 
           if (std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::find<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>(__p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, 1))
@@ -2326,13 +2314,13 @@ LABEL_40:
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
         }
 
-        if (std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::find<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>(v20, *(&v20 + 1), 0))
+        if (std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::find<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>(v21, *(&v21 + 1), 0))
         {
-          v33 = SNLPOSLoggerForCategory(5);
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+          v34 = SNLPOSLoggerForCategory(5);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
           {
-            LOWORD(v41.__r_.__value_.__l.__data_) = 0;
-            _os_log_impl(&dword_22284A000, v33, OS_LOG_TYPE_DEBUG, "Asset Type identified as pre-E5ML OWL", &v41, 2u);
+            LOWORD(v42.__r_.__value_.__l.__data_) = 0;
+            _os_log_impl(&dword_22284A000, v34, OS_LOG_TYPE_DEBUG, "Asset Type identified as pre-E5ML OWL", &v42, 2u);
           }
 
           if (std::__hash_table<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::__unordered_map_hasher<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::__unordered_map_equal<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>,std::equal_to<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,std::hash<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>,true>,std::allocator<std::__hash_value_type<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType,std::__fs::filesystem::path>>>::find<snlp::common::e5ml::asset_finder::AssetFinder::EspressoAssetType>(__p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, 0))
@@ -2343,24 +2331,24 @@ LABEL_40:
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v41, "Could not find v1 espresso assets or E5-ML espresso assets for OWL.");
+        std::string::basic_string[abi:ne200100]<0>(&v42, "Could not find v1 espresso assets or E5-ML espresso assets for OWL.");
         exception = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(exception, &v41);
+        std::runtime_error::runtime_error(exception, &v42);
         exception->__vftable = &unk_2835E6B78;
       }
     }
 
-    else if (v13 < 0)
+    else if (v14 < 0)
     {
-      operator delete(v39[0]);
+      operator delete(v40[0]);
     }
   }
 
-  v18 = 0;
+  v19 = 0;
   goto LABEL_40;
 }
 
-void sub_2228627F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39)
+void sub_2228627F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39)
 {
   if (*(v39 - 73) < 0)
   {
@@ -2472,35 +2460,35 @@ LABEL_8:
   goto LABEL_8;
 }
 
-uint64_t nlv4_inference_orchestrator::pre_processing::Reformulator::readReformulations@<X0>(unsigned __int8 *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+uint64_t nlv4_inference_orchestrator::pre_processing::Reformulator::readReformulations@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v50[19] = *MEMORY[0x277D85DE8];
+  v48[19] = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
-    v5 = *a2;
+    a2 = *a2;
   }
 
-  std::ifstream::basic_ifstream(v48);
+  std::ifstream::basic_ifstream(v46, a2, 4);
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  if (v49[15])
+  if (v47[15])
   {
     memset(&__str, 0, sizeof(__str));
-    v6 = MEMORY[0x277D82680];
+    v5 = MEMORY[0x277D82680];
     while (1)
     {
       while (1)
       {
         do
         {
-          std::ios_base::getloc((v48 + *(v48[0] - 24)));
-          v7 = std::locale::use_facet(&v41.__loc_, v6);
-          v8 = (v7->__vftable[2].~facet_0)(v7, 10);
-          std::locale::~locale(&v41.__loc_);
-          v9 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v48, &__str, v8);
-          v10 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
-          if ((*(v9 + *(*v9 - 24) + 32) & 5) != 0)
+          std::ios_base::getloc((v46 + *(v46[0] - 24)));
+          v6 = std::locale::use_facet(&v39.__loc_, v5);
+          v7 = (v6->__vftable[2].~facet_0)(v6, 10);
+          std::locale::~locale(&v39.__loc_);
+          v8 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v46, &__str, v7);
+          v9 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+          if ((*(v8 + *(*v8 - 24) + 32) & 5) != 0)
           {
             if ((*(&__str.__r_.__value_.__s + 23) & 0x80) != 0)
             {
@@ -2509,13 +2497,13 @@ uint64_t nlv4_inference_orchestrator::pre_processing::Reformulator::readReformul
 
             if (!std::filebuf::close())
             {
-              std::ios_base::clear((v48 + *(v48[0] - 24)), *(&v49[2] + *(v48[0] - 24)) | 4);
+              std::ios_base::clear((v46 + *(v46[0] - 24)), *(&v47[2] + *(v46[0] - 24)) | 4);
             }
 
             goto LABEL_63;
           }
 
-          v11 = __str.__r_.__value_.__r.__words[0];
+          v10 = __str.__r_.__value_.__r.__words[0];
           p_str = &__str;
           if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
@@ -2530,12 +2518,12 @@ uint64_t nlv4_inference_orchestrator::pre_processing::Reformulator::readReformul
 
           if (size)
           {
-            v14 = (&p_str->__r_.__value_.__l.__data_ + 1);
+            v13 = (&p_str->__r_.__value_.__l.__data_ + 1);
           }
 
           else
           {
-            v14 = p_str;
+            v13 = p_str;
           }
 
           if (!size)
@@ -2543,38 +2531,38 @@ uint64_t nlv4_inference_orchestrator::pre_processing::Reformulator::readReformul
             break;
           }
 
-          v15 = p_str;
-          v16 = v14;
+          v14 = p_str;
+          v15 = v13;
           do
           {
-            v17 = v15;
-            v18 = v15;
+            v16 = v14;
+            v17 = v14;
             while (1)
             {
-              v19 = *v18++;
-              if (v19 == 35)
+              v18 = *v17++;
+              if (v18 == 35)
               {
                 break;
               }
 
-              v17 = v18;
-              if (v18 == v14)
+              v16 = v17;
+              if (v17 == v13)
               {
-                v17 = v16;
+                v16 = v15;
                 goto LABEL_19;
               }
             }
 
-            v15 = (&v17->__r_.__value_.__l.__data_ + 1);
-            v16 = v17;
+            v14 = (&v16->__r_.__value_.__l.__data_ + 1);
+            v15 = v16;
           }
 
-          while (v18 != v14);
+          while (v17 != v13);
 LABEL_19:
           ;
         }
 
-        while (v17 != v14 && v17 == p_str);
+        while (v16 != v13 && v16 == p_str);
         if ((*(&__str.__r_.__value_.__s + 23) & 0x80) != 0)
         {
           break;
@@ -2582,118 +2570,118 @@ LABEL_19:
 
         if (*(&__str.__r_.__value_.__s + 23))
         {
-          v11 = &__str;
+          v10 = &__str;
           goto LABEL_25;
         }
       }
 
-      v10 = __str.__r_.__value_.__l.__size_;
+      v9 = __str.__r_.__value_.__l.__size_;
       if (__str.__r_.__value_.__l.__size_)
       {
 LABEL_25:
-        v20 = a1[23];
-        v21 = *a1;
-        if ((v20 & 0x80u) != 0)
+        v19 = a1[23];
+        v20 = *a1;
+        if ((v19 & 0x80u) != 0)
         {
-          v20 = *(a1 + 1);
+          v19 = *(a1 + 1);
         }
 
         else
         {
-          v21 = a1;
+          v20 = a1;
         }
 
-        v22 = v11 + v10;
-        if (v20)
+        v21 = v10 + v9;
+        if (v19)
         {
-          v25 = *v21;
-          v23 = v21 + 1;
-          v24 = v25;
-          v26 = v11;
-          v27 = v22;
+          v24 = *v20;
+          v22 = v20 + 1;
+          v23 = v24;
+          v25 = v10;
+          v26 = v21;
           do
           {
-            v28 = &v26->__r_.__value_.__s.__data_[1];
-            while (v26->__r_.__value_.__s.__data_[0] != v24)
+            v27 = &v25->__r_.__value_.__s.__data_[1];
+            while (v25->__r_.__value_.__s.__data_[0] != v23)
             {
-              v26 = (v26 + 1);
-              ++v28;
-              if (v26 == v22)
+              v25 = (v25 + 1);
+              ++v27;
+              if (v25 == v21)
               {
                 goto LABEL_43;
               }
             }
 
-            v29 = v20 - 1;
-            v30 = v23;
-            while (v29)
+            v28 = v19 - 1;
+            v29 = v22;
+            while (v28)
             {
-              if (v28 == v22)
+              if (v27 == v21)
               {
                 goto LABEL_43;
               }
 
-              v32 = *v28++;
-              v31 = v32;
-              v33 = *v30++;
-              --v29;
-              if (v31 != v33)
+              v31 = *v27++;
+              v30 = v31;
+              v32 = *v29++;
+              --v28;
+              if (v30 != v32)
               {
                 goto LABEL_40;
               }
             }
 
-            v27 = v26;
+            v26 = v25;
 LABEL_40:
-            v26 = (v26 + 1);
+            v25 = (v25 + 1);
           }
 
-          while (v26 != v22);
+          while (v25 != v21);
         }
 
         else
         {
-          v27 = v22;
+          v26 = v21;
         }
 
 LABEL_43:
-        if (v27 != v22 || v20 == 0)
+        if (v26 != v21 || v19 == 0)
         {
-          v35 = v27 - v11;
-          if (v27 - v11 != -1)
+          v34 = v26 - v10;
+          if (v26 - v10 != -1)
           {
-            std::string::basic_string(&v46, &__str, 0, v27 - v11, &v41);
-            std::string::basic_string(&v45, &__str, v35, 0xFFFFFFFFFFFFFFFFLL, &v41);
-            v36 = a1[23];
-            if ((v36 & 0x8000000000000000) != 0)
+            std::string::basic_string(&v44, &__str, 0, v26 - v10, &v39);
+            std::string::basic_string(&v43, &__str, v34, 0xFFFFFFFFFFFFFFFFLL, &v39);
+            v35 = a1[23];
+            if ((v35 & 0x8000000000000000) != 0)
             {
-              v36 = *(a1 + 1);
+              v35 = *(a1 + 1);
             }
 
-            std::string::erase(&v45, 0, v36);
-            v37 = HIBYTE(v46.__r_.__value_.__r.__words[2]);
-            if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+            std::string::erase(&v43, 0, v35);
+            v36 = HIBYTE(v44.__r_.__value_.__r.__words[2]);
+            if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              v37 = v46.__r_.__value_.__l.__size_;
+              v36 = v44.__r_.__value_.__l.__size_;
             }
 
-            if (v37)
+            if (v36)
             {
-              std::regex_traits<char>::regex_traits(&v41);
-              v44 = 0;
-              v43 = 0u;
-              v42 = 0u;
-              std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100]<std::char_traits<char>,std::allocator<char>>(&v40, &v46);
+              std::regex_traits<char>::regex_traits(&v39);
+              v42 = 0;
+              v41 = 0u;
+              v40 = 0u;
+              std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100]<std::char_traits<char>,std::allocator<char>>(&v38, &v44.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v45.__r_.__value_.__l.__data_);
+              operator delete(v43.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v46.__r_.__value_.__l.__data_);
+              operator delete(v44.__r_.__value_.__l.__data_);
             }
           }
         }
@@ -2702,13 +2690,11 @@ LABEL_43:
   }
 
 LABEL_63:
-  v48[0] = *MEMORY[0x277D82808];
-  *(v48 + *(v48[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-  MEMORY[0x223DC47C0](v49);
+  v46[0] = *MEMORY[0x277D82808];
+  *(v46 + *(v46[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+  MEMORY[0x223DC47C0](v47);
   std::istream::~istream();
-  result = MEMORY[0x223DC4C10](v50);
-  v39 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x223DC4C10](v48);
 }
 
 void sub_22286323C(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
@@ -2731,7 +2717,7 @@ void sub_2228632C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t nlv4_inference_orchestrator::pre_processing::Reformulator::Reformulator(uint64_t a1, uint64_t *a2)
+uint64_t nlv4_inference_orchestrator::pre_processing::Reformulator::Reformulator(uint64_t a1, uint64_t a2)
 {
   *(a1 + 23) = 4;
   strcpy(a1, " => ");
@@ -2749,9 +2735,9 @@ void sub_222863364(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void nlv4_inference_orchestrator::inference_engine::EspressoBertModel::EspressoBertModel(uint64_t a1, std::string *a2, uint64_t a3, void *a4)
+void nlv4_inference_orchestrator::inference_engine::EspressoBertModel::EspressoBertModel(uint64_t a1, std::string *a2, uint64_t a3, void *a4, uint64_t *a5)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   *a1 = &unk_2835E60A8;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
@@ -2882,7 +2868,7 @@ double std::__fs::filesystem::path::parent_path[abi:ne200100]@<D0>(const std::__
   return result;
 }
 
-void SNLPAssetVersionChecks::assertAssetVersionValid(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void SNLPAssetVersionChecks::assertAssetVersionValid(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
 {
   if (*(a1 + 23) < 0)
   {
@@ -3067,14 +3053,14 @@ void SNLPAssetVersionChecks::assertAssetVersionValid(uint64_t a1, uint64_t a2, u
 
 void sub_222863E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52, uint64_t a53, void *a54, uint64_t a55, int a56, __int16 a57, char a58, char a59, uint64_t a60, void *a61, uint64_t a62, int a63)
 {
-  if (*(v68 - 121) < 0)
+  if (*(v67 - 121) < 0)
   {
-    operator delete(*(v68 - 144));
+    operator delete(*(v67 - 144));
   }
 
-  if (*(v68 - 153) < 0)
+  if (*(v67 - 153) < 0)
   {
-    operator delete(*(v68 - 176));
+    operator delete(*(v67 - 176));
   }
 
   if (a14 < 0)
@@ -3082,14 +3068,14 @@ void sub_222863E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  if (*(v68 - 185) < 0)
+  if (*(v67 - 185) < 0)
   {
-    operator delete(*(v68 - 208));
+    operator delete(*(v67 - 208));
   }
 
-  if (*(v68 - 217) < 0)
+  if (*(v67 - 217) < 0)
   {
-    operator delete(*(v68 - 240));
+    operator delete(*(v67 - 240));
   }
 
   if (a20 < 0)
@@ -3097,7 +3083,7 @@ void sub_222863E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a15);
   }
 
-  if (a66 < 0)
+  if (a65 < 0)
   {
     operator delete(a61);
   }
@@ -3130,89 +3116,87 @@ void sub_222863E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   if (a32 < 0)
   {
     operator delete(a27);
-    if ((v66 & 1) == 0)
+    if ((v65 & 1) == 0)
     {
 LABEL_30:
-      if (*(v68 - 97) < 0)
+      if (*(v67 - 97) < 0)
       {
-        operator delete(*(v68 - 120));
+        operator delete(*(v67 - 120));
       }
 
       _Unwind_Resume(a1);
     }
   }
 
-  else if (!v66)
+  else if (!v65)
   {
     goto LABEL_30;
   }
 
-  __cxa_free_exception(v67);
+  __cxa_free_exception(v66);
   goto LABEL_30;
 }
 
-void snlp::ssu::encoder::SSUEncoder::buildFromAssetsDirectory(char *a1)
+void snlp::ssu::encoder::SSUEncoder::buildFromAssetsDirectory(snlp::ssu::espresso::SSUNessieModel *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = SNLPOSLoggerForCategory(7);
-  v3 = os_signpost_id_generate(v2);
-  v4 = SNLPOSLoggerForCategory(7);
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v13 = *MEMORY[0x277D85DE8];
+  v5 = SNLPOSLoggerForCategory(7);
+  v6 = os_signpost_id_generate(v5);
+  v7 = SNLPOSLoggerForCategory(7);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v5 = v4;
-    if (os_signpost_enabled(v4))
+    v8 = v7;
+    if (os_signpost_enabled(v7))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_22284A000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "SSUEncoder Build from assets directory", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_22284A000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "SSUEncoder Build from assets directory", "", buf, 2u);
     }
   }
 
-  v6 = SNLPOSLoggerForCategory(0);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v9 = SNLPOSLoggerForCategory(0);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_DEFAULT, "BEGIN SSUEncoder Build from assets directory", buf, 2u);
+    _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_DEFAULT, "BEGIN SSUEncoder Build from assets directory", buf, 2u);
   }
 
-  v7 = SNLPOSLoggerForCategory(8);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v10 = SNLPOSLoggerForCategory(8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    if (a1[23] >= 0)
+    if (*(a1 + 23) >= 0)
     {
-      v8 = a1;
+      v11 = a1;
     }
 
     else
     {
-      v8 = *a1;
+      v11 = *a1;
     }
 
     *buf = 136315138;
-    *&buf[4] = v8;
-    _os_log_impl(&dword_22284A000, v7, OS_LOG_TYPE_DEBUG, "Building SSUEncoder from assets directory: %s", buf, 0xCu);
+    *&buf[4] = v11;
+    _os_log_impl(&dword_22284A000, v10, OS_LOG_TYPE_DEBUG, "Building SSUEncoder from assets directory: %s", buf, 0xCu);
   }
 
   snlp::ssu::espresso::SSUNessieModel::buildFromAssetsDirectory(a1);
 }
 
-void sub_222864370(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_222864370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   std::unique_ptr<snlp::ssu::encoder::SSUPreprocessor const>::~unique_ptr[abi:ne200100](va);
   std::unique_ptr<snlp::ssu::espresso::SSUNessieModel const>::~unique_ptr[abi:ne200100](va1);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(a2);
     }
 
@@ -3222,9 +3206,9 @@ void *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,lon
   return result;
 }
 
-void sub_222864444(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_222864444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3240,7 +3224,7 @@ uint64_t std::regex_match[abi:ne200100]<std::__wrap_iter<char const*>,std::alloc
   v16 = 0;
   v17 = 0;
   memset(__p, 0, 41);
-  v7 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(a4, a1, a2, __p, 4160);
+  v7 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(a4, a1, a2, __p, 0x1040u);
   std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(a3, a1, a2, __p, 0);
   if (__p[0].__begin_)
   {
@@ -3323,7 +3307,7 @@ unsigned __int8 *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allo
     {
       v6 = *v5;
       v5 += 16;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(result + 8, v6);
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(result + 1, v6);
       result = v5;
     }
 
@@ -3333,13 +3317,13 @@ unsigned __int8 *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allo
   return result;
 }
 
-void itfm_inference_orchestrator::orchestration::ITFMOrchestrator::ITFMOrchestrator(uint64_t a1, uint64_t a2, std::string *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10, uint64_t a11)
+void itfm_inference_orchestrator::orchestration::ITFMOrchestrator::ITFMOrchestrator(uint64_t a1, uint64_t a2, std::string *a3, uint64_t *a4, uint64_t a5, uint64_t a6, const sirinluinternalsnlp_intermediate::SNLPAssetVersion *a7, uint64_t a8, uint64_t a9, int *a10, uint64_t a11)
 {
   v15 = *MEMORY[0x277D85DE8];
   *a1 = &unk_2835E6B50;
   if (*(a11 + 24) == 1)
   {
-    std::allocate_shared[abi:ne200100]<itfm_inference_orchestrator::vocabulary::Vocabulary,std::allocator<itfm_inference_orchestrator::vocabulary::Vocabulary>,std::string const&,0>();
+    std::allocate_shared[abi:ne200100]<itfm_inference_orchestrator::vocabulary::Vocabulary,std::allocator<itfm_inference_orchestrator::vocabulary::Vocabulary>,std::string const&,0>(__p, a11);
   }
 
   *(a1 + 8) = 0uLL;
@@ -3415,7 +3399,7 @@ void itfm_inference_orchestrator::orchestration::ITFMOrchestrator::ITFMOrchestra
   itfm_inference_orchestrator::orchestration::ITFMOrchestrator::ITFMOrchestrator(a1, a2, a3, a4, &v20, a6, a7, a8, a9, a10, &v18);
 }
 
-void sub_2228654B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, _Unwind_Exception *exception_object, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, unsigned __int8 a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52)
+void sub_2228654B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, _Unwind_Exception *exception_object, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52)
 {
   if (*(v53 - 233) < 0)
   {
@@ -3472,8 +3456,7 @@ void sub_2228654B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(std::string *a1, std::string *a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   size = a2->__r_.__value_.__l.__size_;
@@ -3501,7 +3484,7 @@ void sub_2228658D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void itfm_inference_orchestrator::orchestration::ITFMOrchestrator::ITFMOrchestrator(uint64_t a1, uint64_t a2, std::string *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10)
+void itfm_inference_orchestrator::orchestration::ITFMOrchestrator::ITFMOrchestrator(uint64_t a1, uint64_t a2, std::string *a3, uint64_t *a4, uint64_t a5, uint64_t a6, const sirinluinternalsnlp_intermediate::SNLPAssetVersion *a7, uint64_t a8, uint64_t a9, int *a10)
 {
   if (*(a5 + 23) < 0)
   {
@@ -3673,7 +3656,7 @@ unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64
   return std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v5, a2, v3);
 }
 
-void itfm_inference_orchestrator::orchestration::ITFMOrchestrator::ITFMOrchestrator(uint64_t a1, uint64_t a2, std::string *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _DWORD *a9, uint64_t a10)
+void itfm_inference_orchestrator::orchestration::ITFMOrchestrator::ITFMOrchestrator(uint64_t a1, uint64_t a2, std::string *a3, uint64_t *a4, uint64_t a5, const sirinluinternalsnlp_intermediate::SNLPAssetVersion *a6, uint64_t a7, uint64_t a8, int *a9, uint64_t a10)
 {
   LOBYTE(__p) = 0;
   v21 = 0;
@@ -3727,78 +3710,77 @@ void sub_222865ED0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t itfm_inference_orchestrator::vocabulary::Vocabulary::Vocabulary(uint64_t a1, uint64_t *a2)
+void *itfm_inference_orchestrator::vocabulary::Vocabulary::Vocabulary(void *a1, uint64_t *a2)
 {
-  v21[19] = *MEMORY[0x277D85DE8];
+  v20[19] = *MEMORY[0x277D85DE8];
   v4 = std::string::basic_string[abi:ne200100]<0>(a1, "[UNK]");
-  std::string::basic_string[abi:ne200100]<0>(v4 + 24, "[PAD]");
-  std::string::basic_string[abi:ne200100]<0>((a1 + 48), "[CLS]");
-  std::string::basic_string[abi:ne200100]<0>((a1 + 72), "[SEP]");
-  *(a1 + 104) = 0;
-  *(a1 + 96) = a1 + 104;
-  *(a1 + 136) = 0;
-  *(a1 + 128) = 0;
-  *(a1 + 112) = 0;
-  *(a1 + 120) = a1 + 128;
-  std::ifstream::basic_ifstream(v19, a2);
-  if ((v20[*(v19[0] - 24) + 16] & 5) != 0)
+  std::string::basic_string[abi:ne200100]<0>(v4 + 3, "[PAD]");
+  std::string::basic_string[abi:ne200100]<0>(a1 + 6, "[CLS]");
+  std::string::basic_string[abi:ne200100]<0>(a1 + 9, "[SEP]");
+  a1[13] = 0;
+  a1[12] = a1 + 13;
+  a1[17] = 0;
+  a1[16] = 0;
+  a1[14] = 0;
+  a1[15] = a1 + 16;
+  std::ifstream::basic_ifstream(v18, a2);
+  if ((v19[*(v18[0] - 24) + 16] & 5) != 0)
   {
-    std::ifstream::close(v19);
+    std::ifstream::close(v18);
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    v8 = std::string::append(&v16, " Error code: ");
-    v9 = *&v8->__r_.__value_.__l.__data_;
-    v17.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-    *&v17.__r_.__value_.__l.__data_ = v9;
-    v8->__r_.__value_.__l.__size_ = 0;
-    v8->__r_.__value_.__r.__words[2] = 0;
-    v8->__r_.__value_.__r.__words[0] = 0;
-    v14.__val_ = 0;
-    v14.__cat_ = std::system_category();
-    std::error_code::message(&v15, &v14);
-    if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v7 = std::string::append(&v15, " Error code: ");
+    v8 = *&v7->__r_.__value_.__l.__data_;
+    v16.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+    *&v16.__r_.__value_.__l.__data_ = v8;
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
+    v13.__val_ = 0;
+    v13.__cat_ = std::system_category();
+    std::error_code::message(&v14, &v13);
+    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v10 = &v15;
+      v9 = &v14;
     }
 
     else
     {
-      v10 = v15.__r_.__value_.__r.__words[0];
+      v9 = v14.__r_.__value_.__r.__words[0];
     }
 
-    if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v15.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v14.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v15.__r_.__value_.__l.__size_;
+      size = v14.__r_.__value_.__l.__size_;
     }
 
-    v12 = std::string::append(&v17, v10, size);
-    v13 = *&v12->__r_.__value_.__l.__data_;
-    v18.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
-    *&v18.__r_.__value_.__l.__data_ = v13;
-    v12->__r_.__value_.__l.__size_ = 0;
-    v12->__r_.__value_.__r.__words[2] = 0;
-    v12->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(exception, &v18);
+    v11 = std::string::append(&v16, v9, size);
+    v12 = *&v11->__r_.__value_.__l.__data_;
+    v17.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+    *&v17.__r_.__value_.__l.__data_ = v12;
+    v11->__r_.__value_.__l.__size_ = 0;
+    v11->__r_.__value_.__r.__words[2] = 0;
+    v11->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(exception, &v17);
     exception->__vftable = &unk_2835E9238;
   }
 
-  itfm_inference_orchestrator::vocabulary::Vocabulary::initializeFromStream(a1, v19);
+  itfm_inference_orchestrator::vocabulary::Vocabulary::initializeFromStream(a1, v18);
   if (!std::filebuf::close())
   {
-    std::ios_base::clear((v19 + *(v19[0] - 24)), *&v20[*(v19[0] - 24) + 16] | 4);
+    std::ios_base::clear((v18 + *(v18[0] - 24)), *&v19[*(v18[0] - 24) + 16] | 4);
   }
 
-  v19[0] = *MEMORY[0x277D82808];
-  *(v19 + *(v19[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-  MEMORY[0x223DC47C0](v20);
+  v18[0] = *MEMORY[0x277D82808];
+  *(v18 + *(v18[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+  MEMORY[0x223DC47C0](v19);
   std::istream::~istream();
-  MEMORY[0x223DC4C10](v21);
-  v5 = *MEMORY[0x277D85DE8];
+  MEMORY[0x223DC4C10](v20);
   return a1;
 }
 
@@ -3862,9 +3844,9 @@ LABEL_12:
   goto LABEL_12;
 }
 
-void sub_222866E20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, _Unwind_Exception *exception_object, uint64_t a14, uint64_t a15, void *a16, void *a17, void *a18, uint64_t *a19, void *a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, void *a50, uint64_t a51, int a52, __int16 a53, char a54, char a55, void *a56, uint64_t a57, int a58, __int16 a59, char a60, char a61, char a62, uint64_t a63)
+void sub_222866E20(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, _Unwind_Exception *exception_object, uint64_t a14, uint64_t a15, void *a16, void *a17, void *a18, uint64_t *a19, void *a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, void *a50, uint64_t a51, int a52, __int16 a53, char a54, char a55, void *a56, uint64_t a57, int a58, __int16 a59, char a60, char a61, uint64_t a62, uint64_t a63)
 {
-  MEMORY[0x223DC4D00](v74, 0x10F3C406283AB8ALL);
+  MEMORY[0x223DC4D00](v73, 0x10F3C406283AB8ALL, a3, a4, a5, a6, a7, a8);
   std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::~__hash_table(&a28);
   std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::~__hash_table(&a33);
   if (a27 < 0)
@@ -3895,35 +3877,35 @@ void sub_222866E20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   MEMORY[0x223DC3400](&a62);
   if (a2 == 1)
   {
-    v80 = __cxa_begin_catch(a1);
-    v81 = MEMORY[0x277CCACA8];
-    v82 = [a20 loggingComponentString];
-    v89 = [a20 loggingComponentString];
-    (*(*v80 + 16))(v80);
-    v83 = [v81 stringWithFormat:@"%@ Asset Error when creating the %@ (ITFM) inference orchestrator: %s"];
+    v79 = __cxa_begin_catch(a1);
+    v80 = MEMORY[0x277CCACA8];
+    v81 = [a20 loggingComponentString];
+    v88 = [a20 loggingComponentString];
+    (*(*v79 + 16))(v79);
+    v82 = [v80 stringWithFormat:@"%@ Asset Error when creating the %@ (ITFM) inference orchestrator: %s"];
 
     if (a17)
     {
-      v84 = MEMORY[0x277CCA9B8];
-      v85 = [a20 errorDomain];
-      v86 = *MEMORY[0x277CCA470];
-      a66 = *MEMORY[0x277CCA450];
-      a67 = v86;
-      a68 = v83;
-      a69 = v83;
-      v87 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 - 224 forKeys:v79 - 240 count:2];
-      *a17 = [v84 errorWithDomain:v85 code:1 userInfo:v87];
+      v83 = MEMORY[0x277CCA9B8];
+      v84 = [a20 errorDomain];
+      v85 = *MEMORY[0x277CCA470];
+      a65 = *MEMORY[0x277CCA450];
+      a66 = v85;
+      a67 = v82;
+      a68 = v82;
+      v86 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 - 224 forKeys:v78 - 240 count:2];
+      *a17 = [v83 errorWithDomain:v84 code:1 userInfo:v86];
     }
 
     __cxa_end_catch();
     JUMPOUT(0x222866DD8);
   }
 
-  v88 = *a19;
+  v87 = *a19;
   *a19 = 0;
-  if (v88)
+  if (v87)
   {
-    (*(*v88 + 16))(v88);
+    (*(*v87 + 16))(v87);
   }
 
   _Unwind_Resume(a1);
@@ -3939,35 +3921,35 @@ void sub_2228676CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, const void **a2)
+void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, const void **a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -3975,64 +3957,61 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2);
-  if (!result)
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
-void snlp::ssu::matcher::SSUMatcher::validateAssetVersion(uint64_t a1)
+void snlp::ssu::matcher::SSUMatcher::validateAssetVersion(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  std::string::basic_string[abi:ne200100]<0>(&v2, "version.yaml");
-  v3 = v2;
-  memset(&v2, 0, sizeof(v2));
-  std::__fs::filesystem::operator/[abi:ne200100](&__p, a1, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "version.yaml");
+  v5 = v4;
+  memset(&v4, 0, sizeof(v4));
+  std::__fs::filesystem::operator/[abi:ne200100](&__p, a1, &v5);
   getAssetDirectoryNCV(&__p);
 }
 
-void sub_222867C64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+void sub_222867C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x223DC3400](v34 - 64);
+  MEMORY[0x223DC3400](v34 - 64, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -4056,35 +4035,34 @@ void sub_222867CD0(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x222867CC8);
 }
 
-uint64_t SNLPAssetVersionChecks::getITFMSupportedGenerationNumbers@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+uint64_t SNLPAssetVersionChecks::getITFMSupportedGenerationNumbers@<X0>(uint64_t result@<X0>, const char *a2@<X1>, _OWORD *a3@<X8>)
 {
   if (result > 1)
   {
     if (result == 2)
     {
-      v2 = @"PSCSupportedGenerationList";
+      return objc_msgSend_loadUInt32ListFromConfigPListResourceName_(SNLPAssetVersionChecker, a2, @"PSCSupportedGenerationList");
     }
 
     else
     {
-      v2 = @"LVCSupportedGenerationList";
+      return objc_msgSend_loadUInt32ListFromConfigPListResourceName_(SNLPAssetVersionChecker, a2, @"LVCSupportedGenerationList");
     }
+  }
+
+  else if (result)
+  {
+    return objc_msgSend_loadUInt32ListFromConfigPListResourceName_(SNLPAssetVersionChecker, a2, @"SNLCSupportedGenerationList");
   }
 
   else
   {
-    if (!result)
-    {
-      *a2 = 0u;
-      *(a2 + 16) = 0u;
-      *(a2 + 32) = 1065353216;
-      return result;
-    }
-
-    v2 = @"SNLCSupportedGenerationList";
+    *a3 = 0u;
+    a3[1] = 0u;
+    *(a3 + 8) = 1065353216;
   }
 
-  return [SNLPAssetVersionChecker loadUInt32ListFromConfigPListResourceName:v2];
+  return result;
 }
 
 void std::basic_regex<char,std::regex_traits<char>>::__push_char(std::basic_regex<char> *this, std::basic_regex<char>::value_type __c)
@@ -4163,7 +4141,7 @@ void std::basic_regex<char,std::regex_traits<char>>::__push_end_marked_subexpres
   }
 }
 
-uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, std::sub_match<const char *> *a2, std::sub_match<const char *> *a3, std::vector<std::csub_match> *this, int a5)
+uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, std::sub_match<const char *> *a2, std::sub_match<const char *> *a3, std::vector<std::csub_match> *this, unsigned int a5)
 {
   if ((a5 & 0x80) != 0)
   {
@@ -4205,7 +4183,7 @@ uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator
       do
       {
         std::vector<std::sub_match<char const*>>::assign(this, 0xAAAAAAAAAAAAAAABLL * ((this->__end_ - this->__begin_) >> 3), v11);
-        v19 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v18, a3, this, v9 | 0x80u, 0);
+        v19 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v18, a3, this, v9 | 0x80, 0);
         begin = this->__begin_;
         end = this->__end_;
         if (v19)
@@ -4220,7 +4198,7 @@ uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator
     }
 
     std::vector<std::sub_match<char const*>>::assign(this, 0xAAAAAAAAAAAAAAABLL * ((this->__end_ - this->__begin_) >> 3), v11);
-    if (!std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v18, a3, this, v9 | 0x80u, 0))
+    if (!std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v18, a3, this, v9 | 0x80, 0))
     {
 LABEL_18:
       result = 0;
@@ -4530,7 +4508,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<nlohmann::basic_json<
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, std::string *this)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<char const*>(std::basic_regex<char> *a1, std::string::value_type *a2, std::string::value_type *a3, std::string *this)
 {
   v4 = a2;
   if (a2 == a3)
@@ -4556,7 +4534,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_charact
           goto LABEL_70;
         }
 
-        v4 = a2 + 2;
+        v4 = (a2 + 2);
         if (a2 + 2 == a3)
         {
           goto LABEL_70;
@@ -4812,7 +4790,7 @@ void std::allocator<std::__state<char>>::destroy[abi:ne200100](void *a1)
   }
 }
 
-void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -5099,7 +5077,7 @@ void sub_2228694C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+void std::vector<std::__state<char>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   v4 = a1[2];
@@ -5291,7 +5269,7 @@ LABEL_184:
     v123 = 0;
     v69 = 0;
     v121 = 0;
-    v70 = a3 - a2;
+    v70 = (a3 - a2);
     v71 = *&v124[40];
     v72 = *&v124[8];
     v73 = *&v124[40] + *&v124[32] - 1;
@@ -5415,7 +5393,7 @@ LABEL_170:
               }
 
               v123 = 1;
-              v121 = a3 - a2;
+              v121 = (a3 - a2);
               break;
             }
 
@@ -5581,7 +5559,7 @@ LABEL_180:
         {
           v116 = *v119;
           *v116 = a2;
-          *(v116 + 8) = &a2[v121];
+          *(v116 + 8) = &v121[a2];
           v62 = 1;
           *(v116 + 16) = 1;
         }
@@ -5642,7 +5620,7 @@ LABEL_92:
   v16 = 0;
   v120 = a3;
   v122 = a2;
-  v17 = a3 - a2;
+  v17 = (a3 - a2);
   v18 = v132;
   *(v132 - 2) = v12;
   *(v18 - 2) = a5;
@@ -5947,7 +5925,7 @@ LABEL_45:
 
   v56 = *v118;
   *v56 = v122;
-  *(v56 + 8) = &v122[v14];
+  *(v56 + 8) = &v14[v122];
   *(v56 + 16) = 1;
   if (v129 != *&v128[32])
   {
@@ -5986,7 +5964,7 @@ LABEL_93:
   return v62;
 }
 
-void sub_22286A688(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
+void sub_22286A688(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
 {
   operator delete(v38);
   if (__p)
@@ -6289,7 +6267,7 @@ unsigned int *std::__loop<char>::__init_repeat[abi:ne200100](unsigned int *resul
   return result;
 }
 
-uint64_t std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7114,7 +7092,7 @@ void sub_22286B8A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -7124,7 +7102,7 @@ void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100
   std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7180,50 +7158,49 @@ uint64_t std::__end_marked_subexpression<char>::__exec(uint64_t result, uint64_t
   return result;
 }
 
-void *std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(void *result, uint64_t a2, uint64_t a3, uint64_t *a4, char a5)
+void std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t *a4, char a5)
 {
-  v5 = result;
-  v6 = a4[6];
-  v7 = a4[1] - *a4;
-  v8 = 0xAAAAAAAAAAAAAAABLL * (v7 >> 3);
-  v9 = *result;
-  v10 = result[1];
-  v11 = v10;
-  v12 = v10 - *result;
-  v13 = 0xAAAAAAAAAAAAAAABLL * (v12 >> 3);
-  v14 = v8 - v13;
-  if (v8 <= v13)
+  v5 = a4[6];
+  v6 = a4[1] - *a4;
+  v7 = 0xAAAAAAAAAAAAAAABLL * (v6 >> 3);
+  v8 = *a1;
+  v9 = a1[1];
+  v10 = v9;
+  v11 = v9 - *a1;
+  v12 = 0xAAAAAAAAAAAAAAABLL * (v11 >> 3);
+  v13 = v7 - v12;
+  if (v7 <= v12)
   {
-    if (v8 < v13)
+    if (v7 < v12)
     {
-      v11 = v9 + v7;
-      result[1] = v9 + v7;
+      v10 = v8 + v6;
+      a1[1] = v8 + v6;
     }
   }
 
   else
   {
-    v15 = result[2];
-    if (0xAAAAAAAAAAAAAAABLL * ((v15 - v10) >> 3) < v14)
+    v14 = a1[2];
+    if (0xAAAAAAAAAAAAAAABLL * ((v14 - v9) >> 3) < v13)
     {
-      if (v8 <= 0xAAAAAAAAAAAAAAALL)
+      if (v7 <= 0xAAAAAAAAAAAAAAALL)
       {
-        if (0x5555555555555556 * ((v15 - v9) >> 3) > v8)
+        if (0x5555555555555556 * ((v14 - v8) >> 3) > v7)
         {
-          v8 = 0x5555555555555556 * ((v15 - v9) >> 3);
+          v7 = 0x5555555555555556 * ((v14 - v8) >> 3);
         }
 
-        if (0xAAAAAAAAAAAAAAABLL * ((v15 - v9) >> 3) >= 0x555555555555555)
+        if (0xAAAAAAAAAAAAAAABLL * ((v14 - v8) >> 3) >= 0x555555555555555)
         {
-          v16 = 0xAAAAAAAAAAAAAAALL;
+          v15 = 0xAAAAAAAAAAAAAAALL;
         }
 
         else
         {
-          v16 = v8;
+          v15 = v7;
         }
 
-        if (v16 <= 0xAAAAAAAAAAAAAAALL)
+        if (v15 <= 0xAAAAAAAAAAAAAAALL)
         {
           operator new();
         }
@@ -7234,104 +7211,102 @@ void *std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<
       std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
     }
 
-    v17 = 8 * (v7 >> 3) - 8 * (v12 >> 3);
+    v16 = 8 * (v6 >> 3) - 8 * (v11 >> 3);
     do
     {
-      *v11 = 0;
-      *(v11 + 8) = 0;
-      *(v11 + 16) = 0;
-      v11 += 24;
-      v17 -= 24;
+      *v10 = 0;
+      *(v10 + 8) = 0;
+      *(v10 + 16) = 0;
+      v10 += 24;
+      v16 -= 24;
     }
 
-    while (v17);
-    result[1] = v10 + 24 * v14;
-    v11 = v10 + 24 * v14;
+    while (v16);
+    a1[1] = v9 + 24 * v13;
+    v10 = v9 + 24 * v13;
   }
 
-  v18 = *result;
-  if (v11 == *result)
+  v17 = *a1;
+  if (v10 == *a1)
   {
-    v21 = a2 - v6;
+    v20 = a2 - v5;
   }
 
   else
   {
+    v18 = 0;
     v19 = 0;
-    v20 = 0;
-    v21 = a2 - v6;
-    v23 = *a4;
-    v22 = a4[1];
+    v20 = a2 - v5;
+    v22 = *a4;
+    v21 = a4[1];
     do
     {
-      v24 = 0xAAAAAAAAAAAAAAABLL * ((v22 - v23) >> 3);
-      v25 = (v23 + v19);
-      if (v24 <= v20)
+      v23 = 0xAAAAAAAAAAAAAAABLL * ((v21 - v22) >> 3);
+      v24 = (v22 + v18);
+      if (v23 <= v19)
+      {
+        v25 = a4 + 3;
+      }
+
+      else
+      {
+        v25 = v24;
+      }
+
+      *(v17 + v18) = v20 + *v25;
+      if (0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3) <= v19)
       {
         v26 = a4 + 3;
       }
 
       else
       {
-        v26 = v25;
+        v26 = (*a4 + v18);
       }
 
-      *(v18 + v19) = v21 + *v26;
-      if (0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3) <= v20)
+      *(*a1 + v18 + 8) = v20 + v26[1];
+      v22 = *a4;
+      v21 = a4[1];
+      if (0xAAAAAAAAAAAAAAABLL * ((v21 - *a4) >> 3) <= v19)
       {
         v27 = a4 + 3;
       }
 
       else
       {
-        v27 = (*a4 + v19);
+        v27 = (*a4 + v18);
       }
 
-      *(*v5 + v19 + 8) = v21 + v27[1];
-      v23 = *a4;
-      v22 = a4[1];
-      if (0xAAAAAAAAAAAAAAABLL * ((v22 - *a4) >> 3) <= v20)
-      {
-        v28 = a4 + 3;
-      }
-
-      else
-      {
-        v28 = (*a4 + v19);
-      }
-
-      v29 = *(v28 + 16);
-      v18 = *v5;
-      v30 = v5[1];
-      result = (*v5 + v19);
-      *(result + 16) = v29;
-      ++v20;
-      v19 += 24;
+      v28 = *(v27 + 16);
+      v17 = *a1;
+      v29 = a1[1];
+      *(*a1 + v18 + 16) = v28;
+      ++v19;
+      v18 += 24;
     }
 
-    while (v20 < 0xAAAAAAAAAAAAAAABLL * ((v30 - v18) >> 3));
+    while (v19 < 0xAAAAAAAAAAAAAAABLL * ((v29 - v17) >> 3));
   }
 
-  v5[3] = a3;
-  v5[4] = a3;
-  *(v5 + 40) = 0;
-  v31 = v21 + a4[6];
-  v5[6] = v31;
-  v5[7] = v21 + a4[7];
-  *(v5 + 64) = *(a4 + 64);
-  v5[9] = v21 + a4[9];
-  v5[10] = v21 + a4[10];
-  *(v5 + 88) = *(a4 + 88);
+  a1[3] = a3;
+  a1[4] = a3;
+  *(a1 + 40) = 0;
+  v30 = v20 + a4[6];
+  a1[6] = v30;
+  a1[7] = v20 + a4[7];
+  *(a1 + 64) = *(a4 + 64);
+  a1[9] = v20 + a4[9];
+  a1[10] = v20 + a4[10];
+  *(a1 + 88) = *(a4 + 88);
   if ((a5 & 1) == 0)
   {
-    v5[13] = v31;
+    a1[13] = v30;
   }
 
-  *(v5 + 96) = *(a4 + 96);
-  return result;
+  *(a1 + 96) = *(a4 + 96);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std::__wrap_iter<char *>>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -7344,14 +7319,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char *>,std:
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -7389,7 +7364,7 @@ void snlp::common::espresso_inference::e5ml::EspressoE5MLModule::allocateMemory(
   E5RT::TensorDescriptor::GetSize(v5);
   E5RT::BufferObject::AllocMemory();
   v11.__r_.__value_.__r.__words[0] = a3;
-  v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::MemoryObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::MemoryObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::MemoryObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::MemoryObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 312), a3);
+  v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<E5RT::MemoryObject>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::MemoryObject>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<E5RT::MemoryObject>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<E5RT::MemoryObject>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 312), a3, &v11);
   if (v10)
   {
     operator new();
@@ -7626,7 +7601,7 @@ LABEL_60:
     *a1 = v39;
     memset(&v39, 0, sizeof(v39));
     v40 = "";
-    std::string::basic_string[abi:ne200100]<0>(&a1[1], "");
+    std::string::basic_string[abi:ne200100]<0>(a1[1].__r_.__value_.__r.__words, "");
   }
 
   else
@@ -7891,165 +7866,162 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::basic_stri
 
 uint64_t snlp::common::e5ml::asset_finder::AssetFinder::checkFastReshapeCompatibility(uint64_t a1, uint64_t *a2)
 {
-  v40[19] = *MEMORY[0x277D85DE8];
-  std::ifstream::basic_ifstream(v38, a2);
-  v37 = 0;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parse<std::ifstream &>(v33, v38, v36);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](v36);
-  v29 = v33;
-  v30 = 0;
-  v31 = 0;
-  v32 = 0x8000000000000000;
-  v3 = v33[0];
-  if (v33[0])
+  v37[19] = *MEMORY[0x277D85DE8];
+  std::ifstream::basic_ifstream(v35, a2);
+  v34 = 0;
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::parse<std::ifstream &>(v30, v35, v33);
+  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](v33);
+  v26 = v30;
+  v27 = 0;
+  v28 = 0;
+  v29 = 0x8000000000000000;
+  v3 = v30[0];
+  if (v30[0])
   {
-    if (v33[0] == 2)
+    if (v30[0] == 2)
     {
-      v31 = *v34;
+      v28 = *v31;
     }
 
-    else if (v33[0] == 1)
+    else if (v30[0] == 1)
     {
-      v30 = *v34;
+      v27 = *v31;
     }
 
     else
     {
-      v32 = 0;
+      v29 = 0;
     }
   }
 
   else
   {
-    v32 = 1;
+    v29 = 1;
   }
 
-  v4 = (a1 + 72);
   while (1)
   {
-    v26 = 0;
-    v27 = 0;
-    v25 = v33;
-    v28 = 0x8000000000000000;
+    v23 = 0;
+    v24 = 0;
+    v22 = v30;
+    v25 = 0x8000000000000000;
     if (v3 == 2)
     {
-      v27 = v34[1];
+      v24 = v31[1];
     }
 
     else if (v3 == 1)
     {
-      v26 = v34 + 1;
+      v23 = v31 + 1;
     }
 
     else
     {
-      v28 = 1;
+      v25 = 1;
     }
 
-    if (nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator==<nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,(decltype(nullptr))0>(&v29, &v25))
+    if (nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator==<nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,(decltype(nullptr))0>(&v26, &v22))
     {
       break;
     }
 
-    if (*v29 != 1)
+    if (*v26 != 1)
     {
       exception = __cxa_allocate_exception(0x20uLL);
-      std::string::basic_string[abi:ne200100]<0>(v35, "cannot use key() for non-object iterators");
-      nlohmann::detail::invalid_iterator::create<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(exception, 207, v35);
+      std::string::basic_string[abi:ne200100]<0>(v32, "cannot use key() for non-object iterators");
+      nlohmann::detail::invalid_iterator::create<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(exception, 207, v32);
     }
 
-    v5 = *(v30 + 55);
-    if (v5 >= 0)
+    v4 = *(v27 + 55);
+    if (v4 >= 0)
     {
-      v6 = *(v30 + 55);
+      v5 = *(v27 + 55);
     }
 
     else
     {
-      v6 = *(v30 + 40);
+      v5 = *(v27 + 40);
     }
 
-    v7 = *(a1 + 95);
-    v8 = v7;
-    if ((v7 & 0x80u) != 0)
+    v6 = *(a1 + 95);
+    v7 = v6;
+    if ((v6 & 0x80u) != 0)
     {
-      v7 = *(a1 + 80);
+      v6 = *(a1 + 80);
     }
 
-    if (v6 == v7)
+    if (v5 == v6)
     {
-      v9 = v5 >= 0 ? (v30 + 32) : *(v30 + 32);
-      v10 = *v4;
-      v11 = (v8 >= 0 ? a1 + 72 : *v4);
-      if (!memcmp(v9, v11, v6) && *nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator*(&v29) == 1)
+      v8 = v4 >= 0 ? (v27 + 32) : *(v27 + 32);
+      v9 = v7 >= 0 ? (a1 + 72) : *(a1 + 72);
+      if (!memcmp(v8, v9, v5) && *nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator*(&v26) == 1)
       {
-        v12 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator*(&v29);
-        v26 = 0;
-        v27 = 0;
-        v25 = v12;
-        v28 = 0x8000000000000000;
-        v13 = *v12;
-        if (v13 == 1)
-        {
-          v26 = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::find<std::string>(*(v12 + 1), (a1 + 96));
-        }
-
-        else if (v13 == 2)
-        {
-          v27 = *(*(v12 + 1) + 8);
-        }
-
-        else
-        {
-          v28 = 1;
-        }
-
-        v14 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator*(&v29);
-        v22 = 0;
+        v10 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator*(&v26);
         v23 = 0;
-        v21 = v14;
-        v24 = 0x8000000000000000;
-        v15 = *v14;
-        if (v15 == 2)
+        v24 = 0;
+        v22 = v10;
+        v25 = 0x8000000000000000;
+        v11 = *v10;
+        if (v11 == 1)
         {
-          v23 = *(*(v14 + 1) + 8);
+          v23 = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::find<std::string>(*(v10 + 1), (a1 + 96));
         }
 
-        else if (v15 == 1)
+        else if (v11 == 2)
         {
-          v22 = *(v14 + 1) + 8;
+          v24 = *(*(v10 + 1) + 8);
         }
 
         else
         {
-          v24 = 1;
+          v25 = 1;
         }
 
-        if (!nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator==<nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,(decltype(nullptr))0>(&v25, &v21))
+        v12 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator*(&v26);
+        v19 = 0;
+        v20 = 0;
+        v18 = v12;
+        v21 = 0x8000000000000000;
+        v13 = *v12;
+        if (v13 == 2)
         {
-          v16 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator*(&v29);
-          if (*nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::at(v16, (a1 + 96)) == 3)
+          v20 = *(*(v12 + 1) + 8);
+        }
+
+        else if (v13 == 1)
+        {
+          v19 = *(v12 + 1) + 8;
+        }
+
+        else
+        {
+          v21 = 1;
+        }
+
+        if (!nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator==<nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,(decltype(nullptr))0>(&v22, &v18))
+        {
+          v14 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator*(&v26);
+          if (*nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::at(v14, (a1 + 96)) == 3)
           {
-            v17 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator*(&v29);
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::at(v17, (a1 + 96));
-            v35[0] = 3;
-            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,std::string const&>();
+            v15 = nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator*(&v26);
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::at(v15, (a1 + 96));
+            v32[0] = 3;
+            nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,std::string const&>(a1 + 120);
           }
         }
       }
     }
 
-    nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator++(&v29);
-    v3 = v33[0];
+    nlohmann::detail::iter_impl<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::operator++(&v26);
+    v3 = v30[0];
   }
 
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v34, v33[0]);
-  v38[0] = *MEMORY[0x277D82808];
-  *(v38 + *(v38[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-  MEMORY[0x223DC47C0](&v39);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v31, v30[0]);
+  v35[0] = *MEMORY[0x277D82808];
+  *(v35 + *(v35[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+  MEMORY[0x223DC47C0](&v36);
   std::istream::~istream();
-  MEMORY[0x223DC4C10](v40);
-  v18 = *MEMORY[0x277D85DE8];
+  MEMORY[0x223DC4C10](v37);
   return 0;
 }
 
@@ -8079,44 +8051,44 @@ void sub_22286CB5C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 uint64_t snlp::common::espresso_inference::e5ml::EspressoE5MLModule::EspressoE5MLModule(uint64_t a1, std::string *a2, uint64_t a3, int *a4, uint64_t a5, __int128 *a6)
 {
-  v11 = std::string::basic_string[abi:ne200100]<0>(a1, "main");
-  E5RT::ExecutionStream::CreateExecutionStream(v11);
-  v12 = *a4;
+  v12 = std::string::basic_string[abi:ne200100]<0>(a1, "main");
+  E5RT::ExecutionStream::CreateExecutionStream(v12);
+  v13 = *a4;
   *(a1 + 40) = *a4;
-  *(a1 + 32) = v12;
+  *(a1 + 32) = v13;
   std::__optional_copy_base<snlp::common::selflogging::NLXSchemaNLXClientEventMetadata,false>::__optional_copy_base[abi:ne200100]((a1 + 48), a6);
   *(a1 + 136) = 0;
   *(a1 + 160) = 0;
   *(a1 + 168) = *a4;
   std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&__p, a2);
-  snlp::common::espresso_inference::e5ml::EspressoE5MLModule::createInferenceOperation(a1, &__p);
-  v13 = v19;
-  *(a1 + 176) = v19;
-  if (v13)
+  snlp::common::espresso_inference::e5ml::EspressoE5MLModule::createInferenceOperation(a1, &__p, a5);
+  v14 = v20;
+  *(a1 + 176) = v20;
+  if (v14)
   {
     operator new();
   }
 
-  v14 = 0;
+  v15 = 0;
   *(a1 + 184) = 0;
-  v19 = 0;
+  v20 = 0;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    v14 = *(a1 + 184);
+    v15 = *(a1 + 184);
   }
 
-  v16 = *(a1 + 176);
-  v17 = v14;
-  if (v14)
+  v17 = *(a1 + 176);
+  v18 = v15;
+  if (v15)
   {
-    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  snlp::common::espresso_inference::e5ml::WeightsHandler::WeightsHandler(a1 + 192, &v16);
-  if (v17)
+  snlp::common::espresso_inference::e5ml::WeightsHandler::WeightsHandler(a1 + 192, &v17);
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
 
   std::unordered_map<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>::unordered_map(a1 + 272, a3);
@@ -8126,11 +8098,11 @@ uint64_t snlp::common::espresso_inference::e5ml::EspressoE5MLModule::EspressoE5M
   return a1;
 }
 
-void sub_22286CE10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
+void sub_22286CE10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
 {
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a16 < 0)
@@ -8164,7 +8136,7 @@ uint64_t std::unordered_set<std::string>::unordered_set(uint64_t a1, const void 
     v5 = 24 * a3;
     do
     {
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, a2);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, a2, a2);
       a2 += 3;
       v5 -= 24;
     }
@@ -8175,8 +8147,9 @@ uint64_t std::unordered_set<std::string>::unordered_set(uint64_t a1, const void 
   return a1;
 }
 
-void snlp::ssu::espresso::SSUNessieModel::SSUNessieModel(void *a1, std::string *a2, void *a3, uint64_t a4, char a5)
+void snlp::ssu::espresso::SSUNessieModel::SSUNessieModel(void *a1, std::string *a2, void *a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
   std::string::basic_string[abi:ne200100]<0>(__p, "output_encoding_dim");
   NetworkConfig = snlp::ssu::espresso::SSUNessieModel::getNetworkConfig(a3, __p);
   if (v16 < 0)
@@ -8201,7 +8174,7 @@ void snlp::ssu::espresso::SSUNessieModel::SSUNessieModel(void *a1, std::string *
   }
 
   a1[2] = v12;
-  a1[3] = snlp::ssu::espresso::SSUNessieModel::getMaxBatchSizeOrDefault(a3, a4, a5);
+  a1[3] = snlp::ssu::espresso::SSUNessieModel::getMaxBatchSizeOrDefault(a3, a4, v5);
   v13 = a1[1];
   v16 = 14;
   strcpy(__p, "max_batch_size");
@@ -8588,13 +8561,13 @@ void sub_22286DB20(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::buildModel(std::__fs::filesystem::path *this@<X0>, void *a2@<X8>)
+void itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::buildModel(uint64_t *__return_ptr a1@<X8>, std::__fs::filesystem::path *this@<X0>)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::setupEspressoV2Model(this, &v9);
-  if (v9)
+  v13 = *MEMORY[0x277D85DE8];
+  itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::setupEspressoV2Model(&v8, this);
+  if (v8)
   {
-    *a2 = v9;
+    *a1 = v8;
   }
 
   else
@@ -8610,9 +8583,9 @@ void itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::buildModel
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v11 = "<UNDEFINED_COMPONENT>";
-          v12 = 2048;
-          v13 = v5;
+          v10 = "<UNDEFINED_COMPONENT>";
+          v11 = 2048;
+          v12 = v5;
           _os_log_impl(&dword_22284A000, v7, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", buf, 0x16u);
         }
       }
@@ -8623,47 +8596,43 @@ void itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::buildModel
       }
 
       *buf = 136315138;
-      v11 = v6;
+      v10 = v6;
       _os_log_impl(&dword_22284A000, v4, OS_LOG_TYPE_DEBUG, "[%s] Could not find the relevant E5-ML (v2) assets. Falling back onto Espresso v1 assets.", buf, 0xCu);
     }
 
-    itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::setupEspressoV1Model(this, a2);
+    itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::setupEspressoV1Model(this, a1);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::setupEspressoV2Model(std::__fs::filesystem::path *this@<X0>, void *a2@<X8>)
+void itfm_inference_orchestrator::inference_engine::ITFMModelBuilder::setupEspressoV2Model(uint64_t *__return_ptr a1@<X8>, std::__fs::filesystem::path *this@<X0>)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  *a2 = 0;
-  std::__fs::filesystem::operator/[abi:ne200100](&v6.__pn_, this, this + 4);
-  std::__fs::filesystem::__status(&v6, 0);
-  if (SHIBYTE(v6.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  v6 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  std::__fs::filesystem::operator/[abi:ne200100](&v5.__pn_, this, this + 4);
+  std::__fs::filesystem::__status(&v5, 0);
+  if (SHIBYTE(v5.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v6.__pn_.__r_.__value_.__l.__data_);
+    operator delete(v5.__pn_.__r_.__value_.__l.__data_);
   }
 
-  if (v5.__r_.__value_.__s.__data_[0] && v5.__r_.__value_.__s.__data_[0] != 255)
+  if (v4.__r_.__value_.__s.__data_[0] && v4.__r_.__value_.__s.__data_[0] != 255)
   {
     std::__fs::filesystem::operator/[abi:ne200100](&__p, this, this + 4);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v5, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v4, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v5 = __p;
+      v4 = __p;
     }
 
     operator new();
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22286E014(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+void sub_22286E014(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
 {
   if (a28 < 0)
   {
@@ -8678,7 +8647,7 @@ void sub_22286E014(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     MEMORY[0x223DC4D00]();
   }
 
-  MEMORY[0x223DC4D00](v29, 0x10B3C401575683FLL);
+  MEMORY[0x223DC4D00](v29, 0x10B3C401575683FLL, a3, a4, a5, a6, a7, a8);
   if (a21 < 0)
   {
     operator delete(a16);
@@ -8693,35 +8662,35 @@ void sub_22286E014(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-BOOL std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, const void **a2)
+void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(void *a1, const void **a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -8729,48 +8698,45 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2);
-  if (!result)
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
-uint64_t std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8798,16 +8764,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -8830,9 +8796,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_22286E5A4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_22286E5A4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x223DC48C0](&a10);
+  MEMORY[0x223DC48C0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -9182,29 +9148,29 @@ uint64_t nlohmann::operator==(unsigned __int8 *a1, unsigned __int8 *a2)
       }
 
       v21 = *v17;
-      v19 = v17 + 1;
+      v19 = (v17 + 1);
       v20 = v21;
       if (v21 != v19)
       {
         v22 = *v18;
         while (1)
         {
-          v23 = *(v20 + 55);
+          v23 = v20[55];
           if (v23 >= 0)
           {
-            v24 = *(v20 + 55);
+            v24 = v20[55];
           }
 
           else
           {
-            v24 = v20[5];
+            v24 = *(v20 + 5);
           }
 
-          v25 = *(v22 + 55);
+          v25 = v22[55];
           v26 = v25;
           if ((v25 & 0x80u) != 0)
           {
-            v25 = v22[5];
+            v25 = *(v22 + 5);
           }
 
           if (v24 != v25)
@@ -9212,17 +9178,17 @@ uint64_t nlohmann::operator==(unsigned __int8 *a1, unsigned __int8 *a2)
             break;
           }
 
-          v27 = v23 >= 0 ? v20 + 4 : v20[4];
-          v28 = v26 >= 0 ? v22 + 4 : v22[4];
+          v27 = v23 >= 0 ? v20 + 32 : *(v20 + 4);
+          v28 = v26 >= 0 ? v22 + 32 : *(v22 + 4);
           if (memcmp(v27, v28, v24))
           {
             break;
           }
 
-          result = nlohmann::operator==(v20 + 7, v22 + 7);
+          result = nlohmann::operator==(v20 + 56, v22 + 56);
           if (result)
           {
-            v30 = v20[1];
+            v30 = *(v20 + 1);
             v31 = v20;
             if (v30)
             {
@@ -9239,7 +9205,7 @@ uint64_t nlohmann::operator==(unsigned __int8 *a1, unsigned __int8 *a2)
             {
               do
               {
-                v20 = v31[2];
+                v20 = *(v31 + 2);
                 v10 = *v20 == v31;
                 v31 = v20;
               }
@@ -9247,7 +9213,7 @@ uint64_t nlohmann::operator==(unsigned __int8 *a1, unsigned __int8 *a2)
               while (!v10);
             }
 
-            v32 = v22[1];
+            v32 = *(v22 + 1);
             if (v32)
             {
               do
@@ -9263,7 +9229,7 @@ uint64_t nlohmann::operator==(unsigned __int8 *a1, unsigned __int8 *a2)
             {
               do
               {
-                v33 = v22[2];
+                v33 = *(v22 + 2);
                 v10 = *v33 == v22;
                 v22 = v33;
               }
@@ -9344,7 +9310,7 @@ uint64_t nlohmann::operator==(unsigned __int8 *a1, unsigned __int8 *a2)
   v44 = *v42;
   v45 = v42[1];
   v46 = *v43;
-  if (v45 - *v42 != v43[1] - *v43)
+  if (v45 - *v42 != *(v43 + 8) - *v43)
   {
     return 0;
   }
@@ -9444,9 +9410,9 @@ uint64_t *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL
   return result;
 }
 
-void sub_22286F274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22286F274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9521,17 +9487,17 @@ void nlv4_inference_orchestrator::inference_engine::BertModule::BertModule(nlv4_
   v4 = *MEMORY[0x277D85DE8];
   *this = &unk_2835E5EC8;
   *(this + 2) = 0;
-  std::string::basic_string[abi:ne200100]<0>(this + 16, "");
-  std::string::basic_string[abi:ne200100]<0>(this + 40, "");
-  std::string::basic_string[abi:ne200100]<0>(this + 64, "");
-  std::string::basic_string[abi:ne200100]<0>(this + 88, "");
-  std::string::basic_string[abi:ne200100]<0>(this + 112, "max_seq_length");
+  std::string::basic_string[abi:ne200100]<0>(this + 2, "");
+  std::string::basic_string[abi:ne200100]<0>(this + 5, "");
+  std::string::basic_string[abi:ne200100]<0>(this + 8, "");
+  std::string::basic_string[abi:ne200100]<0>(this + 11, "");
+  std::string::basic_string[abi:ne200100]<0>(this + 14, "max_seq_length");
   *(this + 17) = 0;
   v2 = xmmword_2229D2C08;
   v3 = 192;
   *(this + 18) = 0;
   *(this + 19) = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(this + 136, &v2, &v4, 3uLL);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(this + 17, &v2, &v4, 3uLL);
 }
 
 void sub_22286F564(_Unwind_Exception *exception_object)
@@ -9729,47 +9695,47 @@ void sub_22286F9CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void snlp::common::espresso_inference::e5ml::EspressoE5MLModule::createInferenceOperation(uint64_t a1, std::__fs::filesystem::path *this)
+void snlp::common::espresso_inference::e5ml::EspressoE5MLModule::createInferenceOperation(uint64_t a1, std::__fs::filesystem::path *this, uint64_t a3)
 {
   if (snlp::common::espresso_inference::e5ml::EspressoE5MLModule::modelIsMilFormat(this, this))
   {
 
-    snlp::common::espresso_inference::e5ml::MILCompiler::compileToE5ML((a1 + 40), this);
+    snlp::common::espresso_inference::e5ml::MILCompiler::compileToE5ML((a1 + 40), this, a3);
   }
 
-  if (!snlp::common::espresso_inference::e5ml::EspressoE5MLModule::modelIsE5Format(this, v4))
+  if (!snlp::common::espresso_inference::e5ml::EspressoE5MLModule::modelIsE5Format(this, v6))
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    std::__fs::filesystem::path::filename[abi:ne200100](this, &v10);
-    if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+    std::__fs::filesystem::path::filename[abi:ne200100](this, &v12);
+    if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v11, v10.__r_.__value_.__l.__data_, v10.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v13, v12.__r_.__value_.__l.__data_, v12.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v11 = v10;
+      v13 = v12;
     }
 
-    v6 = std::string::insert(&v11, 0, "The model file (");
-    v7 = *&v6->__r_.__value_.__l.__data_;
-    pn.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
-    *&pn.__r_.__value_.__l.__data_ = v7;
-    v6->__r_.__value_.__l.__size_ = 0;
-    v6->__r_.__value_.__r.__words[2] = 0;
-    v6->__r_.__value_.__r.__words[0] = 0;
-    v8 = std::string::append(&pn, ") is not a recognised E5-ML model format.");
+    v8 = std::string::insert(&v13, 0, "The model file (");
     v9 = *&v8->__r_.__value_.__l.__data_;
-    v13.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-    *&v13.__r_.__value_.__l.__data_ = v9;
+    pn.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&pn.__r_.__value_.__l.__data_ = v9;
     v8->__r_.__value_.__l.__size_ = 0;
     v8->__r_.__value_.__r.__words[2] = 0;
     v8->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(exception, &v13);
+    v10 = std::string::append(&pn, ") is not a recognised E5-ML model format.");
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    v15.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+    *&v15.__r_.__value_.__l.__data_ = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(exception, &v15);
     exception->__vftable = &unk_2835E6B78;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v13, "Inference Call");
+  std::string::basic_string[abi:ne200100]<0>(&v15, "Inference Call");
   if (SHIBYTE(this->__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
     std::string::__init_copy_ctor_external(&pn, this->__pn_.__r_.__value_.__l.__data_, this->__pn_.__r_.__value_.__l.__size_);
@@ -9786,9 +9752,9 @@ void snlp::common::espresso_inference::e5ml::EspressoE5MLModule::createInference
     operator delete(pn.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v13.__r_.__value_.__l.__data_);
+    operator delete(v15.__r_.__value_.__l.__data_);
   }
 }
 

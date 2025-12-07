@@ -85,58 +85,49 @@ LABEL_17:
 
 void __115__HVHarvestEligibility_searchableItemIsEligibleForHarvestingWithGetterBlock_bundleIdentifier_eligibleExceptForAge___block_invoke(uint64_t a1)
 {
-  v18[8] = *MEMORY[0x277D85DE8];
-  v2 = objc_autoreleasePoolPush();
-  v17[0] = @"com.apple.mobilemail";
-  v3 = *(a1 + 32);
-  v4 = objc_opt_self();
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __56__HVHarvestEligibility_mailAppItemEligibilityCheckBlock__block_invoke;
-  v16[3] = &__block_descriptor_48_e71___HVEligibilityCheckResult_24__0_____CSSearchableItem____8__NSString_16l;
-  v16[4] = sel_mailAppItemEligibilityCheckBlock;
-  v16[5] = v4;
-  v5 = MEMORY[0x238381E60](v16);
-  v18[0] = v5;
-  v17[1] = @"com.apple.MobileSMS";
-  v6 = *(a1 + 32);
+  v8[8] = *MEMORY[0x277D85DE8];
+  v1 = objc_autoreleasePoolPush();
+  v7[0] = @"com.apple.mobilemail";
+  v2 = objc_opt_self();
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __56__HVHarvestEligibility_mailAppItemEligibilityCheckBlock__block_invoke;
+  v6[3] = &__block_descriptor_48_e71___HVEligibilityCheckResult_24__0_____CSSearchableItem____8__NSString_16l;
+  v6[4] = sel_mailAppItemEligibilityCheckBlock;
+  v6[5] = v2;
+  v3 = MEMORY[0x238381E60](v6);
+  v8[0] = v3;
+  v7[1] = @"com.apple.MobileSMS";
   objc_opt_self();
-  v18[1] = &__block_literal_global_47;
-  v17[2] = @"com.apple.news";
-  v7 = *(a1 + 32);
+  v8[1] = &__block_literal_global_47;
+  v7[2] = @"com.apple.news";
   objc_opt_self();
-  v18[2] = &__block_literal_global_49;
-  v17[3] = @"com.apple.mobilesafari";
-  v8 = *(a1 + 32);
+  v8[2] = &__block_literal_global_49;
+  v7[3] = @"com.apple.mobilesafari";
   objc_opt_self();
-  v18[3] = &__block_literal_global_49;
-  v17[4] = @"com.apple.mobilenotes";
-  v9 = *(a1 + 32);
+  v8[3] = &__block_literal_global_49;
+  v7[4] = @"com.apple.mobilenotes";
   objc_opt_self();
-  v18[4] = &__block_literal_global_49;
-  v17[5] = @"com.apple.reminders";
-  v10 = *(a1 + 32);
+  v8[4] = &__block_literal_global_49;
+  v7[5] = @"com.apple.reminders";
   objc_opt_self();
-  v18[5] = &__block_literal_global_49;
-  v17[6] = @"com.apple.usernotificationsd";
-  v11 = *(a1 + 32);
+  v8[5] = &__block_literal_global_49;
+  v7[6] = @"com.apple.usernotificationsd";
   objc_opt_self();
-  v18[6] = &__block_literal_global_49;
-  v17[7] = @"_thirdpartyonly_";
-  v12 = *(a1 + 32);
+  v8[6] = &__block_literal_global_49;
+  v7[7] = @"_thirdpartyonly_";
   objc_opt_self();
-  v18[7] = &__block_literal_global_56;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:8];
-  v14 = searchableItemIsEligibleForHarvestingWithGetterBlock_bundleIdentifier_eligibleExceptForAge___pasExprOnceResult;
-  searchableItemIsEligibleForHarvestingWithGetterBlock_bundleIdentifier_eligibleExceptForAge___pasExprOnceResult = v13;
+  v8[7] = &__block_literal_global_56;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:8];
+  v5 = searchableItemIsEligibleForHarvestingWithGetterBlock_bundleIdentifier_eligibleExceptForAge___pasExprOnceResult;
+  searchableItemIsEligibleForHarvestingWithGetterBlock_bundleIdentifier_eligibleExceptForAge___pasExprOnceResult = v4;
 
-  objc_autoreleasePoolPop(v2);
-  v15 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v1);
 }
 
-id __51__HVHarvestEligibility_thirdPartyOnlyEligibleBlock__block_invoke(uint64_t a1, void *a2, void *a3)
+HVEligibilityCheckResult *__51__HVHarvestEligibility_thirdPartyOnlyEligibleBlock__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   if ([v5 hasPrefix:@"com.apple."])
@@ -144,9 +135,9 @@ id __51__HVHarvestEligibility_thirdPartyOnlyEligibleBlock__block_invoke(uint64_t
     v6 = hv_default_log_handle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = v5;
-      _os_log_impl(&dword_2321EC000, v6, OS_LOG_TYPE_DEFAULT, "HVHarvestEligibility: items from unsupported first-party bundle %@ are not eligible", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v5;
+      _os_log_impl(&dword_2321EC000, v6, OS_LOG_TYPE_DEFAULT, "HVHarvestEligibility: items from unsupported first-party bundle %@ are not eligible", &v12, 0xCu);
     }
 
     v7 = objc_opt_new();
@@ -161,11 +152,11 @@ id __51__HVHarvestEligibility_thirdPartyOnlyEligibleBlock__block_invoke(uint64_t
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [v8 uniqueIdentifier];
-      v13 = 138412546;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_2321EC000, v9, OS_LOG_TYPE_DEFAULT, "HVHarvestEligibility: item %@ from bundle %@ is eligible", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v5;
+      _os_log_impl(&dword_2321EC000, v9, OS_LOG_TYPE_DEFAULT, "HVHarvestEligibility: item %@ from bundle %@ is eligible", &v12, 0x16u);
     }
 
     v7 = objc_opt_new();
@@ -173,14 +164,12 @@ id __51__HVHarvestEligibility_thirdPartyOnlyEligibleBlock__block_invoke(uint64_t
     [v7 setIsEligibleExceptForAge:0];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
-id __60__HVHarvestEligibility_supportedFirstPartyItemEligibleBlock__block_invoke(uint64_t a1, void *a2, void *a3)
+HVEligibilityCheckResult *__60__HVHarvestEligibility_supportedFirstPartyItemEligibleBlock__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   if (([v5 hasPrefix:@"com.apple."] & 1) == 0)
@@ -194,23 +183,21 @@ id __60__HVHarvestEligibility_supportedFirstPartyItemEligibleBlock__block_invoke
   {
     v8 = [v6 uniqueIdentifier];
     v9 = [v6 bundleID];
-    v13 = 138412546;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVHarvestEligibility: first-party item %@ from bundle %@ is eligible", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVHarvestEligibility: first-party item %@ from bundle %@ is eligible", &v12, 0x16u);
   }
 
   v10 = objc_opt_new();
   [v10 setIsEligible:1];
   [v10 setIsEligibleExceptForAge:0];
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
-id __60__HVHarvestEligibility_messagesAppItemEligibilityCheckBlock__block_invoke()
+HVEligibilityCheckResult *__60__HVHarvestEligibility_messagesAppItemEligibilityCheckBlock__block_invoke()
 {
   v0 = objc_opt_new();
   v1 = hv_default_log_handle();
@@ -226,9 +213,9 @@ id __60__HVHarvestEligibility_messagesAppItemEligibilityCheckBlock__block_invoke
   return v0;
 }
 
-id __56__HVHarvestEligibility_mailAppItemEligibilityCheckBlock__block_invoke(uint64_t a1, uint64_t a2)
+HVEligibilityCheckResult *__56__HVHarvestEligibility_mailAppItemEligibilityCheckBlock__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = (*(a2 + 16))(a2);
   v4 = objc_opt_new();
   v5 = [v3 attributeSet];
@@ -257,7 +244,7 @@ LABEL_16:
 
         v14 = [v3 uniqueIdentifier];
         *buf = 138412290;
-        v25 = v14;
+        v24 = v14;
         v15 = "HVHarvestEligibility: skipping invalid searchable item: %@";
 LABEL_15:
         _os_log_impl(&dword_2321EC000, v13, OS_LOG_TYPE_DEFAULT, v15, buf, 0xCu);
@@ -267,18 +254,18 @@ LABEL_15:
 
       if (!v9)
       {
-        v23 = [MEMORY[0x277CCA890] currentHandler];
-        [v23 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"HVHarvestEligibility.m" lineNumber:168 description:{@"Invalid parameter not satisfying: %@", @"emailHeaders"}];
+        v22 = [MEMORY[0x277CCA890] currentHandler];
+        [v22 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"HVHarvestEligibility.m" lineNumber:168 description:{@"Invalid parameter not satisfying: %@", @"emailHeaders"}];
       }
 
       v12 = +[HVContentAdmission suggestionsShouldShowPastEvents]|| [HVSearchableItemHelper mailItemIsRecent:v3 emailHeaders:v9];
       if ([HVSearchableItemHelper mailItemIsSPAM:v3 emailHeaders:v9 mailboxIdentifiers:v11]|| [HVSearchableItemHelper mailItemIsInDrafts:v3 mailboxIdentifiers:v11]|| [HVSearchableItemHelper mailItemIsInTrash:v3 mailboxIdentifiers:v11])
       {
-        v18 = 1;
+        v17 = 1;
         if (v12)
         {
 LABEL_26:
-          if (!v18)
+          if (!v17)
           {
             [v4 setIsEligible:1];
             goto LABEL_17;
@@ -292,7 +279,7 @@ LABEL_26:
 
           v14 = [v3 uniqueIdentifier];
           *buf = 138412290;
-          v25 = v14;
+          v24 = v14;
           v15 = "HVHarvestEligibility: skipping ignorable searchable item: %@";
           goto LABEL_15;
         }
@@ -300,31 +287,31 @@ LABEL_26:
 
       else
       {
-        v18 = [HVSearchableItemHelper mailItemIsTooBig:v3];
+        v17 = [HVSearchableItemHelper mailItemIsTooBig:v3];
         if (v12)
         {
           goto LABEL_26;
         }
       }
 
-      v19 = hv_default_log_handle();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v18 = hv_default_log_handle();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = [v3 uniqueIdentifier];
+        v19 = [v3 uniqueIdentifier];
         *buf = 138412290;
-        v25 = v20;
-        _os_log_impl(&dword_2321EC000, v19, OS_LOG_TYPE_DEFAULT, "HVHarvestEligibility: skipping ignorable searchable item: %@", buf, 0xCu);
+        v24 = v19;
+        _os_log_impl(&dword_2321EC000, v18, OS_LOG_TYPE_DEFAULT, "HVHarvestEligibility: skipping ignorable searchable item: %@", buf, 0xCu);
       }
 
-      if (!v18)
+      if (!v17)
       {
-        v21 = hv_default_log_handle();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v20 = hv_default_log_handle();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = [v3 uniqueIdentifier];
+          v21 = [v3 uniqueIdentifier];
           *buf = 138412290;
-          v25 = v22;
-          _os_log_impl(&dword_2321EC000, v21, OS_LOG_TYPE_DEFAULT, "HVHarvestEligibility: item is not recent but otherwise eligible: %@", buf, 0xCu);
+          v24 = v21;
+          _os_log_impl(&dword_2321EC000, v20, OS_LOG_TYPE_DEFAULT, "HVHarvestEligibility: item is not recent but otherwise eligible: %@", buf, 0xCu);
         }
 
         [v4 setIsEligibleExceptForAge:1];
@@ -347,14 +334,13 @@ LABEL_26:
 
   v11 = [v3 uniqueIdentifier];
   *buf = 138412546;
-  v25 = v11;
-  v26 = 2112;
-  v27 = v7;
+  v24 = v11;
+  v25 = 2112;
+  v26 = v7;
   _os_log_impl(&dword_2321EC000, v9, OS_LOG_TYPE_INFO, "HVHarvestEligibility: skipping mail app item %@ with non-email type %@", buf, 0x16u);
 LABEL_17:
 
 LABEL_18:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -376,7 +362,7 @@ LABEL_18:
 
 + (BOOL)searchableItemIsEligibleForDissectorPipeline:(id)pipeline targetPluginsCustomAttributeName:(id)name
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   pipelineCopy = pipeline;
   nameCopy = name;
   bundleID = [pipelineCopy bundleID];
@@ -413,16 +399,16 @@ LABEL_18:
         goto LABEL_11;
       }
 
-      v20 = hv_default_log_handle();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v19 = hv_default_log_handle();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
         bundleID3 = [pipelineCopy bundleID];
         uniqueIdentifier = [pipelineCopy uniqueIdentifier];
         *buf = 138412546;
-        v25 = bundleID3;
-        v26 = 2112;
-        v27 = uniqueIdentifier;
-        _os_log_fault_impl(&dword_2321EC000, v20, OS_LOG_TYPE_FAULT, "Got a Message with a nil domainIdentifier (bundleID=%@, uniqueIdentifier=%@)", buf, 0x16u);
+        v24 = bundleID3;
+        v25 = 2112;
+        v26 = uniqueIdentifier;
+        _os_log_fault_impl(&dword_2321EC000, v19, OS_LOG_TYPE_FAULT, "Got a Message with a nil domainIdentifier (bundleID=%@, uniqueIdentifier=%@)", buf, 0x16u);
       }
     }
 
@@ -435,7 +421,6 @@ LABEL_11:
   v11 = 1;
 LABEL_12:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

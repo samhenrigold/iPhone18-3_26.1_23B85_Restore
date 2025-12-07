@@ -6,9 +6,9 @@
 uint64_t __61___UISceneUserActivityManager__initializeUserActivityManager__block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 role];
-  v3 = [v2 isEqualToString:@"UIWindowSceneSessionRoleExternalDisplayNonInteractive"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v3 ^ 1u;
+  return isEqualToString ^ 1u;
 }
 
 void __52___UISceneUserActivityManager__knownSceneSessionMap__block_invoke(uint64_t a1)

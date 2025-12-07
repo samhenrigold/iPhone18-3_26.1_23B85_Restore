@@ -64,41 +64,40 @@
 
 - (id)_notificationSourceMapWithNotificationSources:(id)sources
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sourcesCopy = sources;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = sourcesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         sourceIdentifier = [v10 sourceIdentifier];
         [dictionary setObject:v10 forKeyedSubscript:sourceIdentifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [dictionary copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -224,14 +223,14 @@ LABEL_8:
 
 - (void)setNotificationSources:(id)sources
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   sourcesCopy = sources;
   v5 = +[CALNLogSubsystem defaultCategory];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = sourcesCopy;
-    _os_log_impl(&dword_242909000, v5, OS_LOG_TYPE_DEFAULT, "Setting notification sources: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = sourcesCopy;
+    _os_log_impl(&dword_242909000, v5, OS_LOG_TYPE_DEFAULT, "Setting notification sources: %{public}@", &v8, 0xCu);
   }
 
   v6 = [(CALNNotificationServer *)self _notificationSourceMapWithNotificationSources:sourcesCopy];
@@ -239,18 +238,17 @@ LABEL_8:
   [(CALNNotificationServer *)self setNotificationSourceMap:v7];
 
   [(CALNNotificationServer *)self _didSetNotificationSources:sourcesCopy];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didSetNotificationSources:(id)sources
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   sourcesCopy = sources;
   v5 = +[CALNLogSubsystem defaultCategory];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = sourcesCopy;
+    v14 = sourcesCopy;
     _os_log_impl(&dword_242909000, v5, OS_LOG_TYPE_DEFAULT, "Did set notification sources: %{public}@", buf, 0xCu);
   }
 
@@ -258,23 +256,21 @@ LABEL_8:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = sourcesCopy;
+    v14 = sourcesCopy;
     _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Getting notification categories from notification sources: %{public}@.", buf, 0xCu);
   }
 
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(sourcesCopy, "count")}];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __53__CALNNotificationServer__didSetNotificationSources___block_invoke;
-  v12[3] = &unk_278D6F2A0;
-  v13 = v7;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __53__CALNNotificationServer__didSetNotificationSources___block_invoke;
+  v11[3] = &unk_278D6F2A0;
+  v12 = v7;
   v8 = v7;
-  [sourcesCopy enumerateObjectsUsingBlock:v12];
+  [sourcesCopy enumerateObjectsUsingBlock:v11];
   v9 = [MEMORY[0x277CBEB98] setWithArray:v8];
   userNotificationCenter = [(CALNNotificationServer *)self userNotificationCenter];
   [userNotificationCenter setNotificationCategories:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __53__CALNNotificationServer__didSetNotificationSources___block_invoke(uint64_t a1, void *a2)
@@ -303,7 +299,7 @@ void __53__CALNNotificationServer__didSetNotificationSources___block_invoke(uint
 
 - (id)fetchRecordsWithSourceIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = +[CALNLogSubsystem defaultCategory];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -315,16 +311,16 @@ void __53__CALNNotificationServer__didSetNotificationSources___block_invoke(uint
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy_;
-  v17 = __Block_byref_object_dispose_;
-  v18 = 0;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy_;
+  v16 = __Block_byref_object_dispose_;
+  v17 = 0;
   workQueue = [(CALNNotificationServer *)self workQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __59__CALNNotificationServer_fetchRecordsWithSourceIdentifier___block_invoke;
   block[3] = &unk_278D6F2C8;
-  v12 = identifierCopy;
+  v11 = identifierCopy;
   p_buf = &buf;
   block[4] = self;
   v7 = identifierCopy;
@@ -333,24 +329,19 @@ void __53__CALNNotificationServer__didSetNotificationSources___block_invoke(uint
   v8 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 uint64_t __59__CALNNotificationServer_fetchRecordsWithSourceIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _fetchRecordsWithSourceIdentifier:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _fetchRecordsWithSourceIdentifier:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)_fetchRecordsWithSourceIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   workQueue = [(CALNNotificationServer *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -359,33 +350,31 @@ uint64_t __59__CALNNotificationServer_fetchRecordsWithSourceIdentifier___block_i
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = identifierCopy;
+    v17 = identifierCopy;
     _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Fetching records with source identifier: %@.", buf, 0xCu);
   }
 
   storage = [(CALNNotificationServer *)self storage];
   notificationRecords = [storage notificationRecords];
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __60__CALNNotificationServer__fetchRecordsWithSourceIdentifier___block_invoke;
-  v15[3] = &unk_278D6F2F0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __60__CALNNotificationServer__fetchRecordsWithSourceIdentifier___block_invoke;
+  v14[3] = &unk_278D6F2F0;
   v9 = identifierCopy;
-  v16 = v9;
-  v10 = [notificationRecords indexesOfObjectsPassingTest:v15];
+  v15 = v9;
+  v10 = [notificationRecords indexesOfObjectsPassingTest:v14];
   v11 = [notificationRecords objectsAtIndexes:v10];
 
   v12 = +[CALNLogSubsystem defaultCategory];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v11;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v11;
     _os_log_impl(&dword_242909000, v12, OS_LOG_TYPE_DEFAULT, "Fetched records with source identifier: %{public}@. Fetched records: %@.", buf, 0x16u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -415,7 +404,7 @@ uint64_t __60__CALNNotificationServer__fetchRecordsWithSourceIdentifier___block_
 
 - (void)_addRecord:(id)record
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   workQueue = [(CALNNotificationServer *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -426,18 +415,18 @@ uint64_t __60__CALNNotificationServer__fetchRecordsWithSourceIdentifier___block_
     sourceIdentifier = [recordCopy sourceIdentifier];
     sourceClientIdentifier = [recordCopy sourceClientIdentifier];
     *buf = 138543618;
-    v22 = sourceIdentifier;
-    v23 = 2114;
-    v24 = sourceClientIdentifier;
+    v21 = sourceIdentifier;
+    v22 = 2114;
+    v23 = sourceClientIdentifier;
     _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Adding record with source identifier = %{public}@, source client identifier = %{public}@", buf, 0x16u);
   }
 
   v9 = [CALNNotificationMapper notificationRequestFromNotificationRecord:recordCopy];
   analyticsHandler = [(CALNNotificationServer *)self analyticsHandler];
   userNotificationCenter = [(CALNNotificationServer *)self userNotificationCenter];
-  v20 = 0;
-  v12 = [userNotificationCenter addNotificationRequest:v9 error:&v20];
-  v13 = v20;
+  v19 = 0;
+  v12 = [userNotificationCenter addNotificationRequest:v9 error:&v19];
+  v13 = v19;
 
   v14 = +[CALNLogSubsystem defaultCategory];
   v15 = v14;
@@ -447,9 +436,9 @@ uint64_t __60__CALNNotificationServer__fetchRecordsWithSourceIdentifier___block_
     {
       identifier = [v9 identifier];
       *buf = 138543618;
-      v22 = identifier;
-      v23 = 2112;
-      v24 = v9;
+      v21 = identifier;
+      v22 = 2112;
+      v23 = v9;
       _os_log_impl(&dword_242909000, v15, OS_LOG_TYPE_DEFAULT, "Added notification request, identifier = %{public}@, request = %@.", buf, 0x16u);
     }
 
@@ -463,18 +452,16 @@ uint64_t __60__CALNNotificationServer__fetchRecordsWithSourceIdentifier___block_
       sourceIdentifier2 = [recordCopy sourceIdentifier];
       sourceClientIdentifier2 = [recordCopy sourceClientIdentifier];
       *buf = 138544130;
-      v22 = sourceIdentifier2;
-      v23 = 2114;
-      v24 = sourceClientIdentifier2;
-      v25 = 2112;
-      v26 = v13;
-      v27 = 2112;
-      v28 = v9;
+      v21 = sourceIdentifier2;
+      v22 = 2114;
+      v23 = sourceClientIdentifier2;
+      v24 = 2112;
+      v25 = v13;
+      v26 = 2112;
+      v27 = v9;
       _os_log_error_impl(&dword_242909000, v15, OS_LOG_TYPE_ERROR, "Error adding notification request. Source identifier = %{public}@, Source client identifier = %{public}@, error = %@, request = %@.", buf, 0x2Au);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateRecord:(id)record
@@ -494,7 +481,7 @@ uint64_t __60__CALNNotificationServer__fetchRecordsWithSourceIdentifier___block_
 
 - (void)_updateRecord:(id)record
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   workQueue = [(CALNNotificationServer *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -505,17 +492,17 @@ uint64_t __60__CALNNotificationServer__fetchRecordsWithSourceIdentifier___block_
     sourceIdentifier = [recordCopy sourceIdentifier];
     sourceClientIdentifier = [recordCopy sourceClientIdentifier];
     *buf = 138543618;
-    v20 = sourceIdentifier;
-    v21 = 2114;
-    v22 = sourceClientIdentifier;
+    v19 = sourceIdentifier;
+    v20 = 2114;
+    v21 = sourceClientIdentifier;
     _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Updating record with source identifier = %{public}@, source client identifier = %{public}@", buf, 0x16u);
   }
 
   v9 = [CALNNotificationMapper notificationRequestFromNotificationRecord:recordCopy];
   userNotificationCenter = [(CALNNotificationServer *)self userNotificationCenter];
-  v18 = 0;
-  v11 = [userNotificationCenter replaceNotificationRequest:v9 error:&v18];
-  v12 = v18;
+  v17 = 0;
+  v11 = [userNotificationCenter replaceNotificationRequest:v9 error:&v17];
+  v12 = v17;
 
   v13 = +[CALNLogSubsystem defaultCategory];
   v14 = v13;
@@ -529,13 +516,13 @@ uint64_t __60__CALNNotificationServer__fetchRecordsWithSourceIdentifier___block_
     sourceIdentifier2 = [recordCopy sourceIdentifier];
     sourceClientIdentifier2 = [recordCopy sourceClientIdentifier];
     *buf = 138544130;
-    v20 = sourceIdentifier2;
-    v21 = 2114;
-    v22 = sourceClientIdentifier2;
-    v23 = 2112;
-    v24 = v12;
-    v25 = 2112;
-    v26 = v9;
+    v19 = sourceIdentifier2;
+    v20 = 2114;
+    v21 = sourceClientIdentifier2;
+    v22 = 2112;
+    v23 = v12;
+    v24 = 2112;
+    v25 = v9;
     _os_log_error_impl(&dword_242909000, v14, OS_LOG_TYPE_ERROR, "Error replacing notification request. Source identifier = %{public}@, Source client identifier = %{public}@, error = %@, request = %@.", buf, 0x2Au);
 
     goto LABEL_6;
@@ -545,16 +532,14 @@ uint64_t __60__CALNNotificationServer__fetchRecordsWithSourceIdentifier___block_
   {
     sourceIdentifier2 = [v9 identifier];
     *buf = 138543618;
-    v20 = sourceIdentifier2;
-    v21 = 2112;
-    v22 = v9;
+    v19 = sourceIdentifier2;
+    v20 = 2112;
+    v21 = v9;
     _os_log_impl(&dword_242909000, v14, OS_LOG_TYPE_DEFAULT, "Replaced notification request, identifier = %{public}@, request = %@.", buf, 0x16u);
 LABEL_6:
   }
 
 LABEL_8:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)aboutToPostNotification:(id)notification
@@ -588,7 +573,7 @@ LABEL_8:
 
 - (void)_removeRecordWithSourceIdentifier:(id)identifier sourceClientIdentifier:(id)clientIdentifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   clientIdentifierCopy = clientIdentifier;
   workQueue = [(CALNNotificationServer *)self workQueue];
@@ -603,15 +588,15 @@ LABEL_8:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v18 = identifierCopy;
-      v19 = 2114;
-      v20 = clientIdentifierCopy;
+      v17 = identifierCopy;
+      v18 = 2114;
+      v19 = clientIdentifierCopy;
       _os_log_impl(&dword_242909000, v12, OS_LOG_TYPE_DEFAULT, "Removing record with source identifier = %{public}@, source client identifier = %{public}@", buf, 0x16u);
     }
 
     userNotificationCenter = [(CALNNotificationServer *)self userNotificationCenter];
-    v16 = stringRepresentation;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+    v15 = stringRepresentation;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
     [userNotificationCenter removeDeliveredNotificationsWithIdentifiers:v14];
   }
 
@@ -623,28 +608,26 @@ LABEL_8:
       [(CALNNotificationServer *)identifierCopy _removeRecordWithSourceIdentifier:clientIdentifierCopy sourceClientIdentifier:stringRepresentation];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_notificationRecordWithSourceIdentifier:(id)identifier sourceClientIdentifier:(id)clientIdentifier
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   clientIdentifierCopy = clientIdentifier;
   storage = [(CALNNotificationServer *)self storage];
   notificationRecords = [storage notificationRecords];
 
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __89__CALNNotificationServer__notificationRecordWithSourceIdentifier_sourceClientIdentifier___block_invoke;
-  v21 = &unk_278D6F340;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __89__CALNNotificationServer__notificationRecordWithSourceIdentifier_sourceClientIdentifier___block_invoke;
+  v20 = &unk_278D6F340;
   v10 = identifierCopy;
-  v22 = v10;
+  v21 = v10;
   v11 = clientIdentifierCopy;
-  v23 = v11;
-  v12 = [notificationRecords indexesOfObjectsPassingTest:&v18];
-  v13 = [notificationRecords objectsAtIndexes:{v12, v18, v19, v20, v21}];
+  v22 = v11;
+  v12 = [notificationRecords indexesOfObjectsPassingTest:&v17];
+  v13 = [notificationRecords objectsAtIndexes:{v12, v17, v18, v19, v20}];
 
   if ([v13 count] < 2)
   {
@@ -657,18 +640,16 @@ LABEL_8:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v25 = v10;
-      v26 = 2114;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v13;
+      v24 = v10;
+      v25 = 2114;
+      v26 = v11;
+      v27 = 2112;
+      v28 = v13;
       _os_log_error_impl(&dword_242909000, v14, OS_LOG_TYPE_ERROR, "Error: Expected storage to contain only one record that has the same source identifier and source client identifier. Source identifier: %{public}@. Source client identifier: %{public}@. Fetched records: %@.", buf, 0x20u);
     }
 
     firstObject = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -697,31 +678,30 @@ uint64_t __89__CALNNotificationServer__notificationRecordWithSourceIdentifier_so
 
 - (void)userNotificationCenter:(id)center willPresentNotification:(id)notification withCompletionHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   centerCopy = center;
   notificationCopy = notification;
   handlerCopy = handler;
   v10 = +[CALNLogSubsystem defaultCategory];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = centerCopy;
-    v16 = 2112;
-    v17 = notificationCopy;
-    _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, "Received user notification center delegate will present notification message. User notification center: %@. Notification: %@.", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = centerCopy;
+    v15 = 2112;
+    v16 = notificationCopy;
+    _os_log_impl(&dword_242909000, v10, OS_LOG_TYPE_DEFAULT, "Received user notification center delegate will present notification message. User notification center: %@. Notification: %@.", &v13, 0x16u);
   }
 
   v11 = +[CALNLogSubsystem defaultCategory];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:6];
-    v14 = 138543362;
-    v15 = v12;
-    _os_log_impl(&dword_242909000, v11, OS_LOG_TYPE_DEFAULT, "Invoking callback with options: %{public}@.", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v12;
+    _os_log_impl(&dword_242909000, v11, OS_LOG_TYPE_DEFAULT, "Invoking callback with options: %{public}@.", &v13, 0xCu);
   }
 
   handlerCopy[2](handlerCopy, 6);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
@@ -760,7 +740,7 @@ uint64_t __89__CALNNotificationServer__notificationRecordWithSourceIdentifier_so
 
 - (id)_notificationRecordResponseFromNotificationResponse:(id)response
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v5 = +[CALNLogSubsystem defaultCategory];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -769,9 +749,9 @@ uint64_t __89__CALNNotificationServer__notificationRecordWithSourceIdentifier_so
     request = [notification request];
     identifier = [request identifier];
     *buf = 138543618;
-    v28 = identifier;
-    v29 = 2112;
-    v30 = responseCopy;
+    v27 = identifier;
+    v28 = 2112;
+    v29 = responseCopy;
     _os_log_impl(&dword_242909000, v5, OS_LOG_TYPE_DEFAULT, "Transforming notification response to notification record response. request identifier = %{public}@, response = %@.", buf, 0x16u);
   }
 
@@ -784,12 +764,12 @@ uint64_t __89__CALNNotificationServer__notificationRecordWithSourceIdentifier_so
     storage = [(CALNNotificationServer *)self storage];
     notificationRecords = [storage notificationRecords];
 
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __78__CALNNotificationServer__notificationRecordResponseFromNotificationResponse___block_invoke;
-    v25[3] = &unk_278D6F2F0;
-    v26 = v12;
-    v15 = [notificationRecords indexOfObjectPassingTest:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __78__CALNNotificationServer__notificationRecordResponseFromNotificationResponse___block_invoke;
+    v24[3] = &unk_278D6F2F0;
+    v25 = v12;
+    v15 = [notificationRecords indexOfObjectPassingTest:v24];
     if (v15 == 0x7FFFFFFFFFFFFFFFLL)
     {
       v16 = +[CALNLogSubsystem calendar];
@@ -803,7 +783,7 @@ uint64_t __89__CALNNotificationServer__notificationRecordWithSourceIdentifier_so
 
     else
     {
-      v24 = notification2;
+      v23 = notification2;
       v16 = [notificationRecords objectAtIndex:v15];
       actionIdentifier = [responseCopy actionIdentifier];
       originIdentifier = [responseCopy originIdentifier];
@@ -814,13 +794,13 @@ uint64_t __89__CALNNotificationServer__notificationRecordWithSourceIdentifier_so
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v28 = responseCopy;
-        v29 = 2112;
-        v30 = v17;
+        v27 = responseCopy;
+        v28 = 2112;
+        v29 = v17;
         _os_log_impl(&dword_242909000, v21, OS_LOG_TYPE_DEFAULT, "Transformed notification response to notification record response. Notification response: %@. Notification record response: %@.", buf, 0x16u);
       }
 
-      notification2 = v24;
+      notification2 = v23;
     }
   }
 
@@ -834,8 +814,6 @@ uint64_t __89__CALNNotificationServer__notificationRecordWithSourceIdentifier_so
 
     v17 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -864,37 +842,19 @@ uint64_t __78__CALNNotificationServer__notificationRecordResponseFromNotificatio
 
 - (void)_removeRecordWithSourceIdentifier:(NSObject *)a3 sourceClientIdentifier:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = a1;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_2_0(&dword_242909000, a2, a3, "Could not remove record because could not get notification identifier for source identifier = %{public}@, source client identifier = %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_2_0(&dword_242909000, v0, v1, "Could not get record response from response. request identifier = %{public}@, response = %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_notificationRecordResponseFromNotificationResponse:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_2_0(&dword_242909000, v0, v1, "Could not find notification record with notification identifier = %{public}@, records = %@");
-  v2 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = a1;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_2_0(&dword_242909000, a2, a3, "Could not remove record because could not get notification identifier for source identifier = %{public}@, source client identifier = %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)_notificationRecordResponseFromNotificationResponse:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Could not get notification identifier from request identifier = %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Could not get notification identifier from request identifier = %{public}@", &v2, 0xCu);
 }
 
 @end

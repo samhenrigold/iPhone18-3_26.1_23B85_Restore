@@ -77,7 +77,7 @@
     v11 = [v10 evaluateRateLimitedActivity:activityCopy];
 
     maxedRateLimits = [v11 maxedRateLimits];
-    v13 = [maxedRateLimits count];
+    v13 = objc_msgSend_count(maxedRateLimits);
 
     if (v13)
     {

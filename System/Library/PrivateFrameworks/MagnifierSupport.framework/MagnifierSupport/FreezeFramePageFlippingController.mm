@@ -91,7 +91,7 @@
 
 - (void)pageViewController:(id)controller willTransitionToViewControllers:(id)controllers
 {
-  sub_257BD2C2C(0, &unk_281543F40);
+  sub_257BD2C2C(0, &unk_281543F40, 0x277D75D28);
   v6 = sub_257ECF810();
   controllerCopy = controller;
   selfCopy = self;

@@ -14,7 +14,7 @@
 
 - (void)disableSyncing
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self)
   {
     [MEMORY[0x1E696AF00] isMainThread];
@@ -25,20 +25,18 @@
 
     if (*(self + 8) == 1 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"syncing should be disabled"];
-      v6 = 136315906;
-      v7 = "[FCPushNotificationCenter(Setup) disableSyncing]";
-      v8 = 2080;
-      v9 = "FCPushNotificationCenter.m";
-      v10 = 1024;
-      v11 = 260;
-      v12 = 2114;
-      v13 = v5;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+      v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"syncing should be disabled"];
+      v5 = 136315906;
+      v6 = "[FCPushNotificationCenter(Setup) disableSyncing]";
+      v7 = 2080;
+      v8 = "FCPushNotificationCenter.m";
+      v9 = 1024;
+      v10 = 260;
+      v11 = 2114;
+      v12 = v4;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)serverChangeTokenKey
@@ -76,28 +74,28 @@
 
 - (void)initWithPrivateDatabase:(void *)database storeDirectory:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = a2;
   databaseCopy = database;
   if (self)
   {
     if (!v6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDatabase != nil"];
+      v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDatabase != nil"];
       *buf = 136315906;
-      v16 = "[FCPushNotificationCenter initWithPrivateDatabase:storeDirectory:]";
-      v17 = 2080;
-      v18 = "FCPushNotificationCenter.m";
-      v19 = 1024;
-      v20 = 66;
-      v21 = 2114;
-      v22 = v13;
+      v15 = "[FCPushNotificationCenter initWithPrivateDatabase:storeDirectory:]";
+      v16 = 2080;
+      v17 = "FCPushNotificationCenter.m";
+      v18 = 1024;
+      v19 = 66;
+      v20 = 2114;
+      v21 = v12;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
-    v14.receiver = self;
-    v14.super_class = FCPushNotificationCenter;
-    v8 = objc_msgSendSuper2(&v14, sel_init);
+    v13.receiver = self;
+    v13.super_class = FCPushNotificationCenter;
+    v8 = objc_msgSendSuper2(&v13, sel_init);
     self = v8;
     if (v8)
     {
@@ -108,13 +106,12 @@
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (void)addObserver:(void *)observer forChangesToRecordZoneID:(void *)d usingBlock:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v7 = a2;
   observerCopy = observer;
   dCopy = d;
@@ -126,15 +123,15 @@
   [MEMORY[0x1E696AF00] isMainThread];
   if (!v7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
     *buf = 136315906;
-    v17 = "[FCPushNotificationCenter addObserver:forChangesToRecordZoneID:usingBlock:]";
-    v18 = 2080;
-    v19 = "FCPushNotificationCenter.m";
-    v20 = 1024;
-    v21 = 82;
-    v22 = 2114;
-    v23 = v13;
+    v16 = "[FCPushNotificationCenter addObserver:forChangesToRecordZoneID:usingBlock:]";
+    v17 = 2080;
+    v18 = "FCPushNotificationCenter.m";
+    v19 = 1024;
+    v20 = 82;
+    v21 = 2114;
+    v22 = v12;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (!observerCopy)
@@ -142,15 +139,15 @@
 LABEL_5:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordZoneID != nil"];
+        v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordZoneID != nil"];
         *buf = 136315906;
-        v17 = "[FCPushNotificationCenter addObserver:forChangesToRecordZoneID:usingBlock:]";
-        v18 = 2080;
-        v19 = "FCPushNotificationCenter.m";
-        v20 = 1024;
-        v21 = 83;
-        v22 = 2114;
-        v23 = v14;
+        v16 = "[FCPushNotificationCenter addObserver:forChangesToRecordZoneID:usingBlock:]";
+        v17 = 2080;
+        v18 = "FCPushNotificationCenter.m";
+        v19 = 1024;
+        v20 = 83;
+        v21 = 2114;
+        v22 = v13;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
@@ -174,26 +171,24 @@ LABEL_5:
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
     *buf = 136315906;
-    v17 = "[FCPushNotificationCenter addObserver:forChangesToRecordZoneID:usingBlock:]";
-    v18 = 2080;
-    v19 = "FCPushNotificationCenter.m";
-    v20 = 1024;
-    v21 = 84;
-    v22 = 2114;
-    v23 = v15;
+    v16 = "[FCPushNotificationCenter addObserver:forChangesToRecordZoneID:usingBlock:]";
+    v17 = 2080;
+    v18 = "FCPushNotificationCenter.m";
+    v19 = 1024;
+    v20 = 84;
+    v21 = 2114;
+    v22 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_13:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeRecordZoneObserver:(uint64_t)observer
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (observer)
   {
@@ -205,25 +200,23 @@ LABEL_13:
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
+      v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
       *buf = 136315906;
-      v7 = "[FCPushNotificationCenter removeRecordZoneObserver:]";
-      v8 = 2080;
-      v9 = "FCPushNotificationCenter.m";
-      v10 = 1024;
-      v11 = 96;
-      v12 = 2114;
-      v13 = v5;
+      v6 = "[FCPushNotificationCenter removeRecordZoneObserver:]";
+      v7 = 2080;
+      v8 = "FCPushNotificationCenter.m";
+      v9 = 1024;
+      v10 = 96;
+      v11 = 2114;
+      v12 = v4;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleRemoteNotification:(id)notification completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   handlerCopy = handler;
   [MEMORY[0x1E696AF00] isMainThread];
@@ -247,7 +240,7 @@ LABEL_13:
       v14 = [standardUserDefaults objectForKey:serverChangeTokenKey];
 
       v15 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-      v24 = v14;
+      v23 = v14;
       v16 = v11;
       if (v14)
       {
@@ -272,10 +265,10 @@ LABEL_13:
       privateDatabase = self->_privateDatabase;
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v26 = __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completionHandler___block_invoke;
-      v27 = &unk_1E7C3C9C8;
+      v25 = __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completionHandler___block_invoke;
+      v26 = &unk_1E7C3C9C8;
       selfCopy = self;
-      v29 = v16;
+      v28 = v16;
       v22 = privateDatabase;
       v11 = v16;
       [(FCCKPrivateDatabase *)v22 fetchAllDatabaseChangesWithServerChangeToken:v17 qualityOfService:v20 completionQueue:MEMORY[0x1E69E96A0] completionHandler:&buf];
@@ -296,13 +289,11 @@ LABEL_13:
       (*(handlerCopy + 2))(handlerCopy, v18);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completionHandler___block_invoke(uint64_t a1, char a2, void *a3, void *a4, void *a5)
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -313,47 +304,47 @@ void __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completio
     if (v13)
     {
       *buf = 138412546;
-      v64 = v9;
-      v65 = 2112;
-      v66 = v10;
+      v63 = v9;
+      v64 = 2112;
+      v65 = v10;
       _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "fetched database changes changedRecordZoneIDs: %@ deletedRecordZoneIDs: %@", buf, 0x16u);
     }
 
     v14 = *(a1 + 32);
-    v51 = v9;
+    v50 = v9;
     v15 = v9;
-    v52 = v11;
-    v53 = v10;
+    v51 = v11;
+    v52 = v10;
     if (v14)
     {
       v16 = FCCloudKitLog;
       if (os_log_type_enabled(FCCloudKitLog, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v64 = v15;
+        v63 = v15;
         _os_log_debug_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEBUG, "Zones changed: %@", buf, 0xCu);
       }
 
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
       v59 = 0u;
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
       v17 = *(v14 + 24);
-      v18 = [v17 countByEnumeratingWithState:&v58 objects:buf count:16];
+      v18 = [v17 countByEnumeratingWithState:&v57 objects:buf count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v59;
+        v20 = *v58;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v59 != v20)
+            if (*v58 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = [*(v14 + 24) objectForKey:*(*(&v58 + 1) + 8 * i)];
+            v22 = [*(v14 + 24) objectForKey:*(*(&v57 + 1) + 8 * i)];
             v23 = [v22 first];
             if ([v15 containsObject:v23])
             {
@@ -362,14 +353,14 @@ void __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completio
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v58 objects:buf count:16];
+          v19 = [v17 countByEnumeratingWithState:&v57 objects:buf count:16];
         }
 
         while (v19);
       }
 
-      v11 = v52;
-      v10 = v53;
+      v11 = v51;
+      v10 = v52;
     }
 
     v25 = *(a1 + 32);
@@ -380,7 +371,7 @@ void __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completio
       if (os_log_type_enabled(FCCloudKitLog, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v64 = v26;
+        v63 = v26;
         _os_log_debug_impl(&dword_1B63EF000, v27, OS_LOG_TYPE_DEBUG, "Zones deleted: %@", buf, 0xCu);
       }
     }
@@ -393,7 +384,7 @@ void __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completio
       if (os_log_type_enabled(FCCloudKitLog, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v64 = v29;
+        v63 = v29;
         _os_log_debug_impl(&dword_1B63EF000, v30, OS_LOG_TYPE_DEBUG, "Database change token updated: %@", buf, 0xCu);
       }
 
@@ -407,10 +398,10 @@ void __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completio
     if ([v15 count])
     {
       v35 = [MEMORY[0x1E695DFA8] set];
+      v53 = 0u;
       v54 = 0u;
       v55 = 0u;
       v56 = 0u;
-      v57 = 0u;
       v36 = *(a1 + 32);
       if (v36)
       {
@@ -418,17 +409,17 @@ void __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completio
       }
 
       v37 = v36;
-      v38 = [v37 countByEnumeratingWithState:&v54 objects:v62 count:16];
+      v38 = [v37 countByEnumeratingWithState:&v53 objects:v61 count:16];
       if (v38)
       {
         v39 = v38;
-        v40 = *v55;
+        v40 = *v54;
         do
         {
           v41 = 0;
           do
           {
-            if (*v55 != v40)
+            if (*v54 != v40)
             {
               objc_enumerationMutation(v37);
             }
@@ -444,7 +435,7 @@ void __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completio
               v43 = 0;
             }
 
-            v44 = [v43 objectForKey:*(*(&v54 + 1) + 8 * v41)];
+            v44 = [v43 objectForKey:*(*(&v53 + 1) + 8 * v41)];
             v45 = [v44 first];
             if ([v15 containsObject:v45])
             {
@@ -455,7 +446,7 @@ void __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completio
           }
 
           while (v39 != v41);
-          v46 = [v37 countByEnumeratingWithState:&v54 objects:v62 count:16];
+          v46 = [v37 countByEnumeratingWithState:&v53 objects:v61 count:16];
           v39 = v46;
         }
 
@@ -470,16 +461,16 @@ void __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completio
       v47 = [v35 copy];
       [(FCHandlePushNotificationResult *)v34 setRecordZoneIDs:v47];
 
-      v11 = v52;
-      v10 = v53;
+      v11 = v51;
+      v10 = v52;
     }
 
     v48 = FCCloudKitLog;
-    v9 = v51;
+    v9 = v50;
     if (os_log_type_enabled(FCCloudKitLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v64 = v34;
+      v63 = v34;
       _os_log_impl(&dword_1B63EF000, v48, OS_LOG_TYPE_DEFAULT, "fetched database changes will return pushNotificationResult: %@", buf, 0xCu);
     }
 
@@ -495,13 +486,11 @@ void __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completio
     *buf = 0;
     _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "failed to fetch database changes", buf, 2u);
   }
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enableSyncing
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (self)
   {
     [MEMORY[0x1E696AF00] isMainThread];
@@ -509,20 +498,18 @@ void __81__FCPushNotificationCenter__handlePrivateDatabaseNotification_completio
     [self prepareForUse];
     if ((self[8] & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"syncing should be enabled"];
-      v4 = 136315906;
-      v5 = "[FCPushNotificationCenter(Setup) enableSyncing]";
-      v6 = 2080;
-      v7 = "FCPushNotificationCenter.m";
-      v8 = 1024;
-      v9 = 250;
-      v10 = 2114;
-      v11 = v3;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v4, 0x26u);
+      v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"syncing should be enabled"];
+      v3 = 136315906;
+      v4 = "[FCPushNotificationCenter(Setup) enableSyncing]";
+      v5 = 2080;
+      v6 = "FCPushNotificationCenter.m";
+      v7 = 1024;
+      v8 = 250;
+      v9 = 2114;
+      v10 = v2;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v3, 0x26u);
     }
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prepareForUse

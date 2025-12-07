@@ -1,18 +1,18 @@
 @interface NSSQLCorrelationTableUpdateTracker
+- (id)enumerateDeletesOIDsUsingBlock:(id *)result;
+- (id)enumerateDeletesUsingBlock:(id *)result;
 - (id)initForRelationship:(id)relationship;
-- (uint64_t)enumerateDeletesOIDsUsingBlock:(uint64_t)result;
-- (uint64_t)enumerateDeletesUsingBlock:(uint64_t)result;
-- (uint64_t)enumerateInsertsOIDsUsingBlock:(uint64_t)result;
-- (uint64_t)enumerateReordersOIDsUsingBlock:(uint64_t)result;
-- (uint64_t)enumerateReordersUsingBlock:(uint64_t)result;
-- (uint64_t)trackInserts:(void *)inserts deletes:(void *)deletes reorders:(uint64_t)reorders forObjectWithID:;
-- (uint64_t)trackReorders:(uint64_t)reorders forObjectWithID:;
 - (void)_organizeValues:(uint64_t)values;
 - (void)dealloc;
+- (void)enumerateInsertsOIDsUsingBlock:(void *)result;
 - (void)enumerateInsertsUsingBlock:(uint64_t)block;
 - (void)enumerateMasterReordersOIDsUsingBlock:(uint64_t)block;
 - (void)enumerateMasterReordersPart2UsingBlock:(uint64_t)block;
 - (void)enumerateMasterReordersUsingBlock:(uint64_t)block;
+- (void)enumerateReordersOIDsUsingBlock:(void *)result;
+- (void)enumerateReordersUsingBlock:(void *)result;
+- (void)trackInserts:(void *)inserts deletes:(void *)deletes reorders:(uint64_t)reorders forObjectWithID:;
+- (void)trackReorders:(uint64_t)reorders forObjectWithID:;
 @end
 
 @implementation NSSQLCorrelationTableUpdateTracker
@@ -45,49 +45,49 @@
   [(NSSQLCorrelationTableUpdateTracker *)&v3 dealloc];
 }
 
-- (uint64_t)trackInserts:(void *)inserts deletes:(void *)deletes reorders:(uint64_t)reorders forObjectWithID:
+- (void)trackInserts:(void *)inserts deletes:(void *)deletes reorders:(uint64_t)reorders forObjectWithID:
 {
   if (result)
   {
     v9 = result;
     if ([a2 count])
     {
-      v10 = *(v9 + 16);
+      v10 = *(v9 + 2);
       if (!v10)
       {
         v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        *(v9 + 16) = v10;
+        *(v9 + 2) = v10;
       }
 
       [v10 addObject:reorders];
-      [*(v9 + 16) addObject:a2];
+      [*(v9 + 2) addObject:a2];
     }
 
     if ([inserts count])
     {
-      v11 = *(v9 + 24);
+      v11 = *(v9 + 3);
       if (!v11)
       {
         v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        *(v9 + 24) = v11;
+        *(v9 + 3) = v11;
       }
 
       [v11 addObject:reorders];
-      [*(v9 + 24) addObject:inserts];
+      [*(v9 + 3) addObject:inserts];
     }
 
     result = [deletes count];
     if (result)
     {
-      v12 = *(v9 + 32);
+      v12 = *(v9 + 4);
       if (!v12)
       {
         v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        *(v9 + 32) = v12;
+        *(v9 + 4) = v12;
       }
 
       [v12 addObject:reorders];
-      v13 = *(v9 + 32);
+      v13 = *(v9 + 4);
 
       return [v13 addObject:deletes];
     }
@@ -96,7 +96,7 @@
   return result;
 }
 
-- (uint64_t)trackReorders:(uint64_t)reorders forObjectWithID:
+- (void)trackReorders:(uint64_t)reorders forObjectWithID:
 {
   if (result)
   {
@@ -104,15 +104,15 @@
     result = [a2 count];
     if (result)
     {
-      v6 = *(v5 + 40);
+      v6 = v5[5];
       if (!v6)
       {
         v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        *(v5 + 40) = v6;
+        v5[5] = v6;
       }
 
       [v6 addObject:reorders];
-      v7 = *(v5 + 40);
+      v7 = v5[5];
 
       return [v7 addObject:a2];
     }
@@ -267,37 +267,35 @@ void __65__NSSQLCorrelationTableUpdateTracker_enumerateInsertsUsingBlock___block
   }
 }
 
-uint64_t __65__NSSQLCorrelationTableUpdateTracker_enumerateInsertsUsingBlock___block_invoke_2(uint64_t result, void *a2, void *a3)
+void *__65__NSSQLCorrelationTableUpdateTracker_enumerateInsertsUsingBlock___block_invoke_2(void *result, void *a2, void *a3)
 {
-  if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
+  if ((*(*(result[5] + 8) + 24) & 1) == 0)
   {
     v5 = result;
     [a3 unsignedLongLongValue];
     [a2 _referenceData64];
     [objc_msgSend(objc_msgSend(*(*(v5[6] + 8) + 40) objectForKey:{a2), "objectForKey:", *(*(v5[7] + 8) + 40)), "unsignedLongLongValue"}];
-    v6 = v5[8];
-    v7 = *(v5[4] + 16);
-    v8 = *(v5[5] + 8) + 24;
+    v6 = *(v5[4] + 16);
 
-    return v7();
+    return v6();
   }
 
   return result;
 }
 
-- (uint64_t)enumerateInsertsOIDsUsingBlock:(uint64_t)result
+- (void)enumerateInsertsOIDsUsingBlock:(void *)result
 {
   if (result)
   {
     v3 = result;
-    propertyDescription = *(result + 8);
+    propertyDescription = result[1];
     if (propertyDescription)
     {
       propertyDescription = [propertyDescription propertyDescription];
     }
 
     isOrdered = [propertyDescription isOrdered];
-    result = [*(v3 + 16) count];
+    result = [v3[2] count];
     v13 = 0;
     if (result)
     {
@@ -320,8 +318,8 @@ uint64_t __65__NSSQLCorrelationTableUpdateTracker_enumerateInsertsUsingBlock___b
           break;
         }
 
-        v9 = [*(v3 + 16) objectAtIndex:v7];
-        v10 = [*(v3 + 16) objectAtIndex:v7 | 1];
+        v9 = [v3[2] objectAtIndex:v7];
+        v10 = [v3[2] objectAtIndex:v7 | 1];
         result = [v10 count];
         if (result)
         {
@@ -347,16 +345,16 @@ uint64_t __65__NSSQLCorrelationTableUpdateTracker_enumerateInsertsUsingBlock___b
   return result;
 }
 
-- (uint64_t)enumerateDeletesUsingBlock:(uint64_t)result
+- (id)enumerateDeletesUsingBlock:(id *)result
 {
   if (result)
   {
     v3 = result;
-    result = [*(result + 24) count];
+    result = [result[3] count];
     v12 = result;
     v13 = 0;
-    v4 = *(v3 + 8);
-    v5 = v4 && *(v4 + 56) == v4;
+    v4 = v3[1];
+    v5 = v4 && v4[7] == v4;
     if (result)
     {
       v6 = 0;
@@ -367,13 +365,13 @@ uint64_t __65__NSSQLCorrelationTableUpdateTracker_enumerateInsertsUsingBlock___b
           break;
         }
 
-        v7 = [objc_msgSend(*(v3 + 24) objectAtIndex:{v6), "_referenceData64"}];
-        v8 = [*(v3 + 24) objectAtIndex:v6 | 1];
+        v7 = [objc_msgSend(v3[3] objectAtIndex:{v6), "_referenceData64"}];
+        v8 = [v3[3] objectAtIndex:v6 | 1];
         result = [v8 count];
         if (result)
         {
           v9 = result;
-          for (i = 0; i != v9; ++i)
+          for (i = 0; i != v9; i = (i + 1))
           {
             if (v13)
             {
@@ -399,16 +397,16 @@ uint64_t __65__NSSQLCorrelationTableUpdateTracker_enumerateInsertsUsingBlock___b
   return result;
 }
 
-- (uint64_t)enumerateDeletesOIDsUsingBlock:(uint64_t)result
+- (id)enumerateDeletesOIDsUsingBlock:(id *)result
 {
   if (result)
   {
     v3 = result;
-    result = [*(result + 24) count];
+    result = [result[3] count];
     v12 = result;
     v13 = 0;
-    v4 = *(v3 + 8);
-    v5 = v4 && *(v4 + 56) == v4;
+    v4 = v3[1];
+    v5 = v4 && v4[7] == v4;
     if (result)
     {
       v6 = 0;
@@ -419,13 +417,13 @@ uint64_t __65__NSSQLCorrelationTableUpdateTracker_enumerateInsertsUsingBlock___b
           break;
         }
 
-        v7 = [*(v3 + 24) objectAtIndex:v6];
-        v8 = [*(v3 + 24) objectAtIndex:v6 | 1];
+        v7 = [v3[3] objectAtIndex:v6];
+        v8 = [v3[3] objectAtIndex:v6 | 1];
         result = [v8 count];
         if (result)
         {
           v9 = result;
-          for (i = 0; i != v9; ++i)
+          for (i = 0; i != v9; i = (i + 1))
           {
             if (v13)
             {
@@ -532,9 +530,9 @@ LABEL_18:
   }
 }
 
-uint64_t __72__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersUsingBlock___block_invoke(uint64_t result, void *a2, void *a3)
+void *__72__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersUsingBlock___block_invoke(void *result, void *a2, void *a3)
 {
-  if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
+  if ((*(*(result[5] + 8) + 24) & 1) == 0)
   {
     v4 = result;
     v5 = [a2 _referenceData64];
@@ -542,7 +540,7 @@ uint64_t __72__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersUsingBl
     v6[1] = 3221225472;
     v6[2] = __72__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersUsingBlock___block_invoke_2;
     v6[3] = &unk_1E6EC4FB0;
-    v7 = *(v4 + 32);
+    v7 = *(v4 + 2);
     v8 = v5;
     return [a3 enumerateKeysAndObjectsUsingBlock:v6];
   }
@@ -557,11 +555,9 @@ uint64_t __72__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersUsingBl
     v5 = result;
     [a3 unsignedLongLongValue];
     [a2 _referenceData64];
-    v6 = v5[6];
-    v7 = *(v5[4] + 16);
-    v8 = *(v5[5] + 8) + 24;
+    v6 = *(*(v5 + 32) + 16);
 
-    return v7();
+    return v6();
   }
 
   return result;
@@ -702,9 +698,9 @@ void *__76__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersOIDsUsingB
   }
 }
 
-uint64_t __77__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersPart2UsingBlock___block_invoke(uint64_t result, void *a2, void *a3)
+void *__77__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersPart2UsingBlock___block_invoke(void *result, void *a2, void *a3)
 {
-  if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
+  if ((*(*(result[5] + 8) + 24) & 1) == 0)
   {
     v4 = result;
     v5 = [a2 _referenceData64];
@@ -712,7 +708,7 @@ uint64_t __77__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersPart2Us
     v6[1] = 3221225472;
     v6[2] = __77__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersPart2UsingBlock___block_invoke_2;
     v6[3] = &unk_1E6EC4FB0;
-    v7 = *(v4 + 32);
+    v7 = *(v4 + 2);
     v8 = v5;
     return [a3 enumerateKeysAndObjectsUsingBlock:v6];
   }
@@ -727,22 +723,20 @@ uint64_t __77__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersPart2Us
     v5 = result;
     [a3 unsignedLongLongValue];
     [a2 _referenceData64];
-    v6 = v5[6];
-    v7 = *(v5[4] + 16);
-    v8 = *(v5[5] + 8) + 24;
+    v6 = *(*(v5 + 32) + 16);
 
-    return v7();
+    return v6();
   }
 
   return result;
 }
 
-- (uint64_t)enumerateReordersUsingBlock:(uint64_t)result
+- (void)enumerateReordersUsingBlock:(void *)result
 {
   if (result)
   {
     v3 = result;
-    propertyDescription = *(result + 8);
+    propertyDescription = result[1];
     if (propertyDescription)
     {
       propertyDescription = [propertyDescription propertyDescription];
@@ -751,7 +745,7 @@ uint64_t __77__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersPart2Us
     result = [objc_msgSend(propertyDescription "inverseRelationship")];
     if (result)
     {
-      result = [*(v3 + 40) count];
+      result = [v3[5] count];
       v11 = 0;
       if (result)
       {
@@ -763,8 +757,8 @@ uint64_t __77__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersPart2Us
             break;
           }
 
-          v7 = [objc_msgSend(*(v3 + 40) objectAtIndex:{i), "_referenceData64"}];
-          v8 = [*(v3 + 40) objectAtIndex:i | 1];
+          v7 = [objc_msgSend(v3[5] objectAtIndex:{i), "_referenceData64"}];
+          v8 = [v3[5] objectAtIndex:i | 1];
           result = [v8 count];
           if (result)
           {
@@ -787,12 +781,12 @@ uint64_t __77__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersPart2Us
   return result;
 }
 
-- (uint64_t)enumerateReordersOIDsUsingBlock:(uint64_t)result
+- (void)enumerateReordersOIDsUsingBlock:(void *)result
 {
   if (result)
   {
     v3 = result;
-    propertyDescription = *(result + 8);
+    propertyDescription = result[1];
     if (propertyDescription)
     {
       propertyDescription = [propertyDescription propertyDescription];
@@ -801,7 +795,7 @@ uint64_t __77__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersPart2Us
     result = [objc_msgSend(propertyDescription "inverseRelationship")];
     if (result)
     {
-      result = [*(v3 + 40) count];
+      result = [v3[5] count];
       v11 = 0;
       if (result)
       {
@@ -813,8 +807,8 @@ uint64_t __77__NSSQLCorrelationTableUpdateTracker_enumerateMasterReordersPart2Us
             break;
           }
 
-          v7 = [*(v3 + 40) objectAtIndex:i];
-          v8 = [*(v3 + 40) objectAtIndex:i | 1];
+          v7 = [v3[5] objectAtIndex:i];
+          v8 = [v3[5] objectAtIndex:i | 1];
           result = [v8 count];
           if (result)
           {

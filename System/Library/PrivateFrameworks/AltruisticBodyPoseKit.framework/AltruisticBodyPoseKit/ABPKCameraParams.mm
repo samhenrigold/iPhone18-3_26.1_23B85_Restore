@@ -22,29 +22,30 @@
 
 - (void)checkAndSetApproximateIntrinsics
 {
-  if ([(ABPKCameraParams *)self isMatrixIdentity:*self->_anon_40, *&self->_anon_40[16], *&self->_anon_40[32]])
+  v3 = [(ABPKCameraParams *)self isMatrixIdentity:*self->_anon_40, *&self->_anon_40[16], *&self->_anon_40[32]];
+  if (v3)
   {
     inputRes = self->_inputRes;
-    *&v4 = vmuld_lane_f64(1462.18103, inputRes, 1) / 1920.0;
-    LODWORD(v5) = 0;
-    v6 = v4;
-    HIDWORD(v5) = v4;
+    *&v5 = vmuld_lane_f64(1462.18103, inputRes, 1) / 1920.0;
+    LODWORD(v6) = 0;
+    v7 = v5;
+    HIDWORD(v6) = v5;
     __asm { FMOV            V1.2D, #0.5 }
 
     *&self->_anon_40[8] = 0;
-    *self->_anon_40 = v6;
+    *self->_anon_40 = v7;
     *&self->_anon_40[24] = 0;
-    *&self->_anon_40[16] = v5;
+    *&self->_anon_40[16] = v6;
     *&self->_anon_40[40] = 1065353216;
     *&self->_anon_40[32] = vcvt_f32_f64(vmulq_f64(inputRes, _Q1));
-    v12 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = __ABPKLogSharedInstance(v3);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_DEBUG, " Input intrinsics is identity. Approximate intrinsics: ", v13, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_23EDDC000, v13, OS_LOG_TYPE_DEBUG, " Input intrinsics is identity. Approximate intrinsics: ", v15, 2u);
     }
 
-    printSimd3x3(*self->_anon_40, *&self->_anon_40[16], *&self->_anon_40[32]);
+    printSimd3x3(v14, *self->_anon_40, *&self->_anon_40[16], *&self->_anon_40[32]);
   }
 }
 
@@ -74,37 +75,37 @@
 
 - (ABPKCameraParams)initWithIntrinsics:(__n128)intrinsics andExtrinsics:(__n128)extrinsics andDistortion:(__n128)distortion andInputResolution:(__n128)resolution
 {
-  v29.receiver = self;
-  v29.super_class = ABPKCameraParams;
-  v18 = [(ABPKCameraParams *)&v29 init];
-  v19 = v18;
-  if (v18)
+  v22.receiver = self;
+  v22.super_class = ABPKCameraParams;
+  v11 = [(ABPKCameraParams *)&v22 init];
+  v12 = v11;
+  if (v11)
   {
-    *v18->_anon_40 = a2;
-    *&v18->_anon_40[16] = intrinsics;
-    *&v18->_anon_40[32] = extrinsics;
-    *&v18[1].super.isa = distortion;
-    *&v18[1]._deviceType = resolution;
-    *v18[1]._distortion = a7;
-    v18[1]._inputRes = a8;
-    *v18->_distortion = a9;
-    v18->_inputRes.width = a10;
-    v18->_inputRes.height = a11;
-    v18->_isImageRectified = 0;
-    v18->_deviceOrientation = 3;
-    [(ABPKCameraParams *)v18 checkAndSetApproximateIntrinsics];
+    *v11->_anon_40 = a2;
+    *&v11->_anon_40[16] = intrinsics;
+    *&v11->_anon_40[32] = extrinsics;
+    *&v11[1].super.isa = distortion;
+    *&v11[1]._deviceType = resolution;
+    *v11[1]._distortion = a7;
+    v11[1]._inputRes = a8;
+    *v11->_distortion = a9;
+    v11->_inputRes.width = a10;
+    v11->_inputRes.height = a11;
+    v11->_isImageRectified = 0;
+    v11->_deviceOrientation = 3;
+    [(ABPKCameraParams *)v11 checkAndSetApproximateIntrinsics];
   }
 
-  return v19;
+  return v12;
 }
 
 - (ABPKCameraParams)initWithDictionary:(id)dictionary
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v42.receiver = self;
-  v42.super_class = ABPKCameraParams;
-  v5 = [(ABPKCameraParams *)&v42 init];
+  v46.receiver = self;
+  v46.super_class = ABPKCameraParams;
+  v5 = [(ABPKCameraParams *)&v46 init];
   if (!v5)
   {
     goto LABEL_19;
@@ -143,51 +144,51 @@
   if (integerValue)
   {
     v5->_isImageRectified = 0;
-    v25 = __ABPKLogSharedInstance();
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v27 = __ABPKLogSharedInstance(v24);
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_8;
     }
 
     *buf = 0;
-    v27 = " Image rectification type not specified. Setting Default to fisheye distortion ";
-    v28 = v25;
-    v29 = 2;
+    v29 = " Image rectification type not specified. Setting Default to fisheye distortion ";
+    v30 = v27;
+    v31 = 2;
   }
 
   else
   {
-    v24 = [dictionaryCopy objectForKeyedSubscript:@"is_image_rectified"];
-    v5->_isImageRectified = [v24 BOOLValue];
+    v25 = [dictionaryCopy objectForKeyedSubscript:@"is_image_rectified"];
+    v5->_isImageRectified = [v25 BOOLValue];
 
-    v25 = __ABPKLogSharedInstance();
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v27 = __ABPKLogSharedInstance(v26);
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_8;
     }
 
     isImageRectified = v5->_isImageRectified;
     *buf = 67109120;
-    v44 = isImageRectified;
-    v27 = " Recorded data is rectified: %d ";
-    v28 = v25;
-    v29 = 8;
+    v48 = isImageRectified;
+    v29 = " Recorded data is rectified: %d ";
+    v30 = v27;
+    v31 = 8;
   }
 
-  _os_log_impl(&dword_23EDDC000, v28, OS_LOG_TYPE_DEBUG, v27, buf, v29);
+  _os_log_impl(&dword_23EDDC000, v30, OS_LOG_TYPE_DEBUG, v29, buf, v31);
 LABEL_8:
 
-  v30 = [dictionaryCopy objectForKeyedSubscript:@"device_orientation"];
-  v31 = v30 == 0;
+  v32 = [dictionaryCopy objectForKeyedSubscript:@"device_orientation"];
+  v33 = v32 == 0;
 
-  if (v31)
+  if (v33)
   {
     v5->_deviceOrientation = 3;
-    v34 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v38 = __ABPKLogSharedInstance(v34);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      v35 = " Device orientation not specified. Setting Default to landscape ";
+      v39 = " Device orientation not specified. Setting Default to landscape ";
       goto LABEL_17;
     }
 
@@ -195,63 +196,62 @@ LABEL_18:
 
     [(ABPKCameraParams *)v5 checkAndSetApproximateIntrinsics];
 LABEL_19:
-    v38 = v5;
+    v43 = v5;
     goto LABEL_20;
   }
 
-  v32 = [dictionaryCopy objectForKeyedSubscript:@"device_orientation"];
-  v33 = [v32 isEqualToString:@"landscape"];
+  v35 = [dictionaryCopy objectForKeyedSubscript:@"device_orientation"];
+  v36 = [v35 isEqualToString:@"landscape"];
 
-  if (v33)
+  if (v36)
   {
     v5->_deviceOrientation = 3;
-    v34 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v38 = __ABPKLogSharedInstance(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      v35 = " Recorded sequence with landscape orientation ";
+      v39 = " Recorded sequence with landscape orientation ";
 LABEL_17:
-      _os_log_impl(&dword_23EDDC000, v34, OS_LOG_TYPE_DEBUG, v35, buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v38, OS_LOG_TYPE_DEBUG, v39, buf, 2u);
       goto LABEL_18;
     }
 
     goto LABEL_18;
   }
 
-  v36 = [dictionaryCopy objectForKeyedSubscript:@"device_orientation"];
-  v37 = [v36 isEqualToString:@"portrait"];
+  v40 = [dictionaryCopy objectForKeyedSubscript:@"device_orientation"];
+  v41 = [v40 isEqualToString:@"portrait"];
 
-  if (v37)
+  if (v41)
   {
     v5->_deviceOrientation = 1;
-    v34 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v38 = __ABPKLogSharedInstance(v42);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      v35 = " Recorded sequence with portrait orientation ";
+      v39 = " Recorded sequence with portrait orientation ";
       goto LABEL_17;
     }
 
     goto LABEL_18;
   }
 
-  v41 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+  v45 = __ABPKLogSharedInstance(v42);
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_23EDDC000, v41, OS_LOG_TYPE_ERROR, " Invalid device orientation type specified. Exit ", buf, 2u);
+    _os_log_impl(&dword_23EDDC000, v45, OS_LOG_TYPE_ERROR, " Invalid device orientation type specified. Exit ", buf, 2u);
   }
 
-  v38 = 0;
+  v43 = 0;
 LABEL_20:
 
-  v39 = *MEMORY[0x277D85DE8];
-  return v38;
+  return v43;
 }
 
 - (id)toDict
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [(ABPKCameraParams *)self intrinsics];
   v7 = simdMatrix3x3ToNSMat(v4, v5, v6);
@@ -268,12 +268,12 @@ LABEL_20:
   v15 = MEMORY[0x277CCABB0];
   [(ABPKCameraParams *)self inputRes];
   v17 = [v15 numberWithDouble:v16];
-  v25[0] = v17;
+  v24[0] = v17;
   v18 = MEMORY[0x277CCABB0];
   [(ABPKCameraParams *)self inputRes];
   v19 = [v18 numberWithDouble:?];
-  v25[1] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+  v24[1] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
   [v3 setObject:v20 forKey:@"resolution"];
 
   v21 = [MEMORY[0x277CCABB0] numberWithBool:{-[ABPKCameraParams isImageRectified](self, "isImageRectified")}];
@@ -295,7 +295,6 @@ LABEL_20:
   }
 
   [v3 setObject:v22 forKey:@"device_orientation"];
-  v23 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

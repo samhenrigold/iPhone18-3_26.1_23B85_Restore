@@ -20,16 +20,16 @@
 
 - (DAEASOAuthJWTValidator)initWithIdToken:(id)token
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   if (!tokenCopy)
   {
     [(DAEASOAuthJWTValidator *)a2 initWithIdToken:?];
   }
 
-  v39.receiver = self;
-  v39.super_class = DAEASOAuthJWTValidator;
-  v6 = [(DAEASOAuthJWTValidator *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = DAEASOAuthJWTValidator;
+  v6 = [(DAEASOAuthJWTValidator *)&v38 init];
   if (!v6)
   {
     goto LABEL_19;
@@ -44,9 +44,9 @@
     {
       v10 = [v7 count];
       *buf = 138412546;
-      v41 = v7;
-      v42 = 2048;
-      v43 = v10;
+      v40 = v7;
+      v41 = 2048;
+      v42 = v10;
       _os_log_impl(&dword_247E05000, v8, v9, "DAEASOAuthJWTValidator Error separating idToken components: %@ %lu", buf, 0x16u);
     }
 
@@ -79,9 +79,9 @@
   v6->_decodedSignature = v22;
 
   v24 = v6->_decodedHeader;
-  v38 = 0;
-  v25 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v24 options:4 error:&v38];
-  v11 = v38;
+  v37 = 0;
+  v25 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v24 options:4 error:&v37];
+  v11 = v37;
   headerJSONObject = v6->_headerJSONObject;
   v6->_headerJSONObject = v25;
 
@@ -93,9 +93,9 @@
     {
       v28 = v6->_rawHeader;
       *buf = 138412546;
-      v41 = v11;
-      v42 = 2112;
-      v43 = v28;
+      v40 = v11;
+      v41 = 2112;
+      v42 = v28;
       v29 = "DAEASOAuthJWTValidator Error parsing JWT header: %@ %@";
 LABEL_11:
       _os_log_impl(&dword_247E05000, v8, v27, v29, buf, 0x16u);
@@ -105,9 +105,9 @@ LABEL_11:
   else
   {
     v31 = v6->_decodedPayload;
-    v37 = 0;
-    v32 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v31 options:1 error:&v37];
-    v11 = v37;
+    v36 = 0;
+    v32 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v31 options:1 error:&v36];
+    v11 = v36;
     payloadJSONObject = v6->_payloadJSONObject;
     v6->_payloadJSONObject = v32;
 
@@ -125,9 +125,9 @@ LABEL_19:
     {
       v34 = v6->_rawPayload;
       *buf = 138412546;
-      v41 = v11;
-      v42 = 2112;
-      v43 = v34;
+      v40 = v11;
+      v41 = 2112;
+      v42 = v34;
       v29 = "DAEASOAuthJWTValidator Error parsing JWT payload: %@ %@";
       goto LABEL_11;
     }
@@ -138,7 +138,6 @@ LABEL_12:
   v30 = 0;
 LABEL_20:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -165,7 +164,7 @@ LABEL_20:
 
 - (BOOL)idTokenValidWithJWKS:(id)s withAudience:(id)audience withIssuer:(id)issuer
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   sCopy = s;
   audienceCopy = audience;
   issuerCopy = issuer;
@@ -179,18 +178,18 @@ LABEL_20:
       goto LABEL_16;
     }
 
-    v46 = 138412802;
-    v47 = sCopy;
-    v48 = 2112;
-    v49 = audienceCopy;
-    v50 = 2112;
-    v51 = v11;
+    v45 = 138412802;
+    v46 = sCopy;
+    v47 = 2112;
+    v48 = audienceCopy;
+    v49 = 2112;
+    v50 = v11;
     v22 = "DAEASOAuthJWTValidator idToken could not be validated, nil params %@ %@ %@";
     v23 = v14;
     v24 = v21;
     v25 = 32;
 LABEL_15:
-    _os_log_impl(&dword_247E05000, v23, v24, v22, &v46, v25);
+    _os_log_impl(&dword_247E05000, v23, v24, v22, &v45, v25);
     goto LABEL_16;
   }
 
@@ -203,7 +202,7 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    LOWORD(v46) = 0;
+    LOWORD(v45) = 0;
     v22 = "DAEASOAuthJWTValidator idToken could not be validated, invalid signature";
     v23 = v14;
     v24 = v26;
@@ -228,73 +227,73 @@ LABEL_15:
       if (os_log_type_enabled(v17, v18))
       {
         v19 = [self->_payloadJSONObject objectForKeyedSubscript:@"iss"];
-        v46 = 138412546;
-        v47 = v14;
-        v48 = 2112;
-        v49 = v19;
+        v45 = 138412546;
+        v46 = v14;
+        v47 = 2112;
+        v48 = v19;
         v20 = "DAEASOAuthJWTValidator idToken could not be validated, issuer mismatch: %@ %@";
 LABEL_24:
-        _os_log_impl(&dword_247E05000, v17, v18, v20, &v46, 0x16u);
+        _os_log_impl(&dword_247E05000, v17, v18, v20, &v45, 0x16u);
       }
     }
 
     else
     {
-      v32 = [self->_payloadJSONObject objectForKeyedSubscript:@"aud"];
-      v33 = [v32 isEqualToString:audienceCopy];
+      v31 = [self->_payloadJSONObject objectForKeyedSubscript:@"aud"];
+      v32 = [v31 isEqualToString:audienceCopy];
 
-      if (v33)
+      if (v32)
       {
-        v34 = [self->_payloadJSONObject objectForKeyedSubscript:@"nbf"];
-        integerValue = [v34 integerValue];
+        v33 = [self->_payloadJSONObject objectForKeyedSubscript:@"nbf"];
+        integerValue = [v33 integerValue];
 
-        v36 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:300.0];
-        [v36 timeIntervalSince1970];
-        if (v37 >= integerValue)
+        v35 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:300.0];
+        [v35 timeIntervalSince1970];
+        if (v36 >= integerValue)
         {
-          v41 = [self->_payloadJSONObject objectForKeyedSubscript:@"exp"];
-          integerValue2 = [v41 integerValue];
+          v40 = [self->_payloadJSONObject objectForKeyedSubscript:@"exp"];
+          integerValue2 = [v40 integerValue];
 
           v17 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:-300.0];
           [v17 timeIntervalSince1970];
-          if (v43 <= integerValue2)
+          if (v42 <= integerValue2)
           {
             v29 = 1;
             goto LABEL_26;
           }
 
-          v38 = DALoggingwithCategory();
-          v44 = *(MEMORY[0x277D03988] + 7);
-          if (os_log_type_enabled(v38, v44))
+          v37 = DALoggingwithCategory();
+          v43 = *(MEMORY[0x277D03988] + 7);
+          if (os_log_type_enabled(v37, v43))
           {
             [v17 timeIntervalSince1970];
-            v46 = 134218240;
-            v47 = *&integerValue2;
-            v48 = 2048;
-            v49 = v45;
-            _os_log_impl(&dword_247E05000, v38, v44, "DAEASOAuthJWTValidator idToken could not be validated, exp validation failed: %f %f", &v46, 0x16u);
+            v45 = 134218240;
+            v46 = *&integerValue2;
+            v47 = 2048;
+            v48 = v44;
+            _os_log_impl(&dword_247E05000, v37, v43, "DAEASOAuthJWTValidator idToken could not be validated, exp validation failed: %f %f", &v45, 0x16u);
           }
 
-          v36 = v17;
+          v35 = v17;
         }
 
         else
         {
-          v38 = DALoggingwithCategory();
-          v39 = *(MEMORY[0x277D03988] + 7);
-          if (os_log_type_enabled(v38, v39))
+          v37 = DALoggingwithCategory();
+          v38 = *(MEMORY[0x277D03988] + 7);
+          if (os_log_type_enabled(v37, v38))
           {
-            [v36 timeIntervalSince1970];
-            v46 = 134218240;
-            v47 = *&integerValue;
-            v48 = 2048;
-            v49 = v40;
-            _os_log_impl(&dword_247E05000, v38, v39, "DAEASOAuthJWTValidator idToken could not be validated, nbf validation failed: %f %f", &v46, 0x16u);
+            [v35 timeIntervalSince1970];
+            v45 = 134218240;
+            v46 = *&integerValue;
+            v47 = 2048;
+            v48 = v39;
+            _os_log_impl(&dword_247E05000, v37, v38, "DAEASOAuthJWTValidator idToken could not be validated, nbf validation failed: %f %f", &v45, 0x16u);
           }
         }
 
         v29 = 0;
-        v17 = v36;
+        v17 = v35;
         goto LABEL_26;
       }
 
@@ -303,10 +302,10 @@ LABEL_24:
       if (os_log_type_enabled(v17, v18))
       {
         v19 = [self->_payloadJSONObject objectForKeyedSubscript:@"aud"];
-        v46 = 138412546;
-        v47 = audienceCopy;
-        v48 = 2112;
-        v49 = v19;
+        v45 = 138412546;
+        v46 = audienceCopy;
+        v47 = 2112;
+        v48 = v19;
         v20 = "DAEASOAuthJWTValidator idToken could not be validated, audience mismatch: %@ %@";
         goto LABEL_24;
       }
@@ -323,10 +322,10 @@ LABEL_26:
   if (os_log_type_enabled(v14, v27))
   {
     payloadJSONObject = self->_payloadJSONObject;
-    v46 = 138412546;
-    v47 = @"iss";
-    v48 = 2112;
-    v49 = payloadJSONObject;
+    v45 = 138412546;
+    v46 = @"iss";
+    v47 = 2112;
+    v48 = payloadJSONObject;
     v22 = "DAEASOAuthJWTValidator idToken could not be validated, payload didn't contain the required key: %@ %@";
     v23 = v14;
     v24 = v27;
@@ -338,20 +337,19 @@ LABEL_16:
   v29 = 0;
 LABEL_17:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
 - (BOOL)_signatureValid:(id)valid
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   validCopy = valid;
   v5 = [self->_headerJSONObject objectForKeyedSubscript:@"kid"];
   if (v5 && (v6 = v5, [self->_payloadJSONObject objectForKeyedSubscript:@"iss"], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v7))
   {
-    v59 = 0;
-    v8 = [MEMORY[0x277CCAAA0] JSONObjectWithData:validCopy options:0 error:&v59];
-    v9 = v59;
+    v58 = 0;
+    v8 = [MEMORY[0x277CCAAA0] JSONObjectWithData:validCopy options:0 error:&v58];
+    v9 = v58;
     v10 = MEMORY[0x277D03988];
     if (v9 || !v8)
     {
@@ -360,9 +358,9 @@ LABEL_17:
       if (os_log_type_enabled(v11, v24))
       {
         *buf = 138412546;
-        v62 = v9;
-        v63 = 2112;
-        v64 = validCopy;
+        v61 = v9;
+        v62 = 2112;
+        v63 = validCopy;
         _os_log_impl(&dword_247E05000, v11, v24, "DAEASOAuthJWTValidator signature could not be validated: %@ %@", buf, 0x16u);
       }
 
@@ -371,28 +369,28 @@ LABEL_17:
 
     else
     {
-      v53 = validCopy;
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
+      v52 = validCopy;
       v56 = 0u;
-      v52 = v8;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
+      v51 = v8;
       v11 = [v8 objectForKeyedSubscript:@"keys"];
-      v12 = [v11 countByEnumeratingWithState:&v55 objects:v60 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v54 objects:v59 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v56;
+        v14 = *v55;
 LABEL_7:
         v15 = 0;
         while (1)
         {
-          if (*v56 != v14)
+          if (*v55 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v55 + 1) + 8 * v15);
+          v16 = *(*(&v54 + 1) + 8 * v15);
           v17 = [v16 objectForKeyedSubscript:@"kid"];
           v18 = [self->_headerJSONObject objectForKeyedSubscript:@"kid"];
           v19 = [v17 isEqualToString:v18];
@@ -404,7 +402,7 @@ LABEL_7:
 
           if (v13 == ++v15)
           {
-            v13 = [v11 countByEnumeratingWithState:&v55 objects:v60 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v54 objects:v59 count:16];
             if (v13)
             {
               goto LABEL_7;
@@ -426,7 +424,7 @@ LABEL_7:
         v32 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:firstObject options:0];
         if (v32)
         {
-          v51 = v28;
+          v50 = v28;
           v33 = SecCertificateCreateWithData(0, v32);
           v34 = SecCertificateCopyKey(v33);
           if (v33)
@@ -465,11 +463,11 @@ LABEL_7:
           {
             v41 = self->_decodedSignature;
             *buf = 138412802;
-            v62 = v34;
-            v63 = 2112;
-            v64 = v29;
-            v65 = 2112;
-            v66 = v41;
+            v61 = v34;
+            v62 = 2112;
+            v63 = v29;
+            v64 = 2112;
+            v65 = v41;
             _os_log_impl(&dword_247E05000, v39, v40, "DAEASOAuthJWTValidator SecKeyVerifySignature not invoked with invalid params: %@ %@ %@", buf, 0x20u);
           }
 
@@ -486,16 +484,16 @@ LABEL_34:
               {
                 v44 = self->_decodedSignature;
                 *buf = 138412802;
-                v62 = v29;
-                v63 = 2112;
-                v64 = v44;
-                v65 = 2112;
-                v66 = error;
+                v61 = v29;
+                v62 = 2112;
+                v63 = v44;
+                v64 = 2112;
+                v65 = error;
                 _os_log_impl(&dword_247E05000, v42, v43, "DAEASOAuthJWTValidator Error occurred while verifying signature: %@ %@ %@", buf, 0x20u);
               }
             }
 
-            v28 = v51;
+            v28 = v50;
             if (v38)
             {
 
@@ -506,7 +504,7 @@ LABEL_34:
             goto LABEL_44;
           }
 
-          v28 = v51;
+          v28 = v50;
         }
 
         else
@@ -516,7 +514,7 @@ LABEL_34:
           if (os_log_type_enabled(v45, v46))
           {
             *buf = 138412290;
-            v62 = 0;
+            v61 = 0;
             _os_log_impl(&dword_247E05000, v45, v46, "DAEASOAuthJWTValidator SecCertificateCreateWithData not invoked with invalid param: %@ ", buf, 0xCu);
           }
         }
@@ -532,14 +530,14 @@ LABEL_45:
       {
         headerJSONObject = self->_headerJSONObject;
         *buf = 138412546;
-        v8 = v52;
-        v62 = v52;
-        v63 = 2112;
-        v64 = headerJSONObject;
+        v8 = v51;
+        v61 = v51;
+        v62 = 2112;
+        v63 = headerJSONObject;
         _os_log_impl(&dword_247E05000, v11, v47, "DAEASOAuthJWTValidator signature could not be validated: %@ %@", buf, 0x16u);
         v23 = 0;
         v9 = 0;
-        validCopy = v53;
+        validCopy = v52;
       }
 
       else
@@ -547,8 +545,8 @@ LABEL_45:
         v23 = 0;
 LABEL_48:
         v9 = 0;
-        validCopy = v53;
-        v8 = v52;
+        validCopy = v52;
+        v8 = v51;
       }
     }
   }
@@ -562,26 +560,25 @@ LABEL_48:
       v21 = self->_headerJSONObject;
       payloadJSONObject = self->_payloadJSONObject;
       *buf = 138413058;
-      v62 = v21;
-      v63 = 2112;
-      v64 = @"kid";
-      v65 = 2112;
-      v66 = payloadJSONObject;
-      v67 = 2112;
-      v68 = @"iss";
+      v61 = v21;
+      v62 = 2112;
+      v63 = @"kid";
+      v64 = 2112;
+      v65 = payloadJSONObject;
+      v66 = 2112;
+      v67 = @"iss";
       _os_log_impl(&dword_247E05000, v9, v20, "DAEASOAuthJWTValidator signature could not be validated, keys not found %@ %@ %@ %@", buf, 0x2Au);
     }
 
     v23 = 0;
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 + (id)base64URLDecode:(id)decode
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   decodeCopy = decode;
   if (decodeCopy)
   {
@@ -614,22 +611,20 @@ LABEL_48:
     v10 = *(MEMORY[0x277D03988] + 3);
     if (os_log_type_enabled(v9, v10))
     {
-      v16 = 138412290;
-      v17 = 0;
-      _os_log_impl(&dword_247E05000, v9, v10, "DAEASOAuthJWTValidator cannot base64URLDecode: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = 0;
+      _os_log_impl(&dword_247E05000, v9, v10, "DAEASOAuthJWTValidator cannot base64URLDecode: %@", &v15, 0xCu);
     }
 
     v11 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (id)base64URLEncode:(id)encode
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (encode)
   {
     v3 = [encode base64EncodedStringWithOptions:0];
@@ -646,15 +641,13 @@ LABEL_48:
     v8 = *(MEMORY[0x277D03988] + 3);
     if (os_log_type_enabled(v7, v8))
     {
-      v11 = 138412290;
-      v12 = 0;
-      _os_log_impl(&dword_247E05000, v7, v8, "DAEASOAuthJWTValidator cannot base64URLEncode: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = 0;
+      _os_log_impl(&dword_247E05000, v7, v8, "DAEASOAuthJWTValidator cannot base64URLEncode: %@", &v10, 0xCu);
     }
 
     v6 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

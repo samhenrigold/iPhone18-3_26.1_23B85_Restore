@@ -25,16 +25,20 @@
 - (void)parseConnectivityTimings:(id)timings;
 - (void)parseDTXReport:(unsigned __int16)report dict:(id)dict;
 - (void)parseDisconnectReport:(unsigned __int16)report dict:(id)dict;
+- (void)parseDuplication:(unsigned __int16)duplication dict:(id)dict;
 - (void)parseFaceTimeAggregatedSegmentStats:(id)stats;
 - (void)parseHomeKitIPCameraFirstVideoFrame:(id)frame;
 - (void)parseHomeKitIPCameraRealtimeStatsReport:(id)report;
 - (void)parseHomeKitIPCameraStreamStart:(id)start;
+- (void)parseModeRoleTransportReport:(unsigned __int16)report dict:(id)dict;
 - (void)parseRTStats:(id)stats;
+- (void)parseVideoDegraded:(id)degraded direction:(unsigned __int16)direction;
 - (void)parseVideoProperty:(unsigned __int16)property dict:(id)dict;
 - (void)parseVideoStats:(unsigned __int16)stats dict:(id)dict;
 - (void)parseWindowMode:(unsigned __int16)mode dict:(id)dict;
 - (void)processSecondDisplayLogTransportInfoStats;
 - (void)resetAudioCallHistograms;
+- (void)sendMessageWithMethodPrivate:(unsigned __int16)private respCode:(unsigned __int16)code dict:(id)dict;
 - (void)updateHomeKitIPCameraKeyFrameReceivedReport;
 - (void)updateHomeKitIPCameraPLISentReport;
 - (void)updateMomentsStats:(id)stats;
@@ -111,6 +115,234 @@
   [(AWDAdaptor *)&v15 dealloc];
 }
 
+- (void)sendMessageWithMethodPrivate:(unsigned __int16)private respCode:(unsigned __int16)code dict:(id)dict
+{
+  dictCopy = dict;
+  codeCopy = code;
+  privateCopy = private;
+  if ([dict objectForKeyedSubscript:@"ClientData"])
+  {
+    dictCopy = [dictCopy objectForKeyedSubscript:@"ClientData"];
+  }
+
+  if (privateCopy > 69)
+  {
+    if (privateCopy <= 200)
+    {
+      if (privateCopy <= 79)
+      {
+        switch(privateCopy)
+        {
+          case 'F':
+
+            [(AWDAdaptor *)self parseFaceTimeAggregatedSegmentStats:dictCopy];
+            break;
+          case 'G':
+
+            [(AWDAdaptor *)self generateFaceTimeAggregatedCallStats:dictCopy];
+            break;
+          case 'N':
+
+            [(AWDAdaptor *)self generateSecondDisplayAggregatedCallStats:dictCopy];
+            break;
+        }
+      }
+
+      else if (privateCopy > 101)
+      {
+        if (privateCopy == 102)
+        {
+          [(AWDAdaptor *)self wifiCallingAddSamplesGenerateAndSendCallEndReport:dictCopy];
+          if ([dictCopy objectForKeyedSubscript:@"Mode"])
+          {
+            [objc_msgSend(dictCopy objectForKeyedSubscript:{@"StreamConnectionTime", "doubleValue"}];
+            self->_streamConnectionTime = v9;
+            [(AWDAdaptor *)self sendAnalyticsDetailedVoiceCallEvent];
+            [(AWDAdaptor *)self sendAnalyticsSummaryVoiceCallEvent];
+          }
+
+          [(AWDAdaptor *)self resetAudioCallHistograms];
+        }
+
+        else if (privateCopy == 140)
+        {
+
+          [(AWDAdaptor *)self wifiCallingAddSamples:dictCopy];
+        }
+      }
+
+      else if (privateCopy == 80)
+      {
+
+        [(AWDAdaptor *)self parseDTXReport:codeCopy dict:dictCopy];
+      }
+
+      else if (privateCopy == 81)
+      {
+
+        [(AWDAdaptor *)self updateMomentsStats:dictCopy];
+      }
+    }
+
+    else if (privateCopy > 239)
+    {
+      if (privateCopy > 300)
+      {
+        if (privateCopy == 301)
+        {
+          [(AWDAdaptor *)self sendAnalyticsAudioDistortionStatisticsEvent:dictCopy];
+
+          [(AWDAdaptor *)self sendAnalyticsAudioDistortionSummaryEvent:dictCopy];
+        }
+
+        else if (privateCopy == 302)
+        {
+
+          [(AWDAdaptor *)self sendAnalyticsAudioDistortionRadioHistogramEvent:dictCopy];
+        }
+      }
+
+      else if (privateCopy == 240)
+      {
+
+        [(AWDAdaptor *)self parseHomeKitIPCameraRealtimeStatsReport:dictCopy];
+      }
+
+      else if (privateCopy == 300)
+      {
+
+        [(AWDAdaptor *)self sendAnalyticsAudioFrameCountStatisticsEvent:dictCopy];
+      }
+    }
+
+    else if (privateCopy > 222)
+    {
+      if (privateCopy == 223)
+      {
+
+        [(AWDAdaptor *)self updateHomeKitIPCameraPLISentReport];
+      }
+
+      else if (privateCopy == 229)
+      {
+
+        [(AWDAdaptor *)self updateHomeKitIPCameraKeyFrameReceivedReport];
+      }
+    }
+
+    else if (privateCopy == 201)
+    {
+
+      [(AWDAdaptor *)self parseHomeKitIPCameraStreamStart:dictCopy];
+    }
+
+    else if (privateCopy == 212)
+    {
+
+      [(AWDAdaptor *)self parseHomeKitIPCameraFirstVideoFrame:dictCopy];
+    }
+
+    return;
+  }
+
+  if (privateCopy > 34)
+  {
+    if (privateCopy <= 40)
+    {
+      switch(privateCopy)
+      {
+        case '#':
+
+          [(AWDAdaptor *)self parseAudioTierChange:dictCopy];
+          break;
+        case '&':
+
+          [(AWDAdaptor *)self parseCellTechChange:codeCopy dict:dictCopy];
+          break;
+        case '\'':
+
+          [(AWDAdaptor *)self parseAWDEvent:codeCopy dict:dictCopy];
+          break;
+      }
+    }
+
+    else if (privateCopy > 54)
+    {
+      if (privateCopy == 55)
+      {
+
+        [(AWDAdaptor *)self parseDuplication:codeCopy dict:dictCopy];
+      }
+
+      else if (privateCopy == 60)
+      {
+
+        [(AWDAdaptor *)self parseWindowMode:codeCopy dict:dictCopy];
+      }
+    }
+
+    else if (privateCopy == 41)
+    {
+
+      [(AWDAdaptor *)self processSecondDisplayLogTransportInfoStats];
+    }
+
+    else if (privateCopy == 51)
+    {
+
+      [(AWDAdaptor *)self parseConnectionEstablishment:codeCopy dict:dictCopy];
+    }
+  }
+
+  else if (privateCopy <= 29)
+  {
+    switch(privateCopy)
+    {
+      case 4:
+
+        [(AWDAdaptor *)self parseDisconnectReport:codeCopy dict:dictCopy];
+        break;
+      case 8:
+
+        [(AWDAdaptor *)self parseVideoDegraded:dictCopy direction:codeCopy];
+        break;
+      case 29:
+
+        [(AWDAdaptor *)self parseModeRoleTransportReport:codeCopy dict:dictCopy];
+        break;
+    }
+  }
+
+  else if (privateCopy > 32)
+  {
+    if (privateCopy == 33)
+    {
+      [(AWDAdaptor *)self parseRTStats:dictCopy];
+LABEL_87:
+
+      [(AWDAdaptor *)self parseVideoStats:codeCopy dict:dictCopy];
+      return;
+    }
+
+    [(AWDAdaptor *)self parseConnectivityTimings:dictCopy];
+  }
+
+  else
+  {
+    if (privateCopy != 30)
+    {
+      if (privateCopy != 31)
+      {
+        return;
+      }
+
+      goto LABEL_87;
+    }
+
+    [(AWDAdaptor *)self parseVideoProperty:codeCopy dict:dictCopy];
+  }
+}
+
 - (void)parseAudioTierChange:(id)change
 {
   v5 = [change objectForKeyedSubscript:@"Tier"];
@@ -157,6 +389,31 @@
   awdstat = [(AWDAdaptor *)self awdstat];
 
   [(AWDStats *)awdstat addConnectivityTimingDictionary:timings];
+}
+
+- (void)parseVideoDegraded:(id)degraded direction:(unsigned __int16)direction
+{
+  if ((direction - 6) >= 0xFFFFFFFE)
+  {
+    directionCopy = direction;
+    v6 = [degraded objectForKeyedSubscript:@"Degr"];
+    if (v6)
+    {
+      bOOLValue = [v6 BOOLValue];
+      videoQualityTimers = [(AWDAdaptor *)self videoQualityTimers];
+      if (bOOLValue)
+      {
+
+        [(TimingCollection *)videoQualityTimers startTimingForKey:directionCopy];
+      }
+
+      else
+      {
+
+        [(TimingCollection *)videoQualityTimers stopTimingForKey:directionCopy];
+      }
+    }
+  }
 }
 
 - (void)parseAWDEvent:(unsigned __int16)event dict:(id)dict
@@ -264,6 +521,25 @@
   }
 }
 
+- (void)parseDuplication:(unsigned __int16)duplication dict:(id)dict
+{
+  if (duplication == 1)
+  {
+    [(AWDStats *)[(AWDAdaptor *)self awdstat:duplication] duplicationStopEvent];
+    videoQualityTimers = [(AWDAdaptor *)self videoQualityTimers];
+
+    [(TimingCollection *)videoQualityTimers stopTimingForKey:4294967294];
+  }
+
+  else if (!duplication)
+  {
+    [(AWDStats *)[(AWDAdaptor *)self awdstat:duplication] duplicationStartEvent];
+    videoQualityTimers2 = [(AWDAdaptor *)self videoQualityTimers];
+
+    [(TimingCollection *)videoQualityTimers2 startTimingForKey:4294967294];
+  }
+}
+
 - (void)parseWindowMode:(unsigned __int16)mode dict:(id)dict
 {
   if (!mode)
@@ -331,6 +607,32 @@
         [(AWDStats *)awdstat setDTXStats:v14 BytesSaved:v12];
       }
     }
+  }
+}
+
+- (void)parseModeRoleTransportReport:(unsigned __int16)report dict:(id)dict
+{
+  reportCopy = report;
+  v7 = [dict objectForKeyedSubscript:@"DeviceRole"];
+  v8 = [dict objectForKeyedSubscript:@"TransportType"];
+  if (v7)
+  {
+    v9 = v8 == 0;
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  if (!v9)
+  {
+    v10 = v8;
+    awdstat = [(AWDAdaptor *)self awdstat];
+    unsignedIntegerValue = [v7 unsignedIntegerValue];
+    unsignedIntegerValue2 = [v10 unsignedIntegerValue];
+
+    [(AWDStats *)awdstat setModeRoleTransport:reportCopy deviceRole:unsignedIntegerValue transportType:unsignedIntegerValue2];
   }
 }
 
@@ -598,33 +900,33 @@
 
 - (double)computeMean:(id)mean
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([mean count])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
-    v4 = [mean countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v4 = [mean countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v14;
+      v6 = *v13;
       v7 = 0.0;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(mean);
           }
 
-          [*(*(&v13 + 1) + 8 * i) doubleValue];
+          [*(*(&v12 + 1) + 8 * i) doubleValue];
           v7 = v7 + v9;
         }
 
-        v5 = [mean countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [mean countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v5);
@@ -635,7 +937,7 @@
       v7 = 0.0;
     }
 
-    v10 = v7 / [mean count];
+    return v7 / [mean count];
   }
 
   else
@@ -651,39 +953,38 @@
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (double)computeMax:(id)max
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([max count])
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
-    v4 = [max countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v4 = [max countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       v7 = 0.0;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(max);
           }
 
-          [*(*(&v12 + 1) + 8 * i) doubleValue];
+          [*(*(&v11 + 1) + 8 * i) doubleValue];
           v7 = fmax(v7, v9);
         }
 
-        v5 = [max countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [max countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -691,7 +992,7 @@
 
     else
     {
-      v7 = 0.0;
+      return 0.0;
     }
   }
 
@@ -708,7 +1009,6 @@
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -770,7 +1070,7 @@
 
 - (unsigned)allocHistogramForValues:(id)values withBinBoundaries:(id)boundaries
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (![boundaries count])
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -782,7 +1082,7 @@
       }
     }
 
-    goto LABEL_34;
+    return 0;
   }
 
   if (![values count])
@@ -796,9 +1096,7 @@
       }
     }
 
-LABEL_34:
-    v12 = 0;
-    goto LABEL_35;
+    return 0;
   }
 
   if ([boundaries count] >= 2 && objc_msgSend(boundaries, "count") >= 2)
@@ -824,41 +1122,41 @@ LABEL_34:
 
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v32 = VRTraceErrorLogLevelToCSTR();
-      v33 = *MEMORY[0x277CE5818];
+      v31 = VRTraceErrorLogLevelToCSTR();
+      v32 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
       {
-        [(AWDAdaptor *)v32 allocHistogramForValues:boundaries withBinBoundaries:v33];
+        [(AWDAdaptor *)v31 allocHistogramForValues:boundaries withBinBoundaries:v32];
       }
     }
 
-    goto LABEL_34;
+    return 0;
   }
 
 LABEL_8:
   v11 = [boundaries count];
   v12 = malloc_type_calloc(v11 + 1, 4uLL, 0x100004052888210uLL);
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v13 = [values countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v13 = [values countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v13)
   {
     v14 = v13;
     obj = values;
-    v35 = *v41;
+    v34 = *v40;
     v15 = v11;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v41 != v35)
+        if (*v40 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v40 + 1) + 8 * i);
+        v17 = *(*(&v39 + 1) + 8 * i);
         [v17 doubleValue];
         v19 = v18;
         [objc_msgSend(boundaries "lastObject")];
@@ -871,25 +1169,25 @@ LABEL_24:
 
         else
         {
-          v38 = 0u;
-          v39 = 0u;
-          v36 = 0u;
           v37 = 0u;
-          v22 = [boundaries countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v38 = 0u;
+          v35 = 0u;
+          v36 = 0u;
+          v22 = [boundaries countByEnumeratingWithState:&v35 objects:v43 count:16];
           if (v22)
           {
             v23 = v22;
-            v24 = *v37;
+            v24 = *v36;
             while (2)
             {
               for (j = 0; j != v23; ++j)
               {
-                if (*v37 != v24)
+                if (*v36 != v24)
                 {
                   objc_enumerationMutation(boundaries);
                 }
 
-                v26 = *(*(&v36 + 1) + 8 * j);
+                v26 = *(*(&v35 + 1) + 8 * j);
                 [v17 doubleValue];
                 v28 = v27;
                 [v26 doubleValue];
@@ -900,7 +1198,7 @@ LABEL_24:
                 }
               }
 
-              v23 = [boundaries countByEnumeratingWithState:&v36 objects:v44 count:16];
+              v23 = [boundaries countByEnumeratingWithState:&v35 objects:v43 count:16];
               if (v23)
               {
                 continue;
@@ -912,14 +1210,12 @@ LABEL_24:
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v14 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v14);
   }
 
-LABEL_35:
-  v30 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -964,7 +1260,7 @@ LABEL_35:
 
 - (BOOL)sendAnalyticsDetailedVoiceCallEvent
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v3 = VRTraceErrorLogLevelToCSTR();
@@ -972,23 +1268,23 @@ LABEL_35:
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v30 = v3;
-      v31 = 2080;
-      v32 = "[AWDAdaptor sendAnalyticsDetailedVoiceCallEvent]";
-      v33 = 1024;
-      v34 = 837;
+      v29 = v3;
+      v30 = 2080;
+      v31 = "[AWDAdaptor sendAnalyticsDetailedVoiceCallEvent]";
+      v32 = 1024;
+      v33 = 837;
       _os_log_impl(&dword_23D482000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Generating detailed call end report for submission to CoreAnalytics", buf, 0x1Cu);
     }
   }
 
   v5 = [(AWDAdaptor *)self allocHistogramForValues:self->_rtpPacketLossRateArray withBinBoundaries:&unk_284F7ECB8];
-  v28 = -[AWDAdaptor transformHistogram:ofSize:](self, "transformHistogram:ofSize:", v5, [&unk_284F7ECD0 count]);
+  v27 = -[AWDAdaptor transformHistogram:ofSize:](self, "transformHistogram:ofSize:", v5, [&unk_284F7ECD0 count]);
   free(v5);
   v6 = [(AWDAdaptor *)self allocHistogramForValues:self->_jitterBufferLossRateArray withBinBoundaries:&unk_284F7ECE8];
-  v27 = -[AWDAdaptor transformHistogram:ofSize:](self, "transformHistogram:ofSize:", v6, [&unk_284F7ED00 count]);
+  v26 = -[AWDAdaptor transformHistogram:ofSize:](self, "transformHistogram:ofSize:", v6, [&unk_284F7ED00 count]);
   free(v6);
   v7 = [(AWDAdaptor *)self allocHistogramForValues:self->_jitterBufferUnderflowRateArray withBinBoundaries:&unk_284F7ED18];
-  v26 = -[AWDAdaptor transformHistogram:ofSize:](self, "transformHistogram:ofSize:", v7, [&unk_284F7ED30 count]);
+  v25 = -[AWDAdaptor transformHistogram:ofSize:](self, "transformHistogram:ofSize:", v7, [&unk_284F7ED30 count]);
   free(v7);
   v8 = [(AWDAdaptor *)self allocHistogramForValues:self->_frameErasureRateArray withBinBoundaries:&unk_284F7ED48];
   v9 = -[AWDAdaptor transformHistogram:ofSize:](self, "transformHistogram:ofSize:", v8, [&unk_284F7ED60 count]);
@@ -1022,9 +1318,9 @@ LABEL_35:
   [dictionary setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", self->_jitterBufferLossCount), @"jitterBufferLossCount"}];
   [dictionary setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", self->_maxInterArrivalJitter), @"maxInterArrivalJitter"}];
   [dictionary setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", self->_averageInterArrivalJitter), @"averageInterArrivalJitter"}];
-  [dictionary setObject:v28 forKeyedSubscript:@"rtpPacketLossRateHistogram"];
-  [dictionary setObject:v27 forKeyedSubscript:@"jitterBufferLossRateHistogram"];
-  [dictionary setObject:v26 forKeyedSubscript:@"jitterBufferUnderflowRateHistogram"];
+  [dictionary setObject:v27 forKeyedSubscript:@"rtpPacketLossRateHistogram"];
+  [dictionary setObject:v26 forKeyedSubscript:@"jitterBufferLossRateHistogram"];
+  [dictionary setObject:v25 forKeyedSubscript:@"jitterBufferUnderflowRateHistogram"];
   [dictionary setObject:v9 forKeyedSubscript:@"frameErasureRateHistogram"];
   [dictionary setObject:v11 forKeyedSubscript:@"jitterBufferResidencyTimeHistogram"];
   [dictionary setObject:v13 forKeyedSubscript:@"timescaleRateHistogram"];
@@ -1037,14 +1333,12 @@ LABEL_35:
   [dictionary setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", self->_dtmfEventTotalCount), @"dtmfEventTotalCount"}];
   [dictionary setObject:self->_jitterBufferMode forKeyedSubscript:@"jitterBufferMode"];
   [dictionary setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", (self->_streamConnectionTime * 1000.0)), @"streamConnectionTime"}];
-  result = [GKSCoreAnalyticsAdaptor analyticsSendEventWrapper:@"IMSCallReport" withPayload:dictionary hasHistogram:1];
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+  return [GKSCoreAnalyticsAdaptor analyticsSendEventWrapper:@"IMSCallReport" withPayload:dictionary hasHistogram:1];
 }
 
 - (BOOL)sendAnalyticsSummaryVoiceCallEvent
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v3 = VRTraceErrorLogLevelToCSTR();
@@ -1052,36 +1346,36 @@ LABEL_35:
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v63 = v3;
-      v64 = 2080;
-      v65 = "[AWDAdaptor sendAnalyticsSummaryVoiceCallEvent]";
-      v66 = 1024;
-      v67 = 912;
+      v62 = v3;
+      v63 = 2080;
+      v64 = "[AWDAdaptor sendAnalyticsSummaryVoiceCallEvent]";
+      v65 = 1024;
+      v66 = 912;
       _os_log_impl(&dword_23D482000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Generating summary call end report for submission to CoreAnalytics", buf, 0x1Cu);
     }
   }
 
   [(AWDAdaptor *)self computeMean:self->_rtpPacketLossRateArray];
-  v37 = [(AWDAdaptor *)self transformStats:?];
-  [(AWDAdaptor *)self computeMean:self->_jitterBufferUnderflowRateArray];
   v36 = [(AWDAdaptor *)self transformStats:?];
-  [(AWDAdaptor *)self computeMean:self->_frameErasureRateArray];
+  [(AWDAdaptor *)self computeMean:self->_jitterBufferUnderflowRateArray];
   v35 = [(AWDAdaptor *)self transformStats:?];
+  [(AWDAdaptor *)self computeMean:self->_frameErasureRateArray];
+  v34 = [(AWDAdaptor *)self transformStats:?];
   v5 = MEMORY[0x277CCABA8];
   [(AWDAdaptor *)self computeMean:self->_jitterBufferResidencyTimeArray];
-  v34 = [v5 numberWithUnsignedInt:v6];
+  v33 = [v5 numberWithUnsignedInt:v6];
   v7 = MEMORY[0x277CCABA8];
   [(AWDAdaptor *)self computeMedian:self->_jitterBufferResidencyTimeArray];
-  v33 = [v7 numberWithUnsignedInt:v8];
+  v32 = [v7 numberWithUnsignedInt:v8];
   v9 = MEMORY[0x277CCABA8];
   [(AWDAdaptor *)self compute95thPercentile:self->_jitterBufferResidencyTimeArray];
-  v32 = [v9 numberWithUnsignedInt:v10];
+  v31 = [v9 numberWithUnsignedInt:v10];
   [(AWDAdaptor *)self computeMean:self->_timescaleRateArray];
-  v31 = [(AWDAdaptor *)self transformStats:?];
-  [(AWDAdaptor *)self compute95thPercentile:self->_timescaleRateArray];
   v30 = [(AWDAdaptor *)self transformStats:?];
-  [(AWDAdaptor *)self computeMean:self->_speechTimescaleRateArray];
+  [(AWDAdaptor *)self compute95thPercentile:self->_timescaleRateArray];
   v29 = [(AWDAdaptor *)self transformStats:?];
+  [(AWDAdaptor *)self computeMean:self->_speechTimescaleRateArray];
+  v28 = [(AWDAdaptor *)self transformStats:?];
   [(AWDAdaptor *)self compute95thPercentile:self->_speechTimescaleRateArray];
   v11 = [(AWDAdaptor *)self transformStats:?];
   [(AWDAdaptor *)self computeMean:self->_silenceTimescaleRateArray];
@@ -1099,66 +1393,64 @@ LABEL_35:
   v22 = [v20 numberWithUnsignedInt:v21];
   v23 = [(AWDAdaptor *)self computeLossRate:self->_rtpPacketsLost totalPackets:self->_rtpPacketsReceived + self->_rtpPacketsLost];
   v24 = [(AWDAdaptor *)self computeLossRate:self->_jitterBufferLossCount totalPackets:self->_totalFramesPlayed];
-  v38[0] = @"vocoderType";
-  v38[1] = @"vocoderBandwidth";
-  v38[2] = @"ulVocoderBitRate";
-  v38[3] = @"dlVocoderBitRate";
+  v37[0] = @"vocoderType";
+  v37[1] = @"vocoderBandwidth";
+  v37[2] = @"ulVocoderBitRate";
+  v37[3] = @"dlVocoderBitRate";
   v25 = *&self->_ulBitRate;
-  v39[0] = *&self->_payloadType;
-  v39[1] = v25;
-  v38[4] = @"callType";
-  v38[5] = @"rtpPacketsLossRate";
+  v38[0] = *&self->_payloadType;
+  v38[1] = v25;
+  v37[4] = @"callType";
+  v37[5] = @"rtpPacketsLossRate";
   ratType = self->_ratType;
-  v41 = v23;
-  v38[6] = @"jitterBufferLossCount";
-  v42 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_jitterBufferLossCount];
-  v38[7] = @"maxInterArrivalJitter";
-  v43 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxInterArrivalJitter];
-  v38[8] = @"averageInterArrivalJitter";
-  v44 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_averageInterArrivalJitter];
-  v45 = v37;
-  v38[9] = @"rtpPacketLossRateMean";
-  v38[10] = @"jitterBufferLossRateMean";
-  v46 = v24;
-  v47 = v36;
-  v38[11] = @"jitterBufferUnderflowRateMean";
-  v38[12] = @"frameErasureRateMean";
-  v48 = v35;
-  v49 = v34;
-  v38[13] = @"jitterBufferResidencyTimeMean";
-  v38[14] = @"jitterBufferResidencyTimeMedian";
-  v50 = v33;
-  v51 = v32;
-  v38[15] = @"jitterBufferResidencyTime95Percentile";
-  v38[16] = @"timescaleRateMean";
-  v52 = v31;
-  v53 = v30;
-  v38[17] = @"timescaleRate95Percentile";
-  v38[18] = @"speechTimescaleRateMean";
-  v54 = v29;
-  v55 = v11;
-  v38[19] = @"speechTimescaleRate95Percentile";
-  v38[20] = @"silenceTimescaleRateMean";
-  v56 = v12;
-  v57 = v13;
-  v38[21] = @"silenceTimescaleRate95Percentile";
-  v38[22] = @"packetLifetimeMean";
-  v58 = v16;
-  v59 = v19;
-  v38[23] = @"packetLifetimeMax";
-  v38[24] = @"packetLifetime95Percentile";
-  v38[25] = @"jitterBufferMode";
+  v40 = v23;
+  v37[6] = @"jitterBufferLossCount";
+  v41 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_jitterBufferLossCount];
+  v37[7] = @"maxInterArrivalJitter";
+  v42 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxInterArrivalJitter];
+  v37[8] = @"averageInterArrivalJitter";
+  v43 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_averageInterArrivalJitter];
+  v44 = v36;
+  v37[9] = @"rtpPacketLossRateMean";
+  v37[10] = @"jitterBufferLossRateMean";
+  v45 = v24;
+  v46 = v35;
+  v37[11] = @"jitterBufferUnderflowRateMean";
+  v37[12] = @"frameErasureRateMean";
+  v47 = v34;
+  v48 = v33;
+  v37[13] = @"jitterBufferResidencyTimeMean";
+  v37[14] = @"jitterBufferResidencyTimeMedian";
+  v49 = v32;
+  v50 = v31;
+  v37[15] = @"jitterBufferResidencyTime95Percentile";
+  v37[16] = @"timescaleRateMean";
+  v51 = v30;
+  v52 = v29;
+  v37[17] = @"timescaleRate95Percentile";
+  v37[18] = @"speechTimescaleRateMean";
+  v53 = v28;
+  v54 = v11;
+  v37[19] = @"speechTimescaleRate95Percentile";
+  v37[20] = @"silenceTimescaleRateMean";
+  v55 = v12;
+  v56 = v13;
+  v37[21] = @"silenceTimescaleRate95Percentile";
+  v37[22] = @"packetLifetimeMean";
+  v57 = v16;
+  v58 = v19;
+  v37[23] = @"packetLifetimeMax";
+  v37[24] = @"packetLifetime95Percentile";
+  v37[25] = @"jitterBufferMode";
   jitterBufferMode = self->_jitterBufferMode;
-  v60 = v22;
-  v61 = jitterBufferMode;
-  result = +[GKSCoreAnalyticsAdaptor analyticsSendEventWrapper:withPayload:hasHistogram:](GKSCoreAnalyticsAdaptor, "analyticsSendEventWrapper:withPayload:hasHistogram:", @"IMSCallSummaryStats", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:26], 0);
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  v59 = v22;
+  v60 = jitterBufferMode;
+  return +[GKSCoreAnalyticsAdaptor analyticsSendEventWrapper:withPayload:hasHistogram:](GKSCoreAnalyticsAdaptor, "analyticsSendEventWrapper:withPayload:hasHistogram:", @"IMSCallSummaryStats", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:26], 0);
 }
 
 - (BOOL)wifiCallingAddSamplesGenerateAndSendCallEndReport:(id)report
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
   v6 = MEMORY[0x277CE5818];
   if (ErrorLogLevelForModule >= 7)
@@ -1167,13 +1459,13 @@ LABEL_35:
     v8 = *v6;
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
-      v38 = 136315650;
-      v39 = v7;
-      v40 = 2080;
-      v41 = "[AWDAdaptor wifiCallingAddSamplesGenerateAndSendCallEndReport:]";
-      v42 = 1024;
-      v43 = 966;
-      _os_log_impl(&dword_23D482000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Generating call end report for submission to AWD", &v38, 0x1Cu);
+      v37 = 136315650;
+      v38 = v7;
+      v39 = 2080;
+      v40 = "[AWDAdaptor wifiCallingAddSamplesGenerateAndSendCallEndReport:]";
+      v41 = 1024;
+      v42 = 966;
+      _os_log_impl(&dword_23D482000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Generating call end report for submission to AWD", &v37, 0x1Cu);
     }
   }
 
@@ -1298,54 +1590,51 @@ LABEL_35:
       }
 
       v35 = [objc_msgSend(v31 "description")];
-      v38 = 136316930;
-      v39 = v32;
-      v40 = 2080;
-      v41 = "[AWDAdaptor wifiCallingAddSamplesGenerateAndSendCallEndReport:]";
-      v42 = 1024;
-      v43 = 1041;
-      v44 = 2048;
-      v45 = v10;
-      v46 = 2048;
-      v47 = v12;
-      v48 = 1024;
-      v49 = 2818049;
-      v50 = 2080;
-      v51 = v34;
-      v52 = 2080;
-      v53 = v35;
-      _os_log_impl(&dword_23D482000, v33, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AWD Server (%p) / Container (%p) / Metric ID (%x) -- %s:\n%s", &v38, 0x4Au);
+      v37 = 136316930;
+      v38 = v32;
+      v39 = 2080;
+      v40 = "[AWDAdaptor wifiCallingAddSamplesGenerateAndSendCallEndReport:]";
+      v41 = 1024;
+      v42 = 1041;
+      v43 = 2048;
+      v44 = v10;
+      v45 = 2048;
+      v46 = v12;
+      v47 = 1024;
+      v48 = 2818049;
+      v49 = 2080;
+      v50 = v34;
+      v51 = 2080;
+      v52 = v35;
+      _os_log_impl(&dword_23D482000, v33, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AWD Server (%p) / Container (%p) / Metric ID (%x) -- %s:\n%s", &v37, 0x4Au);
     }
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 void __64__AWDAdaptor_wifiCallingAddSamplesGenerateAndSendCallEndReport___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
     v6 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136316162;
-      v9 = v5;
-      v10 = 2080;
-      v11 = "[AWDAdaptor wifiCallingAddSamplesGenerateAndSendCallEndReport:]_block_invoke";
-      v12 = 1024;
-      v13 = 978;
-      v14 = 2080;
-      v15 = [objc_msgSend(a2 "description")];
-      v16 = 2080;
-      v17 = [objc_msgSend(a3 "description")];
-      _os_log_impl(&dword_23D482000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AWD server configuration changed: queriables=%s triggers=%s", &v8, 0x30u);
+      v7 = 136316162;
+      v8 = v5;
+      v9 = 2080;
+      v10 = "[AWDAdaptor wifiCallingAddSamplesGenerateAndSendCallEndReport:]_block_invoke";
+      v11 = 1024;
+      v12 = 978;
+      v13 = 2080;
+      v14 = [objc_msgSend(a2 "description")];
+      v15 = 2080;
+      v16 = [objc_msgSend(a3 "description")];
+      _os_log_impl(&dword_23D482000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AWD server configuration changed: queriables=%s triggers=%s", &v7, 0x30u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)sendAnalyticsAudioFrameCountStatisticsEvent:(id)event
@@ -1454,9 +1743,9 @@ void __64__AWDAdaptor_wifiCallingAddSamplesGenerateAndSendCallEndReport___block_
 
 - (BOOL)sendAnalyticsAudioDistortionStatisticsEvent:(id)event
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v22 = [event objectForKeyedSubscript:@"AudioStatDirection"];
-  if ([v22 integerValue])
+  v31 = *MEMORY[0x277D85DE8];
+  v21 = [event objectForKeyedSubscript:@"AudioStatDirection"];
+  if ([v21 integerValue])
   {
     v5 = @"DownlinkCodecBitRate";
   }
@@ -1466,7 +1755,7 @@ void __64__AWDAdaptor_wifiCallingAddSamplesGenerateAndSendCallEndReport___block_
     v5 = @"UplinkCodecBitRate";
   }
 
-  v21 = [event objectForKeyedSubscript:v5];
+  v20 = [event objectForKeyedSubscript:v5];
   selfCopy = self;
   if ([event objectForKeyedSubscript:@"Payload"])
   {
@@ -1479,87 +1768,86 @@ void __64__AWDAdaptor_wifiCallingAddSamplesGenerateAndSendCallEndReport___block_
   }
 
   v6 = [objc_msgSend(event objectForKeyedSubscript:{@"AudioTotalFrameCount", "intValue"}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v30[0] = @"AudioDistortionContinuousSpeechLoss";
-  v30[1] = @"AudioDistortionAverageSpeechLoss";
-  v30[2] = @"AudioDistortionRxLinkBroken";
-  v30[3] = @"AudioDistortionRxSilence";
-  v30[4] = @"AudioDistortionTxSilence";
-  v30[5] = @"AudioDistortionZerosTx";
-  v30[6] = @"AudioDistortionZerosRx";
-  v30[7] = @"AudioDistortionLowEnergyTx";
-  v30[8] = @"AudioDistortionLowEnergyRx";
-  v30[9] = @"AudioDistortionHighNoiseTx";
-  v30[10] = @"AudioDistortionHighNoiseRx";
-  v30[11] = @"AudioDistortionDownlinkRtpTimeout";
-  obj = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:12];
-  v7 = [obj countByEnumeratingWithState:&v24 objects:v31 count:16];
+  v29[0] = @"AudioDistortionContinuousSpeechLoss";
+  v29[1] = @"AudioDistortionAverageSpeechLoss";
+  v29[2] = @"AudioDistortionRxLinkBroken";
+  v29[3] = @"AudioDistortionRxSilence";
+  v29[4] = @"AudioDistortionTxSilence";
+  v29[5] = @"AudioDistortionZerosTx";
+  v29[6] = @"AudioDistortionZerosRx";
+  v29[7] = @"AudioDistortionLowEnergyTx";
+  v29[8] = @"AudioDistortionLowEnergyRx";
+  v29[9] = @"AudioDistortionHighNoiseTx";
+  v29[10] = @"AudioDistortionHighNoiseRx";
+  v29[11] = @"AudioDistortionDownlinkRtpTimeout";
+  obj = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:12];
+  v7 = [obj countByEnumeratingWithState:&v23 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = (20 * v6);
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         v13 = [event objectForKeyedSubscript:{objc_msgSend(MEMORY[0x277CCACA0], "stringWithFormat:", @"%@Count", v12)}];
         v14 = [event objectForKeyedSubscript:{objc_msgSend(MEMORY[0x277CCACA0], "stringWithFormat:", @"%@Duration", v12)}];
         if ([v14 integerValue])
         {
-          v28[0] = @"codecSampleRate";
-          v29[0] = [event objectForKeyedSubscript:@"CodecSampleRate"];
-          v28[1] = @"callType";
-          v29[1] = [event objectForKeyedSubscript:@"RATType"];
-          v29[2] = v21;
-          v28[2] = @"vocoderBitRate";
-          v28[3] = @"vocoderType";
-          v29[3] = payloadType;
-          v29[4] = v22;
-          v28[4] = @"statDirection";
-          v28[5] = @"distortionType";
-          v29[5] = v12;
-          v29[6] = v14;
-          v28[6] = @"distortionDuration";
-          v28[7] = @"distortionCount";
-          v29[7] = v13;
-          v28[8] = @"totalCallDuration";
+          v27[0] = @"codecSampleRate";
+          v28[0] = [event objectForKeyedSubscript:@"CodecSampleRate"];
+          v27[1] = @"callType";
+          v28[1] = [event objectForKeyedSubscript:@"RATType"];
+          v28[2] = v20;
+          v27[2] = @"vocoderBitRate";
+          v27[3] = @"vocoderType";
+          v28[3] = payloadType;
+          v28[4] = v21;
+          v27[4] = @"statDirection";
+          v27[5] = @"distortionType";
+          v28[5] = v12;
+          v28[6] = v14;
+          v27[6] = @"distortionDuration";
+          v27[7] = @"distortionCount";
+          v28[7] = v13;
+          v27[8] = @"totalCallDuration";
           v15 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v9];
-          v28[9] = @"jitterBufferMode";
+          v27[9] = @"jitterBufferMode";
           jitterBufferMode = selfCopy->_jitterBufferMode;
-          v29[8] = v15;
-          v29[9] = jitterBufferMode;
-          +[GKSCoreAnalyticsAdaptor analyticsSendEventWrapper:withPayload:hasHistogram:](GKSCoreAnalyticsAdaptor, "analyticsSendEventWrapper:withPayload:hasHistogram:", @"IMSCallAudioDistortionStats", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:10], 0);
+          v28[8] = v15;
+          v28[9] = jitterBufferMode;
+          +[GKSCoreAnalyticsAdaptor analyticsSendEventWrapper:withPayload:hasHistogram:](GKSCoreAnalyticsAdaptor, "analyticsSendEventWrapper:withPayload:hasHistogram:", @"IMSCallAudioDistortionStats", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:10], 0);
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v24 objects:v31 count:16];
+      v8 = [obj countByEnumeratingWithState:&v23 objects:v30 count:16];
     }
 
     while (v8);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)sendAnalyticsAudioDistortionSummaryEvent:(id)event
 {
-  v42[2] = *MEMORY[0x277D85DE8];
-  v42[0] = @"AudioDistortionRxSilence";
-  v42[1] = @"AudioDistortionTxSilence";
-  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
-  v30 = [event objectForKeyedSubscript:@"AudioStatDirection"];
-  if ([v30 integerValue])
+  v41[2] = *MEMORY[0x277D85DE8];
+  v41[0] = @"AudioDistortionRxSilence";
+  v41[1] = @"AudioDistortionTxSilence";
+  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+  v29 = [event objectForKeyedSubscript:@"AudioStatDirection"];
+  if ([v29 integerValue])
   {
     v5 = @"DownlinkCodecBitRate";
   }
@@ -1569,7 +1857,7 @@ void __64__AWDAdaptor_wifiCallingAddSamplesGenerateAndSendCallEndReport___block_
     v5 = @"UplinkCodecBitRate";
   }
 
-  v29 = [event objectForKeyedSubscript:v5];
+  v28 = [event objectForKeyedSubscript:v5];
   if ([event objectForKeyedSubscript:@"Payload"])
   {
     payloadType = [event objectForKeyedSubscript:@"Payload"];
@@ -1580,57 +1868,57 @@ void __64__AWDAdaptor_wifiCallingAddSamplesGenerateAndSendCallEndReport___block_
     payloadType = self->_payloadType;
   }
 
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v31 = [objc_msgSend(event objectForKeyedSubscript:{@"AudioTotalFrameCount", "intValue"}];
-  v32 = 20 * v31;
-  v40[0] = @"AudioDistortionContinuousSpeechLoss";
-  v40[1] = @"AudioDistortionAverageSpeechLoss";
-  v40[2] = @"AudioDistortionRxLinkBroken";
-  v40[3] = @"AudioDistortionRxSilence";
-  v40[4] = @"AudioDistortionTxSilence";
-  v40[5] = @"AudioDistortionZerosTx";
-  v40[6] = @"AudioDistortionZerosRx";
-  v40[7] = @"AudioDistortionLowEnergyTx";
-  v40[8] = @"AudioDistortionLowEnergyRx";
-  v40[9] = @"AudioDistortionHighNoiseTx";
-  v40[10] = @"AudioDistortionHighNoiseRx";
-  v40[11] = @"AudioDistortionDownlinkRtpTimeout";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:12];
-  v7 = [v6 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v30 = [objc_msgSend(event objectForKeyedSubscript:{@"AudioTotalFrameCount", "intValue"}];
+  v31 = 20 * v30;
+  v39[0] = @"AudioDistortionContinuousSpeechLoss";
+  v39[1] = @"AudioDistortionAverageSpeechLoss";
+  v39[2] = @"AudioDistortionRxLinkBroken";
+  v39[3] = @"AudioDistortionRxSilence";
+  v39[4] = @"AudioDistortionTxSilence";
+  v39[5] = @"AudioDistortionZerosTx";
+  v39[6] = @"AudioDistortionZerosRx";
+  v39[7] = @"AudioDistortionLowEnergyTx";
+  v39[8] = @"AudioDistortionLowEnergyRx";
+  v39[9] = @"AudioDistortionHighNoiseTx";
+  v39[10] = @"AudioDistortionHighNoiseRx";
+  v39[11] = @"AudioDistortionDownlinkRtpTimeout";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:12];
+  v7 = [v6 countByEnumeratingWithState:&v35 objects:v40 count:16];
   selfCopy = self;
   if (v7)
   {
     v8 = v7;
     integerValue = 0;
     v10 = 0;
-    v11 = *v37;
-    v34 = @"NoAudioDistortion";
+    v11 = *v36;
+    v33 = @"NoAudioDistortion";
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v37 != v11)
+        if (*v36 != v11)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v36 + 1) + 8 * i);
+        v13 = *(*(&v35 + 1) + 8 * i);
         v14 = [event objectForKeyedSubscript:{objc_msgSend(MEMORY[0x277CCACA0], "stringWithFormat:", @"%@Duration", v13)}];
         if ([v14 integerValue] >= 260)
         {
           ++v10;
-          if ([v14 integerValue] > integerValue && (objc_msgSend(v35, "containsObject:", v13) & 1) == 0)
+          if ([v14 integerValue] > integerValue && (objc_msgSend(v34, "containsObject:", v13) & 1) == 0)
           {
             integerValue = [v14 integerValue];
-            v34 = v13;
+            v33 = v13;
           }
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v8);
@@ -1640,36 +1928,36 @@ void __64__AWDAdaptor_wifiCallingAddSamplesGenerateAndSendCallEndReport___block_
   {
     integerValue = 0;
     v10 = 0;
-    v34 = @"NoAudioDistortion";
+    v33 = @"NoAudioDistortion";
   }
 
   v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [v15 setObject:objc_msgSend(event forKeyedSubscript:{"objectForKeyedSubscript:", @"CodecSampleRate", @"codecSampleRate"}];
   [v15 setObject:objc_msgSend(event forKeyedSubscript:{"objectForKeyedSubscript:", @"RATType", @"callType"}];
-  [v15 setObject:v30 forKeyedSubscript:@"statDirection"];
-  [v15 setObject:v29 forKeyedSubscript:@"vocoderBitRate"];
+  [v15 setObject:v29 forKeyedSubscript:@"statDirection"];
+  [v15 setObject:v28 forKeyedSubscript:@"vocoderBitRate"];
   [v15 setObject:payloadType forKeyedSubscript:@"vocoderType"];
   [v15 setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInteger:", v10), @"distortionTypesSeenCount"}];
   [v15 setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithInteger:", integerValue), @"largestDistortionDuration"}];
-  [v15 setObject:v34 forKeyedSubscript:@"largestDistortionType"];
-  [v15 setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", v32), @"totalCallDuration"}];
+  [v15 setObject:v33 forKeyedSubscript:@"largestDistortionType"];
+  [v15 setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", v31), @"totalCallDuration"}];
   v16 = [event objectForKeyedSubscript:{objc_msgSend(MEMORY[0x277CCACA0], "stringWithFormat:", @"%@Duration", @"AudioDistortionContinuousSpeechLoss"}];
   v17 = [event objectForKeyedSubscript:{objc_msgSend(MEMORY[0x277CCACA0], "stringWithFormat:", @"%@Duration", @"AudioDistortionAverageSpeechLoss"}];
   v18 = [event objectForKeyedSubscript:{objc_msgSend(MEMORY[0x277CCACA0], "stringWithFormat:", @"%@Duration", @"AudioDistortionRxLinkBroken"}];
   [v15 setObject:v16 forKeyedSubscript:@"continuousSpeechLossDuration"];
   [v15 setObject:v17 forKeyedSubscript:@"averageSpeechLossDuration"];
   [v15 setObject:v18 forKeyedSubscript:@"rxLinkBrokenDuration"];
-  if (v31)
+  if (v30)
   {
     v19 = MEMORY[0x277CCABA8];
     [v16 doubleValue];
-    [v15 setObject:objc_msgSend(v19 forKeyedSubscript:{"numberWithDouble:", v20 * 100.0 / v32), @"continuousSpeechLossDurationPercentage"}];
+    [v15 setObject:objc_msgSend(v19 forKeyedSubscript:{"numberWithDouble:", v20 * 100.0 / v31), @"continuousSpeechLossDurationPercentage"}];
     v21 = MEMORY[0x277CCABA8];
     [v17 doubleValue];
-    [v15 setObject:objc_msgSend(v21 forKeyedSubscript:{"numberWithDouble:", v22 * 100.0 / v32), @"averageSpeechLossDurationPercentage"}];
+    [v15 setObject:objc_msgSend(v21 forKeyedSubscript:{"numberWithDouble:", v22 * 100.0 / v31), @"averageSpeechLossDurationPercentage"}];
     v23 = MEMORY[0x277CCABA8];
     [v18 doubleValue];
-    [v15 setObject:objc_msgSend(v23 forKeyedSubscript:{"numberWithDouble:", v24 * 100.0 / v32), @"rxLinkBrokenDurationPercentage"}];
+    [v15 setObject:objc_msgSend(v23 forKeyedSubscript:{"numberWithDouble:", v24 * 100.0 / v31), @"rxLinkBrokenDurationPercentage"}];
   }
 
   [v15 setObject:selfCopy->_jitterBufferMode forKeyedSubscript:@"jitterBufferMode"];
@@ -1677,7 +1965,6 @@ void __64__AWDAdaptor_wifiCallingAddSamplesGenerateAndSendCallEndReport___block_
   [v15 addEntriesFromDictionary:v25];
 
   LOBYTE(v25) = [GKSCoreAnalyticsAdaptor analyticsSendEventWrapper:@"IMSCallAudioDistortionSummary" withPayload:v15 hasHistogram:0];
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -1720,169 +2007,150 @@ void __64__AWDAdaptor_wifiCallingAddSamplesGenerateAndSendCallEndReport___block_
 
 - (id)newDistortionCounters:(id)counters
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v21 = *MEMORY[0x277D85DE8];
+  v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20[0] = @"AudioDistortionContinuousSpeechLoss";
-  v20[1] = @"AudioDistortionAverageSpeechLoss";
-  v20[2] = @"AudioDistortionRxLinkBroken";
-  v20[3] = @"AudioDistortionRxSilence";
-  v20[4] = @"AudioDistortionTxSilence";
-  v20[5] = @"AudioDistortionZerosTx";
-  v20[6] = @"AudioDistortionZerosRx";
-  v20[7] = @"AudioDistortionLowEnergyTx";
-  v20[8] = @"AudioDistortionLowEnergyRx";
-  v20[9] = @"AudioDistortionHighNoiseTx";
-  v20[10] = @"AudioDistortionHighNoiseRx";
-  v20[11] = @"AudioDistortionDownlinkRtpTimeout";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:12];
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v19[0] = @"AudioDistortionContinuousSpeechLoss";
+  v19[1] = @"AudioDistortionAverageSpeechLoss";
+  v19[2] = @"AudioDistortionRxLinkBroken";
+  v19[3] = @"AudioDistortionRxSilence";
+  v19[4] = @"AudioDistortionTxSilence";
+  v19[5] = @"AudioDistortionZerosTx";
+  v19[6] = @"AudioDistortionZerosRx";
+  v19[7] = @"AudioDistortionLowEnergyTx";
+  v19[8] = @"AudioDistortionLowEnergyRx";
+  v19[9] = @"AudioDistortionHighNoiseTx";
+  v19[10] = @"AudioDistortionHighNoiseRx";
+  v19[11] = @"AudioDistortionDownlinkRtpTimeout";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:12];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [counters objectForKeyedSubscript:{objc_msgSend(MEMORY[0x277CCACA0], "stringWithFormat:", @"%@Count", v9)}];
         if (v10)
         {
           v11 = v10;
           v12 = [objc_alloc(MEMORY[0x277CCACA0]) initWithFormat:@"%@Count", objc_msgSend(v9, "stringByReplacingOccurrencesOfString:withString:", @"AudioDistortion", &stru_284F7AB18)];
-          [v15 setObject:v11 forKeyedSubscript:v12];
+          [v14 setObject:v11 forKeyedSubscript:v12];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v6);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v14;
 }
 
 - (void)computeMean:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Cannot compute mean for empty array", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Cannot compute mean for empty array", v2, v3, v4, v5);
 }
 
 - (void)computeMax:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Cannot compute max for empty array", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Cannot compute max for empty array", v2, v3, v4, v5);
 }
 
 - (void)computeMedian:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Cannot compute median for empty array", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Cannot compute median for empty array", v2, v3, v4, v5);
 }
 
 - (void)compute95thPercentile:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Cannot compute 95th percentile for empty array", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Cannot compute 95th percentile for empty array", v2, v3, v4, v5);
 }
 
 - (void)allocHistogramForValues:(NSObject *)a3 withBinBoundaries:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v5 = 136315906;
-  v6 = a1;
-  v7 = 2080;
-  v8 = "[AWDAdaptor allocHistogramForValues:withBinBoundaries:]";
-  v9 = 1024;
-  v10 = 782;
-  v11 = 2080;
-  v12 = [objc_msgSend(a2 "description")];
-  _os_log_error_impl(&dword_23D482000, a3, OS_LOG_TYPE_ERROR, " [%s] %s:%d Invalid histogram bin boundaries (not monotonically increasing) %s", &v5, 0x26u);
-  v4 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v4 = 136315906;
+  v5 = a1;
+  v6 = 2080;
+  v7 = "[AWDAdaptor allocHistogramForValues:withBinBoundaries:]";
+  v8 = 1024;
+  v9 = 782;
+  v10 = 2080;
+  v11 = [objc_msgSend(a2 "description")];
+  _os_log_error_impl(&dword_23D482000, a3, OS_LOG_TYPE_ERROR, " [%s] %s:%d Invalid histogram bin boundaries (not monotonically increasing) %s", &v4, 0x26u);
 }
 
 - (void)allocHistogramForValues:withBinBoundaries:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Empty array passed to histogram generation", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Empty array passed to histogram generation", v2, v3, v4, v5);
 }
 
 - (void)allocHistogramForValues:withBinBoundaries:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Empty histogram bin boundary list", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Empty histogram bin boundary list", v2, v3, v4, v5);
 }
 
 - (void)computeLossRate:totalPackets:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d No received packets. Cannot compute loss rate", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d No received packets. Cannot compute loss rate", v2, v3, v4, v5);
 }
 
 - (void)wifiCallingAddSamplesGenerateAndSendCallEndReport:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Call ID is nil - substituting with '0'", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_23D482000, v0, v1, " [%s] %s:%d Call ID is nil - substituting with '0'", v2, v3, v4, v5);
 }
 
 - (void)sendAnalyticsAudioFrameCountStatisticsEvent:(uint64_t)a1 .cold.1(uint64_t a1, _BYTE *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
     v4 = VRTraceErrorLogLevelToCSTR();
     v5 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315906;
-      v8 = v4;
-      v9 = 2080;
-      v10 = "[AWDAdaptor sendAnalyticsAudioFrameCountStatisticsEvent:]";
-      v11 = 1024;
-      v12 = 1053;
-      v13 = 2112;
-      v14 = a1;
-      _os_log_error_impl(&dword_23D482000, v5, OS_LOG_TYPE_ERROR, " [%s] %s:%d audioTotalFrameCount=%@ must be > 0", &v7, 0x26u);
+      v6 = 136315906;
+      v7 = v4;
+      v8 = 2080;
+      v9 = "[AWDAdaptor sendAnalyticsAudioFrameCountStatisticsEvent:]";
+      v10 = 1024;
+      v11 = 1053;
+      v12 = 2112;
+      v13 = a1;
+      _os_log_error_impl(&dword_23D482000, v5, OS_LOG_TYPE_ERROR, " [%s] %s:%d audioTotalFrameCount=%@ must be > 0", &v6, 0x26u);
     }
   }
 
   *a2 = 0;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -200,35 +200,36 @@ LABEL_12:
 - (id)initForReadingFromURL:(id)l options:(unint64_t)options error:(id *)error
 {
   lCopy = l;
-  v15.receiver = self;
-  v15.super_class = BUZipFileArchive;
-  v9 = [(BUZipArchive *)&v15 initWithOptions:options];
+  v16.receiver = self;
+  v16.super_class = BUZipFileArchive;
+  v9 = [(BUZipArchive *)&v16 initWithOptions:options];
+  v10 = v9;
   if (v9)
   {
-    v10 = BUZipLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = BUZipLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      sub_241DCFE28(v9, lCopy, v10);
+      sub_241DCFE28(v10, lCopy, v11);
     }
 
-    v11 = dispatch_queue_create("BUZipFileArchive.Access", 0);
-    accessQueue = v9->_accessQueue;
-    v9->_accessQueue = v11;
+    v12 = dispatch_queue_create("BUZipFileArchive.Access", 0);
+    accessQueue = v10->_accessQueue;
+    v10->_accessQueue = v12;
 
-    if ((objc_msgSend_openWithURL_error_(v9, v13, lCopy, error) & 1) == 0)
+    if ((objc_msgSend_openWithURL_error_(v10, v14, lCopy, error) & 1) == 0)
     {
 
-      v9 = 0;
+      v10 = 0;
     }
   }
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)openWithURL:(id)l error:(id *)error
 {
   lCopy = l;
-  v7 = BUZipLog();
+  v7 = BUZipLog(lCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_241DCFEBC(self, lCopy, v7);
@@ -240,22 +241,23 @@ LABEL_12:
 
   v12 = *MEMORY[0x277CBE838];
   objc_msgSend_removeCachedResourceValueForKey_(lCopy, v13, *MEMORY[0x277CBE838]);
-  v45 = 0;
   v46 = 0;
-  ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(lCopy, v14, &v46, v12, &v45);
-  v16 = v46;
-  v19 = v45;
+  v47 = 0;
+  ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(lCopy, v14, &v47, v12, &v46);
+  v16 = v47;
+  v17 = v46;
+  v20 = v17;
   if (!ResourceValue_forKey_error)
   {
-    v36 = BUZipLog();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v37 = BUZipLog(v17);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      sub_241DCFF50(lCopy, v19, v36);
+      sub_241DCFF50(lCopy, v20, v37);
     }
 
 LABEL_15:
 
-    v35 = 0;
+    v36 = 0;
     if (!error)
     {
       goto LABEL_18;
@@ -264,123 +266,124 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  self->_archiveLength = objc_msgSend_unsignedLongLongValue(v16, v17, v18);
-  v22 = objc_msgSend_path(lCopy, v20, v21);
-  v23 = v22;
-  v26 = objc_msgSend_fileSystemRepresentation(v23, v24, v25);
-  v27 = open(v26, 0, 0);
+  self->_archiveLength = objc_msgSend_unsignedLongLongValue(v16, v18, v19);
+  v23 = objc_msgSend_path(lCopy, v21, v22);
+  v24 = v23;
+  v27 = objc_msgSend_fileSystemRepresentation(v24, v25, v26);
+  v28 = open(v27, 0, 0);
 
-  if ((v27 & 0x80000000) != 0)
+  if ((v28 & 0x80000000) != 0)
   {
-    v37 = MEMORY[0x277CCA9B8];
-    v38 = __error();
-    v40 = objc_msgSend_bu_fileReadPOSIXErrorWithNumber_userInfo_(v37, v39, *v38, 0);
+    v38 = MEMORY[0x277CCA9B8];
+    v39 = __error();
+    v41 = objc_msgSend_bu_fileReadPOSIXErrorWithNumber_userInfo_(v38, v40, *v39, 0);
 LABEL_14:
-    v36 = v19;
-    v19 = v40;
+    v37 = v20;
+    v20 = v41;
     goto LABEL_15;
   }
 
-  v28 = [BUZipFileDescriptorWrapper alloc];
-  v30 = objc_msgSend_initWithFileDescriptor_queue_(v28, v29, v27, self->_accessQueue);
+  v29 = [BUZipFileDescriptorWrapper alloc];
+  v31 = objc_msgSend_initWithFileDescriptor_queue_(v29, v30, v28, self->_accessQueue);
   fdWrapper = self->_fdWrapper;
-  self->_fdWrapper = v30;
+  self->_fdWrapper = v31;
 
   if (!self->_fdWrapper)
   {
-    v40 = objc_msgSend_bu_fileReadUnknownErrorWithUserInfo_(MEMORY[0x277CCA9B8], v32, 0);
+    v41 = objc_msgSend_bu_fileReadUnknownErrorWithUserInfo_(MEMORY[0x277CCA9B8], v33, 0);
     goto LABEL_14;
   }
 
-  v33 = objc_opt_class();
-  if ((objc_msgSend_isZipArchiveAtFD_(v33, v34, v27) & 1) == 0)
+  v34 = objc_opt_class();
+  if ((objc_msgSend_isZipArchiveAtFD_(v34, v35, v28) & 1) == 0)
   {
-    v41 = self->_fdWrapper;
+    v42 = self->_fdWrapper;
     self->_fdWrapper = 0;
 
-    v40 = objc_msgSend_bu_fileReadCorruptedFileErrorWithUserInfo_(MEMORY[0x277CCA9B8], v42, 0);
+    v41 = objc_msgSend_bu_fileReadCorruptedFileErrorWithUserInfo_(MEMORY[0x277CCA9B8], v43, 0);
     goto LABEL_14;
   }
 
-  v35 = 1;
+  v36 = 1;
   if (!error)
   {
     goto LABEL_18;
   }
 
 LABEL_16:
-  if (v19)
+  if (v20)
   {
-    v43 = v19;
-    *error = v19;
+    v44 = v20;
+    *error = v20;
   }
 
 LABEL_18:
 
-  return v35;
+  return v36;
 }
 
 - (BUZipFileArchive)initWithWriter:(id)writer forReadingFromURL:(id)l options:(unint64_t)options error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   writerCopy = writer;
   lCopy = l;
   v13 = objc_msgSend_initForReadingFromURL_options_error_(self, v12, lCopy, options, error);
   if (v13)
   {
     v14 = v13;
-    v15 = BUZipLog();
+    v15 = BUZipLog(v13);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v37 = v14;
-      v38 = 2112;
-      v39 = writerCopy;
-      v40 = 2112;
-      v41 = lCopy;
+      v38 = v14;
+      v39 = 2112;
+      v40 = writerCopy;
+      v41 = 2112;
+      v42 = lCopy;
       _os_log_debug_impl(&dword_241DA6000, v15, OS_LOG_TYPE_DEBUG, "%@: initWithWriter: %@, atURL: %@", buf, 0x20u);
     }
 
     v18 = objc_msgSend_archiveLength(v14, v16, v17);
-    if (v18 == objc_msgSend_archiveLength(writerCopy, v19, v20))
+    v21 = objc_msgSend_archiveLength(writerCopy, v19, v20);
+    if (v18 == v21)
     {
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = sub_241DB88E0;
-      v34[3] = &unk_278D1D3E8;
-      v21 = v14;
-      v35 = v21;
-      objc_msgSend_enumerateEntriesUsingBlock_(writerCopy, v22, v34);
-      v14 = v35;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = sub_241DB88E0;
+      v35[3] = &unk_278D1D3E8;
+      v22 = v14;
+      v36 = v22;
+      objc_msgSend_enumerateEntriesUsingBlock_(writerCopy, v23, v35);
+      v14 = v36;
     }
 
     else
     {
-      v23 = BUZipLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = BUZipLog(v21);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        v27 = objc_msgSend_path(lCopy, v24, v25);
-        v30 = objc_msgSend_archiveLength(v14, v28, v29);
-        v33 = objc_msgSend_archiveLength(writerCopy, v31, v32);
+        v28 = objc_msgSend_path(lCopy, v25, v26);
+        v31 = objc_msgSend_archiveLength(v14, v29, v30);
+        v34 = objc_msgSend_archiveLength(writerCopy, v32, v33);
         *buf = 138412802;
-        v37 = v27;
-        v38 = 2048;
-        v39 = v30;
-        v40 = 2048;
-        v41 = v33;
-        _os_log_error_impl(&dword_241DA6000, v23, OS_LOG_TYPE_ERROR, "Length of archive at %@ doesn't match archive length of writer. %llu != %llu", buf, 0x20u);
+        v38 = v28;
+        v39 = 2048;
+        v40 = v31;
+        v41 = 2048;
+        v42 = v34;
+        _os_log_error_impl(&dword_241DA6000, v24, OS_LOG_TYPE_ERROR, "Length of archive at %@ doesn't match archive length of writer. %llu != %llu", buf, 0x20u);
       }
 
-      v21 = 0;
+      v22 = 0;
     }
   }
 
   else
   {
-    v21 = 0;
+    v22 = 0;
   }
 
-  return v21;
+  return v22;
 }
 
 - (void)dealloc
@@ -421,20 +424,20 @@ LABEL_18:
   {
     v4 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], a2, v2);
     temporaryDirectoryURL = self->_temporaryDirectoryURL;
-    v12 = 0;
-    v7 = objc_msgSend_removeItemAtURL_error_(v4, v6, temporaryDirectoryURL, &v12);
-    v8 = v12;
+    v13 = 0;
+    v7 = objc_msgSend_removeItemAtURL_error_(v4, v6, temporaryDirectoryURL, &v13);
+    v8 = v13;
 
     if ((v7 & 1) == 0)
     {
-      v9 = BUZipLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = BUZipLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        sub_241DD002C(v8, v9, v10);
+        sub_241DD002C(v8, v10, v11);
       }
     }
 
-    v11 = self->_temporaryDirectoryURL;
+    v12 = self->_temporaryDirectoryURL;
     self->_temporaryDirectoryURL = 0;
   }
 }

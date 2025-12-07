@@ -70,7 +70,7 @@
 
 - (void)_tryEndStackRotationSessionWithStackId:(id)id homeScreenEvent:(id)event
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   idCopy = id;
   eventCopy = event;
   v8 = eventCopy;
@@ -82,8 +82,7 @@
     {
       [v9 finalizeWithEndingStackChangeEvent:v8];
       [(NSMutableDictionary *)self->_stackIdToStackRotationSessions removeObjectForKey:idCopy];
-      [(NSMutableArray *)self->_completedSessions addObject:v10];
-      v11 = __atxlog_handle_metrics();
+      v11 = __atxlog_handle_metrics([(NSMutableArray *)self->_completedSessions addObject:v10]);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         [ATXStackRotationSessionManager _tryEndStackRotationSessionWithStackId:homeScreenEvent:];
@@ -93,27 +92,25 @@
 
   else
   {
-    v10 = __atxlog_handle_metrics();
+    v10 = __atxlog_handle_metrics(eventCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
-      v15 = 138412802;
-      v16 = v14;
-      v17 = 2112;
-      v18 = idCopy;
-      v19 = 2112;
-      v20 = v8;
-      _os_log_error_impl(&dword_2263AA000, v10, OS_LOG_TYPE_ERROR, "%@ - could not end session because of missing fields, stackId: %@, homeScreenEvent: %@", &v15, 0x20u);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      v14 = 138412802;
+      v15 = v13;
+      v16 = 2112;
+      v17 = idCopy;
+      v18 = 2112;
+      v19 = v8;
+      _os_log_error_impl(&dword_2263AA000, v10, OS_LOG_TYPE_ERROR, "%@ - could not end session because of missing fields, stackId: %@, homeScreenEvent: %@", &v14, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tryStartStackRotationSessionWithStackId:(id)id homeScreenEvent:(id)event
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   idCopy = id;
   eventCopy = event;
   v8 = eventCopy;
@@ -123,8 +120,7 @@
     v10 = [[ATXStackRotationSession alloc] initWithStartingStackChangeEvent:v8];
     [(ATXStackRotationSessionManager *)self _tryUpdateStackRotationSessionWithSystemSuggestLayout:v10];
     [(ATXStackRotationSessionManager *)self _tryUpdateNPlusOneStatusForSession:v10 stackId:idCopy];
-    [(NSMutableDictionary *)self->_stackIdToStackRotationSessions setValue:v10 forKey:idCopy];
-    v11 = __atxlog_handle_metrics();
+    v11 = __atxlog_handle_metrics([(NSMutableDictionary *)self->_stackIdToStackRotationSessions setValue:v10 forKey:idCopy]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [ATXStackRotationSessionManager _tryStartStackRotationSessionWithStackId:homeScreenEvent:];
@@ -133,25 +129,23 @@
 
   else
   {
-    v10 = __atxlog_handle_metrics();
+    v10 = __atxlog_handle_metrics(eventCopy);
     if (os_log_type_enabled(&v10->super, OS_LOG_TYPE_ERROR))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       reason = [v8 reason];
-      v16 = 138413058;
-      v17 = v14;
-      v18 = 2112;
-      v19 = idCopy;
-      v20 = 2112;
-      v21 = reason;
-      v22 = 2112;
-      v23 = v8;
-      _os_log_error_impl(&dword_2263AA000, &v10->super, OS_LOG_TYPE_ERROR, "%@ - could not start session because of missing fields, stackId: %@, reason: %@, homeScreenEvent: %@", &v16, 0x2Au);
+      v15 = 138413058;
+      v16 = v13;
+      v17 = 2112;
+      v18 = idCopy;
+      v19 = 2112;
+      v20 = reason;
+      v21 = 2112;
+      v22 = v8;
+      _os_log_error_impl(&dword_2263AA000, &v10->super, OS_LOG_TYPE_ERROR, "%@ - could not start session because of missing fields, stackId: %@, reason: %@, homeScreenEvent: %@", &v15, 0x2Au);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithUIEvent:(id)event
@@ -310,7 +304,7 @@
           date = [v5 date];
           [reason markStackShownAtDate:date];
 
-          v11 = __atxlog_handle_metrics();
+          v11 = __atxlog_handle_metrics(v19);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
             [ATXStackRotationSessionManager updateWithUIEvent:];
@@ -326,9 +320,9 @@
 
           widgetUniqueId3 = [v5 widgetUniqueId];
           widgetUniqueId4 = [reason widgetUniqueId];
-          v24 = [widgetUniqueId3 isEqualToString:widgetUniqueId4];
+          v25 = [widgetUniqueId3 isEqualToString:widgetUniqueId4];
 
-          if (!v24)
+          if (!v25)
           {
             goto LABEL_86;
           }
@@ -336,7 +330,7 @@
           date2 = [v5 date];
           [reason markStackHiddenAtDate:date2];
 
-          v11 = __atxlog_handle_metrics();
+          v11 = __atxlog_handle_metrics(v27);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
             [ATXStackRotationSessionManager updateWithUIEvent:];
@@ -352,8 +346,7 @@ LABEL_86:
             break;
           }
 
-          [(ATXStackRotationSessionManager *)self _tryEndStackRotationSessionWithStackId:stackId homeScreenEvent:v5];
-          v11 = __atxlog_handle_metrics();
+          v11 = __atxlog_handle_metrics([(ATXStackRotationSessionManager *)self _tryEndStackRotationSessionWithStackId:stackId homeScreenEvent:v5]);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
             [ATXStackRotationSessionManager updateWithUIEvent:];
@@ -380,15 +373,14 @@ LABEL_86:
 
           widgetUniqueId5 = [v5 widgetUniqueId];
           widgetUniqueId6 = [reason widgetUniqueId];
-          v21 = [widgetUniqueId5 isEqualToString:widgetUniqueId6];
+          v22 = [widgetUniqueId5 isEqualToString:widgetUniqueId6];
 
-          if (!v21)
+          if (!v22)
           {
             goto LABEL_86;
           }
 
-          [reason markStackTapped];
-          v11 = __atxlog_handle_metrics();
+          v11 = __atxlog_handle_metrics([reason markStackTapped]);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
             [ATXStackRotationSessionManager updateWithUIEvent:];
@@ -409,8 +401,7 @@ LABEL_86:
 
           if (v13)
           {
-            [v11 markAddedToStack];
-            v14 = __atxlog_handle_metrics();
+            v14 = __atxlog_handle_metrics([v11 markAddedToStack]);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
               [ATXStackRotationSessionManager updateWithUIEvent:];
@@ -421,13 +412,12 @@ LABEL_84:
             goto LABEL_85;
           }
 
-          v26 = NSStringForATXHomeScreenWidgetExplicitFeedback();
-          v27 = [reason isEqualToString:v26];
+          v28 = NSStringForATXHomeScreenWidgetExplicitFeedback();
+          v29 = [reason isEqualToString:v28];
 
-          if (v27)
+          if (v29)
           {
-            [v11 markRejectedRotationDismissOnce];
-            v14 = __atxlog_handle_metrics();
+            v14 = __atxlog_handle_metrics([v11 markRejectedRotationDismissOnce]);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
               [ATXStackRotationSessionManager updateWithUIEvent:];
@@ -436,13 +426,12 @@ LABEL_84:
             goto LABEL_84;
           }
 
-          v28 = NSStringForATXHomeScreenWidgetExplicitFeedback();
-          v29 = [reason isEqualToString:v28];
+          v30 = NSStringForATXHomeScreenWidgetExplicitFeedback();
+          v31 = [reason isEqualToString:v30];
 
-          if (v29)
+          if (v31)
           {
-            [v11 markRejectedRotationNeverShowAgain];
-            v14 = __atxlog_handle_metrics();
+            v14 = __atxlog_handle_metrics([v11 markRejectedRotationNeverShowAgain]);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
               [ATXStackRotationSessionManager updateWithUIEvent:];
@@ -536,14 +525,13 @@ LABEL_6:
     while (v14);
   }
 
-  v18 = __atxlog_handle_metrics();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v19 = __atxlog_handle_metrics(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     [ATXStackRotationSessionManager updateWithBlendingUICacheUpdate:];
   }
 
 LABEL_20:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)removeAndReturnCompletedSessions
@@ -581,68 +569,66 @@ uint64_t __82__ATXStackRotationSessionManager_removeAllAndReturnCompletedSystemS
 
 - (void)_tryUpdateNPlusOneStatusForSession:(id)session stackId:(id)id
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   idCopy = id;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
   v29 = 0;
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x2020000000;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
   v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x2020000000;
+  v24 = 0;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   reverseObjectEnumerator = [(NSMutableArray *)self->_recentHomeScreenCachedSuggestions reverseObjectEnumerator];
-  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v20 objects:v34 count:16];
+  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v33 count:16];
   if (v8)
   {
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        cachedSuggestedWidgetsLayouts = [*(*(&v20 + 1) + 8 * v10) cachedSuggestedWidgetsLayouts];
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __77__ATXStackRotationSessionManager__tryUpdateNPlusOneStatusForSession_stackId___block_invoke;
-        v14[3] = &unk_27859F360;
-        v15 = sessionCopy;
+        cachedSuggestedWidgetsLayouts = [*(*(&v19 + 1) + 8 * v10) cachedSuggestedWidgetsLayouts];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __77__ATXStackRotationSessionManager__tryUpdateNPlusOneStatusForSession_stackId___block_invoke;
+        v13[3] = &unk_27859F360;
+        v14 = sessionCopy;
         selfCopy = self;
-        v17 = &v30;
-        v18 = &v26;
-        v19 = v24;
-        [cachedSuggestedWidgetsLayouts enumerateKeysAndObjectsUsingBlock:v14];
+        v16 = &v29;
+        v17 = &v25;
+        v18 = v23;
+        [cachedSuggestedWidgetsLayouts enumerateKeysAndObjectsUsingBlock:v13];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v20 objects:v34 count:16];
+      v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v33 count:16];
     }
 
     while (v8);
   }
 
-  [sessionCopy updateIsNPlusOneRotation:*(v31 + 24) isFirstNPlusOneRotation:*(v27 + 24)];
-  _Block_object_dispose(v24, 8);
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v30, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
+  [sessionCopy updateIsNPlusOneRotation:*(v30 + 24) isFirstNPlusOneRotation:*(v26 + 24)];
+  _Block_object_dispose(v23, 8);
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v29, 8);
 }
 
 void __77__ATXStackRotationSessionManager__tryUpdateNPlusOneStatusForSession_stackId___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -683,11 +669,11 @@ void __77__ATXStackRotationSessionManager__tryUpdateNPlusOneStatusForSession_sta
 
         if (v16)
         {
-          v17 = *(*(a1 + 40) + 32);
-          v18 = [v16 uuid];
-          LOBYTE(v17) = [v17 containsObject:v18];
+          v18 = *(*(a1 + 40) + 32);
+          v19 = [v16 uuid];
+          LOBYTE(v18) = [v18 containsObject:v19];
 
-          if (v17)
+          if (v18)
           {
 LABEL_16:
             *(*(*(a1 + 64) + 8) + 24) = 1;
@@ -696,15 +682,15 @@ LABEL_16:
           }
 
           *(*(*(a1 + 56) + 8) + 24) = 1;
-          v19 = *(*(a1 + 40) + 32);
-          v20 = [v16 uuid];
-          [v19 addObject:v20];
+          v20 = *(*(a1 + 40) + 32);
+          v21 = [v16 uuid];
+          [v20 addObject:v21];
         }
 
         else
         {
-          v20 = __atxlog_handle_metrics();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+          v21 = __atxlog_handle_metrics(v17);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
           {
             __77__ATXStackRotationSessionManager__tryUpdateNPlusOneStatusForSession_stackId___block_invoke_cold_1();
           }
@@ -729,13 +715,11 @@ LABEL_17:
   {
     *a4 = 1;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tryUpdateStackRotationSessionWithSystemSuggestLayout:(id)layout
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   layoutCopy = layout;
   rotationReason = [layoutCopy rotationReason];
   v6 = NSStringForATXHomeScreenStackChangeReason();
@@ -743,46 +727,44 @@ LABEL_17:
 
   if (v7)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     reverseObjectEnumerator = [(NSMutableArray *)self->_recentHomeScreenCachedSuggestions reverseObjectEnumerator];
-    v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         v12 = 0;
         do
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          cachedTopOfStackLayouts = [*(*(&v17 + 1) + 8 * v12) cachedTopOfStackLayouts];
-          v15[0] = MEMORY[0x277D85DD0];
-          v15[1] = 3221225472;
-          v15[2] = __88__ATXStackRotationSessionManager__tryUpdateStackRotationSessionWithSystemSuggestLayout___block_invoke;
-          v15[3] = &unk_27859EA98;
-          v16 = layoutCopy;
-          [cachedTopOfStackLayouts enumerateKeysAndObjectsUsingBlock:v15];
+          cachedTopOfStackLayouts = [*(*(&v16 + 1) + 8 * v12) cachedTopOfStackLayouts];
+          v14[0] = MEMORY[0x277D85DD0];
+          v14[1] = 3221225472;
+          v14[2] = __88__ATXStackRotationSessionManager__tryUpdateStackRotationSessionWithSystemSuggestLayout___block_invoke;
+          v14[3] = &unk_27859EA98;
+          v15 = layoutCopy;
+          [cachedTopOfStackLayouts enumerateKeysAndObjectsUsingBlock:v14];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __88__ATXStackRotationSessionManager__tryUpdateStackRotationSessionWithSystemSuggestLayout___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -819,28 +801,28 @@ void __88__ATXStackRotationSessionManager__tryUpdateStackRotationSessionWithSyst
 
 void __82__ATXStackRotationSessionManager_uuidsOfNPlusOneSuggestionsFromCachedSuggestions___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v14 + 1) + 8 * v8) allSuggestionsInLayout];
+        v9 = [*(*(&v13 + 1) + 8 * v8) allSuggestionsInLayout];
         v10 = [v9 firstObject];
 
         if (v10)
@@ -854,13 +836,11 @@ void __82__ATXStackRotationSessionManager_uuidsOfNPlusOneSuggestionsFromCachedSu
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -936,49 +916,49 @@ LABEL_9:
   v9 = [v6 initWithObjects:{v7, v8, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v5);
   v10 = MEMORY[0x277D42620];
-  v11 = __atxlog_handle_metrics();
-  v12 = [v10 robustDecodeObjectOfClasses:v9 forKey:@"mapping" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXStackRotationSessionManager" errorCode:-1 logHandle:v11];
+  v12 = __atxlog_handle_metrics(v11);
+  v13 = [v10 robustDecodeObjectOfClasses:v9 forKey:@"mapping" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXStackRotationSessionManager" errorCode:-1 logHandle:v12];
 
-  if (v12 && ([coderCopy error], v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
+  if (v13 && ([coderCopy error], v14 = objc_claimAutoreleasedReturnValue(), v14, !v14))
   {
-    v15 = MEMORY[0x277D42620];
-    v16 = objc_autoreleasePoolPush();
-    v17 = objc_alloc(MEMORY[0x277CBEB98]);
-    v18 = objc_opt_class();
-    v19 = [v17 initWithObjects:{v18, objc_opt_class(), 0}];
-    objc_autoreleasePoolPop(v16);
-    v20 = __atxlog_handle_metrics();
-    v21 = [v15 robustDecodeObjectOfClasses:v19 forKey:@"completedSessions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXStackRotationSessionManager" errorCode:-1 logHandle:v20];
+    v16 = MEMORY[0x277D42620];
+    v17 = objc_autoreleasePoolPush();
+    v18 = objc_alloc(MEMORY[0x277CBEB98]);
+    v19 = objc_opt_class();
+    v20 = [v18 initWithObjects:{v19, objc_opt_class(), 0}];
+    objc_autoreleasePoolPop(v17);
+    v22 = __atxlog_handle_metrics(v21);
+    v23 = [v16 robustDecodeObjectOfClasses:v20 forKey:@"completedSessions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXStackRotationSessionManager" errorCode:-1 logHandle:v22];
 
-    if (v21 && ([coderCopy error], v22 = objc_claimAutoreleasedReturnValue(), v22, !v22))
+    if (v23 && ([coderCopy error], v24 = objc_claimAutoreleasedReturnValue(), v24, !v24))
     {
-      v23 = objc_autoreleasePoolPush();
-      v41 = objc_alloc(MEMORY[0x277CBEB98]);
-      v24 = objc_opt_class();
-      v25 = objc_opt_class();
+      v25 = objc_autoreleasePoolPush();
+      v45 = objc_alloc(MEMORY[0x277CBEB98]);
       v26 = objc_opt_class();
-      v27 = [v41 initWithObjects:{v24, v25, v26, objc_opt_class(), 0}];
-      objc_autoreleasePoolPop(v23);
+      v27 = objc_opt_class();
+      v28 = objc_opt_class();
+      v29 = [v45 initWithObjects:{v26, v27, v28, objc_opt_class(), 0}];
+      objc_autoreleasePoolPop(v25);
 
-      v28 = MEMORY[0x277D42620];
-      v29 = __atxlog_handle_metrics();
-      v30 = [v28 robustDecodeObjectOfClasses:v27 forKey:@"recentHomeScreenCachedSuggestions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXStackRotationSessionManager" errorCode:-1 logHandle:v29];
+      v30 = MEMORY[0x277D42620];
+      v32 = __atxlog_handle_metrics(v31);
+      v33 = [v30 robustDecodeObjectOfClasses:v29 forKey:@"recentHomeScreenCachedSuggestions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXStackRotationSessionManager" errorCode:-1 logHandle:v32];
 
-      if (v30 && ([coderCopy error], v31 = objc_claimAutoreleasedReturnValue(), v31, !v31))
+      if (v33 && ([coderCopy error], v34 = objc_claimAutoreleasedReturnValue(), v34, !v34))
       {
-        v32 = objc_autoreleasePoolPush();
-        v33 = objc_alloc(MEMORY[0x277CBEB98]);
-        v34 = objc_opt_class();
-        v35 = [v33 initWithObjects:{v34, objc_opt_class(), 0}];
-        objc_autoreleasePoolPop(v32);
+        v35 = objc_autoreleasePoolPush();
+        v36 = objc_alloc(MEMORY[0x277CBEB98]);
+        v37 = objc_opt_class();
+        v38 = [v36 initWithObjects:{v37, objc_opt_class(), 0}];
+        objc_autoreleasePoolPop(v35);
 
-        v36 = MEMORY[0x277D42620];
-        v37 = __atxlog_handle_metrics();
-        v38 = [v36 robustDecodeObjectOfClasses:v35 forKey:@"nPlusOneRotationStatus" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXStackRotationSessionManager" errorCode:-1 logHandle:v37];
+        v39 = MEMORY[0x277D42620];
+        v41 = __atxlog_handle_metrics(v40);
+        v42 = [v39 robustDecodeObjectOfClasses:v38 forKey:@"nPlusOneRotationStatus" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXStackRotationSessionManager" errorCode:-1 logHandle:v41];
 
-        if (v38 && ([coderCopy error], v39 = objc_claimAutoreleasedReturnValue(), v39, !v39))
+        if (v42 && ([coderCopy error], v43 = objc_claimAutoreleasedReturnValue(), v43, !v43))
         {
-          self = [(ATXStackRotationSessionManager *)self initWithStackIdToStackRotationSessions:v12 completedSessions:v21 recentHomeScreenCachedSuggestions:v30 nPlusOneSuggestionUUIDsWithFirstRotation:v38];
+          self = [(ATXStackRotationSessionManager *)self initWithStackIdToStackRotationSessions:v13 completedSessions:v23 recentHomeScreenCachedSuggestions:v33 nPlusOneSuggestionUUIDsWithFirstRotation:v42];
           selfCopy = self;
         }
 
@@ -987,7 +967,7 @@ LABEL_9:
           selfCopy = 0;
         }
 
-        v27 = v35;
+        v29 = v38;
       }
 
       else
@@ -995,7 +975,7 @@ LABEL_9:
         selfCopy = 0;
       }
 
-      v9 = v27;
+      v9 = v29;
     }
 
     else
@@ -1015,134 +995,104 @@ LABEL_9:
 - (void)_tryEndStackRotationSessionWithStackId:homeScreenEvent:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - marked stack rotation status as completed: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - marked stack rotation status as completed: %@", v4, v5, v6, v7);
 }
 
 - (void)_tryStartStackRotationSessionWithStackId:homeScreenEvent:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - starting stack rotation session: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - starting stack rotation session: %@", v4, v5, v6, v7);
 }
 
 - (void)updateWithUIEvent:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - handled stack delete for session %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - handled stack delete for session %@", v4, v5, v6, v7);
 }
 
 - (void)updateWithUIEvent:.cold.2()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - handled N+1 rotation never show again for session %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - handled N+1 rotation never show again for session %@", v4, v5, v6, v7);
 }
 
 - (void)updateWithUIEvent:.cold.3()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - handled N+1 rotation dismissed once for session %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - handled N+1 rotation dismissed once for session %@", v4, v5, v6, v7);
 }
 
 - (void)updateWithUIEvent:.cold.4()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - handled N+1 added to stack for session %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - handled N+1 added to stack for session %@", v4, v5, v6, v7);
 }
 
 - (void)updateWithUIEvent:.cold.5()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - handled tap for session %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - handled tap for session %@", v4, v5, v6, v7);
 }
 
 - (void)updateWithUIEvent:.cold.6()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - updated dwell end date for session %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - updated dwell end date for session %@", v4, v5, v6, v7);
 }
 
 - (void)updateWithUIEvent:.cold.7()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - updated dwell start date for session %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - updated dwell start date for session %@", v4, v5, v6, v7);
 }
 
 - (void)updateWithBlendingUICacheUpdate:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = objc_opt_class();
   v2 = NSStringFromClass(v1);
-  v10 = *v0;
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v3, v4, "%@ N+1: _nPlusOneSuggestionUUIDsWithFirstRotation: %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  *v9 = 138412546;
+  *&v9[4] = v2;
+  *&v9[12] = 2112;
+  *&v9[14] = *v0;
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v3, v4, "%@ N+1: _nPlusOneSuggestionUUIDsWithFirstRotation: %@", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 void __77__ATXStackRotationSessionManager__tryUpdateNPlusOneStatusForSession_stackId___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *(v1 + 40);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
+  v4 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_14();
-  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "%@ N+1 - could not find suggestion in stack rotation layout: %@", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "%@ N+1 - could not find suggestion in stack rotation layout: %@", v3, 0x16u);
 }
 
 @end

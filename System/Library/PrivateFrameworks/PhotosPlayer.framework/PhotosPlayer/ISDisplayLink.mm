@@ -1,6 +1,7 @@
 @interface ISDisplayLink
 - (ISDisplayLink)initWithUpdateHandler:(id)handler completionHandler:(id)completionHandler;
 - (void)_callUpdateHandler;
+- (void)setPreferredFramesPerSecond:(int64_t)second;
 - (void)start;
 - (void)stop;
 @end
@@ -36,6 +37,14 @@
   [(ISDisplayLink *)self setDisplayLink:0];
   [(ISDisplayLink *)self setUpdateHandler:0];
   [(ISDisplayLink *)self setCompletionHandler:0];
+}
+
+- (void)setPreferredFramesPerSecond:(int64_t)second
+{
+  self->_preferredFramesPerSecond = second;
+  displayLink = [(ISDisplayLink *)self displayLink];
+  v6 = CAFrameRateRangeMake(second, second, second);
+  [displayLink setPreferredFrameRateRange:{*&v6.minimum, *&v6.maximum, *&v6.preferred}];
 }
 
 - (void)start

@@ -92,8 +92,7 @@ id __71__NANowPlayingPlaybackControls_initWithFrame_inset_layoutSpecProvider___b
   v3 = [*(a1 + 32) buttonColor];
   [v2 setTintColor:v3];
 
-  [v2 addTarget:*(a1 + 32) action:sel_rewindButtonTapped_ forControlEvents:64];
-  v4 = NABundle();
+  v4 = NABundle([v2 addTarget:*(a1 + 32) action:sel_rewindButtonTapped_ forControlEvents:64]);
   v5 = [v4 localizedStringForKey:@"rewind value:15 seconds" table:{&stru_1F52B5BC8, 0}];
   [v2 setAccessibilityLabel:v5];
 
@@ -109,8 +108,7 @@ id __71__NANowPlayingPlaybackControls_initWithFrame_inset_layoutSpecProvider___b
   v3 = [*(a1 + 32) buttonColor];
   [v2 setTintColor:v3];
 
-  [v2 setTouchInsets:{-10.0, -10.0, -10.0, -10.0}];
-  v4 = NABundle();
+  v4 = NABundle([v2 setTouchInsets:{-10.0, -10.0, -10.0, -10.0}]);
   v5 = [v4 localizedStringForKey:@"pause" value:&stru_1F52B5BC8 table:0];
   [v2 setAccessibilityLabel:v5];
 
@@ -126,8 +124,7 @@ id __71__NANowPlayingPlaybackControls_initWithFrame_inset_layoutSpecProvider___b
   v3 = [*(a1 + 32) buttonColor];
   [v2 setTintColor:v3];
 
-  [v2 addTarget:*(a1 + 32) action:sel_nextTrackButtonTapped_ forControlEvents:64];
-  v4 = NABundle();
+  v4 = NABundle([v2 addTarget:*(a1 + 32) action:sel_nextTrackButtonTapped_ forControlEvents:64]);
   v5 = [v4 localizedStringForKey:@"next track" value:&stru_1F52B5BC8 table:0];
   [v2 setAccessibilityLabel:v5];
 
@@ -335,10 +332,10 @@ id __71__NANowPlayingPlaybackControls_initWithFrame_inset_layoutSpecProvider___b
   playPauseButton3 = [(NANowPlayingPlaybackControls *)self playPauseButton];
   [playPauseButton3 addTarget:self action:*v7 forControlEvents:64];
 
-  v18 = NABundle();
-  v16 = [v18 localizedStringForKey:v8 value:&stru_1F52B5BC8 table:0];
+  v19 = NABundle(v16);
+  v17 = [v19 localizedStringForKey:v8 value:&stru_1F52B5BC8 table:0];
   playPauseButton4 = [(NANowPlayingPlaybackControls *)self playPauseButton];
-  [playPauseButton4 setAccessibilityLabel:v16];
+  [playPauseButton4 setAccessibilityLabel:v17];
 }
 
 - (void)updateForwardButton
@@ -390,10 +387,10 @@ id __71__NANowPlayingPlaybackControls_initWithFrame_inset_layoutSpecProvider___b
   forwardButton3 = [(NANowPlayingPlaybackControls *)self forwardButton];
   [forwardButton3 addTarget:self action:*v9 forControlEvents:64];
 
-  v16 = NABundle();
-  v17 = [v16 localizedStringForKey:v8 value:&stru_1F52B5BC8 table:0];
+  v17 = NABundle(v16);
+  v18 = [v17 localizedStringForKey:v8 value:&stru_1F52B5BC8 table:0];
   forwardButton4 = [(NANowPlayingPlaybackControls *)self forwardButton];
-  [forwardButton4 setAccessibilityLabel:v17];
+  [forwardButton4 setAccessibilityLabel:v18];
 
   if ([(NANowPlayingPlaybackControls *)self nextTrackButtonEnabled])
   {
@@ -416,14 +413,14 @@ LABEL_13:
 
   buttonColor = [(NANowPlayingPlaybackControls *)self disabledButtonColor];
 LABEL_15:
-  v24 = buttonColor;
+  v25 = buttonColor;
   forwardButton7 = [(NANowPlayingPlaybackControls *)self forwardButton];
-  [forwardButton7 setTintColor:v24];
+  [forwardButton7 setTintColor:v25];
 }
 
 - (void)rewindButtonTapped:(id)tapped
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -436,7 +433,7 @@ LABEL_15:
 
 - (void)skipForwardButtonTapped:(id)tapped
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -449,7 +446,7 @@ LABEL_15:
 
 - (void)pauseButtonTapped:(id)tapped
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -462,7 +459,7 @@ LABEL_15:
 
 - (void)playButtonTapped:(id)tapped
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -475,7 +472,7 @@ LABEL_15:
 
 - (void)nextTrackButtonTapped:(id)tapped
 {
-  v4 = NANowPlayingLog();
+  v4 = NANowPlayingLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

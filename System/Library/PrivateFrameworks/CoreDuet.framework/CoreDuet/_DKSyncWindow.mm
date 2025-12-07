@@ -1,23 +1,23 @@
 @interface _DKSyncWindow
++ (_DKSyncWindow)lastWindowMissingFromSortedNormalizedWindows:(void *)windows windowMinimumDate:(void *)date windowMaximumDate:;
++ (_DKSyncWindow)syncWindowWithStartDate:(void *)date endDate:;
 + (id)choppedWindowsFromSortedNormalizedWindows:(id)windows betweenWindowMinimumDate:(id)date andWindowMaximumDate:(id)maximumDate;
 + (id)completedWindowsFromWindows:(void *)windows firstEvent:(void *)event lastEvent:(uint64_t)lastEvent fetchOrder:(uint64_t)order fillOrder:(_BOOL4)fillOrder hitLimit:;
-+ (id)completedWindowsWithSortedEvents:(void *)events windows:(uint64_t)windows fetchOrder:(uint64_t)order fillOrder:(_BOOL4)fillOrder hitLimit:;
++ (id)completedWindowsWithSortedEvents:(void *)events windows:(uint64_t)windows fetchOrder:(uint64_t)order fillOrder:(uint64_t)fillOrder hitLimit:;
 + (id)dictionaryArrayFromWindows:(uint64_t)windows;
-+ (id)lastWindowMissingFromSortedNormalizedWindows:(void *)windows windowMinimumDate:(void *)date windowMaximumDate:;
 + (id)lastWindowMissingFromSortedWindows:(void *)windows windowMinimumDate:(void *)date windowMaximumDate:;
 + (id)redundantWindowsFromSortedWindows:(void *)windows olderThanDate:;
 + (id)sortedUnionOfSortedWindows:(void *)windows andSortedWindows:;
-+ (id)syncWindowWithStartDate:(void *)date endDate:;
 + (id)unionOfSortedSyncWindows:(uint64_t)windows;
 + (id)windowsFromDictionaryArray:(uint64_t)array;
 + (id)windowsMissingFromSortedWindows:(void *)windows windowMinimumDate:(void *)date windowMaximumDate:;
 + (id)windowsThatOverlapWithWindowMinimumDate:(void *)date windowMaximumDate:(void *)maximumDate sortedSyncWindows:;
 - (BOOL)isEqual:(id)equal;
+- (_DKSyncWindow)unionWithSyncWindow:(id *)window;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)debugDescription;
 - (id)description;
 - (id)event;
-- (id)unionWithSyncWindow:(id *)window;
 - (int64_t)compare:(id)compare;
 - (uint64_t)isEqualToWindow:(uint64_t)window;
 - (uint64_t)startDate;
@@ -28,7 +28,7 @@
 
 @implementation _DKSyncWindow
 
-+ (id)syncWindowWithStartDate:(void *)date endDate:
++ (_DKSyncWindow)syncWindowWithStartDate:(void *)date endDate:
 {
   dateCopy = date;
   v5 = a2;
@@ -136,7 +136,7 @@ LABEL_24:
   return v20;
 }
 
-+ (id)lastWindowMissingFromSortedNormalizedWindows:(void *)windows windowMinimumDate:(void *)date windowMaximumDate:
++ (_DKSyncWindow)lastWindowMissingFromSortedNormalizedWindows:(void *)windows windowMinimumDate:(void *)date windowMaximumDate:
 {
   v6 = a2;
   windowsCopy = windows;
@@ -253,7 +253,7 @@ LABEL_12:
 
 + (id)redundantWindowsFromSortedWindows:(void *)windows olderThanDate:
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v4 = a2;
   windowsCopy = windows;
   objc_opt_self();
@@ -281,28 +281,28 @@ LABEL_12:
 
     if (v10)
     {
-      v37 = v10;
+      v36 = v10;
       v11 = v10[3];
+      v41 = 0u;
       v42 = 0u;
       v43 = 0u;
       v44 = 0u;
-      v45 = 0u;
       v12 = v4;
-      v13 = [v12 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v41 objects:v46 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v43;
+        v15 = *v42;
 LABEL_7:
         v16 = 0;
         while (1)
         {
-          if (*v43 != v15)
+          if (*v42 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v42 + 1) + 8 * v16);
+          v17 = *(*(&v41 + 1) + 8 * v16);
           v18 = v17 ? *(v17 + 16) : 0;
           v19 = v18;
           [v19 timeIntervalSinceReferenceDate];
@@ -317,7 +317,7 @@ LABEL_7:
 
           if (v14 == ++v16)
           {
-            v24 = [v12 countByEnumeratingWithState:&v42 objects:v47 count:16];
+            v24 = [v12 countByEnumeratingWithState:&v41 objects:v46 count:16];
             v14 = v24;
             if (v24)
             {
@@ -329,31 +329,31 @@ LABEL_7:
         }
       }
 
-      v10 = v37;
+      v10 = v36;
     }
 
     else
     {
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v11 = v4;
-      v25 = [v11 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v25 = [v11 countByEnumeratingWithState:&v37 objects:v45 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v39;
+        v27 = *v38;
 LABEL_23:
         v28 = 0;
         while (1)
         {
-          if (*v39 != v27)
+          if (*v38 != v27)
           {
             objc_enumerationMutation(v11);
           }
 
-          v29 = *(*(&v38 + 1) + 8 * v28);
+          v29 = *(*(&v37 + 1) + 8 * v28);
           v30 = v29 ? *(v29 + 24) : 0;
           [v30 timeIntervalSinceReferenceDate];
           v32 = v31;
@@ -366,7 +366,7 @@ LABEL_23:
           [v6 addObject:v29];
           if (v26 == ++v28)
           {
-            v34 = [v11 countByEnumeratingWithState:&v38 objects:v46 count:16];
+            v34 = [v11 countByEnumeratingWithState:&v37 objects:v45 count:16];
             v26 = v34;
             if (v34)
             {
@@ -388,38 +388,36 @@ LABEL_23:
     }
   }
 
-  v35 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 + (id)unionOfSortedSyncWindows:(uint64_t)windows
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
   v3 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         if ([v3 count])
         {
           [(_DKSyncWindow *)v3 unionOfSortedSyncWindows:v9];
@@ -434,60 +432,59 @@ LABEL_23:
       }
 
       while (v6 != v8);
-      v10 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v10 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       v6 = v10;
     }
 
     while (v10);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
-+ (id)completedWindowsWithSortedEvents:(void *)events windows:(uint64_t)windows fetchOrder:(uint64_t)order fillOrder:(_BOOL4)fillOrder hitLimit:
++ (id)completedWindowsWithSortedEvents:(void *)events windows:(uint64_t)windows fetchOrder:(uint64_t)order fillOrder:(uint64_t)fillOrder hitLimit:
 {
+  fillOrderCopy = fillOrder;
   eventsCopy = events;
   v11 = a2;
   v12 = objc_opt_self();
   firstObject = [v11 firstObject];
   lastObject = [v11 lastObject];
 
-  v15 = [(_DKSyncWindow *)v12 completedWindowsFromWindows:eventsCopy firstEvent:firstObject lastEvent:lastObject fetchOrder:windows fillOrder:order hitLimit:fillOrder];
+  v15 = [(_DKSyncWindow *)v12 completedWindowsFromWindows:eventsCopy firstEvent:firstObject lastEvent:lastObject fetchOrder:windows fillOrder:order hitLimit:fillOrderCopy];
 
   return v15;
 }
 
 + (id)dictionaryArrayFromWindows:(uint64_t)windows
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v21 objects:v33 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v23;
+    v8 = *v22;
     *&v6 = 138543874;
-    v21 = v6;
+    v20 = v6;
     do
     {
       v9 = 0;
       do
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v9);
+        v10 = *(*(&v21 + 1) + 8 * v9);
         if (v10)
         {
           v11 = *(v10 + 16);
@@ -504,11 +501,11 @@ LABEL_23:
         v14 = v13;
         if (v11 && v13)
         {
-          v32[0] = @"startDate";
-          v32[1] = @"endDate";
-          v33[0] = v11;
-          v33[1] = v13;
-          v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
+          v31[0] = @"startDate";
+          v31[1] = @"endDate";
+          v32[0] = v11;
+          v32[1] = v13;
+          v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
           [v3 addObject:v15];
         }
 
@@ -518,12 +515,12 @@ LABEL_23:
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             v16 = [objc_opt_class() description];
-            *buf = v21;
-            v27 = v16;
-            v28 = 2112;
-            v29 = v11;
-            v30 = 2112;
-            v31 = v14;
+            *buf = v20;
+            v26 = v16;
+            v27 = 2112;
+            v28 = v11;
+            v29 = 2112;
+            v30 = v14;
             _os_log_error_impl(&dword_191750000, v15, OS_LOG_TYPE_ERROR, "%{public}@: Failed to encode window due to missing date where startDate = %@ and endDate = %@", buf, 0x20u);
           }
         }
@@ -532,7 +529,7 @@ LABEL_23:
       }
 
       while (v7 != v9);
-      v17 = [v4 countByEnumeratingWithState:&v22 objects:v34 count:16];
+      v17 = [v4 countByEnumeratingWithState:&v21 objects:v33 count:16];
       v7 = v17;
     }
 
@@ -540,40 +537,39 @@ LABEL_23:
   }
 
   v18 = [v3 copy];
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 + (id)windowsFromDictionaryArray:(uint64_t)array
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v21 objects:v31 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v22;
+    v8 = *v21;
     *&v6 = 138543874;
-    v19 = v6;
+    v18 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
-        v11 = [v10 objectForKeyedSubscript:{@"startDate", v19}];
+        v10 = *(*(&v20 + 1) + 8 * i);
+        v11 = [v10 objectForKeyedSubscript:{@"startDate", v18}];
         v12 = [v10 objectForKeyedSubscript:@"endDate"];
         v13 = v12;
         if (v11)
@@ -591,13 +587,13 @@ LABEL_23:
           v15 = +[_CDLogging syncChannel];
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            v20 = [objc_opt_class() description];
-            *buf = v19;
-            v26 = v20;
-            v27 = 2112;
-            v28 = v11;
-            v29 = 2112;
-            v30 = v13;
+            v19 = [objc_opt_class() description];
+            *buf = v18;
+            v25 = v19;
+            v26 = 2112;
+            v27 = v11;
+            v28 = 2112;
+            v29 = v13;
             _os_log_error_impl(&dword_191750000, v15, OS_LOG_TYPE_ERROR, "%{public}@: Failed to decode window due to missing date where startDate = %@ and endDate = %@", buf, 0x20u);
           }
         }
@@ -609,14 +605,13 @@ LABEL_23:
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v21 objects:v31 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
     }
 
     while (v7);
   }
 
   v16 = [v3 copy];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -770,7 +765,7 @@ LABEL_23:
   return self;
 }
 
-- (id)unionWithSyncWindow:(id *)window
+- (_DKSyncWindow)unionWithSyncWindow:(id *)window
 {
   v3 = a2;
   if (!window)
@@ -928,7 +923,7 @@ LABEL_38:
 
 + (id)windowsThatOverlapWithWindowMinimumDate:(void *)date windowMaximumDate:(void *)maximumDate sortedSyncWindows:
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v6 = a2;
   dateCopy = date;
   maximumDateCopy = maximumDate;
@@ -937,48 +932,46 @@ LABEL_38:
   v10 = objc_opt_new();
   [(_DKSyncWindow *)v10 setStartDate:v6];
   [(_DKSyncWindow *)v10 setEndDate:dateCopy];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = maximumDateCopy;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * i);
+        v16 = *(*(&v19 + 1) + 8 * i);
         v17 = [(_DKSyncWindow *)v10 unionWithSyncWindow:v16];
 
         if (v17)
         {
-          [v9 addObject:{v16, v20}];
+          [v9 addObject:{v16, v19}];
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)completedWindowsFromWindows:(void *)windows firstEvent:(void *)event lastEvent:(uint64_t)lastEvent fetchOrder:(uint64_t)order fillOrder:(_BOOL4)fillOrder hitLimit:
 {
-  v108 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   v12 = a2;
   windowsCopy = windows;
   eventCopy = event;
@@ -986,46 +979,46 @@ LABEL_38:
   v13 = +[_CDLogging syncChannel];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v57 = [objc_opt_class() description];
-    v58 = @"UNKNOWN";
-    v59 = @"oldest";
+    v56 = [objc_opt_class() description];
+    v57 = @"UNKNOWN";
+    v58 = @"oldest";
     if (lastEvent != 1)
     {
-      v59 = @"UNKNOWN";
+      v58 = @"UNKNOWN";
     }
 
     if (lastEvent == 2)
     {
-      v60 = @"newest";
+      v59 = @"newest";
     }
 
     else
     {
-      v60 = v59;
+      v59 = v58;
     }
 
-    obja = v57;
+    obja = v56;
     switch(order)
     {
       case 1:
-        v58 = @"always-full";
+        v57 = @"always-full";
         break;
       case 2:
-        v58 = @"old-to-new";
+        v57 = @"old-to-new";
         break;
       case 3:
-        v58 = @"new-to-old";
+        v57 = @"new-to-old";
         break;
     }
 
-    v78 = v58;
-    v64 = @"was not";
+    v77 = v57;
+    v63 = @"was not";
     if (fillOrder)
     {
-      v64 = @"was";
+      v63 = @"was";
     }
 
-    v70 = v64;
+    v69 = v63;
     uUID = [windowsCopy UUID];
     uUIDString = [uUID UUIDString];
     creationDate = [windowsCopy creationDate];
@@ -1036,23 +1029,23 @@ LABEL_38:
     dk_localtimeString2 = [(NSDate *)creationDate2 dk_localtimeString];
     _DKSyncLoggingWindowsDescription(v12);
     *buf = 138545410;
-    v91 = obja;
-    v92 = 2114;
-    v93 = v60;
-    v94 = 2114;
-    v95 = v78;
-    v96 = 2114;
-    v97 = v70;
-    v98 = 2114;
-    v99 = uUIDString;
-    v100 = 2114;
-    v101 = dk_localtimeString;
-    v102 = 2114;
-    v103 = uUIDString2;
-    v104 = 2114;
-    v105 = dk_localtimeString2;
-    v107 = v106 = 2114;
-    v66 = v107;
+    v90 = obja;
+    v91 = 2114;
+    v92 = v59;
+    v93 = 2114;
+    v94 = v77;
+    v95 = 2114;
+    v96 = v69;
+    v97 = 2114;
+    v98 = uUIDString;
+    v99 = 2114;
+    v100 = dk_localtimeString;
+    v101 = 2114;
+    v102 = uUIDString2;
+    v103 = 2114;
+    v104 = dk_localtimeString2;
+    v106 = v105 = 2114;
+    v65 = v106;
     _os_log_debug_impl(&dword_191750000, v13, OS_LOG_TYPE_DEBUG, "%{public}@: Computing completed windows using fetch order %{public}@, fill order %{public}@, limit %{public}@ hit, first event %{public}@ (created %{public}@), last event %{public}@ (created %{public}@) from windows %{public}@", buf, 0x5Cu);
   }
 
@@ -1101,29 +1094,29 @@ LABEL_38:
     date = [MEMORY[0x1E695DF00] date];
     [date timeIntervalSinceReferenceDate];
     v21 = v20;
+    v84 = 0u;
     v85 = 0u;
     v86 = 0u;
     v87 = 0u;
-    v88 = 0u;
-    v71 = v12;
+    v70 = v12;
     obj = v12;
-    v22 = [obj countByEnumeratingWithState:&v85 objects:v89 count:16];
+    v22 = [obj countByEnumeratingWithState:&v84 objects:v88 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v86;
-      v75 = v15;
+      v24 = *v85;
+      v74 = v15;
       do
       {
         v25 = 0;
         do
         {
-          if (*v86 != v24)
+          if (*v85 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v85 + 1) + 8 * v25);
+          v26 = *(*(&v84 + 1) + 8 * v25);
           if (v26)
           {
             v27 = *(v26 + 16);
@@ -1178,7 +1171,7 @@ LABEL_30:
 
                 v34 = v46;
                 v14 = v45;
-                v15 = v75;
+                v15 = v74;
               }
 
               if (!v34)
@@ -1221,14 +1214,14 @@ LABEL_69:
         }
 
         while (v23 != v25);
-        v48 = [obj countByEnumeratingWithState:&v85 objects:v89 count:16];
+        v48 = [obj countByEnumeratingWithState:&v84 objects:v88 count:16];
         v23 = v48;
       }
 
       while (v48);
     }
 
-    v12 = v71;
+    v12 = v70;
   }
 
   lastObject = [v14 lastObject];
@@ -1254,18 +1247,16 @@ LABEL_69:
   if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
   {
     [objc_opt_class() description];
-    v62 = v61 = v14;
-    v63 = _DKSyncLoggingWindowsDescription(v61);
+    v61 = v60 = v14;
+    v62 = _DKSyncLoggingWindowsDescription(v60);
     *buf = 138543618;
-    v91 = v62;
-    v92 = 2114;
-    v93 = v63;
+    v90 = v61;
+    v91 = 2114;
+    v92 = v62;
     _os_log_debug_impl(&dword_191750000, v54, OS_LOG_TYPE_DEBUG, "%{public}@: Computed completed windows %{public}@", buf, 0x16u);
 
-    v14 = v61;
+    v14 = v60;
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1316,7 +1307,7 @@ LABEL_69:
   return v6;
 }
 
-+ (void)lastWindowMissingFromSortedNormalizedWindows:(void *)a3 windowMinimumDate:(uint64_t *)a4 windowMaximumDate:.cold.1(void *a1, void *a2, void *a3, uint64_t *a4)
++ (void)lastWindowMissingFromSortedNormalizedWindows:(void *)a3 windowMinimumDate:(_DKSyncWindow *)a4 windowMaximumDate:.cold.1(void *a1, void *a2, void *a3, _DKSyncWindow **a4)
 {
   v8 = [a1 lastObject];
   v32 = v8;

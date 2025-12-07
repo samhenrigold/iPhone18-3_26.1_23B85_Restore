@@ -19,11 +19,11 @@
   if (errorCopy)
   {
     domain = [errorCopy domain];
-    v7 = [domain isEqualToString:@"WFIntentExecutorErrorDomain"];
+    isEqualToString = objc_msgSend_isEqualToString_(domain);
 
     userInfo = [v5 userInfo];
     v9 = userInfo;
-    if (v7)
+    if (isEqualToString)
     {
       v10 = [userInfo objectForKeyedSubscript:@"WFIntentExecutorIntentResponseErrorKey"];
 
@@ -218,23 +218,22 @@ void __84__WFRelevanceEngineRunnerClient_showDialogRequest_runningContext_comple
 
 - (void)dismissPresentedContentForRunningContext:(id)context completionHandler:(id)handler
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = getWFRelevanceEngineLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[WFRelevanceEngineRunnerClient dismissPresentedContentForRunningContext:completionHandler:]";
-    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s dismissPresentedContentForRunningContext:completionHandler called", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[WFRelevanceEngineRunnerClient dismissPresentedContentForRunningContext:completionHandler:]";
+    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s dismissPresentedContentForRunningContext:completionHandler called", &v6, 0xCu);
   }
 
   handlerCopy[2](handlerCopy, 0);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v6 = WFUIPresenterXPCInterface();
   [connectionCopy setExportedInterface:v6];
@@ -244,14 +243,13 @@ void __84__WFRelevanceEngineRunnerClient_showDialogRequest_runningContext_comple
   v7 = getWFRelevanceEngineLogObject();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v10 = 136315394;
-    v11 = "[WFRelevanceEngineRunnerClient listener:shouldAcceptNewConnection:]";
-    v12 = 2112;
-    v13 = connectionCopy;
-    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_INFO, "%s Accepted connection from BackgroundShortcutRunner, connection = %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[WFRelevanceEngineRunnerClient listener:shouldAcceptNewConnection:]";
+    v11 = 2112;
+    v12 = connectionCopy;
+    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_INFO, "%s Accepted connection from BackgroundShortcutRunner, connection = %@", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

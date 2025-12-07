@@ -46,13 +46,10 @@ void __66___DASBMHistogramBuilder_histogramOnResponseQueue_withCompletion___bloc
 
 void __35___DASBMHistogramBuilder_histogram__block_invoke_2_cold_1(id *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = [*a1 publisher];
   v4 = [a2 error];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1B6E2F000, v5, v6, "Failed to open sink for %@: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1B6E2F000, v5, v6, "Failed to open sink for %@: %@", v7, v8, v9, v10);
 }
 
 @end

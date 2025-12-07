@@ -61,7 +61,7 @@
 
     v30 = _Q0;
     [v9 getXValue:&v30 YValue:&v30 + 8 fromParm:1 atFxTime:info->var0.var1];
-    [(PAESharedDefaultBase *)self convertRelativeToPixelCoordinates:&v30 withImage:input];
+    objc_msgSend_convertRelativeToPixelCoordinates_withImage_(self);
     v30 = v20;
     v29 = 0.0;
     [v10 getFloatValue:&v29 fromParm:2 atFxTime:info->var0.var1];
@@ -75,7 +75,7 @@
     v24 = 0u;
     if (output)
     {
-      [output imageInfo];
+      objc_msgSend_imageInfo(output);
       v16 = v28;
       if (*(&v25 + 1))
       {
@@ -92,7 +92,7 @@
     __sincos_stret(v16);
     v22 = 0.0;
     [v10 getFloatValue:&v22 fromParm:4 atFxTime:info->var0.var1];
-    [(PAESharedDefaultBase *)self getScaleForImage:input];
+    objc_msgSend_getScaleForImage_(self);
     v22 = v21 * v22;
     v17 = [objc_alloc(NSClassFromString(&cfstr_Fxhostcapabili.isa)) initWithAPIManager:self->super.super._apiManager];
     if (info->var2)
@@ -107,7 +107,7 @@
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input);
         }
 
         v18 = HGObject::operator new(0x1B0uLL);

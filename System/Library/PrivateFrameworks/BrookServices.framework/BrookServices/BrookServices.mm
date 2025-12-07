@@ -9,9 +9,9 @@ id BRKLocalizedUserNotificationString(void *a1, void *a2, void *a3)
   return v9;
 }
 
-void sub_241EE7E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241EE7E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -48,7 +48,7 @@ void __BRKLoggingObjectForDomain_block_invoke()
   BRKLoggingObjectForDomain_LogObjects = v3;
 }
 
-uint64_t BRKIsInternalBuild()
+uint64_t BRKIsInternalBuild(uint64_t a1, uint64_t a2)
 {
   if (BRKIsInternalBuild_onceToken != -1)
   {
@@ -65,7 +65,7 @@ uint64_t __BRKIsInternalBuild_block_invoke()
   return result;
 }
 
-uint64_t BRKIsInternalCarryEnabled()
+uint64_t BRKIsInternalCarryEnabled(uint64_t a1, uint64_t a2)
 {
   if (BRKIsInternalBuild_onceToken != -1)
   {
@@ -77,22 +77,22 @@ uint64_t BRKIsInternalCarryEnabled()
     return 0;
   }
 
-  v0 = CFPreferencesCopyAppValue(@"ExperimentGroup", @"com.apple.da");
-  v1 = [v0 isEqualToString:@"walkabout"];
+  v2 = CFPreferencesCopyAppValue(@"ExperimentGroup", @"com.apple.da");
+  v3 = [v2 isEqualToString:@"walkabout"];
 
-  return v1;
+  return v3;
 }
 
-id BRKBuildVersion()
+id BRKBuildVersion(uint64_t a1)
 {
   if (BRKBuildVersion_onceToken != -1)
   {
     BRKBuildVersion_cold_1();
   }
 
-  v1 = BRKBuildVersion_Build;
+  v2 = BRKBuildVersion_Build;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __BRKBuildVersion_block_invoke()
@@ -122,16 +122,16 @@ __CFString *BRKDetectorVersion()
   return v3;
 }
 
-id BRKHardwareVersion()
+id BRKHardwareVersion(uint64_t a1)
 {
   if (BRKHardwareVersion_onceToken != -1)
   {
     BRKHardwareVersion_cold_1();
   }
 
-  v1 = BRKHardwareVersion_HWVersion;
+  v2 = BRKHardwareVersion_HWVersion;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __BRKHardwareVersion_block_invoke()
@@ -141,7 +141,7 @@ uint64_t __BRKHardwareVersion_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t BRKCurrentDeviceVariant()
+uint64_t BRKCurrentDeviceVariant(uint64_t a1, uint64_t a2)
 {
   if (BRKCurrentDeviceVariant_onceToken != -1)
   {
@@ -207,28 +207,28 @@ LABEL_17:
   BRKCurrentDeviceVariant_Device = v2;
 }
 
-id _BRKSharedUtilityQueue()
+id _BRKSharedUtilityQueue(uint64_t a1)
 {
   if (_BRKSharedUtilityQueue_onceToken != -1)
   {
     _BRKSharedUtilityQueue_cold_1();
   }
 
-  v1 = _BRKSharedUtilityQueue_Queue;
+  v2 = _BRKSharedUtilityQueue_Queue;
 
-  return v1;
+  return v2;
 }
 
-id _BRKSharedBackgroundQueue()
+id _BRKSharedBackgroundQueue(uint64_t a1)
 {
   if (_BRKSharedBackgroundQueue_onceToken != -1)
   {
     _BRKSharedBackgroundQueue_cold_1();
   }
 
-  v1 = _BRKSharedBackgroundQueue_Queue;
+  v2 = _BRKSharedBackgroundQueue_Queue;
 
-  return v1;
+  return v2;
 }
 
 dispatch_queue_t BRKCreateDispatchQueue(const char *a1, dispatch_qos_class_t a2)
@@ -238,24 +238,24 @@ dispatch_queue_t BRKCreateDispatchQueue(const char *a1, dispatch_qos_class_t a2)
 
   if (a2 == QOS_CLASS_UTILITY)
   {
-    v6 = _BRKSharedUtilityQueue();
+    v7 = _BRKSharedUtilityQueue(v6);
     goto LABEL_5;
   }
 
   if (a2 == QOS_CLASS_BACKGROUND)
   {
-    v6 = _BRKSharedBackgroundQueue();
+    v7 = _BRKSharedBackgroundQueue(v6);
 LABEL_5:
-    v7 = v6;
-    v8 = dispatch_queue_create_with_target_V2(a1, v5, v6);
+    v8 = v7;
+    v9 = dispatch_queue_create_with_target_V2(a1, v5, v7);
 
     goto LABEL_7;
   }
 
-  v8 = dispatch_queue_create(a1, v5);
+  v9 = dispatch_queue_create(a1, v5);
 LABEL_7:
 
-  return v8;
+  return v9;
 }
 
 id BRKDeviceLocale()
@@ -292,45 +292,43 @@ uint64_t BRKDeviceTimezoneOffset()
 
 id _BRKLocalesRequiringTallScript()
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:@"th"];
-  v7[0] = v0;
+  v6[0] = v0;
   v1 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:@"vi"];
-  v7[1] = v1;
+  v6[1] = v1;
   v2 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:@"hi"];
-  v7[2] = v2;
+  v6[2] = v2;
   v3 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:@"ar"];
-  v7[3] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[3] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
 
   return v4;
 }
 
 uint64_t BRKCurrentLanguageRequiresTallScript()
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBEAF8] currentLocale];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = _BRKLocalesRequiringTallScript();
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
-    v3 = *v11;
+    v3 = *v10;
     while (2)
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v11 != v3)
+        if (*v10 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v5 = [*(*(&v10 + 1) + 8 * i) languageCode];
+        v5 = [*(*(&v9 + 1) + 8 * i) languageCode];
         v6 = [v0 languageCode];
         v7 = [v5 isEqualToString:v6];
 
@@ -341,7 +339,7 @@ uint64_t BRKCurrentLanguageRequiresTallScript()
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v2)
       {
         continue;
@@ -353,11 +351,10 @@ uint64_t BRKCurrentLanguageRequiresTallScript()
 
 LABEL_11:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-void _BRKRegisterForLockedStatusChange()
+void _BRKRegisterForLockedStatusChange(uint64_t result, uint64_t a2)
 {
   if (_BRKRegisterForLockedStatusChange_onceToken != -1)
   {
@@ -365,7 +362,7 @@ void _BRKRegisterForLockedStatusChange()
   }
 }
 
-__CFString *BRKDeviceLockStateChangedNotification()
+__CFString *BRKDeviceLockStateChangedNotification(uint64_t a1, uint64_t a2)
 {
   if (_BRKRegisterForLockedStatusChange_onceToken != -1)
   {
@@ -375,28 +372,28 @@ __CFString *BRKDeviceLockStateChangedNotification()
   return @"BRKDeviceLockStateChangedNotification";
 }
 
-BOOL BRKDeviceIsLocked()
+BOOL BRKDeviceIsLocked(uint64_t a1, uint64_t a2)
 {
   if (_BRKRegisterForLockedStatusChange_onceToken != -1)
   {
     _BRKRegisterForLockedStatusChange_cold_1();
   }
 
-  v0 = MKBGetDeviceLockState();
-  if (v0)
+  v2 = MKBGetDeviceLockState();
+  if (v2)
   {
-    v1 = v0 == 3;
+    v3 = v2 == 3;
   }
 
   else
   {
-    v1 = 1;
+    v3 = 1;
   }
 
-  return !v1;
+  return !v3;
 }
 
-BOOL BRKDeviceUnlockedSinceBoot()
+BOOL BRKDeviceUnlockedSinceBoot(uint64_t a1, uint64_t a2)
 {
   if (_BRKRegisterForLockedStatusChange_onceToken != -1)
   {
@@ -424,44 +421,44 @@ uint64_t BRKCrownOrientationIsRight()
 
 void BRKMarkFilePurgeable(void *a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if ([v1 isFileURL])
   {
-    v31 = 0;
+    v30 = 0;
     v2 = [MEMORY[0x277CCAA00] defaultManager];
     v3 = [v1 path];
-    v4 = [v2 fileExistsAtPath:v3 isDirectory:&v31];
+    v4 = [v2 fileExistsAtPath:v3 isDirectory:&v30];
 
     if (v4)
     {
-      if (v31 == 1)
+      if (v30 == 1)
       {
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
         v28 = 0u;
+        v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
         v5 = [MEMORY[0x277CCAA00] defaultManager];
         v6 = [v5 enumeratorAtURL:v1 includingPropertiesForKeys:0 options:3 errorHandler:0];
 
-        v7 = [v6 countByEnumeratingWithState:&v27 objects:v38 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v26 objects:v37 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v28;
+          v9 = *v27;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v28 != v9)
+              if (*v27 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              BRKMarkFilePurgeable(*(*(&v27 + 1) + 8 * i));
+              BRKMarkFilePurgeable(*(*(&v26 + 1) + 8 * i));
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v27 objects:v38 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v26 objects:v37 count:16];
           }
 
           while (v8);
@@ -470,7 +467,7 @@ void BRKMarkFilePurgeable(void *a1)
 
       else
       {
-        v26 = 66053;
+        v25 = 66053;
         v11 = [v1 absoluteURL];
         v6 = [v11 path];
 
@@ -487,7 +484,7 @@ void BRKMarkFilePurgeable(void *a1)
         else
         {
           v13 = v12;
-          v14 = ffsctl(v12, 0xC0084A44uLL, &v26, 0);
+          v14 = ffsctl(v12, 0xC0084A44uLL, &v25, 0);
           v15 = BRKLoggingObjectForDomain(0);
           v16 = v15;
           if (v14)
@@ -498,13 +495,13 @@ void BRKMarkFilePurgeable(void *a1)
               v18 = __error();
               v19 = strerror(*v18);
               *buf = 136315906;
-              v33 = v17;
-              v34 = 1024;
-              *v35 = v14;
-              *&v35[4] = 2080;
-              *&v35[6] = v19;
-              v36 = 2048;
-              v37 = v26;
+              v32 = v17;
+              v33 = 1024;
+              *v34 = v14;
+              *&v34[4] = 2080;
+              *&v34[6] = v19;
+              v35 = 2048;
+              v36 = v25;
               _os_log_error_impl(&dword_241EE4000, v16, OS_LOG_TYPE_ERROR, "Failed to mark %s as purgeable %d (%s) (flags 0x%llx)", buf, 0x26u);
             }
           }
@@ -512,17 +509,17 @@ void BRKMarkFilePurgeable(void *a1)
           else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             v21 = [v6 UTF8String];
-            v22 = v26;
+            v22 = v25;
             v23 = __error();
             v24 = strerror(*v23);
             *buf = 136315906;
-            v33 = v21;
-            v34 = 2048;
-            *v35 = v22;
-            *&v35[8] = 1024;
-            *&v35[10] = 0;
-            v36 = 2080;
-            v37 = v24;
+            v32 = v21;
+            v33 = 2048;
+            *v34 = v22;
+            *&v34[8] = 1024;
+            *&v34[10] = 0;
+            v35 = 2080;
+            v36 = v24;
             _os_log_impl(&dword_241EE4000, v16, OS_LOG_TYPE_INFO, "Marked %s purgeable with flags 0x%llx returned %d (%s)", buf, 0x26u);
           }
 
@@ -531,8 +528,6 @@ void BRKMarkFilePurgeable(void *a1)
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 id _BRKFileAttributes(void *a1)
@@ -590,7 +585,7 @@ uint64_t BRKFileSize(void *a1)
 
 uint64_t BRKCreateDirectory(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [v2 fileExistsAtPath:v1];
@@ -603,9 +598,9 @@ uint64_t BRKCreateDirectory(void *a1)
   else
   {
     v5 = [MEMORY[0x277CCAA00] defaultManager];
-    v14 = 0;
-    v4 = [v5 createDirectoryAtPath:v1 withIntermediateDirectories:1 attributes:0 error:&v14];
-    v6 = v14;
+    v13 = 0;
+    v4 = [v5 createDirectoryAtPath:v1 withIntermediateDirectories:1 attributes:0 error:&v13];
+    v6 = v13;
 
     v7 = BRKLoggingObjectForDomain(0);
     v8 = v7;
@@ -617,11 +612,11 @@ uint64_t BRKCreateDirectory(void *a1)
         v10 = [MEMORY[0x277CCAA00] defaultManager];
         v11 = [v10 delegate];
         *buf = 138412802;
-        v16 = v1;
-        v17 = 2112;
-        v18 = v9;
-        v19 = 2112;
-        v20 = v11;
+        v15 = v1;
+        v16 = 2112;
+        v17 = v9;
+        v18 = 2112;
+        v19 = v11;
         _os_log_impl(&dword_241EE4000, v8, OS_LOG_TYPE_DEFAULT, "Created directory at path %@ %@ %@", buf, 0x20u);
       }
     }
@@ -632,7 +627,6 @@ uint64_t BRKCreateDirectory(void *a1)
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -680,7 +674,7 @@ void __BRKDescriptionStringFromDictionary_block_invoke(uint64_t a1, uint64_t a2,
   [v3 addObject:v4];
 }
 
-uint64_t BRKIsRunningInCarousel()
+uint64_t BRKIsRunningInCarousel(uint64_t a1, uint64_t a2)
 {
   if (BRKIsRunningInCarousel_onceToken != -1)
   {
@@ -697,16 +691,16 @@ void __BRKIsRunningInCarousel_block_invoke()
   BRKIsRunningInCarousel_RunningInCarousel = [v0 isEqualToString:@"com.apple.Carousel"];
 }
 
-id BRKBundle()
+id BRKBundle(uint64_t a1)
 {
   if (BRKBundle_onceToken != -1)
   {
     BRKBundle_cold_1();
   }
 
-  v1 = BRKBundle_Bundle;
+  v2 = BRKBundle_Bundle;
 
-  return v1;
+  return v2;
 }
 
 void __BRKBundle_block_invoke()
@@ -730,28 +724,29 @@ id BRKPrimaryColor()
 uint64_t BRKDeviceIsAltAccount(void *a1)
 {
   v1 = a1;
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v2 = getNRDevicePropertyIsAltAccountSymbolLoc_ptr;
-  v11 = getNRDevicePropertyIsAltAccountSymbolLoc_ptr;
+  v12 = getNRDevicePropertyIsAltAccountSymbolLoc_ptr;
   if (!getNRDevicePropertyIsAltAccountSymbolLoc_ptr)
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __getNRDevicePropertyIsAltAccountSymbolLoc_block_invoke;
-    v7[3] = &unk_278D28AF0;
-    v7[4] = &v8;
-    __getNRDevicePropertyIsAltAccountSymbolLoc_block_invoke(v7);
-    v2 = v9[3];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __getNRDevicePropertyIsAltAccountSymbolLoc_block_invoke;
+    v8[3] = &unk_278D28AF0;
+    v8[4] = &v9;
+    __getNRDevicePropertyIsAltAccountSymbolLoc_block_invoke(v8);
+    v2 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (!v2)
   {
-    IsAltAccount_cold_1 = BRKDeviceIsAltAccount_cold_1();
-    _Block_object_dispose(&v8, 8);
-    _Unwind_Resume(IsAltAccount_cold_1);
+    BRKDeviceIsAltAccount_cold_1();
+    v7 = v6;
+    _Block_object_dispose(&v9, 8);
+    _Unwind_Resume(v7);
   }
 
   v3 = [v1 valueForProperty:*v2];
@@ -762,23 +757,23 @@ uint64_t BRKDeviceIsAltAccount(void *a1)
 
 void *__getNRDevicePropertyIsAltAccountSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!NanoRegistryLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __NanoRegistryLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_278D28B10;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __NanoRegistryLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_278D28B10;
+    v7 = 0;
     NanoRegistryLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = NanoRegistryLibraryCore_frameworkLibrary;
     if (NanoRegistryLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -786,7 +781,7 @@ void *__getNRDevicePropertyIsAltAccountSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -798,17 +793,13 @@ LABEL_5:
   result = dlsym(v2, "NRDevicePropertyIsAltAccount");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getNRDevicePropertyIsAltAccountSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __NanoRegistryLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   NanoRegistryLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1024,50 +1015,31 @@ void sub_241EEE4E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void __BRKCurrentDeviceVariant_block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithInt:a1];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_241EE4000, a2, OS_LOG_TYPE_ERROR, "Unknown screen class %@. Defaulting to 394h variant", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_241EE4000, a2, OS_LOG_TYPE_ERROR, "Unknown screen class %@. Defaulting to 394h variant", &v4, 0xCu);
 }
 
 void BRKMarkFilePurgeable_cold_1(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = [a1 UTF8String];
   v4 = __error();
   v5 = strerror(*v4);
-  v7 = 136315394;
-  v8 = v3;
-  v9 = 2080;
-  v10 = v5;
-  _os_log_error_impl(&dword_241EE4000, a2, OS_LOG_TYPE_ERROR, "Can't open %s to mark purgeable: %s", &v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
+  v7 = v3;
+  v8 = 2080;
+  v9 = v5;
+  _os_log_error_impl(&dword_241EE4000, a2, OS_LOG_TYPE_ERROR, "Can't open %s to mark purgeable: %s", &v6, 0x16u);
 }
 
-void _BRKFileAttributes_cold_1()
+void BRKDeviceIsAltAccount_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_241EE4000, v0, v1, "Unable to get attributes for file %@ %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void BRKCreateDirectory_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_241EE4000, v0, v1, "Unable to create directory at path %@ %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t BRKDeviceIsAltAccount_cold_1()
-{
-  dlerror();
-  v0 = abort_report_np();
-  return [(BRKRemindersSettingsHelper *)v0 _handwashingLocationManager];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [BRKRemindersSettingsHelper _handwashingLocationManager];
 }
 
 CLLocationCoordinate2D CLLocationCoordinate2DMake(CLLocationDegrees latitude, CLLocationDegrees longitude)

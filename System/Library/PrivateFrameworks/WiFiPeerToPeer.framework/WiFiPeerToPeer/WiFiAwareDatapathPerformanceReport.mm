@@ -23,16 +23,16 @@
 
 - (WiFiAwareDatapathPerformanceReport)initWithCoder:(id)coder
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"WiFiAwareDatapathPerformanceReport.timestamp"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"WiFiAwareDatapathPerformanceReport.localTimestamp"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"WiFiAwareDatapathPerformanceReport.throughputCeiling"];
   v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"WiFiAwareDatapathPerformanceReport.throughputCapacity"];
   v9 = MEMORY[0x277CBEB98];
-  v19[0] = objc_opt_class();
-  v19[1] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v18[0] = objc_opt_class();
+  v18[1] = objc_opt_class();
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
   v11 = [v9 setWithArray:v10];
   v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"WiFiAwareDatapathPerformanceReport.txLatency"];
 
@@ -41,7 +41,6 @@
   v15 = v14;
 
   v16 = [(WiFiAwareDatapathPerformanceReport *)self initWithTimestamp:v5 localTimestamp:v6 throughputCeilingMbps:v7 throughputCapacityMbps:v8 txLatency:v12 signalStrength:v13 durationActive:v15];
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

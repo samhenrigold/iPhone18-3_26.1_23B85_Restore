@@ -5,49 +5,49 @@
 
 CFTypeRef __fpic_GetCurrentTimeInCurrentEvent_block_invoke(uint64_t a1)
 {
-  OUTLINED_FUNCTION_158_3(a1);
-  CurrentlyPlayingEvent = fpic_GetCurrentlyPlayingEvent();
+  v2 = OUTLINED_FUNCTION_158_3(a1);
+  CurrentlyPlayingEvent = fpic_GetCurrentlyPlayingEvent(v2);
   FirstCurrentItem = fpic_GetFirstCurrentItem();
   if (!CurrentlyPlayingEvent)
   {
     goto LABEL_2;
   }
 
-  v5 = FirstCurrentItem;
-  v6 = fpic_UnwrapEvent();
+  v6 = FirstCurrentItem;
+  v7 = fpic_UnwrapEvent();
   OUTLINED_FUNCTION_2_4();
-  v7 = MEMORY[0x1E6960CC0];
-  *(v8 + 32) = *MEMORY[0x1E6960CC0];
-  *(v8 + 48) = *(v7 + 16);
-  if (v5)
+  v8 = MEMORY[0x1E6960CC0];
+  *(v9 + 32) = *MEMORY[0x1E6960CC0];
+  *(v9 + 48) = *(v8 + 16);
+  if (v6)
   {
-    v9 = *(*(v1 + 32) + 8);
-    v10 = *(*(CMBaseObjectGetVTable() + 16) + 32);
-    if (v10)
+    v10 = *(*(v1 + 32) + 8);
+    v11 = *(*(CMBaseObjectGetVTable() + 16) + 32);
+    if (v11)
     {
-      v10(v5, v9 + 32);
+      v11(v6, v10 + 32);
     }
 
     OUTLINED_FUNCTION_2_4();
-    v17 = *(*(v1 + 56) + 432);
-    fpic_AccumulateDuration((v11 + 32), &v17);
+    v18 = *(*(v1 + 56) + 432);
+    fpic_AccumulateDuration((v12 + 32), &v18);
     OUTLINED_FUNCTION_2_4();
-    v17 = *(*(v1 + 56) + 480);
-    fpic_AccumulateDuration((v12 + 32), &v17);
-    v13 = *(*(v1 + 32) + 8);
-    v14 = fpic_UnwrapEvent();
+    v18 = *(*(v1 + 56) + 480);
+    fpic_AccumulateDuration((v13 + 32), &v18);
+    v14 = *(*(v1 + 32) + 8);
+    v15 = fpic_UnwrapEvent();
     if (fpic_hasFirstItemPlayedOutForEvent())
     {
-      FigPlayerInterstitialEventGetFirstItemStartOffset(v14, &rhs);
-      v15 = *(v13 + 32);
-      CMTimeAdd(&v17, &v15, &rhs);
-      *(v13 + 32) = v17;
+      FigPlayerInterstitialEventGetFirstItemStartOffset(v15, &rhs);
+      v16 = *(v14 + 32);
+      CMTimeAdd(&v18, &v16, &rhs);
+      *(v14 + 32) = v18;
     }
   }
 
-  if (v6)
+  if (v7)
   {
-    result = CFRetain(v6);
+    result = CFRetain(v7);
   }
 
   else
@@ -78,11 +78,12 @@ void __fpirc_GetCurrentTimeInCurrentEvent_block_invoke(uint64_t a1)
         v7(v6, 0, &cf);
         if (cf)
         {
-          FigBaseObject = FigPlaybackItemGetFigBaseObject(cf);
-          v9 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-          if (v9)
+          FigPlaybackItemGetFigBaseObject();
+          v9 = v8;
+          v10 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+          if (v10)
           {
-            v9(FigBaseObject, @"Timebase", *MEMORY[0x1E695E480], &timebase);
+            v10(v9, @"Timebase", *MEMORY[0x1E695E480], &timebase);
           }
 
           if (cf)
@@ -94,18 +95,18 @@ void __fpirc_GetCurrentTimeInCurrentEvent_block_invoke(uint64_t a1)
 
       if (timebase)
       {
-        CMTimebaseGetTime(&v12, timebase);
+        CMTimebaseGetTime(&v13, timebase);
         OUTLINED_FUNCTION_2_4();
-        *(v10 + 32) = v12;
+        *(v11 + 32) = v13;
       }
 
-      v11 = fpirc_UnwrapEvent();
-      if (v11)
+      v12 = fpirc_UnwrapEvent();
+      if (v12)
       {
-        v11 = CFRetain(v11);
+        v12 = CFRetain(v12);
       }
 
-      **(a1 + 64) = v11;
+      **(a1 + 64) = v12;
       if (timebase)
       {
         CFRelease(timebase);

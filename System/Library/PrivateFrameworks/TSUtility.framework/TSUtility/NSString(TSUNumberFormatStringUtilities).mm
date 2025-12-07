@@ -4,12 +4,12 @@
 - (id)newStringBySubstitutingCharactersCFNumberFormatterDoesntUnderstand;
 - (uint64_t)indexOfLastNonSuffixCharacterInNumberFormatSubpattern;
 - (uint64_t)numberPortionOfNumberFormatSubpattern;
-- (uint64_t)positiveSubpatternOfNumberFormatPattern;
 - (uint64_t)prefixOfNumberFormatSubpattern;
 - (uint64_t)suffixOfNumberFormatSubpattern;
 - (unint64_t)indexOfFirstNonPrefixCharacterInNumberFormatSubpattern;
 - (unint64_t)indexOfNumberFormatSubpatternSeparator;
 - (void)newRangesOfEscapedCharactersInNumberFormatPattern;
+- (void)positiveSubpatternOfNumberFormatPattern;
 - (void)stringByRemovingEscapedCharactersFromNumberFormatPattern;
 @end
 
@@ -169,7 +169,7 @@
   return v4;
 }
 
-- (uint64_t)positiveSubpatternOfNumberFormatPattern
+- (void)positiveSubpatternOfNumberFormatPattern
 {
   indexOfNumberFormatSubpatternSeparator = [self indexOfNumberFormatSubpatternSeparator];
   if (indexOfNumberFormatSubpatternSeparator == 0x7FFFFFFFFFFFFFFFLL)

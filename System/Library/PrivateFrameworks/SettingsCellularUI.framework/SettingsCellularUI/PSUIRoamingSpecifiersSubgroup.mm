@@ -45,7 +45,7 @@
 
 - (id)specifiers
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D3FAD8];
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:@"DATA_ROAMING_TOGGLE" value:&stru_287733598 table:@"Cellular"];
@@ -57,17 +57,15 @@
   v9 = [v7 numberWithInt:{objc_msgSend(WeakRetained, "hideDataRoaming:", self->_serviceDescriptor) ^ 1}];
   [v6 setProperty:v9 forKey:*MEMORY[0x277D3FF38]];
 
-  v13[0] = v6;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[0] = v6;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
 
   return v10;
 }
 
 - (id)getDataRoamingStatus:(id)status
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_dataCache);
   v5 = [WeakRetained getInternationalDataAccessStatus:self->_serviceDescriptor];
 
@@ -76,29 +74,28 @@
   {
     v7 = @"disabled";
     serviceDescriptor = self->_serviceDescriptor;
-    v13 = "[PSUIRoamingSpecifiersSubgroup getDataRoamingStatus:]";
-    v12 = 136315650;
+    v12 = "[PSUIRoamingSpecifiersSubgroup getDataRoamingStatus:]";
+    v11 = 136315650;
     if (v5)
     {
       v7 = @"enabled";
     }
 
-    v14 = 2112;
-    v15 = serviceDescriptor;
-    v16 = 2112;
-    v17 = v7;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s For service %@, roaming is %@", &v12, 0x20u);
+    v13 = 2112;
+    v14 = serviceDescriptor;
+    v15 = 2112;
+    v16 = v7;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s For service %@, roaming is %@", &v11, 0x20u);
   }
 
   v9 = [MEMORY[0x277CCABB0] numberWithBool:v5];
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (void)setDataRoamingEnabled:(id)enabled specifier:(id)specifier
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   bOOLValue = [enabled BOOLValue];
   objc_storeStrong(&self->_roamingSpecifier, specifier);
@@ -107,26 +104,26 @@
   {
     v10 = @"disabled";
     serviceDescriptor = self->_serviceDescriptor;
-    v21 = "[PSUIRoamingSpecifiersSubgroup setDataRoamingEnabled:specifier:]";
+    v20 = "[PSUIRoamingSpecifiersSubgroup setDataRoamingEnabled:specifier:]";
     *buf = 136315650;
     if (bOOLValue)
     {
       v10 = @"enabled";
     }
 
-    v22 = 2112;
-    v23 = serviceDescriptor;
-    v24 = 2112;
-    v25 = v10;
+    v21 = 2112;
+    v22 = serviceDescriptor;
+    v23 = 2112;
+    v24 = v10;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s For service %@, setting roaming = %@", buf, 0x20u);
   }
 
   if (bOOLValue && _os_feature_enabled_impl())
   {
     ctClient = self->_ctClient;
-    v19 = 0;
-    v13 = [(CoreTelephonyClient *)ctClient shouldShowRoamingEducation:&v19];
-    v14 = v19;
+    v18 = 0;
+    v13 = [(CoreTelephonyClient *)ctClient shouldShowRoamingEducation:&v18];
+    v14 = v18;
     if (v13)
     {
       if ([v13 BOOLValue])
@@ -151,7 +148,7 @@ LABEL_16:
       if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v21 = v14;
+        v20 = v14;
         _os_log_error_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_ERROR, "Error with checking setup eSIM: %@", buf, 0xCu);
       }
     }
@@ -168,8 +165,6 @@ LABEL_16:
 
   [(PSUIRoamingSpecifiersSubgroup *)self roamingOptionsDidChange];
 LABEL_17:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)roamingOptionsDidChange
@@ -199,13 +194,13 @@ void __56__PSUIRoamingSpecifiersSubgroup_roamingOptionsDidChange__block_invoke(u
 
 - (void)launchDataRoamingWarningFlow
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D49590];
-  v12[0] = *MEMORY[0x277D49548];
-  v12[1] = v3;
-  v13[0] = &unk_287749158;
-  v13[1] = &unk_287749258;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = *MEMORY[0x277D49548];
+  v11[1] = v3;
+  v12[0] = &unk_287749158;
+  v12[1] = &unk_287749258;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v5 = [MEMORY[0x277D49530] flowWithOptions:v4];
   flow = self->_flow;
   self->_flow = v5;
@@ -213,17 +208,15 @@ void __56__PSUIRoamingSpecifiersSubgroup_roamingOptionsDidChange__block_invoke(u
   [(TSSIMSetupFlow *)self->_flow setDelegate:self];
   objc_initWeak(&location, self);
   v7 = self->_flow;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __61__PSUIRoamingSpecifiersSubgroup_launchDataRoamingWarningFlow__block_invoke;
-  v9[3] = &unk_279BA9EC8;
-  objc_copyWeak(&v10, &location);
-  v9[4] = self;
-  [(TSSIMSetupFlow *)v7 firstViewController:v9];
-  objc_destroyWeak(&v10);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __61__PSUIRoamingSpecifiersSubgroup_launchDataRoamingWarningFlow__block_invoke;
+  v8[3] = &unk_279BA9EC8;
+  objc_copyWeak(&v9, &location);
+  v8[4] = self;
+  [(TSSIMSetupFlow *)v7 firstViewController:v8];
+  objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __61__PSUIRoamingSpecifiersSubgroup_launchDataRoamingWarningFlow__block_invoke(uint64_t a1, void *a2)
@@ -251,7 +244,7 @@ void __61__PSUIRoamingSpecifiersSubgroup_launchDataRoamingWarningFlow__block_inv
 
 - (void)simSetupFlowCompleted:(unint64_t)completed
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUIRoamingSpecifiersSubgroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
@@ -265,13 +258,12 @@ void __61__PSUIRoamingSpecifiersSubgroup_launchDataRoamingWarningFlow__block_inv
   block[1] = 3221225472;
   block[2] = __55__PSUIRoamingSpecifiersSubgroup_simSetupFlowCompleted___block_invoke;
   block[3] = &unk_279BA9FE0;
-  objc_copyWeak(v8, buf);
-  v8[1] = completed;
+  objc_copyWeak(v7, buf);
+  v7[1] = completed;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(v8);
+  objc_destroyWeak(v7);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __55__PSUIRoamingSpecifiersSubgroup_simSetupFlowCompleted___block_invoke(uint64_t a1)

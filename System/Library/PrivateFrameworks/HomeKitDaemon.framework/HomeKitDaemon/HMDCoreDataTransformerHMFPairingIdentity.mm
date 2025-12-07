@@ -69,7 +69,7 @@ LABEL_16:
 
 + (id)OPACKFromValue:(id)value error:(id *)error
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   identifier = [valueCopy identifier];
   publicKey = [valueCopy publicKey];
@@ -77,11 +77,11 @@ LABEL_16:
 
   if ([identifier length] && objc_msgSend(data, "length"))
   {
-    v13[0] = @"i";
-    v13[1] = @"d";
-    v14[0] = identifier;
-    v14[1] = data;
-    error = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v12[0] = @"i";
+    v12[1] = @"d";
+    v13[0] = identifier;
+    v13[1] = data;
+    error = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   }
 
   else if (error)
@@ -92,8 +92,6 @@ LABEL_16:
 
     error = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return error;
 }

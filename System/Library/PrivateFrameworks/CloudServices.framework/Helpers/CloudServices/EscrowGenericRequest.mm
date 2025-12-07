@@ -567,25 +567,25 @@ LABEL_17:
   v9 = [password dataUsingEncoding:4];
   v10 = [v9 base64EncodedStringWithOptions:0];
 
-  if (sub_1000029CC())
+  if (sub_1000029CC(v11, v12))
   {
-    v11 = [v10 dataUsingEncoding:4];
-    v12 = CloudServicesLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = [v10 dataUsingEncoding:4];
+    v14 = CloudServicesLog();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      sha1Digest = [v11 sha1Digest];
+      sha1Digest = [v13 sha1Digest];
       hexString = [sha1Digest hexString];
       *buf = 138412546;
-      v18 = typeCopy;
-      v19 = 2112;
-      v20 = hexString;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "auth type %@, sha1 %@", buf, 0x16u);
+      v20 = typeCopy;
+      v21 = 2112;
+      v22 = hexString;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "auth type %@, sha1 %@", buf, 0x16u);
     }
   }
 
-  v15 = [NSString stringWithFormat:@"%@ %@", typeCopy, v10];
+  v17 = [NSString stringWithFormat:@"%@ %@", typeCopy, v10];
 
-  return v15;
+  return v17;
 }
 
 - (id)authorizationHeader
@@ -705,7 +705,7 @@ LABEL_17:
 
 + (BOOL)pcsUpdateDisabled
 {
-  if (!sub_1000029CC() || !SecureBackupIsGuitarfishEnabled())
+  if (!sub_1000029CC(self, a2) || !SecureBackupIsGuitarfishEnabled())
   {
     return 0;
   }
@@ -718,7 +718,7 @@ LABEL_17:
 
 + (BOOL)pcsNoRecord
 {
-  if (!sub_1000029CC() || !SecureBackupIsGuitarfishEnabled())
+  if (!sub_1000029CC(self, a2) || !SecureBackupIsGuitarfishEnabled())
   {
     return 0;
   }

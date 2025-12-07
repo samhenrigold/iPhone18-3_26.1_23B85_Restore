@@ -174,11 +174,10 @@
 
 - (void)activityTypeDescription
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = 134217984;
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
   activityType = [self activityType];
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Attempted to describe invalid REMSharedEntitySyncActivityType with value %ld", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Attempted to describe invalid REMSharedEntitySyncActivityType with value %ld", &v3, 0xCu);
 }
 
 @end

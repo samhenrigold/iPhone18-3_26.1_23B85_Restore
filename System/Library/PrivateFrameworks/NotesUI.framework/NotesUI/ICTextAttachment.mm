@@ -365,7 +365,7 @@ LABEL_9:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v22 = [attributesCopy objectForKeyedSubscript:*MEMORY[0x1E69DB648]];
+      v22 = objc_msgSend_objectForKeyedSubscript_(attributesCopy);
       v23 = v22;
       if (v22)
       {

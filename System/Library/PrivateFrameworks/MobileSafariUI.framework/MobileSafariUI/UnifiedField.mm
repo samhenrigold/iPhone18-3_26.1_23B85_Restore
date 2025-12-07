@@ -102,20 +102,20 @@
 
 - (BOOL)becomeFirstResponder
 {
-  v8.receiver = self;
-  v8.super_class = UnifiedField;
-  becomeFirstResponder = [(UnifiedField *)&v8 becomeFirstResponder];
+  v10.receiver = self;
+  v10.super_class = UnifiedField;
+  becomeFirstResponder = [(UnifiedField *)&v10 becomeFirstResponder];
   if (becomeFirstResponder)
   {
     [(UnifiedField *)self _updateLayoutDirectionIfNeeded];
-    [(UnifiedField *)self _updateReturnKey];
+    _updateReturnKey = [(UnifiedField *)self _updateReturnKey];
     self->_hasSelectedQuerySuggestion = 0;
     self->_usingPencilInput = 0;
-    v4 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v6 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(_updateReturnKey, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_215819000, v4, OS_LOG_TYPE_INFO, "Becoming first responder; allows reflected Top Hits: YES", v7, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_215819000, v6, OS_LOG_TYPE_INFO, "Becoming first responder; allows reflected Top Hits: YES", v9, 2u);
     }
 
     delegate = [(UnifiedField *)self delegate];
@@ -877,25 +877,25 @@ LABEL_18:
   v6 = v5;
   if (![(NSString *)self->_userTypedText length])
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(0, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(UnifiedField *)v7 _reflectedItemCompletionString];
+      [(UnifiedField *)v8 _reflectedItemCompletionString];
     }
   }
 
-  v8 = [(NSString *)v3 length];
-  if (v8 < [(NSString *)self->_userTypedText length])
+  v9 = [(NSString *)v3 length];
+  if (v9 < [(NSString *)self->_userTypedText length])
   {
-    v9 = v3;
+    v10 = v3;
 LABEL_15:
-    v12 = v9;
+    v13 = v10;
     goto LABEL_20;
   }
 
   if (v4 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v9 = [(NSString *)v3 substringFromIndex:v6];
+    v10 = [(NSString *)v3 substringFromIndex:v6];
     goto LABEL_15;
   }
 
@@ -905,23 +905,23 @@ LABEL_15:
     attributedText2 = [(UnifiedField *)self attributedText];
     if ([attributedText2 length])
     {
-      v12 = &stru_2827BF158;
+      v13 = &stru_2827BF158;
     }
 
     else
     {
-      v12 = v3;
+      v13 = v3;
     }
   }
 
   else
   {
-    v12 = v3;
+    v13 = v3;
   }
 
 LABEL_20:
 
-  return v12;
+  return v13;
 }
 
 - (void)_promoteCompletionToSelectionSelectingSuffix:(BOOL)suffix andMoveForward:(BOOL)forward
@@ -1073,10 +1073,10 @@ LABEL_15:
         v19 = v18;
         if (![(NSString *)self->_userTypedText length])
         {
-          v20 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v21 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(0, v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            [UnifiedField _setReflectedItem:v20 updateUserTypedPrefix:?];
+            [UnifiedField _setReflectedItem:v21 updateUserTypedPrefix:?];
           }
         }
 
@@ -1090,20 +1090,20 @@ LABEL_15:
 
         else
         {
-          v21 = [v16 substringToIndex:v19];
+          v22 = [v16 substringToIndex:v19];
           if (prefixCopy)
           {
             text = [(UnifiedField *)self text];
-            v23 = [text isEqualToString:v21];
+            v24 = [text isEqualToString:v22];
 
-            if ((v23 & 1) == 0)
+            if ((v24 & 1) == 0)
             {
-              [(UnifiedField *)self setText:v21];
+              [(UnifiedField *)self setText:v22];
             }
           }
 
-          v24 = [v16 length];
-          if (v24 == [(NSString *)self->_userTypedText length])
+          v25 = [v16 length];
+          if (v25 == [(NSString *)self->_userTypedText length])
           {
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -1115,9 +1115,9 @@ LABEL_15:
           }
         }
 
-        v25 = [(UITextCursorAssertionController *)self->_textCursorAssertionController nonVisibleAssertionWithReason:@"UnifiedField is reflecting a Top Hit completion item"];
+        v26 = [(UITextCursorAssertionController *)self->_textCursorAssertionController nonVisibleAssertionWithReason:@"UnifiedField is reflecting a Top Hit completion item"];
         textCursorHiddenAssertion = self->_textCursorHiddenAssertion;
-        self->_textCursorHiddenAssertion = v25;
+        self->_textCursorHiddenAssertion = v26;
 
         [(UnifiedField *)self addSubview:self->_topHitCompletionView];
         _fieldEditor = [(UnifiedField *)self _fieldEditor];
@@ -1449,19 +1449,19 @@ uint64_t __43__UnifiedField__layoutTopHitCompletionView__block_invoke(uint64_t a
 {
   self->_isResigningFirstResponder = 1;
   [(UnifiedField *)self _setTopHit:0];
-  [(UnifiedField *)self _cancelPendingTopHitNavigation];
+  _cancelPendingTopHitNavigation = [(UnifiedField *)self _cancelPendingTopHitNavigation];
   self->_usingPencilInput = 0;
-  v3 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(_cancelPendingTopHitNavigation, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_INFO, "Resigning first responder; allows reflected Top Hits: YES", buf, 2u);
+    _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_INFO, "Resigning first responder; allows reflected Top Hits: YES", buf, 2u);
   }
 
-  v9.receiver = self;
-  v9.super_class = UnifiedField;
-  resignFirstResponder = [(UnifiedField *)&v9 resignFirstResponder];
-  v5 = resignFirstResponder;
+  v11.receiver = self;
+  v11.super_class = UnifiedField;
+  resignFirstResponder = [(UnifiedField *)&v11 resignFirstResponder];
+  v7 = resignFirstResponder;
   self->_isResigningFirstResponder = 0;
   if (self->_preserveSelectionOnResignFirstResponder && resignFirstResponder != 0)
   {
@@ -1469,7 +1469,7 @@ uint64_t __43__UnifiedField__layoutTopHitCompletionView__block_invoke(uint64_t a
     [interactionAssistant activateSelection];
   }
 
-  return v5;
+  return v7;
 }
 
 - (BOOL)endEditing:(BOOL)editing
@@ -1844,7 +1844,7 @@ uint64_t __37__UnifiedField_insertTextSuggestion___block_invoke(uint64_t a1, voi
 - (void)willBeginPencilTextInputEditing
 {
   self->_usingPencilInput = 1;
-  v3 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
+  v3 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;

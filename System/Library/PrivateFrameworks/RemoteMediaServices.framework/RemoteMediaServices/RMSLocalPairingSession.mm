@@ -103,7 +103,7 @@
 
 - (void)netServiceDidPublish:(id)publish
 {
-  v4 = RMSLogger();
+  v4 = RMSLogger(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -129,7 +129,7 @@
 
 - (void)netServiceDidStop:(id)stop
 {
-  v3 = RMSLogger();
+  v3 = RMSLogger(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -145,7 +145,7 @@
   v15 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   dCopy = d;
-  v9 = RMSLogger();
+  v9 = RMSLogger(dCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412546;
@@ -236,7 +236,7 @@ void __79__RMSLocalPairingSession__startBonjourAdvertisingWithPublicKey_httpServ
   CC_MD5_Update(c, v9, [passcode2 lengthOfBytesUsingEncoding:10]);
 
   CC_MD5_Final(md, c);
-  v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X", md[0], md[1], md[2], md[3], md[4], md[5], md[6], md[7], md[8], md[9], md[10], md[11], md[12], md[13], md[14], md[15], *c, *&c[16], *&c[24], *&c[40], *&c[48], *&c[64], *&c[72], *&c[88]];
+  v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X", md[0], md[1], md[2], md[3], md[4], md[5], md[6], md[7], md[8], md[9], md[10], md[11], md[12], md[13], md[14], md[15], *c, *&c[8], *&c[16], *&c[24], *&c[32], *&c[40], *&c[48], *&c[56], *&c[64], *&c[72], *&c[80], *&c[88]];
 
   return v11;
 }

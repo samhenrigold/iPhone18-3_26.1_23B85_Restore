@@ -9,7 +9,7 @@
 
 - (id)expirationDate
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   stateMachine = [(HKSPStateMachineState *)self stateMachine];
   infoProvider = [stateMachine infoProvider];
 
@@ -26,10 +26,10 @@
     v13 = HKSPLogForCategory();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138543362;
-      v20 = objc_opt_class();
-      v14 = v20;
-      _os_log_impl(&dword_269B11000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] wakeup has changed to be later, treating state as expired", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = objc_opt_class();
+      v14 = v19;
+      _os_log_impl(&dword_269B11000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] wakeup has changed to be later, treating state as expired", &v18, 0xCu);
     }
 
     dueDate = currentDate;
@@ -42,14 +42,12 @@
 
   v16 = dueDate;
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (void)didEnter
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   stateMachine = [(HKSPStateMachineState *)self stateMachine];
   currentContext = [stateMachine currentContext];
 
@@ -68,29 +66,27 @@
       v8 = HKSPLogForCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138543362;
-        v12 = objc_opt_class();
-        v9 = v12;
-        _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] not posting wake detection notification", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = objc_opt_class();
+        v9 = v11;
+        _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] not posting wake detection notification", &v10, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateState
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(HDSPWakeDetectionStateMachineState *)self isWakeDetectionDisabled])
   {
     v3 = HKSPLogForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = objc_opt_class();
-      v4 = v10;
-      _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] wake detection disabled after notifying", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = objc_opt_class();
+      v4 = v9;
+      _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] wake detection disabled after notifying", &v8, 0xCu);
     }
 
     stateMachine = [(HKSPStateMachineState *)self stateMachine];
@@ -98,8 +94,6 @@
     disabledState = [stateMachine2 disabledState];
     [stateMachine enterState:disabledState];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateDidExpire

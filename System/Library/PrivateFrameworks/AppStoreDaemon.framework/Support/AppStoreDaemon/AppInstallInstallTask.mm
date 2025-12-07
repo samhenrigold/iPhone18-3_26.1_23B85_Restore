@@ -228,7 +228,7 @@ LABEL_4:
 
     else
     {
-      v35 = sub_1003BBF50();
+      v35 = sub_1003BBF50(Device);
       isHRNMode = [v35 isHRNMode];
 
       if (!isHRNMode)
@@ -418,7 +418,7 @@ LABEL_84:
         }
 
         [v72 setAutomaticInstall:v74];
-        v75 = sub_10025E74C();
+        v75 = sub_10025E74C(AppInstallObserver);
         sub_10025F2C4(v75, v72, self->_logKey);
 
         databaseID = [(SQLiteMemoryEntity *)self->_install databaseID];

@@ -95,14 +95,14 @@ void __35__AVVisualAnalysisView_copySubject__block_invoke(uint64_t a1, void *a2)
   {
     v1 = result;
     v2 = result[56];
-    if ((v1[55] & 0x12) != 0)
+    if ((*(v1 + 440) & 0x12) != 0)
     {
-      v3 = ((v1[55] >> 1) & 4 | (8 * ((v1[55] >> 2) & 1))) + 1;
+      v3 = ((*(v1 + 440) >> 1) & 4 | (8 * ((*(v1 + 440) >> 2) & 1))) + 1;
     }
 
     else
     {
-      v3 = (v1[55] >> 1) & 4 | (8 * ((v1[55] >> 2) & 1));
+      v3 = (*(v1 + 440) >> 1) & 4 | (8 * ((*(v1 + 440) >> 2) & 1));
     }
 
     [v2 setActiveInteractionTypes:v3];

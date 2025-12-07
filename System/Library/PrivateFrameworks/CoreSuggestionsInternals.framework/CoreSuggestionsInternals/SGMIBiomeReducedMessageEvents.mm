@@ -38,15 +38,15 @@
 
 - (void)updateWithEvent:(id)event eventTimestamp:(double)timestamp
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v6 = sgLogHandle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     eventName = [eventCopy eventName];
-    v18 = 138412290;
-    v19 = eventName;
-    _os_log_debug_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEBUG, "Processing event with eventName: %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = eventName;
+    _os_log_debug_impl(&dword_231E60000, v6, OS_LOG_TYPE_DEBUG, "Processing event with eventName: %@", &v17, 0xCu);
   }
 
   eventName2 = [eventCopy eventName];
@@ -88,8 +88,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithMessageMovedEventWithPayload:(id)payload

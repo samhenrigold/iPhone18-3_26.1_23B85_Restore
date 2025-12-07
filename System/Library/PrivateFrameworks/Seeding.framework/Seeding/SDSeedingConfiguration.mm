@@ -186,8 +186,8 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v23[5] = *MEMORY[0x277D85DE8];
-  v22[0] = @"seedProgram";
+  v22[5] = *MEMORY[0x277D85DE8];
+  v21[0] = @"seedProgram";
   v3 = [SDSeedProgramManager stringForSeedProgram:[(SDSeedingConfiguration *)self seedProgram]];
   v4 = v3;
   if (v3)
@@ -200,8 +200,8 @@
     v5 = &stru_28424D460;
   }
 
-  v23[0] = v5;
-  v22[1] = @"assetAudience";
+  v22[0] = v5;
+  v21[1] = @"assetAudience";
   assetAudience = [(SDSeedingConfiguration *)self assetAudience];
   v7 = assetAudience;
   if (assetAudience)
@@ -214,8 +214,8 @@
     v8 = &stru_28424D460;
   }
 
-  v23[1] = v8;
-  v22[2] = @"catalog";
+  v22[1] = v8;
+  v21[2] = @"catalog";
   catalog = [(SDSeedingConfiguration *)self catalog];
   v10 = catalog;
   if (catalog)
@@ -228,8 +228,8 @@
     v11 = &stru_28424D460;
   }
 
-  v23[2] = v11;
-  v22[3] = @"seedProgramID";
+  v22[2] = v11;
+  v21[3] = @"seedProgramID";
   seedProgramID = [(SDSeedingConfiguration *)self seedProgramID];
   stringValue = [seedProgramID stringValue];
   v14 = stringValue;
@@ -243,8 +243,8 @@
     v15 = &stru_28424D460;
   }
 
-  v23[3] = v15;
-  v22[4] = @"accountID";
+  v22[3] = v15;
+  v21[4] = @"accountID";
   accountID = [(SDSeedingConfiguration *)self accountID];
   v17 = accountID;
   v18 = &unk_284250A80;
@@ -253,10 +253,8 @@
     v18 = accountID;
   }
 
-  v23[4] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v22[4] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:5];
 
   return v19;
 }

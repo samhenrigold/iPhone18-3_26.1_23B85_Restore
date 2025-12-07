@@ -68,10 +68,9 @@
 
 - (void)initWithRecordName:zoneName:ownerName:userRecordName:accountID:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Cannot initialize share request ID without critical params%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Cannot initialize share request ID without critical params%@", v1, 0xCu);
 }
 
 @end

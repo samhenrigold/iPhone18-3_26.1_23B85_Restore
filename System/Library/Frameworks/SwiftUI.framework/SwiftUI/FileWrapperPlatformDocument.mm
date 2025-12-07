@@ -12,7 +12,7 @@
   selfCopy = self;
   FileWrapperPlatformDocument.contents(forType:)(v5, v7, v11);
 
-  __swift_project_boxed_opaque_existential_1(v11, v11[3]);
+  __swift_project_boxed_opaque_existential_1(v11, v12);
   v9 = _bridgeAnythingToObjectiveC<A>(_:)();
   __swift_destroy_boxed_opaque_existential_1(v11);
 

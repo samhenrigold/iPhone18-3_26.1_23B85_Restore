@@ -10,331 +10,306 @@
 
 - (APOdmlFeatureCalculator)initWithPlacementType:(unint64_t)type assetManagerType:(unint64_t)managerType
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v38.receiver = self;
-  v38.super_class = APOdmlFeatureCalculator;
-  v8 = [(APOdmlFeatureCalculator *)&v38 init];
-  if (v8)
+  v28 = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = APOdmlFeatureCalculator;
+  v6 = [(APOdmlFeatureCalculator *)&v23 init];
+  if (v6)
   {
-    v9 = objc_msgSend_now(MEMORY[0x277CBEAA8], v6, v7);
-    creationTime = v8->_creationTime;
-    v8->_creationTime = v9;
+    v7 = [MEMORY[0x277CBEAA8] now];
+    creationTime = v6->_creationTime;
+    v6->_creationTime = v7;
 
-    v8->_assetManagerType = managerType;
-    v8->_placementType = type;
-    v13 = objc_msgSend_sharedAssetManagerCoordinator(APOdmlAssetManagerCoordinator, v11, v12);
-    v15 = objc_msgSend_assetManagerForPlacementType_assetManagerType_(v13, v14, type, managerType);
-    assetManager = v8->_assetManager;
-    v8->_assetManager = v15;
+    v6->_assetManagerType = managerType;
+    v6->_placementType = type;
+    v9 = +[APOdmlAssetManagerCoordinator sharedAssetManagerCoordinator];
+    v10 = [v9 assetManagerForPlacementType:type assetManagerType:managerType];
+    assetManager = v6->_assetManager;
+    v6->_assetManager = v10;
 
-    v18 = objc_msgSend_pathForFactor_isDirectory_(v8->_assetManager, v17, @"AppVectors", 0);
-    assetPath = v8->_assetPath;
-    v8->_assetPath = v18;
+    v12 = [(APOdmlAssetManager *)v6->_assetManager pathForFactor:@"AppVectors" isDirectory:0];
+    assetPath = v6->_assetPath;
+    v6->_assetPath = v12;
 
-    v20 = MEMORY[0x277CCACA8];
-    v21 = [APOdmlSettings alloc];
-    v23 = objc_msgSend_initWithPlacementType_assetManagerType_(v21, v22, type, managerType);
-    v26 = objc_msgSend_odmlVersion(v23, v24, v25);
-    v28 = objc_msgSend_stringWithFormat_(v20, v27, @"%d", v26);
-    version = v8->_version;
-    v8->_version = v28;
+    v14 = MEMORY[0x277CCACA8];
+    v15 = [[APOdmlSettings alloc] initWithPlacementType:type assetManagerType:managerType];
+    v16 = [v14 stringWithFormat:@"%d", -[APOdmlSettings odmlVersion](v15, "odmlVersion")];
+    version = v6->_version;
+    v6->_version = v16;
   }
 
-  v30 = OdmlLogForCategory(3uLL);
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v18 = OdmlLogForCategory(3uLL);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = objc_opt_class();
-    v32 = v31;
-    v35 = objc_msgSend_assetPath(v8, v33, v34);
+    v19 = objc_opt_class();
+    v20 = v19;
+    assetPath = [(APOdmlFeatureCalculator *)v6 assetPath];
     *buf = 138412546;
-    v40 = v31;
-    v41 = 2112;
-    v42 = v35;
-    _os_log_impl(&dword_260ECB000, v30, OS_LOG_TYPE_DEFAULT, "[%@]: Asset Path: %@", buf, 0x16u);
+    v25 = v19;
+    v26 = 2112;
+    v27 = assetPath;
+    _os_log_impl(&dword_260ECB000, v18, OS_LOG_TYPE_DEFAULT, "[%@]: Asset Path: %@", buf, 0x16u);
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v6;
 }
 
 - (APOdmlFeatureCalculator)initWithActivity:(id)activity placementType:(unint64_t)type assetManagerType:(unint64_t)managerType
 {
-  v27 = *MEMORY[0x277D85DE8];
-  activityCopy = activity;
-  v10 = objc_msgSend_initWithPlacementType_assetManagerType_(self, v9, type, managerType);
-  if (v10)
-  {
-    v11 = [APOdmlXpcLifecycleHandler alloc];
-    v13 = objc_msgSend_initWithActivity_(v11, v12, activityCopy);
-    task = v10->_task;
-    v10->_task = v13;
-  }
-
-  v15 = OdmlLogForCategory(3uLL);
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    v16 = objc_opt_class();
-    v17 = v16;
-    v20 = objc_msgSend_assetPath(v10, v18, v19);
-    v23 = 138412546;
-    v24 = v16;
-    v25 = 2112;
-    v26 = v20;
-    _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_DEFAULT, "[%@]: Asset Path: %@", &v23, 0x16u);
-  }
-
   v21 = *MEMORY[0x277D85DE8];
-  return v10;
+  activityCopy = activity;
+  v9 = [(APOdmlFeatureCalculator *)self initWithPlacementType:type assetManagerType:managerType];
+  if (v9)
+  {
+    v10 = [[APOdmlXpcLifecycleHandler alloc] initWithActivity:activityCopy];
+    task = v9->_task;
+    v9->_task = v10;
+  }
+
+  v12 = OdmlLogForCategory(3uLL);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = objc_opt_class();
+    v14 = v13;
+    assetPath = [(APOdmlFeatureCalculator *)v9 assetPath];
+    v17 = 138412546;
+    v18 = v13;
+    v19 = 2112;
+    v20 = assetPath;
+    _os_log_impl(&dword_260ECB000, v12, OS_LOG_TYPE_DEFAULT, "[%@]: Asset Path: %@", &v17, 0x16u);
+  }
+
+  return v9;
 }
 
 - (id)createAndSaveVector:(unint64_t)vector
 {
-  v5 = objc_msgSend_assetManager(self, a2, vector);
-  v7 = objc_msgSend_doubleValueForFactor_(v5, v6, @"LookbackWindow");
+  assetManager = [(APOdmlFeatureCalculator *)self assetManager];
+  v6 = [assetManager doubleValueForFactor:@"LookbackWindow"];
 
-  v10 = objc_msgSend_assetManager(self, v8, v9);
-  v12 = objc_msgSend_longValueForFactor_(v10, v11, @"MaxQueryElements");
+  assetManager2 = [(APOdmlFeatureCalculator *)self assetManager];
+  v8 = [assetManager2 longValueForFactor:@"MaxQueryElements"];
 
-  v15 = objc_msgSend_assetManager(self, v13, v14);
-  v17 = objc_msgSend_doubleValueForFactor_(v15, v16, @"ExponentialDecayConstant");
+  assetManager3 = [(APOdmlFeatureCalculator *)self assetManager];
+  v10 = [assetManager3 doubleValueForFactor:@"ExponentialDecayConstant"];
 
-  v20 = objc_msgSend_assetManager(self, v18, v19);
-  v22 = objc_msgSend_BOOLeanValueForFactor_(v20, v21, @"WeightByDuration");
+  assetManager4 = [(APOdmlFeatureCalculator *)self assetManager];
+  v12 = [assetManager4 BOOLeanValueForFactor:@"WeightByDuration"];
 
-  v23 = off_279AC5BA0;
-  v24 = off_279AC5B08;
-  if (vector != 1)
-  {
-    v24 = off_279AC5B18;
-  }
+  v13 = objc_alloc(objc_opt_class());
+  version = [(APOdmlFeatureCalculator *)self version];
+  task = [(APOdmlFeatureCalculator *)self task];
+  LOBYTE(v19) = [(APOdmlFeatureCalculator *)self assetManagerType]== 1;
+  v16 = [v13 initWithVersion:version lookbackPeriod:v6 maxQueryElements:v8 task:task exponentialDecayConstant:v10 weightByDuration:v12 isCounterfactual:v19];
 
-  if (vector != 2)
-  {
-    v23 = v24;
-  }
+  v17 = [(APOdmlFeatureCalculator *)self createAndSaveVectorWithBuilder:v16 vectorType:vector];
 
-  v25 = *v23;
-  v26 = objc_alloc(objc_opt_class());
-  v29 = objc_msgSend_version(self, v27, v28);
-  v32 = objc_msgSend_task(self, v30, v31);
-  v40 = objc_msgSend_assetManagerType(self, v33, v34) == 1;
-  isCounterfactual = objc_msgSend_initWithVersion_lookbackPeriod_maxQueryElements_task_exponentialDecayConstant_weightByDuration_isCounterfactual_(v26, v35, v29, v7, v12, v32, v17, v22, v40);
-
-  v38 = objc_msgSend_createAndSaveVectorWithBuilder_vectorType_(self, v37, isCounterfactual, vector);
-
-  return v38;
+  return v17;
 }
 
 - (id)createAndSaveVectorWithBuilder:(id)builder vectorType:(unint64_t)type
 {
-  v158 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   builderCopy = builder;
-  v8 = objc_msgSend__vectorKeyForType_(self, v7, type);
-  v9 = [APOdmlAppVectorsFile alloc];
-  v12 = objc_msgSend_assetPath(self, v10, v11);
-  v15 = objc_msgSend_version(self, v13, v14);
-  v17 = objc_msgSend_initForReadingContentsOfURL_version_(v9, v16, v12, v15);
+  v7 = [(APOdmlFeatureCalculator *)self _vectorKeyForType:type];
+  v8 = [APOdmlAppVectorsFile alloc];
+  assetPath = [(APOdmlFeatureCalculator *)self assetPath];
+  version = [(APOdmlFeatureCalculator *)self version];
+  v11 = [(APOdmlAppVectorsFile *)v8 initForReadingContentsOfURL:assetPath version:version];
 
-  if (v17)
+  if (v11)
   {
-    if (objc_msgSend_numberOfVectors(v17, v18, v19))
+    if ([v11 numberOfVectors])
     {
-      v20 = v17;
+      v12 = v11;
     }
 
     else
     {
-      v35 = OdmlLogForCategory(3uLL);
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v19 = OdmlLogForCategory(3uLL);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v151 = objc_opt_class();
-        v36 = *v151;
-        _os_log_impl(&dword_260ECB000, v35, OS_LOG_TYPE_DEFAULT, "[%@]: Default AppVectors empty; attempting to fall back to SRP default file.", buf, 0xCu);
+        *v73 = objc_opt_class();
+        v20 = *v73;
+        _os_log_impl(&dword_260ECB000, v19, OS_LOG_TYPE_DEFAULT, "[%@]: Default AppVectors empty; attempting to fall back to SRP default file.", buf, 0xCu);
       }
 
-      v39 = objc_msgSend_sharedAssetManagerCoordinator(APOdmlAssetManagerCoordinator, v37, v38);
-      v42 = objc_msgSend_assetManagerType(self, v40, v41);
-      v44 = objc_msgSend_assetManagerForPlacementType_assetManagerType_(v39, v43, 0, v42);
-      v20 = objc_msgSend_pathForFactor_isDirectory_(v44, v45, @"AppVectors", 0);
+      v21 = +[APOdmlAssetManagerCoordinator sharedAssetManagerCoordinator];
+      v22 = [v21 assetManagerForPlacementType:0 assetManagerType:{-[APOdmlFeatureCalculator assetManagerType](self, "assetManagerType")}];
+      v12 = [v22 pathForFactor:@"AppVectors" isDirectory:0];
 
-      v46 = [APOdmlAppVectorsFile alloc];
-      v49 = objc_msgSend_version(self, v47, v48);
-      v51 = objc_msgSend_initForReadingContentsOfURL_version_(v46, v50, v20, v49);
+      v23 = [APOdmlAppVectorsFile alloc];
+      version2 = [(APOdmlFeatureCalculator *)self version];
+      v25 = [(APOdmlAppVectorsFile *)v23 initForReadingContentsOfURL:v12 version:version2];
 
-      if (!v51)
+      if (!v25)
       {
-        v114 = OdmlLogForCategory(3uLL);
-        if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+        v53 = OdmlLogForCategory(3uLL);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
-          v115 = objc_opt_class();
-          v116 = v115;
-          v119 = objc_msgSend_creationTime(self, v117, v118);
+          v54 = objc_opt_class();
+          v55 = v54;
+          creationTime = [(APOdmlFeatureCalculator *)self creationTime];
           *buf = 138412546;
-          *v151 = v115;
-          *&v151[8] = 2112;
-          *&v151[10] = v119;
-          _os_log_impl(&dword_260ECB000, v114, OS_LOG_TYPE_ERROR, "[%@ %@] ERROR: Could not open default app vectors file.", buf, 0x16u);
+          *v73 = v54;
+          *&v73[8] = 2112;
+          *&v73[10] = creationTime;
+          _os_log_impl(&dword_260ECB000, v53, OS_LOG_TYPE_ERROR, "[%@ %@] ERROR: Could not open default app vectors file.", buf, 0x16u);
         }
 
-        v121 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v120, @"APOdmlFeatureCalculatorErrorDomain", 1001, 0);
-        v123 = objc_msgSend_dictionaryWithObject_forKey_(MEMORY[0x277CBEAC0], v122, v8, @"featureName");
-        v126 = objc_msgSend_assetManagerType(self, v124, v125) == 1;
-        objc_msgSend_sendEvent_additionalDetails_isCounterfactual_(APOdmlAnalyticsFeatureCalculation, v127, v121, v123, v126);
-        v34 = v121;
+        v57 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlFeatureCalculatorErrorDomain" code:1001 userInfo:0];
+        v58 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v7 forKey:@"featureName"];
+        [APOdmlAnalyticsFeatureCalculation sendEvent:v57 additionalDetails:v58 isCounterfactual:[(APOdmlFeatureCalculator *)self assetManagerType]== 1];
+        v18 = v57;
 
         goto LABEL_38;
       }
 
-      v20 = v51;
+      v12 = v25;
     }
 
-    v148 = builderCopy;
-    if (v148)
+    v70 = builderCopy;
+    if (v70)
     {
       typeCopy = type;
-      v145 = v8;
-      v52 = v20;
-      v146 = builderCopy;
-      v53 = 0;
-      v54 = -1;
+      v67 = v7;
+      v26 = v12;
+      v68 = builderCopy;
+      v27 = 0;
+      v28 = -1;
       for (i = 1; ; ++i)
       {
-        v56 = objc_autoreleasePoolPush();
-        v59 = objc_msgSend_task(self, v57, v58);
-        if (v59)
+        v30 = objc_autoreleasePoolPush();
+        task = [(APOdmlFeatureCalculator *)self task];
+        if (task)
         {
-          v62 = v59;
-          shouldDefer = objc_msgSend_shouldDefer(self->_task, v60, v61);
+          v32 = task;
+          shouldDefer = [(APOdmlXpcLifecycleHandler *)self->_task shouldDefer];
 
           if (shouldDefer)
           {
-            if (objc_msgSend_deferTask(self->_task, v60, v61))
+            if ([(APOdmlXpcLifecycleHandler *)self->_task deferTask])
             {
               break;
             }
           }
         }
 
-        v64 = objc_msgSend_nextVector(v20, v60, v61);
+        nextVector = [v12 nextVector];
 
-        if (!v64)
+        if (!nextVector)
         {
-          objc_autoreleasePoolPop(v56);
-          v149 = 0;
-          v53 = objc_msgSend_retrieveVector_(v148, v70, &v149);
-          v71 = v149;
-          v72 = OdmlLogForCategory(3uLL);
-          if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+          objc_autoreleasePoolPop(v30);
+          v71 = 0;
+          v27 = [v70 retrieveVector:&v71];
+          v37 = v71;
+          v38 = OdmlLogForCategory(3uLL);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
-            v73 = objc_opt_class();
-            v74 = MEMORY[0x277CCACA8];
-            v147 = v73;
-            v77 = objc_msgSend_assetManagerType(self, v75, v76);
-            v79 = objc_msgSend_descriptionForAssetManagerType_(v74, v78, v77);
-            v80 = MEMORY[0x277CCACA8];
-            v83 = objc_msgSend_placementType(self, v81, v82);
-            v85 = objc_msgSend_descriptionForPlacementType_(v80, v84, v83);
-            v87 = objc_msgSend_descriptionForVectorBuilderType_(MEMORY[0x277CCACA8], v86, typeCopy);
-            v90 = objc_msgSend_arrayOfNumbers(v53, v88, v89);
+            v39 = objc_opt_class();
+            v40 = MEMORY[0x277CCACA8];
+            v69 = v39;
+            v41 = [v40 descriptionForAssetManagerType:{-[APOdmlFeatureCalculator assetManagerType](self, "assetManagerType")}];
+            v42 = [MEMORY[0x277CCACA8] descriptionForPlacementType:{-[APOdmlFeatureCalculator placementType](self, "placementType")}];
+            v43 = [MEMORY[0x277CCACA8] descriptionForVectorBuilderType:typeCopy];
+            arrayOfNumbers = [v27 arrayOfNumbers];
             *buf = 138413314;
-            *v151 = v73;
-            *&v151[8] = 2112;
-            *&v151[10] = v79;
-            v152 = 2112;
-            v153 = v85;
-            v154 = 2112;
-            v155 = v87;
-            v156 = 2112;
-            v157 = v90;
-            _os_log_impl(&dword_260ECB000, v72, OS_LOG_TYPE_DEFAULT, "[%@] Final %@ %@ %@: %@", buf, 0x34u);
+            *v73 = v39;
+            *&v73[8] = 2112;
+            *&v73[10] = v41;
+            v74 = 2112;
+            v75 = v42;
+            v76 = 2112;
+            v77 = v43;
+            v78 = 2112;
+            v79 = arrayOfNumbers;
+            _os_log_impl(&dword_260ECB000, v38, OS_LOG_TYPE_DEFAULT, "[%@] Final %@ %@ %@: %@", buf, 0x34u);
           }
 
-          v8 = v145;
-          v92 = objc_msgSend_dictionaryWithObject_forKey_(MEMORY[0x277CBEAC0], v91, v145, @"featureName");
-          v96 = objc_msgSend_assetManagerType(self, v93, v94) == 1;
-          if (v71)
+          v7 = v67;
+          v45 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v67 forKey:@"featureName"];
+          v46 = [(APOdmlFeatureCalculator *)self assetManagerType]== 1;
+          if (v37)
           {
-            objc_msgSend_sendEvent_additionalDetails_isCounterfactual_(APOdmlAnalyticsFeatureCalculation, v95, v71, v92, v96);
+            [APOdmlAnalyticsFeatureCalculation sendEvent:v37 additionalDetails:v45 isCounterfactual:v46];
           }
 
           else
           {
-            objc_msgSend_sendEvent_additionalDetails_isCounterfactual_(APOdmlAnalyticsFeatureCalculation, v95, 0, v92, v96);
-            v112 = objc_msgSend_assetManager(self, v110, v111);
-            v71 = objc_msgSend_saveFeatureFromObject_withName_(v112, v113, v53, v145);
+            [APOdmlAnalyticsFeatureCalculation sendEvent:0 additionalDetails:v45 isCounterfactual:v46];
+            assetManager = [(APOdmlFeatureCalculator *)self assetManager];
+            v37 = [assetManager saveFeatureFromObject:v27 withName:v67];
           }
 
-          builderCopy = v146;
-          v20 = v52;
-          v34 = v71;
+          builderCopy = v68;
+          v12 = v26;
+          v18 = v37;
 
           goto LABEL_37;
         }
 
-        if (!(v54 + 100 * (i / 0x64)))
+        if (!(v28 + 100 * (i / 0x64)))
         {
-          v66 = OdmlLogForCategory(3uLL);
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+          v35 = OdmlLogForCategory(3uLL);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
-            v69 = objc_msgSend_adamID(v64, v67, v68);
+            adamID = [nextVector adamID];
             *buf = 67109376;
-            *v151 = i;
-            *&v151[4] = 2048;
-            *&v151[6] = v69;
-            _os_log_impl(&dword_260ECB000, v66, OS_LOG_TYPE_DEFAULT, "Processing element %d: %llu", buf, 0x12u);
+            *v73 = i;
+            *&v73[4] = 2048;
+            *&v73[6] = adamID;
+            _os_log_impl(&dword_260ECB000, v35, OS_LOG_TYPE_DEFAULT, "Processing element %d: %llu", buf, 0x12u);
           }
         }
 
-        objc_msgSend_addAppVector_(v148, v65, v64);
-        objc_autoreleasePoolPop(v56);
-        --v54;
-        v53 = v64;
+        [v70 addAppVector:nextVector];
+        objc_autoreleasePoolPop(v30);
+        --v28;
+        v27 = nextVector;
       }
 
-      v128 = OdmlLogForCategory(3uLL);
-      if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
+      v59 = OdmlLogForCategory(3uLL);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
       {
-        v129 = objc_opt_class();
-        v130 = v129;
-        v133 = objc_msgSend_creationTime(self, v131, v132);
+        v60 = objc_opt_class();
+        v61 = v60;
+        creationTime2 = [(APOdmlFeatureCalculator *)self creationTime];
         *buf = 138412546;
-        *v151 = v129;
-        *&v151[8] = 2112;
-        *&v151[10] = v133;
-        _os_log_impl(&dword_260ECB000, v128, OS_LOG_TYPE_DEFAULT, "[%@ %@] We are no longer in an acceptable state to continue processing. Deferring task...", buf, 0x16u);
+        *v73 = v60;
+        *&v73[8] = 2112;
+        *&v73[10] = creationTime2;
+        _os_log_impl(&dword_260ECB000, v59, OS_LOG_TYPE_DEFAULT, "[%@ %@] We are no longer in an acceptable state to continue processing. Deferring task...", buf, 0x16u);
       }
 
-      v135 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v134, @"APOdmlFeatureCalculatorErrorDomain", 1003, 0);
-      v137 = objc_msgSend_dictionaryWithObject_forKey_(MEMORY[0x277CBEAC0], v136, v8, @"featureName");
-      v140 = objc_msgSend_assetManagerType(self, v138, v139) == 1;
-      objc_msgSend_sendEvent_additionalDetails_isCounterfactual_(APOdmlAnalyticsFeatureCalculation, v141, v135, v137, v140);
-      v34 = v135;
+      v63 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlFeatureCalculatorErrorDomain" code:1003 userInfo:0];
+      v64 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v7 forKey:@"featureName"];
+      [APOdmlAnalyticsFeatureCalculation sendEvent:v63 additionalDetails:v64 isCounterfactual:[(APOdmlFeatureCalculator *)self assetManagerType]== 1];
+      v18 = v63;
 
-      objc_autoreleasePoolPop(v56);
-      builderCopy = v146;
+      objc_autoreleasePoolPop(v30);
+      builderCopy = v68;
     }
 
     else
     {
-      v97 = OdmlLogForCategory(3uLL);
-      if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+      v47 = OdmlLogForCategory(3uLL);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
-        v98 = objc_opt_class();
-        v99 = v98;
-        v102 = objc_msgSend_creationTime(self, v100, v101);
+        v48 = objc_opt_class();
+        v49 = v48;
+        creationTime3 = [(APOdmlFeatureCalculator *)self creationTime];
         *buf = 138412546;
-        *v151 = v98;
-        *&v151[8] = 2112;
-        *&v151[10] = v102;
-        _os_log_impl(&dword_260ECB000, v97, OS_LOG_TYPE_ERROR, "[%@ %@] ERROR: Unable to create a vector builder.", buf, 0x16u);
+        *v73 = v48;
+        *&v73[8] = 2112;
+        *&v73[10] = creationTime3;
+        _os_log_impl(&dword_260ECB000, v47, OS_LOG_TYPE_ERROR, "[%@ %@] ERROR: Unable to create a vector builder.", buf, 0x16u);
       }
 
-      v104 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v103, @"APOdmlFeatureCalculatorErrorDomain", 1002, 0);
-      v53 = objc_msgSend_dictionaryWithObject_forKey_(MEMORY[0x277CBEAC0], v105, v8, @"featureName");
-      v108 = objc_msgSend_assetManagerType(self, v106, v107) == 1;
-      objc_msgSend_sendEvent_additionalDetails_isCounterfactual_(APOdmlAnalyticsFeatureCalculation, v109, v104, v53, v108);
-      v34 = v104;
+      v51 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlFeatureCalculatorErrorDomain" code:1002 userInfo:0];
+      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v7 forKey:@"featureName"];
+      [APOdmlAnalyticsFeatureCalculation sendEvent:v51 additionalDetails:v27 isCounterfactual:[(APOdmlFeatureCalculator *)self assetManagerType]== 1];
+      v18 = v51;
     }
 
 LABEL_37:
@@ -342,31 +317,28 @@ LABEL_37:
 
   else
   {
-    v21 = OdmlLogForCategory(3uLL);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v13 = OdmlLogForCategory(3uLL);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v22 = objc_opt_class();
-      v23 = v22;
-      v26 = objc_msgSend_creationTime(self, v24, v25);
+      v14 = objc_opt_class();
+      v15 = v14;
+      creationTime4 = [(APOdmlFeatureCalculator *)self creationTime];
       *buf = 138412546;
-      *v151 = v22;
-      *&v151[8] = 2112;
-      *&v151[10] = v26;
-      _os_log_impl(&dword_260ECB000, v21, OS_LOG_TYPE_ERROR, "[%@ %@] ERROR: Could not open app vectors file.", buf, 0x16u);
+      *v73 = v14;
+      *&v73[8] = 2112;
+      *&v73[10] = creationTime4;
+      _os_log_impl(&dword_260ECB000, v13, OS_LOG_TYPE_ERROR, "[%@ %@] ERROR: Could not open app vectors file.", buf, 0x16u);
     }
 
-    v28 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v27, @"APOdmlFeatureCalculatorErrorDomain", 1001, 0);
-    v20 = objc_msgSend_dictionaryWithObject_forKey_(MEMORY[0x277CBEAC0], v29, v8, @"featureName");
-    v32 = objc_msgSend_assetManagerType(self, v30, v31) == 1;
-    objc_msgSend_sendEvent_additionalDetails_isCounterfactual_(APOdmlAnalyticsFeatureCalculation, v33, v28, v20, v32);
-    v34 = v28;
+    v17 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlFeatureCalculatorErrorDomain" code:1001 userInfo:0];
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v7 forKey:@"featureName"];
+    [APOdmlAnalyticsFeatureCalculation sendEvent:v17 additionalDetails:v12 isCounterfactual:[(APOdmlFeatureCalculator *)self assetManagerType]== 1];
+    v18 = v17;
   }
 
 LABEL_38:
 
-  v142 = *MEMORY[0x277D85DE8];
-
-  return v34;
+  return v18;
 }
 
 - (id)_vectorKeyForType:(unint64_t)type

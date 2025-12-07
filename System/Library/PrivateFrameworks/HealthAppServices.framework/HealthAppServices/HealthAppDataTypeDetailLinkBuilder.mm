@@ -21,7 +21,7 @@
 
 - (id)URLForDataTypeDetailWithObjectType:(id)type date:(id)date trendOverlay:(int64_t)overlay
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v9 = [(HealthAppDataTypeDetailLinkBuilder *)self baseURLComponentsWithObjectType:type trendOverlay:overlay];
   queryItems = [v9 queryItems];
@@ -48,8 +48,8 @@
   v20 = +[HAServicesDefines queryParameterNameDate];
   stringValue = [v18 stringValue];
   v22 = [v19 queryItemWithName:v20 value:stringValue];
-  v29[0] = v22;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v28[0] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
   [v14 addObjectsFromArray:v23];
 
   [v9 setQueryItems:v14];
@@ -57,14 +57,12 @@
   profileIdentifier = [(HealthAppLinkBuilder *)self profileIdentifier];
   v26 = [v24 _hk_appendProfileIdentifier:profileIdentifier];
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v26;
 }
 
 - (id)URLForDataTypeDetailWithObjectType:(id)type dateInterval:(id)interval trendOverlay:(int64_t)overlay
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   selfCopy = self;
   v9 = [(HealthAppDataTypeDetailLinkBuilder *)self baseURLComponentsWithObjectType:type trendOverlay:overlay];
@@ -86,7 +84,7 @@
   v15 = MEMORY[0x277CCABB0];
   startDate = [intervalCopy startDate];
   [startDate timeIntervalSinceReferenceDate];
-  v36 = [v15 numberWithInteger:v17];
+  v35 = [v15 numberWithInteger:v17];
 
   v18 = MEMORY[0x277CCABB0];
   endDate = [intervalCopy endDate];
@@ -96,23 +94,21 @@
 
   v22 = MEMORY[0x277CCAD18];
   v23 = +[HAServicesDefines queryParameterNameStartDate];
-  stringValue = [v36 stringValue];
+  stringValue = [v35 stringValue];
   v25 = [v22 queryItemWithName:v23 value:stringValue];
-  v38[0] = v25;
+  v37[0] = v25;
   v26 = MEMORY[0x277CCAD18];
   v27 = +[HAServicesDefines queryParameterNameEndDate];
   stringValue2 = [v21 stringValue];
   v29 = [v26 queryItemWithName:v27 value:stringValue2];
-  v38[1] = v29;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+  v37[1] = v29;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
   [v14 addObjectsFromArray:v30];
 
   [v9 setQueryItems:v14];
   v31 = [v9 URL];
   profileIdentifier = [(HealthAppLinkBuilder *)selfCopy profileIdentifier];
   v33 = [v31 _hk_appendProfileIdentifier:profileIdentifier];
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v33;
 }

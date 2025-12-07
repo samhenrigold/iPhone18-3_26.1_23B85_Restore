@@ -10,40 +10,15 @@
 - (COSE_Mac0)initWithCBOR:(id)r
 {
   rCopy = r;
-  if ([rCopy type] != 4)
+  if ([rCopy type] == 4 && (objc_msgSend(rCopy, "array"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "count"), v5, v6 >= 4) && ((objc_msgSend(rCopy, "tag"), (v7 = objc_claimAutoreleasedReturnValue()) == 0) || (v8 = v7, objc_msgSend(rCopy, "tag"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "numeric"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "integerValue"), v10, v9, v8, v11 == 17)))
   {
-    goto LABEL_11;
-  }
-
-  array = [rCopy array];
-  v6 = [array count];
-
-  if (v6 < 4)
-  {
-    goto LABEL_11;
-  }
-
-  v7 = [rCopy tag];
-  if (!v7)
-  {
-    goto LABEL_5;
-  }
-
-  v8 = v7;
-  v9 = [rCopy tag];
-  numeric = [v9 numeric];
-  integerValue = [numeric integerValue];
-
-  if (integerValue == 17)
-  {
-LABEL_5:
-    array2 = [rCopy array];
-    v13 = [array2 objectAtIndexedSubscript:2];
+    array = [rCopy array];
+    v13 = [array objectAtIndexedSubscript:2];
 
     if ([v13 type] == 2 || objc_msgSend(v13, "type") == 11)
     {
-      array3 = [rCopy array];
-      v15 = [array3 objectAtIndexedSubscript:3];
+      array2 = [rCopy array];
+      v15 = [array2 objectAtIndexedSubscript:3];
 
       if ([v15 type] == 2)
       {
@@ -77,7 +52,6 @@ LABEL_5:
 
   else
   {
-LABEL_11:
     selfCopy = 0;
   }
 
@@ -86,16 +60,15 @@ LABEL_11:
 
 - (COSE_Mac0)initWithProtectedHeaders:(id)headers unprotectedHeaders:(id)unprotectedHeaders payload:(id)payload tag:(id)tag
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   unprotectedHeadersCopy = unprotectedHeaders;
   headersCopy = headers;
   v13 = [CBOR cborWithData:tag];
-  v18[0] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   v15 = [(COSE *)self initWithProtectedHeaders:headersCopy unprotectedHeaders:unprotectedHeadersCopy payload:payloadCopy type:17 additionalCBORs:v14];
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

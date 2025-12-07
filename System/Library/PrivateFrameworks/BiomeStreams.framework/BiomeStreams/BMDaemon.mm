@@ -105,7 +105,7 @@ LABEL_15:
 
 void __36__BMDaemon_setUpNotificationHandler__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (MEMORY[0x1865F7D40]() == MEMORY[0x1E69E9E80])
   {
@@ -116,9 +116,9 @@ void __36__BMDaemon_setUpNotificationHandler__block_invoke(uint64_t a1, void *a2
     v7 = __biome_log_for_category();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v20 = 138412290;
-      v21 = v5;
-      _os_log_impl(&dword_1848EE000, v7, OS_LOG_TYPE_INFO, "Received notifyd notification: %@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = v5;
+      _os_log_impl(&dword_1848EE000, v7, OS_LOG_TYPE_INFO, "Received notifyd notification: %@", &v19, 0xCu);
     }
 
     v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"com.apple.Preferences.ResetPrivacyWarningsNotification"];
@@ -178,20 +178,18 @@ void __36__BMDaemon_setUpNotificationHandler__block_invoke(uint64_t a1, void *a2
     v18 = __biome_log_for_category();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v20 = 136315138;
-      v21 = string;
-      _os_log_impl(&dword_1848EE000, v18, OS_LOG_TYPE_INFO, "--- handled event %s ---", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = string;
+      _os_log_impl(&dword_1848EE000, v18, OS_LOG_TYPE_INFO, "--- handled event %s ---", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 + (BMDSLGraphValidator)DSLValidator
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v2 = BiomeLibraryAndInternalLibraryNode();
   allValidKeyPaths = [v2 allValidKeyPaths];
   legacyValidKeyPaths = [MEMORY[0x1E698E898] legacyValidKeyPaths];
@@ -209,33 +207,33 @@ void __36__BMDaemon_setUpNotificationHandler__block_invoke(uint64_t a1, void *a2
   legacyStreamClassMapping = [MEMORY[0x1E698E898] legacyStreamClassMapping];
   v15 = [v13 initWithDictionary:legacyStreamClassMapping];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v16 = BiomeLibraryAndInternalLibraryNode();
   allValidEventClasses = [v16 allValidEventClasses];
 
-  v18 = [allValidEventClasses countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v18 = [allValidEventClasses countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v36;
+    v20 = *v35;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v36 != v20)
+        if (*v35 != v20)
         {
           objc_enumerationMutation(allValidEventClasses);
         }
 
-        v22 = *(*(&v35 + 1) + 8 * i);
+        v22 = *(*(&v34 + 1) + 8 * i);
         v23 = NSStringFromClass(v22);
         [v15 setObject:v22 forKeyedSubscript:v23];
       }
 
-      v19 = [allValidEventClasses countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v19 = [allValidEventClasses countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v19);
@@ -255,20 +253,18 @@ void __36__BMDaemon_setUpNotificationHandler__block_invoke(uint64_t a1, void *a2
   v31 = [v15 copy];
   v32 = [v30 initWithValidKeyPaths:v5 allowedOperations:v11 allowedStreamTypes:v12 eventStreamClassMapping:v31];
 
-  v33 = *MEMORY[0x1E69E9840];
-
   return v32;
 }
 
 - (BMDaemon)initWithQueue:(id)queue eventReporter:(id)reporter
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   reporterCopy = reporter;
   dispatch_assert_queue_V2(queueCopy);
-  v67.receiver = self;
-  v67.super_class = BMDaemon;
-  v9 = [(BMDaemon *)&v67 init];
+  v65.receiver = self;
+  v65.super_class = BMDaemon;
+  v9 = [(BMDaemon *)&v65 init];
   v10 = v9;
   if (v9)
   {
@@ -324,50 +320,49 @@ void __36__BMDaemon_setUpNotificationHandler__block_invoke(uint64_t a1, void *a2
     subscribedSystemStreams = v10->_subscribedSystemStreams;
     v10->_subscribedSystemStreams = v35;
 
-    v66[0] = 0;
-    v66[1] = v66;
-    v66[2] = 0x2020000000;
-    v37 = v10->_userPublisherServer == 0;
+    v64[0] = 0;
+    v64[1] = v64;
+    v64[2] = 0x2020000000;
     if (v10->_systemPublisherServer)
     {
-      v38 = (*p_userPublisherServer != 0) + 1;
+      v37 = (*p_userPublisherServer != 0) + 1;
     }
 
     else
     {
-      v38 = *p_userPublisherServer != 0;
+      v37 = *p_userPublisherServer != 0;
     }
 
-    v66[3] = v38;
+    v64[3] = v37;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __40__BMDaemon_initWithQueue_eventReporter___block_invoke;
     aBlock[3] = &unk_1E6E52C18;
-    v65 = v66;
-    v39 = v10;
-    v64 = v39;
-    v40 = _Block_copy(aBlock);
-    v41 = v10->_systemPublisherServer;
-    v60[0] = MEMORY[0x1E69E9820];
-    v60[1] = 3221225472;
-    v60[2] = __40__BMDaemon_initWithQueue_eventReporter___block_invoke_2;
-    v60[3] = &unk_1E6E52C40;
+    v63 = v64;
+    v38 = v10;
+    v62 = v38;
+    v39 = _Block_copy(aBlock);
+    v40 = v10->_systemPublisherServer;
+    v58[0] = MEMORY[0x1E69E9820];
+    v58[1] = 3221225472;
+    v58[2] = __40__BMDaemon_initWithQueue_eventReporter___block_invoke_2;
+    v58[3] = &unk_1E6E52C40;
+    v41 = v38;
+    v59 = v41;
     v42 = v39;
-    v61 = v42;
-    v43 = v40;
-    v62 = v43;
-    [(BMComputePublisherServer *)v41 activateWithCompletion:v60];
-    v44 = v10->_userPublisherServer;
-    v54 = MEMORY[0x1E69E9820];
-    v55 = 3221225472;
-    v56 = __40__BMDaemon_initWithQueue_eventReporter___block_invoke_18;
-    v57 = &unk_1E6E52C40;
+    v60 = v42;
+    [(BMComputePublisherServer *)v40 activateWithCompletion:v58];
+    v43 = v10->_userPublisherServer;
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __40__BMDaemon_initWithQueue_eventReporter___block_invoke_18;
+    v55 = &unk_1E6E52C40;
+    v44 = v41;
+    v56 = v44;
     v45 = v42;
-    v58 = v45;
-    v46 = v43;
-    v59 = v46;
-    [(BMComputePublisherServer *)v44 activateWithCompletion:&v54];
-    if ([BMDaemon isAgent:v54])
+    v57 = v45;
+    [(BMComputePublisherServer *)v43 activateWithCompletion:&v52];
+    if ([BMDaemon isAgent:v52])
     {
       +[BMDaemon BiomeAgentLaunchNotification];
     }
@@ -376,36 +371,35 @@ void __36__BMDaemon_setUpNotificationHandler__block_invoke(uint64_t a1, void *a2
     {
       +[BMDaemon biomedLaunchNotification];
     }
-    v47 = ;
-    v48 = v47;
-    v49 = notify_post([v47 UTF8String]);
-    if (v49)
+    v46 = ;
+    v47 = v46;
+    v48 = notify_post([v46 UTF8String]);
+    if (v48)
     {
-      v50 = __biome_log_for_category();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+      v49 = __biome_log_for_category();
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
-        v51 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v49];
-        [(BMDaemon *)v47 initWithQueue:v51 eventReporter:buf, v50];
+        v50 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v48];
+        [(BMDaemon *)v46 initWithQueue:v50 eventReporter:buf, v49];
       }
     }
 
-    [(BMDaemon *)v45 _subscribeStreamsForViews];
+    [(BMDaemon *)v44 _subscribeStreamsForViews];
 
-    _Block_object_dispose(v66, 8);
+    _Block_object_dispose(v64, 8);
   }
 
-  v52 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
-uint64_t __40__BMDaemon_initWithQueue_eventReporter___block_invoke(uint64_t result)
+void *__40__BMDaemon_initWithQueue_eventReporter___block_invoke(void *result)
 {
-  v1 = *(*(result + 40) + 8);
+  v1 = *(result[5] + 8);
   v2 = *(v1 + 24) - 1;
   *(v1 + 24) = v2;
   if (!v2)
   {
-    return [*(*(result + 32) + 32) initialCheckinsComplete];
+    return [*(result[4] + 32) initialCheckinsComplete];
   }
 
   return result;
@@ -437,7 +431,7 @@ uint64_t __40__BMDaemon_initWithQueue_eventReporter___block_invoke_18(uint64_t a
 
 - (void)_subscribeStreamsForViews
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   queue = [(BMDaemon *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -449,44 +443,42 @@ uint64_t __40__BMDaemon_initWithQueue_eventReporter___block_invoke_18(uint64_t a
   }
 
   subscriptionMarkerManager = [*(&self->super.isa + v5) subscriptionMarkerManager];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = +[_TtC12BiomeStreams21BMDatabaseInitializer viewSubscribedStreams];
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v14 + 1) + 8 * i);
         v13 = __biome_log_for_category();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v20 = v12;
+          v19 = v12;
           _os_log_impl(&dword_1848EE000, v13, OS_LOG_TYPE_INFO, "Adding subscription marker for view subscribed stream: %@", buf, 0xCu);
         }
 
         [subscriptionMarkerManager addSubscriptionWithStreamIdentifier:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_subscribeSystemStream:(id)stream subscriptionIdentifier:(id)identifier useCase:(id)case
@@ -588,7 +580,7 @@ void __66__BMDaemon__subscribeSystemStream_subscriptionIdentifier_useCase___bloc
 
 - (void)sendEventWithStreamIdentifier:(id)identifier timestamp:(id)timestamp account:(id)account remoteName:(id)name storeEvent:(id)event
 {
-  v105 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   timestampCopy = timestamp;
   accountCopy = account;
@@ -616,11 +608,11 @@ void __66__BMDaemon__subscribeSystemStream_subscriptionIdentifier_useCase___bloc
     *&buf[12] = 2112;
     *&buf[14] = v20;
     *&buf[22] = 2112;
-    v100 = identifierCopy;
-    v101 = 2112;
-    v102 = v21;
-    v103 = 2112;
-    v104 = eventCopy;
+    v99 = identifierCopy;
+    v100 = 2112;
+    v101 = v21;
+    v102 = 2112;
+    v103 = eventCopy;
     _os_log_impl(&dword_1848EE000, v16, OS_LOG_TYPE_INFO, "Using publisher server for domain: %@, bookmark storage domain: %@ when processing new event write for stream %@ subscription count: %@, event: %@", buf, 0x34u);
   }
 
@@ -630,9 +622,9 @@ void __66__BMDaemon__subscribeSystemStream_subscriptionIdentifier_useCase___bloc
   }
 
   eventReporter = selfCopy->_eventReporter;
-  v93 = 0;
-  v23 = [(BMViewEventReporter *)eventReporter streamUpdatedWithStreamIdentifier:identifierCopy remoteName:nameCopy error:&v93];
-  v24 = v93;
+  v92 = 0;
+  v23 = [(BMViewEventReporter *)eventReporter streamUpdatedWithStreamIdentifier:identifierCopy remoteName:nameCopy error:&v92];
+  v24 = v92;
   if ((v23 & 1) == 0)
   {
     v25 = __biome_log_for_category();
@@ -642,27 +634,27 @@ void __66__BMDaemon__subscribeSystemStream_subscriptionIdentifier_useCase___bloc
     }
   }
 
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
   v90 = 0u;
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
   obj = v15;
-  v26 = [obj countByEnumeratingWithState:&v89 objects:v98 count:16];
+  v26 = [obj countByEnumeratingWithState:&v88 objects:v97 count:16];
   if (v26)
   {
-    v72 = *v90;
+    v71 = *v89;
     *&v27 = 138412802;
-    v64 = v27;
+    v63 = v27;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v90 != v72)
+        if (*v89 != v71)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v89 + 1) + 8 * i);
+        v29 = *(*(&v88 + 1) + 8 * i);
         v30 = objc_autoreleasePoolPush();
         subscriber = [v29 subscriber];
         if (subscriber)
@@ -687,9 +679,9 @@ void __66__BMDaemon__subscribeSystemStream_subscriptionIdentifier_useCase___bloc
             *&buf[12] = 2112;
             *&buf[14] = timestampCopy;
             *&buf[22] = 2112;
-            v100 = identifierCopy;
-            v101 = 2112;
-            v102 = identifier;
+            v99 = identifierCopy;
+            v100 = 2112;
+            v101 = identifier;
             _os_log_impl(&dword_1848EE000, v33, OS_LOG_TYPE_INFO, "Processing local store event %@ at time %@ for %@ instead of reading from BiomeStorage for subscription %@", buf, 0x2Au);
           }
 
@@ -710,32 +702,32 @@ void __66__BMDaemon__subscribeSystemStream_subscriptionIdentifier_useCase___bloc
           v32 = BMDSLGetPublisherForEvent(graph, eventCopy);
 
           v39 = MEMORY[0x1E69E9820];
-          v86[0] = MEMORY[0x1E69E9820];
-          v86[1] = 3221225472;
-          v86[2] = __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_storeEvent___block_invoke;
-          v86[3] = &unk_1E6E52C90;
-          v86[4] = v29;
+          v85[0] = MEMORY[0x1E69E9820];
+          v85[1] = 3221225472;
+          v85[2] = __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_storeEvent___block_invoke;
+          v85[3] = &unk_1E6E52C90;
+          v85[4] = v29;
           v40 = identifierCopy;
-          v87 = v40;
-          v88 = eventCopy;
-          v80[0] = v39;
-          v80[1] = 3221225472;
-          v80[2] = __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_storeEvent___block_invoke_43;
-          v80[3] = &unk_1E6E52CB8;
-          v81 = v88;
-          v82 = timestampCopy;
-          v83 = v29;
-          v84 = v40;
-          v85 = selfCopy;
-          v41 = [v32 sinkWithCompletion:v86 receiveInput:v80];
+          v86 = v40;
+          v87 = eventCopy;
+          v79[0] = v39;
+          v79[1] = 3221225472;
+          v79[2] = __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_storeEvent___block_invoke_43;
+          v79[3] = &unk_1E6E52CB8;
+          v80 = v87;
+          v81 = timestampCopy;
+          v82 = v29;
+          v83 = v40;
+          v84 = selfCopy;
+          v41 = [v32 sinkWithCompletion:v85 receiveInput:v79];
         }
 
         else
         {
           _bookmarkStorage2 = [(BMDaemon *)selfCopy _bookmarkStorage];
-          v79 = v24;
-          v32 = [v29 fetchBookmarkFromStorage:_bookmarkStorage2 error:&v79];
-          v43 = v79;
+          v78 = v24;
+          v32 = [v29 fetchBookmarkFromStorage:_bookmarkStorage2 error:&v78];
+          v43 = v78;
 
           if (v43)
           {
@@ -771,18 +763,18 @@ void __66__BMDaemon__subscribeSystemStream_subscriptionIdentifier_useCase___bloc
 
             if (BPSPipelineSupportsPullBasedPublishers())
             {
-              v67 = [bpsPublisher validateBookmarkNode:v32];
-              if (v67)
+              v66 = [bpsPublisher validateBookmarkNode:v32];
+              if (v66)
               {
                 v48 = __biome_log_for_category();
                 if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
                 {
-                  *buf = v64;
+                  *buf = v63;
                   *&buf[4] = v29;
                   *&buf[12] = 2112;
                   *&buf[14] = identifierCopy;
                   *&buf[22] = 2112;
-                  v100 = v67;
+                  v99 = v66;
                   _os_log_error_impl(&dword_1848EE000, v48, OS_LOG_TYPE_ERROR, "Bookmark failed validation %@ when processing event write for %@ %@", buf, 0x20u);
                 }
 
@@ -792,9 +784,9 @@ void __66__BMDaemon__subscribeSystemStream_subscriptionIdentifier_useCase___bloc
                 [_bookmarkStorage3 removeBookmarkFileForSubscriptionWithIdentifier:identifier3 client:client];
 
                 _bookmarkStorage4 = [(BMDaemon *)selfCopy _bookmarkStorage];
-                v78 = 0;
-                v53 = [v29 fetchBookmarkFromStorage:_bookmarkStorage4 error:&v78];
-                v43 = v78;
+                v77 = 0;
+                v53 = [v29 fetchBookmarkFromStorage:_bookmarkStorage4 error:&v77];
+                v43 = v77;
 
                 v32 = v53;
               }
@@ -805,7 +797,7 @@ void __66__BMDaemon__subscribeSystemStream_subscriptionIdentifier_useCase___bloc
               }
 
               [bpsPublisher applyBookmarkNode:v32];
-              v55 = v67;
+              v55 = v66;
             }
 
             else
@@ -821,33 +813,33 @@ void __66__BMDaemon__subscribeSystemStream_subscriptionIdentifier_useCase___bloc
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x2020000000;
-            LOBYTE(v100) = 0;
-            v75[0] = MEMORY[0x1E69E9820];
-            v75[1] = 3221225472;
-            v75[2] = __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_storeEvent___block_invoke_45;
-            v75[3] = &unk_1E6E52CE0;
-            v75[4] = v29;
+            LOBYTE(v99) = 0;
+            v74[0] = MEMORY[0x1E69E9820];
+            v74[1] = 3221225472;
+            v74[2] = __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_storeEvent___block_invoke_45;
+            v74[3] = &unk_1E6E52CE0;
+            v74[4] = v29;
             v58 = identifierCopy;
             v59 = v57;
             v26 = v56;
-            v76 = v58;
-            v77 = selfCopy;
-            v74[0] = v59;
-            v74[1] = 3221225472;
-            v74[2] = __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_storeEvent___block_invoke_47;
-            v74[3] = &unk_1E6E52D08;
-            v74[4] = buf;
-            v60 = [bpsPublisher sinkWithBookmark:v32 completion:v75 receiveInput:v74];
+            v75 = v58;
+            v76 = selfCopy;
+            v73[0] = v59;
+            v73[1] = 3221225472;
+            v73[2] = __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_storeEvent___block_invoke_47;
+            v73[3] = &unk_1E6E52D08;
+            v73[4] = buf;
+            v60 = [bpsPublisher sinkWithBookmark:v32 completion:v74 receiveInput:v73];
             if (*(*&buf[8] + 24) == 1)
             {
               v61 = __biome_log_for_category();
               if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
               {
-                *v94 = 138412546;
-                v95 = v29;
-                v96 = 2112;
-                v97 = identifierCopy;
-                _os_log_impl(&dword_1848EE000, v61, OS_LOG_TYPE_INFO, "Publishing downstream for subscription %@ based on new %@ event", v94, 0x16u);
+                *v93 = 138412546;
+                v94 = v29;
+                v95 = 2112;
+                v96 = identifierCopy;
+                _os_log_impl(&dword_1848EE000, v61, OS_LOG_TYPE_INFO, "Publishing downstream for subscription %@ based on new %@ event", v93, 0x16u);
               }
 
               _publisherServer3 = [(BMDaemon *)selfCopy _publisherServer];
@@ -863,13 +855,11 @@ void __66__BMDaemon__subscribeSystemStream_subscriptionIdentifier_useCase___bloc
         objc_autoreleasePoolPop(v30);
       }
 
-      v26 = [obj countByEnumeratingWithState:&v89 objects:v98 count:16];
+      v26 = [obj countByEnumeratingWithState:&v88 objects:v97 count:16];
     }
 
     while (v26);
   }
-
-  v63 = *MEMORY[0x1E69E9840];
 }
 
 void __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_storeEvent___block_invoke(void *a1, void *a2)
@@ -884,7 +874,7 @@ void __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_s
 
 void __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_storeEvent___block_invoke_43(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = __biome_log_for_category();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -893,26 +883,24 @@ void __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_s
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
     v8 = *(a1 + 56);
-    v11 = 138413058;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v8;
-    _os_log_impl(&dword_1848EE000, v4, OS_LOG_TYPE_INFO, "Publishing event %@ with timestamp %@ downstream for subscription %@ based on write to %@", &v11, 0x2Au);
+    v10 = 138413058;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v8;
+    _os_log_impl(&dword_1848EE000, v4, OS_LOG_TYPE_INFO, "Publishing event %@ with timestamp %@ downstream for subscription %@ based on write to %@", &v10, 0x2Au);
   }
 
   v9 = [*(a1 + 64) _publisherServer];
   [v9 receiveInputForSubscription:*(a1 + 48) streamIdentifier:*(a1 + 56) timestamp:*(a1 + 40) storeEvent:v3];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_storeEvent___block_invoke_45(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = __biome_log_for_category();
@@ -920,15 +908,15 @@ void __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_s
   {
     v8 = *(a1 + 32);
     v9 = *(a1 + 40);
-    v14 = 138413058;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_impl(&dword_1848EE000, v7, OS_LOG_TYPE_INFO, "Completed sink for subscription %@ based on new %@ event, completion: %@. Bookmark: %@", &v14, 0x2Au);
+    v13 = 138413058;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_impl(&dword_1848EE000, v7, OS_LOG_TYPE_INFO, "Completed sink for subscription %@ based on new %@ event, completion: %@. Bookmark: %@", &v13, 0x2Au);
   }
 
   if (![v5 state])
@@ -938,13 +926,11 @@ void __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_s
     v12 = [*(a1 + 32) client];
     [v10 writeBookmark:v6 forSubscriptionWithIdentifier:v11 client:v12];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)eventsPrunedWithStreamIdentifier:(id)identifier account:(id)account remoteName:(id)name reason:(unint64_t)reason
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   queue = [(BMDaemon *)self queue];
@@ -954,8 +940,8 @@ void __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_s
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v22 = identifierCopy;
-    v23 = 2048;
+    v21 = identifierCopy;
+    v22 = 2048;
     reasonCopy = reason;
     _os_log_impl(&dword_1848EE000, v12, OS_LOG_TYPE_INFO, "Received events pruned notification for stream %@ with reason: %lu", buf, 0x16u);
   }
@@ -963,16 +949,16 @@ void __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_s
   eventReporter = self->_eventReporter;
   if (reason == 1)
   {
-    v20 = 0;
-    v14 = [(BMViewEventReporter *)eventReporter streamPrunedWithStreamIdentifier:identifierCopy remoteName:nameCopy error:&v20];
-    v15 = v20;
+    v19 = 0;
+    v14 = [(BMViewEventReporter *)eventReporter streamPrunedWithStreamIdentifier:identifierCopy remoteName:nameCopy error:&v19];
+    v15 = v19;
   }
 
   else
   {
-    v19 = 0;
-    v14 = [(BMViewEventReporter *)eventReporter streamDeletionWithStreamIdentifier:identifierCopy remoteName:nameCopy error:&v19];
-    v15 = v19;
+    v18 = 0;
+    v14 = [(BMViewEventReporter *)eventReporter streamDeletionWithStreamIdentifier:identifierCopy remoteName:nameCopy error:&v18];
+    v15 = v18;
   }
 
   v16 = v15;
@@ -984,8 +970,6 @@ void __82__BMDaemon_sendEventWithStreamIdentifier_timestamp_account_remoteName_s
       [BMDaemon eventsPrunedWithStreamIdentifier:account:remoteName:reason:];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (void)registerXPCActivities
@@ -1148,7 +1132,7 @@ void __33__BMDaemon_registerXPCActivities__block_invoke_75(uint64_t a1)
   dispatch_async(v1, block);
 }
 
-uint64_t __33__BMDaemon_registerXPCActivities__block_invoke_2_76(uint64_t a1)
+void *__33__BMDaemon_registerXPCActivities__block_invoke_2_76(uint64_t a1)
 {
   result = [*(a1 + 32) didDefer];
   if ((result & 1) == 0)
@@ -1187,12 +1171,12 @@ uint64_t __33__BMDaemon_registerXPCActivities__block_invoke_2_76(uint64_t a1)
 
 void __57__BMDaemon_LaunchDonations__donateLaunchEventsWithQueue___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  *v9 = 0x1500000001;
-  v6 = 16;
+  v9 = *MEMORY[0x1E69E9840];
   v7 = 0;
-  if (sysctl(v9, 2u, &v7, &v6, 0, 0) == -1 || v7 == 0)
+  *v8 = 0x1500000001;
+  v5 = 16;
+  v6 = 0;
+  if (sysctl(v8, 2u, &v6, &v5, 0, 0) == -1 || v6 == 0)
   {
     v3 = __biome_log_for_category();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -1203,17 +1187,15 @@ void __57__BMDaemon_LaunchDonations__donateLaunchEventsWithQueue___block_invoke(
 
   else
   {
-    v4 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSince1970:v8 / 1000000.0 + v7];
+    v4 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSince1970:v7 / 1000000.0 + v6];
     [*(a1 + 40) _donateDeviceMetadataWithBootDate:v4];
     [*(a1 + 40) _donateDeviceBootSessionEventsWithBootDate:v4 queue:*(a1 + 32)];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_donateDeviceMetadataWithBootDate:(id)date
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v4 = __biome_log_for_category();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -1243,24 +1225,24 @@ void __57__BMDaemon_LaunchDonations__donateLaunchEventsWithQueue___block_invoke(
 
   if (!v19 || ([v17 isEqualToString:v19] & 1) == 0)
   {
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2050000000;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2050000000;
     v20 = getBMDeviceMetadataClass_softClass;
-    v32 = getBMDeviceMetadataClass_softClass;
+    v31 = getBMDeviceMetadataClass_softClass;
     if (!getBMDeviceMetadataClass_softClass)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v34 = __getBMDeviceMetadataClass_block_invoke;
-      v35 = &unk_1E6E52EB0;
-      v36 = &v29;
+      v33 = __getBMDeviceMetadataClass_block_invoke;
+      v34 = &unk_1E6E52EB0;
+      v35 = &v28;
       __getBMDeviceMetadataClass_block_invoke(&buf);
-      v20 = v30[3];
+      v20 = v29[3];
     }
 
     v21 = v20;
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v28, 8);
     v22 = [v20 alloc];
     platform = [MEMORY[0x1E698E9A0] platform];
     if (platform >= 9)
@@ -1281,13 +1263,11 @@ void __57__BMDaemon_LaunchDonations__donateLaunchEventsWithQueue___block_invoke(
     standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
     [standardUserDefaults2 setObject:v17 forKey:@"LastCombinedBuild"];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_donateDeviceBootSessionEventsWithBootDate:(id)date queue:(id)queue
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   target = queue;
   v6 = __biome_log_for_category();
@@ -1314,31 +1294,31 @@ void __57__BMDaemon_LaunchDonations__donateLaunchEventsWithQueue___block_invoke(
   v12 = [[BMPublisherOptions alloc] initWithStartDate:0 endDate:0 maxEvents:1 lastN:1 reversed:0];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v88 = 0x3032000000;
-  v89 = __Block_byref_object_copy__4;
-  v90 = __Block_byref_object_dispose__4;
-  v91 = 0;
-  v80 = 0;
-  v81[0] = &v80;
-  v81[1] = 0x3032000000;
-  v81[2] = __Block_byref_object_copy__4;
-  v81[3] = __Block_byref_object_dispose__4;
-  v82 = 0;
+  v87 = 0x3032000000;
+  v88 = __Block_byref_object_copy__4;
+  v89 = __Block_byref_object_dispose__4;
+  v90 = 0;
+  v79 = 0;
+  v80[0] = &v79;
+  v80[1] = 0x3032000000;
+  v80[2] = __Block_byref_object_copy__4;
+  v80[3] = __Block_byref_object_dispose__4;
+  v81 = 0;
   v13 = [bootSession publisherWithUseCase:*MEMORY[0x1E698E928] options:v12];
   last = [v13 last];
-  v79[0] = MEMORY[0x1E69E9820];
-  v79[1] = 3221225472;
-  v79[2] = __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke;
-  v79[3] = &unk_1E6E539D0;
-  v79[4] = &v80;
   v78[0] = MEMORY[0x1E69E9820];
   v78[1] = 3221225472;
-  v78[2] = __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_2;
-  v78[3] = &unk_1E6E539F8;
-  v78[4] = &buf;
-  v15 = [last sinkWithCompletion:v79 receiveInput:v78];
+  v78[2] = __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke;
+  v78[3] = &unk_1E6E539D0;
+  v78[4] = &v79;
+  v77[0] = MEMORY[0x1E69E9820];
+  v77[1] = 3221225472;
+  v77[2] = __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_2;
+  v77[3] = &unk_1E6E539F8;
+  v77[4] = &buf;
+  v15 = [last sinkWithCompletion:v78 receiveInput:v77];
 
-  if (!*(v81[0] + 40))
+  if (!*(v80[0] + 40))
   {
     source = [bootSession source];
     v17 = [objc_alloc(getBMDeviceBootSessionClass()) initWithBootUUID:bm_bootSessionUUID starting:&unk_1EF309218];
@@ -1355,11 +1335,11 @@ void __57__BMDaemon_LaunchDonations__donateLaunchEventsWithQueue___block_invoke(
       eventBody = [*(*(&buf + 1) + 40) eventBody];
       bootUUID = [eventBody bootUUID];
       [*(*(&buf + 1) + 40) timestamp];
-      *v83 = 138412546;
-      *&v83[4] = bootUUID;
-      *&v83[12] = 2048;
-      *&v83[14] = v21;
-      _os_log_impl(&dword_1848EE000, v18, OS_LOG_TYPE_DEFAULT, "Previously stored device boot session: %@ at time: %f, in the biome daemon launch donation", v83, 0x16u);
+      *v82 = 138412546;
+      *&v82[4] = bootUUID;
+      *&v82[12] = 2048;
+      *&v82[14] = v21;
+      _os_log_impl(&dword_1848EE000, v18, OS_LOG_TYPE_DEFAULT, "Previously stored device boot session: %@ at time: %f, in the biome daemon launch donation", v82, 0x16u);
     }
 
     eventBody2 = [*(*(&buf + 1) + 40) eventBody];
@@ -1414,55 +1394,55 @@ LABEL_30:
       }
 
       localStore = [MEMORY[0x1E69AD3C8] localStore];
-      *v83 = 0;
-      *&v83[8] = v83;
-      *&v83[16] = 0x3032000000;
-      v84 = __Block_byref_object_copy__4;
-      v85 = __Block_byref_object_dispose__4;
-      v86 = 0;
-      v77[0] = MEMORY[0x1E69E9820];
-      v77[1] = 3221225472;
-      v77[2] = __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_22;
-      v77[3] = &unk_1E6E53A20;
-      v77[4] = v83;
-      [localStore prepareWithCompletionHandler:v77];
-      if (*(*&v83[8] + 40))
+      *v82 = 0;
+      *&v82[8] = v82;
+      *&v82[16] = 0x3032000000;
+      v83 = __Block_byref_object_copy__4;
+      v84 = __Block_byref_object_dispose__4;
+      v85 = 0;
+      v76[0] = MEMORY[0x1E69E9820];
+      v76[1] = 3221225472;
+      v76[2] = __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_22;
+      v76[3] = &unk_1E6E53A20;
+      v76[4] = v82;
+      [localStore prepareWithCompletionHandler:v76];
+      if (*(*&v82[8] + 40))
       {
         v32 = objc_alloc(MEMORY[0x1E69AD3D0]);
-        v33 = [v32 initWithSource:*(*&v83[8] + 40)];
+        v33 = [v32 initWithSource:*(*&v82[8] + 40)];
         [v33 setFlags:56];
         val = v33;
         v34 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
         v35 = dispatch_queue_attr_make_with_qos_class(v34, QOS_CLASS_BACKGROUND, 1);
-        v43 = dispatch_queue_create_with_target_V2("com.apple.BMDaemon+LaunchDonations.DeviceBootSession", v35, target);
+        v42 = dispatch_queue_create_with_target_V2("com.apple.BMDaemon+LaunchDonations.DeviceBootSession", v35, target);
 
-        [val _setQueue:v43];
-        v75[0] = 0;
-        v75[1] = v75;
-        v75[2] = 0x3032000000;
-        v75[3] = __Block_byref_object_copy__4;
-        v75[4] = __Block_byref_object_dispose__4;
-        v76 = 0;
-        v73[0] = 0;
-        v73[1] = v73;
-        v73[2] = 0x3032000000;
-        v73[3] = __Block_byref_object_copy__4;
-        v73[4] = __Block_byref_object_dispose__4;
-        v74 = 0;
-        v71[0] = 0;
-        v71[1] = v71;
-        v71[2] = 0x2020000000;
-        v72 = 0;
-        v69[0] = 0;
-        v69[1] = v69;
-        v69[2] = 0x2020000000;
-        v70 = 0;
-        v67[0] = 0;
-        v67[1] = v67;
-        v67[2] = 0x3032000000;
-        v67[3] = __Block_byref_object_copy__4;
-        v67[4] = __Block_byref_object_dispose__4;
-        v68 = os_transaction_create();
+        [val _setQueue:v42];
+        v74[0] = 0;
+        v74[1] = v74;
+        v74[2] = 0x3032000000;
+        v74[3] = __Block_byref_object_copy__4;
+        v74[4] = __Block_byref_object_dispose__4;
+        v75 = 0;
+        v72[0] = 0;
+        v72[1] = v72;
+        v72[2] = 0x3032000000;
+        v72[3] = __Block_byref_object_copy__4;
+        v72[4] = __Block_byref_object_dispose__4;
+        v73 = 0;
+        v70[0] = 0;
+        v70[1] = v70;
+        v70[2] = 0x2020000000;
+        v71 = 0;
+        v68[0] = 0;
+        v68[1] = v68;
+        v68[2] = 0x2020000000;
+        v69 = 0;
+        v66[0] = 0;
+        v66[1] = v66;
+        v66[2] = 0x3032000000;
+        v66[3] = __Block_byref_object_copy__4;
+        v66[4] = __Block_byref_object_dispose__4;
+        v67 = os_transaction_create();
         objc_initWeak(&location, val);
         v36 = __biome_log_for_category();
         v37 = os_signpost_id_generate(v36);
@@ -1471,50 +1451,50 @@ LABEL_30:
         v39 = v38;
         if (v37 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
         {
-          *v65 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1848EE000, v39, OS_SIGNPOST_INTERVAL_BEGIN, v37, "BootSessionLogReading", "", v65, 2u);
+          *v64 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1848EE000, v39, OS_SIGNPOST_INTERVAL_BEGIN, v37, "BootSessionLogReading", "", v64, 2u);
         }
 
-        v58[0] = MEMORY[0x1E69E9820];
-        v58[1] = 3221225472;
-        v58[2] = __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_27;
-        v58[3] = &unk_1E6E53A48;
-        v60 = v69;
-        v61 = v71;
-        objc_copyWeak(&v64, &location);
+        v57[0] = MEMORY[0x1E69E9820];
+        v57[1] = 3221225472;
+        v57[2] = __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_27;
+        v57[3] = &unk_1E6E53A48;
+        v59 = v68;
+        v60 = v70;
+        objc_copyWeak(&v63, &location);
         v40 = bm_bootSessionUUID;
-        v59 = v40;
-        v62 = v75;
-        v63 = v73;
-        [val setEventHandler:v58];
-        v46[0] = MEMORY[0x1E69E9820];
-        v46[1] = 3221225472;
-        v46[2] = __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_29;
-        v46[3] = &unk_1E6E53A70;
-        v57 = v37;
-        v52 = v71;
-        v53 = v75;
+        v58 = v40;
+        v61 = v74;
+        v62 = v72;
+        [val setEventHandler:v57];
+        v45[0] = MEMORY[0x1E69E9820];
+        v45[1] = 3221225472;
+        v45[2] = __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_29;
+        v45[3] = &unk_1E6E53A70;
+        v56 = v37;
+        v51 = v70;
+        v52 = v74;
         p_buf = &buf;
-        v55 = v73;
-        v47 = source;
+        v54 = v72;
+        v46 = source;
         v41 = dateCopy;
-        v48 = v41;
-        v49 = v17;
-        v50 = v27;
-        v51 = v40;
-        v56 = v67;
-        [val setInvalidationHandler:v46];
+        v47 = v41;
+        v48 = v17;
+        v49 = v27;
+        v50 = v40;
+        v55 = v66;
+        [val setInvalidationHandler:v45];
         [val activateStreamFromDate:v41];
 
-        objc_destroyWeak(&v64);
+        objc_destroyWeak(&v63);
         objc_destroyWeak(&location);
-        _Block_object_dispose(v67, 8);
+        _Block_object_dispose(v66, 8);
 
-        _Block_object_dispose(v69, 8);
-        _Block_object_dispose(v71, 8);
-        _Block_object_dispose(v73, 8);
+        _Block_object_dispose(v68, 8);
+        _Block_object_dispose(v70, 8);
+        _Block_object_dispose(v72, 8);
 
-        _Block_object_dispose(v75, 8);
+        _Block_object_dispose(v74, 8);
       }
 
       else
@@ -1526,7 +1506,7 @@ LABEL_30:
         }
       }
 
-      _Block_object_dispose(v83, 8);
+      _Block_object_dispose(v82, 8);
     }
 
     goto LABEL_30;
@@ -1535,15 +1515,13 @@ LABEL_30:
   source = __biome_log_for_category();
   if (os_log_type_enabled(source, OS_LOG_TYPE_FAULT))
   {
-    [BMDaemon(LaunchDonations) _donateDeviceBootSessionEventsWithBootDate:v81 queue:source];
+    [BMDaemon(LaunchDonations) _donateDeviceBootSessionEventsWithBootDate:v80 queue:source];
   }
 
 LABEL_32:
 
-  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v79, 8);
   _Block_object_dispose(&buf, 8);
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke(uint64_t a1, void *a2)
@@ -1580,7 +1558,7 @@ void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_
 
 void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_27(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
@@ -1595,11 +1573,11 @@ void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_
       v11 = __biome_log_for_category();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412546;
-        v15 = v9;
-        v16 = 2112;
-        v17 = v10;
-        _os_log_impl(&dword_1848EE000, v11, OS_LOG_TYPE_DEFAULT, "Found log with eventBootUUID: %@, at eventDate: %@", &v14, 0x16u);
+        v13 = 138412546;
+        v14 = v9;
+        v15 = 2112;
+        v16 = v10;
+        _os_log_impl(&dword_1848EE000, v11, OS_LOG_TYPE_DEFAULT, "Found log with eventBootUUID: %@, at eventDate: %@", &v13, 0x16u);
       }
 
       if (([v9 isEqual:*(a1 + 32)] & 1) == 0)
@@ -1629,21 +1607,19 @@ void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_
   }
 
   objc_autoreleasePoolPop(v4);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_29(uint64_t a1, uint64_t a2, void *a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = __biome_log_for_category();
   v7 = v6;
   v8 = *(a1 + 112);
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
-    LOWORD(v34[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1848EE000, v7, OS_SIGNPOST_INTERVAL_END, v8, "BootSessionLogReading", "", v34, 2u);
+    LOWORD(v33[0]) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1848EE000, v7, OS_SIGNPOST_INTERVAL_END, v8, "BootSessionLogReading", "", v33, 2u);
   }
 
   if ((a2 - 6) <= 0xFFFFFFFFFFFFFFFDLL)
@@ -1660,11 +1636,11 @@ void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_
   {
     v11 = *(*(*(a1 + 72) + 8) + 24);
     v12 = *(*(*(a1 + 80) + 8) + 40);
-    v34[0] = 67109378;
-    v34[1] = v11;
-    v35 = 2112;
-    v36 = v12;
-    _os_log_impl(&dword_1848EE000, v10, OS_LOG_TYPE_DEFAULT, "Found the previous boot session after viewing %d past logs in biome daemon launch donation, previous boot session: %@", v34, 0x12u);
+    v33[0] = 67109378;
+    v33[1] = v11;
+    v34 = 2112;
+    v35 = v12;
+    _os_log_impl(&dword_1848EE000, v10, OS_LOG_TYPE_DEFAULT, "Found the previous boot session after viewing %d past logs in biome daemon launch donation, previous boot session: %@", v33, 0x12u);
   }
 
   v13 = objc_alloc(getBMDeviceBootSessionClass());
@@ -1690,15 +1666,15 @@ void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_
 
     if ([*(*(*(a1 + 96) + 8) + 40) compare:*(a1 + 56)] == -1)
     {
-      v30 = __biome_log_for_category();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v29 = __biome_log_for_category();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_29_cold_4(a1 + 96);
+        __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_29_cold_4();
       }
 
-      v31 = *(a1 + 32);
+      v30 = *(a1 + 32);
       [*(a1 + 40) timeIntervalSinceReferenceDate];
-      [v31 sendEvent:v16 timestamp:?];
+      [v30 sendEvent:v16 timestamp:?];
       v23 = *(a1 + 48);
       v24 = *(a1 + 32);
       [*(a1 + 40) timeIntervalSinceReferenceDate];
@@ -1706,15 +1682,15 @@ void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_
 
     else if ([*(a1 + 40) compare:*(*(*(a1 + 96) + 8) + 40)] == -1)
     {
-      v32 = __biome_log_for_category();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = __biome_log_for_category();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_29_cold_3(a1, a1 + 96);
+        __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_29_cold_3();
       }
 
-      v33 = *(a1 + 32);
+      v32 = *(a1 + 32);
       [*(a1 + 40) timeIntervalSinceReferenceDate];
-      [v33 sendEvent:v16 timestamp:?];
+      [v32 sendEvent:v16 timestamp:?];
       v23 = *(a1 + 48);
       v24 = *(a1 + 32);
       [*(a1 + 40) timeIntervalSinceReferenceDate];
@@ -1736,7 +1712,7 @@ void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_
     v25 = __biome_log_for_category();
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_29_cold_5(a1 + 80);
+      __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_queue___block_invoke_29_cold_5();
     }
 
     v26 = *(a1 + 32);
@@ -1752,8 +1728,6 @@ void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_
   v27 = *(*(a1 + 104) + 8);
   v28 = *(v27 + 40);
   *(v27 + 40) = 0;
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 + (void)prunePublicStreamsWithActivity:(id)activity
@@ -1781,7 +1755,7 @@ void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_
 
 + (void)pruneRestrictedStreamsInDomain:(unint64_t)domain account:(id)account activity:(id)activity protectionClass:(unint64_t)class
 {
-  v120 = *MEMORY[0x1E69E9840];
+  v119 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   activityCopy = activity;
   domainCopy = domain;
@@ -1800,8 +1774,8 @@ void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_
   {
     v11 = [MEMORY[0x1E698E9C8] privacyPathname:v9];
     *buf = 138543618;
-    v112 = v11;
-    v113 = 2048;
+    v111 = v11;
+    v112 = 2048;
     classCopy = class;
     _os_log_impl(&dword_1848EE000, v10, OS_LOG_TYPE_DEFAULT, "Started pruning restricted streams in directory: %{public}@ protectionClass: %tu", buf, 0x16u);
   }
@@ -1810,41 +1784,41 @@ void __78__BMDaemon_LaunchDonations___donateDeviceBootSessionEventsWithBootDate_
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v14 = [defaultManager contentsOfDirectoryAtPath:v9 error:0];
 
-  v109 = 0u;
-  v110 = 0u;
-  v107 = 0u;
   v108 = 0u;
-  v85 = v14;
+  v109 = 0u;
+  v106 = 0u;
+  v107 = 0u;
+  v84 = v14;
   v15 = [MEMORY[0x1E695DEC8] bm_shuffledArrayWithArray:v14];
-  v103 = [v15 countByEnumeratingWithState:&v107 objects:v119 count:16];
-  if (v103)
+  v102 = [v15 countByEnumeratingWithState:&v106 objects:v118 count:16];
+  if (v102)
   {
-    v100 = class & 0xFFFFFFFFFFFFFFFDLL;
-    v102 = *v108;
-    v89 = *MEMORY[0x1E698F178];
-    v86 = *MEMORY[0x1E698F108];
+    v99 = class & 0xFFFFFFFFFFFFFFFDLL;
+    v101 = *v107;
+    v88 = *MEMORY[0x1E698F178];
+    v85 = *MEMORY[0x1E698F108];
     *&v16 = 138413058;
-    v84 = v16;
-    v90 = accountCopy;
-    v92 = v9;
-    v95 = v15;
+    v83 = v16;
+    v89 = accountCopy;
+    v91 = v9;
+    v94 = v15;
 LABEL_8:
     v17 = 0;
     while (1)
     {
-      if (*v108 != v102)
+      if (*v107 != v101)
       {
         objc_enumerationMutation(v15);
       }
 
-      v18 = *(*(&v107 + 1) + 8 * v17);
+      v18 = *(*(&v106 + 1) + 8 * v17);
       v19 = objc_autoreleasePoolPush();
-      v106 = 0;
+      v105 = 0;
       v20 = [v9 stringByAppendingPathComponent:v18];
       defaultManager2 = [*(v12 + 3080) defaultManager];
-      v22 = [defaultManager2 fileExistsAtPath:v20 isDirectory:&v106];
+      v22 = [defaultManager2 fileExistsAtPath:v20 isDirectory:&v105];
 
-      if (!v22 || (v106 & 1) == 0)
+      if (!v22 || (v105 & 1) == 0)
       {
         v27 = __biome_log_for_category();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
@@ -1856,28 +1830,28 @@ LABEL_8:
       }
 
       v23 = BiomeLibraryAndInternalLibraryNode();
-      v105 = 0;
-      v24 = [v23 streamWithIdentifier:v18 error:&v105];
-      v25 = v105;
-      v101 = v25;
-      if (!v100 && !v24)
+      v104 = 0;
+      v24 = [v23 streamWithIdentifier:v18 error:&v104];
+      v25 = v104;
+      v100 = v25;
+      if (!v99 && !v24)
       {
         v26 = __biome_log_for_category();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v112 = v18;
+          v111 = v18;
           _os_log_debug_impl(&dword_1848EE000, v26, OS_LOG_TYPE_DEBUG, "Ignoring %@ since it is not a library stream and we are pruning class A or B", buf, 0xCu);
         }
 
         goto LABEL_65;
       }
 
-      v28 = [v18 hasPrefix:{@"_DKEvent.", v84}];
-      v99 = v23;
+      v28 = [v18 hasPrefix:{@"_DKEvent.", v83}];
+      v98 = v23;
       if (!v24 || (v28 & 1) != 0 || v25)
       {
-        v33 = [MEMORY[0x1E698F130] newRestrictedStreamWithSegmentSize:v89 protectionClass:3 domain:domainCopy];
+        v33 = [MEMORY[0x1E698F130] newRestrictedStreamWithSegmentSize:v88 protectionClass:3 domain:domainCopy];
         pruningPolicy4 = v33;
         if ([v18 hasPrefix:@"_DKEvent."])
         {
@@ -1936,7 +1910,7 @@ LABEL_8:
 
           else
           {
-            eventCountLimit = v86;
+            eventCountLimit = v85;
           }
 
           v33 = pruningPolicy4;
@@ -1952,43 +1926,43 @@ LABEL_8:
           v64 = BMPruningPolicyDescribeMaxAge();
           [v62 maxStreamSize];
           BMPruningPolicyDescribeMaxStreamSize();
-          v87 = v24;
+          v86 = v24;
           v66 = v65 = v35;
           [v62 maxEventCount];
           v67 = BMPruningPolicyDescribeMaxEventCount();
           *buf = 138544130;
-          v112 = v18;
-          v113 = 2114;
+          v111 = v18;
+          v112 = 2114;
           classCopy = v64;
-          v115 = 2114;
-          v116 = v66;
-          v117 = 2114;
-          v118 = v67;
+          v114 = 2114;
+          v115 = v66;
+          v116 = 2114;
+          v117 = v67;
           _os_log_impl(&dword_1848EE000, v63, OS_LOG_TYPE_INFO, "Pruning policy for %{public}@: maxAge, %{public}@, maxStreamSize, %{public}@, maxCount, %{public}@", buf, 0x2Au);
 
           v33 = pruningPolicy4;
           v35 = v65;
-          v24 = v87;
+          v24 = v86;
         }
 
         v68 = [[BMStreamConfiguration alloc] initWithStreamIdentifier:v18 eventClass:v35 storeConfig:v33];
         v69 = [(BMStreamBase *)[BMStream alloc] initWithIdentifier:v18 schema:0 configuration:v68];
         v70 = __biome_log_for_category();
-        accountCopy = v90;
+        accountCopy = v89;
         if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v112 = v18;
+          v111 = v18;
           _os_log_impl(&dword_1848EE000, v70, OS_LOG_TYPE_DEFAULT, "Pruning non-library stream: %{public}@", buf, 0xCu);
         }
 
-        [(BMStreamBase *)v69 executePruningPolicyForAccount:v90];
-        v9 = v92;
+        [(BMStreamBase *)v69 executePruningPolicyForAccount:v89];
+        v9 = v91;
 LABEL_58:
-        v15 = v95;
+        v15 = v94;
         v12 = 0x1E696A000;
 
-        v23 = v99;
+        v23 = v98;
         if ([activityCopy didDefer])
         {
           v81 = __biome_log_for_category();
@@ -2005,7 +1979,7 @@ LABEL_58:
         goto LABEL_66;
       }
 
-      if (v100)
+      if (v99)
       {
         if (class != 3)
         {
@@ -2020,7 +1994,7 @@ LABEL_58:
           storeConfig2 = [configuration2 storeConfig];
           protectionClass = [storeConfig2 protectionClass];
 
-          v9 = v92;
+          v9 = v91;
           if (protectionClass != 2)
           {
             goto LABEL_42;
@@ -2041,8 +2015,8 @@ LABEL_58:
         storeConfig3 = [configuration3 storeConfig];
         protectionClass2 = [storeConfig3 protectionClass];
         *buf = 138412546;
-        v112 = v18;
-        v113 = 2048;
+        v111 = v18;
+        v112 = 2048;
         classCopy = protectionClass2;
         v73 = v26;
         v74 = "Ignoring %@ since it is class %tu which is handled by a separate job";
@@ -2077,23 +2051,23 @@ LABEL_42:
               [pruningPolicy4 maxEventCount];
               v58 = BMPruningPolicyDescribeMaxEventCount();
               *buf = 138544130;
-              v112 = v18;
-              v113 = 2114;
+              v111 = v18;
+              v112 = 2114;
               classCopy = v56;
-              v115 = 2114;
-              v116 = v57;
-              v117 = 2114;
-              v118 = v58;
+              v114 = 2114;
+              v115 = v57;
+              v116 = 2114;
+              v117 = v58;
               _os_log_impl(&dword_1848EE000, v55, OS_LOG_TYPE_INFO, "Pruning policy for %{public}@: maxAge, %{public}@, maxStreamSize, %{public}@, maxCount, %{public}@", buf, 0x2Au);
 
-              v9 = v92;
+              v9 = v91;
             }
 
             v59 = __biome_log_for_category();
             if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v112 = v18;
+              v111 = v18;
               _os_log_impl(&dword_1848EE000, v59, OS_LOG_TYPE_DEFAULT, "Pruning library stream: %{public}@", buf, 0xCu);
             }
 
@@ -2102,9 +2076,9 @@ LABEL_42:
           }
 
           defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-          v104 = 0;
-          [defaultManager3 removeItemAtPath:v20 error:&v104];
-          v26 = v104;
+          v103 = 0;
+          [defaultManager3 removeItemAtPath:v20 error:&v103];
+          v26 = v103;
 
           configuration3 = __biome_log_for_category();
           if (os_log_type_enabled(configuration3, OS_LOG_TYPE_ERROR))
@@ -2114,18 +2088,18 @@ LABEL_42:
             [storeConfig7 domain];
             v75 = BMStringForServiceDomain();
             v76 = BMStringForServiceDomain();
-            *buf = v84;
-            v112 = v18;
-            v113 = 2112;
+            *buf = v83;
+            v111 = v18;
+            v112 = 2112;
             v77 = v75;
             classCopy = v75;
-            v115 = 2112;
-            v116 = v76;
-            v117 = 2112;
-            v118 = v26;
+            v114 = 2112;
+            v115 = v76;
+            v116 = 2112;
+            v117 = v26;
             _os_log_error_impl(&dword_1848EE000, configuration3, OS_LOG_TYPE_ERROR, "Removing directory for stream %@ with library domain %@ found in %@ domain stream folder, remove error: %@", buf, 0x2Au);
 
-            v9 = v92;
+            v9 = v91;
           }
 
           goto LABEL_50;
@@ -2141,8 +2115,8 @@ LABEL_42:
         storeConfig3 = [configuration3 storeConfig];
         protectionClass4 = [storeConfig3 protectionClass];
         *buf = 138412546;
-        v112 = v18;
-        v113 = 2048;
+        v111 = v18;
+        v112 = 2048;
         classCopy = protectionClass4;
         v73 = v26;
         v74 = "Ignoring %@ since it is class %tu and we are pruning A or B";
@@ -2152,8 +2126,8 @@ LABEL_42:
 
 LABEL_50:
 LABEL_64:
-      v15 = v95;
-      v23 = v99;
+      v15 = v94;
+      v23 = v98;
 LABEL_65:
 
       v12 = 0x1E696A000;
@@ -2161,10 +2135,10 @@ LABEL_66:
 
 LABEL_67:
       objc_autoreleasePoolPop(v19);
-      if (v103 == ++v17)
+      if (v102 == ++v17)
       {
-        v79 = [v15 countByEnumeratingWithState:&v107 objects:v119 count:16];
-        v103 = v79;
+        v79 = [v15 countByEnumeratingWithState:&v106 objects:v118 count:16];
+        v102 = v79;
         if (v79)
         {
           goto LABEL_8;
@@ -2180,18 +2154,16 @@ LABEL_67:
   {
     v80 = [MEMORY[0x1E698E9C8] privacyPathname:v9];
     *buf = 138543362;
-    v112 = v80;
+    v111 = v80;
     _os_log_impl(&dword_1848EE000, v15, OS_LOG_TYPE_DEFAULT, "Done pruning restricted streams in directory: %{public}@", buf, 0xCu);
   }
 
 LABEL_77:
-
-  v83 = *MEMORY[0x1E69E9840];
 }
 
 + (void)prunePrivateStreamDirectory:(id)directory maxAge:(double)age maxStreamSize:(unint64_t)size activity:(id)activity
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   activityCopy = activity;
   v9 = __biome_log_for_category();
@@ -2199,53 +2171,53 @@ LABEL_77:
   {
     v10 = [MEMORY[0x1E698E9C8] privacyPathname:directoryCopy];
     buf = 138543362;
-    v44 = v10;
+    v43 = v10;
     _os_log_impl(&dword_1848EE000, v9, OS_LOG_TYPE_DEFAULT, "Started pruning private streams in directory: %{public}@", &buf, 0xCu);
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v12 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:0];
 
-  v33 = [objc_alloc(MEMORY[0x1E698F120]) initPruneOnAccess:0 filterByAgeOnRead:0 maxAge:size maxStreamSize:age];
+  v32 = [objc_alloc(MEMORY[0x1E698F120]) initPruneOnAccess:0 filterByAgeOnRead:0 maxAge:size maxStreamSize:age];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v36 objects:v42 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v37;
+    v16 = *v36;
     while (2)
     {
       v17 = 0;
       do
       {
-        if (*v37 != v16)
+        if (*v36 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v36 + 1) + 8 * v17);
+        v18 = *(*(&v35 + 1) + 8 * v17);
         v19 = objc_autoreleasePoolPush();
-        v35 = 0;
+        v34 = 0;
         v20 = [directoryCopy stringByAppendingPathComponent:v18];
         defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-        v22 = [defaultManager2 fileExistsAtPath:v20 isDirectory:&v35];
+        v22 = [defaultManager2 fileExistsAtPath:v20 isDirectory:&v34];
 
-        if (v22 && (v35 & 1) != 0)
+        if (v22 && (v34 & 1) != 0)
         {
           v23 = __biome_log_for_category();
           if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
-            *v40 = 138543362;
-            v41 = v18;
-            _os_log_impl(&dword_1848EE000, v23, OS_LOG_TYPE_INFO, "Pruning stream: %{public}@", v40, 0xCu);
+            *v39 = 138543362;
+            v40 = v18;
+            _os_log_impl(&dword_1848EE000, v23, OS_LOG_TYPE_INFO, "Pruning stream: %{public}@", v39, 0xCu);
           }
 
           v24 = [MEMORY[0x1E698F130] newPrivateStreamDefaultConfigurationWithStoreBasePath:directoryCopy];
-          [v24 setPruningPolicy:v33];
+          [v24 setPruningPolicy:v32];
           v25 = [[BMStoreStream alloc] initWithPrivateStreamIdentifier:v18 storeConfig:v24 eventDataClass:0];
           [(BMStoreStream *)v25 pruneStreamBySize:size];
           [(BMStoreStream *)v25 pruneExpiredEventsWithBlock:&__block_literal_global_17];
@@ -2255,9 +2227,9 @@ LABEL_77:
             if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
               v30 = [MEMORY[0x1E698E9C8] privacyPathname:directoryCopy];
-              *v40 = 138543362;
-              v41 = v30;
-              _os_log_impl(&dword_1848EE000, v29, OS_LOG_TYPE_DEFAULT, "Pausing pruning of private streams in directory: %{public}@ due to xpc activity deferral", v40, 0xCu);
+              *v39 = 138543362;
+              v40 = v30;
+              _os_log_impl(&dword_1848EE000, v29, OS_LOG_TYPE_DEFAULT, "Pausing pruning of private streams in directory: %{public}@ due to xpc activity deferral", v39, 0xCu);
             }
 
             objc_autoreleasePoolPop(v19);
@@ -2280,7 +2252,7 @@ LABEL_77:
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v35 objects:v41 count:16];
       if (v15)
       {
         continue;
@@ -2294,14 +2266,12 @@ LABEL_77:
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     v28 = [MEMORY[0x1E698E9C8] privacyPathname:directoryCopy];
-    *v40 = 138543362;
-    v41 = v28;
-    _os_log_impl(&dword_1848EE000, v27, OS_LOG_TYPE_DEFAULT, "Done pruning private streams in directory: %{public}@", v40, 0xCu);
+    *v39 = 138543362;
+    v40 = v28;
+    _os_log_impl(&dword_1848EE000, v27, OS_LOG_TYPE_DEFAULT, "Done pruning private streams in directory: %{public}@", v39, 0xCu);
   }
 
 LABEL_24:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 + (void)pruneFeatureStoreWithActivity:(id)activity
@@ -2397,7 +2367,7 @@ LABEL_24:
 
 + (void)pruneTemporaryFiles
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   v3 = _os_activity_create(&dword_1848EE000, "Pruning temporary files", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -2410,39 +2380,39 @@ LABEL_24:
   }
 
   v5 = [MEMORY[0x1E698E9C8] biomeDirectoryForDomain:0];
-  v23[0] = v5;
+  v22[0] = v5;
   v6 = [MEMORY[0x1E698E9C8] biomeDirectoryForDomain:1];
-  v23[1] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v22[1] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v9)
   {
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v11);
+        v12 = *(*(&v15 + 1) + 8 * v11);
         v13 = objc_autoreleasePoolPush();
-        [self pruneTemporaryFilesInDirectory:{v12, v16}];
+        [self pruneTemporaryFilesInDirectory:{v12, v15}];
         objc_autoreleasePoolPop(v13);
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v9);
@@ -2456,89 +2426,88 @@ LABEL_24:
   }
 
   os_activity_scope_leave(&state);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (void)pruneTemporaryFilesInDirectory:(id)directory
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v44 = objc_opt_new();
+  v43 = objc_opt_new();
   v5 = [MEMORY[0x1E695DFF8] fileURLWithPath:directoryCopy isDirectory:1];
-  v46 = defaultManager;
+  v45 = defaultManager;
   v6 = [defaultManager enumeratorAtURL:v5 includingPropertiesForKeys:0 options:0 errorHandler:&__block_literal_global_57];
   v7 = v6;
   if (v6)
   {
-    v42 = v6;
-    v43 = v5;
-    v58 = 0u;
-    v56 = 0u;
+    v41 = v6;
+    v42 = v5;
     v57 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v54 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v55 objects:v64 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v54 objects:v63 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v56;
+      v11 = *v55;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v56 != v11)
+          if (*v55 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v55 + 1) + 8 * i);
+          v13 = *(*(&v54 + 1) + 8 * i);
           v14 = objc_autoreleasePoolPush();
           lastPathComponent = [v13 lastPathComponent];
           v16 = [lastPathComponent hasPrefix:@".tmp."];
 
           if (v16)
           {
-            [v44 addObject:v13];
+            [v43 addObject:v13];
           }
 
           objc_autoreleasePoolPop(v14);
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v55 objects:v64 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v54 objects:v63 count:16];
       }
 
       while (v10);
     }
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
-    obj = v44;
-    v17 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    obj = v43;
+    v17 = [obj countByEnumeratingWithState:&v50 objects:v62 count:16];
     if (v17)
     {
       v18 = v17;
-      v41 = directoryCopy;
-      v47 = *v52;
+      v40 = directoryCopy;
+      v46 = *v51;
       v19 = *MEMORY[0x1E695DAA8];
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v52 != v47)
+          if (*v51 != v46)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v51 + 1) + 8 * j);
+          v21 = *(*(&v50 + 1) + 8 * j);
           v22 = objc_autoreleasePoolPush();
+          v48 = 0;
           v49 = 0;
-          v50 = 0;
-          v23 = [v21 getResourceValue:&v50 forKey:v19 error:&v49];
-          v24 = v50;
-          v25 = v49;
+          v23 = [v21 getResourceValue:&v49 forKey:v19 error:&v48];
+          v24 = v49;
+          v25 = v48;
           if ((v23 & 1) == 0)
           {
             v26 = __biome_log_for_category();
@@ -2548,9 +2517,9 @@ LABEL_24:
               path = [v21 path];
               v36 = [v34 privacyPathname:path];
               *buf = 138543618;
-              v60 = v36;
-              v61 = 2112;
-              v62 = v25;
+              v59 = v36;
+              v60 = 2112;
+              v61 = v25;
               _os_log_error_impl(&dword_1848EE000, v26, OS_LOG_TYPE_ERROR, "Failed to fetch attributes of file: %{public}@, error: %@", buf, 0x16u);
             }
           }
@@ -2561,16 +2530,16 @@ LABEL_24:
             if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v60 = v24;
+              v59 = v24;
               _os_log_debug_impl(&dword_1848EE000, v30, OS_LOG_TYPE_DEBUG, "Skipping pruning of temporary file with creation date: %@, not old enough", buf, 0xCu);
             }
           }
 
           else
           {
-            v48 = 0;
-            v31 = [v46 removeItemAtURL:v21 error:&v48];
-            v30 = v48;
+            v47 = 0;
+            v31 = [v45 removeItemAtURL:v21 error:&v47];
+            v30 = v47;
             v32 = __biome_log_for_category();
             v33 = v32;
             if (v31)
@@ -2587,9 +2556,9 @@ LABEL_24:
               path2 = [v21 path];
               v39 = [v37 privacyPathname:path2];
               *buf = 138543618;
-              v60 = v39;
-              v61 = 2112;
-              v62 = v30;
+              v59 = v39;
+              v60 = 2112;
+              v61 = v30;
               _os_log_error_impl(&dword_1848EE000, v33, OS_LOG_TYPE_ERROR, "Failed to prune temporary file: %{public}@, error: %@", buf, 0x16u);
             }
           }
@@ -2597,15 +2566,15 @@ LABEL_24:
           objc_autoreleasePoolPop(v22);
         }
 
-        v18 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
+        v18 = [obj countByEnumeratingWithState:&v50 objects:v62 count:16];
       }
 
       while (v18);
-      directoryCopy = v41;
+      directoryCopy = v40;
     }
 
-    v7 = v42;
-    v5 = v43;
+    v7 = v41;
+    v5 = v42;
   }
 
   else
@@ -2616,8 +2585,6 @@ LABEL_24:
       [(BMDaemon(Pruning) *)directoryCopy pruneTemporaryFilesInDirectory:?];
     }
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __52__BMDaemon_Pruning__pruneTemporaryFilesInDirectory___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2657,41 +2624,41 @@ uint64_t __52__BMDaemon_Pruning__pruneTemporaryFilesInDirectory___block_invoke(u
 
 + (void)_registerWithSpaceAttributionWithActivity:(id)activity domain:(unint64_t)domain completion:(id)completion
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   completionCopy = completion;
-  v32 = objc_opt_new();
-  v35 = [MEMORY[0x1E698E9C8] pathForStreamType:2 domain:domain];
+  v31 = objc_opt_new();
+  v34 = [MEMORY[0x1E698E9C8] pathForStreamType:2 domain:domain];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v8 = [defaultManager contentsOfDirectoryAtPath:v35 error:0];
+  v8 = [defaultManager contentsOfDirectoryAtPath:v34 error:0];
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   obj = v8;
-  v9 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v9 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v9)
   {
-    v34 = *v40;
+    v33 = *v39;
     do
     {
       v10 = 0;
       do
       {
-        if (*v40 != v34)
+        if (*v39 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v39 + 1) + 8 * v10);
+        v11 = *(*(&v38 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
-        v13 = [v35 stringByAppendingPathComponent:{v11, activityCopy}];
-        v38 = 0;
+        v13 = [v34 stringByAppendingPathComponent:{v11, activityCopy}];
+        v37 = 0;
         defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-        [defaultManager2 fileExistsAtPath:v13 isDirectory:&v38];
+        [defaultManager2 fileExistsAtPath:v13 isDirectory:&v37];
 
-        if (v38 == 1)
+        if (v37 == 1)
         {
           v15 = BiomeLibraryAndInternalLibraryNode();
           v16 = [v15 streamWithIdentifier:v11 error:0];
@@ -2704,24 +2671,24 @@ uint64_t __52__BMDaemon_Pruning__pruneTemporaryFilesInDirectory___block_invoke(u
             if (spaceAttribution)
             {
               v20 = [MEMORY[0x1E695DFF8] fileURLWithPath:v13];
-              v43 = 0;
-              v44 = &v43;
-              v45 = 0x2050000000;
+              v42 = 0;
+              v43 = &v42;
+              v44 = 0x2050000000;
               v21 = getSAPathInfoClass_softClass;
-              v46 = getSAPathInfoClass_softClass;
+              v45 = getSAPathInfoClass_softClass;
               if (!getSAPathInfoClass_softClass)
               {
                 *buf = MEMORY[0x1E69E9820];
                 *&buf[8] = 3221225472;
                 *&buf[16] = __getSAPathInfoClass_block_invoke;
-                v49 = &unk_1E6E52EB0;
-                v50 = &v43;
+                v48 = &unk_1E6E52EB0;
+                v49 = &v42;
                 __getSAPathInfoClass_block_invoke(buf);
-                v21 = v44[3];
+                v21 = v43[3];
               }
 
               v22 = v21;
-              _Block_object_dispose(&v43, 8);
+              _Block_object_dispose(&v42, 8);
               v23 = [[v21 alloc] initWithURL:v20];
               [v23 setBundleID:spaceAttribution];
               v24 = __biome_log_for_category();
@@ -2734,7 +2701,7 @@ uint64_t __52__BMDaemon_Pruning__pruneTemporaryFilesInDirectory___block_invoke(u
                 _os_log_debug_impl(&dword_1848EE000, v24, OS_LOG_TYPE_DEBUG, "Attributing path: %{private}@ to %@", buf, 0x16u);
               }
 
-              [v32 addObject:v23];
+              [v31 addObject:v23];
             }
           }
         }
@@ -2744,42 +2711,42 @@ uint64_t __52__BMDaemon_Pruning__pruneTemporaryFilesInDirectory___block_invoke(u
       }
 
       while (v9 != v10);
-      v9 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v9 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
     }
 
     while (v9);
   }
 
-  if ([v32 count])
+  if ([v31 count])
   {
     v25 = objc_autoreleasePoolPush();
-    v43 = 0;
-    v44 = &v43;
-    v45 = 0x2050000000;
+    v42 = 0;
+    v43 = &v42;
+    v44 = 0x2050000000;
     v26 = getSAPathManagerClass_softClass;
-    v46 = getSAPathManagerClass_softClass;
+    v45 = getSAPathManagerClass_softClass;
     if (!getSAPathManagerClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getSAPathManagerClass_block_invoke;
-      v49 = &unk_1E6E52EB0;
-      v50 = &v43;
+      v48 = &unk_1E6E52EB0;
+      v49 = &v42;
       __getSAPathManagerClass_block_invoke(buf);
-      v26 = v44[3];
+      v26 = v43[3];
     }
 
     v27 = v26;
-    _Block_object_dispose(&v43, 8);
+    _Block_object_dispose(&v42, 8);
     defaultManager3 = [v26 defaultManager];
     if (defaultManager3)
     {
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __81__BMDaemon_Pruning___registerWithSpaceAttributionWithActivity_domain_completion___block_invoke;
-      v36[3] = &unk_1E6E54378;
-      v37 = completionCopy;
-      [defaultManager3 registerPaths:v32 completionHandler:v36];
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __81__BMDaemon_Pruning___registerWithSpaceAttributionWithActivity_domain_completion___block_invoke;
+      v35[3] = &unk_1E6E54378;
+      v36 = completionCopy;
+      [defaultManager3 registerPaths:v31 completionHandler:v35];
     }
 
     else
@@ -2794,8 +2761,6 @@ uint64_t __52__BMDaemon_Pruning__pruneTemporaryFilesInDirectory___block_invoke(u
   {
     completionCopy[2]();
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __81__BMDaemon_Pruning___registerWithSpaceAttributionWithActivity_domain_completion___block_invoke(uint64_t a1, void *a2)

@@ -144,9 +144,9 @@
     return 1;
   }
 
-  v4 = [(NSIndexSet *)oldFilteredIndexes count];
+  v4 = objc_msgSend_count(oldFilteredIndexes, a2);
   updatedFilteredIndexes = [(PLFilteredAlbumListChangeNotification *)self updatedFilteredIndexes];
-  v6 = v4 != [updatedFilteredIndexes count];
+  v6 = v4 != objc_msgSend_count(updatedFilteredIndexes);
 
   return v6;
 }

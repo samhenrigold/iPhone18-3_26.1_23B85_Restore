@@ -1,5 +1,6 @@
 @interface IOGPUMetalDebugCommandEncoder
 - (IOGPUMetalDebugCommandEncoder)initWithCommandBuffer:(id)buffer;
+- (unsigned)addDebugResourceListInfo:(IOGPUResourceInfo *)info flag:(unsigned int)flag;
 - (void)IOLogBytes:(const char *)bytes length:(unint64_t)length;
 - (void)addAPIResource:(id)resource;
 - (void)dealloc;
@@ -14,30 +15,28 @@
 
 - (IOGPUMetalDebugCommandEncoder)initWithCommandBuffer:(id)buffer
 {
-  v8.receiver = self;
-  v8.super_class = IOGPUMetalDebugCommandEncoder;
-  v4 = [(_MTLCommandEncoder *)&v8 initWithCommandBuffer:?];
-  v5 = v4;
+  v6.receiver = self;
+  v6.super_class = IOGPUMetalDebugCommandEncoder;
+  v4 = [(_MTLCommandEncoder *)&v6 initWithCommandBuffer:?];
   if (v4)
   {
-    v6 = *(&v4->super.super.super.super.isa + *MEMORY[0x1E69742C0]);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       [IOGPUMetalDebugCommandEncoder initWithCommandBuffer:];
     }
 
-    [buffer getCurrentKernelCommandBufferPointer:&v5->_kernelCommandBufferCurrent end:&v5->_kernelCommandBufferEnd];
-    [buffer beginSegment:v5->_kernelCommandBufferCurrent];
-    v5->_resourceList = [buffer ioGPUResourceList];
-    v5->_api_resourceList = [buffer akResourceList];
-    if (!v5->_resourceList)
+    [buffer getCurrentKernelCommandBufferPointer:&v4->_kernelCommandBufferCurrent end:&v4->_kernelCommandBufferEnd];
+    [buffer beginSegment:v4->_kernelCommandBufferCurrent];
+    v4->_resourceList = [buffer ioGPUResourceList];
+    v4->_api_resourceList = [buffer akResourceList];
+    if (!v4->_resourceList)
     {
       [IOGPUMetalDebugCommandEncoder initWithCommandBuffer:];
     }
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)dealloc
@@ -93,6 +92,28 @@
   v4.receiver = self;
   v4.super_class = IOGPUMetalDebugCommandEncoder;
   [(_MTLCommandEncoder *)&v4 endEncoding];
+}
+
+- (unsigned)addDebugResourceListInfo:(IOGPUResourceInfo *)info flag:(unsigned int)flag
+{
+  v4 = *&flag;
+  result = IOGPUResourceListAddResource(self->_resourceList, info, *&flag);
+  if (!*&self->_resourceList->var12)
+  {
+    [(IOGPUMetalDebugCommandEncoder *)self restartDebugPass];
+    result = IOGPUResourceListAddResource(self->_resourceList, info, v4);
+    if (!*&self->_resourceList->var12)
+    {
+      [IOGPUMetalDebugCommandEncoder addDebugResourceListInfo:flag:];
+    }
+  }
+
+  if (result == -1)
+  {
+    [IOGPUMetalDebugCommandEncoder addDebugResourceListInfo:flag:];
+  }
+
+  return result;
 }
 
 - (void)debugBytes:(const char *)bytes length:(unint64_t)length output_type:(unsigned int)output_type

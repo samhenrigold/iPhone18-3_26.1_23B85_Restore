@@ -69,9 +69,11 @@ void __39__SCNPass_setValue_forPassPropertyKey___block_invoke(uint64_t a1)
     if (v2 == 6)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        *(*(*(a1 + 40) + 8) + 200) = [*(a1 + 32) unsignedLongValue];
+        isKindOfClass = [*(a1 + 32) unsignedLongValue];
+        *(*(*(a1 + 40) + 8) + 200) = isKindOfClass;
       }
     }
 
@@ -83,9 +85,11 @@ void __39__SCNPass_setValue_forPassPropertyKey___block_invoke(uint64_t a1)
       }
 
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        *(*(*(a1 + 40) + 8) + 208) = [*(a1 + 32) unsignedLongValue];
+        isKindOfClass = [*(a1 + 32) unsignedLongValue];
+        *(*(*(a1 + 40) + 8) + 208) = isKindOfClass;
       }
     }
   }
@@ -93,18 +97,19 @@ void __39__SCNPass_setValue_forPassPropertyKey___block_invoke(uint64_t a1)
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v3 = *(a1 + 48);
-      [*(a1 + 32) floatValue];
-      *(*(*(a1 + 40) + 8) + (((v3 << 32) - 0x100000000) >> 30) + 392) = v4;
+      v5 = *(a1 + 48);
+      isKindOfClass = [*(a1 + 32) floatValue];
+      *(*(*(a1 + 40) + 8) + (((v5 << 32) - 0x100000000) >> 30) + 392) = v6;
     }
   }
 
-  SharedInstance = C3DNotificationCenterGetSharedInstance();
-  v6 = [*(*(a1 + 40) + 16) sceneRef];
+  SharedInstance = C3DNotificationCenterGetSharedInstance(isKindOfClass, v4);
+  v8 = [*(*(a1 + 40) + 16) sceneRef];
 
-  C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEngineContextInvalidatePasses", v6, 0, 1u);
+  C3DNotificationCenterPostNotification(SharedInstance, @"kC3DNotificationEngineContextInvalidatePasses", v8, 0, 1u);
 }
 
 - (id)valueForPassPropertyKey:(int64_t)key

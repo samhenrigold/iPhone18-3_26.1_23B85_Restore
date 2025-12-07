@@ -34,7 +34,7 @@
 - (void)queryChopperDelegate:(id)delegate fetchLinkItemModelWithURL:(id)l isBloomFilterCached:(BOOL)cached forClientBundleID:(id)d metric:(id)metric completion:(id)completion
 {
   cachedCopy = cached;
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   lCopy = l;
   dCopy = d;
@@ -50,8 +50,8 @@
 
   if (completionCopy)
   {
-    v34 = [(BCSQueryChopper *)self _chopItemIdentifiersToFetchFromURL:lCopy isBloomFilterCached:cachedCopy];
-    if ([v34 count])
+    v33 = [(BCSQueryChopper *)self _chopItemIdentifiersToFetchFromURL:lCopy isBloomFilterCached:cachedCopy];
+    if ([v33 count])
     {
       v17 = dispatch_group_create();
       v18 = objc_opt_new();
@@ -59,31 +59,31 @@
       v20 = objc_opt_new();
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v58 = 0x2020000000;
-      v59 = 0;
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __122__BCSQueryChopper_queryChopperDelegate_fetchLinkItemModelWithURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke;
-      v45[3] = &unk_278D39BB8;
+      v57 = 0x2020000000;
+      v58 = 0;
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __122__BCSQueryChopper_queryChopperDelegate_fetchLinkItemModelWithURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke;
+      v44[3] = &unk_278D39BB8;
       group = v17;
-      v46 = group;
+      v45 = group;
       selfCopy = self;
-      v48 = dCopy;
-      v49 = delegateCopy;
-      v21 = v34;
-      v50 = v21;
+      v47 = dCopy;
+      v48 = delegateCopy;
+      v21 = v33;
+      v49 = v21;
       v22 = v18;
-      v51 = v22;
+      v50 = v22;
       v23 = v19;
-      v52 = v23;
+      v51 = v23;
       v24 = v20;
-      v53 = v24;
+      v52 = v24;
       p_buf = &buf;
       v25 = metricCopy;
-      v54 = v25;
+      v53 = v25;
       v26 = completionCopy;
-      v55 = v26;
-      [v21 enumerateObjectsUsingBlock:v45];
+      v54 = v26;
+      [v21 enumerateObjectsUsingBlock:v44];
       v27 = lCopy;
       if (self)
       {
@@ -99,13 +99,13 @@
       block[1] = 3221225472;
       block[2] = __122__BCSQueryChopper_queryChopperDelegate_fetchLinkItemModelWithURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke_9;
       block[3] = &unk_278D39BE0;
-      v44 = &buf;
+      v43 = &buf;
       block[4] = self;
-      v39 = v21;
-      v40 = v23;
-      v41 = v24;
-      v42 = v25;
-      v43 = v26;
+      v38 = v21;
+      v39 = v23;
+      v40 = v24;
+      v41 = v25;
+      v42 = v26;
       v29 = v24;
       v30 = v23;
       dispatch_group_notify(group, serialDispatchQueue, block);
@@ -128,72 +128,70 @@
       (*(completionCopy + 2))(completionCopy, 0, 0);
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_chopItemIdentifiersToFetchFromURL:(int)l isBloomFilterCached:
 {
-  v52[1] = *MEMORY[0x277D85DE8];
-  v42 = a2;
+  v51[1] = *MEMORY[0x277D85DE8];
+  v41 = a2;
   if (self)
   {
     array = [MEMORY[0x277CBEB18] array];
-    v40 = [v42 copy];
-    v41 = [BCSLinkItemIdentifier identifierWithURL:v40];
-    if (v41)
+    v39 = [v41 copy];
+    v40 = [BCSLinkItemIdentifier identifierWithURL:v39];
+    if (v40)
     {
-      v6 = [BCSChoppedItemIdentifierInfo newWithLinkItemIdentifier:v41 chopID:1];
+      v6 = [BCSChoppedItemIdentifierInfo newWithLinkItemIdentifier:v40 chopID:1];
       [array addObject:v6];
     }
 
-    host = [v40 host];
+    host = [v39 host];
     v8 = [host length];
 
     if (v8 && l)
     {
-      uRLByDeletingFragment = [(NSURL *)v42 URLByDeletingFragment];
-      v36 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:uRLByDeletingFragment resolvingAgainstBaseURL:0];
-      queryItems = [v36 queryItems];
+      uRLByDeletingFragment = [(NSURL *)v41 URLByDeletingFragment];
+      v35 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:uRLByDeletingFragment resolvingAgainstBaseURL:0];
+      queryItems = [v35 queryItems];
       firstObject = [queryItems firstObject];
 
       if (firstObject)
       {
-        v52[0] = firstObject;
-        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:1];
-        [v36 setQueryItems:v10];
+        v51[0] = firstObject;
+        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:1];
+        [v35 setQueryItems:v10];
 
-        v11 = v36;
+        v11 = v35;
       }
 
       else
       {
-        v11 = v36;
-        [v36 setQueryItems:0];
+        v11 = v35;
+        [v35 setQueryItems:0];
       }
 
-      v31 = [v11 URL];
-      v35 = [BCSLinkItemIdentifier identifierWithURL:v31];
-      if (v35)
-      {
-        v12 = [BCSChoppedItemIdentifierInfo newWithLinkItemIdentifier:v35 chopID:2];
-        [array addObject:{v12, v31}];
-      }
-
-      v37 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:uRLByDeletingFragment resolvingAgainstBaseURL:0];
-      [v37 setQueryItems:0];
-      v39 = [v37 URL];
-      v34 = [BCSLinkItemIdentifier identifierWithURL:v39];
+      v30 = [v11 URL];
+      v34 = [BCSLinkItemIdentifier identifierWithURL:v30];
       if (v34)
       {
-        v13 = [BCSChoppedItemIdentifierInfo newWithLinkItemIdentifier:v34 chopID:3];
+        v12 = [BCSChoppedItemIdentifierInfo newWithLinkItemIdentifier:v34 chopID:2];
+        [array addObject:{v12, v30}];
+      }
+
+      v36 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:uRLByDeletingFragment resolvingAgainstBaseURL:0];
+      [v36 setQueryItems:0];
+      v38 = [v36 URL];
+      v33 = [BCSLinkItemIdentifier identifierWithURL:v38];
+      if (v33)
+      {
+        v13 = [BCSChoppedItemIdentifierInfo newWithLinkItemIdentifier:v33 chopID:3];
         [array addObject:v13];
       }
 
-      lastPathComponent = [v39 lastPathComponent];
+      lastPathComponent = [v38 lastPathComponent];
       if ([lastPathComponent length])
       {
-        v15 = v39;
+        v15 = v38;
         do
         {
           lastPathComponent2 = [v15 lastPathComponent];
@@ -244,37 +242,35 @@
     }
 
     v27 = array;
-    v46 = 0;
-    v47 = &v46;
-    v48 = 0x3032000000;
-    v49 = __Block_byref_object_copy__4;
-    v50 = __Block_byref_object_dispose__4;
-    v51 = objc_opt_new();
-    v44[0] = 0;
-    v44[1] = v44;
-    v44[2] = 0x3032000000;
-    v44[3] = __Block_byref_object_copy__4;
-    v44[4] = __Block_byref_object_dispose__4;
-    v45 = objc_opt_new();
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __61__BCSQueryChopper__removeLinkItemDuplicatesInOrderFromArray___block_invoke;
-    v43[3] = &unk_278D39D20;
-    v43[4] = v44;
-    v43[5] = &v46;
-    [v27 enumerateObjectsUsingBlock:v43];
-    v28 = [v47[5] copy];
-    _Block_object_dispose(v44, 8);
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x3032000000;
+    v48 = __Block_byref_object_copy__4;
+    v49 = __Block_byref_object_dispose__4;
+    v50 = objc_opt_new();
+    v43[0] = 0;
+    v43[1] = v43;
+    v43[2] = 0x3032000000;
+    v43[3] = __Block_byref_object_copy__4;
+    v43[4] = __Block_byref_object_dispose__4;
+    v44 = objc_opt_new();
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __61__BCSQueryChopper__removeLinkItemDuplicatesInOrderFromArray___block_invoke;
+    v42[3] = &unk_278D39D20;
+    v42[4] = v43;
+    v42[5] = &v45;
+    [v27 enumerateObjectsUsingBlock:v42];
+    v28 = [v46[5] copy];
+    _Block_object_dispose(v43, 8);
 
-    _Block_object_dispose(&v46, 8);
+    _Block_object_dispose(&v45, 8);
   }
 
   else
   {
     v28 = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -347,7 +343,7 @@ void __122__BCSQueryChopper_queryChopperDelegate_fetchLinkItemModelWithURL_isBlo
 
 void __122__BCSQueryChopper_queryChopperDelegate_fetchLinkItemModelWithURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) end];
@@ -357,13 +353,13 @@ void __122__BCSQueryChopper_queryChopperDelegate_fetchLinkItemModelWithURL_isBlo
   {
     v9 = NSStringFromBOOL();
     *buf = 136315906;
-    v33 = "[BCSQueryChopper queryChopperDelegate:fetchLinkItemModelWithURL:isBloomFilterCached:forClientBundleID:metric:completion:]_block_invoke_2";
-    v34 = 2114;
-    v35 = v9;
-    v36 = 2048;
-    v37 = v7;
-    v38 = 2112;
-    v39 = v6;
+    v32 = "[BCSQueryChopper queryChopperDelegate:fetchLinkItemModelWithURL:isBloomFilterCached:forClientBundleID:metric:completion:]_block_invoke_2";
+    v33 = 2114;
+    v34 = v9;
+    v35 = 2048;
+    v36 = v7;
+    v37 = 2112;
+    v38 = v6;
     _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "%s - chop attempt found item: %{public}@ - itemPriority:%ld - error:%@", buf, 0x2Au);
   }
 
@@ -382,71 +378,68 @@ void __122__BCSQueryChopper_queryChopperDelegate_fetchLinkItemModelWithURL_isBlo
   block[1] = 3221225472;
   block[2] = __122__BCSQueryChopper_queryChopperDelegate_fetchLinkItemModelWithURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke_3;
   block[3] = &unk_278D39B68;
-  v19 = v5;
-  v20 = *(a1 + 64);
-  v31 = v7;
-  v21 = *(a1 + 72);
-  v22 = v6;
+  v18 = v5;
+  v19 = *(a1 + 64);
+  v30 = v7;
+  v20 = *(a1 + 72);
+  v21 = v6;
   v12 = *(a1 + 80);
-  v30 = *(a1 + 112);
+  v29 = *(a1 + 112);
   v13 = *(a1 + 40);
   v14 = *(a1 + 48);
-  v23 = v12;
-  v24 = v13;
-  v25 = v14;
-  v26 = *(a1 + 56);
-  v27 = *(a1 + 88);
-  v29 = *(a1 + 104);
-  v28 = *(a1 + 96);
+  v22 = v12;
+  v23 = v13;
+  v24 = v14;
+  v25 = *(a1 + 56);
+  v26 = *(a1 + 88);
+  v28 = *(a1 + 104);
+  v27 = *(a1 + 96);
   v15 = v6;
   v16 = v5;
   dispatch_async(v11, block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_indexOfItemIdentifierInfo:(void *)info inItemIdentifierInfos:
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   infoCopy = info;
   if (self)
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
-    v16 = 0x7FFFFFFFFFFFFFFFLL;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __68__BCSQueryChopper__indexOfItemIdentifierInfo_inItemIdentifierInfos___block_invoke;
-    v10[3] = &unk_278D39CA8;
-    v11 = v5;
-    v12 = &v13;
-    [infoCopy enumerateObjectsUsingBlock:v10];
-    self = v14[3];
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x2020000000;
+    v15 = 0x7FFFFFFFFFFFFFFFLL;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __68__BCSQueryChopper__indexOfItemIdentifierInfo_inItemIdentifierInfos___block_invoke;
+    v9[3] = &unk_278D39CA8;
+    v10 = v5;
+    v11 = &v12;
+    [infoCopy enumerateObjectsUsingBlock:v9];
+    self = v13[3];
     if (self == 0x7FFFFFFFFFFFFFFFLL)
     {
       v7 = ABSLogCommon();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v18 = "[BCSQueryChopper _indexOfItemIdentifierInfo:inItemIdentifierInfos:]";
+        v17 = "[BCSQueryChopper _indexOfItemIdentifierInfo:inItemIdentifierInfos:]";
         _os_log_error_impl(&dword_242072000, v7, OS_LOG_TYPE_ERROR, "%s - Index of item identifier not found", buf, 0xCu);
       }
 
       self = 0;
     }
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v12, 8);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return self;
 }
 
 void __122__BCSQueryChopper_queryChopperDelegate_fetchLinkItemModelWithURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke_3(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 128)];
@@ -512,9 +505,9 @@ LABEL_20:
     v23 = ABSLogCommon();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 136315138;
-      v26 = "[BCSQueryChopper queryChopperDelegate:fetchLinkItemModelWithURL:isBloomFilterCached:forClientBundleID:metric:completion:]_block_invoke";
-      _os_log_impl(&dword_242072000, v23, OS_LOG_TYPE_DEFAULT, "%s - all higher priority items queries have returned from server, return early", &v25, 0xCu);
+      v24 = 136315138;
+      v25 = "[BCSQueryChopper queryChopperDelegate:fetchLinkItemModelWithURL:isBloomFilterCached:forClientBundleID:metric:completion:]_block_invoke";
+      _os_log_impl(&dword_242072000, v23, OS_LOG_TYPE_DEFAULT, "%s - all higher priority items queries have returned from server, return early", &v24, 0xCu);
     }
 
     [(BCSQueryChopper *)*(a1 + 72) _returnHighestPriorityLinkItemWithItemIdentifiersToFetch:*(a1 + 48) fetchedItems:*(a1 + 64) fetchedErrors:*(a1 + 96) metric:*(a1 + 112) completion:?];
@@ -556,7 +549,6 @@ LABEL_19:
 
 LABEL_23:
   dispatch_group_leave(*(a1 + 104));
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_returnHighestPriorityLinkItemWithItemIdentifiersToFetch:(void *)fetch fetchedItems:(void *)items fetchedErrors:(void *)errors metric:(void *)metric completion:
@@ -599,7 +591,7 @@ LABEL_23:
 
 void __122__BCSQueryChopper_queryChopperDelegate_fetchLinkItemModelWithURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke_9(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = *(*(a1 + 80) + 8);
   if ((*(v1 + 24) & 1) == 0)
   {
@@ -607,21 +599,19 @@ void __122__BCSQueryChopper_queryChopperDelegate_fetchLinkItemModelWithURL_isBlo
     v3 = ABSLogCommon();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "[BCSQueryChopper queryChopperDelegate:fetchLinkItemModelWithURL:isBloomFilterCached:forClientBundleID:metric:completion:]_block_invoke";
-      _os_log_impl(&dword_242072000, v3, OS_LOG_TYPE_DEFAULT, "%s - All remote queries have finished, return", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[BCSQueryChopper queryChopperDelegate:fetchLinkItemModelWithURL:isBloomFilterCached:forClientBundleID:metric:completion:]_block_invoke";
+      _os_log_impl(&dword_242072000, v3, OS_LOG_TYPE_DEFAULT, "%s - All remote queries have finished, return", &v4, 0xCu);
     }
 
     [(BCSQueryChopper *)*(a1 + 32) _returnHighestPriorityLinkItemWithItemIdentifiersToFetch:*(a1 + 48) fetchedItems:*(a1 + 56) fetchedErrors:*(a1 + 64) metric:*(a1 + 72) completion:?];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryChopperDelegate:(id)delegate isBusinessRegisteredForURL:(id)l isBloomFilterCached:(BOOL)cached forClientBundleID:(id)d metric:(id)metric completion:(id)completion
 {
   cachedCopy = cached;
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   lCopy = l;
   dCopy = d;
@@ -640,8 +630,8 @@ void __122__BCSQueryChopper_queryChopperDelegate_fetchLinkItemModelWithURL_isBlo
     goto LABEL_27;
   }
 
-  v44 = [(BCSQueryChopper *)self _chopItemIdentifiersToFetchFromURL:lCopy isBloomFilterCached:cachedCopy];
-  if (![v44 count])
+  v43 = [(BCSQueryChopper *)self _chopItemIdentifiersToFetchFromURL:lCopy isBloomFilterCached:cachedCopy];
+  if (![v43 count])
   {
     v37 = ABSLogCommon();
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
@@ -656,66 +646,66 @@ void __122__BCSQueryChopper_queryChopperDelegate_fetchLinkItemModelWithURL_isBlo
     goto LABEL_26;
   }
 
-  v39 = dispatch_group_create();
+  v38 = dispatch_group_create();
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v86 = 0x3032000000;
-  v87 = __Block_byref_object_copy__4;
-  v88 = __Block_byref_object_dispose__4;
-  v89 = 0;
-  v80[0] = 0;
-  v80[1] = v80;
-  v80[2] = 0x2020000000;
-  v81 = 0;
+  v85 = 0x3032000000;
+  v86 = __Block_byref_object_copy__4;
+  v87 = __Block_byref_object_dispose__4;
+  v88 = 0;
   v79[0] = 0;
   v79[1] = v79;
   v79[2] = 0x2020000000;
-  v79[3] = 0;
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x3032000000;
-  v76 = __Block_byref_object_copy__4;
-  v77 = __Block_byref_object_dispose__4;
-  v78 = 0;
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3032000000;
-  v70 = __Block_byref_object_copy__4;
-  v71 = __Block_byref_object_dispose__4;
+  v80 = 0;
+  v78[0] = 0;
+  v78[1] = v78;
+  v78[2] = 0x2020000000;
+  v78[3] = 0;
   v72 = 0;
+  v73 = &v72;
+  v74 = 0x3032000000;
+  v75 = __Block_byref_object_copy__4;
+  v76 = __Block_byref_object_dispose__4;
+  v77 = 0;
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x3032000000;
+  v69 = __Block_byref_object_copy__4;
+  v70 = __Block_byref_object_dispose__4;
+  v71 = 0;
   if (!MEMORY[0x245D06CC0]("[BCSQueryChopper queryChopperDelegate:isBusinessRegisteredForURL:isBloomFilterCached:forClientBundleID:metric:completion:]"))
   {
     goto LABEL_20;
   }
 
-  v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v44, "count")}];
-  v17 = v74[5];
-  v74[5] = v16;
+  v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v43, "count")}];
+  v17 = v73[5];
+  v73[5] = v16;
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
-  v18 = v44;
-  v19 = [v18 countByEnumeratingWithState:&v63 objects:v84 count:16];
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v18 = v43;
+  v19 = [v18 countByEnumeratingWithState:&v62 objects:v83 count:16];
   if (!v19)
   {
     goto LABEL_19;
   }
 
-  v20 = *v64;
+  v20 = *v63;
   do
   {
     v21 = 0;
     do
     {
-      if (*v64 != v20)
+      if (*v63 != v20)
       {
         objc_enumerationMutation(v18);
       }
 
-      v22 = *(*(&v63 + 1) + 8 * v21);
-      v23 = v74[5];
+      v22 = *(*(&v62 + 1) + 8 * v21);
+      v23 = v73[5];
       if (v22)
       {
         v24 = *(v22 + 8);
@@ -742,40 +732,40 @@ LABEL_14:
     }
 
     while (v19 != v21);
-    v29 = [v18 countByEnumeratingWithState:&v63 objects:v84 count:16];
+    v29 = [v18 countByEnumeratingWithState:&v62 objects:v83 count:16];
     v19 = v29;
   }
 
   while (v29);
 LABEL_19:
 
-  v30 = v74[5];
-  v82 = @"BCSBusinessQueryServiceChoppedURLs";
-  v83 = v30;
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
-  v32 = v68[5];
-  v68[5] = v31;
+  v30 = v73[5];
+  v81 = @"BCSBusinessQueryServiceChoppedURLs";
+  v82 = v30;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+  v32 = v67[5];
+  v67[5] = v31;
 
 LABEL_20:
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __123__BCSQueryChopper_queryChopperDelegate_isBusinessRegisteredForURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke;
-  v51[3] = &unk_278D39C58;
-  v33 = v39;
-  v52 = v33;
-  v53 = dCopy;
-  v54 = delegateCopy;
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __123__BCSQueryChopper_queryChopperDelegate_isBusinessRegisteredForURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke;
+  v50[3] = &unk_278D39C58;
+  v33 = v38;
+  v51 = v33;
+  v52 = dCopy;
+  v53 = delegateCopy;
   selfCopy = self;
+  v57 = v78;
   v58 = v79;
-  v59 = v80;
   v34 = metricCopy;
-  v56 = v34;
-  v60 = &v73;
+  v55 = v34;
+  v59 = &v72;
   v35 = completionCopy;
-  v57 = v35;
-  v61 = &v67;
+  v56 = v35;
+  v60 = &v66;
   p_buf = &buf;
-  [v44 enumerateObjectsUsingBlock:v51];
+  [v43 enumerateObjectsUsingBlock:v50];
   if (self)
   {
     serialDispatchQueue = self->_serialDispatchQueue;
@@ -790,24 +780,22 @@ LABEL_20:
   block[1] = 3221225472;
   block[2] = __123__BCSQueryChopper_queryChopperDelegate_isBusinessRegisteredForURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke_2_17;
   block[3] = &unk_278D39C80;
-  v48 = v80;
-  v46 = v34;
-  v47 = v35;
-  v49 = &v67;
-  v50 = &buf;
+  v47 = v79;
+  v45 = v34;
+  v46 = v35;
+  v48 = &v66;
+  v49 = &buf;
   dispatch_group_notify(v33, serialDispatchQueue, block);
 
-  _Block_object_dispose(&v67, 8);
-  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(&v72, 8);
 
+  _Block_object_dispose(v78, 8);
   _Block_object_dispose(v79, 8);
-  _Block_object_dispose(v80, 8);
   _Block_object_dispose(&buf, 8);
 
 LABEL_26:
 LABEL_27:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __123__BCSQueryChopper_queryChopperDelegate_isBusinessRegisteredForURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -847,7 +835,7 @@ void __123__BCSQueryChopper_queryChopperDelegate_isBusinessRegisteredForURL_isBl
 
 void __123__BCSQueryChopper_queryChopperDelegate_isBusinessRegisteredForURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [a2 hasBusiness];
   ++*(*(*(a1 + 72) + 8) + 24);
@@ -857,13 +845,13 @@ void __123__BCSQueryChopper_queryChopperDelegate_isBusinessRegisteredForURL_isBl
     v8 = NSStringFromBOOL();
     v9 = *(*(*(a1 + 72) + 8) + 24);
     *buf = 136315906;
-    v31 = "[BCSQueryChopper queryChopperDelegate:isBusinessRegisteredForURL:isBloomFilterCached:forClientBundleID:metric:completion:]_block_invoke_2";
-    v32 = 2114;
-    v33 = v8;
-    v34 = 2048;
-    v35 = v9;
-    v36 = 2112;
-    v37 = v5;
+    v30 = "[BCSQueryChopper queryChopperDelegate:isBusinessRegisteredForURL:isBloomFilterCached:forClientBundleID:metric:completion:]_block_invoke_2";
+    v31 = 2114;
+    v32 = v8;
+    v33 = 2048;
+    v34 = v9;
+    v35 = 2112;
+    v36 = v5;
     _os_log_impl(&dword_242072000, v7, OS_LOG_TYPE_DEFAULT, "%s - chop attempt isBusinessRegistered: %{public}@ - attemptCount:%ld - error:%@", buf, 0x2Au);
   }
 
@@ -882,27 +870,25 @@ void __123__BCSQueryChopper_queryChopperDelegate_isBusinessRegisteredForURL_isBl
   block[1] = 3221225472;
   block[2] = __123__BCSQueryChopper_queryChopperDelegate_isBusinessRegisteredForURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke_11;
   block[3] = &unk_278D39C08;
-  v29 = v6;
-  v19 = *(a1 + 80);
-  v22 = *(a1 + 40);
+  v28 = v6;
+  v18 = *(a1 + 80);
+  v21 = *(a1 + 40);
   v12 = *(a1 + 48);
   v13 = *(a1 + 112);
-  v23 = v12;
-  v28 = v13;
-  *&v14 = v19;
+  v22 = v12;
+  v27 = v13;
+  *&v14 = v18;
   *(&v14 + 1) = *(a1 + 88);
-  v20 = v14;
+  v19 = v14;
   v15 = *(a1 + 64);
-  v24 = v5;
-  v27 = *(a1 + 96);
+  v23 = v5;
+  v26 = *(a1 + 96);
   *&v16 = *(a1 + 56);
   *(&v16 + 1) = v15;
-  v25 = v16;
-  v26 = v20;
+  v24 = v16;
+  v25 = v19;
   v17 = v5;
   dispatch_async(v11, block);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __123__BCSQueryChopper_queryChopperDelegate_isBusinessRegisteredForURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke_11(uint64_t a1)
@@ -942,29 +928,28 @@ void __123__BCSQueryChopper_queryChopperDelegate_isBusinessRegisteredForURL_isBl
       [*(*(*(a1 + 80) + 8) + 40) replaceObjectAtIndex:*(a1 + 104) withObject:v8];
     }
 
-    v9 = *(*(*(a1 + 88) + 8) + 40);
-    v10 = *(*(a1 + 64) + 16);
+    v9 = *(*(a1 + 64) + 16);
 
-    v10();
+    v9();
   }
 
   else
   {
-    v11 = *(a1 + 48);
-    if (v11)
+    v10 = *(a1 + 48);
+    if (v10)
     {
-      objc_storeStrong((*(*(a1 + 96) + 8) + 40), v11);
+      objc_storeStrong((*(*(a1 + 96) + 8) + 40), v10);
     }
 
-    v12 = *(a1 + 56);
+    v11 = *(a1 + 56);
 
-    dispatch_group_leave(v12);
+    dispatch_group_leave(v11);
   }
 }
 
 uint64_t __123__BCSQueryChopper_queryChopperDelegate_isBusinessRegisteredForURL_isBloomFilterCached_forClientBundleID_metric_completion___block_invoke_2_17(uint64_t result)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = *(*(result + 48) + 8);
   if ((*(v1 + 24) & 1) == 0)
   {
@@ -973,18 +958,15 @@ uint64_t __123__BCSQueryChopper_queryChopperDelegate_isBusinessRegisteredForURL_
     v3 = ABSLogCommon();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[BCSQueryChopper queryChopperDelegate:isBusinessRegisteredForURL:isBloomFilterCached:forClientBundleID:metric:completion:]_block_invoke_2";
-      _os_log_impl(&dword_242072000, v3, OS_LOG_TYPE_DEFAULT, "%s - All queries have finished, return", &v7, 0xCu);
+      v4 = 136315138;
+      v5 = "[BCSQueryChopper queryChopperDelegate:isBusinessRegisteredForURL:isBloomFilterCached:forClientBundleID:metric:completion:]_block_invoke_2";
+      _os_log_impl(&dword_242072000, v3, OS_LOG_TYPE_DEFAULT, "%s - All queries have finished, return", &v4, 0xCu);
     }
 
     [*(v2 + 32) setSuccessfulChop:-1];
-    v4 = *(*(*(v2 + 56) + 8) + 40);
-    v5 = *(*(*(v2 + 64) + 8) + 40);
-    result = (*(*(v2 + 40) + 16))();
+    return (*(*(v2 + 40) + 16))();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1047,7 +1029,7 @@ void __121__BCSQueryChopper__returnHighestPriorityLinkItemWithItemIdentifiersToF
   [v8 enumerateObjectsUsingBlock:v18];
 }
 
-void __121__BCSQueryChopper__returnHighestPriorityLinkItemWithItemIdentifiersToFetch_fetchedItems_fetchedErrors_metric_completion___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __121__BCSQueryChopper__returnHighestPriorityLinkItemWithItemIdentifiersToFetch_fetchedItems_fetchedErrors_metric_completion___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3, _BYTE *a4)
 {
   v20 = a2;
   v7 = [MEMORY[0x277CBEB68] null];
@@ -1093,7 +1075,7 @@ void __121__BCSQueryChopper__returnHighestPriorityLinkItemWithItemIdentifiersToF
   if ((*(*(*(a1 + 80) + 8) + 24) & 1) == 0)
   {
     v15 = *(a1 + 96);
-    if (v15 == [*(a1 + 48) count] - 1 && objc_msgSend(*(a1 + 56), "count") - 1 == a3)
+    if (v15 == [*(a1 + 48) count] - 1 && (objc_msgSend(*(a1 + 56), "count") - 1) == a3)
     {
       v16 = [*(a1 + 64) objectAtIndex:a3];
       [*(a1 + 40) setSuccessfulChop:-1];

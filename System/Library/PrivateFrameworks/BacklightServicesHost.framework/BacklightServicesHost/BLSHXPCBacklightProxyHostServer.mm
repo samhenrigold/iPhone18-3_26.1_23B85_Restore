@@ -105,7 +105,7 @@ void __54__BLSHXPCBacklightProxyHostServer_domainSpecification__block_invoke()
     v20 = bls_backlight_log();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      [(BLSHXPCBacklightProxyHostServer *)v17 initWithLocalBacklightProxy:?];
+      [BLSHXPCBacklightProxyHostServer initWithLocalBacklightProxy:];
     }
 
     [v17[2] activate];
@@ -208,85 +208,65 @@ uint64_t __77__BLSHXPCBacklightProxyHostServer_listener_didReceiveConnection_wit
 
 + (void)serverWithLocalBacklightProxy:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_4(&dword_21FD11000, v0, v1, "did startServer:%{public}@ withLocalBacklightProxy:%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __54__BLSHXPCBacklightProxyHostServer_domainSpecification__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_fault_impl(&dword_21FD11000, v1, OS_LOG_TYPE_FAULT, "if we own the defaultShellMachName:%{public}@ then BacklightServices.backlight must be registered there not:%@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_fault_impl(&dword_21FD11000, v1, OS_LOG_TYPE_FAULT, "if we own the defaultShellMachName:%{public}@ then BacklightServices.backlight must be registered there not:%@", v2, 0x16u);
 }
 
 - (void)initWithLocalBacklightProxy:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 identifier];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "%{public}@ init with domain:%{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithLocalBacklightProxy:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_4(&dword_21FD11000, v3, v4, "%p init with listener:%{public}@");
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "%{public}@ init with domain:%{public}@", &v6, 0x16u);
 }
 
 void __63__BLSHXPCBacklightProxyHostServer_initWithLocalBacklightProxy___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "%p did config", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "%p did config", &v3, 0xCu);
 }
 
 - (void)listener:didReceiveConnection:withContext:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_4(&dword_21FD11000, v0, v1, "%p did activate peer:%{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __77__BLSHXPCBacklightProxyHostServer_listener_didReceiveConnection_withContext___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 134218242;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 134218242;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_0_4(&dword_21FD11000, v1, v2, "%p did configure connection:%{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_4(&dword_21FD11000, v1, v2, "%p did configure connection:%{public}@", v3, DWORD2(v3));
 }
 
 void __77__BLSHXPCBacklightProxyHostServer_listener_didReceiveConnection_withContext___block_invoke_8_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(*(*(a1 + 48) + 8) + 40);
-  v5 = 134218242;
-  v6 = v2;
-  v7 = 2114;
-  v8 = v3;
-  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "%p did invalidate connection for interfaceTarget:%{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = v2;
+  v6 = 2114;
+  v7 = v3;
+  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "%p did invalidate connection for interfaceTarget:%{public}@", &v4, 0x16u);
 }
 
 @end

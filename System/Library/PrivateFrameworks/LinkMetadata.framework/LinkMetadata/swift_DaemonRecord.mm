@@ -19,7 +19,7 @@
 
 - (NSString)bundleIdentifier
 {
-  DaemonRecord.bundleIdentifier.getter();
+  DaemonRecord.bundleIdentifier.getter(self);
   v2 = sub_18F093B5C();
 
   return v2;
@@ -43,11 +43,11 @@
 
 + (NSArray)enumerated
 {
-  swift_getObjCClassMetadata();
-  static DaemonRecord.enumerated.getter();
-  v2 = sub_18F093DBC();
+  ObjCClassMetadata = swift_getObjCClassMetadata();
+  static DaemonRecord.enumerated.getter(ObjCClassMetadata);
+  v3 = sub_18F093DBC();
 
-  return v2;
+  return v3;
 }
 
 + (void)setEnumerated:(id)enumerated

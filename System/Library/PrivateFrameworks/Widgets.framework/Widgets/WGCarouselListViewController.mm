@@ -745,7 +745,7 @@ LABEL_7:
 LABEL_14:
           *v42 = 0u;
           memset(buf, 0, sizeof(buf));
-          [v23 transform];
+          objc_msgSend_transform(v23);
           v25 = *(MEMORY[0x277CBF2C0] + 16);
           v37 = *MEMORY[0x277CBF2C0];
           v38 = v25;
@@ -972,9 +972,9 @@ void __71__WGCarouselListViewController__animatablePropertiesForStackViewUpdate_
 
 - (void)_updateCarouselEffect
 {
-  *buf = 0;
-  *a2 = 0;
-  _os_log_debug_impl(&dword_27425E000, log, OS_LOG_TYPE_DEBUG, "setting alpha to 1 because favorited || header", buf, 2u);
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = self;
+  OUTLINED_FUNCTION_0_2(&dword_27425E000, a2, a3, "WGCarouselListViewController updated %d cells", a5, a6, a7, a8, v8);
 }
 
 - (void)_updateRevealState
@@ -1857,6 +1857,20 @@ uint64_t __70__WGCarouselListViewController_widgetPinningTeachingViewDidSelectYe
   result.pinned = BYTE2(v4);
   result.carouselEdges = carouselEdges;
   return result;
+}
+
+- (void)setRevealed:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_27425E000, a2, a3, "Setting carousel list to reveal: %{BOOL}u", a5, a6, a7, a8, v8);
+}
+
+- (void)setVisuallyRevealed:(uint64_t)a3 withSlowAnimation:(uint64_t)a4 .cold.1(unsigned __int8 *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  OUTLINED_FUNCTION_0_2(&dword_27425E000, a2, a3, "Setting carousel list to visuallyRevealed: %{BOOL}u", a5, a6, a7, a8, v8);
 }
 
 - (void)_animatablePropertiesForStackViewUpdate

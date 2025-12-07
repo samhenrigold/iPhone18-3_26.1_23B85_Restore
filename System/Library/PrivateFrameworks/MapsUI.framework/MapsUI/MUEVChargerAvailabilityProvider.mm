@@ -39,7 +39,6 @@
   v5 = OBJC_IVAR____TtC6MapsUI31MUEVChargerAvailabilityProvider_isActive;
   swift_beginAccess();
   *(&self->super.isa + v5) = active;
-  v6 = *(&self->super.isa + OBJC_IVAR____TtC6MapsUI31MUEVChargerAvailabilityProvider_availabilityRefresher);
   selfCopy = self;
   EVChargerAvailabilityDownloader.isActive.setter(active);
 }

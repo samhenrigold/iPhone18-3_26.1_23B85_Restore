@@ -34,7 +34,7 @@
 
   v6 = JSAccount.isEqual(_:)(v8);
 
-  sub_1000095E8(v8, &unk_101183F30);
+  sub_1000095E8(v8, &unk_101183F30, qword_100EBF960);
   return v6 & 1;
 }
 

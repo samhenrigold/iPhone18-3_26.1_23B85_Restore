@@ -203,7 +203,7 @@
 
   else
   {
-    [BWAudioSplitNode didSelectFormat:forInput:forAttachedMediaKey:];
+    [(BWAudioSplitNode *)self didSelectFormat:a2 forInput:0 forAttachedMediaKey:input, key];
   }
 }
 
@@ -222,216 +222,245 @@
     return 0;
   }
 
-  v65 = 0;
+  v79 = 0;
   blockBufferOut = 0;
-  sampleSizeArray = 0;
-  v64 = 0;
-  v62 = 0;
+  v77 = 0;
+  v78 = 0;
+  v76 = 0;
   memset(&timingInfoOut, 0, sizeof(timingInfoOut));
   if (!sbuf || !buffer || !format1 || !buffer1 || !format2)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_11();
-LABEL_42:
-    FigDebugAssert3();
-    v22 = 0;
-LABEL_46:
-    v51 = 0;
-    goto LABEL_31;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+    goto LABEL_43;
   }
 
   SampleTimingInfo = CMSampleBufferGetSampleTimingInfo(sbuf, 0, &timingInfoOut);
-  if (SampleTimingInfo)
+  if (!SampleTimingInfo)
   {
-    v51 = SampleTimingInfo;
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_1_6();
-    FigDebugAssert3();
-    v22 = 0;
-    goto LABEL_31;
-  }
-
-  v12 = CMSampleBufferGetFormatDescription(sbuf);
-  if (!v12 || (StreamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(v12)) == 0 || (mBytesPerFrame = StreamBasicDescription->mBytesPerFrame, mChannelsPerFrame = StreamBasicDescription->mChannelsPerFrame, (v16 = CMAudioFormatDescriptionGetStreamBasicDescription(buffer)) == 0) || (v57 = format1, v17 = v16->mBytesPerFrame, v18 = v16->mChannelsPerFrame, (v19 = CMAudioFormatDescriptionGetStreamBasicDescription(buffer1)) == 0) || (v20 = v19->mChannelsPerFrame, v20 + v18 != mChannelsPerFrame))
-  {
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_1_11();
-    goto LABEL_42;
-  }
-
-  format2Copy = format2;
-  v21 = v19->mBytesPerFrame;
-  v22 = malloc_type_malloc((16 * mChannelsPerFrame) | 8, 0x10800404ACF7207uLL);
-  if (!v22)
-  {
-    goto LABEL_45;
-  }
-
-  AudioBufferListWithRetainedBlockBuffer = CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(sbuf, 0, v22, (16 * mChannelsPerFrame) | 8, 0, 0, 1u, &blockBufferOut);
-  if (AudioBufferListWithRetainedBlockBuffer)
-  {
-LABEL_47:
-    v51 = AudioBufferListWithRetainedBlockBuffer;
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_0_48();
-LABEL_52:
-    FigDebugAssert3();
-    goto LABEL_31;
-  }
-
-  if (v22->mNumberBuffers != mChannelsPerFrame)
-  {
-LABEL_45:
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_2_52();
-    FigDebugAssert3();
-    goto LABEL_46;
-  }
-
-  NumSamples = CMSampleBufferGetNumSamples(sbuf);
-  v62 = v21;
-  sampleSizeArray = v17;
-  AudioBufferListWithRetainedBlockBuffer = OUTLINED_FUNCTION_4_40(NumSamples * v17, &v65, sampleTimingArray);
-  if (AudioBufferListWithRetainedBlockBuffer)
-  {
-    goto LABEL_47;
-  }
-
-  AudioBufferListWithRetainedBlockBuffer = OUTLINED_FUNCTION_4_40(NumSamples * v21, &v64, sampleTimingArraya);
-  if (AudioBufferListWithRetainedBlockBuffer)
-  {
-    goto LABEL_47;
-  }
-
-  v59 = 0;
-  dataPointerOut = 0;
-  DataPointer = CMBlockBufferGetDataPointer(v65, 0, 0, 0, &dataPointerOut);
-  if (DataPointer)
-  {
-    v51 = DataPointer;
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_0_48();
-    goto LABEL_52;
-  }
-
-  v26 = CMBlockBufferGetDataPointer(v64, 0, 0, 0, &v59);
-  if (v26)
-  {
-    v51 = v26;
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_0_48();
-    goto LABEL_52;
-  }
-
-  formatDescription = buffer1;
-  v58 = v22;
-  if (NumSamples)
-  {
-    v27 = 0;
-    p_mData = &v22->mBuffers[0].mData;
-    v29 = &v22->mBuffers[v18].mData;
-    do
+    v13 = CMSampleBufferGetFormatDescription(sbuf);
+    if (v13)
     {
-      v30 = v27 * mBytesPerFrame;
-      if (v18)
+      StreamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(v13);
+      if (StreamBasicDescription)
       {
-        v31 = dataPointerOut;
-        v32 = p_mData;
-        v33 = v18;
-        do
+        mBytesPerFrame = StreamBasicDescription->mBytesPerFrame;
+        mChannelsPerFrame = StreamBasicDescription->mChannelsPerFrame;
+        v17 = CMAudioFormatDescriptionGetStreamBasicDescription(buffer);
+        if (v17)
         {
-          v34 = *v32;
-          v32 += 2;
-          memcpy(v31, &v34[v30], mBytesPerFrame);
-          v31 = &dataPointerOut[mBytesPerFrame];
-          dataPointerOut += mBytesPerFrame;
-          --v33;
+          format1Copy = format1;
+          v18 = v17->mBytesPerFrame;
+          v19 = v17->mChannelsPerFrame;
+          v20 = CMAudioFormatDescriptionGetStreamBasicDescription(buffer1);
+          if (v20)
+          {
+            v21 = v20->mChannelsPerFrame;
+            if (v21 + v19 == mChannelsPerFrame)
+            {
+              format2Copy = format2;
+              v22 = v20->mBytesPerFrame;
+              v23 = malloc_type_malloc((16 * mChannelsPerFrame) | 8, 0x10800404ACF7207uLL);
+              if (v23)
+              {
+                AudioBufferListWithRetainedBlockBuffer = CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(sbuf, 0, v23, (16 * mChannelsPerFrame) | 8, 0, 0, 1u, &blockBufferOut);
+                if (AudioBufferListWithRetainedBlockBuffer)
+                {
+LABEL_48:
+                  v53 = AudioBufferListWithRetainedBlockBuffer;
+                  fig_log_get_emitter();
+                  OUTLINED_FUNCTION_0_48();
+                  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+                  goto LABEL_32;
+                }
+
+                if (v23->mNumberBuffers == mChannelsPerFrame)
+                {
+                  NumSamples = CMSampleBufferGetNumSamples(sbuf);
+                  v76 = v22;
+                  v77 = v18;
+                  v26 = *MEMORY[0x1E695E480];
+                  AudioBufferListWithRetainedBlockBuffer = OUTLINED_FUNCTION_4_40(NumSamples * v18, &v79, sampleTimingArray);
+                  if (!AudioBufferListWithRetainedBlockBuffer)
+                  {
+                    AudioBufferListWithRetainedBlockBuffer = OUTLINED_FUNCTION_4_40(NumSamples * v22, &v78, sampleTimingArraya);
+                    if (!AudioBufferListWithRetainedBlockBuffer)
+                    {
+                      v73 = 0;
+                      dataPointerOut = 0;
+                      DataPointer = CMBlockBufferGetDataPointer(v79, 0, 0, 0, &dataPointerOut);
+                      if (DataPointer)
+                      {
+                        v53 = DataPointer;
+                        fig_log_get_emitter();
+                        OUTLINED_FUNCTION_0_48();
+                        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+                      }
+
+                      else
+                      {
+                        v28 = CMBlockBufferGetDataPointer(v78, 0, 0, 0, &v73);
+                        if (v28)
+                        {
+                          v53 = v28;
+                          fig_log_get_emitter();
+                          OUTLINED_FUNCTION_0_48();
+                          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+                        }
+
+                        else
+                        {
+                          formatDescriptiona = buffer1;
+                          v69 = v26;
+                          v72 = v23;
+                          if (NumSamples)
+                          {
+                            v29 = 0;
+                            p_mData = &v23->mBuffers[0].mData;
+                            v31 = &v23->mBuffers[v19].mData;
+                            do
+                            {
+                              v32 = v29 * mBytesPerFrame;
+                              if (v19)
+                              {
+                                v33 = dataPointerOut;
+                                v34 = p_mData;
+                                v35 = v19;
+                                do
+                                {
+                                  v36 = *v34;
+                                  v34 += 2;
+                                  memcpy(v33, &v36[v32], mBytesPerFrame);
+                                  v33 = &dataPointerOut[mBytesPerFrame];
+                                  dataPointerOut += mBytesPerFrame;
+                                  --v35;
+                                }
+
+                                while (v35);
+                              }
+
+                              if (v21)
+                              {
+                                v37 = v73;
+                                v38 = v31;
+                                v39 = v21;
+                                do
+                                {
+                                  v40 = *v38;
+                                  v38 += 2;
+                                  memcpy(v37, (v40 + v32), mBytesPerFrame);
+                                  v37 = &v73[mBytesPerFrame];
+                                  v73 += mBytesPerFrame;
+                                  --v39;
+                                }
+
+                                while (v39);
+                              }
+
+                              ++v29;
+                            }
+
+                            while (v29 != NumSamples);
+                          }
+
+                          v41 = OUTLINED_FUNCTION_5_41();
+                          v47 = CMSampleBufferCreate(v41, v42, v43, v44, v45, v46, NumSamples, 1, &timingInfoOut, 1, &v77, format1Copy);
+                          if (v47)
+                          {
+                            v53 = v47;
+                            fig_log_get_emitter();
+                            OUTLINED_FUNCTION_0_48();
+                            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", sampleTimingArrayb, v59, sampleSizeArraya, v63, v64, v6, formatDescriptiona, v69);
+                            v23 = v72;
+                          }
+
+                          else
+                          {
+                            v48 = OUTLINED_FUNCTION_5_41();
+                            v53 = CMSampleBufferCreate(v48, v49, v50, v51, v52, formatDescriptiona, NumSamples, 1, &timingInfoOut, 1, &v76, format2Copy);
+                            v23 = v72;
+                            if (v53)
+                            {
+                              fig_log_get_emitter();
+                              OUTLINED_FUNCTION_0_48();
+                              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+                            }
+                          }
+                        }
+                      }
+
+                      goto LABEL_32;
+                    }
+                  }
+
+                  goto LABEL_48;
+                }
+              }
+
+              fig_log_get_emitter();
+              OUTLINED_FUNCTION_2_52();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+              goto LABEL_47;
+            }
+          }
         }
-
-        while (v33);
       }
-
-      if (v20)
-      {
-        v35 = v59;
-        v36 = v29;
-        v37 = v20;
-        do
-        {
-          v38 = *v36;
-          v36 += 2;
-          memcpy(v35, (v38 + v30), mBytesPerFrame);
-          v35 = &v59[mBytesPerFrame];
-          v59 += mBytesPerFrame;
-          --v37;
-        }
-
-        while (v37);
-      }
-
-      ++v27;
     }
 
-    while (v27 != NumSamples);
-  }
-
-  v39 = OUTLINED_FUNCTION_5_41();
-  v45 = CMSampleBufferCreate(v39, v40, v41, v42, v43, v44, NumSamples, 1, &timingInfoOut, 1, &sampleSizeArray, v57);
-  if (v45)
-  {
-    v51 = v45;
     fig_log_get_emitter();
-    OUTLINED_FUNCTION_0_48();
-    FigDebugAssert3();
-    v22 = v58;
-    goto LABEL_31;
+    OUTLINED_FUNCTION_1_11();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+LABEL_43:
+    v23 = 0;
+LABEL_47:
+    v53 = 0;
+    goto LABEL_32;
   }
 
-  v46 = OUTLINED_FUNCTION_5_41();
-  v51 = CMSampleBufferCreate(v46, v47, v48, v49, v50, formatDescription, NumSamples, 1, &timingInfoOut, 1, &v62, format2Copy);
-  v22 = v58;
-  if (v51)
-  {
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_0_48();
-    goto LABEL_52;
-  }
-
-LABEL_31:
+  v53 = SampleTimingInfo;
+  fig_log_get_emitter();
+  OUTLINED_FUNCTION_1_6();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v53, v58, sampleSizeArray, v62, v64, v65, formatDescription, v68);
+  v23 = 0;
+LABEL_32:
   if (blockBufferOut)
   {
     CFRelease(blockBufferOut);
   }
 
-  if (v65)
+  if (v79)
   {
-    CFRelease(v65);
+    CFRelease(v79);
   }
 
-  if (v64)
+  if (v78)
   {
-    CFRelease(v64);
+    CFRelease(v78);
   }
 
-  free(v22);
-  return v51;
+  free(v23);
+  return v53;
 }
 
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
 {
-  v5 = 0;
+  v9 = 0;
   cf = 0;
-  if ([(BWAudioSplitNode *)self _createSplitAndInterleaveFromSampleBuffer:buffer outputFormat1:[(BWFormat *)[(BWNodeOutput *)self->_output1 format:buffer] formatDescription] outputBuffer1:&cf outputFormat2:[(BWFormat *)[(BWNodeOutput *)self->_output2 format] formatDescription] outputBuffer2:&v5])
+  v5 = [(BWAudioSplitNode *)self _createSplitAndInterleaveFromSampleBuffer:buffer outputFormat1:[(BWFormat *)[(BWNodeOutput *)self->_output1 format:buffer] formatDescription] outputBuffer1:&cf outputFormat2:[(BWFormat *)[(BWNodeOutput *)self->_output2 format] formatDescription] outputBuffer2:&v9];
+  if (v5)
   {
+    v6 = v5;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_6();
-    FigDebugAssert3();
+    v7 = v6;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v8, v9, cf, v11, v12, v13, v14);
   }
 
   else
   {
     [(BWNodeOutput *)self->_output1 emitSampleBuffer:cf];
-    [(BWNodeOutput *)self->_output2 emitSampleBuffer:v5];
+    [(BWNodeOutput *)self->_output2 emitSampleBuffer:v9];
   }
 
   if (cf)
@@ -439,29 +468,22 @@ LABEL_31:
     CFRelease(cf);
   }
 
-  if (v5)
+  if (v9)
   {
-    CFRelease(v5);
+    CFRelease(v9);
   }
 }
 
-- (void)initWithInputChannelLayoutTag:(void *)a1 output1ChannelLayoutTag:(uint64_t)a2 output2ChannelLayoutTag:(void *)a3 .cold.1(void *a1, uint64_t a2, void *a3)
+- (void)initWithInputChannelLayoutTag:(void *)a1 output1ChannelLayoutTag:(void *)a2 output2ChannelLayoutTag:(void *)a3 .cold.1(void *a1, void *a2, void *a3)
 {
-  fig_log_get_emitter();
-  if (FigSignalErrorAtGM())
+  emitter = fig_log_get_emitter();
+  if (FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWAudioSplitNode >>>>", a2, v3, v8, v9, v10))
   {
 
     a1 = 0;
   }
 
   *a3 = a1;
-}
-
-- (uint64_t)didSelectFormat:forInput:forAttachedMediaKey:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

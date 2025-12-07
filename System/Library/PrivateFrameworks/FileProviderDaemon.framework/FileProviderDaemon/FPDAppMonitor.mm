@@ -13,7 +13,6 @@
 - (void)_populateListOfMonitoredApps;
 - (void)_updateDefaultProviderByAppBundleID;
 - (void)dumpStateTo:(id)to;
-- (void)listOfPlaceholderApps;
 - (void)startMonitoring;
 - (void)stopMonitoring;
 @end
@@ -22,10 +21,47 @@
 
 - (void)startMonitoring
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] %@ start monitoring app updates", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  obj = self;
+  objc_sync_enter(obj);
+  if ([(FPDAppMonitor *)obj isMonitoring])
+  {
+    objc_sync_exit(obj);
+  }
+
+  else
+  {
+    v2 = fp_current_or_default_log();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    {
+      [FPDAppMonitor startMonitoring];
+    }
+
+    [(FPDAppMonitor *)obj setMonitoring:1];
+    objc_sync_exit(obj);
+
+    _updateDefaultProviderDomainID = [(FPDAppMonitor *)obj _updateDefaultProviderDomainID];
+    [(FPDAppMonitor *)obj _updateDefaultProviderByAppBundleID];
+    defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
+    [defaultCenter addObserver:obj selector:sel__didRegisterApps_ name:@"com.apple.LaunchServices.applicationRegistered" object:0 suspensionBehavior:3];
+    [defaultCenter addObserver:obj selector:sel__didUnregisterApps_ name:@"com.apple.LaunchServices.applicationUnregistered" object:0 suspensionBehavior:3];
+    defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter2 addObserver:obj selector:sel__didChangeLocale_ name:*MEMORY[0x1E695D8F0] object:0];
+    fp_libnotifyPerUserNotificationName = [@"com.apple.fileprovider.providers-changed" fp_libnotifyPerUserNotificationName];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __32__FPDAppMonitor_startMonitoring__block_invoke;
+    v9[3] = &unk_1E83BF710;
+    v9[4] = obj;
+    obj->_didChangeProvidersToken = [(FPDAppMonitor *)obj _registerForNotification:fp_libnotifyPerUserNotificationName handler:v9];
+
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __32__FPDAppMonitor_startMonitoring__block_invoke_2;
+    v8[3] = &unk_1E83BF710;
+    v8[4] = obj;
+    obj->_didChangeDefaultProviderToken = [(FPDAppMonitor *)obj _registerForNotification:@"com.apple.DocumentManager.DOCDefaultSaveLocationDidChangeNotification" handler:v8];
+    [(FPDAppMonitor *)obj _populateListOfMonitoredApps];
+  }
 }
 
 - (FPDAppMonitor)initWithServer:(id)server
@@ -67,15 +103,47 @@
 
 - (void)stopMonitoring
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] %@ stop monitoring app updates", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  obj = self;
+  objc_sync_enter(obj);
+  if ([(FPDAppMonitor *)obj isMonitoring])
+  {
+    v2 = fp_current_or_default_log();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    {
+      [FPDAppMonitor stopMonitoring];
+    }
+
+    [(FPDAppMonitor *)obj setMonitoring:0];
+    objc_sync_exit(obj);
+
+    defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
+    [defaultCenter removeObserver:obj];
+    defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter2 removeObserver:obj];
+    didChangeDefaultProviderToken = obj->_didChangeDefaultProviderToken;
+    if (didChangeDefaultProviderToken != -1)
+    {
+      notify_cancel(didChangeDefaultProviderToken);
+      obj->_didChangeDefaultProviderToken = -1;
+    }
+
+    didChangeProvidersToken = obj->_didChangeProvidersToken;
+    if (didChangeProvidersToken != -1)
+    {
+      notify_cancel(didChangeProvidersToken);
+      obj->_didChangeProvidersToken = -1;
+    }
+  }
+
+  else
+  {
+    objc_sync_exit(obj);
+  }
 }
 
 - (void)dumpStateTo:(id)to
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   toCopy = to;
   [toCopy write:@"apps monitor "];
   isMonitoring = [(FPDAppMonitor *)self isMonitoring];
@@ -115,35 +183,35 @@
   {
     [toCopy write:@":\n"];
     v10 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"bundleID" ascending:1];
-    v24[0] = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v23[0] = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
     v12 = [listOfMonitoredApps sortedArrayUsingDescriptors:v11];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v20;
+      v16 = *v19;
       do
       {
         v17 = 0;
         do
         {
-          if (*v20 != v16)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [toCopy write:{@" - %@:\n", *(*(&v19 + 1) + 8 * v17++)}];
+          [toCopy write:{@" - %@:\n", *(*(&v18 + 1) + 8 * v17++)}];
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v15);
@@ -156,8 +224,6 @@
   {
     [toCopy write:@".\n\n"];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)listOfPlaceholderApps
@@ -199,10 +265,31 @@ void __38__FPDAppMonitor_listOfPlaceholderApps__block_invoke(uint64_t a1, void *
 
 - (void)_populateListOfMonitoredApps
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] ┏%llx populate list of monitored apps", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = objc_autoreleasePoolPush();
+  section = __fp_create_section();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [FPDAppMonitor _populateListOfMonitoredApps];
+  }
+
+  array = [MEMORY[0x1E695DF70] array];
+  defaultWorkspace = [MEMORY[0x1E6963608] defaultWorkspace];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __45__FPDAppMonitor__populateListOfMonitoredApps__block_invoke;
+  v9[3] = &unk_1E83BF760;
+  v9[4] = self;
+  v7 = array;
+  v10 = v7;
+  [defaultWorkspace enumerateBundlesOfType:1 block:v9];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  [(FPAppRegistry *)selfCopy->_appRegistry addApps:v7];
+  objc_sync_exit(selfCopy);
+
+  __fp_leave_section_Debug();
+  objc_autoreleasePoolPop(v3);
 }
 
 void __45__FPDAppMonitor__populateListOfMonitoredApps__block_invoke(uint64_t a1, void *a2)
@@ -274,7 +361,7 @@ void __45__FPDAppMonitor__populateListOfMonitoredApps__block_invoke(uint64_t a1,
 
 - (void)_didRegisterApps:(id)apps
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   appsCopy = apps;
   if ([(FPDAppMonitor *)self isMonitoring])
   {
@@ -282,33 +369,33 @@ void __45__FPDAppMonitor__populateListOfMonitoredApps__block_invoke(uint64_t a1,
     v5 = fp_current_or_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [FPDAppMonitor _didRegisterApps:?];
+      [FPDAppMonitor _didRegisterApps:];
     }
 
     userInfo = [appsCopy userInfo];
     v7 = [userInfo objectForKeyedSubscript:@"bundleIDs"];
 
     array = [MEMORY[0x1E695DF70] array];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v10)
     {
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         v12 = 0;
         do
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:{*(*(&v17 + 1) + 8 * v12), v17}];
+          v13 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:{*(*(&v16 + 1) + 8 * v12), v16}];
           v14 = [(FPDAppMonitor *)self _appMetadataIfMonitoringIsNeeded:v13];
           if (v14)
           {
@@ -319,7 +406,7 @@ void __45__FPDAppMonitor__populateListOfMonitoredApps__block_invoke(uint64_t a1,
         }
 
         while (v10 != v12);
-        v10 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v10);
@@ -332,8 +419,6 @@ void __45__FPDAppMonitor__populateListOfMonitoredApps__block_invoke(uint64_t a1,
 
     __fp_leave_section_Debug();
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didUnregisterApps:(id)apps
@@ -362,41 +447,41 @@ void __45__FPDAppMonitor__populateListOfMonitoredApps__block_invoke(uint64_t a1,
 
 - (void)_didChangeLocale:(id)locale
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   if ([(FPDAppMonitor *)self isMonitoring])
   {
-    v19 = localeCopy;
+    v18 = localeCopy;
     section = __fp_create_section();
     v5 = fp_current_or_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [FPDAppMonitor _didChangeLocale:?];
+      [FPDAppMonitor _didChangeLocale:];
     }
 
     selfCopy = self;
     objc_sync_enter(selfCopy);
     obj = &selfCopy->super.isa;
     array = [MEMORY[0x1E695DF70] array];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     listOfMonitoredApps = [(FPAppRegistry *)selfCopy->_appRegistry listOfMonitoredApps];
-    v8 = [listOfMonitoredApps countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v8 = [listOfMonitoredApps countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v8)
     {
-      v9 = *v23;
+      v9 = *v22;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(listOfMonitoredApps);
           }
 
-          v11 = *(*(&v22 + 1) + 8 * i);
+          v11 = *(*(&v21 + 1) + 8 * i);
           bundleID = [v11 bundleID];
           v13 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:bundleID];
           localizedName = [v13 localizedName];
@@ -414,7 +499,7 @@ void __45__FPDAppMonitor__populateListOfMonitoredApps__block_invoke(uint64_t a1,
           }
         }
 
-        v8 = [listOfMonitoredApps countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v8 = [listOfMonitoredApps countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v8);
@@ -424,31 +509,27 @@ void __45__FPDAppMonitor__populateListOfMonitoredApps__block_invoke(uint64_t a1,
     objc_sync_exit(obj);
 
     __fp_leave_section_Debug();
-    localeCopy = v19;
+    localeCopy = v18;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didChangeListOfProviders
 {
-  OUTLINED_FUNCTION_3(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] ┏%llx did change list of providers", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] ┏%llx did change list of providers", v2, v3, v4, v5);
 }
 
 - (void)_didChangeDefaultSaveLocationInUserDefaults
 {
-  OUTLINED_FUNCTION_3(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] ┏%llx did change default save location", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] ┏%llx did change default save location", v2, v3, v4, v5);
 }
 
 - (id)_updateDefaultProviderDomainID
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (_updateDefaultProviderDomainID_onceToken[0] != -1)
   {
     [FPDAppMonitor _updateDefaultProviderDomainID];
@@ -458,25 +539,25 @@ void __45__FPDAppMonitor__populateListOfMonitoredApps__block_invoke(uint64_t a1,
   extensionManager = [WeakRetained extensionManager];
   providerDomainsByID = [extensionManager providerDomainsByID];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v6 = [0 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v6 = [0 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(0);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if ([v10 hasPrefix:@"com.apple.CloudDocs.iCloudDriveFileProvider"])
         {
           v11 = [providerDomainsByID objectForKeyedSubscript:v10];
@@ -491,7 +572,7 @@ void __45__FPDAppMonitor__populateListOfMonitoredApps__block_invoke(uint64_t a1,
         }
       }
 
-      v7 = [0 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [0 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -504,8 +585,6 @@ void __45__FPDAppMonitor__populateListOfMonitoredApps__block_invoke(uint64_t a1,
   [MEMORY[0x1E696AEC0] setFp_defaultProviderDomainID:_updateDefaultProviderDomainID_localStorageProviderID];
   v13 = _updateDefaultProviderDomainID_localStorageProviderID;
 LABEL_16:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -537,44 +616,25 @@ void __47__FPDAppMonitor__updateDefaultProviderDomainID__block_invoke()
   return WeakRetained;
 }
 
-- (void)listOfPlaceholderApps
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] ┏%llx check for app placeholders", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __45__FPDAppMonitor__populateListOfMonitoredApps__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_ERROR, "[ERROR] LaunchService provided proxy %@ for an app enumeration", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_ERROR, "[ERROR] LaunchService provided proxy %@ for an app enumeration", v1, 0xCu);
 }
 
-- (void)_didRegisterApps:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)_didRegisterApps:.cold.1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] ┏%llx did register apps", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] ┏%llx did register apps", v2, v3, v4, v5);
 }
 
-- (void)_didUnregisterApps:.cold.1()
+- (void)_didChangeLocale:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] ┏%llx did unregister apps", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_didChangeLocale:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] ┏%llx did change locale", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] ┏%llx did change locale", v2, v3, v4, v5);
 }
 
 @end

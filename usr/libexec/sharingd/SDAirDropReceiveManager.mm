@@ -1,6 +1,7 @@
 @interface SDAirDropReceiveManager
 - (NSString)description;
 - (SDAirDropReceiveManager)init;
+- (void)alertManager:(id)manager acceptingTransferWithRecordID:(id)d withDestinationURL:(id)l shouldExtractMediaFromPhotosBundlesForRecordID:(BOOL)iD;
 - (void)alertManager:(id)manager cancelingTransferWithRecordID:(id)d withFailureReason:(unint64_t)reason;
 - (void)listener:(id)listener didReceiveError:(id)error;
 - (void)listener:(id)listener didReceiveNewRequest:(id)request;
@@ -220,6 +221,34 @@ LABEL_33:
 LABEL_5:
 }
 
+- (void)alertManager:(id)manager acceptingTransferWithRecordID:(id)d withDestinationURL:(id)l shouldExtractMediaFromPhotosBundlesForRecordID:(BOOL)iD
+{
+  iDCopy = iD;
+  lCopy = l;
+  v10 = [(NSMutableDictionary *)self->_transferIdentifierToNetworkOperation objectForKeyedSubscript:d];
+  if (v10)
+  {
+    if (lCopy)
+    {
+      v11 = kSFOperationDestinationURLKey;
+      v16[0] = kSFOperationDestinationURLKey;
+      v17[0] = lCopy;
+      absoluteString = [lCopy absoluteString];
+      v16[1] = absoluteString;
+      v13 = +[NSNull null];
+      v17[1] = v13;
+      v14 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:2];
+
+      [v10 setProperty:v14 forKey:v11];
+    }
+
+    v15 = [NSNumber numberWithBool:iDCopy];
+    [v10 setProperty:v15 forKey:kSFOperationExtractPhotosBundleMediaKey];
+
+    [v10 resume];
+  }
+}
+
 - (void)alertManager:(id)manager cancelingTransferWithRecordID:(id)d withFailureReason:(unint64_t)reason
 {
   dCopy = d;
@@ -236,17 +265,18 @@ LABEL_5:
   listener = self->_listener;
   if (listener)
   {
-    v5 = [(SDAirDropListener *)listener description];
-    NSAppendPrintF();
-    v3 = 0;
+    v6 = 0;
+    v3 = [(SDAirDropListener *)listener description];
+    NSAppendPrintF(&v6, "%@\n", v3);
+    v4 = v6;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 @end

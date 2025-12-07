@@ -121,7 +121,7 @@
   trackingRep2 = [(THHighlightGestureController *)self trackingRep];
   if (trackingRep2)
   {
-    [(THWPRep *)trackingRep2 lineMetricsAtPoint:v8, v10];
+    objc_msgSend_lineMetricsAtPoint_(trackingRep2, v8, v10);
     v13 = 0;
     v12 = 0;
     v15 = 0;
@@ -655,7 +655,7 @@ LABEL_20:
   v11 = v9;
   if (interactiveCanvasController)
   {
-    [(THInteractiveCanvasController *)interactiveCanvasController wordMetricsAtPoint:v8, v9];
+    objc_msgSend_wordMetricsAtPoint_(interactiveCanvasController, v8, v9);
     v13 = 0;
     v12 = 0;
     v15 = 0;

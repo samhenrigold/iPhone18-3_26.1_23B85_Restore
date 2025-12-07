@@ -3,7 +3,7 @@
 
 @implementation AFAnalyticsSafeDictionaryValueForJson
 
-void ___AFAnalyticsSafeDictionaryValueForJson_block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void ___AFAnalyticsSafeDictionaryValueForJson_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v10 = a2;
   v5 = _AFAnalyticsMapToSafeValueForJson(a3, *(a1 + 48));

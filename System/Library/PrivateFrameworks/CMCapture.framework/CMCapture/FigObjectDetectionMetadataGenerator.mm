@@ -466,7 +466,7 @@ void __126__FigObjectDetectionMetadataGenerator__detectObjectsWithPixelBufferInO
     [v0 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithLongLong:", v8), *off_1E798B780}];
     array = [MEMORY[0x1E695DF70] array];
     v9 = [v0 setObject:? forKeyedSubscript:?];
-    v17 = OUTLINED_FUNCTION_20_24(v9, v10, v11, v12, v13, v14, v15, v16, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, array, obj, v97, v99, v101, v103, v105, v107, v109, v111, v113, v115, v117, v119, v121, v123, v125, v127, v129, v131, v132, v134, v135, v137, v138, v140, v141, v143, v145, v147, v149, v151, v153, v155, v157, v159, v161, v163, v165, v167, v169, v171, 0);
+    v17 = OUTLINED_FUNCTION_20_24(v9, v10, v11, v12, v13, v14, v15, v16, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, array, obj, v97, v99, v101, v103, v105, v107, v109, v111, v113, v115, v117, v119, v121, v123, v125, v127, v129, v131, v132, v134, v135, v137, v138, v140, v141, v143, v145, v147, v149, v151, v153, v155, v157, v159, v161, v163, v165, v167, v169, v171);
     if (v17)
     {
       v18 = v17;
@@ -508,7 +508,7 @@ void __126__FigObjectDetectionMetadataGenerator__detectObjectsWithPixelBufferInO
               v133 = 0u;
               v136 = 0u;
               v139 = 0u;
-              v41 = OUTLINED_FUNCTION_22_24(v33, v34, v35, v36, v37, v38, v39, v40, v74, v76, *&v78, v80, v82, v84, v86, v88, v90, v92, v94, obja, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, v120, v122, v124, v126, v128, 0);
+              v41 = OUTLINED_FUNCTION_22_24(v33, v34, v35, v36, v37, v38, v39, v40, v74, v76, *&v78, v80, v82, v84, v86, v88, v90, v92, v94, obja, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, v120, v122, v124, v126, v128);
               if (v41)
               {
                 v42 = v41;
@@ -536,7 +536,7 @@ void __126__FigObjectDetectionMetadataGenerator__detectObjectsWithPixelBufferInO
                     }
                   }
 
-                  v42 = OUTLINED_FUNCTION_22_24(confidence, v49, v50, v51, v52, v53, v54, v55, v74, v76, *&v78, v80, v82, v84, v86, v88, v90, v92, v94, obja, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, v120, v122, v124, v126, v128, v130);
+                  v42 = OUTLINED_FUNCTION_22_24(confidence, v49, v50, v51, v52, v53, v54, v55, v74, v76, *&v78, v80, v82, v84, v86, v88, v90, v92, v94, obja, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, v120, v122, v124, v126, v128);
                 }
 
                 while (v42);
@@ -570,11 +570,11 @@ void __126__FigObjectDetectionMetadataGenerator__detectObjectsWithPixelBufferInO
               [objc_msgSend(v21 "faceObservation")];
             }
 
-            v174.origin.y = 1.0 - (v3 + v4);
-            v174.origin.x = v1;
-            v174.size.width = v2;
-            v174.size.height = v3;
-            DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v174);
+            v173.origin.y = 1.0 - (v3 + v4);
+            v173.origin.x = v1;
+            v173.size.width = v2;
+            v173.size.height = v3;
+            DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v173);
             CFAutorelease(DictionaryRepresentation);
             [OUTLINED_FUNCTION_4() setObject:? forKeyedSubscript:?];
             *&v60 = OUTLINED_FUNCTION_17_31();
@@ -642,7 +642,7 @@ void __126__FigObjectDetectionMetadataGenerator__detectObjectsWithPixelBufferInO
         }
 
         while (v20 != v18);
-        v18 = OUTLINED_FUNCTION_20_24(v22, v23, v24, v25, v26, v27, v28, v29, v74, v76, *&v78, v80, v82, v84, v86, v88, v90, v92, v94, obja, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, v120, v122, v124, v126, v128, v130, *(&v130 + 1), v133, *(&v133 + 1), v136, *(&v136 + 1), v139, *(&v139 + 1), v142, v144, v146, v148, v150, v152, v154, v156, v158, v160, v162, v164, v166, v168, v170, v172, v173);
+        v18 = OUTLINED_FUNCTION_20_24(v22, v23, v24, v25, v26, v27, v28, v29, v74, v76, *&v78, v80, v82, v84, v86, v88, v90, v92, v94, obja, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, v120, v122, v124, v126, v128, v130, *(&v130 + 1), v133, *(&v133 + 1), v136, *(&v136 + 1), v139, *(&v139 + 1), v142, v144, v146, v148, v150, v152, v154, v156, v158, v160, v162, v164, v166, v168, v170, v172);
       }
 
       while (v18);
@@ -674,7 +674,7 @@ void __126__FigObjectDetectionMetadataGenerator__detectObjectsWithPixelBufferInO
     [v0 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithLongLong:", v8), *off_1E798B780}];
     array = [MEMORY[0x1E695DF70] array];
     v9 = [v0 setObject:? forKeyedSubscript:?];
-    v17 = OUTLINED_FUNCTION_21_29(v9, v10, v11, v12, v13, v14, v15, v16, v61, v63, v65, v67, v69, v71, array, obj, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, v107, v109, v111, v112, v114, v115, v117, v118, v120, v121, v123, v125, v127, v129, v131, v133, v135, v137, v139, v141, v143, v145, v147, v149, v151, 0);
+    v17 = OUTLINED_FUNCTION_21_29(v9, v10, v11, v12, v13, v14, v15, v16, v61, v63, v65, v67, v69, v71, array, obj, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, v107, v109, v111, v112, v114, v115, v117, v118, v120, v121, v123, v125, v127, v129, v131, v133, v135, v137, v139, v141, v143, v145, v147, v149, v151);
     if (v17)
     {
       v18 = v17;
@@ -710,7 +710,7 @@ void __126__FigObjectDetectionMetadataGenerator__detectObjectsWithPixelBufferInO
               v113 = 0u;
               v116 = 0u;
               v119 = 0u;
-              v41 = OUTLINED_FUNCTION_23_23(v33, v34, v35, v36, v37, v38, v39, v40, v62, v64, v66, v68, v70, v72, v74, obja, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, 0);
+              v41 = OUTLINED_FUNCTION_23_23(v33, v34, v35, v36, v37, v38, v39, v40, v62, v64, v66, v68, v70, v72, v74, obja, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108);
               if (v41)
               {
                 v42 = v41;
@@ -738,7 +738,7 @@ void __126__FigObjectDetectionMetadataGenerator__detectObjectsWithPixelBufferInO
                     }
                   }
 
-                  v42 = OUTLINED_FUNCTION_23_23(confidence, v49, v50, v51, v52, v53, v54, v55, v62, v64, v66, v68, v70, v72, v74, obja, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110);
+                  v42 = OUTLINED_FUNCTION_23_23(confidence, v49, v50, v51, v52, v53, v54, v55, v62, v64, v66, v68, v70, v72, v74, obja, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108);
                 }
 
                 while (v42);
@@ -771,18 +771,18 @@ void __126__FigObjectDetectionMetadataGenerator__detectObjectsWithPixelBufferInO
               [objc_msgSend(v21 "humanObservation")];
             }
 
-            v154.origin.y = 1.0 - (v3 + v4);
-            v154.origin.x = v1;
-            v154.size.width = v2;
-            v154.size.height = v3;
-            DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v154);
+            v153.origin.y = 1.0 - (v3 + v4);
+            v153.origin.x = v1;
+            v153.size.width = v2;
+            v153.size.height = v3;
+            DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v153);
             [dictionary setObject:CFAutorelease(DictionaryRepresentation) forKeyedSubscript:v70];
             *&v60 = OUTLINED_FUNCTION_17_31();
             v22 = [dictionary setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v60), v68}];
           }
         }
 
-        v18 = OUTLINED_FUNCTION_21_29(v22, v23, v24, v25, v26, v27, v28, v29, v62, v64, v66, v68, v70, v72, v74, obja, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, *(&v110 + 1), v113, *(&v113 + 1), v116, *(&v116 + 1), v119, *(&v119 + 1), v122, v124, v126, v128, v130, v132, v134, v136, v138, v140, v142, v144, v146, v148, v150, v152, v153);
+        v18 = OUTLINED_FUNCTION_21_29(v22, v23, v24, v25, v26, v27, v28, v29, v62, v64, v66, v68, v70, v72, v74, obja, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, *(&v110 + 1), v113, *(&v113 + 1), v116, *(&v116 + 1), v119, *(&v119 + 1), v122, v124, v126, v128, v130, v132, v134, v136, v138, v140, v142, v144, v146, v148, v150, v152);
       }
 
       while (v18);

@@ -2,6 +2,7 @@
 - (BOOL)postEventExtendedBy:(id)by;
 - (PearlCoreAnalyticsDailyUpdateEvent)initWithName:(id)name dictionary:(id)dictionary;
 - (PearlCoreAnalyticsDailyUpdateEvent)initWithPersistedData;
+- (id)dictionaryRepresentationArchiving:(BOOL)archiving;
 - (void)calculateDailyValues;
 - (void)reset;
 - (void)updateDailyMatchValues:(id *)values;
@@ -51,6 +52,35 @@
   v3.receiver = self;
   v3.super_class = PearlCoreAnalyticsDailyUpdateEvent;
   return [(BiometricKitCoreAnalyticsEvent *)&v3 initWithPersistedDataWithName:@"com.apple.biometrickit.pearl.dailyUpdate"];
+}
+
+- (id)dictionaryRepresentationArchiving:(BOOL)archiving
+{
+  archivingCopy = archiving;
+  if (__osLog)
+  {
+    v5 = __osLog;
+  }
+
+  else
+  {
+    v5 = MEMORY[0x29EDCA988];
+  }
+
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_296CA4000, v5, OS_LOG_TYPE_DEBUG, "PearlCoreAnalyticsDailyUpdateEvent dictionaryRepresentation\n", buf, 2u);
+  }
+
+  [(PearlCoreAnalyticsDailyUpdateEvent *)self calculateDailyValues];
+  v6 = MEMORY[0x29EDB8DC0];
+  v10.receiver = self;
+  v10.super_class = PearlCoreAnalyticsDailyUpdateEvent;
+  v7 = [(BiometricKitCoreAnalyticsEvent *)&v10 dictionaryRepresentationArchiving:archivingCopy];
+  v8 = [v6 dictionaryWithDictionary:v7];
+
+  return v8;
 }
 
 - (void)calculateDailyValues

@@ -915,7 +915,7 @@ uint64_t __52__SBGrabberTongue__dismissTongueWithStyle_animated___block_invoke_2
     v18 = 0u;
     v19 = 0u;
     v17 = 0u;
-    [(SBGrabberTongue *)self _transformForTongueContainer];
+    objc_msgSend__transformForTongueContainer(self);
     v12 = self->_tongueContainer;
     v16[0] = v17;
     v16[1] = v18;
@@ -956,7 +956,7 @@ uint64_t __54__SBGrabberTongue__presentTongueAnimated_autoDismiss___block_invoke
 - (CGRect)_frameForTongueWhenVisible:(BOOL)visible
 {
   visibleCopy = visible;
-  [(UIView *)self->_tongueContainer frame];
+  objc_msgSend_frame(self->_tongueContainer);
   MinX = v6;
   v9 = v8;
   v11 = v10;
@@ -1375,7 +1375,7 @@ LABEL_15:
   }
 
 LABEL_8:
-  v8 = SBLogSystemGestureAppSwitcher();
+  v8 = SBLogSystemGestureAppSwitcher(beginCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = objc_opt_class();
@@ -1413,7 +1413,7 @@ LABEL_16:
 
 - (void)_handlePullGesture:(id)gesture
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   gestureCopy = gesture;
   [(SBGrabberTongue *)self _ambiguousActivationMarginIfHonored];
   IsZero = BSFloatIsZero();
@@ -1439,7 +1439,7 @@ LABEL_16:
         goto LABEL_50;
       }
 
-      BSContinuousMachTimeNow();
+      state = BSContinuousMachTimeNow();
       v9 = v8 - self->_gestureStartTime;
       if (v9 <= 0.2 && (*&v9 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
       {
@@ -1462,14 +1462,14 @@ LABEL_16:
         goto LABEL_50;
       }
 
-      [(SBGrabberTongue *)self _pullGestureCanceled:gestureCopy];
+      state = [(SBGrabberTongue *)self _pullGestureCanceled:gestureCopy];
       goto LABEL_49;
     }
 
     [(SBGrabberTongue *)self _ambiguousActivationMarginIfHonored];
-    v18 = fmax(v17, 64.0);
-    [(SBGrabberTongue *)self _distanceFromEdgeForRecognizer:gestureCopy];
-    if (v19 >= v18)
+    v16 = fmax(v15, 64.0);
+    state = [(SBGrabberTongue *)self _distanceFromEdgeForRecognizer:gestureCopy];
+    if (v17 >= v16)
     {
       if (!self->_beganAmbiguousPullGesture)
       {
@@ -1483,7 +1483,7 @@ LABEL_16:
       goto LABEL_49;
     }
 
-    [(SBGrabberTongue *)self _pullGestureEnded:gestureCopy];
+    state = [(SBGrabberTongue *)self _pullGestureEnded:gestureCopy];
 LABEL_49:
     *&self->_inAmbiguousGesture = 0;
     goto LABEL_50;
@@ -1492,15 +1492,15 @@ LABEL_49:
   tongueVisible = self->_tongueVisible;
   v12 = [(SBGrabberTongue *)self _shouldShowTongueOnFirstSwipeWithRecognizer:gestureCopy];
   v13 = [(SBGrabberTongue *)self _shouldAllowSecondSwipeWithRecognizer:gestureCopy];
-  v14 = [(SBGrabberTongue *)self _shouldSecondSwipeDismissTongueWithRecognizer:gestureCopy];
+  state = [(SBGrabberTongue *)self _shouldSecondSwipeDismissTongueWithRecognizer:gestureCopy];
   if (tongueVisible)
   {
-    v15 = v13;
+    v14 = v13;
   }
 
   else
   {
-    v15 = !v12;
+    v14 = !v12;
   }
 
   if (self->_inShowTongueGesture)
@@ -1509,19 +1509,19 @@ LABEL_20:
     if ([gestureCopy state] == 1)
     {
       [(SBGrabberTongue *)self _presentTongueAnimated:1 autoDismiss:1];
-      [(SBGrabberTongue *)self _willPresentInteractively:gestureCopy];
+      state = [(SBGrabberTongue *)self _willPresentInteractively:gestureCopy];
       self->_inShowTongueGesture = 1;
     }
 
     else if ([gestureCopy state] == 2)
     {
-      [(SBGrabberTongue *)self _willPresentInteractively:gestureCopy];
+      state = [(SBGrabberTongue *)self _willPresentInteractively:gestureCopy];
     }
 
-    else if ([gestureCopy state] == 3 || objc_msgSend(gestureCopy, "state") == 4)
+    else if ([gestureCopy state] == 3 || (state = objc_msgSend(gestureCopy, "state"), state == 4))
     {
       self->_inShowTongueGesture = 0;
-      [(SBGrabberTongue *)self _didPresentInteractively:gestureCopy];
+      state = [(SBGrabberTongue *)self _didPresentInteractively:gestureCopy];
     }
 
     goto LABEL_50;
@@ -1537,9 +1537,9 @@ LABEL_20:
         goto LABEL_20;
       }
 
-      if (inAmbiguousGesture || !tongueVisible || v13 || !v14)
+      if (inAmbiguousGesture || ((tongueVisible & !v13 & state ^ 1) & 1) != 0)
       {
-        if (inAmbiguousGesture || ((v15 ^ 1) & 1) != 0)
+        if (inAmbiguousGesture || ((v14 ^ 1) & 1) != 0)
         {
           goto LABEL_50;
         }
@@ -1551,13 +1551,17 @@ LABEL_20:
 LABEL_38:
     if ([gestureCopy state] == 1)
     {
-      [(SBGrabberTongue *)self _dismissTongue:0];
+      state = [(SBGrabberTongue *)self _dismissTongue:0];
       self->_inDismissTongueGesture = 1;
     }
 
-    else if ([gestureCopy state] == 3 || objc_msgSend(gestureCopy, "state") == 4)
+    else
     {
-      self->_inDismissTongueGesture = 0;
+      state = [gestureCopy state];
+      if (state == 3 || (state = [gestureCopy state], state == 4))
+      {
+        self->_inDismissTongueGesture = 0;
+      }
     }
 
     goto LABEL_50;
@@ -1569,65 +1573,65 @@ LABEL_38:
   }
 
 LABEL_27:
-  state2 = [gestureCopy state];
-  if (state2 <= 2)
+  state = [gestureCopy state];
+  if (state <= 2)
   {
-    if (state2 == 1)
+    if (state == 1)
     {
       self->_inPullGesture = 1;
-      [(SBGrabberTongue *)self _pullGestureBegan:gestureCopy];
+      state = [(SBGrabberTongue *)self _pullGestureBegan:gestureCopy];
       goto LABEL_50;
     }
 
-    if (state2 != 2)
+    if (state != 2)
     {
       goto LABEL_50;
     }
 
 LABEL_30:
-    [(SBGrabberTongue *)self _pullGestureUpdated:gestureCopy];
+    state = [(SBGrabberTongue *)self _pullGestureUpdated:gestureCopy];
     goto LABEL_50;
   }
 
-  if (state2 == 3)
+  if (state == 3)
   {
-    [(SBGrabberTongue *)self _pullGestureEnded:gestureCopy];
+    state = [(SBGrabberTongue *)self _pullGestureEnded:gestureCopy];
   }
 
   else
   {
-    if (state2 != 4)
+    if (state != 4)
     {
       goto LABEL_50;
     }
 
-    [(SBGrabberTongue *)self _pullGestureCanceled:gestureCopy];
+    state = [(SBGrabberTongue *)self _pullGestureCanceled:gestureCopy];
   }
 
   self->_inPullGesture = 0;
 LABEL_50:
-  v20 = SBLogSystemGestureAppSwitcher();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v18 = SBLogSystemGestureAppSwitcher(state);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
+    v19 = NSStringFromBOOL();
+    v20 = NSStringFromBOOL();
     v21 = NSStringFromBOOL();
-    v22 = NSStringFromBOOL();
-    v23 = NSStringFromBOOL();
-    v24 = objc_opt_class();
-    v25 = NSStringFromClass(v24);
+    v22 = objc_opt_class();
+    v23 = NSStringFromClass(v22);
     name = [gestureCopy name];
-    v28 = 138413570;
-    v29 = v21;
+    v26 = 138413570;
+    v27 = v19;
+    v28 = 2112;
+    v29 = v20;
     v30 = 2112;
-    v31 = v22;
-    v32 = 2112;
+    v31 = v21;
+    v32 = 2114;
     v33 = v23;
-    v34 = 2114;
-    v35 = v25;
-    v36 = 2050;
-    v37 = gestureCopy;
-    v38 = 2114;
-    v39 = name;
-    _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "[SBGrabberTongue _handlePullGesture:] with state: _inPullGesture:%@ _inShowTongueGesture:%@ _inDismissTongueGesture:%@ from gesture <%{public}@:%{public}p> (%{public}@)", &v28, 0x3Eu);
+    v34 = 2050;
+    v35 = gestureCopy;
+    v36 = 2114;
+    v37 = name;
+    _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "[SBGrabberTongue _handlePullGesture:] with state: _inPullGesture:%@ _inShowTongueGesture:%@ _inDismissTongueGesture:%@ from gesture <%{public}@:%{public}p> (%{public}@)", &v26, 0x3Eu);
   }
 }
 
@@ -1667,7 +1671,7 @@ LABEL_50:
   [v4 handleFailureInMethod:a1 object:a2 file:@"SBGrabberTongue.m" lineNumber:123 description:@"Can't install more than once"];
 }
 
-- (void)gestureRecognizerShouldBegin:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+- (void)gestureRecognizerShouldBegin:(uint64_t)a3 .cold.1(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = [MEMORY[0x277CCA890] currentHandler];
   v8 = NSStringFromBOOL();

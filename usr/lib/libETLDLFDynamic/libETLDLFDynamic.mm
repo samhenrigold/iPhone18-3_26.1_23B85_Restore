@@ -1,40 +1,33 @@
-uint64_t ETLDLFAddVersionReport(uint64_t a1, unsigned int a2, _DWORD *a3, __int16 a4, __int16 a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, __int16 a10, unsigned __int8 a11)
+double ETLDLFAddVersionReport(uint64_t a1, unsigned int a2, _DWORD *a3, __int16 a4, __int16 a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, __int16 a10, unsigned __int8 a11)
 {
-  v16 = *MEMORY[0x29EDCA608];
   *a3 = 0;
   if (a2 >= 0xA1)
   {
-    memset(&v15[4], 0, 145);
-    *v15 = a4;
-    *&v15[2] = a5;
+    memset(&v14[4], 0, 145);
+    *v14 = a4;
+    *&v14[2] = a5;
     __strlcpy_chk();
     __strlcpy_chk();
     __strlcpy_chk();
-    result = 0;
-    *&v15[69] = a9;
-    *&v15[73] = a10;
-    *&v15[75] = a11;
+    *&v14[69] = a9;
+    *&v14[73] = a10;
+    *&v14[75] = a11;
     *a3 = 161;
-    *(a1 + 108) = *&v15[96];
-    *(a1 + 124) = *&v15[112];
-    *(a1 + 140) = *&v15[128];
-    *(a1 + 44) = *&v15[32];
-    *(a1 + 60) = *&v15[48];
-    *(a1 + 92) = *&v15[80];
-    *(a1 + 12) = *v15;
-    *(a1 + 28) = *&v15[16];
+    *(a1 + 108) = *&v14[96];
+    *(a1 + 124) = *&v14[112];
+    *(a1 + 140) = *&v14[128];
+    *(a1 + 44) = *&v14[32];
+    *(a1 + 60) = *&v14[48];
+    *(a1 + 92) = *&v14[80];
+    result = *v14;
+    *(a1 + 12) = *v14;
+    *(a1 + 28) = *&v14[16];
     *a1 = 536674465;
     *(a1 + 4) = 0;
-    *(a1 + 153) = *&v15[141];
-    *(a1 + 76) = *&v15[64];
+    *(a1 + 153) = *&v14[141];
+    *(a1 + 76) = *&v14[64];
   }
 
-  else
-  {
-    result = 3;
-  }
-
-  v14 = *MEMORY[0x29EDCA608];
   return result;
 }
 

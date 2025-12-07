@@ -3,8 +3,8 @@
 - (HVHtmlParser)initWithString:(id)string;
 - (HVHtmlParser)initWithUTF8DataEnumerator:(id)enumerator;
 - (NSString)textContent;
+- (id)_tagEnd;
 - (uint64_t)_currentOutputLength;
-- (uint64_t)_tagEnd;
 - (void)_enterRegion:(uint64_t)region;
 - (void)_newBlock;
 - (void)_respawnParserContext;
@@ -155,7 +155,7 @@
 
     while (v6->_depth)
     {
-      [(HVHtmlParser *)v6 _tagEnd];
+      [(HVHtmlParser *)&v6->super.isa _tagEnd];
     }
 
     v6->_renderingSuspended = 0;
@@ -228,20 +228,20 @@
   return v6;
 }
 
-- (uint64_t)_tagEnd
+- (id)_tagEnd
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
-    if ([*(result + 240) containsIndex:*(result + 184)])
+    if ([result[30] containsIndex:result[23]])
     {
-      lastObject = [*(v1 + 248) lastObject];
+      lastObject = [v1[31] lastObject];
       _currentOutputLength = [(HVHtmlParser *)v1 _currentOutputLength];
-      v30.location = [lastObject range];
-      v31.location = _currentOutputLength;
-      v31.length = 0;
-      v4 = NSUnionRange(v30, v31);
+      v29.location = [lastObject range];
+      v30.location = _currentOutputLength;
+      v30.length = 0;
+      v4 = NSUnionRange(v29, v30);
       v5 = [HVHtmlParserHyperlink alloc];
       v6 = [lastObject url];
       v7 = [(HVHtmlParserHyperlink *)v5 initWithURL:v6 range:v4.location, v4.length];
@@ -258,63 +258,62 @@
 
       if (v10)
       {
-        CFArrayAppendValue(*(v1 + 264), (range | (v9 << 32)));
-        v11 = *(v1 + 256);
+        CFArrayAppendValue(v1[33], (range | (v9 << 32)));
+        v11 = v1[32];
         v12 = [(HVHtmlParserHyperlink *)v7 url];
         [v11 addObject:v12];
       }
 
-      [*(v1 + 248) removeLastObject];
-      [*(v1 + 240) removeIndex:*(v1 + 184)];
+      [v1[31] removeLastObject];
+      [v1[30] removeIndex:v1[23]];
     }
 
-    result = [*(v1 + 192) containsIndex:*(v1 + 184)];
+    result = [v1[24] containsIndex:v1[23]];
     if (result)
     {
-      lastObject2 = [*(v1 + 208) lastObject];
+      lastObject2 = [v1[26] lastObject];
       unsignedIntegerValue = [lastObject2 unsignedIntegerValue];
 
-      v15 = *(v1 + 112);
+      v15 = v1[14];
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
-      lastObject3 = [*(v1 + 216) lastObject];
-      v17 = [lastObject3 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      lastObject3 = [v1[27] lastObject];
+      v17 = [lastObject3 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = v15 - unsignedIntegerValue;
-        v20 = *v25;
+        v19 = &v15[-unsignedIntegerValue];
+        v20 = *v24;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v25 != v20)
+            if (*v24 != v20)
             {
               objc_enumerationMutation(lastObject3);
             }
 
-            v22 = *(*(&v24 + 1) + 8 * i);
+            v22 = *(*(&v23 + 1) + 8 * i);
             [v22 addIndexesInRange:{unsignedIntegerValue, v19}];
-            [*(v1 + 200) removeObject:v22];
+            [v1[25] removeObject:v22];
           }
 
-          v18 = [lastObject3 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v18 = [lastObject3 countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
         while (v18);
       }
 
-      [*(v1 + 192) removeIndex:*(v1 + 184)];
-      [*(v1 + 208) removeLastObject];
-      result = [*(v1 + 216) removeLastObject];
+      [v1[24] removeIndex:v1[23]];
+      [v1[26] removeLastObject];
+      result = [v1[27] removeLastObject];
     }
 
-    --*(v1 + 184);
+    v1[23] = v1[23] - 1;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -413,7 +412,7 @@ HVHtmlParserHyperlink *__30__HVHtmlParser__endProcessing__block_invoke(uint64_t 
   return v2;
 }
 
-unint64_t __43__HVHtmlParser__consumeHtmlDataEnumerator___block_invoke(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t __43__HVHtmlParser__consumeHtmlDataEnumerator___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -566,13 +565,13 @@ LABEL_35:
 
 - (HVHtmlParser)initWithData:(id)data encoding:(unint64_t)encoding
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (encoding == 4 || encoding == 1)
   {
     v7 = objc_autoreleasePoolPush();
-    v14[0] = dataCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = dataCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     objectEnumerator = [v8 objectEnumerator];
 
     objc_autoreleasePoolPop(v7);
@@ -585,13 +584,12 @@ LABEL_35:
     v10 = [(HVHtmlParser *)self initWithString:v11];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (HVHtmlParser)initWithString:(id)string
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   if (!string)
   {
     objectEnumerator = 0;
@@ -612,14 +610,14 @@ LABEL_35:
     v8 = CStringPtr;
     v9 = objc_autoreleasePoolPush();
     v10 = objc_alloc(MEMORY[0x277CBEA90]);
-    v26 = MEMORY[0x277D85DD0];
-    v27 = 3221225472;
-    v28 = __70__NSString_HVNSString__hv_dataEnumeratorUsingEncoding_nullTerminated___block_invoke_2;
-    v29 = &unk_278969AE0;
+    v25 = MEMORY[0x277D85DD0];
+    v26 = 3221225472;
+    v27 = __70__NSString_HVNSString__hv_dataEnumeratorUsingEncoding_nullTerminated___block_invoke_2;
+    v28 = &unk_278969AE0;
     stringCopy = string;
-    v11 = [v10 initWithBytesNoCopy:v8 length:v5 deallocator:&v26];
-    v35[0] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+    v11 = [v10 initWithBytesNoCopy:v8 length:v5 deallocator:&v25];
+    v34[0] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
     objectEnumerator = [v12 objectEnumerator];
 
     objc_autoreleasePoolPop(v9);
@@ -651,17 +649,17 @@ LABEL_15:
       }
 
       v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:1];
-      v26 = MEMORY[0x277D85DD0];
-      v27 = 3221225472;
-      v28 = __70__NSString_HVNSString__hv_dataEnumeratorUsingEncoding_nullTerminated___block_invoke_3;
-      v29 = &unk_278969B08;
-      v32 = 0;
-      v33 = v20;
-      v34 = v17;
+      v25 = MEMORY[0x277D85DD0];
+      v26 = 3221225472;
+      v27 = __70__NSString_HVNSString__hv_dataEnumeratorUsingEncoding_nullTerminated___block_invoke_3;
+      v28 = &unk_278969B08;
+      v31 = 0;
+      v32 = v20;
+      v33 = v17;
       v22 = v21;
       stringCopy = v22;
-      v31 = v15;
-      [v31 enumerateByteRangesUsingBlock:&v26];
+      v30 = v15;
+      [v30 enumerateByteRangesUsingBlock:&v25];
       objectEnumerator = [v22 objectEnumerator];
     }
 
@@ -678,7 +676,6 @@ LABEL_15:
 LABEL_16:
   v23 = [(HVHtmlParser *)self initWithUTF8DataEnumerator:objectEnumerator];
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 

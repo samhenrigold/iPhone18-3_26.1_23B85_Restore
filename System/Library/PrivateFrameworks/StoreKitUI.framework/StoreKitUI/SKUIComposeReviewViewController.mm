@@ -157,89 +157,88 @@ void __47__SKUIComposeReviewViewController_submitReview__block_invoke_2(id *a1)
 
 void __47__SKUIComposeReviewViewController_submitReview__block_invoke_3(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v1 = (a1 + 32);
-  v24 = [*(a1 + 32) responseDictionary];
-  if (([*v1 success] & 1) == 0 && v24)
+  v23 = [*(a1 + 32) responseDictionary];
+  if (([*v1 success] & 1) == 0 && v23)
   {
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v23 = [objc_alloc(MEMORY[0x277D69A88]) initWithResponseDictionary:v24];
-    obj = [v23 actions];
-    v2 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v22 = [objc_alloc(MEMORY[0x277D69A88]) initWithResponseDictionary:v23];
+    obj = [v22 actions];
+    v2 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v2)
     {
-      v3 = *v35;
-      v4 = *MEMORY[0x277D6A570];
+      v3 = *v34;
       while (2)
       {
         for (i = 0; i != v2; ++i)
         {
-          if (*v35 != v3)
+          if (*v34 != v3)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v34 + 1) + 8 * i);
-          v7 = [v6 actionType];
-          v8 = [v7 isEqualToString:v4];
+          v5 = *(*(&v33 + 1) + 8 * i);
+          v6 = [v5 actionType];
+          isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-          if (v8)
+          if (isEqualToString)
           {
-            v22 = [v6 dialog];
-            v9 = MEMORY[0x277D75110];
-            v10 = [v22 title];
-            v11 = [v22 message];
-            v12 = [v9 alertControllerWithTitle:v10 message:v11 preferredStyle:1];
+            v21 = [v5 dialog];
+            v8 = MEMORY[0x277D75110];
+            v9 = [v21 title];
+            v10 = [v21 message];
+            v11 = [v8 alertControllerWithTitle:v9 message:v10 preferredStyle:1];
 
-            [v22 buttons];
+            [v21 buttons];
+            v31 = 0u;
             v32 = 0u;
-            v33 = 0u;
-            v30 = 0u;
-            v26 = v31 = 0u;
-            v13 = [v26 countByEnumeratingWithState:&v30 objects:v38 count:16];
-            if (v13)
+            v29 = 0u;
+            v25 = v30 = 0u;
+            v12 = [v25 countByEnumeratingWithState:&v29 objects:v37 count:16];
+            if (v12)
             {
-              v14 = *v31;
-              v15 = MEMORY[0x277D85DD0];
+              v13 = *v30;
+              v14 = MEMORY[0x277D85DD0];
               do
               {
-                for (j = 0; j != v13; ++j)
+                for (j = 0; j != v12; ++j)
                 {
-                  if (*v31 != v14)
+                  if (*v30 != v13)
                   {
-                    objc_enumerationMutation(v26);
+                    objc_enumerationMutation(v25);
                   }
 
-                  v17 = MEMORY[0x277D750F8];
-                  v18 = [*(*(&v30 + 1) + 8 * j) buttonTitle];
-                  v28[0] = v15;
-                  v28[1] = 3221225472;
-                  v28[2] = __47__SKUIComposeReviewViewController_submitReview__block_invoke_4;
-                  v28[3] = &unk_2781F9748;
-                  objc_copyWeak(&v29, (a1 + 40));
-                  v19 = [v17 actionWithTitle:v18 style:0 handler:v28];
+                  v16 = MEMORY[0x277D750F8];
+                  v17 = [*(*(&v29 + 1) + 8 * j) buttonTitle];
+                  v27[0] = v14;
+                  v27[1] = 3221225472;
+                  v27[2] = __47__SKUIComposeReviewViewController_submitReview__block_invoke_4;
+                  v27[3] = &unk_2781F9748;
+                  objc_copyWeak(&v28, (a1 + 40));
+                  v18 = [v16 actionWithTitle:v17 style:0 handler:v27];
 
-                  [v12 addAction:v19];
-                  objc_destroyWeak(&v29);
+                  [v11 addAction:v18];
+                  objc_destroyWeak(&v28);
                 }
 
-                v13 = [v26 countByEnumeratingWithState:&v30 objects:v38 count:16];
+                v12 = [v25 countByEnumeratingWithState:&v29 objects:v37 count:16];
               }
 
-              while (v13);
+              while (v12);
             }
 
             WeakRetained = objc_loadWeakRetained((a1 + 40));
-            [WeakRetained presentViewController:v12 animated:1 completion:0];
+            [WeakRetained presentViewController:v11 animated:1 completion:0];
 
             goto LABEL_21;
           }
         }
 
-        v2 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v2 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
         if (v2)
         {
           continue;
@@ -250,14 +249,14 @@ void __47__SKUIComposeReviewViewController_submitReview__block_invoke_3(uint64_t
     }
   }
 
-  v23 = objc_loadWeakRetained((a1 + 40));
-  [v23 _sendDidSubmit];
+  v22 = objc_loadWeakRetained((a1 + 40));
+  [v22 _sendDidSubmit];
 LABEL_21:
 
   if (*(a1 + 48) != *MEMORY[0x277D767B0])
   {
-    v21 = [MEMORY[0x277D75128] sharedApplication];
-    [v21 endBackgroundTask:*(a1 + 48)];
+    v20 = [MEMORY[0x277D75128] sharedApplication];
+    [v20 endBackgroundTask:*(a1 + 48)];
   }
 }
 
@@ -433,7 +432,7 @@ void __62__SKUIComposeReviewViewController__promptForNicknameWithAlert__block_in
 - (void)_setNickname:(id)nickname
 {
   nicknameCopy = nickname;
-  if (![(NSString *)self->_nickname isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_nickname) & 1) == 0)
   {
     v4 = [nicknameCopy copy];
     nickname = self->_nickname;

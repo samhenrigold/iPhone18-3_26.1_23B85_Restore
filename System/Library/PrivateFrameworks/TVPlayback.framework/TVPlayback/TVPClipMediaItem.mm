@@ -37,7 +37,7 @@
 
     v15 = v10->_localMetadata;
     v16 = MEMORY[0x277CCABB0];
-    [rangeCopy startTime];
+    objc_msgSend_startTime(rangeCopy);
     v17 = [v16 numberWithDouble:?];
     [(NSMutableDictionary *)v15 setObject:v17 forKey:@"TVPMediaItemMetadataStartTime"];
 
@@ -49,7 +49,7 @@
 
     v21 = v10->_localMetadata;
     v22 = MEMORY[0x277CCABB0];
-    [rangeCopy startTime];
+    objc_msgSend_startTime(rangeCopy);
     v23 = [v22 numberWithDouble:?];
     [(NSMutableDictionary *)v21 setObject:v23 forKey:@"TVPMediaItemMetadataReversePlaybackEndTime"];
 
@@ -91,17 +91,17 @@
 
 - (void)setMediaItemMetadata:(id)metadata forProperty:(id)property
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   propertyCopy = property;
   if (propertyCopy && [(NSSet *)self->_localMetadataKeys containsObject:propertyCopy])
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v19 = propertyCopy;
-    v20 = @"TVPMediaItemMetadataChangesKey";
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
-    v21[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v18 = propertyCopy;
+    v19 = @"TVPMediaItemMetadataChangesKey";
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+    v20[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     [defaultCenter postNotificationName:@"TVPMediaItemMetadataWillChangeNotification" object:self userInfo:v10];
 
     localMetadata = self->_localMetadata;
@@ -116,11 +116,11 @@
     }
 
     defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-    v16 = propertyCopy;
-    v17 = @"TVPMediaItemMetadataChangesKey";
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
-    v18 = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v15 = propertyCopy;
+    v16 = @"TVPMediaItemMetadataChangesKey";
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+    v17 = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     [defaultCenter2 postNotificationName:@"TVPMediaItemMetadataDidChangeNotification" object:self userInfo:v14];
   }
 
@@ -128,8 +128,6 @@
   {
     [(TVPMediaItem *)self->_mediaItem setMediaItemMetadata:metadataCopy forProperty:propertyCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mediaItemMetadataForProperty:(id)property
@@ -163,25 +161,23 @@
 
 - (id)forwardingTargetForSelector:(SEL)selector
 {
-  mediaItem = self->_mediaItem;
   if (objc_opt_respondsToSelector())
   {
-    v6 = self->_mediaItem;
+    v5 = self->_mediaItem;
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = TVPClipMediaItem;
-    v6 = [(TVPClipMediaItem *)&v8 forwardingTargetForSelector:selector];
+    v7.receiver = self;
+    v7.super_class = TVPClipMediaItem;
+    v5 = [(TVPClipMediaItem *)&v7 forwardingTargetForSelector:selector];
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)forwardInvocation:(id)invocation
 {
-  mediaItem = self->_mediaItem;
   invocationCopy = invocation;
   [invocationCopy selector];
   if (objc_opt_respondsToSelector())
@@ -191,23 +187,22 @@
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = TVPClipMediaItem;
-    [(TVPClipMediaItem *)&v6 forwardInvocation:invocationCopy];
+    v5.receiver = self;
+    v5.super_class = TVPClipMediaItem;
+    [(TVPClipMediaItem *)&v5 forwardInvocation:invocationCopy];
   }
 }
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
-  mediaItem = self->_mediaItem;
   if (objc_opt_respondsToSelector())
   {
     return 1;
   }
 
-  v7.receiver = self;
-  v7.super_class = TVPClipMediaItem;
-  return [(TVPClipMediaItem *)&v7 respondsToSelector:selector];
+  v6.receiver = self;
+  v6.super_class = TVPClipMediaItem;
+  return [(TVPClipMediaItem *)&v6 respondsToSelector:selector];
 }
 
 - (BOOL)conformsToProtocol:(id)protocol
@@ -243,15 +238,14 @@
 
 - (BOOL)isKindOfClass:(Class)class
 {
-  mediaItem = self->_mediaItem;
   if (objc_opt_isKindOfClass())
   {
     return 1;
   }
 
-  v7.receiver = self;
-  v7.super_class = TVPClipMediaItem;
-  return [(TVPClipMediaItem *)&v7 isKindOfClass:class];
+  v6.receiver = self;
+  v6.super_class = TVPClipMediaItem;
+  return [(TVPClipMediaItem *)&v6 isKindOfClass:class];
 }
 
 @end

@@ -14,16 +14,16 @@ CFStringRef ___PNCopyFullyQualifiedNumberForCountry_block_invoke(uint64_t a1, co
   v5 = 0;
   if (a2 && *(a1 + 40))
   {
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
     *cStr = 0u;
-    v11 = 0u;
+    v12 = 0u;
     v6 = _PNCopyNormalized(v3);
     if (_PNDecomposeForCountry(v6, *(a1 + 40), cStr, 1))
     {
       v7 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], cStr[0], 0x8000100u);
-      v8 = _PNCopyCountryCodeForInternationalCode(v7);
-      if (CFStringCompare(a2, v8, 1uLL))
+      v9 = _PNCopyCountryCodeForInternationalCode(v7, v8);
+      if (CFStringCompare(a2, v9, 1uLL))
       {
         v5 = 0;
       }
@@ -34,7 +34,7 @@ CFStringRef ___PNCopyFullyQualifiedNumberForCountry_block_invoke(uint64_t a1, co
       }
 
       CFRelease(v7);
-      CFRelease(v8);
+      CFRelease(v9);
     }
 
     else

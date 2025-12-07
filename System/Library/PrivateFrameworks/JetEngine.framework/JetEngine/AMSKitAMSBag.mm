@@ -27,7 +27,7 @@
 {
   keyCopy = key;
   selfCopy = self;
-  v6 = sub_1AB28F620(selfCopy);
+  v6 = sub_1AB28F620(selfCopy, keyCopy);
   if (v6)
   {
     v7 = v6;
@@ -50,7 +50,7 @@
 
 - (void)createSnapshotWithCompletion:(id)completion
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB4384A0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB4384A0, &qword_1AB4D8DD0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(completion);

@@ -484,7 +484,7 @@ void __44__UIMainMenuSystem__defaultRootMenuChildren__block_invoke()
   if (dyld_program_sdk_at_least())
   {
     v1 = _UIMainBundleIdentifier();
-    if ([v1 isEqualToString:@"com.apple.mobileslideshow"])
+    if (objc_msgSend_isEqualToString_(v1))
     {
       _MergedGlobals_5_1 = 0;
     }
@@ -492,7 +492,7 @@ void __44__UIMainMenuSystem__defaultRootMenuChildren__block_invoke()
     else
     {
       v0 = _UIMainBundleIdentifier();
-      _MergedGlobals_5_1 = [v0 isEqualToString:@"com.apple.mobilemail"] ^ 1;
+      _MergedGlobals_5_1 = objc_msgSend_isEqualToString_(v0) ^ 1;
     }
   }
 
@@ -700,9 +700,9 @@ id __82__UIMainMenuSystem__reparentFindMenuItemsIfNeededWithBuilder_appDidCustom
         if (objc_opt_isKindOfClass())
         {
           v10 = [v8 identifier];
-          v11 = [v10 isEqualToString:@"com.apple.menu.find"];
+          isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-          if (v11)
+          if (isEqualToString)
           {
             v12 = [v8 children];
             [v3 addObjectsFromArray:v12];
@@ -794,7 +794,7 @@ id __91__UIMainMenuSystem__mergeSidebarAndFullscreenMenusIfNeededWithBuilder_app
 
 LABEL_61:
       v55 = [v138 _parentOfMenuForIdentifier:@"com.apple.menu.edit" commandForIdentifier:0];
-      if ([v55 isEqualToString:@"com.apple.menu.root"])
+      if (objc_msgSend_isEqualToString_(v55))
       {
         v56 = MEMORY[0x1E695DFD8];
         _keyCommands = [v138 _keyCommands];
@@ -897,7 +897,7 @@ LABEL_61:
       {
         v82 = [UICommand _defaultCommandForAction:sel_showWritingTools_];
         v83 = [v79 _parentOfMenuForIdentifier:@"com.apple.menu.spelling" commandForIdentifier:0];
-        if ([v83 isEqualToString:@"com.apple.menu.edit"])
+        if (objc_msgSend_isEqualToString_(v83))
         {
           *buf = v82;
           v84 = [MEMORY[0x1E695DEC8] arrayWithObjects:buf count:1];
@@ -919,7 +919,7 @@ LABEL_61:
       if (v136)
       {
         v89 = 0;
-        if (!v86 || !v87 || ([v85 _parentOfMenuForIdentifier:@"com.apple.menu.new-item" commandForIdentifier:0], v89 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v85, "_parentOfMenuForIdentifier:commandForIdentifier:", @"com.apple.menu.open", 0), v90 = objc_claimAutoreleasedReturnValue(), v91 = objc_msgSend(v89, "isEqualToString:", v90), v90, !v91))
+        if (!v86 || !v87 || ([v85 _parentOfMenuForIdentifier:@"com.apple.menu.new-item" commandForIdentifier:0], v89 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v85, "_parentOfMenuForIdentifier:commandForIdentifier:", @"com.apple.menu.open", 0), v90 = objc_claimAutoreleasedReturnValue(), v91 = objc_msgSend_isEqualToString_(v89), v90, !v91))
         {
 LABEL_91:
 
@@ -940,9 +940,9 @@ LABEL_91:
                 if ([children2 count] == 1)
                 {
                   v104 = [v97 _parentOfMenuForIdentifier:@"com.apple.menu.find-panel" commandForIdentifier:0];
-                  v105 = [v104 isEqualToString:@"com.apple.menu.find"];
+                  isEqualToString = objc_msgSend_isEqualToString_(v104);
 
-                  if (v105)
+                  if (isEqualToString)
                   {
                     children3 = [v98 children];
                     firstObject = [children3 firstObject];
@@ -1018,7 +1018,7 @@ LABEL_100:
 
             v120 = [v110 _parentOfMenuForIdentifier:@"com.apple.menu.sidebar" commandForIdentifier:0];
             v121 = [v110 _parentOfMenuForIdentifier:@"com.apple.menu.fullscreen" commandForIdentifier:0];
-            v122 = [v120 isEqualToString:v121];
+            v122 = objc_msgSend_isEqualToString_(v120);
             if (!v117)
             {
 
@@ -1058,7 +1058,7 @@ LABEL_117:
         {
           children11 = [v92 children];
           v96 = [children11 objectAtIndexedSubscript:v94 + 1];
-          [v88 isEqual:v96];
+          objc_msgSend_isEqual_(v88);
         }
       }
 
@@ -1161,9 +1161,9 @@ LABEL_117:
 
       if (firstObject4)
       {
-        v38 = [firstObject4 isEqual:v36];
+        isEqual = objc_msgSend_isEqual_(firstObject4);
 
-        if (v38)
+        if (isEqual)
         {
 LABEL_38:
 
@@ -1185,7 +1185,7 @@ LABEL_38:
 
             if (lastObject)
             {
-              v47 = [lastObject isEqual:v45];
+              v47 = objc_msgSend_isEqual_(lastObject);
 
               if (v47)
               {
@@ -1196,7 +1196,7 @@ LABEL_48:
                 if (v49)
                 {
                   v50 = [v48 _parentOfMenuForIdentifier:@"com.apple.menu.help" commandForIdentifier:0];
-                  if ([v50 isEqualToString:@"com.apple.menu.root"])
+                  if (objc_msgSend_isEqualToString_(v50))
                   {
 
                     goto LABEL_54;
@@ -1218,7 +1218,7 @@ LABEL_54:
                 if (v52)
                 {
                   v53 = [v51 _parentOfMenuForIdentifier:@"com.apple.menu.window" commandForIdentifier:0];
-                  if ([v53 isEqualToString:@"com.apple.menu.root"])
+                  if (objc_msgSend_isEqualToString_(v53))
                   {
 
 LABEL_60:
@@ -1312,9 +1312,9 @@ LABEL_3:
 
   if (v10 && v9)
   {
-    v11 = [(UIMainMenuSystemConfiguration *)v9 isEqual:v10];
+    isEqual = objc_msgSend_isEqual_(v9, v10, v10);
 
-    if (v11)
+    if (isEqual)
     {
       goto LABEL_12;
     }
@@ -1366,9 +1366,9 @@ LABEL_12:
     goto LABEL_10;
   }
 
-  v11 = [(UIMainMenuSystemConfiguration *)v9 isEqual:v10];
+  isEqual = objc_msgSend_isEqual_(v9, v10, v10);
 
-  if (!v11)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     v12 = [(UIMainMenuSystemConfiguration *)v17 copy];
@@ -1448,10 +1448,10 @@ LABEL_17:
     goto LABEL_14;
   }
 
-  v8 = [(NSString *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
   v9 = v17;
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_14:
     v10 = [(NSString *)v9 copy];

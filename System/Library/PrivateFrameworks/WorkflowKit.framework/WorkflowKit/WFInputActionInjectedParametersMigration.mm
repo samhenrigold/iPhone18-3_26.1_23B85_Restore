@@ -22,7 +22,7 @@
   v8 = objc_opt_class();
   v9 = WFEnforceClass_1501(v7, v8);
 
-  if ([v9 isEqualToString:@"WFWorkflowNoInputBehaviorAskForInput"])
+  if (objc_msgSend_isEqualToString_(v9))
   {
     v10 = [v27 objectForKeyedSubscript:@"Parameters"];
     v11 = objc_opt_class();
@@ -46,7 +46,7 @@
     v19 = WFEnforceClass_1501(v17, v18);
 
     v20 = objc_opt_new();
-    if ([v19 isEqualToString:@"WFFolderContentItem"])
+    if (objc_msgSend_isEqualToString_(v19))
     {
       [v16 setObject:@"WFGenericFileContentItem" forKeyedSubscript:@"ItemClass"];
       [v20 setObject:@"Folders" forKeyedSubscript:@"WFPickingMode"];
@@ -62,24 +62,24 @@
       goto LABEL_15;
     }
 
-    if ([v19 isEqualToString:@"WFGenericFileContentItem"] & 1) != 0 || (objc_msgSend(v19, "isEqualToString:", @"WFFolderContentItem"))
+    if (objc_msgSend_isEqualToString_(v19) & 1) != 0 || (objc_msgSend_isEqualToString_(v19))
     {
       v25 = @"SelectMultiple";
     }
 
-    else if ([v19 isEqualToString:@"WFPhotoMediaContentItem"])
+    else if (objc_msgSend_isEqualToString_(v19))
     {
       v25 = @"WFSelectMultiplePhotos";
     }
 
-    else if ([v19 isEqualToString:@"WFContactContentItem"])
+    else if (objc_msgSend_isEqualToString_(v19))
     {
       v25 = @"WFSelectMultiple";
     }
 
     else
     {
-      if (![v19 isEqualToString:@"WFMPMediaContentItem"])
+      if (!objc_msgSend_isEqualToString_(v19))
       {
         goto LABEL_15;
       }

@@ -226,7 +226,7 @@
 
         else
         {
-          v16 = MCLogCategoryDefault();
+          v16 = MCLogCategoryDefault(0);
           if (os_log_type_enabled(&v16->super, OS_LOG_TYPE_ERROR))
           {
             v24 = objc_opt_class();

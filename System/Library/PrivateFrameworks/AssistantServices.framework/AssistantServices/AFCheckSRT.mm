@@ -9,28 +9,27 @@
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   DistributedCenter = CFNotificationCenterGetDistributedCenter();
   CFNotificationCenterRemoveObserver(DistributedCenter, self, @"SelectedFlowPlugin", 0);
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v8 = "[AFCheckSRT dealloc]";
-    v9 = 2112;
-    v10 = @"SelectedFlowPlugin";
+    v7 = "[AFCheckSRT dealloc]";
+    v8 = 2112;
+    v9 = @"SelectedFlowPlugin";
     _os_log_debug_impl(&dword_1912FE000, v4, OS_LOG_TYPE_DEBUG, "%s No longer listening for '%@' notifications", buf, 0x16u);
   }
 
-  v6.receiver = self;
-  v6.super_class = AFCheckSRT;
-  [(AFCheckSRT *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = AFCheckSRT;
+  [(AFCheckSRT *)&v5 dealloc];
 }
 
 - (void)didReceivePluginSelected:(id)selected
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   selectedCopy = selected;
   v5 = selectedCopy;
   if (selectedCopy)
@@ -49,21 +48,19 @@
     v7 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "[AFCheckSRT didReceivePluginSelected:]";
-      _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, "%s Unexpected nil payload, no-op", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[AFCheckSRT didReceivePluginSelected:]";
+      _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, "%s Unexpected nil payload, no-op", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)trackEvent:(double)event forTurn:(id)turn
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   turnCopy = turn;
   currentTurnID = self->_currentTurnID;
-  if (currentTurnID && [(NSString *)currentTurnID isEqualToString:turnCopy])
+  if (currentTurnID && (objc_msgSend_isEqualToString_(currentTurnID) & 1) != 0)
   {
     v9 = 0;
   }
@@ -82,24 +79,24 @@
       self->_pluginSelected = 0;
 
       os_unfair_lock_unlock(&self->_stateLock);
-      v28[0] = @"SRTTime";
+      v27[0] = @"SRTTime";
       *&v15 = v11 - event;
       v16 = [MEMORY[0x1E696AD98] numberWithFloat:v15];
-      v28[1] = @"PluginMeasuringSRT";
-      v29[0] = v16;
-      v29[1] = v13;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
+      v27[1] = @"PluginMeasuringSRT";
+      v28[0] = v16;
+      v28[1] = v13;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
 
       v18 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
       {
-        v22 = 136315650;
-        v23 = "[AFCheckSRT trackEvent:forTurn:]";
-        v24 = 2112;
-        v25 = @"com.apple.assistant.srt.stats";
-        v26 = 2112;
-        v27 = v17;
-        _os_log_debug_impl(&dword_1912FE000, v18, OS_LOG_TYPE_DEBUG, "%s Posting notification '%@' with SRT stats: %@", &v22, 0x20u);
+        v21 = 136315650;
+        v22 = "[AFCheckSRT trackEvent:forTurn:]";
+        v23 = 2112;
+        v24 = @"com.apple.assistant.srt.stats";
+        v25 = 2112;
+        v26 = v17;
+        _os_log_debug_impl(&dword_1912FE000, v18, OS_LOG_TYPE_DEBUG, "%s Posting notification '%@' with SRT stats: %@", &v21, 0x20u);
       }
 
       DistributedCenter = CFNotificationCenterGetDistributedCenter();
@@ -114,25 +111,24 @@
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (AFCheckSRT)init
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = AFCheckSRT;
-  v2 = [(AFCheckSRT *)&v9 init];
+  v13 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = AFCheckSRT;
+  v2 = [(AFCheckSRT *)&v8 init];
   if (v2)
   {
     v3 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v11 = "[AFCheckSRT init]";
-      v12 = 2112;
-      v13 = @"SelectedFlowPlugin";
+      v10 = "[AFCheckSRT init]";
+      v11 = 2112;
+      v12 = @"SelectedFlowPlugin";
       _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s Listening for '%@' notifications", buf, 0x16u);
     }
 
@@ -147,7 +143,6 @@
     v2->_stateLock._os_unfair_lock_opaque = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

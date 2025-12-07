@@ -1,5 +1,6 @@
 @interface TRIFetchMultipleExperimentNotificationsTask
 + (id)parseFromData:(id)data;
++ (id)taskWithStartingFetchDateOverride:(id)override namespaceNames:(id)names taskAttributing:(id)attributing rollbacksOnly:(BOOL)only limitedCarryOnly:(BOOL)carryOnly;
 - (BOOL)_checkIfAnyTreatmentPresent:(id)present usingContext:(id)context;
 - (BOOL)_processExperiment:(id)experiment taskContext:(id)context taskQueue:(id)queue;
 - (BOOL)isEqual:(id)equal;
@@ -9,6 +10,7 @@
 - (TRIFetchMultipleExperimentNotificationsTask)initWithStartingFetchDateOverride:(id)override namespaceNames:(id)names taskAttributing:(id)attributing rollbacksOnly:(BOOL)only limitedCarryOnly:(BOOL)carryOnly;
 - (id)_asPersistedTask;
 - (id)_getNextTaskForExperiment:(id)experiment taskContext:(id)context taskQueue:(id)queue;
+- (id)_nameForNotificationType:(int)type;
 - (id)dimensions;
 - (id)metrics;
 - (id)runUsingContext:(id)context withTaskQueue:(id)queue;
@@ -50,6 +52,18 @@
   [TRITaskUtils addAttribution:self->_taskAttributing toTaskTags:v7];
 
   return v7;
+}
+
++ (id)taskWithStartingFetchDateOverride:(id)override namespaceNames:(id)names taskAttributing:(id)attributing rollbacksOnly:(BOOL)only limitedCarryOnly:(BOOL)carryOnly
+{
+  carryOnlyCopy = carryOnly;
+  onlyCopy = only;
+  attributingCopy = attributing;
+  namesCopy = names;
+  overrideCopy = override;
+  v14 = [[TRIFetchMultipleExperimentNotificationsTask alloc] initWithStartingFetchDateOverride:overrideCopy namespaceNames:namesCopy taskAttributing:attributingCopy rollbacksOnly:onlyCopy limitedCarryOnly:carryOnlyCopy];
+
+  return v14;
 }
 
 - (TRIFetchMultipleExperimentNotificationsTask)initWithStartingFetchDateOverride:(id)override namespaceNames:(id)names taskAttributing:(id)attributing rollbacksOnly:(BOOL)only limitedCarryOnly:(BOOL)carryOnly
@@ -100,7 +114,7 @@
 
 - (id)_getNextTaskForExperiment:(id)experiment taskContext:(id)context taskQueue:(id)queue
 {
-  *&v59[5] = *MEMORY[0x277D85DE8];
+  *&v58[5] = *MEMORY[0x277D85DE8];
   experimentCopy = experiment;
   contextCopy = context;
   queueCopy = queue;
@@ -127,14 +141,14 @@
   {
     if (experimentType == 2)
     {
-      v31 = TRILogCategory_Server();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v30 = TRILogCategory_Server();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         experimentDeployment2 = [experimentCopy experimentDeployment];
         experimentId2 = [experimentDeployment2 experimentId];
         *buf = 138543362;
-        *v59 = experimentId2;
-        _os_log_impl(&dword_26F567000, v31, OS_LOG_TYPE_DEFAULT, "rolling back experiment id: %{public}@", buf, 0xCu);
+        *v58 = experimentId2;
+        _os_log_impl(&dword_26F567000, v30, OS_LOG_TYPE_DEFAULT, "rolling back experiment id: %{public}@", buf, 0xCu);
       }
 
       experimentDeployment3 = [experimentCopy experimentDeployment];
@@ -159,17 +173,17 @@
         v16 = +[TRIDeactivateTreatmentTask taskWithExperimentId:deploymentId:failOnUnrecognizedExperiment:triggerEvent:taskAttribution:](TRIDeactivateTreatmentTask, "taskWithExperimentId:deploymentId:failOnUnrecognizedExperiment:triggerEvent:taskAttribution:", experimentId4, [experimentCopy deploymentId], 0, 4, self->_taskAttributing);
 
         nextTasks = self->_nextTasks;
-        v56[0] = MEMORY[0x277D85DD0];
-        v56[1] = 3221225472;
-        v56[2] = __95__TRIFetchMultipleExperimentNotificationsTask__getNextTaskForExperiment_taskContext_taskQueue___block_invoke;
-        v56[3] = &unk_279DE42E8;
-        v57 = experimentCopy;
-        v40 = [(NSMutableArray *)nextTasks _pas_filteredArrayWithTest:v56];
-        v41 = [v40 mutableCopy];
-        v42 = self->_nextTasks;
-        self->_nextTasks = v41;
+        v55[0] = MEMORY[0x277D85DD0];
+        v55[1] = 3221225472;
+        v55[2] = __95__TRIFetchMultipleExperimentNotificationsTask__getNextTaskForExperiment_taskContext_taskQueue___block_invoke;
+        v55[3] = &unk_279DE42E8;
+        v56 = experimentCopy;
+        v39 = [(NSMutableArray *)nextTasks _pas_filteredArrayWithTest:v55];
+        v40 = [v39 mutableCopy];
+        v41 = self->_nextTasks;
+        self->_nextTasks = v40;
 
-        experimentDeployment9 = v57;
+        experimentDeployment9 = v56;
         goto LABEL_26;
       }
 
@@ -180,7 +194,7 @@
       }
 
       *buf = 0;
-      v43 = "Unable to rollback because the artifact contains no deployment";
+      v42 = "Unable to rollback because the artifact contains no deployment";
       goto LABEL_40;
     }
 
@@ -207,7 +221,7 @@
 
             if (experimentDeployment9)
             {
-              v55 = [[TRIExperimentUpdateProcessor alloc] initWithExperimentDatabase:experimentDatabase];
+              v54 = [[TRIExperimentUpdateProcessor alloc] initWithExperimentDatabase:experimentDatabase];
               experiment3 = [experimentCopy experiment];
               endDate = [experiment3 endDate];
               date = [endDate date];
@@ -219,7 +233,7 @@
               }
 
               experimentDeployment6 = [experimentCopy experimentDeployment];
-              v16 = [(TRIExperimentUpdateProcessor *)v55 processUpdateOperationForExistingExperimentWithEndDate:date withExperimentDeployment:experimentDeployment6];
+              v16 = [(TRIExperimentUpdateProcessor *)v54 processUpdateOperationForExistingExperimentWithEndDate:date withExperimentDeployment:experimentDeployment6];
 
               if (v16)
               {
@@ -229,14 +243,14 @@
               goto LABEL_26;
             }
 
-            v48 = TRILogCategory_Server();
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+            v47 = TRILogCategory_Server();
+            if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
             {
               experimentDeployment7 = [experimentCopy experimentDeployment];
               experimentId5 = [experimentDeployment7 experimentId];
               *buf = 138543362;
-              *v59 = experimentId5;
-              _os_log_error_impl(&dword_26F567000, v48, OS_LOG_TYPE_ERROR, "Missing existing experiment for an experiment update, ignoring. ID: %{public}@", buf, 0xCu);
+              *v58 = experimentId5;
+              _os_log_error_impl(&dword_26F567000, v47, OS_LOG_TYPE_ERROR, "Missing existing experiment for an experiment update, ignoring. ID: %{public}@", buf, 0xCu);
             }
 
             experimentDeployment9 = 0;
@@ -249,7 +263,7 @@
             experimentDeployment8 = [experimentCopy experimentDeployment];
             experimentId6 = [experimentDeployment8 experimentId];
             *buf = 138543362;
-            *v59 = experimentId6;
+            *v58 = experimentId6;
             _os_log_impl(&dword_26F567000, experimentDeployment9, OS_LOG_TYPE_INFO, "Update notification marked inactive, ignoring. ID: %{public}@", buf, 0xCu);
             goto LABEL_45;
           }
@@ -263,7 +277,7 @@
             experimentDeployment8 = [experimentCopy experimentDeployment];
             experimentId6 = [experimentDeployment8 experimentId];
             *buf = 138543362;
-            *v59 = experimentId6;
+            *v58 = experimentId6;
             _os_log_error_impl(&dword_26F567000, experimentDeployment9, OS_LOG_TYPE_ERROR, "Experiment update notification missing end date. ID: %{public}@", buf, 0xCu);
 LABEL_45:
           }
@@ -281,9 +295,9 @@ LABEL_25:
       }
 
       *buf = 0;
-      v43 = "Experiment update notification missing artifact";
+      v42 = "Experiment update notification missing artifact";
 LABEL_40:
-      _os_log_error_impl(&dword_26F567000, experimentDeployment9, OS_LOG_TYPE_ERROR, v43, buf, 2u);
+      _os_log_error_impl(&dword_26F567000, experimentDeployment9, OS_LOG_TYPE_ERROR, v42, buf, 2u);
       goto LABEL_25;
     }
 
@@ -294,9 +308,9 @@ LABEL_23:
       experimentType2 = [experimentCopy experimentType];
       experimentId7 = [experimentCopy experimentId];
       *buf = 67240450;
-      v59[0] = experimentType2;
-      LOWORD(v59[1]) = 2114;
-      *(&v59[1] + 2) = experimentId7;
+      v58[0] = experimentType2;
+      LOWORD(v58[1]) = 2114;
+      *(&v58[1] + 2) = experimentId7;
       _os_log_error_impl(&dword_26F567000, experimentDeployment9, OS_LOG_TYPE_ERROR, "unsupported experiment of type %{public}d for experiment id: %{public}@", buf, 0x12u);
     }
 
@@ -318,7 +332,7 @@ LABEL_23:
   {
     experimentId8 = [experimentCopy experimentId];
     *buf = 138543362;
-    *v59 = experimentId8;
+    *v58 = experimentId8;
     _os_log_impl(&dword_26F567000, v27, OS_LOG_TYPE_DEFAULT, "submit targeting task for experiment id: %{public}@", buf, 0xCu);
   }
 
@@ -327,14 +341,13 @@ LABEL_23:
 LABEL_26:
 
 LABEL_27:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 uint64_t __95__TRIFetchMultipleExperimentNotificationsTask__getNextTaskForExperiment_taskContext_taskQueue___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && ([v3 experiment], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "experimentDeployment"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v4, "isEqualToDeployment:", v5), v5, v4, v6))
@@ -343,9 +356,9 @@ uint64_t __95__TRIFetchMultipleExperimentNotificationsTask__getNextTaskForExperi
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [*(a1 + 32) experimentId];
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "Clearing out targeting task due to found rollback for %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "Clearing out targeting task due to found rollback for %{public}@", &v11, 0xCu);
     }
 
     v9 = 0;
@@ -356,13 +369,29 @@ uint64_t __95__TRIFetchMultipleExperimentNotificationsTask__getNextTaskForExperi
     v9 = 1;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
+}
+
+- (id)_nameForNotificationType:(int)type
+{
+  if (type == 1)
+  {
+    v3 = @"experiment";
+  }
+
+  else
+  {
+    v4 = *&type;
+    v5 = TRICloudKitSupport_NotificationType_EnumDescriptor();
+    v3 = [v5 enumNameForValue:v4];
+  }
+
+  return v3;
 }
 
 - (BOOL)_processExperiment:(id)experiment taskContext:(id)context taskQueue:(id)queue
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   experimentCopy = experiment;
   contextCopy = context;
   queueCopy = queue;
@@ -385,7 +414,7 @@ uint64_t __95__TRIFetchMultipleExperimentNotificationsTask__getNextTaskForExperi
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v51 = experimentDeployment;
+            v50 = experimentDeployment;
             _os_log_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEFAULT, "Found existing manually targeted experiment record for %{public}@. Not processing this experiment notification", buf, 0xCu);
           }
 
@@ -396,9 +425,9 @@ uint64_t __95__TRIFetchMultipleExperimentNotificationsTask__getNextTaskForExperi
     }
   }
 
-  v42 = experimentDeployment;
-  v43 = paths;
-  v44 = experimentDatabase;
+  v41 = experimentDeployment;
+  v42 = paths;
+  v43 = experimentDatabase;
   experimentType = [experimentCopy experimentType];
   experimentType2 = [experimentCopy experimentType];
   encodedExperimentDefinition = [experimentCopy encodedExperimentDefinition];
@@ -420,25 +449,25 @@ uint64_t __95__TRIFetchMultipleExperimentNotificationsTask__getNextTaskForExperi
 
     if (v24)
     {
-      if (experimentType != 2 && experimentType2 != 5 && ([experimentCopy saveWithDatabase:v44 paths:v43] & 1) == 0)
+      if (experimentType != 2 && experimentType2 != 5 && ([experimentCopy saveWithDatabase:v43 paths:v42] & 1) == 0)
       {
         v16 = TRILogCategory_Server();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v38 = -[TRIFetchMultipleExperimentNotificationsTask _nameForNotificationType:](self, "_nameForNotificationType:", [experimentCopy experimentType]);
+          v37 = -[TRIFetchMultipleExperimentNotificationsTask _nameForNotificationType:](self, "_nameForNotificationType:", [experimentCopy experimentType]);
           experimentId2 = [experimentCopy experimentId];
           *buf = 138543618;
-          v51 = v38;
-          v52 = 2114;
-          v53 = experimentId2;
+          v50 = v37;
+          v51 = 2114;
+          v52 = experimentId2;
           _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Unable to save %{public}@ with id %{public}@.", buf, 0x16u);
         }
 
         v17 = 0;
 LABEL_37:
-        paths = v43;
-        experimentDatabase = v44;
-        experimentDeployment = v42;
+        paths = v42;
+        experimentDatabase = v43;
+        experimentDeployment = v41;
         goto LABEL_44;
       }
 
@@ -447,27 +476,27 @@ LABEL_23:
 
       if (namespaces)
       {
-        v40 = queueCopy;
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
+        v39 = queueCopy;
         v46 = 0u;
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
         namespaces2 = [experimentCopy namespaces];
-        v27 = [namespaces2 countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v27 = [namespaces2 countByEnumeratingWithState:&v44 objects:v48 count:16];
         if (v27)
         {
           v28 = v27;
-          v29 = *v46;
+          v29 = *v45;
           do
           {
             for (i = 0; i != v28; ++i)
             {
-              if (*v46 != v29)
+              if (*v45 != v29)
               {
                 objc_enumerationMutation(namespaces2);
               }
 
-              v31 = *(*(&v45 + 1) + 8 * i);
+              v31 = *(*(&v44 + 1) + 8 * i);
               v32 = [namespaceDatabase dynamicNamespaceRecordWithNamespaceName:v31];
 
               if (v32)
@@ -476,13 +505,13 @@ LABEL_23:
               }
             }
 
-            v28 = [namespaces2 countByEnumeratingWithState:&v45 objects:v49 count:16];
+            v28 = [namespaces2 countByEnumeratingWithState:&v44 objects:v48 count:16];
           }
 
           while (v28);
         }
 
-        queueCopy = v40;
+        queueCopy = v39;
       }
 
       v16 = [(TRIFetchMultipleExperimentNotificationsTask *)self _getNextTaskForExperiment:experimentCopy taskContext:contextCopy taskQueue:queueCopy];
@@ -506,7 +535,7 @@ LABEL_23:
   v16 = v34;
   if (experimentType3 == 3)
   {
-    experimentDeployment = v42;
+    experimentDeployment = v41;
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -516,53 +545,52 @@ LABEL_23:
 
   else
   {
-    experimentDeployment = v42;
+    experimentDeployment = v41;
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       v35 = -[TRIFetchMultipleExperimentNotificationsTask _nameForNotificationType:](self, "_nameForNotificationType:", [experimentCopy experimentType]);
       *buf = 138543362;
-      v51 = v35;
+      v50 = v35;
       _os_log_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEFAULT, "empty %{public}@", buf, 0xCu);
     }
   }
 
   v17 = 0;
-  paths = v43;
-  experimentDatabase = v44;
+  paths = v42;
+  experimentDatabase = v43;
 LABEL_44:
 
-  v36 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (void)updateStatusForNamespacesWithContext:(id)context
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v6 = self->_namespaceNames;
-  v27 = [(NSSet *)v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
-  if (v27)
+  v26 = [(NSSet *)v6 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  if (v26)
   {
-    v26 = *v29;
+    v25 = *v28;
     *&v7 = 138543362;
-    v24 = v7;
-    v25 = v6;
+    v23 = v7;
+    v24 = v6;
     do
     {
       v8 = 0;
       do
       {
-        if (*v29 != v26)
+        if (*v28 != v25)
         {
           objc_enumerationMutation(v6);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * v8);
+        v9 = *(*(&v27 + 1) + 8 * v8);
         namespaceDatabase = [contextCopy namespaceDatabase];
         v11 = [namespaceDatabase dynamicNamespaceRecordWithNamespaceName:v9];
 
@@ -591,13 +619,13 @@ LABEL_44:
               appContainer = TRILogCategory_Server();
               if (os_log_type_enabled(appContainer, OS_LOG_TYPE_ERROR))
               {
-                *buf = v24;
-                v33 = v9;
+                *buf = v23;
+                v32 = v9;
                 _os_log_error_impl(&dword_26F567000, appContainer, OS_LOG_TYPE_ERROR, "expected namespace to be registered, but could not find descriptor: %{public}@", buf, 0xCu);
               }
 
               v5 = v19;
-              v6 = v25;
+              v6 = v24;
               goto LABEL_20;
             }
 
@@ -613,7 +641,7 @@ LABEL_44:
 
             v5 = v19;
             appContainer = [objc_alloc(MEMORY[0x277D73780]) initWithNamespaceName:v9 compatibilityVersion:downloadNCV lastFetchAttempt:v19 lastFetchWasSuccess:1];
-            v6 = v25;
+            v6 = v24;
           }
 
           [v13 saveStatus:appContainer];
@@ -629,8 +657,8 @@ LABEL_44:
 
           appContainer = [v11 appContainer];
           identifier = [appContainer identifier];
-          *buf = v24;
-          v33 = identifier;
+          *buf = v23;
+          v32 = identifier;
           _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "updateStatusForNamespacesWithContext skipping missing app container: %{public}@", buf, 0xCu);
         }
 
@@ -640,14 +668,12 @@ LABEL_21:
         ++v8;
       }
 
-      while (v27 != v8);
-      v27 = [(NSSet *)v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      while (v26 != v8);
+      v26 = [(NSSet *)v6 countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_checkIfAnyTreatmentPresent:(id)present usingContext:(id)context
@@ -663,29 +689,29 @@ LABEL_21:
 
 - (id)runUsingContext:(id)context withTaskQueue:(id)queue
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   queueCopy = queue;
   if (![TRIUserAdjustableSettings getExperimentOptOut:contextCopy])
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v55 = os_transaction_create();
+    v54 = os_transaction_create();
     keyValueStore = [contextCopy keyValueStore];
-    v61 = [TRIFetchDateManager managerWithKeyValueStore:keyValueStore];
+    v60 = [TRIFetchDateManager managerWithKeyValueStore:keyValueStore];
 
     namespaceDatabase = [contextCopy namespaceDatabase];
     paths = [contextCopy paths];
     namespaceDescriptorsDefaultDir = [paths namespaceDescriptorsDefaultDir];
-    v60 = [TRINamespaceDescriptorProvider providerWithNamespaceDatabase:namespaceDatabase defaultDescriptorDirectoryPath:namespaceDescriptorsDefaultDir];
+    v59 = [TRINamespaceDescriptorProvider providerWithNamespaceDatabase:namespaceDatabase defaultDescriptorDirectoryPath:namespaceDescriptorsDefaultDir];
 
     triCloudKitContainer = [(TRITaskAttributing *)selfCopy->_taskAttributing triCloudKitContainer];
     teamIdentifier = [(TRITaskAttributing *)selfCopy->_taskAttributing teamIdentifier];
     applicationBundleIdentifier = [(TRITaskAttributing *)selfCopy->_taskAttributing applicationBundleIdentifier];
-    v56 = [TRICKNativeArtifactProvider providerForContainer:triCloudKitContainer teamId:teamIdentifier bundleId:applicationBundleIdentifier dateProvider:v61 namespaceDescriptorProvider:v60 serverContext:contextCopy];
+    v55 = [TRICKNativeArtifactProvider providerForContainer:triCloudKitContainer teamId:teamIdentifier bundleId:applicationBundleIdentifier dateProvider:v60 namespaceDescriptorProvider:v59 serverContext:contextCopy];
 
     networkOptions = [(TRITaskAttributing *)selfCopy->_taskAttributing networkOptions];
-    v18 = v56;
+    v18 = v55;
     if ([networkOptions allowsCellularAccess])
     {
       v19 = [MEMORY[0x277D73B40] metricWithName:@"allows_cellular_download" integerValue:{objc_msgSend(networkOptions, "allowsCellularAccess")}];
@@ -714,43 +740,43 @@ LABEL_21:
       [networkOptions setActivity:v21];
     }
 
-    v58 = [[TRIFetchOptions alloc] initWithDownloadOptions:networkOptions cacheDeleteAvailableSpaceClass:&unk_287FC4CD8];
+    v57 = [[TRIFetchOptions alloc] initWithDownloadOptions:networkOptions cacheDeleteAvailableSpaceClass:&unk_287FC4CD8];
     v22 = dispatch_semaphore_create(0);
     *buf = 0;
-    v98 = buf;
-    v99 = 0x3032000000;
-    v100 = __Block_byref_object_copy__49;
-    v101 = __Block_byref_object_dispose__49;
-    v102 = 0;
-    v93 = 0;
-    v94 = &v93;
-    v95 = 0x2020000000;
-    v96 = 0;
-    v89 = 0;
-    v90 = &v89;
-    v91 = 0x2020000000;
+    v97 = buf;
+    v98 = 0x3032000000;
+    v99 = __Block_byref_object_copy__49;
+    v100 = __Block_byref_object_dispose__49;
+    v101 = 0;
     v92 = 0;
-    v83 = 0;
-    v84 = &v83;
-    v85 = 0x3032000000;
-    v86 = __Block_byref_object_copy__49;
-    v87 = __Block_byref_object_dispose__49;
+    v93 = &v92;
+    v94 = 0x2020000000;
+    v95 = 0;
     v88 = 0;
-    v75[0] = MEMORY[0x277D85DD0];
-    v75[1] = 3221225472;
-    v75[2] = __77__TRIFetchMultipleExperimentNotificationsTask_runUsingContext_withTaskQueue___block_invoke;
-    v75[3] = &unk_279DE4310;
-    v80 = &v83;
-    v81 = buf;
-    v79 = &v93;
-    v75[4] = selfCopy;
+    v89 = &v88;
+    v90 = 0x2020000000;
+    v91 = 0;
+    v82 = 0;
+    v83 = &v82;
+    v84 = 0x3032000000;
+    v85 = __Block_byref_object_copy__49;
+    v86 = __Block_byref_object_dispose__49;
+    v87 = 0;
+    v74[0] = MEMORY[0x277D85DD0];
+    v74[1] = 3221225472;
+    v74[2] = __77__TRIFetchMultipleExperimentNotificationsTask_runUsingContext_withTaskQueue___block_invoke;
+    v74[3] = &unk_279DE4310;
+    v79 = &v82;
+    v80 = buf;
+    v78 = &v92;
+    v74[4] = selfCopy;
     v23 = contextCopy;
-    v76 = v23;
-    v77 = queueCopy;
-    v82 = &v89;
+    v75 = v23;
+    v76 = queueCopy;
+    v81 = &v88;
     dsema = v22;
-    v78 = dsema;
-    v59 = MEMORY[0x2743948D0](v75);
+    v77 = dsema;
+    v58 = MEMORY[0x2743948D0](v74);
     xpcActivityManager = [v23 xpcActivityManager];
     limitedCarryManager = [v23 limitedCarryManager];
 
@@ -759,26 +785,26 @@ LABEL_21:
       if (!selfCopy->_rollbacksOnly)
       {
         limitedCarryManager2 = [v23 limitedCarryManager];
-        [v56 fetchExperimentNotificationsForLimitedCarryExperimentWithManager:limitedCarryManager2 options:v58 rollbacksOnly:0 completion:v59];
+        [v55 fetchExperimentNotificationsForLimitedCarryExperimentWithManager:limitedCarryManager2 options:v57 rollbacksOnly:0 completion:v58];
 
         dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
       }
 
       limitedCarryManager3 = [v23 limitedCarryManager];
-      [v56 fetchExperimentNotificationsForLimitedCarryExperimentWithManager:limitedCarryManager3 options:v58 rollbacksOnly:1 completion:v59];
+      [v55 fetchExperimentNotificationsForLimitedCarryExperimentWithManager:limitedCarryManager3 options:v57 rollbacksOnly:1 completion:v58];
 
       dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
       if (selfCopy->_limitedCarryOnly)
       {
-        v27 = *(v94 + 6);
+        v27 = *(v93 + 6);
         if (v27 == 2)
         {
           [xpcActivityManager postponeCellularActivity];
-          v27 = *(v94 + 6);
+          v27 = *(v93 + 6);
         }
 
         v28 = [(NSMutableArray *)selfCopy->_nextTasks copy];
-        v29 = [TRITaskRunResult resultWithRunStatus:v27 reportResultToServer:1 nextTasks:v28 earliestRetryDate:*(v98 + 5)];
+        v29 = [TRITaskRunResult resultWithRunStatus:v27 reportResultToServer:1 nextTasks:v28 earliestRetryDate:*(v97 + 5)];
         goto LABEL_59;
       }
     }
@@ -789,82 +815,82 @@ LABEL_21:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         limitedCarryManager4 = [v23 limitedCarryManager];
-        *v106 = 138543362;
-        v107 = limitedCarryManager4;
-        _os_log_error_impl(&dword_26F567000, v30, OS_LOG_TYPE_ERROR, "Unable to fetch limited carry experiments as limitedCarryManager is: %{public}@", v106, 0xCu);
+        *v105 = 138543362;
+        v106 = limitedCarryManager4;
+        _os_log_error_impl(&dword_26F567000, v30, OS_LOG_TYPE_ERROR, "Unable to fetch limited carry experiments as limitedCarryManager is: %{public}@", v105, 0xCu);
       }
     }
 
-    [v56 fetchExperimentNotificationsWithNamespaceNames:selfCopy->_namespaceNames rollbacksOnly:selfCopy->_rollbacksOnly lastFetchDateOverride:selfCopy->_startingFetchDateOverride options:v58 completion:v59];
+    [v55 fetchExperimentNotificationsWithNamespaceNames:selfCopy->_namespaceNames rollbacksOnly:selfCopy->_rollbacksOnly lastFetchDateOverride:selfCopy->_startingFetchDateOverride options:v57 completion:v58];
     dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
-    if (v84[5])
+    if (v83[5])
     {
       selfCopy->wasDeferred = [TRICKNativeArtifactProvider isActivityDeferralError:?];
-      v31 = TRIFetchErrorParseToMetrics(v84[5]);
+      v31 = TRIFetchErrorParseToMetrics(v83[5]);
       if ([v31 count])
       {
-        v73 = 0u;
-        v74 = 0u;
-        v71 = 0u;
         v72 = 0u;
+        v73 = 0u;
+        v70 = 0u;
+        v71 = 0u;
         v32 = v31;
-        v33 = [v32 countByEnumeratingWithState:&v71 objects:v105 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v70 objects:v104 count:16];
         if (v33)
         {
-          v34 = *v72;
+          v34 = *v71;
           do
           {
             for (i = 0; i != v33; ++i)
             {
-              if (*v72 != v34)
+              if (*v71 != v34)
               {
                 objc_enumerationMutation(v32);
               }
 
-              [(TRIFetchMultipleExperimentNotificationsTask *)selfCopy _addMetric:*(*(&v71 + 1) + 8 * i)];
+              [(TRIFetchMultipleExperimentNotificationsTask *)selfCopy _addMetric:*(*(&v70 + 1) + 8 * i)];
             }
 
-            v33 = [v32 countByEnumeratingWithState:&v71 objects:v105 count:16];
+            v33 = [v32 countByEnumeratingWithState:&v70 objects:v104 count:16];
           }
 
           while (v33);
         }
 
-        v18 = v56;
+        v18 = v55;
       }
     }
 
-    v36 = *(v94 + 6);
+    v36 = *(v93 + 6);
     if (v36 == 3)
     {
       namespaceNames = selfCopy->_namespaceNames;
       if (!namespaceNames)
       {
 LABEL_58:
-        v49 = *(v94 + 6);
+        v49 = *(v93 + 6);
         v28 = [(NSMutableArray *)selfCopy->_nextTasks copy];
-        v29 = [TRITaskRunResult resultWithRunStatus:v49 reportResultToServer:1 nextTasks:v28 earliestRetryDate:*(v98 + 5)];
+        v29 = [TRITaskRunResult resultWithRunStatus:v49 reportResultToServer:1 nextTasks:v28 earliestRetryDate:*(v97 + 5)];
 LABEL_59:
         v9 = v29;
 
-        _Block_object_dispose(&v83, 8);
-        _Block_object_dispose(&v89, 8);
-        _Block_object_dispose(&v93, 8);
+        _Block_object_dispose(&v82, 8);
+        _Block_object_dispose(&v88, 8);
+        _Block_object_dispose(&v92, 8);
         _Block_object_dispose(buf, 8);
 
-        v43 = v58;
+        v43 = v57;
 LABEL_60:
 
         objc_sync_exit(selfCopy);
         goto LABEL_61;
       }
 
-      v65 = 0u;
-      v66 = 0u;
-      v63 = 0u;
       v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
       v37 = namespaceNames;
-      v45 = [(NSSet *)v37 countByEnumeratingWithState:&v63 objects:v103 count:16];
+      v45 = [(NSSet *)v37 countByEnumeratingWithState:&v62 objects:v102 count:16];
       if (!v45)
       {
 LABEL_57:
@@ -872,23 +898,23 @@ LABEL_57:
         goto LABEL_58;
       }
 
-      v53 = queueCopy;
-      v46 = *v64;
+      v52 = queueCopy;
+      v46 = *v63;
       do
       {
         for (j = 0; j != v45; ++j)
         {
-          if (*v64 != v46)
+          if (*v63 != v46)
           {
             objc_enumerationMutation(v37);
           }
 
-          v48 = *(*(&v63 + 1) + 8 * j);
-          [MEMORY[0x277D73788] updateStatusFetchSuccess:0 forNamespaceName:v48 withContext:{v23, v53}];
+          v48 = *(*(&v62 + 1) + 8 * j);
+          [MEMORY[0x277D73788] updateStatusFetchSuccess:0 forNamespaceName:v48 withContext:{v23, v52}];
           [MEMORY[0x277D73698] notifyDownloadFailedForKey:v48 withError:0];
         }
 
-        v45 = [(NSSet *)v37 countByEnumeratingWithState:&v63 objects:v103 count:16];
+        v45 = [(NSSet *)v37 countByEnumeratingWithState:&v62 objects:v102 count:16];
       }
 
       while (v45);
@@ -903,35 +929,35 @@ LABEL_57:
 
       [xpcActivityManager postponeCellularActivity];
       [(TRIFetchMultipleExperimentNotificationsTask *)selfCopy updateStatusForNamespacesWithContext:v23];
-      if (v90[3])
+      if (v89[3])
       {
         goto LABEL_58;
       }
 
-      v69 = 0u;
-      v70 = 0u;
-      v67 = 0u;
       v68 = 0u;
+      v69 = 0u;
+      v66 = 0u;
+      v67 = 0u;
       v37 = selfCopy->_namespaceNames;
-      v38 = [(NSSet *)v37 countByEnumeratingWithState:&v67 objects:v104 count:16];
+      v38 = [(NSSet *)v37 countByEnumeratingWithState:&v66 objects:v103 count:16];
       if (!v38)
       {
         goto LABEL_57;
       }
 
-      v53 = queueCopy;
-      v39 = *v68;
+      v52 = queueCopy;
+      v39 = *v67;
       do
       {
         for (k = 0; k != v38; ++k)
         {
-          if (*v68 != v39)
+          if (*v67 != v39)
           {
             objc_enumerationMutation(v37);
           }
 
-          v41 = *(*(&v67 + 1) + 8 * k);
-          if ([(TRIFetchMultipleExperimentNotificationsTask *)selfCopy _checkIfAnyTreatmentPresent:v41 usingContext:v23, v53])
+          v41 = *(*(&v66 + 1) + 8 * k);
+          if ([(TRIFetchMultipleExperimentNotificationsTask *)selfCopy _checkIfAnyTreatmentPresent:v41 usingContext:v23, v52])
           {
             [MEMORY[0x277D73698] notifyDownloadCompletedForKey:v41];
           }
@@ -943,14 +969,14 @@ LABEL_57:
           }
         }
 
-        v38 = [(NSSet *)v37 countByEnumeratingWithState:&v67 objects:v104 count:16];
+        v38 = [(NSSet *)v37 countByEnumeratingWithState:&v66 objects:v103 count:16];
       }
 
       while (v38);
     }
 
-    queueCopy = v53;
-    v18 = v56;
+    queueCopy = v52;
+    v18 = v55;
     goto LABEL_57;
   }
 
@@ -964,14 +990,12 @@ LABEL_57:
   v9 = [TRITaskRunResult resultWithRunStatus:4 reportResultToServer:1 nextTasks:MEMORY[0x277CBEBF8] earliestRetryDate:0];
 LABEL_61:
 
-  v50 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 void __77__TRIFetchMultipleExperimentNotificationsTask_runUsingContext_withTaskQueue___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -998,46 +1022,46 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
-  v14 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  if (v14)
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v13 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v13)
   {
-    v15 = v14;
-    v16 = *v21;
+    v14 = v13;
+    v15 = *v20;
     do
     {
-      v17 = 0;
+      v16 = 0;
       do
       {
-        if (*v21 != v16)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(a1 + 32) _processExperiment:*(*(&v20 + 1) + 8 * v17) taskContext:*(a1 + 40) taskQueue:*(a1 + 48)];
+        [*(a1 + 32) _processExperiment:*(*(&v19 + 1) + 8 * v16) taskContext:*(a1 + 40) taskQueue:*(a1 + 48)];
         ++*(*(*(a1 + 88) + 8) + 24);
-        ++v17;
+        ++v16;
       }
 
-      while (v15 != v17);
-      v15 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      while (v14 != v16);
+      v14 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v15);
+    while (v14);
   }
 
   if (a2 == 4 && v9)
   {
     if (![v9 count])
     {
-      v18 = TRILogCategory_Server();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v17 = TRILogCategory_Server();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        *v19 = 0;
-        _os_log_impl(&dword_26F567000, v18, OS_LOG_TYPE_DEFAULT, "Fetch status success but 0 results fetched.", v19, 2u);
+        *v18 = 0;
+        _os_log_impl(&dword_26F567000, v17, OS_LOG_TYPE_DEFAULT, "Fetch status success but 0 results fetched.", v18, 2u);
       }
     }
 
@@ -1056,8 +1080,6 @@ LABEL_6:
 LABEL_8:
   dispatch_semaphore_signal(*(a1 + 56));
 LABEL_9:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -1270,17 +1292,17 @@ LABEL_21:
 
 + (id)parseFromData:(id)data
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v24 = 0;
-  v4 = [(TRIPBMessage *)TRIFetchExperimentNotificationsPersistedTask parseFromData:data error:&v24];
-  v5 = v24;
+  v26 = *MEMORY[0x277D85DE8];
+  v23 = 0;
+  v4 = [(TRIPBMessage *)TRIFetchExperimentNotificationsPersistedTask parseFromData:data error:&v23];
+  v5 = v23;
   if (!v4)
   {
     v7 = TRILogCategory_Server();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v26 = v5;
+      v25 = v5;
       _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, "Unable to parse buffer as TRIFetchExperimentNotificationsPersistedTask: %{public}@", buf, 0xCu);
     }
 
@@ -1300,7 +1322,7 @@ LABEL_12:
     v10 = objc_opt_class();
     v11 = NSStringFromClass(v10);
     *buf = 138412290;
-    v26 = v11;
+    v25 = v11;
     v12 = "Cannot decode message of type %@ with missing field: rollbacksOnly";
 LABEL_32:
     _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, v12, buf, 0xCu);
@@ -1316,10 +1338,10 @@ LABEL_32:
       goto LABEL_12;
     }
 
-    v23 = objc_opt_class();
-    v11 = NSStringFromClass(v23);
+    v22 = objc_opt_class();
+    v11 = NSStringFromClass(v22);
     *buf = 138412290;
-    v26 = v11;
+    v25 = v11;
     v12 = "Cannot decode message of type %@ with missing field: taskAttribution";
     goto LABEL_32;
   }
@@ -1342,17 +1364,17 @@ LABEL_32:
 
     if ([v4 namespacesArray_Count])
     {
-      v16 = objc_alloc(MEMORY[0x277CBEB98]);
+      v15 = objc_alloc(MEMORY[0x277CBEB98]);
       namespacesArray = [v4 namespacesArray];
-      v18 = [v16 initWithArray:namespacesArray];
+      v17 = [v15 initWithArray:namespacesArray];
     }
 
     else
     {
-      v18 = 0;
+      v17 = 0;
     }
 
-    v19 = [self alloc];
+    v18 = [self alloc];
     rollbacksOnly = [v4 rollbacksOnly];
     if ([v4 limitedCarryOnly])
     {
@@ -1364,7 +1386,7 @@ LABEL_32:
       limitedCarryOnly = 0;
     }
 
-    v13 = [v19 initWithStartingFetchDateOverride:date namespaceNames:v18 taskAttributing:v7 rollbacksOnly:rollbacksOnly limitedCarryOnly:limitedCarryOnly];
+    v13 = [v18 initWithStartingFetchDateOverride:date namespaceNames:v17 taskAttributing:v7 rollbacksOnly:rollbacksOnly limitedCarryOnly:limitedCarryOnly];
     if ([v4 hasRetryCount])
     {
       retryCount = [v4 retryCount];
@@ -1391,7 +1413,6 @@ LABEL_32:
   }
 
 LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

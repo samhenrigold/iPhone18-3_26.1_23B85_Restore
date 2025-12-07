@@ -282,7 +282,7 @@
   [badgeView setNeedsLayout];
   [badgeView layoutIfNeeded];
   [badgeView resizeBadgeForCurrentViewSize];
-  [(AAUIAchievementDetailTransitionAnimator *)self finalBadgeTransform];
+  objc_msgSend_finalBadgeTransform(self);
   v49[0] = v49[3];
   v49[1] = v49[4];
   v49[2] = v49[5];
@@ -373,7 +373,7 @@ uint64_t __87__AAUIAchievementDetailTransitionAnimator_reducedMotionAnimatePrese
   [badgeView setNeedsLayout];
   [badgeView layoutIfNeeded];
   [badgeView resizeBadgeForCurrentViewSize];
-  [(AAUIAchievementDetailTransitionAnimator *)self initialBadgeTransform];
+  objc_msgSend_initialBadgeTransform(self);
   v44[0] = v44[3];
   v44[1] = v44[4];
   v44[2] = v44[5];
@@ -486,57 +486,57 @@ void __74__AAUIAchievementDetailTransitionAnimator_animatePresentationWithContex
   [v3 addKeyframeWithRelativeStartTime:v6 relativeDuration:0.0 animations:1.0];
 }
 
-void __74__AAUIAchievementDetailTransitionAnimator_animatePresentationWithContext___block_invoke_2(uint64_t a1)
+void __74__AAUIAchievementDetailTransitionAnimator_animatePresentationWithContext___block_invoke_2(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 finalPresentingVCTransform];
-    v2 = *(a1 + 32);
+    objc_msgSend_finalPresentingVCTransform(v3, a2);
+    v3 = *(a1 + 32);
   }
 
   else
   {
-    v9 = 0u;
     v10 = 0u;
-    v8 = 0u;
+    v11 = 0u;
+    v9 = 0u;
   }
 
-  v3 = [v2 presentingViewController];
-  v4 = [v3 view];
-  v7[0] = v8;
-  v7[1] = v9;
-  v7[2] = v10;
-  [v4 setTransform:v7];
+  v4 = [v3 presentingViewController];
+  v5 = [v4 view];
+  v8[0] = v9;
+  v8[1] = v10;
+  v8[2] = v11;
+  [v5 setTransform:v8];
 
   if (([*(a1 + 32) isWatch] & 1) == 0)
   {
-    v5 = [*(a1 + 32) presentingViewController];
-    v6 = [v5 view];
-    [v6 setAlpha:0.0];
+    v6 = [*(a1 + 32) presentingViewController];
+    v7 = [v6 view];
+    [v7 setAlpha:0.0];
   }
 }
 
-uint64_t __74__AAUIAchievementDetailTransitionAnimator_animatePresentationWithContext___block_invoke_4(uint64_t a1)
+uint64_t __74__AAUIAchievementDetailTransitionAnimator_animatePresentationWithContext___block_invoke_4(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 40);
-  if (v2)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    [v2 finalBadgeTransform];
+    objc_msgSend_finalBadgeTransform(v3, a2);
   }
 
   else
   {
-    v7 = 0u;
     v8 = 0u;
-    v6 = 0u;
+    v9 = 0u;
+    v7 = 0u;
   }
 
-  v3 = *(a1 + 32);
-  v5[0] = v6;
-  v5[1] = v7;
-  v5[2] = v8;
-  [v3 setTransform:v5];
+  v4 = *(a1 + 32);
+  v6[0] = v7;
+  v6[1] = v8;
+  v6[2] = v9;
+  [v4 setTransform:v6];
   [*(a1 + 40) finalBadgeCenter];
   return [*(a1 + 32) setCenter:?];
 }
@@ -679,13 +679,13 @@ void __84__AAUIAchievementDetailTransitionAnimator_reducedMotionAnimateDismissal
   detailViewController = [(AAUIAchievementDetailTransitionAnimator *)self detailViewController];
   badgeView = [detailViewController badgeView];
 
-  if (-[AAUIAchievementDetailTransitionAnimator shouldDismissGracefullyForTextSizeChange](self, "shouldDismissGracefullyForTextSizeChange") || ([containerView addSubview:badgeView], objc_msgSend(badgeView, "setTranslatesAutoresizingMaskIntoConstraints:", 1), -[AAUIAchievementDetailTransitionAnimator finalBadgeCenter](self, "finalBadgeCenter"), objc_msgSend(badgeView, "setCenter:"), -[AAUIAchievementDetailTransitionAnimator finalBadgeTransform](self, "finalBadgeTransform"), v70 = v67, v71 = v68, v72 = v69, objc_msgSend(badgeView, "setTransform:", &v70), objc_msgSend(badgeView, "playFlipOutAnimation"), v17 = v16, v16 < 2.22044605e-16))
+  if (-[AAUIAchievementDetailTransitionAnimator shouldDismissGracefullyForTextSizeChange](self, "shouldDismissGracefullyForTextSizeChange") || ([containerView addSubview:badgeView], objc_msgSend(badgeView, "setTranslatesAutoresizingMaskIntoConstraints:", 1), -[AAUIAchievementDetailTransitionAnimator finalBadgeCenter](self, "finalBadgeCenter"), objc_msgSend(badgeView, "setCenter:"), objc_msgSend_finalBadgeTransform(self), v70 = v67, v71 = v68, v72 = v69, objc_msgSend(badgeView, "setTransform:", &v70), objc_msgSend(badgeView, "playFlipOutAnimation"), v17 = v16, v16 < 2.22044605e-16))
   {
     [(AAUIAchievementDetailTransitionAnimator *)self transitionDuration:contextCopy];
     v17 = v18;
   }
 
-  [(AAUIAchievementDetailTransitionAnimator *)self finalPresentingVCTransform];
+  objc_msgSend_finalPresentingVCTransform(self);
   presentingViewController4 = [(AAUIAchievementDetailTransitionAnimator *)self presentingViewController];
   view4 = [presentingViewController4 view];
   v70 = v64;
@@ -856,7 +856,7 @@ uint64_t __71__AAUIAchievementDetailTransitionAnimator_animateDismissalWithConte
   v2 = *(a1 + 40);
   if (v2)
   {
-    [v2 initialBadgeTransform];
+    objc_msgSend_initialBadgeTransform(v2);
   }
 
   else

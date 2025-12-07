@@ -220,7 +220,7 @@
   return v18;
 }
 
-void __51__BSKeyedSettingsDiff_diffFromSettings_toSettings___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __51__BSKeyedSettingsDiff_diffFromSettings_toSettings___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v10 = a2;
   v5 = *(a1 + 32);

@@ -201,10 +201,11 @@ LABEL_19:
 - (id)accessibilityLabelForCurrentEvent
 {
   v3 = +[NSMutableArray array];
-  [v3 addObject:{+[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", objc_msgSend(THBundle(), "localizedStringForKey:value:table:", @"Slide %1$lu of %2$lu", &stru_471858, 0), -[KPFSession currentSlideIndex](self->mSession, "currentSlideIndex") + 1, -[NSMutableArray count](-[KPFSession KPFSlideList](self->mSession, "KPFSlideList"), "count"))}];
-  if ([(KPFGingerSlide *)[(KPFSession *)self->mSession currentSlide] eventCount]>= 2)
+  [v3 addObject:{+[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", objc_msgSend(THBundle(v3, v4), "localizedStringForKey:value:table:", @"Slide %1$lu of %2$lu", &stru_471858, 0), -[KPFSession currentSlideIndex](self->mSession, "currentSlideIndex") + 1, -[NSMutableArray count](-[KPFSession KPFSlideList](self->mSession, "KPFSlideList"), "count"))}];
+  eventCount = [(KPFGingerSlide *)[(KPFSession *)self->mSession currentSlide] eventCount];
+  if (eventCount >= 2)
   {
-    [v3 addObject:{+[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", objc_msgSend(THBundle(), "localizedStringForKey:value:table:", @"Build %1$lu of %2$lu", &stru_471858, 0), -[KPFGingerSlide curentEventIndex](-[KPFSession currentSlide](self->mSession, "currentSlide"), "curentEventIndex") + 1, -[KPFGingerSlide eventCount](-[KPFSession currentSlide](self->mSession, "currentSlide"), "eventCount"))}];
+    [v3 addObject:{+[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", objc_msgSend(THBundle(eventCount, v6), "localizedStringForKey:value:table:", @"Build %1$lu of %2$lu", &stru_471858, 0), -[KPFGingerSlide curentEventIndex](-[KPFSession currentSlide](self->mSession, "currentSlide"), "curentEventIndex") + 1, -[KPFGingerSlide eventCount](-[KPFSession currentSlide](self->mSession, "currentSlide"), "eventCount"))}];
   }
 
   return [v3 componentsJoinedByString:{@", "}];

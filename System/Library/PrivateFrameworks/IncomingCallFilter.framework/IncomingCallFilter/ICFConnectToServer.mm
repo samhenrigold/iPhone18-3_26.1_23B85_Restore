@@ -3,13 +3,13 @@
 
 @implementation ICFConnectToServer
 
-void ___ICFConnectToServer_block_invoke()
+void ___ICFConnectToServer_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = ICFDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = ICFDefaultLog(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_254B1F000, v0, OS_LOG_TYPE_DEFAULT, "[WARN] Connection went invalid, exiting", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_254B1F000, v2, OS_LOG_TYPE_DEFAULT, "[WARN] Connection went invalid, exiting", v3, 2u);
   }
 
   xpc_release(sServerConnection);
@@ -19,25 +19,26 @@ void ___ICFConnectToServer_block_invoke()
 void ___ICFConnectToServer_block_invoke_8(uint64_t a1, _xpc_connection_s *a2, void *a3)
 {
   v3 = a3;
-  v46 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x259C24500](a3);
-  v6 = MEMORY[0x277D86480];
+  v7 = v5;
+  v8 = MEMORY[0x277D86480];
   if (v5 == MEMORY[0x277D86480])
   {
     if (v3 == MEMORY[0x277D863F8])
     {
-      v30 = ICFDefaultLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v35 = ICFDefaultLog(v5, v6);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         ___ICFConnectToServer_block_invoke_8_cold_3(a2);
       }
 
       xpc_connection_cancel(a2);
-      v31 = ICFDefaultLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v38 = ICFDefaultLog(v36, v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_254B1F000, v31, OS_LOG_TYPE_DEFAULT, "Cleaning up connection", buf, 2u);
+        _os_log_impl(&dword_254B1F000, v38, OS_LOG_TYPE_DEFAULT, "Cleaning up connection", buf, 2u);
       }
 
       xpc_release(sServerConnection);
@@ -46,8 +47,8 @@ void ___ICFConnectToServer_block_invoke_8(uint64_t a1, _xpc_connection_s *a2, vo
 
     else if (v3 == MEMORY[0x277D863F0])
     {
-      v32 = ICFDefaultLog();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v39 = ICFDefaultLog(v5, v6);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         ___ICFConnectToServer_block_invoke_8_cold_2(a2);
       }
@@ -55,98 +56,98 @@ void ___ICFConnectToServer_block_invoke_8(uint64_t a1, _xpc_connection_s *a2, vo
 
     else if (v3 == MEMORY[0x277D86420])
     {
-      v24 = ICFDefaultLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v29 = ICFDefaultLog(v5, v6);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         ___ICFConnectToServer_block_invoke_8_cold_1(a2);
       }
     }
   }
 
-  v7 = MEMORY[0x259C244A0](v3);
-  v8 = ICFDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = MEMORY[0x259C244A0](v3);
+  v11 = ICFDefaultLog(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     pid = xpc_connection_get_pid(a2);
     *buf = 67109378;
-    *v45 = pid;
-    *&v45[4] = 2080;
-    *&v45[6] = v7;
-    _os_log_impl(&dword_254B1F000, v8, OS_LOG_TYPE_DEFAULT, "received message from peer(%d): %s", buf, 0x12u);
+    *v52 = pid;
+    *&v52[4] = 2080;
+    *&v52[6] = v9;
+    _os_log_impl(&dword_254B1F000, v11, OS_LOG_TYPE_DEFAULT, "received message from peer(%d): %s", buf, 0x12u);
   }
 
-  free(v7);
-  if (v5 != v6)
+  free(v9);
+  if (v7 != v8)
   {
-    v10 = IMGetXPCStringFromDictionary();
-    v11 = IMGetXPCStringFromDictionary();
-    v12 = ICFDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = IMGetXPCStringFromDictionary();
+    v14 = IMGetXPCStringFromDictionary();
+    v16 = ICFDefaultLog(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      *v45 = v10;
-      *&v45[8] = 2112;
-      *&v45[10] = v11;
-      _os_log_impl(&dword_254B1F000, v12, OS_LOG_TYPE_DEFAULT, "Incoming call filtering query for number %@ and provider identifier %@", buf, 0x16u);
+      *v52 = v13;
+      *&v52[8] = 2112;
+      *&v52[10] = v14;
+      _os_log_impl(&dword_254B1F000, v16, OS_LOG_TYPE_DEFAULT, "Incoming call filtering query for number %@ and provider identifier %@", buf, 0x16u);
     }
 
-    v13 = 0x281002000uLL;
+    v17 = 0x281002000uLL;
     [sFilterLock lock];
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v14 = [sFilterBlocks allValues];
-    v15 = [v14 countByEnumeratingWithState:&v34 objects:buf count:16];
-    if (v15)
+    v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v18 = [sFilterBlocks allValues];
+    v19 = [v18 countByEnumeratingWithState:&v41 objects:buf count:16];
+    if (v19)
     {
-      v16 = v15;
-      v33 = v3;
-      v17 = *v35;
+      v20 = v19;
+      v40 = v3;
+      v21 = *v42;
 LABEL_9:
-      v18 = 0;
+      v22 = 0;
       while (1)
       {
-        if (*v35 != v17)
+        if (*v42 != v21)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v18);
         }
 
-        v19 = *(*(&v34 + 1) + 8 * v18);
-        v20 = v19[2](v19, v10, v11);
-        v21 = ICFDefaultLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v23 = *(*(&v41 + 1) + 8 * v22);
+        v24 = v23[2](v23, v13, v14);
+        v26 = ICFDefaultLog(v24, v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = @"deny";
-          if (!v20)
+          v27 = @"deny";
+          if (!v24)
           {
-            v22 = @"allow";
+            v27 = @"allow";
           }
 
-          *v38 = 138412802;
-          v39 = v19;
-          v23 = @"not blocked";
-          if (v20 == 2)
+          *v45 = 138412802;
+          v46 = v23;
+          v28 = @"not blocked";
+          if (v24 == 2)
           {
-            v23 = @"blocked";
+            v28 = @"blocked";
           }
 
-          v40 = 2112;
-          v41 = v22;
-          v42 = 2112;
-          v43 = v23;
-          _os_log_impl(&dword_254B1F000, v21, OS_LOG_TYPE_DEFAULT, "We asked the filter %@ and it's telling us to %@ the call, and that the call was %@", v38, 0x20u);
+          v47 = 2112;
+          v48 = v27;
+          v49 = 2112;
+          v50 = v28;
+          _os_log_impl(&dword_254B1F000, v26, OS_LOG_TYPE_DEFAULT, "We asked the filter %@ and it's telling us to %@ the call, and that the call was %@", v45, 0x20u);
         }
 
-        if (v20)
+        if (v24)
         {
           break;
         }
 
-        if (v16 == ++v18)
+        if (v20 == ++v22)
         {
-          v16 = [v14 countByEnumeratingWithState:&v34 objects:buf count:16];
-          if (v16)
+          v20 = [v18 countByEnumeratingWithState:&v41 objects:buf count:16];
+          if (v20)
           {
             goto LABEL_9;
           }
@@ -155,59 +156,54 @@ LABEL_9:
         }
       }
 
-      v3 = v33;
-      v13 = 0x281002000;
+      v3 = v40;
+      v17 = 0x281002000;
     }
 
-    [*(v13 + 360) unlock];
+    [*(v17 + 360) unlock];
     reply = xpc_dictionary_create_reply(v3);
     if (reply)
     {
-      v26 = reply;
+      v31 = reply;
       IMInsertBoolsToXPCDictionary();
       IMInsertBoolsToXPCDictionary();
-      v27 = MEMORY[0x259C244A0](v26);
-      v28 = ICFDefaultLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v32 = MEMORY[0x259C244A0](v31);
+      v34 = ICFDefaultLog(v32, v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        *v38 = 136315394;
-        v39 = v27;
-        v40 = 2048;
-        v41 = a2;
-        _os_log_impl(&dword_254B1F000, v28, OS_LOG_TYPE_DEFAULT, "Forwarding reply %s to connection %p", v38, 0x16u);
+        *v45 = 136315394;
+        v46 = v32;
+        v47 = 2048;
+        v48 = a2;
+        _os_log_impl(&dword_254B1F000, v34, OS_LOG_TYPE_DEFAULT, "Forwarding reply %s to connection %p", v45, 0x16u);
       }
 
-      free(v27);
-      xpc_connection_send_message(a2, v26);
-      xpc_release(v26);
+      free(v32);
+      xpc_connection_send_message(a2, v31);
+      xpc_release(v31);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void ___ICFConnectToServer_block_invoke_8_cold_1(_xpc_connection_s *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  xpc_connection_get_pid(a1);
-  OUTLINED_FUNCTION_0(&dword_254B1F000, v1, v2, "peer(%d) received XPC_ERROR_TERMINATION_IMMINENT", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = xpc_connection_get_pid(a1);
+  OUTLINED_FUNCTION_0(&dword_254B1F000, v1, v2, "peer(%d) received XPC_ERROR_TERMINATION_IMMINENT", v3, v4, v5, v6, v7);
 }
 
 void ___ICFConnectToServer_block_invoke_8_cold_2(_xpc_connection_s *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  xpc_connection_get_pid(a1);
-  OUTLINED_FUNCTION_0(&dword_254B1F000, v1, v2, "peer(%d) received XPC_ERROR_CONNECTION_INTERRUPTED", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = xpc_connection_get_pid(a1);
+  OUTLINED_FUNCTION_0(&dword_254B1F000, v1, v2, "peer(%d) received XPC_ERROR_CONNECTION_INTERRUPTED", v3, v4, v5, v6, v7);
 }
 
 void ___ICFConnectToServer_block_invoke_8_cold_3(_xpc_connection_s *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  xpc_connection_get_pid(a1);
-  OUTLINED_FUNCTION_0(&dword_254B1F000, v1, v2, "peer(%d) received XPC_ERROR_CONNECTION_INVALID", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = xpc_connection_get_pid(a1);
+  OUTLINED_FUNCTION_0(&dword_254B1F000, v1, v2, "peer(%d) received XPC_ERROR_CONNECTION_INVALID", v3, v4, v5, v6, v7);
 }
 
 @end

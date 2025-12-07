@@ -104,7 +104,7 @@ void __63__VNFaceLandmarkDetector_configurationOptionKeysForDetectorKey__block_i
     while (ofIndiciesCopy);
   }
 
-  v5.f32[0] = ofIndicies;
+  *v5.i32 = ofIndicies;
   v9 = vdiv_f32(v7, vdup_lane_s32(v5, 0));
   v10 = v9.f32[1];
   result.x = v9.f32[0];
@@ -235,12 +235,12 @@ LABEL_12:
   else
   {
     LODWORD(src.data) = 0;
-    std::vector<float>::vector[abi:ne200100](&v80, 0x550uLL);
+    std::vector<float>::vector[abi:ne200100](&v80, 0x550uLL, &src);
     memset(v79, 0, sizeof(v79));
     LOBYTE(src.data) = 0;
-    std::vector<unsigned char>::vector[abi:ne200100](v78, 2304);
+    std::vector<unsigned char>::vector[abi:ne200100](v78, 2304, &src);
     LOBYTE(src.data) = 0;
-    std::vector<unsigned char>::vector[abi:ne200100](__p, 2304);
+    std::vector<unsigned char>::vector[abi:ne200100](__p, 2304, &src);
     *&dest.height = vdupq_n_s64(0x30uLL);
     dest.rowBytes = 48;
     v75.data = __p[0];
@@ -251,9 +251,9 @@ LABEL_12:
     v85 = 0;
     v86 = 0;
     LODWORD(src.data) = 0;
-    std::vector<float>::vector[abi:ne200100](v84, 0x2A8uLL);
+    std::vector<float>::vector[abi:ne200100](v84, 0x2A8uLL, &src);
     LODWORD(src.data) = 0;
-    std::vector<float>::vector[abi:ne200100](v87, 0x2A8uLL);
+    std::vector<float>::vector[abi:ne200100](v87, 0x2A8uLL, &src);
     y = coordinates->origin.y;
     v22 = coordinates->origin.x + *(*landmarks + 128);
     v23 = coordinates->origin.x + *(*landmarks + 160);
@@ -372,12 +372,12 @@ LABEL_12:
     v84[0] = &v86 + 4;
     if (*(v87 + 1) <= 0.8)
     {
-      *(std::__tree<std::__value_type<vision::mod::_blinkType,float>,std::__map_value_compare<vision::mod::_blinkType,std::__value_type<vision::mod::_blinkType,float>,std::less<vision::mod::_blinkType>,true>,std::allocator<std::__value_type<vision::mod::_blinkType,float>>>::__emplace_unique_key_args<vision::mod::_blinkType,std::piecewise_construct_t const&,std::tuple<vision::mod::_blinkType&&>,std::tuple<>>(&v82, 0) + 8) = 0;
+      *(std::__tree<std::__value_type<vision::mod::_blinkType,float>,std::__map_value_compare<vision::mod::_blinkType,std::__value_type<vision::mod::_blinkType,float>,std::less<vision::mod::_blinkType>,true>,std::allocator<std::__value_type<vision::mod::_blinkType,float>>>::__emplace_unique_key_args<vision::mod::_blinkType,std::piecewise_construct_t const&,std::tuple<vision::mod::_blinkType&&>,std::tuple<>>(&v82, 0, v84) + 8) = 0;
     }
 
     else
     {
-      *(std::__tree<std::__value_type<vision::mod::_blinkType,float>,std::__map_value_compare<vision::mod::_blinkType,std::__value_type<vision::mod::_blinkType,float>,std::less<vision::mod::_blinkType>,true>,std::allocator<std::__value_type<vision::mod::_blinkType,float>>>::__emplace_unique_key_args<vision::mod::_blinkType,std::piecewise_construct_t const&,std::tuple<vision::mod::_blinkType&&>,std::tuple<>>(&v82, 0) + 8) = 1065353216;
+      *(std::__tree<std::__value_type<vision::mod::_blinkType,float>,std::__map_value_compare<vision::mod::_blinkType,std::__value_type<vision::mod::_blinkType,float>,std::less<vision::mod::_blinkType>,true>,std::allocator<std::__value_type<vision::mod::_blinkType,float>>>::__emplace_unique_key_args<vision::mod::_blinkType,std::piecewise_construct_t const&,std::tuple<vision::mod::_blinkType&&>,std::tuple<>>(&v82, 0, v84) + 8) = 1065353216;
     }
 
     v67 = *(v62 + 20);
@@ -390,12 +390,12 @@ LABEL_12:
     v84[0] = &v86;
     if (*(&v86 + 1) <= 0.1)
     {
-      *(std::__tree<std::__value_type<vision::mod::_blinkType,float>,std::__map_value_compare<vision::mod::_blinkType,std::__value_type<vision::mod::_blinkType,float>,std::less<vision::mod::_blinkType>,true>,std::allocator<std::__value_type<vision::mod::_blinkType,float>>>::__emplace_unique_key_args<vision::mod::_blinkType,std::piecewise_construct_t const&,std::tuple<vision::mod::_blinkType&&>,std::tuple<>>(&v82, 1) + 8) = 0;
+      *(std::__tree<std::__value_type<vision::mod::_blinkType,float>,std::__map_value_compare<vision::mod::_blinkType,std::__value_type<vision::mod::_blinkType,float>,std::less<vision::mod::_blinkType>,true>,std::allocator<std::__value_type<vision::mod::_blinkType,float>>>::__emplace_unique_key_args<vision::mod::_blinkType,std::piecewise_construct_t const&,std::tuple<vision::mod::_blinkType&&>,std::tuple<>>(&v82, 1, v84) + 8) = 0;
     }
 
     else
     {
-      *(std::__tree<std::__value_type<vision::mod::_blinkType,float>,std::__map_value_compare<vision::mod::_blinkType,std::__value_type<vision::mod::_blinkType,float>,std::less<vision::mod::_blinkType>,true>,std::allocator<std::__value_type<vision::mod::_blinkType,float>>>::__emplace_unique_key_args<vision::mod::_blinkType,std::piecewise_construct_t const&,std::tuple<vision::mod::_blinkType&&>,std::tuple<>>(&v82, 1) + 8) = 1065353216;
+      *(std::__tree<std::__value_type<vision::mod::_blinkType,float>,std::__map_value_compare<vision::mod::_blinkType,std::__value_type<vision::mod::_blinkType,float>,std::less<vision::mod::_blinkType>,true>,std::allocator<std::__value_type<vision::mod::_blinkType,float>>>::__emplace_unique_key_args<vision::mod::_blinkType,std::piecewise_construct_t const&,std::tuple<vision::mod::_blinkType&&>,std::tuple<>>(&v82, 1, v84) + 8) = 1065353216;
     }
 
     if (src.data)
@@ -406,10 +406,10 @@ LABEL_12:
 
     LODWORD(v84[0]) = 1;
     src.data = v84;
-    [observationCopy setIsBlinking:{*(std::__tree<std::__value_type<vision::mod::_blinkType, float>, std::__map_value_compare<vision::mod::_blinkType, std::__value_type<vision::mod::_blinkType, float>, std::less<vision::mod::_blinkType>, true>, std::allocator<std::__value_type<vision::mod::_blinkType, float>>>::__emplace_unique_key_args<vision::mod::_blinkType, std::piecewise_construct_t const&, std::tuple<vision::mod::_blinkType&&>, std::tuple<>>(&v82, 1) + 8) > 0.1, &v86 + 4, v72}];
+    [observationCopy setIsBlinking:{*(std::__tree<std::__value_type<vision::mod::_blinkType, float>, std::__map_value_compare<vision::mod::_blinkType, std::__value_type<vision::mod::_blinkType, float>, std::less<vision::mod::_blinkType>, true>, std::allocator<std::__value_type<vision::mod::_blinkType, float>>>::__emplace_unique_key_args<vision::mod::_blinkType, std::piecewise_construct_t const&, std::tuple<vision::mod::_blinkType&&>, std::tuple<>>(&v82, 1, &src) + 8) > 0.1, &v86 + 4, v72}];
     LODWORD(v84[0]) = 1;
     src.data = v84;
-    LODWORD(v69) = *(std::__tree<std::__value_type<vision::mod::_blinkType,float>,std::__map_value_compare<vision::mod::_blinkType,std::__value_type<vision::mod::_blinkType,float>,std::less<vision::mod::_blinkType>,true>,std::allocator<std::__value_type<vision::mod::_blinkType,float>>>::__emplace_unique_key_args<vision::mod::_blinkType,std::piecewise_construct_t const&,std::tuple<vision::mod::_blinkType&&>,std::tuple<>>(&v82, 1) + 8);
+    LODWORD(v69) = *(std::__tree<std::__value_type<vision::mod::_blinkType,float>,std::__map_value_compare<vision::mod::_blinkType,std::__value_type<vision::mod::_blinkType,float>,std::less<vision::mod::_blinkType>,true>,std::allocator<std::__value_type<vision::mod::_blinkType,float>>>::__emplace_unique_key_args<vision::mod::_blinkType,std::piecewise_construct_t const&,std::tuple<vision::mod::_blinkType&&>,std::tuple<>>(&v82, 1, &src) + 8);
     [observationCopy setBlinkScore:v69];
     std::__tree<std::__value_type<long long,int>,std::__map_value_compare<long long,std::__value_type<long long,int>,std::less<long long>,true>,std::allocator<std::__value_type<long long,int>>>::destroy(v82.height);
     if (__p[0])
@@ -576,10 +576,10 @@ LABEL_15:
   ptr = self->_faceAttributesPupilRefiner.__ptr_;
   v11 = (*(landmarks + 1) - *landmarks) >> 3;
   LODWORD(__p[0]) = 0;
-  std::vector<float>::vector[abi:ne200100](&v47, (((v11 - 1) * v11) >> 1) + 1);
+  std::vector<float>::vector[abi:ne200100](&v47, (((v11 - 1) * v11) >> 1) + 1, __p);
   v12 = (*(landmarks + 1) - *landmarks) >> 3;
   v49 = 0;
-  std::vector<unsigned char>::vector[abi:ne200100](__p, v12);
+  std::vector<unsigned char>::vector[abi:ne200100](__p, v12, &v49);
   v13 = *landmarks;
   if (*landmarks == *(landmarks + 1))
   {
@@ -768,7 +768,7 @@ uint64_t __53__VNFaceLandmarkDetector_loadRefinersAndReturnError___block_invoke(
   {
     memset(v9, 0, sizeof(v9));
     v10 = 1065353216;
-    cvml::util::binserialized_table_of_contents::init(v9, [v5 baseAddress], objc_msgSend(v5, "length"));
+    cvml::util::binserialized_table_of_contents::init(v9, [v5 baseAddress], objc_msgSend(v5, "length"), 0);
     memset(v7, 0, sizeof(v7));
     v8 = 1065353216;
     cvml::util::binserialized_contents::init_model_values(v7, v9, 0, vision::mod::LandmarkAttributes::sModelFileInfo);

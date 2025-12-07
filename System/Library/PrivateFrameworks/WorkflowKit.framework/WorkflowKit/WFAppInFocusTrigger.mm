@@ -35,11 +35,11 @@
 
 - (WFAppInFocusTrigger)initWithCoder:(id)coder
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v35.receiver = self;
-  v35.super_class = WFAppInFocusTrigger;
-  v5 = [(WFTrigger *)&v35 initWithCoder:coderCopy];
+  v34.receiver = self;
+  v34.super_class = WFAppInFocusTrigger;
+  v5 = [(WFTrigger *)&v34 initWithCoder:coderCopy];
   v6 = v5;
   if (!v5)
   {
@@ -51,9 +51,9 @@
   if ([coderCopy containsValueForKey:@"appIdentifiers"])
   {
     v8 = MEMORY[0x1E695DFD8];
-    v37[0] = objc_opt_class();
-    v37[1] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
+    v36[0] = objc_opt_class();
+    v36[1] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"appIdentifiers"];
     v12 = v11;
@@ -76,9 +76,9 @@ LABEL_12:
   if ([coderCopy containsValueForKey:@"apps"])
   {
     v14 = MEMORY[0x1E695DFD8];
-    v36[0] = objc_opt_class();
-    v36[1] = objc_opt_class();
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
+    v35[0] = objc_opt_class();
+    v35[1] = objc_opt_class();
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
     v16 = [v14 setWithArray:v15];
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"apps"];
     v18 = v17;
@@ -118,20 +118,19 @@ LABEL_13:
   v23 = [selectedBundleIdentifiers if_objectsPassingTest:&__block_literal_global_283];
 
   v24 = objc_opt_new();
-  v30 = MEMORY[0x1E69E9820];
-  v31 = 3221225472;
-  v32 = __37__WFAppInFocusTrigger_initWithCoder___block_invoke_3;
-  v33 = &unk_1E83800A8;
-  v34 = v24;
+  v29 = MEMORY[0x1E69E9820];
+  v30 = 3221225472;
+  v31 = __37__WFAppInFocusTrigger_initWithCoder___block_invoke_3;
+  v32 = &unk_1E83800A8;
+  v33 = v24;
   v25 = v24;
-  [v23 enumerateObjectsUsingBlock:&v30];
+  [v23 enumerateObjectsUsingBlock:&v29];
   allObjects = [v25 allObjects];
   [(WFAppInFocusTrigger *)v6 setSelectedBundleIdentifiers:allObjects];
 
   v27 = v6;
 LABEL_17:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -163,7 +162,7 @@ void __37__WFAppInFocusTrigger_initWithCoder___block_invoke_3(uint64_t a1, void 
 
 - (id)localizedPastTenseDescription
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   selectedBundleIdentifiers = [(WFAppInFocusTrigger *)self selectedBundleIdentifiers];
   v4 = [selectedBundleIdentifiers count];
 
@@ -191,14 +190,14 @@ void __37__WFAppInFocusTrigger_initWithCoder___block_invoke_3(uint64_t a1, void 
     {
       if (![(WFAppInFocusTrigger *)self onBackground])
       {
-        v20 = getWFTriggersLogObject();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+        v19 = getWFTriggersLogObject();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315394;
-          v23 = "[WFAppInFocusTrigger localizedPastTenseDescription]";
-          v24 = 2114;
+          v22 = "[WFAppInFocusTrigger localizedPastTenseDescription]";
+          v23 = 2114;
           selfCopy2 = self;
-          _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
+          _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
         }
 
         v15 = &stru_1F4A1C408;
@@ -242,26 +241,25 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v21 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+  v20 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v23 = "[WFAppInFocusTrigger localizedPastTenseDescription]";
-    v24 = 2114;
+    v22 = "[WFAppInFocusTrigger localizedPastTenseDescription]";
+    v23 = 2114;
     selfCopy2 = self;
-    _os_log_impl(&dword_1CA256000, v21, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
   }
 
   v15 = &stru_1F4A1C408;
 LABEL_19:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (id)localizedDescriptionWithConfigurationSummary
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   selectedBundleIdentifiers = [(WFAppInFocusTrigger *)self selectedBundleIdentifiers];
   v4 = [selectedBundleIdentifiers count];
 
@@ -289,14 +287,14 @@ LABEL_19:
     {
       if (![(WFAppInFocusTrigger *)self onBackground])
       {
-        v20 = getWFTriggersLogObject();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+        v19 = getWFTriggersLogObject();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315394;
-          v23 = "[WFAppInFocusTrigger localizedDescriptionWithConfigurationSummary]";
-          v24 = 2114;
+          v22 = "[WFAppInFocusTrigger localizedDescriptionWithConfigurationSummary]";
+          v23 = 2114;
           selfCopy2 = self;
-          _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
+          _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
         }
 
         v15 = &stru_1F4A1C408;
@@ -340,19 +338,18 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v21 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+  v20 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v23 = "[WFAppInFocusTrigger localizedDescriptionWithConfigurationSummary]";
-    v24 = 2114;
+    v22 = "[WFAppInFocusTrigger localizedDescriptionWithConfigurationSummary]";
+    v23 = 2114;
     selfCopy2 = self;
-    _os_log_impl(&dword_1CA256000, v21, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
   }
 
   v15 = &stru_1F4A1C408;
 LABEL_19:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

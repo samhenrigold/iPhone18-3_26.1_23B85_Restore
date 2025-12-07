@@ -10,64 +10,63 @@
 
 + (id)configDictForService:(id)service
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEFC38];
-  v9[0] = *MEMORY[0x277CEFC58];
-  v9[1] = v3;
-  v10[0] = @"ASDTIOPAudioVTConfigurationProperty";
-  v10[1] = service;
+  v8[0] = *MEMORY[0x277CEFC58];
+  v8[1] = v3;
+  v9[0] = @"ASDTIOPAudioVTConfigurationProperty";
+  v9[1] = service;
   v4 = MEMORY[0x277CBEAC0];
   serviceCopy = service;
-  v6 = [v4 dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = [v4 dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
 
 - (ASDTIOPAudioVTConfigurationProperty)initWithConfig:(id)config
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:config];
   v5 = *MEMORY[0x277CEFC10];
-  v12[0] = *MEMORY[0x277CEFC28];
-  v12[1] = v5;
+  v11[0] = *MEMORY[0x277CEFC28];
+  v11[1] = v5;
   v6 = *MEMORY[0x277CEFC68];
-  v13[0] = &unk_285359AD8;
-  v13[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[0] = &unk_285359AD8;
+  v12[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   [v4 asdtAddMissingEntriesFromDictionary:v7];
 
-  v11.receiver = self;
-  v11.super_class = ASDTIOPAudioVTConfigurationProperty;
-  v8 = [(ASDTIOPAudioVTProperty *)&v11 initWithConfig:v4 propertyDataType:1886155636 qualifierDataType:0];
+  v10.receiver = self;
+  v10.super_class = ASDTIOPAudioVTConfigurationProperty;
+  v8 = [(ASDTIOPAudioVTProperty *)&v10 initWithConfig:v4 propertyDataType:1886155636 qualifierDataType:0];
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (int)checkPropertyValue:(id)value
 {
   valueCopy = value;
-  v9.receiver = self;
-  v9.super_class = ASDTIOPAudioVTConfigurationProperty;
-  v5 = [(ASDTCustomProperty *)&v9 checkPropertyValue:valueCopy];
+  v13.receiver = self;
+  v13.super_class = ASDTIOPAudioVTConfigurationProperty;
+  v5 = [(ASDTCustomProperty *)&v13 checkPropertyValue:valueCopy];
   if (!v5)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v6 = [valueCopy objectForKey:@"CorealisRTModel"];
+      v8 = [valueCopy objectForKey:@"CorealisRTModel"];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v9 = objc_opt_isKindOfClass();
+      if (v9)
       {
         v5 = 0;
       }
 
       else
       {
-        v7 = ASDTIOPLogType();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v11 = ASDTIOPLogType(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           [ASDTIOPAudioVTConfigurationProperty checkPropertyValue:?];
         }
@@ -78,8 +77,8 @@
 
     else
     {
-      v6 = ASDTIOPLogType();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = ASDTIOPLogType(isKindOfClass, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [ASDTIOPAudioVTConfigurationProperty checkPropertyValue:?];
       }
@@ -93,51 +92,51 @@
 
 - (BOOL)storePropertyValue:(id)value
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   valueCopy = value;
-  v23 = 0;
+  v31 = 0;
   vtDevice = [(ASDTIOPAudioVTProperty *)self vtDevice];
-  v6 = [vtDevice getIsEnabled:&v23];
+  v6 = [vtDevice getIsEnabled:&v31];
 
   if (v6)
   {
-    if (!v23 || (-[ASDTIOPAudioVTProperty vtDevice](self, "vtDevice"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 setEnabled:0], v7, (v8 & 1) != 0))
+    if (!v31 || (-[ASDTIOPAudioVTProperty vtDevice](self, "vtDevice"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 setEnabled:0], v9, (v10 & 1) != 0))
     {
-      v9 = valueCopy;
-      v10 = [v9 objectForKey:@"CorealisRTModelVersion"];
-      v11 = ASDTIOPLogType();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = valueCopy;
+      v14 = [v13 objectForKey:@"CorealisRTModelVersion"];
+      v16 = ASDTIOPLogType(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         name = [(ASDTCustomProperty *)self name];
-        v13 = name;
-        v14 = @"<unknown>";
-        if (v10)
+        v18 = name;
+        v19 = @"<unknown>";
+        if (v14)
         {
-          v14 = v10;
+          v19 = v14;
         }
 
         *buf = 138412546;
-        v25 = name;
-        v26 = 2112;
-        v27 = v14;
-        _os_log_impl(&dword_2416E9000, v11, OS_LOG_TYPE_DEFAULT, "%@: Updating VT configuration to '%@'\n", buf, 0x16u);
+        v33 = name;
+        v34 = 2112;
+        v35 = v19;
+        _os_log_impl(&dword_2416E9000, v16, OS_LOG_TYPE_DEFAULT, "%@: Updating VT configuration to '%@'\n", buf, 0x16u);
       }
 
       vtDevice2 = [(ASDTIOPAudioVTProperty *)self vtDevice];
-      v16 = [vtDevice2 setConfigurationInfo:v9];
+      v21 = [vtDevice2 setConfigurationInfo:v13];
 
-      if (v16)
+      if (v21)
       {
-        if (!v23 || (-[ASDTIOPAudioVTProperty vtDevice](self, "vtDevice"), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v17 setEnabled:v23], v17, (v18 & 1) != 0))
+        if (!v31 || (-[ASDTIOPAudioVTProperty vtDevice](self, "vtDevice"), v24 = objc_claimAutoreleasedReturnValue(), v25 = [v24 setEnabled:v31], v24, (v25 & 1) != 0))
         {
-          v19 = 1;
+          v28 = 1;
 LABEL_22:
 
           goto LABEL_23;
         }
 
-        v20 = ASDTIOPLogType();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v29 = ASDTIOPLogType(v26, v27);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [ASDTIOPAudioVTConfigurationProperty storePropertyValue:?];
         }
@@ -145,19 +144,19 @@ LABEL_22:
 
       else
       {
-        v20 = ASDTIOPLogType();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v29 = ASDTIOPLogType(v22, v23);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           [ASDTIOPAudioVTConfigurationProperty storePropertyValue:?];
         }
       }
 
-      v19 = 0;
+      v28 = 0;
       goto LABEL_22;
     }
 
-    v9 = ASDTIOPLogType();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = ASDTIOPLogType(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ASDTIOPAudioVTConfigurationProperty storePropertyValue:?];
     }
@@ -165,23 +164,22 @@ LABEL_22:
 
   else
   {
-    v9 = ASDTIOPLogType();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = ASDTIOPLogType(v7, v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ASDTIOPAudioVTConfigurationProperty storePropertyValue:?];
     }
   }
 
-  v19 = 0;
+  v28 = 0;
 LABEL_23:
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v28;
 }
 
 - (id)retrievePropertyValue
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   vtDevice = [(ASDTIOPAudioVTProperty *)self vtDevice];
   isConfigured = [vtDevice isConfigured];
 
@@ -193,74 +191,54 @@ LABEL_23:
 
   else
   {
-    v9 = @"CorealisRTModelVersion";
-    v10[0] = @"<na>";
-    getConfigurationInfo = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"CorealisRTModelVersion";
+    v9[0] = @"<na>";
+    getConfigurationInfo = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return getConfigurationInfo;
 }
 
 - (void)checkPropertyValue:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2416E9000, v2, v3, "%@: VT configuration is not a dictionary.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2416E9000, v2, v3, "%@: VT configuration is not a dictionary.", v4, v5, v6, v7);
 }
 
 - (void)checkPropertyValue:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2416E9000, v2, v3, "%@: VT configuration data invalid.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2416E9000, v2, v3, "%@: VT configuration data invalid.", v4, v5, v6, v7);
 }
 
 - (void)storePropertyValue:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2416E9000, v2, v3, "%@: Could not determine if the VT device was enabled.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2416E9000, v2, v3, "%@: Could not determine if the VT device was enabled.", v4, v5, v6, v7);
 }
 
 - (void)storePropertyValue:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2416E9000, v2, v3, "%@: Could not disable the VT device.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2416E9000, v2, v3, "%@: Could not disable the VT device.", v4, v5, v6, v7);
 }
 
 - (void)storePropertyValue:(void *)a1 .cold.3(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2416E9000, v2, v3, "%@: Failed to set the VT configuration.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2416E9000, v2, v3, "%@: Failed to set the VT configuration.", v4, v5, v6, v7);
 }
 
 - (void)storePropertyValue:(void *)a1 .cold.4(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_2(&dword_2416E9000, v2, v3, "%@: Could not enable the VT device.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_2416E9000, v2, v3, "%@: Could not enable the VT device.", v4, v5, v6, v7);
 }
 
 @end

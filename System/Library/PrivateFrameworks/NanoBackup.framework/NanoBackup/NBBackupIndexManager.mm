@@ -259,9 +259,7 @@
   metadataIndex = self->_metadataIndex;
   self->_metadataIndex = 0;
 
-  v4 = objc_opt_new();
-  v5 = self->_metadataIndex;
-  self->_metadataIndex = v4;
+  self->_metadataIndex = objc_opt_new();
 
   _objc_release_x1();
 }

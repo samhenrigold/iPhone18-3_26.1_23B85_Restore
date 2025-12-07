@@ -19,7 +19,7 @@
   type metadata accessor for StoryInactiveImageAdjustment();
   if (swift_dynamicCastClass())
   {
-    sub_1A3C52C70(0, &qword_1EB12B160);
+    sub_1A3C52C70(0, &qword_1EB12B160, 0x1E69E58C0);
     swift_unknownObjectRetain();
     selfCopy = self;
     v5 = sub_1A524DBF4();

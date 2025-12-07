@@ -20,6 +20,7 @@
 - (void)hksp_removeObjectForKey:(id)key;
 - (void)hksp_removeObjectsForKeys:(id)keys;
 - (void)hksp_saveDictionary:(id)dictionary;
+- (void)hksp_setBool:(BOOL)bool forKey:(id)key;
 - (void)hksp_setFloat:(float)float forKey:(id)key;
 - (void)hksp_setInteger:(int64_t)integer forKey:(id)key;
 - (void)hksp_setObject:(id)object forKey:(id)key;
@@ -70,18 +71,18 @@
 
 void __54__HDSPNanoDefaults_initWithEnvironment_configuration___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
-    v13 = objc_opt_class();
-    v14 = 2114;
-    v15 = v3;
-    v6 = v13;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] notifying for external change for keys: %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = objc_opt_class();
+    v13 = 2114;
+    v14 = v3;
+    v6 = v12;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] notifying for external change for keys: %{public}@", &v11, 0x16u);
   }
 
   v7 = [WeakRetained delegate];
@@ -98,8 +99,6 @@ void __54__HDSPNanoDefaults_initWithEnvironment_configuration___block_invoke(uin
   {
     [v9 syncedUserDefaultsDidChangeExternally:WeakRetained];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_keysForChangeNotification:(id)notification
@@ -159,25 +158,24 @@ LABEL_8:
 
 void __37__HDSPNanoDefaults_npsDomainAccessor__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 48);
   if (!v2)
   {
     v3 = HKSPLogForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v15 = 138543362;
-      v16 = objc_opt_class();
-      v5 = v16;
-      _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] initializing NPSDomainAccessor", &v15, 0xCu);
+      v12 = 138543362;
+      v13 = objc_opt_class();
+      v4 = v13;
+      _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] initializing NPSDomainAccessor", &v12, 0xCu);
     }
 
-    v6 = objc_alloc(MEMORY[0x277D2BA58]);
-    v7 = [v6 initWithDomain:*MEMORY[0x277D62050]];
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 48);
-    *(v8 + 48) = v7;
+    v5 = objc_alloc(MEMORY[0x277D2BA58]);
+    v6 = [v5 initWithDomain:*MEMORY[0x277D62050]];
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 48);
+    *(v7 + 48) = v6;
 
     v2 = *(*(a1 + 32) + 48);
   }
@@ -185,19 +183,16 @@ void __37__HDSPNanoDefaults_npsDomainAccessor__block_invoke(uint64_t a1)
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), v2);
   if (!*(*(*(a1 + 40) + 8) + 40))
   {
-    v10 = HKSPLogForCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = HKSPLogForCategory();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 32);
-      v13 = objc_opt_class();
-      v15 = 138543362;
-      v16 = v13;
-      v14 = v13;
-      _os_log_error_impl(&dword_269B11000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] failed to create NPSDomainAccessor", &v15, 0xCu);
+      v10 = objc_opt_class();
+      v12 = 138543362;
+      v13 = v10;
+      v11 = v10;
+      _os_log_error_impl(&dword_269B11000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] failed to create NPSDomainAccessor", &v12, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetNPSDomainAccessor
@@ -213,39 +208,36 @@ void __37__HDSPNanoDefaults_npsDomainAccessor__block_invoke(uint64_t a1)
 
 void __43__HDSPNanoDefaults__resetNPSDomainAccessor__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = HKSPLogForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = objc_opt_class();
-    v4 = v9;
-    _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] re-creating NPSDomainAccessor", &v8, 0xCu);
+    v6 = 138543362;
+    v7 = objc_opt_class();
+    v3 = v7;
+    _os_log_impl(&dword_269B11000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] re-creating NPSDomainAccessor", &v6, 0xCu);
   }
 
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 48);
-  *(v5 + 48) = 0;
-
-  v7 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 48);
+  *(v4 + 48) = 0;
 }
 
 - (id)notificationListener:(id)listener didReceiveNotificationWithName:(id)name
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (([nameCopy isEqualToString:@"com.apple.sleep.sync.SleepScheduleDidChange"] & 1) != 0 || (objc_msgSend(nameCopy, "isEqualToString:", @"com.apple.sleep.sync.SleepSettingsDidChange") & 1) != 0 || objc_msgSend(nameCopy, "isEqualToString:", @"com.apple.sleep.sync.SleepRecordDidChange"))
   {
     v6 = HKSPLogForCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 138543618;
-      *&v12[4] = objc_opt_class();
-      *&v12[12] = 2114;
-      *&v12[14] = nameCopy;
-      v7 = *&v12[4];
-      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] received %{public}@", v12, 0x16u);
+      *v11 = 138543618;
+      *&v11[4] = objc_opt_class();
+      *&v11[12] = 2114;
+      *&v11[14] = nameCopy;
+      v7 = *&v11[4];
+      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] received %{public}@", v11, 0x16u);
     }
 
     v8 = [(HDSPNanoDefaults *)self _keysForChangeNotification:nameCopy];
@@ -254,31 +246,27 @@ void __43__HDSPNanoDefaults__resetNPSDomainAccessor__block_invoke(uint64_t a1)
 
   futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return futureWithNoResult;
 }
 
 - (void)_handleActivePairedDeviceDidChange:(id)change
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2114;
-    v12 = changeCopy;
-    v6 = v10;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleActivePairedDeviceDidChange: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = objc_opt_class();
+    v10 = 2114;
+    v11 = changeCopy;
+    v6 = v9;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _handleActivePairedDeviceDidChange: %{public}@", &v8, 0x16u);
   }
 
   [(HDSPNanoDefaults *)self _resetNPSDomainAccessor];
   delegate = [(HDSPNanoDefaults *)self delegate];
   [delegate syncedUserDefaultsDidChangeExternally:self];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNanoPreferencesSync:(id)sync
@@ -295,33 +283,31 @@ void __43__HDSPNanoDefaults__resetNPSDomainAccessor__block_invoke(uint64_t a1)
 
 - (void)hdsp_forceSynchronizeWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] performing full sync", buf, 0xCu);
   }
 
   npsDomainAccessor = [(HDSPNanoDefaults *)self npsDomainAccessor];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __56__HDSPNanoDefaults_hdsp_forceSynchronizeWithCompletion___block_invoke;
-  v10[3] = &unk_279C7C878;
-  v10[4] = self;
-  v11 = completionCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __56__HDSPNanoDefaults_hdsp_forceSynchronizeWithCompletion___block_invoke;
+  v9[3] = &unk_279C7C878;
+  v9[4] = self;
+  v10 = completionCopy;
   v8 = completionCopy;
-  [npsDomainAccessor synchronizeWithCompletionHandler:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [npsDomainAccessor synchronizeWithCompletionHandler:v9];
 }
 
 void __56__HDSPNanoDefaults_hdsp_forceSynchronizeWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HKSPLogForCategory();
   v5 = v4;
@@ -329,52 +315,47 @@ void __56__HDSPNanoDefaults_hdsp_forceSynchronizeWithCompletion___block_invoke(u
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v11 = 138543618;
-      v12 = objc_opt_class();
-      v13 = 2114;
-      v14 = v3;
-      v7 = v12;
-      _os_log_error_impl(&dword_269B11000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] full sync failed with error: %{public}@", &v11, 0x16u);
+      v8 = 138543618;
+      v9 = objc_opt_class();
+      v10 = 2114;
+      v11 = v3;
+      v6 = v9;
+      _os_log_error_impl(&dword_269B11000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] full sync failed with error: %{public}@", &v8, 0x16u);
 LABEL_6:
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v11 = 138543362;
-    v12 = objc_opt_class();
-    v7 = v12;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] successfully completed full sync", &v11, 0xCu);
+    v8 = 138543362;
+    v9 = objc_opt_class();
+    v6 = v9;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] successfully completed full sync", &v8, 0xCu);
     goto LABEL_6;
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v3 == 0, v3, v9);
-  v10 = *MEMORY[0x277D85DE8];
+  (*(*(a1 + 40) + 16))(*(a1 + 40), v3 == 0, v3, v7);
 }
 
 - (void)hdsp_setExternalChangeDelegate:(id)delegate
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
-    v11 = objc_opt_class();
-    v12 = 2114;
-    v13 = delegateCopy;
-    v6 = v11;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] hdsp_setExternalChangeDelegate %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = objc_opt_class();
+    v11 = 2114;
+    v12 = delegateCopy;
+    v6 = v10;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] hdsp_setExternalChangeDelegate %{public}@", &v9, 0x16u);
   }
 
   [(HDSPNanoDefaults *)self setDelegate:delegateCopy];
   [(HDSPNanoDefaults *)self _registerForNotifications];
   npsDomainAccessor = [(HDSPNanoDefaults *)self npsDomainAccessor];
   synchronize = [npsDomainAccessor synchronize];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForNotifications
@@ -421,6 +402,14 @@ LABEL_6:
   v6 = [npsDomainAccessor BOOLForKey:keyCopy];
 
   return v6;
+}
+
+- (void)hksp_setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  npsDomainAccessor = [(HDSPNanoDefaults *)self npsDomainAccessor];
+  [npsDomainAccessor setBool:boolCopy forKey:keyCopy];
 }
 
 - (float)hksp_floatForKey:(id)key
@@ -511,7 +500,7 @@ LABEL_6:
 
 - (void)hksp_synchronizeKeys:(id)keys
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   npsDomainAccessor = [(HDSPNanoDefaults *)self npsDomainAccessor];
   synchronize = [npsDomainAccessor synchronize];
@@ -521,16 +510,16 @@ LABEL_6:
     v7 = HKSPLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      *v23 = 138543618;
-      *&v23[4] = objc_opt_class();
-      *&v23[12] = 2114;
-      *&v23[14] = synchronize;
-      v8 = *&v23[4];
+      *v22 = 138543618;
+      *&v22[4] = objc_opt_class();
+      *&v22[12] = 2114;
+      *&v22[14] = synchronize;
+      v8 = *&v22[4];
       v9 = "[%{public}@] synchronize failed with error %{public}@";
       v10 = v7;
       v11 = 22;
 LABEL_4:
-      _os_log_error_impl(&dword_269B11000, v10, OS_LOG_TYPE_ERROR, v9, v23, v11);
+      _os_log_error_impl(&dword_269B11000, v10, OS_LOG_TYPE_ERROR, v9, v22, v11);
     }
   }
 
@@ -544,9 +533,9 @@ LABEL_4:
         goto LABEL_16;
       }
 
-      *v23 = 138543362;
-      *&v23[4] = objc_opt_class();
-      v8 = *&v23[4];
+      *v22 = 138543362;
+      *&v22[4] = objc_opt_class();
+      v8 = *&v22[4];
       v9 = "[%{public}@] npsManager is nil when syncing";
       v10 = v7;
       v11 = 12;
@@ -563,18 +552,18 @@ LABEL_4:
       v15 = HKSPLogForCategory();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        *v23 = 138543618;
-        *&v23[4] = objc_opt_class();
-        *&v23[12] = 2114;
-        *&v23[14] = v7;
-        v16 = *&v23[4];
-        _os_log_impl(&dword_269B11000, v15, OS_LOG_TYPE_INFO, "[%{public}@] syncing keys: %{public}@", v23, 0x16u);
+        *v22 = 138543618;
+        *&v22[4] = objc_opt_class();
+        *&v22[12] = 2114;
+        *&v22[14] = v7;
+        v16 = *&v22[4];
+        _os_log_impl(&dword_269B11000, v15, OS_LOG_TYPE_INFO, "[%{public}@] syncing keys: %{public}@", v22, 0x16u);
       }
 
       [(NPSManager *)self->_npsManager synchronizeUserDefaultsDomain:*v14 keys:v7];
     }
 
-    v17 = [(HDSPSyncedDefaultsConfiguration *)self->_configuration allPerGizmoKeys:*v23];
+    v17 = [(HDSPSyncedDefaultsConfiguration *)self->_configuration allPerGizmoKeys:*v22];
     v18 = [keysCopy na_setByIntersectingWithSet:v17];
 
     if ([v18 count])
@@ -583,12 +572,12 @@ LABEL_4:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         v20 = objc_opt_class();
-        *v23 = 138543618;
-        *&v23[4] = v20;
-        *&v23[12] = 2114;
-        *&v23[14] = v18;
+        *v22 = 138543618;
+        *&v22[4] = v20;
+        *&v22[12] = 2114;
+        *&v22[14] = v18;
         v21 = v20;
-        _os_log_impl(&dword_269B11000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing per-gizmo keys: %{public}@", v23, 0x16u);
+        _os_log_impl(&dword_269B11000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing per-gizmo keys: %{public}@", v22, 0x16u);
       }
 
       [(NPSManager *)self->_npsManager synchronizeNanoDomain:*v14 keys:v18];
@@ -596,8 +585,6 @@ LABEL_4:
   }
 
 LABEL_16:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (HDSPSyncedUserDefaultsExternalChangeDelegate)delegate

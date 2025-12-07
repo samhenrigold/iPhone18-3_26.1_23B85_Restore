@@ -8,37 +8,37 @@
 
 - (HDCodableWorkout)codableRepresentationForSync
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(HDCodableWorkout);
-  v42.receiver = self;
-  v42.super_class = &off_283D42E88;
-  v3 = objc_msgSendSuper2(&v42, sel_codableRepresentationForSync);
+  v41.receiver = self;
+  v41.super_class = &off_283D42E88;
+  v3 = objc_msgSendSuper2(&v41, sel_codableRepresentationForSync);
   [(HDCodableWorkout *)v2 setSample:v3];
 
   -[HDCodableWorkout setType:](v2, "setType:", [self workoutActivityType]);
   if (self)
   {
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     workoutEvents = [self workoutEvents];
-    v5 = [workoutEvents countByEnumeratingWithState:&v51 objects:v55 count:16];
+    v5 = [workoutEvents countByEnumeratingWithState:&v50 objects:v54 count:16];
     if (v5)
     {
       v6 = v5;
       array = 0;
-      v8 = *v52;
+      v8 = *v51;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v52 != v8)
+          if (*v51 != v8)
           {
             objc_enumerationMutation(workoutEvents);
           }
 
-          v10 = *(*(&v51 + 1) + 8 * i);
+          v10 = *(*(&v50 + 1) + 8 * i);
           if (!array)
           {
             array = [MEMORY[0x277CBEB18] array];
@@ -51,7 +51,7 @@
           }
         }
 
-        v6 = [workoutEvents countByEnumeratingWithState:&v51 objects:v55 count:16];
+        v6 = [workoutEvents countByEnumeratingWithState:&v50 objects:v54 count:16];
       }
 
       while (v6);
@@ -129,53 +129,53 @@
   v21 = [HDCodableWorkoutActivity codablesForWorkoutActivities:_subActivities];
   [(HDCodableWorkout *)v2 setSubActivities:v21];
 
-  v40 = v2;
+  v39 = v2;
   if (self)
   {
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     _workoutZonesByType = [self _workoutZonesByType];
     allValues = [_workoutZonesByType allValues];
 
     obj = allValues;
-    v24 = [allValues countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v24 = [allValues countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (v24)
     {
       v25 = v24;
       v26 = 0;
-      v27 = *v48;
+      v27 = *v47;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v48 != v27)
+          if (*v47 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v29 = *(*(&v47 + 1) + 8 * j);
+          v29 = *(*(&v46 + 1) + 8 * j);
+          v42 = 0u;
           v43 = 0u;
           v44 = 0u;
           v45 = 0u;
-          v46 = 0u;
           v30 = v29;
-          v31 = [v30 countByEnumeratingWithState:&v43 objects:&v51 count:16];
+          v31 = [v30 countByEnumeratingWithState:&v42 objects:&v50 count:16];
           if (v31)
           {
             v32 = v31;
-            v33 = *v44;
+            v33 = *v43;
             do
             {
               for (k = 0; k != v32; ++k)
               {
-                if (*v44 != v33)
+                if (*v43 != v33)
                 {
                   objc_enumerationMutation(v30);
                 }
 
-                v35 = *(*(&v43 + 1) + 8 * k);
+                v35 = *(*(&v42 + 1) + 8 * k);
                 if (!v26)
                 {
                   v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -188,14 +188,14 @@
                 }
               }
 
-              v32 = [v30 countByEnumeratingWithState:&v43 objects:&v51 count:16];
+              v32 = [v30 countByEnumeratingWithState:&v42 objects:&v50 count:16];
             }
 
             while (v32);
           }
         }
 
-        v25 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v25 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
       }
 
       while (v25);
@@ -212,10 +212,8 @@
     v26 = 0;
   }
 
-  v37 = v40;
-  [(HDCodableWorkout *)v40 setZones:v26, v40];
-
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = v39;
+  [(HDCodableWorkout *)v39 setZones:v26, v39];
 
   return v37;
 }

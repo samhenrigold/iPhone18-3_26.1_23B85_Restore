@@ -1,63 +1,6 @@
-void proto::gpsd::LtlInfo::~LtlInfo(proto::gpsd::LtlInfo *this)
+uint64_t proto::gpsd::LogEntry::MergePartialFromCodedStream(proto::gpsd::LogEntry *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
-  *this = &unk_285863258;
-  proto::gpsd::LtlInfo::SharedDtor(this);
-
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-}
-
-{
-  *this = &unk_285863258;
-  proto::gpsd::LtlInfo::SharedDtor(this);
-
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-}
-
-{
-  *this = &unk_285863258;
-  proto::gpsd::LtlInfo::SharedDtor(this);
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-
-  JUMPOUT(0x245D6AEE0);
-}
-
-void *proto::gpsd::LtlInfo::SharedDtor(void *this)
-{
-  if (proto::gpsd::LtlInfo::default_instance_ != this)
-  {
-    v1 = this;
-    v2 = this[2];
-    if (v2)
-    {
-      (*(*v2 + 8))(v2);
-    }
-
-    v3 = v1[3];
-    if (v3)
-    {
-      (*(*v3 + 8))(v3);
-    }
-
-    v4 = v1[4];
-    if (v4)
-    {
-      (*(*v4 + 8))(v4);
-    }
-
-    this = v1[5];
-    if (this)
-    {
-      v5 = *(*this + 8);
-
-      return v5();
-    }
-  }
-
-  return this;
-}
-
-uint64_t proto::gpsd::LtlInfo::MergePartialFromCodedStream(proto::gpsd::LtlInfo *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
-{
+  v5 = MEMORY[0x277D82C30];
   while (1)
   {
     while (1)
@@ -66,8 +9,8 @@ uint64_t proto::gpsd::LtlInfo::MergePartialFromCodedStream(proto::gpsd::LtlInfo 
       {
         while (1)
         {
-          v4 = *(a2 + 1);
-          if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+          v6 = *(a2 + 1);
+          if (v6 >= *(a2 + 2) || (TagFallback = *v6, (TagFallback & 0x80000000) != 0))
           {
             TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
             *(a2 + 8) = TagFallback;
@@ -80,1824 +23,23 @@ uint64_t proto::gpsd::LtlInfo::MergePartialFromCodedStream(proto::gpsd::LtlInfo 
           else
           {
             *(a2 + 8) = TagFallback;
-            *(a2 + 1) = v4 + 1;
+            *(a2 + 1) = v6 + 1;
             if (!TagFallback)
             {
               return 1;
             }
           }
 
-          v6 = TagFallback >> 3;
-          v7 = TagFallback & 7;
-          if (TagFallback >> 3 > 3)
-          {
-            break;
-          }
-
-          if (v6 == 1)
-          {
-            if ((TagFallback & 7) != 0)
-            {
-              goto LABEL_30;
-            }
-
-            v47 = 0;
-            v10 = *(a2 + 1);
-            v8 = *(a2 + 2);
-            if (v10 >= v8 || (v11 = *v10, (v11 & 0x80000000) != 0))
-            {
-              result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v47);
-              if (!result)
-              {
-                return result;
-              }
-
-              v11 = v47;
-              v12 = *(a2 + 1);
-              v8 = *(a2 + 2);
-            }
-
-            else
-            {
-              v12 = v10 + 1;
-              *(a2 + 1) = v12;
-            }
-
-            *(this + 8) = v11 != 0;
-            *(this + 14) |= 1u;
-            if (v12 < v8 && *v12 == 16)
-            {
-              v13 = v12 + 1;
-              *(a2 + 1) = v13;
-              goto LABEL_39;
-            }
-          }
-
-          else
-          {
-            if (v6 != 2)
-            {
-              if (v6 != 3 || (TagFallback & 7) != 0)
-              {
-                goto LABEL_30;
-              }
-
-              v9 = *(a2 + 1);
-              v8 = *(a2 + 2);
-              goto LABEL_47;
-            }
-
-            if ((TagFallback & 7) != 0)
-            {
-              goto LABEL_30;
-            }
-
-            v13 = *(a2 + 1);
-            v8 = *(a2 + 2);
-LABEL_39:
-            v47 = 0;
-            if (v13 >= v8 || (v15 = *v13, (v15 & 0x80000000) != 0))
-            {
-              result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v47);
-              if (!result)
-              {
-                return result;
-              }
-
-              v15 = v47;
-              v16 = *(a2 + 1);
-              v8 = *(a2 + 2);
-            }
-
-            else
-            {
-              v16 = v13 + 1;
-              *(a2 + 1) = v16;
-            }
-
-            *(this + 3) = v15;
-            *(this + 14) |= 2u;
-            if (v16 < v8 && *v16 == 24)
-            {
-              v9 = v16 + 1;
-              *(a2 + 1) = v9;
-LABEL_47:
-              v47 = 0;
-              if (v9 >= v8 || (v17 = *v9, (v17 & 0x80000000) != 0))
-              {
-                result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v47);
-                if (!result)
-                {
-                  return result;
-                }
-
-                v17 = v47;
-              }
-
-              else
-              {
-                *(a2 + 1) = v9 + 1;
-              }
-
-              if (v17 <= 4)
-              {
-                *(this + 14) |= 4u;
-                *(this + 12) = v17;
-              }
-
-              v18 = *(a2 + 1);
-              if (v18 < *(a2 + 2) && *v18 == 34)
-              {
-                *(a2 + 1) = v18 + 1;
-                goto LABEL_57;
-              }
-            }
-          }
-        }
-
-        if (TagFallback >> 3 <= 5)
-        {
-          break;
-        }
-
-        if (v6 == 6)
-        {
-          if (v7 == 2)
-          {
-            goto LABEL_85;
-          }
-
-          goto LABEL_30;
-        }
-
-        if (v6 != 7 || v7 != 2)
-        {
-          goto LABEL_30;
-        }
-
-LABEL_99:
-        *(this + 14) |= 0x40u;
-        v41 = *(this + 5);
-        if (!v41)
-        {
-          operator new();
-        }
-
-        v47 = 0;
-        v42 = *(a2 + 1);
-        if (v42 >= *(a2 + 2) || *v42 < 0)
-        {
-          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v47))
-          {
-            return 0;
-          }
-        }
-
-        else
-        {
-          v47 = *v42;
-          *(a2 + 1) = v42 + 1;
-        }
-
-        v43 = *(a2 + 14);
-        v44 = *(a2 + 15);
-        *(a2 + 14) = v43 + 1;
-        if (v43 >= v44)
-        {
-          return 0;
-        }
-
-        wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-        if (!proto::gpsd::LtlInfo_LtlRacPmicAdcPreCalData::MergePartialFromCodedStream(v41, a2) || *(a2 + 36) != 1)
-        {
-          return 0;
-        }
-
-        wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-        v45 = *(a2 + 14);
-        v24 = __OFSUB__(v45, 1);
-        v46 = v45 - 1;
-        if (v46 < 0 == v24)
-        {
-          *(a2 + 14) = v46;
-        }
-
-        if (*(a2 + 1) == *(a2 + 2) && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
-        {
-          *(a2 + 8) = 0;
-          result = 1;
-          *(a2 + 36) = 1;
-          return result;
-        }
-      }
-
-      if (v6 != 4)
-      {
-        break;
-      }
-
-      if (v7 != 2)
-      {
-        goto LABEL_30;
-      }
-
-LABEL_57:
-      *(this + 14) |= 8u;
-      v19 = *(this + 2);
-      if (!v19)
-      {
-        operator new();
-      }
-
-      v47 = 0;
-      v20 = *(a2 + 1);
-      if (v20 >= *(a2 + 2) || *v20 < 0)
-      {
-        if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v47))
-        {
-          return 0;
-        }
-      }
-
-      else
-      {
-        v47 = *v20;
-        *(a2 + 1) = v20 + 1;
-      }
-
-      v21 = *(a2 + 14);
-      v22 = *(a2 + 15);
-      *(a2 + 14) = v21 + 1;
-      if (v21 >= v22)
-      {
-        return 0;
-      }
-
-      wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-      if (!proto::gpsd::LtlInfo_LtlInitialParams::MergePartialFromCodedStream(v19, a2) || *(a2 + 36) != 1)
-      {
-        return 0;
-      }
-
-      wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-      v23 = *(a2 + 14);
-      v24 = __OFSUB__(v23, 1);
-      v25 = v23 - 1;
-      if (v25 < 0 == v24)
-      {
-        *(a2 + 14) = v25;
-      }
-
-      v26 = *(a2 + 1);
-      if (v26 < *(a2 + 2) && *v26 == 42)
-      {
-        *(a2 + 1) = v26 + 1;
-LABEL_71:
-        *(this + 14) |= 0x10u;
-        v27 = *(this + 3);
-        if (!v27)
-        {
-          operator new();
-        }
-
-        v47 = 0;
-        v28 = *(a2 + 1);
-        if (v28 >= *(a2 + 2) || *v28 < 0)
-        {
-          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v47))
-          {
-            return 0;
-          }
-        }
-
-        else
-        {
-          v47 = *v28;
-          *(a2 + 1) = v28 + 1;
-        }
-
-        v29 = *(a2 + 14);
-        v30 = *(a2 + 15);
-        *(a2 + 14) = v29 + 1;
-        if (v29 >= v30)
-        {
-          return 0;
-        }
-
-        wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-        if (!proto::gpsd::LtlInfo_LtlLutParams::MergePartialFromCodedStream(v27, a2) || *(a2 + 36) != 1)
-        {
-          return 0;
-        }
-
-        wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-        v31 = *(a2 + 14);
-        v24 = __OFSUB__(v31, 1);
-        v32 = v31 - 1;
-        if (v32 < 0 == v24)
-        {
-          *(a2 + 14) = v32;
-        }
-
-        v33 = *(a2 + 1);
-        if (v33 < *(a2 + 2) && *v33 == 50)
-        {
-          *(a2 + 1) = v33 + 1;
-LABEL_85:
-          *(this + 14) |= 0x20u;
-          v34 = *(this + 4);
-          if (!v34)
-          {
-            operator new();
-          }
-
-          v47 = 0;
-          v35 = *(a2 + 1);
-          if (v35 >= *(a2 + 2) || *v35 < 0)
-          {
-            if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v47))
-            {
-              return 0;
-            }
-          }
-
-          else
-          {
-            v47 = *v35;
-            *(a2 + 1) = v35 + 1;
-          }
-
-          v36 = *(a2 + 14);
-          v37 = *(a2 + 15);
-          *(a2 + 14) = v36 + 1;
-          if (v36 >= v37)
-          {
-            return 0;
-          }
-
-          wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-          if (!proto::gpsd::LtlInfo_LtlCurrentSrcCalibData::MergePartialFromCodedStream(v34, a2) || *(a2 + 36) != 1)
-          {
-            return 0;
-          }
-
-          wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-          v38 = *(a2 + 14);
-          v24 = __OFSUB__(v38, 1);
-          v39 = v38 - 1;
-          if (v39 < 0 == v24)
-          {
-            *(a2 + 14) = v39;
-          }
-
-          v40 = *(a2 + 1);
-          if (v40 < *(a2 + 2) && *v40 == 58)
-          {
-            *(a2 + 1) = v40 + 1;
-            goto LABEL_99;
-          }
-        }
-      }
-    }
-
-    if (v6 == 5 && v7 == 2)
-    {
-      goto LABEL_71;
-    }
-
-LABEL_30:
-    if (v7 == 4)
-    {
-      return 1;
-    }
-
-    if ((wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipField(a2, TagFallback) & 1) == 0)
-    {
-      return 0;
-    }
-  }
-}
-
-uint64_t proto::gpsd::LtlInfo::SerializeWithCachedSizes(uint64_t this, wireless_diagnostics::google::protobuf::io::CodedOutputStream *a2, uint64_t a3, wireless_diagnostics::google::protobuf::io::CodedOutputStream *a4)
-{
-  v5 = this;
-  v6 = *(this + 56);
-  if (v6)
-  {
-    this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteBool(1, *(this + 8), a2, a4);
-    v6 = *(v5 + 56);
-    if ((v6 & 2) == 0)
-    {
-LABEL_3:
-      if ((v6 & 4) == 0)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_11;
-    }
-  }
-
-  else if ((v6 & 2) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteInt32(2, *(v5 + 12), a2, a4);
-  v6 = *(v5 + 56);
-  if ((v6 & 4) == 0)
-  {
-LABEL_4:
-    if ((v6 & 8) == 0)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_12;
-  }
-
-LABEL_11:
-  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteEnum(3, *(v5 + 48), a2, a4);
-  v6 = *(v5 + 56);
-  if ((v6 & 8) == 0)
-  {
-LABEL_5:
-    if ((v6 & 0x10) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_15;
-  }
-
-LABEL_12:
-  v7 = *(v5 + 16);
-  if (!v7)
-  {
-    v7 = *(proto::gpsd::LtlInfo::default_instance_ + 16);
-  }
-
-  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(4, v7, a2, a4);
-  v6 = *(v5 + 56);
-  if ((v6 & 0x10) == 0)
-  {
-LABEL_6:
-    if ((v6 & 0x20) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_18;
-  }
-
-LABEL_15:
-  v8 = *(v5 + 24);
-  if (!v8)
-  {
-    v8 = *(proto::gpsd::LtlInfo::default_instance_ + 24);
-  }
-
-  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(5, v8, a2, a4);
-  v6 = *(v5 + 56);
-  if ((v6 & 0x20) == 0)
-  {
-LABEL_7:
-    if ((v6 & 0x40) == 0)
-    {
-      return this;
-    }
-
-    goto LABEL_21;
-  }
-
-LABEL_18:
-  v9 = *(v5 + 32);
-  if (!v9)
-  {
-    v9 = *(proto::gpsd::LtlInfo::default_instance_ + 32);
-  }
-
-  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(6, v9, a2, a4);
-  if ((*(v5 + 56) & 0x40) != 0)
-  {
-LABEL_21:
-    v10 = *(v5 + 40);
-    if (!v10)
-    {
-      v10 = *(proto::gpsd::LtlInfo::default_instance_ + 40);
-    }
-
-    return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(7, v10, a2, a4);
-  }
-
-  return this;
-}
-
-uint64_t proto::gpsd::LtlInfo::ByteSize(proto::gpsd::LtlInfo *this)
-{
-  v2 = *(this + 14);
-  if (!v2)
-  {
-    v3 = 0;
-    goto LABEL_46;
-  }
-
-  v3 = 2 * (v2 & 1u);
-  if ((v2 & 2) != 0)
-  {
-    v4 = *(this + 3);
-    if ((v4 & 0x80000000) != 0)
-    {
-      v5 = 11;
-    }
-
-    else if (v4 >= 0x80)
-    {
-      v5 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v4) + 1;
-      v2 = *(this + 14);
-    }
-
-    else
-    {
-      v5 = 2;
-    }
-
-    v3 = (v5 + v3);
-    if ((v2 & 4) == 0)
-    {
-LABEL_4:
-      if ((v2 & 8) == 0)
-      {
-        goto LABEL_5;
-      }
-
-      goto LABEL_22;
-    }
-  }
-
-  else if ((v2 & 4) == 0)
-  {
-    goto LABEL_4;
-  }
-
-  v6 = *(this + 12);
-  if ((v6 & 0x80000000) != 0)
-  {
-    v7 = 11;
-  }
-
-  else if (v6 >= 0x80)
-  {
-    v7 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v6) + 1;
-    v2 = *(this + 14);
-  }
-
-  else
-  {
-    v7 = 2;
-  }
-
-  v3 = (v7 + v3);
-  if ((v2 & 8) == 0)
-  {
-LABEL_5:
-    if ((v2 & 0x10) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_28;
-  }
-
-LABEL_22:
-  v8 = *(this + 2);
-  if (!v8)
-  {
-    v8 = *(proto::gpsd::LtlInfo::default_instance_ + 16);
-  }
-
-  v9 = proto::gpsd::LtlInfo_LtlInitialParams::ByteSize(v8);
-  v10 = v9;
-  if (v9 >= 0x80)
-  {
-    v11 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v9);
-  }
-
-  else
-  {
-    v11 = 1;
-  }
-
-  v3 = (v3 + v10 + v11 + 1);
-  v2 = *(this + 14);
-  if ((v2 & 0x10) == 0)
-  {
-LABEL_6:
-    if ((v2 & 0x20) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_34;
-  }
-
-LABEL_28:
-  v12 = *(this + 3);
-  if (!v12)
-  {
-    v12 = *(proto::gpsd::LtlInfo::default_instance_ + 24);
-  }
-
-  v13 = proto::gpsd::LtlInfo_LtlLutParams::ByteSize(v12);
-  v14 = v13;
-  if (v13 >= 0x80)
-  {
-    v15 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v13);
-  }
-
-  else
-  {
-    v15 = 1;
-  }
-
-  v3 = (v3 + v14 + v15 + 1);
-  v2 = *(this + 14);
-  if ((v2 & 0x20) == 0)
-  {
-LABEL_7:
-    if ((v2 & 0x40) == 0)
-    {
-      goto LABEL_46;
-    }
-
-    goto LABEL_40;
-  }
-
-LABEL_34:
-  v16 = *(this + 4);
-  if (!v16)
-  {
-    v16 = *(proto::gpsd::LtlInfo::default_instance_ + 32);
-  }
-
-  v17 = proto::gpsd::LtlInfo_LtlCurrentSrcCalibData::ByteSize(v16);
-  v18 = v17;
-  if (v17 >= 0x80)
-  {
-    v19 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v17);
-  }
-
-  else
-  {
-    v19 = 1;
-  }
-
-  v3 = (v3 + v18 + v19 + 1);
-  if ((*(this + 14) & 0x40) != 0)
-  {
-LABEL_40:
-    v20 = *(this + 5);
-    if (!v20)
-    {
-      v20 = *(proto::gpsd::LtlInfo::default_instance_ + 40);
-    }
-
-    v21 = proto::gpsd::LtlInfo_LtlRacPmicAdcPreCalData::ByteSize(v20);
-    v22 = v21;
-    if (v21 >= 0x80)
-    {
-      v23 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v21);
-    }
-
-    else
-    {
-      v23 = 1;
-    }
-
-    v3 = (v3 + v22 + v23 + 1);
-  }
-
-LABEL_46:
-  *(this + 13) = v3;
-  return v3;
-}
-
-void proto::gpsd::LtlInfo::CheckTypeAndMergeFrom(proto::gpsd::LtlInfo *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
-{
-  v4 = **lpsrc;
-  {
-    __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
-  }
-
-  proto::gpsd::LtlInfo::MergeFrom(this, lpsrc);
-}
-
-void proto::gpsd::LtlInfo::CopyFrom(proto::gpsd::LtlInfo *this, const proto::gpsd::LtlInfo *a2)
-{
-  if (a2 != this)
-  {
-    (*(*this + 32))(this);
-
-    proto::gpsd::LtlInfo::MergeFrom(this, a2);
-  }
-}
-
-uint64_t proto::gpsd::LtlInfo::Swap(uint64_t this, proto::gpsd::LtlInfo *a2)
-{
-  if (a2 != this)
-  {
-    v2 = *(this + 8);
-    *(this + 8) = *(a2 + 8);
-    *(a2 + 8) = v2;
-    v3 = *(this + 12);
-    *(this + 12) = *(a2 + 3);
-    *(a2 + 3) = v3;
-    v4 = *(this + 48);
-    *(this + 48) = *(a2 + 12);
-    *(a2 + 12) = v4;
-    v5 = *(this + 16);
-    *(this + 16) = *(a2 + 2);
-    *(a2 + 2) = v5;
-    v6 = *(this + 24);
-    *(this + 24) = *(a2 + 3);
-    *(a2 + 3) = v6;
-    v7 = *(this + 32);
-    *(this + 32) = *(a2 + 4);
-    *(a2 + 4) = v7;
-    v8 = *(this + 40);
-    *(this + 40) = *(a2 + 5);
-    *(a2 + 5) = v8;
-    LODWORD(v8) = *(this + 56);
-    *(this + 56) = *(a2 + 14);
-    *(a2 + 14) = v8;
-    LODWORD(v8) = *(this + 52);
-    *(this + 52) = *(a2 + 13);
-    *(a2 + 13) = v8;
-  }
-
-  return this;
-}
-
-uint64_t proto::gpsd::Exception::SharedCtor(uint64_t this)
-{
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  return this;
-}
-
-proto::gpsd::Exception *proto::gpsd::Exception::Exception(proto::gpsd::Exception *this, const proto::gpsd::Exception *a2)
-{
-  *(this + 1) = 0;
-  *(this + 2) = 0;
-  *this = &unk_2858632D0;
-  *(this + 6) = 0;
-  proto::gpsd::Exception::MergeFrom(this, a2);
-  return this;
-}
-
-void proto::gpsd::Exception::~Exception(proto::gpsd::Exception *this)
-{
-  *this = &unk_2858632D0;
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-}
-
-{
-  *this = &unk_2858632D0;
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-}
-
-{
-  *this = &unk_2858632D0;
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-
-  JUMPOUT(0x245D6AEE0);
-}
-
-uint64_t proto::gpsd::Exception::MergePartialFromCodedStream(proto::gpsd::Exception *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
-{
-  while (1)
-  {
-    while (1)
-    {
-      v4 = *(a2 + 1);
-      if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
-      {
-        TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
-        *(a2 + 8) = TagFallback;
-        if (!TagFallback)
-        {
-          return 1;
-        }
-      }
-
-      else
-      {
-        *(a2 + 8) = TagFallback;
-        *(a2 + 1) = v4 + 1;
-        if (!TagFallback)
-        {
-          return 1;
-        }
-      }
-
-      v6 = TagFallback >> 3;
-      if (TagFallback >> 3 == 3)
-      {
-        if ((TagFallback & 7) == 0)
-        {
-          v12 = *(a2 + 1);
-          v7 = *(a2 + 2);
-          goto LABEL_33;
-        }
-
-        goto LABEL_16;
-      }
-
-      if (v6 == 2)
-      {
-        break;
-      }
-
-      if (v6 != 1 || (TagFallback & 7) != 0)
-      {
-        goto LABEL_16;
-      }
-
-      v20 = 0;
-      v8 = *(a2 + 1);
-      v7 = *(a2 + 2);
-      if (v8 >= v7 || (v9 = *v8, (v9 & 0x80000000) != 0))
-      {
-        result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v20);
-        if (!result)
-        {
-          return result;
-        }
-
-        v9 = v20;
-        v10 = *(a2 + 1);
-        v7 = *(a2 + 2);
-      }
-
-      else
-      {
-        v10 = v8 + 1;
-        *(a2 + 1) = v10;
-      }
-
-      *(this + 2) = v9;
-      *(this + 6) |= 1u;
-      if (v10 < v7 && *v10 == 16)
-      {
-        v11 = v10 + 1;
-        *(a2 + 1) = v11;
-LABEL_25:
-        v19 = 0;
-        if (v11 >= v7 || (v13 = *v11, (v13 & 0x80000000) != 0))
-        {
-          result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v19);
-          if (!result)
-          {
-            return result;
-          }
-
-          v13 = v19;
-          v14 = *(a2 + 1);
-          v7 = *(a2 + 2);
-        }
-
-        else
-        {
-          v14 = v11 + 1;
-          *(a2 + 1) = v14;
-        }
-
-        *(this + 3) = v13;
-        *(this + 6) |= 2u;
-        if (v14 < v7 && *v14 == 24)
-        {
-          v12 = v14 + 1;
-          *(a2 + 1) = v12;
-LABEL_33:
-          v18 = 0;
-          if (v12 >= v7 || (v15 = *v12, (v15 & 0x80000000) != 0))
-          {
-            result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v18);
-            if (!result)
-            {
-              return result;
-            }
-
-            v15 = v18;
-            v16 = *(a2 + 1);
-            v7 = *(a2 + 2);
-          }
-
-          else
-          {
-            v16 = v12 + 1;
-            *(a2 + 1) = v16;
-          }
-
-          *(this + 4) = v15;
-          *(this + 6) |= 4u;
-          if (v16 == v7 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
-          {
-            *(a2 + 8) = 0;
-            result = 1;
-            *(a2 + 36) = 1;
-            return result;
-          }
-        }
-      }
-    }
-
-    if ((TagFallback & 7) == 0)
-    {
-      v11 = *(a2 + 1);
-      v7 = *(a2 + 2);
-      goto LABEL_25;
-    }
-
-LABEL_16:
-    if ((TagFallback & 7) == 4)
-    {
-      return 1;
-    }
-
-    if ((wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipField(a2, TagFallback) & 1) == 0)
-    {
-      return 0;
-    }
-  }
-}
-
-unsigned int *proto::gpsd::Exception::SerializeWithCachedSizes(unsigned int *this, wireless_diagnostics::google::protobuf::io::CodedOutputStream *a2, uint64_t a3, wireless_diagnostics::google::protobuf::io::CodedOutputStream *a4)
-{
-  v5 = this;
-  v6 = this[6];
-  if ((v6 & 1) == 0)
-  {
-    if ((v6 & 2) == 0)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_6:
-    this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteInt32(2, v5[3], a2, a4);
-    if ((v5[6] & 4) == 0)
-    {
-      return this;
-    }
-
-    goto LABEL_7;
-  }
-
-  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteInt32(1, this[2], a2, a4);
-  v6 = v5[6];
-  if ((v6 & 2) != 0)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_3:
-  if ((v6 & 4) == 0)
-  {
-    return this;
-  }
-
-LABEL_7:
-  v7 = v5[4];
-
-  return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteInt32(3, v7, a2, a4);
-}
-
-uint64_t proto::gpsd::Exception::ByteSize(proto::gpsd::Exception *this)
-{
-  LOBYTE(v2) = *(this + 24);
-  if (!v2)
-  {
-    v3 = 0;
-    goto LABEL_26;
-  }
-
-  if (*(this + 24))
-  {
-    v4 = *(this + 2);
-    if ((v4 & 0x80000000) != 0)
-    {
-      v3 = 11;
-      if ((v2 & 2) == 0)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    else if (v4 >= 0x80)
-    {
-      v3 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v4) + 1;
-      v2 = *(this + 6);
-      if ((v2 & 2) == 0)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    else
-    {
-      v3 = 2;
-      if ((v2 & 2) == 0)
-      {
-        goto LABEL_19;
-      }
-    }
-  }
-
-  else
-  {
-    v3 = 0;
-    if ((*(this + 24) & 2) == 0)
-    {
-      goto LABEL_19;
-    }
-  }
-
-  v5 = *(this + 3);
-  if ((v5 & 0x80000000) != 0)
-  {
-    v6 = 11;
-  }
-
-  else if (v5 >= 0x80)
-  {
-    v6 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v5) + 1;
-    v2 = *(this + 6);
-  }
-
-  else
-  {
-    v6 = 2;
-  }
-
-  v3 = (v6 + v3);
-LABEL_19:
-  if ((v2 & 4) != 0)
-  {
-    v7 = *(this + 4);
-    if ((v7 & 0x80000000) != 0)
-    {
-      v8 = 11;
-    }
-
-    else if (v7 >= 0x80)
-    {
-      v8 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v7) + 1;
-    }
-
-    else
-    {
-      v8 = 2;
-    }
-
-    v3 = (v8 + v3);
-  }
-
-LABEL_26:
-  *(this + 5) = v3;
-  return v3;
-}
-
-void proto::gpsd::Exception::CheckTypeAndMergeFrom(proto::gpsd::Exception *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
-{
-  v4 = **lpsrc;
-  {
-    __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
-  }
-
-  proto::gpsd::Exception::MergeFrom(this, lpsrc);
-}
-
-void proto::gpsd::Exception::CopyFrom(proto::gpsd::Exception *this, const proto::gpsd::Exception *a2)
-{
-  if (a2 != this)
-  {
-    (*(*this + 32))(this);
-
-    proto::gpsd::Exception::MergeFrom(this, a2);
-  }
-}
-
-proto::gpsd::Exception *proto::gpsd::Exception::Swap(proto::gpsd::Exception *this, proto::gpsd::Exception *a2)
-{
-  if (a2 != this)
-  {
-    v2 = *(this + 2);
-    *(this + 2) = *(a2 + 2);
-    *(a2 + 2) = v2;
-    v3 = *(this + 3);
-    *(this + 3) = *(a2 + 3);
-    *(a2 + 3) = v3;
-    v4 = *(this + 4);
-    *(this + 4) = *(a2 + 4);
-    *(a2 + 4) = v4;
-    v5 = *(this + 6);
-    *(this + 6) = *(a2 + 6);
-    *(a2 + 6) = v5;
-    v6 = *(this + 5);
-    *(this + 5) = *(a2 + 5);
-    *(a2 + 5) = v6;
-  }
-
-  return this;
-}
-
-double proto::gpsd::AskBasebandReset::SharedCtor(proto::gpsd::AskBasebandReset *this)
-{
-  result = 0.0;
-  *(this + 8) = 0u;
-  *(this + 3) = MEMORY[0x277D82C30];
-  *(this + 4) = 0;
-  return result;
-}
-
-proto::gpsd::AskBasebandReset *proto::gpsd::AskBasebandReset::AskBasebandReset(proto::gpsd::AskBasebandReset *this, const proto::gpsd::AskBasebandReset *a2)
-{
-  *this = &unk_285863348;
-  *(this + 1) = 0;
-  v3 = MEMORY[0x277D82C30];
-  *(this + 2) = 0;
-  *(this + 3) = v3;
-  *(this + 4) = 0;
-  proto::gpsd::AskBasebandReset::MergeFrom(this, a2);
-  return this;
-}
-
-void proto::gpsd::AskBasebandReset::~AskBasebandReset(proto::gpsd::AskBasebandReset *this)
-{
-  *this = &unk_285863348;
-  proto::gpsd::AskBasebandReset::SharedDtor(this);
-
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-}
-
-{
-  *this = &unk_285863348;
-  proto::gpsd::AskBasebandReset::SharedDtor(this);
-
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-}
-
-{
-  *this = &unk_285863348;
-  proto::gpsd::AskBasebandReset::SharedDtor(this);
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-
-  JUMPOUT(0x245D6AEE0);
-}
-
-uint64_t proto::gpsd::AskBasebandReset::SharedDtor(uint64_t this)
-{
-  v1 = *(this + 24);
-  if (v1 != MEMORY[0x277D82C30] && v1 != 0)
-  {
-    if (*(v1 + 23) < 0)
-    {
-      operator delete(*v1);
-    }
-
-    JUMPOUT(0x245D6AEE0);
-  }
-
-  return this;
-}
-
-uint64_t proto::gpsd::AskBasebandReset::MergePartialFromCodedStream(proto::gpsd::AskBasebandReset *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
-{
-  v4 = MEMORY[0x277D82C30];
-  do
-  {
-    while (1)
-    {
-      while (1)
-      {
-        while (1)
-        {
-          v5 = *(a2 + 1);
-          if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
-          {
-            TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
-            *(a2 + 8) = TagFallback;
-            if (!TagFallback)
-            {
-              return 1;
-            }
-          }
-
-          else
-          {
-            *(a2 + 8) = TagFallback;
-            *(a2 + 1) = v5 + 1;
-            if (!TagFallback)
-            {
-              return 1;
-            }
-          }
-
-          v7 = TagFallback >> 3;
-          v8 = TagFallback & 7;
-          if (TagFallback >> 3 != 3)
-          {
-            break;
-          }
-
-          if (v8 != 2)
-          {
-            goto LABEL_21;
-          }
-
-          v14 = *(this + 9);
-LABEL_30:
-          *(this + 9) = v14 | 4;
-          if (*(this + 3) == v4)
-          {
-            operator new();
-          }
-
-          result = wireless_diagnostics::google::protobuf::internal::WireFormatLite::ReadString();
-          if (!result)
-          {
-            return result;
-          }
-
-          if (*(a2 + 1) == *(a2 + 2) && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
-          {
-            *(a2 + 8) = 0;
-            result = 1;
-            *(a2 + 36) = 1;
-            return result;
-          }
-        }
-
-        if (v7 != 2)
-        {
-          break;
-        }
-
-        if ((TagFallback & 7) != 0)
-        {
-          goto LABEL_21;
-        }
-
-        v11 = *(a2 + 1);
-        v9 = *(a2 + 2);
-LABEL_17:
-        v16 = 0;
-        if (v11 >= v9 || (v12 = *v11, (v12 & 0x8000000000000000) != 0))
-        {
-          result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint64Fallback(a2, &v16);
-          if (!result)
-          {
-            return result;
-          }
-
-          v12 = v16;
-          v13 = *(a2 + 1);
-          v9 = *(a2 + 2);
-        }
-
-        else
-        {
-          v13 = v11 + 1;
-          *(a2 + 1) = v13;
-        }
-
-        *(this + 2) = v12;
-        v14 = *(this + 9) | 2;
-        *(this + 9) = v14;
-        if (v13 < v9 && *v13 == 26)
-        {
-          *(a2 + 1) = v13 + 1;
-          goto LABEL_30;
-        }
-      }
-
-      if (v7 != 1 || v8 != 1)
-      {
-        break;
-      }
-
-      v16 = 0;
-      if ((wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadLittleEndian64Fallback(a2, &v16) & 1) == 0)
-      {
-        return 0;
-      }
-
-      *(this + 1) = v16;
-      *(this + 9) |= 1u;
-      v10 = *(a2 + 1);
-      v9 = *(a2 + 2);
-      if (v10 < v9 && *v10 == 16)
-      {
-        v11 = v10 + 1;
-        *(a2 + 1) = v11;
-        goto LABEL_17;
-      }
-    }
-
-LABEL_21:
-    if (v8 == 4)
-    {
-      return 1;
-    }
-  }
-
-  while ((wireless_diagnostics::google::protobuf::internal::WireFormatLite::SkipField(a2, TagFallback) & 1) != 0);
-  return 0;
-}
-
-uint64_t proto::gpsd::AskBasebandReset::SerializeWithCachedSizes(uint64_t this, wireless_diagnostics::google::protobuf::io::CodedOutputStream *a2, wireless_diagnostics::google::protobuf::io::CodedOutputStream *a3, wireless_diagnostics::google::protobuf::io::CodedOutputStream *a4)
-{
-  v5 = this;
-  v6 = *(this + 36);
-  if ((v6 & 1) == 0)
-  {
-    if ((v6 & 2) == 0)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_6:
-    this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteInt64(2, *(v5 + 16), a2, a4);
-    if ((*(v5 + 36) & 4) == 0)
-    {
-      return this;
-    }
-
-    goto LABEL_7;
-  }
-
-  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteDouble(1, a2, *(this + 8), a3);
-  v6 = *(v5 + 36);
-  if ((v6 & 2) != 0)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_3:
-  if ((v6 & 4) == 0)
-  {
-    return this;
-  }
-
-LABEL_7:
-  v7 = *(v5 + 24);
-
-  return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteString();
-}
-
-uint64_t proto::gpsd::AskBasebandReset::ByteSize(wireless_diagnostics::google::protobuf::io::CodedOutputStream **this)
-{
-  v2 = *(this + 36);
-  if (*(this + 36))
-  {
-    v3 = (v2 << 31 >> 31) & 9;
-    if ((v2 & 2) != 0)
-    {
-      v3 = v3 + wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize64(this[2]) + 1;
-      v2 = *(this + 9);
-    }
-
-    if ((v2 & 4) != 0)
-    {
-      v4 = this[3];
-      v5 = *(v4 + 23);
-      v6 = v5;
-      v7 = *(v4 + 1);
-      if ((v5 & 0x80u) == 0)
-      {
-        v8 = *(v4 + 23);
-      }
-
-      else
-      {
-        v8 = v7;
-      }
-
-      if (v8 >= 0x80)
-      {
-        v9 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v8);
-        v5 = *(v4 + 23);
-        v7 = *(v4 + 1);
-        v6 = *(v4 + 23);
-      }
-
-      else
-      {
-        v9 = 1;
-      }
-
-      if (v6 < 0)
-      {
-        v5 = v7;
-      }
-
-      v3 = (v3 + v9 + v5 + 1);
-    }
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  *(this + 8) = v3;
-  return v3;
-}
-
-void proto::gpsd::AskBasebandReset::CheckTypeAndMergeFrom(proto::gpsd::AskBasebandReset *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
-{
-  v4 = **lpsrc;
-  {
-    __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
-  }
-
-  proto::gpsd::AskBasebandReset::MergeFrom(this, lpsrc);
-}
-
-void proto::gpsd::AskBasebandReset::CopyFrom(proto::gpsd::AskBasebandReset *this, const proto::gpsd::AskBasebandReset *a2)
-{
-  if (a2 != this)
-  {
-    (*(*this + 32))(this);
-
-    proto::gpsd::AskBasebandReset::MergeFrom(this, a2);
-  }
-}
-
-double proto::gpsd::AskBasebandReset::Swap(proto::gpsd::AskBasebandReset *this, proto::gpsd::AskBasebandReset *a2)
-{
-  if (a2 != this)
-  {
-    v2 = *(this + 2);
-    v3 = *(this + 3);
-    v4 = *(a2 + 3);
-    *(this + 2) = *(a2 + 2);
-    *(this + 3) = v4;
-    result = *(this + 1);
-    *(this + 1) = *(a2 + 1);
-    *(a2 + 1) = result;
-    *(a2 + 2) = v2;
-    *(a2 + 3) = v3;
-    LODWORD(v2) = *(this + 9);
-    *(this + 9) = *(a2 + 9);
-    *(a2 + 9) = v2;
-    LODWORD(v2) = *(this + 8);
-    *(this + 8) = *(a2 + 8);
-    *(a2 + 8) = v2;
-  }
-
-  return result;
-}
-
-void *proto::gpsd::LogEntry::SharedCtor(void *this)
-{
-  v1 = MEMORY[0x277D82C30];
-  this[1] = 0;
-  this[2] = v1;
-  this[5] = 0;
-  this[6] = 0;
-  this[3] = 0;
-  this[4] = 0;
-  return this;
-}
-
-proto::gpsd::LogEntry *proto::gpsd::LogEntry::LogEntry(proto::gpsd::LogEntry *this, const proto::gpsd::LogEntry *a2)
-{
-  *(this + 6) = 0;
-  *this = &unk_2858633C0;
-  *(this + 1) = 0;
-  *(this + 2) = MEMORY[0x277D82C30];
-  *(this + 3) = 0;
-  *(this + 4) = 0;
-  *(this + 5) = 0;
-  proto::gpsd::LogEntry::MergeFrom(this, a2);
-  return this;
-}
-
-void proto::gpsd::LogEntry::MergeFrom(proto::gpsd::LogEntry *this, const proto::gpsd::LogEntry *a2)
-{
-  if (a2 == this)
-  {
-    wireless_diagnostics::google::protobuf::internal::LogMessage::LogMessage();
-    wireless_diagnostics::google::protobuf::internal::LogMessage::operator<<();
-    wireless_diagnostics::google::protobuf::internal::LogFinisher::operator=();
-    wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(v14);
-  }
-
-  LOBYTE(v4) = *(a2 + 52);
-  if (!v4)
-  {
-    return;
-  }
-
-  if (*(a2 + 52))
-  {
-    v5 = *(a2 + 1);
-    *(this + 13) |= 1u;
-    *(this + 1) = v5;
-    v4 = *(a2 + 13);
-    if ((v4 & 2) == 0)
-    {
-LABEL_6:
-      if ((v4 & 4) == 0)
-      {
-        goto LABEL_7;
-      }
-
-LABEL_14:
-      *(this + 13) |= 4u;
-      v8 = *(this + 3);
-      if (!v8)
-      {
-        operator new();
-      }
-
-      v9 = *(a2 + 3);
-      if (!v9)
-      {
-        v9 = *(proto::gpsd::LogEntry::default_instance_ + 24);
-      }
-
-      proto::gpsd::Request::MergeFrom(v8, v9);
-      v4 = *(a2 + 13);
-      if ((v4 & 8) == 0)
-      {
-LABEL_8:
-        if ((v4 & 0x10) == 0)
-        {
-          return;
-        }
-
-        goto LABEL_24;
-      }
-
-      goto LABEL_19;
-    }
-  }
-
-  else if ((*(a2 + 52) & 2) == 0)
-  {
-    goto LABEL_6;
-  }
-
-  v6 = *(a2 + 2);
-  *(this + 13) |= 2u;
-  v7 = *(this + 2);
-  if (v7 == MEMORY[0x277D82C30])
-  {
-    operator new();
-  }
-
-  std::string::operator=(v7, v6);
-  v4 = *(a2 + 13);
-  if ((v4 & 4) != 0)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_7:
-  if ((v4 & 8) == 0)
-  {
-    goto LABEL_8;
-  }
-
-LABEL_19:
-  *(this + 13) |= 8u;
-  v10 = *(this + 4);
-  if (!v10)
-  {
-    operator new();
-  }
-
-  v11 = *(a2 + 4);
-  if (!v11)
-  {
-    v11 = *(proto::gpsd::LogEntry::default_instance_ + 32);
-  }
-
-  proto::gpsd::Response::MergeFrom(v10, v11);
-  if ((*(a2 + 13) & 0x10) != 0)
-  {
-LABEL_24:
-    *(this + 13) |= 0x10u;
-    v12 = *(this + 5);
-    if (!v12)
-    {
-      operator new();
-    }
-
-    v13 = *(a2 + 5);
-    if (!v13)
-    {
-      v13 = *(proto::gpsd::LogEntry::default_instance_ + 40);
-    }
-
-    proto::gpsd::Indication::MergeFrom(v12, v13);
-  }
-}
-
-void sub_245565638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  wireless_diagnostics::google::protobuf::internal::LogMessage::~LogMessage(va);
-  _Unwind_Resume(a1);
-}
-
-void proto::gpsd::LogEntry::~LogEntry(proto::gpsd::LogEntry *this)
-{
-  *this = &unk_2858633C0;
-  proto::gpsd::LogEntry::SharedDtor(this);
-
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-}
-
-{
-  *this = &unk_2858633C0;
-  proto::gpsd::LogEntry::SharedDtor(this);
-
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-}
-
-{
-  *this = &unk_2858633C0;
-  proto::gpsd::LogEntry::SharedDtor(this);
-  wireless_diagnostics::google::protobuf::MessageLite::~MessageLite(this);
-
-  JUMPOUT(0x245D6AEE0);
-}
-
-void *proto::gpsd::LogEntry::SharedDtor(void *this)
-{
-  v1 = this;
-  v2 = this[2];
-  if (v2 != MEMORY[0x277D82C30] && v2 != 0)
-  {
-    if (*(v2 + 23) < 0)
-    {
-      operator delete(*v2);
-    }
-
-    this = MEMORY[0x245D6AEE0](v2, 0x1012C40EC159624);
-  }
-
-  if (proto::gpsd::LogEntry::default_instance_ != v1)
-  {
-    v4 = v1[3];
-    if (v4)
-    {
-      (*(*v4 + 8))(v4);
-    }
-
-    v5 = v1[4];
-    if (v5)
-    {
-      (*(*v5 + 8))(v5);
-    }
-
-    this = v1[5];
-    if (this)
-    {
-      v6 = *(*this + 8);
-
-      return v6();
-    }
-  }
-
-  return this;
-}
-
-uint64_t proto::gpsd::LogEntry::default_instance(proto::gpsd::LogEntry *this, uint64_t a2, uint64_t a3, const char *a4)
-{
-  result = proto::gpsd::LogEntry::default_instance_;
-  if (!proto::gpsd::LogEntry::default_instance_)
-  {
-    proto::gpsd::protobuf_AddDesc_GpsdProtocol_2eproto(0, a2, a3, a4);
-    return proto::gpsd::LogEntry::default_instance_;
-  }
-
-  return result;
-}
-
-uint64_t proto::gpsd::LogEntry::Clear(uint64_t this)
-{
-  v1 = this;
-  v2 = *(this + 52);
-  if (v2)
-  {
-    *(this + 8) = 0;
-    if ((v2 & 2) != 0)
-    {
-      v3 = *(this + 16);
-      if (v3 != MEMORY[0x277D82C30])
-      {
-        if (*(v3 + 23) < 0)
-        {
-          **v3 = 0;
-          *(v3 + 8) = 0;
-        }
-
-        else
-        {
-          *v3 = 0;
-          *(v3 + 23) = 0;
-        }
-      }
-    }
-
-    v4 = *(this + 52);
-    if ((v4 & 4) != 0)
-    {
-      this = *(this + 24);
-      if (this)
-      {
-        this = proto::gpsd::Request::Clear(this);
-        v4 = *(v1 + 52);
-      }
-    }
-
-    if ((v4 & 8) != 0)
-    {
-      v5 = *(v1 + 32);
-      if (v5)
-      {
-        if (*(v5 + 28))
-        {
-          *(v5 + 8) = 0;
-          *(v5 + 16) = 0;
-        }
-
-        *(v5 + 28) = 0;
-        v4 = *(v1 + 52);
-      }
-    }
-
-    if ((v4 & 0x10) != 0)
-    {
-      this = *(v1 + 40);
-      if (this)
-      {
-        this = proto::gpsd::Indication::Clear(this);
-      }
-    }
-  }
-
-  *(v1 + 52) = 0;
-  return this;
-}
-
-uint64_t proto::gpsd::LogEntry::MergePartialFromCodedStream(proto::gpsd::LogEntry *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
-{
-  v4 = MEMORY[0x277D82C30];
-  while (1)
-  {
-    while (1)
-    {
-      while (1)
-      {
-        while (1)
-        {
-          v5 = *(a2 + 1);
-          if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
-          {
-            TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
-            *(a2 + 8) = TagFallback;
-            if (!TagFallback)
-            {
-              return 1;
-            }
-          }
-
-          else
-          {
-            *(a2 + 8) = TagFallback;
-            *(a2 + 1) = v5 + 1;
-            if (!TagFallback)
-            {
-              return 1;
-            }
-          }
-
-          v7 = TagFallback >> 3;
-          v8 = TagFallback & 7;
+          v8 = TagFallback >> 3;
+          v9 = TagFallback & 7;
           if (TagFallback >> 3 <= 4)
           {
             break;
           }
 
-          if (v7 == 5)
+          if (v8 == 5)
           {
-            if (v8 != 2)
+            if (v9 != 2)
             {
               goto LABEL_22;
             }
@@ -1905,26 +47,26 @@ uint64_t proto::gpsd::LogEntry::MergePartialFromCodedStream(proto::gpsd::LogEntr
             goto LABEL_39;
           }
 
-          if (v7 == 6)
+          if (v8 == 6)
           {
-            if (v8 != 2)
+            if (v9 != 2)
             {
               goto LABEL_22;
             }
 
 LABEL_53:
             *(this + 13) |= 8u;
-            v24 = *(this + 4);
-            if (!v24)
+            v26 = *(this + 4);
+            if (!v26)
             {
               operator new();
             }
 
-            v38 = 0;
-            v25 = *(a2 + 1);
-            if (v25 >= *(a2 + 2) || *v25 < 0)
+            v42 = 0;
+            v27 = *(a2 + 1);
+            if (v27 >= *(a2 + 2) || *v27 < 0)
             {
-              if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v38))
+              if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v42))
               {
                 return 0;
               }
@@ -1932,61 +74,61 @@ LABEL_53:
 
             else
             {
-              v38 = *v25;
-              *(a2 + 1) = v25 + 1;
+              v42 = *v27;
+              *(a2 + 1) = v27 + 1;
             }
 
-            v26 = *(a2 + 14);
-            v27 = *(a2 + 15);
-            *(a2 + 14) = v26 + 1;
-            if (v26 >= v27)
+            v28 = *(a2 + 14);
+            v29 = *(a2 + 15);
+            *(a2 + 14) = v28 + 1;
+            if (v28 >= v29)
             {
               return 0;
             }
 
             wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-            if (!proto::gpsd::Response::MergePartialFromCodedStream(v24, a2) || *(a2 + 36) != 1)
+            if (!proto::gpsd::Response::MergePartialFromCodedStream(v26, a2, v30) || *(a2 + 36) != 1)
             {
               return 0;
             }
 
             wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-            v28 = *(a2 + 14);
-            v21 = __OFSUB__(v28, 1);
-            v29 = v28 - 1;
-            if (v29 < 0 == v21)
+            v31 = *(a2 + 14);
+            v23 = __OFSUB__(v31, 1);
+            v32 = v31 - 1;
+            if (v32 < 0 == v23)
             {
-              *(a2 + 14) = v29;
+              *(a2 + 14) = v32;
             }
 
-            v30 = *(a2 + 1);
-            if (v30 < *(a2 + 2) && *v30 == 58)
+            v33 = *(a2 + 1);
+            if (v33 < *(a2 + 2) && *v33 == 58)
             {
-              *(a2 + 1) = v30 + 1;
+              *(a2 + 1) = v33 + 1;
               goto LABEL_67;
             }
           }
 
           else
           {
-            if (v7 != 7 || v8 != 2)
+            if (v8 != 7 || v9 != 2)
             {
               goto LABEL_22;
             }
 
 LABEL_67:
             *(this + 13) |= 0x10u;
-            v31 = *(this + 5);
-            if (!v31)
+            v34 = *(this + 5);
+            if (!v34)
             {
               operator new();
             }
 
-            v39 = 0;
-            v32 = *(a2 + 1);
-            if (v32 >= *(a2 + 2) || *v32 < 0)
+            v43 = 0;
+            v35 = *(a2 + 1);
+            if (v35 >= *(a2 + 2) || *v35 < 0)
             {
-              if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v39))
+              if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v43))
               {
                 return 0;
               }
@@ -1994,31 +136,31 @@ LABEL_67:
 
             else
             {
-              v39 = *v32;
-              *(a2 + 1) = v32 + 1;
+              v43 = *v35;
+              *(a2 + 1) = v35 + 1;
             }
 
-            v33 = *(a2 + 14);
-            v34 = *(a2 + 15);
-            *(a2 + 14) = v33 + 1;
-            if (v33 >= v34)
+            v36 = *(a2 + 14);
+            v37 = *(a2 + 15);
+            *(a2 + 14) = v36 + 1;
+            if (v36 >= v37)
             {
               return 0;
             }
 
             wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-            if (!proto::gpsd::Indication::MergePartialFromCodedStream(v31, a2) || *(a2 + 36) != 1)
+            if (!proto::gpsd::Indication::MergePartialFromCodedStream(v34, a2, v38) || *(a2 + 36) != 1)
             {
               return 0;
             }
 
             wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-            v35 = *(a2 + 14);
-            v21 = __OFSUB__(v35, 1);
-            v36 = v35 - 1;
-            if (v36 < 0 == v21)
+            v39 = *(a2 + 14);
+            v23 = __OFSUB__(v39, 1);
+            v40 = v39 - 1;
+            if (v40 < 0 == v23)
             {
-              *(a2 + 14) = v36;
+              *(a2 + 14) = v40;
             }
 
             if (*(a2 + 1) == *(a2 + 2) && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
@@ -2031,7 +173,7 @@ LABEL_67:
           }
         }
 
-        if (v7 != 1)
+        if (v8 != 1)
         {
           break;
         }
@@ -2041,9 +183,9 @@ LABEL_67:
           goto LABEL_22;
         }
 
-        v11 = *(a2 + 1);
-        v10 = *(a2 + 2);
-        if (v11 >= v10 || (v12 = *v11, v12 < 0))
+        v12 = *(a2 + 1);
+        v11 = *(a2 + 2);
+        if (v12 >= v11 || (v13 = *v12, v13 < 0))
         {
           result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint64Fallback(a2, this + 1);
           if (!result)
@@ -2051,35 +193,35 @@ LABEL_67:
             return result;
           }
 
-          v13 = *(a2 + 1);
-          v10 = *(a2 + 2);
+          v14 = *(a2 + 1);
+          v11 = *(a2 + 2);
         }
 
         else
         {
-          *(this + 1) = v12;
-          v13 = v11 + 1;
-          *(a2 + 1) = v13;
+          *(this + 1) = v13;
+          v14 = v12 + 1;
+          *(a2 + 1) = v14;
         }
 
-        v9 = *(this + 13) | 1;
-        *(this + 13) = v9;
-        if (v13 < v10 && *v13 == 18)
+        v10 = *(this + 13) | 1;
+        *(this + 13) = v10;
+        if (v14 < v11 && *v14 == 18)
         {
-          *(a2 + 1) = v13 + 1;
+          *(a2 + 1) = v14 + 1;
           goto LABEL_33;
         }
       }
 
-      if (v7 != 2 || v8 != 2)
+      if (v8 != 2 || v9 != 2)
       {
         break;
       }
 
-      v9 = *(this + 13);
+      v10 = *(this + 13);
 LABEL_33:
-      *(this + 13) = v9 | 2;
-      if (*(this + 2) == v4)
+      *(this + 13) = v10 | 2;
+      if (*(this + 2) == v5)
       {
         operator new();
       }
@@ -2090,23 +232,23 @@ LABEL_33:
         return result;
       }
 
-      v15 = *(a2 + 1);
-      if (v15 < *(a2 + 2) && *v15 == 42)
+      v16 = *(a2 + 1);
+      if (v16 < *(a2 + 2) && *v16 == 42)
       {
-        *(a2 + 1) = v15 + 1;
+        *(a2 + 1) = v16 + 1;
 LABEL_39:
         *(this + 13) |= 4u;
-        v16 = *(this + 3);
-        if (!v16)
+        v17 = *(this + 3);
+        if (!v17)
         {
           operator new();
         }
 
-        v37 = 0;
-        v17 = *(a2 + 1);
-        if (v17 >= *(a2 + 2) || *v17 < 0)
+        v41 = 0;
+        v18 = *(a2 + 1);
+        if (v18 >= *(a2 + 2) || *v18 < 0)
         {
-          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v37))
+          if (!wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v41))
           {
             return 0;
           }
@@ -2114,44 +256,44 @@ LABEL_39:
 
         else
         {
-          v37 = *v17;
-          *(a2 + 1) = v17 + 1;
+          v41 = *v18;
+          *(a2 + 1) = v18 + 1;
         }
 
-        v18 = *(a2 + 14);
-        v19 = *(a2 + 15);
-        *(a2 + 14) = v18 + 1;
-        if (v18 >= v19)
+        v19 = *(a2 + 14);
+        v20 = *(a2 + 15);
+        *(a2 + 14) = v19 + 1;
+        if (v19 >= v20)
         {
           return 0;
         }
 
         wireless_diagnostics::google::protobuf::io::CodedInputStream::PushLimit(a2);
-        if (!proto::gpsd::Request::MergePartialFromCodedStream(v16, a2) || *(a2 + 36) != 1)
+        if (!proto::gpsd::Request::MergePartialFromCodedStream(v17, a2, v21) || *(a2 + 36) != 1)
         {
           return 0;
         }
 
         wireless_diagnostics::google::protobuf::io::CodedInputStream::PopLimit(a2);
-        v20 = *(a2 + 14);
-        v21 = __OFSUB__(v20, 1);
-        v22 = v20 - 1;
-        if (v22 < 0 == v21)
+        v22 = *(a2 + 14);
+        v23 = __OFSUB__(v22, 1);
+        v24 = v22 - 1;
+        if (v24 < 0 == v23)
         {
-          *(a2 + 14) = v22;
+          *(a2 + 14) = v24;
         }
 
-        v23 = *(a2 + 1);
-        if (v23 < *(a2 + 2) && *v23 == 50)
+        v25 = *(a2 + 1);
+        if (v25 < *(a2 + 2) && *v25 == 50)
         {
-          *(a2 + 1) = v23 + 1;
+          *(a2 + 1) = v25 + 1;
           goto LABEL_53;
         }
       }
     }
 
 LABEL_22:
-    if (v8 == 4)
+    if (v9 == 4)
     {
       return 1;
     }
@@ -2188,7 +330,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v7 = *(v5 + 16);
   this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteString();
   v6 = *(v5 + 52);
   if ((v6 & 4) == 0)
@@ -2203,13 +344,13 @@ LABEL_4:
   }
 
 LABEL_9:
-  v8 = *(v5 + 24);
-  if (!v8)
+  v7 = *(v5 + 24);
+  if (!v7)
   {
-    v8 = *(proto::gpsd::LogEntry::default_instance_ + 24);
+    v7 = *(proto::gpsd::LogEntry::default_instance_ + 24);
   }
 
-  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(5, v8, a2, a4);
+  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(5, v7, a2, a4);
   v6 = *(v5 + 52);
   if ((v6 & 8) == 0)
   {
@@ -2223,42 +364,42 @@ LABEL_5:
   }
 
 LABEL_12:
-  v9 = *(v5 + 32);
-  if (!v9)
+  v8 = *(v5 + 32);
+  if (!v8)
   {
-    v9 = *(proto::gpsd::LogEntry::default_instance_ + 32);
+    v8 = *(proto::gpsd::LogEntry::default_instance_ + 32);
   }
 
-  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(6, v9, a2, a4);
+  this = wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(6, v8, a2, a4);
   if ((*(v5 + 52) & 0x10) != 0)
   {
 LABEL_15:
-    v10 = *(v5 + 40);
-    if (!v10)
+    v9 = *(v5 + 40);
+    if (!v9)
     {
-      v10 = *(proto::gpsd::LogEntry::default_instance_ + 40);
+      v9 = *(proto::gpsd::LogEntry::default_instance_ + 40);
     }
 
-    return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(7, v10, a2, a4);
+    return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteMessage(7, v9, a2, a4);
   }
 
   return this;
 }
 
-uint64_t proto::gpsd::LogEntry::ByteSize(proto::gpsd::LogEntry *this)
+uint64_t proto::gpsd::LogEntry::ByteSize(proto::gpsd::LogEntry *this, unint64_t a2)
 {
-  LOBYTE(v2) = *(this + 52);
-  if (!v2)
+  LOBYTE(v3) = *(this + 52);
+  if (!v3)
   {
-    v3 = 0;
+    v4 = 0;
     goto LABEL_38;
   }
 
   if (*(this + 52))
   {
-    v3 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize64(*(this + 1)) + 1;
-    v2 = *(this + 13);
-    if ((v2 & 2) == 0)
+    v4 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize64(*(this + 1)) + 1;
+    v3 = *(this + 13);
+    if ((v3 & 2) == 0)
     {
       goto LABEL_16;
     }
@@ -2266,74 +407,74 @@ uint64_t proto::gpsd::LogEntry::ByteSize(proto::gpsd::LogEntry *this)
 
   else
   {
-    v3 = 0;
+    v4 = 0;
     if ((*(this + 52) & 2) == 0)
     {
       goto LABEL_16;
     }
   }
 
-  v4 = *(this + 2);
-  v5 = *(v4 + 23);
-  v6 = v5;
-  v7 = *(v4 + 8);
-  if ((v5 & 0x80u) == 0)
+  v5 = *(this + 2);
+  v6 = *(v5 + 23);
+  v7 = v6;
+  v8 = *(v5 + 8);
+  if ((v6 & 0x80u) == 0)
   {
-    v8 = *(v4 + 23);
+    v9 = *(v5 + 23);
   }
 
   else
   {
-    v8 = v7;
+    v9 = v8;
   }
 
-  if (v8 >= 0x80)
+  if (v9 >= 0x80)
   {
-    v9 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v8);
-    v5 = *(v4 + 23);
-    v7 = *(v4 + 8);
-    v2 = *(this + 13);
-    v6 = *(v4 + 23);
+    v10 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v9);
+    v6 = *(v5 + 23);
+    v8 = *(v5 + 8);
+    v3 = *(this + 13);
+    v7 = *(v5 + 23);
   }
 
   else
   {
-    v9 = 1;
+    v10 = 1;
   }
 
-  if (v6 < 0)
+  if (v7 < 0)
   {
-    v5 = v7;
+    v6 = v8;
   }
 
-  v3 = (v3 + v9 + v5 + 1);
+  v4 = (v4 + v10 + v6 + 1);
 LABEL_16:
-  if ((v2 & 4) != 0)
+  if ((v3 & 4) != 0)
   {
-    v10 = *(this + 3);
-    if (!v10)
+    v11 = *(this + 3);
+    if (!v11)
     {
-      v10 = *(proto::gpsd::LogEntry::default_instance_ + 24);
+      v11 = *(proto::gpsd::LogEntry::default_instance_ + 24);
     }
 
-    v11 = proto::gpsd::Request::ByteSize(v10);
-    v12 = v11;
-    if (v11 >= 0x80)
+    v12 = proto::gpsd::Request::ByteSize(v11, a2);
+    v13 = v12;
+    if (v12 >= 0x80)
     {
-      v13 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v11);
+      v14 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v12);
     }
 
     else
     {
-      v13 = 1;
+      v14 = 1;
     }
 
-    v3 = (v3 + v12 + v13 + 1);
-    v2 = *(this + 13);
-    if ((v2 & 8) == 0)
+    v4 = (v4 + v13 + v14 + 1);
+    v3 = *(this + 13);
+    if ((v3 & 8) == 0)
     {
 LABEL_18:
-      if ((v2 & 0x10) == 0)
+      if ((v3 & 0x10) == 0)
       {
         goto LABEL_38;
       }
@@ -2342,62 +483,61 @@ LABEL_18:
     }
   }
 
-  else if ((v2 & 8) == 0)
+  else if ((v3 & 8) == 0)
   {
     goto LABEL_18;
   }
 
-  v14 = *(this + 4);
-  if (!v14)
+  v15 = *(this + 4);
+  if (!v15)
   {
-    v14 = *(proto::gpsd::LogEntry::default_instance_ + 32);
+    v15 = *(proto::gpsd::LogEntry::default_instance_ + 32);
   }
 
-  v15 = proto::gpsd::Response::ByteSize(v14);
-  v16 = v15;
-  if (v15 >= 0x80)
+  v16 = proto::gpsd::Response::ByteSize(v15, a2);
+  v17 = v16;
+  if (v16 >= 0x80)
   {
-    v17 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v15);
+    v18 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v16);
   }
 
   else
   {
-    v17 = 1;
+    v18 = 1;
   }
 
-  v3 = (v3 + v16 + v17 + 1);
+  v4 = (v4 + v17 + v18 + 1);
   if ((*(this + 13) & 0x10) != 0)
   {
 LABEL_32:
-    v18 = *(this + 5);
-    if (!v18)
+    v19 = *(this + 5);
+    if (!v19)
     {
-      v18 = *(proto::gpsd::LogEntry::default_instance_ + 40);
+      v19 = *(proto::gpsd::LogEntry::default_instance_ + 40);
     }
 
-    v19 = proto::gpsd::Indication::ByteSize(v18);
-    v20 = v19;
-    if (v19 >= 0x80)
+    v20 = proto::gpsd::Indication::ByteSize(v19, a2);
+    v21 = v20;
+    if (v20 >= 0x80)
     {
-      v21 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v19);
+      v22 = wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize32Fallback(v20);
     }
 
     else
     {
-      v21 = 1;
+      v22 = 1;
     }
 
-    v3 = (v3 + v20 + v21 + 1);
+    v4 = (v4 + v21 + v22 + 1);
   }
 
 LABEL_38:
-  *(this + 12) = v3;
-  return v3;
+  *(this + 12) = v4;
+  return v4;
 }
 
 void proto::gpsd::LogEntry::CheckTypeAndMergeFrom(proto::gpsd::LogEntry *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -2482,7 +622,7 @@ void proto::gpsd::StartContext::~StartContext(proto::gpsd::StartContext *this)
   JUMPOUT(0x245D6AEE0);
 }
 
-uint64_t proto::gpsd::StartContext::MergePartialFromCodedStream(proto::gpsd::StartContext *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2)
+uint64_t proto::gpsd::StartContext::MergePartialFromCodedStream(proto::gpsd::StartContext *this, wireless_diagnostics::google::protobuf::io::CodedInputStream *a2, unsigned int a3)
 {
   while (1)
   {
@@ -2490,8 +630,8 @@ uint64_t proto::gpsd::StartContext::MergePartialFromCodedStream(proto::gpsd::Sta
     {
       while (1)
       {
-        v4 = *(a2 + 1);
-        if (v4 >= *(a2 + 2) || (TagFallback = *v4, (TagFallback & 0x80000000) != 0))
+        v5 = *(a2 + 1);
+        if (v5 >= *(a2 + 2) || (TagFallback = *v5, (TagFallback & 0x80000000) != 0))
         {
           TagFallback = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadTagFallback(a2);
           *(a2 + 8) = TagFallback;
@@ -2504,28 +644,28 @@ uint64_t proto::gpsd::StartContext::MergePartialFromCodedStream(proto::gpsd::Sta
         else
         {
           *(a2 + 8) = TagFallback;
-          *(a2 + 1) = v4 + 1;
+          *(a2 + 1) = v5 + 1;
           if (!TagFallback)
           {
             return 1;
           }
         }
 
-        v6 = TagFallback >> 3;
+        v7 = TagFallback >> 3;
         if (TagFallback >> 3 > 2)
         {
           break;
         }
 
-        if (v6 != 1)
+        if (v7 != 1)
         {
-          if (v6 != 2 || (TagFallback & 7) != 0)
+          if (v7 != 2 || (TagFallback & 7) != 0)
           {
             goto LABEL_21;
           }
 
-          v9 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v10 = *(a2 + 1);
+          v8 = *(a2 + 2);
           goto LABEL_32;
         }
 
@@ -2534,107 +674,107 @@ uint64_t proto::gpsd::StartContext::MergePartialFromCodedStream(proto::gpsd::Sta
           goto LABEL_21;
         }
 
-        v24 = 0;
-        v12 = *(a2 + 1);
-        v7 = *(a2 + 2);
-        if (v12 >= v7 || (v13 = *v12, (v13 & 0x80000000) != 0))
+        v25 = 0;
+        v13 = *(a2 + 1);
+        v8 = *(a2 + 2);
+        if (v13 >= v8 || (v14 = *v13, (v14 & 0x80000000) != 0))
         {
-          result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v24);
+          result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v25);
           if (!result)
           {
             return result;
           }
 
-          v13 = v24;
-          v14 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v14 = v25;
+          v15 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          v14 = v12 + 1;
-          *(a2 + 1) = v14;
+          v15 = v13 + 1;
+          *(a2 + 1) = v15;
         }
 
-        *(this + 16) = v13 != 0;
+        *(this + 16) = v14 != 0;
         *(this + 6) |= 1u;
-        if (v14 < v7 && *v14 == 16)
+        if (v15 < v8 && *v15 == 16)
         {
-          v9 = v14 + 1;
-          *(a2 + 1) = v9;
+          v10 = v15 + 1;
+          *(a2 + 1) = v10;
 LABEL_32:
-          v24 = 0;
-          if (v9 >= v7 || (v15 = *v9, (v15 & 0x80000000) != 0))
+          v25 = 0;
+          if (v10 >= v8 || (v16 = *v10, (v16 & 0x80000000) != 0))
           {
-            result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v24);
+            result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v25);
             if (!result)
             {
               return result;
             }
 
-            v15 = v24;
-            v16 = *(a2 + 1);
-            v7 = *(a2 + 2);
+            v16 = v25;
+            v17 = *(a2 + 1);
+            v8 = *(a2 + 2);
           }
 
           else
           {
-            v16 = v9 + 1;
-            *(a2 + 1) = v16;
+            v17 = v10 + 1;
+            *(a2 + 1) = v17;
           }
 
-          *(this + 17) = v15 != 0;
+          *(this + 17) = v16 != 0;
           *(this + 6) |= 2u;
-          if (v16 < v7 && *v16 == 24)
+          if (v17 < v8 && *v17 == 24)
           {
-            v10 = v16 + 1;
-            *(a2 + 1) = v10;
+            v11 = v17 + 1;
+            *(a2 + 1) = v11;
 LABEL_40:
-            v24 = 0;
-            if (v10 >= v7 || (v17 = *v10, (v17 & 0x80000000) != 0))
+            v25 = 0;
+            if (v11 >= v8 || (v18 = *v11, (v18 & 0x80000000) != 0))
             {
-              result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v24);
+              result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v25);
               if (!result)
               {
                 return result;
               }
 
-              v17 = v24;
-              v18 = *(a2 + 1);
-              v7 = *(a2 + 2);
+              v18 = v25;
+              v19 = *(a2 + 1);
+              v8 = *(a2 + 2);
             }
 
             else
             {
-              v18 = v10 + 1;
-              *(a2 + 1) = v18;
+              v19 = v11 + 1;
+              *(a2 + 1) = v19;
             }
 
-            *(this + 18) = v17 != 0;
+            *(this + 18) = v18 != 0;
             *(this + 6) |= 4u;
-            if (v18 < v7 && *v18 == 32)
+            if (v19 < v8 && *v19 == 32)
             {
-              v11 = v18 + 1;
-              *(a2 + 1) = v11;
+              v12 = v19 + 1;
+              *(a2 + 1) = v12;
               goto LABEL_48;
             }
           }
         }
       }
 
-      if (v6 == 3)
+      if (v7 == 3)
       {
         if ((TagFallback & 7) != 0)
         {
           goto LABEL_21;
         }
 
-        v10 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v11 = *(a2 + 1);
+        v8 = *(a2 + 2);
         goto LABEL_40;
       }
 
-      if (v6 != 4)
+      if (v7 != 4)
       {
         break;
       }
@@ -2644,10 +784,10 @@ LABEL_40:
         goto LABEL_21;
       }
 
-      v11 = *(a2 + 1);
-      v7 = *(a2 + 2);
+      v12 = *(a2 + 1);
+      v8 = *(a2 + 2);
 LABEL_48:
-      if (v11 >= v7 || (v19 = *v11, v19 < 0))
+      if (v12 >= v8 || (v20 = *v12, v20 < 0))
       {
         result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint64Fallback(a2, this + 1);
         if (!result)
@@ -2655,46 +795,46 @@ LABEL_48:
           return result;
         }
 
-        v20 = *(a2 + 1);
-        v7 = *(a2 + 2);
+        v21 = *(a2 + 1);
+        v8 = *(a2 + 2);
       }
 
       else
       {
-        *(this + 1) = v19;
-        v20 = v11 + 1;
-        *(a2 + 1) = v20;
+        *(this + 1) = v20;
+        v21 = v12 + 1;
+        *(a2 + 1) = v21;
       }
 
       *(this + 6) |= 8u;
-      if (v20 < v7 && *v20 == 40)
+      if (v21 < v8 && *v21 == 40)
       {
-        v8 = v20 + 1;
-        *(a2 + 1) = v8;
+        v9 = v21 + 1;
+        *(a2 + 1) = v9;
 LABEL_56:
-        v24 = 0;
-        if (v8 >= v7 || (v21 = *v8, (v21 & 0x80000000) != 0))
+        v25 = 0;
+        if (v9 >= v8 || (v22 = *v9, (v22 & 0x80000000) != 0))
         {
-          result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v24);
+          result = wireless_diagnostics::google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &v25);
           if (!result)
           {
             return result;
           }
 
-          v21 = v24;
-          v22 = *(a2 + 1);
-          v7 = *(a2 + 2);
+          v22 = v25;
+          v23 = *(a2 + 1);
+          v8 = *(a2 + 2);
         }
 
         else
         {
-          v22 = v8 + 1;
-          *(a2 + 1) = v22;
+          v23 = v9 + 1;
+          *(a2 + 1) = v23;
         }
 
-        *(this + 19) = v21 != 0;
+        *(this + 19) = v22 != 0;
         *(this + 6) |= 0x10u;
-        if (v22 == v7 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
+        if (v23 == v8 && (*(a2 + 11) || *(a2 + 6) == *(a2 + 10)))
         {
           *(a2 + 8) = 0;
           result = 1;
@@ -2704,10 +844,10 @@ LABEL_56:
       }
     }
 
-    if (v6 == 5 && (TagFallback & 7) == 0)
+    if (v7 == 5 && (TagFallback & 7) == 0)
     {
-      v8 = *(a2 + 1);
-      v7 = *(a2 + 2);
+      v9 = *(a2 + 1);
+      v8 = *(a2 + 2);
       goto LABEL_56;
     }
 
@@ -2789,19 +929,19 @@ LABEL_11:
   return wireless_diagnostics::google::protobuf::internal::WireFormatLite::WriteBool(5, v7, a2, a4);
 }
 
-uint64_t proto::gpsd::StartContext::ByteSize(proto::gpsd::StartContext *this)
+uint64_t proto::gpsd::StartContext::ByteSize(proto::gpsd::StartContext *this, unint64_t a2)
 {
-  v2 = *(this + 6);
-  if (v2)
+  v3 = *(this + 6);
+  if (v3)
   {
-    v3 = 2 * (v2 & 1) + (v2 & 2) + ((v2 >> 1) & 2);
-    if ((v2 & 8) != 0)
+    v4 = 2 * (v3 & 1) + (v3 & 2) + ((v3 >> 1) & 2);
+    if ((v3 & 8) != 0)
     {
-      v3 += wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize64(*(this + 1)) + 1;
-      v2 = *(this + 6);
+      v4 += wireless_diagnostics::google::protobuf::io::CodedOutputStream::VarintSize64(*(this + 1)) + 1;
+      v3 = *(this + 6);
     }
 
-    result = ((v2 >> 3) & 2) + v3;
+    result = ((v3 >> 3) & 2) + v4;
   }
 
   else
@@ -2815,7 +955,6 @@ uint64_t proto::gpsd::StartContext::ByteSize(proto::gpsd::StartContext *this)
 
 void proto::gpsd::StartContext::CheckTypeAndMergeFrom(proto::gpsd::StartContext *this, const wireless_diagnostics::google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "common.h", 348, "f == NULL || dynamic_cast<To>(f) != NULL");
   }
@@ -2909,7 +1048,7 @@ void GpsdSessionHandlerManager::instanceDelete(GpsdSessionHandlerManager *this)
 
 void GpsdSessionHandlerManager::addEventHandler(GpsdSessionHandlerManager *this, GpsdSessionHandler *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v5 = *(this + 1);
@@ -2974,11 +1113,11 @@ void GpsdSessionHandlerManager::addEventHandler(GpsdSessionHandlerManager *this,
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
       v15 = (v6 - *this) >> 3;
-      v17 = 134349312;
-      v18 = a2;
-      v19 = 2050;
-      v20 = v15;
-      _os_log_impl(&dword_2454AA000, v14, OS_LOG_TYPE_DEFAULT, "GpsdSessionHandlerManager,addEventHandler,%{public}p,size,%{public}zu", &v17, 0x16u);
+      v16 = 134349312;
+      v17 = a2;
+      v18 = 2050;
+      v19 = v15;
+      _os_log_impl(&dword_2454AA000, v14, OS_LOG_TYPE_DEFAULT, "GpsdSessionHandlerManager,addEventHandler,%{public}p,size,%{public}zu", &v16, 0x16u);
     }
   }
 
@@ -2987,17 +1126,15 @@ void GpsdSessionHandlerManager::addEventHandler(GpsdSessionHandlerManager *this,
     v7 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_fault_impl(&dword_2454AA000, v7, OS_LOG_TYPE_FAULT, "GpsdSessionHandlerManager,addEventHandler,nullptr", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_fault_impl(&dword_2454AA000, v7, OS_LOG_TYPE_FAULT, "GpsdSessionHandlerManager,addEventHandler,nullptr", &v16, 2u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void GpsdSessionHandlerManager::removeEventHandler(GpsdSessionHandler ***this, GpsdSessionHandler *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = *this;
@@ -3044,11 +1181,11 @@ LABEL_16:
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
       v9 = v5 - *this;
-      v11 = 134349312;
-      v12 = a2;
-      v13 = 2050;
-      v14 = v9;
-      _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEFAULT, "GpsdSessionHandlerManager,removeEventHandler,%{public}p,size,%{public}zu", &v11, 0x16u);
+      v10 = 134349312;
+      v11 = a2;
+      v12 = 2050;
+      v13 = v9;
+      _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEFAULT, "GpsdSessionHandlerManager,removeEventHandler,%{public}p,size,%{public}zu", &v10, 0x16u);
     }
   }
 
@@ -3057,12 +1194,10 @@ LABEL_16:
     v6 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_fault_impl(&dword_2454AA000, v6, OS_LOG_TYPE_FAULT, "GpsdSessionHandlerManager,removeEventHandler,nullptr", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_fault_impl(&dword_2454AA000, v6, OS_LOG_TYPE_FAULT, "GpsdSessionHandlerManager,removeEventHandler,nullptr", &v10, 2u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void GpsdSessionHandler::GpsdSessionHandler(GpsdSessionHandler *this)
@@ -3081,20 +1216,19 @@ void GpsdSessionHandler::~GpsdSessionHandler(GpsdSessionHandler *this)
 
 void GpsdSessionMonitor::setExplicitState(GpsdSessionMonitor *this, int a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(this + 8);
-    v7[0] = 67240448;
-    v7[1] = v5;
-    v8 = 1026;
-    v9 = a2;
-    _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEFAULT, "GpsdSessionMonitor,setExplicitState,current,%{public}d,new,%{public}d", v7, 0xEu);
+    v6[0] = 67240448;
+    v6[1] = v5;
+    v7 = 1026;
+    v8 = a2;
+    _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEFAULT, "GpsdSessionMonitor,setExplicitState,current,%{public}d,new,%{public}d", v6, 0xEu);
   }
 
   *(this + 8) = a2;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void GpsdSessionMonitor::update(GpsdSessionMonitor *this)
@@ -3133,81 +1267,78 @@ uint64_t GpsdSessionMonitor::start(uint64_t this)
 
 void GpsdSessionMonitor::autoRelease(GpsdSessionMonitor *this)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (*(this + 8) == 1)
   {
     v1 = GpsdLogObjectGeneral;
-    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      v2 = "GpsdSessionMonitor,autoRelease,inSession,return";
-      v3 = v1;
-      v4 = 2;
-LABEL_12:
-      _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEFAULT, v2, &v17, v4);
+      return;
     }
+
+    LOWORD(v16) = 0;
+    v2 = "GpsdSessionMonitor,autoRelease,inSession,return";
+    v3 = v1;
+    v4 = 2;
+LABEL_12:
+    _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEFAULT, v2, &v16, v4);
+    return;
+  }
+
+  v6 = *(this + 2);
+  if (!v6 || (v7 = *(this + 3)) == 0)
+  {
+    v13 = GpsdLogObjectWarning;
+    if (!os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    v14 = *(this + 3);
+    v15 = *(this + 8);
+    v16 = 134349568;
+    *v17 = v6;
+    *&v17[8] = 2050;
+    v18 = v14;
+    v19 = 1026;
+    v20 = v15;
+    v2 = "GpsdSessionMonitor,autoRelease,nullptr,os,%{public}p,timer,%{public}p,inactive,%{public}d";
+    v3 = v13;
+    v4 = 28;
+    goto LABEL_12;
+  }
+
+  v8 = *(this + 8);
+  *(this + 8) = v8 + 1;
+  v9 = GpsdLogObjectGeneral;
+  v10 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT);
+  if (v8 > 1)
+  {
+    if (v10)
+    {
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEFAULT, "GpsdSessionMonitor,autoRelease,confirmed", &v16, 2u);
+    }
+
+    GpsdSessionMonitor::stop(this);
   }
 
   else
   {
-    v6 = *(this + 2);
-    if (v6 && (v7 = *(this + 3)) != 0)
+    if (v10)
     {
-      v8 = *(this + 8);
-      *(this + 8) = v8 + 1;
-      v9 = GpsdLogObjectGeneral;
-      v10 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT);
-      if (v8 > 1)
-      {
-        if (v10)
-        {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEFAULT, "GpsdSessionMonitor,autoRelease,confirmed", &v17, 2u);
-        }
-
-        GpsdSessionMonitor::stop(this);
-      }
-
-      else
-      {
-        if (v10)
-        {
-          v17 = 67240448;
-          *v18 = v8 + 1;
-          *&v18[4] = 1026;
-          *&v18[6] = 3;
-          _os_log_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEFAULT, "GpsdSessionMonitor,autoRelease,confirming,%{public}d/%{public}d", &v17, 0xEu);
-          v7 = *(this + 3);
-        }
-
-        v11 = *(v7 + 8);
-        v12 = dispatch_time(0, 10000000000);
-        dispatch_source_set_timer(v11, v12, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
-      }
+      v16 = 67240448;
+      *v17 = v8 + 1;
+      *&v17[4] = 1026;
+      *&v17[6] = 3;
+      _os_log_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEFAULT, "GpsdSessionMonitor,autoRelease,confirming,%{public}d/%{public}d", &v16, 0xEu);
+      v7 = *(this + 3);
     }
 
-    else
-    {
-      v13 = GpsdLogObjectWarning;
-      if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
-      {
-        v14 = *(this + 3);
-        v15 = *(this + 8);
-        v17 = 134349568;
-        *v18 = v6;
-        *&v18[8] = 2050;
-        v19 = v14;
-        v20 = 1026;
-        v21 = v15;
-        v2 = "GpsdSessionMonitor,autoRelease,nullptr,os,%{public}p,timer,%{public}p,inactive,%{public}d";
-        v3 = v13;
-        v4 = 28;
-        goto LABEL_12;
-      }
-    }
+    v11 = *(v7 + 8);
+    v12 = dispatch_time(0, 10000000000);
+    dispatch_source_set_timer(v11, v12, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void GpsdSessionMonitor::stop(GpsdSessionMonitor *this)
@@ -3290,16 +1421,16 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
 dispatch_queue_t GpsdRuntime::dispatchQueueInit(GpsdRuntime *this, const std::string::value_type *a2, const char *a3)
 {
   v4 = this;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = std::string::basic_string[abi:ne200100]<0>(buf, "com.apple.gpsd.");
   v6 = std::string::append(v5, a2);
   v7 = *&v6->__r_.__value_.__l.__data_;
-  v25 = v6->__r_.__value_.__r.__words[2];
+  v24 = v6->__r_.__value_.__r.__words[2];
   *__p = v7;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
-  if (SBYTE3(v30) < 0)
+  if (SBYTE3(v29) < 0)
   {
     operator delete(*buf);
   }
@@ -3311,7 +1442,7 @@ dispatch_queue_t GpsdRuntime::dispatchQueueInit(GpsdRuntime *this, const std::st
     if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
     {
       v10 = __p;
-      if (v25 < 0)
+      if (v24 < 0)
       {
         v10 = __p[0];
       }
@@ -3322,7 +1453,7 @@ dispatch_queue_t GpsdRuntime::dispatchQueueInit(GpsdRuntime *this, const std::st
     }
   }
 
-  if (v25 >= 0)
+  if (v24 >= 0)
   {
     v11 = __p;
   }
@@ -3335,61 +1466,60 @@ dispatch_queue_t GpsdRuntime::dispatchQueueInit(GpsdRuntime *this, const std::st
   v12 = dispatch_queue_create(v11, v8);
   if (!v12)
   {
-    v16 = GpsdLogObjectGeneral;
+    v15 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      v17 = __p;
-      if (v25 < 0)
+      v16 = __p;
+      if (v24 < 0)
       {
-        v17 = __p[0];
+        v16 = __p[0];
       }
 
       *buf = 136446210;
-      *&buf[4] = v17;
-      _os_log_error_impl(&dword_2454AA000, v16, OS_LOG_TYPE_ERROR, "dispatchQueueInit,queue,null,%{public}s", buf, 0xCu);
-      v16 = GpsdLogObjectGeneral;
+      *&buf[4] = v16;
+      _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, "dispatchQueueInit,queue,null,%{public}s", buf, 0xCu);
+      v15 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
       *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdRuntime.cpp";
-      v27 = 1026;
-      v28 = 23;
-      v29 = 2082;
-      v30 = "dispatchQueueInit";
-      _os_log_error_impl(&dword_2454AA000, v16, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      v26 = 1026;
+      v27 = 23;
+      v28 = 2082;
+      v29 = "dispatchQueueInit";
+      _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v22, "assert");
-    std::string::basic_string[abi:ne200100]<0>(v20, "dispatchQueueInit");
-    std::string::basic_string[abi:ne200100]<0>(v18, "dispatchQueueInit,queue,null,%{public}s");
-    gpsd::util::triggerDiagnosticReport(v22, v20, v18);
-    if (v19 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v21, "assert");
+    std::string::basic_string[abi:ne200100]<0>(v19, "dispatchQueueInit");
+    std::string::basic_string[abi:ne200100]<0>(v17, "dispatchQueueInit,queue,null,%{public}s");
+    gpsd::util::triggerDiagnosticReport(v21, v19, v17);
+    if (v18 < 0)
     {
-      operator delete(v18[0]);
+      operator delete(v17[0]);
     }
 
-    if (v21 < 0)
+    if (v20 < 0)
     {
-      operator delete(v20[0]);
+      operator delete(v19[0]);
     }
 
-    if (v23 < 0)
+    if (v22 < 0)
     {
-      operator delete(v22[0]);
+      operator delete(v21[0]);
     }
 
     __assert_rtn("dispatchQueueInit", "GpsdRuntime.cpp", 23, "false && dispatchQueueInit,queue,null,%{public}s");
   }
 
   v13 = v12;
-  if (SHIBYTE(v25) < 0)
+  if (SHIBYTE(v24) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -3405,11 +1535,11 @@ void sub_245567BB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t GpsdRuntime::bounceExit(NSObject **a1, uint64_t *a2)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v13[0] = &unk_285863998;
-  v13[3] = v13;
-  GpsdRuntime::asyncDevice(a1, v13);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v13);
+  v12[4] = *MEMORY[0x277D85DE8];
+  v12[0] = &unk_285863998;
+  v12[3] = v12;
+  GpsdRuntime::asyncDevice(a1, v12);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v12);
   v4 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
@@ -3424,49 +1554,43 @@ uint64_t GpsdRuntime::bounceExit(NSObject **a1, uint64_t *a2)
     }
 
     *buf = 136446466;
-    v10 = v5;
-    v11 = 1026;
-    v12 = 100;
+    v9 = v5;
+    v10 = 1026;
+    v11 = 100;
     _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEFAULT, "#runtime,bounceExit,reason,%{public}s,delay,%{public}d", buf, 0x12u);
   }
 
-  v8[0] = &unk_285863A28;
-  v8[3] = v8;
-  GpsdRuntime::asyncDevice(a1, v8, 100);
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v8);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[0] = &unk_285863A28;
+  v7[3] = v7;
+  GpsdRuntime::asyncDevice(a1, v7, 100);
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v7);
 }
 
 uint64_t GpsdRuntime::asyncDevice(NSObject **a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v2 = *a1;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 1174405120;
   block[2] = ___ZN11GpsdRuntime11asyncDeviceENSt3__18functionIFvvEEE_block_invoke;
   block[3] = &__block_descriptor_tmp_7;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v6, a2);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v5, a2);
   dispatch_async(v2, block);
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v5);
 }
 
 uint64_t GpsdRuntime::asyncDevice(NSObject **a1, uint64_t a2, uint64_t a3)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   v5 = dispatch_time(0, 1000000 * a3);
   v6 = *a1;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 1174405120;
   block[2] = ___ZN11GpsdRuntime11asyncDeviceENSt3__18functionIFvvEEEx_block_invoke;
   block[3] = &__block_descriptor_tmp_9;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v10, a2);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v9, a2);
   dispatch_after(v5, v6, block);
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v10);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v9);
 }
 
 void GpsdRuntime::forceExit(GpsdRuntime *this, const char *a2)
@@ -3565,11 +1689,11 @@ void GpsdRuntime::GpsdRuntime(GpsdRuntime *this)
   *(this + 2) = GpsdRuntime::dispatchQueueInit(0x15, "defaultPriorityQueue", v8);
 }
 
-uint64_t std::__function::__func<GpsdRuntime::bounceExit(std::string const&)::$_0,std::allocator<GpsdRuntime::bounceExit(std::string const&)::$_0>,void ()(void)>::operator()(GpsdSessionHandlerManager *a1)
+uint64_t **std::__function::__func<GpsdRuntime::bounceExit(std::string const&)::$_0,std::allocator<GpsdRuntime::bounceExit(std::string const&)::$_0>,void ()(void)>::operator()(GpsdSessionHandlerManager *a1)
 {
   result = GpsdSessionHandlerManager::instance(a1);
   v2 = *result;
-  v3 = *(result + 8);
+  v3 = result[1];
   while (v2 != v3)
   {
     v4 = *v2++;
@@ -3617,31 +1741,29 @@ uint64_t std::__function::__func<GpsdRuntime::bounceExit(std::string const&)::$_
 
 BOOL deleteFile(const char *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = unlink(a1);
   if (v2)
   {
     v3 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      v6 = *__error();
-      v7 = 136446466;
-      v8 = a1;
-      v9 = 1026;
-      v10 = v6;
-      _os_log_error_impl(&dword_2454AA000, v3, OS_LOG_TYPE_ERROR, "VendorLogger,deleteFile could not unlink,%{public}s,%{public}d", &v7, 0x12u);
+      v5 = *__error();
+      v6 = 136446466;
+      v7 = a1;
+      v8 = 1026;
+      v9 = v5;
+      _os_log_error_impl(&dword_2454AA000, v3, OS_LOG_TYPE_ERROR, "VendorLogger,deleteFile could not unlink,%{public}s,%{public}d", &v6, 0x12u);
     }
   }
 
-  result = v2 == 0;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return v2 == 0;
 }
 
 BOOL getFileModificationTimeAndSize(const char *a1, timespec *a2, uint64_t *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v6 = stat(a1, &v11);
+  v15 = *MEMORY[0x277D85DE8];
+  v6 = stat(a1, &v10);
   if (v6)
   {
     v7 = GpsdLogObjectGeneral;
@@ -3649,33 +1771,31 @@ BOOL getFileModificationTimeAndSize(const char *a1, timespec *a2, uint64_t *a3)
     {
       v8 = *__error();
       *buf = 136446466;
-      v13 = a1;
-      v14 = 1026;
-      v15 = v8;
+      v12 = a1;
+      v13 = 1026;
+      v14 = v8;
       _os_log_error_impl(&dword_2454AA000, v7, OS_LOG_TYPE_ERROR, "VendorLogger,getFileModificationTime could not stat,%{public}s,%{public}d", buf, 0x12u);
     }
   }
 
   else
   {
-    *a2 = v11.st_mtimespec;
-    *a3 = v11.st_size;
+    *a2 = v10.st_mtimespec;
+    *a3 = v10.st_size;
   }
 
-  result = v6 == 0;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 == 0;
 }
 
 void VendorLogger::copyLatestLogsToPath(uint64_t a1, uint64_t a2, int a3, int a4)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v8 = GpsdPreferences::instance(0);
-  GpsdPreferences::vendorLogDirectory(v8, &v34);
-  size = HIBYTE(v34.__r_.__value_.__r.__words[2]);
-  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  GpsdPreferences::vendorLogDirectory(v8, &v33);
+  size = HIBYTE(v33.__r_.__value_.__r.__words[2]);
+  if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v34.__r_.__value_.__l.__size_;
+    size = v33.__r_.__value_.__l.__size_;
   }
 
   if (!size)
@@ -3743,9 +1863,9 @@ LABEL_19:
     }
 
     *buf = 136446466;
-    v36 = v21;
-    v37 = 1026;
-    v38 = 504;
+    v35 = v21;
+    v36 = 1026;
+    v37 = 504;
     v22 = "VendorLogger,copyLatestLogsToPath,created directory,%{public}s,permissions,%{public}x";
     v23 = v20;
     v24 = 18;
@@ -3758,19 +1878,19 @@ LABEL_36:
     block[2] = ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEij_block_invoke;
     block[3] = &__block_descriptor_tmp_8;
     block[4] = a1;
-    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, v34.__r_.__value_.__l.__data_, v34.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&__p, v33.__r_.__value_.__l.__data_, v33.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = v34;
+      __p = v33;
     }
 
-    v31 = a2;
-    v32 = a4;
-    v33 = a3;
+    v30 = a2;
+    v31 = a4;
+    v32 = a3;
     dispatch_sync(v27, block);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -3804,7 +1924,7 @@ LABEL_36:
 
       v17 = *__error();
       *buf = 67240192;
-      LODWORD(v36) = v17;
+      LODWORD(v35) = v17;
       v12 = "VendorLogger,copyLatestLogsToPath,chmod failed,%{public}d";
       v18 = v16;
       v19 = 8;
@@ -3817,7 +1937,7 @@ LABEL_36:
     }
 
     *buf = 67240192;
-    LODWORD(v36) = 504;
+    LODWORD(v35) = 504;
     v22 = "VendorLogger,copyLatestLogsToPath,directory exists,permissions,%{public}x";
     v23 = v16;
     v24 = 8;
@@ -3838,9 +1958,9 @@ LABEL_36:
     }
 
     *buf = 136446466;
-    v36 = v26;
-    v37 = 1026;
-    v38 = v13;
+    v35 = v26;
+    v36 = 1026;
+    v37 = v13;
     v12 = "VendorLogger,copyLatestLogsToPath,could not create directory,%{public}s, error,%{public}d";
     v18 = v25;
     v19 = 18;
@@ -3848,12 +1968,10 @@ LABEL_36:
   }
 
 LABEL_41:
-  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v34.__r_.__value_.__l.__data_);
+    operator delete(v33.__r_.__value_.__l.__data_);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24556898C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -3868,12 +1986,12 @@ void sub_24556898C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEij_block_invoke(uint64_t a1)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   VendorLogger::closeLogFile(v2);
+  v48 = 0;
   v49 = 0;
   v50 = 0;
-  v51 = 0;
   if (*(a1 + 63) < 0)
   {
     v3 = *(a1 + 40);
@@ -3884,9 +2002,9 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
     v3 = a1 + 40;
   }
 
-  gpsd::util::enumerateFiles(v3, v2 + 2, &v49);
-  v4 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v50 - v49) >> 3));
-  if (v50 == v49)
+  gpsd::util::enumerateFiles(v3, (v2 + 16), &v48);
+  v4 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v49 - v48) >> 3));
+  if (v49 == v48)
   {
     v5 = 0;
   }
@@ -3896,14 +2014,14 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
     v5 = v4;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,false>(v49, v50, v5, 1);
-  v47 = 0;
-  v7 = v49;
-  v6 = v50;
+  std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,false>(v48, v49, v5, 1);
+  v46 = 0;
+  v7 = v48;
+  v6 = v49;
   v8 = &GpsdLogObjectGeneral;
-  if (v49 != v50)
+  if (v48 != v49)
   {
-    v46 = 0;
+    v45 = 0;
     while (1)
     {
       if (*(a1 + 63) >= 0)
@@ -3916,15 +2034,15 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
         v9 = *(a1 + 48);
       }
 
-      std::string::basic_string[abi:ne200100](&v53, v9 + 1);
-      if ((v53.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::string::basic_string[abi:ne200100](&v52, v9 + 1);
+      if ((v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v10 = &v53;
+        v10 = &v52;
       }
 
       else
       {
-        v10 = v53.__r_.__value_.__r.__words[0];
+        v10 = v52.__r_.__value_.__r.__words[0];
       }
 
       if (v9)
@@ -3961,22 +2079,22 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
 
       else
       {
-        v14 = *(v7 + 8);
+        v14 = *(v7 + 1);
       }
 
-      v15 = std::string::append(&v53, v13, v14);
+      v15 = std::string::append(&v52, v13, v14);
       v16 = *&v15->__r_.__value_.__l.__data_;
-      v55 = v15->__r_.__value_.__r.__words[2];
+      v54 = v15->__r_.__value_.__r.__words[2];
       *buf = v16;
       v15->__r_.__value_.__l.__size_ = 0;
       v15->__r_.__value_.__r.__words[2] = 0;
       v15->__r_.__value_.__r.__words[0] = 0;
-      if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v53.__r_.__value_.__l.__data_);
+        operator delete(v52.__r_.__value_.__l.__data_);
       }
 
-      if (v55 >= 0)
+      if (v54 >= 0)
       {
         v17 = buf;
       }
@@ -3986,17 +2104,17 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
         v17 = *buf;
       }
 
-      if (!getFileModificationTimeAndSize(v17, &v48, &v47))
+      if (!getFileModificationTimeAndSize(v17, &v47, &v46))
       {
         goto LABEL_78;
       }
 
-      if (v47 <= *(a1 + 72))
+      if (v46 <= *(a1 + 72))
       {
         v39 = *v8;
         if (os_log_type_enabled(*v8, OS_LOG_TYPE_INFO))
         {
-          if (v55 >= 0)
+          if (v54 >= 0)
           {
             v40 = buf;
           }
@@ -4006,9 +2124,9 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
             v40 = *buf;
           }
 
-          LODWORD(v53.__r_.__value_.__l.__data_) = 136446210;
-          *(v53.__r_.__value_.__r.__words + 4) = v40;
-          _os_log_impl(&dword_2454AA000, v39, OS_LOG_TYPE_INFO, "VendorLogger,copyLatestLogsToPath, skipped file,%{public}s", &v53, 0xCu);
+          LODWORD(v52.__r_.__value_.__l.__data_) = 136446210;
+          *(v52.__r_.__value_.__r.__words + 4) = v40;
+          _os_log_impl(&dword_2454AA000, v39, OS_LOG_TYPE_INFO, "VendorLogger,copyLatestLogsToPath, skipped file,%{public}s", &v52, 0xCu);
         }
 
         v38 = 3;
@@ -4027,15 +2145,15 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
         v20 = v19[1];
       }
 
-      std::string::basic_string[abi:ne200100](&v52, v20 + 1);
-      if ((v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::string::basic_string[abi:ne200100](&v51, v20 + 1);
+      if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v21 = &v52;
+        v21 = &v51;
       }
 
       else
       {
-        v21 = v52.__r_.__value_.__r.__words[0];
+        v21 = v51.__r_.__value_.__r.__words[0];
       }
 
       if (v20)
@@ -4072,48 +2190,48 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
 
       else
       {
-        v25 = *(v7 + 8);
+        v25 = *(v7 + 1);
       }
 
-      v26 = std::string::append(&v52, v24, v25);
+      v26 = std::string::append(&v51, v24, v25);
       v28 = *&v26->__r_.__value_.__l.__data_;
-      v53.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
-      *&v53.__r_.__value_.__l.__data_ = v28;
+      v52.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
+      *&v52.__r_.__value_.__l.__data_ = v28;
       v26->__r_.__value_.__l.__size_ = 0;
       v26->__r_.__value_.__r.__words[2] = 0;
       v26->__r_.__value_.__r.__words[0] = 0;
       v8 = v18;
-      if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v52.__r_.__value_.__l.__data_);
+        operator delete(v51.__r_.__value_.__l.__data_);
       }
 
-      v29 = v55 >= 0 ? buf : *buf;
-      v30 = (v53.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v53 : v53.__r_.__value_.__r.__words[0];
+      v29 = v54 >= 0 ? buf : *buf;
+      v30 = (v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v52 : v52.__r_.__value_.__r.__words[0];
       v31 = gpsd::util::copyFile(v29, v30, v27);
       v32 = *v18;
       if (v31)
       {
         if (os_log_type_enabled(*v18, OS_LOG_TYPE_INFO))
         {
-          if ((v53.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v33 = &v53;
+            v33 = &v52;
           }
 
           else
           {
-            v33 = v53.__r_.__value_.__r.__words[0];
+            v33 = v52.__r_.__value_.__r.__words[0];
           }
 
-          LODWORD(v52.__r_.__value_.__l.__data_) = 136446210;
-          *(v52.__r_.__value_.__r.__words + 4) = v33;
-          _os_log_impl(&dword_2454AA000, v32, OS_LOG_TYPE_INFO, "VendorLogger,copyLatestLogsToPath, copied %{public}s", &v52, 0xCu);
+          LODWORD(v51.__r_.__value_.__l.__data_) = 136446210;
+          *(v51.__r_.__value_.__r.__words + 4) = v33;
+          _os_log_impl(&dword_2454AA000, v32, OS_LOG_TYPE_INFO, "VendorLogger,copyLatestLogsToPath, copied %{public}s", &v51, 0xCu);
         }
 
         v34 = *(a1 + 76);
-        v35 = ++v46 < v34;
-        v36 = v46 >= v34;
+        v35 = ++v45 < v34;
+        v36 = v45 >= v34;
         v37 = v35;
         v38 = 2 * v36;
       }
@@ -4122,7 +2240,7 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
       {
         if (os_log_type_enabled(*v18, OS_LOG_TYPE_ERROR))
         {
-          if (v55 >= 0)
+          if (v54 >= 0)
           {
             v41 = buf;
           }
@@ -4132,28 +2250,28 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
             v41 = *buf;
           }
 
-          if ((v53.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v42 = &v53;
+            v42 = &v52;
           }
 
           else
           {
-            v42 = v53.__r_.__value_.__r.__words[0];
+            v42 = v52.__r_.__value_.__r.__words[0];
           }
 
-          LODWORD(v52.__r_.__value_.__l.__data_) = 136446466;
-          *(v52.__r_.__value_.__r.__words + 4) = v41;
-          WORD2(v52.__r_.__value_.__r.__words[1]) = 2082;
-          *(&v52.__r_.__value_.__r.__words[1] + 6) = v42;
-          _os_log_error_impl(&dword_2454AA000, v32, OS_LOG_TYPE_ERROR, "VendorLogger,copyLatestLogsToPath, failed src,%{public}s, dest,%{public}s", &v52, 0x16u);
+          LODWORD(v51.__r_.__value_.__l.__data_) = 136446466;
+          *(v51.__r_.__value_.__r.__words + 4) = v41;
+          WORD2(v51.__r_.__value_.__r.__words[1]) = 2082;
+          *(&v51.__r_.__value_.__r.__words[1] + 6) = v42;
+          _os_log_error_impl(&dword_2454AA000, v32, OS_LOG_TYPE_ERROR, "VendorLogger,copyLatestLogsToPath, failed src,%{public}s, dest,%{public}s", &v51, 0x16u);
         }
 
         v37 = 0;
         v38 = 2;
       }
 
-      if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v52.__r_.__value_.__r.__words[2]) < 0)
       {
         break;
       }
@@ -4164,14 +2282,14 @@ void ___ZN12VendorLogger20copyLatestLogsToPathERKNSt3__112basic_stringIcNS0_11ch
       }
 
 LABEL_79:
-      if (SHIBYTE(v55) < 0)
+      if (SHIBYTE(v54) < 0)
       {
         operator delete(*buf);
       }
 
       if (v38 == 3 || !v38)
       {
-        v7 += 24;
+        v7 = (v7 + 24);
         if (v7 != v6)
         {
           continue;
@@ -4181,7 +2299,7 @@ LABEL_79:
       goto LABEL_95;
     }
 
-    operator delete(v53.__r_.__value_.__l.__data_);
+    operator delete(v52.__r_.__value_.__l.__data_);
     if (!v37)
     {
       goto LABEL_79;
@@ -4192,22 +2310,21 @@ LABEL_78:
     goto LABEL_79;
   }
 
-  v46 = 0;
+  v45 = 0;
 LABEL_95:
   v43 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
     v44 = *(a1 + 76);
     *buf = 67240448;
-    *&buf[4] = v46;
+    *&buf[4] = v45;
     *&buf[8] = 1026;
     *&buf[10] = v44;
     _os_log_impl(&dword_2454AA000, v43, OS_LOG_TYPE_DEFAULT, "VendorLogger,copyLatestLogsToPath, Copied,%{public}d, RequestedMax,%{public}d", buf, 0xEu);
   }
 
-  *buf = &v49;
+  *buf = &v48;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](buf);
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void sub_245568E94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33)
@@ -4217,32 +2334,32 @@ void sub_245568E94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void VendorLogger::closeLogFile(VendorLogger *this)
+void VendorLogger::closeLogFile(std::string::size_type *this)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   VendorLogger::flushCompression(this);
   *(this + 868) = 0;
-  if (*(this + 48))
+  if (this[48])
   {
     std::ostream::flush();
     if (!std::filebuf::close())
     {
-      std::ios_base::clear((this + *(*(this + 32) - 24) + 256), *(this + *(*(this + 32) - 24) + 288) | 4);
+      std::ios_base::clear((this + *(this[32] - 24) + 256), *(this + *(this[32] - 24) + 288) | 4);
     }
 
-    v2 = (this + 824);
+    v2 = (this + 103);
     if (*(this + 847) < 0)
     {
-      std::string::__init_copy_ctor_external(&buf, *(this + 103), *(this + 104));
+      std::string::__init_copy_ctor_external(&buf, this[103], this[104]);
     }
 
     else
     {
       *&buf.__r_.__value_.__l.__data_ = *&v2->__pn_.__r_.__value_.__l.__data_;
-      buf.__r_.__value_.__r.__words[2] = *(this + 105);
+      buf.__r_.__value_.__r.__words[2] = this[105];
     }
 
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v29, this + 5, this + 11);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v28, this + 5, this + 11);
     std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, this + 8, this + 11);
     size = HIBYTE(buf.__r_.__value_.__r.__words[2]);
     if ((buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -4260,54 +2377,54 @@ void VendorLogger::closeLogFile(VendorLogger *this)
       size = buf.__r_.__value_.__l.__size_;
     }
 
-    if ((v30 & 0x80u) == 0)
+    if ((v29 & 0x80u) == 0)
     {
-      v6 = v29;
+      v6 = v28;
     }
 
     else
     {
-      v6 = v29[0];
+      v6 = v28[0];
     }
 
-    if ((v30 & 0x80u) == 0)
+    if ((v29 & 0x80u) == 0)
     {
-      v7 = v30;
+      v7 = v29;
     }
 
     else
     {
-      v7 = v29[1];
+      v7 = v28[1];
     }
 
     if (v7)
     {
       if (size >= v7)
       {
-        v20 = p_buf + size;
-        v21 = *v6;
-        v22 = p_buf;
+        v19 = p_buf + size;
+        v20 = *v6;
+        v21 = p_buf;
         do
         {
-          v23 = size - v7;
-          if (v23 == -1)
+          v22 = size - v7;
+          if (v22 == -1)
           {
             break;
           }
 
-          v24 = memchr(v22, v21, v23 + 1);
-          if (!v24)
+          v23 = memchr(v21, v20, v22 + 1);
+          if (!v23)
           {
             break;
           }
 
-          v25 = v24;
-          if (!memcmp(v24, v6, v7))
+          v24 = v23;
+          if (!memcmp(v23, v6, v7))
           {
-            if (v25 != v20)
+            if (v24 != v19)
             {
-              v9 = v25 - p_buf;
-              if (v25 - p_buf != -1)
+              v9 = v24 - p_buf;
+              if (v24 - p_buf != -1)
               {
                 goto LABEL_25;
               }
@@ -4316,8 +2433,8 @@ void VendorLogger::closeLogFile(VendorLogger *this)
             break;
           }
 
-          v22 = (v25 + 1);
-          size = v20 - (v25 + 1);
+          v21 = (v24 + 1);
+          size = v19 - (v24 + 1);
         }
 
         while (size >= v7);
@@ -4326,9 +2443,9 @@ void VendorLogger::closeLogFile(VendorLogger *this)
       v8 = GpsdLogObjectWarning;
       if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
       {
-        *v32 = 136446210;
-        v33 = p_buf;
-        _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEFAULT, "VendorLogger,closeLogFile,Could not archive,%{public}s", v32, 0xCu);
+        *v31 = 136446210;
+        v32 = p_buf;
+        _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEFAULT, "VendorLogger,closeLogFile,Could not archive,%{public}s", v31, 0xCu);
       }
     }
 
@@ -4336,7 +2453,7 @@ void VendorLogger::closeLogFile(VendorLogger *this)
     {
       v9 = 0;
 LABEL_25:
-      if ((v28 & 0x80u) == 0)
+      if ((v27 & 0x80u) == 0)
       {
         v10 = __p;
       }
@@ -4346,9 +2463,9 @@ LABEL_25:
         v10 = __p[0];
       }
 
-      if ((v28 & 0x80u) == 0)
+      if ((v27 & 0x80u) == 0)
       {
-        v11 = v28;
+        v11 = v27;
       }
 
       else
@@ -4360,7 +2477,7 @@ LABEL_25:
       v12 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = (this + 824);
+        v14 = this + 103;
         if (*(this + 847) < 0)
         {
           v14 = v2->__pn_.__r_.__value_.__r.__words[0];
@@ -4372,11 +2489,11 @@ LABEL_25:
           v15 = buf.__r_.__value_.__r.__words[0];
         }
 
-        *v32 = 136446466;
-        v33 = v14;
-        v34 = 2082;
-        v35 = v15;
-        _os_log_impl(&dword_2454AA000, v12, OS_LOG_TYPE_DEFAULT, "VendorLogger,closeLogFile,Archiving,Old name,%{public}s,New name,%{public}s", v32, 0x16u);
+        *v31 = 136446466;
+        v32 = v14;
+        v33 = 2082;
+        v34 = v15;
+        _os_log_impl(&dword_2454AA000, v12, OS_LOG_TYPE_DEFAULT, "VendorLogger,closeLogFile,Archiving,Old name,%{public}s,New name,%{public}s", v31, 0x16u);
       }
 
       if (*(this + 847) < 0)
@@ -4400,18 +2517,18 @@ LABEL_25:
         v18 = GpsdLogObjectGeneral;
         if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
         {
-          v26 = *__error();
-          *v32 = 67240192;
-          LODWORD(v33) = v26;
-          _os_log_error_impl(&dword_2454AA000, v18, OS_LOG_TYPE_ERROR, "VendorLogger,closeLogFile,rename failed,%{public}d", v32, 8u);
+          v25 = *__error();
+          *v31 = 67240192;
+          LODWORD(v32) = v25;
+          _os_log_error_impl(&dword_2454AA000, v18, OS_LOG_TYPE_ERROR, "VendorLogger,closeLogFile,rename failed,%{public}d", v31, 8u);
         }
       }
     }
 
     if (*(this + 847) < 0)
     {
-      **(this + 103) = 0;
-      *(this + 104) = 0;
+      *this[103] = 0;
+      this[104] = 0;
     }
 
     else
@@ -4420,14 +2537,14 @@ LABEL_25:
       *(this + 847) = 0;
     }
 
-    if (v28 < 0)
+    if (v27 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v30 < 0)
+    if (v29 < 0)
     {
-      operator delete(v29[0]);
+      operator delete(v28[0]);
     }
 
     if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
@@ -4445,8 +2562,6 @@ LABEL_25:
       _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_INFO, "VendorLogger,closeLogFile,No output to close", &buf, 2u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2455692D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -4527,7 +2642,7 @@ const char *algorithmName(int a1)
 
 void VendorLogger::VendorLogger(VendorLogger *this, const VendorLogger::Config *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   *this = &unk_285863B90;
   v4 = (this + 8);
   *(this + 1) = &unk_2858638D8;
@@ -4634,23 +2749,23 @@ void VendorLogger::VendorLogger(VendorLogger *this, const VendorLogger::Config *
   *(this + 107) = v21;
   if (!v21)
   {
-    v31 = GpsdLogObjectGeneral;
+    v30 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v31, OS_LOG_TYPE_ERROR, "#gvl,fQueue,null", buf, 2u);
-      v31 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v30, OS_LOG_TYPE_ERROR, "#gvl,fQueue,null", buf, 2u);
+      v30 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v47 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdVendorLogger.cpp";
-      v48 = 1026;
-      v49 = 150;
-      v50 = 2082;
-      v51 = "VendorLogger";
-      _os_log_error_impl(&dword_2454AA000, v31, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      v48 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdVendorLogger.cpp";
+      v49 = 1026;
+      v50 = 150;
+      v51 = 2082;
+      v52 = "VendorLogger";
+      _os_log_error_impl(&dword_2454AA000, v30, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
     std::string::basic_string[abi:ne200100]<0>(v45, "assert");
@@ -4667,60 +2782,60 @@ void VendorLogger::VendorLogger(VendorLogger *this, const VendorLogger::Config *
       operator delete(v43[0]);
     }
 
-    v32 = "false && #gvl,fQueue,null";
-    v33 = 150;
-    if (v45[23] < 0)
+    v31 = "false && #gvl,fQueue,null";
+    v32 = 150;
+    if (v46 < 0)
     {
-      v34 = v45;
+      v33 = v45;
 LABEL_60:
-      operator delete(*v34);
+      operator delete(*v33);
     }
 
 LABEL_61:
-    __assert_rtn("VendorLogger", "GpsdVendorLogger.cpp", v33, v32);
+    __assert_rtn("VendorLogger", "GpsdVendorLogger.cpp", v32, v31);
   }
 
   v22 = GpsdPreferences::instance(0);
   if (!GpsdPreferences::getLogLevel(v22))
   {
-    v35 = GpsdLogObjectGeneral;
+    v34 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v35, OS_LOG_TYPE_ERROR, "#gvl,ctor,isLoggingToFileEnabled,false", buf, 2u);
-      v35 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v34, OS_LOG_TYPE_ERROR, "#gvl,ctor,isLoggingToFileEnabled,false", buf, 2u);
+      v34 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v47 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdVendorLogger.cpp";
-      v48 = 1026;
-      v49 = 151;
-      v50 = 2082;
-      v51 = "VendorLogger";
-      _os_log_error_impl(&dword_2454AA000, v35, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      v48 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdVendorLogger.cpp";
+      v49 = 1026;
+      v50 = 151;
+      v51 = 2082;
+      v52 = "VendorLogger";
+      _os_log_error_impl(&dword_2454AA000, v34, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v40, "assert");
-    std::string::basic_string[abi:ne200100]<0>(v38, "VendorLogger");
-    std::string::basic_string[abi:ne200100]<0>(v36, "#gvl,ctor,isLoggingToFileEnabled,false");
-    gpsd::util::triggerDiagnosticReport(v40, v38, v36);
-    if (v37 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v39, "assert");
+    std::string::basic_string[abi:ne200100]<0>(v37, "VendorLogger");
+    std::string::basic_string[abi:ne200100]<0>(v35, "#gvl,ctor,isLoggingToFileEnabled,false");
+    gpsd::util::triggerDiagnosticReport(v39, v37, v35);
+    if (v36 < 0)
     {
-      operator delete(v36[0]);
+      operator delete(v35[0]);
     }
 
-    if (v39 < 0)
+    if (v38 < 0)
     {
-      operator delete(v38[0]);
+      operator delete(v37[0]);
     }
 
-    v32 = "false && #gvl,ctor,isLoggingToFileEnabled,false";
-    v33 = 151;
-    if ((v40[23] & 0x80000000) != 0)
+    v31 = "false && #gvl,ctor,isLoggingToFileEnabled,false";
+    v32 = 151;
+    if (v40 < 0)
     {
-      v34 = v40;
+      v33 = v39;
       goto LABEL_60;
     }
 
@@ -4753,54 +2868,52 @@ LABEL_24:
 
   if ((*(this + 244) & 1) == 0)
   {
-    goto LABEL_39;
+    return;
   }
 
 LABEL_25:
   v27 = GpsdLogObjectGeneral;
-  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
+  if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
   {
-    v28 = *(this + 60);
-    if (v28 > 773)
-    {
-      if (v28 == 774)
-      {
-        v29 = "lzma";
-        goto LABEL_38;
-      }
+    return;
+  }
 
-      if (v28 == 2049)
-      {
-        v29 = "lzfse";
-        goto LABEL_38;
-      }
+  v28 = *(this + 60);
+  if (v28 > 773)
+  {
+    if (v28 == 774)
+    {
+      v29 = "lzma";
+      goto LABEL_38;
     }
 
-    else
+    if (v28 == 2049)
     {
-      if (v28 == 256)
-      {
-        v29 = "lz4";
-        goto LABEL_38;
-      }
-
-      if (v28 == 517)
-      {
-        v29 = "zlib";
-LABEL_38:
-        *buf = 136446210;
-        v47 = v29;
-        _os_log_impl(&dword_2454AA000, v27, OS_LOG_TYPE_INFO, "VendorLogger,compression enabled,%{public}s", buf, 0xCu);
-        goto LABEL_39;
-      }
+      v29 = "lzfse";
+      goto LABEL_38;
     }
 
+LABEL_35:
     v29 = "unk";
     goto LABEL_38;
   }
 
-LABEL_39:
-  v30 = *MEMORY[0x277D85DE8];
+  if (v28 == 256)
+  {
+    v29 = "lz4";
+    goto LABEL_38;
+  }
+
+  if (v28 != 517)
+  {
+    goto LABEL_35;
+  }
+
+  v29 = "zlib";
+LABEL_38:
+  *buf = 136446210;
+  v48 = v29;
+  _os_log_impl(&dword_2454AA000, v27, OS_LOG_TYPE_INFO, "VendorLogger,compression enabled,%{public}s", buf, 0xCu);
 }
 
 void sub_245569AEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, uint64_t a40, int a41, __int16 a42, char a43, char a44)
@@ -4864,33 +2977,33 @@ uint64_t VendorLogger::generateDefaultConfig@<X0>(uint64_t a1@<X8>)
   std::string::basic_string[abi:ne200100]<0>((a1 + 48), "");
   std::string::basic_string[abi:ne200100]<0>((a1 + 72), "log");
   *(a1 + 96) = 0u;
-  v3 = (a1 + 96);
+  v2 = (a1 + 96);
   *(a1 + 141) = 0;
   *(a1 + 112) = 0u;
   *(a1 + 128) = 0u;
   *(a1 + 152) = -1;
-  v4 = GpsdPreferences::instance(0);
-  GpsdPreferences::vendorLogRetentionDays(v4);
-  *(a1 + 120) = ((v5 * 24.0) * 3600.0);
+  v3 = GpsdPreferences::instance(0);
+  GpsdPreferences::vendorLogRetentionDays(v3);
+  *(a1 + 120) = ((v4 * 24.0) * 3600.0);
+  v5 = GpsdPreferences::instance(0);
+  *(a1 + 128) = GpsdPreferences::vendorLogRotationSizeMB(v5) << 20;
   v6 = GpsdPreferences::instance(0);
-  *(a1 + 128) = GpsdPreferences::vendorLogRotationSizeMB(v6) << 20;
+  *(a1 + 136) = GpsdPreferences::vendorLogMaxDirectorySizeMB(v6) << 20;
   v7 = GpsdPreferences::instance(0);
-  *(a1 + 136) = GpsdPreferences::vendorLogMaxDirectorySizeMB(v7) << 20;
+  *(a1 + 144) = GpsdPreferences::vendorLogMaxNumberOfFiles(v7);
   v8 = GpsdPreferences::instance(0);
-  *(a1 + 144) = GpsdPreferences::vendorLogMaxNumberOfFiles(v8);
+  *(a1 + 148) = GpsdPreferences::vendorLogPrefixWithTimestamp(v8);
   v9 = GpsdPreferences::instance(0);
-  *(a1 + 148) = GpsdPreferences::vendorLogPrefixWithTimestamp(v9);
-  v10 = GpsdPreferences::instance(0);
-  GpsdPreferences::vendorLogDirectory(v10, &v13);
+  GpsdPreferences::vendorLogDirectory(v9, &v12);
   if (*(a1 + 119) < 0)
   {
-    operator delete(*v3);
+    operator delete(*v2);
   }
 
-  *v3 = v13;
-  *(a1 + 112) = v14;
-  v11 = GpsdPreferences::instance(0);
-  result = GpsdPreferences::vendorLogBufferSizeAllowedKB(v11);
+  *v2 = v12;
+  *(a1 + 112) = v13;
+  v10 = GpsdPreferences::instance(0);
+  result = GpsdPreferences::vendorLogBufferSizeAllowedKB(v10);
   *(a1 + 152) = result << 10;
   return result;
 }
@@ -4976,7 +3089,7 @@ void non-virtual thunk toVendorLogger::~VendorLogger(VendorLogger *this)
 
 void VendorLogger::flushCompression(compression_stream *this)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (BYTE4(this[6].dst_ptr) == 1 && BYTE5(this[6].dst_ptr) == 1)
   {
     v2 = GpsdLogObjectGeneral;
@@ -4984,8 +3097,8 @@ void VendorLogger::flushCompression(compression_stream *this)
     {
       while (1)
       {
-        v17 = 0;
-        this[5].src_ptr = &v17;
+        v15 = 0;
+        this[5].src_ptr = &v15;
         this[5].src_size = 0;
         src_ptr = this[4].src_ptr;
         v4 = this[4].src_size - src_ptr;
@@ -4994,24 +3107,24 @@ void VendorLogger::flushCompression(compression_stream *this)
         if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134349824;
-          v19 = &v17;
+          v17 = &v15;
+          v18 = 2050;
+          v19 = 0;
           v20 = 2050;
-          v21 = 0;
+          v21 = src_ptr;
           v22 = 2050;
-          v23 = src_ptr;
-          v24 = 2050;
-          v25 = v4;
+          v23 = v4;
           _os_log_debug_impl(&dword_2454AA000, v2, OS_LOG_TYPE_DEBUG, "VendorLogger,flushCompression,before,%{public}p,%{public}zu,%{public}p,%{public}zu", buf, 0x2Au);
         }
 
         v5 = compression_stream_process(this + 5, 1);
         if (v5 > COMPRESSION_STATUS_END)
         {
-          v10 = GpsdLogObjectGeneral;
+          v9 = GpsdLogObjectGeneral;
           if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_error_impl(&dword_2454AA000, v10, OS_LOG_TYPE_ERROR, "VendorLogger,flushCompression,failed to finalize stream", buf, 2u);
+            _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "VendorLogger,flushCompression,failed to finalize stream", buf, 2u);
           }
         }
 
@@ -5023,13 +3136,12 @@ void VendorLogger::flushCompression(compression_stream *this)
           if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134349056;
-            v19 = (v6 - dst_size);
+            v17 = (v6 - dst_size);
             _os_log_debug_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEBUG, "VendorLogger,flushCompression,flushed bytes,%{public}zu", buf, 0xCu);
           }
 
           if (v6 != dst_size)
           {
-            v9 = this[4].src_ptr;
             std::ostream::write();
           }
         }
@@ -5046,20 +3158,20 @@ void VendorLogger::flushCompression(compression_stream *this)
         }
       }
 
-      v11 = this[5].src_ptr;
+      v10 = this[5].src_ptr;
       src_size = this[5].src_size;
       dst_ptr = this[5].dst_ptr;
-      v14 = this[5].dst_size;
+      v13 = this[5].dst_size;
       *buf = 134350080;
-      v19 = v11;
+      v17 = v10;
+      v18 = 2050;
+      v19 = src_size;
       v20 = 2050;
-      v21 = src_size;
+      v21 = dst_ptr;
       v22 = 2050;
-      v23 = dst_ptr;
-      v24 = 2050;
-      v25 = v14;
-      v26 = 1026;
-      v27 = v5;
+      v23 = v13;
+      v24 = 1026;
+      v25 = v5;
       _os_log_debug_impl(&dword_2454AA000, v2, OS_LOG_TYPE_DEBUG, "VendorLogger,flushCompression,after,%{public}p,%{public}zu,%{public}p,%{public}zu,status,%{public}d", buf, 0x30u);
       v2 = GpsdLogObjectGeneral;
     }
@@ -5075,19 +3187,17 @@ LABEL_17:
 
     if (compression_stream_destroy(this + 5))
     {
-      v15 = GpsdLogObjectGeneral;
+      v14 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_2454AA000, v15, OS_LOG_TYPE_ERROR, "VendorLogger,flushCompression,failed to destroy stream", buf, 2u);
+        _os_log_error_impl(&dword_2454AA000, v14, OS_LOG_TYPE_ERROR, "VendorLogger,flushCompression,failed to destroy stream", buf, 2u);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t a1, const void **a2, const void **a3)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t a1, const void **a2, const void **a3)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -5110,7 +3220,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a1, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -5157,16 +3267,16 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
 
 void VendorLogger::pruneLogFiles(VendorLogger *this)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   if (clock_gettime(_CLOCK_REALTIME, &__tp))
   {
     v1 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      v45 = *__error();
-      LODWORD(v59.__r_.__value_.__l.__data_) = 67240192;
-      HIDWORD(v59.__r_.__value_.__r.__words[0]) = v45;
-      _os_log_error_impl(&dword_2454AA000, v1, OS_LOG_TYPE_ERROR, "VendorLogger,pruneLogFiles,clock_gettime failed,%{public}d", &v59, 8u);
+      v44 = *__error();
+      LODWORD(v58.__r_.__value_.__l.__data_) = 67240192;
+      HIDWORD(v58.__r_.__value_.__r.__words[0]) = v44;
+      _os_log_error_impl(&dword_2454AA000, v1, OS_LOG_TYPE_ERROR, "VendorLogger,pruneLogFiles,clock_gettime failed,%{public}d", &v58, 8u);
     }
   }
 
@@ -5177,23 +3287,23 @@ void VendorLogger::pruneLogFiles(VendorLogger *this)
     v4 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v59.__r_.__value_.__l.__data_) = 134349056;
-      *(v59.__r_.__value_.__r.__words + 4) = tv_sec;
-      _os_log_error_impl(&dword_2454AA000, v4, OS_LOG_TYPE_ERROR, "VendorLogger,pruneLogFiles,timespecNow too small to use,%{public}ld", &v59, 0xCu);
+      LODWORD(v58.__r_.__value_.__l.__data_) = 134349056;
+      *(v58.__r_.__value_.__r.__words + 4) = tv_sec;
+      _os_log_error_impl(&dword_2454AA000, v4, OS_LOG_TYPE_ERROR, "VendorLogger,pruneLogFiles,timespecNow too small to use,%{public}ld", &v58, 0xCu);
       v3 = *(this + 17);
     }
   }
 
   v5 = GpsdPreferences::instance(0);
-  GpsdPreferences::vendorLogDirectory(v5, &v55);
-  if (v57 < 0)
+  GpsdPreferences::vendorLogDirectory(v5, &v54);
+  if (v56 < 0)
   {
-    if (v56)
+    if (v55)
     {
+      v51 = 0;
       v52 = 0;
       v53 = 0;
-      v54 = 0;
-      v6 = v55;
+      v6 = v54;
       goto LABEL_12;
     }
 
@@ -5201,26 +3311,26 @@ LABEL_90:
     v43 = GpsdLogObjectWarning;
     if (os_log_type_enabled(GpsdLogObjectWarning, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v59.__r_.__value_.__l.__data_) = 0;
-      _os_log_impl(&dword_2454AA000, v43, OS_LOG_TYPE_DEFAULT, "VendorLogger.pruneLogFiles: null path, cannot delete old logs", &v59, 2u);
+      LOWORD(v58.__r_.__value_.__l.__data_) = 0;
+      _os_log_impl(&dword_2454AA000, v43, OS_LOG_TYPE_DEFAULT, "VendorLogger.pruneLogFiles: null path, cannot delete old logs", &v58, 2u);
     }
 
     goto LABEL_92;
   }
 
-  if (!v57)
+  if (!v56)
   {
     goto LABEL_90;
   }
 
+  v51 = 0;
   v52 = 0;
+  v6 = &v54;
   v53 = 0;
-  v6 = &v55;
-  v54 = 0;
 LABEL_12:
-  gpsd::util::enumerateFiles(v6, this + 2, &v52);
-  v7 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v53 - v52) >> 3));
-  if (v53 == v52)
+  gpsd::util::enumerateFiles(v6, this + 2, &v51);
+  v7 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v52 - v51) >> 3));
+  if (v52 == v51)
   {
     v8 = 0;
   }
@@ -5230,48 +3340,48 @@ LABEL_12:
     v8 = v7;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,false>(v52, v53, v8, 1);
-  v50 = 0;
-  v9 = v52;
-  v10 = v53;
-  if (v52 != v53)
+  std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,false>(v51, v52, v8, 1);
+  v49 = 0;
+  v9 = v51;
+  v10 = v52;
+  if (v51 != v52)
   {
     v11 = 0;
     v12 = 0;
-    v47 = tv_sec - v3;
+    v46 = tv_sec - v3;
     while (1)
     {
-      if ((v57 & 0x80u) == 0)
-      {
-        v13 = v57;
-      }
-
-      else
+      if ((v56 & 0x80u) == 0)
       {
         v13 = v56;
       }
 
-      std::string::basic_string[abi:ne200100](&v59, v13 + 1);
-      if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      else
       {
-        v14 = &v59;
+        v13 = v55;
+      }
+
+      std::string::basic_string[abi:ne200100](&v58, v13 + 1);
+      if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v14 = &v58;
       }
 
       else
       {
-        v14 = v59.__r_.__value_.__r.__words[0];
+        v14 = v58.__r_.__value_.__r.__words[0];
       }
 
       if (v13)
       {
-        if ((v57 & 0x80u) == 0)
+        if ((v56 & 0x80u) == 0)
         {
-          v15 = &v55;
+          v15 = &v54;
         }
 
         else
         {
-          v15 = v55;
+          v15 = v54;
         }
 
         memmove(v14, v15, v13);
@@ -5296,22 +3406,22 @@ LABEL_12:
 
       else
       {
-        v18 = *(v9 + 8);
+        v18 = *(v9 + 1);
       }
 
-      v19 = std::string::append(&v59, v17, v18);
+      v19 = std::string::append(&v58, v17, v18);
       v20 = *&v19->__r_.__value_.__l.__data_;
-      v49 = v19->__r_.__value_.__r.__words[2];
+      v48 = v19->__r_.__value_.__r.__words[2];
       *__p = v20;
       v19->__r_.__value_.__l.__size_ = 0;
       v19->__r_.__value_.__r.__words[2] = 0;
       v19->__r_.__value_.__r.__words[0] = 0;
-      if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v59.__r_.__value_.__l.__data_);
+        operator delete(v58.__r_.__value_.__l.__data_);
       }
 
-      if (v49 >= 0)
+      if (v48 >= 0)
       {
         v21 = __p;
       }
@@ -5321,19 +3431,19 @@ LABEL_12:
         v21 = __p[0];
       }
 
-      if (!getFileModificationTimeAndSize(v21, &v51, &v50))
+      if (!getFileModificationTimeAndSize(v21, &v50, &v49))
       {
         goto LABEL_76;
       }
 
-      v22 = v50;
-      v23 = v50 + v11;
+      v22 = v49;
+      v23 = v49 + v11;
       v24 = GpsdLogObjectGeneral;
       v25 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG);
-      v26 = v51.tv_sec;
+      v26 = v50.tv_sec;
       if (v25)
       {
-        if (v49 >= 0)
+        if (v48 >= 0)
         {
           v41 = __p;
         }
@@ -5343,22 +3453,22 @@ LABEL_12:
           v41 = __p[0];
         }
 
-        LODWORD(v59.__r_.__value_.__l.__data_) = 136447234;
-        *(v59.__r_.__value_.__r.__words + 4) = v41;
-        WORD2(v59.__r_.__value_.__r.__words[1]) = 2050;
-        *(&v59.__r_.__value_.__r.__words[1] + 6) = v51.tv_sec;
-        HIWORD(v59.__r_.__value_.__r.__words[2]) = 2050;
-        v60 = v47;
-        v61 = 2050;
-        v62 = v22;
-        v63 = 2050;
-        v64 = v23;
-        _os_log_debug_impl(&dword_2454AA000, v24, OS_LOG_TYPE_DEBUG, "VendorLogger,pruneLogFiles,looking at,%{public}s,modTime,%{public}ld,floorTime,%{public}ld,size,%{public}lld,new total,%{public}lld", &v59, 0x34u);
+        LODWORD(v58.__r_.__value_.__l.__data_) = 136447234;
+        *(v58.__r_.__value_.__r.__words + 4) = v41;
+        WORD2(v58.__r_.__value_.__r.__words[1]) = 2050;
+        *(&v58.__r_.__value_.__r.__words[1] + 6) = v50.tv_sec;
+        HIWORD(v58.__r_.__value_.__r.__words[2]) = 2050;
+        v59 = v46;
+        v60 = 2050;
+        v61 = v22;
+        v62 = 2050;
+        v63 = v23;
+        _os_log_debug_impl(&dword_2454AA000, v24, OS_LOG_TYPE_DEBUG, "VendorLogger,pruneLogFiles,looking at,%{public}s,modTime,%{public}ld,floorTime,%{public}ld,size,%{public}lld,new total,%{public}lld", &v58, 0x34u);
       }
 
-      if (v26 < v47)
+      if (v26 < v46)
       {
-        if (v49 >= 0)
+        if (v48 >= 0)
         {
           v27 = __p;
         }
@@ -5375,7 +3485,7 @@ LABEL_12:
           goto LABEL_75;
         }
 
-        if (v49 >= 0)
+        if (v48 >= 0)
         {
           v29 = __p;
         }
@@ -5385,12 +3495,12 @@ LABEL_12:
           v29 = __p[0];
         }
 
-        LODWORD(v59.__r_.__value_.__l.__data_) = 136446722;
-        *(v59.__r_.__value_.__r.__words + 4) = v29;
-        WORD2(v59.__r_.__value_.__r.__words[1]) = 2050;
-        *(&v59.__r_.__value_.__r.__words[1] + 6) = v26;
-        HIWORD(v59.__r_.__value_.__r.__words[2]) = 2050;
-        v60 = v47;
+        LODWORD(v58.__r_.__value_.__l.__data_) = 136446722;
+        *(v58.__r_.__value_.__r.__words + 4) = v29;
+        WORD2(v58.__r_.__value_.__r.__words[1]) = 2050;
+        *(&v58.__r_.__value_.__r.__words[1] + 6) = v26;
+        HIWORD(v58.__r_.__value_.__r.__words[2]) = 2050;
+        v59 = v46;
         v30 = v28;
         v31 = "VendorLogger,pruneLogFiles,deleted due to age,%{public}s,fileTime,%{public}ld,targetTime,%{public}ld";
         v32 = 32;
@@ -5412,7 +3522,7 @@ LABEL_12:
 
         else
         {
-          if (v49 >= 0)
+          if (v48 >= 0)
           {
             v33 = __p;
           }
@@ -5426,7 +3536,7 @@ LABEL_12:
           v34 = GpsdLogObjectGeneral;
           if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
           {
-            if (v49 >= 0)
+            if (v48 >= 0)
             {
               v42 = __p;
             }
@@ -5436,9 +3546,9 @@ LABEL_12:
               v42 = __p[0];
             }
 
-            LODWORD(v59.__r_.__value_.__l.__data_) = 136446210;
-            *(v59.__r_.__value_.__r.__words + 4) = v42;
-            _os_log_debug_impl(&dword_2454AA000, v34, OS_LOG_TYPE_DEBUG, "VendorLogger,pruneLogFiles,deleted due to size,%{public}s", &v59, 0xCu);
+            LODWORD(v58.__r_.__value_.__l.__data_) = 136446210;
+            *(v58.__r_.__value_.__r.__words + 4) = v42;
+            _os_log_debug_impl(&dword_2454AA000, v34, OS_LOG_TYPE_DEBUG, "VendorLogger,pruneLogFiles,deleted due to size,%{public}s", &v58, 0xCu);
           }
 
           ++v12;
@@ -5448,7 +3558,7 @@ LABEL_12:
         goto LABEL_76;
       }
 
-      if (v49 >= 0)
+      if (v48 >= 0)
       {
         v38 = __p;
       }
@@ -5462,7 +3572,7 @@ LABEL_12:
       v39 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
       {
-        if (v49 >= 0)
+        if (v48 >= 0)
         {
           v40 = __p;
         }
@@ -5472,31 +3582,31 @@ LABEL_12:
           v40 = __p[0];
         }
 
-        LODWORD(v59.__r_.__value_.__l.__data_) = 136446210;
-        *(v59.__r_.__value_.__r.__words + 4) = v40;
+        LODWORD(v58.__r_.__value_.__l.__data_) = 136446210;
+        *(v58.__r_.__value_.__r.__words + 4) = v40;
         v30 = v39;
         v31 = "VendorLogger,pruneLogFiles,deleted due to zero size,%{public}s";
         v32 = 12;
 LABEL_74:
-        _os_log_debug_impl(&dword_2454AA000, v30, OS_LOG_TYPE_DEBUG, v31, &v59, v32);
+        _os_log_debug_impl(&dword_2454AA000, v30, OS_LOG_TYPE_DEBUG, v31, &v58, v32);
       }
 
 LABEL_75:
       ++v12;
 LABEL_76:
-      if (SHIBYTE(v49) < 0)
+      if (SHIBYTE(v48) < 0)
       {
         operator delete(__p[0]);
       }
 
-      v9 += 24;
+      v9 = (v9 + 24);
       if (v9 == v10)
       {
         goto LABEL_89;
       }
     }
 
-    if (v49 >= 0)
+    if (v48 >= 0)
     {
       v35 = __p;
     }
@@ -5513,7 +3623,7 @@ LABEL_76:
       goto LABEL_75;
     }
 
-    if (v49 >= 0)
+    if (v48 >= 0)
     {
       v37 = __p;
     }
@@ -5523,10 +3633,10 @@ LABEL_76:
       v37 = __p[0];
     }
 
-    LODWORD(v59.__r_.__value_.__l.__data_) = 136446466;
-    *(v59.__r_.__value_.__r.__words + 4) = v37;
-    WORD2(v59.__r_.__value_.__r.__words[1]) = 1026;
-    *(&v59.__r_.__value_.__r.__words[1] + 6) = v12 + 1;
+    LODWORD(v58.__r_.__value_.__l.__data_) = 136446466;
+    *(v58.__r_.__value_.__r.__words + 4) = v37;
+    WORD2(v58.__r_.__value_.__r.__words[1]) = 1026;
+    *(&v58.__r_.__value_.__r.__words[1] + 6) = v12 + 1;
     v30 = v36;
     v31 = "VendorLogger,pruneLogFiles,deleted due to num files,%{public}s,num files,%{public}d";
     v32 = 18;
@@ -5534,15 +3644,13 @@ LABEL_76:
   }
 
 LABEL_89:
-  v59.__r_.__value_.__r.__words[0] = &v52;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v59);
+  v58.__r_.__value_.__r.__words[0] = &v51;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v58);
 LABEL_92:
-  if (v57 < 0)
+  if (v56 < 0)
   {
-    operator delete(v55);
+    operator delete(v54);
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24556AB60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37)
@@ -5567,7 +3675,7 @@ void VendorLogger::ensureLogFileIsOpen(VendorLogger *this)
 
 void VendorLogger::openNewLogFile(VendorLogger *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   VendorLogger::ensureDirectoryExists(this);
   if (*(this + 868) == 1)
   {
@@ -5576,15 +3684,15 @@ void VendorLogger::openNewLogFile(VendorLogger *this)
   }
 
   VendorLogger::initCompression(this);
-  VendorLogger::generateFilename(this, &v6);
+  VendorLogger::generateFilename(&v5, this);
   v2 = (this + 824);
   if (*(this + 847) < 0)
   {
     operator delete(*v2);
   }
 
-  *v2 = v6;
-  *(this + 105) = v7;
+  *v2 = v5;
+  *(this + 105) = v6;
   std::ofstream::open();
   v3 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
@@ -5594,9 +3702,9 @@ void VendorLogger::openNewLogFile(VendorLogger *this)
       v2 = *v2;
     }
 
-    LODWORD(v6) = 136446210;
-    *(&v6 + 4) = v2;
-    _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEFAULT, "VendorLogger,opening,%{public}s", &v6, 0xCu);
+    LODWORD(v5) = 136446210;
+    *(&v5 + 4) = v2;
+    _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEFAULT, "VendorLogger,opening,%{public}s", &v5, 0xCu);
   }
 
   if (!*(this + 48))
@@ -5604,16 +3712,15 @@ void VendorLogger::openNewLogFile(VendorLogger *this)
     v4 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v6) = 0;
-      _os_log_error_impl(&dword_2454AA000, v4, OS_LOG_TYPE_ERROR, "VendorLogger,failed to open", &v6, 2u);
+      LOWORD(v5) = 0;
+      _os_log_error_impl(&dword_2454AA000, v4, OS_LOG_TYPE_ERROR, "VendorLogger,failed to open", &v5, 2u);
     }
   }
 
   *(this + 868) = 1;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void VendorLogger::ensureLogFileIsClosed(VendorLogger *this)
+void VendorLogger::ensureLogFileIsClosed(std::string::size_type *this)
 {
   if (*(this + 868) == 1)
   {
@@ -5625,7 +3732,7 @@ void VendorLogger::ensureLogFileIsClosed(VendorLogger *this)
 
 void VendorLogger::ensureDirectoryExists(VendorLogger *this)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = this + 112;
   v3 = *(this + 135);
   v4 = this + 112;
@@ -5637,57 +3744,59 @@ void VendorLogger::ensureDirectoryExists(VendorLogger *this)
   if (mkdir(v4, 0x1F8u))
   {
     v5 = *__error();
-    if (v5 == 17)
+    if (v5 != 17)
     {
+      v13 = GpsdLogObjectGeneral;
+      if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+      {
+        return;
+      }
+
       if (*(this + 135) < 0)
       {
         v2 = *v2;
       }
 
-      v6 = chmod(v2, 0x1F8u);
-      v7 = GpsdLogObjectGeneral;
-      if (v6)
-      {
-        if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
-        {
-          v8 = *__error();
-          v15 = 67240192;
-          LODWORD(v16) = v8;
-          v9 = "VendorLogger,chmod failed,%{public}d";
-          v10 = v7;
-          v11 = 8;
-LABEL_18:
-          _os_log_error_impl(&dword_2454AA000, v10, OS_LOG_TYPE_ERROR, v9, &v15, v11);
-        }
-      }
-
-      else if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
-      {
-        v15 = 67240192;
-        LODWORD(v16) = 504;
-        _os_log_debug_impl(&dword_2454AA000, v7, OS_LOG_TYPE_DEBUG, "VendorLogger,directory exists,permissions,%{public}x", &v15, 8u);
-      }
+      v14 = 136446466;
+      v15 = v2;
+      v16 = 1026;
+      v17 = v5;
+      v9 = "VendorLogger,could not create directory,%{public}s,%{public}d";
+      v10 = v13;
+      v11 = 18;
+      goto LABEL_18;
     }
 
-    else
+    if (*(this + 135) < 0)
     {
-      v13 = GpsdLogObjectGeneral;
-      if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
-      {
-        if (*(this + 135) < 0)
-        {
-          v2 = *v2;
-        }
+      v2 = *v2;
+    }
 
-        v15 = 136446466;
-        v16 = v2;
-        v17 = 1026;
-        v18 = v5;
-        v9 = "VendorLogger,could not create directory,%{public}s,%{public}d";
-        v10 = v13;
-        v11 = 18;
-        goto LABEL_18;
+    v6 = chmod(v2, 0x1F8u);
+    v7 = GpsdLogObjectGeneral;
+    if (v6)
+    {
+      if (!os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+      {
+        return;
       }
+
+      v8 = *__error();
+      v14 = 67240192;
+      LODWORD(v15) = v8;
+      v9 = "VendorLogger,chmod failed,%{public}d";
+      v10 = v7;
+      v11 = 8;
+LABEL_18:
+      _os_log_error_impl(&dword_2454AA000, v10, OS_LOG_TYPE_ERROR, v9, &v14, v11);
+      return;
+    }
+
+    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
+    {
+      v14 = 67240192;
+      LODWORD(v15) = 504;
+      _os_log_debug_impl(&dword_2454AA000, v7, OS_LOG_TYPE_DEBUG, "VendorLogger,directory exists,permissions,%{public}x", &v14, 8u);
     }
   }
 
@@ -5701,15 +3810,13 @@ LABEL_18:
         v2 = *v2;
       }
 
-      v15 = 136446466;
-      v16 = v2;
-      v17 = 1026;
-      v18 = 504;
-      _os_log_impl(&dword_2454AA000, v12, OS_LOG_TYPE_INFO, "VendorLogger,created directory,%{public}s,permissions,%{public}x", &v15, 0x12u);
+      v14 = 136446466;
+      v15 = v2;
+      v16 = 1026;
+      v17 = 504;
+      _os_log_impl(&dword_2454AA000, v12, OS_LOG_TYPE_INFO, "VendorLogger,created directory,%{public}s,permissions,%{public}x", &v14, 0x12u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void VendorLogger::initCompression(VendorLogger *this)
@@ -5761,20 +3868,20 @@ void VendorLogger::initCompression(VendorLogger *this)
   }
 }
 
-void VendorLogger::generateFilename(VendorLogger *this@<X0>, uint64_t a2@<X8>)
+void VendorLogger::generateFilename(uint64_t *__return_ptr a1@<X8>, VendorLogger *this@<X0>)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   snprintf(__str, 8uLL, "%03d", *(this + 216));
   ++*(this + 216);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  VendorLogger::isoTimestampString(v52);
-  std::string::basic_string[abi:ne200100]<0>(v50, __str);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  VendorLogger::isoTimestampString(v51);
+  std::string::basic_string[abi:ne200100]<0>(v49, __str);
   if (*GpsdPreferences::instance(0) == 3)
   {
-    MEMORY[0x245D6AB60](v52, "unittest");
-    MEMORY[0x245D6AB60](v50, "000");
+    MEMORY[0x245D6AB60](v51, "unittest");
+    MEMORY[0x245D6AB60](v49, "000");
   }
 
   if (*(this + 135) >= 0)
@@ -5787,11 +3894,11 @@ void VendorLogger::generateFilename(VendorLogger *this@<X0>, uint64_t a2@<X8>)
     v4 = *(this + 15);
   }
 
-  v5 = &v43;
-  std::string::basic_string[abi:ne200100](&v43, v4 + 1);
-  if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v5 = &v42;
+  std::string::basic_string[abi:ne200100](&v42, v4 + 1);
+  if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v5 = v43.__r_.__value_.__r.__words[0];
+    v5 = v42.__r_.__value_.__r.__words[0];
   }
 
   if (v4)
@@ -5831,59 +3938,59 @@ void VendorLogger::generateFilename(VendorLogger *this@<X0>, uint64_t a2@<X8>)
     v9 = *(this + 3);
   }
 
-  v10 = std::string::append(&v43, v8, v9);
+  v10 = std::string::append(&v42, v8, v9);
   v11 = *&v10->__r_.__value_.__l.__data_;
-  v44.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-  *&v44.__r_.__value_.__l.__data_ = v11;
+  v43.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+  *&v43.__r_.__value_.__l.__data_ = v11;
   v10->__r_.__value_.__l.__size_ = 0;
   v10->__r_.__value_.__r.__words[2] = 0;
   v10->__r_.__value_.__r.__words[0] = 0;
-  if ((v53 & 0x80u) == 0)
+  if ((v52 & 0x80u) == 0)
   {
-    v12 = v52;
+    v12 = v51;
   }
 
   else
   {
-    v12 = v52[0];
+    v12 = v51[0];
   }
 
-  if ((v53 & 0x80u) == 0)
+  if ((v52 & 0x80u) == 0)
   {
-    v13 = v53;
+    v13 = v52;
   }
 
   else
   {
-    v13 = v52[1];
+    v13 = v51[1];
   }
 
-  v14 = std::string::append(&v44, v12, v13);
+  v14 = std::string::append(&v43, v12, v13);
   v15 = *&v14->__r_.__value_.__l.__data_;
-  v45.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
-  *&v45.__r_.__value_.__l.__data_ = v15;
+  v44.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
+  *&v44.__r_.__value_.__l.__data_ = v15;
   v14->__r_.__value_.__l.__size_ = 0;
   v14->__r_.__value_.__r.__words[2] = 0;
   v14->__r_.__value_.__r.__words[0] = 0;
-  v16 = std::string::append(&v45, "_");
+  v16 = std::string::append(&v44, "_");
   v17 = *&v16->__r_.__value_.__l.__data_;
-  v46.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-  *&v46.__r_.__value_.__l.__data_ = v17;
+  v45.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+  *&v45.__r_.__value_.__l.__data_ = v17;
   v16->__r_.__value_.__l.__size_ = 0;
   v16->__r_.__value_.__r.__words[2] = 0;
   v16->__r_.__value_.__r.__words[0] = 0;
-  if (v51 >= 0)
+  if (v50 >= 0)
   {
-    v18 = v50;
+    v18 = v49;
   }
 
   else
   {
-    v18 = v50[0];
+    v18 = v49[0];
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, v18);
-  if ((v42 & 0x80u) == 0)
+  if ((v41 & 0x80u) == 0)
   {
     v19 = __p;
   }
@@ -5893,9 +4000,9 @@ void VendorLogger::generateFilename(VendorLogger *this@<X0>, uint64_t a2@<X8>)
     v19 = __p[0];
   }
 
-  if ((v42 & 0x80u) == 0)
+  if ((v41 & 0x80u) == 0)
   {
-    v20 = v42;
+    v20 = v41;
   }
 
   else
@@ -5903,17 +4010,17 @@ void VendorLogger::generateFilename(VendorLogger *this@<X0>, uint64_t a2@<X8>)
     v20 = __p[1];
   }
 
-  v21 = std::string::append(&v46, v19, v20);
+  v21 = std::string::append(&v45, v19, v20);
   v22 = *&v21->__r_.__value_.__l.__data_;
-  v47.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
-  *&v47.__r_.__value_.__l.__data_ = v22;
+  v46.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
+  *&v46.__r_.__value_.__l.__data_ = v22;
   v21->__r_.__value_.__l.__size_ = 0;
   v21->__r_.__value_.__r.__words[2] = 0;
   v21->__r_.__value_.__r.__words[0] = 0;
-  v23 = std::string::append(&v47, ".");
+  v23 = std::string::append(&v46, ".");
   v24 = *&v23->__r_.__value_.__l.__data_;
-  v48.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
-  *&v48.__r_.__value_.__l.__data_ = v24;
+  v47.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
+  *&v47.__r_.__value_.__l.__data_ = v24;
   v23->__r_.__value_.__l.__size_ = 0;
   v23->__r_.__value_.__r.__words[2] = 0;
   v23->__r_.__value_.__r.__words[0] = 0;
@@ -5938,10 +4045,10 @@ void VendorLogger::generateFilename(VendorLogger *this@<X0>, uint64_t a2@<X8>)
     v27 = *(this + 6);
   }
 
-  v28 = std::string::append(&v48, v26, v27);
+  v28 = std::string::append(&v47, v26, v27);
   v29 = *&v28->__r_.__value_.__l.__data_;
-  v49.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
-  *&v49.__r_.__value_.__l.__data_ = v29;
+  v48.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
+  *&v48.__r_.__value_.__l.__data_ = v29;
   v28->__r_.__value_.__l.__size_ = 0;
   v28->__r_.__value_.__r.__words[2] = 0;
   v28->__r_.__value_.__r.__words[0] = 0;
@@ -5966,26 +4073,21 @@ void VendorLogger::generateFilename(VendorLogger *this@<X0>, uint64_t a2@<X8>)
     v32 = *(this + 12);
   }
 
-  v33 = std::string::append(&v49, v31, v32);
+  v33 = std::string::append(&v48, v31, v32);
   v34 = v33->__r_.__value_.__r.__words[0];
-  v54[0] = v33->__r_.__value_.__l.__size_;
-  *(v54 + 7) = *(&v33->__r_.__value_.__r.__words[1] + 7);
+  v53[0] = v33->__r_.__value_.__l.__size_;
+  *(v53 + 7) = *(&v33->__r_.__value_.__r.__words[1] + 7);
   v35 = HIBYTE(v33->__r_.__value_.__r.__words[2]);
   v33->__r_.__value_.__l.__size_ = 0;
   v33->__r_.__value_.__r.__words[2] = 0;
   v33->__r_.__value_.__r.__words[0] = 0;
-  v36 = SHIBYTE(v49.__r_.__value_.__r.__words[2]);
-  *(a2 + 15) = *(v54 + 7);
-  v37 = v54[0];
-  *a2 = v34;
-  *(a2 + 8) = v37;
-  *(a2 + 23) = v35;
+  v36 = SHIBYTE(v48.__r_.__value_.__r.__words[2]);
+  *(a1 + 15) = *(v53 + 7);
+  v37 = v53[0];
+  *a1 = v34;
+  a1[1] = v37;
+  *(a1 + 23) = v35;
   if (v36 < 0)
-  {
-    operator delete(v49.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v48.__r_.__value_.__l.__data_);
   }
@@ -5995,14 +4097,14 @@ void VendorLogger::generateFilename(VendorLogger *this@<X0>, uint64_t a2@<X8>)
     operator delete(v47.__r_.__value_.__l.__data_);
   }
 
-  if (v42 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
   if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v46.__r_.__value_.__l.__data_);
+  }
+
+  if (v41 < 0)
+  {
+    operator delete(__p[0]);
   }
 
   if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
@@ -6020,9 +4122,14 @@ void VendorLogger::generateFilename(VendorLogger *this@<X0>, uint64_t a2@<X8>)
     operator delete(v43.__r_.__value_.__l.__data_);
   }
 
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v42.__r_.__value_.__l.__data_);
+  }
+
   if (*(this + 244) == 1)
   {
-    std::string::append(a2, ".");
+    std::string::append(a1, ".");
     v38 = *(this + 60);
     if (v38 > 773)
     {
@@ -6051,7 +4158,7 @@ void VendorLogger::generateFilename(VendorLogger *this@<X0>, uint64_t a2@<X8>)
       {
         v39 = "zlib";
 LABEL_73:
-        std::string::append(a2, v39);
+        std::string::append(a1, v39);
         goto LABEL_74;
       }
     }
@@ -6061,17 +4168,15 @@ LABEL_73:
   }
 
 LABEL_74:
-  if (v51 < 0)
+  if (v50 < 0)
   {
-    operator delete(v50[0]);
+    operator delete(v49[0]);
   }
 
-  if (v53 < 0)
+  if (v52 < 0)
   {
-    operator delete(v52[0]);
+    operator delete(v51[0]);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24556B518(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, uint64_t a50, void *__p, uint64_t a52, int a53, __int16 a54, char a55, char a56)
@@ -6237,13 +4342,13 @@ void ___ZN12VendorLogger21prepareForTerminationEv_block_invoke(uint64_t a1)
   }
 }
 
-void VendorLogger::log()
+void VendorLogger::log(uint64_t a1, uint64_t a2)
 {
-  v0[0] = 0;
-  v0[1] = v0;
-  v0[2] = 0x3002000000;
-  v0[3] = __Block_byref_object_copy__0;
-  v0[4] = __Block_byref_object_dispose__0;
+  v2[0] = 0;
+  v2[1] = v2;
+  v2[2] = 0x3002000000;
+  v2[3] = __Block_byref_object_copy__0;
+  v2[4] = __Block_byref_object_dispose__0;
   operator new();
 }
 
@@ -6291,10 +4396,10 @@ void sub_24556BBC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void VendorLogger::logBounce(uint64_t a1, uint64_t *a2)
+void VendorLogger::logBounce(unint64_t **a1, uint64_t *a2)
 {
   VendorLogger::ensureMemoryStatExists(a1);
-  shouldPauseLogging = VendorLogger::MemoryStat::shouldPauseLogging(*(a1 + 888), a2);
+  shouldPauseLogging = VendorLogger::MemoryStat::shouldPauseLogging(a1[111], a2);
   if (!shouldPauseLogging)
   {
     v10[0] = 0;
@@ -6306,7 +4411,7 @@ void VendorLogger::logBounce(uint64_t a1, uint64_t *a2)
     v10[4] = __Block_byref_object_dispose__0;
     v11 = v5;
     v6 = gpsd::util::getMachContinuousTimeNs(shouldPauseLogging) * 0.000000001;
-    v7 = *(a1 + 856);
+    v7 = a1[107];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 0x40000000;
     block[2] = ___ZN12VendorLogger9logBounceENSt3__110unique_ptrINS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_14default_deleteIS7_EEEE_block_invoke;
@@ -6325,7 +4430,7 @@ void VendorLogger::logBounce(uint64_t a1, uint64_t *a2)
   }
 }
 
-void sub_24556BCEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_24556BCEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   _Block_object_dispose(&a17, 8);
   v23 = a22;
@@ -6338,9 +4443,9 @@ void sub_24556BCEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t VendorLogger::ensureMemoryStatExists(uint64_t this)
+VendorLogger::MemoryStat *VendorLogger::ensureMemoryStatExists(VendorLogger::MemoryStat *this)
 {
-  if (!*(this + 888))
+  if (!*(this + 111))
   {
     operator new();
   }
@@ -6350,7 +4455,7 @@ uint64_t VendorLogger::ensureMemoryStatExists(uint64_t this)
 
 BOOL VendorLogger::MemoryStat::shouldPauseLogging(unint64_t *a1, uint64_t *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = atomic_load(a1[5]);
   v4 = v2 - v3;
@@ -6412,21 +4517,21 @@ BOOL VendorLogger::MemoryStat::shouldPauseLogging(unint64_t *a1, uint64_t *a2)
       if (os_log_type_enabled(GpsdLogObjectGeneral, v17))
       {
         v18 = atomic_load((a1[5] + 8));
-        v21 = 134350592;
-        v22 = v4 >> 10;
-        v23 = 2050;
-        v24 = v8 >> 10;
-        v25 = 2050;
-        v26 = v9 >> 10;
-        v27 = 2050;
-        v28 = v15 >> 10;
-        v29 = 2050;
-        v30 = v14;
-        v31 = 1026;
-        v32 = v4 > v9;
-        v33 = 2050;
-        v34 = v18;
-        _os_log_impl(&dword_2454AA000, v16, v17, "VendorLogger,addtl memory,%{public}zu,KB,max,%{public}zu,KB,allowed,%{public}zu,KB,sum,%{public}zu,KB,dropped,%{public}zu,B,pause,%{public}d,backup,%{public}.3f,sec", &v21, 0x44u);
+        v20 = 134350592;
+        v21 = v4 >> 10;
+        v22 = 2050;
+        v23 = v8 >> 10;
+        v24 = 2050;
+        v25 = v9 >> 10;
+        v26 = 2050;
+        v27 = v15 >> 10;
+        v28 = 2050;
+        v29 = v14;
+        v30 = 1026;
+        v31 = v4 > v9;
+        v32 = 2050;
+        v33 = v18;
+        _os_log_impl(&dword_2454AA000, v16, v17, "VendorLogger,addtl memory,%{public}zu,KB,max,%{public}zu,KB,allowed,%{public}zu,KB,sum,%{public}zu,KB,dropped,%{public}zu,B,pause,%{public}d,backup,%{public}.3f,sec", &v20, 0x44u);
       }
     }
   }
@@ -6436,17 +4541,16 @@ BOOL VendorLogger::MemoryStat::shouldPauseLogging(unint64_t *a1, uint64_t *a2)
     v5 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_FAULT))
     {
-      v21 = 134349312;
-      v22 = v2;
-      v23 = 2050;
-      v24 = v3;
-      _os_log_fault_impl(&dword_2454AA000, v5, OS_LOG_TYPE_FAULT, "VendorLogger,shouldPauseLogging,bufferSize,in,%{public}zu,out,%{public}zu", &v21, 0x16u);
+      v20 = 134349312;
+      v21 = v2;
+      v22 = 2050;
+      v23 = v3;
+      _os_log_fault_impl(&dword_2454AA000, v5, OS_LOG_TYPE_FAULT, "VendorLogger,shouldPauseLogging,bufferSize,in,%{public}zu,out,%{public}zu", &v20, 0x16u);
     }
 
-    v6 = 0;
+    return 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -6477,7 +4581,7 @@ void sub_24556C038(_Unwind_Exception *exception_object)
 
 void VendorLogger::binaryLogWorker(uint64_t a1, const unsigned __int8 **a2, double a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ((*a2)[23] < 0)
   {
     v6 = (*(*a2 + 2) & 0x7FFFFFFFFFFFFFFFLL) - 1;
@@ -6532,21 +4636,13 @@ void VendorLogger::binaryLogWorker(uint64_t a1, const unsigned __int8 **a2, doub
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>((a1 + 256), __str, v12);
     }
 
-    if (((*a2)[23] & 0x8000000000000000) != 0)
-    {
-      v13 = **a2;
-      v14 = *(*a2 + 1);
-    }
-
     std::ostream::write();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void forceDelaysTestCase(void)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = GpsdPreferences::instance(0);
   v1 = GpsdPreferences::genericTestCase(v0);
   if (v1 == 1)
@@ -6560,11 +4656,11 @@ void forceDelaysTestCase(void)
         v4 = GpsdLogObjectGeneral;
         if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = 67240448;
-          v9 = v2;
-          v10 = 1026;
-          v11 = v3;
-          _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEFAULT, "VendorLogger,debugonly,presleep,%{public}d,delay,%{public}d", &v8, 0xEu);
+          v7 = 67240448;
+          v8 = v2;
+          v9 = 1026;
+          v10 = v3;
+          _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEFAULT, "VendorLogger,debugonly,presleep,%{public}d,delay,%{public}d", &v7, 0xEu);
           v3 = forceDelaysTestCase(void)::SleepIntervalSec;
         }
 
@@ -6572,11 +4668,11 @@ void forceDelaysTestCase(void)
         v5 = GpsdLogObjectGeneral;
         if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = 67240448;
-          v9 = v2;
-          v10 = 1026;
-          v11 = forceDelaysTestCase(void)::SleepIntervalSec;
-          _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_DEFAULT, "VendorLogger,debugonly,aftersleep,%{public}d,delay,%{public}d", &v8, 0xEu);
+          v7 = 67240448;
+          v8 = v2;
+          v9 = 1026;
+          v10 = forceDelaysTestCase(void)::SleepIntervalSec;
+          _os_log_impl(&dword_2454AA000, v5, OS_LOG_TYPE_DEFAULT, "VendorLogger,debugonly,aftersleep,%{public}d,delay,%{public}d", &v7, 0xEu);
         }
 
         v6 = forceDelaysTestCase(void)::SleepIntervalSec;
@@ -6591,16 +4687,14 @@ void forceDelaysTestCase(void)
 
     forceDelaysTestCase(void)::LastSleepMctSec = v2;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void VendorLogger::writeCompressed(VendorLogger *this, const unsigned __int8 *a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (*(this + 244) != 1)
   {
-    goto LABEL_27;
+    return;
   }
 
   if (*(this + 245))
@@ -6638,9 +4732,9 @@ void VendorLogger::writeCompressed(VendorLogger *this, const unsigned __int8 *a2
           if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
           {
             *buf = 134349312;
-            v19 = v9;
-            v20 = 2050;
-            v21 = v7;
+            v18 = v9;
+            v19 = 2050;
+            v20 = v7;
             _os_log_error_impl(&dword_2454AA000, v10, OS_LOG_TYPE_ERROR, "VendorLogger,Excessive bytes_to_print,%{public}zu,limit,%{public}zu", buf, 0x16u);
             v9 = *(this + 23) - *(this + 22);
           }
@@ -6705,7 +4799,7 @@ LABEL_25:
       VendorLogger::openNewLogFile(this);
     }
 
-    goto LABEL_27;
+    return;
   }
 
   if ((VendorLogger::writeCompressed(unsigned char const*,unsigned long)::kWarningPrinted & 1) == 0)
@@ -6719,14 +4813,11 @@ LABEL_25:
 
     VendorLogger::writeCompressed(unsigned char const*,unsigned long)::kWarningPrinted = 1;
   }
-
-LABEL_27:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void VendorLogger::MemoryStat::~MemoryStat(VendorLogger::MemoryStat *this)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
   {
@@ -6736,42 +4827,38 @@ void VendorLogger::MemoryStat::~MemoryStat(VendorLogger::MemoryStat *this)
     v6 = *(this + 4);
     v7 = atomic_load(*(this + 5));
     v8 = atomic_load((*(this + 5) + 8));
-    v10 = 134350336;
-    v11 = v4;
-    v12 = 2050;
-    v13 = v5;
-    v14 = 2050;
-    v15 = v6;
-    v16 = 2050;
-    v17 = v7;
-    v18 = 2050;
-    v19 = v3;
-    v20 = 2050;
-    v21 = v8;
-    _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_INFO, "VendorLogger,MemoryStat,dtor,sizeMax,%{public}zu,KB,allowed,%{public}zu,KB,buffer,in,%{public}zu,B,out,%{public}zu,B,dropped,%{public}zu,B,backup,%{public}.3f,sec", &v10, 0x3Eu);
+    v9 = 134350336;
+    v10 = v4;
+    v11 = 2050;
+    v12 = v5;
+    v13 = 2050;
+    v14 = v6;
+    v15 = 2050;
+    v16 = v7;
+    v17 = 2050;
+    v18 = v3;
+    v19 = 2050;
+    v20 = v8;
+    _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_INFO, "VendorLogger,MemoryStat,dtor,sizeMax,%{public}zu,KB,allowed,%{public}zu,KB,buffer,in,%{public}zu,B,out,%{public}zu,B,dropped,%{public}zu,B,backup,%{public}.3f,sec", &v9, 0x3Eu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-_BYTE *VendorLogger::isoTimestampString@<X0>(_BYTE *a1@<X8>)
+uint64_t *VendorLogger::isoTimestampString@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v6 = time(0);
-  v3 = localtime(&v6);
-  if (v6 < 0 || !v3)
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = time(0);
+  v2 = localtime(&v4);
+  if (v4 < 0 || !v2)
   {
     strcpy(__s, "unknown_time");
   }
 
   else
   {
-    strftime(__s, 0x20uLL, "%Y%m%dT_%H-%M-%S%z", v3);
+    strftime(__s, 0x20uLL, "%Y%m%dT_%H-%M-%S%z", v2);
   }
 
-  result = std::string::basic_string[abi:ne200100]<0>(a1, __s);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::string::basic_string[abi:ne200100]<0>(a1, __s);
 }
 
 void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -6803,1040 +4890,1042 @@ void std::vector<std::string>::clear[abi:ne200100](void ***a1)
   a1[1] = v2;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,false>(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,false>(__int128 *a1, __int128 *a2, uint64_t a3, char a4)
 {
-  v199 = *MEMORY[0x277D85DE8];
-LABEL_2:
-  v6 = a2 - 24;
-  v7 = a2 - 48;
-  v193 = a2;
-  v8 = a2 - 72;
-  v9 = a1;
-  while (1)
+  v197 = *MEMORY[0x277D85DE8];
+  while (2)
   {
-    a1 = v9;
-    v10 = v193;
-    v11 = v193 - v9;
-    v12 = 0xAAAAAAAAAAAAAAABLL * ((v193 - v9) >> 3);
-    v13 = v12 - 2;
-    if (v12 <= 2)
+    v6 = a2 - 3;
+    v7 = (a2 - 3);
+    v191 = a2;
+    v8 = a2 - 9;
+    v9 = a1;
+    while (1)
     {
-      if (v12 < 2)
+      while (1)
       {
-        goto LABEL_185;
-      }
-
-      if (v12 == 2)
-      {
-        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, v9))
+        while (1)
         {
-          goto LABEL_185;
-        }
+          a1 = v9;
+          v10 = v191;
+          v11 = v191 - v9;
+          v12 = 0xAAAAAAAAAAAAAAABLL * ((v191 - v9) >> 3);
+          v13 = v12 - 2;
+          if (v12 > 2)
+          {
+            switch(v12)
+            {
+              case 3:
+                v127 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v9 + 24), v9);
+                v128 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, (v9 + 24));
+                if (v127)
+                {
+                  if (v128)
+                  {
+                    goto LABEL_116;
+                  }
 
-LABEL_116:
-        v129 = *v9;
-        v196 = *(v9 + 16);
-        v195 = v129;
-        v130 = *v6;
-        *(v9 + 16) = *(v6 + 16);
-        *v9 = v130;
-        v131 = v195;
-        v132 = v196;
+                  v187 = *v9;
+                  v194 = *(v9 + 16);
+                  v193 = v187;
+                  *v9 = *(v9 + 24);
+                  *(v9 + 16) = *(v9 + 40);
+                  *(v9 + 24) = v193;
+                  *(v9 + 40) = v194;
+                  if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, (v9 + 24)))
+                  {
+                    return;
+                  }
+
+                  v131 = *(v9 + 24);
+                  v193 = v131;
+                  v132 = *(v9 + 40);
+                  v194 = v132;
+                  v188 = v6[2];
+                  *(v9 + 24) = *v6;
+                  *(v9 + 40) = v188;
 LABEL_117:
-        *(v6 + 16) = v132;
-        *v6 = v131;
-        goto LABEL_185;
-      }
+                  v6[2] = v132;
+                  *v6 = v131;
+                  return;
+                }
 
-      goto LABEL_10;
-    }
+                if (!v128)
+                {
+                  return;
+                }
 
-    if (v12 == 3)
-    {
-      v127 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v9 + 24), v9);
-      v128 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, (v9 + 24));
-      if (v127)
-      {
-        if (v128)
-        {
-          goto LABEL_116;
-        }
-
-        v188 = *v9;
-        v196 = *(v9 + 16);
-        v195 = v188;
-        *v9 = *(v9 + 24);
-        *(v9 + 16) = *(v9 + 40);
-        *(v9 + 24) = v195;
-        *(v9 + 40) = v196;
-        if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, (v9 + 24)))
-        {
-          v131 = *(v9 + 24);
-          v195 = v131;
-          v132 = *(v9 + 40);
-          v196 = v132;
-          v189 = *(v6 + 16);
-          *(v9 + 24) = *v6;
-          *(v9 + 40) = v189;
-          goto LABEL_117;
-        }
-
-LABEL_185:
-        v190 = *MEMORY[0x277D85DE8];
-        return;
-      }
-
-      if (!v128)
-      {
-        goto LABEL_185;
-      }
-
-      v195 = *(v9 + 24);
-      v178 = v195;
-      v196 = *(v9 + 40);
-      v179 = v196;
-      v180 = *(v6 + 16);
-      *(v9 + 24) = *v6;
-      *(v9 + 40) = v180;
-      *(v6 + 16) = v179;
-      *v6 = v178;
+                v193 = *(v9 + 24);
+                v177 = v193;
+                v194 = *(v9 + 40);
+                v178 = v194;
+                v179 = v6[2];
+                *(v9 + 24) = *v6;
+                *(v9 + 40) = v179;
+                v6[2] = v178;
+                *v6 = v177;
 LABEL_173:
-      if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v9 + 24), v9))
-      {
-        v181 = *v9;
-        v196 = *(v9 + 16);
-        v195 = v181;
-        *v9 = *(v9 + 24);
-        *(v9 + 16) = *(v9 + 40);
-        *(v9 + 24) = v195;
-        *(v9 + 40) = v196;
-      }
-
-      goto LABEL_185;
-    }
-
-    if (v12 == 4)
-    {
-      break;
-    }
-
-    if (v12 == 5)
-    {
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,0>(v9, (v9 + 24), (v9 + 48), (v9 + 72));
-      if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, (v9 + 72)))
-      {
-        goto LABEL_185;
-      }
-
-      v195 = *(v9 + 72);
-      v119 = v195;
-      v196 = *(v9 + 88);
-      v120 = v196;
-      v121 = *(v6 + 16);
-      *(v9 + 72) = *v6;
-      *(v9 + 88) = v121;
-      *(v6 + 16) = v120;
-      *v6 = v119;
-      if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v9 + 72), (v9 + 48)))
-      {
-        goto LABEL_185;
-      }
-
-      v122 = *(v9 + 64);
-      v123 = *(v9 + 48);
-      *(v9 + 48) = *(v9 + 72);
-      *(v9 + 64) = *(v9 + 88);
-      *(v9 + 72) = v123;
-      *(v9 + 88) = v122;
-      if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v9 + 48), (v9 + 24)))
-      {
-        goto LABEL_185;
-      }
-
-      v124 = *(v9 + 40);
-      v125 = *(v9 + 24);
-      *(v9 + 24) = *(v9 + 48);
-      *(v9 + 40) = *(v9 + 64);
-      *(v9 + 48) = v125;
-      *(v9 + 64) = v124;
-      goto LABEL_173;
-    }
-
-LABEL_10:
-    if (v11 <= 575)
-    {
-      v134 = (v9 + 24);
-      v136 = v9 == v193 || v134 == v193;
-      if (a4)
-      {
-        if (!v136)
-        {
-          v137 = 0;
-          v138 = v9;
-          do
-          {
-            v139 = v138;
-            v138 = v134;
-            if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v134, v139))
-            {
-              v140 = *v138;
-              v196 = *(v138 + 16);
-              v195 = v140;
-              *(v138 + 8) = 0;
-              *(v138 + 16) = 0;
-              *v138 = 0;
-              v141 = v137;
-              while (1)
-              {
-                v142 = v9 + v141;
-                *(v142 + 24) = *(v9 + v141);
-                *(v142 + 40) = *(v9 + v141 + 16);
-                *(v142 + 23) = 0;
-                *v142 = 0;
-                if (!v141)
+                if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v9 + 24), v9))
                 {
-                  break;
+                  v180 = *v9;
+                  v194 = *(v9 + 16);
+                  v193 = v180;
+                  *v9 = *(v9 + 24);
+                  *(v9 + 16) = *(v9 + 40);
+                  *(v9 + 24) = v193;
+                  *(v9 + 40) = v194;
                 }
 
-                v141 -= 24;
-                if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v195, (v141 + v9)))
+                return;
+              case 4:
+
+                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,0>(v9, (v9 + 24), (v9 + 48), v6);
+                return;
+              case 5:
+                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,0>(v9, (v9 + 24), (v9 + 48), (v9 + 72));
+                if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, (v9 + 72)))
                 {
-                  v143 = v9 + v141 + 24;
-                  goto LABEL_136;
-                }
-              }
-
-              v143 = v9;
-LABEL_136:
-              v144 = v195;
-              *(v143 + 16) = v196;
-              *v143 = v144;
-            }
-
-            v134 = (v138 + 24);
-            v137 += 24;
-          }
-
-          while (v138 + 24 != v193);
-        }
-      }
-
-      else if (!v136)
-      {
-        v182 = v9 - 24;
-        do
-        {
-          v183 = a1;
-          a1 = v134;
-          if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v134, v183))
-          {
-            v184 = *a1;
-            v196 = *(a1 + 16);
-            v195 = v184;
-            *(a1 + 8) = 0;
-            *(a1 + 16) = 0;
-            *a1 = 0;
-            v185 = v182;
-            do
-            {
-              *(v185 + 48) = *(v185 + 24);
-              *(v185 + 64) = *(v185 + 40);
-              *(v185 + 47) = 0;
-              *(v185 + 24) = 0;
-              v186 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v195, v185);
-              v185 -= 24;
-            }
-
-            while (v186);
-            v187 = v195;
-            *(v185 + 64) = v196;
-            *(v185 + 48) = v187;
-          }
-
-          v134 = (a1 + 24);
-          v182 += 24;
-        }
-
-        while (a1 + 24 != v193);
-      }
-
-      goto LABEL_185;
-    }
-
-    if (!a3)
-    {
-      if (v9 != v193)
-      {
-        v145 = v13 >> 1;
-        v146 = v13 >> 1;
-        do
-        {
-          v147 = v146;
-          if (v145 >= v146)
-          {
-            v148 = (2 * v146) | 1;
-            v149 = a1 + 24 * v148;
-            if (2 * v146 + 2 < v12 && std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24 * v148), (v149 + 24)))
-            {
-              v149 += 24;
-              v148 = 2 * v147 + 2;
-            }
-
-            v150 = a1 + 24 * v147;
-            if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v149, v150))
-            {
-              v151 = *v150;
-              v196 = *(v150 + 16);
-              v195 = v151;
-              *(v150 + 8) = 0;
-              *(v150 + 16) = 0;
-              *v150 = 0;
-              do
-              {
-                v152 = v149;
-                v153 = *v149;
-                *(v150 + 16) = *(v149 + 16);
-                *v150 = v153;
-                *(v149 + 23) = 0;
-                *v149 = 0;
-                if (v145 < v148)
-                {
-                  break;
+                  return;
                 }
 
-                v154 = (2 * v148) | 1;
-                v149 = a1 + 24 * v154;
-                v155 = 2 * v148 + 2;
-                if (v155 < v12 && std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24 * v154), (v149 + 24)))
+                v193 = *(v9 + 72);
+                v119 = v193;
+                v194 = *(v9 + 88);
+                v120 = v194;
+                v121 = v6[2];
+                *(v9 + 72) = *v6;
+                *(v9 + 88) = v121;
+                v6[2] = v120;
+                *v6 = v119;
+                if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v9 + 72), (v9 + 48)))
                 {
-                  v149 += 24;
-                  v154 = v155;
+                  return;
                 }
 
-                v150 = v152;
-                v148 = v154;
-              }
+                v122 = *(v9 + 64);
+                v123 = *(v9 + 48);
+                *(v9 + 48) = *(v9 + 72);
+                *(v9 + 64) = *(v9 + 88);
+                *(v9 + 72) = v123;
+                *(v9 + 88) = v122;
+                if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v9 + 48), (v9 + 24)))
+                {
+                  return;
+                }
 
-              while (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v149, &v195));
-              v156 = v195;
-              *(v152 + 16) = v196;
-              *v152 = v156;
-              v10 = v193;
+                v124 = *(v9 + 40);
+                v125 = *(v9 + 24);
+                *(v9 + 24) = *(v9 + 48);
+                *(v9 + 40) = *(v9 + 64);
+                *(v9 + 48) = v125;
+                *(v9 + 64) = v124;
+                goto LABEL_173;
             }
-          }
-
-          v146 = v147 - 1;
-        }
-
-        while (v147);
-        v157 = 0xAAAAAAAAAAAAAAABLL * (v11 >> 3);
-        do
-        {
-          v158 = 0;
-          v159 = v10;
-          v192 = *a1;
-          *&v197 = *(a1 + 8);
-          *(&v197 + 7) = *(a1 + 15);
-          v194 = *(a1 + 23);
-          *(a1 + 8) = 0;
-          *(a1 + 16) = 0;
-          *a1 = 0;
-          v160 = a1;
-          do
-          {
-            v161 = v160 + 24 * v158;
-            v162 = v161 + 24;
-            v163 = (2 * v158) | 1;
-            v164 = 2 * v158 + 2;
-            if (v164 < v157)
-            {
-              v165 = v161 + 48;
-              if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v161 + 24), (v161 + 48)))
-              {
-                v162 = v165;
-                v163 = v164;
-              }
-            }
-
-            v166 = *v162;
-            *(v160 + 16) = *(v162 + 16);
-            *v160 = v166;
-            *(v162 + 23) = 0;
-            *v162 = 0;
-            v160 = v162;
-            v158 = v163;
-          }
-
-          while (v163 <= (v157 - 2) / 2);
-          v10 -= 3;
-          if (v162 == v159 - 3)
-          {
-            *v162 = v192;
-            v176 = *(&v197 + 7);
-            *(v162 + 8) = v197;
-            *(v162 + 15) = v176;
-            *(v162 + 23) = v194;
           }
 
           else
           {
-            v167 = *v10;
-            *(v162 + 16) = *(v159 - 1);
-            *v162 = v167;
-            *(v159 - 3) = v192;
-            v168 = v197;
-            *(v159 - 9) = *(&v197 + 7);
-            *(v159 - 2) = v168;
-            *(v159 - 1) = v194;
-            v169 = v162 - a1 + 24;
-            if (v169 >= 25)
+            if (v12 < 2)
             {
-              v170 = (-2 - 0x5555555555555555 * (v169 >> 3)) >> 1;
-              v171 = a1 + 24 * v170;
-              if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v171, v162))
+              return;
+            }
+
+            if (v12 == 2)
+            {
+              if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, v9))
               {
-                v172 = *v162;
-                v196 = *(v162 + 16);
-                v195 = v172;
-                *(v162 + 8) = 0;
-                *(v162 + 16) = 0;
-                *v162 = 0;
-                do
-                {
-                  v173 = v171;
-                  v174 = *v171;
-                  *(v162 + 16) = *(v171 + 16);
-                  *v162 = v174;
-                  *(v171 + 23) = 0;
-                  *v171 = 0;
-                  if (!v170)
-                  {
-                    break;
-                  }
-
-                  v170 = (v170 - 1) >> 1;
-                  v171 = a1 + 24 * v170;
-                  v162 = v173;
-                }
-
-                while (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v171, &v195));
-                v175 = v195;
-                *(v173 + 16) = v196;
-                *v173 = v175;
+                return;
               }
+
+LABEL_116:
+              v129 = *v9;
+              v194 = *(v9 + 16);
+              v193 = v129;
+              v130 = *v6;
+              *(v9 + 16) = v6[2];
+              *v9 = v130;
+              v131 = v193;
+              v132 = v194;
+              goto LABEL_117;
             }
           }
-        }
 
-        while (v157-- > 2);
-      }
-
-      goto LABEL_185;
-    }
-
-    v14 = v12 >> 1;
-    v15 = v9 + 24 * v14;
-    if (v11 >= 0xC01)
-    {
-      v16 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24 * v14), a1);
-      v17 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, (a1 + 24 * v14));
-      if (v16)
-      {
-        if (v17)
-        {
-          v18 = *a1;
-          v196 = *(a1 + 16);
-          v195 = v18;
-          v19 = *v6;
-          *(a1 + 16) = *(v6 + 16);
-          *a1 = v19;
-        }
-
-        else
-        {
-          v36 = *a1;
-          v196 = *(a1 + 16);
-          v195 = v36;
-          v37 = *v15;
-          *(a1 + 16) = *(v15 + 16);
-          *a1 = v37;
-          v38 = v195;
-          *(v15 + 16) = v196;
-          *v15 = v38;
-          if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, (a1 + 24 * v14)))
+          if (v11 <= 575)
           {
-            goto LABEL_28;
+            v133 = (v9 + 24);
+            v135 = v9 == v191 || v133 == v191;
+            if (a4)
+            {
+              if (!v135)
+              {
+                v136 = 0;
+                v137 = v9;
+                do
+                {
+                  v138 = v137;
+                  v137 = v133;
+                  if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v133, v138))
+                  {
+                    v139 = *v137;
+                    v194 = *(v137 + 16);
+                    v193 = v139;
+                    *(v137 + 8) = 0;
+                    *(v137 + 16) = 0;
+                    *v137 = 0;
+                    v140 = v136;
+                    while (1)
+                    {
+                      v141 = v9 + v140;
+                      *(v141 + 24) = *(v9 + v140);
+                      *(v141 + 40) = *(v9 + v140 + 16);
+                      *(v141 + 23) = 0;
+                      *v141 = 0;
+                      if (!v140)
+                      {
+                        break;
+                      }
+
+                      v140 -= 24;
+                      if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v193, (v140 + v9)))
+                      {
+                        v142 = v9 + v140 + 24;
+                        goto LABEL_136;
+                      }
+                    }
+
+                    v142 = v9;
+LABEL_136:
+                    v143 = v193;
+                    *(v142 + 16) = v194;
+                    *v142 = v143;
+                  }
+
+                  v133 = (v137 + 24);
+                  v136 += 24;
+                }
+
+                while ((v137 + 24) != v191);
+              }
+            }
+
+            else if (!v135)
+            {
+              v181 = v9 - 24;
+              do
+              {
+                v182 = a1;
+                a1 = v133;
+                if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v133, v182))
+                {
+                  v183 = *a1;
+                  v194 = *(a1 + 2);
+                  v193 = v183;
+                  *(a1 + 1) = 0;
+                  *(a1 + 2) = 0;
+                  *a1 = 0;
+                  v184 = v181;
+                  do
+                  {
+                    *(v184 + 48) = *(v184 + 24);
+                    *(v184 + 64) = *(v184 + 40);
+                    *(v184 + 47) = 0;
+                    *(v184 + 24) = 0;
+                    v185 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v193, v184);
+                    v184 -= 24;
+                  }
+
+                  while (v185);
+                  v186 = v193;
+                  *(v184 + 64) = v194;
+                  *(v184 + 48) = v186;
+                }
+
+                v133 = a1 + 3;
+                v181 += 24;
+              }
+
+              while ((a1 + 24) != v191);
+            }
+
+            return;
           }
 
-          v39 = *v15;
-          v196 = *(v15 + 16);
-          v195 = v39;
-          v40 = *v6;
-          *(v15 + 16) = *(v6 + 16);
-          *v15 = v40;
-        }
+          if (!a3)
+          {
+            if (v9 != v191)
+            {
+              v144 = v13 >> 1;
+              v145 = v13 >> 1;
+              do
+              {
+                v146 = v145;
+                if (v144 >= v145)
+                {
+                  v147 = (2 * v145) | 1;
+                  v148 = (a1 + 24 * v147);
+                  if (2 * v145 + 2 < v12 && std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3 * v147, v148 + 3))
+                  {
+                    v148 = (v148 + 24);
+                    v147 = 2 * v146 + 2;
+                  }
 
-        v41 = v195;
-        *(v6 + 16) = v196;
-        *v6 = v41;
-      }
+                  v149 = (a1 + 24 * v146);
+                  if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v148, v149))
+                  {
+                    v150 = *v149;
+                    v194 = *(v149 + 2);
+                    v193 = v150;
+                    *(v149 + 1) = 0;
+                    *(v149 + 2) = 0;
+                    *v149 = 0;
+                    do
+                    {
+                      v151 = v148;
+                      v152 = *v148;
+                      *(v149 + 2) = *(v148 + 2);
+                      *v149 = v152;
+                      *(v148 + 23) = 0;
+                      *v148 = 0;
+                      if (v144 < v147)
+                      {
+                        break;
+                      }
 
-      else if (v17)
-      {
-        v24 = *v15;
-        v196 = *(v15 + 16);
-        v195 = v24;
-        v25 = *v6;
-        *(v15 + 16) = *(v6 + 16);
-        *v15 = v25;
-        v26 = v195;
-        *(v6 + 16) = v196;
-        *v6 = v26;
-        if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24 * v14), a1))
-        {
-          v27 = *a1;
-          v196 = *(a1 + 16);
-          v195 = v27;
-          v28 = *v15;
-          *(a1 + 16) = *(v15 + 16);
-          *a1 = v28;
-          v29 = v195;
-          *(v15 + 16) = v196;
-          *v15 = v29;
-        }
-      }
+                      v153 = (2 * v147) | 1;
+                      v148 = (a1 + 24 * v153);
+                      v154 = 2 * v147 + 2;
+                      if (v154 < v12 && std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3 * v153, v148 + 3))
+                      {
+                        v148 = (v148 + 24);
+                        v153 = v154;
+                      }
+
+                      v149 = v151;
+                      v147 = v153;
+                    }
+
+                    while (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v148, &v193));
+                    v155 = v193;
+                    *(v151 + 2) = v194;
+                    *v151 = v155;
+                    v10 = v191;
+                  }
+                }
+
+                v145 = v146 - 1;
+              }
+
+              while (v146);
+              v156 = 0xAAAAAAAAAAAAAAABLL * (v11 >> 3);
+              do
+              {
+                v157 = 0;
+                v158 = v10;
+                v190 = *a1;
+                *&v195 = *(a1 + 1);
+                *(&v195 + 7) = *(a1 + 15);
+                v192 = *(a1 + 23);
+                *(a1 + 1) = 0;
+                *(a1 + 2) = 0;
+                *a1 = 0;
+                v159 = a1;
+                do
+                {
+                  v160 = v159 + 24 * v157;
+                  v161 = v160 + 24;
+                  v162 = (2 * v157) | 1;
+                  v163 = 2 * v157 + 2;
+                  if (v163 < v156)
+                  {
+                    v164 = v160 + 48;
+                    if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v160 + 24), (v160 + 48)))
+                    {
+                      v161 = v164;
+                      v162 = v163;
+                    }
+                  }
+
+                  v165 = *v161;
+                  *(v159 + 16) = *(v161 + 16);
+                  *v159 = v165;
+                  *(v161 + 23) = 0;
+                  *v161 = 0;
+                  v159 = v161;
+                  v157 = v162;
+                }
+
+                while (v162 <= (v156 - 2) / 2);
+                v10 -= 3;
+                if (v161 == v158 - 3)
+                {
+                  *v161 = v190;
+                  v175 = *(&v195 + 7);
+                  *(v161 + 8) = v195;
+                  *(v161 + 15) = v175;
+                  *(v161 + 23) = v192;
+                }
+
+                else
+                {
+                  v166 = *v10;
+                  *(v161 + 16) = *(v158 - 1);
+                  *v161 = v166;
+                  *(v158 - 3) = v190;
+                  v167 = v195;
+                  *(v158 - 9) = *(&v195 + 7);
+                  *(v158 - 2) = v167;
+                  *(v158 - 1) = v192;
+                  v168 = v161 - a1 + 24;
+                  if (v168 >= 25)
+                  {
+                    v169 = (-2 - 0x5555555555555555 * (v168 >> 3)) >> 1;
+                    v170 = (a1 + 24 * v169);
+                    if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v170, v161))
+                    {
+                      v171 = *v161;
+                      v194 = *(v161 + 16);
+                      v193 = v171;
+                      *(v161 + 8) = 0;
+                      *(v161 + 16) = 0;
+                      *v161 = 0;
+                      do
+                      {
+                        v172 = v170;
+                        v173 = *v170;
+                        *(v161 + 16) = *(v170 + 2);
+                        *v161 = v173;
+                        *(v170 + 23) = 0;
+                        *v170 = 0;
+                        if (!v169)
+                        {
+                          break;
+                        }
+
+                        v169 = (v169 - 1) >> 1;
+                        v170 = (a1 + 24 * v169);
+                        v161 = v172;
+                      }
+
+                      while (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v170, &v193));
+                      v174 = v193;
+                      *(v172 + 16) = v194;
+                      *v172 = v174;
+                    }
+                  }
+                }
+              }
+
+              while (v156-- > 2);
+            }
+
+            return;
+          }
+
+          v14 = v12 >> 1;
+          v15 = v9 + 24 * v14;
+          if (v11 >= 0xC01)
+          {
+            v16 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3 * v14, a1);
+            v17 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, a1 + 3 * v14);
+            if (v16)
+            {
+              if (v17)
+              {
+                v18 = *a1;
+                v194 = *(a1 + 2);
+                v193 = v18;
+                v19 = *v6;
+                *(a1 + 2) = v6[2];
+                *a1 = v19;
+              }
+
+              else
+              {
+                v36 = *a1;
+                v194 = *(a1 + 2);
+                v193 = v36;
+                v37 = *v15;
+                *(a1 + 2) = *(v15 + 16);
+                *a1 = v37;
+                v38 = v193;
+                *(v15 + 16) = v194;
+                *v15 = v38;
+                if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, a1 + 3 * v14))
+                {
+                  goto LABEL_28;
+                }
+
+                v39 = *v15;
+                v194 = *(v15 + 16);
+                v193 = v39;
+                v40 = *v6;
+                *(v15 + 16) = v6[2];
+                *v15 = v40;
+              }
+
+              v41 = v193;
+              v6[2] = v194;
+              *v6 = v41;
+            }
+
+            else if (v17)
+            {
+              v24 = *v15;
+              v194 = *(v15 + 16);
+              v193 = v24;
+              v25 = *v6;
+              *(v15 + 16) = v6[2];
+              *v15 = v25;
+              v26 = v193;
+              v6[2] = v194;
+              *v6 = v26;
+              if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3 * v14, a1))
+              {
+                v27 = *a1;
+                v194 = *(a1 + 2);
+                v193 = v27;
+                v28 = *v15;
+                *(a1 + 2) = *(v15 + 16);
+                *a1 = v28;
+                v29 = v193;
+                *(v15 + 16) = v194;
+                *v15 = v29;
+              }
+            }
 
 LABEL_28:
-      v42 = a1 + 24 * v14 - 24;
-      v43 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v42, (a1 + 24));
-      v44 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v7, v42);
-      if (v43)
-      {
-        if (v44)
-        {
-          v45 = *(a1 + 24);
-          v195 = v45;
-          v46 = *(a1 + 40);
-          v196 = v46;
-          v47 = *(v7 + 16);
-          *(a1 + 24) = *v7;
-          *(a1 + 40) = v47;
-        }
+            v42 = a1 + 24 * v14 - 24;
+            v43 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v42, a1 + 3);
+            v44 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v7, v42);
+            if (v43)
+            {
+              if (v44)
+              {
+                v45 = *(a1 + 24);
+                v193 = v45;
+                v46 = *(a1 + 5);
+                v194 = v46;
+                v47 = v7[2];
+                *(a1 + 24) = *v7;
+                *(a1 + 5) = v47;
+              }
 
-        else
-        {
-          v195 = *(a1 + 24);
-          v60 = v195;
-          v196 = *(a1 + 40);
-          v61 = v196;
-          v62 = *(a1 + 24 * v14 - 8);
-          *(a1 + 24) = *v42;
-          *(a1 + 40) = v62;
-          *(a1 + 24 * v14 - 8) = v61;
-          *v42 = v60;
-          if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v7, v42))
-          {
-            goto LABEL_40;
-          }
+              else
+              {
+                v193 = *(a1 + 24);
+                v60 = v193;
+                v194 = *(a1 + 5);
+                v61 = v194;
+                v62 = *(a1 + 3 * v14 - 1);
+                *(a1 + 24) = *v42;
+                *(a1 + 5) = v62;
+                *(a1 + 3 * v14 - 1) = v61;
+                *v42 = v60;
+                if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v7, v42))
+                {
+                  goto LABEL_40;
+                }
 
-          v63 = *v42;
-          v196 = *(a1 + 24 * v14 - 8);
-          v195 = v63;
-          v64 = *v7;
-          *(a1 + 24 * v14 - 8) = *(v7 + 16);
-          *v42 = v64;
-          v45 = v195;
-          v46 = v196;
-        }
+                v63 = *v42;
+                v194 = *(a1 + 3 * v14 - 1);
+                v193 = v63;
+                v64 = *v7;
+                *(a1 + 3 * v14 - 1) = v7[2];
+                *v42 = v64;
+                v45 = v193;
+                v46 = v194;
+              }
 
-        *(v7 + 16) = v46;
-        *v7 = v45;
-      }
+              v7[2] = v46;
+              *v7 = v45;
+            }
 
-      else if (v44)
-      {
-        v48 = *v42;
-        v196 = *(a1 + 24 * v14 - 8);
-        v195 = v48;
-        v49 = *v7;
-        *(a1 + 24 * v14 - 8) = *(v7 + 16);
-        *v42 = v49;
-        v50 = v195;
-        *(v7 + 16) = v196;
-        *v7 = v50;
-        if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v42, (a1 + 24)))
-        {
-          v195 = *(a1 + 24);
-          v51 = v195;
-          v196 = *(a1 + 40);
-          v52 = v196;
-          v53 = *(a1 + 24 * v14 - 8);
-          *(a1 + 24) = *v42;
-          *(a1 + 40) = v53;
-          *(a1 + 24 * v14 - 8) = v52;
-          *v42 = v51;
-        }
-      }
+            else if (v44)
+            {
+              v48 = *v42;
+              v194 = *(a1 + 3 * v14 - 1);
+              v193 = v48;
+              v49 = *v7;
+              *(a1 + 3 * v14 - 1) = v7[2];
+              *v42 = v49;
+              v50 = v193;
+              v7[2] = v194;
+              *v7 = v50;
+              if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v42, a1 + 3))
+              {
+                v193 = *(a1 + 24);
+                v51 = v193;
+                v194 = *(a1 + 5);
+                v52 = v194;
+                v53 = *(a1 + 3 * v14 - 1);
+                *(a1 + 24) = *v42;
+                *(a1 + 5) = v53;
+                *(a1 + 3 * v14 - 1) = v52;
+                *v42 = v51;
+              }
+            }
 
 LABEL_40:
-      v65 = a1 + 24 * v14;
-      v66 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v65 + 24), (a1 + 48));
-      v67 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v8, (v65 + 24));
-      if (!v66)
-      {
-        if (v67)
-        {
-          v71 = *(v65 + 24);
-          v196 = *(v65 + 40);
-          v195 = v71;
-          v72 = *v8;
-          *(v65 + 40) = *(v8 + 16);
-          *(v65 + 24) = v72;
-          v73 = v195;
-          *(v8 + 16) = v196;
-          *v8 = v73;
-          if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v65 + 24), (a1 + 48)))
-          {
-            v195 = *(a1 + 48);
-            v74 = v195;
-            v196 = *(a1 + 64);
-            v75 = v196;
-            v76 = *(v65 + 40);
-            *(a1 + 48) = *(v65 + 24);
-            *(a1 + 64) = v76;
-            *(v65 + 40) = v75;
-            *(v65 + 24) = v74;
-          }
-        }
-
-        goto LABEL_49;
-      }
-
-      if (v67)
-      {
-        v68 = *(a1 + 48);
-        v195 = v68;
-        v69 = *(a1 + 64);
-        v196 = v69;
-        v70 = *(v8 + 16);
-        *(a1 + 48) = *v8;
-        *(a1 + 64) = v70;
-      }
-
-      else
-      {
-        v195 = *(a1 + 48);
-        v77 = v195;
-        v196 = *(a1 + 64);
-        v78 = v196;
-        v79 = *(v65 + 40);
-        *(a1 + 48) = *(v65 + 24);
-        *(a1 + 64) = v79;
-        *(v65 + 40) = v78;
-        *(v65 + 24) = v77;
-        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v8, (v65 + 24)))
-        {
-LABEL_49:
-          v82 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v15, v42);
-          v83 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v65 + 24), v15);
-          if (v82)
-          {
-            if (v83)
+            v65 = a1 + 24 * v14;
+            v66 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v65 + 24), a1 + 6);
+            v67 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v8, (v65 + 24));
+            if (!v66)
             {
-              v84 = *v42;
-              v196 = *(v42 + 16);
-              v195 = v84;
-              *v42 = *(v65 + 24);
-              *(v42 + 16) = *(v65 + 40);
-              v85 = v195;
-              *(v65 + 40) = v196;
-              *(v65 + 24) = v85;
-              v10 = v193;
+              if (v67)
+              {
+                v71 = *(v65 + 24);
+                v194 = *(v65 + 40);
+                v193 = v71;
+                v72 = *v8;
+                *(v65 + 40) = v8[2];
+                *(v65 + 24) = v72;
+                v73 = v193;
+                v8[2] = v194;
+                *v8 = v73;
+                if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v65 + 24), a1 + 6))
+                {
+                  v193 = a1[3];
+                  v74 = v193;
+                  v194 = *(a1 + 8);
+                  v75 = v194;
+                  v76 = *(v65 + 40);
+                  a1[3] = *(v65 + 24);
+                  *(a1 + 8) = v76;
+                  *(v65 + 40) = v75;
+                  *(v65 + 24) = v74;
+                }
+              }
+
+              goto LABEL_49;
+            }
+
+            if (v67)
+            {
+              v68 = a1[3];
+              v193 = v68;
+              v69 = *(a1 + 8);
+              v194 = v69;
+              v70 = v8[2];
+              a1[3] = *v8;
+              *(a1 + 8) = v70;
             }
 
             else
             {
-              v90 = *v42;
-              v196 = *(v42 + 16);
-              v195 = v90;
-              *v42 = *v15;
-              *(v42 + 16) = *(v15 + 16);
-              v91 = v195;
-              *(v15 + 16) = v196;
-              *v15 = v91;
-              v10 = v193;
-              if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v65 + 24), v15))
+              v193 = a1[3];
+              v77 = v193;
+              v194 = *(a1 + 8);
+              v78 = v194;
+              v79 = *(v65 + 40);
+              a1[3] = *(v65 + 24);
+              *(a1 + 8) = v79;
+              *(v65 + 40) = v78;
+              *(v65 + 24) = v77;
+              if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v8, (v65 + 24)))
               {
-                v92 = *v15;
-                v196 = *(v15 + 16);
-                v195 = v92;
-                *v15 = *(v65 + 24);
-                *(v15 + 16) = *(v65 + 40);
-                v93 = v195;
-                *(v65 + 40) = v196;
-                *(v65 + 24) = v93;
+LABEL_49:
+                v82 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v15, v42);
+                v83 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v65 + 24), v15);
+                if (v82)
+                {
+                  if (v83)
+                  {
+                    v84 = *v42;
+                    v194 = *(v42 + 16);
+                    v193 = v84;
+                    *v42 = *(v65 + 24);
+                    *(v42 + 16) = *(v65 + 40);
+                    v85 = v193;
+                    *(v65 + 40) = v194;
+                    *(v65 + 24) = v85;
+                    v10 = v191;
+                  }
+
+                  else
+                  {
+                    v90 = *v42;
+                    v194 = *(v42 + 16);
+                    v193 = v90;
+                    *v42 = *v15;
+                    *(v42 + 16) = *(v15 + 16);
+                    v91 = v193;
+                    *(v15 + 16) = v194;
+                    *v15 = v91;
+                    v10 = v191;
+                    if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v65 + 24), v15))
+                    {
+                      v92 = *v15;
+                      v194 = *(v15 + 16);
+                      v193 = v92;
+                      *v15 = *(v65 + 24);
+                      *(v15 + 16) = *(v65 + 40);
+                      v93 = v193;
+                      *(v65 + 40) = v194;
+                      *(v65 + 24) = v93;
+                    }
+                  }
+                }
+
+                else
+                {
+                  v10 = v191;
+                  if (v83)
+                  {
+                    v86 = *v15;
+                    v194 = *(v15 + 16);
+                    v193 = v86;
+                    *v15 = *(v65 + 24);
+                    *(v15 + 16) = *(v65 + 40);
+                    v87 = v193;
+                    *(v65 + 40) = v194;
+                    *(v65 + 24) = v87;
+                    if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v15, v42))
+                    {
+                      v88 = *v42;
+                      v194 = *(v42 + 16);
+                      v193 = v88;
+                      *v42 = *v15;
+                      *(v42 + 16) = *(v15 + 16);
+                      v89 = v193;
+                      *(v15 + 16) = v194;
+                      *v15 = v89;
+                    }
+                  }
+                }
+
+                v94 = *a1;
+                v194 = *(a1 + 2);
+                v193 = v94;
+                v95 = *v15;
+                *(a1 + 2) = *(v15 + 16);
+                *a1 = v95;
+                v96 = v193;
+                *(v15 + 16) = v194;
+                *v15 = v96;
+                goto LABEL_58;
               }
+
+              v80 = *(v65 + 24);
+              v194 = *(v65 + 40);
+              v193 = v80;
+              v81 = *v8;
+              *(v65 + 40) = v8[2];
+              *(v65 + 24) = v81;
+              v68 = v193;
+              v69 = v194;
+            }
+
+            v8[2] = v69;
+            *v8 = v68;
+            goto LABEL_49;
+          }
+
+          v20 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1, a1 + 3 * v14);
+          v21 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, a1);
+          if (v20)
+          {
+            if (v21)
+            {
+              v22 = *v15;
+              v194 = *(v15 + 16);
+              v193 = v22;
+              v23 = *v6;
+              *(v15 + 16) = v6[2];
+              *v15 = v23;
+            }
+
+            else
+            {
+              v54 = *v15;
+              v194 = *(v15 + 16);
+              v193 = v54;
+              v55 = *a1;
+              *(v15 + 16) = *(a1 + 2);
+              *v15 = v55;
+              v56 = v193;
+              *(a1 + 2) = v194;
+              *a1 = v56;
+              if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, a1))
+              {
+                goto LABEL_58;
+              }
+
+              v57 = *a1;
+              v194 = *(a1 + 2);
+              v193 = v57;
+              v58 = *v6;
+              *(a1 + 2) = v6[2];
+              *a1 = v58;
+            }
+
+            v59 = v193;
+            v6[2] = v194;
+            *v6 = v59;
+            goto LABEL_58;
+          }
+
+          if (v21)
+          {
+            v30 = *a1;
+            v194 = *(a1 + 2);
+            v193 = v30;
+            v31 = *v6;
+            *(a1 + 2) = v6[2];
+            *a1 = v31;
+            v32 = v193;
+            v6[2] = v194;
+            *v6 = v32;
+            if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1, a1 + 3 * v14))
+            {
+              v33 = *v15;
+              v194 = *(v15 + 16);
+              v193 = v33;
+              v34 = *a1;
+              *(v15 + 16) = *(a1 + 2);
+              *v15 = v34;
+              v35 = v193;
+              *(a1 + 2) = v194;
+              *a1 = v35;
+            }
+          }
+
+LABEL_58:
+          --a3;
+          if ((a4 & 1) != 0 || std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 - 3, a1))
+          {
+            break;
+          }
+
+          v109 = *a1;
+          v196 = *(a1 + 2);
+          v195 = v109;
+          *(a1 + 1) = 0;
+          *(a1 + 2) = 0;
+          *a1 = 0;
+          if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v195, v6))
+          {
+            v9 = a1;
+            do
+            {
+              v9 += 24;
+            }
+
+            while (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v195, v9));
+          }
+
+          else
+          {
+            v110 = a1 + 3;
+            do
+            {
+              v9 = v110;
+              if (v110 >= v10)
+              {
+                break;
+              }
+
+              v111 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v195, v110);
+              v110 = (v9 + 24);
+            }
+
+            while (!v111);
+          }
+
+          v112 = v10;
+          if (v9 < v10)
+          {
+            v112 = v10;
+            do
+            {
+              v112 -= 3;
+            }
+
+            while (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v195, v112));
+          }
+
+          while (v9 < v112)
+          {
+            v113 = *v9;
+            v194 = *(v9 + 16);
+            v193 = v113;
+            v114 = *v112;
+            *(v9 + 16) = v112[2];
+            *v9 = v114;
+            v115 = v193;
+            v112[2] = v194;
+            *v112 = v115;
+            do
+            {
+              v9 += 24;
+            }
+
+            while (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v195, v9));
+            do
+            {
+              v112 -= 3;
+            }
+
+            while (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v195, v112));
+          }
+
+          v116 = (v9 - 24);
+          if ((v9 - 24) == a1)
+          {
+            if (*(v9 - 1) < 0)
+            {
+              operator delete(*a1);
             }
           }
 
           else
           {
-            v10 = v193;
-            if (v83)
+            if (*(a1 + 23) < 0)
             {
-              v86 = *v15;
-              v196 = *(v15 + 16);
-              v195 = v86;
-              *v15 = *(v65 + 24);
-              *(v15 + 16) = *(v65 + 40);
-              v87 = v195;
-              *(v65 + 40) = v196;
-              *(v65 + 24) = v87;
-              if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v15, v42))
-              {
-                v88 = *v42;
-                v196 = *(v42 + 16);
-                v195 = v88;
-                *v42 = *v15;
-                *(v42 + 16) = *(v15 + 16);
-                v89 = v195;
-                *(v15 + 16) = v196;
-                *v15 = v89;
-              }
+              operator delete(*a1);
             }
+
+            v117 = *v116;
+            *(a1 + 2) = *(v9 - 8);
+            *a1 = v117;
+            *(v9 - 1) = 0;
+            *(v9 - 24) = 0;
           }
 
-          v94 = *a1;
-          v196 = *(a1 + 16);
-          v195 = v94;
-          v95 = *v15;
-          *(a1 + 16) = *(v15 + 16);
-          *a1 = v95;
-          v96 = v195;
-          *(v15 + 16) = v196;
-          *v15 = v96;
-          goto LABEL_58;
+          a4 = 0;
+          v118 = v195;
+          *(v9 - 8) = v196;
+          *v116 = v118;
         }
 
-        v80 = *(v65 + 24);
-        v196 = *(v65 + 40);
-        v195 = v80;
-        v81 = *v8;
-        *(v65 + 40) = *(v8 + 16);
-        *(v65 + 24) = v81;
-        v68 = v195;
-        v69 = v196;
-      }
-
-      *(v8 + 16) = v69;
-      *v8 = v68;
-      goto LABEL_49;
-    }
-
-    v20 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1, (a1 + 24 * v14));
-    v21 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, a1);
-    if (!v20)
-    {
-      if (v21)
-      {
-        v30 = *a1;
-        v196 = *(a1 + 16);
-        v195 = v30;
-        v31 = *v6;
-        *(a1 + 16) = *(v6 + 16);
-        *a1 = v31;
-        v32 = v195;
-        *(v6 + 16) = v196;
-        *v6 = v32;
-        if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1, (a1 + 24 * v14)))
+        v97 = 0;
+        v98 = *a1;
+        v196 = *(a1 + 2);
+        v195 = v98;
+        *(a1 + 1) = 0;
+        *(a1 + 2) = 0;
+        *a1 = 0;
+        do
         {
-          v33 = *v15;
-          v196 = *(v15 + 16);
-          v195 = v33;
-          v34 = *a1;
-          *(v15 + 16) = *(a1 + 16);
-          *v15 = v34;
-          v35 = v195;
-          *(a1 + 16) = v196;
-          *a1 = v35;
+          v97 += 24;
         }
-      }
 
-      goto LABEL_58;
-    }
-
-    if (v21)
-    {
-      v22 = *v15;
-      v196 = *(v15 + 16);
-      v195 = v22;
-      v23 = *v6;
-      *(v15 + 16) = *(v6 + 16);
-      *v15 = v23;
-    }
-
-    else
-    {
-      v54 = *v15;
-      v196 = *(v15 + 16);
-      v195 = v54;
-      v55 = *a1;
-      *(v15 + 16) = *(a1 + 16);
-      *v15 = v55;
-      v56 = v195;
-      *(a1 + 16) = v196;
-      *a1 = v56;
-      if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, a1))
-      {
-        goto LABEL_58;
-      }
-
-      v57 = *a1;
-      v196 = *(a1 + 16);
-      v195 = v57;
-      v58 = *v6;
-      *(a1 + 16) = *(v6 + 16);
-      *a1 = v58;
-    }
-
-    v59 = v195;
-    *(v6 + 16) = v196;
-    *v6 = v59;
-LABEL_58:
-    --a3;
-    if ((a4 & 1) != 0 || std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 - 24), a1))
-    {
-      v97 = 0;
-      v98 = *a1;
-      v198 = *(a1 + 16);
-      v197 = v98;
-      *(a1 + 8) = 0;
-      *(a1 + 16) = 0;
-      *a1 = 0;
-      do
-      {
-        v97 += 24;
-      }
-
-      while (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((v97 + a1), &v197));
-      v99 = a1 + v97;
-      v100 = v10;
-      if (v97 == 24)
-      {
+        while (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + v97), &v195));
+        v99 = a1 + v97;
         v100 = v10;
-        do
+        if (v97 == 24)
         {
-          if (v99 >= v100)
-          {
-            break;
-          }
-
-          v100 -= 3;
-        }
-
-        while (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v100, &v197));
-      }
-
-      else
-      {
-        do
-        {
-          v100 -= 3;
-        }
-
-        while (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v100, &v197));
-      }
-
-      v9 = a1 + v97;
-      if (v99 < v100)
-      {
-        v101 = v100;
-        do
-        {
-          v102 = *v9;
-          v196 = *(v9 + 16);
-          v195 = v102;
-          v103 = *v101;
-          *(v9 + 16) = v101[2];
-          *v9 = v103;
-          v104 = v195;
-          v101[2] = v196;
-          *v101 = v104;
+          v100 = v10;
           do
           {
-            v9 += 24;
+            if (v99 >= v100)
+            {
+              break;
+            }
+
+            v100 -= 3;
           }
 
-          while (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v9, &v197));
+          while (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v100, &v195));
+        }
+
+        else
+        {
           do
           {
-            v101 -= 3;
+            v100 -= 3;
           }
 
-          while (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v101, &v197));
+          while (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v100, &v195));
         }
 
-        while (v9 < v101);
-      }
-
-      v105 = (v9 - 24);
-      if (v9 - 24 == a1)
-      {
-        if (*(v9 - 1) < 0)
+        v9 = a1 + v97;
+        if (v99 < v100)
         {
-          operator delete(*a1);
-        }
-      }
+          v101 = v100;
+          do
+          {
+            v102 = *v9;
+            v194 = *(v9 + 16);
+            v193 = v102;
+            v103 = *v101;
+            *(v9 + 16) = v101[2];
+            *v9 = v103;
+            v104 = v193;
+            v101[2] = v194;
+            *v101 = v104;
+            do
+            {
+              v9 += 24;
+            }
 
-      else
-      {
-        if (*(a1 + 23) < 0)
+            while (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v9, &v195));
+            do
+            {
+              v101 -= 3;
+            }
+
+            while (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v101, &v195));
+          }
+
+          while (v9 < v101);
+        }
+
+        v105 = (v9 - 24);
+        if ((v9 - 24) == a1)
         {
-          operator delete(*a1);
+          if (*(v9 - 1) < 0)
+          {
+            operator delete(*a1);
+          }
         }
 
-        v106 = *v105;
-        *(a1 + 16) = *(v9 - 8);
-        *a1 = v106;
-        *(v9 - 1) = 0;
-        *(v9 - 24) = 0;
-      }
-
-      v107 = v197;
-      *(v9 - 8) = v198;
-      *v105 = v107;
-      if (v99 < v100)
-      {
-        goto LABEL_83;
-      }
-
-      v108 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *>(a1, v9 - 24);
-      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *>(v9, v193))
-      {
-        a2 = v9 - 24;
-        if (!v108)
+        else
         {
-          goto LABEL_2;
+          if (*(a1 + 23) < 0)
+          {
+            operator delete(*a1);
+          }
+
+          v106 = *v105;
+          *(a1 + 2) = *(v9 - 8);
+          *a1 = v106;
+          *(v9 - 1) = 0;
+          *(v9 - 24) = 0;
         }
 
-        goto LABEL_185;
+        v107 = v195;
+        *(v9 - 8) = v196;
+        *v105 = v107;
+        if (v99 >= v100)
+        {
+          break;
+        }
+
+LABEL_83:
+        std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,false>(a1, (v9 - 24), a3, a4 & 1);
+        a4 = 0;
+      }
+
+      v108 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *>(a1, (v9 - 24));
+      if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *>(v9, v191))
+      {
+        break;
       }
 
       if (!v108)
       {
-LABEL_83:
-        std::__introsort<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,false>(a1, v9 - 24, a3, a4 & 1);
-        a4 = 0;
+        goto LABEL_83;
       }
     }
 
-    else
+    a2 = (v9 - 24);
+    if (!v108)
     {
-      v109 = *a1;
-      v198 = *(a1 + 16);
-      v197 = v109;
-      *(a1 + 8) = 0;
-      *(a1 + 16) = 0;
-      *a1 = 0;
-      if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v197, v6))
-      {
-        v9 = a1;
-        do
-        {
-          v9 += 24;
-        }
-
-        while (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v197, v9));
-      }
-
-      else
-      {
-        v110 = (a1 + 24);
-        do
-        {
-          v9 = v110;
-          if (v110 >= v10)
-          {
-            break;
-          }
-
-          v111 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v197, v110);
-          v110 = (v9 + 24);
-        }
-
-        while (!v111);
-      }
-
-      v112 = v10;
-      if (v9 < v10)
-      {
-        v112 = v10;
-        do
-        {
-          v112 -= 3;
-        }
-
-        while (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v197, v112));
-      }
-
-      while (v9 < v112)
-      {
-        v113 = *v9;
-        v196 = *(v9 + 16);
-        v195 = v113;
-        v114 = *v112;
-        *(v9 + 16) = v112[2];
-        *v9 = v114;
-        v115 = v195;
-        v112[2] = v196;
-        *v112 = v115;
-        do
-        {
-          v9 += 24;
-        }
-
-        while (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v197, v9));
-        do
-        {
-          v112 -= 3;
-        }
-
-        while (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(&v197, v112));
-      }
-
-      v116 = (v9 - 24);
-      if (v9 - 24 == a1)
-      {
-        if (*(v9 - 1) < 0)
-        {
-          operator delete(*a1);
-        }
-      }
-
-      else
-      {
-        if (*(a1 + 23) < 0)
-        {
-          operator delete(*a1);
-        }
-
-        v117 = *v116;
-        *(a1 + 16) = *(v9 - 8);
-        *a1 = v117;
-        *(v9 - 1) = 0;
-        *(v9 - 24) = 0;
-      }
-
-      a4 = 0;
-      v118 = v197;
-      *(v9 - 8) = v198;
-      *v116 = v118;
+      continue;
     }
+
+    break;
   }
-
-  v133 = *MEMORY[0x277D85DE8];
-
-  std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,0>(v9, (v9 + 24), (v9 + 48), v6);
 }
 
 BOOL std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(const void **a1, const void **a2)
@@ -7998,7 +6087,7 @@ LABEL_10:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *>(__int128 *a1, __int128 *a2)
 {
   v4 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
   if (v4 > 2)
@@ -8006,41 +6095,41 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
     switch(v4)
     {
       case 3:
-        v5 = a2 - 24;
-        v14 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24), a1);
-        v15 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v5, (a1 + 24));
+        v5 = a2 - 3;
+        v14 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3, a1);
+        v15 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v5, a1 + 3);
         if (v14)
         {
           if (!v15)
           {
-            v33 = *(a1 + 16);
+            v33 = *(a1 + 2);
             v34 = *a1;
             *a1 = *(a1 + 24);
-            *(a1 + 16) = *(a1 + 40);
+            *(a1 + 2) = *(a1 + 5);
             *(a1 + 24) = v34;
-            *(a1 + 40) = v33;
-            if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v5, (a1 + 24)))
+            *(a1 + 5) = v33;
+            if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v5, a1 + 3))
             {
               return 1;
             }
 
-            v16 = *(a1 + 40);
+            v16 = *(a1 + 5);
             v17 = *(a1 + 24);
-            v35 = *(v5 + 16);
+            v35 = v5[2];
             *(a1 + 24) = *v5;
-            *(a1 + 40) = v35;
+            *(a1 + 5) = v35;
             goto LABEL_16;
           }
 
 LABEL_15:
-          v16 = *(a1 + 16);
+          v16 = *(a1 + 2);
           v17 = *a1;
-          v18 = *(v5 + 16);
+          v18 = v5[2];
           *a1 = *v5;
-          *(a1 + 16) = v18;
+          *(a1 + 2) = v18;
 LABEL_16:
           *v5 = v17;
-          *(v5 + 16) = v16;
+          v5[2] = v16;
           return 1;
         }
 
@@ -8049,67 +6138,67 @@ LABEL_16:
           return 1;
         }
 
-        v24 = *(a1 + 40);
+        v24 = *(a1 + 5);
         v25 = *(a1 + 24);
-        v26 = *(v5 + 16);
+        v26 = v5[2];
         *(a1 + 24) = *v5;
-        *(a1 + 40) = v26;
+        *(a1 + 5) = v26;
         *v5 = v25;
-        *(v5 + 16) = v24;
+        v5[2] = v24;
         break;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,0>(a1, (a1 + 24), (a1 + 48), (a2 - 24));
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,0>(a1, a1 + 3, a1 + 6, (a2 - 24));
         return 1;
       case 5:
         v6 = a2 - 24;
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72));
-        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, (a1 + 72)))
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<void> &,std::string *,0>(a1, a1 + 3, a1 + 6, (a1 + 72));
+        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v6, a1 + 9))
         {
           return 1;
         }
 
-        v7 = *(a1 + 88);
+        v7 = *(a1 + 11);
         v8 = *(a1 + 72);
         v9 = *(v6 + 16);
         *(a1 + 72) = *v6;
-        *(a1 + 88) = v9;
+        *(a1 + 11) = v9;
         *v6 = v8;
         *(v6 + 16) = v7;
-        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 72), (a1 + 48)))
+        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 9, a1 + 6))
         {
           return 1;
         }
 
-        v10 = *(a1 + 64);
-        v11 = *(a1 + 48);
-        *(a1 + 48) = *(a1 + 72);
-        *(a1 + 64) = *(a1 + 88);
+        v10 = *(a1 + 8);
+        v11 = a1[3];
+        a1[3] = *(a1 + 72);
+        *(a1 + 8) = *(a1 + 11);
         *(a1 + 72) = v11;
-        *(a1 + 88) = v10;
-        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 48), (a1 + 24)))
+        *(a1 + 11) = v10;
+        if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 6, a1 + 3))
         {
           return 1;
         }
 
-        v12 = *(a1 + 40);
+        v12 = *(a1 + 5);
         v13 = *(a1 + 24);
-        *(a1 + 24) = *(a1 + 48);
-        *(a1 + 40) = *(a1 + 64);
-        *(a1 + 48) = v13;
-        *(a1 + 64) = v12;
+        *(a1 + 24) = a1[3];
+        *(a1 + 5) = *(a1 + 8);
+        a1[3] = v13;
+        *(a1 + 8) = v12;
         break;
       default:
         goto LABEL_17;
     }
 
-    if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24), a1))
+    if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3, a1))
     {
-      v27 = *(a1 + 16);
+      v27 = *(a1 + 2);
       v28 = *a1;
       *a1 = *(a1 + 24);
-      *(a1 + 16) = *(a1 + 40);
+      *(a1 + 2) = *(a1 + 5);
       *(a1 + 24) = v28;
-      *(a1 + 40) = v27;
+      *(a1 + 5) = v27;
     }
 
     return 1;
@@ -8122,8 +6211,8 @@ LABEL_16:
 
   if (v4 == 2)
   {
-    v5 = a2 - 24;
-    if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a2 - 24), a1))
+    v5 = a2 - 3;
+    if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a2 - 3, a1))
     {
       return 1;
     }
@@ -8132,64 +6221,64 @@ LABEL_16:
   }
 
 LABEL_17:
-  v19 = (a1 + 48);
-  v20 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24), a1);
-  v21 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 48), (a1 + 24));
+  v19 = (a1 + 3);
+  v20 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3, a1);
+  v21 = std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 6, a1 + 3);
   if (v20)
   {
     if (v21)
     {
-      v22 = *(a1 + 16);
+      v22 = *(a1 + 2);
       v23 = *a1;
       *a1 = *v19;
-      *(a1 + 16) = *(a1 + 64);
+      *(a1 + 2) = *(a1 + 8);
     }
 
     else
     {
-      v36 = *(a1 + 16);
+      v36 = *(a1 + 2);
       v37 = *a1;
       *a1 = *(a1 + 24);
-      *(a1 + 16) = *(a1 + 40);
+      *(a1 + 2) = *(a1 + 5);
       *(a1 + 24) = v37;
-      *(a1 + 40) = v36;
-      if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 48), (a1 + 24)))
+      *(a1 + 5) = v36;
+      if (!std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 6, a1 + 3))
       {
         goto LABEL_33;
       }
 
-      v22 = *(a1 + 40);
+      v22 = *(a1 + 5);
       v23 = *(a1 + 24);
       *(a1 + 24) = *v19;
-      *(a1 + 40) = *(a1 + 64);
+      *(a1 + 5) = *(a1 + 8);
     }
 
     *v19 = v23;
-    *(a1 + 64) = v22;
+    *(a1 + 8) = v22;
   }
 
   else if (v21)
   {
-    v29 = *(a1 + 40);
+    v29 = *(a1 + 5);
     v30 = *(a1 + 24);
     *(a1 + 24) = *v19;
-    *(a1 + 40) = *(a1 + 64);
+    *(a1 + 5) = *(a1 + 8);
     *v19 = v30;
-    *(a1 + 64) = v29;
-    if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>((a1 + 24), a1))
+    *(a1 + 8) = v29;
+    if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(a1 + 3, a1))
     {
-      v31 = *(a1 + 16);
+      v31 = *(a1 + 2);
       v32 = *a1;
       *a1 = *(a1 + 24);
-      *(a1 + 16) = *(a1 + 40);
+      *(a1 + 2) = *(a1 + 5);
       *(a1 + 24) = v32;
-      *(a1 + 40) = v31;
+      *(a1 + 5) = v31;
     }
   }
 
 LABEL_33:
-  v38 = a1 + 72;
-  if (a1 + 72 == a2)
+  v38 = (a1 + 72);
+  if ((a1 + 72) == a2)
   {
     return 1;
   }
@@ -8201,9 +6290,9 @@ LABEL_33:
     if (std::greater<void>::operator()[abi:ne200100]<std::string &,std::string &>(v38, v19))
     {
       v45 = *v38;
-      v46 = *(v38 + 16);
-      *(v38 + 8) = 0;
-      *(v38 + 16) = 0;
+      v46 = *(v38 + 2);
+      *(v38 + 1) = 0;
+      *(v38 + 2) = 0;
       *v38 = 0;
       v41 = v39;
       while (1)
@@ -8232,13 +6321,13 @@ LABEL_41:
       *(v43 + 16) = v46;
       if (++v40 == 8)
       {
-        return v38 + 24 == a2;
+        return (v38 + 24) == a2;
       }
     }
 
     v19 = v38;
     v39 += 24;
-    v38 += 24;
+    v38 = (v38 + 24);
     if (v38 == a2)
     {
       return 1;
@@ -8302,55 +6391,23 @@ void gnss::Exception::instanceDelete(gnss::Exception *this)
   }
 }
 
-void gnss::Exception::set(uint64_t *a1, int a2)
+void gnss::Exception::set(uint64_t *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *a1 | (1 << a2);
   *a1 = v3;
   v4 = GpsdLogObjectGeneral;
   if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136446722;
-    v7 = gnss::Exception::toString(a2);
-    v8 = 1026;
-    v9 = a2;
-    v10 = 2050;
-    v11 = v3;
-    _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEFAULT, "Exception::Type,set,type,%{public}s,%{public}d,%{public}llx", &v6, 0x1Cu);
+    v5 = 136446722;
+    v6 = gnss::Exception::toString(v2);
+    v7 = 1026;
+    v8 = v2;
+    v9 = 2050;
+    v10 = v3;
+    _os_log_impl(&dword_2454AA000, v4, OS_LOG_TYPE_DEFAULT, "Exception::Type,set,type,%{public}s,%{public}d,%{public}llx", &v5, 0x1Cu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-{
-  gnss::Exception::set(a1, a2);
-  if (!a1[4])
-  {
-    v3 = GpsdLogObjectGeneral;
-    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(v4) = 0;
-      _os_log_error_impl(&dword_2454AA000, v3, OS_LOG_TYPE_ERROR, "Exception::set,fSendIndication,nullptr", &v4, 2u);
-    }
-  }
-
-  v4 = &unk_285862178;
-  v5 = 0u;
-  v6 = 0u;
-  v7 = 0u;
-  v8 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0;
-  v13 = MEMORY[0x277D82C30];
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  memset(v17, 0, sizeof(v17));
-  LODWORD(v5) = 23;
-  v18 = 0x400100000000;
-  operator new();
 }
 
 const char *gnss::Exception::toString(int a1)
@@ -8366,7 +6423,39 @@ const char *gnss::Exception::toString(int a1)
   }
 }
 
-void gnss::stringify(int a1@<W0>, uint64_t a2@<X8>)
+void gnss::Exception::set(uint64_t *a1, uint64_t a2, int a3)
+{
+  gnss::Exception::set(a1, a2);
+  if (!a1[4])
+  {
+    v4 = GpsdLogObjectGeneral;
+    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v5) = 0;
+      _os_log_error_impl(&dword_2454AA000, v4, OS_LOG_TYPE_ERROR, "Exception::set,fSendIndication,nullptr", &v5, 2u);
+    }
+  }
+
+  v5 = &unk_285862178;
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0;
+  v14 = MEMORY[0x277D82C30];
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  memset(v18, 0, sizeof(v18));
+  LODWORD(v6) = 23;
+  v19 = 0x400100000000;
+  operator new();
+}
+
+void gnss::stringify(int a1@<W0>, void *a2@<X8>)
 {
   if (a1 <= 3)
   {
@@ -8435,7 +6524,7 @@ LABEL_23:
   std::to_string(&v6, a1);
   v4 = std::string::insert(&v6, 0, "unknown ");
   v5 = *&v4->__r_.__value_.__l.__data_;
-  *(a2 + 16) = *(&v4->__r_.__value_.__l + 2);
+  a2[2] = *(&v4->__r_.__value_.__l + 2);
   *a2 = v5;
   v4->__r_.__value_.__l.__size_ = 0;
   v4->__r_.__value_.__r.__words[2] = 0;
@@ -8492,18 +6581,18 @@ uint64_t gnss::MeasurementData::fillIsUsableFlag(gnss::MeasurementData *this)
 void gnss::deviceVersionCheck(gnss *this)
 {
   v1 = this;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   GnssDeviceVersion = getGnssDeviceVersion();
   v3 = GpsdLogObjectGeneral;
   v4 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
     *buf = 134349570;
-    v19 = 0x403911EB851EB852;
-    v20 = 2050;
-    *v21 = GnssDeviceVersion * 0.01;
-    *&v21[8] = 2080;
-    *&v21[10] = getVersionString();
+    v18 = 0x403911EB851EB852;
+    v19 = 2050;
+    *v20 = GnssDeviceVersion * 0.01;
+    *&v20[8] = 2080;
+    *&v20[10] = getVersionString();
     _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_DEFAULT, "#gdd,Local device version,%{public}.2f,Dylib device version,%{public}.2f,Dylib version string,%s", buf, 0x20u);
   }
 
@@ -8521,47 +6610,45 @@ void gnss::deviceVersionCheck(gnss *this)
       v11 = getGnssDeviceVersion();
       v12 = getVersionString();
       *buf = 134218498;
-      v19 = *&v10;
-      v20 = 2048;
-      *v21 = v11 * 0.01;
-      *&v21[8] = 2080;
-      *&v21[10] = v12;
+      v18 = *&v10;
+      v19 = 2048;
+      *v20 = v11 * 0.01;
+      *&v20[8] = 2080;
+      *&v20[10] = v12;
       _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEFAULT, "[%5.1f][TOOL] gnss::Device version %.2f, %s", buf, 0x20u);
     }
   }
 
   if (GnssDeviceVersion != 2507)
   {
-    v14 = GpsdLogObjectGeneral;
+    v13 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2454AA000, v14, OS_LOG_TYPE_ERROR, "gnss::Device version mismatch", buf, 2u);
-      v14 = GpsdLogObjectGeneral;
+      _os_log_error_impl(&dword_2454AA000, v13, OS_LOG_TYPE_ERROR, "gnss::Device version mismatch", buf, 2u);
+      v13 = GpsdLogObjectGeneral;
     }
 
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v19 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdUtil.cpp";
-      v20 = 1026;
-      *v21 = 83;
-      *&v21[4] = 2082;
-      *&v21[6] = "deviceVersionCheck";
-      _os_log_error_impl(&dword_2454AA000, v14, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      v18 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdUtil.cpp";
+      v19 = 1026;
+      *v20 = 83;
+      *&v20[4] = 2082;
+      *&v20[6] = "deviceVersionCheck";
+      _os_log_error_impl(&dword_2454AA000, v13, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v17, "assert");
-    std::string::basic_string[abi:ne200100]<0>(&v16, "deviceVersionCheck");
-    std::string::basic_string[abi:ne200100]<0>(&v15, "gnss::Device version mismatch");
-    gpsd::util::triggerDiagnosticReport(&v17, &v16, &v15);
+    std::string::basic_string[abi:ne200100]<0>(&v16, "assert");
+    std::string::basic_string[abi:ne200100]<0>(&v15, "deviceVersionCheck");
+    std::string::basic_string[abi:ne200100]<0>(&v14, "gnss::Device version mismatch");
+    gpsd::util::triggerDiagnosticReport(&v16, &v15, &v14);
+    std::string::~string(&v14);
     std::string::~string(&v15);
     std::string::~string(&v16);
-    std::string::~string(&v17);
     __assert_rtn("deviceVersionCheck", "GpsdUtil.cpp", 83, "false && gnss::Device version mismatch");
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24556E8F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -8613,7 +6700,7 @@ uint64_t calculateGcd(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-unint64_t gpsd::util::getMachContinuousTimeNs(gpsd::util *this)
+uint64_t gpsd::util::getMachContinuousTimeNs(gpsd::util *this)
 {
   {
     getTickToNsInfo();
@@ -8631,7 +6718,7 @@ unint64_t gpsd::util::getMachContinuousTimeNs(gpsd::util *this)
 
 void getTickToNsInfo(void)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!getTickToNsInfo(void)::info)
   {
     mach_timebase_info(&info);
@@ -8654,32 +6741,32 @@ void getTickToNsInfo(void)
       v2 = info.numer;
       if (!info.numer)
       {
-        v8 = GpsdLogObjectGeneral;
+        v7 = GpsdLogObjectGeneral;
         if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, "gcd result is zero", buf, 2u);
-          v8 = GpsdLogObjectGeneral;
+          _os_log_error_impl(&dword_2454AA000, v7, OS_LOG_TYPE_ERROR, "gcd result is zero", buf, 2u);
+          v7 = GpsdLogObjectGeneral;
         }
 
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446722;
-          v22 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdUtil.cpp";
-          v23 = 1026;
-          *v24 = 110;
-          *&v24[4] = 2082;
-          *&v24[6] = "getTickToNsInfo";
-          _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+          v21 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdUtil.cpp";
+          v22 = 1026;
+          *v23 = 110;
+          *&v23[4] = 2082;
+          *&v23[6] = "getTickToNsInfo";
+          _os_log_error_impl(&dword_2454AA000, v7, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v19, "assert");
-        std::string::basic_string[abi:ne200100]<0>(&v18, "getTickToNsInfo");
-        std::string::basic_string[abi:ne200100]<0>(&v17, "gcd result is zero");
-        gpsd::util::triggerDiagnosticReport(&v19, &v18, &v17);
+        std::string::basic_string[abi:ne200100]<0>(&v18, "assert");
+        std::string::basic_string[abi:ne200100]<0>(&v17, "getTickToNsInfo");
+        std::string::basic_string[abi:ne200100]<0>(&v16, "gcd result is zero");
+        gpsd::util::triggerDiagnosticReport(&v18, &v17, &v16);
+        std::string::~string(&v16);
         std::string::~string(&v17);
         std::string::~string(&v18);
-        std::string::~string(&v19);
         __assert_rtn("getTickToNsInfo", "GpsdUtil.cpp", 110, "false && gcd result is zero");
       }
     }
@@ -8688,63 +6775,63 @@ void getTickToNsInfo(void)
     getTickToNsInfo(void)::info = info.numer / v2;
     if (v2 > info.denom)
     {
+      v8 = GpsdLogObjectGeneral;
+      if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, "info.denominator is zero", buf, 2u);
+        v8 = GpsdLogObjectGeneral;
+      }
+
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136446722;
+        v21 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdUtil.cpp";
+        v22 = 1026;
+        *v23 = 113;
+        *&v23[4] = 2082;
+        *&v23[6] = "getTickToNsInfo";
+        _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(&v15, "assert");
+      std::string::basic_string[abi:ne200100]<0>(&v14, "getTickToNsInfo");
+      std::string::basic_string[abi:ne200100]<0>(&v13, "info.denominator is zero");
+      gpsd::util::triggerDiagnosticReport(&v15, &v14, &v13);
+      std::string::~string(&v13);
+      std::string::~string(&v14);
+      std::string::~string(&v15);
+      __assert_rtn("getTickToNsInfo", "GpsdUtil.cpp", 113, "false && info.denominator is zero");
+    }
+
+    if (v2 > info.numer)
+    {
       v9 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "info.denominator is zero", buf, 2u);
+        _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "info.numerator is zero", buf, 2u);
         v9 = GpsdLogObjectGeneral;
       }
 
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v22 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdUtil.cpp";
-        v23 = 1026;
-        *v24 = 113;
-        *&v24[4] = 2082;
-        *&v24[6] = "getTickToNsInfo";
+        v21 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdUtil.cpp";
+        v22 = 1026;
+        *v23 = 114;
+        *&v23[4] = 2082;
+        *&v23[6] = "getTickToNsInfo";
         _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v16, "assert");
-      std::string::basic_string[abi:ne200100]<0>(&v15, "getTickToNsInfo");
-      std::string::basic_string[abi:ne200100]<0>(&v14, "info.denominator is zero");
-      gpsd::util::triggerDiagnosticReport(&v16, &v15, &v14);
-      std::string::~string(&v14);
-      std::string::~string(&v15);
-      std::string::~string(&v16);
-      __assert_rtn("getTickToNsInfo", "GpsdUtil.cpp", 113, "false && info.denominator is zero");
-    }
-
-    if (v2 > info.numer)
-    {
-      v10 = GpsdLogObjectGeneral;
-      if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 0;
-        _os_log_error_impl(&dword_2454AA000, v10, OS_LOG_TYPE_ERROR, "info.numerator is zero", buf, 2u);
-        v10 = GpsdLogObjectGeneral;
-      }
-
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136446722;
-        v22 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdUtil.cpp";
-        v23 = 1026;
-        *v24 = 114;
-        *&v24[4] = 2082;
-        *&v24[6] = "getTickToNsInfo";
-        _os_log_error_impl(&dword_2454AA000, v10, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(&v13, "assert");
-      std::string::basic_string[abi:ne200100]<0>(&v12, "getTickToNsInfo");
-      std::string::basic_string[abi:ne200100]<0>(&v11, "info.numerator is zero");
-      gpsd::util::triggerDiagnosticReport(&v13, &v12, &v11);
+      std::string::basic_string[abi:ne200100]<0>(&v12, "assert");
+      std::string::basic_string[abi:ne200100]<0>(&v11, "getTickToNsInfo");
+      std::string::basic_string[abi:ne200100]<0>(&v10, "info.numerator is zero");
+      gpsd::util::triggerDiagnosticReport(&v12, &v11, &v10);
+      std::string::~string(&v10);
       std::string::~string(&v11);
       std::string::~string(&v12);
-      std::string::~string(&v13);
       __assert_rtn("getTickToNsInfo", "GpsdUtil.cpp", 114, "false && info.numerator is zero");
     }
 
@@ -8774,25 +6861,23 @@ void getTickToNsInfo(void)
     {
       if (getTickToNsInfo(void)::info)
       {
-        v7 = 8;
+        v6 = 8;
       }
 
       else
       {
-        v7 = 0;
+        v6 = 0;
       }
 
       *buf = 134349568;
-      v22 = getTickToNsInfo(void)::info;
-      v23 = 2050;
-      *v24 = getTickToNsInfo(void)::info;
-      *&v24[8] = 1026;
-      *&v24[10] = v7;
+      v21 = getTickToNsInfo(void)::info;
+      v22 = 2050;
+      *v23 = getTickToNsInfo(void)::info;
+      *&v23[8] = 1026;
+      *&v23[10] = v6;
       _os_log_debug_impl(&dword_2454AA000, v5, OS_LOG_TYPE_DEBUG, "#gpsdUtil,Tick to ns info,Numerator,%{public}llu,Denominator,%{public}llu,PrecisionReductionBits,%{public}d", buf, 0x1Cu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_24556EFEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, char a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50)
@@ -8828,7 +6913,7 @@ uint64_t gpsd::util::getMachContinuousTimeMs(gpsd::util *this)
 
 void getTickToMsInfo(void)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!qword_27EE14DB0)
   {
     if ((atomic_load_explicit(&qword_27EE14DB8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27EE14DB8))
@@ -8843,47 +6928,45 @@ void getTickToMsInfo(void)
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134349056;
-      v8 = v0;
+      v7 = v0;
       _os_log_impl(&dword_2454AA000, v1, OS_LOG_TYPE_DEFAULT, "getTickToMsInfo,denominator,%{public}llu", buf, 0xCu);
       v0 = qword_27EE14DB0;
     }
 
     if (!v0)
     {
-      v3 = GpsdLogObjectGeneral;
+      v2 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_2454AA000, v3, OS_LOG_TYPE_ERROR, "getTickToMsInfo,Cannot get ms from this platform", buf, 2u);
-        v3 = GpsdLogObjectGeneral;
+        _os_log_error_impl(&dword_2454AA000, v2, OS_LOG_TYPE_ERROR, "getTickToMsInfo,Cannot get ms from this platform", buf, 2u);
+        v2 = GpsdLogObjectGeneral;
       }
 
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446722;
-        v8 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdUtil.cpp";
-        v9 = 1026;
-        v10 = 152;
-        v11 = 2082;
-        v12 = "getTickToMsInfo";
-        _os_log_error_impl(&dword_2454AA000, v3, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+        v7 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdUtil.cpp";
+        v8 = 1026;
+        v9 = 152;
+        v10 = 2082;
+        v11 = "getTickToMsInfo";
+        _os_log_error_impl(&dword_2454AA000, v2, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v6, "assert");
-      std::string::basic_string[abi:ne200100]<0>(&v5, "getTickToMsInfo");
-      std::string::basic_string[abi:ne200100]<0>(&v4, "getTickToMsInfo,Cannot get ms from this platform");
-      gpsd::util::triggerDiagnosticReport(&v6, &v5, &v4);
+      std::string::basic_string[abi:ne200100]<0>(&v5, "assert");
+      std::string::basic_string[abi:ne200100]<0>(&v4, "getTickToMsInfo");
+      std::string::basic_string[abi:ne200100]<0>(&v3, "getTickToMsInfo,Cannot get ms from this platform");
+      gpsd::util::triggerDiagnosticReport(&v5, &v4, &v3);
+      std::string::~string(&v3);
       std::string::~string(&v4);
       std::string::~string(&v5);
-      std::string::~string(&v6);
       __assert_rtn("getTickToMsInfo", "GpsdUtil.cpp", 152, "false && getTickToMsInfo,Cannot get ms from this platform");
     }
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-unint64_t gpsd::util::getMachAbsoluteTimeNs(gpsd::util *this)
+uint64_t gpsd::util::getMachAbsoluteTimeNs(gpsd::util *this)
 {
   {
     getTickToNsInfo();
@@ -8931,7 +7014,7 @@ unint64_t gpsd::util::convertNsToMachTimeInTicks(unint64_t this)
 
 BOOL gpsd::util::getCurrentMachContinuousMinusMachAbsoluteTicks(gpsd::util *this, unint64_t *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (mach_get_times())
   {
     v3 = GpsdLogObjectGeneral;
@@ -8940,17 +7023,16 @@ BOOL gpsd::util::getCurrentMachContinuousMinusMachAbsoluteTicks(gpsd::util *this
     {
       *buf = 0;
       _os_log_error_impl(&dword_2454AA000, v3, OS_LOG_TYPE_ERROR, "#gpsdUtil,mach_get_times failed", buf, 2u);
-      result = 0;
+      return 0;
     }
   }
 
   else
   {
     *this = 0;
-    result = 1;
+    return 1;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9063,11 +7145,30 @@ uint64_t gpsd::util::fletcher16(unsigned __int8 *a1)
   return (v4 | (v3 << 8));
 }
 
-uint64_t gpsd::util::truncatedSha256(uint64_t a1)
+uint64_t gpsd::util::truncatedSha256(gpsd::util *this, const void *a2)
 {
-  return gpsd::util::truncatedSha256(*a1, (*(a1 + 8) - *a1));
+  v11 = *MEMORY[0x277D85DE8];
+  if (CC_SHA256(this, a2, md))
+  {
+    return bswap32(*md);
+  }
+
+  v5 = GpsdLogObjectGeneral;
+  result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
+  if (result)
+  {
+    v6 = 134349312;
+    v7 = this;
+    v8 = 2050;
+    v9 = a2;
+    _os_log_error_impl(&dword_2454AA000, v5, OS_LOG_TYPE_ERROR, "#gpsdUtil,CC_SHA256 failed on,%{public}p,%{public}zu", &v6, 0x16u);
+    return 0;
+  }
+
+  return result;
 }
 
+uint64_t gpsd::util::truncatedSha256(uint64_t a1)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -9080,44 +7181,17 @@ uint64_t gpsd::util::truncatedSha256(uint64_t a1)
   }
 }
 
-uint64_t gpsd::util::truncatedSha256(gpsd::util *this, const void *a2)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  if (CC_SHA256(this, a2, md))
-  {
-    result = bswap32(*md);
-  }
-
-  else
-  {
-    v5 = GpsdLogObjectGeneral;
-    result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
-    if (result)
-    {
-      v7 = 134349312;
-      v8 = this;
-      v9 = 2050;
-      v10 = a2;
-      _os_log_error_impl(&dword_2454AA000, v5, OS_LOG_TYPE_ERROR, "#gpsdUtil,CC_SHA256 failed on,%{public}p,%{public}zu", &v7, 0x16u);
-      result = 0;
-    }
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
 BOOL gpsd::util::readFileIntoVector(uint64_t a1, uint64_t a2)
 {
-  v22[19] = *MEMORY[0x277D85DE8];
-  std::ifstream::basic_ifstream(v19);
-  v4 = v21;
-  if (v21)
+  v20[19] = *MEMORY[0x277D85DE8];
+  std::ifstream::basic_ifstream(v17, a1, 4);
+  v4 = v19;
+  if (v19)
   {
-    v5 = *&v20[*(v19[0] - 24) + 24];
+    v5 = *&v18[*(v17[0] - 24) + 24];
     if (v5)
     {
-      v14 = v21;
+      v12 = v19;
       v6 = v5[3];
       v7 = v5[4];
       if (v6 != v7)
@@ -9135,82 +7209,76 @@ LABEL_6:
           (*(*v5 + 72))(v5);
         }
 
-        else
-        {
-          v8 = *v6;
-        }
-
         operator new();
       }
 
-      v4 = v14;
+      v4 = v12;
     }
 
-    v10 = *a2;
+    v9 = *a2;
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v11 = GpsdLogObjectGeneral;
+    v10 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136446466;
-      v16 = a1;
-      v17 = 2050;
-      v18 = 0;
-      _os_log_debug_impl(&dword_2454AA000, v11, OS_LOG_TYPE_DEBUG, "readFileIntoVector,%{public}s,size,%{public}zu", buf, 0x16u);
-      if (!v10)
+      v14 = a1;
+      v15 = 2050;
+      v16 = 0;
+      _os_log_debug_impl(&dword_2454AA000, v10, OS_LOG_TYPE_DEBUG, "readFileIntoVector,%{public}s,size,%{public}zu", buf, 0x16u);
+      if (!v9)
       {
-        goto LABEL_16;
+        goto LABEL_15;
       }
 
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
-    if (v10)
+    if (v9)
     {
-LABEL_15:
-      operator delete(v10);
+LABEL_14:
+      operator delete(v9);
     }
   }
 
   else
   {
-    v9 = GpsdLogObjectGeneral;
+    v8 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v16 = a1;
-      _os_log_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEFAULT, "readFileIntoVector,failed to open %{public}s", buf, 0xCu);
+      v14 = a1;
+      _os_log_impl(&dword_2454AA000, v8, OS_LOG_TYPE_DEFAULT, "readFileIntoVector,failed to open %{public}s", buf, 0xCu);
     }
   }
 
-LABEL_16:
-  v19[0] = *MEMORY[0x277D82808];
-  *(v19 + *(v19[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-  MEMORY[0x245D6AC50](v20);
+LABEL_15:
+  v17[0] = *MEMORY[0x277D82808];
+  *(v17 + *(v17[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+  MEMORY[0x245D6AC50](v18);
   std::istream::~istream();
-  MEMORY[0x245D6AE70](v22);
-  v12 = *MEMORY[0x277D85DE8];
+  MEMORY[0x245D6AE70](v20);
   return v4 != 0;
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t a2, int a3)
 {
   a1[59] = 0;
-  v2 = MEMORY[0x277D82858] + 64;
+  v4 = MEMORY[0x277D82858] + 64;
   a1[53] = MEMORY[0x277D82858] + 64;
-  v3 = *(MEMORY[0x277D82808] + 16);
-  v4 = *(MEMORY[0x277D82808] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x277D82858] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x277D82808] + 16);
+  v6 = *(MEMORY[0x277D82808] + 8);
   *a1 = v6;
-  a1[53] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  a1[1] = 0;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 2);
+  v8 = MEMORY[0x277D82858] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[53] = v4;
   MEMORY[0x245D6AC40](a1 + 2);
   if (!std::filebuf::open())
   {
@@ -9230,7 +7298,7 @@ void sub_24556FF00(_Unwind_Exception *a1)
 uint64_t gpsd::util::writeVectorToClassDFileWithRename(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) >= 0)
   {
     v4 = *(a2 + 23);
@@ -9243,7 +7311,7 @@ uint64_t gpsd::util::writeVectorToClassDFileWithRename(uint64_t a1, uint64_t a2)
 
   v5 = __p;
   std::string::basic_string[abi:ne200100](__p, v4 + 4);
-  if (v20 < 0)
+  if (v19 < 0)
   {
     v5 = __p[0];
   }
@@ -9269,7 +7337,7 @@ uint64_t gpsd::util::writeVectorToClassDFileWithRename(uint64_t a1, uint64_t a2)
     goto LABEL_20;
   }
 
-  if (v20 >= 0)
+  if (v19 >= 0)
   {
     v8 = __p;
   }
@@ -9300,15 +7368,15 @@ uint64_t gpsd::util::writeVectorToClassDFileWithRename(uint64_t a1, uint64_t a2)
         v2 = *v2;
       }
 
-      v15 = *__error();
-      v16 = __error();
-      v17 = strerror(*v16);
+      v14 = *__error();
+      v15 = __error();
+      v16 = strerror(*v15);
       *buf = 136446722;
-      v22 = v2;
-      v23 = 1026;
-      v24 = v15;
-      v25 = 2082;
-      v26 = v17;
+      v21 = v2;
+      v22 = 1026;
+      v23 = v14;
+      v24 = 2082;
+      v25 = v16;
       _os_log_error_impl(&dword_2454AA000, v10, OS_LOG_TYPE_ERROR, "writeVectorToClassDFileWithRename,renameFailed,%{public}s,err,%{public}d,%{public}s", buf, 0x1Cu);
     }
 
@@ -9321,27 +7389,26 @@ LABEL_20:
   {
     if (*(v2 + 23) >= 0)
     {
-      v18 = v2;
+      v17 = v2;
     }
 
     else
     {
-      v18 = *v2;
+      v17 = *v2;
     }
 
     *buf = 136446210;
-    v22 = v18;
+    v21 = v17;
     _os_log_debug_impl(&dword_2454AA000, v10, OS_LOG_TYPE_DEBUG, "writeVectorToClassDFileWithRename,success,%{public}s", buf, 0xCu);
   }
 
   v12 = 1;
 LABEL_21:
-  if (v20 < 0)
+  if (v19 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -9357,7 +7424,7 @@ void sub_245570148(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL gpsd::util::writeVectorToClassDFile(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) >= 0)
   {
     v3 = a2;
@@ -9374,16 +7441,14 @@ BOOL gpsd::util::writeVectorToClassDFile(uint64_t a1, uint64_t a2)
     v10 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      v15 = *__error();
-      v17 = 67240192;
-      v18 = v15;
+      v14 = *__error();
+      v16 = 67240192;
+      v17 = v14;
       v12 = "#utilWriteVector,open failed,%{public}d";
       goto LABEL_15;
     }
 
-LABEL_12:
-    v8 = 0;
-    goto LABEL_13;
+    return 0;
   }
 
   v6 = v4;
@@ -9395,10 +7460,10 @@ LABEL_12:
     v9 = GpsdLogObjectGeneral;
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
-      v16 = *__error();
-      v17 = 67240192;
-      v18 = v16;
-      _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "#utilWriteVector,write failed,%{public}d", &v17, 8u);
+      v15 = *__error();
+      v16 = 67240192;
+      v17 = v15;
+      _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "#utilWriteVector,write failed,%{public}d", &v16, 8u);
     }
   }
 
@@ -9408,25 +7473,23 @@ LABEL_12:
     if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
     {
       v11 = *__error();
-      v17 = 67240192;
-      v18 = v11;
+      v16 = 67240192;
+      v17 = v11;
       v12 = "#utilWriteVector,close failed,%{public}d";
 LABEL_15:
-      _os_log_error_impl(&dword_2454AA000, v10, OS_LOG_TYPE_ERROR, v12, &v17, 8u);
-      goto LABEL_12;
+      _os_log_error_impl(&dword_2454AA000, v10, OS_LOG_TYPE_ERROR, v12, &v16, 8u);
+      return 0;
     }
 
-    goto LABEL_12;
+    return 0;
   }
 
-LABEL_13:
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 void gpsd::util::changeFileToClassD(FILE *this, __sFILE *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (this)
   {
     v2 = fileno(this);
@@ -9435,9 +7498,9 @@ void gpsd::util::changeFileToClassD(FILE *this, __sFILE *a2)
       v4 = GpsdLogObjectGeneral;
       if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
       {
-        v11 = *__error();
+        v10 = *__error();
         *buf = 67240192;
-        v13 = v11;
+        v12 = v10;
         v6 = "#utilFileClass,fileno failed,%{public}d";
         goto LABEL_12;
       }
@@ -9455,7 +7518,7 @@ void gpsd::util::changeFileToClassD(FILE *this, __sFILE *a2)
           {
             v5 = *__error();
             *buf = 67240192;
-            v13 = v5;
+            v12 = v5;
             v6 = "#utilFileClass,set class failed,%{public}d";
 LABEL_12:
             v8 = v4;
@@ -9480,8 +7543,6 @@ LABEL_13:
       _os_log_error_impl(&dword_2454AA000, v8, OS_LOG_TYPE_ERROR, v6, buf, v9);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 char *gpsd::util::getGpsWeekFromBuildDate(gpsd::util *this)
@@ -9511,35 +7572,34 @@ char *gpsd::util::getGpsWeekFromBuildDate(gpsd::util *this)
   return result;
 }
 
-void gpsd::util::charToHex(gpsd::util *this@<X0>, const unsigned __int8 *a2@<X1>, int __c@<W2>, std::string *a4@<X8>)
+void gpsd::util::charToHex(std::string *__return_ptr a1@<X8>, gpsd::util *this@<X0>, const unsigned __int8 *a3@<X1>, int __c@<W2>)
 {
-  if (a2)
+  if (a3)
   {
     v8 = 0;
-    a4->__r_.__value_.__r.__words[0] = 0;
-    a4->__r_.__value_.__l.__size_ = 0;
-    a4->__r_.__value_.__r.__words[2] = 0;
+    *&a1->__r_.__value_.__l.__data_ = 0uLL;
+    a1->__r_.__value_.__r.__words[2] = 0;
     do
     {
       if (__c)
       {
         if (v8)
         {
-          std::string::push_back(a4, __c);
+          std::string::push_back(a1, __c);
         }
       }
 
-      std::string::push_back(a4, __const__ZN4gpsd4util9charToHexEPKhmc_charmap[v8[this] >> 4]);
-      std::string::push_back(a4, __const__ZN4gpsd4util9charToHexEPKhmc_charmap[(v8++)[this] & 0xF]);
+      std::string::push_back(a1, __const__ZN4gpsd4util9charToHexEPKhmc_charmap[v8[this] >> 4]);
+      std::string::push_back(a1, __const__ZN4gpsd4util9charToHexEPKhmc_charmap[(v8++)[this] & 0xF]);
     }
 
-    while (a2 != v8);
+    while (a3 != v8);
   }
 
   else
   {
 
-    std::string::basic_string[abi:ne200100]<0>(a4, "EmptyBuffer");
+    std::string::basic_string[abi:ne200100]<0>(a1, "EmptyBuffer");
   }
 }
 
@@ -9560,12 +7620,12 @@ void gpsd::util::charToHex(gpsd::util *this@<X0>, const unsigned __int8 *a2@<X1>
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  gpsd::util::charToHex(this, a2, a3, a4);
+  gpsd::util::charToHex(a4, this, a2, a3);
 }
 
 void gpsd::util::logBinaryBytes(gpsd::util *this, const unsigned __int8 *a2, uint64_t a3, const char *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v7 = 0;
@@ -9585,7 +7645,7 @@ void gpsd::util::logBinaryBytes(gpsd::util *this, const unsigned __int8 *a2, uin
           v10 = v8;
         }
 
-        gpsd::util::charToHex((this + v7), v10, 0, &__p);
+        gpsd::util::charToHex(&__p, (this + v7), v10, 0);
         p_p = &__p;
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
@@ -9593,13 +7653,13 @@ void gpsd::util::logBinaryBytes(gpsd::util *this, const unsigned __int8 *a2, uin
         }
 
         *buf = 136446979;
-        v15 = a3;
-        v16 = 2050;
-        v17 = a2;
-        v18 = 2050;
-        v19 = v7;
-        v20 = 2081;
-        v21 = p_p;
+        v14 = a3;
+        v15 = 2050;
+        v16 = a2;
+        v17 = 2050;
+        v18 = v7;
+        v19 = 2081;
+        v20 = p_p;
         _os_log_debug_impl(&dword_2454AA000, v9, OS_LOG_TYPE_DEBUG, "%{public}s,%{public}zu,%{public}zu,%{private}s", buf, 0x2Au);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -9613,8 +7673,6 @@ void gpsd::util::logBinaryBytes(gpsd::util *this, const unsigned __int8 *a2, uin
 
     while (v7 < a2);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id vectorToNSArray(double **a1)
@@ -9640,7 +7698,7 @@ id vectorToNSArray(double **a1)
 
 _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
 {
-  v73[77] = *MEMORY[0x277D85DE8];
+  v72[77] = *MEMORY[0x277D85DE8];
   *a1 = a2;
   v3 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v4 = fDefaults;
@@ -9653,11 +7711,11 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
 
   [fDefaults addSuiteNamed:@"com.apple.coregps"];
   v5 = MEMORY[0x277CBEC28];
-  v72[0] = @"ForceDisableGpsd";
-  v72[1] = @"UseLegacyLibXpc";
-  v73[0] = MEMORY[0x277CBEC28];
-  v73[1] = MEMORY[0x277CBEC28];
-  v72[2] = @"BigPowerSwitch";
+  v71[0] = @"ForceDisableGpsd";
+  v71[1] = @"UseLegacyLibXpc";
+  v72[0] = MEMORY[0x277CBEC28];
+  v72[1] = MEMORY[0x277CBEC28];
+  v71[2] = @"BigPowerSwitch";
   v6 = GpsdPlatformInfo::instance(0);
   v7 = MEMORY[0x277CBEC38];
   if (*(v6 + 8) == 201)
@@ -9670,8 +7728,8 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
     v8 = v5;
   }
 
-  v73[2] = v8;
-  v72[3] = @"BaudRate4M8";
+  v72[2] = v8;
+  v71[3] = @"BaudRate4M8";
   if (*(GpsdPlatformInfo::instance(0) + 8) == 201)
   {
     v9 = v7;
@@ -9682,26 +7740,26 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
     v9 = v5;
   }
 
-  v73[3] = v9;
-  v72[4] = @"UsesAsyncCommRead";
+  v72[3] = v9;
+  v71[4] = @"UsesAsyncCommRead";
   v10 = *(GpsdPlatformInfo::instance(0) + 8);
   if ((v10 - 301) < 2 || v10 == 202 || (v11 = v5, v10 == 107))
   {
     v11 = MEMORY[0x277CBEC38];
   }
 
-  v73[4] = v11;
-  v73[5] = &stru_285865850;
-  v72[5] = @"ForceGnssDeviceLibraryName";
-  v72[6] = @"EnableMeasurementApi";
-  v73[6] = v7;
-  v73[7] = v7;
-  v72[7] = @"EnableXocalRequests";
-  v72[8] = @"ForceEnableXocalLearning";
-  v73[8] = v5;
-  v73[9] = &unk_285865C30;
-  v72[9] = @"MaxSchedulerQos";
-  v72[10] = @"EnableBasebandReset";
+  v72[4] = v11;
+  v72[5] = &stru_285865850;
+  v71[5] = @"ForceGnssDeviceLibraryName";
+  v71[6] = @"EnableMeasurementApi";
+  v72[6] = v7;
+  v72[7] = v7;
+  v71[7] = @"EnableXocalRequests";
+  v71[8] = @"ForceEnableXocalLearning";
+  v72[8] = v5;
+  v72[9] = &unk_285865C30;
+  v71[9] = @"MaxSchedulerQos";
+  v71[10] = @"EnableBasebandReset";
   v12 = *(GpsdPlatformInfo::instance(0) + 8);
   if ((v12 - 301) < 2 || (v13 = v5, v12 == 202))
   {
@@ -9716,86 +7774,86 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
     }
   }
 
-  v73[10] = v13;
-  v72[11] = @"LogLevel";
+  v72[10] = v13;
+  v71[11] = @"LogLevel";
   v14 = [MEMORY[0x277CCABB0] numberWithInt:0];
-  v73[11] = v14;
-  v72[12] = @"SecondaryLogLevel";
+  v72[11] = v14;
+  v71[12] = @"SecondaryLogLevel";
   v15 = [MEMORY[0x277CCABB0] numberWithInt:0];
-  v73[12] = v15;
-  v73[13] = &unk_285865C48;
-  v72[13] = @"LogMask";
-  v72[14] = @"PvtmTimeOut";
-  v73[14] = &unk_285865C60;
-  v73[15] = @"0x0";
-  v72[15] = @"NmeaMaskOverride";
-  v72[16] = @"VendorLogQA";
-  v73[16] = v5;
-  v73[17] = v5;
-  v72[17] = @"VendorLogRestrictedCarry";
-  v72[18] = @"VendorLogAllToOsLog";
-  v73[18] = v5;
-  v73[19] = v5;
-  v72[19] = @"VendorLogForceCustomer";
-  v72[20] = @"VendorLogLz4";
-  v73[20] = v7;
-  v73[21] = v5;
-  v72[21] = @"VendorLogLzfse";
-  v72[22] = @"VendorLogZlib";
-  v73[22] = v5;
-  v73[23] = @"/var/mobile/Library/Logs/gpsd";
-  v72[23] = @"VendorLogDirectory";
-  v72[24] = @"VendorLogPrefixWithTimestamp";
-  v73[24] = v5;
-  v73[25] = &unk_285865C78;
-  v72[25] = @"VendorLogMaxDirectorySizeMB";
-  v72[26] = @"VendorLogRotationSizeMB";
-  v73[26] = &unk_285865C90;
-  v73[27] = &unk_285865CA8;
-  v72[27] = @"VendorLogMaxNumberOfFiles";
-  v72[28] = @"VendorLogRetentionDays";
-  v73[28] = &unk_285865D08;
-  v73[29] = &unk_285865CC0;
-  v72[29] = @"VendorLogBufferSizeAllowedKB";
-  v72[30] = @"EnableProtobufBinaryLog";
-  v73[30] = v5;
-  v73[31] = @"/var/mobile/Library/Logs/gpsd";
-  v72[31] = @"ProtobufLogDirectory";
-  v72[32] = @"ProtobufLogRetentionDays";
-  v73[32] = &unk_285865D18;
-  v73[33] = v5;
-  v72[33] = @"EnableInterfaceTelemetry";
-  v72[34] = @"NvStoreFile";
-  v73[34] = @"/var/db/gpsd/gps_nvstore.bin";
-  v73[35] = @"/var/db/gpsd/longTermPredictions";
-  v72[35] = @"LongTermPredictionsFile";
-  v72[36] = @"ShortTermPredictionsFile";
-  v73[36] = @"/var/db/gpsd/shortTermPredictions";
-  v73[37] = @"/var/db/gpsd/rtistore";
-  v72[37] = @"RTIFile";
-  v72[38] = @"RavenOrbitFile";
-  v73[38] = @"/var/db/gpsd/ravenorbitstore";
-  v73[39] = v5;
-  v72[39] = @"VerboseNvStore";
-  v72[40] = @"VerboseCommDataSize";
-  v73[40] = v5;
-  v73[41] = v5;
-  v72[41] = @"VerboseCommDataSniffer";
-  v72[42] = @"PerformanceReportIntervalSeconds";
-  v73[42] = &unk_285865C60;
-  v73[43] = &unk_285865C48;
-  v72[43] = @"RecoveryTestCase";
-  v72[44] = @"GenericTestCase";
-  v73[44] = &unk_285865C48;
-  v73[45] = v7;
-  v72[45] = @"EnableGps";
-  v72[46] = @"EnableQzss";
-  v73[46] = v7;
-  v73[47] = v7;
-  v72[47] = @"EnableGlonass";
-  v72[48] = @"EnableGalileo";
-  v73[48] = v7;
-  v72[49] = @"EnableBeidou";
+  v72[12] = v15;
+  v72[13] = &unk_285865C48;
+  v71[13] = @"LogMask";
+  v71[14] = @"PvtmTimeOut";
+  v72[14] = &unk_285865C60;
+  v72[15] = @"0x0";
+  v71[15] = @"NmeaMaskOverride";
+  v71[16] = @"VendorLogQA";
+  v72[16] = v5;
+  v72[17] = v5;
+  v71[17] = @"VendorLogRestrictedCarry";
+  v71[18] = @"VendorLogAllToOsLog";
+  v72[18] = v5;
+  v72[19] = v5;
+  v71[19] = @"VendorLogForceCustomer";
+  v71[20] = @"VendorLogLz4";
+  v72[20] = v7;
+  v72[21] = v5;
+  v71[21] = @"VendorLogLzfse";
+  v71[22] = @"VendorLogZlib";
+  v72[22] = v5;
+  v72[23] = @"/var/mobile/Library/Logs/gpsd";
+  v71[23] = @"VendorLogDirectory";
+  v71[24] = @"VendorLogPrefixWithTimestamp";
+  v72[24] = v5;
+  v72[25] = &unk_285865C78;
+  v71[25] = @"VendorLogMaxDirectorySizeMB";
+  v71[26] = @"VendorLogRotationSizeMB";
+  v72[26] = &unk_285865C90;
+  v72[27] = &unk_285865CA8;
+  v71[27] = @"VendorLogMaxNumberOfFiles";
+  v71[28] = @"VendorLogRetentionDays";
+  v72[28] = &unk_285865D08;
+  v72[29] = &unk_285865CC0;
+  v71[29] = @"VendorLogBufferSizeAllowedKB";
+  v71[30] = @"EnableProtobufBinaryLog";
+  v72[30] = v5;
+  v72[31] = @"/var/mobile/Library/Logs/gpsd";
+  v71[31] = @"ProtobufLogDirectory";
+  v71[32] = @"ProtobufLogRetentionDays";
+  v72[32] = &unk_285865D18;
+  v72[33] = v5;
+  v71[33] = @"EnableInterfaceTelemetry";
+  v71[34] = @"NvStoreFile";
+  v72[34] = @"/var/db/gpsd/gps_nvstore.bin";
+  v72[35] = @"/var/db/gpsd/longTermPredictions";
+  v71[35] = @"LongTermPredictionsFile";
+  v71[36] = @"ShortTermPredictionsFile";
+  v72[36] = @"/var/db/gpsd/shortTermPredictions";
+  v72[37] = @"/var/db/gpsd/rtistore";
+  v71[37] = @"RTIFile";
+  v71[38] = @"RavenOrbitFile";
+  v72[38] = @"/var/db/gpsd/ravenorbitstore";
+  v72[39] = v5;
+  v71[39] = @"VerboseNvStore";
+  v71[40] = @"VerboseCommDataSize";
+  v72[40] = v5;
+  v72[41] = v5;
+  v71[41] = @"VerboseCommDataSniffer";
+  v71[42] = @"PerformanceReportIntervalSeconds";
+  v72[42] = &unk_285865C60;
+  v72[43] = &unk_285865C48;
+  v71[43] = @"RecoveryTestCase";
+  v71[44] = @"GenericTestCase";
+  v72[44] = &unk_285865C48;
+  v72[45] = v7;
+  v71[45] = @"EnableGps";
+  v71[46] = @"EnableQzss";
+  v72[46] = v7;
+  v72[47] = v7;
+  v71[47] = @"EnableGlonass";
+  v71[48] = @"EnableGalileo";
+  v72[48] = v7;
+  v71[49] = @"EnableBeidou";
   v16 = *(GpsdPlatformInfo::instance(0) + 8);
   if (v16 == 201 || v16 == 103)
   {
@@ -9807,8 +7865,8 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
     v18 = v7;
   }
 
-  v73[49] = v18;
-  v72[50] = @"EnableNavic";
+  v72[49] = v18;
+  v71[50] = @"EnableNavic";
   v19 = GpsdPlatformInfo::instance(0);
   if (GpsdPlatformInfo::supportsNavic(v19))
   {
@@ -9820,8 +7878,8 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
     v20 = v5;
   }
 
-  v73[50] = v20;
-  v72[51] = @"EnableL5";
+  v72[50] = v20;
+  v71[51] = @"EnableL5";
   if (*(GpsdPlatformInfo::instance(0) + 24))
   {
     v21 = v7;
@@ -9832,8 +7890,8 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
     v21 = v5;
   }
 
-  v73[51] = v21;
-  v72[52] = @"EnableCoexL5NotchFilter";
+  v72[51] = v21;
+  v71[52] = @"EnableCoexL5NotchFilter";
   v22 = GpsdPlatformInfo::instance(0);
   v23 = v5;
   if (*(v22 + 8) == 107)
@@ -9850,24 +7908,24 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
     }
   }
 
-  v73[52] = v23;
-  v73[53] = v7;
-  v72[53] = @"EnableCoexBitEnhancedFreqAsst";
-  v72[54] = @"EnableCoexBitCdmaFineTimeAsst";
-  v73[54] = v7;
-  v73[55] = v7;
-  v72[55] = @"EnableCoexBitBlankingGpsL1";
-  v72[56] = @"EnableCoexBitBlankingGloL1";
-  v73[56] = v5;
-  v73[57] = v5;
-  v72[57] = @"EnableCoexBitBlankingBdsB1I";
-  v72[58] = @"CoexForceGpsL1Filter";
-  v73[58] = &unk_285865C48;
-  v73[59] = &unk_285865C48;
-  v72[59] = @"CoexForceGloL1Filter";
-  v72[60] = @"CoexForceB1IFilter";
-  v73[60] = &unk_285865C48;
-  v72[61] = @"CoexUseB14LteFilterSettingsForB13";
+  v72[52] = v23;
+  v72[53] = v7;
+  v71[53] = @"EnableCoexBitEnhancedFreqAsst";
+  v71[54] = @"EnableCoexBitCdmaFineTimeAsst";
+  v72[54] = v7;
+  v72[55] = v7;
+  v71[55] = @"EnableCoexBitBlankingGpsL1";
+  v71[56] = @"EnableCoexBitBlankingGloL1";
+  v72[56] = v5;
+  v72[57] = v5;
+  v71[57] = @"EnableCoexBitBlankingBdsB1I";
+  v71[58] = @"CoexForceGpsL1Filter";
+  v72[58] = &unk_285865C48;
+  v72[59] = &unk_285865C48;
+  v71[59] = @"CoexForceGloL1Filter";
+  v71[60] = @"CoexForceB1IFilter";
+  v72[60] = &unk_285865C48;
+  v71[61] = @"CoexUseB14LteFilterSettingsForB13";
   if (*(GpsdPlatformInfo::instance(0) + 8) == 107)
   {
     v25 = v7;
@@ -9878,14 +7936,14 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
     v25 = v5;
   }
 
-  v73[61] = v25;
-  v73[62] = v7;
-  v72[62] = @"EnableCoexBitStaticSpur";
-  v72[63] = @"EnableCoexBitDynamicNotch";
-  v72[64] = @"EnableCoexBitJammer";
-  v73[63] = v5;
-  v73[64] = v7;
-  v72[65] = @"GroupDelayL1InCAChips";
+  v72[61] = v25;
+  v72[62] = v7;
+  v71[62] = @"EnableCoexBitStaticSpur";
+  v71[63] = @"EnableCoexBitDynamicNotch";
+  v71[64] = @"EnableCoexBitJammer";
+  v72[63] = v5;
+  v72[64] = v7;
+  v71[65] = @"GroupDelayL1InCAChips";
   v26 = MEMORY[0x277CCABB0];
   v27 = *(GpsdPlatformInfo::instance(0) + 8);
   v28 = 0.036;
@@ -9900,8 +7958,8 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
   }
 
   v29 = [v26 numberWithDouble:v28];
-  v73[65] = v29;
-  v72[66] = @"ExternalToChipL5GroupDelayMeters";
+  v72[65] = v29;
+  v71[66] = @"ExternalToChipL5GroupDelayMeters";
   v30 = MEMORY[0x277CCABB0];
   v31 = GpsdPlatformInfo::instance(0);
   v32 = 0.0;
@@ -9911,13 +7969,13 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
   }
 
   v33 = [v30 numberWithDouble:v32];
-  v73[66] = v33;
-  v72[67] = @"GlonassPerFrequencyGroupDelayMeters";
+  v72[66] = v33;
+  v71[67] = @"GlonassPerFrequencyGroupDelayMeters";
   v34 = GpsdPlatformInfo::instance(0);
-  GpsdPlatformInfo::glonassPerFrequencyGroupDelayMeters(v34, __p);
+  GpsdPlatformInfo::glonassPerFrequencyGroupDelayMeters(__p, v34);
   v35 = vectorToNSArray(__p);
-  v73[67] = v35;
-  v72[68] = @"RavenExpected";
+  v72[67] = v35;
+  v71[68] = @"RavenExpected";
   v36 = GpsdPlatformInfo::instance(0);
   if (GpsdPlatformInfo::expectedToHaveRaven(v36))
   {
@@ -9929,10 +7987,10 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
     v37 = v5;
   }
 
-  v73[68] = v37;
-  v72[69] = @"ForceFireExtensionsPlatform";
-  v73[69] = &unk_285865C48;
-  v72[70] = @"UseInternalEmergencyStack";
+  v72[68] = v37;
+  v71[69] = @"ForceFireExtensionsPlatform";
+  v72[69] = &unk_285865C48;
+  v71[70] = @"UseInternalEmergencyStack";
   v38 = *(GpsdPlatformInfo::instance(0) + 8);
   if ((v38 - 301) < 2 || v38 == 107)
   {
@@ -9944,10 +8002,10 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
     v40 = v5;
   }
 
-  v73[70] = v40;
-  v72[71] = @"UseNewGnssDeviceManager";
-  v73[71] = v5;
-  v72[72] = @"HasXtalFreqJumpRisk";
+  v72[70] = v40;
+  v71[71] = @"UseNewGnssDeviceManager";
+  v72[71] = v5;
+  v71[72] = @"HasXtalFreqJumpRisk";
   if (*(GpsdPlatformInfo::instance(0) + 8) == 107)
   {
     v41 = v7;
@@ -9958,8 +8016,8 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
     v41 = v5;
   }
 
-  v73[72] = v41;
-  v72[73] = @"AllowAssistanceTimeTo10Milliseconds";
+  v72[72] = v41;
+  v71[73] = @"AllowAssistanceTimeTo10Milliseconds";
   if ((*(GpsdPlatformInfo::instance(0) + 8) - 301) >= 2)
   {
     v42 = v5;
@@ -9970,12 +8028,12 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
     v42 = v7;
   }
 
-  v73[73] = v42;
-  v72[74] = @"DebugFeaturesBitmask";
-  v73[74] = &unk_285865C48;
-  v72[75] = @"DebugSettingsString";
-  v73[75] = &stru_285865850;
-  v72[76] = @"EnableReceivingFTA";
+  v72[73] = v42;
+  v71[74] = @"DebugFeaturesBitmask";
+  v72[74] = &unk_285865C48;
+  v71[75] = @"DebugSettingsString";
+  v72[75] = &stru_285865850;
+  v71[76] = @"EnableReceivingFTA";
   v43 = GpsdPlatformInfo::instance(0);
   if (GpsdPlatformInfo::isEnableReceivingFineTimeAssistance(v43))
   {
@@ -9987,8 +8045,8 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
     v44 = v5;
   }
 
-  v73[76] = v44;
-  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:77];
+  v72[76] = v44;
+  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:77];
 
   if (*__p)
   {
@@ -10025,16 +8083,16 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
   {
     if (*a1)
     {
-      v69[0] = @"LogLevel";
+      v68[0] = @"LogLevel";
       v50 = [MEMORY[0x277CCABB0] numberWithInt:8];
-      v69[1] = @"VendorLogMaxDirectorySizeMB";
-      v69[2] = @"VendorLogRotationSizeMB";
-      v70[0] = v50;
-      v70[1] = &unk_285865C00;
-      v70[2] = &unk_285865C00;
-      v70[3] = &unk_285865C18;
-      v69[3] = @"VendorLogMaxNumberOfFiles";
-      v69[4] = @"VendorLogAllToOsLog";
+      v68[1] = @"VendorLogMaxDirectorySizeMB";
+      v68[2] = @"VendorLogRotationSizeMB";
+      v69[0] = v50;
+      v69[1] = &unk_285865C00;
+      v69[2] = &unk_285865C00;
+      v69[3] = &unk_285865C18;
+      v68[3] = @"VendorLogMaxNumberOfFiles";
+      v68[4] = @"VendorLogAllToOsLog";
       if (*a1 == 1)
       {
         v51 = v5;
@@ -10045,16 +8103,16 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
         v51 = v7;
       }
 
-      v70[4] = v51;
-      v70[5] = v5;
-      v69[5] = @"VendorLogLz4";
-      v69[6] = @"VendorLogLzfse";
-      v70[6] = v5;
-      v70[7] = v5;
-      v69[7] = @"VendorLogZlib";
-      v69[8] = @"VerboseCommDataSize";
-      v70[8] = v7;
-      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:9];
+      v69[4] = v51;
+      v69[5] = v5;
+      v68[5] = @"VendorLogLz4";
+      v68[6] = @"VendorLogLzfse";
+      v69[6] = v5;
+      v69[7] = v5;
+      v68[7] = @"VendorLogZlib";
+      v68[8] = @"VerboseCommDataSize";
+      v69[8] = v7;
+      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:9];
 
       [fDefaults registerDefaults:v52];
     }
@@ -10072,51 +8130,51 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
         v54 = dword_2455859B0[v53];
       }
 
-      v67[0] = @"LogLevel";
+      v66[0] = @"LogLevel";
       v55 = [MEMORY[0x277CCABB0] numberWithInt:v54];
-      v68[0] = v55;
-      v68[1] = &unk_285865C00;
-      v67[1] = @"VendorLogMaxDirectorySizeMB";
-      v67[2] = @"VendorLogRotationSizeMB";
-      v68[2] = &unk_285865C00;
-      v68[3] = &unk_285865C18;
-      v67[3] = @"VendorLogMaxNumberOfFiles";
-      v67[4] = @"EnableProtobufBinaryLog";
-      v68[4] = v7;
-      v68[5] = &unk_285865D08;
-      v67[5] = @"ProtobufLogRetentionDays";
-      v67[6] = @"EnableInterfaceTelemetry";
-      v68[6] = v7;
-      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:7];
+      v67[0] = v55;
+      v67[1] = &unk_285865C00;
+      v66[1] = @"VendorLogMaxDirectorySizeMB";
+      v66[2] = @"VendorLogRotationSizeMB";
+      v67[2] = &unk_285865C00;
+      v67[3] = &unk_285865C18;
+      v66[3] = @"VendorLogMaxNumberOfFiles";
+      v66[4] = @"EnableProtobufBinaryLog";
+      v67[4] = v7;
+      v67[5] = &unk_285865D08;
+      v66[5] = @"ProtobufLogRetentionDays";
+      v66[6] = @"EnableInterfaceTelemetry";
+      v67[6] = v7;
+      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:7];
 
       [fDefaults registerDefaults:v52];
     }
 
     else if ([fDefaults BOOLForKey:@"VendorLogRestrictedCarry"])
     {
-      v58 = *(GpsdPlatformInfo::instance(0) + 8) - 103;
-      if (v58 >= 5)
+      v57 = *(GpsdPlatformInfo::instance(0) + 8) - 103;
+      if (v57 >= 5)
       {
-        v59 = 6;
+        v58 = 6;
       }
 
       else
       {
-        v59 = dword_2455859B0[v58];
+        v58 = dword_2455859B0[v57];
       }
 
-      v65[0] = @"LogLevel";
-      v61 = [MEMORY[0x277CCABB0] numberWithInt:v59];
-      v66[0] = v61;
-      v66[1] = v7;
-      v65[1] = @"EnableInterfaceTelemetry";
-      v65[2] = @"EnableProtobufBinaryLog";
-      v66[2] = v7;
-      v66[3] = &unk_285865CD8;
-      v65[3] = @"VendorLogMaxDirectorySizeMB";
-      v65[4] = @"VendorLogMaxNumberOfFiles";
-      v66[4] = &unk_285865CF0;
-      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:5];
+      v64[0] = @"LogLevel";
+      v60 = [MEMORY[0x277CCABB0] numberWithInt:v58];
+      v65[0] = v60;
+      v65[1] = v7;
+      v64[1] = @"EnableInterfaceTelemetry";
+      v64[2] = @"EnableProtobufBinaryLog";
+      v65[2] = v7;
+      v65[3] = &unk_285865CD8;
+      v64[3] = @"VendorLogMaxDirectorySizeMB";
+      v64[4] = @"VendorLogMaxNumberOfFiles";
+      v65[4] = &unk_285865CF0;
+      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:5];
 
       [fDefaults registerDefaults:v52];
     }
@@ -10129,14 +8187,14 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
         goto LABEL_82;
       }
 
-      v63[0] = @"LogLevel";
-      v60 = [MEMORY[0x277CCABB0] numberWithInt:5];
-      v64[0] = v60;
-      v64[1] = v7;
-      v63[1] = @"EnableInterfaceTelemetry";
-      v63[2] = @"EnableProtobufBinaryLog";
-      v64[2] = v7;
-      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:3];
+      v62[0] = @"LogLevel";
+      v59 = [MEMORY[0x277CCABB0] numberWithInt:5];
+      v63[0] = v59;
+      v63[1] = v7;
+      v62[1] = @"EnableInterfaceTelemetry";
+      v62[2] = @"EnableProtobufBinaryLog";
+      v63[2] = v7;
+      v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:3];
 
       [fDefaults registerDefaults:v52];
     }
@@ -10145,6 +8203,1770 @@ _DWORD *GpsdPreferences::GpsdPreferences(_DWORD *a1, int a2)
 LABEL_82:
   GpsdPreferences::dumpSettingsToLog(has_internal_diagnostics);
 
-  v56 = *MEMORY[0x277D85DE8];
+  return a1;
+}
+
+void GpsdPreferences::dumpSettingsToLog(GpsdPreferences *this)
+{
+  v24 = *MEMORY[0x277D85DE8];
+  v1 = GpsdLogObjectGeneral;
+  v2 = os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT);
+  if (v2)
+  {
+    *buf = 134349056;
+    v20 = gpsd::util::getMachContinuousTimeNs(v2) * 0.000000001;
+    _os_log_impl(&dword_2454AA000, v1, OS_LOG_TYPE_DEFAULT, "#version,CoreGPS-328.0.1,machContSec,%{public}.3f,BuildTime,{Oct 10 2025,21:36:42}", buf, 0xCu);
+  }
+
+  v14 = [fDefaults dictionaryRepresentation];
+  v3 = [v14 allKeys];
+  v4 = [v3 sortedArrayUsingSelector:sel_compare_];
+
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v5 = v4;
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  if (v6)
+  {
+    v8 = *v16;
+    *&v7 = 138543618;
+    v13 = v7;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v16 != v8)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        v10 = *(*(&v15 + 1) + 8 * i);
+        if (([v10 isEqualToString:{@"AppleLanguages", v13}] & 1) == 0 && (objc_msgSend(v10, "isEqualToString:", @"NSLanguages") & 1) == 0 && (objc_msgSend(v10, "isEqualToString:", @"NSInterfaceStyle") & 1) == 0)
+        {
+          v11 = [v14 objectForKeyedSubscript:v10];
+          v12 = GpsdLogObjectGeneral;
+          if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
+          {
+            *buf = v13;
+            v20 = *&v10;
+            v21 = 2114;
+            v22 = v11;
+            _os_log_impl(&dword_2454AA000, v12, OS_LOG_TYPE_INFO, "Pref: %{public}@ = %{public}@", buf, 0x16u);
+          }
+        }
+      }
+
+      v6 = [v5 countByEnumeratingWithState:&v15 objects:v23 count:16];
+    }
+
+    while (v6);
+  }
+}
+
+_DWORD *GpsdPreferences::setMode(uint64_t a1)
+{
+  v1 = a1;
+  result = GpsdPreferences::instance(a1);
+  if (result)
+  {
+    return (*result == v1);
+  }
+
+  return result;
+}
+
+uint64_t GpsdPreferences::instance(int a1)
+{
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = ___ZN15GpsdPreferences8instanceENS_4ModeE_block_invoke;
+  block[3] = &__block_descriptor_36_e5_v8__0l;
+  v3 = a1;
+  if (GpsdPreferences::instance(GpsdPreferences::Mode)::pred != -1)
+  {
+    dispatch_once(&GpsdPreferences::instance(GpsdPreferences::Mode)::pred, block);
+  }
+
+  return GpsdPreferences::fInstance;
+}
+
+void GpsdPreferences::vendorLogDirectory(GpsdPreferences *this@<X0>, void *a2@<X8>)
+{
+  v3 = *this;
+  if (*this > 2)
+  {
+    if (v3 == 3)
+    {
+      v4 = "/var/root/gps_unittest_logs";
+      goto LABEL_13;
+    }
+
+    if (v3 == 4)
+    {
+      v4 = "/private/var/logs/BurnIn/gps";
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+    if (v3 == 1)
+    {
+      v4 = "/var/root/gpstool_logs";
+      goto LABEL_13;
+    }
+
+    if (v3 == 2)
+    {
+      v4 = "/var/root/gpsfactorytest_logs";
+LABEL_13:
+
+      std::string::basic_string[abi:ne200100]<0>(a2, v4);
+      return;
+    }
+  }
+
+  v5 = [fDefaults stringForKey:@"VendorLogDirectory"];
+  std::string::basic_string[abi:ne200100]<0>(a2, [v5 UTF8String]);
+}
+
+void GpsdPreferences::vendorLogDirectoryAssumingGpsd(void *a1@<X8>)
+{
+  v2 = [fDefaults stringForKey:@"VendorLogDirectory"];
+  std::string::basic_string[abi:ne200100]<0>(a1, [v2 UTF8String]);
+}
+
+uint64_t GpsdPreferences::vendorLogPrefixWithTimestamp(GpsdPreferences *this)
+{
+  if (*this == 3)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return [fDefaults BOOLForKey:@"VendorLogPrefixWithTimestamp"];
+  }
+}
+
+unint64_t GpsdPreferences::vendorLogMaxDirectorySizeMB(GpsdPreferences *this)
+{
+  v1 = [fDefaults integerForKey:@"VendorLogMaxDirectorySizeMB"];
+  if (![fDefaults BOOLForKey:@"VendorLogQA"])
+  {
+    return v1;
+  }
+
+  LODWORD(result) = [&unk_285865C00 intValue];
+  if (result <= v1)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return result;
+  }
+}
+
+uint64_t GpsdPreferences::vendorLogRotationSizeMB(GpsdPreferences *this)
+{
+  if (*this == 3)
+  {
+    return 2000;
+  }
+
+  v1 = [fDefaults integerForKey:@"VendorLogRotationSizeMB"];
+  if (![fDefaults BOOLForKey:@"VendorLogQA"])
+  {
+    return v1;
+  }
+
+  LODWORD(result) = [&unk_285865C00 intValue];
+  if (result <= v1)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return result;
+  }
+}
+
+unint64_t GpsdPreferences::vendorLogMaxNumberOfFiles(GpsdPreferences *this)
+{
+  v1 = [fDefaults integerForKey:@"VendorLogMaxNumberOfFiles"];
+  if (![fDefaults BOOLForKey:@"VendorLogQA"])
+  {
+    return v1;
+  }
+
+  LODWORD(result) = [&unk_285865C18 intValue];
+  if (result <= v1)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return result;
+  }
+}
+
+void GpsdPreferences::forceGnssDeviceLibraryName(uint64_t *__return_ptr a1@<X8>)
+{
+  v2 = [fDefaults stringForKey:@"ForceGnssDeviceLibraryName"];
+  std::string::basic_string[abi:ne200100]<0>(a1, [v2 UTF8String]);
+}
+
+uint64_t integerToHalLogLevel(unsigned int a1)
+{
+  v5 = *MEMORY[0x277D85DE8];
+  if (a1 < 9)
+  {
+    return dword_2455859C4[a1 & 0xF];
+  }
+
+  v3 = GpsdLogObjectGeneral;
+  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+  {
+    v4[0] = 67240192;
+    v4[1] = a1;
+    _os_log_error_impl(&dword_2454AA000, v3, OS_LOG_TYPE_ERROR, "Invalid LogLevel preference %{public}d", v4, 8u);
+  }
+
+  return 3;
+}
+
+uint64_t GpsdPreferences::getLogLevel(GpsdPreferences *this)
+{
+  v1 = [fDefaults integerForKey:@"LogLevel"];
+
+  return integerToHalLogLevel(v1);
+}
+
+uint64_t GpsdPreferences::getSecondaryLogLevel(GpsdPreferences *this)
+{
+  v1 = [fDefaults integerForKey:@"SecondaryLogLevel"];
+
+  return integerToHalLogLevel(v1);
+}
+
+uint64_t GpsdPreferences::getPvtmTimeOut(GpsdPreferences *this)
+{
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = [fDefaults integerForKey:@"PvtmTimeOut"];
+  v2 = GpsdLogObjectGeneral;
+  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
+  {
+    v4[0] = 67240192;
+    v4[1] = v1;
+    _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_INFO, "Pref: kPvtmTimeOut = %{public}d", v4, 8u);
+  }
+
+  return v1;
+}
+
+uint64_t GpsdPreferences::nmeaMaskOverride(GpsdPreferences *this)
+{
+  v9 = *MEMORY[0x277D85DE8];
+  v1 = [fDefaults stringForKey:@"NmeaMaskOverride"];
+  v6 = 0;
+  v2 = [MEMORY[0x277CCAC80] scannerWithString:v1];
+  [v2 scanHexLongLong:&v6];
+  v3 = GpsdLogObjectGeneral;
+  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
+  {
+    *buf = 134349056;
+    v8 = v6;
+    _os_log_impl(&dword_2454AA000, v3, OS_LOG_TYPE_INFO, "Pref: kNmeaMaskOverride = 0x%{public}llx", buf, 0xCu);
+  }
+
+  v4 = v6;
+
+  return v4;
+}
+
+uint64_t GpsdPreferences::maxSchedulerQos(GpsdPreferences *this)
+{
+  v1 = [fDefaults integerForKey:@"MaxSchedulerQos"];
+  v2 = GpsdLogObjectGeneral;
+  v3 = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO);
+  if (v1 == 2)
+  {
+    if (v3)
+    {
+      *v6 = 0;
+      _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_INFO, "Pref,maxSchedulerQos,UserInteractive", v6, 2u);
+    }
+
+    return 33;
+  }
+
+  else if (v1 == 1)
+  {
+    if (v3)
+    {
+      *buf = 0;
+      _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_INFO, "Pref,maxSchedulerQos,UserInitiated", buf, 2u);
+    }
+
+    return 25;
+  }
+
+  else
+  {
+    if (v3)
+    {
+      *v5 = 0;
+      _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_INFO, "Pref,maxSchedulerQos,Default", v5, 2u);
+    }
+
+    return 21;
+  }
+}
+
+void GpsdPreferences::protobufLogDirectory(void *a1@<X8>)
+{
+  v2 = [fDefaults stringForKey:@"ProtobufLogDirectory"];
+  std::string::basic_string[abi:ne200100]<0>(a1, [v2 UTF8String]);
+}
+
+void GpsdPreferences::nvStorePath(uint64_t *__return_ptr a1@<X8>, GpsdPreferences *this@<X0>)
+{
+  v4 = [fDefaults stringForKey:@"DatabasePath"];
+  v5 = v4;
+  if (v4)
+  {
+    std::string::basic_string[abi:ne200100]<0>(a1, [v4 UTF8String]);
+  }
+
+  else
+  {
+    std::string::basic_string[abi:ne200100]<0>(a1, off_278E808C8[*this]);
+  }
+}
+
+void GpsdPreferences::nvStoreFile(GpsdPreferences *this@<X0>, void *a2@<X8>)
+{
+  v3 = *this;
+  if ((*this - 1) < 2)
+  {
+    v4 = "/var/root/gpstool_nvstore.bin";
+    goto LABEL_7;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = "/private/var/logs/BurnIn/gps/nvstore.bin";
+    goto LABEL_7;
+  }
+
+  if (v3 == 3)
+  {
+    v4 = "/var/mobile/CoreGPS_UnitTests_nvstore.bin";
+LABEL_7:
+
+    std::string::basic_string[abi:ne200100]<0>(a2, v4);
+    return;
+  }
+
+  v5 = [fDefaults stringForKey:@"NvStoreFile"];
+  std::string::basic_string[abi:ne200100]<0>(a2, [v5 UTF8String]);
+}
+
+void GpsdPreferences::storeLongTermPredictionsFile(void *a1@<X8>)
+{
+  v2 = [fDefaults stringForKey:@"LongTermPredictionsFile"];
+  std::string::basic_string[abi:ne200100]<0>(a1, [v2 UTF8String]);
+}
+
+void GpsdPreferences::storeShortTermPredictionsFile(void *a1@<X8>)
+{
+  v2 = [fDefaults stringForKey:@"ShortTermPredictionsFile"];
+  std::string::basic_string[abi:ne200100]<0>(a1, [v2 UTF8String]);
+}
+
+void GpsdPreferences::storeRTIFile(void *a1@<X8>)
+{
+  v2 = [fDefaults stringForKey:@"RTIFile"];
+  std::string::basic_string[abi:ne200100]<0>(a1, [v2 UTF8String]);
+}
+
+void GpsdPreferences::storeRavenOrbitFile(void *a1@<X8>)
+{
+  v2 = [fDefaults stringForKey:@"RavenOrbitFile"];
+  std::string::basic_string[abi:ne200100]<0>(a1, [v2 UTF8String]);
+}
+
+void GpsdPreferences::recoveryTestCase(GpsdPreferences *this)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  v1 = GpsdLogObjectGeneral;
+  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_error_impl(&dword_2454AA000, v1, OS_LOG_TYPE_ERROR, "Checking recoveryTestCase value is not permitted unless GPSD_DEBUGONLY_PERMIT_TEST_CASES is defined", buf, 2u);
+    v1 = GpsdLogObjectGeneral;
+  }
+
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136446722;
+    v6 = "/Library/Caches/com.apple.xbs/Sources/CoreGPS/Sources/Util/GpsdPreferences.mm";
+    v7 = 1026;
+    v8 = 685;
+    v9 = 2082;
+    v10 = "recoveryTestCase";
+    _os_log_error_impl(&dword_2454AA000, v1, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: assertion failure in %{public}s", buf, 0x1Cu);
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(&v4, "assert");
+  std::string::basic_string[abi:ne200100]<0>(&v3, "recoveryTestCase");
+  std::string::basic_string[abi:ne200100]<0>(&v2, "Checking recoveryTestCase value is not permitted unless GPSD_DEBUGONLY_PERMIT_TEST_CASES is defined");
+  gpsd::util::triggerDiagnosticReport(&v4, &v3, &v2);
+  std::string::~string(&v2);
+  std::string::~string(&v3);
+  std::string::~string(&v4);
+  __assert_rtn("recoveryTestCase", "GpsdPreferences.mm", 685, "false && Checking recoveryTestCase value is not permitted unless GPSD_DEBUGONLY_PERMIT_TEST_CASES is defined");
+}
+
+void sub_24557296C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  if (a27 < 0)
+  {
+    operator delete(a22);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t GpsdPreferences::enableConstellationsBitfield(GpsdPreferences *this)
+{
+  v1 = [fDefaults BOOLForKey:@"EnableGps"];
+  if ([fDefaults BOOLForKey:@"EnableQzss"])
+  {
+    v2 = 16;
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  v3 = v2 | v1;
+  if ([fDefaults BOOLForKey:@"EnableGlonass"])
+  {
+    v4 = 2;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  if ([fDefaults BOOLForKey:@"EnableGalileo"])
+  {
+    v5 = 8;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = v3 | v4 | v5;
+  if ([fDefaults BOOLForKey:@"EnableBeidou"])
+  {
+    v7 = 4;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if ([fDefaults BOOLForKey:@"EnableNavic"])
+  {
+    v8 = 32;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v6 | v7 | v8;
+}
+
+unint64_t GpsdPreferences::determineLibindusFinalCoExConfig(GpsdPreferences *this, uint64_t a2, int a3)
+{
+  v27 = *MEMORY[0x277D85DE8];
+  v5 = GpsdPlatformInfo::instance(0);
+  LibindusPlatformCo = GpsdPlatformInfo::getLibindusPlatformCoExConfigDefault(v5);
+  v7 = LibindusPlatformCo;
+  if (a3)
+  {
+    v8 = a2;
+  }
+
+  else
+  {
+    v8 = LibindusPlatformCo;
+  }
+
+  v9 = [fDefaults objectForKey:@"CREnableCoexBlanking2G"];
+
+  if (v9)
+  {
+    if ([fDefaults BOOLForKey:@"CREnableCoexBlanking2G"])
+    {
+      v8 |= 1uLL;
+    }
+
+    else
+    {
+      v8 &= ~1uLL;
+    }
+  }
+
+  v10 = [fDefaults objectForKey:@"CREnableCoexBlankingNR"];
+
+  if (v10)
+  {
+    if ([fDefaults BOOLForKey:@"CREnableCoexBlankingNR"])
+    {
+      v8 |= 2uLL;
+    }
+
+    else
+    {
+      v8 &= ~2uLL;
+    }
+  }
+
+  v11 = [fDefaults objectForKey:@"CREnableCoexLTEB13"];
+
+  if (v11)
+  {
+    if ([fDefaults BOOLForKey:@"CREnableCoexLTEB13"])
+    {
+      v8 |= 4uLL;
+    }
+
+    else
+    {
+      v8 &= ~4uLL;
+    }
+  }
+
+  v12 = [fDefaults objectForKey:@"CREnableCoexLTEB14"];
+
+  if (v12)
+  {
+    if ([fDefaults BOOLForKey:@"CREnableCoexLTEB14"])
+    {
+      v8 |= 8uLL;
+    }
+
+    else
+    {
+      v8 &= ~8uLL;
+    }
+  }
+
+  v13 = [fDefaults objectForKey:@"CREnableCoexEnhancedAssistance"];
+
+  if (v13)
+  {
+    if ([fDefaults BOOLForKey:@"CREnableCoexEnhancedAssistance"])
+    {
+      v8 |= 0x10uLL;
+    }
+
+    else
+    {
+      v8 &= ~0x10uLL;
+    }
+  }
+
+  v14 = [fDefaults objectForKey:@"CREnableSTWMitigation"];
+
+  if (v14 && ![fDefaults BOOLForKey:@"CREnableSTWMitigation"])
+  {
+    v15 = v8 & 0xFFFFFFFFFFFFFFDFLL;
+  }
+
+  else
+  {
+    v15 = v8 | 0x20;
+  }
+
+  v16 = GpsdLogObjectGeneral;
+  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
+  {
+    v17 = "No";
+    v19 = 134349826;
+    v20 = v15;
+    v21 = 2050;
+    if (a3)
+    {
+      v17 = "Yes";
+    }
+
+    v22 = v7;
+    v23 = 2082;
+    v24 = v17;
+    v25 = 2050;
+    v26 = a2;
+    _os_log_impl(&dword_2454AA000, v16, OS_LOG_TYPE_INFO, "#gdm,decodeCoexConfig,coexConfigPostOverride,0x%{public}llx,coexConfigDefault,0x%{public}llx,isCLOverride,%{public}s,coexConfigCLOverride,0x%{public}llx", &v19, 0x2Au);
+  }
+
+  return v15;
+}
+
+unint64_t GpsdPreferences::libolafCoexFlagsBitfield(GpsdPreferences *this)
+{
+  v47 = *MEMORY[0x277D85DE8];
+  v1 = [fDefaults BOOLForKey:@"EnableCoexBitEnhancedFreqAsst"];
+  v23 = [fDefaults BOOLForKey:@"EnableCoexBitCdmaFineTimeAsst"];
+  v24 = [fDefaults BOOLForKey:@"EnableCoexBitBlankingGpsL1"];
+  v2 = [fDefaults BOOLForKey:@"EnableCoexBitBlankingGloL1"];
+  v3 = [fDefaults BOOLForKey:@"EnableCoexBitBlankingBdsB1I"];
+  v4 = [fDefaults BOOLForKey:@"EnableCoexBitStaticSpur"];
+  v5 = [fDefaults BOOLForKey:@"EnableCoexBitDynamicNotch"];
+  v6 = [fDefaults BOOLForKey:@"EnableCoexBitJammer"];
+  v7 = [fDefaults integerForKey:@"CoexForceGpsL1Filter"];
+  v8 = [fDefaults integerForKey:@"CoexForceGloL1Filter"];
+  v9 = [fDefaults integerForKey:@"CoexForceB1IFilter"];
+  v10 = GpsdLogObjectGeneral;
+  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67242752;
+    v26 = v1;
+    v27 = 1026;
+    v28 = v23;
+    v29 = 1026;
+    v30 = v24;
+    v31 = 1026;
+    v32 = v2;
+    v33 = 1026;
+    v34 = v3;
+    v35 = 1026;
+    v36 = v7;
+    v37 = 1026;
+    v38 = v8;
+    v39 = 1026;
+    v40 = v9;
+    v41 = 1026;
+    v42 = v4;
+    v43 = 1026;
+    v44 = v5;
+    v45 = 1026;
+    v46 = v6;
+    _os_log_impl(&dword_2454AA000, v10, OS_LOG_TYPE_INFO, "#coex,eFA,%{public}d,FTA,%{public}d,blankingGPS/GLO/B1I,%{public}d,%{public}d,%{public}d,forceFilterGPS/GLO/B1I,%{public}d,%{public}d,%{public}d,enableSpurStatic,%{public}d,enableSpurDynamic,%{public}d,enableJammer,%{public}d", buf, 0x44u);
+  }
+
+  if ((v7 - 1) > 3)
+  {
+    v11 = 30720;
+  }
+
+  else
+  {
+    v11 = qword_2455859E8[v7 - 1];
+  }
+
+  if ((v9 - 1) > 2)
+  {
+    v12 = 917504;
+  }
+
+  else
+  {
+    v12 = qword_245585A08[v9 - 1];
+  }
+
+  v13 = 98304;
+  if (v8 == 2)
+  {
+    v13 = 0x10000;
+  }
+
+  if (v8 == 1)
+  {
+    v13 = 0x8000;
+  }
+
+  v14 = 0x100000;
+  if (!(v7 | v8))
+  {
+    v14 = (v9 != 0) << 20;
+  }
+
+  v15 = 4;
+  if (!v1)
+  {
+    v15 = 0;
+  }
+
+  v16 = 8;
+  if (!v4)
+  {
+    v16 = 0;
+  }
+
+  v17 = 16;
+  if (!v5)
+  {
+    v17 = 0;
+  }
+
+  v18 = 32;
+  if (!v6)
+  {
+    v18 = 0;
+  }
+
+  v19 = 256;
+  if (!v24)
+  {
+    v19 = 0;
+  }
+
+  v20 = 512;
+  if (!v2)
+  {
+    v20 = 0;
+  }
+
+  v21 = 1024;
+  if (!v3)
+  {
+    v21 = 0;
+  }
+
+  return v15 | v23 | v19 | v20 | v21 | v16 | v17 | v18 | v13 | v14 | v11 | v12;
+}
+
+void GpsdPreferences::glonassPerFrequencyGroupDelayMeters(const void **a1@<X8>)
+{
+  v27 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v2 = [fDefaults arrayForKey:@"GlonassPerFrequencyGroupDelayMeters"];
+  v3 = v2;
+  if (v2 && [v2 count] > 0xD)
+  {
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v5 = v3;
+    v6 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    if (v6)
+    {
+      v7 = *v22;
+      v8 = v3;
+      do
+      {
+        for (i = 0; i != v6; ++i)
+        {
+          if (*v22 != v7)
+          {
+            objc_enumerationMutation(v5);
+          }
+
+          [*(*(&v21 + 1) + 8 * i) doubleValue];
+          v12 = a1[1];
+          v11 = a1[2];
+          if (v12 >= v11)
+          {
+            v14 = *a1;
+            v15 = v12 - *a1;
+            v16 = v15 >> 3;
+            v17 = (v15 >> 3) + 1;
+            if (v17 >> 61)
+            {
+              std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
+            }
+
+            v18 = v11 - v14;
+            if (v18 >> 2 > v17)
+            {
+              v17 = v18 >> 2;
+            }
+
+            if (v18 >= 0x7FFFFFFFFFFFFFF8)
+            {
+              v19 = 0x1FFFFFFFFFFFFFFFLL;
+            }
+
+            else
+            {
+              v19 = v17;
+            }
+
+            if (v19)
+            {
+              std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(a1, v19);
+            }
+
+            *(8 * v16) = v10;
+            v13 = (8 * v16 + 8);
+            memcpy(0, v14, v15);
+            v20 = *a1;
+            *a1 = 0;
+            a1[1] = v13;
+            a1[2] = 0;
+            if (v20)
+            {
+              operator delete(v20);
+            }
+
+            v3 = v8;
+          }
+
+          else
+          {
+            *v12 = v10;
+            v13 = v12 + 8;
+          }
+
+          a1[1] = v13;
+        }
+
+        v6 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      }
+
+      while (v6);
+    }
+  }
+
+  else
+  {
+    v4 = GpsdLogObjectGeneral;
+    if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_2454AA000, v4, OS_LOG_TYPE_ERROR, "Invalid glonassPerFrequencyGroupDelayMeters parameters", buf, 2u);
+    }
+  }
+}
+
+void sub_24557339C(_Unwind_Exception *a1)
+{
+  v5 = *v2;
+  if (*v2)
+  {
+    *(v2 + 8) = v5;
+    operator delete(v5);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t GpsdPreferences::debugFeaturesBitmask(GpsdPreferences *this)
+{
+  v6 = *MEMORY[0x277D85DE8];
+  v1 = [fDefaults integerForKey:@"DebugFeaturesBitmask"];
+  v2 = GpsdLogObjectGeneral;
+  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = 134349056;
+    v5 = v1;
+    _os_log_impl(&dword_2454AA000, v2, OS_LOG_TYPE_DEFAULT, "debugFeaturesBitmask,0x%{public}llx", &v4, 0xCu);
+  }
+
+  return v1;
+}
+
+void GpsdPreferences::debugSettingsString(void *a1@<X8>)
+{
+  v2 = [fDefaults stringForKey:@"DebugSettingsString"];
+  std::string::basic_string[abi:ne200100]<0>(a1, [v2 UTF8String]);
+}
+
+uint64_t GpsdPreferences::platformSpecificFeaturesBitmask(GpsdPreferences *this)
+{
+  if (*(GpsdPlatformInfo::instance(0) + 8) == 107)
+  {
+    v1 = [fDefaults BOOLForKey:@"EnableCoexL5NotchFilter"];
+    if ([fDefaults BOOLForKey:@"HasXtalFreqJumpRisk"])
+    {
+      return v1 | 2;
+    }
+
+    else
+    {
+      return v1;
+    }
+  }
+
+  else if ((*(GpsdPlatformInfo::instance(0) + 8) - 301) > 1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return [fDefaults BOOLForKey:@"EnableReceivingFTA"];
+  }
+}
+
+void std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(uint64_t a1, unint64_t a2)
+{
+  if (!(a2 >> 61))
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+uint64_t GpsdPlatformInfoHardware::detectHardware(GpsdPlatformInfoHardware *this)
+{
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = xmmword_245585A28;
+  v4 = 710807826;
+  if (MGIsDeviceOfType())
+  {
+    return 10401;
+  }
+
+  v4 = 470738981;
+  v3 = xmmword_245585A3C;
+  if (MGIsDeviceOfType())
+  {
+    return 10401;
+  }
+
+  v4 = -2085056298;
+  v3 = xmmword_245585A50;
+  if (MGIsDeviceOfType())
+  {
+    return 10403;
+  }
+
+  v4 = 1860682089;
+  v3 = xmmword_245585A64;
+  if (MGIsDeviceOfType())
+  {
+    return 10403;
+  }
+
+  v4 = -338255497;
+  v3 = xmmword_245585A78;
+  if (MGIsDeviceOfType())
+  {
+    return 10509;
+  }
+
+  v4 = 152704997;
+  v3 = xmmword_245585A8C;
+  if (MGIsDeviceOfType())
+  {
+    return 10509;
+  }
+
+  v4 = 283967174;
+  v3 = xmmword_245585AA0;
+  if (MGIsDeviceOfType())
+  {
+    return 10511;
+  }
+
+  v4 = -1040127899;
+  v3 = xmmword_245585AB4;
+  if (MGIsDeviceOfType())
+  {
+    return 10511;
+  }
+
+  v4 = -1742178852;
+  v3 = xmmword_245585AC8;
+  if (MGIsDeviceOfType())
+  {
+    return 10501;
+  }
+
+  v4 = 2146530832;
+  v3 = xmmword_245585ADC;
+  if (MGIsDeviceOfType())
+  {
+    return 10501;
+  }
+
+  v4 = 1330813729;
+  v3 = xmmword_245585AF0;
+  if (MGIsDeviceOfType())
+  {
+    return 10503;
+  }
+
+  v4 = 617174804;
+  v3 = xmmword_245585B04;
+  if (MGIsDeviceOfType())
+  {
+    return 10503;
+  }
+
+  v4 = -871113647;
+  v3 = xmmword_245585B18;
+  if (MGIsDeviceOfType())
+  {
+    return 10601;
+  }
+
+  v4 = 1530707451;
+  v3 = xmmword_245585B2C;
+  if (MGIsDeviceOfType())
+  {
+    return 10601;
+  }
+
+  v4 = 1472775220;
+  v3 = xmmword_245585B40;
+  if (MGIsDeviceOfType())
+  {
+    return 10603;
+  }
+
+  v4 = 483476120;
+  v3 = xmmword_245585B54;
+  if (MGIsDeviceOfType())
+  {
+    return 10603;
+  }
+
+  v4 = 282158961;
+  v3 = xmmword_245585B68;
+  if (MGIsDeviceOfType())
+  {
+    return 10606;
+  }
+
+  v4 = 56502976;
+  v3 = xmmword_245585B7C;
+  if (MGIsDeviceOfType())
+  {
+    return 10606;
+  }
+
+  v4 = -961843768;
+  v3 = xmmword_245585B90;
+  if (MGIsDeviceOfType())
+  {
+    return 10608;
+  }
+
+  v4 = 1282132887;
+  v3 = xmmword_245585BA4;
+  if (MGIsDeviceOfType())
+  {
+    return 10608;
+  }
+
+  v4 = -441172408;
+  v3 = xmmword_245585BB8;
+  if (MGIsDeviceOfType())
+  {
+    return 10610;
+  }
+
+  v4 = 1326690998;
+  v3 = xmmword_245585BCC;
+  if (MGIsDeviceOfType())
+  {
+    return 10610;
+  }
+
+  v4 = 1756484512;
+  v3 = xmmword_245585BE0;
+  if (MGIsDeviceOfType())
+  {
+    return 10612;
+  }
+
+  v4 = -126099363;
+  v3 = xmmword_245585BF4;
+  if (MGIsDeviceOfType())
+  {
+    return 10612;
+  }
+
+  v4 = -1092155788;
+  v3 = xmmword_245585C08;
+  if (MGIsDeviceOfType())
+  {
+    return 10614;
+  }
+
+  v4 = 763775061;
+  v3 = xmmword_245585C1C;
+  if (MGIsDeviceOfType())
+  {
+    return 10614;
+  }
+
+  v4 = -63049871;
+  v3 = xmmword_245585C30;
+  if (MGIsDeviceOfType())
+  {
+    return 10616;
+  }
+
+  v4 = -557458837;
+  v3 = xmmword_245585C44;
+  if (MGIsDeviceOfType())
+  {
+    return 10616;
+  }
+
+  v4 = 1730000236;
+  v3 = xmmword_245585C58;
+  if (MGIsDeviceOfType())
+  {
+    return 10618;
+  }
+
+  v4 = 1530338216;
+  v3 = xmmword_245585C6C;
+  if (MGIsDeviceOfType())
+  {
+    return 10701;
+  }
+
+  v4 = 406601745;
+  v3 = xmmword_245585C80;
+  if (MGIsDeviceOfType())
+  {
+    return 10701;
+  }
+
+  v4 = 1654218604;
+  v3 = xmmword_245585C94;
+  if (MGIsDeviceOfType())
+  {
+    return 10703;
+  }
+
+  v4 = -1930811061;
+  v3 = xmmword_245585CA8;
+  if (MGIsDeviceOfType())
+  {
+    return 10703;
+  }
+
+  v4 = -182498503;
+  v3 = xmmword_245585CBC;
+  if (MGIsDeviceOfType())
+  {
+    return 10705;
+  }
+
+  v4 = 841005628;
+  v3 = xmmword_245585CD0;
+  if (MGIsDeviceOfType())
+  {
+    return 10708;
+  }
+
+  v4 = -2030489149;
+  v3 = xmmword_245585CE4;
+  if (MGIsDeviceOfType())
+  {
+    return 10708;
+  }
+
+  v4 = 1219348060;
+  v3 = xmmword_245585CF8;
+  if (MGIsDeviceOfType())
+  {
+    return 10710;
+  }
+
+  v4 = 223445260;
+  v3 = xmmword_245585D0C;
+  if (MGIsDeviceOfType())
+  {
+    return 10710;
+  }
+
+  v4 = -1921398171;
+  v3 = xmmword_245585D20;
+  if (MGIsDeviceOfType())
+  {
+    return 10717;
+  }
+
+  v4 = 373548423;
+  v3 = xmmword_245585D34;
+  if (MGIsDeviceOfType())
+  {
+    return 10717;
+  }
+
+  v4 = -936391310;
+  v3 = xmmword_245585D48;
+  if (MGIsDeviceOfType())
+  {
+    return 10719;
+  }
+
+  v4 = 2140507472;
+  v3 = xmmword_245585D5C;
+  if (MGIsDeviceOfType())
+  {
+    return 10719;
+  }
+
+  v4 = -1384522500;
+  v3 = xmmword_245585D70;
+  if (MGIsDeviceOfType())
+  {
+    return 10712;
+  }
+
+  v4 = 1815762806;
+  v3 = xmmword_245585D84;
+  if (MGIsDeviceOfType())
+  {
+    return 10713;
+  }
+
+  v4 = -782763850;
+  v3 = xmmword_245585D98;
+  if (MGIsDeviceOfType())
+  {
+    return 10713;
+  }
+
+  v4 = -652049476;
+  v3 = xmmword_245585DAC;
+  if (MGIsDeviceOfType())
+  {
+    return 10715;
+  }
+
+  v4 = -1897771119;
+  v3 = xmmword_245585DC0;
+  if (MGIsDeviceOfType())
+  {
+    return 10715;
+  }
+
+  v4 = -232427879;
+  v3 = xmmword_245585DD4;
+  if (MGIsDeviceOfType())
+  {
+    return 21102;
+  }
+
+  v4 = -427474227;
+  v3 = xmmword_245585DE8;
+  if (MGIsDeviceOfType())
+  {
+    return 21106;
+  }
+
+  v4 = 1477534141;
+  v3 = xmmword_245585DFC;
+  if (MGIsDeviceOfType())
+  {
+    return 21106;
+  }
+
+  v4 = -1843102369;
+  v3 = xmmword_245585E10;
+  if (MGIsDeviceOfType())
+  {
+    return 21108;
+  }
+
+  v4 = -61007701;
+  v3 = xmmword_245585E24;
+  if (MGIsDeviceOfType())
+  {
+    return 21203;
+  }
+
+  v4 = -235416490;
+  v3 = xmmword_245585E38;
+  if (MGIsDeviceOfType())
+  {
+    return 21205;
+  }
+
+  v4 = -820493242;
+  v3 = xmmword_245585E4C;
+  if (MGIsDeviceOfType())
+  {
+    return 21201;
+  }
+
+  v4 = -121925081;
+  v3 = xmmword_245585E60;
+  if (MGIsDeviceOfType())
+  {
+    return 21210;
+  }
+
+  v4 = -1820426635;
+  v3 = xmmword_245585E74;
+  if (MGIsDeviceOfType())
+  {
+    return 21502;
+  }
+
+  v4 = -937652876;
+  v3 = xmmword_245585E88;
+  if (MGIsDeviceOfType())
+  {
+    return 21503;
+  }
+
+  v4 = 169342588;
+  v3 = xmmword_245585E9C;
+  if (MGIsDeviceOfType())
+  {
+    return 21705;
+  }
+
+  v4 = 1874287171;
+  v3 = xmmword_245585EB0;
+  if (MGIsDeviceOfType())
+  {
+    return 21603;
+  }
+
+  v4 = -781324731;
+  v3 = xmmword_245585EC4;
+  if (MGIsDeviceOfType())
+  {
+    return 21602;
+  }
+
+  v4 = 431774303;
+  v3 = xmmword_245585ED8;
+  if (MGIsDeviceOfType())
+  {
+    return 21603;
+  }
+
+  v4 = 1214880059;
+  v3 = xmmword_245585EEC;
+  if (MGIsDeviceOfType())
+  {
+    return 21701;
+  }
+
+  v4 = 426359977;
+  v3 = xmmword_245585F00;
+  if (MGIsDeviceOfType())
+  {
+    return 21702;
+  }
+
+  v4 = -1354433901;
+  v3 = xmmword_245585F14;
+  if (MGIsDeviceOfType())
+  {
+    return 21801;
+  }
+
+  v4 = 1021543808;
+  v3 = xmmword_245585F28;
+  if (MGIsDeviceOfType())
+  {
+    return 21802;
+  }
+
+  v4 = 1459208360;
+  v3 = xmmword_245585F3C;
+  if (MGIsDeviceOfType())
+  {
+    return 21804;
+  }
+
+  v4 = -1841712216;
+  v3 = xmmword_245585F50;
+  if (MGIsDeviceOfType())
+  {
+    return 31102;
+  }
+
+  v4 = 213746202;
+  v3 = xmmword_245585F64;
+  if (MGIsDeviceOfType())
+  {
+    return 31104;
+  }
+
+  v4 = 300442574;
+  v3 = xmmword_245585F78;
+  if (MGIsDeviceOfType())
+  {
+    return 30808;
+  }
+
+  v4 = 440949464;
+  v3 = xmmword_245585F8C;
+  if (MGIsDeviceOfType())
+  {
+    return 31302;
+  }
+
+  v4 = -762483149;
+  v3 = xmmword_245585FA0;
+  if (MGIsDeviceOfType())
+  {
+    return 30804;
+  }
+
+  v4 = -1294188889;
+  v3 = xmmword_245585FB4;
+  if (MGIsDeviceOfType())
+  {
+    return 30808;
+  }
+
+  v4 = -1926937532;
+  v3 = xmmword_245585FC8;
+  if (MGIsDeviceOfType())
+  {
+    return 30804;
+  }
+
+  v4 = -2132668294;
+  v3 = xmmword_245585FDC;
+  if (MGIsDeviceOfType())
+  {
+    return 30712;
+  }
+
+  v4 = -858079590;
+  v3 = xmmword_245585FF0;
+  if (MGIsDeviceOfType())
+  {
+    return 31107;
+  }
+
+  v4 = -1675932945;
+  v3 = xmmword_245586004;
+  if (MGIsDeviceOfType())
+  {
+    return 30812;
+  }
+
+  v4 = 300130091;
+  v3 = xmmword_245586018;
+  if (MGIsDeviceOfType())
+  {
+    return 30810;
+  }
+
+  v4 = 646100384;
+  v3 = xmmword_24558602C;
+  if (MGIsDeviceOfType())
+  {
+    return 31202;
+  }
+
+  v4 = -2071977621;
+  v3 = xmmword_245586040;
+  if (MGIsDeviceOfType())
+  {
+    return 31702;
+  }
+
+  v4 = -1597604211;
+  v3 = xmmword_245586054;
+  if (MGIsDeviceOfType())
+  {
+    return 31704;
+  }
+
+  v2 = GpsdLogObjectGeneral;
+  result = os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR);
+  if (result)
+  {
+    LODWORD(v3) = 67109120;
+    DWORD1(v3) = MGGetProductType();
+    _os_log_error_impl(&dword_2454AA000, v2, OS_LOG_TYPE_ERROR, "GpsdPlatformInfo,Unknown or unsupported hardware,%x", &v3, 8u);
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t GpsdHardwareConfig::GpsdHardwareConfig(uint64_t a1, int a2)
+{
+  v12 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
+  if (a2 > 21200)
+  {
+    if (a2 <= 30711)
+    {
+      if (a2 <= 21700)
+      {
+        if ((a2 - 21201) <= 9 && ((1 << (a2 + 47)) & 0x215) != 0)
+        {
+          goto LABEL_45;
+        }
+
+        if ((a2 - 21502) < 2)
+        {
+          *(a1 + 16) = 1;
+          v8 = 0x401799999999999ALL;
+LABEL_66:
+          *(a1 + 8) = v8;
+          goto LABEL_67;
+        }
+
+        if ((a2 - 21602) >= 2)
+        {
+          return a1;
+        }
+
+LABEL_49:
+        *(a1 + 16) = 1;
+        *(a1 + 8) = 0x401799999999999ALL;
+        *(a1 + 32) = 1;
+        *(a1 + 24) = 0x4039000000000000;
+        goto LABEL_67;
+      }
+
+      if (a2 > 21800)
+      {
+        if ((a2 - 21801) < 2)
+        {
+          goto LABEL_49;
+        }
+
+        if ((a2 - 21804) >= 2)
+        {
+          return a1;
+        }
+      }
+
+      else
+      {
+        if ((a2 - 21701) < 2)
+        {
+          goto LABEL_49;
+        }
+
+        if (a2 != 21705)
+        {
+          if (a2 != 21706)
+          {
+            return a1;
+          }
+
+          *(a1 + 16) = 1;
+          *(a1 + 8) = 0;
+          v5 = 302;
+LABEL_72:
+          *a1 = v5;
+          return a1;
+        }
+      }
+
+LABEL_60:
+      *(a1 + 16) = 1;
+      *(a1 + 8) = 0;
+      v5 = 301;
+      goto LABEL_72;
+    }
+
+    if (a2 <= 31201)
+    {
+      if (a2 <= 30809)
+      {
+        if (a2 != 30712 && a2 != 30804 && a2 != 30808)
+        {
+          return a1;
+        }
+
+        goto LABEL_56;
+      }
+
+      if ((a2 - 31102) <= 5 && ((1 << (a2 - 126)) & 0x25) != 0)
+      {
+LABEL_56:
+        v5 = 201;
+        goto LABEL_72;
+      }
+
+      if (a2 != 30810 && a2 != 30812)
+      {
+        return a1;
+      }
+
+LABEL_45:
+      v5 = 202;
+      goto LABEL_72;
+    }
+
+    if (a2 <= 31610)
+    {
+      if (a2 == 31202)
+      {
+        goto LABEL_56;
+      }
+
+      if (a2 == 31302)
+      {
+        goto LABEL_45;
+      }
+
+      v6 = 31609;
+    }
+
+    else if (a2 > 31703)
+    {
+      if (a2 == 31704)
+      {
+        goto LABEL_60;
+      }
+
+      v6 = 31802;
+    }
+
+    else
+    {
+      if (a2 == 31611)
+      {
+        goto LABEL_60;
+      }
+
+      v6 = 31702;
+    }
+
+    if (a2 != v6)
+    {
+      return a1;
+    }
+
+    goto LABEL_60;
+  }
+
+  if (a2 > 10700)
+  {
+    if ((a2 - 10701) <= 0x12)
+    {
+      v3 = 1 << (a2 + 51);
+      if ((v3 & 0x552E5) != 0)
+      {
+        goto LABEL_67;
+      }
+
+      if ((v3 & 0x810) != 0)
+      {
+LABEL_65:
+        *(a1 + 16) = 1;
+        v8 = 0x3FF3333333333333;
+        goto LABEL_66;
+      }
+    }
+
+    if ((a2 - 21102) > 6 || ((1 << (a2 - 110)) & 0x51) == 0)
+    {
+      return a1;
+    }
+
+    goto LABEL_56;
+  }
+
+  if (a2 > 10600)
+  {
+    v4 = a2 - 110;
+    if ((a2 - 10606) > 0xC)
+    {
+      goto LABEL_68;
+    }
+
+    if (((1 << v4) & 0x550) == 0)
+    {
+      if (((1 << v4) & 5) != 0)
+      {
+        v5 = 106;
+        goto LABEL_72;
+      }
+
+      if (a2 == 10618)
+      {
+        goto LABEL_65;
+      }
+
+LABEL_68:
+      if (a2 != 10601)
+      {
+        v7 = 10603;
+LABEL_70:
+        if (a2 != v7)
+        {
+          return a1;
+        }
+      }
+
+LABEL_71:
+      v5 = 103;
+      goto LABEL_72;
+    }
+
+LABEL_67:
+    v5 = 107;
+    goto LABEL_72;
+  }
+
+  if (a2 > 10500)
+  {
+    if ((a2 - 10501) > 0xA || ((1 << (a2 - 5)) & 0x505) == 0)
+    {
+      return a1;
+    }
+
+    goto LABEL_71;
+  }
+
+  if (a2)
+  {
+    if (a2 != 10401)
+    {
+      v7 = 10403;
+      goto LABEL_70;
+    }
+
+    goto LABEL_71;
+  }
+
+  v9 = GpsdLogObjectGeneral;
+  if (os_log_type_enabled(GpsdLogObjectGeneral, OS_LOG_TYPE_ERROR))
+  {
+    v11[0] = 67240192;
+    v11[1] = 0;
+    _os_log_error_impl(&dword_2454AA000, v9, OS_LOG_TYPE_ERROR, "GpsdPlatformInfo,device,%{public}d,unknown/unsupported", v11, 8u);
+  }
+
   return a1;
 }

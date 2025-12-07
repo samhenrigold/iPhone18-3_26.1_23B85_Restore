@@ -17,6 +17,8 @@
 - (void)_networkConfigurationChanged:(id)changed;
 - (void)_networkHasAlternateAdvice:(id)advice;
 - (void)_updateState:(int64_t)state;
+- (void)fetchNow:(int)now;
+- (void)fetchNow:(int)now withAccounts:(id)accounts;
 - (void)fetchNow:(int)now withMailboxes:(id)mailboxes;
 - (void)resetPushStateWithCompletion:(id)completion;
 - (void)setSuppressedContexts:(id)contexts;
@@ -189,32 +191,32 @@
 
   if (isNetworkUp)
   {
-    v7 = dispatch_get_global_queue(17, 0);
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10000A0A8;
-    v10[3] = &unk_1001563D8;
-    v10[4] = self;
-    v11 = changedCopy;
-    dispatch_async(v7, v10);
+    v8 = dispatch_get_global_queue(17, 0);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10000A0A8;
+    v11[3] = &unk_1001563D8;
+    v11[4] = self;
+    v12 = changedCopy;
+    dispatch_async(v8, v11);
   }
 
   else
   {
-    v8 = sub_10000A284();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_10000A284(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       name = [changedCopy name];
       *buf = 138412290;
-      v13 = name;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@: network down", buf, 0xCu);
+      v14 = name;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@: network down", buf, 0xCu);
     }
   }
 }
 
 - (void)_networkHasAlternateAdvice:(id)advice
 {
-  v4 = sub_10000A284();
+  v4 = sub_10000A284(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -266,6 +268,76 @@
   v3 = [v2 ef_filter:&stru_100156560];
 
   return v3;
+}
+
+- (void)fetchNow:(int)now
+{
+  v3 = *&now;
+  if (EMFetchTypePowerNap == now)
+  {
+    v5 = +[AutoFetchController activeAccountsToSyncByAccount];
+    [(AutoFetchController *)self fetchNow:v3 withAccounts:?];
+
+    mailboxController = [(AutoFetchController *)self mailboxController];
+    [mailboxController fetchForPowernap];
+  }
+
+  else
+  {
+    mailboxController = +[MailAccount activeAccounts];
+    [(AutoFetchController *)self fetchNow:v3 withAccounts:?];
+  }
+}
+
+- (void)fetchNow:(int)now withAccounts:(id)accounts
+{
+  v4 = *&now;
+  v14 = [AutoFetchController partitionAccounts:accounts];
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  syncedByAccount = [v14 syncedByAccount];
+  obj = syncedByAccount;
+  v7 = [syncedByAccount countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v7)
+  {
+    v8 = *v18;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v18 != v8)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v10 = *(*(&v17 + 1) + 8 * v9);
+        [(AutoFetchController *)self _updateState:0];
+        accountController = [(AutoFetchController *)self accountController];
+        v16[0] = _NSConcreteStackBlock;
+        v16[1] = 3221225472;
+        v16[2] = sub_10000AA94;
+        v16[3] = &unk_100156588;
+        v16[4] = v10;
+        v16[5] = self;
+        [accountController fetchNow:v4 withMailboxes:0 fromAccount:v10 completion:v16];
+
+        v9 = v9 + 1;
+      }
+
+      while (v7 != v9);
+      syncedByAccount = obj;
+      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+    }
+
+    while (v7);
+  }
+
+  mailboxController = [(AutoFetchController *)self mailboxController];
+  syncedByMailbox = [v14 syncedByMailbox];
+  [mailboxController fetchNow:v4 withAccounts:syncedByMailbox];
 }
 
 - (void)fetchNow:(int)now withMailboxes:(id)mailboxes

@@ -84,17 +84,16 @@ void __52__FPFSSQLBackupManager_backUpWithCompletionHandler___block_invoke(uint6
 
 - (void)reportCompletionTelemetryWithError:(__CFString *)a1 .cold.1(__CFString *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = @"success";
   if (a1)
   {
     v2 = a1;
   }
 
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] reporting d2d backup telemetry with %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] reporting d2d backup telemetry with %@", &v3, 0xCu);
 }
 
 @end

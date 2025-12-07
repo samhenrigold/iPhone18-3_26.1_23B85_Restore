@@ -137,48 +137,44 @@ void __37__PRBTRangingSession_connectToDaemon__block_invoke_2(uint64_t a1)
 
 - (void)handleInterruption
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   NSLog(&cfstr_DaemonInterrup.isa, a2);
   v3 = self->_logger;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [(NSXPCConnection *)self->_connection debugDescription];
     *buf = 138412290;
-    v15 = v4;
+    v14 = v4;
     _os_log_impl(&dword_230EB5000, v3, OS_LOG_TYPE_DEFAULT, "connection was interrupted: %@", buf, 0xCu);
   }
 
   remoteObject = [(PRBTRangingSession *)self remoteObject];
-  v11.receiver = self;
-  v11.super_class = PRBTRangingSession;
-  clientInfo = [(PRRangingDevice *)&v11 clientInfo];
+  v10.receiver = self;
+  v10.super_class = PRBTRangingSession;
+  clientInfo = [(PRRangingDevice *)&v10 clientInfo];
   [remoteObject connectWithClientInfo:clientInfo];
 
-  v12 = *MEMORY[0x277CCA450];
-  v13 = @"Generic companion ranging error.";
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x277CCA450];
+  v12 = @"Generic companion ranging error.";
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
   v8 = PRErrorWithCodeAndUserInfo(301, v7);
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained didFailWithError:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleInvalidation
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   NSLog(&cfstr_DaemonInvalida.isa, a2);
   v3 = self->_logger;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [(NSXPCConnection *)self->_connection debugDescription];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_230EB5000, v3, OS_LOG_TYPE_DEFAULT, "connection was invalidated: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_230EB5000, v3, OS_LOG_TYPE_DEFAULT, "connection was invalidated: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)remoteObject
@@ -196,18 +192,16 @@ void __37__PRBTRangingSession_connectToDaemon__block_invoke_2(uint64_t a1)
 
 void __34__PRBTRangingSession_remoteObject__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   NSLog(&cfstr_Remoteobjectpr.isa, v3);
   v4 = *(*(a1 + 32) + 32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = v3;
+    v6 = v3;
     _os_log_impl(&dword_230EB5000, v4, OS_LOG_TYPE_DEFAULT, "Error getting remote object proxy %@", buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)synchronousRemoteObject
@@ -225,18 +219,16 @@ void __34__PRBTRangingSession_remoteObject__block_invoke(uint64_t a1, void *a2)
 
 void __45__PRBTRangingSession_synchronousRemoteObject__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   NSLog(&cfstr_Synchronousrem.isa, v3);
   v4 = *(*(a1 + 32) + 32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = v3;
+    v6 = v3;
     _os_log_impl(&dword_230EB5000, v4, OS_LOG_TYPE_DEFAULT, "Error getting synchronous remote object proxy %@", buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFailWithError:(id)error

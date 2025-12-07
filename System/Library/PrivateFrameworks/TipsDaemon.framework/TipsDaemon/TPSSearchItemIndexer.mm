@@ -50,7 +50,7 @@
 
   selfCopy = self;
   SearchItemIndexer.indexTips(_:qualityOfService:completionHandler:)(v8, service, v7, v9);
-  sub_232DE8110(v7);
+  sub_232DE8110(v7, v9);
 }
 
 - (void)indexSupportFlows:(id)flows qualityOfService:(int64_t)service completionHandler:(id)handler
@@ -72,7 +72,7 @@
 
   selfCopy = self;
   SearchItemIndexer.indexSupportFlows(_:qualityOfService:completionHandler:)(v8, service, v7, v9);
-  sub_232DE8110(v7);
+  sub_232DE8110(v7, v9);
 }
 
 - (void)indexUserGuides:(id)guides qualityOfService:(int64_t)service completionHandler:(id)handler
@@ -94,7 +94,7 @@
 
   selfCopy = self;
   SearchItemIndexer.indexUserGuides(_:qualityOfService:completionHandler:)(v8, service, v7, v9);
-  sub_232DE8110(v7);
+  sub_232DE8110(v7, v9);
 }
 
 - (void)reindexTips:(id)tips qualityOfService:(int64_t)service completionHandler:(id)handler
@@ -116,7 +116,7 @@
 
   selfCopy = self;
   SearchItemIndexer.reindexTips(_:qualityOfService:completionHandler:)(v8, service, v7, v9);
-  sub_232DE8110(v7);
+  sub_232DE8110(v7, v9);
 }
 
 - (void)reindexCollections:(id)collections qualityOfService:(int64_t)service completionHandler:(id)handler
@@ -138,7 +138,7 @@
 
   selfCopy = self;
   SearchItemIndexer.reindexCollections(_:qualityOfService:completionHandler:)(v8, service, v7, v9);
-  sub_232DE8110(v7);
+  sub_232DE8110(v7, v9);
 }
 
 - (void)reindexUserGuides:(id)guides qualityOfService:(int64_t)service completionHandler:(id)handler
@@ -160,7 +160,7 @@
 
   selfCopy = self;
   SearchItemIndexer.reindexUserGuides(_:qualityOfService:completionHandler:)(v8, service, v7, v9);
-  sub_232DE8110(v7);
+  sub_232DE8110(v7, v9);
 }
 
 - (void)deleteAllItemsWithQualityOfService:(int64_t)service completionHandler:(id)handler
@@ -180,7 +180,7 @@
 
   selfCopy = self;
   SearchItemIndexer.deleteAllItems(qualityOfService:completionHandler:)(service, v6, v7);
-  sub_232DE8110(v6);
+  sub_232DE8110(v6, v7);
 }
 
 @end

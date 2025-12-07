@@ -562,4 +562,25 @@ void __83__WGWidgetPersistentStateController___setHasContent_forWidgetWithBundle
 LABEL_11:
 }
 
+- (void)_updateCachedStateForWidgetWithIdentifier:(uint64_t)a3 containingBundleID:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"[widgetID length]";
+  OUTLINED_FUNCTION_0_0(&dword_27425E000, a1, a3, "Invalid parameter not satisfying: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_setValue:(uint64_t)a3 forKey:(uint64_t)a4 forWidgetWithIdentifier:(uint64_t)a5 containingBundleID:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"value && [key length] && [widgetID length]";
+  OUTLINED_FUNCTION_0_0(&dword_27425E000, a1, a3, "Invalid parameter not satisfying: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_valueForKey:(uint64_t)a3 forWidgetWithIdentifier:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"[key length] && [widgetID length]";
+  OUTLINED_FUNCTION_0_0(&dword_27425E000, a1, a3, "Invalid parameter not satisfying: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

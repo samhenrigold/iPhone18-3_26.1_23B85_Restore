@@ -14,7 +14,7 @@
 
 - (void)didSampleFlows
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   ++self->_numPollsThisAdvicePeriod;
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v4 = v3;
@@ -48,11 +48,11 @@
         v12 = dateStringMillisecondsFromReferenceInterval(v11);
       }
 
-      v30 = 138412546;
-      v31 = *&v8;
-      v32 = 2112;
-      v33 = v12;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "COSMIcon didSampleFlows entry, %@, idle start %@", &v30, 0x16u);
+      v29 = 138412546;
+      v30 = *&v8;
+      v31 = 2112;
+      v32 = v12;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "COSMIcon didSampleFlows entry, %@, idle start %@", &v29, 0x16u);
       if (v10 > 0.0)
       {
       }
@@ -67,20 +67,20 @@
     {
       if (v4 - self->_flowBasedIconAdvicePeriodStart < self->_minNoForegroundAppDelay)
       {
-        goto LABEL_41;
+        return;
       }
 
       [(FlowBasedIconAdviser *)self setInternalState:2];
       [(TrafficMonitor *)self->_outrankFlowMonitor currentIdleStartTime];
       if (v27 == 0.0)
       {
-        goto LABEL_41;
+        return;
       }
     }
 
     else if (internalState != 2)
     {
-      goto LABEL_41;
+      return;
     }
 
     [(TrafficMonitor *)self->_outrankFlowMonitor currentIdleStartTime];
@@ -104,13 +104,13 @@ LABEL_27:
       v17 = 4;
 LABEL_40:
       [(FlowBasedIconAdviser *)self setInternalState:v17];
-      goto LABEL_41;
+      return;
     }
 
     [(TrafficMonitor *)self->_outrankFlowMonitor currentIdleDuration];
-    if (v29 <= self->_minIdleObservationTime)
+    if (v28 <= self->_minIdleObservationTime)
     {
-      goto LABEL_41;
+      return;
     }
 
     goto LABEL_34;
@@ -128,7 +128,7 @@ LABEL_40:
 
       if (v4 - self->_idleStartTime <= self->_maxInitialIdleDuration)
       {
-        break;
+        return;
       }
 
       goto LABEL_39;
@@ -136,7 +136,7 @@ LABEL_40:
       [(TrafficMonitor *)self->_outrankFlowMonitor currentIdleDuration];
       if (v24 <= self->_minIdleObservationTime)
       {
-        break;
+        return;
       }
 
       [(TrafficMonitor *)self->_outrankFlowMonitor currentIdleStartTime];
@@ -162,9 +162,9 @@ LABEL_39:
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
         {
           v16 = v4 - self->_idleStartTime;
-          v30 = 134217984;
-          v31 = v16;
-          _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "COSMIcon traffic %.3f seconds after declaring idle, ignoring", &v30, 0xCu);
+          v29 = 134217984;
+          v30 = v16;
+          _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "COSMIcon traffic %.3f seconds after declaring idle, ignoring", &v29, 0xCu);
         }
 
         v17 = 6;
@@ -173,14 +173,11 @@ LABEL_39:
 
       break;
   }
-
-LABEL_41:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setInternalState:(unsigned int)state
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (self->_internalState != state)
   {
     v5 = state < 7;
@@ -197,23 +194,23 @@ LABEL_41:
       activePolling = [(TrafficMonitor *)self->_outrankFlowMonitor activePolling];
       flowBasedIconRecommendation = self->_flowBasedIconRecommendation;
       flowBasedIconRecommendationValid = self->_flowBasedIconRecommendationValid;
-      v18 = 138414082;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v13;
-      v22 = 1024;
-      v23 = activePolling;
-      v24 = 1024;
-      v25 = v8;
-      v26 = 1024;
-      v27 = flowBasedIconRecommendation;
-      v28 = 1024;
-      v29 = v7;
-      v30 = 1024;
-      v31 = flowBasedIconRecommendationValid;
-      v32 = 1024;
-      v33 = v6;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "COSMIcon change internalState %@ -> %@    polling %d -> %d  icon-state %d -> %d  valid %d -> %d", &v18, 0x3Au);
+      v17 = 138414082;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v13;
+      v21 = 1024;
+      v22 = activePolling;
+      v23 = 1024;
+      v24 = v8;
+      v25 = 1024;
+      v26 = flowBasedIconRecommendation;
+      v27 = 1024;
+      v28 = v7;
+      v29 = 1024;
+      v30 = flowBasedIconRecommendationValid;
+      v31 = 1024;
+      v32 = v6;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "COSMIcon change internalState %@ -> %@    polling %d -> %d  icon-state %d -> %d  valid %d -> %d", &v17, 0x3Au);
     }
 
     self->_internalState = state;
@@ -221,8 +218,6 @@ LABEL_41:
     self->_flowBasedIconRecommendationValid = v6;
     [(TrafficMonitor *)self->_outrankFlowMonitor setActivePolling:v8];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNePolicyCount:(int)count
@@ -253,7 +248,7 @@ LABEL_41:
 
 void __41__FlowBasedIconAdviser_setNePolicyCount___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 48);
   v4 = outrankLogHandle;
@@ -262,24 +257,25 @@ void __41__FlowBasedIconAdviser_setNePolicyCount___block_invoke(uint64_t a1)
     v5 = *(a1 + 32);
     v6 = v4;
     v7 = flowBasedStateToString([v5 internalState]);
-    v9[0] = 67109378;
-    v9[1] = v2 == v3;
-    v10 = 2112;
-    v11 = v7;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "COSMIcon setNePolicyCount timer expiry, valid %d state %@", v9, 0x12u);
+    v8[0] = 67109378;
+    v8[1] = v2 == v3;
+    v9 = 2112;
+    v10 = v7;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "COSMIcon setNePolicyCount timer expiry, valid %d state %@", v8, 0x12u);
   }
 
-  if (v2 == v3 && [*(a1 + 32) internalState])
+  if (v2 == v3)
   {
-    [*(a1 + 32) setInternalState:6];
+    if ([*(a1 + 32) internalState])
+    {
+      [*(a1 + 32) setInternalState:6];
+    }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setActive:(BOOL)active
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->_active != active)
   {
     activeCopy = active;
@@ -290,13 +286,13 @@ void __41__FlowBasedIconAdviser_setNePolicyCount___block_invoke(uint64_t a1)
       internalState = self->_internalState;
       v8 = v5;
       v9 = flowBasedStateToString(internalState);
-      v13[0] = 67109634;
-      v13[1] = active;
-      v14 = 1024;
-      v15 = activeCopy;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "COSMIcon setActive %d -> %d when in %@", v13, 0x18u);
+      v12[0] = 67109634;
+      v12[1] = active;
+      v13 = 1024;
+      v14 = activeCopy;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "COSMIcon setActive %d -> %d when in %@", v12, 0x18u);
     }
 
     if (activeCopy)
@@ -316,8 +312,6 @@ void __41__FlowBasedIconAdviser_setNePolicyCount___block_invoke(uint64_t a1)
     *&self->_numPollsThisAdvicePeriod = 0;
     self->_active = activeCopy;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getState:(BOOL)state
@@ -419,17 +413,16 @@ void __41__FlowBasedIconAdviser_setNePolicyCount___block_invoke(uint64_t a1)
 
 unint64_t __53__FlowBasedIconAdviser__initializeOutrankFlowMonitor__block_invoke()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = [TrackedFlow reverseRnfUsageGrandTallyAfterAdding:0];
   v1 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
   {
-    v4 = 134217984;
-    v5 = v0;
-    _os_log_impl(&dword_23255B000, v1, OS_LOG_TYPE_INFO, "COSMIcon outrank flow monitor fetch block returns %lld", &v4, 0xCu);
+    v3 = 134217984;
+    v4 = v0;
+    _os_log_impl(&dword_23255B000, v1, OS_LOG_TYPE_INFO, "COSMIcon outrank flow monitor fetch block returns %lld", &v3, 0xCu);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 

@@ -10,6 +10,7 @@
 - (void)analyticsSendUpdateFirmwareEventForAssetID:(id)d frameworkParams:(id)params;
 - (void)analyticsSetDownloadAvailableForAssetID:(id)d;
 - (void)analyticsSetDownloadCompleteForAssetID:(id)d status:(int64_t)status;
+- (void)analyticsSetDownloadConsentReceivedForAssetID:(id)d userIntent:(BOOL)intent;
 - (void)analyticsSetDownloadConsentRequestedForAssetID:(id)d;
 - (void)checkDropbox;
 - (void)dealloc;
@@ -33,47 +34,45 @@
   [v2 addObject:objc_opt_class()];
   [v2 addObject:objc_opt_class()];
   [v2 addObject:objc_opt_class()];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3052000000;
-  v15 = sub_10003BF10;
-  v16 = sub_10003BF20;
-  v17 = qword_100099870;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3052000000;
+  v13 = sub_10003BF10;
+  v14 = sub_10003BF20;
+  v15 = qword_100099870;
   if (!qword_100099870)
   {
-    v7 = _NSConcreteStackBlock;
-    v8 = 3221225472;
-    v9 = sub_10003BF2C;
-    v10 = &unk_100081BF8;
-    v11 = &v12;
-    sub_10003BF2C(&v7);
-    v3 = v13[5];
+    v5 = _NSConcreteStackBlock;
+    v6 = 3221225472;
+    v7 = sub_10003BF2C;
+    v8 = &unk_100081BF8;
+    v9 = &v10;
+    sub_10003BF2C(&v5);
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v10, 8);
   [v2 addObject:objc_opt_class()];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3052000000;
-  v15 = sub_10003BF10;
-  v16 = sub_10003BF20;
-  v17 = qword_100099880;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3052000000;
+  v13 = sub_10003BF10;
+  v14 = sub_10003BF20;
+  v15 = qword_100099880;
   if (!qword_100099880)
   {
-    v7 = _NSConcreteStackBlock;
-    v8 = 3221225472;
-    v9 = sub_10003C0F4;
-    v10 = &unk_100081BF8;
-    v11 = &v12;
-    sub_10003C0F4(&v7);
-    v4 = v13[5];
+    v5 = _NSConcreteStackBlock;
+    v6 = 3221225472;
+    v7 = sub_10003C0F4;
+    v8 = &unk_100081BF8;
+    v9 = &v10;
+    sub_10003C0F4(&v5);
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v10, 8);
   [v2 addObject:objc_opt_class()];
-  v5 = [NSSet setWithArray:v2];
+  v3 = [NSSet setWithArray:v2];
 
-  return v5;
+  return v3;
 }
 
 - (UARPAccessoryInternal)initWithAccessoryID:(id)d assetID:(id)iD
@@ -169,6 +168,39 @@ LABEL_9:
   else if (os_log_type_enabled(self->_analyticsLog, OS_LOG_TYPE_ERROR))
   {
     sub_100053F5C();
+  }
+}
+
+- (void)analyticsSetDownloadConsentReceivedForAssetID:(id)d userIntent:(BOOL)intent
+{
+  intentCopy = intent;
+  analyticsLog = self->_analyticsLog;
+  if (os_log_type_enabled(analyticsLog, OS_LOG_TYPE_INFO))
+  {
+    v8 = "NO";
+    *&v10[4] = "[UARPAccessoryInternal analyticsSetDownloadConsentReceivedForAssetID:userIntent:]";
+    *v10 = 136315650;
+    if (intentCopy)
+    {
+      v8 = "YES";
+    }
+
+    *&v10[12] = 2112;
+    *&v10[14] = d;
+    v11 = 2080;
+    v12 = v8;
+    _os_log_impl(&_mh_execute_header, analyticsLog, OS_LOG_TYPE_INFO, "%s: %@ userIntent=%s", v10, 0x20u);
+  }
+
+  v9 = [(UARPAccessoryInternal *)self analyticsUpdateStateForAssetID:d, *v10, *&v10[8]];
+  if (v9)
+  {
+    [v9 setDownloadConsentReceived:intentCopy];
+  }
+
+  else if (os_log_type_enabled(self->_analyticsLog, OS_LOG_TYPE_ERROR))
+  {
+    sub_100053FE0();
   }
 }
 
@@ -474,36 +506,35 @@ LABEL_3:
   if ([(NSMutableArray *)self->_analyticsUpdateStates count])
   {
     [string appendWithTabDepth:depth + 1 format:@"Analytics Firmware Update States:\n"];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     analyticsUpdateStates = self->_analyticsUpdateStates;
-    v8 = [(NSMutableArray *)analyticsUpdateStates countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [(NSMutableArray *)analyticsUpdateStates countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(analyticsUpdateStates);
           }
 
-          [*(*(&v13 + 1) + 8 * i) dumpWithTabDepth:depth + 2 dumpString:string];
+          [*(*(&v12 + 1) + 8 * i) dumpWithTabDepth:depth + 2 dumpString:string];
         }
 
-        v9 = [(NSMutableArray *)analyticsUpdateStates countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [(NSMutableArray *)analyticsUpdateStates countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
     }
   }
 
-  record = self->_record;
   if (objc_opt_respondsToSelector())
   {
     [self->_record dumpWithTabDepth:depth + 1 dumpString:string];

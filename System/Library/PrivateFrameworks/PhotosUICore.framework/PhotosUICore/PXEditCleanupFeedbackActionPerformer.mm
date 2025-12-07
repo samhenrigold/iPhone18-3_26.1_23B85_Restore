@@ -21,7 +21,7 @@
 
 - (void)reportFeedbackWithType:(unint64_t)type asset:(id)asset originalImageData:(id)data renderedImageData:(id)imageData summaryString:(id)string completionHandler:(id)handler
 {
-  sub_1A3DB4F20();
+  sub_1A3DB4F20(0);
   MEMORY[0x1EEE9AC00](v15 - 8);
   v17 = &v47 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   v18 = _Block_copy(handler);

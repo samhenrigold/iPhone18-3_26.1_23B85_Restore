@@ -39,34 +39,34 @@
 
       if (!msnPillRegister)
       {
-        v7 = objc_alloc_init(TUFeatureFlags);
-        if ([v7 usesMediaSafetyNetPillDataSource])
+        v8 = objc_alloc_init(TUFeatureFlags);
+        if ([v8 usesMediaSafetyNetPillDataSource])
         {
           serverBag = [(CSDStatusBarManager *)self serverBag];
           isMSNPillDataSourceEnabled = [serverBag isMSNPillDataSourceEnabled];
 
           if (isMSNPillDataSourceEnabled)
           {
-            v10 = CUTWeakLinkClass();
-            if (v10)
+            v11 = CUTWeakLinkClass();
+            if (v11)
             {
-              v11 = [v10 alloc];
+              v12 = [v11 alloc];
               if (objc_opt_respondsToSelector())
               {
                 queue2 = [(CSDStatusBarManager *)self queue];
-                -[CSDStatusBarManager setMsnPillRegister:](self, "setMsnPillRegister:", [v11 performSelector:"initWithQueue:" withObject:queue2]);
+                -[CSDStatusBarManager setMsnPillRegister:](self, "setMsnPillRegister:", [v12 performSelector:"initWithQueue:" withObject:queue2]);
 
                 msnPillRegister2 = [(CSDStatusBarManager *)self msnPillRegister];
-                v14 = objc_opt_respondsToSelector();
+                v15 = objc_opt_respondsToSelector();
 
-                if (v14)
+                if (v15)
                 {
                   bundleIdentifiersForPillDataSource = [objc_opt_class() bundleIdentifiersForPillDataSource];
-                  v16 = sub_100004778();
-                  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+                  v17 = sub_100004778(bundleIdentifiersForPillDataSource);
+                  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 0;
-                    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Registering for pill datasource", buf, 2u);
+                    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Registering for pill datasource", buf, 2u);
                   }
 
                   [self->_msnPillRegister performSelector:"registerPillDataSource:forIdentifiers:" withObject:self withObject:bundleIdentifiersForPillDataSource];
@@ -85,11 +85,11 @@
 
   else
   {
-    v17 = sub_100004778();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100004778(v6);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Unregistering for pill datasource", v20, 2u);
+      *v21 = 0;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Unregistering for pill datasource", v21, 2u);
     }
 
     [(CSDStatusBarManager *)self setMsnPillRegister:0];
@@ -245,33 +245,33 @@ LABEL_12:
   queue = [(CSDStatusBarManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     currentDescriptor = [(CSDStatusBarManager *)self currentDescriptor];
     *buf = 138543618;
     *&buf[4] = currentDescriptor;
     *&buf[12] = 2114;
     *&buf[14] = descriptorCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "updating descriptor old: %{public}@ new: %{public}@", buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "updating descriptor old: %{public}@ new: %{public}@", buf, 0x16u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v14 = sub_100028614;
-  v15 = sub_100032894;
+  v15 = sub_100028614;
+  v16 = sub_100032894;
   currentDescriptor2 = [(CSDStatusBarManager *)self currentDescriptor];
   [(CSDStatusBarManager *)self setCurrentDescriptor:descriptorCopy];
   systemStatusPublisher = [(CSDStatusBarManager *)self systemStatusPublisher];
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1000BF660;
-  v10[3] = &unk_10061AC40;
-  v12 = buf;
-  v9 = descriptorCopy;
-  v11 = v9;
-  [systemStatusPublisher updateVolatileDataWithBlock:v10];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1000BF660;
+  v11[3] = &unk_10061AC40;
+  v13 = buf;
+  v10 = descriptorCopy;
+  v12 = v10;
+  [systemStatusPublisher updateVolatileDataWithBlock:v11];
 
   _Block_object_dispose(buf, 8);
 }
@@ -325,13 +325,14 @@ LABEL_12:
 
 - (void)startTrackingException
 {
-  if (![(CSDStatusBarManager *)self isTrackingMSNException])
+  isTrackingMSNException = [(CSDStatusBarManager *)self isTrackingMSNException];
+  if ((isTrackingMSNException & 1) == 0)
   {
-    v3 = sub_100004778();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100004778(isTrackingMSNException);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Starting MSN Exception", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Starting MSN Exception", v5, 2u);
     }
 
     MSNMonitorBeginException();
@@ -341,13 +342,14 @@ LABEL_12:
 
 - (void)stopTrackingException
 {
-  if ([(CSDStatusBarManager *)self isTrackingMSNException])
+  isTrackingMSNException = [(CSDStatusBarManager *)self isTrackingMSNException];
+  if (isTrackingMSNException)
   {
-    v3 = sub_100004778();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100004778(isTrackingMSNException);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Ending MSN Exception", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Ending MSN Exception", v5, 2u);
     }
 
     MSNMonitorEndException();
@@ -413,54 +415,55 @@ LABEL_12:
   {
     v7 = objc_alloc_init(_LSOpenConfiguration);
     isPTT = [v4 isPTT];
-    v9 = sub_100004778();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (isPTT)
+    v9 = isPTT;
+    v10 = sub_100004778(isPTT);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    if (v9)
     {
-      if (v10)
+      if (v11)
       {
         *buf = 138412290;
-        v25 = bundleIdentifier;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Background launching application with bundle identifier %@", buf, 0xCu);
+        v26 = bundleIdentifier;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Background launching application with bundle identifier %@", buf, 0xCu);
       }
 
-      v22 = FBSOpenApplicationOptionKeyActivateSuspended;
-      v23 = &__kCFBooleanTrue;
-      v11 = &v23;
-      v12 = &v22;
-      v13 = 1;
+      v23 = FBSOpenApplicationOptionKeyActivateSuspended;
+      v24 = &__kCFBooleanTrue;
+      v12 = &v24;
+      v13 = &v23;
+      v14 = 1;
     }
 
     else
     {
-      if (v10)
+      if (v11)
       {
         *buf = 138412290;
-        v25 = bundleIdentifier;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Foreground launching application with bundle identifier %@", buf, 0xCu);
+        v26 = bundleIdentifier;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Foreground launching application with bundle identifier %@", buf, 0xCu);
       }
 
-      v20[0] = FBSOpenApplicationOptionKeyUnlockDevice;
-      v20[1] = FBSOpenApplicationOptionKeyPromptUnlockDevice;
-      v21[0] = &__kCFBooleanTrue;
-      v21[1] = &__kCFBooleanTrue;
-      v11 = v21;
-      v12 = v20;
-      v13 = 2;
+      v21[0] = FBSOpenApplicationOptionKeyUnlockDevice;
+      v21[1] = FBSOpenApplicationOptionKeyPromptUnlockDevice;
+      v22[0] = &__kCFBooleanTrue;
+      v22[1] = &__kCFBooleanTrue;
+      v12 = v22;
+      v13 = v21;
+      v14 = 2;
     }
 
-    v14 = [NSDictionary dictionaryWithObjects:v11 forKeys:v12 count:v13];
-    [v7 setFrontBoardOptions:v14];
+    v15 = [NSDictionary dictionaryWithObjects:v12 forKeys:v13 count:v14];
+    [v7 setFrontBoardOptions:v15];
 
-    v15 = +[LSApplicationWorkspace defaultWorkspace];
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1000BFF10;
-    v16[3] = &unk_10061AC68;
-    v17 = bundleIdentifier;
-    v18 = v4;
-    v19 = callCopy;
-    [v15 openApplicationWithBundleIdentifier:v17 configuration:v7 completionHandler:v16];
+    v16 = +[LSApplicationWorkspace defaultWorkspace];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_1000BFF10;
+    v17[3] = &unk_10061AC68;
+    v18 = bundleIdentifier;
+    v19 = v4;
+    v20 = callCopy;
+    [v16 openApplicationWithBundleIdentifier:v18 configuration:v7 completionHandler:v17];
   }
 }
 

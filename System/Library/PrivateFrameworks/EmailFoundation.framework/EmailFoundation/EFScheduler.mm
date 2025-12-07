@@ -120,28 +120,26 @@ void __33__EFScheduler_immediateScheduler__block_invoke()
 
 void __56__EFScheduler_globalAsyncSchedulerWithQualityOfService___block_invoke(uint64_t a1)
 {
-  v12[5] = *MEMORY[0x1E69E9840];
-  v11[0] = &unk_1F45AD010;
+  v11[5] = *MEMORY[0x1E69E9840];
+  v10[0] = &unk_1F45AD010;
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) _globalAsyncSchedulerWithQualityOfService:-1];
-  v12[0] = v3;
-  v11[1] = &unk_1F45AD028;
+  v11[0] = v3;
+  v10[1] = &unk_1F45AD028;
   v4 = [*v2 _globalAsyncSchedulerWithQualityOfService:9];
-  v12[1] = v4;
-  v11[2] = &unk_1F45AD040;
+  v11[1] = v4;
+  v10[2] = &unk_1F45AD040;
   v5 = [*(a1 + 32) _globalAsyncSchedulerWithQualityOfService:17];
-  v12[2] = v5;
-  v11[3] = &unk_1F45AD058;
+  v11[2] = v5;
+  v10[3] = &unk_1F45AD058;
   v6 = [*(a1 + 32) _globalAsyncSchedulerWithQualityOfService:25];
-  v12[3] = v6;
-  v11[4] = &unk_1F45AD070;
+  v11[3] = v6;
+  v10[4] = &unk_1F45AD070;
   v7 = [*(a1 + 32) _globalAsyncSchedulerWithQualityOfService:33];
-  v12[4] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
+  v11[4] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:5];
   v9 = globalAsyncSchedulerWithQualityOfService__qosSchedulers;
   globalAsyncSchedulerWithQualityOfService__qosSchedulers = v8;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)serialDispatchQueueSchedulerWithName:(id)name

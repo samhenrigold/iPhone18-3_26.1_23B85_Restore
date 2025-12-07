@@ -50,7 +50,7 @@
 
 - (void)stagedValue:(id)value didExpireValue:(id)expireValue
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   expireValueCopy = expireValue;
   stagedAudioGroupIdentifier = [(HMDMediaDestinationManager *)self stagedAudioGroupIdentifier];
@@ -70,11 +70,11 @@
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = HMFGetLogIdentifier();
-        v24 = 138543618;
-        v25 = v20;
-        v26 = 2112;
-        v27 = v13;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Handling expired audio group identifier value: %@", &v24, 0x16u);
+        v23 = 138543618;
+        v24 = v20;
+        v25 = 2112;
+        v26 = v13;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Handling expired audio group identifier value: %@", &v23, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -94,41 +94,37 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v24 = 138543874;
-      v25 = v12;
-      v26 = 2112;
-      v27 = valueCopy;
-      v28 = 2112;
-      v29 = expireValueCopy;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unknown stage value: %@ did expire value: %@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v12;
+      v25 = 2112;
+      v26 = valueCopy;
+      v27 = 2112;
+      v28 = expireValueCopy;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unknown stage value: %@ did expire value: %@", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)triggerStageValueDidExpireValueForAudioDestinationIdentifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Triggering did expire value for audio destination identifier", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Triggering did expire value for audio destination identifier", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   stagedAudioGroupIdentifier = [(HMDMediaDestinationManager *)selfCopy stagedAudioGroupIdentifier];
   value = [stagedAudioGroupIdentifier value];
   [(HMDMediaDestinationManager *)selfCopy stagedValue:stagedAudioGroupIdentifier didExpireValue:value];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -141,21 +137,19 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMDMediaDestinationManager *)self identifier];
   v5 = [v3 initWithName:@"identifier" value:identifier];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 - (void)notifyDelegateDidUpdateStagedValues
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   delegate = [(HMDMediaDestinationManager *)self delegate];
   v4 = delegate;
   if (delegate)
@@ -171,20 +165,18 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify of updated staged values due to no delegate", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify of updated staged values due to no delegate", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mediaDestinationMessageHandler:(id)handler didReceiveUpdateAudioGroupIdentifierRequestMessage:(id)message audioGroupIdentifier:(id)identifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   messageCopy = message;
   identifierCopy = identifier;
@@ -195,33 +187,31 @@
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v26 = v14;
+    v25 = v14;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling did receive update audio group identifier request message", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
   v15 = [(HMDMediaDestinationManager *)selfCopy updateAudioGroupIdentifier:identifierCopy];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __133__HMDMediaDestinationManager_mediaDestinationMessageHandler_didReceiveUpdateAudioGroupIdentifierRequestMessage_audioGroupIdentifier___block_invoke;
-  v23[3] = &unk_27868A250;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __133__HMDMediaDestinationManager_mediaDestinationMessageHandler_didReceiveUpdateAudioGroupIdentifierRequestMessage_audioGroupIdentifier___block_invoke;
+  v22[3] = &unk_27868A250;
   v16 = messageCopy;
-  v24 = v16;
-  v17 = [v15 addFailureBlock:v23];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __133__HMDMediaDestinationManager_mediaDestinationMessageHandler_didReceiveUpdateAudioGroupIdentifierRequestMessage_audioGroupIdentifier___block_invoke_2;
-  v21[3] = &unk_27868A200;
-  v22 = v16;
+  v23 = v16;
+  v17 = [v15 addFailureBlock:v22];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __133__HMDMediaDestinationManager_mediaDestinationMessageHandler_didReceiveUpdateAudioGroupIdentifierRequestMessage_audioGroupIdentifier___block_invoke_2;
+  v20[3] = &unk_27868A200;
+  v21 = v16;
   v18 = v16;
-  v19 = [v15 addSuccessBlock:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [v15 addSuccessBlock:v20];
 }
 
 - (void)mediaDestinationMessageHandler:(id)handler didReceiveUpdateSupportedOptionsRequestMessage:(id)message supportOptions:(unint64_t)options
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   messageCopy = message;
   v10 = objc_autoreleasePoolPush();
@@ -231,33 +221,31 @@
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v25 = v13;
+    v24 = v13;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Handling did receive update supported options request message", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v10);
   v14 = [(HMDMediaDestinationManager *)selfCopy updateSupportedOptions:options];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __123__HMDMediaDestinationManager_mediaDestinationMessageHandler_didReceiveUpdateSupportedOptionsRequestMessage_supportOptions___block_invoke;
-  v22[3] = &unk_27868A250;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __123__HMDMediaDestinationManager_mediaDestinationMessageHandler_didReceiveUpdateSupportedOptionsRequestMessage_supportOptions___block_invoke;
+  v21[3] = &unk_27868A250;
   v15 = messageCopy;
-  v23 = v15;
-  v16 = [v14 addFailureBlock:v22];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __123__HMDMediaDestinationManager_mediaDestinationMessageHandler_didReceiveUpdateSupportedOptionsRequestMessage_supportOptions___block_invoke_2;
-  v20[3] = &unk_27868A200;
-  v21 = v15;
+  v22 = v15;
+  v16 = [v14 addFailureBlock:v21];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __123__HMDMediaDestinationManager_mediaDestinationMessageHandler_didReceiveUpdateSupportedOptionsRequestMessage_supportOptions___block_invoke_2;
+  v19[3] = &unk_27868A200;
+  v20 = v15;
   v17 = v15;
-  v18 = [v14 addSuccessBlock:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = [v14 addSuccessBlock:v19];
 }
 
 - (id)messageHandler:(id)handler deviceForOutgoingMessage:(id)message
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   messageCopy = message;
   dataSourceTargetAccessory = [(HMDMediaDestinationManager *)self dataSourceTargetAccessory];
@@ -275,23 +263,21 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v14;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to get device due to no target accessory", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v14;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to get device due to no target accessory", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     deviceForDirectMessaging = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return deviceForDirectMessaging;
 }
 
 - (id)messageHandler:(id)handler shouldRelayIncomingMessage:(id)message
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   messageCopy = message;
   dataSourceTargetAccessory = [(HMDMediaDestinationManager *)self dataSourceTargetAccessory];
@@ -309,23 +295,21 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v14;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine relay preference due to no target accessory", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v14;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine relay preference due to no target accessory", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     v10 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (void)mediaDestinationBackingStoreHandler:(id)handler didUpdateDestination:(id)destination
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   destinationCopy = destination;
   v8 = self->_logger;
@@ -335,17 +319,17 @@
     v10 = audioGroupIdentifier;
     if (audioGroupIdentifier)
     {
-      v20 = 138412290;
-      v21 = audioGroupIdentifier;
-      _os_signpost_emit_with_name_impl(&dword_229538000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HMDMediaDestinationManagerCommitAudioGroupIdentifier", "audioGroupIdentifier=%{signpost.description:attribute}@ ", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = audioGroupIdentifier;
+      _os_signpost_emit_with_name_impl(&dword_229538000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HMDMediaDestinationManagerCommitAudioGroupIdentifier", "audioGroupIdentifier=%{signpost.description:attribute}@ ", &v19, 0xCu);
     }
 
     else
     {
       null = [MEMORY[0x277CBEB68] null];
-      v20 = 138412290;
-      v21 = null;
-      _os_signpost_emit_with_name_impl(&dword_229538000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HMDMediaDestinationManagerCommitAudioGroupIdentifier", "audioGroupIdentifier=%{signpost.description:attribute}@ ", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = null;
+      _os_signpost_emit_with_name_impl(&dword_229538000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HMDMediaDestinationManagerCommitAudioGroupIdentifier", "audioGroupIdentifier=%{signpost.description:attribute}@ ", &v19, 0xCu);
     }
   }
 
@@ -355,11 +339,11 @@
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     v15 = HMFGetLogIdentifier();
-    v20 = 138543618;
-    v21 = v15;
-    v22 = 2112;
-    v23 = destinationCopy;
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Handling did update destination: %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v15;
+    v21 = 2112;
+    v22 = destinationCopy;
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Handling did update destination: %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v12);
@@ -369,8 +353,6 @@
 
   messageHandler = [(HMDMediaDestinationManager *)selfCopy messageHandler];
   [messageHandler handleUpdatedDestination:destinationCopy];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)legacyUpdateAudioGroupIdentifier:(id)identifier
@@ -418,7 +400,7 @@
 
 void __63__HMDMediaDestinationManager_legacyUpdateAudioGroupIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -429,11 +411,11 @@ void __63__HMDMediaDestinationManager_legacyUpdateAudioGroupIdentifier___block_i
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Update audio group identifier completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Update audio group identifier completed with error: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -445,21 +427,19 @@ void __63__HMDMediaDestinationManager_legacyUpdateAudioGroupIdentifier___block_i
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Update audio group identifier completed", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Update audio group identifier completed", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 40) finishWithNoResult];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)updateAudioGroupIdentifier:(id)identifier
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -467,11 +447,11 @@ void __63__HMDMediaDestinationManager_legacyUpdateAudioGroupIdentifier___block_i
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v25 = 138543618;
-    v26 = v8;
-    v27 = 2112;
-    v28 = identifierCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating audio group identifier: %@", &v25, 0x16u);
+    v24 = 138543618;
+    v25 = v8;
+    v26 = 2112;
+    v27 = identifierCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating audio group identifier: %@", &v24, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -483,9 +463,9 @@ void __63__HMDMediaDestinationManager_legacyUpdateAudioGroupIdentifier___block_i
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v16;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Home Theater QFA is not enabled", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v16;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Home Theater QFA is not enabled", &v24, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -513,11 +493,11 @@ void __63__HMDMediaDestinationManager_legacyUpdateAudioGroupIdentifier___block_i
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v20 = HMFGetLogIdentifier();
-        v25 = 138543618;
-        v26 = v20;
-        v27 = 2112;
-        v28 = identifierCopy;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to update local storage with audio group identifier: %@ due to no local storage found", &v25, 0x16u);
+        v24 = 138543618;
+        v25 = v20;
+        v26 = 2112;
+        v27 = identifierCopy;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to update local storage with audio group identifier: %@ due to no local storage found", &v24, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -526,8 +506,6 @@ void __63__HMDMediaDestinationManager_legacyUpdateAudioGroupIdentifier___block_i
       futureWithNoResult = [v21 futureWithError:v22];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
@@ -553,7 +531,7 @@ void __63__HMDMediaDestinationManager_legacyUpdateAudioGroupIdentifier___block_i
 
 void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -564,11 +542,11 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Update supported options completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Update supported options completed with error: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -580,21 +558,19 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Update supported options completed", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Update supported options completed", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 40) finishWithNoResult];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)updateSupportedOptions:(unint64_t)options
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -602,11 +578,11 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
   {
     v8 = HMFGetLogIdentifier();
     v9 = HMMediaDestinationSupportOptionsAsString();
-    v26 = 138543618;
-    v27 = v8;
-    v28 = 2112;
-    v29 = v9;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating supported options: %@", &v26, 0x16u);
+    v25 = 138543618;
+    v26 = v8;
+    v27 = 2112;
+    v28 = v9;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating supported options: %@", &v25, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -618,9 +594,9 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v16;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Home Theater QFA is not enabled", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v16;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Home Theater QFA is not enabled", &v25, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -646,11 +622,11 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
       {
         v20 = HMFGetLogIdentifier();
         v21 = HMMediaDestinationSupportOptionsAsString();
-        v26 = 138543618;
-        v27 = v20;
-        v28 = 2112;
-        v29 = v21;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to update supported options: %@ due to no local storage found", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v20;
+        v27 = 2112;
+        v28 = v21;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to update supported options: %@ due to no local storage found", &v25, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -660,14 +636,12 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return futureWithNoResult;
 }
 
 - (id)dataSourceRootDestinationManager
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDMediaDestinationManager *)self dataSource];
   if (!dataSource)
   {
@@ -677,9 +651,9 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine root destination due to no data source", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine root destination due to no data source", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -687,14 +661,12 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
 
   v8 = [dataSource rootDestinationManagerForMediaDestinationManager:self];
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)dataSourceDestinationControllerWithIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dataSource = [(HMDMediaDestinationManager *)self dataSource];
   v6 = dataSource;
@@ -711,23 +683,21 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source destination controller due to no data source", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source destination controller due to no data source", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)dataSourceTargetAccessory
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDMediaDestinationManager *)self dataSource];
   v4 = [dataSource targetAccessoryForMediaDestinationManager:self];
   v5 = v4;
@@ -744,24 +714,22 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = dataSource;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to get associated accessory from data source: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = dataSource;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to get associated accessory from data source: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)mediaGroupParticipantLocalDataStorage
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDMediaDestinationManager *)self dataSource];
   v4 = dataSource;
   if (dataSource)
@@ -777,16 +745,14 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get local data storage due to no data source", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get local data storage due to no data source", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -809,14 +775,14 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
   value = [stagedAudioGroupIdentifier value];
   [v5 setAudioGroupIdentifier:value];
 
-  v8 = [v5 copy];
+  v8 = objc_msgSend_copy(v5);
 
   return v8;
 }
 
 - (BOOL)addGroupDataForTargetDevice:(id)device
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -824,9 +790,9 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v17 = 138543362;
-    v18 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Adding group data for target device", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Adding group data for target device", &v16, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -845,21 +811,20 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v14;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to add group data for target device due to no local data storage", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v14;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to add group data for target device due to no local data storage", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return mediaGroupParticipantLocalDataStorage != 0;
 }
 
 - (BOOL)updateTargetDeviceAudioGroupIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -867,11 +832,11 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v8;
-    v20 = 2112;
-    v21 = identifierCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating target device audio group identifier with %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v8;
+    v19 = 2112;
+    v20 = identifierCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating target device audio group identifier with %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -892,17 +857,16 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = identifierCopy;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to update audio group identifier: %@ due to no local storage found", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = identifierCopy;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to update audio group identifier: %@ due to no local storage found", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10 != 0;
 }
 
@@ -916,7 +880,7 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
 
 - (void)stageAudioGroupIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -924,11 +888,11 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v8;
-    v16 = 2112;
-    v17 = identifierCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Staging audio group identifier: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v8;
+    v15 = 2112;
+    v16 = identifierCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Staging audio group identifier: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -943,8 +907,6 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
   {
     [(HMDMediaDestinationManager *)selfCopy notifyDelegateDidUpdateStagedValues];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeDestination:(id)destination
@@ -963,7 +925,7 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
 
 - (void)configureWithHome:(id)home currentAccessory:(BOOL)accessory
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -972,20 +934,18 @@ void __59__HMDMediaDestinationManager_legacyUpdateSupportedOptions___block_invok
   {
     v9 = HMFGetLogIdentifier();
     committedDestination = [(HMDMediaDestinationManager *)selfCopy committedDestination];
-    v13 = 138543874;
-    v14 = v9;
-    v15 = 2112;
-    v16 = selfCopy;
-    v17 = 2112;
-    v18 = committedDestination;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Configuring destination manager: %@ destination: %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v9;
+    v14 = 2112;
+    v15 = selfCopy;
+    v16 = 2112;
+    v17 = committedDestination;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Configuring destination manager: %@ destination: %@", &v12, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
   messageHandler = [(HMDMediaDestinationManager *)selfCopy messageHandler];
   [messageHandler configureWithHome:homeCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMediaDestinationManager)initWithDestination:(id)destination messageHandler:(id)handler backingStoreHandler:(id)storeHandler metricsDispatcher:(id)dispatcher targetDevice:(BOOL)device dataSource:(id)source delegate:(id)delegate
@@ -1083,10 +1043,9 @@ LABEL_9:
 
 void __41__HMDMediaDestinationManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v29_118772;
-  logCategory__hmf_once_v29_118772 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v29_118772;
+  logCategory__hmf_once_v29_118772 = v0;
 }
 
 @end

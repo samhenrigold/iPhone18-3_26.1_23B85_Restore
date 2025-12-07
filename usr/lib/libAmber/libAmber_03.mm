@@ -1,4 +1,4 @@
-void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -47,7 +47,7 @@ void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, v
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -106,7 +106,7 @@ LABEL_16:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t amber::JSONOutputStream::appendArray<unsigned long long>(const void **a1, const char *a2, uint64_t **a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t amber::JSONOutputStream::appendArray<unsigned long long>(const void **a1, const char *a2, unint64_t **a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   v15 = amber::JSONOutputStream::beginArray(a1, a2, a3, a4, a5, a6, a7) >> 31;
   for (i = *a3; i != a3[1]; ++i)
@@ -166,20 +166,17 @@ uint64_t amber::fromAmberObject(const void **a1, uint64_t a2)
   return 0;
 }
 
-void *std::vector<unsigned long long>::reserve(void *result, unint64_t a2)
+void std::vector<unsigned long long>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(a1, a2);
     }
 
     std::vector<DERNode>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t AmberKnoxUploadAttributesParseJSON(uint64_t a1, amber::Stream *a2)
@@ -242,52 +239,52 @@ void sub_29697A67C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t AmberKnoxUploadAttributesSerializeJSON(uint64_t a1, amber::Stream *a2)
 {
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v11 = &unk_2A1DE1008;
-  v16 = 0;
-  v17 = -1;
-  amber::fromAmberObject(&v11, a1);
-  amber::JSONOutputStream::JSONOutputStream(v10, a2, 1);
-  if ((amber::KnoxUploadAttributes::jsonSerialize(&v11, v10, 0, v3, v4, v5, v6) & 0x80000000) != 0)
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v20 = &unk_2A1DE1008;
+  v25 = 0;
+  v26 = -1;
+  amber::fromAmberObject(&v20, a1);
+  amber::JSONOutputStream::JSONOutputStream(v19, a2, 1, v3, v4, v5, v6);
+  if ((amber::KnoxUploadAttributes::jsonSerialize(&v20, v19, 0, v7, v8, v9, v10) & 0x80000000) != 0)
   {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxUploadAttributes.cpp", "AmberKnoxUploadAttributesSerializeJSON", 0x91, 0, "JSON serializate AmberKnoxUploadAttributes", v7);
-    v8 = 0xFFFFFFFFLL;
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxUploadAttributes.cpp", "AmberKnoxUploadAttributesSerializeJSON", 0x91, 0, "JSON serializate AmberKnoxUploadAttributes", v16);
+    v17 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v8 = 0;
+    v17 = 0;
   }
 
-  amber::JSONOutputStream::~JSONOutputStream(v10);
-  v11 = &unk_2A1DE1008;
-  if (v15)
+  amber::JSONOutputStream::~JSONOutputStream(v19, v11, v12, v13, v14, v15, v16);
+  v20 = &unk_2A1DE1008;
+  if (v24)
   {
-    *(&v15 + 1) = v15;
-    operator delete(v15);
+    *(&v24 + 1) = v24;
+    operator delete(v24);
   }
 
-  if (*(&v13 + 1))
+  if (*(&v22 + 1))
   {
-    *&v14 = *(&v13 + 1);
-    operator delete(*(&v13 + 1));
+    *&v23 = *(&v22 + 1);
+    operator delete(*(&v22 + 1));
   }
 
-  if (SBYTE7(v13) < 0)
+  if (SBYTE7(v22) < 0)
   {
-    operator delete(v12);
+    operator delete(v21);
   }
 
-  amber::JSONCodable::~JSONCodable(&v11);
-  return v8;
+  amber::JSONCodable::~JSONCodable(&v20);
+  return v17;
 }
 
-void sub_29697A844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_29697A844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, uint64_t a8, uint64_t a9)
 {
-  amber::JSONOutputStream::~JSONOutputStream(&a9);
+  amber::JSONOutputStream::~JSONOutputStream(&a9, a2, a3, a4, a5, a6, a7);
   amber::KnoxUploadAttributes::~KnoxUploadAttributes((v9 - 120));
   _Unwind_Resume(a1);
 }
@@ -452,28 +449,22 @@ LABEL_9:
   return result;
 }
 
-uint64_t amber::SharedCacheBlockDevice::ReadState::enqueueRequest(amber::SharedCacheBlockDevice::ReadState *this, uint64_t a2, size_t size)
+uint64_t amber::SharedCacheBlockDevice::ReadState::enqueueRequest(amber::SharedCacheBlockDevice::ReadState *this, unint64_t a2, size_t size)
 {
-  v5 = size;
   if (malloc_type_malloc(size, 0xF93785E2uLL))
   {
-    if (*(*(this + 22) + 480) < (v5 + a2))
-    {
-      v6 = *(*(this + 22) + 480);
-    }
-
     operator new();
   }
 
-  v7 = __error();
-  amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./Malloc.hpp", "malloc", 0x1F, *v7, "malloc", v8);
-  amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/SharedCacheBlockDevice.cpp", "enqueueRequest", 0x116, 0, "malloc", v9);
+  v3 = __error();
+  amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./Malloc.hpp", "malloc", 0x1F, *v3, "malloc", v4);
+  amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/SharedCacheBlockDevice.cpp", "enqueueRequest", 0x116, 0, "malloc", v5);
   return 0xFFFFFFFFLL;
 }
 
-void sub_29697B28C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29697B28C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   amber::BlockDeviceEvent::~BlockDeviceEvent(va);
   _Unwind_Resume(a1);
 }
@@ -614,8 +605,8 @@ uint64_t amber::SharedCacheBlockDevice::ReadState::processReply(amber::SharedCac
     }
 
     memcpy(v51[1], v54, v30);
-    amber::Range::alignedAndShiftedRight(v57, *(*(this + 22) + 524), v31, v56);
-    amber::Buffer::createWithPointer(v11, v11, v17, v32, v33, v34, v35, v51);
+    amber::Range::alignedAndShiftedRight(v56, v57, *(*(this + 22) + 524), v31);
+    amber::Buffer::createWithPointer(v51, v11, v11, v17, v32, v33, v34, v35);
     amber::BlockDeviceEvent::BlockDeviceEvent(&v53, 32, a2);
     amber::BlockDeviceEvent::sendBegin(&v53);
     if ((amber::SharedBlockCache::write(*(*(this + 22) + 512), *(*(this + 22) + 528), v56, v51, v36, v37, v38) & 0x80000000) != 0)
@@ -647,53 +638,53 @@ uint64_t amber::SharedCacheBlockDevice::ReadState::processReply(amber::SharedCac
   return 0;
 }
 
-void *amber::Range::alignedAndShiftedRight@<X0>(void *this@<X0>, unsigned int a2@<W1>, const char *a3@<X6>, unint64_t *a4@<X8>)
+unint64_t *amber::Range::alignedAndShiftedRight@<X0>(unint64_t *__return_ptr a1@<X8>, unint64_t *this@<X0>, unsigned int a3@<W1>, const char *a4@<X6>)
 {
-  if (a2 >= 0x40)
+  if (a3 >= 0x40)
   {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Range.hpp", "alignedAndShiftedRight", 0x60, 0, "memory invalid range", a3);
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Range.hpp", "alignedAndShiftedRight", 0x60, 0, "memory invalid range", a4);
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x29C25BE90](exception, "memory invalid range");
     __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
   }
 
-  v4 = *this >> a2;
-  v5 = (this[1] + ~(-1 << a2)) >> a2;
+  v4 = *this >> a3;
+  v5 = (this[1] + ~(-1 << a3)) >> a3;
   if (v4 >= v5)
   {
     v4 = 0;
     v5 = 0;
   }
 
-  *a4 = v4;
-  a4[1] = v5;
+  *a1 = v4;
+  a1[1] = v5;
   return this;
 }
 
-void amber::Buffer::createWithPointer(amber::Buffer *this@<X0>, amber::Buffer *a2@<X2>, void *a3@<X1>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, const char *a7@<X6>, uint64_t a8@<X8>)
+void amber::Buffer::createWithPointer(uint64_t *__return_ptr a1@<X8>, amber::Buffer *this@<X0>, amber::Buffer *a3@<X2>, void *a4@<X1>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, const char *a8@<X6>)
 {
-  if (a2 > this)
+  if (a3 > this)
   {
     __break(1u);
   }
 
   else
   {
-    *a8 = &unk_2A1DDFD28;
-    v10 = (a8 + 8);
-    *(a8 + 16) = 0;
-    v11 = (a8 + 16);
-    *(a8 + 8) = off_2A1DDFD48;
-    *(a8 + 24) = 0;
-    *(a8 + 40) = 0;
-    *(a8 + 48) = 0;
-    *(a8 + 32) = &off_2A1DDFDA8;
-    *(a8 + 56) = &off_2A1DDFC68;
-    *(a8 + 64) = 0u;
-    *(a8 + 80) = 0u;
-    *(a8 + 96) = 1;
-    *(a8 + 98) = 0;
-    amber::MemorySegment::MemorySegment(&v17, a3, this, a4, a5, a6, a7);
+    *a1 = &unk_2A1DDFD28;
+    v10 = a1 + 1;
+    a1[2] = 0;
+    v11 = a1 + 2;
+    a1[1] = off_2A1DDFD48;
+    a1[3] = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = &off_2A1DDFDA8;
+    a1[7] = &off_2A1DDFC68;
+    *(a1 + 4) = 0u;
+    *(a1 + 5) = 0u;
+    *(a1 + 48) = 1;
+    *(a1 + 98) = 0;
+    amber::MemorySegment::MemorySegment(&v17, a4, this, a5, a6, a7, a8);
     if (&v17 == v10)
     {
       v13 = v18;
@@ -714,14 +705,14 @@ void amber::Buffer::createWithPointer(amber::Buffer *this@<X0>, amber::Buffer *a
       v15 = v19;
       v18 = 0;
       v19 = 0;
-      *(a8 + 16) = v14;
-      *(a8 + 24) = v15;
+      a1[2] = v14;
+      a1[3] = v15;
     }
 
     free(v13);
-    *(a8 + 80) = 0;
-    *(a8 + 88) = a2;
-    *(a8 + 96) = 1;
+    a1[10] = 0;
+    a1[11] = a3;
+    *(a1 + 96) = 1;
   }
 }
 
@@ -735,24 +726,24 @@ void sub_29697B944(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t amber::SharedCacheBlockDevice::executeRead(amber::SharedCacheBlockDevice *this, unsigned int a2, amber::BlockDeviceRequest *a3)
 {
-  v66 = *MEMORY[0x29EDCA608];
+  v65 = *MEMORY[0x29EDCA608];
   v5 = *(a3 + 161);
+  v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
-  amber::NBitVector<1u>::NBitVector(v52);
-  v54 = &off_2A1DDFDA8;
+  amber::NBitVector<1u>::NBitVector(v51);
+  v53 = &off_2A1DDFDA8;
+  v54 = 0;
   v55 = 0;
-  v56 = 0;
-  v57 = this;
-  v58 = v5;
-  v59[0] = xmmword_296A14210;
-  memset(&v59[1], 0, 48);
-  v60 = 0;
-  v61 = 1018212795;
+  v56 = this;
+  v57 = v5;
+  v58[0] = xmmword_296A14210;
+  memset(&v58[1], 0, 48);
+  v59 = 0;
+  v60 = 1018212795;
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
-  v65[0] = 0;
+  v64[0] = 0;
   v7 = *(a3 + 6);
   v8 = *(a3 + 14);
   v9 = __CFADD__(v7, v8);
@@ -771,10 +762,10 @@ uint64_t amber::SharedCacheBlockDevice::executeRead(amber::SharedCacheBlockDevic
     v10 = 0;
   }
 
-  *&v50 = v7;
-  *(&v50 + 1) = v10;
-  amber::Range::alignedAndShiftedRight(&v50, *(this + 131), v6, &v49);
-  v51 = v49;
+  *&v49 = v7;
+  *(&v49 + 1) = v10;
+  amber::Range::alignedAndShiftedRight(&v48, &v49, *(this + 131), v6);
+  v50 = v48;
   if (*(a3 + 8))
   {
     v11 = *(a3 + 14);
@@ -785,10 +776,10 @@ uint64_t amber::SharedCacheBlockDevice::executeRead(amber::SharedCacheBlockDevic
     v11 = 0;
   }
 
-  v55 = *(a3 + 8);
-  v56 = v11;
-  amber::BlockDeviceEvent::BlockDeviceEvent(&v49, 31, a3);
-  if (*(&v50 + 1) > *(this + 60))
+  v54 = *(a3 + 8);
+  v55 = v11;
+  amber::BlockDeviceEvent::BlockDeviceEvent(&v48, 31, a3);
+  if (*(&v49 + 1) > *(this + 60))
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/SharedCacheBlockDevice.cpp", "executeRead", 0x164, 0, "invalid request range", v12);
     v17 = -2147483626;
@@ -798,8 +789,8 @@ LABEL_43:
     goto LABEL_47;
   }
 
-  amber::BlockDeviceEvent::sendBegin(&v49);
-  v20 = amber::SharedBlockCache::read(*(this + 64), *(this + 132), &v51, &v54, &v50, v52, v18);
+  amber::BlockDeviceEvent::sendBegin(&v48);
+  v20 = amber::SharedBlockCache::read(*(this + 64), *(this + 132), &v50, &v53, &v49, v51, v18);
   if ((v20 & 0x8000000000000000) != 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/SharedCacheBlockDevice.cpp", "executeRead", 0x169, 0, "cache read failed", v19);
@@ -808,15 +799,15 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  amber::BlockDeviceEvent::sendEnd(&v49);
+  amber::BlockDeviceEvent::sendEnd(&v48);
   atomic_fetch_add_explicit(this + 67, v20, memory_order_relaxed);
-  v34 = *(&v51 + 1) - v51 > v20;
-  atomic_fetch_add_explicit(this + 68, *(&v51 + 1) - v51 - v20, memory_order_relaxed);
+  v34 = *(&v50 + 1) - v50 > v20;
+  atomic_fetch_add_explicit(this + 68, *(&v50 + 1) - v50 - v20, memory_order_relaxed);
   if (v34)
   {
-    v26 = *(&v50 + 1);
-    v27 = v50 / *(this + 118) * *(this + 118);
-    if (v27 < *(&v50 + 1))
+    v26 = *(&v49 + 1);
+    v27 = v49 / *(this + 118) * *(this + 118);
+    if (v27 < *(&v49 + 1))
     {
       do
       {
@@ -844,16 +835,16 @@ LABEL_30:
             while (1)
             {
               v32 = (v29 + v31) >> *(this + 131);
-              v33 = v32 - v51;
-              v34 = v32 >= v51 && *(&v51 + 1) > v32;
+              v33 = v32 - v50;
+              v34 = v32 >= v50 && *(&v50 + 1) > v32;
               if (v34)
               {
-                if (v52[1] <= v33)
+                if (v51[1] <= v33)
                 {
                   break;
                 }
 
-                v35 = amber::ConstMemoryViewConvertible<amber::Buffer>::operator[](v53, v33 >> 3, v21, v22, v23, v24, v25);
+                v35 = amber::ConstMemoryViewConvertible<amber::Buffer>::operator[](v52, v33 >> 3, v21, v22, v23, v24, v25);
                 LODWORD(v30) = *(this + 118);
                 if (((v35 >> (v33 & 7)) & 1) == 0)
                 {
@@ -871,39 +862,39 @@ LABEL_30:
 
             v29 += v30;
             v28 = (v30 + v28);
-            if (v29 >= *(&v50 + 1))
+            if (v29 >= *(&v49 + 1))
             {
               break;
             }
           }
 
-          if (v28 && (amber::SharedCacheBlockDevice::ReadState::enqueueRequest(&v50, v27, v28) & 0x80000000) != 0)
+          if (v28 && (amber::SharedCacheBlockDevice::ReadState::enqueueRequest(&v49, v27, v28) & 0x80000000) != 0)
           {
             amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/SharedCacheBlockDevice.cpp", "executeRead", 0x18D, 0, "enqueue data device request", v25);
             v36 = 0;
-            atomic_compare_exchange_strong(v65, &v36, 1u);
+            atomic_compare_exchange_strong(v64, &v36, 1u);
           }
         }
 
-        v26 = *(&v50 + 1);
+        v26 = *(&v49 + 1);
         v27 = v29;
       }
 
-      while (v29 < *(&v50 + 1));
+      while (v29 < *(&v49 + 1));
     }
 
-    if (atomic_fetch_add_explicit(&v64 + 1, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) >= 1)
+    if (atomic_fetch_add_explicit(&v63 + 1, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) >= 1)
     {
       do
       {
-        amber::Sem::acquire(v59);
+        amber::Sem::acquire(v58);
       }
 
-      while (atomic_fetch_add_explicit(&v64 + 1, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) > 0);
+      while (atomic_fetch_add_explicit(&v63 + 1, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) > 0);
     }
 
-    atomic_fetch_add_explicit(&v64 + 1, 1uLL, memory_order_relaxed);
-    if (atomic_load(v65))
+    atomic_fetch_add_explicit(&v63 + 1, 1uLL, memory_order_relaxed);
+    if (atomic_load(v64))
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/SharedCacheBlockDevice.cpp", "executeRead", 0x193, 0, "read requests reported errors", v25);
       goto LABEL_42;
@@ -917,19 +908,19 @@ LABEL_30:
 
   v38 = 0;
 LABEL_47:
-  amber::BlockDeviceEvent::~BlockDeviceEvent(&v49);
-  std::condition_variable::~condition_variable(&v61);
-  std::mutex::~mutex((v59 + 8));
-  v52[0] = &unk_2A1DE0AA8;
-  amber::Buffer::~Buffer(v53, v40, v41, v42, v43, v44, v45);
-  v46 = *MEMORY[0x29EDCA608];
+  amber::BlockDeviceEvent::~BlockDeviceEvent(&v48);
+  std::condition_variable::~condition_variable(&v60);
+  std::mutex::~mutex((v58 + 8));
+  v51[0] = &unk_2A1DE0AA8;
+  amber::Buffer::~Buffer(v52, v40, v41, v42, v43, v44, v45);
   return v38;
 }
 
-void sub_29697BE28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_29697BE28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   amber::BlockDeviceEvent::~BlockDeviceEvent(&a9);
-  amber::SharedCacheBlockDevice::ReadState::~ReadState(&a11);
+  amber::SharedCacheBlockDevice::ReadState::~ReadState(va);
   _Unwind_Resume(a1);
 }
 
@@ -1029,13 +1020,13 @@ void amber::SharedCacheBlockDevice::ReadState::~ReadState(amber::SharedCacheBloc
   std::condition_variable::~condition_variable((this + 264));
   std::mutex::~mutex((this + 200));
   *(this + 4) = &unk_2A1DE0AA8;
-  amber::Buffer::~Buffer((this + 48), v2, v3, v4, v5, v6, v7);
+  amber::Buffer::~Buffer(this + 6, v2, v3, v4, v5, v6, v7);
 }
 
-uint64_t amber::ConstMemoryViewConvertible<amber::Buffer>::operator[](uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t amber::ConstMemoryViewConvertible<amber::Buffer>::operator[](uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  amber::Buffer::constBuf(a1, a7, v14);
-  amber::ConstMemoryView::view(v14, *(a1 + 80), *(a1 + 88) - *(a1 + 80), v9, v13);
+  amber::Buffer::constBuf(v14, a1, a7);
+  amber::ConstMemoryView::view(v13, v14, a1[10], a1[11] - a1[10], v9);
   if (v13[2] <= a2)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./ConstMemoryView.hpp", "operator[]", 0xE9, 0, "memory invalid range", v10);
@@ -1121,7 +1112,7 @@ void amber::log(amber *this, uint64_t a2, const char *a3, const char *a4, int a5
 {
   va_start(va, a7);
   v9 = this;
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   bzero(__str, 0x400uLL);
   if (v9)
   {
@@ -1142,7 +1133,6 @@ void amber::log(amber *this, uint64_t a2, const char *a3, const char *a4, int a5
   v12 = vsnprintf(&__str[v11], 1024 - v11, a6, va);
   v13 = amber::Logger::instance(v12);
   amber::Logger::log(v13, v9, __str);
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t amber::Logger::getAttribute(amber::Logger *this, amber::BaseObject *a2, unsigned int a3, const amber::MutableMemoryView *a4, unint64_t *a5, uint64_t a6, const char *a7)
@@ -1217,7 +1207,7 @@ uint64_t amber::Logger::getAttribute(amber::Logger *this, amber::BaseObject *a2,
 
 void amber::Logger::log(amber::Logger *this, int a2, const char *a3)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if (a2 > 1)
   {
     if (a2 == 2)
@@ -1232,7 +1222,7 @@ void amber::Logger::log(amber::Logger *this, int a2, const char *a3)
     {
       if (a2 != 3)
       {
-        goto LABEL_31;
+        return;
       }
 
       v6 = this + 20;
@@ -1253,7 +1243,7 @@ void amber::Logger::log(amber::Logger *this, int a2, const char *a3)
 
     if (a2 != 1)
     {
-      goto LABEL_31;
+      return;
     }
 
     v6 = this + 12;
@@ -1274,33 +1264,30 @@ void amber::Logger::log(amber::Logger *this, int a2, const char *a3)
 
 LABEL_13:
   v11 = *v6;
-  if ((*v6 & 1) == 0)
+  if (*v6)
   {
+    fprintf(*MEMORY[0x29EDCA620], "%s%s\n", v10, a3);
     if ((v11 & 2) == 0)
     {
-      goto LABEL_15;
-    }
-
-LABEL_18:
-    fprintf(*MEMORY[0x29EDCA610], "%s%s\n", v10, a3);
-    if ((v11 & 4) == 0)
-    {
-      goto LABEL_31;
-    }
-
-    goto LABEL_19;
-  }
-
-  fprintf(*MEMORY[0x29EDCA620], "%s%s\n", v10, a3);
-  if ((v11 & 2) != 0)
-  {
-    goto LABEL_18;
-  }
-
 LABEL_15:
+      if ((v11 & 4) == 0)
+      {
+        return;
+      }
+
+      goto LABEL_19;
+    }
+  }
+
+  else if ((v11 & 2) == 0)
+  {
+    goto LABEL_15;
+  }
+
+  fprintf(*MEMORY[0x29EDCA610], "%s%s\n", v10, a3);
   if ((v11 & 4) == 0)
   {
-    goto LABEL_31;
+    return;
   }
 
 LABEL_19:
@@ -1321,37 +1308,43 @@ LABEL_19:
     }
   }
 
-  else if (a2)
+  else
   {
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    if (a2)
     {
+      if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        return;
+      }
+
       *buf = 136315138;
-      v17 = a3;
+      v16 = a3;
       v13 = v12;
       v14 = OS_LOG_TYPE_DEFAULT;
-      goto LABEL_28;
     }
-  }
 
-  else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
-  {
-    *buf = 136315138;
-    v17 = a3;
-    v13 = v12;
-    v14 = OS_LOG_TYPE_INFO;
-LABEL_28:
+    else
+    {
+      if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      {
+        return;
+      }
+
+      *buf = 136315138;
+      v16 = a3;
+      v13 = v12;
+      v14 = OS_LOG_TYPE_INFO;
+    }
+
     _os_log_impl(&dword_296942000, v13, v14, "%s", buf, 0xCu);
   }
-
-LABEL_31:
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 void amber::logSize(amber *this, const char *a2, unsigned int a3)
 {
   v5 = a3 * a2;
   v6 = v5;
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v7 = v5 * 8.47032947e-22;
   if (v7 >= 1.0)
   {
@@ -1412,7 +1405,7 @@ void amber::logSize(amber *this, const char *a2, unsigned int a3)
                 {
                   snprintf(__str, 0x1EuLL, "%llu", a2);
                   amber::logString(this, __str, 1);
-                  goto LABEL_25;
+                  return;
                 }
 
                 v8 = "B";
@@ -1426,7 +1419,7 @@ void amber::logSize(amber *this, const char *a2, unsigned int a3)
   }
 
   v9 = amber::Logger::instance(this);
-  std::string::basic_string[abi:ne200100]<0>(&v14, this);
+  std::string::basic_string[abi:ne200100]<0>(&v13, this);
   v10 = "";
   v11 = "\x1B[1m";
   if (*(v9 + 24))
@@ -1440,30 +1433,26 @@ void amber::logSize(amber *this, const char *a2, unsigned int a3)
   }
 
   snprintf(__str, 0x3CuLL, " (%s%.2f %s%s)", v11, v7, v8, v10);
-  v12 = &v14;
-  std::string::append(&v14, __str);
-  if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v12 = &v13;
+  std::string::append(&v13, __str);
+  if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v12 = v14.__r_.__value_.__r.__words[0];
+    v12 = v13.__r_.__value_.__r.__words[0];
   }
 
-  snprintf(v16, 0x1EuLL, "%llu", a2);
-  amber::logString(v12, v16, 1);
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+  snprintf(v15, 0x1EuLL, "%llu", a2);
+  amber::logString(v12, v15, 1);
+  if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v14.__r_.__value_.__l.__data_);
+    operator delete(v13.__r_.__value_.__l.__data_);
   }
-
-LABEL_25:
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void amber::logValue(amber *this, const char *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   snprintf(__str, 0x1EuLL, "%llu", a2);
   amber::logString(this, __str, 1);
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void amber::logString(amber *this, const char *a2, const char *a3)
@@ -1561,70 +1550,69 @@ void amber::logMark(amber *this, const char *a2)
 {
   v2 = a2;
   v4 = amber::Logger::instance(this);
-  memset(&v9, 0, sizeof(v9));
-  v5 = *(v4 + 24);
+  memset(&v8, 0, sizeof(v8));
   if (v2)
   {
     if (*(v4 + 24))
     {
-      std::string::append(&v9, "\x1B[35m");
+      std::string::append(&v8, "\x1B[35m");
     }
 
-    v6 = 18;
+    v5 = 18;
     do
     {
-      std::string::push_back(&v9, 32);
-      --v6;
+      std::string::push_back(&v8, 32);
+      --v5;
     }
 
-    while (v6);
-    std::string::append(&v9, "-- ");
-    std::string::append(&v9, this);
+    while (v5);
+    std::string::append(&v8, "-- ");
+    std::string::append(&v8, this);
     if (*(v4 + 24) != 1)
     {
       goto LABEL_14;
     }
 
 LABEL_13:
-    std::string::append(&v9, "\x1B[0m");
+    std::string::append(&v8, "\x1B[0m");
     goto LABEL_14;
   }
 
   if (*(v4 + 24))
   {
-    std::string::append(&v9, "\x1B[1;34m");
+    std::string::append(&v8, "\x1B[1;34m");
   }
 
-  v7 = 20;
+  v6 = 20;
   do
   {
-    std::string::push_back(&v9, 45);
-    --v7;
+    std::string::push_back(&v8, 45);
+    --v6;
   }
 
-  while (v7);
-  std::string::push_back(&v9, 32);
-  std::string::append(&v9, this);
+  while (v6);
+  std::string::push_back(&v8, 32);
+  std::string::append(&v8, this);
   if (*(v4 + 24))
   {
     goto LABEL_13;
   }
 
 LABEL_14:
-  if ((v9.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v8.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v8 = &v9;
+    v7 = &v8;
   }
 
   else
   {
-    v8 = v9.__r_.__value_.__r.__words[0];
+    v7 = v8.__r_.__value_.__r.__words[0];
   }
 
-  amber::Logger::log(v4, 0, v8);
-  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+  amber::Logger::log(v4, 0, v7);
+  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v9.__r_.__value_.__l.__data_);
+    operator delete(v8.__r_.__value_.__l.__data_);
   }
 }
 
@@ -1640,7 +1628,7 @@ void sub_29697CFEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void amber::logSpeed(amber *this, const char *a2, double a3)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v3 = 0.0;
   if (a3 > 1.0e-12)
   {
@@ -1676,31 +1664,29 @@ void amber::logSpeed(amber *this, const char *a2, double a3)
     v5 = " (KiB/s)";
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v8, this);
-  std::string::append(&v8, v5);
-  if ((v8.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::string::basic_string[abi:ne200100]<0>(&v7, this);
+  std::string::append(&v7, v5);
+  if ((v7.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v6 = &v8;
+    v6 = &v7;
   }
 
   else
   {
-    v6 = v8.__r_.__value_.__r.__words[0];
+    v6 = v7.__r_.__value_.__r.__words[0];
   }
 
   snprintf(__str, 0x1EuLL, "%.3f", v4);
   amber::logString(v6, __str, 1);
-  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v8.__r_.__value_.__l.__data_);
+    operator delete(v7.__r_.__value_.__l.__data_);
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void amber::logDeviceStats(amber *this, const unint64_t *a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   if (*this >= 0x14uLL)
   {
     v2 = 20;
@@ -1793,8 +1779,6 @@ LABEL_26:
 
     while (v2 != v4);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 char *amber::HTTPVerbString(amber *this)
@@ -1984,7 +1968,7 @@ void sub_29697DC00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t amber::KnoxObjectStoreBlockDevice::knoxContainer(uint64_t a1, uint64_t a2, int a3)
+amber::KnoxContainer *amber::KnoxObjectStoreBlockDevice::knoxContainer(uint64_t a1, uint64_t a2, int a3)
 {
   std::mutex::lock((a1 + 1104));
   v11 = std::__tree<std::__value_type<amber::CryptoBlobBase<256u>,unsigned int>,std::__map_value_compare<amber::CryptoBlobBase<256u>,std::__value_type<amber::CryptoBlobBase<256u>,unsigned int>,std::less<amber::CryptoBlobBase<256u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<256u>,unsigned int>>>::find<amber::CryptoBlobBase<256u>>(a1 + 1168, a2, v6, v7, v8, v9, v10);
@@ -2013,7 +1997,7 @@ uint64_t amber::KnoxObjectStoreBlockDevice::knoxContainer(uint64_t a1, uint64_t 
 
     v17 = 0;
     v24[0] = a2;
-    *(std::__tree<std::__value_type<amber::CryptoBlobBase<256u>,amber::KnoxContainer *>,std::__map_value_compare<amber::CryptoBlobBase<256u>,std::__value_type<amber::CryptoBlobBase<256u>,amber::KnoxContainer *>,std::less<amber::CryptoBlobBase<256u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<256u>,amber::KnoxContainer *>>>::__emplace_unique_key_args<amber::CryptoBlobBase<256u>,std::piecewise_construct_t const&,std::tuple<amber::CryptoBlobBase<256u> const&>,std::tuple<>>(a1 + 1168, a2, &std::piecewise_construct, v24, &v26, v20, v21) + 312) = 0;
+    std::__tree<std::__value_type<amber::CryptoBlobBase<256u>,amber::KnoxContainer *>,std::__map_value_compare<amber::CryptoBlobBase<256u>,std::__value_type<amber::CryptoBlobBase<256u>,amber::KnoxContainer *>,std::less<amber::CryptoBlobBase<256u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<256u>,amber::KnoxContainer *>>>::__emplace_unique_key_args<amber::CryptoBlobBase<256u>,std::piecewise_construct_t const&,std::tuple<amber::CryptoBlobBase<256u> const&>,std::tuple<>>((a1 + 1168), a2, &std::piecewise_construct, v24, &v26, v20, v21)[39] = 0;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -2040,12 +2024,12 @@ void sub_29697DD5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t amber::KnoxObjectStoreBlockDevice::listContainers(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t amber::KnoxObjectStoreBlockDevice::listContainers(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v49 = *MEMORY[0x29EDCA608];
+  v48 = *MEMORY[0x29EDCA608];
+  v37 = 0;
   v38 = 0;
   v39 = 0;
-  v40 = 0;
   v8 = (a1 + 1016);
   if (*(a1 + 1039) < 0)
   {
@@ -2066,104 +2050,104 @@ LABEL_39:
     goto LABEL_37;
   }
 
-  if ((amber::KnoxContext::pointerFieldValuesString((a1 + 472), v8, "container-id", &v38) & 0x80000000) != 0)
+  if ((amber::KnoxContext::pointerFieldValuesString((a1 + 472), v8, "container-id", &v37) & 0x80000000) != 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/KnoxObjectStoreBlockDevice.cpp", "listContainers", 0x15A, 0, "get all container-id values", v9);
     goto LABEL_39;
   }
 
-  v10 = v39;
-  if (v38 == v39)
+  v10 = v38;
+  if (v37 == v38)
   {
     v33 = 0;
   }
 
   else
   {
-    v11 = v47;
-    v12 = v38 + 3;
+    v11 = v46;
+    v12 = v37 + 3;
     v13 = 1;
     do
     {
       if (*(v12 - 1) < 0)
       {
-        std::string::__init_copy_ctor_external(&v37, *(v12 - 3), *(v12 - 2));
+        std::string::__init_copy_ctor_external(&v36, *(v12 - 3), *(v12 - 2));
       }
 
       else
       {
         v14 = *(v12 - 3);
-        v37.__r_.__value_.__r.__words[2] = *(v12 - 1);
-        *&v37.__r_.__value_.__l.__data_ = v14;
+        v36.__r_.__value_.__r.__words[2] = *(v12 - 1);
+        *&v36.__r_.__value_.__l.__data_ = v14;
       }
 
-      v46 = &unk_2A1DDFDD8;
-      v47[0] = &unk_2A1DDFE08;
-      memset(&v47[1], 0, 256);
-      v48 = 0;
-      size = HIBYTE(v37.__r_.__value_.__r.__words[2]);
-      if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v45 = &unk_2A1DDFDD8;
+      v46[0] = &unk_2A1DDFE08;
+      memset(&v46[1], 0, 256);
+      v47 = 0;
+      size = HIBYTE(v36.__r_.__value_.__r.__words[2]);
+      if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v16 = &v37;
+        v16 = &v36;
       }
 
       else
       {
-        v16 = v37.__r_.__value_.__r.__words[0];
+        v16 = v36.__r_.__value_.__r.__words[0];
       }
 
-      if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        size = v37.__r_.__value_.__l.__size_;
+        size = v36.__r_.__value_.__l.__size_;
       }
 
-      v36[0] = v16;
-      v36[1] = size;
-      LODWORD(v47[1]) = 0;
-      v41 = 0;
-      v42[0] = &off_2A1DDFDA8;
-      v42[1] = &v47[1] + 4;
-      v42[2] = 256;
-      amber::MutableMemoryView::operator+(v42, 0, v9, &v43);
-      bzero(v44, v45);
-      v43 = &off_2A1DDFDA8;
-      v44 = &v47[1] + 4;
-      v45 = 256;
-      amber::MutableMemoryView::operator+(&v43, LODWORD(v47[1]), v17, v42);
-      v27 = amber::hexStringToBytes(v36, v42, &v41, v18, v19, v20, v21);
-      if (v27 < 0 || (amber::CryptoBlobBase<256u>::grow(&v46, v41, v22, v23, v24, v25, v26) & 0x80000000) != 0)
+      v35[0] = v16;
+      v35[1] = size;
+      LODWORD(v46[1]) = 0;
+      v40 = 0;
+      v41[0] = &off_2A1DDFDA8;
+      v41[1] = &v46[1] + 4;
+      v41[2] = 256;
+      amber::MutableMemoryView::operator+(v41, 0, v9, &v42);
+      bzero(v43, v44);
+      v42 = &off_2A1DDFDA8;
+      v43 = &v46[1] + 4;
+      v44 = 256;
+      amber::MutableMemoryView::operator+(&v42, LODWORD(v46[1]), v17, v41);
+      v27 = amber::hexStringToBytes(v35, v41, &v40, v18, v19, v20, v21);
+      if (v27 < 0 || (amber::CryptoBlobBase<256u>::grow(&v45, v40, v22, v23, v24, v25, v26) & 0x80000000) != 0)
       {
         v27 = -1;
       }
 
-      if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v28 = HIBYTE(v37.__r_.__value_.__r.__words[2]);
+        v28 = HIBYTE(v36.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v28 = v37.__r_.__value_.__l.__size_;
+        v28 = v36.__r_.__value_.__l.__size_;
       }
 
       if (v27 == v28)
       {
         v29 = v11;
-        v30 = *(a2 + 8);
-        if (v30 >= *(a2 + 16))
+        v30 = a2[1];
+        if (v30 >= a2[2])
         {
-          v31 = std::vector<amber::CryptoBlobBase<256u>>::__emplace_back_slow_path<amber::CryptoBlobBase<256u> const&>(a2, &v46, v22, v23, v24, v25, v26);
+          v31 = std::vector<amber::CryptoBlobBase<256u>>::__emplace_back_slow_path<amber::CryptoBlobBase<256u> const&>(a2, &v45, v22, v23, v24, v25, v26);
         }
 
         else
         {
-          amber::CryptoBlobBase<256u>::CryptoBlobBase(*(a2 + 8), &v47[1] + 4, LODWORD(v47[1]), v23, v24, v25, v26);
+          amber::CryptoBlobBase<256u>::CryptoBlobBase(a2[1], &v46[1] + 4, LODWORD(v46[1]), v23, v24, v25, v26);
           v31 = v30 + 280;
-          *(a2 + 8) = v30 + 280;
+          a2[1] = v30 + 280;
         }
 
         v11 = v29;
-        *(a2 + 8) = v31;
+        a2[1] = v31;
       }
 
       else
@@ -2172,9 +2156,9 @@ LABEL_39:
         v13 = 0;
       }
 
-      if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v37.__r_.__value_.__l.__data_);
+        operator delete(v36.__r_.__value_.__l.__data_);
       }
 
       if (v27 != v28)
@@ -2199,9 +2183,8 @@ LABEL_39:
   }
 
 LABEL_40:
-  v46 = &v38;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v46);
-  v34 = *MEMORY[0x29EDCA608];
+  v45 = &v37;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v45);
   return v33;
 }
 
@@ -2214,13 +2197,13 @@ void sub_29697E0EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t amber::KnoxObjectStoreBlockDevice::listContainerSnapshots(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v41[75] = *MEMORY[0x29EDCA608];
-  v31[0] = &unk_2A1DE0D30;
-  v31[1] = &unk_2A1DE0D70;
+  v40[75] = *MEMORY[0x29EDCA608];
+  v30[0] = &unk_2A1DE0D30;
+  v30[1] = &unk_2A1DE0D70;
+  v31 = 0;
   v32 = 0;
   v33 = 0;
-  v34 = 0;
-  memset(&v30, 0, sizeof(v30));
+  memset(&v29, 0, sizeof(v29));
   if ((*(a1 + 1039) & 0x8000000000000000) == 0)
   {
     if (*(a1 + 1039))
@@ -2247,39 +2230,39 @@ LABEL_3:
     goto LABEL_19;
   }
 
-  std::string::append(&v30, "container-id=");
+  std::string::append(&v29, "container-id=");
   v9 = *(a2 + 16);
-  v41[0] = &off_2A1DDFC68;
-  v41[1] = a2 + 20;
-  v41[2] = v9;
-  amber::hexBytesToStringEnd(v41, &v30, v10, v11, v12, v13, v14);
-  std::string::append(&v30, "&blob-type=prologue");
+  v40[0] = &off_2A1DDFC68;
+  v40[1] = a2 + 20;
+  v40[2] = v9;
+  amber::hexBytesToStringEnd(v40, &v29, v10, v11, v12, v13, v14);
+  std::string::append(&v29, "&blob-type=prologue");
   v15 = (a1 + 1016);
   if (*(a1 + 1039) < 0)
   {
     v15 = *v15;
   }
 
-  if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v16 = &v30;
+    v16 = &v29;
   }
 
   else
   {
-    v16 = v30.__r_.__value_.__r.__words[0];
+    v16 = v29.__r_.__value_.__r.__words[0];
   }
 
-  if ((amber::KnoxContext::pointerSearch((a1 + 472), v15, v16) & 0x80000000) != 0)
+  if ((amber::KnoxContext::pointerSearch((a1 + 472), v15, v16, v30) & 0x80000000) != 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/KnoxObjectStoreBlockDevice.cpp", "listContainerSnapshots", 0x177, 0, "Knox query", v17);
     goto LABEL_19;
   }
 
-  v18 = v32;
-  if (v32 != v33)
+  v18 = v31;
+  if (v31 != v32)
   {
-    amber::ObjectStorePath::ObjectStorePath(v41);
+    amber::ObjectStorePath::ObjectStorePath(v40);
     v19 = (v18 + 96);
     if (*(v18 + 119) < 0)
     {
@@ -2287,31 +2270,30 @@ LABEL_3:
     }
 
     v20 = strlen(v19);
-    amber::ProxyBuffer::ProxyBuffer(v37, v19, v20, v21, v22, v23, v24);
-    amber::Buffer::constBuf(v37, v25, &v35);
-    amber::ConstMemoryView::view(&v35, v38, v39 - v38, v26, &v40);
-    amber::JSONInputStream::JSONInputStream(v36, &v40);
+    amber::ProxyBuffer::ProxyBuffer(v36, v19, v20, v21, v22, v23, v24);
+    amber::Buffer::constBuf(&v34, v36, v25);
+    amber::ConstMemoryView::view(&v39, &v34, v37, v38 - v37, v26);
+    amber::JSONInputStream::JSONInputStream(v35, &v39);
   }
 
   v27 = 0;
 LABEL_20:
-  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v30.__r_.__value_.__l.__data_);
+    operator delete(v29.__r_.__value_.__l.__data_);
   }
 
-  amber::ArrayObject<amber::KnoxPointer>::~ArrayObject(v31);
-  v28 = *MEMORY[0x29EDCA608];
+  amber::ArrayObject<amber::KnoxPointer>::~ArrayObject(v30);
   return v27;
 }
 
-void sub_29697E8D0(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, ...)
+void sub_29697E8D0(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, uint64_t a9, void *__pa, uint64_t a11, int a12, __int16 a13, char a14, char a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   amber::ObjectStorePath::~ObjectStorePath(&STACK[0x208]);
-  if (a8 < 0)
+  if (a15 < 0)
   {
-    operator delete(__p);
+    operator delete(__pa);
   }
 
   amber::ArrayObject<amber::KnoxPointer>::~ArrayObject(va);
@@ -2511,7 +2493,7 @@ LABEL_12:
   return v21;
 }
 
-void sub_29697EF40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, uint64_t a20, char a21)
+void sub_29697EF40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, void *a21)
 {
   amber::BlockDeviceEvent::~BlockDeviceEvent(&a19);
   amber::Buffer::~Buffer(&a21, v22, v23, v24, v25, v26, v27);
@@ -2540,8 +2522,8 @@ uint64_t amber::KnoxObjectStoreBlockDevice::executeWrite(amber::KnoxObjectStoreB
         p_p = __p.__r_.__value_.__r.__words[0];
       }
 
-      amber::Buffer::constBuf(v39, v18, v42);
-      amber::ConstMemoryView::view(v42, v40, v41 - v40, v19, v36);
+      amber::Buffer::constBuf(v42, v39, v18);
+      amber::ConstMemoryView::view(v36, v42, v40, v41 - v40, v19);
       v24 = amber::KnoxContainer::fileUpload(v10, p_p, "AEBD-STORAGE-TAG-256", v36);
       if (v24 < 0)
       {
@@ -2608,7 +2590,7 @@ uint64_t amber::KnoxObjectStoreBlockDevice::executeWrite(amber::KnoxObjectStoreB
   return v27;
 }
 
-void sub_29697F1BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, char a20)
+void sub_29697F1BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, void *a20)
 {
   if (a17 < 0)
   {
@@ -2627,7 +2609,7 @@ void sub_29697F2AC(void *a1)
   JUMPOUT(0x29697F290);
 }
 
-uint64_t std::__tree<std::__value_type<amber::CryptoBlobBase<256u>,amber::KnoxContainer *>,std::__map_value_compare<amber::CryptoBlobBase<256u>,std::__value_type<amber::CryptoBlobBase<256u>,amber::KnoxContainer *>,std::less<amber::CryptoBlobBase<256u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<256u>,amber::KnoxContainer *>>>::__emplace_unique_key_args<amber::CryptoBlobBase<256u>,std::piecewise_construct_t const&,std::tuple<amber::CryptoBlobBase<256u> const&>,std::tuple<>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+void *std::__tree<std::__value_type<amber::CryptoBlobBase<256u>,amber::KnoxContainer *>,std::__map_value_compare<amber::CryptoBlobBase<256u>,std::__value_type<amber::CryptoBlobBase<256u>,amber::KnoxContainer *>,std::less<amber::CryptoBlobBase<256u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<256u>,amber::KnoxContainer *>>>::__emplace_unique_key_args<amber::CryptoBlobBase<256u>,std::piecewise_construct_t const&,std::tuple<amber::CryptoBlobBase<256u> const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   result = *std::__tree<std::__value_type<amber::CryptoBlobBase<256u>,unsigned int>,std::__map_value_compare<amber::CryptoBlobBase<256u>,std::__value_type<amber::CryptoBlobBase<256u>,unsigned int>,std::less<amber::CryptoBlobBase<256u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<256u>,unsigned int>>>::__find_equal<amber::CryptoBlobBase<256u>>(a1, &v8, a2, a4, a5, a6, a7);
   if (!result)
@@ -2645,21 +2627,21 @@ void sub_29697F3F0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<amber::CryptoBlobBase<256u>>::__emplace_back_slow_path<amber::CryptoBlobBase<256u> const&>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t std::vector<amber::CryptoBlobBase<256u>>::__emplace_back_slow_path<amber::CryptoBlobBase<256u> const&>(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v7 = 0xAF8AF8AF8AF8AF8BLL * ((*(a1 + 8) - *a1) >> 3);
+  v7 = 0xAF8AF8AF8AF8AF8BLL * ((a1[1] - *a1) >> 3);
   v8 = v7 + 1;
   if (v7 + 1 > 0xEA0EA0EA0EA0EALL)
   {
     std::vector<DERNode>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5F15F15F15F15F16 * ((*(a1 + 16) - *a1) >> 3) > v8)
+  if (0x5F15F15F15F15F16 * ((a1[2] - *a1) >> 3) > v8)
   {
-    v8 = 0x5F15F15F15F15F16 * ((*(a1 + 16) - *a1) >> 3);
+    v8 = 0x5F15F15F15F15F16 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAF8AF8AF8AF8AF8BLL * ((*(a1 + 16) - *a1) >> 3) >= 0x75075075075075)
+  if (0xAF8AF8AF8AF8AF8BLL * ((a1[2] - *a1) >> 3) >= 0x75075075075075)
   {
     v11 = 0xEA0EA0EA0EA0EALL;
   }
@@ -2680,14 +2662,14 @@ uint64_t std::vector<amber::CryptoBlobBase<256u>>::__emplace_back_slow_path<ambe
   v23 = 280 * v7;
   amber::CryptoBlobBase<256u>::CryptoBlobBase(280 * v7, a2 + 20, *(a2 + 16), a4, a5, a6, a7);
   *&v23 = 280 * v7 + 280;
-  v12 = *(a1 + 8);
+  v12 = a1[1];
   v13 = 280 * v7 + *a1 - v12;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<amber::CryptoBlobBase<256u>>,amber::CryptoBlobBase<256u>*>(a1, *a1, v12, v13, v14, v15, v16);
   v17 = *a1;
   *a1 = v13;
-  v18 = *(a1 + 16);
+  v18 = a1[2];
   v20 = v23;
-  *(a1 + 8) = v23;
+  *(a1 + 1) = v23;
   *&v23 = v17;
   *(&v23 + 1) = v18;
   v21 = v17;
@@ -2696,9 +2678,9 @@ uint64_t std::vector<amber::CryptoBlobBase<256u>>::__emplace_back_slow_path<ambe
   return v20;
 }
 
-void sub_29697F540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29697F540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<amber::CryptoBlobBase<256u>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2722,8 +2704,8 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<am
     v11 = a2 + 20;
     do
     {
-      result = amber::CryptoBlobBase<256u>::CryptoBlobBase(a4 + v10, v11, *(v11 - 4), a4, a5, a6, a7);
-      v13 = v11 + 260;
+      result = amber::CryptoBlobBase<256u>::CryptoBlobBase(a4 + v10, v11, *(v11 - 1), a4, a5, a6, a7);
+      v13 = (v11 + 260);
       v11 += 280;
       v10 += 280;
     }
@@ -2773,7 +2755,7 @@ uint64_t std::__split_buffer<amber::CryptoBlobBase<256u>>::~__split_buffer(uint6
   return a1;
 }
 
-uint64_t amber::HTTPHeadersAppendWithFormat(uint64_t a1, char *__format, ...)
+uint64_t amber::HTTPHeadersAppendWithFormat(uint64_t *a1, char *__format, ...)
 {
   va_start(va, __format);
   va_copy(v14, va);
@@ -3360,15 +3342,15 @@ uint64_t amber::HTTPContext::httpEnqueue(uint64_t a1, uint64_t a2, uint64_t a3, 
 
 uint64_t amber::HTTPContext::httpPerformBase(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned __int8 a9)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  v14[0] = xmmword_296A14210;
-  memset(&v14[1], 0, 48);
-  v15 = 0;
-  v16.__cv_.__sig = 1018212795;
-  memset(v16.__cv_.__opaque, 0, sizeof(v16.__cv_.__opaque));
-  v17 = a7;
-  v18 = 0;
-  v10 = amber::HTTPContext::httpEnqueue(a1, a2, a3, a4, a5, a6, a8, a9, v14, SemAndResponsePtr::httpCompletionProc);
+  v18 = *MEMORY[0x29EDCA608];
+  v13[0] = xmmword_296A14210;
+  memset(&v13[1], 0, 48);
+  v14 = 0;
+  v15.__cv_.__sig = 1018212795;
+  memset(v15.__cv_.__opaque, 0, sizeof(v15.__cv_.__opaque));
+  v16 = a7;
+  v17 = 0;
+  v10 = amber::HTTPContext::httpEnqueue(a1, a2, a3, a4, a5, a6, a8, a9, v13, SemAndResponsePtr::httpCompletionProc);
   if (v10 < 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/HTTP/HTTPContext.cpp", "httpPerformBase", 0x180, 0, "httpEnqueue", v9);
@@ -3376,13 +3358,12 @@ uint64_t amber::HTTPContext::httpPerformBase(uint64_t a1, uint64_t a2, uint64_t 
 
   else
   {
-    amber::Sem::acquire(v14);
+    amber::Sem::acquire(v13);
   }
 
-  v11 = v18;
-  std::condition_variable::~condition_variable(&v16);
-  std::mutex::~mutex((v14 + 8));
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = v17;
+  std::condition_variable::~condition_variable(&v15);
+  std::mutex::~mutex((v13 + 8));
   return (((v10 < 0) | v11) << 31 >> 31);
 }
 
@@ -3635,10 +3616,10 @@ void amber::HTTPContext::S3Credentials::~S3Credentials(void **this)
   }
 }
 
-uint64_t std::list<std::string>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<std::string,void *>,std::__list_const_iterator<std::string,void *>>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *std::list<std::string>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<std::string,void *>,std::__list_const_iterator<std::string,void *>>(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v4 = a2;
-  v6 = *(a1 + 8);
+  v6 = a1[1];
   if (a2 != a3 && v6 != a1)
   {
     do
@@ -3664,11 +3645,11 @@ uint64_t std::list<std::string>::__assign_with_sentinel[abi:ne200100]<std::__lis
   }
 }
 
-uint64_t std::list<std::string>::__insert_with_sentinel[abi:ne200100]<std::__list_const_iterator<std::string,void *>,std::__list_const_iterator<std::string,void *>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::list<std::string>::__insert_with_sentinel[abi:ne200100]<std::__list_const_iterator<std::string,void *>,std::__list_const_iterator<std::string,void *>>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 != a4)
   {
-    std::__list_imp<std::string>::__create_node[abi:ne200100]<std::string const&>();
+    std::__list_imp<std::string>::__create_node[abi:ne200100]<std::string const&>(a1, 0, 0, a3 + 16);
   }
 
   return a2;
@@ -3957,8 +3938,8 @@ amber::DirectoryObjectStore *amber::DirectoryObjectStore::DirectoryObjectStore(a
 
         else
         {
-          *v15 = v16;
-          v15 += 8;
+          v15->i64[0] = v16;
+          v15 = (v15 + 8);
         }
 
         v45 = v15;
@@ -4015,7 +3996,8 @@ amber::DirectoryObjectStore *amber::DirectoryObjectStore::DirectoryObjectStore(a
       v30 = __p;
       do
       {
-        v31 = *v30++;
+        v31 = v30->i64[0];
+        v30 = (v30 + 8);
         *(v31 + 112) = *v29;
         *(v31 + 104) = 0;
         *v29 = v31;
@@ -4036,7 +4018,7 @@ amber::DirectoryObjectStore *amber::DirectoryObjectStore::DirectoryObjectStore(a
   return this;
 }
 
-void sub_296981184(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::condition_variable *a9, std::mutex *a10, uint64_t a11, uint64_t a12, void **a13, void **a14, void *__p, uint64_t a16)
+void sub_296981184(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::condition_variable *a9, std::mutex *a10, uint64_t a11, uint64_t a12, void *a13, void **a14, void *__p, uint64_t a16)
 {
   std::__tree<amber::CryptoBlobBase<32u>>::destroy(a12, *a13);
   std::__tree<std::__value_type<amber::CryptoBlobBase<256u>,unsigned int>,std::__map_value_compare<amber::CryptoBlobBase<256u>,std::__value_type<amber::CryptoBlobBase<256u>,unsigned int>,std::less<amber::CryptoBlobBase<256u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<256u>,unsigned int>>>::destroy(a11, *a14);
@@ -4155,23 +4137,23 @@ void amber::DirectoryObjectStore::~DirectoryObjectStore(amber::DirectoryObjectSt
 uint64_t amber::DirectoryObjectStore::load(amber::DirectoryObjectStore *this, const amber::ObjectStorePath *a2, amber::Buffer *a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   v7 = a4;
-  *&v67[36] = *MEMORY[0x29EDCA608];
+  *&v66[36] = *MEMORY[0x29EDCA608];
   v11 = *(a2 + 8);
-  v63[0] = &off_2A1DDFC68;
-  v63[1] = a2 + 36;
-  v64 = v11;
-  amber::CryptoBlobBase<32u>::CryptoBlobBase(v65, v63, a3, a4, a5, a6, a7);
+  v62[0] = &off_2A1DDFC68;
+  v62[1] = a2 + 36;
+  v63 = v11;
+  amber::CryptoBlobBase<32u>::CryptoBlobBase(v64, v62, a3, a4, a5, a6, a7);
   v12 = *(a2 + 78);
   __p.__r_.__value_.__r.__words[0] = &off_2A1DDFC68;
   __p.__r_.__value_.__l.__size_ = a2 + 316;
   __p.__r_.__value_.__r.__words[2] = v12;
-  amber::CryptoBlobBase<32u>::CryptoBlobBase(v63, &__p, v13, v14, v15, v16, v17);
+  amber::CryptoBlobBase<32u>::CryptoBlobBase(v62, &__p, v13, v14, v15, v16, v17);
   if (*(this + 12) == 1)
   {
     __p.__r_.__value_.__r.__words[0] = this + 24;
     __p.__r_.__value_.__s.__data_[8] = 1;
     amber::RWSem::acquireAsWriter((this + 24));
-    v23 = std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>>>::find<amber::CryptoBlobBase<32u>>(this + 160, v63, v18, v19, v20, v21, v22);
+    v23 = std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>>>::find<amber::CryptoBlobBase<32u>>(this + 160, v62, v18, v19, v20, v21, v22);
     if ((this + 168) != v23)
     {
       v24 = v23[11];
@@ -4210,10 +4192,10 @@ uint64_t amber::DirectoryObjectStore::load(amber::DirectoryObjectStore *this, co
     amber::RWSemLock::~RWSemLock(&__p);
   }
 
-  v60 = (this + 24);
-  v61 = 0;
+  v59 = (this + 24);
+  v60 = 0;
   amber::RWSem::acquireAsReader((this + 24));
-  v35 = std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>>>::find<amber::CryptoBlobBase<32u>>(this + 160, v63, v30, v31, v32, v33, v34);
+  v35 = std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>>>::find<amber::CryptoBlobBase<32u>>(this + 160, v62, v30, v31, v32, v33, v34);
   if ((this + 168) == v35)
   {
     v38 = 0;
@@ -4225,13 +4207,13 @@ uint64_t amber::DirectoryObjectStore::load(amber::DirectoryObjectStore *this, co
     if ((v7 & 1) != 0 || v37 == *(a2 + 148))
     {
       memset(&__p, 0, sizeof(__p));
-      v59[0] = &off_2A1DDFC68;
-      v59[1] = v67;
-      v59[2] = v66;
       v58[0] = &off_2A1DDFC68;
-      v58[1] = &v64 + 4;
-      v58[2] = v64;
-      if ((amber::DirectoryObjectStore::getObjectPath(this, v59, v58, *(a2 + 144), &__p, 0) & 0x80000000) != 0 || (amber::Buffer::resize(a3, 0, v39, v40, v41, v42, v43) & 0x80000000) != 0 || (amber::Buffer::reserveEndCapacity(a3, v37, v44, v45, v46, v47, v43) & 0x80000000) != 0 || ((v48 = SHIBYTE(__p.__r_.__value_.__r.__words[2]), v49 = __p.__r_.__value_.__r.__words[0], amber::BufferProtocol<amber::Buffer>::endView(a3, v37, v43, v57), v48 >= 0) ? (p_p = &__p) : (p_p = v49), (amber::DirectoryObjectStore::loadFile(this, p_p, v57) & 0x80000000) != 0 || (amber::Buffer::grow(a3, v37, v51, v52, v53, v54, v43) & 0x80000000) != 0))
+      v58[1] = v66;
+      v58[2] = v65;
+      v57[0] = &off_2A1DDFC68;
+      v57[1] = &v63 + 4;
+      v57[2] = v63;
+      if ((amber::DirectoryObjectStore::getObjectPath(this, v58, v57, *(a2 + 144), &__p, 0) & 0x80000000) != 0 || (amber::Buffer::resize(a3, 0, v39, v40, v41, v42, v43) & 0x80000000) != 0 || (amber::Buffer::reserveEndCapacity(a3, v37, v44, v45, v46, v47, v43) & 0x80000000) != 0 || ((v48 = SHIBYTE(__p.__r_.__value_.__r.__words[2]), v49 = __p.__r_.__value_.__r.__words[0], amber::BufferProtocol<amber::Buffer>::endView(a3, v37, v43, v56), v48 >= 0) ? (p_p = &__p) : (p_p = v49), (amber::DirectoryObjectStore::loadFile(this, p_p, v56) & 0x80000000) != 0 || (amber::Buffer::grow(a3, v37, v51, v52, v53, v54, v43) & 0x80000000) != 0))
       {
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/DirectoryObjectStore.cpp", "load", 0xA4, 0, "load object", v43);
         v38 = 0xFFFFFFFFLL;
@@ -4255,12 +4237,11 @@ uint64_t amber::DirectoryObjectStore::load(amber::DirectoryObjectStore *this, co
     }
   }
 
-  amber::RWSemLock::~RWSemLock(&v60);
-  v55 = *MEMORY[0x29EDCA608];
+  amber::RWSemLock::~RWSemLock(&v59);
   return v38;
 }
 
-void sub_296981714(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, amber::RWSem *a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+void sub_296981714(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
 {
   if (a26 < 0)
   {
@@ -4271,7 +4252,7 @@ void sub_296981714(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t amber::DirectoryObjectStore::getObjectPath(uint64_t a1, amber *a2, amber *a3, unsigned int a4, std::string *this, int a6)
+uint64_t amber::DirectoryObjectStore::getObjectPath(uint64_t a1, uint64_t *a2, uint64_t *a3, unsigned int a4, std::string *this, int a6)
 {
   if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4360,25 +4341,25 @@ double amber::CryptoBlobBase<32u>::~CryptoBlobBase(uint64_t a1)
   return result;
 }
 
-uint64_t amber::DirectoryObjectStore::store(amber::DirectoryObjectStore *this, const amber::ObjectStorePath *a2, const amber::ConstMemoryView *a3, char a4)
+uint64_t amber::DirectoryObjectStore::store(atomic_ullong *this, const amber::ObjectStorePath *a2, const amber::ConstMemoryView *a3, char a4)
 {
-  v36 = *MEMORY[0x29EDCA608];
-  v32 = (this + 24);
-  v33 = 1;
-  amber::RWSem::acquireAsWriter((this + 24));
+  v35 = *MEMORY[0x29EDCA608];
+  v31 = (this + 3);
+  v32 = 1;
+  amber::RWSem::acquireAsWriter((this + 3));
   __p = 0;
+  v29 = 0;
   v30 = 0;
-  v31 = 0;
   v8 = *(a2 + 8);
-  v34[0] = &off_2A1DDFC68;
-  v34[1] = a2 + 36;
-  v34[2] = v8;
-  amber::CryptoBlobBase<32u>::CryptoBlobBase(v35, v34, v9, v10, v11, v12, v13);
+  v33[0] = &off_2A1DDFC68;
+  v33[1] = a2 + 36;
+  v33[2] = v8;
+  amber::CryptoBlobBase<32u>::CryptoBlobBase(v34, v33, v9, v10, v11, v12, v13);
   v14 = *(a2 + 78);
-  v28[0] = &off_2A1DDFC68;
-  v28[1] = a2 + 316;
-  v28[2] = v14;
-  amber::CryptoBlobBase<32u>::CryptoBlobBase(v34, v28, v15, v16, v17, v18, v19);
+  v27[0] = &off_2A1DDFC68;
+  v27[1] = a2 + 316;
+  v27[2] = v14;
+  amber::CryptoBlobBase<32u>::CryptoBlobBase(v33, v27, v15, v16, v17, v18, v19);
   v25 = *(a3 + 2);
   if (HIDWORD(v25))
   {
@@ -4389,20 +4370,19 @@ uint64_t amber::DirectoryObjectStore::store(amber::DirectoryObjectStore *this, c
   {
     if ((a4 & 1) != 0 || *(a2 + 148) == v25)
     {
-      amber::DirectoryObjectStore::getContainer_Writer(this, v35, v20, v21, v22, v23, v24);
+      amber::DirectoryObjectStore::getContainer_Writer(this, v34, v20, v21, v22, v23, v24);
       operator new();
     }
 
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/DirectoryObjectStore.cpp", "store", 0xB2, 0, "DirectoryObjectStore size mismatch (store)", v24);
   }
 
-  if (SHIBYTE(v31) < 0)
+  if (SHIBYTE(v30) < 0)
   {
     operator delete(__p);
   }
 
-  amber::RWSemLock::~RWSemLock(&v32);
-  v26 = *MEMORY[0x29EDCA608];
+  amber::RWSemLock::~RWSemLock(&v31);
   return 0xFFFFFFFFLL;
 }
 
@@ -4471,20 +4451,20 @@ LABEL_6:
 
 uint64_t amber::DirectoryObjectStore::loadSnapshot(uint64_t a1, amber::JSONCodable *a2, uint64_t a3)
 {
-  *&v26[36] = *MEMORY[0x29EDCA608];
-  v22 = (a1 + 24);
-  v23 = 0;
+  *&v25[36] = *MEMORY[0x29EDCA608];
+  v21 = (a1 + 24);
+  v22 = 0;
   amber::RWSem::acquireAsReader((a1 + 24));
   memset(&__p, 0, sizeof(__p));
   v6 = *(a3 + 16);
+  v18[0] = &off_2A1DDFC68;
+  v18[1] = a3 + 20;
+  v18[2] = v6;
+  amber::CryptoBlobBase<32u>::CryptoBlobBase(v23, v18, v7, v8, v9, v10, v11);
   v19[0] = &off_2A1DDFC68;
-  v19[1] = a3 + 20;
-  v19[2] = v6;
-  amber::CryptoBlobBase<32u>::CryptoBlobBase(v24, v19, v7, v8, v9, v10, v11);
-  v20[0] = &off_2A1DDFC68;
-  v20[1] = v26;
-  v20[2] = v25;
-  if ((amber::DirectoryObjectStore::getSnapshotPath(a1, v20, &__p, 0) & 0x80000000) != 0 || ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_p = &__p) : (p_p = __p.__r_.__value_.__r.__words[0]), (amber::JSONCodable::jsonParseFromFileAt(a2, *(a1 + 8), p_p, v12, v13) & 0x80000000) != 0))
+  v19[1] = v25;
+  v19[2] = v24;
+  if ((amber::DirectoryObjectStore::getSnapshotPath(a1, v19, &__p, 0) & 0x80000000) != 0 || ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_p = &__p) : (p_p = __p.__r_.__value_.__r.__words[0]), (amber::JSONCodable::jsonParseFromFileAt(a2, *(a1 + 8), p_p, v12, v13) & 0x80000000) != 0))
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/DirectoryObjectStore.cpp", "loadSnapshot", 0xD3, 0, "load snapshot", v14);
     v16 = 0xFFFFFFFFLL;
@@ -4500,8 +4480,7 @@ uint64_t amber::DirectoryObjectStore::loadSnapshot(uint64_t a1, amber::JSONCodab
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  amber::RWSemLock::~RWSemLock(&v22);
-  v17 = *MEMORY[0x29EDCA608];
+  amber::RWSemLock::~RWSemLock(&v21);
   return v16;
 }
 
@@ -4516,7 +4495,7 @@ void sub_29698206C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t amber::DirectoryObjectStore::getSnapshotPath(uint64_t a1, amber *a2, std::string *this, int a4)
+uint64_t amber::DirectoryObjectStore::getSnapshotPath(uint64_t a1, uint64_t *a2, std::string *this, int a4)
 {
   if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4565,28 +4544,28 @@ uint64_t amber::DirectoryObjectStore::getSnapshotPath(uint64_t a1, amber *a2, st
   }
 }
 
-uint64_t amber::DirectoryObjectStore::storeSnapshot(amber::DirectoryObjectStore *this, const amber::ObjectStorePath *a2)
+uint64_t amber::DirectoryObjectStore::storeSnapshot(uint64_t **this, const amber::ObjectStorePath *a2)
 {
-  v34 = *MEMORY[0x29EDCA608];
-  v29 = (this + 24);
-  v30 = 1;
-  amber::RWSem::acquireAsWriter((this + 24));
+  v33 = *MEMORY[0x29EDCA608];
+  v28 = (this + 3);
+  v29 = 1;
+  amber::RWSem::acquireAsWriter((this + 3));
   v4 = *(a2 + 8);
-  v31[0] = &off_2A1DDFC68;
-  v31[1] = a2 + 36;
-  v32 = v4;
-  amber::CryptoBlobBase<32u>::CryptoBlobBase(v33, v31, v5, v6, v7, v8, v9);
+  v30[0] = &off_2A1DDFC68;
+  v30[1] = a2 + 36;
+  v31 = v4;
+  amber::CryptoBlobBase<32u>::CryptoBlobBase(v32, v30, v5, v6, v7, v8, v9);
   v10 = *(a2 + 78);
   __p.__r_.__value_.__r.__words[0] = &off_2A1DDFC68;
   __p.__r_.__value_.__l.__size_ = a2 + 316;
   __p.__r_.__value_.__r.__words[2] = v10;
-  amber::CryptoBlobBase<32u>::CryptoBlobBase(v31, &__p, v11, v12, v13, v14, v15);
-  std::__tree<amber::CryptoBlobBase<32u>>::__emplace_unique_key_args<amber::CryptoBlobBase<32u>,amber::CryptoBlobBase<32u> const&>(this + 208, v31, v31, v16, v17, v18, v19);
+  amber::CryptoBlobBase<32u>::CryptoBlobBase(v30, &__p, v11, v12, v13, v14, v15);
+  std::__tree<amber::CryptoBlobBase<32u>>::__emplace_unique_key_args<amber::CryptoBlobBase<32u>,amber::CryptoBlobBase<32u> const&>(this + 26, v30, v30, v16, v17, v18, v19);
   memset(&__p, 0, sizeof(__p));
-  v27[0] = &off_2A1DDFC68;
-  v27[1] = &v32 + 4;
-  v27[2] = v32;
-  if ((amber::DirectoryObjectStore::getSnapshotPath(this, v27, &__p, 1) & 0x80000000) != 0 || ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_p = &__p) : (p_p = __p.__r_.__value_.__r.__words[0]), (amber::JSONCodable::jsonSerializeToFileAt(a2, *(this + 2), p_p, v20, v21) & 0x80000000) != 0))
+  v26[0] = &off_2A1DDFC68;
+  v26[1] = &v31 + 4;
+  v26[2] = v31;
+  if ((amber::DirectoryObjectStore::getSnapshotPath(this, v26, &__p, 1) & 0x80000000) != 0 || ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_p = &__p) : (p_p = __p.__r_.__value_.__r.__words[0]), (amber::JSONCodable::jsonSerializeToFileAt(a2, *(this + 2), p_p, v20, v21) & 0x80000000) != 0))
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/DirectoryObjectStore.cpp", "storeSnapshot", 0xE4, 0, "store snapshot", v22);
     v24 = 0xFFFFFFFFLL;
@@ -4602,8 +4581,7 @@ uint64_t amber::DirectoryObjectStore::storeSnapshot(amber::DirectoryObjectStore 
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  amber::RWSemLock::~RWSemLock(&v29);
-  v25 = *MEMORY[0x29EDCA608];
+  amber::RWSemLock::~RWSemLock(&v28);
   return v24;
 }
 
@@ -4620,16 +4598,16 @@ void sub_296982318(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t amber::DirectoryObjectStore::writeModifiedObjects(amber::DirectoryObjectStore *this, amber::BlockDevice *a2)
 {
-  v46[75] = *MEMORY[0x29EDCA608];
-  v36 = (this + 24);
-  v37 = 1;
+  v45[75] = *MEMORY[0x29EDCA608];
+  v35 = (this + 24);
+  v36 = 1;
   amber::RWSem::acquireAsWriter((this + 24));
-  amber::BasicBlockDeviceRequestState::BasicBlockDeviceRequestState(&v41, 1);
+  amber::BasicBlockDeviceRequestState::BasicBlockDeviceRequestState(&v40, 1);
   v8 = *(this + 23);
   v9 = this + 192;
   if (v8 != this + 192)
   {
-    v33 = this + 192;
+    v32 = this + 192;
     do
     {
       v10 = *(v8 + 11);
@@ -4678,16 +4656,16 @@ uint64_t amber::DirectoryObjectStore::writeModifiedObjects(amber::DirectoryObjec
           }
 
           v13 = *(v10 + 16);
-          v35[0] = &off_2A1DDFC68;
-          v35[1] = v10 + 20;
-          v35[2] = v13;
-          amber::CryptoBlobBase<256u>::CryptoBlobBase(v39, v35, v3, v4, v5, v6, v7);
-          v14 = *(v12 + 24);
           v34[0] = &off_2A1DDFC68;
-          v34[1] = v12 + 28;
-          v34[2] = v14;
-          amber::CryptoBlobBase<256u>::CryptoBlobBase(v38, v34, v15, v16, v17, v18, v19);
-          amber::ObjectStorePath::ObjectStorePath(v40, v39, v38, *(v12 + 64), *(v12 + 72), *(v12 + 80), v20);
+          v34[1] = v10 + 20;
+          v34[2] = v13;
+          amber::CryptoBlobBase<256u>::CryptoBlobBase(v38, v34, v3, v4, v5, v6, v7);
+          v14 = *(v12 + 24);
+          v33[0] = &off_2A1DDFC68;
+          v33[1] = v12 + 28;
+          v33[2] = v14;
+          amber::CryptoBlobBase<256u>::CryptoBlobBase(v37, v33, v15, v16, v17, v18, v19);
+          amber::ObjectStorePath::ObjectStorePath(v39, v38, v37, *(v12 + 64), *(v12 + 72), *(v12 + 80), v20);
           if (malloc_type_malloc(*(v12 + 80), 0xF93785E2uLL))
           {
             operator new();
@@ -4696,7 +4674,7 @@ uint64_t amber::DirectoryObjectStore::writeModifiedObjects(amber::DirectoryObjec
           v27 = __error();
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/././Memory/./Malloc.hpp", "malloc", 0x1F, *v27, "malloc", v28);
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/DirectoryObjectStore.cpp", "writeModifiedObjects", 0xFB, 0, "malloc", v29);
-          amber::ObjectStorePath::~ObjectStorePath(v40);
+          amber::ObjectStorePath::~ObjectStorePath(v39);
 LABEL_26:
           v30 = 0xFFFFFFFFLL;
           goto LABEL_27;
@@ -4704,7 +4682,7 @@ LABEL_26:
 
 LABEL_14:
         *(v10 + 80) = 0;
-        v9 = v33;
+        v9 = v32;
       }
 
       v24 = *(v8 + 1);
@@ -4737,18 +4715,18 @@ LABEL_14:
     while (v25 != v9);
   }
 
-  if (atomic_fetch_add_explicit(v45, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) >= 1)
+  if (atomic_fetch_add_explicit(v44, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) >= 1)
   {
     do
     {
-      amber::Sem::acquire(&v42);
+      amber::Sem::acquire(&v41);
     }
 
-    while (atomic_fetch_add_explicit(v45, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) > 0);
+    while (atomic_fetch_add_explicit(v44, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) > 0);
   }
 
-  atomic_fetch_add_explicit(v45, 1uLL, memory_order_relaxed);
-  if (atomic_load(&v41))
+  atomic_fetch_add_explicit(v44, 1uLL, memory_order_relaxed);
+  if (atomic_load(&v40))
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/DirectoryObjectStore.cpp", "writeModifiedObjects", 0x113, 0, "some data requests failed", v7);
     goto LABEL_26;
@@ -4756,17 +4734,16 @@ LABEL_14:
 
   v30 = 0;
 LABEL_27:
-  amber::ObjectStorePath::~ObjectStorePath(v46);
-  std::condition_variable::~condition_variable(&v44);
-  std::mutex::~mutex(&v43);
-  amber::RWSemLock::~RWSemLock(&v36);
-  v31 = *MEMORY[0x29EDCA608];
+  amber::ObjectStorePath::~ObjectStorePath(v45);
+  std::condition_variable::~condition_variable(&v43);
+  std::mutex::~mutex(&v42);
+  amber::RWSemLock::~RWSemLock(&v35);
   return v30;
 }
 
-void sub_296982720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_296982720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   amber::ObjectStorePath::~ObjectStorePath(&STACK[0x290]);
   amber::BasicBlockDeviceRequestState::~BasicBlockDeviceRequestState(&STACK[0x4E8]);
   amber::RWSemLock::~RWSemLock(va);
@@ -4819,11 +4796,11 @@ uint64_t amber::DirectoryObjectStore::enforceMaxUsage(amber::DirectoryObjectStor
 
 uint64_t amber::DirectoryObjectStore::removeObject_Writer(amber::DirectoryObjectStore *this, amber::DirectoryObjectStore::Object *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  *&v31[36] = *MEMORY[0x29EDCA608];
+  *&v30[36] = *MEMORY[0x29EDCA608];
   v9 = *(a2 + 16);
   v10 = *a2;
-  amber::CryptoBlobBase<32u>::CryptoBlobBase(v29, a2 + 28, *(a2 + 6), a4, a5, a6, a7);
-  std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Object *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Object *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Object *>>>::__erase_unique<amber::CryptoBlobBase<32u>>(this + 20, v29, v11, v12, v13, v14, v15);
+  amber::CryptoBlobBase<32u>::CryptoBlobBase(v28, a2 + 28, *(a2 + 6), a4, a5, a6, a7);
+  std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Object *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Object *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Object *>>>::__erase_unique<amber::CryptoBlobBase<32u>>(this + 20, v28, v11, v12, v13, v14, v15);
   atomic_fetch_add_explicit(this + 29, -*(a2 + 20), memory_order_relaxed);
   if (*(this + 12) == 1)
   {
@@ -4855,13 +4832,13 @@ uint64_t amber::DirectoryObjectStore::removeObject_Writer(amber::DirectoryObject
   MEMORY[0x29C25C000]();
   memset(&__p, 0, sizeof(__p));
   v20 = *(v10 + 16);
-  v27[0] = &off_2A1DDFC68;
-  v27[1] = v10 + 20;
-  v27[2] = v20;
   v26[0] = &off_2A1DDFC68;
-  v26[1] = v31;
-  v26[2] = v30;
-  if ((amber::DirectoryObjectStore::getObjectPath(this, v27, v26, v9, &__p, 0) & 0x80000000) != 0)
+  v26[1] = v10 + 20;
+  v26[2] = v20;
+  v25[0] = &off_2A1DDFC68;
+  v25[1] = v30;
+  v25[2] = v29;
+  if ((amber::DirectoryObjectStore::getObjectPath(this, v26, v25, v9, &__p, 0) & 0x80000000) != 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/DirectoryObjectStore.cpp", "removeObject_Writer", 0x151, 0, "get path", v21);
     v23 = 0xFFFFFFFFLL;
@@ -4888,7 +4865,6 @@ uint64_t amber::DirectoryObjectStore::removeObject_Writer(amber::DirectoryObject
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v24 = *MEMORY[0x29EDCA608];
   return v23;
 }
 
@@ -5105,67 +5081,65 @@ unint64_t amber::MutableMemoryViewConvertible<amber::MemorySegment>::operator[](
 
 uint64_t amber::DirectoryObjectStore::Visitor::entry(amber::DirectoryObjectStore::Visitor *this, const char *a2, int a3, const stat *a4)
 {
-  *&v59[284] = *MEMORY[0x29EDCA608];
+  *&v57[284] = *MEMORY[0x29EDCA608];
   if ((a4->st_mode & 0xF000) == 0x8000)
   {
-    amber::ObjectStorePath::ObjectStorePath(v56);
-    v54[0] = &unk_2A1DDFDD8;
-    v54[1] = &unk_2A1DDFE08;
-    memset(&v54[2], 0, 256);
-    v55 = 0;
-    v49[0] = a2;
-    v49[1] = strlen(a2);
-    if (amber::parseObjectURI(v49, v56, v7, v8, v9, v10, v11))
+    amber::ObjectStorePath::ObjectStorePath(v54);
+    v52[0] = &unk_2A1DDFDD8;
+    v52[1] = &unk_2A1DDFE08;
+    memset(&v52[2], 0, 256);
+    v53 = 0;
+    v47[0] = a2;
+    v47[1] = strlen(a2);
+    if (amber::parseObjectURI(v47, v54, v7, v8, v9, v10, v11))
     {
-      if (!amber::parseSnapshotURI(v49, v54, v12, v13, v14, v15, v16))
+      if (!amber::parseSnapshotURI(v47, v52, v12, v13, v14, v15, v16))
       {
-        v50 = &off_2A1DDFC68;
-        v51 = &v54[2] + 4;
-        v52 = LODWORD(v54[2]);
-        amber::CryptoBlobBase<32u>::CryptoBlobBase(v53, &v50, v17, v18, v19, v20, v21);
-        std::__tree<amber::CryptoBlobBase<32u>>::__emplace_unique_key_args<amber::CryptoBlobBase<32u>,amber::CryptoBlobBase<32u> const&>(*(this + 1) + 208, v53, v53, v22, v23, v24, v25);
+        v48 = &off_2A1DDFC68;
+        v49 = &v52[2] + 4;
+        v50 = LODWORD(v52[2]);
+        amber::CryptoBlobBase<32u>::CryptoBlobBase(v51, &v48, v17, v18, v19, v20, v21);
+        std::__tree<amber::CryptoBlobBase<32u>>::__emplace_unique_key_args<amber::CryptoBlobBase<32u>,amber::CryptoBlobBase<32u> const&>((*(this + 1) + 208), v51, v51, v22, v23, v24, v25);
       }
     }
 
     else
     {
-      v50 = &off_2A1DDFC68;
-      v51 = v58;
-      v52 = v57;
-      amber::CryptoBlobBase<32u>::CryptoBlobBase(v53, &v50, v12, v13, v14, v15, v16);
-      v48[0] = &off_2A1DDFC68;
-      v48[1] = v59;
-      v48[2] = v58[69];
-      amber::CryptoBlobBase<32u>::CryptoBlobBase(&v50, v48, v26, v27, v28, v29, v30);
-      v36 = std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>>>::find<amber::CryptoBlobBase<32u>>(*(this + 1) + 184, v53, v31, v32, v33, v34, v35);
+      v48 = &off_2A1DDFC68;
+      v49 = v56;
+      v50 = v55;
+      amber::CryptoBlobBase<32u>::CryptoBlobBase(v51, &v48, v12, v13, v14, v15, v16);
+      v46[0] = &off_2A1DDFC68;
+      v46[1] = v57;
+      v46[2] = v56[69];
+      amber::CryptoBlobBase<32u>::CryptoBlobBase(&v48, v46, v26, v27, v28, v29, v30);
+      v36 = std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>>>::find<amber::CryptoBlobBase<32u>>(*(this + 1) + 184, v51, v31, v32, v33, v34, v35);
       v42 = *(this + 1);
       if (v42 + 192 == v36)
       {
         operator new();
       }
 
-      v43 = *(v36 + 88);
-      v44 = std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>>>::find<amber::CryptoBlobBase<32u>>(v42 + 160, &v50, v37, v38, v39, v40, v41);
-      if (*(this + 1) + 168 == v44)
+      v43 = std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>>>::find<amber::CryptoBlobBase<32u>>(v42 + 160, &v48, v37, v38, v39, v40, v41);
+      if (*(this + 1) + 168 == v43)
       {
         operator new();
       }
 
-      v45 = *(v44 + 88);
-      *(v45 + 80) = a4->st_size;
-      *(v45 + 88) = a4->st_atimespec;
+      v44 = *(v43 + 88);
+      *(v44 + 80) = a4->st_size;
+      *(v44 + 88) = a4->st_atimespec;
     }
 
-    amber::ObjectStorePath::~ObjectStorePath(v56);
+    amber::ObjectStorePath::~ObjectStorePath(v54);
   }
 
-  v46 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
 void sub_29698324C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  MEMORY[0x29C25C000](v65, 0x10A0C40EE23DE53);
+  MEMORY[0x29C25C000](v65, 0x10A0C40EE23DE53, a3, a4, a5, a6, a7, a8);
   amber::ObjectStorePath::~ObjectStorePath(&a65);
   _Unwind_Resume(a1);
 }
@@ -5317,7 +5291,7 @@ unint64_t amber::DirectoryObjectStore::Object::Object(unint64_t a1, uint64_t a2,
   *(a1 + 104) = 0;
   *(a1 + 112) = 0;
   v10 = a1;
-  std::__tree<amber::DirectoryObjectStore::Object *>::__emplace_unique_key_args<amber::DirectoryObjectStore::Object *,amber::DirectoryObjectStore::Object *>(a2 + 56, &v10);
+  std::__tree<amber::DirectoryObjectStore::Object *>::__emplace_unique_key_args<amber::DirectoryObjectStore::Object *,amber::DirectoryObjectStore::Object *>(a2 + 56, &v10, &v10);
   return a1;
 }
 
@@ -5330,41 +5304,41 @@ void sub_29698370C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<amber::DirectoryObjectStore::Object *>::__emplace_unique_key_args<amber::DirectoryObjectStore::Object *,amber::DirectoryObjectStore::Object *>(uint64_t a1, unint64_t *a2)
+void *std::__tree<amber::DirectoryObjectStore::Object *>::__emplace_unique_key_args<amber::DirectoryObjectStore::Object *,amber::DirectoryObjectStore::Object *>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -5477,27 +5451,7 @@ double amber::CryptoBlobBase<32u>::binaryParse(uint64_t a1, uint64_t a2, uint64_
   v23 = (a1 + 16);
   v24 = 4;
   v9 = __src[1] - 4;
-  if (__src[1] < 4)
-  {
-    goto LABEL_4;
-  }
-
-  v12 = __src[0] + 4;
-  v11 = *__src[0];
-  *v8 = v11;
-  __src[0] = v12;
-  __src[1] = v9;
-  if (v11 > 0x20)
-  {
-    goto LABEL_4;
-  }
-
-  v17[0] = &off_2A1DDFDA8;
-  v17[1] = a1 + 20;
-  v17[2] = 32;
-  amber::MutableMemoryView::first(v17, v11, a7, &v19);
-  v13 = __n;
-  if (__n <= __src[1])
+  if (__src[1] >= 4 && (v12 = __src[0] + 4, v11 = *__src[0], *v8 = v11, __src[0] = v12, __src[1] = v9, v11 <= 0x20) && (v17[0] = &off_2A1DDFDA8, v17[1] = a1 + 20, v17[2] = 32, amber::MutableMemoryView::first(&v19, v17, v11, a7), v13 = __n, __n <= __src[1]))
   {
     memcpy(__dst, __src[0], __n);
     __src[0] = __src[0] + v13;
@@ -5513,7 +5467,6 @@ double amber::CryptoBlobBase<32u>::binaryParse(uint64_t a1, uint64_t a2, uint64_
 
   else
   {
-LABEL_4:
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/././Crypto/./CryptoBlob.hpp", "binaryParse", 0x72, 0, "invalid/truncated CryptoBlob", a7);
     *(a1 + 16) = 0;
     v19 = &off_2A1DDFDA8;
@@ -5526,7 +5479,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t amber::CryptoBlobBase<32u>::binarySerialize(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t amber::CryptoBlobBase<32u>::binarySerialize(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   v9 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(a2, a2, a3, a4, a5, a6, a7);
   v29[0] = &off_2A1DDFC68;
@@ -5537,7 +5490,7 @@ uint64_t amber::CryptoBlobBase<32u>::binarySerialize(uint64_t a1, unint64_t *a2,
     v27[0] = &off_2A1DDFC68;
     v27[1] = a1 + 20;
     v27[2] = 32;
-    amber::ConstMemoryView::first(v27, *(a1 + 16), v15, v28);
+    amber::ConstMemoryView::first(v28, v27, *(a1 + 16), v15);
     if ((amber::BufferProtocol<amber::Buffer>::append(a2, v28, v16, v17, v18, v19, v20) & 0x80000000) == 0)
     {
       return 0;
@@ -5613,7 +5566,7 @@ uint64_t std::less<amber::CryptoBlobBase<32u>>::operator()[abi:ne200100](uint64_
   return memcmp((a2 + 20), (a3 + 20), v8) >> 31;
 }
 
-uint64_t std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>>>::__emplace_unique_key_args<amber::CryptoBlobBase<32u>,std::piecewise_construct_t const&,std::tuple<amber::CryptoBlobBase<32u> const&>,std::tuple<>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+void *std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>>>::__emplace_unique_key_args<amber::CryptoBlobBase<32u>,std::piecewise_construct_t const&,std::tuple<amber::CryptoBlobBase<32u> const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   result = *std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>>>::__find_equal<amber::CryptoBlobBase<32u>>(a1, &v8, a2, a4, a5, a6, a7);
   if (!result)
@@ -5677,7 +5630,7 @@ void sub_29698429C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Object *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Object *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Object *>>>::__emplace_unique_key_args<amber::CryptoBlobBase<32u>,std::piecewise_construct_t const&,std::tuple<amber::CryptoBlobBase<32u> const&>,std::tuple<>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+void *std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Object *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Object *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Object *>>>::__emplace_unique_key_args<amber::CryptoBlobBase<32u>,std::piecewise_construct_t const&,std::tuple<amber::CryptoBlobBase<32u> const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   result = *std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>>>::__find_equal<amber::CryptoBlobBase<32u>>(a1, &v8, a2, a4, a5, a6, a7);
   if (!result)
@@ -5695,7 +5648,7 @@ void sub_2969843C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<amber::CryptoBlobBase<32u>>::__emplace_unique_key_args<amber::CryptoBlobBase<32u>,amber::CryptoBlobBase<32u> const&>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+void *std::__tree<amber::CryptoBlobBase<32u>>::__emplace_unique_key_args<amber::CryptoBlobBase<32u>,amber::CryptoBlobBase<32u> const&>(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   v7 = *std::__tree<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::__map_value_compare<amber::CryptoBlobBase<32u>,std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>,std::less<amber::CryptoBlobBase<32u>>,true>,std::allocator<std::__value_type<amber::CryptoBlobBase<32u>,amber::DirectoryObjectStore::Container *>>>::__find_equal<amber::CryptoBlobBase<32u>>(a1, &v9, a2, a4, a5, a6, a7);
   if (!v7)
@@ -5735,7 +5688,7 @@ void std::__tree<amber::CryptoBlobBase<32u>>::destroy(uint64_t a1, void *a2)
   }
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**,false>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t), uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**,false>(uint64_t result, int8x16_t *a2, uint64_t (**a3)(uint64_t, uint64_t), uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -5759,13 +5712,13 @@ LABEL_3:
 
     if (v12 == 2)
     {
-      result = (*a3)(*(a2 - 1), v9->i64[0]);
+      result = (*a3)(a2[-1].i64[1], v9->i64[0]);
       if (result)
       {
-        v61 = v9->i64[0];
-        v9->i64[0] = *(a2 - 1);
+        v59 = v9->i64[0];
+        v9->i64[0] = a2[-1].i64[1];
 LABEL_98:
-        *(a2 - 1) = v61;
+        a2[-1].i64[1] = v59;
         return result;
       }
 
@@ -5778,13 +5731,13 @@ LABEL_11:
       if (a5)
       {
 
-        return std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**>(v9, a2, a3);
+        return std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**>(v9, a2->i64, a3);
       }
 
       else
       {
 
-        return std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**>(v9, a2, a3);
+        return std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**>(v9, a2->i64, a3);
       }
     }
 
@@ -5793,7 +5746,7 @@ LABEL_11:
       if (v9 != a2)
       {
 
-        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**,amber::DirectoryObjectStore::Object**>(v9->i64, a2, a2, a3);
+        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**,amber::DirectoryObjectStore::Object**>(v9->i64, a2->i64, a2->i64, a3);
       }
 
       return result;
@@ -5804,25 +5757,25 @@ LABEL_11:
     if (v12 >= 0x81)
     {
       v15 = v14(v8[v13], *v8);
-      v16 = (*a3)(*(a2 - 1), v8[v13]);
+      v16 = (*a3)(a2[-1].i64[1], v8[v13]);
       if (v15)
       {
         v17 = *v8;
         if (v16)
         {
-          *v8 = *(a2 - 1);
-          *(a2 - 1) = v17;
+          *v8 = a2[-1].i64[1];
+          a2[-1].i64[1] = v17;
         }
 
         else
         {
           *v8 = v8[v13];
           v8[v13] = v17;
-          if ((*a3)(*(a2 - 1)))
+          if ((*a3)(a2[-1].i64[1]))
           {
             v25 = v8[v13];
-            v8[v13] = *(a2 - 1);
-            *(a2 - 1) = v25;
+            v8[v13] = a2[-1].i64[1];
+            a2[-1].i64[1] = v25;
           }
         }
       }
@@ -5830,8 +5783,8 @@ LABEL_11:
       else if (v16)
       {
         v21 = v8[v13];
-        v8[v13] = *(a2 - 1);
-        *(a2 - 1) = v21;
+        v8[v13] = a2[-1].i64[1];
+        a2[-1].i64[1] = v21;
         if ((*a3)(v8[v13], *v8))
         {
           v22 = *v8;
@@ -5842,25 +5795,25 @@ LABEL_11:
 
       v26 = v13 - 1;
       v27 = (*a3)(v8[v13 - 1], v8[1]);
-      v28 = (*a3)(*(a2 - 2), v8[v13 - 1]);
+      v28 = (*a3)(a2[-1].i64[0], v8[v13 - 1]);
       if (v27)
       {
         v29 = v8[1];
         if (v28)
         {
-          v8[1] = *(a2 - 2);
-          *(a2 - 2) = v29;
+          v8[1] = a2[-1].i64[0];
+          a2[-1].i64[0] = v29;
         }
 
         else
         {
           v8[1] = v8[v26];
           v8[v26] = v29;
-          if ((*a3)(*(a2 - 2)))
+          if ((*a3)(a2[-1].i64[0]))
           {
             v33 = v8[v26];
-            v8[v26] = *(a2 - 2);
-            *(a2 - 2) = v33;
+            v8[v26] = a2[-1].i64[0];
+            a2[-1].i64[0] = v33;
           }
         }
       }
@@ -5868,8 +5821,8 @@ LABEL_11:
       else if (v28)
       {
         v30 = v8[v26];
-        v8[v26] = *(a2 - 2);
-        *(a2 - 2) = v30;
+        v8[v26] = a2[-1].i64[0];
+        a2[-1].i64[0] = v30;
         if ((*a3)(v8[v26], v8[1]))
         {
           v31 = v8[1];
@@ -5880,25 +5833,25 @@ LABEL_11:
 
       v34 = v13 + 1;
       v35 = (*a3)(v8[v13 + 1], v8[2]);
-      v36 = (*a3)(*(a2 - 3), v8[v13 + 1]);
+      v36 = (*a3)(a2[-2].i64[1], v8[v13 + 1]);
       if (v35)
       {
         v37 = v8[2];
         if (v36)
         {
-          v8[2] = *(a2 - 3);
-          *(a2 - 3) = v37;
+          v8[2] = a2[-2].i64[1];
+          a2[-2].i64[1] = v37;
         }
 
         else
         {
           v8[2] = v8[v34];
           v8[v34] = v37;
-          if ((*a3)(*(a2 - 3)))
+          if ((*a3)(a2[-2].i64[1]))
           {
             v40 = v8[v34];
-            v8[v34] = *(a2 - 3);
-            *(a2 - 3) = v40;
+            v8[v34] = a2[-2].i64[1];
+            a2[-2].i64[1] = v40;
           }
         }
       }
@@ -5906,8 +5859,8 @@ LABEL_11:
       else if (v36)
       {
         v38 = v8[v34];
-        v8[v34] = *(a2 - 3);
-        *(a2 - 3) = v38;
+        v8[v34] = a2[-2].i64[1];
+        a2[-2].i64[1] = v38;
         if ((*a3)(v8[v34], v8[2]))
         {
           v39 = v8[2];
@@ -5931,15 +5884,15 @@ LABEL_11:
 
         v8[v26] = v8[v13];
         v8[v13] = v43;
-        v48 = (*a3)(v8[v34]);
+        v47 = (*a3)(v8[v34]);
         v44 = v8[v13];
-        if (v48)
+        if (v47)
         {
-          v47 = v8[v34];
-          v8[v13] = v47;
+          v46 = v8[v34];
+          v8[v13] = v46;
           v8[v34] = v44;
 LABEL_58:
-          v44 = v47;
+          v44 = v46;
         }
       }
 
@@ -5950,23 +5903,22 @@ LABEL_58:
         {
           v8[v13] = v8[v34];
           v8[v34] = v44;
-          v45 = v8[v26];
-          v46 = (*a3)();
+          v45 = (*a3)();
           v44 = v8[v13];
-          if (v46)
+          if (v45)
           {
-            v47 = v8[v26];
+            v46 = v8[v26];
             v8[v26] = v44;
-            v8[v13] = v47;
+            v8[v13] = v46;
             goto LABEL_58;
           }
         }
       }
 
 LABEL_59:
-      v49 = *v8;
+      v48 = *v8;
       *v8 = v44;
-      v8[v13] = v49;
+      v8[v13] = v48;
       if (a5)
       {
         goto LABEL_61;
@@ -5976,7 +5928,7 @@ LABEL_59:
     }
 
     v18 = v14(*v8, v8[v13]);
-    v19 = (*a3)(*(a2 - 1), *v8);
+    v19 = (*a3)(a2[-1].i64[1], *v8);
     if (v18)
     {
       v20 = v8[v13];
@@ -5984,11 +5936,11 @@ LABEL_59:
       {
         v8[v13] = *v8;
         *v8 = v20;
-        if ((*a3)(*(a2 - 1)))
+        if ((*a3)(a2[-1].i64[1]))
         {
           v32 = *v8;
-          *v8 = *(a2 - 1);
-          *(a2 - 1) = v32;
+          *v8 = a2[-1].i64[1];
+          a2[-1].i64[1] = v32;
         }
 
 LABEL_38:
@@ -6000,8 +5952,8 @@ LABEL_38:
         goto LABEL_60;
       }
 
-      v8[v13] = *(a2 - 1);
-      *(a2 - 1) = v20;
+      v8[v13] = a2[-1].i64[1];
+      a2[-1].i64[1] = v20;
       if (a5)
       {
         goto LABEL_61;
@@ -6016,8 +5968,8 @@ LABEL_38:
       }
 
       v23 = *v8;
-      *v8 = *(a2 - 1);
-      *(a2 - 1) = v23;
+      *v8 = a2[-1].i64[1];
+      a2[-1].i64[1] = v23;
       if (!(*a3)(*v8, v8[v13]))
       {
         goto LABEL_38;
@@ -6035,26 +5987,26 @@ LABEL_38:
 LABEL_60:
     if (((*a3)(*(v8 - 1), *v8) & 1) == 0)
     {
-      result = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,amber::DirectoryObjectStore::Object **,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*)>(v8, a2, a3);
+      result = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,amber::DirectoryObjectStore::Object **,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*)>(v8, a2->i64, a3);
       v9 = result;
       goto LABEL_66;
     }
 
 LABEL_61:
-    v50 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,amber::DirectoryObjectStore::Object **,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*)>(v8, a2, a3);
-    if ((v51 & 1) == 0)
+    v49 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,amber::DirectoryObjectStore::Object **,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*)>(v8, a2->i64, a3);
+    if ((v50 & 1) == 0)
     {
       goto LABEL_64;
     }
 
-    v52 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**>(v8, v50, a3);
-    v9 = (v50 + 1);
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**>(v50 + 1, a2, a3);
+    v51 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**>(v8, v49, a3);
+    v9 = &v49->u64[1];
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**>(&v49->i64[1], a2, a3);
     if (result)
     {
       a4 = -v11;
-      a2 = v50;
-      if (v52)
+      a2 = v49;
+      if (v51)
       {
         return result;
       }
@@ -6063,11 +6015,11 @@ LABEL_61:
     }
 
     v10 = v11 + 1;
-    if (!v52)
+    if (!v51)
     {
 LABEL_64:
-      result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**,false>(v8, v50, a3, -v11, a5 & 1);
-      v9 = (v50 + 1);
+      result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**,false>(v8, v49, a3, -v11, a5 & 1);
+      v9 = &v49->u64[1];
 LABEL_66:
       a5 = 0;
       a4 = -v11;
@@ -6080,61 +6032,60 @@ LABEL_66:
     if (v12 == 4)
     {
 
-      return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**,0>(v9, &v9->i64[1], v9[1].i64, a2 - 1, a3);
+      return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**,0>(v9, &v9->i64[1], v9[1].i64, &a2[-1].i64[1], a3);
     }
 
     if (v12 == 5)
     {
       std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**,0>(v9, &v9->i64[1], v9[1].i64, &v9[1].i64[1], a3);
-      result = (*a3)(*(a2 - 1), v9[1].i64[1]);
+      result = (*a3)(a2[-1].i64[1], v9[1].i64[1]);
       if (!result)
       {
         return result;
       }
 
-      v55 = v9[1].i64[1];
-      v9[1].i64[1] = *(a2 - 1);
-      *(a2 - 1) = v55;
+      v54 = v9[1].i64[1];
+      v9[1].i64[1] = a2[-1].i64[1];
+      a2[-1].i64[1] = v54;
       result = (*a3)(v9[1].i64[1], v9[1].i64[0]);
       if (!result)
       {
         return result;
       }
 
-      v56 = v9[1].i64[0];
-      v57 = v9->i64[1];
+      v55 = v9[1].i64[0];
       v9[1].i64[0] = v9[1].i64[1];
-      v9[1].i64[1] = v56;
+      v9[1].i64[1] = v55;
       result = (*a3)();
       if (!result)
       {
         return result;
       }
 
-      v59 = v9->i64[1];
-      v58 = v9[1].i64[0];
-      v60 = v9->i64[0];
-      v9->i64[1] = v58;
-      v9[1].i64[0] = v59;
-      result = (*a3)(v58, v60);
+      v57 = v9->i64[1];
+      v56 = v9[1].i64[0];
+      v58 = v9->i64[0];
+      v9->i64[1] = v56;
+      v9[1].i64[0] = v57;
+      result = (*a3)(v56, v58);
       goto LABEL_91;
     }
 
     goto LABEL_11;
   }
 
-  v53 = (*a3)(v9->i64[1], v9->i64[0]);
-  result = (*a3)(*(a2 - 1), v9->i64[1]);
-  if ((v53 & 1) == 0)
+  v52 = (*a3)(v9->i64[1], v9->i64[0]);
+  result = (*a3)(a2[-1].i64[1], v9->i64[1]);
+  if ((v52 & 1) == 0)
   {
     if (!result)
     {
       return result;
     }
 
-    v62 = v9->i64[1];
-    v9->i64[1] = *(a2 - 1);
-    *(a2 - 1) = v62;
+    v60 = v9->i64[1];
+    v9->i64[1] = a2[-1].i64[1];
+    a2[-1].i64[1] = v60;
     result = (*a3)(v9->i64[1], v9->i64[0]);
 LABEL_91:
     if (result)
@@ -6145,21 +6096,21 @@ LABEL_91:
     return result;
   }
 
-  v54 = v9->i64[0];
+  v53 = v9->i64[0];
   if (result)
   {
-    v9->i64[0] = *(a2 - 1);
-    *(a2 - 1) = v54;
+    v9->i64[0] = a2[-1].i64[1];
+    a2[-1].i64[1] = v53;
     return result;
   }
 
   v9->i64[0] = v9->i64[1];
-  v9->i64[1] = v54;
-  result = (*a3)(*(a2 - 1));
+  v9->i64[1] = v53;
+  result = (*a3)(a2[-1].i64[1]);
   if (result)
   {
-    v61 = v9->i64[1];
-    v9->i64[1] = *(a2 - 1);
+    v59 = v9->i64[1];
+    v9->i64[1] = a2[-1].i64[1];
     goto LABEL_98;
   }
 
@@ -6283,7 +6234,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**>(uint64_t result, void *a2, uint64_t (**a3)(uint64_t, uint64_t))
+uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t))
 {
   if (result != a2)
   {
@@ -6469,20 +6420,20 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
     switch(v6)
     {
       case 3:
-        v15 = (*a3)(a1[1], *a1);
-        v16 = (*a3)(*(a2 - 1), a1[1]);
-        if (v15)
+        v14 = (*a3)(a1[1], *a1);
+        v15 = (*a3)(*(a2 - 1), a1[1]);
+        if (v14)
         {
-          v17 = *a1;
-          if (v16)
+          v16 = *a1;
+          if (v15)
           {
             *a1 = *(a2 - 1);
-            *(a2 - 1) = v17;
+            *(a2 - 1) = v16;
             return 1;
           }
 
           *a1 = a1[1];
-          a1[1] = v17;
+          a1[1] = v16;
           if (!(*a3)(*(a2 - 1)))
           {
             return 1;
@@ -6493,15 +6444,15 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
           goto LABEL_6;
         }
 
-        if (!v16)
+        if (!v15)
         {
           return 1;
         }
 
-        v22 = a1[1];
+        v21 = a1[1];
         a1[1] = *(a2 - 1);
-        *(a2 - 1) = v22;
-        v14 = (*a3)(a1[1], *a1);
+        *(a2 - 1) = v21;
+        v13 = (*a3)(a1[1], *a1);
         break;
       case 4:
         std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(amber::DirectoryObjectStore::Object const*,amber::DirectoryObjectStore::Object const*),amber::DirectoryObjectStore::Object**,0>(a1, a1 + 1, a1 + 2, a2 - 1, a3);
@@ -6522,7 +6473,6 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
         }
 
         v9 = a1[2];
-        v10 = a1[1];
         a1[2] = a1[3];
         a1[3] = v9;
         if (!(*a3)())
@@ -6530,18 +6480,18 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
           return 1;
         }
 
-        v12 = a1[1];
-        v11 = a1[2];
-        v13 = *a1;
-        a1[1] = v11;
-        a1[2] = v12;
-        v14 = (*a3)(v11, v13);
+        v11 = a1[1];
+        v10 = a1[2];
+        v12 = *a1;
+        a1[1] = v10;
+        a1[2] = v11;
+        v13 = (*a3)(v10, v12);
         break;
       default:
         goto LABEL_17;
     }
 
-    if (v14)
+    if (v13)
     {
       *a1 = vextq_s8(*a1, *a1, 8uLL);
     }
@@ -6568,85 +6518,84 @@ LABEL_6:
   }
 
 LABEL_17:
-  v18 = (*a3)(a1[1], *a1);
-  v19 = a1 + 2;
-  v20 = (*a3)(a1[2], a1[1]);
-  if (v18)
+  v17 = (*a3)(a1[1], *a1);
+  v18 = a1 + 2;
+  v19 = (*a3)(a1[2], a1[1]);
+  if (v17)
   {
-    v21 = *a1;
-    if (v20)
+    v20 = *a1;
+    if (v19)
     {
       *a1 = a1[2];
-      a1[2] = v21;
+      a1[2] = v20;
     }
 
     else
     {
-      v25 = a1[2];
+      v23 = a1[2];
       *a1 = a1[1];
-      a1[1] = v21;
-      if ((*a3)(v25))
+      a1[1] = v20;
+      if ((*a3)(v23))
       {
         *(a1 + 1) = vextq_s8(*(a1 + 1), *(a1 + 1), 8uLL);
       }
     }
   }
 
-  else if (v20)
+  else if (v19)
   {
-    v23 = a1[1];
-    v24 = *a1;
+    v22 = a1[1];
     a1[1] = a1[2];
-    a1[2] = v23;
+    a1[2] = v22;
     if ((*a3)())
     {
       *a1 = vextq_s8(*a1, *a1, 8uLL);
     }
   }
 
-  v26 = a1 + 3;
+  v24 = a1 + 3;
   if (a1 + 3 == a2)
   {
     return 1;
   }
 
-  v27 = 0;
-  v28 = 0;
+  v25 = 0;
+  v26 = 0;
   while (1)
   {
-    if ((*a3)(*v26, *v19))
+    if ((*a3)(*v24, *v18))
     {
-      v29 = *v26;
-      v30 = v27;
+      v27 = *v24;
+      v28 = v25;
       while (1)
       {
-        v31 = a1 + v30;
-        *(a1 + v30 + 24) = *(a1 + v30 + 16);
-        if (v30 == -16)
+        v29 = a1 + v28;
+        *(a1 + v28 + 24) = *(a1 + v28 + 16);
+        if (v28 == -16)
         {
           break;
         }
 
-        v30 -= 8;
-        if (((*a3)(v29, *(v31 + 1)) & 1) == 0)
+        v28 -= 8;
+        if (((*a3)(v27, *(v29 + 1)) & 1) == 0)
         {
-          v32 = (a1 + v30 + 24);
+          v30 = (a1 + v28 + 24);
           goto LABEL_40;
         }
       }
 
-      v32 = a1;
+      v30 = a1;
 LABEL_40:
-      *v32 = v29;
-      if (++v28 == 8)
+      *v30 = v27;
+      if (++v26 == 8)
       {
-        return v26 + 1 == a2;
+        return v24 + 1 == a2;
       }
     }
 
-    v19 = v26;
-    v27 += 8;
-    if (++v26 == a2)
+    v18 = v24;
+    v25 += 8;
+    if (++v24 == a2)
     {
       return 1;
     }
@@ -6937,19 +6886,19 @@ uint64_t std::vector<amber::CryptoBlobBase<256u>>::__emplace_back_slow_path<ambe
   return v21;
 }
 
-void sub_296985A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296985A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<amber::CryptoBlobBase<256u>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-amber::HTTPDownloadStream *amber::HTTPDownloadStream::HTTPDownloadStream(amber::HTTPDownloadStream *this, amber::HTTPContext *a2, const char *a3, int a4, int a5)
+amber::HTTPDownloadStream *amber::HTTPDownloadStream::HTTPDownloadStream(amber::HTTPDownloadStream *this, amber::HTTPContext *a2, const char *a3, unsigned int a4, int a5)
 {
   v8 = amber::ChunkInputStream::ChunkInputStream(this, a4, a5);
   *v8 = &unk_2A1DE1458;
-  v8[1] = &unk_2A1DE14F0;
-  v8[56] = a2;
+  *(v8 + 1) = &unk_2A1DE14F0;
+  *(v8 + 56) = a2;
   v9 = strlen(a3);
   if (v9 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -7020,9 +6969,9 @@ uint64_t amber::HTTPDownloadStream::HTTPChunkReadContext::enqueueChunkRead(uint6
   return 0xFFFFFFFFLL;
 }
 
-void sub_296985DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_296985DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__list_imp<std::string>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -7081,36 +7030,30 @@ void non-virtual thunk toamber::HTTPDownloadStream::~HTTPDownloadStream(amber::H
 
 uint64_t amber::KnoxMultipartUpload::create(amber::KnoxMultipartUpload *this, const std::string *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v47[0] = &unk_2A1DDFD28;
-  v47[2] = 0;
-  v47[3] = 0;
-  v47[1] = off_2A1DDFD48;
-  v47[5] = 0;
-  v47[6] = 0;
-  v47[4] = &off_2A1DDFDA8;
-  v47[7] = &off_2A1DDFC68;
-  v48 = 0u;
-  v49 = 0u;
-  v50 = 1;
-  v51 = 0;
-  v42[0] = &unk_2A1DDFD28;
-  v42[2] = 0;
-  v42[3] = 0;
-  v42[1] = off_2A1DDFD48;
-  v42[5] = 0;
-  v42[6] = 0;
-  v42[4] = &off_2A1DDFDA8;
-  v42[7] = &off_2A1DDFC68;
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 1;
-  v46 = 0;
-  if (SHIBYTE(a2[8].__r_.__value_.__r.__words[2]) < 0)
-  {
-    data = a2[8].__r_.__value_.__l.__data_;
-    v10 = a2[8].__r_.__value_.__l.__size_ == 0;
-  }
-
+  v45[0] = &unk_2A1DDFD28;
+  v45[2] = 0;
+  v45[3] = 0;
+  v45[1] = off_2A1DDFD48;
+  v45[5] = 0;
+  v45[6] = 0;
+  v45[4] = &off_2A1DDFDA8;
+  v45[7] = &off_2A1DDFC68;
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 1;
+  v49 = 0;
+  v40[0] = &unk_2A1DDFD28;
+  v40[2] = 0;
+  v40[3] = 0;
+  v40[1] = off_2A1DDFD48;
+  v40[5] = 0;
+  v40[6] = 0;
+  v40[4] = &off_2A1DDFDA8;
+  v40[7] = &off_2A1DDFC68;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 1;
+  v44 = 0;
   if (atomic_load(this + 75))
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxMultipartUpload.cpp", "create", 0x13A, 0, "create while in uploading state", a7);
@@ -7120,11 +7063,11 @@ uint64_t amber::KnoxMultipartUpload::create(amber::KnoxMultipartUpload *this, co
   {
     *(this + 74) = 0;
     *(this + 8) = 0;
-    v36 = &off_2A1DDFDA8;
+    v34 = &off_2A1DDFDA8;
     __s1 = this + 36;
-    v38 = 256;
-    amber::MutableMemoryView::operator+(&v36, 0, a7, &v39);
-    bzero(v40, v41);
+    v36 = 256;
+    amber::MutableMemoryView::operator+(&v34, 0, a7, &v37);
+    bzero(v38, v39);
     std::vector<std::string>::clear[abi:ne200100](this + 46);
     size = HIBYTE(a2[4].__r_.__value_.__r.__words[2]);
     if ((size & 0x80u) != 0)
@@ -7134,29 +7077,29 @@ uint64_t amber::KnoxMultipartUpload::create(amber::KnoxMultipartUpload *this, co
 
     if (size)
     {
-      v14 = HIBYTE(a2[6].__r_.__value_.__r.__words[2]);
-      if ((v14 & 0x80u) != 0)
+      v12 = HIBYTE(a2[6].__r_.__value_.__r.__words[2]);
+      if ((v12 & 0x80u) != 0)
       {
-        v14 = a2[6].__r_.__value_.__l.__size_;
+        v12 = a2[6].__r_.__value_.__l.__size_;
       }
 
-      if (v14 >= 0x10)
+      if (v12 >= 0x10)
       {
-        v15 = HIBYTE(a2[7].__r_.__value_.__r.__words[2]);
-        if ((v15 & 0x80u) != 0)
+        v13 = HIBYTE(a2[7].__r_.__value_.__r.__words[2]);
+        if ((v13 & 0x80u) != 0)
         {
-          v15 = a2[7].__r_.__value_.__l.__size_;
+          v13 = a2[7].__r_.__value_.__l.__size_;
         }
 
-        if (v15)
+        if (v13)
         {
-          v16 = a2[1].__r_.__value_.__s.__data_[15];
-          if (v16 < 0)
+          data = a2[1].__r_.__value_.__s.__data_[15];
+          if (data < 0)
           {
-            v16 = a2[1].__r_.__value_.__l.__data_;
+            data = a2[1].__r_.__value_.__l.__data_;
           }
 
-          if (v16 && a2[1].__r_.__value_.__r.__words[2] != a2[2].__r_.__value_.__r.__words[0] && a2[2].__r_.__value_.__r.__words[2] != a2[3].__r_.__value_.__r.__words[0])
+          if (data && a2[1].__r_.__value_.__r.__words[2] != a2[2].__r_.__value_.__r.__words[0] && a2[2].__r_.__value_.__r.__words[2] != a2[3].__r_.__value_.__r.__words[0])
           {
             amber::KnoxPointer::clear(this + 416);
             amber::KnoxUploadAttributes::operator=(this + 424, &a2->__r_.__value_.__l.__size_);
@@ -7165,30 +7108,30 @@ uint64_t amber::KnoxMultipartUpload::create(amber::KnoxMultipartUpload *this, co
             std::string::operator=((this + 568), a2 + 6);
             std::string::operator=((this + 592), a2 + 7);
             *(this + 40) = 0u;
-            amber::Buffer::resize(v42, 0, v17, v18, v19, v20, v21);
-            amber::JSONOutputStream::JSONOutputStream(&v39, v42);
+            amber::Buffer::resize(v40, 0, v15, v16, v17, v18, v19);
+            amber::JSONOutputStream::JSONOutputStream(&v37, v40, 0);
           }
         }
       }
     }
 
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxMultipartUpload.cpp", "create", 0x152, 0, "incomplete file creation attributes", v12);
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxMultipartUpload.cpp", "create", 0x152, 0, "incomplete file creation attributes", v10);
   }
 
   std::vector<std::string>::clear[abi:ne200100](this + 46);
   *(this + 8) = 0;
-  v36 = &off_2A1DDFDA8;
+  v34 = &off_2A1DDFDA8;
   __s1 = this + 36;
-  v38 = 256;
-  amber::MutableMemoryView::operator+(&v36, 0, v22, &v39);
-  bzero(v40, v41);
+  v36 = 256;
+  amber::MutableMemoryView::operator+(&v34, 0, v20, &v37);
+  bzero(v38, v39);
   *(this + 74) = 0;
-  amber::Buffer::~Buffer(v42, v23, v24, v25, v26, v27, v28);
-  amber::Buffer::~Buffer(v47, v29, v30, v31, v32, v33, v34);
+  amber::Buffer::~Buffer(v40, v21, v22, v23, v24, v25, v26);
+  amber::Buffer::~Buffer(v45, v27, v28, v29, v30, v31, v32);
   return 0xFFFFFFFFLL;
 }
 
-void sub_296986C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58)
+void sub_296986C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, void *a58)
 {
   amber::JSONInputStream::~JSONInputStream(&a25);
   amber::Buffer::~Buffer(&a58, v60, v61, v62, v63, v64, v65);
@@ -7279,7 +7222,7 @@ uint64_t amber::KnoxMultipartUpload::cancel(atomic_uint *this, uint64_t a2, uint
     v19[1] = 0;
     v19[2] = 0;
     v19[0] = &off_2A1DDFC68;
-    v17 = amber::KnoxContext::knoxPerform(v14, 4u, v15, v19, 0);
+    v17 = amber::KnoxContext::knoxPerform(v14, 4, v15, v19, 0);
     if (v17 < 0)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxMultipartUpload.cpp", "cancel", 0x126, 0, "Knox cancel failed", v16);
@@ -7374,7 +7317,7 @@ void sub_296987260(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t amber::KnoxMultipartUpload::httpCompletion(uint64_t a1, unint64_t *a2, uint64_t a3)
+uint64_t amber::KnoxMultipartUpload::httpCompletion(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v4 = *(a3 + 24);
   if ((v4 & 1) == 0)
@@ -7409,7 +7352,7 @@ uint64_t amber::KnoxMultipartUpload::httpCompletion(uint64_t a1, unint64_t *a2, 
     if (amber::HTTPHeadersLookup(a3, "etag", &__str) == 1)
     {
       v18 = a2 + 2;
-      v14 = std::__tree<std::__value_type<unsigned long long,std::string>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::string>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::string>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 392, a2 + 2);
+      v14 = std::__tree<std::__value_type<unsigned long long,std::string>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,std::string>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,std::string>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 392, a2 + 2, &std::piecewise_construct, &v18);
       std::string::operator=((v14 + 5), &__str);
       *(a1 + 648) += a2[3];
     }
@@ -7484,7 +7427,7 @@ uint64_t amber::KnoxMultipartUpload::commit(atomic_uint *this, uint64_t a2, cons
   {
     *(this + 80) = a2;
     amber::Buffer::resize(v25, 0, a3, a4, a5, a6, a7);
-    amber::JSONOutputStream::JSONOutputStream(v21, v25);
+    amber::JSONOutputStream::JSONOutputStream(v21, v25, 0);
   }
 
   amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxMultipartUpload.cpp", "commit", 0xBE, 0, "commit while not in uploading state", a7);
@@ -7498,7 +7441,7 @@ uint64_t amber::KnoxMultipartUpload::commit(atomic_uint *this, uint64_t a2, cons
   return 0xFFFFFFFFLL;
 }
 
-void sub_296987BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *__p, uint64_t a55, int a56, __int16 a57, char a58, char a59, char a60)
+void sub_296987BD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *__p, uint64_t a55, int a56, __int16 a57, char a58, char a59, void *a60)
 {
   if (a59 < 0)
   {
@@ -7676,8 +7619,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = v4 + 24;
   }
@@ -7816,7 +7758,7 @@ void amber::SharedMemoryBlockQueues::SharedMemoryBlockQueues(amber::SharedMemory
     {
       *this = __dst[0];
       *(this + 2) = __dst[1];
-      amber::MutableMemoryView::view(a2, &__dst[21], v12, &__s2);
+      amber::MutableMemoryView::view(&__s2, a2, &__dst[21], v12);
       if (&__s2 != v8)
       {
         v13 = v18;
@@ -8037,7 +7979,7 @@ uint64_t amber::SharedMemoryBlockQueues::getAllocationSize(amber::SharedMemoryBl
   return -1;
 }
 
-uint64_t amber::SharedMemoryBlockQueues::initialize(amber::SharedMemoryBlockQueues *this, const amber::MutableMemoryView *a2, const amber::MutableMemoryView *a3, unsigned int a4)
+uint64_t amber::SharedMemoryBlockQueues::initialize(amber::SharedMemoryBlockQueues *this, const amber::MutableMemoryView *a2, amber::SharedMemoryFixedSizeQueue *a3, unsigned int a4)
 {
   LODWORD(v4) = a4;
   memset(&__src[3], 0, 304);
@@ -8049,9 +7991,9 @@ uint64_t amber::SharedMemoryBlockQueues::initialize(amber::SharedMemoryBlockQueu
 
   else
   {
-    amber::MutableMemoryView::view(this, &__src[3], v7, &v28);
+    amber::MutableMemoryView::view(&v28, this, &__src[3], v7);
     bzero(__dst, v30);
-    amber::MutableMemoryView::view(this, &__src[3], v11, &v28);
+    amber::MutableMemoryView::view(&v28, this, &__src[3], v11);
     v31 = &off_2A1DDFDA8;
     v32 = __src;
     v33 = 328;
@@ -8067,9 +8009,9 @@ uint64_t amber::SharedMemoryBlockQueues::initialize(amber::SharedMemoryBlockQueu
     }
 
     memcpy(__dst, __src, 0x148uLL);
-    amber::MutableMemoryView::view(this, &__src[21], v13, &v28);
+    amber::MutableMemoryView::view(&v28, this, &__src[21], v13);
     bzero(__dst, v30);
-    amber::MutableMemoryView::view(this, &__src[23], v14, &v28);
+    amber::MutableMemoryView::view(&v28, this, &__src[23], v14);
     if ((amber::SharedMemoryFixedSizeQueue::initialize(&v28, a3) & 0x80000000) != 0)
     {
       v8 = "init internal queue";
@@ -8089,7 +8031,7 @@ LABEL_14:
       v20 = v4;
       do
       {
-        amber::MutableMemoryView::view(this, v19, v7, &v28);
+        amber::MutableMemoryView::view(&v28, this, v19, v7);
         if ((amber::SharedMemoryFixedSizeQueue::initialize(&v28, a3) & 0x80000000) != 0)
         {
           v8 = "init internal queue";
@@ -8105,7 +8047,7 @@ LABEL_14:
       v21 = &__src[5];
       while (1)
       {
-        amber::MutableMemoryView::view(this, v21, v7, &v28);
+        amber::MutableMemoryView::view(&v28, this, v21, v7);
         if ((amber::SharedMemorySemaphore::initialize(&v28, 0, v22, v23, v24, v25, v26) & 0x80000000) != 0)
         {
           break;
@@ -8391,10 +8333,11 @@ uint64_t amber::SyncBlockDevice::enqueueRequest(amber::SyncBlockDeviceIngestThre
 
 uint64_t amber::SyncBlockDeviceIngestThread::enqueueRequest(amber::SyncBlockDeviceIngestThread *this, amber::BlockDeviceRequest *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
+  v10 = a2;
   if (!atomic_load(this + 74))
   {
     amber::Sem::acquire((this + 176));
-    amber::SharedQueue<amber::BlockDeviceRequest *>::insertLast(this + 24);
+    amber::SharedQueue<amber::BlockDeviceRequest *>::insertLast(this + 24, &v10);
   }
 
   amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/SyncBlockDevice.cpp", "enqueueRequest", 0x34, 0, "enqueueRequest while shutting down", a7);
@@ -8478,9 +8421,9 @@ LABEL_24:
   return result;
 }
 
-void sub_296989770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_296989770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   amber::BlockDeviceEvent::~BlockDeviceEvent(va);
   _Unwind_Resume(a1);
 }
@@ -8508,19 +8451,18 @@ uint64_t amber::SyncBlockDevice::executeInvalid(amber::SyncBlockDevice *this, un
 
 uint64_t amber::SyncBlockDevice::executePrefetchSequence(amber::SyncBlockDevice *this, unsigned int a2, amber::BlockDeviceRequest *a3)
 {
-  v4 = *(a3 + 161);
-  if ((amber::BlockDevice::executePrefetchSequence(this, *(a3 + 14), 2u) & 0x80000000) != 0)
+  if ((amber::BlockDevice::executePrefetchSequence(this, *(a3 + 14), 2u, *(a3 + 161)) & 0x80000000) != 0)
   {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/SyncBlockDevice.cpp", "executePrefetchSequence", 0x110, 0, "executePrefetchSequence", v8);
-    v9 = -2147483626;
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/SyncBlockDevice.cpp", "executePrefetchSequence", 0x110, 0, "executePrefetchSequence", v7);
+    v8 = -2147483626;
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
-  amber::BlockDeviceRequest::sendReply(a3, v9, 0, v5, v6, v7, v8);
+  amber::BlockDeviceRequest::sendReply(a3, v8, 0, v4, v5, v6, v7);
   return 0;
 }
 
@@ -8721,7 +8663,8 @@ void amber::SyncBlockDeviceIngestThread::~SyncBlockDeviceIngestThread(amber::Syn
   atomic_compare_exchange_strong(this + 74, &v2, 1u);
   if (!v2)
   {
-    amber::SharedQueue<amber::BlockDeviceRequest *>::insertLast(this + 24);
+    v4 = 0;
+    amber::SharedQueue<amber::BlockDeviceRequest *>::insertLast(this + 24, &v4);
   }
 
   v3 = *(this + 1);
@@ -8917,7 +8860,7 @@ void amber::BlockDevice::~BlockDevice(amber::BlockDevice *this)
     operator delete(*(this + 32));
   }
 
-  amber::ArrayObject<amber::ObjectStorePath>::~ArrayObject(this + 88);
+  amber::ArrayObject<amber::ObjectStorePath>::~ArrayObject(this + 11);
   std::mutex::~mutex((this + 24));
 }
 
@@ -8929,16 +8872,16 @@ void amber::BlockDevice::~BlockDevice(amber::BlockDevice *this)
 
 uint64_t amber::BlockDevice::updateStatsAndPrefetchSequence(amber::BlockDevice *this, amber::BlockDeviceRequest *a2)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   if ((atomic_fetch_add_explicit(this + 62, 1u, memory_order_relaxed) & 0x7F) == 0)
   {
-    amber::BlockDeviceEvent::BlockDeviceEvent(v25, 3, this);
-    if (v25[0])
+    amber::BlockDeviceEvent::BlockDeviceEvent(v24, 3, this);
+    if (v24[0])
     {
-      amber::BlockDeviceEvent::invokeCallback(v25);
+      amber::BlockDeviceEvent::invokeCallback(v24);
     }
 
-    amber::BlockDeviceEvent::~BlockDeviceEvent(v25);
+    amber::BlockDeviceEvent::~BlockDeviceEvent(v24);
   }
 
   LODWORD(v4) = *(a2 + 14);
@@ -8969,7 +8912,7 @@ uint64_t amber::BlockDevice::updateStatsAndPrefetchSequence(amber::BlockDevice *
       {
         if (v6 != 2)
         {
-          goto LABEL_34;
+          return 0;
         }
 
         atomic_fetch_add_explicit(this + 21, 1uLL, memory_order_relaxed);
@@ -8987,41 +8930,41 @@ LABEL_21:
           if (*(a2 + 5) == 1 && *(this + 16) == 1 && *(this + 17) < *(this + 18))
           {
             std::mutex::lock((this + 24));
-            amber::ObjectStorePath::ObjectStorePath(v25, (a2 + 88), v8, v9, v10, v11, v12);
-            if (!v26 || !v27)
+            amber::ObjectStorePath::ObjectStorePath(v24, (a2 + 88), v8, v9, v10, v11, v12);
+            if (!v25 || !v26)
             {
-              v26 = *(a2 + 6);
-              v27 = *(a2 + 14);
+              v25 = *(a2 + 6);
+              v26 = *(a2 + 14);
             }
 
             v18 = *(this + 14);
             if (v18 >= *(this + 15))
             {
-              v19 = std::vector<amber::ObjectStorePath>::__emplace_back_slow_path<amber::ObjectStorePath const&>(this + 104, v25, v13, v14, v15, v16, v17);
+              v19 = std::vector<amber::ObjectStorePath>::__emplace_back_slow_path<amber::ObjectStorePath const&>(this + 104, v24, v13, v14, v15, v16, v17);
             }
 
             else
             {
-              amber::ObjectStorePath::ObjectStorePath(*(this + 14), v25, v13, v14, v15, v16, v17);
+              amber::ObjectStorePath::ObjectStorePath(*(this + 14), v24, v13, v14, v15, v16, v17);
               v19 = v18 + 600;
               *(this + 14) = v18 + 600;
             }
 
             *(this + 14) = v19;
             v20 = *(this + 17);
-            v21 = __CFADD__(v20, v27);
-            v22 = v20 + v27;
+            v21 = __CFADD__(v20, v26);
+            v22 = v20 + v26;
             *(this + 17) = v22;
             if (v21 || v22 >= *(this + 18))
             {
               *(this + 17) = -1;
             }
 
-            amber::ObjectStorePath::~ObjectStorePath(v25);
+            amber::ObjectStorePath::~ObjectStorePath(v24);
             std::mutex::unlock((this + 24));
           }
 
-          goto LABEL_34;
+          return 0;
         case 4:
           atomic_fetch_add_explicit(this + 24, 1uLL, memory_order_relaxed);
           v7 = (this + 232);
@@ -9031,7 +8974,7 @@ LABEL_21:
           v7 = (this + 224);
           break;
         default:
-          goto LABEL_34;
+          return 0;
       }
     }
 
@@ -9039,8 +8982,6 @@ LABEL_21:
     goto LABEL_21;
   }
 
-LABEL_34:
-  v23 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -9114,14 +9055,14 @@ unint64_t *amber::BlockDevice::updateStats(unint64_t *this, unint64_t a2, unint6
 
 uint64_t amber::BlockDevice::processRequest(amber::BlockDevice *this, amber::BlockDeviceRequest *a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
-  memset(&v7[1], 0, 48);
-  v8 = 0;
-  v9.__cv_.__sig = 1018212795;
-  memset(v9.__cv_.__opaque, 0, sizeof(v9.__cv_.__opaque));
-  v6 = *(a2 + 72);
-  v7[0] = xmmword_296A14210;
-  *(a2 + 9) = &v6;
+  v9 = *MEMORY[0x29EDCA608];
+  memset(&v6[1], 0, 48);
+  v7 = 0;
+  v8.__cv_.__sig = 1018212795;
+  memset(v8.__cv_.__opaque, 0, sizeof(v8.__cv_.__opaque));
+  v5 = *(a2 + 72);
+  v6[0] = xmmword_296A14210;
+  *(a2 + 9) = &v5;
   *(a2 + 10) = processRequestProc;
   if ((amber::BlockDeviceRequest::enqueue(a2) & 0x80000000) != 0)
   {
@@ -9131,13 +9072,12 @@ uint64_t amber::BlockDevice::processRequest(amber::BlockDevice *this, amber::Blo
 
   else
   {
-    amber::Sem::acquire(v7);
+    amber::Sem::acquire(v6);
     v3 = 0;
   }
 
-  std::condition_variable::~condition_variable(&v9);
-  std::mutex::~mutex((v7 + 8));
-  v4 = *MEMORY[0x29EDCA608];
+  std::condition_variable::~condition_variable(&v8);
+  std::mutex::~mutex((v6 + 8));
   return v3;
 }
 
@@ -9185,7 +9125,7 @@ uint64_t amber::BlockDevice::getAttribute(amber::BlockDevice *this, amber::BaseO
   return 0xFFFFFFFFLL;
 }
 
-uint64_t amber::BlockDevice::read(amber::BlockDevice *this, void *a2, unint64_t a3, uint64_t a4)
+unint64_t amber::BlockDevice::read(amber::BlockDevice *this, void *a2, unint64_t a3, uint64_t a4, uint64_t a5)
 {
   v12[75] = *MEMORY[0x29EDCA608];
   amber::BasicBlockDeviceRequestState::BasicBlockDeviceRequestState(v9, 0);
@@ -9194,31 +9134,30 @@ uint64_t amber::BlockDevice::read(amber::BlockDevice *this, void *a2, unint64_t 
     operator new();
   }
 
-  amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "read", 0xBA, 0, "invalid request size", v6);
+  amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "read", 0xBA, 0, "invalid request size", v7);
   amber::ObjectStorePath::~ObjectStorePath(v12);
   std::condition_variable::~condition_variable(&v11);
   std::mutex::~mutex(&v10);
-  v7 = *MEMORY[0x29EDCA608];
   return -1;
 }
 
-void sub_29698AE08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29698AE08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   amber::BasicBlockDeviceRequestState::~BasicBlockDeviceRequestState(va);
   _Unwind_Resume(a1);
 }
 
-void amber::BlockDevice::readWithObjectStorePath(amber::BlockDevice *this, void *a2, const amber::ObjectStorePath *a3)
+void amber::BlockDevice::readWithObjectStorePath(amber::BlockDevice *this, void *a2, const amber::ObjectStorePath *a3, uint64_t a4)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  amber::BasicBlockDeviceRequestState::BasicBlockDeviceRequestState(v3, 0);
+  v5 = *MEMORY[0x29EDCA608];
+  amber::BasicBlockDeviceRequestState::BasicBlockDeviceRequestState(v4, 0);
   operator new();
 }
 
-void sub_29698AFBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29698AFBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   amber::BasicBlockDeviceRequestState::~BasicBlockDeviceRequestState(va);
   _Unwind_Resume(a1);
 }
@@ -9230,9 +9169,9 @@ void amber::BlockDevice::flush(amber::BlockDevice *this)
   operator new();
 }
 
-void sub_29698B148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29698B148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   amber::BasicBlockDeviceRequestState::~BasicBlockDeviceRequestState(va);
   _Unwind_Resume(a1);
 }
@@ -9244,9 +9183,9 @@ void amber::BlockDevice::barrier(amber::BlockDevice *this)
   operator new();
 }
 
-void sub_29698B2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29698B2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   amber::BasicBlockDeviceRequestState::~BasicBlockDeviceRequestState(va);
   _Unwind_Resume(a1);
 }
@@ -9271,7 +9210,7 @@ uint64_t amber::BlockDevice::executeLogStats(amber::BlockDevice *this, unint64_t
     }
 
     *a3 = v7;
-    (*(*this + 144))(this, v7, a3);
+    (*(*this + 144))(this, v7, a3, a4, a5, a6, a7);
     return 0;
   }
 
@@ -9289,9 +9228,9 @@ void amber::BlockDevice::snapshot(amber::BlockDevice *this, amber::ObjectStorePa
   operator new();
 }
 
-void sub_29698B92C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29698B92C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   amber::BasicBlockDeviceRequestState::~BasicBlockDeviceRequestState(va);
   _Unwind_Resume(a1);
 }
@@ -9299,7 +9238,7 @@ void sub_29698B92C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 uint64_t amber::BlockDevice::loadPrologue(amber::BlockDevice *this, amber::Buffer *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   v44 = 0;
-  if ((amber::Buffer::resize(a2, 0x10uLL, a3, a4, a5, a6, a7) & 0x80000000) != 0 || (v15 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(a2, v9, v10, v11, v12, v13, v14), amber::BlockDevice::read(this, v15, 0x10uLL, 0) < 0) || (v21 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(a2, v16, v17, v18, v19, v20, v14), v28 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(a2, v22, v23, v24, v25, v26, v27), (AmberEncryptionContextParseMagic(v21, v28, &v44 + 1, &v44, v29, v30, v31) & 0x80000000) != 0) || (amber::Buffer::resize(a2, v44, v32, v33, v34, v35, v14) & 0x80000000) != 0 || (v41 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(a2, v36, v37, v38, v39, v40, v14), v42 = amber::BlockDevice::read(this, v41, v44, 0), result = 0, v42 < 0))
+  if ((amber::Buffer::resize(a2, 0x10uLL, a3, a4, a5, a6, a7) & 0x80000000) != 0 || (v15 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(a2, v9, v10, v11, v12, v13, v14), (amber::BlockDevice::read(this, v15, 0x10uLL, 0, 0) & 0x8000000000000000) != 0) || (v21 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(a2, v16, v17, v18, v19, v20, v14), v28 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(a2, v22, v23, v24, v25, v26, v27), (AmberEncryptionContextParseMagic(v21, v28, &v44 + 1, &v44, v29, v30, v31) & 0x80000000) != 0) || (amber::Buffer::resize(a2, v44, v32, v33, v34, v35, v14) & 0x80000000) != 0 || (v41 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(a2, v36, v37, v38, v39, v40, v14), v42 = amber::BlockDevice::read(this, v41, v44, 0, 0), result = 0, (v42 & 0x8000000000000000) != 0))
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "loadPrologue", 0x15C, 0, "invalid/missing prologue", v14);
     return 0xFFFFFFFFLL;
@@ -9314,7 +9253,7 @@ uint64_t amber::BlockDevice::loadPrologue(amber::BlockDevice *this, const amber:
   if ((amber::Buffer::resize(a3, *(a2 + 148), a3, a4, a5, a6, a7) & 0x80000000) == 0)
   {
     v16 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(a3, v10, v11, v12, v13, v14, v15);
-    amber::BlockDevice::readWithObjectStorePath(this, v16, a2);
+    amber::BlockDevice::readWithObjectStorePath(this, v16, a2, 0);
   }
 
   amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "loadPrologue", 0x168, 0, "invalid/missing prologue", v15);
@@ -9395,21 +9334,21 @@ LABEL_12:
   return v18;
 }
 
-uint64_t amber::BlockDevice::getPrefetchSequence(uint64_t a1, void *a2)
+uint64_t amber::BlockDevice::getPrefetchSequence(uint64_t a1, amber::ObjectStorePath **a2)
 {
   std::mutex::lock((a1 + 24));
   v5 = a2[2];
   v4 = a2[3];
   if (v4 != v5)
   {
-    v6 = v4 - 75;
-    v7 = v4 - 75;
+    v6 = v4 - 600;
+    v7 = (v4 - 600);
     do
     {
       (**v7)(v7);
-      v6 -= 75;
+      v6 -= 600;
       v8 = v7 == v5;
-      v7 -= 75;
+      v7 = (v7 - 600);
     }
 
     while (!v8);
@@ -9474,7 +9413,7 @@ uint64_t amber::BlockDevice::recordPrefetchSequence(amber::BlockDevice *this, ui
   return 0;
 }
 
-uint64_t amber::BlockDevice::executePrefetchSequence(amber::BlockDevice *this, uint64_t a2, unsigned int a3)
+uint64_t amber::BlockDevice::executePrefetchSequence(amber::BlockDevice *this, unint64_t a2, unsigned int a3, uint64_t a4)
 {
   v22[75] = *MEMORY[0x29EDCA608];
   std::mutex::lock((this + 24));
@@ -9485,16 +9424,16 @@ uint64_t amber::BlockDevice::executePrefetchSequence(amber::BlockDevice *this, u
     {
       while (1)
       {
-        v7 = *(this + 16);
-        v8 = *(this + 13);
-        if (v7 >= 0x2FC962FC962FC963 * ((*(this + 14) - v8) >> 3))
+        v8 = *(this + 16);
+        v9 = *(this + 13);
+        if (v8 >= 0x2FC962FC962FC963 * ((*(this + 14) - v9) >> 3))
         {
           break;
         }
 
-        *(this + 16) = v7 + 1;
-        v9 = v8 + 600 * v7;
-        if (*(v9 + 592))
+        *(this + 16) = v8 + 1;
+        v10 = v9 + 600 * v8;
+        if (*(v10 + 592))
         {
           while (v21[0] > a3)
           {
@@ -9502,10 +9441,10 @@ uint64_t amber::BlockDevice::executePrefetchSequence(amber::BlockDevice *this, u
             amber::Sem::acquire(&v18);
           }
 
-          if (!malloc_type_malloc(*(v9 + 592), 0xF93785E2uLL))
+          if (!malloc_type_malloc(*(v10 + 592), 0xF93785E2uLL))
           {
-            v10 = __error();
-            amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./Malloc.hpp", "malloc", 0x1F, *v10, "malloc", v11);
+            v11 = __error();
+            amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./Malloc.hpp", "malloc", 0x1F, *v11, "malloc", v12);
           }
 
           operator new();
@@ -9513,7 +9452,7 @@ uint64_t amber::BlockDevice::executePrefetchSequence(amber::BlockDevice *this, u
       }
     }
 
-    v12 = 1;
+    v13 = 1;
     if (atomic_fetch_add_explicit(v21, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) >= 1)
     {
       do
@@ -9527,8 +9466,8 @@ uint64_t amber::BlockDevice::executePrefetchSequence(amber::BlockDevice *this, u
     atomic_fetch_add_explicit(v21, 1uLL, memory_order_relaxed);
     if (atomic_load(&v17))
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "executePrefetchSequence", 0x1D0, 0, "prefetch request failed", v6);
-      v12 = 0;
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "executePrefetchSequence", 0x1D0, 0, "prefetch request failed", v7);
+      v13 = 0;
     }
 
     if (*(this + 16) >= (0x2FC962FC962FC963 * ((*(this + 14) - *(this + 13)) >> 3)))
@@ -9536,14 +9475,14 @@ uint64_t amber::BlockDevice::executePrefetchSequence(amber::BlockDevice *this, u
       *(this + 17) = 0;
     }
 
-    if (v12)
+    if (v13)
     {
-      v13 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v13 = 0xFFFFFFFFLL;
+      v14 = 0xFFFFFFFFLL;
     }
 
     amber::ObjectStorePath::~ObjectStorePath(v22);
@@ -9553,19 +9492,18 @@ uint64_t amber::BlockDevice::executePrefetchSequence(amber::BlockDevice *this, u
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   std::mutex::unlock((this + 24));
-  v15 = *MEMORY[0x29EDCA608];
-  return v13;
+  return v14;
 }
 
-void sub_29698C228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29698C228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   amber::BasicBlockDeviceRequestState::~BasicBlockDeviceRequestState(va);
-  std::mutex::unlock((v6 + 24));
+  std::mutex::unlock((v11 + 24));
   _Unwind_Resume(a1);
 }
 
@@ -9856,4 +9794,64 @@ uint64_t AmberBlockDeviceGetBlockState(uint64_t a1, unint64_t a2, unint64_t a3, 
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceGetBlockState", 0x29C, 0, "invalid block range", a7);
     return 0xFFFFFFFFLL;
   }
+}
+
+uint64_t AmberBlockDeviceSetBlockState(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+{
+  if (a3 >= a2)
+  {
+    if ((a3 - a2) < 0 || a3 != a2 && !a4)
+    {
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", a7);
+      exception = __cxa_allocate_exception(0x10uLL);
+      MEMORY[0x29C25BE90](exception, "memory invalid args");
+      __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
+    }
+
+    return (*(*a1 + 40))(a1);
+  }
+
+  else
+  {
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceSetBlockState", 0x2A8, 0, "invalid block range", a7);
+    return 0xFFFFFFFFLL;
+  }
+}
+
+void *AmberBlockDeviceGetPrefetchSequence(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+{
+  if (a1)
+  {
+    operator new();
+  }
+
+  amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceGetPrefetchSequence", 0x2BD, 0, "invalid device type", a7);
+  return 0;
+}
+
+uint64_t AmberBlockDeviceSetPrefetchSequence(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+{
+  if (!a1)
+  {
+    v10 = "invalid device type";
+    v11 = 716;
+LABEL_8:
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceSetPrefetchSequence", v11, 0, v10, a7);
+    return 0xFFFFFFFFLL;
+  }
+
+  if (!a2)
+  {
+    v10 = "invalid object";
+    v11 = 718;
+    goto LABEL_8;
+  }
+
+  v8 = (*(*a1 + 56))(a1, a2, a3, a4, a5, a6, a7);
+  if (v8 < 0)
+  {
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceSetPrefetchSequence", 0x2CF, 0, "parse prefetch sequence", v7);
+  }
+
+  return (v8 >> 31);
 }

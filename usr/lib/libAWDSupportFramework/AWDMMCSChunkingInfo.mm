@@ -123,7 +123,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   has = self->_has;
   if ((has & 2) != 0)
@@ -190,29 +190,29 @@ LABEL_6:
   if ([(NSMutableArray *)self->_chunkingErrors count])
   {
     v7 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_chunkingErrors, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     chunkingErrors = self->_chunkingErrors;
-    v9 = [(NSMutableArray *)chunkingErrors countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [(NSMutableArray *)chunkingErrors countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(chunkingErrors);
           }
 
-          [v7 addObject:{objc_msgSend(*(*(&v15 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v7 addObject:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v10 = [(NSMutableArray *)chunkingErrors countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [(NSMutableArray *)chunkingErrors countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v10);
@@ -221,17 +221,15 @@ LABEL_6:
     [dictionary setObject:v7 forKey:@"chunkingError"];
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if ((has & 2) != 0)
   {
-    chunkCount = self->_chunkCount;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -251,7 +249,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  byteCount = self->_byteCount;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -266,12 +263,10 @@ LABEL_4:
   }
 
 LABEL_22:
-  startTime = self->_startTime;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_5:
-    duration = self->_duration;
     PBDataWriterWriteInt64Field();
   }
 
@@ -281,50 +276,45 @@ LABEL_6:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x10) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x10) != 0)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteInt32Field();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v6 & 0x20) != 0)
+  if ((v5 & 0x20) != 0)
   {
-    cancelled = self->_cancelled;
     PBDataWriterWriteBOOLField();
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   chunkingErrors = self->_chunkingErrors;
-  v10 = [(NSMutableArray *)chunkingErrors countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v10)
+  v7 = [(NSMutableArray *)chunkingErrors countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v11 = v10;
-    v12 = *v20;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v12)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(chunkingErrors);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v11 = [(NSMutableArray *)chunkingErrors countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [(NSMutableArray *)chunkingErrors countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v11);
+    while (v8);
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -413,7 +403,7 @@ LABEL_6:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -480,36 +470,35 @@ LABEL_6:
     *(v6 + 68) |= 0x20u;
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   chunkingErrors = self->_chunkingErrors;
-  v10 = [(NSMutableArray *)chunkingErrors countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [(NSMutableArray *)chunkingErrors countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(chunkingErrors);
         }
 
-        v14 = [*(*(&v17 + 1) + 8 * i) copyWithZone:zone];
+        v14 = [*(*(&v16 + 1) + 8 * i) copyWithZone:zone];
         [v6 addChunkingError:v14];
       }
 
-      v11 = [(NSMutableArray *)chunkingErrors countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [(NSMutableArray *)chunkingErrors countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -522,7 +511,6 @@ LABEL_6:
   }
 
   has = self->_has;
-  v7 = *(equal + 68);
   if ((has & 2) != 0)
   {
     if ((*(equal + 68) & 2) == 0 || self->_chunkCount != *(equal + 2))
@@ -587,7 +575,6 @@ LABEL_6:
     has = self->_has;
   }
 
-  v9 = *(equal + 68);
   if ((has & 0x10) != 0)
   {
     if ((*(equal + 68) & 0x10) == 0 || self->_errorCode != *(equal + 12))
@@ -605,7 +592,6 @@ LABEL_6:
   {
     if ((*(equal + 68) & 0x20) != 0)
     {
-      v11 = *(equal + 64);
       if (self->_cancelled)
       {
         if ((*(equal + 64) & 1) == 0)
@@ -727,7 +713,7 @@ LABEL_12:
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v5 = *(from + 68);
   if ((v5 & 2) != 0)
   {
@@ -795,35 +781,33 @@ LABEL_6:
     *&self->_has |= 0x20u;
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = *(from + 5);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(AWDMMCSChunkingInfo *)self addChunkingError:*(*(&v13 + 1) + 8 * i)];
+        [(AWDMMCSChunkingInfo *)self addChunkingError:*(*(&v12 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 @end

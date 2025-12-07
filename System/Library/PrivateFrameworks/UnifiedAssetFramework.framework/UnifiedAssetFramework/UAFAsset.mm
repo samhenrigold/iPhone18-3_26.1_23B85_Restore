@@ -26,15 +26,15 @@
 
 - (BOOL)isPresentOnDevice
 {
-  v37 = *MEMORY[0x1E69E9840];
-  memset(v24, 0, sizeof(v24));
+  v36 = *MEMORY[0x1E69E9840];
+  memset(v23, 0, sizeof(v23));
   location = [(UAFAsset *)self location];
   path = [location path];
-  v23 = 0;
-  v6 = [UAFCommonUtilities stat:path withBuf:v24 error:&v23];
-  v7 = v23;
+  v22 = 0;
+  v6 = [UAFCommonUtilities stat:path withBuf:v23 error:&v22];
+  v7 = v22;
 
-  if (v6 || (v15 = WORD2(v24[0]) & 0xF000, v16 = 1, v15 != 0x4000) && v15 != 0x8000)
+  if (v6 || (v15 = WORD2(v23[0]) & 0xF000, v16 = 1, v15 != 0x4000) && v15 != 0x8000)
   {
     name = [(UAFAsset *)self name];
     v9 = name;
@@ -62,17 +62,17 @@
       }
 
       *buf = 136316418;
-      v26 = "[UAFAsset isPresentOnDevice]";
-      v27 = 2114;
+      v25 = "[UAFAsset isPresentOnDevice]";
+      v26 = 2114;
       selfCopy = path2;
-      v29 = 1024;
-      v30 = v6;
-      v31 = 1024;
-      v32 = WORD2(v24[0]);
-      v33 = 1024;
-      v34 = WORD3(v24[0]);
-      v35 = 2114;
-      v36 = v7;
+      v28 = 1024;
+      v29 = v6;
+      v30 = 1024;
+      v31 = WORD2(v23[0]);
+      v32 = 1024;
+      v33 = WORD3(v23[0]);
+      v34 = 2114;
+      v35 = v7;
       _os_log_impl(&dword_1BCF2C000, v12, OS_LOG_TYPE_DEFAULT, "%s stat(%{public}@) = %d, type: %x, link count: %d, error: %{public}@", buf, 0x32u);
       if (location2)
       {
@@ -83,8 +83,8 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v26 = "[UAFAsset isPresentOnDevice]";
-      v27 = 2114;
+      v25 = "[UAFAsset isPresentOnDevice]";
+      v26 = 2114;
       selfCopy = self;
       _os_log_fault_impl(&dword_1BCF2C000, v17, OS_LOG_TYPE_FAULT, "%s Asset missing: %{public}@", buf, 0x16u);
     }
@@ -97,7 +97,6 @@
     v16 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -135,10 +134,10 @@
 
 - (id)propertiesAsDictionary:(BOOL)dictionary
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   if (dictionary)
   {
-    v17[0] = @"name";
+    v16[0] = @"name";
     name = [(UAFAsset *)self name];
     if (name)
     {
@@ -150,8 +149,8 @@
       name2 = &stru_1F3B6B510;
     }
 
-    v18[0] = name2;
-    v17[1] = @"location";
+    v17[0] = name2;
+    v16[1] = @"location";
     location = [(UAFAsset *)self location];
     if (location)
     {
@@ -164,8 +163,8 @@
       path = &stru_1F3B6B510;
     }
 
-    v18[1] = path;
-    v17[2] = @"metadata";
+    v17[1] = path;
+    v16[2] = @"metadata";
     metadata = [(UAFAsset *)self metadata];
     if (metadata)
     {
@@ -177,11 +176,11 @@
       metadata2 = MEMORY[0x1E695E0F8];
     }
 
-    v18[2] = metadata2;
-    v17[3] = @"isPresentOnDevice";
+    v17[2] = metadata2;
+    v16[3] = @"isPresentOnDevice";
     v11 = [MEMORY[0x1E696AD98] numberWithBool:{-[UAFAsset isPresentOnDevice](self, "isPresentOnDevice")}];
-    v18[3] = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
+    v17[3] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
 
     if (!metadata)
     {
@@ -193,7 +192,7 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v15[0] = @"name";
+  v14[0] = @"name";
   name = [(UAFAsset *)self name];
   if (name)
   {
@@ -205,8 +204,8 @@ LABEL_23:
     name2 = &stru_1F3B6B510;
   }
 
-  v16[0] = name2;
-  v15[1] = @"location";
+  v15[0] = name2;
+  v14[1] = @"location";
   location = [(UAFAsset *)self location];
   if (location)
   {
@@ -219,8 +218,8 @@ LABEL_23:
     path = &stru_1F3B6B510;
   }
 
-  v16[1] = path;
-  v15[2] = @"metadata";
+  v15[1] = path;
+  v14[2] = @"metadata";
   metadata = [(UAFAsset *)self metadata];
   if (metadata)
   {
@@ -232,8 +231,8 @@ LABEL_23:
     metadata2 = MEMORY[0x1E695E0F8];
   }
 
-  v16[2] = metadata2;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v15[2] = metadata2;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
   if (metadata)
   {
     goto LABEL_23;
@@ -248,8 +247,6 @@ LABEL_24:
   if (name)
   {
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -324,27 +321,18 @@ LABEL_33:
       v14 = v18;
       v20 = v19;
       v12 = v20;
-      if (v14)
-      {
-        goto LABEL_38;
-      }
-
-      if (v20)
+      if (!v14 && v20)
       {
 LABEL_19:
         v14 = 0;
       }
 
-      else
+      else if ((!v14 || v20) && (!v14 || [v14 isEqual:v20]))
       {
-LABEL_38:
-        if ((!v14 || v20) && (!v14 || [v14 isEqual:v20]))
-        {
-          v13 = 1;
+        v13 = 1;
 LABEL_32:
 
-          goto LABEL_33;
-        }
+        goto LABEL_33;
       }
 
 LABEL_31:

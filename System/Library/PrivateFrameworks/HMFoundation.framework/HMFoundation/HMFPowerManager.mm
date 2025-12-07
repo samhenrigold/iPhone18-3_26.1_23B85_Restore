@@ -113,7 +113,7 @@ uint64_t __32__HMFPowerManager_sharedManager__block_invoke()
   dispatch_async(clientQueue, block);
 }
 
-uint64_t __24__HMFPowerManager_start__block_invoke(uint64_t a1)
+void *__24__HMFPowerManager_start__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isRunning];
   if ((result & 1) == 0)
@@ -170,7 +170,7 @@ void __23__HMFPowerManager_stop__block_invoke(uint64_t a1)
 
 - (void)updateBatteryState:(unsigned int)state
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (state)
   {
     v5 = objc_autoreleasePoolPush();
@@ -226,13 +226,13 @@ void __23__HMFPowerManager_stop__block_invoke(uint64_t a1)
     else
     {
       v17 = objc_autoreleasePoolPush();
-      v18 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v19 = HMFGetOSLogHandle(0, v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v19 = HMFGetLogIdentifier(0);
-        v34 = 138543362;
-        v35 = v19;
-        _os_log_impl(&dword_22ADEC000, v18, OS_LOG_TYPE_INFO, "%{public}@Unable to determine the current battery level", &v34, 0xCu);
+        v20 = HMFGetLogIdentifier(0);
+        v35 = 138543362;
+        v36 = v20;
+        _os_log_impl(&dword_22ADEC000, v19, OS_LOG_TYPE_INFO, "%{public}@Unable to determine the current battery level", &v35, 0xCu);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -240,92 +240,90 @@ void __23__HMFPowerManager_stop__block_invoke(uint64_t a1)
     }
 
     __updateBatteryLevel(self, v16);
-    v20 = IORegistryEntryCreateCFProperty(state, @"ExternalChargeCapable", v6, 0);
-    v21 = CFBooleanGetTypeID();
+    v21 = IORegistryEntryCreateCFProperty(state, @"ExternalChargeCapable", v6, 0);
+    v22 = CFBooleanGetTypeID();
     objc_opt_class();
-    if (v20 && CFGetTypeID(v20) != v21)
+    if (v21 && CFGetTypeID(v21) != v22)
     {
-      CFRelease(v20);
-      v20 = 0;
+      CFRelease(v21);
+      v21 = 0;
     }
 
     if (objc_opt_isKindOfClass())
     {
-      v22 = v20;
+      v23 = v21;
     }
 
     else
     {
-      v22 = 0;
+      v23 = 0;
     }
 
-    v23 = v22;
+    v24 = v23;
 
-    if (v23)
+    if (v24)
     {
-      if ([v23 BOOLValue])
+      if ([v24 BOOLValue])
       {
-        v24 = IORegistryEntryCreateCFProperty(state, @"FullyCharged", v6, 0);
-        v25 = CFBooleanGetTypeID();
+        v25 = IORegistryEntryCreateCFProperty(state, @"FullyCharged", v6, 0);
+        v26 = CFBooleanGetTypeID();
         objc_opt_class();
-        if (v24 && CFGetTypeID(v24) != v25)
+        if (v25 && CFGetTypeID(v25) != v26)
         {
-          CFRelease(v24);
-          v24 = 0;
+          CFRelease(v25);
+          v25 = 0;
         }
 
         if (objc_opt_isKindOfClass())
         {
-          v26 = v24;
+          v27 = v25;
         }
 
         else
         {
-          v26 = 0;
+          v27 = 0;
         }
 
-        v27 = v26;
+        v28 = v27;
 
-        bOOLValue = [v27 BOOLValue];
+        bOOLValue = [v28 BOOLValue];
         if (bOOLValue)
         {
-          v29 = 3;
+          v30 = 3;
         }
 
         else
         {
-          v29 = 2;
+          v30 = 2;
         }
       }
 
       else
       {
-        v29 = 1;
+        v30 = 1;
       }
     }
 
     else
     {
-      v30 = objc_autoreleasePoolPush();
-      v31 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      v31 = objc_autoreleasePoolPush();
+      v33 = HMFGetOSLogHandle(0, v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
-        v32 = HMFGetLogIdentifier(0);
-        v34 = 138543362;
-        v35 = v32;
-        _os_log_impl(&dword_22ADEC000, v31, OS_LOG_TYPE_INFO, "%{public}@Unable to determine the current battery state", &v34, 0xCu);
+        v34 = HMFGetLogIdentifier(0);
+        v35 = 138543362;
+        v36 = v34;
+        _os_log_impl(&dword_22ADEC000, v33, OS_LOG_TYPE_INFO, "%{public}@Unable to determine the current battery state", &v35, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v30);
-      v29 = 0;
+      objc_autoreleasePoolPop(v31);
+      v30 = 0;
     }
 
-    __updateBatteryState(self, v29);
+    __updateBatteryState(self, v30);
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForPowerSourceNotifications

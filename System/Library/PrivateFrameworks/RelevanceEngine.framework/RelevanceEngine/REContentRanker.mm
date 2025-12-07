@@ -74,23 +74,23 @@ LABEL_11:
 
 - (BOOL)save:(id)save error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   v6 = [saveCopy stringByAppendingPathComponent:@"PositiveContent.dic"];
   MEMORY[0x22AABBC00](__sb);
   v7 = v6;
   [v6 UTF8String];
   std::filebuf::open();
-  v8 = v22;
-  if (v22)
+  v8 = v21;
+  if (v21)
   {
-    v18.__loc_ = 0;
-    v17 = MEMORY[0x277D82850] + 24;
-    v18.__vftable = (MEMORY[0x277D82850] + 64);
-    std::ios_base::init(&v18, __sb);
-    v19 = 0;
-    v20 = -1;
-    REContentFeatureExtractor::SavePositiveModel(&self->_extractor, &v17);
+    v17.__loc_ = 0;
+    v16 = MEMORY[0x277D82850] + 24;
+    v17.__vftable = (MEMORY[0x277D82850] + 64);
+    std::ios_base::init(&v17, __sb);
+    v18 = 0;
+    v19 = -1;
+    REContentFeatureExtractor::SavePositiveModel(&self->_extractor, &v16);
     std::ostream::flush();
     std::ostream::~ostream();
   }
@@ -99,31 +99,30 @@ LABEL_11:
   if (v8)
   {
     v9 = [saveCopy stringByAppendingPathComponent:@"NegativeContent.dic"];
-    MEMORY[0x22AABBC00](&v17);
+    MEMORY[0x22AABBC00](&v16);
     v10 = v9;
     [v9 UTF8String];
     std::filebuf::open();
-    LOBYTE(v8) = v18.__parray_ != 0;
-    if (v18.__parray_)
+    LOBYTE(v8) = v17.__parray_ != 0;
+    if (v17.__parray_)
     {
-      v14.__loc_ = 0;
-      v13 = MEMORY[0x277D82850] + 24;
-      v14.__vftable = (MEMORY[0x277D82850] + 64);
-      std::ios_base::init(&v14, &v17);
-      v15 = 0;
-      v16 = -1;
-      REContentFeatureExtractor::SaveNegativeModel(&self->_extractor, &v13);
+      v13.__loc_ = 0;
+      v12 = MEMORY[0x277D82850] + 24;
+      v13.__vftable = (MEMORY[0x277D82850] + 64);
+      std::ios_base::init(&v13, &v16);
+      v14 = 0;
+      v15 = -1;
+      REContentFeatureExtractor::SaveNegativeModel(&self->_extractor, &v12);
       std::ostream::flush();
       std::ostream::~ostream();
     }
 
     std::filebuf::close();
-    MEMORY[0x22AABBC10](&v17);
+    MEMORY[0x22AABBC10](&v16);
   }
 
   MEMORY[0x22AABBC10](__sb);
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -174,7 +173,7 @@ LABEL_11:
       v6 += 3;
     }
 
-    REContentFeatureExtractor::predict(&self->_extractor, v15, v11);
+    REContentFeatureExtractor::predict(&self->_extractor.m_rwlock, v15, v11);
     [v5 setValid:LOBYTE(v11[0])];
     [v5 setPositivePolarity:*&v11[2]];
     [v5 setNegativePolarity:*&v11[1]];

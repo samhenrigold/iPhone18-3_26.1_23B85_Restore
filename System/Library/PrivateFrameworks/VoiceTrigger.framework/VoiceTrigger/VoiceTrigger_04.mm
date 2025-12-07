@@ -1,3 +1,119 @@
+void NGaussianFixedPointScales::makeLogAddTable(NGaussianFixedPointScales *this, const char *a2)
+{
+  if (!*a2)
+  {
+    Error::chuck("NGaussianFixedPointScales::makeLogAddTable() - table size must be >0", a2);
+  }
+
+  v3 = 32 - __clz(*a2 - 1);
+  if (*a2 == 1)
+  {
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  v5 = *(this + 2);
+  v6 = ldexp(1.0, v5);
+  v7 = exp(0.5 / v6);
+  v8 = -(v6 * log(v7 + -1.0));
+  frexpf(v8, &v41);
+  v9 = v41;
+  if (v41 >= (*(this + 31) + v5))
+  {
+    v9 = *(this + 31) + v5;
+  }
+
+  if (v4 >= v9)
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = v4;
+  }
+
+  v11 = (1 << v10);
+  *(this + 40) = v9 - v10;
+  *(this + 41) = ~(-1 << v9);
+  if (*(this + 38) != v11)
+  {
+    *(this + 38) = v11;
+    operator new[]();
+  }
+
+  v12 = *(this + 2);
+  v13 = ldexp(1.0, *(this + 40) - v12);
+  if (v11)
+  {
+    v14 = v13;
+    v40 = -v14;
+    v15 = ldexp(1.0, v12);
+    v39 = v15;
+    v16 = *(this + 18);
+    if (v11 == 1)
+    {
+      v17 = 0;
+      v18 = v40;
+      do
+      {
+LABEL_18:
+        v31 = expf(v18 * v17);
+        v32 = log(v31 + 1.0);
+        v18 = v40;
+        *&v32 = v32 * v39;
+        *(v16 + 4 * v17++) = (*&v32 + 0.5);
+      }
+
+      while (v11 != v17);
+      goto LABEL_19;
+    }
+
+    v17 = v11 & 0xFFFFFFFE;
+    v19 = 0x100000000;
+    __asm
+    {
+      FMOV            V1.2D, #1.0
+      FMOV            V0.2D, #0.5
+    }
+
+    v33 = _Q0;
+    v34 = _Q1;
+    v26 = *(this + 18);
+    v27 = v17;
+    v18 = v40;
+    do
+    {
+      v28 = vmul_n_f32(vcvt_f32_u32(v19), v18);
+      __x = v28.f32[0];
+      v37 = expf(v28.f32[1]);
+      v29.f32[0] = expf(__x);
+      v29.f32[1] = v37;
+      __xa = vaddq_f64(vcvtq_f64_f32(v29), v34);
+      v38 = log(__xa.f64[1]);
+      v30.f64[0] = log(__xa.f64[0]);
+      v30.f64[1] = v38;
+      v18 = v40;
+      *v26++ = vmovn_s64(vcvtq_s64_f64(vaddq_f64(vcvtq_f64_f32(vcvt_f32_f64(vmulq_n_f64(v30, v39))), v33)));
+      v19 = vadd_s32(v19, 0x200000002);
+      v27 -= 2;
+    }
+
+    while (v27);
+    if (v17 != v11)
+    {
+      goto LABEL_18;
+    }
+  }
+
+LABEL_19:
+  *(this + 192) = 1;
+}
+
 void NGaussianFixedPointScales::setUp(NGaussianFixedPointScales *this)
 {
   *(this + 33) = *(this + 32) - *(this + 2);
@@ -10,18 +126,18 @@ void NGaussianFixedPointScales::setUp(NGaussianFixedPointScales *this)
   *(this + 120) = 1;
 }
 
-void NGaussianFixedPointScales::read(NGaussianFixedPointScales *this, NFilePtr *a2, const unsigned int *a3, const BOOL *a4)
+void NGaussianFixedPointScales::read(NGaussianFixedPointScales *this, NFilePtr *a2, unsigned int *a3, BOOL *a4)
 {
   *v4 = &unk_28370A720;
   v5 = 9;
   operator new[]();
 }
 
-void sub_223AA7868(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223AA7868(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -51,11 +167,11 @@ void NGaussianFixedPointScales::write(NGaussianFixedPointScales *this, NFilePtr 
   Error::chuck("NSmartPointer::checkptr() - pointer unset", a2);
 }
 
-void sub_223AA8554(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_223AA8554(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   if (a22)
   {
-    MEMORY[0x223DF1D00](a22, v22);
+    MEMORY[0x223DF1D00](a22, v22, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -198,7 +314,7 @@ void *NFrameWindow::copyInFrame(NFrameWindow *this, const float *a2)
   return result;
 }
 
-uint64_t NFrameWindow::setOutputFrameWindow(NFrameWindow *this, float **a2)
+uint64_t NFrameWindow::setOutputFrameWindow(NFrameWindow *this, void (***a2)(float **, const char *))
 {
   v3 = this + 20;
   if (!*(this + 5))
@@ -206,7 +322,7 @@ uint64_t NFrameWindow::setOutputFrameWindow(NFrameWindow *this, float **a2)
     Error::chuck("NFrameWindow::setOutputFrameWindow() - frame window not configured", v3);
   }
 
-  (*(*a2 + 4))(a2, v3);
+  (*a2)[4](a2, v3);
   v5 = a2[1];
 
   return NFrameWindow::setOutputFrameWindow(this, v5);
@@ -299,21 +415,21 @@ LABEL_11:
   return this;
 }
 
-uint64_t NDELRHMMModel::operator=(uint64_t result, uint64_t a2)
+uint64_t NDELRHMMModel::operator=(uint64_t a1, uint64_t a2)
 {
-  v3 = result;
-  if (result == a2)
+  v3 = a1;
+  if (a1 == a2)
   {
-    *(result + 72) = *(a2 + 72);
+    *(a1 + 72) = *(a2 + 72);
   }
 
   else
   {
-    v4 = *(result + 16);
+    v4 = *(a1 + 16);
     v5 = *(a2 + 16);
     if (v4 != v5)
     {
-      v6 = *(result + 8);
+      v6 = *(a1 + 8);
       if (v6)
       {
         MEMORY[0x223DF1D00](v6, 0x1000C8052888210);
@@ -328,7 +444,7 @@ uint64_t NDELRHMMModel::operator=(uint64_t result, uint64_t a2)
     {
       v7 = 0;
       v8 = *(a2 + 8);
-      v9 = *(result + 8);
+      v9 = *(a1 + 8);
       v10 = v4;
       if (v4 < 8)
       {
@@ -373,11 +489,11 @@ LABEL_12:
       }
     }
 
-    v20 = *(result + 40);
+    v20 = *(a1 + 40);
     v21 = *(a2 + 40);
     if (v20 != v21)
     {
-      v22 = *(result + 32);
+      v22 = *(a1 + 32);
       if (v22)
       {
         MEMORY[0x223DF1D00](v22, 0x1000C8052888210);
@@ -392,7 +508,7 @@ LABEL_12:
     {
       v23 = 0;
       v24 = *(a2 + 32);
-      v25 = *(result + 32);
+      v25 = *(a1 + 32);
       v26 = v20;
       if (v20 < 8)
       {
@@ -437,11 +553,11 @@ LABEL_24:
       }
     }
 
-    v36 = *(result + 64);
+    v36 = *(a1 + 64);
     v37 = *(a2 + 64);
     if (v36 != v37)
     {
-      v38 = *(result + 56);
+      v38 = *(a1 + 56);
       if (v38)
       {
         MEMORY[0x223DF1D00](v38, 0x1000C8052888210);
@@ -456,22 +572,22 @@ LABEL_24:
     {
       v39 = 0;
       v40 = *(a2 + 56);
-      v41 = *(result + 56);
+      v41 = *(a1 + 56);
       do
       {
         *(v41 + 4 * v39) = *(v40 + 4 * v39);
         ++v39;
       }
 
-      while (v39 < *(result + 64));
+      while (v39 < *(a1 + 64));
     }
 
-    *(result + 72) = *(a2 + 72);
-    v42 = *(result + 96);
+    *(a1 + 72) = *(a2 + 72);
+    v42 = *(a1 + 96);
     v43 = *(a2 + 96);
     if (v42 != v43)
     {
-      v44 = *(result + 88);
+      v44 = *(a1 + 88);
       if (v44)
       {
         MEMORY[0x223DF1D00](v44, 0x1000C8052888210);
@@ -486,7 +602,7 @@ LABEL_24:
     {
       v45 = 0;
       v46 = *(a2 + 88);
-      v47 = *(result + 88);
+      v47 = *(a1 + 88);
       v48 = v42;
       if (v42 < 8)
       {
@@ -531,11 +647,11 @@ LABEL_43:
       }
     }
 
-    v58 = *(result + 120);
+    v58 = *(a1 + 120);
     v59 = *(a2 + 120);
     if (v58 != v59)
     {
-      v60 = *(result + 112);
+      v60 = *(a1 + 112);
       if (v60)
       {
         MEMORY[0x223DF1D00](v60, 0x1000C8052888210);
@@ -550,22 +666,22 @@ LABEL_43:
     {
       v61 = 0;
       v62 = *(a2 + 112);
-      v63 = *(result + 112);
+      v63 = *(a1 + 112);
       do
       {
         *(v63 + 4 * v61) = *(v62 + 4 * v61);
         ++v61;
       }
 
-      while (v61 < *(result + 120));
+      while (v61 < *(a1 + 120));
     }
   }
 
-  *(result + 128) = *(a2 + 128);
-  return result;
+  *(a1 + 128) = *(a2 + 128);
+  return a1;
 }
 
-uint64_t NArray<NDELRHMMModel>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<NDELRHMMModel>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v4 = result;
   v5 = *(result + 16);
@@ -1166,7 +1282,7 @@ uint64_t NDEHMMDetector::reset(uint64_t this)
   return this;
 }
 
-uint64_t NDEHMMDetector::verifyHMMMemoryImage(uint64_t a1, unsigned int *a2, unsigned int *a3)
+BOOL NDEHMMDetector::verifyHMMMemoryImage(uint64_t a1, unsigned int *a2, unsigned int *a3)
 {
   v3 = *a3;
   if (v3 < 4)
@@ -1174,7 +1290,7 @@ uint64_t NDEHMMDetector::verifyHMMMemoryImage(uint64_t a1, unsigned int *a2, uns
     return 1;
   }
 
-  v6 = (a2 + 1);
+  v6 = a2 + 1;
   v5 = *a2;
   v7 = *a2 == 0;
   if (!*a2)
@@ -1183,8 +1299,8 @@ uint64_t NDEHMMDetector::verifyHMMMemoryImage(uint64_t a1, unsigned int *a2, uns
   }
 
   v8 = (8 * (*(a1 + 4) < -1)) | 4;
-  v9 = a2 + v3;
-  if (&v6[v8] > v9)
+  v9 = (a2 + v3);
+  if ((v6 + v8) > v9)
   {
     return !v7;
   }
@@ -1192,8 +1308,8 @@ uint64_t NDEHMMDetector::verifyHMMMemoryImage(uint64_t a1, unsigned int *a2, uns
   v11 = 1;
   while (1)
   {
-    v10 = 8 * (*(a1 + 4) < -1);
-    v6 += 8 * *&v6[v10] + v10 + 4;
+    v10 = 2 * (*(a1 + 4) < -1);
+    v6 = (v6 + 8 * v6[v10] + v10 * 4 + 4);
     if (v6 > v9)
     {
       break;
@@ -1203,7 +1319,7 @@ uint64_t NDEHMMDetector::verifyHMMMemoryImage(uint64_t a1, unsigned int *a2, uns
     if (v11 < v5)
     {
       ++v11;
-      if (&v6[v8] <= v9)
+      if ((v6 + v8) <= v9)
       {
         continue;
       }
@@ -1468,16 +1584,16 @@ uint64_t NArray<NGaussianMixture>::resize(uint64_t result, _DWORD *a2)
   return result;
 }
 
-uint64_t NGaussianMixture::operator=(uint64_t result, uint64_t a2)
+uint64_t NGaussianMixture::operator=(uint64_t a1, uint64_t a2)
 {
-  v2 = result;
-  if (result != a2)
+  v2 = a1;
+  if (a1 != a2)
   {
-    v4 = *(result + 16);
+    v4 = *(a1 + 16);
     v5 = *(a2 + 16);
     if (v4 != v5)
     {
-      v6 = *(result + 8);
+      v6 = *(a1 + 8);
       if (v6)
       {
         MEMORY[0x223DF1D00](v6, 0x1000C8052888210);
@@ -1492,21 +1608,21 @@ uint64_t NGaussianMixture::operator=(uint64_t result, uint64_t a2)
     {
       v7 = 0;
       v8 = *(a2 + 8);
-      v9 = *(result + 8);
+      v9 = *(a1 + 8);
       do
       {
         *(v9 + 4 * v7) = *(v8 + 4 * v7);
         ++v7;
       }
 
-      while (v7 < *(result + 16));
+      while (v7 < *(a1 + 16));
     }
 
-    v10 = *(result + 40);
+    v10 = *(a1 + 40);
     v11 = *(a2 + 40);
     if (v10 != v11)
     {
-      v12 = *(result + 32);
+      v12 = *(a1 + 32);
       if (v12)
       {
         MEMORY[0x223DF1D00](v12, 0x1000C8052888210);
@@ -1521,7 +1637,7 @@ uint64_t NGaussianMixture::operator=(uint64_t result, uint64_t a2)
     {
       v13 = 0;
       v14 = *(a2 + 32);
-      v15 = *(result + 32);
+      v15 = *(a1 + 32);
       v16 = v10;
       if (v10 < 8)
       {
@@ -1567,10 +1683,10 @@ LABEL_19:
     }
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t NArray<NGaussianMixture>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<NGaussianMixture>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v4 = result;
   v5 = *(result + 16);
@@ -1947,16 +2063,16 @@ uint64_t NArray<NGaussian>::resize(uint64_t result, _DWORD *a2)
   return result;
 }
 
-uint64_t NGaussian::operator=(uint64_t result, uint64_t a2)
+uint64_t NGaussian::operator=(uint64_t a1, uint64_t a2)
 {
-  v3 = result;
-  if (result != a2)
+  v3 = a1;
+  if (a1 != a2)
   {
-    v4 = *(result + 16);
+    v4 = *(a1 + 16);
     v5 = *(a2 + 16);
     if (v4 != v5)
     {
-      v6 = *(result + 8);
+      v6 = *(a1 + 8);
       if (v6)
       {
         MEMORY[0x223DF1D00](v6, 0x1000C8052888210);
@@ -1971,7 +2087,7 @@ uint64_t NGaussian::operator=(uint64_t result, uint64_t a2)
     {
       v7 = 0;
       v8 = *(a2 + 8);
-      v9 = *(result + 8);
+      v9 = *(a1 + 8);
       v10 = v4;
       if (v4 < 8)
       {
@@ -2016,11 +2132,11 @@ LABEL_12:
       }
     }
 
-    v20 = *(result + 40);
+    v20 = *(a1 + 40);
     v21 = *(a2 + 40);
     if (v20 != v21)
     {
-      v22 = *(result + 32);
+      v22 = *(a1 + 32);
       if (v22)
       {
         MEMORY[0x223DF1D00](v22, 0x1000C8052888210);
@@ -2035,7 +2151,7 @@ LABEL_12:
     {
       v23 = 0;
       v24 = *(a2 + 32);
-      v25 = *(result + 32);
+      v25 = *(a1 + 32);
       v26 = v20;
       if (v20 < 8)
       {
@@ -2081,11 +2197,11 @@ LABEL_24:
     }
   }
 
-  *(result + 48) = *(a2 + 48);
-  return result;
+  *(a1 + 48) = *(a2 + 48);
+  return a1;
 }
 
-uint64_t NArray<NGaussian>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<NGaussian>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v4 = result;
   v5 = *(result + 16);
@@ -2543,11 +2659,11 @@ void sub_223AAF8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_223AB0214(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_223AB0214(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v11);
+    MEMORY[0x223DF1D00](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2682,16 +2798,16 @@ void NGaussianMixtureModels::refreshOffsets(NGaussianMixtureModels *this)
   }
 }
 
-void sub_223AB1DC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33)
+void sub_223AB1DC8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33)
 {
   if (a33)
   {
-    MEMORY[0x223DF1D00](a33, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a33, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (a24)
   {
-    MEMORY[0x223DF1D00](a24, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a24, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (!a27)
@@ -2699,20 +2815,20 @@ void sub_223AB1DC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     _Unwind_Resume(exception_object);
   }
 
-  (*(*a27 + 8))(a27);
+  (*(*a27 + 8))(a27, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
-void sub_223AB24B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_223AB24B4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a13)
   {
-    MEMORY[0x223DF1D00](a13, v16);
+    MEMORY[0x223DF1D00](a13, v16, a3, a4, a5, a6, a7, a8);
   }
 
   if (a16)
   {
-    MEMORY[0x223DF1D00](a16, v16);
+    MEMORY[0x223DF1D00](a16, v16, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2749,16 +2865,16 @@ void NGaussianMixtureModels::writeBinary(NGaussianMixtureModels *this, const NSt
   operator new[]();
 }
 
-void sub_223AB2F78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+void sub_223AB2F78(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   if (a14)
   {
-    MEMORY[0x223DF1D00](a14, v17);
+    MEMORY[0x223DF1D00](a14, v17, a3, a4, a5, a6, a7, a8);
   }
 
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2953,17 +3069,17 @@ void NGaussianMixtureModels::scoreUsingCache(uint64_t a1, unsigned int *a2, uint
   }
 }
 
-void sub_223AB3D78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+void sub_223AB3D78(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   if (a17)
   {
-    MEMORY[0x223DF1D00](a17, 0x1000C8000313F17);
+    MEMORY[0x223DF1D00](a17, 0x1000C8000313F17, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NArray<double>::resize(uint64_t result, _DWORD *a2)
+uint64_t NArray<double>::resize(uint64_t result, unsigned int *a2)
 {
   if (*(result + 16) != *a2)
   {
@@ -2974,7 +3090,7 @@ uint64_t NArray<double>::resize(uint64_t result, _DWORD *a2)
   return result;
 }
 
-double NArray<double>::fromArray(uint64_t a1, uint64_t a2, int *a3)
+double NArray<double>::fromArray(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
   v4 = *(a1 + 16);
   v5 = *a3;
@@ -3140,11 +3256,11 @@ void *NArray<double>::~NArray(void *result)
   return result;
 }
 
-void sub_223AB44F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223AB44F0(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3275,7 +3391,7 @@ void NPhoneHMM::~NPhoneHMM(NPhoneHMM *this)
   JUMPOUT(0x223DF1D20);
 }
 
-uint64_t NArray<NHMMState>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<NHMMState>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v3 = result;
   v4 = *(result + 16);
@@ -3372,7 +3488,7 @@ void *NArray<NHMMState>::~NArray(void *result)
   return result;
 }
 
-uint64_t NArray<NPhoneHMM>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<NPhoneHMM>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v4 = result;
   v5 = *(result + 16);
@@ -3608,7 +3724,7 @@ uint64_t NLinkedList<NMap<NString,unsigned int>::HashItem>::insert(_DWORD *a1, c
   v4 = a1[6];
   if (v3 > v4)
   {
-    Error::chuck("NLinkedList::insert List index out of bounds (size = %d, [] = %d)", a2, a1[6], v3);
+    Error::chuck("NLinkedList::insert List index out of bounds (size = %d, [] = %d)", a2, a3, a1[6], v3);
   }
 
   if (!v3)
@@ -3741,7 +3857,7 @@ uint64_t NLinkedList<NMap<NString,unsigned int>::HashItem>::removeElement(uint64
   return result;
 }
 
-uint64_t NArray<NLinkedList<NMap<NString,unsigned int>::HashItem>>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<NLinkedList<NMap<NString,unsigned int>::HashItem>>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v4 = result;
   v5 = *(result + 16);
@@ -4310,7 +4426,7 @@ void *NAutoArray<NPhoneHMM>::~NAutoArray(void *result)
   return result;
 }
 
-uint64_t NAutoArray<NPhoneHMM>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NAutoArray<NPhoneHMM>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v4 = result;
   v5 = *a3;
@@ -4505,18 +4621,18 @@ uint64_t NAutoArray<NPhoneHMM>::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void sub_223AB7548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_223AB7548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   NPhoneHMM::~NPhoneHMM(va);
   _Unwind_Resume(a1);
 }
 
-void sub_223AB755C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223AB755C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12 - 16, v12);
+    MEMORY[0x223DF1D00](a12 - 16, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4575,16 +4691,16 @@ void NPhoneHMMArray::write(NPhoneHMMArray *this, const NString *a2)
   operator new[]();
 }
 
-void sub_223AB80EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+void sub_223AB80EC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   if (a14)
   {
-    (*(*a14 + 8))(a14);
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a17)
   {
-    MEMORY[0x223DF1D00](a17, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a17, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4597,28 +4713,28 @@ void sub_223AB8164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     _Unwind_Resume(a1);
   }
 
-  (*(*a14 + 8))(a14);
+  (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-uint64_t NPhoneHMMArray::initReverseLookup(uint64_t this)
+uint64_t (**NPhoneHMMArray::initReverseLookup(uint64_t (**this)(void **, uint64_t)))(void **, uint64_t)
 {
-  if (!*(this + 52))
+  if (!*(this + 13))
   {
     v1 = this;
-    this = NHash<NMap<NString,unsigned int>::HashItem>::resize(this + 32, *(this + 16), 0);
-    if (*(v1 + 16))
+    this = NHash<NMap<NString,unsigned int>::HashItem>::resize(this + 4, *(this + 4), 0);
+    if (*(v1 + 4))
     {
-      NMap<NString,unsigned int>::operator[](v1 + 24, *(v1 + 8) + 24);
+      NMap<NString,unsigned int>::operator[]((v1 + 3), v1[1] + 24);
     }
   }
 
   return this;
 }
 
-uint64_t NPhoneHMMArray::endReverseLookup(uint64_t this)
+uint64_t (**NPhoneHMMArray::endReverseLookup(uint64_t (**this)(void **, uint64_t)))(void **, uint64_t)
 {
-  if (*(this + 52))
+  if (*(this + 13))
   {
     v1 = this;
     v2 = 0;
@@ -4633,7 +4749,7 @@ uint64_t NPhoneHMMArray::endReverseLookup(uint64_t this)
     while (v3 < *(v1 + 52));
     *(v1 + 56) = 0;
 
-    return NHash<NMap<NString,unsigned int>::HashItem>::resize(v1 + 32, 0, 1);
+    return NHash<NMap<NString,unsigned int>::HashItem>::resize((v1 + 32), 0, 1);
   }
 
   return this;
@@ -4691,7 +4807,7 @@ void sub_223AB86CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   if (a12)
   {
     v15 = a1;
-    MEMORY[0x223DF1D00](a12, v13);
+    MEMORY[0x223DF1D00](a12, v13, a3, a4, a5, a6, a7, a8);
     a1 = v15;
   }
 
@@ -4700,7 +4816,7 @@ void sub_223AB86CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   if (v16)
   {
     v17 = a1;
-    MEMORY[0x223DF1D00](v16, v13);
+    MEMORY[0x223DF1D00](v16, v13, a3, a4, a5, a6, a7, a8);
     a1 = v17;
   }
 
@@ -4752,32 +4868,32 @@ void sub_223AB88A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   if (a12)
   {
     v13 = a1;
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
     a1 = v13;
   }
 
   _Unwind_Resume(a1);
 }
 
-void NPipeFile::read(uint64_t a1@<X8>)
+void NPipeFile::read(uint64_t a2@<X8>)
 {
-  *a1 = &unk_28370A720;
-  *(a1 + 8) = 0;
+  *a2 = &unk_28370A720;
+  *(a2 + 8) = 0;
   operator new[]();
 }
 
-void sub_223AB8A20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_223AB8A20(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v11);
+    MEMORY[0x223DF1D00](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   *v12 = v13;
   v15 = v12[2];
   if (v15)
   {
-    MEMORY[0x223DF1D00](v15, v11);
+    MEMORY[0x223DF1D00](v15, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5225,7 +5341,7 @@ void NDistributionLoader::NDistributionLoader(NDistributionLoader *this)
   *(this + 1) = 0;
 }
 
-void NDistributionLoader::read(NDistributionLoader *this, const NString *a2, const NString *a3)
+void NDistributionLoader::read(NDistributionLoader *this, void **a2, const NString *a3)
 {
   v4 = *(this + 1);
   if (v4)
@@ -5237,20 +5353,20 @@ void NDistributionLoader::read(NDistributionLoader *this, const NString *a2, con
   operator new[]();
 }
 
-void sub_223ABB698(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_223ABB698(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   v18[34] = v22;
   v25 = v18[35];
   if (v25)
   {
-    MEMORY[0x223DF1D00](v25, 0x50C80EE9192B6);
+    MEMORY[0x223DF1D00](v25, 0x50C80EE9192B6, a3, a4, a5, a6, a7, a8);
   }
 
   v18[31] = v21;
   v26 = v18[33];
   if (v26)
   {
-    MEMORY[0x223DF1D00](v26, v16);
+    MEMORY[0x223DF1D00](v26, v16, a3, a4, a5, a6, a7, a8);
   }
 
   NGaussianFixedPointScales::~NGaussianFixedPointScales(v20);
@@ -5300,25 +5416,25 @@ void NFixedDummyDistribution::read(NFixedDummyDistribution *this, const NString 
   operator new[]();
 }
 
-void sub_223ABC4D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
+void sub_223ABC4D8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
 {
   if (a27)
   {
-    MEMORY[0x223DF1D00](a27, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a27, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   *(v27 - 136) = &unk_28370A720;
   v29 = *(v27 - 120);
   if (v29)
   {
-    MEMORY[0x223DF1D00](v29, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](v29, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   *(v27 - 112) = &unk_28370AA90;
   v30 = *(v27 - 104);
   if (v30)
   {
-    (*(*v30 + 8))(v30);
+    (*(*v30 + 8))(v30, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5345,31 +5461,31 @@ void NDummyDistribution::read(NDummyDistribution *this, const NString *a2)
   operator new[]();
 }
 
-void sub_223ABD008(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
+void sub_223ABD008(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
 {
   if (a27)
   {
-    MEMORY[0x223DF1D00](a27, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a27, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   *(v27 - 136) = &unk_28370A720;
   v29 = *(v27 - 120);
   if (v29)
   {
-    MEMORY[0x223DF1D00](v29, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](v29, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   *(v27 - 112) = &unk_28370AA90;
   v30 = *(v27 - 104);
   if (v30)
   {
-    (*(*v30 + 8))(v30);
+    (*(*v30 + 8))(v30, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NArray<unsigned int const*>::resize(uint64_t result, _DWORD *a2)
+uint64_t NArray<unsigned int const*>::resize(uint64_t result, unsigned int *a2)
 {
   if (*(result + 16) != *a2)
   {
@@ -5380,7 +5496,7 @@ uint64_t NArray<unsigned int const*>::resize(uint64_t result, _DWORD *a2)
   return result;
 }
 
-uint64_t NArray<unsigned int const*>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<unsigned int const*>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v3 = result;
   v4 = *(result + 16);
@@ -5591,18 +5707,18 @@ LABEL_8:
   return result;
 }
 
-void NFastFixedDistribution<signed char,int,unsigned int,unsigned short>::componentScore(uint64_t a1)
+void NFastFixedDistribution<signed char,int,unsigned int,unsigned short>::componentScore(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
   (*(*a1 + 136))(a1);
   (*(*a1 + 136))(a1);
   operator new[]();
 }
 
-void sub_223ABD9B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_223ABD9B4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x223DF1D00](a10, v10);
+    MEMORY[0x223DF1D00](a10, v10, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5663,32 +5779,32 @@ float NFastFixedDistribution<signed char,int,unsigned int,unsigned short>::score
   return *((*(*a1 + 136))(a1) + 44) * v15;
 }
 
-void NFastFixedDistribution<signed char,int,unsigned int,unsigned short>::score(uint64_t a1)
+void NFastFixedDistribution<signed char,int,unsigned int,unsigned short>::score(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
   (*(*a1 + 136))(a1);
   (*(*a1 + 136))(a1);
   operator new[]();
 }
 
-void sub_223ABDE24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_223ABDE24(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v11);
+    MEMORY[0x223DF1D00](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void NFastFixedDistribution<signed char,int,unsigned int,unsigned short>::read()
+void NFastFixedDistribution<signed char,int,unsigned int,unsigned short>::read(uint64_t a1, const NString *a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   *__str = &unk_28370A720;
-  LODWORD(v1) = 1;
+  LODWORD(v3) = 1;
   operator new[]();
 }
 
-void sub_223ABF720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t (**a40)(), uint64_t a41)
+void sub_223ABF720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t (**a40)(), uint64_t a41)
 {
   NLinkedList<NString>::~NLinkedList(&a33);
   a37 = a16;
@@ -5712,7 +5828,7 @@ void sub_223ABF720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t NFastFixedGaussians<signed char,int,unsigned short>::read(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, _BYTE *a6)
+void *NFastFixedGaussians<signed char,int,unsigned short>::read(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, _BYTE *a6)
 {
   v19 = *MEMORY[0x277D85DE8];
   NGaussianFixedPointScales::operator=(a1 + 32, a4);
@@ -5742,7 +5858,7 @@ uint64_t NFastFixedGaussians<signed char,int,unsigned short>::read(uint64_t a1, 
   return result;
 }
 
-void sub_223AC0A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39)
+void sub_223AC0A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39)
 {
   NLinkedList<NString>::~NLinkedList(&a33);
   a37 = a15;
@@ -5841,7 +5957,7 @@ LABEL_18:
   return result;
 }
 
-uint64_t NAutoArray<unsigned int>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NAutoArray<unsigned int>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v3 = result;
   v4 = *a3;
@@ -5946,27 +6062,27 @@ void *NAutoArray<unsigned int>::~NAutoArray(void *result)
   return result;
 }
 
-uint64_t NGaussianFixedPointScales::operator=(uint64_t result, uint64_t a2)
+uint64_t NGaussianFixedPointScales::operator=(uint64_t a1, uint64_t a2)
 {
-  v3 = result;
-  *(result + 8) = *(a2 + 8);
-  if (result == a2)
+  v3 = a1;
+  *(a1 + 8) = *(a2 + 8);
+  if (a1 == a2)
   {
-    *(result + 40) = *(a2 + 40);
-    *(result + 120) = *(a2 + 120);
+    *(a1 + 40) = *(a2 + 40);
+    *(a1 + 120) = *(a2 + 120);
     v71 = *(a2 + 124);
-    *(result + 132) = *(a2 + 132);
-    *(result + 124) = v71;
+    *(a1 + 132) = *(a2 + 132);
+    *(a1 + 124) = v71;
 LABEL_62:
-    *(result + 160) = *(a2 + 160);
+    *(a1 + 160) = *(a2 + 160);
     goto LABEL_63;
   }
 
-  v4 = *(result + 32);
+  v4 = *(a1 + 32);
   v5 = *(a2 + 32);
   if (v4 != v5)
   {
-    v6 = *(result + 24);
+    v6 = *(a1 + 24);
     if (v6)
     {
       MEMORY[0x223DF1D00](v6, 0x1000C8052888210);
@@ -5981,22 +6097,22 @@ LABEL_62:
   {
     v7 = 0;
     v8 = *(a2 + 24);
-    v9 = *(result + 24);
+    v9 = *(a1 + 24);
     do
     {
       *(v9 + 4 * v7) = *(v8 + 4 * v7);
       ++v7;
     }
 
-    while (v7 < *(result + 32));
+    while (v7 < *(a1 + 32));
   }
 
-  *(result + 40) = *(a2 + 40);
-  v10 = *(result + 64);
+  *(a1 + 40) = *(a2 + 40);
+  v10 = *(a1 + 64);
   v11 = *(a2 + 64);
   if (v10 != v11)
   {
-    v12 = *(result + 56);
+    v12 = *(a1 + 56);
     if (v12)
     {
       MEMORY[0x223DF1D00](v12, 0x1000C8052888210);
@@ -6011,7 +6127,7 @@ LABEL_62:
   {
     v13 = 0;
     v14 = *(a2 + 56);
-    v15 = *(result + 56);
+    v15 = *(a1 + 56);
     v16 = v10;
     if (v10 < 8)
     {
@@ -6056,11 +6172,11 @@ LABEL_19:
     }
   }
 
-  v26 = *(result + 88);
+  v26 = *(a1 + 88);
   v27 = *(a2 + 88);
   if (v26 != v27)
   {
-    v28 = *(result + 80);
+    v28 = *(a1 + 80);
     if (v28)
     {
       MEMORY[0x223DF1D00](v28, 0x1000C8052888210);
@@ -6075,7 +6191,7 @@ LABEL_19:
   {
     v29 = 0;
     v30 = *(a2 + 80);
-    v31 = *(result + 80);
+    v31 = *(a1 + 80);
     v32 = v26;
     if (v26 < 8)
     {
@@ -6120,11 +6236,11 @@ LABEL_31:
     }
   }
 
-  v42 = *(result + 112);
+  v42 = *(a1 + 112);
   v43 = *(a2 + 112);
   if (v42 != v43)
   {
-    v44 = *(result + 104);
+    v44 = *(a1 + 104);
     if (v44)
     {
       MEMORY[0x223DF1D00](v44, 0x1000C8052888210);
@@ -6139,7 +6255,7 @@ LABEL_31:
   {
     v45 = 0;
     v46 = *(a2 + 104);
-    v47 = *(result + 104);
+    v47 = *(a1 + 104);
     v48 = v42;
     if (v42 < 8)
     {
@@ -6184,20 +6300,20 @@ LABEL_43:
     }
   }
 
-  *(result + 120) = *(a2 + 120);
+  *(a1 + 120) = *(a2 + 120);
   v58 = *(a2 + 124);
-  *(result + 132) = *(a2 + 132);
-  *(result + 124) = v58;
-  if (result == a2)
+  *(a1 + 132) = *(a2 + 132);
+  *(a1 + 124) = v58;
+  if (a1 == a2)
   {
     goto LABEL_62;
   }
 
-  v59 = *(result + 152);
+  v59 = *(a1 + 152);
   v60 = *(a2 + 152);
   if (v59 != v60)
   {
-    v61 = *(result + 144);
+    v61 = *(a1 + 144);
     if (v61)
     {
       MEMORY[0x223DF1D00](v61, 0x1000C8052888210);
@@ -6212,22 +6328,22 @@ LABEL_43:
   {
     v62 = 0;
     v63 = *(a2 + 144);
-    v64 = *(result + 144);
+    v64 = *(a1 + 144);
     do
     {
       *(v64 + 4 * v62) = *(v63 + 4 * v62);
       ++v62;
     }
 
-    while (v62 < *(result + 152));
+    while (v62 < *(a1 + 152));
   }
 
-  *(result + 160) = *(a2 + 160);
-  v65 = *(result + 184);
+  *(a1 + 160) = *(a2 + 160);
+  v65 = *(a1 + 184);
   v66 = *(a2 + 184);
   if (v65 != v66)
   {
-    v67 = *(result + 176);
+    v67 = *(a1 + 176);
     if (v67)
     {
       MEMORY[0x223DF1D00](v67, 0x1000C8052888210);
@@ -6242,19 +6358,19 @@ LABEL_43:
   {
     v68 = 0;
     v69 = *(a2 + 176);
-    v70 = *(result + 176);
+    v70 = *(a1 + 176);
     do
     {
       *(v70 + 4 * v68) = *(v69 + 4 * v68);
       ++v68;
     }
 
-    while (v68 < *(result + 184));
+    while (v68 < *(a1 + 184));
   }
 
 LABEL_63:
-  *(result + 192) = *(a2 + 192);
-  return result;
+  *(a1 + 192) = *(a2 + 192);
+  return a1;
 }
 
 void NFastFixedDistribution<signed char,int,unsigned int,unsigned short>::~NFastFixedDistribution(void *a1)
@@ -6345,7 +6461,7 @@ void *NFastFixedDistribution<signed char,int,unsigned int,unsigned short>::~NFas
   return a1;
 }
 
-uint64_t NArray<unsigned short const*>::resize(uint64_t result, _DWORD *a2)
+uint64_t NArray<unsigned short const*>::resize(uint64_t result, unsigned int *a2)
 {
   if (*(result + 16) != *a2)
   {
@@ -6356,7 +6472,7 @@ uint64_t NArray<unsigned short const*>::resize(uint64_t result, _DWORD *a2)
   return result;
 }
 
-uint64_t NArray<unsigned short const*>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<unsigned short const*>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v3 = result;
   v4 = *(result + 16);
@@ -6567,18 +6683,18 @@ LABEL_8:
   return result;
 }
 
-void NFastFixedDistribution<signed char,int,unsigned short,unsigned short>::componentScore(uint64_t a1)
+void NFastFixedDistribution<signed char,int,unsigned short,unsigned short>::componentScore(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
   (*(*a1 + 136))(a1);
   (*(*a1 + 136))(a1);
   operator new[]();
 }
 
-void sub_223AC1ED4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_223AC1ED4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x223DF1D00](a10, v10);
+    MEMORY[0x223DF1D00](a10, v10, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6639,32 +6755,32 @@ float NFastFixedDistribution<signed char,int,unsigned short,unsigned short>::sco
   return *((*(*a1 + 136))(a1) + 44) * v15;
 }
 
-void NFastFixedDistribution<signed char,int,unsigned short,unsigned short>::score(uint64_t a1)
+void NFastFixedDistribution<signed char,int,unsigned short,unsigned short>::score(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
   (*(*a1 + 136))(a1);
   (*(*a1 + 136))(a1);
   operator new[]();
 }
 
-void sub_223AC2344(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_223AC2344(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v11);
+    MEMORY[0x223DF1D00](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void NFastFixedDistribution<signed char,int,unsigned short,unsigned short>::read()
+void NFastFixedDistribution<signed char,int,unsigned short,unsigned short>::read(uint64_t a1, const NString *a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   *__str = &unk_28370A720;
-  LODWORD(v1) = 1;
+  LODWORD(v3) = 1;
   operator new[]();
 }
 
-void sub_223AC3C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41)
+void sub_223AC3C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41)
 {
   NLinkedList<NString>::~NLinkedList(&a33);
   a37 = a16;
@@ -6688,7 +6804,7 @@ void sub_223AC3C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t NArray<unsigned short>::resize(uint64_t result, _DWORD *a2)
+uint64_t NArray<unsigned short>::resize(uint64_t result, unsigned int *a2)
 {
   if (*(result + 16) != *a2)
   {
@@ -6699,7 +6815,7 @@ uint64_t NArray<unsigned short>::resize(uint64_t result, _DWORD *a2)
   return result;
 }
 
-uint64_t NArray<unsigned short>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<unsigned short>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v3 = result;
   v4 = *(result + 16);
@@ -7395,18 +7511,18 @@ LABEL_8:
   return result;
 }
 
-void NFastFixedDistribution<short,int,unsigned int,unsigned char>::componentScore(uint64_t a1)
+void NFastFixedDistribution<short,int,unsigned int,unsigned char>::componentScore(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
   (*(*a1 + 136))(a1);
   (*(*a1 + 136))(a1);
   operator new[]();
 }
 
-void sub_223AC50A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_223AC50A8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x223DF1D00](a10, v10);
+    MEMORY[0x223DF1D00](a10, v10, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7467,32 +7583,32 @@ float NFastFixedDistribution<short,int,unsigned int,unsigned char>::scoreUsingCa
   return *((*(*a1 + 136))(a1) + 44) * v15;
 }
 
-void NFastFixedDistribution<short,int,unsigned int,unsigned char>::score(uint64_t a1)
+void NFastFixedDistribution<short,int,unsigned int,unsigned char>::score(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
   (*(*a1 + 136))(a1);
   (*(*a1 + 136))(a1);
   operator new[]();
 }
 
-void sub_223AC5518(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_223AC5518(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v11);
+    MEMORY[0x223DF1D00](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void NFastFixedDistribution<short,int,unsigned int,unsigned char>::read()
+void NFastFixedDistribution<short,int,unsigned int,unsigned char>::read(uint64_t a1, const NString *a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   *__str = &unk_28370A720;
-  LODWORD(v1) = 1;
+  LODWORD(v3) = 1;
   operator new[]();
 }
 
-void sub_223AC6E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t (**a40)(), uint64_t a41)
+void sub_223AC6E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t (**a40)(), uint64_t a41)
 {
   NLinkedList<NString>::~NLinkedList(&a33);
   a37 = a16;
@@ -7516,7 +7632,7 @@ void sub_223AC6E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t NFastFixedGaussians<short,int,unsigned char>::read(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, _BYTE *a6)
+void *NFastFixedGaussians<short,int,unsigned char>::read(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, _BYTE *a6)
 {
   v19 = *MEMORY[0x277D85DE8];
   NGaussianFixedPointScales::operator=(a1 + 32, a4);
@@ -7546,7 +7662,7 @@ uint64_t NFastFixedGaussians<short,int,unsigned char>::read(uint64_t a1, uint64_
   return result;
 }
 
-void sub_223AC817C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39)
+void sub_223AC817C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39)
 {
   NLinkedList<NString>::~NLinkedList(&a33);
   a37 = a15;
@@ -7695,18 +7811,18 @@ LABEL_8:
   return result;
 }
 
-void NFastFixedDistribution<short,int,unsigned short,unsigned char>::componentScore(uint64_t a1)
+void NFastFixedDistribution<short,int,unsigned short,unsigned char>::componentScore(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
   (*(*a1 + 136))(a1);
   (*(*a1 + 136))(a1);
   operator new[]();
 }
 
-void sub_223AC8A5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_223AC8A5C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x223DF1D00](a10, v10);
+    MEMORY[0x223DF1D00](a10, v10, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7767,32 +7883,32 @@ float NFastFixedDistribution<short,int,unsigned short,unsigned char>::scoreUsing
   return *((*(*a1 + 136))(a1) + 44) * v15;
 }
 
-void NFastFixedDistribution<short,int,unsigned short,unsigned char>::score(uint64_t a1)
+void NFastFixedDistribution<short,int,unsigned short,unsigned char>::score(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
   (*(*a1 + 136))(a1);
   (*(*a1 + 136))(a1);
   operator new[]();
 }
 
-void sub_223AC8ECC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_223AC8ECC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v11);
+    MEMORY[0x223DF1D00](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void NFastFixedDistribution<short,int,unsigned short,unsigned char>::read()
+void NFastFixedDistribution<short,int,unsigned short,unsigned char>::read(uint64_t a1, const NString *a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   *__str = &unk_28370A720;
-  LODWORD(v1) = 1;
+  LODWORD(v3) = 1;
   operator new[]();
 }
 
-void sub_223ACA7E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41)
+void sub_223ACA7E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41)
 {
   NLinkedList<NString>::~NLinkedList(&a33);
   a37 = a16;
@@ -7952,18 +8068,18 @@ LABEL_8:
   return result;
 }
 
-void NFastFixedDistribution<signed char,int,unsigned int,unsigned char>::componentScore(uint64_t a1)
+void NFastFixedDistribution<signed char,int,unsigned int,unsigned char>::componentScore(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
   (*(*a1 + 136))(a1);
   (*(*a1 + 136))(a1);
   operator new[]();
 }
 
-void sub_223ACB24C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_223ACB24C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x223DF1D00](a10, v10);
+    MEMORY[0x223DF1D00](a10, v10, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8024,32 +8140,32 @@ float NFastFixedDistribution<signed char,int,unsigned int,unsigned char>::scoreU
   return *((*(*a1 + 136))(a1) + 44) * v15;
 }
 
-void NFastFixedDistribution<signed char,int,unsigned int,unsigned char>::score(uint64_t a1)
+void NFastFixedDistribution<signed char,int,unsigned int,unsigned char>::score(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
   (*(*a1 + 136))(a1);
   (*(*a1 + 136))(a1);
   operator new[]();
 }
 
-void sub_223ACB6BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_223ACB6BC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v11);
+    MEMORY[0x223DF1D00](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void NFastFixedDistribution<signed char,int,unsigned int,unsigned char>::read()
+void NFastFixedDistribution<signed char,int,unsigned int,unsigned char>::read(uint64_t a1, const NString *a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   *__str = &unk_28370A720;
-  LODWORD(v1) = 1;
+  LODWORD(v3) = 1;
   operator new[]();
 }
 
-void sub_223ACCFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t (**a40)(), uint64_t a41)
+void sub_223ACCFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t (**a40)(), uint64_t a41)
 {
   NLinkedList<NString>::~NLinkedList(&a33);
   a37 = a16;
@@ -8073,7 +8189,7 @@ void sub_223ACCFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t NFastFixedGaussians<signed char,int,unsigned char>::read(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, _BYTE *a6)
+void *NFastFixedGaussians<signed char,int,unsigned char>::read(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, _BYTE *a6)
 {
   v19 = *MEMORY[0x277D85DE8];
   NGaussianFixedPointScales::operator=(a1 + 32, a4);
@@ -8103,7 +8219,7 @@ uint64_t NFastFixedGaussians<signed char,int,unsigned char>::read(uint64_t a1, u
   return result;
 }
 
-void sub_223ACE318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39)
+void sub_223ACE318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39)
 {
   NLinkedList<NString>::~NLinkedList(&a33);
   a37 = a15;
@@ -8252,18 +8368,18 @@ LABEL_8:
   return result;
 }
 
-void NFastFixedDistribution<signed char,int,unsigned short,unsigned char>::componentScore(uint64_t a1)
+void NFastFixedDistribution<signed char,int,unsigned short,unsigned char>::componentScore(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
   (*(*a1 + 136))(a1);
   (*(*a1 + 136))(a1);
   operator new[]();
 }
 
-void sub_223ACEBF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_223ACEBF8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    MEMORY[0x223DF1D00](a10, v10);
+    MEMORY[0x223DF1D00](a10, v10, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8324,32 +8440,32 @@ float NFastFixedDistribution<signed char,int,unsigned short,unsigned char>::scor
   return *((*(*a1 + 136))(a1) + 44) * v15;
 }
 
-void NFastFixedDistribution<signed char,int,unsigned short,unsigned char>::score(uint64_t a1)
+void NFastFixedDistribution<signed char,int,unsigned short,unsigned char>::score(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
   (*(*a1 + 136))(a1);
   (*(*a1 + 136))(a1);
   operator new[]();
 }
 
-void sub_223ACF068(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_223ACF068(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v11);
+    MEMORY[0x223DF1D00](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void NFastFixedDistribution<signed char,int,unsigned short,unsigned char>::read()
+void NFastFixedDistribution<signed char,int,unsigned short,unsigned char>::read(uint64_t a1, const NString *a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   *__str = &unk_28370A720;
-  LODWORD(v1) = 1;
+  LODWORD(v3) = 1;
   operator new[]();
 }
 
-void sub_223AD0984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41)
+void sub_223AD0984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41)
 {
   NLinkedList<NString>::~NLinkedList(&a33);
   a37 = a16;
@@ -8461,33 +8577,33 @@ void *NFastFixedDistribution<signed char,int,unsigned short,unsigned char>::~NFa
   return a1;
 }
 
-void read_gaussian_models(const NString *a1, const NString *a2)
+void read_gaussian_models(void **a1, const NString *a2)
 {
   v2[0] = &unk_283708D98;
   v2[1] = 0;
   NDistributionLoader::read(v2, a1, a2);
 }
 
-void sub_223AD1140(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_223AD1140(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_223AD1E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_223AD1E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_223AD2800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_223AD2800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8532,9 +8648,9 @@ id getCSUtilsClass()
   return v1;
 }
 
-void sub_223AD2C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_223AD2C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8552,7 +8668,7 @@ Class __getCSUtilsClass_block_invoke_3172(uint64_t a1)
   return result;
 }
 
-uint64_t __CoreSpeechFoundationLibraryCore_block_invoke_3174()
+uint64_t __CoreSpeechFoundationLibraryCore_block_invoke_3174(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreSpeechFoundationLibraryCore_frameworkLibrary_3173 = result;
@@ -8665,7 +8781,7 @@ void sub_223AD6258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   if (a12)
   {
     v15 = a1;
-    MEMORY[0x223DF1D00](a12, v13);
+    MEMORY[0x223DF1D00](a12, v13, a3, a4, a5, a6, a7, a8);
     a1 = v15;
   }
 
@@ -8674,7 +8790,7 @@ void sub_223AD6258(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   if (v16)
   {
     v17 = a1;
-    MEMORY[0x223DF1D00](v16, v13);
+    MEMORY[0x223DF1D00](v16, v13, a3, a4, a5, a6, a7, a8);
     a1 = v17;
   }
 
@@ -8726,32 +8842,32 @@ void sub_223AD6430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   if (a12)
   {
     v13 = a1;
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
     a1 = v13;
   }
 
   _Unwind_Resume(a1);
 }
 
-void NZFile::read(uint64_t a1@<X8>)
+void NZFile::read(uint64_t a2@<X8>)
 {
-  *a1 = &unk_28370A720;
-  *(a1 + 8) = 0;
+  *a2 = &unk_28370A720;
+  *(a2 + 8) = 0;
   operator new[]();
 }
 
-void sub_223AD65AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_223AD65AC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x223DF1D00](a11, v11);
+    MEMORY[0x223DF1D00](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   *v12 = v13;
   v15 = v12[2];
   if (v15)
   {
-    MEMORY[0x223DF1D00](v15, v11);
+    MEMORY[0x223DF1D00](v15, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9019,14 +9135,14 @@ void sub_223AD7904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
   }
 
   *(v14 + 640) = v15;
   v17 = *(v14 + 656);
   if (v17)
   {
-    MEMORY[0x223DF1D00](v17, v12);
+    MEMORY[0x223DF1D00](v17, v12, a3, a4, a5, a6, a7, a8);
   }
 
   NFile::~NFile(v13);
@@ -9040,11 +9156,11 @@ void NZipFile::open(NZipFile *this, const NString *a2)
   operator new[]();
 }
 
-void sub_223AD7A6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223AD7A6C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9087,11 +9203,11 @@ void NZipFile::start(NZipFile *this)
   Error::chuck("NZipFile::start() - Problem reading %s: %s", v2, *(this + 4), "file not large enough to be a zipfile");
 }
 
-void sub_223AD8004(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+void sub_223AD8004(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   if (a20)
   {
-    MEMORY[0x223DF1D00](a20, v20);
+    MEMORY[0x223DF1D00](a20, v20, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9109,7 +9225,7 @@ uint64_t NZipFile::nextHeader(uint64_t this)
   return this;
 }
 
-void sub_223AD82D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+void sub_223AD82D8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   if (a17)
   {
@@ -9120,7 +9236,7 @@ void sub_223AD82D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   v19 = *(v17 - 40);
   if (v19)
   {
-    MEMORY[0x223DF1D00](v19, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](v19, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9155,11 +9271,11 @@ void NZipFile::getCurrentSubFile(NZipFile *this, NFilePtr *a2)
   Error::chuck("NZipFile::getCurrentSubFile() - reading iterator in invalid state", a2);
 }
 
-void sub_223AD8670(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+void sub_223AD8670(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
   if (a15)
   {
-    MEMORY[0x223DF1D00](a15, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a15, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9172,23 +9288,23 @@ void sub_223AD8814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   v17 = v13[3];
   if (v17)
   {
-    MEMORY[0x223DF1D00](v17, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](v17, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
-  MEMORY[0x223DF1D20](v13, v12);
+  MEMORY[0x223DF1D20](v13, v12, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void sub_223AD89A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223AD89A8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -9274,27 +9390,27 @@ void NFidFile::NFidFile(NFidFile *this, const NString *a2)
   operator new[]();
 }
 
-void sub_223AD8ED0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223AD8ED0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v13);
+    MEMORY[0x223DF1D00](a12, v13, a3, a4, a5, a6, a7, a8);
   }
 
   NFile::~NFile(v12);
   _Unwind_Resume(a1);
 }
 
-void sub_223AD90F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_223AD90F4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a14)
   {
-    MEMORY[0x223DF1D00](a14, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a14, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   if (a16)
   {
-    MEMORY[0x223DF1D00](a16, v16);
+    MEMORY[0x223DF1D00](a16, v16, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9308,11 +9424,11 @@ void NFidFile::open(NFidFile *this, const NString *a2)
   operator new[]();
 }
 
-void sub_223AD9224(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223AD9224(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9384,11 +9500,11 @@ void NFidFile::getSubFile(NFidFile *this, const NString *a2, NFilePtr *a3)
   Error::chuck("NFidFile::getSubFile() - Problem reading subfile %s from %s: %s", a2, a3, v9, v10, v11);
 }
 
-void sub_223AD9828(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+void sub_223AD9828(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   if (a24)
   {
-    MEMORY[0x223DF1D00](a24, 0x1000C8052888210);
+    MEMORY[0x223DF1D00](a24, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9572,9 +9688,9 @@ void NAutoString::NAutoString(NAutoString *this, const NString *a2)
   operator new[]();
 }
 
-void sub_223ADA778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_223ADA778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9586,9 +9702,9 @@ uint64_t __Block_byref_object_copy__3529(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_223ADA9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_223ADA9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9622,12 +9738,12 @@ uint64_t AccelStaticMFCC::start(uint64_t result, const char *a2, int *a3, int *a
 {
   if ((*result & 1) == 0)
   {
-    Error::chuck("AccelStaticMFCC::start() - AccelStaticMFCC::init() has to be called before starting", a2);
+    Error::chuck("AccelStaticMFCC::start() - AccelStaticMFCC::init() has to be called before starting", a2, a3, a4);
   }
 
   if (*(result + 512))
   {
-    Error::chuck("AccelStaticMFCC::start() - frames undrained from previous chunk - call isFrame() or reset()", a2);
+    Error::chuck("AccelStaticMFCC::start() - frames undrained from previous chunk - call isFrame() or reset()", a2, a3, a4);
   }
 
   v4 = *a3;
@@ -9668,9 +9784,9 @@ void sub_223ADC30C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_223ADC7E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_223ADC7E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9700,7 +9816,7 @@ Class __getCSActivationEventNotifierClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -9711,14 +9827,14 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "CSActivationEventNotifier");
   }
 
   getCSActivationEventNotifierClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t __CoreSpeechLibraryCore_block_invoke()
+uint64_t __CoreSpeechLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreSpeechLibraryCore_frameworkLibrary = result;
@@ -9750,7 +9866,7 @@ Class __getCSActivationEventClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -9761,7 +9877,7 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "CSActivationEvent");
   }
 
   getCSActivationEventClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -9793,7 +9909,7 @@ Class __getCSVoiceTriggerXPCServiceClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -9804,107 +9920,9 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "CSVoiceTriggerXPCService");
   }
 
   getCSVoiceTriggerXPCServiceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
-}
-
-void NBNNSIRDistribution::resetState(NBNNSIRDistribution *this, void *a2)
-{
-  if (a2)
-  {
-    v3 = *(this + 50);
-    if (v3)
-    {
-      v5 = 0;
-      v6 = 0;
-      v7 = 4 * v3;
-      do
-      {
-        v8 = *(*(this + 27) + v6);
-        if (v8)
-        {
-          bzero(*(a2[1] + v5), v8);
-        }
-
-        v6 += 4;
-        v5 += 16;
-      }
-
-      while (v7 != v6);
-    }
-  }
-}
-
-uint64_t NBNNSIRDistribution::deallocateState(uint64_t this, void *a2)
-{
-  if (a2)
-  {
-    v3 = *(this + 200);
-    if (v3)
-    {
-      v4 = 0;
-      v5 = 0;
-      do
-      {
-        if (!*(*(this + 216) + v5))
-        {
-          *(a2[1] + v4) = 0;
-        }
-
-        v5 += 4;
-        v4 += 16;
-      }
-
-      while (4 * v3 != v5);
-    }
-
-    *(a2[1] + 16 * *(this + 172)) = 0;
-    *(a2[1] + 16 * *(this + 176)) = 0;
-    if (v3)
-    {
-      v6 = 0;
-      v7 = a2[1];
-      v8 = 16 * v3;
-      do
-      {
-        v9 = *(v7 + v6);
-        if (v9)
-        {
-          MEMORY[0x223DF1D20](v9, 0x1000C4077774924);
-          v7 = a2[1];
-        }
-
-        *(v7 + v6) = 0;
-        v7 = a2[1];
-        *(v7 + v6 + 8) = 0;
-        v6 += 16;
-      }
-
-      while (v8 != v6);
-    }
-
-    v10 = *(*a2 + 8);
-
-    return v10(a2);
-  }
-
-  return this;
-}
-
-uint64_t NBNNSIRDistribution::allocateStateP(NBNNSIRDistribution *this, const char *a2)
-{
-  if (!*(this + 39))
-  {
-    Error::chuck("NBNNSIRDistribution::scoreAll() - BNNSIR not loaded", a2);
-  }
-
-  if (*(this + 50) >= 3u)
-  {
-    operator new();
-  }
-
-  return 0;
 }

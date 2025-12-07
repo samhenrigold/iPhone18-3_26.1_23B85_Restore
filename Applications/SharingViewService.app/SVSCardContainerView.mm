@@ -224,11 +224,10 @@
     v7 = [constraints filteredArrayUsingPredicate:v6];
     if ([v7 count] >= 2 && dword_1001BEF18 <= 90 && (dword_1001BEF18 != -1 || _LogCategory_Initialize()))
     {
-      v8 = v7;
-      LogPrintF();
+      LogPrintF(&dword_1001BEF18, "[SVSCardContainerView _updateWidthConstraints]", 90, "Asked to remove more than 1 constraint, please file a bug against Proximity Setup | all: %@", v7);
     }
 
-    [NSLayoutConstraint deactivateConstraints:v7, v8];
+    [NSLayoutConstraint deactivateConstraints:v7];
   }
 }
 

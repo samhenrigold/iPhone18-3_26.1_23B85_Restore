@@ -120,15 +120,15 @@ LABEL_11:
 
 - (id)buildTitle
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = MEMORY[0x1E69CA0F0];
   reminder = [(SSReminderResultBuilder *)self reminder];
   v6 = [v4 textWithString:reminder];
-  v14[0] = v6;
+  v13[0] = v6;
   v7 = objc_opt_new();
-  v14[1] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+  v13[1] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
   [v3 setFormattedTextPieces:v8];
 
   isCompleted = [(SSReminderResultBuilder *)self isCompleted];
@@ -136,14 +136,12 @@ LABEL_11:
   v11 = [formattedTextPieces objectAtIndexedSubscript:1];
   [v11 setIsEmphasized:isCompleted];
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (id)buildDescriptions
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   note = [(SSReminderResultBuilder *)self note];
   v5 = [note length];
@@ -199,42 +197,42 @@ LABEL_11:
   }
 
   v20 = objc_opt_new();
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   hashtags = [(SSReminderResultBuilder *)self hashtags];
-  v22 = [hashtags countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v22 = [hashtags countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v39;
+    v24 = *v38;
     do
     {
       v25 = 0;
       do
       {
-        if (*v39 != v24)
+        if (*v38 != v24)
         {
           objc_enumerationMutation(hashtags);
         }
 
-        v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"#%@", *(*(&v38 + 1) + 8 * v25)];
+        v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"#%@", *(*(&v37 + 1) + 8 * v25)];
         [v20 addObject:v26];
 
         ++v25;
       }
 
       while (v23 != v25);
-      v23 = [hashtags countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v23 = [hashtags countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v23);
   }
 
-  if ([v20 count])
+  if (objc_msgSend_count(v20))
   {
-    v27 = [v9 count];
+    v27 = objc_msgSend_count(v9);
     v28 = &stru_1F556FE60;
     if (v27)
     {
@@ -249,14 +247,14 @@ LABEL_11:
     [v9 addObject:v32];
   }
 
-  if ([v9 count])
+  if (objc_msgSend_count(v9))
   {
     v33 = objc_opt_new();
     [v33 setFormattedTextPieces:v9];
     [v3 addObject:v33];
   }
 
-  if ([v3 count])
+  if (objc_msgSend_count(v3))
   {
     v34 = v3;
   }
@@ -268,7 +266,6 @@ LABEL_11:
 
   v35 = v34;
 
-  v36 = *MEMORY[0x1E69E9840];
   return v34;
 }
 

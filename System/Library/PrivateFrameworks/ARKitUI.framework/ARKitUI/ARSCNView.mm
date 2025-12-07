@@ -28,6 +28,7 @@
 - (void)_updateBackingSize;
 - (void)_updateCamera:(id)camera;
 - (void)_updateDebugVisualization:(id)visualization;
+- (void)_updateFramesPerSecondWithTarget:(int64_t)target shouldRestrictFrameRate:(BOOL)rate;
 - (void)_updateLighting:(id)lighting;
 - (void)_updateNode:(id)node forAnchor:(id)anchor frame:(id)frame;
 - (void)_updateOcclusionCompositor;
@@ -290,26 +291,26 @@
   windowScene = [window windowScene];
   self->_interfaceOrientation = [windowScene interfaceOrientation];
 
-  v9 = _ARLogGeneral_0();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = _ARLogGeneral_0(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     [(ARSCNView *)self bounds];
-    v12 = NSStringFromCGRect(v29);
+    v13 = NSStringFromCGRect(v29);
     contentsScale = self->_contentsScale;
-    v14 = NSStringFromUIInterfaceOrientation(self->_interfaceOrientation);
+    v15 = NSStringFromUIInterfaceOrientation(self->_interfaceOrientation);
     *buf = 138544386;
-    v19 = v11;
+    v19 = v12;
     v20 = 2048;
     selfCopy = self;
     v22 = 2114;
-    v23 = v12;
+    v23 = v13;
     v24 = 2048;
     v25 = contentsScale;
     v26 = 2114;
-    v27 = v14;
-    _os_log_impl(&dword_23D3AE000, v9, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Layout changed to %{public}@, %.2fx, %{public}@", buf, 0x34u);
+    v27 = v15;
+    _os_log_impl(&dword_23D3AE000, v10, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Layout changed to %{public}@, %.2fx, %{public}@", buf, 0x34u);
   }
 
   [(ARSCNView *)self _forceUpdateCamera];
@@ -319,8 +320,6 @@
     [(ARSCNCompositor *)compositor setCurrentOrientation:self->_interfaceOrientation];
     [(ARSCNCompositor *)self->_compositor setCurrentSize:self->_viewportSize.width, self->_viewportSize.height];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -504,7 +503,7 @@ void __40__ARSCNView_setRunningWithSegmentation___block_invoke(uint64_t a1)
 - (void)setProvidesOcclusionGeometry:(BOOL)geometry
 {
   geometryCopy = geometry;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_occlusionLock);
   self->_providesOcclusionGeometry = geometryCopy;
   [(ARSCNView *)self _updateOcclusionCompositor];
@@ -517,31 +516,31 @@ void __40__ARSCNView_setRunningWithSegmentation___block_invoke(uint64_t a1)
     dispatch_semaphore_signal(self->_anchorsSemaphore);
     if (currentRenderFrame)
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       anchors = [currentRenderFrame anchors];
-      v7 = [anchors countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v7 = [anchors countByEnumeratingWithState:&v20 objects:v25 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v22;
+        v9 = *v21;
         do
         {
           v10 = 0;
           do
           {
-            if (*v22 != v9)
+            if (*v21 != v9)
             {
               objc_enumerationMutation(anchors);
             }
 
-            [(ARSCNView *)self _addOcclusionGeometryForAnchor:*(*(&v21 + 1) + 8 * v10++)];
+            [(ARSCNView *)self _addOcclusionGeometryForAnchor:*(*(&v20 + 1) + 8 * v10++)];
           }
 
           while (v8 != v10);
-          v8 = [anchors countByEnumeratingWithState:&v21 objects:v26 count:16];
+          v8 = [anchors countByEnumeratingWithState:&v20 objects:v25 count:16];
         }
 
         while (v8);
@@ -554,31 +553,31 @@ void __40__ARSCNView_setRunningWithSegmentation___block_invoke(uint64_t a1)
   else
   {
     dispatch_semaphore_wait(self->_nodesSemaphore, 0xFFFFFFFFFFFFFFFFLL);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     allValues = [(NSMutableDictionary *)self->_occlusionGeometryNodesByAnchorIdentifier allValues];
-    v12 = [allValues countByEnumeratingWithState:&v17 objects:v25 count:16];
+    v12 = [allValues countByEnumeratingWithState:&v16 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         v15 = 0;
         do
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [*(*(&v17 + 1) + 8 * v15++) removeFromParentNode];
+          [*(*(&v16 + 1) + 8 * v15++) removeFromParentNode];
         }
 
         while (v13 != v15);
-        v13 = [allValues countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v13 = [allValues countByEnumeratingWithState:&v16 objects:v24 count:16];
       }
 
       while (v13);
@@ -587,8 +586,6 @@ void __40__ARSCNView_setRunningWithSegmentation___block_invoke(uint64_t a1)
     [(NSMutableDictionary *)self->_occlusionGeometryNodesByAnchorIdentifier removeAllObjects];
     dispatch_semaphore_signal(self->_nodesSemaphore);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (ARAnchor)anchorForNode:(SCNNode *)node
@@ -825,18 +822,18 @@ void __40__ARSCNView_setRunningWithSegmentation___block_invoke(uint64_t a1)
     v7 = 0;
     while (1)
     {
-      [v6 timestamp];
-      if (v8 != self->_lastFrameTimestamp)
+      timestamp = [v6 timestamp];
+      if (v9 != self->_lastFrameTimestamp)
       {
         break;
       }
 
       usleep(0x1F4u);
-      v9 = v7 + 1;
+      v10 = v7 + 1;
       currentRenderFrame2 = [(ARSCNView *)self currentRenderFrame];
 
       [currentRenderFrame2 timestamp];
-      kdebug_trace();
+      timestamp = kdebug_trace();
       if (currentRenderFrame2)
       {
         v6 = currentRenderFrame2;
@@ -850,34 +847,34 @@ void __40__ARSCNView_setRunningWithSegmentation___block_invoke(uint64_t a1)
     }
 
     currentRenderFrame2 = v6;
-    v9 = v7;
+    v10 = v7;
     if (!v7)
     {
       goto LABEL_15;
     }
 
 LABEL_12:
-    v12 = _ARLogGeneral_0();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = _ARLogGeneral_0(timestamp);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138543874;
-      v72 = v14;
+      v72 = v15;
       v73 = 2048;
       selfCopy = self;
       v75 = 1024;
-      v76 = v9;
-      _os_log_impl(&dword_23D3AE000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Missed frame and retried to find a matching using %d attempts.", buf, 0x1Cu);
+      v76 = v10;
+      _os_log_impl(&dword_23D3AE000, v13, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Missed frame and retried to find a matching using %d attempts.", buf, 0x1Cu);
     }
 
     v6 = currentRenderFrame2;
   }
 
 LABEL_15:
-  if (!self->_renderRawSceneUnderstandingImage || ([v6 rawSceneUnderstandingData], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "capturedImage"), v15, v16))
+  if (!self->_renderRawSceneUnderstandingImage || ([v6 rawSceneUnderstandingData], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "capturedImage"), v16, v17))
   {
-    if (!v6 || ([v6 timestamp], v17 == self->_lastFrameTimestamp))
+    if (!v6 || ([v6 timestamp], v18 == self->_lastFrameTimestamp))
     {
       kdebug_trace();
 LABEL_56:
@@ -891,9 +888,9 @@ LABEL_56:
     kdebug_trace();
 
     [v6 timestamp];
-    self->_lastFrameInterval = v19 - self->_lastFrameTimestamp;
+    self->_lastFrameInterval = v20 - self->_lastFrameTimestamp;
     [v6 timestamp];
-    self->_lastFrameTimestamp = v20;
+    self->_lastFrameTimestamp = v21;
     if ([(ARSCNView *)self drawsCameraImageAndNilPresentation])
     {
       if (!self->_captureDeviceOutputConsumer)
@@ -908,10 +905,10 @@ LABEL_56:
 
         if (!contents)
         {
-          v26 = self->_captureDeviceOutputConsumer;
+          v27 = self->_captureDeviceOutputConsumer;
           scene2 = [(ARSCNView *)self scene];
           background2 = [scene2 background];
-          [background2 setContents:v26];
+          [background2 setContents:v27];
         }
       }
     }
@@ -961,9 +958,9 @@ LABEL_26:
     {
       camera = [v6 camera];
       [camera exposureDuration];
-      v36 = v35 / self->_lastFrameInterval;
+      v37 = v36 / self->_lastFrameInterval;
       camera2 = [(SCNNode *)self->_cameraNode camera];
-      [camera2 setMotionBlurIntensity:v36];
+      [camera2 setMotionBlurIntensity:v37];
     }
 
     else if (self->_lastRendersMotionBlur)
@@ -995,21 +992,21 @@ LABEL_26:
     }
 
     dispatch_semaphore_wait(self->_anchorsSemaphore, 0xFFFFFFFFFFFFFFFFLL);
-    v40 = [(NSMutableArray *)self->_addedAnchors copy];
+    v41 = [(NSMutableArray *)self->_addedAnchors copy];
     [(NSMutableArray *)self->_addedAnchors removeAllObjects];
-    v41 = [(NSMutableArray *)self->_removedAnchors copy];
+    v42 = [(NSMutableArray *)self->_removedAnchors copy];
     [(NSMutableArray *)self->_removedAnchors removeAllObjects];
     if ([(ARSCNView *)self graduallyUpdateAnchors]&& [(NSMutableArray *)self->_updatedAnchors count])
     {
-      v42 = [(NSMutableArray *)self->_updatedAnchors count];
-      if (v42 >= self->_anchorUpdatesPerRendererUpdate)
+      v43 = [(NSMutableArray *)self->_updatedAnchors count];
+      if (v43 >= self->_anchorUpdatesPerRendererUpdate)
       {
         anchorUpdatesPerRendererUpdate = self->_anchorUpdatesPerRendererUpdate;
       }
 
       else
       {
-        anchorUpdatesPerRendererUpdate = v42;
+        anchorUpdatesPerRendererUpdate = v43;
       }
 
       anchorUpdatesPerRendererUpdate = [(NSMutableArray *)self->_updatedAnchors subarrayWithRange:0, anchorUpdatesPerRendererUpdate];
@@ -1023,8 +1020,8 @@ LABEL_26:
     }
 
     dispatch_semaphore_signal(self->_anchorsSemaphore);
-    [(ARSCNView *)self _removeAnchors:v41];
-    [(ARSCNView *)self _addAnchors:v40];
+    [(ARSCNView *)self _removeAnchors:v42];
+    [(ARSCNView *)self _addAnchors:v41];
     [(ARSCNView *)self _updateAnchors:anchorUpdatesPerRendererUpdate frame:v6];
     [(ARSCNView *)self _updateDebugVisualization:v6];
     if (self->_compositor && [(ARSCNView *)self rotationSnapshotState]!= 1)
@@ -1032,7 +1029,7 @@ LABEL_26:
       [(ARSCNCompositor *)self->_compositor setCurrentFrame:v6];
     }
 
-    if (!self->_rendersCameraGrain || ([v6 cameraGrainIntensity], v45 == 0.0))
+    if (!self->_rendersCameraGrain || ([v6 cameraGrainIntensity], v46 == 0.0))
     {
       camera4 = [(SCNNode *)self->_cameraNode camera];
       [camera4 setGrainIntensity:0.0];
@@ -1045,23 +1042,23 @@ LABEL_26:
 
       renderer = [(ARSCNView *)self renderer];
       [renderer currentRenderPassDescriptor];
-      v48 = v69 = v40;
-      colorAttachments = [v48 colorAttachments];
-      v50 = [colorAttachments objectAtIndexedSubscript:0];
-      camera4 = [v50 texture];
+      v49 = v69 = v41;
+      colorAttachments = [v49 colorAttachments];
+      v51 = [colorAttachments objectAtIndexedSubscript:0];
+      camera4 = [v51 texture];
 
       camera6 = [v6 camera];
       [camera6 imageResolution];
-      v54 = v53;
-      v56 = v55;
+      v55 = v54;
+      v57 = v56;
 
-      *&v54 = v54;
-      v57 = fmax([camera4 width], objc_msgSend(camera4, "height"));
-      v58 = fmin([camera4 width], objc_msgSend(camera4, "height"));
-      *&v56 = v56;
-      v59 = fmaxf(v57 / *&v54, v58 / *&v56);
+      *&v55 = v55;
+      v58 = fmax([camera4 width], objc_msgSend(camera4, "height"));
+      v59 = fmin([camera4 width], objc_msgSend(camera4, "height"));
+      *&v57 = v57;
+      v60 = fmaxf(v58 / *&v55, v59 / *&v57);
       camera7 = [(SCNNode *)self->_cameraNode camera];
-      [camera7 setGrainScale:v59];
+      [camera7 setGrainScale:v60];
 
       camera8 = [(SCNNode *)self->_cameraNode camera];
       [camera8 setGrainIsColored:1];
@@ -1070,11 +1067,11 @@ LABEL_26:
       camera9 = [(SCNNode *)self->_cameraNode camera];
       [camera9 setGrainTexture:cameraGrainTexture];
 
-      v40 = v69;
+      v41 = v69;
       [v6 cameraGrainIntensity];
-      v65 = v64;
+      v66 = v65;
       camera10 = [(SCNNode *)self->_cameraNode camera];
-      [camera10 setGrainSlice:v65];
+      [camera10 setGrainSlice:v66];
     }
 
     [v6 timestamp];
@@ -1084,34 +1081,29 @@ LABEL_26:
   }
 
 LABEL_57:
-
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 void __36__ARSCNView__renderer_updateAtTime___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setRotationSnapshotState:0];
   [*(*(a1 + 32) + 792) removeFromSuperview];
   v2 = *(a1 + 32);
   v3 = *(v2 + 792);
   *(v2 + 792) = 0;
 
-  v4 = _ARLogGeneral_0();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = _ARLogGeneral_0(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(a1 + 32);
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     v8 = *(a1 + 32);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2048;
-    v13 = v8;
-    _os_log_impl(&dword_23D3AE000, v4, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Removing rotation snapshot", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2048;
+    v12 = v8;
+    _os_log_impl(&dword_23D3AE000, v5, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Removing rotation snapshot", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session didUpdateFrame:(id)frame
@@ -1125,27 +1117,27 @@ void __36__ARSCNView__renderer_updateAtTime___block_invoke(uint64_t a1)
 
 - (void)session:(id)session didChangeState:(unint64_t)state
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self->_session == session)
   {
-    v6 = _ARLogGeneral_0();
+    v6 = _ARLogGeneral_0(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v7 = objc_opt_class();
       v8 = NSStringFromClass(v7);
       v9 = "NO";
-      v13 = 138543874;
-      v14 = v8;
+      v12 = 138543874;
+      v13 = v8;
       if (state == 1)
       {
         v9 = "YES";
       }
 
-      v15 = 2048;
+      v14 = 2048;
       selfCopy = self;
-      v17 = 2082;
-      v18 = v9;
-      _os_log_impl(&dword_23D3AE000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Setting playing state to %{public}s", &v13, 0x20u);
+      v16 = 2082;
+      v17 = v9;
+      _os_log_impl(&dword_23D3AE000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Setting playing state to %{public}s", &v12, 0x20u);
     }
 
     v10 = state == 1;
@@ -1155,8 +1147,6 @@ void __36__ARSCNView__renderer_updateAtTime___block_invoke(uint64_t a1)
     renderer = [(ARSCNView *)self renderer];
     [renderer set_enableARMode:1];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session didAddAnchors:(id)anchors
@@ -1726,7 +1716,7 @@ uint64_t __36__ARSCNView__anchorForNode_inFrame___block_invoke(uint64_t a1, void
       _Q0.f32[1] = _S5 + _S5;
       _Q0.i64[1] = _S1;
       v44 = _Q0;
-      [cameraCopy transform];
+      objc_msgSend_transform(cameraCopy);
       v41 = 0;
       v49[0] = v48;
       v49[1] = v46;
@@ -1800,11 +1790,11 @@ uint64_t __36__ARSCNView__anchorForNode_inFrame___block_invoke(uint64_t a1, void
 
 - (void)_updateProbesWithFrame:(id)frame
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
   renderFramesPerSecond = [frameCopy renderFramesPerSecond];
   lightEstimate = [frameCopy lightEstimate];
-  v58 = frameCopy;
+  v57 = frameCopy;
   if (lightEstimate)
   {
     lightEstimate2 = [frameCopy lightEstimate];
@@ -1818,29 +1808,29 @@ uint64_t __36__ARSCNView__anchorForNode_inFrame___block_invoke(uint64_t a1, void
     v9 = 1000.0;
   }
 
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
-  v57 = objc_opt_new();
+  v56 = objc_opt_new();
   v10 = self->_environmentProbeNodes;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v63 objects:v68 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v62 objects:v67 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 1.0 / renderFramesPerSecond;
-    v14 = *v64;
+    v14 = *v63;
     v15 = v13;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v64 != v14)
+        if (*v63 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v63 + 1) + 8 * i);
+        v17 = *(*(&v62 + 1) + 8 * i);
         light = [v17 light];
 
         if (light)
@@ -1880,7 +1870,7 @@ uint64_t __36__ARSCNView__anchorForNode_inFrame___block_invoke(uint64_t a1, void
             if (!v31)
             {
               v32 = MEMORY[0x277CCABB0];
-              [v58 timestamp];
+              [v57 timestamp];
               v33 = [v32 numberWithDouble:?];
               [v17 setValue:v33 forKey:@"timestamp"];
             }
@@ -1895,7 +1885,7 @@ uint64_t __36__ARSCNView__anchorForNode_inFrame___block_invoke(uint64_t a1, void
             {
               v38 = probeEnvironment4;
               v39 = v36 + 1.0;
-              [v58 timestamp];
+              [v57 timestamp];
               v41 = v40;
 
               if (v39 < v41)
@@ -1912,7 +1902,7 @@ uint64_t __36__ARSCNView__anchorForNode_inFrame___block_invoke(uint64_t a1, void
 
                 if (v48 <= 0.0)
                 {
-                  [v57 addObject:v17];
+                  [v56 addObject:v17];
                 }
               }
 
@@ -1931,77 +1921,75 @@ LABEL_21:
         }
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v63 objects:v68 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v62 objects:v67 count:16];
     }
 
     while (v12);
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
-  v50 = v57;
-  v51 = [v50 countByEnumeratingWithState:&v59 objects:v67 count:16];
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v50 = v56;
+  v51 = [v50 countByEnumeratingWithState:&v58 objects:v66 count:16];
   if (v51)
   {
     v52 = v51;
-    v53 = *v60;
+    v53 = *v59;
     do
     {
       for (j = 0; j != v52; ++j)
       {
-        if (*v60 != v53)
+        if (*v59 != v53)
         {
           objc_enumerationMutation(v50);
         }
 
-        v55 = *(*(&v59 + 1) + 8 * j);
+        v55 = *(*(&v58 + 1) + 8 * j);
         [(NSMutableArray *)self->_environmentProbeNodes removeObject:v55];
         [(NSMutableArray *)self->_environmentProbeNodesToRemove addObject:v55];
       }
 
-      v52 = [v50 countByEnumeratingWithState:&v59 objects:v67 count:16];
+      v52 = [v50 countByEnumeratingWithState:&v58 objects:v66 count:16];
     }
 
     while (v52);
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addAnchors:(id)anchors
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   anchorsCopy = anchors;
   if ([anchorsCopy count])
   {
     v5 = objc_opt_new();
     dispatch_semaphore_wait(self->_nodesSemaphore, 0xFFFFFFFFFFFFFFFFLL);
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v35 = anchorsCopy;
+    v34 = anchorsCopy;
     obj = anchorsCopy;
-    v6 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v6 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v39;
+      v8 = *v38;
       v9 = 0x27E2BD000uLL;
       do
       {
         v10 = 0;
-        v36 = v7;
+        v35 = v7;
         do
         {
-          if (*v39 != v8)
+          if (*v38 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v38 + 1) + 8 * v10);
+          v11 = *(*(&v37 + 1) + 8 * v10);
           v12 = *(v9 + 960);
           v13 = *(&self->super.super.super.super.isa + v12);
           identifier = [v11 identifier];
@@ -2045,7 +2033,7 @@ LABEL_21:
             v9 = v22;
             v5 = v21;
             v8 = v20;
-            v7 = v36;
+            v7 = v35;
           }
 
           if ([(ARSCNView *)self providesOcclusionGeometry])
@@ -2060,7 +2048,7 @@ LABEL_15:
         }
 
         while (v7 != v10);
-        v7 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v7 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
       while (v7);
@@ -2095,36 +2083,34 @@ LABEL_15:
       while (v28 < [v5 count]);
     }
 
-    anchorsCopy = v35;
+    anchorsCopy = v34;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAnchors:(id)anchors frame:(id)frame
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   obj = anchors;
   frameCopy = frame;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
+    v8 = *v26;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * i);
+        v10 = *(*(&v25 + 1) + 8 * i);
         nodesByAnchorIdentifier = self->_nodesByAnchorIdentifier;
         identifier = [v10 identifier];
         v13 = [(NSMutableDictionary *)nodesByAnchorIdentifier objectForKeyedSubscript:identifier];
@@ -2166,7 +2152,7 @@ LABEL_12:
         if (v16)
         {
           [v16 setCategoryBitMask:{objc_msgSend(v16, "categoryBitMask") | 0x40000000}];
-          [v10 transform];
+          objc_msgSend_transform(v10);
           [v16 setSimdTransform:?];
         }
 
@@ -2187,18 +2173,16 @@ LABEL_12:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v7);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateNode:(id)node forAnchor:(id)anchor frame:(id)frame
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   anchorCopy = anchor;
   objc_opt_class();
@@ -2255,9 +2239,9 @@ LABEL_12:
         [light3 setParallaxCorrectionEnabled:v25];
 
         [v20 extent];
-        v44 = v27;
+        v43 = v27;
         light4 = [nodeCopy light];
-        [light4 setProbeExtents:v44];
+        [light4 setProbeExtents:v43];
 
         light5 = [nodeCopy light];
         [light5 setParallaxCenterOffset:-0.000000381469818];
@@ -2274,29 +2258,29 @@ LABEL_12:
         probeEnvironment4 = [light8 probeEnvironment];
         [probeEnvironment4 setIntensity:0.0];
 
-        v47 = 0u;
-        v48 = 0u;
-        v45 = 0u;
         v46 = 0u;
+        v47 = 0u;
+        v44 = 0u;
+        v45 = 0u;
         v36 = self->_environmentProbeNodesToRemove;
-        v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v44 objects:v48 count:16];
         if (v37)
         {
           v38 = v37;
-          v39 = *v46;
+          v39 = *v45;
           do
           {
             for (i = 0; i != v38; ++i)
             {
-              if (*v46 != v39)
+              if (*v45 != v39)
               {
                 objc_enumerationMutation(v36);
               }
 
-              [*(*(&v45 + 1) + 8 * i) removeFromParentNode];
+              [*(*(&v44 + 1) + 8 * i) removeFromParentNode];
             }
 
-            v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v45 objects:v49 count:16];
+            v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v44 objects:v48 count:16];
           }
 
           while (v38);
@@ -2307,7 +2291,7 @@ LABEL_12:
     }
   }
 
-  [anchorCopy transform];
+  objc_msgSend_transform(anchorCopy);
   [nodeCopy setSimdTransform:?];
   if (objc_opt_respondsToSelector())
   {
@@ -2333,39 +2317,37 @@ LABEL_12:
       [nodeCopy setHidden:{objc_msgSend(anchorCopy, "isTracked") ^ 1}];
     }
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeAnchors:(id)anchors
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   anchorsCopy = anchors;
   if ([anchorsCopy count])
   {
     v5 = objc_opt_new();
     dispatch_semaphore_wait(self->_nodesSemaphore, 0xFFFFFFFFFFFFFFFFLL);
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v31 = anchorsCopy;
+    v30 = anchorsCopy;
     obj = anchorsCopy;
-    v6 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v6 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v34;
+      v8 = *v33;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v34 != v8)
+          if (*v33 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v33 + 1) + 8 * i);
+          v10 = *(*(&v32 + 1) + 8 * i);
           if ([(ARSCNView *)self providesOcclusionGeometry])
           {
             occlusionGeometryNodesByAnchorIdentifier = self->_occlusionGeometryNodesByAnchorIdentifier;
@@ -2407,7 +2389,7 @@ LABEL_12:
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v7 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v7);
@@ -2442,10 +2424,8 @@ LABEL_12:
       while (v24 < [v5 count]);
     }
 
-    anchorsCopy = v31;
+    anchorsCopy = v30;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addOcclusionGeometryForAnchor:(id)anchor
@@ -2571,7 +2551,6 @@ LABEL_15:
     v24 = self->_arDebugOptions & 0x20000000;
     if (v24 != showOcclusionGeometry)
     {
-      self->_arDebugOptions;
       [(ARSCNCompositor *)self->_compositor setShowOcclusionGeometry:v24 != 0];
     }
   }
@@ -2579,7 +2558,7 @@ LABEL_15:
 
 - (void)_updateOcclusionCompositor
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   configuration = [(ARSession *)self->_session configuration];
   disableOcclusionForPersonSegmentation = [configuration disableOcclusionForPersonSegmentation];
 
@@ -2588,16 +2567,15 @@ LABEL_15:
 LABEL_2:
     compositor = self->_compositor;
     self->_compositor = 0;
-    v6 = *MEMORY[0x277D85DE8];
 
     return;
   }
 
-  v7 = self->_compositorAlgorithm == 1;
+  v6 = self->_compositorAlgorithm == 1;
   configuration2 = [(ARSession *)self->_session configuration];
-  v9 = ~[configuration2 frameSemantics] & 3;
+  v8 = ~[configuration2 frameSemantics] & 3;
 
-  if (v9)
+  if (v8)
   {
     configuration3 = [(ARSession *)self->_session configuration];
     frameSemantics = [configuration3 frameSemantics];
@@ -2607,15 +2585,15 @@ LABEL_2:
       goto LABEL_2;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  if ([(ARSCNCompositor *)self->_compositor compositorAlgorithm]!= v7 || v10 != [(ARSCNCompositor *)self->_compositor mode])
+  if ([(ARSCNCompositor *)self->_compositor compositorAlgorithm]!= v6 || (v12 = [(ARSCNCompositor *)self->_compositor mode], v9 != v12))
   {
     v13 = self->_compositor;
     self->_compositor = 0;
@@ -2623,28 +2601,26 @@ LABEL_2:
 
   if (!self->_compositor)
   {
-    v14 = _ARLogGeneral_0();
+    v14 = _ARLogGeneral_0(v12);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = objc_opt_class();
       v16 = NSStringFromClass(v15);
-      v20 = 138544130;
-      v21 = v16;
-      v22 = 2048;
+      v19 = 138544130;
+      v20 = v16;
+      v21 = 2048;
       selfCopy = self;
-      v24 = 2048;
-      v25 = v10;
-      v26 = 2048;
-      v27 = v7;
-      _os_log_impl(&dword_23D3AE000, v14, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Setting up ARSCNCompositor (%li, %li)", &v20, 0x2Au);
+      v23 = 2048;
+      v24 = v9;
+      v25 = 2048;
+      v26 = v6;
+      _os_log_impl(&dword_23D3AE000, v14, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Setting up ARSCNCompositor (%li, %li)", &v19, 0x2Au);
     }
 
-    v17 = [[ARSCNCompositor alloc] initWithView:self mode:v10 algorithm:v7];
+    v17 = [[ARSCNCompositor alloc] initWithView:self mode:v9 algorithm:v6];
     v18 = self->_compositor;
     self->_compositor = v17;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCompositorAlgorithm:(int64_t)algorithm
@@ -2657,19 +2633,17 @@ LABEL_2:
   v8[4] = self;
   v8[5] = algorithm;
   dispatch_async(MEMORY[0x277D85CD0], v8);
-  v4 = _ARLogGeneral_0();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = _ARLogGeneral_0(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
     *buf = 138543618;
-    v10 = v6;
+    v10 = v7;
     v11 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_23D3AE000, v4, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Called set algorithm", buf, 0x16u);
+    _os_log_impl(&dword_23D3AE000, v5, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Called set algorithm", buf, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __36__ARSCNView_setCompositorAlgorithm___block_invoke(uint64_t a1)
@@ -2694,6 +2668,15 @@ void __36__ARSCNView_setCompositorAlgorithm___block_invoke(uint64_t a1)
   v3.receiver = self;
   v3.super_class = ARSCNView;
   return [(ARSCNView *)&v3 preferredFramesPerSecond];
+}
+
+- (void)_updateFramesPerSecondWithTarget:(int64_t)target shouldRestrictFrameRate:(BOOL)rate
+{
+  rateCopy = rate;
+  [(ARSCNView *)self setTargetFramesPerSecond:target];
+  [(ARSCNView *)self setShouldRestrictFrameRate:rateCopy];
+
+  [(ARSCNView *)self _updatePreferredFramesPerSecond];
 }
 
 - (void)_updatePreferredFramesPerSecond
@@ -2803,25 +2786,26 @@ void __28__ARSCNView_didMoveToWindow__block_invoke()
 
     self->_lastInterfaceOrientation = self->_interfaceOrientation;
     self->_interfaceOrientation = [v9 integerValue];
-    [(ARSCNView *)self transform];
-    if (CGAffineTransformIsIdentity(&v21))
+    objc_msgSend_transform(self);
+    IsIdentity = CGAffineTransformIsIdentity(&v21);
+    if (IsIdentity)
     {
-      v10 = _ARLogGeneral_0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = _ARLogGeneral_0(IsIdentity);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         LODWORD(v21.a) = 138543618;
-        *(&v21.a + 4) = v12;
+        *(&v21.a + 4) = v13;
         WORD2(v21.b) = 2048;
         *(&v21.b + 6) = self;
-        _os_log_impl(&dword_23D3AE000, v10, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: ARSCNViewRotationSnapshotStateSettingUp", &v21, 0x16u);
+        _os_log_impl(&dword_23D3AE000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: ARSCNViewRotationSnapshotStateSettingUp", &v21, 0x16u);
       }
 
       [(ARSCNView *)self setRotationSnapshotState:1];
-      v13 = [(ARSCNView *)self snapshotViewAfterScreenUpdates:0];
+      v14 = [(ARSCNView *)self snapshotViewAfterScreenUpdates:0];
       rotationSnapshot = self->_rotationSnapshot;
-      self->_rotationSnapshot = v13;
+      self->_rotationSnapshot = v14;
 
       [(UIView *)self->_rotationSnapshot setAutoresizingMask:45];
       [(UIView *)self->_rotationSnapshot setUserInteractionEnabled:0];
@@ -2853,41 +2837,36 @@ void __28__ARSCNView_didMoveToWindow__block_invoke()
 
     kdebug_trace();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42__ARSCNView_windowWillRotateNotification___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = _ARLogGeneral_0();
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = _ARLogGeneral_0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    v6 = *(a1 + 32);
-    v13 = 138543618;
+    v3 = objc_opt_class();
+    v4 = NSStringFromClass(v3);
+    v5 = *(a1 + 32);
+    v11 = 138543618;
+    v12 = v4;
+    v13 = 2048;
     v14 = v5;
-    v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_23D3AE000, v2, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: ARSCNViewRotationSnapshotStateSetUp", &v13, 0x16u);
+    _os_log_impl(&dword_23D3AE000, v2, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: ARSCNViewRotationSnapshotStateSetUp", &v11, 0x16u);
   }
 
   [*(a1 + 32) setRotationSnapshotState:2];
   [*(a1 + 32) _forceUpdateCamera];
   [*(a1 + 32) _updateBackingSize];
-  v7 = [*(a1 + 32) renderer];
-  [v7 _setInterfaceOrientation:*(*(a1 + 32) + 752)];
+  v6 = [*(a1 + 32) renderer];
+  [v6 _setInterfaceOrientation:*(*(a1 + 32) + 752)];
 
-  v8 = *(a1 + 32);
-  v9 = v8[94];
-  v10 = [v8 compositor];
-  [v10 setCurrentOrientation:v9];
+  v7 = *(a1 + 32);
+  v8 = v7[94];
+  v9 = [v7 compositor];
+  [v9 setCurrentOrientation:v8];
 
-  result = [*(a1 + 32) setFrameToRemoveRotationSnapshotOn:0];
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setFrameToRemoveRotationSnapshotOn:0];
 }
 
 - (void)windowWillAnimateRotateNotification:(id)notification

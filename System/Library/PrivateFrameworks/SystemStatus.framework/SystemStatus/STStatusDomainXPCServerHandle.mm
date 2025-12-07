@@ -143,11 +143,11 @@ id __37__STStatusDomainXPCServerHandle_init__block_invoke()
   return v5;
 }
 
-void __54__STStatusDomainXPCServerHandle_dataForDomain_client___block_invoke(uint64_t a1)
+void __54__STStatusDomainXPCServerHandle_dataForDomain_client___block_invoke(void *a1)
 {
-  v5 = [(STStatusDomainXPCServerHandle *)*(a1 + 32) _internalQueue_dataForDomain:?];
+  v5 = [(STStatusDomainXPCServerHandle *)a1[4] _internalQueue_dataForDomain:?];
   v2 = [v5 copyWithZone:0];
-  v3 = *(*(a1 + 40) + 8);
+  v3 = *(a1[5] + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 }
@@ -442,7 +442,7 @@ void __72__STStatusDomainXPCServerHandle_reportUserInteraction_forClient_domain_
 
 void __73__STStatusDomainXPCServerHandle_observeData_forDomain_withChangeContext___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (STSystemStatusIsInternalLoggingEnabled_onceToken != -1)
   {
     dispatch_once(&STSystemStatusIsInternalLoggingEnabled_onceToken, &__block_literal_global_56);
@@ -456,13 +456,13 @@ void __73__STStatusDomainXPCServerHandle_observeData_forDomain_withChangeContext
       v3 = STSystemStatusDescriptionForDomain(*(a1 + 56));
       v4 = *(a1 + 32);
       v5 = *(a1 + 40);
-      v13 = 138543874;
-      v14 = v3;
-      v15 = 2114;
-      v16 = v4;
-      v17 = 2114;
-      v18 = v5;
-      _os_log_impl(&dword_1DA9C2000, v2, OS_LOG_TYPE_DEFAULT, "Received data for %{public}@ domain: %{public}@ -- context: %{public}@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v3;
+      v14 = 2114;
+      v15 = v4;
+      v16 = 2114;
+      v17 = v5;
+      _os_log_impl(&dword_1DA9C2000, v2, OS_LOG_TYPE_DEFAULT, "Received data for %{public}@ domain: %{public}@ -- context: %{public}@", &v12, 0x20u);
     }
   }
 
@@ -515,13 +515,11 @@ LABEL_15:
   }
 
 LABEL_18:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_internalQueue_sendClientsData:(unint64_t)data forDomain:(void *)domain withChangeContext:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v7 = a2;
   domainCopy = domain;
   if (self)
@@ -539,11 +537,11 @@ LABEL_18:
       {
         v10 = STSystemStatusDescriptionForDomain(data);
         *buf = 138543874;
-        v22 = v10;
-        v23 = 2114;
-        v24 = v7;
-        v25 = 2114;
-        v26 = domainCopy;
+        v21 = v10;
+        v22 = 2114;
+        v23 = v7;
+        v24 = 2114;
+        v25 = domainCopy;
         _os_log_impl(&dword_1DA9C2000, v9, OS_LOG_TYPE_DEFAULT, "Sending data to observers for %{public}@ domain: %{public}@ -- context: %{public}@", buf, 0x20u);
       }
     }
@@ -552,19 +550,17 @@ LABEL_18:
     v12 = [v11 copy];
 
     v13 = *(self + 32);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __92__STStatusDomainXPCServerHandle__internalQueue_sendClientsData_forDomain_withChangeContext___block_invoke;
-    v16[3] = &unk_1E85DE128;
-    v17 = v12;
-    v18 = v7;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __92__STStatusDomainXPCServerHandle__internalQueue_sendClientsData_forDomain_withChangeContext___block_invoke;
+    v15[3] = &unk_1E85DE128;
+    v16 = v12;
+    v17 = v7;
     dataCopy = data;
-    v19 = domainCopy;
+    v18 = domainCopy;
     v14 = v12;
-    dispatch_async(v13, v16);
+    dispatch_async(v13, v15);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observeDiff:(id)diff forDomain:(unint64_t)domain withChangeContext:(id)context
@@ -597,7 +593,7 @@ LABEL_18:
 
 void __73__STStatusDomainXPCServerHandle_observeDiff_forDomain_withChangeContext___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (STSystemStatusIsInternalLoggingEnabled_onceToken != -1)
   {
     dispatch_once(&STSystemStatusIsInternalLoggingEnabled_onceToken, &__block_literal_global_56);
@@ -611,13 +607,13 @@ void __73__STStatusDomainXPCServerHandle_observeDiff_forDomain_withChangeContext
       v3 = STSystemStatusDescriptionForDomain(*(a1 + 56));
       v4 = *(a1 + 32);
       v5 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v3;
-      v12 = 2114;
-      v13 = v4;
-      v14 = 2114;
-      v15 = v5;
-      _os_log_impl(&dword_1DA9C2000, v2, OS_LOG_TYPE_DEFAULT, "Received diff for %{public}@ domain: %{public}@ -- context: %{public}@", &v10, 0x20u);
+      v9 = 138543874;
+      v10 = v3;
+      v11 = 2114;
+      v12 = v4;
+      v13 = 2114;
+      v14 = v5;
+      _os_log_impl(&dword_1DA9C2000, v2, OS_LOG_TYPE_DEFAULT, "Received diff for %{public}@ domain: %{public}@ -- context: %{public}@", &v9, 0x20u);
     }
   }
 
@@ -629,8 +625,6 @@ void __73__STStatusDomainXPCServerHandle_observeDiff_forDomain_withChangeContext
     v8 = [v7 copyWithZone:0];
     [(STStatusDomainXPCServerHandle *)*(a1 + 48) _internalQueue_sendClientsData:v8 forDomain:*(a1 + 56) withChangeContext:*(a1 + 40)];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didObserveServerLaunch:(id)launch
@@ -738,20 +732,19 @@ void __77__STStatusDomainXPCServerHandle_serverDataForDomains_preferredLocalizat
 
 void __77__STStatusDomainXPCServerHandle_serverDataForDomains_preferredLocalizations___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = STSystemStatusLogObservation();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [v3 localizedDescription];
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1DA9C2000, v5, OS_LOG_TYPE_DEFAULT, "Failed to get server proxy in serverDataForDomains: -- error: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1DA9C2000, v5, OS_LOG_TYPE_DEFAULT, "Failed to get server proxy in serverDataForDomains: -- error: %{public}@", &v7, 0xCu);
   }
 
   [(STStatusDomainXPCServerHandle *)WeakRetained _tearDownXPCConnection];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_tearDownXPCConnection
@@ -770,25 +763,25 @@ void __77__STStatusDomainXPCServerHandle_serverDataForDomains_preferredLocalizat
 
 id __77__STStatusDomainXPCServerHandle_serverDataForDomains_preferredLocalizations___block_invoke_20(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2020000000;
-    v17 = 1;
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x2020000000;
+    v16 = 1;
     v4 = STValidStatusDomainDataTypes();
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __77__STStatusDomainXPCServerHandle_serverDataForDomains_preferredLocalizations___block_invoke_2_22;
-    v11[3] = &unk_1E85DE1A0;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __77__STStatusDomainXPCServerHandle_serverDataForDomains_preferredLocalizations___block_invoke_2_22;
+    v10[3] = &unk_1E85DE1A0;
     v5 = v4;
-    v12 = v5;
-    v13 = &v14;
-    [v3 enumerateKeysAndObjectsUsingBlock:v11];
-    if (*(v15 + 24) == 1)
+    v11 = v5;
+    v12 = &v13;
+    [v3 enumerateKeysAndObjectsUsingBlock:v10];
+    if (*(v14 + 24) == 1)
     {
       v6 = v3;
     }
@@ -798,24 +791,22 @@ id __77__STStatusDomainXPCServerHandle_serverDataForDomains_preferredLocalizatio
       v7 = STSystemStatusLogDataIntegrity();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v10 = *(a1 + 32);
+        v9 = *(a1 + 32);
         *buf = 138543362;
-        v19 = v10;
+        v18 = v9;
         _os_log_error_impl(&dword_1DA9C2000, v7, OS_LOG_TYPE_ERROR, "decoded invalid server data for domains: %{public}@", buf, 0xCu);
       }
 
       v6 = 0;
     }
 
-    _Block_object_dispose(&v14, 8);
+    _Block_object_dispose(&v13, 8);
   }
 
   else
   {
     v6 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -934,38 +925,36 @@ void __71__STStatusDomainXPCServerHandle_descriptionBuilderWithMultilinePrefix__
 
 void __92__STStatusDomainXPCServerHandle__internalQueue_sendClientsData_forDomain_withChangeContext___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) observeData:*(a1 + 40) forDomain:*(a1 + 56) withChangeContext:{*(a1 + 48), v8}];
+        [*(*(&v7 + 1) + 8 * v6++) observeData:*(a1 + 40) forDomain:*(a1 + 56) withChangeContext:{*(a1 + 48), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __77__STStatusDomainXPCServerHandle__internalQueue_setupXPCConnectionIfNecessary__block_invoke()
@@ -993,20 +982,19 @@ void __77__STStatusDomainXPCServerHandle__internalQueue_setupXPCConnectionIfNece
 
 void __77__STStatusDomainXPCServerHandle__internalQueue_setupXPCConnectionIfNecessary__block_invoke_32(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = STSystemStatusLogObservation();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [v3 localizedDescription];
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1DA9C2000, v5, OS_LOG_TYPE_DEFAULT, "Server proxy error, re-registering if necessary: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1DA9C2000, v5, OS_LOG_TYPE_DEFAULT, "Server proxy error, re-registering if necessary: %{public}@", &v7, 0xCu);
   }
 
   [(STStatusDomainXPCServerHandle *)WeakRetained _reregisterForDomainsIfNecessary];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __65__STStatusDomainXPCServerHandle__reregisterForDomainsIfNecessary__block_invoke(uint64_t a1)

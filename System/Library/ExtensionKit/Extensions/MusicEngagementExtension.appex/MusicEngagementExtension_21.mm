@@ -1,1129 +1,34 @@
-uint64_t closure #1 in closure #1 in Player.getNowPlaying()(void *a1, uint64_t a2, uint64_t a3)
+uint64_t MPCPlayerResponse.perform(_:issuance:options:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 {
-  if (a2)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-    swift_allocError();
-    *v4 = a2;
-    swift_errorRetain();
-
-    return swift_continuation_throwingResumeWithError();
-  }
-
-  else
-  {
-    **(*(a3 + 64) + 40) = a1;
-    v6 = a1;
-
-    return swift_continuation_throwingResume();
-  }
+  *(v5 + 152) = a4;
+  *(v5 + 104) = a3;
+  *(v5 + 112) = v4;
+  *(v5 + 88) = a1;
+  *(v5 + 96) = a2;
+  return _swift_task_switch(MPCPlayerResponse.perform(_:issuance:options:), 0, 0);
 }
 
-void Player.nowPlayingConfiguration.didset()
+uint64_t MPCPlayerResponse.perform(_:issuance:options:)()
 {
-  v1 = Player.nowPlayingDataSource.getter();
-  v2 = *&v1[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_request];
-
-  v3 = (v0 + OBJC_IVAR____TtC9MusicCore6Player_nowPlayingConfiguration);
-  swift_beginAccess();
-  v4 = v3[1];
-  v5 = *v3;
-  v6 = v4;
-
-  v8 = specialized Player.NowPlayingConfiguration.tracklistRange.getter(v7);
-  v10 = v9;
-
-  v11 = [v2 playingItemProperties];
-  if (v11 && (v12 = v11, v13 = [v11 containsPropertySet:*v3], v12, v13) && (v14 = objc_msgSend(v2, "queueSectionProperties")) != 0)
-  {
-    v15 = v14;
-    v16 = [v14 containsPropertySet:v3[1]];
-
-    v17 = v16 ^ 1;
-  }
-
-  else
-  {
-    v17 = 1;
-  }
-
-  if ([v2 tracklistRange] != v8 || (v17 & 1) != 0 || v18 != v10)
-  {
-    [v2 setPlayingItemProperties:*v3];
-    [v2 setQueueItemProperties:*v3];
-    [v2 setQueueSectionProperties:v3[1]];
-    [v2 setTracklistRange:{v8, v10}];
-    v19 = Player.playbackDataSource.getter();
-    v20 = *&v19[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_request];
-
-    [v20 setPlayingItemProperties:*v3];
-    v21 = OBJC_IVAR____TtC9MusicCore6Player_engineState;
-    swift_beginAccess();
-    if (*(v0 + v21) == 2)
-    {
-      v22 = *(*(v0 + OBJC_IVAR____TtC9MusicCore6Player____lazy_storage___nowPlayingDataSource) + OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_controller);
-      v23 = v22;
-      v24 = &selRef_setNeedsReloadForSignificantRequestChange;
-      if (!v17)
-      {
-        v24 = &selRef_setNeedsReload;
-      }
-
-      [v22 *v24];
-    }
-  }
-}
-
-id Player.nowPlayingConfiguration.getter()
-{
-  v1 = v0 + OBJC_IVAR____TtC9MusicCore6Player_nowPlayingConfiguration;
-  swift_beginAccess();
-  v2 = *v1;
-  v3 = *(v1 + 8);
-  v4 = *v1;
-  v5 = v3;
-
-  return v2;
-}
-
-void Player.nowPlayingConfiguration.setter(void *a1, void *a2, uint64_t a3)
-{
-  v7 = v3 + OBJC_IVAR____TtC9MusicCore6Player_nowPlayingConfiguration;
-  swift_beginAccess();
-  v8 = *v7;
-  v9 = *(v7 + 8);
-  *v7 = a1;
-  *(v7 + 8) = a2;
-  *(v7 + 16) = a3;
-  v10 = a1;
-  v11 = a2;
-
-  Player.nowPlayingConfiguration.didset();
-}
-
-void (*Player.nowPlayingConfiguration.modify(uint64_t a1))(uint64_t a1, char a2)
-{
-  *(a1 + 24) = v1;
-  swift_beginAccess();
-  return Player.nowPlayingConfiguration.modify;
-}
-
-void Player.nowPlayingConfiguration.modify(uint64_t a1, char a2)
-{
-  swift_endAccess();
-  if ((a2 & 1) == 0)
-  {
-    Player.nowPlayingConfiguration.didset();
-  }
-}
-
-unint64_t specialized Player.NowPlayingConfiguration.BadCountedSet.insert(_:)(Swift::UInt a1, Swift::UInt a2)
-{
-  v3 = v2;
-  v6 = *v2;
-  if (!*(v6 + 16) || (result = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2), (v8 & 1) == 0))
-  {
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v13 = *v3;
-    v12 = 1;
-    goto LABEL_6;
-  }
-
-  v9 = *(*(v6 + 56) + 8 * result);
-  v10 = v9 + 1;
-  if (!__OFADD__(v9, 1))
-  {
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v13 = *v3;
-    v12 = v10;
-LABEL_6:
-    result = specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v12, a1, a2, isUniquelyReferenced_nonNull_native);
-    *v3 = v13;
-    return result;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t Player.NowPlayingConfiguration.BadCountedSet.insert(_:)(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 16);
-  v4 = *(v3 - 8);
-  __chkstk_darwin(a1);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  Dictionary.subscript.getter();
-  if (v11)
-  {
-    (*(v4 + 16))(v6, a1, v3);
-    v7 = 1;
-LABEL_4:
-    v10 = v7;
-    v11 = 0;
-    type metadata accessor for Dictionary();
-    return Dictionary.subscript.setter();
-  }
-
-  v8 = v10;
-  result = (*(v4 + 16))(v6, a1, v3);
-  v7 = v8 + 1;
-  if (!__OFADD__(v8, 1))
-  {
-    goto LABEL_4;
-  }
-
-  __break(1u);
-  return result;
-}
-
-Swift::UInt specialized Player.NowPlayingConfiguration.BadCountedSet.remove(_:)(Swift::UInt result, Swift::UInt a2)
-{
-  v3 = v2;
-  v4 = *v2;
-  if (*(v4 + 16))
-  {
-    v5 = a2;
-    v6 = result;
-    result = specialized __RawDictionaryStorage.find<A>(_:)(result, a2);
-    if (v7)
-    {
-      v8 = *(*(v4 + 56) + 8 * result);
-      v9 = v8 - 1;
-      if (__OFSUB__(v8, 1))
-      {
-        __break(1u);
-        goto LABEL_11;
-      }
-
-      if (v9 > 0)
-      {
-        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v15 = *v3;
-        result = specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v9, v6, v5, isUniquelyReferenced_nonNull_native);
-        *v3 = v15;
-        return result;
-      }
-
-      result = specialized __RawDictionaryStorage.find<A>(_:)(v6, v5);
-      if (v11)
-      {
-        v5 = result;
-        v12 = swift_isUniquelyReferenced_nonNull_native();
-        v13 = *v3;
-        v14 = *v3;
-        if (v12)
-        {
-LABEL_8:
-          result = specialized _NativeDictionary._delete(at:)(v5, v13);
-          *v3 = v13;
-          return result;
-        }
-
-LABEL_11:
-        specialized _NativeDictionary.copy()();
-        v13 = v14;
-        goto LABEL_8;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t Player.NowPlayingConfiguration.BadCountedSet.remove(_:)(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 16);
-  v4 = *(v3 - 8);
-  __chkstk_darwin(a1);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = Dictionary.subscript.getter();
-  if (v10 != 1)
-  {
-    v8 = v9 - 1;
-    if (__OFSUB__(v9, 1))
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      (*(v4 + 16))(v6, a1, v3);
-      if (v8 < 1)
-      {
-        v9 = 0;
-        v10 = 1;
-      }
-
-      else
-      {
-        v9 = v8;
-        v10 = 0;
-      }
-
-      type metadata accessor for Dictionary();
-      return Dictionary.subscript.setter();
-    }
-  }
-
-  return result;
-}
-
-double Player.NowPlayingConfiguration.BadCountedSet.makeIterator()@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  specialized Player.NowPlayingConfiguration.BadCountedSet.makeIterator()(a1, &v7);
-  v10[0] = v7;
-  v10[1] = v8;
-  v11 = v9;
-  v3 = type metadata accessor for Dictionary.Iterator._Variant();
-  (*(*(v3 - 8) + 16))(&v6, v10, v3);
-  result = *&v7;
-  v5 = v8;
-  *a2 = v7;
-  *(a2 + 16) = v5;
-  *(a2 + 32) = v9;
-  return result;
-}
-
-double protocol witness for Sequence.makeIterator() in conformance Player.NowPlayingConfiguration.BadCountedSet<A>@<D0>(uint64_t a1@<X8>)
-{
-  specialized Player.NowPlayingConfiguration.BadCountedSet.makeIterator()(*v1, &v7);
-  v10[0] = v7;
-  v10[1] = v8;
-  v11 = v9;
-  v3 = type metadata accessor for Dictionary.Iterator._Variant();
-  (*(*(v3 - 8) + 16))(&v6, v10, v3);
-
-  result = *&v7;
-  v5 = v8;
-  *a1 = v7;
-  *(a1 + 16) = v5;
-  *(a1 + 32) = v9;
-  return result;
-}
-
-uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance Player.NowPlayingConfiguration.BadCountedSet<A>()
-{
-  v0 = specialized Sequence._copyToContiguousArray()();
-
-  return v0;
-}
-
-BOOL Player.canPerform(_:)(void *a1)
-{
-  v2 = a1[3];
-  v3 = a1[4];
-  v4 = __swift_project_boxed_opaque_existential_0Tm(a1, v2);
-
-  return specialized Player.canPerform(_:)(v4, v1, v2, v3);
-}
-
-uint64_t Player.canPerform(anyOf:)(uint64_t a1)
-{
-  swift_conformsToProtocol2();
-  swift_getKeyPath();
-  swift_getKeyPath();
-  static Published.subscript.getter();
-
-  if (v5)
-  {
-    v2 = swift_conformsToProtocol2();
-    v3 = 0;
-    if (v2 && a1)
-    {
-      v3 = (*(v2 + 16))(v5, a1, v2);
-    }
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  return v3 & 1;
-}
-
-uint64_t Player.performWhenAvailable(_:options:issuer:timeout:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, double a6)
-{
-  *(v7 + 376) = v6;
-  *(v7 + 368) = a6;
-  *(v7 + 352) = a4;
-  *(v7 + 360) = a5;
-  *(v7 + 608) = a3;
-  *(v7 + 336) = a1;
-  *(v7 + 344) = a2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0);
-  *(v7 + 384) = swift_task_alloc();
-  *(v7 + 392) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo17MPCPlayerResponseCSg_GMd);
-  *(v7 + 400) = swift_task_alloc();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySo17MPCPlayerResponseCSg_GGMd);
-  *(v7 + 408) = v8;
-  v9 = *(v8 - 8);
-  *(v7 + 416) = v9;
-  *(v7 + 424) = *(v9 + 64);
-  *(v7 + 432) = swift_task_alloc();
-  *(v7 + 440) = swift_task_alloc();
-  *(v7 + 448) = type metadata accessor for Player.CommandIssuance();
-  *(v7 + 456) = swift_task_alloc();
-  *(v7 + 464) = swift_task_alloc();
-  *(v7 + 472) = swift_task_alloc();
-  *(v7 + 480) = swift_task_alloc();
-  *(v7 + 488) = type metadata accessor for MainActor();
-  *(v7 + 496) = static MainActor.shared.getter();
-  v11 = dispatch thunk of Actor.unownedExecutor.getter();
-  *(v7 + 504) = v11;
-  *(v7 + 512) = v10;
-
-  return _swift_task_switch(Player.performWhenAvailable(_:options:issuer:timeout:), v11, v10);
-}
-
-uint64_t Player.performWhenAvailable(_:options:issuer:timeout:)()
-{
-  v76 = v0;
-  v1 = *(v0 + 376);
-  v2 = *(v0 + 336);
-  v3 = v2[3];
-  v4 = v2[4];
-  v5 = __swift_project_boxed_opaque_existential_0Tm(v2, v3);
-  if (specialized Player.canPerform(_:)(v5, v1, v3, v4))
-  {
-    v6 = *(v0 + 336);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MusicCore6PlayerC7Command_pGMd);
-    v7 = swift_allocObject();
-    *(v0 + 576) = v7;
-    *(v7 + 16) = xmmword_1004F2400;
-    outlined init with copy of ActionPerforming(v6, v7 + 32);
-    v8 = swift_task_alloc();
-    *(v0 + 584) = v8;
-    *v8 = v0;
-    v8[1] = Player.performWhenAvailable(_:options:issuer:timeout:);
-    v9 = *(v0 + 352);
-    v10 = *(v0 + 360);
-    v11 = *(v0 + 608);
-    v12 = *(v0 + 344);
-
-    return Player.perform(_:options:issuer:)(v7, v12, v11, v9, v10);
-  }
-
-  else
-  {
-    outlined init with copy of TaskPriority?(*(v0 + 360), v0 + 80, &_s9MusicCore6PlayerC13CommandIssuer_pSgMd);
-    v14 = *(v0 + 104);
-    if (v14)
-    {
-      v15 = *(v0 + 112);
-      __swift_project_boxed_opaque_existential_0Tm((v0 + 80), *(v0 + 104));
-      v16 = (*(v15 + 8))(v14, v15);
-      v14 = v17;
-      __swift_destroy_boxed_opaque_existential_0Tm(v0 + 80);
-    }
-
-    else
-    {
-      outlined destroy of TaskPriority?(v0 + 80, &_s9MusicCore6PlayerC13CommandIssuer_pSgMd);
-      v16 = 0;
-    }
-
-    v18 = *(v0 + 480);
-    v19 = *(v0 + 448);
-    UUID.init()();
-    v20 = (v18 + *(v19 + 20));
-    *v20 = v16;
-    v20[1] = v14;
-    if (one-time initialization token for logger != -1)
-    {
-      swift_once();
-    }
-
-    v21 = type metadata accessor for Logger();
-    *(v0 + 520) = __swift_project_value_buffer(v21, static Player.logger);
-    v22 = Logger.logObject.getter();
-    v23 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v22, v23))
-    {
-      v24 = swift_slowAlloc();
-      *v24 = 0;
-      _os_log_impl(&_mh_execute_header, v22, v23, "╭ ⏱️ Await for command", v24, 2u);
-    }
-
-    v26 = *(v0 + 472);
-    v25 = *(v0 + 480);
-
-    outlined init with copy of Player.CommandIssuance(v25, v26);
-    v27 = Logger.logObject.getter();
-    v28 = static os_log_type_t.default.getter();
-    v29 = os_log_type_enabled(v27, v28);
-    v30 = *(v0 + 472);
-    if (v29)
-    {
-      v31 = swift_slowAlloc();
-      v32 = swift_slowAlloc();
-      v75 = v32;
-      *v31 = 136446210;
-      v33 = Player.CommandIssuance.description.getter();
-      v35 = v34;
-      outlined destroy of Player.CommandIssuance(v30);
-      v36 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v33, v35, &v75);
-
-      *(v31 + 4) = v36;
-      _os_log_impl(&_mh_execute_header, v27, v28, "| issuance=%{public}s", v31, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v32);
-    }
-
-    else
-    {
-
-      outlined destroy of Player.CommandIssuance(v30);
-    }
-
-    v37 = *(v0 + 352);
-    v38 = Logger.logObject.getter();
-    v39 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v38, v39))
-    {
-      v40 = *(v0 + 608);
-      v42 = *(v0 + 344);
-      v41 = *(v0 + 352);
-      v43 = swift_slowAlloc();
-      v44 = swift_slowAlloc();
-      v75 = v44;
-      *v43 = 136446210;
-      v45 = Player.CommandOptions.description.getter(v42, v40, v41);
-      v47 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v45, v46, &v75);
-
-      *(v43 + 4) = v47;
-      _os_log_impl(&_mh_execute_header, v38, v39, "╰ options=%{public}s", v43, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v44);
-    }
-
-    outlined init with copy of ActionPerforming(*(v0 + 336), v0 + 120);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC7Command_pMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC18_NowPlayingCommand_pMd);
-    if (swift_dynamicCast())
-    {
-      __swift_destroy_boxed_opaque_existential_0Tm(v0 + 160);
-    }
-
-    swift_beginAccess();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17MPCPlayerResponseCSgGMd);
-    Published.projectedValue.getter();
-    swift_endAccess();
-    v48 = *(v0 + 432);
-    v49 = *(v0 + 440);
-    v50 = *(v0 + 416);
-    v71 = *(v0 + 424);
-    v51 = *(v0 + 408);
-    v68 = v51;
-    v69 = v48;
-    v52 = *(v0 + 384);
-    v53 = *(v0 + 376);
-    v70 = *(v0 + 360);
-    v74 = *(v0 + 352);
-    v73 = *(v0 + 608);
-    v54 = *(v0 + 336);
-    v72 = *(v0 + 344);
-    lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type Published<MPCPlayerResponse?>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySo17MPCPlayerResponseCSg_GMd);
-    AsyncPublisher.init(_:)();
-    v55 = type metadata accessor for TaskPriority();
-    *(v0 + 528) = v55;
-    v56 = *(v55 - 8);
-    v57 = *(v56 + 56);
-    *(v0 + 536) = v57;
-    *(v0 + 544) = (v56 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-    v57(v52, 1, 1, v55);
-    (*(v50 + 16))(v48, v49, v51);
-    outlined init with copy of ActionPerforming(v54, v0 + 200);
-    outlined init with copy of TaskPriority?(v70, v0 + 240, &_s9MusicCore6PlayerC13CommandIssuer_pSgMd);
-    v58 = v37;
-
-    v59 = static MainActor.shared.getter();
-    v60 = (*(v50 + 80) + 32) & ~*(v50 + 80);
-    v61 = (v71 + v60 + 7) & 0xFFFFFFFFFFFFFFF8;
-    v62 = (v61 + 47) & 0xFFFFFFFFFFFFFFF8;
-    v63 = (v62 + 15) & 0xFFFFFFFFFFFFFFF8;
-    v64 = swift_allocObject();
-    *(v64 + 16) = v59;
-    *(v64 + 24) = &protocol witness table for MainActor;
-    (*(v50 + 32))(v64 + v60, v69, v68);
-    outlined init with take of ActionPerforming((v0 + 200), v64 + v61);
-    *(v64 + v62) = v53;
-    v65 = v64 + v63;
-    *v65 = v72;
-    *(v65 + 8) = v73;
-    *(v65 + 16) = v74;
-    v66 = v64 + ((v63 + 31) & 0xFFFFFFFFFFFFFFF8);
-    v67 = *(v0 + 256);
-    *v66 = *(v0 + 240);
-    *(v66 + 16) = v67;
-    *(v66 + 32) = *(v0 + 272);
-    *(v0 + 552) = _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCSo22MPCPlayerCommandStatusCSg_Tt2g5(0, 0, v52, &async function pointer to partial apply for closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:), v64);
-
-    return _swift_task_switch(Player.performWhenAvailable(_:options:issuer:timeout:), 0, 0);
-  }
-}
-
-{
-  v1 = v0;
-  v2 = v0;
-  v3 = v0 + 2;
-  v4 = v0 + 41;
-  v5 = v0[69];
-  v6 = v0[67];
-  v7 = v0[66];
-  v8 = v0[48];
-  v9 = v1[46];
-  v1[2] = v2;
-  v1[7] = v4;
-  v1[3] = Player.performWhenAvailable(_:options:issuer:timeout:);
-  v10 = swift_continuation_init();
-  v6(v8, 1, 1, v7);
-  v11 = swift_allocObject();
-  v11[2] = 0;
-  v11[3] = 0;
-  v11[4] = v10;
-  v11[5] = v9;
-  v11[6] = v5;
-
-  _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCSo22MPCPlayerCommandStatusCSg_Tt2g5(0, 0, v8, &async function pointer to partial apply for specialized closure #1 in closure #1 in Task.withTimeout(_:), v11);
-
-  return _swift_continuation_await(v3);
-}
-
-{
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 560) = v2;
-  if (v2)
-  {
-    swift_willThrow();
-    v3 = v1[63];
-    v4 = v1[64];
-    v5 = Player.performWhenAvailable(_:options:issuer:timeout:);
-  }
-
-  else
-  {
-    v1[71] = v1[41];
-    v3 = v1[63];
-    v4 = v1[64];
-    v5 = Player.performWhenAvailable(_:options:issuer:timeout:);
-  }
-
-  return _swift_task_switch(v5, v3, v4);
-}
-
-{
-  v25 = v0;
-  v1 = v0[60];
-  v2 = v0[58];
-
-  outlined init with copy of Player.CommandIssuance(v1, v2);
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-  v5 = os_log_type_enabled(v3, v4);
-  v6 = v0[60];
-  v7 = v0[58];
-  v8 = v0[55];
-  v10 = v0[51];
-  v9 = v0[52];
-  if (v5)
-  {
-    v23 = v0[51];
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v24 = v12;
-    *v11 = 136446210;
-    v21 = v8;
-    v22 = v6;
-    v13 = Player.CommandIssuance.description.getter();
-    v15 = v14;
-    outlined destroy of Player.CommandIssuance(v7);
-    v16 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v13, v15, &v24);
-
-    *(v11 + 4) = v16;
-    _os_log_impl(&_mh_execute_header, v3, v4, "⏱️✅ Command became available (%{public}s)", v11, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v12);
-
-    (*(v9 + 8))(v21, v23);
-    v17 = v22;
-  }
-
-  else
-  {
-
-    outlined destroy of Player.CommandIssuance(v7);
-    (*(v9 + 8))(v8, v10);
-    v17 = v6;
-  }
-
-  outlined destroy of Player.CommandIssuance(v17);
-  v18 = v0[71];
-
-  v19 = v0[1];
-
-  return v19(v18);
-}
-
-{
-  v20 = v0;
-  v1 = v0[60];
-  v2 = v0[57];
-
-  outlined init with copy of Player.CommandIssuance(v1, v2);
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.error.getter();
-  v5 = os_log_type_enabled(v3, v4);
-  v6 = v0[57];
-  if (v5)
-  {
-    v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v19 = v8;
-    *v7 = 136446210;
-    v9 = Player.CommandIssuance.description.getter();
-    v11 = v10;
-    outlined destroy of Player.CommandIssuance(v6);
-    v12 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v9, v11, &v19);
-
-    *(v7 + 4) = v12;
-    _os_log_impl(&_mh_execute_header, v3, v4, "⌛️❌ Timed out waiting for command (%{public}s)", v7, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v8);
-  }
-
-  else
-  {
-
-    outlined destroy of Player.CommandIssuance(v6);
-  }
-
-  v13 = v0[60];
-  v14 = v0[55];
-  v15 = v0[51];
-  v16 = v0[52];
-  swift_willThrow();
-  (*(v16 + 8))(v14, v15);
-  outlined destroy of Player.CommandIssuance(v13);
-
-  v17 = v0[1];
-
-  return v17();
-}
-
-{
-  v1 = *(v0 + 592);
-
-  if (v1 >> 62)
-  {
-    result = _CocoaArrayWrapper.endIndex.getter();
-    if (result)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_8:
-
-    v3 = 0;
-    goto LABEL_9;
-  }
-
-  result = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (!result)
-  {
-    goto LABEL_8;
-  }
-
-LABEL_3:
-  if ((v1 & 0xC000000000000001) != 0)
-  {
-    v3 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-  }
-
-  else
-  {
-    if (!*((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      __break(1u);
-      return result;
-    }
-
-    v3 = *(*(v0 + 592) + 32);
-  }
-
-LABEL_9:
-
-  v4 = *(v0 + 8);
-
-  return v4(v3);
-}
-
-{
-
-  v1 = *(v0 + 8);
-
-  return v1();
-}
-
-uint64_t Player.performWhenAvailable(_:options:issuer:timeout:)(uint64_t a1)
-{
-  v3 = *v2;
-  v3[74] = a1;
-  v3[75] = v1;
-
-  if (v1)
-  {
-    v4 = v3[63];
-    v5 = v3[64];
-    v6 = Player.performWhenAvailable(_:options:issuer:timeout:);
-  }
-
-  else
-  {
-
-    v4 = v3[63];
-    v5 = v3[64];
-    v6 = Player.performWhenAvailable(_:options:issuer:timeout:);
-  }
-
-  return _swift_task_switch(v6, v4, v5);
-}
-
-uint64_t closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, char a8)
-{
-  *(v8 + 192) = v14;
-  *(v8 + 200) = v15;
-  *(v8 + 328) = a8;
-  *(v8 + 176) = a6;
-  *(v8 + 184) = a7;
-  *(v8 + 160) = a4;
-  *(v8 + 168) = a5;
-  *(v8 + 152) = a1;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySo17MPCPlayerResponseCSg_G_GMd);
-  *(v8 + 208) = v9;
-  *(v8 + 216) = *(v9 - 8);
-  *(v8 + 224) = swift_task_alloc();
-  *(v8 + 232) = type metadata accessor for MainActor();
-  *(v8 + 240) = static MainActor.shared.getter();
-  v11 = dispatch thunk of Actor.unownedExecutor.getter();
-  *(v8 + 248) = v11;
-  *(v8 + 256) = v10;
-
-  return _swift_task_switch(closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:), v11, v10);
-}
-
-uint64_t closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:)()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySo17MPCPlayerResponseCSg_GGMd);
-  AsyncPublisher.makeAsyncIterator()();
-  v0[33] = static MainActor.shared.getter();
-  v1 = lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type AsyncPublisher<Published<MPCPlayerResponse?>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySo17MPCPlayerResponseCSg_G_GMd);
-  v2 = swift_task_alloc();
-  v0[34] = v2;
-  *v2 = v0;
-  v2[1] = closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:);
-  v3 = v0[26];
-
-  return dispatch thunk of AsyncIteratorProtocol.next()(v0 + 17, v3, v1);
-}
-
-{
-  v2 = *v1;
-  *(*v1 + 280) = v0;
-
-  v3 = *(v2 + 264);
-  if (v0)
-  {
-    if (v3)
-    {
-      swift_getObjectType();
-      v4 = dispatch thunk of Actor.unownedExecutor.getter();
-      v6 = v5;
-    }
-
-    else
-    {
-      v4 = 0;
-      v6 = 0;
-    }
-
-    v7 = closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:);
-  }
-
-  else
-  {
-    if (v3)
-    {
-      swift_getObjectType();
-      v4 = dispatch thunk of Actor.unownedExecutor.getter();
-      v6 = v8;
-    }
-
-    else
-    {
-      v4 = 0;
-      v6 = 0;
-    }
-
-    v7 = closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:);
-  }
-
-  return _swift_task_switch(v7, v4, v6);
-}
-
-{
-
-  v0[36] = v0[17];
-  v1 = v0[31];
-  v2 = v0[32];
-
-  return _swift_task_switch(closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:), v1, v2);
-}
-
-{
-  v1 = *(v0 + 288);
-  if (v1)
-  {
-    if (v1 == 1)
-    {
-      (*(*(v0 + 216) + 8))(*(v0 + 224), *(v0 + 208));
-
-      **(v0 + 152) = 0;
-
-      v2 = *(v0 + 8);
-
-      return v2();
-    }
-
-    outlined init with copy of ActionPerforming(*(v0 + 168), v0 + 56);
-    v4 = v1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC7Command_pMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC8_Command_pMd);
-    v5 = swift_dynamicCast();
-    v6 = *(v0 + 288);
-    if (v5)
-    {
-      outlined init with take of ActionPerforming((v0 + 96), v0 + 16);
-      v7 = *(v0 + 40);
-      v8 = *(v0 + 48);
-      __swift_project_boxed_opaque_existential_0Tm((v0 + 16), v7);
-      v9 = (*(v8 + 24))(v4, v7, v8);
-      outlined consume of MPCPlayerResponse??(v6);
-      if (v9)
-      {
-        v10 = *(v0 + 168);
-
-        __swift_destroy_boxed_opaque_existential_0Tm(v0 + 16);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MusicCore6PlayerC7Command_pGMd);
-        v11 = swift_allocObject();
-        *(v0 + 296) = v11;
-        *(v11 + 16) = xmmword_1004F2400;
-        outlined init with copy of ActionPerforming(v10, v11 + 32);
-        v12 = swift_task_alloc();
-        *(v0 + 304) = v12;
-        *v12 = v0;
-        v12[1] = closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:);
-        v13 = *(v0 + 192);
-        v14 = *(v0 + 200);
-        v15 = *(v0 + 328);
-        v16 = *(v0 + 184);
-
-        return Player.perform(_:options:issuer:)(v11, v16, v15, v13, v14);
-      }
-
-      outlined consume of MPCPlayerResponse??(*(v0 + 288));
-      __swift_destroy_boxed_opaque_existential_0Tm(v0 + 16);
-    }
-
-    else
-    {
-      outlined consume of MPCPlayerResponse??(*(v0 + 288));
-      outlined consume of MPCPlayerResponse??(v6);
-      *(v0 + 128) = 0;
-      *(v0 + 96) = 0u;
-      *(v0 + 112) = 0u;
-      outlined destroy of TaskPriority?(v0 + 96, &_s9MusicCore6PlayerC8_Command_pSgMd);
-    }
-  }
-
-  *(v0 + 264) = static MainActor.shared.getter();
-  v17 = lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type AsyncPublisher<Published<MPCPlayerResponse?>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySo17MPCPlayerResponseCSg_G_GMd);
-  v18 = swift_task_alloc();
-  *(v0 + 272) = v18;
-  *v18 = v0;
-  v18[1] = closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:);
-  v19 = *(v0 + 208);
-
-  return dispatch thunk of AsyncIteratorProtocol.next()(v0 + 136, v19, v17);
-}
-
-{
-  *(v0 + 144) = *(v0 + 280);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-  swift_dynamicCast();
-
-  return swift_willThrowTypedImpl();
-}
-
-{
-  v1 = *(v0 + 312);
-
-  if (v1 >> 62)
-  {
-    result = _CocoaArrayWrapper.endIndex.getter();
-    if (result)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_8:
-    v5 = *(v0 + 288);
-
-    outlined consume of MPCPlayerResponse??(v5);
-    v3 = 0;
-    goto LABEL_9;
-  }
-
-  result = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (!result)
-  {
-    goto LABEL_8;
-  }
-
-LABEL_3:
-  if ((v1 & 0xC000000000000001) != 0)
-  {
-    v3 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-  }
-
-  else
-  {
-    if (!*((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      __break(1u);
-      return result;
-    }
-
-    v3 = *(*(v0 + 312) + 32);
-  }
-
-  v4 = *(v0 + 288);
-
-  outlined consume of MPCPlayerResponse??(v4);
-LABEL_9:
-  (*(*(v0 + 216) + 8))(*(v0 + 224), *(v0 + 208));
-  **(v0 + 152) = v3;
-
-  v6 = *(v0 + 8);
-
-  return v6();
-}
-
-{
-  v1 = v0[36];
-  v3 = v0[27];
-  v2 = v0[28];
-  v4 = v0[26];
-
-  outlined consume of MPCPlayerResponse??(v1);
-  (*(v3 + 8))(v2, v4);
-
-  v5 = v0[1];
-
-  return v5();
-}
-
-uint64_t closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:)(uint64_t a1)
-{
-  v3 = *v2;
-  v4 = *v2;
-  *(v4 + 312) = a1;
-  *(v4 + 320) = v1;
-
-  v5 = *(v3 + 256);
-  v6 = *(v3 + 248);
-  if (v1)
-  {
-    v7 = closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:);
-  }
-
-  else
-  {
-    v7 = closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:);
-  }
-
-  return _swift_task_switch(v7, v6, v5);
-}
-
-uint64_t Player.perform(_:options:issuer:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5)
-{
-  *(v6 + 40) = a5;
-  *(v6 + 48) = v5;
-  *(v6 + 24) = a2;
-  *(v6 + 32) = a4;
-  *(v6 + 112) = a3;
-  *(v6 + 16) = a1;
-  type metadata accessor for MainActor();
-  *(v6 + 56) = static MainActor.shared.getter();
-  v8 = dispatch thunk of Actor.unownedExecutor.getter();
-  *(v6 + 64) = v8;
-  *(v6 + 72) = v7;
-
-  return _swift_task_switch(Player.perform(_:options:issuer:), v8, v7);
-}
-
-{
-  *(v6 + 272) = a5;
-  *(v6 + 280) = v5;
-  *(v6 + 256) = a2;
-  *(v6 + 264) = a4;
-  *(v6 + 512) = a3;
-  *(v6 + 248) = a1;
-  v7 = type metadata accessor for Player.CommandIssuance();
-  *(v6 + 288) = v7;
-  v8 = *(v7 - 8);
-  *(v6 + 296) = v8;
-  *(v6 + 304) = *(v8 + 64);
-  *(v6 + 312) = swift_task_alloc();
-  *(v6 + 320) = swift_task_alloc();
-  *(v6 + 328) = swift_task_alloc();
-  *(v6 + 336) = swift_task_alloc();
-  *(v6 + 344) = swift_task_alloc();
-  *(v6 + 352) = swift_task_alloc();
-  *(v6 + 360) = swift_task_alloc();
-  *(v6 + 368) = swift_task_alloc();
-  *(v6 + 376) = swift_task_alloc();
-  *(v6 + 384) = swift_task_alloc();
-  *(v6 + 392) = type metadata accessor for MainActor();
-  *(v6 + 400) = static MainActor.shared.getter();
-  v10 = dispatch thunk of Actor.unownedExecutor.getter();
-  *(v6 + 408) = v10;
-  *(v6 + 416) = v9;
-
-  return _swift_task_switch(Player.perform(_:options:issuer:), v10, v9);
-}
-
-uint64_t Player.perform(_:options:issuer:)()
-{
-  v1 = *(v0 + 16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MusicCore6PlayerC7Command_pGMd);
-  v2 = swift_allocObject();
-  *(v0 + 80) = v2;
-  *(v2 + 16) = xmmword_1004F2400;
-  outlined init with copy of ActionPerforming(v1, v2 + 32);
+  v1 = *(v0 + 88);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MusicCore6PlayerC7Command_pGMd, &_ss23_ContiguousArrayStorageCy9MusicCore6PlayerC7Command_pGMR);
+  inited = swift_initStackObject();
+  *(v0 + 120) = inited;
+  *(inited + 16) = xmmword_1004F2400;
+  outlined init with copy of ActionPerforming(v1, inited + 32);
   v3 = swift_task_alloc();
-  *(v0 + 88) = v3;
+  *(v0 + 128) = v3;
   *v3 = v0;
-  v3[1] = Player.perform(_:options:issuer:);
-  v4 = *(v0 + 40);
-  v5 = *(v0 + 112);
-  v6 = *(v0 + 24);
-  v7 = *(v0 + 32);
+  v3[1] = MPCPlayerResponse.perform(_:issuance:options:);
+  v4 = *(v0 + 104);
+  v5 = *(v0 + 152);
+  v6 = *(v0 + 96);
 
-  return Player.perform(_:options:issuer:)(v2, v6, v5, v7, v4);
+  return specialized MPCPlayerResponse.perform(_:issuance:options:)(inited, v6, v4, v5);
 }
 
 {
-  v1 = *(v0 + 96);
-
+  v1 = *(v0 + 136);
   if (v1 >> 62)
   {
     result = _CocoaArrayWrapper.endIndex.getter();
@@ -1158,7 +63,7 @@ LABEL_3:
       return result;
     }
 
-    v3 = *(*(v0 + 96) + 32);
+    v3 = *(*(v0 + 136) + 32);
   }
 
 LABEL_9:
@@ -1168,2383 +73,3675 @@ LABEL_9:
 }
 
 {
-
-  v1 = *(v0 + 8);
-
-  return v1();
-}
-
-{
-  v77 = v0;
-  v1 = *(*(v0 + 248) + 16);
-  *(v0 + 424) = v1;
-  if (v1)
-  {
-    outlined init with copy of TaskPriority?(*(v0 + 272), v0 + 128, &_s9MusicCore6PlayerC13CommandIssuer_pSgMd);
-    v2 = *(v0 + 152);
-    if (v2)
-    {
-      v3 = *(v0 + 160);
-      __swift_project_boxed_opaque_existential_0Tm((v0 + 128), *(v0 + 152));
-      v4 = (*(v3 + 8))(v2, v3);
-      v2 = v5;
-      __swift_destroy_boxed_opaque_existential_0Tm(v0 + 128);
-    }
-
-    else
-    {
-      outlined destroy of TaskPriority?(v0 + 128, &_s9MusicCore6PlayerC13CommandIssuer_pSgMd);
-      v4 = 0;
-    }
-
-    v8 = *(v0 + 384);
-    v9 = *(v0 + 288);
-    v10 = *(v0 + 248);
-    UUID.init()();
-    v11 = (v8 + *(v9 + 20));
-    *v11 = v4;
-    v11[1] = v2;
-    *(v0 + 513) = specialized Collection<>.shouldPerformOnNowPlayingResponse.getter(v10) & 1;
-    if (v1 == 1)
-    {
-      v12 = 0x646E616D6D6F63;
-    }
-
-    else
-    {
-      v12 = 0x73646E616D6D6F63;
-    }
-
-    if (v1 == 1)
-    {
-      v13 = 0xE700000000000000;
-    }
-
-    else
-    {
-      v13 = 0xE800000000000000;
-    }
-
-    if (one-time initialization token for logger != -1)
-    {
-      swift_once();
-    }
-
-    v14 = type metadata accessor for Logger();
-    *(v0 + 432) = __swift_project_value_buffer(v14, static Player.logger);
-
-    v15 = Logger.logObject.getter();
-    v16 = static os_log_type_t.default.getter();
-
-    v75 = v12;
-    if (os_log_type_enabled(v15, v16))
-    {
-      v17 = swift_slowAlloc();
-      v18 = swift_slowAlloc();
-      v76 = v18;
-      *v17 = 136315138;
-      *(v17 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v12, v13, &v76);
-      _os_log_impl(&_mh_execute_header, v15, v16, "╭ Will perform %s…", v17, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v18);
-    }
-
-    outlined init with copy of Player.CommandIssuance(*(v0 + 384), *(v0 + 376));
-    v19 = Logger.logObject.getter();
-    v20 = static os_log_type_t.default.getter();
-    v21 = os_log_type_enabled(v19, v20);
-    v22 = *(v0 + 376);
-    if (v21)
-    {
-      v23 = swift_slowAlloc();
-      v24 = swift_slowAlloc();
-      v76 = v24;
-      *v23 = 136446210;
-      v25 = Player.CommandIssuance.description.getter();
-      v27 = v26;
-      outlined destroy of Player.CommandIssuance(v22);
-      v28 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v25, v27, &v76);
-
-      *(v23 + 4) = v28;
-      _os_log_impl(&_mh_execute_header, v19, v20, "| issuance=%{public}s", v23, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v24);
-    }
-
-    else
-    {
-
-      outlined destroy of Player.CommandIssuance(v22);
-    }
-
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v29, v30))
-    {
-      v31 = swift_slowAlloc();
-      v32 = swift_slowAlloc();
-      v76 = v32;
-      *v31 = 136446210;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC7Command_pMd);
-      v33 = Array.description.getter();
-      v35 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v33, v34, &v76);
-
-      *(v31 + 4) = v35;
-      _os_log_impl(&_mh_execute_header, v29, v30, "| %{public}s", v31, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v32);
-    }
-
-    v36 = *(v0 + 264);
-    v37 = Logger.logObject.getter();
-    v38 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v37, v38))
-    {
-      v39 = *(v0 + 512);
-      v41 = *(v0 + 256);
-      v40 = *(v0 + 264);
-      v42 = swift_slowAlloc();
-      v43 = swift_slowAlloc();
-      v76 = v43;
-      *v42 = 136446210;
-      v44 = Player.CommandOptions.description.getter(v41, v39, v40);
-      v46 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v44, v45, &v76);
-
-      *(v42 + 4) = v46;
-      _os_log_impl(&_mh_execute_header, v37, v38, "╰ options=%{public}s", v42, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v43);
-    }
-
-    v47 = *(v0 + 280);
-    v48 = OBJC_IVAR____TtC9MusicCore6Player_engineState;
-    swift_beginAccess();
-    if (*(v47 + v48) != 2)
-    {
-
-      v49 = Logger.logObject.getter();
-      v50 = static os_log_type_t.default.getter();
-
-      v74 = v47;
-      if (os_log_type_enabled(v49, v50))
-      {
-        v51 = swift_slowAlloc();
-        v52 = swift_slowAlloc();
-        v76 = v52;
-        *v51 = 136315138;
-        *(v51 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v75, v13, &v76);
-        _os_log_impl(&_mh_execute_header, v49, v50, "╭ 🕛 Pausing execution for %s", v51, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v52);
-      }
-
-      outlined init with copy of Player.CommandIssuance(*(v0 + 384), *(v0 + 368));
-      v53 = Logger.logObject.getter();
-      v54 = static os_log_type_t.default.getter();
-      v55 = os_log_type_enabled(v53, v54);
-      v56 = *(v0 + 368);
-      if (v55)
-      {
-        v57 = swift_slowAlloc();
-        v58 = swift_slowAlloc();
-        v76 = v58;
-        *v57 = 136446210;
-        v59 = Player.CommandIssuance.description.getter();
-        v61 = v60;
-        outlined destroy of Player.CommandIssuance(v56);
-        v62 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v59, v61, &v76);
-
-        *(v57 + 4) = v62;
-        _os_log_impl(&_mh_execute_header, v53, v54, "| issuance=%{public}s", v57, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v58);
-      }
-
-      else
-      {
-
-        outlined destroy of Player.CommandIssuance(v56);
-      }
-
-      v63 = Logger.logObject.getter();
-      v64 = static os_log_type_t.default.getter();
-
-      if (os_log_type_enabled(v63, v64))
-      {
-        v65 = swift_slowAlloc();
-        v66 = swift_slowAlloc();
-        v76 = v66;
-        *v65 = 136446210;
-        if (*(v74 + v48) > 1u)
-        {
-          if (*(v74 + v48) == 2)
-          {
-            v67 = 0xA900000000000079;
-            v68 = 0x6461655220859CE2;
-          }
-
-          else
-          {
-            v67 = 0xAE0064656C6C6174;
-            v68 = 0x53208FB8EFA09AE2;
-          }
-        }
-
-        else if (*(v74 + v48))
-        {
-          v67 = 0xAD0000676E697472;
-          v68 = 0x61745320809A9FF0;
-        }
-
-        else
-        {
-          v67 = 0xA700000000000000;
-          v68 = 0x66664F208C9DE2;
-        }
-
-        v69 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v68, v67, &v76);
-
-        *(v65 + 4) = v69;
-        _os_log_impl(&_mh_execute_header, v63, v64, "| engine state=%{public}s)", v65, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v66);
-      }
-
-      v70 = Logger.logObject.getter();
-      v71 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v70, v71))
-      {
-        v72 = swift_slowAlloc();
-        *v72 = 0;
-        _os_log_impl(&_mh_execute_header, v70, v71, "╰ Awaiting on engine to be ready", v72, 2u);
-      }
-    }
-
-    v73 = swift_task_alloc();
-    *(v0 + 440) = v73;
-    *v73 = v0;
-    v73[1] = Player.perform(_:options:issuer:);
-
-    return Player.startEngineIfNeeded()();
-  }
-
-  else
-  {
-
-    v6 = *(v0 + 8);
-
-    return v6(_swiftEmptyArrayStorage);
-  }
-}
-
-{
-  v1 = *v0;
-
-  v2 = *(v1 + 416);
-  v3 = *(v1 + 408);
-
-  return _swift_task_switch(Player.perform(_:options:issuer:), v3, v2);
-}
-
-{
-  v112 = v0;
-  v1 = *(v0 + 264);
-  if (v1)
-  {
-    v2 = 0xE800000000000000;
-    v3 = objc_allocWithZone(MPCPlayerRequest);
-    v4 = v1;
-    v5 = [v3 init];
-    *(v0 + 448) = v5;
-
-    v6 = Logger.logObject.getter();
-    v7 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v6, v7))
-    {
-      if (*(v0 + 424) == 1)
-      {
-        v8 = 0x646E616D6D6F63;
-      }
-
-      else
-      {
-        v8 = 0x73646E616D6D6F63;
-      }
-
-      if (*(v0 + 424) == 1)
-      {
-        v2 = 0xE700000000000000;
-      }
-
-      v9 = swift_slowAlloc();
-      v10 = swift_slowAlloc();
-      v111[0] = v10;
-      *v9 = 136315138;
-      *(v9 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v8, v2, v111);
-      _os_log_impl(&_mh_execute_header, v6, v7, "╭ 🔊 Resolving specified route for %s", v9, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v10);
-    }
-
-    outlined init with copy of Player.CommandIssuance(*(v0 + 384), *(v0 + 360));
-    v11 = Logger.logObject.getter();
-    v12 = static os_log_type_t.default.getter();
-    v13 = os_log_type_enabled(v11, v12);
-    v14 = *(v0 + 360);
-    if (v13)
-    {
-      v15 = swift_slowAlloc();
-      v16 = swift_slowAlloc();
-      v111[0] = v16;
-      *v15 = 136446210;
-      v17 = Player.CommandIssuance.description.getter();
-      v19 = v18;
-      outlined destroy of Player.CommandIssuance(v14);
-      v20 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v17, v19, v111);
-
-      *(v15 + 4) = v20;
-      _os_log_impl(&_mh_execute_header, v11, v12, "| issuance=%{public}s", v15, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v16);
-    }
-
-    else
-    {
-
-      outlined destroy of Player.CommandIssuance(v14);
-    }
-
-    v40 = *(v0 + 264);
-    v41 = Logger.logObject.getter();
-    v42 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v41, v42))
-    {
-      v43 = *(v0 + 264);
-      v44 = swift_slowAlloc();
-      v45 = swift_slowAlloc();
-      v111[0] = v45;
-      *v44 = 136446210;
-      v46 = v43;
-      v47 = [v46 description];
-      v48 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v50 = v49;
-
-      v51 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v48, v50, v111);
-
-      *(v44 + 4) = v51;
-      _os_log_impl(&_mh_execute_header, v41, v42, "╰ 🔊 Route=%{public}s", v44, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v45);
-    }
-
-    v52 = *(v0 + 264);
-    v53 = objc_opt_self();
-    v54 = one-time initialization token for systemMusic;
-    v55 = v52;
-    if (v54 != -1)
-    {
-      swift_once();
-    }
-
-    v56 = *(v0 + 280);
-    v57 = *(v0 + 264);
-    v58 = String._bridgeToObjectiveC()();
-    v59 = [v53 systemMusicPathWithRoute:v57 playerID:v58];
-
-    [v5 setPlayerPath:v59];
-    v60 = OBJC_IVAR____TtC9MusicCore6Player_nowPlayingConfiguration;
-    swift_beginAccess();
-    [v5 setPlayingItemProperties:*(v56 + v60)];
-    v61 = static MainActor.shared.getter();
-    *(v0 + 456) = v61;
-    if (v61)
-    {
-      swift_getObjectType();
-      v62 = dispatch thunk of Actor.unownedExecutor.getter();
-      v64 = v63;
-    }
-
-    else
-    {
-      v62 = 0;
-      v64 = 0;
-    }
-
-    return _swift_task_switch(Player.perform(_:options:issuer:), v62, v64);
-  }
-
-  else
-  {
-    if (*(v0 + 513))
-    {
-      v21 = 232;
-    }
-
-    else
-    {
-      v21 = 216;
-    }
-
-    swift_getKeyPath();
-    swift_getKeyPath();
-    static Published.subscript.getter();
-
-    v22 = *(v0 + v21);
-    *(v0 + 480) = v22;
-    if (v22)
-    {
-      v23 = 0xE800000000000000;
-
-      v24 = v22;
-      v25 = Logger.logObject.getter();
-      v26 = static os_log_type_t.default.getter();
-
-      if (os_log_type_enabled(v25, v26))
-      {
-        if (*(v0 + 424) == 1)
-        {
-          v27 = 0x646E616D6D6F63;
-        }
-
-        else
-        {
-          v27 = 0x73646E616D6D6F63;
-        }
-
-        if (*(v0 + 424) == 1)
-        {
-          v23 = 0xE700000000000000;
-        }
-
-        v28 = swift_slowAlloc();
-        v29 = swift_slowAlloc();
-        v111[0] = v29;
-        *v28 = 136315138;
-        *(v28 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v27, v23, v111);
-        _os_log_impl(&_mh_execute_header, v25, v26, "╭ Performing %s", v28, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v29);
-      }
-
-      outlined init with copy of Player.CommandIssuance(*(v0 + 384), *(v0 + 344));
-      v30 = Logger.logObject.getter();
-      v31 = static os_log_type_t.default.getter();
-      v32 = os_log_type_enabled(v30, v31);
-      v33 = *(v0 + 344);
-      if (v32)
-      {
-        v34 = swift_slowAlloc();
-        v35 = swift_slowAlloc();
-        v111[0] = v35;
-        *v34 = 136446210;
-        v36 = Player.CommandIssuance.description.getter();
-        v38 = v37;
-        outlined destroy of Player.CommandIssuance(v33);
-        v39 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v36, v38, v111);
-
-        *(v34 + 4) = v39;
-        _os_log_impl(&_mh_execute_header, v30, v31, "| issuance=%{public}s", v34, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v35);
-      }
-
-      else
-      {
-
-        outlined destroy of Player.CommandIssuance(v33);
-      }
-
-      v79 = Logger.logObject.getter();
-      v80 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v79, v80))
-      {
-        v81 = *(v0 + 513);
-        v82 = swift_slowAlloc();
-        v83 = swift_slowAlloc();
-        v111[0] = v83;
-        *v82 = 136446210;
-        if (v81)
-        {
-          v84 = 0xD000000000000014;
-        }
-
-        else
-        {
-          v84 = 0x5220726579616C50;
-        }
-
-        if (v81)
-        {
-          v85 = 0x80000001004CCD90;
-        }
-
-        else
-        {
-          v85 = 0xEF65736E6F707365;
-        }
-
-        v86 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v84, v85, v111);
-
-        *(v82 + 4) = v86;
-        _os_log_impl(&_mh_execute_header, v79, v80, "| on=%{public}s", v82, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v83);
-      }
-
-      v87 = v24;
-      v88 = Logger.logObject.getter();
-      v89 = static os_log_type_t.default.getter();
-
-      if (os_log_type_enabled(v88, v89))
-      {
-        v90 = swift_slowAlloc();
-        v91 = swift_slowAlloc();
-        v111[0] = v91;
-        *v90 = 136446210;
-        v92 = [v87 playerPath];
-        v93 = [v92 description];
-        v94 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v96 = v95;
-
-        v97 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v94, v96, v111);
-
-        *(v90 + 4) = v97;
-        _os_log_impl(&_mh_execute_header, v88, v89, "╰ playerPath=%{public}s", v90, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v91);
-      }
-
-      v98 = *(v0 + 336);
-      v99 = *(v0 + 288);
-      UUID.init()();
-      v100 = (v98 + *(v99 + 20));
-      *v100 = 0;
-      v100[1] = 0;
-      v101 = swift_task_alloc();
-      *(v0 + 488) = v101;
-      *v101 = v0;
-      v101[1] = Player.perform(_:options:issuer:);
-      v102 = *(v0 + 336);
-      v103 = *(v0 + 512);
-      v105 = *(v0 + 248);
-      v104 = *(v0 + 256);
-
-      return specialized MPCPlayerResponse.perform(_:issuance:options:)(v105, v102, v104, v103);
-    }
-
-    else
-    {
-      v65 = *(v0 + 384);
-      v66 = *(v0 + 312);
-
-      v67 = 0xE700000000000000;
-      outlined init with copy of Player.CommandIssuance(v65, v66);
-
-      v68 = Logger.logObject.getter();
-      v69 = static os_log_type_t.error.getter();
-
-      v70 = os_log_type_enabled(v68, v69);
-      v71 = *(v0 + 312);
-      if (v70)
-      {
-        if (*(v0 + 424) == 1)
-        {
-          v72 = 0x646E616D6D6F63;
-        }
-
-        else
-        {
-          v67 = 0xE800000000000000;
-          v72 = 0x73646E616D6D6F63;
-        }
-
-        v73 = swift_slowAlloc();
-        v111[0] = swift_slowAlloc();
-        *v73 = 136315394;
-        v74 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v72, v67, v111);
-
-        *(v73 + 4) = v74;
-        *(v73 + 12) = 2082;
-        v75 = Player.CommandIssuance.description.getter();
-        v77 = v76;
-        outlined destroy of Player.CommandIssuance(v71);
-        v78 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v75, v77, v111);
-
-        *(v73 + 14) = v78;
-        _os_log_impl(&_mh_execute_header, v68, v69, "╭ ❌ Unavailable %s\n| issuance=%{public}s\n╰ error=nil MPCPlayerResponse", v73, 0x16u);
-        swift_arrayDestroy();
-      }
-
-      else
-      {
-
-        outlined destroy of Player.CommandIssuance(v71);
-      }
-
-      v106 = *(v0 + 248);
-      lazy protocol witness table accessor for type Player.CommandError and conformance Player.CommandError();
-      swift_allocError();
-      *v107 = v106;
-      *(v107 + 40) = 1;
-      swift_willThrow();
-      v108 = *(v0 + 384);
-
-      outlined destroy of Player.CommandIssuance(v108);
-
-      v109 = *(v0 + 8);
-
-      return v109();
-    }
-  }
-}
-
-{
-  v1 = v0;
-  v2 = v0;
-  v3 = v0 + 2;
-  v4 = v0 + 10;
-  v5 = v0 + 30;
-  v23 = v0[56];
-  v6 = v0[53];
-  v7 = v0[48];
-  v8 = v0[44];
-  v11 = v0 + 37;
-  v9 = v0[37];
-  v10 = v11[1];
-  v21 = v1[33];
-  v22 = v3;
-  if (v6 == 1)
-  {
-    v12 = 0xE700000000000000;
-  }
-
-  else
-  {
-    v12 = 0xE800000000000000;
-  }
-
-  if (v6 == 1)
-  {
-    v13 = 0x646E616D6D6F63;
-  }
-
-  else
-  {
-    v13 = 0x73646E616D6D6F63;
-  }
-
-  v1[2] = v2;
-  v1[7] = v5;
-  v1[3] = Player.perform(_:options:issuer:);
-  v14 = swift_continuation_init();
-  outlined init with copy of Player.CommandIssuance(v7, v8);
-  v15 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-  v16 = (v10 + v15 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v17 = swift_allocObject();
-  *(v17 + 16) = v13;
-  *(v17 + 24) = v12;
-  outlined init with take of Player.CommandIssuance(v8, v17 + v15, type metadata accessor for Player.CommandIssuance);
-  *(v17 + v16) = v21;
-  *(v17 + ((v16 + 15) & 0xFFFFFFFFFFFFFFF8)) = v14;
-  v1[14] = partial apply for closure #1 in closure #1 in Player.perform(_:options:issuer:);
-  v1[15] = v17;
-  v1[10] = _NSConcreteStackBlock;
-  v1[11] = 1107296256;
-  v1[12] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed ICURLResponse?, @guaranteed Error?) -> ();
-  v1[13] = &block_descriptor_105;
-  v18 = _Block_copy(v4);
-
-  v19 = v21;
-
-  [v23 performWithCompletion:v18];
-  _Block_release(v18);
-  swift_unknownObjectRelease();
-
-  return _swift_continuation_await(v22);
-}
-
-{
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 464) = v2;
-  if (v2)
-  {
-
-    swift_willThrow();
-
-    v3 = v1[51];
-    v4 = v1[52];
-    v5 = Player.perform(_:options:issuer:);
-  }
-
-  else
-  {
-
-    v1[59] = v1[30];
-    v3 = v1[51];
-    v4 = v1[52];
-    v5 = Player.perform(_:options:issuer:);
-  }
-
-  return _swift_task_switch(v5, v3, v4);
-}
-
-{
-  v67 = v0;
-  v1 = *(v0 + 264);
-
-  v2 = *(v0 + 472);
-  *(v0 + 480) = v2;
-  if (v2)
-  {
-    v3 = 0xE800000000000000;
-
-    v4 = v2;
-    v5 = Logger.logObject.getter();
-    v6 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v5, v6))
-    {
-      if (*(v0 + 424) == 1)
-      {
-        v7 = 0x646E616D6D6F63;
-      }
-
-      else
-      {
-        v7 = 0x73646E616D6D6F63;
-      }
-
-      if (*(v0 + 424) == 1)
-      {
-        v3 = 0xE700000000000000;
-      }
-
-      v8 = swift_slowAlloc();
-      v9 = swift_slowAlloc();
-      v66[0] = v9;
-      *v8 = 136315138;
-      *(v8 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v7, v3, v66);
-      _os_log_impl(&_mh_execute_header, v5, v6, "╭ Performing %s", v8, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v9);
-    }
-
-    outlined init with copy of Player.CommandIssuance(*(v0 + 384), *(v0 + 344));
-    v10 = Logger.logObject.getter();
-    v11 = static os_log_type_t.default.getter();
-    v12 = os_log_type_enabled(v10, v11);
-    v13 = *(v0 + 344);
-    if (v12)
-    {
-      v14 = swift_slowAlloc();
-      v15 = swift_slowAlloc();
-      v66[0] = v15;
-      *v14 = 136446210;
-      v16 = Player.CommandIssuance.description.getter();
-      v18 = v17;
-      outlined destroy of Player.CommandIssuance(v13);
-      v19 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v16, v18, v66);
-
-      *(v14 + 4) = v19;
-      _os_log_impl(&_mh_execute_header, v10, v11, "| issuance=%{public}s", v14, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v15);
-    }
-
-    else
-    {
-
-      outlined destroy of Player.CommandIssuance(v13);
-    }
-
-    v34 = Logger.logObject.getter();
-    v35 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v34, v35))
-    {
-      v36 = *(v0 + 513);
-      v37 = swift_slowAlloc();
-      v38 = swift_slowAlloc();
-      v66[0] = v38;
-      *v37 = 136446210;
-      if (v36)
-      {
-        v39 = 0xD000000000000014;
-      }
-
-      else
-      {
-        v39 = 0x5220726579616C50;
-      }
-
-      if (v36)
-      {
-        v40 = 0x80000001004CCD90;
-      }
-
-      else
-      {
-        v40 = 0xEF65736E6F707365;
-      }
-
-      v41 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v39, v40, v66);
-
-      *(v37 + 4) = v41;
-      _os_log_impl(&_mh_execute_header, v34, v35, "| on=%{public}s", v37, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v38);
-    }
-
-    v42 = v4;
-    v43 = Logger.logObject.getter();
-    v44 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v43, v44))
-    {
-      v45 = swift_slowAlloc();
-      v46 = swift_slowAlloc();
-      v66[0] = v46;
-      *v45 = 136446210;
-      v47 = [v42 playerPath];
-      v48 = [v47 description];
-      v49 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v51 = v50;
-
-      v52 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v49, v51, v66);
-
-      *(v45 + 4) = v52;
-      _os_log_impl(&_mh_execute_header, v43, v44, "╰ playerPath=%{public}s", v45, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v46);
-    }
-
-    v53 = *(v0 + 336);
-    v54 = *(v0 + 288);
-    UUID.init()();
-    v55 = (v53 + *(v54 + 20));
-    *v55 = 0;
-    v55[1] = 0;
-    v56 = swift_task_alloc();
-    *(v0 + 488) = v56;
-    *v56 = v0;
-    v56[1] = Player.perform(_:options:issuer:);
-    v57 = *(v0 + 336);
-    v58 = *(v0 + 512);
-    v60 = *(v0 + 248);
-    v59 = *(v0 + 256);
-
-    return specialized MPCPlayerResponse.perform(_:issuance:options:)(v60, v57, v59, v58);
-  }
-
-  else
-  {
-    v20 = *(v0 + 384);
-    v21 = *(v0 + 312);
-
-    v22 = 0xE700000000000000;
-    outlined init with copy of Player.CommandIssuance(v20, v21);
-
-    v23 = Logger.logObject.getter();
-    v24 = static os_log_type_t.error.getter();
-
-    v25 = os_log_type_enabled(v23, v24);
-    v26 = *(v0 + 312);
-    if (v25)
-    {
-      if (*(v0 + 424) == 1)
-      {
-        v27 = 0x646E616D6D6F63;
-      }
-
-      else
-      {
-        v22 = 0xE800000000000000;
-        v27 = 0x73646E616D6D6F63;
-      }
-
-      v28 = swift_slowAlloc();
-      v66[0] = swift_slowAlloc();
-      *v28 = 136315394;
-      v29 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v27, v22, v66);
-
-      *(v28 + 4) = v29;
-      *(v28 + 12) = 2082;
-      v30 = Player.CommandIssuance.description.getter();
-      v32 = v31;
-      outlined destroy of Player.CommandIssuance(v26);
-      v33 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v30, v32, v66);
-
-      *(v28 + 14) = v33;
-      _os_log_impl(&_mh_execute_header, v23, v24, "╭ ❌ Unavailable %s\n| issuance=%{public}s\n╰ error=nil MPCPlayerResponse", v28, 0x16u);
-      swift_arrayDestroy();
-    }
-
-    else
-    {
-
-      outlined destroy of Player.CommandIssuance(v26);
-    }
-
-    v62 = *(v0 + 248);
-    lazy protocol witness table accessor for type Player.CommandError and conformance Player.CommandError();
-    swift_allocError();
-    *v63 = v62;
-    *(v63 + 40) = 1;
-    swift_willThrow();
-    v64 = *(v0 + 384);
-
-    outlined destroy of Player.CommandIssuance(v64);
-
-    v65 = *(v0 + 8);
-
-    return v65();
-  }
-}
-
-{
-  v1 = *(v0 + 264);
-
-  outlined destroy of Player.CommandIssuance(*(v0 + 384));
-
+  v1 = *(v0 + 120);
+  swift_setDeallocating();
+  __swift_destroy_boxed_opaque_existential_0Tm((v1 + 32));
   v2 = *(v0 + 8);
 
   return v2();
 }
 
+uint64_t closure #1 in closure #3 in MPCPlayerResponse.perform(_:issuance:options:)(unint64_t a1, uint64_t a2)
 {
-  v34 = v0;
-
-  v1 = Logger.logObject.getter();
-  v2 = static os_log_type_t.default.getter();
-
-  v3 = os_log_type_enabled(v1, v2);
-  v4 = v0[53];
-  if (v3)
+  if (a1 >> 62)
   {
-    v5 = v4 == 1;
-    if (v4 == 1)
+    result = _CocoaArrayWrapper.endIndex.getter();
+    if (!result)
     {
-      v6 = 0xE700000000000000;
+      goto LABEL_11;
     }
-
-    else
-    {
-      v6 = 0xE800000000000000;
-    }
-
-    if (v5)
-    {
-      v7 = 0x646E616D6D6F63;
-    }
-
-    else
-    {
-      v7 = 0x73646E616D6D6F63;
-    }
-
-    v8 = swift_slowAlloc();
-    v9 = swift_slowAlloc();
-    v33 = v9;
-    *v8 = 136315138;
-    v10 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v7, v6, &v33);
-
-    *(v8 + 4) = v10;
-    _os_log_impl(&_mh_execute_header, v1, v2, "╭ ✅ Successfully performed %s", v8, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v9);
   }
 
   else
   {
+    result = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!result)
+    {
+      goto LABEL_11;
+    }
   }
 
-  outlined init with copy of Player.CommandIssuance(v0[48], v0[40]);
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.default.getter();
-  v13 = os_log_type_enabled(v11, v12);
-  v14 = v0[40];
-  if (v13)
+  if ((a1 & 0xC000000000000001) != 0)
   {
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v33 = v16;
-    *v15 = 136446210;
-    v17 = Player.CommandIssuance.description.getter();
-    v19 = v18;
-    outlined destroy of Player.CommandIssuance(v14);
-    v20 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v17, v19, &v33);
-
-    *(v15 + 4) = v20;
-    _os_log_impl(&_mh_execute_header, v11, v12, "| issuance=%{public}s", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v16);
+    v5 = specialized _ArrayBuffer._getElementSlowPath(_:)();
   }
 
   else
   {
+    if (!*((a1 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    {
+      __break(1u);
+      return result;
+    }
 
-    outlined destroy of Player.CommandIssuance(v14);
+    v5 = *(a1 + 32);
   }
 
-  v21 = Logger.logObject.getter();
-  v22 = static os_log_type_t.default.getter();
+  v6 = v5;
+  v7 = [v5 error];
 
-  if (os_log_type_enabled(v21, v22))
+  if (v7)
   {
-    v23 = v0[60];
-    v24 = swift_slowAlloc();
-    v25 = swift_slowAlloc();
-    v33 = v25;
-    *v24 = 136446210;
-    type metadata accessor for UIAction(0, &lazy cache variable for type metadata for MPCPlayerCommandStatus);
-    v26 = Array.description.getter();
-    v28 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v26, v27, &v33);
-
-    *(v24 + 4) = v28;
-    _os_log_impl(&_mh_execute_header, v21, v22, "╰ statuses=%{public}s", v24, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v25);
-  }
-
-  else
-  {
-    v29 = v0[60];
-  }
-
-  outlined destroy of Player.CommandIssuance(v0[48]);
-  v32 = v0[62];
-
-  v30 = v0[1];
-
-  return v30(v32);
-}
-
-{
-  v23 = v0;
-  v1 = v0[48];
-  v2 = v0[41];
-
-  v3 = 0xE800000000000000;
-  outlined init with copy of Player.CommandIssuance(v1, v2);
-
-  swift_errorRetain();
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v4, v5))
-  {
-    v6 = v0[63];
-    v7 = v0[41];
-    if (v0[53] == 1)
-    {
-      v3 = 0xE700000000000000;
-      v8 = 0x646E616D6D6F63;
-    }
-
-    else
-    {
-      v8 = 0x73646E616D6D6F63;
-    }
-
-    v9 = swift_slowAlloc();
-    v22[0] = swift_slowAlloc();
-    *v9 = 136315650;
-    v10 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v8, v3, v22);
-
-    *(v9 + 4) = v10;
-    *(v9 + 12) = 2082;
-    v11 = Player.CommandIssuance.description.getter();
-    v13 = v12;
-    outlined destroy of Player.CommandIssuance(v7);
-    v14 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v11, v13, v22);
-
-    *(v9 + 14) = v14;
-    *(v9 + 22) = 2082;
-    v0[28] = v6;
-    swift_errorRetain();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-    v15 = String.init<A>(describing:)();
-    v17 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v15, v16, v22);
-
-    *(v9 + 24) = v17;
-    _os_log_impl(&_mh_execute_header, v4, v5, "╭ ❌ Failed to perform commands %s\n| issuance=%{public}s\n╰ error=%{public}s", v9, 0x20u);
-    swift_arrayDestroy();
-  }
-
-  else
-  {
-    v18 = v0[41];
-
-    outlined destroy of Player.CommandIssuance(v18);
-  }
-
-  v19 = v0[60];
-  swift_willThrow();
-
-  outlined destroy of Player.CommandIssuance(v0[48]);
-
-  v20 = v0[1];
-
-  return v20();
-}
-
-uint64_t Player.perform(_:options:issuer:)(uint64_t a1)
-{
-  v3 = *v2;
-  v3[12] = a1;
-  v3[13] = v1;
-
-  if (v1)
-  {
-    v4 = v3[8];
-    v5 = v3[9];
-    v6 = Player.perform(_:options:issuer:);
-  }
-
-  else
-  {
-
-    v4 = v3[8];
-    v5 = v3[9];
-    v6 = Player.perform(_:options:issuer:);
-  }
-
-  return _swift_task_switch(v6, v4, v5);
-}
-
-{
-  v3 = *v2;
-  v4 = *v2;
-  v4[62] = a1;
-  v4[63] = v1;
-
-  outlined destroy of Player.CommandIssuance(v3[42]);
-  v5 = v3[52];
-  v6 = v3[51];
-  if (v1)
-  {
-    v7 = Player.perform(_:options:issuer:);
-  }
-
-  else
-  {
-    v7 = Player.perform(_:options:issuer:);
-  }
-
-  return _swift_task_switch(v7, v6, v5);
-}
-
-uint64_t specialized Collection<>.shouldPerformOnNowPlayingResponse.getter(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  if (!v1)
-  {
-LABEL_8:
-    v6 = 0;
-    v12 = 0;
-    v10 = 0u;
-    v11 = 0u;
-    goto LABEL_9;
-  }
-
-  v2 = a1 + 32;
-  while (1)
-  {
-    outlined init with copy of ActionPerforming(v2, v9);
-    outlined init with copy of ActionPerforming(v9, &v8);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC7Command_pMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC18_NowPlayingCommand_pMd);
-    if (swift_dynamicCast())
-    {
-      break;
-    }
-
-    v12 = 0;
-    v10 = 0u;
-    v11 = 0u;
-    outlined destroy of TaskPriority?(&v10, &_s9MusicCore6PlayerC18_NowPlayingCommand_pSgMd);
-LABEL_4:
-    __swift_destroy_boxed_opaque_existential_0Tm(v9);
-    v2 += 40;
-    if (!--v1)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v3 = *(&v11 + 1);
-  v4 = v12;
-  __swift_project_boxed_opaque_existential_0Tm(&v10, *(&v11 + 1));
-  v5 = (*(v4 + 16))(v3, v4);
-  __swift_destroy_boxed_opaque_existential_0Tm(&v10);
-  if ((v5 & 1) == 0)
-  {
-    goto LABEL_4;
-  }
-
-  outlined init with take of ActionPerforming(v9, &v10);
-  v6 = 1;
-LABEL_9:
-  outlined destroy of TaskPriority?(&v10, &_s9MusicCore6PlayerC7Command_pSgMd);
-  return v6;
-}
-
-uint64_t closure #1 in closure #1 in Player.perform(_:options:issuer:)(void *a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, void *a6, uint64_t a7)
-{
-  v73 = a6;
-  v74 = a7;
-  v12 = type metadata accessor for Player.CommandIssuance();
-  v13 = __chkstk_darwin(v12 - 8);
-  v15 = &v72 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v17 = &v72 - v16;
-  if (a1)
-  {
-    v18 = one-time initialization token for logger;
-    v19 = a1;
-    if (v18 != -1)
-    {
-      swift_once();
-    }
-
-    v20 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v20, static Player.logger);
-
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v21, v22))
-    {
-      v23 = swift_slowAlloc();
-      v24 = swift_slowAlloc();
-      v75 = v24;
-      *v23 = 136315138;
-      *(v23 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(a3, a4, &v75);
-      _os_log_impl(&_mh_execute_header, v21, v22, "╭ 🔊✅ Successfully resolved specified route for %s", v23, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v24);
-    }
-
-    outlined init with copy of Player.CommandIssuance(a5, v17);
-    v25 = Logger.logObject.getter();
-    v26 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v25, v26))
-    {
-      v27 = swift_slowAlloc();
-      v28 = swift_slowAlloc();
-      v75 = v28;
-      *v27 = 136446210;
-      v29 = Player.CommandIssuance.description.getter();
-      v31 = v30;
-      outlined destroy of Player.CommandIssuance(v17);
-      v32 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v29, v31, &v75);
-
-      *(v27 + 4) = v32;
-      _os_log_impl(&_mh_execute_header, v25, v26, "| issuance=%{public}s", v27, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v28);
-    }
-
-    else
-    {
-
-      outlined destroy of Player.CommandIssuance(v17);
-    }
-
-    v46 = v73;
-    v47 = Logger.logObject.getter();
-    v48 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v47, v48))
-    {
-      v49 = swift_slowAlloc();
-      v50 = swift_slowAlloc();
-      v75 = v50;
-      *v49 = 136446210;
-      v51 = v46;
-      v52 = [v51 description];
-      v53 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v55 = v54;
-
-      v56 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v53, v55, &v75);
-
-      *(v49 + 4) = v56;
-      _os_log_impl(&_mh_execute_header, v47, v48, "╰ 🔊 Route=%{public}s", v49, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v50);
-    }
-
-    **(*(v74 + 64) + 40) = a1;
-    return swift_continuation_throwingResume();
-  }
-
-  else
-  {
-    if (one-time initialization token for logger != -1)
-    {
-      swift_once();
-    }
-
-    v33 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v33, static Player.logger);
-
-    v34 = Logger.logObject.getter();
-    v35 = static os_log_type_t.error.getter();
-
-    if (os_log_type_enabled(v34, v35))
-    {
-      v36 = swift_slowAlloc();
-      v37 = swift_slowAlloc();
-      v75 = v37;
-      *v36 = 136315138;
-      *(v36 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(a3, a4, &v75);
-      _os_log_impl(&_mh_execute_header, v34, v35, "╭ 🔊❌ Failed to resolve specified route for %s", v36, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v37);
-    }
-
-    outlined init with copy of Player.CommandIssuance(a5, v15);
-    v38 = Logger.logObject.getter();
-    v39 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v38, v39))
-    {
-      v40 = swift_slowAlloc();
-      v41 = swift_slowAlloc();
-      v75 = v41;
-      *v40 = 136446210;
-      v42 = Player.CommandIssuance.description.getter();
-      v44 = v43;
-      outlined destroy of Player.CommandIssuance(v15);
-      v45 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v42, v44, &v75);
-
-      *(v40 + 4) = v45;
-      _os_log_impl(&_mh_execute_header, v38, v39, "| issuance=%{public}s", v40, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v41);
-    }
-
-    else
-    {
-
-      outlined destroy of Player.CommandIssuance(v15);
-    }
-
-    v58 = v73;
-    v59 = Logger.logObject.getter();
-    v60 = static os_log_type_t.error.getter();
-
-    if (os_log_type_enabled(v59, v60))
-    {
-      v61 = swift_slowAlloc();
-      v62 = swift_slowAlloc();
-      v75 = v62;
-      *v61 = 136446210;
-      v63 = v58;
-      v64 = [v63 description];
-      v65 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v67 = v66;
-
-      v68 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v65, v67, &v75);
-
-      *(v61 + 4) = v68;
-      _os_log_impl(&_mh_execute_header, v59, v60, "╰ 🔊 Route=%{public}s", v61, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v62);
-    }
-
-    if (a2)
-    {
-      v69 = a2;
-    }
-
-    else
-    {
-      lazy protocol witness table accessor for type Player.CommandError and conformance Player.CommandError();
-      v69 = swift_allocError();
-      *v70 = 0u;
-      *(v70 + 16) = 0u;
-      *(v70 + 32) = 0;
-      *(v70 + 40) = 2;
-    }
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+    lazy protocol witness table accessor for type Player.PlaybackError and conformance Player.PlaybackError();
+    v8 = swift_allocError();
+    *v9 = v7;
+    v9[1] = a1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     swift_allocError();
-    *v71 = v69;
-    swift_errorRetain();
+    *v10 = v8;
+
     return swift_continuation_throwingResumeWithError();
   }
+
+LABEL_11:
+  **(*(a2 + 64) + 40) = a1;
+
+  return swift_continuation_throwingResume();
 }
 
-uint64_t Player.prepareForBufferedAirPlay()()
+uint64_t thunk for @escaping @callee_guaranteed @Sendable (@guaranteed [MPCPlayerCommandStatus]) -> ()(uint64_t a1, uint64_t a2)
 {
-  v1[60] = v0;
-  v1[61] = *v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0);
-  v1[62] = swift_task_alloc();
-  v1[63] = type metadata accessor for MainActor();
-  v1[64] = static MainActor.shared.getter();
-  v3 = dispatch thunk of Actor.unownedExecutor.getter();
-  v1[65] = v3;
-  v1[66] = v2;
+  v2 = *(a1 + 32);
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for MPCPlayerCommandStatus, MPCPlayerCommandStatus_ptr);
+  v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  return _swift_task_switch(Player.prepareForBufferedAirPlay(), v3, v2);
+  v2(v3);
 }
 
+id Artwork.Placeholder.background.getter()
 {
-  v35 = v0;
-  swift_getKeyPath();
-  swift_getKeyPath();
-  static Published.subscript.getter();
+  v1 = *v0;
+  v2 = *v0;
+  return v1;
+}
 
-  v1 = v0[56];
-  v2 = [v1 route];
-  v0[67] = v2;
+id MPCPlayerResponse.isPlayingItemFavorited.getter()
+{
+  v1 = [v0 tracklist];
+  v2 = [v1 playingItem];
 
-  if (v2)
+  if (!v2)
   {
-    objc_opt_self();
-    v3 = swift_dynamicCastObjCClass();
-    if (!v3)
-    {
-
-      goto LABEL_9;
-    }
-
-    v4 = v3;
-    v5 = v2;
-    if ([v4 isDeviceRoute])
-    {
-
-LABEL_9:
-
-      v10 = v0[1];
-
-      return v10(v2);
-    }
-
-    v11 = [objc_allocWithZone(MPAVEndpointRoutingDataSource) init];
-    v12 = objc_allocWithZone(MPAVRoutingController);
-    v13 = String._bridgeToObjectiveC()();
-    v14 = [v12 initWithDataSource:v11 name:v13];
-    v0[68] = v14;
-
-    if (one-time initialization token for logger != -1)
-    {
-      swift_once();
-    }
-
-    v15 = type metadata accessor for Logger();
-    v0[69] = __swift_project_value_buffer(v15, static Player.logger);
-    v16 = v5;
-    v17 = Logger.logObject.getter();
-    v18 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v17, v18))
-    {
-      v19 = swift_slowAlloc();
-      v20 = swift_slowAlloc();
-      v34 = v20;
-      *v19 = 136446210;
-      v21 = v16;
-      v22 = [v21 description];
-      v23 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v25 = v24;
-
-      v26 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v23, v25, &v34);
-
-      *(v19 + 4) = v26;
-      _os_log_impl(&_mh_execute_header, v17, v18, "🚏 Switching to buffered AirPlay onto route=%{public}s", v19, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v20);
-    }
-
-    v27 = v0[60];
-    v28 = OBJC_IVAR____TtC9MusicCore6Player_routingController;
-    v0[70] = OBJC_IVAR____TtC9MusicCore6Player_routingController;
-    v29 = *(v27 + v28);
-    *(v27 + v28) = v14;
-    v30 = v14;
-
-    v31 = objc_opt_self();
-    v0[71] = v31;
-    v0[2] = v0;
-    v0[3] = Player.prepareForBufferedAirPlay();
-    v32 = swift_continuation_init();
-    v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5Error_pGMd);
-    v0[72] = v33;
-    v0[41] = v33;
-    v0[34] = _NSConcreteStackBlock;
-    v0[35] = 1107296256;
-    v0[36] = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSError?) -> () with result type ();
-    v0[37] = &block_descriptor_109;
-    v0[38] = v32;
-    [v31 setActiveRoute:0 completion:v0 + 34];
-
-    return _swift_continuation_await(v0 + 2);
+    return 0;
   }
 
-  else
+  v3 = [v2 likeCommand];
+
+  if (!v3)
   {
+    return 0;
+  }
 
-    swift_getKeyPath();
-    swift_getKeyPath();
-    static Published.subscript.getter();
+  v4 = [v3 value];
+  swift_unknownObjectRelease();
+  return v4;
+}
 
-    v6 = v0[57];
-    lazy protocol witness table accessor for type BufferedAirPlayError #1 in Player.prepareForBufferedAirPlay() and conformance BufferedAirPlayError #1 in Player.prepareForBufferedAirPlay()();
+uint64_t outlined destroy of Player._Command?(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC8_Command_pSgMd, &_s9MusicCore6PlayerC8_Command_pSgMR);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+uint64_t type metadata accessor for Player.CommandIssuance(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for Player.CommandIssuance;
+  if (!type metadata singleton initialization cache for Player.CommandIssuance)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+BOOL specialized static Player.ChangeCommand.__derived_enum_equals(_:_:)(uint64_t a1, unint64_t a2)
+{
+  if (a1 <= 2)
+  {
+    switch(a1)
+    {
+      case 0:
+        return !a2;
+      case 1:
+        return a2 == 1;
+      case 2:
+        return a2 == 2;
+    }
+
+LABEL_16:
+    if (a2 >= 6)
+    {
+      type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSObject, NSObject_ptr);
+      return static NSObject.== infix(_:_:)() & 1;
+    }
+
+    return 0;
+  }
+
+  if (a1 == 3)
+  {
+    return a2 == 3;
+  }
+
+  if (a1 != 4)
+  {
+    if (a1 == 5)
+    {
+      return a2 == 5;
+    }
+
+    goto LABEL_16;
+  }
+
+  return a2 == 4;
+}
+
+uint64_t specialized static Player.CommandOptions.__derived_struct_equals(_:_:)(uint64_t a1, int a2, void *a3, uint64_t a4, int a5, void *a6)
+{
+  result = 0;
+  if (a1 == a4 && ((a2 ^ a5) & 1) == 0)
+  {
+    if (a3)
+    {
+      if (a6)
+      {
+        type metadata accessor for UIAction(0, &lazy cache variable for type metadata for MPAVRoute, MPAVRoute_ptr);
+        v10 = a6;
+        v11 = a3;
+        v12 = static NSObject.== infix(_:_:)();
+
+        if (v12)
+        {
+          return 1;
+        }
+      }
+    }
+
+    else if (!a6)
+    {
+      return 1;
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t specialized static Player.CommandIssuance.__derived_struct_equals(_:_:)(uint64_t a1, uint64_t a2)
+{
+  if (static UUID.== infix(_:_:)())
+  {
+    v4 = *(type metadata accessor for Player.CommandIssuance(0) + 20);
+    v5 = (a1 + v4);
+    v6 = *(a1 + v4 + 8);
+    v7 = (a2 + v4);
+    v8 = v7[1];
+    if (v6)
+    {
+      if (v8)
+      {
+        v9 = *v5 == *v7 && v6 == v8;
+        if (v9 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        {
+          return 1;
+        }
+      }
+    }
+
+    else if (!v8)
+    {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+uint64_t specialized MPCPlayerResponse.perform(_:issuance:options:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+{
+  *(v5 + 352) = a4;
+  *(v5 + 304) = a3;
+  *(v5 + 312) = v4;
+  *(v5 + 288) = a1;
+  *(v5 + 296) = a2;
+  return _swift_task_switch(specialized MPCPlayerResponse.perform(_:issuance:options:), 0, 0);
+}
+
+uint64_t specialized MPCPlayerResponse.perform(_:issuance:options:)()
+{
+  v1 = *(v0 + 288);
+  v2 = *(v1 + 16);
+  v46 = v2;
+  if (v2)
+  {
+    v3 = v1 + 32;
+    v4 = &_s9MusicCore6PlayerC7Command_pMd;
+    do
+    {
+      outlined init with copy of ActionPerforming(v3, v0 + 144);
+      outlined init with copy of ActionPerforming(v0 + 144, v0 + 248);
+      __swift_instantiateConcreteTypeFromMangledNameV2(v4, &_s9MusicCore6PlayerC7Command_pMR);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC8_Command_pMd, &_s9MusicCore6PlayerC8_Command_pMR);
+      if (swift_dynamicCast())
+      {
+        v5 = *(v0 + 312);
+        v6 = v4;
+        v7 = *(v0 + 232);
+        v8 = *(v0 + 240);
+        __swift_project_boxed_opaque_existential_0Tm((v0 + 208), v7);
+        v9 = v7;
+        v4 = v6;
+        v10 = (*(v8 + 24))(v5, v9, v8);
+        __swift_destroy_boxed_opaque_existential_0Tm((v0 + 144));
+        __swift_destroy_boxed_opaque_existential_0Tm((v0 + 208));
+        if (v10)
+        {
+          specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
+          if (*((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+          {
+            specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
+            v4 = v6;
+          }
+
+          specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
+        }
+      }
+
+      else
+      {
+        *(v0 + 240) = 0;
+        *(v0 + 208) = 0u;
+        *(v0 + 224) = 0u;
+        __swift_destroy_boxed_opaque_existential_0Tm((v0 + 144));
+        outlined destroy of Player._Command?(v0 + 208);
+      }
+
+      v3 += 40;
+      --v2;
+    }
+
+    while (v2);
+  }
+
+  if (_swiftEmptyArrayStorage >> 62)
+  {
+    goto LABEL_29;
+  }
+
+  v11 = v46;
+  if (*((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10) != v46)
+  {
+LABEL_35:
+
+    lazy protocol witness table accessor for type Player.CommandError and conformance Player.CommandError();
     swift_allocError();
-    *v7 = v6;
-    swift_willThrow();
+    v45 = v31;
+    if (!v11)
+    {
+LABEL_50:
+      *v45 = _swiftEmptyArrayStorage;
+      *(v45 + 40) = 1;
+      swift_willThrow();
+      v40 = *(v0 + 8);
 
-    v8 = v0[1];
+      return v40();
+    }
 
-    return v8();
+    v32 = *(v0 + 288) + 32;
+    while (1)
+    {
+      outlined init with copy of ActionPerforming(v32, v0 + 144);
+      outlined init with copy of ActionPerforming(v0 + 144, v0 + 248);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC7Command_pMd, &_s9MusicCore6PlayerC7Command_pMR);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC8_Command_pMd, &_s9MusicCore6PlayerC8_Command_pMR);
+      if (!swift_dynamicCast())
+      {
+        break;
+      }
+
+      v33 = *(v0 + 312);
+      v34 = *(v0 + 232);
+      v35 = *(v0 + 240);
+      __swift_project_boxed_opaque_existential_0Tm((v0 + 208), v34);
+      v36 = (*(v35 + 24))(v33, v34, v35);
+      __swift_destroy_boxed_opaque_existential_0Tm((v0 + 208));
+      if (!v36)
+      {
+        goto LABEL_42;
+      }
+
+      __swift_destroy_boxed_opaque_existential_0Tm((v0 + 144));
+LABEL_39:
+      v32 += 40;
+      if (!--v46)
+      {
+        goto LABEL_50;
+      }
+    }
+
+    *(v0 + 240) = 0;
+    *(v0 + 208) = 0u;
+    *(v0 + 224) = 0u;
+    outlined destroy of Player._Command?(v0 + 208);
+LABEL_42:
+    outlined init with take of ActionPerforming((v0 + 144), v0 + 208);
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, _swiftEmptyArrayStorage[2] + 1, 1);
+    }
+
+    v38 = _swiftEmptyArrayStorage[2];
+    v37 = _swiftEmptyArrayStorage[3];
+    if (v38 >= v37 >> 1)
+    {
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v37 > 1), v38 + 1, 1);
+    }
+
+    _swiftEmptyArrayStorage[2] = v38 + 1;
+    outlined init with take of ActionPerforming((v0 + 208), &_swiftEmptyArrayStorage[5 * v38 + 4]);
+    goto LABEL_39;
   }
-}
 
-{
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 584) = v2;
-  v3 = *(v1 + 528);
-  v4 = *(v1 + 520);
-  if (v2)
+  if (v46)
   {
-    v5 = Player.prepareForBufferedAirPlay();
+    do
+    {
+      v12 = 0;
+      v42 = kMRMediaRemoteOptionRemoteControlInterfaceIdentifier;
+      v43 = v11;
+      v44 = kMRMediaRemoteOptionCommandID;
+      while (1)
+      {
+        if ((_swiftEmptyArrayStorage & 0xC000000000000001) != 0)
+        {
+          v13 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        }
+
+        else
+        {
+          if (v12 >= *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10))
+          {
+            goto LABEL_28;
+          }
+
+          v13 = _swiftEmptyArrayStorage[v12 + 4];
+        }
+
+        v14 = v13;
+        v15 = v12 + 1;
+        if (__OFADD__(v12, 1))
+        {
+          break;
+        }
+
+        UUID.uuidString.getter();
+        if (v46 < 2)
+        {
+          v18 = 0;
+          v19 = 0xE000000000000000;
+        }
+
+        else
+        {
+          *(v0 + 144) = v12;
+          v16._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+          String.append(_:)(v16);
+
+          v17._countAndFlagsBits = 93;
+          v17._object = 0xE100000000000000;
+          String.append(_:)(v17);
+          v18 = 23341;
+          v19 = 0xE200000000000000;
+        }
+
+        v20._countAndFlagsBits = v18;
+        v20._object = v19;
+        String.append(_:)(v20);
+
+        v21 = String._bridgeToObjectiveC()();
+
+        if (!v44)
+        {
+          __break(1u);
+LABEL_54:
+          __break(1u);
+          return _swift_continuation_await(v22);
+        }
+
+        v23 = *(v0 + 296);
+        [v14 setCommandOptionValue:v21 forKey:v44];
+
+        if (*(v23 + *(type metadata accessor for Player.CommandIssuance(0) + 20) + 8))
+        {
+          v22 = String._bridgeToObjectiveC()();
+          if (!v42)
+          {
+            goto LABEL_54;
+          }
+
+          v24 = v22;
+          v25 = v42;
+          [v14 setCommandOptionValue:v24 forKey:v25];
+        }
+
+        ++v12;
+        if (v15 == v43)
+        {
+          goto LABEL_31;
+        }
+      }
+
+      __break(1u);
+LABEL_28:
+      __break(1u);
+LABEL_29:
+      v11 = v46;
+      if (_CocoaArrayWrapper.endIndex.getter() != v46)
+      {
+        goto LABEL_35;
+      }
+
+      v11 = _CocoaArrayWrapper.endIndex.getter();
+    }
+
+    while (v11);
   }
 
-  else
+LABEL_31:
+  v26 = *(v0 + 352);
+  v27 = *(v0 + 304);
+  v28 = objc_allocWithZone(MPCPlayerChangeRequest);
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for MPCPlayerCommandRequest, MPCPlayerCommandRequest_ptr);
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v30 = [v28 initWithCommandRequests:isa];
+  *(v0 + 320) = v30;
+
+  [v30 setOptions:v27];
+  if (v26 != 1)
   {
-    v5 = Player.prepareForBufferedAirPlay();
+    *(v0 + 16) = v0;
+    *(v0 + 24) = specialized MPCPlayerResponse.perform(_:issuance:options:);
+    v39 = swift_continuation_init();
+    *(v0 + 200) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5Error_pGMd, &_sSccyyts5Error_pGMR);
+    *(v0 + 144) = _NSConcreteStackBlock;
+    *(v0 + 152) = 1107296256;
+    *(v0 + 160) = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSError?) -> () with result type ();
+    *(v0 + 168) = &block_descriptor_133_1;
+    *(v0 + 176) = v39;
+    [v30 performWithCompletion:v0 + 144];
+    v22 = v0 + 16;
+
+    return _swift_continuation_await(v22);
   }
 
-  return _swift_task_switch(v5, v4, v3);
-}
-
-{
-  v1 = v0[72];
-  v2 = v0[68];
-  v3 = v0[67];
-  v0[10] = v0;
-  v0[11] = Player.prepareForBufferedAirPlay();
-  v4 = swift_continuation_init();
-  v0[49] = v1;
-  v0[42] = _NSConcreteStackBlock;
-  v0[43] = 1107296256;
-  v0[44] = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSError?) -> () with result type ();
-  v0[45] = &block_descriptor_112;
-  v0[46] = v4;
-  [v2 selectRoute:v3 operation:0 completion:v0 + 42];
-
-  return _swift_continuation_await(v0 + 10);
-}
-
-{
-  v1 = *v0;
-  v2 = *(*v0 + 112);
-  *(*v0 + 592) = v2;
-  v3 = *(v1 + 528);
-  v4 = *(v1 + 520);
-  if (v2)
-  {
-    v5 = Player.prepareForBufferedAirPlay();
-  }
-
-  else
-  {
-    v5 = Player.prepareForBufferedAirPlay();
-  }
-
-  return _swift_task_switch(v5, v4, v3);
-}
-
-{
-  v1 = static MainActor.shared.getter();
-  *(v0 + 600) = v1;
-  if (v1)
-  {
-    swift_getObjectType();
-    v2 = dispatch thunk of Actor.unownedExecutor.getter();
-    v4 = v3;
-  }
-
-  else
-  {
-    v2 = 0;
-    v4 = 0;
-  }
-
-  return _swift_task_switch(Player.prepareForBufferedAirPlay(), v2, v4);
+  return _swift_task_switch(specialized MPCPlayerResponse.perform(_:issuance:options:), 0, 0);
 }
 
 {
   v1 = v0;
   v2 = v0;
   v3 = v0 + 18;
-  v4 = v0 + 50;
-  v5 = v0 + 59;
-  v6 = v0[71];
-  v1[18] = v2;
-  v1[23] = v5;
-  v1[19] = Player.prepareForBufferedAirPlay();
+  v4 = v0 + 10;
+  v5 = v0 + 26;
+  v6 = v0[40];
+  v1[10] = v2;
+  v1[15] = v5;
+  v1[11] = specialized MPCPlayerResponse.perform(_:issuance:options:);
   v7 = swift_continuation_init();
   v8 = swift_allocObject();
   *(v8 + 16) = v7;
-  v1[54] = partial apply for closure #1 in closure #1 in Player.prepareForBufferedAirPlay();
-  v1[55] = v8;
-  v1[50] = _NSConcreteStackBlock;
-  v1[51] = 1107296256;
-  v1[52] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed MPAVRoute?) -> ();
-  v1[53] = &block_descriptor_118;
-  v9 = _Block_copy(v4);
+  v1[22] = partial apply for closure #1 in closure #3 in MPCPlayerResponse.perform(_:issuance:options:);
+  v1[23] = v8;
+  v1[18] = _NSConcreteStackBlock;
+  v1[19] = 1107296256;
+  v1[20] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed [MPCPlayerCommandStatus]) -> ();
+  v1[21] = &block_descriptor_138;
+  v9 = _Block_copy(v3);
 
-  [v6 getActiveRouteWithTimeout:v9 completion:2.0];
+  [v6 performWithExtendedStatusCompletion:v9];
   _Block_release(v9);
 
-  return _swift_continuation_await(v3);
+  return _swift_continuation_await(v4);
 }
 
 {
-  v1 = *v0;
-  v2 = *(*v0 + 176);
-  *(*v0 + 608) = v2;
-  if (v2)
-  {
-    swift_willThrow();
+  v1 = *(v0 + 336);
 
-    v3 = v1[66];
-    v4 = v1[65];
-    v5 = Player.prepareForBufferedAirPlay();
-  }
+  v2 = *(v0 + 8);
 
-  else
-  {
-
-    v1[77] = v1[59];
-    v3 = v1[66];
-    v4 = v1[65];
-    v5 = Player.prepareForBufferedAirPlay();
-  }
-
-  return _swift_task_switch(v5, v4, v3);
-}
-
-{
-  v23 = v0;
-  v1 = *(v0 + 616);
-  v2 = Logger.logObject.getter();
-  v3 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v2, v3))
-  {
-    v4 = *(v0 + 616);
-    v5 = swift_slowAlloc();
-    v6 = swift_slowAlloc();
-    v22 = v6;
-    *v5 = 136446210;
-    v7 = v4;
-    v8 = [v7 description];
-    v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v11 = v10;
-
-    v12 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v9, v11, &v22);
-
-    *(v5 + 4) = v12;
-    _os_log_impl(&_mh_execute_header, v2, v3, "🚏 Awaiting updated player response for route=%{public}s", v5, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v6);
-  }
-
-  v13 = *(v0 + 496);
-  v14 = *(v0 + 480);
-  v15 = *(v0 + 616);
-
-  closure #1 in Player.updatePlayerPath(with:)(v15);
-
-  v16 = type metadata accessor for TaskPriority();
-  *(v0 + 624) = v16;
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 56);
-  *(v0 + 632) = v18;
-  *(v0 + 640) = (v17 + 56) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-  v18(v13, 1, 1, v16);
-
-  v19 = static MainActor.shared.getter();
-  v20 = swift_allocObject();
-  v20[2] = v19;
-  v20[3] = &protocol witness table for MainActor;
-  v20[4] = v14;
-  *(v0 + 648) = _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5_0(0, 0, v13, &async function pointer to partial apply for closure #2 in Player.prepareForBufferedAirPlay(), v20);
-
-  return _swift_task_switch(Player.prepareForBufferedAirPlay(), 0, 0);
-}
-
-{
-  v1 = v0[70];
-  v2 = v0[60];
-
-  v3 = *(v2 + v1);
-  v4 = v0[68];
-  if (v3 && v4 == v3)
-  {
-    v5 = v0[67];
-    *(v0[60] + v0[70]) = 0;
-  }
-
-  else
-  {
-    v5 = v0[67];
-  }
-
-  v6 = v0[1];
-
-  return v6();
-}
-
-{
-  v1 = v0;
-  v2 = v0;
-  v3 = v0 + 26;
-  v4 = v0[81];
-  v5 = v0[79];
-  v6 = v0[78];
-  v7 = v0[62];
-  v1[26] = v2;
-  v1[27] = Player.prepareForBufferedAirPlay();
-  v8 = swift_continuation_init();
-  v5(v7, 1, 1, v6);
-  v9 = swift_allocObject();
-  v9[2] = 0;
-  v9[3] = 0;
-  v9[4] = v8;
-  v9[5] = 0x4014000000000000;
-  v9[6] = v4;
-
-  _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5Tm(0, 0, v7, &async function pointer to partial apply for specialized closure #1 in closure #1 in Task.withTimeout(_:), v9);
-
-  return _swift_continuation_await(v3);
-}
-
-{
-  v1 = *v0;
-  v2 = *(*v0 + 240);
-  *(*v0 + 656) = v2;
-  if (v2)
-  {
-
-    swift_willThrow();
-    v3 = *(v1 + 528);
-    v4 = *(v1 + 520);
-    v5 = Player.prepareForBufferedAirPlay();
-  }
-
-  else
-  {
-    v3 = *(v1 + 528);
-    v4 = *(v1 + 520);
-    v5 = Player.prepareForBufferedAirPlay();
-  }
-
-  return _swift_task_switch(v5, v4, v3);
-}
-
-{
-  v23 = v0;
-  v1 = v0[77];
-
-  v2 = v1;
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-
-  v5 = os_log_type_enabled(v3, v4);
-  v6 = v0[77];
-  if (v5)
-  {
-    v7 = swift_slowAlloc();
-    v8 = swift_slowAlloc();
-    v22 = v8;
-    *v7 = 136446210;
-    v6 = v6;
-    v9 = [v6 description];
-    v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v12 = v11;
-
-    v13 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v10, v12, &v22);
-
-    *(v7 + 4) = v13;
-    _os_log_impl(&_mh_execute_header, v3, v4, "🚏✅ Successfully switched to buffered AirPlay onto route=%{public}s", v7, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v8);
-  }
-
-  v14 = v0[70];
-  v15 = v0[60];
-  v16 = *(v15 + v14);
-  v17 = v0[68];
-  if (v16)
-  {
-    v18 = v0[67];
-    if (v17 == v16)
-    {
-      *(v15 + v14) = 0;
-    }
-  }
-
-  else
-  {
-    v18 = v0[67];
-  }
-
-  v19 = v0[77];
-
-  v20 = v0[1];
-
-  return v20(v19);
-}
-
-{
-  v23 = v0;
-  v1 = v0[77];
-
-  v2 = v1;
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v3, v4))
-  {
-    v5 = v0[77];
-    v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v22 = v7;
-    *v6 = 136446210;
-    v8 = v5;
-    v9 = [v8 description];
-    v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v12 = v11;
-
-    v13 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v10, v12, &v22);
-
-    *(v6 + 4) = v13;
-    _os_log_impl(&_mh_execute_header, v3, v4, "🚏❌ Timed out waiting for a valid ReplaceCommand on route=%{public}s", v6, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v7);
-  }
-
-  v14 = v0[77];
-  v15 = v0[70];
-  v16 = v0[60];
-  swift_willThrow();
-
-  v17 = *(v16 + v15);
-  v18 = v0[68];
-  if (v17 && v18 == v17)
-  {
-    v19 = v0[67];
-    *(v0[60] + v0[70]) = 0;
-  }
-
-  else
-  {
-    v19 = v0[67];
-  }
-
-  v20 = v0[1];
-
-  return v20();
-}
-
-{
-  v25 = v0;
-
-  v1 = v0[73];
-  v2 = v0[67];
-  swift_willThrow();
-  v3 = v2;
-  swift_errorRetain();
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v4, v5))
-  {
-    v6 = v0[67];
-    v7 = swift_slowAlloc();
-    v24[0] = swift_slowAlloc();
-    *v7 = 136446466;
-    v8 = v6;
-    v9 = [v8 description];
-    v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v12 = v11;
-
-    v13 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v10, v12, v24);
-
-    *(v7 + 4) = v13;
-    *(v7 + 12) = 2082;
-    v0[58] = v1;
-    swift_errorRetain();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-    v14 = String.init<A>(describing:)();
-    v16 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v14, v15, v24);
-
-    *(v7 + 14) = v16;
-    _os_log_impl(&_mh_execute_header, v4, v5, "🚏❌ Failed switching to route=%{public}s with error=%{public}s", v7, 0x16u);
-    swift_arrayDestroy();
-  }
-
-  v17 = v0[70];
-  v18 = v0[60];
-  swift_willThrow();
-  v19 = *(v18 + v17);
-  v20 = v0[68];
-  if (v19 && v20 == v19)
-  {
-    v21 = v0[67];
-    *(v0[60] + v0[70]) = 0;
-  }
-
-  else
-  {
-    v21 = v0[67];
-  }
-
-  v22 = v0[1];
-
-  return v22();
-}
-
-{
-  v25 = v0;
-
-  v1 = v0[74];
-  v2 = v0[67];
-  swift_willThrow();
-  v3 = v2;
-  swift_errorRetain();
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v4, v5))
-  {
-    v6 = v0[67];
-    v7 = swift_slowAlloc();
-    v24[0] = swift_slowAlloc();
-    *v7 = 136446466;
-    v8 = v6;
-    v9 = [v8 description];
-    v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v12 = v11;
-
-    v13 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v10, v12, v24);
-
-    *(v7 + 4) = v13;
-    *(v7 + 12) = 2082;
-    v0[58] = v1;
-    swift_errorRetain();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-    v14 = String.init<A>(describing:)();
-    v16 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v14, v15, v24);
-
-    *(v7 + 14) = v16;
-    _os_log_impl(&_mh_execute_header, v4, v5, "🚏❌ Failed switching to route=%{public}s with error=%{public}s", v7, 0x16u);
-    swift_arrayDestroy();
-  }
-
-  v17 = v0[70];
-  v18 = v0[60];
-  swift_willThrow();
-  v19 = *(v18 + v17);
-  v20 = v0[68];
-  if (v19 && v20 == v19)
-  {
-    v21 = v0[67];
-    *(v0[60] + v0[70]) = 0;
-  }
-
-  else
-  {
-    v21 = v0[67];
-  }
-
-  v22 = v0[1];
-
-  return v22();
-}
-
-uint64_t closure #1 in closure #1 in Player.prepareForBufferedAirPlay()(void *a1, uint64_t a2)
-{
-  if (a1)
-  {
-    **(*(a2 + 64) + 40) = a1;
-    v2 = a1;
-
-    return swift_continuation_throwingResume();
-  }
-
-  else
-  {
-    lazy protocol witness table accessor for type BufferedAirPlayError #1 in Player.prepareForBufferedAirPlay() and conformance BufferedAirPlayError #1 in Player.prepareForBufferedAirPlay()();
-    v4 = swift_allocError();
-    *v5 = 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-    swift_allocError();
-    *v6 = v4;
-
-    return swift_continuation_throwingResumeWithError();
-  }
-}
-
-void thunk for @escaping @callee_guaranteed @Sendable (@guaranteed MPAVRoute?) -> ()(uint64_t a1, void *a2)
-{
-  v3 = *(a1 + 32);
-
-  v4 = a2;
-  v3(a2);
-}
-
-uint64_t closure #2 in Player.prepareForBufferedAirPlay()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v4[7] = a4;
-  v4[8] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo17MPCPlayerResponseCSg_GMd);
-  v4[9] = swift_task_alloc();
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySo17MPCPlayerResponseCSg_GGMd);
-  v4[10] = v5;
-  v4[11] = *(v5 - 8);
-  v4[12] = swift_task_alloc();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySo17MPCPlayerResponseCSg_G_GMd);
-  v4[13] = v6;
-  v4[14] = *(v6 - 8);
-  v4[15] = swift_task_alloc();
-  v4[16] = type metadata accessor for MainActor();
-  v4[17] = static MainActor.shared.getter();
-  v8 = dispatch thunk of Actor.unownedExecutor.getter();
-  v4[18] = v8;
-  v4[19] = v7;
-
-  return _swift_task_switch(closure #2 in Player.prepareForBufferedAirPlay(), v8, v7);
-}
-
-uint64_t closure #2 in Player.prepareForBufferedAirPlay()()
-{
-  v2 = v0[11];
-  v1 = v0[12];
-  v3 = v0[10];
-  swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17MPCPlayerResponseCSgGMd);
-  Published.projectedValue.getter();
-  swift_endAccess();
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type Published<MPCPlayerResponse?>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySo17MPCPlayerResponseCSg_GMd);
-  AsyncPublisher.init(_:)();
-  AsyncPublisher.makeAsyncIterator()();
-  (*(v2 + 8))(v1, v3);
-  v0[20] = static MainActor.shared.getter();
-  v4 = lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type AsyncPublisher<Published<MPCPlayerResponse?>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySo17MPCPlayerResponseCSg_G_GMd);
-  v5 = swift_task_alloc();
-  v0[21] = v5;
-  *v5 = v0;
-  v5[1] = closure #2 in Player.prepareForBufferedAirPlay();
-  v6 = v0[13];
-
-  return dispatch thunk of AsyncIteratorProtocol.next()(v0 + 5, v6, v4);
-}
-
-{
-  v2 = *v1;
-  *(*v1 + 176) = v0;
-
-  v3 = *(v2 + 160);
-  if (v0)
-  {
-    if (v3)
-    {
-      swift_getObjectType();
-      v4 = dispatch thunk of Actor.unownedExecutor.getter();
-      v6 = v5;
-    }
-
-    else
-    {
-      v4 = 0;
-      v6 = 0;
-    }
-
-    v7 = closure #2 in Player.prepareForBufferedAirPlay();
-  }
-
-  else
-  {
-    if (v3)
-    {
-      swift_getObjectType();
-      v4 = dispatch thunk of Actor.unownedExecutor.getter();
-      v6 = v8;
-    }
-
-    else
-    {
-      v4 = 0;
-      v6 = 0;
-    }
-
-    v7 = closure #2 in Player.prepareForBufferedAirPlay();
-  }
-
-  return _swift_task_switch(v7, v4, v6);
+  return v2(v1);
 }
 
 {
 
-  v0[23] = v0[5];
-  v1 = v0[18];
-  v2 = v0[19];
+  v1 = *(v0 + 8);
 
-  return _swift_task_switch(closure #2 in Player.prepareForBufferedAirPlay(), v1, v2);
+  return v1();
 }
 
 {
-  v1 = *(v0 + 184);
-  if (v1 == 1)
-  {
-LABEL_6:
-    (*(*(v0 + 112) + 8))(*(v0 + 120), *(v0 + 104));
-
-    v9 = *(v0 + 8);
-
-    return v9();
-  }
-
+  v1 = *(*v0 + 48);
+  *(*v0 + 344) = v1;
   if (v1)
   {
-    v2 = v1;
-    v3 = [v2 tracklist];
-    v4 = [v3 resetCommand];
-    outlined consume of MPCPlayerResponse??(v1);
+    v2 = specialized MPCPlayerResponse.perform(_:issuance:options:);
+  }
 
-    if (v4 && (swift_unknownObjectRelease(), v5 = [v2 playerPath], v6 = objc_msgSend(v5, "route"), v5, v6))
+  else
+  {
+    v2 = specialized MPCPlayerResponse.perform(_:issuance:options:);
+  }
+
+  return _swift_task_switch(v2, 0, 0);
+}
+
+{
+
+  v1 = *(v0 + 8);
+
+  return v1(_swiftEmptyArrayStorage);
+}
+
+uint64_t specialized MPCPlayerResponse.perform(_:issuance:options:)(uint64_t a1)
+{
+  v2 = *v1;
+  v3 = *(*v1 + 112);
+  *(*v1 + 328) = v3;
+  if (v3)
+  {
+    swift_willThrow();
+    v4 = specialized MPCPlayerResponse.perform(_:issuance:options:);
+  }
+
+  else
+  {
+    *(v2 + 336) = *(v2 + 208);
+    v4 = specialized MPCPlayerResponse.perform(_:issuance:options:);
+  }
+
+  return _swift_task_switch(v4, 0, 0);
+}
+
+{
+  v2 = *(v1 + 320);
+  swift_willThrow();
+
+  v3 = *(v1 + 8);
+
+  return v3();
+}
+
+uint64_t block_copy_helper_32(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v2;
+}
+
+unint64_t lazy protocol witness table accessor for type Player.PlaybackCommand and conformance Player.PlaybackCommand()
+{
+  result = lazy protocol witness table cache variable for type Player.PlaybackCommand and conformance Player.PlaybackCommand;
+  if (!lazy protocol witness table cache variable for type Player.PlaybackCommand and conformance Player.PlaybackCommand)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Player.PlaybackCommand and conformance Player.PlaybackCommand);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Player.ShuffleCommand and conformance Player.ShuffleCommand()
+{
+  result = lazy protocol witness table cache variable for type Player.ShuffleCommand and conformance Player.ShuffleCommand;
+  if (!lazy protocol witness table cache variable for type Player.ShuffleCommand and conformance Player.ShuffleCommand)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Player.ShuffleCommand and conformance Player.ShuffleCommand);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Player.FavoriteCommand and conformance Player.FavoriteCommand()
+{
+  result = lazy protocol witness table cache variable for type Player.FavoriteCommand and conformance Player.FavoriteCommand;
+  if (!lazy protocol witness table cache variable for type Player.FavoriteCommand and conformance Player.FavoriteCommand)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Player.FavoriteCommand and conformance Player.FavoriteCommand);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Player.RepeatCommand and conformance Player.RepeatCommand()
+{
+  result = lazy protocol witness table cache variable for type Player.RepeatCommand and conformance Player.RepeatCommand;
+  if (!lazy protocol witness table cache variable for type Player.RepeatCommand and conformance Player.RepeatCommand)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Player.RepeatCommand and conformance Player.RepeatCommand);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Player.QueueEndCommand and conformance Player.QueueEndCommand()
+{
+  result = lazy protocol witness table cache variable for type Player.QueueEndCommand and conformance Player.QueueEndCommand;
+  if (!lazy protocol witness table cache variable for type Player.QueueEndCommand and conformance Player.QueueEndCommand)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Player.QueueEndCommand and conformance Player.QueueEndCommand);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Player.InsertCommand.Location and conformance Player.InsertCommand.Location()
+{
+  result = lazy protocol witness table cache variable for type Player.InsertCommand.Location and conformance Player.InsertCommand.Location;
+  if (!lazy protocol witness table cache variable for type Player.InsertCommand.Location and conformance Player.InsertCommand.Location)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Player.InsertCommand.Location and conformance Player.InsertCommand.Location);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Player.ClearCommand and conformance Player.ClearCommand()
+{
+  result = lazy protocol witness table cache variable for type Player.ClearCommand and conformance Player.ClearCommand;
+  if (!lazy protocol witness table cache variable for type Player.ClearCommand and conformance Player.ClearCommand)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Player.ClearCommand and conformance Player.ClearCommand);
+  }
+
+  return result;
+}
+
+uint64_t sub_100219DC8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = type metadata accessor for UUID();
+  v7 = *(v6 - 8);
+  if (*(v7 + 84) == a2)
+  {
+    v8 = *(v7 + 48);
+
+    return v8(a1, a2, v6);
+  }
+
+  else
+  {
+    v10 = *(a1 + *(a3 + 20) + 8);
+    if (v10 >= 0xFFFFFFFF)
     {
-      v7 = *(v0 + 184);
-      v8 = [v6 isDeviceRoute];
-      outlined consume of MPCPlayerResponse??(v7);
+      LODWORD(v10) = -1;
+    }
 
+    v11 = v10 - 1;
+    if (v11 < 0)
+    {
+      v11 = -1;
+    }
+
+    return (v11 + 1);
+  }
+}
+
+uint64_t sub_100219EA8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+{
+  result = type metadata accessor for UUID();
+  v9 = *(result - 8);
+  if (*(v9 + 84) == a3)
+  {
+    v10 = *(v9 + 56);
+
+    return v10(a1, a2, a2, result);
+  }
+
+  else
+  {
+    *(a1 + *(a4 + 20) + 8) = a2;
+  }
+
+  return result;
+}
+
+void type metadata completion function for Player.CommandIssuance(uint64_t a1)
+{
+  type metadata accessor for UUID();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for String?();
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+uint64_t getEnumTagSinglePayload for Player.ChangeCommand(uint64_t *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 > 0x7FFFFFF9 && *(a1 + 8))
+  {
+    return (*a1 + 2147483642);
+  }
+
+  v3 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v3) = -1;
+  }
+
+  v4 = v3 + 1;
+  v5 = v3 - 5;
+  if (v4 >= 7)
+  {
+    return v5;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t storeEnumTagSinglePayload for Player.ChangeCommand(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 >= 0x7FFFFFFA)
+  {
+    *result = 0;
+    *result = a2 - 2147483642;
+    if (a3 >= 0x7FFFFFFA)
+    {
+      *(result + 8) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0x7FFFFFFA)
+    {
+      *(result + 8) = 0;
+    }
+
+    if (a2)
+    {
+      *result = a2 + 5;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for Player.InsertCommand.Location(uint64_t *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0x7FFFFFFC && *(a1 + 8))
+  {
+    return (*a1 + 2147483644);
+  }
+
+  v3 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v3) = -1;
+  }
+
+  v4 = v3 + 1;
+  v5 = v3 - 3;
+  if (v4 >= 5)
+  {
+    return v5;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t storeEnumTagSinglePayload for Player.InsertCommand.Location(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0x7FFFFFFB)
+  {
+    *result = 0;
+    *result = a2 - 2147483644;
+    if (a3 >= 0x7FFFFFFC)
+    {
+      *(result + 8) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0x7FFFFFFC)
+    {
+      *(result + 8) = 0;
+    }
+
+    if (a2)
+    {
+      *result = a2 + 3;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for Player.MoveCommand(uint64_t *a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 17))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for Player.MoveCommand(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 16) = 0;
+    *result = a2 & 0x7FFFFFFF;
+    *(result + 8) = 0;
+    if (a3 < 0)
+    {
+      *(result + 17) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *result = (a2 - 1);
+      return result;
+    }
+
+    *(result + 17) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t __swift_memcpy6_4(uint64_t result, int *a2)
+{
+  v2 = *a2;
+  *(result + 4) = *(a2 + 2);
+  *result = v2;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for Player.VocalsCommand(uint64_t a1, int a2)
+{
+  if (a2 && *(a1 + 6))
+  {
+    return (*a1 + 1);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t storeEnumTagSinglePayload for Player.VocalsCommand(uint64_t result, int a2, int a3)
+{
+  if (a2)
+  {
+    *(result + 4) = 0;
+    *result = a2 - 1;
+    if (!a3)
+    {
+      return result;
+    }
+
+    v3 = 1;
+  }
+
+  else
+  {
+    if (!a3)
+    {
+      return result;
+    }
+
+    v3 = 0;
+  }
+
+  *(result + 6) = v3;
+  return result;
+}
+
+uint64_t getEnumTag for Player.VocalsCommand(uint64_t a1)
+{
+  if (*(a1 + 5))
+  {
+    return (*a1 + 1);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t destructiveInjectEnumTag for Player.VocalsCommand(uint64_t result, int a2)
+{
+  if (a2)
+  {
+    *(result + 4) = 0;
+    *result = a2 - 1;
+    *(result + 5) = 1;
+  }
+
+  else
+  {
+    *(result + 5) = 0;
+  }
+
+  return result;
+}
+
+uint64_t get_enum_tag_for_layout_string_9MusicCore6PlayerC12CommandErrorO(uint64_t a1)
+{
+  if ((*(a1 + 40) & 2) != 0)
+  {
+    return (*a1 + 2);
+  }
+
+  else
+  {
+    return *(a1 + 40) & 3;
+  }
+}
+
+uint64_t SampleReceiver.waveforms()()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySaySfG__GMd, &_sScS12ContinuationV15BufferingPolicyOySaySfG__GMR);
+  v0 = __chkstk_darwin();
+  *(&v4 - v1) = 1;
+  (*(v2 + 104))(&v4 - v1, enum case for AsyncStream.Continuation.BufferingPolicy.bufferingNewest<A>(_:), v0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+  return AsyncStream.init(_:bufferingPolicy:_:)();
+}
+
+double closure #1 in SampleReceiver.waveforms()(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd, &_sScS12ContinuationVySaySfG_GMR);
+  v3 = *(v2 - 8);
+  __chkstk_darwin();
+  v5 = &v13 - v4;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  __chkstk_darwin();
+  v7 = &v13 - v6;
+  v8 = SampleReceiver.continuations.getter();
+  v9 = type metadata accessor for TaskPriority();
+  (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
+  (*(v3 + 16))(v5, a1, v2);
+  v10 = (*(v3 + 80) + 40) & ~*(v3 + 80);
+  v11 = swift_allocObject();
+  *(v11 + 2) = 0;
+  *(v11 + 3) = 0;
+  *(v11 + 4) = v8;
+  (*(v3 + 32))(&v11[v10], v5, v2);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5_0(0, 0, v7, &async function pointer to partial apply for closure #1 in closure #1 in SampleReceiver.waveforms(), v11);
+
+  return result;
+}
+
+uint64_t closure #1 in closure #1 in SampleReceiver.waveforms()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5[5] = a4;
+  v5[6] = a5;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GSgMd, &_sScS12ContinuationVySaySfG_GSgMR);
+  v5[7] = swift_task_alloc();
+  v7 = type metadata accessor for UUID();
+  v5[8] = v7;
+  v8 = *(v7 - 8);
+  v5[9] = v8;
+  v5[10] = *(v8 + 64);
+  v5[11] = swift_task_alloc();
+  v5[12] = swift_task_alloc();
+
+  return _swift_task_switch(closure #1 in closure #1 in SampleReceiver.waveforms(), a4, 0);
+}
+
+uint64_t closure #1 in closure #1 in SampleReceiver.waveforms()(uint64_t a1)
+{
+  v3 = v1[11];
+  v2 = v1[12];
+  v4 = v1[8];
+  v5 = v1[9];
+  v7 = v1[6];
+  v6 = v1[7];
+  UUID.init()();
+  v8 = *(v5 + 16);
+  v1[13] = v8;
+  v1[14] = (v5 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v8(v3, v2, v4);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd, &_sScS12ContinuationVySaySfG_GMR);
+  v1[15] = v9;
+  v10 = *(v9 - 8);
+  (*(v10 + 16))(v6, v7, v9);
+  (*(v10 + 56))(v6, 0, 1, v9);
+  swift_beginAccess();
+  specialized Dictionary.subscript.setter(v6, v3);
+  swift_endAccess();
+  SampleReceiver.ContinuationStorage.continuations.didset();
+
+  return _swift_task_switch(closure #1 in closure #1 in SampleReceiver.waveforms(), 0, 0);
+}
+
+uint64_t closure #1 in closure #1 in SampleReceiver.waveforms()()
+{
+  v1 = *(v0 + 96);
+  v2 = *(v0 + 88);
+  v3 = *(v0 + 64);
+  v4 = *(v0 + 72);
+  v5 = *(v0 + 40);
+  (*(v0 + 104))(v2, v1, v3);
+  v6 = (*(v4 + 80) + 24) & ~*(v4 + 80);
+  v7 = swift_allocObject();
+  *(v7 + 16) = v5;
+  (*(v4 + 32))(v7 + v6, v2, v3);
+
+  AsyncStream.Continuation.onTermination.setter();
+  (*(v4 + 8))(v1, v3);
+
+  v8 = *(v0 + 8);
+
+  return v8();
+}
+
+double closure #1 in closure #1 in closure #1 in SampleReceiver.waveforms()(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = type metadata accessor for UUID();
+  v6 = *(v5 - 8);
+  v7 = *(v6 + 64);
+  __chkstk_darwin();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  __chkstk_darwin();
+  v9 = &v14 - v8;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
+  (*(v6 + 16))(&v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), a3, v5);
+  v11 = (*(v6 + 80) + 40) & ~*(v6 + 80);
+  v12 = swift_allocObject();
+  *(v12 + 2) = 0;
+  *(v12 + 3) = 0;
+  *(v12 + 4) = a2;
+  (*(v6 + 32))(&v12[v11], &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
+
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5_0(0, 0, v9, &async function pointer to partial apply for closure #1 in closure #1 in closure #1 in closure #1 in SampleReceiver.waveforms(), v12);
+
+  return result;
+}
+
+uint64_t closure #1 in closure #1 in closure #1 in closure #1 in SampleReceiver.waveforms()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5[5] = a4;
+  v5[6] = a5;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GSgMd, &_sScS12ContinuationVySaySfG_GSgMR);
+  v5[7] = swift_task_alloc();
+
+  return _swift_task_switch(closure #1 in closure #1 in closure #1 in closure #1 in SampleReceiver.waveforms(), a4, 0);
+}
+
+uint64_t closure #1 in closure #1 in closure #1 in closure #1 in SampleReceiver.waveforms()()
+{
+  v2 = v0[6];
+  v1 = v0[7];
+  swift_beginAccess();
+  specialized Dictionary._Variant.removeValue(forKey:)(v2, v1);
+  outlined destroy of TaskPriority?(v1, &_sScS12ContinuationVySaySfG_GSgMd, &_sScS12ContinuationVySaySfG_GSgMR);
+  swift_endAccess();
+  SampleReceiver.ContinuationStorage.continuations.didset();
+
+  v3 = v0[1];
+
+  return v3();
+}
+
+void *SampleReceiver.continuations.getter()
+{
+  if (*(v0 + 16))
+  {
+    v1 = *(v0 + 16);
+  }
+
+  else
+  {
+    v2 = SampleReceiver.tapDelegate.getter();
+    v3 = *(SampleReceiver.sampleProcessor.getter() + 104);
+
+    type metadata accessor for SampleReceiver.ContinuationStorage();
+    v1 = swift_allocObject();
+    swift_defaultActor_initialize();
+    v1[16] = _swiftEmptyDictionarySingleton;
+    v1[17] = 0;
+    v1[14] = v2;
+    v1[15] = v3;
+    *(v0 + 16) = v1;
+  }
+
+  return v1;
+}
+
+uint64_t SampleReceiver.ContinuationStorage.yield(_:)(uint64_t a1)
+{
+  v2[6] = a1;
+  v2[7] = v1;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySaySfG__GMd, &_sScS12ContinuationV11YieldResultOySaySfG__GMR);
+  v2[8] = v3;
+  v2[9] = *(v3 - 8);
+  v2[10] = swift_task_alloc();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd, &_sScS12ContinuationVySaySfG_GMR);
+  v2[11] = v4;
+  v2[12] = *(v4 - 8);
+  v2[13] = swift_task_alloc();
+  v2[14] = swift_task_alloc();
+
+  return _swift_task_switch(SampleReceiver.ContinuationStorage.yield(_:), v1, 0);
+}
+
+void SampleReceiver.ContinuationStorage.yield(_:)()
+{
+  v1 = v0[12];
+  v2 = v0[9];
+  v3 = v0[7];
+  swift_beginAccess();
+  v25 = v3;
+  v4 = *(v3 + 128);
+  v5 = v4 + 64;
+  v6 = -1;
+  v7 = -1 << *(v4 + 32);
+  if (-v7 < 64)
+  {
+    v6 = ~(-1 << -v7);
+  }
+
+  v8 = v6 & *(v4 + 64);
+  v9 = (63 - v7) >> 6;
+  v26 = v1;
+  v27 = v4;
+  v23 = (v2 + 8);
+  v24 = (v1 + 8);
+
+  v10 = 0;
+  if (v8)
+  {
+    while (1)
+    {
+      v11 = v10;
+LABEL_8:
+      v13 = v0[13];
+      v12 = v0[14];
+      v14 = v0[11];
+      (*(v26 + 16))(v12, *(v27 + 56) + *(v26 + 72) * (__clz(__rbit64(v8)) | (v11 << 6)), v14);
+      (*(v26 + 32))(v13, v12, v14);
+      v15 = *(v25 + 136);
+      if (!v15)
+      {
+        (*v24)(v0[13], v0[11]);
+        goto LABEL_13;
+      }
+
+      v16 = v15;
+      v17 = [v16 isEnabled];
+      v18 = v0[13];
+      v19 = v0[11];
+      if ((v17 & 1) == 0)
+      {
+        break;
+      }
+
+      v8 &= v8 - 1;
+      v20 = v0[10];
+      v21 = v0[8];
+      v0[5] = v0[6];
+
+      AsyncStream.Continuation.yield(_:)();
+
+      (*v23)(v20, v21);
+      (*v24)(v18, v19);
+      v10 = v11;
+      if (!v8)
+      {
+        goto LABEL_5;
+      }
+    }
+
+    (*v24)(v0[13], v0[11]);
+
+LABEL_14:
+
+    v22 = v0[1];
+
+    v22();
+  }
+
+  else
+  {
+LABEL_5:
+    while (1)
+    {
+      v11 = v10 + 1;
+      if (__OFADD__(v10, 1))
+      {
+        break;
+      }
+
+      if (v11 >= v9)
+      {
+LABEL_13:
+
+        goto LABEL_14;
+      }
+
+      v8 = *(v5 + 8 * v11);
+      ++v10;
       if (v8)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    __break(1u);
+  }
+}
+
+void SampleReceiver.ContinuationStorage.continuations.didset()
+{
+  v1 = v0;
+  swift_beginAccess();
+  v2 = *(v0[16] + 16);
+  if (one-time initialization token for sampleReceiver != -1)
+  {
+    swift_once();
+  }
+
+  v3 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v3, static Logger.sampleReceiver);
+
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v4, v5))
+  {
+    v6 = swift_slowAlloc();
+    *v6 = 134217984;
+    *(v6 + 4) = *(v1[16] + 16);
+
+    _os_log_impl(&_mh_execute_header, v4, v5, "SampleReceiver continuation count %ld", v6, 0xCu);
+
+    v7 = v1[17];
+    if (v2)
+    {
+LABEL_5:
+      if (v7)
+      {
+        v8 = v7;
+        v9 = v7;
+      }
+
+      else
+      {
+        v14 = [objc_allocWithZone(NSNumber) initWithInteger:v1[15]];
+        v9 = [objc_allocWithZone(MPCProcessAudioTap) initWithRefreshRate:v14 delegate:v1[14]];
+
+        v8 = 0;
+        v7 = v1[17];
+      }
+
+      v1[17] = v9;
+      v13 = v9;
+      v15 = v8;
+      SampleReceiver.ContinuationStorage.audioTap.didset(v7);
+
+      [v13 setEnabled:1];
+      [v13 start];
+      v16 = Logger.logObject.getter();
+      v17 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v16, v17))
+      {
+        v18 = swift_slowAlloc();
+        *v18 = 0;
+        _os_log_impl(&_mh_execute_header, v16, v17, "SampleReceiver audio tap active", v18, 2u);
+      }
+
+      goto LABEL_15;
+    }
+  }
+
+  else
+  {
+
+    v7 = v1[17];
+    if (v2)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  [v7 stop];
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
+  {
+    v12 = swift_slowAlloc();
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v10, v11, "SampleReceiver audio tap inactive", v12, 2u);
+  }
+
+  v13 = v1[17];
+  v1[17] = 0;
+  SampleReceiver.ContinuationStorage.audioTap.didset(v13);
+LABEL_15:
+}
+
+void SampleReceiver.ContinuationStorage.audioTap.didset(void *a1)
+{
+  v3 = *(v1 + 136);
+  if (!v3)
+  {
+    if (!a1)
+    {
+      return;
+    }
+
+    v6 = a1;
+    goto LABEL_11;
+  }
+
+  if (a1)
+  {
+    v4 = v1;
+    type metadata accessor for MPCProcessAudioTap();
+    v5 = v3;
+    v6 = a1;
+    v7 = static NSObject.== infix(_:_:)();
+
+    if (v7)
+    {
+      return;
+    }
+
+    v3 = *(v4 + 136);
+    if (!v3)
+    {
+LABEL_11:
+      v17 = one-time initialization token for sampleReceiver;
+      v18 = v6;
+      if (v17 != -1)
+      {
+        swift_once();
+      }
+
+      v19 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v19, static Logger.sampleReceiver);
+      v11 = v18;
+      oslog = Logger.logObject.getter();
+      v12 = static os_log_type_t.default.getter();
+
+      if (!os_log_type_enabled(oslog, v12))
+      {
+        goto LABEL_16;
+      }
+
+      v13 = swift_slowAlloc();
+      v14 = swift_slowAlloc();
+      *v13 = 138412290;
+      *(v13 + 4) = v11;
+      *v14 = a1;
+      v15 = v11;
+      v16 = "Audio tap destroyed: %@";
+      goto LABEL_15;
+    }
+  }
+
+  v8 = one-time initialization token for sampleReceiver;
+  v9 = v3;
+  if (v8 != -1)
+  {
+    swift_once();
+  }
+
+  v10 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v10, static Logger.sampleReceiver);
+  v11 = v9;
+  oslog = Logger.logObject.getter();
+  v12 = static os_log_type_t.default.getter();
+
+  if (!os_log_type_enabled(oslog, v12))
+  {
+    goto LABEL_16;
+  }
+
+  v13 = swift_slowAlloc();
+  v14 = swift_slowAlloc();
+  *v13 = 138412290;
+  *(v13 + 4) = v11;
+  *v14 = v3;
+  v15 = v11;
+  v16 = "Audio tap created: %@";
+LABEL_15:
+  _os_log_impl(&_mh_execute_header, oslog, v12, v16, v13, 0xCu);
+  outlined destroy of TaskPriority?(v14, &_sSo8NSObjectCSgMd_0, &_sSo8NSObjectCSgMR_0);
+
+  v11 = oslog;
+  oslog = v15;
+LABEL_16:
+}
+
+uint64_t SampleReceiver.ContinuationStorage.__deallocating_deinit()
+{
+
+  swift_defaultActor_destroy();
+
+  return _swift_defaultActor_deallocate(v0);
+}
+
+uint64_t closure #1 in SampleReceiver.receive(samples:count:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  *(v5 + 16) = a4;
+  *(v5 + 24) = a5;
+  return _swift_task_switch(closure #1 in SampleReceiver.receive(samples:count:), 0, 0);
+}
+
+uint64_t closure #1 in SampleReceiver.receive(samples:count:)()
+{
+  v0[4] = SampleReceiver.continuations.getter();
+  v1 = swift_task_alloc();
+  v0[5] = v1;
+  *v1 = v0;
+  v1[1] = closure #1 in SampleReceiver.receive(samples:count:);
+  v2 = v0[3];
+
+  return SampleReceiver.ContinuationStorage.yield(_:)(v2);
+}
+
+{
+  v3 = *v0;
+
+  v1 = *(v3 + 8);
+
+  return v1();
+}
+
+uint64_t SampleReceiver.sampleProcessor.getter()
+{
+  if (*(v0 + 24))
+  {
+    v1 = *(v0 + 24);
+  }
+
+  else
+  {
+    v2 = v0;
+    type metadata accessor for SampleReceiver.SampleTransformer();
+    v1 = swift_allocObject();
+    SampleReceiver.SampleTransformer.init(sampleRate:refreshRate:)(48000, 15);
+    *(v2 + 24) = v1;
+  }
+
+  return v1;
+}
+
+id SampleReceiver.tapDelegate.getter()
+{
+  v1 = *(v0 + 32);
+  if (v1)
+  {
+    v2 = *(v0 + 32);
+  }
+
+  else
+  {
+    v3 = type metadata accessor for SampleReceiver.TapDelegate();
+    v4 = objc_allocWithZone(v3);
+    swift_weakInit();
+    swift_weakAssign();
+    v9.receiver = v4;
+    v9.super_class = v3;
+    v5 = objc_msgSendSuper2(&v9, "init");
+    v6 = *(v0 + 32);
+    *(v0 + 32) = v5;
+    v2 = v5;
+
+    v1 = 0;
+  }
+
+  v7 = v1;
+  return v2;
+}
+
+void SampleReceiver.TapDelegate.processAudioTapDidReceiveAudioSamples(_:numberOfSamples:)(float *a1, int a2)
+{
+  LODWORD(v3) = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  __chkstk_darwin();
+  v6 = &v30 - v5;
+  Strong = swift_weakLoadStrong();
+  if (Strong)
+  {
+    if (v3)
+    {
+      v32 = Strong;
+      v8 = SampleReceiver.sampleProcessor.getter();
+      swift_beginAccess();
+      v9 = *(v8 + 24);
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      *(v8 + 24) = v9;
+      if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+      {
+        v9 = specialized _ArrayBuffer._consumeAndCreateNew()(v9);
+        *(v8 + 24) = v9;
+      }
+
+      swift_beginAccess();
+      v11 = *(v8 + 32);
+      v12 = swift_isUniquelyReferenced_nonNull_native();
+      *(v8 + 32) = v11;
+      if ((v12 & 1) == 0)
+      {
+        v11 = specialized _ArrayBuffer._consumeAndCreateNew()(v11);
+        *(v8 + 32) = v11;
+      }
+
+      swift_beginAccess();
+      v13 = *(v8 + 40);
+      v14 = swift_isUniquelyReferenced_nonNull_native();
+      *(v8 + 40) = v13;
+      if ((v14 & 1) == 0)
+      {
+        v13 = specialized _ArrayBuffer._consumeAndCreateNew()(v13);
+        *(v8 + 40) = v13;
+      }
+
+      swift_beginAccess();
+      v15 = *(v8 + 48);
+      v16 = swift_isUniquelyReferenced_nonNull_native();
+      *(v8 + 48) = v15;
+      if ((v16 & 1) == 0)
+      {
+        v15 = specialized _ArrayBuffer._consumeAndCreateNew()(v15);
+        *(v8 + 48) = v15;
+      }
+
+      v17 = *(v8 + 72);
+      __Z.realp = (v9 + 32);
+      __Z.imagp = (v11 + 32);
+      if (v17 >= v3)
+      {
+        v3 = v3;
+      }
+
+      else
+      {
+        v3 = v17;
+      }
+
+      v34.realp = (v13 + 32);
+      v34.imagp = (v15 + 32);
+      if (v17 < 0)
+      {
+        __break(1u);
+      }
+
+      else
+      {
+        if (v17)
+        {
+          v18 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+          v18[2] = v17;
+        }
+
+        else
+        {
+          v18 = _swiftEmptyArrayStorage;
+        }
+
+        __B = 0;
+        v36[0] = v18 + 4;
+        v36[1] = v17;
+        v19 = a1;
+        a1 = 0;
+        closure #1 in closure #1 in closure #1 in SampleReceiver.SampleTransformer.computeFFT(_:numberOfSamples:)(v36, &__B, v19, v3, v8);
+        if (v17 >= __B)
+        {
+          v18[2] = __B;
+          v3 = *(v8 + 80);
+          swift_beginAccess();
+          _s10Accelerate4vDSPO8multiply__6resultyx_q_q0_ztAA0A6BufferRzAaFR_AA0a7MutableE0R0_Sf7ElementRtzSfAHRt_SfAHRt0_r1_lFZSaySfG_A2LTt2g5(v18, v3, (v8 + 16));
+          swift_endAccess();
+
+          v20 = *(v8 + 16);
+          v21 = *(v20 + 16);
+          if (!(v21 >> 61))
+          {
+            v31 = v9;
+            if (v21 >= 2)
+            {
+              v23 = v21 >> 1;
+              v22 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSo10DSPComplexV_Tt1g5(v21 >> 1, 0);
+              memcpy(&v22[4], (v20 + 32), 8 * v23);
+            }
+
+            else
+            {
+              v22 = _swiftEmptyArrayStorage;
+            }
+
+            v24 = v22[2];
+
+            vDSP_ctoz(v22 + 4, 2, &__Z, 1, v24);
+
+            dispatch thunk of vDSP.FFT.forward(input:output:)();
+
+            v25 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1g50100_s9MusicCore14SampleReceiverC0C11TransformerC10computeFFT_15numberOfSamplesSaySfGSv_s6UInt32VtFAHSpyt15G_A3KtXEfU_ySryT13Gz_SiztXEfU1_0G4Core0iJ0C0iM0CSo15DSPSplitComplexVTf1nc_nTf4ngn_n(v17, v8, &v34);
+
+            v36[0] = v25;
+
+            _s10Accelerate6vForceO4sqrt_6resultyx_q_ztAA0A6BufferRzAA0a7MutableE0R_Sf7ElementRtzSfAHRt_r0_lFZSaySfG_AKTt1g5(v26, v36);
+
+            v2 = *(v8 + 64);
+            a1 = v36[0];
+            v3 = *(v36[0] + 2);
+
+            v27 = a1;
+            if (swift_isUniquelyReferenced_nonNull_native())
+            {
+              goto LABEL_27;
+            }
+
+            goto LABEL_32;
+          }
+
+LABEL_31:
+          __break(1u);
+LABEL_32:
+          v27 = specialized _ArrayBuffer._consumeAndCreateNew()(a1);
+LABEL_27:
+          LODWORD(__B) = v2;
+          vDSP_vsmul(a1 + 8, 1, &__B, v27 + 8, 1, v3);
+
+          *(v8 + 48) = v15;
+          swift_endAccess();
+          *(v8 + 40) = v13;
+          swift_endAccess();
+          *(v8 + 32) = v11;
+          swift_endAccess();
+          *(v8 + 24) = v31;
+          swift_endAccess();
+
+          v28 = type metadata accessor for TaskPriority();
+          (*(*(v28 - 8) + 56))(v6, 1, 1, v28);
+          v29 = swift_allocObject();
+          v29[2] = 0;
+          v29[3] = 0;
+          v29[4] = v32;
+          v29[5] = v27;
+          _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5_0(0, 0, v6, &async function pointer to partial apply for closure #1 in SampleReceiver.receive(samples:count:), v29);
+
+          return;
+        }
+      }
+
+      __break(1u);
+      goto LABEL_31;
+    }
+  }
+}
+
+id SampleReceiver.TapDelegate.__deallocating_deinit()
+{
+  v2.receiver = v0;
+  v2.super_class = type metadata accessor for SampleReceiver.TapDelegate();
+  return objc_msgSendSuper2(&v2, "dealloc");
+}
+
+uint64_t SampleReceiver.SampleTransformer.init(sampleRate:refreshRate:)(uint64_t a1, uint64_t a2)
+{
+  v3 = v2;
+  v6 = type metadata accessor for vDSP.Radix();
+  v7 = *(v6 - 8);
+  __chkstk_darwin();
+  v9 = &v30 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for vDSP.WindowSequence();
+  v11 = *(v10 - 8);
+  __chkstk_darwin();
+  v13 = &v30 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *(v3 + 96) = a1;
+  *(v3 + 104) = a2;
+  v14 = log2f(ceilf(a1 / a2));
+  if ((LODWORD(v14) & 0x7FFFFFFFu) > 0x7F7FFFFF)
+  {
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  if (v14 <= -1.0)
+  {
+LABEL_15:
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  if (v14 >= 1.8447e19)
+  {
+LABEL_16:
+    __break(1u);
+LABEL_17:
+    __break(1u);
+LABEL_18:
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  if (v14 >= 0x40)
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = (1 << v14) / 2;
+  }
+
+  if ((v15 & 0x8000000000000000) != 0)
+  {
+    goto LABEL_17;
+  }
+
+  v32 = v7;
+  if (v15)
+  {
+    v16 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    v31 = v6;
+    v17 = v9;
+    v18 = v16;
+    *(v16 + 16) = v15;
+    bzero((v16 + 32), 4 * v15);
+    *(v3 + 16) = v18;
+    v19 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    *(v19 + 16) = v15;
+    bzero((v19 + 32), 4 * v15);
+    *(v3 + 24) = v19;
+    v20 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    *(v20 + 16) = v15;
+    bzero((v20 + 32), 4 * v15);
+    *(v3 + 32) = v20;
+    v21 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    *(v21 + 16) = v15;
+    bzero((v21 + 32), 4 * v15);
+    *(v3 + 40) = v21;
+    v22 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    *(v22 + 16) = v15;
+    bzero((v22 + 32), 4 * v15);
+    *(v3 + 48) = v22;
+    v9 = v17;
+    v6 = v31;
+    v23 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    v23[2] = v15;
+    bzero(v23 + 4, 4 * v15);
+  }
+
+  else
+  {
+    v23 = _swiftEmptyArrayStorage;
+    *(v3 + 16) = _swiftEmptyArrayStorage;
+    *(v3 + 24) = _swiftEmptyArrayStorage;
+    *(v3 + 32) = _swiftEmptyArrayStorage;
+    *(v3 + 40) = _swiftEmptyArrayStorage;
+    *(v3 + 48) = _swiftEmptyArrayStorage;
+  }
+
+  *(v3 + 56) = v23;
+  *(v3 + 64) = 2.0 / v15;
+  (*(v11 + 104))(v13, enum case for vDSP.WindowSequence.hanningDenormalized(_:), v10);
+  if (!v15)
+  {
+    goto LABEL_18;
+  }
+
+  __chkstk_darwin();
+  *(&v30 - 4) = v13;
+  *(&v30 - 24) = 0;
+  v28 = v15;
+  v24 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5(v15, partial apply for closure #1 in static vDSP.window<A>(ofType:usingSequence:count:isHalfWindow:));
+  v25 = specialized _arrayForceCast<A, B>(_:)(v24);
+
+  (*(v11 + 8))(v13, v10);
+  *(v3 + 72) = v15;
+  *(v3 + 80) = v25;
+  (*(v32 + 104))(v9, enum case for vDSP.Radix.radix2(_:), v6);
+  type metadata accessor for DSPSplitComplex(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate4vDSPO3FFTCy_So15DSPSplitComplexVGMd, &_s10Accelerate4vDSPO3FFTCy_So15DSPSplitComplexVGMR);
+  swift_allocObject();
+  v26 = vDSP.FFT.init(log2n:radix:ofType:)();
+  if (v26)
+  {
+    *(v3 + 88) = v26;
+    return v3;
+  }
+
+LABEL_19:
+  v29 = 0;
+  v28 = 177;
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+void closure #1 in closure #1 in closure #1 in SampleReceiver.SampleTransformer.computeFFT(_:numberOfSamples:)(void **a1, void *a2, void *__src, char *a4, uint64_t a5)
+{
+  v7 = 0;
+  v8 = *a1;
+  if (a4)
+  {
+    v9 = a1[1];
+    if (v9)
+    {
+      if (v9 >= a4)
+      {
+        v7 = a4;
+      }
+
+      else
+      {
+        v7 = a1[1];
+      }
+
+      memcpy(*a1, __src, 4 * v7);
+    }
+  }
+
+  if (!v8)
+  {
+    goto LABEL_12;
+  }
+
+  v10 = *(a5 + 72);
+  v11 = __OFSUB__(v10, v7);
+  v12 = v10 - v7;
+  if (v11)
+  {
+    __break(1u);
+  }
+
+  else if ((v12 & 0x8000000000000000) == 0)
+  {
+    if (v12)
+    {
+      bzero(&v8[4 * v7], 4 * v12);
+    }
+
+LABEL_12:
+    *a2 = *(a5 + 72);
+    return;
+  }
+
+  __break(1u);
+}
+
+void _s10Accelerate4vDSPO8multiply__6resultyx_q_q0_ztAA0A6BufferRzAaFR_AA0a7MutableE0R0_Sf7ElementRtzSfAHRt_SfAHRt0_r1_lFZSaySfG_A2LTt2g5(uint64_t a1, uint64_t a2, char **a3)
+{
+  v6 = *a3;
+  v7 = *(*a3 + 2);
+  if (*(a1 + 16) != v7)
+  {
+    __break(1u);
+    goto LABEL_6;
+  }
+
+  v4 = a2;
+  if (*(a2 + 16) != v7)
+  {
+LABEL_6:
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v3 = a3;
+  v5 = a1;
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  {
+LABEL_7:
+    v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
+  }
+
+  vDSP_vmul((v5 + 32), 1, (v4 + 32), 1, v6 + 8, 1, v7);
+  *v3 = v6;
+}
+
+void _s10Accelerate6vForceO4sqrt_6resultyx_q_ztAA0A6BufferRzAA0a7MutableE0R_Sf7ElementRtzSfAHRt_r0_lFZSaySfG_AKTt1g5(uint64_t a1, char **a2)
+{
+  v4 = *(a1 + 16);
+  v5 = *a2;
+  if (v4 != *(*a2 + 2))
+  {
+    __break(1u);
+    goto LABEL_6;
+  }
+
+  if (v4 >> 31)
+  {
+LABEL_6:
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v2 = a2;
+  v3 = a1;
+  v6 = *(a1 + 16);
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  {
+LABEL_7:
+    v5 = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
+  }
+
+  vvsqrtf(v5 + 8, (v3 + 32), &v6);
+  *v2 = v5;
+}
+
+void *SampleReceiver.SampleTransformer.deinit()
+{
+
+  return v0;
+}
+
+uint64_t SampleReceiver.SampleTransformer.__deallocating_deinit()
+{
+  SampleReceiver.SampleTransformer.deinit();
+
+  return swift_deallocClassInstance();
+}
+
+uint64_t SampleReceiver.deinit()
+{
+
+  return v0;
+}
+
+uint64_t SampleReceiver.__deallocating_deinit()
+{
+
+  return swift_deallocClassInstance();
+}
+
+uint64_t one-time initialization function for sampleReceiver()
+{
+  v0 = type metadata accessor for Logger();
+  __swift_allocate_value_buffer(v0, static Logger.sampleReceiver);
+  __swift_project_value_buffer(v0, static Logger.sampleReceiver);
+  return Logger.init(subsystem:category:)();
+}
+
+uint64_t _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5(uint64_t result, uint64_t (*a2)(void *, uint64_t *))
+{
+  if (result < 0)
+  {
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  v4 = result;
+  if (result)
+  {
+    v5 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    v5[2] = v4;
+  }
+
+  else
+  {
+    v5 = _swiftEmptyArrayStorage;
+  }
+
+  v6 = v5 + 4;
+  v8 = 0;
+  v7[0] = v5 + 4;
+  v7[1] = v4;
+  result = a2(v7, &v8);
+  if (v2)
+  {
+    if (v8 <= v4)
+    {
+      if (!v7[0])
+      {
+LABEL_20:
+        __break(1u);
+        goto LABEL_21;
+      }
+
+      if (v6 == v7[0])
+      {
+        v5[2] = v8;
+
+        return v5;
+      }
+
+      goto LABEL_17;
+    }
+
+LABEL_16:
+    __break(1u);
+LABEL_17:
+    __break(1u);
+    goto LABEL_18;
+  }
+
+  if (v8 > v4)
+  {
+LABEL_18:
+    __break(1u);
+LABEL_19:
+    __break(1u);
+    goto LABEL_20;
+  }
+
+  if (v7[0])
+  {
+    if (v6 == v7[0])
+    {
+      v5[2] = v8;
+      return v5;
+    }
+
+    goto LABEL_19;
+  }
+
+LABEL_21:
+  __break(1u);
+  return result;
+}
+
+float *_sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1g50100_s9MusicCore14SampleReceiverC0C11TransformerC10computeFFT_15numberOfSamplesSaySfGSv_s6UInt32VtFAHSpyt15G_A3KtXEfU_ySryT13Gz_SiztXEfU1_0G4Core0iJ0C0iM0CSo15DSPSplitComplexVTf1nc_nTf4ngn_n(int64_t a1, uint64_t a2, DSPSplitComplex *a3)
+{
+  if (a1 < 0)
+  {
+    __break(1u);
+    goto LABEL_8;
+  }
+
+  if (a1)
+  {
+    v6 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+    *(v6 + 2) = a1;
+  }
+
+  else
+  {
+    v6 = _swiftEmptyArrayStorage;
+  }
+
+  v7 = *(a2 + 72);
+  v9 = *a3;
+  vDSP_zvmags(&v9, 1, v6 + 8, 1, a1);
+  if (v7 > a1)
+  {
+LABEL_8:
+    __break(1u);
+  }
+
+  *(v6 + 2) = v7;
+  return v6;
+}
+
+uint64_t sub_10021CC3C()
+{
+  swift_unknownObjectRelease();
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for closure #1 in SampleReceiver.receive(samples:count:)(uint64_t a1)
+{
+  v4 = v1[2];
+  v5 = v1[3];
+  v7 = v1[4];
+  v6 = v1[5];
+  v8 = swift_task_alloc();
+  *(v2 + 16) = v8;
+  *v8 = v2;
+  v8[1] = partial apply for closure #1 in static MusicEngagementExtension.performRequest(with:completion:);
+
+  return closure #1 in SampleReceiver.receive(samples:count:)(a1, v4, v5, v7, v6);
+}
+
+uint64_t partial apply for closure #1 in static vDSP.window<A>(ofType:usingSequence:count:isHalfWindow:)(uint64_t a1, void *a2)
+{
+  v4 = *(v2 + 32);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSrySfGMd, &_sSrySfGMR);
+  lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Float> and conformance UnsafeMutableBufferPointer<A>();
+  result = static vDSP.formWindow<A>(usingSequence:result:isHalfWindow:)();
+  *a2 = v4;
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Float> and conformance UnsafeMutableBufferPointer<A>()
+{
+  result = lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Float> and conformance UnsafeMutableBufferPointer<A>;
+  if (!lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Float> and conformance UnsafeMutableBufferPointer<A>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSrySfGMd, &_sSrySfGMR);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Float> and conformance UnsafeMutableBufferPointer<A>);
+  }
+
+  return result;
+}
+
+uint64_t sub_10021CE30()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd, &_sScS12ContinuationVySaySfG_GMR);
+  v2 = *(v1 - 8);
+  v3 = (*(v2 + 80) + 40) & ~*(v2 + 80);
+  swift_unknownObjectRelease();
+
+  (*(v2 + 8))(v0 + v3, v1);
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for closure #1 in closure #1 in SampleReceiver.waveforms()(uint64_t a1)
+{
+  v4 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd, &_sScS12ContinuationVySaySfG_GMR) - 8);
+  v5 = (*(v4 + 80) + 40) & ~*(v4 + 80);
+  v6 = v1[2];
+  v7 = v1[3];
+  v8 = v1[4];
+  v9 = swift_task_alloc();
+  *(v2 + 16) = v9;
+  *v9 = v2;
+  v9[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return closure #1 in closure #1 in SampleReceiver.waveforms()(a1, v6, v7, v8, v1 + v5);
+}
+
+uint64_t sub_10021D00C()
+{
+  v1 = type metadata accessor for UUID();
+  v2 = *(v1 - 8);
+  v3 = (*(v2 + 80) + 24) & ~*(v2 + 80);
+
+  (*(v2 + 8))(v0 + v3, v1);
+
+  return swift_deallocObject();
+}
+
+double partial apply for closure #1 in closure #1 in closure #1 in SampleReceiver.waveforms()(uint64_t a1)
+{
+  v3 = *(type metadata accessor for UUID() - 8);
+  v4 = *(v1 + 16);
+  v5 = v1 + ((*(v3 + 80) + 24) & ~*(v3 + 80));
+
+  return closure #1 in closure #1 in closure #1 in SampleReceiver.waveforms()(a1, v4, v5);
+}
+
+uint64_t sub_10021D144()
+{
+  v1 = type metadata accessor for UUID();
+  v2 = *(v1 - 8);
+  v3 = (*(v2 + 80) + 40) & ~*(v2 + 80);
+  swift_unknownObjectRelease();
+
+  (*(v2 + 8))(v0 + v3, v1);
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for closure #1 in closure #1 in closure #1 in closure #1 in SampleReceiver.waveforms()(uint64_t a1)
+{
+  v4 = *(type metadata accessor for UUID() - 8);
+  v5 = (*(v4 + 80) + 40) & ~*(v4 + 80);
+  v6 = v1[2];
+  v7 = v1[3];
+  v8 = v1[4];
+  v9 = swift_task_alloc();
+  *(v2 + 16) = v9;
+  *v9 = v2;
+  v9[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return closure #1 in closure #1 in closure #1 in closure #1 in SampleReceiver.waveforms()(a1, v6, v7, v8, v1 + v5);
+}
+
+unint64_t type metadata accessor for MPCProcessAudioTap()
+{
+  result = lazy cache variable for type metadata for MPCProcessAudioTap;
+  if (!lazy cache variable for type metadata for MPCProcessAudioTap)
+  {
+    objc_opt_self();
+    result = swift_getObjCClassMetadata();
+    atomic_store(result, &lazy cache variable for type metadata for MPCProcessAudioTap);
+  }
+
+  return result;
+}
+
+uint64_t SequentialVocalCommandsFilter.__allocating_init(playbackController:)(uint64_t a1)
+{
+  v2 = swift_allocObject();
+  swift_defaultActor_initialize();
+  *(v2 + 124) = 0;
+  *(v2 + 120) = 0;
+  *(v2 + 126) = 1;
+  *(v2 + 132) = 0;
+  *(v2 + 128) = 0;
+  *(v2 + 134) = 1;
+  *(v2 + 112) = a1;
+  return v2;
+}
+
+uint64_t SequentialVocalCommandsFilter.init(playbackController:)(uint64_t a1, uint64_t a2)
+{
+  swift_defaultActor_initialize();
+  *(v2 + 124) = 0;
+  *(v2 + 120) = 0;
+  *(v2 + 126) = 1;
+  *(v2 + 132) = 0;
+  *(v2 + 128) = 0;
+  *(v2 + 134) = 1;
+  *(v2 + 112) = a1;
+  return v2;
+}
+
+void SequentialVocalCommandsFilter.append(_:)(uint64_t a1)
+{
+  v2 = v1;
+  if (one-time initialization token for vocalCommandsFilter != -1)
+  {
+    swift_once();
+  }
+
+  v4 = a1 & 0xFFFFFFFFFFLL;
+  v5 = a1 & 0x10000000000;
+  v6 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v6, static Logger.vocalCommandsFilter);
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v7, v8))
+  {
+    v9 = swift_slowAlloc();
+    v10 = swift_slowAlloc();
+    v45[0] = v10;
+    *v9 = 136446210;
+    LOBYTE(v44) = v5 != 0;
+    v11 = Player.VocalsCommand.description.getter(a1 & 0xFFFFFFFFFFLL | ((v5 != 0) << 40));
+    v13 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v11, v12, v45);
+
+    *(v9 + 4) = v13;
+    _os_log_impl(&_mh_execute_header, v7, v8, "↪️ Queuing %{public}s", v9, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v10);
+
+    v4 = a1 & 0xFFFFFFFFFFLL;
+    v5 = a1 & 0x10000000000;
+  }
+
+  if (*(v1 + 134))
+  {
+    goto LABEL_6;
+  }
+
+  v22 = *(v1 + 128) | (*(v1 + 132) << 32);
+  if (v5)
+  {
+    if ((v22 & 0x10000000000) != 0)
+    {
+      goto LABEL_14;
+    }
+  }
+
+  else if ((v22 & 0x10000000000) == 0)
+  {
+    if ((v4 & 0x100000000) != 0)
+    {
+      if ((v22 & 0x100000000) == 0)
       {
         goto LABEL_6;
       }
     }
 
+    else if ((v22 & 0x100000000) != 0 || *&a1 != *(v1 + 128))
+    {
+      goto LABEL_6;
+    }
+
+LABEL_14:
+    oslog = Logger.logObject.getter();
+    v23 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(oslog, v23))
+    {
+      v24 = swift_slowAlloc();
+      v25 = swift_slowAlloc();
+      v45[0] = v25;
+      *v24 = 136446210;
+      LOBYTE(v44) = v5 != 0;
+      v26 = Player.VocalsCommand.description.getter(a1 & 0xFFFFFFFFFFLL | ((v5 != 0) << 40));
+      v28 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v26, v27, v45);
+
+      *(v24 + 4) = v28;
+      _os_log_impl(&_mh_execute_header, oslog, v23, "↪️❌ Ignored %{public}s; already executing.", v24, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0Tm(v25);
+    }
+
     else
     {
-      outlined consume of MPCPlayerResponse??(*(v0 + 184));
+    }
+
+    return;
+  }
+
+LABEL_6:
+  swift_beginAccess();
+  if ((*(v1 + 126) & 1) == 0)
+  {
+    v14 = *(v1 + 120) | (*(v1 + 124) << 32);
+    if ((v14 & 0x10000000000) != 0)
+    {
+      if (v5)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    else if (!v5)
+    {
+      if ((v14 & 0x100000000) != 0)
+      {
+        if ((v4 & 0x100000000) != 0)
+        {
+          goto LABEL_9;
+        }
+      }
+
+      else if ((v4 & 0x100000000) == 0 && *(v1 + 120) == *&a1)
+      {
+LABEL_9:
+        v15 = Logger.logObject.getter();
+        v16 = static os_log_type_t.default.getter();
+        if (os_log_type_enabled(v15, v16))
+        {
+          v17 = swift_slowAlloc();
+          v18 = swift_slowAlloc();
+          v44 = v18;
+          *v17 = 136446210;
+          v19 = Player.VocalsCommand.description.getter(a1 & 0xFFFFFFFFFFLL | ((v5 != 0) << 40));
+          v21 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v19, v20, &v44);
+
+          *(v17 + 4) = v21;
+          _os_log_impl(&_mh_execute_header, v15, v16, "↪️❌ Ignored %{public}s; Already enqueued.", v17, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0Tm(v18);
+        }
+
+        return;
+      }
+    }
+
+    v29 = Logger.logObject.getter();
+    v30 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v29, v30))
+    {
+      v31 = swift_slowAlloc();
+      v32 = swift_slowAlloc();
+      v44 = v32;
+      *v31 = 136446210;
+      v33 = Player.VocalsCommand.description.getter(v14 & 0xFFFFFFFFFFLL | (((v14 >> 40) & 1) << 40));
+      v35 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v33, v34, &v44);
+
+      *(v31 + 4) = v35;
+      _os_log_impl(&_mh_execute_header, v29, v30, "↪️🫳 Dropping queued command %{public}s", v31, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0Tm(v32);
     }
   }
 
-  *(v0 + 160) = static MainActor.shared.getter();
-  v11 = lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type AsyncPublisher<Published<MPCPlayerResponse?>.Publisher>.Iterator and conformance AsyncPublisher<A>.Iterator, &_s7Combine14AsyncPublisherV8IteratorVyAA9PublishedV0C0VySo17MPCPlayerResponseCSg_G_GMd);
-  v12 = swift_task_alloc();
-  *(v0 + 168) = v12;
-  *v12 = v0;
-  v12[1] = closure #2 in Player.prepareForBufferedAirPlay();
-  v13 = *(v0 + 104);
-
-  return dispatch thunk of AsyncIteratorProtocol.next()(v0 + 40, v13, v11);
-}
-
-{
-  *(v0 + 48) = *(v0 + 176);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-  swift_dynamicCast();
-
-  return swift_willThrowTypedImpl();
-}
-
-void Player.engineState.didset(unsigned __int8 a1)
-{
-  v2 = v1;
-  v4 = OBJC_IVAR____TtC9MusicCore6Player_engineState;
-  swift_beginAccess();
-  if (*(v2 + v4) != a1)
+  v36 = Logger.logObject.getter();
+  v37 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v36, v37))
   {
-    if (one-time initialization token for logger != -1)
+    v38 = swift_slowAlloc();
+    v39 = swift_slowAlloc();
+    v44 = v39;
+    *v38 = 136446210;
+    v40 = Player.VocalsCommand.description.getter(a1 & 0xFFFFFFFFFFLL | ((v5 != 0) << 40));
+    v42 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v40, v41, &v44);
+
+    *(v38 + 4) = v42;
+    _os_log_impl(&_mh_execute_header, v36, v37, "↪️✅ Queued %{public}s", v38, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v39);
+  }
+
+  *(v2 + 120) = a1 | v5;
+  *(v2 + 124) = (a1 & 0xFFFFFFFFFFLL | v5) >> 32;
+  *(v2 + 126) = 0;
+  SequentialVocalCommandsFilter.dequeueCommandIfNeeded()();
+}
+
+double SequentialVocalCommandsFilter.executingCommand.didset(unint64_t a1)
+{
+  if ((*(v1 + 134) & 1) == 0)
+  {
+    v12 = *(v1 + 128) | (*(v1 + 132) << 32);
+    swift_beginAccess();
+    if ((*(v1 + 126) & 1) == 0)
     {
-      goto LABEL_36;
+      v13 = *(v1 + 120) | (*(v1 + 124) << 32);
+      if ((v12 & 0x10000000000) == 0)
+      {
+        if ((v13 & 0x10000000000) != 0)
+        {
+          goto LABEL_17;
+        }
+
+        if ((v12 & 0x100000000) != 0)
+        {
+          if ((v13 & 0x100000000) == 0)
+          {
+            goto LABEL_17;
+          }
+        }
+
+        else if ((v13 & 0x100000000) != 0 || *&v12 != *(v1 + 120))
+        {
+          goto LABEL_17;
+        }
+
+        goto LABEL_10;
+      }
+
+      if ((v13 & 0x10000000000) != 0)
+      {
+LABEL_10:
+        *(v1 + 124) = 0;
+        *(v1 + 120) = 0;
+        *(v1 + 126) = 1;
+        SequentialVocalCommandsFilter.dequeueCommandIfNeeded()();
+      }
     }
 
-    while (1)
+LABEL_17:
+    if (one-time initialization token for vocalCommandsFilter != -1)
     {
-      v5 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v5, static Player.logger);
-      v6 = Logger.logObject.getter();
-      v7 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v6, v7))
-      {
-        v8 = swift_slowAlloc();
-        *v8 = 0;
-        _os_log_impl(&_mh_execute_header, v6, v7, "╭ Updated Engine State", v8, 2u);
-      }
-
-      v9 = Logger.logObject.getter();
-      v10 = static os_log_type_t.default.getter();
-
-      if (os_log_type_enabled(v9, v10))
-      {
-        v11 = swift_slowAlloc();
-        v12 = swift_slowAlloc();
-        v38[0] = v12;
-        *v11 = 136446210;
-        if (*(v2 + v4) > 1u)
-        {
-          if (*(v2 + v4) == 2)
-          {
-            v13 = 0xA900000000000079;
-            v14 = 0x6461655220859CE2;
-          }
-
-          else
-          {
-            v13 = 0xAE0064656C6C6174;
-            v14 = 0x53208FB8EFA09AE2;
-          }
-        }
-
-        else if (*(v2 + v4))
-        {
-          v13 = 0xAD0000676E697472;
-          v14 = 0x61745320809A9FF0;
-        }
-
-        else
-        {
-          v13 = 0xA700000000000000;
-          v14 = 0x66664F208C9DE2;
-        }
-
-        v15 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v14, v13, v38);
-
-        *(v11 + 4) = v15;
-        _os_log_impl(&_mh_execute_header, v9, v10, "╰ %{public}s", v11, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v12);
-      }
-
-      if (*(v2 + v4) <= 1u)
-      {
-        break;
-      }
-
-      if (*(v2 + v4) != 2)
-      {
-        return;
-      }
-
-      v26 = OBJC_IVAR____TtC9MusicCore6Player__onEngineIsReady;
-      swift_beginAccess();
-      v27 = *(v2 + v26);
-      v28 = *(v27 + 16);
-
-      if (!v28)
-      {
-LABEL_28:
-
-        *(v2 + v26) = &_swiftEmptyArrayStorage;
-
-        return;
-      }
-
-      v29 = 0;
-      v30 = v27 + 40;
-      while (v29 < *(v27 + 16))
-      {
-        ++v29;
-        v31 = *(v30 - 8);
-
-        v31(v32);
-
-        v30 += 16;
-        if (v28 == v29)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      __break(1u);
-LABEL_36:
       swift_once();
     }
 
-    if (*(v2 + v4))
+    v14 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v14, static Logger.vocalCommandsFilter);
+    v4 = Logger.logObject.getter();
+    v5 = static os_log_type_t.default.getter();
+    if (!os_log_type_enabled(v4, v5))
     {
-      [*(v2 + OBJC_IVAR____TtC9MusicCore6Player_engine) start];
-      v33 = Player.playbackDataSource.getter();
-      v34 = v33;
-      v35 = v33[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_automaticallyReloads];
-      v33[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_automaticallyReloads] = 1;
-      if (v35 != 1)
+      goto LABEL_22;
+    }
+
+    v6 = swift_slowAlloc();
+    v7 = swift_slowAlloc();
+    v19 = v7;
+    *v6 = 136446210;
+    v15 = Player.VocalsCommand.description.getter(v12 & 0xFFFFFFFFFFLL | (((v12 >> 40) & 1) << 40));
+    v17 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v15, v16, &v19);
+
+    *(v6 + 4) = v17;
+    v11 = "▶️ Executing %{public}s";
+    goto LABEL_21;
+  }
+
+  if ((a1 & 0x1000000000000) == 0)
+  {
+    if (one-time initialization token for vocalCommandsFilter != -1)
+    {
+      swift_once();
+    }
+
+    v3 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v3, static Logger.vocalCommandsFilter);
+    v4 = Logger.logObject.getter();
+    v5 = static os_log_type_t.default.getter();
+    if (!os_log_type_enabled(v4, v5))
+    {
+      goto LABEL_22;
+    }
+
+    v6 = swift_slowAlloc();
+    v7 = swift_slowAlloc();
+    v20[0] = v7;
+    *v6 = 136446210;
+    v8 = Player.VocalsCommand.description.getter(a1 & 0xFFFFFFFFFFLL | (((a1 >> 40) & 1) << 40));
+    v10 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v8, v9, v20);
+
+    *(v6 + 4) = v10;
+    v11 = "✅ Finished executing %{public}s";
+LABEL_21:
+    _os_log_impl(&_mh_execute_header, v4, v5, v11, v6, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v7);
+
+LABEL_22:
+  }
+
+  return SequentialVocalCommandsFilter.dequeueCommandIfNeeded()();
+}
+
+double SequentialVocalCommandsFilter.dequeueCommandIfNeeded()()
+{
+  v1 = v0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *&result = __chkstk_darwin().n128_u64[0];
+  v4 = &v22 - v3;
+  if (*(v0 + 134) == 1)
+  {
+    swift_beginAccess();
+    if ((*(v0 + 126) & 1) == 0)
+    {
+      v5 = *(v0 + 120) | (*(v0 + 124) << 32);
+      v6 = v5 & 0xFFFFFFFFFFLL;
+      if (one-time initialization token for vocalCommandsFilter != -1)
       {
-        [*&v33[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_controller] beginAutomaticResponseLoading];
+        swift_once();
       }
 
-      v22 = Player.nowPlayingDataSource.getter();
-      v36 = v22[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_automaticallyReloads];
-      v22[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_automaticallyReloads] = 1;
-      if ((v36 & 1) == 0)
+      v7 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v7, static Logger.vocalCommandsFilter);
+      v8 = Logger.logObject.getter();
+      v9 = static os_log_type_t.default.getter();
+      v10 = (v5 >> 40) & 1;
+      if (os_log_type_enabled(v8, v9))
       {
-        v24 = *&v22[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_controller];
-        v25 = "beginAutomaticResponseLoading";
-        goto LABEL_34;
+        v11 = swift_slowAlloc();
+        v22 = v5 & 0xFFFFFFFFFFLL;
+        v12 = v11;
+        v13 = swift_slowAlloc();
+        v23 = v13;
+        *v12 = 136446210;
+        v14 = Player.VocalsCommand.description.getter(v5 & 0xFFFFFFFFFFLL | (v10 << 40));
+        v16 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v14, v15, &v23);
+
+        *(v12 + 4) = v16;
+        _os_log_impl(&_mh_execute_header, v8, v9, "↪️ Dequeuing %{public}s", v12, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0Tm(v13);
+
+        v6 = v22;
+      }
+
+      v17 = *(v1 + 128) | (*(v1 + 132) << 32);
+      v18 = *(v1 + 134);
+      *(v1 + 128) = v5;
+      *(v1 + 132) = WORD2(v5) & 0x1FF;
+      *(v1 + 134) = 0;
+      LOBYTE(v23) = v18;
+      SequentialVocalCommandsFilter.executingCommand.didset(v17 | (v18 << 48));
+      v19 = type metadata accessor for TaskPriority();
+      (*(*(v19 - 8) + 56))(v4, 1, 1, v19);
+      v20 = lazy protocol witness table accessor for type SequentialVocalCommandsFilter and conformance SequentialVocalCommandsFilter();
+      v21 = swift_allocObject();
+      *(v21 + 16) = v1;
+      *(v21 + 24) = v20;
+      *(v21 + 32) = v1;
+      *(v21 + 44) = BYTE4(v6);
+      *(v21 + 40) = v6;
+      *(v21 + 45) = v10;
+      swift_retain_n();
+      _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5_0(0, 0, v4, &async function pointer to partial apply for closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded(), v21);
+    }
+  }
+
+  return result;
+}
+
+uint64_t closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  *(v5 + 96) = a4;
+  *(v5 + 104) = a5;
+  return _swift_task_switch(closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded(), a4, 0);
+}
+
+uint64_t closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded()()
+{
+  v1 = *(v0 + 104);
+  *(v0 + 112) = *(*(v0 + 96) + 112);
+  *(v0 + 40) = &type metadata for Player.VocalsCommand;
+  *(v0 + 48) = &protocol witness table for Player.VocalsCommand;
+  *(v0 + 16) = v1;
+  *(v0 + 20) = BYTE4(v1);
+  *(v0 + 21) = BYTE5(v1) & 1;
+  *(v0 + 80) = &type metadata for Player.CommandIssuerIdentity;
+  *(v0 + 88) = &protocol witness table for Player.CommandIssuerIdentity;
+  *(v0 + 56) = 0x726564696C534156;
+  *(v0 + 64) = 0xE800000000000000;
+  *(v0 + 120) = type metadata accessor for MainActor();
+  *(v0 + 128) = static MainActor.shared.getter();
+  v3 = dispatch thunk of Actor.unownedExecutor.getter();
+  *(v0 + 136) = v3;
+  *(v0 + 144) = v2;
+
+  return _swift_task_switch(closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded(), v3, v2);
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9MusicCore6PlayerC7Command_pGMd, &_ss23_ContiguousArrayStorageCy9MusicCore6PlayerC7Command_pGMR);
+  v1 = swift_allocObject();
+  v0[19] = v1;
+  *(v1 + 16) = xmmword_1004F2400;
+  outlined init with copy of ActionPerforming((v0 + 2), v1 + 32);
+  v0[20] = static MainActor.shared.getter();
+  v2 = swift_task_alloc();
+  v0[21] = v2;
+  *v2 = v0;
+  v2[1] = closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded();
+
+  return PlaybackController.perform(_:options:intent:issuer:)(v1, 0x10000, 1, 0, 0, (v0 + 7));
+}
+
+{
+
+  v1 = *(v0 + 136);
+  v2 = *(v0 + 144);
+
+  return _swift_task_switch(closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded(), v1, v2);
+}
+
+{
+  v1 = v0[22];
+
+  if (v1 >> 62)
+  {
+    goto LABEL_6;
+  }
+
+  if (*((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  {
+    while ((v1 & 0xC000000000000001) == 0)
+    {
+      v1 = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+
+      if (v1)
+      {
+        goto LABEL_10;
+      }
+
+      __break(1u);
+LABEL_6:
+      if (!_CocoaArrayWrapper.endIndex.getter())
+      {
+        goto LABEL_9;
       }
     }
 
-    else
-    {
-      v16 = Logger.logObject.getter();
-      v17 = static os_log_type_t.fault.getter();
-      if (os_log_type_enabled(v16, v17))
-      {
-        v18 = swift_slowAlloc();
-        *v18 = 0;
-        _os_log_impl(&_mh_execute_header, v16, v17, "❌ Stopped engine… which is not supposed to happen", v18, 2u);
-      }
-
-      v19 = Player.playbackDataSource.getter();
-      v20 = v19;
-      v21 = v19[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_automaticallyReloads];
-      v19[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_automaticallyReloads] = 0;
-      if (v21)
-      {
-        [*&v19[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_controller] endAutomaticResponseLoading];
-      }
-
-      v22 = Player.nowPlayingDataSource.getter();
-      v23 = v22[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_automaticallyReloads];
-      v22[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_automaticallyReloads] = 0;
-      if (v23)
-      {
-        v24 = *&v22[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_controller];
-        v25 = "endAutomaticResponseLoading";
-LABEL_34:
-        v37 = v22;
-        [v24 v25];
-
-        return;
-      }
-    }
+    specialized _ArrayBuffer._getElementSlowPath(_:)();
+    swift_unknownObjectRelease();
   }
+
+LABEL_9:
+
+LABEL_10:
+  v2 = v0[12];
+  outlined destroy of Player.CommandIssuer?((v0 + 7));
+  __swift_destroy_boxed_opaque_existential_0Tm(v0 + 2);
+
+  return _swift_task_switch(closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded(), v2, 0);
 }
 
-uint64_t Player.engineState.getter()
 {
-  v1 = OBJC_IVAR____TtC9MusicCore6Player_engineState;
-  swift_beginAccess();
-  return *(v0 + v1);
+
+  v1 = *(v0 + 136);
+  v2 = *(v0 + 144);
+
+  return _swift_task_switch(closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded(), v1, v2);
 }
 
-uint64_t Player.EngineState.description.getter(unsigned __int8 a1)
 {
-  v1 = 0x66664F208C9DE2;
-  v2 = 0x6461655220859CE2;
-  if (a1 != 2)
-  {
-    v2 = 0x53208FB8EFA09AE2;
-  }
+  v1 = *(v0 + 96);
 
-  if (a1)
-  {
-    v1 = 0x61745320809A9FF0;
-  }
+  return _swift_task_switch(closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded(), v1, 0);
+}
 
-  if (a1 <= 1u)
+{
+  outlined destroy of Player.CommandIssuer?((v0 + 7));
+  __swift_destroy_boxed_opaque_existential_0Tm(v0 + 2);
+  v1 = v0[12];
+  v2 = *(v1 + 128) | (*(v1 + 132) << 32);
+  v3 = *(v1 + 134);
+  *(v1 + 128) = 0;
+  *(v1 + 132) = 0;
+  *(v1 + 134) = 1;
+  v4.n128_f64[0] = SequentialVocalCommandsFilter.executingCommand.didset(v2 | (v3 << 48));
+  v5 = v0[1];
+
+  return v5(v4);
+}
+
+{
+  v1 = *(v0 + 96);
+  v2 = *(v1 + 128) | (*(v1 + 132) << 32);
+  v3 = *(v1 + 134);
+  *(v1 + 128) = 0;
+  *(v1 + 132) = 0;
+  *(v1 + 134) = 1;
+  v4.n128_f64[0] = SequentialVocalCommandsFilter.executingCommand.didset(v2 | (v3 << 48));
+  v5 = *(v0 + 8);
+
+  return v5(v4);
+}
+
+uint64_t closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded()(uint64_t a1)
+{
+  *(*v2 + 176) = a1;
+
+  if (v1)
   {
-    return v1;
+
+    v3 = dispatch thunk of Actor.unownedExecutor.getter();
+    v5 = v4;
+    v6 = closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded();
   }
 
   else
   {
-    return v2;
+    v3 = dispatch thunk of Actor.unownedExecutor.getter();
+    v5 = v7;
+    v6 = closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded();
+  }
+
+  return _swift_task_switch(v6, v3, v5);
+}
+
+uint64_t SequentialVocalCommandsFilter.__deallocating_deinit()
+{
+  swift_defaultActor_destroy();
+
+  return _swift_defaultActor_deallocate(v0);
+}
+
+uint64_t one-time initialization function for vocalCommandsFilter()
+{
+  v0 = type metadata accessor for Logger();
+  __swift_allocate_value_buffer(v0, static Logger.vocalCommandsFilter);
+  __swift_project_value_buffer(v0, static Logger.vocalCommandsFilter);
+  return Logger.init(subsystem:category:)();
+}
+
+uint64_t sub_10021E780@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *a1;
+  result = swift_beginAccess();
+  v5 = *(v3 + 120);
+  v6 = *(v3 + 126);
+  *(a2 + 4) = *(v3 + 124);
+  *a2 = v5;
+  *(a2 + 6) = v6;
+  return result;
+}
+
+double sub_10021E7D8(int *a1, uint64_t *a2)
+{
+  v2 = *a1;
+  v3 = *(a1 + 2);
+  v4 = *(a1 + 6);
+  v5 = *a2;
+  swift_beginAccess();
+  *(v5 + 124) = v3;
+  *(v5 + 120) = v2;
+  *(v5 + 126) = v4;
+  return SequentialVocalCommandsFilter.dequeueCommandIfNeeded()();
+}
+
+unint64_t lazy protocol witness table accessor for type SequentialVocalCommandsFilter and conformance SequentialVocalCommandsFilter()
+{
+  result = lazy protocol witness table cache variable for type SequentialVocalCommandsFilter and conformance SequentialVocalCommandsFilter;
+  if (!lazy protocol witness table cache variable for type SequentialVocalCommandsFilter and conformance SequentialVocalCommandsFilter)
+  {
+    type metadata accessor for SequentialVocalCommandsFilter();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SequentialVocalCommandsFilter and conformance SequentialVocalCommandsFilter);
+  }
+
+  return result;
+}
+
+uint64_t sub_10021E8B0()
+{
+  swift_unknownObjectRelease();
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded()(uint64_t a1)
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = *(v1 + 32);
+  v7 = *(v1 + 40) | (*(v1 + 44) << 32) | (*(v1 + 45) << 40);
+  v8 = swift_task_alloc();
+  *(v2 + 16) = v8;
+  *v8 = v2;
+  v8[1] = partial apply for closure #1 in static MusicEngagementExtension.performRequest(with:completion:);
+
+  return closure #1 in SequentialVocalCommandsFilter.dequeueCommandIfNeeded()(a1, v4, v5, v6, v7);
+}
+
+uint64_t outlined destroy of Player.CommandIssuer?(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC13CommandIssuer_pSgMd, &_s9MusicCore6PlayerC13CommandIssuer_pSgMR);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+uint64_t *PlaylistCovers.ArtworkDataSource.shared.unsafeMutableAddressor()
+{
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  return &static PlaylistCovers.ArtworkDataSource.shared;
+}
+
+__n128 PlaylistCovers.Recipe.init(_:)@<Q0>(uint64_t a1@<X8>, uint64_t a2@<X0>, unint64_t a3@<X1>)
+{
+  v5 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSS8UTF8ViewV_Tt0g5(a2, a3);
+  v7 = v6;
+  type metadata accessor for JSONDecoder();
+  swift_allocObject();
+  JSONDecoder.init()();
+  lazy protocol witness table accessor for type PlaylistCovers.Recipe and conformance PlaylistCovers.Recipe();
+  dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+
+  outlined consume of Data._Representation(v5, v7);
+  if (!v3)
+  {
+    *(a1 + 64) = v13;
+    *(a1 + 80) = v14;
+    *(a1 + 96) = v15;
+    *a1 = v9;
+    *(a1 + 16) = v10;
+    result = v12;
+    *(a1 + 32) = v11;
+    *(a1 + 48) = v12;
+  }
+
+  return result;
+}
+
+void PlaylistCovers.Recipe.asCoverRepresentation(_:)(void *a1@<X8>, double a2@<D0>, double a3@<D1>)
+{
+  v7 = *v3 == 3157553 && v3[1] == 0xE300000000000000;
+  if (v7 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+    v8 = v3[5];
+    v9 = v3[6];
+    v10 = v3[7];
+    v11 = v3[8];
+    v12 = v3[9];
+    v13 = v3[10];
+    v14 = specialized static PlaylistCovers.color(from:)(v3[3], v3[4]);
+    if (!v14)
+    {
+      v19 = 0;
+      v20 = 0;
+      goto LABEL_14;
+    }
+
+    v15 = specialized static PlaylistCovers.color(from:)(v8, v9);
+    if (!v15)
+    {
+
+      v19 = 0;
+      v20 = 0;
+      v14 = 0;
+      goto LABEL_16;
+    }
+
+    v16 = specialized static PlaylistCovers.color(from:)(v10, v11);
+    if (!v16)
+    {
+
+      v19 = 0;
+      v20 = 0;
+      v14 = 0;
+      v15 = 0;
+      goto LABEL_17;
+    }
+
+    v17 = specialized static PlaylistCovers.color(from:)(v12, v13);
+    if (!v17)
+    {
+
+      v19 = 0;
+      v20 = 0;
+      v14 = 0;
+      v15 = 0;
+      v16 = 0;
+      goto LABEL_18;
+    }
+
+    v18 = specialized PlaylistCovers.Expression.init(rawValue:)(v3[2]);
+    if (v18 != 8)
+    {
+      v22 = v18;
+      type metadata accessor for UIGraphicsImageRendererFormat();
+      ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+      v29 = v14;
+      v27 = v15;
+      v24 = v16;
+      v28 = v17;
+      v25 = [ObjCClassFromMetadata preferredFormat];
+      v20 = PlaylistCovers.Expression.generate(size:colors:graphicsFormat:)(v29, v27, v24, v28, v25, v22, a2, a3);
+      v21 = v26;
+
+      v19 = v22;
+      goto LABEL_19;
+    }
+  }
+
+  v19 = 0;
+  v20 = 0;
+  v14 = 0;
+LABEL_14:
+  v15 = 0;
+LABEL_16:
+  v16 = 0;
+LABEL_17:
+  v17 = 0;
+LABEL_18:
+  v21 = 0;
+LABEL_19:
+  *a1 = v19;
+  a1[1] = v20;
+  a1[2] = v14;
+  a1[3] = v15;
+  a1[4] = v16;
+  a1[5] = v17;
+  a1[6] = v21;
+}
+
+id PlaylistCovers.ArtworkToken.__allocating_init(coverRepresentation:playlistTitle:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = objc_allocWithZone(v3);
+  v8 = &v7[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation];
+  v9 = *(a1 + 16);
+  *v8 = *a1;
+  *(v8 + 1) = v9;
+  *(v8 + 2) = *(a1 + 32);
+  *(v8 + 6) = *(a1 + 48);
+  v10 = &v7[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_playlistTitle];
+  *v10 = a2;
+  *(v10 + 1) = a3;
+  v12.receiver = v7;
+  v12.super_class = v3;
+  return objc_msgSendSuper2(&v12, "init");
+}
+
+id PlaylistCovers.ArtworkToken.init(coverRepresentation:playlistTitle:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = &v3[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation];
+  v5 = *(a1 + 16);
+  *v4 = *a1;
+  *(v4 + 1) = v5;
+  *(v4 + 2) = *(a1 + 32);
+  *(v4 + 6) = *(a1 + 48);
+  v6 = &v3[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_playlistTitle];
+  *v6 = a2;
+  *(v6 + 1) = a3;
+  v8.receiver = v3;
+  v8.super_class = type metadata accessor for PlaylistCovers.ArtworkToken();
+  return objc_msgSendSuper2(&v8, "init");
+}
+
+void *PlaylistCovers.ArtworkToken.copy(with:)@<X0>(void *a1@<X8>)
+{
+  v2 = *(v1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation);
+  v3 = *(v1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 8);
+  v4 = *(v1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 16);
+  v5 = *(v1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 24);
+  v6 = *(v1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 32);
+  v7 = *(v1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 40);
+  v8 = *(v1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 48);
+  v10 = *(v1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_playlistTitle);
+  v9 = *(v1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_playlistTitle + 8);
+  v11 = type metadata accessor for PlaylistCovers.ArtworkToken();
+  v12 = objc_allocWithZone(v11);
+  v13 = &v12[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation];
+  *v13 = v2;
+  *(v13 + 1) = v3;
+  *(v13 + 2) = v4;
+  *(v13 + 3) = v5;
+  *(v13 + 4) = v6;
+  *(v13 + 5) = v7;
+  *(v13 + 6) = v8;
+  v14 = &v12[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_playlistTitle];
+  *v14 = v10;
+  *(v14 + 1) = v9;
+  v23.receiver = v12;
+  v23.super_class = v11;
+  v15 = v3;
+  v16 = v4;
+  v17 = v5;
+  v18 = v6;
+  v19 = v7;
+  v20 = v8;
+
+  result = objc_msgSendSuper2(&v23, "init");
+  a1[3] = v11;
+  *a1 = result;
+  return result;
+}
+
+Swift::String_optional __swiftcall PlaylistCovers.ArtworkToken.stringRepresentation()()
+{
+  v1 = *(v0 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 16);
+  v16[0] = *(v0 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation);
+  v16[1] = v1;
+  v16[2] = *(v0 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 32);
+  v17 = *(v0 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 48);
+  outlined init with copy of PlaylistCovers.Cover.Representation(v16, &v14);
+  v2 = PlaylistCovers.Cover.Representation.stringRepresentation.getter();
+  v4 = v3;
+  outlined destroy of PlaylistCovers.Cover.Representation(v16);
+  v14 = 0;
+  v15 = 0xE000000000000000;
+  _StringGuts.grow(_:)(19);
+
+  v14 = 0xD000000000000011;
+  v15 = 0x80000001004CD860;
+  v5 = *(v0 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_playlistTitle);
+  v6 = *(v0 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_playlistTitle + 8);
+
+  v7._countAndFlagsBits = v5;
+  v7._object = v6;
+  String.append(_:)(v7);
+
+  v8 = v14;
+  v9 = v15;
+  v14 = v2;
+  v15 = v4;
+
+  v10._countAndFlagsBits = v8;
+  v10._object = v9;
+  String.append(_:)(v10);
+
+  v11 = v14;
+  v12 = v15;
+  result.value._object = v12;
+  result.value._countAndFlagsBits = v11;
+  return result;
+}
+
+id static PlaylistCovers.ArtworkDataSource.shared.getter()
+{
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v1 = static PlaylistCovers.ArtworkDataSource.shared;
+
+  return v1;
+}
+
+id PlaylistCovers.ArtworkDataSource.existingRepresentation(for:)(void *a1)
+{
+  v3 = [a1 token];
+  _bridgeAnyObjectToAny(_:)();
+  swift_unknownObjectRelease();
+  type metadata accessor for PlaylistCovers.ArtworkToken();
+  if (swift_dynamicCast())
+  {
+    [a1 fittingSize];
+    v6 = specialized PlaylistCovers.ArtworkDataSource.cacheIdentifier(for:with:)(v10, v4, v5);
+    if (v6)
+    {
+      v7 = v6;
+      v8 = [*(v1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers17ArtworkDataSource_cache) objectForKey:v6];
+
+      return v8;
+    }
+  }
+
+  return 0;
+}
+
+uint64_t PlaylistCovers.ArtworkDataSource.loadRepresentation(for:)(uint64_t a1)
+{
+  v2[25] = a1;
+  v2[26] = v1;
+  type metadata accessor for Locale();
+  v2[27] = swift_task_alloc();
+  v3 = type metadata accessor for String.LocalizationValue();
+  v2[28] = v3;
+  v2[29] = *(v3 - 8);
+  v2[30] = swift_task_alloc();
+  v2[31] = swift_task_alloc();
+
+  return _swift_task_switch(PlaylistCovers.ArtworkDataSource.loadRepresentation(for:), 0, 0);
+}
+
+uint64_t PlaylistCovers.ArtworkDataSource.loadRepresentation(for:)()
+{
+  v1 = [*(v0 + 200) token];
+  _bridgeAnyObjectToAny(_:)();
+  swift_unknownObjectRelease();
+  type metadata accessor for PlaylistCovers.ArtworkToken();
+  if (!swift_dynamicCast())
+  {
+    v10 = *(v0 + 200);
+    _StringGuts.grow(_:)(58);
+    *(v0 + 176) = 0;
+    *(v0 + 184) = 0xE000000000000000;
+    v11._countAndFlagsBits = 0x206E656B6F54;
+    v11._object = 0xE600000000000000;
+    String.append(_:)(v11);
+    v12 = [v10 token];
+    _bridgeAnyObjectToAny(_:)();
+    swift_unknownObjectRelease();
+    _print_unlocked<A, B>(_:_:)();
+    __swift_destroy_boxed_opaque_existential_0Tm((v0 + 144));
+    v13._object = 0x80000001004CD8A0;
+    v13._countAndFlagsBits = 0xD000000000000032;
+    String.append(_:)(v13);
+    v14 = *(v0 + 176);
+    v15 = *(v0 + 184);
+    lazy protocol witness table accessor for type Error and conformance Error();
+    swift_allocError();
+    *v16 = v14;
+    v16[1] = v15;
+    swift_willThrow();
+
+    v17 = *(v0 + 8);
+
+    return v17();
+  }
+
+  v2 = *(v0 + 200);
+  v3 = *(v0 + 192);
+  [v2 fittingSize];
+  v5 = v4;
+  v7 = v6;
+  v8 = PlaylistCovers.ArtworkDataSource.existingRepresentation(for:)(v2);
+  if (v8)
+  {
+    v9 = v8;
+LABEL_4:
+
+    goto LABEL_28;
+  }
+
+  aBlock = (v0 + 16);
+  v71 = v3;
+  v19 = *(v0 + 200);
+  v20 = *&v3[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 8];
+  v21 = *&v3[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 16];
+  v22 = *&v3[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 24];
+  v23 = *&v3[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 32];
+  v25 = *&v3[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 40];
+  v24 = *&v3[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 48];
+  type metadata accessor for UIGraphicsImageRendererFormat();
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+  v69 = v20;
+  v65 = v21;
+  v66 = v22;
+  v67 = v23;
+  v68 = v25;
+  v27 = v24;
+  v28 = [ObjCClassFromMetadata preferredFormat];
+  [v19 destinationScale];
+  [v28 setScale:?];
+  [v19 fittingSize];
+  v30 = v29;
+  v32 = v31;
+  v34 = *&v71[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_playlistTitle];
+  v33 = *&v71[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_playlistTitle + 8];
+
+  v35 = String.trim()();
+
+  v36 = (v35._object >> 56) & 0xF;
+  if ((v35._object & 0x2000000000000000) == 0)
+  {
+    v36 = v35._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+  }
+
+  if (v36)
+  {
+    goto LABEL_13;
+  }
+
+  v38 = *(v0 + 240);
+  v37 = *(v0 + 248);
+  v40 = *(v0 + 224);
+  v39 = *(v0 + 232);
+
+  String.LocalizationValue.init(stringLiteral:)();
+  (*(v39 + 16))(v38, v37, v40);
+  if (one-time initialization token for module != -1)
+  {
+    goto LABEL_34;
+  }
+
+  while (1)
+  {
+    v41 = *(v0 + 248);
+    v43 = *(v0 + 224);
+    v42 = *(v0 + 232);
+    v44 = static NSBundle.module;
+    static Locale.current.getter();
+    v34 = String.init(localized:table:bundle:locale:comment:)();
+    v33 = v45;
+    (*(v42 + 8))(v41, v43);
+LABEL_13:
+
+    v46 = String._bridgeToObjectiveC()();
+
+    v47 = [v46 _containsEmoji];
+
+    v48 = 270.0;
+    if (v30 > 270.0)
+    {
+      v48 = v30;
+    }
+
+    if (v47)
+    {
+      v49 = v48;
+    }
+
+    else
+    {
+      v49 = v30;
+    }
+
+    if (v47)
+    {
+      v50 = v48;
+    }
+
+    else
+    {
+      v50 = v32;
+    }
+
+    v51 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithSize:v28 format:{v49, v50}];
+    v52 = swift_allocObject();
+    *(v52 + 16) = v49;
+    *(v52 + 24) = v50;
+    *(v52 + 32) = v69;
+    *(v52 + 40) = v28;
+    *(v52 + 48) = v34;
+    *(v52 + 56) = v33;
+    *(v52 + 64) = v27;
+    v53 = swift_allocObject();
+    *(v53 + 16) = partial apply for closure #2 in static PlaylistCovers.playlistCoverImage(size:backgroundImage:textColor:title:graphicsFormat:);
+    *(v53 + 24) = v52;
+    *(v0 + 48) = partial apply for thunk for @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+    *(v0 + 56) = v53;
+    *(v0 + 16) = _NSConcreteStackBlock;
+    *(v0 + 24) = 1107296256;
+    *(v0 + 32) = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+    *(v0 + 40) = &block_descriptor_33;
+    v54 = _Block_copy(aBlock);
+    v69 = v69;
+    aBlock = v28;
+    v28 = v27;
+
+    v55 = v51;
+    v27 = [v51 imageWithActions:v54];
+    _Block_release(v54);
+    LOBYTE(v54) = swift_isEscapingClosureAtFileLocation();
+
+    if (v54)
+    {
+      __break(1u);
+      goto LABEL_33;
+    }
+
+    v73.width = v49;
+    v73.height = v50;
+    v74.width = v30;
+    v74.height = v32;
+    if (CGSizeEqualToSize(v73, v74))
+    {
+
+      goto LABEL_26;
+    }
+
+    v64 = v28;
+    v56 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithSize:aBlock format:{v30, v32}];
+    v57 = swift_allocObject();
+    *(v57 + 16) = v27;
+    *(v57 + 24) = v30;
+    *(v57 + 32) = v32;
+    v58 = swift_allocObject();
+    *(v58 + 16) = partial apply for closure #3 in static PlaylistCovers.playlistCoverImage(size:backgroundImage:textColor:title:graphicsFormat:);
+    *(v58 + 24) = v57;
+    *(v0 + 96) = partial apply for thunk for @callee_guaranteed (@guaranteed MPMutableLocalLibraryIdentifiers) -> ();
+    *(v0 + 104) = v58;
+    *(v0 + 64) = _NSConcreteStackBlock;
+    *(v0 + 72) = 1107296256;
+    *(v0 + 80) = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+    *(v0 + 88) = &block_descriptor_13_1;
+    v59 = _Block_copy((v0 + 64));
+    v28 = *(v0 + 104);
+    v60 = v27;
+
+    v27 = [v56 imageWithActions:v59];
+
+    _Block_release(v59);
+    LOBYTE(v60) = swift_isEscapingClosureAtFileLocation();
+
+    if ((v60 & 1) == 0)
+    {
+      break;
+    }
+
+LABEL_33:
+    __break(1u);
+LABEL_34:
+    swift_once();
+  }
+
+  v28 = v64;
+LABEL_26:
+  v3 = v71;
+  v9 = [objc_opt_self() representationForVisualIdentity:v71 withSize:v27 image:{v5, v7}];
+  v61 = specialized PlaylistCovers.ArtworkDataSource.cacheIdentifier(for:with:)(v71, v5, v7);
+  if (!v61)
+  {
+
+    goto LABEL_4;
+  }
+
+  v62 = v61;
+  [*(*(v0 + 208) + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers17ArtworkDataSource_cache) setObject:v9 forKey:v61];
+
+LABEL_28:
+
+  v63 = *(v0 + 8);
+
+  return v63(v9);
+}
+
+uint64_t @objc closure #1 in PlaylistCovers.ArtworkDataSource.loadRepresentation(for:)(void *a1, void *aBlock, void *a3)
+{
+  v3[2] = a1;
+  v3[3] = a3;
+  v3[4] = _Block_copy(aBlock);
+  v6 = a1;
+  a3;
+  v7 = swift_task_alloc();
+  v3[5] = v7;
+  *v7 = v3;
+  v7[1] = @objc closure #1 in PlaylistCovers.ArtworkDataSource.loadRepresentation(for:);
+
+  return PlaylistCovers.ArtworkDataSource.loadRepresentation(for:)(v6);
+}
+
+uint64_t @objc closure #1 in PlaylistCovers.ArtworkDataSource.loadRepresentation(for:)(void *a1)
+{
+  v3 = v1;
+  v5 = *v2;
+  v6 = *(*v2 + 24);
+  v7 = *(*v2 + 16);
+  v8 = *v2;
+
+  v9 = *(v5 + 32);
+  if (v3)
+  {
+    v10 = _convertErrorToNSError(_:)();
+
+    (v9)[2](v9, 0, v10);
+
+    _Block_release(v9);
+  }
+
+  else
+  {
+    (v9)[2](*(v5 + 32), a1, 0);
+    _Block_release(v9);
+  }
+
+  v11 = *(v8 + 8);
+
+  return v11();
+}
+
+uint64_t PlaylistCovers.ArtworkDataSource.visualIdenticalityIdentifier(for:)(void *a1)
+{
+  v1 = [a1 token];
+  _bridgeAnyObjectToAny(_:)();
+  swift_unknownObjectRelease();
+  type metadata accessor for PlaylistCovers.ArtworkToken();
+  if (swift_dynamicCast())
+  {
+    return v3;
+  }
+
+  else
+  {
+    return 0;
   }
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Player.EngineState()
+id PlaylistCovers.ArtworkDataSource.init()()
 {
-  v1 = 0x66664F208C9DE2;
-  v2 = 0x6461655220859CE2;
+  v1 = OBJC_IVAR____TtCO9MusicCore14PlaylistCovers17ArtworkDataSource_cache;
+  *&v0[v1] = [objc_allocWithZone(NSCache) init];
+  v3.receiver = v0;
+  v3.super_class = type metadata accessor for PlaylistCovers.ArtworkDataSource();
+  return objc_msgSendSuper2(&v3, "init");
+}
+
+id PlaylistCovers.ArtworkToken.__deallocating_deinit(uint64_t (*a1)(void))
+{
+  v3.receiver = v1;
+  v3.super_class = a1();
+  return objc_msgSendSuper2(&v3, "dealloc");
+}
+
+uint64_t PlaylistCovers.Recipe.textColor.getter()
+{
+  v1 = *(v0 + 88);
+
+  return v1;
+}
+
+uint64_t PlaylistCovers.Recipe.textColor.setter(uint64_t a1, uint64_t a2)
+{
+
+  *(v2 + 88) = a1;
+  *(v2 + 96) = a2;
+  return result;
+}
+
+uint64_t SharedListening.Reaction.senderID.getter()
+{
+  v1 = *(v0 + 32);
+
+  return v1;
+}
+
+uint64_t SharedListening.Reaction.senderID.setter(uint64_t a1, uint64_t a2)
+{
+
+  *(v2 + 32) = a1;
+  *(v2 + 40) = a2;
+  return result;
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance PlaylistCovers.Recipe.HexColors.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
+{
+  result = specialized PlaylistCovers.Recipe.HexColors.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PlaylistCovers.Recipe.HexColors.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys();
+
+  return CodingKey.description.getter(a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PlaylistCovers.Recipe.HexColors.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys();
+
+  return CodingKey.debugDescription.getter(a1, v2);
+}
+
+uint64_t PlaylistCovers.Recipe.HexColors.encode(to:)(void *a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MusicCore14PlaylistCoversO6RecipeV9HexColorsV10CodingKeys33_93215C2D181A38C67BD032EB0C9FAFF3LLOGMd, &_ss22KeyedEncodingContainerVy9MusicCore14PlaylistCoversO6RecipeV9HexColorsV10CodingKeys33_93215C2D181A38C67BD032EB0C9FAFF3LLOGMR);
+  v4 = *(v3 - 8);
+  __chkstk_darwin();
+  v6 = &v8[-v5];
+  __swift_project_boxed_opaque_existential_0Tm(a1, a1[3]);
+  lazy protocol witness table accessor for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v8[15] = 0;
+  KeyedEncodingContainer.encode(_:forKey:)();
+  if (v1)
+  {
+    return (*(v4 + 8))(v6, v3);
+  }
+
+  v8[14] = 1;
+  KeyedEncodingContainer.encode(_:forKey:)();
+  v8[13] = 2;
+  KeyedEncodingContainer.encode(_:forKey:)();
+  v8[12] = 3;
+  KeyedEncodingContainer.encode(_:forKey:)();
+  return (*(v4 + 8))(v6, v3);
+}
+
+double PlaylistCovers.Recipe.HexColors.init(from:)@<D0>(_OWORD *a1@<X8>, void *a2@<X0>)
+{
+  specialized PlaylistCovers.Recipe.HexColors.init(from:)(a2, v7);
+  if (!v2)
+  {
+    v5 = v7[1];
+    *a1 = v7[0];
+    a1[1] = v5;
+    result = *&v8;
+    v6 = v9;
+    a1[2] = v8;
+    a1[3] = v6;
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance PlaylistCovers.Recipe.HexColors(_OWORD *a1, _OWORD *a2)
+{
+  v2 = a1[1];
+  v7[0] = *a1;
+  v7[1] = v2;
+  v3 = a1[3];
+  v7[2] = a1[2];
+  v7[3] = v3;
+  v4 = a2[1];
+  v8[0] = *a2;
+  v8[1] = v4;
+  v5 = a2[3];
+  v8[2] = a2[2];
+  v8[3] = v5;
+  return specialized static PlaylistCovers.Recipe.HexColors.__derived_struct_equals(_:_:)(v7, v8) & 1;
+}
+
+Swift::String __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> PlaylistCovers.Recipe.rawJSONRepresentation()()
+{
+  type metadata accessor for String.Encoding();
+  __chkstk_darwin();
+  v4 = v15 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for JSONEncoder();
+  swift_allocObject();
+  JSONEncoder.init()();
+  v5 = *(v0 + 80);
+  v15[4] = *(v0 + 64);
+  v15[5] = v5;
+  v16 = *(v0 + 96);
+  v6 = *(v0 + 16);
+  v15[0] = *v0;
+  v15[1] = v6;
+  v7 = *(v0 + 48);
+  v15[2] = *(v0 + 32);
+  v15[3] = v7;
+  lazy protocol witness table accessor for type PlaylistCovers.Recipe and conformance PlaylistCovers.Recipe();
+  v8 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  if (v1)
+  {
+  }
+
+  else
+  {
+    v10 = v8;
+    v11 = v9;
+    static String.Encoding.utf8.getter();
+    v12 = String.init(data:encoding:)();
+    if (!v13)
+    {
+      __break(1u);
+      goto LABEL_7;
+    }
+
+    v4 = v12;
+    v2 = v13;
+    outlined consume of Data._Representation(v10, v11);
+  }
+
+  v12 = v4;
+  v13 = v2;
+LABEL_7:
+  result._object = v13;
+  result._countAndFlagsBits = v12;
+  return result;
+}
+
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance PlaylistCovers.Recipe.CodingKeys()
+{
+  v1 = 0x6E6F6973726576;
+  v2 = 0x666E49726F6C6F63;
   if (*v0 != 2)
   {
-    v2 = 0x53208FB8EFA09AE2;
+    v2 = 0x6F6C6F4374786574;
   }
 
   if (*v0)
   {
-    v1 = 0x61745320809A9FF0;
+    v1 = 0x6973736572707865;
   }
 
   if (*v0 <= 1u)
@@ -3558,4080 +3755,1799 @@ uint64_t protocol witness for CustomStringConvertible.description.getter in conf
   }
 }
 
-void Player.playerResponse.didset()
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance PlaylistCovers.Recipe.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  swift_getKeyPath();
-  swift_getKeyPath();
-  static Published.subscript.getter();
-
-  if (v5)
-  {
-    v1 = [v5 tracklist];
-    v2 = [v1 resetCommand];
-
-    if (v2)
-    {
-      swift_unknownObjectRelease();
-      v3 = OBJC_IVAR____TtC9MusicCore6Player_engineState;
-      swift_beginAccess();
-      v4 = *(v0 + v3);
-      *(v0 + v3) = 2;
-      Player.engineState.didset(v4);
-    }
-  }
+  result = specialized PlaylistCovers.Recipe.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
+  return result;
 }
 
-char *Player.playbackDataSource.getter()
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PlaylistCovers.Recipe.CodingKeys(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC9MusicCore6Player____lazy_storage___playbackDataSource;
-  v2 = *(v0 + OBJC_IVAR____TtC9MusicCore6Player____lazy_storage___playbackDataSource);
-  if (v2)
-  {
-    v3 = *(v0 + OBJC_IVAR____TtC9MusicCore6Player____lazy_storage___playbackDataSource);
-  }
+  v2 = lazy protocol witness table accessor for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys();
 
-  else
-  {
-    v4 = v0;
-    swift_getKeyPath();
-    swift_getKeyPath();
-    static Published.subscript.getter();
-
-    v5 = swift_allocObject();
-    swift_weakInit();
-    v6 = type metadata accessor for Player.DataSource();
-    v7 = objc_allocWithZone(v6);
-    v8 = OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_request;
-    v9 = objc_allocWithZone(MPCPlayerRequest);
-
-    *&v7[v8] = [v9 init];
-    v7[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_automaticallyReloads] = 0;
-    v10 = OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_controller;
-    *&v7[v10] = [objc_allocWithZone(MPRequestResponseController) init];
-    *&v7[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_path] = v27;
-    v11 = &v7[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_onResponseChanged];
-    *v11 = partial apply for closure #1 in Player.playbackDataSource.getter;
-    v11[1] = v5;
-    v12 = &v7[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_onError];
-    *v12 = partial apply for closure #2 in Player.playbackDataSource.getter;
-    v12[1] = v4;
-    v28.receiver = v7;
-    v28.super_class = v6;
-    v26 = v27;
-
-    v13 = objc_msgSendSuper2(&v28, "init");
-    v14 = OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_controller;
-    v15 = *&v13[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_controller];
-    v16 = v13;
-    [v15 setDelegate:v16];
-    v17 = OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_request;
-    v18 = one-time initialization token for emptyNowPlayingItem;
-    v19 = *&v16[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_request];
-    if (v18 != -1)
-    {
-      swift_once();
-    }
-
-    [v19 setPlayingItemProperties:{static MPPropertySet.emptyNowPlayingItem, v5}];
-
-    [*&v16[v17] setTracklistRange:{0, 0}];
-    [*&v16[v17] setPlayerPath:v26];
-    v20 = *&v16[v17];
-    v21._countAndFlagsBits = 0x6B63616279616C50;
-    v21._object = 0xEF646E616D6D6F43;
-    String.append(_:)(v21);
-    v22 = String._bridgeToObjectiveC()();
-
-    [v20 setLabel:v22];
-
-    [*&v13[v14] setRequest:*&v16[v17]];
-
-    v23 = *(v4 + v1);
-    *(v4 + v1) = v13;
-    v3 = v16;
-
-    v2 = 0;
-  }
-
-  v24 = v2;
-  return v3;
+  return CodingKey.description.getter(a1, v2);
 }
 
-uint64_t closure #1 in Player.playbackDataSource.getter()
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PlaylistCovers.Recipe.CodingKeys(uint64_t a1)
 {
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
-  {
-    __chkstk_darwin(result);
+  v2 = lazy protocol witness table accessor for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys();
 
-    UnfairLock.locked<A>(_:)(partial apply for closure #1 in closure #1 in Player.playbackDataSource.getter);
+  return CodingKey.debugDescription.getter(a1, v2);
+}
+
+uint64_t PlaylistCovers.Recipe.encode(to:)(void *a1)
+{
+  v3 = v1;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy9MusicCore14PlaylistCoversO6RecipeV10CodingKeys33_93215C2D181A38C67BD032EB0C9FAFF3LLOGMd, &_ss22KeyedEncodingContainerVy9MusicCore14PlaylistCoversO6RecipeV10CodingKeys33_93215C2D181A38C67BD032EB0C9FAFF3LLOGMR);
+  v6 = *(v5 - 8);
+  __chkstk_darwin();
+  v8 = &v13[-v7];
+  __swift_project_boxed_opaque_existential_0Tm(a1, a1[3]);
+  lazy protocol witness table accessor for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  LOBYTE(v16) = 0;
+  KeyedEncodingContainer.encode(_:forKey:)();
+  if (!v2)
+  {
+    LOBYTE(v16) = 1;
+    KeyedEncodingContainer.encode(_:forKey:)();
+    v10 = *(v3 + 24);
+    v11 = *(v3 + 56);
+    v20[1] = *(v3 + 40);
+    v20[2] = v11;
+    v20[3] = *(v3 + 72);
+    v12 = *(v3 + 40);
+    v16 = *(v3 + 24);
+    v17 = v12;
+    v18 = *(v3 + 56);
+    v19 = *(v3 + 72);
+    v20[0] = v10;
+    v15 = 2;
+    outlined init with copy of PlaylistCovers.Recipe.HexColors(v20, v14);
+    lazy protocol witness table accessor for type PlaylistCovers.Recipe.HexColors and conformance PlaylistCovers.Recipe.HexColors();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v14[0] = v16;
+    v14[1] = v17;
+    v14[2] = v18;
+    v14[3] = v19;
+    outlined destroy of PlaylistCovers.Recipe.HexColors(v14);
+    v13[15] = 3;
+    KeyedEncodingContainer.encode(_:forKey:)();
+  }
+
+  return (*(v6 + 8))(v8, v5);
+}
+
+__n128 PlaylistCovers.Recipe.init(from:)@<Q0>(uint64_t a1@<X8>, void *a2@<X0>)
+{
+  specialized PlaylistCovers.Recipe.init(from:)(a2, v7);
+  if (!v2)
+  {
+    v5 = v7[5];
+    *(a1 + 64) = v7[4];
+    *(a1 + 80) = v5;
+    *(a1 + 96) = v8;
+    v6 = v7[1];
+    *a1 = v7[0];
+    *(a1 + 16) = v6;
+    result = v7[3];
+    *(a1 + 32) = v7[2];
+    *(a1 + 48) = result;
   }
 
   return result;
 }
 
-void closure #1 in closure #1 in Player.playbackDataSource.getter(uint64_t a1, id a2, void *a3)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance PlaylistCovers.Recipe(uint64_t a1, uint64_t a2)
 {
-  v5 = [a2 playerPath];
-  if (v5)
+  v2 = *(a1 + 80);
+  v11[4] = *(a1 + 64);
+  v11[5] = v2;
+  v12 = *(a1 + 96);
+  v3 = *(a1 + 16);
+  v11[0] = *a1;
+  v11[1] = v3;
+  v4 = *(a1 + 48);
+  v11[2] = *(a1 + 32);
+  v11[3] = v4;
+  v5 = *(a2 + 16);
+  v13[0] = *a2;
+  v13[1] = v5;
+  v6 = *(a2 + 32);
+  v7 = *(a2 + 48);
+  v8 = *(a2 + 64);
+  v9 = *(a2 + 80);
+  v14 = *(a2 + 96);
+  v13[4] = v8;
+  v13[5] = v9;
+  v13[2] = v6;
+  v13[3] = v7;
+  return specialized static PlaylistCovers.Recipe.__derived_struct_equals(_:_:)(v11, v13) & 1;
+}
+
+void PlaylistCovers.Recipe.HexColors.init(from:)(void *a1@<X0>, void *a2@<X1>, void *a3@<X2>, void *a4@<X3>, uint64_t *a5@<X8>)
+{
+  v10 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v21 = v11;
+  v22 = v10;
+  v20 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v13 = v12;
+  v14 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v16 = v15;
+  v17 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v19 = v18;
+
+  *a5 = v22;
+  a5[1] = v21;
+  a5[2] = v20;
+  a5[3] = v13;
+  a5[4] = v14;
+  a5[5] = v16;
+  a5[6] = v17;
+  a5[7] = v19;
+}
+
+uint64_t _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSS8UTF8ViewV_Tt0g5(uint64_t a1, unint64_t a2)
+{
+  v39[0] = a1;
+  v39[1] = a2;
+  *&v42 = a1;
+  *(&v42 + 1) = a2;
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation15ContiguousBytes_pMd, &_s10Foundation15ContiguousBytes_pMR);
+  if (swift_dynamicCast())
   {
-    v6 = v5;
-    swift_beginAccess();
-    v7 = specialized Dictionary._Variant.removeValue(forKey:)(v6);
-    swift_endAccess();
+    outlined init with take of ActionPerforming(__src, &v43);
+    __swift_project_boxed_opaque_existential_0Tm(&v43, v44);
+    dispatch thunk of ContiguousBytes.withUnsafeBytes<A>(_:)();
+    __src[0] = v42;
+    __swift_destroy_boxed_opaque_existential_0Tm(&v43);
+    goto LABEL_63;
+  }
 
-    if (v7)
-    {
-      if (one-time initialization token for logger != -1)
-      {
-        swift_once();
-      }
+  v41 = 0;
+  memset(__src, 0, sizeof(__src));
+  outlined destroy of TaskPriority?(__src, &_s10Foundation15ContiguousBytes_pSgMd, &_s10Foundation15ContiguousBytes_pSgMR);
+  if ((a2 & 0x1000000000000000) != 0)
+  {
+    goto LABEL_67;
+  }
 
-      v8 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v8, static Player.logger);
-      v9 = Logger.logObject.getter();
-      v10 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v9, v10))
-      {
-        v11 = swift_slowAlloc();
-        *v11 = 0;
-        _os_log_impl(&_mh_execute_header, v9, v10, "| Cancelling ongoing timer for switching back to system route", v11, 2u);
-      }
+  if ((a2 & 0x2000000000000000) != 0)
+  {
+    v5 = HIBYTE(a2) & 0xF;
+    *&__src[0] = a1;
+    *(&__src[0] + 1) = a2 & 0xFFFFFFFFFFFFFFLL;
+    v4 = __src;
+  }
 
-      swift_getObjectType();
-      OS_dispatch_source.cancel()();
-      swift_unknownObjectRelease();
-    }
-
-    swift_getKeyPath();
-    swift_getKeyPath();
-    v12 = a3;
-
-    static Published.subscript.setter();
-    swift_getKeyPath();
-    swift_getKeyPath();
-    static Published.subscript.getter();
-
-    v13 = a3;
-    if (a3)
-    {
-      v14 = [a3 tracklist];
-      v15 = [v14 resetCommand];
-
-      if (v15)
-      {
-        swift_unknownObjectRelease();
-        v16 = OBJC_IVAR____TtC9MusicCore6Player_engineState;
-        swift_beginAccess();
-        v17 = *(a1 + v16);
-        *(a1 + v16) = 2;
-        Player.engineState.didset(v17);
-      }
-    }
+  else if ((a1 & 0x1000000000000000) != 0)
+  {
+    v4 = ((a2 & 0xFFFFFFFFFFFFFFFLL) + 32);
+    v5 = a1 & 0xFFFFFFFFFFFFLL;
   }
 
   else
   {
-    __break(1u);
+    v4 = _StringObject.sharedUTF8.getter();
   }
-}
 
-void closure #2 in Player.playbackDataSource.getter(void *a1)
-{
-  v1 = [a1 playerPath];
-  if (v1)
+  closure #2 in Data.init<A>(_:)(&v43, v4, v5);
+  v6 = *(&v43 + 1);
+  v7 = v43;
+  if (*(&v43 + 1) >> 60 != 15)
   {
-    v2 = v1;
-    if (one-time initialization token for logger != -1)
+    __src[0] = v43;
+    goto LABEL_63;
+  }
+
+  if ((a2 & 0x2000000000000000) != 0)
+  {
+    v8 = HIBYTE(a2) & 0xF;
+  }
+
+  else
+  {
+    v8 = a1 & 0xFFFFFFFFFFFFLL;
+  }
+
+LABEL_12:
+  *&__src[0] = specialized Data._Representation.init(count:)(v8);
+  *(&__src[0] + 1) = v9;
+  __chkstk_darwin();
+  v34[2] = v39;
+  specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(partial apply for specialized closure #3 in Data.init<A>(_:), v34);
+  v14 = v10;
+  v15 = v11;
+  v16 = v12;
+  v17 = *(&__src[0] + 1) >> 62;
+  if ((*(&__src[0] + 1) >> 62) > 1)
+  {
+    if (v17 == 2)
     {
-      swift_once();
+      v19 = *(*&__src[0] + 16);
+      v18 = *(*&__src[0] + 24);
+      v20 = __OFSUB__(v18, v19);
+      v21 = v18 - v19;
+      if (v20)
+      {
+        goto LABEL_70;
+      }
+
+      if (v13 != v21)
+      {
+        goto LABEL_23;
+      }
     }
 
-    v3 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v3, static Player.logger);
-    swift_errorRetain();
-    v4 = Logger.logObject.getter();
-    v5 = static os_log_type_t.error.getter();
-
-    if (os_log_type_enabled(v4, v5))
+    else if (v13)
     {
-      v6 = swift_slowAlloc();
-      v7 = swift_slowAlloc();
-      v25 = v7;
-      *v6 = 136446210;
-      swift_errorRetain();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-      v8 = String.init<A>(describing:)();
-      v10 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v8, v9, &v25);
+      v22 = 0;
+      goto LABEL_60;
+    }
+  }
 
-      *(v6 + 4) = v10;
-      _os_log_impl(&_mh_execute_header, v4, v5, "╭ Player Response failed to load with error=%{public}s", v6, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v7);
+  else if (v17)
+  {
+    if (__OFSUB__(DWORD1(__src[0]), __src[0]))
+    {
+      goto LABEL_71;
     }
 
-    v11 = _convertErrorToNSError(_:)();
-    v12 = NSError.isInvalidRouteError.getter();
-
-    if (v12)
+    if (v13 != DWORD1(__src[0]) - LODWORD(__src[0]))
     {
-      __chkstk_darwin(v13);
-      UnfairLock.locked<A>(_:)(partial apply for closure #1 in closure #2 in Player.playbackDataSource.getter);
+LABEL_23:
+      if (v17 == 2)
+      {
+        v22 = *(*&__src[0] + 24);
+      }
+
+      else if (v17 == 1)
+      {
+        v22 = *&__src[0] >> 32;
+      }
+
+      else
+      {
+        v22 = BYTE14(__src[0]);
+      }
+
+LABEL_60:
+      if (v22 >= v13)
+      {
+        Data._Representation.replaceSubrange(_:with:count:)();
+LABEL_62:
+
+        goto LABEL_63;
+      }
+
+      __break(1u);
+LABEL_70:
+      __break(1u);
+LABEL_71:
+      __break(1u);
+    }
+  }
+
+  else if (v13 != BYTE14(__src[0]))
+  {
+    goto LABEL_23;
+  }
+
+  v36 = v7;
+  if ((v11 & 0x2000000000000000) != 0)
+  {
+    v23 = HIBYTE(v11) & 0xF;
+  }
+
+  else
+  {
+    v23 = v10 & 0xFFFFFFFFFFFFLL;
+  }
+
+  *(&v42 + 7) = 0;
+  *&v42 = 0;
+  if (4 * v23 == v12 >> 14)
+  {
+    goto LABEL_57;
+  }
+
+  v35 = v6;
+  LOBYTE(v24) = 0;
+  v25 = (v10 >> 59) & 1;
+  if ((v11 & 0x1000000000000000) == 0)
+  {
+    LOBYTE(v25) = 1;
+  }
+
+  v26 = 4 << v25;
+  v37 = (v11 & 0xFFFFFFFFFFFFFFFLL) + 32;
+  v38 = v11 & 0xFFFFFFFFFFFFFFLL;
+  do
+  {
+    v27 = v16 & 0xC;
+    v28 = v16;
+    if (v27 == v26)
+    {
+      v28 = _StringGuts._slowEnsureMatchingEncoding(_:)(v16, v14, v15);
+    }
+
+    v29 = v28 >> 16;
+    if (v28 >> 16 >= v23)
+    {
+      __break(1u);
+LABEL_65:
+      __break(1u);
+LABEL_66:
+      __break(1u);
+LABEL_67:
+      v8 = String.UTF8View._foreignCount()();
+      v7 = 0;
+      v6 = 0xF000000000000000;
+      goto LABEL_12;
+    }
+
+    if ((v15 & 0x1000000000000000) != 0)
+    {
+      v31 = String.UTF8View._foreignSubscript(position:)();
+      if (v27 != v26)
+      {
+        goto LABEL_46;
+      }
+    }
+
+    else if ((v15 & 0x2000000000000000) != 0)
+    {
+      *&v43 = v14;
+      *(&v43 + 1) = v38;
+      v31 = *(&v43 + v29);
+      if (v27 != v26)
+      {
+        goto LABEL_46;
+      }
     }
 
     else
     {
-      v14 = v2;
-      v15 = Logger.logObject.getter();
-      v16 = static os_log_type_t.default.getter();
-
-      if (os_log_type_enabled(v15, v16))
+      v30 = v37;
+      if ((v14 & 0x1000000000000000) == 0)
       {
-        v17 = swift_slowAlloc();
-        v18 = swift_slowAlloc();
-        v25 = v18;
-        *v17 = 136446210;
-        v19 = v14;
-        v20 = [v19 description];
-        v21 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v23 = v22;
-
-        v24 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v21, v23, &v25);
-
-        *(v17 + 4) = v24;
-        _os_log_impl(&_mh_execute_header, v15, v16, "╰ playerPath=%{public}s", v17, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v18);
+        v30 = _StringObject.sharedUTF8.getter();
       }
 
-      else
+      v31 = *(v30 + v29);
+      if (v27 != v26)
       {
+LABEL_46:
+        if ((v15 & 0x1000000000000000) == 0)
+        {
+          goto LABEL_47;
+        }
+
+        goto LABEL_50;
       }
+    }
+
+    v16 = _StringGuts._slowEnsureMatchingEncoding(_:)(v16, v14, v15);
+    if ((v15 & 0x1000000000000000) == 0)
+    {
+LABEL_47:
+      v16 = (v16 & 0xFFFFFFFFFFFF0000) + 65540;
+      goto LABEL_52;
+    }
+
+LABEL_50:
+    if (v23 <= v16 >> 16)
+    {
+      goto LABEL_66;
+    }
+
+    v16 = String.UTF8View._foreignIndex(after:)();
+LABEL_52:
+    *(&v42 + v24) = v31;
+    v24 = v24 + 1;
+    if ((v24 >> 8))
+    {
+      goto LABEL_65;
+    }
+
+    if (v24 == 14)
+    {
+      *&v43 = v42;
+      *(&v43 + 6) = *(&v42 + 6);
+      Data._Representation.append(contentsOf:)();
+      LOBYTE(v24) = 0;
     }
   }
 
-  else
+  while (4 * v23 != v16 >> 14);
+  v6 = v35;
+  if (v24)
   {
-    __break(1u);
+    *&v43 = v42;
+    *(&v43 + 6) = *(&v42 + 6);
+    Data._Representation.append(contentsOf:)();
+    outlined consume of Data?(v36, v6);
+    goto LABEL_62;
   }
+
+LABEL_57:
+
+  outlined consume of Data?(v36, v6);
+LABEL_63:
+  v32 = __src[0];
+  outlined copy of Data._Representation(*&__src[0], *(&__src[0] + 1));
+
+  outlined consume of Data._Representation(v32, *(&v32 + 1));
+  return v32;
 }
 
-uint64_t NSError.isInvalidRouteError.getter()
+uint64_t PlaylistCovers.Recipe.init(from:)@<X0>(unsigned __int8 *a1@<X0>, void *a2@<X8>)
 {
-  v1 = v0;
-  v2 = [v0 domain];
-  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = v4;
-
-  v6 = [v1 code];
-  if (static String._unconditionallyBridgeFromObjectiveC(_:)() == v3 && v7 == v5)
-  {
-
-    if (v6 == 2)
-    {
-LABEL_7:
-      v10 = 1;
-      return v10 & 1;
-    }
-  }
-
-  else
-  {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if ((v9 & 1) != 0 && v6 == 2)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  v35 = &_swiftEmptyArrayStorage;
-  v11 = [v1 userInfo];
-  v12 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-
-  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  if (!*(v12 + 16))
-  {
-
-    goto LABEL_14;
-  }
-
-  v15 = _ss22__RawDictionaryStorageC4findys10_HashTableV6BucketV6bucket_Sb5foundtxSHRzlFSS_Tg5_0(v13, v14);
+  v29 = *a1 + 1;
+  v4 = *(a1 + 3);
+  v5 = *(a1 + 4);
+  v6 = *(a1 + 5);
+  v7 = *(a1 + 2);
+  v8 = v4;
+  v9 = v5;
+  v10 = v6;
+  v11 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v27 = v12;
+  v28 = v11;
+  v13 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v25 = v14;
+  v26 = v13;
+  v15 = specialized static PlaylistCovers.hexRepresentation(for:)();
   v17 = v16;
+  v18 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v20 = v19;
 
-  if ((v17 & 1) == 0)
+  v21 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v23 = v22;
+  result = outlined destroy of PlaylistCovers.Cover.Representation(a1);
+  *a2 = 3157553;
+  a2[1] = 0xE300000000000000;
+  a2[2] = v29;
+  a2[3] = v28;
+  a2[4] = v27;
+  a2[5] = v26;
+  a2[6] = v25;
+  a2[7] = v15;
+  a2[8] = v17;
+  a2[9] = v18;
+  a2[10] = v20;
+  a2[11] = v21;
+  a2[12] = v23;
+  return result;
+}
+
+uint64_t _sIeghH_IeAgH_TR(uint64_t a1, uint64_t a2, int *a3)
+{
+  v6 = (a3 + *a3);
+  v4 = swift_task_alloc();
+  *(v3 + 16) = v4;
+  *v4 = v3;
+  v4[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return v6();
+}
+
+uint64_t _sIeAgH_ytIeAgHr_TR(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
+{
+  v7 = (a4 + *a4);
+  v5 = swift_task_alloc();
+  *(v4 + 16) = v5;
+  *v5 = v4;
+  v5[1] = partial apply for closure #1 in static MusicEngagementExtension.performRequest(with:completion:);
+
+  return v7();
+}
+
+uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  __chkstk_darwin();
+  v10 = v22 - v9;
+  outlined init with copy of TaskPriority?(a3, v22 - v9);
+  v11 = type metadata accessor for TaskPriority();
+  v12 = *(v11 - 8);
+  if ((*(v12 + 48))(v10, 1, v11) == 1)
   {
-LABEL_14:
-
-    goto LABEL_15;
-  }
-
-  outlined init with copy of Any(*(v12 + 56) + 32 * v15, v34);
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo7NSErrorCGMd);
-  if (swift_dynamicCast())
-  {
-    specialized Array.append<A>(contentsOf:)(v33);
-  }
-
-LABEL_15:
-  v18 = [v1 userInfo];
-  v19 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-
-  v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  if (*(v19 + 16))
-  {
-    v22 = _ss22__RawDictionaryStorageC4findys10_HashTableV6BucketV6bucket_Sb5foundtxSHRzlFSS_Tg5_0(v20, v21);
-    v24 = v23;
-
-    if (v24)
+    outlined destroy of TaskPriority?(v10, &_sScPSgMd_0, &_sScPSgMR_0);
+    if (*(a5 + 16))
     {
-      outlined init with copy of Any(*(v19 + 56) + 32 * v22, v34);
-
-      type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSError);
-      if (swift_dynamicCast())
-      {
-        v25 = v33;
-        specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-        if (*((v35 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v35 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-        {
-          specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-        }
-
-        specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      }
-
-      goto LABEL_23;
+      goto LABEL_3;
     }
+
+LABEL_7:
+    v13 = 0;
+    v15 = 0;
+    if (a2)
+    {
+      goto LABEL_4;
+    }
+
+    goto LABEL_8;
+  }
+
+  TaskPriority.rawValue.getter();
+  (*(v12 + 8))(v10, v11);
+  if (!*(a5 + 16))
+  {
+    goto LABEL_7;
+  }
+
+LABEL_3:
+  swift_getObjectType();
+  swift_unknownObjectRetain();
+  v13 = dispatch thunk of Actor.unownedExecutor.getter();
+  v15 = v14;
+  swift_unknownObjectRelease();
+  if (a2)
+  {
+LABEL_4:
+    v16 = String.utf8CString.getter() + 32;
+    v17 = swift_allocObject();
+    *(v17 + 16) = a4;
+    *(v17 + 24) = a5;
+
+    if (v15 | v13)
+    {
+      v23[0] = 0;
+      v23[1] = 0;
+      v18 = v23;
+      v23[2] = v13;
+      v23[3] = v15;
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+
+    v22[1] = 7;
+    v22[2] = v18;
+    v22[3] = v16;
+    v20 = swift_task_create();
+
+    outlined destroy of TaskPriority?(a3, &_sScPSgMd_0, &_sScPSgMR_0);
+
+    return v20;
+  }
+
+LABEL_8:
+  outlined destroy of TaskPriority?(a3, &_sScPSgMd_0, &_sScPSgMR_0);
+  v19 = swift_allocObject();
+  *(v19 + 16) = a4;
+  *(v19 + 24) = a5;
+  if (v15 | v13)
+  {
+    v23[4] = 0;
+    v23[5] = 0;
+    v23[6] = v13;
+    v23[7] = v15;
+  }
+
+  return swift_task_create();
+}
+
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = a1;
+  v4 = a1 >> 14;
+  if ((a3 & 0x1000000000000000) == 0 || (a2 & 0x800000000000000) != 0)
+  {
+    v10 = String.UTF16View.index(_:offsetBy:)();
+    v11 = v10 + (v4 << 16);
+    v12 = v10 & 0xFFFFFFFFFFFFFFFCLL | v3 & 3;
+    v13 = v11 & 0xFFFFFFFFFFFF0000;
+    if (!v4)
+    {
+      v13 = v12;
+    }
+
+    return v13 | 4;
   }
 
   else
   {
-  }
-
-LABEL_23:
-  v26 = v35;
-  if (v35 >> 62)
-  {
-    goto LABEL_36;
-  }
-
-  for (i = *((v35 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = _CocoaArrayWrapper.endIndex.getter())
-  {
-    v28 = 0;
-    while (1)
+    v5 = String.UTF8View._foreignIndex(_:offsetBy:)();
+    v6 = v5 + (v4 << 16);
+    v7 = v5 & 0xFFFFFFFFFFFFFFFCLL | v3 & 3;
+    v8 = v6 & 0xFFFFFFFFFFFF0000;
+    if (!v4)
     {
-      if ((v26 & 0xC000000000000001) != 0)
+      v8 = v7;
+    }
+
+    return v8 | 8;
+  }
+}
+
+uint64_t *closure #2 in Data.init<A>(_:)@<X0>(uint64_t *__return_ptr a1@<X8>, _BYTE *__src@<X0>, unint64_t a3@<X1>)
+{
+  result = 0;
+  v6 = 0xC000000000000000;
+  if (__src && a3)
+  {
+    if (a3 <= 14)
+    {
+      result = specialized Data.InlineData.init(_:)(__src, &__src[a3]);
+      v6 = v9 & 0xFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      type metadata accessor for __DataStorage();
+      swift_allocObject();
+      v8 = __DataStorage.init(bytes:length:)();
+      if (a3 >= 0x7FFFFFFF)
       {
-        v29 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        type metadata accessor for Data.RangeReference();
+        result = swift_allocObject();
+        result[2] = 0;
+        result[3] = a3;
+        v6 = v8 | 0x8000000000000000;
       }
 
       else
       {
-        if (v28 >= *((v26 & 0xFFFFFFFFFFFFFF8) + 0x10))
-        {
-          goto LABEL_35;
-        }
-
-        v29 = *(v26 + 8 * v28 + 32);
+        result = (a3 << 32);
+        v6 = v8 | 0x4000000000000000;
       }
-
-      v30 = v29;
-      v31 = v28 + 1;
-      if (__OFADD__(v28, 1))
-      {
-        break;
-      }
-
-      v10 = NSError.isInvalidRouteError.getter();
-
-      if ((v10 & 1) == 0)
-      {
-        ++v28;
-        if (v31 != i)
-        {
-          continue;
-        }
-      }
-
-      goto LABEL_38;
     }
-
-    __break(1u);
-LABEL_35:
-    __break(1u);
-LABEL_36:
-    ;
   }
 
-  v10 = 0;
-LABEL_38:
-
-  return v10 & 1;
+  *a1 = result;
+  a1[1] = v6;
+  return result;
 }
 
-uint64_t closure #1 in closure #2 in Player.playbackDataSource.getter(void *a1, uint64_t a2)
+void specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(void *(*a1)(uint64_t *__return_ptr, char *, char *), uint64_t a2)
 {
-  v4 = type metadata accessor for DispatchTimeInterval();
-  v89 = *(v4 - 8);
-  v90 = v4;
-  v5 = __chkstk_darwin(v4);
-  v88 = (&v73 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v5);
-  v87 = (&v73 - v7);
-  v91 = type metadata accessor for DispatchTime();
-  v86 = *(v91 - 8);
-  v8 = __chkstk_darwin(v91);
-  v84 = &v73 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v85 = &v73 - v10;
-  v11 = type metadata accessor for DispatchWorkItemFlags();
-  v83 = *(v11 - 8);
-  __chkstk_darwin(v11);
-  v81 = &v73 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v82 = type metadata accessor for DispatchQoS();
-  v80 = *(v82 - 8);
-  __chkstk_darwin(v82);
-  v79 = &v73 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v78 = type metadata accessor for OS_dispatch_source.TimerFlags();
-  v77 = *(v78 - 8);
-  __chkstk_darwin(v78);
-  v76 = &v73 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for logger != -1)
+  v4 = v2;
+  v7 = *v2;
+  v6 = v2[1];
+  v8 = v6 >> 62;
+  if ((v6 >> 62) > 1)
   {
-    swift_once();
+    if (v8 != 2)
+    {
+      memset(v17, 0, 15);
+      a1(&v15, v17, v17);
+      return;
+    }
+
+    outlined consume of Data._Representation(v7, v6);
+    v15 = v7;
+    v16 = v6 & 0x3FFFFFFFFFFFFFFFLL;
+    *v4 = xmmword_1004F3030;
+    outlined consume of Data._Representation(0, 0xC000000000000000);
+    Data.LargeSlice.ensureUniqueReference()();
+    specialized __DataStorage.withUnsafeMutableBytes<A>(in:apply:)(*(v15 + 16), *(v15 + 24), a1);
+    v10 = v16 | 0x8000000000000000;
+    if (!v3)
+    {
+      *v4 = v15;
+      v4[1] = v10;
+      return;
+    }
+
+    *v4 = v15;
+    goto LABEL_18;
   }
 
-  v15 = type metadata accessor for Logger();
-  v16 = __swift_project_value_buffer(v15, static Player.logger);
-  v17 = a1;
-  v18 = Logger.logObject.getter();
-  v19 = static os_log_type_t.default.getter();
-
-  v20 = os_log_type_enabled(v18, v19);
-  v92 = v17;
-  if (v20)
+  if (!v8)
   {
-    v21 = swift_slowAlloc();
-    v22 = swift_slowAlloc();
-    v75 = v11;
-    v23 = v22;
-    aBlock[0] = v22;
-    *v21 = 136446210;
-    v24 = v17;
-    v25 = a2;
-    v26 = v24;
-    v27 = [v24 description];
-    v74 = v16;
-    v28 = v27;
-    v29 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v31 = v30;
-
-    a2 = v25;
-    v32 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v29, v31, aBlock);
-
-    *(v21 + 4) = v32;
-    _os_log_impl(&_mh_execute_header, v18, v19, "| Invalid playerPath=%{public}s", v21, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v23);
-    v11 = v75;
+    outlined consume of Data._Representation(v7, v6);
+    v17[0] = v7;
+    LOWORD(v17[1]) = v6;
+    BYTE2(v17[1]) = BYTE2(v6);
+    BYTE3(v17[1]) = BYTE3(v6);
+    BYTE4(v17[1]) = BYTE4(v6);
+    BYTE5(v17[1]) = BYTE5(v6);
+    BYTE6(v17[1]) = BYTE6(v6);
+    a1(&v15, v17, v17 + BYTE6(v6));
+    v9 = LODWORD(v17[1]) | ((WORD2(v17[1]) | (BYTE6(v17[1]) << 16)) << 32);
+    *v4 = v17[0];
+    v4[1] = v9;
+    return;
   }
 
-  v33 = Logger.logObject.getter();
-  v34 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v33, v34))
+  v11 = v6 & 0x3FFFFFFFFFFFFFFFLL;
+
+  outlined consume of Data._Representation(v7, v6);
+  *v4 = xmmword_1004F3030;
+  outlined consume of Data._Representation(0, 0xC000000000000000);
+  v12 = v7 >> 32;
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
-    v35 = swift_slowAlloc();
-    *v35 = 0;
-    _os_log_impl(&_mh_execute_header, v33, v34, "╰ Stalling engine while attempting to reload", v35, 2u);
+    if (v12 < v7)
+    {
+LABEL_21:
+      __break(1u);
+      goto LABEL_22;
+    }
+
+    if (__DataStorage._bytes.getter() && __OFSUB__(v7, __DataStorage._offset.getter()))
+    {
+LABEL_22:
+      __break(1u);
+    }
+
+    type metadata accessor for __DataStorage();
+    swift_allocObject();
+    v13 = __DataStorage.init(bytes:length:copy:deallocator:offset:)();
+
+    v11 = v13;
   }
 
-  v36 = OBJC_IVAR____TtC9MusicCore6Player_engineState;
-  swift_beginAccess();
-  v37 = *(a2 + v36);
-  *(a2 + v36) = 3;
-  Player.engineState.didset(v37);
-  v38 = OBJC_IVAR____TtC9MusicCore6Player_failingPlayerPathTimers;
-  swift_beginAccess();
-  v39 = *(a2 + v38);
-
-  v40 = specialized Dictionary.subscript.getter(v92, v39);
-
-  if (v40)
+  if (v12 < v7)
   {
-    return swift_unknownObjectRelease();
+    __break(1u);
+    goto LABEL_21;
   }
 
-  v75 = v38;
-  v41 = Logger.logObject.getter();
-  v42 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v41, v42))
+  specialized __DataStorage.withUnsafeMutableBytes<A>(in:apply:)(v7, v7 >> 32, a1);
+
+  v10 = v11 | 0x4000000000000000;
+  if (v3)
   {
-    v43 = swift_slowAlloc();
-    *v43 = 0;
-    _os_log_impl(&_mh_execute_header, v41, v42, "╰ Switching back to system route in 5seconds.", v43, 2u);
+    *v4 = v7;
+LABEL_18:
+    v4[1] = v10;
+    return;
   }
 
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for OS_dispatch_source);
-  aBlock[0] = &_swiftEmptyArrayStorage;
-  _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type OS_dispatch_source.TimerFlags and conformance OS_dispatch_source.TimerFlags, &type metadata accessor for OS_dispatch_source.TimerFlags);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo18OS_dispatch_sourceC8DispatchE10TimerFlagsVGMd);
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type [OS_dispatch_source.TimerFlags] and conformance [A], &_sSaySo18OS_dispatch_sourceC8DispatchE10TimerFlagsVGMd);
-  v44 = v76;
-  v45 = v78;
-  dispatch thunk of SetAlgebra.init<A>(_:)();
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-  v46 = static OS_dispatch_queue.main.getter();
-  v47 = static OS_dispatch_source.makeTimerSource(flags:queue:)();
+  *v4 = v7;
+  v4[1] = v10;
+}
 
-  v77[1](v44, v45);
-  v74 = v47;
-  ObjectType = swift_getObjectType();
-  v49 = swift_allocObject();
-  v73 = a2;
-  swift_weakInit();
-  v50 = swift_allocObject();
-  v51 = v92;
-  *(v50 + 16) = v49;
-  *(v50 + 24) = v51;
-  aBlock[4] = partial apply for closure #1 in closure #1 in closure #2 in Player.playbackDataSource.getter;
-  aBlock[5] = v50;
-  aBlock[0] = _NSConcreteStackBlock;
-  aBlock[1] = 1107296256;
-  aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
-  aBlock[3] = &block_descriptor_266;
-  v52 = _Block_copy(aBlock);
-  v77 = v51;
-
-  v53 = v79;
-  static DispatchQoS.unspecified.getter();
-  v54 = v81;
-  v78 = ObjectType;
-  default argument 1 of OS_dispatch_source.setEventHandler(qos:flags:handler:)();
-  OS_dispatch_source.setEventHandler(qos:flags:handler:)();
-  _Block_release(v52);
-  (*(v83 + 8))(v54, v11);
-  (*(v80 + 8))(v53, v82);
-
-  v55 = v84;
-  static DispatchTime.now()();
-  v56 = v87;
-  *v87 = 5;
-  v57 = v89;
-  v58 = v90;
-  v59 = *(v89 + 104);
-  v59(v56, enum case for DispatchTimeInterval.seconds(_:), v90);
-  v60 = v85;
-  + infix(_:_:)();
-  v92 = *(v57 + 8);
-  (v92)(v56, v58);
-  v61 = *(v86 + 8);
-  v61(v55, v91);
-  v59(v56, enum case for DispatchTimeInterval.never(_:), v58);
-  v62 = v88;
-  *v88 = 0;
-  v59(v62, enum case for DispatchTimeInterval.nanoseconds(_:), v58);
-  v63 = v74;
-  OS_dispatch_source_timer.schedule(deadline:repeating:leeway:)();
-  v64 = v62;
-  v65 = v92;
-  (v92)(v64, v58);
-  v65(v56, v58);
-  v61(v60, v91);
-  v66 = v73;
-  v67 = v63;
-  OS_dispatch_source.resume()();
-  v68 = v75;
-  swift_beginAccess();
-  v69 = *(v66 + v68);
-  if ((v69 & 0xC000000000000001) == 0)
+_BYTE *closure #1 in Data.init<A>(_:)@<X0>(_BYTE *result@<X0>, _BYTE *a2@<X1>, void *a3@<X8>)
+{
+  if (!result)
   {
-    swift_unknownObjectRetain();
-    goto LABEL_17;
+    goto LABEL_4;
   }
 
-  if (v69 < 0)
+  v3 = a2 - result;
+  if (a2 == result)
   {
-    v70 = *(v66 + v68);
+    result = 0;
+LABEL_4:
+    *a3 = result;
+    a3[1] = 0xC000000000000000;
+    return result;
+  }
+
+  if (v3 <= 14)
+  {
+    result = specialized Data.InlineData.init(_:)(result, a2);
+    v8 = a3;
+    v6 = v9 & 0xFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v70 = v69 & 0xFFFFFFFFFFFFFF8;
+    if (v3 >= 0x7FFFFFFF)
+    {
+      result = specialized Data.LargeSlice.init(_:)(result, a2);
+      v6 = v10 | 0x8000000000000000;
+    }
+
+    else
+    {
+      result = specialized Data.InlineSlice.init(_:)(result, a2);
+      v6 = v5 | 0x4000000000000000;
+    }
+
+    v8 = a3;
   }
 
-  swift_unknownObjectRetain();
-  result = __CocoaDictionary.count.getter();
-  if (!__OFADD__(result, 1))
+  *v8 = result;
+  v8[1] = v6;
+  return result;
+}
+
+void *_sSw17withMemoryRebound2to_q0_xm_q0_SryxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lFs5UInt8V_s5NeverOs16IndexingIteratorVySS8UTF8ViewVG_SitTt1g5(void *(*a1)(uint64_t *__return_ptr, uint64_t, uint64_t), uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a3)
   {
-    *(v66 + v68) = _ss17_NativeDictionaryV_8capacityAByxq_Gs07__CocoaB0Vn_SitcfCSo13MPCPlayerPathC_So24OS_dispatch_source_timer_pTt1g5(v70, result + 1);
-LABEL_17:
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v94 = *(v66 + v68);
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v67, v77, isUniquelyReferenced_nonNull_native);
-    *(v66 + v68) = v94;
-    swift_endAccess();
-    return swift_unknownObjectRelease();
+    result = a1(&v6, a3, a4 - a3);
+    if (!v4)
+    {
+      return v6;
+    }
+  }
+
+  else
+  {
+    result = (a1)(&v6, 0, 0, 0, a4);
+    if (!v4)
+    {
+      return v6;
+    }
   }
 
   __break(1u);
   return result;
 }
 
-void closure #1 in closure #1 in closure #2 in Player.playbackDataSource.getter(uint64_t a1, void *a2)
+char *specialized __DataStorage.withUnsafeMutableBytes<A>(in:apply:)(uint64_t a1, uint64_t a2, void *(*a3)(uint64_t *__return_ptr, char *, char *))
 {
-  swift_beginAccess();
-  if (swift_weakLoadStrong())
+  result = __DataStorage._bytes.getter();
+  if (!result)
   {
-    swift_beginAccess();
-    specialized Dictionary._Variant.removeValue(forKey:)(a2);
-    swift_endAccess();
-
-    swift_unknownObjectRelease();
+    goto LABEL_12;
   }
 
-  swift_beginAccess();
-  if (swift_weakLoadStrong())
+  v8 = result;
+  result = __DataStorage._offset.getter();
+  v9 = a1 - result;
+  if (__OFSUB__(a1, result))
   {
-    swift_getKeyPath();
-    swift_getKeyPath();
-    static Published.subscript.getter();
-
-    type metadata accessor for UIAction(0, &lazy cache variable for type metadata for MPCPlayerPath);
-    v3 = a2;
-    v4 = static NSObject.== infix(_:_:)();
-
-    if (v4)
-    {
-      if (one-time initialization token for logger != -1)
-      {
-        swift_once();
-      }
-
-      v5 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v5, static Player.logger);
-      v6 = v3;
-      v7 = Logger.logObject.getter();
-      v8 = static os_log_type_t.default.getter();
-
-      if (os_log_type_enabled(v7, v8))
-      {
-        v9 = swift_slowAlloc();
-        v10 = swift_slowAlloc();
-        v19 = v10;
-        *v9 = 136446210;
-        v11 = v6;
-        v12 = [v11 description];
-        v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v15 = v14;
-
-        v16 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v13, v15, &v19);
-
-        *(v9 + 4) = v16;
-        _os_log_impl(&_mh_execute_header, v7, v8, "Engine stalled for too long trying to resolve playerPath=%{public}s. Switching back to system route.", v9, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0Tm(v10);
-      }
-
-      v17 = objc_opt_self();
-      v18 = [v17 systemRoute];
-      [v17 setActiveRoute:v18 completion:0];
-    }
-  }
-}
-
-char *Player.nowPlayingDataSource.getter()
-{
-  v1 = *(v0 + OBJC_IVAR____TtC9MusicCore6Player____lazy_storage___nowPlayingDataSource);
-  if (v1)
-  {
-    v2 = *(v0 + OBJC_IVAR____TtC9MusicCore6Player____lazy_storage___nowPlayingDataSource);
-  }
-
-  else
-  {
-    v3 = v0;
-    v33 = OBJC_IVAR____TtC9MusicCore6Player____lazy_storage___nowPlayingDataSource;
-    swift_getKeyPath();
-    swift_getKeyPath();
-    static Published.subscript.getter();
-
-    v4 = [v34 route];
-
-    if (!v4)
-    {
-      v4 = [objc_opt_self() systemRoute];
-    }
-
-    v5 = [v4 isDeviceRoute];
-    v6 = objc_opt_self();
-    if (v5)
-    {
-      v7 = v6;
-      if (one-time initialization token for systemMusic != -1)
-      {
-        swift_once();
-      }
-
-      v8 = String._bridgeToObjectiveC()();
-      v9 = [v7 systemMusicPathWithRoute:v4 playerID:v8];
-    }
-
-    else
-    {
-      v9 = [v6 pathWithRoute:v4 bundleID:0 playerID:0];
-    }
-
-    v10 = swift_allocObject();
-    swift_weakInit();
-    v11 = swift_allocObject();
-    swift_weakInit();
-    v12 = type metadata accessor for Player.DataSource();
-    v13 = objc_allocWithZone(v12);
-    v14 = OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_request;
-    *&v13[v14] = [objc_allocWithZone(MPCPlayerRequest) init];
-    v13[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_automaticallyReloads] = 0;
-    v15 = OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_controller;
-    *&v13[v15] = [objc_allocWithZone(MPRequestResponseController) init];
-    *&v13[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_path] = v9;
-    v16 = &v13[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_onResponseChanged];
-    *v16 = partial apply for closure #1 in Player.nowPlayingDataSource.getter;
-    v16[1] = v10;
-    v17 = &v13[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_onError];
-    *v17 = partial apply for closure #2 in Player.nowPlayingDataSource.getter;
-    v17[1] = v11;
-    v35.receiver = v13;
-    v35.super_class = v12;
-    v18 = v9;
-
-    v19 = objc_msgSendSuper2(&v35, "init");
-    v20 = OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_controller;
-    v21 = *&v19[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_controller];
-    v22 = v19;
-    [v21 setDelegate:v22];
-    v23 = OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_request;
-    v24 = one-time initialization token for emptyNowPlayingItem;
-    v25 = *&v22[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_request];
-    if (v24 != -1)
-    {
-      swift_once();
-    }
-
-    [v25 setPlayingItemProperties:{static MPPropertySet.emptyNowPlayingItem, v10}];
-
-    [*&v22[v23] setTracklistRange:{0, 0}];
-    [*&v22[v23] setPlayerPath:v18];
-    v26 = *&v22[v23];
-    v27._countAndFlagsBits = 0x6979616C50776F4ELL;
-    v27._object = 0xEA0000000000676ELL;
-    String.append(_:)(v27);
-    v28 = v18;
-    v29 = String._bridgeToObjectiveC()();
-
-    [v26 setLabel:v29];
-
-    [*&v19[v20] setRequest:*&v22[v23]];
-
-    v30 = *(v3 + v33);
-    *(v3 + v33) = v19;
-    v2 = v22;
-
-    v1 = 0;
-  }
-
-  v31 = v1;
-  return v2;
-}
-
-uint64_t closure #1 in Player.nowPlayingDataSource.getter()
-{
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
-  {
-    __chkstk_darwin(result);
-
-    UnfairLock.locked<A>(_:)(partial apply for closure #1 in closure #1 in Player.nowPlayingDataSource.getter);
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in closure #1 in Player.nowPlayingDataSource.getter(id a1, uint64_t a2, void *a3)
-{
-  if (a1)
-  {
-    v5 = [a1 tracklist];
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  swift_getKeyPath();
-  swift_getKeyPath();
-  static Published.subscript.getter();
-
-  p_class_meths = &OBJC_PROTOCOL___CAAnimationDelegate.class_meths;
-  if (!v50)
-  {
-    if (!v5)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_11:
-    v7 = v5;
-    goto LABEL_13;
-  }
-
-  v7 = [v50 tracklist];
-
-  if (v5)
-  {
-    if (v7)
-    {
-      type metadata accessor for UIAction(0, &lazy cache variable for type metadata for MPCPlayerResponseTracklist);
-      v8 = static NSObject.== infix(_:_:)();
-
-      if ((v8 & 1) == 0)
-      {
-        if (!a1)
-        {
-          goto LABEL_22;
-        }
-
-        goto LABEL_14;
-      }
-
-LABEL_21:
-      if (a1)
-      {
-        goto LABEL_34;
-      }
-
-      goto LABEL_22;
-    }
-
+    __break(1u);
     goto LABEL_11;
   }
 
-  if (!v7)
+  v10 = __OFSUB__(a2, a1);
+  v11 = a2 - a1;
+  if (v10)
   {
-    goto LABEL_21;
-  }
-
-LABEL_13:
-
-  if (!a1)
-  {
-LABEL_22:
-    if (one-time initialization token for logger != -1)
-    {
-      swift_once();
-    }
-
-    v31 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v31, static Player.logger);
-    v24 = Logger.logObject.getter();
-    v32 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v24, v32))
-    {
-      v33 = swift_slowAlloc();
-      *v33 = 0;
-      _os_log_impl(&_mh_execute_header, v24, v32, "╭ Nil Now Playing Response", v33, 2u);
-    }
-
-    goto LABEL_29;
-  }
-
-LABEL_14:
-  v9 = one-time initialization token for logger;
-  v10 = a1;
-  if (v9 != -1)
-  {
-    swift_once();
-  }
-
-  v11 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v11, static Player.logger);
-  v12 = v10;
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v13, v14))
-  {
-    v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v50 = v16;
-    *v15 = 136446210;
-    v49 = a3;
-    v17 = [v12 tracklist];
-    v18 = [v17 uniqueIdentifier];
-
-    v19 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v21 = v20;
-
-    v22 = v19;
-    a3 = v49;
-    v23 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v22, v21, &v50);
-
-    *(v15 + 4) = v23;
-    _os_log_impl(&_mh_execute_header, v13, v14, "╭ Received Now Playing response with tracklistID=%{public}s", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v16);
-  }
-
-  v24 = v12;
-  v25 = Logger.logObject.getter();
-  v26 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v25, v26))
-  {
-    v27 = swift_slowAlloc();
-    *v27 = 67240192;
-    v28 = [v24 playerPath];
-    v29 = [v28 representedBundleID];
-
-    if (v29)
-    {
-
-      v30 = 1;
-    }
-
-    else
-    {
-      v30 = 0;
-    }
-
-    p_class_meths = &OBJC_PROTOCOL___CAAnimationDelegate.class_meths;
-    *(v27 + 4) = v30;
-
-    _os_log_impl(&_mh_execute_header, v25, v26, "| is Music App=%{BOOL,public}d", v27, 8u);
-  }
-
-  else
-  {
-
-    p_class_meths = (&OBJC_PROTOCOL___CAAnimationDelegate + 32);
-  }
-
-LABEL_29:
-
-  if (p_class_meths[112] != -1)
-  {
-    swift_once();
-  }
-
-  v34 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v34, static Player.logger);
-  v35 = a3;
-  v36 = Logger.logObject.getter();
-  v37 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v36, v37))
-  {
-    v38 = swift_slowAlloc();
-    v39 = swift_slowAlloc();
-    *v38 = 138543362;
-    v40 = [v35 playerPath];
-    *(v38 + 4) = v40;
-    *v39 = v40;
-    _os_log_impl(&_mh_execute_header, v36, v37, "╰ playerPath=%{public}@", v38, 0xCu);
-    outlined destroy of TaskPriority?(v39, &_sSo8NSObjectCSgMd_0);
-  }
-
-  if (!a1)
-  {
-    swift_getKeyPath();
-    swift_getKeyPath();
-    v50 = 0;
-
-    static Published.subscript.setter();
-    v47 = 0;
-    goto LABEL_40;
-  }
-
-LABEL_34:
-  v41 = [a1 playerPath];
-  v42 = [v41 isSystemMusicPath];
-
-  if ((v42 & 1) != 0 || (v43 = [a1 playerPath], v44 = objc_msgSend(v43, "representedBundleID"), v43, !v44))
-  {
-    v46 = a1;
-    v45 = a1;
-  }
-
-  else
-  {
-
-    v45 = 0;
-  }
-
-  swift_getKeyPath();
-  swift_getKeyPath();
-  v50 = v45;
-
-  static Published.subscript.setter();
-  v47 = [a1 playerPath];
-LABEL_40:
-  swift_getKeyPath();
-  swift_getKeyPath();
-  v50 = v47;
-
-  return static Published.subscript.setter();
-}
-
-uint64_t closure #2 in Player.nowPlayingDataSource.getter(void *a1)
-{
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
-  {
-    if (one-time initialization token for logger != -1)
-    {
-      swift_once();
-    }
-
-    v3 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v3, static Player.logger);
-    swift_errorRetain();
-    v4 = Logger.logObject.getter();
-    v5 = static os_log_type_t.error.getter();
-
-    if (os_log_type_enabled(v4, v5))
-    {
-      v6 = swift_slowAlloc();
-      v7 = swift_slowAlloc();
-      v17 = v7;
-      *v6 = 136446210;
-      swift_errorRetain();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-      v8 = String.init<A>(describing:)();
-      v10 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v8, v9, &v17);
-
-      *(v6 + 4) = v10;
-      _os_log_impl(&_mh_execute_header, v4, v5, "╭ Now Playing failed to load with error=%{public}s", v6, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v7);
-    }
-
-    v11 = a1;
-    v12 = Logger.logObject.getter();
-    v13 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v12, v13))
-    {
-      v14 = swift_slowAlloc();
-      v15 = swift_slowAlloc();
-      *v14 = 138543362;
-      v16 = [v11 playerPath];
-      *(v14 + 4) = v16;
-      *v15 = v16;
-      _os_log_impl(&_mh_execute_header, v12, v13, "╰ playerPath=%{public}@", v14, 0xCu);
-      outlined destroy of TaskPriority?(v15, &_sSo8NSObjectCSgMd_0);
-    }
-  }
-
-  return result;
-}
-
-void Player.updatePlayerPath(with:)(void *a1)
-{
-  v3 = *v1;
-  v4 = swift_allocObject();
-  *(v4 + 16) = v1;
-  *(v4 + 24) = v3;
-  if (a1)
-  {
-
-    v5 = a1;
-    closure #1 in Player.updatePlayerPath(with:)();
-  }
-
-  else
-  {
-    v6 = objc_opt_self();
-    v7 = swift_allocObject();
-    *(v7 + 16) = closure #1 in Player.updatePlayerPath(with:)partial apply;
-    *(v7 + 24) = v4;
-    v9[4] = closure #2 in Player.updatePlayerPath(with:)partial apply;
-    v9[5] = v7;
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 1107296256;
-    v9[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed MPAVRoute?) -> ();
-    v9[3] = &block_descriptor_327;
-    v8 = _Block_copy(v9);
-
-    [v6 getActiveRouteWithTimeout:v8 completion:1.0];
-
-    _Block_release(v8);
-  }
-}
-
-void closure #1 in Player.updatePlayerPath(with:)(void *a1)
-{
-  if (one-time initialization token for logger != -1)
-  {
-    swift_once();
-  }
-
-  v2 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v2, static Player.logger);
-  v3 = a1;
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v4, v5))
-  {
-    v6 = swift_slowAlloc();
-    v14 = swift_slowAlloc();
-    v15 = v14;
-    *v6 = 136446210;
-    v7 = v3;
-    v8 = [v7 description];
-    v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v11 = v10;
-
-    v12 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v9, v11, &v15);
-
-    *(v6 + 4) = v12;
-    _os_log_impl(&_mh_execute_header, v4, v5, "Updating playerPath with route=%{public}s", v6, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v14);
-  }
-
-  __chkstk_darwin(v13);
-  UnfairLock.locked<A>(_:)(partial apply for closure #1 in closure #1 in Player.updatePlayerPath(with:));
-}
-
-void closure #1 in closure #1 in Player.updatePlayerPath(with:)(uint64_t a1, void *a2)
-{
-  v4 = Player.nowPlayingDataSource.getter();
-  v5 = *&v4[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_path];
-
-  v6 = [v5 route];
-  if (v6 && (type metadata accessor for UIAction(0, &lazy cache variable for type metadata for MPAVRoute), v7 = v6, v8 = a2, v9 = static NSObject.== infix(_:_:)(), v7, v8, (v9 & 1) != 0) && ((v10 = [v7 connection]) == 0 || (v11 = v10, v12 = objc_msgSend(v10, "isInvalidated"), v11, (v12 & 1) == 0)))
-  {
-  }
-
-  else
-  {
-    v13 = [a2 isDeviceRoute];
-    v14 = objc_opt_self();
-    if (v13)
-    {
-      v15 = v14;
-      if (one-time initialization token for systemMusic != -1)
-      {
-        swift_once();
-      }
-
-      v16 = String._bridgeToObjectiveC()();
-      v17 = [v15 systemMusicPathWithRoute:a2 playerID:v16];
-    }
-
-    else
-    {
-      v17 = [v14 pathWithRoute:a2 bundleID:0 playerID:0];
-    }
-
-    swift_getKeyPath();
-    swift_getKeyPath();
-    v18 = v17;
-
-    static Published.subscript.setter();
-    Player.path.didset();
-
-    v19 = *(a1 + OBJC_IVAR____TtC9MusicCore6Player____lazy_storage___nowPlayingDataSource);
-    v20 = OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_path;
-    v21 = *&v19[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_path];
-    *&v19[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_path] = v18;
-    type metadata accessor for UIAction(0, &lazy cache variable for type metadata for MPCPlayerPath);
-    v22 = v18;
-    v23 = v19;
-    if ((static NSObject.== infix(_:_:)() & 1) == 0)
-    {
-      v24 = *&v23[OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_controller];
-      v25 = [v24 request];
-      if (v25)
-      {
-        v26 = *&v19[v20];
-        v27 = v25;
-        [v25 setPlayerPath:v26];
-      }
-
-      [v24 setNeedsReloadForSignificantRequestChange];
-    }
-
-    v28 = _MPAVRouteConnectionDidInvalidateNotification;
-    v29 = swift_allocObject();
-    swift_weakInit();
-    type metadata accessor for NotificationObserver();
-    swift_allocObject();
-    v30 = v22;
-    *(a1 + OBJC_IVAR____TtC9MusicCore6Player_playerPathInvalidationObserver) = NotificationObserver.init(name:object:dispatchOnMainThread:usesLocalNotificationCenter:handler:)(v28, v22, 1, 1, partial apply for closure #1 in closure #1 in closure #1 in Player.updatePlayerPath(with:), v29);
-
-    v31 = [v30 route];
-    if (v31)
-    {
-      v32 = v31;
-      v33 = [objc_allocWithZone(MPVolumeControllerRouteDataSource) initWithGroupRoute:v31 outputDeviceRoute:0];
-      v34 = [objc_opt_self() sharedController];
-      [v34 setActiveDataSource:v33];
-    }
-
-    else
-    {
-    }
-  }
-}
-
-uint64_t closure #2 in Player.init()()
-{
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
-  {
-    Player.updatePlayerPath(with:)(0);
-  }
-
-  return result;
-}
-
-void closure #2 in Player.updatePlayerPath(with:)(void *a1, void (*a2)(id))
-{
-  if (a1)
-  {
-    v5 = a1;
-  }
-
-  else
-  {
-    v5 = [objc_opt_self() systemRoute];
-  }
-
-  v4 = a1;
-  a2(v5);
-}
-
-void Player.updateSharePlayTogetherSession()()
-{
-  swift_getKeyPath();
-  swift_getKeyPath();
-  static Published.subscript.getter();
-
-  v0 = [v23 route];
-
-  if (v0)
-  {
-    objc_opt_self();
-    v1 = swift_dynamicCastObjCClass();
-    if (!v1)
-    {
-LABEL_14:
-
-      return;
-    }
-
-    v2 = v1;
-    v3 = [v1 endpointObject];
-    if (v3)
-    {
-      v4 = v3;
-      v5 = [v3 isEligibleForHostingGroupSessionExcludingAcknowledgements];
-
-      swift_getKeyPath();
-      swift_getKeyPath();
-      LOBYTE(v23) = v5;
-
-      static Published.subscript.setter();
-      v6 = [v2 endpointObject];
-      if (v6)
-      {
-        v7 = v6;
-        v8 = [v6 groupSessionInfo];
-
-        if (!v8)
-        {
-          swift_getKeyPath();
-          swift_getKeyPath();
-          static Published.subscript.getter();
-
-          v22 = v23;
-          swift_getKeyPath();
-          swift_getKeyPath();
-
-          static Published.subscript.setter();
-          Player.sharePlayTogetherSession.didset(v23);
-          goto LABEL_13;
-        }
-
-        if (one-time initialization token for sharePlayTogether != -1)
-        {
-          swift_once();
-        }
-
-        v9 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v9, static Logger.sharePlayTogether);
-        v10 = v0;
-        v11 = Logger.logObject.getter();
-        v12 = static os_log_type_t.default.getter();
-
-        if (os_log_type_enabled(v11, v12))
-        {
-          v13 = swift_slowAlloc();
-          v14 = swift_slowAlloc();
-          *v13 = 138543362;
-          *(v13 + 4) = v2;
-          *v14 = v2;
-          v15 = v10;
-          _os_log_impl(&_mh_execute_header, v11, v12, "Getting session from %{public}@", v13, 0xCu);
-          outlined destroy of TaskPriority?(v14, &_sSo8NSObjectCSgMd_0);
-        }
-
-        v16 = [v2 endpointObject];
-        if (v16)
-        {
-          v17 = v16;
-          v18 = objc_allocWithZone(type metadata accessor for SharePlayTogetherSession(0));
-          v19 = v8;
-          SharePlayTogetherSession.init(info:endpoint:)(v19, v17);
-          v21 = v20;
-          swift_getKeyPath();
-          swift_getKeyPath();
-          static Published.subscript.getter();
-
-          v22 = v23;
-          swift_getKeyPath();
-          swift_getKeyPath();
-
-          v0 = v21;
-          static Published.subscript.setter();
-          Player.sharePlayTogetherSession.didset(v23);
-
-LABEL_13:
-          v0 = v22;
-          goto LABEL_14;
-        }
-
-LABEL_18:
-        __break(1u);
-        return;
-      }
-    }
-
-    else
-    {
-      __break(1u);
-    }
-
+LABEL_11:
     __break(1u);
-    goto LABEL_18;
-  }
-}
-
-uint64_t Player.deinit()
-{
-
-  swift_unknownObjectRelease();
-  v1 = OBJC_IVAR____TtC9MusicCore6Player__path;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo13MPCPlayerPathCGMd);
-  (*(*(v2 - 8) + 8))(v0 + v1, v2);
-
-  v3 = OBJC_IVAR____TtC9MusicCore6Player__nowPlaying;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17MPCPlayerResponseCSgGMd);
-  v5 = *(*(v4 - 8) + 8);
-  v5(v0 + v3, v4);
-  v6 = OBJC_IVAR____TtC9MusicCore6Player__nowPlayingPath;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo13MPCPlayerPathCSgGMd);
-  (*(*(v7 - 8) + 8))(v0 + v6, v7);
-  v8 = OBJC_IVAR____TtC9MusicCore6Player__sharePlayTogetherSession;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy9MusicCore24SharePlayTogetherSessionCSgGMd);
-  (*(*(v9 - 8) + 8))(v0 + v8, v9);
-  v10 = OBJC_IVAR____TtC9MusicCore6Player__isHostingSharePlayTogetherSession;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd);
-  v12 = *(*(v11 - 8) + 8);
-  v12(v0 + v10, v11);
-  v12(v0 + OBJC_IVAR____TtC9MusicCore6Player__isEligibleForHostingSharePlayTogetherSession, v11);
-
-  v13 = *(v0 + OBJC_IVAR____TtC9MusicCore6Player_nowPlayingConfiguration);
-  v14 = *(v0 + OBJC_IVAR____TtC9MusicCore6Player_nowPlayingConfiguration + 8);
-
-  v5(v0 + OBJC_IVAR____TtC9MusicCore6Player__playerResponse, v4);
-
-  return v0;
-}
-
-uint64_t protocol witness for ObservableObject.objectWillChange.getter in conformance Player@<X0>(uint64_t *a1@<X8>)
-{
-  type metadata accessor for Player(0);
-  result = ObservableObject<>.objectWillChange.getter();
-  *a1 = result;
-  return result;
-}
-
-id Player.DataSource.__deallocating_deinit()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for Player.DataSource();
-  return objc_msgSendSuper2(&v2, "dealloc");
-}
-
-void one-time initialization function for emptyNowPlayingItem()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_So13MPPropertySetCtGMd);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_1004F2EE0;
-  *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  *(inited + 40) = v1;
-  v2 = objc_opt_self();
-  *(inited + 48) = [v2 emptyPropertySet];
-  *(inited + 56) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  *(inited + 64) = v3;
-  *(inited + 72) = [v2 emptyPropertySet];
-  *(inited + 80) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  *(inited + 88) = v4;
-  *(inited + 96) = [v2 emptyPropertySet];
-  *(inited + 104) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  *(inited + 112) = v5;
-  v6 = swift_initStackObject();
-  *(v6 + 16) = xmmword_1004F2EB0;
-  *(v6 + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  *(v6 + 40) = v7;
-  *(v6 + 48) = [v2 emptyPropertySet];
-  *(v6 + 56) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  *(v6 + 64) = v8;
-  *(v6 + 72) = [v2 emptyPropertySet];
-  *(v6 + 80) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  *(v6 + 88) = v9;
-  *(v6 + 96) = [v2 emptyPropertySet];
-  _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_So13MPPropertySetCTt0g5Tf4g_n(v6);
-  swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_So13MPPropertySetCtMd);
-  swift_arrayDestroy();
-  v10 = objc_allocWithZone(MPPropertySet);
-  isa = Array._bridgeToObjectiveC()().super.isa;
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for MPPropertySet);
-  v12 = Dictionary._bridgeToObjectiveC()().super.isa;
-
-  v13 = [v10 initWithProperties:isa relationships:v12];
-
-  *(inited + 120) = v13;
-  _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_So13MPPropertySetCTt0g5Tf4g_n(inited);
-  swift_setDeallocating();
-  swift_arrayDestroy();
-  v14 = objc_allocWithZone(MPPropertySet);
-  v15 = Array._bridgeToObjectiveC()().super.isa;
-  v16 = Dictionary._bridgeToObjectiveC()().super.isa;
-
-  v17 = [v14 initWithProperties:v15 relationships:v16];
-
-  static MPPropertySet.emptyNowPlayingItem = v17;
-}
-
-uint64_t Player.with(_:)(void (*a1)(id *))
-{
-  v3 = v1 + OBJC_IVAR____TtC9MusicCore6Player_nowPlayingConfiguration;
-  swift_beginAccess();
-  v4 = *(v3 + 8);
-  v5 = *(v3 + 16);
-  v16 = *v3;
-  v17 = v4;
-  v18 = v5;
-  v6 = v16;
-  v7 = v4;
-
-  a1(&v16);
-  v8 = v16;
-  v9 = v17;
-  v10 = v18;
-  v11 = *v3;
-  v12 = *(v3 + 8);
-  *v3 = v16;
-  *(v3 + 8) = v9;
-  *(v3 + 16) = v10;
-  v13 = v8;
-  v14 = v9;
-
-  Player.nowPlayingConfiguration.didset();
-}
-
-uint64_t MusicItemState.item.didset(uint64_t a1)
-{
-  v2 = *(*v1 + 80);
-  v3 = *(v2 - 8);
-  __chkstk_darwin(a1);
-  v5 = &v9 - v4;
-  v7 = *(v6 + 120);
-  swift_beginAccess();
-  (*(v3 + 16))(v5, v1 + v7, v2);
-
-  dispatch thunk of MusicPlayer.ItemState.item.setter();
-}
-
-uint64_t MusicItemState.item.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 120);
-  swift_beginAccess();
-  return (*(*(*(v3 + 80) - 8) + 16))(a1, v1 + v4);
-}
-
-uint64_t MusicItemState.item.setter(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 120);
-  swift_beginAccess();
-  v5 = *(v3 + 80);
-  v6 = *(v5 - 8);
-  (*(v6 + 24))(v1 + v4, a1, v5);
-  v7 = swift_endAccess();
-  MusicItemState.item.didset(v7);
-  return (*(v6 + 8))(a1, v5);
-}
-
-uint64_t (*MusicItemState.item.modify(uint64_t a1))(uint64_t a1, char a2)
-{
-  *(a1 + 24) = v1;
-  swift_beginAccess();
-  return MusicItemState.item.modify;
-}
-
-uint64_t MusicItemState.item.modify(uint64_t a1, char a2)
-{
-  result = swift_endAccess();
-  if ((a2 & 1) == 0)
-  {
-    return MusicItemState.item.didset(result);
-  }
-
-  return result;
-}
-
-uint64_t property wrapper backing initializer of MusicItemState.playabilityStatus(char *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
-{
-  v5 = a4(0);
-  v6 = *(v5 - 8);
-  v7 = __chkstk_darwin(v5);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v11 = &v15 - v10;
-  v12 = *(v6 + 16);
-  v12(&v15 - v10, a1, v5);
-  v12(v9, v11, v5);
-  Published.init(initialValue:)();
-  v13 = *(v6 + 8);
-  v13(a1, v5);
-  return v13(v11, v5);
-}
-
-uint64_t closure #1 in MusicItemState.init(item:musicKitItemState:player:)()
-{
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
-  {
-    MusicItemState.updatePlayabilityStatus()();
-  }
-
-  return result;
-}
-
-uint64_t closure #2 in MusicItemState.init(item:musicKitItemState:player:)()
-{
-  v0 = type metadata accessor for MusicPlayer.PreviewCapabilityStatus();
-  __chkstk_darwin(v0 - 8);
-  v2 = &v4 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
-  {
-    dispatch thunk of MusicPlayer.ItemState.previewCapabilityStatus.getter();
-    MusicItemState.previewCapabilityStatus.setter(v2);
-  }
-
-  return result;
-}
-
-uint64_t MusicItemState.updatePlayabilityStatus()()
-{
-  v1 = *v0;
-  v2 = type metadata accessor for MusicPlayer.PlayabilityStatus.UnplayableReason();
-  v3 = *(v2 - 8);
-  v4 = __chkstk_darwin(v2);
-  v6 = &v62[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v4);
-  v8 = &v62[-v7];
-  v68 = type metadata accessor for MusicMovie();
-  v64 = *(v68 - 8);
-  __chkstk_darwin(v68);
-  v67 = &v62[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v71 = type metadata accessor for TVEpisode();
-  v66 = *(v71 - 8);
-  __chkstk_darwin(v71);
-  v72 = &v62[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v76 = type metadata accessor for Track();
-  v70 = *(v76 - 8);
-  __chkstk_darwin(v76);
-  v75 = &v62[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v80 = type metadata accessor for Song();
-  v74 = *(v80 - 8);
-  v12 = __chkstk_darwin(v80);
-  v79 = &v62[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v81 = *(v1 + 80);
-  v14 = __chkstk_darwin(v12);
-  v77 = &v62[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v16 = __chkstk_darwin(v14);
-  v65 = &v62[-v17];
-  v18 = __chkstk_darwin(v16);
-  v69 = &v62[-v19];
-  v20 = __chkstk_darwin(v18);
-  v73 = &v62[-v21];
-  __chkstk_darwin(v20);
-  v78 = &v62[-v22];
-  v23 = type metadata accessor for MusicPlayer.PlayabilityStatus();
-  v24 = *(v23 - 8);
-  v25 = __chkstk_darwin(v23);
-  v83 = &v62[-((v26 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v27 = __chkstk_darwin(v25);
-  v29 = &v62[-v28];
-  __chkstk_darwin(v27);
-  v31 = &v62[-v30];
-  v85 = v0;
-
-  dispatch thunk of MusicPlayer.ItemState.playabilityStatus.getter();
-
-  v32 = *(v24 + 16);
-  v84 = v31;
-  v33 = v31;
-  v34 = v23;
-  v35 = v24;
-  v82 = v32;
-  v32(v29, v33, v34);
-  v36 = (*(v24 + 88))(v29, v34);
-  v37 = enum case for MusicPlayer.PlayabilityStatus.unplayable(_:);
-  if (v36 != enum case for MusicPlayer.PlayabilityStatus.unplayable(_:))
-  {
-    if (v36 != enum case for MusicPlayer.PlayabilityStatus.playable(_:))
-    {
-      v50 = v83;
-      v51 = v84;
-      v82(v83, v84, v34);
-      MusicItemState.playabilityStatus.setter(v50);
-      v52 = *(v35 + 8);
-      v52(v51, v34);
-      return (v52)(v29, v34);
-    }
-
-    v63 = v36;
-    swift_getKeyPath();
-    swift_getKeyPath();
-
-    static Published.subscript.getter();
-
-    if (!v86 || (v86, swift_getKeyPath(), swift_getKeyPath(), , static Published.subscript.getter(), , , , (v86 & 1) != 0) || (, v45 = Player.supportsDelegation.getter(), , (v45 & 1) != 0))
-    {
-LABEL_9:
-      v46 = v83;
-      v47 = v84;
-      v82(v83, v84, v34);
-      MusicItemState.playabilityStatus.setter(v46);
-      return (*(v35 + 8))(v47, v34);
-    }
-
-    MusicItemState.item.getter(v78);
-    v54 = v79;
-    v53 = v80;
-    if (swift_dynamicCast())
-    {
-      v55 = v74;
-    }
-
-    else
-    {
-      MusicItemState.item.getter(v73);
-      v54 = v75;
-      v53 = v76;
-      if (!swift_dynamicCast())
-      {
-        MusicItemState.item.getter(v69);
-        v61 = v71;
-        if (swift_dynamicCast())
-        {
-          (*(v66 + 8))(v72, v61);
-        }
-
-        else
-        {
-          MusicItemState.item.getter(v65);
-          if (!swift_dynamicCast())
-          {
-            goto LABEL_9;
-          }
-
-          (*(v64 + 8))(v67, v68);
-        }
-
-LABEL_19:
-        MusicItemState.item.getter(v77);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore18CatalogIDProviding_pMd);
-        if (swift_dynamicCast())
-        {
-          v56 = *(&v87 + 1);
-          v57 = v88;
-          __swift_project_boxed_opaque_existential_0Tm(&v86, *(&v87 + 1));
-          (*(v57 + 8))(v56, v57);
-          v59 = v58;
-          __swift_destroy_boxed_opaque_existential_0Tm(&v86);
-          if (v59)
-          {
-
-            v60 = v83;
-            (*(v35 + 104))(v83, v63, v34);
-LABEL_24:
-            MusicItemState.playabilityStatus.setter(v60);
-            return (*(v35 + 8))(v84, v34);
-          }
-        }
-
-        else
-        {
-          v88 = 0;
-          v86 = 0u;
-          v87 = 0u;
-          outlined destroy of TaskPriority?(&v86, &_s9MusicCore18CatalogIDProviding_pSgMd);
-        }
-
-        v60 = v83;
-        (*(v3 + 104))(v83, enum case for MusicPlayer.PlayabilityStatus.UnplayableReason.contentUnavailable(_:), v2);
-        (*(v35 + 104))(v60, v37, v34);
-        goto LABEL_24;
-      }
-
-      v55 = v70;
-    }
-
-    (*(v55 + 8))(v54, v53);
-    goto LABEL_19;
-  }
-
-  v38 = v35;
-  v39 = *(v35 + 96);
-  v40 = v34;
-  v39(v29, v34);
-  (*(v3 + 32))(v8, v29, v2);
-  (*(v3 + 104))(v6, enum case for MusicPlayer.PlayabilityStatus.UnplayableReason.subscriptionRequired(_:), v2);
-  v41 = static MusicPlayer.PlayabilityStatus.UnplayableReason.== infix(_:_:)();
-  v42 = *(v3 + 8);
-  v42(v6, v2);
-  if ((v41 & 1) != 0 && (swift_getKeyPath(), swift_getKeyPath(), , static Published.subscript.getter(), , , , v86))
-  {
-
-    v43 = v83;
-    (*(v38 + 104))(v83, enum case for MusicPlayer.PlayabilityStatus.playable(_:), v40);
-    MusicItemState.playabilityStatus.setter(v43);
-    v42(v8, v2);
-    return (*(v38 + 8))(v84, v40);
-  }
-
-  else
-  {
-    v48 = v83;
-    v49 = v84;
-    v82(v83, v84, v40);
-    MusicItemState.playabilityStatus.setter(v48);
-    v42(v8, v2);
-    return (*(v38 + 8))(v49, v40);
-  }
-}
-
-uint64_t MusicItemState.playabilityStatus.getter()
-{
-  return MusicItemState.playabilityStatus.getter();
-}
-
-{
-  swift_getKeyPath();
-  swift_getKeyPath();
-  static Published.subscript.getter();
-}
-
-uint64_t MusicItemState.previewCapabilityStatus.setter(uint64_t a1, uint64_t (*a2)(void))
-{
-  v4 = *v2;
-  v5 = a2(0);
-  v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v8 = v12 - v7;
-  v13 = *(v4 + 80);
-  v9 = v13;
-  v10 = *(v4 + 88);
-  v14 = v10;
-  swift_getKeyPath();
-  v12[0] = v9;
-  v12[1] = v10;
-  swift_getKeyPath();
-  (*(v6 + 16))(v8, a1, v5);
-
-  static Published.subscript.setter();
-  return (*(v6 + 8))(a1, v5);
-}
-
-uint64_t (*MusicItemState.playabilityStatus.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x38uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  __chkstk_darwin(v2);
-  KeyPath = swift_getKeyPath();
-  v3[4] = KeyPath;
-  __chkstk_darwin(KeyPath);
-  v3[5] = swift_getKeyPath();
-  v3[6] = static Published.subscript.modify();
-  return MPCPlayerResponse.VideoContext.videoBounds.modify;
-}
-
-uint64_t MusicItemState.$playabilityStatus.getter()
-{
-  swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy8MusicKit0C6PlayerC0cD8InternalE17PlayabilityStatusOGMd);
-  Published.projectedValue.getter();
-  return swift_endAccess();
-}
-
-uint64_t MusicItemState.$playabilityStatus.setter(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVy8MusicKit0D6PlayerC0dE8InternalE17PlayabilityStatusO_GMd);
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  (*(v3 + 16))(&v6 - v4, a1, v2);
-  swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy8MusicKit0C6PlayerC0cD8InternalE17PlayabilityStatusOGMd);
-  Published.projectedValue.setter();
-  swift_endAccess();
-  return (*(v3 + 8))(a1, v2);
-}
-
-void (*MusicItemState.$playabilityStatus.modify(void *a1))(uint64_t a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x28uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVy8MusicKit0D6PlayerC0dE8InternalE17PlayabilityStatusO_GMd);
-  v4[1] = v5;
-  v6 = *(v5 - 8);
-  v4[2] = v6;
-  v7 = *(v6 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    v4[3] = swift_coroFrameAlloc();
-    v8 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4[3] = malloc(*(v6 + 64));
-    v8 = malloc(v7);
-  }
-
-  v4[4] = v8;
-  MusicItemState.$playabilityStatus.getter();
-  return MusicItemState.$playabilityStatus.modify;
-}
-
-uint64_t key path setter for MusicItemState.playabilityStatus : <A>MusicItemState<A>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(char *))
-{
-  v8 = a5(0);
-  __chkstk_darwin(v8);
-  v10 = &v13 - v9;
-  (*(v11 + 16))(&v13 - v9, a1);
-  return a6(v10);
-}
-
-uint64_t (*MusicItemState.previewCapabilityStatus.modify(uint64_t *a1))()
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v2 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v2 = malloc(0x38uLL);
-  }
-
-  v3 = v2;
-  *a1 = v2;
-  __chkstk_darwin(v2);
-  KeyPath = swift_getKeyPath();
-  v3[4] = KeyPath;
-  __chkstk_darwin(KeyPath);
-  v3[5] = swift_getKeyPath();
-  v3[6] = static Published.subscript.modify();
-  return MPCPlayerResponse.VideoContext.isReadyForDisplay.modify;
-}
-
-uint64_t MusicItemState.$previewCapabilityStatus.getter()
-{
-  swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy8MusicKit0C6PlayerC0cD8InternalE23PreviewCapabilityStatusOGMd);
-  Published.projectedValue.getter();
-  return swift_endAccess();
-}
-
-uint64_t MusicItemState.$previewCapabilityStatus.setter(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVy8MusicKit0D6PlayerC0dE8InternalE23PreviewCapabilityStatusO_GMd);
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  (*(v3 + 16))(&v6 - v4, a1, v2);
-  swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy8MusicKit0C6PlayerC0cD8InternalE23PreviewCapabilityStatusOGMd);
-  Published.projectedValue.setter();
-  swift_endAccess();
-  return (*(v3 + 8))(a1, v2);
-}
-
-void (*MusicItemState.$previewCapabilityStatus.modify(void *a1))(uint64_t a1, char a2)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x28uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVy8MusicKit0D6PlayerC0dE8InternalE23PreviewCapabilityStatusO_GMd);
-  v4[1] = v5;
-  v6 = *(v5 - 8);
-  v4[2] = v6;
-  v7 = *(v6 + 64);
-  if (&_swift_coroFrameAlloc)
-  {
-    v4[3] = swift_coroFrameAlloc();
-    v8 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v4[3] = malloc(*(v6 + 64));
-    v8 = malloc(v7);
-  }
-
-  v4[4] = v8;
-  MusicItemState.$previewCapabilityStatus.getter();
-  return MusicItemState.$previewCapabilityStatus.modify;
-}
-
-void MusicItemState.$playabilityStatus.modify(uint64_t a1, char a2, void (*a3)(void *))
-{
-  v4 = *a1;
-  v5 = *(*a1 + 24);
-  v6 = *(*a1 + 32);
-  if (a2)
-  {
-    v7 = v4[1];
-    v8 = v4[2];
-    (*(v8 + 16))(*(*a1 + 24), v6, v7);
-    a3(v5);
-    (*(v8 + 8))(v6, v7);
-  }
-
-  else
-  {
-    a3(*(*a1 + 32));
-  }
-
-  free(v6);
-  free(v5);
-
-  free(v4);
-}
-
-uint64_t *MusicItemState.deinit()
-{
-  v1 = *v0;
-
-  (*(*(*(v1 + 80) - 8) + 8))(v0 + *(*v0 + 120));
-  v2 = *(*v0 + 128);
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy8MusicKit0C6PlayerC0cD8InternalE17PlayabilityStatusOGMd);
-  (*(*(v3 - 8) + 8))(v0 + v2, v3);
-  v4 = *(*v0 + 136);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy8MusicKit0C6PlayerC0cD8InternalE23PreviewCapabilityStatusOGMd);
-  (*(*(v5 - 8) + 8))(v0 + v4, v5);
-  return v0;
-}
-
-uint64_t Player.__deallocating_deinit(void (*a1)(void))
-{
-  a1();
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t protocol witness for ObservableObject.objectWillChange.getter in conformance MusicItemState<A>@<X0>(uint64_t *a1@<X8>)
-{
-  type metadata accessor for MusicItemState();
-  result = ObservableObject<>.objectWillChange.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t specialized closure #1 in closure #1 in Task.withTimeout(_:)(double a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  *(v6 + 136) = a6;
-  *(v6 + 128) = a1;
-  *(v6 + 120) = a5;
-  v7 = type metadata accessor for DispatchTime();
-  *(v6 + 144) = v7;
-  *(v6 + 152) = *(v7 - 8);
-  *(v6 + 160) = swift_task_alloc();
-  *(v6 + 168) = swift_task_alloc();
-  v8 = type metadata accessor for DispatchQoS.QoSClass();
-  *(v6 + 176) = v8;
-  *(v6 + 184) = *(v8 - 8);
-  *(v6 + 192) = swift_task_alloc();
-  *(v6 + 200) = type metadata accessor for DispatchWorkItemFlags();
-  *(v6 + 208) = swift_task_alloc();
-
-  return _swift_task_switch(specialized closure #1 in closure #1 in Task.withTimeout(_:), 0, 0);
-}
-
-uint64_t specialized closure #1 in closure #1 in Task.withTimeout(_:)()
-{
-  v1 = v0[23];
-  v11 = v0[22];
-  v14 = v0[21];
-  v2 = v0[19];
-  v12 = v0[24];
-  v13 = v0[20];
-  v15 = v0[18];
-  v3 = v0[15];
-  v4 = swift_allocObject();
-  v0[27] = v4;
-  *(v4 + 16) = 0;
-  v5 = swift_allocObject();
-  *(v5 + 16) = v4;
-  *(v5 + 24) = v3;
-  v0[6] = partial apply for specialized closure #1 in closure #1 in closure #1 in Task.withTimeout(_:);
-  v0[7] = v5;
-  v0[2] = _NSConcreteStackBlock;
-  v0[3] = 1107296256;
-  v0[4] = thunk for @escaping @callee_guaranteed () -> ();
-  v0[5] = &block_descriptor_275;
-  _Block_copy(v0 + 2);
-  v0[14] = _swiftEmptyArrayStorage;
-  _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
-  dispatch thunk of SetAlgebra.init<A>(_:)();
-  type metadata accessor for DispatchWorkItem();
-  swift_allocObject();
-  v0[28] = DispatchWorkItem.init(flags:block:)();
-
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-  (*(v1 + 104))(v12, enum case for DispatchQoS.QoSClass.userInitiated(_:), v11);
-  v6 = static OS_dispatch_queue.global(qos:)();
-  (*(v1 + 8))(v12, v11);
-  static DispatchTime.now()();
-  + infix(_:_:)();
-  v7 = *(v2 + 8);
-  v7(v13, v15);
-  OS_dispatch_queue.asyncAfter(deadline:execute:)();
-
-  v7(v14, v15);
-  v8 = swift_task_alloc();
-  v0[29] = v8;
-  *v8 = v0;
-  v8[1] = specialized closure #1 in closure #1 in Task.withTimeout(_:);
-  v9 = v0[17];
-
-  return Task.value.getter(v8, v9, &type metadata for () + 8, &type metadata for Never, &protocol witness table for Never);
-}
-
-{
-  *(*v1 + 240) = v0;
-
-  if (v0)
-  {
-    v2 = specialized closure #1 in closure #1 in Task.withTimeout(_:);
-  }
-
-  else
-  {
-    v2 = specialized closure #1 in closure #1 in Task.withTimeout(_:);
-  }
-
-  return _swift_task_switch(v2, 0, 0);
-}
-
-{
-  v1 = *(v0 + 216);
-  swift_beginAccess();
-  if (*(v1 + 16))
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScT9MusicCoreE7Timeout33_031AD420BBF8BBF113A2662767DAC2BBLLVyyts5NeverO_GMd);
-    lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type Task<(), Never>.Timeout and conformance Task<A, B>.Timeout, &_sScT9MusicCoreE7Timeout33_031AD420BBF8BBF113A2662767DAC2BBLLVyyts5NeverO_GMd);
-    v2 = swift_allocError();
-    swift_willThrow();
-    v3 = *(v0 + 216);
-    swift_beginAccess();
-    if ((*(v3 + 16) & 1) == 0)
-    {
-      dispatch thunk of DispatchWorkItem.cancel()();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-      swift_allocError();
-      *v4 = v2;
-      swift_errorRetain();
-      swift_continuation_throwingResumeWithError();
-    }
-
-    swift_willThrow();
-
-    v5 = *(v0 + 8);
-  }
-
-  else
-  {
-    dispatch thunk of DispatchWorkItem.cancel()();
-    swift_continuation_throwingResume();
-
-    v5 = *(v0 + 8);
-  }
-
-  return v5();
-}
-
-{
-  v1 = v0[30];
-  v2 = v0[27];
-  swift_beginAccess();
-  if ((*(v2 + 16) & 1) == 0)
-  {
-    dispatch thunk of DispatchWorkItem.cancel()();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-    swift_allocError();
-    *v3 = v1;
-    swift_errorRetain();
-    swift_continuation_throwingResumeWithError();
-  }
-
-  swift_willThrow();
-
-  v4 = v0[1];
-
-  return v4();
-}
-
-{
-  v1 = v0[24];
-  v13 = v0[23];
-  v16 = v0[22];
-  v2 = v0[20];
-  v14 = v0[25];
-  v15 = v0[21];
-  v17 = v0[19];
-  v3 = v0[16];
-  v4 = swift_allocObject();
-  v0[28] = v4;
-  *(v4 + 16) = 0;
-  v5 = swift_allocObject();
-  *(v5 + 16) = v4;
-  *(v5 + 24) = v3;
-  v0[6] = partial apply for specialized closure #1 in closure #1 in closure #1 in Task.withTimeout(_:);
-  v0[7] = v5;
-  v0[2] = _NSConcreteStackBlock;
-  v0[3] = 1107296256;
-  v0[4] = thunk for @escaping @callee_guaranteed () -> ();
-  v0[5] = &block_descriptor_287;
-  _Block_copy(v0 + 2);
-  v0[14] = _swiftEmptyArrayStorage;
-  _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
-  dispatch thunk of SetAlgebra.init<A>(_:)();
-  type metadata accessor for DispatchWorkItem();
-  swift_allocObject();
-  v0[29] = DispatchWorkItem.init(flags:block:)();
-
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-  (*(v1 + 104))(v14, enum case for DispatchQoS.QoSClass.userInitiated(_:), v13);
-  v6 = static OS_dispatch_queue.global(qos:)();
-  (*(v1 + 8))(v14, v13);
-  static DispatchTime.now()();
-  + infix(_:_:)();
-  v7 = *(v2 + 8);
-  v7(v15, v17);
-  OS_dispatch_queue.asyncAfter(deadline:execute:)();
-
-  v7(v16, v17);
-  v8 = swift_task_alloc();
-  v0[30] = v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22MPCPlayerCommandStatusCSgMd);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-  v0[31] = v10;
-  *v8 = v0;
-  v8[1] = specialized closure #1 in closure #1 in Task.withTimeout(_:);
-  v11 = v0[18];
-
-  return Task.value.getter(v0 + 15, v11, v9, v10, &protocol self-conformance witness table for Error);
-}
-
-{
-  *(*v1 + 256) = v0;
-
-  if (v0)
-  {
-    v2 = specialized closure #1 in closure #1 in Task.withTimeout(_:);
-  }
-
-  else
-  {
-    v2 = specialized closure #1 in closure #1 in Task.withTimeout(_:);
-  }
-
-  return _swift_task_switch(v2, 0, 0);
-}
-
-{
-  v1 = *(v0 + 224);
-  swift_beginAccess();
-  if (*(v1 + 16))
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScT9MusicCoreE7Timeout33_031AD420BBF8BBF113A2662767DAC2BBLLVySo22MPCPlayerCommandStatusCSgs5Error_p_GMd);
-    lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type Task<MPCPlayerCommandStatus?, Error>.Timeout and conformance Task<A, B>.Timeout, &_sScT9MusicCoreE7Timeout33_031AD420BBF8BBF113A2662767DAC2BBLLVySo22MPCPlayerCommandStatusCSgs5Error_p_GMd);
-    v2 = swift_allocError();
-    swift_willThrow();
-
-    v3 = *(v0 + 224);
-    swift_beginAccess();
-    if ((*(v3 + 16) & 1) == 0)
-    {
-      dispatch thunk of DispatchWorkItem.cancel()();
-      swift_allocError();
-      *v4 = v2;
-      swift_errorRetain();
-      swift_continuation_throwingResumeWithError();
-    }
-
-    swift_willThrow();
-
-    v5 = *(v0 + 8);
-
-    return v5();
-  }
-
-  else
-  {
-    v7 = *(v0 + 128);
-    dispatch thunk of DispatchWorkItem.cancel()();
-    v8 = *(v0 + 120);
-    **(*(v7 + 64) + 40) = v8;
-    v9 = v8;
-    swift_continuation_throwingResume();
-
-    v10 = *(v0 + 8);
-
-    return v10(v8);
-  }
-}
-
-{
-  v1 = v0[32];
-  v2 = v0[28];
-  swift_beginAccess();
-  if ((*(v2 + 16) & 1) == 0)
-  {
-    dispatch thunk of DispatchWorkItem.cancel()();
-    swift_allocError();
-    *v3 = v1;
-    swift_errorRetain();
-    swift_continuation_throwingResumeWithError();
-  }
-
-  swift_willThrow();
-
-  v4 = v0[1];
-
-  return v4();
-}
-
-uint64_t specialized closure #1 in closure #1 in closure #1 in Task.withTimeout(_:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, unint64_t *a5)
-{
-  swift_beginAccess();
-  *(a1 + 16) = 1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(a5, a3);
-  v8 = swift_allocError();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
-  swift_allocError();
-  *v9 = v8;
-  return swift_continuation_throwingResumeWithError();
-}
-
-uint64_t Player.NowPlayingObserver.init(player:)()
-{
-  v0 = specialized Player.NowPlayingObserver.init(player:)();
-
-  return v0;
-}
-
-uint64_t Player.NowPlayingObserver.isSharedListeningSession.setter(char a1)
-{
-  v2 = a1 & 1;
-  result = swift_beginAccess();
-  if (*(v1 + 16) == v2)
-  {
-    *(v1 + 16) = v2;
-  }
-
-  else
-  {
-    KeyPath = swift_getKeyPath();
-    __chkstk_darwin(KeyPath);
-    _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type Player.NowPlayingObserver and conformance Player.NowPlayingObserver, type metadata accessor for Player.NowPlayingObserver);
-    ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-  }
-
-  return result;
-}
-
-id Player.NowPlayingObserver.updateProperties(with:)(void *a1)
-{
-  swift_getKeyPath();
-  _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type Player.NowPlayingObserver and conformance Player.NowPlayingObserver, type metadata accessor for Player.NowPlayingObserver);
-  ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-  swift_beginAccess();
-  result = a1;
-  v4 = *(v1 + 16);
-  if (result)
-  {
-    result = [result isSharedListeningSession];
-    if (v4 == result)
-    {
-      return result;
-    }
-
-    if (result == *(v1 + 16))
-    {
-      *(v1 + 16) = result;
-      return result;
-    }
-  }
-
-  else if ((v4 & 1) == 0)
-  {
+LABEL_12:
+    __break(1u);
     return result;
   }
 
-  KeyPath = swift_getKeyPath();
-  __chkstk_darwin(KeyPath);
-  ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+  v12 = __DataStorage._length.getter();
+  if (v12 >= v11)
+  {
+    v13 = v11;
+  }
+
+  else
+  {
+    v13 = v12;
+  }
+
+  result = a3(&v14, &v8[v9], &v8[v9 + v13]);
+  if (!v3)
+  {
+    return v14;
+  }
+
+  return result;
 }
 
-uint64_t closure #1 in Player.NowPlayingObserver.init(player:)(void **a1)
+uint64_t specialized closure #1 in closure #3 in Data.init<A>(_:)@<X0>(uint64_t result@<X0>, void *a4@<X8>)
 {
-  v1 = *a1;
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
   if (result)
   {
-    v3 = *(result + 24);
-    *(result + 24) = v1;
-    v4 = v1;
-
-    Player.NowPlayingObserver.updateProperties(with:)(v1);
-  }
-
-  return result;
-}
-
-uint64_t Player.NowPlayingObserver.isSharedListeningSession.getter()
-{
-  swift_getKeyPath();
-  _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type Player.NowPlayingObserver and conformance Player.NowPlayingObserver, type metadata accessor for Player.NowPlayingObserver);
-  ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-  swift_beginAccess();
-  return *(v0 + 16);
-}
-
-uint64_t key path getter for Player.NowPlayingObserver.isSharedListeningSession : Player.NowPlayingObserver@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v3 = *a1;
-  swift_getKeyPath();
-  _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type Player.NowPlayingObserver and conformance Player.NowPlayingObserver, type metadata accessor for Player.NowPlayingObserver);
-  ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-  result = swift_beginAccess();
-  *a2 = *(v3 + 16);
-  return result;
-}
-
-void (*Player.NowPlayingObserver.isSharedListeningSession.modify(uint64_t *a1))(void **a1)
-{
-  if (&_swift_coroFrameAlloc)
-  {
-    v3 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v3 = malloc(0x30uLL);
-  }
-
-  v4 = v3;
-  *a1 = v3;
-  *(v3 + 24) = v1;
-  swift_getKeyPath();
-  v4[4] = OBJC_IVAR____TtCC9MusicCore6Player18NowPlayingObserver___observationRegistrar;
-  *v4 = v1;
-  v4[5] = _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type Player.NowPlayingObserver and conformance Player.NowPlayingObserver, type metadata accessor for Player.NowPlayingObserver);
-  ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-  *v4 = v1;
-  swift_getKeyPath();
-  ObservationRegistrar.willSet<A, B>(_:keyPath:)();
-
-  swift_beginAccess();
-  return Player.NowPlayingObserver.isSharedListeningSession.modify;
-}
-
-void Player.NowPlayingObserver.isSharedListeningSession.modify(void **a1)
-{
-  v1 = *a1;
-  swift_endAccess();
-  *v1 = v1[3];
-  swift_getKeyPath();
-  ObservationRegistrar.didSet<A, B>(_:keyPath:)();
-
-  free(v1);
-}
-
-uint64_t Player.NowPlayingObserver.deinit()
-{
-
-  v1 = OBJC_IVAR____TtCC9MusicCore6Player18NowPlayingObserver___observationRegistrar;
-  v2 = type metadata accessor for ObservationRegistrar();
-  (*(*(v2 - 8) + 8))(v0 + v1, v2);
-  return v0;
-}
-
-uint64_t Player.NowPlayingObserver.__deallocating_deinit()
-{
-
-  v1 = OBJC_IVAR____TtCC9MusicCore6Player18NowPlayingObserver___observationRegistrar;
-  v2 = type metadata accessor for ObservationRegistrar();
-  (*(*(v2 - 8) + 8))(v0 + v1, v2);
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t key path getter for SharePlayTogetherSession.connectedParticipantsCount : SharePlayTogetherSession@<X0>(void *a1@<X8>)
-{
-  swift_getKeyPath();
-  swift_getKeyPath();
-  static Published.subscript.getter();
-
-  *a1 = v3;
-  return result;
-}
-
-uint64_t key path setter for SharePlayTogetherSession.connectedParticipantsCount : SharePlayTogetherSession(uint64_t a1, void **a2)
-{
-  v2 = *a2;
-  swift_getKeyPath();
-  swift_getKeyPath();
-  v3 = v2;
-  return static Published.subscript.setter();
-}
-
-void key path setter for Player.playerResponse : Player(void **a1)
-{
-  v1 = *a1;
-  swift_getKeyPath();
-  swift_getKeyPath();
-  v2 = v1;
-
-  static Published.subscript.setter();
-  Player.playerResponse.didset();
-}
-
-uint64_t specialized Dictionary._Variant.removeValue(forKey:)(uint64_t a1, uint64_t a2)
-{
-  v3 = v2;
-  v4 = _ss22__RawDictionaryStorageC4findys10_HashTableV6BucketV6bucket_Sb5foundtxSHRzlFSS_Tg5_0(a1, a2);
-  if ((v5 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v6 = v4;
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *v2;
-  v11 = *v3;
-  if (!isUniquelyReferenced_nonNull_native)
-  {
-    specialized _NativeDictionary.copy()();
-    v8 = v11;
-  }
-
-  v9 = *(*(v8 + 56) + 8 * v6);
-  specialized _NativeDictionary._delete(at:)(v6, v8);
-  *v3 = v8;
-  return v9;
-}
-
-double specialized Dictionary._Variant.removeValue(forKey:)@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
-{
-  v3 = v2;
-  v5 = specialized __RawDictionaryStorage.find<A>(_:)(a1);
-  if (v6)
-  {
-    v7 = v5;
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v9 = *v2;
-    v11 = *v3;
-    if (!isUniquelyReferenced_nonNull_native)
+    result = _StringGuts.copyUTF8(into:)();
+    if ((v5 & 1) == 0)
     {
-      specialized _NativeDictionary.copy()();
-      v9 = v11;
+      *a4 = 0;
+      a4[1] = 0xE000000000000000;
+      a4[2] = 15;
+      a4[3] = result;
+      return result;
     }
-
-    outlined init with take of Any((*(v9 + 56) + 32 * v7), a2);
-    specialized _NativeDictionary._delete(at:)(v7, v9);
-    *v3 = v9;
   }
 
   else
-  {
-    result = 0.0;
-    *a2 = 0u;
-    a2[1] = 0u;
-  }
-
-  return result;
-}
-
-uint64_t specialized Dictionary._Variant.removeValue(forKey:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  v5 = specialized __RawDictionaryStorage.find<A>(_:)(a1);
-  if (v6)
-  {
-    v7 = v5;
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v9 = *v2;
-    v21 = *v3;
-    if (!isUniquelyReferenced_nonNull_native)
-    {
-      specialized _NativeDictionary.copy()();
-      v9 = v21;
-    }
-
-    v10 = *(v9 + 48);
-    v11 = type metadata accessor for UUID();
-    (*(*(v11 - 8) + 8))(v10 + *(*(v11 - 8) + 72) * v7, v11);
-    v12 = *(v9 + 56);
-    v13 = type metadata accessor for PushNotificationObserver.RegisteredHandler();
-    v20 = *(v13 - 8);
-    outlined init with take of Player.CommandIssuance(v12 + *(v20 + 72) * v7, a2, type metadata accessor for PushNotificationObserver.RegisteredHandler);
-    specialized _NativeDictionary._delete(at:)(v7, v9);
-    *v3 = v9;
-    v14 = *(v20 + 56);
-    v15 = a2;
-    v16 = 0;
-    v17 = v13;
-  }
-
-  else
-  {
-    v18 = type metadata accessor for PushNotificationObserver.RegisteredHandler();
-    v14 = *(*(v18 - 8) + 56);
-    v17 = v18;
-    v15 = a2;
-    v16 = 1;
-  }
-
-  return v14(v15, v16, 1, v17);
-}
-
-{
-  v3 = v2;
-  v5 = specialized __RawDictionaryStorage.find<A>(_:)(a1);
-  if (v6)
-  {
-    v7 = v5;
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v9 = *v2;
-    v21 = *v3;
-    if (!isUniquelyReferenced_nonNull_native)
-    {
-      specialized _NativeDictionary.copy()();
-      v9 = v21;
-    }
-
-    v10 = *(v9 + 48);
-    v11 = type metadata accessor for UUID();
-    (*(*(v11 - 8) + 8))(v10 + *(*(v11 - 8) + 72) * v7, v11);
-    v12 = *(v9 + 56);
-    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd);
-    v20 = *(v13 - 8);
-    (*(v20 + 32))(a2, v12 + *(v20 + 72) * v7, v13);
-    specialized _NativeDictionary._delete(at:)(v7, v9);
-    *v3 = v9;
-    v14 = *(v20 + 56);
-    v15 = a2;
-    v16 = 0;
-    v17 = v13;
-  }
-
-  else
-  {
-    v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd);
-    v14 = *(*(v18 - 8) + 56);
-    v17 = v18;
-    v15 = a2;
-    v16 = 1;
-  }
-
-  return v14(v15, v16, 1, v17);
-}
-
-uint64_t specialized Dictionary._Variant.removeValue(forKey:)(void *a1)
-{
-  v2 = v1;
-  v3 = *v1;
-  if ((*v1 & 0xC000000000000001) == 0)
-  {
-    v13 = specialized __RawDictionaryStorage.find<A>(_:)(a1);
-    if (v14)
-    {
-      v3 = v13;
-      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v8 = *v1;
-      v17 = *v1;
-      if (isUniquelyReferenced_nonNull_native)
-      {
-LABEL_10:
-
-        v12 = *(*(v8 + 56) + 8 * v3);
-        specialized _NativeDictionary._delete(at:)(v3, v8);
-        goto LABEL_11;
-      }
-
-LABEL_15:
-      specialized _NativeDictionary.copy()();
-      v8 = v17;
-      goto LABEL_10;
-    }
-
-    return 0;
-  }
-
-  if (v3 < 0)
-  {
-    v4 = *v1;
-  }
-
-  else
-  {
-    v4 = v3 & 0xFFFFFFFFFFFFFF8;
-  }
-
-  v5 = a1;
-  v6 = __CocoaDictionary.lookup(_:)();
-
-  if (!v6)
-  {
-    return 0;
-  }
-
-  swift_unknownObjectRelease();
-
-  v7 = __CocoaDictionary.count.getter();
-  v8 = _ss17_NativeDictionaryV_8capacityAByxq_Gs07__CocoaB0Vn_SitcfCSo13MPCPlayerPathC_So24OS_dispatch_source_timer_pTt1g5(v4, v7);
-
-  v9 = specialized __RawDictionaryStorage.find<A>(_:)(v5);
-  v11 = v10;
-
-  if ((v11 & 1) == 0)
   {
     __break(1u);
-    goto LABEL_15;
   }
 
-  v12 = *(*(v8 + 56) + 8 * v9);
-  specialized _NativeDictionary._delete(at:)(v9, v8);
+  __break(1u);
+  return result;
+}
 
+uint64_t specialized static PlaylistCovers.Recipe.HexColors.__derived_struct_equals(_:_:)(uint64_t *a1, void *a2)
+{
+  v4 = *a1 == *a2 && a1[1] == a2[1];
+  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v5 = a1[2] == a2[2] && a1[3] == a2[3];
+  if (!v5 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (a1[4] != a2[4] || a1[5] != a2[5]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  if (a1[6] == a2[6] && a1[7] == a2[7])
+  {
+    return 1;
+  }
+
+  return _stringCompareWithSmolCheck(_:_:expecting:)();
+}
+
+uint64_t specialized static PlaylistCovers.Recipe.__derived_struct_equals(_:_:)(uint64_t *a1, void *a2)
+{
+  v4 = *a1 == *a2 && a1[1] == a2[1];
+  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  if (a1[2] != a2[2])
+  {
+    return 0;
+  }
+
+  v5 = a1[5];
+  v6 = a1[6];
+  v7 = a1[7];
+  v8 = a1[8];
+  v16 = a1[10];
+  v17 = a1[9];
+  v9 = a2[5];
+  v10 = a2[6];
+  v11 = a2[7];
+  v12 = a2[8];
+  v14 = a2[10];
+  v15 = a2[9];
+  if ((a1[3] != a2[3] || a1[4] != a2[4]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  if ((v5 != v9 || v6 != v10) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v7 != v11 || v8 != v12) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v17 != v15 || v16 != v14) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  if (a1[11] == a2[11] && a1[12] == a2[12])
+  {
+    return 1;
+  }
+
+  return _stringCompareWithSmolCheck(_:_:expecting:)();
+}
+
+uint64_t specialized Data.InlineData.init(_:)(_BYTE *__src, _BYTE *a2)
+{
+  v2 = a2 - __src;
+  if (__src)
+  {
+    v3 = a2 - __src;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if ((v3 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
 LABEL_11:
-  *v2 = v8;
-  return v12;
-}
-
-Swift::Int _ss17_NativeDictionaryV_8capacityAByxq_Gs07__CocoaB0Vn_SitcfCSo13MPCPlayerPathC_So24OS_dispatch_source_timer_pTt1g5(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySo13MPCPlayerPathCSo24OS_dispatch_source_timer_pGMd);
-    v2 = static _DictionaryStorage.convert(_:capacity:)();
-    v19 = v2;
-    __CocoaDictionary.makeIterator()();
-    v3 = __CocoaDictionary.Iterator.next()();
-    if (v3)
-    {
-      v4 = v3;
-      type metadata accessor for UIAction(0, &lazy cache variable for type metadata for MPCPlayerPath);
-      v5 = v4;
-      do
-      {
-        v17 = v5;
-        swift_dynamicCast();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24OS_dispatch_source_timer_pMd);
-        swift_dynamicCast();
-        v12 = *(v2 + 16);
-        if (*(v2 + 24) <= v12)
-        {
-          specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v12 + 1, 1);
-        }
-
-        v2 = v19;
-        result = NSObject._rawHashValue(seed:)(*(v19 + 40));
-        v7 = v19 + 64;
-        v8 = -1 << *(v19 + 32);
-        v9 = result & ~v8;
-        v10 = v9 >> 6;
-        if (((-1 << v9) & ~*(v19 + 64 + 8 * (v9 >> 6))) != 0)
-        {
-          v11 = __clz(__rbit64((-1 << v9) & ~*(v19 + 64 + 8 * (v9 >> 6)))) | v9 & 0x7FFFFFFFFFFFFFC0;
-        }
-
-        else
-        {
-          v13 = 0;
-          v14 = (63 - v8) >> 6;
-          do
-          {
-            if (++v10 == v14 && (v13 & 1) != 0)
-            {
-              __break(1u);
-              return result;
-            }
-
-            v15 = v10 == v14;
-            if (v10 == v14)
-            {
-              v10 = 0;
-            }
-
-            v13 |= v15;
-            v16 = *(v7 + 8 * v10);
-          }
-
-          while (v16 == -1);
-          v11 = __clz(__rbit64(~v16)) + (v10 << 6);
-        }
-
-        *(v7 + ((v11 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v11;
-        *(*(v19 + 48) + 8 * v11) = v18;
-        *(*(v19 + 56) + 8 * v11) = v17;
-        ++*(v19 + 16);
-        v5 = __CocoaDictionary.Iterator.next()();
-      }
-
-      while (v5);
-    }
-  }
-
-  else
-  {
-    swift_unknownObjectRelease();
-    return _swiftEmptyDictionarySingleton;
-  }
-
-  return v2;
-}
-
-uint64_t specialized _NativeDictionary._delete(at:)(uint64_t result, uint64_t a2)
-{
-  v3 = result;
-  v4 = a2 + 64;
-  v5 = -1 << *(a2 + 32);
-  v6 = (result + 1) & ~v5;
-  if ((*(a2 + 64 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6))
-  {
-    v7 = ~v5;
-    v8 = (_HashTable.previousHole(before:)() + 1) & ~v5;
-    do
-    {
-      Hasher.init(_seed:)();
-
-      String.hash(into:)();
-      v9 = Hasher._finalize()();
-
-      v10 = v9 & v7;
-      if (v3 >= v8)
-      {
-        if (v10 < v8)
-        {
-          goto LABEL_4;
-        }
-      }
-
-      else if (v10 >= v8)
-      {
-        goto LABEL_10;
-      }
-
-      if (v3 >= v10)
-      {
-LABEL_10:
-        v11 = *(a2 + 48);
-        v12 = (v11 + 16 * v3);
-        v13 = (v11 + 16 * v6);
-        if (v3 != v6 || v12 >= v13 + 1)
-        {
-          *v12 = *v13;
-        }
-
-        v14 = *(a2 + 56);
-        v15 = (v14 + 8 * v3);
-        v16 = (v14 + 8 * v6);
-        if (v3 != v6 || v15 >= v16 + 1)
-        {
-          *v15 = *v16;
-          v3 = v6;
-        }
-      }
-
-LABEL_4:
-      v6 = (v6 + 1) & v7;
-    }
-
-    while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
-  }
-
-  *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v17 = *(a2 + 16);
-  v18 = __OFSUB__(v17, 1);
-  v19 = v17 - 1;
-  if (v18)
-  {
     __break(1u);
   }
 
-  else
+  if (v3 > 0xFF)
   {
-    *(a2 + 16) = v19;
-    ++*(a2 + 36);
+    goto LABEL_11;
+  }
+
+  result = 0;
+  __dst = 0;
+  v9 = v3;
+  v8 = 0;
+  v7 = 0;
+  if (__src)
+  {
+    if (a2 != __src)
+    {
+      memcpy(&__dst, __src, v2);
+      return __dst;
+    }
   }
 
   return result;
 }
 
+uint64_t specialized Data._Representation.init(count:)(uint64_t result)
 {
-  v3 = result;
-  v4 = a2 + 64;
-  v5 = -1 << *(a2 + 32);
-  v6 = (result + 1) & ~v5;
-  if ((*(a2 + 64 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6))
+  if (result)
   {
-    v7 = ~v5;
-    v8 = (_HashTable.previousHole(before:)() + 1) & ~v5;
-    do
+    v1 = result;
+    if (result <= 14)
     {
-      v9 = *(a2 + 48);
-      v10 = (v9 + 8 * v6);
-      result = static Hasher._hash(seed:_:)();
-      v11 = result & v7;
-      if (v3 >= v8)
+      if (result < 0)
       {
-        if (v11 >= v8 && v3 >= v11)
-        {
-LABEL_15:
-          v14 = (v9 + 8 * v3);
-          if (v3 != v6 || v14 >= v10 + 1)
-          {
-            *v14 = *v10;
-          }
-
-          v15 = *(a2 + 56);
-          v16 = (v15 + 8 * v3);
-          v17 = (v15 + 8 * v6);
-          if (v3 != v6 || v16 >= v17 + 1)
-          {
-            *v16 = *v17;
-            v3 = v6;
-          }
-        }
-      }
-
-      else if (v11 >= v8 || v3 >= v11)
-      {
-        goto LABEL_15;
-      }
-
-      v6 = (v6 + 1) & v7;
-    }
-
-    while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
-  }
-
-  *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v18 = *(a2 + 16);
-  v19 = __OFSUB__(v18, 1);
-  v20 = v18 - 1;
-  if (v19)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(a2 + 16) = v20;
-    ++*(a2 + 36);
-  }
-
-  return result;
-}
-
-{
-  v3 = result;
-  v4 = a2 + 64;
-  v5 = -1 << *(a2 + 32);
-  v6 = (result + 1) & ~v5;
-  if ((*(a2 + 64 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6))
-  {
-    v7 = ~v5;
-    v8 = (_HashTable.previousHole(before:)() + 1) & ~v5;
-    do
-    {
-      v9 = *(a2 + 48) + 24 * v6;
-      v10 = *(v9 + 8);
-      v11 = *(v9 + 16);
-      Hasher.init(_seed:)();
-      if (v10)
-      {
-        Hasher._combine(_:)(1uLL);
-        v12 = v11;
-
-        String.hash(into:)();
+        __break(1u);
       }
 
       else
       {
-        Hasher._combine(_:)(0);
-        v13 = v11;
+        return 0;
       }
-
-      v14 = Hasher._finalize()();
-
-      v15 = v14 & v7;
-      if (v3 >= v8)
-      {
-        if (v15 < v8)
-        {
-          goto LABEL_4;
-        }
-      }
-
-      else if (v15 >= v8)
-      {
-        goto LABEL_13;
-      }
-
-      if (v3 >= v15)
-      {
-LABEL_13:
-        v16 = *(a2 + 48);
-        v17 = v16 + 24 * v3;
-        v18 = (v16 + 24 * v6);
-        if (v3 != v6 || v17 >= v18 + 24)
-        {
-          v19 = *v18;
-          *(v17 + 16) = *(v18 + 2);
-          *v17 = v19;
-        }
-
-        v20 = *(a2 + 56);
-        v21 = (v20 + 8 * v3);
-        v22 = (v20 + 8 * v6);
-        if (v3 != v6 || v21 >= v22 + 1)
-        {
-          *v21 = *v22;
-          v3 = v6;
-        }
-      }
-
-LABEL_4:
-      v6 = (v6 + 1) & v7;
     }
 
-    while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
-  }
-
-  *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v23 = *(a2 + 16);
-  v24 = __OFSUB__(v23, 1);
-  v25 = v23 - 1;
-  if (v24)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(a2 + 16) = v25;
-    ++*(a2 + 36);
-  }
-
-  return result;
-}
-
-{
-  v2 = a2;
-  v3 = result;
-  v4 = a2 + 64;
-  v5 = -1 << *(a2 + 32);
-  v6 = (result + 1) & ~v5;
-  if ((*(a2 + 64 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6))
-  {
-    v7 = ~v5;
-    v40 = a2 + 64;
-    v38 = (_HashTable.previousHole(before:)() + 1) & ~v5;
-    v39 = v7;
-    do
+    else
     {
-      v45 = v3;
-      v43 = 56 * v6;
-      v8 = *(v2 + 48) + 56 * v6;
-      v9 = *v8;
-      v10 = *(v8 + 8);
-      v11 = *(v8 + 32);
-      v42 = *(v8 + 40);
-      v44 = *(v8 + 48);
-      Hasher.init(_seed:)();
-      if (v9 == 0.0)
+      type metadata accessor for __DataStorage();
+      swift_allocObject();
+      __DataStorage.init(length:)();
+      if (v1 >= 0x7FFFFFFF)
       {
-        v12 = 0.0;
+        type metadata accessor for Data.RangeReference();
+        result = swift_allocObject();
+        *(result + 16) = 0;
+        *(result + 24) = v1;
       }
 
       else
       {
-        v12 = v9;
+        return v1 << 32;
       }
-
-      Hasher._combine(_:)(*&v12);
-      if (v10 == 0.0)
-      {
-        v13 = 0.0;
-      }
-
-      else
-      {
-        v13 = v10;
-      }
-
-      Hasher._combine(_:)(*&v13);
-
-      String.hash(into:)();
-      Hasher._combine(_:)(*(v11 + 16));
-      v14 = *(v11 + 16);
-      if (v14)
-      {
-        v15 = (v11 + 80);
-        do
-        {
-          v16 = *(v15 - 6);
-          v17 = *(v15 - 5);
-          v19 = *(v15 - 2);
-          v18 = *(v15 - 1);
-          v21 = *v15;
-          v15 += 7;
-          v20 = *&v21;
-          if (v16 == 0.0)
-          {
-            v16 = 0.0;
-          }
-
-          Hasher._combine(_:)(*&v16);
-          if (v17 == 0.0)
-          {
-            v22 = 0.0;
-          }
-
-          else
-          {
-            v22 = v17;
-          }
-
-          Hasher._combine(_:)(*&v22);
-
-          String.hash(into:)();
-          Hasher._combine(_:)(v19);
-          Hasher._combine(_:)(v18);
-          Hasher._combine(_:)(v20);
-
-          --v14;
-        }
-
-        while (v14);
-      }
-
-      if (v44)
-      {
-        Hasher._combine(_:)(0);
-      }
-
-      else
-      {
-        Hasher._combine(_:)(1uLL);
-        if ((v42 & 0x7FFFFFFFFFFFFFFFLL) != 0)
-        {
-          v23 = v42;
-        }
-
-        else
-        {
-          v23 = 0;
-        }
-
-        Hasher._combine(_:)(v23);
-      }
-
-      v2 = a2;
-      v3 = v45;
-      v24 = Hasher._finalize()();
-
-      v25 = v24 & v39;
-      if (v45 >= v38)
-      {
-        v4 = v40;
-        if (v25 < v38)
-        {
-          goto LABEL_4;
-        }
-      }
-
-      else
-      {
-        v4 = v40;
-        if (v25 >= v38)
-        {
-          goto LABEL_30;
-        }
-      }
-
-      if (v45 >= v25)
-      {
-LABEL_30:
-        v26 = *(a2 + 48);
-        v27 = v26 + 56 * v45;
-        v28 = (v26 + v43);
-        if (56 * v45 < v43 || v27 >= v28 + 56 || v45 != v6)
-        {
-          v29 = *v28;
-          v30 = v28[1];
-          v31 = v28[2];
-          *(v27 + 48) = *(v28 + 6);
-          *(v27 + 16) = v30;
-          *(v27 + 32) = v31;
-          *v27 = v29;
-        }
-
-        v32 = *(a2 + 56);
-        v33 = (v32 + 8 * v45);
-        v34 = (v32 + 8 * v6);
-        if (v45 != v6 || v33 >= v34 + 1)
-        {
-          *v33 = *v34;
-          v3 = v6;
-        }
-      }
-
-LABEL_4:
-      v6 = (v6 + 1) & v39;
     }
-
-    while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
-  }
-
-  *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v35 = *(v2 + 16);
-  v36 = __OFSUB__(v35, 1);
-  v37 = v35 - 1;
-  if (v36)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(v2 + 16) = v37;
-    ++*(v2 + 36);
   }
 
   return result;
 }
 
-unint64_t specialized _NativeDictionary._delete(at:)(int64_t a1, uint64_t a2)
+uint64_t specialized Data.LargeSlice.init(_:)(uint64_t a1, uint64_t a2)
 {
-  v40 = type metadata accessor for UUID();
-  v4 = *(v40 - 8);
-  result = __chkstk_darwin(v40);
-  v39 = &v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = a2 + 64;
-  v9 = -1 << *(a2 + 32);
-  v10 = (a1 + 1) & ~v9;
-  if ((*(a2 + 64 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
+  if (a1)
   {
-    v11 = ~v9;
-    v41 = v6;
-    v12 = _HashTable.previousHole(before:)();
-    v13 = v40;
-    v6 = v41;
-    v14 = v11;
-    v38 = (v12 + 1) & v11;
-    v16 = *(v4 + 16);
-    v15 = v4 + 16;
-    v36 = a2 + 64;
-    v37 = v16;
-    v17 = *(v15 + 56);
-    v35 = (v15 - 8);
-    do
-    {
-      v18 = v17;
-      v19 = v17 * v10;
-      v20 = v39;
-      v21 = v14;
-      v22 = v15;
-      v37(v39, *(v6 + 48) + v17 * v10, v13);
-      _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID);
-      v23 = dispatch thunk of Hashable._rawHashValue(seed:)();
-      result = (*v35)(v20, v13);
-      v14 = v21;
-      v24 = v23 & v21;
-      if (a1 >= v38)
-      {
-        if (v24 >= v38 && a1 >= v24)
-        {
-LABEL_15:
-          v6 = v41;
-          v27 = *(v41 + 48);
-          result = v27 + v18 * a1;
-          v15 = v22;
-          if (v18 * a1 < v19 || (v17 = v18, result >= v27 + v19 + v18))
-          {
-            result = swift_arrayInitWithTakeFrontToBack();
-            v6 = v41;
-            v17 = v18;
-            v14 = v21;
-            v8 = v36;
-          }
-
-          else
-          {
-            v8 = v36;
-            if (v18 * a1 != v19)
-            {
-              result = swift_arrayInitWithTakeBackToFront();
-              v6 = v41;
-              v17 = v18;
-              v14 = v21;
-            }
-          }
-
-          v28 = *(v6 + 56);
-          v29 = (v28 + 8 * a1);
-          v30 = (v28 + 8 * v10);
-          if (a1 != v10 || v29 >= v30 + 1)
-          {
-            *v29 = *v30;
-            a1 = v10;
-          }
-
-          goto LABEL_4;
-        }
-      }
-
-      else if (v24 >= v38 || a1 >= v24)
-      {
-        goto LABEL_15;
-      }
-
-      v15 = v22;
-      v8 = v36;
-      v17 = v18;
-      v6 = v41;
-LABEL_4:
-      v10 = (v10 + 1) & v14;
-    }
-
-    while (((*(v8 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) != 0);
-  }
-
-  *(v8 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
-  v31 = *(v6 + 16);
-  v32 = __OFSUB__(v31, 1);
-  v33 = v31 - 1;
-  if (v32)
-  {
-    __break(1u);
+    v2 = a2 - a1;
   }
 
   else
   {
-    *(v6 + 16) = v33;
-    ++*(v6 + 36);
+    v2 = 0;
   }
 
-  return result;
-}
-
-{
-  v4 = type metadata accessor for UUID();
-  v5 = *(v4 - 8);
-  result = __chkstk_darwin(v4);
-  v8 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = a2 + 64;
-  v10 = -1 << *(a2 + 32);
-  v11 = (a1 + 1) & ~v10;
-  if ((*(a2 + 64 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11))
-  {
-    v41 = a2;
-    v12 = ~v10;
-    v13 = _HashTable.previousHole(before:)();
-    v14 = v12;
-    a2 = v41;
-    v40 = (v13 + 1) & v14;
-    v16 = *(v5 + 16);
-    v15 = v5 + 16;
-    v38 = v9;
-    v39 = v16;
-    v17 = *(v15 + 56);
-    v37 = (v15 - 8);
-    do
-    {
-      v18 = v17;
-      v19 = v17 * v11;
-      v20 = v14;
-      v21 = v15;
-      v39(v8, *(a2 + 48) + v17 * v11, v4);
-      _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID);
-      v22 = dispatch thunk of Hashable._rawHashValue(seed:)();
-      result = (*v37)(v8, v4);
-      v14 = v20;
-      v23 = v22 & v20;
-      if (a1 >= v40)
-      {
-        if (v23 >= v40 && a1 >= v23)
-        {
-LABEL_15:
-          v15 = v21;
-          if (v18 * a1 < v19 || *(v41 + 48) + v18 * a1 >= (*(v41 + 48) + v19 + v18))
-          {
-            swift_arrayInitWithTakeFrontToBack();
-          }
-
-          else if (v18 * a1 != v19)
-          {
-            swift_arrayInitWithTakeBackToFront();
-          }
-
-          a2 = v41;
-          v26 = *(v41 + 56);
-          v27 = *(*(type metadata accessor for PushNotificationObserver.RegisteredHandler() - 8) + 72);
-          v28 = v27 * a1;
-          result = v26 + v27 * a1;
-          v29 = v27 * v11;
-          v30 = v26 + v27 * v11 + v27;
-          if (v28 < v29 || result >= v30)
-          {
-            result = swift_arrayInitWithTakeFrontToBack();
-            a1 = v11;
-            v9 = v38;
-            v14 = v20;
-          }
-
-          else
-          {
-            a1 = v11;
-            v32 = v28 == v29;
-            v9 = v38;
-            v14 = v20;
-            if (!v32)
-            {
-              result = swift_arrayInitWithTakeBackToFront();
-              v14 = v20;
-              a1 = v11;
-            }
-          }
-
-          goto LABEL_4;
-        }
-      }
-
-      else if (v23 >= v40 || a1 >= v23)
-      {
-        goto LABEL_15;
-      }
-
-      v15 = v21;
-      v9 = v38;
-      a2 = v41;
-LABEL_4:
-      v11 = (v11 + 1) & v14;
-      v17 = v18;
-    }
-
-    while (((*(v9 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11) & 1) != 0);
-  }
-
-  *(v9 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
-  v33 = *(a2 + 16);
-  v34 = __OFSUB__(v33, 1);
-  v35 = v33 - 1;
-  if (v34)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(a2 + 16) = v35;
-    ++*(a2 + 36);
-  }
-
-  return result;
-}
-
-{
-  v4 = type metadata accessor for UUID();
-  v5 = *(v4 - 8);
-  result = __chkstk_darwin(v4);
-  v8 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = a2 + 64;
-  v10 = -1 << *(a2 + 32);
-  v11 = (a1 + 1) & ~v10;
-  if ((*(a2 + 64 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11))
-  {
-    v41 = a2;
-    v12 = ~v10;
-    v13 = _HashTable.previousHole(before:)();
-    v14 = v12;
-    a2 = v41;
-    v40 = (v13 + 1) & v14;
-    v16 = *(v5 + 16);
-    v15 = v5 + 16;
-    v38 = v9;
-    v39 = v16;
-    v17 = *(v15 + 56);
-    v37 = (v15 - 8);
-    do
-    {
-      v18 = v17;
-      v19 = v17 * v11;
-      v20 = v14;
-      v21 = v15;
-      v39(v8, *(a2 + 48) + v17 * v11, v4);
-      _s10Foundation4UUIDVACSHAAWlTm_0(&lazy protocol witness table cache variable for type UUID and conformance UUID, &type metadata accessor for UUID);
-      v22 = dispatch thunk of Hashable._rawHashValue(seed:)();
-      result = (*v37)(v8, v4);
-      v14 = v20;
-      v23 = v22 & v20;
-      if (a1 >= v40)
-      {
-        if (v23 >= v40 && a1 >= v23)
-        {
-LABEL_15:
-          v15 = v21;
-          if (v18 * a1 < v19 || *(v41 + 48) + v18 * a1 >= (*(v41 + 48) + v19 + v18))
-          {
-            swift_arrayInitWithTakeFrontToBack();
-          }
-
-          else if (v18 * a1 != v19)
-          {
-            swift_arrayInitWithTakeBackToFront();
-          }
-
-          a2 = v41;
-          v26 = *(v41 + 56);
-          v27 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySaySfG_GMd) - 8) + 72);
-          v28 = v27 * a1;
-          result = v26 + v27 * a1;
-          v29 = v27 * v11;
-          v30 = v26 + v27 * v11 + v27;
-          if (v28 < v29 || result >= v30)
-          {
-            result = swift_arrayInitWithTakeFrontToBack();
-            a1 = v11;
-            v9 = v38;
-            v14 = v20;
-          }
-
-          else
-          {
-            a1 = v11;
-            v32 = v28 == v29;
-            v9 = v38;
-            v14 = v20;
-            if (!v32)
-            {
-              result = swift_arrayInitWithTakeBackToFront();
-              v14 = v20;
-              a1 = v11;
-            }
-          }
-
-          goto LABEL_4;
-        }
-      }
-
-      else if (v23 >= v40 || a1 >= v23)
-      {
-        goto LABEL_15;
-      }
-
-      v15 = v21;
-      v9 = v38;
-      a2 = v41;
-LABEL_4:
-      v11 = (v11 + 1) & v14;
-      v17 = v18;
-    }
-
-    while (((*(v9 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11) & 1) != 0);
-  }
-
-  *(v9 + ((a1 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a1) - 1;
-  v33 = *(a2 + 16);
-  v34 = __OFSUB__(v33, 1);
-  v35 = v33 - 1;
-  if (v34)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(a2 + 16) = v35;
-    ++*(a2 + 36);
-  }
-
-  return result;
-}
-
-void specialized _NativeDictionary._delete(at:)(int64_t a1, uint64_t a2)
-{
-  v3 = a1;
-  v4 = a2 + 64;
-  v5 = -1 << *(a2 + 32);
-  v6 = (a1 + 1) & ~v5;
-  if ((*(a2 + 64 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6))
-  {
-    v7 = ~v5;
-    v8 = (_HashTable.previousHole(before:)() + 1) & ~v5;
-    do
-    {
-      v10 = *(a2 + 40);
-      v11 = *(*(a2 + 48) + 8 * v6);
-      v12 = NSObject._rawHashValue(seed:)(v10);
-
-      v13 = v12 & v7;
-      if (v3 >= v8)
-      {
-        if (v13 >= v8 && v3 >= v13)
-        {
-LABEL_15:
-          v16 = *(a2 + 48);
-          v17 = (v16 + 8 * v3);
-          v18 = (v16 + 8 * v6);
-          if (v3 != v6 || v17 >= v18 + 1)
-          {
-            *v17 = *v18;
-          }
-
-          v19 = *(a2 + 56);
-          v20 = (v19 + 32 * v3);
-          v21 = (v19 + 32 * v6);
-          if (v3 != v6 || v20 >= v21 + 2)
-          {
-            v9 = v21[1];
-            *v20 = *v21;
-            v20[1] = v9;
-            v3 = v6;
-          }
-        }
-      }
-
-      else if (v13 >= v8 || v3 >= v13)
-      {
-        goto LABEL_15;
-      }
-
-      v6 = (v6 + 1) & v7;
-    }
-
-    while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
-  }
-
-  *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v22 = *(a2 + 16);
-  v23 = __OFSUB__(v22, 1);
-  v24 = v22 - 1;
-  if (v23)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(a2 + 16) = v24;
-    ++*(a2 + 36);
-  }
-}
-
-{
-  v3 = a1;
-  v4 = a2 + 64;
-  v5 = -1 << *(a2 + 32);
-  v6 = (a1 + 1) & ~v5;
-  if ((*(a2 + 64 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6))
-  {
-    v7 = ~v5;
-    v8 = (_HashTable.previousHole(before:)() + 1) & ~v5;
-    do
-    {
-      v9 = *(a2 + 40);
-      v10 = *(*(a2 + 48) + 8 * v6);
-      v11 = NSObject._rawHashValue(seed:)(v9);
-
-      v12 = v11 & v7;
-      if (v3 >= v8)
-      {
-        if (v12 >= v8 && v3 >= v12)
-        {
-LABEL_15:
-          v15 = *(a2 + 48);
-          v16 = (v15 + 8 * v3);
-          v17 = (v15 + 8 * v6);
-          if (v3 != v6 || v16 >= v17 + 1)
-          {
-            *v16 = *v17;
-          }
-
-          v18 = *(a2 + 56);
-          v19 = (v18 + 8 * v3);
-          v20 = (v18 + 8 * v6);
-          if (v3 != v6 || v19 >= v20 + 1)
-          {
-            *v19 = *v20;
-            v3 = v6;
-          }
-        }
-      }
-
-      else if (v12 >= v8 || v3 >= v12)
-      {
-        goto LABEL_15;
-      }
-
-      v6 = (v6 + 1) & v7;
-    }
-
-    while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
-  }
-
-  *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v21 = *(a2 + 16);
-  v22 = __OFSUB__(v21, 1);
-  v23 = v21 - 1;
-  if (v22)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(a2 + 16) = v23;
-    ++*(a2 + 36);
-  }
-}
-
-Swift::Int specialized _NativeDictionary._delete(at:)(Swift::Int result, uint64_t a2)
-{
-  v3 = result;
-  v4 = a2 + 64;
-  v5 = -1 << *(a2 + 32);
-  v6 = (result + 1) & ~v5;
-  if ((*(a2 + 64 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6))
-  {
-    v7 = ~v5;
-    v8 = (_HashTable.previousHole(before:)() + 1) & ~v5;
-    do
-    {
-      v9 = (*(a2 + 48) + 16 * v6);
-      v10 = *v9;
-      v11 = v9[1];
-      Hasher.init(_seed:)();
-      Hasher._combine(_:)(v10);
-      Hasher._combine(_:)(v11);
-      result = Hasher._finalize()();
-      v12 = result & v7;
-      if (v3 >= v8)
-      {
-        if (v12 < v8)
-        {
-          goto LABEL_4;
-        }
-      }
-
-      else if (v12 >= v8)
-      {
-        goto LABEL_10;
-      }
-
-      if (v3 >= v12)
-      {
-LABEL_10:
-        v13 = *(a2 + 48);
-        v14 = (v13 + 16 * v3);
-        v15 = (v13 + 16 * v6);
-        if (v3 != v6 || v14 >= v15 + 1)
-        {
-          *v14 = *v15;
-        }
-
-        v16 = *(a2 + 56);
-        v17 = (v16 + 8 * v3);
-        v18 = (v16 + 8 * v6);
-        if (v3 != v6 || v17 >= v18 + 1)
-        {
-          *v17 = *v18;
-          v3 = v6;
-        }
-      }
-
-LABEL_4:
-      v6 = (v6 + 1) & v7;
-    }
-
-    while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
-  }
-
-  *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v19 = *(a2 + 16);
-  v20 = __OFSUB__(v19, 1);
-  v21 = v19 - 1;
-  if (v20)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(a2 + 16) = v21;
-    ++*(a2 + 36);
-  }
-
-  return result;
-}
-
-BOOL specialized Player.canPerform(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11 = a3;
-  v12 = a4;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v10);
-  (*(*(a3 - 8) + 16))(boxed_opaque_existential_1, a1, a3);
-  __swift_project_boxed_opaque_existential_0Tm(v10, v11);
-  swift_getDynamicType();
-  swift_conformsToProtocol2();
-  swift_getKeyPath();
-  swift_getKeyPath();
-  static Published.subscript.getter();
-
-  if (v9)
-  {
-    v7 = MPCPlayerResponse.canPerform(_:)(v10);
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  __swift_destroy_boxed_opaque_existential_0Tm(v10);
-  return v7;
-}
-
-uint64_t specialized closure #1 in closure #1 in Task.withTimeout(_:)(uint64_t a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  *(v6 + 16) = a1;
-  v10 = swift_task_alloc();
-  *(v6 + 24) = v10;
-  *v10 = v6;
-  v10[1] = specialized closure #1 in closure #1 in Task.withTimeout(_:);
-
-  return specialized closure #1 in closure #1 in Task.withTimeout(_:)(a5, a6, a2);
-}
-
-uint64_t specialized closure #1 in closure #1 in Task.withTimeout(_:)(uint64_t a1)
-{
-  v4 = *v2;
-  v5 = *v2;
-
-  if (!v1)
-  {
-    **(v4 + 16) = a1;
-  }
-
-  v6 = *(v5 + 8);
-
-  return v6();
-}
-
-uint64_t specialized Player.NowPlayingConfiguration.BadCountedSet.makeIterator()@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v2 = -1 << *(a1 + 32);
-  v3 = ~v2;
-  *a2 = a1;
-  v6 = *(a1 + 64);
-  result = a1 + 64;
-  v5 = v6;
-  v7 = -v2;
-  if (v7 < 64)
-  {
-    v8 = ~(-1 << v7);
-  }
-
-  else
-  {
-    v8 = -1;
-  }
-
-  a2[1] = result;
-  a2[2] = v3;
-  a2[3] = 0;
-  a2[4] = v8 & v5;
-  return result;
-}
-
-char *specialized MusicItemState.init(item:musicKitItemState:player:)(void (*a1)(char *, uint64_t, uint64_t), uint64_t a2, uint64_t a3)
-{
-  v4 = v3;
-  v71 = a1;
-  v72 = a3;
-  v69 = a2;
-  *&v82 = *v3;
-  v5 = v82;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVy8MusicKit0D6PlayerC0dE8InternalE23PreviewCapabilityStatusO_GMd);
-  v77 = *(v6 - 8);
-  v78 = v6;
-  __chkstk_darwin(v6);
-  v76 = &v64 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVy8MusicKit0G6PlayerC0gH8InternalE23PreviewCapabilityStatusO_GSo17OS_dispatch_queueCGMd);
-  v80 = *(v8 - 8);
-  v81 = v8;
-  __chkstk_darwin(v8);
-  v79 = &v64 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd);
-  __chkstk_darwin(v10 - 8);
-  v83 = &v64 - v11;
-  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVy8MusicKit0D6PlayerC0dE8InternalE17PlayabilityStatusO_GMd);
-  v73 = *(v70 - 8);
-  __chkstk_darwin(v70);
-  v67 = &v64 - v12;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVy8MusicKit0G6PlayerC0gH8InternalE17PlayabilityStatusO_GSo17OS_dispatch_queueCGMd);
-  v14 = *(v13 - 8);
-  v74 = v13;
-  v75 = v14;
-  __chkstk_darwin(v13);
-  v68 = &v64 - v15;
-  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy8MusicKit0C6PlayerC0cD8InternalE23PreviewCapabilityStatusOGMd);
-  v65 = *(v66 - 8);
-  __chkstk_darwin(v66);
-  v17 = &v64 - v16;
-  v64 = type metadata accessor for MusicPlayer.PreviewCapabilityStatus();
-  v18 = *(v64 - 8);
-  __chkstk_darwin(v64);
-  v20 = &v64 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy8MusicKit0C6PlayerC0cD8InternalE17PlayabilityStatusOGMd);
-  v22 = *(v21 - 8);
-  __chkstk_darwin(v21);
-  v24 = &v64 - v23;
-  v25 = type metadata accessor for MusicPlayer.PlayabilityStatus();
-  __chkstk_darwin(v25);
-  v27 = &v64 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v28 = v5;
-  v3[4] = &_swiftEmptyArrayStorage;
-  v29 = v3 + 4;
-  v30 = *(v28 + 128);
-  (*(v31 + 104))(v27, enum case for MusicPlayer.PlayabilityStatus.playable(_:));
-  v82 = *(v82 + 80);
-  v32 = v27;
-  v33 = v29;
-  property wrapper backing initializer of MusicItemState.playabilityStatus(v32, v34, v35);
-  (*(v22 + 32))(&v4[v30], v24, v21);
-  v36 = *(*v4 + 136);
-  v37 = enum case for MusicPlayer.PreviewCapabilityStatus.UnpreviewableReason.notSupported(_:);
-  v38 = type metadata accessor for MusicPlayer.PreviewCapabilityStatus.UnpreviewableReason();
-  (*(*(v38 - 8) + 104))(v20, v37, v38);
-  (*(v18 + 104))(v20, enum case for MusicPlayer.PreviewCapabilityStatus.unpreviewable(_:), v64);
-  property wrapper backing initializer of MusicItemState.previewCapabilityStatus(v20, v39, v40);
-  (*(v65 + 32))(&v4[v36], v17, v66);
-  v41 = v69;
-  (*(*(v82 - 8) + 16))(&v4[*(*v4 + 120)], v71);
-  v42 = v72;
-  *(v4 + 2) = v41;
-  *(v4 + 3) = v42;
-
-  MusicItemState.updatePlayabilityStatus()();
-  dispatch thunk of MusicPlayer.ItemState.previewCapabilityStatus.getter();
-  MusicItemState.previewCapabilityStatus.setter(v20);
-  v43 = v67;
-  dispatch thunk of MusicPlayer.ItemState.$playabilityStatus.getter();
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-  v44 = static OS_dispatch_queue.main.getter();
-  v84 = v44;
-  v45 = type metadata accessor for OS_dispatch_queue.SchedulerOptions();
-  v46 = *(v45 - 8);
-  v47 = v83;
-  v71 = *(v46 + 56);
-  v72 = v45;
-  v66 = v46 + 56;
-  v71(v83, 1, 1);
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type Published<MusicPlayer.PlayabilityStatus>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVy8MusicKit0D6PlayerC0dE8InternalE17PlayabilityStatusO_GMd);
-  v48 = lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue();
-  v49 = v68;
-  v50 = v47;
-  v51 = v70;
-  v65 = v48;
-  Publisher.receive<A>(on:options:)();
-  outlined destroy of TaskPriority?(v50, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd);
-
-  (*(v73 + 8))(v43, v51);
-  v52 = swift_allocObject();
-  swift_weakInit();
-  v53 = swift_allocObject();
-  *(v53 + 16) = v82;
-  *(v53 + 32) = v52;
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<Published<MusicPlayer.PlayabilityStatus>.Publisher, OS_dispatch_queue> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVy8MusicKit0G6PlayerC0gH8InternalE17PlayabilityStatusO_GSo17OS_dispatch_queueCGMd);
-
-  v54 = v74;
-  Publisher<>.sink(receiveValue:)();
-
-  (*(v75 + 8))(v49, v54);
-  swift_beginAccess();
-  specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-  if (*((*v33 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v33 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-  {
-    specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-  }
-
-  specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-  swift_endAccess();
-  *&v82 = v33;
-  v55 = v76;
-  dispatch thunk of MusicPlayer.ItemState.$previewCapabilityStatus.getter();
-  v56 = static OS_dispatch_queue.main.getter();
-  v84 = v56;
-  v57 = v83;
-  (v71)(v83, 1, 1, v72);
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type Published<MusicPlayer.PreviewCapabilityStatus>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVy8MusicKit0D6PlayerC0dE8InternalE23PreviewCapabilityStatusO_GMd);
-  v58 = v78;
-  v59 = v79;
-  Publisher.receive<A>(on:options:)();
-  outlined destroy of TaskPriority?(v57, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd);
-
-  (*(v77 + 8))(v55, v58);
-  v60 = swift_allocObject();
-  swift_weakInit();
-
-  v61 = swift_allocObject();
-  *(v61 + 16) = v60;
-  *(v61 + 24) = v41;
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<Published<MusicPlayer.PreviewCapabilityStatus>.Publisher, OS_dispatch_queue> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVy8MusicKit0G6PlayerC0gH8InternalE23PreviewCapabilityStatusO_GSo17OS_dispatch_queueCGMd);
-
-  v62 = v81;
-  Publisher<>.sink(receiveValue:)();
-
-  (*(v80 + 8))(v59, v62);
-  swift_beginAccess();
-  specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-  if (*((*(v4 + 4) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(v4 + 4) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-  {
-    specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-  }
-
-  specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-  swift_endAccess();
-  return v4;
-}
-
-char *specialized MusicItemState.__allocating_init(item:musicKitItemState:player:)(void (*a1)(char *, uint64_t, uint64_t), uint64_t a2, uint64_t a3)
-{
-  type metadata accessor for MusicItemState();
+  type metadata accessor for __DataStorage();
   swift_allocObject();
-  return specialized MusicItemState.init(item:musicKitItemState:player:)(a1, a2, a3);
+  result = __DataStorage.init(bytes:length:)();
+  if (v2 < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    type metadata accessor for Data.RangeReference();
+    result = swift_allocObject();
+    *(result + 16) = 0;
+    *(result + 24) = v2;
+  }
+
+  return result;
 }
 
-uint64_t sub_100212168()
+uint64_t specialized Data.InlineSlice.init(_:)(uint64_t a1, uint64_t a2)
+{
+  if (a1)
+  {
+    v2 = a2 - a1;
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  type metadata accessor for __DataStorage();
+  swift_allocObject();
+  result = __DataStorage.init(bytes:length:)();
+  if (v2 < 0xFFFFFFFF80000000)
+  {
+    __break(1u);
+    goto LABEL_9;
+  }
+
+  if (v2 > 0x7FFFFFFF)
+  {
+LABEL_9:
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  if ((v2 & 0x8000000000000000) == 0)
+  {
+    return v2 << 32;
+  }
+
+LABEL_10:
+  __break(1u);
+  return result;
+}
+
+id specialized PlaylistCovers.ArtworkToken.__allocating_init(rawJSON:playlistTitle:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+{
+
+  v8 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSS8UTF8ViewV_Tt0g5(a1, a2);
+  v10 = v9;
+  type metadata accessor for JSONDecoder();
+  swift_allocObject();
+  JSONDecoder.init()();
+  lazy protocol witness table accessor for type PlaylistCovers.Recipe and conformance PlaylistCovers.Recipe();
+  dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+
+  outlined consume of Data._Representation(v8, v10);
+  v30[4] = v24;
+  v30[5] = v25;
+  v31 = v26;
+  v30[0] = v20;
+  v30[1] = v21;
+  v30[2] = v22;
+  v30[3] = v23;
+  PlaylistCovers.Recipe.asCoverRepresentation(_:)(&v20, 180.0, 180.0);
+  outlined destroy of PlaylistCovers.Recipe(v30);
+  v11 = *(&v20 + 1);
+  if (*(&v20 + 1))
+  {
+    v12 = v20;
+    v27 = v21;
+    v28 = v22;
+    v29 = v23;
+    v13 = type metadata accessor for PlaylistCovers.ArtworkToken();
+    v14 = objc_allocWithZone(v13);
+    v15 = &v14[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation];
+    *v15 = v12;
+    *(v15 + 1) = v11;
+    v16 = v28;
+    *(v15 + 1) = v27;
+    *(v15 + 2) = v16;
+    *(v15 + 6) = v29;
+    v17 = &v14[OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_playlistTitle];
+    *v17 = a3;
+    *(v17 + 1) = a4;
+    v19.receiver = v14;
+    v19.super_class = v13;
+    return objc_msgSendSuper2(&v19, "init");
+  }
+
+  else
+  {
+
+    return 0;
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type PlaylistCovers.Recipe and conformance PlaylistCovers.Recipe()
+{
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Recipe and conformance PlaylistCovers.Recipe;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Recipe and conformance PlaylistCovers.Recipe)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Recipe and conformance PlaylistCovers.Recipe);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Recipe and conformance PlaylistCovers.Recipe;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Recipe and conformance PlaylistCovers.Recipe)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Recipe and conformance PlaylistCovers.Recipe);
+  }
+
+  return result;
+}
+
+unint64_t type metadata accessor for UIGraphicsImageRendererFormat()
+{
+  result = lazy cache variable for type metadata for UIGraphicsImageRendererFormat;
+  if (!lazy cache variable for type metadata for UIGraphicsImageRendererFormat)
+  {
+    objc_opt_self();
+    result = swift_getObjCClassMetadata();
+    atomic_store(result, &lazy cache variable for type metadata for UIGraphicsImageRendererFormat);
+  }
+
+  return result;
+}
+
+id specialized PlaylistCovers.ArtworkDataSource.cacheIdentifier(for:with:)(uint64_t a1, double a2, double a3)
+{
+  v4 = *(a1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 16);
+  v27[0] = *(a1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation);
+  v27[1] = v4;
+  v27[2] = *(a1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 32);
+  v28 = *(a1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_coverRepresentation + 48);
+  outlined init with copy of PlaylistCovers.Cover.Representation(v27, &v25);
+  v5 = PlaylistCovers.Cover.Representation.stringRepresentation.getter();
+  v7 = v6;
+  outlined destroy of PlaylistCovers.Cover.Representation(v27);
+  v25 = 0;
+  v26 = 0xE000000000000000;
+  _StringGuts.grow(_:)(19);
+
+  v25 = 0xD000000000000011;
+  v26 = 0x80000001004CD860;
+  v8 = a1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_playlistTitle;
+  v9 = *(a1 + OBJC_IVAR____TtCO9MusicCore14PlaylistCovers12ArtworkToken_playlistTitle);
+  v10 = *(v8 + 8);
+
+  v11._countAndFlagsBits = v9;
+  v11._object = v10;
+  String.append(_:)(v11);
+
+  v12 = v25;
+  v13 = v26;
+  v25 = v5;
+  v26 = v7;
+
+  v14._countAndFlagsBits = v12;
+  v14._object = v13;
+  String.append(_:)(v14);
+
+  v16 = v25;
+  v15 = v26;
+  v25 = 0x203A657A6973202CLL;
+  v26 = 0xE800000000000000;
+  v17._countAndFlagsBits = CGSize.description.getter();
+  String.append(_:)(v17);
+
+  v18 = v25;
+  v19 = v26;
+  v25 = v16;
+  v26 = v15;
+
+  v20._countAndFlagsBits = v18;
+  v20._object = v19;
+  String.append(_:)(v20);
+
+  v21 = objc_allocWithZone(NSString);
+  v22 = String._bridgeToObjectiveC()();
+
+  v23 = [v21 initWithString:v22];
+
+  return v23;
+}
+
+unint64_t lazy protocol witness table accessor for type Error and conformance Error()
+{
+  result = lazy protocol witness table cache variable for type Error and conformance Error;
+  if (!lazy protocol witness table cache variable for type Error and conformance Error)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Error and conformance Error);
+  }
+
+  return result;
+}
+
+uint64_t sub_100222E80()
 {
 
   return swift_deallocObject();
 }
 
-uint64_t sub_1002121A8()
-{
-
-  return swift_deallocObject();
-}
-
-uint64_t block_copy_helper_31(uint64_t a1, uint64_t a2)
+uint64_t block_copy_helper_33(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
 }
 
-unint64_t lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue()
+uint64_t sub_100222F0C()
 {
-  result = lazy protocol witness table cache variable for type OS_dispatch_queue and conformance OS_dispatch_queue;
-  if (!lazy protocol witness table cache variable for type OS_dispatch_queue and conformance OS_dispatch_queue)
+
+  return swift_deallocObject();
+}
+
+unint64_t lazy protocol witness table accessor for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys)
   {
-    type metadata accessor for UIAction(255, &lazy cache variable for type metadata for OS_dispatch_queue);
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type OS_dispatch_queue and conformance OS_dispatch_queue);
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys);
   }
 
   return result;
 }
 
-uint64_t partial apply for closure #7 in Player.init()(uint64_t a1)
+{
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys);
+  }
+
+  return result;
+}
+
+uint64_t specialized PlaylistCovers.Recipe.HexColors.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v4 = a1 == 0x31726F6C6F63 && a2 == 0xE600000000000000;
+  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else if (a1 == 0x32726F6C6F63 && a2 == 0xE600000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 1;
+  }
+
+  else if (a1 == 0x33726F6C6F63 && a2 == 0xE600000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 2;
+  }
+
+  else if (a1 == 0x34726F6C6F63 && a2 == 0xE600000000000000)
+  {
+
+    return 3;
+  }
+
+  else
+  {
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v6)
+    {
+      return 3;
+    }
+
+    else
+    {
+      return 4;
+    }
+  }
+}
+
+uint64_t specialized PlaylistCovers.Recipe.HexColors.init(from:)@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
+{
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MusicCore14PlaylistCoversO6RecipeV9HexColorsV10CodingKeys33_93215C2D181A38C67BD032EB0C9FAFF3LLOGMd, &_ss22KeyedDecodingContainerVy9MusicCore14PlaylistCoversO6RecipeV9HexColorsV10CodingKeys33_93215C2D181A38C67BD032EB0C9FAFF3LLOGMR);
+  v6 = *(v5 - 8);
+  __chkstk_darwin();
+  v8 = &v23 - v7;
+  __swift_project_boxed_opaque_existential_0Tm(a1, a1[3]);
+  lazy protocol witness table accessor for type PlaylistCovers.Recipe.HexColors.CodingKeys and conformance PlaylistCovers.Recipe.HexColors.CodingKeys();
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (v2)
+  {
+    return __swift_destroy_boxed_opaque_existential_0Tm(a1);
+  }
+
+  LOBYTE(v32[0]) = 0;
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  v27 = v10;
+  LOBYTE(v32[0]) = 1;
+  v11 = KeyedDecodingContainer.decode(_:forKey:)();
+  v26 = v12;
+  v24 = v11;
+  LOBYTE(v32[0]) = 2;
+  v23 = KeyedDecodingContainer.decode(_:forKey:)();
+  v25 = v13;
+  v33 = 3;
+  v14 = KeyedDecodingContainer.decode(_:forKey:)();
+  v16 = v15;
+  (*(v6 + 8))(v8, v5);
+  v17 = v27;
+  *&v28 = v9;
+  *(&v28 + 1) = v27;
+  v19 = v24;
+  v18 = v25;
+  *&v29 = v24;
+  *(&v29 + 1) = v26;
+  *&v30 = v23;
+  *(&v30 + 1) = v25;
+  *&v31 = v14;
+  *(&v31 + 1) = v16;
+  outlined init with copy of PlaylistCovers.Recipe.HexColors(&v28, v32);
+  __swift_destroy_boxed_opaque_existential_0Tm(a1);
+  v32[0] = v9;
+  v32[1] = v17;
+  v32[2] = v19;
+  v32[3] = v26;
+  v32[4] = v23;
+  v32[5] = v18;
+  v32[6] = v14;
+  v32[7] = v16;
+  result = outlined destroy of PlaylistCovers.Recipe.HexColors(v32);
+  v21 = v29;
+  *a2 = v28;
+  a2[1] = v21;
+  v22 = v31;
+  a2[2] = v30;
+  a2[3] = v22;
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type PlaylistCovers.Recipe.HexColors and conformance PlaylistCovers.Recipe.HexColors()
+{
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors and conformance PlaylistCovers.Recipe.HexColors;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors and conformance PlaylistCovers.Recipe.HexColors)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors and conformance PlaylistCovers.Recipe.HexColors);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors and conformance PlaylistCovers.Recipe.HexColors;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors and conformance PlaylistCovers.Recipe.HexColors)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Recipe.HexColors and conformance PlaylistCovers.Recipe.HexColors);
+  }
+
+  return result;
+}
+
+uint64_t specialized PlaylistCovers.Recipe.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v4 = a1 == 0x6E6F6973726576 && a2 == 0xE700000000000000;
+  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else if (a1 == 0x6973736572707865 && a2 == 0xEC00000064496E6FLL || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 1;
+  }
+
+  else if (a1 == 0x666E49726F6C6F63 && a2 == 0xE90000000000006FLL || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 2;
+  }
+
+  else if (a1 == 0x6F6C6F4374786574 && a2 == 0xE900000000000072)
+  {
+
+    return 3;
+  }
+
+  else
+  {
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v6)
+    {
+      return 3;
+    }
+
+    else
+    {
+      return 4;
+    }
+  }
+}
+
+void specialized PlaylistCovers.Recipe.init(from:)(void *a1@<X0>, uint64_t a2@<X8>)
+{
+  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9MusicCore14PlaylistCoversO6RecipeV10CodingKeys33_93215C2D181A38C67BD032EB0C9FAFF3LLOGMd, &_ss22KeyedDecodingContainerVy9MusicCore14PlaylistCoversO6RecipeV10CodingKeys33_93215C2D181A38C67BD032EB0C9FAFF3LLOGMR);
+  v5 = *(v39 - 8);
+  __chkstk_darwin();
+  v7 = &v19 - v6;
+  __swift_project_boxed_opaque_existential_0Tm(a1, a1[3]);
+  lazy protocol witness table accessor for type PlaylistCovers.Recipe.CodingKeys and conformance PlaylistCovers.Recipe.CodingKeys();
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (v2)
+  {
+    __swift_destroy_boxed_opaque_existential_0Tm(a1);
+  }
+
+  else
+  {
+    LOBYTE(v25[0]) = 0;
+    v8 = KeyedDecodingContainer.decode(_:forKey:)();
+    v10 = v9;
+    v21 = v8;
+    LOBYTE(v25[0]) = 1;
+    v20 = KeyedDecodingContainer.decode(_:forKey:)();
+    v33 = 2;
+    lazy protocol witness table accessor for type PlaylistCovers.Recipe.HexColors and conformance PlaylistCovers.Recipe.HexColors();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v35 = v34[0];
+    v36 = v34[1];
+    v37 = v34[2];
+    v38 = v34[3];
+    v32 = 3;
+    v11 = KeyedDecodingContainer.decode(_:forKey:)();
+    v12 = *(v5 + 8);
+    v14 = v13;
+    v12(v7, v39);
+    v15 = v21;
+    *&v22 = v21;
+    *(&v22 + 1) = v10;
+    *&v23[0] = v20;
+    *(v23 + 8) = v35;
+    *(&v23[1] + 8) = v36;
+    *(&v23[2] + 8) = v37;
+    *(&v23[3] + 8) = v38;
+    *(&v23[4] + 1) = v11;
+    v24 = v14;
+    outlined init with copy of PlaylistCovers.Recipe(&v22, v25);
+    __swift_destroy_boxed_opaque_existential_0Tm(a1);
+    v25[0] = v15;
+    v25[1] = v10;
+    v26 = v35;
+    v27 = v36;
+    v28 = v37;
+    v29 = v38;
+    v25[2] = v20;
+    v30 = v11;
+    v31 = v14;
+    outlined destroy of PlaylistCovers.Recipe(v25);
+    v16 = v23[4];
+    *(a2 + 64) = v23[3];
+    *(a2 + 80) = v16;
+    *(a2 + 96) = v24;
+    v17 = v23[0];
+    *a2 = v22;
+    *(a2 + 16) = v17;
+    v18 = v23[2];
+    *(a2 + 32) = v23[1];
+    *(a2 + 48) = v18;
+  }
+}
+
+__n128 __swift_memcpy104_8(uint64_t a1, __int128 *a2)
+{
+  v2 = *a2;
+  v3 = a2[2];
+  *(a1 + 16) = a2[1];
+  *(a1 + 32) = v3;
+  *a1 = v2;
+  result = a2[3];
+  v5 = a2[4];
+  v6 = a2[5];
+  *(a1 + 96) = *(a2 + 12);
+  *(a1 + 64) = v5;
+  *(a1 + 80) = v6;
+  *(a1 + 48) = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for PlaylistCovers.Recipe(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 104))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 8);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for PlaylistCovers.Recipe(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 72) = 0u;
+    *(result + 88) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 104) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 8) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 104) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for PlaylistCovers.Recipe.HexColors(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 64))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 8);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for PlaylistCovers.Recipe.HexColors(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 56) = 0;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 64) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 8) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 64) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_100223E0C()
+{
+  _Block_release(*(v0 + 24));
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for @objc closure #1 in PlaylistCovers.ArtworkDataSource.loadRepresentation(for:)()
+{
+  v2 = v0[2];
+  v3 = v0[3];
+  v4 = v0[4];
+  v5 = swift_task_alloc();
+  *(v1 + 16) = v5;
+  *v5 = v1;
+  v5[1] = partial apply for closure #1 in static MusicEngagementExtension.performRequest(with:completion:);
+
+  return @objc closure #1 in PlaylistCovers.ArtworkDataSource.loadRepresentation(for:)(v2, v3, v4);
+}
+
+uint64_t _sIeghH_IeAgH_TRTA()
+{
+  v2 = v0[2];
+  v3 = v0[3];
+  v4 = v0[4];
+  v5 = swift_task_alloc();
+  *(v1 + 16) = v5;
+  *v5 = v1;
+  v5[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return _sIeghH_IeAgH_TR(v2, v3, v4);
+}
+
+uint64_t objectdestroy_57Tm()
+{
+  swift_unknownObjectRelease();
+
+  return swift_deallocObject();
+}
+
+uint64_t _sIeAgH_ytIeAgHr_TRTA(uint64_t a1)
 {
   v4 = v1[2];
   v5 = v1[3];
@@ -7641,481 +5557,782 @@ uint64_t partial apply for closure #7 in Player.init()(uint64_t a1)
   *v7 = v2;
   v7[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
 
-  return closure #7 in Player.init()(a1, v4, v5, v6);
+  return _sIeAgH_ytIeAgHr_TR(a1, v4, v5, v6);
 }
 
-uint64_t specialized Player.NowPlayingObserver.init(player:)()
+uint64_t sub_1002240D8()
 {
-  v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd);
-  __chkstk_darwin(v2 - 8);
-  v4 = &v23 - v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo17MPCPlayerResponseCSg_GMd);
-  v25 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v7 = &v23 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo17MPCPlayerResponseCSg_GSo17OS_dispatch_queueCGMd);
-  v9 = *(v8 - 8);
-  v26 = v8;
-  v27 = v9;
-  __chkstk_darwin(v8);
-  v11 = &v23 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO4DropVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo17MPCPlayerResponseCSg_GSo17OS_dispatch_queueCGGMd);
-  v13 = *(v12 - 8);
-  v28 = v12;
-  v29 = v13;
-  __chkstk_darwin(v12);
-  v15 = &v23 - v14;
-  *(v0 + 16) = 0;
-  *(v0 + 24) = 0;
-  *(v0 + 32) = &_swiftEmptySetSingleton;
-  ObservationRegistrar.init()();
-  swift_getKeyPath();
-  swift_getKeyPath();
-  static Published.subscript.getter();
-
-  v16 = v30;
-  v17 = *(v1 + 24);
-  *(v1 + 24) = v30;
-  v24 = v16;
-
-  Player.NowPlayingObserver.updateProperties(with:)(v16);
-  swift_beginAccess();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17MPCPlayerResponseCSgGMd);
-  Published.projectedValue.getter();
-  swift_endAccess();
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-  v18 = static OS_dispatch_queue.main.getter();
-  v30 = v18;
-  v19 = type metadata accessor for OS_dispatch_queue.SchedulerOptions();
-  (*(*(v19 - 8) + 56))(v4, 1, 1, v19);
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type Published<MPCPlayerResponse?>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVySo17MPCPlayerResponseCSg_GMd);
-  lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue();
-  Publisher.receive<A>(on:options:)();
-  outlined destroy of TaskPriority?(v4, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd);
-
-  (*(v25 + 8))(v7, v5);
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<Published<MPCPlayerResponse?>.Publisher, OS_dispatch_queue> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo17MPCPlayerResponseCSg_GSo17OS_dispatch_queueCGMd);
-  v20 = v26;
-  Publisher.dropFirst(_:)();
-  (*(v27 + 8))(v11, v20);
-  swift_allocObject();
-  swift_weakInit();
-  lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type Publishers.Drop<Publishers.ReceiveOn<Published<MPCPlayerResponse?>.Publisher, OS_dispatch_queue>> and conformance Publishers.Drop<A>, &_s7Combine10PublishersO4DropVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo17MPCPlayerResponseCSg_GSo17OS_dispatch_queueCGGMd);
-  v21 = v28;
-  Publisher<>.sink(receiveValue:)();
-
-  (*(v29 + 8))(v15, v21);
-  swift_beginAccess();
-  AnyCancellable.store(in:)();
-  swift_endAccess();
-
-  return v1;
-}
-
-uint64_t sub_100212908()
-{
-
-  if (*(v0 + 32))
-  {
-  }
 
   return swift_deallocObject();
 }
 
-uint64_t sub_100212964()
+uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5TA(uint64_t a1)
 {
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
 
-  if (*(v0 + 24))
-  {
-  }
-
-  return swift_deallocObject();
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v4);
 }
 
-uint64_t specialized Player.NowPlayingConfiguration.tracklistRange.getter(uint64_t result)
+uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5TA_71(uint64_t a1)
 {
-  v1 = 0;
-  v2 = 1 << *(result + 32);
-  v3 = -1;
-  if (v2 < 64)
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = partial apply for closure #1 in static MusicEngagementExtension.performRequest(with:completion:);
+
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v4);
+}
+
+void *partial apply for specialized closure #3 in Data.init<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  v5 = *(v3 + 16);
+  v7 = *v5;
+  v6 = v5[1];
+  v13[0] = v7;
+  v13[1] = v6;
+  v12[2] = v13;
+  result = _sSw17withMemoryRebound2to_q0_xm_q0_SryxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lFs5UInt8V_s5NeverOs16IndexingIteratorVySS8UTF8ViewVG_SitTt1g5(partial apply for specialized closure #1 in closure #3 in Data.init<A>(_:), v12, a1, a2);
+  *a3 = result;
+  a3[1] = v9;
+  a3[2] = v10;
+  a3[3] = v11;
+  return result;
+}
+
+uint64_t PlaylistCovers.Cover.Representation.stringRepresentation.getter()
+{
+  _StringGuts.grow(_:)(68);
+  v1._countAndFlagsBits = 0xD000000000000020;
+  v1._object = 0x80000001004CDA30;
+  String.append(_:)(v1);
+  v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+  String.append(_:)(v2);
+
+  v3._object = 0x80000001004CDA60;
+  v3._countAndFlagsBits = 0xD000000000000010;
+  String.append(_:)(v3);
+  v4._countAndFlagsBits = PlaylistCovers.RecipeColors.description.getter(v0[2], v0[3], v0[4], v0[5]);
+  String.append(_:)(v4);
+
+  v5._countAndFlagsBits = 0x6F4374786574202CLL;
+  v5._object = 0xED0000203A726F6CLL;
+  String.append(_:)(v5);
+  v6 = [v0[6] description];
+  v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = v8;
+
+  v10._countAndFlagsBits = v7;
+  v10._object = v9;
+  String.append(_:)(v10);
+
+  v11._countAndFlagsBits = 41;
+  v11._object = 0xE100000000000000;
+  String.append(_:)(v11);
+  return 0;
+}
+
+void static PlaylistCovers.playlistCoverImage(size:backgroundImage:textColor:title:graphicsFormat:)(void *a1, __objc2_prop *a2, uint64_t a3, uint64_t a4, id a5, CGFloat a6, CGFloat a7)
+{
+  v43 = a1;
+  type metadata accessor for Locale();
+  __chkstk_darwin();
+  v13 = type metadata accessor for String.LocalizationValue();
+  isEscapingClosureAtFileLocation = *(v13 - 8);
+  __chkstk_darwin();
+  v16 = &v41 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v18 = &v41 - v17;
+  if (!a4)
   {
-    v3 = ~(-1 << v2);
+LABEL_7:
+    String.LocalizationValue.init(stringLiteral:)();
+    (*(isEscapingClosureAtFileLocation + 16))(v16, v18, v13);
+    if (one-time initialization token for module != -1)
+    {
+      goto LABEL_23;
+    }
+
+    goto LABEL_8;
   }
 
-  v4 = v3 & *(result + 64);
-  v5 = (v2 + 63) >> 6;
-  for (i = 0uLL; v4; i = vbslq_s8(vcgtq_s64(v9, i), v9, i))
+  v42 = a5;
+
+  v19 = String.trim()();
+
+  v20 = (v19._object >> 56) & 0xF;
+  if ((v19._object & 0x2000000000000000) == 0)
   {
-    v7 = v1;
-LABEL_9:
-    v8 = __clz(__rbit64(v4));
-    v4 &= v4 - 1;
-    v9 = *(*(result + 48) + ((v7 << 10) | (16 * v8)));
+    v20 = v19._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
   }
 
+  if (!v20)
+  {
+
+    a5 = v42;
+    goto LABEL_7;
+  }
+
+  a5 = v42;
   while (1)
   {
-    v7 = v1 + 1;
-    if (__OFADD__(v1, 1))
+    v23 = String._bridgeToObjectiveC()();
+
+    v24 = [v23 _containsEmoji];
+
+    v25 = 270.0;
+    if (a6 > 270.0)
+    {
+      v25 = a6;
+    }
+
+    v26 = v24 ? v25 : a6;
+    v27 = v24 ? v25 : a7;
+    v18 = MPModelMovie_ptr;
+    v28 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithSize:a5 format:{v26, v27}];
+    v13 = swift_allocObject();
+    *(v13 + 16) = v26;
+    *(v13 + 24) = v27;
+    v29 = v43;
+    *(v13 + 32) = v43;
+    *(v13 + 40) = a5;
+    *(v13 + 48) = a3;
+    *(v13 + 56) = a4;
+    *(v13 + 64) = a2;
+    v30 = swift_allocObject();
+    *(v30 + 16) = partial apply for closure #2 in static PlaylistCovers.playlistCoverImage(size:backgroundImage:textColor:title:graphicsFormat:);
+    *(v30 + 24) = v13;
+    v48 = _sSo22MPMutableIdentifierSet_So012MPIdentifierC0CXcIgg_SoAA_ACXcIegg_TRTA_0;
+    v49 = v30;
+    aBlock = _NSConcreteStackBlock;
+    v45 = 1107296256;
+    v46 = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+    v47 = &block_descriptor_34;
+    v31 = _Block_copy(&aBlock);
+    v32 = v29;
+    a5 = a5;
+    v33 = a2;
+
+    a2 = &stru_1005F2000;
+    v34 = [v28 imageWithActions:v31];
+    _Block_release(v31);
+    isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
+
+    if ((isEscapingClosureAtFileLocation & 1) == 0)
     {
       break;
     }
 
-    if (v7 >= v5)
-    {
-      return i.i64[0];
-    }
-
-    v4 = *(result + 64 + 8 * v7);
-    ++v1;
-    if (v4)
-    {
-      v1 = v7;
-      goto LABEL_9;
-    }
+    __break(1u);
+LABEL_23:
+    swift_once();
+LABEL_8:
+    v21 = static NSBundle.module;
+    static Locale.current.getter();
+    a3 = String.init(localized:table:bundle:locale:comment:)();
+    a4 = v22;
+    (*(isEscapingClosureAtFileLocation + 8))(v18, v13);
   }
 
-  __break(1u);
+  v50.width = v26;
+  v50.height = v27;
+  v51.width = a6;
+  v51.height = a7;
+  if (CGSizeEqualToSize(v50, v51))
+  {
+  }
+
+  else
+  {
+    v35 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithSize:a5 format:{a6, a7}];
+    v36 = swift_allocObject();
+    *(v36 + 16) = v34;
+    *(v36 + 24) = a6;
+    *(v36 + 32) = a7;
+    v37 = swift_allocObject();
+    *(v37 + 16) = _s9MusicCore14PlaylistCoversO18playlistCoverImage4size010backgroundG09textColor5title14graphicsFormatSo7UIImageCSo6CGSizeV_AKSo7UIColorCSSSgSo010UIGraphicsg8RendererN0CtFZySo0rgS7ContextCXEfU1_TA_0;
+    *(v37 + 24) = v36;
+    v48 = thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ()partial apply;
+    v49 = v37;
+    aBlock = _NSConcreteStackBlock;
+    v45 = 1107296256;
+    v46 = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+    v47 = &block_descriptor_13_2;
+    v38 = _Block_copy(&aBlock);
+    v39 = v34;
+
+    [v35 imageWithActions:v38];
+
+    _Block_release(v38);
+    v40 = swift_isEscapingClosureAtFileLocation();
+
+    if (v40)
+    {
+      __break(1u);
+    }
+  }
+}
+
+uint64_t PlaylistCovers.Cover.Representation.init(expression:backgroundImage:recipeColors:textColor:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
+{
+  *a8 = result;
+  *(a8 + 8) = a2;
+  *(a8 + 16) = a3;
+  *(a8 + 24) = a4;
+  *(a8 + 32) = a5;
+  *(a8 + 40) = a6;
+  *(a8 + 48) = a7;
   return result;
 }
 
-uint64_t outlined init with copy of Player.CommandIssuance(uint64_t a1, uint64_t a2)
+uint64_t PlaylistCovers.Cover.accessibilityIdentifier.getter()
 {
-  v4 = type metadata accessor for Player.CommandIssuance();
+  v1 = *(v0 + 96);
+
+  return v1;
+}
+
+void *PlaylistCovers.Cover.Representation.recipeColors.getter()
+{
+  v1 = v0[2];
+  v2 = v0[3];
+  v4 = v0[4];
+  v3 = v0[5];
+  v5 = v1;
+  v6 = v2;
+  v7 = v4;
+  v8 = v3;
+  return v1;
+}
+
+uint64_t PlaylistCovers.Cover.Representation.hash(into:)(uint64_t a1)
+{
+  Hasher._combine(_:)(*v1 + 1);
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  return NSObject.hash(into:)();
+}
+
+Swift::Int PlaylistCovers.Cover.Representation.hashValue.getter()
+{
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(*v0 + 1);
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance PlaylistCovers.Cover.Representation(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 16);
+  v5[0] = *a1;
+  v5[1] = v2;
+  v5[2] = *(a1 + 32);
+  v6 = *(a1 + 48);
+  v3 = *(a2 + 16);
+  v7[0] = *a2;
+  v7[1] = v3;
+  v7[2] = *(a2 + 32);
+  v8 = *(a2 + 48);
+  return specialized static PlaylistCovers.Cover.Representation.== infix(_:_:)(v5, v7) & 1;
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance PlaylistCovers.Cover.Representation()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(v1 + 1);
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance PlaylistCovers.Cover.Representation(uint64_t a1)
+{
+  Hasher._combine(_:)(*v1 + 1);
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  return NSObject.hash(into:)();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PlaylistCovers.Cover.Representation(uint64_t a1)
+{
+  v2 = *v1;
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(v2 + 1);
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  return Hasher._finalize()();
+}
+
+__n128 PlaylistCovers.Cover.init(image:representation:)@<Q0>(uint64_t a1@<X0>, unsigned __int8 *a2@<X1>, uint64_t a3@<X8>)
+{
+  v6 = *a2;
+  v7 = *(a2 + 5);
+  v22 = *(a2 + 6);
+  v20 = *(a2 + 24);
+  v21 = *(a2 + 8);
+  outlined init with copy of PlaylistCovers.Cover.Representation(a2, v23);
+  v8 = PlaylistCovers.Cover.Representation.stringRepresentation.getter();
+  v10 = v9;
+  v11 = *a2;
+  v12 = PlaylistCovers.Expression.accessibilityLabel.getter(*a2);
+  v14 = v13;
+  outlined destroy of PlaylistCovers.Cover.Representation(a2);
+  v15 = PlaylistCovers.Expression.accessibilityIdentifier.getter(v11);
+  *a3 = a1;
+  *(a3 + 8) = v8;
+  *(a3 + 16) = v10;
+  *(a3 + 24) = v6;
+  result = v21;
+  *(a3 + 32) = v21;
+  *(a3 + 48) = v20;
+  *(a3 + 64) = v7;
+  *(a3 + 72) = v22;
+  *(a3 + 80) = v12;
+  *(a3 + 88) = v14;
+  *(a3 + 96) = v15;
+  *(a3 + 104) = v17;
+  *(a3 + 112) = v18;
+  *(a3 + 120) = v19;
+  return result;
+}
+
+double PlaylistCovers.Cover.init(image:id:accessibilityLabel:accessibilityIdentifier:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10)
+{
+  *a9 = a1;
+  *(a9 + 8) = a2;
+  *(a9 + 16) = a3;
+  result = 0.0;
+  *(a9 + 24) = 0u;
+  *(a9 + 40) = 0u;
+  *(a9 + 56) = 0u;
+  *(a9 + 72) = 0;
+  *(a9 + 80) = a4;
+  *(a9 + 88) = a5;
+  *(a9 + 96) = a6;
+  *(a9 + 104) = a7;
+  *(a9 + 112) = a8;
+  *(a9 + 120) = a10;
+  return result;
+}
+
+double protocol witness for Identifiable.id.getter in conformance PlaylistCovers.Cover@<D0>(void *a1@<X8>)
+{
+  v2 = *(v1 + 16);
+  *a1 = *(v1 + 8);
+  a1[1] = v2;
+
+  return result;
+}
+
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance PlaylistCovers.Cover(_OWORD *a1, __int128 *a2)
+{
+  v2 = a1[5];
+  v13[4] = a1[4];
+  v13[5] = v2;
+  v3 = a1[7];
+  v13[6] = a1[6];
+  v13[7] = v3;
+  v4 = a1[1];
+  v13[0] = *a1;
+  v13[1] = v4;
+  v5 = a1[3];
+  v13[2] = a1[2];
+  v13[3] = v5;
+  v6 = *a2;
+  v7 = a2[1];
+  v8 = a2[3];
+  v14[2] = a2[2];
+  v14[3] = v8;
+  v14[0] = v6;
+  v14[1] = v7;
+  v9 = a2[4];
+  v10 = a2[5];
+  v11 = a2[7];
+  v14[6] = a2[6];
+  v14[7] = v11;
+  v14[4] = v9;
+  v14[5] = v10;
+  return specialized static PlaylistCovers.Cover.__derived_struct_equals(_:_:)(v13, v14) & 1;
+}
+
+id one-time initialization function for fallbackColors()
+{
+  v0 = [objc_opt_self() whiteColor];
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIColor, UIColor_ptr);
+  v1 = UIColor.init(decimalRed:decimalGreen:decimalBlue:alpha:)(255, 128, 128, 1.0);
+  v2 = UIColor.init(decimalRed:decimalGreen:decimalBlue:alpha:)(255, 230, 230, 1.0);
+  result = UIColor.init(decimalRed:decimalGreen:decimalBlue:alpha:)(250, 35, 59, 1.0);
+  static PlaylistCovers.Specs.fallbackColors = v0;
+  *algn_10063D6E8 = v1;
+  qword_10063D6F0 = v2;
+  unk_10063D6F8 = result;
+  return result;
+}
+
+id one-time initialization function for blackAndWhiteColors()
+{
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIColor, UIColor_ptr);
+  v0 = UIColor.init(decimalRed:decimalGreen:decimalBlue:alpha:)(238, 238, 238, 1.0);
+  v1 = UIColor.init(decimalRed:decimalGreen:decimalBlue:alpha:)(187, 187, 187, 1.0);
+  v2 = UIColor.init(decimalRed:decimalGreen:decimalBlue:alpha:)(70, 70, 70, 1.0);
+  result = UIColor.init(decimalRed:decimalGreen:decimalBlue:alpha:)(17, 17, 17, 1.0);
+  static PlaylistCovers.Specs.blackAndWhiteColors = v0;
+  *algn_10063D708 = v1;
+  qword_10063D710 = v2;
+  qword_10063D718 = result;
+  return result;
+}
+
+void closure #2 in static PlaylistCovers.playlistCoverImage(size:backgroundImage:textColor:title:graphicsFormat:)(int a1, id a2, double a3, double a4, void *a5, uint64_t a6, uint64_t a7, void *a8)
+{
+  [a2 drawInRect:{0.0, 0.0, a3, a4}];
+  v11 = String.count.getter();
+  v12 = objc_opt_self();
+  [a5 scale];
+  if (v11 <= 30)
+  {
+    v13 = 33.0;
+  }
+
+  else
+  {
+    v13 = 27.0;
+  }
+
+  CGFloat.roundValue(scale:)();
+  v14 = [v12 systemFontOfSize:? weight:?];
+  v15 = [v14 fontDescriptor];
+
+  v16 = kCTFontIgnoreLegibilityWeightAttribute;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo29UIFontDescriptorAttributeNamea_yptGMd, &_ss23_ContiguousArrayStorageCySo29UIFontDescriptorAttributeNamea_yptGMR);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_1004F2EF0;
+  *(inited + 32) = v16;
+  *(inited + 40) = 1;
+  *(inited + 64) = &type metadata for Bool;
+  *(inited + 72) = kCTFontOpticalSizeAttribute;
+  *(inited + 104) = &type metadata for CGFloat;
+  *(inited + 80) = v13;
+  v18 = v16;
+  v19 = kCTFontOpticalSizeAttribute;
+  v45 = v18;
+  v44 = v19;
+  v20 = v15;
+  _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo29UIFontDescriptorAttributeNamea_ypTt0g5Tf4g_n(inited);
+  swift_setDeallocating();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo29UIFontDescriptorAttributeNamea_yptMd, &_sSo29UIFontDescriptorAttributeNamea_yptMR);
+  swift_arrayDestroy();
+  type metadata accessor for UIFontDescriptorAttributeName(0);
+  lazy protocol witness table accessor for type UIFontDescriptorAttributeName and conformance UIFontDescriptorAttributeName();
+  isa = Dictionary._bridgeToObjectiveC()().super.isa;
+
+  v42 = [v20 fontDescriptorByAddingAttributes:isa];
+
+  v22 = [v12 fontWithDescriptor:v42 size:0.0];
+  [a5 scale];
+  CGFloat.roundValue(scale:)();
+  v24 = v23;
+  v25 = [objc_allocWithZone(NSMutableParagraphStyle) init];
+  [v25 setMinimumLineHeight:v24];
+  [v25 setMaximumLineHeight:v24];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd, &_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMR);
+  v26 = swift_initStackObject();
+  *(v26 + 16) = xmmword_1004F2EE0;
+  *(v26 + 32) = NSFontAttributeName;
+  v27 = type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIFont, UIFont_ptr);
+  *(v26 + 40) = v22;
+  *(v26 + 64) = v27;
+  *(v26 + 72) = NSForegroundColorAttributeName;
+  v28 = type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIColor, UIColor_ptr);
+  *(v26 + 80) = a8;
+  *(v26 + 104) = v28;
+  *(v26 + 112) = NSKernAttributeName;
+  *(v26 + 120) = -0.25 / (270.0 / a3);
+  *(v26 + 144) = &type metadata for CGFloat;
+  *(v26 + 152) = NSParagraphStyleAttributeName;
+  *(v26 + 184) = type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSMutableParagraphStyle, NSMutableParagraphStyle_ptr);
+  *(v26 + 160) = v25;
+  v29 = NSFontAttributeName;
+  v30 = v22;
+  v31 = NSForegroundColorAttributeName;
+  v32 = a8;
+  v33 = NSKernAttributeName;
+  v34 = NSParagraphStyleAttributeName;
+  v35 = v25;
+  _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_ypTt0g5Tf4g_n(v26);
+  swift_setDeallocating();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21NSAttributedStringKeya_yptMd, &_sSo21NSAttributedStringKeya_yptMR);
+  swift_arrayDestroy();
+  v36 = type metadata accessor for LanguageAwareString();
+  static LanguageAwareString.keepStatisticsOnLanguageComponents.getter();
+  v37 = objc_allocWithZone(v36);
+
+  v38 = LanguageAwareString.init(_:attributes:baseParagraphStyle:keepStatisticsOnLanguageComponents:)();
+  v39 = dispatch thunk of LanguageAwareString.attributedString.getter();
+
+  [a5 scale];
+  CGFloat.roundValue(scale:)();
+  UIEdgeInsets.init(edges:inset:)();
+  [v39 drawWithRect:1 options:0 context:{UIEdgeInsetsInsetRect(0.0, 0.0, a3, a4, v40, v41)}];
+}
+
+uint64_t sub_100225760()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t block_copy_helper_34(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v2;
+}
+
+uint64_t sub_1002257F8()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t outlined init with copy of PlaylistCovers.Cover.Representation?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore14PlaylistCoversO5CoverV14RepresentationVSgMd, &_s9MusicCore14PlaylistCoversO5CoverV14RepresentationVSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-uint64_t outlined destroy of Player.CommandIssuance(uint64_t a1)
+uint64_t specialized static PlaylistCovers.Cover.Representation.== infix(_:_:)(void *a1, void *a2)
 {
-  v2 = type metadata accessor for Player.CommandIssuance();
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-uint64_t sub_100212B50()
-{
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySo17MPCPlayerResponseCSg_GGMd);
-  v2 = *(v1 - 8);
-  v3 = (*(v2 + 80) + 32) & ~*(v2 + 80);
-  v4 = (*(v2 + 64) + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v5 = (((v4 + 47) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8;
-  swift_unknownObjectRelease();
-  (*(v2 + 8))(v0 + v3, v1);
-  __swift_destroy_boxed_opaque_existential_0Tm(v0 + v4);
-
-  v6 = v0 + ((v5 + 31) & 0xFFFFFFFFFFFFFFF8);
-  if (*(v6 + 24))
+  if (*a1 != *a2)
   {
-    __swift_destroy_boxed_opaque_existential_0Tm(v6);
+    return 0;
   }
 
-  return swift_deallocObject();
+  v2 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v4 = v3;
+  v26 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v27 = v5;
+  v25 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v29 = v6;
+  v23 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v30 = v7;
+  v8 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v10 = v9;
+  v11 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v13 = v12;
+  v24 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v28 = v14;
+  v22 = specialized static PlaylistCovers.hexRepresentation(for:)();
+  v16 = v15;
+  if (v2 == v8 && v4 == v10)
+  {
+  }
+
+  else
+  {
+    v17 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if ((v17 & 1) == 0)
+    {
+
+      goto LABEL_21;
+    }
+  }
+
+  if (v26 == v11 && v27 == v13)
+  {
+  }
+
+  else
+  {
+    v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if ((v18 & 1) == 0)
+    {
+
+      goto LABEL_21;
+    }
+  }
+
+  if (v25 == v24 && v29 == v28)
+  {
+
+    goto LABEL_14;
+  }
+
+  v19 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if ((v19 & 1) == 0)
+  {
+LABEL_21:
+
+    return 0;
+  }
+
+LABEL_14:
+  if (v23 == v22 && v30 == v16)
+  {
+
+LABEL_19:
+    type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSObject, NSObject_ptr);
+    return static NSObject.== infix(_:_:)() & 1;
+  }
+
+  v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v20)
+  {
+    goto LABEL_19;
+  }
+
+  return 0;
 }
 
-uint64_t partial apply for closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:)(uint64_t a1)
+uint64_t specialized static PlaylistCovers.Cover.__derived_struct_equals(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine14AsyncPublisherVyAA9PublishedV0C0VySo17MPCPlayerResponseCSg_GGMd) - 8);
-  v4 = (*(v3 + 80) + 32) & ~*(v3 + 80);
-  v5 = (*(v3 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = (v5 + 47) & 0xFFFFFFFFFFFFFFF8;
-  v7 = (v6 + 15) & 0xFFFFFFFFFFFFFFF8;
-  v8 = *(v1 + 24);
-  v14 = *(v1 + 16);
-  v9 = *(v1 + v6);
-  v10 = *(v1 + v7);
-  v11 = *(v1 + v7 + 8);
-  v12 = swift_task_alloc();
-  *(v2 + 16) = v12;
-  *v12 = v2;
-  v12[1] = partial apply for closure #1 in static MusicEngagementExtension.performRequest(with:completion:);
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSObject, NSObject_ptr);
+  if ((static NSObject.== infix(_:_:)() & 1) == 0)
+  {
+    goto LABEL_13;
+  }
 
-  return closure #1 in Player.performWhenAvailable(_:options:issuer:timeout:)(a1, v14, v8, v1 + v4, v1 + v5, v9, v10, v11);
+  v4 = *(a1 + 8) == *(a2 + 8) && *(a1 + 16) == *(a2 + 16);
+  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    goto LABEL_13;
+  }
+
+  v35 = *(a1 + 24);
+  v5 = *(a1 + 56);
+  v36 = *(a1 + 40);
+  v37 = v5;
+  v6 = *(a1 + 72);
+  v38 = v6;
+  v7 = *(a2 + 40);
+  v32[0] = *(a2 + 24);
+  v32[1] = v7;
+  v33 = *(a2 + 56);
+  v8 = *(a2 + 72);
+  v34 = v8;
+  v9 = v35;
+  v10 = v36;
+  v11 = v32[0];
+  v12 = *(&v33 + 1);
+  if (!*(&v35 + 1))
+  {
+    if (!*(&v32[0] + 1))
+    {
+      v18 = *(&v37 + 1);
+      v19 = v36;
+      v20 = v37;
+      v21 = v35;
+      v22 = *(&v36 + 1);
+      outlined init with copy of PlaylistCovers.Cover.Representation?(&v35, v43);
+      outlined init with copy of PlaylistCovers.Cover.Representation?(v32, v43);
+      outlined consume of PlaylistCovers.Cover.Representation?(v21, 0, v19, v22, v20, v18, v6);
+      goto LABEL_16;
+    }
+
+    goto LABEL_12;
+  }
+
+  if (!*(&v32[0] + 1))
+  {
+LABEL_12:
+    v13 = *(&v37 + 1);
+    v14 = v37;
+    v26 = *(&v33 + 1);
+    v28 = v7;
+    v15 = *(&v36 + 1);
+    v30 = v33;
+    outlined init with copy of PlaylistCovers.Cover.Representation?(&v35, v43);
+    outlined init with copy of PlaylistCovers.Cover.Representation?(v32, v43);
+    outlined consume of PlaylistCovers.Cover.Representation?(v9, *(&v9 + 1), v10, v15, v14, v13, v6);
+    outlined consume of PlaylistCovers.Cover.Representation?(v11, *(&v11 + 1), v28, *(&v28 + 1), v30, v26, v8);
+    goto LABEL_13;
+  }
+
+  LOBYTE(v43[0]) = v32[0];
+  v43[1] = *(&v32[0] + 1);
+  v44 = v7;
+  v45 = v33;
+  v46 = v8;
+  LOBYTE(v39[0]) = v35;
+  v39[1] = *(&v35 + 1);
+  v40 = v36;
+  v41 = v37;
+  v42 = v6;
+  v25 = v37;
+  v24 = *(&v36 + 1);
+  v29 = v33;
+  v27 = v7;
+  outlined init with copy of PlaylistCovers.Cover.Representation?(&v35, v31);
+  outlined init with copy of PlaylistCovers.Cover.Representation?(v32, v31);
+  v23 = specialized static PlaylistCovers.Cover.Representation.== infix(_:_:)(v39, v43);
+  outlined consume of PlaylistCovers.Cover.Representation?(v11, *(&v11 + 1), v27, *(&v27 + 1), v29, v12, v8);
+  outlined consume of PlaylistCovers.Cover.Representation?(v9, *(&v9 + 1), v10, v24, v25, *(&v25 + 1), v6);
+  if ((v23 & 1) == 0)
+  {
+LABEL_13:
+    v16 = 0;
+    return v16 & 1;
+  }
+
+LABEL_16:
+  if ((*(a1 + 80) != *(a2 + 80) || *(a1 + 88) != *(a2 + 88)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    goto LABEL_13;
+  }
+
+  if (*(a1 + 96) == *(a2 + 96) && *(a1 + 104) == *(a2 + 104))
+  {
+    v16 = 1;
+  }
+
+  else
+  {
+    v16 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  }
+
+  return v16 & 1;
 }
 
-uint64_t partial apply for specialized closure #1 in closure #1 in Task.withTimeout(_:)(uint64_t a1)
+unint64_t lazy protocol witness table accessor for type PlaylistCovers.Cover.Representation and conformance PlaylistCovers.Cover.Representation()
 {
-  v4 = *(v1 + 2);
-  v5 = *(v1 + 3);
-  v6 = *(v1 + 4);
-  v7 = v1[5];
-  v8 = *(v1 + 6);
-  v9 = swift_task_alloc();
-  *(v2 + 16) = v9;
-  *v9 = v2;
-  v9[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
-
-  return specialized closure #1 in closure #1 in Task.withTimeout(_:)(a1, v7, v4, v5, v6, v8);
-}
-
-{
-  v4 = *(v1 + 2);
-  v5 = *(v1 + 3);
-  v6 = *(v1 + 4);
-  v7 = v1[5];
-  v8 = *(v1 + 6);
-  v9 = swift_task_alloc();
-  *(v2 + 16) = v9;
-  *v9 = v2;
-  v9[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
-
-  return specialized closure #1 in closure #1 in Task.withTimeout(_:)(v7, a1, v4, v5, v6, v8);
-}
-
-unint64_t lazy protocol witness table accessor for type Player.CommandError and conformance Player.CommandError()
-{
-  result = lazy protocol witness table cache variable for type Player.CommandError and conformance Player.CommandError;
-  if (!lazy protocol witness table cache variable for type Player.CommandError and conformance Player.CommandError)
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Cover.Representation and conformance PlaylistCovers.Cover.Representation;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Cover.Representation and conformance PlaylistCovers.Cover.Representation)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Player.CommandError and conformance Player.CommandError);
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Cover.Representation and conformance PlaylistCovers.Cover.Representation);
   }
 
   return result;
 }
 
-uint64_t sub_100212F34()
+uint64_t get_enum_tag_for_layout_string_9MusicCore14PlaylistCoversO5CoverV14RepresentationVSg(uint64_t a1)
 {
-  v1 = *(type metadata accessor for Player.CommandIssuance() - 8);
-  v2 = (*(v1 + 80) + 32) & ~*(v1 + 80);
-  v3 = (*(v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8;
-
-  v4 = type metadata accessor for UUID();
-  (*(*(v4 - 8) + 8))(v0 + v2, v4);
-
-  return swift_deallocObject();
-}
-
-uint64_t partial apply for closure #1 in closure #1 in Player.perform(_:options:issuer:)(void *a1, uint64_t a2)
-{
-  v5 = *(type metadata accessor for Player.CommandIssuance() - 8);
-  v6 = (*(v5 + 80) + 32) & ~*(v5 + 80);
-  v7 = (*(v5 + 64) + v6 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v8 = *(v2 + 16);
-  v9 = *(v2 + 24);
-  v10 = *(v2 + v7);
-  v11 = *(v2 + ((v7 + 15) & 0xFFFFFFFFFFFFFFF8));
-
-  return closure #1 in closure #1 in Player.perform(_:options:issuer:)(a1, a2, v8, v9, v2 + v6, v10, v11);
-}
-
-unint64_t lazy protocol witness table accessor for type BufferedAirPlayError #1 in Player.prepareForBufferedAirPlay() and conformance BufferedAirPlayError #1 in Player.prepareForBufferedAirPlay()()
-{
-  result = lazy protocol witness table cache variable for type BufferedAirPlayError #1 in Player.prepareForBufferedAirPlay() and conformance BufferedAirPlayError #1 in Player.prepareForBufferedAirPlay();
-  if (!lazy protocol witness table cache variable for type BufferedAirPlayError #1 in Player.prepareForBufferedAirPlay() and conformance BufferedAirPlayError #1 in Player.prepareForBufferedAirPlay())
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type BufferedAirPlayError #1 in Player.prepareForBufferedAirPlay() and conformance BufferedAirPlayError #1 in Player.prepareForBufferedAirPlay());
-  }
-
-  return result;
-}
-
-uint64_t partial apply for closure #2 in Player.prepareForBufferedAirPlay()(uint64_t a1)
-{
-  v4 = v1[2];
-  v5 = v1[3];
-  v6 = v1[4];
-  v7 = swift_task_alloc();
-  *(v2 + 16) = v7;
-  *v7 = v2;
-  v7[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
-
-  return closure #2 in Player.prepareForBufferedAirPlay()(a1, v4, v5, v6);
-}
-
-uint64_t objectdestroy_90Tm()
-{
-  swift_unknownObjectRelease();
-
-  return swift_deallocObject();
-}
-
-__n128 sub_1002133CC(__n128 *a1, __n128 *a2)
-{
-  result = *a1;
-  *a2 = *a1;
-  return result;
-}
-
-uint64_t partial apply for closure #1 in Player.NowPlayingObserver.isSharedListeningSession.setter()
-{
-  return partial apply for closure #1 in Player.NowPlayingObserver.isSharedListeningSession.setter();
-}
-
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  result = swift_beginAccess();
-  *(v1 + 16) = v2;
-  return result;
-}
-
-uint64_t _s10Foundation4UUIDVACSHAAWlTm_0(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Player.EngineState and conformance Player.EngineState()
-{
-  result = lazy protocol witness table cache variable for type Player.EngineState and conformance Player.EngineState;
-  if (!lazy protocol witness table cache variable for type Player.EngineState and conformance Player.EngineState)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Player.EngineState and conformance Player.EngineState);
-  }
-
-  return result;
-}
-
-uint64_t sub_10021357C@<X0>(uint64_t *a1@<X8>)
-{
-  result = Player.nowPlayingObserver.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1002135A8(void *a1, void *a2)
-{
-  *(*a2 + OBJC_IVAR____TtC9MusicCore6Player____lazy_storage___nowPlayingObserver) = *a1;
-}
-
-uint64_t sub_100213708@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v3 = *a1;
-  v4 = OBJC_IVAR____TtC9MusicCore6Player_engineState;
-  result = swift_beginAccess();
-  *a2 = *(v3 + v4);
-  return result;
-}
-
-void sub_100213760(char *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  v4 = OBJC_IVAR____TtC9MusicCore6Player_engineState;
-  swift_beginAccess();
-  v5 = *(v3 + v4);
-  *(v3 + v4) = v2;
-  Player.engineState.didset(v5);
-}
-
-void type metadata completion function for Player()
-{
-  type metadata accessor for Published<MPCPlayerPath>();
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for Published<MPCPlayerResponse?>(319, &lazy cache variable for type metadata for Published<MPCPlayerResponse?>, &_sSo17MPCPlayerResponseCSgMd);
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for Published<MPCPlayerResponse?>(319, &lazy cache variable for type metadata for Published<MPCPlayerPath?>, &_sSo13MPCPlayerPathCSgMd);
-      if (v2 <= 0x3F)
-      {
-        type metadata accessor for Published<MPCPlayerResponse?>(319, &lazy cache variable for type metadata for Published<SharePlayTogetherSession?>, &_s9MusicCore24SharePlayTogetherSessionCSgMd);
-        if (v3 <= 0x3F)
-        {
-          type metadata accessor for Published<Bool>();
-          if (v4 <= 0x3F)
-          {
-            swift_updateClassMetadata2();
-          }
-        }
-      }
-    }
-  }
-}
-
-void type metadata accessor for Published<MPCPlayerPath>()
-{
-  if (!lazy cache variable for type metadata for Published<MPCPlayerPath>)
-  {
-    type metadata accessor for UIAction(255, &lazy cache variable for type metadata for MPCPlayerPath);
-    v0 = type metadata accessor for Published();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for Published<MPCPlayerPath>);
-    }
-  }
-}
-
-void type metadata accessor for Published<MPCPlayerResponse?>(uint64_t a1, unint64_t *a2, uint64_t *a3)
-{
-  if (!*a2)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a3);
-    v4 = type metadata accessor for Published();
-    if (!v5)
-    {
-      atomic_store(v4, a2);
-    }
-  }
-}
-
-uint64_t type metadata instantiation function for Player.NowPlayingConfiguration.BadCountedSet()
-{
-  GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
-  swift_cvw_instantiateLayoutString();
-  return GenericValueMetadataWithLayoutString;
-}
-
-void type metadata completion function for MusicItemState()
-{
-  swift_checkMetadataState();
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for Published<MusicPlayer.PreviewCapabilityStatus>(319, &lazy cache variable for type metadata for Published<MusicPlayer.PlayabilityStatus>, &type metadata accessor for MusicPlayer.PlayabilityStatus);
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for Published<MusicPlayer.PreviewCapabilityStatus>(319, &lazy cache variable for type metadata for Published<MusicPlayer.PreviewCapabilityStatus>, &type metadata accessor for MusicPlayer.PreviewCapabilityStatus);
-      if (v2 <= 0x3F)
-      {
-        swift_initClassMetadata2();
-      }
-    }
-  }
-}
-
-void type metadata accessor for Published<MusicPlayer.PreviewCapabilityStatus>(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
-{
-  if (!*a2)
-  {
-    a3(255);
-    v4 = type metadata accessor for Published();
-    if (!v5)
-    {
-      atomic_store(v4, a2);
-    }
-  }
-}
-
-uint64_t type metadata completion function for Player.NowPlayingObserver()
-{
-  result = type metadata accessor for ObservationRegistrar();
-  if (v1 <= 0x3F)
-  {
-    result = swift_updateClassMetadata2();
-    if (!result)
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t get_enum_tag_for_layout_string_9MusicCore6PlayerC25prepareForBufferedAirPlaySo9MPAVRouteCSgyYaKF0fgH5ErrorL_O(uint64_t *a1)
-{
-  v1 = *a1;
-  if (*a1 >= 0xFFFFFFFF)
+  v1 = *(a1 + 8);
+  if (v1 >= 0xFFFFFFFF)
   {
     LODWORD(v1) = -1;
   }
@@ -8123,1663 +6340,3591 @@ uint64_t get_enum_tag_for_layout_string_9MusicCore6PlayerC25prepareForBufferedAi
   return (v1 + 1);
 }
 
-void specialized Player.DataSource.controller(_:defersResponseReplacement:)(void *a1, uint64_t a2, uint64_t a3)
+uint64_t getEnumTagSinglePayload for PlaylistCovers.Cover(uint64_t *a1, int a2)
 {
-  (*(a3 + 16))(a3);
-  if (![a1 request])
-  {
-    return;
-  }
-
-  objc_opt_self();
-  v5 = swift_dynamicCastObjCClass();
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *(a2 + OBJC_IVAR____TtCC9MusicCore6PlayerP33_031AD420BBF8BBF113A2662767DAC2BB10DataSource_onResponseChanged);
-    if ([a1 response])
-    {
-      objc_opt_self();
-      v8 = swift_dynamicCastObjCClass();
-      if (v8)
-      {
-        v9 = v8;
-LABEL_12:
-        v10 = v9;
-        v7(v6);
-        swift_unknownObjectRelease();
-
-        return;
-      }
-
-      swift_unknownObjectRelease();
-    }
-
-    v9 = 0;
-    goto LABEL_12;
-  }
-
-  swift_unknownObjectRelease();
-}
-
-uint64_t sub_100213F58()
-{
-  swift_unknownObjectRelease();
-
-  return swift_deallocObject();
-}
-
-uint64_t partial apply for closure #1 in Player.sharePlayTogetherSession.didset(uint64_t a1)
-{
-  v4 = v1[2];
-  v5 = v1[3];
-  v7 = v1[4];
-  v6 = v1[5];
-  v8 = swift_task_alloc();
-  *(v2 + 16) = v8;
-  *v8 = v2;
-  v8[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
-
-  return closure #1 in Player.sharePlayTogetherSession.didset(a1, v4, v5, v7, v6);
-}
-
-uint64_t sub_10021408C()
-{
-
-  return swift_deallocObject();
-}
-
-uint64_t partial apply for specialized closure #1 in closure #1 in closure #1 in Task.withTimeout(_:)()
-{
-  return specialized closure #1 in closure #1 in closure #1 in Task.withTimeout(_:)(*(v0 + 16), *(v0 + 24), &_sScT9MusicCoreE7Timeout33_031AD420BBF8BBF113A2662767DAC2BBLLVyyts5NeverO_GMd, &_sScT9MusicCoreE7Timeout33_031AD420BBF8BBF113A2662767DAC2BBLLVyyts5NeverO_GMR, &lazy protocol witness table cache variable for type Task<(), Never>.Timeout and conformance Task<A, B>.Timeout);
-}
-
-{
-  return specialized closure #1 in closure #1 in closure #1 in Task.withTimeout(_:)(*(v0 + 16), *(v0 + 24), &_sScT9MusicCoreE7Timeout33_031AD420BBF8BBF113A2662767DAC2BBLLVySo22MPCPlayerCommandStatusCSgs5Error_p_GMd, &_sScT9MusicCoreE7Timeout33_031AD420BBF8BBF113A2662767DAC2BBLLVySo22MPCPlayerCommandStatusCSgs5Error_p_GMR, &lazy protocol witness table cache variable for type Task<MPCPlayerCommandStatus?, Error>.Timeout and conformance Task<A, B>.Timeout);
-}
-
-void outlined consume of MPCPlayerResponse??(id a1)
-{
-  if (a1 != 1)
-  {
-  }
-}
-
-uint64_t specialized closure #1 in closure #1 in Task.withTimeout(_:)(uint64_t a1, uint64_t a2, double a3)
-{
-  *(v3 + 144) = a2;
-  *(v3 + 136) = a3;
-  *(v3 + 128) = a1;
-  v4 = type metadata accessor for DispatchTime();
-  *(v3 + 152) = v4;
-  *(v3 + 160) = *(v4 - 8);
-  *(v3 + 168) = swift_task_alloc();
-  *(v3 + 176) = swift_task_alloc();
-  v5 = type metadata accessor for DispatchQoS.QoSClass();
-  *(v3 + 184) = v5;
-  *(v3 + 192) = *(v5 - 8);
-  *(v3 + 200) = swift_task_alloc();
-  *(v3 + 208) = type metadata accessor for DispatchWorkItemFlags();
-  *(v3 + 216) = swift_task_alloc();
-
-  return _swift_task_switch(specialized closure #1 in closure #1 in Task.withTimeout(_:), 0, 0);
-}
-
-uint64_t sub_100214B54()
-{
-  swift_unknownObjectRelease();
-
-  if (*(v0 + 40))
-  {
-  }
-
-  return swift_deallocObject();
-}
-
-uint64_t partial apply for closure #1 in closure #1 in Player.requestSharePlayTogether(completion:)(uint64_t a1)
-{
-  v4 = v1[2];
-  v5 = v1[3];
-  v6 = v1[4];
-  v7 = v1[5];
-  v8 = v1[6];
-  v9 = v1[7];
-  v10 = v1[8];
-  v11 = swift_task_alloc();
-  *(v2 + 16) = v11;
-  *v11 = v2;
-  v11[1] = partial apply for closure #1 in static MusicEngagementExtension.performRequest(with:completion:);
-
-  return closure #1 in closure #1 in Player.requestSharePlayTogether(completion:)(a1, v4, v5, v6, v7, v8, v9, v10);
-}
-
-uint64_t sub_100214CA0()
-{
-  swift_weakDestroy();
-
-  return swift_deallocObject();
-}
-
-uint64_t partial apply for closure #1 in Player.path.didset(uint64_t a1)
-{
-  v4 = v1[2];
-  v5 = v1[3];
-  v6 = v1[4];
-  v7 = swift_task_alloc();
-  *(v2 + 16) = v7;
-  *v7 = v2;
-  v7[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
-
-  return closure #1 in Player.path.didset(a1, v4, v5, v6);
-}
-
-uint64_t partial apply for closure #1 in closure #4 in Player.init()(uint64_t a1)
-{
-  v4 = v1[2];
-  v5 = v1[3];
-  v6 = v1[4];
-  v7 = swift_task_alloc();
-  *(v2 + 16) = v7;
-  *v7 = v2;
-  v7[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
-
-  return closure #1 in closure #4 in Player.init()(a1, v4, v5, v6);
-}
-
-uint64_t partial apply for closure #1 in closure #3 in Player.init()(uint64_t a1)
-{
-  v4 = v1[2];
-  v5 = v1[3];
-  v6 = v1[4];
-  v7 = swift_task_alloc();
-  *(v2 + 16) = v7;
-  *v7 = v2;
-  v7[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
-
-  return closure #1 in closure #3 in Player.init()(a1, v4, v5, v6);
-}
-
-uint64_t outlined init with take of Player.CommandIssuance(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
-  return a2;
-}
-
-uint64_t sub_100214FF4()
-{
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_100215038()
-{
-
-  return swift_deallocObject();
-}
-
-uint64_t static Player.InsertCommand.Location.__derived_enum_equals(_:_:)(uint64_t a1, unint64_t a2)
-{
-  if (a1 <= 1)
-  {
-    if (!a1)
-    {
-      return !a2;
-    }
-
-    if (a1 == 1)
-    {
-      return a2 == 1;
-    }
-
-LABEL_10:
-    if (a2 >= 4)
-    {
-      type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSObject);
-      return static NSObject.== infix(_:_:)() & 1;
-    }
-
-    return 0;
-  }
-
-  if (a1 != 2)
-  {
-    if (a1 == 3)
-    {
-      return a2 == 3;
-    }
-
-    goto LABEL_10;
-  }
-
-  return a2 == 2;
-}
-
-uint64_t Player.CommandOptions.with(_:)(void (*a1)(uint64_t *), uint64_t a2, uint64_t a3, char a4, void *a5)
-{
-  v8 = a3;
-  v9 = a4;
-  v10 = a5;
-  v6 = a5;
-  a1(&v8);
-  return v8;
-}
-
-uint64_t static Player.CommandOptions.with(_:)(void (*a1)(uint64_t *))
-{
-  v2 = 0;
-  v3 = 0;
-  v4 = 0;
-  a1(&v2);
-  return v2;
-}
-
-BOOL MPCPlayerResponse.canPerform(_:)(uint64_t a1)
-{
-  outlined init with copy of ActionPerforming(a1, v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC7Command_pMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore6PlayerC8_Command_pMd);
-  if (swift_dynamicCast())
-  {
-    outlined init with take of ActionPerforming(v7, v10);
-    v2 = v11;
-    v3 = v12;
-    __swift_project_boxed_opaque_existential_0Tm(v10, v11);
-    v4 = (*(v3 + 24))(v1, v2, v3);
-    v5 = v4 != 0;
-    if (v4)
-    {
-    }
-
-    __swift_destroy_boxed_opaque_existential_0Tm(v10);
-  }
-
-  else
-  {
-    v8 = 0;
-    memset(v7, 0, sizeof(v7));
-    outlined destroy of Player._Command?(v7);
-    return 0;
-  }
-
-  return v5;
-}
-
-uint64_t MPCPlayerResponse.canPerform(anyOf:)(uint64_t a1)
-{
-  v3 = swift_conformsToProtocol2();
-  if (v3 && a1)
-  {
-    return (*(v3 + 16))(v1, a1, v3) & 1;
-  }
-
-  else
+  if (!a2)
   {
     return 0;
   }
-}
 
-uint64_t Player.CommandIssuance.init(uuid:origin:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v8 = (a4 + *(type metadata accessor for Player.CommandIssuance() + 20));
-  v9 = type metadata accessor for UUID();
-  result = (*(*(v9 - 8) + 32))(a4, a1, v9);
-  *v8 = a2;
-  v8[1] = a3;
-  return result;
-}
-
-uint64_t MPCPlayerResponse.perform(_:issuance:options:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
-{
-  v9 = swift_task_alloc();
-  *(v4 + 16) = v9;
-  *v9 = v4;
-  v9[1] = MPCPlayerResponse.perform(_:issuance:options:);
-
-  return specialized MPCPlayerResponse.perform(_:issuance:options:)(a1, a2, a3, a4);
-}
-
-{
-  *(v5 + 152) = a4;
-  *(v5 + 104) = a3;
-  *(v5 + 112) = v4;
-  *(v5 + 88) = a1;
-  *(v5 + 96) = a2;
-  return _swift_task_switch(MPCPlayerResponse.perform(_:issuance:options:), 0, 0);
-}
-
-uint64_t MPCPlayerResponse.perform(_:issuance:options:)(uint64_t a1)
-{
-  v7 = *v2;
-
-  v5 = *(v7 + 8);
-  if (!v1)
+  if (a2 < 0 && *(a1 + 128))
   {
-    v4 = a1;
+    return *a1 + 0x80000000;
   }
 
-  return v5(v4);
-}
-
-{
-  v3 = *v2;
-  v3[17] = a1;
-  v3[18] = v1;
-
-  if (v1)
+  v2 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
   {
-    v4 = MPCPlayerResponse.perform(_:issuance:options:);
+    LODWORD(v2) = -1;
   }
 
-  else
-  {
-    v5 = v3[15];
-    swift_setDeallocating();
-    __swift_destroy_boxed_opaque_existential_0Tm(v5 + 32);
-    v4 = MPCPlayerResponse.perform(_:issuance:options:);
-  }
-
-  return _swift_task_switch(v4, 0, 0);
+  return (v2 + 1);
 }
 
-unint64_t Player.CommandOptions.description.getter(uint64_t a1, char a2, void *a3)
+uint64_t storeEnumTagSinglePayload for PlaylistCovers.Cover(uint64_t result, int a2, int a3)
 {
-  type metadata accessor for MPCPlayerChangeRequestOptions(0);
-  v5._countAndFlagsBits = String.init<A>(describing:)();
-  String.append(_:)(v5);
-
-  v6._countAndFlagsBits = 0x6F69747563657865;
-  v6._object = 0xEA00000000003D6ELL;
-  String.append(_:)(v6);
-
-  _StringGuts.grow(_:)(24);
-
-  if (a2)
+  if (a2 < 0)
   {
-    v7 = 7562585;
-  }
-
-  else
-  {
-    v7 = 28494;
-  }
-
-  if (a2)
-  {
-    v8 = 0xE300000000000000;
-  }
-
-  else
-  {
-    v8 = 0xE200000000000000;
-  }
-
-  v9 = v8;
-  String.append(_:)(*&v7);
-
-  v10._countAndFlagsBits = 0xD000000000000016;
-  v10._object = 0x80000001004CD2F0;
-  String.append(_:)(v10);
-
-  if (a3)
-  {
-    v11 = a3;
-    v12 = [v11 description];
-    v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v15 = v14;
-
-    v16._countAndFlagsBits = v13;
-    v16._object = v15;
-    String.append(_:)(v16);
-
-    v17._countAndFlagsBits = 0x3D6574756F72202CLL;
-    v17._object = 0xE800000000000000;
-    String.append(_:)(v17);
-  }
-
-  v18._countAndFlagsBits = 62;
-  v18._object = 0xE100000000000000;
-  String.append(_:)(v18);
-  return 0xD000000000000016;
-}
-
-uint64_t Player.CommandIssuance.uuid.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = type metadata accessor for UUID();
-  v4 = *(*(v3 - 8) + 16);
-
-  return v4(a1, v1, v3);
-}
-
-uint64_t Player.CommandIssuance.uuid.setter(uint64_t a1)
-{
-  v3 = type metadata accessor for UUID();
-  v4 = *(*(v3 - 8) + 40);
-
-  return v4(v1, a1, v3);
-}
-
-uint64_t Player.CommandIssuance.origin.getter()
-{
-  v1 = *(v0 + *(type metadata accessor for Player.CommandIssuance() + 20));
-
-  return v1;
-}
-
-uint64_t Player.CommandIssuance.origin.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = (v2 + *(type metadata accessor for Player.CommandIssuance() + 20));
-
-  *v5 = a1;
-  v5[1] = a2;
-  return result;
-}
-
-unint64_t Player.CommandIssuance.description.getter()
-{
-  v1._countAndFlagsBits = UUID.uuidString.getter();
-  String.append(_:)(v1);
-
-  v2._countAndFlagsBits = 0x3D44495555;
-  v2._object = 0xE500000000000000;
-  String.append(_:)(v2);
-
-  v3 = (v0 + *(type metadata accessor for Player.CommandIssuance() + 20));
-  v4 = v3[1];
-  if (v4)
-  {
-    v5 = *v3;
-    String.append(_:)(*(&v4 - 1));
-    v6._countAndFlagsBits = 0x6E696769726F202CLL;
-    v6._object = 0xE90000000000003DLL;
-    String.append(_:)(v6);
-  }
-
-  v7._countAndFlagsBits = 62;
-  v7._object = 0xE100000000000000;
-  String.append(_:)(v7);
-  return 0xD000000000000017;
-}
-
-id Player.PlaybackCommand.request(from:)(void *a1, unsigned __int8 a2)
-{
-  if (a2 > 1u)
-  {
-    if (a2 == 2)
+    *(result + 120) = 0;
+    *(result + 104) = 0u;
+    *(result + 88) = 0u;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
     {
-      v2 = &selRef_stop;
+      *(result + 128) = 1;
     }
+  }
 
-    else
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
     {
-      v3 = a1;
-      result = [a1 play];
-      if (result)
+      if (!a2)
       {
         return result;
       }
 
-      v2 = &selRef_pause;
-      a1 = v3;
+LABEL_8:
+      *result = (a2 - 1);
+      return result;
+    }
+
+    *(result + 128) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
     }
   }
 
-  else if (a2)
-  {
-    v2 = &selRef_pause;
-  }
-
-  else
-  {
-    v2 = &selRef_play;
-  }
-
-  return [a1 *v2];
+  return result;
 }
 
-id Player.ChangeCommand.request(from:)(void *a1, uint64_t a2)
+void outlined consume of PlaylistCovers.Cover.Representation?(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
 {
-  v3 = [a1 tracklist];
-  v4 = [v3 changeItemCommand];
-
-  if (a2 > 2)
-  {
-    switch(a2)
-    {
-      case 3:
-        if (v4)
-        {
-          v5 = [v4 nextChapter];
-          goto LABEL_22;
-        }
-
-        break;
-      case 4:
-        if (v4)
-        {
-          v5 = [v4 previousSection];
-          goto LABEL_22;
-        }
-
-        return 0;
-      case 5:
-        if (v4)
-        {
-          v5 = [v4 nextSection];
-          goto LABEL_22;
-        }
-
-        break;
-      default:
-LABEL_16:
-        if (v4)
-        {
-          v5 = [v4 changeToItem:a2];
-          goto LABEL_22;
-        }
-
-        return 0;
-    }
-
-    return 0;
-  }
-
-  if (!a2)
-  {
-    if (v4)
-    {
-      v5 = [v4 previousItem];
-      goto LABEL_22;
-    }
-
-    return 0;
-  }
-
-  if (a2 == 1)
-  {
-    if (v4)
-    {
-      v5 = [v4 nextItem];
-      goto LABEL_22;
-    }
-
-    return 0;
-  }
-
-  if (a2 != 2)
-  {
-    goto LABEL_16;
-  }
-
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v5 = [v4 previousChapter];
-LABEL_22:
-  v6 = v5;
-  swift_unknownObjectRelease();
-  return v6;
-}
-
-id Player.ShuffleCommand.request(from:)(void *a1, char a2)
-{
-  v3 = [a1 tracklist];
-  v4 = [v3 shuffleCommand];
-
-  if (!a2)
-  {
-    if (v4)
-    {
-      v5 = [v4 advance];
-      goto LABEL_9;
-    }
-
-    return 0;
-  }
-
-  if (a2 != 1)
-  {
-    if (v4)
-    {
-      v5 = [v4 setShuffleType:1];
-      goto LABEL_9;
-    }
-
-    return 0;
-  }
-
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v5 = [v4 setShuffleType:0];
-LABEL_9:
-  v6 = v5;
-  swift_unknownObjectRelease();
-  return v6;
-}
-
-id Player.FavoriteCommand.request(from:)(void *a1, char a2)
-{
-  v3 = [a1 tracklist];
-  v4 = [v3 playingItem];
-
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v5 = [v4 likeCommand];
-
-  if (!v5)
-  {
-    return 0;
-  }
-
   if (a2)
   {
-    v6 = a2 == 1;
   }
-
-  else
-  {
-    v6 = [v5 value] ^ 1;
-  }
-
-  v8 = [v5 changeValue:v6];
-  swift_unknownObjectRelease();
-  return v8;
 }
 
-id Player.RepeatCommand.request(from:)(void *a1, unsigned __int8 a2)
+unint64_t lazy protocol witness table accessor for type UIFontDescriptorAttributeName and conformance UIFontDescriptorAttributeName()
 {
-  v3 = [a1 tracklist];
-  v4 = [v3 repeatCommand];
-
-  if (a2 > 1u)
+  result = lazy protocol witness table cache variable for type UIFontDescriptorAttributeName and conformance UIFontDescriptorAttributeName;
+  if (!lazy protocol witness table cache variable for type UIFontDescriptorAttributeName and conformance UIFontDescriptorAttributeName)
   {
-    if (a2 == 2)
+    type metadata accessor for UIFontDescriptorAttributeName(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type UIFontDescriptorAttributeName and conformance UIFontDescriptorAttributeName);
+  }
+
+  return result;
+}
+
+uint64_t PlaylistCovers.Expression.generate(size:colors:graphicsFormat:)(void *a1, void *a2, void *a3, void *a4, uint64_t a5, unsigned __int8 a6, double a7, double a8)
+{
+  if (a6 > 3u)
+  {
+    if (a6 > 5u)
     {
-      if (v4)
+      if (a6 == 6)
       {
-        v5 = [v4 setRepeatType:1];
+        specialized static PlaylistCovers.expression7(_:_:_:)(a1, a2, a3, a4, a5, a7, a8);
         goto LABEL_12;
       }
-    }
 
-    else if (v4)
-    {
-      v5 = [v4 setRepeatType:2];
-      goto LABEL_12;
-    }
-
-    return 0;
-  }
-
-  if (a2)
-  {
-    if (v4)
-    {
-      v5 = [v4 setRepeatType:0];
-      goto LABEL_12;
-    }
-
-    return 0;
-  }
-
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v5 = [v4 advance];
-LABEL_12:
-  v6 = v5;
-  swift_unknownObjectRelease();
-  return v6;
-}
-
-id Player.QueueEndCommand.request(from:)(void *a1, unsigned __int8 a2)
-{
-  v3 = [a1 tracklist];
-  v4 = [v3 actionAtQueueEndCommand];
-
-  if (a2 <= 1u)
-  {
-    if (!a2)
-    {
-      v5 = 0;
-      v6 = 0;
-      if (!v4)
-      {
-        return v6;
-      }
-
-      goto LABEL_12;
-    }
-
-    if (v4)
-    {
-      v5 = 2;
-      goto LABEL_12;
-    }
-
-    return 0;
-  }
-
-  if (a2 != 2)
-  {
-    if (v4)
-    {
-      v5 = 1;
-      goto LABEL_12;
-    }
-
-    return 0;
-  }
-
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v5 = 3;
-LABEL_12:
-  v6 = [v4 setQueueEndAction:v5];
-  swift_unknownObjectRelease();
-  return v6;
-}
-
-void Player.InsertCommand.Location.hash(into:)(uint64_t a1, uint64_t a2)
-{
-  if (a2 > 1)
-  {
-    if (a2 == 2)
-    {
-      v2 = 3;
-      goto LABEL_11;
-    }
-
-    if (a2 == 3)
-    {
-      v2 = 4;
-      goto LABEL_11;
-    }
-
-LABEL_8:
-    Hasher._combine(_:)(1uLL);
-    NSObject.hash(into:)();
-    return;
-  }
-
-  if (!a2)
-  {
-    v2 = 0;
-    goto LABEL_11;
-  }
-
-  if (a2 != 1)
-  {
-    goto LABEL_8;
-  }
-
-  v2 = 2;
-LABEL_11:
-  Hasher._combine(_:)(v2);
-}
-
-Swift::Int Player.InsertCommand.Location.hashValue.getter(uint64_t a1)
-{
-  Hasher.init(_seed:)();
-  if (a1 > 1)
-  {
-    if (a1 == 2)
-    {
-      v2 = 3;
-      goto LABEL_11;
-    }
-
-    if (a1 == 3)
-    {
-      v2 = 4;
-      goto LABEL_11;
-    }
-  }
-
-  else
-  {
-    if (!a1)
-    {
-      v2 = 0;
-      goto LABEL_11;
-    }
-
-    if (a1 == 1)
-    {
-      v2 = 2;
-LABEL_11:
-      Hasher._combine(_:)(v2);
-      return Hasher._finalize()();
-    }
-  }
-
-  Hasher._combine(_:)(1uLL);
-  NSObject.hash(into:)();
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance Player.InsertCommand.Location()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  if (v1 > 1)
-  {
-    if (v1 == 2)
-    {
-      v2 = 3;
-      goto LABEL_11;
-    }
-
-    if (v1 == 3)
-    {
-      v2 = 4;
-      goto LABEL_11;
-    }
-  }
-
-  else
-  {
-    if (!v1)
-    {
-      v2 = 0;
-      goto LABEL_11;
-    }
-
-    if (v1 == 1)
-    {
-      v2 = 2;
-LABEL_11:
-      Hasher._combine(_:)(v2);
-      return Hasher._finalize()();
-    }
-  }
-
-  Hasher._combine(_:)(1uLL);
-  NSObject.hash(into:)();
-  return Hasher._finalize()();
-}
-
-void protocol witness for Hashable.hash(into:) in conformance Player.InsertCommand.Location()
-{
-  v1 = *v0;
-  if (*v0 > 1)
-  {
-    if (v1 == 2)
-    {
-      v2 = 3;
-      goto LABEL_11;
-    }
-
-    if (v1 == 3)
-    {
-      v2 = 4;
-      goto LABEL_11;
-    }
-
-LABEL_8:
-    Hasher._combine(_:)(1uLL);
-    NSObject.hash(into:)();
-    return;
-  }
-
-  if (!v1)
-  {
-    v2 = 0;
-    goto LABEL_11;
-  }
-
-  if (v1 != 1)
-  {
-    goto LABEL_8;
-  }
-
-  v2 = 2;
-LABEL_11:
-  Hasher._combine(_:)(v2);
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Player.InsertCommand.Location()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  if (v1 > 1)
-  {
-    if (v1 == 2)
-    {
-      v2 = 3;
-      goto LABEL_11;
-    }
-
-    if (v1 == 3)
-    {
-      v2 = 4;
-      goto LABEL_11;
-    }
-  }
-
-  else
-  {
-    if (!v1)
-    {
-      v2 = 0;
-      goto LABEL_11;
-    }
-
-    if (v1 == 1)
-    {
-      v2 = 2;
-LABEL_11:
-      Hasher._combine(_:)(v2);
-      return Hasher._finalize()();
-    }
-  }
-
-  Hasher._combine(_:)(1uLL);
-  NSObject.hash(into:)();
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Player.InsertCommand.Location(uint64_t *a1, unint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  if (*a1 > 1)
-  {
-    if (v2 != 2)
-    {
-      if (v2 == 3)
-      {
-        return v3 == 3;
-      }
-
-LABEL_10:
-      if (v3 >= 4)
-      {
-        type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSObject);
-        return static NSObject.== infix(_:_:)() & 1;
-      }
-
-      return 0;
-    }
-
-    if (v3 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (v2)
-    {
-      if (v2 == 1)
-      {
-        return v3 == 1;
-      }
-
-      goto LABEL_10;
-    }
-
-    if (v3)
-    {
-      return 0;
-    }
-  }
-
-  return 1;
-}
-
-id Player.InsertCommand.request(from:)(void *a1, uint64_t a2, uint64_t a3)
-{
-  v5 = [a1 tracklist];
-  v6 = [v5 insertCommand];
-
-  if (a3 > 1)
-  {
-    if (a3 == 2)
-    {
-      if (v6)
-      {
-        v7 = [v6 insertAtEndOfUpNextWithPlaybackIntent:a2];
-        goto LABEL_17;
-      }
-
-      return 0;
-    }
-
-    if (a3 == 3)
-    {
-      if (v6)
-      {
-        v8 = [v6 insertAfterLastSection];
-        if (v8)
-        {
-          v9 = [v8 insertWithPlaybackIntent:a2];
-          swift_unknownObjectRelease();
-LABEL_18:
-          swift_unknownObjectRelease();
-          return v9;
-        }
-
-        swift_unknownObjectRelease();
-      }
-
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (!a3)
-    {
-      if (v6)
-      {
-        v7 = [v6 insertAfterPlayingItemWithPlaybackIntent:a2];
-        goto LABEL_17;
-      }
-
-      return 0;
-    }
-
-    if (a3 == 1)
-    {
-      if (v6)
-      {
-        v7 = [v6 insertAtEndOfTracklistWithPlaybackIntent:a2];
-LABEL_17:
-        v9 = v7;
-        goto LABEL_18;
-      }
-
-      return 0;
-    }
-  }
-
-  if (v6)
-  {
-    v7 = [v6 insertPlaybackIntent:a2 afterItem:a3];
-    goto LABEL_17;
-  }
-
-  return 0;
-}
-
-unint64_t Player.InsertCommand.description.getter(void *a1, void *a2)
-{
-  _StringGuts.grow(_:)(38);
-
-  v4 = a1;
-  v5 = [v4 description];
-  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v8 = v7;
-
-  v9._countAndFlagsBits = v6;
-  v9._object = v8;
-  String.append(_:)(v9);
-
-  v10._countAndFlagsBits = 0x697461636F6C202CLL;
-  v10._object = 0xEB000000003D6E6FLL;
-  String.append(_:)(v10);
-  outlined copy of Player.InsertCommand.Location(a2);
-  v11._countAndFlagsBits = String.init<A>(describing:)();
-  String.append(_:)(v11);
-
-  v12._countAndFlagsBits = 10537;
-  v12._object = 0xE200000000000000;
-  String.append(_:)(v12);
-  return 0xD000000000000015;
-}
-
-uint64_t static Player.InsertCommand.__derived_struct_equals(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSObject);
-  if ((static NSObject.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if (a2 > 1)
-  {
-    if (a2 == 2)
-    {
-      if (a4 != 2)
-      {
-        return 0;
-      }
+      static PlaylistCovers.expression8(_:_:_:)(a1, a2, a3, a4, a5, a7, a8);
     }
 
     else
     {
-      if (a2 != 3)
+      if (a6 == 4)
       {
-        return a4 >= 4 && (static NSObject.== infix(_:_:)() & 1) != 0;
+        static PlaylistCovers.expression5(_:_:_:)(a1, a2, a3, a4, a5, a7, a8);
+        goto LABEL_12;
       }
 
-      if (a4 != 3)
+      static PlaylistCovers.expression6(_:_:_:)(a1, a2, a3, a4, a5, a7, a8);
+    }
+
+LABEL_17:
+    v9 = v11;
+    v10 = &selRef_whiteColor;
+    goto LABEL_18;
+  }
+
+  if (a6 > 1u)
+  {
+    if (a6 == 2)
+    {
+      static PlaylistCovers.expression3(_:_:_:)(a1, a2, a3, a4, a5, a7, a8);
+      goto LABEL_12;
+    }
+
+    static PlaylistCovers.expression4(_:_:_:)(a1, a2, a3, a4, a5, a7, a8);
+    goto LABEL_17;
+  }
+
+  if (a6)
+  {
+    static PlaylistCovers.expression2(_:_:_:)(a1, a2, a3, a4, a5, a7, a8);
+    goto LABEL_17;
+  }
+
+  static PlaylistCovers.expression1(_:_:_:)(a1, a2, a3, a4, a5, a7, a8);
+LABEL_12:
+  v9 = v8;
+  v10 = &selRef_blackColor;
+LABEL_18:
+  v12 = [objc_opt_self() *v10];
+  return v9;
+}
+
+uint64_t PlaylistCovers.Expression.accessibilityLabel.getter(unsigned __int8 a1)
+{
+  type metadata accessor for Locale();
+  __chkstk_darwin();
+  v1 = type metadata accessor for String.LocalizationValue();
+  v2 = *(v1 - 8);
+  __chkstk_darwin();
+  v4 = &v10[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin();
+  v6 = &v10[-v5];
+  String.LocalizationValue.init(stringLiteral:)();
+  (*(v2 + 16))(v4, v6, v1);
+  if (one-time initialization token for module != -1)
+  {
+    swift_once();
+  }
+
+  v7 = static NSBundle.module;
+  static Locale.current.getter();
+  v8 = String.init(localized:table:bundle:locale:comment:)();
+  (*(v2 + 8))(v6, v1);
+  return v8;
+}
+
+uint64_t PlaylistCovers.Expression.accessibilityIdentifier.getter(unsigned __int8 a1)
+{
+  if (a1 > 3u)
+  {
+    if (a1 > 5u)
+    {
+      if (a1 == 6)
       {
-        return 0;
+        if (one-time initialization token for playlistEditorMetadataArtworkExpression7 != -1)
+        {
+          swift_once();
+        }
+
+        v1 = &static AccessibilityIdentifier.playlistEditorMetadataArtworkExpression7;
+      }
+
+      else
+      {
+        if (one-time initialization token for playlistEditorMetadataArtworkExpression8 != -1)
+        {
+          swift_once();
+        }
+
+        v1 = &static AccessibilityIdentifier.playlistEditorMetadataArtworkExpression8;
       }
     }
+
+    else if (a1 == 4)
+    {
+      if (one-time initialization token for playlistEditorMetadataArtworkExpression5 != -1)
+      {
+        swift_once();
+      }
+
+      v1 = &static AccessibilityIdentifier.playlistEditorMetadataArtworkExpression5;
+    }
+
+    else
+    {
+      if (one-time initialization token for playlistEditorMetadataArtworkExpression6 != -1)
+      {
+        swift_once();
+      }
+
+      v1 = &static AccessibilityIdentifier.playlistEditorMetadataArtworkExpression6;
+    }
+  }
+
+  else if (a1 > 1u)
+  {
+    if (a1 == 2)
+    {
+      if (one-time initialization token for playlistEditorMetadataArtworkExpression3 != -1)
+      {
+        swift_once();
+      }
+
+      v1 = &static AccessibilityIdentifier.playlistEditorMetadataArtworkExpression3;
+    }
+
+    else
+    {
+      if (one-time initialization token for playlistEditorMetadataArtworkExpression4 != -1)
+      {
+        swift_once();
+      }
+
+      v1 = &static AccessibilityIdentifier.playlistEditorMetadataArtworkExpression4;
+    }
+  }
+
+  else if (a1)
+  {
+    if (one-time initialization token for playlistEditorMetadataArtworkExpression2 != -1)
+    {
+      swift_once();
+    }
+
+    v1 = &static AccessibilityIdentifier.playlistEditorMetadataArtworkExpression2;
   }
 
   else
   {
-    if (a2)
+    if (one-time initialization token for playlistEditorMetadataArtworkExpression1 != -1)
     {
-      if (a2 == 1)
-      {
-        return a4 == 1;
-      }
-
-      return a4 >= 4 && (static NSObject.== infix(_:_:)() & 1) != 0;
+      swift_once();
     }
 
-    if (a4)
-    {
-      return 0;
-    }
+    v1 = &static AccessibilityIdentifier.playlistEditorMetadataArtworkExpression1;
   }
 
-  return 1;
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Player.InsertCommand(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSObject);
-  if ((static NSObject.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if (v2 > 1)
-  {
-    if (v2 != 2)
-    {
-      if (v2 == 3)
-      {
-        return v3 == 3;
-      }
-
-      return v3 >= 4 && (static NSObject.== infix(_:_:)() & 1) != 0;
-    }
-
-    if (v3 != 2)
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    if (v2)
-    {
-      if (v2 == 1)
-      {
-        return v3 == 1;
-      }
-
-      return v3 >= 4 && (static NSObject.== infix(_:_:)() & 1) != 0;
-    }
-
-    if (v3)
-    {
-      return 0;
-    }
-  }
-
-  return 1;
-}
-
-id Player.ClearCommand.request(from:)(void *a1, char a2)
-{
-  v3 = [a1 tracklist];
-  v4 = [v3 resetCommand];
-
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v5 = &selRef_clearUpNextItems;
-  if ((a2 & 1) == 0)
-  {
-    v5 = &selRef_clear;
-  }
-
-  v6 = [v4 *v5];
-  swift_unknownObjectRelease();
-  return v6;
-}
-
-id Player.ReplaceCommand.request(from:)(void *a1, uint64_t a2, uint64_t a3)
-{
-  v5 = [a1 tracklist];
-  v6 = [v5 resetCommand];
-
-  if (!v6)
-  {
-    return 0;
-  }
-
-  v7 = [v6 replaceWithPlaybackIntent:a2 replaceIntent:a3];
-  swift_unknownObjectRelease();
-  return v7;
-}
-
-unint64_t Player.ReplaceCommand.description.getter(void *a1)
-{
-  _StringGuts.grow(_:)(44);
-
-  v2 = a1;
-  v3 = [v2 description];
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-
-  v7._countAndFlagsBits = v4;
-  v7._object = v6;
-  String.append(_:)(v7);
-
-  v8._object = 0x80000001004CD370;
-  v8._countAndFlagsBits = 0xD000000000000010;
-  String.append(_:)(v8);
-  type metadata accessor for MPCPlayerTracklistReplaceIntent(0);
-  v9._countAndFlagsBits = String.init<A>(describing:)();
-  String.append(_:)(v9);
-
-  v10._countAndFlagsBits = 10537;
-  v10._object = 0xE200000000000000;
-  String.append(_:)(v10);
-  return 0xD000000000000016;
-}
-
-id protocol witness for Player._Command.request(from:) in conformance Player.ReplaceCommand(void *a1)
-{
   v2 = *v1;
-  v3 = v1[1];
-  v4 = [a1 tracklist];
-  v5 = [v4 resetCommand];
 
-  if (!v5)
-  {
-    return 0;
-  }
-
-  v6 = [v5 replaceWithPlaybackIntent:v2 replaceIntent:v3];
-  swift_unknownObjectRelease();
-  return v6;
+  return v2;
 }
 
-uint64_t static Player.MoveCommand.Location.__derived_enum_equals(_:_:)(uint64_t a1, char a2, uint64_t a3, char a4)
+id PlaylistCovers.Expression.textColor.getter(char a1)
 {
-  if (a2)
-  {
-    if ((a4 & 1) == 0)
-    {
-      return 0;
-    }
-  }
-
-  else if (a4)
-  {
-    return 0;
-  }
-
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSObject);
-  return static NSObject.== infix(_:_:)() & 1;
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Player.MoveCommand.Location(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 8))
-  {
-    if (!*(a2 + 8))
-    {
-      return 0;
-    }
-  }
-
-  else if (*(a2 + 8))
-  {
-    return 0;
-  }
-
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSObject);
-  return static NSObject.== infix(_:_:)() & 1;
-}
-
-id Player.MoveCommand.request(from:)(void *a1, uint64_t a2, void *a3, char a4)
-{
-  v7 = a3;
-  v8 = [a1 tracklist];
-  v9 = [v8 reorderCommand];
-
-  if ((a4 & 1) == 0)
-  {
-    if (v9)
-    {
-      v10 = [v9 moveItem:a2 beforeItem:v7];
-      goto LABEL_6;
-    }
-
-LABEL_7:
-
-    return 0;
-  }
-
-  if (!v9)
-  {
-    goto LABEL_7;
-  }
-
-  v10 = [v9 moveItem:a2 afterItem:v7];
-LABEL_6:
-  v11 = v10;
-  swift_unknownObjectRelease();
-
-  return v11;
-}
-
-BOOL static Player.LeaveSessionCommand.isAvailable(in:)(void *a1)
-{
-  v1 = [a1 leaveSession];
-  v2 = v1;
-  if (v1)
-  {
-  }
-
-  return v2 != 0;
-}
-
-id Player.LeaveSessionCommand.request(from:)(void *a1)
-{
-  v1 = [a1 leaveSession];
+  v1 = [objc_opt_self() *off_1005BB268[a1]];
 
   return v1;
 }
 
-uint64_t Player.BuildSharedSessionCommand.init(intentHandler:)()
+void static PlaylistCovers.expression1(_:_:_:)(void *a1, void *a2, void *a3, void *a4, uint64_t a5, double a6, double a7)
 {
-  v0 = objc_allocWithZone(ICLiveLinkIdentity);
-  v4[4] = CFRange.init(_:);
-  v4[5] = 0;
-  v4[0] = _NSConcreteStackBlock;
-  v4[1] = 1107296256;
-  v4[2] = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
-  v4[3] = &block_descriptor_32;
-  v1 = _Block_copy(v4);
-  v2 = [v0 initWithBlock:v1];
-  _Block_release(v1);
+  v13 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithSize:a5 format:{a6, a7}];
+  v14 = swift_allocObject();
+  *(v14 + 16) = a1;
+  *(v14 + 24) = a2;
+  *(v14 + 32) = a3;
+  *(v14 + 40) = a4;
+  *(v14 + 48) = a6;
+  *(v14 + 56) = a7;
+  v15 = swift_allocObject();
+  *(v15 + 16) = partial apply for closure #1 in static PlaylistCovers.expression1(_:_:_:);
+  *(v15 + 24) = v14;
+  v21[4] = _sSo22MPMutableIdentifierSet_So012MPIdentifierC0CXcIgg_SoAA_ACXcIegg_TRTA_0;
+  v21[5] = v15;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 1107296256;
+  v21[2] = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+  v21[3] = &block_descriptor_35;
+  v16 = _Block_copy(v21);
+  v17 = a1;
+  v18 = a2;
+  v19 = a3;
+  v20 = a4;
 
-  result = swift_isEscapingClosureAtFileLocation();
-  if ((result & 1) == 0)
+  [v13 imageWithActions:v16];
+
+  _Block_release(v16);
+  LOBYTE(v13) = swift_isEscapingClosureAtFileLocation();
+
+  if (v13)
   {
-    return v2;
+    __break(1u);
+  }
+}
+
+void static PlaylistCovers.expression2(_:_:_:)(void *a1, void *a2, void *a3, void *a4, uint64_t a5, double a6, double a7)
+{
+  v13 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithSize:a5 format:{a6, a7}];
+  v14 = swift_allocObject();
+  *(v14 + 16) = a1;
+  *(v14 + 24) = a2;
+  *(v14 + 32) = a3;
+  *(v14 + 40) = a4;
+  *(v14 + 48) = a6;
+  *(v14 + 56) = a7;
+  *(v14 + 64) = v13;
+  v15 = swift_allocObject();
+  *(v15 + 16) = partial apply for closure #1 in static PlaylistCovers.expression2(_:_:_:);
+  *(v15 + 24) = v14;
+  v22[4] = thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ()partial apply;
+  v22[5] = v15;
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 1107296256;
+  v22[2] = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+  v22[3] = &block_descriptor_34_0;
+  v16 = _Block_copy(v22);
+  v17 = a1;
+  v18 = a2;
+  v19 = a3;
+  v20 = a4;
+  v21 = v13;
+
+  [v21 imageWithActions:v16];
+
+  _Block_release(v16);
+  LOBYTE(v21) = swift_isEscapingClosureAtFileLocation();
+
+  if (v21)
+  {
+    __break(1u);
+  }
+}
+
+void static PlaylistCovers.expression3(_:_:_:)(void *a1, void *a2, void *a3, void *a4, uint64_t a5, double a6, double a7)
+{
+  v13 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithSize:a5 format:{a6, a7}];
+  v14 = swift_allocObject();
+  *(v14 + 16) = a1;
+  *(v14 + 24) = a2;
+  *(v14 + 32) = a3;
+  *(v14 + 40) = a4;
+  *(v14 + 48) = a6;
+  *(v14 + 56) = a7;
+  v15 = swift_allocObject();
+  *(v15 + 16) = partial apply for closure #1 in static PlaylistCovers.expression3(_:_:_:);
+  *(v15 + 24) = v14;
+  v21[4] = thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ()partial apply;
+  v21[5] = v15;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 1107296256;
+  v21[2] = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+  v21[3] = &block_descriptor_57;
+  v16 = _Block_copy(v21);
+  v17 = a1;
+  v18 = a2;
+  v19 = a3;
+  v20 = a4;
+
+  [v13 imageWithActions:v16];
+
+  _Block_release(v16);
+  LOBYTE(v13) = swift_isEscapingClosureAtFileLocation();
+
+  if (v13)
+  {
+    __break(1u);
+  }
+}
+
+void static PlaylistCovers.expression4(_:_:_:)(void *a1, void *a2, void *a3, void *a4, uint64_t a5, double a6, double a7)
+{
+  v13 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithSize:a5 format:{a6, a7}];
+  v14 = swift_allocObject();
+  *(v14 + 16) = a1;
+  *(v14 + 24) = a2;
+  *(v14 + 32) = a3;
+  *(v14 + 40) = a4;
+  *(v14 + 48) = a6;
+  *(v14 + 56) = a7;
+  v15 = swift_allocObject();
+  *(v15 + 16) = partial apply for closure #1 in static PlaylistCovers.expression4(_:_:_:);
+  *(v15 + 24) = v14;
+  v21[4] = thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ()partial apply;
+  v21[5] = v15;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 1107296256;
+  v21[2] = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+  v21[3] = &block_descriptor_70_0;
+  v16 = _Block_copy(v21);
+  v17 = a1;
+  v18 = a2;
+  v19 = a3;
+  v20 = a4;
+
+  [v13 imageWithActions:v16];
+
+  _Block_release(v16);
+  LOBYTE(v13) = swift_isEscapingClosureAtFileLocation();
+
+  if (v13)
+  {
+    __break(1u);
+  }
+}
+
+void static PlaylistCovers.expression5(_:_:_:)(void *a1, void *a2, void *a3, void *a4, uint64_t a5, double a6, double a7)
+{
+  v13 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithSize:a5 format:{a6, a7}];
+  v14 = swift_allocObject();
+  *(v14 + 16) = a1;
+  *(v14 + 24) = a2;
+  *(v14 + 32) = a3;
+  *(v14 + 40) = a4;
+  *(v14 + 48) = a6;
+  *(v14 + 56) = a7;
+  v15 = swift_allocObject();
+  *(v15 + 16) = partial apply for closure #1 in static PlaylistCovers.expression5(_:_:_:);
+  *(v15 + 24) = v14;
+  v21[4] = thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ()partial apply;
+  v21[5] = v15;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 1107296256;
+  v21[2] = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+  v21[3] = &block_descriptor_92;
+  v16 = _Block_copy(v21);
+  v17 = a1;
+  v18 = a2;
+  v19 = a3;
+  v20 = a4;
+
+  [v13 imageWithActions:v16];
+
+  _Block_release(v16);
+  LOBYTE(v13) = swift_isEscapingClosureAtFileLocation();
+
+  if (v13)
+  {
+    __break(1u);
+  }
+}
+
+void static PlaylistCovers.expression6(_:_:_:)(void *a1, void *a2, void *a3, void *a4, uint64_t a5, double a6, double a7)
+{
+  v13 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithSize:a5 format:{a6, a7}];
+  v14 = swift_allocObject();
+  *(v14 + 16) = a1;
+  *(v14 + 24) = a2;
+  *(v14 + 32) = a3;
+  *(v14 + 40) = a4;
+  *(v14 + 48) = a6;
+  *(v14 + 56) = a7;
+  v15 = swift_allocObject();
+  *(v15 + 16) = partial apply for closure #1 in static PlaylistCovers.expression6(_:_:_:);
+  *(v15 + 24) = v14;
+  v21[4] = thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ()partial apply;
+  v21[5] = v15;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 1107296256;
+  v21[2] = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+  v21[3] = &block_descriptor_104;
+  v16 = _Block_copy(v21);
+  v17 = a1;
+  v18 = a2;
+  v19 = a3;
+  v20 = a4;
+
+  [v13 imageWithActions:v16];
+
+  _Block_release(v16);
+  LOBYTE(v13) = swift_isEscapingClosureAtFileLocation();
+
+  if (v13)
+  {
+    __break(1u);
+  }
+}
+
+void static PlaylistCovers.expression8(_:_:_:)(void *a1, void *a2, void *a3, void *a4, uint64_t a5, double a6, double a7)
+{
+  v14 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithSize:a5 format:{a6, a7}];
+  v15 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithSize:a5 format:{a6 * 1.1, a7 * 1.1}];
+  v16 = swift_allocObject();
+  *(v16 + 16) = a1;
+  *(v16 + 24) = a2;
+  *(v16 + 32) = a3;
+  *(v16 + 40) = a4;
+  *(v16 + 48) = a6 * 1.1;
+  *(v16 + 56) = a7 * 1.1;
+  v17 = swift_allocObject();
+  *(v17 + 16) = partial apply for closure #1 in static PlaylistCovers.expression8(_:_:_:);
+  *(v17 + 24) = v16;
+  v52 = thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ()partial apply;
+  v53 = v17;
+  aBlock = _NSConcreteStackBlock;
+  v49 = 1107296256;
+  v50 = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+  v51 = &block_descriptor_140;
+  v18 = _Block_copy(&aBlock);
+  v19 = a1;
+  v20 = a2;
+  v21 = a3;
+  v22 = a4;
+
+  v23 = [v15 imageWithActions:v18];
+  _Block_release(v18);
+  LOBYTE(v18) = swift_isEscapingClosureAtFileLocation();
+
+  if (v18)
+  {
+    __break(1u);
+    goto LABEL_8;
   }
 
+  v46 = v21;
+  v47 = v15;
+  [v23 scale];
+  v25 = v24;
+  [v23 scale];
+  v27 = v26;
+  v28 = [v23 CGImage];
+  if (!v28)
+  {
+LABEL_10:
+    __break(1u);
+    goto LABEL_11;
+  }
+
+  v29 = v28;
+  v30 = v14;
+  v55.size.height = v27 * a7;
+  v55.origin.y = v27 * a7 * 0.05;
+  v55.size.width = v25 * a6;
+  v55.origin.x = v25 * a6 * 0.05;
+  v31 = CGImageCreateWithImageInRect(v28, v55);
+
+  if (v31)
+  {
+    v32 = [objc_allocWithZone(UIImage) initWithCGImage:v31];
+
+    v54 = v32;
+    v33 = swift_allocObject();
+    *(v33 + 16) = a6;
+    *(v33 + 24) = a7;
+    v34 = swift_allocObject();
+    *(v34 + 16) = partial apply for closure #2 in static PlaylistCovers.expression8(_:_:_:);
+    *(v34 + 24) = v33;
+    v52 = thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ()partial apply;
+    v53 = v34;
+    aBlock = _NSConcreteStackBlock;
+    v49 = 1107296256;
+    v50 = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+    v51 = &block_descriptor_150;
+    v35 = _Block_copy(&aBlock);
+
+    v36 = [v14 imageWithActions:v35];
+    _Block_release(v35);
+    LOBYTE(v35) = swift_isEscapingClosureAtFileLocation();
+
+    if ((v35 & 1) == 0)
+    {
+      v37 = swift_allocObject();
+      *(v37 + 16) = v19;
+      *(v37 + 24) = v20;
+      *(v37 + 32) = v46;
+      *(v37 + 40) = v22;
+      *(v37 + 48) = 0;
+      *(v37 + 56) = 0;
+      *(v37 + 64) = a6;
+      *(v37 + 72) = a7;
+      *(v37 + 80) = v36;
+      *(v37 + 88) = &v54;
+      v38 = swift_allocObject();
+      *(v38 + 16) = partial apply for closure #3 in static PlaylistCovers.expression8(_:_:_:);
+      *(v38 + 24) = v37;
+      v52 = thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ()partial apply;
+      v53 = v38;
+      aBlock = _NSConcreteStackBlock;
+      v49 = 1107296256;
+      v50 = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+      v51 = &block_descriptor_160_0;
+      v39 = _Block_copy(&aBlock);
+      v40 = v19;
+      v41 = v20;
+      v42 = v46;
+      v43 = v22;
+      v44 = v36;
+
+      [v30 imageWithActions:v39];
+
+      _Block_release(v39);
+      LOBYTE(v39) = swift_isEscapingClosureAtFileLocation();
+
+      if ((v39 & 1) == 0)
+      {
+        v45 = v54;
+
+        return;
+      }
+
+      goto LABEL_9;
+    }
+
+LABEL_8:
+    __break(1u);
+LABEL_9:
+    __break(1u);
+    goto LABEL_10;
+  }
+
+LABEL_11:
   __break(1u);
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance PlaylistCovers.Expression()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(v1 + 1);
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PlaylistCovers.Expression(uint64_t a1)
+{
+  v2 = *v1;
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(v2 + 1);
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance PlaylistCovers.Expression@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+{
+  result = specialized PlaylistCovers.Expression.init(rawValue:)(*a1);
+  *a2 = result;
   return result;
 }
 
-BOOL static Player.BuildSharedSessionCommand.isAvailable(in:)(void *a1)
+uint64_t static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7, double a8)
 {
-  v1 = [a1 tracklist];
-  v2 = [v1 playingItem];
+  *(v8 + 72) = a5;
+  *(v8 + 80) = a6;
+  *(v8 + 56) = a3;
+  *(v8 + 64) = a4;
+  *(v8 + 40) = a1;
+  *(v8 + 48) = a2;
+  *(v8 + 24) = a7;
+  *(v8 + 32) = a8;
+  return _swift_task_switch(static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:), 0, 0);
+}
 
+uint64_t static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:)()
+{
+  v1 = *(v0 + 80);
+  v2 = *(v0 + 40);
+  v4 = *(v0 + 24);
+  v3 = *(v0 + 32);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColorttMd, &_s9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColorttMR);
+  v6 = swift_task_alloc();
+  *(v0 + 88) = v6;
+  v7 = *(v0 + 48);
+  v8 = *(v0 + 64);
+  *(v6 + 16) = v2;
+  *(v6 + 24) = v4;
+  *(v6 + 32) = v3;
+  *(v6 + 40) = v7;
+  *(v6 + 56) = v8;
+  *(v6 + 72) = v1;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9MusicCore14PlaylistCoversO5CoverV14RepresentationVGMd, &_sSay9MusicCore14PlaylistCoversO5CoverV14RepresentationVGMR);
+  v10 = swift_task_alloc();
+  *(v0 + 96) = v10;
+  *v10 = v0;
+  v10[1] = static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:);
+
+  return withTaskGroup<A, B>(of:returning:isolation:body:)(v0 + 16, v5, v9, 0, 0, &async function pointer to partial apply for closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:), v6, v5);
+}
+
+{
+
+  return _swift_task_switch(static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:), 0, 0);
+}
+
+{
+  return (*(v0 + 8))(*(v0 + 16));
+}
+
+uint64_t closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10)
+{
+  *(v10 + 168) = a7;
+  *(v10 + 176) = a8;
+  *(v10 + 152) = a5;
+  *(v10 + 160) = a6;
+  *(v10 + 144) = a4;
+  *(v10 + 128) = a9;
+  *(v10 + 136) = a10;
+  *(v10 + 112) = a2;
+  *(v10 + 120) = a3;
+  *(v10 + 104) = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_0, &_sScPSgMR_0);
+  *(v10 + 184) = swift_task_alloc();
+  *(v10 + 192) = swift_task_alloc();
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScG8IteratorVy9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColortt_GMd, &_sScG8IteratorVy9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColortt_GMR);
+  *(v10 + 200) = v11;
+  *(v10 + 208) = *(v11 - 8);
+  *(v10 + 216) = swift_task_alloc();
+
+  return _swift_task_switch(closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:), 0, 0);
+}
+
+uint64_t closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:)()
+{
+  v1 = *(v0 + 120);
+  v2 = *(v1 + 16);
   if (v2)
   {
-  }
-
-  return v2 != 0;
-}
-
-id Player.BuildSharedSessionCommand.request(from:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v9[4] = a3;
-  v9[5] = a4;
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 1107296256;
-  v9[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed MPAVRoute?) -> ();
-  v9[3] = &block_descriptor_8;
-  v6 = _Block_copy(v9);
-
-  v7 = [a1 createSharedSessionWithIdentity:a2 intentHandler:v6];
-  _Block_release(v6);
-  return v7;
-}
-
-id protocol witness for Player._Command.request(from:) in conformance Player.BuildSharedSessionCommand(void *a1)
-{
-  v4 = *v1;
-  v3 = v1[1];
-  v5 = v1[2];
-  v9[4] = v3;
-  v9[5] = v5;
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 1107296256;
-  v9[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed MPAVRoute?) -> ();
-  v9[3] = &block_descriptor_126;
-  v6 = _Block_copy(v9);
-
-  v7 = [a1 createSharedSessionWithIdentity:v4 intentHandler:v6];
-  _Block_release(v6);
-  return v7;
-}
-
-id Player.SeekCommand.request(from:)(void *a1, uint64_t a2, char a3)
-{
-  v5 = [a1 tracklist];
-  v6 = [v5 playingItem];
-
-  if (!v6)
-  {
-    return 0;
-  }
-
-  v7 = [v6 seekCommand];
-
-  if (!v7)
-  {
-    return 0;
-  }
-
-  if (a3)
-  {
-    if (a3 == 1)
+    v39 = **(v0 + 112);
+    v3 = (v1 + 32);
+    v38 = type metadata accessor for TaskPriority();
+    v4 = *(v38 - 8);
+    v37 = *(v4 + 56);
+    v36 = (v4 + 48);
+    v35 = (v4 + 8);
+    do
     {
-      v8 = [v7 changePositionToElapsedInterval:*&a2];
+      v40 = v2;
+      v6 = *(v0 + 168);
+      v5 = *(v0 + 176);
+      v7 = *(v0 + 152);
+      v8 = *(v0 + 160);
+      v9 = *(v0 + 144);
+      v11 = *(v0 + 128);
+      v10 = *(v0 + 136);
+      v12 = v3 + 1;
+      v13 = *v3;
+      v41 = v12;
+      v37(*(v0 + 192), 1, 1, v38);
+      v14 = swift_allocObject();
+      *(v14 + 16) = 0;
+      *(v14 + 24) = 0;
+      *(v14 + 32) = v13;
+      *(v14 + 40) = v11;
+      *(v14 + 48) = v10;
+      *(v14 + 56) = v9;
+      *(v14 + 64) = v7;
+      *(v14 + 72) = v8;
+      *(v14 + 80) = v6;
+      *(v14 + 88) = v5;
+      v15 = v9;
+      v16 = v7;
+      v17 = v8;
+      v18 = v6;
+      v19 = v5;
+      v20 = swift_taskGroup_addPending();
+      v21 = *(v0 + 192);
+      if (v20)
+      {
+        v22 = *(v0 + 184);
+        outlined init with copy of TaskPriority?(v21, v22);
+        v23 = (*v36)(v22, 1, v38);
+        v24 = *(v0 + 184);
+        if (v23 == 1)
+        {
+          outlined destroy of TaskPriority?(*(v0 + 184));
+        }
+
+        else
+        {
+          TaskPriority.rawValue.getter();
+          (*v35)(v24, v38);
+        }
+
+        v3 = v41;
+        if (*(v14 + 16))
+        {
+          swift_getObjectType();
+          swift_unknownObjectRetain();
+          v25 = dispatch thunk of Actor.unownedExecutor.getter();
+          v27 = v26;
+          swift_unknownObjectRelease();
+        }
+
+        else
+        {
+          v25 = 0;
+          v27 = 0;
+        }
+
+        v28 = swift_allocObject();
+        *(v28 + 16) = &async function pointer to partial apply for closure #1 in closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:);
+        *(v28 + 24) = v14;
+
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColorttMd, &_s9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColorttMR);
+        v29 = v27 | v25;
+        if (v27 | v25)
+        {
+          v29 = v0 + 16;
+          *(v0 + 16) = 0;
+          *(v0 + 24) = 0;
+          *(v0 + 32) = v25;
+          *(v0 + 40) = v27;
+        }
+
+        v30 = *(v0 + 192);
+        *(v0 + 72) = 1;
+        *(v0 + 80) = v29;
+        *(v0 + 88) = v39;
+        swift_task_create();
+
+        outlined destroy of TaskPriority?(v30);
+      }
+
+      else
+      {
+        outlined destroy of TaskPriority?(v21);
+
+        v3 = v41;
+      }
+
+      v2 = v40 - 1;
+    }
+
+    while (v40 != 1);
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColorttMd, &_s9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColorttMR);
+  TaskGroup.makeAsyncIterator()();
+  *(v0 + 224) = _swiftEmptyDictionarySingleton;
+  v31 = lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type TaskGroup<(PlaylistCovers.Expression, (image: UIImage, textColor: UIColor))>.Iterator and conformance TaskGroup<A>.Iterator, &_sScG8IteratorVy9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColortt_GMd, &_sScG8IteratorVy9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColortt_GMR, &protocol conformance descriptor for TaskGroup<A>.Iterator);
+  v32 = swift_task_alloc();
+  *(v0 + 232) = v32;
+  *v32 = v0;
+  v32[1] = closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:);
+  v33 = *(v0 + 200);
+
+  return dispatch thunk of AsyncIteratorProtocol.next()(v0 + 48, v33, v31);
+}
+
+{
+  v2 = *v1;
+
+  if (v0)
+  {
+    v3 = *(v2 + 216);
+    v6 = v2 + 200;
+    v4 = *(v2 + 200);
+    v5 = *(v6 + 8);
+
+    (*(v5 + 8))(v3, v4);
+
+    v7 = CFRange.init(_:);
+  }
+
+  else
+  {
+    v7 = closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:);
+  }
+
+  return _swift_task_switch(v7, 0, 0);
+}
+
+{
+  v1 = *(v0 + 56);
+  v2 = *(v0 + 224);
+  if (v1)
+  {
+    v3 = *(v0 + 160);
+    v4 = *(v0 + 168);
+    v6 = *(v0 + 144);
+    v5 = *(v0 + 152);
+    v7 = *(v0 + 64);
+    v8 = *(v0 + 48);
+    v9 = v1;
+    v10 = v7;
+    v11 = v9;
+    v12 = v10;
+    v13 = v6;
+    v14 = v5;
+    v15 = v3;
+    v16 = v4;
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    *(v0 + 96) = v2;
+    v18 = specialized __RawDictionaryStorage.find<A>(_:)(v8);
+    v20 = *(v2 + 16);
+    v21 = (v19 & 1) == 0;
+    v22 = __OFADD__(v20, v21);
+    v23 = v20 + v21;
+    if (v22)
+    {
+      __break(1u);
     }
 
     else
     {
-      v8 = [v7 endSeek];
-    }
-  }
-
-  else
-  {
-    v8 = [v7 beginSeekWithDirection:a2];
-  }
-
-  v10 = v8;
-  swift_unknownObjectRelease();
-  return v10;
-}
-
-void Player.JumpCommand.resolvedTimeInterval(for:)(void *a1, uint64_t a2, unsigned __int8 a3)
-{
-  if (a1)
-  {
-    v5 = [a1 tracklist];
-    v6 = [v5 playingItem];
-
-    v7 = [v6 seekCommand];
-    v8 = a3;
-    if (!a3)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  else
-  {
-    v7 = 0;
-    v8 = a3;
-    if (!a3)
-    {
-LABEL_6:
-      swift_unknownObjectRelease();
-      return;
-    }
-  }
-
-  if (v8 == 1)
-  {
-    goto LABEL_6;
-  }
-
-  if (a2)
-  {
-    if (v7)
-    {
-      v9 = [v7 preferredForwardJumpIntervals];
-      type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSNumber);
-      v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-
-      if (v10 >> 62)
+      LOBYTE(v3) = v19;
+      if (*(*(v0 + 224) + 24) < v23)
       {
-        if (!_CocoaArrayWrapper.endIndex.getter())
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v23, isUniquelyReferenced_nonNull_native);
+        v18 = specialized __RawDictionaryStorage.find<A>(_:)(v8);
+        if ((v3 & 1) != (v24 & 1))
         {
-          goto LABEL_27;
+
+          return KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
         }
 
-        goto LABEL_12;
+LABEL_21:
+        v46 = *(v0 + 96);
+        v48 = *(v0 + 160);
+        v47 = *(v0 + 168);
+        v50 = *(v0 + 144);
+        v49 = *(v0 + 152);
+        if (v3)
+        {
+          v51 = v46[7] + 56 * v18;
+          v52 = *(v51 + 8);
+          v53 = *(v51 + 16);
+          v54 = *(v51 + 24);
+          v55 = *(v51 + 32);
+          v56 = *(v51 + 40);
+          v57 = *(v51 + 48);
+          *v51 = v8;
+          *(v51 + 8) = v11;
+          *(v51 + 16) = v50;
+          *(v51 + 24) = v49;
+          *(v51 + 32) = v48;
+          *(v51 + 40) = v47;
+          *(v51 + 48) = v12;
+        }
+
+        else
+        {
+          v46[(v18 >> 6) + 8] |= 1 << v18;
+          *(v46[6] + v18) = v8;
+          v58 = v46[7] + 56 * v18;
+          *v58 = v8;
+          *(v58 + 8) = v11;
+          *(v58 + 16) = v50;
+          *(v58 + 24) = v49;
+          *(v58 + 32) = v48;
+          *(v58 + 40) = v47;
+          *(v58 + 48) = v12;
+
+          v62 = v46[2];
+          v22 = __OFADD__(v62, 1);
+          v63 = v62 + 1;
+          if (v22)
+          {
+            __break(1u);
+            return dispatch thunk of AsyncIteratorProtocol.next()(v59, v60, v61);
+          }
+
+          v46[2] = v63;
+        }
+
+        *(v0 + 224) = v46;
+        v64 = lazy protocol witness table accessor for type Publishers.Autoconnect<NSTimer.TimerPublisher> and conformance Publishers.Autoconnect<A>(&lazy protocol witness table cache variable for type TaskGroup<(PlaylistCovers.Expression, (image: UIImage, textColor: UIColor))>.Iterator and conformance TaskGroup<A>.Iterator, &_sScG8IteratorVy9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColortt_GMd, &_sScG8IteratorVy9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColortt_GMR, &protocol conformance descriptor for TaskGroup<A>.Iterator);
+        v65 = swift_task_alloc();
+        *(v0 + 232) = v65;
+        *v65 = v0;
+        v65[1] = closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:);
+        v60 = *(v0 + 200);
+        v59 = v0 + 48;
+        v61 = v64;
+
+        return dispatch thunk of AsyncIteratorProtocol.next()(v59, v60, v61);
       }
 
-      if (*((v10 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      if (isUniquelyReferenced_nonNull_native)
       {
-LABEL_12:
-        if ((v10 & 0xC000000000000001) != 0)
+        goto LABEL_21;
+      }
+    }
+
+    v66 = v18;
+    specialized _NativeDictionary.copy()();
+    v18 = v66;
+    goto LABEL_21;
+  }
+
+  (*(*(v0 + 208) + 8))(*(v0 + 216), *(v0 + 200));
+  v26 = 0;
+  v27 = _swiftEmptyArrayStorage;
+  v67 = v0;
+  do
+  {
+    if (*(v2 + 16))
+    {
+      v29 = specialized __RawDictionaryStorage.find<A>(_:)(*(&outlined read-only object #0 of static PlaylistCovers.Expression.allCases.getter + v26 + 32));
+      if (v30)
+      {
+        v31 = *(v2 + 56) + 56 * v29;
+        v69 = *v31;
+        v32 = *(v31 + 16);
+        v33 = *(v31 + 24);
+        v34 = *(v31 + 32);
+        v35 = *(v31 + 40);
+        v36 = *(v31 + 48);
+        v68 = *(v31 + 8);
+        v37 = v32;
+        v38 = v33;
+        v39 = v34;
+        v40 = v35;
+        v41 = v36;
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          goto LABEL_28;
+          v27 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v27 + 2) + 1, 1, v27);
         }
 
-        if (*((v10 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        v43 = *(v27 + 2);
+        v42 = *(v27 + 3);
+        if (v43 >= v42 >> 1)
         {
-LABEL_20:
-          v12 = *(v10 + 32);
-LABEL_21:
-          v13 = v12;
+          v27 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v42 > 1), v43 + 1, 1, v27);
+        }
 
-          static Double._conditionallyBridgeFromObjectiveC(_:result:)();
-          swift_unknownObjectRelease();
+        *(v27 + 2) = v43 + 1;
+        v28 = &v27[56 * v43];
+        v28[32] = v69;
+        v0 = v67;
+        *(v28 + 5) = v68;
+        *(v28 + 6) = v37;
+        *(v28 + 7) = v38;
+        *(v28 + 8) = v39;
+        *(v28 + 9) = v40;
+        *(v28 + 10) = v41;
+      }
+    }
 
-          return;
+    ++v26;
+  }
+
+  while (v26 != 8);
+  v44 = *(v0 + 104);
+
+  *v44 = v27;
+
+  v45 = *(v0 + 8);
+
+  return v45();
+}
+
+uint64_t closure #1 in closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:)(uint64_t a1, double a2, double a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  *(v10 + 64) = a10;
+  *(v10 + 72) = v12;
+  *(v10 + 48) = a8;
+  *(v10 + 56) = a9;
+  *(v10 + 40) = a7;
+  *(v10 + 24) = a2;
+  *(v10 + 32) = a3;
+  *(v10 + 80) = a6;
+  *(v10 + 16) = a1;
+  return _swift_task_switch(closure #1 in closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:), 0, 0);
+}
+
+uint64_t closure #1 in closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:)()
+{
+  v1 = *(v0 + 64);
+  v2 = *(v0 + 72);
+  v3 = *(v0 + 48);
+  v4 = *(v0 + 56);
+  v5 = *(v0 + 40);
+  v6 = *(v0 + 24);
+  v7 = *(v0 + 32);
+  v8 = *(v0 + 16);
+  v9 = *(v0 + 80);
+  *v8 = v9;
+  *(v8 + 8) = PlaylistCovers.Expression.generate(size:colors:graphicsFormat:)(v5, v3, v4, v1, v2, v9, v6, v7);
+  *(v8 + 16) = v10;
+  v11 = *(v0 + 8);
+
+  return v11();
+}
+
+CGColorSpaceRef one-time initialization function for colorsSpace()
+{
+  result = CGColorSpaceCreateDeviceRGB();
+  static PlaylistCovers.colorsSpace = result;
+  return result;
+}
+
+void closure #1 in static PlaylistCovers.expression1(_:_:_:)(void *a1, void *a2, void *a3, CGFloat a4, CGFloat a5, uint64_t a6, void *a7)
+{
+  v13 = [a1 CGContext];
+  v14 = [a2 CGColor];
+  CGContextSetFillColorWithColor(v13, v14);
+
+  [a1 fillRect:{0.0, 0.0, a4, a5}];
+  if (one-time initialization token for colorsSpace != -1)
+  {
+    swift_once();
+  }
+
+  v15 = static PlaylistCovers.colorsSpace;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v16 = swift_allocObject();
+  *(v16 + 16) = xmmword_1004F2FF0;
+  *(v16 + 32) = [a2 CGColor];
+  *(v16 + 40) = [a7 CGColor];
+  type metadata accessor for CGColorRef(0);
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v18 = CGGradientCreateWithColors(v15, isa, dbl_1005A63D0);
+
+  if (v18)
+  {
+    v19 = [a1 CGContext];
+    v49.x = 0.0;
+    v49.y = 0.0;
+    v54.x = a4;
+    v54.y = a5;
+    CGContextDrawLinearGradient(v19, v18, v49, v54, 0);
+  }
+
+  v20 = swift_allocObject();
+  *(v20 + 16) = xmmword_1004F2F80;
+  *(v20 + 32) = [a7 CGColor];
+  *(v20 + 40) = [a7 CGColor];
+  v21 = [a7 colorWithAlphaComponent:0.0];
+  v22 = [v21 CGColor];
+
+  *(v20 + 48) = v22;
+  v23 = Array._bridgeToObjectiveC()().super.isa;
+
+  v24 = CGGradientCreateWithColors(v15, v23, dbl_1005A6400);
+
+  if (v24)
+  {
+    v25 = [a1 CGContext];
+    v50.x = a4;
+    v50.y = a5;
+    v55.x = a4;
+    v55.y = a5;
+    CGContextDrawRadialGradient(v25, v24, v50, 0.0, v55, a4, 0);
+  }
+
+  v26 = swift_allocObject();
+  *(v26 + 16) = xmmword_1004F2F80;
+  *(v26 + 32) = [a3 CGColor];
+  v27 = [a3 colorWithAlphaComponent:0.0];
+  v28 = [v27 CGColor];
+
+  *(v26 + 40) = v28;
+  v29 = [a3 colorWithAlphaComponent:0.0];
+  v30 = [v29 CGColor];
+
+  *(v26 + 48) = v30;
+  v31 = Array._bridgeToObjectiveC()().super.isa;
+
+  v32 = CGGradientCreateWithColors(v15, v31, dbl_1005A6438);
+
+  if (v32)
+  {
+    v33 = [a1 CGContext];
+    v51.x = 0.0;
+    v56.x = 0.0;
+    v51.y = a5;
+    v56.y = a5;
+    CGContextDrawRadialGradient(v33, v32, v51, 0.0, v56, a4, 0);
+  }
+
+  v34 = swift_allocObject();
+  *(v34 + 16) = xmmword_1004F2F80;
+  *(v34 + 32) = [a3 CGColor];
+  v35 = [a3 colorWithAlphaComponent:0.0];
+  v36 = [v35 CGColor];
+
+  *(v34 + 40) = v36;
+  v37 = [a3 colorWithAlphaComponent:0.0];
+  v38 = [v37 CGColor];
+
+  *(v34 + 48) = v38;
+  v39 = Array._bridgeToObjectiveC()().super.isa;
+
+  v40 = CGGradientCreateWithColors(v15, v39, dbl_1005A6470);
+
+  if (v40)
+  {
+    v41 = [a1 CGContext];
+    v52.y = 0.0;
+    v57.y = 0.0;
+    v52.x = a4;
+    v57.x = a4;
+    CGContextDrawRadialGradient(v41, v40, v52, 0.0, v57, a4, 0);
+  }
+
+  v42 = swift_allocObject();
+  *(v42 + 16) = xmmword_1004F2FF0;
+  *(v42 + 32) = [a2 CGColor];
+  v43 = [a2 colorWithAlphaComponent:0.0];
+  v44 = [v43 CGColor];
+
+  *(v42 + 40) = v44;
+  v45 = Array._bridgeToObjectiveC()().super.isa;
+
+  v46 = CGGradientCreateWithColors(v15, v45, dbl_1005A64A8);
+
+  if (v46)
+  {
+    v47 = [a1 CGContext];
+    v53.x = 0.0;
+    v53.y = 0.0;
+    v58.x = 0.0;
+    v58.y = 0.0;
+    CGContextDrawRadialGradient(v47, v46, v53, 0.0, v58, a4, 0);
+  }
+}
+
+void closure #1 in static PlaylistCovers.expression2(_:_:_:)(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, CGFloat a7, CGFloat a8)
+{
+  v121 = a6;
+  v119 = a3;
+  v127 = type metadata accessor for CGPathFillRule();
+  v129 = *(v127 - 8);
+  *&v14 = __chkstk_darwin().n128_u64[0];
+  v16 = &v109 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v118 = a2;
+  v17 = [a2 CGColor];
+  v120 = a4;
+  v18 = [a4 CGColor];
+  v122 = a5;
+  v19 = [a5 CGColor];
+  if (one-time initialization token for colorsSpace != -1)
+  {
+    swift_once();
+  }
+
+  v20 = static PlaylistCovers.colorsSpace;
+  v126 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v21 = swift_allocObject();
+  *(v21 + 16) = xmmword_1004F3040;
+  *(v21 + 32) = v19;
+  *(v21 + 40) = v19;
+  *(v21 + 48) = v17;
+  *(v21 + 56) = v17;
+  type metadata accessor for CGColorRef(0);
+  v23 = v22;
+  v24 = v19;
+  v25 = v17;
+  v26 = v24;
+  v27 = v25;
+  v123 = v23;
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v124 = v20;
+  v29 = CGGradientCreateWithColors(v20, isa, dbl_1005A64D8);
+
+  if (v29)
+  {
+    v30 = [a1 CGContext];
+    v134.x = 0.0;
+    v134.y = 0.0;
+    v137.x = a7;
+    v137.y = a8;
+    CGContextDrawLinearGradient(v30, v29, v134, v137, 0);
+  }
+
+  v31 = [a1 CGContext];
+  CGContextSaveGState(v31);
+
+  v32 = a7 * -0.235;
+  v33 = a7 * 1.47;
+  v139.origin.x = a7 * -0.235;
+  v139.origin.y = a8 * 0.15;
+  v139.size.width = a7 * 1.47;
+  v139.size.height = a8 * 0.7;
+  v34 = -CGRectGetMidX(v139);
+  v140.origin.x = a7 * -0.235;
+  v140.origin.y = a8 * 0.15;
+  v140.size.width = a7 * 1.47;
+  v140.size.height = a8 * 0.7;
+  MidY = CGRectGetMidY(v140);
+  CGAffineTransformMakeTranslation(&t1, v34, -MidY);
+  tx = t1.tx;
+  ty = t1.ty;
+  v128 = *&t1.a;
+  v125 = *&t1.c;
+  *&v113 = 0xBFE0C152382D7365;
+  CGAffineTransformMakeRotation(&t1, -0.523598776);
+  v38 = *&t1.a;
+  v39 = *&t1.c;
+  v40 = *&t1.tx;
+  *&t1.a = v128;
+  *&t1.c = v125;
+  t1.tx = tx;
+  t1.ty = ty;
+  *&t2.a = v38;
+  *&t2.c = v39;
+  *&t2.tx = v40;
+  CGAffineTransformConcat(&v131, &t1, &t2);
+  v41 = v131.tx;
+  *&v128 = a7;
+  v42 = v131.ty;
+  v125 = *&v131.a;
+  v117 = *&v131.c;
+  v141.origin.x = v32;
+  v141.origin.y = a8 * 0.15;
+  v141.size.width = v33;
+  v141.size.height = a8 * 0.7;
+  MidX = CGRectGetMidX(v141);
+  v142.origin.x = v32;
+  v142.origin.y = a8 * 0.15;
+  v142.size.width = v33;
+  v142.size.height = a8 * 0.7;
+  v44 = CGRectGetMidY(v142);
+  CGAffineTransformMakeTranslation(&t1, MidX, v44);
+  *&t2.a = v125;
+  *&t2.c = v117;
+  t2.tx = v41;
+  t2.ty = v42;
+  v45 = *&v128;
+  v131 = t1;
+  CGAffineTransformConcat(&t1, &t2, &v131);
+  Mutable = CGPathCreateMutable();
+  CGMutablePathRef.addEllipse(in:transform:)();
+  v47 = [a1 CGContext];
+  *&v117 = Mutable;
+  CGContextAddPath(v47, Mutable);
+
+  v48 = [a1 CGContext];
+  v49 = v129;
+  v50 = *(v129 + 104);
+  v116 = enum case for CGPathFillRule.winding(_:);
+  v51 = v127;
+  v115 = v50;
+  v50(v16);
+  CGContextRef.clip(using:)();
+
+  v52 = *(v49 + 8);
+  v112 = v16;
+  v129 = v49 + 8;
+  v114 = v52;
+  v52(v16, v51);
+  v53 = swift_allocObject();
+  *(v53 + 16) = xmmword_1004F3050;
+  *(v53 + 32) = v18;
+  *(v53 + 40) = v18;
+  *(v53 + 48) = v26;
+  *(v53 + 56) = v26;
+  *(v53 + 64) = v27;
+  *(v53 + 72) = v27;
+  *(v53 + 80) = v26;
+  *(v53 + 88) = v26;
+  *(v53 + 96) = v18;
+  *(v53 + 104) = v18;
+  *(v53 + 112) = v26;
+  v54 = v26;
+  v55 = v18;
+  v56 = v54;
+  v57 = v55;
+  v58 = v56;
+  v59 = v27;
+  v60 = v57;
+  v61 = v58;
+  *&v125 = v59;
+  v62 = v60;
+  v63 = v61;
+  v64 = v122;
+  v65 = [v122 colorWithAlphaComponent:0.8];
+  v66 = [v65 CGColor];
+
+  *(v53 + 120) = v66;
+  v67 = [v64 colorWithAlphaComponent:0.5];
+  v68 = [v67 CGColor];
+
+  *(v53 + 128) = v68;
+  v69 = [v64 colorWithAlphaComponent:0.5];
+  v70 = [v69 CGColor];
+
+  *(v53 + 136) = v70;
+  v71 = [v64 colorWithAlphaComponent:0.8];
+  v72 = [v71 CGColor];
+
+  *(v53 + 144) = v72;
+  *(v53 + 152) = v63;
+  *(v53 + 160) = v62;
+  *(v53 + 168) = v62;
+  v73 = v62;
+  v74 = v63;
+  v111 = v73;
+  v75 = Array._bridgeToObjectiveC()().super.isa;
+
+  v76 = v124;
+  v77 = CGGradientCreateWithColors(v124, v75, dbl_1005A6518);
+
+  if (v77)
+  {
+    v78 = [a1 CGContext];
+    v135.x = v45 * 0.5;
+    v135.y = a8 * 0.5;
+    CGContextDrawConicGradient(v78, v77, v135, 0.0);
+  }
+
+  v79 = [a1 CGContext];
+  CGContextRestoreGState(v79);
+
+  v80 = v45 * 0.26375;
+  v81 = v45 * 0.4725;
+  v143.origin.x = v45 * 0.26375;
+  v143.origin.y = a8 * 0.388888889;
+  v143.size.width = v45 * 0.4725;
+  v143.size.height = a8 * 0.2225;
+  v82 = -CGRectGetMidX(v143);
+  v144.origin.x = v45 * 0.26375;
+  v144.origin.y = a8 * 0.388888889;
+  v144.size.width = v45 * 0.4725;
+  v144.size.height = a8 * 0.2225;
+  v83 = CGRectGetMidY(v144);
+  CGAffineTransformMakeTranslation(&t2, v82, -v83);
+  v84 = t2.tx;
+  v85 = t2.ty;
+  v110 = *&t2.a;
+  v109 = *&t2.c;
+  CGAffineTransformMakeRotation(&t2, *&v113);
+  v86 = *&t2.a;
+  v87 = *&t2.c;
+  v88 = *&t2.tx;
+  *&t2.a = v110;
+  *&t2.c = v109;
+  t2.tx = v84;
+  t2.ty = v85;
+  *&v131.a = v86;
+  *&v131.c = v87;
+  *&v131.tx = v88;
+  CGAffineTransformConcat(&v130, &t2, &v131);
+  v89 = v130.tx;
+  v90 = v130.ty;
+  v113 = *&v130.a;
+  v110 = *&v130.c;
+  v145.origin.x = v80;
+  v145.origin.y = a8 * 0.388888889;
+  v145.size.width = v81;
+  v145.size.height = a8 * 0.2225;
+  v91 = CGRectGetMidX(v145);
+  v146.origin.x = v80;
+  v146.origin.y = a8 * 0.388888889;
+  v146.size.width = v81;
+  v146.size.height = a8 * 0.2225;
+  v92 = CGRectGetMidY(v146);
+  CGAffineTransformMakeTranslation(&t2, v91, v92);
+  *&v131.c = v110;
+  *&v131.a = v113;
+  v131.tx = v89;
+  v93 = *&v128;
+  v131.ty = v90;
+  v130 = t2;
+  CGAffineTransformConcat(&t2, &v131, &v130);
+  getter of smallEllipseBorder #1 in closure #1 in static PlaylistCovers.expression2(_:_:_:)(v121, v118, v119, v120, v64, &t2, v80, a8 * 0.388888889, v81, a8 * 0.2225);
+  v95 = v94;
+  [v94 drawInRect:{0.0, 0.0, v93, a8}];
+
+  v96 = [a1 CGContext];
+  CGContextSetFillColorWithColor(v96, v125);
+
+  v97 = CGPathCreateMutable();
+  CGMutablePathRef.addEllipse(in:transform:)();
+  v98 = [a1 CGContext];
+  CGContextAddPath(v98, v97);
+
+  v99 = [a1 CGContext];
+  v100 = v112;
+  v101 = v127;
+  v115(v112, v116, v127);
+  CGContextRef.fillPath(using:)();
+
+  v114(v100, v101);
+  v102 = swift_allocObject();
+  *(v102 + 16) = xmmword_1004F2FF0;
+  *(v102 + 32) = v74;
+  v103 = v74;
+  v104 = [v64 colorWithAlphaComponent:0.0];
+  v105 = [v104 CGColor];
+
+  *(v102 + 40) = v105;
+  v106 = Array._bridgeToObjectiveC()().super.isa;
+
+  v107 = CGGradientCreateWithColors(v76, v106, dbl_1005A65C8);
+
+  if (v107)
+  {
+    v108 = [a1 CGContext];
+    v136.y = 0.0;
+    v138.y = 0.0;
+    v136.x = v93 * 0.5;
+    v138.x = v93 * 0.5;
+    CGContextDrawRadialGradient(v108, v107, v136, 0.0, v138, v136.x, 0);
+
+    v97 = v108;
+  }
+
+  else
+  {
+    v107 = v117;
+  }
+}
+
+void getter of smallEllipseBorder #1 in closure #1 in static PlaylistCovers.expression2(_:_:_:)(void *a1, void *a2, void *a3, void *a4, void *a5, _OWORD *a6, double a7, double a8, double a9, double a10)
+{
+  v20 = swift_allocObject();
+  *(v20 + 16) = a2;
+  *(v20 + 24) = a3;
+  *(v20 + 32) = a4;
+  *(v20 + 40) = a5;
+  *(v20 + 48) = a7;
+  *(v20 + 56) = a8;
+  *(v20 + 64) = a9;
+  *(v20 + 72) = a10;
+  v21 = a6[1];
+  *(v20 + 80) = *a6;
+  *(v20 + 96) = v21;
+  *(v20 + 112) = a6[2];
+  v22 = swift_allocObject();
+  *(v22 + 16) = partial apply for closure #1 in getter of smallEllipseBorder #1 in closure #1 in static PlaylistCovers.expression2(_:_:_:);
+  *(v22 + 24) = v20;
+  v35[4] = thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ()partial apply;
+  v35[5] = v22;
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 1107296256;
+  v35[2] = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+  v35[3] = &block_descriptor_47;
+  v23 = _Block_copy(v35);
+  v24 = a2;
+  v25 = a3;
+  v26 = a4;
+  v27 = a5;
+
+  v28 = [a1 imageWithActions:v23];
+  _Block_release(v23);
+  LOBYTE(a5) = swift_isEscapingClosureAtFileLocation();
+
+  if (a5)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v29 = [v28 CGImage];
+    if (v29)
+    {
+      v30 = v29;
+      v31 = [objc_allocWithZone(CIImage) initWithCGImage:v29];
+      v32 = [v31 imageByClampingToExtent];
+      v33 = [v32 imageByApplyingGaussianBlurWithSigma:20.0];
+      [v31 extent];
+      v34 = [v33 imageByCroppingToRect:?];
+      [objc_allocWithZone(UIImage) initWithCIImage:v34];
+    }
+
+    else
+    {
+    }
+  }
+}
+
+uint64_t closure #1 in getter of smallEllipseBorder #1 in closure #1 in static PlaylistCovers.expression2(_:_:_:)(void *a1, double a2, double a3, double a4, double a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10)
+{
+  v12 = type metadata accessor for CGPathFillRule();
+  v13 = *(v12 - 8);
+  *&v14 = __chkstk_darwin().n128_u64[0];
+  v16 = &v24 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = [a1 CGContext];
+  v18 = [a9 colorWithAlphaComponent:0.55];
+  v19 = [v18 CGColor];
+
+  CGContextSetFillColorWithColor(v17, v19);
+  Mutable = CGPathCreateMutable();
+  CGMutablePathRef.addEllipse(in:transform:)();
+  v21 = [a1 CGContext];
+  CGContextAddPath(v21, Mutable);
+
+  v22 = [a1 CGContext];
+  (*(v13 + 104))(v16, enum case for CGPathFillRule.winding(_:), v12);
+  CGContextRef.fillPath(using:)();
+
+  return (*(v13 + 8))(v16, v12);
+}
+
+void closure #1 in static PlaylistCovers.expression3(_:_:_:)(void *a1, void *a2, void *a3, void *a4, double a5, CGFloat a6)
+{
+  if (one-time initialization token for colorsSpace != -1)
+  {
+    swift_once();
+  }
+
+  v12 = static PlaylistCovers.colorsSpace;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v13 = swift_allocObject();
+  *(v13 + 16) = xmmword_1004F3060;
+  *(v13 + 32) = [a2 CGColor];
+  *(v13 + 40) = [a2 CGColor];
+  *(v13 + 48) = [a3 CGColor];
+  *(v13 + 56) = [a4 CGColor];
+  *(v13 + 64) = [a3 CGColor];
+  *(v13 + 72) = [a3 CGColor];
+  type metadata accessor for CGColorRef(0);
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v15 = CGGradientCreateWithColors(v12, isa, dbl_1005A65F8);
+
+  if (v15)
+  {
+    v16 = [a1 CGContext];
+    v31.x = 0.0;
+    v31.y = 0.0;
+    v34.x = 0.0;
+    v34.y = a6;
+    CGContextDrawLinearGradient(v16, v15, v31, v34, 0);
+  }
+
+  v17 = [a1 CGContext];
+  CGContextSaveGState(v17);
+
+  v18 = a5 * 0.5;
+  [a1 clipToRect:{v18, 0.0, v18, a6}];
+  v19 = swift_allocObject();
+  *(v19 + 16) = xmmword_1004F3060;
+  *(v19 + 32) = [a2 CGColor];
+  *(v19 + 40) = [a2 CGColor];
+  *(v19 + 48) = [a3 CGColor];
+  *(v19 + 56) = [a4 CGColor];
+  *(v19 + 64) = [a3 CGColor];
+  *(v19 + 72) = [a3 CGColor];
+  v20 = Array._bridgeToObjectiveC()().super.isa;
+
+  v21 = CGGradientCreateWithColors(v12, v20, dbl_1005A6648);
+
+  if (v21)
+  {
+    v22 = [a1 CGContext];
+    v35.y = 0.0;
+    v32.x = v18;
+    v32.y = a6;
+    v35.x = v18;
+    CGContextDrawLinearGradient(v22, v21, v32, v35, 0);
+  }
+
+  v23 = [a1 CGContext];
+  CGContextRestoreGState(v23);
+
+  v24 = swift_allocObject();
+  *(v24 + 16) = xmmword_1004F2FF0;
+  *(v24 + 32) = [a2 CGColor];
+  v25 = [a2 colorWithAlphaComponent:0.0];
+  v26 = [v25 CGColor];
+
+  *(v24 + 40) = v26;
+  v27 = Array._bridgeToObjectiveC()().super.isa;
+
+  v28 = CGGradientCreateWithColors(v12, v27, dbl_1005A6698);
+
+  if (v28)
+  {
+    v29 = [a1 CGContext];
+    v36.y = a6 * 0.5;
+    v33.x = 0.0;
+    v33.y = 0.0;
+    v36.x = 0.0;
+    CGContextDrawLinearGradient(v29, v28, v33, v36, 0);
+  }
+}
+
+void closure #1 in static PlaylistCovers.expression4(_:_:_:)(void *a1, void *a2, void *a3, double a4, CGFloat a5, uint64_t a6, void *a7)
+{
+  v13 = [a1 CGContext];
+  v14 = [a7 CGColor];
+  CGContextSetFillColorWithColor(v13, v14);
+
+  v15 = 0.0;
+  [a1 fillRect:{0.0, 0.0, a4, a5}];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v16 = swift_allocObject();
+  *(v16 + 16) = xmmword_1004F2F80;
+  *(v16 + 32) = [a2 CGColor];
+  *(v16 + 40) = [a3 CGColor];
+  v17 = [a7 colorWithAlphaComponent:0.0];
+  v18 = [v17 CGColor];
+
+  *(v16 + 48) = v18;
+  type metadata accessor for CGColorRef(0);
+  colors = Array._bridgeToObjectiveC()().super.isa;
+
+  if (one-time initialization token for colorsSpace != -1)
+  {
+    swift_once();
+  }
+
+  v19 = 0;
+  v20 = static PlaylistCovers.colorsSpace;
+  v21 = a4 / 9.0;
+  while (1)
+  {
+    v22 = *(&outlined read-only object #0 of closure #1 in static PlaylistCovers.expression4(_:_:_:) + v19 + 32);
+    v23 = CGGradientCreateWithColors(v20, colors, *(&outlined read-only object #11 of closure #1 in static PlaylistCovers.expression4(_:_:_:) + v19 + 32) + 4);
+    if (v23)
+    {
+      v24 = v23;
+      v25 = v22 * a5;
+      v26 = [a1 CGContext];
+      CGContextSaveGState(v26);
+
+      [a1 clipToRect:{v15, a5 - v25, v21, v25}];
+      v27 = [a1 CGContext];
+      v38.x = v15;
+      v38.y = a5;
+      v40.x = v15;
+      v40.y = a5 - v25;
+      CGContextDrawLinearGradient(v27, v24, v38, v40, 0);
+
+      v28 = [a1 CGContext];
+      CGContextRestoreGState(v28);
+    }
+
+    if (v19 == 64)
+    {
+      break;
+    }
+
+    v15 = v21 + v15;
+    v19 += 8;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay12CoreGraphics7CGFloatVGMd, &_sSay12CoreGraphics7CGFloatVGMR);
+  swift_arrayDestroy();
+  v29 = swift_allocObject();
+  *(v29 + 16) = xmmword_1004F2FF0;
+  *(v29 + 32) = [a7 CGColor];
+  v30 = [a7 colorWithAlphaComponent:0.0];
+  v31 = [v30 CGColor];
+
+  *(v29 + 40) = v31;
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v33 = CGGradientCreateWithColors(v20, isa, dbl_1005A6928);
+
+  if (v33)
+  {
+    v34 = [a1 CGContext];
+    v39.x = a4 * 0.145;
+    v39.y = a5 * 0.23;
+    v41.x = a4 * 0.145;
+    v41.y = a5 * 0.23;
+    CGContextDrawRadialGradient(v34, v33, v39, 0.0, v41, a4 * 0.3715, 0);
+
+    v35 = v34;
+  }
+
+  else
+  {
+    v35 = colors;
+  }
+}
+
+void closure #1 in static PlaylistCovers.expression5(_:_:_:)(void *a1, void *a2, double a3, double a4, uint64_t a5, void *a6, void *a7)
+{
+  if (one-time initialization token for colorsSpace != -1)
+  {
+    swift_once();
+  }
+
+  v13 = static PlaylistCovers.colorsSpace;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v14 = swift_allocObject();
+  *(v14 + 16) = xmmword_1004F3060;
+  *(v14 + 32) = [a2 CGColor];
+  *(v14 + 40) = [a6 CGColor];
+  *(v14 + 48) = [a7 CGColor];
+  *(v14 + 56) = [a2 CGColor];
+  *(v14 + 64) = [a6 CGColor];
+  *(v14 + 72) = [a7 CGColor];
+  type metadata accessor for CGColorRef(0);
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v16 = CGGradientCreateWithColors(v13, isa, dbl_1005A69C0);
+
+  if (v16)
+  {
+    v17 = [a1 CGContext];
+    v27.x = a3 * 0.5;
+    v27.y = a4 * 0.5;
+    CGContextDrawConicGradient(v17, v16, v27, -0.77562432);
+  }
+
+  v18 = swift_allocObject();
+  *(v18 + 16) = xmmword_1004F2F80;
+  *(v18 + 32) = [a2 CGColor];
+  v19 = [a2 colorWithAlphaComponent:0.7];
+  v20 = [v19 CGColor];
+
+  *(v18 + 40) = v20;
+  v21 = [a2 colorWithAlphaComponent:0.0];
+  v22 = [v21 CGColor];
+
+  *(v18 + 48) = v22;
+  v23 = Array._bridgeToObjectiveC()().super.isa;
+
+  v24 = CGGradientCreateWithColors(v13, v23, dbl_1005A6A10);
+
+  if (v24)
+  {
+    v25 = [a1 CGContext];
+    v29.y = a4 * 0.5;
+    v28.x = 0.0;
+    v28.y = 0.0;
+    v29.x = 0.0;
+    CGContextDrawLinearGradient(v25, v24, v28, v29, 0);
+  }
+}
+
+void closure #1 in static PlaylistCovers.expression6(_:_:_:)(void *a1, void *a2, void *a3, double a4, CGFloat a5, uint64_t a6, void *a7)
+{
+  if (one-time initialization token for colorsSpace != -1)
+  {
+    swift_once();
+  }
+
+  v12 = static PlaylistCovers.colorsSpace;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v13 = swift_allocObject();
+  *(v13 + 16) = xmmword_1004F2F80;
+  *(v13 + 32) = [a7 CGColor];
+  *(v13 + 40) = [a2 CGColor];
+  *(v13 + 48) = [a3 CGColor];
+  type metadata accessor for CGColorRef(0);
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v15 = CGGradientCreateWithColors(v12, isa, dbl_1005A6A48);
+
+  if (v15)
+  {
+    v16 = [a1 CGContext];
+    v35.x = 0.0;
+    v35.y = 0.0;
+    v38.x = 0.0;
+    v38.y = a5;
+    CGContextDrawLinearGradient(v16, v15, v35, v38, 0);
+  }
+
+  DeviceRGB = CGColorSpaceCreateDeviceRGB();
+  v18 = swift_allocObject();
+  *(v18 + 16) = xmmword_1004F2F80;
+  *(v18 + 32) = [a7 CGColor];
+  *(v18 + 40) = [a7 CGColor];
+  v19 = [a7 colorWithAlphaComponent:0.0];
+  v20 = [v19 CGColor];
+
+  *(v18 + 48) = v20;
+  v21 = Array._bridgeToObjectiveC()().super.isa;
+
+  v22 = CGGradientCreateWithColors(DeviceRGB, v21, dbl_1005A6A80);
+
+  if (v22)
+  {
+    v23 = [a1 CGContext];
+    v36.x = a4 * 0.5;
+    v36.y = a5 * 0.907407407;
+    v39.y = a5 * 0.5;
+    v39.x = a4 * 0.5;
+    CGContextDrawRadialGradient(v23, v22, v36, a4 * 0.0185185185, v39, a4 * 0.472222222, 3u);
+  }
+
+  v24 = CGColorSpaceCreateDeviceRGB();
+  v25 = swift_allocObject();
+  *(v25 + 16) = xmmword_1004F3040;
+  *(v25 + 32) = [a2 CGColor];
+  *(v25 + 40) = [a2 CGColor];
+  v26 = [a7 colorWithAlphaComponent:0.0];
+  v27 = [v26 CGColor];
+
+  *(v25 + 48) = v27;
+  v28 = [a7 colorWithAlphaComponent:0.0];
+  v29 = [v28 CGColor];
+
+  *(v25 + 56) = v29;
+  v30 = Array._bridgeToObjectiveC()().super.isa;
+
+  v31 = CGGradientCreateWithColors(v24, v30, dbl_1005A6AB8);
+
+  if (v31)
+  {
+    v33 = [a1 CGContext];
+    v37.x = a4 * 0.5;
+    v37.y = a5 * 0.907407407;
+    v40.y = a5 * 0.5;
+    v40.x = a4 * 0.5;
+    CGContextDrawRadialGradient(v33, v31, v37, a4 * 0.0185185185, v40, a4 * 0.472222222, 3u);
+  }
+}
+
+void closure #1 in static PlaylistCovers.expression7(_:_:_:)(double a1, double a2, double a3, double a4)
+{
+  if (one-time initialization token for module != -1)
+  {
+    swift_once();
+  }
+
+  v8 = static NSBundle.module;
+  v9 = String._bridgeToObjectiveC()();
+  v10 = [objc_opt_self() imageNamed:v9 inBundle:v8];
+
+  if (v10)
+  {
+    [v10 drawInRect:{a1, a2, a3, a4}];
+  }
+
+  else
+  {
+    __break(1u);
+  }
+}
+
+void closure #2 in static PlaylistCovers.expression7(_:_:_:)(void *a1, void *a2, void *a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, uint64_t a10, void *a11, void *a12)
+{
+  DeviceRGB = CGColorSpaceCreateDeviceRGB();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v24 = swift_allocObject();
+  *(v24 + 16) = xmmword_1004F3040;
+  *(v24 + 32) = [a2 CGColor];
+  *(v24 + 40) = [a2 CGColor];
+  *(v24 + 48) = [a3 CGColor];
+  *(v24 + 56) = [a11 CGColor];
+  type metadata accessor for CGColorRef(0);
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v26 = CGGradientCreateWithColors(DeviceRGB, isa, dbl_1005A6AF8);
+
+  if (v26)
+  {
+    v27 = [a1 CGContext];
+    v48.x = a4 * 0.324074074;
+    v51.x = a4 * 0.724074074;
+    v48.y = 0.0;
+    v51.y = a5;
+    CGContextDrawLinearGradient(v27, v26, v48, v51, 3u);
+  }
+
+  v28 = [a1 CGContext];
+  CGContextSaveGState(v28);
+
+  v29 = [a1 CGContext];
+  CGContextTranslateCTM(v29, 0.0, a9);
+
+  v30 = [a1 CGContext];
+  CGContextScaleCTM(v30, 1.0, -1.0);
+
+  v31 = [a1 CGContext];
+  v32 = [a12 CGImage];
+  if (v32)
+  {
+    v33 = v32;
+    v54.origin.x = a6;
+    v54.origin.y = a7;
+    v54.size.width = a8;
+    v54.size.height = a9;
+    CGContextClipToMask(v31, v54, v32);
+
+    v34 = CGColorSpaceCreateDeviceRGB();
+    v35 = swift_allocObject();
+    *(v35 + 16) = xmmword_1004F3040;
+    *(v35 + 32) = [a11 CGColor];
+    *(v35 + 40) = [a3 CGColor];
+    *(v35 + 48) = [a2 CGColor];
+    *(v35 + 56) = [a2 CGColor];
+    v36 = Array._bridgeToObjectiveC()().super.isa;
+
+    v37 = CGGradientCreateWithColors(v34, v36, dbl_1005A6B38);
+
+    if (v37)
+    {
+      v38 = [a1 CGContext];
+      v49.y = 0.0;
+      v52.x = 0.0;
+      v49.x = a4;
+      v52.y = a5;
+      CGContextDrawLinearGradient(v38, v37, v49, v52, 0);
+    }
+
+    v39 = [a1 CGContext];
+    CGContextRestoreGState(v39);
+
+    v40 = CGColorSpaceCreateDeviceRGB();
+    v41 = swift_allocObject();
+    *(v41 + 16) = xmmword_1004F2FF0;
+    *(v41 + 32) = [a2 CGColor];
+    v42 = [a3 colorWithAlphaComponent:0.0];
+    v43 = [v42 CGColor];
+
+    *(v41 + 40) = v43;
+    v44 = Array._bridgeToObjectiveC()().super.isa;
+
+    v45 = CGGradientCreateWithColors(v40, v44, dbl_1005A6B78);
+
+    if (v45)
+    {
+      v46 = [a1 CGContext];
+      v53.y = a5 * 0.5;
+      v50.x = 0.0;
+      v50.y = 0.0;
+      v53.x = 0.0;
+      CGContextDrawLinearGradient(v46, v45, v50, v53, 0);
+    }
+  }
+
+  else
+  {
+    __break(1u);
+  }
+}
+
+void closure #1 in static PlaylistCovers.expression8(_:_:_:)(void *a1, void *a2, CGFloat a3, CGFloat a4, uint64_t a5, void *a6, void *a7)
+{
+  v13 = [a1 CGContext];
+  CGContextSetBlendMode(v13, kCGBlendModeNormal);
+
+  [a2 setFill];
+  [a1 fillRect:{0.0, 0.0, a3, a4}];
+  if (one-time initialization token for colorsSpace != -1)
+  {
+    swift_once();
+  }
+
+  v14 = static PlaylistCovers.colorsSpace;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v15 = swift_allocObject();
+  *(v15 + 16) = xmmword_1004F3000;
+  *(v15 + 32) = [a2 CGColor];
+  *(v15 + 40) = [a2 CGColor];
+  *(v15 + 48) = [a6 CGColor];
+  v16 = [a7 colorWithAlphaComponent:0.9];
+  v17 = [v16 CGColor];
+
+  *(v15 + 56) = v17;
+  *(v15 + 64) = [a7 CGColor];
+  type metadata accessor for CGColorRef(0);
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v19 = CGGradientCreateWithColors(v14, isa, dbl_1005A6BA8);
+
+  if (v19)
+  {
+    v20 = [a1 CGContext];
+    v30.x = 0.0;
+    v30.y = 0.0;
+    v28.x = a3;
+    v28.y = a4;
+    CGContextDrawLinearGradient(v20, v19, v28, v30, 3u);
+  }
+
+  v21 = swift_allocObject();
+  *(v21 + 16) = xmmword_1004F2FF0;
+  *(v21 + 32) = [a7 CGColor];
+  v22 = [a7 colorWithAlphaComponent:0.0];
+  v23 = [v22 CGColor];
+
+  *(v21 + 40) = v23;
+  v24 = Array._bridgeToObjectiveC()().super.isa;
+
+  v25 = CGGradientCreateWithColors(v14, v24, dbl_1005A6BF0);
+
+  if (v25)
+  {
+    v26 = [a1 CGContext];
+    v31.y = a4 * 0.5;
+    v29.x = 0.0;
+    v29.y = 0.0;
+    v31.x = 0.0;
+    CGContextDrawLinearGradient(v26, v25, v29, v31, 3u);
+  }
+}
+
+void closure #2 in static PlaylistCovers.expression8(_:_:_:)(void *a1, double a2, double a3)
+{
+  v6 = type metadata accessor for CGPathFillRule();
+  __chkstk_darwin();
+  v9 = &v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = a2 / 3.0;
+  if (a2 / 3.0 == 0.0)
+  {
+LABEL_24:
+    __break(1u);
+    return;
+  }
+
+  v11 = a2 >= 0.0;
+  if (v10 > 0.0)
+  {
+    v11 = a2 <= 0.0;
+  }
+
+  if (!v11)
+  {
+    v12 = 0;
+    v13 = a3 / 3.0;
+    v14 = a3 >= 0.0;
+    if (a3 / 3.0 > 0.0)
+    {
+      v14 = a3 <= 0.0;
+    }
+
+    v28 = v14;
+    v30 = enum case for CGPathFillRule.winding(_:);
+    v15 = (v7 + 104);
+    v16 = (v7 + 8);
+    v27 = a2;
+    while (1)
+    {
+      v19 = __OFADD__(v12, 1);
+      v20 = v12 + 1;
+      if (v19)
+      {
+        break;
+      }
+
+      if (v13 == 0.0)
+      {
+        goto LABEL_23;
+      }
+
+      v29 = v20;
+      if (!v28)
+      {
+        v21 = 0;
+        while (!__OFADD__(v21, 1))
+        {
+          v22 = (v21 + 1) * v13 + 0.0;
+          Mutable = CGPathCreateMutable();
+          v32 = 0;
+          v33 = 0;
+          v31 = 0x3FF0000000000000;
+          v34 = 0x3FF0000000000000;
+          v35 = 0;
+          v36 = 0;
+          CGMutablePathRef.addRoundedRect(in:cornerWidth:cornerHeight:transform:)();
+          v24 = [a1 CGContext];
+          CGContextAddPath(v24, Mutable);
+
+          v25 = [a1 CGContext];
+          (*v15)(v9, v30, v6);
+          CGContextRef.fillPath(using:)();
+
+          (*v16)(v9, v6);
+          v26 = v22 <= a3;
+          if (v13 > 0.0)
+          {
+            v26 = v22 >= a3;
+          }
+
+          ++v21;
+          if (v26)
+          {
+            goto LABEL_9;
+          }
         }
 
         __break(1u);
-        goto LABEL_26;
+        break;
       }
 
-LABEL_27:
-      swift_unknownObjectRelease();
+LABEL_9:
+      v12 = v29;
+      v17 = v29 * v10 + 0.0;
+      v18 = v17 <= v27;
+      if (v10 > 0.0)
+      {
+        v18 = v17 >= v27;
+      }
+
+      if (v18)
+      {
+        return;
+      }
     }
+
+    __break(1u);
+LABEL_23:
+    __break(1u);
+    goto LABEL_24;
+  }
+}
+
+void closure #3 in static PlaylistCovers.expression8(_:_:_:)(void *a1, int a2, uint64_t a3, uint64_t a4, id a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, void *a10, id *a11)
+{
+  [a5 setFill];
+  [a1 fillRect:0 blendMode:{a6, a7, a8, a9}];
+  v18 = [a1 CGContext];
+  CGContextSaveGState(v18);
+
+  v19 = [a1 CGContext];
+  v20 = [a10 CGImage];
+  if (v20)
+  {
+    v21 = v20;
+    v24.origin.x = a6;
+    v24.origin.y = a7;
+    v24.size.width = a8;
+    v24.size.height = a9;
+    CGContextClipToMask(v19, v24, v20);
+
+    [*a11 drawInRect:0 blendMode:a6 alpha:{a7, a8, a9, 1.0}];
+    v22 = [a1 CGContext];
+    CGContextRestoreGState(v22);
   }
 
-  else if (v7)
+  else
   {
-    v11 = [v7 preferredBackwardJumpIntervals];
-    type metadata accessor for UIAction(0, &lazy cache variable for type metadata for NSNumber);
-    v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    __break(1u);
+  }
+}
 
-    if (v10 >> 62)
+uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTR9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColortt_TG5(uint64_t a1, int *a2)
+{
+  *(v2 + 40) = a1;
+  v5 = (a2 + *a2);
+  v3 = swift_task_alloc();
+  *(v2 + 48) = v3;
+  *v3 = v2;
+  v3[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTR9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColortt_TG5TQ0_;
+
+  return v5(v2 + 16);
+}
+
+uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTR9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColortt_TG5TQ0_()
+{
+  v1 = *v0;
+  v2 = *(*v0 + 40);
+  v6 = *v0;
+
+  v3 = *(v1 + 24);
+  *v2 = *(v1 + 16);
+  *(v2 + 8) = v3;
+  v4 = *(v6 + 8);
+
+  return v4();
+}
+
+uint64_t specialized PlaylistCovers.Expression.init(rawValue:)(uint64_t a1)
+{
+  if ((a1 - 1) >= 8)
+  {
+    return 8;
+  }
+
+  else
+  {
+    return a1 - 1;
+  }
+}
+
+void specialized static PlaylistCovers.expression7(_:_:_:)(void *a1, void *a2, void *a3, void *a4, uint64_t a5, double a6, double a7)
+{
+  v12 = [objc_allocWithZone(UIGraphicsImageRenderer) initWithSize:a5 format:{a6, a7}];
+  v13 = swift_allocObject();
+  *(v13 + 16) = 0;
+  *(v13 + 24) = 0;
+  *(v13 + 32) = a6;
+  *(v13 + 40) = a7;
+  v14 = swift_allocObject();
+  *(v14 + 16) = partial apply for closure #1 in static PlaylistCovers.expression7(_:_:_:);
+  *(v14 + 24) = v13;
+  v31 = thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ()partial apply;
+  v32 = v14;
+  aBlock = _NSConcreteStackBlock;
+  v28 = 1107296256;
+  v29 = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+  v30 = &block_descriptor_117_0;
+  v15 = _Block_copy(&aBlock);
+
+  v16 = [v12 imageWithActions:v15];
+  _Block_release(v15);
+  LOBYTE(v15) = swift_isEscapingClosureAtFileLocation();
+
+  if (v15)
+  {
+    __break(1u);
+    goto LABEL_5;
+  }
+
+  v17 = swift_allocObject();
+  *(v17 + 16) = a1;
+  *(v17 + 24) = a2;
+  *(v17 + 32) = a3;
+  *(v17 + 40) = a4;
+  *(v17 + 48) = a6;
+  *(v17 + 56) = a7;
+  *(v17 + 64) = 0;
+  *(v17 + 72) = 0;
+  *(v17 + 80) = a6;
+  *(v17 + 88) = a7;
+  *(v17 + 96) = v16;
+  v18 = swift_allocObject();
+  *(v18 + 16) = partial apply for closure #2 in static PlaylistCovers.expression7(_:_:_:);
+  *(v18 + 24) = v17;
+  v31 = thunk for @callee_guaranteed (@guaranteed UIGraphicsImageRendererContext) -> ()partial apply;
+  v32 = v18;
+  aBlock = _NSConcreteStackBlock;
+  v28 = 1107296256;
+  v29 = thunk for @escaping @callee_guaranteed (@guaranteed MPIdentifierSet & MPMutableIdentifierSet) -> ();
+  v30 = &block_descriptor_127;
+  v19 = _Block_copy(&aBlock);
+  v20 = a1;
+  v21 = a2;
+  v22 = a3;
+  v23 = a4;
+  v24 = v16;
+
+  [v12 imageWithActions:v19];
+
+  _Block_release(v19);
+  isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
+
+  if (isEscapingClosureAtFileLocation)
+  {
+LABEL_5:
+    __break(1u);
+  }
+}
+
+uint64_t partial apply for closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:)(uint64_t a1, uint64_t a2)
+{
+  v6 = *(v2 + 2);
+  v7 = v2[3];
+  v8 = v2[4];
+  v9 = *(v2 + 5);
+  v10 = *(v2 + 6);
+  v11 = *(v2 + 7);
+  v12 = *(v2 + 8);
+  v13 = *(v2 + 9);
+  v14 = swift_task_alloc();
+  *(v3 + 16) = v14;
+  *v14 = v3;
+  v14[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TATQ0_;
+
+  return closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:)(a1, a2, v6, v9, v10, v11, v12, v13, v7, v8);
+}
+
+unint64_t lazy protocol witness table accessor for type PlaylistCovers.Expression and conformance PlaylistCovers.Expression()
+{
+  result = lazy protocol witness table cache variable for type PlaylistCovers.Expression and conformance PlaylistCovers.Expression;
+  if (!lazy protocol witness table cache variable for type PlaylistCovers.Expression and conformance PlaylistCovers.Expression)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PlaylistCovers.Expression and conformance PlaylistCovers.Expression);
+  }
+
+  return result;
+}
+
+uint64_t sub_10022C2B8()
+{
+  swift_unknownObjectRelease();
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for closure #1 in closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:)(uint64_t a1)
+{
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = *(v1 + 40);
+  v7 = *(v1 + 48);
+  v8 = *(v1 + 56);
+  v9 = *(v1 + 64);
+  v10 = *(v1 + 72);
+  v11 = *(v1 + 80);
+  v12 = *(v1 + 32);
+  v13 = swift_task_alloc();
+  *(v2 + 16) = v13;
+  *v13 = v2;
+  v13[1] = partial apply for closure #1 in static MusicEngagementExtension.performRequest(with:completion:);
+
+  return closure #1 in closure #1 in static PlaylistCovers.coverRepresentations(size:expressions:colors:graphicsFormat:)(a1, v6, v7, v4, v5, v12, v8, v9, v10, v11);
+}
+
+uint64_t sub_10022C41C()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTR9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColortt_TG5TA(uint64_t a1)
+{
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = partial apply for closure #1 in static MusicEngagementExtension.performRequest(with:completion:);
+
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzlTR9MusicCore14PlaylistCoversO10ExpressionO_So7UIImageC5image_So7UIColorC9textColortt_TG5(a1, v4);
+}
+
+uint64_t block_copy_helper_35(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v2;
+}
+
+uint64_t sub_10022C53C()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_10022C654()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t objectdestroy_15Tm(uint64_t a1)
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t sub_10022C764()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t Logger.playlistCovers.unsafeMutableAddressor()
+{
+  if (one-time initialization token for playlistCovers != -1)
+  {
+    swift_once();
+  }
+
+  v0 = type metadata accessor for Logger();
+
+  return __swift_project_value_buffer(v0, static Logger.playlistCovers);
+}
+
+uint64_t PlaylistCovers.RecipeColors.description.getter(void *a1, void *a2, void *a3, void *a4)
+{
+  _StringGuts.grow(_:)(60);
+  v8._object = 0x80000001004CDB00;
+  v8._countAndFlagsBits = 0xD000000000000015;
+  String.append(_:)(v8);
+  v9 = [a1 description];
+  v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v12 = v11;
+
+  v13._countAndFlagsBits = v10;
+  v13._object = v12;
+  String.append(_:)(v13);
+
+  v14._countAndFlagsBits = 0x32726F6C6F63202CLL;
+  v14._object = 0xEA0000000000203ALL;
+  String.append(_:)(v14);
+  v15 = [a2 description];
+  v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v18 = v17;
+
+  v19._countAndFlagsBits = v16;
+  v19._object = v18;
+  String.append(_:)(v19);
+
+  v20._countAndFlagsBits = 0x33726F6C6F63202CLL;
+  v20._object = 0xEA0000000000203ALL;
+  String.append(_:)(v20);
+  v21 = [a3 description];
+  v22 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v24 = v23;
+
+  v25._countAndFlagsBits = v22;
+  v25._object = v24;
+  String.append(_:)(v25);
+
+  v26._countAndFlagsBits = 0x34726F6C6F63202CLL;
+  v26._object = 0xEA0000000000203ALL;
+  String.append(_:)(v26);
+  v27 = [a4 description];
+  v28 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v30 = v29;
+
+  v31._countAndFlagsBits = v28;
+  v31._object = v30;
+  String.append(_:)(v31);
+
+  v32._countAndFlagsBits = 41;
+  v32._object = 0xE100000000000000;
+  String.append(_:)(v32);
+  return 0;
+}
+
+uint64_t static PlaylistCovers.RecipeColors.__derived_struct_equals(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  type metadata accessor for NSObject();
+  if (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)())
+  {
+    return static NSObject.== infix(_:_:)() & 1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t PlaylistCovers.RecipeColors.hash(into:)(uint64_t a1)
+{
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  return NSObject.hash(into:)();
+}
+
+Swift::Int PlaylistCovers.RecipeColors.hashValue.getter()
+{
+  Hasher.init(_seed:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance PlaylistCovers.RecipeColors(uint64_t *a1, uint64_t *a2)
+{
+  type metadata accessor for NSObject();
+  if (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)())
+  {
+    return static NSObject.== infix(_:_:)() & 1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance PlaylistCovers.RecipeColors()
+{
+  Hasher.init(_seed:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance PlaylistCovers.RecipeColors(uint64_t a1)
+{
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  return NSObject.hash(into:)();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PlaylistCovers.RecipeColors(uint64_t a1)
+{
+  Hasher.init(_seed:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  NSObject.hash(into:)();
+  return Hasher._finalize()();
+}
+
+uint64_t static PlaylistCovers.recipeColorsForSource(_:)(uint64_t a1)
+{
+  v1[17] = a1;
+  v2 = type metadata accessor for Playlist.Entry.InternalItem();
+  v1[18] = v2;
+  v1[19] = *(v2 - 8);
+  v1[20] = swift_task_alloc();
+  v3 = type metadata accessor for Playlist.Entry();
+  v1[21] = v3;
+  v1[22] = *(v3 - 8);
+  v1[23] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit7ArtworkVSgMd, &_s8MusicKit7ArtworkVSgMR);
+  v1[24] = swift_task_alloc();
+  v4 = type metadata accessor for Track();
+  v1[25] = v4;
+  v1[26] = *(v4 - 8);
+  v1[27] = swift_task_alloc();
+  v1[28] = swift_task_alloc();
+  v1[29] = swift_task_alloc();
+  v1[30] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMd, &_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMR);
+  v1[31] = swift_task_alloc();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A14ItemCollectionVyAA5TrackOGMd, &_s8MusicKit0A14ItemCollectionVyAA5TrackOGMR);
+  v1[32] = v5;
+  v1[33] = *(v5 - 8);
+  v1[34] = swift_task_alloc();
+  v1[35] = type metadata accessor for PlaylistCovers.Source(0);
+  v1[36] = swift_task_alloc();
+
+  return _swift_task_switch(static PlaylistCovers.recipeColorsForSource(_:), 0, 0);
+}
+
+uint64_t static PlaylistCovers.recipeColorsForSource(_:)()
+{
+  outlined init with copy of PlaylistCovers.Source(*(v0 + 136), *(v0 + 288));
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  v2 = *(v0 + 288);
+  if (EnumCaseMultiPayload == 1)
+  {
+    v3 = *v2;
+    *(v0 + 344) = *v2;
+    v4 = *(v3 + 16);
+    *(v0 + 352) = v4;
+    if (!v4)
     {
-LABEL_26:
-      if (!_CocoaArrayWrapper.endIndex.getter())
-      {
-        goto LABEL_27;
-      }
+LABEL_19:
 
-      goto LABEL_18;
+      goto LABEL_20;
     }
 
-    if (*((v10 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    *(v0 + 404) = *(*(v0 + 176) + 80);
+    *(v0 + 408) = enum case for Playlist.Entry.InternalItem.musicMovie(_:);
+    *(v0 + 412) = enum case for Playlist.Entry.InternalItem.musicVideo(_:);
+    *(v0 + 416) = enum case for Playlist.Entry.InternalItem.song(_:);
+    *(v0 + 360) = 0;
+    if (*(v3 + 16))
     {
-LABEL_18:
-      if ((v10 & 0xC000000000000001) == 0)
+      v5 = 0;
+      do
       {
-        if (!*((v10 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        (*(*(v0 + 176) + 16))(*(v0 + 184), v3 + ((*(v0 + 404) + 32) & ~*(v0 + 404)) + *(*(v0 + 176) + 72) * v5, *(v0 + 168));
+        v6 = Playlist.Entry.catalogID.getter();
+        *(v0 + 368) = v7;
+        if (v7)
         {
-          __break(1u);
-          return;
+          v8 = v7;
+          v9 = v6;
+          v10 = *(v0 + 408);
+          v12 = *(v0 + 152);
+          v11 = *(v0 + 160);
+          v13 = *(v0 + 144);
+          Playlist.Entry.internalItem.getter();
+          v14 = (*(v12 + 88))(v11, v13);
+          if (v14 != v10)
+          {
+            v15 = *(v0 + 412);
+            if (v14 == v15 || v14 == *(v0 + 416))
+            {
+              v63 = v14 == v15;
+              (*(*(v0 + 152) + 8))(*(v0 + 160), *(v0 + 144));
+              Playlist.Entry.artwork.getter();
+              v64 = swift_task_alloc();
+              *(v0 + 376) = v64;
+              *v64 = v0;
+              v64[1] = static PlaylistCovers.recipeColorsForSource(_:);
+              v59 = *(v0 + 192);
+              v60 = v9;
+              v61 = v8;
+              v62 = v63;
+              goto LABEL_33;
+            }
+          }
+
+          v18 = *(v0 + 152);
+          v17 = *(v0 + 160);
+          v19 = *(v0 + 144);
+
+          (*(v18 + 8))(v17, v19);
         }
 
-        goto LABEL_20;
+        v20 = *(v0 + 352);
+        v21 = *(v0 + 360) + 1;
+        (*(*(v0 + 176) + 8))(*(v0 + 184), *(v0 + 168));
+        if (v21 == v20)
+        {
+          goto LABEL_19;
+        }
+
+        v5 = *(v0 + 360) + 1;
+        *(v0 + 360) = v5;
+        v3 = *(v0 + 344);
       }
 
-LABEL_28:
-      v12 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-      goto LABEL_21;
+      while (v5 < *(v3 + 16));
     }
 
-    goto LABEL_27;
-  }
-}
-
-BOOL static Player.FavoriteCommand.isAvailable(in:)(void *a1, SEL *a2)
-{
-  v3 = [a1 tracklist];
-  v4 = [v3 playingItem];
-
-  v5 = [v4 *a2];
-  if (v5)
-  {
-    swift_unknownObjectRelease();
+    __break(1u);
   }
 
-  return v5 != 0;
-}
-
-id Player.JumpCommand.request(from:)(void *a1, uint64_t a2, unsigned __int8 a3)
-{
-  v6 = [a1 tracklist];
-  v7 = [v6 playingItem];
-
-  v8 = [v7 seekCommand];
-  Player.JumpCommand.resolvedTimeInterval(for:)(a1, a2, a3);
-  if (a3 != 1)
+  v23 = *(v0 + 264);
+  v22 = *(v0 + 272);
+  v25 = *(v0 + 248);
+  v24 = *(v0 + 256);
+  v26 = *(v0 + 240);
+  (*(v23 + 32))(v22, v2, v24);
+  (*(v23 + 16))(v25, v22, v24);
+  *(v0 + 392) = *(v26 + 36);
+  *(v0 + 296) = lazy protocol witness table accessor for type MusicItemCollection<Track> and conformance MusicItemCollection<A>();
+  dispatch thunk of Collection.startIndex.getter();
+  *(v0 + 396) = enum case for Track.song(_:);
+  *(v0 + 400) = enum case for Track.musicVideo(_:);
+  v27 = *(v0 + 392);
+  v28 = *(v0 + 248);
+  dispatch thunk of Collection.endIndex.getter();
+  if (*(v28 + v27) == *(v0 + 128))
   {
-    if (v8)
+LABEL_18:
+    v41 = *(v0 + 264);
+    v40 = *(v0 + 272);
+    v42 = *(v0 + 256);
+    outlined destroy of TaskPriority?(*(v0 + 248), &_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMd, &_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMR);
+    (*(v41 + 8))(v40, v42);
+LABEL_20:
+    if (one-time initialization token for fallbackColors != -1)
     {
-      v9 = &selRef_jumpByInterval_;
+      swift_once();
+    }
+
+    v43 = *algn_10063D6E8;
+    v45 = qword_10063D6F0;
+    v44 = unk_10063D6F8;
+    v68 = static PlaylistCovers.Specs.fallbackColors;
+    v66 = v43;
+    v46 = v45;
+    v47 = v44;
+
+    v48 = *(v0 + 8);
+
+    return v48(v68, v66, v46, v47);
+  }
+
+  while (1)
+  {
+    v29 = *(v0 + 232);
+    v67 = *(v0 + 224);
+    v30 = *(v0 + 208);
+    v65 = *(v0 + 200);
+    v31 = dispatch thunk of Collection.subscript.read();
+    v32 = *(v30 + 16);
+    v32(v29);
+    v31(v0 + 96, 0);
+    dispatch thunk of Collection.formIndex(after:)();
+    (*(v30 + 32))(v67, v29, v65);
+    v33 = Track.catalogID.getter();
+    v35 = v34;
+    *(v0 + 304) = v34;
+    v36 = *(v0 + 200);
+    v37 = *(v0 + 208);
+    if (v35)
+    {
+      break;
+    }
+
+    v38 = *(v0 + 392);
+    v39 = *(v0 + 248);
+    (*(v37 + 8))(*(v0 + 224), v36);
+    dispatch thunk of Collection.endIndex.getter();
+    if (*(v39 + v38) == *(v0 + 128))
+    {
+      goto LABEL_18;
+    }
+  }
+
+  v50 = *(v0 + 400);
+  v51 = *(v0 + 396);
+  v52 = *(v0 + 216);
+  v69 = v33;
+  v53 = *(v0 + 200);
+  (v32)(v52, *(v0 + 224), v36);
+  v54 = (*(v37 + 88))(v52, v53);
+  v56 = v54 != v51 && v54 == v50;
+  v57 = *(v37 + 8);
+  *(v0 + 312) = v57;
+  *(v0 + 320) = (v37 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v57(v52, v53);
+  Track.artwork.getter();
+  v58 = swift_task_alloc();
+  *(v0 + 328) = v58;
+  *v58 = v0;
+  v58[1] = static PlaylistCovers.recipeColorsForSource(_:);
+  v59 = *(v0 + 192);
+  v60 = v69;
+  v61 = v35;
+  v62 = v56;
+LABEL_33:
+
+  return static PlaylistCovers.recipeColors(catalogID:isMusicVideo:existingArtwork:)(v60, v61, v62, v59);
+}
+
+{
+  v1 = *(v0 + 336);
+  (*(v0 + 312))(*(v0 + 224), *(v0 + 200));
+  if (v1)
+  {
+    v37 = *(v0 + 32);
+    v39 = *(v0 + 336);
+    v36 = *(v0 + 40);
+    v2 = *(v0 + 48);
+    v3 = *(v0 + 264);
+    v4 = *(v0 + 272);
+    v5 = *(v0 + 256);
+    outlined destroy of TaskPriority?(*(v0 + 248), &_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMd, &_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMR);
+    (*(v3 + 8))(v4, v5);
+LABEL_9:
+
+    v22 = *(v0 + 8);
+
+    return v22(v39, v37, v36, v2);
+  }
+
+  v6 = *(v0 + 392);
+  v7 = *(v0 + 248);
+  dispatch thunk of Collection.endIndex.getter();
+  if (*(v7 + v6) == *(v0 + 128))
+  {
+LABEL_6:
+    v17 = *(v0 + 264);
+    v16 = *(v0 + 272);
+    v18 = *(v0 + 256);
+    outlined destroy of TaskPriority?(*(v0 + 248), &_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMd, &_ss16IndexingIteratorVy8MusicKit0C14ItemCollectionVyAC5TrackOGGMR);
+    (*(v17 + 8))(v16, v18);
+    if (one-time initialization token for fallbackColors != -1)
+    {
+      swift_once();
+    }
+
+    v19 = *algn_10063D6E8;
+    v20 = qword_10063D6F0;
+    v21 = unk_10063D6F8;
+    v39 = static PlaylistCovers.Specs.fallbackColors;
+    v37 = v19;
+    v36 = v20;
+    v2 = v21;
+    goto LABEL_9;
+  }
+
+  while (1)
+  {
+    v8 = *(v0 + 232);
+    v40 = *(v0 + 224);
+    v9 = *(v0 + 208);
+    v35 = *(v0 + 200);
+    v10 = dispatch thunk of Collection.subscript.read();
+    v11 = *(v9 + 16);
+    v11(v8);
+    v10(v0 + 96, 0);
+    dispatch thunk of Collection.formIndex(after:)();
+    (*(v9 + 32))(v40, v8, v35);
+    v12 = Track.catalogID.getter();
+    *(v0 + 304) = v13;
+    if (v13)
+    {
+      break;
+    }
+
+    v14 = *(v0 + 392);
+    v15 = *(v0 + 248);
+    (*(*(v0 + 208) + 8))(*(v0 + 224), *(v0 + 200));
+    dispatch thunk of Collection.endIndex.getter();
+    if (*(v15 + v14) == *(v0 + 128))
+    {
       goto LABEL_6;
     }
-
-    return 0;
   }
 
-  if (!v8)
+  v24 = *(v0 + 400);
+  v25 = *(v0 + 396);
+  v26 = *(v0 + 208);
+  v27 = *(v0 + 216);
+  v28 = *(v0 + 200);
+  v38 = v13;
+  v41 = v12;
+  (v11)(v27, *(v0 + 224), v28);
+  v29 = (*(v26 + 88))(v27, v28);
+  v31 = v29 != v25 && v29 == v24;
+  v32 = *(v26 + 8);
+  *(v0 + 312) = v32;
+  *(v0 + 320) = (v26 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v32(v27, v28);
+  Track.artwork.getter();
+  v33 = swift_task_alloc();
+  *(v0 + 328) = v33;
+  *v33 = v0;
+  v33[1] = static PlaylistCovers.recipeColorsForSource(_:);
+  v34 = *(v0 + 192);
+
+  return static PlaylistCovers.recipeColors(catalogID:isMusicVideo:existingArtwork:)(v41, v38, v31, v34);
+}
+
+{
+  v1 = *(v0 + 384);
+  if (!v1)
   {
-    return 0;
+    while (1)
+    {
+      v8 = *(v0 + 352);
+      v9 = *(v0 + 360) + 1;
+      (*(*(v0 + 176) + 8))(*(v0 + 184), *(v0 + 168));
+      if (v9 == v8)
+      {
+        break;
+      }
+
+      v10 = *(v0 + 360) + 1;
+      *(v0 + 360) = v10;
+      v11 = *(v0 + 344);
+      if (v10 >= *(v11 + 16))
+      {
+        __break(1u);
+LABEL_22:
+        swift_once();
+LABEL_17:
+        v27 = *algn_10063D6E8;
+        v28 = qword_10063D6F0;
+        v29 = unk_10063D6F8;
+        v1 = static PlaylistCovers.Specs.fallbackColors;
+        v33 = v27;
+        v32 = v28;
+        v31 = v29;
+        goto LABEL_18;
+      }
+
+      (*(*(v0 + 176) + 16))(*(v0 + 184), v11 + ((*(v0 + 404) + 32) & ~*(v0 + 404)) + *(*(v0 + 176) + 72) * v10, *(v0 + 168));
+      v12 = Playlist.Entry.catalogID.getter();
+      *(v0 + 368) = v13;
+      if (v13)
+      {
+        v14 = v13;
+        v15 = v12;
+        v16 = *(v0 + 408);
+        v18 = *(v0 + 152);
+        v17 = *(v0 + 160);
+        v19 = *(v0 + 144);
+        Playlist.Entry.internalItem.getter();
+        v20 = (*(v18 + 88))(v17, v19);
+        if (v20 != v16)
+        {
+          v21 = *(v0 + 412);
+          if (v20 == v21 || v20 == *(v0 + 416))
+          {
+            v23 = v20 == v21;
+            (*(*(v0 + 152) + 8))(*(v0 + 160), *(v0 + 144));
+            Playlist.Entry.artwork.getter();
+            v24 = swift_task_alloc();
+            *(v0 + 376) = v24;
+            *v24 = v0;
+            v24[1] = static PlaylistCovers.recipeColorsForSource(_:);
+            v25 = *(v0 + 192);
+
+            return static PlaylistCovers.recipeColors(catalogID:isMusicVideo:existingArtwork:)(v15, v14, v23, v25);
+          }
+        }
+
+        v6 = *(v0 + 152);
+        v5 = *(v0 + 160);
+        v7 = *(v0 + 144);
+
+        (*(v6 + 8))(v5, v7);
+      }
+    }
+
+    if (one-time initialization token for fallbackColors != -1)
+    {
+      goto LABEL_22;
+    }
+
+    goto LABEL_17;
   }
 
-  v9 = &selRef_changePositionToElapsedInterval_;
-LABEL_6:
-  v10 = [v8 *v9];
-  swift_unknownObjectRelease();
-  return v10;
+  v32 = *(v0 + 80);
+  v33 = *(v0 + 72);
+  v31 = *(v0 + 88);
+  v2 = *(v0 + 176);
+  v3 = *(v0 + 184);
+  v4 = *(v0 + 168);
+
+  (*(v2 + 8))(v3, v4);
+LABEL_18:
+
+  v30 = *(v0 + 8);
+
+  return v30(v1, v33, v32, v31);
+}
+
+uint64_t static PlaylistCovers.recipeColorsForSource(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = *v4;
+  v6 = *v4;
+  v6[2] = v4;
+  v6[3] = a1;
+  v6[4] = a2;
+  v6[5] = a3;
+  v6[6] = a4;
+  v7 = v5[24];
+  v6[42] = a1;
+
+  outlined destroy of TaskPriority?(v7, &_s8MusicKit7ArtworkVSgMd, &_s8MusicKit7ArtworkVSgMR);
+
+  return _swift_task_switch(static PlaylistCovers.recipeColorsForSource(_:), 0, 0);
+}
+
+{
+  v5 = *v4;
+  v6 = *v4;
+  v6[7] = v4;
+  v6[8] = a1;
+  v6[9] = a2;
+  v6[10] = a3;
+  v6[11] = a4;
+  v7 = v5[24];
+  v6[48] = a1;
+
+  outlined destroy of TaskPriority?(v7, &_s8MusicKit7ArtworkVSgMd, &_s8MusicKit7ArtworkVSgMR);
+
+  return _swift_task_switch(static PlaylistCovers.recipeColorsForSource(_:), 0, 0);
+}
+
+uint64_t static PlaylistCovers.recipeColors(catalogID:isMusicVideo:existingArtwork:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
+{
+  *(v4 + 24) = a2;
+  *(v4 + 32) = a4;
+  *(v4 + 256) = a3;
+  *(v4 + 16) = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit7ArtworkVSgMd, &_s8MusicKit7ArtworkVSgMR);
+  *(v4 + 40) = swift_task_alloc();
+  *(v4 + 48) = swift_task_alloc();
+  v5 = type metadata accessor for Artwork();
+  *(v4 + 56) = v5;
+  *(v4 + 64) = *(v5 - 8);
+  *(v4 + 72) = swift_task_alloc();
+  *(v4 + 80) = swift_task_alloc();
+
+  return _swift_task_switch(static PlaylistCovers.recipeColors(catalogID:isMusicVideo:existingArtwork:), 0, 0);
+}
+
+uint64_t static PlaylistCovers.recipeColors(catalogID:isMusicVideo:existingArtwork:)()
+{
+  v1 = *(v0 + 56);
+  v2 = *(v0 + 64);
+  v3 = *(v0 + 48);
+  outlined init with copy of Artwork?(*(v0 + 32), v3);
+  v4 = *(v2 + 48);
+  *(v0 + 88) = v4;
+  *(v0 + 96) = (v2 + 48) & 0xFFFFFFFFFFFFLL | 0x60F0000000000000;
+  if (v4(v3, 1, v1) == 1)
+  {
+    outlined destroy of TaskPriority?(*(v0 + 48), &_s8MusicKit7ArtworkVSgMd, &_s8MusicKit7ArtworkVSgMR);
+LABEL_16:
+    v15 = swift_task_alloc();
+    *(v0 + 176) = v15;
+    *v15 = v0;
+    v15[1] = static PlaylistCovers.recipeColors(catalogID:isMusicVideo:existingArtwork:);
+    v16 = *(v0 + 40);
+    v17 = *(v0 + 256);
+    v18 = *(v0 + 16);
+    v19 = *(v0 + 24);
+
+    return static PlaylistCovers.artworkWithMediaAPIColors(for:isMusicVideo:)(v16, v18, v19, v17);
+  }
+
+  (*(*(v0 + 64) + 32))(*(v0 + 80), *(v0 + 48), *(v0 + 56));
+  v5 = Artwork.backgroundColor.getter();
+  *(v0 + 104) = v5;
+  if (!v5)
+  {
+    (*(*(v0 + 64) + 8))(*(v0 + 80), *(v0 + 56));
+    goto LABEL_16;
+  }
+
+  v6 = v5;
+  v7 = Artwork.primaryTextColor.getter();
+  *(v0 + 112) = v7;
+  if (!v7)
+  {
+    (*(*(v0 + 64) + 8))(*(v0 + 80), *(v0 + 56));
+LABEL_15:
+
+    goto LABEL_16;
+  }
+
+  v8 = v7;
+  v9 = Artwork.secondaryTextColor.getter();
+  *(v0 + 120) = v9;
+  if (!v9)
+  {
+    (*(*(v0 + 64) + 8))(*(v0 + 80), *(v0 + 56));
+LABEL_14:
+
+    goto LABEL_15;
+  }
+
+  v10 = v9;
+  v11 = Artwork.tertiaryTextColor.getter();
+  *(v0 + 128) = v11;
+  if (!v11)
+  {
+    (*(*(v0 + 64) + 8))(*(v0 + 80), *(v0 + 56));
+
+    goto LABEL_14;
+  }
+
+  v12 = v11;
+  v13 = swift_task_alloc();
+  *(v0 + 136) = v13;
+  *v13 = v0;
+  v13[1] = static PlaylistCovers.recipeColors(catalogID:isMusicVideo:existingArtwork:);
+
+  return specialized static PlaylistCovers.recipeColors(backgroundColor:primaryColor:secondaryColor:tertiaryColor:)(v6, v8, v10, v12);
+}
+
+{
+  v1 = *(v0 + 120);
+  v3 = *(v0 + 104);
+  v2 = *(v0 + 112);
+  v4 = *(v0 + 80);
+  v5 = *(v0 + 56);
+  v6 = *(v0 + 64);
+
+  (*(v6 + 8))(v4, v5);
+  v7 = *(v0 + 160);
+  v8 = *(v0 + 168);
+  v10 = *(v0 + 144);
+  v9 = *(v0 + 152);
+
+  v11 = *(v0 + 8);
+
+  return v11(v10, v9, v7, v8);
+}
+
+{
+
+  return _swift_task_switch(static PlaylistCovers.recipeColors(catalogID:isMusicVideo:existingArtwork:), 0, 0);
+}
+
+{
+  v1 = *(v0 + 56);
+  v2 = *(v0 + 40);
+  if ((*(v0 + 88))(v2, 1, v1) == 1)
+  {
+    outlined destroy of TaskPriority?(v2, &_s8MusicKit7ArtworkVSgMd, &_s8MusicKit7ArtworkVSgMR);
+LABEL_16:
+
+    v13 = *(v0 + 8);
+
+    return v13(0, 0, 0, 0);
+  }
+
+  (*(*(v0 + 64) + 32))(*(v0 + 72), v2, v1);
+  v3 = Artwork.backgroundColor.getter();
+  *(v0 + 184) = v3;
+  if (!v3)
+  {
+    (*(*(v0 + 64) + 8))(*(v0 + 72), *(v0 + 56));
+    goto LABEL_16;
+  }
+
+  v4 = v3;
+  v5 = Artwork.primaryTextColor.getter();
+  *(v0 + 192) = v5;
+  if (!v5)
+  {
+    (*(*(v0 + 64) + 8))(*(v0 + 72), *(v0 + 56));
+LABEL_15:
+
+    goto LABEL_16;
+  }
+
+  v6 = v5;
+  v7 = Artwork.secondaryTextColor.getter();
+  *(v0 + 200) = v7;
+  if (!v7)
+  {
+    (*(*(v0 + 64) + 8))(*(v0 + 72), *(v0 + 56));
+LABEL_14:
+
+    goto LABEL_15;
+  }
+
+  v8 = v7;
+  v9 = Artwork.tertiaryTextColor.getter();
+  *(v0 + 208) = v9;
+  if (!v9)
+  {
+    (*(*(v0 + 64) + 8))(*(v0 + 72), *(v0 + 56));
+
+    goto LABEL_14;
+  }
+
+  v10 = v9;
+  v11 = swift_task_alloc();
+  *(v0 + 216) = v11;
+  *v11 = v0;
+  v11[1] = static PlaylistCovers.recipeColors(catalogID:isMusicVideo:existingArtwork:);
+
+  return specialized static PlaylistCovers.recipeColors(backgroundColor:primaryColor:secondaryColor:tertiaryColor:)(v4, v6, v8, v10);
+}
+
+{
+  v1 = *(v0 + 200);
+  v3 = *(v0 + 184);
+  v2 = *(v0 + 192);
+  v5 = *(v0 + 64);
+  v4 = *(v0 + 72);
+  v6 = *(v0 + 56);
+
+  (*(v5 + 8))(v4, v6);
+  v7 = *(v0 + 240);
+  v8 = *(v0 + 248);
+  v10 = *(v0 + 224);
+  v9 = *(v0 + 232);
+
+  v11 = *(v0 + 8);
+
+  return v11(v10, v9, v7, v8);
+}
+
+uint64_t static PlaylistCovers.recipeColors(catalogID:isMusicVideo:existingArtwork:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = *v4;
+  v5[18] = a1;
+  v5[19] = a2;
+  v5[20] = a3;
+  v5[21] = a4;
+
+  return _swift_task_switch(static PlaylistCovers.recipeColors(catalogID:isMusicVideo:existingArtwork:), 0, 0);
+}
+
+{
+  v5 = *v4;
+  v5[28] = a1;
+  v5[29] = a2;
+  v5[30] = a3;
+  v5[31] = a4;
+
+  return _swift_task_switch(static PlaylistCovers.recipeColors(catalogID:isMusicVideo:existingArtwork:), 0, 0);
+}
+
+uint64_t static PlaylistCovers.artworkWithMediaAPIColors(for:isMusicVideo:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+{
+  *(v4 + 288) = a4;
+  *(v4 + 56) = a2;
+  *(v4 + 64) = a3;
+  *(v4 + 48) = a1;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A14ItemCollectionVyAA4SongVGMd, &_s8MusicKit0A14ItemCollectionVyAA4SongVGMR);
+  *(v4 + 72) = v5;
+  *(v4 + 80) = *(v5 - 8);
+  *(v4 + 88) = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit4SongVSgMd, &_s8MusicKit4SongVSgMR);
+  *(v4 + 96) = swift_task_alloc();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A23CatalogResourceResponseVyAA4SongVGMd, &_s8MusicKit0A23CatalogResourceResponseVyAA4SongVGMR);
+  *(v4 + 104) = v6;
+  *(v4 + 112) = *(v6 - 8);
+  *(v4 + 120) = swift_task_alloc();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A22CatalogResourceRequestVyAA4SongVGMd, &_s8MusicKit0A22CatalogResourceRequestVyAA4SongVGMR);
+  *(v4 + 128) = v7;
+  *(v4 + 136) = *(v7 - 8);
+  *(v4 + 144) = swift_task_alloc();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A14ItemCollectionVyAA0A5VideoVGMd, &_s8MusicKit0A14ItemCollectionVyAA0A5VideoVGMR);
+  *(v4 + 152) = v8;
+  *(v4 + 160) = *(v8 - 8);
+  *(v4 + 168) = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A5VideoVSgMd, &_s8MusicKit0A5VideoVSgMR);
+  *(v4 + 176) = swift_task_alloc();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A23CatalogResourceResponseVyAA0A5VideoVGMd, &_s8MusicKit0A23CatalogResourceResponseVyAA0A5VideoVGMR);
+  *(v4 + 184) = v9;
+  *(v4 + 192) = *(v9 - 8);
+  *(v4 + 200) = swift_task_alloc();
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8MusicKit0A22CatalogResourceRequestVyAA0A5VideoVGMd, &_s8MusicKit0A22CatalogResourceRequestVyAA0A5VideoVGMR);
+  *(v4 + 208) = v10;
+  *(v4 + 216) = *(v10 - 8);
+  *(v4 + 224) = swift_task_alloc();
+
+  return _swift_task_switch(static PlaylistCovers.artworkWithMediaAPIColors(for:isMusicVideo:), 0, 0);
+}
+
+uint64_t static PlaylistCovers.artworkWithMediaAPIColors(for:isMusicVideo:)()
+{
+  v20 = v0;
+  if (one-time initialization token for playlistCovers != -1)
+  {
+    swift_once();
+  }
+
+  v1 = type metadata accessor for Logger();
+  *(v0 + 232) = __swift_project_value_buffer(v1, static Logger.playlistCovers);
+
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.default.getter();
+
+  if (os_log_type_enabled(v2, v3))
+  {
+    v4 = *(v0 + 288);
+    v5 = swift_slowAlloc();
+    v19 = swift_slowAlloc();
+    *v5 = 136315394;
+    if (v4)
+    {
+      v6 = 0x697620636973756DLL;
+    }
+
+    else
+    {
+      v6 = 1735290739;
+    }
+
+    if (v4)
+    {
+      v7 = 0xEB000000006F6564;
+    }
+
+    else
+    {
+      v7 = 0xE400000000000000;
+    }
+
+    v8 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v6, v7, &v19);
+
+    *(v5 + 4) = v8;
+    *(v5 + 12) = 2082;
+    v9 = MusicItemID.description.getter();
+    v11 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v9, v10, &v19);
+
+    *(v5 + 14) = v11;
+    _os_log_impl(&_mh_execute_header, v2, v3, "Performing Media API request for %s with catalogID=%{public}s", v5, 0x16u);
+    swift_arrayDestroy();
+  }
+
+  v13 = *(v0 + 56);
+  v12 = *(v0 + 64);
+  if (*(v0 + 288) == 1)
+  {
+    swift_getKeyPath();
+    *(v0 + 32) = v13;
+    *(v0 + 40) = v12;
+    *(v0 + 240) = type metadata accessor for MusicVideo();
+    lazy protocol witness table accessor for type Song and conformance Song(&lazy protocol witness table cache variable for type MusicVideo and conformance MusicVideo, &type metadata accessor for MusicVideo, &protocol conformance descriptor for MusicVideo);
+
+    MusicCatalogResourceRequest.init<A>(matching:equalTo:)();
+    v14 = swift_task_alloc();
+    *(v0 + 248) = v14;
+    *v14 = v0;
+    v14[1] = static PlaylistCovers.artworkWithMediaAPIColors(for:isMusicVideo:);
+    v15 = *(v0 + 200);
+    v16 = *(v0 + 208);
+  }
+
+  else
+  {
+    swift_getKeyPath();
+    *(v0 + 16) = v13;
+    *(v0 + 24) = v12;
+    *(v0 + 264) = type metadata accessor for Song();
+    lazy protocol witness table accessor for type Song and conformance Song(&lazy protocol witness table cache variable for type Song and conformance Song, &type metadata accessor for Song, &protocol conformance descriptor for Song);
+
+    MusicCatalogResourceRequest.init<A>(matching:equalTo:)();
+    v17 = swift_task_alloc();
+    *(v0 + 272) = v17;
+    *v17 = v0;
+    v17[1] = static PlaylistCovers.artworkWithMediaAPIColors(for:isMusicVideo:);
+    v15 = *(v0 + 120);
+    v16 = *(v0 + 128);
+  }
+
+  return MusicCatalogResourceRequest.response()(v15, v16);
+}
+
+{
+  *(*v1 + 256) = v0;
+
+  if (v0)
+  {
+    v2 = static PlaylistCovers.artworkWithMediaAPIColors(for:isMusicVideo:);
+  }
+
+  else
+  {
+    v2 = static PlaylistCovers.artworkWithMediaAPIColors(for:isMusicVideo:);
+  }
+
+  return _swift_task_switch(v2, 0, 0);
+}
+
+{
+  v1 = v0[30];
+  v2 = v0[22];
+  v4 = v0[20];
+  v3 = v0[21];
+  v5 = v0[19];
+  MusicCatalogResourceResponse.items.getter();
+  specialized Collection.first.getter(v2);
+  (*(v4 + 8))(v3, v5);
+  v6 = *(v1 - 8);
+  if ((*(v6 + 48))(v2, 1, v1) == 1)
+  {
+    v8 = v0[27];
+    v7 = v0[28];
+    v9 = v0[26];
+    v10 = v0[22];
+    v11 = v0[6];
+    (*(v0[24] + 8))(v0[25], v0[23]);
+    (*(v8 + 8))(v7, v9);
+    outlined destroy of TaskPriority?(v10, &_s8MusicKit0A5VideoVSgMd, &_s8MusicKit0A5VideoVSgMR);
+    v12 = type metadata accessor for Artwork();
+    (*(*(v12 - 8) + 56))(v11, 1, 1, v12);
+  }
+
+  else
+  {
+    v13 = v0[30];
+    v15 = v0[27];
+    v14 = v0[28];
+    v17 = v0[25];
+    v16 = v0[26];
+    v18 = v0[23];
+    v19 = v0[24];
+    v20 = v0[22];
+    MusicVideo.artwork.getter();
+    (*(v19 + 8))(v17, v18);
+    (*(v15 + 8))(v14, v16);
+    (*(v6 + 8))(v20, v13);
+  }
+
+  v21 = v0[1];
+
+  return v21();
+}
+
+{
+  *(*v1 + 280) = v0;
+
+  if (v0)
+  {
+    v2 = static PlaylistCovers.artworkWithMediaAPIColors(for:isMusicVideo:);
+  }
+
+  else
+  {
+    v2 = static PlaylistCovers.artworkWithMediaAPIColors(for:isMusicVideo:);
+  }
+
+  return _swift_task_switch(v2, 0, 0);
+}
+
+{
+  v1 = v0[33];
+  v2 = v0[12];
+  v4 = v0[10];
+  v3 = v0[11];
+  v5 = v0[9];
+  MusicCatalogResourceResponse.items.getter();
+  specialized Collection.first.getter(v2);
+  (*(v4 + 8))(v3, v5);
+  v6 = *(v1 - 8);
+  if ((*(v6 + 48))(v2, 1, v1) == 1)
+  {
+    v8 = v0[17];
+    v7 = v0[18];
+    v9 = v0[16];
+    v10 = v0[12];
+    v11 = v0[6];
+    (*(v0[14] + 8))(v0[15], v0[13]);
+    (*(v8 + 8))(v7, v9);
+    outlined destroy of TaskPriority?(v10, &_s8MusicKit4SongVSgMd, &_s8MusicKit4SongVSgMR);
+    v12 = type metadata accessor for Artwork();
+    (*(*(v12 - 8) + 56))(v11, 1, 1, v12);
+  }
+
+  else
+  {
+    v13 = v0[33];
+    v15 = v0[17];
+    v14 = v0[18];
+    v17 = v0[15];
+    v16 = v0[16];
+    v18 = v0[13];
+    v19 = v0[14];
+    v20 = v0[12];
+    Song.artwork.getter();
+    (*(v19 + 8))(v17, v18);
+    (*(v15 + 8))(v14, v16);
+    (*(v6 + 8))(v20, v13);
+  }
+
+  v21 = v0[1];
+
+  return v21();
+}
+
+{
+  v21 = v0;
+
+  swift_errorRetain();
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.error.getter();
+
+  v3 = os_log_type_enabled(v1, v2);
+  v5 = v0[27];
+  v4 = v0[28];
+  v6 = v0[26];
+  if (v3)
+  {
+    v19 = v0[28];
+    v18 = v0[26];
+    v7 = swift_slowAlloc();
+    v8 = swift_slowAlloc();
+    v9 = swift_slowAlloc();
+    v20 = v9;
+    *v7 = 136446466;
+    v10 = MusicItemID.description.getter();
+    v12 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v10, v11, &v20);
+
+    *(v7 + 4) = v12;
+    *(v7 + 12) = 2112;
+    swift_errorRetain();
+    v13 = _swift_stdlib_bridgeErrorToNSError();
+    *(v7 + 14) = v13;
+    *v8 = v13;
+    _os_log_impl(&_mh_execute_header, v1, v2, "Failed to fetch music video from Media API with catalogID=%{public}s: %@", v7, 0x16u);
+    outlined destroy of TaskPriority?(v8, &_sSo8NSObjectCSgMd_0, &_sSo8NSObjectCSgMR_0);
+
+    __swift_destroy_boxed_opaque_existential_0Tm(v9);
+
+    (*(v5 + 8))(v19, v18);
+  }
+
+  else
+  {
+
+    (*(v5 + 8))(v4, v6);
+  }
+
+  v14 = v0[6];
+  v15 = type metadata accessor for Artwork();
+  (*(*(v15 - 8) + 56))(v14, 1, 1, v15);
+
+  v16 = v0[1];
+
+  return v16();
+}
+
+{
+  v21 = v0;
+
+  swift_errorRetain();
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.error.getter();
+
+  v3 = os_log_type_enabled(v1, v2);
+  v5 = v0[17];
+  v4 = v0[18];
+  v6 = v0[16];
+  if (v3)
+  {
+    v19 = v0[18];
+    v18 = v0[16];
+    v7 = swift_slowAlloc();
+    v8 = swift_slowAlloc();
+    v9 = swift_slowAlloc();
+    v20 = v9;
+    *v7 = 136446466;
+    v10 = MusicItemID.description.getter();
+    v12 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_0(v10, v11, &v20);
+
+    *(v7 + 4) = v12;
+    *(v7 + 12) = 2112;
+    swift_errorRetain();
+    v13 = _swift_stdlib_bridgeErrorToNSError();
+    *(v7 + 14) = v13;
+    *v8 = v13;
+    _os_log_impl(&_mh_execute_header, v1, v2, "Failed to fetch song from Media API with catalogID=%{public}s: %@", v7, 0x16u);
+    outlined destroy of TaskPriority?(v8, &_sSo8NSObjectCSgMd_0, &_sSo8NSObjectCSgMR_0);
+
+    __swift_destroy_boxed_opaque_existential_0Tm(v9);
+
+    (*(v5 + 8))(v19, v18);
+  }
+
+  else
+  {
+
+    (*(v5 + 8))(v4, v6);
+  }
+
+  v14 = v0[6];
+  v15 = type metadata accessor for Artwork();
+  (*(*(v15 - 8) + 56))(v14, 1, 1, v15);
+
+  v16 = v0[1];
+
+  return v16();
 }

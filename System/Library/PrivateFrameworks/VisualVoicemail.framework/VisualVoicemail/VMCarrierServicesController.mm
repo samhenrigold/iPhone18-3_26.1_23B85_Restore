@@ -59,6 +59,7 @@
 - (void)sendStateRequestForAccountUUID:(id)d;
 - (void)setGreeting:(id)greeting forAccountUUID:(id)d completion:(id)completion;
 - (void)setPasscode:(id)passcode forAccountUUID:(id)d completion:(id)completion;
+- (void)smsReadyStateChanged:(id)changed info:(BOOL)info;
 - (void)start;
 - (void)storageUsageForAccountUUID:(id)d completion:(id)completion;
 - (void)subscriberCountryCodeDidChange:(id)change;
@@ -137,8 +138,7 @@
   v7[3] = &unk_1000ED4C8;
   v7[4] = self;
   v7[5] = &v8;
-  [(VMCarrierServicesController *)self performSynchronousBlock:v7];
-  v2 = sub_100002850();
+  v2 = sub_100002850([(VMCarrierServicesController *)self performSynchronousBlock:v7]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = v9[3];
@@ -175,13 +175,13 @@
   serviceCopy = service;
   clientCopy = client;
   queueCopy = queue;
-  v15 = sub_100002850();
+  v15 = sub_100002850(queueCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v39 = "";
-    v40 = 2080;
-    v41 = "";
+    v40 = "";
+    v41 = 2080;
+    v42 = "";
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%screating VMCarrierServicesController", buf, 0x16u);
   }
 
@@ -205,9 +205,9 @@
     sub_10009D6B0();
   }
 
-  v37.receiver = self;
-  v37.super_class = VMCarrierServicesController;
-  v16 = [(VMCarrierServicesController *)&v37 init];
+  v38.receiver = self;
+  v38.super_class = VMCarrierServicesController;
+  v16 = [(VMCarrierServicesController *)&v38 init];
   v17 = v16;
   if (v16)
   {
@@ -225,40 +225,40 @@
 
     objc_storeStrong(&v17->_stateRequestController, controller);
     objc_storeStrong(&v17->_transcriptionService, service);
-    v21 = sub_100002850();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_100002850(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = objc_opt_class();
+      v23 = objc_opt_class();
       *buf = 136315906;
-      v39 = "";
-      v40 = 2080;
-      v41 = "";
-      v42 = 2112;
-      v43 = v22;
-      v44 = 2048;
-      v45 = v17;
-      v23 = v22;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#I %s%s<%@ %p> Adding state dump handler", buf, 0x2Au);
+      v40 = "";
+      v41 = 2080;
+      v42 = "";
+      v43 = 2112;
+      v44 = v23;
+      v45 = 2048;
+      v46 = v17;
+      v24 = v23;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s%s<%@ %p> Adding state dump handler", buf, 0x2Au);
     }
 
     objc_initWeak(buf, v17);
-    v32 = _NSConcreteStackBlock;
-    v33 = 3221225472;
-    v34 = sub_10005B01C;
-    v35 = &unk_1000EEEC0;
-    objc_copyWeak(&v36, buf);
+    v33 = _NSConcreteStackBlock;
+    v34 = 3221225472;
+    v35 = sub_10005B01C;
+    v36 = &unk_1000EEEC0;
+    objc_copyWeak(&v37, buf);
     v17->stateHandle = os_state_add_handler();
-    v27 = _NSConcreteStackBlock;
-    v28 = 3221225472;
-    v29 = sub_10005B14C;
-    v30 = &unk_1000EE5B8;
-    v24 = v17;
-    v31 = v24;
-    dispatch_async(&_dispatch_main_q, &v27);
-    v25 = [NSNotificationCenter defaultCenter:v27];
-    [v25 addObserver:v24 selector:"_handleSubscriptionStatusChanged:" name:@"VVServiceSubscriptionStatusChangedNotification" object:0];
+    v28 = _NSConcreteStackBlock;
+    v29 = 3221225472;
+    v30 = sub_10005B14C;
+    v31 = &unk_1000EE5B8;
+    v25 = v17;
+    v32 = v25;
+    dispatch_async(&_dispatch_main_q, &v28);
+    v26 = [NSNotificationCenter defaultCenter:v28];
+    [v26 addObserver:v25 selector:"_handleSubscriptionStatusChanged:" name:@"VVServiceSubscriptionStatusChangedNotification" object:0];
 
-    objc_destroyWeak(&v36);
+    objc_destroyWeak(&v37);
     objc_destroyWeak(buf);
   }
 
@@ -267,7 +267,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100002850();
+  v3 = sub_100002850(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -282,23 +282,22 @@
 
   if (self->stateHandle)
   {
-    v5 = sub_100002850();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002850(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
+      v7 = objc_opt_class();
       *buf = 136315906;
       v11 = "";
       v12 = 2080;
       v13 = "";
       v14 = 2112;
-      v15 = v6;
+      v15 = v7;
       v16 = 2048;
       selfCopy = self;
-      v7 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%s<%@ %p> Removing state dump handler", buf, 0x2Au);
+      v8 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%s<%@ %p> Removing state dump handler", buf, 0x2Au);
     }
 
-    stateHandle = self->stateHandle;
     os_state_remove_handler();
     self->stateHandle = 0;
   }
@@ -426,7 +425,7 @@ LABEL_11:
 {
   notificationCopy = notification;
   infoCopy = info;
-  v8 = sub_100002850();
+  v8 = sub_100002850(infoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 136315906;
@@ -472,59 +471,59 @@ LABEL_11:
   queue = [(VMCarrierServicesController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100002850();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100002850(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
-    v29 = "";
-    v30 = 2080;
     v31 = "";
-    v32 = 2112;
-    v33 = objc_opt_class();
+    v32 = 2080;
+    v33 = "";
     v34 = 2112;
-    v35 = nameCopy;
+    v35 = objc_opt_class();
     v36 = 2112;
-    v37 = infoCopy;
-    v10 = v33;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is handling notification with name: %@ userInfo: %@", buf, 0x34u);
+    v37 = nameCopy;
+    v38 = 2112;
+    v39 = infoCopy;
+    v11 = v35;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is handling notification with name: %@ userInfo: %@", buf, 0x34u);
   }
 
   if ([nameCopy isEqualToString:kVVReloadServiceNotification])
   {
     sub_1000898BC(0, 0);
+    v27 = 0u;
+    v28 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v23 = 0u;
-    v24 = 0u;
     labelUUIDToService = [(VMCarrierServicesController *)self labelUUIDToService];
     allValues = [labelUUIDToService allValues];
 
-    v13 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
-    if (v13)
+    v14 = [allValues countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v24;
+      v15 = v14;
+      v16 = *v26;
       do
       {
-        v16 = 0;
+        v17 = 0;
         do
         {
-          if (*v24 != v15)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(allValues);
           }
 
-          verifier = [*(*(&v23 + 1) + 8 * v16) verifier];
+          verifier = [*(*(&v25 + 1) + 8 * v17) verifier];
           [verifier _checkpointDictionaryChanged];
 
-          v16 = v16 + 1;
+          v17 = v17 + 1;
         }
 
-        while (v14 != v16);
-        v14 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
+        while (v15 != v17);
+        v15 = [allValues countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
     labelUUIDToService2 = [(VMCarrierServicesController *)self labelUUIDToService];
@@ -562,19 +561,20 @@ LABEL_14:
 
     else
     {
-      if (![nameCopy isEqualToString:@"kVMVoicemailTranscriptionTaskTranscribeAllVoicemails"])
+      v23 = [nameCopy isEqualToString:@"kVMVoicemailTranscriptionTaskTranscribeAllVoicemails"];
+      if (!v23)
       {
         goto LABEL_15;
       }
 
-      v22 = sub_100002850();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v24 = sub_100002850(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v29 = "";
-        v30 = 2080;
         v31 = "";
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s%sGot notification to force us to retranscribe all voicemails", buf, 0x16u);
+        v32 = 2080;
+        v33 = "";
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "#I %s%sGot notification to force us to retranscribe all voicemails", buf, 0x16u);
       }
 
       +[VMVoicemailTranscriptionTask resetRetranscriptionTaskState];
@@ -591,7 +591,7 @@ LABEL_15:
 - (void)_handleSubscriptionStatusChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_100002850();
+  v5 = sub_100002850(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 136315394;
@@ -619,72 +619,73 @@ LABEL_15:
 
 - (BOOL)wasDeviceRestart
 {
-  v14[0] = 0;
-  v14[1] = 0;
-  v13 = 16;
-  if (sysctlbyname("kern.boottime", v14, &v13, 0, 0))
+  v16[0] = 0;
+  v16[1] = 0;
+  v15 = 16;
+  v2 = sysctlbyname("kern.boottime", v16, &v15, 0, 0);
+  if (v2)
   {
-    v2 = sub_100002850();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_100002850(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *__error();
-      v4 = __error();
-      v5 = strerror(*v4);
+      v4 = *__error();
+      v5 = __error();
+      v6 = strerror(*v5);
       *buf = 136315906;
-      v16 = "";
-      v17 = 2080;
       v18 = "";
-      v19 = 1024;
-      v20 = v3;
-      v21 = 2080;
-      v22 = v5;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#I %s%ssysctlbyname(kern.boottime, &bootTime, &bootTimeSize, NULL, 0) - failed with err:%d (%s)", buf, 0x26u);
+      v19 = 2080;
+      v20 = "";
+      v21 = 1024;
+      v22 = v4;
+      v23 = 2080;
+      v24 = v6;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#I %s%ssysctlbyname(kern.boottime, &bootTime, &bootTimeSize, NULL, 0) - failed with err:%d (%s)", buf, 0x26u);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = +[VMPreferences sharedInstance];
-    v2 = [v7 numberForKey:@"LastBootTime" defaultValue:0];
+    v8 = +[VMPreferences sharedInstance];
+    v3 = [v8 numberForKey:@"LastBootTime" defaultValue:0];
 
-    if (v2 && (v8 = [v2 longValue], v8 == v14[0]))
+    if (v3 && (v9 = [v3 longValue], v9 == v16[0]))
     {
-      v9 = sub_100002850();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100002850(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v16 = "";
-        v17 = 2080;
         v18 = "";
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%sNOT A FIRST TIME BOOTUP", buf, 0x16u);
+        v19 = 2080;
+        v20 = "";
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sNOT A FIRST TIME BOOTUP", buf, 0x16u);
       }
 
-      v6 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v10 = +[VMPreferences sharedInstance];
-      v11 = [NSNumber numberWithLong:v14[0]];
-      [v10 setNumber:v11 forKey:@"LastBootTime"];
+      v11 = +[VMPreferences sharedInstance];
+      v12 = [NSNumber numberWithLong:v16[0]];
+      [v11 setNumber:v12 forKey:@"LastBootTime"];
 
-      v9 = sub_100002850();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100002850(v13);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v16 = "";
-        v17 = 2080;
         v18 = "";
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%sFIRST TIME BOOTUP", buf, 0x16u);
+        v19 = 2080;
+        v20 = "";
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sFIRST TIME BOOTUP", buf, 0x16u);
       }
 
-      v6 = 1;
+      v7 = 1;
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)accountsToRefreshIfNeeded
@@ -893,16 +894,16 @@ LABEL_34:
 
       [v11 setPreferencesValue:v12 forKey:@"AccountsToRefreshIfNeeded"];
 
-      v8 = sub_100002850();
+      v8 = sub_100002850(v13);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136315650;
-        v15 = "";
-        v16 = 2080;
-        v17 = "";
-        v18 = 2112;
-        v19 = uUIDString;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%sMarked account as refreshed: %@", &v14, 0x20u);
+        v15 = 136315650;
+        v16 = "";
+        v17 = 2080;
+        v18 = "";
+        v19 = 2112;
+        v20 = uUIDString;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%sMarked account as refreshed: %@", &v15, 0x20u);
       }
 
       LOBYTE(v8) = 1;
@@ -923,46 +924,46 @@ LABEL_34:
   dispatch_assert_queue_V2(queue);
 
   accountsToRefreshIfNeeded = [(VMCarrierServicesController *)self accountsToRefreshIfNeeded];
-  v5 = sub_100002850();
+  v5 = sub_100002850(accountsToRefreshIfNeeded);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v150 = "";
-    v151 = 2080;
-    v152 = "";
-    v153 = 2112;
-    v154 = accountsToRefreshIfNeeded;
+    v162 = "";
+    v163 = 2080;
+    v164 = "";
+    v165 = 2112;
+    v166 = accountsToRefreshIfNeeded;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%sAccounts to refresh if needed: %@", buf, 0x20u);
   }
 
-  v115 = accountsToRefreshIfNeeded;
+  v127 = accountsToRefreshIfNeeded;
 
-  v127 = objc_opt_new();
+  v139 = objc_opt_new();
   selfCopy = self;
   telephonyClient = [(VMCarrierServicesController *)self telephonyClient];
   contexts = [telephonyClient contexts];
 
-  v146 = 0u;
-  v147 = 0u;
-  v144 = 0u;
-  v145 = 0u;
-  v116 = contexts;
+  v158 = 0u;
+  v159 = 0u;
+  v156 = 0u;
+  v157 = 0u;
+  v128 = contexts;
   obj = [contexts subscriptions];
-  v8 = [obj countByEnumeratingWithState:&v144 objects:v162 count:16];
+  v8 = [obj countByEnumeratingWithState:&v156 objects:v174 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v145;
+    v10 = *v157;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v145 != v10)
+        if (*v157 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v144 + 1) + 8 * i);
+        v12 = *(*(&v156 + 1) + 8 * i);
         v13 = +[NSFileManager defaultManager];
         accountID = [v12 accountID];
         v15 = sub_1000855D4(accountID);
@@ -972,29 +973,29 @@ LABEL_34:
         if ((v17 & 1) == 0)
         {
           accountID2 = [v12 accountID];
-          [v127 addObject:accountID2];
+          [v139 addObject:accountID2];
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v144 objects:v162 count:16];
+      v9 = [obj countByEnumeratingWithState:&v156 objects:v174 count:16];
     }
 
     while (v9);
   }
 
-  v19 = sub_100002850();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = sub_100002850(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v150 = "";
-    v151 = 2080;
-    v152 = "";
-    v153 = 2112;
-    v154 = contexts;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%s===> Creating voicemail services for %@", buf, 0x20u);
+    v162 = "";
+    v163 = 2080;
+    v164 = "";
+    v165 = 2112;
+    v166 = contexts;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#I %s%s===> Creating voicemail services for %@", buf, 0x20u);
   }
 
-  v20 = selfCopy;
+  v21 = selfCopy;
   carrierAccountDataSource = [(VMCarrierServicesController *)selfCopy carrierAccountDataSource];
   [carrierAccountDataSource checkUpdateAccounts];
 
@@ -1002,224 +1003,180 @@ LABEL_34:
   accounts = [carrierAccountDataSource2 accounts];
 
   labelUUIDToService = [(VMCarrierServicesController *)selfCopy labelUUIDToService];
-  v114 = [labelUUIDToService copy];
+  v126 = [labelUUIDToService copy];
 
   obja = objc_opt_new();
-  v140 = 0u;
-  v141 = 0u;
-  v142 = 0u;
-  v143 = 0u;
-  v126 = accounts;
-  v25 = [v126 countByEnumeratingWithState:&v140 objects:v161 count:16];
-  if (v25)
+  v152 = 0u;
+  v153 = 0u;
+  v154 = 0u;
+  v155 = 0u;
+  v138 = accounts;
+  v26 = [v138 countByEnumeratingWithState:&v152 objects:v173 count:16];
+  if (v26)
   {
-    v26 = v25;
-    v128 = *v141;
+    v27 = v26;
+    v140 = *v153;
     do
     {
-      v27 = 0;
-      v124 = v26;
+      v28 = 0;
+      v136 = v27;
       do
       {
-        if (*v141 != v128)
+        if (*v153 != v140)
         {
-          objc_enumerationMutation(v126);
+          objc_enumerationMutation(v138);
         }
 
-        v28 = *(*(&v140 + 1) + 8 * v27);
-        telephonyClient2 = [(VMCarrierServicesController *)v20 telephonyClient];
+        v29 = *(*(&v152 + 1) + 8 * v28);
+        telephonyClient2 = [(VMCarrierServicesController *)v21 telephonyClient];
         contexts2 = [telephonyClient2 contexts];
-        uUID = [v28 UUID];
-        v32 = sub_10005C978(contexts2, uUID);
+        uUID = [v29 UUID];
+        v33 = sub_10005C978(contexts2, uUID);
 
-        v33 = sub_100002850();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v35 = sub_100002850(v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          uUID2 = [v28 UUID];
+          uUID2 = [v29 UUID];
           *buf = 136315906;
-          v150 = "";
-          v151 = 2080;
-          v152 = "";
-          v153 = 2112;
-          v154 = uUID2;
-          v155 = 2112;
-          v156 = v32;
-          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "#I %s%s==> Creating voicemail service for account UUID %@ with context %@", buf, 0x2Au);
+          v162 = "";
+          v163 = 2080;
+          v164 = "";
+          v165 = 2112;
+          v166 = uUID2;
+          v167 = 2112;
+          v168 = v33;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "#I %s%s==> Creating voicemail service for account UUID %@ with context %@", buf, 0x2Au);
         }
 
-        telephonyClient3 = [(VMCarrierServicesController *)v20 telephonyClient];
-        v36 = [telephonyClient3 carrierBundle:v32];
+        telephonyClient3 = [(VMCarrierServicesController *)v21 telephonyClient];
+        v38 = [telephonyClient3 carrierBundle:v33];
 
-        serviceNameForSubscription = [v36 serviceNameForSubscription];
-        v38 = serviceNameForSubscription;
-        if (serviceNameForSubscription && ![serviceNameForSubscription caseInsensitiveCompare:@"IMAP"])
+        serviceNameForSubscription = [v38 serviceNameForSubscription];
+        v40 = serviceNameForSubscription;
+        if (serviceNameForSubscription && (serviceNameForSubscription = [serviceNameForSubscription caseInsensitiveCompare:@"IMAP"]) == 0)
         {
-          uUID3 = [v28 UUID];
+          uUID3 = [v29 UUID];
           [obja addObject:uUID3];
 
-          labelUUIDToService2 = [(VMCarrierServicesController *)v20 labelUUIDToService];
-          uUID4 = [v28 UUID];
-          v43 = [labelUUIDToService2 objectForKeyedSubscript:uUID4];
+          labelUUIDToService2 = [(VMCarrierServicesController *)v21 labelUUIDToService];
+          uUID4 = [v29 UUID];
+          v45 = [labelUUIDToService2 objectForKeyedSubscript:uUID4];
 
-          if (v43)
+          if (v45)
           {
-            v44 = sub_100002850();
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+            v47 = sub_100002850(v46);
+            if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
-              v150 = "";
-              v151 = 2080;
-              v152 = "";
-              v153 = 2112;
-              v154 = v32;
-              _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "#I %s%sService currently exists; skipping service creation for subscription: %@", buf, 0x20u);
+              v162 = "";
+              v163 = 2080;
+              v164 = "";
+              v165 = 2112;
+              v166 = v33;
+              _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "#I %s%sService currently exists; skipping service creation for subscription: %@", buf, 0x20u);
             }
           }
 
           else
           {
-            telephonyClient4 = [(VMCarrierServicesController *)v20 telephonyClient];
-            v46 = [telephonyClient4 isoCountryCode:v32];
+            telephonyClient4 = [(VMCarrierServicesController *)v21 telephonyClient];
+            v49 = [telephonyClient4 isoCountryCode:v33];
 
-            telephonyClient5 = [(VMCarrierServicesController *)v20 telephonyClient];
-            v122 = [telephonyClient5 countryCode:v32];
+            telephonyClient5 = [(VMCarrierServicesController *)v21 telephonyClient];
+            v134 = [telephonyClient5 countryCode:v33];
 
-            telephonyClient6 = [(VMCarrierServicesController *)v20 telephonyClient];
-            v121 = [telephonyClient6 networkCode:v32];
+            telephonyClient6 = [(VMCarrierServicesController *)v21 telephonyClient];
+            v133 = [telephonyClient6 networkCode:v33];
 
-            phoneNumber = [(__CFString *)v32 phoneNumber];
-            v123 = v46;
-            v50 = sub_100025188(phoneNumber, v46);
+            phoneNumber = [(__CFString *)v33 phoneNumber];
+            v135 = v49;
+            v53 = sub_100025188(phoneNumber, v49);
 
-            if (!v50 || ![v50 length])
+            if (!v53 || (v54 = [v53 length]) == 0)
             {
-              v51 = sub_100002850();
-              if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+              v55 = sub_100002850(v54);
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
               {
-                uUID5 = [v28 UUID];
+                uUID5 = [v29 UUID];
                 *buf = 136315650;
-                v150 = "";
-                v151 = 2080;
-                v152 = "";
-                v153 = 2112;
-                v154 = uUID5;
-                _os_log_error_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "#E %s%sCould not retrieve a normalized telephone number for account %@", buf, 0x20u);
+                v162 = "";
+                v163 = 2080;
+                v164 = "";
+                v165 = 2112;
+                v166 = uUID5;
+                _os_log_error_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "#E %s%sCould not retrieve a normalized telephone number for account %@", buf, 0x20u);
               }
             }
 
-            v120 = v36;
-            uUID6 = [v28 UUID];
-            accountID3 = [(__CFString *)v32 accountID];
-            telephonyClient7 = [(VMCarrierServicesController *)v20 telephonyClient];
+            v132 = v38;
+            uUID6 = [v29 UUID];
+            accountID3 = [(__CFString *)v33 accountID];
+            telephonyClient7 = [(VMCarrierServicesController *)v21 telephonyClient];
             stateRequestController = [(VMCarrierServicesController *)selfCopy stateRequestController];
-            accountID4 = [(__CFString *)v32 accountID];
-            LOBYTE(v113) = [v127 containsObject:accountID4];
-            v119 = v50;
-            v115 = [VVService serviceWithLabel:uUID6 accountIdentifier:accountID3 phoneNumber:v50 name:v38 isoCountryCode:v123 countryCode:v122 networkCode:v121 contextInfo:v32 telephonyClient:telephonyClient7 stateRequestController:stateRequestController newAccount:v113, v114, v115];
+            accountID4 = [(__CFString *)v33 accountID];
+            LOBYTE(v125) = [v139 containsObject:accountID4];
+            v131 = v53;
+            v127 = [VVService serviceWithLabel:uUID6 accountIdentifier:accountID3 phoneNumber:v53 name:v40 isoCountryCode:v135 countryCode:v134 networkCode:v133 contextInfo:v33 telephonyClient:telephonyClient7 stateRequestController:stateRequestController newAccount:v125, v126, v127];
 
-            v58 = v115;
-            uUID7 = [v28 UUID];
+            v62 = v127;
+            uUID7 = [v29 UUID];
             LODWORD(uUID6) = [(VMCarrierServicesController *)selfCopy isRefreshRequestedForAccount:uUID7 andReset:1];
 
             if (uUID6)
             {
-              [v115 refreshIfNeeded];
+              [v127 refreshIfNeeded];
             }
 
             transcriptionService = [(VMCarrierServicesController *)selfCopy transcriptionService];
-            [v115 setTranscriptionService:transcriptionService];
+            [v127 setTranscriptionService:transcriptionService];
 
-            v61 = sub_100002850();
-            if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+            v66 = sub_100002850(v65);
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315906;
-              v150 = "";
-              v151 = 2080;
-              v152 = "";
-              v153 = 2112;
-              v154 = v115;
-              v155 = 2112;
-              v156 = v32;
-              _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "#I %s%sCreated service: %@ for subscription %@", buf, 0x2Au);
+              v162 = "";
+              v163 = 2080;
+              v164 = "";
+              v165 = 2112;
+              v166 = v127;
+              v167 = 2112;
+              v168 = v33;
+              _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEFAULT, "#I %s%sCreated service: %@ for subscription %@", buf, 0x2Au);
             }
 
-            v62 = [[VMVoicemailGreetingController alloc] initWithService:v115];
+            v67 = [[VMVoicemailGreetingController alloc] initWithService:v127];
             labelUUIDToGreetingController = [(VMCarrierServicesController *)selfCopy labelUUIDToGreetingController];
-            uUID8 = [v28 UUID];
-            [labelUUIDToGreetingController setObject:v62 forKeyedSubscript:uUID8];
+            uUID8 = [v29 UUID];
+            [labelUUIDToGreetingController setObject:v67 forKeyedSubscript:uUID8];
 
             labelUUIDToService3 = [(VMCarrierServicesController *)selfCopy labelUUIDToService];
-            uUID9 = [v28 UUID];
-            [labelUUIDToService3 setObject:v58 forKeyedSubscript:uUID9];
+            uUID9 = [v29 UUID];
+            [labelUUIDToService3 setObject:v62 forKeyedSubscript:uUID9];
 
             telephonyClient8 = [(VMCarrierServicesController *)selfCopy telephonyClient];
-            context = [(__CFString *)v32 context];
-            v139 = 0;
-            v69 = [telephonyClient8 getConnectionAvailability:context connectionType:1 error:&v139];
-            v70 = v139;
+            context = [(__CFString *)v33 context];
+            v151 = 0;
+            v74 = [telephonyClient8 getConnectionAvailability:context connectionType:1 error:&v151];
+            v75 = v151;
 
-            v71 = sub_100002850();
-            v72 = v71;
-            if (v69)
-            {
-              if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
-              {
-                *buf = 136315906;
-                v150 = "";
-                v151 = 2080;
-                v152 = "";
-                v153 = 2112;
-                v154 = v69;
-                v155 = 2112;
-                v156 = v32;
-                _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved data connection availability %@ for subscription %@", buf, 0x2Au);
-              }
-
-              [v58 setCellularNetworkAvailable:{objc_msgSend(v69, "available")}];
-            }
-
-            else
-            {
-              if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
-              {
-                *buf = 136315906;
-                v150 = "";
-                v151 = 2080;
-                v152 = "";
-                v153 = 2112;
-                v154 = v70;
-                v155 = 2112;
-                v156 = v32;
-                _os_log_error_impl(&_mh_execute_header, v72, OS_LOG_TYPE_ERROR, "#E %s%sRetrieving data connection availability failed with error %@ for subscription %@", buf, 0x2Au);
-              }
-            }
-
-            telephonyClient9 = [(VMCarrierServicesController *)selfCopy telephonyClient];
-            context2 = [(__CFString *)v32 context];
-            v138 = v70;
-            v75 = [telephonyClient9 getConnectionState:context2 connectionType:1 error:&v138];
-            v76 = v138;
-
-            v77 = sub_100002850();
+            v77 = sub_100002850(v76);
             v78 = v77;
-            v125 = v75;
-            v118 = v69;
-            if (v75)
+            if (v74)
             {
               if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315906;
-                v150 = "";
-                v151 = 2080;
-                v152 = "";
-                v153 = 2112;
-                v154 = v75;
-                v155 = 2112;
-                v156 = v32;
-                _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved data connection status %@ for subscription %@", buf, 0x2Au);
+                v162 = "";
+                v163 = 2080;
+                v164 = "";
+                v165 = 2112;
+                v166 = v74;
+                v167 = 2112;
+                v168 = v33;
+                _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved data connection availability %@ for subscription %@", buf, 0x2Au);
               }
 
-              [v58 setWiFiNetworkSupported:{objc_msgSend(v75, "publicNetAllowed")}];
+              [v62 setCellularNetworkAvailable:{objc_msgSend(v74, "available")}];
             }
 
             else
@@ -1227,261 +1184,307 @@ LABEL_34:
               if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315906;
-                v150 = "";
-                v151 = 2080;
-                v152 = "";
-                v153 = 2112;
-                v154 = v76;
-                v155 = 2112;
-                v156 = v32;
-                _os_log_error_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "#E %s%sRetrieving data connection status failed with error %@ for subscription %@", buf, 0x2Au);
+                v162 = "";
+                v163 = 2080;
+                v164 = "";
+                v165 = 2112;
+                v166 = v75;
+                v167 = 2112;
+                v168 = v33;
+                _os_log_error_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "#E %s%sRetrieving data connection availability failed with error %@ for subscription %@", buf, 0x2Au);
+              }
+            }
+
+            telephonyClient9 = [(VMCarrierServicesController *)selfCopy telephonyClient];
+            context2 = [(__CFString *)v33 context];
+            v150 = v75;
+            v81 = [telephonyClient9 getConnectionState:context2 connectionType:1 error:&v150];
+            v82 = v150;
+
+            v84 = sub_100002850(v83);
+            v85 = v84;
+            v137 = v81;
+            v130 = v74;
+            if (v81)
+            {
+              if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 136315906;
+                v162 = "";
+                v163 = 2080;
+                v164 = "";
+                v165 = 2112;
+                v166 = v81;
+                v167 = 2112;
+                v168 = v33;
+                _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved data connection status %@ for subscription %@", buf, 0x2Au);
+              }
+
+              [v62 setWiFiNetworkSupported:{objc_msgSend(v81, "publicNetAllowed")}];
+            }
+
+            else
+            {
+              if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 136315906;
+                v162 = "";
+                v163 = 2080;
+                v164 = "";
+                v165 = 2112;
+                v166 = v82;
+                v167 = 2112;
+                v168 = v33;
+                _os_log_error_impl(&_mh_execute_header, v85, OS_LOG_TYPE_ERROR, "#E %s%sRetrieving data connection status failed with error %@ for subscription %@", buf, 0x2Au);
               }
             }
 
             telephonyClient10 = [(VMCarrierServicesController *)selfCopy telephonyClient];
-            v80 = [telephonyClient10 carrierBundle:v32];
+            v87 = [telephonyClient10 carrierBundle:v33];
 
-            v117 = v80;
-            isServiceSupportedOnInternetForSubscription = [v80 isServiceSupportedOnInternetForSubscription];
-            v82 = sub_100002850();
-            if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+            v129 = v87;
+            isServiceSupportedOnInternetForSubscription = [v87 isServiceSupportedOnInternetForSubscription];
+            v89 = sub_100002850(isServiceSupportedOnInternetForSubscription);
+            if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
-              v83 = @"NOT supported";
+              v90 = @"NOT supported";
               if (isServiceSupportedOnInternetForSubscription)
               {
-                v83 = @"supported";
+                v90 = @"supported";
               }
 
-              v150 = "";
-              v151 = 2080;
-              v152 = "";
-              v153 = 2112;
-              v154 = v83;
-              _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved service availability on Internet: service is %@", buf, 0x20u);
+              v162 = "";
+              v163 = 2080;
+              v164 = "";
+              v165 = 2112;
+              v166 = v90;
+              _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved service availability on Internet: service is %@", buf, 0x20u);
             }
 
-            if (isServiceSupportedOnInternetForSubscription != [v58 isWiFiNetworkSupported])
+            isWiFiNetworkSupported = [v62 isWiFiNetworkSupported];
+            if (isServiceSupportedOnInternetForSubscription != isWiFiNetworkSupported)
             {
-              v84 = sub_100002850();
-              if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+              v92 = sub_100002850(isWiFiNetworkSupported);
+              if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
               {
                 if (isServiceSupportedOnInternetForSubscription)
                 {
-                  v85 = @"supported";
+                  v93 = @"supported";
                 }
 
                 else
                 {
-                  v85 = @"NOT supported";
+                  v93 = @"NOT supported";
                 }
 
-                publicNetAllowed = [v75 publicNetAllowed];
+                publicNetAllowed = [v81 publicNetAllowed];
                 *buf = 136316418;
-                v87 = @"NO";
+                v95 = @"NO";
                 if (publicNetAllowed)
                 {
-                  v87 = @"YES";
+                  v95 = @"YES";
                 }
 
-                v150 = "";
-                v151 = 2080;
-                v152 = "";
-                v153 = 2112;
-                v154 = v85;
-                v155 = 2112;
-                v156 = v87;
-                v157 = 2112;
-                v158 = v75;
-                v159 = 2112;
-                v160 = v32;
-                _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "#I %s%sService is %@ on Internet in carrier bundle, but publicNetAllowed is %@ %@ for subscription %@", buf, 0x3Eu);
+                v162 = "";
+                v163 = 2080;
+                v164 = "";
+                v165 = 2112;
+                v166 = v93;
+                v167 = 2112;
+                v168 = v95;
+                v169 = 2112;
+                v170 = v81;
+                v171 = 2112;
+                v172 = v33;
+                _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_DEFAULT, "#I %s%sService is %@ on Internet in carrier bundle, but publicNetAllowed is %@ %@ for subscription %@", buf, 0x3Eu);
               }
 
-              [v58 setWiFiNetworkSupported:isServiceSupportedOnInternetForSubscription];
+              [v62 setWiFiNetworkSupported:isServiceSupportedOnInternetForSubscription];
             }
 
             telephonyClient11 = [(VMCarrierServicesController *)selfCopy telephonyClient];
-            context3 = [(__CFString *)v32 context];
-            v137 = v76;
-            v90 = [telephonyClient11 getSmscAddress:context3 error:&v137];
-            v91 = v137;
+            context3 = [(__CFString *)v33 context];
+            v149 = v82;
+            v98 = [telephonyClient11 getSmscAddress:context3 error:&v149];
+            v99 = v149;
 
-            v92 = sub_100002850();
-            v93 = v92;
-            if (v90)
+            v101 = sub_100002850(v100);
+            v102 = v101;
+            if (v98)
             {
-              if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315906;
-                v150 = "";
-                v151 = 2080;
-                v152 = "";
-                v153 = 2112;
-                v154 = v90;
-                v155 = 2112;
-                v156 = v32;
-                _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved SMSC address '%@' for subscription %@", buf, 0x2Au);
+                v162 = "";
+                v163 = 2080;
+                v164 = "";
+                v165 = 2112;
+                v166 = v98;
+                v167 = 2112;
+                v168 = v33;
+                _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved SMSC address '%@' for subscription %@", buf, 0x2Au);
               }
 
-              [v58 setSmscAddress:v90];
+              [v62 setSmscAddress:v98];
             }
 
             else
             {
-              if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315906;
-                v150 = "";
-                v151 = 2080;
-                v152 = "";
-                v153 = 2112;
-                v154 = v91;
-                v155 = 2112;
-                v156 = v32;
-                _os_log_error_impl(&_mh_execute_header, v93, OS_LOG_TYPE_ERROR, "#E %s%sRetrieving SMSC address failed with error %@ for subscription %@", buf, 0x2Au);
+                v162 = "";
+                v163 = 2080;
+                v164 = "";
+                v165 = 2112;
+                v166 = v99;
+                v167 = 2112;
+                v168 = v33;
+                _os_log_error_impl(&_mh_execute_header, v102, OS_LOG_TYPE_ERROR, "#E %s%sRetrieving SMSC address failed with error %@ for subscription %@", buf, 0x2Au);
               }
             }
 
             telephonyClient12 = [(VMCarrierServicesController *)selfCopy telephonyClient];
-            context4 = [(__CFString *)v32 context];
-            v136 = v91;
-            v96 = [telephonyClient12 getSmsReadyState:context4 error:&v136];
-            v97 = v136;
+            context4 = [(__CFString *)v33 context];
+            v148 = v99;
+            v105 = [telephonyClient12 getSmsReadyState:context4 error:&v148];
+            v106 = v148;
 
-            v98 = sub_100002850();
-            v99 = v98;
-            if (v96)
+            v108 = sub_100002850(v107);
+            v109 = v108;
+            if (v105)
             {
-              v36 = v120;
-              if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
+              v38 = v132;
+              if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315906;
-                v150 = "";
-                v151 = 2080;
-                v152 = "";
-                v153 = 2112;
-                v154 = v96;
-                v155 = 2112;
-                v156 = v32;
-                _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved SMS ready state of %@ for subscription %@", buf, 0x2Au);
+                v162 = "";
+                v163 = 2080;
+                v164 = "";
+                v165 = 2112;
+                v166 = v105;
+                v167 = 2112;
+                v168 = v33;
+                _os_log_impl(&_mh_execute_header, v109, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved SMS ready state of %@ for subscription %@", buf, 0x2Au);
               }
 
-              [v58 setSMSReady:{objc_msgSend(v96, "BOOLValue")}];
+              [v62 setSMSReady:{objc_msgSend(v105, "BOOLValue")}];
             }
 
             else
             {
-              v36 = v120;
-              if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+              v38 = v132;
+              if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315906;
-                v150 = "";
-                v151 = 2080;
-                v152 = "";
-                v153 = 2112;
-                v154 = v97;
-                v155 = 2112;
-                v156 = v32;
-                _os_log_error_impl(&_mh_execute_header, v99, OS_LOG_TYPE_ERROR, "#E %s%sRetrieving SMS ready state failed with error %@ for subscription %@", buf, 0x2Au);
+                v162 = "";
+                v163 = 2080;
+                v164 = "";
+                v165 = 2112;
+                v166 = v106;
+                v167 = 2112;
+                v168 = v33;
+                _os_log_error_impl(&_mh_execute_header, v109, OS_LOG_TYPE_ERROR, "#E %s%sRetrieving SMS ready state failed with error %@ for subscription %@", buf, 0x2Au);
               }
             }
 
-            v20 = selfCopy;
+            v21 = selfCopy;
           }
 
-          v26 = v124;
+          v27 = v136;
         }
 
         else
         {
-          v39 = sub_100002850();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+          v41 = sub_100002850(serviceNameForSubscription);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v150 = "";
-            v151 = 2080;
-            v152 = "";
-            v153 = 2112;
-            v154 = v32;
-            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "#I %s%sCarrier does not support IMAP; cancelling service creation for subscription %@", buf, 0x20u);
+            v162 = "";
+            v163 = 2080;
+            v164 = "";
+            v165 = 2112;
+            v166 = v33;
+            _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "#I %s%sCarrier does not support IMAP; cancelling service creation for subscription %@", buf, 0x20u);
           }
 
-          [(VMCarrierServicesController *)v20 reportAccount:v32 subscribed:0];
+          [(VMCarrierServicesController *)v21 reportAccount:v33 subscribed:0];
         }
 
-        v27 = v27 + 1;
+        v28 = v28 + 1;
       }
 
-      while (v26 != v27);
-      v26 = [v126 countByEnumeratingWithState:&v140 objects:v161 count:16];
+      while (v27 != v28);
+      v27 = [v138 countByEnumeratingWithState:&v152 objects:v173 count:16];
     }
 
-    while (v26);
+    while (v27);
   }
 
-  v134 = 0u;
-  v135 = 0u;
-  v132 = 0u;
-  v133 = 0u;
-  v101 = v114;
-  v102 = [v101 countByEnumeratingWithState:&v132 objects:v148 count:16];
-  if (v102)
+  v146 = 0u;
+  v147 = 0u;
+  v144 = 0u;
+  v145 = 0u;
+  v111 = v126;
+  v112 = [v111 countByEnumeratingWithState:&v144 objects:v160 count:16];
+  if (v112)
   {
-    v103 = v102;
-    v104 = *v133;
+    v113 = v112;
+    v114 = *v145;
     do
     {
-      for (j = 0; j != v103; j = j + 1)
+      for (j = 0; j != v113; j = j + 1)
       {
-        if (*v133 != v104)
+        if (*v145 != v114)
         {
-          objc_enumerationMutation(v101);
+          objc_enumerationMutation(v111);
         }
 
-        v106 = *(*(&v132 + 1) + 8 * j);
-        if (([obja containsObject:v106] & 1) == 0)
+        v116 = *(*(&v144 + 1) + 8 * j);
+        v117 = [obja containsObject:v116];
+        if ((v117 & 1) == 0)
         {
-          v107 = sub_100002850();
-          if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+          v118 = sub_100002850(v117);
+          if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
           {
-            v108 = [v101 objectForKeyedSubscript:v106];
+            v119 = [v111 objectForKeyedSubscript:v116];
             *buf = 136315906;
-            v150 = "";
-            v151 = 2080;
-            v152 = "";
-            v153 = 2112;
-            v154 = v108;
-            v155 = 2112;
-            v156 = v106;
-            _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEFAULT, "#I %s%sdeleting service %@ for labelUUID %@", buf, 0x2Au);
+            v162 = "";
+            v163 = 2080;
+            v164 = "";
+            v165 = 2112;
+            v166 = v119;
+            v167 = 2112;
+            v168 = v116;
+            _os_log_impl(&_mh_execute_header, v118, OS_LOG_TYPE_DEFAULT, "#I %s%sdeleting service %@ for labelUUID %@", buf, 0x2Au);
           }
 
           labelUUIDToService4 = [(VMCarrierServicesController *)selfCopy labelUUIDToService];
-          [labelUUIDToService4 removeObjectForKey:v106];
+          [labelUUIDToService4 removeObjectForKey:v116];
 
           labelUUIDToGreetingController2 = [(VMCarrierServicesController *)selfCopy labelUUIDToGreetingController];
-          [labelUUIDToGreetingController2 removeObjectForKey:v106];
+          [labelUUIDToGreetingController2 removeObjectForKey:v116];
         }
       }
 
-      v103 = [v101 countByEnumeratingWithState:&v132 objects:v148 count:16];
+      v113 = [v111 countByEnumeratingWithState:&v144 objects:v160 count:16];
     }
 
-    while (v103);
+    while (v113);
   }
 
-  v111 = sub_100002850();
-  if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
+  v123 = sub_100002850(v122);
+  if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
   {
     labelUUIDToService5 = [(VMCarrierServicesController *)selfCopy labelUUIDToService];
     *buf = 136315650;
-    v150 = "";
-    v151 = 2080;
-    v152 = "";
-    v153 = 2112;
-    v154 = labelUUIDToService5;
-    _os_log_impl(&_mh_execute_header, v111, OS_LOG_TYPE_DEFAULT, "#I %s%slabelUUIDToService: %@", buf, 0x20u);
+    v162 = "";
+    v163 = 2080;
+    v164 = "";
+    v165 = 2112;
+    v166 = labelUUIDToService5;
+    _os_log_impl(&_mh_execute_header, v123, OS_LOG_TYPE_DEFAULT, "#I %s%slabelUUIDToService: %@", buf, 0x20u);
   }
 }
 
@@ -1549,7 +1552,7 @@ LABEL_34:
 - (void)moveRecordsWithIdentifiersToTrash:(id)trash
 {
   trashCopy = trash;
-  v5 = sub_100002850();
+  v5 = sub_100002850(trashCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -1575,7 +1578,7 @@ LABEL_34:
 - (void)moveRecordsWithIdentifiersToInbox:(id)inbox
 {
   inboxCopy = inbox;
-  v5 = sub_100002850();
+  v5 = sub_100002850(inboxCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -1601,7 +1604,7 @@ LABEL_34:
 - (void)moveRecordsWithIdentifiersToDeleted:(id)deleted
 {
   deletedCopy = deleted;
-  v5 = sub_100002850();
+  v5 = sub_100002850(deletedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -1641,7 +1644,7 @@ LABEL_34:
 - (void)moveRecordsWithUniqueIdentifiersToTrash:(id)trash
 {
   trashCopy = trash;
-  v5 = sub_100002850();
+  v5 = sub_100002850(trashCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -1667,7 +1670,7 @@ LABEL_34:
 - (void)moveRecordsWithUniqueIdentifiersToInbox:(id)inbox
 {
   inboxCopy = inbox;
-  v5 = sub_100002850();
+  v5 = sub_100002850(inboxCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -1693,7 +1696,7 @@ LABEL_34:
 - (void)moveRecordsWithUniqueIdentifiersToDeleted:(id)deleted
 {
   deletedCopy = deleted;
-  v5 = sub_100002850();
+  v5 = sub_100002850(deletedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -1863,14 +1866,14 @@ LABEL_34:
   queue = [(VMCarrierServicesController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100002850();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100002850(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "";
-    v7 = 2080;
-    v8 = "";
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%sCarrierService, Received subscriptionDataOnlyDidChange", &v5, 0x16u);
+    v6 = 136315394;
+    v7 = "";
+    v8 = 2080;
+    v9 = "";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%sCarrierService, Received subscriptionDataOnlyDidChange", &v6, 0x16u);
   }
 
   [(VMCarrierServicesController *)self queryAndInitVoicemailServices];
@@ -1881,14 +1884,14 @@ LABEL_34:
   queue = [(VMCarrierServicesController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v3 = sub_100002850();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_100002850(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315394;
-    v5 = "";
-    v6 = 2080;
-    v7 = "";
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#I %s%sCarrierService, Received subscriptionInfoDidChange", &v4, 0x16u);
+    v5 = 136315394;
+    v6 = "";
+    v7 = 2080;
+    v8 = "";
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%sCarrierService, Received subscriptionInfoDidChange", &v5, 0x16u);
   }
 }
 
@@ -1897,14 +1900,14 @@ LABEL_34:
   queue = [(VMCarrierServicesController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100002850();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100002850(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "";
-    v7 = 2080;
-    v8 = "";
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%sCarrierService, Received activeSubscriptionsDidChange", &v5, 0x16u);
+    v6 = 136315394;
+    v7 = "";
+    v8 = 2080;
+    v9 = "";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%sCarrierService, Received activeSubscriptionsDidChange", &v6, 0x16u);
   }
 
   [(VMCarrierServicesController *)self queryAndInitVoicemailServices];
@@ -1917,39 +1920,39 @@ LABEL_34:
   queue = [(VMCarrierServicesController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100002850();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100002850(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315906;
-    v15 = "";
-    v16 = 2080;
-    v17 = "";
-    v18 = 2112;
-    v19 = objc_opt_class();
-    v20 = 2112;
-    v21 = changeCopy;
-    v7 = v19;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ received carrier bundle change callback for subscription %@", &v14, 0x2Au);
+    v17 = 136315906;
+    v18 = "";
+    v19 = 2080;
+    v20 = "";
+    v21 = 2112;
+    v22 = objc_opt_class();
+    v23 = 2112;
+    v24 = changeCopy;
+    v8 = v22;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ received carrier bundle change callback for subscription %@", &v17, 0x2Au);
   }
 
-  v8 = [NSUUID alloc];
+  v9 = [NSUUID alloc];
   labelID = [changeCopy labelID];
-  v10 = [v8 initWithUUIDString:labelID];
+  v11 = [v9 initWithUUIDString:labelID];
 
-  if (v10)
+  if (v11)
   {
     labelUUIDToService = [(VMCarrierServicesController *)self labelUUIDToService];
-    v12 = [labelUUIDToService objectForKeyedSubscript:v10];
+    v14 = [labelUUIDToService objectForKeyedSubscript:v11];
 
-    if (v12)
+    if (v14)
     {
-      contextInfo = [v12 contextInfo];
-      [(VMCarrierServicesController *)self updateCarrierBundle:contextInfo service:v12];
+      contextInfo = [v14 contextInfo];
+      [(VMCarrierServicesController *)self updateCarrierBundle:contextInfo service:v14];
     }
 
     else
     {
-      contextInfo = sub_100002850();
+      contextInfo = sub_100002850(v15);
       if (os_log_type_enabled(contextInfo, OS_LOG_TYPE_ERROR))
       {
         sub_10009D7E8();
@@ -1959,8 +1962,8 @@ LABEL_34:
 
   else
   {
-    v12 = sub_100002850();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = sub_100002850(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10009D85C();
     }
@@ -1978,7 +1981,7 @@ LABEL_34:
   v10 = [telephonyClient carrierBundle:bundleCopy];
 
   isServiceSupportedOnInternetForSubscription = [v10 isServiceSupportedOnInternetForSubscription];
-  v12 = sub_100002850();
+  v12 = sub_100002850(isServiceSupportedOnInternetForSubscription);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = objc_opt_class();
@@ -2013,67 +2016,67 @@ LABEL_34:
   queue = [(VMCarrierServicesController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v10 = sub_100002850();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100002850(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = NSStringFromSelector(a2);
+    v12 = NSStringFromSelector(a2);
     *buf = 136316162;
-    v31 = "";
-    v32 = 2080;
     v33 = "";
-    v34 = 2112;
-    v35 = v11;
+    v34 = 2080;
+    v35 = "";
     v36 = 2112;
-    v37 = availabilityCopy;
+    v37 = v12;
     v38 = 2112;
-    v39 = connectionsCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sReceived delegate callback %@ %@ %@", buf, 0x34u);
+    v39 = availabilityCopy;
+    v40 = 2112;
+    v41 = connectionsCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#I %s%sReceived delegate callback %@ %@ %@", buf, 0x34u);
   }
 
-  v12 = [NSUUID alloc];
+  v13 = [NSUUID alloc];
   labelID = [availabilityCopy labelID];
-  v14 = [v12 initWithUUIDString:labelID];
+  v15 = [v13 initWithUUIDString:labelID];
 
-  if (v14)
+  if (v15)
   {
     labelUUIDToService = [(VMCarrierServicesController *)self labelUUIDToService];
-    v16 = [labelUUIDToService objectForKeyedSubscript:v14];
+    v17 = [labelUUIDToService objectForKeyedSubscript:v15];
 
-    if (v16)
+    if (v17)
     {
+      v29 = 0u;
+      v30 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v17 = connectionsCopy;
-      v18 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
-      if (v18)
+      v19 = connectionsCopy;
+      v20 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      if (v20)
       {
-        v19 = v18;
-        v20 = *v26;
-        v21 = kCTDataConnectionServiceTypeVVM;
+        v21 = v20;
+        v22 = *v28;
+        v23 = kCTDataConnectionServiceTypeVVM;
         while (2)
         {
-          v22 = 0;
+          v24 = 0;
           do
           {
-            if (*v26 != v20)
+            if (*v28 != v22)
             {
-              objc_enumerationMutation(v17);
+              objc_enumerationMutation(v19);
             }
 
-            if ([*(*(&v25 + 1) + 8 * v22) isEqualToString:{v21, v25}])
+            if ([*(*(&v27 + 1) + 8 * v24) isEqualToString:{v23, v27}])
             {
-              v23 = 1;
+              v25 = 1;
               goto LABEL_15;
             }
 
-            v22 = v22 + 1;
+            v24 = v24 + 1;
           }
 
-          while (v19 != v22);
-          v19 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
-          if (v19)
+          while (v21 != v24);
+          v21 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          if (v21)
           {
             continue;
           }
@@ -2082,16 +2085,16 @@ LABEL_34:
         }
       }
 
-      v23 = 0;
+      v25 = 0;
 LABEL_15:
 
-      [v16 setCellularNetworkAvailable:v23];
+      [v17 setCellularNetworkAvailable:v25];
     }
 
     else
     {
-      v24 = sub_100002850();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = sub_100002850(v18);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         sub_10009D7E8();
       }
@@ -2108,41 +2111,93 @@ LABEL_15:
 
   if (connection == 1)
   {
-    v11 = sub_100002850();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100002850(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 136315906;
-      v19 = "";
-      v20 = 2080;
+      v20 = 136315906;
       v21 = "";
-      v22 = 2112;
-      v23 = infoCopy;
+      v22 = 2080;
+      v23 = "";
       v24 = 2112;
-      v25 = changedCopy;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#I %s%sData connection state changed %@ for subscription %@", &v18, 0x2Au);
+      v25 = infoCopy;
+      v26 = 2112;
+      v27 = changedCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%sData connection state changed %@ for subscription %@", &v20, 0x2Au);
     }
 
-    v12 = [NSUUID alloc];
+    v13 = [NSUUID alloc];
     labelID = [changedCopy labelID];
-    v14 = [v12 initWithUUIDString:labelID];
+    v15 = [v13 initWithUUIDString:labelID];
 
-    if (v14)
+    if (v15)
     {
       labelUUIDToService = [(VMCarrierServicesController *)self labelUUIDToService];
-      v16 = [labelUUIDToService objectForKeyedSubscript:v14];
+      v17 = [labelUUIDToService objectForKeyedSubscript:v15];
 
-      if (v16)
+      if (v17)
       {
-        [v16 setWiFiNetworkSupported:{objc_msgSend(infoCopy, "publicNetAllowed")}];
+        [v17 setWiFiNetworkSupported:{objc_msgSend(infoCopy, "publicNetAllowed")}];
       }
 
       else
       {
-        v17 = sub_100002850();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v19 = sub_100002850(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           sub_10009D7E8();
         }
+      }
+    }
+  }
+}
+
+- (void)smsReadyStateChanged:(id)changed info:(BOOL)info
+{
+  infoCopy = info;
+  changedCopy = changed;
+  queue = [(VMCarrierServicesController *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v9 = sub_100002850(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = @"not ready";
+    v18 = 136315906;
+    v20 = 2080;
+    v19 = "";
+    v21 = "";
+    if (infoCopy)
+    {
+      v10 = @"ready";
+    }
+
+    v22 = 2112;
+    v23 = v10;
+    v24 = 2112;
+    v25 = changedCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%sSMS is %@ for subscription %@", &v18, 0x2Au);
+  }
+
+  v11 = [NSUUID alloc];
+  labelID = [changedCopy labelID];
+  v13 = [v11 initWithUUIDString:labelID];
+
+  if (v13)
+  {
+    labelUUIDToService = [(VMCarrierServicesController *)self labelUUIDToService];
+    v15 = [labelUUIDToService objectForKeyedSubscript:v13];
+
+    if (v15)
+    {
+      [v15 setSMSReady:infoCopy];
+    }
+
+    else
+    {
+      v17 = sub_100002850(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        sub_10009D7E8();
       }
     }
   }
@@ -2155,38 +2210,38 @@ LABEL_15:
   queue = [(VMCarrierServicesController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100002850();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100002850(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315906;
-    v17 = "";
-    v18 = 2080;
+    v18 = 136315906;
     v19 = "";
-    v20 = 2112;
-    v21 = smscCopy;
+    v20 = 2080;
+    v21 = "";
     v22 = 2112;
-    v23 = availableCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%sSMSC address is '%@' for subscription %@", &v16, 0x2Au);
+    v23 = smscCopy;
+    v24 = 2112;
+    v25 = availableCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sSMSC address is '%@' for subscription %@", &v18, 0x2Au);
   }
 
-  v10 = [NSUUID alloc];
+  v11 = [NSUUID alloc];
   labelID = [availableCopy labelID];
-  v12 = [v10 initWithUUIDString:labelID];
+  v13 = [v11 initWithUUIDString:labelID];
 
-  if (v12)
+  if (v13)
   {
     labelUUIDToService = [(VMCarrierServicesController *)self labelUUIDToService];
-    v14 = [labelUUIDToService objectForKeyedSubscript:v12];
+    v15 = [labelUUIDToService objectForKeyedSubscript:v13];
 
-    if (v14)
+    if (v15)
     {
-      [v14 setSmscAddress:smscCopy];
+      [v15 setSmscAddress:smscCopy];
     }
 
     else
     {
-      v15 = sub_100002850();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = sub_100002850(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_10009D7E8();
       }
@@ -2200,16 +2255,16 @@ LABEL_15:
   queue = [(VMCarrierServicesController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100002850();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100002850(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "";
-    v9 = 2080;
-    v10 = "";
-    v11 = 2112;
-    v12 = changeCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I %s%sISO country code has changed for subscription %@; updating the list of service providers.", &v7, 0x20u);
+    v8 = 136315650;
+    v9 = "";
+    v10 = 2080;
+    v11 = "";
+    v12 = 2112;
+    v13 = changeCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%sISO country code has changed for subscription %@; updating the list of service providers.", &v8, 0x20u);
   }
 
   [(VMCarrierServicesController *)self queryAndInitVoicemailServices];
@@ -2219,7 +2274,7 @@ LABEL_15:
 {
   notificationCopy = notification;
   infoCopy = info;
-  v7 = sub_100002850();
+  v7 = sub_100002850(infoCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136316162;
@@ -2244,41 +2299,41 @@ LABEL_15:
   queue = [(VMCarrierServicesController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100002850();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100002850(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    *v17 = 136316162;
-    *&v17[4] = "";
-    *&v17[12] = 2080;
-    *&v17[14] = "";
-    *&v17[22] = 2112;
-    v18 = objc_opt_class();
-    *v19 = 2112;
-    *&v19[2] = notificationCopy;
-    *&v19[10] = 2112;
-    *&v19[12] = infoCopy;
-    v10 = v18;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is handling voicemail info available notification delegate callback for subscription %@, voicemail info %@", v17, 0x34u);
+    *v19 = 136316162;
+    *&v19[4] = "";
+    *&v19[12] = 2080;
+    *&v19[14] = "";
+    *&v19[22] = 2112;
+    v20 = objc_opt_class();
+    *v21 = 2112;
+    *&v21[2] = notificationCopy;
+    *&v21[10] = 2112;
+    *&v21[12] = infoCopy;
+    v11 = v20;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ is handling voicemail info available notification delegate callback for subscription %@, voicemail info %@", v19, 0x34u);
   }
 
-  v11 = [NSUUID alloc];
+  v12 = [NSUUID alloc];
   labelID = [notificationCopy labelID];
-  v13 = [v11 initWithUUIDString:labelID];
+  v14 = [v12 initWithUUIDString:labelID];
 
-  if (v13)
+  if (v14)
   {
     labelUUIDToService = [(VMCarrierServicesController *)self labelUUIDToService];
-    v15 = [labelUUIDToService objectForKeyedSubscript:v13];
+    v16 = [labelUUIDToService objectForKeyedSubscript:v14];
 
-    if (v15 || (-[VMCarrierServicesController queryAndInitVoicemailServices](self, "queryAndInitVoicemailServices"), -[VMCarrierServicesController labelUUIDToService](self, "labelUUIDToService"), v16 = objc_claimAutoreleasedReturnValue(), [v16 objectForKeyedSubscript:v13], v15 = objc_claimAutoreleasedReturnValue(), v16, v15))
+    if (v16 || (-[VMCarrierServicesController queryAndInitVoicemailServices](self, "queryAndInitVoicemailServices"), -[VMCarrierServicesController labelUUIDToService](self, "labelUUIDToService"), v17 = objc_claimAutoreleasedReturnValue(), [v17 objectForKeyedSubscript:v14], v16 = objc_claimAutoreleasedReturnValue(), v17, v16))
     {
-      [v15 handleVoicemailInfoUpdate:infoCopy, *v17, *&v17[16], v18, *v19, *&v19[16]];
+      [v16 handleVoicemailInfoUpdate:infoCopy, *v19, *&v19[8], v20, *v21, *&v21[8]];
     }
 
     else
     {
-      v15 = sub_100002850();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = sub_100002850(v18);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_10009D7E8();
       }
@@ -2476,21 +2531,21 @@ LABEL_15:
   labelUUIDToService = [(VMCarrierServicesController *)self labelUUIDToService];
   v6 = [labelUUIDToService objectForKeyedSubscript:dCopy];
 
-  v7 = sub_100002850();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = sub_100002850(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
-    if (v8)
+    if (v9)
     {
-      v9 = 136315906;
-      v10 = "";
-      v11 = 2080;
-      v12 = "";
-      v13 = 2112;
-      v14 = v6;
-      v15 = 2112;
-      v16 = dCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%sCreating STATE request for service %@, accountUUID %@", &v9, 0x2Au);
+      v10 = 136315906;
+      v11 = "";
+      v12 = 2080;
+      v13 = "";
+      v14 = 2112;
+      v15 = v6;
+      v16 = 2112;
+      v17 = dCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%sCreating STATE request for service %@, accountUUID %@", &v10, 0x2Au);
     }
 
     [v6 resendBeacon];
@@ -2498,15 +2553,15 @@ LABEL_15:
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      v9 = 136315650;
-      v10 = "";
-      v11 = 2080;
-      v12 = "";
-      v13 = 2112;
-      v14 = dCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not retrieve service provide for account UUID %@", &v9, 0x20u);
+      v10 = 136315650;
+      v11 = "";
+      v12 = 2080;
+      v13 = "";
+      v14 = 2112;
+      v15 = dCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not retrieve service provide for account UUID %@", &v10, 0x20u);
     }
   }
 }
@@ -2517,21 +2572,21 @@ LABEL_15:
   labelUUIDToService = [(VMCarrierServicesController *)self labelUUIDToService];
   v6 = [labelUUIDToService objectForKeyedSubscript:dCopy];
 
-  v7 = sub_100002850();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = sub_100002850(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
-    if (v8)
+    if (v9)
     {
-      v11 = 136315906;
-      v12 = "";
-      v13 = 2080;
-      v14 = "";
-      v15 = 2112;
-      v16 = v6;
-      v17 = 2112;
-      v18 = dCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%sReceiving info for service %@, accountUUID %@", &v11, 0x2Au);
+      v12 = 136315906;
+      v13 = "";
+      v14 = 2080;
+      v15 = "";
+      v16 = 2112;
+      v17 = v6;
+      v18 = 2112;
+      v19 = dCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%sReceiving info for service %@, accountUUID %@", &v12, 0x2Au);
     }
 
     getParameters = [v6 getParameters];
@@ -2539,15 +2594,15 @@ LABEL_15:
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      v11 = 136315650;
-      v12 = "";
-      v13 = 2080;
-      v14 = "";
-      v15 = 2112;
-      v16 = dCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not retrieve service provide for account UUID %@", &v11, 0x20u);
+      v12 = 136315650;
+      v13 = "";
+      v14 = 2080;
+      v15 = "";
+      v16 = 2112;
+      v17 = dCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not retrieve service provide for account UUID %@", &v12, 0x20u);
     }
 
     getParameters = 0;
@@ -2654,13 +2709,13 @@ LABEL_15:
 
 - (void)dumpState
 {
-  v2 = sub_100002850();
+  v2 = sub_100002850(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#I %s%s---------------- State Dump ----------------", buf, 0x16u);
   }
 
@@ -2669,351 +2724,352 @@ LABEL_15:
   v5 = MGCopyAnswer();
   v6 = MGCopyAnswer();
   v7 = MGCopyAnswer();
-  v8 = sub_100002850();
+  v8 = sub_100002850(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    v70 = 2112;
-    v71 = v3;
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    v89 = 2112;
+    v90 = v3;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%sOS Build: %@", buf, 0x20u);
   }
 
-  v9 = sub_100002850();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 136315650;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    v70 = 2112;
-    v71 = v7;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%sHW Model: %@", buf, 0x20u);
-  }
-
-  v10 = sub_100002850();
+  v10 = sub_100002850(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    v70 = 2112;
-    v71 = v4;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sProduct vers: %@", buf, 0x20u);
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    v89 = 2112;
+    v90 = v7;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sHW Model: %@", buf, 0x20u);
   }
 
-  v11 = sub_100002850();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 136315650;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    v70 = 2112;
-    v71 = v5;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#I %s%sProduct type: %@", buf, 0x20u);
-  }
-
-  v12 = sub_100002850();
+  v12 = sub_100002850(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    v70 = 2112;
-    v71 = v6;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%sProduct name: %@", buf, 0x20u);
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    v89 = 2112;
+    v90 = v4;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%sProduct vers: %@", buf, 0x20u);
+  }
+
+  v14 = sub_100002850(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315650;
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    v89 = 2112;
+    v90 = v5;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%sProduct type: %@", buf, 0x20u);
+  }
+
+  v16 = sub_100002850(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315650;
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    v89 = 2112;
+    v90 = v6;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#I %s%sProduct name: %@", buf, 0x20u);
   }
 
   carrierAccountDataSource = [(VMCarrierServicesController *)self carrierAccountDataSource];
   accounts = [carrierAccountDataSource accounts];
 
-  v63 = accounts;
-  v64 = [accounts count];
-  v15 = sub_100002850();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v82 = accounts;
+  v83 = [accounts count];
+  v19 = sub_100002850(v83);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%s----------------  Accounts  ----------------", buf, 0x16u);
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%s----------------  Accounts  ----------------", buf, 0x16u);
   }
 
-  v61 = v4;
-  v62 = v3;
+  v80 = v4;
+  v81 = v3;
 
-  v16 = sub_100002850();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v21 = sub_100002850(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    v70 = 2048;
-    v71 = v64;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved %lu account(s)", buf, 0x20u);
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    v89 = 2048;
+    v90 = v83;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved %lu account(s)", buf, 0x20u);
   }
 
-  v59 = v6;
-  v60 = v5;
+  v78 = v6;
+  v79 = v5;
 
-  if (v64)
+  if (v83)
   {
-    for (i = 0; i != v64; i = (i + 1))
+    for (i = 0; i != v83; i = (i + 1))
     {
-      v18 = [v63 objectAtIndexedSubscript:i];
-      v19 = sub_100002850();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v23 = [v82 objectAtIndexedSubscript:i];
+      v24 = sub_100002850(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        uUID = [v18 UUID];
+        uUID = [v23 UUID];
         uUIDString = [uUID UUIDString];
         *buf = 136315906;
-        v67 = "";
-        v68 = 2080;
-        v69 = "";
-        v70 = 2048;
-        v71 = i;
-        v72 = 2112;
-        v73 = uUIDString;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%s[%lu]: %@", buf, 0x2Au);
+        v86 = "";
+        v87 = 2080;
+        v88 = "";
+        v89 = 2048;
+        v90 = i;
+        v91 = 2112;
+        v92 = uUIDString;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "#I %s%s[%lu]: %@", buf, 0x2Au);
       }
 
       labelUUIDToService = [(VMCarrierServicesController *)self labelUUIDToService];
-      uUID2 = [v18 UUID];
-      v24 = [labelUUIDToService objectForKeyedSubscript:uUID2];
+      uUID2 = [v23 UUID];
+      v29 = [labelUUIDToService objectForKeyedSubscript:uUID2];
 
-      v25 = sub_100002850();
-      v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
-      if (v24)
+      v31 = sub_100002850(v30);
+      v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
+      if (v29)
       {
-        if (v26)
+        if (v32)
         {
-          getServiceObjLogPrefix = [v24 getServiceObjLogPrefix];
+          getServiceObjLogPrefix = [v29 getServiceObjLogPrefix];
           *buf = 136315650;
-          v67 = "";
-          v68 = 2080;
-          v69 = "";
-          v70 = 2080;
-          v71 = getServiceObjLogPrefix;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#I %s%s  Service:        [%s]", buf, 0x20u);
+          v86 = "";
+          v87 = 2080;
+          v88 = "";
+          v89 = 2080;
+          v90 = getServiceObjLogPrefix;
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#I %s%s  Service:        [%s]", buf, 0x20u);
         }
 
-        v28 = sub_100002850();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v35 = sub_100002850(v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          isSubscribed = [v24 isSubscribed];
+          isSubscribed = [v29 isSubscribed];
           *buf = 136315650;
-          v30 = @"No";
+          v37 = @"No";
           if (isSubscribed)
           {
-            v30 = @"Yes";
+            v37 = @"Yes";
           }
 
-          v67 = "";
-          v68 = 2080;
-          v69 = "";
-          v70 = 2112;
-          v71 = v30;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "#I %s%s  Subscribed:     [%@]", buf, 0x20u);
+          v86 = "";
+          v87 = 2080;
+          v88 = "";
+          v89 = 2112;
+          v90 = v37;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "#I %s%s  Subscribed:     [%@]", buf, 0x20u);
         }
 
-        v31 = sub_100002850();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v39 = sub_100002850(v38);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          isOnline = [v24 isOnline];
+          isOnline = [v29 isOnline];
           *buf = 136315650;
-          v33 = @"No";
+          v41 = @"No";
           if (isOnline)
           {
-            v33 = @"Yes";
+            v41 = @"Yes";
           }
 
-          v67 = "";
-          v68 = 2080;
-          v69 = "";
-          v70 = 2112;
-          v71 = v33;
-          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#I %s%s  Online:         [%@]", buf, 0x20u);
+          v86 = "";
+          v87 = 2080;
+          v88 = "";
+          v89 = 2112;
+          v90 = v41;
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "#I %s%s  Online:         [%@]", buf, 0x20u);
         }
 
-        v34 = sub_100002850();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v43 = sub_100002850(v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
-          v35 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v24 mailboxUsage]);
+          v44 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v29 mailboxUsage]);
           *buf = 136315650;
-          v67 = "";
-          v68 = 2080;
-          v69 = "";
-          v70 = 2112;
-          v71 = v35;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "#I %s%s  Mailbox usage:  [%@]", buf, 0x20u);
+          v86 = "";
+          v87 = 2080;
+          v88 = "";
+          v89 = 2112;
+          v90 = v44;
+          _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "#I %s%s  Mailbox usage:  [%@]", buf, 0x20u);
         }
 
-        v36 = sub_100002850();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v46 = sub_100002850(v45);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
-          uUID3 = [v18 UUID];
-          v38 = [(VMCarrierServicesController *)self getVoicemailPhoneNumberForAccountUUID_sync:uUID3];
+          uUID3 = [v23 UUID];
+          v48 = [(VMCarrierServicesController *)self getVoicemailPhoneNumberForAccountUUID_sync:uUID3];
           *buf = 136315650;
-          v67 = "";
-          v68 = 2080;
-          v69 = "";
-          v70 = 2112;
-          v71 = v38;
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "#I %s%s  Call Voicemail: [%@]", buf, 0x20u);
+          v86 = "";
+          v87 = 2080;
+          v88 = "";
+          v89 = 2112;
+          v90 = v48;
+          _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "#I %s%s  Call Voicemail: [%@]", buf, 0x20u);
         }
       }
 
       else
       {
-        if (v26)
+        if (v32)
         {
           *buf = 136315650;
-          v67 = "";
-          v68 = 2080;
-          v69 = "";
-          v70 = 2112;
-          v71 = @"Not Available";
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#I %s%s  Service:        [%@]", buf, 0x20u);
+          v86 = "";
+          v87 = 2080;
+          v88 = "";
+          v89 = 2112;
+          v90 = @"Not Available";
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#I %s%s  Service:        [%@]", buf, 0x20u);
         }
 
-        v39 = sub_100002850();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        v50 = sub_100002850(v49);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v67 = "";
-          v68 = 2080;
-          v69 = "";
-          v70 = 2112;
-          v71 = @"No";
-          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "#I %s%s  Subscribed:     [%@]", buf, 0x20u);
+          v86 = "";
+          v87 = 2080;
+          v88 = "";
+          v89 = 2112;
+          v90 = @"No";
+          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "#I %s%s  Subscribed:     [%@]", buf, 0x20u);
         }
 
-        v36 = sub_100002850();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v46 = sub_100002850(v51);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
-          uUID4 = [v18 UUID];
-          v41 = [(VMCarrierServicesController *)self getVoicemailPhoneNumberForAccountUUID_sync:uUID4];
+          uUID4 = [v23 UUID];
+          v53 = [(VMCarrierServicesController *)self getVoicemailPhoneNumberForAccountUUID_sync:uUID4];
           *buf = 136315650;
-          v67 = "";
-          v68 = 2080;
-          v69 = "";
-          v70 = 2112;
-          v71 = v41;
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "#I %s%s  Call Voicemail: [%@]", buf, 0x20u);
+          v86 = "";
+          v87 = 2080;
+          v88 = "";
+          v89 = 2112;
+          v90 = v53;
+          _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "#I %s%s  Call Voicemail: [%@]", buf, 0x20u);
         }
       }
     }
   }
 
-  v42 = VMStoreCountOfRecordsWithFlagsGeneric(0, 12);
-  v43 = VMStoreCountOfRecordsWithFlagsGeneric(8, 4);
-  v44 = VMStoreCountOfRecordsWithFlagsGeneric(0, 0);
-  v45 = VMStoreCountOfRecordsWithFlagsGeneric(4, 0);
-  v46 = sub_100002850();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+  v54 = VMStoreCountOfRecordsWithFlagsGeneric(0, 12);
+  v55 = VMStoreCountOfRecordsWithFlagsGeneric(8, 4);
+  v56 = VMStoreCountOfRecordsWithFlagsGeneric(0, 0);
+  v57 = VMStoreCountOfRecordsWithFlagsGeneric(4, 0);
+  v58 = v57;
+  v59 = sub_100002850(v57);
+  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "#I %s%s---------------- Voicemails ----------------", buf, 0x16u);
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "#I %s%s---------------- Voicemails ----------------", buf, 0x16u);
   }
 
-  v47 = sub_100002850();
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+  v61 = sub_100002850(v60);
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    v70 = 2048;
-    v71 = v44;
-    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved %lu voicemail(s)", buf, 0x20u);
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    v89 = 2048;
+    v90 = v56;
+    _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "#I %s%sRetrieved %lu voicemail(s)", buf, 0x20u);
   }
 
-  v48 = sub_100002850();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+  v63 = sub_100002850(v62);
+  if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    v70 = 2048;
-    v71 = v42;
-    _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "#I %s%s  Inbox:   [%lu]", buf, 0x20u);
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    v89 = 2048;
+    v90 = v54;
+    _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "#I %s%s  Inbox:   [%lu]", buf, 0x20u);
   }
 
-  v49 = sub_100002850();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+  v65 = sub_100002850(v64);
+  if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    v70 = 2048;
-    v71 = v43;
-    _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "#I %s%s  Trash:   [%lu]", buf, 0x20u);
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    v89 = 2048;
+    v90 = v55;
+    _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEFAULT, "#I %s%s  Trash:   [%lu]", buf, 0x20u);
   }
 
-  v50 = sub_100002850();
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+  v67 = sub_100002850(v66);
+  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    v70 = 2048;
-    v71 = v45;
-    _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "#I %s%s  Deleted: [%lu]", buf, 0x20u);
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    v89 = 2048;
+    v90 = v58;
+    _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "#I %s%s  Deleted: [%lu]", buf, 0x20u);
   }
 
-  v51 = +[NSUserDefaults standardUserDefaults];
-  v52 = [v51 persistentDomainForName:@"com.apple.TelephonyUtilities"];
+  v68 = +[NSUserDefaults standardUserDefaults];
+  v69 = [v68 persistentDomainForName:@"com.apple.TelephonyUtilities"];
 
-  v53 = [v52 objectForKey:@"CallScreeningDisabled"];
-  v54 = sub_100002850();
-  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+  v70 = [v69 objectForKey:@"CallScreeningDisabled"];
+  v71 = sub_100002850(v70);
+  if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "#I %s%s", buf, 0x16u);
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "#I %s%s", buf, 0x16u);
   }
 
-  v55 = sub_100002850();
-  if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+  v73 = sub_100002850(v72);
+  if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
   {
-    bOOLValue = [v53 BOOLValue];
-    v57 = @"Enabled";
+    bOOLValue = [v70 BOOLValue];
+    v75 = @"Enabled";
     *buf = 136315650;
-    v67 = "";
+    v86 = "";
     if (bOOLValue)
     {
-      v57 = @"Disabled";
+      v75 = @"Disabled";
     }
 
-    v68 = 2080;
-    v69 = "";
-    v70 = 2112;
-    v71 = v57;
-    _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "#I %s%s  LVM: [%@]", buf, 0x20u);
+    v87 = 2080;
+    v88 = "";
+    v89 = 2112;
+    v90 = v75;
+    _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "#I %s%s  LVM: [%@]", buf, 0x20u);
   }
 
-  v58 = sub_100002850();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+  v77 = sub_100002850(v76);
+  if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v67 = "";
-    v68 = 2080;
-    v69 = "";
-    _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "#I %s%s--------------------------------------------", buf, 0x16u);
+    v86 = "";
+    v87 = 2080;
+    v88 = "";
+    _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "#I %s%s--------------------------------------------", buf, 0x16u);
   }
 }
 

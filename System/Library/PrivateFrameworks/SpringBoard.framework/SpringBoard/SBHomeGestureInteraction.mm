@@ -278,7 +278,7 @@ LABEL_13:
   else
   {
     gestureRecognizers = [(SBHomeGestureInteraction *)self gestureRecognizers];
-    v9 = [gestureRecognizers containsObject:recognizerCopy] && (objc_msgSend(gestureRecognizers, "containsObject:", gestureRecognizerCopy) & 1) != 0;
+    v9 = objc_msgSend_containsObject_(gestureRecognizers) && (objc_msgSend_containsObject_(gestureRecognizers) & 1) != 0;
   }
 
   return v9;

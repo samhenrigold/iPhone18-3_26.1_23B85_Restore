@@ -40,21 +40,21 @@
 
 - (IMParentalControls)init
 {
-  v14.receiver = self;
-  v14.super_class = IMParentalControls;
-  v2 = [(IMParentalControls *)&v14 init];
+  v7.receiver = self;
+  v7.super_class = IMParentalControls;
+  v2 = [(IMParentalControls *)&v7 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
     parentalControls = v2->_parentalControls;
     v2->_parentalControls = v3;
 
-    objc_msgSend_setShouldPostNotifications_(v2, v5, 0);
-    objc_msgSend__updateParentalSettings(v2, v6, v7);
-    v10 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v8, v9);
-    objc_msgSend_addObserver_selector_name_object_(v10, v11, v2, sel__managedPrefsNotification_, *MEMORY[0x1E695E718], *MEMORY[0x1E695E720]);
+    [(IMParentalControls *)v2 setShouldPostNotifications:0];
+    [(IMParentalControls *)v2 _updateParentalSettings];
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter addObserver:v2 selector:sel__managedPrefsNotification_ name:*MEMORY[0x1E695E718] object:*MEMORY[0x1E695E720]];
 
-    objc_msgSend_setShouldPostNotifications_(v2, v12, 1);
+    [(IMParentalControls *)v2 setShouldPostNotifications:1];
   }
 
   return v2;
@@ -62,262 +62,260 @@
 
 - (void)_updateParentalSettings
 {
-  v115 = *MEMORY[0x1E69E9840];
-  v104 = !self->_active;
+  v56 = *MEMORY[0x1E69E9840];
+  v45 = !self->_active;
   if (!self->_active)
   {
     self->_active = 1;
   }
 
-  v2 = objc_msgSend__serviceWithName_(self, a2, *MEMORY[0x1E69A7AD0]);
-  v5 = objc_msgSend_sharedConnection(MEMORY[0x1E69ADFB8], v3, v4);
-  v7 = objc_msgSend_effectiveBoolValueForSetting_(v5, v6, *MEMORY[0x1E69ADF88]);
-  if ((v7 == 2) != objc_msgSend_disableService(v2, v8, v9))
+  v2 = [(IMParentalControls *)self _serviceWithName:*MEMORY[0x1E69A7AD0]];
+  mEMORY[0x1E69ADFB8] = [MEMORY[0x1E69ADFB8] sharedConnection];
+  v4 = [mEMORY[0x1E69ADFB8] effectiveBoolValueForSetting:*MEMORY[0x1E69ADF88]];
+  if ((v4 == 2) != [v2 disableService])
   {
-    objc_msgSend_setDisableService_(v2, v10, v7 == 2);
-    v104 = 1;
+    [v2 setDisableService:v4 == 2];
+    v45 = 1;
   }
 
-  v12 = objc_msgSend__serviceWithName_(self, v11, @"Calling");
+  v5 = [(IMParentalControls *)self _serviceWithName:@"Calling"];
 
-  v15 = objc_msgSend_sharedConnection(MEMORY[0x1E69ADFB8], v13, v14);
-  v17 = objc_msgSend_effectiveBoolValueForSetting_(v15, v16, *MEMORY[0x1E69ADDD0]);
-  if ((v17 == 2) != objc_msgSend_disableService(v12, v18, v19))
+  mEMORY[0x1E69ADFB8]2 = [MEMORY[0x1E69ADFB8] sharedConnection];
+  v7 = [mEMORY[0x1E69ADFB8]2 effectiveBoolValueForSetting:*MEMORY[0x1E69ADDD0]];
+  if ((v7 == 2) != [v5 disableService])
   {
-    objc_msgSend_setDisableService_(v12, v20, v17 == 2);
-    v104 = 1;
+    [v5 setDisableService:v7 == 2];
+    v45 = 1;
   }
 
-  v103 = objc_msgSend__serviceWithName_(self, v21, *MEMORY[0x1E69A7AF0]);
+  v44 = [(IMParentalControls *)self _serviceWithName:*MEMORY[0x1E69A7AF0]];
 
-  v24 = objc_msgSend_sharedConnection(MEMORY[0x1E69ADFB8], v22, v23);
-  v26 = objc_msgSend_effectiveBoolValueForSetting_(v24, v25, *MEMORY[0x1E69ADE18]);
-  if ((v26 == 2) != objc_msgSend_disableService(v103, v27, v28))
+  mEMORY[0x1E69ADFB8]3 = [MEMORY[0x1E69ADFB8] sharedConnection];
+  v9 = [mEMORY[0x1E69ADFB8]3 effectiveBoolValueForSetting:*MEMORY[0x1E69ADE18]];
+  if ((v9 == 2) != [v44 disableService])
   {
-    objc_msgSend_setDisableService_(v103, v29, v26 == 2);
-    v104 = 1;
+    [v44 setDisableService:v9 == 2];
+    v45 = 1;
   }
 
-  v32 = objc_msgSend_sharedManager(MEMORY[0x1E69ADFC8], v30, v31);
-  objc_msgSend_invalidateRestrictions(v32, v33, v34);
+  mEMORY[0x1E69ADFC8] = [MEMORY[0x1E69ADFC8] sharedManager];
+  [mEMORY[0x1E69ADFC8] invalidateRestrictions];
 
-  v37 = objc_msgSend_sharedManager(MEMORY[0x1E69ADFC8], v35, v36);
-  objc_msgSend_invalidateSettings(v37, v38, v39);
+  mEMORY[0x1E69ADFC8]2 = [MEMORY[0x1E69ADFC8] sharedManager];
+  [mEMORY[0x1E69ADFC8]2 invalidateSettings];
 
-  v41 = objc_msgSend_objectForKey_(IMParentalControls, v40, *MEMORY[0x1E69A6208]);
-  v44 = v41;
-  if (v41)
+  v12 = [IMParentalControls objectForKey:*MEMORY[0x1E69A6208]];
+  v13 = v12;
+  if (v12)
   {
-    v45 = objc_msgSend_intValue(v41, v42, v43) != 0;
-  }
-
-  else
-  {
-    v45 = 0;
-  }
-
-  if (self->_forceChatLogging != v45)
-  {
-    self->_forceChatLogging = v45;
-    v104 = 1;
-  }
-
-  v101 = objc_msgSend_objectForKey_(IMParentalControls, v42, *MEMORY[0x1E69A6200]);
-
-  if (v101)
-  {
-    v48 = objc_msgSend_intValue(v101, v46, v47) != 0;
+    v14 = [v12 intValue] != 0;
   }
 
   else
   {
-    v48 = 0;
+    v14 = 0;
   }
 
-  if (self->_disableAV != v48)
+  if (self->_forceChatLogging != v14)
   {
-    self->_disableAV = v48;
-    v104 = 1;
+    self->_forceChatLogging = v14;
+    v45 = 1;
+  }
+
+  v42 = [IMParentalControls objectForKey:*MEMORY[0x1E69A6200]];
+
+  if (v42)
+  {
+    v15 = [v42 intValue] != 0;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  if (self->_disableAV != v15)
+  {
+    self->_disableAV = v15;
+    v45 = 1;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v49 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+    v16 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v52 = objc_msgSend_active(self, v50, v51);
-      v53 = @"NO";
-      if (v52)
+      active = [(IMParentalControls *)self active];
+      v18 = @"NO";
+      if (active)
       {
-        v53 = @"YES";
+        v18 = @"YES";
       }
 
       *buf = 138412290;
-      v111 = v53;
-      _os_log_impl(&dword_1A823F000, v49, OS_LOG_TYPE_DEBUG, "Active: %@", buf, 0xCu);
+      v52 = v18;
+      _os_log_impl(&dword_1A823F000, v16, OS_LOG_TYPE_DEBUG, "Active: %@", buf, 0xCu);
     }
   }
 
   if (IMOSLoggingEnabled())
   {
-    v54 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+    v19 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      v57 = objc_msgSend_disableAV(self, v55, v56);
-      v58 = @"NO";
-      if (v57)
+      disableAV = [(IMParentalControls *)self disableAV];
+      v21 = @"NO";
+      if (disableAV)
       {
-        v58 = @"YES";
+        v21 = @"YES";
       }
 
       *buf = 138412290;
-      v111 = v58;
-      _os_log_impl(&dword_1A823F000, v54, OS_LOG_TYPE_DEBUG, "Disable AV: %@", buf, 0xCu);
+      v52 = v21;
+      _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_DEBUG, "Disable AV: %@", buf, 0xCu);
     }
   }
 
   if (IMOSLoggingEnabled())
   {
-    v61 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+    v22 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      v64 = objc_msgSend_forceChatLogging(self, v62, v63);
-      v65 = @"NO";
-      if (v64)
+      forceChatLogging = [(IMParentalControls *)self forceChatLogging];
+      v24 = @"NO";
+      if (forceChatLogging)
       {
-        v65 = @"YES";
+        v24 = @"YES";
       }
 
       *buf = 138412290;
-      v111 = v65;
-      _os_log_impl(&dword_1A823F000, v61, OS_LOG_TYPE_DEBUG, "Force Chat Logging: %@", buf, 0xCu);
+      v52 = v24;
+      _os_log_impl(&dword_1A823F000, v22, OS_LOG_TYPE_DEBUG, "Force Chat Logging: %@", buf, 0xCu);
     }
   }
 
-  v108 = 0u;
-  v109 = 0u;
-  v106 = 0u;
-  v107 = 0u;
-  v66 = objc_msgSend_allValues(self->_parentalControls, v59, v60, v101);
-  v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(v66, v67, &v106, v114, 16);
-  if (v68)
+  v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  allValues = [(NSMutableDictionary *)self->_parentalControls allValues];
+  v26 = [allValues countByEnumeratingWithState:&v47 objects:v55 count:16];
+  if (v26)
   {
-    v69 = *v107;
+    v27 = *v48;
     do
     {
-      for (i = 0; i != v68; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v107 != v69)
+        if (*v48 != v27)
         {
-          objc_enumerationMutation(v66);
+          objc_enumerationMutation(allValues);
         }
 
-        v71 = *(*(&v106 + 1) + 8 * i);
+        v29 = *(*(&v47 + 1) + 8 * i);
         if (IMOSLoggingEnabled())
         {
-          v72 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+          v30 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
           {
-            v75 = objc_msgSend_name(v71, v73, v74);
-            v78 = objc_msgSend_disableService(v71, v76, v77);
+            name = [v29 name];
+            disableService = [v29 disableService];
             *buf = 138412546;
-            v79 = @"NO";
-            if (v78)
+            v33 = @"NO";
+            if (disableService)
             {
-              v79 = @"YES";
+              v33 = @"YES";
             }
 
-            v111 = v75;
-            v112 = 2112;
-            v113 = v79;
-            _os_log_impl(&dword_1A823F000, v72, OS_LOG_TYPE_INFO, "%@ Disabled: %@", buf, 0x16u);
+            v52 = name;
+            v53 = 2112;
+            v54 = v33;
+            _os_log_impl(&dword_1A823F000, v30, OS_LOG_TYPE_INFO, "%@ Disabled: %@", buf, 0x16u);
           }
         }
 
         if (IMOSLoggingEnabled())
         {
-          v80 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+          v34 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
           {
-            v83 = objc_msgSend_name(v71, v81, v82);
-            v86 = objc_msgSend_forceAllowlist(v71, v84, v85);
+            name2 = [v29 name];
+            forceAllowlist = [v29 forceAllowlist];
             *buf = 138412546;
-            v87 = @"NO";
-            if (v86)
+            v37 = @"NO";
+            if (forceAllowlist)
             {
-              v87 = @"YES";
+              v37 = @"YES";
             }
 
-            v111 = v83;
-            v112 = 2112;
-            v113 = v87;
-            _os_log_impl(&dword_1A823F000, v80, OS_LOG_TYPE_DEBUG, "%@ Force Allowlist: %@", buf, 0x16u);
+            v52 = name2;
+            v53 = 2112;
+            v54 = v37;
+            _os_log_impl(&dword_1A823F000, v34, OS_LOG_TYPE_DEBUG, "%@ Force Allowlist: %@", buf, 0x16u);
           }
         }
 
         if (IMOSLoggingEnabled())
         {
-          v89 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
+          v38 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
           {
-            v92 = objc_msgSend_name(v71, v90, v91);
-            v95 = objc_msgSend_allowlist(v71, v93, v94);
+            name3 = [v29 name];
+            allowlist = [v29 allowlist];
             *buf = 138412546;
-            v111 = v92;
-            v112 = 2112;
-            v113 = v95;
-            _os_log_impl(&dword_1A823F000, v89, OS_LOG_TYPE_DEBUG, "%@ Allowlist: %@", buf, 0x16u);
+            v52 = name3;
+            v53 = 2112;
+            v54 = allowlist;
+            _os_log_impl(&dword_1A823F000, v38, OS_LOG_TYPE_DEBUG, "%@ Allowlist: %@", buf, 0x16u);
           }
         }
       }
 
-      v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(v66, v88, &v106, v114, 16);
+      v26 = [allValues countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
-    while (v68);
+    while (v26);
   }
 
-  if (v104 && self->_shouldPostNotifications)
+  if (v45 && self->_shouldPostNotifications)
   {
-    v98 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v96, v97);
-    objc_msgSend___mainThreadPostNotificationName_object_(v98, v99, @"__kIMManagedPreferencesChangedNotification", self);
+    defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+    [defaultCenter __mainThreadPostNotificationName:@"__kIMManagedPreferencesChangedNotification" object:self];
   }
-
-  v100 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v4 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2);
-  objc_msgSend_removeObserver_name_object_(v4, v5, self, 0, 0);
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter removeObserver:self name:0 object:0];
 
-  v6.receiver = self;
-  v6.super_class = IMParentalControls;
-  [(IMParentalControls *)&v6 dealloc];
+  v4.receiver = self;
+  v4.super_class = IMParentalControls;
+  [(IMParentalControls *)&v4 dealloc];
 }
 
 - (id)_serviceWithName:(id)name
 {
   nameCopy = name;
-  if (objc_msgSend_length(nameCopy, v5, v6))
+  if ([nameCopy length])
   {
-    v8 = objc_msgSend_objectForKey_(self->_parentalControls, v7, nameCopy);
-    if (!v8)
+    v5 = [(NSMutableDictionary *)self->_parentalControls objectForKey:nameCopy];
+    if (!v5)
     {
-      v8 = objc_alloc_init(IMParentalControlsService);
-      objc_msgSend_setName_(v8, v9, nameCopy);
-      objc_msgSend_setObject_forKey_(self->_parentalControls, v10, v8, nameCopy);
+      v5 = objc_alloc_init(IMParentalControlsService);
+      [(IMParentalControlsService *)v5 setName:nameCopy];
+      [(NSMutableDictionary *)self->_parentalControls setObject:v5 forKey:nameCopy];
     }
 
-    v11 = v8;
+    v6 = v5;
   }
 
   else
   {
-    v11 = 0;
+    v6 = 0;
   }
 
-  return v11;
+  return v6;
 }
 
 - (BOOL)disableService:(id)service
@@ -325,31 +323,31 @@
   serviceCopy = service;
   if (serviceCopy)
   {
-    if (objc_msgSend_active(self, v4, v5))
+    if ([(IMParentalControls *)self active])
     {
-      v9 = objc_msgSend_internalName(serviceCopy, v7, v8);
-      v11 = objc_msgSend__serviceWithName_(self, v10, v9);
-      v14 = objc_msgSend_disableService(v11, v12, v13);
+      internalName = [serviceCopy internalName];
+      v6 = [(IMParentalControls *)self _serviceWithName:internalName];
+      disableService = [v6 disableService];
     }
 
     else
     {
-      v14 = 0;
+      disableService = 0;
     }
   }
 
   else
   {
-    v14 = 1;
+    disableService = 1;
   }
 
-  return v14;
+  return disableService;
 }
 
 - (BOOL)disableAccount:(id)account
 {
-  v4 = objc_msgSend_service(account, a2, account);
-  LOBYTE(self) = objc_msgSend_disableService_(self, v5, v4);
+  service = [account service];
+  LOBYTE(self) = [(IMParentalControls *)self disableService:service];
 
   return self;
 }
@@ -357,29 +355,29 @@
 - (id)allowlistForService:(id)service
 {
   serviceCopy = service;
-  if (serviceCopy && objc_msgSend_active(self, v4, v5))
+  if (serviceCopy && [(IMParentalControls *)self active])
   {
-    v9 = objc_msgSend_internalName(serviceCopy, v7, v8);
-    v11 = objc_msgSend__serviceWithName_(self, v10, v9);
-    v14 = objc_msgSend_allowlist(v11, v12, v13);
+    internalName = [serviceCopy internalName];
+    v6 = [(IMParentalControls *)self _serviceWithName:internalName];
+    allowlist = [v6 allowlist];
 
-    if (objc_msgSend_count(v14, v15, v16))
+    if ([allowlist count])
     {
-      v17 = v14;
+      v8 = allowlist;
     }
 
     else
     {
-      v17 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v17 = 0;
+    v8 = 0;
   }
 
-  return v17;
+  return v8;
 }
 
 - (BOOL)forceAllowlistForService:(id)service
@@ -387,55 +385,55 @@
   serviceCopy = service;
   if (serviceCopy)
   {
-    if (objc_msgSend_active(self, v4, v5))
+    if ([(IMParentalControls *)self active])
     {
-      v9 = objc_msgSend_internalName(serviceCopy, v7, v8);
-      v11 = objc_msgSend__serviceWithName_(self, v10, v9);
-      v14 = objc_msgSend_forceAllowlist(v11, v12, v13);
+      internalName = [serviceCopy internalName];
+      v6 = [(IMParentalControls *)self _serviceWithName:internalName];
+      forceAllowlist = [v6 forceAllowlist];
     }
 
     else
     {
-      v14 = 0;
+      forceAllowlist = 0;
     }
   }
 
   else
   {
-    v14 = 1;
+    forceAllowlist = 1;
   }
 
-  return v14;
+  return forceAllowlist;
 }
 
 - (id)allowlistForAccount:(id)account
 {
-  v4 = objc_msgSend_service(account, a2, account);
-  v6 = objc_msgSend_allowlistForService_(self, v5, v4);
+  service = [account service];
+  v5 = [(IMParentalControls *)self allowlistForService:service];
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)forceAllowlistForAccount:(id)account
 {
-  v4 = objc_msgSend_service(account, a2, account);
-  LOBYTE(self) = objc_msgSend_forceAllowlistForService_(self, v5, v4);
+  service = [account service];
+  LOBYTE(self) = [(IMParentalControls *)self forceAllowlistForService:service];
 
   return self;
 }
 
 - (BOOL)accountIsEnabled:(id)enabled
 {
-  v4 = objc_msgSend_service(enabled, a2, enabled);
-  LOBYTE(self) = objc_msgSend_disableService_(self, v5, v4);
+  service = [enabled service];
+  LOBYTE(self) = [(IMParentalControls *)self disableService:service];
 
   return self ^ 1;
 }
 
 - (BOOL)accountHasAllowlist:(id)allowlist
 {
-  v4 = objc_msgSend_service(allowlist, a2, allowlist);
-  LOBYTE(self) = objc_msgSend_forceAllowlistForService_(self, v5, v4);
+  service = [allowlist service];
+  LOBYTE(self) = [(IMParentalControls *)self forceAllowlistForService:service];
 
   return self;
 }

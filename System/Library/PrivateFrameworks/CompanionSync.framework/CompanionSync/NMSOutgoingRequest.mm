@@ -1,4 +1,5 @@
 @interface NMSOutgoingRequest
++ (id)requestWithMessageID:(unsigned __int16)d;
 - (NMSMessageCenter)messageCenter;
 - (NMSOutgoingRequest)init;
 - (NSString)description;
@@ -7,6 +8,15 @@
 @end
 
 @implementation NMSOutgoingRequest
+
++ (id)requestWithMessageID:(unsigned __int16)d
+{
+  dCopy = d;
+  v4 = objc_opt_new();
+  [v4 setMessageID:dCopy];
+
+  return v4;
+}
 
 - (NMSOutgoingRequest)init
 {

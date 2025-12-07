@@ -176,7 +176,7 @@ id __49__FCFeedTransformationFilter_transformFeedItems___block_invoke(uint64_t a
 
 - (id)transformHeadline:(id)headline
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (headline)
   {
     headlineCopy = headline;
@@ -184,7 +184,7 @@ id __49__FCFeedTransformationFilter_transformFeedItems___block_invoke(uint64_t a
     headlineCopy2 = headline;
     v6 = [v4 arrayWithObjects:&headlineCopy count:1];
 
-    v7 = [(FCFeedTransformationFilter *)self transformFeedItems:v6, headlineCopy, v12];
+    v7 = [(FCFeedTransformationFilter *)self transformFeedItems:v6, headlineCopy, v11];
     firstObject = [v7 firstObject];
   }
 
@@ -192,8 +192,6 @@ id __49__FCFeedTransformationFilter_transformFeedItems___block_invoke(uint64_t a
   {
     firstObject = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -285,7 +283,7 @@ FCFeedTransformationFilterItemResult *__60__FCFeedTransformationFilter_transform
 
 void __60__FCFeedTransformationFilter_transformFeedItemsWithResults___block_invoke_3(uint64_t a1, void *a2)
 {
-  v182 = *MEMORY[0x1E69E9840];
+  v181 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   v5 = *(a1 + 32);
@@ -314,22 +312,8 @@ void __60__FCFeedTransformationFilter_transformFeedItemsWithResults___block_invo
   v10 = [v8 containsObject:v9];
 
   v11 = *(a1 + 32);
-  if (v11 && (*(v11 + 8) & 0x40) != 0)
+  if (v11 && (*(v11 + 8) & 0x40) != 0 || (v12 = *(a1 + 40), [v4 articleID], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "addObject:", v13), v13, v14 = *(a1 + 48), objc_msgSend(v4, "articleID"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "objectForKeyedSubscript:", v15), v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v16))
   {
-    goto LABEL_7;
-  }
-
-  v12 = *(a1 + 40);
-  v13 = [v4 articleID];
-  [v12 addObject:v13];
-
-  v14 = *(a1 + 48);
-  v15 = [v4 articleID];
-  v16 = [v14 objectForKeyedSubscript:v15];
-
-  if (v16)
-  {
-LABEL_7:
     if (v10)
     {
       goto LABEL_8;
@@ -357,29 +341,29 @@ LABEL_8:
 
   if (v19 && v19 != v4)
   {
-    v171 = 0u;
-    v172 = 0u;
-    v169 = 0u;
     v170 = 0u;
+    v171 = 0u;
+    v168 = 0u;
+    v169 = 0u;
     v20 = [v4 surfacedByArticleListIDs];
-    v21 = [v20 countByEnumeratingWithState:&v169 objects:v181 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v168 objects:v180 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v170;
+      v23 = *v169;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v170 != v23)
+          if (*v169 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          [v19 addSurfacedByArticleListID:*(*(&v169 + 1) + 8 * i)];
+          [v19 addSurfacedByArticleListID:*(*(&v168 + 1) + 8 * i)];
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v169 objects:v181 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v168 objects:v180 count:16];
       }
 
       while (v22);
@@ -670,9 +654,9 @@ LABEL_74:
         goto LABEL_200;
       }
 
-      v125 = [v4 role];
+      v124 = [v4 role];
 
-      if (v125 != 8)
+      if (v124 != 8)
       {
         goto LABEL_200;
       }
@@ -691,13 +675,13 @@ LABEL_200:
 
   if ((*(v5 + 9) & 4) != 0 && ([v4 isPaid] & 1) == 0)
   {
-    v128 = [v4 isBundlePaid];
-    if (!v128)
+    v127 = [v4 isBundlePaid];
+    if (!v127)
     {
       v26 |= 0x400uLL;
     }
 
-    v25 |= v128 ^ 1;
+    v25 |= v127 ^ 1;
   }
 
   v5 = *(a1 + 32);
@@ -710,26 +694,26 @@ LABEL_200:
   {
     if ([v4 isBundlePaid])
     {
-      v129 = [v4 sourceChannelID];
-      if (v129)
+      v128 = [v4 sourceChannelID];
+      if (v128)
       {
-        v130 = v129;
-        v131 = *(a1 + 32);
-        if (v131)
+        v129 = v128;
+        v130 = *(a1 + 32);
+        if (v130)
         {
-          v131 = v131[11];
+          v130 = v130[11];
         }
 
-        v132 = v131;
-        v133 = [v4 sourceChannelID];
-        v134 = [v132 containsTagID:v133];
+        v131 = v130;
+        v132 = [v4 sourceChannelID];
+        v133 = [v131 containsTagID:v132];
 
-        if (v134)
+        if (v133)
         {
           v26 |= 0x10000uLL;
         }
 
-        v25 |= v134;
+        v25 |= v133;
       }
     }
   }
@@ -740,30 +724,30 @@ LABEL_200:
     goto LABEL_93;
   }
 
-  v135 = *(v5 + 8);
-  if ((v135 & 0x2000) != 0)
+  v134 = *(v5 + 8);
+  if ((v134 & 0x2000) != 0)
   {
-    v136 = objc_opt_respondsToSelector();
+    v135 = objc_opt_respondsToSelector();
     v5 = *(a1 + 32);
-    if (v136)
+    if (v135)
     {
       if (v5)
       {
         v5 = *(v5 + 80);
       }
 
-      v137 = v5;
-      v138 = [v4 isPaid];
-      v139 = [v4 isBundlePaid];
-      v140 = [v4 sourceChannel];
-      v141 = [v137 canGetAccessToItemPaid:v138 bundlePaid:v139 channel:v140];
+      v136 = v5;
+      v137 = [v4 isPaid];
+      v138 = [v4 isBundlePaid];
+      v139 = [v4 sourceChannel];
+      v140 = [v136 canGetAccessToItemPaid:v137 bundlePaid:v138 channel:v139];
 
-      if (!v141)
+      if (!v140)
       {
         v26 |= 0x2000uLL;
       }
 
-      v25 |= v141 ^ 1;
+      v25 |= v140 ^ 1;
       v5 = *(a1 + 32);
     }
 
@@ -772,21 +756,21 @@ LABEL_200:
       goto LABEL_93;
     }
 
-    v135 = *(v5 + 8);
+    v134 = *(v5 + 8);
   }
 
-  if ((v135 & 0x4000) != 0)
+  if ((v134 & 0x4000) != 0)
   {
-    v146 = *(v5 + 40);
-    v147 = [v4 sourceChannelID];
-    v148 = [v146 containsObject:v147];
+    v145 = *(v5 + 40);
+    v146 = [v4 sourceChannelID];
+    v147 = [v145 containsObject:v146];
 
-    if ((v148 & 1) == 0)
+    if ((v147 & 1) == 0)
     {
       v26 |= 0x4000uLL;
     }
 
-    v25 |= v148 ^ 1;
+    v25 |= v147 ^ 1;
     v5 = *(a1 + 32);
     if (!v5)
     {
@@ -801,24 +785,24 @@ LABEL_200:
     goto LABEL_227;
   }
 
-  if ((v135 & 0x20000000) != 0)
+  if ((v134 & 0x20000000) != 0)
   {
 LABEL_227:
-    v142 = *(v5 + 40);
-    v143 = [v4 sourceChannelID];
-    v144 = [v142 containsObject:v143];
+    v141 = *(v5 + 40);
+    v142 = [v4 sourceChannelID];
+    v143 = [v141 containsObject:v142];
 
-    if ((v144 & 1) == 0)
+    if ((v143 & 1) == 0)
     {
       if (objc_opt_respondsToSelector())
       {
-        v145 = [v4 storyType];
-        if (v145 != 5)
+        v144 = [v4 storyType];
+        if (v144 != 5)
         {
           v26 |= 0x20000000uLL;
         }
 
-        v25 |= v145 != 5;
+        v25 |= v144 != 5;
       }
 
       else
@@ -836,46 +820,46 @@ LABEL_240:
     goto LABEL_93;
   }
 
-  v149 = *(v5 + 8);
-  if ((v149 & 0x8000) != 0)
+  v148 = *(v5 + 8);
+  if ((v148 & 0x8000) != 0)
   {
-    v150 = [v4 hasVideo];
-    if (!v150)
+    v149 = [v4 hasVideo];
+    if (!v149)
     {
       v26 |= 0x8000uLL;
     }
 
-    v25 |= v150 ^ 1;
+    v25 |= v149 ^ 1;
     v5 = *(a1 + 32);
     if (!v5)
     {
       goto LABEL_93;
     }
 
-    v149 = *(v5 + 8);
+    v148 = *(v5 + 8);
   }
 
-  if ((v149 & 0x20000) != 0)
+  if ((v148 & 0x20000) != 0)
   {
-    v151 = *(v5 + 32);
-    if ([v151 count])
+    v150 = *(v5 + 32);
+    if ([v150 count])
     {
-      v152 = *(a1 + 32);
-      if (v152)
+      v151 = *(a1 + 32);
+      if (v151)
       {
-        v152 = v152[4];
+        v151 = v151[4];
       }
 
-      v153 = v152;
-      v154 = [v4 topicIDs];
-      v155 = [v153 fc_containsAnyObjectInArray:v154];
+      v152 = v151;
+      v153 = [v4 topicIDs];
+      v154 = [v152 fc_containsAnyObjectInArray:v153];
 
-      if (v155)
+      if (v154)
       {
         v26 |= 0x20000uLL;
       }
 
-      v25 |= v155;
+      v25 |= v154;
     }
 
     else
@@ -888,46 +872,46 @@ LABEL_240:
   {
     if ((*(v5 + 10) & 4) != 0)
     {
-      v156 = *(v5 + 32);
-      if ([v156 count])
+      v155 = *(v5 + 32);
+      if ([v155 count])
       {
-        v157 = *(a1 + 32);
-        if (v157)
+        v156 = *(a1 + 32);
+        if (v156)
         {
-          v157 = v157[4];
+          v156 = v156[4];
         }
 
-        v158 = v157;
-        v159 = [v4 topicIDs];
-        v160 = [v158 fc_containsAnyObjectInArray:v159];
+        v157 = v156;
+        v158 = [v4 topicIDs];
+        v159 = [v157 fc_containsAnyObjectInArray:v158];
 
-        if (!v160)
+        if (!v159)
         {
           goto LABEL_267;
         }
 
-        v161 = [v4 sourceFeedID];
-        v162 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"@$"];
-        v163 = [v161 componentsSeparatedByCharactersInSet:v162];
-        v156 = [v163 objectAtIndexedSubscript:0];
+        v160 = [v4 sourceFeedID];
+        v161 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"@$"];
+        v162 = [v160 componentsSeparatedByCharactersInSet:v161];
+        v155 = [v162 objectAtIndexedSubscript:0];
 
-        if (v156)
+        if (v155)
         {
-          v164 = *(a1 + 32);
-          if (v164)
+          v163 = *(a1 + 32);
+          if (v163)
           {
-            v164 = v164[4];
+            v163 = v163[4];
           }
 
-          v165 = v164;
-          v166 = [v165 containsObject:v156];
+          v164 = v163;
+          v165 = [v164 containsObject:v155];
 
-          if ((v166 & 1) == 0)
+          if ((v165 & 1) == 0)
           {
             v26 |= 0x40000uLL;
           }
 
-          v25 |= v166 ^ 1;
+          v25 |= v165 ^ 1;
         }
       }
     }
@@ -938,13 +922,13 @@ LABEL_267:
     {
       if (*(v5 + 10) & 8) != 0 && (objc_opt_respondsToSelector())
       {
-        v167 = [v4 isEvergreen];
-        if (v167)
+        v166 = [v4 isEvergreen];
+        if (v166)
         {
           v26 |= 0x80000uLL;
         }
 
-        v25 |= v167;
+        v25 |= v166;
       }
 
       v5 = *(a1 + 32);
@@ -1242,21 +1226,21 @@ LABEL_133:
   v90 = *(v89 + 8);
   if ((v90 & 0x800000000) != 0)
   {
-    v126 = [v4 sourceChannelID];
+    v125 = [v4 sourceChannelID];
 
-    if (!v126)
+    if (!v125)
     {
       v26 |= 0x800000000uLL;
     }
 
-    v25 |= v126 == 0;
-    v127 = *(a1 + 32);
-    if (!v127)
+    v25 |= v125 == 0;
+    v126 = *(a1 + 32);
+    if (!v126)
     {
       goto LABEL_190;
     }
 
-    v90 = *(v127 + 8);
+    v90 = *(v126 + 8);
     if ((v90 & 0x1000000000) == 0)
     {
       goto LABEL_153;
@@ -1276,15 +1260,15 @@ LABEL_144:
       v93 = MEMORY[0x1E69E9C10];
       if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
       {
-        v168 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't apply zero-tabi-score filter without a score profile"];
+        v167 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't apply zero-tabi-score filter without a score profile"];
         *buf = 136315906;
-        v174 = "[FCFeedTransformationFilter transformFeedItemsWithResults:]_block_invoke_3";
-        v175 = 2080;
-        v176 = "FCFeedTransformationFilter.m";
-        v177 = 1024;
-        v178 = 459;
-        v179 = 2114;
-        v180 = v168;
+        v173 = "[FCFeedTransformationFilter transformFeedItemsWithResults:]_block_invoke_3";
+        v174 = 2080;
+        v175 = "FCFeedTransformationFilter.m";
+        v176 = 1024;
+        v177 = 459;
+        v178 = 2114;
+        v179 = v167;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
@@ -1373,8 +1357,6 @@ LABEL_153:
 LABEL_190:
   v123 = [[FCFeedTransformationFilterItemResult alloc] initWithItem:v4 filtered:v25 & 1 filteredReasons:v26];
   [*(a1 + 64) addObject:v123];
-
-  v124 = *MEMORY[0x1E69E9840];
 }
 
 @end

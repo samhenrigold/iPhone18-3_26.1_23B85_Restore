@@ -17,8 +17,8 @@
 
 - (void)setUserOptInStatus:(BOOL)status
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E542718, &qword_241412930) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E542718, &qword_241412930);
+  MEMORY[0x28223BE20](v4 - 8);
   v6 = &v10 - v5;
   sub_24140E6AC();
   v7 = MEMORY[0x245CE5520]();

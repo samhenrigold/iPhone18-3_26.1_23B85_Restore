@@ -8,32 +8,32 @@
 
 + (_NSRange)rangeForSearchTerm:(id)term inTarget:(id)target tokenizedByCharacterSet:(id)set
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   termCopy = term;
   targetCopy = target;
   [targetCopy componentsSeparatedByCharactersInSet:set];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v8 = v35 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v8 = v34 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
   v10 = 0x7FFFFFFFFFFFFFFFLL;
   if (v9)
   {
     v11 = v9;
-    v29 = v8;
-    v30 = 0;
-    v12 = *v33;
+    v28 = v8;
+    v29 = 0;
+    v12 = *v32;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v33 != v12)
+        if (*v32 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v32 + 1) + 8 * i);
+        v14 = *(*(&v31 + 1) + 8 * i);
         whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
         v16 = [v14 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
@@ -47,22 +47,22 @@
             whitespaceCharacterSet2 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
             v22 = [v20 stringByTrimmingCharactersInSet:whitespaceCharacterSet2];
             v23 = [v22 rangeOfString:termCopy options:393];
-            v30 = v24;
+            v29 = v24;
 
             if (v23 != 0x7FFFFFFFFFFFFFFFLL)
             {
 
               v10 = v23;
-              v8 = v29;
+              v8 = v28;
               goto LABEL_14;
             }
 
-            v8 = v29;
+            v8 = v28;
           }
         }
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
       if (v11)
       {
         continue;
@@ -73,7 +73,7 @@
 
     v10 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_14:
-    v25 = v30;
+    v25 = v29;
   }
 
   else
@@ -81,11 +81,10 @@ LABEL_14:
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-  v27 = v10;
-  v28 = v25;
-  result.length = v28;
-  result.location = v27;
+  v26 = v10;
+  v27 = v25;
+  result.length = v27;
+  result.location = v26;
   return result;
 }
 

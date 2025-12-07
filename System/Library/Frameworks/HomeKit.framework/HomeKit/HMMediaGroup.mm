@@ -55,7 +55,7 @@
 
 - (HMMediaGroup)initWithProtoBufferData:(id)data
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = [[HMMediaGroupProtoMediaGroupData alloc] initWithData:dataCopy];
   v6 = v5;
@@ -82,26 +82,25 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543874;
-      v17 = v13;
-      v18 = 2112;
-      v19 = objc_opt_class();
-      v20 = 2112;
-      v21 = 0;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@[%@] Failed to decode event data: %@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v13;
+      v17 = 2112;
+      v18 = objc_opt_class();
+      v19 = 2112;
+      v20 = 0;
+      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@[%@] Failed to decode event data: %@", &v15, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
     p_super = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return p_super;
 }
 
 - (id)initClassWithProtoBufferData:(id)data
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = [[HMMediaGroupProtoMediaGroupData alloc] initWithData:dataCopy];
   v6 = v5;
@@ -113,11 +112,11 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v40 = v14;
-      v41 = 2112;
-      v42 = objc_opt_class();
-      v43 = 2112;
-      v44 = 0;
+      v39 = v14;
+      v40 = 2112;
+      v41 = objc_opt_class();
+      v42 = 2112;
+      v43 = 0;
       v15 = "%{public}@[%@] Failed to decode event data: %@";
 LABEL_10:
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, v15, buf, 0x20u);
@@ -138,11 +137,11 @@ LABEL_11:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v40 = v14;
-      v41 = 2112;
-      v42 = objc_opt_class();
-      v43 = 2112;
-      v44 = v6;
+      v39 = v14;
+      v40 = 2112;
+      v41 = objc_opt_class();
+      v42 = 2112;
+      v43 = v6;
       v15 = "%{public}@[%@] Missing field=identifier from data=%@";
       goto LABEL_10;
     }
@@ -189,7 +188,7 @@ LABEL_11:
       {
         v29 = objc_alloc(MEMORY[0x1E696AFB0]);
         [(HMMediaGroupProtoMediaGroupData *)v6 associatedGroupIdentifier];
-        v38 = destinationIdentifiers2;
+        v37 = destinationIdentifiers2;
         v30 = v9;
         v31 = v22;
         v32 = isDefaultName;
@@ -200,7 +199,7 @@ LABEL_11:
         isDefaultName = v32;
         v22 = v31;
         v9 = v30;
-        destinationIdentifiers2 = v38;
+        destinationIdentifiers2 = v37;
       }
 
       else
@@ -221,11 +220,11 @@ LABEL_11:
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v40 = v27;
-        v41 = 2112;
-        v42 = objc_opt_class();
-        v43 = 2112;
-        v44 = v6;
+        v39 = v27;
+        v40 = 2112;
+        v41 = objc_opt_class();
+        v42 = 2112;
+        v43 = v6;
         _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@[%@] Missing field=parentIdentifier from data=%@", buf, 0x20u);
       }
 
@@ -242,11 +241,11 @@ LABEL_11:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v40 = v19;
-      v41 = 2112;
-      v42 = objc_opt_class();
-      v43 = 2112;
-      v44 = v6;
+      v39 = v19;
+      v40 = 2112;
+      v41 = objc_opt_class();
+      v42 = 2112;
+      v43 = v6;
       _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@[%@] Missing field=name from data=%@", buf, 0x20u);
     }
 
@@ -255,7 +254,6 @@ LABEL_11:
   }
 
 LABEL_29:
-  v36 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -292,16 +290,16 @@ id __45__HMMediaGroup_initClassWithProtoBufferData___block_invoke(uint64_t a1, v
 
 - (HMMediaGroup)initWithCoder:(id)coder
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMMediaGroupIdentifierCodingKey"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMMediaGroupParentIdentifierCodingKey"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMMediaGroupNameCodingKey"];
   v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMMediaGroupDefaultNameCodingKey"];
   v9 = MEMORY[0x1E695DFD8];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
   v11 = [v9 setWithArray:v10];
   v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"HMMediaGroupDestinationIdentifiersCodingKey"];
 
@@ -316,9 +314,9 @@ id __45__HMMediaGroup_initClassWithProtoBufferData___block_invoke(uint64_t a1, v
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v17;
-      v24 = 2112;
-      v25 = objc_opt_class();
+      v22 = v17;
+      v23 = 2112;
+      v24 = objc_opt_class();
       _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@[%@] Failed to decode parent identifier", buf, 0x16u);
     }
 
@@ -329,7 +327,6 @@ id __45__HMMediaGroup_initClassWithProtoBufferData___block_invoke(uint64_t a1, v
 
   v18 = -[HMMediaGroup initWithIdentifier:parentIdentifier:name:defaultName:destinationIdentifiers:associatedGroupIdentifier:](self, "initWithIdentifier:parentIdentifier:name:defaultName:destinationIdentifiers:associatedGroupIdentifier:", v5, v6, v7, [v8 BOOLValue], v13, v14);
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -464,12 +461,11 @@ HMMediaGroup *__42__HMMediaGroup_groupsWithProtoBufferData___block_invoke(uint64
 
 uint64_t __27__HMMediaGroup_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_41219;
-  logCategory__hmf_once_v2_41219 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_41219;
+  logCategory__hmf_once_v2_41219 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -488,35 +484,33 @@ uint64_t __27__HMMediaGroup_logCategory__block_invoke()
 
 - (NSArray)attributeDescriptions
 {
-  v24[6] = *MEMORY[0x1E69E9840];
+  v23[6] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   identifier = [(HMMediaGroup *)self identifier];
-  v22 = [v3 initWithName:@"identifier" value:identifier];
-  v24[0] = v22;
+  v21 = [v3 initWithName:@"identifier" value:identifier];
+  v23[0] = v21;
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   parentIdentifier = [(HMMediaGroup *)self parentIdentifier];
   v5 = [v4 initWithName:@"parentIdentifier" value:parentIdentifier];
-  v24[1] = v5;
+  v23[1] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   name = [(HMMediaGroup *)self name];
   v8 = [v6 initWithName:@"name" value:name];
-  v24[2] = v8;
+  v23[2] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMMediaGroup *)self isDefaultName];
   v10 = HMFBooleanToString();
   v11 = [v9 initWithName:@"isDefaultName" value:v10];
-  v24[3] = v11;
+  v23[3] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   destinationUniqueIdentifiers = [(HMMediaGroup *)self destinationUniqueIdentifiers];
   v14 = [v12 initWithName:@"destinationIdentifiers" value:destinationUniqueIdentifiers];
-  v24[4] = v14;
+  v23[4] = v14;
   v15 = objc_alloc(MEMORY[0x1E69A29C8]);
   associatedGroupIdentifier = [(HMMediaGroup *)self associatedGroupIdentifier];
   v17 = [v15 initWithName:@"associatedGroupIdentifier" value:associatedGroupIdentifier];
-  v24[5] = v17;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:6];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v23[5] = v17;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:6];
 
   return v18;
 }

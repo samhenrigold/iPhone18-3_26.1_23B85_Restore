@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)triggerCauseAsString:(int)string;
 - (int)StringAsTriggerCause:(id)cause;
 - (int)triggerCause;
 - (unint64_t)hash;
@@ -109,6 +110,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFF7 | v3;
+}
+
+- (id)triggerCauseAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317EA8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsTriggerCause:(id)cause
@@ -454,7 +470,6 @@ LABEL_13:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -474,7 +489,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  fr1MeasDisabled = self->_fr1MeasDisabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -489,7 +503,6 @@ LABEL_4:
   }
 
 LABEL_18:
-  fr2MeasDisabled = self->_fr2MeasDisabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -504,7 +517,6 @@ LABEL_5:
   }
 
 LABEL_19:
-  prevFr1MeasDisabled = self->_prevFr1MeasDisabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -519,7 +531,6 @@ LABEL_6:
   }
 
 LABEL_20:
-  prevFr2MeasDisabled = self->_prevFr2MeasDisabled;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -534,7 +545,6 @@ LABEL_7:
   }
 
 LABEL_21:
-  triggerCause = self->_triggerCause;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -549,7 +559,6 @@ LABEL_8:
   }
 
 LABEL_22:
-  apNrRecomm = self->_apNrRecomm;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -564,7 +573,6 @@ LABEL_9:
   }
 
 LABEL_23:
-  apNrRecommConfFactor = self->_apNrRecommConfFactor;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -579,7 +587,6 @@ LABEL_10:
   }
 
 LABEL_24:
-  sib24Configured = self->_sib24Configured;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -594,12 +601,10 @@ LABEL_11:
   }
 
 LABEL_25:
-  durationInPrevState = self->_durationInPrevState;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_12:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -953,7 +958,6 @@ LABEL_12:
       goto LABEL_78;
     }
 
-    v7 = *(equalCopy + 30);
     if (self->_fr1MeasDisabled)
     {
       if ((*(equalCopy + 30) & 1) == 0)
@@ -980,7 +984,6 @@ LABEL_12:
       goto LABEL_78;
     }
 
-    v8 = *(equalCopy + 31);
     if (self->_fr2MeasDisabled)
     {
       if ((*(equalCopy + 31) & 1) == 0)
@@ -1007,7 +1010,6 @@ LABEL_12:
       goto LABEL_78;
     }
 
-    v9 = *(equalCopy + 32);
     if (self->_prevFr1MeasDisabled)
     {
       if ((*(equalCopy + 32) & 1) == 0)
@@ -1034,7 +1036,6 @@ LABEL_12:
       goto LABEL_78;
     }
 
-    v10 = *(equalCopy + 33);
     if (self->_prevFr2MeasDisabled)
     {
       if ((*(equalCopy + 33) & 1) == 0)
@@ -1074,7 +1075,6 @@ LABEL_12:
       goto LABEL_78;
     }
 
-    v11 = *(equalCopy + 28);
     if (self->_apNrRecomm)
     {
       if ((*(equalCopy + 28) & 1) == 0)
@@ -1101,7 +1101,6 @@ LABEL_12:
       goto LABEL_78;
     }
 
-    v12 = *(equalCopy + 29);
     if (self->_apNrRecommConfFactor)
     {
       if ((*(equalCopy + 29) & 1) == 0)
@@ -1129,7 +1128,7 @@ LABEL_12:
     }
 
 LABEL_78:
-    v14 = 0;
+    v7 = 0;
     goto LABEL_79;
   }
 
@@ -1138,7 +1137,6 @@ LABEL_78:
     goto LABEL_78;
   }
 
-  v13 = *(equalCopy + 34);
   if (self->_sib24Configured)
   {
     if ((*(equalCopy + 34) & 1) == 0)
@@ -1173,17 +1171,17 @@ LABEL_48:
       goto LABEL_78;
     }
 
-    v14 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v14 = (v6 & 4) == 0;
+    v7 = (v6 & 4) == 0;
   }
 
 LABEL_79:
 
-  return v14;
+  return v7;
 }
 
 - (unint64_t)hash

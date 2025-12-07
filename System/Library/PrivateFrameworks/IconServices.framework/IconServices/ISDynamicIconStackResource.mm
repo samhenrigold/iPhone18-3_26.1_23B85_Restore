@@ -51,38 +51,39 @@ id __65__ISDynamicIconStackResource_initWithTypeIdentifier_layerGroups___block_i
 {
   height = size.height;
   width = size.width;
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E69636B0];
   typeIdentifier = [(ISDynamicIconStackResource *)self typeIdentifier];
   v10 = [v8 typeRecordWithIdentifier:typeIdentifier];
 
   if (!v10)
   {
-    v14 = _ISDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v16 = _ISDefaultLog(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       typeIdentifier2 = [(ISDynamicIconStackResource *)self typeIdentifier];
-      v36 = 138412290;
-      v37 = typeIdentifier2;
-      v30 = "No record exists for type: '%@'";
+      v38 = 138412290;
+      v39 = typeIdentifier2;
+      v33 = "No record exists for type: '%@'";
 LABEL_11:
-      _os_log_impl(&dword_1A77B8000, v14, OS_LOG_TYPE_INFO, v30, &v36, 0xCu);
+      _os_log_impl(&dword_1A77B8000, v16, OS_LOG_TYPE_INFO, v33, &v38, 0xCu);
     }
 
 LABEL_12:
-    v27 = 0;
+    v30 = 0;
     goto LABEL_21;
   }
 
-  if (([v10 _is_canProvideIconResources] & 1) == 0)
+  _is_canProvideIconResources = [v10 _is_canProvideIconResources];
+  if ((_is_canProvideIconResources & 1) == 0)
   {
-    v14 = _ISDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v16 = _ISDefaultLog(_is_canProvideIconResources);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       typeIdentifier2 = [(ISDynamicIconStackResource *)self typeIdentifier];
-      v36 = 138412290;
-      v37 = typeIdentifier2;
-      v30 = "'%@' cannot provide icon resources";
+      v38 = 138412290;
+      v39 = typeIdentifier2;
+      v33 = "'%@' cannot provide icon resources";
       goto LABEL_11;
     }
 
@@ -90,93 +91,93 @@ LABEL_12:
   }
 
   declaringBundleRecord = [v10 declaringBundleRecord];
-  v12 = [declaringBundleRecord URL];
+  v14 = [declaringBundleRecord URL];
   iconDictionary = [v10 iconDictionary];
-  v14 = [ISResourceProvider resourceWithBundleURL:v12 iconDictionary:iconDictionary options:4];
+  v16 = [ISResourceProvider resourceWithBundleURL:v14 iconDictionary:iconDictionary options:4];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v15 = v14;
+    v18 = v16;
     compositingDescriptor = [(ISDynamicIconStackResource *)self compositingDescriptor];
-    -[NSObject setAppearance:](v15, "setAppearance:", [compositingDescriptor appearance]);
+    -[NSObject setAppearance:](v18, "setAppearance:", [compositingDescriptor appearance]);
 
     compositingDescriptor2 = [(ISDynamicIconStackResource *)self compositingDescriptor];
-    -[NSObject setAppearanceVariant:](v15, "setAppearanceVariant:", [compositingDescriptor2 appearanceVariant]);
+    -[NSObject setAppearanceVariant:](v18, "setAppearanceVariant:", [compositingDescriptor2 appearanceVariant]);
 
     compositingDescriptor3 = [(ISDynamicIconStackResource *)self compositingDescriptor];
     tintColor = [compositingDescriptor3 tintColor];
-    [v15 setTintColor:tintColor];
+    [v18 setTintColor:tintColor];
 
     compositingDescriptor4 = [(ISDynamicIconStackResource *)self compositingDescriptor];
-    -[NSObject setBackground:](v15, "setBackground:", [compositingDescriptor4 background]);
+    -[NSObject setBackground:](v18, "setBackground:", [compositingDescriptor4 background]);
 
     compositingDescriptor5 = [(ISDynamicIconStackResource *)self compositingDescriptor];
-    -[NSObject setShouldApplyMask:](v15, "setShouldApplyMask:", [compositingDescriptor5 shouldApplyMask]);
+    -[NSObject setShouldApplyMask:](v18, "setShouldApplyMask:", [compositingDescriptor5 shouldApplyMask]);
 
     compositingDescriptor6 = [(ISDynamicIconStackResource *)self compositingDescriptor];
-    -[NSObject setLanguageDirection:](v15, "setLanguageDirection:", [compositingDescriptor6 languageDirection]);
+    -[NSObject setLanguageDirection:](v18, "setLanguageDirection:", [compositingDescriptor6 languageDirection]);
 
     compositingDescriptor7 = [(ISDynamicIconStackResource *)self compositingDescriptor];
-    -[NSObject setPlatformStyle:](v15, "setPlatformStyle:", [compositingDescriptor7 platformStyle]);
+    -[NSObject setPlatformStyle:](v18, "setPlatformStyle:", [compositingDescriptor7 platformStyle]);
 
     compositingDescriptor8 = [(ISDynamicIconStackResource *)self compositingDescriptor];
-    -[NSObject setShape:](v15, "setShape:", [compositingDescriptor8 shape]);
+    -[NSObject setShape:](v18, "setShape:", [compositingDescriptor8 shape]);
 
-    scale = [v15 iconStackForSize:width scale:height, scale];
-    v26 = scale;
+    scale = [v18 iconStackForSize:width scale:height, scale];
+    v29 = scale;
     if (scale)
     {
-      v27 = scale;
+      v30 = scale;
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v28 = [v27 mutableCopy];
+        v31 = [v30 mutableCopy];
 
-        v27 = v28;
+        v30 = v31;
       }
     }
 
     else
     {
-      v32 = _ISDefaultLog();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v35 = _ISDefaultLog(0);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
         typeIdentifier3 = [(ISDynamicIconStackResource *)self typeIdentifier];
-        v36 = 138412290;
-        v37 = typeIdentifier3;
-        _os_log_impl(&dword_1A77B8000, v32, OS_LOG_TYPE_INFO, "Failed to retrieve base icon stack resource for '%@'", &v36, 0xCu);
+        v38 = 138412290;
+        v39 = typeIdentifier3;
+        _os_log_impl(&dword_1A77B8000, v35, OS_LOG_TYPE_INFO, "Failed to retrieve base icon stack resource for '%@'", &v38, 0xCu);
       }
 
-      v27 = 0;
+      v30 = 0;
     }
   }
 
   else
   {
-    v15 = _ISDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v18 = _ISDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       typeIdentifier4 = [(ISDynamicIconStackResource *)self typeIdentifier];
-      v36 = 138412290;
-      v37 = typeIdentifier4;
-      _os_log_impl(&dword_1A77B8000, v15, OS_LOG_TYPE_INFO, "Failed to find base icon stack resource for '%@'", &v36, 0xCu);
+      v38 = 138412290;
+      v39 = typeIdentifier4;
+      _os_log_impl(&dword_1A77B8000, v18, OS_LOG_TYPE_INFO, "Failed to find base icon stack resource for '%@'", &v38, 0xCu);
     }
 
-    v27 = 0;
+    v30 = 0;
   }
 
 LABEL_21:
-  v34 = *MEMORY[0x1E69E9840];
 
-  return v27;
+  return v30;
 }
 
 - (id)iconStackForSize:(CGSize)size scale:(double)scale
 {
   height = size.height;
   width = size.width;
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v8 = [ISDynamicIconStackResource baseIconStackForSize:"baseIconStackForSize:scale:" scale:?];
   v9 = v8;
   if (v8)
@@ -216,54 +217,54 @@ LABEL_21:
 
     v18 = 2;
 LABEL_9:
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     obj = [(ISDynamicIconStackResource *)self layerGroups];
-    v19 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v19 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
     if (v19)
     {
       v20 = v19;
-      v36 = *v42;
+      v35 = *v41;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v42 != v36)
+          if (*v41 != v35)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v41 + 1) + 8 * i);
+          v22 = *(*(&v40 + 1) + 8 * i);
           v23 = [v22 cuiGroupForAppearance:v18];
+          v36 = 0u;
           v37 = 0u;
           v38 = 0u;
           v39 = 0u;
-          v40 = 0u;
           layers = [v22 layers];
-          v25 = [layers countByEnumeratingWithState:&v37 objects:v45 count:16];
+          v25 = [layers countByEnumeratingWithState:&v36 objects:v44 count:16];
           if (v25)
           {
             v26 = v25;
-            v27 = *v38;
+            v27 = *v37;
             do
             {
               for (j = 0; j != v26; ++j)
               {
-                if (*v38 != v27)
+                if (*v37 != v27)
                 {
                   objc_enumerationMutation(layers);
                 }
 
-                v29 = [*(*(&v37 + 1) + 8 * j) cuiLayerImageForAppearance:v18 size:width scale:height frame:{scale, 0.0, 0.0, v11, v13}];
+                v29 = [*(*(&v36 + 1) + 8 * j) cuiLayerImageForAppearance:v18 size:width scale:height frame:{scale, 0.0, 0.0, v11, v13}];
                 if (v29)
                 {
                   [v23 addLayer:v29];
                 }
               }
 
-              v26 = [layers countByEnumeratingWithState:&v37 objects:v45 count:16];
+              v26 = [layers countByEnumeratingWithState:&v36 objects:v44 count:16];
             }
 
             while (v26);
@@ -272,7 +273,7 @@ LABEL_9:
           [v9 addLayer:v23];
         }
 
-        v20 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v20 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
       }
 
       while (v20);
@@ -282,14 +283,13 @@ LABEL_9:
     goto LABEL_26;
   }
 
-  v15 = _ISDefaultLog();
+  v15 = _ISDefaultLog(0);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ISDynamicIconStackResource iconStackForSize:v15 scale:?];
   }
 
 LABEL_26:
-  v31 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -303,24 +303,24 @@ LABEL_26:
   if (compositingDescriptor)
   {
     compositingDescriptor2 = [(ISDynamicIconStackResource *)self compositingDescriptor];
-    v10 = [compositingDescriptor2 copy];
+    v11 = [compositingDescriptor2 copy];
   }
 
   else
   {
-    v11 = _ISDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _ISDefaultLog(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [ISDynamicIconStackResource _compositingDescriptorWithSize:v11 scale:?];
+      [ISDynamicIconStackResource _compositingDescriptorWithSize:v12 scale:?];
     }
 
-    v10 = objc_alloc_init(ISCompositingDescriptor);
+    v11 = objc_alloc_init(ISCompositingDescriptor);
   }
 
-  [(ISCompositingDescriptor *)v10 setSize:width, height];
-  [(ISCompositingDescriptor *)v10 setScale:scale];
+  [(ISCompositingDescriptor *)v11 setSize:width, height];
+  [(ISCompositingDescriptor *)v11 setScale:scale];
 
-  return v10;
+  return v11;
 }
 
 - (id)imageForSize:(CGSize)size scale:(double)scale
@@ -343,13 +343,11 @@ LABEL_26:
 
 - (void)iconStackForSize:(void *)a1 scale:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 typeIdentifier];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "No base icon stack for '%@'", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "No base icon stack for '%@'", &v4, 0xCu);
 }
 
 @end

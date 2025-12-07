@@ -389,12 +389,12 @@ uint64_t IOACIPCTraceClass::readLogsAsync(IOACIPCTraceClass *this, unsigned int 
     input[3] = a5;
     *&v15 = 0xAAAAAAAAAAAAAAAALL;
     *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v23 = 0xAAAAAAAAAAAAAAAALL;
+    v22 = 0xAAAAAAAAAAAAAAAALL;
     reference[0] = 0xAAAAAAAAAAAAAAAALL;
+    v23 = v15;
     v24 = v15;
-    v25 = v15;
     reference[1] = a6;
-    v22 = a7;
+    v21 = a7;
     v16 = *(this + 19);
     MachPort = IONotificationPortGetMachPort(v14);
     v18 = IOConnectCallAsyncScalarMethod(v16, 0, MachPort, reference, 3u, input, 4u, 0, 0);
@@ -414,10 +414,9 @@ uint64_t IOACIPCTraceClass::readLogsAsync(IOACIPCTraceClass *this, unsigned int 
     }
 
     pthread_mutex_unlock((this + 8));
-    v18 = 3758097112;
+    return 3758097112;
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return v18;
 }
 
@@ -466,12 +465,12 @@ uint64_t IOACIPCTraceClass::flushTraceBuffers(IOACIPCTraceClass *this, unsigned 
     {
       *&v11 = 0xAAAAAAAAAAAAAAAALL;
       *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v19 = 0xAAAAAAAAAAAAAAAALL;
+      v18 = 0xAAAAAAAAAAAAAAAALL;
       reference[0] = 0xAAAAAAAAAAAAAAAALL;
+      v19 = v11;
       v20 = v11;
-      v21 = v11;
       reference[1] = a4;
-      v18 = a5;
+      v17 = a5;
       MachPort = IONotificationPortGetMachPort(*(this + 13));
       v13 = IOConnectCallAsyncScalarMethod(v10, 1u, MachPort, reference, 3u, input, 2u, 0, 0);
     }
@@ -493,10 +492,9 @@ uint64_t IOACIPCTraceClass::flushTraceBuffers(IOACIPCTraceClass *this, unsigned 
     }
 
     pthread_mutex_unlock((this + 8));
-    v14 = 3758097112;
+    return 3758097112;
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
@@ -553,10 +551,9 @@ uint64_t IOACIPCTraceClass::enablePipe(IOACIPCTraceClass *this, unsigned int a2,
     }
 
     pthread_mutex_unlock((this + 8));
-    v7 = 3758097112;
+    return 3758097112;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
@@ -585,10 +582,9 @@ uint64_t IOACIPCTraceClass::activateAllTracePoints(IOACIPCTraceClass *this)
     }
 
     pthread_mutex_unlock((this + 8));
-    v3 = 3758097112;
+    return 3758097112;
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
@@ -617,10 +613,9 @@ uint64_t IOACIPCTraceClass::deactivateAllTracePoints(IOACIPCTraceClass *this)
     }
 
     pthread_mutex_unlock((this + 8));
-    v3 = 3758097112;
+    return 3758097112;
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
@@ -650,10 +645,9 @@ uint64_t IOACIPCTraceClass::activateTracePoint(IOACIPCTraceClass *this, unsigned
     }
 
     pthread_mutex_unlock((this + 8));
-    v5 = 3758097112;
+    return 3758097112;
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -683,10 +677,9 @@ uint64_t IOACIPCTraceClass::deactivateTracePoint(IOACIPCTraceClass *this, unsign
     }
 
     pthread_mutex_unlock((this + 8));
-    v5 = 3758097112;
+    return 3758097112;
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -719,9 +712,8 @@ BOOL IOACIPCTraceClass::getRegistryInfo(uint64_t a1, void *a2)
   }
 }
 
-uint64_t IOACIPCTraceClass::getTraceCode(uint64_t a1)
+uint64_t IOACIPCTraceClass::getTraceCode(uint64_t a1, unsigned int a2, uint64_t *a3)
 {
-  v4 = *MEMORY[0x29EDCA608];
   if (*a1 >= 2u)
   {
     fprintf(*MEMORY[0x29EDCA610], "IOACIPCTraceClass::%s: \n", "getTraceCode");
@@ -739,7 +731,6 @@ uint64_t IOACIPCTraceClass::getTraceCode(uint64_t a1)
   }
 
   pthread_mutex_unlock((a1 + 8));
-  v2 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -750,7 +741,7 @@ void sub_297999018(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -764,13 +755,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -838,16 +829,16 @@ void std::__shared_ptr_emplace<IOAppleConvergedIPCTraceRegistryAttachment>::~__s
   JUMPOUT(0x29C277BF0);
 }
 
-uint64_t std::vector<IOACIPCTraceCodeAttachment>::__emplace_back_slow_path<IOACIPCTraceCodeAttachment>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<IOACIPCTraceCodeAttachment>::__emplace_back_slow_path<IOACIPCTraceCodeAttachment>(uint64_t *a1, __int128 *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     std::vector<IOACIPCTraceCodeAttachment>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -881,14 +872,14 @@ uint64_t std::vector<IOACIPCTraceCodeAttachment>::__emplace_back_slow_path<IOACI
   *a2 = 0;
   *(v8 + 24) = *(a2 + 6);
   *&v18 = 32 * v2 + 32;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = 32 * v2 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<IOACIPCTraceCodeAttachment>,IOACIPCTraceCodeAttachment*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -897,9 +888,9 @@ uint64_t std::vector<IOACIPCTraceCodeAttachment>::__emplace_back_slow_path<IOACI
   return v15;
 }
 
-void sub_297999518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_297999518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<IOACIPCTraceCodeAttachment>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1052,20 +1043,19 @@ void IOACIPCControlClass::IOACIPCControlClass(IOACIPCControlClass *this)
 
 void IOACIPCControlClass::~IOACIPCControlClass(IOACIPCControlClass *this)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = &unk_2A1E5BDF8;
   *this = &unk_2A1E5BDF8;
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "~IOACIPCControlClass";
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: \n", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "~IOACIPCControlClass";
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: \n", &v3, 0xCu);
     v2 = *this;
   }
 
   v2[3](this);
   pthread_mutex_destroy((this + 16));
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 {
@@ -1086,7 +1076,7 @@ void sub_297999960(_Unwind_Exception *a1, int a2)
 
 BOOL IOACIPCControlClass::start(IOACIPCControlClass *this, const __CFDictionary *a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   if (*(this + 20))
   {
@@ -1100,9 +1090,9 @@ BOOL IOACIPCControlClass::start(IOACIPCControlClass *this, const __CFDictionary 
     v4 = MatchingService != 0;
     if (!MatchingService && (*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "start";
-      _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: could not get matching service\n", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "start";
+      _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: could not get matching service\n", &v7, 0xCu);
     }
 
     *(this + 20) = MatchingService;
@@ -1110,25 +1100,24 @@ BOOL IOACIPCControlClass::start(IOACIPCControlClass *this, const __CFDictionary 
 
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "start";
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: --done\n", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "start";
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: --done\n", &v7, 0xCu);
   }
 
   pthread_mutex_unlock((this + 16));
-  v6 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 uint64_t IOACIPCControlClass::stop(IOACIPCControlClass *this)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "stop";
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: \n", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "stop";
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: \n", &v4, 0xCu);
   }
 
   IOACIPCControlClass::close_nl(this);
@@ -1142,13 +1131,12 @@ uint64_t IOACIPCControlClass::stop(IOACIPCControlClass *this)
 
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "stop";
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: --done\n", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "stop";
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: --done\n", &v4, 0xCu);
   }
 
   pthread_mutex_unlock((this + 16));
-  v3 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
@@ -1188,11 +1176,11 @@ uint64_t IOACIPCControlClass::close_nl(IOACIPCControlClass *this)
 
 void IOACIPCControlClass::deregisterEventNotification_nl(IOACIPCControlClass *this, NSObject *a2)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "deregisterEventNotification_nl";
+    v14 = "deregisterEventNotification_nl";
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: +\n", buf, 0xCu);
   }
 
@@ -1248,12 +1236,12 @@ void IOACIPCControlClass::deregisterEventNotification_nl(IOACIPCControlClass *th
 LABEL_12:
     v8 = *(this + 20);
     *(this + 20) = 0;
-    v13[0] = MEMORY[0x29EDCA5F8];
-    v13[1] = 0x40000000;
-    v13[2] = ___ZN19IOACIPCControlClass30deregisterEventNotification_nlEP16dispatch_group_s_block_invoke;
-    v13[3] = &unk_29EE82390;
-    v13[4] = v8;
-    v13[5] = v6;
+    v12[0] = MEMORY[0x29EDCA5F8];
+    v12[1] = 0x40000000;
+    v12[2] = ___ZN19IOACIPCControlClass30deregisterEventNotification_nlEP16dispatch_group_s_block_invoke;
+    v12[3] = &unk_29EE82390;
+    v12[4] = v8;
+    v12[5] = v6;
     v9 = *(this + 15);
     if (v9)
     {
@@ -1262,7 +1250,7 @@ LABEL_12:
         IOACIPCControlClass::deregisterEventNotification_nl();
       }
 
-      CFRunLoopPerformBlock(v9, *MEMORY[0x29EDB8FC0], v13);
+      CFRunLoopPerformBlock(v9, *MEMORY[0x29EDB8FC0], v12);
       CFRunLoopWakeUp(*(this + 15));
       CFRelease(*(this + 15));
       *(this + 15) = 0;
@@ -1271,7 +1259,7 @@ LABEL_12:
     v10 = *(this + 16);
     if (v10)
     {
-      dispatch_async(v10, v13);
+      dispatch_async(v10, v12);
       dispatch_release(*(this + 16));
       *(this + 16) = 0;
     }
@@ -1294,12 +1282,10 @@ LABEL_25:
     if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v15 = "deregisterEventNotification_nl";
+      v14 = "deregisterEventNotification_nl";
       _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: -\n", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 void IOACIPCControlClass::setNotificationPort(IOACIPCControlClass *this)
@@ -1433,18 +1419,17 @@ void ___ZN19IOACIPCControlClass26clearEventNotificationPortEv_block_invoke(__CFR
 
 uint64_t IOACIPCControlClass::open(IOACIPCControlClass *this, __CFRunLoop *a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "open";
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: \n", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "open";
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: \n", &v6, 0xCu);
   }
 
   v4 = IOACIPCControlClass::open_nl(this, a2, 0);
   pthread_mutex_unlock((this + 16));
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -1499,47 +1484,45 @@ uint64_t IOACIPCControlClass::open_nl(IOACIPCControlClass *this, __CFRunLoop *a2
 
 uint64_t IOACIPCControlClass::open(IOACIPCControlClass *this, NSObject *a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "open";
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: \n", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "open";
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: \n", &v6, 0xCu);
   }
 
   v4 = IOACIPCControlClass::open_nl(this, 0, a2);
   pthread_mutex_unlock((this + 16));
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 uint64_t IOACIPCControlClass::close(IOACIPCControlClass *this)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "close";
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: \n", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "close";
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: \n", &v4, 0xCu);
   }
 
   v2 = IOACIPCControlClass::close_nl(this);
   pthread_mutex_unlock((this + 16));
-  v3 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
 uint64_t IOACIPCControlClass::readLogsAsync(IOACIPCControlClass *this, void *a2, unsigned int a3, unsigned int a4, void (*a5)(void *, int, void *), void *a6)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   *&v12 = 0xAAAAAAAAAAAAAAAALL;
   *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v23 = v12;
-  v24 = v12;
-  *reference = v12;
   v22 = v12;
+  v23 = v12;
+  *reference = v12;
+  v21 = v12;
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 4) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
@@ -1548,7 +1531,7 @@ uint64_t IOACIPCControlClass::readLogsAsync(IOACIPCControlClass *this, void *a2,
     *&buf[12] = 2048;
     *&buf[14] = a2;
     *&buf[22] = 1024;
-    v20 = a3;
+    v19 = a3;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: buff %p, size %u\n", buf, 0x1Cu);
   }
 
@@ -1559,7 +1542,7 @@ uint64_t IOACIPCControlClass::readLogsAsync(IOACIPCControlClass *this, void *a2,
     *&buf[8] = a3;
     *&buf[16] = a4;
     reference[1] = a5;
-    *&v22 = a6;
+    *&v21 = a6;
     v14 = *(this + 42);
     MachPort = IONotificationPortGetMachPort(v13);
     v16 = IOConnectCallAsyncScalarMethod(v14, 2u, MachPort, reference, 3u, buf, 3u, 0, 0);
@@ -1577,7 +1560,6 @@ uint64_t IOACIPCControlClass::readLogsAsync(IOACIPCControlClass *this, void *a2,
   }
 
   pthread_mutex_unlock((this + 16));
-  v17 = *MEMORY[0x29EDCA608];
   return v16;
 }
 
@@ -1591,13 +1573,13 @@ uint64_t IOACIPCControlClass::triggerTrap(IOACIPCControlClass *this)
 
 uint64_t IOACIPCControlClass::collectSnapshotAsync(IOACIPCControlClass *this, void *a2, unsigned int a3, void (*a4)(void *, int, void *), void *a5)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v22 = v10;
-  v23 = v10;
-  *reference = v10;
   v21 = v10;
+  v22 = v10;
+  *reference = v10;
+  v20 = v10;
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
@@ -1605,8 +1587,8 @@ uint64_t IOACIPCControlClass::collectSnapshotAsync(IOACIPCControlClass *this, vo
     *&buf[4] = "collectSnapshotAsync";
     *&buf[12] = 2048;
     *&buf[14] = a2;
-    v18 = 1024;
-    v19 = a3;
+    v17 = 1024;
+    v18 = a3;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: buff %p, size %u\n", buf, 0x1Cu);
   }
 
@@ -1616,7 +1598,7 @@ uint64_t IOACIPCControlClass::collectSnapshotAsync(IOACIPCControlClass *this, vo
     *buf = a2;
     *&buf[8] = a3;
     reference[1] = a4;
-    *&v21 = a5;
+    *&v20 = a5;
     v12 = *(this + 42);
     MachPort = IONotificationPortGetMachPort(v11);
     v14 = IOConnectCallAsyncScalarMethod(v12, 5u, MachPort, reference, 3u, buf, 2u, 0, 0);
@@ -1634,7 +1616,6 @@ uint64_t IOACIPCControlClass::collectSnapshotAsync(IOACIPCControlClass *this, vo
   }
 
   pthread_mutex_unlock((this + 16));
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
@@ -1648,7 +1629,7 @@ uint64_t IOACIPCControlClass::registerEventNotification(uint64_t a1, const void 
 
 uint64_t IOACIPCControlClass::registerEventNotification_nl(uint64_t a1, const void *a2, NSObject *a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (*(a1 + 80))
   {
     if (*(a1 + 160))
@@ -1657,9 +1638,9 @@ uint64_t IOACIPCControlClass::registerEventNotification_nl(uint64_t a1, const vo
       if ((*(a1 + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v12 = "registerEventNotification_nl";
+        v11 = "registerEventNotification_nl";
         _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: a notification block is already registered. deregister it before registering a new block", buf, 0xCu);
-        v5 = 3758097093;
+        return 3758097093;
       }
     }
 
@@ -1695,15 +1676,15 @@ uint64_t IOACIPCControlClass::registerEventNotification_nl(uint64_t a1, const vo
         if ((*(a1 + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v12 = "registerEventNotification_nl";
-          v13 = 1024;
-          v14 = v5;
+          v11 = "registerEventNotification_nl";
+          v12 = 1024;
+          v13 = v5;
           _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: could not add interest notification on service: %#x\n", buf, 0x12u);
         }
 
         _Block_release(*(a1 + 160));
         *(a1 + 160) = 0;
-        v5 = 3758097084;
+        return 3758097084;
       }
     }
 
@@ -1713,7 +1694,7 @@ uint64_t IOACIPCControlClass::registerEventNotification_nl(uint64_t a1, const vo
       if ((*(a1 + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v12 = "registerEventNotification_nl";
+        v11 = "registerEventNotification_nl";
         _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: block must be provided\n", buf, 0xCu);
       }
     }
@@ -1725,13 +1706,12 @@ uint64_t IOACIPCControlClass::registerEventNotification_nl(uint64_t a1, const vo
     if ((*(a1 + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v12 = "registerEventNotification_nl";
+      v11 = "registerEventNotification_nl";
       _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: service is NULL - must successfully start() first\n", buf, 0xCu);
-      v5 = 3758097136;
+      return 3758097136;
     }
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -1819,30 +1799,29 @@ BOOL IOACIPCControlClass::getLogInternalBufferSize(IOACIPCControlClass *this, un
 
 uint64_t IOACIPCControlClass::loggerTune(IOACIPCControlClass *this, unsigned int a2, unsigned int a3, void *a4, void *a5)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 4) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 136316162;
-    *&v13[4] = "loggerTune";
-    *&v13[12] = 1024;
-    *&v13[14] = a2;
-    *&v13[18] = 1024;
-    *&v13[20] = a3;
-    *v14 = 2048;
-    *&v14[2] = a4;
-    v15 = 2048;
-    v16 = a5;
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: subsystem %u, index %u, arg1 %p, arg2 %p\n", v13, 0x2Cu);
+    *v12 = 136316162;
+    *&v12[4] = "loggerTune";
+    *&v12[12] = 1024;
+    *&v12[14] = a2;
+    *&v12[18] = 1024;
+    *&v12[20] = a3;
+    *v13 = 2048;
+    *&v13[2] = a4;
+    v14 = 2048;
+    v15 = a5;
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCControlClass::%s: subsystem %u, index %u, arg1 %p, arg2 %p\n", v12, 0x2Cu);
   }
 
-  *v13 = a2;
-  *&v13[8] = a3;
-  *&v13[16] = a4;
-  *v14 = a5;
-  v10 = IOConnectCallScalarMethod(*(this + 42), 3u, v13, 4u, 0, 0);
+  *v12 = a2;
+  *&v12[8] = a3;
+  *&v12[16] = a4;
+  *v13 = a5;
+  v10 = IOConnectCallScalarMethod(*(this + 42), 3u, v12, 4u, 0, 0);
   pthread_mutex_unlock((this + 16));
-  v11 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
@@ -1926,7 +1905,7 @@ const char *getACIPCAERErrorTypeString(unsigned int a1)
 
 void IOACIPCClass::IOACIPCClass(IOACIPCClass *this)
 {
-  v4 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
   *this = &unk_2A1E5BE98;
   *(this + 2) = 1;
   *(this + 5) = 0u;
@@ -1938,30 +1917,28 @@ void IOACIPCClass::IOACIPCClass(IOACIPCClass *this)
   *(this + 21) = 0;
   *(this + 19) = 0;
   *(this + 176) = 0;
-  v3.__sig = 0xAAAAAAAAAAAAAAAALL;
-  *v3.__opaque = 0xAAAAAAAAAAAAAAAALL;
-  pthread_mutexattr_init(&v3);
-  pthread_mutexattr_settype(&v3, 2);
-  pthread_mutex_init((this + 16), &v3);
-  v2 = *MEMORY[0x29EDCA608];
+  v2.__sig = 0xAAAAAAAAAAAAAAAALL;
+  *v2.__opaque = 0xAAAAAAAAAAAAAAAALL;
+  pthread_mutexattr_init(&v2);
+  pthread_mutexattr_settype(&v2, 2);
+  pthread_mutex_init((this + 16), &v2);
 }
 
 void IOACIPCClass::~IOACIPCClass(IOACIPCClass *this)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = &unk_2A1E5BE98;
   *this = &unk_2A1E5BE98;
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "~IOACIPCClass";
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: \n", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "~IOACIPCClass";
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: \n", &v3, 0xCu);
     v2 = *this;
   }
 
   v2[4](this, 0);
   pthread_mutex_destroy((this + 16));
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 {
@@ -1990,7 +1967,7 @@ uint64_t IOACIPCClass::start(uint64_t a1, const void *a2, const void *a3, uint64
 
 uint64_t IOACIPCClass::start_nl(uint64_t a1, const void *a2, CFTypeRef cf, dispatch_object_t object, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v46 = *MEMORY[0x29EDCA608];
   v14 = *(a1 + 80);
   if (v14)
   {
@@ -2020,42 +1997,42 @@ uint64_t IOACIPCClass::start_nl(uint64_t a1, const void *a2, CFTypeRef cf, dispa
     dispatch_retain(object);
   }
 
-  v42[0] = 0;
-  v42[1] = v42;
-  v42[2] = 0x3002000000;
-  v42[3] = __Block_byref_object_copy_;
-  v42[4] = __Block_byref_object_dispose_;
-  v42[5] = 0xAAAAAA0000000000;
+  v41[0] = 0;
+  v41[1] = v41;
+  v41[2] = 0x3002000000;
+  v41[3] = __Block_byref_object_copy_;
+  v41[4] = __Block_byref_object_dispose_;
+  v41[5] = 0xAAAAAA0000000000;
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 0x40000000;
   aBlock[2] = ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke;
   aBlock[3] = &unk_29EE825E0;
-  aBlock[4] = v42;
+  aBlock[4] = v41;
   aBlock[5] = a1;
   *(a1 + 152) = _Block_copy(aBlock);
-  v40[0] = MEMORY[0x29EDCA5F8];
-  v40[1] = 0x40000000;
-  v40[2] = ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_2;
-  v40[3] = &unk_29EE82608;
-  v40[4] = v42;
-  *(a1 + 160) = _Block_copy(v40);
+  v39[0] = MEMORY[0x29EDCA5F8];
+  v39[1] = 0x40000000;
+  v39[2] = ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_2;
+  v39[3] = &unk_29EE82608;
+  v39[4] = v41;
+  *(a1 + 160) = _Block_copy(v39);
   if (a7)
   {
-    v39[0] = MEMORY[0x29EDCA5F8];
-    v39[1] = 0x40000000;
-    v39[2] = ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_3;
-    v39[3] = &unk_29EE82630;
-    v39[4] = a7;
-    *(a1 + 136) = _Block_copy(v39);
+    v38[0] = MEMORY[0x29EDCA5F8];
+    v38[1] = 0x40000000;
+    v38[2] = ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_3;
+    v38[3] = &unk_29EE82630;
+    v38[4] = a7;
+    *(a1 + 136) = _Block_copy(v38);
   }
 
   IOACIPCClass::setNotificationPort(a1);
-  v38[0] = MEMORY[0x29EDCA5F8];
-  v38[1] = 0x40000000;
-  v38[2] = ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_4;
-  v38[3] = &unk_29EE82658;
-  v38[4] = a5;
-  *(a1 + 120) = _Block_copy(v38);
+  v37[0] = MEMORY[0x29EDCA5F8];
+  v37[1] = 0x40000000;
+  v37[2] = ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_4;
+  v37[3] = &unk_29EE82658;
+  v37[4] = a5;
+  *(a1 + 120) = _Block_copy(v37);
   CFRetain(a2);
   v16 = IOServiceAddMatchingNotification(*(a1 + 96), "IOServiceFirstMatch", a2, IOACIPCClass::interfaceMatched, *(a1 + 120), (a1 + 112));
   if (!v16)
@@ -2066,15 +2043,15 @@ uint64_t IOACIPCClass::start_nl(uint64_t a1, const void *a2, CFTypeRef cf, dispa
     block[1] = 0x40000000;
     block[2] = ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_5;
     block[3] = &unk_29EE82680;
-    block[4] = v38;
-    v37 = v19;
+    block[4] = v37;
+    v36 = v19;
     v20 = *(a1 + 80);
     if (v20)
     {
       if (*(a1 + 88))
       {
-        v29 = "!fQueue";
-        v30 = 283;
+        v28 = "!fQueue";
+        v29 = 283;
         goto LABEL_42;
       }
 
@@ -2092,12 +2069,12 @@ uint64_t IOACIPCClass::start_nl(uint64_t a1, const void *a2, CFTypeRef cf, dispa
     {
       dispatch_async(v21, block);
 LABEL_22:
-      v35[0] = MEMORY[0x29EDCA5F8];
-      v35[1] = 0x40000000;
-      v35[2] = ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_15;
-      v35[3] = &unk_29EE826A8;
-      v35[4] = a6;
-      *(a1 + 128) = _Block_copy(v35);
+      v34[0] = MEMORY[0x29EDCA5F8];
+      v34[1] = 0x40000000;
+      v34[2] = ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_15;
+      v34[3] = &unk_29EE826A8;
+      v34[4] = a6;
+      *(a1 + 128) = _Block_copy(v34);
       CFRetain(a2);
       v22 = IOServiceAddMatchingNotification(*(a1 + 96), "IOServiceTerminate", a2, IOACIPCClass::interfaceMatched, *(a1 + 128), (a1 + 116));
       if (v22)
@@ -2108,38 +2085,38 @@ LABEL_22:
         }
 
         *buf = 136315394;
-        v44 = "start_nl";
-        v45 = 1024;
-        v46 = v22;
+        v43 = "start_nl";
+        v44 = 1024;
+        v45 = v22;
         v17 = MEMORY[0x29EDCA988];
         v18 = "IOACIPCClass::%s: IOServiceAddMatchingNotification (kIOTerminatedNotification) failed, ret = 0x%08x";
         goto LABEL_26;
       }
 
-      v26 = *(a1 + 116);
-      IOObjectRetain(v26);
-      v33[0] = MEMORY[0x29EDCA5F8];
-      v33[1] = 0x40000000;
-      v33[2] = ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_2_18;
-      v33[3] = &unk_29EE826D0;
-      v33[4] = v35;
-      v34 = v26;
-      v27 = *(a1 + 80);
-      if (v27)
+      v25 = *(a1 + 116);
+      IOObjectRetain(v25);
+      v32[0] = MEMORY[0x29EDCA5F8];
+      v32[1] = 0x40000000;
+      v32[2] = ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_2_18;
+      v32[3] = &unk_29EE826D0;
+      v32[4] = v34;
+      v33 = v25;
+      v26 = *(a1 + 80);
+      if (v26)
       {
         if (*(a1 + 88))
         {
-          v31 = "!fQueue";
-          v32 = 340;
+          v30 = "!fQueue";
+          v31 = 340;
           goto LABEL_45;
         }
 
-        CFRunLoopPerformBlock(v27, *MEMORY[0x29EDB8FC0], v33);
+        CFRunLoopPerformBlock(v26, *MEMORY[0x29EDB8FC0], v32);
         CFRunLoopWakeUp(*(a1 + 80));
       }
 
-      v28 = *(a1 + 88);
-      if (!v28)
+      v27 = *(a1 + 88);
+      if (!v27)
       {
 LABEL_38:
         v23 = 1;
@@ -2148,20 +2125,20 @@ LABEL_38:
 
       if (!*(a1 + 80))
       {
-        dispatch_async(v28, v33);
+        dispatch_async(v27, v32);
         goto LABEL_38;
       }
 
-      v31 = "!fRunLoopRef";
-      v32 = 346;
+      v30 = "!fRunLoopRef";
+      v31 = 346;
 LABEL_45:
-      __assert_rtn("start_nl", "IOACIPCClass.cpp", v32, v31);
+      __assert_rtn("start_nl", "IOACIPCClass.cpp", v31, v30);
     }
 
-    v29 = "!fRunLoopRef";
-    v30 = 289;
+    v28 = "!fRunLoopRef";
+    v29 = 289;
 LABEL_42:
-    __assert_rtn("start_nl", "IOACIPCClass.cpp", v30, v29);
+    __assert_rtn("start_nl", "IOACIPCClass.cpp", v29, v28);
   }
 
   if ((*(a1 + 8) & 2) == 0 || !os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
@@ -2170,9 +2147,9 @@ LABEL_42:
   }
 
   *buf = 136315394;
-  v44 = "start_nl";
-  v45 = 1024;
-  v46 = v16;
+  v43 = "start_nl";
+  v44 = 1024;
+  v45 = v16;
   v17 = MEMORY[0x29EDCA988];
   v18 = "IOACIPCClass::%s: IOServiceAddMatchingNotification (kIOFirstMatchNotification) failed, ret = 0x%08x";
 LABEL_26:
@@ -2183,12 +2160,11 @@ LABEL_28:
   if ((*(a1 + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v44 = "start_nl";
+    v43 = "start_nl";
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: --done\n", buf, 0xCu);
   }
 
-  _Block_object_dispose(v42, 8);
-  v24 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(v41, 8);
   return v23;
 }
 
@@ -2241,14 +2217,6 @@ void ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_qu
   v2 = (*(*(a1 + 32) + 8) + 40);
 
   os_unfair_lock_unlock(v2);
-}
-
-uint64_t ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_3(uint64_t a1, uint64_t a2, unsigned int *a3)
-{
-  v3 = *a3;
-  v4 = a3[2];
-  v5 = a3[4];
-  return (*(*(a1 + 32) + 16))();
 }
 
 void IOACIPCClass::setNotificationPort(IOACIPCClass *this)
@@ -2315,11 +2283,10 @@ void IOACIPCClass::interfaceMatched(IOACIPCClass *this, void *a2)
 
 uint64_t ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_5(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  return IOObjectRelease(v3);
+  return IOObjectRelease(v2);
 }
 
 uint64_t ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_15(uint64_t a1, io_iterator_t iterator)
@@ -2350,21 +2317,20 @@ uint64_t ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatc
 
 uint64_t ___ZN12IOACIPCClass8start_nlEPK14__CFDictionaryP11__CFRunLoopP16dispatch_queue_sU13block_pointerFvjES8_U13block_pointerFvjjiE_block_invoke_2_18(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  return IOObjectRelease(v3);
+  return IOObjectRelease(v2);
 }
 
 uint64_t IOACIPCClass::stop(IOACIPCClass *this, NSObject *a2)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v20 = "stop";
+    v19 = "stop";
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: \n", buf, 0xCu);
   }
 
@@ -2412,16 +2378,16 @@ LABEL_10:
 
     v8 = *(this + 19);
     *(this + 19) = 0;
-    v15[0] = MEMORY[0x29EDCA5F8];
-    v15[1] = 0x40000000;
-    v15[2] = ___ZN12IOACIPCClass4stopEP16dispatch_group_s_block_invoke;
-    v15[3] = &unk_29EE826F8;
+    v14[0] = MEMORY[0x29EDCA5F8];
+    v14[1] = 0x40000000;
+    v14[2] = ___ZN12IOACIPCClass4stopEP16dispatch_group_s_block_invoke;
+    v14[3] = &unk_29EE826F8;
     v9 = *(this + 120);
     *(this + 15) = 0;
     *(this + 16) = 0;
-    v16 = v9;
-    v17 = v8;
-    v18 = v4;
+    v15 = v9;
+    v16 = v8;
+    v17 = v4;
     v10 = *(this + 10);
     if (v10)
     {
@@ -2430,7 +2396,7 @@ LABEL_10:
         IOACIPCClass::stop();
       }
 
-      CFRunLoopPerformBlock(v10, *MEMORY[0x29EDB8FC0], v15);
+      CFRunLoopPerformBlock(v10, *MEMORY[0x29EDB8FC0], v14);
       CFRunLoopWakeUp(*(this + 10));
       CFRelease(*(this + 10));
       *(this + 10) = 0;
@@ -2439,7 +2405,7 @@ LABEL_10:
     v11 = *(this + 11);
     if (v11)
     {
-      dispatch_async(v11, v15);
+      dispatch_async(v11, v14);
       dispatch_release(*(this + 11));
       *(this + 11) = 0;
     }
@@ -2460,29 +2426,27 @@ LABEL_10:
     if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v20 = "stop";
+      v19 = "stop";
       _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: --done\n", buf, 0xCu);
     }
 
-    goto LABEL_30;
+    return 1;
   }
 
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v20 = "stop";
+    v19 = "stop";
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: already stopped, returning true\n", buf, 0xCu);
   }
 
   pthread_mutex_unlock((this + 16));
-LABEL_30:
-  v13 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
 uint64_t IOACIPCClass::close_nl(IOACIPCClass *this)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (*(this + 176))
   {
     *(this + 176) = 0;
@@ -2508,15 +2472,14 @@ uint64_t IOACIPCClass::close_nl(IOACIPCClass *this)
   {
     if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "close_nl";
-      _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: not open, return success\n", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "close_nl";
+      _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: not open, return success\n", &v8, 0xCu);
     }
 
-    v4 = 0;
+    return 0;
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -2626,18 +2589,18 @@ void ___ZN12IOACIPCClass21clearNotificationPortEv_block_invoke(__CFRunLoop **a1)
 
 const void *IOACIPCClass::getTransferRingInfo(IOACIPCClass *this, io_registry_entry_t entry)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   CFProperty = IORegistryEntryCreateCFProperty(entry, @"AppleConvergedIPCTransferRingProperties", *MEMORY[0x29EDB8ED8], 0);
   if (!CFProperty)
   {
     if ((*(this + 8) & 1) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "getTransferRingInfo";
-      _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: TR properties are not available\n", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "getTransferRingInfo";
+      _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: TR properties are not available\n", &v7, 0xCu);
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
   v4 = CFProperty;
@@ -2646,34 +2609,32 @@ const void *IOACIPCClass::getTransferRingInfo(IOACIPCClass *this, io_registry_en
   {
     if ((*(this + 8) & 1) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "getTransferRingInfo";
-      _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: TR properties has invalid type\n", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "getTransferRingInfo";
+      _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: TR properties has invalid type\n", &v7, 0xCu);
     }
 
     CFRelease(v4);
-LABEL_10:
-    v4 = 0;
+    return 0;
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 const void *IOACIPCClass::getCompletionRingInfo(IOACIPCClass *this, io_registry_entry_t entry)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   CFProperty = IORegistryEntryCreateCFProperty(entry, @"AppleConvergedIPCCompletionRingProperties", *MEMORY[0x29EDB8ED8], 0);
   if (!CFProperty)
   {
     if ((*(this + 8) & 1) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "getCompletionRingInfo";
-      _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: CR properties are not available\n", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "getCompletionRingInfo";
+      _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: CR properties are not available\n", &v7, 0xCu);
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
   v4 = CFProperty;
@@ -2682,34 +2643,31 @@ const void *IOACIPCClass::getCompletionRingInfo(IOACIPCClass *this, io_registry_
   {
     if ((*(this + 8) & 1) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "getCompletionRingInfo";
-      _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: CR properties has invalid type\n", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "getCompletionRingInfo";
+      _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: CR properties has invalid type\n", &v7, 0xCu);
     }
 
     CFRelease(v4);
-LABEL_10:
-    v4 = 0;
+    return 0;
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 uint64_t IOACIPCClass::open(IOACIPCClass *this, io_service_t a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "open";
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: \n", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "open";
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: \n", &v6, 0xCu);
   }
 
   v4 = IOACIPCClass::open_nl(this, a2);
   pthread_mutex_unlock((this + 16));
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -2766,20 +2724,18 @@ uint64_t IOACIPCClass::open_nl(io_connect_t *this, io_service_t a2)
 
 BOOL IOACIPCClass::setUpNotificationCallback(IOACIPCClass *this, io_service_t a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v3 = IOServiceAddInterestNotification(*(this + 12), a2, "IOGeneralInterest", IOACIPCClass::notificationCallback, *(this + 19), this + 42);
   if (v3 && (*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "setUpNotificationCallback";
-    v8 = 1024;
-    v9 = v3;
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: Could not add interest notification on service: %#x\n", &v6, 0x12u);
+    v5 = 136315394;
+    v6 = "setUpNotificationCallback";
+    v7 = 1024;
+    v8 = v3;
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: Could not add interest notification on service: %#x\n", &v5, 0x12u);
   }
 
-  result = v3 == 0;
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  return v3 == 0;
 }
 
 uint64_t IOACIPCClass::cleanUpNotificationCallback(IOACIPCClass *this)
@@ -2796,18 +2752,17 @@ uint64_t IOACIPCClass::cleanUpNotificationCallback(IOACIPCClass *this)
 
 uint64_t IOACIPCClass::close(IOACIPCClass *this)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "close";
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: \n", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "close";
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: \n", &v4, 0xCu);
   }
 
   v2 = IOACIPCClass::close_nl(this);
   pthread_mutex_unlock((this + 16));
-  v3 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
@@ -2826,29 +2781,29 @@ void *IOACIPCClass::copyNotificationHandler(IOACIPCClass *this, int a2, void *a3
 
 uint64_t IOACIPCClass::io(uint64_t a1, unsigned int a2, void *a3, unsigned int *a4, unsigned int a5)
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v26 = 0;
+  v26 = *MEMORY[0x29EDCA608];
+  v25 = 0;
   *input = 0u;
-  v25 = 0u;
+  v24 = 0u;
   pthread_mutex_lock((a1 + 16));
   if ((*(a1 + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     v10 = *a4;
     *buf = 136315906;
     *&buf[4] = "io";
-    v18 = 1024;
-    v19 = a2;
-    v20 = 2048;
-    v21 = a3;
-    v22 = 1024;
-    v23 = v10;
+    v17 = 1024;
+    v18 = a2;
+    v19 = 2048;
+    v20 = a3;
+    v21 = 1024;
+    v22 = v10;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: trIndex %u, buff %p, size %u\n", buf, 0x22u);
   }
 
   input[0] = a2;
   input[1] = a5;
-  v26 = 0;
-  v25 = 0uLL;
+  v25 = 0;
+  v24 = 0uLL;
   v11 = *a4;
   *buf = v11;
   v12 = *(a1 + 172);
@@ -2868,37 +2823,36 @@ uint64_t IOACIPCClass::io(uint64_t a1, unsigned int a2, void *a3, unsigned int *
   }
 
   pthread_mutex_unlock((a1 + 16));
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
 uint64_t IOACIPCClass::ioAsync(IOACIPCClass *this, unsigned int a2, uint64_t a3, unsigned int a4, void *a5, unsigned int a6, void (*a7)(void *, int, void *), void *a8)
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   *&v16 = 0xAAAAAAAAAAAAAAAALL;
   *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v40 = v16;
-  v41 = v16;
-  *reference = v16;
   v39 = v16;
-  v37 = 0;
+  v40 = v16;
+  *reference = v16;
+  v38 = v16;
+  v36 = 0;
   *input = 0u;
-  v36 = 0u;
+  v35 = 0u;
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316418;
-    v24 = "ioAsync";
-    v25 = 1024;
-    v26 = a2;
-    v27 = 2048;
-    v28 = a3;
-    v29 = 1024;
-    v30 = a4;
-    v31 = 2048;
-    v32 = a5;
-    v33 = 1024;
-    v34 = a6;
+    v23 = "ioAsync";
+    v24 = 1024;
+    v25 = a2;
+    v26 = 2048;
+    v27 = a3;
+    v28 = 1024;
+    v29 = a4;
+    v30 = 2048;
+    v31 = a5;
+    v32 = 1024;
+    v33 = a6;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: trIndex %u, buff %p, size %u, footer %p, size %u\n", buf, 0x32u);
   }
 
@@ -2906,11 +2860,11 @@ uint64_t IOACIPCClass::ioAsync(IOACIPCClass *this, unsigned int a2, uint64_t a3,
   {
     input[0] = a3;
     input[1] = a4;
-    *&v36 = a5;
-    *(&v36 + 1) = a6;
-    v37 = a2;
+    *&v35 = a5;
+    *(&v35 + 1) = a6;
+    v36 = a2;
     reference[1] = a7;
-    *&v39 = a8;
+    *&v38 = a8;
     v17 = *(this + 43);
     v18 = (*(*this + 224))(this, 2);
     MachPort = IONotificationPortGetMachPort(*(this + 12));
@@ -2923,13 +2877,12 @@ uint64_t IOACIPCClass::ioAsync(IOACIPCClass *this, unsigned int a2, uint64_t a3,
     if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v24 = "ioAsync";
+      v23 = "ioAsync";
       _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: no async port\n", buf, 0xCu);
     }
   }
 
   pthread_mutex_unlock((this + 16));
-  v21 = *MEMORY[0x29EDCA608];
   return v20;
 }
 
@@ -2941,11 +2894,11 @@ uint64_t IOACIPCClass::sendImage(IOACIPCClass *this, const void *a2, unsigned in
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v18 = "sendImage";
-    v19 = 2048;
-    *v20 = a2;
-    *&v20[8] = 1024;
-    *&v20[10] = a3;
+    v17 = "sendImage";
+    v18 = 2048;
+    *v19 = a2;
+    *&v19[8] = 1024;
+    *&v19[10] = a3;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: buff %p, size %u\n", buf, 0x1Cu);
   }
 
@@ -2953,46 +2906,45 @@ uint64_t IOACIPCClass::sendImage(IOACIPCClass *this, const void *a2, unsigned in
   input[1] = 0;
   input[2] = a5;
   output = 0;
-  v26 = 0;
+  v25 = 0;
   v10 = *(this + 43);
   v11 = (*(*this + 224))(this, 3);
   v12 = IOConnectCallMethod(v10, v11, input, 3u, a2, a3, &output, &outputCnt, 0, 0);
   if (!v12)
   {
     *a4 = output;
-    v12 = v26;
+    v12 = v25;
   }
 
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     v13 = *a4;
     *buf = 136316162;
-    v18 = "sendImage";
-    v19 = 1024;
-    *v20 = v12;
-    *&v20[4] = 2048;
-    *&v20[6] = a2;
-    v21 = 1024;
-    v22 = a3;
-    v23 = 1024;
-    v24 = v13;
+    v17 = "sendImage";
+    v18 = 1024;
+    *v19 = v12;
+    *&v19[4] = 2048;
+    *&v19[6] = a2;
+    v20 = 1024;
+    v21 = a3;
+    v22 = 1024;
+    v23 = v13;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: ret 0x%x, buff %p, size %u, cookie %u\n", buf, 0x28u);
   }
 
   pthread_mutex_unlock((this + 16));
-  v14 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
 uint64_t IOACIPCClass::sendImageAsync(IOACIPCClass *this, const void *a2, unsigned int a3, void (*a4)(void *, int, void *, void *), void *a5, unsigned int a6)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   *&v12 = 0xAAAAAAAAAAAAAAAALL;
   *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v25 = v12;
-  v26 = v12;
-  *reference = v12;
   v24 = v12;
+  v25 = v12;
+  *reference = v12;
+  v23 = v12;
   outputCnt = 2;
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
@@ -3002,7 +2954,7 @@ uint64_t IOACIPCClass::sendImageAsync(IOACIPCClass *this, const void *a2, unsign
     *&buf[12] = 2048;
     *&buf[14] = a2;
     *&buf[22] = 1024;
-    v21 = a3;
+    v20 = a3;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: buff %p, size %u\n", buf, 0x1Cu);
   }
 
@@ -3014,7 +2966,7 @@ uint64_t IOACIPCClass::sendImageAsync(IOACIPCClass *this, const void *a2, unsign
     output[0] = 0;
     output[1] = 0;
     reference[1] = a4;
-    *&v24 = a5;
+    *&v23 = a5;
     v13 = *(this + 43);
     v14 = (*(*this + 224))(this, 3);
     MachPort = IONotificationPortGetMachPort(*(this + 12));
@@ -3033,19 +2985,18 @@ uint64_t IOACIPCClass::sendImageAsync(IOACIPCClass *this, const void *a2, unsign
   }
 
   pthread_mutex_unlock((this + 16));
-  v17 = *MEMORY[0x29EDCA608];
   return v16;
 }
 
 uint64_t IOACIPCClass::generateNonce(IOACIPCClass *this)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "generateNonce";
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: \n", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "generateNonce";
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: \n", &v6, 0xCu);
   }
 
   v2 = *(this + 43);
@@ -3053,65 +3004,63 @@ uint64_t IOACIPCClass::generateNonce(IOACIPCClass *this)
   v4 = IOConnectCallScalarMethod(v2, v3, 0, 0, 0, 0);
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "generateNonce";
-    v9 = 1024;
-    v10 = v4;
-    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: ret 0x%x\n", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "generateNonce";
+    v8 = 1024;
+    v9 = v4;
+    _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: ret 0x%x\n", &v6, 0x12u);
   }
 
   pthread_mutex_unlock((this + 16));
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 uint64_t IOACIPCClass::readRegister(IOACIPCClass *this, unsigned int a2, void *a3, unsigned int *a4)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     v8 = *a4;
     *buf = 136315906;
     *&buf[4] = "readRegister";
-    v16 = 1024;
-    v17 = a2;
-    v18 = 2048;
-    v19 = a3;
-    v20 = 1024;
-    v21 = v8;
+    v15 = 1024;
+    v16 = a2;
+    v17 = 2048;
+    v18 = a3;
+    v19 = 1024;
+    v20 = v8;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: reg %u, buff %p, size %u\n", buf, 0x22u);
   }
 
-  v14 = *a4;
+  v13 = *a4;
   *buf = a2;
   v9 = *(this + 43);
   v10 = (*(*this + 224))(this, 4);
-  v11 = IOConnectCallMethod(v9, v10, buf, 1u, 0, 0, 0, 0, a3, &v14);
+  v11 = IOConnectCallMethod(v9, v10, buf, 1u, 0, 0, 0, 0, a3, &v13);
   if (!v11)
   {
-    *a4 = v14;
+    *a4 = v13;
   }
 
   pthread_mutex_unlock((this + 16));
-  v12 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
 uint64_t IOACIPCClass::writeRegister(IOACIPCClass *this, unsigned int a2, void *a3, unsigned int a4)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   pthread_mutex_lock((this + 16));
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
     *&buf[4] = "writeRegister";
-    v14 = 1024;
-    v15 = a2;
-    v16 = 2048;
-    v17 = a3;
-    v18 = 1024;
-    v19 = a4;
+    v13 = 1024;
+    v14 = a2;
+    v15 = 2048;
+    v16 = a3;
+    v17 = 1024;
+    v18 = a4;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: reg %u, buff %p, size %u\n", buf, 0x22u);
   }
 
@@ -3120,7 +3069,6 @@ uint64_t IOACIPCClass::writeRegister(IOACIPCClass *this, unsigned int a2, void *
   v9 = (*(*this + 224))(this, 13);
   v10 = IOConnectCallMethod(v8, v9, buf, 1u, a3, a4, 0, 0, 0, 0);
   pthread_mutex_unlock((this + 16));
-  v11 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
@@ -3151,7 +3099,6 @@ uint64_t IOACIPCClass::queryTransferCredit(IOACIPCClass *this, unsigned int a2, 
   }
 
   pthread_mutex_unlock((this + 16));
-  v10 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
@@ -3181,7 +3128,6 @@ uint64_t IOACIPCClass::getIOMMUPageSize(IOACIPCClass *this, unsigned int *a2)
   }
 
   pthread_mutex_unlock((this + 16));
-  v8 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -3198,11 +3144,11 @@ uint64_t IOACIPCClass::mapMemory(IOACIPCClass *this, unsigned int a2, uint64_t a
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v17 = "mapMemory";
-    v18 = 1024;
-    v19 = a2;
-    v20 = 1024;
-    v21 = a4;
+    v16 = "mapMemory";
+    v17 = 1024;
+    v18 = a2;
+    v19 = 1024;
+    v20 = a4;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: region %u, size %u\n", buf, 0x18u);
   }
 
@@ -3211,18 +3157,17 @@ uint64_t IOACIPCClass::mapMemory(IOACIPCClass *this, unsigned int a2, uint64_t a
   v12 = (*(*this + 224))(this, 7);
   v13 = IOConnectCallMethod(v11, v12, input, 7u, 0, 0, 0, 0, 0, 0);
   pthread_mutex_unlock((this + 16));
-  v14 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
 uint64_t IOACIPCClass::mapMemoryAsync(IOACIPCClass *this, unsigned int a2, uint64_t a3, unsigned int a4, unsigned int a5, unsigned int a6, uint64_t a7, unsigned int a8, void (*a9)(void *, int), void *a10)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   *&v11 = 0xAAAAAAAAAAAAAAAALL;
   *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v29 = v11;
   v30 = v11;
-  v31 = v11;
-  v29 = 0xAAAAAAAAAAAAAAAALL;
+  v28 = 0xAAAAAAAAAAAAAAAALL;
   reference[0] = 0xAAAAAAAAAAAAAAAALL;
   input[0] = a2;
   input[1] = a3;
@@ -3232,15 +3177,15 @@ uint64_t IOACIPCClass::mapMemoryAsync(IOACIPCClass *this, unsigned int a2, uint6
   input[5] = a7;
   input[6] = a8;
   reference[1] = a9;
-  v28 = a10;
+  v27 = a10;
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v21 = "mapMemoryAsync";
-    v22 = 1024;
-    v23 = a2;
-    v24 = 1024;
-    v25 = a4;
+    v20 = "mapMemoryAsync";
+    v21 = 1024;
+    v22 = a2;
+    v23 = 1024;
+    v24 = a4;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: region %u, size %u\n", buf, 0x18u);
   }
 
@@ -3259,13 +3204,12 @@ uint64_t IOACIPCClass::mapMemoryAsync(IOACIPCClass *this, unsigned int a2, uint6
     if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v21 = "mapMemoryAsync";
+      v20 = "mapMemoryAsync";
       _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: no async port\n", buf, 0xCu);
     }
   }
 
   pthread_mutex_unlock((this + 16));
-  v18 = *MEMORY[0x29EDCA608];
   return v17;
 }
 
@@ -3276,9 +3220,9 @@ uint64_t IOACIPCClass::unmapMemory(IOACIPCClass *this, unsigned int a2)
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v10 = "unmapMemory";
-    v11 = 1024;
-    v12 = a2;
+    v9 = "unmapMemory";
+    v10 = 1024;
+    v11 = a2;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: region %u\n", buf, 0x12u);
   }
 
@@ -3287,28 +3231,27 @@ uint64_t IOACIPCClass::unmapMemory(IOACIPCClass *this, unsigned int a2)
   v5 = (*(*this + 224))(this, 8);
   v6 = IOConnectCallMethod(v4, v5, input, 1u, 0, 0, 0, 0, 0, 0);
   pthread_mutex_unlock((this + 16));
-  v7 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 uint64_t IOACIPCClass::unmapMemoryAsync(IOACIPCClass *this, unsigned int a2, void (*a3)(void *, int), void *a4)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v20 = v5;
   v21 = v5;
-  v22 = v5;
-  v20 = 0xAAAAAAAAAAAAAAAALL;
+  v19 = 0xAAAAAAAAAAAAAAAALL;
   reference[0] = 0xAAAAAAAAAAAAAAAALL;
   input = a2;
   reference[1] = a3;
-  v19 = a4;
+  v18 = a4;
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v14 = "unmapMemoryAsync";
-    v15 = 1024;
-    v16 = a2;
+    v13 = "unmapMemoryAsync";
+    v14 = 1024;
+    v15 = a2;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: region %u\n", buf, 0x12u);
   }
 
@@ -3327,13 +3270,12 @@ uint64_t IOACIPCClass::unmapMemoryAsync(IOACIPCClass *this, unsigned int a2, voi
     if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "unmapMemoryAsync";
+      v13 = "unmapMemoryAsync";
       _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: no async port\n", buf, 0xCu);
     }
   }
 
   pthread_mutex_unlock((this + 16));
-  v11 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
@@ -3346,13 +3288,13 @@ uint64_t IOACIPCClass::updateMemory(IOACIPCClass *this, unsigned int a2, unsigne
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v14 = "updateMemory";
-    v15 = 1024;
-    v16 = a2;
-    v17 = 1024;
-    v18 = a3;
-    v19 = 1024;
-    v20 = a4;
+    v13 = "updateMemory";
+    v14 = 1024;
+    v15 = a2;
+    v16 = 1024;
+    v17 = a3;
+    v18 = 1024;
+    v19 = a4;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: region %u, prio -> %u, tc -> %u\n", buf, 0x1Eu);
   }
 
@@ -3361,34 +3303,33 @@ uint64_t IOACIPCClass::updateMemory(IOACIPCClass *this, unsigned int a2, unsigne
   v9 = (*(*this + 224))(this, 9);
   v10 = IOConnectCallMethod(v8, v9, input, 3u, 0, 0, 0, 0, 0, 0);
   pthread_mutex_unlock((this + 16));
-  v11 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
 uint64_t IOACIPCClass::updateMemoryAsync(IOACIPCClass *this, unsigned int a2, unsigned int a3, unsigned int a4, void (*a5)(void *, int), void *a6)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v28 = v7;
   v29 = v7;
-  v30 = v7;
-  v28 = 0xAAAAAAAAAAAAAAAALL;
+  v27 = 0xAAAAAAAAAAAAAAAALL;
   reference[0] = 0xAAAAAAAAAAAAAAAALL;
   input[0] = a2;
   input[1] = a3;
   input[2] = a4;
   reference[1] = a5;
-  v27 = a6;
+  v26 = a6;
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v18 = "updateMemoryAsync";
-    v19 = 1024;
-    v20 = a2;
-    v21 = 1024;
-    v22 = a3;
-    v23 = 1024;
-    v24 = a4;
+    v17 = "updateMemoryAsync";
+    v18 = 1024;
+    v19 = a2;
+    v20 = 1024;
+    v21 = a3;
+    v22 = 1024;
+    v23 = a4;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: region %u, prio -> %u, tc -> %u\n", buf, 0x1Eu);
   }
 
@@ -3407,13 +3348,12 @@ uint64_t IOACIPCClass::updateMemoryAsync(IOACIPCClass *this, unsigned int a2, un
     if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v18 = "updateMemoryAsync";
+      v17 = "updateMemoryAsync";
       _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: no async port\n", buf, 0xCu);
     }
   }
 
   pthread_mutex_unlock((this + 16));
-  v15 = *MEMORY[0x29EDCA608];
   return v14;
 }
 
@@ -3426,9 +3366,9 @@ uint64_t IOACIPCClass::notifyMemory(IOACIPCClass *this, unsigned int a2, uint64_
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "notifyMemory";
-    v13 = 1024;
-    v14 = a2;
+    v11 = "notifyMemory";
+    v12 = 1024;
+    v13 = a2;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: region %u\n", buf, 0x12u);
   }
 
@@ -3437,30 +3377,29 @@ uint64_t IOACIPCClass::notifyMemory(IOACIPCClass *this, unsigned int a2, uint64_
   v7 = (*(*this + 224))(this, 10);
   v8 = IOConnectCallMethod(v6, v7, input, 3u, 0, 0, 0, 0, 0, 0);
   pthread_mutex_unlock((this + 16));
-  v9 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
 uint64_t IOACIPCClass::notifyMemoryAsync(IOACIPCClass *this, unsigned int a2, uint64_t a3, unsigned int a4, void (*a5)(void *, int), void *a6)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v22 = v7;
   v23 = v7;
-  v24 = v7;
-  v22 = 0xAAAAAAAAAAAAAAAALL;
+  v21 = 0xAAAAAAAAAAAAAAAALL;
   reference[0] = 0xAAAAAAAAAAAAAAAALL;
   input[0] = a2;
   input[1] = a3;
   input[2] = a4;
   reference[1] = a5;
-  v21 = a6;
+  v20 = a6;
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v16 = "notifyMemoryAsync";
-    v17 = 1024;
-    v18 = a2;
+    v15 = "notifyMemoryAsync";
+    v16 = 1024;
+    v17 = a2;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: region %u\n", buf, 0x12u);
   }
 
@@ -3479,13 +3418,12 @@ uint64_t IOACIPCClass::notifyMemoryAsync(IOACIPCClass *this, unsigned int a2, ui
     if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v16 = "notifyMemoryAsync";
+      v15 = "notifyMemoryAsync";
       _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: no async port\n", buf, 0xCu);
     }
   }
 
   pthread_mutex_unlock((this + 16));
-  v13 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
@@ -3496,9 +3434,9 @@ uint64_t IOACIPCClass::abortTransferRing(IOACIPCClass *this, unsigned int a2)
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v10 = "abortTransferRing";
-    v11 = 1024;
-    v12 = a2;
+    v9 = "abortTransferRing";
+    v10 = 1024;
+    v11 = a2;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: TR index %u\n", buf, 0x12u);
   }
 
@@ -3507,28 +3445,27 @@ uint64_t IOACIPCClass::abortTransferRing(IOACIPCClass *this, unsigned int a2)
   v5 = (*(*this + 224))(this, 11);
   v6 = IOConnectCallMethod(v4, v5, input, 1u, 0, 0, 0, 0, 0, 0);
   pthread_mutex_unlock((this + 16));
-  v7 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 uint64_t IOACIPCClass::abortTransferRingAsync(IOACIPCClass *this, unsigned int a2, void (*a3)(void *, int), void *a4)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v20 = v5;
   v21 = v5;
-  v22 = v5;
-  v20 = 0xAAAAAAAAAAAAAAAALL;
+  v19 = 0xAAAAAAAAAAAAAAAALL;
   reference[0] = 0xAAAAAAAAAAAAAAAALL;
   input = a2;
   reference[1] = a3;
-  v19 = a4;
+  v18 = a4;
   if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v14 = "abortTransferRingAsync";
-    v15 = 1024;
-    v16 = a2;
+    v13 = "abortTransferRingAsync";
+    v14 = 1024;
+    v15 = a2;
     _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: TR index %u\n", buf, 0x12u);
   }
 
@@ -3547,13 +3484,12 @@ uint64_t IOACIPCClass::abortTransferRingAsync(IOACIPCClass *this, unsigned int a
     if ((*(this + 8) & 2) != 0 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "abortTransferRingAsync";
+      v13 = "abortTransferRingAsync";
       _os_log_impl(&dword_297997000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "IOACIPCClass::%s: no async port\n", buf, 0xCu);
     }
   }
 
   pthread_mutex_unlock((this + 16));
-  v11 = *MEMORY[0x29EDCA608];
   return v10;
 }
 

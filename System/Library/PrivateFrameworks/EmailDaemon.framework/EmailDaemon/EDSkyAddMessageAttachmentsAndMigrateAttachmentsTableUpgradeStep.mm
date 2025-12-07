@@ -58,40 +58,39 @@ void __70__EDSkyAddMessageAttachmentsAndMigrateAttachmentsTableUpgradeStep_log__
 
 + (BOOL)createNewAttachmentTableWithConnection:(id)connection
 {
-  v24[7] = *MEMORY[0x1E69E9840];
+  v23[7] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v3 = objc_alloc(MEMORY[0x1E699B958]);
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"size" nullable:0 defaultValue:&unk_1F45E6AC0];
-  v24[0] = v4;
+  v23[0] = v4;
   v5 = [MEMORY[0x1E699B8D0] textColumnWithName:@"hash" collation:1 nullable:1];
-  v24[1] = v5;
+  v23[1] = v5;
   v6 = [MEMORY[0x1E699B8D0] textColumnWithName:@"file_name_on_file_system" collation:1 nullable:1];
-  v24[2] = v6;
+  v23[2] = v6;
   v7 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"viewed_count" nullable:0 defaultValue:&unk_1F45E6AC0];
-  v24[3] = v7;
+  v23[3] = v7;
   v8 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"last_viewed" nullable:0 defaultValue:&unk_1F45E6AC0];
-  v24[4] = v8;
+  v23[4] = v8;
   v9 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"viewed_by_tapped_count" nullable:0 defaultValue:&unk_1F45E6AC0];
-  v24[5] = v9;
+  v23[5] = v9;
   v10 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date_last_downloaded" nullable:0 defaultValue:&unk_1F45E6AC0];
-  v24[6] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:7];
+  v23[6] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:7];
   v12 = [v3 initWithName:@"attachments" rowIDType:2 columns:v11];
 
-  v23 = @"hash";
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+  v22 = @"hash";
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
   [v12 addUniquenessConstraintForColumns:v13 conflictResolution:1];
 
   v14 = objc_alloc(MEMORY[0x1E699B940]);
-  v22 = v12;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+  v21 = v12;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
   v16 = [v14 initWithTables:v15];
 
   v17 = [v16 definitionWithDatabaseName:0];
   v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to create %@", @"attachments"];
   LOBYTE(v5) = [connectionCopy executeStatementString:v17 errorMessage:v18];
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -117,56 +116,56 @@ void __70__EDSkyAddMessageAttachmentsAndMigrateAttachmentsTableUpgradeStep_log__
 
 + (BOOL)createMessageAttachmentsTableWithConnection:(id)connection
 {
-  v51[5] = *MEMORY[0x1E69E9840];
+  v50[5] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v44 = [MEMORY[0x1E699B8D0] textColumnWithName:@"mime_part_number" collation:1 nullable:1];
-  v43 = [MEMORY[0x1E699B8D0] textColumnWithName:@"remote_url" collation:1 nullable:1];
+  v43 = [MEMORY[0x1E699B8D0] textColumnWithName:@"mime_part_number" collation:1 nullable:1];
+  v42 = [MEMORY[0x1E699B8D0] textColumnWithName:@"remote_url" collation:1 nullable:1];
   v3 = objc_alloc(MEMORY[0x1E699B958]);
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"global_message_id" nullable:0];
-  v51[0] = v4;
+  v50[0] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"attachment" nullable:1];
-  v51[1] = v5;
+  v50[1] = v5;
   v6 = [MEMORY[0x1E699B8D0] textColumnWithName:@"name" collation:1 nullable:0];
-  v51[2] = v6;
-  v51[3] = v44;
-  v51[4] = v43;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:5];
+  v50[2] = v6;
+  v50[3] = v43;
+  v50[4] = v42;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:5];
   v8 = [v3 initWithName:@"message_attachments" rowIDType:2 columns:v7];
 
-  v50[0] = @"global_message_id";
-  v50[1] = @"mime_part_number";
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
+  v49[0] = @"global_message_id";
+  v49[1] = @"mime_part_number";
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
   [v8 addUniquenessConstraintForColumns:v9 conflictResolution:1];
 
-  v49[0] = @"global_message_id";
-  v49[1] = @"remote_url";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
+  v48[0] = @"global_message_id";
+  v48[1] = @"remote_url";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
   [v8 addUniquenessConstraintForColumns:v10 conflictResolution:1];
 
   v11 = objc_alloc(MEMORY[0x1E699B898]);
-  columnExpression = [v44 columnExpression];
+  columnExpression = [v43 columnExpression];
   isNotNull = [columnExpression isNotNull];
-  v48[0] = isNotNull;
-  columnExpression2 = [v43 columnExpression];
+  v47[0] = isNotNull;
+  columnExpression2 = [v42 columnExpression];
   isNull = [columnExpression2 isNull];
-  v48[1] = isNull;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
-  v42 = [v11 initWithExpressions:v16];
+  v47[1] = isNull;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
+  v41 = [v11 initWithExpressions:v16];
 
   v17 = objc_alloc(MEMORY[0x1E699B898]);
-  columnExpression3 = [v44 columnExpression];
+  columnExpression3 = [v43 columnExpression];
   isNull2 = [columnExpression3 isNull];
-  v47[0] = isNull2;
-  columnExpression4 = [v43 columnExpression];
+  v46[0] = isNull2;
+  columnExpression4 = [v42 columnExpression];
   isNotNull2 = [columnExpression4 isNotNull];
-  v47[1] = isNotNull2;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
+  v46[1] = isNotNull2;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
   v23 = [v17 initWithExpressions:v22];
 
   v24 = objc_alloc(MEMORY[0x1E699B928]);
-  v46[0] = v42;
-  v46[1] = v23;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
+  v45[0] = v41;
+  v45[1] = v23;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
   v26 = [v24 initWithExpressions:v25];
 
   [v8 addCheckConstraintForExpression:v26];
@@ -183,34 +182,33 @@ void __70__EDSkyAddMessageAttachmentsAndMigrateAttachmentsTableUpgradeStep_log__
   [v33 setAsForeignKeyForTable:v32 onDelete:0 onUpdate:0];
 
   v34 = objc_alloc(MEMORY[0x1E699B940]);
-  v45 = v8;
-  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
+  v44 = v8;
+  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
   v36 = [v34 initWithTables:v35];
 
   v37 = [v36 definitionWithDatabaseName:0];
   v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to create %@", @"attachments"];
   LOBYTE(v22) = [connectionCopy executeStatementString:v37 errorMessage:v38];
 
-  v39 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 + (BOOL)createNewSearchableAttachmentsTable:(id)table
 {
-  v24[3] = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   tableCopy = table;
   v4 = objc_alloc(MEMORY[0x1E699B958]);
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"attachment" nullable:1];
-  v24[0] = v5;
+  v23[0] = v5;
   v6 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message_id" nullable:1];
-  v24[1] = v6;
+  v23[1] = v6;
   v7 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"transaction_id" nullable:0];
-  v24[2] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:3];
+  v23[2] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:3];
   v9 = [v4 initWithName:@"searchable_attachments" rowIDType:1 rowIDAlias:@"attachment_id" columns:v8];
 
-  v23 = @"attachment";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+  v22 = @"attachment";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
   [v9 addIndexForColumns:v10];
 
   [v9 addIndexForColumns:&unk_1F45E6FE8];
@@ -220,15 +218,14 @@ void __70__EDSkyAddMessageAttachmentsAndMigrateAttachmentsTableUpgradeStep_log__
   [v13 setAsForeignKeyForTable:v12 onDelete:3 onUpdate:0];
 
   v14 = objc_alloc(MEMORY[0x1E699B940]);
-  v22 = v9;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+  v21 = v9;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
   v16 = [v14 initWithTables:v15];
 
   v17 = [v16 definitionWithDatabaseName:0];
   v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to create %@", @"searchable_attachments"];
   v19 = [tableCopy executeStatementString:v17 errorMessage:v18];
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

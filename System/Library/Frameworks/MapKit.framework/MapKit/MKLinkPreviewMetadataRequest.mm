@@ -1479,7 +1479,7 @@ void __50__MKLinkPreviewMetadataRequest__handlePlaceAction__block_invoke_3(uint6
   v4 = MEMORY[0x1A58E9F30](self->_completionHandler);
   v5 = [[MKLinkPreviewSearchMetadata alloc] initWithActionType:[(_MKURLParser *)v3 actionType] mapType:[(_MKURLParser *)v3 mapType]];
   searchQuery = [(_MKURLParser *)v3 searchQuery];
-  [(_MKURLParser *)v3 searchRegion];
+  objc_msgSend_searchRegion(v3);
   v8 = v7;
   v10 = v9;
   v12 = v11;
@@ -2057,7 +2057,7 @@ void __55__MKLinkPreviewMetadataRequest__handleDirectionsAction__block_invoke_3(
           }
 
 LABEL_20:
-          [(MKLinkPreviewMetadataRequest *)self _failWithError:0, *v15, *&v15[16], v16];
+          [(MKLinkPreviewMetadataRequest *)self _failWithError:0, *v15, *&v15[8], v16];
 LABEL_21:
 
           goto LABEL_22;

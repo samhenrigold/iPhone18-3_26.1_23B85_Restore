@@ -21,30 +21,26 @@
 
 - (id)invalidAceCommandError
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
-  v8 = *MEMORY[0x1E696A578];
+  v7 = *MEMORY[0x1E696A578];
   v3 = WFLocalizedString(@"Unable to run action");
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v2 errorWithDomain:@"WFRemoteExecutionCoordinatorErrorDomain" code:2 userInfo:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)sessionTimedOutError
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
-  v8 = *MEMORY[0x1E696A578];
+  v7 = *MEMORY[0x1E696A578];
   v3 = WFLocalizedString(@"Remote execution timed out");
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v2 errorWithDomain:@"WFRemoteExecutionCoordinatorErrorDomain" code:0 userInfo:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -64,17 +60,17 @@
 
 - (void)restartTimeout
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   [(WFRemoteExecutionSession *)self cancelTimeout];
   v3 = getWFRemoteExecutionLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     [(WFRemoteExecutionSession *)self timeoutLimitInSeconds];
     *buf = 136315650;
-    v15 = "[WFRemoteExecutionSession restartTimeout]";
-    v16 = 2048;
-    v17 = v4;
-    v18 = 2114;
+    v14 = "[WFRemoteExecutionSession restartTimeout]";
+    v15 = 2048;
+    v16 = v4;
+    v17 = 2114;
     selfCopy = self;
     _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_INFO, "%s Starting %f second timer for session %{public}@", buf, 0x20u);
   }
@@ -98,51 +94,46 @@
 
   timeoutTimer3 = [(WFRemoteExecutionSession *)self timeoutTimer];
   dispatch_activate(timeoutTimer3);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __42__WFRemoteExecutionSession_restartTimeout__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) cancelTimeout];
   v2 = getWFRemoteExecutionLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     [v3 timeoutLimitInSeconds];
-    v7 = 136315650;
-    v8 = "[WFRemoteExecutionSession restartTimeout]_block_invoke";
-    v9 = 2114;
-    v10 = v3;
-    v11 = 2048;
-    v12 = v4;
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_INFO, "%s %{public}@ hit timeout (%f)", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[WFRemoteExecutionSession restartTimeout]_block_invoke";
+    v8 = 2114;
+    v9 = v3;
+    v10 = 2048;
+    v11 = v4;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_INFO, "%s %{public}@ hit timeout (%f)", &v6, 0x20u);
   }
 
-  result = [*(a1 + 32) handleTimeout];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) handleTimeout];
 }
 
 - (void)setState:(unint64_t)state
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = getWFRemoteExecutionLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     state = self->_state;
-    v8 = 136315650;
-    v9 = "[WFRemoteExecutionSession setState:]";
-    v10 = 2048;
+    v7 = 136315650;
+    v8 = "[WFRemoteExecutionSession setState:]";
+    v9 = 2048;
     stateCopy = state;
-    v12 = 2048;
+    v11 = 2048;
     stateCopy2 = state;
-    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Transitioning from state %lu to %lu", &v8, 0x20u);
+    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Transitioning from state %lu to %lu", &v7, 0x20u);
   }
 
   self->_state = state;
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finish

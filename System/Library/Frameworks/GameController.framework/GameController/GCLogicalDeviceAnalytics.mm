@@ -48,32 +48,32 @@
 
 - (double)sessionActiveDuration
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_sessionIntervals;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     v6 = 0.0;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v11 + 1) + 8 * i) duration];
+        [*(*(&v10 + 1) + 8 * i) duration];
         v6 = v6 + v8;
       }
 
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -84,7 +84,6 @@
     v6 = 0.0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -107,67 +106,57 @@
 
 - (void)resumeSession
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = getGCAnalyticsLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCAnalyticsLogger(self);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v2, v3, "Resume session - %@", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v3, v4, "Resume session - %@", v5, v6, v7, v8);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pauseSession
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = getGCAnalyticsLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCAnalyticsLogger(self);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v2, v3, "Pause session - %@", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_0_14(&dword_1D2CD5000, v3, v4, "Pause session - %@", v5, v6, v7, v8);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)flushSessionAndSendCAEvent
 {
   v3 = *MEMORY[0x1E69E9840];
-  v0 = getGCAnalyticsLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = getGCAnalyticsLogger(self);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_8();
-    _os_log_error_impl(&dword_1D2CD5000, v0, OS_LOG_TYPE_ERROR, "%@ - ERROR! Attempting to flush a session that has already been flushed. Create a new devie analytics instance instead.", v2, 0xCu);
+    _os_log_error_impl(&dword_1D2CD5000, v1, OS_LOG_TYPE_ERROR, "%@ - ERROR! Attempting to flush a session that has already been flushed. Create a new devie analytics instance instead.", v2, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 id __54__GCLogicalDeviceAnalytics_flushSessionAndSendCAEvent__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v15 = *(v2 + 40);
-  v14[0] = @"bundleID";
-  v14[1] = @"productCategory";
-  v16 = *(v2 + 32);
-  v14[2] = @"controllerID";
-  v14[3] = @"sessionTotalDuration";
+  v14 = *(v2 + 40);
+  v13[0] = @"bundleID";
+  v13[1] = @"productCategory";
+  v15 = *(v2 + 32);
+  v13[2] = @"controllerID";
+  v13[3] = @"sessionTotalDuration";
   v3 = MEMORY[0x1E696AD98];
   [v2 sessionTotalDuration];
   LODWORD(v5) = llround(v4);
   v6 = [v3 numberWithInt:v5];
-  v17 = v6;
-  v14[4] = @"sessionActionDuration";
+  v16 = v6;
+  v13[4] = @"sessionActionDuration";
   v7 = MEMORY[0x1E696AD98];
   [*(a1 + 32) sessionActiveDuration];
   LODWORD(v9) = llround(v8);
   v10 = [v7 numberWithInt:v9];
-  v18 = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:v14 count:5];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v17 = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:v13 count:5];
 
   return v11;
 }

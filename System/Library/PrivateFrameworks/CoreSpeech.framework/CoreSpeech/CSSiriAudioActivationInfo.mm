@@ -129,17 +129,17 @@
 
 - (id)_audioSessionActiveDelayServerConfiguration
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CEF0E8];
   v4 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     activeMediaPlaybackVolume = self->_activeMediaPlaybackVolume;
-    v20 = 136315394;
-    v21 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayServerConfiguration]";
-    v22 = 2048;
-    v23 = activeMediaPlaybackVolume;
-    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s activeMediaPlaybackVolume = %f", &v20, 0x16u);
+    v19 = 136315394;
+    v20 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayServerConfiguration]";
+    v21 = 2048;
+    v22 = activeMediaPlaybackVolume;
+    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s activeMediaPlaybackVolume = %f", &v19, 0x16u);
   }
 
   if (self->_activeMediaPlaybackVolume <= 0.0)
@@ -153,11 +153,11 @@
   v8 = *v3;
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_INFO))
   {
-    v20 = 136315394;
-    v21 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayServerConfiguration]";
-    v22 = 2112;
-    v23 = *&serverMediaPlaybackVolumeThresholdForAudioSessionActivationDelay;
-    _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s mediaPlaybackVolumeThreshold = %@", &v20, 0x16u);
+    v19 = 136315394;
+    v20 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayServerConfiguration]";
+    v21 = 2112;
+    v22 = *&serverMediaPlaybackVolumeThresholdForAudioSessionActivationDelay;
+    _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s mediaPlaybackVolumeThreshold = %@", &v19, 0x16u);
   }
 
   if (!serverMediaPlaybackVolumeThresholdForAudioSessionActivationDelay || ([serverMediaPlaybackVolumeThresholdForAudioSessionActivationDelay floatValue], v9 <= 0.0) || (objc_msgSend(serverMediaPlaybackVolumeThresholdForAudioSessionActivationDelay, "floatValue"), v10 >= 1.0) || (v11 = self->_activeMediaPlaybackVolume, objc_msgSend(serverMediaPlaybackVolumeThresholdForAudioSessionActivationDelay, "floatValue"), v11 < v12))
@@ -170,11 +170,11 @@ LABEL_11:
     v15 = *v3;
     if (os_log_type_enabled(*v3, OS_LOG_TYPE_INFO))
     {
-      v20 = 136315394;
-      v21 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayServerConfiguration]";
-      v22 = 2112;
-      v23 = *&serverAudioSessionActivationDelay;
-      _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_INFO, "%s audioSessionActiveDelay = %@ (Default)", &v20, 0x16u);
+      v19 = 136315394;
+      v20 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayServerConfiguration]";
+      v21 = 2112;
+      v22 = *&serverAudioSessionActivationDelay;
+      _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_INFO, "%s audioSessionActiveDelay = %@ (Default)", &v19, 0x16u);
     }
 
     goto LABEL_13;
@@ -183,14 +183,14 @@ LABEL_11:
   mEMORY[0x277D01890]3 = [MEMORY[0x277D01890] sharedPreferences];
   serverAudioSessionActivationDelay = [mEMORY[0x277D01890]3 serverAudioSessionActivationDelayAboveMediaPlaybackVolumeThreshold];
 
-  v19 = *v3;
+  v18 = *v3;
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_INFO))
   {
-    v20 = 136315394;
-    v21 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayServerConfiguration]";
-    v22 = 2112;
-    v23 = *&serverAudioSessionActivationDelay;
-    _os_log_impl(&dword_222E4D000, v19, OS_LOG_TYPE_INFO, "%s audioSessionActiveDelay = %@ (Above Media Playback Volume Threshold)", &v20, 0x16u);
+    v19 = 136315394;
+    v20 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayServerConfiguration]";
+    v21 = 2112;
+    v22 = *&serverAudioSessionActivationDelay;
+    _os_log_impl(&dword_222E4D000, v18, OS_LOG_TYPE_INFO, "%s audioSessionActiveDelay = %@ (Above Media Playback Volume Threshold)", &v19, 0x16u);
   }
 
   if (!serverAudioSessionActivationDelay)
@@ -199,41 +199,38 @@ LABEL_11:
   }
 
 LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
 
   return serverAudioSessionActivationDelay;
 }
 
 - (id)_audioSessionActiveDelayOverride
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D01890] = [MEMORY[0x277D01890] sharedPreferences];
   overrideAudioSessionActiveDelay = [mEMORY[0x277D01890] overrideAudioSessionActiveDelay];
 
   v4 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayOverride]";
-    v9 = 2112;
-    v10 = overrideAudioSessionActiveDelay;
-    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s audioSessionActiveDelay = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayOverride]";
+    v8 = 2112;
+    v9 = overrideAudioSessionActiveDelay;
+    _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_INFO, "%s audioSessionActiveDelay = %@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return overrideAudioSessionActiveDelay;
 }
 
 - (id)_audioSessionActiveDelayUserPerceptionWithType:(unint64_t)type
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __76__CSSiriAudioActivationInfo__audioSessionActiveDelayUserPerceptionWithType___block_invoke;
-  v13[3] = &unk_2784C4B10;
-  v13[4] = self;
-  v4 = MEMORY[0x223DD26C0](v13, a2, type);
+  v17 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __76__CSSiriAudioActivationInfo__audioSessionActiveDelayUserPerceptionWithType___block_invoke;
+  v12[3] = &unk_2784C4B10;
+  v12[4] = self;
+  v4 = MEMORY[0x223DD26C0](v12, a2, type);
   v5 = v4;
   if (self->_speechEvent == 15)
   {
@@ -247,9 +244,9 @@ LABEL_5:
     }
 
     *buf = 136315394;
-    v15 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayUserPerceptionWithType:]";
-    v16 = 2112;
-    v17 = v6;
+    v14 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayUserPerceptionWithType:]";
+    v15 = 2112;
+    v16 = v6;
     v8 = "%s audioSessionActiveDelay = %@ (Hearst Voice)";
 LABEL_4:
     _os_log_impl(&dword_222E4D000, v7, OS_LOG_TYPE_INFO, v8, buf, 0x16u);
@@ -266,9 +263,9 @@ LABEL_4:
     }
 
     *buf = 136315394;
-    v15 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayUserPerceptionWithType:]";
-    v16 = 2112;
-    v17 = v6;
+    v14 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayUserPerceptionWithType:]";
+    v15 = 2112;
+    v16 = v6;
     v8 = "%s audioSessionActiveDelay = %@ (Built In Voice)";
     goto LABEL_4;
   }
@@ -277,16 +274,14 @@ LABEL_4:
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v15 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayUserPerceptionWithType:]";
-    v16 = 2112;
-    v17 = 0;
+    v14 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayUserPerceptionWithType:]";
+    v15 = 2112;
+    v16 = 0;
     _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s audioSessionActiveDelay = %@ (Others)", buf, 0x16u);
   }
 
   v9 = 0;
 LABEL_13:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -311,7 +306,7 @@ id __76__CSSiriAudioActivationInfo__audioSessionActiveDelayUserPerceptionWithTyp
 
 - (id)_audioSessionActiveDelayCoreSpeechWithType:(unint64_t)type
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_speechEvent == 17)
   {
     v3 = *MEMORY[0x277CEF0E8];
@@ -321,13 +316,13 @@ id __76__CSSiriAudioActivationInfo__audioSessionActiveDelayUserPerceptionWithTyp
       goto LABEL_11;
     }
 
-    v12 = 136315394;
-    v13 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayCoreSpeechWithType:]";
-    v14 = 2112;
-    v15 = &unk_283667898;
+    v11 = 136315394;
+    v12 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayCoreSpeechWithType:]";
+    v13 = 2112;
+    v14 = &unk_283667898;
     v5 = "%s audioSessionActiveDelay = %@ (Triggerless Listening)";
 LABEL_7:
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, v5, &v12, 0x16u);
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_INFO, v5, &v11, 0x16u);
     goto LABEL_11;
   }
 
@@ -340,10 +335,10 @@ LABEL_7:
       goto LABEL_11;
     }
 
-    v12 = 136315394;
-    v13 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayCoreSpeechWithType:]";
-    v14 = 2112;
-    v15 = &unk_283667898;
+    v11 = 136315394;
+    v12 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayCoreSpeechWithType:]";
+    v13 = 2112;
+    v14 = &unk_283667898;
     v5 = "%s audioSessionActiveDelay = %@ (Audio Session Coordination)";
     goto LABEL_7;
   }
@@ -352,17 +347,15 @@ LABEL_7:
   v9 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v12 = 136315394;
-    v13 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayCoreSpeechWithType:]";
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s audioSessionActiveDelay = %@ (User Perception)", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[CSSiriAudioActivationInfo _audioSessionActiveDelayCoreSpeechWithType:]";
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s audioSessionActiveDelay = %@ (User Perception)", &v11, 0x16u);
   }
 
   v4 = v8;
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -417,38 +410,37 @@ LABEL_11:
 
 - (id)dateByAddingTimeIntervalSinceActivation:(double)activation
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CEF0E8];
   v6 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v27 = 136315394;
-    v28 = "[CSSiriAudioActivationInfo dateByAddingTimeIntervalSinceActivation:]";
-    v29 = 2048;
+    v25 = 136315394;
+    v26 = "[CSSiriAudioActivationInfo dateByAddingTimeIntervalSinceActivation:]";
+    v27 = 2048;
     activationCopy = activation;
-    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s timeInterval = %f", &v27, 0x16u);
+    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_INFO, "%s timeInterval = %f", &v25, 0x16u);
   }
 
-  speechEvent = self->_speechEvent;
   if (AFSpeechEventIsVoiceTrigger())
   {
-    v8 = *v5;
+    v7 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEBUG))
     {
       voiceTriggerEndHostTime = self->_voiceTriggerEndHostTime;
-      v27 = 136315394;
-      v28 = "[CSSiriAudioActivationInfo dateByAddingTimeIntervalSinceActivation:]";
-      v29 = 2048;
+      v25 = 136315394;
+      v26 = "[CSSiriAudioActivationInfo dateByAddingTimeIntervalSinceActivation:]";
+      v27 = 2048;
       activationCopy = *&voiceTriggerEndHostTime;
-      _os_log_debug_impl(&dword_222E4D000, v8, OS_LOG_TYPE_DEBUG, "%s voiceTriggerEndHostTime = %llu", &v27, 0x16u);
+      _os_log_debug_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEBUG, "%s voiceTriggerEndHostTime = %llu", &v25, 0x16u);
     }
 
-    v9 = 128;
+    v8 = 128;
   }
 
   else
   {
-    v10 = *v5;
+    v9 = *v5;
     if (self->_speechEvent != 1)
     {
       goto LABEL_13;
@@ -457,36 +449,36 @@ LABEL_11:
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEBUG))
     {
       buttonDownHostTime = self->_buttonDownHostTime;
-      v27 = 136315394;
-      v28 = "[CSSiriAudioActivationInfo dateByAddingTimeIntervalSinceActivation:]";
-      v29 = 2048;
+      v25 = 136315394;
+      v26 = "[CSSiriAudioActivationInfo dateByAddingTimeIntervalSinceActivation:]";
+      v27 = 2048;
       activationCopy = *&buttonDownHostTime;
-      _os_log_debug_impl(&dword_222E4D000, v10, OS_LOG_TYPE_DEBUG, "%s buttonDownHostTime = %llu", &v27, 0x16u);
+      _os_log_debug_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEBUG, "%s buttonDownHostTime = %llu", &v25, 0x16u);
     }
 
-    v9 = 120;
+    v8 = 120;
   }
 
-  if (*(&self->super.isa + v9))
+  if (*(&self->super.isa + v8))
   {
 LABEL_16:
-    v11 = MEMORY[0x277CBEAA8];
+    v10 = MEMORY[0x277CBEAA8];
     mach_absolute_time();
     AFMachAbsoluteTimeGetTimeInterval();
-    v13 = [v11 dateWithTimeIntervalSinceNow:activation - v12];
+    v12 = [v10 dateWithTimeIntervalSinceNow:activation - v11];
     goto LABEL_17;
   }
 
-  v10 = *v5;
+  v9 = *v5;
 LABEL_13:
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v24 = self->_buttonDownHostTime;
-    v27 = 136315394;
-    v28 = "[CSSiriAudioActivationInfo dateByAddingTimeIntervalSinceActivation:]";
-    v29 = 2048;
-    activationCopy = *&v24;
-    _os_log_debug_impl(&dword_222E4D000, v10, OS_LOG_TYPE_DEBUG, "%s activationHostTime = %llu", &v27, 0x16u);
+    v22 = self->_buttonDownHostTime;
+    v25 = 136315394;
+    v26 = "[CSSiriAudioActivationInfo dateByAddingTimeIntervalSinceActivation:]";
+    v27 = 2048;
+    activationCopy = *&v22;
+    _os_log_debug_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEBUG, "%s activationHostTime = %llu", &v25, 0x16u);
   }
 
   if (self->_activationHostTime)
@@ -497,60 +489,58 @@ LABEL_13:
   activationSystemUptime = self->_activationSystemUptime;
   if (activationSystemUptime <= 0.0)
   {
-    v13 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v20 = *v5;
+    v18 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEBUG))
     {
-      v27 = 136315394;
-      v28 = "[CSSiriAudioActivationInfo dateByAddingTimeIntervalSinceActivation:]";
-      v29 = 2048;
+      v25 = 136315394;
+      v26 = "[CSSiriAudioActivationInfo dateByAddingTimeIntervalSinceActivation:]";
+      v27 = 2048;
       activationCopy = activationSystemUptime;
-      _os_log_debug_impl(&dword_222E4D000, v20, OS_LOG_TYPE_DEBUG, "%s activationSystemUptime = %f", &v27, 0x16u);
+      _os_log_debug_impl(&dword_222E4D000, v18, OS_LOG_TYPE_DEBUG, "%s activationSystemUptime = %f", &v25, 0x16u);
     }
 
-    v21 = MEMORY[0x277CBEAA8];
+    v19 = MEMORY[0x277CBEAA8];
     processInfo = [MEMORY[0x277CCAC38] processInfo];
     [processInfo systemUptime];
-    v13 = [v21 dateWithTimeIntervalSinceNow:activation - (v23 - self->_activationSystemUptime)];
+    v12 = [v19 dateWithTimeIntervalSinceNow:activation - (v21 - self->_activationSystemUptime)];
   }
 
 LABEL_17:
-  v14 = *v5;
+  v13 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
   {
-    v15 = v14;
-    [v13 timeIntervalSinceNow];
-    v27 = 136315650;
-    v28 = "[CSSiriAudioActivationInfo dateByAddingTimeIntervalSinceActivation:]";
-    v29 = 2112;
-    activationCopy = *&v13;
-    v31 = 2048;
-    v32 = v16;
-    _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_INFO, "%s date = %@ (%f)", &v27, 0x20u);
+    v14 = v13;
+    [v12 timeIntervalSinceNow];
+    v25 = 136315650;
+    v26 = "[CSSiriAudioActivationInfo dateByAddingTimeIntervalSinceActivation:]";
+    v27 = 2112;
+    activationCopy = *&v12;
+    v29 = 2048;
+    v30 = v15;
+    _os_log_impl(&dword_222E4D000, v14, OS_LOG_TYPE_INFO, "%s date = %@ (%f)", &v25, 0x20u);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v12;
 }
 
 - (id)audioSessionActivationTargetDate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [(CSSiriAudioActivationInfo *)self _audioSessionActiveDelayUserPerceptionWithType:0];
   v4 = MEMORY[0x277CEF0E8];
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
   {
-    v12 = 136315394;
-    v13 = "[CSSiriAudioActivationInfo audioSessionActivationTargetDate]";
-    v14 = 2112;
-    v15 = v3;
-    _os_log_debug_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEBUG, "%s audioSessionActiveDelay = %@ (User Perception)", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[CSSiriAudioActivationInfo audioSessionActivationTargetDate]";
+    v13 = 2112;
+    v14 = v3;
+    _os_log_debug_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEBUG, "%s audioSessionActiveDelay = %@ (User Perception)", &v11, 0x16u);
     if (v3)
     {
       goto LABEL_3;
@@ -572,16 +562,14 @@ LABEL_6:
   {
     v8 = v7;
     [v6 timeIntervalSinceNow];
-    v12 = 136315650;
-    v13 = "[CSSiriAudioActivationInfo audioSessionActivationTargetDate]";
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2048;
-    v17 = v9;
-    _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s targetDate = %@ (%f)", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[CSSiriAudioActivationInfo audioSessionActivationTargetDate]";
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2048;
+    v16 = v9;
+    _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s targetDate = %@ (%f)", &v11, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -609,7 +597,7 @@ LABEL_6:
 
 - (id)startingAlertBeepURL
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D01658] = [MEMORY[0x277D01658] sharedInstance];
   carPlayConnected = [mEMORY[0x277D01658] carPlayConnected];
 
@@ -618,9 +606,9 @@ LABEL_6:
     v5 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
     {
-      v18 = 136315138;
-      v19 = "[CSSiriAudioActivationInfo startingAlertBeepURL]";
-      _os_log_debug_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEBUG, "%s For dictation, not overriding recording sound.", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "[CSSiriAudioActivationInfo startingAlertBeepURL]";
+      _os_log_debug_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEBUG, "%s For dictation, not overriding recording sound.", &v17, 0xCu);
     }
 
     goto LABEL_4;
@@ -631,9 +619,9 @@ LABEL_6:
     v7 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
     {
-      v18 = 136315138;
-      v19 = "[CSSiriAudioActivationInfo startingAlertBeepURL]";
-      _os_log_debug_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEBUG, "%s For CarPlay, use a more shortened start recording sound.", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "[CSSiriAudioActivationInfo startingAlertBeepURL]";
+      _os_log_debug_impl(&dword_222E4D000, v7, OS_LOG_TYPE_DEBUG, "%s For CarPlay, use a more shortened start recording sound.", &v17, 0xCu);
     }
 
     v8 = MEMORY[0x277CBEBC0];
@@ -646,12 +634,12 @@ LABEL_10:
   speechEvent = self->_speechEvent;
   if (speechEvent == 5 || speechEvent == 3)
   {
-    v17 = *MEMORY[0x277CEF0E8];
+    v16 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
     {
-      v18 = 136315138;
-      v19 = "[CSSiriAudioActivationInfo startingAlertBeepURL]";
-      _os_log_debug_impl(&dword_222E4D000, v17, OS_LOG_TYPE_DEBUG, "%s For BT button press and handover cases, use shortened start recording sound.", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "[CSSiriAudioActivationInfo startingAlertBeepURL]";
+      _os_log_debug_impl(&dword_222E4D000, v16, OS_LOG_TYPE_DEBUG, "%s For BT button press and handover cases, use shortened start recording sound.", &v17, 0xCu);
     }
 
     v8 = MEMORY[0x277CBEBC0];
@@ -680,8 +668,6 @@ LABEL_11:
 
     v6 = v13;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -727,19 +713,19 @@ LABEL_9:
 
 - (int64_t)twoShotPromptTypeForRecordRoute:(id)route playbackRoute:(id)playbackRoute
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   routeCopy = route;
   playbackRouteCopy = playbackRoute;
   v8 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v16 = 136315650;
-    v17 = "[CSSiriAudioActivationInfo twoShotPromptTypeForRecordRoute:playbackRoute:]";
-    v18 = 2112;
-    v19 = routeCopy;
-    v20 = 2112;
-    v21 = playbackRouteCopy;
-    _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s recordRoute = %@, playbackRoute = %@", &v16, 0x20u);
+    v15 = 136315650;
+    v16 = "[CSSiriAudioActivationInfo twoShotPromptTypeForRecordRoute:playbackRoute:]";
+    v17 = 2112;
+    v18 = routeCopy;
+    v19 = 2112;
+    v20 = playbackRouteCopy;
+    _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_INFO, "%s recordRoute = %@, playbackRoute = %@", &v15, 0x20u);
   }
 
   if (!AFIsHorseman())
@@ -829,7 +815,6 @@ LABEL_27:
   }
 
 LABEL_31:
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -950,7 +935,7 @@ LABEL_31:
 
 - (id)startRecordingSettingsWithRecordRoute:(id)route recordingInfo:(id)info playbackRoute:(id)playbackRoute
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   routeCopy = route;
   infoCopy = info;
   playbackRouteCopy = playbackRoute;
@@ -959,11 +944,11 @@ LABEL_31:
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v92 = "[CSSiriAudioActivationInfo startRecordingSettingsWithRecordRoute:recordingInfo:playbackRoute:]";
-    v93 = 2112;
-    *v94 = routeCopy;
-    *&v94[8] = 2112;
-    *v95 = playbackRouteCopy;
+    v91 = "[CSSiriAudioActivationInfo startRecordingSettingsWithRecordRoute:recordingInfo:playbackRoute:]";
+    v92 = 2112;
+    *v93 = routeCopy;
+    *&v93[8] = 2112;
+    *v94 = playbackRouteCopy;
     _os_log_impl(&dword_222E4D000, v12, OS_LOG_TYPE_INFO, "%s recordRoute = %@, playbackRoute = %@", buf, 0x20u);
   }
 
@@ -976,13 +961,13 @@ LABEL_31:
     _canUseZLL = [(CSSiriAudioActivationInfo *)self _canUseZLL];
     activationMode = self->_activationMode;
     *buf = 136315906;
-    v92 = "[CSSiriAudioActivationInfo startRecordingSettingsWithRecordRoute:recordingInfo:playbackRoute:]";
-    v93 = 1024;
-    *v94 = v14;
-    *&v94[4] = 1024;
-    *&v94[6] = _canUseZLL;
-    *v95 = 2048;
-    *&v95[2] = activationMode;
+    v91 = "[CSSiriAudioActivationInfo startRecordingSettingsWithRecordRoute:recordingInfo:playbackRoute:]";
+    v92 = 1024;
+    *v93 = v14;
+    *&v93[4] = 1024;
+    *&v93[6] = _canUseZLL;
+    *v94 = 2048;
+    *&v94[2] = activationMode;
     _os_log_impl(&dword_222E4D000, v16, OS_LOG_TYPE_INFO, "%s doesRecordRouteSupportZLL = %u, [self _canUseZLL] = %u _activationMode:%ld", buf, 0x22u);
   }
 
@@ -996,7 +981,7 @@ LABEL_31:
     v19 = 0;
   }
 
-  v88 = v13;
+  v87 = v13;
   if (([(CSSiriAudioActivationInfo *)self _canUseZLL]& v14) == 1)
   {
     activationHostTime = self->_activationHostTime;
@@ -1022,7 +1007,7 @@ LABEL_16:
 
   if (self->_speechEvent != 17)
   {
-    v82 = 0;
+    v81 = 0;
     goto LABEL_21;
   }
 
@@ -1044,19 +1029,19 @@ LABEL_17:
     v27 = v26;
     [MEMORY[0x277CB8428] secondsForHostTime:activationHostTime];
     *buf = 136315394;
-    v92 = "[CSSiriAudioActivationInfo startRecordingSettingsWithRecordRoute:recordingInfo:playbackRoute:]";
-    v93 = 2048;
-    *v94 = v27 - v28;
+    v91 = "[CSSiriAudioActivationInfo startRecordingSettingsWithRecordRoute:recordingInfo:playbackRoute:]";
+    v92 = 2048;
+    *v93 = v27 - v28;
     _os_log_impl(&dword_222E4D000, v24, OS_LOG_TYPE_INFO, "%s Requesting historical buffer of duration %lf seconds", buf, 0x16u);
   }
 
   v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:activationHostTime];
   [v13 setObject:v29 forKey:*MEMORY[0x277CB8350]];
 
-  v82 = 1;
+  v81 = 1;
 LABEL_21:
-  v89 = playbackRouteCopy;
-  v90 = infoCopy;
+  v88 = playbackRouteCopy;
+  v89 = infoCopy;
   mEMORY[0x277CEF250] = [MEMORY[0x277CEF250] sharedObserver];
   state = [mEMORY[0x277CEF250] state];
 
@@ -1092,47 +1077,47 @@ LABEL_21:
   {
     v43 = self->_activationMode;
     *buf = 136316162;
-    v92 = "[CSSiriAudioActivationInfo startRecordingSettingsWithRecordRoute:recordingInfo:playbackRoute:]";
-    v93 = 2048;
-    *v94 = v43;
-    *&v94[8] = 2048;
-    *v95 = useDeviceSpeakerForTTS;
-    *&v95[8] = 1024;
-    v96 = v82;
-    v97 = 1024;
-    v98 = isDeviceInCarDNDMode;
+    v91 = "[CSSiriAudioActivationInfo startRecordingSettingsWithRecordRoute:recordingInfo:playbackRoute:]";
+    v92 = 2048;
+    *v93 = v43;
+    *&v93[8] = 2048;
+    *v94 = useDeviceSpeakerForTTS;
+    *&v94[8] = 1024;
+    v95 = v81;
+    v96 = 1024;
+    v97 = isDeviceInCarDNDMode;
     _os_log_impl(&dword_222E4D000, v42, OS_LOG_TYPE_INFO, "%s activationMode = %ld, usesDeviceSpeakerForTTS = %lu, attemptsToUsePastDataBufferFrames = %d, isDeviceInCarDNDMode = %d", buf, 0x2Cu);
   }
 
-  LOBYTE(v79) = shouldPlaySiriSounds;
-  HIBYTE(v78) = self->_suppressStartAlert;
-  BYTE6(v78) = v41;
-  BYTE5(v78) = v40;
-  BYTE4(v78) = v35;
-  BYTE3(v78) = v33;
-  BYTE2(v78) = self->_hasPlayedStartAlert;
-  LOWORD(v78) = *&self->_usePrelistening;
+  LOBYTE(v78) = shouldPlaySiriSounds;
+  HIBYTE(v77) = self->_suppressStartAlert;
+  BYTE6(v77) = v41;
+  BYTE5(v77) = v40;
+  BYTE4(v77) = v35;
+  BYTE3(v77) = v33;
+  BYTE2(v77) = self->_hasPlayedStartAlert;
+  LOWORD(v77) = *&self->_usePrelistening;
   v44 = v36;
   v45 = v36;
-  v46 = v89;
-  v47 = [CSSiriAudioActivationInfo _alertBehaviorForRecordRoute:"_alertBehaviorForRecordRoute:playbackRoute:speechEvent:speechRecordingMode:ringerState:startingAlertBeepOverideID:presentationMode:usePrelistening:isOnPhoneCall:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:suppressStartAlert:activationHostTime:isVoiceOverSiriSoundsEnabled:" playbackRoute:v45 speechEvent:v89 speechRecordingMode:self->_speechEvent ringerState:self->_speechRecordingMode startingAlertBeepOverideID:state presentationMode:overrideStartingAlertBeepSoundID usePrelistening:self->_presentationMode isOnPhoneCall:v78 hasPlayedStartAlert:self->_activationHostTime supportsEchoCancellation:v79 isVoiceOverTouchEnabled:? isVibrationEnabled:? isVibrationSupported:? suppressStartAlert:? activationHostTime:? isVoiceOverSiriSoundsEnabled:?];
-  v48 = v88;
+  v46 = v88;
+  v47 = [CSSiriAudioActivationInfo _alertBehaviorForRecordRoute:"_alertBehaviorForRecordRoute:playbackRoute:speechEvent:speechRecordingMode:ringerState:startingAlertBeepOverideID:presentationMode:usePrelistening:isOnPhoneCall:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:suppressStartAlert:activationHostTime:isVoiceOverSiriSoundsEnabled:" playbackRoute:v45 speechEvent:v88 speechRecordingMode:self->_speechEvent ringerState:self->_speechRecordingMode startingAlertBeepOverideID:state presentationMode:overrideStartingAlertBeepSoundID usePrelistening:self->_presentationMode isOnPhoneCall:v77 hasPlayedStartAlert:self->_activationHostTime supportsEchoCancellation:v78 isVoiceOverTouchEnabled:? isVibrationEnabled:? isVibrationSupported:? suppressStartAlert:? activationHostTime:? isVoiceOverSiriSoundsEnabled:?];
+  v48 = v87;
   if ([v47 count])
   {
-    [v88 setObject:v47 forKey:*MEMORY[0x277CB8318]];
+    [v87 setObject:v47 forKey:*MEMORY[0x277CB8318]];
   }
 
-  v49 = v90;
-  if ([(CSSiriAudioActivationInfo *)self _shouldSkipStartRecordingAlertForRecordingInfo:v90])
+  v49 = v89;
+  if ([(CSSiriAudioActivationInfo *)self _shouldSkipStartRecordingAlertForRecordingInfo:v89])
   {
     v50 = [MEMORY[0x277CCABB0] numberWithBool:1];
-    [v88 setObject:v50 forKey:@"CSSpeechRecordSettingsKey_shouldSkipStartRecordingAlert"];
+    [v87 setObject:v50 forKey:@"CSSpeechRecordSettingsKey_shouldSkipStartRecordingAlert"];
   }
 
-  if ([CSSiriAudioActivationInfo _shouldAllowRecordWhileBeepWithRecordRoute:v44 playbackRoute:v89 supportsEchoCancellation:v33 speechRecordingMode:self->_speechRecordingMode recordingInfo:v90])
+  if ([CSSiriAudioActivationInfo _shouldAllowRecordWhileBeepWithRecordRoute:v44 playbackRoute:v88 supportsEchoCancellation:v33 speechRecordingMode:self->_speechRecordingMode recordingInfo:v89])
   {
     v51 = [MEMORY[0x277CCABB0] numberWithBool:1];
-    [v88 setObject:v51 forKey:@"CSSpeechRecordSettingsKey_allowRecordWhileBeep"];
+    [v87 setObject:v51 forKey:@"CSSpeechRecordSettingsKey_allowRecordWhileBeep"];
   }
 
   if ((self->_speechRecordingMode & 0xFFFFFFFFFFFFFFFELL) == 2)
@@ -1173,22 +1158,22 @@ LABEL_21:
           [dictionary setObject:v62 forKey:@"CSSpeechRecordSettingsKey_LanguageDetectorMultilingualKeyboardLanguages"];
         }
 
-        v80 = v62;
-        v81 = v61;
+        v79 = v62;
+        v80 = v61;
         v63 = [languageDetectorUserContext objectForKey:v59[7]];
         if (v63)
         {
           [dictionary setObject:v63 forKey:@"CSSpeechRecordSettingsKey_LanguageDetectorKeyboardConvoLanguagePriors"];
         }
 
-        v83 = v60;
+        v82 = v60;
         v64 = [languageDetectorUserContext objectForKey:v59[8]];
         if (v64)
         {
           [dictionary setObject:v64 forKey:@"CSSpeechRecordSettingsKey_LanguageDetectorKeyboardGlobalLanguagePriors"];
         }
 
-        v85 = finalFilteredDictationLanguages;
+        v84 = finalFilteredDictationLanguages;
         v65 = [languageDetectorUserContext objectForKey:v59[2]];
         if (v65)
         {
@@ -1201,7 +1186,7 @@ LABEL_21:
           [dictionary setObject:v66 forKey:@"CSSpeechRecordSettingsKey_LanguageDetectorGlobalLastKeyboardUsed"];
         }
 
-        v87 = v44;
+        v86 = v44;
         v67 = [languageDetectorUserContext objectForKey:v59[5]];
         if (v67)
         {
@@ -1212,30 +1197,30 @@ LABEL_21:
         if (os_log_type_enabled(*MEMORY[0x277CEF0A0], OS_LOG_TYPE_INFO))
         {
           *buf = 136315395;
-          v92 = "_CSSiriLanguageDetectorSettings";
-          v93 = 2113;
-          *v94 = dictionary;
+          v91 = "_CSSiriLanguageDetectorSettings";
+          v92 = 2113;
+          *v93 = dictionary;
           _os_log_impl(&dword_222E4D000, v68, OS_LOG_TYPE_INFO, "%s %{private}@", buf, 0x16u);
         }
 
         if (dictionary)
         {
-          v44 = v87;
-          v48 = v88;
-          v46 = v89;
-          v49 = v90;
+          v44 = v86;
+          v48 = v87;
+          v46 = v88;
+          v49 = v89;
           if ([dictionary count])
           {
-            [v88 addEntriesFromDictionary:dictionary];
+            [v87 addEntriesFromDictionary:dictionary];
           }
         }
 
         else
         {
-          v44 = v87;
-          v48 = v88;
-          v46 = v89;
-          v49 = v90;
+          v44 = v86;
+          v48 = v87;
+          v46 = v88;
+          v49 = v89;
         }
       }
 
@@ -1289,13 +1274,12 @@ LABEL_21:
 
   v75 = v74;
 
-  v76 = *MEMORY[0x277D85DE8];
   return v74;
 }
 
 - (int64_t)_csAudioRecordTypeForSpeechRequestOptions:(id)options useBorealisBuffer:(BOOL)buffer currentClientConfiguration:(id)configuration
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   activationEvent = [optionsCopy activationEvent];
   if (buffer)
@@ -1312,10 +1296,10 @@ LABEL_21:
       v8 = 1;
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
       {
-        v13 = 136315138;
-        v14 = "[CSSiriAudioActivationInfo _csAudioRecordTypeForSpeechRequestOptions:useBorealisBuffer:currentClientConfiguration:]";
+        v12 = 136315138;
+        v13 = "[CSSiriAudioActivationInfo _csAudioRecordTypeForSpeechRequestOptions:useBorealisBuffer:currentClientConfiguration:]";
         v8 = 1;
-        _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s announcement platform is hearing aids or built in speaker, using CSAudioRecordTypeHomePress", &v13, 0xCu);
+        _os_log_impl(&dword_222E4D000, v10, OS_LOG_TYPE_INFO, "%s announcement platform is hearing aids or built in speaker, using CSAudioRecordTypeHomePress", &v12, 0xCu);
       }
     }
 
@@ -1325,7 +1309,6 @@ LABEL_21:
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1363,27 +1346,27 @@ LABEL_21:
 - (id)recordSettingsWithOptions:(unint64_t)options appendingSettings:(id)settings
 {
   optionsCopy = options;
-  v30[6] = *MEMORY[0x277D85DE8];
+  v29[6] = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   if ((AFIsNano() & 1) == 0 && AFIsInternalInstall() && _AFPreferencesForceUncompressedAudioRecording())
   {
     v7 = *MEMORY[0x277CB82E0];
-    v29[0] = *MEMORY[0x277CB8280];
-    v29[1] = v7;
-    v30[0] = &unk_283667370;
-    v30[1] = &unk_283667888;
+    v28[0] = *MEMORY[0x277CB8280];
+    v28[1] = v7;
+    v29[0] = &unk_283667370;
+    v29[1] = &unk_283667888;
     v8 = *MEMORY[0x277CB82A0];
-    v29[2] = *MEMORY[0x277CB8288];
-    v29[3] = v8;
-    v30[2] = &unk_283667388;
-    v30[3] = MEMORY[0x277CBEC28];
+    v28[2] = *MEMORY[0x277CB8288];
+    v28[3] = v8;
+    v29[2] = &unk_283667388;
+    v29[3] = MEMORY[0x277CBEC28];
     v9 = *MEMORY[0x277CB82C0];
-    v29[4] = *MEMORY[0x277CB82B0];
-    v29[5] = v9;
+    v28[4] = *MEMORY[0x277CB82B0];
+    v28[5] = v9;
     v10 = *MEMORY[0x277CB82D0];
-    v30[4] = &unk_2836673A0;
-    v30[5] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:6];
+    v29[4] = &unk_2836673A0;
+    v29[5] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:6];
     v12 = [(CSSiriAudioActivationInfo *)self _appendDictationApplicationInfoSettings:v11];
     goto LABEL_27;
   }
@@ -1439,22 +1422,22 @@ LABEL_21:
     [v14 setObject:v17 forKey:@"CSSpeechRecordSettingsKey_AudioSessionActiveReason"];
   }
 
-  v27[0] = *MEMORY[0x277CB8280];
+  v26[0] = *MEMORY[0x277CB8280];
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v13];
   v19 = *MEMORY[0x277CB82E0];
-  v28[0] = v18;
-  v28[1] = &unk_283667888;
+  v27[0] = v18;
+  v27[1] = &unk_283667888;
   v20 = *MEMORY[0x277CB8258];
-  v27[1] = v19;
-  v27[2] = v20;
+  v26[1] = v19;
+  v26[2] = v20;
   v21 = *MEMORY[0x277CB82B0];
-  v28[2] = &unk_2836673B8;
-  v28[3] = &unk_2836673A0;
+  v27[2] = &unk_2836673B8;
+  v27[3] = &unk_2836673A0;
   v22 = *MEMORY[0x277CB82C0];
-  v27[3] = v21;
-  v27[4] = v22;
-  v28[4] = *MEMORY[0x277CB82D0];
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:5];
+  v26[3] = v21;
+  v26[4] = v22;
+  v27[4] = *MEMORY[0x277CB82D0];
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:5];
 
   if (settingsCopy)
   {
@@ -1473,7 +1456,6 @@ LABEL_21:
   v12 = [(CSSiriAudioActivationInfo *)self _appendDictationApplicationInfoSettings:v11];
 
 LABEL_27:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1508,28 +1490,26 @@ LABEL_27:
 
 - (void)setClientConfiguration:(id)configuration
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v5 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v9 = 136315394;
-    v10 = "[CSSiriAudioActivationInfo setClientConfiguration:]";
-    v11 = 2112;
-    v12 = configurationCopy;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s clientConfiguration = %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CSSiriAudioActivationInfo setClientConfiguration:]";
+    v10 = 2112;
+    v11 = configurationCopy;
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_INFO, "%s clientConfiguration = %@", &v8, 0x16u);
   }
 
   v6 = [configurationCopy copy];
   currentClientConfiguration = self->_currentClientConfiguration;
   self->_currentClientConfiguration = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSpeechRequestOptions:(id)options currentActivationInfo:(id)info
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   infoCopy = info;
   v8 = MEMORY[0x277CEF0E8];
@@ -1537,13 +1517,13 @@ LABEL_27:
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v48 = "[CSSiriAudioActivationInfo setSpeechRequestOptions:currentActivationInfo:]";
-    v49 = 2048;
-    v50 = *&self;
-    v51 = 2112;
-    v52 = optionsCopy;
-    v53 = 2112;
-    v54 = infoCopy;
+    v47 = "[CSSiriAudioActivationInfo setSpeechRequestOptions:currentActivationInfo:]";
+    v48 = 2048;
+    v49 = *&self;
+    v50 = 2112;
+    v51 = optionsCopy;
+    v52 = 2112;
+    v53 = infoCopy;
     _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_INFO, "%s %p speechRequestOptions = %@, currentActivationInfo = %@", buf, 0x2Au);
   }
 
@@ -1698,9 +1678,9 @@ LABEL_13:
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v48 = "[CSSiriAudioActivationInfo setSpeechRequestOptions:currentActivationInfo:]";
-    v49 = 2048;
-    v50 = v32;
+    v47 = "[CSSiriAudioActivationInfo setSpeechRequestOptions:currentActivationInfo:]";
+    v48 = 2048;
+    v49 = v32;
     _os_log_impl(&dword_222E4D000, v34, OS_LOG_TYPE_INFO, "%s activeMediaPlaybackVolume = %f", buf, 0x16u);
   }
 
@@ -1711,9 +1691,9 @@ LABEL_13:
 
   if (v37)
   {
-    v45 = v36;
-    v46 = v37;
-    v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+    v44 = v36;
+    v45 = v37;
+    v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
     activationMetadata = self->_activationMetadata;
     self->_activationMetadata = v38;
   }
@@ -1729,31 +1709,29 @@ LABEL_13:
 
   self->_isSpokenNotification = [(CSSiriAudioActivationInfo *)self _isRequestFromSpokenNotification:activationEvent];
   self->_isTriggerlessFollowup = activationEvent == 17;
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (CSSiriAudioActivationInfo)initWithSpeechRecordingMode:(int64_t)mode clientConfiguration:(id)configuration experimentContext:(id)context
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   contextCopy = context;
-  v21.receiver = self;
-  v21.super_class = CSSiriAudioActivationInfo;
-  v10 = [(CSSiriAudioActivationInfo *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = CSSiriAudioActivationInfo;
+  v10 = [(CSSiriAudioActivationInfo *)&v20 init];
   if (v10)
   {
     v11 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315906;
-      v23 = "[CSSiriAudioActivationInfo initWithSpeechRecordingMode:clientConfiguration:experimentContext:]";
-      v24 = 2048;
-      v25 = v10;
-      v26 = 2048;
+      v22 = "[CSSiriAudioActivationInfo initWithSpeechRecordingMode:clientConfiguration:experimentContext:]";
+      v23 = 2048;
+      v24 = v10;
+      v25 = 2048;
       modeCopy = mode;
-      v28 = 2112;
-      v29 = configurationCopy;
+      v27 = 2112;
+      v28 = configurationCopy;
       _os_log_impl(&dword_222E4D000, v11, OS_LOG_TYPE_INFO, "%s %p speechRecordingMode = %zd, clientConfiguration = %@", buf, 0x2Au);
     }
 
@@ -1781,14 +1759,13 @@ LABEL_13:
     v10->_magusSupportedPolicy = v17;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 + (BOOL)_shouldAllowRecordWhileBeepWithRecordRoute:(id)route playbackRoute:(id)playbackRoute supportsEchoCancellation:(BOOL)cancellation speechRecordingMode:(int64_t)mode recordingInfo:(id)info
 {
   cancellationCopy = cancellation;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   routeCopy = route;
   playbackRouteCopy = playbackRoute;
   infoCopy = info;
@@ -1797,19 +1774,19 @@ LABEL_13:
   {
     v15 = v14;
     route = [infoCopy route];
-    v22 = 136316418;
-    v23 = "+[CSSiriAudioActivationInfo _shouldAllowRecordWhileBeepWithRecordRoute:playbackRoute:supportsEchoCancellation:speechRecordingMode:recordingInfo:]";
-    v24 = 1024;
-    v25 = cancellationCopy;
-    v26 = 2048;
+    v21 = 136316418;
+    v22 = "+[CSSiriAudioActivationInfo _shouldAllowRecordWhileBeepWithRecordRoute:playbackRoute:supportsEchoCancellation:speechRecordingMode:recordingInfo:]";
+    v23 = 1024;
+    v24 = cancellationCopy;
+    v25 = 2048;
     modeCopy = mode;
-    v28 = 2114;
-    v29 = routeCopy;
-    v30 = 2114;
-    v31 = playbackRouteCopy;
-    v32 = 2114;
-    v33 = route;
-    _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_DEFAULT, "%s supportsEchoCancellation:%u speechRecordingMode:%ld recordRoute:%{public}@ playbackRoute:%{public}@, route in recordingInfo: %{public}@", &v22, 0x3Au);
+    v27 = 2114;
+    v28 = routeCopy;
+    v29 = 2114;
+    v30 = playbackRouteCopy;
+    v31 = 2114;
+    v32 = route;
+    _os_log_impl(&dword_222E4D000, v15, OS_LOG_TYPE_DEFAULT, "%s supportsEchoCancellation:%u speechRecordingMode:%ld recordRoute:%{public}@ playbackRoute:%{public}@, route in recordingInfo: %{public}@", &v21, 0x3Au);
   }
 
   if (mode == 1 && cancellationCopy && [routeCopy isEqualToString:*MEMORY[0x277CB8190]] && (objc_msgSend(playbackRouteCopy, "isEqualToString:", *MEMORY[0x277CB81A0]) & 1) != 0)
@@ -1838,7 +1815,6 @@ LABEL_15:
   v19 = 1;
 LABEL_17:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -1861,11 +1837,11 @@ LABEL_17:
 
 + (id)_alertDictionaryForRecordRoute:(id)route playbackRoute:(id)playbackRoute speechEvent:(int64_t)event ringerState:(int64_t)state startingAlertBeepOverideID:(int64_t)d presentationMode:(int64_t)mode hasPlayedStartAlert:(BOOL)alert supportsEchoCancellation:(BOOL)self0 isVoiceOverTouchEnabled:(BOOL)self1 isVibrationEnabled:(BOOL)self2 isVibrationSupported:(BOOL)self3 activationHostTime:(unint64_t)self4 isVoiceOverSiriSoundsEnabled:(BOOL)self5
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   routeCopy = route;
   playbackRouteCopy = playbackRoute;
-  v50 = routeCopy;
-  v49 = playbackRouteCopy;
+  v49 = routeCopy;
+  v48 = playbackRouteCopy;
   if ([routeCopy isEqualToString:*MEMORY[0x277CB8348]] && (objc_msgSend(playbackRouteCopy, "isEqualToString:", *MEMORY[0x277CB8168]) & 1) == 0)
   {
     v21 = [playbackRouteCopy isEqualToString:*MEMORY[0x277CB8158]] ^ 1;
@@ -1876,7 +1852,7 @@ LABEL_17:
     v21 = 0;
   }
 
-  v48 = vibrationEnabled && supported;
+  v47 = vibrationEnabled && supported;
   if (CSIsTV())
   {
     if ((enabled & ~alert) != 0)
@@ -1892,20 +1868,20 @@ LABEL_17:
     goto LABEL_9;
   }
 
-  v33 = CSIsHorseman();
-  v22 = v33 << 63 >> 63;
-  if ((v33 & 1) != 0 || alert)
+  v32 = CSIsHorseman();
+  v22 = v32 << 63 >> 63;
+  if ((v32 & 1) != 0 || alert)
   {
     goto LABEL_9;
   }
 
   if ((AFSpeechEventIsVoiceTrigger() & 1) != 0 || event == 17 || event == 13)
   {
-    v34 = [self _requestIsUsingHFPWithRecordRoute:v50 playbackRoute:v49];
-    v35 = [self _doesRecordRouteSupportZLL:v50];
-    if ((v34 & 1) == 0)
+    v33 = [self _requestIsUsingHFPWithRecordRoute:v49 playbackRoute:v48];
+    v34 = [self _doesRecordRouteSupportZLL:v49];
+    if ((v33 & 1) == 0)
     {
-      v22 = (v35 & v21) - 1;
+      v22 = (v34 & v21) - 1;
       goto LABEL_9;
     }
 
@@ -1921,7 +1897,7 @@ LABEL_36:
 
   if (event != 5)
   {
-    if (v48 & AFRecordRouteIsHearst())
+    if (v47 & AFRecordRouteIsHearst())
     {
       v22 = 3;
       goto LABEL_9;
@@ -1929,8 +1905,8 @@ LABEL_36:
 
     if (AFPlaybackRouteIsHandsFree())
     {
-      v41 = [self _requestIsUsingHFPWithRecordRoute:v50 playbackRoute:v49];
-      if (event != 1 || !v41)
+      v40 = [self _requestIsUsingHFPWithRecordRoute:v49 playbackRoute:v48];
+      if (event != 1 || !v40)
       {
         if (event == 1 && vibrationEnabled && supported)
         {
@@ -1981,29 +1957,29 @@ LABEL_36:
     goto LABEL_9;
   }
 
-  v36 = [v50 isEqualToString:*MEMORY[0x277CB8190]];
-  v37 = *MEMORY[0x277CB81B0];
-  v38 = [v50 isEqualToString:*MEMORY[0x277CB81B0]];
-  v39 = [v49 isEqualToString:v37];
+  v35 = [v49 isEqualToString:*MEMORY[0x277CB8190]];
+  v36 = *MEMORY[0x277CB81B0];
+  v37 = [v49 isEqualToString:*MEMORY[0x277CB81B0]];
+  v38 = [v48 isEqualToString:v36];
   supportEarconRemoval = [MEMORY[0x277D018F8] supportEarconRemoval];
   if (mode != 3)
   {
     if (mode == 2)
     {
-      v43 = *MEMORY[0x277D015D8];
+      v42 = *MEMORY[0x277D015D8];
       if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v52 = "+[CSSiriAudioActivationInfo _alertDictionaryForRecordRoute:playbackRoute:speechEvent:ringerState:startingAlertBeepOverideID:presentationMode:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:activationHostTime:isVoiceOverSiriSoundsEnabled:]";
-        _os_log_fault_impl(&dword_222E4D000, v43, OS_LOG_TYPE_FAULT, "%s Unexpected use of AFPresentationModeMixed", buf, 0xCu);
+        v51 = "+[CSSiriAudioActivationInfo _alertDictionaryForRecordRoute:playbackRoute:speechEvent:ringerState:startingAlertBeepOverideID:presentationMode:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:activationHostTime:isVoiceOverSiriSoundsEnabled:]";
+        _os_log_fault_impl(&dword_222E4D000, v42, OS_LOG_TYPE_FAULT, "%s Unexpected use of AFPresentationModeMixed", buf, 0xCu);
       }
     }
 
     else if (mode == 1)
     {
-      if (supportEarconRemoval & 1 | ((v38 & v39 & 1) == 0))
+      if (supportEarconRemoval & 1 | ((v37 & v38 & 1) == 0))
       {
-        v22 = ~(v21 | ~v48 | v38);
+        v22 = ~(v21 | ~v47 | v37);
       }
 
       else
@@ -2018,15 +1994,15 @@ LABEL_36:
     goto LABEL_56;
   }
 
-  v46 = v48 ^ 1;
+  v45 = v47 ^ 1;
   if (state != 2)
   {
-    v46 = 1;
+    v45 = 1;
   }
 
-  if ((v39 | v46) == 1)
+  if ((v38 | v45) == 1)
   {
-    if ((v39 & v36) != 0)
+    if ((v38 & v35) != 0)
     {
       v22 = 1;
     }
@@ -2046,14 +2022,14 @@ LABEL_56:
   isContinuousConversationSupported = [MEMORY[0x277D018F8] isContinuousConversationSupported];
   if (time && isContinuousConversationSupported)
   {
-    v45 = *MEMORY[0x277CEF0E8];
+    v44 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v52 = "+[CSSiriAudioActivationInfo _alertDictionaryForRecordRoute:playbackRoute:speechEvent:ringerState:startingAlertBeepOverideID:presentationMode:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:activationHostTime:isVoiceOverSiriSoundsEnabled:]";
-      v53 = 2048;
+      v51 = "+[CSSiriAudioActivationInfo _alertDictionaryForRecordRoute:playbackRoute:speechEvent:ringerState:startingAlertBeepOverideID:presentationMode:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:activationHostTime:isVoiceOverSiriSoundsEnabled:]";
+      v52 = 2048;
       timeCopy = time;
-      _os_log_impl(&dword_222E4D000, v45, OS_LOG_TYPE_INFO, "%s Override startRecording to mute, since user already started speaking before serverInvoke activated (activationHostTime = %llu)", buf, 0x16u);
+      _os_log_impl(&dword_222E4D000, v44, OS_LOG_TYPE_INFO, "%s Override startRecording to mute, since user already started speaking before serverInvoke activated (activationHostTime = %llu)", buf, 0x16u);
     }
 
 LABEL_33:
@@ -2064,11 +2040,11 @@ LABEL_9:
   if (enabled && soundsEnabled)
   {
     v23 = *MEMORY[0x277D015D8];
-    v24 = v49;
+    v24 = v48;
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v52 = "+[CSSiriAudioActivationInfo _alertDictionaryForRecordRoute:playbackRoute:speechEvent:ringerState:startingAlertBeepOverideID:presentationMode:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:activationHostTime:isVoiceOverSiriSoundsEnabled:]";
+      v51 = "+[CSSiriAudioActivationInfo _alertDictionaryForRecordRoute:playbackRoute:speechEvent:ringerState:startingAlertBeepOverideID:presentationMode:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:activationHostTime:isVoiceOverSiriSoundsEnabled:]";
       _os_log_impl(&dword_222E4D000, v23, OS_LOG_TYPE_DEFAULT, "%s VoiceOverSiriSounds is set to ON, always play Siri start sound", buf, 0xCu);
     }
 
@@ -2088,7 +2064,7 @@ LABEL_9:
   else
   {
     v25 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v24 = v49;
+    v24 = v48;
     if (v22 == -1)
     {
       goto LABEL_23;
@@ -2099,8 +2075,8 @@ LABEL_9:
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v52 = "+[CSSiriAudioActivationInfo _alertDictionaryForRecordRoute:playbackRoute:speechEvent:ringerState:startingAlertBeepOverideID:presentationMode:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:activationHostTime:isVoiceOverSiriSoundsEnabled:]";
-    v53 = 2048;
+    v51 = "+[CSSiriAudioActivationInfo _alertDictionaryForRecordRoute:playbackRoute:speechEvent:ringerState:startingAlertBeepOverideID:presentationMode:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:activationHostTime:isVoiceOverSiriSoundsEnabled:]";
+    v52 = 2048;
     timeCopy = v22;
     _os_log_impl(&dword_222E4D000, v26, OS_LOG_TYPE_INFO, "%s Setting alertBehavior recordStarting as %ld", buf, 0x16u);
   }
@@ -2123,8 +2099,6 @@ LABEL_23:
 LABEL_24:
   [v29 setObject:v30 forKey:&unk_283667400];
   [v25 setObject:v28 forKey:&unk_283667418];
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -2193,7 +2167,7 @@ LABEL_14:
 
 + (id)_alertBehaviorForRecordRoute:(id)route playbackRoute:(id)playbackRoute speechEvent:(int64_t)event speechRecordingMode:(int64_t)mode ringerState:(int64_t)state startingAlertBeepOverideID:(int64_t)d presentationMode:(int64_t)presentationMode usePrelistening:(BOOL)self0 isOnPhoneCall:(BOOL)self1 hasPlayedStartAlert:(BOOL)self2 supportsEchoCancellation:(BOOL)self3 isVoiceOverTouchEnabled:(BOOL)self4 isVibrationEnabled:(BOOL)self5 isVibrationSupported:(BOOL)self6 suppressStartAlert:(BOOL)self7 activationHostTime:(unint64_t)self8 isVoiceOverSiriSoundsEnabled:(BOOL)self9
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   routeCopy = route;
   playbackRouteCopy = playbackRoute;
   v24 = MEMORY[0x277CEF0E8];
@@ -2204,47 +2178,47 @@ LABEL_14:
     v27 = routeCopy;
     v28 = v25;
     AFDeviceRingerSwitchStateGetName();
-    v29 = v42 = state;
+    v29 = v41 = state;
     v30 = AFSoundIDGetName();
     *buf = 136319490;
-    v47 = "+[CSSiriAudioActivationInfo _alertBehaviorForRecordRoute:playbackRoute:speechEvent:speechRecordingMode:ringerState:startingAlertBeepOverideID:presentationMode:usePrelistening:isOnPhoneCall:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:suppressStartAlert:activationHostTime:isVoiceOverSiriSoundsEnabled:]";
-    v48 = 2112;
-    v49 = v27;
-    v50 = 2112;
-    v51 = v26;
-    v52 = 2048;
+    v46 = "+[CSSiriAudioActivationInfo _alertBehaviorForRecordRoute:playbackRoute:speechEvent:speechRecordingMode:ringerState:startingAlertBeepOverideID:presentationMode:usePrelistening:isOnPhoneCall:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:suppressStartAlert:activationHostTime:isVoiceOverSiriSoundsEnabled:]";
+    v47 = 2112;
+    v48 = v27;
+    v49 = 2112;
+    v50 = v26;
+    v51 = 2048;
     eventCopy = event;
-    v54 = 2048;
+    v53 = 2048;
     modeCopy = mode;
-    v56 = 2112;
-    v57 = v29;
-    v58 = 2112;
-    v59 = v30;
-    v60 = 2048;
+    v55 = 2112;
+    v56 = v29;
+    v57 = 2112;
+    v58 = v30;
+    v59 = 2048;
     presentationModeCopy = presentationMode;
-    v62 = 1024;
+    v61 = 1024;
     prelisteningCopy = prelistening;
-    v64 = 1024;
+    v63 = 1024;
     callCopy = call;
-    v66 = 1024;
+    v65 = 1024;
     alertCopy = alert;
-    v68 = 1024;
+    v67 = 1024;
     cancellationCopy = cancellation;
-    v70 = 1024;
+    v69 = 1024;
     enabledCopy = enabled;
-    v72 = 1024;
+    v71 = 1024;
     vibrationEnabledCopy = vibrationEnabled;
-    v74 = 1024;
+    v73 = 1024;
     supportedCopy = supported;
-    v76 = 1024;
+    v75 = 1024;
     startAlertCopy = startAlert;
-    v78 = 2048;
+    v77 = 2048;
     timeCopy = time;
-    v80 = 1024;
+    v79 = 1024;
     soundsEnabledCopy = soundsEnabled;
     _os_log_impl(&dword_222E4D000, v28, OS_LOG_TYPE_INFO, "%s recordRoute = %@, playbackRoute = %@, speechEvent = %lu, speechRecordingMode = %lu, AFDeviceRingerSwitchState = %@, AFSoundID = %@, AFPresentationMode = %lu, usePrelistening = %d, isOnPhoneCall = %d, hasPlayedStartAlert = %d, supportsEchoCancellation = %d, isVoiceOverTouchEnabled = %d, isVibrationEnabled = %d, isVibrationSupported = %d, suppressStartAlert = %d, activationHostTime = %llu, isVoiceOverSiriSoundsEnabled = %d", buf, 0x92u);
 
-    state = v42;
+    state = v41;
     routeCopy = v27;
     playbackRouteCopy = v26;
     v24 = MEMORY[0x277CEF0E8];
@@ -2252,12 +2226,12 @@ LABEL_14:
 
   if ((mode & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
-    LOBYTE(v41) = soundsEnabled;
-    BYTE4(v40) = supported;
-    BYTE3(v40) = vibrationEnabled;
-    BYTE2(v40) = enabled;
-    LOWORD(v40) = __PAIR16__(cancellation, alert);
-    v31 = [self _alertDictionaryForRecordRoute:routeCopy playbackRoute:playbackRouteCopy speechEvent:event ringerState:state startingAlertBeepOverideID:d presentationMode:presentationMode hasPlayedStartAlert:v40 supportsEchoCancellation:time isVoiceOverTouchEnabled:v41 isVibrationEnabled:? isVibrationSupported:? activationHostTime:? isVoiceOverSiriSoundsEnabled:?];
+    LOBYTE(v40) = soundsEnabled;
+    BYTE4(v39) = supported;
+    BYTE3(v39) = vibrationEnabled;
+    BYTE2(v39) = enabled;
+    LOWORD(v39) = __PAIR16__(cancellation, alert);
+    v31 = [self _alertDictionaryForRecordRoute:routeCopy playbackRoute:playbackRouteCopy speechEvent:event ringerState:state startingAlertBeepOverideID:d presentationMode:presentationMode hasPlayedStartAlert:v39 supportsEchoCancellation:time isVoiceOverTouchEnabled:v40 isVibrationEnabled:? isVibrationSupported:? activationHostTime:? isVoiceOverSiriSoundsEnabled:?];
   }
 
   else
@@ -2268,9 +2242,9 @@ LABEL_14:
       goto LABEL_10;
     }
 
-    BYTE2(v40) = enabled;
-    LOWORD(v40) = __PAIR16__(supported, vibrationEnabled);
-    v31 = [self _dictationAlertBehaviorDictionaryForRecordRoute:routeCopy playbackRoute:playbackRouteCopy ringerState:state usePrelistening:prelistening suppressStartAlert:startAlert supportsEchoCancellation:cancellation isVibrationEnabled:v40 isVibrationSupported:? isVoiceOverTouchEnabled:?];
+    BYTE2(v39) = enabled;
+    LOWORD(v39) = __PAIR16__(supported, vibrationEnabled);
+    v31 = [self _dictationAlertBehaviorDictionaryForRecordRoute:routeCopy playbackRoute:playbackRouteCopy ringerState:state usePrelistening:prelistening suppressStartAlert:startAlert supportsEchoCancellation:cancellation isVibrationEnabled:v39 isVibrationSupported:? isVoiceOverTouchEnabled:?];
   }
 
   v32 = v31;
@@ -2282,19 +2256,17 @@ LABEL_14:
     v36 = [v32 objectForKey:&unk_283667400];
     v37 = [v32 objectForKey:&unk_283667418];
     *buf = 136315906;
-    v47 = "+[CSSiriAudioActivationInfo _alertBehaviorForRecordRoute:playbackRoute:speechEvent:speechRecordingMode:ringerState:startingAlertBeepOverideID:presentationMode:usePrelistening:isOnPhoneCall:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:suppressStartAlert:activationHostTime:isVoiceOverSiriSoundsEnabled:]";
-    v48 = 2112;
-    v49 = v35;
-    v50 = 2112;
-    v51 = v36;
-    v52 = 2112;
+    v46 = "+[CSSiriAudioActivationInfo _alertBehaviorForRecordRoute:playbackRoute:speechEvent:speechRecordingMode:ringerState:startingAlertBeepOverideID:presentationMode:usePrelistening:isOnPhoneCall:hasPlayedStartAlert:supportsEchoCancellation:isVoiceOverTouchEnabled:isVibrationEnabled:isVibrationSupported:suppressStartAlert:activationHostTime:isVoiceOverSiriSoundsEnabled:]";
+    v47 = 2112;
+    v48 = v35;
+    v49 = 2112;
+    v50 = v36;
+    v51 = 2112;
     eventCopy = v37;
     _os_log_impl(&dword_222E4D000, v34, OS_LOG_TYPE_INFO, "%s alertBehaviorStart = %@, alertBehaviorEnd = %@ alertBehaviorError = %@", buf, 0x2Au);
   }
 
 LABEL_10:
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v32;
 }

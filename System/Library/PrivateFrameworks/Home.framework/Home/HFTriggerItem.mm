@@ -49,8 +49,8 @@
     if (v5)
     {
       v6 = [HFServiceActionItemProvider alloc];
-      home = [(HFTriggerItem *)self home];
-      v8 = [(HFServiceActionItemProvider *)v6 initWithHome:home actionSet:v5];
+      v7 = objc_msgSend_home(self);
+      v8 = [(HFServiceActionItemProvider *)v6 initWithHome:v7 actionSet:v5];
       serviceActionItemProvider = self->_serviceActionItemProvider;
       self->_serviceActionItemProvider = v8;
     }
@@ -133,7 +133,7 @@ id __45__HFTriggerItem__subclass_updateWithOptions___block_invoke_22(uint64_t a1
 
   v9 = [HFTriggerUISummary alloc];
   v10 = [*(a1 + 40) trigger];
-  v11 = [*(a1 + 40) home];
+  v11 = objc_msgSend_home(*(a1 + 40));
   v12 = [(HFTriggerUISummary *)v9 initWithTrigger:v10 inHome:v11 forceDisabled:v6 != 0 ignoringDisabled:v8];
 
   [v5 setObject:v12 forKeyedSubscript:@"HFResultTriggerUISummaryKey"];
@@ -174,7 +174,7 @@ id __45__HFTriggerItem__subclass_updateWithOptions___block_invoke_22(uint64_t a1
 
   v20 = v19;
 
-  v21 = [*(a1 + 40) home];
+  v21 = objc_msgSend_home(*(a1 + 40));
   v22 = [v21 hf_remoteAccessState] == 1 || objc_msgSend(v20, "triggerActivationState") == 1;
 
   v23 = [(HFTriggerUISummary *)v12 triggerDescription];

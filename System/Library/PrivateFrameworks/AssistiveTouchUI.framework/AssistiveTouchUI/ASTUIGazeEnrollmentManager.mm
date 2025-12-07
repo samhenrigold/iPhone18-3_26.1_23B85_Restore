@@ -107,27 +107,12 @@ void __34__ASTUIGazeEnrollmentManager_init__block_invoke(uint64_t a1)
   mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
   assistiveTouchMouseOnDeviceEyeTrackingCalibrationStrategy = [mEMORY[0x277CE7E20] assistiveTouchMouseOnDeviceEyeTrackingCalibrationStrategy];
 
-  if (assistiveTouchMouseOnDeviceEyeTrackingCalibrationStrategy)
+  if (assistiveTouchMouseOnDeviceEyeTrackingCalibrationStrategy <= 1)
   {
-    if (assistiveTouchMouseOnDeviceEyeTrackingCalibrationStrategy != 1)
-    {
-      return;
-    }
+    self->_calibrationStrategy = objc_opt_new();
 
-    v5 = off_278CDC340;
+    MEMORY[0x2821F96F8]();
   }
-
-  else
-  {
-    v5 = &off_278CDC358;
-  }
-
-  v6 = *v5;
-  v7 = objc_opt_new();
-  calibrationStrategy = self->_calibrationStrategy;
-  self->_calibrationStrategy = v7;
-
-  MEMORY[0x2821F96F8]();
 }
 
 @end

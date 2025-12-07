@@ -12,7 +12,7 @@
 
 - (PFCloudKitHistoryAnalyzer)initWithOptions:(id)options managedObjectContext:(id)context
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -20,29 +20,28 @@
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = objc_opt_class();
+      v14 = objc_opt_class();
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Attempt to init PFCloudKitHistoryAnalyzer with the wrong options class: %@\n", buf, 0xCu);
     }
 
     v8 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v12 = objc_opt_class();
+      v11 = objc_opt_class();
       *buf = 138412290;
-      v15 = v12;
+      v14 = v11;
       _os_log_fault_impl(&dword_18565F000, v8, OS_LOG_TYPE_FAULT, "CoreData: Attempt to init PFCloudKitHistoryAnalyzer with the wrong options class: %@", buf, 0xCu);
     }
   }
 
-  v13.receiver = self;
-  v13.super_class = PFCloudKitHistoryAnalyzer;
-  v9 = [(PFHistoryAnalyzer *)&v13 initWithOptions:options];
+  v12.receiver = self;
+  v12.super_class = PFCloudKitHistoryAnalyzer;
+  v9 = [(PFHistoryAnalyzer *)&v12 initWithOptions:options];
   if (v9)
   {
     v9->_managedObjectContext = context;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -74,8 +73,8 @@
 
 - (BOOL)processTransaction:(id)transaction withContext:(id)context error:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
-  v22 = 0;
+  v27[1] = *MEMORY[0x1E69E9840];
+  v21 = 0;
   if (+[PFCloudKitHistoryAnalyzer isPrivateTransaction:](PFCloudKitHistoryAnalyzer, "isPrivateTransaction:") && ([objc_msgSend(transaction "author")] & 1) == 0 && (objc_msgSend(objc_msgSend(transaction, "contextName"), "isEqualToString:", @"NSCloudKitMirroringDelegate.import") & 1) == 0 && !objc_msgSend(objc_msgSend(transaction, "author"), "isEqualToString:", @"NSCloudKitMirroringDelegate.reset"))
   {
     goto LABEL_14;
@@ -83,24 +82,24 @@
 
   if (!self || (options = self->super._options) == 0 || (v10 = *&options[1]._automaticallyPruneTransientRecords) == 0 || ([*(v10 + 64) shouldDefer] & 1) == 0 && *(v10 + 40) != 1)
   {
-    v21.receiver = self;
-    v21.super_class = PFCloudKitHistoryAnalyzer;
-    if (![(PFHistoryAnalyzer *)&v21 processTransaction:transaction withContext:context error:&v22])
+    v20.receiver = self;
+    v20.super_class = PFCloudKitHistoryAnalyzer;
+    if (![(PFHistoryAnalyzer *)&v20 processTransaction:transaction withContext:context error:&v21])
     {
-      v12 = v22;
-      if (v22)
+      v12 = v21;
+      if (v21)
       {
 LABEL_11:
         if (error)
         {
           LOBYTE(v13) = 0;
           *error = v12;
-          goto LABEL_28;
+          return v13;
         }
 
 LABEL_21:
         LOBYTE(v13) = 0;
-        goto LABEL_28;
+        return v13;
       }
 
       goto LABEL_17;
@@ -137,14 +136,14 @@ LABEL_14:
     }
 
     LOBYTE(v13) = 1;
-    goto LABEL_28;
+    return v13;
   }
 
   v11 = *MEMORY[0x1E696A250];
-  v27 = *MEMORY[0x1E696A588];
-  v28[0] = @"History analysis was aborted because the activity was deferred by the system.";
-  v12 = [MEMORY[0x1E696ABC0] errorWithDomain:v11 code:134419 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v28, &v27, 1)}];
-  v22 = v12;
+  v26 = *MEMORY[0x1E696A588];
+  v27[0] = @"History analysis was aborted because the activity was deferred by the system.";
+  v12 = [MEMORY[0x1E696ABC0] errorWithDomain:v11 code:134419 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v27, &v26, 1)}];
+  v21 = v12;
   if (v12)
   {
     goto LABEL_11;
@@ -156,8 +155,8 @@ LABEL_17:
   {
     *buf = 136315394;
     transactionCopy2 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzer.m";
-    v25 = 1024;
-    v26 = 101;
+    v24 = 1024;
+    v25 = 101;
     _os_log_error_impl(&dword_18565F000, v15, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
   }
 
@@ -167,14 +166,12 @@ LABEL_17:
   {
     *buf = 136315394;
     transactionCopy2 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitHistoryAnalyzer.m";
-    v25 = 1024;
-    v26 = 101;
+    v24 = 1024;
+    v25 = 101;
     _os_log_fault_impl(&dword_18565F000, v16, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
     goto LABEL_21;
   }
 
-LABEL_28:
-  v19 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

@@ -73,20 +73,18 @@
 
 - (int64_t)createReportingSession
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC14AudioAnalytics12ServerClient_serialQueue);
   selfCopy = self;
   sub_1C0BEC178();
 
-  return v5;
+  return v4;
 }
 
 - (int64_t)createReportingSessionFromSessionID:(unsigned int)d
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC14AudioAnalytics12ServerClient_serialQueue);
   selfCopy = self;
   sub_1C0BEC178();
 
-  return v6;
+  return v5;
 }
 
 - (void)startWithReporterID:(int64_t)d
@@ -147,12 +145,11 @@
 
 - (unsigned)getServiceTypeForReporterID:(int64_t)d
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC14AudioAnalytics12ServerClient_serialQueue);
   type metadata accessor for AudioServiceType(0);
   selfCopy = self;
   sub_1C0BEC178();
 
-  return v7;
+  return v6;
 }
 
 - (void)setServiceType:(unsigned __int16)type reporterID:(int64_t)d
@@ -186,14 +183,13 @@
 
 - (id)getConfigurationForReporterID:(int64_t)d
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC14AudioAnalytics12ServerClient_serialQueue);
   selfCopy = self;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBE52888, &qword_1C0BED068);
   sub_1C0BEC178();
 
-  v5 = sub_1C0BEC038();
+  v4 = sub_1C0BEC038();
 
-  return v5;
+  return v4;
 }
 
 - (void)setConfiguration:(id)configuration reporterID:(int64_t)d

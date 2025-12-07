@@ -21,16 +21,16 @@
 
 - (void)processResponse
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   responseDictionary = [(WLKUTSNetworkRequestOperation *)self responseDictionary];
   v4 = [responseDictionary wlk_arrayForKey:@"items"];
   v5 = [WLKChannelsResponse parseChannelsFromPayload:responseDictionary];
   v6 = v5;
   if (v5)
   {
-    v11 = @"WLKModelContextKeyChannels";
-    v12[0] = v5;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"WLKModelContextKeyChannels";
+    v11[0] = v5;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
@@ -41,8 +41,6 @@
   v8 = [WLKBrowseItem browseItemsWithDictionaries:v4 context:v7];
   items = self->_items;
   self->_items = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

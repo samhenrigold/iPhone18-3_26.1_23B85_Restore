@@ -88,7 +88,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v7 = 1;
+    isEqual = 1;
   }
 
   else
@@ -100,22 +100,22 @@
       v6 = v5;
       if (v5->_alphaComponent == self->_alphaComponent && v5->_contrast == self->_contrast && v5->_prominence == self->_prominence)
       {
-        v7 = [(UIColor *)v5->_baseColor isEqual:self->_baseColor];
+        isEqual = objc_msgSend_isEqual_(v5->_baseColor);
       }
 
       else
       {
-        v7 = 0;
+        isEqual = 0;
       }
     }
 
     else
     {
-      v7 = 0;
+      isEqual = 0;
     }
   }
 
-  return v7;
+  return isEqual;
 }
 
 - (id)_resolvedColorWithTraitCollection:(id)collection
@@ -153,7 +153,7 @@
       v13 = v26(&v25, 1);
     }
 
-    if ([v13 isEqual:v12])
+    if (objc_msgSend_isEqual_(v13))
     {
       if ([v8 userInterfaceStyle] == 2)
       {

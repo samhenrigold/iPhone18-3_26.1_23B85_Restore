@@ -43,9 +43,9 @@
 
 - (void)setupCameraSession
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]failed to get camera @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSCellularPlanQRCodeScannerView setupCameraSession]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, self, a3, "[E]failed to get camera @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)layoutSubviews
@@ -133,7 +133,7 @@ void __46__TSCellularPlanQRCodeScannerView_stopRunning__block_invoke(uint64_t a1
 - (void)_handleRuntimeError:(id)error
 {
   errorCopy = error;
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(TSCellularPlanQRCodeScannerView *)errorCopy _handleRuntimeError:v5];
@@ -209,26 +209,26 @@ uint64_t __55__TSCellularPlanQRCodeScannerView__handleRuntimeError___block_invok
 
 - (id)getAVCaptureMetadataOutput
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   outputs = [(AVCaptureSession *)self->_captureSession outputs];
-  v3 = [outputs countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [outputs countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(outputs);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -237,7 +237,7 @@ uint64_t __55__TSCellularPlanQRCodeScannerView__handleRuntimeError___block_invok
         }
       }
 
-      v3 = [outputs countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [outputs countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -248,8 +248,6 @@ uint64_t __55__TSCellularPlanQRCodeScannerView__handleRuntimeError___block_invok
   }
 
 LABEL_11:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -279,35 +277,32 @@ LABEL_11:
   previewLayer = [(TSCellularPlanQRCodeScannerView *)self previewLayer];
   connection = [previewLayer connection];
 
-  if ([connection isVideoOrientationSupported])
+  isVideoOrientationSupported = [connection isVideoOrientationSupported];
+  if (isVideoOrientationSupported)
   {
-    v6 = _TSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _TSLogDomain(isVideoOrientationSupported);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 134218242;
       orientationCopy = orientation;
       v10 = 2080;
       v11 = "[TSCellularPlanQRCodeScannerView setOrientation:]";
-      _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "Set new orientation:%ld @%s", &v8, 0x16u);
+      _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "Set new orientation:%ld @%s", &v8, 0x16u);
     }
 
     [connection setVideoOrientation:orientation];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRuntimeError:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 userInfo];
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2080;
-  v8 = "[TSCellularPlanQRCodeScannerView _handleRuntimeError:]";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]Capture failed because of runtime error (%@) @%s", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2080;
+  v7 = "[TSCellularPlanQRCodeScannerView _handleRuntimeError:]";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]Capture failed because of runtime error (%@) @%s", &v4, 0x16u);
 }
 
 @end

@@ -12,6 +12,9 @@
 - (void)setForceFeel:(unint64_t)feel;
 - (void)setListeningForHomeButtonPresses:(BOOL)presses;
 - (void)setUsesDoneButton:(BOOL)button;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willBecomeActive;
 @end
 
@@ -215,6 +218,74 @@
   [(PSGHomeButtonCustomizeController *)self _makeConstraints];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v16[2] = *MEMORY[0x277D85DE8];
+  self->_visible = 1;
+  [(PSGHomeButtonCustomizeController *)self setListeningForHomeButtonPresses:1];
+  [(PSGCircleSegmentedControl *)self->_segmentedControl selectSegmentAtIndex:[(PSGHomeButtonCustomizeController *)self getForceFeel]- 1];
+  v15.receiver = self;
+  v15.super_class = PSGHomeButtonCustomizeController;
+  [(PSGHomeButtonCustomizeController *)&v15 viewDidAppear:appearCopy];
+  mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
+  bundleIdentifier = [mainBundle bundleIdentifier];
+
+  if ([bundleIdentifier isEqualToString:@"com.apple.Preferences"])
+  {
+    v7 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.General/HOME_BUTTON"];
+    v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+    currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+    v10 = PSG_BundleForGeneralSettingsUIFramework(currentLocale);
+    bundleURL = [v10 bundleURL];
+    v12 = [v8 initWithKey:@"HOME_BUTTON" table:@"General" locale:currentLocale bundleURL:bundleURL];
+
+    general_rootPaneComponent = [MEMORY[0x277CCAEB8] general_rootPaneComponent];
+    v16[0] = general_rootPaneComponent;
+    v16[1] = v12;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    [_TtC17GeneralSettingsUI26EmitNavigationEventWrapper generalEmitNavigationEventForSystemSettingWithGraphicIconIdentifier:@"com.apple.graphic-icon.iphone-home-button" title:v12 localizedNavigationComponents:v14 deepLink:v7];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  self->_visible = 0;
+  [(PSGHomeButtonCustomizeController *)self setListeningForHomeButtonPresses:0];
+  v5.receiver = self;
+  v5.super_class = PSGHomeButtonCustomizeController;
+  [(PSGHomeButtonCustomizeController *)&v5 viewWillDisappear:disappearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v14 = *MEMORY[0x277D85DE8];
+  getForceFeel = [(PSGHomeButtonCustomizeController *)self getForceFeel];
+  mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
+  bundleIdentifier = [mainBundle bundleIdentifier];
+
+  if (self->_forceFeelValueChanged || ([bundleIdentifier isEqualToString:@"com.apple.Preferences"] & 1) == 0)
+  {
+    v8 = [bundleIdentifier stringByAppendingFormat:@".sshb-selection-%i", getForceFeel];
+    v9 = _PSGLoggingFacility(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v13 = v8;
+      _os_log_impl(&dword_21CF20000, v9, OS_LOG_TYPE_DEFAULT, "Recording sshb selection %@", buf, 0xCu);
+    }
+
+    mEMORY[0x277CEC590] = [MEMORY[0x277CEC590] sharedAggregateDictionary];
+    [mEMORY[0x277CEC590] incrementKey:v8];
+  }
+
+  v11.receiver = self;
+  v11.super_class = PSGHomeButtonCustomizeController;
+  [(PSGHomeButtonCustomizeController *)&v11 viewDidDisappear:disappearCopy];
+}
+
 - (void)willBecomeActive
 {
   if (self->_visible)
@@ -226,13 +297,13 @@
 - (void)setListeningForHomeButtonPresses:(BOOL)presses
 {
   pressesCopy = presses;
-  v18 = *MEMORY[0x277D85DE8];
-  v5 = _PSGLoggingFacility();
+  v17 = *MEMORY[0x277D85DE8];
+  v5 = _PSGLoggingFacility(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v17[0] = 67109120;
-    v17[1] = pressesCopy;
-    _os_log_impl(&dword_21CF20000, v5, OS_LOG_TYPE_DEFAULT, "Now intercepting home button presses: %d", v17, 8u);
+    v16[0] = 67109120;
+    v16[1] = pressesCopy;
+    _os_log_impl(&dword_21CF20000, v5, OS_LOG_TYPE_DEFAULT, "Now intercepting home button presses: %d", v16, 8u);
   }
 
   if (self->_reachabilityEnabled)
@@ -275,8 +346,6 @@
     mEMORY[0x277D66AA0] = self->_eventConsumerToken;
     self->_eventConsumerToken = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)barButtonTapped
@@ -420,7 +489,7 @@
 
 - (void)consumeAnyPressEventForButtonKind:(int64_t)kind
 {
-  v3 = _PSGLoggingFacility();
+  v3 = _PSGLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

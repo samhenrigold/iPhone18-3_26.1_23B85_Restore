@@ -39,7 +39,7 @@
 
 + (__SecKey)_keyFromCertificateChain:(id)chain
 {
-  v46[3] = *MEMORY[0x277D85DE8];
+  v45[3] = *MEMORY[0x277D85DE8];
   chainCopy = chain;
   if (os_variant_allows_internal_security_policies() && os_variant_has_internal_diagnostics())
   {
@@ -59,14 +59,14 @@
     {
       v7 = *MEMORY[0x277CDC040];
       v8 = *MEMORY[0x277CDBFE0];
-      v45[0] = *MEMORY[0x277CDC028];
-      v45[1] = v8;
+      v44[0] = *MEMORY[0x277CDC028];
+      v44[1] = v8;
       v9 = *MEMORY[0x277CDC000];
-      v46[0] = v7;
-      v46[1] = v9;
-      v45[2] = *MEMORY[0x277CDC018];
-      v46[2] = &unk_287FC45B8;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:3];
+      v45[0] = v7;
+      v45[1] = v9;
+      v44[2] = *MEMORY[0x277CDC018];
+      v45[2] = &unk_287FC45B8;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:3];
       v11 = SecKeyCreateWithData(chainCopy, v10, 0);
 
       if (v11)
@@ -76,7 +76,7 @@
     }
   }
 
-  v38 = chainCopy;
+  v37 = chainCopy;
   v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:chainCopy encoding:4];
   v6 = objc_opt_new();
   if ([v12 length])
@@ -90,9 +90,9 @@
 
       [v14 scanUpToString:@"-----BEGIN CERTIFICATE-----" intoString:0];
       [v14 scanString:@"-----BEGIN CERTIFICATE-----" intoString:0];
-      v42 = 0;
-      [v14 scanUpToString:@"-----END CERTIFICATE-----" intoString:&v42];
-      v16 = v42;
+      v41 = 0;
+      [v14 scanUpToString:@"-----END CERTIFICATE-----" intoString:&v41];
+      v16 = v41;
       if (!v16)
       {
 
@@ -159,7 +159,7 @@ LABEL_21:
 LABEL_22:
 
 LABEL_29:
-      chainCopy = v38;
+      chainCopy = v37;
       goto LABEL_30;
     }
 
@@ -168,28 +168,28 @@ LABEL_29:
     ApplePinned = SecPolicyCreateApplePinned();
     if (!ApplePinned)
     {
-      v34 = TRILogCategory_Server();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v33 = TRILogCategory_Server();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_26F567000, v34, OS_LOG_TYPE_ERROR, "TRISignatureKey: failed to create security policy.", buf, 2u);
+        _os_log_error_impl(&dword_26F567000, v33, OS_LOG_TYPE_ERROR, "TRISignatureKey: failed to create security policy.", buf, 2u);
       }
 
       goto LABEL_21;
     }
 
     trust = 0;
-    v30 = SecTrustCreateWithCertificates(v6, ApplePinned, &trust);
-    if (v30)
+    v29 = SecTrustCreateWithCertificates(v6, ApplePinned, &trust);
+    if (v29)
     {
-      v31 = v30;
-      v32 = TRILogCategory_Server();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v30 = v29;
+      v31 = TRILogCategory_Server();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v33 = SecCopyErrorMessageString(v31, 0);
+        v32 = SecCopyErrorMessageString(v30, 0);
         *buf = 138543362;
-        v44 = v33;
-        _os_log_error_impl(&dword_26F567000, v32, OS_LOG_TYPE_ERROR, "TRISignatureKey: trust creation for the certificate chain failed with error: %{public}@", buf, 0xCu);
+        v43 = v32;
+        _os_log_error_impl(&dword_26F567000, v31, OS_LOG_TYPE_ERROR, "TRISignatureKey: trust creation for the certificate chain failed with error: %{public}@", buf, 0xCu);
       }
     }
 
@@ -198,8 +198,8 @@ LABEL_29:
       error = 0;
       if (SecTrustEvaluateWithError(trust, &error))
       {
-        v35 = [v6 objectAtIndexedSubscript:0];
-        v11 = SecCertificateCopyKey(v35);
+        v34 = [v6 objectAtIndexedSubscript:0];
+        v11 = SecCertificateCopyKey(v34);
 
         if (v11)
         {
@@ -212,34 +212,34 @@ LABEL_46:
           CFRelease(ApplePinned);
           if (v11)
           {
-            v37 = TRILogCategory_Server();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+            v36 = TRILogCategory_Server();
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              _os_log_debug_impl(&dword_26F567000, v37, OS_LOG_TYPE_DEBUG, "TRISignatureKey: successfully created public key from the certificate chain.", buf, 2u);
+              _os_log_debug_impl(&dword_26F567000, v36, OS_LOG_TYPE_DEBUG, "TRISignatureKey: successfully created public key from the certificate chain.", buf, 2u);
             }
           }
 
           goto LABEL_22;
         }
 
-        v32 = TRILogCategory_Server();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v31 = TRILogCategory_Server();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_26F567000, v32, OS_LOG_TYPE_ERROR, "TRISignatureKey: failed to create public key from the certificate chain.", buf, 2u);
+          _os_log_error_impl(&dword_26F567000, v31, OS_LOG_TYPE_ERROR, "TRISignatureKey: failed to create public key from the certificate chain.", buf, 2u);
         }
       }
 
       else
       {
-        v32 = error;
-        v36 = TRILogCategory_Server();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v31 = error;
+        v35 = TRILogCategory_Server();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v44 = v32;
-          _os_log_error_impl(&dword_26F567000, v36, OS_LOG_TYPE_ERROR, "TRISignatureKey: certificate chain validation failed with error: %{public}@.", buf, 0xCu);
+          v43 = v31;
+          _os_log_error_impl(&dword_26F567000, v35, OS_LOG_TYPE_ERROR, "TRISignatureKey: certificate chain validation failed with error: %{public}@.", buf, 0xCu);
         }
       }
     }
@@ -249,7 +249,7 @@ LABEL_46:
   }
 
   v25 = TRILogCategory_Server();
-  chainCopy = v38;
+  chainCopy = v37;
   if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
@@ -259,7 +259,6 @@ LABEL_46:
   v11 = 0;
 LABEL_30:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -315,7 +314,7 @@ LABEL_30:
 
 - (BOOL)_validateSignature:(id)signature data:(id)data algorithm:(__CFString *)algorithm
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   dataCopy = data;
   v11 = dataCopy;
@@ -343,7 +342,7 @@ LABEL_30:
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v23 = v15;
+          v22 = v15;
           _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "TRISignatureKey: signature validation failed -- %{public}@", buf, 0xCu);
         }
       }
@@ -362,7 +361,6 @@ LABEL_30:
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

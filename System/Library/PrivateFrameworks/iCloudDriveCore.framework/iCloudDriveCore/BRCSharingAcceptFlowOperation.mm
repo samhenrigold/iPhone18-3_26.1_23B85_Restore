@@ -615,33 +615,31 @@ uint64_t __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_3
 {
   if (a2)
   {
-    v3 = a1[6];
     (*(a1[6] + 16))();
   }
 
-  v4 = a1[4];
-  v5 = a1[5];
+  v3 = a1[4];
+  v4 = a1[5];
 
-  return [v4 completedWithResult:0 error:v5];
+  return [v3 completedWithResult:0 error:v4];
 }
 
 uint64_t __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_5(void *a1, int a2)
 {
   if (a2)
   {
-    v3 = a1[6];
     (*(a1[6] + 16))();
   }
 
-  v4 = a1[4];
-  v5 = a1[5];
+  v3 = a1[4];
+  v4 = a1[5];
 
-  return [v4 completedWithResult:0 error:v5];
+  return [v3 completedWithResult:0 error:v4];
 }
 
 - (void)finishWithResult:(id)result error:(id)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
   if ([(BRCSharingAcceptFlowOperation *)self _isFolderShare])
@@ -678,11 +676,11 @@ uint64_t __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_5
       path = [(NSURL *)self->_liveFileURL path];
       fp_obfuscatedPath = [path fp_obfuscatedPath];
       *buf = 138412802;
-      v34 = shareURL;
-      v35 = 2112;
-      v36 = fp_obfuscatedPath;
-      v37 = 2112;
-      v38 = workloop;
+      v33 = shareURL;
+      v34 = 2112;
+      v35 = fp_obfuscatedPath;
+      v36 = 2112;
+      v37 = workloop;
       _os_log_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEFAULT, "[NOTICE] share acceptation %@ succeed and document is now live on disk at %@%@", buf, 0x20u);
     }
 
@@ -695,11 +693,11 @@ uint64_t __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_5
   {
     v13 = self->_shareURL;
     *buf = 138412802;
-    v34 = v13;
-    v35 = 2112;
-    v36 = errorCopy;
-    v37 = 2112;
-    v38 = v11;
+    v33 = v13;
+    v34 = 2112;
+    v35 = errorCopy;
+    v36 = 2112;
+    v37 = v11;
     _os_log_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEFAULT, "[NOTICE] share acceptation %@ failed with error %@%@", buf, 0x20u);
   }
 
@@ -727,9 +725,9 @@ uint64_t __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_5
 
     else
     {
-      v29 = brc_bread_crumbs();
-      v30 = brc_default_log();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+      v28 = brc_bread_crumbs();
+      v29 = brc_default_log();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
       {
         [BRCSharingAcceptFlowOperation finishWithResult:error:];
       }
@@ -761,11 +759,9 @@ LABEL_21:
     objc_sync_exit(v27);
   }
 
-  v31.receiver = self;
-  v31.super_class = BRCSharingAcceptFlowOperation;
-  [(_BRCOperation *)&v31 finishWithResult:resultCopy error:errorCopy];
-
-  v28 = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = BRCSharingAcceptFlowOperation;
+  [(_BRCOperation *)&v30 finishWithResult:resultCopy error:errorCopy];
 }
 
 void __56__BRCSharingAcceptFlowOperation_finishWithResult_error___block_invoke(uint64_t a1)
@@ -816,16 +812,16 @@ void __56__BRCSharingAcceptFlowOperation_finishWithResult_error___block_invoke(u
 
 - (void)main
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     shareURL = self->_shareURL;
     *buf = 138412546;
-    v41 = shareURL;
-    v42 = 2112;
-    v43 = v3;
+    v40 = shareURL;
+    v41 = 2112;
+    v42 = v3;
     _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] User clicked on share link %@%@", buf, 0x16u);
   }
 
@@ -839,122 +835,30 @@ void __56__BRCSharingAcceptFlowOperation_finishWithResult_error___block_invoke(u
 
   if ([(BRCSharingAcceptFlowOperation *)self _isFolderShare])
   {
-    v26 = NSStringFromSelector(sel__isAppInstalled_step);
-    v39[0] = v26;
-    v24 = NSStringFromSelector(sel__isFolderSharingSupported_step);
-    v39[1] = v24;
-    v36 = NSStringFromSelector(sel__isUserSignedInToiCloudDrive_step);
-    v39[2] = v36;
-    v35 = NSStringFromSelector(sel__showSharingJoinDialog_step);
-    v39[3] = v35;
-    v34 = NSStringFromSelector(sel__parseShareMetadata_step);
-    v39[4] = v34;
-    v33 = NSStringFromSelector(sel__startShareAccept_step);
-    v39[5] = v33;
-    v32 = NSStringFromSelector(sel__openiWorkAppPreemptively_step);
-    v39[6] = v32;
-    v31 = NSStringFromSelector(sel__locateSharedItemOnOwner_step);
-    v39[7] = v31;
-    v30 = NSStringFromSelector(sel__waitForSharedItemToSyncDownOnOwner_step);
-    v39[8] = v30;
-    v29 = NSStringFromSelector(sel__waitForSharedItemToBeOnDiskOnOwner_step);
-    v39[9] = v29;
-    v28 = NSStringFromSelector(sel__createSideFaultOnDisk_step);
-    v39[10] = v28;
-    v27 = NSStringFromSelector(sel__waitForSharedItemToBeOnDiskOnRecipient_step);
-    v39[11] = v27;
-    v7 = NSStringFromSelector(sel__checkIfShouldWaitUntilDownloadCompletion_step);
-    v39[12] = v7;
-    v8 = NSStringFromSelector(sel__openSharedSideFaultFile_step);
-    v39[13] = v8;
-    v9 = NSStringFromSelector(sel__finishShareAccept_step);
-    v39[14] = v9;
-    v10 = NSStringFromSelector(sel__locateSharedItemOnRecipient_step);
-    v39[15] = v10;
-    v11 = NSStringFromSelector(sel__waitForSharedItemToSyncDownOnRecipient_step);
-    v39[16] = v11;
-    v12 = NSStringFromSelector(sel__locateSharedItemOnDisk_step);
-    v39[17] = v12;
-    acceptationFlow = NSStringFromSelector(sel__setSpotlightAttribute_step);
-    v39[18] = acceptationFlow;
-    v14 = NSStringFromSelector(sel__openSharedItemIfStillNeeded_step);
-    v39[19] = v14;
-    v15 = NSStringFromSelector(sel__endAcceptationFlow_step);
-    v39[20] = v15;
-    v16 = MEMORY[0x277CBEA60];
-    v17 = v39;
-  }
-
-  else
-  {
-    if (![(BRCSharingAcceptFlowOperation *)self _isiWorkShare])
-    {
-      v21 = NSStringFromSelector(sel__isUserSignedInToiCloudDrive_step);
-      v37[0] = v21;
-      v20 = NSStringFromSelector(sel__showSharingJoinDialog_step);
-      v37[1] = v20;
-      v36 = NSStringFromSelector(sel__parseShareMetadata_step);
-      v37[2] = v36;
-      v35 = NSStringFromSelector(sel__startShareAccept_step);
-      v37[3] = v35;
-      v34 = NSStringFromSelector(sel__locateSharedItemOnOwner_step);
-      v37[4] = v34;
-      v33 = NSStringFromSelector(sel__waitForSharedItemToSyncDownOnOwner_step);
-      v37[5] = v33;
-      v32 = NSStringFromSelector(sel__waitForSharedItemToBeOnDiskOnOwner_step);
-      v37[6] = v32;
-      v31 = NSStringFromSelector(sel__createSideFaultOnDisk_step);
-      v37[7] = v31;
-      v30 = NSStringFromSelector(sel__waitForSharedItemToBeOnDiskOnRecipient_step);
-      v37[8] = v30;
-      v29 = NSStringFromSelector(sel__checkIfShouldWaitUntilDownloadCompletion_step);
-      v37[9] = v29;
-      v28 = NSStringFromSelector(sel__openSharedSideFaultFile_step);
-      v37[10] = v28;
-      v27 = NSStringFromSelector(sel__finishShareAccept_step);
-      v37[11] = v27;
-      v7 = NSStringFromSelector(sel__locateSharedItemOnRecipient_step);
-      v37[12] = v7;
-      v8 = NSStringFromSelector(sel__waitForSharedItemToSyncDownOnRecipient_step);
-      v37[13] = v8;
-      v9 = NSStringFromSelector(sel__prepareToDownloadSharedDocument_step);
-      v37[14] = v9;
-      v10 = NSStringFromSelector(sel__setSpotlightAttribute_step);
-      v37[15] = v10;
-      v11 = NSStringFromSelector(sel__openSharedItemIfStillNeeded_step);
-      v37[16] = v11;
-      v12 = NSStringFromSelector(sel__endAcceptationFlow_step);
-      v37[17] = v12;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:18];
-      acceptationFlow = self->_acceptationFlow;
-      self->_acceptationFlow = v22;
-      goto LABEL_11;
-    }
-
-    v26 = NSStringFromSelector(sel__isAppInstalled_step);
-    v38[0] = v26;
-    v24 = NSStringFromSelector(sel__isUserSignedInToiCloudDrive_step);
-    v38[1] = v24;
-    v36 = NSStringFromSelector(sel__isAccountRestricted_step);
-    v38[2] = v36;
-    v35 = NSStringFromSelector(sel__showSharingJoinDialog_step);
-    v38[3] = v35;
-    v34 = NSStringFromSelector(sel__parseShareMetadata_step);
-    v38[4] = v34;
-    v33 = NSStringFromSelector(sel__startShareAccept_step);
-    v38[5] = v33;
-    v32 = NSStringFromSelector(sel__openiWorkAppPreemptively_step);
-    v38[6] = v32;
-    v31 = NSStringFromSelector(sel__locateSharedItemOnOwner_step);
-    v38[7] = v31;
-    v30 = NSStringFromSelector(sel__waitForSharedItemToSyncDownOnOwner_step);
-    v38[8] = v30;
-    v29 = NSStringFromSelector(sel__waitForSharedItemToBeOnDiskOnOwner_step);
-    v38[9] = v29;
-    v28 = NSStringFromSelector(sel__createSideFaultOnDisk_step);
-    v38[10] = v28;
-    v27 = NSStringFromSelector(sel__waitForSharedItemToBeOnDiskOnRecipient_step);
-    v38[11] = v27;
+    v25 = NSStringFromSelector(sel__isAppInstalled_step);
+    v38[0] = v25;
+    v23 = NSStringFromSelector(sel__isFolderSharingSupported_step);
+    v38[1] = v23;
+    v35 = NSStringFromSelector(sel__isUserSignedInToiCloudDrive_step);
+    v38[2] = v35;
+    v34 = NSStringFromSelector(sel__showSharingJoinDialog_step);
+    v38[3] = v34;
+    v33 = NSStringFromSelector(sel__parseShareMetadata_step);
+    v38[4] = v33;
+    v32 = NSStringFromSelector(sel__startShareAccept_step);
+    v38[5] = v32;
+    v31 = NSStringFromSelector(sel__openiWorkAppPreemptively_step);
+    v38[6] = v31;
+    v30 = NSStringFromSelector(sel__locateSharedItemOnOwner_step);
+    v38[7] = v30;
+    v29 = NSStringFromSelector(sel__waitForSharedItemToSyncDownOnOwner_step);
+    v38[8] = v29;
+    v28 = NSStringFromSelector(sel__waitForSharedItemToBeOnDiskOnOwner_step);
+    v38[9] = v28;
+    v27 = NSStringFromSelector(sel__createSideFaultOnDisk_step);
+    v38[10] = v27;
+    v26 = NSStringFromSelector(sel__waitForSharedItemToBeOnDiskOnRecipient_step);
+    v38[11] = v26;
     v7 = NSStringFromSelector(sel__checkIfShouldWaitUntilDownloadCompletion_step);
     v38[12] = v7;
     v8 = NSStringFromSelector(sel__openSharedSideFaultFile_step);
@@ -965,7 +869,7 @@ void __56__BRCSharingAcceptFlowOperation_finishWithResult_error___block_invoke(u
     v38[15] = v10;
     v11 = NSStringFromSelector(sel__waitForSharedItemToSyncDownOnRecipient_step);
     v38[16] = v11;
-    v12 = NSStringFromSelector(sel__prepareToDownloadSharedDocument_step);
+    v12 = NSStringFromSelector(sel__locateSharedItemOnDisk_step);
     v38[17] = v12;
     acceptationFlow = NSStringFromSelector(sel__setSpotlightAttribute_step);
     v38[18] = acceptationFlow;
@@ -977,26 +881,115 @@ void __56__BRCSharingAcceptFlowOperation_finishWithResult_error___block_invoke(u
     v17 = v38;
   }
 
-  v18 = [v16 arrayWithObjects:v17 count:{21, v24}];
+  else
+  {
+    if (![(BRCSharingAcceptFlowOperation *)self _isiWorkShare])
+    {
+      v21 = NSStringFromSelector(sel__isUserSignedInToiCloudDrive_step);
+      v36[0] = v21;
+      v20 = NSStringFromSelector(sel__showSharingJoinDialog_step);
+      v36[1] = v20;
+      v35 = NSStringFromSelector(sel__parseShareMetadata_step);
+      v36[2] = v35;
+      v34 = NSStringFromSelector(sel__startShareAccept_step);
+      v36[3] = v34;
+      v33 = NSStringFromSelector(sel__locateSharedItemOnOwner_step);
+      v36[4] = v33;
+      v32 = NSStringFromSelector(sel__waitForSharedItemToSyncDownOnOwner_step);
+      v36[5] = v32;
+      v31 = NSStringFromSelector(sel__waitForSharedItemToBeOnDiskOnOwner_step);
+      v36[6] = v31;
+      v30 = NSStringFromSelector(sel__createSideFaultOnDisk_step);
+      v36[7] = v30;
+      v29 = NSStringFromSelector(sel__waitForSharedItemToBeOnDiskOnRecipient_step);
+      v36[8] = v29;
+      v28 = NSStringFromSelector(sel__checkIfShouldWaitUntilDownloadCompletion_step);
+      v36[9] = v28;
+      v27 = NSStringFromSelector(sel__openSharedSideFaultFile_step);
+      v36[10] = v27;
+      v26 = NSStringFromSelector(sel__finishShareAccept_step);
+      v36[11] = v26;
+      v7 = NSStringFromSelector(sel__locateSharedItemOnRecipient_step);
+      v36[12] = v7;
+      v8 = NSStringFromSelector(sel__waitForSharedItemToSyncDownOnRecipient_step);
+      v36[13] = v8;
+      v9 = NSStringFromSelector(sel__prepareToDownloadSharedDocument_step);
+      v36[14] = v9;
+      v10 = NSStringFromSelector(sel__setSpotlightAttribute_step);
+      v36[15] = v10;
+      v11 = NSStringFromSelector(sel__openSharedItemIfStillNeeded_step);
+      v36[16] = v11;
+      v12 = NSStringFromSelector(sel__endAcceptationFlow_step);
+      v36[17] = v12;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:18];
+      acceptationFlow = self->_acceptationFlow;
+      self->_acceptationFlow = v22;
+      goto LABEL_11;
+    }
+
+    v25 = NSStringFromSelector(sel__isAppInstalled_step);
+    v37[0] = v25;
+    v23 = NSStringFromSelector(sel__isUserSignedInToiCloudDrive_step);
+    v37[1] = v23;
+    v35 = NSStringFromSelector(sel__isAccountRestricted_step);
+    v37[2] = v35;
+    v34 = NSStringFromSelector(sel__showSharingJoinDialog_step);
+    v37[3] = v34;
+    v33 = NSStringFromSelector(sel__parseShareMetadata_step);
+    v37[4] = v33;
+    v32 = NSStringFromSelector(sel__startShareAccept_step);
+    v37[5] = v32;
+    v31 = NSStringFromSelector(sel__openiWorkAppPreemptively_step);
+    v37[6] = v31;
+    v30 = NSStringFromSelector(sel__locateSharedItemOnOwner_step);
+    v37[7] = v30;
+    v29 = NSStringFromSelector(sel__waitForSharedItemToSyncDownOnOwner_step);
+    v37[8] = v29;
+    v28 = NSStringFromSelector(sel__waitForSharedItemToBeOnDiskOnOwner_step);
+    v37[9] = v28;
+    v27 = NSStringFromSelector(sel__createSideFaultOnDisk_step);
+    v37[10] = v27;
+    v26 = NSStringFromSelector(sel__waitForSharedItemToBeOnDiskOnRecipient_step);
+    v37[11] = v26;
+    v7 = NSStringFromSelector(sel__checkIfShouldWaitUntilDownloadCompletion_step);
+    v37[12] = v7;
+    v8 = NSStringFromSelector(sel__openSharedSideFaultFile_step);
+    v37[13] = v8;
+    v9 = NSStringFromSelector(sel__finishShareAccept_step);
+    v37[14] = v9;
+    v10 = NSStringFromSelector(sel__locateSharedItemOnRecipient_step);
+    v37[15] = v10;
+    v11 = NSStringFromSelector(sel__waitForSharedItemToSyncDownOnRecipient_step);
+    v37[16] = v11;
+    v12 = NSStringFromSelector(sel__prepareToDownloadSharedDocument_step);
+    v37[17] = v12;
+    acceptationFlow = NSStringFromSelector(sel__setSpotlightAttribute_step);
+    v37[18] = acceptationFlow;
+    v14 = NSStringFromSelector(sel__openSharedItemIfStillNeeded_step);
+    v37[19] = v14;
+    v15 = NSStringFromSelector(sel__endAcceptationFlow_step);
+    v37[20] = v15;
+    v16 = MEMORY[0x277CBEA60];
+    v17 = v37;
+  }
+
+  v18 = [v16 arrayWithObjects:v17 count:{21, v23}];
   v19 = self->_acceptationFlow;
   self->_acceptationFlow = v18;
 
-  v20 = v25;
-  v21 = v26;
+  v20 = v24;
+  v21 = v25;
 LABEL_11:
 
   self->_stepIndex = 0;
   [(BRCSharingAcceptFlowOperation *)self _performNextStep];
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performNextStepInQueue
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performNextStep
@@ -1254,7 +1247,7 @@ LABEL_7:
 
 void __73__BRCSharingAcceptFlowOperation__fetchOpenInfoOnFileObjectID_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1263,14 +1256,14 @@ void __73__BRCSharingAcceptFlowOperation__fetchOpenInfoOnFileObjectID_completion
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, 0x90u))
     {
-      v13 = a1[4];
-      v14 = 138412802;
-      v15 = v13;
-      v16 = 2112;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v7;
-      _os_log_error_impl(&dword_223E7A000, v8, 0x90u, "[ERROR] Can't find the user visible URL for %@ - %@%@", &v14, 0x20u);
+      v12 = a1[4];
+      v13 = 138412802;
+      v14 = v12;
+      v15 = 2112;
+      v16 = v6;
+      v17 = 2112;
+      v18 = v7;
+      _os_log_error_impl(&dword_223E7A000, v8, 0x90u, "[ERROR] Can't find the user visible URL for %@ - %@%@", &v13, 0x20u);
     }
   }
 
@@ -1280,15 +1273,13 @@ void __73__BRCSharingAcceptFlowOperation__fetchOpenInfoOnFileObjectID_completion
   v11 = v5;
 
   (*(a1[6] + 16))();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activateSharedZoneIfNeeded
 {
-  OUTLINED_FUNCTION_21(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx activating shared zone%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx activating shared zone%@");
 }
 
 - (void)openResourceOperationDidComplete:(id)complete
@@ -1319,48 +1310,43 @@ void __73__BRCSharingAcceptFlowOperation__fetchOpenInfoOnFileObjectID_completion
 
 - (void)_isFolderSharingSupported_step
 {
-  OUTLINED_FUNCTION_21(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx checking if document sharing is supported%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx checking if document sharing is supported%@");
 }
 
 - (void)_isAppInstalled_step
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Target application seems missing or hidden%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx Check if app is installed%@");
 }
 
 - (void)_isUserSignedInToiCloudDrive_step
 {
-  OUTLINED_FUNCTION_21(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_20(v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_20(v0, v1, v2, v3, v4);
 }
 
 - (void)_isAccountRestricted_step
 {
-  OUTLINED_FUNCTION_21(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx Check if app is profile disabled%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx Check if app is profile disabled%@");
 }
 
 - (void)_showSharingJoinDialog_step
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Skipping share acceptation%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx Show sharing join dialog%@");
 }
 
 void __60__BRCSharingAcceptFlowOperation__showSharingJoinDialog_step__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -1377,9 +1363,9 @@ void __60__BRCSharingAcceptFlowOperation__showSharingJoinDialog_step__block_invo
       {
         v8 = *(*(a1 + 32) + 536);
         *buf = 138412546;
-        v17 = v8;
-        v18 = 2112;
-        v19 = v6;
+        v16 = v8;
+        v17 = 2112;
+        v18 = v6;
         _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[NOTICE] User has accepted to open shared document at %@%@", buf, 0x16u);
       }
 
@@ -1400,9 +1386,9 @@ void __60__BRCSharingAcceptFlowOperation__showSharingJoinDialog_step__block_invo
       {
         v12 = *(*(a1 + 32) + 536);
         *buf = 138412546;
-        v17 = v12;
-        v18 = 2112;
-        v19 = v10;
+        v16 = v12;
+        v17 = 2112;
+        v18 = v10;
         _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEFAULT, "[NOTICE] User has refused to open shared document at %@%@", buf, 0x16u);
       }
 
@@ -1411,16 +1397,13 @@ void __60__BRCSharingAcceptFlowOperation__showSharingJoinDialog_step__block_invo
       [v13 _completeWithError:v9];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_parseShareMetadata_step
 {
-  OUTLINED_FUNCTION_21(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] alias app library is %@%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] alias app library is %@%@");
 }
 
 void __57__BRCSharingAcceptFlowOperation__parseShareMetadata_step__block_invoke(uint64_t a1, void *a2)
@@ -1433,31 +1416,30 @@ void __57__BRCSharingAcceptFlowOperation__parseShareMetadata_step__block_invoke(
 
 - (void)_startShareAccept_step
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: [self _isOwnerOrShareAlreadyAccepted]%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┣%llx creating share accept operation%@");
 }
 
 void __55__BRCSharingAcceptFlowOperation__startShareAccept_step__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v20 = *(a1 + 40);
-  v21 = *(a1 + 56);
+  v19 = *(a1 + 40);
+  v20 = *(a1 + 56);
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218754;
-    v23 = v20;
-    v24 = 2112;
-    v25 = v5;
-    v26 = 2112;
-    v27 = v6;
-    v28 = 2112;
-    v29 = v7;
+    v22 = v19;
+    v23 = 2112;
+    v24 = v5;
+    v25 = 2112;
+    v26 = v6;
+    v27 = 2112;
+    v28 = v7;
     _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx received share access completion - metadata %@, operationError - %@%@", buf, 0x2Au);
   }
 
@@ -1479,9 +1461,9 @@ void __55__BRCSharingAcceptFlowOperation__startShareAccept_step__block_invoke(ui
       goto LABEL_9;
     }
 
-    v18 = brc_bread_crumbs();
-    v19 = brc_default_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v17 = brc_bread_crumbs();
+    v18 = brc_default_log();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       __55__BRCSharingAcceptFlowOperation__startShareAccept_step__block_invoke_cold_1();
     }
@@ -1495,9 +1477,9 @@ LABEL_5:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v23 = v6;
-        v24 = 2112;
-        v25 = v10;
+        v22 = v6;
+        v23 = 2112;
+        v24 = v10;
         _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] failed to accept share - %@%@", buf, 0x16u);
       }
 
@@ -1522,13 +1504,11 @@ LABEL_9:
     dispatch_group_leave(*(WeakRetained + 82));
   }
 
-  __brc_leave_section(&v20);
-  v17 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(&v19);
 }
 
 - (void)_openiWorkAppPreemptively_step
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1536,10 +1516,8 @@ LABEL_9:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _linkItemID%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _linkItemID%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __63__BRCSharingAcceptFlowOperation__openiWorkAppPreemptively_step__block_invoke(uint64_t a1)
@@ -1560,18 +1538,7 @@ void __63__BRCSharingAcceptFlowOperation__openiWorkAppPreemptively_step__block_i
 
 - (void)_locateSharedItemOnOwner_step
 {
-  if (![(BRCSharingAcceptFlowOperation *)self _isOwner])
-  {
-    goto LABEL_3;
-  }
-
-  serverZone = [(BRCClientZone *)self->_clientZone serverZone];
-  state = [serverZone state];
-  defaultClientZone = [(BRCAppLibrary *)self->_appLibrary defaultClientZone];
-  serverZone2 = [defaultClientZone serverZone];
-  v7 = state & [serverZone2 state];
-
-  if ((v7 & 4) == 0)
+  if (-[BRCSharingAcceptFlowOperation _isOwner](self, "_isOwner") && (-[BRCClientZone serverZone](self->_clientZone, "serverZone"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 state], -[BRCAppLibrary defaultClientZone](self->_appLibrary, "defaultClientZone"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "serverZone"), v6 = objc_claimAutoreleasedReturnValue(), v7 = v4 & objc_msgSend(v6, "state"), v6, v5, v3, (v7 & 4) == 0))
   {
     v8 = self->_linkItemID;
     v9 = self->_clientZone;
@@ -1589,7 +1556,6 @@ void __63__BRCSharingAcceptFlowOperation__openiWorkAppPreemptively_step__block_i
 
   else
   {
-LABEL_3:
 
     [(BRCSharingAcceptFlowOperation *)self _performNextStep];
   }
@@ -1689,7 +1655,7 @@ void __62__BRCSharingAcceptFlowOperation__locateSharedItemOnOwner_step__block_in
 
 void __62__BRCSharingAcceptFlowOperation__locateSharedItemOnOwner_step__block_invoke_4(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) insertParentChainForItem:*(a1 + 40)];
   if (!v2)
   {
@@ -1700,32 +1666,29 @@ void __62__BRCSharingAcceptFlowOperation__locateSharedItemOnOwner_step__block_in
       v5 = *(a1 + 40);
       v6 = *(a1 + 48);
       *buf = 138412802;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v3;
+      v10 = v5;
+      v11 = 2112;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v3;
       _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[WARNING] Couldn't insert parent chain for %@ after fetch - %@%@", buf, 0x20u);
     }
   }
 
   v7 = [*(*(a1 + 56) + 256) clientReadWriteDatabaseFacade];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __62__BRCSharingAcceptFlowOperation__locateSharedItemOnOwner_step__block_invoke_152;
-  v9[3] = &unk_2784FF450;
-  v9[4] = *(a1 + 56);
-  [v7 scheduleFlushWithCheckpoint:0 whenFlushed:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __62__BRCSharingAcceptFlowOperation__locateSharedItemOnOwner_step__block_invoke_152;
+  v8[3] = &unk_2784FF450;
+  v8[4] = *(a1 + 56);
+  [v7 scheduleFlushWithCheckpoint:0 whenFlushed:v8];
 }
 
 - (void)_waitForSharedItemToSyncDownOnOwner_step
 {
-  OUTLINED_FUNCTION_21(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx Wait for shared item to sync down%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx Wait for shared item to sync down%@");
 }
 
 void __73__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnOwner_step__block_invoke(uint64_t a1, char a2)
@@ -1760,7 +1723,7 @@ void __73__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnOwner_ste
     v5 = brc_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      __73__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnOwner_step__block_invoke_2_cold_1(a1);
+      __73__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnOwner_step__block_invoke_2_cold_1();
     }
 
     v6 = MEMORY[0x277CCA9B8];
@@ -1809,15 +1772,14 @@ void __73__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnOwner_ste
 
 - (void)_waitForSharedItemToBeOnDiskOnOwner_step
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: self->_linkFileObjectID%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0();
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx Wait for item to be on disk%@");
 }
 
 void __73__BRCSharingAcceptFlowOperation__waitForSharedItemToBeOnDiskOnOwner_step__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1828,28 +1790,26 @@ void __73__BRCSharingAcceptFlowOperation__waitForSharedItemToBeOnDiskOnOwner_ste
     {
       v9 = *(*(a1 + 32) + 584);
       *buf = 138412802;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v7;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
+      v22 = v7;
       _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] Couldn't get user visible file on %@ - %@%@", buf, 0x20u);
     }
   }
 
   v10 = [*(*(a1 + 32) + 256) clientReadWriteDatabaseFacade];
   v11 = [v10 serialQueue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __73__BRCSharingAcceptFlowOperation__waitForSharedItemToBeOnDiskOnOwner_step__block_invoke_156;
-  v15[3] = &unk_2784FF478;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __73__BRCSharingAcceptFlowOperation__waitForSharedItemToBeOnDiskOnOwner_step__block_invoke_156;
+  v14[3] = &unk_2784FF478;
   v12 = *(a1 + 32);
-  v16 = v5;
-  v17 = v12;
+  v15 = v5;
+  v16 = v12;
   v13 = v5;
-  dispatch_async_with_logs_9(v11, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async_with_logs_9(v11, v14);
 }
 
 void __73__BRCSharingAcceptFlowOperation__waitForSharedItemToBeOnDiskOnOwner_step__block_invoke_156(uint64_t a1)
@@ -1923,7 +1883,7 @@ void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invo
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invoke_cold_3(v22);
+    __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invoke_cold_3();
   }
 
   v18 = 0;
@@ -2239,15 +2199,18 @@ void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invo
 
 - (void)_checkIfShouldWaitUntilDownloadCompletion_step
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] _checkIfShouldWaitUntilDownloadCompletion is not relevant in FPFS.%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = brc_bread_crumbs();
+  v4 = brc_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCSharingAcceptFlowOperation _checkIfShouldWaitUntilDownloadCompletion_step];
+  }
+
+  [(BRCSharingAcceptFlowOperation *)self _performNextStep];
 }
 
 - (void)_openSharedSideFaultFile_step
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2255,18 +2218,15 @@ void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invo
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _liveFileURL%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _liveFileURL%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishShareAccept_step
 {
-  OUTLINED_FUNCTION_21(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx Waiting for share accept to finish%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx Waiting for share accept to finish%@");
 }
 
 void __56__BRCSharingAcceptFlowOperation__finishShareAccept_step__block_invoke(uint64_t a1)
@@ -2322,7 +2282,7 @@ LABEL_10:
   v6 = brc_default_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [BRCSharingAcceptFlowOperation _createServerFaultIfPossibleWithCompletion:v15];
+    [BRCSharingAcceptFlowOperation _createServerFaultIfPossibleWithCompletion:];
   }
 
   if (!self->_clientZone)
@@ -2368,149 +2328,145 @@ LABEL_10:
 
 void __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 600) serverItemByItemID:*(*(a1 + 32) + 568)];
 
   v3 = *(a1 + 32);
-  if (!v2)
+  if (v2)
   {
-    v5 = [v3 _isDocumentLinkInsideFolderShare];
-    v6 = [*(*(a1 + 32) + 552) sharedItemHierarchyIDs];
-    v7 = [v6 count];
-    if (v5)
-    {
-      v8 = 2;
-    }
 
-    else
-    {
-      v8 = 1;
-    }
-
-    if (v7 <= v8)
-    {
-      if (![*(a1 + 32) _isOwner] || (objc_msgSend(*(*(a1 + 32) + 568), "isEqualToItemID:", *(*(a1 + 32) + 576)) & 1) == 0 && (objc_msgSend(*(*(a1 + 32) + 600), "serverItemByItemID:", *(*(a1 + 32) + 576)), v34 = objc_claimAutoreleasedReturnValue(), v34, v34))
-      {
-        v35 = brc_bread_crumbs();
-        v36 = brc_default_log();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
-        {
-          __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_cold_1();
-        }
-
-        [*(a1 + 32) _performNextStep];
-LABEL_32:
-        v37 = *MEMORY[0x277D85DE8];
-        return;
-      }
-    }
-
-    v9 = [*(*(a1 + 32) + 600) serverZone];
-    v10 = [*(*(a1 + 32) + 552) rootRecordID];
-    v11 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v12 = [*(*(a1 + 32) + 600) fetchRecordSubResourcesWithParentOperation:*(a1 + 32) pendingChangesStream:0 contentRecordsFetchedInline:1 sessionContext:*(*(a1 + 32) + 256)];
-    [v11 addObject:v10];
-    [v11 addObject:*(*(a1 + 32) + 544)];
-    v13 = [v10 recordName];
-    if ([v13 hasPrefix:@"documentContent/"])
-    {
-      v14 = [v9 isPrivateZone];
-
-      if (!v14)
-      {
-LABEL_13:
-        v46 = 0u;
-        v47 = 0u;
-        v44 = 0u;
-        v45 = 0u;
-        v20 = [*(*(a1 + 32) + 552) sharedItemHierarchyIDs];
-        v21 = [v20 countByEnumeratingWithState:&v44 objects:v48 count:16];
-        if (v21)
-        {
-          v22 = v21;
-          v23 = *v45;
-          do
-          {
-            v24 = 0;
-            do
-            {
-              if (*v45 != v23)
-              {
-                objc_enumerationMutation(v20);
-              }
-
-              [v11 addObject:*(*(&v44 + 1) + 8 * v24++)];
-            }
-
-            while (v22 != v24);
-            v22 = [v20 countByEnumeratingWithState:&v44 objects:v48 count:16];
-          }
-
-          while (v22);
-        }
-
-        if (!v10)
-        {
-          __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_cold_2();
-        }
-
-        v25 = objc_alloc(MEMORY[0x277CBC3E0]);
-        v26 = [v11 allObjects];
-        v27 = [v25 initWithRecordIDs:v26];
-
-        v28 = [MEMORY[0x277CBC5A0] desiredKeysWithMask:185];
-        [v27 setDesiredKeys:v28];
-
-        [v27 setShouldFetchAssetContent:0];
-        v29 = [v12 callbackQueue];
-        [v27 setCallbackQueue:v29];
-
-        v38 = MEMORY[0x277D85DD0];
-        v39 = 3221225472;
-        v40 = __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_179;
-        v41 = &unk_2785030E8;
-        v43 = *(a1 + 40);
-        v30 = v12;
-        v42 = v30;
-        [v27 setFetchRecordsCompletionBlock:&v38];
-        v31 = [v9 isPrivateZone];
-        v32 = *(a1 + 32);
-        if (v31)
-        {
-          v33 = [v32[76] transferSyncContext];
-          [v32 addSubOperation:v27 overrideContext:v33 allowsCellularAccess:0];
-        }
-
-        else
-        {
-          [v32 addSubOperation:v27];
-        }
-
-        goto LABEL_32;
-      }
-
-      v15 = [v10 recordName];
-      v13 = [v15 substringFromIndex:{objc_msgSend(@"documentContent/", "length")}];
-
-      v16 = [@"documentStructure/" stringByAppendingString:v13];
-      v17 = objc_alloc(MEMORY[0x277CBC5D0]);
-      v18 = [v10 zoneID];
-      v19 = [v17 initWithRecordName:v16 zoneID:v18];
-
-      [v11 addObject:v19];
-    }
-
-    goto LABEL_13;
+    [v3 _performNextStep];
+    return;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = [v3 _isDocumentLinkInsideFolderShare];
+  v5 = [*(*(a1 + 32) + 552) sharedItemHierarchyIDs];
+  v6 = [v5 count];
+  if (v4)
+  {
+    v7 = 2;
+  }
 
-  [v3 _performNextStep];
+  else
+  {
+    v7 = 1;
+  }
+
+  if (v6 <= v7)
+  {
+    if (![*(a1 + 32) _isOwner] || (objc_msgSend(*(*(a1 + 32) + 568), "isEqualToItemID:", *(*(a1 + 32) + 576)) & 1) == 0 && (objc_msgSend(*(*(a1 + 32) + 600), "serverItemByItemID:", *(*(a1 + 32) + 576)), v33 = objc_claimAutoreleasedReturnValue(), v33, v33))
+    {
+      v34 = brc_bread_crumbs();
+      v35 = brc_default_log();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      {
+        __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_cold_1();
+      }
+
+      [*(a1 + 32) _performNextStep];
+      return;
+    }
+  }
+
+  v8 = [*(*(a1 + 32) + 600) serverZone];
+  v9 = [*(*(a1 + 32) + 552) rootRecordID];
+  v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v11 = [*(*(a1 + 32) + 600) fetchRecordSubResourcesWithParentOperation:*(a1 + 32) pendingChangesStream:0 contentRecordsFetchedInline:1 sessionContext:*(*(a1 + 32) + 256)];
+  [v10 addObject:v9];
+  [v10 addObject:*(*(a1 + 32) + 544)];
+  v12 = [v9 recordName];
+  if (![v12 hasPrefix:@"documentContent/"])
+  {
+    goto LABEL_12;
+  }
+
+  v13 = [v8 isPrivateZone];
+
+  if (v13)
+  {
+    v14 = [v9 recordName];
+    v12 = [v14 substringFromIndex:{objc_msgSend(@"documentContent/", "length")}];
+
+    v15 = [@"documentStructure/" stringByAppendingString:v12];
+    v16 = objc_alloc(MEMORY[0x277CBC5D0]);
+    v17 = [v9 zoneID];
+    v18 = [v16 initWithRecordName:v15 zoneID:v17];
+
+    [v10 addObject:v18];
+LABEL_12:
+  }
+
+  v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v19 = [*(*(a1 + 32) + 552) sharedItemHierarchyIDs];
+  v20 = [v19 countByEnumeratingWithState:&v42 objects:v46 count:16];
+  if (v20)
+  {
+    v21 = v20;
+    v22 = *v43;
+    do
+    {
+      v23 = 0;
+      do
+      {
+        if (*v43 != v22)
+        {
+          objc_enumerationMutation(v19);
+        }
+
+        [v10 addObject:*(*(&v42 + 1) + 8 * v23++)];
+      }
+
+      while (v21 != v23);
+      v21 = [v19 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    }
+
+    while (v21);
+  }
+
+  if (!v9)
+  {
+    __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_cold_2();
+  }
+
+  v24 = objc_alloc(MEMORY[0x277CBC3E0]);
+  v25 = [v10 allObjects];
+  v26 = [v24 initWithRecordIDs:v25];
+
+  v27 = [MEMORY[0x277CBC5A0] desiredKeysWithMask:185];
+  [v26 setDesiredKeys:v27];
+
+  [v26 setShouldFetchAssetContent:0];
+  v28 = [v11 callbackQueue];
+  [v26 setCallbackQueue:v28];
+
+  v36 = MEMORY[0x277D85DD0];
+  v37 = 3221225472;
+  v38 = __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_179;
+  v39 = &unk_2785030E8;
+  v41 = *(a1 + 40);
+  v29 = v11;
+  v40 = v29;
+  [v26 setFetchRecordsCompletionBlock:&v36];
+  v30 = [v8 isPrivateZone];
+  v31 = *(a1 + 32);
+  if (v30)
+  {
+    v32 = [v31[76] transferSyncContext];
+    [v31 addSubOperation:v26 overrideContext:v32 allowsCellularAccess:0];
+  }
+
+  else
+  {
+    [v31 addSubOperation:v26];
+  }
 }
 
 void __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_179(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -2526,45 +2482,43 @@ void __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithComplet
 
   else
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v8 = [a2 allValues];
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(a1 + 32) addRecord:*(*(&v18 + 1) + 8 * i)];
+          [*(a1 + 32) addRecord:*(*(&v17 + 1) + 8 * i)];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
     }
 
     v13 = *(a1 + 32);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_180;
-    v15[3] = &unk_278500048;
-    v16 = v13;
-    v17 = *(a1 + 40);
-    [v16 notifyWhenRecordsAreFetchedAndFinish:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_180;
+    v14[3] = &unk_278500048;
+    v15 = v13;
+    v16 = *(a1 + 40);
+    [v15 notifyWhenRecordsAreFetchedAndFinish:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_180(uint64_t a1)
@@ -2609,20 +2563,8 @@ void __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithComplet
 
 - (void)_locateSharedItemOnRecipient_step
 {
-  if ([(BRCSharingAcceptFlowOperation *)self _isOwner])
+  if (-[BRCSharingAcceptFlowOperation _isOwner](self, "_isOwner") || (-[BRCClientZone serverZone](self->_clientZone, "serverZone"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 state], -[BRCAppLibrary defaultClientZone](self->_appLibrary, "defaultClientZone"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "serverZone"), v6 = objc_claimAutoreleasedReturnValue(), v7 = v4 & objc_msgSend(v6, "state"), v6, v5, v3, (v7 & 4) != 0))
   {
-    goto LABEL_3;
-  }
-
-  serverZone = [(BRCClientZone *)self->_clientZone serverZone];
-  state = [serverZone state];
-  defaultClientZone = [(BRCAppLibrary *)self->_appLibrary defaultClientZone];
-  serverZone2 = [defaultClientZone serverZone];
-  v7 = state & [serverZone2 state];
-
-  if ((v7 & 4) != 0)
-  {
-LABEL_3:
 
     [(BRCSharingAcceptFlowOperation *)self _performNextStep];
   }
@@ -2652,7 +2594,7 @@ uint64_t __66__BRCSharingAcceptFlowOperation__locateSharedItemOnRecipient_step__
 
 void __66__BRCSharingAcceptFlowOperation__locateSharedItemOnRecipient_step__block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 600) serverItemByItemID:*(*(a1 + 32) + 568)];
   if (v2)
   {
@@ -2675,15 +2617,15 @@ void __66__BRCSharingAcceptFlowOperation__locateSharedItemOnRecipient_step__bloc
       v12 = [v8 locateRecordIfNecessaryForRecordID:v11 isUserWaiting:1];
       if (v12)
       {
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __66__BRCSharingAcceptFlowOperation__locateSharedItemOnRecipient_step__block_invoke_186;
-        v16[3] = &unk_2784FFD80;
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __66__BRCSharingAcceptFlowOperation__locateSharedItemOnRecipient_step__block_invoke_186;
+        v15[3] = &unk_2784FFD80;
         v13 = v11;
         v14 = *(a1 + 32);
-        v17 = v13;
-        v18 = v14;
-        [v12 addLocateRecordCompletionBlock:v16];
+        v16 = v13;
+        v17 = v14;
+        [v12 addLocateRecordCompletionBlock:v15];
       }
 
       else
@@ -2700,19 +2642,17 @@ void __66__BRCSharingAcceptFlowOperation__locateSharedItemOnRecipient_step__bloc
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v6;
+      v19 = v6;
       _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] Couldn't create a directory fault%@", buf, 0xCu);
     }
 
     [*(a1 + 32) _performNextStep];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __66__BRCSharingAcceptFlowOperation__locateSharedItemOnRecipient_step__block_invoke_186(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = brc_bread_crumbs();
   v7 = brc_default_log();
@@ -2720,24 +2660,23 @@ void __66__BRCSharingAcceptFlowOperation__locateSharedItemOnRecipient_step__bloc
   {
     v8 = @"fail";
     v9 = *(a1 + 32);
-    v11 = 138413058;
+    v10 = 138413058;
     if (a2)
     {
       v8 = @"success";
     }
 
-    v12 = v9;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_INFO, "[INFO] Fetch share alias for share alias record ID [%@]: %@ with error %@%@", &v11, 0x2Au);
+    v11 = v9;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_INFO, "[INFO] Fetch share alias for share alias record ID [%@]: %@ with error %@%@", &v10, 0x2Au);
   }
 
   [*(a1 + 40) _performNextStep];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_waitForSharedItemToSyncDownOnRecipient_step
@@ -2748,7 +2687,7 @@ void __66__BRCSharingAcceptFlowOperation__locateSharedItemOnRecipient_step__bloc
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    [(BRCSharingAcceptFlowOperation *)v7 _waitForSharedItemToSyncDownOnOwner_step];
+    [BRCSharingAcceptFlowOperation _waitForSharedItemToSyncDownOnOwner_step];
   }
 
   if ([(BRCSharingAcceptFlowOperation *)self _isOwner])
@@ -2803,7 +2742,7 @@ void __77__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnRecipient
     v5 = brc_default_log();
     if (os_log_type_enabled(v5, 0x90u))
     {
-      __77__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnRecipient_step__block_invoke_2_cold_1(a1);
+      __77__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnRecipient_step__block_invoke_2_cold_1();
     }
 
     v6 = MEMORY[0x277CCA9B8];
@@ -2845,7 +2784,6 @@ uint64_t __77__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnRecip
 
 - (void)_waitForSharedItemToBeOnDiskOnRecipient_step
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2853,15 +2791,13 @@ uint64_t __77__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnRecip
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _linkFileObjectID%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _linkFileObjectID%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __77__BRCSharingAcceptFlowOperation__waitForSharedItemToBeOnDiskOnRecipient_step__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2871,25 +2807,23 @@ void __77__BRCSharingAcceptFlowOperation__waitForSharedItemToBeOnDiskOnRecipient
     {
       v6 = *(*(a1 + 32) + 584);
       *buf = 138412802;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v3;
-      v15 = 2112;
-      v16 = v4;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v3;
+      v14 = 2112;
+      v15 = v4;
       _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] Couldn't get user visible file on %@ - %@%@", buf, 0x20u);
     }
   }
 
   v7 = *(a1 + 32);
   v8 = *(v7 + 256);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __77__BRCSharingAcceptFlowOperation__waitForSharedItemToBeOnDiskOnRecipient_step__block_invoke_194;
-  v10[3] = &unk_278500F30;
-  v10[4] = v7;
-  [v8 performAsyncOnClientReadWriteDatabaseWorkloop:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __77__BRCSharingAcceptFlowOperation__waitForSharedItemToBeOnDiskOnRecipient_step__block_invoke_194;
+  v9[3] = &unk_278500F30;
+  v9[4] = v7;
+  [v8 performAsyncOnClientReadWriteDatabaseWorkloop:v9];
 }
 
 void __77__BRCSharingAcceptFlowOperation__waitForSharedItemToBeOnDiskOnRecipient_step__block_invoke_194(uint64_t a1)
@@ -2925,15 +2859,14 @@ void __77__BRCSharingAcceptFlowOperation__waitForSharedItemToBeOnDiskOnRecipient
 
 - (void)_locateSharedItemOnDisk_step
 {
-  OUTLINED_FUNCTION_21(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx Locate shared folder on disk%@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx Locate shared folder on disk%@");
 }
 
 void __61__BRCSharingAcceptFlowOperation__locateSharedItemOnDisk_step__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 600) itemByItemID:*(*(a1 + 32) + 568)];
   if ([v2 isOnDisk])
   {
@@ -2942,12 +2875,12 @@ void __61__BRCSharingAcceptFlowOperation__locateSharedItemOnDisk_step__block_inv
 
     v4 = *(a1 + 32);
     v5 = [v2 fileObjectID];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __61__BRCSharingAcceptFlowOperation__locateSharedItemOnDisk_step__block_invoke_195;
-    v16[3] = &unk_2784FF540;
-    v16[4] = *(a1 + 32);
-    [v4 _fetchOpenInfoOnFileObjectID:v5 completion:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __61__BRCSharingAcceptFlowOperation__locateSharedItemOnDisk_step__block_invoke_195;
+    v15[3] = &unk_2784FF540;
+    v15[4] = *(a1 + 32);
+    [v4 _fetchOpenInfoOnFileObjectID:v5 completion:v15];
   }
 
   else
@@ -2958,9 +2891,9 @@ void __61__BRCSharingAcceptFlowOperation__locateSharedItemOnDisk_step__block_inv
     {
       v8 = *(*(a1 + 32) + 568);
       *buf = 138412546;
-      v18 = v8;
-      v19 = 2112;
-      v20 = v6;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v6;
       _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ wasn't able to be found on disk.  We must have reset or be broken structure or it was deleted locally.%@", buf, 0x16u);
     }
 
@@ -2982,8 +2915,6 @@ void __61__BRCSharingAcceptFlowOperation__locateSharedItemOnDisk_step__block_inv
     v14 = [MEMORY[0x277CCA9B8] brc_errorAcceptShareFailedWithUnderlyingError:v5];
     [v13 _completeWithError:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __61__BRCSharingAcceptFlowOperation__locateSharedItemOnDisk_step__block_invoke_195(uint64_t a1, uint64_t a2)
@@ -3005,23 +2936,56 @@ void __61__BRCSharingAcceptFlowOperation__locateSharedItemOnDisk_step__block_inv
 
 - (void)_prepareToDownloadSharedDocument_step
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Going to download a dataless item that is already accepted%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  if (self->_liveFileURL && [(BRCSharingAcceptFlowOperation *)self _isOwnerOrShareAlreadyAccepted])
+  {
+    liveFileURL = self->_liveFileURL;
+    v13 = 0;
+    v4 = [(NSURL *)liveFileURL br_isDatalessWithError:&v13];
+    v5 = v13;
+    if (v4 && [v4 BOOLValue])
+    {
+      v6 = brc_bread_crumbs();
+      v7 = brc_default_log();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      {
+        [BRCSharingAcceptFlowOperation _prepareToDownloadSharedDocument_step];
+      }
+
+      defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+      v9 = self->_liveFileURL;
+      v12 = v5;
+      v10 = [defaultManager startDownloadingUbiquitousItemAtURL:v9 error:&v12];
+      v11 = v12;
+
+      if ((v10 & 1) == 0)
+      {
+        [(BRCSharingAcceptFlowOperation *)self _completeWithError:v11];
+      }
+    }
+
+    else
+    {
+      v11 = v5;
+    }
+  }
+
+  [(BRCSharingAcceptFlowOperation *)self _performNextStep];
 }
 
 - (void)_setSpotlightAttribute_step
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] _setSpotlightAttribute is not relevant in FPFS%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = brc_bread_crumbs();
+  v4 = brc_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCSharingAcceptFlowOperation _setSpotlightAttribute_step];
+  }
+
+  [(BRCSharingAcceptFlowOperation *)self _performNextStep];
 }
 
 - (void)_openSharedItemIfStillNeeded_step
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3029,10 +2993,8 @@ void __61__BRCSharingAcceptFlowOperation__locateSharedItemOnDisk_step__block_inv
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _liveFileURL%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _liveFileURL%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_runningShareIDs
@@ -3056,7 +3018,6 @@ uint64_t __49__BRCSharingAcceptFlowOperation__runningShareIDs__block_invoke()
 
 - (void)_completeWithError:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3064,15 +3025,12 @@ uint64_t __49__BRCSharingAcceptFlowOperation__runningShareIDs__block_invoke()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: error _completeWithError must be called only in case we should complete with an error%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: error _completeWithError must be called only in case we should complete with an error%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_completeWithError:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3080,15 +3038,12 @@ uint64_t __49__BRCSharingAcceptFlowOperation__runningShareIDs__block_invoke()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: error.underlyingErrors.count == 1%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: error.underlyingErrors.count == 1%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_completeWithError:.cold.3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3096,40 +3051,19 @@ uint64_t __49__BRCSharingAcceptFlowOperation__runningShareIDs__block_invoke()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _shareMetadata%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _shareMetadata%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_completeWithError:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_20(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_completeWithError:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] network is unreachable, replacing error with generic network error%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] fallback to iCloud Web with reason: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_2_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3137,32 +3071,27 @@ void __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_2_col
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: !(goToAppStore && openWebPreview)%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: !(goToAppStore && openWebPreview)%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_2_cold_2()
 {
   OUTLINED_FUNCTION_17_3();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = brc_bread_crumbs();
   OUTLINED_FUNCTION_1_2();
   v2 = brc_default_log();
   if (OUTLINED_FUNCTION_12(v2))
   {
     OUTLINED_FUNCTION_16_2();
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: self->_shareURL%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: self->_shareURL%@", v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_9_4();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_46_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3170,15 +3099,12 @@ void __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_46_co
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: !(goToSettings && openWebPreview)%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: !(goToSettings && openWebPreview)%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_47_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3186,15 +3112,12 @@ void __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_47_co
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: !(goToSettings && openWebPreview)%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: !(goToSettings && openWebPreview)%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithResult:error:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3202,142 +3125,86 @@ void __52__BRCSharingAcceptFlowOperation__completeWithError___block_invoke_47_co
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: self.cancelled || _hadProcessedCompletionError completedWithResult:error: called with error directly. Should call _completeWithError: instead.%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: self.cancelled || _hadProcessedCompletionError completedWithResult:error: called with error directly. Should call _completeWithError: instead.%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)finishWithResult:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: Session is not cancelled but DBs serial queue is nil!%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __56__BRCSharingAcceptFlowOperation_finishWithResult_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] delete share acceptation fault because operation failed%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isOwner
 {
   OUTLINED_FUNCTION_17_3();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = brc_bread_crumbs();
   OUTLINED_FUNCTION_1_2();
   v2 = brc_default_log();
   if (OUTLINED_FUNCTION_12(v2))
   {
     OUTLINED_FUNCTION_16_2();
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _shareMetadata%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _shareMetadata%@", v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_9_4();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isOwnerOrShareAlreadyAccepted
 {
   OUTLINED_FUNCTION_17_3();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = brc_bread_crumbs();
   OUTLINED_FUNCTION_1_2();
   v2 = brc_default_log();
   if (OUTLINED_FUNCTION_12(v2))
   {
     OUTLINED_FUNCTION_16_2();
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _shareMetadata%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _shareMetadata%@", v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_9_4();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isiWorkShare
 {
   OUTLINED_FUNCTION_17_3();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = brc_bread_crumbs();
   OUTLINED_FUNCTION_1_2();
   v2 = brc_default_log();
   if (OUTLINED_FUNCTION_12(v2))
   {
     OUTLINED_FUNCTION_16_2();
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _shareURL%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _shareURL%@", v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_9_4();
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)openResourceOperationDidComplete:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Open application completed successfully%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openResourceOperation:didFailWithError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_20(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __55__BRCSharingAcceptFlowOperation__startShareAccept_step__block_invoke_cold_1()
+void __73__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnOwner_step__block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: No operation error and no share id%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __55__BRCSharingAcceptFlowOperation__startShareAccept_step__block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] accept operation completed with success%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __73__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnOwner_step__block_invoke_2_cold_1(uint64_t a1)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(*(a1 + 32) + 568);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_9();
-  _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x16u);
 }
 
 void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_17_3();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = brc_bread_crumbs();
   OUTLINED_FUNCTION_1_2();
   v2 = brc_default_log();
   if (OUTLINED_FUNCTION_12(v2))
   {
     OUTLINED_FUNCTION_16_2();
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: self->_shareURL%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: self->_shareURL%@", v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_9_4();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invoke_cold_2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3345,120 +3212,33 @@ void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invo
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: self->_shareMetadata%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: self->_shareMetadata%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invoke_cold_3(uint64_t *a1)
+void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx Preparing side fault%@");
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invoke_157_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] found share item %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx Preparing side fault%@");
 }
 
 void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invoke_157_cold_2()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invoke_157_cold_3()
+- (void)_createServerFaultIfPossibleWithCompletion:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] share item %@ is in transient state, should try again later%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invoke_157_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: item isn't a document or directory%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invoke_157_cold_5()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] created shared item-to-be in db: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invoke_157_cold_6()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] created link shared item-to-be in db: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __60__BRCSharingAcceptFlowOperation__createSideFaultOnDisk_step__block_invoke_157_cold_7()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: document doesn't exists anymore%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __56__BRCSharingAcceptFlowOperation__finishShareAccept_step__block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Share accept finished with error %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_createServerFaultIfPossibleWithCompletion:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_21(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_21(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] ┏%llx Creating server fault if possible%@");
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_createServerFaultIfPossibleWithCompletion:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: _clientZone%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_createServerFaultIfPossibleWithCompletion:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: _linkItemID%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] We don't have need to fetch deeply into the folder. Letting the list directory take care of fetching%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] ┏%llx Creating server fault if possible%@");
 }
 
 void __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_cold_2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -3466,44 +3246,15 @@ void __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithComplet
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: rootRecordID%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: rootRecordID%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_179_cold_1()
+void __77__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnRecipient_step__block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Failed to fetch record for server fault - %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_180_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Finished fetching records for server fault%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __76__BRCSharingAcceptFlowOperation__createServerFaultIfPossibleWithCompletion___block_invoke_180_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: couldn't save to server truth when creating server fault%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __77__BRCSharingAcceptFlowOperation__waitForSharedItemToSyncDownOnRecipient_step__block_invoke_2_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(*(a1 + 32) + 568);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_20(v2, v3, v4, v5, v6);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_20(v0, v1, v2, v3, v4);
 }
 
 @end

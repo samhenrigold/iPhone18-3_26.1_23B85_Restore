@@ -9,7 +9,7 @@
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count
 {
   objectsCopy = objects;
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   if (state->var0)
   {
     v7 = state->var3[0];
@@ -34,9 +34,9 @@
   v14 = objc_autoreleasePoolPush();
   *buf = v13;
   v16 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v15, buf, 1);
-  v48 = 0;
-  v18 = objc_msgSend_queryInteractionsUsingPredicate_sortDescriptors_limit_offset_error_(v11, v17, v12, v16, batchSize, v7, &v48);
-  v19 = v48;
+  v47 = 0;
+  v18 = objc_msgSend_queryInteractionsUsingPredicate_sortDescriptors_limit_offset_error_(v11, v17, v12, v16, batchSize, v7, &v47);
+  v19 = v47;
 
   objc_autoreleasePoolPop(v14);
   v20 = 0;
@@ -54,17 +54,17 @@
   v27 = self->_batch;
   if (v27)
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v28 = v27;
-    v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v44, v49, 16);
+    v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v43, v48, 16);
     if (v30)
     {
       v32 = v30;
       v33 = 0;
-      v34 = *v45;
+      v34 = *v44;
       v35 = 0;
       while (2)
       {
@@ -81,7 +81,7 @@
 
         do
         {
-          if (*v45 != v34)
+          if (*v44 != v34)
           {
             objc_enumerationMutation(v28);
           }
@@ -98,13 +98,13 @@
             goto LABEL_25;
           }
 
-          *objectsCopy++ = *(*(&v44 + 1) + 8 * v36);
+          *objectsCopy++ = *(*(&v43 + 1) + 8 * v36);
           ++v35;
           ++v36;
         }
 
         while (v32 != v36);
-        v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v31, &v44, v49, 16);
+        v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v31, &v43, v48, 16);
         v33 = v35;
         if (v32)
         {
@@ -138,7 +138,6 @@ LABEL_25:
     v35 = 0;
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   return v35;
 }
 

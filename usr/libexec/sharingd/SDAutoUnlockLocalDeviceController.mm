@@ -2,6 +2,7 @@
 - (BOOL)faceIDEnabled;
 - (BOOL)supportsPeriocular;
 - (SDAutoUnlockLocalDeviceController)initWithQueue:(id)queue;
+- (void)deviceUnlockedWithMask:(BOOL)mask;
 - (void)handleBioLockoutStateChanged:(unint64_t)changed;
 - (void)lockDevice;
 - (void)lockWithBioLockOut;
@@ -194,6 +195,20 @@ LABEL_12:
   }
 
   sub_1001EA8AC();
+}
+
+- (void)deviceUnlockedWithMask:(BOOL)mask
+{
+  maskCopy = mask;
+  v5 = auto_unlock_log();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6[0] = 67109120;
+    v6[1] = maskCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Stored last unlocked with mask: %d", v6, 8u);
+  }
+
+  [(SDAutoUnlockLocalDeviceController *)self setLastUnlockUsedMask:maskCopy];
 }
 
 - (void)handleBioLockoutStateChanged:(unint64_t)changed

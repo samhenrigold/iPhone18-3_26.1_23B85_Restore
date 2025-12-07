@@ -232,34 +232,35 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v12.receiver = self;
-  v12.super_class = PhoneRootViewController;
-  [(PhoneRootViewController *)&v12 viewWillAppear:appear];
-  v4 = PHDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v14.receiver = self;
+  v14.super_class = PhoneRootViewController;
+  v4 = [(PhoneRootViewController *)&v14 viewWillAppear:appear];
+  v5 = PHDefaultLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Observing foreground notifications via PhoneRootViewController viewWillAppear", v11, 2u);
+    *v13 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Observing foreground notifications via PhoneRootViewController viewWillAppear", v13, 2u);
   }
 
-  v5 = +[NSNotificationCenter defaultCenter];
-  [v5 addObserver:self selector:"handleApplicationWillEnterForegroundNotification:" name:UIApplicationWillEnterForegroundNotification object:0];
+  v6 = +[NSNotificationCenter defaultCenter];
+  [v6 addObserver:self selector:"handleApplicationWillEnterForegroundNotification:" name:UIApplicationWillEnterForegroundNotification object:0];
 
-  if ([UIApp alwaysShowLocalVideo])
+  alwaysShowLocalVideo = [UIApp alwaysShowLocalVideo];
+  if (alwaysShowLocalVideo)
   {
-    v6 = PHDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = PHDefaultLog(alwaysShowLocalVideo);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Observing orientation notifications via PhoneRootViewController viewWillAppear", v11, 2u);
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Observing orientation notifications via PhoneRootViewController viewWillAppear", v13, 2u);
     }
 
-    v7 = +[NSNotificationCenter defaultCenter];
-    v8 = +[PHOrientationMonitorKeys notificationEvent];
-    [v7 addObserver:self selector:"handleOrientationNotification:" name:v8 object:0];
+    v9 = +[NSNotificationCenter defaultCenter];
+    v10 = +[PHOrientationMonitorKeys notificationEvent];
+    [v9 addObserver:self selector:"handleOrientationNotification:" name:v10 object:0];
 
-    v9 = objc_opt_new();
-    compose = [v9 compose];
+    v11 = objc_opt_new();
+    compose = [v11 compose];
     [compose setOrientationEventsEnabled:1];
   }
 }
@@ -273,7 +274,7 @@
 
 - (void)handleApplicationWillEnterForegroundNotification:(id)notification
 {
-  v4 = PHDefaultLog();
+  v4 = PHDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -289,36 +290,37 @@
   _screen = [view _screen];
 
   v6 = +[UIScreen mainScreen];
-  if ([UIApp alwaysShowLocalVideo])
+  alwaysShowLocalVideo = [UIApp alwaysShowLocalVideo];
+  if (alwaysShowLocalVideo)
   {
-    v7 = _screen == v6;
+    v8 = _screen == v6;
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  if (!v7)
+  if (!v8)
   {
-    v8 = PHDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = PHDefaultLog(alwaysShowLocalVideo);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "PhoneRootViewController handleOrientationNotification", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PhoneRootViewController handleOrientationNotification", buf, 2u);
     }
 
-    v9 = objc_opt_new();
-    compose = [v9 compose];
+    v10 = objc_opt_new();
+    compose = [v10 compose];
 
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = __57__PhoneRootViewController_handleOrientationNotification___block_invoke;
-    v12[3] = &unk_1002852E0;
-    v12[4] = self;
-    v13 = compose;
-    v11 = compose;
-    [UIView animateWithDuration:v12 animations:0.300000012];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = __57__PhoneRootViewController_handleOrientationNotification___block_invoke;
+    v13[3] = &unk_1002852E0;
+    v13[4] = self;
+    v14 = compose;
+    v12 = compose;
+    [UIView animateWithDuration:v13 animations:0.300000012];
   }
 }
 
@@ -332,11 +334,11 @@
 
     if (!windowScene)
     {
-      v7 = PHDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = PHDefaultLog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to orient video view controller because there's no window scene to determine a valid fallback orientation", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to orient video view controller because there's no window scene to determine a valid fallback orientation", v9, 2u);
       }
     }
   }
@@ -537,12 +539,12 @@
   [UIView animateWithDuration:0 delay:v14 options:v13 animations:v15 completion:0.0];
 }
 
-uint64_t __67__PhoneRootViewController_showContentViewAnimated_completionBlock___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __67__PhoneRootViewController_showContentViewAnimated_completionBlock___block_invoke(uint64_t a1, const char *a2)
 {
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 transform];
+    objc_msgSend_transform(v4);
   }
 
   else
@@ -651,7 +653,7 @@ void __67__PhoneRootViewController_hideContentViewAnimated_completionBlock___blo
   v5 = v4;
   if (v4)
   {
-    [v4 transform];
+    objc_msgSend_transform(v4);
   }
 
   else
@@ -737,28 +739,28 @@ void __67__PhoneRootViewController_hideContentViewAnimated_completionBlock___blo
 
 - (void)displayUIAnimated:(BOOL)animated
 {
-  if ([UIApp tabBarCanSlide])
+  tabBarCanSlide = [UIApp tabBarCanSlide];
+  if (tabBarCanSlide)
   {
-    [(PhoneRootViewController *)self showContentViewAnimated:0 completionBlock:0];
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PHDefaultLog([(PhoneRootViewController *)self showContentViewAnimated:0 completionBlock:0]);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 0;
-      v5 = "Showing contents view of PhoneRootViewController.";
-      v6 = &v8;
+      v9 = 0;
+      v6 = "Showing contents view of PhoneRootViewController.";
+      v7 = &v9;
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, v5, v6, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v6, v7, 2u);
     }
   }
 
   else
   {
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PHDefaultLog(tabBarCanSlide);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 0;
-      v5 = "Skipping showing contents view of PhoneRootViewController.";
-      v6 = &v7;
+      v8 = 0;
+      v6 = "Skipping showing contents view of PhoneRootViewController.";
+      v7 = &v8;
       goto LABEL_6;
     }
   }

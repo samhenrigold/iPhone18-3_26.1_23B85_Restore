@@ -70,10 +70,9 @@ void __36__DMTInstallProfileOperation_cancel__block_invoke(uint64_t a1)
 
 - (void)installProfile
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "%{public}@: Failed to install profile: %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24891B000, v0, OS_LOG_TYPE_ERROR, "%{public}@: Failed to install profile: %{public}@", v1, 0x16u);
 }
 
 @end

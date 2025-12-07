@@ -18,6 +18,7 @@
 - (void)didTapCancelBarButtonItem:(id)item;
 - (void)didTapPrimaryButton:(id)button;
 - (void)didTapSecondaryButton:(id)button;
+- (void)signInController:(id)controller didCompleteWithSuccess:(BOOL)success error:(id)error;
 - (void)signInControllerDidCancel:(id)cancel;
 - (void)viewDidLoad;
 @end
@@ -91,11 +92,6 @@
 - (void)_setUp
 {
   [(MBPrebuddyGettingStartedViewController *)self _configureButtonTray];
-  if (!self->_needsAccountSignIn)
-  {
-    self->_altDSIDForHSA2Upgrade;
-  }
-
   v3 = MBLocalizedStringFromTable();
   v4 = MBLocalizedStringFromTable();
   v5 = [UIImage systemImageNamed:@"icloud.and.arrow.up"];
@@ -147,8 +143,8 @@
   if (backItem)
   {
 
-LABEL_7:
-    goto LABEL_8;
+LABEL_5:
+    goto LABEL_6;
   }
 
   v24 = +[MBPrebuddyManager hasPrebuddyFollowUp];
@@ -158,10 +154,10 @@ LABEL_7:
     navigationController = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:1 target:self action:"didTapCancelBarButtonItem:"];
     navigationBar = [(MBPrebuddyGettingStartedViewController *)self navigationItem];
     [navigationBar setLeftBarButtonItem:navigationController];
-    goto LABEL_7;
+    goto LABEL_5;
   }
 
-LABEL_8:
+LABEL_6:
 }
 
 - (void)_configureButtonTray
@@ -417,7 +413,7 @@ LABEL_8:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Have an empty alt DSID, so cannot do HSA2 upgrade.", buf, 2u);
-        _MBLog();
+        _MBLog(@"E ", "Have an empty alt DSID, so cannot do HSA2 upgrade.");
       }
 
       (*(neededCopy + 2))(neededCopy, 0);
@@ -599,6 +595,49 @@ LABEL_27:
   [(MBPrebuddyGettingStartedViewController *)self presentViewController:v30 animated:1 completion:0];
 }
 
+- (void)signInController:(id)controller didCompleteWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  controllerCopy = controller;
+  v10 = MBGetDefaultLog();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = [NSNumber numberWithBool:successCopy];
+    v12 = v11;
+    if (errorCopy)
+    {
+      v13 = errorCopy;
+    }
+
+    else
+    {
+      v13 = @"nil error";
+    }
+
+    *buf = 138412546;
+    v17 = v11;
+    v18 = 2112;
+    v19 = v13;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "signInController:didCompleteWithSuccess:error: %@ %@", buf, 0x16u);
+
+    v14 = [NSNumber numberWithBool:successCopy];
+    _MBLog(@"Df", "signInController:didCompleteWithSuccess:error: %@ %@", v14, v13);
+  }
+
+  [controllerCopy dismissViewControllerAnimated:1 completion:0];
+  if (successCopy)
+  {
+    self->_didSignIn = 1;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100008120;
+    v15[3] = &unk_10001C6D0;
+    v15[4] = self;
+    [(MBPrebuddyGettingStartedViewController *)self _checkEligibilityAndUpgradeHSA2IfNeeded:v15];
+  }
+}
+
 - (void)signInControllerDidCancel:(id)cancel
 {
   cancelCopy = cancel;
@@ -607,7 +646,7 @@ LABEL_27:
   {
     *v5 = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "signInControllerDidCancel:", v5, 2u);
-    _MBLog();
+    _MBLog(@"Df", "signInControllerDidCancel:");
   }
 
   [cancelCopy dismissViewControllerAnimated:1 completion:0];

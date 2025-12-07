@@ -26,11 +26,11 @@
   swift_unknownObjectRetain();
   ctxCopy = ctx;
 
-  v11 = sub_1002D96A4(categoryCopy, feedCategory, ctxCopy, self);
+  v12 = sub_1002D96A4(categoryCopy, feedCategory, ctxCopy, self, v11);
 
   swift_unknownObjectRelease();
 
-  return v11;
+  return v12;
 }
 
 - (id)unsafeIngestFeedCategory:(id)category ctx:(id)ctx

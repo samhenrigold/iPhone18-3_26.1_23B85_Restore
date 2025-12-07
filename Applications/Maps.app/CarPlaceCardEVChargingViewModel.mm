@@ -68,7 +68,7 @@
 
 - (_TtC4Maps31CarPlaceCardEVChargingViewModel)initWithMapItemIdentifier:(id)identifier plugs:(id)plugs initialAggregatedAvailabilityInfo:(id)info virtualGarageService:(id)service
 {
-  sub_100014C84(0, &qword_10190EDD0);
+  sub_100014C84(0, &qword_10190EDD0, GEOEVChargerPlug_ptr);
   v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   identifierCopy = identifier;
   infoCopy = info;
@@ -85,7 +85,7 @@
 
 - (void)evChargerAvailabilityDownloader:(id)downloader didDownloadAvailabilityWithPlugs:(id)plugs
 {
-  sub_100014C84(0, &qword_10190EDD0);
+  sub_100014C84(0, &qword_10190EDD0, GEOEVChargerPlug_ptr);
   *(self + OBJC_IVAR____TtC4Maps31CarPlaceCardEVChargingViewModel_plugs) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
 

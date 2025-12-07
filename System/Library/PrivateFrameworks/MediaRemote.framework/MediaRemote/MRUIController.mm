@@ -19,24 +19,23 @@
 - (void)setPreferredState:(int64_t)state;
 - (void)setPreferredState:(int64_t)state forBundleIdentifier:(id)identifier;
 - (void)suppressPresentationOverBundleIdentifiers:(id)identifiers;
-- (void)xpcConnection;
 @end
 
 @implementation MRUIController
 
 - (MRUIController)init
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = MRUIController;
-  v2 = [(MRUIController *)&v6 init];
+  v8 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MRUIController;
+  v2 = [(MRUIController *)&v5 init];
   if (v2)
   {
     v3 = _MRLogForCategory(0xBuLL);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v8 = v2;
+      v7 = v2;
       _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRUIController][C] <%p> Initializing external controller.", buf, 0xCu);
     }
 
@@ -45,22 +44,21 @@
     *&v2->_hasNowPlayingActivityAssertion = 256;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (void)_restoreState
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([(MRUIController *)self hasUIAssertions])
   {
     xpcConnection = [(MRUIController *)self xpcConnection];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __31__MRUIController__restoreState__block_invoke;
-    v8[3] = &unk_1E769AFC0;
-    v8[4] = self;
-    v4 = [xpcConnection remoteObjectProxyWithErrorHandler:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __31__MRUIController__restoreState__block_invoke;
+    v7[3] = &unk_1E769AFC0;
+    v7[4] = self;
+    v4 = [xpcConnection remoteObjectProxyWithErrorHandler:v7];
 
     if (v4)
     {
@@ -95,34 +93,86 @@
       [xpcConnection2 invalidate];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __31__MRUIController__restoreState__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _MRLogForCategory(0xBuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 134218242;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRUIController][C] <%p> Server proxy error %@.", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRUIController][C] <%p> Server proxy error %@.", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "[MRUIController][C] <%p> Deallocated while still holding route recommendation assertion.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = _MRLogForCategory(0xBuLL);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    selfCopy = self;
+    _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRUIController][C] <%p> Dealloc.", buf, 0xCu);
+  }
+
+  self->_shouldRestoreState = 0;
+  remoteObjectProxy = [(NSXPCConnection *)self->_xpcConnection remoteObjectProxy];
+  if ([(MRUIController *)self hasLockScreenControlsAssertion])
+  {
+    v5 = _MRLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [MRUIController dealloc];
+    }
+
+    [remoteObjectProxy releaseLockScreenControlsAssertionWithReply:&__block_literal_global_63];
+  }
+
+  if ([(MRUIController *)self hasQuickControlsAssertion])
+  {
+    v6 = _MRLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      [MRUIController dealloc];
+    }
+
+    [remoteObjectProxy releaseQuickControlsAssertionWithReply:&__block_literal_global_66_0];
+  }
+
+  if ([(MRUIController *)self hasScreenMirroringQuickControlsAssertion])
+  {
+    v7 = _MRLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [MRUIController dealloc];
+    }
+
+    [remoteObjectProxy releaseScreenMirroringQuickControlsAssertionWithReply:&__block_literal_global_69_0];
+  }
+
+  if ([(MRUIController *)self hasRouteRecommendationAssertion])
+  {
+    v8 = _MRLogForCategory(0xBuLL);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      [MRUIController dealloc];
+    }
+
+    [remoteObjectProxy releaseRouteRecommendationAssertionWithReply:&__block_literal_global_72_1];
+  }
+
+  [(NSXPCConnection *)self->_xpcConnection invalidate];
+
+  v9.receiver = self;
+  v9.super_class = MRUIController;
+  [(MRUIController *)&v9 dealloc];
 }
 
 - (BOOL)hasUIAssertions
@@ -195,37 +245,35 @@ void __31__MRUIController__restoreState__block_invoke(uint64_t a1, void *a2)
 
 void __31__MRUIController_xpcConnection__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v2 = _MRLogForCategory(0xBuLL);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 134217984;
-      v6 = WeakRetained;
-      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRUIController][C] <%p> XPC interrupted.", &v5, 0xCu);
+      v4 = 134217984;
+      v5 = WeakRetained;
+      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRUIController][C] <%p> XPC interrupted.", &v4, 0xCu);
     }
 
     v3 = [WeakRetained xpcConnection];
     [v3 invalidate];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __31__MRUIController_xpcConnection__block_invoke_172(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v2 = _MRLogForCategory(0xBuLL);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 134217984;
-      v6 = WeakRetained;
-      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRUIController][C] <%p> XPC invalidated.", &v5, 0xCu);
+      v4 = 134217984;
+      v5 = WeakRetained;
+      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRUIController][C] <%p> XPC invalidated.", &v4, 0xCu);
     }
 
     os_unfair_lock_lock(WeakRetained + 4);
@@ -238,8 +286,6 @@ void __31__MRUIController_xpcConnection__block_invoke_172(uint64_t a1)
       [(os_unfair_lock_s *)WeakRetained _restoreState];
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (MRUIServerXPCProtocol)server
@@ -257,20 +303,18 @@ void __31__MRUIController_xpcConnection__block_invoke_172(uint64_t a1)
 
 void __24__MRUIController_server__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = _MRLogForCategory(0xBuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 134218242;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRUIController][C] <%p> Server proxy error %@.", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRUIController][C] <%p> Server proxy error %@.", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)acquireLockScreenControlsAssertion
@@ -406,14 +450,6 @@ void __24__MRUIController_server__block_invoke(uint64_t a1, void *a2)
   requestCopy = request;
   server = [(MRUIController *)self server];
   [server presentVolumeHUDWithRequest:requestCopy];
-}
-
-- (void)xpcConnection
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "[MRUIController][C] <%p> Received nil XPC endpoint. Failing.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

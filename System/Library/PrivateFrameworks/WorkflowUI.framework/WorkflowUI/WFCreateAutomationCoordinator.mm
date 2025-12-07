@@ -798,36 +798,36 @@ id __131__WFCreateAutomationCoordinator_buildViewControllerForHomeTriggerChooser
   v3 = a2;
   if (!v3)
   {
-    v11 = [MEMORY[0x277CCA890] currentHandler];
-    [v11 handleFailureInMethod:a1[5] object:a1[4] file:@"WFCreateAutomationCoordinator.m" lineNumber:137 description:{@"Invalid parameter not satisfying: %@", @"home"}];
+    v12 = [MEMORY[0x277CCA890] currentHandler];
+    [v12 handleFailureInMethod:a1[5] object:a1[4] file:@"WFCreateAutomationCoordinator.m" lineNumber:137 description:{@"Invalid parameter not satisfying: %@", @"home"}];
   }
 
   v4 = [(objc_class *)getHFHomeKitDispatcherClass() sharedDispatcher];
-  [v4 setSelectedHome:v3 userInitiated:0];
-  v5 = [objc_alloc(getHUTriggerTypePickerViewControllerClass()) initWithActionSetBuilder:0 delegate:a1[4]];
-  v6 = v5;
-  v7 = a1[6];
-  if (v7 == 1)
+  v5 = [v4 setSelectedHome:v3 userInitiated:0];
+  v6 = [objc_alloc(getHUTriggerTypePickerViewControllerClass(v5)) initWithActionSetBuilder:0 delegate:a1[4]];
+  v7 = v6;
+  v8 = a1[6];
+  if (v8 == 1)
   {
-    v8 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:a1[4] action:sel_cancel];
-    v9 = [v6 navigationItem];
-    [v9 setLeftBarButtonItem:v8];
+    v9 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:a1[4] action:sel_cancel];
+    v10 = [v7 navigationItem];
+    [v10 setLeftBarButtonItem:v9];
   }
 
   else
   {
-    if (v7)
+    if (v8)
     {
       goto LABEL_8;
     }
 
-    v8 = [v5 navigationItem];
-    [v8 setLeftBarButtonItem:0];
+    v9 = [v6 navigationItem];
+    [v9 setLeftBarButtonItem:0];
   }
 
 LABEL_8:
 
-  return v6;
+  return v7;
 }
 
 void __131__WFCreateAutomationCoordinator_buildViewControllerForHomeTriggerChooserStepWithBackButtonAction_hostingViewController_completion___block_invoke_2(uint64_t a1)

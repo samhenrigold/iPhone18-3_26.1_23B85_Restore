@@ -213,7 +213,7 @@ LABEL_7:
 
 void __93__BRCFetchRecentAndFavoriteDocumentsOperation__performQueryOperationForBit_index_completion___block_invoke_3(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 80);
   if (v2 && (v2 != 2 || [*(a1 + 32) fetchRecentsAndFavoritesRetriesLeft]))
   {
@@ -224,11 +224,11 @@ void __93__BRCFetchRecentAndFavoriteDocumentsOperation__performQueryOperationFor
       v5 = *(a1 + 48);
       v6 = [*(a1 + 32) fetchRecentsAndFavoritesRetriesLeft];
       *buf = 138412802;
-      v25 = v5;
-      v26 = 2048;
-      v27 = v6;
-      v28 = 2112;
-      v29 = v3;
+      v24 = v5;
+      v25 = 2048;
+      v26 = v6;
+      v27 = 2112;
+      v28 = v3;
       _os_log_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEFAULT, "[WARNING] Considering error %@ as retriable for a few times. retries left: %lu%@", buf, 0x20u);
     }
 
@@ -238,14 +238,14 @@ void __93__BRCFetchRecentAndFavoriteDocumentsOperation__performQueryOperationFor
     block[1] = 3221225472;
     block[2] = __93__BRCFetchRecentAndFavoriteDocumentsOperation__performQueryOperationForBit_index_completion___block_invoke_25;
     block[3] = &unk_2784FFBF0;
-    v8 = &v20;
-    v20 = *(a1 + 72);
-    v9 = &v18;
-    v18 = *(a1 + 64);
-    v19 = *(a1 + 48);
+    v8 = &v19;
+    v19 = *(a1 + 72);
+    v9 = &v17;
+    v17 = *(a1 + 64);
+    v18 = *(a1 + 48);
     dispatch_async(v7, block);
 
-    v10 = v19;
+    v10 = v18;
   }
 
   else
@@ -258,31 +258,29 @@ void __93__BRCFetchRecentAndFavoriteDocumentsOperation__performQueryOperationFor
       v13 = *(a1 + 48);
       v15 = [*(a1 + 32) fetchRecentsAndFavoritesRetriesLeft];
       *buf = 138413058;
-      v25 = v14;
-      v26 = 2112;
-      v27 = v13;
-      v28 = 2048;
-      v29 = v15;
-      v30 = 2112;
-      v31 = v11;
+      v24 = v14;
+      v25 = 2112;
+      v26 = v13;
+      v27 = 2048;
+      v28 = v15;
+      v29 = 2112;
+      v30 = v11;
       _os_log_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEFAULT, "[WARNING] We seem to be unable to fetch %@. Setting the bit anyway to allow the sync engine to progress (error %@). retries left: %lu%@", buf, 0x2Au);
     }
 
     [*(a1 + 32) setStateBits:*(a1 + 84)];
     [*(a1 + 32) resetFetchRecentsAndFavoritesRetriesLeft];
     v10 = [*(a1 + 56) callbackQueue];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __93__BRCFetchRecentAndFavoriteDocumentsOperation__performQueryOperationForBit_index_completion___block_invoke_23;
-    v21[3] = &unk_2784FFBC8;
-    v8 = &v23;
-    v23 = *(a1 + 72);
-    v9 = &v22;
-    v22 = *(a1 + 64);
-    dispatch_async(v10, v21);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __93__BRCFetchRecentAndFavoriteDocumentsOperation__performQueryOperationForBit_index_completion___block_invoke_23;
+    v20[3] = &unk_2784FFBC8;
+    v8 = &v22;
+    v22 = *(a1 + 72);
+    v9 = &v21;
+    v21 = *(a1 + 64);
+    dispatch_async(v10, v20);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __93__BRCFetchRecentAndFavoriteDocumentsOperation__performQueryOperationForBit_index_completion___block_invoke_3_32(uint64_t a1, uint64_t a2, void *a3)
@@ -292,24 +290,23 @@ void __93__BRCFetchRecentAndFavoriteDocumentsOperation__performQueryOperationFor
   if (v4)
   {
     [v5 cancel];
-    v6 = *(a1 + 40);
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __93__BRCFetchRecentAndFavoriteDocumentsOperation__performQueryOperationForBit_index_completion___block_invoke_4;
-    v10[3] = &unk_2784FFC90;
-    v11 = v5;
-    v7 = *(a1 + 56);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v14 = v7;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __93__BRCFetchRecentAndFavoriteDocumentsOperation__performQueryOperationForBit_index_completion___block_invoke_4;
+    v9[3] = &unk_2784FFC90;
+    v10 = v5;
+    v6 = *(a1 + 56);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v13 = v6;
+    v11 = v7;
     v12 = v8;
-    v13 = v9;
-    [v11 notifyWhenRecordsAreFetchedAndFinish:v10];
+    [v10 notifyWhenRecordsAreFetchedAndFinish:v9];
   }
 }
 
@@ -388,14 +385,13 @@ uint64_t __51__BRCFetchRecentAndFavoriteDocumentsOperation_main__block_invoke(ui
 
 void __93__BRCFetchRecentAndFavoriteDocumentsOperation__performQueryOperationForBit_index_completion___block_invoke_4_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 48);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_fault_impl(&dword_223E7A000, log, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Couldn't allocate ranks when fetching query %@%@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_fault_impl(&dword_223E7A000, log, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Couldn't allocate ranks when fetching query %@%@", &v4, 0x16u);
 }
 
 @end

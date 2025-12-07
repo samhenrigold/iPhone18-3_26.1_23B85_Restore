@@ -24,34 +24,34 @@
 {
   v3 = sub_20D566458();
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3);
-  v6 = v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *&self->tileQuickToggleTip[OBJC_IVAR___HUTipsManager_Swift_tileQuickToggleTip];
-  v8[0] = *(&self->super.isa + OBJC_IVAR___HUTipsManager_Swift_tileQuickToggleTip);
-  v8[1] = v7;
-  (*(v4 + 104))(v6, *MEMORY[0x277CE1A08], v3);
+  v5 = MEMORY[0x28223BE20](v3);
+  v7 = v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *&self->tileQuickToggleTip[OBJC_IVAR___HUTipsManager_Swift_tileQuickToggleTip];
+  v9[0] = *(&self->super.isa + OBJC_IVAR___HUTipsManager_Swift_tileQuickToggleTip);
+  v9[1] = v8;
+  (*(v4 + 104))(v7, *MEMORY[0x277CE1A08], v3, v5);
   sub_20CF7B774();
   sub_20D5663C8();
   sub_20D5662C8();
-  (*(v4 + 8))(v6, v3);
+  (*(v4 + 8))(v7, v3);
 }
 
 - (void)donateAppLaunchEvent
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v2 - 8);
-  v4 = &v8 - v3;
-  sub_20D567EC8();
-  sub_20CECF940(0, &qword_28111FAB8);
-  v5 = sub_20D568518();
-  sub_20D565868();
+  v4 = &v9 - v3;
+  v5 = sub_20D567EC8();
+  sub_20CECF940(0, &qword_28111FAB8, 0x277D86200);
+  v6 = sub_20D568518();
+  sub_20D565868(v5, &dword_20CEB6000, v6, "TipsManager donating app launch event for HomeEnergyTip", 55, 2, MEMORY[0x277D84F90]);
 
-  v6 = sub_20D567C58();
-  (*(*(v6 - 8) + 56))(v4, 1, 1, v6);
-  v7 = swift_allocObject();
-  *(v7 + 16) = 0;
-  *(v7 + 24) = 0;
-  sub_20CF18960(0, 0, v4, &unk_20D5BFEC0, v7);
+  v7 = sub_20D567C58();
+  (*(*(v7 - 8) + 56))(v4, 1, 1, v7);
+  v8 = swift_allocObject();
+  *(v8 + 16) = 0;
+  *(v8 + 24) = 0;
+  sub_20CF18960(0, 0, v4, &unk_20D5BFEC0, v8);
 }
 
 - (HUTipsManager_Swift)init
@@ -90,7 +90,7 @@
     sub_20D5663B8();
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81DA58);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81DA58, &unk_20D5BFED0);
   sub_20D5664F8();
   *(swift_allocObject() + 16) = xmmword_20D5BEE70;
   sub_20D566468();

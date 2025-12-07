@@ -32,10 +32,10 @@
       v18 = PixelFormatType;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        PixelBufferUtils::pixelFormatAsString(v18, buf);
+        PixelBufferUtils::pixelFormatAsString(buf, v18);
         v19 = SBYTE1(v45);
         v20 = *buf;
-        PixelBufferUtils::pixelFormatAsString(self->_pixelFormat, __p);
+        PixelBufferUtils::pixelFormatAsString(__p, self->_pixelFormat);
         v21 = buf;
         if (v19 < 0)
         {

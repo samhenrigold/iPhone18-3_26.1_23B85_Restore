@@ -1,5 +1,6 @@
 @interface VCPBIntentDefinitionChange
 - (BOOL)isEqual:(id)equal;
+- (id)changeTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -103,8 +104,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  changeType = self->_changeType;
-  v6 = toCopy;
   PBDataWriterWriteInt32Field();
   if (!self->_associatedBundleID)
   {
@@ -183,6 +182,21 @@
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)changeTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2788FEB28[string - 1];
   }
 
   return v4;

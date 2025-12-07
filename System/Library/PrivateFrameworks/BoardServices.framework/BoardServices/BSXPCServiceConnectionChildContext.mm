@@ -32,16 +32,16 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v8 = 1;
+    v6 = 1;
   }
 
   else
   {
     v5 = objc_opt_class();
-    v8 = v5 == objc_opt_class() && (parent = self->_parent, v7 = equalCopy->_parent, BSEqualObjects()) && self->_identifier == equalCopy->_identifier && self->_remote == equalCopy->_remote;
+    v6 = v5 == objc_opt_class() && BSEqualObjects() && self->_identifier == equalCopy->_identifier && self->_remote == equalCopy->_remote;
   }
 
-  return v8;
+  return v6;
 }
 
 - (id)debugDescription

@@ -59,7 +59,7 @@
     }
 
 LABEL_6:
-    memset(v15, 0, sizeof(v15));
+    memset(v14, 0, sizeof(v14));
     selfCopy = self;
     if (v10)
     {
@@ -89,13 +89,12 @@ LABEL_3:
   }
 
 LABEL_4:
-  v13 = *(&self->super.isa + OBJC_IVAR____TtC15audioaccessoryd16DefaultsObserver_notify);
-  v12 = *&self->defaults[OBJC_IVAR____TtC15audioaccessoryd16DefaultsObserver_notify];
+  v12 = *(&self->super.isa + OBJC_IVAR____TtC15audioaccessoryd16DefaultsObserver_notify);
 
-  v13(v8, v10);
+  v12(v8, v10);
 
 LABEL_8:
-  sub_100102AE0(v15);
+  sub_100102AE0(v14);
 }
 
 - (_TtC15audioaccessoryd16DefaultsObserver)init

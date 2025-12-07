@@ -27,7 +27,7 @@
 
 + (void)updateFeedbackListeners
 {
-  v3 = SPLogForSPLogCategoryDefault();
+  v3 = SPLogForSPLogCategoryDefault(self);
   v4 = v3;
   if (gSPLogDebugAsDefault)
   {
@@ -205,9 +205,11 @@
 
 uint64_t __50__SPSearchFeedbackSender__gatherFeedbackListeners__block_invoke()
 {
-  _gatherFeedbackListeners_suggestionsFeedbackListener = objc_alloc_init(MEMORY[0x1E69D4E20]);
+  v0 = objc_alloc_init(MEMORY[0x1E69D4E20]);
+  v1 = _gatherFeedbackListeners_suggestionsFeedbackListener;
+  _gatherFeedbackListeners_suggestionsFeedbackListener = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)feedbackListeners
@@ -227,7 +229,7 @@ uint64_t __50__SPSearchFeedbackSender__gatherFeedbackListeners__block_invoke()
   return v2;
 }
 
-uint64_t __43__SPSearchFeedbackSender_feedbackListeners__block_invoke(uint64_t a1)
+void *__43__SPSearchFeedbackSender_feedbackListeners__block_invoke(uint64_t a1)
 {
   result = [sFeedbackListeners count];
   if (!result)

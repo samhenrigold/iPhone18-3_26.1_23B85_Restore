@@ -5,40 +5,40 @@
 
 char *__deserialize_GLPValue_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v61[1] = *MEMORY[0x277D85DE8];
-  MutableValue = glpMakeMutableValue(*(*(a1 + 32) + 240), *(a1 + 40), 0, a4, a5, a6, a7, a8, v61[0]);
-  v10 = glpABIGetTypeSize(0, *(a1 + 40), 0);
-  Size = glpTypeSizeGetSize(v10);
-  v12 = Size;
-  MEMORY[0x28223BE20](Size);
-  v14 = (v61 - v13);
-  bzero(v61 - v13, v15);
-  glpTypeGetAppleVec4Types(*(a1 + 40), v14, 1, 0, 0, 0, 0, 0, 0);
-  if (v12)
+  v59[1] = *MEMORY[0x277D85DE8];
+  MutableValue = glpMakeMutableValue(*(*(a1 + 32) + 240), *(a1 + 40), 0, a4, a5, a6, a7, a8, v59[0]);
+  glpABIGetTypeSize(0, *(a1 + 40), 0);
+  glpTypeSizeGetSize();
+  v11 = v10;
+  MEMORY[0x28223BE20](v10);
+  v13 = (v59 - v12);
+  bzero(v59 - v12, v14);
+  glpTypeGetAppleVec4Types(*(a1 + 40), v13, 1, 0, 0, 0, 0, 0, 0);
+  if (v11)
   {
-    v16 = 0;
-    v17 = MutableValue;
-    v18 = v12;
+    v15 = 0;
+    v16 = MutableValue;
+    v17 = v11;
     do
     {
-      ScalarType = glpPrimitiveTypeGetScalarType(v14[v16]);
-      ScalarCount = glpPrimitiveTypeGetScalarCount(v14[v16]);
-      v21 = ScalarCount;
+      ScalarType = glpPrimitiveTypeGetScalarType(v13[v15]);
+      ScalarCount = glpPrimitiveTypeGetScalarCount(v13[v15]);
+      v20 = ScalarCount;
       if (ScalarType <= 8)
       {
         if (ScalarType == 1)
         {
           if (ScalarCount)
           {
-            v57 = 0;
-            v58 = 4 * ScalarCount;
+            v56 = 0;
+            v57 = 4 * ScalarCount;
             do
             {
-              *&v17[v57] = deserialize_float(*(a1 + 32));
-              v57 += 4;
+              *&v16[v56] = deserialize_float(*(a1 + 32));
+              v56 += 4;
             }
 
-            while (v58 != v57);
+            while (v57 != v56);
           }
         }
 
@@ -52,41 +52,41 @@ LABEL_96:
 
           if (ScalarCount)
           {
-            v27 = 0;
-            v23 = *(a1 + 32);
-            v28 = 4 * v21;
+            v26 = 0;
+            v22 = *(a1 + 32);
+            v27 = 4 * v20;
             while (1)
             {
-              v29 = *(v23 + 260);
-              v30 = *(v23 + 256);
-              if (v29 >= v30)
+              v28 = *(v22 + 260);
+              v29 = *(v22 + 256);
+              if (v28 >= v29)
               {
                 break;
               }
 
-              v31 = *(v23 + 248);
-              v32 = *(v31 + v29);
-              v33 = *(v31 + v29);
-              v34 = v29 + 1;
-              *(v23 + 260) = v29 + 1;
-              if (v32 < 0)
+              v30 = *(v22 + 248);
+              v31 = *(v30 + v28);
+              v32 = *(v30 + v28);
+              v33 = v28 + 1;
+              *(v22 + 260) = v28 + 1;
+              if (v31 < 0)
               {
-                v35 = (v33 >> 1) & 7;
-                if (v35 > 3)
+                v34 = (v32 >> 1) & 7;
+                if (v34 > 3)
                 {
-                  if (v35 > 5)
+                  if (v34 > 5)
                   {
-                    if (v35 == 6)
+                    if (v34 == 6)
                     {
-                      if (v29 + 5 > v30)
+                      if (v28 + 5 > v29)
                       {
                         break;
                       }
 
-                      LODWORD(v31) = *(v31 + v34);
-                      *(v23 + 260) = v29 + 5;
-                      v36 = v29 + 8;
-                      if (v36 > v30)
+                      LODWORD(v30) = *(v30 + v33);
+                      *(v22 + 260) = v28 + 5;
+                      v35 = v28 + 8;
+                      if (v35 > v29)
                       {
                         break;
                       }
@@ -94,128 +94,128 @@ LABEL_96:
 
                     else
                     {
-                      if (v29 + 9 > v30)
+                      if (v28 + 9 > v29)
                       {
                         break;
                       }
 
-                      v31 = *(v31 + v34);
-                      v36 = v29 + 9;
+                      v30 = *(v30 + v33);
+                      v35 = v28 + 9;
                     }
                   }
 
                   else
                   {
-                    v37 = v29 + 5;
-                    if (v35 == 4)
+                    v36 = v28 + 5;
+                    if (v34 == 4)
                     {
-                      if (v37 > v30)
+                      if (v36 > v29)
                       {
                         break;
                       }
 
-                      LODWORD(v31) = *(v31 + v34);
-                      *(v23 + 260) = v29 + 5;
-                      if (v29 + 5 >= v30)
+                      LODWORD(v30) = *(v30 + v33);
+                      *(v22 + 260) = v28 + 5;
+                      if (v28 + 5 >= v29)
                       {
                         break;
                       }
 
-                      v36 = v29 + 6;
+                      v35 = v28 + 6;
                     }
 
                     else
                     {
-                      if (v37 > v30)
+                      if (v36 > v29)
                       {
                         break;
                       }
 
-                      LODWORD(v31) = *(v31 + v34);
-                      v38 = (v29 + 5);
-                      *(v23 + 260) = v38;
-                      if (v38 + 2 > v30)
+                      LODWORD(v30) = *(v30 + v33);
+                      v37 = (v28 + 5);
+                      *(v22 + 260) = v37;
+                      if (v37 + 2 > v29)
                       {
                         break;
                       }
 
-                      v36 = v29 + 7;
+                      v35 = v28 + 7;
                     }
                   }
                 }
 
-                else if (v35 > 1)
+                else if (v34 > 1)
                 {
-                  if (v35 == 2)
+                  if (v34 == 2)
                   {
-                    v36 = v29 + 4;
-                    if (v36 > v30)
+                    v35 = v28 + 4;
+                    if (v35 > v29)
                     {
                       break;
                     }
 
-                    LODWORD(v31) = *(v31 + v34) | (*(v31 + v34 + 2) << 16);
+                    LODWORD(v30) = *(v30 + v33) | (*(v30 + v33 + 2) << 16);
                   }
 
                   else
                   {
-                    if (v29 + 5 > v30)
+                    if (v28 + 5 > v29)
                     {
                       break;
                     }
 
-                    LODWORD(v31) = *(v31 + v34);
-                    v36 = v29 + 5;
+                    LODWORD(v30) = *(v30 + v33);
+                    v35 = v28 + 5;
                   }
                 }
 
-                else if (v35)
+                else if (v34)
                 {
-                  if (v29 + 3 > v30)
+                  if (v28 + 3 > v29)
                   {
                     break;
                   }
 
-                  LODWORD(v31) = *(v31 + v34);
-                  v36 = v29 + 3;
+                  LODWORD(v30) = *(v30 + v33);
+                  v35 = v28 + 3;
                 }
 
                 else
                 {
-                  if (v34 >= v30)
+                  if (v33 >= v29)
                   {
                     break;
                   }
 
-                  LODWORD(v31) = *(v31 + v34);
-                  v36 = v29 + 2;
+                  LODWORD(v30) = *(v30 + v33);
+                  v35 = v28 + 2;
                 }
 
-                *(v23 + 260) = v36;
-                v39 = -256 << (8 * v35);
-                if (v32)
+                *(v22 + 260) = v35;
+                v38 = -256 << (8 * v34);
+                if (v31)
                 {
-                  v40 = v39;
+                  v39 = v38;
                 }
 
                 else
                 {
-                  v40 = 0;
+                  v39 = 0;
                 }
 
-                LODWORD(v33) = v31 | v40;
+                LODWORD(v32) = v30 | v39;
               }
 
-              *&v17[v27] = v33;
-              v27 += 4;
-              if (v28 == v27)
+              *&v16[v26] = v32;
+              v26 += 4;
+              if (v27 == v26)
               {
                 goto LABEL_93;
               }
             }
 
 LABEL_95:
-            glpDeserialError(v23, 1u);
+            glpDeserialError(v22, 1u);
           }
         }
       }
@@ -227,56 +227,56 @@ LABEL_95:
           case 62:
             if (ScalarCount)
             {
-              v41 = 0;
-              v42 = 8 * ScalarCount;
+              v40 = 0;
+              v41 = 8 * ScalarCount;
               do
               {
-                *&v17[v41] = deserialize_double(*(a1 + 32));
-                v41 += 8;
+                *&v16[v40] = deserialize_double(*(a1 + 32));
+                v40 += 8;
               }
 
-              while (v42 != v41);
+              while (v41 != v40);
             }
 
             break;
           case 36:
             if (ScalarCount)
             {
-              v43 = 0;
-              v23 = *(a1 + 32);
-              v44 = 4 * v21;
+              v42 = 0;
+              v22 = *(a1 + 32);
+              v43 = 4 * v20;
               while (1)
               {
-                v45 = *(v23 + 260);
-                v46 = *(v23 + 256);
-                if (v45 >= v46)
+                v44 = *(v22 + 260);
+                v45 = *(v22 + 256);
+                if (v44 >= v45)
                 {
                   goto LABEL_95;
                 }
 
-                v47 = *(v23 + 248);
-                v48 = *(v47 + v45);
-                v49 = *(v47 + v45);
-                v50 = v45 + 1;
-                *(v23 + 260) = v45 + 1;
-                if (v48 < 0)
+                v46 = *(v22 + 248);
+                v47 = *(v46 + v44);
+                v48 = *(v46 + v44);
+                v49 = v44 + 1;
+                *(v22 + 260) = v44 + 1;
+                if (v47 < 0)
                 {
-                  v51 = (v49 >> 1) & 7;
-                  if (v51 > 3)
+                  v50 = (v48 >> 1) & 7;
+                  if (v50 > 3)
                   {
-                    if (v51 > 5)
+                    if (v50 > 5)
                     {
-                      if (v51 == 6)
+                      if (v50 == 6)
                       {
-                        if (v45 + 5 > v46)
+                        if (v44 + 5 > v45)
                         {
                           goto LABEL_95;
                         }
 
-                        LODWORD(v47) = *(v47 + v50);
-                        *(v23 + 260) = v45 + 5;
-                        v52 = v45 + 8;
-                        if (v52 > v46)
+                        LODWORD(v46) = *(v46 + v49);
+                        *(v22 + 260) = v44 + 5;
+                        v51 = v44 + 8;
+                        if (v51 > v45)
                         {
                           goto LABEL_95;
                         }
@@ -284,121 +284,121 @@ LABEL_95:
 
                       else
                       {
-                        if (v45 + 9 > v46)
+                        if (v44 + 9 > v45)
                         {
                           goto LABEL_95;
                         }
 
-                        v47 = *(v47 + v50);
-                        v52 = v45 + 9;
+                        v46 = *(v46 + v49);
+                        v51 = v44 + 9;
                       }
                     }
 
                     else
                     {
-                      v53 = v45 + 5;
-                      if (v51 == 4)
+                      v52 = v44 + 5;
+                      if (v50 == 4)
                       {
-                        if (v53 > v46)
+                        if (v52 > v45)
                         {
                           goto LABEL_95;
                         }
 
-                        LODWORD(v47) = *(v47 + v50);
-                        *(v23 + 260) = v45 + 5;
-                        if (v45 + 5 >= v46)
+                        LODWORD(v46) = *(v46 + v49);
+                        *(v22 + 260) = v44 + 5;
+                        if (v44 + 5 >= v45)
                         {
                           goto LABEL_95;
                         }
 
-                        v52 = v45 + 6;
+                        v51 = v44 + 6;
                       }
 
                       else
                       {
-                        if (v53 > v46)
+                        if (v52 > v45)
                         {
                           goto LABEL_95;
                         }
 
-                        LODWORD(v47) = *(v47 + v50);
-                        v54 = (v45 + 5);
-                        *(v23 + 260) = v54;
-                        if (v54 + 2 > v46)
+                        LODWORD(v46) = *(v46 + v49);
+                        v53 = (v44 + 5);
+                        *(v22 + 260) = v53;
+                        if (v53 + 2 > v45)
                         {
                           goto LABEL_95;
                         }
 
-                        v52 = v45 + 7;
+                        v51 = v44 + 7;
                       }
                     }
                   }
 
-                  else if (v51 > 1)
+                  else if (v50 > 1)
                   {
-                    if (v51 == 2)
+                    if (v50 == 2)
                     {
-                      v52 = v45 + 4;
-                      if (v52 > v46)
+                      v51 = v44 + 4;
+                      if (v51 > v45)
                       {
                         goto LABEL_95;
                       }
 
-                      LODWORD(v47) = *(v47 + v50) | (*(v47 + v50 + 2) << 16);
+                      LODWORD(v46) = *(v46 + v49) | (*(v46 + v49 + 2) << 16);
                     }
 
                     else
                     {
-                      if (v45 + 5 > v46)
+                      if (v44 + 5 > v45)
                       {
                         goto LABEL_95;
                       }
 
-                      LODWORD(v47) = *(v47 + v50);
-                      v52 = v45 + 5;
+                      LODWORD(v46) = *(v46 + v49);
+                      v51 = v44 + 5;
                     }
                   }
 
-                  else if (v51)
+                  else if (v50)
                   {
-                    if (v45 + 3 > v46)
+                    if (v44 + 3 > v45)
                     {
                       goto LABEL_95;
                     }
 
-                    LODWORD(v47) = *(v47 + v50);
-                    v52 = v45 + 3;
+                    LODWORD(v46) = *(v46 + v49);
+                    v51 = v44 + 3;
                   }
 
                   else
                   {
-                    if (v50 >= v46)
+                    if (v49 >= v45)
                     {
                       goto LABEL_95;
                     }
 
-                    LODWORD(v47) = *(v47 + v50);
-                    v52 = v45 + 2;
+                    LODWORD(v46) = *(v46 + v49);
+                    v51 = v44 + 2;
                   }
 
-                  *(v23 + 260) = v52;
-                  v55 = -256 << (8 * v51);
-                  if (v48)
+                  *(v22 + 260) = v51;
+                  v54 = -256 << (8 * v50);
+                  if (v47)
                   {
-                    v56 = v55;
+                    v55 = v54;
                   }
 
                   else
                   {
-                    v56 = 0;
+                    v55 = 0;
                   }
 
-                  LODWORD(v49) = v47 | v56;
+                  LODWORD(v48) = v46 | v55;
                 }
 
-                *&v17[v43] = v49;
-                v43 += 4;
-                if (v44 == v43)
+                *&v16[v42] = v48;
+                v42 += 4;
+                if (v43 == v42)
                 {
                   goto LABEL_93;
                 }
@@ -409,22 +409,22 @@ LABEL_95:
           case 9:
             if (ScalarCount)
             {
-              v22 = 0;
-              v23 = *(a1 + 32);
-              v24 = 4 * v21;
+              v21 = 0;
+              v22 = *(a1 + 32);
+              v23 = 4 * v20;
               while (1)
               {
-                v25 = *(v23 + 260);
-                if (v25 >= *(v23 + 256))
+                v24 = *(v22 + 260);
+                if (v24 >= *(v22 + 256))
                 {
                   goto LABEL_95;
                 }
 
-                v26 = *(*(v23 + 248) + v25);
-                *(v23 + 260) = v25 + 1;
-                *&v17[v22] = v26 != 0;
-                v22 += 4;
-                if (v24 == v22)
+                v25 = *(*(v22 + 248) + v24);
+                *(v22 + 260) = v24 + 1;
+                *&v16[v21] = v25 != 0;
+                v21 += 4;
+                if (v23 == v21)
                 {
                   goto LABEL_93;
                 }
@@ -438,14 +438,13 @@ LABEL_95:
       }
 
 LABEL_93:
-      ++v16;
-      v17 += 16;
+      ++v15;
+      v16 += 16;
     }
 
-    while (v16 != v18);
+    while (v15 != v17);
   }
 
-  v59 = *MEMORY[0x277D85DE8];
   return MutableValue;
 }
 

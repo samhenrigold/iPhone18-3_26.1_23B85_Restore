@@ -8,11 +8,11 @@
 
 - (BOOL)isAppleProduct
 {
-  v3 = [MEMORY[0x277CBEB98] setWithObjects:{@"hdft", @"Hdft", @"usbD", @"hx90", @"wx90", @"rhac", @"wdef", 0}];
-  v4 = [(NSDictionary *)self->_routeInfo objectForKeyedSubscript:*MEMORY[0x277D26D10]];
+  v3 = [MEMORY[0x277CBEB98] setWithObjects:{@"Hdft", @"usbD", @"hx90", @"wx90", @"rhac", @"wdef", 0}];
+  v4 = [(NSDictionary *)self->_routeInfo objectForKeyedSubscript:?];
   if (v4)
   {
-    v5 = [v3 containsObject:v4] ^ 1;
+    v5 = [v3 containsObject:?] ^ 1;
   }
 
   else
@@ -25,7 +25,7 @@
 
 - (BOOL)isBluetoothRoute
 {
-  v2 = [(NSDictionary *)self->_routeInfo objectForKeyedSubscript:*MEMORY[0x277D26CD8]];
+  v2 = [(NSDictionary *)self->_routeInfo objectForKeyedSubscript:?];
   v3 = v2;
   if (v2)
   {

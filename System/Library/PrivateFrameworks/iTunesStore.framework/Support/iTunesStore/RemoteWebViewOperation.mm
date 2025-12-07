@@ -38,16 +38,21 @@
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -62,22 +67,20 @@
     v45 = v7;
     v46 = 2114;
     v47 = uRLString;
-    LODWORD(v41) = 22;
-    v40 = &v44;
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Presenting remote SKUI with URL: %{public}@", &v44, 22);
 
     if (!v11)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v11 encoding:4, &v44, v41];
+    oSLogObject = [NSString stringWithCString:v11 encoding:4];
     free(v11);
     v40 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   v12 = dispatch_semaphore_create(0);
   alertSemaphore = self->_alertSemaphore;
   self->_alertSemaphore = v12;
@@ -126,29 +129,34 @@ LABEL_12:
     alertSemaphore = [(RemoteWebViewOperation *)self alertSemaphore];
     dispatch_semaphore_wait(alertSemaphore, 0xFFFFFFFFFFFFFFFFLL);
 
-LABEL_20:
+LABEL_21:
     v28 = +[SSLogConfig sharedDaemonConfig];
     if (!v28)
     {
       v28 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v28 shouldLog];
+    LODWORD(v29) = [v28 shouldLog];
     if ([v28 shouldLogToDisk])
     {
-      shouldLog2 |= 2u;
+      LODWORD(v29) = v29 | 2;
     }
 
     oSLogObject2 = [v28 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog2 &= 2u;
+      v29 = v29;
     }
 
-    if (!shouldLog2)
+    else
+    {
+      v29 &= 2u;
+    }
+
+    if (!v29)
     {
       v34 = 0;
-      goto LABEL_41;
+      goto LABEL_44;
     }
 
     v31 = objc_opt_class();
@@ -156,27 +164,27 @@ LABEL_20:
     v45 = v31;
     v32 = v31;
     LODWORD(v41) = 12;
-    v33 = _os_log_send_and_compose_impl();
+    v33 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Remote SKUI view controller presented", &v44, v41);
 
     v34 = 0;
     if (!v33)
     {
-      goto LABEL_42;
+      goto LABEL_45;
     }
 
-LABEL_39:
-    oSLogObject2 = [NSString stringWithCString:v33 encoding:4, &v44, v41];
+LABEL_42:
+    oSLogObject2 = [NSString stringWithCString:v33 encoding:4];
     free(v33);
     SSFileLog();
-LABEL_41:
+LABEL_44:
 
-    goto LABEL_42;
+    goto LABEL_45;
   }
 
   v35 = SSError();
   if (!v35)
   {
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   v34 = v35;
@@ -186,26 +194,31 @@ LABEL_41:
     v28 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v28 shouldLog];
+  shouldLog2 = [v28 shouldLog];
   if ([v28 shouldLogToDisk])
   {
-    v37 = shouldLog3 | 2;
+    LODWORD(v37) = shouldLog2 | 2;
   }
 
   else
   {
-    v37 = shouldLog3;
+    LODWORD(v37) = shouldLog2;
   }
 
   oSLogObject2 = [v28 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  {
+    v37 = v37;
+  }
+
+  else
   {
     v37 &= 2u;
   }
 
   if (!v37)
   {
-    goto LABEL_41;
+    goto LABEL_44;
   }
 
   v38 = objc_opt_class();
@@ -215,14 +228,14 @@ LABEL_41:
   v47 = v34;
   v39 = v38;
   LODWORD(v41) = 22;
-  v33 = _os_log_send_and_compose_impl();
+  v33 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%{public}@: Error presenting remote SKUI view controller. Error: %{public}@", &v44, v41);
 
   if (v33)
   {
-    goto LABEL_39;
+    goto LABEL_42;
   }
 
-LABEL_42:
+LABEL_45:
 
   [(RemoteWebViewOperation *)self setError:v34];
   [(RemoteWebViewOperation *)self setSuccess:1];
@@ -239,37 +252,41 @@ LABEL_42:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v11) = 138543362;
-  *(&v11 + 4) = objc_opt_class();
-  v8 = *(&v11 + 4);
-  LODWORD(v10) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v10 = 138543362;
+  v11 = objc_opt_class();
+  v8 = v11;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Remote handle did activate", &v10, 12);
 
   if (v9)
   {
-    oSLogObject = [NSString stringWithCString:v9 encoding:4, &v11, v10, v11];
+    oSLogObject = [NSString stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   [(RemoteWebViewOperation *)self _sendActivationWithError:0];
@@ -286,37 +303,41 @@ LABEL_11:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v11) = 138543362;
-  *(&v11 + 4) = objc_opt_class();
-  v8 = *(&v11 + 4);
-  LODWORD(v10) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v10 = 138543362;
+  v11 = objc_opt_class();
+  v8 = v11;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Remote handle did deactivate", &v10, 12);
 
   if (v9)
   {
-    oSLogObject = [NSString stringWithCString:v9 encoding:4, &v11, v10, v11];
+    oSLogObject = [NSString stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   [(RemoteWebViewOperation *)self _sendActivationWithError:0];
@@ -335,39 +356,43 @@ LABEL_11:
   shouldLog = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
   oSLogObject = [v6 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (!v8)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  *v13 = 138543618;
-  *&v13[4] = objc_opt_class();
-  *&v13[12] = 2114;
-  *&v13[14] = errorCopy;
-  v10 = *&v13[4];
-  LODWORD(v12) = 22;
-  v11 = _os_log_send_and_compose_impl();
+  v12 = 138543618;
+  v13 = objc_opt_class();
+  v14 = 2114;
+  v15 = errorCopy;
+  v10 = v13;
+  v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Remote handle did invalidate with error: %{public}@", &v12, 22);
 
   if (v11)
   {
-    oSLogObject = [NSString stringWithCString:v11 encoding:4, v13, v12, *v13, *&v13[16]];
+    oSLogObject = [NSString stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   [(RemoteWebViewOperation *)self _sendActivationWithError:errorCopy];

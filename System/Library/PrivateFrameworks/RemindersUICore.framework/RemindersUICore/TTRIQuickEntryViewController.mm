@@ -77,7 +77,7 @@
   swift_unknownObjectRelease();
   sub_21D5CCF9C();
 
-  __swift_destroy_boxed_opaque_existential_0(&v5);
+  __swift_destroy_boxed_opaque_existential_0(v5);
 }
 
 - (void)didTapCommit:(id)commit
@@ -112,24 +112,25 @@
 
 - (BOOL)presentationControllerShouldDismiss:(id)dismiss
 {
-  v4 = *(*(self + OBJC_IVAR____TtC15RemindersUICore28TTRIQuickEntryViewController_presenter) + OBJC_IVAR____TtC15RemindersUICore23TTRIQuickEntryPresenter_interactor + 8);
+  v4 = *(self + OBJC_IVAR____TtC15RemindersUICore28TTRIQuickEntryViewController_presenter);
+  v5 = *(v4 + OBJC_IVAR____TtC15RemindersUICore23TTRIQuickEntryPresenter_interactor + 8);
   ObjectType = swift_getObjectType();
-  v6 = *(v4 + 80);
+  v7 = *(v5 + 80);
   selfCopy = self;
-  if (v6(ObjectType, v4) & 1) != 0 || (sub_21D5BE9C8())
+  if (v7(ObjectType, v5) & 1) != 0 || (sub_21D5BE9C8(v4))
   {
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v9 = sub_21D5BEBBC();
+    v10 = sub_21D5BEBBC(v4);
 
-    v8 = v9 ^ 1;
+    v9 = v10 ^ 1;
   }
 
-  return v8 & 1;
+  return v9 & 1;
 }
 
 - (void)presentationControllerDidAttemptToDismiss:(id)dismiss

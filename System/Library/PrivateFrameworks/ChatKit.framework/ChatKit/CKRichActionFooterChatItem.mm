@@ -72,7 +72,7 @@
 
   v16 = objc_alloc(MEMORY[0x1E696AD40]);
   v17 = MEMORY[0x1E696AEC0];
-  v18 = CKFrameworkBundle();
+  v18 = CKFrameworkBundle(v16);
   v19 = [v18 localizedStringForKey:@"SELECTED_ACTIONS_FOOTER_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
   v20 = [v17 stringWithFormat:v19, name2];
 

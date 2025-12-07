@@ -1198,13 +1198,13 @@ LABEL_10:
 
 - (TSDTextInputResponder)textInputResponder
 {
-  v3 = TSUSupportsTextInteraction();
+  v4 = TSUSupportsTextInteraction();
   result = self->mTextInputResponder;
-  if (v3)
+  if (v4)
   {
     if (!result)
     {
-      result = [objc_alloc(TSDTextInputResponderClass()) initWithNextResponder:{-[TSDCanvasLayerHosting canvasView](-[TSDInteractiveCanvasController layerHost](self, "layerHost"), "canvasView")}];
+      result = [objc_alloc(TSDTextInputResponderClass(0 v3))];
       self->mTextInputResponder = result;
     }
   }
@@ -2104,7 +2104,7 @@ uint64_t __65__TSDInteractiveCanvasController_setSelection_onModel_withFlags___b
 {
   if (!*(from + 14))
   {
-    *(from + 14) = [objc_alloc(TSDTextInputResponderClass()) initWithNextResponder:{objc_msgSend(objc_msgSend(from, "layerHost"), "canvasView")}];
+    *(from + 14) = [objc_alloc(TSDTextInputResponderClass(self a2))];
   }
 
   if ([(TSDTextInputResponder *)self->mTextInputResponder isFirstResponder])
@@ -2155,14 +2155,15 @@ uint64_t __77__TSDInteractiveCanvasController_p_editorControllerDidChangeTextInp
 {
   [objc_msgSend(*(a1 + 32) "object")];
   v2 = TSUProtocolCast();
+  v4 = v2;
   if (v2 && !*(*(a1 + 40) + 112))
   {
-    *(*(a1 + 40) + 112) = [objc_alloc(TSDTextInputResponderClass()) initWithNextResponder:{objc_msgSend(objc_msgSend(*(a1 + 40), "layerHost"), "canvasView")}];
+    *(*(a1 + 40) + 112) = [objc_alloc(TSDTextInputResponderClass(v2 v3))];
   }
 
-  v3 = *(a1 + 40);
+  v5 = *(a1 + 40);
 
-  return [v3 p_maybeSetTextResponderEditorTo:v2];
+  return [v5 p_maybeSetTextResponderEditorTo:v4];
 }
 
 - (BOOL)p_shouldSuppressAutozoomForEditor:(id)editor
@@ -4348,7 +4349,7 @@ LABEL_20:
   v20 = [unitFormatter stringForObjectValue:v15];
   v21 = [unitFormatter stringForObjectValue:v19];
 
-  return [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSDBundle(), "localizedStringForKey:value:table:", @"x: %@  y: %@", &stru_287D36338, @"TSDrawables", v20, v21];
+  return [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSDBundle(v22, v23), "localizedStringForKey:value:table:", @"x: %@  y: %@", &stru_287D36338, @"TSDrawables", v20, v21];
 }
 
 - (id)unitStringForSize:(CGSize)size
@@ -4368,7 +4369,7 @@ LABEL_20:
   v14 = [unitFormatter stringForObjectValue:v10];
   v15 = [unitFormatter stringForObjectValue:v13];
 
-  return [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSDBundle(), "localizedStringForKey:value:table:", @"w: %@  h: %@", &stru_287D36338, @"TSDrawables", v14, v15];
+  return [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSDBundle(v16, v17), "localizedStringForKey:value:table:", @"w: %@  h: %@", &stru_287D36338, @"TSDrawables", v14, v15];
 }
 
 - (id)unitStringForNumber:(double)number
@@ -4381,13 +4382,13 @@ LABEL_20:
   v9 = [v7 initWithFloat:v8];
   v10 = [unitFormatter stringForObjectValue:v9];
 
-  return [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSDBundle(), "localizedStringForKey:value:table:", @"%@", &stru_287D36338, @"TSDrawables", v10];
+  return [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSDBundle(v11, v12), "localizedStringForKey:value:table:", @"%@", &stru_287D36338, @"TSDrawables", v10];
 }
 
 - (id)unitStringForAngle:(double)angle
 {
   v3 = MEMORY[0x277CCACA8];
-  v4 = [TSDBundle() localizedStringForKey:@"%i\\U00B0" value:&stru_287D36338 table:@"TSDrawables"];
+  v4 = [TSDBundle(self a2)];
   TSURound();
   TSDNormalizeAngleInDegrees(v5);
   return [v3 stringWithFormat:v4, v6];
@@ -4403,7 +4404,7 @@ LABEL_20:
   v11 = [v9 initWithFloat:v10];
   v12 = [unitFormatter stringForObjectValue:v11];
 
-  return [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSDBundle(), "localizedStringForKey:value:table:", @"%@  l: %@", &stru_287D36338, @"TSDrawables", -[TSDInteractiveCanvasController unitStringForAngle:](self, "unitStringForAngle:", angle), v12];
+  return [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSDBundle(v13, v14), "localizedStringForKey:value:table:", @"%@  l: %@", &stru_287D36338, @"TSDrawables", -[TSDInteractiveCanvasController unitStringForAngle:](self, "unitStringForAngle:", angle), v12];
 }
 
 - (id)ancestorRepOfRep:(id)rep orDelegateConformingToProtocol:(id)protocol
@@ -4752,14 +4753,14 @@ LABEL_14:
   return [v5 objectsPassingTest:v7];
 }
 
-void *__71__TSDInteractiveCanvasController_layoutsForInfo_intersectingSelection___block_invoke(uint64_t a1)
+void *__71__TSDInteractiveCanvasController_layoutsForInfo_intersectingSelection___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   result = TSUDynamicCast();
   if (result)
   {
     [result rectForSelection:*(a1 + 32)];
-    return !CGRectIsNull(v3);
+    return !CGRectIsNull(v4);
   }
 
   return result;
@@ -6078,10 +6079,10 @@ uint64_t __99__TSDInteractiveCanvasController_backgroundLayoutAndRenderState_per
   return [v1 p_acquireLockAndPerformAction:v3];
 }
 
-uint64_t __99__TSDInteractiveCanvasController_backgroundLayoutAndRenderState_performWorkInBackgroundTilingOnly___block_invoke_2(uint64_t result)
+void *__99__TSDInteractiveCanvasController_backgroundLayoutAndRenderState_performWorkInBackgroundTilingOnly___block_invoke_2(void *result)
 {
   v36 = *MEMORY[0x277D85DE8];
-  if (*(*(result + 32) + 418) == 1)
+  if (*(result[4] + 418) == 1)
   {
     v1 = result;
     [MEMORY[0x277CD9FF0] begin];
@@ -6090,7 +6091,7 @@ uint64_t __99__TSDInteractiveCanvasController_backgroundLayoutAndRenderState_per
     v33 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v2 = [*(*(v1 + 32) + 16) topLevelReps];
+    v2 = [*(v1[4] + 16) topLevelReps];
     v3 = [v2 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v3)
     {
@@ -6114,16 +6115,16 @@ uint64_t __99__TSDInteractiveCanvasController_backgroundLayoutAndRenderState_per
       while (v4);
     }
 
-    [objc_msgSend(objc_msgSend(*(v1 + 32) "layerHost")];
-    if ((*(v1 + 40) & 1) == 0)
+    [objc_msgSend(objc_msgSend(v1[4] "layerHost")];
+    if ((v1[5] & 1) == 0)
     {
-      [*(v1 + 32) layoutIfNeeded];
+      [v1[4] layoutIfNeeded];
       v25 = v1;
-      if ([*(*(v1 + 32) + 432) count])
+      if ([*(v1[4] + 432) count])
       {
         v7 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"opacity"];
         [v7 setFromValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithFloat:", 0.0)}];
-        v8 = [objc_msgSend(*(v1 + 32) "layerHost")];
+        v8 = [objc_msgSend(v1[4] "layerHost")];
         [v8 bounds];
         v10 = v9;
         v12 = v11;
@@ -6133,7 +6134,7 @@ uint64_t __99__TSDInteractiveCanvasController_backgroundLayoutAndRenderState_per
         v27 = 0u;
         v28 = 0u;
         v29 = 0u;
-        v17 = *(*(v1 + 32) + 432);
+        v17 = *(v1[4] + 432);
         v18 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v18)
         {
@@ -6179,13 +6180,13 @@ uint64_t __99__TSDInteractiveCanvasController_backgroundLayoutAndRenderState_per
 
       v1 = v25;
 
-      *(*(v25 + 32) + 432) = 0;
+      *(v25[4] + 432) = 0;
     }
 
     [MEMORY[0x277CD9FF0] commit];
     [MEMORY[0x277CD9FF0] flush];
-    *(*(v1 + 32) + 418) = 0;
-    return [*(v1 + 32) didLayoutAndRenderOnThread];
+    *(v1[4] + 418) = 0;
+    return [v1[4] didLayoutAndRenderOnThread];
   }
 
   return result;
@@ -8952,7 +8953,7 @@ LABEL_3:
   y = rect.origin.y;
   x = rect.origin.x;
   initialSelectionCopy = initialSelection;
-  v120 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   textInputEditor = [(TSDEditorController *)self->mEditorController textInputEditor];
   if (self->mAnimatingViewScale)
   {
@@ -8969,10 +8970,10 @@ LABEL_3:
   v21 = *(MEMORY[0x277CBF398] + 8);
   v22 = *(MEMORY[0x277CBF398] + 16);
   v23 = *(MEMORY[0x277CBF398] + 24);
-  v113 = v21;
-  v114 = *MEMORY[0x277CBF398];
-  v111 = v23;
-  v112 = v22;
+  v101 = v21;
+  v102 = *MEMORY[0x277CBF398];
+  v99 = v23;
+  v100 = v22;
   if (info)
   {
     v24 = [(TSDInteractiveCanvasController *)self layoutForInfoNearestVisibleRect:info intersectingSelection:selection];
@@ -9009,32 +9010,32 @@ LABEL_3:
     v25 = v20;
     if (v34)
     {
-      v117 = 0u;
-      v118 = 0u;
-      v115 = 0u;
-      v116 = 0u;
+      v105 = 0u;
+      v106 = 0u;
+      v103 = 0u;
+      v104 = 0u;
       infos = [v34 infos];
-      v36 = [infos countByEnumeratingWithState:&v115 objects:v119 count:16];
+      v36 = [infos countByEnumeratingWithState:&v103 objects:v107 count:16];
       v28 = v23;
       v27 = v22;
-      v20 = v114;
+      v20 = v102;
       v26 = v21;
-      v25 = v114;
+      v25 = v102;
       if (v36)
       {
         v37 = v36;
-        v38 = *v116;
-        v20 = v114;
+        v38 = *v104;
+        v20 = v102;
         do
         {
           for (i = 0; i != v37; ++i)
           {
-            if (*v116 != v38)
+            if (*v104 != v38)
             {
               objc_enumerationMutation(infos);
             }
 
-            v40 = [(TSDInteractiveCanvasController *)self layoutForInfoNearestVisibleRect:*(*(&v115 + 1) + 8 * i)];
+            v40 = [(TSDInteractiveCanvasController *)self layoutForInfoNearestVisibleRect:*(*(&v103 + 1) + 8 * i)];
             if (v40)
             {
               v41 = v40;
@@ -9050,49 +9051,49 @@ LABEL_3:
               }
 
               [(TSDInteractiveCanvasController *)self p_outsetSelectionRect:?];
-              v129.origin.x = v43;
-              v129.origin.y = v44;
-              v129.size.width = v45;
-              v129.size.height = v46;
-              v121.origin.x = v20;
-              v121.origin.y = v21;
-              v121.size.width = v22;
-              v121.size.height = v23;
-              v122 = CGRectUnion(v121, v129);
-              v20 = v122.origin.x;
-              v21 = v122.origin.y;
-              v22 = v122.size.width;
-              v23 = v122.size.height;
+              v117.origin.x = v43;
+              v117.origin.y = v44;
+              v117.size.width = v45;
+              v117.size.height = v46;
+              v109.origin.x = v20;
+              v109.origin.y = v21;
+              v109.size.width = v22;
+              v109.size.height = v23;
+              v110 = CGRectUnion(v109, v117);
+              v20 = v110.origin.x;
+              v21 = v110.origin.y;
+              v22 = v110.size.width;
+              v23 = v110.size.height;
             }
           }
 
-          v37 = [infos countByEnumeratingWithState:&v115 objects:v119 count:16];
+          v37 = [infos countByEnumeratingWithState:&v103 objects:v107 count:16];
         }
 
         while (v37);
-        v28 = v111;
-        v27 = v112;
-        v26 = v113;
-        v25 = v114;
+        v28 = v99;
+        v27 = v100;
+        v26 = v101;
+        v25 = v102;
       }
     }
   }
 
-  v106 = v28;
-  v109 = v25;
-  v100 = v26;
-  v102 = v27;
-  v123.origin.x = v20;
-  v123.origin.y = v21;
-  v123.size.width = v22;
-  v123.size.height = v23;
-  if (!CGRectIsNull(v123))
+  v94 = v28;
+  v97 = v25;
+  v88 = v26;
+  v90 = v27;
+  v111.origin.x = v20;
+  v111.origin.y = v21;
+  v111.size.width = v22;
+  v111.size.height = v23;
+  if (!CGRectIsNull(v111))
   {
-    v124.size.height = v106;
-    v124.origin.x = v109;
-    v124.origin.y = v100;
-    v124.size.width = v102;
-    if (!CGRectIsEmpty(v124))
+    v112.size.height = v94;
+    v112.origin.x = v97;
+    v112.origin.y = v88;
+    v112.size.width = v90;
+    if (!CGRectIsEmpty(v112))
     {
       if ([(TSDInteractiveCanvasController *)self shouldZoomOnSelectionChange])
       {
@@ -9108,22 +9109,22 @@ LABEL_3:
             [canvasLayer maximumPinchViewScale];
             TSUClamp();
             *&v49 = v49;
-            v99 = *&v49;
+            v87 = *&v49;
             [(TSDInteractiveCanvasController *)self visibleUnscaledRect];
-            v93 = v51;
-            v96 = v50;
-            v90 = v53;
-            v91 = v52;
+            v85 = v51;
+            v86 = v50;
+            v83 = v53;
+            v84 = v52;
             [(TSDInteractiveCanvasController *)self visibleUnscaledRectForAutoscroll];
-            v130.origin.x = v54;
-            v130.origin.y = v55;
-            v130.size.width = v56;
-            v130.size.height = v57;
-            v125.origin.y = v93;
-            v125.origin.x = v96;
-            v125.size.height = v90;
-            v125.size.width = v91;
-            if (!CGRectEqualToRect(v125, v130))
+            v118.origin.x = v54;
+            v118.origin.y = v55;
+            v118.size.width = v56;
+            v118.size.height = v57;
+            v113.origin.y = v85;
+            v113.origin.x = v86;
+            v113.size.height = v83;
+            v113.size.width = v84;
+            if (!CGRectEqualToRect(v113, v118))
             {
               currentHandler = [MEMORY[0x277D6C290] currentHandler];
               v59 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDInteractiveCanvasController p_autoscrollToSelection:withInfo:isInitialSelection:focusRect:scrollImmediately:skipZoom:]"];
@@ -9131,105 +9132,78 @@ LABEL_3:
             }
 
             [(TSDInteractiveCanvasController *)self visibleBoundsRect];
-            v61 = v99;
-            v94 = v62;
-            v97 = v60 / v99;
-            if (v22 > v97)
+            if (v22 > v60 / v87)
             {
-              v98 = v60;
               [(TSDInteractiveCanvasController *)self fitWidthViewScale];
               [canvasLayer maximumPinchViewScale];
               TSUClamp();
-              *&v63 = v63;
-              v99 = *&v63;
-              v61 = *&v63;
-              v97 = v98 / *&v63;
+              *&v61 = v61;
+              v87 = *&v61;
             }
 
-            v92 = v61;
-            if (initialSelectionCopy)
+            if (initialSelectionCopy && [(TSDInteractiveCanvasController *)self p_centerOnInitialSelection])
             {
-              p_centerOnInitialSelection = [(TSDInteractiveCanvasController *)self p_centerOnInitialSelection];
-              if (p_centerOnInitialSelection)
-              {
-                v68 = 1;
+              v62 = 1;
 LABEL_40:
-                v95 = v94 / v92;
-                if (v109 > v20)
-                {
-                  currentHandler2 = [MEMORY[0x277D6C290] currentHandler];
-                  v70 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDInteractiveCanvasController p_autoscrollToSelection:withInfo:isInitialSelection:focusRect:scrollImmediately:skipZoom:]"];
-                  p_centerOnInitialSelection = [currentHandler2 handleFailureInFunction:v70 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDInteractiveCanvasController.m"), 6899, @"zoomrect should be a superrect of target rect"}];
-                }
-
-                v67.n128_f64[0] = v95;
-                v66.n128_f64[0] = v97;
-                v71 = (v97 - v22) * 0.5;
-                if (v71 < 0.0)
-                {
-                  v71 = 0.0;
-                }
-
-                v65.n128_f64[0] = v20 - v71;
-                v72 = (v95 - v23) * 0.5;
-                if (v72 < 0.0)
-                {
-                  v72 = 0.0;
-                }
-
-                v73 = TSDRectWithOriginAndSize(p_centerOnInitialSelection, v65, v21 - v72, v66, v67);
-                v103 = TSDTranslatedRectMaximizingOverlapWithRect(v73, v74, v75, v76, v109, v100, v102, v106);
-                v107 = v77;
-                if ((v68 & 1) == 0)
-                {
-                  v101 = v79;
-                  v110 = v78;
-                  v126.origin.x = x;
-                  v126.origin.y = y;
-                  v126.size.width = width;
-                  v126.size.height = height;
-                  v131.origin.y = v113;
-                  v131.origin.x = v114;
-                  v131.size.height = v111;
-                  v131.size.width = v112;
-                  if (!CGRectEqualToRect(v126, v131))
-                  {
-                    TSDTranslatedRectMaximizingOverlapWithRect(v103, v107, v110, v101, x, y, width, height);
-                  }
-                }
-
-                [-[TSDCanvasLayerHosting canvasLayer](-[TSDInteractiveCanvasController layerHost](self "layerHost")];
-                [(TSDCanvas *)[(TSDInteractiveCanvasController *)self canvas] unscaledSize];
-                TSUClamp();
-                v104 = v80;
-                [-[TSDCanvasLayerHosting canvasLayer](-[TSDInteractiveCanvasController layerHost](self "layerHost")];
-                [(TSDCanvas *)[(TSDInteractiveCanvasController *)self canvas] unscaledSize];
-                TSUClamp();
-                [(TSDInteractiveCanvasController *)self clampedUnscaledContentOffset:v104 forViewScale:v81, v99];
-                if (!zoom)
-                {
-                  v105 = v83;
-                  v108 = v82;
-                  [(TSDInteractiveCanvasController *)self viewScale];
-                  v84 = v99;
-                  if (v85 != v99 || (([(TSDInteractiveCanvasController *)self contentOffset], v84 = v99, v108 == v87) ? (v88 = v105 == v86) : (v88 = 0), !v88))
-                  {
-                    [(TSDInteractiveCanvasController *)self setViewScale:1 contentOffset:1 clampOffset:v84 animated:v108, v105];
-                    v21 = v113;
-                    v20 = v114;
-                    v23 = v111;
-                    v22 = v112;
-                  }
-                }
-
-                goto LABEL_56;
+              if (v97 > v20)
+              {
+                currentHandler2 = [MEMORY[0x277D6C290] currentHandler];
+                v65 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDInteractiveCanvasController p_autoscrollToSelection:withInfo:isInitialSelection:focusRect:scrollImmediately:skipZoom:]"];
+                [currentHandler2 handleFailureInFunction:v65 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDInteractiveCanvasController.m"), 6899, @"zoomrect should be a superrect of target rect"}];
               }
+
+              TSDRectWithOriginAndSize();
+              v91 = TSDTranslatedRectMaximizingOverlapWithRect(v66, v67, v68, v69, v97, v88, v90, v94);
+              v95 = v70;
+              if ((v62 & 1) == 0)
+              {
+                v89 = v72;
+                v98 = v71;
+                v114.origin.x = x;
+                v114.origin.y = y;
+                v114.size.width = width;
+                v114.size.height = height;
+                v119.origin.y = v101;
+                v119.origin.x = v102;
+                v119.size.height = v99;
+                v119.size.width = v100;
+                if (!CGRectEqualToRect(v114, v119))
+                {
+                  TSDTranslatedRectMaximizingOverlapWithRect(v91, v95, v98, v89, x, y, width, height);
+                }
+              }
+
+              [-[TSDCanvasLayerHosting canvasLayer](-[TSDInteractiveCanvasController layerHost](self "layerHost")];
+              [(TSDCanvas *)[(TSDInteractiveCanvasController *)self canvas] unscaledSize];
+              TSUClamp();
+              v92 = v73;
+              [-[TSDCanvasLayerHosting canvasLayer](-[TSDInteractiveCanvasController layerHost](self "layerHost")];
+              [(TSDCanvas *)[(TSDInteractiveCanvasController *)self canvas] unscaledSize];
+              TSUClamp();
+              [(TSDInteractiveCanvasController *)self clampedUnscaledContentOffset:v92 forViewScale:v74, v87];
+              if (!zoom)
+              {
+                v93 = v76;
+                v96 = v75;
+                [(TSDInteractiveCanvasController *)self viewScale];
+                v77 = v87;
+                if (v78 != v87 || (([(TSDInteractiveCanvasController *)self contentOffset], v77 = v87, v96 == v80) ? (v81 = v93 == v79) : (v81 = 0), !v81))
+                {
+                  [(TSDInteractiveCanvasController *)self setViewScale:1 contentOffset:1 clampOffset:v77 animated:v96, v93];
+                  v21 = v101;
+                  v20 = v102;
+                  v23 = v99;
+                  v22 = v100;
+                }
+              }
+
+              goto LABEL_52;
             }
 
-            p_centerOnInitialSelection = [(TSDInteractiveCanvasController *)self viewScale];
-            if (v65.n128_f64[0] != v99)
+            [(TSDInteractiveCanvasController *)self viewScale];
+            if (v63 != v87)
             {
-              v68 = 0;
+              v62 = 0;
               goto LABEL_40;
             }
           }
@@ -9238,18 +9212,18 @@ LABEL_40:
     }
   }
 
-LABEL_56:
-  v127.origin.x = v20;
-  v127.origin.y = v21;
-  v127.size.width = v22;
-  v127.size.height = v23;
-  if (!CGRectIsNull(v127))
+LABEL_52:
+  v115.origin.x = v20;
+  v115.origin.y = v21;
+  v115.size.width = v22;
+  v115.size.height = v23;
+  if (!CGRectIsNull(v115))
   {
-    v128.origin.x = x;
-    v128.origin.y = y;
-    v128.size.width = width;
-    v128.size.height = height;
-    if (!CGRectIsNull(v128))
+    v116.origin.x = x;
+    v116.origin.y = y;
+    v116.size.width = width;
+    v116.size.height = height;
+    if (!CGRectIsNull(v116))
     {
       v23 = height;
       v22 = width;
@@ -9332,7 +9306,7 @@ LABEL_56:
     v32 = scale / v30;
     if (canvasView)
     {
-      [canvasView transform];
+      objc_msgSend_transform(canvasView);
     }
 
     m = v82;
@@ -9557,50 +9531,44 @@ uint64_t __102__TSDInteractiveCanvasController_animateToViewScale_contentOffset_
 - ($F5A7A7B85D6989FBEC7A5CF4432B5A5E)screenTopContentPlacement
 {
   [(TSDInteractiveCanvasController *)self i_clippingBoundsForScrollViewEnclosingCanvas];
-  x = v19.origin.x;
-  y = v19.origin.y;
-  width = v19.size.width;
-  height = v19.size.height;
-  MidX = CGRectGetMidX(v19);
+  x = v11.origin.x;
+  y = v11.origin.y;
+  width = v11.size.width;
+  height = v11.size.height;
+  CGRectGetMidX(v11);
   [(TSKScrollView *)[(TSDCanvasView *)[(TSDInteractiveCanvasController *)self canvasView] enclosingScrollView] bounds];
-  v9 = MidX / v8;
-  v20.origin.x = x;
-  v20.origin.y = y;
-  v20.size.width = width;
-  v20.size.height = height;
-  MinY = CGRectGetMinY(v20);
-  bounds = [(TSKScrollView *)[(TSDCanvasView *)[(TSDInteractiveCanvasController *)self canvasView] enclosingScrollView] bounds];
-  v14.n128_f64[0] = v9;
+  v12.origin.x = x;
+  v12.origin.y = y;
+  v12.size.width = width;
+  v12.size.height = height;
+  CGRectGetMinY(v12);
+  [(TSKScrollView *)[(TSDCanvasView *)[(TSDInteractiveCanvasController *)self canvasView] enclosingScrollView] bounds];
 
-  v12.n128_f64[0] = MinY / v13;
-  TSDContentPlacementWithAnchorPoint(bounds, v14, v12);
-  result.var0.y = v16;
-  result.var0.x = v15;
+  TSDContentPlacementWithAnchorPoint();
+  result.var0.y = v8;
+  result.var0.x = v7;
   return result;
 }
 
 - ($F5A7A7B85D6989FBEC7A5CF4432B5A5E)screenBottomContentPlacement
 {
   [(TSDInteractiveCanvasController *)self i_clippingBoundsForScrollViewEnclosingCanvas];
-  x = v19.origin.x;
-  y = v19.origin.y;
-  width = v19.size.width;
-  height = v19.size.height;
-  MidX = CGRectGetMidX(v19);
+  x = v11.origin.x;
+  y = v11.origin.y;
+  width = v11.size.width;
+  height = v11.size.height;
+  CGRectGetMidX(v11);
   [(TSKScrollView *)[(TSDCanvasView *)[(TSDInteractiveCanvasController *)self canvasView] enclosingScrollView] bounds];
-  v9 = MidX / v8;
-  v20.origin.x = x;
-  v20.origin.y = y;
-  v20.size.width = width;
-  v20.size.height = height;
-  MaxY = CGRectGetMaxY(v20);
-  bounds = [(TSKScrollView *)[(TSDCanvasView *)[(TSDInteractiveCanvasController *)self canvasView] enclosingScrollView] bounds];
-  v14.n128_f64[0] = v9;
+  v12.origin.x = x;
+  v12.origin.y = y;
+  v12.size.width = width;
+  v12.size.height = height;
+  CGRectGetMaxY(v12);
+  [(TSKScrollView *)[(TSDCanvasView *)[(TSDInteractiveCanvasController *)self canvasView] enclosingScrollView] bounds];
 
-  v12.n128_f64[0] = MaxY / v13;
-  TSDContentPlacementWithAnchorPoint(bounds, v14, v12);
-  result.var0.y = v16;
-  result.var0.x = v15;
+  TSDContentPlacementWithAnchorPoint();
+  result.var0.y = v8;
+  result.var0.x = v7;
   return result;
 }
 
@@ -9682,17 +9650,13 @@ uint64_t __102__TSDInteractiveCanvasController_animateToViewScale_contentOffset_
   v6 = v5;
   v8 = v7;
   [(TSKScrollView *)[(TSDCanvasView *)[(TSDInteractiveCanvasController *)self canvasView] enclosingScrollView] contentOffset];
-  v10 = TSDSubtractPoints(v6, v8, v9);
-  v12 = v11;
+  TSDSubtractPoints(v6, v8, v9);
   [(TSKScrollView *)[(TSDCanvasView *)[(TSDInteractiveCanvasController *)self canvasView] enclosingScrollView] bounds];
-  v14 = v10 / v13;
-  bounds = [(TSKScrollView *)[(TSDCanvasView *)[(TSDInteractiveCanvasController *)self canvasView] enclosingScrollView] bounds];
-  v18.n128_f64[0] = v14;
+  [(TSKScrollView *)[(TSDCanvasView *)[(TSDInteractiveCanvasController *)self canvasView] enclosingScrollView] bounds];
 
-  v16.n128_f64[0] = v12 / v17;
-  TSDContentPlacementWithAnchorPoint(bounds, v18, v16);
-  result.var0.y = v20;
-  result.var0.x = v19;
+  TSDContentPlacementWithAnchorPoint();
+  result.var0.y = v11;
+  result.var0.x = v10;
   return result;
 }
 

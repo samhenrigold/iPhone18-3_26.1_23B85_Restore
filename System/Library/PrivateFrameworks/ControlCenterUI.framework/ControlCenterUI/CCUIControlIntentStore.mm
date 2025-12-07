@@ -49,15 +49,21 @@
   v12 = v11;
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v13 = swift_allocObject();
+    *(v13 + 16) = v6;
     v6 = sub_21EA689CC;
   }
 
-  selfCopy = self;
-  v14 = sub_21EA616B0(v7, v9, v10, v12, v6);
-  sub_21E9FFAF0(v6);
+  else
+  {
+    v13 = 0;
+  }
 
-  return v14;
+  selfCopy = self;
+  v15 = sub_21EA616B0(v7, v9, v10, v12, v6, v13);
+  sub_21E9FFAF0(v6, v13);
+
+  return v15;
 }
 
 - (id)acquireIntentPersistenceAssertionWithBundleIdentifier:(id)identifier dataSourceIdentifier:(id)sourceIdentifier

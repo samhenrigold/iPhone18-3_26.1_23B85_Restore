@@ -55,7 +55,7 @@ LABEL_14:
     goto LABEL_13;
   }
 
-  if (!MapsSuggestionsEntriesShouldBeOfOneOfEachType(12, 5, entryCopy, withEntryCopy) || ([v7 BOOLeanForKey:@"MapsSuggestionsIsSuppressedKey" is:1] & 1) != 0)
+  if (!MapsSuggestionsEntriesShouldBeOfOneOfEachType(0xC, 5, entryCopy, withEntryCopy) || ([v7 BOOLeanForKey:@"MapsSuggestionsIsSuppressedKey" is:1] & 1) != 0)
   {
     goto LABEL_14;
   }

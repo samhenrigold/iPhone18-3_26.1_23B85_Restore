@@ -338,7 +338,7 @@ LABEL_62:
 
 - (unint64_t)hash
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v3 = [(NSString *)self->_identifier hash];
   v4 = self->_source - v3 + 32 * v3;
   v5 = [(NSString *)self->_namePrefix hash]- v4 + 32 * v4;
@@ -352,127 +352,126 @@ LABEL_62:
   v13 = [(NSString *)self->_jobTitle hash]- v12 + 32 * v12;
   v14 = [(NSDateComponents *)self->_birthday hash]- v13 + 32 * v13;
   v15 = [(NSDateComponents *)self->_nonGregorianBirthday hash]- v14 + 32 * v14;
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v16 = self->_phoneNumbers;
-  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v50 objects:v57 count:16];
+  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v49 objects:v56 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v51;
+    v19 = *v50;
     do
     {
       v20 = 0;
       do
       {
-        if (*v51 != v19)
+        if (*v50 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v15 = [*(*(&v50 + 1) + 8 * v20++) hash] - v15 + 32 * v15;
+        v15 = [*(*(&v49 + 1) + 8 * v20++) hash] - v15 + 32 * v15;
       }
 
       while (v18 != v20);
-      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v50 objects:v57 count:16];
+      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v49 objects:v56 count:16];
     }
 
     while (v18);
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v21 = self->_emailAddresses;
-  v22 = [(NSArray *)v21 countByEnumeratingWithState:&v46 objects:v56 count:16];
+  v22 = [(NSArray *)v21 countByEnumeratingWithState:&v45 objects:v55 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v47;
+    v24 = *v46;
     do
     {
       v25 = 0;
       do
       {
-        if (*v47 != v24)
+        if (*v46 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v15 = [*(*(&v46 + 1) + 8 * v25++) hash] - v15 + 32 * v15;
+        v15 = [*(*(&v45 + 1) + 8 * v25++) hash] - v15 + 32 * v15;
       }
 
       while (v23 != v25);
-      v23 = [(NSArray *)v21 countByEnumeratingWithState:&v46 objects:v56 count:16];
+      v23 = [(NSArray *)v21 countByEnumeratingWithState:&v45 objects:v55 count:16];
     }
 
     while (v23);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v26 = self->_socialProfiles;
-  v27 = [(NSArray *)v26 countByEnumeratingWithState:&v42 objects:v55 count:16];
+  v27 = [(NSArray *)v26 countByEnumeratingWithState:&v41 objects:v54 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v43;
+    v29 = *v42;
     do
     {
       v30 = 0;
       do
       {
-        if (*v43 != v29)
+        if (*v42 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v15 = [*(*(&v42 + 1) + 8 * v30++) hash] - v15 + 32 * v15;
+        v15 = [*(*(&v41 + 1) + 8 * v30++) hash] - v15 + 32 * v15;
       }
 
       while (v28 != v30);
-      v28 = [(NSArray *)v26 countByEnumeratingWithState:&v42 objects:v55 count:16];
+      v28 = [(NSArray *)v26 countByEnumeratingWithState:&v41 objects:v54 count:16];
     }
 
     while (v28);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v31 = self->_postalAddresses;
-  v32 = [(NSArray *)v31 countByEnumeratingWithState:&v38 objects:v54 count:16];
+  v32 = [(NSArray *)v31 countByEnumeratingWithState:&v37 objects:v53 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v39;
+    v34 = *v38;
     do
     {
       v35 = 0;
       do
       {
-        if (*v39 != v34)
+        if (*v38 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v15 = [*(*(&v38 + 1) + 8 * v35++) hash] - v15 + 32 * v15;
+        v15 = [*(*(&v37 + 1) + 8 * v35++) hash] - v15 + 32 * v15;
       }
 
       while (v33 != v35);
-      v33 = [(NSArray *)v31 countByEnumeratingWithState:&v38 objects:v54 count:16];
+      v33 = [(NSArray *)v31 countByEnumeratingWithState:&v37 objects:v53 count:16];
     }
 
     while (v33);
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -542,16 +541,14 @@ LABEL_62:
 
 - (void)setEmailAddressForTesting:(id)testing
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   testingCopy = testing;
   v5 = [[PPLabeledValue alloc] initWithLabel:@"email" value:testingCopy];
 
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   emailAddresses = self->_emailAddresses;
   self->_emailAddresses = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_generateLocalizedFullName
@@ -609,7 +606,7 @@ LABEL_62:
 
 - (id)contactsContactIdentifierWithError:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (self->_source == 1)
   {
     v5 = [PPContact contactsContactIdentifierWithIdentifier:self->_identifier error:error];
@@ -624,84 +621,80 @@ LABEL_62:
       source = self->_source;
       identifier = self->_identifier;
       *buf = 67109378;
-      v19 = source;
-      v20 = 2112;
-      v21 = identifier;
+      v18 = source;
+      v19 = 2112;
+      v20 = identifier;
       _os_log_error_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_ERROR, "attempt to get CN identifier for non-CN contact: src:%d id:%@", buf, 0x12u);
     }
 
     if (error)
     {
       v8 = MEMORY[0x1E696ABC0];
-      v16[0] = @"PPErrorInfoKey";
-      v16[1] = @"identifier";
+      v15[0] = @"PPErrorInfoKey";
+      v15[1] = @"identifier";
       v9 = self->_identifier;
-      v17[0] = v6;
-      v17[1] = v9;
-      v16[2] = @"source";
+      v16[0] = v6;
+      v16[1] = v9;
+      v15[2] = @"source";
       v10 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_source];
-      v17[2] = v10;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
+      v16[2] = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
       *error = [v8 errorWithDomain:@"PPErrorDomain" code:2 userInfo:v11];
     }
 
     v5 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (int64_t)foundInAppsRecordIdentifierNumberWithError:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (self->_source == 2)
   {
     identifier = self->_identifier;
-    v6 = *MEMORY[0x1E69E9840];
 
     return [PPContact foundInAppsRecordIdentifierNumberWithIdentifier:identifier error:error];
   }
 
   else
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"attempt to get FIA identifier for non-FIA contact: src:%d id:%@", self->_source, self->_identifier];
-    v9 = pp_contacts_log_handle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"attempt to get FIA identifier for non-FIA contact: src:%d id:%@", self->_source, self->_identifier];
+    v8 = pp_contacts_log_handle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       source = self->_source;
-      v16 = self->_identifier;
+      v14 = self->_identifier;
       *buf = 67109378;
-      v20 = source;
-      v21 = 2112;
-      v22 = v16;
-      _os_log_error_impl(&dword_1A7FD3000, v9, OS_LOG_TYPE_ERROR, "attempt to get FIA identifier for non-FIA contact: src:%d id:%@", buf, 0x12u);
+      v18 = source;
+      v19 = 2112;
+      v20 = v14;
+      _os_log_error_impl(&dword_1A7FD3000, v8, OS_LOG_TYPE_ERROR, "attempt to get FIA identifier for non-FIA contact: src:%d id:%@", buf, 0x12u);
     }
 
     if (error)
     {
-      v10 = MEMORY[0x1E696ABC0];
-      v17[0] = @"PPErrorInfoKey";
-      v17[1] = @"identifier";
-      v11 = self->_identifier;
-      v18[0] = v8;
-      v18[1] = v11;
-      v17[2] = @"source";
-      v12 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_source];
-      v18[2] = v12;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
-      *error = [v10 errorWithDomain:@"PPErrorDomain" code:2 userInfo:v13];
+      v9 = MEMORY[0x1E696ABC0];
+      v15[0] = @"PPErrorInfoKey";
+      v15[1] = @"identifier";
+      v10 = self->_identifier;
+      v16[0] = v7;
+      v16[1] = v10;
+      v15[2] = @"source";
+      v11 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:self->_source];
+      v16[2] = v11;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
+      *error = [v9 errorWithDomain:@"PPErrorDomain" code:2 userInfo:v12];
     }
 
-    v14 = *MEMORY[0x1E69E9840];
     return 0;
   }
 }
 
 - (PPContact)initWithFoundInAppsContact:(id)contact
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   if (!contactCopy)
   {
@@ -711,26 +704,26 @@ LABEL_62:
 
   selfCopy = self;
   v6 = objc_opt_new();
+  v76 = 0u;
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
   phones = [contactCopy phones];
-  v8 = [phones countByEnumeratingWithState:&v77 objects:v83 count:16];
+  v8 = [phones countByEnumeratingWithState:&v76 objects:v82 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v78;
+    v10 = *v77;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v78 != v10)
+        if (*v77 != v10)
         {
           objc_enumerationMutation(phones);
         }
 
-        v12 = *(*(&v77 + 1) + 8 * i);
+        v12 = *(*(&v76 + 1) + 8 * i);
         v13 = objc_autoreleasePoolPush();
         phoneNumber = [v12 phoneNumber];
         v15 = [phoneNumber length];
@@ -746,35 +739,35 @@ LABEL_62:
         objc_autoreleasePoolPop(v13);
       }
 
-      v9 = [phones countByEnumeratingWithState:&v77 objects:v83 count:16];
+      v9 = [phones countByEnumeratingWithState:&v76 objects:v82 count:16];
     }
 
     while (v9);
   }
 
-  v68 = v6;
+  v67 = v6;
 
   v19 = objc_opt_new();
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   emailAddresses = [contactCopy emailAddresses];
-  v21 = [emailAddresses countByEnumeratingWithState:&v73 objects:v82 count:16];
+  v21 = [emailAddresses countByEnumeratingWithState:&v72 objects:v81 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v74;
+    v23 = *v73;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v74 != v23)
+        if (*v73 != v23)
         {
           objc_enumerationMutation(emailAddresses);
         }
 
-        v25 = *(*(&v73 + 1) + 8 * j);
+        v25 = *(*(&v72 + 1) + 8 * j);
         v26 = objc_autoreleasePoolPush();
         emailAddress = [v25 emailAddress];
         v28 = [emailAddress length];
@@ -790,34 +783,34 @@ LABEL_62:
         objc_autoreleasePoolPop(v26);
       }
 
-      v22 = [emailAddresses countByEnumeratingWithState:&v73 objects:v82 count:16];
+      v22 = [emailAddresses countByEnumeratingWithState:&v72 objects:v81 count:16];
     }
 
     while (v22);
   }
 
   v32 = objc_opt_new();
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
-  v65 = contactCopy;
+  v64 = contactCopy;
   postalAddresses = [contactCopy postalAddresses];
-  v34 = [postalAddresses countByEnumeratingWithState:&v69 objects:v81 count:16];
+  v34 = [postalAddresses countByEnumeratingWithState:&v68 objects:v80 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v70;
+    v36 = *v69;
     do
     {
       for (k = 0; k != v35; ++k)
       {
-        if (*v70 != v36)
+        if (*v69 != v36)
         {
           objc_enumerationMutation(postalAddresses);
         }
 
-        v38 = *(*(&v69 + 1) + 8 * k);
+        v38 = *(*(&v68 + 1) + 8 * k);
         v39 = objc_autoreleasePoolPush();
         v40 = [[PPPostalAddress alloc] initWithFoundInAppsPostalAddress:v38];
         label3 = [v38 label];
@@ -827,7 +820,7 @@ LABEL_62:
         objc_autoreleasePoolPop(v39);
       }
 
-      v35 = [postalAddresses countByEnumeratingWithState:&v69 objects:v81 count:16];
+      v35 = [postalAddresses countByEnumeratingWithState:&v68 objects:v80 count:16];
     }
 
     while (v35);
@@ -835,32 +828,31 @@ LABEL_62:
 
   v43 = objc_opt_class();
   v44 = objc_alloc(MEMORY[0x1E696AEC0]);
-  recordId = [v65 recordId];
-  v61 = [v44 initWithFormat:@"%llu", objc_msgSend(recordId, "numericValue")];
-  v67 = [v43 sourceIdentifierWithSource:2 identifier:v61];
-  name = [v65 name];
+  recordId = [v64 recordId];
+  v60 = [v44 initWithFormat:@"%llu", objc_msgSend(recordId, "numericValue")];
+  v66 = [v43 sourceIdentifierWithSource:2 identifier:v60];
+  name = [v64 name];
   prefix = [name prefix];
-  name2 = [v65 name];
+  name2 = [v64 name];
   firstName = [name2 firstName];
-  name3 = [v65 name];
+  name3 = [v64 name];
   middleName = [name3 middleName];
-  name4 = [v65 name];
+  name4 = [v64 name];
   lastName = [name4 lastName];
-  name5 = [v65 name];
+  name5 = [v64 name];
   suffix = [name5 suffix];
-  name6 = [v65 name];
+  name6 = [v64 name];
   fullName = [name6 fullName];
-  birthday = [v65 birthday];
+  birthday = [v64 birthday];
   dateComponents = [birthday dateComponents];
-  v64 = [(PPContact *)selfCopy initWithIdentifier:v67 source:2 namePrefix:prefix givenName:firstName middleName:middleName familyName:lastName nameSuffix:suffix nickname:0 localizedFullName:fullName organizationName:0 jobTitle:0 birthday:dateComponents nonGregorianBirthday:0 phoneNumbers:v68 emailAddresses:v19 socialProfiles:0 postalAddresses:v32];
+  v63 = [(PPContact *)selfCopy initWithIdentifier:v66 source:2 namePrefix:prefix givenName:firstName middleName:middleName familyName:lastName nameSuffix:suffix nickname:0 localizedFullName:fullName organizationName:0 jobTitle:0 birthday:dateComponents nonGregorianBirthday:0 phoneNumbers:v67 emailAddresses:v19 socialProfiles:0 postalAddresses:v32];
 
-  v52 = *MEMORY[0x1E69E9840];
-  return v64;
+  return v63;
 }
 
 - (PPContact)initWithContactsContact:(id)contact
 {
-  v115 = *MEMORY[0x1E69E9840];
+  v114 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   if (!contactCopy)
   {
@@ -868,31 +860,31 @@ LABEL_62:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PPContact.m" lineNumber:77 description:{@"Invalid parameter not satisfying: %@", @"contact"}];
   }
 
-  v94 = objc_opt_new();
+  v93 = objc_opt_new();
   selfCopy = self;
-  v89 = contactCopy;
+  v88 = contactCopy;
   if ([contactCopy isKeyAvailable:*MEMORY[0x1E695C330]])
   {
-    v109 = 0u;
-    v110 = 0u;
-    v107 = 0u;
     v108 = 0u;
+    v109 = 0u;
+    v106 = 0u;
+    v107 = 0u;
     phoneNumbers = [contactCopy phoneNumbers];
-    v7 = [phoneNumbers countByEnumeratingWithState:&v107 objects:v114 count:16];
+    v7 = [phoneNumbers countByEnumeratingWithState:&v106 objects:v113 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v108;
+      v9 = *v107;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v108 != v9)
+          if (*v107 != v9)
           {
             objc_enumerationMutation(phoneNumbers);
           }
 
-          v11 = *(*(&v107 + 1) + 8 * i);
+          v11 = *(*(&v106 + 1) + 8 * i);
           v12 = objc_autoreleasePoolPush();
           value = [v11 value];
           stringValue = [value stringValue];
@@ -904,45 +896,45 @@ LABEL_62:
             value2 = [v11 value];
             stringValue2 = [value2 stringValue];
             v19 = [PPLabeledValue labeledValueWithLabel:label value:stringValue2];
-            [v94 addObject:v19];
+            [v93 addObject:v19];
           }
 
           objc_autoreleasePoolPop(v12);
         }
 
-        v8 = [phoneNumbers countByEnumeratingWithState:&v107 objects:v114 count:16];
+        v8 = [phoneNumbers countByEnumeratingWithState:&v106 objects:v113 count:16];
       }
 
       while (v8);
     }
 
     self = selfCopy;
-    contactCopy = v89;
+    contactCopy = v88;
   }
 
-  v93 = objc_opt_new();
+  v92 = objc_opt_new();
   if ([contactCopy isKeyAvailable:*MEMORY[0x1E695C208]])
   {
-    v105 = 0u;
-    v106 = 0u;
-    v103 = 0u;
     v104 = 0u;
+    v105 = 0u;
+    v102 = 0u;
+    v103 = 0u;
     emailAddresses = [contactCopy emailAddresses];
-    v21 = [emailAddresses countByEnumeratingWithState:&v103 objects:v113 count:16];
+    v21 = [emailAddresses countByEnumeratingWithState:&v102 objects:v112 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v104;
+      v23 = *v103;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v104 != v23)
+          if (*v103 != v23)
           {
             objc_enumerationMutation(emailAddresses);
           }
 
-          v25 = *(*(&v103 + 1) + 8 * j);
+          v25 = *(*(&v102 + 1) + 8 * j);
           v26 = objc_autoreleasePoolPush();
           value3 = [v25 value];
           v28 = [value3 length];
@@ -952,44 +944,44 @@ LABEL_62:
             label2 = [v25 label];
             value4 = [v25 value];
             v31 = [PPLabeledValue labeledValueWithLabel:label2 value:value4];
-            [v93 addObject:v31];
+            [v92 addObject:v31];
           }
 
           objc_autoreleasePoolPop(v26);
         }
 
-        v22 = [emailAddresses countByEnumeratingWithState:&v103 objects:v113 count:16];
+        v22 = [emailAddresses countByEnumeratingWithState:&v102 objects:v112 count:16];
       }
 
       while (v22);
     }
 
-    contactCopy = v89;
+    contactCopy = v88;
   }
 
-  v92 = objc_opt_new();
+  v91 = objc_opt_new();
   if ([contactCopy isKeyAvailable:*MEMORY[0x1E695C3D0]])
   {
-    v101 = 0u;
-    v102 = 0u;
-    v99 = 0u;
     v100 = 0u;
+    v101 = 0u;
+    v98 = 0u;
+    v99 = 0u;
     socialProfiles = [contactCopy socialProfiles];
-    v33 = [socialProfiles countByEnumeratingWithState:&v99 objects:v112 count:16];
+    v33 = [socialProfiles countByEnumeratingWithState:&v98 objects:v111 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v100;
+      v35 = *v99;
       do
       {
         for (k = 0; k != v34; ++k)
         {
-          if (*v100 != v35)
+          if (*v99 != v35)
           {
             objc_enumerationMutation(socialProfiles);
           }
 
-          v37 = *(*(&v99 + 1) + 8 * k);
+          v37 = *(*(&v98 + 1) + 8 * k);
           v38 = objc_autoreleasePoolPush();
           value5 = [v37 value];
           username = [value5 username];
@@ -1002,45 +994,45 @@ LABEL_62:
             value7 = [v37 value];
             username2 = [value7 username];
             v46 = [PPLabeledValue labeledValueWithLabel:service value:username2];
-            [v92 addObject:v46];
+            [v91 addObject:v46];
           }
 
           objc_autoreleasePoolPop(v38);
         }
 
-        v34 = [socialProfiles countByEnumeratingWithState:&v99 objects:v112 count:16];
+        v34 = [socialProfiles countByEnumeratingWithState:&v98 objects:v111 count:16];
       }
 
       while (v34);
     }
 
     self = selfCopy;
-    contactCopy = v89;
+    contactCopy = v88;
   }
 
-  v91 = objc_opt_new();
+  v90 = objc_opt_new();
   if ([contactCopy isKeyAvailable:*MEMORY[0x1E695C360]])
   {
-    v97 = 0u;
-    v98 = 0u;
-    v95 = 0u;
     v96 = 0u;
+    v97 = 0u;
+    v94 = 0u;
+    v95 = 0u;
     postalAddresses = [contactCopy postalAddresses];
-    v48 = [postalAddresses countByEnumeratingWithState:&v95 objects:v111 count:16];
+    v48 = [postalAddresses countByEnumeratingWithState:&v94 objects:v110 count:16];
     if (v48)
     {
       v49 = v48;
-      v50 = *v96;
+      v50 = *v95;
       do
       {
         for (m = 0; m != v49; ++m)
         {
-          if (*v96 != v50)
+          if (*v95 != v50)
           {
             objc_enumerationMutation(postalAddresses);
           }
 
-          v52 = *(*(&v95 + 1) + 8 * m);
+          v52 = *(*(&v94 + 1) + 8 * m);
           v53 = objc_autoreleasePoolPush();
           value8 = [v52 value];
 
@@ -1052,20 +1044,20 @@ LABEL_62:
 
             label3 = [v52 label];
             v59 = [PPLabeledValue labeledValueWithLabel:label3 value:v57];
-            [v91 addObject:v59];
+            [v90 addObject:v59];
           }
 
           objc_autoreleasePoolPop(v53);
         }
 
-        v49 = [postalAddresses countByEnumeratingWithState:&v95 objects:v111 count:16];
+        v49 = [postalAddresses countByEnumeratingWithState:&v94 objects:v110 count:16];
       }
 
       while (v49);
     }
 
     self = selfCopy;
-    contactCopy = v89;
+    contactCopy = v88;
   }
 
   v60 = objc_opt_class();
@@ -1093,8 +1085,8 @@ LABEL_62:
     givenName = 0;
   }
 
-  v80 = [contactCopy isKeyAvailable:*MEMORY[0x1E695C2F0]];
-  if (v80)
+  v79 = [contactCopy isKeyAvailable:*MEMORY[0x1E695C2F0]];
+  if (v79)
   {
     middleName = [contactCopy middleName];
   }
@@ -1104,8 +1096,8 @@ LABEL_62:
     middleName = 0;
   }
 
-  v79 = [contactCopy isKeyAvailable:*MEMORY[0x1E695C230]];
-  if (v79)
+  v78 = [contactCopy isKeyAvailable:*MEMORY[0x1E695C230]];
+  if (v78)
   {
     familyName = [contactCopy familyName];
   }
@@ -1115,8 +1107,8 @@ LABEL_62:
     familyName = 0;
   }
 
-  v78 = [contactCopy isKeyAvailable:*MEMORY[0x1E695C308]];
-  if (v78)
+  v77 = [contactCopy isKeyAvailable:*MEMORY[0x1E695C308]];
+  if (v77)
   {
     nameSuffix = [contactCopy nameSuffix];
   }
@@ -1126,8 +1118,8 @@ LABEL_62:
     nameSuffix = 0;
   }
 
-  v77 = [contactCopy isKeyAvailable:*MEMORY[0x1E695C310]];
-  if (v77)
+  v76 = [contactCopy isKeyAvailable:*MEMORY[0x1E695C310]];
+  if (v76)
   {
     nickname = [contactCopy nickname];
   }
@@ -1137,9 +1129,9 @@ LABEL_62:
     nickname = 0;
   }
 
-  v90 = [MEMORY[0x1E695CD80] stringFromContact:contactCopy style:0];
-  v76 = [contactCopy isKeyAvailable:*MEMORY[0x1E695C328]];
-  if (v76)
+  v89 = [MEMORY[0x1E695CD80] stringFromContact:contactCopy style:0];
+  v75 = [contactCopy isKeyAvailable:*MEMORY[0x1E695C328]];
+  if (v75)
   {
     organizationName = [contactCopy organizationName];
   }
@@ -1173,7 +1165,7 @@ LABEL_62:
 
   if (([contactCopy isKeyAvailable:*MEMORY[0x1E695C318]] & 1) == 0)
   {
-    v71 = [(PPContact *)self initWithIdentifier:v62 source:1 namePrefix:namePrefix givenName:givenName middleName:middleName familyName:familyName nameSuffix:nameSuffix nickname:nickname localizedFullName:v90 organizationName:organizationName jobTitle:jobTitle birthday:birthday nonGregorianBirthday:0 phoneNumbers:v94 emailAddresses:v93 socialProfiles:v92 postalAddresses:v91];
+    v71 = [(PPContact *)self initWithIdentifier:v62 source:1 namePrefix:namePrefix givenName:givenName middleName:middleName familyName:familyName nameSuffix:nameSuffix nickname:nickname localizedFullName:v89 organizationName:organizationName jobTitle:jobTitle birthday:birthday nonGregorianBirthday:0 phoneNumbers:v93 emailAddresses:v92 socialProfiles:v91 postalAddresses:v90];
     if (!v67)
     {
       goto LABEL_79;
@@ -1183,12 +1175,12 @@ LABEL_62:
   }
 
   [contactCopy nonGregorianBirthday];
-  v75 = identifier;
+  v74 = identifier;
   v70 = v69 = namePrefix;
-  v71 = [(PPContact *)self initWithIdentifier:v62 source:1 namePrefix:v69 givenName:givenName middleName:middleName familyName:familyName nameSuffix:nameSuffix nickname:nickname localizedFullName:v90 organizationName:organizationName jobTitle:jobTitle birthday:birthday nonGregorianBirthday:v70 phoneNumbers:v94 emailAddresses:v93 socialProfiles:v92 postalAddresses:v91];
+  v71 = [(PPContact *)self initWithIdentifier:v62 source:1 namePrefix:v69 givenName:givenName middleName:middleName familyName:familyName nameSuffix:nameSuffix nickname:nickname localizedFullName:v89 organizationName:organizationName jobTitle:jobTitle birthday:birthday nonGregorianBirthday:v70 phoneNumbers:v93 emailAddresses:v92 socialProfiles:v91 postalAddresses:v90];
 
   namePrefix = v69;
-  identifier = v75;
+  identifier = v74;
   if (v67)
   {
 LABEL_78:
@@ -1196,6 +1188,10 @@ LABEL_78:
 
 LABEL_79:
   if (v66)
+  {
+  }
+
+  if (v75)
   {
   }
 
@@ -1211,11 +1207,7 @@ LABEL_79:
   {
   }
 
-  if (v79)
-  {
-  }
-
-  if (!v80)
+  if (!v79)
   {
     if (!v65)
     {
@@ -1245,7 +1237,6 @@ LABEL_92:
 
 LABEL_93:
 
-  v72 = *MEMORY[0x1E69E9840];
   return v71;
 }
 
@@ -1447,7 +1438,7 @@ LABEL_7:
 
 + (int64_t)foundInAppsRecordIdentifierNumberWithIdentifier:(id)identifier error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v7 = [self identifier:identifierCopy startsWithPrefix:@"FIA"];
   v8 = identifierCopy;
@@ -1476,25 +1467,24 @@ LABEL_7:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v25 = identifierCopy;
+      v24 = identifierCopy;
       _os_log_impl(&dword_1A7FD3000, v17, OS_LOG_TYPE_INFO, "Number formatter failed to get FIA identifier from id: %@", buf, 0xCu);
     }
 
     if (error)
     {
       v18 = MEMORY[0x1E696ABC0];
-      v22[0] = @"PPErrorInfoKey";
-      v22[1] = @"identifier";
-      v23[0] = identifierCopy;
-      v23[1] = identifierCopy;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+      v21[0] = @"PPErrorInfoKey";
+      v21[1] = @"identifier";
+      v22[0] = identifierCopy;
+      v22[1] = identifierCopy;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
       *error = [v18 errorWithDomain:@"PPErrorDomain" code:2 userInfo:v19];
     }
 
     longLongValue = -1;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return longLongValue;
 }
 

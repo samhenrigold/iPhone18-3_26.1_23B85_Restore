@@ -78,22 +78,16 @@ void __45___PSAppUsageUtilities_cacheSharesForEachApp__block_invoke_94(uint64_t 
 
 void __45___PSAppUsageUtilities_cacheSharesForEachApp__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 error];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v2, v3, "Error: Feedback Biome stream read did not complete successfully: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v2, v3, "Error: Feedback Biome stream read did not complete successfully: %@", v4, v5, v6, v7);
 }
 
 void __45___PSAppUsageUtilities_cacheSharesForEachApp__block_invoke_84_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 eventBody];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v2, v3, "Event donation from Sharesheet.Feedback biome stream was empty for event: %{private}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v2, v3, "Event donation from Sharesheet.Feedback biome stream was empty for event: %{private}@", v4, v5, v6, v7);
 }
 
 @end

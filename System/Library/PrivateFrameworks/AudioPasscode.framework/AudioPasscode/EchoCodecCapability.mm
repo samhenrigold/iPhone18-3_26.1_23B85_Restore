@@ -47,12 +47,12 @@
 
 - (EchoCodecCapability)initWithCoder:(id)coder
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"echo"];
-  v20.receiver = self;
-  v20.super_class = EchoCodecCapability;
-  v6 = [(AUPasscodeCodecCapability *)&v20 initWithAlgorithmName:v5];
+  v19.receiver = self;
+  v19.super_class = EchoCodecCapability;
+  v6 = [(AUPasscodeCodecCapability *)&v19 initWithAlgorithmName:v5];
 
   if (v6)
   {
@@ -65,9 +65,9 @@
     v6->_numFrameRepeatRange.location = v9;
     v6->_numFrameRepeatRange.length = v10;
     v11 = MEMORY[0x277CBEB98];
-    v21[0] = objc_opt_class();
-    v21[1] = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[0] = objc_opt_class();
+    v20[1] = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
     v13 = [v11 setWithArray:v12];
 
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"algorithmVersions"];
@@ -80,7 +80,6 @@
     v6->_hpfCutOffFreqRange.length = v17;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

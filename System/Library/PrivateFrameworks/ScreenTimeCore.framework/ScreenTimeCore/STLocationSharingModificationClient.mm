@@ -1,6 +1,7 @@
 @interface STLocationSharingModificationClient
 - (STLocationSharingModificationClient)init;
 - (void)isLocationSharingModificationAllowedForUserID:(id)d completionHandler:(id)handler;
+- (void)setLocationSharingModificationAllowed:(BOOL)allowed forUserID:(id)d completionHandler:(id)handler;
 @end
 
 @implementation STLocationSharingModificationClient
@@ -45,6 +46,23 @@ void __103__STLocationSharingModificationClient_isLocationSharingModificationAll
   {
     (*(v3 + 16))(v3, 1, a3);
   }
+}
+
+- (void)setLocationSharingModificationAllowed:(BOOL)allowed forUserID:(id)d completionHandler:(id)handler
+{
+  allowedCopy = allowed;
+  handlerCopy = handler;
+  dCopy = d;
+  managementState = [(STLocationSharingModificationClient *)self managementState];
+  dsid = [dCopy dsid];
+
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __105__STLocationSharingModificationClient_setLocationSharingModificationAllowed_forUserID_completionHandler___block_invoke;
+  v13[3] = &unk_1E7CE6CE8;
+  v14 = handlerCopy;
+  v12 = handlerCopy;
+  [managementState setLocationSharingModificationAllowed:allowedCopy forDSID:dsid completionHandler:v13];
 }
 
 @end

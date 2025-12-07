@@ -25,14 +25,15 @@
 
 - (GetSupportedLanguagesIntent)initWithDomain:(id)domain verb:(id)verb parametersByName:(id)name
 {
-  sub_269424118();
+  v6 = sub_269424118();
+  v8 = v7;
   sub_269424118();
   if (name)
   {
     sub_2694240A8();
   }
 
-  return GetSupportedLanguagesIntent.init(domain:verb:parametersByName:)();
+  return GetSupportedLanguagesIntent.init(domain:verb:parametersByName:)(v6, v8);
 }
 
 @end

@@ -37,13 +37,13 @@
   return v2;
 }
 
-uint64_t __28__STSImageCache_sharedCache__block_invoke()
+uint64_t __28__STSImageCache_sharedCache__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = sharedCache_SharedCache;
-  sharedCache_SharedCache = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedCache_SharedCache;
+  sharedCache_SharedCache = v1;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (STSImageCache)init
@@ -618,7 +618,7 @@ void __83__STSImageCache_fetchImageDataWithURL_priority_isSource_begin_progress_
   v14 = *(a1 + 32);
   v79 = v13;
   v80 = v14;
-  v15 = a1 + 40;
+  v15 = (a1 + 40);
   v81 = *(a1 + 40);
   v82 = &v83;
   dispatch_sync(v12, block);
@@ -1140,11 +1140,11 @@ void __98__STSImageCache_URLSession_downloadTask_didWriteData_totalBytesWritten_
         v18 = objc_alloc_init(STSAnimatedImageInfo);
         if (v4)
         {
-          [v4 duration];
+          objc_msgSend_duration(v4);
           v6 = v33;
           if (v36)
           {
-            [v4 duration];
+            objc_msgSend_duration(v4);
             v19 = v35;
           }
 
@@ -1153,7 +1153,7 @@ void __98__STSImageCache_URLSession_downloadTask_didWriteData_totalBytesWritten_
             v19 = 600.0;
           }
 
-          [v4 duration];
+          objc_msgSend_duration(v4);
           v27 = v34 / v19;
         }
 
@@ -1308,10 +1308,47 @@ void __98__STSImageCache_URLSession_downloadTask_didWriteData_totalBytesWritten_
   return v20;
 }
 
+void __79__STSImageCache_fetchImageWithURL_priority_isSource_begin_progress_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_0(&dword_264E95000, MEMORY[0x277D86220], a3, "Unsupport content-type returned: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __79__STSImageCache_fetchImageWithURL_priority_isSource_begin_progress_completion___block_invoke_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_0(&dword_264E95000, MEMORY[0x277D86220], a3, "Failed to create animated image for URL: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __83__STSImageCache_fetchImageDataWithURL_priority_isSource_begin_progress_completion___block_invoke_5_cold_1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_264E95000, MEMORY[0x277D86220], a3, "Failed to create image info for URL: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)_imageInfoUsingAVAssetReaderWithFileURL:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
-  OUTLINED_FUNCTION_0(&dword_264E95000, MEMORY[0x277D86220], v2, "Could not create frames for video asset, final reader status: %@", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_264E95000, MEMORY[0x277D86220], v2, "Could not create frames for video asset, final reader status: %@", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+- (void)_imageInfoUsingAVAssetReaderWithFileURL:(uint64_t)a3 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_264E95000, MEMORY[0x277D86220], a3, "Failed to create AVAssetReader: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_imageInfoWithData:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_264E95000, MEMORY[0x277D86220], a3, "Failed to write temp mp4 file to: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

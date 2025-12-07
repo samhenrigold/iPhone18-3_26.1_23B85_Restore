@@ -473,7 +473,7 @@ LABEL_7:
 
 - (void)_updateActiveDataSource
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (!self->_coalescedDataSourceUpdates)
   {
     _bestDataSource = [(SBLeafIcon *)self _bestDataSource];
@@ -481,6 +481,7 @@ LABEL_7:
     {
       sbh_leafIconDataSourceNotificationCenter = [MEMORY[0x1E696AD88] sbh_leafIconDataSourceNotificationCenter];
       v5 = self->_activeDataSource;
+      v6 = v5;
       if (self->_activeDataSource)
       {
         [sbh_leafIconDataSourceNotificationCenter removeObserver:self name:@"SBLeafIconDataSourceDidChangeNotification" object:?];
@@ -492,54 +493,54 @@ LABEL_7:
 
       if (_bestDataSource)
       {
-        v7 = SBLogIcon();
-        v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+        v8 = SBLogIcon(v5);
+        v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
 
-        v9 = SBLogIcon();
-        v10 = v9;
-        if (v8)
+        v11 = SBLogIcon(v10);
+        v12 = v11;
+        if (v9)
         {
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
             logIdentifier = self->super._logIdentifier;
-            v12 = self->_activeDataSource;
-            v17 = 138544130;
-            v18 = logIdentifier;
-            v19 = 2112;
-            selfCopy2 = v12;
-            v21 = 2112;
-            v22 = _bestDataSource;
-            v23 = 2112;
+            v14 = self->_activeDataSource;
+            v20 = 138544130;
+            v21 = logIdentifier;
+            v22 = 2112;
+            selfCopy2 = v14;
+            v24 = 2112;
+            v25 = _bestDataSource;
+            v26 = 2112;
             selfCopy = self;
-            _os_log_debug_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEBUG, "<%{public}@> Changing active data source from %@ to %@: %@", &v17, 0x2Au);
+            _os_log_debug_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_DEBUG, "<%{public}@> Changing active data source from %@ to %@: %@", &v20, 0x2Au);
           }
         }
 
         else
         {
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-            v13 = self->super._logIdentifier;
-            v17 = 138543618;
-            v18 = v13;
-            v19 = 2112;
+            v15 = self->super._logIdentifier;
+            v20 = 138543618;
+            v21 = v15;
+            v22 = 2112;
             selfCopy2 = self;
-            _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@> Changing active data source: %@", &v17, 0x16u);
+            _os_log_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_DEFAULT, "<%{public}@> Changing active data source: %@", &v20, 0x16u);
           }
 
-          v10 = SBLogIcon();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v12 = SBLogIcon(v16);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            v14 = self->super._logIdentifier;
-            v15 = SBHUniqueIdentifierOfDataSource(v5);
-            v16 = SBHUniqueIdentifierOfDataSource(_bestDataSource);
-            v17 = 138543874;
-            v18 = v14;
-            v19 = 2114;
-            selfCopy2 = v15;
-            v21 = 2114;
-            v22 = v16;
-            _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@> Changing from data souce: %{public}@ to data source:%{public}@.", &v17, 0x20u);
+            v17 = self->super._logIdentifier;
+            v18 = SBHUniqueIdentifierOfDataSource(v6);
+            v19 = SBHUniqueIdentifierOfDataSource(_bestDataSource);
+            v20 = 138543874;
+            v21 = v17;
+            v22 = 2114;
+            selfCopy2 = v18;
+            v24 = 2114;
+            v25 = v19;
+            _os_log_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_DEFAULT, "<%{public}@> Changing from data souce: %{public}@ to data source:%{public}@.", &v20, 0x20u);
           }
         }
 
@@ -549,7 +550,7 @@ LABEL_7:
         [sbh_leafIconDataSourceNotificationCenter addObserver:self selector:sel__noteActiveDataSourceDidGenerateImageNotification_ name:@"SBLeafIconDataSourceDidGenerateImageNotification" object:self->_activeDataSource];
       }
 
-      [(SBLeafIcon *)self didChangeActiveDataSource:v5];
+      [(SBLeafIcon *)self didChangeActiveDataSource:v6];
       [(SBLeafIcon *)self _noteActiveDataSourceDidChangeAndReloadIcon:1];
     }
   }
@@ -785,7 +786,7 @@ void __40__SBLeafIcon_didChangeActiveDataSource___block_invoke(uint64_t a1, void
 
   else
   {
-    [iconDataSources objectAtIndex:v4];
+    objc_msgSend_objectAtIndex_(iconDataSources);
   }
   v5 = ;
   [(SBLeafIcon *)self setActiveDataSource:v5];
@@ -1096,14 +1097,14 @@ void __40__SBLeafIcon_didChangeActiveDataSource___block_invoke(uint64_t a1, void
       self->_manuallySetDataSource = 0;
     }
 
-    [(SBLeafIcon *)self didReplaceIconDataSource:sourceCopy withIconDataSource:v8];
+    v15 = [(SBLeafIcon *)self didReplaceIconDataSource:sourceCopy withIconDataSource:v8];
     if (activeDataSource == sourceCopy)
     {
-      v15 = SBLogIcon();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = SBLogIcon(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 0;
-        _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEFAULT, "Activating data source due to icon replacement", v16, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_1BEB18000, v16, OS_LOG_TYPE_DEFAULT, "Activating data source due to icon replacement", v17, 2u);
       }
 
       [(SBLeafIcon *)self setActiveDataSource:v8];
@@ -1345,7 +1346,7 @@ LABEL_11:
 {
   v18 = *MEMORY[0x1E69E9840];
   object = [notification object];
-  v5 = SBLogIcon();
+  v5 = SBLogIcon(object);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -1370,7 +1371,7 @@ LABEL_11:
 {
   v18 = *MEMORY[0x1E69E9840];
   object = [notification object];
-  v5 = SBLogIcon();
+  v5 = SBLogIcon(object);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = objc_opt_class();
@@ -1393,7 +1394,7 @@ LABEL_11:
 
 - (void)_noteActiveDataSourceDidGenerateImageNotification:(id)notification
 {
-  v4 = SBLogIcon();
+  v4 = SBLogIcon(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(SBLeafIcon *)self _noteActiveDataSourceDidGenerateImageNotification:v4, v5, v6, v7, v8, v9, v10];
@@ -1482,7 +1483,7 @@ LABEL_11:
   v22 = [collectionCopy objectForKey:@"SBHActiveDataSource"];
   if (!v22)
   {
-    v23 = SBLogIcon();
+    v23 = SBLogIcon(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       [(SBLeafIcon *)self makeIconImageWithInfo:v23 traitCollection:v24 context:v25 options:v26, v27, v28, v29];
@@ -1608,7 +1609,7 @@ LABEL_18:
   if (v19)
   {
     v20 = SBHIconServicesOptionsForImageOptions(context);
-    v21 = SBHGetIconLayerWithTraitCollection(v19, infoCopy, v20, v15, v14, v13);
+    v21 = SBHGetIconLayerWithTraitCollection(v19, infoCopy, v20, v15, v14, v13, v12);
   }
 
   else
@@ -1616,7 +1617,7 @@ LABEL_18:
     v22 = [collectionCopy objectForKey:@"SBHActiveDataSource"];
     if (!v22)
     {
-      v23 = SBLogIcon();
+      v23 = SBLogIcon(0);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         [(SBLeafIcon *)self makeIconImageWithInfo:v23 traitCollection:v24 context:v25 options:v26, v27, v28, v29];
@@ -1923,7 +1924,7 @@ LABEL_8:
   locationCopy = location;
   contextCopy = context;
   activeDataSource = [(SBLeafIcon *)self activeDataSource];
-  v9 = SBLogIcon();
+  v9 = SBLogIcon(activeDataSource);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v12 = 138412802;
@@ -2087,6 +2088,20 @@ uint64_t __43__SBLeafIcon_formattedBadgeNumberOrString___block_invoke()
   }
 
   return leafIdentifier;
+}
+
+- (void)_noteActiveDataSourceDidGenerateImageNotification:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_7(&dword_1BEB18000, a2, a3, "Data source did generate icon: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)makeIconImageWithInfo:(uint64_t)a3 traitCollection:(uint64_t)a4 context:(uint64_t)a5 options:(uint64_t)a6 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_7(&dword_1BEB18000, a2, a3, "No active data source when trying to generate layer for icon: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

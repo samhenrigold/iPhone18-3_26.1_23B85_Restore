@@ -1,6 +1,7 @@
 @interface PSUITurnOffCellularSpecifier
 - (PSListController)hostController;
 - (PSUITurnOffCellularSpecifier)initWithContext:(id)context callCache:(id)cache hostController:(id)controller;
+- (void)_disableCellular:(BOOL)cellular;
 - (void)_showPopup;
 - (void)callObserver:(id)observer callChanged:(id)changed;
 - (void)setCellularOff:(id)off specifier:(id)specifier;
@@ -161,6 +162,28 @@ void __42__PSUITurnOffCellularSpecifier__showPopup__block_invoke_3(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 240));
   v2 = [WeakRetained navigationController];
   [v2 presentViewController:*(a1 + 40) animated:1 completion:0];
+}
+
+- (void)_disableCellular:(BOOL)cellular
+{
+  cellularCopy = cellular;
+  if (cellular)
+  {
+    v5 = MEMORY[0x277CBEC38];
+  }
+
+  else
+  {
+    v5 = MEMORY[0x277CBEC28];
+  }
+
+  [(PSUITurnOffCellularSpecifier *)self setCellularOff:v5];
+  v6 = +[PSUICoreTelephonyCapabilitiesCache sharedInstance];
+  subscriptionContext = [(PSUITurnOffCellularSpecifier *)self subscriptionContext];
+  [v6 setTurnOffCellular:subscriptionContext enabled:cellularCopy];
+
+  WeakRetained = objc_loadWeakRetained(&self->_hostController);
+  [WeakRetained reloadSpecifiers];
 }
 
 - (PSListController)hostController

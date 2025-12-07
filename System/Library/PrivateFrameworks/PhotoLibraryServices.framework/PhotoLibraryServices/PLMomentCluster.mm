@@ -28,9 +28,9 @@
         endDate = [(PLMomentCluster *)equalCopy endDate];
         if ([(NSDate *)endDate isEqual:endDate])
         {
-          v9 = [(NSArray *)self->_moments count];
+          v9 = objc_msgSend_count(self->_moments);
           moments = [(PLMomentCluster *)equalCopy moments];
-          v11 = v9 == [moments count];
+          v11 = v9 == objc_msgSend_count(moments);
         }
 
         else
@@ -56,7 +56,7 @@
 
 - (unint64_t)hash
 {
-  v3 = [(NSArray *)self->_moments count];
+  v3 = objc_msgSend_count(self->_moments, a2);
   v4 = [(NSDate *)self->_startDate hash]^ v3;
   return v4 ^ [(NSDate *)self->_endDate hash];
 }
@@ -106,7 +106,7 @@
 - (PLMomentCluster)initWithMoments:(id)moments
 {
   momentsCopy = moments;
-  if ([momentsCopy count])
+  if (objc_msgSend_count(momentsCopy))
   {
     v21.receiver = self;
     v21.super_class = PLMomentCluster;

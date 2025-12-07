@@ -26,14 +26,11 @@
 
 - (NSString)domain
 {
-  v2 = self + OBJC_IVAR____TtC13caraccessoryd9CAFDAgent_configuration;
-  v3 = &v2[*(type metadata accessor for CAFDAgent.Configuration(0) + 36)];
-  v4 = *v3;
-  v5 = *(v3 + 1);
+  type metadata accessor for CAFDAgent.Configuration(0);
 
-  v6 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v6;
+  return v2;
 }
 
 @end

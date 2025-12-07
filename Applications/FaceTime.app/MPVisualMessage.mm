@@ -161,7 +161,7 @@
 
 - (id)contactUsingContactStore:(id)store withKeysToFetch:(id)fetch
 {
-  sub_1000525C4(&unk_100124BB0);
+  sub_1000525C4(&unk_100124BB0, &unk_1000D91C0);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v7 = *(&self->super.isa + OBJC_IVAR___MPVisualMessage_vmMessage);
   storeCopy = store;

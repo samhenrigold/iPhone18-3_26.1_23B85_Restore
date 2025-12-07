@@ -23,57 +23,55 @@
   return v3;
 }
 
-void __48__GKAchievementInternal_secureCodedPropertyKeys__block_invoke()
+void __48__GKAchievementInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15[17] = *MEMORY[0x277D85DE8];
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
-  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0, @"achievedDescription", @"attributes", @"friendsWhoHaveThis"}];
-  v15[2] = v3;
-  v14[3] = @"groupIdentifier";
-  v15[3] = objc_opt_class();
-  v14[4] = @"icons";
-  v4 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
-  v6 = objc_opt_class();
-  v7 = [v4 setWithObjects:{v5, v6, objc_opt_class(), 0}];
-  v15[4] = v7;
-  v14[5] = @"ascResourceID";
-  v15[5] = objc_opt_class();
-  v14[6] = @"identifier";
-  v15[6] = objc_opt_class();
-  v14[7] = @"lastReportedDate";
-  v15[7] = objc_opt_class();
-  v14[8] = @"percentComplete";
-  v15[8] = objc_opt_class();
-  v14[9] = @"player";
-  v15[9] = objc_opt_class();
-  v14[10] = @"rarityPercent";
-  v15[10] = objc_opt_class();
-  v14[11] = @"activityIdentifier";
-  v15[11] = objc_opt_class();
-  v14[12] = @"activityProperties";
-  v8 = MEMORY[0x277CBEB98];
-  v9 = +[GKInternalRepresentation secureCodedJsonTypes];
-  v10 = [v8 setWithSet:v9];
-  v15[12] = v10;
-  v14[13] = @"releaseState";
-  v15[13] = objc_opt_class();
-  v14[14] = @"title";
-  v15[14] = objc_opt_class();
-  v14[15] = @"unachievedDescription";
-  v15[15] = objc_opt_class();
-  v14[16] = @"gameHint";
-  v15[16] = objc_opt_class();
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:17];
+  v16[17] = *MEMORY[0x277D85DE8];
+  v16[0] = objc_opt_class();
+  v16[1] = objc_opt_class();
+  v2 = MEMORY[0x277CBEB98];
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = [v2 setWithObjects:{v3, v4, objc_opt_class(), 0, @"achievedDescription", @"attributes", @"friendsWhoHaveThis"}];
+  v16[2] = v5;
+  v15[3] = @"groupIdentifier";
+  v16[3] = objc_opt_class();
+  v15[4] = @"icons";
+  v6 = MEMORY[0x277CBEB98];
+  v7 = objc_opt_class();
+  v8 = objc_opt_class();
+  v9 = [v6 setWithObjects:{v7, v8, objc_opt_class(), 0}];
+  v16[4] = v9;
+  v15[5] = @"ascResourceID";
+  v16[5] = objc_opt_class();
+  v15[6] = @"identifier";
+  v16[6] = objc_opt_class();
+  v15[7] = @"lastReportedDate";
+  v16[7] = objc_opt_class();
+  v15[8] = @"percentComplete";
+  v16[8] = objc_opt_class();
+  v15[9] = @"player";
+  v16[9] = objc_opt_class();
+  v15[10] = @"rarityPercent";
+  v16[10] = objc_opt_class();
+  v15[11] = @"activityIdentifier";
+  v16[11] = objc_opt_class();
+  v15[12] = @"activityProperties";
+  v10 = MEMORY[0x277CBEB98];
+  v11 = +[GKInternalRepresentation secureCodedJsonTypes];
+  v12 = [v10 setWithSet:v11];
+  v16[12] = v12;
+  v15[13] = @"releaseState";
+  v16[13] = objc_opt_class();
+  v15[14] = @"title";
+  v16[14] = objc_opt_class();
+  v15[15] = @"unachievedDescription";
+  v16[15] = objc_opt_class();
+  v15[16] = @"gameHint";
+  v16[16] = objc_opt_class();
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:17];
 
-  v12 = secureCodedPropertyKeys_sSecureCodedKeys_23;
-  secureCodedPropertyKeys_sSecureCodedKeys_23 = v11;
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = secureCodedPropertyKeys_sSecureCodedKeys_23;
+  secureCodedPropertyKeys_sSecureCodedKeys_23 = v13;
 }
 
 - (void)encodeWithCoder:(id)coder

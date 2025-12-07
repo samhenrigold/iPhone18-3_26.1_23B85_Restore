@@ -18,10 +18,10 @@
   }
 
   v10 = [elementCopy getAttribute:@"type"];
-  v9->_counterType = [v10 isEqualToString:@"timer"] ^ 1;
+  v9->_counterType = objc_msgSend_isEqualToString_(v10) ^ 1;
   v11 = [elementCopy getAttribute:@"dateFormat"];
 
-  if ([v11 isEqualToString:@"hm"])
+  if (objc_msgSend_isEqualToString_(v11))
   {
     v12 = 3;
 LABEL_9:
@@ -29,13 +29,13 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if ([v11 isEqualToString:@"hms"])
+  if (objc_msgSend_isEqualToString_(v11))
   {
     v12 = 2;
     goto LABEL_9;
   }
 
-  if (![v11 isEqualToString:@"dhms"])
+  if (!objc_msgSend_isEqualToString_(v11))
   {
     v12 = 1;
     goto LABEL_9;

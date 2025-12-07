@@ -48,8 +48,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v29[8] = *MEMORY[0x1E69E9840];
-  v28[0] = @"targetEventIdentifier";
+  v28[8] = *MEMORY[0x1E69E9840];
+  v27[0] = @"targetEventIdentifier";
   targetEventIdentifier = [(INUpdateEventIntent *)self targetEventIdentifier];
   v4 = targetEventIdentifier;
   if (!targetEventIdentifier)
@@ -57,9 +57,9 @@
     targetEventIdentifier = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25 = targetEventIdentifier;
-  v29[0] = targetEventIdentifier;
-  v28[1] = @"setTitle";
+  v24 = targetEventIdentifier;
+  v28[0] = targetEventIdentifier;
+  v27[1] = @"setTitle";
   setTitle = [(INUpdateEventIntent *)self setTitle];
   v6 = setTitle;
   if (!setTitle)
@@ -67,9 +67,9 @@
     setTitle = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = setTitle;
-  v29[1] = setTitle;
-  v28[2] = @"setDateTimeRange";
+  v23 = setTitle;
+  v28[1] = setTitle;
+  v27[2] = @"setDateTimeRange";
   setDateTimeRange = [(INUpdateEventIntent *)self setDateTimeRange];
   v8 = setDateTimeRange;
   if (!setDateTimeRange)
@@ -77,9 +77,9 @@
     setDateTimeRange = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = setDateTimeRange;
-  v29[2] = setDateTimeRange;
-  v28[3] = @"setLocation";
+  v22 = setDateTimeRange;
+  v28[2] = setDateTimeRange;
+  v27[3] = @"setLocation";
   setLocation = [(INUpdateEventIntent *)self setLocation];
   v10 = setLocation;
   if (!setLocation)
@@ -87,9 +87,9 @@
     setLocation = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = setLocation;
-  v29[3] = setLocation;
-  v28[4] = @"addParticipants";
+  v21 = setLocation;
+  v28[3] = setLocation;
+  v27[4] = @"addParticipants";
   addParticipants = [(INUpdateEventIntent *)self addParticipants];
   v12 = addParticipants;
   if (!addParticipants)
@@ -97,10 +97,10 @@
     addParticipants = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = v4;
-  v21 = addParticipants;
-  v29[4] = addParticipants;
-  v28[5] = @"removeParticipants";
+  v26 = v4;
+  v20 = addParticipants;
+  v28[4] = addParticipants;
+  v27[5] = @"removeParticipants";
   removeParticipants = [(INUpdateEventIntent *)self removeParticipants];
   null = removeParticipants;
   if (!removeParticipants)
@@ -108,8 +108,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[5] = null;
-  v28[6] = @"updateAllOccurrences";
+  v28[5] = null;
+  v27[6] = @"updateAllOccurrences";
   updateAllOccurrences = [(INUpdateEventIntent *)self updateAllOccurrences];
   null2 = updateAllOccurrences;
   if (!updateAllOccurrences)
@@ -117,8 +117,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[6] = null2;
-  v28[7] = @"removeLocation";
+  v28[6] = null2;
+  v27[7] = @"removeLocation";
   removeLocation = [(INUpdateEventIntent *)self removeLocation];
   null3 = removeLocation;
   if (!removeLocation)
@@ -126,8 +126,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[7] = null3;
-  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:8];
+  v28[7] = null3;
+  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:8];
   if (!removeLocation)
   {
   }
@@ -156,13 +156,11 @@
   {
   }
 
-  if (!v27)
+  if (!v26)
   {
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v26;
+  return v25;
 }
 
 - (void)setRemoveLocation:(id)location

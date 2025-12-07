@@ -323,7 +323,7 @@ LABEL_25:
   }
 
   [metalView setClearColor:{v24 * v32, v25 * v32, v26 * v32}];
-  [(PXGView *)self displayConfiguration];
+  objc_msgSend_displayConfiguration(self);
   v27 = PXGPixelFormatNameToMetalFormat();
   if (!v27)
   {
@@ -1291,57 +1291,57 @@ uint64_t __68__PXGView_enumerateDebugHierarchyWithIdentifier_options_usingBlock_
   return v4;
 }
 
-BOOL __68__PXGView_enumerateDebugHierarchyWithIdentifier_options_usingBlock___block_invoke_5(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, __int128 *a5, __int128 *a6, void *a7, uint64_t a8, CGFloat a9, CGFloat a10)
+BOOL __68__PXGView_enumerateDebugHierarchyWithIdentifier_options_usingBlock___block_invoke_5(uint64_t a1, void *a2, double *a3, uint64_t a4, __int128 *a5, __int128 *a6, void *a7, uint64_t a8, CGFloat a9, CGFloat a10, double a11, double a12)
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v19 = a2;
-  v20 = a7;
-  v21 = *(a4 + 16);
-  v22 = *(a3 + 48);
+  v51 = *MEMORY[0x277D85DE8];
+  v21 = a2;
+  v22 = a7;
+  v23 = *(a4 + 16);
+  v24 = a3[6];
   PXRectWithCenterAndSize();
-  v51 = CGRectOffset(v50, a9, a10);
-  v23 = CGRectIntersectsRect(v51, *(a1 + 56));
-  if (v23)
+  v53 = CGRectOffset(v52, a9, a10);
+  v25 = CGRectIntersectsRect(v53, *(a1 + 56));
+  if (v25)
   {
-    v24 = v22;
-    v25 = v21 + v24;
+    v26 = v24;
+    v27 = v23 + v26;
     PXPointSubtract();
-    [v19 setFrame:?];
-    [v19 setZPosition:-v25];
-    [v19 setAlpha:*a5];
-    [v19 setPreviewImage:{objc_msgSend(*(a1 + 32), "textureSnapshotForSpriteIndex:", objc_msgSend(*(a1 + 40), "convertSpriteIndex:fromDescendantLayout:", a8, v20))}];
-    [v19 setContentsRect:{COERCE_FLOAT(*(a5 + 4)), COERCE_FLOAT(HIDWORD(*(a5 + 4))), COERCE_FLOAT(*(a5 + 12)), COERCE_FLOAT(HIDWORD(*(a5 + 4)))}];
-    v26 = CALayerContentsGravityFromPXGContentsGravity(*(a5 + 70));
-    [v19 setContentsGravity:v26];
+    [v21 setFrame:?];
+    [v21 setZPosition:-v27];
+    [v21 setAlpha:*a5];
+    [v21 setPreviewImage:{objc_msgSend(*(a1 + 32), "textureSnapshotForSpriteIndex:", objc_msgSend(*(a1 + 40), "convertSpriteIndex:fromDescendantLayout:", a8, v22))}];
+    [v21 setContentsRect:{COERCE_FLOAT(*(a5 + 4)), COERCE_FLOAT(HIDWORD(*(a5 + 4))), COERCE_FLOAT(*(a5 + 12)), COERCE_FLOAT(HIDWORD(*(a5 + 4)))}];
+    v28 = CALayerContentsGravityFromPXGContentsGravity(*(a5 + 70));
+    [v21 setContentsGravity:v28];
 
-    v27 = objc_alloc(MEMORY[0x277CCACA8]);
-    v28 = (*(*(a1 + 48) + 16))();
-    v29 = a5[7];
-    v45 = a5[6];
-    v46 = v29;
-    v30 = a5[9];
-    v47 = a5[8];
-    v48 = v30;
-    v31 = a5[3];
-    v41 = a5[2];
-    v42 = v31;
-    v32 = a5[5];
-    v43 = a5[4];
-    v44 = v32;
-    v33 = a5[1];
-    v39 = *a5;
-    v40 = v33;
-    v34 = PXGSpriteStyleDescription(&v39);
-    v35 = a6[1];
-    v39 = *a6;
-    v40 = v35;
-    *&v41 = *(a6 + 4);
-    v36 = PXGSpriteInfoDescription(&v39);
-    v37 = [v27 initWithFormat:@"Sprite %u of %@ style:%@ info:%@", a8, v28, v34, v36];
-    [v19 setName:v37];
+    v29 = objc_alloc(MEMORY[0x277CCACA8]);
+    v30 = (*(*(a1 + 48) + 16))();
+    v31 = a5[7];
+    v47 = a5[6];
+    v48 = v31;
+    v32 = a5[9];
+    v49 = a5[8];
+    v50 = v32;
+    v33 = a5[3];
+    v43 = a5[2];
+    v44 = v33;
+    v34 = a5[5];
+    v45 = a5[4];
+    v46 = v34;
+    v35 = a5[1];
+    v41 = *a5;
+    v42 = v35;
+    v36 = PXGSpriteStyleDescription(&v41);
+    v37 = a6[1];
+    v41 = *a6;
+    v42 = v37;
+    *&v43 = *(a6 + 4);
+    v38 = PXGSpriteInfoDescription(&v41);
+    v39 = [v29 initWithFormat:@"Sprite %u of %@ style:%@ info:%@", a8, v30, v36, v38];
+    [v21 setName:v39];
   }
 
-  return v23;
+  return v25;
 }
 
 void __68__PXGView_enumerateDebugHierarchyWithIdentifier_options_usingBlock___block_invoke_6(uint64_t a1, void *a2, _BYTE *a3)
@@ -2198,27 +2198,27 @@ LABEL_13:
   return v38;
 }
 
-id __57__PXGView_hitTestResultsInDirection_fromSpriteReference___block_invoke(uint64_t a1)
+id __57__PXGView_hitTestResultsInDirection_fromSpriteReference___block_invoke(uint64_t a1, double a2, double a3, double a4, double a5)
 {
-  v2 = [MEMORY[0x277CBEB18] array];
-  v3 = [*(a1 + 32) scrollViewController];
-  v4 = [v3 contentCoordinateSpace];
+  v6 = [MEMORY[0x277CBEB18] array];
+  v7 = [*(a1 + 32) scrollViewController];
+  v8 = [v7 contentCoordinateSpace];
   PXRectConvertFromCoordinateSpaceToCoordinateSpace();
-  v6 = v5;
-  v8 = v7;
   v10 = v9;
   v12 = v11;
+  v14 = v13;
+  v16 = v15;
 
-  v13 = [*(a1 + 32) engine];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __57__PXGView_hitTestResultsInDirection_fromSpriteReference___block_invoke_2;
-  v16[3] = &unk_2782AB980;
-  v14 = v2;
-  v17 = v14;
-  [v13 enumerateSpritesInRect:v16 usingBlock:{v6, v8, v10, v12}];
+  v17 = [*(a1 + 32) engine];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __57__PXGView_hitTestResultsInDirection_fromSpriteReference___block_invoke_2;
+  v20[3] = &unk_2782AB980;
+  v18 = v6;
+  v21 = v18;
+  [v17 enumerateSpritesInRect:v20 usingBlock:{v10, v12, v14, v16}];
 
-  return v14;
+  return v18;
 }
 
 uint64_t __57__PXGView_hitTestResultsInDirection_fromSpriteReference___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -2579,65 +2579,61 @@ uint64_t __49__PXGView_hitTestResultsAtPoint_withIdentifiers___block_invoke(uint
   return v28;
 }
 
-uint64_t __52__PXGView_hitTestResultAtPoint_padding_passingTest___block_invoke(uint64_t result, uint64_t a2, __int128 *a3, float *a4, _BYTE *a5, uint64_t a6)
+void __52__PXGView_hitTestResultAtPoint_padding_passingTest___block_invoke(void *a1, uint64_t a2, __int128 *a3, float *a4, _BYTE *a5, uint64_t a6, double a7, double a8, __n128 a9)
 {
-  v9 = result;
-  v10 = *a4 > 0.0;
+  v13 = *a4 > 0.0;
   if (a5[1] == 8)
   {
-    v10 = *a4 > 0.0 && *a5 == 1;
+    v13 = *a4 > 0.0 && *a5 == 1;
   }
 
-  v12 = *(a3 + 3);
-  if (*&v12 >= *(&v12 + 1))
+  v15 = *(a3 + 3);
+  if (*&v15 >= *(&v15 + 1))
   {
-    LODWORD(v13) = HIDWORD(*(a3 + 3));
+    LODWORD(v16) = HIDWORD(*(a3 + 3));
   }
 
   else
   {
-    v13 = *&v12;
+    v16 = *&v15;
   }
 
-  if (v13 > 1.0 && (a5[34] & 2) == 0 && v10)
+  if (v16 > 1.0 && (a5[34] & 2) == 0 && v13)
   {
     PXRectWithCenterAndSize();
     PXEdgeInsetsInvert();
     PXEdgeInsetsInsetRect();
     PXRectShortestDistanceToPoint();
-    v17 = v16;
-    result = PXRectShortestDistanceToPoint();
-    v19 = v18;
-    v26 = *a3;
-    v20 = *(a3 + 2);
-    v21 = *(a3 + 3);
-    v22 = *(v9[6] + 8);
-    v23 = *(v22 + 40);
-    if (v17 < v23 || v17 == v23 && ((v24 = *(v22 + 72), v20 < v24) || v20 == v24 && ((v25 = *(v22 + 48), v19 < v25) || v19 == v25 && *(v22 + 32) < a2)))
+    v20 = v19;
+    PXRectShortestDistanceToPoint();
+    v22 = v21;
+    v30 = *a3;
+    v23 = *(a3 + 2);
+    v24 = *(a3 + 3);
+    v25 = *(a1[6] + 8);
+    v26 = *(v25 + 40);
+    if (v20 < v26 || v20 == v26 && ((v27 = *(v25 + 72), v23 < v27) || v23 == v27 && ((v28 = *(v25 + 48), v22 < v28) || v22 == v28 && *(v25 + 32) < a2)))
     {
-      result = v9[5];
-      if (result)
+      v29 = a1[5];
+      if (v29)
       {
-        result = (*(result + 16))(result, a2, v9[4], a6);
-        if (!result)
+        if (!(*(v29 + 16))(v29, a2, a1[4], a6))
         {
-          return result;
+          return;
         }
 
-        v22 = *(v9[6] + 8);
+        v25 = *(a1[6] + 8);
       }
 
-      *(v22 + 32) = a2;
-      *(v22 + 36) = 0;
-      *(v22 + 40) = v17;
-      *(v22 + 48) = v19;
-      *(v22 + 56) = v26;
-      *(v22 + 72) = v20;
-      *(v22 + 80) = v21;
+      *(v25 + 32) = a2;
+      *(v25 + 36) = 0;
+      *(v25 + 40) = v20;
+      *(v25 + 48) = v22;
+      *(v25 + 56) = v30;
+      *(v25 + 72) = v23;
+      *(v25 + 80) = v24;
     }
   }
-
-  return result;
 }
 
 - (id)hitTestResultAtPoint:(CGPoint)point
@@ -3675,43 +3671,43 @@ void __46__PXGView__willChangeBoundsSizeFrom_toBounds___block_invoke_59(uint64_t
   }
 }
 
-void __46__PXGView__willChangeBoundsSizeFrom_toBounds___block_invoke_2_60(uint64_t a1)
+void __46__PXGView__willChangeBoundsSizeFrom_toBounds___block_invoke_2_60(uint64_t a1, double a2, double a3, __n128 a4, __n128 a5)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   PXRectGetCenter();
   [*(*(*(a1 + 40) + 8) + 40) setCenter:?];
   [*(*(*(a1 + 40) + 8) + 40) setAlpha:0.0];
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
-  v9 = 0u;
-  v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
-  if (v3)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = *(a1 + 32);
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v4 = v3;
-    v5 = *v9;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      v6 = 0;
+      v10 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v6);
         }
 
-        v7 = *(*(&v8 + 1) + 8 * v6);
+        v11 = *(*(&v12 + 1) + 8 * v10);
         PXRectGetCenter();
-        [v7 setCenter:v8];
-        ++v6;
+        [v11 setCenter:v12];
+        ++v10;
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      while (v8 != v10);
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v4);
+    while (v8);
   }
 }
 

@@ -14,7 +14,7 @@
 
 + (BOOL)platformSSOEnabled
 {
-  v2 = PO_LOG_POCoreConfigurationUtil();
+  v2 = PO_LOG_POCoreConfigurationUtil(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     +[POCoreConfigurationUtil platformSSOEnabled];
@@ -26,8 +26,8 @@
 
   if (v5)
   {
-    v6 = PO_LOG_POCoreConfigurationUtil();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = PO_LOG_POCoreConfigurationUtil(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       +[POCoreConfigurationUtil platformSSOEnabled];
     }
@@ -38,7 +38,7 @@
 
 + (BOOL)appSSOEnabled
 {
-  v2 = PO_LOG_POCoreConfigurationUtil();
+  v2 = PO_LOG_POCoreConfigurationUtil(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     +[POCoreConfigurationUtil appSSOEnabled];
@@ -52,7 +52,7 @@
 
 + (BOOL)platformSSODevModeEnabled
 {
-  v3 = PO_LOG_POCoreConfigurationUtil();
+  v3 = PO_LOG_POCoreConfigurationUtil(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[POCoreConfigurationUtil platformSSODevModeEnabled];
@@ -61,10 +61,11 @@
   isInternalBuild = [self isInternalBuild];
   if (isInternalBuild)
   {
-    if ((_os_feature_enabled_impl() & 1) != 0 || ([MEMORY[0x277CCAA00] defaultManager], v5 = objc_claimAutoreleasedReturnValue(), +[POCoreConfigurationUtil platformSSODevModeTriggerFile](POCoreConfigurationUtil, "platformSSODevModeTriggerFile"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "fileExistsAtPath:", v6), v6, v5, v7))
+    v5 = _os_feature_enabled_impl();
+    if ((v5 & 1) != 0 || ([MEMORY[0x277CCAA00] defaultManager], v6 = objc_claimAutoreleasedReturnValue(), +[POCoreConfigurationUtil platformSSODevModeTriggerFile](POCoreConfigurationUtil, "platformSSODevModeTriggerFile"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "fileExistsAtPath:", v7), v7, v6, v8))
     {
-      v8 = PO_LOG_POCoreConfigurationUtil();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = PO_LOG_POCoreConfigurationUtil(v5);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         +[POCoreConfigurationUtil platformSSODevModeEnabled];
       }
@@ -102,8 +103,8 @@
 
     if (v10)
     {
-      v12 = PO_LOG_POCoreConfigurationUtil();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = PO_LOG_POCoreConfigurationUtil(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         +[POCoreConfigurationUtil writeTriggerFileToPath:];
       }
@@ -117,9 +118,9 @@
       v16[3] = &unk_279A3DE00;
       v17 = v11;
       v18 = pathCopy;
-      v14 = __50__POCoreConfigurationUtil_writeTriggerFileToPath___block_invoke_18(v16);
+      v15 = __50__POCoreConfigurationUtil_writeTriggerFileToPath___block_invoke_18(v16);
 
-      v12 = v17;
+      v13 = v17;
     }
   }
 
@@ -132,36 +133,34 @@
     v11 = v6;
     v21 = v11;
     v22 = pathCopy;
-    v13 = __50__POCoreConfigurationUtil_writeTriggerFileToPath___block_invoke(v20);
+    v14 = __50__POCoreConfigurationUtil_writeTriggerFileToPath___block_invoke(v20);
 
     v8 = v21;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id __50__POCoreConfigurationUtil_writeTriggerFileToPath___block_invoke(uint64_t a1)
 {
-  v2 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to create trigger file"];
-  v3 = PO_LOG_POCoreConfigurationUtil();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to create trigger file"];
+  v2 = PO_LOG_POCoreConfigurationUtil(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __50__POCoreConfigurationUtil_writeTriggerFileToPath___block_invoke_cold_1(v2, a1);
+    __50__POCoreConfigurationUtil_writeTriggerFileToPath___block_invoke_cold_1();
   }
 
-  return v2;
+  return v1;
 }
 
 id __50__POCoreConfigurationUtil_writeTriggerFileToPath___block_invoke_18(uint64_t a1)
 {
-  v2 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to set trigger file attributes"];
-  v3 = PO_LOG_POCoreConfigurationUtil();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to set trigger file attributes"];
+  v2 = PO_LOG_POCoreConfigurationUtil(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __50__POCoreConfigurationUtil_writeTriggerFileToPath___block_invoke_cold_1(v2, a1);
+    __50__POCoreConfigurationUtil_writeTriggerFileToPath___block_invoke_cold_1();
   }
 
-  return v2;
+  return v1;
 }
 
 + (void)updateTriggerFile
@@ -174,7 +173,7 @@ id __50__POCoreConfigurationUtil_writeTriggerFileToPath___block_invoke_18(uint64
 id __44__POCoreConfigurationUtil_updateTriggerFile__block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1004 underlyingError:*(a1 + 32) description:@"Did not find configuration files."];
-  v2 = PO_LOG_POCoreConfigurationUtil();
+  v2 = PO_LOG_POCoreConfigurationUtil(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __61__POPrebootDeviceConfiguration_dataRepresentationForDisplay___block_invoke_cold_1(v1, v2);
@@ -186,7 +185,7 @@ id __44__POCoreConfigurationUtil_updateTriggerFile__block_invoke(uint64_t a1)
 id __44__POCoreConfigurationUtil_updateTriggerFile__block_invoke_28(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to remove trigger file."];
-  v2 = PO_LOG_POCoreConfigurationUtil();
+  v2 = PO_LOG_POCoreConfigurationUtil(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __61__POPrebootDeviceConfiguration_dataRepresentationForDisplay___block_invoke_cold_1(v1, v2);
@@ -207,9 +206,10 @@ id __44__POCoreConfigurationUtil_updateTriggerFile__block_invoke_28(uint64_t a1)
 
 void __42__POCoreConfigurationUtil_isInternalBuild__block_invoke()
 {
-  isInternalBuild_internalBuild = os_variant_has_internal_content();
-  v0 = PO_LOG_POCoreConfigurationUtil();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  has_internal_content = os_variant_has_internal_content();
+  isInternalBuild_internalBuild = has_internal_content;
+  v1 = PO_LOG_POCoreConfigurationUtil(has_internal_content);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __42__POCoreConfigurationUtil_isInternalBuild__block_invoke_cold_1();
   }
@@ -224,11 +224,9 @@ void __42__POCoreConfigurationUtil_isInternalBuild__block_invoke()
 
 + (void)appSSOEnabled
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)platformSSODevModeEnabled
@@ -243,23 +241,6 @@ void __42__POCoreConfigurationUtil_isInternalBuild__block_invoke()
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __50__POCoreConfigurationUtil_writeTriggerFileToPath___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 40);
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_2_1(&dword_25E8B1000, v3, v4, "%{public}@, %{public}@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __42__POCoreConfigurationUtil_isInternalBuild__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

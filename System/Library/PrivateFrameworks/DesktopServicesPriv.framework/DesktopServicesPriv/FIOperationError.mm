@@ -8,10 +8,10 @@
 
 - (FIOperationError)initWithErrorRecord:(const OperationErrorRecord *)record
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v37.receiver = self;
-  v37.super_class = FIOperationError;
-  v4 = [(FIOperationError *)&v37 init];
+  v38 = *MEMORY[0x1E69E9840];
+  v36.receiver = self;
+  v36.super_class = FIOperationError;
+  v4 = [(FIOperationError *)&v36 init];
   userInfo = [(NSError *)v4->_error userInfo];
   if (userInfo)
   {
@@ -32,22 +32,22 @@
     strlcpy(__dst, record->var3, v9 + 1);
     v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:__dst];
     cf = 0;
-    v36 = 0;
+    v35 = 0;
     if (__dst[0] == 47)
     {
-      TString::TString(&v34, __dst);
-      TNode::GetNodeFromPath(&v34, &v36, 0x2000u);
-      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v34.fString.fRef);
+      TString::TString(&v33, __dst);
+      TNode::GetNodeFromPath(&v33, &v35, 0x2000u);
+      TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v33.fString.fRef);
     }
 
     else
     {
-      v34.fString.fRef = CFURLCreateWithString(0, v10, 0);
-      cf = v34.fString.fRef;
-      TNode::GetNodeFromURL(&v34, &v36, 0x2000u);
+      v33.fString.fRef = CFURLCreateWithString(0, v10, 0);
+      cf = v33.fString.fRef;
+      TNode::GetNodeFromURL(&v33, &v35, 0x2000u);
     }
 
-    v11 = TNodeFromFINode(v36);
+    v11 = TNodeFromFINode(v35);
     v12 = FINodeFromTNode(v11);
     node = v4->_node;
     v4->_node = v12;
@@ -130,7 +130,6 @@
     v4->_error = v31;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

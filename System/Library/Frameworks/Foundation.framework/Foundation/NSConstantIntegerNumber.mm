@@ -187,7 +187,7 @@ LABEL_19:
   if (v4)
   {
     v6 = v4;
-    [(NSDecimalNumber *)v4 decimalValue];
+    objc_msgSend_decimalValue(v4);
     v4 = v6;
   }
 

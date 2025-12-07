@@ -53,26 +53,26 @@
 {
   profileCopy = profile;
   namedCopy = named;
-  v28 = 0u;
-  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = [(HTPrefs *)self prefContextPrefixPriorityOrder];
-  v10 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
+  v10 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v31;
     while (2)
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v29 != v12)
+        if (*v31 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
+        v14 = *(*(&v30 + 1) + 8 * i);
         v15 = [(__CFString *)v14 isEqualToString:&stru_100025A90];
         if (v15)
         {
@@ -96,33 +96,37 @@
         }
 
         v19 = v18;
-        if (v18 && (objc_opt_respondsToSelector() & 1) != 0)
+        if (v18)
         {
-          v20 = shared_ht_log_handle();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+          v20 = objc_opt_respondsToSelector();
+          if (v20)
           {
-            v23 = @"<base context>";
-            *buf = 138412802;
-            if (!v15)
+            v22 = shared_ht_log_handle(v20);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
             {
-              v23 = v14;
+              v25 = @"<base context>";
+              *buf = 138412802;
+              if (!v15)
+              {
+                v25 = v14;
+              }
+
+              v35 = v25;
+              v36 = 2112;
+              v37 = namedCopy;
+              v38 = 2112;
+              v39 = v19;
+              _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "HTPrefs: Overriden by %@: %@ = %@", buf, 0x20u);
             }
 
-            v33 = v23;
-            v34 = 2112;
-            v35 = namedCopy;
-            v36 = 2112;
-            v37 = v19;
-            _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "HTPrefs: Overriden by %@: %@ = %@", buf, 0x20u);
-          }
+            if (out)
+            {
+              v23 = v14;
+              *out = v14;
+            }
 
-          if (out)
-          {
-            v21 = v14;
-            *out = v14;
+            goto LABEL_25;
           }
-
-          goto LABEL_25;
         }
 
         if (out)
@@ -131,7 +135,7 @@
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
+      v11 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
       if (v11)
       {
         continue;
@@ -141,7 +145,7 @@
     }
   }
 
-  obj = shared_ht_log_handle();
+  obj = shared_ht_log_handle(v21);
   if (os_log_type_enabled(obj, OS_LOG_TYPE_DEBUG))
   {
     sub_1000133B8();
@@ -190,7 +194,7 @@ LABEL_25:
   v9 = intValue;
   if ((property->var4 & 1) != 0 && !intValue)
   {
-    v10 = shared_ht_log_handle();
+    v10 = shared_ht_log_handle(intValue);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       var0 = property->var0;
@@ -230,7 +234,7 @@ LABEL_9:
   v9 = unsignedIntValue;
   if ((property->var4 & 1) != 0 && !unsignedIntValue)
   {
-    v10 = shared_ht_log_handle();
+    v10 = shared_ht_log_handle(unsignedIntValue);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       var0 = property->var0;
@@ -270,7 +274,7 @@ LABEL_9:
   v9 = unsignedLongValue;
   if ((property->var4 & 1) != 0 && !unsignedLongValue)
   {
-    v10 = shared_ht_log_handle();
+    v10 = shared_ht_log_handle(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       var0 = property->var0;
@@ -310,7 +314,7 @@ LABEL_9:
   v9 = unsignedLongLongValue;
   if ((property->var4 & 1) != 0 && !unsignedLongLongValue)
   {
-    v10 = shared_ht_log_handle();
+    v10 = shared_ht_log_handle(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       var0 = property->var0;
@@ -343,28 +347,28 @@ LABEL_9:
   v7 = [(HTPrefs *)self prefNamed:property->var0 domain:self->__htTaskingDomain profile:self->__installedHTProfileDict matchingSelector:"doubleValue" contextPrefixOut:out];
   if (objc_opt_respondsToSelector())
   {
-    [v7 doubleValue];
-    v9 = v8;
-    if ((property->var4 & 2) != 0 && v8 < v6)
+    doubleValue = [v7 doubleValue];
+    v10 = v9;
+    if ((property->var4 & 2) != 0 && v9 < v6)
     {
-      v10 = shared_ht_log_handle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = shared_ht_log_handle(doubleValue);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         var0 = property->var0;
         var4 = property->var4;
-        v14 = 138412802;
-        v15 = var0;
-        v16 = 2048;
-        v17 = var4;
-        v18 = 2048;
-        v19 = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "HTPrefs: %@ failed policy check (%lu) for value %f", &v14, 0x20u);
+        v15 = 138412802;
+        v16 = var0;
+        v17 = 2048;
+        v18 = var4;
+        v19 = 2048;
+        v20 = v10;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "HTPrefs: %@ failed policy check (%lu) for value %f", &v15, 0x20u);
       }
     }
 
     else
     {
-      v6 = v8;
+      v6 = v9;
     }
   }
 
@@ -386,7 +390,7 @@ LABEL_9:
   {
     if ((property->var4 & 4) != 0 && ![v9 length])
     {
-      v13 = shared_ht_log_handle();
+      v13 = shared_ht_log_handle(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         var0 = property->var0;
@@ -440,7 +444,7 @@ LABEL_9:
   if (v5 != v6)
   {
     v7 = v6;
-    v8 = shared_ht_log_handle();
+    v8 = shared_ht_log_handle(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       var0 = property->var0;
@@ -465,7 +469,7 @@ LABEL_9:
   if (v5 != v6)
   {
     v7 = v6;
-    v8 = shared_ht_log_handle();
+    v8 = shared_ht_log_handle(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       var0 = property->var0;
@@ -490,7 +494,7 @@ LABEL_9:
   if (v5 != v6)
   {
     v7 = v6;
-    v8 = shared_ht_log_handle();
+    v8 = shared_ht_log_handle(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       var0 = property->var0;
@@ -515,7 +519,7 @@ LABEL_9:
   if (v5 != v6)
   {
     v7 = v6;
-    v8 = shared_ht_log_handle();
+    v8 = shared_ht_log_handle(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       var0 = property->var0;
@@ -540,7 +544,7 @@ LABEL_9:
   if (v5 != v6)
   {
     v7 = v6;
-    v8 = shared_ht_log_handle();
+    v8 = shared_ht_log_handle(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       var0 = property->var0;
@@ -561,24 +565,24 @@ LABEL_9:
 - (void)initDoubleProperty:(HTPrefInit *)property
 {
   v5 = *property->var1;
-  [HTPrefs doubleProperty:"doubleProperty:contextPrefixOut:" contextPrefixOut:?];
-  if (v5 != v6)
+  v6 = [HTPrefs doubleProperty:"doubleProperty:contextPrefixOut:" contextPrefixOut:?];
+  if (v5 != v7)
   {
-    v7 = v6;
-    v8 = shared_ht_log_handle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v8 = v7;
+    v9 = shared_ht_log_handle(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       var0 = property->var0;
-      v10 = 138412802;
-      v11 = var0;
-      v12 = 2048;
-      v13 = v5;
-      v14 = 2048;
-      v15 = v7;
-      _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "HTPrefs: %@: %f -> %f", &v10, 0x20u);
+      v11 = 138412802;
+      v12 = var0;
+      v13 = 2048;
+      v14 = v5;
+      v15 = 2048;
+      v16 = v8;
+      _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "HTPrefs: %@: %f -> %f", &v11, 0x20u);
     }
 
-    *property->var1 = v7;
+    *property->var1 = v8;
     [(HTPrefs *)self setShouldPostHTPrefsChangedNotification:1];
   }
 }
@@ -587,25 +591,26 @@ LABEL_9:
 {
   v5 = *property->var1;
   v6 = [(HTPrefs *)self stringProperty:property contextPrefixOut:0];
-  if (([v6 isEqualToString:v5] & 1) == 0)
+  v7 = [v6 isEqualToString:v5];
+  if ((v7 & 1) == 0)
   {
-    v7 = shared_ht_log_handle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = shared_ht_log_handle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       var0 = property->var0;
-      v12 = 138412802;
-      v13 = var0;
-      v14 = 2112;
-      v15 = v5;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "HTPrefs: %@: %@ -> %@", &v12, 0x20u);
+      v13 = 138412802;
+      v14 = var0;
+      v15 = 2112;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "HTPrefs: %@: %@ -> %@", &v13, 0x20u);
     }
 
-    v8 = [(HTPrefs *)self stringProperty:property contextPrefixOut:0];
+    v9 = [(HTPrefs *)self stringProperty:property contextPrefixOut:0];
     var1 = property->var1;
-    v10 = *var1;
-    *var1 = v8;
+    v11 = *var1;
+    *var1 = v9;
 
     [(HTPrefs *)self setShouldPostHTPrefsChangedNotification:1];
   }
@@ -616,9 +621,9 @@ LABEL_9:
   v5 = *property->var1;
   v6 = [(HTPrefs *)self objectProperty:property matchingSelector:"isEqual:" contextPrefixOut:0];
   v7 = v6;
-  if ((v5 == 0) == (v6 != 0) || (v5 ? (v8 = v6 == 0) : (v8 = 1), !v8 && ([v5 isEqual:v6] & 1) == 0))
+  if ((v5 == 0) == (v6 != 0) || (v5 ? (v8 = v6 == 0) : (v8 = 1), !v8 && (v6 = [v5 isEqual:v6], (v6 & 1) == 0)))
   {
-    v9 = shared_ht_log_handle();
+    v9 = shared_ht_log_handle(v6);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       var0 = property->var0;
@@ -643,35 +648,36 @@ LABEL_9:
 - (void)initPropertyHangtracerDaemonEnabled:(HTPrefInit *)enabled
 {
   hangtracerDaemonEnabled = self->_hangtracerDaemonEnabled;
-  v13 = 0;
-  v6 = [(HTPrefs *)self BOOLProperty:enabled contextPrefixOut:&v13];
-  v7 = v13;
-  v8 = v13;
+  v15 = 0;
+  v6 = [(HTPrefs *)self BOOLProperty:enabled contextPrefixOut:&v15];
+  v7 = v15;
+  v8 = v15;
   v9 = self->_enablementPrefix;
-  if (![(NSString *)v9 isEqualToString:v8])
+  v10 = [(NSString *)v9 isEqualToString:v8];
+  if ((v10 & 1) == 0)
   {
     objc_storeStrong(&self->_enablementPrefix, v7);
-    v10 = shared_ht_log_handle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v12 = shared_ht_log_handle(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_100013438(v9, &self->_enablementPrefix);
+      sub_100013438();
     }
   }
 
   if (hangtracerDaemonEnabled != v6)
   {
     self->_hangtracerDaemonEnabled = v6;
-    v11 = shared_ht_log_handle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = shared_ht_log_handle(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       var0 = enabled->var0;
       *buf = 138412802;
-      v15 = var0;
-      v16 = 1024;
-      v17 = hangtracerDaemonEnabled;
+      v17 = var0;
       v18 = 1024;
-      v19 = v6;
-      _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "HTPrefs: %@: %{BOOL}d -> %{BOOL}d", buf, 0x18u);
+      v19 = hangtracerDaemonEnabled;
+      v20 = 1024;
+      v21 = v6;
+      _os_log_debug_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "HTPrefs: %@: %{BOOL}d -> %{BOOL}d", buf, 0x18u);
     }
 
     [(HTPrefs *)self setShouldPostHTPrefsChangedNotification:1];
@@ -685,21 +691,21 @@ LABEL_9:
   if (isInternalNoOverride != v5)
   {
     v6 = v5;
-    v7 = shared_ht_log_handle();
+    v7 = shared_ht_log_handle(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       sub_1000134CC();
     }
 
     self->__isInternalNoOverride = v6;
-    [(HTPrefs *)self setShouldPostHTPrefsChangedNotification:1];
+    v5 = [(HTPrefs *)self setShouldPostHTPrefsChangedNotification:1];
   }
 
   v8 = !self->_customerModeEnabled && self->__isInternalNoOverride;
   v9 = v8;
   if (self->_isInternal != v8)
   {
-    v10 = shared_ht_log_handle();
+    v10 = shared_ht_log_handle(v5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_100013570();
@@ -723,7 +729,8 @@ LABEL_9:
   }
 
   isInternal = self->_isInternal;
-  if ([(NSString *)tailspinSaveFormat isEqualToString:@"compressed"])
+  tailspinSaveFormat = [tailspinSaveFormat isEqualToString:@"compressed"];
+  if (tailspinSaveFormat)
   {
     v8 = 1;
 LABEL_7:
@@ -731,13 +738,15 @@ LABEL_7:
     goto LABEL_9;
   }
 
-  if ([(NSString *)self->_tailspinSaveFormat isEqualToString:@"uncompressed"])
+  tailspinSaveFormat = [(NSString *)self->_tailspinSaveFormat isEqualToString:@"uncompressed"];
+  if (tailspinSaveFormat)
   {
     v8 = 0;
     goto LABEL_7;
   }
 
-  v8 = ![(NSString *)self->_tailspinSaveFormat isEqualToString:@"none"]&& isInternal;
+  tailspinSaveFormat = [(NSString *)self->_tailspinSaveFormat isEqualToString:@"none"];
+  v8 = (tailspinSaveFormat ^ 1) & isInternal;
   keepTailspinsLegacy = v8;
 LABEL_9:
   v10 = self->_savedTailspinMaxMB != 0;
@@ -745,19 +754,19 @@ LABEL_9:
   v12 = v10 && keepTailspinsLegacy;
   if (shouldSaveTailspins != (v10 && keepTailspinsLegacy))
   {
-    v13 = shared_ht_log_handle();
+    v13 = shared_ht_log_handle(tailspinSaveFormat);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       sub_100013614();
     }
 
     self->_shouldSaveTailspins = v12;
-    [(HTPrefs *)self setShouldPostHTPrefsChangedNotification:1];
+    tailspinSaveFormat = [(HTPrefs *)self setShouldPostHTPrefsChangedNotification:1];
   }
 
   if (shouldCompressSavedTailspins != v11)
   {
-    v14 = shared_ht_log_handle();
+    v14 = shared_ht_log_handle(tailspinSaveFormat);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       sub_1000136B8();
@@ -771,24 +780,24 @@ LABEL_9:
 - (void)initPropertyReportPeriod:(HTPrefInit *)period
 {
   reportPeriodMATU = self->_reportPeriodMATU;
-  [(HTPrefs *)self doubleProperty:period contextPrefixOut:0];
-  v7 = v6 * 1000.0 / timebaseConversionFactor();
-  if (v7 != reportPeriodMATU)
+  v6 = [(HTPrefs *)self doubleProperty:period contextPrefixOut:0];
+  v10 = v7 * 1000.0 / timebaseConversionFactor(v6, v8);
+  if (v10 != reportPeriodMATU)
   {
-    v8 = shared_ht_log_handle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v11 = shared_ht_log_handle(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       var0 = period->var0;
-      v10 = 138412802;
-      v11 = var0;
-      v12 = 2048;
-      v13 = reportPeriodMATU;
-      v14 = 2048;
-      v15 = v7;
-      _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "HTPrefs: %@: %f -> %f", &v10, 0x20u);
+      v13 = 138412802;
+      v14 = var0;
+      v15 = 2048;
+      v16 = reportPeriodMATU;
+      v17 = 2048;
+      v18 = v10;
+      _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "HTPrefs: %@: %f -> %f", &v13, 0x20u);
     }
 
-    self->_reportPeriodMATU = v7;
+    self->_reportPeriodMATU = v10;
     [(HTPrefs *)self setShouldPostHTPrefsChangedNotification:1];
   }
 }
@@ -796,24 +805,25 @@ LABEL_9:
 - (void)initPropertyHaveInternalSettings:(HTPrefInit *)settings
 {
   v5 = CFPreferencesCopyValue(@"HangTracerInternalSettingCreated", self->__htTaskingDomain, @"mobile", kCFPreferencesAnyHost);
+  v6 = v5;
   hasInternalSettings = self->_hasInternalSettings;
-  v7 = v5 != 0;
-  if (hasInternalSettings != v7)
+  v8 = v5 != 0;
+  if (hasInternalSettings != v8)
   {
-    v8 = shared_ht_log_handle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = shared_ht_log_handle(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       var0 = settings->var0;
-      v10 = 138412802;
-      v11 = var0;
-      v12 = 1024;
-      v13 = hasInternalSettings;
-      v14 = 1024;
-      v15 = v5 != 0;
-      _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "HTPrefs: %@: %{BOOL}d -> %{BOOL}d", &v10, 0x18u);
+      v11 = 138412802;
+      v12 = var0;
+      v13 = 1024;
+      v14 = hasInternalSettings;
+      v15 = 1024;
+      v16 = v8;
+      _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "HTPrefs: %@: %{BOOL}d -> %{BOOL}d", &v11, 0x18u);
     }
 
-    self->_hasInternalSettings = v7;
+    self->_hasInternalSettings = v8;
     [(HTPrefs *)self setShouldPostHTPrefsChangedNotification:1];
   }
 }
@@ -833,19 +843,20 @@ LABEL_9:
   }
 
   v8 = v7;
-  if (![(NSArray *)v5 isEqualToArray:v7])
+  v9 = [(NSArray *)v5 isEqualToArray:v7];
+  if ((v9 & 1) == 0)
   {
-    v9 = shared_ht_log_handle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = shared_ht_log_handle(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       var0 = languages->var0;
-      v11 = 138412802;
-      v12 = var0;
-      v13 = 2112;
-      v14 = v5;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "HTPrefs: %@: %@ -> %@", &v11, 0x20u);
+      v12 = 138412802;
+      v13 = var0;
+      v14 = 2112;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v8;
+      _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "HTPrefs: %@: %@ -> %@", &v12, 0x20u);
     }
 
     objc_storeStrong(&self->_thirdPartyDevPreferredLanguages, v8);
@@ -883,7 +894,7 @@ LABEL_9:
   result = self->_prefInitList;
   if (!result)
   {
-    v4 = shared_ht_log_handle();
+    v4 = shared_ht_log_handle(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       sub_100013770(v4);
@@ -1567,7 +1578,7 @@ LABEL_9:
 
 - (void)refreshHTPrefs
 {
-  v3 = shared_ht_log_handle();
+  v3 = shared_ht_log_handle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(v10[0]) = 0;
@@ -1597,8 +1608,7 @@ LABEL_9:
 
   if ([(HTPrefs *)self shouldPostHTPrefsChangedNotification])
   {
-    [(HTPrefs *)self setShouldPostHTPrefsChangedNotification:0];
-    v8 = shared_ht_log_handle();
+    v8 = shared_ht_log_handle([(HTPrefs *)self setShouldPostHTPrefsChangedNotification:0]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
@@ -1652,9 +1662,9 @@ LABEL_9:
 
   v3 = CFPreferencesCopyValue(@"HangTracerInternalSettingCreated", self->__htTaskingDomain, @"mobile", kCFPreferencesAnyHost);
   v4 = v3;
-  if (!v3 || ([v3 BOOLValue] & 1) == 0)
+  if (!v3 || (v3 = [v3 BOOLValue], (v3 & 1) == 0))
   {
-    v5 = shared_ht_log_handle();
+    v5 = shared_ht_log_handle(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -1712,7 +1722,7 @@ LABEL_11:
   prefsCopy = prefs;
   queueCopy = queue;
   pathCopy = path;
-  v14 = shared_ht_log_handle();
+  v14 = shared_ht_log_handle(pathCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 0;

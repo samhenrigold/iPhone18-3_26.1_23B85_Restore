@@ -76,13 +76,14 @@
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v11 = v10;
     }
 
-    while (v11);
+    while (v10);
   }
 
-  v16 = sub_100002740();
+  v16 = sub_100002740(v10);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v17 = self->_systemLanguage;
@@ -125,13 +126,13 @@
     self->_vmContextLanguage = &stru_1000F0098;
   }
 
-  v12 = sub_100002740();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100002740(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = self->_vmContextLanguage;
-    v14 = 138412290;
-    v15 = v13;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "updateVMContextLanguage: %@", &v14, 0xCu);
+    v14 = self->_vmContextLanguage;
+    v15 = 138412290;
+    v16 = v14;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "updateVMContextLanguage: %@", &v15, 0xCu);
   }
 }
 
@@ -143,39 +144,40 @@
 
   if (lowercaseString)
   {
-    v7 = objc_autoreleasePoolPush();
+    v8 = objc_autoreleasePoolPush();
     systemLanguage = [(VMAssetMgmtController *)self systemLanguage];
-    v9 = [systemLanguage isEqual:lowercaseString];
+    v10 = [systemLanguage isEqual:lowercaseString];
 
-    if (v9)
+    if (v10)
     {
-      v10 = sub_100002740();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100002740(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 138412290;
-        v23 = lowercaseString;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "isInferredLanguage: %@ is system language", &v22, 0xCu);
+        v25 = 138412290;
+        v26 = lowercaseString;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "isInferredLanguage: %@ is system language", &v25, 0xCu);
       }
 
-      LOBYTE(v11) = 1;
+      LOBYTE(v13) = 1;
     }
 
     else
     {
       preferredLanguages = [(VMAssetMgmtController *)self preferredLanguages];
-      v10 = [NSMutableSet setWithArray:preferredLanguages];
+      v12 = [NSMutableSet setWithArray:preferredLanguages];
 
-      if ([v10 containsObject:lowercaseString])
+      v16 = [v12 containsObject:lowercaseString];
+      if (v16)
       {
-        getMegadomeLanguages = sub_100002740();
+        getMegadomeLanguages = sub_100002740(v16);
         if (os_log_type_enabled(getMegadomeLanguages, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = 138412290;
-          v23 = lowercaseString;
-          _os_log_impl(&_mh_execute_header, getMegadomeLanguages, OS_LOG_TYPE_DEFAULT, "isInferredLanguage: %@ is preferred language", &v22, 0xCu);
+          v25 = 138412290;
+          v26 = lowercaseString;
+          _os_log_impl(&_mh_execute_header, getMegadomeLanguages, OS_LOG_TYPE_DEFAULT, "isInferredLanguage: %@ is preferred language", &v25, 0xCu);
         }
 
-        LOBYTE(v11) = 1;
+        LOBYTE(v13) = 1;
       }
 
       else
@@ -183,53 +185,53 @@
         megadomeClient = [(VMAssetMgmtController *)self megadomeClient];
         getMegadomeLanguages = [megadomeClient getMegadomeLanguages];
 
-        v16 = [NSMutableSet setWithArray:getMegadomeLanguages];
-        v11 = [v16 containsObject:lowercaseString];
-        v17 = sub_100002740();
-        v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-        if (v11)
+        v19 = [NSMutableSet setWithArray:getMegadomeLanguages];
+        v13 = [v19 containsObject:lowercaseString];
+        v20 = sub_100002740(v13);
+        v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+        if (v13)
         {
-          if (v18)
+          if (v21)
           {
-            v22 = 138412290;
-            v23 = lowercaseString;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "isInferredLanguage: %@ found in megadome context", &v22, 0xCu);
+            v25 = 138412290;
+            v26 = lowercaseString;
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "isInferredLanguage: %@ found in megadome context", &v25, 0xCu);
           }
         }
 
-        else if (v18)
+        else if (v21)
         {
           systemLanguage2 = [(VMAssetMgmtController *)self systemLanguage];
           preferredLanguages2 = [(VMAssetMgmtController *)self preferredLanguages];
-          v22 = 138413058;
-          v23 = lowercaseString;
-          v24 = 2112;
-          v25 = systemLanguage2;
-          v26 = 2112;
-          v27 = preferredLanguages2;
-          v28 = 2112;
-          v29 = getMegadomeLanguages;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "updateSystemContext: %@ not found, systemLang: %@, preferredLangs: %@, megadomeLangs: %@", &v22, 0x2Au);
+          v25 = 138413058;
+          v26 = lowercaseString;
+          v27 = 2112;
+          v28 = systemLanguage2;
+          v29 = 2112;
+          v30 = preferredLanguages2;
+          v31 = 2112;
+          v32 = getMegadomeLanguages;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "updateSystemContext: %@ not found, systemLang: %@, preferredLangs: %@, megadomeLangs: %@", &v25, 0x2Au);
         }
       }
     }
 
-    objc_autoreleasePoolPop(v7);
+    objc_autoreleasePoolPop(v8);
   }
 
   else
   {
-    v12 = sub_100002740();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100002740(v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "isInferredLanguage: invalid language", &v22, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "isInferredLanguage: invalid language", &v25, 2u);
     }
 
-    LOBYTE(v11) = 0;
+    LOBYTE(v13) = 0;
   }
 
-  return v11;
+  return v13;
 }
 
 - (BOOL)updateControllerWithLocale:(id)locale assetIdentifier:(id)identifier

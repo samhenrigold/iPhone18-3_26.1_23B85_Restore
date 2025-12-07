@@ -151,23 +151,23 @@ uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::
   return result;
 }
 
-void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::start_object(uint64_t a1)
+void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::start_object(void *a1)
 {
-  v2 = a1 + 8;
-  v5 = std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(*(a1 + 120), (*(a1 + 16) - *(a1 + 8)) >> 3, 0);
-  std::vector<BOOL>::push_back((a1 + 32), &v5);
+  v2 = a1 + 1;
+  v5 = std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(a1[15], (a1[2] - a1[1]) >> 3, 0);
+  std::vector<BOOL>::push_back(a1 + 4, &v5);
   nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>(a1, 1u);
   v4 = v3;
   std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *,std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *>>::push_back[abi:ne200100](v2, &v4);
 }
 
-void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::end_object(uint64_t a1)
+void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::end_object(unsigned __int8 *a1)
 {
-  v2 = *(a1 + 16);
-  if (*(v2 - 8) && (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(*(a1 + 120), ((v2 - *(a1 + 8)) >> 3) - 1, 1) & 1) == 0)
+  v2 = *(a1 + 2);
+  if (*(v2 - 8) && (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(*(a1 + 15), ((v2 - *(a1 + 1)) >> 3) - 1, 1) & 1) == 0)
   {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(v52, (a1 + 136));
-    v3 = *(*(a1 + 16) - 8);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(v52, a1 + 136);
+    v3 = *(*(a1 + 2) - 8);
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v52);
     v4 = *v3;
     *v3 = v52[0];
@@ -180,22 +180,22 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(&v53, v52[0]);
   }
 
-  v7 = *(a1 + 8);
-  v6 = *(a1 + 16);
+  v7 = *(a1 + 1);
+  v6 = *(a1 + 2);
   if (v7 == v6)
   {
     __assert_rtn("end_object", "json_sax.hpp", 450, "not ref_stack.empty()");
   }
 
-  v8 = *(a1 + 40);
+  v8 = *(a1 + 5);
   if (!v8)
   {
     __assert_rtn("end_object", "json_sax.hpp", 451, "not keep_stack.empty()");
   }
 
   v9 = v6 - 8;
-  *(a1 + 16) = v6 - 8;
-  *(a1 + 40) = v8 - 1;
+  *(a1 + 2) = v6 - 8;
+  *(a1 + 5) = v8 - 1;
   if (v7 == v6 - 8)
   {
     return;
@@ -352,10 +352,10 @@ LABEL_41:
       ++v14;
     }
 
-    v9 = *(a1 + 16);
+    v9 = *(a1 + 2);
   }
 
-  v21 = *(a1 + 16);
+  v21 = *(a1 + 2);
   v22 = *(v21 - 8);
   if (v10 != v22)
   {
@@ -541,30 +541,31 @@ void sub_237212E1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_237212FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned __int8 a9, uint64_t a10, uint64_t a11, unsigned __int8 a12)
+void sub_237212FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a9);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(&a12);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
 
-void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::start_array(uint64_t a1)
+void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::start_array(void *a1)
 {
-  v2 = a1 + 8;
-  v5 = std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(*(a1 + 120), (*(a1 + 16) - *(a1 + 8)) >> 3, 2);
-  std::vector<BOOL>::push_back((a1 + 32), &v5);
+  v2 = a1 + 1;
+  v5 = std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(a1[15], (a1[2] - a1[1]) >> 3, 2);
+  std::vector<BOOL>::push_back(a1 + 4, &v5);
   nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<nlohmann::detail::value_t>(a1, 2u);
   v4 = v3;
   std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *,std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> *>>::push_back[abi:ne200100](v2, &v4);
 }
 
-void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::end_array(uint64_t a1)
+void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::end_array(uint64_t result)
 {
-  v2 = *(a1 + 16);
-  if (*(v2 - 8) && (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(*(a1 + 120), ((v2 - *(a1 + 8)) >> 3) - 1, 3) & 1) == 0)
+  v2 = *(result + 16);
+  if (*(v2 - 8) && (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(*(result + 120), ((v2 - *(result + 8)) >> 3) - 1, 3) & 1) == 0)
   {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(v11, (a1 + 136));
-    v4 = *(*(a1 + 16) - 8);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json(v11, (result + 136));
+    v4 = *(*(result + 16) - 8);
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v11);
     v5 = *v4;
     *v4 = v11[0];
@@ -583,21 +584,21 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
     v3 = 1;
   }
 
-  v8 = *(a1 + 8);
-  v7 = *(a1 + 16);
+  v8 = *(result + 8);
+  v7 = *(result + 16);
   if (v8 == v7)
   {
     __assert_rtn("end_array", "json_sax.hpp", 502, "not ref_stack.empty()");
   }
 
-  v9 = *(a1 + 40);
+  v9 = *(result + 40);
   if (!v9)
   {
     __assert_rtn("end_array", "json_sax.hpp", 503, "not keep_stack.empty()");
   }
 
-  *(a1 + 16) = v7 - 8;
-  *(a1 + 40) = v9 - 1;
+  *(result + 16) = v7 - 8;
+  *(result + 40) = v9 - 1;
   if (v8 == v7 - 8)
   {
     v3 = 1;
@@ -613,24 +614,24 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
   }
 }
 
-void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<double &>(unsigned __int8 **a1, double a2)
+void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<double &>(unsigned __int8 **result, double a2)
 {
-  v2 = a1[5];
+  v2 = result[5];
   if (!v2)
   {
     __assert_rtn("handle_value", "json_sax.hpp", 568, "not keep_stack.empty()");
   }
 
-  if ((*&a1[4][((v2 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (v2 - 1)))
+  if ((*&result[4][((v2 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (v2 - 1)))
   {
     v27[0] = 7;
     v28 = *&a2;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
-    if (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(a1[15], (a1[2] - a1[1]) >> 3, 5))
+    if (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(result[15], (result[2] - result[1]) >> 3, 5))
     {
-      v4 = a1[2];
-      if (a1[1] == v4)
+      v4 = result[2];
+      if (result[1] == v4)
       {
         v7 = v27[0];
         v25[0] = v27[0];
@@ -641,7 +642,7 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
         v27[0] = 0;
         v28 = 0;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
-        v10 = *a1;
+        v10 = *result;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
         v11 = *v10;
         *v10 = v7;
@@ -660,24 +661,24 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
         v6 = *v5;
         if (v6 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v5 + 1), v27);
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](v5[1], v27);
           goto LABEL_15;
         }
 
         if (v6 == 1)
         {
-          v14 = a1[8];
+          v14 = result[8];
           if (v14)
           {
             v15 = v14 - 1;
-            v16 = *&a1[7][(v15 >> 3) & 0x1FFFFFFFFFFFFFF8];
-            a1[8] = v15;
+            v16 = *&result[7][(v15 >> 3) & 0x1FFFFFFFFFFFFFF8];
+            result[8] = v15;
             if (((v16 >> v15) & 1) == 0)
             {
               goto LABEL_15;
             }
 
-            if (!a1[10])
+            if (!result[10])
             {
               __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
             }
@@ -691,7 +692,7 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
             v27[0] = 0;
             v28 = 0;
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
-            v19 = a1[10];
+            v19 = result[10];
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
             v11 = *v19;
             *v19 = v17;
@@ -727,31 +728,31 @@ LABEL_15:
   }
 }
 
-void sub_237213410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_237213410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
 
-void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<BOOL &>(unsigned __int8 **a1, unsigned __int8 a2)
+void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<BOOL &>(unsigned __int8 **result, unsigned __int8 a2)
 {
-  v2 = a1[5];
+  v2 = result[5];
   if (!v2)
   {
     __assert_rtn("handle_value", "json_sax.hpp", 568, "not keep_stack.empty()");
   }
 
-  if ((*&a1[4][((v2 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (v2 - 1)))
+  if ((*&result[4][((v2 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (v2 - 1)))
   {
     v27[0] = 4;
     v28 = a2;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
-    if (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(a1[15], (a1[2] - a1[1]) >> 3, 5))
+    if (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(result[15], (result[2] - result[1]) >> 3, 5))
     {
-      v4 = a1[2];
-      if (a1[1] == v4)
+      v4 = result[2];
+      if (result[1] == v4)
       {
         v7 = v27[0];
         v25[0] = v27[0];
@@ -762,7 +763,7 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
         v27[0] = 0;
         v28 = 0;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
-        v10 = *a1;
+        v10 = *result;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
         v11 = *v10;
         *v10 = v7;
@@ -781,24 +782,24 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
         v6 = *v5;
         if (v6 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v5 + 1), v27);
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](v5[1], v27);
           goto LABEL_15;
         }
 
         if (v6 == 1)
         {
-          v14 = a1[8];
+          v14 = result[8];
           if (v14)
           {
             v15 = v14 - 1;
-            v16 = *&a1[7][(v15 >> 3) & 0x1FFFFFFFFFFFFFF8];
-            a1[8] = v15;
+            v16 = *&result[7][(v15 >> 3) & 0x1FFFFFFFFFFFFFF8];
+            result[8] = v15;
             if (((v16 >> v15) & 1) == 0)
             {
               goto LABEL_15;
             }
 
-            if (!a1[10])
+            if (!result[10])
             {
               __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
             }
@@ -812,7 +813,7 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
             v27[0] = 0;
             v28 = 0;
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
-            v19 = a1[10];
+            v19 = result[10];
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
             v11 = *v19;
             *v19 = v17;
@@ -848,31 +849,31 @@ LABEL_15:
   }
 }
 
-void sub_237213688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_237213688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
 
-void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<decltype(nullptr)>(unsigned __int8 **a1)
+void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<decltype(nullptr)>(unsigned __int8 **result)
 {
-  v1 = a1[5];
+  v1 = result[5];
   if (!v1)
   {
     __assert_rtn("handle_value", "json_sax.hpp", 568, "not keep_stack.empty()");
   }
 
-  if ((*&a1[4][((v1 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (v1 - 1)))
+  if ((*&result[4][((v1 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (v1 - 1)))
   {
     v26[0] = 0;
     v27 = 0;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v26);
-    if (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(a1[15], (a1[2] - a1[1]) >> 3, 5))
+    if (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(result[15], (result[2] - result[1]) >> 3, 5))
     {
-      v3 = a1[2];
-      if (a1[1] == v3)
+      v3 = result[2];
+      if (result[1] == v3)
       {
         v6 = v26[0];
         v24[0] = v26[0];
@@ -883,7 +884,7 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
         v26[0] = 0;
         v27 = 0;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v24);
-        v9 = *a1;
+        v9 = *result;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v24);
         v10 = *v9;
         *v9 = v6;
@@ -902,24 +903,24 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
         v5 = *v4;
         if (v5 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v4 + 1), v26);
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](v4[1], v26);
           goto LABEL_15;
         }
 
         if (v5 == 1)
         {
-          v13 = a1[8];
+          v13 = result[8];
           if (v13)
           {
             v14 = v13 - 1;
-            v15 = *&a1[7][(v14 >> 3) & 0x1FFFFFFFFFFFFFF8];
-            a1[8] = v14;
+            v15 = *&result[7][(v14 >> 3) & 0x1FFFFFFFFFFFFFF8];
+            result[8] = v14;
             if (((v15 >> v14) & 1) == 0)
             {
               goto LABEL_15;
             }
 
-            if (!a1[10])
+            if (!result[10])
             {
               __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
             }
@@ -933,7 +934,7 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
             v26[0] = 0;
             v27 = 0;
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v22);
-            v18 = a1[10];
+            v18 = result[10];
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v22);
             v10 = *v18;
             *v18 = v16;
@@ -969,31 +970,31 @@ LABEL_15:
   }
 }
 
-void sub_2372138F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2372138F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
 
-void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<long long &>(unsigned __int8 **a1, uint64_t *a2)
+void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<long long &>(unsigned __int8 **result, void ***a2)
 {
-  v2 = a1[5];
+  v2 = result[5];
   if (!v2)
   {
     __assert_rtn("handle_value", "json_sax.hpp", 568, "not keep_stack.empty()");
   }
 
-  if ((*&a1[4][((v2 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (v2 - 1)))
+  if ((*&result[4][((v2 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (v2 - 1)))
   {
     v27[0] = 5;
     v28 = a2;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
-    if (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(a1[15], (a1[2] - a1[1]) >> 3, 5))
+    if (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(result[15], (result[2] - result[1]) >> 3, 5))
     {
-      v4 = a1[2];
-      if (a1[1] == v4)
+      v4 = result[2];
+      if (result[1] == v4)
       {
         v7 = v27[0];
         v25[0] = v27[0];
@@ -1004,7 +1005,7 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
         v27[0] = 0;
         v28 = 0;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
-        v10 = *a1;
+        v10 = *result;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
         v11 = *v10;
         *v10 = v7;
@@ -1023,24 +1024,24 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
         v6 = *v5;
         if (v6 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v5 + 1), v27);
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](v5[1], v27);
           goto LABEL_15;
         }
 
         if (v6 == 1)
         {
-          v14 = a1[8];
+          v14 = result[8];
           if (v14)
           {
             v15 = v14 - 1;
-            v16 = *&a1[7][(v15 >> 3) & 0x1FFFFFFFFFFFFFF8];
-            a1[8] = v15;
+            v16 = *&result[7][(v15 >> 3) & 0x1FFFFFFFFFFFFFF8];
+            result[8] = v15;
             if (((v16 >> v15) & 1) == 0)
             {
               goto LABEL_15;
             }
 
-            if (!a1[10])
+            if (!result[10])
             {
               __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
             }
@@ -1054,7 +1055,7 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
             v27[0] = 0;
             v28 = 0;
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
-            v19 = a1[10];
+            v19 = result[10];
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
             v11 = *v19;
             *v19 = v17;
@@ -1090,54 +1091,54 @@ LABEL_15:
   }
 }
 
-void sub_237213B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_237213B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(uint64_t result)
+uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(uint64_t result, uint64_t a2)
 {
-  v1 = *(result + 40);
-  if (!v1)
-  {
-    __assert_rtn("handle_value", "json_sax.hpp", 568, "not keep_stack.empty()");
-  }
-
-  if ((*(*(result + 32) + (((v1 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v1 - 1)))
-  {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v2);
-  }
-
-  return result;
-}
-
-void sub_237213DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
-  _Unwind_Resume(a1);
-}
-
-void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<unsigned long long &>(unsigned __int8 **a1, uint64_t *a2)
-{
-  v2 = a1[5];
+  v2 = *(result + 40);
   if (!v2)
   {
     __assert_rtn("handle_value", "json_sax.hpp", 568, "not keep_stack.empty()");
   }
 
-  if ((*&a1[4][((v2 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (v2 - 1)))
+  if ((*(*(result + 32) + (((v2 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v2 - 1)))
+  {
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v3, a2);
+  }
+
+  return result;
+}
+
+void sub_237213DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
+  _Unwind_Resume(a1);
+}
+
+void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<unsigned long long &>(unsigned __int8 **result, void ***a2)
+{
+  v2 = result[5];
+  if (!v2)
+  {
+    __assert_rtn("handle_value", "json_sax.hpp", 568, "not keep_stack.empty()");
+  }
+
+  if ((*&result[4][((v2 - 1) >> 3) & 0x1FFFFFFFFFFFFFF8] >> (v2 - 1)))
   {
     v27[0] = 6;
     v28 = a2;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v27);
-    if (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(a1[15], (a1[2] - a1[1]) >> 3, 5))
+    if (std::function<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::operator()(result[15], (result[2] - result[1]) >> 3, 5))
     {
-      v4 = a1[2];
-      if (a1[1] == v4)
+      v4 = result[2];
+      if (result[1] == v4)
       {
         v7 = v27[0];
         v25[0] = v27[0];
@@ -1148,7 +1149,7 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
         v27[0] = 0;
         v28 = 0;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
-        v10 = *a1;
+        v10 = *result;
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
         v11 = *v10;
         *v10 = v7;
@@ -1167,24 +1168,24 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
         v6 = *v5;
         if (v6 == 2)
         {
-          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v5 + 1), v27);
+          std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](v5[1], v27);
           goto LABEL_15;
         }
 
         if (v6 == 1)
         {
-          v14 = a1[8];
+          v14 = result[8];
           if (v14)
           {
             v15 = v14 - 1;
-            v16 = *&a1[7][(v15 >> 3) & 0x1FFFFFFFFFFFFFF8];
-            a1[8] = v15;
+            v16 = *&result[7][(v15 >> 3) & 0x1FFFFFFFFFFFFFF8];
+            result[8] = v15;
             if (((v16 >> v15) & 1) == 0)
             {
               goto LABEL_15;
             }
 
-            if (!a1[10])
+            if (!result[10])
             {
               __assert_rtn("handle_value", "json_sax.hpp", 624, "object_element");
             }
@@ -1198,7 +1199,7 @@ void nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::ma
             v27[0] = 0;
             v28 = 0;
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
-            v19 = a1[10];
+            v19 = result[10];
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v23);
             v11 = *v19;
             *v19 = v17;
@@ -1234,9 +1235,9 @@ LABEL_15:
   }
 }
 
-void sub_237214040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_237214040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -1300,7 +1301,7 @@ unsigned __int8 *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long
 
   if (v4 == 3)
   {
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,std::string const&>();
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,std::string const&>(*(a2 + 1));
   }
 
   if (v4 == 4)
@@ -1359,7 +1360,7 @@ uint64_t nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std
       v6 = *v5;
       if (v6 == 2)
       {
-        std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](*(v5 + 1), v28);
+        std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](v5[1], v28);
 LABEL_14:
         v7 = 1;
 LABEL_16:
@@ -1429,9 +1430,9 @@ LABEL_15:
   return 0;
 }
 
-void sub_2372146FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2372146FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(va);
   _Unwind_Resume(a1);
 }
@@ -3033,11 +3034,11 @@ void sub_2372165F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *midi::ci::profile_inquiry_reply_view::make_profiles(void *this, uint64_t a2, uint64_t a3)
+void midi::ci::profile_inquiry_reply_view::make_profiles(midi::ci::profile_inquiry_reply_view *this, uint64_t a2, uint64_t a3)
 {
   *this = 0;
-  this[1] = 0;
-  this[2] = 0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
   v3 = *(*a2 + 8);
   v4 = *(*a2 + 16) - v3;
   v5 = a3 + 1;
@@ -3056,8 +3057,6 @@ void *midi::ci::profile_inquiry_reply_view::make_profiles(void *this, uint64_t a
   {
     std::__allocate_at_least[abi:ne200100]<std::allocator<midi::ci::profile_id>>(v6);
   }
-
-  return this;
 }
 
 void sub_237216828(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -3071,7 +3070,7 @@ void sub_237216828(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void UMPStream::FunctionBlock::serialize(UMPStream::FunctionBlock *this@<X0>, CFDictionaryRef *a2@<X8>)
+void UMPStream::FunctionBlock::serialize(CFDictionaryRef *__return_ptr a1@<X8>, UMPStream::FunctionBlock *this@<X0>)
 {
   v28 = *MEMORY[0x277D85DE8];
   v12 = *(this + 2);
@@ -3107,7 +3106,7 @@ void UMPStream::FunctionBlock::serialize(UMPStream::FunctionBlock *this@<X0>, CF
   v13[0] = v14;
   v13[1] = 14;
   v5 = 0;
-  *a2 = applesauce::CF::details::make_CFDictionaryRef(v13);
+  *a1 = applesauce::CF::details::make_CFDictionaryRef(v13);
   do
   {
     v6 = *&v27[v5 + 8];
@@ -3143,28 +3142,28 @@ void sub_237216AB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void UMPStream::FunctionBlock::deserialize(std::string *this@<X0>, const __CFDictionary **a2@<X1>, void *a3@<X8>)
+void UMPStream::FunctionBlock::deserialize(uint64_t **__return_ptr a1@<X8>, std::string *this@<X0>, const __CFDictionary **a3@<X1>)
 {
-  a3[1] = 0;
-  a3[2] = 0;
-  *a3 = a3 + 1;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   std::string::basic_string[abi:ne200100]<0>(__p, "name");
-  if (!*a2)
+  if (!*a3)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](exception, "Could not construct");
   }
 
-  applesauce::CF::details::find_at_key_or_optional<std::string,std::string const&>(&__str, *a2, __p);
-  if (LOBYTE(__str.length) == 1)
+  applesauce::CF::details::find_at_key_or_optional<std::string,std::string const&>(&__str, *a3, __p);
+  if (v62 == 1)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, __p);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, __p, __p);
   }
 
   else
   {
-    LOBYTE(__str.isa) = 0;
-    LOBYTE(__str.length) = 0;
+    __str.__r_.__value_.__s.__data_[0] = 0;
+    v62 = 0;
   }
 
   if (v60 < 0)
@@ -3172,27 +3171,27 @@ void UMPStream::FunctionBlock::deserialize(std::string *this@<X0>, const __CFDic
     operator delete(__p[0]);
   }
 
-  if (LOBYTE(__str.length) == 1)
+  if (v62 == 1)
   {
     std::string::operator=(this + 3, &__str);
-    if ((__str.length & 1) != 0 && SHIBYTE(__str.data) < 0)
+    if ((v62 & 1) != 0 && SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(__str.isa);
+      operator delete(__str.__r_.__value_.__l.__data_);
     }
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, "id");
-  if (!*a2)
+  if (!*a3)
   {
     v48 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v48, "Could not construct");
   }
 
-  v6 = applesauce::CF::details::at_key<std::string const&>(*a2, &__str);
+  v6 = applesauce::CF::details::at_key<std::string const&>(*a3, &__str);
   if (v6 && (v7 = applesauce::CF::convert_as<unsigned int,0>(v6), (v7 & 0x100000000) != 0))
   {
     v8 = v7;
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__str, &__str);
     v9 = 0;
   }
 
@@ -3202,7 +3201,7 @@ void UMPStream::FunctionBlock::deserialize(std::string *this@<X0>, const __CFDic
     v9 = 1;
   }
 
-  if ((SHIBYTE(__str.data) & 0x80000000) == 0)
+  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (v9)
     {
@@ -3212,7 +3211,7 @@ void UMPStream::FunctionBlock::deserialize(std::string *this@<X0>, const __CFDic
     goto LABEL_18;
   }
 
-  operator delete(__str.isa);
+  operator delete(__str.__r_.__value_.__l.__data_);
   if ((v9 & 1) == 0)
   {
 LABEL_18:
@@ -3221,20 +3220,20 @@ LABEL_18:
 
 LABEL_19:
   std::string::basic_string[abi:ne200100]<0>(&__str, "direction");
-  if (!*a2)
+  if (!*a3)
   {
     v49 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v49, "Could not construct");
   }
 
-  v10 = applesauce::CF::details::at_key<std::string const&>(*a2, &__str);
+  v10 = applesauce::CF::details::at_key<std::string const&>(*a3, &__str);
   if (v10)
   {
     v11 = applesauce::CF::convert_as<int,0>(v10);
     v12 = v11;
     if ((v11 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__str, &__str);
       v13 = 0;
       v14 = v12;
       goto LABEL_27;
@@ -3249,7 +3248,7 @@ LABEL_19:
   v14 = 0;
   v13 = 1;
 LABEL_27:
-  if ((SHIBYTE(__str.data) & 0x80000000) == 0)
+  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (v13)
     {
@@ -3259,7 +3258,7 @@ LABEL_27:
     goto LABEL_29;
   }
 
-  operator delete(__str.isa);
+  operator delete(__str.__r_.__value_.__l.__data_);
   if ((v13 & 1) == 0)
   {
 LABEL_29:
@@ -3268,16 +3267,16 @@ LABEL_29:
 
 LABEL_30:
   std::string::basic_string[abi:ne200100]<0>(&__str, "first_group");
-  if (!*a2)
+  if (!*a3)
   {
     v50 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v50, "Could not construct");
   }
 
-  v15 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a2, &__str);
+  v15 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a3, &__str);
   if (v15 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__str, &__str);
     v16 = v15;
   }
 
@@ -3286,9 +3285,9 @@ LABEL_30:
     v16 = 0;
   }
 
-  if (SHIBYTE(__str.data) < 0)
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__str.isa);
+    operator delete(__str.__r_.__value_.__l.__data_);
   }
 
   if (v15 >= 0x100u)
@@ -3297,16 +3296,16 @@ LABEL_30:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, "groups_spanned");
-  if (!*a2)
+  if (!*a3)
   {
     v51 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v51, "Could not construct");
   }
 
-  v17 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a2, &__str);
+  v17 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a3, &__str);
   if (v17 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__str, &__str);
     v18 = v17;
   }
 
@@ -3315,9 +3314,9 @@ LABEL_30:
     v18 = 0;
   }
 
-  if (SHIBYTE(__str.data) < 0)
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__str.isa);
+    operator delete(__str.__r_.__value_.__l.__data_);
   }
 
   if (v17 >= 0x100u)
@@ -3326,16 +3325,16 @@ LABEL_30:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, "max_sysex8_stream");
-  if (!*a2)
+  if (!*a3)
   {
     v52 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v52, "Could not construct");
   }
 
-  v19 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a2, &__str);
+  v19 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a3, &__str);
   if (v19 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__str, &__str);
     v20 = v19;
   }
 
@@ -3344,9 +3343,9 @@ LABEL_30:
     v20 = 0;
   }
 
-  if (SHIBYTE(__str.data) < 0)
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__str.isa);
+    operator delete(__str.__r_.__value_.__l.__data_);
   }
 
   if (v19 >= 0x100u)
@@ -3355,20 +3354,20 @@ LABEL_30:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, "midi1_info");
-  if (!*a2)
+  if (!*a3)
   {
     v53 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v53, "Could not construct");
   }
 
-  v21 = applesauce::CF::details::at_key<std::string const&>(*a2, &__str);
+  v21 = applesauce::CF::details::at_key<std::string const&>(*a3, &__str);
   if (v21)
   {
     v22 = applesauce::CF::convert_as<int,0>(v21);
     v23 = v22;
     if ((v22 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__str, &__str);
       v24 = 0;
       v25 = v23;
       goto LABEL_62;
@@ -3383,7 +3382,7 @@ LABEL_30:
   v25 = 0;
   v24 = 1;
 LABEL_62:
-  if ((SHIBYTE(__str.data) & 0x80000000) == 0)
+  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (v24)
     {
@@ -3393,7 +3392,7 @@ LABEL_62:
     goto LABEL_64;
   }
 
-  operator delete(__str.isa);
+  operator delete(__str.__r_.__value_.__l.__data_);
   if ((v24 & 1) == 0)
   {
 LABEL_64:
@@ -3402,20 +3401,20 @@ LABEL_64:
 
 LABEL_65:
   std::string::basic_string[abi:ne200100]<0>(&__str, "ui_hint");
-  if (!*a2)
+  if (!*a3)
   {
     v54 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v54, "Could not construct");
   }
 
-  v26 = applesauce::CF::details::at_key<std::string const&>(*a2, &__str);
+  v26 = applesauce::CF::details::at_key<std::string const&>(*a3, &__str);
   if (v26)
   {
     v27 = applesauce::CF::convert_as<int,0>(v26);
     v28 = v27;
     if ((v27 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__str, &__str);
       v29 = 0;
       v30 = v28;
       goto LABEL_73;
@@ -3430,7 +3429,7 @@ LABEL_65:
   v30 = 0;
   v29 = 1;
 LABEL_73:
-  if ((SHIBYTE(__str.data) & 0x80000000) == 0)
+  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (v29)
     {
@@ -3440,7 +3439,7 @@ LABEL_73:
     goto LABEL_75;
   }
 
-  operator delete(__str.isa);
+  operator delete(__str.__r_.__value_.__l.__data_);
   if ((v29 & 1) == 0)
   {
 LABEL_75:
@@ -3449,16 +3448,16 @@ LABEL_75:
 
 LABEL_76:
   std::string::basic_string[abi:ne200100]<0>(&__str, "enabled");
-  if (!*a2)
+  if (!*a3)
   {
     v55 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v55, "Could not construct");
   }
 
-  v31 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a2, &__str);
+  v31 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a3, &__str);
   if (v31 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__str, &__str);
     v32 = v31;
   }
 
@@ -3467,9 +3466,9 @@ LABEL_76:
     v32 = 0;
   }
 
-  if (SHIBYTE(__str.data) < 0)
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__str.isa);
+    operator delete(__str.__r_.__value_.__l.__data_);
   }
 
   if (v31 >= 0x100u)
@@ -3478,20 +3477,20 @@ LABEL_76:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__str, "owner");
-  if (!*a2)
+  if (!*a3)
   {
     v56 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v56, "Could not construct");
   }
 
-  v33 = applesauce::CF::details::at_key<std::string const&>(*a2, &__str);
+  v33 = applesauce::CF::details::at_key<std::string const&>(*a3, &__str);
   if (v33)
   {
     v34 = applesauce::CF::convert_as<unsigned int,0>(v33);
     v35 = v34;
     if ((v34 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__str, &__str);
       v36 = 0;
       v37 = v35;
       goto LABEL_92;
@@ -3506,7 +3505,7 @@ LABEL_76:
   v37 = 0;
   v36 = 1;
 LABEL_92:
-  if ((SHIBYTE(__str.data) & 0x80000000) == 0)
+  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (v36)
     {
@@ -3516,7 +3515,7 @@ LABEL_92:
     goto LABEL_94;
   }
 
-  operator delete(__str.isa);
+  operator delete(__str.__r_.__value_.__l.__data_);
   if ((v36 & 1) == 0)
   {
 LABEL_94:
@@ -3525,17 +3524,17 @@ LABEL_94:
 
 LABEL_95:
   std::string::basic_string[abi:ne200100]<0>(&__str, "timestamp");
-  if (!*a2)
+  if (!*a3)
   {
     v57 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v57, "Could not construct");
   }
 
-  v38 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,std::string const&>(*a2, &__str);
+  v38 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,std::string const&>(*a3, &__str);
   v40 = v39;
   if (v39)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__str, &__str);
     v41 = v38;
   }
 
@@ -3544,7 +3543,7 @@ LABEL_95:
     v41 = 0;
   }
 
-  if ((SHIBYTE(__str.data) & 0x80000000) == 0)
+  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if ((v40 & 1) == 0)
     {
@@ -3554,7 +3553,7 @@ LABEL_95:
     goto LABEL_101;
   }
 
-  operator delete(__str.isa);
+  operator delete(__str.__r_.__value_.__l.__data_);
   if (v40)
   {
 LABEL_101:
@@ -3563,20 +3562,20 @@ LABEL_101:
 
 LABEL_102:
   std::string::basic_string[abi:ne200100]<0>(&__str, "owner_client_ref");
-  if (!*a2)
+  if (!*a3)
   {
     v58 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v58, "Could not construct");
   }
 
-  v42 = applesauce::CF::details::at_key<std::string const&>(*a2, &__str);
+  v42 = applesauce::CF::details::at_key<std::string const&>(*a3, &__str);
   if (v42)
   {
     v43 = applesauce::CF::convert_as<unsigned int,0>(v42);
     v44 = v43;
     if ((v43 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__str.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__str, &__str);
       v45 = 0;
       v46 = v44;
       goto LABEL_112;
@@ -3591,7 +3590,7 @@ LABEL_102:
   v46 = 0;
   v45 = 1;
 LABEL_112:
-  if ((SHIBYTE(__str.data) & 0x80000000) == 0)
+  if ((SHIBYTE(__str.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (v45)
     {
@@ -3601,7 +3600,7 @@ LABEL_112:
     goto LABEL_114;
   }
 
-  operator delete(__str.isa);
+  operator delete(__str.__r_.__value_.__l.__data_);
   if ((v45 & 1) == 0)
   {
 LABEL_114:
@@ -3647,29 +3646,44 @@ void UMPStream::FunctionBlock::~FunctionBlock(void **this)
   BaseOpaqueObject::~BaseOpaqueObject(this);
 }
 
-CFTypeRef ProcessInquiryTransaction::timeout(CFTypeRef *this, UMPCIServerContext *a2)
+uint64_t ProcessInquiryTransaction::timeout(ProcessInquiryTransaction *this, UMPCIServerContext *a2, BOOL a3)
 {
   ProcessInquiryTransaction::complete(this, 1);
-  result = this[12];
+  result = *(this + 12);
   if (result)
   {
-    v4 = *(*result + 48);
+    v5 = *(*result + 48);
 
-    return v4();
+    return v5();
   }
 
   return result;
 }
 
-uint64_t ProcessInquiryTransaction::complete(CFTypeRef *this, UMPCIServerContext *a2)
+void ProcessInquiryTransaction::complete(ProcessInquiryTransaction *this, UMPCIServerContext *a2)
 {
-  if (this[8])
+  v2 = a2;
+  v3 = *(this + 4);
+  v4 = *(this + 7);
+  v5 = *(this + 40);
+  v6 = *(this + 48);
+  v7 = *(this + 56);
+  v8 = *(this + 8);
+  if (v8)
   {
-    this = CFRetain(this[8]);
+    this = CFRetain(*(this + 8));
   }
 
-  v2 = SetupManager::instance(this);
-  return SetupManager::AddNotification(v2);
+  v14 = v8;
+  v10 = 0x2800001005;
+  v11 = v3;
+  v12 = v4;
+  v13 = v5;
+  BYTE1(v13) = v6;
+  BYTE2(v13) = v7;
+  v15 = v2;
+  v9 = SetupManager::instance(this);
+  SetupManager::AddNotification(v9, &v10);
 }
 
 void ProcessInquiryTransaction::~ProcessInquiryTransaction(ProcessInquiryTransaction *this)
@@ -4010,7 +4024,7 @@ void ClientTable::ProcessQuit(ClientTable *this, ClientProcess *a2)
     do
     {
       v8 = (v5 + 8 * v6);
-      if (*(*v8 + 48) == a2)
+      if (*(*v8 + 6) == a2)
       {
         v9 = MIDIServer::defaultInstance(this) + 13;
         v10 = (*(*v9 + 16))(v9);
@@ -4079,25 +4093,25 @@ LABEL_19:
 
 void ClientTable::CheckActiveProcesses(ClientTable *this)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   active = ClientTable::AnyActiveProcesses(this);
   if (active)
   {
-    if ((**(MIDIServer::defaultInstance(active, v3) + 264) & 1) == 0)
+    if ((*MIDIServer::defaultInstance(active)[33] & 1) == 0)
     {
       gClientTable();
-      v4 = gClientTable(void)::clitbl;
-      v5 = os_log_type_enabled(gClientTable(void)::clitbl, OS_LOG_TYPE_DEBUG);
-      if (v5)
+      v3 = gClientTable(void)::clitbl;
+      v4 = os_log_type_enabled(gClientTable(void)::clitbl, OS_LOG_TYPE_DEBUG);
+      if (v4)
       {
         *buf = 136315394;
-        v11 = "MIDIClient.cpp";
-        v12 = 1024;
-        v13 = 144;
-        _os_log_impl(&dword_2371C2000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d ClientTable::CheckActiveProcesses: starting MIDI drivers", buf, 0x12u);
+        v9 = "MIDIClient.cpp";
+        v10 = 1024;
+        v11 = 144;
+        _os_log_impl(&dword_2371C2000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d ClientTable::CheckActiveProcesses: starting MIDI drivers", buf, 0x12u);
       }
 
-      MIDIServer::startMIDI(v5, v6);
+      MIDIServer::startMIDI(v4);
     }
   }
 
@@ -4105,23 +4119,23 @@ void ClientTable::CheckActiveProcesses(ClientTable *this)
   {
     *(this + 8) = mach_absolute_time();
     gClientTable();
-    v7 = gClientTable(void)::clitbl;
+    v5 = gClientTable(void)::clitbl;
     if (os_log_type_enabled(gClientTable(void)::clitbl, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v11 = "MIDIClient.cpp";
-      v12 = 1024;
-      v13 = 150;
-      _os_log_impl(&dword_2371C2000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d ClientTable::CheckActiveProcesses: scheduling check for stopping MIDI drivers", buf, 0x12u);
+      v9 = "MIDIClient.cpp";
+      v10 = 1024;
+      v11 = 150;
+      _os_log_impl(&dword_2371C2000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d ClientTable::CheckActiveProcesses: scheduling check for stopping MIDI drivers", buf, 0x12u);
     }
 
-    v8 = dispatch_time(0, 60000000000);
+    v6 = dispatch_time(0, 60000000000);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 0x40000000;
     block[2] = ___ZN11ClientTable20CheckActiveProcessesEv_block_invoke;
     block[3] = &__block_descriptor_tmp_1938;
     block[4] = this;
-    dispatch_after(v8, MEMORY[0x277D85CD0], block);
+    dispatch_after(v6, MEMORY[0x277D85CD0], block);
   }
 }
 
@@ -4190,39 +4204,39 @@ void gClientTable(void)
   }
 }
 
-void ___ZN11ClientTable20CheckActiveProcessesEv_block_invoke(MIDIServer *a1, int a2)
+void ___ZN11ClientTable20CheckActiveProcessesEv_block_invoke(MIDIServer *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 4);
-  v3 = MIDIServer::defaultInstance(a1, a2) + 16;
-  v4 = (*(*v3 + 16))(v3);
-  v5 = (mach_absolute_time() - *(v2 + 8)) * 0.0000000416666667;
-  if (v5 < 59.0)
+  v19 = *MEMORY[0x277D85DE8];
+  v1 = *(a1 + 4);
+  v2 = MIDIServer::defaultInstance(a1) + 2;
+  v3 = (*(*v2 + 16))(v2);
+  v4 = (mach_absolute_time() - *(v1 + 8)) * 0.0000000416666667;
+  if (v4 < 59.0)
   {
     gClientTable();
-    v6 = gClientTable(void)::clitbl;
+    v5 = gClientTable(void)::clitbl;
     if (!os_log_type_enabled(gClientTable(void)::clitbl, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_11;
     }
 
     *buf = 136315650;
-    v16 = "MIDIClient.cpp";
-    v17 = 1024;
-    v18 = 165;
-    v19 = 2048;
-    v20 = v5;
-    v7 = "%25s:%-5d ClientTable::CheckActiveProcesses: waiting for a later message (only %.3f seconds elapsed)";
-    v8 = v6;
-    v9 = 28;
+    v14 = "MIDIClient.cpp";
+    v15 = 1024;
+    v16 = 165;
+    v17 = 2048;
+    v18 = v4;
+    v6 = "%25s:%-5d ClientTable::CheckActiveProcesses: waiting for a later message (only %.3f seconds elapsed)";
+    v7 = v5;
+    v8 = 28;
 LABEL_7:
-    _os_log_impl(&dword_2371C2000, v8, OS_LOG_TYPE_DEBUG, v7, buf, v9);
+    _os_log_impl(&dword_2371C2000, v7, OS_LOG_TYPE_DEBUG, v6, buf, v8);
     goto LABEL_11;
   }
 
-  active = ClientTable::AnyActiveProcesses(v2);
+  active = ClientTable::AnyActiveProcesses(v1);
   gClientTable();
-  v11 = gClientTable(void)::clitbl;
+  v10 = gClientTable(void)::clitbl;
   if (active)
   {
     if (!os_log_type_enabled(gClientTable(void)::clitbl, OS_LOG_TYPE_DEBUG))
@@ -4231,33 +4245,33 @@ LABEL_7:
     }
 
     *buf = 136315394;
-    v16 = "MIDIClient.cpp";
-    v17 = 1024;
-    v18 = 171;
-    v7 = "%25s:%-5d ClientTable::CheckActiveProcesses: there are active processes, not stopping MIDI drivers";
-    v8 = v11;
-    v9 = 18;
+    v14 = "MIDIClient.cpp";
+    v15 = 1024;
+    v16 = 171;
+    v6 = "%25s:%-5d ClientTable::CheckActiveProcesses: there are active processes, not stopping MIDI drivers";
+    v7 = v10;
+    v8 = 18;
     goto LABEL_7;
   }
 
   if (os_log_type_enabled(gClientTable(void)::clitbl, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v16 = "MIDIClient.cpp";
-    v17 = 1024;
-    v18 = 167;
-    v19 = 2048;
-    v20 = v5;
-    _os_log_impl(&dword_2371C2000, v11, OS_LOG_TYPE_INFO, "%25s:%-5d [*] ClientTable::CheckActiveProcesses: no active processes for %.3f seconds, stopping MIDI drivers", buf, 0x1Cu);
+    v14 = "MIDIClient.cpp";
+    v15 = 1024;
+    v16 = 167;
+    v17 = 2048;
+    v18 = v4;
+    _os_log_impl(&dword_2371C2000, v10, OS_LOG_TYPE_INFO, "%25s:%-5d [*] ClientTable::CheckActiveProcesses: no active processes for %.3f seconds, stopping MIDI drivers", buf, 0x1Cu);
   }
 
   Scheduler::FlushAllOutput(gScheduler);
-  v14 = MIDIServer::defaultInstance(v12, v13);
-  MIDIDriverMgr::StopMIDI(*(v14 + 264));
+  v12 = MIDIServer::defaultInstance(v11);
+  MIDIDriverMgr::StopMIDI(v12[33]);
 LABEL_11:
-  if (v4)
+  if (v3)
   {
-    (*(*v3 + 24))(v3);
+    (*(*v2 + 24))(v2);
   }
 }
 
@@ -4336,9 +4350,9 @@ void MIDIClient::AddPort(MIDIClient *this, MIDIPort *a2)
   *(this + 10) = v5;
 }
 
-void MIDI::EventListDeliverer::create(uint64_t a1, int a2)
+void MIDI::EventListDeliverer::create(void *a1, int a2, void (***a3)())
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   if (a2 != 2)
   {
     if (a2 == 1)
@@ -4362,7 +4376,7 @@ void sub_237218CC0(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<MIDIInputPort::ConnectedSource>,MIDIInputPort::ConnectedSource*>(uint64_t a1, __int128 *a2, __int128 *a3, _OWORD *a4)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<MIDIInputPort::ConnectedSource>,MIDIInputPort::ConnectedSource*>(uint64_t a1, __int128 *a2, __int128 *a3, __int128 *a4)
 {
   if (a2 != a3)
   {
@@ -4444,7 +4458,7 @@ uint64_t MIDI::MIDI_2_Deliverer::operator()(uint64_t a1, unsigned int *a2)
   if (*a2)
   {
     v62 = 0;
-    v4 = (a2 + 1);
+    v4 = a2 + 1;
     v5 = (a1 + 64);
     v6 = (a1 + 80);
     v7 = a1 + 97;
@@ -4452,7 +4466,7 @@ uint64_t MIDI::MIDI_2_Deliverer::operator()(uint64_t a1, unsigned int *a2)
     {
       v8 = v4 + 10;
       v9 = v4;
-      v10 = *(v4 + 8);
+      v10 = *(v4 + 4);
       v60 = v8;
       v61 = v9;
       v65[0] = v8;
@@ -4930,7 +4944,7 @@ LABEL_119:
       }
 
       ++v62;
-      v4 = (v60 + *(v61 + 4) + 3) & 0xFFFFFFFFFFFFFFFCLL;
+      v4 = ((v60 + *(v61 + 4) + 3) & 0xFFFFFFFFFFFFFFFCLL);
     }
 
     while (v62 < *v59);
@@ -4953,7 +4967,7 @@ uint64_t MIDI::PacketizerBase<MIDI::EventList>::~PacketizerBase(uint64_t a1)
   return a1;
 }
 
-uint64_t MIDI::LegacyPacketList::PacketReader::read(uint64_t *a1, void *a2, _DWORD *a3)
+BOOL MIDI::LegacyPacketList::PacketReader::read(uint64_t *a1, void *a2, int *a3)
 {
   v3 = a1[1];
   v4 = a1[3];
@@ -5151,7 +5165,7 @@ _DWORD *MIDI::Packetizer::add(_DWORD *result, uint64_t a2, char *__src)
   v6 = *(result + 7);
   if (MIDI::UniversalPacket::word_sizes[v4 >> 28])
   {
-    v7 = (result + 272);
+    v7 = result + 272;
     v8 = v4 & 0xF0000000;
     v9 = result[17];
     if (v6)
@@ -5940,9 +5954,9 @@ LABEL_130:
   return MIDI::PacketizerBase<MIDI::EventList>::~PacketizerBase(&v89);
 }
 
-void sub_23721A2CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_23721A2CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   MIDI::PacketizerBase<MIDI::EventList>::~PacketizerBase(va);
   _Unwind_Resume(a1);
 }
@@ -5991,10 +6005,10 @@ unsigned int *MIDI::LegacyPacketList::traverse<MIDI::MIDIPacketList_to_MIDIEvent
   {
     v3 = result;
     v4 = 0;
-    v5 = (result + 1);
+    v5 = result + 1;
     do
     {
-      v6 = *(v5 + 8);
+      v6 = *(v5 + 4);
       v9[0] = v5 + 10;
       v9[1] = v6;
       v9[2] = *v5;
@@ -6013,7 +6027,7 @@ unsigned int *MIDI::LegacyPacketList::traverse<MIDI::MIDIPacketList_to_MIDIEvent
         MIDI::Packetizer::add(*a2, *v8, __src);
       }
 
-      v5 = (v5 + 10 + *(v5 + 8) + 3) & 0xFFFFFFFFFFFFFFFCLL;
+      v5 = ((v5 + *(v5 + 4) + 13) & 0xFFFFFFFFFFFFFFFCLL);
       ++v4;
     }
 
@@ -6392,20 +6406,20 @@ uint64_t DriverIOThread::Start(DriverIOThread *this)
 
 void MIDIDriverMgr::StopMIDI(MIDIDriverMgr *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   gDriverTable();
   v2 = gDriverTable(void)::drvtbl;
   v3 = os_log_type_enabled(gDriverTable(void)::drvtbl, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
     v4 = *this;
-    v9 = 136315650;
-    v10 = "DriverTable.cpp";
-    v11 = 1024;
-    v12 = 164;
-    v13 = 1024;
-    v14 = v4;
-    _os_log_impl(&dword_2371C2000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d StopMIDI: (already running: %d)\n", &v9, 0x18u);
+    v8 = 136315650;
+    v9 = "DriverTable.cpp";
+    v10 = 1024;
+    v11 = 164;
+    v12 = 1024;
+    v13 = v4;
+    _os_log_impl(&dword_2371C2000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d StopMIDI: (already running: %d)\n", &v8, 0x18u);
   }
 
   if (*this == 1)
@@ -6421,7 +6435,7 @@ void MIDIDriverMgr::StopMIDI(MIDIDriverMgr *this)
     *this = 0;
     if (*SetupManager::instance(v3))
     {
-      MIDISetup::SetMIDIRunning(*this, v8);
+      MIDISetup::SetMIDIRunning(*this);
     }
   }
 }
@@ -6469,7 +6483,7 @@ void CreateMIDITimerThread()
   }
 }
 
-void MIDITimerTaskCreate()
+void MIDITimerTaskCreate(uint64_t a1, uint64_t a2)
 {
   if (!gMIDITimerThread)
   {
@@ -6614,9 +6628,9 @@ LABEL_2:
   }
 }
 
-void sub_23721B78C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23721B78C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
@@ -6840,7 +6854,7 @@ LABEL_20:
         }
 
         *buf = &v47;
-        v15 = std::__tree<std::__value_type<unsigned int,MIDICI::SourceState>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,MIDICI::SourceState>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,MIDICI::SourceState>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v44 + 13), v3);
+        v15 = std::__tree<std::__value_type<unsigned int,MIDICI::SourceState>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,MIDICI::SourceState>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,MIDICI::SourceState>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v44 + 13, v3, buf);
         MIDICI::SysexCollector::feed(v15[5], v4);
         v41 = v4;
         v16 = v44[1];
@@ -7055,11 +7069,11 @@ LABEL_66:
   std::mutex::unlock((v44 + 4));
 }
 
-void sub_23721C158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23721C158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::unique_ptr<MIDICI::SysexCollector>::reset[abi:ne200100](va, 0);
-  std::mutex::unlock((a7 + 32));
+  std::mutex::unlock((a14 + 32));
   _Unwind_Resume(a1);
 }
 
@@ -7108,10 +7122,10 @@ uint64_t *std::vector<std::unique_ptr<InternalCITransaction>>::erase(uint64_t a1
   return a2;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,MIDICI::SourceState>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,MIDICI::SourceState>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,MIDICI::SourceState>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,MIDICI::SourceState>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,MIDICI::SourceState>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,MIDICI::SourceState>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t **a1, unsigned int a2, _DWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -7121,27 +7135,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 32);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 8);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -7166,7 +7180,7 @@ void std::__function::__func<MIDICI::DeviceManager::processBackground(unsigned i
   v6 = *(a1 + 8);
   midi::universal_sysex::message_view::message_view(v88, a3);
   v86 = v6;
-  if (*a3 != 8257536 || (v9 = *(a3 + 1), v8 = *(a3 + 2), (v8 - v9) < 0xC) || *(v9 + 1) != 13)
+  if (*a3 != 8257536 || (v9 = *(a3 + 1), v8 = *(a3 + 2), (v8 - v9) < 0xC) || v9[1] != 13)
   {
     __assert_rtn("capability_inquiry_view", "capability_inquiry.h", 2486, "validate(sx)");
   }
@@ -7184,13 +7198,13 @@ void std::__function::__func<MIDICI::DeviceManager::processBackground(unsigned i
     __assert_rtn("make_uint28", "sysex.h", 249, "data_pos + 3 < data.size()");
   }
 
-  v13 = *(v11 + 4) | (*(v11 + 5) << 7) | (*(v11 + 6) << 14) | (*(v11 + 7) << 21);
-  if (v13 == (*(v11 + 8) | (*(v11 + 9) << 7) | (*(v11 + 10) << 14) | (*(v11 + 11) << 21)))
+  v13 = v11[4] | (v11[5] << 7) | (v11[6] << 14) | (v11[7] << 21);
+  if (v13 == (v11[8] | (v11[9] << 7) | (v11[10] << 14) | (v11[11] << 21)))
   {
     return;
   }
 
-  if (!*(v11 + 3) || (*(v11 + 3) & 0x70) != 0)
+  if (!v11[3] || (v11[3] & 0x70) != 0)
   {
     *buf = "MIDI-CI version not supported!";
     *&buf[8] = 30;
@@ -7205,7 +7219,7 @@ void std::__function::__func<MIDICI::DeviceManager::processBackground(unsigned i
     goto LABEL_19;
   }
 
-  v84 = *(v11 + 8) | (*(v11 + 9) << 7) | (*(v11 + 10) << 14) | (*(v11 + 11) << 21);
+  v84 = v11[8] | (v11[9] << 7) | (v11[10] << 14) | (v11[11] << 21);
   if (v13 != *(v6 + 96))
   {
     v81 = *(v6 + 96);
@@ -7321,7 +7335,7 @@ LABEL_56:
 
 LABEL_58:
         *buf = a1 + 16;
-        std::__tree<std::__value_type<unsigned int,MIDICI::SourceState>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,MIDICI::SourceState>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,MIDICI::SourceState>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v86 + 104, *(a1 + 16));
+        std::__tree<std::__value_type<unsigned int,MIDICI::SourceState>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,MIDICI::SourceState>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,MIDICI::SourceState>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v86 + 13, *(a1 + 16), buf);
         operator new();
       }
 
@@ -7504,7 +7518,7 @@ LABEL_100:
     if (v63)
     {
       v64.var0 = v62;
-      MIDICI::DeviceManager::handleProfileIDViewChange(v33, v34, v64);
+      MIDICI::DeviceManager::handleProfileIDViewChange(v33, v34, v64, *(a1 + 24));
       return;
     }
 
@@ -7828,7 +7842,7 @@ void MIDICI::DeviceManager::handleDiscoveryReply(MIDICI::DeviceManager *this, co
               }
             }
 
-            goto LABEL_35;
+            goto LABEL_34;
           }
         }
       }
@@ -7865,7 +7879,7 @@ void MIDICI::DeviceManager::handleDiscoveryReply(MIDICI::DeviceManager *this, co
       }
     }
 
-LABEL_35:
+LABEL_34:
     if (a3 && a4)
     {
       std::function<UMPStream::FunctionBlock const* ()(unsigned int,unsigned int,unsigned char)>::operator()(*(*this + 56), a3, a4, v16);
@@ -7874,9 +7888,9 @@ LABEL_35:
     operator new();
   }
 
-  if (*(a2 + 18) != a3 || *(a2 + 19) != a4)
+  if (*(a2 + 9) != __PAIR64__(a4, a3))
   {
-    goto LABEL_6;
+    goto LABEL_5;
   }
 
   v11 = *(a5.var0 + 1);
@@ -7887,7 +7901,7 @@ LABEL_35:
 
   if (*(a2 + 16) != (v11[4] | (v11[5] << 7) | (v11[6] << 14) | (v11[7] << 21)))
   {
-LABEL_6:
+LABEL_5:
     v12 = 0;
     if (a3 && a4)
     {
@@ -7934,7 +7948,7 @@ void sub_23721DAB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIDICI::SourceState::shouldSendDiscoveryRequest(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t MIDICI::SourceState::shouldSendDiscoveryRequest(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v19 = *MEMORY[0x277D85DE8];
   v15 = a2;
@@ -7968,7 +7982,7 @@ LABEL_9:
   }
 
   v16 = &v15;
-  v11 = std::__tree<std::__value_type<unsigned int,std::unique_ptr<MIDICI::CIRetrier>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::unique_ptr<MIDICI::CIRetrier>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::unique_ptr<MIDICI::CIRetrier>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v4 - 8, v15)[5];
+  v11 = std::__tree<std::__value_type<unsigned int,std::unique_ptr<MIDICI::CIRetrier>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::unique_ptr<MIDICI::CIRetrier>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::unique_ptr<MIDICI::CIRetrier>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v4 - 8), v15, &v16)[5];
   v13 = *(a3 + 24);
   if (v13)
   {
@@ -8157,9 +8171,9 @@ void sub_23721E270(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIDICI::DeviceManager::handleInvalidateMUID(MIDICI::DeviceManager *this, MIDICI::Device *a2, int a3)
+void MIDICI::DeviceManager::handleInvalidateMUID(uint64_t this, MIDICI::Device *a2, int a3)
 {
-  if (*(this + 24) == a3)
+  if (*(this + 96) == a3)
   {
 
     MIDICI::DeviceManager::handleInvalidateManagerMUID(this, 0, 0);
@@ -8167,15 +8181,15 @@ void MIDICI::DeviceManager::handleInvalidateMUID(MIDICI::DeviceManager *this, MI
 
   else if (a2 && *(a2 + 16) == a3)
   {
-    v5 = *(this + 1);
-    v4 = *(this + 2);
+    v5 = *(this + 8);
+    v4 = *(this + 16);
     if (v5 != v4)
     {
       while (*v5 != a2)
       {
         if (++v5 == v4)
         {
-          v5 = *(this + 2);
+          v5 = *(this + 16);
           break;
         }
       }
@@ -8196,7 +8210,7 @@ void MIDICI::DeviceManager::handleInvalidateMUID(MIDICI::DeviceManager *this, MI
         }
 
         while (v6 != v4);
-        v4 = *(this + 2);
+        v4 = *(this + 16);
       }
 
       while (v4 != v5)
@@ -8204,7 +8218,7 @@ void MIDICI::DeviceManager::handleInvalidateMUID(MIDICI::DeviceManager *this, MI
         std::unique_ptr<MIDICI::Device>::reset[abi:ne200100](--v4, 0);
       }
 
-      *(this + 2) = v5;
+      *(this + 16) = v5;
     }
   }
 }
@@ -8306,99 +8320,29 @@ void MIDICI::DeviceManager::handleProfileInquiryReply(uint64_t a1, uint64_t a2)
   }
 }
 
-void MIDICI::DeviceManager::handleProfileIDViewChange(MIDICI::DeviceManager *this, MIDICI::Device *a2, profile_id_view a3)
+void MIDICI::DeviceManager::handleProfileIDViewChange(MIDICI::DeviceManager *this, MIDICI::Device *a2, profile_id_view a3, uint64_t a4)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v3 = *(a3.var0 + 1);
-    v4 = *(a3.var0 + 2);
-    v5 = *(v3 + 12) | (*(v3 + 13) << 8);
-    v30 = HIBYTE(*(v3 + 13));
-    __s2 = v5;
-    if ((v4 - v3) >= 3)
+    v4 = *(a3.var0 + 1);
+    v5 = *(a3.var0 + 2);
+    v6 = *(v4 + 12) | (*(v4 + 13) << 8);
+    v31 = HIBYTE(*(v4 + 13));
+    __s2 = v6;
+    if ((v5 - v4) >= 3)
     {
-      v8 = *(v3 + 2);
-      if ((v8 - 36) < 2)
+      v9 = *(v4 + 2);
+      if ((v9 - 36) < 2)
       {
-        v10 = MIDICI::Device::profile(*(a2 + 18), *(a2 + 19), &__s2, 5uLL);
-        if (v10)
+        v11 = MIDICI::Device::profile(*(a2 + 18), *(a2 + 19), &__s2, 5uLL);
+        if (v11)
         {
-          *(v10 + 116) = v8 == 36;
-          v11 = *this;
-          v12 = *(v10 + 8);
-          v26 = 0;
-          UMPCIServerContext::sendNotificationForObject(v11, 1, v12, &v26);
-          if (v26)
-          {
-            CFRelease(v26);
-          }
-        }
-      }
-
-      else if (v8 == 39)
-      {
-        v14 = *(a2 + 18);
-        v13 = *(a2 + 19);
-        if (v14 != v13)
-        {
-          while (1)
-          {
-            v15 = *(*v14 + 88);
-            if (*(*v14 + 96) - v15 == 5)
-            {
-              v16 = *v15;
-              v17 = *(v15 + 4);
-              if (v16 == __s2 && v17 == v30)
-              {
-                break;
-              }
-            }
-
-            if (++v14 == v13)
-            {
-              return;
-            }
-          }
-        }
-
-        if (v14 != v13)
-        {
-          v19 = v14 + 1;
-          v20 = *(*v14 + 8);
-          if (v14 + 1 != v13)
-          {
-            do
-            {
-              v14 = v19;
-              v21 = v19 - 1;
-              v22 = *v19;
-              *v19++ = 0;
-              std::unique_ptr<MIDICI::Profile>::reset[abi:ne200100](v21, v22);
-            }
-
-            while (v19 != v13);
-            v13 = *(a2 + 19);
-          }
-
-          while (v13 != v14)
-          {
-            std::unique_ptr<MIDICI::Profile>::reset[abi:ne200100](--v13, 0);
-          }
-
-          *(a2 + 19) = v14;
-          v23 = *this;
-          v28 = 0;
-          UMPCIServerContext::sendNotificationForObject(v23, 2, v20, &v28);
-          if (v28)
-          {
-            CFRelease(v28);
-          }
-
-          v24 = *this;
-          v25 = *(a2 + 2);
+          *(v11 + 116) = v9 == 36;
+          v12 = *this;
+          v13 = *(v11 + 8);
           v27 = 0;
-          UMPCIServerContext::sendNotificationForObject(v24, 1, v25, &v27);
+          UMPCIServerContext::sendNotificationForObject(v12, 1, v13, &v27);
           if (v27)
           {
             CFRelease(v27);
@@ -8406,7 +8350,77 @@ void MIDICI::DeviceManager::handleProfileIDViewChange(MIDICI::DeviceManager *thi
         }
       }
 
-      else if (v8 == 38)
+      else if (v9 == 39)
+      {
+        v15 = *(a2 + 18);
+        v14 = *(a2 + 19);
+        if (v15 != v14)
+        {
+          while (1)
+          {
+            v16 = *(*v15 + 88);
+            if (*(*v15 + 96) - v16 == 5)
+            {
+              v17 = *v16;
+              v18 = *(v16 + 4);
+              if (v17 == __s2 && v18 == v31)
+              {
+                break;
+              }
+            }
+
+            if (++v15 == v14)
+            {
+              return;
+            }
+          }
+        }
+
+        if (v15 != v14)
+        {
+          v20 = v15 + 1;
+          v21 = *(*v15 + 8);
+          if (v15 + 1 != v14)
+          {
+            do
+            {
+              v15 = v20;
+              v22 = v20 - 1;
+              v23 = *v20;
+              *v20++ = 0;
+              std::unique_ptr<MIDICI::Profile>::reset[abi:ne200100](v22, v23);
+            }
+
+            while (v20 != v14);
+            v14 = *(a2 + 19);
+          }
+
+          while (v14 != v15)
+          {
+            std::unique_ptr<MIDICI::Profile>::reset[abi:ne200100](--v14, 0);
+          }
+
+          *(a2 + 19) = v15;
+          v24 = *this;
+          v29 = 0;
+          UMPCIServerContext::sendNotificationForObject(v24, 2, v21, &v29);
+          if (v29)
+          {
+            CFRelease(v29);
+          }
+
+          v25 = *this;
+          v26 = *(a2 + 2);
+          v28 = 0;
+          UMPCIServerContext::sendNotificationForObject(v25, 1, v26, &v28);
+          if (v28)
+          {
+            CFRelease(v28);
+          }
+        }
+      }
+
+      else if (v9 == 38)
       {
         operator new();
       }
@@ -8416,14 +8430,14 @@ void MIDICI::DeviceManager::handleProfileIDViewChange(MIDICI::DeviceManager *thi
   else
   {
     gMIDICIDeviceManagerLog();
-    v9 = gMIDICIDeviceManagerLog(void)::logCat;
+    v10 = gMIDICIDeviceManagerLog(void)::logCat;
     if (os_log_type_enabled(gMIDICIDeviceManagerLog(void)::logCat, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v32 = "CIDeviceManager.cpp";
-      v33 = 1024;
-      v34 = 595;
-      _os_log_impl(&dword_2371C2000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d ERROR: Failed to handleProfileIDViewChange for null device", buf, 0x12u);
+      v33 = "CIDeviceManager.cpp";
+      v34 = 1024;
+      v35 = 595;
+      _os_log_impl(&dword_2371C2000, v10, OS_LOG_TYPE_INFO, "%25s:%-5d ERROR: Failed to handleProfileIDViewChange for null device", buf, 0x12u);
     }
   }
 }
@@ -8631,14 +8645,14 @@ LABEL_23:
   }
 }
 
-void sub_23721F0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23721F0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
   std::__function::__value_func<BOOL ()(ProfileDetailsTransaction *)>::~__value_func[abi:ne200100](va1);
   std::__function::__value_func<BOOL ()(ProfileDetailsTransaction *)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -8760,8 +8774,8 @@ void MIDICI::DeviceManager::handleProcessInquiryReportEnded(MIDICI::DeviceManage
         MEMORY[0x2383C7ED0](v13, "Could not construct");
       }
 
-      v10 = *(FirstTransaction + 64);
-      *(FirstTransaction + 64) = v8;
+      v10 = *(FirstTransaction + 8);
+      *(FirstTransaction + 8) = v8;
       if (v10)
       {
         CFRelease(v10);
@@ -8877,7 +8891,7 @@ uint64_t *MIDICI::DeviceManager::removeTransaction(uint64_t *result, uint64_t a2
 {
   v2 = result[21];
   v4 = result[22];
-  v3 = (result + 21);
+  v3 = result + 21;
   if (v2 != v4)
   {
     v6 = result;
@@ -9023,7 +9037,7 @@ uint64_t *std::unique_ptr<MIDICI::Profile>::~unique_ptr[abi:ne200100](uint64_t *
   return a1;
 }
 
-void MIDICI::DeviceManager::handleInvalidateManagerMUID(unsigned int *a1, uint64_t a2, __int16 a3)
+void MIDICI::DeviceManager::handleInvalidateManagerMUID(MUIDGenerator *a1, uint64_t a2, __int16 a3)
 {
   v17 = *MEMORY[0x277D85DE8];
   v6 = MUIDGenerator::instance(a1);
@@ -9041,13 +9055,13 @@ void MIDICI::DeviceManager::handleInvalidateManagerMUID(unsigned int *a1, uint64
     _os_log_impl(&dword_2371C2000, v8, OS_LOG_TYPE_INFO, "%25s:%-5d NOTICE: Received a message from myself, generating new MUID: %u", v13, 0x18u);
   }
 
-  if ((a2 & 0x100000000) != 0 && (a3 & 0x100) != 0 && !MIDICI::DeviceManager::sendInvalidateMUIDMessage(a1, a2, a3, a1[24]))
+  if ((a2 & 0x100000000) != 0 && (a3 & 0x100) != 0 && !MIDICI::DeviceManager::sendInvalidateMUIDMessage(a1, a2, a3, *(a1 + 24)))
   {
     gMIDICIDeviceManagerLog();
     v9 = gMIDICIDeviceManagerLog(void)::logCat;
     if (os_log_type_enabled(gMIDICIDeviceManagerLog(void)::logCat, OS_LOG_TYPE_INFO))
     {
-      v10 = a1[24];
+      v10 = *(a1 + 24);
       *v13 = 136315650;
       *&v13[4] = "CIDeviceManager.cpp";
       *&v13[12] = 1024;
@@ -9058,7 +9072,7 @@ void MIDICI::DeviceManager::handleInvalidateManagerMUID(unsigned int *a1, uint64
     }
   }
 
-  a1[24] = v7;
+  *(a1 + 24) = v7;
   v11 = *a1;
   global_queue = dispatch_get_global_queue(0, 0);
   *v13 = MEMORY[0x277D85DD0];
@@ -9116,10 +9130,21 @@ void sub_2372200A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,std::unique_ptr<MIDICI::CIRetrier>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::unique_ptr<MIDICI::CIRetrier>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::unique_ptr<MIDICI::CIRetrier>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int a2)
+void ___ZN18UMPCIServerContext27sendMUIDChangedNotificationEj_block_invoke(SetupManager *a1)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v1 = *(a1 + 10);
+  v4 = 0u;
+  v5 = 0u;
+  v3 = 0x2800001003;
+  LODWORD(v4) = v1;
+  v2 = SetupManager::instance(a1);
+  SetupManager::AddNotification(v2, &v3);
+}
+
+uint64_t *std::__tree<std::__value_type<unsigned int,std::unique_ptr<MIDICI::CIRetrier>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::unique_ptr<MIDICI::CIRetrier>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::unique_ptr<MIDICI::CIRetrier>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t **a1, unsigned int a2, _DWORD **a3)
+{
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -9129,27 +9154,27 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 32);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 8);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -9727,14 +9752,4 @@ uint64_t MIDIProcessXPC::GetObjectTree(MIDIProcessXPC *this, int *a2)
   }
 
   return v10;
-}
-
-void sub_237221028(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, char a11, uint64_t a12, uint64_t a13, xpc_object_t object)
-{
-  v15 = v14;
-  xpc_release(v15);
-  xpc_release(object);
-  __cxa_begin_catch(a1);
-  __cxa_end_catch();
-  JUMPOUT(0x237220F6CLL);
 }

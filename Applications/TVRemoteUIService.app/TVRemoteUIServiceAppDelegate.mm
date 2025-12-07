@@ -18,27 +18,10 @@
   role2 = [sessionCopy role];
   v10 = [role2 isEqualToString:UIWindowSceneSessionRoleApplication];
 
-  if (v10)
+  if ((v10 & 1) != 0 || ([sessionCopy role], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "isEqualToString:", _UIWindowSceneSessionTypeCoverSheet), v11, v12))
   {
-    v11 = off_100018580;
+    [v8 setDelegateClass:objc_opt_class()];
   }
-
-  else
-  {
-    role3 = [sessionCopy role];
-    v13 = [role3 isEqualToString:_UIWindowSceneSessionTypeCoverSheet];
-
-    if (!v13)
-    {
-      goto LABEL_6;
-    }
-
-    v11 = &off_100018588;
-  }
-
-  v14 = *v11;
-  [v8 setDelegateClass:objc_opt_class()];
-LABEL_6:
 
   return v8;
 }
@@ -46,6 +29,66 @@ LABEL_6:
 - (TVDefaultSceneDelegate)defaultSceneDelegate
 {
   WeakRetained = objc_loadWeakRetained(&self->_defaultSceneDelegate);
+
+  if (!WeakRetained)
+  {
+    v4 = +[UIApplication sharedApplication];
+    connectedScenes = [v4 connectedScenes];
+
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v6 = connectedScenes;
+    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = *v19;
+      do
+      {
+        for (i = 0; i != v8; i = i + 1)
+        {
+          if (*v19 != v9)
+          {
+            objc_enumerationMutation(v6);
+          }
+
+          v11 = *(*(&v18 + 1) + 8 * i);
+          delegate = [v11 delegate];
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            objc_storeWeak(&self->_defaultSceneDelegate, delegate);
+            objc_storeWeak(&self->_defaultScene, v11);
+          }
+        }
+
+        v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      }
+
+      while (v8);
+    }
+
+    v13 = objc_loadWeakRetained(&self->_defaultSceneDelegate);
+    if (!v13)
+    {
+      v15 = _TVRUIServiceAppLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        [(TVRemoteUIServiceAppDelegate *)v15 defaultSceneDelegate];
+      }
+    }
+  }
+
+  v16 = objc_loadWeakRetained(&self->_defaultSceneDelegate);
+
+  return v16;
+}
+
+- (TVLockScreenSceneDelegate)lockScreenSceneDelegate
+{
+  WeakRetained = objc_loadWeakRetained(&self->_lockScreenSceneDelegate);
 
   if (!WeakRetained)
   {
@@ -64,75 +107,15 @@ LABEL_6:
       v9 = *v18;
       do
       {
-        for (i = 0; i != v8; i = i + 1)
+        v10 = 0;
+        do
         {
           if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
-          delegate = [v11 delegate];
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            objc_storeWeak(&self->_defaultSceneDelegate, delegate);
-            objc_storeWeak(&self->_defaultScene, v11);
-          }
-        }
-
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
-      }
-
-      while (v8);
-    }
-
-    v13 = objc_loadWeakRetained(&self->_defaultSceneDelegate);
-    if (!v13)
-    {
-      v14 = _TVRUIServiceAppLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        [(TVRemoteUIServiceAppDelegate *)v14 defaultSceneDelegate];
-      }
-    }
-  }
-
-  v15 = objc_loadWeakRetained(&self->_defaultSceneDelegate);
-
-  return v15;
-}
-
-- (TVLockScreenSceneDelegate)lockScreenSceneDelegate
-{
-  WeakRetained = objc_loadWeakRetained(&self->_lockScreenSceneDelegate);
-
-  if (!WeakRetained)
-  {
-    v4 = +[UIApplication sharedApplication];
-    connectedScenes = [v4 connectedScenes];
-
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v6 = connectedScenes;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v7)
-    {
-      v8 = v7;
-      v9 = *v17;
-      do
-      {
-        v10 = 0;
-        do
-        {
-          if (*v17 != v9)
-          {
-            objc_enumerationMutation(v6);
-          }
-
-          delegate = [*(*(&v16 + 1) + 8 * v10) delegate];
+          delegate = [*(*(&v17 + 1) + 8 * v10) delegate];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -143,7 +126,7 @@ LABEL_6:
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v8);
@@ -152,17 +135,17 @@ LABEL_6:
     v12 = objc_loadWeakRetained(&self->_defaultSceneDelegate);
     if (!v12)
     {
-      v13 = _TVRUIServiceAppLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = _TVRUIServiceAppLog(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(TVRemoteUIServiceAppDelegate *)v13 lockScreenSceneDelegate];
+        [(TVRemoteUIServiceAppDelegate *)v14 lockScreenSceneDelegate];
       }
     }
   }
 
-  v14 = objc_loadWeakRetained(&self->_lockScreenSceneDelegate);
+  v15 = objc_loadWeakRetained(&self->_lockScreenSceneDelegate);
 
-  return v14;
+  return v15;
 }
 
 - (void)lockScreenSceneDelegateSceneDidDisconnect:(id)disconnect

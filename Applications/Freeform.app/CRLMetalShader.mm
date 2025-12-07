@@ -523,9 +523,9 @@
   v10 = deviceCopy;
   if (!bindings)
   {
-    v36 = 0;
-    v11 = [deviceCopy newRenderPipelineStateWithDescriptor:descriptorCopy error:&v36];
-    v13 = v36;
+    v29 = 0;
+    v11 = [deviceCopy newRenderPipelineStateWithDescriptor:descriptorCopy error:&v29];
+    v13 = v29;
     if (v11)
     {
       goto LABEL_15;
@@ -534,11 +534,11 @@
     goto LABEL_6;
   }
 
-  v34 = 0;
-  v35 = 0;
-  v11 = [deviceCopy newRenderPipelineStateWithDescriptor:descriptorCopy options:3 reflection:&v35 error:&v34];
-  v12 = v35;
-  v13 = v34;
+  v27 = 0;
+  v28 = 0;
+  v11 = [deviceCopy newRenderPipelineStateWithDescriptor:descriptorCopy options:3 reflection:&v28 error:&v27];
+  v12 = v28;
+  v13 = v27;
   if (!v12)
   {
     +[CRLAssertionHandler _atomicIncrementAssertCount];
@@ -563,12 +563,12 @@
       sub_10130DA10(v22);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Failed to create pipeline reflection object, error %@", v23, v24, v25, v26, v27, v28, v29, "[CRLMetalShader p_createPipelineStateWithRenderPipelineDescriptor:device:setupBindings:]");
-    v30 = [NSString stringWithUTF8String:"[CRLMetalShader p_createPipelineStateWithRenderPipelineDescriptor:device:setupBindings:]"];
-    v31 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLMetalShader.m"];
-    [CRLAssertionHandler handleFailureInFunction:v30 file:v31 lineNumber:193 isFatal:1 description:"Failed to create pipeline reflection object, error %@", v13, "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLMetalShader.m", 193, v13];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Failed to create pipeline reflection object, error %@", "[CRLMetalShader p_createPipelineStateWithRenderPipelineDescriptor:device:setupBindings:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLMetalShader.m", 193, v13);
+    v23 = [NSString stringWithUTF8String:"[CRLMetalShader p_createPipelineStateWithRenderPipelineDescriptor:device:setupBindings:]"];
+    v24 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLMetalShader.m"];
+    [CRLAssertionHandler handleFailureInFunction:v23 file:v24 lineNumber:193 isFatal:1 description:"Failed to create pipeline reflection object, error %@", v13];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v32, v33);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v25, v26);
     abort();
   }
 

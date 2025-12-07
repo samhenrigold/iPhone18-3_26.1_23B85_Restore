@@ -380,7 +380,7 @@ uint64_t __79__PKLaunchAuthorizationPromptController_presentLaunchPromptsForPass
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __79__PKLaunchAuthorizationPromptController_locationManagerDidChangeAuthorization___block_invoke(uint64_t a1)
+void *__79__PKLaunchAuthorizationPromptController_locationManagerDidChangeAuthorization___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 40) authorizationStatus];
   *(*(a1 + 32) + 56) = result != 0;

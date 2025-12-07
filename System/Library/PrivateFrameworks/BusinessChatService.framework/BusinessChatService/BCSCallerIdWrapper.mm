@@ -196,24 +196,23 @@ LABEL_38:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_phone)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_message)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    modTime = self->_modTime;
     PBDataWriterWriteInt64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -340,7 +339,7 @@ LABEL_11:
       goto LABEL_9;
     }
 
-    [(BCSCallerIdMessage *)message mergeFrom:?];
+    message = [(BCSCallerIdMessage *)message mergeFrom:?];
   }
 
   else
@@ -350,7 +349,7 @@ LABEL_11:
       goto LABEL_9;
     }
 
-    [(BCSCallerIdWrapper *)self setMessage:?];
+    message = [(BCSCallerIdWrapper *)self setMessage:?];
   }
 
   fromCopy = v7;
@@ -361,7 +360,7 @@ LABEL_9:
     *&self->_has |= 1u;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](message, fromCopy);
 }
 
 @end

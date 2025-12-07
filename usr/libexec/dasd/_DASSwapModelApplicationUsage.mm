@@ -291,7 +291,7 @@
     v16 = v6;
     do
     {
-      if (v7 >= [v4 count])
+      if (v7 >= objc_msgSend_count(v4, v16))
       {
         break;
       }

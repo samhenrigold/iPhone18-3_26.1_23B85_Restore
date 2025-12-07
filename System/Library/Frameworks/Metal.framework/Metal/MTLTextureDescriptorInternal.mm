@@ -91,38 +91,38 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v26[66] = *MEMORY[0x1E69E9840];
+  v25[66] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = MEMORY[0x1E696AEC0];
-  v25.receiver = self;
-  v25.super_class = MTLTextureDescriptorInternal;
-  v6 = [(MTLTextureDescriptorInternal *)&v25 description];
-  v26[0] = v4;
-  v26[1] = @"textureType =";
-  v26[2] = MTLTextureTypeString(self->_private.textureType);
-  v26[3] = v4;
-  v26[4] = @"pixelFormat =";
-  v26[5] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_private.pixelFormat)];
-  v26[6] = v4;
-  v26[7] = @"width =";
-  v26[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.width];
-  v26[9] = v4;
-  v26[10] = @"height =";
-  v26[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.height];
-  v26[12] = v4;
-  v26[13] = @"depth =";
-  v26[14] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.depth];
-  v26[15] = v4;
-  v26[16] = @"mipmapLevelCount =";
-  v26[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.mipmapLevelCount];
-  v26[18] = v4;
-  v26[19] = @"sampleCount =";
-  v26[20] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.sampleCount];
-  v26[21] = v4;
-  v26[22] = @"arrayLength =";
-  v26[23] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.arrayLength];
-  v26[24] = v4;
-  v26[25] = @"cpuCacheMode =";
+  v24.receiver = self;
+  v24.super_class = MTLTextureDescriptorInternal;
+  v6 = [(MTLTextureDescriptorInternal *)&v24 description];
+  v25[0] = v4;
+  v25[1] = @"textureType =";
+  v25[2] = MTLTextureTypeString(self->_private.textureType);
+  v25[3] = v4;
+  v25[4] = @"pixelFormat =";
+  v25[5] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_private.pixelFormat)];
+  v25[6] = v4;
+  v25[7] = @"width =";
+  v25[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.width];
+  v25[9] = v4;
+  v25[10] = @"height =";
+  v25[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.height];
+  v25[12] = v4;
+  v25[13] = @"depth =";
+  v25[14] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.depth];
+  v25[15] = v4;
+  v25[16] = @"mipmapLevelCount =";
+  v25[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.mipmapLevelCount];
+  v25[18] = v4;
+  v25[19] = @"sampleCount =";
+  v25[20] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.sampleCount];
+  v25[21] = v4;
+  v25[22] = @"arrayLength =";
+  v25[23] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.arrayLength];
+  v25[24] = v4;
+  v25[25] = @"cpuCacheMode =";
   cpuCacheMode = [(MTLTextureDescriptorInternal *)self cpuCacheMode];
   v8 = @"Invalid";
   v9 = @"MTLCPUCacheModeDefaultCache";
@@ -136,9 +136,9 @@
     v9 = @"MTLCPUCacheModeWriteCombined";
   }
 
-  v26[26] = v9;
-  v26[27] = v4;
-  v26[28] = @"storageMode =";
+  v25[26] = v9;
+  v25[27] = v4;
+  v25[28] = @"storageMode =";
   storageMode = [(MTLTextureDescriptorInternal *)self storageMode];
   v11 = @"Invalid";
   if (storageMode <= 3)
@@ -146,23 +146,23 @@
     v11 = *(&off_1E6EEB7C8 + storageMode);
   }
 
-  v26[29] = v11;
-  v26[30] = v4;
-  v26[31] = @"hazardTrackingMode =";
-  v26[32] = MTLHazardTrackingModeString([(MTLTextureDescriptorInternal *)self hazardTrackingMode]);
-  v26[33] = v4;
-  v26[34] = @"resourceOptions =";
-  v26[35] = MTLResourceOptionsString(self->_private.resourceOptions);
-  v26[36] = v4;
-  v26[37] = @"framebufferOnly =";
-  v26[38] = [MEMORY[0x1E696AD98] numberWithBool:self->_private.framebufferOnly];
-  v26[39] = v4;
-  v26[40] = @"usage =";
-  v26[41] = MTLTextureUsageString(self->_private.var0.textureUsage);
-  v26[42] = v4;
-  v26[43] = @"swizzle =";
-  v26[44] = MTLTextureSwizzleString(self->_private.swizzle);
-  v26[45] = v4;
+  v25[29] = v11;
+  v25[30] = v4;
+  v25[31] = @"hazardTrackingMode =";
+  v25[32] = MTLHazardTrackingModeString([(MTLTextureDescriptorInternal *)self hazardTrackingMode]);
+  v25[33] = v4;
+  v25[34] = @"resourceOptions =";
+  v25[35] = MTLResourceOptionsString(self->_private.resourceOptions);
+  v25[36] = v4;
+  v25[37] = @"framebufferOnly =";
+  v25[38] = [MEMORY[0x1E696AD98] numberWithBool:self->_private.framebufferOnly];
+  v25[39] = v4;
+  v25[40] = @"usage =";
+  v25[41] = MTLTextureUsageString(self->_private.var0.textureUsage);
+  v25[42] = v4;
+  v25[43] = @"swizzle =";
+  v25[44] = MTLTextureSwizzleString(self->_private.swizzle);
+  v25[45] = v4;
   sparseSurfaceDefaultValue = self->_private.sparseSurfaceDefaultValue;
   v13 = @"MTLUnmappedDepthValueOne";
   if (sparseSurfaceDefaultValue != 1)
@@ -177,24 +177,24 @@
     v15 = v13;
   }
 
-  v26[46] = @"sparseSurfaceDefaultValue =";
-  v26[47] = v15;
-  v26[48] = v4;
-  v26[49] = @"allowGPUOptimizedContents =";
+  v25[46] = @"sparseSurfaceDefaultValue =";
+  v25[47] = v15;
+  v25[48] = v4;
+  v25[49] = @"allowGPUOptimizedContents =";
   v16 = @"NO";
   if (self->_private.allowGPUOptimizedContents)
   {
     v16 = @"YES";
   }
 
-  v26[50] = v16;
-  v26[51] = v4;
-  v26[52] = @"forceResourceIndex =";
-  v26[53] = [MEMORY[0x1E696AD98] numberWithBool:self->_private.forceResourceIndex];
-  v26[54] = v4;
-  v26[55] = @"resourceIndex =";
-  v26[56] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_private.resourceIndex];
-  v26[57] = v4;
+  v25[50] = v16;
+  v25[51] = v4;
+  v25[52] = @"forceResourceIndex =";
+  v25[53] = [MEMORY[0x1E696AD98] numberWithBool:self->_private.forceResourceIndex];
+  v25[54] = v4;
+  v25[55] = @"resourceIndex =";
+  v25[56] = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_private.resourceIndex];
+  v25[57] = v4;
   compressionType = self->_private.compressionType;
   v18 = @"MTLTextureCompressionTypeLossy";
   if (compressionType != 1)
@@ -209,19 +209,19 @@
     v19 = v18;
   }
 
-  v26[58] = @"compressionType =";
-  v26[59] = v19;
-  v26[60] = v4;
-  v26[61] = @"writeAccessPattern =";
+  v25[58] = @"compressionType =";
+  v25[59] = v19;
+  v25[60] = v4;
+  v25[61] = @"writeAccessPattern =";
   writeAccessPattern = self->_private.writeAccessPattern;
   if (writeAccessPattern <= 2)
   {
     v8 = *(&off_1E6EEB7E8 + writeAccessPattern);
   }
 
-  v26[62] = v8;
-  v26[63] = v4;
-  v26[64] = @"placementSparsePageSize =";
+  v25[62] = v8;
+  v25[63] = v4;
+  v25[64] = @"placementSparsePageSize =";
   placementSparsePageSize = self->_private.placementSparsePageSize;
   if (placementSparsePageSize)
   {
@@ -233,10 +233,8 @@
     v22 = @"0";
   }
 
-  v26[65] = v22;
-  result = [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v26, 66), "componentsJoinedByString:", @" "];
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
+  v25[65] = v22;
+  return [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v25, 66), "componentsJoinedByString:", @" "];
 }
 
 - (void)setStorageMode:(unint64_t)mode
@@ -305,9 +303,9 @@
 
 - (BOOL)validateWithDevice:(id)device
 {
-  v147 = 0;
-  memset(v146, 0, sizeof(v146));
-  _MTLMessageContextBegin_(v146, "[MTLTextureDescriptorInternal validateWithDevice:]", 1416, device, 0, "Texture Descriptor Validation");
+  v146 = 0;
+  memset(v145, 0, sizeof(v145));
+  _MTLMessageContextBegin_(v145, "[MTLTextureDescriptorInternal validateWithDevice:]", 1416, device, 0, "Texture Descriptor Validation");
   p_private = &self->_private;
   textureUsage = self->_private.var0.textureUsage;
   if (textureUsage)
@@ -335,22 +333,22 @@ LABEL_7:
   textureType = [(MTLTextureDescriptorInternal *)self textureType];
   if (textureType >= 0xA)
   {
-    _MTLMessageContextPush_(v146, 4, @"type (%lu) is not a valid MTLTextureType.", v9, v10, v11, v12, v13, textureType);
+    _MTLMessageContextPush_(v145, 4, @"type (%lu) is not a valid MTLTextureType.", v9, v10, v11, v12, v13, textureType);
   }
 
   cpuCacheMode = [(MTLTextureDescriptorInternal *)self cpuCacheMode];
   if (cpuCacheMode >= 2)
   {
-    _MTLMessageContextPush_(v146, 4, @"invalid cpuCacheMode (%lu)", v15, v16, v17, v18, v19, cpuCacheMode);
+    _MTLMessageContextPush_(v145, 4, @"invalid cpuCacheMode (%lu)", v15, v16, v17, v18, v19, cpuCacheMode);
   }
 
-  validateMTLStorageMode([(MTLTextureDescriptorInternal *)self storageMode], v146);
+  validateMTLStorageMode([(MTLTextureDescriptorInternal *)self storageMode], v145);
   resourceOptions = [(MTLTextureDescriptorInternal *)self resourceOptions];
-  validateMTLResourceOptions(resourceOptions, v146, v21, v22, v23, v24, v25, v26);
+  validateMTLResourceOptions(resourceOptions, v145, v21, v22, v23, v24, v25, v26);
   usage = [(MTLTextureDescriptorInternal *)self usage];
   if (usage && (usage & 0xFFFFFFFFFFFEBFC0) != 0)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureUsage has unknown bits 0x%lx.", v28, v29, v30, v31, v32, usage & 0xFFFFFFFFFFFEBFC0);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureUsage has unknown bits 0x%lx.", v28, v29, v30, v31, v32, usage & 0xFFFFFFFFFFFEBFC0);
   }
 
   textureType = p_private->textureType;
@@ -455,64 +453,64 @@ LABEL_39:
   width = self->_private.width;
   if (!width)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has width of zero.", v35, v36, v37, v38, v39, Name);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has width of zero.", v35, v36, v37, v38, v39, Name);
     width = self->_private.width;
   }
 
   if (width > maxTextureDimensionCube)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has width (%lu) greater than the maximum allowed size of %lu.", v35, v36, v37, v38, v39, width);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has width (%lu) greater than the maximum allowed size of %lu.", v35, v36, v37, v38, v39, width);
   }
 
   height = self->_private.height;
   if (!height)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has height of zero.", v35, v36, v37, v38, v39, Name);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has height of zero.", v35, v36, v37, v38, v39, Name);
     height = self->_private.height;
   }
 
   if (height > maxTextureHeight3D)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has height (%lu) greater than the maximum allowed size of %lu.", v35, v36, v37, v38, v39, height);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has height (%lu) greater than the maximum allowed size of %lu.", v35, v36, v37, v38, v39, height);
   }
 
   depth = self->_private.depth;
   if (!depth)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has depth of zero.", v35, v36, v37, v38, v39, Name);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has depth of zero.", v35, v36, v37, v38, v39, Name);
     depth = self->_private.depth;
   }
 
   if (depth > maxTextureDepth3D)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has depth (%lu) greater than the maximum allowed size of %lu.", v35, v36, v37, v38, v39, depth);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has depth (%lu) greater than the maximum allowed size of %lu.", v35, v36, v37, v38, v39, depth);
   }
 
   arrayLength = self->_private.arrayLength;
   if (!arrayLength)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has arrayLength of zero.", v35, v36, v37, v38, v39, Name);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has arrayLength of zero.", v35, v36, v37, v38, v39, Name);
     arrayLength = self->_private.arrayLength;
   }
 
   if (arrayLength > maxTextureLayers)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has arrayLength (%lu) greater than the maximum allowed size of %lu.", v35, v36, v37, v38, v39, arrayLength);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has arrayLength (%lu) greater than the maximum allowed size of %lu.", v35, v36, v37, v38, v39, arrayLength);
   }
 
   if ([(MTLTextureDescriptorInternal *)self rotation]>= 5)
   {
-    _MTLMessageContextPush_(v146, 4, @"rotation is not a valid MTLTextureRotation.", v48, v49, v50, v51, v52, Name);
+    _MTLMessageContextPush_(v145, 4, @"rotation is not a valid MTLTextureRotation.", v48, v49, v50, v51, v52, Name);
   }
 
   if ([(MTLTextureDescriptorInternal *)self compressionMode]>= 3)
   {
-    _MTLMessageContextPush_(v146, 4, @"compressionMode is not a valid MTLTextureCompressionMode.", v53, v54, v55, v56, v57, Name);
+    _MTLMessageContextPush_(v145, 4, @"compressionMode is not a valid MTLTextureCompressionMode.", v53, v54, v55, v56, v57, Name);
   }
 
   if ([(MTLTextureDescriptorInternal *)self compressionFootprint]>= 4)
   {
-    _MTLMessageContextPush_(v146, 4, @"compressionFootprint is not a valid MTLTextureCompressionFootprint.", v58, v59, v60, v61, v62, Name);
+    _MTLMessageContextPush_(v145, 4, @"compressionFootprint is not a valid MTLTextureCompressionFootprint.", v58, v59, v60, v61, v62, Name);
   }
 
   if (([(MTLTextureDescriptorInternal *)self usage]& 0x20) != 0)
@@ -536,30 +534,30 @@ LABEL_39:
         v69 = @"%s is not a valid format to be used with texture atomics.";
       }
 
-      _MTLMessageContextPush_(v146, 4, v69, v64, v65, v66, v67, v68, Name);
+      _MTLMessageContextPush_(v145, 4, v69, v64, v65, v66, v67, v68, Name);
     }
   }
 
 LABEL_68:
-  v145 = 0;
-  memset(v144, 0, sizeof(v144));
-  MTLPixelFormatGetInfoForDevice(device, self->_private.pixelFormat, v144);
+  v144 = 0;
+  memset(v143, 0, sizeof(v143));
+  MTLPixelFormatGetInfoForDevice(device, self->_private.pixelFormat, v143);
   compressionFootprint = self->_private.compressionFootprint;
   compressionType = self->_private.compressionType;
   if (compressionType >= 2)
   {
-    _MTLMessageContextPush_(v146, 4, @"compressionType is not a valid MTLTextureCompressionType.", v72, v73, v74, v75, v76, Name);
+    _MTLMessageContextPush_(v145, 4, @"compressionType is not a valid MTLTextureCompressionType.", v72, v73, v74, v75, v76, Name);
   }
 
   if (compressionType == 1 || compressionFootprint)
   {
     if (![device supportsLossyCompression])
     {
-      v130 = @"MTLTextureDescriptor has compressionType set to MTLTextureCompressionTypeLossy, but the device does not support lossy compression";
+      v129 = @"MTLTextureDescriptor has compressionType set to MTLTextureCompressionTypeLossy, but the device does not support lossy compression";
       goto LABEL_225;
     }
 
-    if (BYTE8(v144[0]))
+    if (BYTE8(v143[0]))
     {
       if (compressionFootprint == 2)
       {
@@ -576,18 +574,18 @@ LABEL_68:
         v79 = 0x1000000;
       }
 
-      v80 = DWORD2(v144[0]) & v79;
+      v80 = DWORD2(v143[0]) & v79;
       if (compressionType == 1)
       {
         if (!v80)
         {
-          _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has compressionType set to MTLTextureCompressionTypeLossy, but the pixel format %s does not support lossy compression", v72, v73, v74, v75, v76, *&v144[0]);
+          _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has compressionType set to MTLTextureCompressionTypeLossy, but the pixel format %s does not support lossy compression", v72, v73, v74, v75, v76, *&v143[0]);
         }
       }
 
       else if (!v80)
       {
-        _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor uses compressionFootprint %d, but the pixel format %s does not support that lossy compression mode on this device", v72, v73, v74, v75, v76, compressionFootprint);
+        _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor uses compressionFootprint %d, but the pixel format %s does not support that lossy compression mode on this device", v72, v73, v74, v75, v76, compressionFootprint);
       }
     }
 
@@ -602,7 +600,7 @@ LABEL_68:
           v82 = "has compressionType set to MTLTextureCompressionTypeLossy";
         }
 
-        _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor %s, which is not supported for 1D, 1DArray or TextureBuffer texture types", v72, v73, v74, v75, v76, v82);
+        _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor %s, which is not supported for 1D, 1DArray or TextureBuffer texture types", v72, v73, v74, v75, v76, v82);
       }
     }
 
@@ -610,18 +608,18 @@ LABEL_68:
     {
       if (v81 != 2)
       {
-        _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor uses compressionFootprint %d, which does not support any textureType other than MTLTextureType2D", v72, v73, v74, v75, v76, compressionFootprint);
+        _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor uses compressionFootprint %d, which does not support any textureType other than MTLTextureType2D", v72, v73, v74, v75, v76, compressionFootprint);
       }
 
       if (p_private->mipmapLevelCount != 1)
       {
-        _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor uses compressionFootprint %d, which does not support any mipmapLevelCount other than 1", v72, v73, v74, v75, v76, compressionFootprint);
+        _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor uses compressionFootprint %d, which does not support any mipmapLevelCount other than 1", v72, v73, v74, v75, v76, compressionFootprint);
       }
     }
 
     if (compressionType == 1 && (p_private->resourceOptions & 0xF0) != 0x20)
     {
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has compressionType set to MTLTextureCompressionTypeLossy, but the storageMode is not MTLStorageModePrivate", v72, v73, v74, v75, v76, Name);
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has compressionType set to MTLTextureCompressionTypeLossy, but the storageMode is not MTLStorageModePrivate", v72, v73, v74, v75, v76, Name);
     }
 
     v83 = p_private->var0.textureUsage;
@@ -632,12 +630,12 @@ LABEL_68:
 LABEL_101:
         if (p_private->compressionMode == 2)
         {
-          _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has compressionMode set to optOut, but requests lossy compression", v72, v73, v74, v75, v76, Name);
+          _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has compressionMode set to optOut, but requests lossy compression", v72, v73, v74, v75, v76, Name);
         }
 
         if (!p_private->allowGPUOptimizedContents)
         {
-          _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has compressionType set to MTLTextureCompressionTypeLossy, but allowGPUOptimizedContents is set to NO", v72, v73, v74, v75, v76, Name);
+          _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has compressionType set to MTLTextureCompressionTypeLossy, but allowGPUOptimizedContents is set to NO", v72, v73, v74, v75, v76, Name);
         }
 
         if ((p_private->var0.textureUsage & 0x20) == 0)
@@ -645,42 +643,42 @@ LABEL_101:
           goto LABEL_106;
         }
 
-        v130 = @"MTLTextureDescriptor has compressionType set to MTLTextureCompressionTypeLossy, but usage includes MTLTextureUsageShaderAtomic";
+        v129 = @"MTLTextureDescriptor has compressionType set to MTLTextureCompressionTypeLossy, but usage includes MTLTextureUsageShaderAtomic";
 LABEL_225:
-        _MTLMessageContextPush_(v146, 4, v130, v72, v73, v74, v75, v76, Name);
+        _MTLMessageContextPush_(v145, 4, v129, v72, v73, v74, v75, v76, Name);
         goto LABEL_106;
       }
     }
 
     else
     {
-      v141 = "uses compressionFootprint enabled";
+      v140 = "uses compressionFootprint enabled";
       if (compressionType == 1)
       {
-        v141 = "has compressionType set to MTLTextureCompressionTypeLossy";
+        v140 = "has compressionType set to MTLTextureCompressionTypeLossy";
       }
 
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor %s, but usage includes MTLTextureUsageShaderWrite", v72, v73, v74, v75, v76, v141);
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor %s, but usage includes MTLTextureUsageShaderWrite", v72, v73, v74, v75, v76, v140);
       if ((p_private->var0.textureUsage & 0x10) == 0)
       {
         goto LABEL_101;
       }
     }
 
-    v142 = "uses compressionFootprint enabled";
+    v141 = "uses compressionFootprint enabled";
     if (compressionType == 1)
     {
-      v142 = "has compressionType set to MTLTextureCompressionTypeLossy";
+      v141 = "has compressionType set to MTLTextureCompressionTypeLossy";
     }
 
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor %s, but usage includes MTLTextureUsagePixelFormatView", v72, v73, v74, v75, v76, v142);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor %s, but usage includes MTLTextureUsagePixelFormatView", v72, v73, v74, v75, v76, v141);
     goto LABEL_101;
   }
 
 LABEL_106:
-  if ((BYTE8(v144[0]) & 1) == 0)
+  if ((BYTE8(v143[0]) & 1) == 0)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has invalid pixelFormat (%lu).", v72, v73, v74, v75, v76, p_private->pixelFormat);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has invalid pixelFormat (%lu).", v72, v73, v74, v75, v76, p_private->pixelFormat);
   }
 
   if (p_private->textureType == 6)
@@ -701,12 +699,12 @@ LABEL_106:
     v90 = v89 & p_private->resolvedUsage;
     if (v90)
     {
-      [(MTLTextureDescriptorInternal *)v90 validateWithDevice:v146];
+      [(MTLTextureDescriptorInternal *)v90 validateWithDevice:v145];
     }
   }
 
   v91 = p_private->textureType;
-  if (p_private->textureType > 1 || (v93 = p_private->height, v93 != 1) && ([(__CFString *)MTLTextureTypeString(v91) UTF8String], _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor requests a height of %lu but the texture type %s requires that height is 1", v131, v132, v133, v134, v135, v93), v91 = p_private->textureType, p_private->textureType > 1))
+  if (p_private->textureType > 1 || (v93 = p_private->height, v93 != 1) && ([(__CFString *)MTLTextureTypeString(v91) UTF8String], _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor requests a height of %lu but the texture type %s requires that height is 1", v130, v131, v132, v133, v134, v93), v91 = p_private->textureType, p_private->textureType > 1))
   {
 LABEL_116:
     v92 = p_private->depth;
@@ -722,7 +720,7 @@ LABEL_116:
   if (mipmapLevelCount != 1)
   {
     [(__CFString *)MTLTextureTypeString(v91) UTF8String];
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor requests a mipmapLevelCount of %lu but the texture type %s requires that mipmapLevelCount is 1", v136, v137, v138, v139, v140, mipmapLevelCount);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor requests a mipmapLevelCount of %lu but the texture type %s requires that mipmapLevelCount is 1", v135, v136, v137, v138, v139, mipmapLevelCount);
     v91 = p_private->textureType;
     goto LABEL_116;
   }
@@ -732,7 +730,7 @@ LABEL_121:
   if (v92 != 1)
   {
     [(__CFString *)MTLTextureTypeString(v91) UTF8String];
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor requests a depth of %lu but the texture type %s requires that depth is 1", v124, v125, v126, v127, v128, v92);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor requests a depth of %lu but the texture type %s requires that depth is 1", v123, v124, v125, v126, v127, v92);
     v92 = p_private->depth;
   }
 
@@ -756,7 +754,7 @@ LABEL_123:
   v97 = p_private->mipmapLevelCount;
   if (v97 - 1 >= v96)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor requests %lu mipmap levels, but the dimensions (%lu, %lu, %lu) can only support a maxiumum of %lu levels", v84, v85, v86, v87, v88, v97);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor requests %lu mipmap levels, but the dimensions (%lu, %lu, %lu) can only support a maxiumum of %lu levels", v84, v85, v86, v87, v88, v97);
   }
 
   v98 = p_private->textureType;
@@ -764,35 +762,34 @@ LABEL_123:
   {
     if (p_private->mipmapLevelCount != 1)
     {
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor mipmapLevelCount must equal 1 for multisample textures.", v84, v85, v86, v87, v88, Name);
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor mipmapLevelCount must equal 1 for multisample textures.", v84, v85, v86, v87, v88, Name);
     }
 
-    if ((BYTE9(v144[0]) & 1) == 0)
+    if ((BYTE9(v143[0]) & 1) == 0)
     {
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor pixelFormat (%s) does not support multisample textures.", v84, v85, v86, v87, v88, *&v144[0]);
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor pixelFormat (%s) does not support multisample textures.", v84, v85, v86, v87, v88, *&v143[0]);
     }
 
     if (p_private->sampleCount <= 1)
     {
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor sampleCount must be > 1 for multisample textures.", v84, v85, v86, v87, v88, Name);
-      sampleCount = p_private->sampleCount;
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor sampleCount must be > 1 for multisample textures.", v84, v85, v86, v87, v88, Name);
     }
 
     if (([device supportsTextureSampleCount:?] & 1) == 0)
     {
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor sampleCount (%lu) is not supported by device.", v84, v85, v86, v87, v88, p_private->sampleCount);
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor sampleCount (%lu) is not supported by device.", v84, v85, v86, v87, v88, p_private->sampleCount);
     }
   }
 
   else if (p_private->sampleCount != 1)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has sampleCount set but is using a type that does not allow sampleCount.", v84, v85, v86, v87, v88, Name);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has sampleCount set but is using a type that does not allow sampleCount.", v84, v85, v86, v87, v88, Name);
   }
 
   v99 = p_private->textureType;
   if (p_private->textureType - 5 <= 1 && p_private->width != p_private->height)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor width must equal height for cube textures.", v84, v85, v86, v87, v88, Name);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor width must equal height for cube textures.", v84, v85, v86, v87, v88, Name);
     v99 = p_private->textureType;
   }
 
@@ -811,7 +808,7 @@ LABEL_123:
 
     if (p_private->arrayLength - 1 >= v101)
     {
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor arrayLength (%lu) is set to zero or greater than the max allowed size (%lu).", v84, v85, v86, v87, v88, p_private->arrayLength);
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor arrayLength (%lu) is set to zero or greater than the max allowed size (%lu).", v84, v85, v86, v87, v88, p_private->arrayLength);
     }
   }
 
@@ -820,17 +817,17 @@ LABEL_123:
     v102 = p_private->arrayLength;
     if (v102 != 1)
     {
-      [(MTLTextureDescriptorInternal *)v99 validateWithDevice:v146, v102];
+      [(MTLTextureDescriptorInternal *)v99 validateWithDevice:v145, v102];
     }
   }
 
-  v103 = DWORD2(v144[0]);
-  if ((WORD4(v144[0]) & 0x400) != 0)
+  v103 = DWORD2(v143[0]);
+  if ((WORD4(v143[0]) & 0x400) != 0)
   {
     if (p_private->sampleCount >= 2)
     {
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has a compressed pixel format set with a sample count greater than one.", v84, v85, v86, v87, v88, Name);
-      v103 = DWORD2(v144[0]);
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has a compressed pixel format set with a sample count greater than one.", v84, v85, v86, v87, v88, Name);
+      v103 = DWORD2(v143[0]);
     }
 
     if ((v103 & 0x1000) != 0 && p_private->textureType == 7)
@@ -854,59 +851,59 @@ LABEL_123:
 
       if (v104 == 7)
       {
-        _MTLMessageContextPush_(v146, 4, @"The compressed pixel format %s cannot be used with MTLTextureType3D.", v84, v85, v86, v87, v88, *&v144[0]);
+        _MTLMessageContextPush_(v145, 4, @"The compressed pixel format %s cannot be used with MTLTextureType3D.", v84, v85, v86, v87, v88, *&v143[0]);
       }
 
       else
       {
 LABEL_167:
-        _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor: compressed pixel formats require texture type of MTLTextureType2D[Array]%s or MTLTextureTypeCube[Array].", v84, v85, v86, v87, v88, ", MTLTextureType3D");
+        _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor: compressed pixel formats require texture type of MTLTextureType2D[Array]%s or MTLTextureTypeCube[Array].", v84, v85, v86, v87, v88, ", MTLTextureType3D");
       }
     }
 
 LABEL_168:
-    if ((BYTE9(v144[0]) & 0x20) != 0)
+    if ((BYTE9(v143[0]) & 0x20) != 0)
     {
       if (p_private->textureType == 7)
       {
-        _MTLMessageContextPush_(v146, 4, @"PVRTC 3D textures are not supported", v84, v85, v86, v87, v88, Name);
+        _MTLMessageContextPush_(v145, 4, @"PVRTC 3D textures are not supported", v84, v85, v86, v87, v88, Name);
       }
 
       v105 = p_private->width;
       if ((v105 & (v105 - 1)) != 0 || (v106 = p_private->height, v105 != *&v106) || (v107 = vcnt_s8(v106), v107.i16[0] = vaddlv_u8(v107), v107.u32[0] >= 2uLL))
       {
-        _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has a PVRTC pixel format (%s) set with non-square and/or non-power of two dimensions.", v84, v85, v86, v87, v88, *&v144[0]);
+        _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has a PVRTC pixel format (%s) set with non-square and/or non-power of two dimensions.", v84, v85, v86, v87, v88, *&v143[0]);
       }
     }
   }
 
   if (p_private->rotation && !p_private->framebufferOnly)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor has a non-zero rotation set but is not marked as framebufferOnly.", v84, v85, v86, v87, v88, Name);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor has a non-zero rotation set but is not marked as framebufferOnly.", v84, v85, v86, v87, v88, Name);
   }
 
-  if ((BYTE9(v144[0]) & 0x40) != 0)
+  if ((BYTE9(v143[0]) & 0x40) != 0)
   {
     if (p_private->mipmapLevelCount >= 2)
     {
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor requests %lu mipmap levels, but the MTLPixelFormat422 pixel format does not support mipmaps.", v84, v85, v86, v87, v88, p_private->mipmapLevelCount);
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor requests %lu mipmap levels, but the MTLPixelFormat422 pixel format does not support mipmaps.", v84, v85, v86, v87, v88, p_private->mipmapLevelCount);
     }
 
     if (p_private->textureType != 2)
     {
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor: MTLPixelFormat422 requires MTLTextureType2D.", v84, v85, v86, v87, v88, Name);
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor: MTLPixelFormat422 requires MTLTextureType2D.", v84, v85, v86, v87, v88, Name);
     }
 
     if (p_private->width)
     {
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor: MTLPixelFormat422 requires even width.", v84, v85, v86, v87, v88, Name);
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor: MTLPixelFormat422 requires even width.", v84, v85, v86, v87, v88, Name);
     }
   }
 
   supportsNonPrivateDepthStencilTextures = [device supportsNonPrivateDepthStencilTextures];
   supportsNonPrivateMSAATextures = [device supportsNonPrivateMSAATextures];
   supportsMemorylessRenderTargets = [device supportsMemorylessRenderTargets];
-  v116 = BYTE8(v144[0]) & 0x60;
+  v116 = BYTE8(v143[0]) & 0x60;
   resourceOptions = p_private->resourceOptions;
   if ((resourceOptions & 0xF0) == 0x30)
   {
@@ -920,7 +917,7 @@ LABEL_168:
 
   if ((v118 & 1) == 0)
   {
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor: MTLResourceStorageModeMemoryless is not a supported storage mode on this device.", v111, v112, v113, v114, v115, Name);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor: MTLResourceStorageModeMemoryless is not a supported storage mode on this device.", v111, v112, v113, v114, v115, Name);
     if (!v116)
     {
       goto LABEL_196;
@@ -929,7 +926,7 @@ LABEL_168:
 LABEL_190:
     if (p_private->textureType - 2 >= 5 && p_private->textureType != 8)
     {
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor: depth/stencil pixel formats require texture type of MTLTextureType2D[Array] or MTLTextureTypeCube[Array].", v111, v112, v113, v114, v115, Name);
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor: depth/stencil pixel formats require texture type of MTLTextureType2D[Array] or MTLTextureTypeCube[Array].", v111, v112, v113, v114, v115, Name);
     }
 
     if ((resourceOptions & 0xF0) != 0)
@@ -952,18 +949,18 @@ LABEL_190:
 
     else
     {
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor: Depth, Stencil, DepthStencil textures cannot be allocated with MTLStorageModeShared on this device.", v111, v112, v113, v114, v115, Name);
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor: Depth, Stencil, DepthStencil textures cannot be allocated with MTLStorageModeShared on this device.", v111, v112, v113, v114, v115, Name);
       if (v118)
       {
         goto LABEL_196;
       }
     }
 
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor: Depth, Stencil, DepthStencil textures cannot be allocated with MTLResourceStorageModeMemoryless on this device.", v111, v112, v113, v114, v115, Name);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor: Depth, Stencil, DepthStencil textures cannot be allocated with MTLResourceStorageModeMemoryless on this device.", v111, v112, v113, v114, v115, Name);
     goto LABEL_196;
   }
 
-  if ((BYTE8(v144[0]) & 0x60) != 0)
+  if ((BYTE8(v143[0]) & 0x60) != 0)
   {
     goto LABEL_190;
   }
@@ -991,14 +988,14 @@ LABEL_196:
 
     else
     {
-      _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor: Multisample textures cannot be allocated with MTLStorageModeShared on this device.", v111, v112, v113, v114, v115, Name);
+      _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor: Multisample textures cannot be allocated with MTLStorageModeShared on this device.", v111, v112, v113, v114, v115, Name);
       if (v118)
       {
         goto LABEL_203;
       }
     }
 
-    _MTLMessageContextPush_(v146, 4, @"MTLTextureDescriptor: Multisample textures cannot be allocated with MTLResourceStorageModeMemoryless on this device.", v111, v112, v113, v114, v115, Name);
+    _MTLMessageContextPush_(v145, 4, @"MTLTextureDescriptor: Multisample textures cannot be allocated with MTLResourceStorageModeMemoryless on this device.", v111, v112, v113, v114, v115, Name);
   }
 
 LABEL_203:
@@ -1022,7 +1019,7 @@ LABEL_203:
   {
     v121 = @"MTLTextureType2DMultisampleArray is not supported on this device unless used with MTLResourceStorageModeMemoryless, MTLResourceStorageModePrivate, or MTLResourceStorageModeShared";
 LABEL_233:
-    _MTLMessageContextPush_(v146, 4, v121, v111, v112, v113, v114, v115, Name);
+    _MTLMessageContextPush_(v145, 4, v121, v111, v112, v113, v114, v115, Name);
   }
 
 LABEL_209:
@@ -1039,23 +1036,23 @@ LABEL_209:
     }
 
     Name = p_private->colorSpaceConversionMatrix;
-    v129 = @"MTLTextureColorSpaceConversionMatrix (%lu) is not supported by this version of Metal.";
+    v128 = @"MTLTextureColorSpaceConversionMatrix (%lu) is not supported by this version of Metal.";
   }
 
   else
   {
-    v129 = @"MTLTextureColorSpaceConversionMatrix selection is not supported on this device.";
+    v128 = @"MTLTextureColorSpaceConversionMatrix selection is not supported on this device.";
   }
 
-  _MTLMessageContextPush_(v146, 4, v129, v111, v112, v113, v114, v115, Name);
+  _MTLMessageContextPush_(v145, 4, v128, v111, v112, v113, v114, v115, Name);
 LABEL_212:
   if (p_private->writeAccessPattern >= 3uLL)
   {
-    _MTLMessageContextPush_(v146, 4, @"invalid writeAccessPattern (%lu)", v111, v112, v113, v114, v115, p_private->writeAccessPattern);
+    _MTLMessageContextPush_(v145, 4, @"invalid writeAccessPattern (%lu)", v111, v112, v113, v114, v115, p_private->writeAccessPattern);
   }
 
-  _MTLMessageContextEnd(v146);
-  return *&v146[0] == 0;
+  _MTLMessageContextEnd(v145);
+  return *&v145[0] == 0;
 }
 
 @end

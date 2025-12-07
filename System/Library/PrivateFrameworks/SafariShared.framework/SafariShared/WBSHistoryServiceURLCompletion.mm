@@ -72,112 +72,112 @@ void __53__WBSHistoryServiceURLCompletion_warmUpWithDatabase___block_invoke(uint
 
 - (id)_warmUpWithDatabase:(id)database
 {
-  v96[19] = *MEMORY[0x1E69E9840];
+  v110[19] = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   v3 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:databaseCopy query:{@"SELECT history_items.id, history_items.url, history_visits.title, redirect_destination, load_successful, visit_time, visit_count_score, status_code, daily_visit_counts, weekly_visit_counts, autocomplete_triggers, origin FROM history_items INNER JOIN history_visits ON history_visits.id = safari_latest_visit_for (history_items.id)"}];
   if (v3)
   {
-    v56 = v3;
+    v70 = v3;
     handle = [v3 handle];
-    v81 = 0u;
-    v82 = 0u;
-    v83 = 1065353216;
-    v78 = 0u;
-    v79 = 0u;
-    v80 = 1065353216;
-    v70 = 0;
-    v71 = &v70;
-    v72 = 0x5812000000;
-    v73 = __Block_byref_object_copy__27;
-    v74 = __Block_byref_object_dispose__28;
-    v75 = "";
-    memset(v76, 0, sizeof(v76));
-    v77 = 1065353216;
-    v64 = objc_alloc_init(WBSMemoryPressureMonitor);
+    v95 = 0u;
+    v96 = 0u;
+    v97 = 1065353216;
+    v92 = 0u;
+    v93 = 0u;
+    v94 = 1065353216;
+    v84 = 0;
+    v85 = &v84;
+    v86 = 0x5812000000;
+    v87 = __Block_byref_object_copy__27;
+    v88 = __Block_byref_object_dispose__28;
+    v89 = "";
+    memset(v90, 0, sizeof(v90));
+    v91 = 1065353216;
+    v78 = objc_alloc_init(WBSMemoryPressureMonitor);
     while (1)
     {
-      if ([(WBSMemoryPressureMonitor *)v64 pressured])
+      if ([(WBSMemoryPressureMonitor *)v78 pressured])
       {
         goto LABEL_16;
       }
 
-      v5 = sqlite3_step(handle);
-      if (v5 != 100)
+      v6 = sqlite3_step(handle);
+      if (v6 != 100)
       {
         break;
       }
 
       __p = sqlite3_column_int64(handle, 0);
-      v6 = sqlite3_column_text(handle, 1);
-      v7 = sqlite3_column_bytes(handle, 1);
-      if (v6)
+      v8 = sqlite3_column_text(handle, 1);
+      v9 = sqlite3_column_bytes(handle, 1);
+      if (v8)
       {
-        v8 = v7;
-        if (strncmp(v6, "data:", 5uLL))
+        v10 = v9;
+        if (strncmp(v8, "data:", 5uLL))
         {
-          v61 = sqlite3_column_int64(handle, 6);
-          v60 = sqlite3_column_blob(handle, 8);
-          v9 = sqlite3_column_bytes(handle, 8);
-          v10 = v9;
-          if ((v9 & 3) != 0)
-          {
-            v10 = 0;
-          }
-
-          v59 = v10;
-          v58 = sqlite3_column_blob(handle, 9);
-          v11 = sqlite3_column_bytes(handle, 9);
+          v75 = sqlite3_column_int64(handle, 6);
+          v74 = sqlite3_column_blob(handle, 8);
+          v11 = sqlite3_column_bytes(handle, 8);
+          v12 = v11;
           if ((v11 & 3) != 0)
           {
             v12 = 0;
           }
 
-          else
+          v73 = v12;
+          v72 = sqlite3_column_blob(handle, 9);
+          v13 = sqlite3_column_bytes(handle, 9);
+          if ((v13 & 3) != 0)
           {
-            v12 = v11;
+            v14 = 0;
           }
 
-          v13 = sqlite3_column_blob(handle, 10);
-          v14 = sqlite3_column_bytes(handle, 10);
-          v15 = sqlite3_column_int(handle, 4) != 0;
-          v16 = sqlite3_column_int64(handle, 11) == 0;
-          v17 = sqlite3_column_text(handle, 2);
-          v18 = sqlite3_column_bytes(handle, 2);
-          v19 = sqlite3_column_double(handle, 5);
-          sqlite3_column_int64(handle, 7);
-          v20 = WBSStatusCodeGroupFromStatusCode();
-          *buf = v6;
-          *&buf[8] = v8;
-          *&buf[16] = v61;
-          v87 = v60;
-          v88[0].__locale_ = v59;
-          v88[1].__locale_ = v58;
-          v88[2].__locale_ = v12;
-          v88[3].__locale_ = v13;
-          v88[4].__locale_ = v14;
-          v89 = v15;
-          v90 = v16;
-          v91 = v17;
-          v92 = v18;
-          v93 = v19;
-          v94 = v20 == 4;
-          SafariShared::URLCompletionEntryBuilder::validateVisitedCountsIfNeeded(buf);
-          v69 = SafariShared::URLCompletionEntryMap::insert(&self->_map, buf, 1);
-          std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,long long &,NSString * {__strong}&>(v71 + 6, &__p);
-          v68 = sqlite3_column_int64(handle, 3);
-          if (v68)
+          else
           {
-            std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v81, &v68);
-            std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__emplace_multi<long long &,long long &>();
+            v14 = v13;
+          }
+
+          v15 = sqlite3_column_blob(handle, 10);
+          v16 = sqlite3_column_bytes(handle, 10);
+          v17 = sqlite3_column_int(handle, 4) != 0;
+          v18 = sqlite3_column_int64(handle, 11) == 0;
+          v19 = sqlite3_column_text(handle, 2);
+          v20 = sqlite3_column_bytes(handle, 2);
+          v21 = sqlite3_column_double(handle, 5);
+          sqlite3_column_int64(handle, 7);
+          v22 = WBSStatusCodeGroupFromStatusCode();
+          *buf = v8;
+          *&buf[8] = v10;
+          *&buf[16] = v75;
+          v101 = v74;
+          v102[0].__locale_ = v73;
+          v102[1].__locale_ = v72;
+          v102[2].__locale_ = v14;
+          v102[3].__locale_ = v15;
+          v102[4].__locale_ = v16;
+          v103 = v17;
+          v104 = v18;
+          v105 = v19;
+          v106 = v20;
+          v107 = v21;
+          v108 = v22 == 4;
+          SafariShared::URLCompletionEntryBuilder::validateVisitedCountsIfNeeded(buf);
+          v83 = SafariShared::URLCompletionEntryMap::insert(&self->_map, buf, 1);
+          std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,long long &,NSString * {__strong}&>(v85 + 6, &__p, &__p, &v83);
+          v82 = sqlite3_column_int64(handle, 3);
+          if (v82)
+          {
+            std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v95, &v82, &v82);
+            std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__emplace_multi<long long &,long long &>(&v92, &v82, &__p);
           }
         }
       }
     }
 
-    if (v5 != 101)
+    if (v6 != 101)
     {
-      v34 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v42 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v6, v7);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         [databaseCopy lastErrorWithMethodName:"-[WBSHistoryServiceURLCompletion _warmUpWithDatabase:]"];
         [objc_claimAutoreleasedReturnValue() safari_privacyPreservingDescription];
@@ -185,34 +185,36 @@ void __53__WBSHistoryServiceURLCompletion_warmUpWithDatabase___block_invoke(uint
         [WBSHistoryServiceURLCompletion _warmUpWithDatabase:];
       }
 
-      v28 = [databaseCopy lastErrorWithMethodName:"-[WBSHistoryServiceURLCompletion _warmUpWithDatabase:]"];
+      v36 = [databaseCopy lastErrorWithMethodName:"-[WBSHistoryServiceURLCompletion _warmUpWithDatabase:]"];
       goto LABEL_75;
     }
 
 LABEL_16:
-    [v56 invalidate];
-    v21 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    invalidate = [v70 invalidate];
+    v25 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(invalidate, v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      [WBSHistoryServiceURLCompletion _warmUpWithDatabase:v21];
+      [WBSHistoryServiceURLCompletion _warmUpWithDatabase:v25];
     }
 
-    if ([(WBSMemoryPressureMonitor *)v64 pressured])
+    pressured = [(WBSMemoryPressureMonitor *)v78 pressured];
+    if (pressured)
     {
       *buf = -1;
       __p = buf;
-      SafariShared::WBSSQLiteDatabaseEnumerate<std::tuple<long long &>>(databaseCopy, 0, @"SELECT count(*) FROM history_items", &__p);
-      v22 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+      v28 = SafariShared::WBSSQLiteDatabaseEnumerate<std::tuple<long long &>>(databaseCopy, 0, @"SELECT count(*) FROM history_items", &__p);
+      v30 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v28, v29);
+      pressured = os_log_type_enabled(v30, OS_LOG_TYPE_FAULT);
+      if (pressured)
       {
-        [(WBSHistoryServiceURLCompletion *)&self->_map _warmUpWithDatabase:buf, v22];
+        [(WBSHistoryServiceURLCompletion *)&self->_map _warmUpWithDatabase:buf, v30];
       }
     }
 
-    if (!*(&v79 + 1))
+    if (!*(&v93 + 1))
     {
-      v35 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+      v43 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(pressured, v27);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
         m_table = self->_map._map.m_table;
         if (m_table)
@@ -225,61 +227,61 @@ LABEL_16:
         *&buf[4] = m_table;
         *&buf[12] = 2048;
         *&buf[14] = size;
-        _os_log_impl(&dword_1BB6F3000, v35, OS_LOG_TYPE_INFO, "Ready (%zi) (%zi)", buf, 0x16u);
+        _os_log_impl(&dword_1BB6F3000, v43, OS_LOG_TYPE_INFO, "Ready (%zi) (%zi)", buf, 0x16u);
       }
 
-      v28 = 0;
+      v36 = 0;
       goto LABEL_75;
     }
 
-    v23 = objc_alloc(MEMORY[0x1E69C89F0]);
+    v31 = objc_alloc(MEMORY[0x1E69C89F0]);
     std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:sn200100](buf);
     std::__put_character_sequence[abi:sn200100]<char,std::char_traits<char>>(&buf[16], "SELECT id, history_item FROM history_visits WHERE id IN (", 57);
-    v24 = &v82;
+    v32 = &v96;
     for (i = 1; ; i = 0)
     {
-      v24 = *v24;
-      if (!v24)
+      v32 = *v32;
+      if (!v32)
       {
         break;
       }
 
-      v26 = *(v24 + 2);
+      v34 = *(v32 + 2);
       if ((i & 1) == 0)
       {
         LOBYTE(__p) = 44;
         std::__put_character_sequence[abi:sn200100]<char,std::char_traits<char>>(&buf[16], &__p, 1);
       }
 
-      MEMORY[0x1BFB133B0](&buf[16], v26);
+      MEMORY[0x1BFB133B0](&buf[16], v34);
     }
 
     std::__put_character_sequence[abi:sn200100]<char,std::char_traits<char>>(&buf[16], ")", 1);
-    v29 = MEMORY[0x1E696AEC0];
-    v30 = std::stringbuf::view[abi:sn200100](&v87);
-    if (v31 >= 0x7FFFFFFFFFFFFFF8)
+    v37 = MEMORY[0x1E696AEC0];
+    v38 = std::stringbuf::view[abi:sn200100](&v101);
+    if (v39 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::__throw_bad_array_new_length[abi:sn200100]();
     }
 
-    v32 = v30;
-    if (v31 > 0x16)
+    v40 = v38;
+    if (v39 > 0x16)
     {
       operator new();
     }
 
-    v85 = v31;
+    v99 = v39;
     result = &__p;
-    v38 = (&__p + v31);
-    if (&__p > v32 || v38 <= v32)
+    v46 = (&__p + v39);
+    if (&__p > v40 || v46 <= v40)
     {
-      if (v31)
+      if (v39)
       {
-        memmove(&__p, v32, v31);
+        memmove(&__p, v40, v39);
       }
 
-      *v38 = 0;
-      if (v85 >= 0)
+      *v46 = 0;
+      if (v99 >= 0)
       {
         p_p = &__p;
       }
@@ -289,32 +291,32 @@ LABEL_16:
         p_p = __p;
       }
 
-      v40 = [v29 stringWithUTF8String:p_p];
-      if (v85 < 0)
+      v48 = [v37 stringWithUTF8String:p_p];
+      if (v99 < 0)
       {
         operator delete(__p);
       }
 
       *buf = *MEMORY[0x1E69E54D8];
-      v41 = *(MEMORY[0x1E69E54D8] + 72);
+      v49 = *(MEMORY[0x1E69E54D8] + 72);
       *&buf[*(*buf - 24)] = *(MEMORY[0x1E69E54D8] + 64);
-      *&buf[16] = v41;
-      v87 = MEMORY[0x1E69E5548] + 16;
-      if (v95 < 0)
+      *&buf[16] = v49;
+      v101 = MEMORY[0x1E69E5548] + 16;
+      if (v109 < 0)
       {
-        operator delete(v92);
+        operator delete(v106);
       }
 
-      v87 = MEMORY[0x1E69E5538] + 16;
-      std::locale::~locale(v88);
+      v101 = MEMORY[0x1E69E5538] + 16;
+      std::locale::~locale(v102);
       std::iostream::~basic_iostream();
-      MEMORY[0x1BFB13440](v96);
-      v62 = [v23 initWithDatabase:databaseCopy query:v40];
+      MEMORY[0x1BFB13440](v110);
+      v76 = [v31 initWithDatabase:databaseCopy query:v48];
 
-      if (!v62)
+      if (!v76)
       {
-        v54 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+        v68 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(0, v50);
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
         {
           [databaseCopy lastErrorWithMethodName:"-[WBSHistoryServiceURLCompletion _warmUpWithDatabase:]"];
           [objc_claimAutoreleasedReturnValue() safari_privacyPreservingDescription];
@@ -322,78 +324,79 @@ LABEL_16:
           [WBSHistoryServiceURLCompletion _warmUpWithDatabase:];
         }
 
-        v28 = [databaseCopy lastErrorWithMethodName:{"-[WBSHistoryServiceURLCompletion _warmUpWithDatabase:]", 0}];
+        v36 = [databaseCopy lastErrorWithMethodName:{"-[WBSHistoryServiceURLCompletion _warmUpWithDatabase:]", 0}];
         goto LABEL_76;
       }
 
-      handle2 = [v62 handle];
+      handle2 = [v76 handle];
       while (1)
       {
-        v43 = sqlite3_step(handle2);
-        if (v43 != 100)
+        v52 = sqlite3_step(handle2);
+        if (v52 != 100)
         {
           break;
         }
 
         __p = sqlite3_column_int64(handle2, 0);
-        v69 = sqlite3_column_int64(handle2, 1);
-        v44 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__equal_range_multi<long long>(&v78, &__p);
-        v46 = v45;
-        *buf = &v69;
-        result = std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(v71 + 6, &v69);
+        v83 = sqlite3_column_int64(handle2, 1);
+        v54 = std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::__equal_range_multi<long long>(&v92, &__p);
+        v56 = v55;
+        *buf = &v83;
+        result = std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(v85 + 6, &v83, &std::piecewise_construct, buf);
         if (!result)
         {
           goto LABEL_81;
         }
 
-        v47 = *(result + 3);
-        v48 = v47;
-        if (v47)
+        v57 = *(result + 3);
+        v58 = v57;
+        if (v57)
         {
-          v65[0] = MEMORY[0x1E69E9820];
-          v65[1] = 3221225472;
-          v65[2] = __54__WBSHistoryServiceURLCompletion__warmUpWithDatabase___block_invoke;
-          v65[3] = &unk_1E7FC7F08;
-          v67 = &v70;
-          v65[4] = self;
-          v66 = v47;
-          v49 = std::for_each[abi:sn200100]<std::__hash_map_iterator<std::__hash_iterator<std::__hash_node<std::__hash_value_type<long long,long long>,void *> *>>,void({block_pointer} {__strong})(std::pair<long long,long long> const&)>(v44, v46, v65);
+          v79[0] = MEMORY[0x1E69E9820];
+          v79[1] = 3221225472;
+          v79[2] = __54__WBSHistoryServiceURLCompletion__warmUpWithDatabase___block_invoke;
+          v79[3] = &unk_1E7FC7F08;
+          v81 = &v84;
+          v79[4] = self;
+          v80 = v57;
+          v59 = std::for_each[abi:sn200100]<std::__hash_map_iterator<std::__hash_iterator<std::__hash_node<std::__hash_value_type<long long,long long>,void *> *>>,void({block_pointer} {__strong})(std::pair<long long,long long> const&)>(v54, v56, v79);
         }
       }
 
-      if (v43 == 101)
+      if (v52 == 101)
       {
-        [v62 invalidate];
-        v50 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+        invalidate2 = [v76 invalidate];
+        v62 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(invalidate2, v61);
+        v63 = os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG);
+        if (v63)
         {
-          [(WBSHistoryServiceURLCompletion *)&v79 + 1 _warmUpWithDatabase:v50];
+          [(WBSHistoryServiceURLCompletion *)&v93 + 1 _warmUpWithDatabase:v62];
         }
 
-        v51 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+        v65 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v63, v64);
+        if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
         {
-          v52 = self->_map._map.m_table;
-          if (v52)
+          v66 = self->_map._map.m_table;
+          if (v66)
           {
-            v52 = *(v52 - 3);
+            v66 = *(v66 - 3);
           }
 
-          v53 = self->_map._extras.__table_.__size_;
+          v67 = self->_map._extras.__table_.__size_;
           *buf = 134218240;
-          *&buf[4] = v52;
+          *&buf[4] = v66;
           *&buf[12] = 2048;
-          *&buf[14] = v53;
-          _os_log_impl(&dword_1BB6F3000, v51, OS_LOG_TYPE_INFO, "Ready (%zi) (%zi)", buf, 0x16u);
+          *&buf[14] = v67;
+          _os_log_impl(&dword_1BB6F3000, v65, OS_LOG_TYPE_INFO, "Ready (%zi) (%zi)", buf, 0x16u);
         }
 
-        v28 = 0;
+        v36 = 0;
       }
 
       else
       {
-        v55 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        v69 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v52, v53);
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
         {
           [databaseCopy lastErrorWithMethodName:"-[WBSHistoryServiceURLCompletion _warmUpWithDatabase:]"];
           [objc_claimAutoreleasedReturnValue() safari_privacyPreservingDescription];
@@ -401,17 +404,17 @@ LABEL_16:
           [WBSHistoryServiceURLCompletion _warmUpWithDatabase:];
         }
 
-        v28 = [databaseCopy lastErrorWithMethodName:"-[WBSHistoryServiceURLCompletion _warmUpWithDatabase:]"];
+        v36 = [databaseCopy lastErrorWithMethodName:"-[WBSHistoryServiceURLCompletion _warmUpWithDatabase:]"];
       }
 
-      v56 = v62;
+      v70 = v76;
 LABEL_75:
 
 LABEL_76:
-      _Block_object_dispose(&v70, 8);
-      std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::~__hash_table(v76);
-      std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&v78);
-      std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&v81);
+      _Block_object_dispose(&v84, 8);
+      std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::~__hash_table(v90);
+      std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&v92);
+      std::__hash_table<std::__hash_value_type<long long,long long>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,long long>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,long long>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,long long>>>::~__hash_table(&v95);
       goto LABEL_77;
     }
 
@@ -421,8 +424,8 @@ LABEL_81:
 
   else
   {
-    v27 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v35 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(0, v4);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       [databaseCopy lastErrorWithMethodName:"-[WBSHistoryServiceURLCompletion _warmUpWithDatabase:]"];
       [objc_claimAutoreleasedReturnValue() safari_privacyPreservingDescription];
@@ -430,24 +433,25 @@ LABEL_81:
       [WBSHistoryServiceURLCompletion _warmUpWithDatabase:];
     }
 
-    v28 = [databaseCopy lastErrorWithMethodName:"-[WBSHistoryServiceURLCompletion _warmUpWithDatabase:]"];
+    v36 = [databaseCopy lastErrorWithMethodName:"-[WBSHistoryServiceURLCompletion _warmUpWithDatabase:]"];
 LABEL_77:
 
-    return v28;
+    return v36;
   }
 
   return result;
 }
 
-void *__54__WBSHistoryServiceURLCompletion__warmUpWithDatabase___block_invoke(uint64_t a1, uint64_t a2)
+void __54__WBSHistoryServiceURLCompletion__warmUpWithDatabase___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((*(*(a1 + 48) + 8) + 48), (a2 + 8));
-  if (result)
+  v3 = *(*(a1 + 48) + 8);
+  v5 = (a2 + 8);
+  v4 = std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((v3 + 48), (a2 + 8), &std::piecewise_construct, &v5);
+  if (v4)
   {
-    result = result[3];
-    if (result)
+    if (v4[3])
     {
-      std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>>>::__emplace_multi<NSString * const {__strong}&,NSString * {__strong}&>();
+      std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>>>::__emplace_multi<NSString * const {__strong}&,NSString * {__strong}&>(*(a1 + 32) + 64);
     }
   }
 
@@ -455,20 +459,18 @@ void *__54__WBSHistoryServiceURLCompletion__warmUpWithDatabase___block_invoke(ui
   {
     __break(1u);
   }
-
-  return result;
 }
 
 - (void)updateItemWithLatestVisit:(id)visit database:(id)database
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   visitCopy = visit;
   databaseCopy = database;
-  v7 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:databaseCopy query:{@"SELECT url, visit_count_score, daily_visit_counts, weekly_visit_counts, autocomplete_triggers, status_code FROM history_items WHERE id = ?"}];
-  if (!v7)
+  v8 = [objc_alloc(MEMORY[0x1E69C89F0]) initWithDatabase:databaseCopy query:{@"SELECT url, visit_count_score, daily_visit_counts, weekly_visit_counts, autocomplete_triggers, status_code FROM history_items WHERE id = ?"}];
+  if (!v8)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(0, v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [databaseCopy lastErrorWithMethodName:"-[WBSHistoryServiceURLCompletion updateItemWithLatestVisit:database:]"];
       [objc_claimAutoreleasedReturnValue() safari_privacyPreservingDescription];
@@ -480,81 +482,81 @@ void *__54__WBSHistoryServiceURLCompletion__warmUpWithDatabase___block_invoke(ui
   }
 
   itemID = [visitCopy itemID];
-  [v7 bindInt64:itemID atParameterIndex:1];
-  handle = [v7 handle];
-  v10 = sqlite3_step(handle);
-  if (v10 == 100)
+  [v8 bindInt64:itemID atParameterIndex:1];
+  handle = [v8 handle];
+  v11 = sqlite3_step(handle);
+  if (v11 == 100)
   {
     title = [visitCopy title];
     uTF8String = [title UTF8String];
 
-    v32 = sqlite3_column_blob(handle, 0);
-    v31 = sqlite3_column_bytes(handle, 0);
-    v30 = sqlite3_column_int64(handle, 1);
-    v29 = sqlite3_column_blob(handle, 2);
-    v15 = sqlite3_column_bytes(handle, 2);
-    v16 = v15;
-    if ((v15 & 3) != 0)
-    {
-      v16 = 0;
-    }
-
-    v28 = v16;
-    v27 = sqlite3_column_blob(handle, 3);
-    v17 = sqlite3_column_bytes(handle, 3);
+    v34 = sqlite3_column_blob(handle, 0);
+    v33 = sqlite3_column_bytes(handle, 0);
+    v32 = sqlite3_column_int64(handle, 1);
+    v31 = sqlite3_column_blob(handle, 2);
+    v17 = sqlite3_column_bytes(handle, 2);
     v18 = v17;
     if ((v17 & 3) != 0)
     {
       v18 = 0;
     }
 
-    v26 = v18;
-    v25 = sqlite3_column_blob(handle, 4);
-    v19 = sqlite3_column_bytes(handle, 4);
+    v30 = v18;
+    v29 = sqlite3_column_blob(handle, 3);
+    v19 = sqlite3_column_bytes(handle, 3);
+    v20 = v19;
+    if ((v19 & 3) != 0)
+    {
+      v20 = 0;
+    }
+
+    v28 = v20;
+    v27 = sqlite3_column_blob(handle, 4);
+    v21 = sqlite3_column_bytes(handle, 4);
     loadSuccessful = [visitCopy loadSuccessful];
-    v21 = [visitCopy origin] == 0;
+    v23 = [visitCopy origin] == 0;
     if (uTF8String)
     {
-      v22 = strlen(uTF8String);
+      v24 = strlen(uTF8String);
     }
 
     else
     {
-      v22 = 0;
+      v24 = 0;
     }
 
     [visitCopy visitTime];
-    v24 = v23;
+    v26 = v25;
     sqlite3_column_int64(handle, 5);
-    *buf = v32;
-    v35 = v31;
-    v36 = v30;
-    v37 = v29;
-    v38 = v28;
-    v39 = v27;
-    v40 = v26;
-    v41 = v25;
-    v42 = v19;
-    v43 = loadSuccessful;
+    *buf = v34;
+    v37 = v33;
+    v38 = v32;
+    v39 = v31;
+    v40 = v30;
+    v41 = v29;
+    v42 = v28;
+    v43 = v27;
     v44 = v21;
-    v45 = uTF8String;
-    v46 = v22;
-    v47 = v24;
-    v48 = WBSStatusCodeGroupFromStatusCode() == 4;
+    v45 = loadSuccessful;
+    v46 = v23;
+    v47 = uTF8String;
+    v48 = v24;
+    v49 = v26;
+    v50 = WBSStatusCodeGroupFromStatusCode() == 4;
     SafariShared::URLCompletionEntryBuilder::validateVisitedCountsIfNeeded(buf);
-    v33[0] = 0;
-    v33[1] = v33;
-    v33[2] = 0x3812000000;
-    v33[3] = __Block_byref_object_copy__41;
-    v33[4] = __Block_byref_object_dispose__42;
-    v33[5] = "";
+    v35[0] = 0;
+    v35[1] = v35;
+    v35[2] = 0x3812000000;
+    v35[3] = __Block_byref_object_copy__41;
+    v35[4] = __Block_byref_object_dispose__42;
+    v35[5] = "";
     SafariShared::URLCompletionEntryBuilder::buildEntry(buf);
   }
 
-  if (v10 != 101)
+  if (v11 != 101)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [databaseCopy lastErrorWithMethodName:"-[WBSHistoryServiceURLCompletion updateItemWithLatestVisit:database:]"];
       [objc_claimAutoreleasedReturnValue() safari_privacyPreservingDescription];
@@ -567,10 +569,10 @@ LABEL_9:
     goto LABEL_21;
   }
 
-  v11 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v13 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    -[WBSHistoryServiceURLCompletion updateItemWithLatestVisit:database:].cold.1(buf, [visitCopy databaseID], itemID, v11);
+    -[WBSHistoryServiceURLCompletion updateItemWithLatestVisit:database:].cold.1(buf, [visitCopy databaseID], itemID, v13);
   }
 
 LABEL_21:
@@ -710,11 +712,12 @@ void __122__WBSHistoryServiceURLCompletion_recordVisit_sourceVisit_title_loadSuc
 
   if (*(a1 + 56))
   {
+    v7 = *(a1 + 32);
     [*(a1 + 40) urlString];
     objc_claimAutoreleasedReturnValue();
     [*(a1 + 56) urlString];
     objc_claimAutoreleasedReturnValue();
-    std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>>>::__emplace_multi<NSString * {__strong},NSString * {__strong}>();
+    std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>>>::__emplace_multi<NSString * {__strong},NSString * {__strong}>((v7 + 64));
   }
 }
 
@@ -887,22 +890,22 @@ LABEL_6:
   std::__hash_table<NSString * {__strong},std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::allocator<NSString * {__strong}>>::~__hash_table(&v28[7]);
 }
 
-void __113__WBSHistoryServiceURLCompletion_searchForUserTypedString_options_currentTime_enumerationGroup_enumerationBlock___block_invoke(void *a1, uint64_t a2)
+void __113__WBSHistoryServiceURLCompletion_searchForUserTypedString_options_currentTime_enumerationGroup_enumerationBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 24);
-  v5 = a1[4];
-  v6 = a1[8];
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 64);
   v7 = *(a2 + 16);
   LOBYTE(v4) = SafariShared::BookmarkAndHistoryCompletionMatch::hasMatchWithOptions(v7, v4, v5, v6);
 
   if (v4)
   {
-    v8 = a1[5];
+    v8 = *(a1 + 40);
     v9 = *a2;
     v10 = [v8 _endOfRedirectChain:v9];
     v18 = v10;
 
-    v11 = *(a1[7] + 8);
+    v11 = *(*(a1 + 56) + 8);
     v20 = 0;
     v21 = &v20;
     v22 = 0x2020000000;
@@ -922,8 +925,8 @@ void __113__WBSHistoryServiceURLCompletion_searchForUserTypedString_options_curr
     {
       v13 = [[WBSHistoryServiceURLCompletionMatchData alloc] initWithLastVisitWasFailure:*(a2 + 48) >= 0 visitWasFromThisDevice:(*(a2 + 48) >> 59) & 1 visitWasClientError:(*(a2 + 48) >> 58) & 1];
       v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:1];
-      SafariShared::URLCompletionEntryMap::addURLCompletionMatchEntryToArray((a1[5] + 16), v13, v14, v10);
-      v15 = std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>>>::__equal_range_multi<NSString * {__strong}>((a1[5] + 64), &v18);
+      SafariShared::URLCompletionEntryMap::addURLCompletionMatchEntryToArray((*(a1 + 40) + 16), v13, v14, v10, *(a1 + 72));
+      v15 = std::__hash_table<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},NSString * {__strong}>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},NSString * {__strong}>>>::__equal_range_multi<NSString * {__strong}>((*(a1 + 40) + 64), &v18);
       v17 = v16;
       while (v15 != v17)
       {
@@ -933,14 +936,14 @@ void __113__WBSHistoryServiceURLCompletion_searchForUserTypedString_options_curr
           return;
         }
 
-        SafariShared::URLCompletionEntryMap::addURLCompletionMatchEntryToArray((a1[5] + 16), v13, v14, v15[3]);
+        SafariShared::URLCompletionEntryMap::addURLCompletionMatchEntryToArray((*(a1 + 40) + 16), v13, v14, v15[3], *(a1 + 72));
         v15 = *v15;
       }
 
       if ([v14 count])
       {
         [(WBSHistoryServiceURLCompletionMatchData *)v13 setEntries:v14];
-        (*(a1[6] + 16))();
+        (*(*(a1 + 48) + 16))();
       }
 
       v10 = v18;
@@ -1081,52 +1084,64 @@ void __145__WBSHistoryServiceURLCompletion_computeFrequentlyVisitedSites_minimal
 {
   if (!*(a2 + 32))
   {
-    v34 = *(a2 + 48);
-    if (*(a1 + 120) <= v34)
+    v4 = *(a2 + 48);
+    v38 = v4;
+    if (*(a1 + 120) <= v4)
     {
-      v4 = *a2;
-      v5 = [v4 safari_canonicalURLStringForFrequentlyVisitedSites];
-      if (*(a2 + 48) & 0x8000000000000000) != 0 || (v6 = *(a1 + 32)) != 0 && ([v6 containsObject:v5])
+      v5 = *a2;
+      v6 = [v5 safari_canonicalURLStringForFrequentlyVisitedSites];
+      if (*(a2 + 48) & 0x8000000000000000) != 0 || (v7 = *(a1 + 32)) != 0 && ([v7 containsObject:v6])
       {
-        v7 = *(a1 + 40);
-        if ((!v7 || ([v7 containsObject:v5] & 1) == 0) && ((objc_msgSend(v4, "safari_hasCaseInsensitivePrefix:", @"http:") & 1) != 0 || objc_msgSend(v4, "safari_hasCaseInsensitivePrefix:", @"https:")) && ((*(a1 + 96) & 1) == 0 || objc_msgSend(-[WBSHistoryServiceURLCompletion computeFrequentlyVisitedSites:minimalVisitCountScore:blockList:allowList:options:currentTime:completionHandler:]::filterExpression, "rangeOfFirstMatchInString:options:range:", v4, 0, 0, objc_msgSend(v4, "length")) == 0x7FFFFFFFFFFFFFFFLL))
+        v8 = *(a1 + 40);
+        if ((!v8 || ([v8 containsObject:v6] & 1) == 0) && ((objc_msgSend(v5, "safari_hasCaseInsensitivePrefix:", @"http:") & 1) != 0 || objc_msgSend(v5, "safari_hasCaseInsensitivePrefix:", @"https:")) && ((*(a1 + 96) & 1) == 0 || objc_msgSend(-[WBSHistoryServiceURLCompletion computeFrequentlyVisitedSites:minimalVisitCountScore:blockList:allowList:options:currentTime:completionHandler:]::filterExpression, "rangeOfFirstMatchInString:options:range:", v5, 0, 0, objc_msgSend(v5, "length")) == 0x7FFFFFFFFFFFFFFFLL))
         {
-          v8 = [MEMORY[0x1E695DFF8] safari_URLWithDataAsString:v4];
-          v9 = [v8 host];
-          if (v9)
+          v9 = [MEMORY[0x1E695DFF8] safari_URLWithDataAsString:v5];
+          v10 = [v9 host];
+          if (v10)
           {
-            SafariShared::URLCompletionEntryMap::visitedMoreThanOnceStatistics((*(a1 + 48) + 16), v4);
-            v10 = WBSTopSitesScore();
-            if (v10 > 0.0)
+            v11 = SafariShared::URLCompletionEntryMap::visitedMoreThanOnceStatistics((*(a1 + 48) + 16), v5);
+            if (v11)
             {
-              v11 = [WBSHistoryServiceURLCompletionMatchEntry alloc];
-              v12 = *a2;
-              v13 = *(a2 + 24);
-              v14 = v12;
-              *&v15 = v10;
-              v16 = [(WBSHistoryServiceURLCompletionMatchEntry *)v11 initWithURLString:v14 title:v13 topSitesScore:v34 visitCountScore:v15];
+              v12 = WBSTopSitesScore(v5, v4, *v11, (v11[1] - *v11) >> 2, v11[1], (v11[2] - v11[1]) >> 2);
+            }
 
-              v17 = *(a1 + 56);
-              v18 = *(a1 + 64);
-              v25[0] = MEMORY[0x1E69E9820];
-              v25[1] = 3221225472;
-              v25[2] = __145__WBSHistoryServiceURLCompletion_computeFrequentlyVisitedSites_minimalVisitCountScore_blockList_allowList_options_currentTime_completionHandler___block_invoke_4;
-              v25[3] = &unk_1E7FC7FD0;
-              v33 = v10;
-              v19 = *(a1 + 96);
-              v20 = *(a1 + 72);
-              v29 = *(a1 + 80);
-              v31 = v19;
-              v26 = v20;
-              v21 = v9;
-              v22 = *(a1 + 88);
-              v27 = v21;
-              v28 = v16;
-              v23 = *(a1 + 112);
-              v30 = v22;
-              v32 = v23;
-              v24 = v16;
-              dispatch_group_async(v17, v18, v25);
+            else
+            {
+              v12 = WBSTopSitesScore(v5, v4, &v38, 1, 0, 0);
+            }
+
+            v13 = v12;
+            if (v12 > 0.0)
+            {
+              v14 = [WBSHistoryServiceURLCompletionMatchEntry alloc];
+              v15 = *a2;
+              v16 = *(a2 + 24);
+              v17 = v38;
+              v18 = v15;
+              *&v19 = v13;
+              v20 = [(WBSHistoryServiceURLCompletionMatchEntry *)v14 initWithURLString:v18 title:v16 topSitesScore:v17 visitCountScore:v19];
+
+              v21 = *(a1 + 56);
+              v22 = *(a1 + 64);
+              v29[0] = MEMORY[0x1E69E9820];
+              v29[1] = 3221225472;
+              v29[2] = __145__WBSHistoryServiceURLCompletion_computeFrequentlyVisitedSites_minimalVisitCountScore_blockList_allowList_options_currentTime_completionHandler___block_invoke_4;
+              v29[3] = &unk_1E7FC7FD0;
+              v37 = v13;
+              v23 = *(a1 + 96);
+              v24 = *(a1 + 72);
+              v33 = *(a1 + 80);
+              v35 = v23;
+              v30 = v24;
+              v25 = v10;
+              v26 = *(a1 + 88);
+              v31 = v25;
+              v32 = v20;
+              v27 = *(a1 + 112);
+              v34 = v26;
+              v36 = v27;
+              v28 = v20;
+              dispatch_group_async(v21, v22, v29);
             }
           }
         }
@@ -1207,14 +1222,14 @@ void __145__WBSHistoryServiceURLCompletion_computeFrequentlyVisitedSites_minimal
   v11 = *(*(a1 + 64) + 8);
   v13 = *(v11 + 48);
   v12 = *(v11 + 56);
-  if (*(a1 + 80) <= ((v12 - v13) >> 3))
+  if (*(a1 + 80) <= (v12 - v13))
   {
     if (v13 == v12)
     {
       goto LABEL_36;
     }
 
-    [*(v12 - 8) topSitesScore];
+    [*(v12 - 1) topSitesScore];
     if (v14 > *(a1 + 88))
     {
       return;
@@ -1235,7 +1250,7 @@ void __145__WBSHistoryServiceURLCompletion_computeFrequentlyVisitedSites_minimal
 
   if (v12 != v13)
   {
-    v17 = (v12 - v13) >> 3;
+    v17 = v12 - v13;
     do
     {
       v18 = &v13[v17 >> 1];
@@ -1257,7 +1272,7 @@ void __145__WBSHistoryServiceURLCompletion_computeFrequentlyVisitedSites_minimal
     v12 = v13;
   }
 
-  std::vector<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::insert(v11 + 48, v12, (a1 + 48));
+  std::vector<WBSHistoryServiceURLCompletionMatchEntry * {__strong}>::insert((v11 + 48), v12, (a1 + 48));
   v22 = *(*(*(a1 + 64) + 8) + 48);
   v21 = *(*(*(a1 + 64) + 8) + 56);
   if (*(a1 + 80) <= ((v21 - v22) >> 3))

@@ -136,7 +136,7 @@
 
   v4 = [MEMORY[0x1E695F658] imageWithCGImage:?];
   v5 = [v4 imageByApplyingFilter:@"PIHDRInverseHLGFilter"];
-  [v5 extent];
+  objc_msgSend_extent(v5);
   v8 = [self _newHLGPixelBufferOfSize:{v6, v7}];
   if (([self _renderImage:v5 toPixelBuffer:v8] & 1) == 0)
   {

@@ -483,7 +483,7 @@ id __67__DDContextMenuAction_previewViewProviderForPreviewAction_context___block
 
     if (_DDResultIsURL(result))
     {
-      v24 = _DDURLFromResult(result);
+      v24 = _DDURLFromResult(result, 0);
       v25 = v24;
       if (!v24 || (dd_urlLooksSuspicious(v24) & 1) != 0)
       {
@@ -671,29 +671,29 @@ LABEL_26:
 
 + (id)filterResultsForQuickActions:(id)actions
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = actionsCopy;
-  v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * i);
+        v9 = *(*(&v24 + 1) + 8 * i);
         if (_DDResultIsURL([v9 coreResult]))
         {
           v10 = [v9 url];
@@ -708,26 +708,26 @@ LABEL_26:
         if (([v9 ddui_canBeCombinedToOthers] & 1) == 0)
         {
           v12 = objc_autoreleasePoolPush();
+          v20 = 0u;
           v21 = 0u;
           v22 = 0u;
           v23 = 0u;
-          v24 = 0u;
           v13 = v4;
-          v14 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v22;
+            v16 = *v21;
             while (2)
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v22 != v16)
+                if (*v21 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                if ([v9 ddui_isEquivalentToResult:*(*(&v21 + 1) + 8 * j)])
+                if ([v9 ddui_isEquivalentToResult:*(*(&v20 + 1) + 8 * j)])
                 {
 
                   objc_autoreleasePoolPop(v12);
@@ -735,7 +735,7 @@ LABEL_26:
                 }
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
               if (v15)
               {
                 continue;
@@ -758,15 +758,13 @@ LABEL_7:
         ;
       }
 
-      v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v6 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v6);
   }
 
 LABEL_26:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1094,74 +1092,74 @@ LABEL_48:
 
 id __112__DDContextMenuAction_contextMenuConfigurationWithIdentifier_inView_context_defaultAction_menuProvider_options___block_invoke_3(uint64_t a1, void *a2)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v37 = [MEMORY[0x277CBEB18] arrayWithArray:*(a1 + 32)];
+  v36 = [MEMORY[0x277CBEB18] arrayWithArray:*(a1 + 32)];
   if (+[(DDParsecAction *)DDLookupAction])
   {
-    v36 = &unk_282C2CAF0;
+    v35 = &unk_282C2CAF0;
     if (*(a1 + 64) != 1)
     {
       goto LABEL_3;
     }
 
 LABEL_15:
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
-    v12 = [v37 copy];
-    v13 = [v12 countByEnumeratingWithState:&v50 objects:v57 count:16];
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v12 = [v36 copy];
+    v13 = [v12 countByEnumeratingWithState:&v49 objects:v56 count:16];
     if (!v13)
     {
       goto LABEL_46;
     }
 
     v14 = v13;
-    v34 = v3;
-    v35 = a1;
-    v15 = *v51;
+    v33 = v3;
+    v34 = a1;
+    v15 = *v50;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v51 != v15)
+        if (*v50 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v50 + 1) + 8 * i);
-        v18 = [DDContextMenuAction identificationStringsForMenuElement:v17 useDefault:0, v34];
+        v17 = *(*(&v49 + 1) + 8 * i);
+        v18 = [DDContextMenuAction identificationStringsForMenuElement:v17 useDefault:0, v33];
         v19 = [v18 firstObject];
 
         if (v19)
         {
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
           v47 = 0u;
-          v20 = [&unk_282C2CB08 countByEnumeratingWithState:&v46 objects:v56 count:16];
+          v48 = 0u;
+          v45 = 0u;
+          v46 = 0u;
+          v20 = [&unk_282C2CB08 countByEnumeratingWithState:&v45 objects:v55 count:16];
           if (v20)
           {
             v21 = v20;
-            v22 = *v47;
+            v22 = *v46;
             do
             {
               for (j = 0; j != v21; ++j)
               {
-                if (*v47 != v22)
+                if (*v46 != v22)
                 {
                   objc_enumerationMutation(&unk_282C2CB08);
                 }
 
-                if ([v19 hasPrefix:*(*(&v46 + 1) + 8 * j)])
+                if ([v19 hasPrefix:*(*(&v45 + 1) + 8 * j)])
                 {
-                  [v37 removeObject:v17];
+                  [v36 removeObject:v17];
                   goto LABEL_20;
                 }
               }
 
-              v21 = [&unk_282C2CB08 countByEnumeratingWithState:&v46 objects:v56 count:16];
+              v21 = [&unk_282C2CB08 countByEnumeratingWithState:&v45 objects:v55 count:16];
             }
 
             while (v21);
@@ -1171,100 +1169,98 @@ LABEL_15:
 LABEL_20:
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v50 objects:v57 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v49 objects:v56 count:16];
     }
 
     while (v14);
-    v3 = v34;
+    v3 = v33;
     goto LABEL_45;
   }
 
-  v36 = [&unk_282C2CAF0 arrayByAddingObject:*MEMORY[0x277D76D08]];
+  v35 = [&unk_282C2CAF0 arrayByAddingObject:*MEMORY[0x277D76D08]];
   if (*(a1 + 64) == 1)
   {
     goto LABEL_15;
   }
 
 LABEL_3:
-  v35 = a1;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
+  v34 = a1;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v42 objects:v55 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v41 objects:v54 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v43;
+    v7 = *v42;
     do
     {
       for (k = 0; k != v6; ++k)
       {
-        if (*v43 != v7)
+        if (*v42 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v42 + 1) + 8 * k);
+        v9 = *(*(&v41 + 1) + 8 * k);
         v10 = [DDContextMenuAction identificationStringsForMenuElement:v9 useDefault:0];
         v11 = [v10 firstObject];
 
-        if (!v11 || ([v36 containsObject:v11] & 1) == 0)
+        if (!v11 || ([v35 containsObject:v11] & 1) == 0)
         {
-          [v37 addObject:v9];
+          [v36 addObject:v9];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v42 objects:v55 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v41 objects:v54 count:16];
     }
 
     while (v6);
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
-  a1 = v35;
-  v12 = [*(v35 + 40) objectForKey:@"kDDContextMenuActionsKey"];
-  v24 = [v12 countByEnumeratingWithState:&v38 objects:v54 count:16];
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  a1 = v34;
+  v12 = [*(v34 + 40) objectForKey:@"kDDContextMenuActionsKey"];
+  v24 = [v12 countByEnumeratingWithState:&v37 objects:v53 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v39;
+    v26 = *v38;
     do
     {
       for (m = 0; m != v25; ++m)
       {
-        if (*v39 != v26)
+        if (*v38 != v26)
         {
           objc_enumerationMutation(v12);
         }
 
-        v28 = *(*(&v38 + 1) + 8 * m);
+        v28 = *(*(&v37 + 1) + 8 * m);
         v29 = [DDContextMenuAction identificationStringsForMenuElement:v28 useDefault:0];
         v30 = [v29 firstObject];
 
-        if (!v30 || ([v36 containsObject:v30] & 1) == 0)
+        if (!v30 || ([v35 containsObject:v30] & 1) == 0)
         {
-          [v37 addObject:v28];
+          [v36 addObject:v28];
         }
       }
 
-      v25 = [v12 countByEnumeratingWithState:&v38 objects:v54 count:16];
+      v25 = [v12 countByEnumeratingWithState:&v37 objects:v53 count:16];
     }
 
     while (v25);
 LABEL_45:
-    a1 = v35;
+    a1 = v34;
   }
 
 LABEL_46:
 
-  v31 = [MEMORY[0x277D75710] menuWithTitle:*(a1 + 48) image:0 identifier:*(a1 + 56) options:*(a1 + 64) children:v37];
-
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = [MEMORY[0x277D75710] menuWithTitle:*(a1 + 48) image:0 identifier:*(a1 + 56) options:*(a1 + 64) children:v36];
 
   return v31;
 }
@@ -1539,34 +1535,34 @@ LABEL_6:
 
 - (id)_updateMenuElementItems:(id)items withActions:(id)actions view:(id)view interactionDelegate:(id)delegate options:(int64_t)options level:(unint64_t)level parent:(id)parent
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   actionsCopy = actions;
   viewCopy = view;
   delegateCopy = delegate;
   parentCopy = parent;
-  v62 = itemsCopy;
-  v69 = actionsCopy;
-  v60 = viewCopy;
+  v61 = itemsCopy;
+  v68 = actionsCopy;
+  v59 = viewCopy;
   if (!itemsCopy)
   {
     v17 = 0;
     goto LABEL_74;
   }
 
-  v83[0] = MEMORY[0x277D85DD0];
-  v83[1] = 3221225472;
-  v83[2] = __105__DDContextMenuAction__updateMenuElementItems_withActions_view_interactionDelegate_options_level_parent___block_invoke;
-  v83[3] = &unk_278291578;
+  v82[0] = MEMORY[0x277D85DD0];
+  v82[1] = 3221225472;
+  v82[2] = __105__DDContextMenuAction__updateMenuElementItems_withActions_view_interactionDelegate_options_level_parent___block_invoke;
+  v82[3] = &unk_278291578;
   v15 = viewCopy;
-  v84 = v15;
-  [(DDActionGroup *)actionsCopy finalizeWithFilter:v83];
+  v83 = v15;
+  [(DDActionGroup *)actionsCopy finalizeWithFilter:v82];
   if ([(DDActionGroup *)actionsCopy count])
   {
     objc_initWeak(&location, v15);
     children = [(DDActionGroup *)actionsCopy children];
 
-    v58 = options & 5;
+    v57 = options & 5;
     if (children)
     {
       array = [MEMORY[0x277CBEB18] array];
@@ -1580,17 +1576,17 @@ LABEL_6:
         inlinedGroup = 0;
       }
 
-      v80 = 0u;
-      v81 = 0u;
       v79 = 0u;
+      v80 = 0u;
       v78 = 0u;
+      v77 = 0u;
       children2 = [(DDActionGroup *)actionsCopy children];
       v23 = 0;
       v19 = 0;
-      v24 = [children2 countByEnumeratingWithState:&v78 objects:v86 count:16];
+      v24 = [children2 countByEnumeratingWithState:&v77 objects:v85 count:16];
       if (v24)
       {
-        v25 = *v79;
+        v25 = *v78;
         do
         {
           v26 = children2;
@@ -1599,12 +1595,12 @@ LABEL_6:
           v29 = v19;
           do
           {
-            if (*v79 != v25)
+            if (*v78 != v25)
             {
               objc_enumerationMutation(v26);
             }
 
-            v23 = [(DDContextMenuAction *)self _updateMenuElementItems:array withActions:*(*(&v78 + 1) + 8 * v27) view:v15 interactionDelegate:delegateCopy options:options level:(inlinedGroup ^ 1) + level parent:v69];
+            v23 = [(DDContextMenuAction *)self _updateMenuElementItems:array withActions:*(*(&v77 + 1) + 8 * v27) view:v15 interactionDelegate:delegateCopy options:options level:(inlinedGroup ^ 1) + level parent:v68];
 
             v19 = selectDefaultAction(v29, v23);
 
@@ -1615,7 +1611,7 @@ LABEL_6:
 
           while (v24 != v27);
           children2 = v26;
-          v24 = [v26 countByEnumeratingWithState:&v78 objects:v86 count:16];
+          v24 = [v26 countByEnumeratingWithState:&v77 objects:v85 count:16];
         }
 
         while (v24);
@@ -1625,13 +1621,13 @@ LABEL_6:
       {
         if (array)
         {
-          [v62 addObjectsFromArray:?];
+          [v61 addObjectsFromArray:?];
         }
 
         goto LABEL_67;
       }
 
-      mainAction = [(DDActionGroup *)v69 mainAction];
+      mainAction = [(DDActionGroup *)v68 mainAction];
 
       [mainAction setTreatAsMenu:1];
       if (inlinedGroup)
@@ -1648,7 +1644,7 @@ LABEL_6:
 
         else
         {
-          if (v58 == 5)
+          if (v57 == 5)
           {
             [mainAction serviceCompactName];
           }
@@ -1667,7 +1663,7 @@ LABEL_6:
       menuIcon = [mainAction menuIcon];
       generateIdentifier = [mainAction generateIdentifier];
       v35 = [v32 menuWithTitle:v30 image:menuIcon identifier:generateIdentifier options:inlinedGroup children:array];
-      [v62 addObject:v35];
+      [v61 addObject:v35];
 
       [mainAction setTreatAsMenu:0];
 LABEL_66:
@@ -1717,7 +1713,7 @@ LABEL_68:
           if (!_serviceIdentifier)
           {
 LABEL_78:
-            if (v58 == 5)
+            if (v57 == 5)
             {
               [ddAction serviceCompactName];
             }
@@ -1737,25 +1733,25 @@ LABEL_13:
             goto LABEL_48;
           }
 
-          v76 = 0u;
-          v77 = 0u;
-          v74 = 0u;
           v75 = 0u;
+          v76 = 0u;
+          v73 = 0u;
+          v74 = 0u;
           children4 = [(DDActionGroup *)parentCopy children];
-          v41 = [children4 countByEnumeratingWithState:&v74 objects:v85 count:16];
+          v41 = [children4 countByEnumeratingWithState:&v73 objects:v84 count:16];
           if (v41)
           {
-            v42 = *v75;
+            v42 = *v74;
             while (2)
             {
               for (i = 0; i != v41; ++i)
               {
-                if (*v75 != v42)
+                if (*v74 != v42)
                 {
                   objc_enumerationMutation(children4);
                 }
 
-                ddAction2 = [(DDActionGroup *)*(*(&v74 + 1) + 8 * i) ddAction];
+                ddAction2 = [(DDActionGroup *)*(*(&v73 + 1) + 8 * i) ddAction];
                 _serviceIdentifier2 = [ddAction2 _serviceIdentifier];
                 v46 = [_serviceIdentifier2 isEqualToString:_serviceIdentifier];
 
@@ -1767,7 +1763,7 @@ LABEL_13:
                 }
               }
 
-              v41 = [children4 countByEnumeratingWithState:&v74 objects:v85 count:16];
+              v41 = [children4 countByEnumeratingWithState:&v73 objects:v84 count:16];
               if (v41)
               {
                 continue;
@@ -1789,7 +1785,7 @@ LABEL_13:
     }
 
 LABEL_48:
-    if (v58 == 5)
+    if (v57 == 5)
     {
       [ddAction oneLinerLocalizedSubItemName];
     }
@@ -1826,15 +1822,15 @@ LABEL_52:
     }
 
     generateIdentifier2 = [v47 generateIdentifier];
-    v70[0] = MEMORY[0x277D85DD0];
-    v70[1] = 3221225472;
-    v70[2] = __105__DDContextMenuAction__updateMenuElementItems_withActions_view_interactionDelegate_options_level_parent___block_invoke_2;
-    v70[3] = &unk_2782915A0;
+    v69[0] = MEMORY[0x277D85DD0];
+    v69[1] = 3221225472;
+    v69[2] = __105__DDContextMenuAction__updateMenuElementItems_withActions_view_interactionDelegate_options_level_parent___block_invoke_2;
+    v69[3] = &unk_2782915A0;
     array = v47;
-    v71 = array;
-    objc_copyWeak(&v73, &location);
-    v72 = delegateCopy;
-    v53 = [v48 actionWithTitle:mainAction image:v51 identifier:generateIdentifier2 handler:v70];
+    v70 = array;
+    objc_copyWeak(&v72, &location);
+    v71 = delegateCopy;
+    v53 = [v48 actionWithTitle:mainAction image:v51 identifier:generateIdentifier2 handler:v69];
 
     if (v50)
     {
@@ -1857,10 +1853,10 @@ LABEL_52:
     [v53 setSubtitle:v54];
 
     [v53 setAttributes:{objc_msgSend(array, "menuItemattributes")}];
-    [v62 addObject:v53];
+    [v61 addObject:v53];
 
-    objc_destroyWeak(&v73);
-    v30 = v71;
+    objc_destroyWeak(&v72);
+    v30 = v70;
     goto LABEL_66;
   }
 
@@ -1868,7 +1864,6 @@ LABEL_52:
 LABEL_73:
 
 LABEL_74:
-  v56 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -2147,22 +2142,20 @@ LABEL_68:
 
 + (void)previewActionForResult:(uint64_t)a1 URL:context:.cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown result type %@ in the Misc category; no actions found", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown result type %@ in the Misc category; no actions found", &v1, 0xCu);
 }
 
 + (void)previewActionForResult:(uint64_t)a1 URL:(int)a2 context:.cold.2(uint64_t a1, int a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109378;
-  v3[1] = a2;
-  v4 = 2112;
-  v5 = a1;
-  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown DDResult category %d for result %@; could not find any actions", v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109378;
+  v2[1] = a2;
+  v3 = 2112;
+  v4 = a1;
+  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown DDResult category %d for result %@; could not find any actions", v2, 0x12u);
 }
 
 @end

@@ -109,22 +109,21 @@ void __115__WFRecordAudioActionUIKitUserInterface_showWithOutputFormat_startImme
   [v8 dismissViewControllerAnimated:1 completion:v12];
 }
 
-void __115__WFRecordAudioActionUIKitUserInterface_showWithOutputFormat_startImmediately_recordingDuration_completionHandler___block_invoke_3(void *a1)
+void __115__WFRecordAudioActionUIKitUserInterface_showWithOutputFormat_startImmediately_recordingDuration_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v1 = a1[4];
-  v2 = a1[5];
+  v1 = *(a1 + 32);
+  v2 = *(a1 + 40);
   if (v1)
   {
-    v5 = [MEMORY[0x277CFC3C8] fileWithURL:v1 options:1];
-    [v2 finishWithFileRepresentation:v5 error:0];
+    v4 = [MEMORY[0x277CFC3C8] fileWithURL:v1 options:1];
+    [v2 finishWithFileRepresentation:v4 error:0];
   }
 
   else
   {
-    v3 = a1[6];
-    v4 = a1[5];
+    v3 = *(a1 + 40);
 
-    [v4 finishWithFileRepresentation:? error:?];
+    [v3 finishWithFileRepresentation:? error:?];
   }
 }
 

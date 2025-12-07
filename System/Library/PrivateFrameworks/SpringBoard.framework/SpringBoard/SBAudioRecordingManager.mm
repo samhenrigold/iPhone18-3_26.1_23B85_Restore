@@ -218,7 +218,7 @@ void __82__SBAudioRecordingManager__verifyBackgroundAudioActivityForApplication_
   v2 = [*(a1 + 32) bundleIdentifier];
   v21[0] = @"com.apple.camera";
   v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-  if ([v3 containsObject:v2])
+  if (objc_msgSend_containsObject_(v3))
   {
     v4 = SBLogStatusBarish();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -392,7 +392,7 @@ LABEL_12:
 {
   if (attribution)
   {
-    [attribution auditToken];
+    objc_msgSend_auditToken(attribution, a2, 0, 0);
   }
 
   return BSPIDForAuditToken();

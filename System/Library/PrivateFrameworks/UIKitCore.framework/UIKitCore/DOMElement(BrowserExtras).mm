@@ -31,7 +31,7 @@
   v3 = [ownerDocument getComputedStyle:self pseudoElement:&stru_1EFB14550];
 
   v4 = [v3 getPropertyValue:@"visibility"];
-  LODWORD(ownerDocument) = [v4 isEqualToString:@"visible"];
+  LODWORD(ownerDocument) = objc_msgSend_isEqualToString_(v4);
 
   v5 = ownerDocument ^ 1;
   return v5;

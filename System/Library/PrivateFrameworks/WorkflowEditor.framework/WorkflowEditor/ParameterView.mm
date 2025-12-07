@@ -15,13 +15,13 @@
 {
   width = fits.width;
   selfCopy = self;
-  v5 = sub_2745F90C8(width);
-  v7 = v6;
+  v6 = sub_2745F90C8(selfCopy, v5, width);
+  v8 = v7;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 

@@ -160,7 +160,7 @@
 
 - (id)_foundationMeasurement
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   _foundationUnit = [(HKUnit *)self->_unit _foundationUnit];
   if (_foundationUnit)
   {
@@ -171,32 +171,32 @@
   else
   {
     +[HKUnit _foundationBaseUnits];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v6 = v16 = 0u;
-    _foundationUnit2 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = v15 = 0u;
+    _foundationUnit2 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (_foundationUnit2)
     {
-      v7 = *v14;
+      v7 = *v13;
 LABEL_5:
       v8 = 0;
       while (1)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v6);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
-        if ([(HKQuantity *)self isCompatibleWithUnit:v9, v13])
+        v9 = *(*(&v12 + 1) + 8 * v8);
+        if ([(HKQuantity *)self isCompatibleWithUnit:v9, v12])
         {
           break;
         }
 
         if (_foundationUnit2 == ++v8)
         {
-          _foundationUnit2 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+          _foundationUnit2 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (_foundationUnit2)
           {
             goto LABEL_5;
@@ -223,8 +223,6 @@ LABEL_14:
       v5 = 0;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

@@ -72,7 +72,7 @@ uint64_t __36__FedStatsDataCohort_sharedInstance__block_invoke(uint64_t a1)
 
 + (id)keysForCohorts:(id)cohorts namespaceID:(id)d parameters:(id)parameters possibleError:(id *)error
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   cohortsCopy = cohorts;
   dCopy = d;
   parametersCopy = parameters;
@@ -83,30 +83,30 @@ uint64_t __36__FedStatsDataCohort_sharedInstance__block_invoke(uint64_t a1)
   if (v13)
   {
     errorCopy = error;
-    v39 = dCopy;
+    v38 = dCopy;
     v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(cohortsCopy, "count")}];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     obj = cohortsCopy;
-    v15 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
+    v15 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v44;
-      v36 = v11;
-      v37 = cohortsCopy;
+      v17 = *v43;
+      v35 = v11;
+      v36 = cohortsCopy;
 LABEL_4:
       v18 = 0;
       while (1)
       {
-        if (*v44 != v17)
+        if (*v43 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v43 + 1) + 8 * v18);
+        v19 = *(*(&v42 + 1) + 8 * v18);
         if (([v13 containsObject:v19] & 1) == 0)
         {
           break;
@@ -115,12 +115,12 @@ LABEL_4:
         v20 = [FedStatsCohortFactory cohortQueryFieldByName:v19];
         if (!v20)
         {
-          cohortsCopy = v37;
+          cohortsCopy = v36;
           v29 = errorCopy;
-          dCopy = v39;
+          dCopy = v38;
           if (errorCopy)
           {
-            [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cohort is not implemented.", v19, v35];
+            [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cohort is not implemented.", v19, v34];
             v30 = LABEL_25:;
             v31 = [FedStatsError errorWithCode:900 description:v30];
             v32 = *v29;
@@ -131,29 +131,29 @@ LABEL_4:
         }
 
         v21 = v20;
-        v42 = 0;
-        v22 = [v20 cohortKeyForParameters:parametersCopy possibleError:&v42];
+        v41 = 0;
+        v22 = [v20 cohortKeyForParameters:parametersCopy possibleError:&v41];
         v23 = +[_PFLLog framework];
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412802;
-          v48 = v19;
-          v49 = 2112;
-          v50 = v22;
-          v51 = 2112;
-          v52 = v39;
+          v47 = v19;
+          v48 = 2112;
+          v49 = v22;
+          v50 = 2112;
+          v51 = v38;
           _os_log_debug_impl(&dword_21A3C2000, v23, OS_LOG_TYPE_DEBUG, "cohortName:cohortKey => %@=%@ for namespace %@", buf, 0x20u);
         }
 
-        if (v42)
+        if (v41)
         {
           v24 = +[_PFLLog framework];
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v48 = v19;
-            v49 = 2112;
-            v50 = v42;
+            v47 = v19;
+            v48 = 2112;
+            v49 = v41;
             _os_log_debug_impl(&dword_21A3C2000, v24, OS_LOG_TYPE_DEBUG, "%@ cohort error while creating the key: %@", buf, 0x16u);
           }
         }
@@ -162,9 +162,9 @@ LABEL_4:
 
         if (v16 == ++v18)
         {
-          v16 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
-          v11 = v36;
-          cohortsCopy = v37;
+          v16 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
+          v11 = v35;
+          cohortsCopy = v36;
           if (v16)
           {
             goto LABEL_4;
@@ -174,26 +174,26 @@ LABEL_4:
         }
       }
 
-      cohortsCopy = v37;
+      cohortsCopy = v36;
       v29 = errorCopy;
-      dCopy = v39;
+      dCopy = v38;
       if (errorCopy)
       {
-        [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cohort is not approved for %@ namespace.", v19, v39];
+        [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cohort is not approved for %@ namespace.", v19, v38];
         goto LABEL_25;
       }
 
 LABEL_26:
 
       v25 = 0;
-      v11 = v36;
+      v11 = v35;
       goto LABEL_27;
     }
 
 LABEL_17:
 
     v25 = [MEMORY[0x277CBEA60] arrayWithArray:v14];
-    dCopy = v39;
+    dCopy = v38;
 LABEL_27:
   }
 
@@ -209,8 +209,6 @@ LABEL_27:
 
     v25 = 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

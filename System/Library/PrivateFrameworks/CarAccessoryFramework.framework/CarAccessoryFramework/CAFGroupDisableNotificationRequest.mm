@@ -73,109 +73,107 @@ uint64_t __49__CAFGroupDisableNotificationRequest_addControl___block_invoke(uint
   if (!v4 || (v5 = v4, (objc_opt_isKindOfClass() & 1) == 0))
   {
 
-    v6 = CAFGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CAFGeneralLogging(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [CAFGroupEnableNotificationRequest groupRequestValueForRequests:v6];
+      [CAFGroupEnableNotificationRequest groupRequestValueForRequests:v7];
     }
 
     v5 = 0;
   }
 
-  v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  if (v9)
+  v9 = v5;
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v21;
+    v11 = v10;
+    v12 = *v21;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v11)
+        if (*v21 != v12)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
-        characteristic = [v13 characteristic];
+        v14 = *(*(&v20 + 1) + 8 * i);
+        characteristic = [v14 characteristic];
         registrationInstanceIDs = [characteristic registrationInstanceIDs];
-        [v7 addObjectsFromArray:registrationInstanceIDs];
+        [v8 addObjectsFromArray:registrationInstanceIDs];
 
-        control = [v13 control];
+        control = [v14 control];
         registrationInstanceIDs2 = [control registrationInstanceIDs];
-        [v7 addObjectsFromArray:registrationInstanceIDs2];
+        [v8 addObjectsFromArray:registrationInstanceIDs2];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 - (void)completedRequests:(id)requests withResponse:(id)response
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   values = [response values];
 
   if (values)
   {
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
-    v29 = requestsCopy;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v28 = requestsCopy;
     obj = requestsCopy;
-    v7 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+    v7 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v40;
+      v9 = *v39;
       do
       {
         v10 = 0;
         do
         {
-          if (*v40 != v9)
+          if (*v39 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v39 + 1) + 8 * v10);
+          v11 = *(*(&v38 + 1) + 8 * v10);
+          v34 = 0u;
           v35 = 0u;
           v36 = 0u;
           v37 = 0u;
-          v38 = 0u;
           characteristic = [v11 characteristic];
           registrationInstanceIDs = [characteristic registrationInstanceIDs];
 
-          v14 = [registrationInstanceIDs countByEnumeratingWithState:&v35 objects:v44 count:16];
+          v14 = [registrationInstanceIDs countByEnumeratingWithState:&v34 objects:v43 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v36;
+            v16 = *v35;
             do
             {
               v17 = 0;
               do
               {
-                if (*v36 != v16)
+                if (*v35 != v16)
                 {
                   objc_enumerationMutation(registrationInstanceIDs);
                 }
 
-                v18 = *(*(&v35 + 1) + 8 * v17);
+                v18 = *(*(&v34 + 1) + 8 * v17);
                 characteristic2 = [v11 characteristic];
                 [characteristic2 handleRegistrationWithInstanceID:v18 registered:0];
 
@@ -183,35 +181,35 @@ uint64_t __49__CAFGroupDisableNotificationRequest_addControl___block_invoke(uint
               }
 
               while (v15 != v17);
-              v15 = [registrationInstanceIDs countByEnumeratingWithState:&v35 objects:v44 count:16];
+              v15 = [registrationInstanceIDs countByEnumeratingWithState:&v34 objects:v43 count:16];
             }
 
             while (v15);
           }
 
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
           v32 = 0u;
+          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           control = [v11 control];
           registrationInstanceIDs2 = [control registrationInstanceIDs];
 
-          v22 = [registrationInstanceIDs2 countByEnumeratingWithState:&v31 objects:v43 count:16];
+          v22 = [registrationInstanceIDs2 countByEnumeratingWithState:&v30 objects:v42 count:16];
           if (v22)
           {
             v23 = v22;
-            v24 = *v32;
+            v24 = *v31;
             do
             {
               v25 = 0;
               do
               {
-                if (*v32 != v24)
+                if (*v31 != v24)
                 {
                   objc_enumerationMutation(registrationInstanceIDs2);
                 }
 
-                v26 = *(*(&v31 + 1) + 8 * v25);
+                v26 = *(*(&v30 + 1) + 8 * v25);
                 control2 = [v11 control];
                 [control2 handleRegistrationWithInstanceID:v26 registered:0];
 
@@ -219,7 +217,7 @@ uint64_t __49__CAFGroupDisableNotificationRequest_addControl___block_invoke(uint
               }
 
               while (v23 != v25);
-              v23 = [registrationInstanceIDs2 countByEnumeratingWithState:&v31 objects:v43 count:16];
+              v23 = [registrationInstanceIDs2 countByEnumeratingWithState:&v30 objects:v42 count:16];
             }
 
             while (v23);
@@ -229,16 +227,14 @@ uint64_t __49__CAFGroupDisableNotificationRequest_addControl___block_invoke(uint
         }
 
         while (v10 != v8);
-        v8 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+        v8 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
       }
 
       while (v8);
     }
 
-    requestsCopy = v29;
+    requestsCopy = v28;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

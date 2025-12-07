@@ -27,47 +27,46 @@
 
 - (HMDSelectedAudioParameters)initWithCoder:(id)coder
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v28.receiver = self;
-  v28.super_class = HMDSelectedAudioParameters;
-  v5 = [(HMDSelectedAudioParameters *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = HMDSelectedAudioParameters;
+  v5 = [(HMDSelectedAudioParameters *)&v27 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v32[0] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+    v31[0] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"kAudioParameters_CodecGroup"];
     codecGroup = v5->_codecGroup;
     v5->_codecGroup = v9;
 
     v11 = MEMORY[0x277CBEB98];
-    v31 = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+    v30 = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"kAudioParameters_CodecParameters"];
     codecParameters = v5->_codecParameters;
     v5->_codecParameters = v14;
 
     v16 = MEMORY[0x277CBEB98];
-    v30 = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+    v29 = objc_opt_class();
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
     v18 = [v16 setWithArray:v17];
     v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"kAudioParameters_RTPParameter"];
     rtpParameters = v5->_rtpParameters;
     v5->_rtpParameters = v19;
 
     v21 = MEMORY[0x277CBEB98];
-    v29 = objc_opt_class();
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+    v28 = objc_opt_class();
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
     v23 = [v21 setWithArray:v22];
     v24 = [coderCopy decodeObjectOfClasses:v23 forKey:@"kAudioParameters_ComfortNoise"];
     comfortNoiseEnabled = v5->_comfortNoiseEnabled;
     v5->_comfortNoiseEnabled = v24;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -96,16 +95,16 @@
 
 - (BOOL)_parseFromTLVData
 {
-  v32[4] = *MEMORY[0x277D85DE8];
+  v31[4] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFEC08] wrappertlv:1 name:@"kAudioParameters_CodecGroup"];
   v4 = [MEMORY[0x277CFEB38] wrappertlv:2 name:@"kAudioParameters_CodecParameters"];
   v5 = [MEMORY[0x277CFEB38] wrappertlv:3 name:@"kAudioParameters_RTPParameter"];
   v6 = [MEMORY[0x277CFEC08] wrappertlv:4 name:@"kAudioParameters_ComfortNoise"];
-  v32[0] = v3;
-  v32[1] = v4;
-  v32[2] = v5;
-  v32[3] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:4];
+  v31[0] = v3;
+  v31[1] = v4;
+  v31[2] = v5;
+  v31[3] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:4];
   if ([(HAPTLVBase *)self _parse:v7])
   {
     v8 = [HMDAudioCodecGroup alloc];
@@ -138,7 +137,6 @@
     v29 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 

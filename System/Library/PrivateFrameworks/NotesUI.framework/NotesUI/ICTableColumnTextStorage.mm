@@ -473,7 +473,7 @@ uint64_t __49__ICTableColumnTextStorage_insertionIndexForRow___block_invoke(uint
   {
 LABEL_22:
     mergeableStringDelegates = [(ICTableColumnTextStorage *)self mergeableStringDelegates];
-    v29 = [mergeableStringDelegates objectForKeyedSubscript:v8];
+    v29 = objc_msgSend_objectForKeyedSubscript_(mergeableStringDelegates);
 
     if (!v29)
     {
@@ -494,7 +494,7 @@ LABEL_25:
 void __48__ICTableColumnTextStorage_rowLocationForRowID___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) mergeableStringDelegates];
-  v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
+  v3 = objc_msgSend_objectForKeyedSubscript_(v2);
 
   if (v3)
   {
@@ -521,7 +521,7 @@ void __48__ICTableColumnTextStorage_rowLocationForRowID___block_invoke_2(uint64_
   v13 = [v10 mutableCopy];
 
   v11 = MEMORY[0x1E69B7618];
-  v12 = [v8 objectForKeyedSubscript:*MEMORY[0x1E69B7618]];
+  v12 = objc_msgSend_objectForKeyedSubscript_(v8);
 
   [v13 setObject:v12 forKeyedSubscript:*v11];
   [*(a1 + 40) setAttributes:v13 range:{a3, a4}];
@@ -737,7 +737,7 @@ void __56__ICTableColumnTextStorage_edited_range_changeInLength___block_invoke_2
   v13 = [v10 mutableCopy];
 
   v11 = MEMORY[0x1E69B7618];
-  v12 = [v8 objectForKeyedSubscript:*MEMORY[0x1E69B7618]];
+  v12 = objc_msgSend_objectForKeyedSubscript_(v8);
 
   [v13 setObject:v12 forKeyedSubscript:*v11];
   [*(a1 + 40) setAttributes:v13 range:{a3, a4}];

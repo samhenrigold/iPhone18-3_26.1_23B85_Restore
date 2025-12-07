@@ -602,7 +602,7 @@ LABEL_15:
       v42 = photoIrisProperties;
       if (photoIrisProperties)
       {
-        [photoIrisProperties photoIrisVideoDuration];
+        objc_msgSend_photoIrisVideoDuration(photoIrisProperties);
       }
 
       else
@@ -616,7 +616,7 @@ LABEL_15:
       v44 = photoIrisProperties2;
       if (photoIrisProperties2)
       {
-        [photoIrisProperties2 photoIrisStillDisplayTime];
+        objc_msgSend_photoIrisStillDisplayTime(photoIrisProperties2);
       }
 
       else
@@ -1042,8 +1042,9 @@ void __69__NTKCompanionResourceDirectoryEditor__imageDataForAsset_completion___b
   }
 }
 
-void __69__NTKCompanionResourceDirectoryEditor__imageDataForAsset_completion___block_invoke_60(uint64_t a1, void *a2, uint64_t a3, int a4, void *a5)
+void __69__NTKCompanionResourceDirectoryEditor__imageDataForAsset_completion___block_invoke_60(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
+  v6 = a4;
   v8 = a2;
   v9 = [a5 objectForKeyedSubscript:*MEMORY[0x277CD9BF8]];
   if (v9)
@@ -1059,7 +1060,7 @@ void __69__NTKCompanionResourceDirectoryEditor__imageDataForAsset_completion___b
 
   else
   {
-    NTKCGImagePropertyOrientationToUIImageOrientation(a4);
+    NTKCGImagePropertyOrientationToUIImageOrientation(v6);
     v11 = v8;
   }
 

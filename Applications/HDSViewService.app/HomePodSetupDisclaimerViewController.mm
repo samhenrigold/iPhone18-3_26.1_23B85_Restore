@@ -1,6 +1,7 @@
 @interface HomePodSetupDisclaimerViewController
 - (_TtC14HDSViewService36HomePodSetupDisclaimerViewController)initWithContentView:(id)view;
 - (void)moreInfoButtonTapped:(id)tapped;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -10,6 +11,20 @@
 {
   selfCopy = self;
   sub_100014904();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for HomePodSetupDisclaimerViewController(0);
+  v4 = v5.receiver;
+  [(HomePodSetupDisclaimerViewController *)&v5 viewDidAppear:appearCopy];
+  if (swift_unknownObjectWeakLoadStrong())
+  {
+    sub_10007EA04();
+    swift_unknownObjectRelease();
+  }
 }
 
 - (void)moreInfoButtonTapped:(id)tapped
@@ -30,7 +45,7 @@
   *&self->PRXCardContentViewController_opaque[OBJC_IVAR____TtC14HDSViewService36HomePodSetupDisclaimerViewController____lazy_storage___moreInfoButton] = 0;
   *&self->PRXCardContentViewController_opaque[OBJC_IVAR____TtC14HDSViewService36HomePodSetupDisclaimerViewController____lazy_storage___disclaimerLabel] = 0;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for HomePodSetupDisclaimerViewController();
+  v8.super_class = type metadata accessor for HomePodSetupDisclaimerViewController(0);
   return [(HomePodSetupDisclaimerViewController *)&v8 initWithContentView:view];
 }
 

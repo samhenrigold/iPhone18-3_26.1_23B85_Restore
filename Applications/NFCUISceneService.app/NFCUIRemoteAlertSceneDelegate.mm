@@ -43,10 +43,10 @@
 {
   sub_100002238(0, &qword_10001DAF0, SBUIRemoteAlertButtonAction_ptr);
   sub_1000043A8();
-  static Set._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sceneCopy = scene;
   selfCopy = self;
-  sub_100006150();
+  sub_100006150(v6);
 }
 
 - (_TtC17NFCUISceneService29NFCUIRemoteAlertSceneDelegate)init

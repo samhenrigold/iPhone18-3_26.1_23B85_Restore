@@ -1,58 +1,91 @@
-void sub_254C55858(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254C55858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va, MEMORY[0x277D82828]);
-  MEMORY[0x259C28F60](v2 + 112);
+  MEMORY[0x259C28F60](v3 + 112);
   _Unwind_Resume(a1);
 }
 
-void InputTranscoder::PathKeyLayoutProcessor::input_feature_stream_for_path(InputTranscoder::PathKeyLayoutProcessor *this@<X0>, const InputTranscoder::Path *a2@<X1>, void *a3@<X8>)
+void InputTranscoder::PathKeyLayoutProcessor::input_feature_stream_for_path(InputTranscoder::PathKeyLayoutProcessor *this@<X0>, const InputTranscoder::Path *a2@<X1>, BOOL a3@<W2>, unsigned int a4@<W3>, BOOL a5@<W4>, int a6@<W5>, void *a7@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  InputTranscoder::PathKeyLayoutProcessor::input_stream_for_path(this, a2, &v11);
+  v16 = *MEMORY[0x277D85DE8];
+  InputTranscoder::PathKeyLayoutProcessor::input_stream_for_path(&v14, this, a2);
   __asm { FMOV            V0.2S, #-1.0 }
 
-  a3[1] = 0;
-  a3[2] = 0;
-  *a3 = 0;
-  v9 = v12 - v11;
-  if (v12 != v11)
+  a7[1] = 0;
+  a7[2] = 0;
+  *a7 = 0;
+  v13 = v15 - v14;
+  if (v15 != v14)
   {
-    if (!((v9 >> 2) >> 59))
+    if (!((v13 >> 2) >> 59))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<InputTranscoder::InputFeature>>(a3, v9 >> 2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<InputTranscoder::InputFeature>>(a7, v13 >> 2);
     }
 
     std::vector<InputTranscoder::InputFeature>::__throw_length_error[abi:ne200100]();
   }
 
-  if (v11)
+  if (v14)
   {
-    v12 = v11;
-    operator delete(v11);
+    v15 = v14;
+    operator delete(v14);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t InputTranscoder::PathKeyLayoutProcessor::input_stream_for_path@<X0>(uint64_t this@<X0>, const InputTranscoder::Path *a2@<X1>, void *a3@<X8>)
+void InputTranscoder::PathKeyLayoutProcessor::input_stream_for_path(const void **__return_ptr a1@<X8>, InputTranscoder::PathKeyLayoutProcessor *this@<X0>, const InputTranscoder::Path *a3@<X1>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  v4 = (*(a2 + 1) - *a2) >> 6;
-  if (v4 >= 4)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v7 = (*(a3 + 1) - *a3) >> 6;
+  if (v7 >= 4)
   {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a3, v4 >> 2);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(a1, v7 >> 2);
   }
 
-  if (*(a2 + 1) != *a2)
+  if (*(a3 + 1) != *a3)
   {
-    v5 = *(this + 8);
-    InputTranscoder::PathKeyLayoutProcessor::keystr_for_touch(this, *a2, &__p);
+    InputTranscoder::PathKeyLayoutProcessor::keystr_for_touch(this, *a3, &__p);
   }
+}
 
-  return this;
+{
+  v22[4] = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<float>::reserve(a1, (*(a3 + 1) - *a3) >> 5);
+  __asm { FMOV            V0.2S, #-1.0 }
+
+  v21 = -_D0;
+  v11 = *a3;
+  v12 = *(a3 + 1);
+  if (*a3 != v12)
+  {
+    v13 = *a3;
+    do
+    {
+      v14 = *(this + 3);
+      v22[0] = &unk_2867142D0;
+      v22[1] = v11;
+      v22[2] = &v21;
+      v22[3] = v22;
+      v15 = (*(**v14 + 64))(*v13, v13[1], *&v21, *(&v21 + 1));
+      v17 = v16;
+      std::__function::__value_func<CGPoint const ()(InputTranscoder::KeyboardLayout &)>::~__value_func[abi:ne200100](v22);
+      v18 = v15;
+      *v22 = v18;
+      v19 = v17;
+      v20 = v19;
+      std::vector<float>::push_back[abi:ne200100](a1, v22);
+      std::vector<float>::push_back[abi:ne200100](a1, &v20);
+      v13 += 8;
+      v11 += 64;
+    }
+
+    while (v13 != v12);
+  }
 }
 
 void sub_254C55CF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -67,47 +100,6 @@ void sub_254C55CF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void InputTranscoder::PathKeyLayoutProcessor::input_stream_for_path(InputTranscoder::PathKeyLayoutProcessor *this@<X0>, const InputTranscoder::Path *a2@<X1>, const void **a3@<X8>)
-{
-  v23[4] = *MEMORY[0x277D85DE8];
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  std::vector<float>::reserve(a3, (*(a2 + 1) - *a2) >> 5);
-  __asm { FMOV            V0.2S, #-1.0 }
-
-  v22 = -_D0;
-  v11 = *a2;
-  v12 = *(a2 + 1);
-  if (*a2 != v12)
-  {
-    v13 = *a2;
-    do
-    {
-      v14 = *(this + 3);
-      v23[0] = &unk_2867142D0;
-      v23[1] = v11;
-      v23[2] = &v22;
-      v23[3] = v23;
-      v15 = (*(**v14 + 64))(*v13, v13[1], *&v22, *(&v22 + 1));
-      v17 = v16;
-      std::__function::__value_func<CGPoint const ()(InputTranscoder::KeyboardLayout &)>::~__value_func[abi:ne200100](v23);
-      v18 = v15;
-      *v23 = v18;
-      v19 = v17;
-      v21 = v19;
-      std::vector<float>::push_back[abi:ne200100](a3, v23);
-      std::vector<float>::push_back[abi:ne200100](a3, &v21);
-      v13 += 8;
-      v11 += 64;
-    }
-
-    while (v13 != v12);
-  }
-
-  v20 = *MEMORY[0x277D85DE8];
-}
-
 void sub_254C55E8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
 {
   v14 = *v12;
@@ -120,7 +112,7 @@ void sub_254C55E8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -169,7 +161,7 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -177,89 +169,75 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
 
 void InputTranscoder::PathKeyLayoutProcessor::keystr_for_touch(uint64_t a1@<X0>, __int128 *a2@<X1>, void *a3@<X8>)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  v5 = *(a1 + 40);
-  if (v5 > 1)
+  v3 = *(a1 + 40);
+  if (v3 > 1)
   {
-    if (v5 == 2)
+    if (v3 == 2)
     {
-      v21 = *(a1 + 24);
-      v22 = a2[1];
-      v31 = *a2;
-      v32 = v22;
-      v23 = a2[3];
-      v33 = a2[2];
-      v34 = v23;
-      v24 = *(a1 + 44);
+      v12 = a2[1];
+      v15 = *a2;
+      v16 = v12;
+      v13 = a2[3];
+      v17 = a2[2];
+      v18 = v13;
       operator new();
     }
 
-    if (v5 == 3)
+    if (v3 == 3)
     {
-      v9 = *(a1 + 24);
-      v10 = a2[1];
-      v31 = *a2;
-      v32 = v10;
-      v11 = a2[3];
-      v33 = a2[2];
-      v34 = v11;
-      v12 = *(a1 + 44);
+      v6 = a2[1];
+      v15 = *a2;
+      v16 = v6;
+      v7 = a2[3];
+      v17 = a2[2];
+      v18 = v7;
       operator new();
     }
   }
 
   else
   {
-    if (!v5)
+    if (!v3)
     {
-      v17 = *(a1 + 24);
-      v18 = a2[1];
-      v31 = *a2;
-      v32 = v18;
-      v19 = a2[3];
-      v33 = a2[2];
-      v34 = v19;
-      v20 = *(a1 + 44);
+      v10 = a2[1];
+      v15 = *a2;
+      v16 = v10;
+      v11 = a2[3];
+      v17 = a2[2];
+      v18 = v11;
       operator new();
     }
 
-    if (v5 == 1)
+    if (v3 == 1)
     {
-      v6 = *(a1 + 24);
-      v7 = (*(**(a1 + 8) + 16))(*(a1 + 8));
-      v28 = a2[3];
-      v27 = a2[2];
-      v26 = a2[1];
-      v25 = *a2;
-      v29 = *(a1 + 44);
-      if (*(v7 + 23) < 0)
+      v4 = (*(**(a1 + 8) + 16))(*(a1 + 8));
+      if (*(v4 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, *v7, *(v7 + 8));
+        std::string::__init_copy_ctor_external(&__p, *v4, *(v4 + 8));
       }
 
       else
       {
-        v8 = *v7;
-        __p.__r_.__value_.__r.__words[2] = *(v7 + 16);
-        *&__p.__r_.__value_.__l.__data_ = v8;
+        v5 = *v4;
+        __p.__r_.__value_.__r.__words[2] = *(v4 + 16);
+        *&__p.__r_.__value_.__l.__data_ = v5;
       }
 
-      *(&v32 + 1) = 0;
+      *(&v16 + 1) = 0;
       operator new();
     }
   }
 
-  v13 = *(a1 + 24);
-  v14 = a2[1];
-  v31 = *a2;
-  v32 = v14;
-  v15 = a2[3];
-  v33 = a2[2];
-  v34 = v15;
-  v16 = *(a1 + 44);
+  v8 = a2[1];
+  v15 = *a2;
+  v16 = v8;
+  v9 = a2[3];
+  v17 = a2[2];
+  v18 = v9;
   operator new();
 }
 
@@ -313,7 +291,7 @@ void InputTranscoder::getNearestKey(double *a1@<X0>, uint64_t a2@<X1>, char a3@<
   }
 }
 
-void sub_254C56564(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_254C56564(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   _Block_object_dispose(&a17, 8);
   if (a27 < 0)
@@ -372,28 +350,29 @@ void InputTranscoder::getNearestKeyOrUnk(double *a1@<X0>, uint64_t a2@<X1>, char
   }
 }
 
-void sub_254C5670C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_254C5670C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
-  if (*(v11 - 17) < 0)
+  _Block_object_dispose((v18 - 80), 8);
+  if (*(v18 - 17) < 0)
   {
-    operator delete(*(v11 - 40));
+    operator delete(*(v18 - 40));
   }
 
   _Unwind_Resume(a1);
 }
 
-void InputTranscoder::getEnclosingOrNearestKey(double *a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, std::string *a4@<X8>)
+void InputTranscoder::getEnclosingOrNearestKey(double *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, std::string *a4@<X8>)
 {
+  v4 = a3;
   v12 = 0;
   memset(v11, 0, sizeof(v11));
   (*(*a2 + 24))(v11, a2, *a1, a1[1]);
   nlp::getUTF8StringFromCFString(v12, &__p);
-  if (a3)
+  if (v4)
   {
-    InputTranscoder::transformNonLetterKeys(&__p, &v9);
+    InputTranscoder::transformNonLetterKeys(&v9, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -403,7 +382,7 @@ void InputTranscoder::getEnclosingOrNearestKey(double *a1@<X0>, uint64_t a2@<X1>
   }
 
   v8 = (*(*a2 + 80))(a2);
-  if (InputTranscoder::keyIsValid(v11, a3, v8))
+  if (InputTranscoder::keyIsValid(v11, v4, v8))
   {
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -418,7 +397,7 @@ void InputTranscoder::getEnclosingOrNearestKey(double *a1@<X0>, uint64_t a2@<X1>
 
   else
   {
-    InputTranscoder::getNearestKey(a1, a2, a3, a4);
+    InputTranscoder::getNearestKey(a1, a2, v4, a4);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -482,14 +461,14 @@ void InputTranscoder::getMostProbableMultiKey(double *a1@<X0>, uint64_t a2@<X1>,
   }
 }
 
-void sub_254C569FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_254C569FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
-  if (*(v9 - 17) < 0)
+  _Block_object_dispose((v16 - 80), 8);
+  if (*(v16 - 17) < 0)
   {
-    operator delete(*(v9 - 40));
+    operator delete(*(v16 - 40));
   }
 
   _Unwind_Resume(a1);
@@ -561,7 +540,7 @@ LABEL_24:
 
 uint64_t InputTranscoder::PathKeyLayoutProcessor::key_class_for_touch_key(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 44);
   v5 = *(a1 + 24);
   __p.__r_.__value_.__r.__words[0] = &unk_286714480;
@@ -569,33 +548,29 @@ uint64_t InputTranscoder::PathKeyLayoutProcessor::key_class_for_touch_key(uint64
   v6 = (*(**v5 + 80))();
   IsValid = InputTranscoder::keyIsValid(a2, v4, v6);
   std::__function::__value_func<BOOL ()(InputTranscoder::KeyboardLayout &)>::~__value_func[abi:ne200100](&__p);
-  if (IsValid)
+  if (!IsValid)
   {
-    nlp::getUTF8StringFromCFString(*(a2 + 48), &__p);
-    if (*(a1 + 44) == 1)
-    {
-      InputTranscoder::transformNonLetterKeys(&__p, &v11);
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-      }
+    return 0;
+  }
 
-      __p = v11;
-    }
-
-    v8 = InputTranscoder::map_to_key_class(&__p);
+  nlp::getUTF8StringFromCFString(*(a2 + 48), &__p);
+  if (*(a1 + 44) == 1)
+  {
+    InputTranscoder::transformNonLetterKeys(&v10, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
+
+    __p = v10;
   }
 
-  else
+  v8 = InputTranscoder::map_to_key_class(&__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    v8 = 0;
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -806,29 +781,29 @@ LABEL_65:
   return v7 & 1;
 }
 
-void InputTranscoder::transformNonLetterKeys(uint64_t a1@<X0>, std::string *a2@<X8>)
+void InputTranscoder::transformNonLetterKeys(std::string *__return_ptr a1@<X8>, char *a2@<X0>)
 {
-  v4 = *(a1 + 23);
-  v5 = *a1;
-  v6 = *(a1 + 8);
+  v4 = a2[23];
+  v5 = *a2;
+  v6 = *(a2 + 1);
   if ((v4 & 0x80u) == 0)
   {
-    v7 = a1;
+    v7 = a2;
   }
 
   else
   {
-    v7 = *a1;
+    v7 = *a2;
   }
 
   if ((v4 & 0x80u) == 0)
   {
-    v8 = *(a1 + 23);
+    v8 = a2[23];
   }
 
   else
   {
-    v8 = *(a1 + 8);
+    v8 = *(a2 + 1);
   }
 
   v9 = &v7[v8];
@@ -880,12 +855,12 @@ void InputTranscoder::transformNonLetterKeys(uint64_t a1@<X0>, std::string *a2@<
 
   else
   {
-    v13 = a1;
+    v13 = a2;
     v14 = v4;
     if (v4 == 5)
     {
-      v15 = *a1 == 1718184051 && *(a1 + 4) == 116;
-      v13 = a1;
+      v15 = *a2 == 1718184051 && a2[4] == 116;
+      v13 = a2;
       if (!v15)
       {
 LABEL_21:
@@ -898,7 +873,7 @@ LABEL_28:
       v18 = "shift";
 LABEL_99:
 
-      std::string::basic_string[abi:ne200100]<0>(a2, v18);
+      std::string::basic_string[abi:ne200100]<0>(a1, v18);
       return;
     }
   }
@@ -983,11 +958,11 @@ LABEL_59:
 
   else
   {
-    v5 = a1;
+    v5 = a2;
     if (v4 == 6)
     {
-      v24 = *a1 == 1701602660 && *(a1 + 4) == 25972;
-      v5 = a1;
+      v24 = *a2 == 1701602660 && *(a2 + 2) == 25972;
+      v5 = a2;
       if (!v24)
       {
 LABEL_52:
@@ -1114,33 +1089,31 @@ LABEL_71:
     while (v9 - v35 >= 1);
   }
 
-  if (std::string::find[abi:ne200100](a1, " ") != -1 || std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a1, "space"))
+  if (std::string::find[abi:ne200100](a2, " ") != -1 || std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, "space"))
   {
     v18 = "space";
     goto LABEL_99;
   }
 
-  if (*(a1 + 23) < 0)
+  if (a2[23] < 0)
   {
-    v37 = *a1;
-    v38 = *(a1 + 8);
+    v37 = *a2;
+    v38 = *(a2 + 1);
 
-    std::string::__init_copy_ctor_external(a2, v37, v38);
+    std::string::__init_copy_ctor_external(a1, v37, v38);
   }
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *a1;
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *&a1->__r_.__value_.__l.__data_ = *a2;
+    a1->__r_.__value_.__r.__words[2] = *(a2 + 2);
   }
 }
 
-uint64_t InputTranscoder::PathKeyLayoutProcessor::getInflectionString@<X0>(uint64_t result@<X0>, __int128 **a2@<X1>, void *a3@<X8>)
+void InputTranscoder::PathKeyLayoutProcessor::getInflectionString(__int128 **a2@<X1>, std::string *a3@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *&a3->__r_.__value_.__l.__data_ = 0uLL;
+  a3->__r_.__value_.__r.__words[2] = 0;
   v3 = *a2;
   v4 = a2[1];
   if (*a2 != v4)
@@ -1149,22 +1122,14 @@ uint64_t InputTranscoder::PathKeyLayoutProcessor::getInflectionString@<X0>(uint6
     {
       if ((*(v3 + 56) & 1) == 0)
       {
-        v5 = *(result + 24);
-        v7 = *v3;
-        v8 = v3[1];
-        v9 = v3[2];
-        v10 = v3[3];
         operator new();
       }
 
-      v3 += 4;
+      v3 += 64;
     }
 
     while (v3 != v4);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void sub_254C57590(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23)
@@ -1216,7 +1181,7 @@ void InputTranscoder::getNearestKeyWithoutValidCheck(double *a1@<X0>, uint64_t a
   }
 }
 
-void sub_254C57704(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+void sub_254C57704(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
 {
   _Block_object_dispose(&a15, 8);
   if (a25 < 0)
@@ -1255,7 +1220,7 @@ void ___ZN15InputTranscoderL13getNearestKeyERKNS_10PathSampleERNS_14KeyboardLayo
     nlp::getUTF8StringFromCFString(*(a2 + 48), &__str);
     if (*(a1 + 48))
     {
-      InputTranscoder::transformNonLetterKeys(&__str, &v9);
+      InputTranscoder::transformNonLetterKeys(&v9, &__str);
       v8 = *(*(a1 + 32) + 8);
       if (*(v8 + 63) < 0)
       {
@@ -1300,16 +1265,16 @@ __n128 __Block_byref_object_copy__4(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void ___ZN15InputTranscoderL18getNearestKeyOrUnkERKNS_10PathSampleERNS_14KeyboardLayoutEbRKNSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEE_block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void ___ZN15InputTranscoderL18getNearestKeyOrUnkERKNS_10PathSampleERNS_14KeyboardLayoutEbRKNSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEE_block_invoke(uint64_t a1, const __CFString **a2, _BYTE *a3)
 {
   v6 = *(a1 + 72);
   v7 = (*(**(a1 + 48) + 80))(*(a1 + 48));
   if (InputTranscoder::keyIsValid(a2, v6, v7))
   {
-    nlp::getUTF8StringFromCFString(*(a2 + 48), &__str);
+    nlp::getUTF8StringFromCFString(a2[6], &__str);
     if (*(a1 + 72))
     {
-      InputTranscoder::transformNonLetterKeys(&__str, &v16);
+      InputTranscoder::transformNonLetterKeys(&v16, &__str);
       v8 = *(*(a1 + 32) + 8);
       if (*(v8 + 63) < 0)
       {
@@ -1327,9 +1292,9 @@ void ___ZN15InputTranscoderL18getNearestKeyOrUnkERKNS_10PathSampleERNS_14Keyboar
     *a3 = 1;
     v9 = *(*(a1 + 40) + 8);
     v10 = *a2;
-    v11 = *(a2 + 16);
-    v12 = *(a2 + 32);
-    *(v9 + 88) = *(a2 + 48);
+    v11 = *(a2 + 1);
+    v12 = *(a2 + 2);
+    *(v9 + 88) = a2[6];
     *(v9 + 72) = v12;
     *(v9 + 56) = v11;
     *(v9 + 40) = v10;
@@ -1401,7 +1366,7 @@ void ___ZN15InputTranscoderL23getMostProbableMultiKeyERKNS_10PathSampleERNS_14Ke
     if (v17 != 0x616469646E61637BLL || v18 != 0x7D72614265746164)
     {
 LABEL_19:
-      InputTranscoder::transformNonLetterKeys(&v23, &__p);
+      InputTranscoder::transformNonLetterKeys(&__p, &v23);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_p = &__p;
@@ -1527,7 +1492,7 @@ BOOL std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<ch
   return 0;
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(const void **a1, char *__s)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(const void ***a1, char *__s)
 {
   v3 = *(a1 + 23);
   if (v3 >= 0)
@@ -1569,7 +1534,7 @@ uint64_t std::string::find[abi:ne200100](char **a1, char *__s)
   if (result)
   {
     v6 = result;
-    v7 = &v3[v4];
+    v7 = v3 + v4;
     if (v4 >= result)
     {
       v9 = *__s;
@@ -1593,7 +1558,7 @@ uint64_t std::string::find[abi:ne200100](char **a1, char *__s)
           goto LABEL_6;
         }
 
-        v10 = v8 + 1;
+        v10 = (v8 + 1);
         v4 = v7 - (v8 + 1);
       }
 
@@ -1621,7 +1586,7 @@ void ___ZN15InputTranscoderL30getNearestKeyWithoutValidCheckERKNS_10PathSampleER
   nlp::getUTF8StringFromCFString(*(a2 + 48), &__str);
   if (*(a1 + 40))
   {
-    InputTranscoder::transformNonLetterKeys(&__str, &v6);
+    InputTranscoder::transformNonLetterKeys(&v6, &__str);
     v5 = *(*(a1 + 32) + 8);
     if (*(v5 + 63) < 0)
     {
@@ -2058,14 +2023,14 @@ LABEL_16:
   return (v6 - v5) >> 6;
 }
 
-void InputTranscoder::PathResampler::drop_non_resampled_path(InputTranscoder::PathResampler *this, unsigned int a2)
+void InputTranscoder::PathResampler::drop_non_resampled_path(uint64_t this, unsigned int a2)
 {
   if (a2 >= 2)
   {
     v14 = v2;
     v15 = v3;
     v5 = this + 80;
-    v4 = *(this + 10);
+    v4 = *(this + 80);
     v6 = v4 + (a2 << 6);
     if (*(v6 + 40) == 1)
     {
@@ -2084,13 +2049,13 @@ void InputTranscoder::PathResampler::drop_non_resampled_path(InputTranscoder::Pa
         v11 = *(v6 + 48);
         v12[2] = *(v6 + 32);
         v12[3] = v11;
-        *(this + 5) = *(this + 4);
-        *(this + 8) = *(this + 7);
-        *(this + 11) = v4;
-        *(this + 14) = *(this + 13);
+        *(this + 40) = *(this + 32);
+        *(this + 64) = *(this + 56);
+        *(this + 88) = v4;
+        *(this + 112) = *(this + 104);
         *(this + 128) = 0;
-        *(this + 33) = 0;
-        *(this + 34) = 0;
+        *(this + 132) = 0;
+        *(this + 136) = 0;
         std::vector<InputTranscoder::PathSample>::push_back[abi:ne200100](this + 80, v13);
         std::vector<InputTranscoder::PathSample>::push_back[abi:ne200100](v5, v12);
       }
@@ -2163,7 +2128,7 @@ LABEL_7:
     while (v13);
   }
 
-  InputTranscoder::Path::resize((this + 32), (v10 - v9) >> 6);
+  InputTranscoder::Path::resize(this + 4, (v10 - v9) >> 6);
   v19 = *(this + 5) - *(this + 4);
   v20 = *(this + 33);
   for (*(this + 33) = v2; v2 < v20; *(this + 33) = v2)
@@ -2361,12 +2326,12 @@ uint64_t InputTranscoder::PathResampler::finalize(InputTranscoder::PathResampler
   return v2;
 }
 
-void InputTranscoder::PathResampler::getInflectionPoints(__int128 **this@<X0>, void *a2@<X8>)
+void InputTranscoder::PathResampler::getInflectionPoints(uint64_t *__return_ptr a1@<X8>, __int128 **this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<InputTranscoder::PathSample>::push_back[abi:ne200100](a2, this[4]);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<InputTranscoder::PathSample>::push_back[abi:ne200100](a1, this[4]);
   v4 = this[7];
   v5 = this[8];
   while (v4 != v5)
@@ -2377,14 +2342,14 @@ void InputTranscoder::PathResampler::getInflectionPoints(__int128 **this@<X0>, v
       v7 = this[4];
       if (((this[5] - v7) >> 6) - 1 != v6)
       {
-        std::vector<InputTranscoder::PathSample>::push_back[abi:ne200100](a2, &v7[4 * v6]);
+        std::vector<InputTranscoder::PathSample>::push_back[abi:ne200100](a1, &v7[4 * v6]);
       }
     }
 
     ++v4;
   }
 
-  std::vector<InputTranscoder::PathSample>::push_back[abi:ne200100](a2, &this[4][4 * (((this[5] - this[4]) >> 6) - 1)]);
+  std::vector<InputTranscoder::PathSample>::push_back[abi:ne200100](a1, &this[4][4 * (((this[5] - this[4]) >> 6) - 1)]);
 }
 
 void sub_254C590A8(_Unwind_Exception *exception_object)
@@ -2470,32 +2435,32 @@ void std::vector<InputTranscoder::PathSample>::push_back[abi:ne200100](uint64_t 
   *(a1 + 8) = v9;
 }
 
-void InputTranscoder::getTouchUpPoints(InputTranscoder *this@<X0>, void *a2@<X8>)
+void InputTranscoder::getTouchUpPoints(uint64_t *__return_ptr a1@<X8>, InputTranscoder *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<InputTranscoder::PathSample>::reserve(a2, ((*(this + 1) - *this) >> 6) >> 1);
-  v6 = *this;
-  v5 = *(this + 1);
-  if (v5 != *this)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<InputTranscoder::PathSample>::reserve(a1, ((*(this + 1) - *this) >> 6) >> 1);
+  v5 = *this;
+  v4 = *(this + 1);
+  if (v4 != *this)
   {
+    v6 = 0;
     v7 = 0;
-    v8 = 0;
     do
     {
-      if (*(v6 + v7 + 40) == 2)
+      if (*(v5 + v6 + 40) == 2)
       {
-        std::vector<InputTranscoder::PathSample>::push_back[abi:ne200100](a2, (v6 + v7));
-        v6 = *this;
-        v5 = *(this + 1);
+        std::vector<InputTranscoder::PathSample>::push_back[abi:ne200100](a1, (v5 + v6));
+        v5 = *this;
+        v4 = *(this + 1);
       }
 
-      ++v8;
-      v7 += 64;
+      ++v7;
+      v6 += 64;
     }
 
-    while (v8 < (v5 - v6) >> 6);
+    while (v7 < (v4 - v5) >> 6);
   }
 }
 
@@ -2563,20 +2528,17 @@ void InputTranscoder::PathResampler::pop_last_path(InputTranscoder::PathResample
   }
 }
 
-void *std::vector<InputTranscoder::PathSample>::reserve(void *result, unint64_t a2)
+void std::vector<InputTranscoder::PathSample>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 6)
+  if (a2 > (a1[2] - *a1) >> 6)
   {
     if (!(a2 >> 58))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<InputTranscoder::PathSample>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<InputTranscoder::PathSample>>(a1, a2);
     }
 
     std::vector<InputTranscoder::InputFeature>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t InputTranscoder::createMRLModel(uint64_t a1)
@@ -2649,10 +2611,10 @@ LABEL_8:
   goto LABEL_8;
 }
 
-uint64_t InputTranscoder::MontrealModel::recognize(uint64_t *a1, unsigned int *a2, unint64_t a3)
+uint64_t InputTranscoder::MontrealModel::recognize(void *a1, unsigned int *a2, unint64_t a3)
 {
   ptr = a2;
-  v33 = a3;
+  v29 = a3;
   if (_nlpSignpostLog::token != -1)
   {
     dispatch_once(&_nlpSignpostLog::token, &__block_literal_global_3);
@@ -2676,9 +2638,9 @@ uint64_t InputTranscoder::MontrealModel::recognize(uint64_t *a1, unsigned int *a
 
   v6 = a1[1];
   v7 = ptr;
-  v8 = v33;
+  v8 = v29;
   v9 = a1[3];
-  if (v33 > (v9 - v6) >> 2)
+  if (v29 > (v9 - v6) >> 2)
   {
     if (v6)
     {
@@ -2708,19 +2670,19 @@ uint64_t InputTranscoder::MontrealModel::recognize(uint64_t *a1, unsigned int *a
         v11 = v10;
       }
 
-      std::vector<float>::__vallocate[abi:ne200100]((a1 + 1), v11);
+      std::vector<float>::__vallocate[abi:ne200100](a1 + 1, v11);
     }
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
 
   v12 = a1[2];
-  if (v33 <= v12 - v6)
+  if (v29 <= v12 - v6)
   {
     v17 = a1[1];
-    if (v33)
+    if (v29)
     {
-      v19 = 4 * v33;
+      v19 = 4 * v29;
       v17 = a1[1];
       do
       {
@@ -2735,7 +2697,7 @@ uint64_t InputTranscoder::MontrealModel::recognize(uint64_t *a1, unsigned int *a
 
   else
   {
-    v13 = &ptr[v33];
+    v13 = &ptr[v29];
     v14 = (ptr + v12 - v6);
     if (v12 != v6)
     {
@@ -2766,14 +2728,13 @@ uint64_t InputTranscoder::MontrealModel::recognize(uint64_t *a1, unsigned int *a
 
   a1[2] = v17;
   err = 0;
-  v21 = *a1;
   MRLNeuralNetworkSetInput();
   if (err)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "MRLNeuralNetworkSetInput");
     InputTranscoder::logMontrealError(__p, err);
 LABEL_35:
-    if (v30 < 0)
+    if (v26 < 0)
     {
       operator delete(__p[0]);
     }
@@ -2781,7 +2742,6 @@ LABEL_35:
     return 0;
   }
 
-  v22 = *a1;
   MRLNeuralNetworkPredict();
   if (err)
   {
@@ -2790,7 +2750,6 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v23 = *a1;
   Output = MRLNeuralNetworkGetOutput();
   if (err)
   {
@@ -2799,8 +2758,7 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v25 = Output;
-  v27 = *a1;
+  v22 = Output;
   MRLNeuralNetworkGetOutputDimension();
   if (_nlpSignpostLog::token != -1)
   {
@@ -2809,15 +2767,15 @@ LABEL_35:
 
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v28 = _nlpSignpostLog::log;
+    v24 = _nlpSignpostLog::log;
     if (os_signpost_enabled(_nlpSignpostLog::log))
     {
       LOWORD(__p[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_254C34000, v28, OS_SIGNPOST_INTERVAL_END, v4, "MontrealRecognition", &unk_254C6731B, __p, 2u);
+      _os_signpost_emit_with_name_impl(&dword_254C34000, v24, OS_SIGNPOST_INTERVAL_END, v4, "MontrealRecognition", &unk_254C6731B, __p, 2u);
     }
   }
 
-  return v25;
+  return v22;
 }
 
 void sub_254C5994C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -2832,7 +2790,7 @@ void sub_254C5994C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void InputTranscoder::logMontrealError(uint64_t *a1, CFErrorRef err)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = CFErrorCopyDescription(err);
   if (_nlpDefaultLog::token != -1)
   {
@@ -2840,42 +2798,42 @@ void InputTranscoder::logMontrealError(uint64_t *a1, CFErrorRef err)
   }
 
   v5 = _nlpDefaultLog::log;
-  if (os_log_type_enabled(_nlpDefaultLog::log, OS_LOG_TYPE_ERROR))
+  if (!os_log_type_enabled(_nlpDefaultLog::log, OS_LOG_TYPE_ERROR))
   {
-    if (*(a1 + 23) >= 0)
-    {
-      v7 = a1;
-    }
-
-    else
-    {
-      v7 = *a1;
-    }
-
-    *buf = 136315394;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_error_impl(&dword_254C34000, v5, OS_LOG_TYPE_ERROR, "%s() failed: %@", buf, 0x16u);
     if (!v4)
     {
       goto LABEL_6;
     }
+
+    goto LABEL_5;
   }
 
-  else if (!v4)
+  if (*(a1 + 23) >= 0)
   {
-    goto LABEL_6;
+    v6 = a1;
   }
 
-  CFRelease(v4);
+  else
+  {
+    v6 = *a1;
+  }
+
+  *buf = 136315394;
+  v8 = v6;
+  v9 = 2112;
+  v10 = v4;
+  _os_log_error_impl(&dword_254C34000, v5, OS_LOG_TYPE_ERROR, "%s() failed: %@", buf, 0x16u);
+  if (v4)
+  {
+LABEL_5:
+    CFRelease(v4);
+  }
+
 LABEL_6:
   if (err)
   {
     CFRelease(err);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_254C59A90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
@@ -2888,43 +2846,42 @@ void sub_254C59A90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t InputTranscoder::MontrealModel::recognize(uint64_t *a1, char *a2, unint64_t a3)
+uint64_t InputTranscoder::MontrealModel::recognize(void *a1, char *a2, unint64_t a3, uint64_t a4)
 {
   ptr = a2;
-  v36 = a3;
+  v31 = a3;
   if (_nlpSignpostLog::token != -1)
   {
     dispatch_once(&_nlpSignpostLog::token, &__block_literal_global_3);
   }
 
-  v4 = os_signpost_id_make_with_pointer(_nlpSignpostLog::log, &ptr);
+  v5 = os_signpost_id_make_with_pointer(_nlpSignpostLog::log, &ptr);
   if (_nlpSignpostLog::token != -1)
   {
     dispatch_once(&_nlpSignpostLog::token, &__block_literal_global_3);
   }
 
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v5 = _nlpSignpostLog::log;
+    v6 = _nlpSignpostLog::log;
     if (os_signpost_enabled(_nlpSignpostLog::log))
     {
       LOWORD(__p[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_254C34000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v4, "MontrealRecognition", &unk_254C6731B, __p, 2u);
+      _os_signpost_emit_with_name_impl(&dword_254C34000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v5, "MontrealRecognition", &unk_254C6731B, __p, 2u);
     }
   }
 
-  v6 = a1 + 1;
   v7 = a1[1];
-  v8 = v36;
+  v8 = v31;
   v9 = a1[3];
-  if (v36 > (v9 - v7) >> 2)
+  if (v31 > (v9 - v7) >> 2)
   {
     if (v7)
     {
       a1[2] = v7;
       operator delete(v7);
       v9 = 0;
-      *v6 = 0;
+      a1[1] = 0;
       a1[2] = 0;
       a1[3] = 0;
     }
@@ -2947,7 +2904,7 @@ uint64_t InputTranscoder::MontrealModel::recognize(uint64_t *a1, char *a2, unint
         v11 = v10;
       }
 
-      std::vector<float>::__vallocate[abi:ne200100]((a1 + 1), v11);
+      std::vector<float>::__vallocate[abi:ne200100](a1 + 1, v11);
     }
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
@@ -2955,12 +2912,12 @@ uint64_t InputTranscoder::MontrealModel::recognize(uint64_t *a1, char *a2, unint
 
   v12 = a1[2];
   v13 = v12 - v7;
-  if (v36 <= (v12 - v7) >> 2)
+  if (v31 <= (v12 - v7) >> 2)
   {
-    v20 = 4 * v36;
-    if (v36)
+    v20 = 4 * v31;
+    if (v31)
     {
-      memmove(a1[1], ptr, 4 * v36);
+      memmove(a1[1], ptr, 4 * v31);
     }
 
     v19 = &v7[v20];
@@ -2968,7 +2925,7 @@ uint64_t InputTranscoder::MontrealModel::recognize(uint64_t *a1, char *a2, unint
 
   else
   {
-    v14 = &ptr[4 * v36];
+    v14 = &ptr[4 * v31];
     v15 = &ptr[v13];
     if (v12 != v7)
     {
@@ -2999,26 +2956,23 @@ uint64_t InputTranscoder::MontrealModel::recognize(uint64_t *a1, char *a2, unint
   a1[2] = v19;
   err = 0;
   v21 = MRLNeuralNetworkTensorCreate();
-  v33 = v21;
-  v22 = *v6;
+  v28 = v21;
   MRLNeuralNetworkTensorAppendData();
-  v23 = *a1;
   MRLNeuralNetworkSetInputTensor();
   if (err)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "MRLNeuralNetworkSetInput");
     InputTranscoder::logMontrealError(__p, err);
 LABEL_34:
-    if (v32 < 0)
+    if (v27 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v27 = 0;
+    v23 = 0;
     goto LABEL_37;
   }
 
-  v24 = *a1;
   MRLNeuralNetworkPredict();
   if (err)
   {
@@ -3027,7 +2981,6 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v25 = *a1;
   Output = MRLNeuralNetworkGetOutput();
   if (err)
   {
@@ -3036,21 +2989,20 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v27 = Output;
-  v29 = *a1;
+  v23 = Output;
   MRLNeuralNetworkGetOutputDimension();
   if (_nlpSignpostLog::token != -1)
   {
     dispatch_once(&_nlpSignpostLog::token, &__block_literal_global_3);
   }
 
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v30 = _nlpSignpostLog::log;
+    v25 = _nlpSignpostLog::log;
     if (os_signpost_enabled(_nlpSignpostLog::log))
     {
       LOWORD(__p[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_254C34000, v30, OS_SIGNPOST_INTERVAL_END, v4, "MontrealRecognition", &unk_254C6731B, __p, 2u);
+      _os_signpost_emit_with_name_impl(&dword_254C34000, v25, OS_SIGNPOST_INTERVAL_END, v5, "MontrealRecognition", &unk_254C6731B, __p, 2u);
     }
   }
 
@@ -3060,7 +3012,7 @@ LABEL_37:
     CFRelease(v21);
   }
 
-  return v27;
+  return v23;
 }
 
 void nlp::CFScopedPtr<MontrealNeuralNetworkTensor *>::reset(const void **a1)
@@ -3074,9 +3026,9 @@ void nlp::CFScopedPtr<MontrealNeuralNetworkTensor *>::reset(const void **a1)
   *a1 = 0;
 }
 
-std::string *InputTranscoder::DecoderImpl::DecoderImpl(std::string *a1, uint64_t a2, std::string::size_type *a3, uint64_t **a4)
+std::string *InputTranscoder::DecoderImpl::DecoderImpl(std::string *a1, uint64_t a2, std::string::size_type *a3, uint64_t *a4)
 {
-  v7 = InputTranscoder::CTCDecoder::CTCDecoder(a1, a2 + 104, a4);
+  v7 = InputTranscoder::CTCDecoder::CTCDecoder(a1, (a2 + 104), a4);
   v8 = a3[1];
   v7[13].__r_.__value_.__l.__size_ = *a3;
   v7[13].__r_.__value_.__r.__words[2] = v8;
@@ -3104,15 +3056,14 @@ void sub_254C59F4C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void InputTranscoder::DecoderImpl::enumerateCandidates(uint64_t *a1, unsigned int *a2, unint64_t a3)
+void InputTranscoder::DecoderImpl::enumerateCandidates(InputTranscoder::CTCDecoder *a1, unsigned int *a2, unint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = InputTranscoder::MontrealModel::recognize(a1 + 42, a2, a3);
-  v5 = a1[42];
+  v6 = InputTranscoder::MontrealModel::recognize(a1 + 42, a2, a3);
   OutputDimension = MRLNeuralNetworkGetOutputDimension();
-  InputTranscoder::CTCDecoder::decode(a1, v4, OutputDimension);
+  InputTranscoder::CTCDecoder::decode(a1, v6, OutputDimension);
 }
 
-void sub_254C5A180(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, char *__p, char *a12, uint64_t a13, uint64_t a14, char a15)
+void sub_254C5A180(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, char *__p, char *a12, uint64_t a13, uint64_t a14, char a15)
 {
   v17 = *(v15 + 56);
   if (v17)
@@ -3131,7 +3082,7 @@ void sub_254C5A180(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(*v15);
   }
 
-  MEMORY[0x259C28FE0](v15, 0x1012C40652C33EFLL);
+  MEMORY[0x259C28FE0](v15, 0x1012C40652C33EFLL, a3, a4, a5, a6, a7, a8);
   if (__p)
   {
     a12 = __p;
@@ -3143,17 +3094,17 @@ void sub_254C5A180(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<unsigned int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_254C5A278(_Unwind_Exception *exception_object)
@@ -3168,7 +3119,7 @@ void sub_254C5A278(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t InputTranscoder::KeyboardLayoutImpl::KeyboardLayoutImpl(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+uint64_t InputTranscoder::KeyboardLayoutImpl::KeyboardLayoutImpl(uint64_t a1, __int128 *a2, unint64_t a3, uint64_t a4)
 {
   *a1 = &unk_286714598;
   *(a1 + 8) = 1;
@@ -3192,7 +3143,7 @@ uint64_t InputTranscoder::KeyboardLayoutImpl::KeyboardLayoutImpl(uint64_t a1, ui
     *(a1 + 72) = 0;
     *(a1 + 80) = 0;
     *(a1 + 88) = 0;
-    std::vector<ITKeyInfo>::__init_with_size[abi:ne200100]<std::__wrap_iter<ITKeyInfo const*>,std::__wrap_iter<ITKeyInfo const*>>(a1 + 72, a2, a2 + 56 * a3, a3);
+    std::vector<ITKeyInfo>::__init_with_size[abi:ne200100]<std::__wrap_iter<ITKeyInfo const*>,std::__wrap_iter<ITKeyInfo const*>>((a1 + 72), a2, (a2 + 56 * a3), a3);
   }
 
   return a1;
@@ -3202,7 +3153,7 @@ double InputTranscoder::calculateFrame(uint64_t a1, uint64_t a2, double *a3, int
 {
   if (!a2)
   {
-    goto LABEL_27;
+    return a3[6];
   }
 
   v6 = a1;
@@ -3282,15 +3233,15 @@ double InputTranscoder::calculateFrame(uint64_t a1, uint64_t a2, double *a3, int
     {
 LABEL_22:
       ++v7;
-      v24.origin.x = x;
-      v24.origin.y = y;
-      v24.size.width = width;
-      v24.size.height = height;
-      v25 = CGRectUnion(v24, *(v6 + 16));
-      x = v25.origin.x;
-      y = v25.origin.y;
-      width = v25.size.width;
-      height = v25.size.height;
+      v21.origin.x = x;
+      v21.origin.y = y;
+      v21.size.width = width;
+      v21.size.height = height;
+      v22 = CGRectUnion(v21, *(v6 + 16));
+      x = v22.origin.x;
+      y = v22.origin.y;
+      width = v22.size.width;
+      height = v22.size.height;
     }
 
     v6 += 56;
@@ -3299,11 +3250,7 @@ LABEL_22:
   while (v6 != v8);
   if (!v7 || width == 0.0 || height == 0.0)
   {
-LABEL_27:
-    x = a3[6];
-    v20 = *(a3 + 7);
-    v22 = *(a3 + 8);
-    v21 = *(a3 + 9);
+    return a3[6];
   }
 
   return x;
@@ -3535,7 +3482,7 @@ void sub_254C5B464(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t InputTranscoder::KeyboardLayoutImpl::KeyboardLayoutImpl(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, const __CFDictionary *a5)
+uint64_t InputTranscoder::KeyboardLayoutImpl::KeyboardLayoutImpl(uint64_t a1, __int128 *a2, unint64_t a3, uint64_t a4, const __CFDictionary *a5)
 {
   *a1 = &unk_286714598;
   Required = InputTranscoder::getRequiredCFType<__CFBoolean const*>(a5, @"isAlphabeticPlane");
@@ -3560,7 +3507,7 @@ uint64_t InputTranscoder::KeyboardLayoutImpl::KeyboardLayoutImpl(uint64_t a1, ui
     *(a1 + 72) = 0;
     *(a1 + 80) = 0;
     *(a1 + 88) = 0;
-    std::vector<ITKeyInfo>::__init_with_size[abi:ne200100]<std::__wrap_iter<ITKeyInfo const*>,std::__wrap_iter<ITKeyInfo const*>>(a1 + 72, a2, a2 + 56 * a3, a3);
+    std::vector<ITKeyInfo>::__init_with_size[abi:ne200100]<std::__wrap_iter<ITKeyInfo const*>,std::__wrap_iter<ITKeyInfo const*>>((a1 + 72), a2, (a2 + 56 * a3), a3);
   }
 
   return a1;
@@ -3930,13 +3877,14 @@ void InputTranscoder::KeyboardLayoutImpl::keyCandidatesForLastTouch(InputTransco
   std::vector<InputTranscoder::KeyCandidateImpl>::__destroy_vector::operator()[abi:ne200100](&v22);
 }
 
-void sub_254C5BE48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_254C5BE48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
-  *(v28 - 112) = v27;
-  std::vector<InputTranscoder::KeyCandidateImpl>::__destroy_vector::operator()[abi:ne200100]((v28 - 112));
+  _Block_object_dispose(va, 8);
+  *(v27 - 112) = v26;
+  std::vector<InputTranscoder::KeyCandidateImpl>::__destroy_vector::operator()[abi:ne200100]((v27 - 112));
   _Unwind_Resume(a1);
 }
 
@@ -4161,14 +4109,25 @@ void sub_254C5C21C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-double InputTranscoder::KeyboardLayoutImpl::normalizePointToRange(uint64_t a1, double a2, double a3, float a4, float a5)
+__n128 InputTranscoder::KeyboardLayoutImpl::getScaledPoint(InputTranscoder::KeyboardLayoutImpl *this, CGPoint a2)
 {
-  v5 = *(a1 + 64);
-  v6 = a5 - a4;
-  v7 = a4;
-  v8 = v6;
-  result = v7 + (a2 - *v5) / v5[2] * v8;
-  v10 = v7 + (a3 - v5[1]) / v5[3] * v8;
+  y = a2.y;
+  if (*(this + 8) == 1)
+  {
+    v6 = a2;
+    v4 = *(this + 8);
+    if (CGRectEqualToRect(*v4->f64, *(this + 16)))
+    {
+      a2 = v6;
+    }
+
+    else
+    {
+      a2 = vmlaq_f64(*v4, v4[1], vdivq_f64(vsubq_f64(v6, *(this + 1)), *(this + 2)));
+    }
+  }
+
+  result.n128_f64[0] = a2.x;
   return result;
 }
 
@@ -4188,20 +4147,18 @@ double InputTranscoder::KeyboardLayoutImpl::getCentroid(InputTranscoder::Keyboar
   v5 = v3[1];
   if (*v3 != v5)
   {
-    while (CFStringGetCharacterAtIndex(*(v4 + 48), 0) != a2)
+    while (CFStringGetCharacterAtIndex(v4[6], 0) != a2)
     {
-      v4 += 56;
+      v4 += 7;
       if (v4 == v5)
       {
         v4 = v5;
-        break;
+        return *v4;
       }
     }
   }
 
-  result = *v4;
-  v7 = *(v4 + 8);
-  return result;
+  return *v4;
 }
 
 double InputTranscoder::KeyboardLayoutImpl::getSpaceCost(InputTranscoder::KeyboardLayoutImpl *this, const unsigned __int16 *a2, const unsigned __int16 *a3)
@@ -4214,21 +4171,21 @@ double InputTranscoder::KeyboardLayoutImpl::getSpaceCost(InputTranscoder::Keyboa
   return 0.0;
 }
 
-double InputTranscoder::KeyboardLayoutImpl::getInsertionCost(InputTranscoder::KeyboardLayoutImpl *this, CFStringRef theString, const __CFString *a3, CFIndex idx, unsigned int a5)
+void InputTranscoder::KeyboardLayoutImpl::getInsertionCost(InputTranscoder::KeyboardLayoutImpl *this, CFStringRef theString, const __CFString *a3, CFIndex idx, unsigned int a5)
 {
   v9 = idx;
   if (CFStringGetCharacterAtIndex(theString, idx) == 32 || CFStringGetCharacterAtIndex(a3, a5) == 32)
   {
     CharacterAtIndex = CFStringGetCharacterAtIndex(theString, v9);
-    v14 = CFStringGetCharacterAtIndex(a3, a5);
-    return InputTranscoder::KeyboardLayoutImpl::getSpaceCost(&CharacterAtIndex, &v14, v10);
+    v13 = CFStringGetCharacterAtIndex(a3, a5);
+    InputTranscoder::KeyboardLayoutImpl::getSpaceCost(&CharacterAtIndex, &v13, v10);
   }
 
   else
   {
-    v12 = CFStringGetCharacterAtIndex(theString, v9);
-    v13 = CFStringGetCharacterAtIndex(a3, a5);
-    return InputTranscoder::KeyboardLayoutImpl::getKeyDistance(this, v12, &v13);
+    v11 = CFStringGetCharacterAtIndex(theString, v9);
+    v12 = CFStringGetCharacterAtIndex(a3, a5);
+    InputTranscoder::KeyboardLayoutImpl::getKeyDistance(this, v11, &v12);
   }
 }
 
@@ -4262,7 +4219,7 @@ double InputTranscoder::KeyboardLayoutImpl::getDeletionCost(InputTranscoder::Key
 
 double InputTranscoder::KeyboardLayoutImpl::getEditDistance(InputTranscoder::KeyboardLayoutImpl *a1, uint64_t a2, uint64_t a3)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v6 = *(a2 + 23);
   if (v6 >= 0)
   {
@@ -4308,7 +4265,7 @@ double InputTranscoder::KeyboardLayoutImpl::getEditDistance(InputTranscoder::Key
   }
 
   v13 = nlp::createCFStringFromString(v11, v12);
-  v53 = v13;
+  v56 = v13;
   if (CFStringFromString && CFStringGetLength(CFStringFromString))
   {
     if (v13 && CFStringGetLength(v13))
@@ -4316,15 +4273,15 @@ double InputTranscoder::KeyboardLayoutImpl::getEditDistance(InputTranscoder::Key
       Length = CFStringGetLength(CFStringFromString);
       v15 = CFStringGetLength(v13);
       std::vector<double>::vector[abi:ne200100](&__p, v15 + 1);
-      std::vector<std::vector<double>>::vector[abi:ne200100](v52, Length + 1);
+      std::vector<std::vector<double>>::vector[abi:ne200100](v55, Length + 1, &__p);
       if (*&__p != 0.0)
       {
-        v56 = *&__p;
+        v59 = *&__p;
         operator delete(__p);
       }
 
-      v16 = v52[0];
-      **v52[0] = 0;
+      v16 = v55[0];
+      **v55[0] = 0;
       if (Length)
       {
         v17 = 1;
@@ -4339,7 +4296,7 @@ double InputTranscoder::KeyboardLayoutImpl::getEditDistance(InputTranscoder::Key
             if (Length > v18 + 1)
             {
               DeletionCost = InputTranscoder::KeyboardLayoutImpl::getDeletionCost(a1, CFStringFromString, (v18 + 1));
-              v16 = v52[0];
+              v16 = v55[0];
             }
 
             *v16[3 * v17] = DeletionCost + *v16[3 * v17];
@@ -4374,15 +4331,15 @@ double InputTranscoder::KeyboardLayoutImpl::getEditDistance(InputTranscoder::Key
           do
           {
             v26 = v25 + 1;
-            InsertionCost = 1.0;
+            v27 = 1.0;
             if (v22 > v25 + 1)
             {
-              InsertionCost = InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, v13, v25, v25);
-              v16 = v52[0];
-              v23 = *v52[0];
+              InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, v13, v25, v25);
+              v16 = v55[0];
+              v23 = *v55[0];
             }
 
-            *(v23 + 8 * v24) = InsertionCost + *(v23 + 8 * v24);
+            *(v23 + 8 * v24) = v27 + *(v23 + 8 * v24);
             v25 = v26;
           }
 
@@ -4400,74 +4357,76 @@ double InputTranscoder::KeyboardLayoutImpl::getEditDistance(InputTranscoder::Key
         {
           if (v15)
           {
-            v48 = v28 - 1;
+            v51 = v28 - 1;
             idx = v28 - 2;
-            v50 = v28 - 1;
+            v53 = v28 - 1;
             v29 = *v16[3 * v28];
             v30 = 1;
-            v51 = v28;
+            v54 = v28;
             do
             {
               if (Length <= v28)
               {
-                v34 = v16[3 * v50];
-                v32 = *(v34 + 8 * v30);
-                v31 = 1.0;
-                v35 = v48;
-                v33 = 1.0;
+                v35 = v16[3 * v53];
+                v33 = *(v35 + 8 * v30);
+                v32 = 1.0;
+                v36 = v51;
+                v34 = 1.0;
               }
 
               else
               {
-                v31 = InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, v13, v28, v30 - 1);
-                v32 = *(*(v52[0] + 24 * v50) + 8 * v30);
+                InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, v13, v28, v30 - 1);
+                v32 = v31;
+                v33 = *(v55[0][3 * v53] + 8 * v30);
                 CFStringFromString = theString;
-                v33 = InputTranscoder::KeyboardLayoutImpl::getDeletionCost(a1, theString, v28);
-                v34 = *(v52[0] + 24 * v50);
-                v35 = v50;
-                v13 = v53;
+                v34 = InputTranscoder::KeyboardLayoutImpl::getDeletionCost(a1, theString, v28);
+                v35 = v55[0][3 * v53];
+                v36 = v53;
+                v13 = v56;
               }
 
-              v36 = *(v34 + 8 * (v30 - 1));
-              v37 = v36 + InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, v13, v35, v30 - 1);
-              if (v51 < 2)
+              v37 = *(v35 + 8 * (v30 - 1));
+              InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, v13, v36, v30 - 1);
+              v39 = v37 + v38;
+              if (v54 < 2)
               {
-                v38 = v37;
+                v42 = v39;
               }
 
-              else if (v30 >= 2 && (v13 = v53, InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, v53, v35, v30 - 2) == 0.0) && (v13 = v53, InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, v53, idx, v30 - 1) == 0.0))
+              else if (v30 >= 2 && (v13 = v56, InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, v56, v36, v30 - 2), v40 == 0.0) && (v13 = v56, InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, v56, idx, v30 - 1), v41 == 0.0))
               {
-                v38 = *(*(v52[0] + 24 * idx) + 8 * (v30 - 2)) + 0.181999996;
+                v42 = *(v55[0][3 * idx] + 8 * (v30 - 2)) + 0.181999996;
               }
 
               else
               {
-                v38 = v37;
+                v42 = v39;
               }
 
-              v39 = v29 + v31;
-              *&__p = v29 + v31;
-              v56 = v32 + v33;
-              v57 = v37;
-              v58 = v38;
+              v43 = v29 + v32;
+              *&__p = v29 + v32;
+              v59 = v33 + v34;
+              v60 = v39;
+              v61 = v42;
               p_p = &__p;
-              v41 = 8;
-              v28 = v51;
+              v45 = 8;
+              v28 = v54;
               do
               {
-                if (*(&__p + v41) < v39)
+                if (*(&__p + v45) < v43)
                 {
-                  v39 = *(&__p + v41);
-                  p_p = (&__p + v41);
+                  v43 = *(&__p + v45);
+                  p_p = (&__p + v45);
                 }
 
-                v41 += 8;
+                v45 += 8;
               }
 
-              while (v41 != 32);
-              v16 = v52[0];
+              while (v45 != 32);
+              v16 = v55[0];
               v29 = *p_p;
-              *(*(v52[0] + 24 * v51) + 8 * v30) = *p_p;
+              *(v55[0][3 * v54] + 8 * v30) = *p_p;
               v21 = v30++ == v15;
             }
 
@@ -4478,11 +4437,11 @@ double InputTranscoder::KeyboardLayoutImpl::getEditDistance(InputTranscoder::Key
         }
 
         while (!v21);
-        v13 = v53;
+        v13 = v56;
       }
 
-      v42 = *(v16[3 * Length] + 8 * v15);
-      *&__p = COERCE_DOUBLE(v52);
+      v46 = *(v16[3 * Length] + 8 * v15);
+      *&__p = COERCE_DOUBLE(v55);
       std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](&__p);
       if (!v13)
       {
@@ -4494,24 +4453,24 @@ LABEL_68:
       goto LABEL_69;
     }
 
-    v43 = *(a2 + 23);
-    v44 = v43;
-    v45 = *(a2 + 8);
+    v47 = *(a2 + 23);
+    v48 = v47;
+    v49 = *(a2 + 8);
   }
 
   else
   {
-    v43 = *(a3 + 23);
-    v44 = v43;
-    v45 = *(a3 + 8);
+    v47 = *(a3 + 23);
+    v48 = v47;
+    v49 = *(a3 + 8);
   }
 
-  if (v44 < 0)
+  if (v48 < 0)
   {
-    v43 = v45;
+    v47 = v49;
   }
 
-  v42 = v43;
+  v46 = v47;
   if (v13)
   {
     goto LABEL_68;
@@ -4523,8 +4482,7 @@ LABEL_69:
     CFRelease(CFStringFromString);
   }
 
-  v46 = *MEMORY[0x277D85DE8];
-  return v42;
+  return v46;
 }
 
 void sub_254C5CB0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, const void *a17, const void *a18, void *__p, uint64_t a20)
@@ -4540,55 +4498,55 @@ void sub_254C5CB0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t InputTranscoder::KeyboardLayoutImpl::getAutocorrectionOperations(InputTranscoder::KeyboardLayoutImpl *a1, uint64_t a2, uint64_t a3)
+uint64_t InputTranscoder::KeyboardLayoutImpl::getAutocorrectionOperations(InputTranscoder::KeyboardLayoutImpl *a1, uint64_t a2, uint64_t *a3)
 {
-  v82 = *MEMORY[0x277D85DE8];
-  InputTranscoder::toLower(a2, v73);
-  InputTranscoder::toLower(a3, v71);
-  if ((v74 & 0x80u) == 0)
+  v81 = *MEMORY[0x277D85DE8];
+  InputTranscoder::toLower(a2, v72);
+  InputTranscoder::toLower(a3, v70);
+  if ((v73 & 0x80u) == 0)
   {
-    v5 = v73;
+    v5 = v72;
   }
 
   else
   {
-    v5 = v73[0];
+    v5 = v72[0];
   }
 
-  if ((v74 & 0x80u) == 0)
+  if ((v73 & 0x80u) == 0)
   {
-    v6 = v74;
+    v6 = v73;
   }
 
   else
   {
-    v6 = v73[1];
+    v6 = v72[1];
   }
 
   CFStringFromString = nlp::createCFStringFromString(v5, v6);
-  v70 = CFStringFromString;
-  if ((v72 & 0x80u) == 0)
+  v69 = CFStringFromString;
+  if ((v71 & 0x80u) == 0)
   {
-    v8 = v71;
+    v8 = v70;
   }
 
   else
   {
-    v8 = v71[0];
+    v8 = v70[0];
   }
 
-  if ((v72 & 0x80u) == 0)
+  if ((v71 & 0x80u) == 0)
   {
-    v9 = v72;
+    v9 = v71;
   }
 
   else
   {
-    v9 = v71[1];
+    v9 = v70[1];
   }
 
   v10 = nlp::createCFStringFromString(v8, v9);
-  v69[3] = v10;
+  v68[3] = v10;
   if (CFStringFromString && CFStringGetLength(CFStringFromString))
   {
     if (!v10)
@@ -4612,22 +4570,22 @@ uint64_t InputTranscoder::KeyboardLayoutImpl::getAutocorrectionOperations(InputT
       v12 = *(a3 + 23);
       if ((v12 & 0x80u) != 0)
       {
-        v12 = *(a3 + 8);
+        v12 = a3[1];
       }
 
-      v66 = v12;
+      v65 = v12;
       std::vector<double>::vector[abi:ne200100](&__p, v12 + 1);
-      std::vector<std::vector<double>>::vector[abi:ne200100](v69, v11 + 1);
+      std::vector<std::vector<double>>::vector[abi:ne200100](v68, v11 + 1, &__p);
       if (*&__p != 0.0)
       {
-        v79 = *&__p;
+        v78 = *&__p;
         operator delete(__p);
       }
 
-      std::vector<unsigned int>::vector[abi:ne200100](&__p, v66 + 1);
-      memset(v68, 0, sizeof(v68));
-      *v75 = v68;
-      v76 = 0;
+      std::vector<unsigned int>::vector[abi:ne200100](&__p, v65 + 1);
+      memset(v67, 0, sizeof(v67));
+      *v74 = v67;
+      v75 = 0;
       if (v11 != -1)
       {
         if ((v11 + 1) < 0xAAAAAAAAAAAAAABLL)
@@ -4640,16 +4598,16 @@ uint64_t InputTranscoder::KeyboardLayoutImpl::getAutocorrectionOperations(InputT
 
       if (*&__p != 0.0)
       {
-        v79 = *&__p;
+        v78 = *&__p;
         operator delete(__p);
       }
 
-      v14 = v69[0];
-      v15 = *v69[0];
-      **v69[0] = 0;
-      v16 = v68[0];
-      v17 = *v68[0];
+      v14 = v68[0];
+      v15 = *v68[0];
       **v68[0] = 0;
+      v16 = v67[0];
+      v17 = *v67[0];
+      **v67[0] = 0;
       v18 = (v16 + 24);
       v19 = v14;
       v20 = -1;
@@ -4666,13 +4624,13 @@ uint64_t InputTranscoder::KeyboardLayoutImpl::getAutocorrectionOperations(InputT
       }
 
       while (v20);
-      if (v66)
+      if (v65)
       {
         v25 = *v15;
         v24 = v15 + 1;
         v26 = v25;
         v27 = (v17 + 4);
-        v28 = v66;
+        v28 = v65;
         do
         {
           v26 = v26 + 0.0909999982;
@@ -4685,18 +4643,18 @@ uint64_t InputTranscoder::KeyboardLayoutImpl::getAutocorrectionOperations(InputT
       }
 
       cf = v10;
-      v63 = a3;
+      v62 = a3;
       v29 = 1;
-      while (!v66)
+      while (!v65)
       {
 LABEL_87:
         v44 = v29++ == -1;
         if (v44)
         {
-          v60 = *(*(v16 - 24) + 4 * v66);
-          *&__p = COERCE_DOUBLE(v68);
+          v60 = *(*(v16 - 24) + 4 * v65);
+          *&__p = COERCE_DOUBLE(v67);
           std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](&__p);
-          *&__p = COERCE_DOUBLE(v69);
+          *&__p = COERCE_DOUBLE(v68);
           std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](&__p);
           v10 = cf;
           goto LABEL_91;
@@ -4704,33 +4662,33 @@ LABEL_87:
       }
 
       v30 = v29 - 1;
-      v64 = v29 - 2;
+      v63 = v29 - 2;
       v31 = *v14[3 * v29];
       v32 = 1;
       while (1)
       {
         v33 = v32 - 1;
-        v34 = v14[3 * v30][v32];
-        v35 = v73;
-        if ((v74 & 0x80u) != 0)
+        v34 = *(v14[3 * v30] + 8 * v32);
+        v35 = v72;
+        if ((v73 & 0x80u) != 0)
         {
-          v35 = v73[0];
+          v35 = v72[0];
         }
 
         v36 = *(v35 + v30);
-        v37 = v71;
-        if ((v72 & 0x80u) != 0)
+        v37 = v70;
+        if ((v71 & 0x80u) != 0)
         {
-          v37 = v71[0];
+          v37 = v70[0];
         }
 
         v38 = *(v37 + v33);
         v39 = v38;
         if (v36 == 32 || v38 == 32)
         {
-          v75[0] = v36;
-          v77 = v38;
-          SpaceCost = InputTranscoder::KeyboardLayoutImpl::getSpaceCost(v75, &v77, v13);
+          v74[0] = v36;
+          v76 = v38;
+          SpaceCost = InputTranscoder::KeyboardLayoutImpl::getSpaceCost(v74, &v76, v13);
           if (SpaceCost == 0.0)
           {
             v42 = 0.0;
@@ -4761,8 +4719,8 @@ LABEL_87:
 
         else
         {
-          v75[0] = v38;
-          KeyDistance = InputTranscoder::KeyboardLayoutImpl::getKeyDistance(a1, v36, v75);
+          v74[0] = v38;
+          KeyDistance = InputTranscoder::KeyboardLayoutImpl::getKeyDistance(a1, v36, v74);
           if (KeyDistance == 0.0)
           {
             v41 = 0;
@@ -4785,7 +4743,7 @@ LABEL_87:
           }
         }
 
-        v45 = *(*(v69[0] + 24 * v30) + 8 * v33);
+        v45 = *(v68[0][3 * v30] + 8 * v33);
         v46 = v42 + v45;
         v47 = v42 + v45;
         if (v29 >= 2)
@@ -4793,15 +4751,15 @@ LABEL_87:
           v47 = v42 + v45;
           if (v32 >= 2)
           {
-            InsertionCost = InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, cf, v29 - 1, v32 - 2);
+            InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, cf, v29 - 1, v32 - 2);
             v47 = v46;
-            if (InsertionCost == 0.0)
+            if (v48 == 0.0)
             {
-              v49 = InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, cf, v64, v32 - 1);
+              InputTranscoder::KeyboardLayoutImpl::getInsertionCost(a1, CFStringFromString, cf, v63, v32 - 1);
               v47 = v46;
               if (v49 == 0.0)
               {
-                v47 = *(*(v69[0] + 24 * v64) + 8 * (v32 - 2)) + 0.0909999982;
+                v47 = *(v68[0][3 * v63] + 8 * (v32 - 2)) + 0.0909999982;
               }
             }
           }
@@ -4809,9 +4767,9 @@ LABEL_87:
 
         v50 = v31 + 0.0909999982;
         *&__p = v31 + 0.0909999982;
-        v79 = v34 + 0.0909999982;
-        v80 = v46;
-        v81 = v47;
+        v78 = v34 + 0.0909999982;
+        v79 = v46;
+        v80 = v47;
         p_p = &__p;
         v52 = v31 + 0.0909999982;
         for (i = 8; i != 32; i += 8)
@@ -4824,12 +4782,12 @@ LABEL_87:
         }
 
         v31 = *p_p;
-        v14 = v69[0];
-        *(*(v69[0] + 24 * v29) + 8 * v32) = v31;
+        v14 = v68[0];
+        *(v68[0][3 * v29] + 8 * v32) = v31;
         if (v31 == v46)
         {
-          v16 = v68[0];
-          v54 = *(*(v68[0] + 24 * v30) + 4 * v33) | v41;
+          v16 = v67[0];
+          v54 = *(*(v67[0] + 24 * v30) + 4 * v33) | v41;
         }
 
         else
@@ -4838,19 +4796,19 @@ LABEL_87:
           {
             if (v31 == v50)
             {
-              if (*(v63 + 23) >= 0)
+              if (*(v62 + 23) >= 0)
               {
-                v56 = v63;
+                v56 = v62;
               }
 
               else
               {
-                v56 = *v63;
+                v56 = *v62;
               }
 
               v57 = *(v56 + v33);
-              v16 = v68[0];
-              v55 = *(v68[0] + 24 * v29);
+              v16 = v67[0];
+              v55 = *(v67[0] + 24 * v29);
               if (v57 == 32)
               {
                 v58 = 32;
@@ -4866,8 +4824,8 @@ LABEL_87:
 
             else
             {
-              v16 = v68[0];
-              v59 = (v68[0] + 24 * v29);
+              v16 = v67[0];
+              v59 = (v67[0] + 24 * v29);
               v54 = *(*(v59 - 6) + 4 * v32 - 8) | 0x10;
               v55 = *v59;
             }
@@ -4875,14 +4833,14 @@ LABEL_87:
             goto LABEL_75;
           }
 
-          v16 = v68[0];
-          v54 = *(*(v68[0] + 24 * v30) + 4 * v32) | 8;
+          v16 = v67[0];
+          v54 = *(*(v67[0] + 24 * v30) + 4 * v32) | 8;
         }
 
         v55 = *(v16 + 24 * v29);
 LABEL_75:
         *(v55 + 4 * v32) = v54;
-        v44 = v32++ == v66;
+        v44 = v32++ == v65;
         if (v44)
         {
           goto LABEL_87;
@@ -4904,7 +4862,7 @@ LABEL_75:
 
 LABEL_91:
   CFRelease(v10);
-  CFStringFromString = v70;
+  CFStringFromString = v69;
 LABEL_92:
   if (CFStringFromString)
   {
@@ -4912,17 +4870,16 @@ LABEL_95:
     CFRelease(CFStringFromString);
   }
 
-  if (v72 < 0)
+  if (v71 < 0)
   {
-    operator delete(v71[0]);
+    operator delete(v70[0]);
   }
 
-  if (v74 < 0)
+  if (v73 < 0)
   {
-    operator delete(v73[0]);
+    operator delete(v72[0]);
   }
 
-  v61 = *MEMORY[0x277D85DE8];
   return v60;
 }
 
@@ -4966,8 +4923,7 @@ void InputTranscoder::KeyboardLayoutImpl::getCondensedPath(InputTranscoder::Keyb
   {
     if (!v6)
     {
-      *&a3->__r_.__value_.__l.__data_ = *a2;
-      a3->__r_.__value_.__r.__words[2] = *(a2 + 16);
+      *a3 = *a2;
       return;
     }
 
@@ -5085,7 +5041,7 @@ void sub_254C5D5D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<unsigned short>::push_back[abi:ne200100](uint64_t a1, _WORD *a2)
+void std::vector<unsigned short>::push_back[abi:ne200100](uint64_t a1, __int16 *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -5153,7 +5109,7 @@ void std::vector<unsigned short>::push_back[abi:ne200100](uint64_t a1, _WORD *a2
   *(a1 + 8) = v5;
 }
 
-void InputTranscoder::toUTF8String(uint64_t a1, const UniChar *a2, uint64_t a3)
+void InputTranscoder::toUTF8String(void *a1, const UniChar *a2, uint64_t a3)
 {
   v4 = CFStringCreateWithCharacters(0, a2, (a3 - a2) >> 1);
   nlp::getUTF8StringFromCFString(v4, a1);
@@ -5163,9 +5119,9 @@ void InputTranscoder::toUTF8String(uint64_t a1, const UniChar *a2, uint64_t a3)
   }
 }
 
-void sub_254C5D77C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254C5D77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -5217,7 +5173,7 @@ void InputTranscoder::KeyboardLayoutImpl::~KeyboardLayoutImpl(InputTranscoder::K
   JUMPOUT(0x259C28FE0);
 }
 
-void std::vector<ITKeyInfo>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ITKeyInfo>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -5254,7 +5210,7 @@ uint64_t std::__split_buffer<nlp::CFScopedPtr<__CFString const*>>::~__split_buff
   return a1;
 }
 
-void std::vector<nlp::CFScopedPtr<__CFString const*>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<nlp::CFScopedPtr<__CFString const*>>::__destroy_vector::operator()[abi:ne200100](const void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -5414,7 +5370,7 @@ LABEL_6:
   }
 }
 
-uint64_t std::vector<ITKeyInfo>::__init_with_size[abi:ne200100]<std::__wrap_iter<ITKeyInfo const*>,std::__wrap_iter<ITKeyInfo const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ITKeyInfo>::__init_with_size[abi:ne200100]<std::__wrap_iter<ITKeyInfo const*>,std::__wrap_iter<ITKeyInfo const*>>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5496,17 +5452,17 @@ uint64_t std::__split_buffer<InputTranscoder::KeyCandidateImpl>::~__split_buffer
   return a1;
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_254C5DFD4(_Unwind_Exception *exception_object)
@@ -5521,7 +5477,7 @@ void sub_254C5DFD4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -5531,11 +5487,11 @@ void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<ITKeyInfo>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<std::vector<double>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t **std::vector<std::vector<double>>::vector[abi:ne200100](uint64_t **a1, unint64_t a2, uint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     if (a2 < 0xAAAAAAAAAAAAAABLL)
@@ -5546,7 +5502,7 @@ void *std::vector<std::vector<double>>::vector[abi:ne200100](void *result, unint
     std::vector<ITKeyInfo>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
 void std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -5832,13 +5788,13 @@ double InputTranscoder::Path::turn_angle(InputTranscoder::Path *this, unsigned i
   return v2;
 }
 
-void InputTranscoder::Path::resize(InputTranscoder::Path *this, unint64_t a2)
+void InputTranscoder::Path::resize(void *this, unint64_t a2)
 {
-  if (a2 != (*(this + 1) - *this) >> 6)
+  if (a2 != (this[1] - *this) >> 6)
   {
     std::vector<InputTranscoder::PathSample>::resize(this, a2);
-    v5 = *(this + 3);
-    v4 = *(this + 4);
+    v5 = this[3];
+    v4 = this[4];
     if (v4 != v5)
     {
       v6 = v4 - v5;
@@ -5863,27 +5819,26 @@ void InputTranscoder::Path::resize(InputTranscoder::Path *this, unint64_t a2)
       while (v6);
       if (v5 != v4)
       {
-        v11 = *(this + 4);
-        *(this + 4) = v5;
+        this[4] = v5;
       }
     }
   }
 }
 
-void std::vector<InputTranscoder::PathSample>::resize(void *a1, unint64_t a2)
+void std::vector<InputTranscoder::PathSample>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 6;
+  v2 = (result[1] - *result) >> 6;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + (a2 << 6);
+      result[1] = *result + (a2 << 6);
     }
   }
 
   else
   {
-    std::vector<InputTranscoder::PathSample>::__append(a1, a2 - v2);
+    std::vector<InputTranscoder::PathSample>::__append(result, a2 - v2);
   }
 }
 
@@ -6051,7 +6006,7 @@ void sub_254C5E938(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t InputTranscoder::Path::is_local_max(void *a1, unsigned int a2, uint64_t a3, double a4)
+uint64_t InputTranscoder::Path::is_local_max(void *a1, int a2, uint64_t a3, double a4)
 {
   std::function<double ()>::operator()(a3, a2);
   v9 = v8;
@@ -6113,29 +6068,24 @@ void InputTranscoder::Path::curvature(InputTranscoder::Path *this, unsigned int 
 
 uint64_t InputTranscoder::Path::is_curvature_local_max(InputTranscoder::Path *this, unsigned int a2, double a3)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   InputTranscoder::Path::curvature(this, a2);
   if (fabs(v6) <= 0.02)
   {
-    is_local_max = 0;
+    return 0;
   }
 
-  else
-  {
-    v10[0] = &unk_2867146A8;
-    v10[1] = this;
-    v10[3] = v10;
-    is_local_max = InputTranscoder::Path::is_local_max(this, a2, v10, a3);
-    std::__function::__value_func<double ()>::~__value_func[abi:ne200100](v10);
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = &unk_2867146A8;
+  v9[1] = this;
+  v9[3] = v9;
+  is_local_max = InputTranscoder::Path::is_local_max(this, a2, v9, a3);
+  std::__function::__value_func<double ()>::~__value_func[abi:ne200100](v9);
   return is_local_max;
 }
 
-void sub_254C5EBE4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254C5EBE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<double ()>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6268,9 +6218,9 @@ CFErrorRef InputTranscoder::createErrorWithMessage(uint64_t a1)
   return v5;
 }
 
-void sub_254C5EF6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254C5EF6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFDictionary *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -6345,7 +6295,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void InputTranscoder::splitAtLastWord(uint64_t *a1@<X0>, std::string *a2@<X8>)
+void InputTranscoder::splitAtLastWord(char **a1@<X0>, std::string *a2@<X8>)
 {
   v4 = *(a1 + 23);
   if (v4 >= 0)
@@ -6372,14 +6322,14 @@ void InputTranscoder::splitAtLastWord(uint64_t *a1@<X0>, std::string *a2@<X8>)
       break;
     }
 
-    v8 = v5[v6-- - 2];
+    v8 = *(v5 + v6-- - 2);
     if (v8 == 32)
     {
       if (v7)
       {
-        std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>(__dst, v5, &v5[v7], v7);
+        std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>(__dst, v5, v5 + v7, v7);
         v9 = *(a1 + 23);
-        if ((v9 & 0x80u) == 0)
+        if (v9 >= 0)
         {
           v10 = a1;
         }
@@ -6389,12 +6339,12 @@ void InputTranscoder::splitAtLastWord(uint64_t *a1@<X0>, std::string *a2@<X8>)
           v10 = *a1;
         }
 
-        if ((v9 & 0x80u) != 0)
+        if (v9 < 0)
         {
           v9 = a1[1];
         }
 
-        std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>(__p, v10 + v7, v10 + v9, v9 - v7);
+        std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>(__p, v10 + v7, &v9[v10], &v9[-v7]);
         std::pair<std::string,std::string>::pair[abi:ne200100]<std::string&,std::string&,0>(a2, __dst, __p);
         if (v12 < 0)
         {
@@ -6440,8 +6390,7 @@ std::string *InputTranscoder::removeUnwantedCharacters@<X0>(uint64_t a1@<X0>, st
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *a1;
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *a2 = *a1;
   }
 
   v3 = HIBYTE(a2->__r_.__value_.__r.__words[2]);
@@ -6468,20 +6417,20 @@ std::string *InputTranscoder::removeUnwantedCharacters@<X0>(uint64_t a1@<X0>, st
     v8 = a2->__r_.__value_.__l.__size_;
   }
 
-  v9 = &v7[v8];
+  v9 = (v7 + v8);
   if (v8)
   {
     v10 = v8 - 1;
     v11 = MEMORY[0x277D85DE0];
     while (1)
     {
-      v12 = *v7;
+      v12 = v7->__r_.__value_.__s.__data_[0];
       if (v12 == 39 || (v12 & 0x80) == 0 && (*(MEMORY[0x277D85DE0] + 4 * v12 + 60) & 0x400) != 0)
       {
         break;
       }
 
-      ++v7;
+      v7 = (v7 + 1);
       --v10;
       if (v7 == v9)
       {
@@ -6489,7 +6438,7 @@ std::string *InputTranscoder::removeUnwantedCharacters@<X0>(uint64_t a1@<X0>, st
       }
     }
 
-    if (v7 == v9 || v7 + 1 == v9)
+    if (v7 == v9 || (&v7->__r_.__value_.__l.__data_ + 1) == v9)
     {
       v9 = v7;
     }
@@ -6500,10 +6449,11 @@ std::string *InputTranscoder::removeUnwantedCharacters@<X0>(uint64_t a1@<X0>, st
       v9 = v7;
       do
       {
-        v14 = v7[v13];
+        v14 = v7->__r_.__value_.__s.__data_[v13];
         if (v14 != 39 && (v14 < 0 || (*(v11 + 4 * v14 + 60) & 0x400) == 0))
         {
-          *v9++ = v14;
+          v9->__r_.__value_.__s.__data_[0] = v14;
+          v9 = (v9 + 1);
         }
 
         ++v13;
@@ -6519,7 +6469,7 @@ std::string *InputTranscoder::removeUnwantedCharacters@<X0>(uint64_t a1@<X0>, st
   }
 
 LABEL_27:
-  v15 = v5 + size;
+  v15 = (v5 + size);
   v16 = a2 + v3;
   if (v4 >= 0)
   {
@@ -6605,8 +6555,7 @@ std::string *InputTranscoder::removeSpace@<X0>(uint64_t a1@<X0>, std::string *a2
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *a1;
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *a2 = *a1;
   }
 
   v3 = HIBYTE(a2->__r_.__value_.__r.__words[2]);
@@ -6824,7 +6773,7 @@ LABEL_22:
         goto LABEL_36;
       }
 
-      v22 = v18 + 1;
+      v22 = (v18 + 1);
       v11 = (v17 - (v18 + 1));
     }
 
@@ -6843,19 +6792,19 @@ LABEL_43:
   return v8;
 }
 
-void InputTranscoder::enumerateLDAssets()
+void InputTranscoder::enumerateLDAssets(uint64_t a1, uint64_t a2)
 {
-  v0[0] = 0;
-  v0[1] = v0;
-  v0[2] = 0x2000000000;
-  v1 = 0;
+  v2[0] = 0;
+  v2[1] = v2;
+  v2[2] = 0x2000000000;
+  v3 = 0;
   LDEnumerateAssetDataItems();
-  _Block_object_dispose(v0, 8);
+  _Block_object_dispose(v2, 8);
 }
 
-void sub_254C5F81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_254C5F81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6895,7 +6844,7 @@ void sub_254C5F8CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -6908,14 +6857,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<char const*>
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -6956,6 +6905,16 @@ void sub_254C5FA14(_Unwind_Exception *exception_object)
   }
 
   _Unwind_Resume(exception_object);
+}
+
+CGRect CGRectUnion(CGRect r1, CGRect r2)
+{
+  MEMORY[0x282111618](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
 }
 
 uint64_t std::ostream::operator<<()

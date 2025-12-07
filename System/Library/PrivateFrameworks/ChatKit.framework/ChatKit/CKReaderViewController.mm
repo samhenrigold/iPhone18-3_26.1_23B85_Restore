@@ -302,7 +302,7 @@ void __58__CKReaderViewController_readerViewControllerForChatItem___block_invoke
   }
 
   navigationItem = [(CKReaderViewController *)v10 navigationItem];
-  v16 = CKFrameworkBundle();
+  v16 = CKFrameworkBundle(navigationItem);
   v17 = [v16 localizedStringForKey:@"AUDIO_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
   [navigationItem setTitle:v17];
 
@@ -437,7 +437,7 @@ void __51__CKReaderViewController_readerScrollPositionCache__block_invoke()
   [v16 setAttributedText:{v19, v20, v21, v22, v23}];
 }
 
-void __34__CKReaderViewController_setText___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void __34__CKReaderViewController_setText___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, char **a4)
 {
   v51 = [*(a1 + 32) string];
   v8 = [v51 rangeOfString:*MEMORY[0x1E69A5F00] options:4 range:{a2, a3}];
@@ -447,19 +447,19 @@ void __34__CKReaderViewController_setText___block_invoke(uint64_t a1, uint64_t a
   {
     v10 = v8;
     v11 = [*(a1 + 40) length];
-    v12 = (v10 - v11) & ~((v10 - v11) >> 63);
-    v13 = [v51 __ck_rangeOfSequenceOfCharactersFromSet:*(a1 + 48) options:4 range:{v12, *a4 - v12}];
+    v12 = &v10[-v11] & ~(&v10[-v11] >> 63);
+    v13 = [v51 __ck_rangeOfSequenceOfCharactersFromSet:*(a1 + 48) options:4 range:{v12, &(*a4)[-v12]}];
     v15 = v14;
     v16 = [v51 length];
     v17 = a4[1];
-    if (v16 - 1 >= (v17 + *a4))
+    if ((v16 - 1) >= &(*a4)[v17])
     {
-      v18 = v17 + *a4;
+      v18 = &(*a4)[v17];
     }
 
     else
     {
-      v18 = v16 - 1;
+      v18 = (v16 - 1);
     }
 
     v19 = [v51 length] - v18;
@@ -478,11 +478,11 @@ void __34__CKReaderViewController_setText___block_invoke(uint64_t a1, uint64_t a
     v24 = v23;
     v26 = *a4;
     v25 = a4[1];
-    if (v22 + v23 != [v51 length] && v25 + v26 != objc_msgSend(v51, "length"))
+    if (&v22[v23] != [v51 length] && &v25[v26] != objc_msgSend(v51, "length"))
     {
       if (v22 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v22 = a4[1] + *a4;
+        v22 = &(*a4)[a4[1]];
       }
 
       [*(a1 + 32) replaceCharactersInRange:v22 withString:{v24, *(a1 + 40)}];

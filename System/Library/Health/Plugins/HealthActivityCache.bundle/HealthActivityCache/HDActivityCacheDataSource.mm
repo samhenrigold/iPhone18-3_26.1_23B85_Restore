@@ -171,7 +171,7 @@
 {
   v5 = sub_DCE4(self, error);
   v6 = sub_2808(self);
-  return v5 & v6 & sub_E1E8(self, error);
+  return (v5 && v6) & sub_E1E8(self, error);
 }
 
 - (void)samplesAdded:(id)added anchor:(id)anchor

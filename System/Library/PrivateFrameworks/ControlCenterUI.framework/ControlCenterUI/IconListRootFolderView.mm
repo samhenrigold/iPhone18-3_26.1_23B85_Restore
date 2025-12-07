@@ -132,7 +132,7 @@
   y = translation.y;
   x = translation.x;
   selfCopy = self;
-  sub_21EA8D278(x, y, &unk_28301A150, sub_21EA8D948, &block_descriptor_100);
+  sub_21EA8D278(&unk_28301A150, sub_21EA8D948, &block_descriptor_100, x, y);
 }
 
 - (void)addPagingDidChangeHandler:(id)handler

@@ -82,38 +82,38 @@ LABEL_6:
 
 - (void)storeEntries:(id)entries deleteEntries:(id)deleteEntries withCompletion:(id)completion
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   deleteEntriesCopy = deleteEntries;
   completionCopy = completion;
   if ([entriesCopy count] || objc_msgSend(deleteEntriesCopy, "count"))
   {
-    v60 = completionCopy;
+    v59 = completionCopy;
     if ([(PDSDaemonListener *)self bypassClientIDCheck])
     {
       goto LABEL_4;
     }
 
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     v40 = entriesCopy;
-    v41 = [v40 countByEnumeratingWithState:&v79 objects:v87 count:16];
+    v41 = [v40 countByEnumeratingWithState:&v78 objects:v86 count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v80;
+      v43 = *v79;
 LABEL_37:
       v44 = 0;
       while (1)
       {
-        if (*v80 != v43)
+        if (*v79 != v43)
         {
           objc_enumerationMutation(v40);
         }
 
-        v45 = *(*(&v79 + 1) + 8 * v44);
+        v45 = *(*(&v78 + 1) + 8 * v44);
         clientIDs = [(PDSDaemonListener *)self clientIDs];
         clientID = [v45 clientID];
         v48 = [clientIDs containsObject:clientID];
@@ -125,7 +125,7 @@ LABEL_37:
 
         if (v42 == ++v44)
         {
-          v42 = [v40 countByEnumeratingWithState:&v79 objects:v87 count:16];
+          v42 = [v40 countByEnumeratingWithState:&v78 objects:v86 count:16];
           if (v42)
           {
             goto LABEL_37;
@@ -140,12 +140,12 @@ LABEL_37:
     {
 LABEL_43:
 
-      v77 = 0u;
-      v78 = 0u;
-      v75 = 0u;
       v76 = 0u;
+      v77 = 0u;
+      v74 = 0u;
+      v75 = 0u;
       v40 = deleteEntriesCopy;
-      v49 = [v40 countByEnumeratingWithState:&v75 objects:v86 count:16];
+      v49 = [v40 countByEnumeratingWithState:&v74 objects:v85 count:16];
       if (!v49)
       {
 LABEL_51:
@@ -154,69 +154,69 @@ LABEL_4:
         if ([entriesCopy count] && objc_msgSend(deleteEntriesCopy, "count"))
         {
           v11 = objc_alloc_init(MEMORY[0x277CBEB58]);
+          v70 = 0u;
           v71 = 0u;
           v72 = 0u;
           v73 = 0u;
-          v74 = 0u;
           v12 = entriesCopy;
-          v13 = [v12 countByEnumeratingWithState:&v71 objects:v85 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v70 objects:v84 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v72;
+            v15 = *v71;
             do
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v72 != v15)
+                if (*v71 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                registration = [*(*(&v71 + 1) + 8 * i) registration];
+                registration = [*(*(&v70 + 1) + 8 * i) registration];
                 [v11 addObject:registration];
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v71 objects:v85 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v70 objects:v84 count:16];
             }
 
             while (v14);
           }
 
-          v69 = 0u;
-          v70 = 0u;
-          v67 = 0u;
           v68 = 0u;
+          v69 = 0u;
+          v66 = 0u;
+          v67 = 0u;
           v18 = deleteEntriesCopy;
-          v19 = [v18 countByEnumeratingWithState:&v67 objects:v84 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v66 objects:v83 count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v68;
+            v21 = *v67;
             while (2)
             {
               for (j = 0; j != v20; ++j)
               {
-                if (*v68 != v21)
+                if (*v67 != v21)
                 {
                   objc_enumerationMutation(v18);
                 }
 
-                registration2 = [*(*(&v67 + 1) + 8 * j) registration];
+                registration2 = [*(*(&v66 + 1) + 8 * j) registration];
                 v24 = [v11 containsObject:registration2];
 
                 if (v24)
                 {
 
                   v57 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D37B20] code:-305 userInfo:0];
-                  completionCopy = v60;
-                  v60[2](v60, v57);
+                  completionCopy = v59;
+                  v59[2](v59, v57);
 
                   goto LABEL_58;
                 }
               }
 
-              v20 = [v18 countByEnumeratingWithState:&v67 objects:v84 count:16];
+              v20 = [v18 countByEnumeratingWithState:&v66 objects:v83 count:16];
               if (v20)
               {
                 continue;
@@ -227,41 +227,41 @@ LABEL_4:
           }
         }
 
-        v59 = deleteEntriesCopy;
-        v65 = 0u;
-        v66 = 0u;
-        v63 = 0u;
+        v58 = deleteEntriesCopy;
         v64 = 0u;
+        v65 = 0u;
+        v62 = 0u;
+        v63 = 0u;
         v25 = entriesCopy;
-        v26 = [v25 countByEnumeratingWithState:&v63 objects:v83 count:16];
+        v26 = [v25 countByEnumeratingWithState:&v62 objects:v82 count:16];
         if (v26)
         {
           v27 = v26;
-          v28 = *v64;
+          v28 = *v63;
           do
           {
             for (k = 0; k != v27; ++k)
             {
-              if (*v64 != v28)
+              if (*v63 != v28)
               {
                 objc_enumerationMutation(v25);
               }
 
-              v30 = *(*(&v63 + 1) + 8 * k);
+              v30 = *(*(&v62 + 1) + 8 * k);
               if ([v30 state] == 1)
               {
                 userTracker = [(PDSDaemonListener *)self userTracker];
                 user = [v30 user];
-                v62 = 0;
-                v33 = [userTracker validUser:user withError:&v62];
-                v34 = v62;
+                v61 = 0;
+                v33 = [userTracker validUser:user withError:&v61];
+                v34 = v61;
 
                 if ((v33 & 1) == 0)
                 {
-                  completionCopy = v60;
-                  v60[2](v60, v34);
+                  completionCopy = v59;
+                  v59[2](v59, v34);
 
-                  deleteEntriesCopy = v59;
+                  deleteEntriesCopy = v58;
                   goto LABEL_58;
                 }
               }
@@ -272,17 +272,17 @@ LABEL_4:
               }
             }
 
-            v27 = [v25 countByEnumeratingWithState:&v63 objects:v83 count:16];
+            v27 = [v25 countByEnumeratingWithState:&v62 objects:v82 count:16];
           }
 
           while (v27);
         }
 
         entryStore = [(PDSDaemonListener *)self entryStore];
-        v61 = 0;
-        deleteEntriesCopy = v59;
-        [entryStore storeEntries:v25 deleteEntries:v59 withError:&v61];
-        v36 = v61;
+        v60 = 0;
+        deleteEntriesCopy = v58;
+        [entryStore storeEntries:v25 deleteEntries:v58 withError:&v60];
+        v36 = v60;
 
         if (v36)
         {
@@ -296,24 +296,24 @@ LABEL_4:
           v39 = 0;
         }
 
-        completionCopy = v60;
-        v60[2](v60, v39);
+        completionCopy = v59;
+        v59[2](v59, v39);
 
         goto LABEL_57;
       }
 
       v50 = v49;
-      v51 = *v76;
+      v51 = *v75;
 LABEL_45:
       v52 = 0;
       while (1)
       {
-        if (*v76 != v51)
+        if (*v75 != v51)
         {
           objc_enumerationMutation(v40);
         }
 
-        v53 = *(*(&v75 + 1) + 8 * v52);
+        v53 = *(*(&v74 + 1) + 8 * v52);
         clientIDs2 = [(PDSDaemonListener *)self clientIDs];
         clientID2 = [v53 clientID];
         v56 = [clientIDs2 containsObject:clientID2];
@@ -325,7 +325,7 @@ LABEL_45:
 
         if (v50 == ++v52)
         {
-          v50 = [v40 countByEnumeratingWithState:&v75 objects:v86 count:16];
+          v50 = [v40 countByEnumeratingWithState:&v74 objects:v85 count:16];
           if (v50)
           {
             goto LABEL_45;
@@ -336,7 +336,7 @@ LABEL_45:
       }
     }
 
-    completionCopy = v60;
+    completionCopy = v59;
 
     v36 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D37B20] code:-303 userInfo:0];
     completionCopy[2](completionCopy, v36);
@@ -347,40 +347,38 @@ LABEL_57:
 
   completionCopy[2](completionCopy, 0);
 LABEL_58:
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)batchUpdateEntries:(id)entries forClientID:(id)d withCompletion:(id)completion
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   dCopy = d;
   v10 = entriesCopy;
-  v55 = dCopy;
+  v54 = dCopy;
   completionCopy = completion;
   if (![(PDSDaemonListener *)self bypassClientIDCheck])
   {
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     v11 = entriesCopy;
-    v12 = [v11 countByEnumeratingWithState:&v71 objects:v78 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v70 objects:v77 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v72;
+      v14 = *v71;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v72 != v14)
+          if (*v71 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v71 + 1) + 8 * i);
+          v16 = *(*(&v70 + 1) + 8 * i);
           clientIDs = [(PDSDaemonListener *)self clientIDs];
           clientID = [v16 clientID];
           v19 = [clientIDs containsObject:clientID];
@@ -395,7 +393,7 @@ LABEL_58:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v71 objects:v78 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v70 objects:v77 count:16];
         if (v13)
         {
           continue;
@@ -406,31 +404,31 @@ LABEL_58:
     }
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   v20 = v10;
-  v21 = [v20 countByEnumeratingWithState:&v67 objects:v77 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v66 objects:v76 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v68;
+    v23 = *v67;
     while (2)
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v68 != v23)
+        if (*v67 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v67 + 1) + 8 * j);
+        v25 = *(*(&v66 + 1) + 8 * j);
         userTracker = [(PDSDaemonListener *)self userTracker];
         user = [v25 user];
-        v66 = 0;
-        v28 = [userTracker validUser:user withError:&v66];
-        v29 = v66;
+        v65 = 0;
+        v28 = [userTracker validUser:user withError:&v65];
+        v29 = v65;
 
         if ((v28 & 1) == 0)
         {
@@ -442,7 +440,7 @@ LABEL_58:
         }
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v67 objects:v77 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v66 objects:v76 count:16];
       if (v22)
       {
         continue;
@@ -453,91 +451,91 @@ LABEL_58:
   }
 
   entryStore = [(PDSDaemonListener *)self entryStore];
-  v31 = [entryStore entriesWithClientID:v55];
+  v31 = [entryStore entriesWithClientID:v54];
 
   if ([v31 count])
   {
-    v53 = v10;
+    v52 = v10;
     entryStore3 = objc_alloc_init(MEMORY[0x277CBEB58]);
     v33 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
     v34 = v31;
-    v35 = [v34 countByEnumeratingWithState:&v61 objects:v76 count:16];
+    v35 = [v34 countByEnumeratingWithState:&v60 objects:v75 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v62;
+      v37 = *v61;
       do
       {
         for (k = 0; k != v36; ++k)
         {
-          if (*v62 != v37)
+          if (*v61 != v37)
           {
             objc_enumerationMutation(v34);
           }
 
-          v39 = *(*(&v61 + 1) + 8 * k);
-          if (([v20 containsObject:{v39, v53}] & 1) == 0)
+          v39 = *(*(&v60 + 1) + 8 * k);
+          if (([v20 containsObject:{v39, v52}] & 1) == 0)
           {
             [v33 addObject:v39];
           }
         }
 
-        v36 = [v34 countByEnumeratingWithState:&v61 objects:v76 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v60 objects:v75 count:16];
       }
 
       while (v36);
     }
 
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     v40 = v20;
-    v41 = [v40 countByEnumeratingWithState:&v57 objects:v75 count:16];
+    v41 = [v40 countByEnumeratingWithState:&v56 objects:v74 count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v58;
+      v43 = *v57;
       do
       {
         for (m = 0; m != v42; ++m)
         {
-          if (*v58 != v43)
+          if (*v57 != v43)
           {
             objc_enumerationMutation(v40);
           }
 
-          v45 = *(*(&v57 + 1) + 8 * m);
-          if (([v34 containsObject:{v45, v53}] & 1) == 0)
+          v45 = *(*(&v56 + 1) + 8 * m);
+          if (([v34 containsObject:{v45, v52}] & 1) == 0)
           {
             [entryStore3 addObject:v45];
           }
         }
 
-        v42 = [v40 countByEnumeratingWithState:&v57 objects:v75 count:16];
+        v42 = [v40 countByEnumeratingWithState:&v56 objects:v74 count:16];
       }
 
       while (v42);
     }
 
     entryStore2 = [(PDSDaemonListener *)self entryStore];
-    v56 = 0;
-    [entryStore2 storeEntries:entryStore3 deleteEntries:v33 withError:&v56];
-    v47 = v56;
+    v55 = 0;
+    [entryStore2 storeEntries:entryStore3 deleteEntries:v33 withError:&v55];
+    v47 = v55;
 
-    v10 = v53;
+    v10 = v52;
   }
 
   else
   {
     entryStore3 = [(PDSDaemonListener *)self entryStore];
-    v65 = 0;
-    [entryStore3 storeEntries:v20 deleteEntries:0 withError:&v65];
-    v47 = v65;
+    v64 = 0;
+    [entryStore3 storeEntries:v20 deleteEntries:0 withError:&v64];
+    v47 = v64;
   }
 
   v48 = completionCopy;
@@ -556,7 +554,6 @@ LABEL_58:
   (*(completionCopy + 2))(completionCopy, v51);
 
 LABEL_46:
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllEntriesForUser:(id)user withClientID:(id)d withCompletion:(id)completion

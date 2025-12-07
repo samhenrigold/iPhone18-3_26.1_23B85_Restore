@@ -7,7 +7,7 @@
 - (void)handleInterruptionEnd
 {
 
-  sub_2520D3A04();
+  sub_2520D3A04(v2);
 }
 
 @end

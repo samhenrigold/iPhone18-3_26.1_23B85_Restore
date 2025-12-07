@@ -27,15 +27,13 @@
 
 - (void)logSessionStart
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(self + 8);
   v3 = a2;
   uUIDString = [v2 UUIDString];
-  v6 = 138543362;
-  v7 = uUIDString;
-  _os_log_debug_impl(&dword_26B5BC000, v3, OS_LOG_TYPE_DEBUG, "Send new invocation event for session ID: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = uUIDString;
+  _os_log_debug_impl(&dword_26B5BC000, v3, OS_LOG_TYPE_DEBUG, "Send new invocation event for session ID: %{public}@", &v5, 0xCu);
 }
 
 - (void)logSessionEnd:(id)end

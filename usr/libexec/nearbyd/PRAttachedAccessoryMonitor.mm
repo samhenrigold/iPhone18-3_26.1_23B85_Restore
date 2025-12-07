@@ -6,6 +6,7 @@
 - (void)accessoryConnectionDetached:(id)detached;
 - (void)accessoryDisconnected:(id)disconnected;
 - (void)accessoryEndpointAttached:(id)attached transportType:(int)type protocol:(int)protocol properties:(id)properties forConnection:(id)connection;
+- (void)accessoryNotify:(id)notify isAttached:(BOOL)attached;
 - (void)initAccessoryListener;
 @end
 
@@ -107,6 +108,200 @@
   [(NSNotificationCenter *)self->fNotificationCenter addObserver:self selector:"accessoryDisconnected:" name:EAAccessoryDidDisconnectNotification object:0];
   v13 = +[ACCConnectionInfo sharedInstance];
   [v13 registerDelegate:self];
+}
+
+- (void)accessoryNotify:(id)notify isAttached:(BOOL)attached
+{
+  attachedCopy = attached;
+  notifyCopy = notify;
+  v7 = notifyCopy;
+  if (!notifyCopy || ([notifyCopy modelNumber], v8 = objc_claimAutoreleasedReturnValue(), v8, !v8))
+  {
+    v13 = qword_1009F7408;
+    if (os_log_type_enabled(qword_1009F7408, OS_LOG_TYPE_ERROR))
+    {
+      sub_1004C3D08(attachedCopy, v7, v13);
+    }
+
+    goto LABEL_67;
+  }
+
+  modelNumber = [v7 modelNumber];
+  sub_100004A08(&__p, [modelNumber UTF8String]);
+
+  if (v41 < 0)
+  {
+    if (v40 == 5)
+    {
+      p_p = __p;
+      if (*__p != 942748225 || *(__p + 4) != 51)
+      {
+        if (*__p != 942748225 || *(__p + 4) != 52)
+        {
+          goto LABEL_25;
+        }
+
+LABEL_33:
+        v20 = 2;
+        goto LABEL_34;
+      }
+
+      goto LABEL_32;
+    }
+  }
+
+  else if (v41 == 5)
+  {
+    if (__p != 942748225 || BYTE4(__p) != 51)
+    {
+      if (__p != 942748225 || BYTE4(__p) != 52)
+      {
+        p_p = &__p;
+LABEL_25:
+        v16 = bswap64(*p_p | (*(p_p + 4) << 32));
+        v17 = v16 >= 0x4132313830000000;
+        v18 = v16 > 0x4132313830000000;
+        v19 = !v17;
+        if (v18 == v19)
+        {
+          v20 = 3;
+        }
+
+        else
+        {
+          v20 = 999;
+        }
+
+        goto LABEL_34;
+      }
+
+      goto LABEL_33;
+    }
+
+LABEL_32:
+    v20 = 1;
+    goto LABEL_34;
+  }
+
+  v20 = 999;
+LABEL_34:
+  v38 = v20;
+  v21 = sub_100003AE0();
+  v22 = sub_10045C008(v21);
+  v23 = *v22;
+  v24 = v22[1];
+  if (*v22 != v24)
+  {
+    do
+    {
+      v25 = qword_1009F7408;
+      if (os_log_type_enabled(qword_1009F7408, OS_LOG_TYPE_DEFAULT))
+      {
+        v26 = v23;
+        if (v23[23] < 0)
+        {
+          v26 = *v23;
+        }
+
+        *buf = 136315138;
+        v43 = v26;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "regulatory,acc,list,%s", buf, 0xCu);
+      }
+
+      v23 += 24;
+    }
+
+    while (v23 != v24);
+  }
+
+  v27 = qword_1009F7408;
+  if (os_log_type_enabled(qword_1009F7408, OS_LOG_TYPE_DEFAULT))
+  {
+    v28 = &__p;
+    if ((v41 & 0x80u) != 0)
+    {
+      v28 = __p;
+    }
+
+    *buf = 136315138;
+    v43 = v28;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "regulatory,acc,model,[%s]", buf, 0xCu);
+  }
+
+  v29 = *v22;
+  v30 = v22[1];
+  if (*v22 != v30)
+  {
+    if ((v41 & 0x80u) == 0)
+    {
+      v31 = v41;
+    }
+
+    else
+    {
+      v31 = v40;
+    }
+
+    if ((v41 & 0x80u) == 0)
+    {
+      v32 = &__p;
+    }
+
+    else
+    {
+      v32 = __p;
+    }
+
+    while (1)
+    {
+      v33 = v29[23];
+      v34 = v33;
+      if ((v33 & 0x80u) != 0)
+      {
+        v33 = *(v29 + 1);
+      }
+
+      if (v33 == v31)
+      {
+        v35 = v34 >= 0 ? v29 : *v29;
+        if (!memcmp(v35, v32, v31))
+        {
+          break;
+        }
+      }
+
+      v29 += 24;
+      if (v29 == v30)
+      {
+        goto LABEL_65;
+      }
+    }
+  }
+
+  if (v29 != v30)
+  {
+    v36 = qword_1009F7408;
+    if (os_log_type_enabled(qword_1009F7408, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      LODWORD(v43) = attachedCopy;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "regulatory,acc,%d", buf, 8u);
+    }
+
+    stateChangedHandler = self->_stateChangedHandler;
+    if (stateChangedHandler)
+    {
+      (*(stateChangedHandler + 2))(stateChangedHandler, attachedCopy, 0, v38);
+    }
+  }
+
+LABEL_65:
+  if (v41 < 0)
+  {
+    operator delete(__p);
+  }
+
+LABEL_67:
 }
 
 - (void)accessoryConnected:(id)connected
@@ -227,13 +422,13 @@ LABEL_28:
     [(NSMutableSet *)self->fConnectedACCAccessoryUUIDs addObject:connectionCopy];
     sub_100004A08(v23, [connectionCopy UTF8String]);
     *buf = v23;
-    *(sub_100369B40(&self->fConnectedACCAccessoryTypes.__table_.__bucket_list_.__ptr_, v23) + 10) = v16;
+    *(sub_100369B40(&self->fConnectedACCAccessoryTypes.__table_.__bucket_list_.__ptr_, v23, &unk_100548C50, buf, __p) + 10) = v16;
     v17 = qword_1009F7408;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v18 = kACCEndpoint_TransportType_Strings[type];
-      sub_10041C9CC();
-      v19 = v22 >= 0 ? &__p : __p;
+      sub_10041C9CC(v16);
+      v19 = v22 >= 0 ? __p : __p[0];
       *buf = 138412802;
       *&buf[4] = propertiesCopy;
       v26 = 2080;
@@ -243,7 +438,7 @@ LABEL_28:
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "regulatory,acc,Accessory attached: %@ type: %s, accessory_type: %s.", buf, 0x20u);
       if (v22 < 0)
       {
-        operator delete(__p);
+        operator delete(__p[0]);
       }
     }
 
@@ -288,7 +483,7 @@ LABEL_39:
       v10 = qword_1009F7408;
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        sub_10041C9CC();
+        sub_10041C9CC(v8);
         v11 = v14 >= 0 ? &__p : __p;
         *buf = 138412546;
         v18 = detachedCopy;

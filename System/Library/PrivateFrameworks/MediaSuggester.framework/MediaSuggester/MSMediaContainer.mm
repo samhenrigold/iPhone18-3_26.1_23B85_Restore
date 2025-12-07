@@ -1,6 +1,5 @@
 @interface MSMediaContainer
 - (NSString)description;
-- (_TtC14MediaSuggester16MSMediaContainer)initWithCoder:(id)coder;
 - (id)copyWithZone:(void *)zone;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -22,14 +21,7 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_22C9DEBE4();
-}
-
-- (_TtC14MediaSuggester16MSMediaContainer)initWithCoder:(id)coder
-{
-  coderCopy = coder;
-  MSMediaContainer.init(coder:)();
-  return result;
+  sub_22C9DEBE4(coderCopy);
 }
 
 - (NSString)description

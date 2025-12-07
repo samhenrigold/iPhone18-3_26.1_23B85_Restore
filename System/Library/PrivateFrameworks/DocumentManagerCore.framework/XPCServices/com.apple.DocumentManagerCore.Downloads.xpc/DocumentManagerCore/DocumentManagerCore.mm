@@ -85,7 +85,7 @@ void sub_100001540(uint64_t a1, void *a2, void *a3)
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1000046F8(a1);
+      sub_1000046F8();
     }
   }
 
@@ -132,7 +132,7 @@ void sub_100001634(uint64_t a1, void *a2, void *a3)
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_100004768(a1);
+      sub_100004768();
     }
 
     (*(*(a1 + 72) + 16))();
@@ -198,34 +198,33 @@ void sub_100001990(uint64_t a1, int a2)
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
     v6 = *(a1 + 56);
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100001A94;
-    v10[3] = &unk_1000082E0;
-    v11 = *(a1 + 72);
-    v7 = [v3 createMoveOperation:v4 parentItem:v5 newFileName:v6 completionHandler:v10];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100001A94;
+    v9[3] = &unk_1000082E0;
+    v10 = *(a1 + 72);
+    v7 = [v3 createMoveOperation:v4 parentItem:v5 newFileName:v6 completionHandler:v9];
     [*(a1 + 64) scheduleAction:v7];
   }
 
   else
   {
-    v8 = *(a1 + 72);
-    v9 = *(*(a1 + 72) + 16);
+    v8 = *(*(a1 + 72) + 16);
 
-    v9();
+    v8();
   }
 }
 
-void sub_10000205C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_10000205C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -491,7 +490,7 @@ void sub_100003144(uint64_t a1, void *a2, void *a3)
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_100004B40(a1);
+      sub_100004B40();
     }
   }
 }
@@ -523,7 +522,7 @@ void sub_100003450(uint64_t a1, char a2, void *a3)
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    sub_100004C3C(a1);
+    sub_100004C3C();
     if (a2)
     {
       goto LABEL_10;
@@ -548,7 +547,7 @@ LABEL_5:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_100004CBC(a1);
+    sub_100004CBC();
   }
 
 LABEL_10:
@@ -570,7 +569,7 @@ void sub_1000038DC(uint64_t a1, void *a2, void *a3)
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100004DA4(a1);
+      sub_100004DA4();
     }
 
     (*(*(a1 + 40) + 16))();
@@ -595,7 +594,7 @@ void sub_1000038DC(uint64_t a1, void *a2, void *a3)
 
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        sub_100004E14((a1 + 32));
+        sub_100004E14();
       }
 
       (*(*(a1 + 40) + 16))();
@@ -650,7 +649,7 @@ void sub_100003C88(id *a1, void *a2, void *a3)
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      sub_100004EF0(a1);
+      sub_100004EF0();
     }
   }
 
@@ -681,7 +680,7 @@ void sub_100003C88(id *a1, void *a2, void *a3)
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100004E80(a1);
+      sub_100004E80();
     }
   }
 
@@ -718,7 +717,7 @@ void sub_100003E34(id *a1, void *a2, void *a3)
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100004F58(a1);
+      sub_100004F58();
     }
 
     (*(a1[7] + 2))();
@@ -732,13 +731,12 @@ void sub_100003F9C(uint64_t a1, void *a2, void *a3)
   if (v5)
   {
     v7 = [v5 URLByAppendingPathComponent:*(a1 + 32)];
-    v8 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = [v7 startAccessingSecurityScopedResource];
-      v10 = [FINode fiNodeFromURL:v7];
-      if (v9)
+      v8 = [v7 startAccessingSecurityScopedResource];
+      v9 = [FINode fiNodeFromURL:v7];
+      if (v8)
       {
         [v7 stopAccessingSecurityScopedResource];
       }
@@ -748,28 +746,28 @@ void sub_100003F9C(uint64_t a1, void *a2, void *a3)
 
     else
     {
-      v12 = *(a1 + 48);
-      v13[0] = _NSConcreteStackBlock;
-      v13[1] = 3221225472;
-      v13[2] = sub_100004148;
-      v13[3] = &unk_100008528;
-      v14 = *(a1 + 64);
-      [v12 fetchItemForURL:v7 completionHandler:v13];
+      v11 = *(a1 + 48);
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_100004148;
+      v12[3] = &unk_100008528;
+      v13 = *(a1 + 64);
+      [v11 fetchItemForURL:v7 completionHandler:v12];
     }
   }
 
   else
   {
-    v11 = docDownloadServiceLogHandle;
+    v10 = docDownloadServiceLogHandle;
     if (!docDownloadServiceLogHandle)
     {
       DOCInitLogging();
-      v11 = docDownloadServiceLogHandle;
+      v10 = docDownloadServiceLogHandle;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_100004FCC(a1);
+      sub_100004FCC();
     }
 
     (*(*(a1 + 64) + 16))();
@@ -792,7 +790,7 @@ void sub_100004270(uint64_t a1, void *a2, void *a3)
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      sub_100004EF0(a1);
+      sub_100004EF0();
     }
   }
 
@@ -822,7 +820,7 @@ void sub_100004270(uint64_t a1, void *a2, void *a3)
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100004E80(a1);
+      sub_100004E80();
     }
   }
 
@@ -856,7 +854,7 @@ void sub_100004408(uint64_t a1, void *a2, void *a3)
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100005040(a1);
+      sub_100005040();
     }
 
     (*(*(a1 + 48) + 16))();
@@ -876,46 +874,33 @@ void sub_100004534(uint64_t a1, void *a2)
   }
 }
 
-void sub_100004630(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004630(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-uint64_t sub_100004658@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void sub_100004674(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
+  va_start(va, a8);
+
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-uint64_t sub_100004664@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void sub_1000046F8()
 {
-  *(v2 - 8) = a2;
-  v3 = *(*result + 40);
-  return result;
-}
-
-void sub_100004674(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
-}
-
-void sub_1000046F8(uint64_t a1)
-{
-  sub_100004658(a1, __stack_chk_guard);
+  sub_100004658(__stack_chk_guard);
   sub_1000045E8();
   sub_100004614();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100004768(uint64_t a1)
+void sub_100004768()
 {
-  v1 = *(a1 + 56);
   sub_1000045E8();
   sub_100004614();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1000047DC(uint64_t a1, void *a2, uint64_t a3)
@@ -940,27 +925,25 @@ void sub_100004900(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "%s URL: %@ request to post notification: %@", &v2, 0x20u);
 }
 
-void sub_1000049A0(uint64_t a1)
+void sub_1000049A0()
 {
-  sub_100004664(a1, __stack_chk_guard);
+  sub_100004664(__stack_chk_guard);
   sub_100004624();
-  sub_100004630(&_mh_execute_header, v1, v2, "Can't create temp directory on destination volume: failed with error: %@", v3, v4, v5, v6, v7);
+  sub_100004630(&_mh_execute_header, v0, v1, "Can't create temp directory on destination volume: failed with error: %@", v2, v3, v4, v5);
 }
 
-void sub_100004A08(uint64_t a1)
+void sub_100004A08()
 {
-  sub_100004664(a1, __stack_chk_guard);
+  sub_100004664(__stack_chk_guard);
   sub_100004624();
-  sub_100004630(&_mh_execute_header, v1, v2, "replaceContentsOfFile: failed with error: %@", v3, v4, v5, v6, v7);
+  sub_100004630(&_mh_execute_header, v0, v1, "replaceContentsOfFile: failed with error: %@", v2, v3, v4, v5);
 }
 
-void sub_100004B40(uint64_t a1)
+void sub_100004B40()
 {
-  v1 = *(a1 + 56);
-  v2 = *(a1 + 64);
   sub_100004600();
   sub_100004614();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_100004BC0(uint64_t a1, uint64_t a2)
@@ -969,81 +952,60 @@ void sub_100004BC0(uint64_t a1, uint64_t a2)
   [v4 handleFailureInMethod:a1 object:a2 file:@"DLDocumentDownloads.m" lineNumber:420 description:{@"Invalid parameter not satisfying: %@", @"location == _DOCFileDestinationDocuments"}];
 }
 
-void sub_100004C3C(uint64_t a1)
+void sub_100004C3C()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   sub_100004600();
   sub_100004614();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_100004CBC(uint64_t a1)
+void sub_100004CBC()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   sub_100004600();
-  v6 = v3;
-  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Folder named: %@ in domain %@ does not exist.", v5, 0x16u);
+  v3 = v0;
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Folder named: %@ in domain %@ does not exist.", v2, 0x16u);
 }
 
-void sub_100004D38(uint64_t *a1)
+void sub_100004DA4()
 {
-  v1 = *a1;
+  sub_100004658(__stack_chk_guard);
+  sub_1000045E8();
+  sub_100004614();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void sub_100004E80()
+{
+  sub_100004658(__stack_chk_guard);
+  sub_1000045E8();
+  sub_100004614();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void sub_100004EF0()
+{
+  sub_100004658(__stack_chk_guard);
   sub_100004624();
-  sub_100004630(&_mh_execute_header, v2, v3, "Failed to create temp directory: %@", v4, v5, v6, v7, v8);
+  sub_100004674(&_mh_execute_header, v0, v1, "Did not find provider matching domain for domainID: %@.", v2, v3, v4, v5);
 }
 
-void sub_100004DA4(uint64_t a1)
+void sub_100004F58()
 {
-  sub_100004658(a1, __stack_chk_guard);
   sub_1000045E8();
   sub_100004614();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100004E14(uint64_t *a1)
+void sub_100004FCC()
 {
-  v1 = *a1;
-  sub_100004624();
-  sub_100004674(&_mh_execute_header, v2, v3, "Did not find provider matching domain for domainID: %@.", v4, v5, v6, v7, v8);
-}
-
-void sub_100004E80(uint64_t a1)
-{
-  sub_100004658(a1, __stack_chk_guard);
   sub_1000045E8();
   sub_100004614();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100004EF0(uint64_t a1)
+void sub_100005040()
 {
-  sub_100004658(a1, __stack_chk_guard);
-  sub_100004624();
-  sub_100004674(&_mh_execute_header, v1, v2, "Did not find provider matching domain for domainID: %@.", v3, v4, v5, v6, v7);
-}
-
-void sub_100004F58(uint64_t a1)
-{
-  v1 = *(a1 + 48);
   sub_1000045E8();
   sub_100004614();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-}
-
-void sub_100004FCC(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  sub_1000045E8();
-  sub_100004614();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-}
-
-void sub_100005040(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  sub_1000045E8();
-  sub_100004614();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }

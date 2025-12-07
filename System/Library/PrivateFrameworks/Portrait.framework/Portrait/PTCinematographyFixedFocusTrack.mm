@@ -96,7 +96,7 @@
 - (id)detectionsInTimeRange:(id *)range
 {
   v10[1] = *MEMORY[0x277D85DE8];
-  v4 = _PTLogSystem();
+  v4 = _PTLogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [(PTCinematographyFixedFocusTrack *)self detectionsInTimeRange:v4];
@@ -115,7 +115,7 @@
 {
   if (frame)
   {
-    [frame time];
+    objc_msgSend_time(frame, a2);
   }
 
   else
@@ -136,7 +136,7 @@
   v4 = script;
   if (script)
   {
-    [script timeRange];
+    objc_msgSend_timeRange(script);
   }
 
   else

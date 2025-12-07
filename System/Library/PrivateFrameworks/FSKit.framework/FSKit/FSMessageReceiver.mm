@@ -89,8 +89,7 @@
   v14 = &unk_278FECDB8;
   objc_copyWeak(&v15, &location);
   [connectionCopy setInvalidationHandler:&v11];
-  [connectionCopy resume];
-  v9 = fskit_std_log();
+  v9 = fskit_std_log([connectionCopy resume]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [FSMessageReceiver listener:v9 shouldAcceptNewConnection:?];
@@ -118,11 +117,10 @@ void __56__FSMessageReceiver_listener_shouldAcceptNewConnection___block_invoke(u
 
 - (void)listener:(os_log_t)log shouldAcceptNewConnection:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[FSMessageReceiver listener:shouldAcceptNewConnection:]";
-  _os_log_debug_impl(&dword_24A929000, log, OS_LOG_TYPE_DEBUG, "%s:connection:accept", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[FSMessageReceiver listener:shouldAcceptNewConnection:]";
+  _os_log_debug_impl(&dword_24A929000, log, OS_LOG_TYPE_DEBUG, "%s:connection:accept", &v1, 0xCu);
 }
 
 @end

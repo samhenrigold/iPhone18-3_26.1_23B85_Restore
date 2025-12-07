@@ -62,15 +62,13 @@
 {
   v4 = type metadata accessor for URL();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_100005A3C(self->fileSystem, *&self->fileSystem[24]);
+  __chkstk_darwin(v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_100005A3C(self->fileSystem, *&self->fileSystem[24]);
 
-  sub_100074188(v9);
-  v11 = *v10;
+  sub_100074188(v7);
   sub_10001D88C();
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
 
   return 1;
 }

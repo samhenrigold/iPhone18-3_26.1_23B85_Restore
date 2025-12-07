@@ -20,119 +20,119 @@
 
 - (VCPVideoHumanActionAnalyzer)initWithTimeOfInterest:(id)interest phFaces:(id)faces
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   interestCopy = interest;
   facesCopy = faces;
-  v48.receiver = self;
-  v48.super_class = VCPVideoHumanActionAnalyzer;
-  v9 = [(VCPVideoHumanActionAnalyzer *)&v48 init];
+  v50.receiver = self;
+  v50.super_class = VCPVideoHumanActionAnalyzer;
+  v9 = [(VCPVideoHumanActionAnalyzer *)&v50 init];
   if (v9)
   {
     v10 = [VCPImageHumanPoseAnalyzer alloc];
-    HasANE = DeviceHasANE();
-    v12 = [(VCPImageHumanPoseAnalyzer *)v10 initWithKeypointsOption:1 aspectRatio:0 lightweight:HasANE ^ 1u forceCPU:0 sharedModel:1 flushModel:DeviceHasANE() ^ 1];
-    v13 = *(v9 + 1);
-    *(v9 + 1) = v12;
+    HasANE = DeviceHasANE(v10, v11);
+    v14 = [(VCPImageHumanPoseAnalyzer *)v10 initWithKeypointsOption:1 aspectRatio:0 lightweight:HasANE ^ 1 forceCPU:0 sharedModel:1 flushModel:DeviceHasANE(HasANE, v13) ^ 1];
+    v15 = *(v9 + 1);
+    *(v9 + 1) = v14;
 
-    v14 = MEMORY[0x1E6960C80];
-    v15 = *(MEMORY[0x1E6960C80] + 16);
+    v16 = MEMORY[0x1E6960C80];
+    v17 = *(MEMORY[0x1E6960C80] + 16);
     *(v9 + 1) = *MEMORY[0x1E6960C80];
-    *(v9 + 4) = v15;
+    *(v9 + 4) = v17;
     array = [MEMORY[0x1E695DF70] array];
-    v17 = *(v9 + 8);
+    v19 = *(v9 + 8);
     *(v9 + 8) = array;
 
     array2 = [MEMORY[0x1E695DF70] array];
-    v19 = *(v9 + 16);
+    v21 = *(v9 + 16);
     *(v9 + 16) = array2;
 
     array3 = [MEMORY[0x1E695DF70] array];
-    v21 = *(v9 + 17);
+    v23 = *(v9 + 17);
     *(v9 + 17) = array3;
 
     array4 = [MEMORY[0x1E695DF70] array];
-    v23 = *(v9 + 18);
+    v25 = *(v9 + 18);
     *(v9 + 18) = array4;
 
     array5 = [MEMORY[0x1E695DF70] array];
-    v25 = *(v9 + 19);
+    v27 = *(v9 + 19);
     *(v9 + 19) = array5;
 
     *(v9 + 18) = 0;
-    v26 = MEMORY[0x1E6960C70];
-    v27 = *MEMORY[0x1E6960C70];
+    v28 = MEMORY[0x1E6960C70];
+    v29 = *MEMORY[0x1E6960C70];
     *(v9 + 92) = *(MEMORY[0x1E6960C70] + 16);
-    *(v9 + 76) = v27;
-    v28 = *(v26 + 16);
-    *(v9 + 100) = *v26;
-    *(v9 + 116) = v28;
-    v29 = MEMORY[0x1E695F058];
-    v30 = *(MEMORY[0x1E695F058] + 16);
+    *(v9 + 76) = v29;
+    v30 = *(v28 + 16);
+    *(v9 + 100) = *v28;
+    *(v9 + 116) = v30;
+    v31 = MEMORY[0x1E695F058];
+    v32 = *(MEMORY[0x1E695F058] + 16);
     *(v9 + 10) = *MEMORY[0x1E695F058];
-    *(v9 + 11) = v30;
-    v31 = v29[1];
-    *(v9 + 12) = *v29;
-    *(v9 + 13) = v31;
+    *(v9 + 11) = v32;
+    v33 = v31[1];
+    *(v9 + 12) = *v31;
+    *(v9 + 13) = v33;
     *(v9 + 56) = 0;
     *(v9 + 57) = 0;
     *(v9 + 58) = 0;
     *(v9 + 59) = 0;
-    v32 = *(v26 + 16);
-    *(v9 + 244) = *v26;
-    *(v9 + 260) = v32;
-    v33 = *(v14 + 16);
-    *(v9 + 40) = *v14;
-    *(v9 + 7) = v33;
-    v34 = *(v9 + 34);
+    v34 = *(v28 + 16);
+    *(v9 + 244) = *v28;
+    *(v9 + 260) = v34;
+    v35 = *(v16 + 16);
+    *(v9 + 40) = *v16;
+    *(v9 + 7) = v35;
+    v36 = *(v9 + 34);
     *(v9 + 34) = 0;
 
     v9[280] = 0;
     objc_storeStrong(v9 + 36, interest);
     array6 = [MEMORY[0x1E695DF70] array];
-    v36 = *(v9 + 37);
+    v38 = *(v9 + 37);
     *(v9 + 37) = array6;
 
+    v48 = 0u;
+    v49 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v37 = facesCopy;
-    v38 = [v37 countByEnumeratingWithState:&v44 objects:v49 count:16];
-    if (v38)
+    v39 = facesCopy;
+    v40 = [v39 countByEnumeratingWithState:&v46 objects:v51 count:16];
+    if (v40)
     {
-      v39 = *v45;
+      v41 = *v47;
       do
       {
-        for (i = 0; i != v38; ++i)
+        for (i = 0; i != v40; ++i)
         {
-          if (*v45 != v39)
+          if (*v47 != v41)
           {
-            objc_enumerationMutation(v37);
+            objc_enumerationMutation(v39);
           }
 
-          [*(v9 + 37) addObject:{*(*(&v44 + 1) + 8 * i), v44}];
+          [*(v9 + 37) addObject:{*(*(&v46 + 1) + 8 * i), v46}];
         }
 
-        v38 = [v37 countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v40 = [v39 countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
-      while (v38);
+      while (v40);
     }
   }
 
   if (*(v9 + 1))
   {
-    v41 = v9;
+    v43 = v9;
   }
 
   else
   {
-    v41 = 0;
+    v43 = 0;
   }
 
-  v42 = v41;
+  v44 = v43;
 
-  return v42;
+  return v44;
 }
 
 - (float)normDistance:(id)distance point2:(id)point2

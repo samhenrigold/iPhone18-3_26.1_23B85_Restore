@@ -37,7 +37,7 @@
   v23 = uTF8String;
   std::string::basic_string[abi:ne200100]<0>(__p, *MEMORY[0x1E69ABD88]);
   v26 = __p;
-  v11 = std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v24, __p);
+  v11 = std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v24, __p, &std::piecewise_construct, &v26);
   v12 = v11;
   if (*(v11 + 80))
   {
@@ -62,7 +62,7 @@
 
   std::string::basic_string[abi:ne200100]<0>(__p, *MEMORY[0x1E69ABD98]);
   v26 = __p;
-  v13 = std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v24, __p);
+  v13 = std::__tree<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::variant<language_modeling::v1::SessionType,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v24, __p, &std::piecewise_construct, &v26);
   std::__variant_detail::__assignment<std::__variant_detail::__traits<language_modeling::v1::SessionType,std::string>>::__assign_alt[abi:ne200100]<1ul,std::string,char const*&>(v13 + 56, (v13 + 56), &v23);
   if (v22 < 0)
   {
@@ -192,19 +192,18 @@ LABEL_19:
         break;
       }
 
-      ptr = self->_session.__ptr_;
       std::string::basic_string[abi:ne200100]<0>(&__p, uTF8String);
-      v26 = 0;
-      makeContext(v14, v23);
-      v20 = COERCE_DOUBLE(language_modeling::v1::LanguageModelSession::conditionalProbability());
-      language_modeling::v1::LinguisticContext::~LinguisticContext(v23);
-      if (v25 < 0)
+      v25 = 0;
+      makeContext(v14, v22);
+      v19 = COERCE_DOUBLE(language_modeling::v1::LanguageModelSession::conditionalProbability());
+      language_modeling::v1::LinguisticContext::~LinguisticContext(v22);
+      if (v24 < 0)
       {
         operator delete(__p);
       }
 
       [(NSArray *)v14 addObject:v17];
-      v16 = v16 + v20;
+      v16 = v16 + v19;
 
       if (++v15 >= v13)
       {
@@ -233,11 +232,11 @@ LABEL_20:
 
 - (void)enumeratePredictionsForContext:(id)context maximumPredictions:(unint64_t)predictions maximumTokensPerPrediction:(unint64_t)prediction withBlock:(id)block
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   predictionsCopy = predictions;
   blockCopy = block;
   v8 = wordSequenceForString(context, self->_tokenizer);
-  v13 = 0;
+  v12 = 0;
   if (self->_session.__ptr_)
   {
     v9 = v8 == 0;
@@ -250,12 +249,10 @@ LABEL_20:
 
   if (!v9)
   {
-    makeContext(v8, v12);
+    makeContext(v8, v11);
     std::string::basic_string[abi:ne200100]<0>(&__p, "");
     operator new();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)blocklistStatusForString:(id)string matchType:(int64_t)type

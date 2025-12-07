@@ -14,7 +14,7 @@
 
 + (FCCKRecordSchema)recordWithType:(void *)type fields:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v5 = a2;
   objc_opt_self();
@@ -23,35 +23,35 @@
   v8 = typeCopy;
   if (v6)
   {
-    v26.receiver = v6;
-    v26.super_class = FCCKRecordSchema;
-    v9 = objc_msgSendSuper2(&v26, sel_init);
+    v25.receiver = v6;
+    v25.super_class = FCCKRecordSchema;
+    v9 = objc_msgSendSuper2(&v25, sel_init);
     v6 = v9;
     if (v9)
     {
       objc_storeStrong(&v9->_recordType, a2);
       dictionary = [MEMORY[0x1E695DF90] dictionary];
+      v21 = 0u;
       v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
       v11 = v8;
-      v12 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v23;
+        v14 = *v22;
         do
         {
           v15 = 0;
           do
           {
-            if (*v23 != v14)
+            if (*v22 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v22 + 1) + 8 * v15);
+            v16 = *(*(&v21 + 1) + 8 * v15);
             if (v16)
             {
               v17 = *(v16 + 16);
@@ -62,12 +62,12 @@
               v17 = 0;
             }
 
-            [(NSDictionary *)dictionary setObject:v16 forKeyedSubscript:v17, v22];
+            [(NSDictionary *)dictionary setObject:v16 forKeyedSubscript:v17, v21];
             ++v15;
           }
 
           while (v13 != v15);
-          v18 = [v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+          v18 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
           v13 = v18;
         }
 
@@ -78,8 +78,6 @@
       v6->_fieldSchemasByName = dictionary;
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

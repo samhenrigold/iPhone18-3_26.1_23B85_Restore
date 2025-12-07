@@ -201,7 +201,7 @@ void __68__TestProbe_autoBugCapturePath_autoBugCaptureUID_autoBugCaptureGID___bl
 
 void __35__TestProbe_removeProbeOutputFiles__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) probeOutputFilePaths];
   if ([v1 count])
   {
@@ -209,25 +209,25 @@ void __35__TestProbe_removeProbeOutputFiles__block_invoke(uint64_t a1)
     if ([autoBugCapturePath length])
     {
       v3 = [MEMORY[0x277CBEB18] array];
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v4 = v1;
-      v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v5)
       {
-        v6 = *v22;
+        v6 = *v21;
         do
         {
           for (i = 0; i != v5; ++i)
           {
-            if (*v22 != v6)
+            if (*v21 != v6)
             {
               objc_enumerationMutation(v4);
             }
 
-            v8 = *(*(&v21 + 1) + 8 * i);
+            v8 = *(*(&v20 + 1) + 8 * i);
             if ([v2 fileExistsAtPath:v8])
             {
               v9 = [v8 rangeOfString:autoBugCapturePath];
@@ -239,30 +239,28 @@ void __35__TestProbe_removeProbeOutputFiles__block_invoke(uint64_t a1)
             }
           }
 
-          v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
         }
 
         while (v5);
       }
 
-      v15 = 0;
-      v16 = &v15;
-      v17 = 0x3032000000;
-      v18 = __Block_byref_object_copy__16;
-      v19 = __Block_byref_object_dispose__16;
-      v20 = objc_alloc_init(MEMORY[0x277D6AFC8]);
-      v12 = v16[5];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __35__TestProbe_removeProbeOutputFiles__block_invoke_2;
-      v14[3] = &unk_27898FDD8;
-      v14[4] = &v15;
-      [v12 purgeAutoBugCaptureFilesWithSubPaths:v3 reply:v14];
-      _Block_object_dispose(&v15, 8);
+      v14 = 0;
+      v15 = &v14;
+      v16 = 0x3032000000;
+      v17 = __Block_byref_object_copy__16;
+      v18 = __Block_byref_object_dispose__16;
+      v19 = objc_alloc_init(MEMORY[0x277D6AFC8]);
+      v12 = v15[5];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __35__TestProbe_removeProbeOutputFiles__block_invoke_2;
+      v13[3] = &unk_27898FDD8;
+      v13[4] = &v14;
+      [v12 purgeAutoBugCaptureFilesWithSubPaths:v3 reply:v13];
+      _Block_object_dispose(&v14, 8);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __35__TestProbe_removeProbeOutputFiles__block_invoke_2(uint64_t a1)

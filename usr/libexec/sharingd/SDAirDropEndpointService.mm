@@ -13,25 +13,23 @@
 - (void)screenStateChangedWithNotification:(id)notification
 {
   v4 = sub_10028088C(&qword_100976160, &qword_1007F8770);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v16 - v6;
-  v8 = type metadata accessor for Notification();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v14 - v5;
+  v7 = type metadata accessor for Notification();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
-  v13 = type metadata accessor for TaskPriority();
-  (*(*(v13 - 8) + 56))(v7, 1, 1, v13);
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = self;
+  v11 = type metadata accessor for TaskPriority();
+  (*(*(v11 - 8) + 56))(v6, 1, 1, v11);
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = self;
   selfCopy = self;
-  sub_1002B3098(0, 0, v7, &unk_100805120, v14);
+  sub_1002B3098(0, 0, v6, &unk_100805120, v12);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (id)endpointsChangedHandler
@@ -78,7 +76,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_100015D04(v8);
+  sub_100015D04(v8, v9);
 }
 
 - (id)addClient:(id)client
@@ -93,30 +91,29 @@
 - (void)removeClientWithToken:(id)token
 {
   v5 = sub_10028088C(&qword_100976160, &qword_1007F8770);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v18 - v7;
-  v9 = type metadata accessor for TaskPriority();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
-  v10 = qword_1009735E0;
+  v7 = &v17 - v6;
+  v8 = type metadata accessor for TaskPriority();
+  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
+  v9 = qword_1009735E0;
   tokenCopy = token;
   selfCopy = self;
-  v13 = tokenCopy;
-  v14 = selfCopy;
-  if (v10 != -1)
+  v12 = tokenCopy;
+  v13 = selfCopy;
+  if (v9 != -1)
   {
     swift_once();
   }
 
-  v15 = static AirDropActor.shared;
-  v16 = sub_100005430(&qword_100977C00, type metadata accessor for AirDropActor);
-  v17 = swift_allocObject();
-  v17[2] = v15;
-  v17[3] = v16;
-  v17[4] = v13;
-  v17[5] = v14;
+  v14 = static AirDropActor.shared;
+  v15 = sub_100005430(&qword_100977C00, type metadata accessor for AirDropActor, &protocol conformance descriptor for AirDropActor);
+  v16 = swift_allocObject();
+  v16[2] = v14;
+  v16[3] = v15;
+  v16[4] = v12;
+  v16[5] = v13;
 
-  sub_1002B3098(0, 0, v8, &unk_100805158, v17);
+  sub_1002B3098(0, 0, v7, &unk_100805158, v16);
 }
 
 - (void)nearFieldDidTap

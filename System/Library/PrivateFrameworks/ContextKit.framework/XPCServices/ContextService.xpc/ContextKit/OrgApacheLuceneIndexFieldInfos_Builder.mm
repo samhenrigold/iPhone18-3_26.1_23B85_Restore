@@ -69,7 +69,7 @@
       sub_10001B990();
     }
 
-    v7 = [(OrgApacheLuceneIndexFieldInfos_FieldNumbers *)globalFieldNumbers addOrGetWithNSString:string withInt:0xFFFFFFFFLL withOrgApacheLuceneIndexDocValuesTypeEnum:OrgApacheLuceneIndexDocValuesTypeEnum_values_];
+    v7 = [(OrgApacheLuceneIndexFieldInfos_FieldNumbers *)globalFieldNumbers addOrGetWithNSString:string withInt:0xFFFFFFFFLL withOrgApacheLuceneIndexDocValuesTypeEnum:OrgApacheLuceneIndexDocValuesTypeEnum_values_[0]];
     if ((atomic_load_explicit(OrgApacheLuceneIndexIndexOptionsEnum__initialized, memory_order_acquire) & 1) == 0)
     {
       sub_100015608();
@@ -81,7 +81,7 @@
       sub_10001B990();
     }
 
-    v9 = OrgApacheLuceneIndexDocValuesTypeEnum_values_;
+    v9 = OrgApacheLuceneIndexDocValuesTypeEnum_values_[0];
     v10 = new_JavaUtilHashMap_init();
     v5 = new_OrgApacheLuceneIndexFieldInfo_initWithNSString_withInt_withBoolean_withBoolean_withBoolean_withOrgApacheLuceneIndexIndexOptionsEnum_withOrgApacheLuceneIndexDocValuesTypeEnum_withLong_withJavaUtilMap_(string, v7, 0, 0, 0, v8, v9, -1, v10);
     v11 = self->globalFieldNumbers_;
@@ -92,7 +92,7 @@
       sub_10001B990();
     }
 
-    [(OrgApacheLuceneIndexFieldInfos_FieldNumbers *)v11 verifyConsistentWithJavaLangInteger:v12 withNSString:name withOrgApacheLuceneIndexDocValuesTypeEnum:OrgApacheLuceneIndexDocValuesTypeEnum_values_];
+    [(OrgApacheLuceneIndexFieldInfos_FieldNumbers *)v11 verifyConsistentWithJavaLangInteger:v12 withNSString:name withOrgApacheLuceneIndexDocValuesTypeEnum:OrgApacheLuceneIndexDocValuesTypeEnum_values_[0]];
     [(JavaUtilHashMap *)self->byName_ putWithId:v5->name_ withId:v5];
   }
 
@@ -136,11 +136,13 @@
     JreThrowNullPointerException();
   }
 
-  v5 = [v4 toArrayWithNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", -[JavaUtilHashMap size](self->byName_, "size"), OrgApacheLuceneIndexFieldInfo_class_())}];
-  v6 = [OrgApacheLuceneIndexFieldInfos alloc];
-  OrgApacheLuceneIndexFieldInfos_initWithOrgApacheLuceneIndexFieldInfoArray_(v6, v5);
+  v5 = v4;
+  v6 = [(JavaUtilHashMap *)self->byName_ size];
+  v8 = [v5 toArrayWithNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", v6, OrgApacheLuceneIndexFieldInfo_class_(v6, v7))}];
+  v9 = [OrgApacheLuceneIndexFieldInfos alloc];
+  OrgApacheLuceneIndexFieldInfos_initWithOrgApacheLuceneIndexFieldInfoArray_(v9, v8);
 
-  return v6;
+  return v9;
 }
 
 - (void)dealloc

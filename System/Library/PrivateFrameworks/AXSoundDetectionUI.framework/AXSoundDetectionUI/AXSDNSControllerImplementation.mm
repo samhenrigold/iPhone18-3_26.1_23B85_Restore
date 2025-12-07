@@ -56,7 +56,7 @@
 
   sub_23D6549C0(v7);
 
-  sub_23D67FFF0(&qword_27E2E04E0, type metadata accessor for AXSDSoundDetectionType);
+  sub_23D67FFF0(&qword_27E2E04E0, type metadata accessor for AXSDSoundDetectionType, &unk_23D6892EC);
   v8 = sub_23D685A10();
 
   return v8;
@@ -112,20 +112,19 @@
 {
   v5 = sub_23D6856A0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23D685680();
   selfCopy = self;
-  AXSDNSControllerImplementation.pipe(inFileURL:)(v9);
-  (*(v6 + 8))(v9, v5);
+  AXSDNSControllerImplementation.pipe(inFileURL:)(v8);
+  (*(v6 + 8))(v8, v5);
 
   type metadata accessor for AXSDSoundDetectionType();
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E0978, &qword_23D689A70);
-  sub_23D67FFF0(&qword_27E2E04E0, type metadata accessor for AXSDSoundDetectionType);
-  v11 = sub_23D6858B0();
+  sub_23D67FFF0(&qword_27E2E04E0, type metadata accessor for AXSDSoundDetectionType, &unk_23D6892EC);
+  v10 = sub_23D6858B0();
 
-  return v11;
+  return v10;
 }
 
 - (id)pipeInFilePath:(id)path error:(id *)error
@@ -137,7 +136,7 @@
 
   type metadata accessor for AXSDSoundDetectionType();
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E0978, &qword_23D689A70);
-  sub_23D67FFF0(&qword_27E2E04E0, type metadata accessor for AXSDSoundDetectionType);
+  sub_23D67FFF0(&qword_27E2E04E0, type metadata accessor for AXSDSoundDetectionType, &unk_23D6892EC);
   v9 = sub_23D6858B0();
 
   return v9;

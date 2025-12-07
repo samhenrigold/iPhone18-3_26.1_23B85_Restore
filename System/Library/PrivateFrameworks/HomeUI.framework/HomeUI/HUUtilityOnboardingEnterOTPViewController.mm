@@ -62,7 +62,7 @@
   swift_unknownObjectRelease();
   [*(&selfCopy->super.super.super.super.super.isa + OBJC_IVAR___HUUtilityOnboardingEnterOTPViewController_codeTextField) clearText];
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (id)hu_preloadContent
@@ -87,7 +87,7 @@
 
 - (Class)onboardingFlowClass
 {
-  sub_20CECF940(0, &qword_27C81E450);
+  sub_20CECF940(0, &qword_27C81E450, off_277DB19A0);
 
   return swift_getObjCClassFromMetadata();
 }

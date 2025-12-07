@@ -7,11 +7,11 @@
 
 + (id)setWithObjectsFrom:()_DASAdditions
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v10 = a3;
   v11 = [v10 count];
   v12 = [MEMORY[0x1E695DFA8] setWithObject:v10];
-  v40 = &a10;
+  v39 = &a10;
   v13 = a9;
   if (v13)
   {
@@ -20,7 +20,7 @@
     {
       v11 += [v14 count];
       [v12 addObject:v14];
-      v15 = v40++;
+      v15 = v39++;
       v16 = *v15;
 
       v14 = v16;
@@ -38,64 +38,64 @@
 LABEL_5:
     if (v11 > 1)
     {
-      v31 = v10;
+      v30 = v10;
       v17 = [MEMORY[0x1E695DFA8] setWithCapacity:1 << (log2((v11 - 1)) + 1)];
+      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
       v18 = v12;
-      v19 = [v18 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v35 objects:v41 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v37;
+        v21 = *v36;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v37 != v21)
+            if (*v36 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = *(*(&v36 + 1) + 8 * i);
+            v23 = *(*(&v35 + 1) + 8 * i);
+            v31 = 0u;
             v32 = 0u;
             v33 = 0u;
             v34 = 0u;
-            v35 = 0u;
             v24 = v23;
-            v25 = [v24 countByEnumeratingWithState:&v32 objects:v41 count:16];
+            v25 = [v24 countByEnumeratingWithState:&v31 objects:v40 count:16];
             if (v25)
             {
               v26 = v25;
-              v27 = *v33;
+              v27 = *v32;
               do
               {
                 for (j = 0; j != v26; ++j)
                 {
-                  if (*v33 != v27)
+                  if (*v32 != v27)
                   {
                     objc_enumerationMutation(v24);
                   }
 
-                  [v17 addObject:*(*(&v32 + 1) + 8 * j)];
+                  [v17 addObject:*(*(&v31 + 1) + 8 * j)];
                 }
 
-                v26 = [v24 countByEnumeratingWithState:&v32 objects:v41 count:16];
+                v26 = [v24 countByEnumeratingWithState:&v31 objects:v40 count:16];
               }
 
               while (v26);
             }
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v36 objects:v42 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v35 objects:v41 count:16];
         }
 
         while (v20);
       }
 
-      v10 = v31;
+      v10 = v30;
     }
 
     else
@@ -103,8 +103,6 @@ LABEL_5:
       v17 = [MEMORY[0x1E695DFA8] setWithCapacity:1];
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

@@ -29,7 +29,7 @@
 - (id)dictionaryRepresentation:(BOOL)representation
 {
   representationCopy = representation;
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   mediaProfiles = [(HMDMPCSessionData *)self mediaProfiles];
   v7 = [mediaProfiles na_map:&__block_literal_global_130626];
@@ -60,9 +60,9 @@
       v17 = HMFGetLogIdentifier();
       playbackArchive2 = [(HMDMPCSessionData *)selfCopy playbackArchive];
       *buf = 138543618;
-      v53 = v17;
-      v54 = 2112;
-      v55 = playbackArchive2;
+      v52 = v17;
+      v53 = 2112;
+      v54 = playbackArchive2;
       _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Encoding playbackArchive: %@", buf, 0x16u);
     }
 
@@ -77,16 +77,16 @@
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v53 = v23;
+        v52 = v23;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Encoding playbackArchive in entirety", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v19);
       v24 = MEMORY[0x277CCAAB0];
       playbackArchive3 = [(HMDMPCSessionData *)v20 playbackArchive];
-      v51 = 0;
-      v26 = [v24 archivedDataWithRootObject:playbackArchive3 requiringSecureCoding:1 error:&v51];
-      v27 = v51;
+      v50 = 0;
+      v26 = [v24 archivedDataWithRootObject:playbackArchive3 requiringSecureCoding:1 error:&v50];
+      v27 = v50;
 
       if (v26)
       {
@@ -102,9 +102,9 @@
         {
           v47 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v53 = v47;
-          v54 = 2112;
-          v55 = v27;
+          v52 = v47;
+          v53 = 2112;
+          v54 = v27;
           _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_ERROR, "%{public}@Couldn't encode playbackArchive: %@", buf, 0x16u);
         }
 
@@ -119,9 +119,9 @@
         v28 = HMFGetLogIdentifier();
         playbackArchive4 = [(HMDMPCSessionData *)v20 playbackArchive];
         *buf = 138543618;
-        v53 = v28;
-        v54 = 2112;
-        v55 = playbackArchive4;
+        v52 = v28;
+        v53 = 2112;
+        v54 = playbackArchive4;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Encoding playbackArchive session identifier: %@", buf, 0x16u);
       }
 
@@ -152,9 +152,9 @@
         v42 = HMFGetLogIdentifier();
         v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v34];
         *buf = 138543618;
-        v53 = v42;
-        v54 = 2112;
-        v55 = v43;
+        v52 = v42;
+        v53 = 2112;
+        v54 = v43;
         _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_INFO, "%{public}@Encoding playbackArchive options: %@", buf, 0x16u);
       }
 
@@ -164,9 +164,7 @@
     }
   }
 
-  v48 = [dictionary copy];
-
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = objc_msgSend_copy(dictionary);
 
   return v48;
 }
@@ -204,40 +202,40 @@ id __46__HMDMPCSessionData_dictionaryRepresentation___block_invoke(uint64_t a1, 
 
 - (HMDMPCSessionData)initWithDictionaryRepresentation:(id)representation profileSource:(id)source
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   sourceCopy = source;
-  v66 = representationCopy;
+  v65 = representationCopy;
   v7 = [representationCopy hmf_arrayForKey:@"HMDMAR.mediaProfiles"];
   v8 = sourceCopy;
   v9 = v7;
-  v70 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v9, "count")}];
+  v69 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v9, "count")}];
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   obj = v9;
-  v10 = [obj countByEnumeratingWithState:&v73 objects:v81 count:16];
-  v68 = v8;
+  v10 = [obj countByEnumeratingWithState:&v72 objects:v80 count:16];
+  v67 = v8;
   if (v10)
   {
     v11 = v10;
-    v12 = *v74;
+    v12 = *v73;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v74 != v12)
+        if (*v73 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v73 + 1) + 8 * i);
+        v14 = *(*(&v72 + 1) + 8 * i);
         v15 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v14];
         v16 = [v8 mediaProfileWithUUID:v15];
         if (v16)
         {
-          [v70 addObject:v16];
+          [v69 addObject:v16];
         }
 
         else
@@ -248,30 +246,30 @@ id __46__HMDMPCSessionData_dictionaryRepresentation___block_invoke(uint64_t a1, 
           {
             v19 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v78 = v19;
-            v79 = 2112;
-            v80 = v14;
+            v77 = v19;
+            v78 = 2112;
+            v79 = v14;
             _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Could not map profile UUID (%@) to MediaProfile", buf, 0x16u);
 
-            v8 = v68;
+            v8 = v67;
           }
 
           objc_autoreleasePoolPop(v17);
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v73 objects:v81 count:16];
+      v11 = [obj countByEnumeratingWithState:&v72 objects:v80 count:16];
     }
 
     while (v11);
   }
 
-  v67 = [v70 copy];
-  v64 = [v66 hmf_numberForKey:@"HMDMAR.state"];
-  v63 = [v66 hmf_numberForKey:@"HMDMAR.volume"];
-  v20 = [v66 hmf_dataForKey:@"HMDMAR.archive"];
-  v21 = [v66 hmf_stringForKey:@"HMDMAR.pbsid"];
-  v22 = [v66 hmf_numberForKey:@"HMDMAR.actionSource"];
+  v66 = objc_msgSend_copy(v69);
+  v63 = [v65 hmf_numberForKey:@"HMDMAR.state"];
+  v62 = [v65 hmf_numberForKey:@"HMDMAR.volume"];
+  v20 = [v65 hmf_dataForKey:@"HMDMAR.archive"];
+  v21 = [v65 hmf_stringForKey:@"HMDMAR.pbsid"];
+  v22 = [v65 hmf_numberForKey:@"HMDMAR.actionSource"];
   v23 = v22;
   v24 = &unk_286629230;
   if (v22)
@@ -279,9 +277,9 @@ id __46__HMDMPCSessionData_dictionaryRepresentation___block_invoke(uint64_t a1, 
     v24 = v22;
   }
 
-  v62 = v24;
+  v61 = v24;
 
-  v25 = [v66 hmf_stringForKey:@"HMDMAR.actionClientName"];
+  v25 = [v65 hmf_stringForKey:@"HMDMAR.actionClientName"];
   v26 = v25;
   v27 = @"Unknown";
   if (v25)
@@ -291,7 +289,7 @@ id __46__HMDMPCSessionData_dictionaryRepresentation___block_invoke(uint64_t a1, 
 
   v28 = v27;
 
-  v71 = v21;
+  v70 = v21;
   if (v20)
   {
     v29 = objc_autoreleasePoolPush();
@@ -301,19 +299,19 @@ id __46__HMDMPCSessionData_dictionaryRepresentation___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
       v33 = HMFGetLogIdentifier();
-      *v81 = 138543618;
-      v82 = v33;
-      v83 = 2112;
-      v84 = v20;
-      _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Decoding playbackArchive in entirety: %@", v81, 0x16u);
+      *v80 = 138543618;
+      v81 = v33;
+      v82 = 2112;
+      v83 = v20;
+      _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Decoding playbackArchive in entirety: %@", v80, 0x16u);
 
-      v8 = v68;
+      v8 = v67;
     }
 
     objc_autoreleasePoolPop(v29);
-    v72 = 0;
-    v34 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v20 error:&v72];
-    v35 = v72;
+    v71 = 0;
+    v34 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v20 error:&v71];
+    v35 = v71;
     if (!v34)
     {
       v36 = objc_autoreleasePoolPush();
@@ -322,15 +320,15 @@ id __46__HMDMPCSessionData_dictionaryRepresentation___block_invoke(uint64_t a1, 
       if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         v39 = HMFGetLogIdentifier();
-        *v81 = 138543618;
-        v82 = v39;
-        v83 = 2112;
-        v84 = v35;
-        _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_ERROR, "%{public}@Couldn't decode playbackArchive: %@", v81, 0x16u);
+        *v80 = 138543618;
+        v81 = v39;
+        v82 = 2112;
+        v83 = v35;
+        _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_ERROR, "%{public}@Couldn't decode playbackArchive: %@", v80, 0x16u);
       }
 
       objc_autoreleasePoolPop(v36);
-      v8 = v68;
+      v8 = v67;
     }
   }
 
@@ -346,11 +344,11 @@ id __46__HMDMPCSessionData_dictionaryRepresentation___block_invoke(uint64_t a1, 
       if (v43)
       {
         v44 = HMFGetLogIdentifier();
-        *v81 = 138543618;
-        v82 = v44;
-        v83 = 2112;
-        v84 = v21;
-        _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_INFO, "%{public}@Decoding playbackArchive session identifier: %@", v81, 0x16u);
+        *v80 = 138543618;
+        v81 = v44;
+        v82 = 2112;
+        v83 = v21;
+        _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_INFO, "%{public}@Decoding playbackArchive session identifier: %@", v80, 0x16u);
       }
 
       objc_autoreleasePoolPop(v40);
@@ -358,7 +356,7 @@ id __46__HMDMPCSessionData_dictionaryRepresentation___block_invoke(uint64_t a1, 
       v34 = [home playbackArchiveWithSessionIdentifier:v21];
       if (v34)
       {
-        v45 = [v66 hmf_numberForKey:@"HMDMAR.pbao"];
+        v45 = [v65 hmf_numberForKey:@"HMDMAR.pbao"];
         unsignedIntegerValue = [v45 unsignedIntegerValue];
 
         v47 = 1;
@@ -376,16 +374,16 @@ id __46__HMDMPCSessionData_dictionaryRepresentation___block_invoke(uint64_t a1, 
         {
           v52 = HMFGetLogIdentifier();
           v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-          *v81 = 138543874;
-          v82 = v52;
-          v83 = 2112;
-          v84 = v34;
-          v85 = 2112;
-          v86 = v53;
-          _os_log_impl(&dword_2531F8000, v50, OS_LOG_TYPE_INFO, "%{public}@Decoding playbackArchive: %@ options: %@", v81, 0x20u);
+          *v80 = 138543874;
+          v81 = v52;
+          v82 = 2112;
+          v83 = v34;
+          v84 = 2112;
+          v85 = v53;
+          _os_log_impl(&dword_2531F8000, v50, OS_LOG_TYPE_INFO, "%{public}@Decoding playbackArchive: %@ options: %@", v80, 0x20u);
         }
 
-        v8 = v68;
+        v8 = v67;
       }
 
       else
@@ -396,12 +394,12 @@ id __46__HMDMPCSessionData_dictionaryRepresentation___block_invoke(uint64_t a1, 
         if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
           v56 = HMFGetLogIdentifier();
-          *v81 = 138543618;
-          v82 = v56;
-          v83 = 2112;
+          *v80 = 138543618;
+          v81 = v56;
+          v82 = 2112;
           v51 = home;
-          v84 = home;
-          _os_log_impl(&dword_2531F8000, v50, OS_LOG_TYPE_ERROR, "%{public}@Couldn't decode playbackArchive session identifier. home %@", v81, 0x16u);
+          v83 = home;
+          _os_log_impl(&dword_2531F8000, v50, OS_LOG_TYPE_ERROR, "%{public}@Couldn't decode playbackArchive session identifier. home %@", v80, 0x16u);
         }
 
         else
@@ -418,9 +416,9 @@ id __46__HMDMPCSessionData_dictionaryRepresentation___block_invoke(uint64_t a1, 
       if (v43)
       {
         v54 = HMFGetLogIdentifier();
-        *v81 = 138543362;
-        v82 = v54;
-        _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_INFO, "%{public}@Key to playbackArchive not found", v81, 0xCu);
+        *v80 = 138543362;
+        v81 = v54;
+        _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_INFO, "%{public}@Key to playbackArchive not found", v80, 0xCu);
       }
 
       objc_autoreleasePoolPop(v40);
@@ -428,15 +426,14 @@ id __46__HMDMPCSessionData_dictionaryRepresentation___block_invoke(uint64_t a1, 
     }
   }
 
-  v57 = [(HMDMPCSessionData *)selfCopy3 initWithMediaProfiles:v67 playbackState:v64 playbackVolume:v63 playbackArchive:v34 source:v62 clientName:v28];
+  v57 = [(HMDMPCSessionData *)selfCopy3 initWithMediaProfiles:v66 playbackState:v63 playbackVolume:v62 playbackArchive:v34 source:v61 clientName:v28];
 
-  v58 = *MEMORY[0x277D85DE8];
   return v57;
 }
 
 - (HMDMPCSessionData)initWithMediaProfiles:(id)profiles playbackState:(id)state playbackVolume:(id)volume playbackArchive:(id)archive source:(id)source clientName:(id)name
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   stateCopy = state;
   volumeCopy = volume;
@@ -452,7 +449,7 @@ id __46__HMDMPCSessionData_dictionaryRepresentation___block_invoke(uint64_t a1, 
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v22;
+      v39 = v22;
       v23 = "%{public}@No media profiles";
       goto LABEL_9;
     }
@@ -473,7 +470,7 @@ LABEL_10:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v22;
+      v39 = v22;
       v23 = "%{public}@No action contained in HMDMPCSessionData";
 LABEL_9:
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, v23, buf, 0xCu);
@@ -484,9 +481,9 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v38.receiver = self;
-  v38.super_class = HMDMPCSessionData;
-  v25 = [(HMDMPCSessionData *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = HMDMPCSessionData;
+  v25 = [(HMDMPCSessionData *)&v37 init];
   v26 = v25;
   if (v25)
   {
@@ -507,9 +504,9 @@ LABEL_9:
       v32 = HMFGetLogIdentifier();
       v33 = v26->_playbackArchive;
       *buf = 138543618;
-      v40 = v32;
-      v41 = 2112;
-      v42 = v33;
+      v39 = v32;
+      v40 = 2112;
+      v41 = v33;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@HMDMPCSessionData initialized with playbackArchive: %@", buf, 0x16u);
     }
 
@@ -520,7 +517,6 @@ LABEL_9:
   v24 = selfCopy2;
 LABEL_16:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

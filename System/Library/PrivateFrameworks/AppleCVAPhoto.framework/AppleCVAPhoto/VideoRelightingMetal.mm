@@ -85,7 +85,7 @@
 {
   stitcherCopy = stitcher;
   rotationCopy = rotation;
-  v131[2] = *MEMORY[0x1E69E9840];
+  v130[2] = *MEMORY[0x1E69E9840];
   selfCopy = self;
   downsampledCopy = downsampled;
   outputCopy = output;
@@ -97,10 +97,10 @@
   callbackCopy = callback;
   if ((atomic_load_explicit(&qword_1ECDE1500, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECDE1500))
   {
-    v93 = +[CVAPreferenceManager defaults];
-    v94 = [v93 BOOLForKey:@"CVAPhotoDebugStyle"];
+    v92 = +[CVAPreferenceManager defaults];
+    v93 = [v92 BOOLForKey:@"CVAPhotoDebugStyle"];
 
-    byte_1ECDE14F8 = v94;
+    byte_1ECDE14F8 = v93;
     __cxa_guard_release(&qword_1ECDE1500);
   }
 
@@ -171,11 +171,11 @@
 LABEL_19:
   if ((atomic_load_explicit(&qword_1ECDE1520, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECDE1520))
   {
-    v95 = +[CVAPreferenceManager defaults];
-    [v95 floatForKey:@"CVAPhotoStyleStrengthMultiplier"];
-    v97 = v96;
+    v94 = +[CVAPreferenceManager defaults];
+    [v94 floatForKey:@"CVAPhotoStyleStrengthMultiplier"];
+    v96 = v95;
 
-    dword_1ECDE151C = v97;
+    dword_1ECDE151C = v96;
     __cxa_guard_release(&qword_1ECDE1520);
   }
 
@@ -207,10 +207,10 @@ LABEL_19:
 
   if ((atomic_load_explicit(&qword_1ECDE1530, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECDE1530))
   {
-    v98 = +[CVAPreferenceManager defaults];
-    v99 = [v98 BOOLForKey:@"CVAPhotoLogValidation"];
+    v97 = +[CVAPreferenceManager defaults];
+    v98 = [v97 BOOLForKey:@"CVAPhotoLogValidation"];
 
-    byte_1ECDE1528 = v99;
+    byte_1ECDE1528 = v98;
     __cxa_guard_release(&qword_1ECDE1530);
   }
 
@@ -218,10 +218,10 @@ LABEL_19:
   {
     if ((atomic_load_explicit(&qword_1ECDE1540, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECDE1540))
     {
-      v100 = +[CVAPreferenceManager defaults];
-      v101 = [v100 BOOLForKey:@"CVAPhotoLogValidationPassed"];
+      v99 = +[CVAPreferenceManager defaults];
+      v100 = [v99 BOOLForKey:@"CVAPhotoLogValidationPassed"];
 
-      byte_1ECDE1538 = v101;
+      byte_1ECDE1538 = v100;
       __cxa_guard_release(&qword_1ECDE1540);
     }
 
@@ -430,7 +430,7 @@ LABEL_19:
     CVPixelBufferGetHeightOfPlane(dstImage, 0);
     v67 = selfCopy;
     p_verticesPos = &selfCopy->_faceKitStreamedData.verticesPos;
-    v112 = [(NSData *)selfCopy->_faceKitStreamedData.landmarks length];
+    v111 = [(NSData *)selfCopy->_faceKitStreamedData.landmarks length];
     [p_verticesPos[6] bytes];
     [*p_verticesPos bytes];
     v69 = (([*p_verticesPos length] / 3) >> 2);
@@ -456,28 +456,28 @@ LABEL_19:
     }
 
     v73 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v67->_indexOfCheekLandmark_topLeft];
-    v131[0] = v73;
+    v130[0] = v73;
     v74 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v67->_indexOfCheekLandmark_topRight];
-    v131[1] = v74;
-    v75 = [MEMORY[0x1E695DEC8] arrayWithObjects:v131 count:2];
+    v130[1] = v74;
+    v75 = [MEMORY[0x1E695DEC8] arrayWithObjects:v130 count:2];
 
     v76 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v67->_indexOfCheekLandmark_bottomLeft];
-    v130[0] = v76;
+    v129[0] = v76;
     v77 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v67->_indexOfCheekLandmark_bottomRight];
-    v130[1] = v77;
-    v78 = [MEMORY[0x1E695DEC8] arrayWithObjects:v130 count:2];
+    v129[1] = v77;
+    v78 = [MEMORY[0x1E695DEC8] arrayWithObjects:v129 count:2];
 
     if ((atomic_load_explicit(&qword_1ECDE15A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECDE15A8))
     {
-      v102 = +[CVAPreferenceManager defaults];
-      v103 = [v102 BOOLForKey:@"CVAPhotoDrawFaceLandmarks"];
+      v101 = +[CVAPreferenceManager defaults];
+      v102 = [v101 BOOLForKey:@"CVAPhotoDrawFaceLandmarks"];
 
-      byte_1ECDE15A1 = v103;
+      byte_1ECDE15A1 = v102;
       __cxa_guard_release(&qword_1ECDE15A8);
     }
 
     v66 = selfCopy;
-    if (selfCopy->_debugFaceDraw && v112 >= 8)
+    if (selfCopy->_debugFaceDraw && v111 >= 8)
     {
       v79 = 0;
       do
@@ -491,7 +491,7 @@ LABEL_19:
         ++v79;
       }
 
-      while (v112 >> 3 != v79);
+      while (v111 >> 3 != v79);
     }
   }
 
@@ -501,23 +501,23 @@ LABEL_19:
   __p[2] = 0x3032000000;
   __p[3] = sub_1DED4DE08;
   __p[4] = sub_1DED4DE18;
-  v128 = v66->_inflightSemaphore;
-  v118[0] = MEMORY[0x1E69E9820];
-  v118[1] = 3221225472;
-  v118[2] = sub_1DED4DE20;
-  v118[3] = &unk_1E869ACA0;
+  v127 = v66->_inflightSemaphore;
+  v117[0] = MEMORY[0x1E69E9820];
+  v117[1] = 3221225472;
+  v117[2] = sub_1DED4DE20;
+  v117[3] = &unk_1E869ACA0;
   imageCopy = image;
   alphaCopy = alpha;
   segmentationCopy = segmentation;
-  v122 = &selfCopy;
-  v118[4] = v66;
+  v121 = &selfCopy;
+  v117[4] = v66;
   v82 = queueCopy;
-  v119 = v82;
+  v118 = v82;
   v83 = callbackCopy;
   dstImageCopy = dstImage;
-  v120 = v83;
-  v121 = __p;
-  [v59 addCompletedHandler:v118];
+  v119 = v83;
+  v120 = __p;
+  [v59 addCompletedHandler:v117];
   [v59 commit];
   p_faceKitStreamedData = &selfCopy->_faceKitStreamedData;
   verticesPos = selfCopy->_faceKitStreamedData.verticesPos;
@@ -543,8 +543,6 @@ LABEL_19:
 
   p_faceKitStreamedData->confidence = 0.0;
   _Block_object_dispose(__p, 8);
-
-  v92 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeLerpNearFarMapsToCommandBuffer:(id)buffer
@@ -602,7 +600,7 @@ LABEL_7:
 
 - (void)updateFaceKitStreamedDataFromProcessOutput:(id)output
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   outputCopy = output;
   verticesPos = self->_faceKitStreamedData.verticesPos;
@@ -629,12 +627,12 @@ LABEL_7:
   self->_faceKitStreamedData.confidence = 0.0;
   self->_faceDetectedReal = 0;
   self->_faceDetected = 0;
+  v42[0] = &unk_1F59F9C68;
+  v42[1] = &selfCopy;
+  v42[3] = v42;
+  v44 = v43;
   v43[0] = &unk_1F59F9C68;
   v43[1] = &selfCopy;
-  v43[3] = v43;
-  v45 = v44;
-  v44[0] = &unk_1F59F9C68;
-  v44[1] = &selfCopy;
   if (qword_1ECDE1090 == -1)
   {
     if (!outputCopy)
@@ -654,22 +652,22 @@ LABEL_7:
 
   if (byte_1ECDE1098)
   {
-    v40 = outputCopy;
-    v41 = [v40 objectForKeyedSubscript:qword_1ECDE10B0];
-    if ([v41 count])
+    v39 = outputCopy;
+    v40 = [v39 objectForKeyedSubscript:qword_1ECDE10B0];
+    if ([v40 count])
     {
-      v12 = [v41 objectAtIndex:0];
-      v39 = [v12 objectForKeyedSubscript:qword_1ECDE1100];
-      v13 = [v39 objectForKeyedSubscript:qword_1ECDE1120];
+      v12 = [v40 objectAtIndex:0];
+      v38 = [v12 objectForKeyedSubscript:qword_1ECDE1100];
+      v13 = [v38 objectForKeyedSubscript:qword_1ECDE1120];
       v14 = selfCopy->_faceKitStreamedData.intrinsics;
       selfCopy->_faceKitStreamedData.intrinsics = v13;
 
-      v38 = [v39 objectForKeyedSubscript:qword_1ECDE1128];
-      v15 = [v38 objectForKeyedSubscript:qword_1ECDE1138];
+      v37 = [v38 objectForKeyedSubscript:qword_1ECDE1128];
+      v15 = [v37 objectForKeyedSubscript:qword_1ECDE1138];
       v16 = selfCopy->_faceKitStreamedData.camR;
       selfCopy->_faceKitStreamedData.camR = v15;
 
-      v17 = [v38 objectForKeyedSubscript:qword_1ECDE10F8];
+      v17 = [v37 objectForKeyedSubscript:qword_1ECDE10F8];
       v18 = selfCopy->_faceKitStreamedData.camT;
       selfCopy->_faceKitStreamedData.camT = v17;
 
@@ -717,23 +715,21 @@ LABEL_7:
   }
 
 LABEL_11:
-  if (!v45)
+  if (!v44)
   {
     sub_1DED25F90();
   }
 
-  (*(*v45 + 48))(v45);
-  if (v45 == v44)
+  (*(*v44 + 48))(v44);
+  if (v44 == v43)
   {
-    (*(*v45 + 32))(v45);
+    (*(*v44 + 32))(v44);
   }
 
-  else if (v45)
+  else if (v44)
   {
-    (*(*v45 + 40))();
+    (*(*v44 + 40))();
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeSlideKernelToCommandBuffer:(id)buffer
@@ -819,19 +815,19 @@ LABEL_11:
   x = self->_primaryCaptureRect.origin.x;
   width2 = [(MTLTexture *)self->_dstTexture width];
   v13 = x;
-  v32[0] = v13 / width2;
+  v31[0] = v13 / width2;
   y = self->_primaryCaptureRect.origin.y;
   height2 = [(MTLTexture *)self->_dstTexture height];
   v16 = y;
-  v32[1] = v16 / height2;
+  v31[1] = v16 / height2;
   width = self->_primaryCaptureRect.size.width;
   width3 = [(MTLTexture *)self->_dstTexture width];
   v19 = width;
-  v32[2] = v19 / width3;
+  v31[2] = v19 / width3;
   height = self->_primaryCaptureRect.size.height;
   height3 = [(MTLTexture *)self->_dstTexture height];
   v22 = height;
-  v32[3] = v22 / height3;
+  v31[3] = v22 / height3;
   trustAlpha = self->_trustAlpha;
   if ((atomic_load_explicit(&qword_1ECDE14E8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECDE14E8))
   {
@@ -841,10 +837,10 @@ LABEL_11:
 
   if ((byte_1ECDE14F0 & 1) == 0)
   {
-    HIBYTE(v31) = 12;
+    HIBYTE(v30) = 12;
     strcpy(&__p, "lightMapType");
     sub_1DED2C8A0(&qword_1ECDE14E0, &__p);
-    if (SHIBYTE(v31) < 0)
+    if (SHIBYTE(v30) < 0)
     {
       operator delete(__p);
     }
@@ -852,35 +848,34 @@ LABEL_11:
     byte_1ECDE14F0 = 1;
   }
 
-  portraitStyleStrength = self->_portraitStyleStrength;
-  v25 = self->_kernel_Relight[1][!trustAlpha][[qword_1ECDE14E0 intValue] == 1];
+  v24 = self->_kernel_Relight[1][!trustAlpha][[qword_1ECDE14E0 intValue] == 1];
   computeCommandEncoder = [bufferCopy computeCommandEncoder];
-  v27 = [CVAPhotoExceptionMetalResourceUnavailable throwIfNil:computeCommandEncoder];
+  v26 = [CVAPhotoExceptionMetalResourceUnavailable throwIfNil:computeCommandEncoder];
 
-  [v27 setLabel:@"krnRelight"];
-  [v27 setComputePipelineState:v25];
-  [v27 setTexture:self->_srcTexture atIndex:0];
-  [v27 setTexture:self->_dstTexture atIndex:1];
-  [v27 setTexture:self->_dstUVTexture atIndex:2];
-  [v27 setTexture:self->_tcTexture atIndex:3];
-  [v27 setTexture:self->_slideTexture atIndex:4];
-  [v27 setTexture:self->_alphaTexture atIndex:5];
-  [v27 setTexture:self->_countTexture atIndex:7];
-  [v27 setTexture:self->_rgbTransformMapTextureSelectedPtr atIndex:18];
-  [v27 setTexture:self->_texSelectedColorCube atIndex:22];
-  [v27 setTexture:self->_texSkinSegmentationAlias atIndex:27];
-  [v27 setTexture:self->_texSkinRGBAPyramid atIndex:28];
-  [v27 setBytes:&self->_anon_220[4] length:88 atIndex:0];
-  [v27 setBytes:v32 length:16 atIndex:1];
-  [v27 setBytes:&stitcherCopy length:1 atIndex:2];
-  [v27 setBytes:&rotationCopy length:1 atIndex:3];
+  [v26 setLabel:@"krnRelight"];
+  [v26 setComputePipelineState:v24];
+  [v26 setTexture:self->_srcTexture atIndex:0];
+  [v26 setTexture:self->_dstTexture atIndex:1];
+  [v26 setTexture:self->_dstUVTexture atIndex:2];
+  [v26 setTexture:self->_tcTexture atIndex:3];
+  [v26 setTexture:self->_slideTexture atIndex:4];
+  [v26 setTexture:self->_alphaTexture atIndex:5];
+  [v26 setTexture:self->_countTexture atIndex:7];
+  [v26 setTexture:self->_rgbTransformMapTextureSelectedPtr atIndex:18];
+  [v26 setTexture:self->_texSelectedColorCube atIndex:22];
+  [v26 setTexture:self->_texSkinSegmentationAlias atIndex:27];
+  [v26 setTexture:self->_texSkinRGBAPyramid atIndex:28];
+  [v26 setBytes:&self->_anon_220[4] length:88 atIndex:0];
+  [v26 setBytes:v31 length:16 atIndex:1];
+  [v26 setBytes:&stitcherCopy length:1 atIndex:2];
+  [v26 setBytes:&rotationCopy length:1 atIndex:3];
   *&__p = (width >> 1);
   *(&__p + 1) = (height >> 1);
-  v31 = 1;
-  v28 = xmmword_1DED747A8;
-  v29 = 1;
-  [v27 dispatchThreads:&__p threadsPerThreadgroup:&v28];
-  [v27 endEncoding];
+  v30 = 1;
+  v27 = xmmword_1DED747A8;
+  v28 = 1;
+  [v26 dispatchThreads:&__p threadsPerThreadgroup:&v27];
+  [v26 endEncoding];
 }
 
 - (void)encodeTCKernelToCommandBuffer:(id)buffer
@@ -1058,12 +1053,12 @@ LABEL_11:
 
   if ((byte_1ECDE13F0 & 1) == 0)
   {
-    HIBYTE(v219[2]) = 15;
+    BYTE7(v219[1]) = 15;
     strcpy(v219, "backgroundAlpha");
     sub_1DED2C8A0(&qword_1ECDE13E0, v219);
-    if (SHIBYTE(v219[2]) < 0)
+    if (SBYTE7(v219[1]) < 0)
     {
-      operator delete(v219[0]);
+      operator delete(*&v219[0]);
     }
 
     byte_1ECDE13F0 = 1;
@@ -1090,11 +1085,11 @@ LABEL_11:
   if ((byte_1ECDE13F1 & 1) == 0)
   {
     strcpy(v219, "userFriendlyConfigName");
-    HIBYTE(v219[2]) = 22;
+    BYTE7(v219[1]) = 22;
     sub_1DED2C8A0(&qword_1ECDE0F68, v219);
-    if (SHIBYTE(v219[2]) < 0)
+    if (SBYTE7(v219[1]) < 0)
     {
-      operator delete(v219[0]);
+      operator delete(*&v219[0]);
     }
 
     byte_1ECDE13F1 = 1;
@@ -1185,12 +1180,12 @@ LABEL_32:
 
   if ((byte_1ECDE1408 & 1) == 0)
   {
-    HIBYTE(v219[2]) = 15;
+    BYTE7(v219[1]) = 15;
     strcpy(v219, "applyCubeOnFace");
     sub_1DED2C8A0(&qword_1ECDE13F8, v219);
-    if (SHIBYTE(v219[2]) < 0)
+    if (SBYTE7(v219[1]) < 0)
     {
-      operator delete(v219[0]);
+      operator delete(*&v219[0]);
     }
 
     byte_1ECDE1408 = 1;
@@ -1206,12 +1201,12 @@ LABEL_32:
 
   if ((byte_1ECDE1420 & 1) == 0)
   {
-    HIBYTE(v219[2]) = 21;
+    BYTE7(v219[1]) = 21;
     strcpy(v219, "colorCubeIntensity_v1");
     sub_1DED2C8A0(&qword_1ECDE1410, v219);
-    if (SHIBYTE(v219[2]) < 0)
+    if (SBYTE7(v219[1]) < 0)
     {
-      operator delete(v219[0]);
+      operator delete(*&v219[0]);
     }
 
     byte_1ECDE1420 = 1;
@@ -1226,12 +1221,12 @@ LABEL_32:
 
   if ((byte_1ECDE1438 & 1) == 0)
   {
-    HIBYTE(v219[2]) = 21;
+    BYTE7(v219[1]) = 21;
     strcpy(v219, "colorCubeIntensity_v2");
     sub_1DED2C8A0(&qword_1ECDE1428, v219);
-    if (SHIBYTE(v219[2]) < 0)
+    if (SBYTE7(v219[1]) < 0)
     {
-      operator delete(v219[0]);
+      operator delete(*&v219[0]);
     }
 
     byte_1ECDE1438 = 1;
@@ -1384,12 +1379,12 @@ LABEL_32:
 
       if ((byte_1ECDE1458 & 1) == 0)
       {
-        HIBYTE(v219[2]) = 20;
+        BYTE7(v219[1]) = 20;
         strcpy(v219, "faceSideAngleFadeTop");
         sub_1DED2C8A0(&qword_1ECDE1448, v219);
-        if (SHIBYTE(v219[2]) < 0)
+        if (SBYTE7(v219[1]) < 0)
         {
-          operator delete(v219[0]);
+          operator delete(*&v219[0]);
         }
 
         byte_1ECDE1458 = 1;
@@ -1527,12 +1522,12 @@ LABEL_32:
 
       if ((byte_1ECDE1488 & 1) == 0)
       {
-        HIBYTE(v219[2]) = 14;
+        BYTE7(v219[1]) = 14;
         strcpy(v219, "cheekFadeAngle");
         sub_1DED2C8A0(&qword_1ECDE1478, v219);
-        if (SHIBYTE(v219[2]) < 0)
+        if (SBYTE7(v219[1]) < 0)
         {
-          operator delete(v219[0]);
+          operator delete(*&v219[0]);
         }
 
         byte_1ECDE1488 = 1;
@@ -1582,12 +1577,12 @@ LABEL_32:
 
     if ((byte_1ECDE14A0 & 1) == 0)
     {
-      HIBYTE(v219[2]) = 16;
+      BYTE7(v219[1]) = 16;
       strcpy(v219, "faceSizeCVMLNear");
       sub_1DED2C8A0(&qword_1ECDE1490, v219);
-      if (SHIBYTE(v219[2]) < 0)
+      if (SBYTE7(v219[1]) < 0)
       {
-        operator delete(v219[0]);
+        operator delete(*&v219[0]);
       }
 
       byte_1ECDE14A0 = 1;
@@ -1602,12 +1597,12 @@ LABEL_32:
 
     if ((byte_1ECDE14B8 & 1) == 0)
     {
-      HIBYTE(v219[2]) = 15;
+      BYTE7(v219[1]) = 15;
       strcpy(v219, "faceSizeCVMLFar");
       sub_1DED2C8A0(&qword_1ECDE14A8, v219);
-      if (SHIBYTE(v219[2]) < 0)
+      if (SBYTE7(v219[1]) < 0)
       {
-        operator delete(v219[0]);
+        operator delete(*&v219[0]);
       }
 
       byte_1ECDE14B8 = 1;
@@ -2398,7 +2393,6 @@ LABEL_18:
 
 - (void)initCommon
 {
-  v14 = *MEMORY[0x1E69E9840];
   v3 = +[CVAPreferenceManager defaults];
 
   if (v3)

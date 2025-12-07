@@ -44,27 +44,8 @@
     dispatch_once(&languageOfRange_withAdditionalContext_withPreferredLanguages__onceDataDetectorToken, block);
   }
 
-  if (!languageOfRange_withAdditionalContext_withPreferredLanguages__dataDetector)
+  if (!languageOfRange_withAdditionalContext_withPreferredLanguages__dataDetector || v68[5] || ([self string], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "length"), v11, v13 = languageOfRange_withAdditionalContext_withPreferredLanguages__dataDetector, objc_msgSend(self, "string"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "rangeOfFirstMatchInString:options:range:", v14, 0, 0, v12), v17 = v16, v14, v15) || v12 != v17)
   {
-    goto LABEL_6;
-  }
-
-  if (v68[5])
-  {
-    goto LABEL_6;
-  }
-
-  string = [self string];
-  v12 = [string length];
-
-  v13 = languageOfRange_withAdditionalContext_withPreferredLanguages__dataDetector;
-  string2 = [self string];
-  v15 = [v13 rangeOfFirstMatchInString:string2 options:0 range:{0, v12}];
-  v17 = v16;
-
-  if (v15 || v12 != v17)
-  {
-LABEL_6:
     v18 = +[RKUtilities getDeviceModel];
     if ([RKUtilities isDeviceSupportedForLSTMBasedLanguageIdentification:v18])
     {
@@ -76,23 +57,23 @@ LABEL_6:
       v19 = 25;
     }
 
-    string3 = [self string];
-    v21 = [string3 length];
+    string = [self string];
+    v21 = [string length];
 
     if (v21 > 0x18)
     {
       goto LABEL_13;
     }
 
-    string4 = [self string];
+    string2 = [self string];
     v23 = [@" " stringByAppendingString:v10];
-    v24 = [string4 stringByAppendingString:v23];
+    v24 = [string2 stringByAppendingString:v23];
 
     [self setString:v24];
     if ([self containsAsianCharacters])
     {
-      string5 = [self string];
-      v26 = [string5 length];
+      string3 = [self string];
+      v26 = [string3 length];
 
       if (v26 >= 5)
       {
@@ -138,8 +119,8 @@ LABEL_13:
         v63[1] = v63;
         v63[2] = 0x2020000000;
         v63[3] = 0;
-        string6 = [self string];
-        v40 = [string6 length];
+        string4 = [self string];
+        v40 = [string4 length];
         v41 = *MEMORY[0x277CCA3E8];
         v60[0] = MEMORY[0x277D85DD0];
         v60[1] = 3221225472;
@@ -173,8 +154,8 @@ LABEL_13:
           v24 = v44;
         }
 
-        string7 = [self string];
-        v46 = [RKUtilities removeEmoji:string7];
+        string5 = [self string];
+        v46 = [RKUtilities removeEmoji:string5];
 
         v47 = [RKUtilities stripPunctuations:v46];
 
@@ -201,8 +182,8 @@ LABEL_13:
 
     else
     {
-      string8 = [self string];
-      v36 = [string8 length];
+      string6 = [self string];
+      v36 = [string6 length];
 
       if (v36 >= v19)
       {

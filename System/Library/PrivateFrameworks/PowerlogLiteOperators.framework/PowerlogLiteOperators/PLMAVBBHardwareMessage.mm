@@ -16,15 +16,15 @@
 
 - (void)logBBMavAperiodicMetrics
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __50__PLMAVBBHardwareMessage_logBBMavAperiodicMetrics__block_invoke;
-    v17 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v18 = v3;
+    v14 = 3221225472;
+    v15 = __50__PLMAVBBHardwareMessage_logBBMavAperiodicMetrics__block_invoke;
+    v16 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v17 = v3;
     if (qword_2811F70B0 != -1)
     {
       dispatch_once(&qword_2811F70B0, &block);
@@ -32,7 +32,7 @@
 
     if (_MergedGlobals_81 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLMAVBBHardwareMessage logBBMavAperiodicMetrics]", block, v15, v16, v17, v18];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLMAVBBHardwareMessage logBBMavAperiodicMetrics]", block, v14, v15, v16, v17];
       v5 = MEMORY[0x277D3F178];
       v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KMAV/PLMAVBBHardwareMessage.m"];
       lastPathComponent = [v6 lastPathComponent];
@@ -43,7 +43,7 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v4;
+        v19 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -61,21 +61,19 @@
     [v12 setObject:self->_metricData forKeyedSubscript:@"metricData"];
     [(PLAgent *)self->_logAgent logEntry:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logBBMavPeriodicMetrics
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __49__PLMAVBBHardwareMessage_logBBMavPeriodicMetrics__block_invoke;
-    v17 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v18 = v3;
+    v14 = 3221225472;
+    v15 = __49__PLMAVBBHardwareMessage_logBBMavPeriodicMetrics__block_invoke;
+    v16 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v17 = v3;
     if (qword_2811F70B8 != -1)
     {
       dispatch_once(&qword_2811F70B8, &block);
@@ -83,7 +81,7 @@
 
     if (byte_2811F70A9 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLMAVBBHardwareMessage logBBMavPeriodicMetrics]", block, v15, v16, v17, v18];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLMAVBBHardwareMessage logBBMavPeriodicMetrics]", block, v14, v15, v16, v17];
       v5 = MEMORY[0x277D3F178];
       v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KMAV/PLMAVBBHardwareMessage.m"];
       lastPathComponent = [v6 lastPathComponent];
@@ -94,7 +92,7 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v4;
+        v19 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -113,8 +111,6 @@
     [v12 setObject:self->_metricDataArr forKeyedSubscript:@"data"];
     [(PLAgent *)self->_logAgent logEntry:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (PLMAVBBHardwareMessage)init
@@ -167,103 +163,99 @@
 
 + (id)entryEventBackwardDefinitionBBMavPeriodicMetrics
 {
-  v29[2] = *MEMORY[0x277D85DE8];
-  v28[0] = *MEMORY[0x277D3F4E8];
+  v28[2] = *MEMORY[0x277D85DE8];
+  v27[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F558];
-  v26[0] = *MEMORY[0x277D3F568];
-  v26[1] = v2;
-  v27[0] = &unk_282C1BB28;
-  v27[1] = MEMORY[0x277CBEC38];
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
-  v29[0] = v18;
-  v28[1] = *MEMORY[0x277D3F540];
-  v24[0] = @"triggerId";
+  v25[0] = *MEMORY[0x277D3F568];
+  v25[1] = v2;
+  v26[0] = &unk_282C1BB28;
+  v26[1] = MEMORY[0x277CBEC38];
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+  v28[0] = v17;
+  v27[1] = *MEMORY[0x277D3F540];
+  v23[0] = @"triggerId";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v25[0] = commonTypeDict_IntegerFormat;
-  v24[1] = @"triggerCnt";
+  v24[0] = commonTypeDict_IntegerFormat;
+  v23[1] = @"triggerCnt";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v25[1] = commonTypeDict_IntegerFormat2;
-  v24[2] = @"bbtimestamp";
+  v24[1] = commonTypeDict_IntegerFormat2;
+  v23[2] = @"bbtimestamp";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v25[2] = commonTypeDict_IntegerFormat3;
-  v24[3] = @"mid";
+  v24[2] = commonTypeDict_IntegerFormat3;
+  v23[3] = @"mid";
   v7 = *MEMORY[0x277D3F598];
-  v21[0] = *MEMORY[0x277D3F5A8];
-  v6 = v21[0];
-  v21[1] = v7;
-  v23[0] = &unk_282C0CB58;
-  v23[1] = &unk_282C0CB70;
-  v22 = *MEMORY[0x277D3F5A0];
-  v8 = v22;
-  v23[2] = &unk_282C0CB88;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v21 count:3];
-  v25[3] = v9;
-  v24[4] = @"data";
-  v19[0] = v6;
-  v19[1] = v7;
-  v20[0] = &unk_282C0CB58;
-  v20[1] = &unk_282C0CB70;
-  v19[2] = v8;
-  v20[2] = &unk_282C0CBA0;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
-  v25[4] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:5];
-  v29[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v20[0] = *MEMORY[0x277D3F5A8];
+  v6 = v20[0];
+  v20[1] = v7;
+  v22[0] = &unk_282C0CB58;
+  v22[1] = &unk_282C0CB70;
+  v21 = *MEMORY[0x277D3F5A0];
+  v8 = v21;
+  v22[2] = &unk_282C0CB88;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v20 count:3];
+  v24[3] = v9;
+  v23[4] = @"data";
+  v18[0] = v6;
+  v18[1] = v7;
+  v19[0] = &unk_282C0CB58;
+  v19[1] = &unk_282C0CB70;
+  v18[2] = v8;
+  v19[2] = &unk_282C0CBA0;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+  v24[4] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:5];
+  v28[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
 
   return v12;
 }
 
 + (id)entryEventBackwardDefinitionBBMavEventMetrics
 {
-  v21[2] = *MEMORY[0x277D85DE8];
-  v20[0] = *MEMORY[0x277D3F4E8];
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F558];
-  v18[0] = *MEMORY[0x277D3F568];
-  v18[1] = v2;
-  v19[0] = &unk_282C1BB28;
-  v19[1] = MEMORY[0x277CBEC38];
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-  v21[0] = v15;
-  v20[1] = *MEMORY[0x277D3F540];
-  v16[0] = @"triggerCnt";
+  v17[0] = *MEMORY[0x277D3F568];
+  v17[1] = v2;
+  v18[0] = &unk_282C1BB28;
+  v18[1] = MEMORY[0x277CBEC38];
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v20[0] = v14;
+  v19[1] = *MEMORY[0x277D3F540];
+  v15[0] = @"triggerCnt";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v17[0] = commonTypeDict_IntegerFormat;
-  v16[1] = @"bbtimestamp";
+  v16[0] = commonTypeDict_IntegerFormat;
+  v15[1] = @"bbtimestamp";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v17[1] = commonTypeDict_IntegerFormat2;
-  v16[2] = @"metricId";
+  v16[1] = commonTypeDict_IntegerFormat2;
+  v15[2] = @"metricId";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v17[2] = commonTypeDict_IntegerFormat3;
-  v16[3] = @"metricData";
+  v16[2] = commonTypeDict_IntegerFormat3;
+  v15[3] = @"metricData";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]4 commonTypeDict_StringFormat];
-  v17[3] = commonTypeDict_StringFormat;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
-  v21[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v16[3] = commonTypeDict_StringFormat;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v20[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   return v12;
 }
 
-uint64_t __50__PLMAVBBHardwareMessage_logBBMavAperiodicMetrics__block_invoke(uint64_t a1)
+void *__50__PLMAVBBHardwareMessage_logBBMavAperiodicMetrics__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_81 = result;
   return result;
 }
 
-uint64_t __49__PLMAVBBHardwareMessage_logBBMavPeriodicMetrics__block_invoke(uint64_t a1)
+void *__49__PLMAVBBHardwareMessage_logBBMavPeriodicMetrics__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F70A9 = result;
@@ -272,7 +264,7 @@ uint64_t __49__PLMAVBBHardwareMessage_logBBMavPeriodicMetrics__block_invoke(uint
 
 - (void)addToListMetric:(id)metric payload:(id)payload
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   v7 = MEMORY[0x277D3F180];
   payloadCopy = payload;
@@ -280,10 +272,10 @@ uint64_t __49__PLMAVBBHardwareMessage_logBBMavPeriodicMetrics__block_invoke(uint
   {
     v9 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __50__PLMAVBBHardwareMessage_addToListMetric_payload___block_invoke;
-    v22 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v23 = v9;
+    v19 = 3221225472;
+    v20 = __50__PLMAVBBHardwareMessage_addToListMetric_payload___block_invoke;
+    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v22 = v9;
     if (qword_2811F70C0 != -1)
     {
       dispatch_once(&qword_2811F70C0, &block);
@@ -291,7 +283,7 @@ uint64_t __49__PLMAVBBHardwareMessage_logBBMavPeriodicMetrics__block_invoke(uint
 
     if (byte_2811F70AA == 1)
     {
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLMAVBBHardwareMessage addToListMetric:payload:]", block, v20, v21, v22, v23];
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLMAVBBHardwareMessage addToListMetric:payload:]", block, v19, v20, v21, v22];
       v11 = MEMORY[0x277D3F178];
       v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KMAV/PLMAVBBHardwareMessage.m"];
       lastPathComponent = [v12 lastPathComponent];
@@ -302,7 +294,7 @@ uint64_t __49__PLMAVBBHardwareMessage_logBBMavPeriodicMetrics__block_invoke(uint
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v25 = v10;
+        v24 = v10;
         _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -313,10 +305,9 @@ uint64_t __49__PLMAVBBHardwareMessage_logBBMavPeriodicMetrics__block_invoke(uint
   v17 = [PLMAVBBMetricUtility convertToStringData:payloadCopy];
 
   [(NSMutableArray *)metricDataArr addObject:v17];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __50__PLMAVBBHardwareMessage_addToListMetric_payload___block_invoke(uint64_t a1)
+void *__50__PLMAVBBHardwareMessage_addToListMetric_payload___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F70AA = result;
@@ -325,7 +316,7 @@ uint64_t __50__PLMAVBBHardwareMessage_addToListMetric_payload___block_invoke(uin
 
 - (id)decodePayload:(id)payload forMetricId:(id)id
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   idCopy = id;
   v8 = objc_opt_new();
@@ -559,7 +550,7 @@ LABEL_6:
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v26 = v13;
+              v25 = v13;
               _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
@@ -568,13 +559,11 @@ LABEL_6:
         v19 = 0;
       }
 
-      v22 = *MEMORY[0x277D85DE8];
-
       return v19;
   }
 }
 
-uint64_t __52__PLMAVBBHardwareMessage_decodePayload_forMetricId___block_invoke(uint64_t a1)
+void *__52__PLMAVBBHardwareMessage_decodePayload_forMetricId___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F70AB = result;

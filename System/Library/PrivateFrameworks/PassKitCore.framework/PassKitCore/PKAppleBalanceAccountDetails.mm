@@ -100,7 +100,7 @@
     v20 = MEMORY[0x1E696AB90];
     if (v18)
     {
-      [v18 decimalValue];
+      objc_msgSend_decimalValue(v18);
     }
 
     else
@@ -248,9 +248,9 @@ LABEL_12:
       goto LABEL_41;
     }
 
-    v13 = [(NSString *)v10 isEqualToString:v11];
+    isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-    if (!v13)
+    if (!isEqualToString)
     {
       goto LABEL_42;
     }
@@ -271,7 +271,7 @@ LABEL_12:
       goto LABEL_41;
     }
 
-    v16 = [(NSString *)v10 isEqualToString:v15];
+    v16 = objc_msgSend_isEqualToString_(v10);
 
     if (!v16)
     {
@@ -294,7 +294,7 @@ LABEL_12:
       goto LABEL_41;
     }
 
-    v19 = [(NSString *)v10 isEqualToString:v18];
+    v19 = objc_msgSend_isEqualToString_(v10);
 
     if (!v19)
     {
@@ -319,7 +319,7 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  v22 = [(NSString *)v10 isEqualToString:v21];
+  v22 = objc_msgSend_isEqualToString_(v10);
 
   if (!v22)
   {
@@ -342,7 +342,7 @@ LABEL_36:
     goto LABEL_41;
   }
 
-  v25 = [(NSString *)v10 isEqualToString:v24];
+  v25 = objc_msgSend_isEqualToString_(v10);
 
   if (!v25)
   {

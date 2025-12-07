@@ -24,19 +24,21 @@
 - (void)fulfillWithValue:(id)value
 {
   valueCopy = value;
-  promise = [(CUTUnsafePromiseSeal *)self promise];
-  v5 = [[CUTResult alloc] initWithSuccess:valueCopy];
+  v11 = objc_msgSend_promise(self, v5, v6);
+  v7 = [CUTResult alloc];
+  v9 = objc_msgSend_initWithSuccess_(v7, v8, valueCopy);
 
-  [promise _fulfillWithResult:v5];
+  objc_msgSend__fulfillWithResult_(v11, v10, v9);
 }
 
 - (void)failWithError:(id)error
 {
   errorCopy = error;
-  promise = [(CUTUnsafePromiseSeal *)self promise];
-  v5 = [[CUTResult alloc] initWithError:errorCopy];
+  v11 = objc_msgSend_promise(self, v5, v6);
+  v7 = [CUTResult alloc];
+  v9 = objc_msgSend_initWithError_(v7, v8, errorCopy);
 
-  [promise _fulfillWithResult:v5];
+  objc_msgSend__fulfillWithResult_(v11, v10, v9);
 }
 
 @end

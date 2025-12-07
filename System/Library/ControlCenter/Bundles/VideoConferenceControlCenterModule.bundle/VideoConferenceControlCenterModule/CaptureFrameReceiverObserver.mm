@@ -16,18 +16,17 @@
 
   else
   {
-    memset(v13, 0, sizeof(v13));
+    memset(v12, 0, sizeof(v12));
     selfCopy2 = self;
   }
 
-  v9 = self + OBJC_IVAR____TtC34VideoConferenceControlCenterModule28CaptureFrameReceiverObserver_captureFrameReceiverDidChange;
+  v9 = (self + OBJC_IVAR____TtC34VideoConferenceControlCenterModule28CaptureFrameReceiverObserver_captureFrameReceiverDidChange);
   swift_beginAccess();
-  v11 = *v9;
-  v10 = *(v9 + 1);
+  v10 = *v9;
 
-  v11(v12);
+  v10(v11);
 
-  sub_14038(v13, &qword_2FBD8, &qword_21588);
+  sub_14038(v12, &qword_2FBD8, &qword_21588);
 }
 
 @end

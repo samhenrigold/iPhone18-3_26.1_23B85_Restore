@@ -18,9 +18,12 @@
 - (void)didCancelDocking;
 - (void)didCompleteDocking;
 - (void)removeZoomTransition;
+- (void)scrollToTopAnimated:(BOOL)animated;
 - (void)securityScopeForURL:(id)l withHandler:(id)handler;
 - (void)serializedPlaceholderForFileName:(id)name fileSize:(int64_t)size mimeType:(id)type contentID:(id)d withHandler:(id)handler;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willBeginDocking;
 @end
 
@@ -109,6 +112,39 @@
   topViewController = [(ComposeNavigationController *)self topViewController];
   view3 = [topViewController view];
   [view3 setDirectionalLayoutMargins:{v14, v16, v18, v20}];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = ComposeNavigationController;
+  [(ComposeNavigationController *)&v7 viewDidAppear:appear];
+  v4 = MSAccessibilityIdentifierComposeContainerView;
+  view = [(ComposeNavigationController *)self view];
+  [view setAccessibilityIdentifier:v4];
+
+  if (objc_opt_respondsToSelector())
+  {
+    [(MFMailComposeController *)self->_composeViewController mf_updateAlertSuppressionContextsForReason:@"compose did appear"];
+  }
+
+  _mailComposeView = [(ComposeNavigationController *)self _mailComposeView];
+  [_mailComposeView didAppear];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = ComposeNavigationController;
+  [(ComposeNavigationController *)&v6 viewWillDisappear:disappear];
+  _mailComposeView = [(ComposeNavigationController *)self _mailComposeView];
+  [_mailComposeView willDisappear];
+
+  if ([(ComposeNavigationController *)self isQuickReply])
+  {
+    _mailComposeController = [(ComposeNavigationController *)self _mailComposeController];
+    [_mailComposeController backUpDraft];
+  }
 }
 
 - (CGRect)frameForAttachmentWithIdentifier:(id)identifier
@@ -318,6 +354,13 @@
   }
 
   return shouldAutorotate;
+}
+
+- (void)scrollToTopAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  mailComposeView = [(MFMailComposeController *)self->_composeViewController mailComposeView];
+  [mailComposeView scrollToTopAnimated:animatedCopy];
 }
 
 - (void)serializedPlaceholderForFileName:(id)name fileSize:(int64_t)size mimeType:(id)type contentID:(id)d withHandler:(id)handler

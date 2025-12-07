@@ -1,4 +1,4 @@
-uint64_t _SetupClientExchange(char *__s, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const void *a7, uint64_t a8)
+uint64_t _SetupClientExchange(char *__s, UInt8 *a2, CFIndex a3, UInt8 **a4, size_t *a5, char *a6, const void *a7, uint64_t a8)
 {
   v8 = a6;
   v9 = a5;
@@ -107,7 +107,7 @@ LABEL_53:
             v14 = __s[128];
           }
 
-          LogPrintF(v41, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x3Cu, "### PairSetup client bad state: %d\n", a5, a6, a7, a8, v14);
+          LogPrintF(v41, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 60, "### PairSetup client bad state: %d\n", a5, a6, a7, a8, v14);
         }
 
 LABEL_65:
@@ -135,7 +135,7 @@ LABEL_27:
             v29 = v28 == -1 && !_LogCategory_Initialize(v27, 0xAu);
           }
 
-          LogPrintF(v27, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup client M2 -- start response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v29);
+          LogPrintF(v27, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup client M2 -- start response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v29);
           goto LABEL_131;
         }
 
@@ -240,7 +240,7 @@ LABEL_168:
                 v60 = *v57;
               }
 
-              LogPrintF(v66, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairSetup client M2 bad status: 0x%X, %#m\n", a5, a6, a7, a8, v60);
+              LogPrintF(v66, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairSetup client M2 bad status: 0x%X, %#m\n", a5, a6, a7, a8, v60);
               goto LABEL_190;
             }
 
@@ -371,7 +371,7 @@ LABEL_268:
             v123 = *(__s + 2);
           }
 
-          LogPrintF(v123, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairSetup client SPAKE2+ not supported by server", a5, a6, a7, a8, v265);
+          LogPrintF(v123, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairSetup client SPAKE2+ not supported by server", a5, a6, a7, a8, v265);
         }
 
 LABEL_340:
@@ -579,7 +579,7 @@ LABEL_50:
           v40 = v39 == -1 && !_LogCategory_Initialize(v38, 0xAu);
         }
 
-        LogPrintF(v38, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup client M1 -- start request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v40);
+        LogPrintF(v38, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup client M1 -- start request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v40);
         goto LABEL_405;
       }
 
@@ -676,7 +676,7 @@ LABEL_222:
                   v82 = v93;
                 }
 
-                LogPrintF_safe(v102, "OSStatus _SetupClientSPAKE2Start(PairingSessionRef, TLV8Buffer *)", 0x5Au, "### PairSetup client SPAKE2 add M1 SharePData TLV failed: %d", v98, v99, v100, v101, v97);
+                LogPrintF_safe(v102, "OSStatus _SetupClientSPAKE2Start(PairingSessionRef, TLV8Buffer *)", 90, "### PairSetup client SPAKE2 add M1 SharePData TLV failed: %d", v98, v99, v100, v101, v97);
               }
 
               else
@@ -703,7 +703,7 @@ LABEL_235:
               }
 
               v105 = NSPrintF("%{error}", v85, v86, v87, v88, v89, v90, v91, v92);
-              LogPrintF_safe(v104, "OSStatus _SetupClientSPAKE2Start(PairingSessionRef, TLV8Buffer *)", 0x5Au, "### PairSetup client SPAKE2 generate M1 failed: %@", v106, v107, v108, v109, v105);
+              LogPrintF_safe(v104, "OSStatus _SetupClientSPAKE2Start(PairingSessionRef, TLV8Buffer *)", 90, "### PairSetup client SPAKE2 generate M1 failed: %@", v106, v107, v108, v109, v105);
             }
 
 LABEL_323:
@@ -771,7 +771,7 @@ LABEL_384:
               v156 = v155 == -1 && !_LogCategory_Initialize(v154, 0xAu);
             }
 
-            LogPrintF(v154, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup  client M3 -- verify request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v156);
+            LogPrintF(v154, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup  client M3 -- verify request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v156);
             goto LABEL_384;
           }
 
@@ -791,7 +791,7 @@ LABEL_384:
             v103 = *(__s + 2);
           }
 
-          LogPrintF_safe(v103, "OSStatus _SetupClientSPAKE2Start(PairingSessionRef, TLV8Buffer *)", 0x5Au, "### PairSetup client SPAKE2 start failed: no password", a5, a6, a7, a8, v265);
+          LogPrintF_safe(v103, "OSStatus _SetupClientSPAKE2Start(PairingSessionRef, TLV8Buffer *)", 90, "### PairSetup client SPAKE2 start failed: no password", a5, a6, a7, a8, v265);
 LABEL_245:
           Int64 = 0;
           v32 = 0;
@@ -804,7 +804,7 @@ LABEL_246:
         v42 = *(__s + 2);
       }
 
-      LogPrintF_safe(v42, "OSStatus _SetupClientSPAKE2Start(PairingSessionRef, TLV8Buffer *)", 0x1Eu, "PairSetup client SPAKE2 start", a5, a6, a7, a8, v265);
+      LogPrintF_safe(v42, "OSStatus _SetupClientSPAKE2Start(PairingSessionRef, TLV8Buffer *)", 30, "PairSetup client SPAKE2 start", a5, a6, a7, a8, v265);
       goto LABEL_222;
     }
 
@@ -898,7 +898,7 @@ LABEL_36:
           v35 = v34 == -1 && !_LogCategory_Initialize(v33, 0xAu);
         }
 
-        LogPrintF(v33, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup client M4 -- verify response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v35);
+        LogPrintF(v33, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup client M4 -- verify response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v35);
         goto LABEL_93;
       }
 
@@ -1005,7 +1005,7 @@ LABEL_124:
               v53 = *v50;
             }
 
-            LogPrintF(v55, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairSetup client M4 bad status: 0x%X, %#m\n", a5, a6, a7, a8, v53);
+            LogPrintF(v55, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairSetup client M4 bad status: 0x%X, %#m\n", a5, a6, a7, a8, v53);
             goto LABEL_190;
           }
 
@@ -1357,7 +1357,7 @@ LABEL_473:
               }
 
               v10 = v279;
-              LogPrintF(v257, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup client M5 -- exchange request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v259);
+              LogPrintF(v257, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup client M5 -- exchange request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v259);
               v32 = 0;
               goto LABEL_335;
             }
@@ -1397,7 +1397,7 @@ LABEL_327:
           v215 = *(__s + 2);
         }
 
-        LogPrintF(v215, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup transient client done -- server authenticated\n", a5, a6, a7, a8, v266);
+        LogPrintF(v215, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup transient client done -- server authenticated\n", a5, a6, a7, a8, v266);
       }
 
 LABEL_407:
@@ -1425,7 +1425,7 @@ LABEL_407:
           v116 = *(__s + 2);
         }
 
-        LogPrintF_safe(v116, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x5Au, "### PairSetup SPAKE2 get M2 ShareVData failed: %d", a5, a6, a7, a8, v115);
+        LogPrintF_safe(v116, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 90, "### PairSetup SPAKE2 get M2 ShareVData failed: %d", a5, a6, a7, a8, v115);
       }
 
 LABEL_380:
@@ -1464,7 +1464,7 @@ LABEL_401:
           v149 = *(__s + 2);
         }
 
-        LogPrintF_safe(v149, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x5Au, "### PairSetup SPAKE2 get M2 ConfirmVData failed: %d", v144, v145, v146, v147, v148);
+        LogPrintF_safe(v149, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 90, "### PairSetup SPAKE2 get M2 ConfirmVData failed: %d", v144, v145, v146, v147, v148);
       }
 
 LABEL_400:
@@ -1519,7 +1519,7 @@ LABEL_400:
         }
 
         v278 = NSPrintF("%{error}", v167, v168, v169, v170, v171, v172, v173, v174);
-        LogPrintF_safe(v221, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x5Au, "### PairSetup client SPAKE2 generate M3 failed: %@", v222, v223, v224, v225, v278);
+        LogPrintF_safe(v221, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 90, "### PairSetup client SPAKE2 generate M3 failed: %@", v222, v223, v224, v225, v278);
         v274 = -6754;
         goto LABEL_481;
       }
@@ -1582,7 +1582,7 @@ LABEL_400:
                 v202 = *(__s + 2);
               }
 
-              LogPrintF_safe(v202, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x5Au, "### PairSetup client SPAKE2 add M3 ConfirmPData TLV failed: %d", v198, v199, v200, v201, v197);
+              LogPrintF_safe(v202, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 90, "### PairSetup client SPAKE2 add M3 ConfirmPData TLV failed: %d", v198, v199, v200, v201, v197);
             }
           }
 
@@ -1613,7 +1613,7 @@ LABEL_481:
             v239 = *(__s + 2);
           }
 
-          LogPrintF_safe(v239, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x5Au, "### PairSetup client SPAKE2 malloc secret failed", v186, v187, v188, v189, v265);
+          LogPrintF_safe(v239, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 90, "### PairSetup client SPAKE2 malloc secret failed", v186, v187, v188, v189, v265);
         }
 
 LABEL_480:
@@ -1655,7 +1655,7 @@ LABEL_483:
       }
 
       v234 = NSPrintF("%{error}", v177, v178, v179, v180, v181, v182, v183, v272);
-      LogPrintF_safe(v233, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x5Au, "### PairSetup client SPAKE2 finish failed: %@", v235, v236, v237, v238, v234);
+      LogPrintF_safe(v233, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 90, "### PairSetup client SPAKE2 finish failed: %@", v235, v236, v237, v238, v234);
 
       v274 = -6700;
       v174 = v272;
@@ -1677,7 +1677,7 @@ LABEL_453:
         v218 = *(__s + 2);
       }
 
-      LogPrintF_safe(v218, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x5Au, "### PairSetup client SPAKE2 verify failed: no prover", v160, v161, v162, v163, v265);
+      LogPrintF_safe(v218, "OSStatus _SetupClientSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 90, "### PairSetup client SPAKE2 verify failed: no prover", v160, v161, v162, v163, v265);
     }
 
 LABEL_446:
@@ -1725,7 +1725,7 @@ LABEL_20:
         v23 = v22 == -1 && !_LogCategory_Initialize(v21, 0xAu);
       }
 
-      LogPrintF(v21, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup client M6 -- exchange response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v23);
+      LogPrintF(v21, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup client M6 -- exchange response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v23);
     }
   }
 
@@ -1905,7 +1905,7 @@ LABEL_391:
             appended = v230;
             if (!v230)
             {
-              appended = PairingSessionSavePeer(__s, *(__s + 39), *(__s + 40), __s + 622, a5, a6, a7, a8);
+              appended = PairingSessionSavePeer(__s, *(__s + 39), *(__s + 40), __s + 622);
               if (!appended)
               {
                 v231 = *(__s + 50);
@@ -1936,7 +1936,7 @@ LABEL_391:
                   v232 = *(__s + 2);
                 }
 
-                LogPrintF(v232, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup client done -- server authenticated\n", a5, a6, a7, a8, v267);
+                LogPrintF(v232, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup client done -- server authenticated\n", a5, a6, a7, a8, v267);
 LABEL_487:
                 v32 = 1;
 LABEL_488:
@@ -1963,7 +1963,7 @@ LABEL_488:
                 v263 = appended;
               }
 
-              LogPrintF(v264, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairSetup client: server not allowed: %#m\n", a5, a6, a7, a8, v263);
+              LogPrintF(v264, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairSetup client: server not allowed: %#m\n", a5, a6, a7, a8, v263);
             }
 
 LABEL_433:
@@ -2032,7 +2032,7 @@ LABEL_493:
     if (*v73 != -1)
     {
 LABEL_189:
-      LogPrintF(v73, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairSetup client M6 bad status: 0x%X, %#m\n", a5, a6, a7, a8, v71);
+      LogPrintF(v73, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairSetup client M6 bad status: 0x%X, %#m\n", a5, a6, a7, a8, v71);
       goto LABEL_190;
     }
 
@@ -2114,7 +2114,7 @@ LABEL_212:
             _LogCategory_Initialize(v75, 0x28u);
           }
 
-          LogPrintF(v75, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairSetup client state %d failed: %#m\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v77);
+          LogPrintF(v75, "OSStatus _SetupClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairSetup client state %d failed: %#m\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v77);
           return appended;
         }
       }
@@ -2124,7 +2124,7 @@ LABEL_212:
   return v74;
 }
 
-uint64_t _SetupServerExchange(uint64_t a1, unsigned __int8 *a2, CFIndex a3, UInt8 **a4, size_t *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _SetupServerExchange(uint64_t a1, UInt8 *a2, CFIndex a3, UInt8 **a4, size_t *a5, char *a6, uint64_t a7, uint64_t a8)
 {
   v8 = a6;
   v9 = a3;
@@ -2253,7 +2253,7 @@ LABEL_48:
       v23 = v20 == -1 && !_LogCategory_Initialize(v19, 0xAu);
     }
 
-    LogPrintF(v19, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup server M5 -- exchange request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v23);
+    LogPrintF(v19, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup server M5 -- exchange request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v23);
 LABEL_88:
     if (!*(a1 + 705))
     {
@@ -2450,7 +2450,7 @@ LABEL_359:
             v89 = appended;
           }
 
-          LogPrintF(v90, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairVerify server M5 requested ACL not allowed: %#m, %@\n", v85, v86, v87, v88, v89);
+          LogPrintF(v90, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairVerify server M5 requested ACL not allowed: %#m, %@\n", v85, v86, v87, v88, v89);
           goto LABEL_285;
         }
 
@@ -2595,7 +2595,7 @@ LABEL_273:
                       v212 = appended;
                     }
 
-                    LogPrintF(v213, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairSetup server bad signature: %#m\n", v208, v209, v210, v211, v212);
+                    LogPrintF(v213, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairSetup server bad signature: %#m\n", v208, v209, v210, v211, v212);
                   }
 
 LABEL_402:
@@ -2638,7 +2638,7 @@ LABEL_402:
                       v234 = appended;
                     }
 
-                    LogPrintF(v235, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairSetup server: client not allowed: %#m\n", v230, v231, v232, v233, v234);
+                    LogPrintF(v235, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairSetup server: client not allowed: %#m\n", v230, v231, v232, v233, v234);
                   }
 
 LABEL_419:
@@ -2661,7 +2661,7 @@ LABEL_419:
                   goto LABEL_477;
                 }
 
-                v236 = PairingSessionSavePeer(a1, *(a1 + 312), *(a1 + 320), (a1 + 622), v230, v231, v232, v233);
+                v236 = PairingSessionSavePeer(a1, *(a1 + 312), *(a1 + 320), (a1 + 622));
                 appended = v236;
                 if (v236)
                 {
@@ -2776,7 +2776,7 @@ LABEL_475:
                     v241 = *(a1 + 16);
                   }
 
-                  LogPrintF(v241, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x3Cu, "### PairSetup server save peer failed: %#m\n", v237, v238, v239, v240, v236);
+                  LogPrintF(v241, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 60, "### PairSetup server save peer failed: %#m\n", v237, v238, v239, v240, v236);
                   LODWORD(v236) = appended;
                   goto LABEL_449;
                 }
@@ -2938,7 +2938,7 @@ LABEL_478:
                           v259 = v258 == -1 && !_LogCategory_Initialize(v257, 0xAu);
                         }
 
-                        LogPrintF(v257, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup server M6 -- exchange response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v259);
+                        LogPrintF(v257, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup server M6 -- exchange response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v259);
                         v257 = *(a1 + 16);
 LABEL_506:
                         if (*v257 <= 30)
@@ -2953,7 +2953,7 @@ LABEL_506:
                             v257 = *(a1 + 16);
                           }
 
-                          LogPrintF(v257, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup server done -- client authenticated\n", a5, a6, a7, a8, v267);
+                          LogPrintF(v257, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup server done -- client authenticated\n", a5, a6, a7, a8, v267);
                         }
 
 LABEL_510:
@@ -3017,7 +3017,7 @@ LABEL_137:
           v76 = *(a1 + 16);
         }
 
-        LogPrintF_safe(v76, "OSStatus _SetupServerSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const)", 0x5Au, "### PairSetup SPAKE2 get M3 failed: %d", v71, v72, v73, v74, v75);
+        LogPrintF_safe(v76, "OSStatus _SetupServerSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const)", 90, "### PairSetup SPAKE2 get M3 failed: %d", v71, v72, v73, v74, v75);
       }
 
 LABEL_131:
@@ -3131,7 +3131,7 @@ LABEL_306:
               v174 = *(a1 + 16);
             }
 
-            LogPrintF_safe(v174, "OSStatus _SetupServerSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const)", 0x5Au, "### PairSetup server SPAKE2 malloc secret failed", v119, v120, v121, v122, v266);
+            LogPrintF_safe(v174, "OSStatus _SetupServerSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const)", 90, "### PairSetup server SPAKE2 malloc secret failed", v119, v120, v121, v122, v266);
 LABEL_304:
             v163 = -6728;
             goto LABEL_305;
@@ -3161,7 +3161,7 @@ LABEL_305:
           }
 
           v158 = NSPrintF("%{error}", v110, v111, v112, v113, v114, v115, v116, v271);
-          LogPrintF_safe(v157, "OSStatus _SetupServerSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const)", 0x5Au, "### PairSetup server SPAKE2 finish failed: %@", v159, v160, v161, v162, v158);
+          LogPrintF_safe(v157, "OSStatus _SetupServerSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const)", 90, "### PairSetup server SPAKE2 finish failed: %@", v159, v160, v161, v162, v158);
 
 LABEL_255:
           v163 = -6700;
@@ -3193,7 +3193,7 @@ LABEL_201:
       }
 
       v143 = NSPrintF("%{error}", v101, v102, v103, v104, v105, v106, v107, v271);
-      LogPrintF_safe(v142, "OSStatus _SetupServerSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const)", 0x5Au, "### PairSetup server SPAKE2 verify failed: %@", v144, v145, v146, v147, v143);
+      LogPrintF_safe(v142, "OSStatus _SetupServerSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const)", 90, "### PairSetup server SPAKE2 verify failed: %@", v144, v145, v146, v147, v143);
 
 LABEL_247:
       v163 = -6754;
@@ -3215,7 +3215,7 @@ LABEL_247:
         v130 = *(a1 + 16);
       }
 
-      LogPrintF_safe(v130, "OSStatus _SetupServerSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const)", 0x5Au, "### PairSetup server SPAKE2 verify failed: no verifier", v95, v96, v97, v98, v266);
+      LogPrintF_safe(v130, "OSStatus _SetupServerSPAKE2Verify(PairingSessionRef, const uint8_t *, const uint8_t *const)", 90, "### PairSetup server SPAKE2 verify failed: no verifier", v95, v96, v97, v98, v266);
     }
 
 LABEL_207:
@@ -3262,7 +3262,7 @@ LABEL_309:
       v22 = v20 == -1 && !_LogCategory_Initialize(v19, 0xAu);
     }
 
-    LogPrintF(v19, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup server M3 -- verify request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v22);
+    LogPrintF(v19, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup server M3 -- verify request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v22);
 LABEL_52:
     if (*(a1 + 705))
     {
@@ -3298,7 +3298,7 @@ LABEL_66:
                 v39 = *(a1 + 16);
               }
 
-              LogPrintF_safe(v39, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x5Au, "### PairSetup SPAKE2 get M1 SharePData failed: %d", a5, a6, a7, a8, v38);
+              LogPrintF_safe(v39, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 90, "### PairSetup SPAKE2 get M1 SharePData failed: %d", a5, a6, a7, a8, v38);
             }
 
 LABEL_85:
@@ -3360,7 +3360,7 @@ LABEL_85:
                     v49 = v268;
                     v59 = v270;
 LABEL_80:
-                    LogPrintF_safe(v68, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x5Au, "### PairSetup server SPAKE2 add M2 ShareVData TLV failed: %d", v64, v65, v66, v67, v63);
+                    LogPrintF_safe(v68, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 90, "### PairSetup server SPAKE2 add M2 ShareVData TLV failed: %d", v64, v65, v66, v67, v63);
                     goto LABEL_234;
                   }
 
@@ -3401,7 +3401,7 @@ LABEL_80:
                     v156 = *(a1 + 16);
                   }
 
-                  LogPrintF_safe(v156, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x5Au, "### PairSetup server SPAKE2 add M2 ConfirmVData TLV failed: %d", v152, v153, v154, v155, v63);
+                  LogPrintF_safe(v156, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 90, "### PairSetup server SPAKE2 add M2 ConfirmVData TLV failed: %d", v152, v153, v154, v155, v63);
                   goto LABEL_234;
                 }
 
@@ -3452,7 +3452,7 @@ LABEL_248:
                       v193 = *(a1 + 16);
                     }
 
-                    LogPrintF_safe(v193, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x5Au, "### PairSetup server SPAKE2 add M2 RetryDelay TLV failed: %d", v189, v190, v191, v192, v63);
+                    LogPrintF_safe(v193, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 90, "### PairSetup server SPAKE2 add M2 RetryDelay TLV failed: %d", v189, v190, v191, v192, v63);
                   }
                 }
               }
@@ -3528,7 +3528,7 @@ LABEL_235:
                   v197 = v196 == -1 && !_LogCategory_Initialize(v195, 0xAu);
                 }
 
-                LogPrintF(v195, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup server M4 -- verify response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v197);
+                LogPrintF(v195, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup server M4 -- verify response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v197);
               }
 
 LABEL_375:
@@ -3549,7 +3549,7 @@ LABEL_375:
                 {
 LABEL_384:
                   v8 = a6;
-                  LogPrintF(v228, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup transient server done -- client authenticated\n", a5, a6, a7, a8, v266);
+                  LogPrintF(v228, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup transient server done -- client authenticated\n", a5, a6, a7, a8, v266);
                   v24 = 0;
                   v26 = 1;
                   v36 = a4;
@@ -3585,7 +3585,7 @@ LABEL_384:
 
               NSPrintF("%{error}", v52, v53, v54, v55, v56, v57, v58, v59);
               v137 = v272 = v59;
-              LogPrintF_safe(v136, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x5Au, "### PairSetup server SPAKE2 generate M2 failed: %@", v138, v139, v140, v141, v137);
+              LogPrintF_safe(v136, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 90, "### PairSetup server SPAKE2 generate M2 failed: %@", v138, v139, v140, v141, v137);
 
               v59 = v272;
             }
@@ -3610,7 +3610,7 @@ LABEL_233:
               v69 = *(a1 + 16);
             }
 
-            LogPrintF_safe(v69, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x5Au, "### PairSetup server SPAKE2 start failed: no password", v43, v44, v45, v46, v266);
+            LogPrintF_safe(v69, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 90, "### PairSetup server SPAKE2 start failed: no password", v43, v44, v45, v46, v266);
           }
 
 LABEL_203:
@@ -3625,7 +3625,7 @@ LABEL_203:
         v28 = *(a1 + 16);
       }
 
-      LogPrintF_safe(v28, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 0x1Eu, "PairSetup server SPAKE2 start", a5, a6, a7, a8, v266);
+      LogPrintF_safe(v28, "OSStatus _SetupServerSPAKE2Start(PairingSessionRef, const uint8_t *, const uint8_t *const, TLV8Buffer *)", 30, "PairSetup server SPAKE2 start", a5, a6, a7, a8, v266);
       goto LABEL_66;
     }
 
@@ -3715,7 +3715,7 @@ LABEL_371:
         v17 = *(a1 + 128);
       }
 
-      LogPrintF(v19, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x3Cu, "### PairSetup server bad state: %d\n", a5, a6, a7, a8, v17);
+      LogPrintF(v19, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 60, "### PairSetup server bad state: %d\n", a5, a6, a7, a8, v17);
     }
 
 LABEL_41:
@@ -3753,7 +3753,7 @@ LABEL_18:
         v21 = v20 == -1 && !_LogCategory_Initialize(v19, 0xAu);
       }
 
-      LogPrintF(v19, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup server M1 -- start request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v21);
+      LogPrintF(v19, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup server M1 -- start request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v21);
     }
   }
 
@@ -3792,7 +3792,7 @@ LABEL_135:
             v135 = *(a1 + 16);
           }
 
-          LogPrintF(v135, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "PairSetup server throttling for %d second(s)\n", a5, a6, a7, a8, v134);
+          LogPrintF(v135, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "PairSetup server throttling for %d second(s)\n", a5, a6, a7, a8, v134);
         }
 
 LABEL_250:
@@ -3838,7 +3838,7 @@ LABEL_348:
             v164 = *(a1 + 16);
           }
 
-          LogPrintF(v164, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairSetup server disabled after too many attempts\n", a5, a6, a7, a8, v266);
+          LogPrintF(v164, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairSetup server disabled after too many attempts\n", a5, a6, a7, a8, v266);
         }
 
 LABEL_345:
@@ -3919,7 +3919,7 @@ LABEL_189:
 
                       v249 = v171;
                       v29 = a5;
-                      LogPrintF(v249, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "PairSetup server M2 -- start response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v173);
+                      LogPrintF(v249, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "PairSetup server M2 -- start response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v173);
                       v36 = a4;
                       v24 = 0;
                       v26 = 0;
@@ -4021,7 +4021,7 @@ LABEL_268:
             v223 = *(a1 + 16);
           }
 
-          LogPrintF(v223, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairSetup client SPAKE2+ not supported by client", a5, a6, a7, a8, v266);
+          LogPrintF(v223, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairSetup client SPAKE2+ not supported by client", a5, a6, a7, a8, v266);
           v36 = a4;
         }
 
@@ -4086,7 +4086,7 @@ LABEL_372:
       v132 = *(a1 + 16);
       v131 = __dst;
 LABEL_142:
-      LogPrintF(v132, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairSetup server unsupported method: %u\n", a5, a6, a7, a8, v131);
+      LogPrintF(v132, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairSetup server unsupported method: %u\n", a5, a6, a7, a8, v131);
     }
   }
 
@@ -4174,7 +4174,7 @@ LABEL_334:
             _LogCategory_Initialize(v218, 0x28u);
           }
 
-          LogPrintF(v218, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairSetup server state %d failed: %#m\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v220);
+          LogPrintF(v218, "OSStatus _SetupServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairSetup server state %d failed: %#m\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v220);
           return appended;
         }
       }
@@ -4184,7 +4184,7 @@ LABEL_334:
   return v217;
 }
 
-uint64_t _VerifyClientExchange(uint64_t a1, unsigned __int8 *a2, uint64_t a3, UInt8 **a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _VerifyClientExchange(uint64_t a1, UInt8 *a2, CFIndex a3, UInt8 **a4, CFIndex *a5, char *a6, uint64_t a7, uint64_t a8)
 {
   v8 = a6;
   v9 = a5;
@@ -4289,7 +4289,7 @@ LABEL_28:
           v29 = v28 == -1 && !_LogCategory_Initialize(v27, 0xAu);
         }
 
-        LogPrintF(v27, "OSStatus _VerifyClientM4(PairingSessionRef, const uint8_t *const, const uint8_t *const)", 0x1Eu, "PairVerify client M4 -- finish response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v29);
+        LogPrintF(v27, "OSStatus _VerifyClientM4(PairingSessionRef, const uint8_t *const, const uint8_t *const)", 30, "PairVerify client M4 -- finish response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v29);
         goto LABEL_83;
       }
 
@@ -4348,7 +4348,7 @@ LABEL_83:
             if (*v52 != -1)
             {
 LABEL_96:
-              LogPrintF(v52, "OSStatus _VerifyClientM4(PairingSessionRef, const uint8_t *const, const uint8_t *const)", 0x32u, "### PairVerify client M4 bad status: 0x%X, %#m\n", a5, a6, a7, a8, v51);
+              LogPrintF(v52, "OSStatus _VerifyClientM4(PairingSessionRef, const uint8_t *const, const uint8_t *const)", 50, "### PairVerify client M4 bad status: 0x%X, %#m\n", a5, a6, a7, a8, v51);
               goto LABEL_98;
             }
 
@@ -4420,7 +4420,7 @@ LABEL_134:
         if (*v74 != -1)
         {
 LABEL_138:
-          LogPrintF(v74, "OSStatus _VerifyClientM4(PairingSessionRef, const uint8_t *const, const uint8_t *const)", 0x1Eu, "PairVerify client done\n", a5, a6, a7, a8, v132);
+          LogPrintF(v74, "OSStatus _VerifyClientM4(PairingSessionRef, const uint8_t *const, const uint8_t *const)", 30, "PairVerify client done\n", a5, a6, a7, a8, v132);
           goto LABEL_191;
         }
 
@@ -4543,7 +4543,7 @@ LABEL_270:
       v25 = v24 == -1 && !_LogCategory_Initialize(v23, 0xAu);
     }
 
-    LogPrintF(v23, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x1Eu, "PairVerify client M2 -- start response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v25);
+    LogPrintF(v23, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 30, "PairVerify client M2 -- start response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v25);
 LABEL_53:
     Bytes = TLV8GetBytes(a2, &a2[v10], 3, 0x20uLL, 0x20uLL, (a1 + 590), 0, 0);
     AppInfoTLV = Bytes;
@@ -4614,7 +4614,7 @@ LABEL_150:
                   v89 = *(a1 + 16);
                 }
 
-                LogPrintF(v89, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x32u, "### PairVerify client -- server lacks ACL: %@\n", v85, v86, v87, v88, *(a1 + 184));
+                LogPrintF(v89, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 50, "### PairVerify client -- server lacks ACL: %@\n", v85, v86, v87, v88, *(a1 + 184));
               }
 
 LABEL_170:
@@ -4862,7 +4862,7 @@ LABEL_184:
                           v120 = v119 == -1 && !_LogCategory_Initialize(v118, 0xAu);
                         }
 
-                        LogPrintF(v118, "OSStatus _VerifyClientM3(PairingSessionRef, uint8_t **, size_t *)", 0x1Eu, "PairVerify client M3 -- finish request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v120);
+                        LogPrintF(v118, "OSStatus _VerifyClientM3(PairingSessionRef, uint8_t **, size_t *)", 30, "PairVerify client M3 -- finish request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v120);
                         goto LABEL_262;
                       }
 
@@ -4904,7 +4904,7 @@ LABEL_272:
                 v122 = *(a1 + 16);
               }
 
-              LogPrintF(v122, "OSStatus _VerifyClientM3(PairingSessionRef, uint8_t **, size_t *)", 0x5Au, "### PairVerify client M3 sign failed: %#m\n", v99, v100, v101, v102, v103);
+              LogPrintF(v122, "OSStatus _VerifyClientM3(PairingSessionRef, uint8_t **, size_t *)", 90, "### PairVerify client M3 sign failed: %#m\n", v99, v100, v101, v102, v103);
             }
 
 LABEL_224:
@@ -4957,7 +4957,7 @@ LABEL_149:
                   v65 = AppInfoTLV;
                 }
 
-                LogPrintF(v121, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x5Au, "### PairVerify client M2 verify signature failed: %#m\n", v66, v67, v68, v69, v65);
+                LogPrintF(v121, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 90, "### PairVerify client M2 verify signature failed: %#m\n", v66, v67, v68, v69, v65);
               }
 
 LABEL_216:
@@ -4984,7 +4984,7 @@ LABEL_217:
             v78 = *(a1 + 320);
             if (v78)
             {
-              Peer = PairingSessionFindPeerEx(a1, v76, v78, (a1 + 622), &cf, a6, a7, a8);
+              Peer = PairingSessionFindPeerEx(a1, v76, v78, (a1 + 622), &cf);
               AppInfoTLV = Peer;
               if (Peer)
               {
@@ -5003,7 +5003,7 @@ LABEL_217:
                     v128 = AppInfoTLV;
                   }
 
-                  LogPrintF(v129, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x5Au, "### PairVerify client M2 failed: find peer failed, %#m\n", a5, a6, a7, a8, v128);
+                  LogPrintF(v129, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 90, "### PairVerify client M2 failed: find peer failed, %#m\n", a5, a6, a7, a8, v128);
                 }
               }
 
@@ -5064,7 +5064,7 @@ LABEL_226:
                   v130 = AppInfoTLV;
                 }
 
-                LogPrintF(v131, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x5Au, "### PairVerify client M2 failed: get signature failed, %#m\n", a5, a6, a7, a8, v130);
+                LogPrintF(v131, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 90, "### PairVerify client M2 failed: get signature failed, %#m\n", a5, a6, a7, a8, v130);
               }
 
               goto LABEL_242;
@@ -5090,7 +5090,7 @@ LABEL_225:
               v77 = AppInfoTLV;
             }
 
-            LogPrintF(v127, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x5Au, "### PairVerify client M2 failed: get identifier failed, %#m\n", a5, a6, a7, a8, v77);
+            LogPrintF(v127, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 90, "### PairVerify client M2 failed: get identifier failed, %#m\n", a5, a6, a7, a8, v77);
           }
 
 LABEL_242:
@@ -5156,7 +5156,7 @@ LABEL_73:
             v39 = AppInfoTLV;
           }
 
-          LogPrintF(v126, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x5Au, "### PairVerify client M2 failed: get encrypted data, %#m\n", a5, a6, a7, a8, v39);
+          LogPrintF(v126, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 90, "### PairVerify client M2 failed: get encrypted data, %#m\n", a5, a6, a7, a8, v39);
           goto LABEL_242;
         }
 
@@ -5191,7 +5191,7 @@ LABEL_239:
         v124 = AppInfoTLV;
       }
 
-      LogPrintF(v125, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x5Au, "### PairVerify client M2 failed: get PK, %#m\n", a5, a6, a7, a8, v124);
+      LogPrintF(v125, "OSStatus _VerifyClientM2(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 90, "### PairVerify client M2 failed: get PK, %#m\n", a5, a6, a7, a8, v124);
     }
 
 LABEL_238:
@@ -5216,7 +5216,7 @@ LABEL_238:
         v13 = *(a1 + 128);
       }
 
-      LogPrintF(v30, "OSStatus _VerifyClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x3Cu, "### PairVerify client bad state: %d\n", a5, a6, a7, a8, v13);
+      LogPrintF(v30, "OSStatus _VerifyClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 60, "### PairVerify client bad state: %d\n", a5, a6, a7, a8, v13);
     }
 
 LABEL_39:
@@ -5302,7 +5302,7 @@ LABEL_39:
                 v34 = v33 == -1 && !_LogCategory_Initialize(v32, 0xAu);
               }
 
-              LogPrintF(v32, "OSStatus _VerifyClientM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x1Eu, "PairVerify client M1 -- start request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v34);
+              LogPrintF(v32, "OSStatus _VerifyClientM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 30, "PairVerify client M1 -- start request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v34);
 LABEL_220:
               if (*&v152[24])
               {
@@ -5347,13 +5347,13 @@ LABEL_100:
       _LogCategory_Initialize(v53, 0x28u);
     }
 
-    LogPrintF(v53, "OSStatus _VerifyClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairVerify client state %d failed: %#m\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v55);
+    LogPrintF(v53, "OSStatus _VerifyClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairVerify client state %d failed: %#m\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v55);
   }
 
   return v22;
 }
 
-uint64_t _VerifyServerExchange(uint64_t a1, unsigned __int8 *a2, CFIndex a3, UInt8 **a4, size_t *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _VerifyServerExchange(uint64_t a1, UInt8 *a2, CFIndex a3, UInt8 **a4, size_t *a5, BOOL *a6, uint64_t a7, uint64_t a8)
 {
   v8 = a6;
   v163 = *MEMORY[0x1E69E9840];
@@ -5469,7 +5469,7 @@ LABEL_22:
           v24 = v23 == -1 && !_LogCategory_Initialize(v22, 0xAu);
         }
 
-        LogPrintF(v22, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 0x1Eu, "PairVerify server M3 -- finish request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v24);
+        LogPrintF(v22, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 30, "PairVerify server M3 -- finish request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v24);
         goto LABEL_77;
       }
 
@@ -5554,7 +5554,7 @@ LABEL_193:
           v67 = *(a1 + 16);
           v65 = *v62;
 LABEL_91:
-          LogPrintF(v67, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 0x32u, "### PairVerify server M3 bad status: 0x%X, %#m\n", a5, a6, a7, a8, v65);
+          LogPrintF(v67, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 50, "### PairVerify server M3 bad status: 0x%X, %#m\n", a5, a6, a7, a8, v65);
         }
 
         v27 = 1;
@@ -5598,7 +5598,7 @@ LABEL_97:
               v76 = *(a1 + 16);
             }
 
-            LogPrintF(v76, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 0x32u, "### PairVerify server bad auth tag\n", v72, v73, v74, v75, v125);
+            LogPrintF(v76, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 50, "### PairVerify server bad auth tag\n", v72, v73, v74, v75, v125);
           }
 
 LABEL_189:
@@ -5649,7 +5649,7 @@ LABEL_215:
                   v80 = AppInfoTLV;
                 }
 
-                LogPrintF(v115, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 0x32u, "### PairVerify server bad signature: %#m\n", v72, v73, v74, v75, v80);
+                LogPrintF(v115, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 50, "### PairVerify server bad signature: %#m\n", v72, v73, v74, v75, v80);
               }
 
 LABEL_229:
@@ -5683,7 +5683,7 @@ LABEL_232:
                   v120 = *(a1 + 16);
                 }
 
-                LogPrintF(v120, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 0x32u, "### PairVerify server -- client lacks ACL: %@\n", v116, v117, v118, v119, *(a1 + 184));
+                LogPrintF(v120, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 50, "### PairVerify server -- client lacks ACL: %@\n", v116, v117, v118, v119, *(a1 + 184));
               }
 
 LABEL_231:
@@ -5781,7 +5781,7 @@ LABEL_214:
                   v96 = AppInfoTLV;
                 }
 
-                LogPrintF(v109, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 0x5Au, "### PairVerify server M3 verify signature failed: %#m\n", v97, v98, v99, v100, v96);
+                LogPrintF(v109, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 90, "### PairVerify server M3 verify signature failed: %#m\n", v97, v98, v99, v100, v96);
               }
 
 LABEL_114:
@@ -5811,7 +5811,7 @@ LABEL_114:
         v103 = *(a1 + 320);
         if (v103)
         {
-          AppInfoTLV = PairingSessionFindPeerEx(a1, v102, v103, (a1 + 622), &cf, a6, a7, a8);
+          AppInfoTLV = PairingSessionFindPeerEx(a1, v102, v103, (a1 + 622), &cf);
           if (AppInfoTLV)
           {
             v108 = *(a1 + 16);
@@ -5827,7 +5827,7 @@ LABEL_114:
                 v108 = *(a1 + 16);
               }
 
-              LogPrintF(v108, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 0x32u, "### PairVerify server unknown peer: %.*s\n", v104, v105, v106, v107, *(a1 + 320));
+              LogPrintF(v108, "OSStatus _VerifyServerM3(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *, Boolean *, Boolean *)", 50, "### PairVerify server unknown peer: %.*s\n", v104, v105, v106, v107, *(a1 + 320));
             }
 
             goto LABEL_229;
@@ -5913,7 +5913,7 @@ LABEL_17:
           v21 = v20 == -1 && !_LogCategory_Initialize(v19, 0xAu);
         }
 
-        LogPrintF(v19, "OSStatus _VerifyServerM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x1Eu, "PairVerify server M1 -- start request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v21);
+        LogPrintF(v19, "OSStatus _VerifyServerM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 30, "PairVerify server M1 -- start request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v21);
       }
     }
 
@@ -6044,7 +6044,7 @@ LABEL_50:
                 v124 = *(a1 + 16);
               }
 
-              LogPrintF(v124, "OSStatus _VerifyServerM2(PairingSessionRef, uint8_t **, size_t *)", 0x5Au, "### PairVerify server M2 failed: copy identity, %#m\n", a5, a6, a7, a8, Bytes);
+              LogPrintF(v124, "OSStatus _VerifyServerM2(PairingSessionRef, uint8_t **, size_t *)", 90, "### PairVerify server M2 failed: copy identity, %#m\n", a5, a6, a7, a8, Bytes);
               goto LABEL_171;
             }
 
@@ -6162,7 +6162,7 @@ LABEL_72:
                       v60 = v59 == -1 && !_LogCategory_Initialize(v58, 0xAu);
                     }
 
-                    LogPrintF(v58, "OSStatus _VerifyServerM2(PairingSessionRef, uint8_t **, size_t *)", 0x1Eu, "PairVerify server M2 -- start response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v60);
+                    LogPrintF(v58, "OSStatus _VerifyServerM2(PairingSessionRef, uint8_t **, size_t *)", 30, "PairVerify server M2 -- start response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v60);
                   }
                 }
 
@@ -6229,7 +6229,7 @@ LABEL_180:
               v91 = *(a1 + 16);
             }
 
-            LogPrintF(v91, "OSStatus _VerifyServerM2(PairingSessionRef, uint8_t **, size_t *)", 0x5Au, "### PairVerify server M2 sign failed: %#m\n", v39, v40, v41, v42, Bytes);
+            LogPrintF(v91, "OSStatus _VerifyServerM2(PairingSessionRef, uint8_t **, size_t *)", 90, "### PairVerify server M2 sign failed: %#m\n", v39, v40, v41, v42, Bytes);
           }
 
 LABEL_198:
@@ -6257,7 +6257,7 @@ LABEL_198:
         v29 = cf;
       }
 
-      LogPrintF(v53, "OSStatus _VerifyServerM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 0x32u, "### PairVerify server unsupported method: %u\n", a5, a6, a7, a8, v29);
+      LogPrintF(v53, "OSStatus _VerifyServerM1(PairingSessionRef, const uint8_t *const, const uint8_t *const, uint8_t **, size_t *)", 50, "### PairVerify server unsupported method: %u\n", a5, a6, a7, a8, v29);
     }
 
 LABEL_120:
@@ -6283,7 +6283,7 @@ LABEL_121:
       v17 = *(a1 + 128);
     }
 
-    LogPrintF(v25, "OSStatus _VerifyServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x3Cu, "### PairVerify server bad state: %d\n", a5, a6, a7, a8, v17);
+    LogPrintF(v25, "OSStatus _VerifyServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 60, "### PairVerify server bad state: %d\n", a5, a6, a7, a8, v17);
 LABEL_34:
     v26 = 0;
     v27 = 0;
@@ -6330,7 +6330,7 @@ LABEL_125:
     _LogCategory_Initialize(v81, 0x28u);
   }
 
-  LogPrintF(v81, "OSStatus _VerifyServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### PairVerify server state %d failed: %#m\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v83);
+  LogPrintF(v81, "OSStatus _VerifyServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### PairVerify server state %d failed: %#m\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v83);
   if (v27)
   {
     goto LABEL_181;
@@ -6492,7 +6492,7 @@ LABEL_181:
   return Bytes;
 }
 
-uint64_t _ResumePairingClientExchange(uint64_t a1, unsigned __int8 *a2, uint64_t a3, UInt8 **a4, size_t *a5, char *a6, uint64_t a7, uint64_t a8)
+uint64_t _ResumePairingClientExchange(uint64_t a1, UInt8 *a2, CFIndex a3, UInt8 **a4, CFIndex *a5, char *a6, uint64_t a7, uint64_t a8)
 {
   v63 = *MEMORY[0x1E69E9840];
   v52 = 0;
@@ -6524,7 +6524,7 @@ uint64_t _ResumePairingClientExchange(uint64_t a1, unsigned __int8 *a2, uint64_t
         goto LABEL_69;
       }
 
-      if (v16 - v17 < 2)
+      if ((v16 - v17) < 2)
       {
 LABEL_42:
         v29 = -6727;
@@ -6590,7 +6590,7 @@ LABEL_12:
         v27 = v26 == -1 && !_LogCategory_Initialize(v25, 0xAu);
       }
 
-      LogPrintF(v25, "OSStatus _ResumePairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "Pair-resume client M2 -- resume response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v27);
+      LogPrintF(v25, "OSStatus _ResumePairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "Pair-resume client M2 -- resume response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v27);
     }
 
 LABEL_45:
@@ -6664,7 +6664,7 @@ LABEL_38:
                 v47 = *(a1 + 16);
               }
 
-              LogPrintF(v47, "OSStatus _ResumePairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "Pair-resume client done\n", a5, a6, a7, a8, v51);
+              LogPrintF(v47, "OSStatus _ResumePairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "Pair-resume client done\n", a5, a6, a7, a8, v51);
             }
 
 LABEL_78:
@@ -6691,7 +6691,7 @@ LABEL_78:
         v39 = *(a1 + 16);
       }
 
-      LogPrintF(v39, "OSStatus _ResumePairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "Pair-resume client M2 for ID %llu failed %#m...doing PairVerify\n", v30, v31, v32, v33, *(a1 + 392));
+      LogPrintF(v39, "OSStatus _ResumePairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "Pair-resume client M2 for ID %llu failed %#m...doing PairVerify\n", v30, v31, v32, v33, *(a1 + 392));
     }
 
 LABEL_56:
@@ -6793,7 +6793,7 @@ LABEL_94:
           v50 = v49 == -1 && !_LogCategory_Initialize(v48, 0xAu);
         }
 
-        LogPrintF(v48, "OSStatus _ResumePairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "Pair-resume client M1 -- resume request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v50);
+        LogPrintF(v48, "OSStatus _ResumePairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "Pair-resume client M1 -- resume request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v50);
         goto LABEL_94;
       }
 
@@ -6843,7 +6843,7 @@ LABEL_59:
         _LogCategory_Initialize(v41, 0x28u);
       }
 
-      LogPrintF(v41, "OSStatus _ResumePairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### Pair-resume client state %d failed: %#m\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v43);
+      LogPrintF(v41, "OSStatus _ResumePairingClientExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### Pair-resume client state %d failed: %#m\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v43);
       return Bytes;
     }
   }
@@ -6851,7 +6851,7 @@ LABEL_59:
   return v40;
 }
 
-uint64_t _ResumePairingServerExchange(uint64_t a1, unsigned __int8 *a2, uint64_t a3, UInt8 **a4, size_t *a5, char *a6, uint64_t a7, uint64_t a8)
+uint64_t _ResumePairingServerExchange(uint64_t a1, UInt8 *a2, CFIndex a3, UInt8 **a4, CFIndex *a5, char *a6, uint64_t a7, uint64_t a8)
 {
   v65 = *MEMORY[0x1E69E9840];
   v14 = &a2[a3];
@@ -6934,7 +6934,7 @@ LABEL_81:
           v21 = *(a1 + 16);
           v19 = *(a1 + 128);
 LABEL_15:
-          LogPrintF(v21, "OSStatus _ResumePairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x3Cu, "### Pair-resume server bad state: %d\n", a5, a6, a7, a8, v19);
+          LogPrintF(v21, "OSStatus _ResumePairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 60, "### Pair-resume server bad state: %d\n", a5, a6, a7, a8, v19);
         }
       }
 
@@ -6974,7 +6974,7 @@ LABEL_19:
         v24 = v23 == -1 && !_LogCategory_Initialize(v22, 0xAu);
       }
 
-      LogPrintF(v22, "OSStatus _ResumePairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "Pair-resume server M1 -- resume request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v24);
+      LogPrintF(v22, "OSStatus _ResumePairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "Pair-resume server M1 -- resume request\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v24);
       goto LABEL_30;
     }
 
@@ -7032,7 +7032,7 @@ LABEL_30:
         v38 = *(a1 + 16);
       }
 
-      LogPrintF(v38, "OSStatus _ResumePairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "Pair-resume server M1 for ID %llu failed %#m...doing PairVerify\n", v34, v35, v36, v37, *(a1 + 392));
+      LogPrintF(v38, "OSStatus _ResumePairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "Pair-resume server M1 for ID %llu failed %#m...doing PairVerify\n", v34, v35, v36, v37, *(a1 + 392));
     }
 
 LABEL_83:
@@ -7187,7 +7187,7 @@ LABEL_85:
     v48 = v47 == -1 && !_LogCategory_Initialize(v46, 0xAu);
   }
 
-  LogPrintF(v46, "OSStatus _ResumePairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "Pair-resume server M2 -- resume response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v48);
+  LogPrintF(v46, "OSStatus _ResumePairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "Pair-resume server M2 -- resume response\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v48);
   v46 = *(a1 + 16);
 LABEL_96:
   v51 = *v46;
@@ -7204,7 +7204,7 @@ LABEL_96:
       v46 = *(a1 + 16);
     }
 
-    LogPrintF(v46, "OSStatus _ResumePairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x1Eu, "Pair-resume server done\n", a5, a6, a7, a8, v52);
+    LogPrintF(v46, "OSStatus _ResumePairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 30, "Pair-resume server done\n", a5, a6, a7, a8, v52);
   }
 
 LABEL_100:
@@ -7255,7 +7255,7 @@ LABEL_35:
         _LogCategory_Initialize(v30, 0x28u);
       }
 
-      LogPrintF(v30, "OSStatus _ResumePairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 0x32u, "### Pair-resume server state %d failed: %#m\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v32);
+      LogPrintF(v30, "OSStatus _ResumePairingServerExchange(PairingSessionRef, const void *, size_t, uint8_t **, size_t *, Boolean *)", 50, "### Pair-resume server state %d failed: %#m\n%?{end}%1{tlv8}\n", a5, a6, a7, a8, v32);
       return Bytes;
     }
   }
@@ -7263,16 +7263,16 @@ LABEL_35:
   return v29;
 }
 
-uint64_t _PairingSessionSavePeerKeychain(uint64_t a1, char *a2, uint64_t a3, unsigned __int8 *a4, unsigned int a5)
+uint64_t _PairingSessionSavePeerKeychain(uint64_t a1, char *a2, size_t a3, unsigned __int8 *a4, unsigned int a5)
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v34[0] = 0;
+  v39 = *MEMORY[0x1E69E9840];
+  v37 = 0;
   pthread_mutex_lock(&gPairingGlobalLock);
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!Mutable)
   {
     Data = 0;
-    goto LABEL_22;
+    goto LABEL_27;
   }
 
   v15 = Mutable;
@@ -7297,9 +7297,9 @@ uint64_t _PairingSessionSavePeerKeychain(uint64_t a1, char *a2, uint64_t a3, uns
         goto LABEL_8;
       }
 
-LABEL_22:
-      v20 = 4294960568;
-      goto LABEL_23;
+LABEL_27:
+      v19 = 4294960568;
+      goto LABEL_28;
     }
   }
 
@@ -7316,172 +7316,210 @@ LABEL_8:
     CFRelease(v15);
     if (!Data)
     {
-      v20 = 4294960596;
-      goto LABEL_23;
+      v19 = 4294960596;
+      goto LABEL_28;
     }
   }
 
-  _PairingSessionDeletePeer(a1, a2, a3, v19, v11, v12, v13, v14);
-  v34[0] = 0;
-  ASPrintF(v34, "%@: %.*s", v21, v22, v23, v24, v25, v26, *(a1 + 816));
-  v27 = v34[0];
-  if (!v34[0])
+  _PairingSessionDeletePeer(a1, a2, a3);
+  v37 = 0;
+  ASPrintF(&v37, "%@: %.*s", v20, v21, v22, v23, v24, v25, *(a1 + 816));
+  v26 = v37;
+  if (!v37)
   {
-    goto LABEL_22;
+    goto LABEL_27;
   }
 
   for (i = 0; i != 64; i += 2)
   {
-    v29 = &v34[1] + i + 7;
-    v30 = *a4++;
-    *v29 = a0123456789abcd[v30 >> 4];
-    v29[1] = a0123456789abcd[v30 & 0xF];
+    v28 = &v38[i];
+    v29 = *a4++;
+    *v28 = a0123456789abcd[v29 >> 4];
+    v28[1] = a0123456789abcd[v29 & 0xF];
   }
 
-  v35 = 0;
-  v31 = KeychainAddFormatted(0, "{%kO=%O%kO=%O%kO=%O%kO=%i%kO=%s%kO=%O%kO=%.*s%kO=%O%kO=%O%kO=%D%kO=%O}", *MEMORY[0x1E697AC30], *MEMORY[0x1E697AE88], *MEMORY[0x1E697ACF0], *(a1 + 816), *MEMORY[0x1E697B3C0], *MEMORY[0x1E697AEB0], *MEMORY[0x1E697AFF8]);
-  free(v27);
-  if (!v31)
+  v38[64] = 0;
+  v30 = MEMORY[0x1E697AC20];
+  v31 = *(a1 + 840);
+  if ((v31 & 8) == 0)
   {
-    v20 = 0;
-    goto LABEL_17;
+    v30 = MEMORY[0x1E697ABF8];
   }
 
-  v20 = v31;
-LABEL_23:
-  v33 = *(a1 + 16);
-  if (*v33 > 60)
+  v32 = *v30;
+  if ((v31 & 2) != 0)
   {
-    goto LABEL_17;
+    v33 = *v16;
   }
 
-  if (*v33 != -1)
+  else
   {
-    goto LABEL_25;
+    v33 = 0;
   }
 
-  if (_LogCategory_Initialize(v33, 0x3Cu))
+  v34 = KeychainAddFormatted(0, "{%kO=%O%kO=%O%kO=%O%kO=%i%kO=%s%kO=%O%kO=%.*s%kO=%O%kO=%O%kO=%D%kO=%O}", *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B008], *MEMORY[0x1E697ABD0], *(a1 + 784), *MEMORY[0x1E697ABD8], v32, *MEMORY[0x1E697AEF8], *(a1 + 824), *MEMORY[0x1E697ADC8], v26, *MEMORY[0x1E697ACE0], *(a1 + 832), *MEMORY[0x1E697AC30], a3, a2, *MEMORY[0x1E697AE88], *(a1 + 816), *MEMORY[0x1E697ACF0], Data, *MEMORY[0x1E697B3C0], v38, 64, *MEMORY[0x1E697AEB0], v33);
+  free(v26);
+  if (!v34)
   {
-    v33 = *(a1 + 16);
-LABEL_25:
-    LogPrintF(v33, "OSStatus _PairingSessionSavePeerKeychain(PairingSessionRef, const void *, size_t, const uint8_t *, PairingPermissions)", 0x3Cu, "### Save %@ %.*s failed: %#m\n", v11, v12, v13, v14, *(a1 + 816));
+    v19 = 0;
+    goto LABEL_22;
   }
 
-LABEL_17:
+  v19 = v34;
+LABEL_28:
+  v36 = *(a1 + 16);
+  if (*v36 > 60)
+  {
+    goto LABEL_22;
+  }
+
+  if (*v36 != -1)
+  {
+    goto LABEL_30;
+  }
+
+  if (_LogCategory_Initialize(v36, 0x3Cu))
+  {
+    v36 = *(a1 + 16);
+LABEL_30:
+    LogPrintF(v36, "OSStatus _PairingSessionSavePeerKeychain(PairingSessionRef, const void *, size_t, const uint8_t *, PairingPermissions)", 60, "### Save %@ %.*s failed: %#m\n", v11, v12, v13, v14, *(a1 + 816));
+  }
+
+LABEL_22:
   if (Data)
   {
     CFRelease(Data);
   }
 
   pthread_mutex_unlock(&gPairingGlobalLock);
-  return v20;
+  return v19;
 }
 
-void _PairingSessionDeletePeer(uint64_t a1, char *__s, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void _PairingSessionDeletePeer(uint64_t a1, char *__s, size_t a3)
 {
-  v31 = a3;
+  v20 = a3;
   if (a3 == -1)
   {
-    v31 = strlen(__s);
+    v20 = strlen(__s);
   }
 
-  v10 = *MEMORY[0x1E697AEF8];
-  v11 = KeychainCopyMatchingFormatted(0, "{%kO=%O%kO=%O%kO=%i%kO=%O%kO=%O%kO=%O%kO=%O}", a3, a4, a5, a6, a7, a8, *MEMORY[0x1E697AFF8]);
-  if (v11)
+  v5 = *MEMORY[0x1E697AEF8];
+  v6 = KeychainCopyMatchingFormatted(0, "{%kO=%O%kO=%O%kO=%i%kO=%O%kO=%O%kO=%O%kO=%O}", *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B008], *MEMORY[0x1E697ABD0], *(a1 + 784), *MEMORY[0x1E697AEF8], *(a1 + 824), *MEMORY[0x1E697AEB0], *MEMORY[0x1E697AEB8], *MEMORY[0x1E697B310], *MEMORY[0x1E695E4D0], *MEMORY[0x1E697B320], *MEMORY[0x1E695E4D0], *MEMORY[0x1E697B260], *MEMORY[0x1E697B268]);
+  if (v6)
   {
-    v12 = v11;
-    v33 = 0;
-    Count = CFArrayGetCount(v11);
+    v7 = v6;
+    v22 = 0;
+    Count = CFArrayGetCount(v6);
     if (Count >= 1)
     {
-      v14 = Count;
-      v15 = 0;
-      v32 = *MEMORY[0x1E697AC30];
-      v16 = *MEMORY[0x1E697B3C8];
+      v9 = Count;
+      v10 = 0;
+      v21 = *MEMORY[0x1E697AC30];
+      v11 = *MEMORY[0x1E697B3C8];
       do
       {
         TypeID = CFDictionaryGetTypeID();
-        TypedValueAtIndex = CFArrayGetTypedValueAtIndex(v12, v15, TypeID, 0);
+        TypedValueAtIndex = CFArrayGetTypedValueAtIndex(v7, v10, TypeID, 0);
         if (TypedValueAtIndex)
         {
-          v19 = TypedValueAtIndex;
-          if (*(a1 + 824) == CFDictionaryGetInt64(TypedValueAtIndex, v10, &v33))
+          v14 = TypedValueAtIndex;
+          if (*(a1 + 824) == CFDictionaryGetInt64(TypedValueAtIndex, v5, &v22))
           {
-            if (!__s || (v20 = CFDictionaryCopyCString(v19, v32, &v33), !v33) && (v21 = v20, v22 = strnicmpx(__s, v31, v20), free(v21), !v22))
+            if (!__s || (v15 = CFDictionaryCopyCString(v14, v21, &v22), !v22) && (v16 = v15, v17 = strnicmpx(__s, v20, v15), free(v16), !v17))
             {
-              v23 = CFDataGetTypeID();
-              CFDictionaryGetTypedValue(v19, v16, v23, &v33);
-              if (!v33)
+              v18 = CFDataGetTypeID();
+              TypedValue = CFDictionaryGetTypedValue(v14, v11, v18, &v22);
+              if (!v22)
               {
-                v33 = KeychainDeleteFormatted("{%kO=%O}", v24, v25, v26, v27, v28, v29, v30, v16);
+                v22 = KeychainDeleteFormatted("{%kO=%O}", v11, TypedValue);
               }
             }
           }
         }
 
-        ++v15;
+        ++v10;
       }
 
-      while (v14 != v15);
+      while (v9 != v10);
     }
 
-    CFRelease(v12);
+    CFRelease(v7);
   }
 }
 
-__CFArray *_PairingSessionCopyPeers(int a1, char *__s, uint64_t a3, _DWORD *a4)
+__CFArray *_PairingSessionCopyPeers(uint64_t a1, char *__s, size_t a3, _DWORD *a4)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v5 = a3;
+  v53 = *MEMORY[0x1E69E9840];
   if (a3 == -1)
   {
-    strlen(__s);
+    v5 = strlen(__s);
   }
 
-  v48 = 0;
-  v47 = 0;
+  v51 = 0;
+  v50 = 0;
   pthread_mutex_lock(&gPairingGlobalLock);
-  v5 = *MEMORY[0x1E697AC30];
-  v45 = *MEMORY[0x1E697AFF8];
-  v11 = KeychainCopyMatchingFormatted(&v48, "{%kO=%O%kO=%O%kO=%i%kO=%?.*s%kO=%O%kO=%O%kO=%O}", *MEMORY[0x1E695E4D0], v6, v7, v8, v9, v10, *MEMORY[0x1E697AFF8]);
-  if (v48 == -25300)
+  v8 = *MEMORY[0x1E697AC30];
+  if (__s)
   {
-    v48 = 0;
+    v9 = v5 == 0;
   }
 
-  else if (v48)
+  else
+  {
+    v9 = 1;
+  }
+
+  v10 = !v9;
+  v42 = *MEMORY[0x1E695E4D0];
+  v43 = *MEMORY[0x1E697AEB8];
+  v44 = *MEMORY[0x1E697AEB0];
+  v45 = *MEMORY[0x1E697AEF8];
+  v46 = *MEMORY[0x1E697ABD0];
+  v47 = *MEMORY[0x1E697B008];
+  v48 = *MEMORY[0x1E697AFF8];
+  v11 = KeychainCopyMatchingFormatted(&v51, "{%kO=%O%kO=%O%kO=%i%kO=%?.*s%kO=%O%kO=%O%kO=%O}", *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B008], *MEMORY[0x1E697ABD0], *(a1 + 784), *MEMORY[0x1E697AEF8], *(a1 + 824), v8, v10, v5, __s, *MEMORY[0x1E697AEB0], *MEMORY[0x1E697AEB8], *MEMORY[0x1E697B310], *MEMORY[0x1E695E4D0], *MEMORY[0x1E697B260], *MEMORY[0x1E697B268]);
+  if (v51 == -25300)
+  {
+    v51 = 0;
+  }
+
+  else if (v51)
   {
     Mutable = 0;
-    goto LABEL_29;
+    goto LABEL_35;
   }
 
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
   if (!Mutable)
   {
     Mutable = 0;
-    v48 = -6728;
-    goto LABEL_29;
+    v51 = -6728;
+    goto LABEL_35;
   }
 
-  v44 = a4;
+  v41 = a1;
+  v39 = a4;
   if (!v11 || (Count = CFArrayGetCount(v11), Count < 1))
   {
-LABEL_27:
-    v48 = 0;
-    goto LABEL_28;
+LABEL_33:
+    v51 = 0;
+    goto LABEL_34;
   }
 
   v13 = Count;
   v14 = 0;
   v15 = MEMORY[0x1E695E9D8];
   v16 = MEMORY[0x1E695E9E8];
-  v43 = *MEMORY[0x1E697ACF0];
+  v40 = *MEMORY[0x1E697B318];
+  v38 = *MEMORY[0x1E697ACF0];
   while (1)
   {
     TypeID = CFDictionaryGetTypeID();
-    TypedValueAtIndex = CFArrayGetTypedValueAtIndex(v11, v14, TypeID, &v48);
-    if (v48)
+    TypedValueAtIndex = CFArrayGetTypedValueAtIndex(v11, v14, TypeID, &v51);
+    if (v51)
     {
-      goto LABEL_26;
+      goto LABEL_32;
     }
 
     v19 = TypedValueAtIndex;
@@ -7493,50 +7531,51 @@ LABEL_27:
 
     v21 = v20;
     v22 = CFStringGetTypeID();
-    TypedValue = CFDictionaryGetTypedValue(v19, v5, v22, &v48);
-    if (v48)
+    TypedValue = CFDictionaryGetTypedValue(v19, v8, v22, &v51);
+    if (v51)
     {
       v24 = v21;
     }
 
     else
     {
+      v25 = TypedValue;
       CFDictionarySetValue(v21, @"identifier", TypedValue);
-      v31 = KeychainCopyMatchingFormatted(&v48, "{%kO=%O%kO=%O%kO=%i%kO=%O%kO=%O%kO=%O}", v25, v26, v27, v28, v29, v30, v45);
-      v24 = v31;
-      if (!v48)
+      v26 = KeychainCopyMatchingFormatted(&v51, "{%kO=%O%kO=%O%kO=%i%kO=%O%kO=%O%kO=%O}", v48, v47, v46, *(v41 + 784), v45, *(v41 + 824), v44, v43, v8, v25, v40, v42);
+      v24 = v26;
+      if (!v51)
       {
-        v47 = 0;
-        v32 = v15;
-        BytePtr = CFDataGetBytePtr(v31);
+        v50 = 0;
+        v27 = v15;
+        BytePtr = CFDataGetBytePtr(v26);
         Length = CFDataGetLength(v24);
-        v35 = BytePtr;
-        v15 = v32;
-        v48 = HexToData(v35, Length, 22, bytes, 0x20uLL, &v47, 0, 0);
-        if (!v48 && v47 == 32)
+        v30 = BytePtr;
+        v15 = v27;
+        v51 = HexToData(v30, Length, 22, bytes, 0x20uLL, &v50, 0, 0);
+        if (!v51 && v50 == 32)
         {
           CFDictionarySetData(v21, @"pk", bytes, 32);
-          v36 = CFDataGetTypeID();
-          v37 = CFDictionaryGetTypedValue(v19, v43, v36, 0);
-          if (v37)
+          v31 = CFDataGetTypeID();
+          v32 = CFDictionaryGetTypedValue(v19, v38, v31, 0);
+          if (v32)
           {
-            v38 = CFPropertyListCreateWithData(0, v37, 0, 0, 0);
-            if (v38)
+            v33 = CFPropertyListCreateWithData(0, v32, 0, 0, 0);
+            if (v33)
             {
-              v39 = v38;
-              v40 = CFGetTypeID(v38);
-              if (v40 == CFDictionaryGetTypeID())
+              v34 = v33;
+              v35 = CFGetTypeID(v33);
+              if (v35 == CFDictionaryGetTypeID())
               {
-                CFDictionarySetValue(v21, @"info", v39);
-                Value = CFDictionaryGetValue(v39, @"permissions");
+                CFDictionarySetValue(v21, @"info", v34);
+                Value = CFDictionaryGetValue(v34, @"permissions");
                 if (Value)
                 {
                   CFDictionarySetValue(v21, @"permissions", Value);
                 }
               }
 
-              CFRelease(v39);
-              v15 = v32;
+              CFRelease(v34);
+              v15 = v27;
             }
           }
 
@@ -7547,24 +7586,24 @@ LABEL_27:
       CFRelease(v21);
       if (!v24)
       {
-        goto LABEL_26;
+        goto LABEL_32;
       }
     }
 
     CFRelease(v24);
-LABEL_26:
+LABEL_32:
     if (v13 == ++v14)
     {
-      goto LABEL_27;
+      goto LABEL_33;
     }
   }
 
-  v48 = -6728;
+  v51 = -6728;
   CFRelease(Mutable);
   Mutable = 0;
-LABEL_28:
-  a4 = v44;
-LABEL_29:
+LABEL_34:
+  a4 = v39;
+LABEL_35:
   if (v11)
   {
     CFRelease(v11);
@@ -7572,7 +7611,7 @@ LABEL_29:
 
   if (a4)
   {
-    *a4 = v48;
+    *a4 = v51;
   }
 
   pthread_mutex_unlock(&gPairingGlobalLock);
@@ -7857,7 +7896,7 @@ uint64_t _PairingSessionAppleIDProveSelf(uint64_t a1, uint64_t a2)
       v24 = *(a1 + 16);
     }
 
-    LogPrintF(v24, "OSStatus _PairingSessionAppleIDProveSelf(PairingSessionRef, TLV8Buffer *)", 0x3Cu, "### AppleID sign data failed: %{error}\n", v20, v21, v22, v23, v9);
+    LogPrintF(v24, "OSStatus _PairingSessionAppleIDProveSelf(PairingSessionRef, TLV8Buffer *)", 60, "### AppleID sign data failed: %{error}\n", v20, v21, v22, v23, v9);
     goto LABEL_7;
   }
 
@@ -7901,7 +7940,7 @@ uint64_t _PairingSessionAppleIDProveSelf(uint64_t a1, uint64_t a2)
       v30 = *(a1 + 16);
     }
 
-    LogPrintF(v30, "OSStatus _PairingSessionAppleIDProveSelf(PairingSessionRef, TLV8Buffer *)", 0x3Cu, "### AppleID get my certificate failed: %{error}\n", v26, v27, v28, v29, v14);
+    LogPrintF(v30, "OSStatus _PairingSessionAppleIDProveSelf(PairingSessionRef, TLV8Buffer *)", 60, "### AppleID get my certificate failed: %{error}\n", v26, v27, v28, v29, v14);
 LABEL_50:
     v12 = 0;
     v9 = v14;
@@ -7959,7 +7998,7 @@ LABEL_50:
           v48 = *(a1 + 16);
         }
 
-        LogPrintF(v48, "OSStatus _PairingSessionAppleIDProveSelf(PairingSessionRef, TLV8Buffer *)", 0x3Cu, "### Compress AppleID my validatidation data failed: %{error}\n", v44, v45, v46, v47, v9);
+        LogPrintF(v48, "OSStatus _PairingSessionAppleIDProveSelf(PairingSessionRef, TLV8Buffer *)", 60, "### Compress AppleID my validatidation data failed: %{error}\n", v44, v45, v46, v47, v9);
         goto LABEL_7;
       }
 
@@ -7997,7 +8036,7 @@ LABEL_14:
       v42 = *(a1 + 16);
     }
 
-    LogPrintF(v42, "OSStatus _PairingSessionAppleIDProveSelf(PairingSessionRef, TLV8Buffer *)", 0x3Cu, "### AppleID get my validatidation data failed: %{error}\n", v38, v39, v40, v41, v17);
+    LogPrintF(v42, "OSStatus _PairingSessionAppleIDProveSelf(PairingSessionRef, TLV8Buffer *)", 60, "### AppleID get my validatidation data failed: %{error}\n", v38, v39, v40, v41, v17);
   }
 
   else
@@ -8029,7 +8068,7 @@ LABEL_14:
       v36 = *(a1 + 16);
     }
 
-    LogPrintF(v36, "OSStatus _PairingSessionAppleIDProveSelf(PairingSessionRef, TLV8Buffer *)", 0x3Cu, "### Compress AppleID my certificate failed: %{error}\n", v32, v33, v34, v35, v9);
+    LogPrintF(v36, "OSStatus _PairingSessionAppleIDProveSelf(PairingSessionRef, TLV8Buffer *)", 60, "### Compress AppleID my certificate failed: %{error}\n", v32, v33, v34, v35, v9);
   }
 
 LABEL_7:
@@ -8044,7 +8083,8 @@ uint64_t PairingSessionCopyIdentity(uint64_t a1, uint64_t a2, char **a3, _OWORD 
   v6 = a4;
   v7 = a3;
   v8 = a2;
-  v97 = *MEMORY[0x1E69E9840];
+  v9 = a1;
+  v95 = *MEMORY[0x1E69E9840];
   v10 = *(a1 + 56);
   if (v10)
   {
@@ -8056,275 +8096,310 @@ uint64_t PairingSessionCopyIdentity(uint64_t a1, uint64_t a2, char **a3, _OWORD 
   v13 = *(a1 + 100);
   if ((v13 & 4) != 0)
   {
-    v67 = a2 != 0;
-    v68 = 2;
+    v51 = a2 != 0;
+    v52 = 2;
     if (a2)
     {
-      v68 = 3;
+      v52 = 3;
     }
 
     if (a5)
     {
-      v67 = v68;
+      v51 = v52;
     }
 
-    v69 = v67 | (v13 >> 19) & 8;
-    v70 = v13 >> 21;
-    v71 = v69 | (v13 >> 21) & 0x10;
+    v53 = v51 | (v13 >> 19) & 8;
+    v54 = v13 >> 21;
+    v55 = v53 | (v13 >> 21) & 0x10;
     if ((v13 & 0x80000000) == 0)
     {
-      v72 = v71;
+      v56 = v55;
     }
 
     else
     {
-      v72 = v71 | 0x100;
+      v56 = v55 | 0x100;
     }
 
-    return _PairingSessionCopyIdentityPairingManager(a1, v72 | v70 & 0x20, a3, 0, a4, a5);
+    return _PairingSessionCopyIdentityPairingManager(a1, v56 | v54 & 0x20, a3, 0, a4, a5);
   }
 
   pthread_mutex_lock(&gPairingGlobalLock);
-  v80 = *MEMORY[0x1E697AFF8];
-  v74 = (v6 | a5) != 0;
-  v79 = *MEMORY[0x1E697AC30];
-  v20 = 1;
-  v78 = *MEMORY[0x1E697B3C0];
-  v76 = v6;
-  v77 = v7;
-  v75 = v8;
+  v78 = *MEMORY[0x1E697AFF8];
+  v76 = *MEMORY[0x1E697ABD0];
+  v77 = *MEMORY[0x1E697B008];
+  v74 = *MEMORY[0x1E697AEB0];
+  v75 = *MEMORY[0x1E697AEF8];
+  v70 = *MEMORY[0x1E697AEB8];
+  v69 = *MEMORY[0x1E697B310];
+  v14 = *MEMORY[0x1E695E4D0];
+  v58 = (v6 | a5) != 0;
+  v73 = *MEMORY[0x1E695E4D0];
+  if (!(v6 | a5))
+  {
+    v14 = 0;
+  }
+
+  v67 = v14;
+  v68 = *MEMORY[0x1E697B318];
+  v72 = *MEMORY[0x1E697AC30];
+  v15 = 1;
+  v71 = *MEMORY[0x1E697B3C0];
+  v62 = *MEMORY[0x1E697ABF8];
+  v63 = *MEMORY[0x1E697ABD8];
+  v61 = *MEMORY[0x1E697ADC8];
+  v60 = *MEMORY[0x1E697ACE0];
+  v59 = *MEMORY[0x1E697AE88];
+  v65 = v6;
+  v66 = v7;
+  v64 = v8;
   do
   {
-    if (v20 != 1)
+    if (v15 != 1)
     {
       usleep(0x4E20u);
     }
 
-    LODWORD(v83[0]) = 0;
+    LODWORD(v81[0]) = 0;
     *__str = 0;
-    *&v84[0] = 0;
-    v27 = KeychainCopyMatchingFormatted(v83, "{%kO=%O%kO=%O%kO=%i%kO=%O%kO=%O%kO=%O}", v14, v15, v16, v17, v18, v19, v80);
-    if (!v27)
+    *&v82[0] = 0;
+    v16 = KeychainCopyMatchingFormatted(v81, "{%kO=%O%kO=%O%kO=%i%kO=%O%kO=%O%kO=%O}", v78, v77, v76, *(v9 + 784), v75, *(v9 + 800), v74, v70, v69, v73, v68, v67);
+    if (!v16)
     {
-      if (*(a1 + 800) == 1751216195)
+      if (*(v9 + 800) == 1751216195)
       {
-        v27 = KeychainCopyMatchingFormatted(v83, "{%kO=%O%kO=%O%kO=%i%kO=%O%kO=%O%kO=%O}", v21, v22, v23, v24, v25, v26, v80);
+        v16 = KeychainCopyMatchingFormatted(v81, "{%kO=%O%kO=%O%kO=%i%kO=%O%kO=%O%kO=%O}", v78, v77, v76, *(v9 + 784), v75, 1751216227, v74, v70, v69, v73, v68, v67);
       }
 
       else
       {
-        v27 = 0;
+        v16 = 0;
       }
     }
 
-    if (!LODWORD(v83[0]))
+    if (!LODWORD(v81[0]))
     {
       if (v7)
       {
-        v28 = CFDictionaryCopyCString(v27, v79, v83);
-        if (LODWORD(v83[0]))
+        v17 = CFDictionaryCopyCString(v16, v72, v81);
+        if (LODWORD(v81[0]))
         {
-          goto LABEL_19;
+          goto LABEL_21;
         }
 
-        *v7 = v28;
+        *v7 = v17;
       }
 
-      if (v74)
+      if (v58)
       {
         *__str = 0;
-        CFDictionaryGetData(v27, v78, __s, 0x84uLL, __str, v83);
-        *&v84[0] = __s;
-        v29 = *__str;
-        LODWORD(v83[0]) = HexToData(__s, *__str, 22, v6, 0x20uLL, __str, 0, v84);
-        if (!LODWORD(v83[0]))
+        CFDictionaryGetData(v16, v71, __s, 0x84uLL, __str, v81);
+        *&v82[0] = __s;
+        v18 = *__str;
+        LODWORD(v81[0]) = HexToData(__s, *__str, 22, v6, 0x20uLL, __str, 0, v82);
+        if (!LODWORD(v81[0]))
         {
           if (*__str != 32)
           {
-            goto LABEL_54;
+            goto LABEL_59;
           }
 
           if (!a5)
           {
-            goto LABEL_19;
+            goto LABEL_21;
           }
 
-          v65 = *&v84[0];
-          if (*&v84[0] >= &__s[v29] || **&v84[0] != 43)
+          v49 = *&v82[0];
+          if (*&v82[0] >= &__s[v18] || **&v82[0] != 43)
           {
-            v66 = -6742;
-            goto LABEL_61;
+            v50 = -6742;
+            goto LABEL_66;
           }
 
-          ++*&v84[0];
-          LODWORD(v83[0]) = HexToData(*&v84[0], &__s[v29 - 1 - v65], 22, a5, 0x20uLL, __str, 0, 0);
-          if (!LODWORD(v83[0]) && *__str != 32)
+          ++*&v82[0];
+          LODWORD(v81[0]) = HexToData(*&v82[0], &__s[v18 - 1 - v49], 22, a5, 0x20uLL, __str, 0, 0);
+          if (!LODWORD(v81[0]) && *__str != 32)
           {
-LABEL_54:
-            v66 = -6743;
-LABEL_61:
-            LODWORD(v83[0]) = v66;
+LABEL_59:
+            v50 = -6743;
+LABEL_66:
+            LODWORD(v81[0]) = v50;
           }
         }
       }
     }
 
-LABEL_19:
-    if (v27)
+LABEL_21:
+    if (v16)
     {
-      CFRelease(v27);
+      CFRelease(v16);
     }
 
     memset_s(__s, 0x84uLL, 0, 0x84uLL);
-    v33 = LODWORD(v83[0]);
-    if (LODWORD(v83[0]) == -25293)
+    v23 = LODWORD(v81[0]);
+    if (LODWORD(v81[0]) == -25293)
     {
       break;
     }
 
-    if (!LODWORD(v83[0]) || !v8)
+    if (!LODWORD(v81[0]) || !v8)
     {
-      goto LABEL_76;
+      goto LABEL_81;
     }
 
-    _PairingSessionDeleteIdentity(a1, v30, v31, v32, v16, v17, v18, v19);
-    v34 = *(a1 + 256);
-    if (!v34 || (v35 = *(a1 + 264)) == 0)
+    _PairingSessionDeleteIdentity(v9);
+    v24 = *(v9 + 256);
+    if (!v24 || (v25 = *(v9 + 264)) == 0)
     {
       RandomBytes(bytes, 0x10uLL);
-      v36 = v87 & 0xF | 0x40;
-      v87 = v87 & 0xF | 0x40;
-      v37 = v89 & 0x3F | 0x80;
-      v89 = v89 & 0x3F | 0x80;
-      v34 = __str;
-      snprintf(__str, 0x25uLL, "%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x", bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], v36, v88, v37, v90, v91, v92, v93, v94, v95, v96);
-      v35 = strlen(__str);
+      v26 = v85 & 0xF | 0x40;
+      v85 = v85 & 0xF | 0x40;
+      v27 = v87 & 0x3F | 0x80;
+      v87 = v87 & 0x3F | 0x80;
+      v24 = __str;
+      snprintf(__str, 0x25uLL, "%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x", bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], v26, v86, v27, v88, v89, v90, v91, v92, v93, v94);
+      v25 = strlen(__str);
     }
 
-    cced25519_make_key_pair_compat(v84, v83);
-    SNPrintF(__s, 132, "%.3H+%.3H", v38, v39, v40, v41, v42, v84);
-    v81 = 0;
-    ASPrintF(&v81, "%@: %.*s", v43, v44, v45, v46, v47, v48, *(a1 + 792));
-    v49 = v81;
-    if (v81)
+    cced25519_make_key_pair_compat(v82, v81);
+    SNPrintF(__s, 132, "%.3H+%.3H", v82, 32, 32, v81, 32, 32);
+    v79 = 0;
+    ASPrintF(&v79, "%@: %.*s", v28, v29, v30, v31, v32, v33, *(v9 + 792));
+    v34 = v79;
+    if (v79)
     {
-      strlen(__s);
-      v33 = KeychainAddFormatted(0, "{%kO=%O%kO=%O%kO=%O%kO=%i%kO=%s%kO=%O%kO=%.*s%kO=%O%kO=%D%kO=%O}", v50, v51, v52, v53, v54, v55, v80);
-      free(v49);
-      if (v33)
+      v35 = *(v9 + 784);
+      v36 = v9;
+      v37 = *(v9 + 808);
+      v38 = strlen(__s);
+      if (*(v36 + 840))
       {
-        v6 = v76;
-        v7 = v77;
-        v8 = v75;
+        v39 = v73;
       }
 
       else
       {
-        v6 = v76;
-        v7 = v77;
-        v8 = v75;
-        if (!v77)
+        v39 = 0;
+      }
+
+      v23 = KeychainAddFormatted(0, "{%kO=%O%kO=%O%kO=%O%kO=%i%kO=%s%kO=%O%kO=%.*s%kO=%O%kO=%D%kO=%O}", v78, v77, v76, v35, v63, v62, v75, *(v36 + 800), v61, v79, v60, v37, v72, v25, v24, v59, *(v36 + 792), v71, __s, v38, v74, v39);
+      free(v34);
+      if (v23)
+      {
+        v6 = v65;
+        v7 = v66;
+        v9 = v36;
+        v8 = v64;
+      }
+
+      else
+      {
+        v6 = v65;
+        v7 = v66;
+        v9 = v36;
+        v8 = v64;
+        if (!v66)
         {
-          goto LABEL_32;
+          goto LABEL_37;
         }
 
-        v60 = strndup(v34, v35);
-        if (v60)
+        v44 = strndup(v24, v25);
+        if (v44)
         {
-          *v77 = v60;
-LABEL_32:
-          if (v76)
+          *v66 = v44;
+LABEL_37:
+          if (v65)
           {
-            v61 = v84[1];
-            *v76 = v84[0];
-            v76[1] = v61;
+            v45 = v82[1];
+            *v65 = v82[0];
+            v65[1] = v45;
           }
 
           if (a5)
           {
-            v62 = v83[1];
-            *a5 = v83[0];
-            *(a5 + 16) = v62;
+            v46 = v81[1];
+            *a5 = v81[0];
+            *(a5 + 16) = v46;
           }
 
-          v63 = *(a1 + 16);
-          if (*v63 <= 50)
+          v47 = *(v9 + 16);
+          if (*v47 <= 50)
           {
-            if (*v63 != -1)
+            if (*v47 != -1)
             {
-              goto LABEL_38;
+              goto LABEL_43;
             }
 
-            if (_LogCategory_Initialize(v63, 0x32u))
+            if (_LogCategory_Initialize(v47, 0x32u))
             {
-              v63 = *(a1 + 16);
-LABEL_38:
-              LogPrintF(v63, "OSStatus _PairingSessionCreateIdentityKeychain(PairingSessionRef, char **, uint8_t *, uint8_t *)", 0x32u, "Created %@: %.*s\n", v56, v57, v58, v59, *(a1 + 792));
+              v47 = *(v9 + 16);
+LABEL_43:
+              LogPrintF(v47, "OSStatus _PairingSessionCreateIdentityKeychain(PairingSessionRef, char **, uint8_t *, uint8_t *)", 50, "Created %@: %.*s\n", v40, v41, v42, v43, *(v9 + 792));
             }
           }
 
-          v33 = 0;
-          goto LABEL_41;
+          v23 = 0;
+          goto LABEL_46;
         }
 
-        v33 = 4294960568;
+        v23 = 4294960568;
       }
     }
 
     else
     {
-      v33 = 4294960568;
+      v23 = 4294960568;
     }
 
-LABEL_41:
-    memset_s(v83, 0x20uLL, 0, 0x20uLL);
+LABEL_46:
+    memset_s(v81, 0x20uLL, 0, 0x20uLL);
     memset_s(__s, 0x84uLL, 0, 0x84uLL);
-    if (!v33)
+    if (!v23)
     {
-      goto LABEL_76;
+      goto LABEL_81;
     }
 
-    v64 = *(a1 + 16);
-    if (*v64 > 40)
+    v48 = *(v9 + 16);
+    if (*v48 > 40)
     {
-      goto LABEL_46;
+      goto LABEL_51;
     }
 
-    if (*v64 == -1)
+    if (*v48 == -1)
     {
-      if (!_LogCategory_Initialize(v64, 0x28u))
+      if (!_LogCategory_Initialize(v48, 0x28u))
       {
-        goto LABEL_46;
+        goto LABEL_51;
       }
 
-      v64 = *(a1 + 16);
+      v48 = *(v9 + 16);
     }
 
-    LogPrintF(v64, "OSStatus _PairingSessionGetOrCreateIdentityKeychain(PairingSessionRef, Boolean, char **, uint8_t *, uint8_t *)", 0x28u, "### Create %@ failed (try %d of %d): %#m\n", v16, v17, v18, v19, *(a1 + 792));
-LABEL_46:
-    ++v20;
+    LogPrintF(v48, "OSStatus _PairingSessionGetOrCreateIdentityKeychain(PairingSessionRef, Boolean, char **, uint8_t *, uint8_t *)", 40, "### Create %@ failed (try %d of %d): %#m\n", v19, v20, v21, v22, *(v9 + 792));
+LABEL_51:
+    ++v15;
   }
 
-  while (v20 != 11);
-  v73 = *(a1 + 16);
-  if (*v73 <= 60)
+  while (v15 != 11);
+  v57 = *(v9 + 16);
+  if (*v57 <= 60)
   {
-    if (*v73 != -1)
+    if (*v57 != -1)
     {
-      goto LABEL_74;
+      goto LABEL_79;
     }
 
-    if (_LogCategory_Initialize(v73, 0x3Cu))
+    if (_LogCategory_Initialize(v57, 0x3Cu))
     {
-      v73 = *(a1 + 16);
-LABEL_74:
-      LogPrintF(v73, "OSStatus _PairingSessionGetOrCreateIdentityKeychain(PairingSessionRef, Boolean, char **, uint8_t *, uint8_t *)", 0x3Cu, "### Failed to create %@ after %d tries: %#m\n", v16, v17, v18, v19, *(a1 + 792));
+      v57 = *(v9 + 16);
+LABEL_79:
+      LogPrintF(v57, "OSStatus _PairingSessionGetOrCreateIdentityKeychain(PairingSessionRef, Boolean, char **, uint8_t *, uint8_t *)", 60, "### Failed to create %@ after %d tries: %#m\n", v19, v20, v21, v22, *(v9 + 792));
     }
   }
 
-LABEL_76:
+LABEL_81:
   pthread_mutex_unlock(&gPairingGlobalLock);
-  return v33;
+  return v23;
 }
 
 uint64_t _AddAppInfoTLV(const __CFDictionary *a1, uint64_t a2)
@@ -8559,7 +8634,7 @@ LABEL_51:
       v38 = *(a1 + 16);
     }
 
-    LogPrintF(v38, "OSStatus _PairingSessionAppleIDVerifyPeer(PairingSessionRef, const uint8_t *, const uint8_t *)", 0x3Cu, "### AppleID validate peer failed: %{error}\n", v33, v34, v35, v36, v27);
+    LogPrintF(v38, "OSStatus _PairingSessionAppleIDVerifyPeer(PairingSessionRef, const uint8_t *, const uint8_t *)", 60, "### AppleID validate peer failed: %{error}\n", v33, v34, v35, v36, v27);
 LABEL_26:
     v11 = v27;
     goto LABEL_27;
@@ -8579,7 +8654,7 @@ LABEL_26:
       v32 = *(a1 + 16);
     }
 
-    LogPrintF(v32, "OSStatus _PairingSessionAppleIDVerifyPeer(PairingSessionRef, const uint8_t *, const uint8_t *)", 0x3Cu, "### AppleID verify peer signature failed: %{error}\n", v21, v22, v23, v24, v11);
+    LogPrintF(v32, "OSStatus _PairingSessionAppleIDVerifyPeer(PairingSessionRef, const uint8_t *, const uint8_t *)", 60, "### AppleID verify peer signature failed: %{error}\n", v21, v22, v23, v24, v11);
   }
 
 LABEL_27:
@@ -8588,14 +8663,14 @@ LABEL_27:
   return v28;
 }
 
-uint64_t PairingSessionFindPeerEx(uint64_t a1, char *__s, size_t a3, _OWORD *a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PairingSessionFindPeerEx(uint64_t a1, char *__s, size_t a3, _OWORD *a4, const __CFDictionary **a5)
 {
-  v9 = a3;
-  v98 = *MEMORY[0x1E69E9840];
-  v12 = *(a1 + 64);
-  if (v12)
+  v6 = a3;
+  v89 = *MEMORY[0x1E69E9840];
+  v9 = *(a1 + 64);
+  if (v9)
   {
-    if (v12(__s, a3, a4, *(a1 + 24)))
+    if (v9(__s, a3, a4, *(a1 + 24), a5))
     {
       return 4294960569;
     }
@@ -8608,285 +8683,285 @@ uint64_t PairingSessionFindPeerEx(uint64_t a1, char *__s, size_t a3, _OWORD *a4,
 
   if ((*(a1 + 100) & 4) != 0)
   {
-    v93 = 0;
-    v94 = &v93;
-    v95 = 0x2020000000;
-    v96 = 1;
-    v87 = 0;
-    v88 = &v87;
-    v89 = 0x3032000000;
-    v90 = __Block_byref_object_copy__12602;
-    v91 = __Block_byref_object_dispose__12603;
-    v92 = 0;
-    v34 = StringToUUIDEx(__s, a3, 0, 0, &v97, a6, a7, a8);
-    *(v94 + 6) = v34;
-    if (v34)
+    v84 = 0;
+    v85 = &v84;
+    v86 = 0x2020000000;
+    v87 = 1;
+    v78 = 0;
+    v79 = &v78;
+    v80 = 0x3032000000;
+    v81 = __Block_byref_object_copy__12602;
+    v82 = __Block_byref_object_dispose__12603;
+    v83 = 0;
+    v25 = StringToUUIDEx(__s, a3, 0, 0, &v88);
+    *(v85 + 6) = v25;
+    if (v25)
     {
-      v97 = 0uLL;
-      v35 = TextToHardwareAddress(__s, v9, 6, &v97 + 10);
-      *(v94 + 6) = v35;
-      if (v35)
+      v88 = 0uLL;
+      v26 = TextToHardwareAddress(__s, v6, 6, &v88 + 10);
+      *(v85 + 6) = v26;
+      if (v26)
       {
-        v37 = 0;
-        v82 = 0;
-        v38 = 0;
-        v60 = 0;
+        v28 = 0;
+        v73 = 0;
+        v29 = 0;
+        v51 = 0;
         goto LABEL_79;
       }
 
-      v36 = objc_alloc(MEMORY[0x1E696AEC0]);
-      if (v9 == -1)
+      v27 = objc_alloc(MEMORY[0x1E696AEC0]);
+      if (v6 == -1)
       {
-        v9 = strlen(__s);
+        v6 = strlen(__s);
       }
 
-      v82 = [v36 initWithBytes:__s length:v9 encoding:4];
+      v73 = [v27 initWithBytes:__s length:v6 encoding:4];
     }
 
     else
     {
-      v82 = 0;
+      v73 = 0;
     }
 
-    v37 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v97];
-    if (v37)
+    v28 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v88];
+    if (v28)
     {
-      v38 = objc_alloc_init(CUPairedPeer);
-      [(CUPairedPeer *)v38 setIdentifier:v37];
-      if (v82)
+      v29 = objc_alloc_init(CUPairedPeer);
+      [(CUPairedPeer *)v29 setIdentifier:v28];
+      if (v73)
       {
-        [(CUPairedPeer *)v38 setIdentifierStr:v82];
+        [(CUPairedPeer *)v29 setIdentifierStr:v73];
       }
 
-      v39 = *(a1 + 100);
-      if ((v39 & 0x80000000) == 0)
+      v30 = *(a1 + 100);
+      if ((v30 & 0x80000000) == 0)
       {
-        v40 = (v39 >> 19) & 8 | (v39 >> 21) & 0x10;
+        v31 = (v30 >> 19) & 8 | (v30 >> 21) & 0x10;
       }
 
       else
       {
-        v40 = (v39 >> 19) & 8 | (v39 >> 21) & 0x10 | 0x100;
+        v31 = (v30 >> 19) & 8 | (v30 >> 21) & 0x10 | 0x100;
       }
 
-      v41 = _Block_copy(*(a1 + 1000));
-      v42 = v41;
-      v43 = (v39 >> 1) & 4 | (v39 >> 21) & 0x20;
-      if (v41)
+      v32 = _Block_copy(*(a1 + 1000));
+      v33 = v32;
+      v34 = (v30 >> 1) & 4 | (v30 >> 21) & 0x20;
+      if (v32)
       {
-        v83[0] = 0;
-        v44 = (*(v41 + 2))(v41, v38, v40 | v43, v83);
-        v45 = v83[0];
-        v46 = v88[5];
-        v88[5] = v44;
+        v74[0] = 0;
+        v35 = (*(v32 + 2))(v32, v29, v31 | v34, v74);
+        v36 = v74[0];
+        v37 = v79[5];
+        v79[5] = v35;
 
-        if (!v45)
+        if (!v36)
         {
-          if (v88[5])
+          if (v79[5])
           {
-            v66 = 0;
+            v57 = 0;
           }
 
           else
           {
-            v66 = -6700;
+            v57 = -6700;
           }
 
           goto LABEL_62;
         }
 
-        v54 = *(a1 + 16);
-        if (*v54 <= 90)
+        v45 = *(a1 + 16);
+        if (*v45 <= 90)
         {
-          if (*v54 != -1)
+          if (*v45 != -1)
           {
 LABEL_32:
-            v81 = NSPrintF("%{error}", v47, v48, v49, v50, v51, v52, v53, v45);
-            LogPrintF(v54, "OSStatus _PairingSessionFindPeerPairingManager(PairingSessionRef, const void *, size_t, uint8_t *, CFDictionaryRef *)", 0x5Au, "### FindPeerHandler failed: %@, %@", v55, v56, v57, v58, v38);
+            v72 = NSPrintF("%{error}", v38, v39, v40, v41, v42, v43, v44, v36);
+            LogPrintF(v45, "OSStatus _PairingSessionFindPeerPairingManager(PairingSessionRef, const void *, size_t, uint8_t *, CFDictionaryRef *)", 90, "### FindPeerHandler failed: %@, %@", v46, v47, v48, v49, v29);
 
             goto LABEL_59;
           }
 
           if (_LogCategory_Initialize(*(a1 + 16), 0x5Au))
           {
-            v54 = *(a1 + 16);
+            v45 = *(a1 + 16);
             goto LABEL_32;
           }
         }
 
 LABEL_59:
-        if (v88[5])
+        if (v79[5])
         {
-          v66 = 0;
+          v57 = 0;
         }
 
         else
         {
-          v66 = NSErrorToOSStatusEx(v45, 0);
+          v57 = NSErrorToOSStatusEx(v36, 0);
         }
 
 LABEL_62:
-        *(v94 + 6) = v66;
+        *(v85 + 6) = v57;
 
-        v60 = 0;
+        v51 = 0;
         goto LABEL_63;
       }
 
-      v59 = +[CUPairingDaemon sharedPairingDaemon];
-      v60 = v59;
-      if (v59)
+      v50 = +[CUPairingDaemon sharedPairingDaemon];
+      v51 = v50;
+      if (v50)
       {
-        v61 = [v59 findPairedPeer:v38 options:v40 | v43 error:v94 + 3];
-        v62 = v88[5];
-        v88[5] = v61;
+        v52 = [v50 findPairedPeer:v29 options:v31 | v34 error:v85 + 3];
+        v53 = v79[5];
+        v79[5] = v52;
 
-        v63 = v94;
-        if (!*(v94 + 6))
+        v54 = v85;
+        if (!*(v85 + 6))
         {
-          if (v88[5])
+          if (v79[5])
           {
 LABEL_63:
-            v64 = 0;
-            v65 = 0;
+            v55 = 0;
+            v56 = 0;
             goto LABEL_64;
           }
 
-          v64 = 0;
-          v65 = 0;
+          v55 = 0;
+          v56 = 0;
           goto LABEL_89;
         }
 
 LABEL_79:
-        v64 = 0;
-        v65 = 0;
+        v55 = 0;
+        v56 = 0;
         goto LABEL_73;
       }
 
-      v64 = objc_alloc_init(CUPairingManager);
-      v67 = dispatch_queue_create("OSStatus _PairingSessionFindPeerPairingManager(PairingSessionRef, const void *, size_t, uint8_t *, CFDictionaryRef *)", 0);
-      [(CUPairingManager *)v64 setDispatchQueue:v67];
+      v55 = objc_alloc_init(CUPairingManager);
+      v58 = dispatch_queue_create("OSStatus _PairingSessionFindPeerPairingManager(PairingSessionRef, const void *, size_t, uint8_t *, CFDictionaryRef *)", 0);
+      [(CUPairingManager *)v55 setDispatchQueue:v58];
 
       if ((*(a1 + 100) & 0x40) != 0)
       {
-        [(CUPairingManager *)v64 setTargetUserSession:1];
+        [(CUPairingManager *)v55 setTargetUserSession:1];
       }
 
-      v68 = dispatch_semaphore_create(0);
-      v83[0] = MEMORY[0x1E69E9820];
-      v83[1] = 3221225472;
-      v83[2] = ___PairingSessionFindPeerPairingManager_block_invoke;
-      v83[3] = &unk_1E73A4C30;
-      v85 = &v87;
-      v86 = &v93;
-      v65 = v68;
-      v84 = v65;
-      [(CUPairingManager *)v64 findPairedPeer:v38 options:v40 | v43 completion:v83];
+      v59 = dispatch_semaphore_create(0);
+      v74[0] = MEMORY[0x1E69E9820];
+      v74[1] = 3221225472;
+      v74[2] = ___PairingSessionFindPeerPairingManager_block_invoke;
+      v74[3] = &unk_1E73A4C30;
+      v76 = &v78;
+      v77 = &v84;
+      v56 = v59;
+      v75 = v56;
+      [(CUPairingManager *)v55 findPairedPeer:v29 options:v31 | v34 completion:v74];
 
-      v69 = dispatch_time(0, 120000000000);
-      v70 = dispatch_semaphore_wait(v65, v69);
-      [(CUPairingManager *)v64 invalidate];
-      v63 = v94;
-      if (!v70)
+      v60 = dispatch_time(0, 120000000000);
+      v61 = dispatch_semaphore_wait(v56, v60);
+      [(CUPairingManager *)v55 invalidate];
+      v54 = v85;
+      if (!v61)
       {
-        if (*(v94 + 6))
+        if (*(v85 + 6))
         {
-          v60 = 0;
+          v51 = 0;
           goto LABEL_73;
         }
 
-        if (v88[5])
+        if (v79[5])
         {
-          v60 = 0;
+          v51 = 0;
 LABEL_64:
           if (!a4)
           {
 LABEL_68:
             if (a5)
             {
-              *a5 = [v88[5] acl];
+              *a5 = [v79[5] acl];
             }
 
-            v76 = *(a1 + 272);
-            if (v76)
+            v67 = *(a1 + 272);
+            if (v67)
             {
-              CFRelease(v76);
+              CFRelease(v67);
             }
 
-            *(a1 + 272) = v88[5];
+            *(a1 + 272) = v79[5];
             goto LABEL_73;
           }
 
-          v71 = [v88[5] publicKey];
-          v72 = v71;
-          if (v71)
+          v62 = [v79[5] publicKey];
+          v63 = v62;
+          if (v62)
           {
-            if ([v71 length] == 32)
+            if ([v62 length] == 32)
             {
-              v73 = v72;
-              v74 = [v72 bytes];
-              v75 = v74[1];
-              *a4 = *v74;
-              a4[1] = v75;
+              v64 = v63;
+              v65 = [v63 bytes];
+              v66 = v65[1];
+              *a4 = *v65;
+              a4[1] = v66;
 
               goto LABEL_68;
             }
 
-            v80 = -6743;
+            v71 = -6743;
           }
 
           else
           {
-            v80 = -6727;
+            v71 = -6727;
           }
 
-          *(v94 + 6) = v80;
+          *(v85 + 6) = v71;
 
 LABEL_73:
-          v13 = *(v94 + 6);
-          _Block_object_dispose(&v87, 8);
+          v10 = *(v85 + 6);
+          _Block_object_dispose(&v78, 8);
 
-          _Block_object_dispose(&v93, 8);
-          return v13;
+          _Block_object_dispose(&v84, 8);
+          return v10;
         }
 
-        v60 = 0;
+        v51 = 0;
 LABEL_89:
-        v78 = -6762;
+        v69 = -6762;
         goto LABEL_90;
       }
 
-      v60 = 0;
-      v78 = -6722;
+      v51 = 0;
+      v69 = -6722;
     }
 
     else
     {
-      v38 = 0;
-      v60 = 0;
-      v64 = 0;
-      v65 = 0;
-      v63 = v94;
-      v78 = -6708;
+      v29 = 0;
+      v51 = 0;
+      v55 = 0;
+      v56 = 0;
+      v54 = v85;
+      v69 = -6708;
     }
 
 LABEL_90:
-    *(v63 + 6) = v78;
+    *(v54 + 6) = v69;
     goto LABEL_73;
   }
 
   pthread_mutex_lock(&gPairingGlobalLock);
-  if (v9 == -1)
+  if (v6 == -1)
   {
-    strlen(__s);
+    v6 = strlen(__s);
   }
 
-  LODWORD(v87) = 0;
-  v83[0] = 0;
-  v21 = KeychainCopyMatchingFormatted(&v87, "{%kO=%O%kO=%O%kO=%i%kO=%O%kO=%.*s%kO=%O%kO=%O}", v15, v16, v17, v18, v19, v20, *MEMORY[0x1E697AFF8]);
-  if (v87)
+  LODWORD(v78) = 0;
+  v74[0] = 0;
+  v12 = KeychainCopyMatchingFormatted(&v78, "{%kO=%O%kO=%O%kO=%i%kO=%O%kO=%.*s%kO=%O%kO=%O}", *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B008], *MEMORY[0x1E697ABD0], *(a1 + 784), *MEMORY[0x1E697AEF8], *(a1 + 824), *MEMORY[0x1E697AEB0], *MEMORY[0x1E697AEB8], *MEMORY[0x1E697AC30], v6, __s, *MEMORY[0x1E697B310], *MEMORY[0x1E695E4D0], *MEMORY[0x1E697B318], *MEMORY[0x1E695E4D0]);
+  if (v78)
   {
 LABEL_54:
-    if (!v21)
+    if (!v12)
     {
       goto LABEL_56;
     }
@@ -8895,48 +8970,48 @@ LABEL_54:
   }
 
   TypeID = CFDataGetTypeID();
-  TypedValue = CFDictionaryGetTypedValue(v21, *MEMORY[0x1E697B3C0], TypeID, 0);
-  v24 = TypedValue;
+  TypedValue = CFDictionaryGetTypedValue(v12, *MEMORY[0x1E697B3C0], TypeID, 0);
+  v15 = TypedValue;
   if (TypedValue)
   {
-    v83[0] = 0;
+    v74[0] = 0;
     BytePtr = CFDataGetBytePtr(TypedValue);
-    Length = CFDataGetLength(v24);
-    LODWORD(v87) = HexToData(BytePtr, Length, 22, a4, 0x20uLL, v83, 0, 0);
-    if (v87)
+    Length = CFDataGetLength(v15);
+    LODWORD(v78) = HexToData(BytePtr, Length, 22, a4, 0x20uLL, v74, 0, 0);
+    if (v78)
     {
       goto LABEL_54;
     }
 
-    if (v83[0] == 32)
+    if (v74[0] == 32)
     {
-      v27 = CFDataGetTypeID();
-      v28 = CFDictionaryGetTypedValue(v21, *MEMORY[0x1E697ACF0], v27, 0);
-      if (v28)
+      v18 = CFDataGetTypeID();
+      v19 = CFDictionaryGetTypedValue(v12, *MEMORY[0x1E697ACF0], v18, 0);
+      if (v19)
       {
-        v29 = OPACKDecodeData(v28, 0, 0);
-        v30 = v29;
-        if (v29)
+        v20 = OPACKDecodeData(v19, 0, 0);
+        v21 = v20;
+        if (v20)
         {
-          v31 = CFGetTypeID(v29);
-          if (v31 == CFDictionaryGetTypeID())
+          v22 = CFGetTypeID(v20);
+          if (v22 == CFDictionaryGetTypeID())
           {
-            v32 = CFDictionaryGetTypeID();
-            v33 = CFDictionaryGetTypedValue(v30, @"acl", v32, 0);
+            v23 = CFDictionaryGetTypeID();
+            v24 = CFDictionaryGetTypedValue(v21, @"acl", v23, 0);
 LABEL_48:
             if (a5)
             {
-              if (v33)
+              if (v24)
               {
-                CFRetain(v33);
+                CFRetain(v24);
               }
 
-              *a5 = v33;
+              *a5 = v24;
             }
 
-            if (v30)
+            if (v21)
             {
-              CFRelease(v30);
+              CFRelease(v21);
             }
 
             goto LABEL_54;
@@ -8946,31 +9021,31 @@ LABEL_48:
 
       else
       {
-        v30 = 0;
+        v21 = 0;
       }
 
-      v33 = 0;
+      v24 = 0;
       goto LABEL_48;
     }
 
-    v79 = -6743;
+    v70 = -6743;
   }
 
   else
   {
-    v79 = -6737;
+    v70 = -6737;
   }
 
-  LODWORD(v87) = v79;
-  if (v21)
+  LODWORD(v78) = v70;
+  if (v12)
   {
 LABEL_55:
-    CFRelease(v21);
+    CFRelease(v12);
   }
 
 LABEL_56:
   pthread_mutex_unlock(&gPairingGlobalLock);
-  if (v87)
+  if (v78)
   {
     return 4294960569;
   }
@@ -8981,10 +9056,11 @@ LABEL_56:
   }
 }
 
-void sub_191FB15B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_191FB15B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 144), 8);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9188,7 +9264,7 @@ LABEL_19:
       v22 = v21 == -1 && !_LogCategory_Initialize(v20, 0xAu);
     }
 
-    LogPrintF(v20, "OSStatus _VerifyServerM4(PairingSessionRef, uint8_t **, size_t *)", 0x1Eu, "PairVerify server M4 -- finish response\n%?{end}%1{tlv8}\n", v9, v10, v11, v12, v22);
+    LogPrintF(v20, "OSStatus _VerifyServerM4(PairingSessionRef, uint8_t **, size_t *)", 30, "PairVerify server M4 -- finish response\n%?{end}%1{tlv8}\n", v9, v10, v11, v12, v22);
     v20 = *(a1 + 16);
 LABEL_32:
     v24 = *v20;
@@ -9205,7 +9281,7 @@ LABEL_32:
         v20 = *(a1 + 16);
       }
 
-      LogPrintF(v20, "OSStatus _VerifyServerM4(PairingSessionRef, uint8_t **, size_t *)", 0x1Eu, "PairVerify server done\n", v9, v10, v11, v12, v26);
+      LogPrintF(v20, "OSStatus _VerifyServerM4(PairingSessionRef, uint8_t **, size_t *)", 30, "PairVerify server done\n", v9, v10, v11, v12, v26);
     }
 
 LABEL_36:
@@ -9301,7 +9377,7 @@ uint64_t _AddGroupInfoTLV(uint64_t a1, uint64_t a2)
   return result;
 }
 
-unint64_t _PairingSessionVerifyACLApplier(unint64_t result, uint64_t a2, uint64_t a3)
+uint64_t _PairingSessionVerifyACLApplier(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (!*(a3 + 8))
   {
@@ -9377,7 +9453,7 @@ uint64_t _PairingSessionCopyIdentityPairingManager(uint64_t a1, uint64_t a2, cha
       {
 LABEL_5:
         v26 = NSPrintF("%{error}", v18, v19, v20, v21, v22, v23, v24, v16);
-        LogPrintF(v25, "OSStatus _PairingSessionCopyIdentityPairingManager(PairingSessionRef, CUPairingOptions, char **, CFDataRef *, uint8_t *, uint8_t *)", 0x5Au, "### CopyIdentityHandler failed: %@", v27, v28, v29, v30, v26);
+        LogPrintF(v25, "OSStatus _PairingSessionCopyIdentityPairingManager(PairingSessionRef, CUPairingOptions, char **, CFDataRef *, uint8_t *, uint8_t *)", 90, "### CopyIdentityHandler failed: %@", v27, v28, v29, v30, v26);
 
         goto LABEL_21;
       }
@@ -9617,53 +9693,53 @@ LABEL_43:
   return v53;
 }
 
-void sub_191FB23FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_191FB23FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void _PairingSessionDeleteIdentity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void _PairingSessionDeleteIdentity(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E697AEF8];
-  v10 = KeychainCopyMatchingFormatted(0, "{%kO=%O%kO=%O%kO=%i%kO=%O%kO=%O%kO=%O%kO=%O}", a3, a4, a5, a6, a7, a8, *MEMORY[0x1E697AFF8]);
-  if (v10)
+  v2 = *MEMORY[0x1E697AEF8];
+  v3 = KeychainCopyMatchingFormatted(0, "{%kO=%O%kO=%O%kO=%i%kO=%O%kO=%O%kO=%O%kO=%O}", *MEMORY[0x1E697AFF8], *MEMORY[0x1E697B008], *MEMORY[0x1E697ABD0], *(a1 + 784), *MEMORY[0x1E697AEF8], *(a1 + 800), *MEMORY[0x1E697AEB0], *MEMORY[0x1E697AEB8], *MEMORY[0x1E697B310], *MEMORY[0x1E695E4D0], *MEMORY[0x1E697B320], *MEMORY[0x1E695E4D0], *MEMORY[0x1E697B260], *MEMORY[0x1E697B268]);
+  if (v3)
   {
-    v11 = v10;
-    v27 = 0;
-    Count = CFArrayGetCount(v10);
+    v4 = v3;
+    v14 = 0;
+    Count = CFArrayGetCount(v3);
     if (Count >= 1)
     {
-      v13 = Count;
-      v14 = 0;
-      v15 = *MEMORY[0x1E697B3C8];
+      v6 = Count;
+      v7 = 0;
+      v8 = *MEMORY[0x1E697B3C8];
       do
       {
         TypeID = CFDictionaryGetTypeID();
-        TypedValueAtIndex = CFArrayGetTypedValueAtIndex(v11, v14, TypeID, 0);
+        TypedValueAtIndex = CFArrayGetTypedValueAtIndex(v4, v7, TypeID, 0);
         if (TypedValueAtIndex)
         {
-          v18 = TypedValueAtIndex;
-          if (*(a1 + 800) == CFDictionaryGetInt64(TypedValueAtIndex, v9, &v27))
+          v11 = TypedValueAtIndex;
+          if (*(a1 + 800) == CFDictionaryGetInt64(TypedValueAtIndex, v2, &v14))
           {
-            v19 = CFDataGetTypeID();
-            CFDictionaryGetTypedValue(v18, v15, v19, &v27);
-            if (!v27)
+            v12 = CFDataGetTypeID();
+            TypedValue = CFDictionaryGetTypedValue(v11, v8, v12, &v14);
+            if (!v14)
             {
-              v27 = KeychainDeleteFormatted("{%kO=%O}", v20, v21, v22, v23, v24, v25, v26, v15);
+              v14 = KeychainDeleteFormatted("{%kO=%O}", v8, TypedValue);
             }
           }
         }
 
-        ++v14;
+        ++v7;
       }
 
-      while (v13 != v14);
+      while (v6 != v7);
     }
 
-    CFRelease(v11);
+    CFRelease(v4);
   }
 }
 
@@ -9781,7 +9857,7 @@ LABEL_18:
       if (*v27 != -1)
       {
 LABEL_25:
-        LogPrintF(v27, "OSStatus _MFiClientVerify(PairingSessionRef, const void *, size_t, const uint8_t *, const void *, size_t, const void *, size_t, const void *, size_t, Boolean)", 0x5Au, "### MFi verify failed: %#m\n", v14, v15, v16, v17, result);
+        LogPrintF(v27, "OSStatus _MFiClientVerify(PairingSessionRef, const void *, size_t, const uint8_t *, const void *, size_t, const void *, size_t, const void *, size_t, Boolean)", 90, "### MFi verify failed: %#m\n", v14, v15, v16, v17, result);
         return GroupInfoTLV;
       }
 

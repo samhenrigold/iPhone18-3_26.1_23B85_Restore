@@ -12,6 +12,7 @@
 - (id)_getPlayedMediaMegaBundle:(id)bundle mediaTypeEnum:(unint64_t)enum paramters:(id)paramters;
 - (id)_getPlayedMediaMegaBundleForThirdParty:(id)party mediaTypeEnum:(unint64_t)enum paramters:(id)paramters;
 - (id)_groupBundleByApps:(id)apps;
+- (id)_limitMOResourcesAndUpdatePriority:(id)priority parameters:(id)parameters isSong:(BOOL)song isFirstPartyApp:(BOOL)app;
 - (id)_megaBundlesForCoarseGranularityFromMediaPlaySessionsBundles:(id)bundles paramters:(id)paramters;
 - (id)_megaBundlesFromMediaPlaySessionsBundles:(id)bundles paramters:(id)paramters;
 - (id)_sortAndLimitBundlesForThirdPartyApps:(id)apps playtimeDict:(id)dict;
@@ -24,6 +25,7 @@
 - (void)_aggregateBundlesForCoarseGranularity:(id)granularity withParameters:(id)parameters handler:(id)handler;
 - (void)_aggregateBundlesForFineGranularity:(id)granularity withParameters:(id)parameters handler:(id)handler;
 - (void)_updateMOResourceDictionary:(id)dictionary dictKey:(id)key dictValue:(id)value;
+- (void)_updateRankingDictionary:(id)dictionary mediaLength:(double)length sumPlaytime:(double)playtime mediaActionIsRepeat:(BOOL)repeat;
 - (void)aggregateBundles:(id)bundles withParameters:(id)parameters granularity:(unint64_t)granularity handler:(id)handler;
 @end
 
@@ -332,6 +334,169 @@ int64_t __55__MOMediaAggregationManager__sortBundlesBySumPlaytime___block_invoke
   }
 
   return v4;
+}
+
+- (id)_limitMOResourcesAndUpdatePriority:(id)priority parameters:(id)parameters isSong:(BOOL)song isFirstPartyApp:(BOOL)app
+{
+  appCopy = app;
+  songCopy = song;
+  priorityCopy = priority;
+  parametersCopy = parameters;
+  v12 = [priorityCopy count];
+  if (v12 <= [parametersCopy mediaBundleMaxResourcesPerBundle])
+  {
+    selfCopy = [(MOMediaAggregationManager *)self _UpdateAssetPriority:priorityCopy parameters:parametersCopy isSong:songCopy isFirstPartyApp:appCopy];
+  }
+
+  else
+  {
+    selfCopy = self;
+    v44 = songCopy;
+    v41 = appCopy;
+    v42 = parametersCopy;
+    v45 = objc_opt_new();
+    v13 = objc_opt_new();
+    v50 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v43 = priorityCopy;
+    v14 = priorityCopy;
+    v15 = [v14 countByEnumeratingWithState:&v50 objects:v55 count:16];
+    if (v15)
+    {
+      v16 = v15;
+      v17 = *v51;
+      v18 = MOMediaPlayMetaDataKeyPlayerAlbumName;
+      if (!songCopy)
+      {
+        v18 = MOMediaPlayMetaDataKeyPlayerArtist;
+      }
+
+      v19 = *v18;
+      do
+      {
+        for (i = 0; i != v16; i = i + 1)
+        {
+          if (*v51 != v17)
+          {
+            objc_enumerationMutation(v14);
+          }
+
+          v21 = *(*(&v50 + 1) + 8 * i);
+          v22 = objc_autoreleasePoolPush();
+          if (v21)
+          {
+            getDictionary = [v21 getDictionary];
+            v24 = [getDictionary objectForKey:v19];
+
+            if (v24)
+            {
+              v25 = [v13 objectForKey:v24];
+
+              if (v25)
+              {
+                v26 = [v13 objectForKey:v24];
+              }
+
+              else
+              {
+                v26 = objc_opt_new();
+              }
+
+              v27 = v26;
+              if (v26)
+              {
+                [v26 addObject:v21];
+                [v13 setObject:v27 forKey:v24];
+              }
+            }
+          }
+
+          objc_autoreleasePoolPop(v22);
+        }
+
+        v16 = [v14 countByEnumeratingWithState:&v50 objects:v55 count:16];
+      }
+
+      while (v16);
+    }
+
+    parametersCopy = v42;
+    if ([v42 mediaBundleMaxResourcesPerBundle] >= 1)
+    {
+      v28 = 0;
+      v29 = 0;
+      do
+      {
+        v48 = 0u;
+        v49 = 0u;
+        v46 = 0u;
+        v47 = 0u;
+        allKeys = [v13 allKeys];
+        v31 = [allKeys countByEnumeratingWithState:&v46 objects:v54 count:16];
+        if (v31)
+        {
+          v32 = v31;
+          v33 = *v47;
+          while (2)
+          {
+            for (j = 0; j != v32; j = j + 1)
+            {
+              if (*v47 != v33)
+              {
+                objc_enumerationMutation(allKeys);
+              }
+
+              v35 = [v13 objectForKey:*(*(&v46 + 1) + 8 * j)];
+              v36 = v35;
+              if (v35)
+              {
+                if ([v35 count] > v28)
+                {
+                  v37 = [v36 objectAtIndexedSubscript:v28];
+                  [v45 addObject:v37];
+
+                  ++v29;
+                }
+
+                if ([v42 mediaBundleMaxResourcesPerBundle] <= v29)
+                {
+
+                  goto LABEL_34;
+                }
+              }
+            }
+
+            v32 = [allKeys countByEnumeratingWithState:&v46 objects:v54 count:16];
+            if (v32)
+            {
+              continue;
+            }
+
+            break;
+          }
+        }
+
+LABEL_34:
+
+        if ([v42 mediaBundleMaxResourcesPerBundle] <= v29)
+        {
+          break;
+        }
+
+        ++v28;
+      }
+
+      while ([v42 mediaBundleMaxResourcesPerBundle] > v28);
+    }
+
+    selfCopy = [(MOMediaAggregationManager *)selfCopy _UpdateAssetPriority:v45 parameters:v42 isSong:v44 isFirstPartyApp:v41, selfCopy];
+
+    priorityCopy = v43;
+  }
+
+  return selfCopy;
 }
 
 - (id)_UpdateAssetPriority:(id)priority parameters:(id)parameters isSong:(BOOL)song isFirstPartyApp:(BOOL)app
@@ -1491,6 +1656,20 @@ LABEL_11:
   }
 
   return v26;
+}
+
+- (void)_updateRankingDictionary:(id)dictionary mediaLength:(double)length sumPlaytime:(double)playtime mediaActionIsRepeat:(BOOL)repeat
+{
+  repeatCopy = repeat;
+  dictionaryCopy = dictionary;
+  v10 = [NSNumber numberWithDouble:length];
+  [dictionaryCopy addMetaDataForRankForKey:@"MediaLength" value:v10];
+
+  v11 = [NSNumber numberWithDouble:playtime];
+  [dictionaryCopy addMetaDataForRankForKey:@"MediaTotalPlayTime" value:v11];
+
+  v12 = [NSNumber numberWithBool:repeatCopy];
+  [dictionaryCopy addMetaDataForRankForKey:@"MediaActionIsRepeat" value:v12];
 }
 
 - (id)getPlayedMediaBundleDaily:(id)daily mediaTypeEnum:(unint64_t)enum parameters:(id)parameters isPlayedSong:(BOOL)song songOnRepeatBundles:(id)bundles

@@ -12,9 +12,9 @@
     +[NSString(PBFUtilities) pbf_bootInstanceIdentifier];
   }
 
-  v1 = pbf_bootInstanceIdentifier_uuid;
+  v2 = pbf_bootInstanceIdentifier_uuid;
 
-  return v1;
+  return v2;
 }
 
 - (id)pbf_sha256Hash

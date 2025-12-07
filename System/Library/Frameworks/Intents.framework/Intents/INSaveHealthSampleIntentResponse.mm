@@ -31,25 +31,25 @@
 
 - (id)_dictionaryRepresentation
 {
-  v30[8] = *MEMORY[0x1E69E9840];
-  v29[0] = @"code";
+  v29[8] = *MEMORY[0x1E69E9840];
+  v28[0] = @"code";
   code = [(INSaveHealthSampleIntentResponse *)self code];
-  v28 = code;
+  v27 = code;
   if (code < 9)
   {
     null = *(&off_1E727E6E8 + code);
-    v27 = null;
+    v26 = null;
   }
 
   else
   {
     null = [MEMORY[0x1E695DFB0] null];
-    v27 = 0;
+    v26 = 0;
   }
 
-  v25 = null;
-  v30[0] = null;
-  v29[1] = @"sampleUuids";
+  v24 = null;
+  v29[0] = null;
+  v28[1] = @"sampleUuids";
   sampleUuids = [(INSaveHealthSampleIntentResponse *)self sampleUuids];
   v6 = sampleUuids;
   if (!sampleUuids)
@@ -57,9 +57,9 @@
     sampleUuids = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = sampleUuids;
-  v30[1] = sampleUuids;
-  v29[2] = @"recordDate";
+  v23 = sampleUuids;
+  v29[1] = sampleUuids;
+  v28[2] = @"recordDate";
   recordDate = [(INSaveHealthSampleIntentResponse *)self recordDate];
   v8 = recordDate;
   if (!recordDate)
@@ -67,9 +67,9 @@
     recordDate = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = recordDate;
-  v30[2] = recordDate;
-  v29[3] = @"defaultUnit";
+  v22 = recordDate;
+  v29[2] = recordDate;
+  v28[3] = @"defaultUnit";
   defaultUnit = [(INSaveHealthSampleIntentResponse *)self defaultUnit];
   v10 = defaultUnit;
   if (!defaultUnit)
@@ -77,9 +77,9 @@
     defaultUnit = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = defaultUnit;
-  v30[3] = defaultUnit;
-  v29[4] = @"valuesDefaultUnits";
+  v21 = defaultUnit;
+  v29[3] = defaultUnit;
+  v28[4] = @"valuesDefaultUnits";
   valuesDefaultUnits = [(INSaveHealthSampleIntentResponse *)self valuesDefaultUnits];
   v12 = valuesDefaultUnits;
   if (!valuesDefaultUnits)
@@ -87,8 +87,8 @@
     valuesDefaultUnits = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[4] = valuesDefaultUnits;
-  v29[5] = @"userProvidedUnit";
+  v29[4] = valuesDefaultUnits;
+  v28[5] = @"userProvidedUnit";
   userProvidedUnit = [(INSaveHealthSampleIntentResponse *)self userProvidedUnit];
   null2 = userProvidedUnit;
   if (!userProvidedUnit)
@@ -96,8 +96,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[5] = null2;
-  v29[6] = @"valuesUserProvidedUnits";
+  v29[5] = null2;
+  v28[6] = @"valuesUserProvidedUnits";
   valuesUserProvidedUnits = [(INSaveHealthSampleIntentResponse *)self valuesUserProvidedUnits];
   null3 = valuesUserProvidedUnits;
   if (!valuesUserProvidedUnits)
@@ -105,8 +105,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[6] = null3;
-  v29[7] = @"punchoutUrl";
+  v29[6] = null3;
+  v28[7] = @"punchoutUrl";
   punchoutUrl = [(INSaveHealthSampleIntentResponse *)self punchoutUrl];
   null4 = punchoutUrl;
   if (!punchoutUrl)
@@ -114,8 +114,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[7] = null4;
-  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:8];
+  v29[7] = null4;
+  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:8];
   if (!punchoutUrl)
   {
   }
@@ -144,13 +144,11 @@
   {
   }
 
-  if (v28 >= 9)
+  if (v27 >= 9)
   {
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v26;
+  return v25;
 }
 
 - (void)setPunchoutUrl:(id)url
@@ -404,7 +402,7 @@
 
 - (INSaveHealthSampleIntentResponse)initWithCode:(int64_t)code userActivity:(id)activity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -422,21 +420,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INSaveHealthSampleIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
+    v15 = "[INSaveHealthSampleIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
     codeCopy = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = activityCopy;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = activityCopy;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INSaveHealthSampleIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:activityCopy];
+  v13.receiver = self;
+  v13.super_class = INSaveHealthSampleIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:activityCopy];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

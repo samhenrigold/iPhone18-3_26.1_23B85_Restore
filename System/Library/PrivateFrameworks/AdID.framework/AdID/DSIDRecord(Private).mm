@@ -14,7 +14,7 @@
 
 - (uint64_t)hasIDForClientType:()Private
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   aDIDRecords = [selfCopy ADIDRecords];
@@ -34,10 +34,10 @@
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Generating IDs due to client type %ld not being in UUID format", a3];
     _ADLog();
 
-    v16 = @"ClientIDType";
+    v15 = @"ClientIDType";
     v12 = [MEMORY[0x277CCABB0] numberWithInteger:a3];
-    v17[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     AnalyticsSendEvent();
 
 LABEL_5:
@@ -49,7 +49,6 @@ LABEL_5:
 LABEL_6:
   objc_sync_exit(selfCopy);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

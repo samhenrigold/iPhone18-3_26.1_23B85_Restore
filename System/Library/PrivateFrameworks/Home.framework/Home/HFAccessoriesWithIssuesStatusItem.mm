@@ -18,19 +18,17 @@
   return v3;
 }
 
-void __54__HFAccessoriesWithIssuesStatusItem_statusItemClasses__block_invoke_2()
+void __54__HFAccessoriesWithIssuesStatusItem_statusItemClasses__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:3];
-  v2 = [v0 setWithArray:{v1, v5, v6}];
-  v3 = qword_280E03088;
-  qword_280E03088 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
+  v8 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:3];
+  v4 = [v2 setWithArray:{v3, v6, v7}];
+  v5 = qword_280E03088;
+  qword_280E03088 = v4;
 }
 
 - (id)iconDescriptorForRepresentedHomeKitObjects:(id)objects
@@ -52,7 +50,7 @@ void __54__HFAccessoriesWithIssuesStatusItem_statusItemClasses__block_invoke_2()
 
 id __65__HFAccessoriesWithIssuesStatusItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v2 = [a2 mutableCopy];
   v3 = [v2 objectForKeyedSubscript:@"hidden"];
   v4 = [v3 BOOLValue];
@@ -65,130 +63,125 @@ id __65__HFAccessoriesWithIssuesStatusItem__subclass_updateWithOptions___block_i
   else
   {
     [v2 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"hidden"];
-    v38 = v2;
+    v35 = v2;
     v6 = [v2 objectForKeyedSubscript:@"representedHomeKitObjects"];
     v7 = [MEMORY[0x277CBEB58] set];
+    v42 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v48 = 0u;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v45 objects:v50 count:16];
-    v40 = v8;
+    v9 = [v8 countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v37 = v8;
     if (v9)
     {
       v10 = v9;
-      v11 = *v46;
-      v12 = 0x277CD1000uLL;
-      v39 = *v46;
+      v11 = *v43;
+      v36 = *v43;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v46 != v11)
+          if (*v43 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v14 = *(*(&v45 + 1) + 8 * i);
+          v13 = *(*(&v42 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
-            v15 = v10;
-            v16 = [v14 hf_associatedAccessories];
-            v17 = *(v12 + 3048);
+            v14 = v10;
+            v15 = [v13 hf_associatedAccessories];
             objc_opt_class();
-            v18 = v14;
+            v16 = v13;
             if (objc_opt_isKindOfClass())
             {
-              v19 = v18;
+              v17 = v16;
             }
 
             else
             {
-              v19 = 0;
+              v17 = 0;
             }
 
-            v20 = v19;
+            v18 = v17;
 
-            if (v20)
+            if (v18)
             {
-              v21 = [v20 uniqueIdentifier];
-              [v7 addObject:v21];
+              v19 = [v18 uniqueIdentifier];
+              [v7 addObject:v19];
             }
 
             else
             {
-              v43 = 0u;
-              v44 = 0u;
+              v40 = 0u;
               v41 = 0u;
-              v42 = 0u;
-              v21 = v16;
-              v22 = [v21 countByEnumeratingWithState:&v41 objects:v49 count:16];
-              if (v22)
+              v38 = 0u;
+              v39 = 0u;
+              v19 = v15;
+              v20 = [v19 countByEnumeratingWithState:&v38 objects:v46 count:16];
+              if (v20)
               {
-                v23 = v22;
-                v24 = *v42;
+                v21 = v20;
+                v22 = *v39;
                 do
                 {
-                  for (j = 0; j != v23; ++j)
+                  for (j = 0; j != v21; ++j)
                   {
-                    if (*v42 != v24)
+                    if (*v39 != v22)
                     {
-                      objc_enumerationMutation(v21);
+                      objc_enumerationMutation(v19);
                     }
 
-                    v26 = [*(*(&v41 + 1) + 8 * j) uniqueIdentifier];
-                    [v7 addObject:v26];
+                    v24 = [*(*(&v38 + 1) + 8 * j) uniqueIdentifier];
+                    [v7 addObject:v24];
                   }
 
-                  v23 = [v21 countByEnumeratingWithState:&v41 objects:v49 count:16];
+                  v21 = [v19 countByEnumeratingWithState:&v38 objects:v46 count:16];
                 }
 
-                while (v23);
-                v11 = v39;
-                v8 = v40;
-                v12 = 0x277CD1000;
+                while (v21);
+                v11 = v36;
+                v8 = v37;
               }
             }
 
-            v10 = v15;
+            v10 = v14;
           }
 
           else
           {
-            v16 = [v14 uniqueIdentifier];
-            [v7 addObject:v16];
+            v15 = [v13 uniqueIdentifier];
+            [v7 addObject:v15];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v45 objects:v50 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v42 objects:v47 count:16];
       }
 
       while (v10);
     }
 
-    v27 = [v7 count];
-    if (v27)
+    v25 = [v7 count];
+    if (v25)
     {
-      v34 = HFLocalizedStringWithFormat(@"HFAccessoriesWithIssuesTitle", @"%lu", v28, v29, v30, v31, v32, v33, v27);
-      v35 = [[HFImageIconDescriptor alloc] initWithSystemImageNamed:@"exclamationmark.circle.fill"];
-      v2 = v38;
-      [v38 setObject:v35 forKeyedSubscript:@"icon"];
+      v32 = HFLocalizedStringWithFormat(@"HFAccessoriesWithIssuesTitle", @"%lu", v26, v27, v28, v29, v30, v31, v25);
+      v33 = [[HFImageIconDescriptor alloc] initWithSystemImageNamed:@"exclamationmark.circle.fill"];
+      v2 = v35;
+      [v35 setObject:v33 forKeyedSubscript:@"icon"];
 
-      v8 = v40;
-      [v38 setObject:v34 forKeyedSubscript:@"title"];
+      v8 = v37;
+      [v35 setObject:v32 forKeyedSubscript:@"title"];
     }
 
     else
     {
-      v2 = v38;
-      [v38 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"hidden"];
+      v2 = v35;
+      [v35 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"hidden"];
     }
 
     v5 = [MEMORY[0x277D2C900] futureWithResult:v2];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

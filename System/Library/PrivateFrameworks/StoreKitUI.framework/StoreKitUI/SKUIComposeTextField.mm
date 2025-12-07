@@ -127,7 +127,7 @@
   v11 = v10;
   v13 = v12;
   [(SKUIComposeTextField *)self bounds];
-  v46 = v14;
+  v47 = v14;
   v16 = v15;
   v18 = v17;
   v20 = v19;
@@ -136,71 +136,71 @@
   [v22 set];
 
   effectiveUserInterfaceLayoutDirection = [(SKUIComposeTextField *)self effectiveUserInterfaceLayoutDirection];
-  v24 = effectiveUserInterfaceLayoutDirection;
+  v25 = effectiveUserInterfaceLayoutDirection;
   if (v7 > 0.0)
   {
-    v25 = v18 - v4;
-    v26 = 0;
-    v27 = v4;
+    v26 = v18 - v4;
+    v27 = 0;
+    v28 = v4;
     if (effectiveUserInterfaceLayoutDirection == 1)
     {
-      v27 = CGRectWithFlippedOriginRelativeToBoundingRect(v4, 0.0, v25, v7, v46, v16, v18, v20);
-      v7 = v28;
+      v28 = CGRectWithFlippedOriginRelativeToBoundingRect(v4, 0.0, v26, v7, v47, v16, v18, v20, 1, v24);
+      v7 = v29;
     }
 
-    v29 = v7;
-    UIRectFillUsingBlendMode(*&v27, kCGBlendModeNormal);
+    v30 = v7;
+    UIRectFillUsingBlendMode(*&v28, kCGBlendModeNormal);
   }
 
   if (v11 > 0.0)
   {
-    v30 = v18 - v4;
-    v31 = v20 - v11;
-    if (v24 == 1)
+    v31 = v18 - v4;
+    v32 = v20 - v11;
+    if (v25 == 1)
     {
-      v4 = CGRectWithFlippedOriginRelativeToBoundingRect(v4, v31, v30, v11, v46, v16, v18, v20);
-      v11 = v32;
+      v4 = CGRectWithFlippedOriginRelativeToBoundingRect(v4, v32, v31, v11, v47, v16, v18, v20, effectiveUserInterfaceLayoutDirection, v24);
+      v11 = v33;
     }
 
-    v33 = v4;
-    v34 = v11;
-    UIRectFillUsingBlendMode(*(&v31 - 1), kCGBlendModeNormal);
+    v34 = v4;
+    v35 = v11;
+    UIRectFillUsingBlendMode(*(&v32 - 1), kCGBlendModeNormal);
   }
 
   if (v9 > 0.0)
   {
-    v35 = 0;
-    if (v24 == 1)
+    v36 = 0;
+    if (v25 == 1)
     {
-      v36 = CGRectWithFlippedOriginRelativeToBoundingRect(0.0, 0.0, v9, v20, v46, v16, v18, v20);
-      v9 = v38;
+      v37 = CGRectWithFlippedOriginRelativeToBoundingRect(0.0, 0.0, v9, v20, v47, v16, v18, v20, effectiveUserInterfaceLayoutDirection, v24);
+      v9 = v39;
     }
 
     else
     {
-      v37 = v20;
-      v36 = 0.0;
+      v38 = v20;
+      v37 = 0.0;
     }
 
-    v39 = v9;
-    UIRectFillUsingBlendMode(*(&v35 - 1), kCGBlendModeNormal);
+    v40 = v9;
+    UIRectFillUsingBlendMode(*(&v36 - 1), kCGBlendModeNormal);
   }
 
   if (v13 > 0.0)
   {
-    v40 = v18 - v13;
-    v41 = 0;
-    if (v24 == 1)
+    v41 = v18 - v13;
+    v42 = 0;
+    if (v25 == 1)
     {
-      v40 = CGRectWithFlippedOriginRelativeToBoundingRect(v40, 0.0, v13, v20, v46, v16, v18, v20);
-      v13 = v42;
-      v20 = v43;
+      v41 = CGRectWithFlippedOriginRelativeToBoundingRect(v41, 0.0, v13, v20, v47, v16, v18, v20, effectiveUserInterfaceLayoutDirection, v24);
+      v13 = v43;
+      v20 = v44;
     }
 
-    v44 = v13;
-    v45 = v20;
+    v45 = v13;
+    v46 = v20;
 
-    UIRectFillUsingBlendMode(*&v40, kCGBlendModeNormal);
+    UIRectFillUsingBlendMode(*&v41, kCGBlendModeNormal);
   }
 }
 
@@ -222,8 +222,8 @@
 - (void)layoutSubviews
 {
   [(SKUIComposeTextField *)self bounds];
-  v35 = v4;
-  v36 = v3;
+  v39 = v4;
+  v40 = v3;
   v6 = v5;
   v8 = v7;
   effectiveUserInterfaceLayoutDirection = [(SKUIComposeTextField *)self effectiveUserInterfaceLayoutDirection];
@@ -238,46 +238,46 @@
     v17 = v16;
     *&v16 = (v8 - v15) * 0.5;
     v18 = floorf(*&v16);
-    v38.origin.x = v17;
-    v38.origin.y = v18;
-    v38.size.width = v13;
-    v38.size.height = v15;
-    MaxX = CGRectGetMaxX(v38);
-    [MEMORY[0x277CDD370] PPMScaledValueUsingValue:4.0];
-    v21 = v20;
+    v42.origin.x = v17;
+    v42.origin.y = v18;
+    v42.size.width = v13;
+    v42.size.height = v15;
+    MaxX = CGRectGetMaxX(v42);
+    v20 = [MEMORY[0x277CDD370] PPMScaledValueUsingValue:4.0];
+    v23 = v22;
     if (effectiveUserInterfaceLayoutDirection == 1)
     {
-      v17 = CGRectWithFlippedOriginRelativeToBoundingRect(v17, v18, v13, v15, v36, v35, v6, v8);
-      v18 = v22;
-      v13 = v23;
-      v15 = v24;
+      v17 = CGRectWithFlippedOriginRelativeToBoundingRect(v17, v18, v13, v15, v40, v39, v6, v8, v20, v21);
+      v18 = v24;
+      v13 = v25;
+      v15 = v26;
     }
 
-    v25 = MaxX + v21;
+    v27 = MaxX + v23;
     [(UILabel *)self->_label setFrame:v17, v18, v13, v15];
   }
 
   else
   {
-    v25 = v10;
+    v27 = v10;
   }
 
   [(UITextField *)self->_textField frame];
-  v27 = v26;
-  v28 = (v8 - v26) * 0.5;
-  v29 = floorf(v28);
-  [MEMORY[0x277CDD370] PPMScaledValueUsingValue:15.0];
-  v31 = v6 - v30 - v25;
+  v29 = v28;
+  v30 = (v8 - v28) * 0.5;
+  v31 = floorf(v30);
+  v32 = [MEMORY[0x277CDD370] PPMScaledValueUsingValue:15.0];
+  v35 = v6 - v34 - v27;
   if (effectiveUserInterfaceLayoutDirection == 1)
   {
-    v25 = CGRectWithFlippedOriginRelativeToBoundingRect(v25, v29, v31, v27, v36, v35, v6, v8);
-    v29 = v32;
-    v27 = v33;
+    v27 = CGRectWithFlippedOriginRelativeToBoundingRect(v27, v31, v35, v29, v40, v39, v6, v8, v32, v33);
+    v31 = v36;
+    v29 = v37;
   }
 
   textField = self->_textField;
 
-  [(UITextField *)textField setFrame:v25, v29, v31, v27];
+  [(UITextField *)textField setFrame:v27, v31, v35, v29];
 }
 
 - (BOOL)textField:(id)field shouldInsertText:(id)text replacingRange:(_NSRange)range

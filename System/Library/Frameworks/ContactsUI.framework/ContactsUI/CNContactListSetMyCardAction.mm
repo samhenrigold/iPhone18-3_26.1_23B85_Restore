@@ -134,8 +134,8 @@ void __45__CNContactListSetMyCardAction_performAction__block_invoke(uint64_t a1)
 
 - (id)updatedMeContact
 {
-  contacts = [(CNContactListAction *)self contacts];
-  firstObject = [contacts firstObject];
+  v2 = objc_msgSend_contacts(self, a2);
+  firstObject = [v2 firstObject];
 
   return firstObject;
 }

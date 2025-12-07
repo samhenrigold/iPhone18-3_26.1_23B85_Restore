@@ -341,155 +341,155 @@ LABEL_7:
   superview = [documentScrollView superview];
   [documentScrollView frame];
   [superview convertRect:0 toView:?];
-  v29 = v28;
-  v31 = v30;
-  v33 = v32;
-  v35 = v34;
+  v24 = v23;
+  v26 = v25;
+  v28 = v27;
+  v30 = v29;
 
-  v89.origin.x = v29;
-  v89.origin.y = v31;
-  v89.size.width = v33;
-  v89.size.height = v35;
-  v72 = -(curve - CGRectGetMaxY(v89));
-  v68 = *MEMORY[0x1E695F050];
-  v71 = *(MEMORY[0x1E695F050] + 8);
-  v70 = *(MEMORY[0x1E695F050] + 16);
-  v69 = *(MEMORY[0x1E695F050] + 24);
+  v84.origin.x = v24;
+  v84.origin.y = v26;
+  v84.size.width = v28;
+  v84.size.height = v30;
+  v67 = -(curve - CGRectGetMaxY(v84));
+  v63 = *MEMORY[0x1E695F050];
+  v66 = *(MEMORY[0x1E695F050] + 8);
+  v65 = *(MEMORY[0x1E695F050] + 16);
+  v64 = *(MEMORY[0x1E695F050] + 24);
   [documentScrollView bounds];
   [documentScrollView convertRect:0 toView:?];
-  x = v90.origin.x;
-  y = v90.origin.y;
-  width = v90.size.width;
-  height = v90.size.height;
-  v95.origin.x = duration;
-  v95.origin.y = curve;
-  v95.size.width = a8;
-  v95.size.height = a9;
-  if (CGRectIntersectsRect(v90, v95))
+  x = v85.origin.x;
+  y = v85.origin.y;
+  width = v85.size.width;
+  height = v85.size.height;
+  v90.origin.x = duration;
+  v90.origin.y = curve;
+  v90.size.width = a8;
+  v90.size.height = a9;
+  if (CGRectIntersectsRect(v85, v90))
   {
-    v91.origin.x = x;
-    v91.origin.y = y;
-    v91.size.width = width;
-    v91.size.height = height;
-    v96.origin.x = duration;
-    v96.origin.y = curve;
-    v96.size.width = a8;
-    v96.size.height = a9;
-    v92 = CGRectIntersection(v91, v96);
-    v65 = height - (CGRectGetHeight(v92) + 0.0);
+    v86.origin.x = x;
+    v86.origin.y = y;
+    v86.size.width = width;
+    v86.size.height = height;
+    v91.origin.x = duration;
+    v91.origin.y = curve;
+    v91.size.width = a8;
+    v91.size.height = a9;
+    v87 = CGRectIntersection(v86, v91);
+    v60 = height - (CGRectGetHeight(v87) + 0.0);
     [documentScrollView convertRect:0 fromView:{a12, a13, a14, a15}];
-    rect2a = v40;
-    v42 = v41;
-    v44 = v43;
-    v46 = v45;
-    v93.origin.x = x + 0.0;
-    v93.size.height = v65;
-    v93.origin.y = y + 0.0;
-    v93.size.width = width;
-    v97.origin.x = a12;
-    v97.origin.y = a13;
-    v97.size.width = a14;
-    v97.size.height = a15;
-    v47 = CGRectContainsRect(v93, v97);
-    v48 = v69;
-    v49 = v70;
-    if (!v47)
+    rect2a = v35;
+    v37 = v36;
+    v39 = v38;
+    v41 = v40;
+    v88.origin.x = x + 0.0;
+    v88.size.height = v60;
+    v88.origin.y = y + 0.0;
+    v88.size.width = width;
+    v92.origin.x = a12;
+    v92.origin.y = a13;
+    v92.size.width = a14;
+    v92.size.height = a15;
+    v42 = CGRectContainsRect(v88, v92);
+    v43 = v64;
+    v44 = v65;
+    if (!v42)
     {
-      v48 = v46;
-      v49 = v44;
+      v43 = v41;
+      v44 = v39;
     }
 
-    v50 = v71;
-    if (!v47)
+    v45 = v66;
+    if (!v42)
     {
-      v50 = v42;
+      v45 = v37;
     }
 
-    v51 = v68;
-    if (!v47)
+    v46 = v63;
+    if (!v42)
     {
-      v51 = rect2a;
+      v46 = rect2a;
     }
   }
 
   else
   {
-    v48 = v69;
-    v49 = v70;
-    v50 = v71;
-    v51 = v68;
+    v43 = v64;
+    v44 = v65;
+    v45 = v66;
+    v46 = v63;
   }
 
   [documentScrollView contentInset];
-  v53 = v52;
+  v48 = v47;
   [documentScrollView _contentScrollInset];
-  v55 = v54;
-  v57 = v56;
-  v59 = v58;
-  if (v53 >= v72)
+  v50 = v49;
+  v52 = v51;
+  v54 = v53;
+  if (v48 >= v67)
   {
-    v60 = 0.0;
+    v55 = 0.0;
   }
 
   else
   {
-    v60 = v72 - v53;
+    v55 = v67 - v48;
   }
 
-  v94.origin.x = v51;
-  v94.origin.y = v50;
-  v94.size.width = v49;
-  v94.size.height = v48;
-  if (CGRectIsNull(v94))
+  v89.origin.x = v46;
+  v89.origin.y = v45;
+  v89.size.width = v44;
+  v89.size.height = v43;
+  if (CGRectIsNull(v89))
   {
-    if (v60 <= 0.0)
+    if (v55 <= 0.0)
     {
-      [documentScrollView _setContentScrollInset:{v55, v57, v60, v59}];
+      [documentScrollView _setContentScrollInset:{v50, v52, v55, v54}];
       goto LABEL_21;
     }
 
-    v61 = dispatch_time(0, (a16 * 1000000000.0));
+    v56 = dispatch_time(0, (a16 * 1000000000.0));
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __124__PDFKitTextView_adjustScrollViewToAccomodateKeyboardStartingFrame_endingFrame_annotationFrame_withAnimationDuration_curve___block_invoke_2;
     block[3] = &unk_1E8151850;
-    v74 = documentScrollView;
-    v75 = v55;
-    v76 = v57;
-    v77 = v60;
-    v78 = v59;
-    dispatch_after(v61, MEMORY[0x1E69E96A0], block);
-    v62 = v74;
+    v69 = documentScrollView;
+    v70 = v50;
+    v71 = v52;
+    v72 = v55;
+    v73 = v54;
+    dispatch_after(v56, MEMORY[0x1E69E96A0], block);
+    v57 = v69;
   }
 
   else
   {
     if ((a11 - 1) >= 3)
     {
-      v63 = 4;
+      v58 = 4;
     }
 
     else
     {
-      v63 = ((a11 - 1) << 16) + 65540;
+      v58 = ((a11 - 1) << 16) + 65540;
     }
 
-    v64 = MEMORY[0x1E69DD250];
-    v79[0] = MEMORY[0x1E69E9820];
-    v79[1] = 3221225472;
-    v79[2] = __124__PDFKitTextView_adjustScrollViewToAccomodateKeyboardStartingFrame_endingFrame_annotationFrame_withAnimationDuration_curve___block_invoke;
-    v79[3] = &unk_1E8151828;
-    v80 = documentScrollView;
-    v81 = v55;
-    v82 = v57;
-    v83 = v60;
-    v84 = v59;
-    v85 = v51;
-    v86 = v50;
-    v87 = v49;
-    v88 = v48;
-    [v64 animateWithDuration:v63 delay:v79 options:0 animations:a16 completion:0.0];
-    v62 = v80;
+    v59 = MEMORY[0x1E69DD250];
+    v74[0] = MEMORY[0x1E69E9820];
+    v74[1] = 3221225472;
+    v74[2] = __124__PDFKitTextView_adjustScrollViewToAccomodateKeyboardStartingFrame_endingFrame_annotationFrame_withAnimationDuration_curve___block_invoke;
+    v74[3] = &unk_1E8151828;
+    v75 = documentScrollView;
+    v76 = v50;
+    v77 = v52;
+    v78 = v55;
+    v79 = v54;
+    v80 = v46;
+    v81 = v45;
+    v82 = v44;
+    v83 = v43;
+    [v59 animateWithDuration:v58 delay:v74 options:0 animations:a16 completion:0.0];
+    v57 = v75;
   }
 
 LABEL_21:

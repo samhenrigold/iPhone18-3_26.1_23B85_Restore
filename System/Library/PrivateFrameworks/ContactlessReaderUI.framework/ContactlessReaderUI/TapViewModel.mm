@@ -23,7 +23,7 @@
 
 - (void)requiresCardPIN:(id)n
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EDC03E0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EDC03E0, &qword_2440D5FE0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v13 - v6;
   v8 = *(self->super.isa + 202);

@@ -31,7 +31,7 @@
   passesCopy = passes;
   if (passes)
   {
-    sub_1BD0E5E8C(0, &qword_1EBD456C0);
+    sub_1BD0E5E8C(0, &qword_1EBD456C0, 0x1E69B91E8);
     passesCopy = sub_1BE052744();
   }
 
@@ -39,6 +39,8 @@
   errorCopy = error;
   selfCopy = self;
   sub_1BD91C894(passesCopy);
+
+  passesCopy, v12, v13, v14, v15, v16, v17, v18;
 }
 
 @end

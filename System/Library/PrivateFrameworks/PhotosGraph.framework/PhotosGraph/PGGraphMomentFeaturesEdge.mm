@@ -11,15 +11,13 @@
 
 - (id)propertyDictionary
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"rlvacnt";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"rlvacnt";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(self + 12)];
-  v7[1] = @"rlvaids";
-  v8[0] = v3;
-  v8[1] = self->_allAssetUUIDs;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[1] = @"rlvaids";
+  v7[0] = v3;
+  v7[1] = self->_allAssetUUIDs;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }

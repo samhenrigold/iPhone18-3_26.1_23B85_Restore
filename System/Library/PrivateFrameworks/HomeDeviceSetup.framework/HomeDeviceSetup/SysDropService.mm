@@ -5,9 +5,11 @@
 - (void)_cleanup;
 - (void)_handleAirDropRequest:(id)request responseHandler:(id)handler;
 - (void)_handlePreCheckRequest:(id)request responseHandler:(id)handler;
+- (void)_handleRawRequest:(id)request flags:(unsigned int)flags responseHandler:(id)handler;
 - (void)_handleSessionEnded:(id)ended;
 - (void)_handleSessionStarted:(id)started;
 - (void)_invalidate;
+- (void)_sendSysdiagnosePeerUpdate:(unsigned int)update inError:(id)error;
 - (void)_sfServiceStart;
 - (void)activate;
 - (void)dealloc;
@@ -201,6 +203,58 @@ void __29__SysDropService__invalidate__block_invoke_2(uint64_t a1)
   *(v1 + 48) = 0;
 }
 
+- (void)_sendSysdiagnosePeerUpdate:(unsigned int)update inError:(id)error
+{
+  v4 = *&update;
+  v17[3] = *MEMORY[0x277D85DE8];
+  errorCopy = error;
+  peer = [(SFSession *)self->_sfSession peer];
+  if (peer && (v8 = self->_peerEventHandler, peer, v8))
+  {
+    peerEventHandler = self->_peerEventHandler;
+    v16[0] = @"sysdrop_sys_update";
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+    v17[0] = v10;
+    v16[1] = @"sd_sys_ec";
+    v11 = MEMORY[0x277CCABB0];
+    if (errorCopy)
+    {
+      code = [errorCopy code];
+    }
+
+    else
+    {
+      code = 0;
+    }
+
+    v13 = [v11 numberWithInteger:code];
+    v17[1] = v13;
+    v16[2] = @"sd_sys_ed";
+    if (errorCopy)
+    {
+      domain = [errorCopy domain];
+    }
+
+    else
+    {
+      domain = @"NoDomain";
+    }
+
+    v17[2] = domain;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    peerEventHandler[2](peerEventHandler, v15);
+
+    if (errorCopy)
+    {
+    }
+  }
+
+  else if (gLogCategory_SysDropService <= 30 && (gLogCategory_SysDropService != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF();
+  }
+}
+
 - (void)_sfServiceStart
 {
   if (gLogCategory_SysDropService <= 30 && (gLogCategory_SysDropService != -1 || _LogCategory_Initialize()))
@@ -228,86 +282,82 @@ void __29__SysDropService__invalidate__block_invoke_2(uint64_t a1)
     [(SFService *)self->_sfService setDispatchQueue:self->_dispatchQueue];
     [(SFService *)self->_sfService setIdentifier:*MEMORY[0x277D54D80]];
     [(SFService *)self->_sfService setLabel:@"SysDrop"];
-    v5 = SFDeviceModelCodeGet();
-    v6 = self->_sfService;
-    if (v5)
+    if (SFDeviceModelCodeGet())
     {
-      v7 = 33;
+      v5 = 33;
     }
 
     else
     {
-      v7 = 11;
+      v5 = 11;
     }
 
-    [(SFService *)self->_sfService setDeviceActionType:v7];
+    [(SFService *)self->_sfService setDeviceActionType:v5];
     [(SFService *)self->_sfService setSessionFlags:1];
     [(SFService *)self->_sfService setTouchRemoteEnabled:1];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __33__SysDropService__sfServiceStart__block_invoke;
-    v12[3] = &unk_2797147E8;
-    v12[4] = self;
-    [(SFService *)self->_sfService setSessionStartedHandler:v12];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __33__SysDropService__sfServiceStart__block_invoke_42;
-    v11[3] = &unk_279714810;
-    v11[4] = self;
-    [(SFService *)self->_sfService setSessionEndedHandler:v11];
-    [(SFService *)self->_sfService setSessionSecuredHandler:&__block_literal_global_9];
     v10[0] = MEMORY[0x277D85DD0];
     v10[1] = 3221225472;
-    v10[2] = __33__SysDropService__sfServiceStart__block_invoke_2;
-    v10[3] = &unk_279714838;
+    v10[2] = __33__SysDropService__sfServiceStart__block_invoke;
+    v10[3] = &unk_2797147E8;
     v10[4] = self;
-    [(SFService *)self->_sfService setReceivedRequestHandler:v10];
-    v8 = self->_sfService;
+    [(SFService *)self->_sfService setSessionStartedHandler:v10];
     v9[0] = MEMORY[0x277D85DD0];
     v9[1] = 3221225472;
-    v9[2] = __33__SysDropService__sfServiceStart__block_invoke_3;
-    v9[3] = &unk_279714198;
+    v9[2] = __33__SysDropService__sfServiceStart__block_invoke_42;
+    v9[3] = &unk_279714810;
     v9[4] = self;
-    [(SFService *)v8 activateWithCompletion:v9];
+    [(SFService *)self->_sfService setSessionEndedHandler:v9];
+    [(SFService *)self->_sfService setSessionSecuredHandler:&__block_literal_global_9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __33__SysDropService__sfServiceStart__block_invoke_2;
+    v8[3] = &unk_279714838;
+    v8[4] = self;
+    [(SFService *)self->_sfService setReceivedRequestHandler:v8];
+    v6 = self->_sfService;
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __33__SysDropService__sfServiceStart__block_invoke_3;
+    v7[3] = &unk_279714198;
+    v7[4] = self;
+    [(SFService *)v6 activateWithCompletion:v7];
   }
 }
 
 void __33__SysDropService__sfServiceStart__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() signpostLog];
-  v6 = [*(a1 + 32) signpostID];
-  if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v3 = a2;
+  v4 = [objc_opt_class() signpostLog];
+  v5 = [*(a1 + 32) signpostID];
+  if ((v5 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v7 = v6;
-    if (os_signpost_enabled(v5))
+    v6 = v5;
+    if (os_signpost_enabled(v4))
     {
-      *v8 = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v7, "SetupSession", "", v8, 2u);
+      *v7 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v6, "SetupSession", "", v7, 2u);
     }
   }
 
-  [*(a1 + 32) _handleSessionStarted:v4];
+  [*(a1 + 32) _handleSessionStarted:v3];
 }
 
 void __33__SysDropService__sfServiceStart__block_invoke_42(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() signpostLog];
-  v6 = [*(a1 + 32) signpostID];
-  if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v3 = a2;
+  v4 = [objc_opt_class() signpostLog];
+  v5 = [*(a1 + 32) signpostID];
+  if ((v5 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v7 = v6;
-    if (os_signpost_enabled(v5))
+    v6 = v5;
+    if (os_signpost_enabled(v4))
     {
-      *v8 = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v5, OS_SIGNPOST_INTERVAL_END, v7, "SetupSession", "", v8, 2u);
+      *v7 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v4, OS_SIGNPOST_INTERVAL_END, v6, "SetupSession", "", v7, 2u);
     }
   }
 
-  [*(a1 + 32) _handleSessionEnded:v4];
+  [*(a1 + 32) _handleSessionEnded:v3];
 }
 
 uint64_t __33__SysDropService__sfServiceStart__block_invoke_44(uint64_t a1, void *a2)
@@ -330,23 +380,22 @@ uint64_t __33__SysDropService__sfServiceStart__block_invoke_44(uint64_t a1, void
 void __33__SysDropService__sfServiceStart__block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() signpostLog];
-  v6 = [*(a1 + 32) signpostID];
-  if ((v6 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v4 = [objc_opt_class() signpostLog];
+  v5 = [*(a1 + 32) signpostID];
+  if ((v5 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v7 = v6;
-    if (os_signpost_enabled(v5))
+    v6 = v5;
+    if (os_signpost_enabled(v4))
     {
-      *v9 = 0;
-      _os_signpost_emit_with_name_impl(&dword_252F78000, v5, OS_SIGNPOST_INTERVAL_END, v7, "SFServiceStart", "", v9, 2u);
+      *v8 = 0;
+      _os_signpost_emit_with_name_impl(&dword_252F78000, v4, OS_SIGNPOST_INTERVAL_END, v6, "SFServiceStart", "", v8, 2u);
     }
   }
 
-  v8 = v3;
-  if (v8 && gLogCategory_SysDropService <= 90 && (gLogCategory_SysDropService != -1 || _LogCategory_Initialize()))
+  v7 = v3;
+  if (v7 && gLogCategory_SysDropService <= 90 && (gLogCategory_SysDropService != -1 || _LogCategory_Initialize()))
   {
-    __33__SysDropService__sfServiceStart__block_invoke_3_cold_1(v8);
+    __33__SysDropService__sfServiceStart__block_invoke_3_cold_1(v7);
   }
 }
 
@@ -494,7 +543,7 @@ LABEL_11:
 
     if (gLogCategory_SysDropService <= 30 && (gLogCategory_SysDropService != -1 || _LogCategory_Initialize()))
     {
-      [SysDropService _handlePreCheckRequest:? responseHandler:?];
+      [SysDropService _handlePreCheckRequest:responseHandler:];
     }
   }
 
@@ -509,6 +558,34 @@ LABEL_11:
   }
 
   handlerCopy[2](handlerCopy, preCheckError, 0, v9);
+}
+
+- (void)_handleRawRequest:(id)request flags:(unsigned int)flags responseHandler:(id)handler
+{
+  v5 = *&flags;
+  v15[1] = *MEMORY[0x277D85DE8];
+  handlerCopy = handler;
+  CFDictionaryGetInt64Ranged();
+  if (gLogCategory_SysDropService <= 50 && (gLogCategory_SysDropService != -1 || _LogCategory_Initialize()))
+  {
+    [SysDropService _handleRawRequest:flags:responseHandler:];
+  }
+
+  v7 = MEMORY[0x277CCA9B8];
+  v8 = *MEMORY[0x277CCA590];
+  v14 = *MEMORY[0x277CCA450];
+  v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
+  v10 = v9;
+  v11 = @"?";
+  if (v9)
+  {
+    v11 = v9;
+  }
+
+  v15[0] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = [v7 errorWithDomain:v8 code:-6732 userInfo:v12];
+  handlerCopy[2](handlerCopy, v5, v13, 0);
 }
 
 void __33__SysDropService__sfServiceStart__block_invoke_44_cold_1(void *a1)

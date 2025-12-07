@@ -63,21 +63,18 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  weight = self->_weight;
-  v9 = toCopy;
   PBDataWriterWriteUint32Field();
   p_proxies = &self->_proxies;
   if (p_proxies->count)
   {
-    v7 = 0;
+    v5 = 0;
     do
     {
-      v8 = p_proxies->list[v7];
       PBDataWriterWriteUint32Field();
-      ++v7;
+      ++v5;
     }
 
-    while (v7 < p_proxies->count);
+    while (v5 < p_proxies->count);
   }
 }
 

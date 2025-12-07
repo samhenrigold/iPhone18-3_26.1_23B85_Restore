@@ -5,7 +5,7 @@
 
 uint64_t ___AVTPoseRoundingBehaviour_block_invoke()
 {
-  v0 = [MEMORY[0x1E696AB98] decimalNumberHandlerWithRoundingMode:0 scale:6 raiseOnExactness:0 raiseOnOverflow:0 raiseOnUnderflow:0 raiseOnDivideByZero:0];
+  v0 = [MEMORY[0x1E696AB98] decimalNumberHandlerWithRoundingMode:? scale:? raiseOnExactness:? raiseOnOverflow:? raiseOnUnderflow:? raiseOnDivideByZero:?];
   v1 = _AVTPoseRoundingBehaviour_behavior;
   _AVTPoseRoundingBehaviour_behavior = v0;
 

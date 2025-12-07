@@ -11,7 +11,6 @@
 - (void)contactViewController:(id)controller didDeleteContact:(id)contact
 {
   v4 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC9AirDropUI28ContactDetailsViewController_dismissHandler);
-  v5 = *&self->contactDetails[OBJC_IVAR____TtC9AirDropUI28ContactDetailsViewController_dismissHandler];
   selfCopy = self;
   v4();
 }

@@ -63,7 +63,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v24 = 1;
+    v23 = 1;
   }
 
   else
@@ -81,84 +81,19 @@
 
     v6 = v5;
     v7 = v6;
-    if (!v6)
+    if (v6 && ([(HMDCharacteristicMetadata *)v6 minimumValue], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v9) && ([(HMDCharacteristicMetadata *)v7 maximumValue], v10 = objc_claimAutoreleasedReturnValue(), v11 = HMFEqualObjects(), v10, v11) && ([(HMDCharacteristicMetadata *)v7 stepValue], v12 = objc_claimAutoreleasedReturnValue(), v13 = HMFEqualObjects(), v12, v13) && ([(HMDCharacteristicMetadata *)v7 maxLength], v14 = objc_claimAutoreleasedReturnValue(), v15 = HMFEqualObjects(), v14, v15) && ([(HMDCharacteristicMetadata *)v7 format], v16 = objc_claimAutoreleasedReturnValue(), v17 = HMFEqualObjects(), v16, v17) && ([(HMDCharacteristicMetadata *)v7 units], v18 = objc_claimAutoreleasedReturnValue(), v19 = HMFEqualObjects(), v18, v19) && ([(HMDCharacteristicMetadata *)v7 manufacturerDescription], v20 = objc_claimAutoreleasedReturnValue(), v21 = HMFEqualObjects(), v20, v21))
     {
-      goto LABEL_14;
-    }
-
-    minimumValue = self->_minimumValue;
-    minimumValue = [(HMDCharacteristicMetadata *)v6 minimumValue];
-    LODWORD(minimumValue) = HMFEqualObjects();
-
-    if (!minimumValue)
-    {
-      goto LABEL_14;
-    }
-
-    maximumValue = self->_maximumValue;
-    maximumValue = [(HMDCharacteristicMetadata *)v7 maximumValue];
-    LODWORD(maximumValue) = HMFEqualObjects();
-
-    if (!maximumValue)
-    {
-      goto LABEL_14;
-    }
-
-    stepValue = self->_stepValue;
-    stepValue = [(HMDCharacteristicMetadata *)v7 stepValue];
-    LODWORD(stepValue) = HMFEqualObjects();
-
-    if (!stepValue)
-    {
-      goto LABEL_14;
-    }
-
-    maxLength = self->_maxLength;
-    maxLength = [(HMDCharacteristicMetadata *)v7 maxLength];
-    LODWORD(maxLength) = HMFEqualObjects();
-
-    if (!maxLength)
-    {
-      goto LABEL_14;
-    }
-
-    format = self->_format;
-    format = [(HMDCharacteristicMetadata *)v7 format];
-    LODWORD(format) = HMFEqualObjects();
-
-    if (!format)
-    {
-      goto LABEL_14;
-    }
-
-    units = self->_units;
-    units = [(HMDCharacteristicMetadata *)v7 units];
-    LODWORD(units) = HMFEqualObjects();
-
-    if (!units)
-    {
-      goto LABEL_14;
-    }
-
-    manufacturerDescription = self->_manufacturerDescription;
-    manufacturerDescription = [(HMDCharacteristicMetadata *)v7 manufacturerDescription];
-    LODWORD(manufacturerDescription) = HMFEqualObjects();
-
-    if (manufacturerDescription)
-    {
-      validValues = self->_validValues;
       validValues = [(HMDCharacteristicMetadata *)v7 validValues];
-      v24 = HMFEqualObjects();
+      v23 = HMFEqualObjects();
     }
 
     else
     {
-LABEL_14:
-      v24 = 0;
+      v23 = 0;
     }
   }
 
-  return v24;
+  return v23;
 }
 
 - (unint64_t)hash
@@ -207,7 +142,7 @@ LABEL_14:
 
 - (id)_descriptionDetails
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:6];
   format = [(HMDCharacteristicMetadata *)self format];
 
@@ -287,30 +222,30 @@ LABEL_14:
     v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Valid Values: "];
     [v3 addObject:v34];
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     validValues2 = [(HMDCharacteristicMetadata *)self validValues];
-    v36 = [validValues2 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v36 = [validValues2 countByEnumeratingWithState:&v43 objects:v47 count:16];
     if (v36)
     {
       v37 = v36;
-      v38 = *v45;
+      v38 = *v44;
       do
       {
         for (i = 0; i != v37; ++i)
         {
-          if (*v45 != v38)
+          if (*v44 != v38)
           {
             objc_enumerationMutation(validValues2);
           }
 
-          v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, ", *(*(&v44 + 1) + 8 * i)];
+          v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, ", *(*(&v43 + 1) + 8 * i)];
           [v3 addObject:v40];
         }
 
-        v37 = [validValues2 countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v37 = [validValues2 countByEnumeratingWithState:&v43 objects:v47 count:16];
       }
 
       while (v37);
@@ -318,8 +253,6 @@ LABEL_14:
   }
 
   v41 = [v3 componentsJoinedByString:{@", "}];
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v41;
 }

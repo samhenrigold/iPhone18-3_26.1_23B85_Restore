@@ -2836,18 +2836,17 @@ LABEL_46:
   return 1;
 }
 
-void *std::__split_buffer<TimeSync::TimestampedObject<ADJasperPointCloud * {__strong}> *,std::allocator<TimeSync::TimestampedObject<ADJasperPointCloud * {__strong}> *>>::emplace_back<TimeSync::TimestampedObject<ADJasperPointCloud * {__strong}> *&>(void *result, void *a2)
+void std::__split_buffer<TimeSync::TimestampedObject<ADJasperPointCloud * {__strong}> *,std::allocator<TimeSync::TimestampedObject<ADJasperPointCloud * {__strong}> *>>::emplace_back<TimeSync::TimestampedObject<ADJasperPointCloud * {__strong}> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      v11 = &v4[-*result] >> 2;
-      if (v4 == *result)
+      v11 = &v4[-*a1] >> 2;
+      if (v4 == *a1)
       {
         v11 = 1;
       }
@@ -2866,17 +2865,16 @@ void *std::__split_buffer<TimeSync::TimestampedObject<ADJasperPointCloud * {__st
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v7], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v7], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v8];
+    a1[1] = &v5[8 * v8];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 8;
-  return result;
+  a1[2] = (v4 + 8);
 }
 
 uint64_t TimeSync::checkForSync(TimeSync *this, PushResults *a2)
@@ -3074,7 +3072,7 @@ void TimeSync::pushImage(TimeSync *this, __CVBuffer *a2, const __CFDictionary *a
       this->m_images.__start_ = start - 64;
       v38.value = *v27;
       this->m_images.__map_.__begin_ = v27 + 1;
-      std::__split_buffer<TimeSync::TimestampedObject<ADJasperPointCloud * {__strong}> *,std::allocator<TimeSync::TimestampedObject<ADJasperPointCloud * {__strong}> *>>::emplace_back<TimeSync::TimestampedObject<ADJasperPointCloud * {__strong}> *&>(&this->m_images.__map_.__first_, &v38);
+      std::__split_buffer<TimeSync::TimestampedObject<ADJasperPointCloud * {__strong}> *,std::allocator<TimeSync::TimestampedObject<ADJasperPointCloud * {__strong}> *>>::emplace_back<TimeSync::TimestampedObject<ADJasperPointCloud * {__strong}> *&>(&this->m_images, &v38);
       v27 = this->m_images.__map_.__begin_;
       v30 = this->m_images.__size_ + this->m_images.__start_;
     }
@@ -3209,10 +3207,10 @@ void sub_22469AA78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_22469B12C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_22469B12C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PDTimestampedImage;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -3269,7 +3267,7 @@ void peridot::CalibManager::getCalibClassNames(void ***a1)
       v10[2] = v20;
       v20 = 0;
       __dst = 0uLL;
-      v7 = (v10 + 3);
+      v7 = v10 + 3;
     }
 
     else
@@ -3313,8 +3311,8 @@ void peridot::CalibManager::getCalibClassNames(void ***a1)
       *(v17 + 16) = v20;
       v20 = 0;
       __dst = 0uLL;
-      v7 = v17 + 24;
-      v18 = v17 - v13;
+      v7 = (v17 + 24);
+      v18 = (v17 - v13);
       memcpy((v17 - v13), v12, v13);
       *a1 = v18;
       a1[1] = v7;
@@ -3463,80 +3461,80 @@ double copyJLNM_refData<jlnm_v102>(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t peridot::CalibManager::blobsFromNVM(peridot::CalibManager *this, const __CFData *a2, const __CFData *a3, const char *a4, float a5)
+uint64_t peridot::CalibManager::blobsFromNVM(peridot::CalibManager *this, const __CFData *a2, const __CFData *a3, const char *a4)
 {
-  v5 = MEMORY[0x28223BE20](this, a2, a3, a5);
-  v7 = v6;
-  v9 = v8;
-  v10 = v5;
-  v40[4209] = *MEMORY[0x277D85DE8];
-  v11 = objc_opt_new();
-  if (nvmToFDR(v10, v9, v7, v12))
+  v4 = MEMORY[0x28223BE20](this, a2, a3);
+  v6 = v5;
+  v8 = v7;
+  v9 = v4;
+  v38[4209] = *MEMORY[0x277D85DE8];
+  v10 = objc_opt_new();
+  if (nvmToFDR(v9, v8, v6))
   {
-    v30 = 0;
-    v13 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v11 options:1 error:&v30];
-    v14 = v30;
-    v29 = v14;
-    if (v13)
+    v28 = 0;
+    v11 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v10 options:1 error:&v28];
+    v12 = v28;
+    v27 = v12;
+    if (v11)
     {
-      v31[0] = @"jlnl";
-      v28 = [MEMORY[0x277CBEA90] dataWithBytes:v33 length:104];
-      v32[0] = v28;
-      v31[1] = @"jlpq";
-      v15 = [MEMORY[0x277CBEA90] dataWithBytes:&v34 length:9124];
-      v32[1] = v15;
-      v31[2] = @"jlps";
-      v16 = [MEMORY[0x277CBEA90] dataWithBytes:&v35 length:12628];
-      v32[2] = v16;
-      v31[3] = @"jlnm";
-      v17 = [MEMORY[0x277CBEA90] dataWithBytes:&v36 length:75388];
-      v32[3] = v17;
-      v31[4] = @"jlsk";
-      v18 = [MEMORY[0x277CBEA90] dataWithBytes:&v37 length:18080];
-      v32[4] = v18;
-      v31[5] = @"jlin";
-      v19 = [MEMORY[0x277CBEA90] dataWithBytes:&v38 length:4172];
-      v32[5] = v19;
-      v31[6] = @"jlex";
-      v20 = [MEMORY[0x277CBEA90] dataWithBytes:&v39 length:116];
-      v32[6] = v20;
-      v31[7] = @"jlnv";
-      v21 = [MEMORY[0x277CBEA90] dataWithBytes:v40 length:33672];
-      v31[8] = @"foms";
-      v32[7] = v21;
-      v32[8] = v13;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:9];
+      v29[0] = @"jlnl";
+      v26 = [MEMORY[0x277CBEA90] dataWithBytes:v31 length:104];
+      v30[0] = v26;
+      v29[1] = @"jlpq";
+      v13 = [MEMORY[0x277CBEA90] dataWithBytes:&v32 length:9124];
+      v30[1] = v13;
+      v29[2] = @"jlps";
+      v14 = [MEMORY[0x277CBEA90] dataWithBytes:&v33 length:12628];
+      v30[2] = v14;
+      v29[3] = @"jlnm";
+      v15 = [MEMORY[0x277CBEA90] dataWithBytes:&v34 length:75388];
+      v30[3] = v15;
+      v29[4] = @"jlsk";
+      v16 = [MEMORY[0x277CBEA90] dataWithBytes:&v35 length:18080];
+      v30[4] = v16;
+      v29[5] = @"jlin";
+      v17 = [MEMORY[0x277CBEA90] dataWithBytes:&v36 length:4172];
+      v30[5] = v17;
+      v29[6] = @"jlex";
+      v18 = [MEMORY[0x277CBEA90] dataWithBytes:&v37 length:116];
+      v30[6] = v18;
+      v29[7] = @"jlnv";
+      v19 = [MEMORY[0x277CBEA90] dataWithBytes:v38 length:33672];
+      v29[8] = @"foms";
+      v30[7] = v19;
+      v30[8] = v11;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:9];
 
-      v23 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v24 = MEMORY[0x277CCACA8];
-      v25 = [v14 localizedDescription];
-      v23 = [v24 stringWithFormat:@"Error converting NSDictionary to JSON: %@", v25];
+      v22 = MEMORY[0x277CCACA8];
+      v23 = [v12 localizedDescription];
+      v21 = [v22 stringWithFormat:@"Error converting NSDictionary to JSON: %@", v23];
 
-      v26 = v23;
-      peridot_depth_log_error([v23 UTF8String]);
-      v22 = 0;
+      v24 = v21;
+      peridot_depth_log_error([v21 UTF8String]);
+      v20 = 0;
     }
   }
 
   else
   {
-    v22 = 0;
+    v20 = 0;
   }
 
-  return v22;
+  return v20;
 }
 
-peridot::CalibManager *peridot::CalibManager::fillPeridotCalib(peridot::CalibManager *this, const __CFData *a2, const __CFData *a3, char *a4, _PeridotCalib *a5, float a6)
+peridot::CalibManager *peridot::CalibManager::fillPeridotCalib(peridot::CalibManager *this, const __CFData *a2, const __CFData *a3, char *a4, _PeridotCalib *a5)
 {
-  result = peridot::CalibManager::blobsFromNVM(this, a2, a3, a4, a6);
+  result = peridot::CalibManager::blobsFromNVM(this, a2, a3, a4);
   if (result)
   {
 
-    return peridot::CalibManager::fillPeridotCalib(result, a4, v8);
+    return peridot::CalibManager::fillPeridotCalib(result, a4, v7);
   }
 
   return result;
@@ -3590,7 +3588,7 @@ uint64_t peridot::CalibManager::fillPeridotCalib(peridot::CalibManager *this, _P
           v16 = CFDataGetBytePtr(v15);
           v17 = CFDataGetLength(v15);
           v27 = i;
-          v18 = std::__tree<std::__value_type<std::string,peridot::DataBuffer>,std::__map_value_compare<std::string,std::__value_type<std::string,peridot::DataBuffer>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,peridot::DataBuffer>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v22, i);
+          v18 = std::__tree<std::__value_type<std::string,peridot::DataBuffer>,std::__map_value_compare<std::string,std::__value_type<std::string,peridot::DataBuffer>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,peridot::DataBuffer>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v22, i, &v27);
           v18[7] = v16;
           v18[8] = v17;
         }
@@ -3733,10 +3731,10 @@ uint64_t peridot::CalibManager::fillPeridotCalib(peridot::CalibManager *this, _P
   return v9;
 }
 
-void sub_22469C830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5, ...)
+void sub_22469C830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, char *a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  std::__tree<std::__value_type<std::string,peridot::DataBuffer>,std::__map_value_compare<std::string,std::__value_type<std::string,peridot::DataBuffer>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,peridot::DataBuffer>>>::destroy(a4);
+  va_start(va, a9);
+  std::__tree<std::__value_type<std::string,peridot::DataBuffer>,std::__map_value_compare<std::string,std::__value_type<std::string,peridot::DataBuffer>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,peridot::DataBuffer>>>::destroy(a8);
   std::vector<std::string>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3753,9 +3751,9 @@ uint64_t readPeridotCalibFromBuffer(char *__src, unint64_t a2, _PeridotCalib *__
   v7 = *__src;
   if (*__src <= 4)
   {
-    if (SLODWORD(v7) > 2)
+    if (v7 > 2)
     {
-      if (LODWORD(v7) == 3)
+      if (v7 == 3)
       {
         if (a2 == 76456)
         {
@@ -3778,7 +3776,7 @@ uint64_t readPeridotCalibFromBuffer(char *__src, unint64_t a2, _PeridotCalib *__
       goto LABEL_42;
     }
 
-    if (LODWORD(v7) == 1)
+    if (v7 == 1)
     {
       if (a2 == 77672)
       {
@@ -3789,7 +3787,7 @@ uint64_t readPeridotCalibFromBuffer(char *__src, unint64_t a2, _PeridotCalib *__
       goto LABEL_42;
     }
 
-    if (LODWORD(v7) == 2)
+    if (v7 == 2)
     {
       if (a2 == 77768)
       {
@@ -3803,9 +3801,9 @@ uint64_t readPeridotCalibFromBuffer(char *__src, unint64_t a2, _PeridotCalib *__
     goto LABEL_32;
   }
 
-  if (SLODWORD(v7) <= 6)
+  if (v7 <= 6)
   {
-    if (LODWORD(v7) == 5)
+    if (v7 == 5)
     {
       if (a2 == 361416)
       {
@@ -3828,7 +3826,7 @@ uint64_t readPeridotCalibFromBuffer(char *__src, unint64_t a2, _PeridotCalib *__
     goto LABEL_42;
   }
 
-  if (LODWORD(v7) == 7)
+  if (v7 == 7)
   {
     if (a2 == 366176)
     {
@@ -3839,7 +3837,7 @@ uint64_t readPeridotCalibFromBuffer(char *__src, unint64_t a2, _PeridotCalib *__
     goto LABEL_42;
   }
 
-  if (LODWORD(v7) == 8)
+  if (v7 == 8)
   {
     if (a2 == 402496)
     {
@@ -3926,7 +3924,7 @@ uint64_t readPeridotCalibFromBuffer(char *__src, unint64_t a2, _PeridotCalib *__
     goto LABEL_42;
   }
 
-  if (LODWORD(v7) != 9)
+  if (v7 != 9)
   {
 LABEL_32:
     peridot_depth_log("PeridotCalib buffer has an unknown version (%u)");
@@ -4324,128 +4322,128 @@ uint64_t peridot::CalibManager::fillPeridotCalib(uint64_t a1, _DWORD *a2)
   return 0;
 }
 
-void sub_2246A370C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+void sub_2246A370C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   if (a20)
   {
-    MEMORY[0x22AA531A0](a20, 0x1000C4026781B21);
+    MEMORY[0x22AA531A0](a20, 0x1000C4026781B21, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__tree<std::__value_type<std::string,peridot::DataBuffer>,std::__map_value_compare<std::string,std::__value_type<std::string,peridot::DataBuffer>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,peridot::DataBuffer>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,peridot::DataBuffer>,std::__map_value_compare<std::string,std::__value_type<std::string,peridot::DataBuffer>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,peridot::DataBuffer>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, __int128 **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_25:
     operator new();
   }
 
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v4 = *(a2 + 23);
+  if (v4 >= 0)
   {
-    v4 = *(a2 + 23);
+    v5 = *(a2 + 23);
   }
 
   else
   {
-    v4 = a2[1];
+    v5 = a2[1];
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
   while (1)
   {
     while (1)
     {
-      v6 = v2;
-      v9 = v2[4];
-      v7 = v2 + 4;
-      v8 = v9;
-      v10 = *(v7 + 23);
-      if (v10 >= 0)
+      v7 = v3;
+      v10 = v3[4];
+      v8 = v3 + 4;
+      v9 = v10;
+      v11 = *(v8 + 23);
+      if (v11 >= 0)
       {
-        v11 = *(v7 + 23);
+        v12 = *(v8 + 23);
       }
 
       else
       {
-        v11 = v7[1];
+        v12 = v8[1];
       }
 
-      if (v10 >= 0)
+      if (v11 >= 0)
       {
-        v12 = v7;
+        v13 = v8;
       }
 
       else
       {
-        v12 = v8;
+        v13 = v9;
       }
 
-      if (v11 >= v4)
+      if (v12 >= v5)
       {
-        v13 = v4;
+        v14 = v5;
       }
 
       else
       {
-        v13 = v11;
+        v14 = v12;
       }
 
-      v14 = memcmp(v5, v12, v13);
-      v15 = v4 < v11;
-      if (v14)
+      v15 = memcmp(v6, v13, v14);
+      v16 = v5 < v12;
+      if (v15)
       {
-        v15 = v14 < 0;
+        v16 = v15 < 0;
       }
 
-      if (!v15)
+      if (!v16)
       {
         break;
       }
 
-      v2 = *v6;
-      if (!*v6)
+      v3 = *v7;
+      if (!*v7)
       {
         goto LABEL_25;
       }
     }
 
-    v16 = memcmp(v12, v5, v13);
-    v17 = v11 < v4;
-    if (v16)
+    v17 = memcmp(v13, v6, v14);
+    v18 = v12 < v5;
+    if (v17)
     {
-      v17 = v16 < 0;
+      v18 = v17 < 0;
     }
 
-    if (!v17)
+    if (!v18)
     {
-      return v6;
+      return v7;
     }
 
-    v2 = v6[1];
-    if (!v2)
+    v3 = v7[1];
+    if (!v3)
     {
       goto LABEL_25;
     }
   }
 }
 
-void sub_2246A39B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2246A39B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,peridot::DataBuffer>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,peridot::DataBuffer>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4525,12 +4523,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -4544,22 +4542,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v10 = v2[1];
+            v10 = *(v2 + 8);
             v11 = *v10;
-            v2[1] = *v10;
+            *(v2 + 8) = *v10;
             v12 = v2;
             if (v11)
             {
-              v11[2] = v2;
-              v3 = v2[2];
+              *(v11 + 16) = v2;
+              v3 = *(v2 + 16);
               v12 = *v3;
             }
 
-            v10[2] = v3;
+            *(v10 + 16) = v3;
             v3[v12 != v2] = v10;
             *v10 = v2;
-            v2[2] = v10;
-            v3 = v10[2];
+            *(v2 + 16) = v10;
+            v3 = *(v10 + 16);
             v4 = *v3;
           }
 
@@ -4593,13 +4591,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v3[*v3 != v2] = v13;
             v13[1] = v2;
             v13[2] = v3;
-            v2[2] = v13;
+            *(v2 + 16) = v13;
             v3 = v13[2];
           }
 
@@ -4794,117 +4792,117 @@ LABEL_52:
   return 1;
 }
 
-uint64_t getBlobAsExact<jlps_v101>(uint64_t a1)
+uint64_t getBlobAsExact<jlps_v101>(uint64_t a1, void **a2)
 {
-  v22 = 4;
+  v23 = 4;
   strcpy(__s2, "jlps");
-  v1 = a1 + 8;
-  v2 = *(a1 + 8);
-  if (v2)
+  v2 = a1 + 8;
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    v3 = a1 + 8;
+    v4 = a1 + 8;
     do
     {
-      v4 = *(v2 + 55);
-      v5 = v4;
-      if ((v4 & 0x80u) != 0)
+      v5 = *(v3 + 55);
+      v6 = v5;
+      if ((v5 & 0x80u) != 0)
       {
-        v4 = *(v2 + 40);
+        v5 = *(v3 + 40);
       }
 
-      if (v5 >= 0)
+      if (v6 >= 0)
       {
-        v6 = (v2 + 32);
-      }
-
-      else
-      {
-        v6 = *(v2 + 32);
-      }
-
-      if (v4 >= 4)
-      {
-        v7 = 4;
+        v7 = (v3 + 32);
       }
 
       else
       {
-        v7 = v4;
+        v7 = *(v3 + 32);
       }
 
-      v8 = v4 < 4;
-      v9 = memcmp(v6, __s2, v7);
-      v10 = v9 < 0;
-      if (!v9)
+      if (v5 >= 4)
       {
-        v10 = v8;
-      }
-
-      v11 = !v10;
-      if (v10)
-      {
-        v12 = 8;
+        v8 = 4;
       }
 
       else
       {
-        v12 = 0;
+        v8 = v5;
       }
 
+      v9 = v5 < 4;
+      v10 = memcmp(v7, __s2, v8);
+      v11 = v10 < 0;
+      if (!v10)
+      {
+        v11 = v9;
+      }
+
+      v12 = !v11;
       if (v11)
       {
-        v3 = v2;
+        v13 = 8;
       }
 
-      v2 = *(v2 + v12);
+      else
+      {
+        v13 = 0;
+      }
+
+      if (v12)
+      {
+        v4 = v3;
+      }
+
+      v3 = *(v3 + v13);
     }
 
-    while (v2);
-    if (v3 != v1)
+    while (v3);
+    if (v4 != v2)
     {
-      v13 = *(v3 + 55);
-      v14 = v13;
-      if ((v13 & 0x80u) != 0)
+      v14 = *(v4 + 55);
+      v15 = v14;
+      if ((v14 & 0x80u) != 0)
       {
-        v13 = *(v3 + 40);
+        v14 = *(v4 + 40);
       }
 
-      if (v14 >= 0)
+      if (v15 >= 0)
       {
-        v15 = (v3 + 32);
-      }
-
-      else
-      {
-        v15 = *(v3 + 32);
-      }
-
-      if (v13 >= 4)
-      {
-        v16 = 4;
+        v16 = (v4 + 32);
       }
 
       else
       {
-        v16 = v13;
+        v16 = *(v4 + 32);
       }
 
-      v17 = v13 > 4;
-      v18 = memcmp(__s2, v15, v16);
-      v19 = v18 < 0;
-      if (!v18)
+      if (v14 >= 4)
       {
-        v19 = v17;
+        v17 = 4;
       }
 
-      if (!v19 && v3 != v1)
+      else
       {
-        if (*(v3 + 64) == 12628)
+        v17 = v14;
+      }
+
+      v18 = v14 > 4;
+      v19 = memcmp(__s2, v16, v17);
+      v20 = v19 < 0;
+      if (!v19)
+      {
+        v20 = v18;
+      }
+
+      if (!v20 && v4 != v2)
+      {
+        if (*(v4 + 64) == 12628)
         {
           operator new();
         }
 
-        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlps", *(v3 + 64), 12628);
+        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlps", *(v4 + 64), 12628);
       }
     }
   }
@@ -5615,7 +5613,7 @@ __n128 copyPulseShapeData_v101(unint64_t a1, unint64_t a2)
     }
   }
 
-  if (v159 - 2680 > 0x1F)
+  if ((v159 - 2680) > 0x1F)
   {
     v170 = *(a1 + 4784);
     *v43 = *(a1 + 4768);
@@ -5652,7 +5650,7 @@ __n128 copyPulseShapeData_v101(unint64_t a1, unint64_t a2)
     }
   }
 
-  if (v159 - 2148 > 0x1F)
+  if ((v159 - 2148) > 0x1F)
   {
     v179 = *(a1 + 5040);
     *v63 = *(a1 + 5024);
@@ -5689,7 +5687,7 @@ __n128 copyPulseShapeData_v101(unint64_t a1, unint64_t a2)
     }
   }
 
-  if (v159 - 1616 > 0x1F)
+  if ((v159 - 1616) > 0x1F)
   {
     v188 = *(a1 + 5296);
     *(a2 + 3664) = *(a1 + 5280);
@@ -5726,7 +5724,7 @@ __n128 copyPulseShapeData_v101(unint64_t a1, unint64_t a2)
     }
   }
 
-  if (v159 - 1084 > 0x1F)
+  if ((v159 - 1084) > 0x1F)
   {
     v197 = *(a1 + 5552);
     *(a2 + 4452) = *(a1 + 5536);
@@ -5763,7 +5761,7 @@ __n128 copyPulseShapeData_v101(unint64_t a1, unint64_t a2)
     }
   }
 
-  if (v159 - 552 > 0x1F)
+  if ((v159 - 552) > 0x1F)
   {
     v206 = *(a1 + 5808);
     *(a2 + 5240) = *(a1 + 5792);
@@ -5800,7 +5798,7 @@ __n128 copyPulseShapeData_v101(unint64_t a1, unint64_t a2)
     }
   }
 
-  if (v159 - 20 > 0x1F)
+  if ((v159 - 20) > 0x1F)
   {
     v215 = *(a1 + 6064);
     *v140 = *(a1 + 6048);
@@ -5841,117 +5839,117 @@ __n128 copyPulseShapeData_v101(unint64_t a1, unint64_t a2)
   return result;
 }
 
-uint64_t getBlobAsExact<jlps_v100>(uint64_t a1)
+uint64_t getBlobAsExact<jlps_v100>(uint64_t a1, void **a2)
 {
-  v22 = 4;
+  v23 = 4;
   strcpy(__s2, "jlps");
-  v1 = a1 + 8;
-  v2 = *(a1 + 8);
-  if (v2)
+  v2 = a1 + 8;
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    v3 = a1 + 8;
+    v4 = a1 + 8;
     do
     {
-      v4 = *(v2 + 55);
-      v5 = v4;
-      if ((v4 & 0x80u) != 0)
+      v5 = *(v3 + 55);
+      v6 = v5;
+      if ((v5 & 0x80u) != 0)
       {
-        v4 = *(v2 + 40);
+        v5 = *(v3 + 40);
       }
 
-      if (v5 >= 0)
+      if (v6 >= 0)
       {
-        v6 = (v2 + 32);
-      }
-
-      else
-      {
-        v6 = *(v2 + 32);
-      }
-
-      if (v4 >= 4)
-      {
-        v7 = 4;
+        v7 = (v3 + 32);
       }
 
       else
       {
-        v7 = v4;
+        v7 = *(v3 + 32);
       }
 
-      v8 = v4 < 4;
-      v9 = memcmp(v6, __s2, v7);
-      v10 = v9 < 0;
-      if (!v9)
+      if (v5 >= 4)
       {
-        v10 = v8;
-      }
-
-      v11 = !v10;
-      if (v10)
-      {
-        v12 = 8;
+        v8 = 4;
       }
 
       else
       {
-        v12 = 0;
+        v8 = v5;
       }
 
+      v9 = v5 < 4;
+      v10 = memcmp(v7, __s2, v8);
+      v11 = v10 < 0;
+      if (!v10)
+      {
+        v11 = v9;
+      }
+
+      v12 = !v11;
       if (v11)
       {
-        v3 = v2;
+        v13 = 8;
       }
 
-      v2 = *(v2 + v12);
+      else
+      {
+        v13 = 0;
+      }
+
+      if (v12)
+      {
+        v4 = v3;
+      }
+
+      v3 = *(v3 + v13);
     }
 
-    while (v2);
-    if (v3 != v1)
+    while (v3);
+    if (v4 != v2)
     {
-      v13 = *(v3 + 55);
-      v14 = v13;
-      if ((v13 & 0x80u) != 0)
+      v14 = *(v4 + 55);
+      v15 = v14;
+      if ((v14 & 0x80u) != 0)
       {
-        v13 = *(v3 + 40);
+        v14 = *(v4 + 40);
       }
 
-      if (v14 >= 0)
+      if (v15 >= 0)
       {
-        v15 = (v3 + 32);
-      }
-
-      else
-      {
-        v15 = *(v3 + 32);
-      }
-
-      if (v13 >= 4)
-      {
-        v16 = 4;
+        v16 = (v4 + 32);
       }
 
       else
       {
-        v16 = v13;
+        v16 = *(v4 + 32);
       }
 
-      v17 = v13 > 4;
-      v18 = memcmp(__s2, v15, v16);
-      v19 = v18 < 0;
-      if (!v18)
+      if (v14 >= 4)
       {
-        v19 = v17;
+        v17 = 4;
       }
 
-      if (!v19 && v3 != v1)
+      else
       {
-        if (*(v3 + 64) == 8532)
+        v17 = v14;
+      }
+
+      v18 = v14 > 4;
+      v19 = memcmp(__s2, v16, v17);
+      v20 = v19 < 0;
+      if (!v19)
+      {
+        v20 = v18;
+      }
+
+      if (!v20 && v4 != v2)
+      {
+        if (*(v4 + 64) == 8532)
         {
           operator new();
         }
 
-        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlps", *(v3 + 64), 8532);
+        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlps", *(v4 + 64), 8532);
       }
     }
   }
@@ -6553,117 +6551,117 @@ float copyPulseShapeData_v100<jlps_v100_ps>(unint64_t a1, unint64_t a2)
   return result;
 }
 
-uint64_t getBlobAsExact<jlnm_v102>(uint64_t a1)
+uint64_t getBlobAsExact<jlnm_v102>(uint64_t a1, void **a2)
 {
-  v22 = 4;
+  v23 = 4;
   strcpy(__s2, "jlnm");
-  v1 = a1 + 8;
-  v2 = *(a1 + 8);
-  if (v2)
+  v2 = a1 + 8;
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    v3 = a1 + 8;
+    v4 = a1 + 8;
     do
     {
-      v4 = *(v2 + 55);
-      v5 = v4;
-      if ((v4 & 0x80u) != 0)
+      v5 = *(v3 + 55);
+      v6 = v5;
+      if ((v5 & 0x80u) != 0)
       {
-        v4 = *(v2 + 40);
+        v5 = *(v3 + 40);
       }
 
-      if (v5 >= 0)
+      if (v6 >= 0)
       {
-        v6 = (v2 + 32);
-      }
-
-      else
-      {
-        v6 = *(v2 + 32);
-      }
-
-      if (v4 >= 4)
-      {
-        v7 = 4;
+        v7 = (v3 + 32);
       }
 
       else
       {
-        v7 = v4;
+        v7 = *(v3 + 32);
       }
 
-      v8 = v4 < 4;
-      v9 = memcmp(v6, __s2, v7);
-      v10 = v9 < 0;
-      if (!v9)
+      if (v5 >= 4)
       {
-        v10 = v8;
-      }
-
-      v11 = !v10;
-      if (v10)
-      {
-        v12 = 8;
+        v8 = 4;
       }
 
       else
       {
-        v12 = 0;
+        v8 = v5;
       }
 
+      v9 = v5 < 4;
+      v10 = memcmp(v7, __s2, v8);
+      v11 = v10 < 0;
+      if (!v10)
+      {
+        v11 = v9;
+      }
+
+      v12 = !v11;
       if (v11)
       {
-        v3 = v2;
+        v13 = 8;
       }
 
-      v2 = *(v2 + v12);
+      else
+      {
+        v13 = 0;
+      }
+
+      if (v12)
+      {
+        v4 = v3;
+      }
+
+      v3 = *(v3 + v13);
     }
 
-    while (v2);
-    if (v3 != v1)
+    while (v3);
+    if (v4 != v2)
     {
-      v13 = *(v3 + 55);
-      v14 = v13;
-      if ((v13 & 0x80u) != 0)
+      v14 = *(v4 + 55);
+      v15 = v14;
+      if ((v14 & 0x80u) != 0)
       {
-        v13 = *(v3 + 40);
+        v14 = *(v4 + 40);
       }
 
-      if (v14 >= 0)
+      if (v15 >= 0)
       {
-        v15 = (v3 + 32);
-      }
-
-      else
-      {
-        v15 = *(v3 + 32);
-      }
-
-      if (v13 >= 4)
-      {
-        v16 = 4;
+        v16 = (v4 + 32);
       }
 
       else
       {
-        v16 = v13;
+        v16 = *(v4 + 32);
       }
 
-      v17 = v13 > 4;
-      v18 = memcmp(__s2, v15, v16);
-      v19 = v18 < 0;
-      if (!v18)
+      if (v14 >= 4)
       {
-        v19 = v17;
+        v17 = 4;
       }
 
-      if (!v19 && v3 != v1)
+      else
       {
-        if (*(v3 + 64) == 75388)
+        v17 = v14;
+      }
+
+      v18 = v14 > 4;
+      v19 = memcmp(__s2, v16, v17);
+      v20 = v19 < 0;
+      if (!v19)
+      {
+        v20 = v18;
+      }
+
+      if (!v20 && v4 != v2)
+      {
+        if (*(v4 + 64) == 75388)
         {
           operator new();
         }
 
-        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlnm", *(v3 + 64), 75388);
+        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlnm", *(v4 + 64), 75388);
       }
     }
   }
@@ -6881,117 +6879,117 @@ void readJLNM_v102_stray_map(unsigned __int8 *a1, float *a2)
   }
 }
 
-uint64_t getBlobAsExact<jlnm_v101>(uint64_t a1)
+uint64_t getBlobAsExact<jlnm_v101>(uint64_t a1, void **a2)
 {
-  v22 = 4;
+  v23 = 4;
   strcpy(__s2, "jlnm");
-  v1 = a1 + 8;
-  v2 = *(a1 + 8);
-  if (v2)
+  v2 = a1 + 8;
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    v3 = a1 + 8;
+    v4 = a1 + 8;
     do
     {
-      v4 = *(v2 + 55);
-      v5 = v4;
-      if ((v4 & 0x80u) != 0)
+      v5 = *(v3 + 55);
+      v6 = v5;
+      if ((v5 & 0x80u) != 0)
       {
-        v4 = *(v2 + 40);
+        v5 = *(v3 + 40);
       }
 
-      if (v5 >= 0)
+      if (v6 >= 0)
       {
-        v6 = (v2 + 32);
-      }
-
-      else
-      {
-        v6 = *(v2 + 32);
-      }
-
-      if (v4 >= 4)
-      {
-        v7 = 4;
+        v7 = (v3 + 32);
       }
 
       else
       {
-        v7 = v4;
+        v7 = *(v3 + 32);
       }
 
-      v8 = v4 < 4;
-      v9 = memcmp(v6, __s2, v7);
-      v10 = v9 < 0;
-      if (!v9)
+      if (v5 >= 4)
       {
-        v10 = v8;
-      }
-
-      v11 = !v10;
-      if (v10)
-      {
-        v12 = 8;
+        v8 = 4;
       }
 
       else
       {
-        v12 = 0;
+        v8 = v5;
       }
 
+      v9 = v5 < 4;
+      v10 = memcmp(v7, __s2, v8);
+      v11 = v10 < 0;
+      if (!v10)
+      {
+        v11 = v9;
+      }
+
+      v12 = !v11;
       if (v11)
       {
-        v3 = v2;
+        v13 = 8;
       }
 
-      v2 = *(v2 + v12);
+      else
+      {
+        v13 = 0;
+      }
+
+      if (v12)
+      {
+        v4 = v3;
+      }
+
+      v3 = *(v3 + v13);
     }
 
-    while (v2);
-    if (v3 != v1)
+    while (v3);
+    if (v4 != v2)
     {
-      v13 = *(v3 + 55);
-      v14 = v13;
-      if ((v13 & 0x80u) != 0)
+      v14 = *(v4 + 55);
+      v15 = v14;
+      if ((v14 & 0x80u) != 0)
       {
-        v13 = *(v3 + 40);
+        v14 = *(v4 + 40);
       }
 
-      if (v14 >= 0)
+      if (v15 >= 0)
       {
-        v15 = (v3 + 32);
-      }
-
-      else
-      {
-        v15 = *(v3 + 32);
-      }
-
-      if (v13 >= 4)
-      {
-        v16 = 4;
+        v16 = (v4 + 32);
       }
 
       else
       {
-        v16 = v13;
+        v16 = *(v4 + 32);
       }
 
-      v17 = v13 > 4;
-      v18 = memcmp(__s2, v15, v16);
-      v19 = v18 < 0;
-      if (!v18)
+      if (v14 >= 4)
       {
-        v19 = v17;
+        v17 = 4;
       }
 
-      if (!v19 && v3 != v1)
+      else
       {
-        if (*(v3 + 64) == 8160)
+        v17 = v14;
+      }
+
+      v18 = v14 > 4;
+      v19 = memcmp(__s2, v16, v17);
+      v20 = v19 < 0;
+      if (!v19)
+      {
+        v20 = v18;
+      }
+
+      if (!v20 && v4 != v2)
+      {
+        if (*(v4 + 64) == 8160)
         {
           operator new();
         }
 
-        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlnm", *(v3 + 64), 8160);
+        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlnm", *(v4 + 64), 8160);
       }
     }
   }
@@ -7375,117 +7373,117 @@ double readJLNM_v100_v101<jlnm_v101>(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t getBlobAsExact<jlnm_v100>(uint64_t a1)
+uint64_t getBlobAsExact<jlnm_v100>(uint64_t a1, void **a2)
 {
-  v22 = 4;
+  v23 = 4;
   strcpy(__s2, "jlnm");
-  v1 = a1 + 8;
-  v2 = *(a1 + 8);
-  if (v2)
+  v2 = a1 + 8;
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    v3 = a1 + 8;
+    v4 = a1 + 8;
     do
     {
-      v4 = *(v2 + 55);
-      v5 = v4;
-      if ((v4 & 0x80u) != 0)
+      v5 = *(v3 + 55);
+      v6 = v5;
+      if ((v5 & 0x80u) != 0)
       {
-        v4 = *(v2 + 40);
+        v5 = *(v3 + 40);
       }
 
-      if (v5 >= 0)
+      if (v6 >= 0)
       {
-        v6 = (v2 + 32);
-      }
-
-      else
-      {
-        v6 = *(v2 + 32);
-      }
-
-      if (v4 >= 4)
-      {
-        v7 = 4;
+        v7 = (v3 + 32);
       }
 
       else
       {
-        v7 = v4;
+        v7 = *(v3 + 32);
       }
 
-      v8 = v4 < 4;
-      v9 = memcmp(v6, __s2, v7);
-      v10 = v9 < 0;
-      if (!v9)
+      if (v5 >= 4)
       {
-        v10 = v8;
-      }
-
-      v11 = !v10;
-      if (v10)
-      {
-        v12 = 8;
+        v8 = 4;
       }
 
       else
       {
-        v12 = 0;
+        v8 = v5;
       }
 
+      v9 = v5 < 4;
+      v10 = memcmp(v7, __s2, v8);
+      v11 = v10 < 0;
+      if (!v10)
+      {
+        v11 = v9;
+      }
+
+      v12 = !v11;
       if (v11)
       {
-        v3 = v2;
+        v13 = 8;
       }
 
-      v2 = *(v2 + v12);
+      else
+      {
+        v13 = 0;
+      }
+
+      if (v12)
+      {
+        v4 = v3;
+      }
+
+      v3 = *(v3 + v13);
     }
 
-    while (v2);
-    if (v3 != v1)
+    while (v3);
+    if (v4 != v2)
     {
-      v13 = *(v3 + 55);
-      v14 = v13;
-      if ((v13 & 0x80u) != 0)
+      v14 = *(v4 + 55);
+      v15 = v14;
+      if ((v14 & 0x80u) != 0)
       {
-        v13 = *(v3 + 40);
+        v14 = *(v4 + 40);
       }
 
-      if (v14 >= 0)
+      if (v15 >= 0)
       {
-        v15 = (v3 + 32);
-      }
-
-      else
-      {
-        v15 = *(v3 + 32);
-      }
-
-      if (v13 >= 4)
-      {
-        v16 = 4;
+        v16 = (v4 + 32);
       }
 
       else
       {
-        v16 = v13;
+        v16 = *(v4 + 32);
       }
 
-      v17 = v13 > 4;
-      v18 = memcmp(__s2, v15, v16);
-      v19 = v18 < 0;
-      if (!v18)
+      if (v14 >= 4)
       {
-        v19 = v17;
+        v17 = 4;
       }
 
-      if (!v19 && v3 != v1)
+      else
       {
-        if (*(v3 + 64) == 8652)
+        v17 = v14;
+      }
+
+      v18 = v14 > 4;
+      v19 = memcmp(__s2, v16, v17);
+      v20 = v19 < 0;
+      if (!v19)
+      {
+        v20 = v18;
+      }
+
+      if (!v20 && v4 != v2)
+      {
+        if (*(v4 + 64) == 8652)
         {
           operator new();
         }
 
-        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlnm", *(v3 + 64), 8652);
+        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlnm", *(v4 + 64), 8652);
       }
     }
   }
@@ -7869,117 +7867,117 @@ double readJLNM_v100_v101<jlnm_v100>(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t getBlobAsExact<jlsk_v102>(uint64_t a1)
+uint64_t getBlobAsExact<jlsk_v102>(uint64_t a1, void **a2)
 {
-  v22 = 4;
+  v23 = 4;
   strcpy(__s2, "jlsk");
-  v1 = a1 + 8;
-  v2 = *(a1 + 8);
-  if (v2)
+  v2 = a1 + 8;
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    v3 = a1 + 8;
+    v4 = a1 + 8;
     do
     {
-      v4 = *(v2 + 55);
-      v5 = v4;
-      if ((v4 & 0x80u) != 0)
+      v5 = *(v3 + 55);
+      v6 = v5;
+      if ((v5 & 0x80u) != 0)
       {
-        v4 = *(v2 + 40);
+        v5 = *(v3 + 40);
       }
 
-      if (v5 >= 0)
+      if (v6 >= 0)
       {
-        v6 = (v2 + 32);
-      }
-
-      else
-      {
-        v6 = *(v2 + 32);
-      }
-
-      if (v4 >= 4)
-      {
-        v7 = 4;
+        v7 = (v3 + 32);
       }
 
       else
       {
-        v7 = v4;
+        v7 = *(v3 + 32);
       }
 
-      v8 = v4 < 4;
-      v9 = memcmp(v6, __s2, v7);
-      v10 = v9 < 0;
-      if (!v9)
+      if (v5 >= 4)
       {
-        v10 = v8;
-      }
-
-      v11 = !v10;
-      if (v10)
-      {
-        v12 = 8;
+        v8 = 4;
       }
 
       else
       {
-        v12 = 0;
+        v8 = v5;
       }
 
+      v9 = v5 < 4;
+      v10 = memcmp(v7, __s2, v8);
+      v11 = v10 < 0;
+      if (!v10)
+      {
+        v11 = v9;
+      }
+
+      v12 = !v11;
       if (v11)
       {
-        v3 = v2;
+        v13 = 8;
       }
 
-      v2 = *(v2 + v12);
+      else
+      {
+        v13 = 0;
+      }
+
+      if (v12)
+      {
+        v4 = v3;
+      }
+
+      v3 = *(v3 + v13);
     }
 
-    while (v2);
-    if (v3 != v1)
+    while (v3);
+    if (v4 != v2)
     {
-      v13 = *(v3 + 55);
-      v14 = v13;
-      if ((v13 & 0x80u) != 0)
+      v14 = *(v4 + 55);
+      v15 = v14;
+      if ((v14 & 0x80u) != 0)
       {
-        v13 = *(v3 + 40);
+        v14 = *(v4 + 40);
       }
 
-      if (v14 >= 0)
+      if (v15 >= 0)
       {
-        v15 = (v3 + 32);
-      }
-
-      else
-      {
-        v15 = *(v3 + 32);
-      }
-
-      if (v13 >= 4)
-      {
-        v16 = 4;
+        v16 = (v4 + 32);
       }
 
       else
       {
-        v16 = v13;
+        v16 = *(v4 + 32);
       }
 
-      v17 = v13 > 4;
-      v18 = memcmp(__s2, v15, v16);
-      v19 = v18 < 0;
-      if (!v18)
+      if (v14 >= 4)
       {
-        v19 = v17;
+        v17 = 4;
       }
 
-      if (!v19 && v3 != v1)
+      else
       {
-        if (*(v3 + 64) == 18080)
+        v17 = v14;
+      }
+
+      v18 = v14 > 4;
+      v19 = memcmp(__s2, v16, v17);
+      v20 = v19 < 0;
+      if (!v19)
+      {
+        v20 = v18;
+      }
+
+      if (!v20 && v4 != v2)
+      {
+        if (*(v4 + 64) == 18080)
         {
           operator new();
         }
 
-        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlsk", *(v3 + 64), 18080);
+        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlsk", *(v4 + 64), 18080);
       }
     }
   }
@@ -7987,117 +7985,117 @@ uint64_t getBlobAsExact<jlsk_v102>(uint64_t a1)
   return 0;
 }
 
-uint64_t getBlobAsExact<jlsk_v101>(uint64_t a1)
+uint64_t getBlobAsExact<jlsk_v101>(uint64_t a1, void **a2)
 {
-  v22 = 4;
+  v23 = 4;
   strcpy(__s2, "jlsk");
-  v1 = a1 + 8;
-  v2 = *(a1 + 8);
-  if (v2)
+  v2 = a1 + 8;
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    v3 = a1 + 8;
+    v4 = a1 + 8;
     do
     {
-      v4 = *(v2 + 55);
-      v5 = v4;
-      if ((v4 & 0x80u) != 0)
+      v5 = *(v3 + 55);
+      v6 = v5;
+      if ((v5 & 0x80u) != 0)
       {
-        v4 = *(v2 + 40);
+        v5 = *(v3 + 40);
       }
 
-      if (v5 >= 0)
+      if (v6 >= 0)
       {
-        v6 = (v2 + 32);
-      }
-
-      else
-      {
-        v6 = *(v2 + 32);
-      }
-
-      if (v4 >= 4)
-      {
-        v7 = 4;
+        v7 = (v3 + 32);
       }
 
       else
       {
-        v7 = v4;
+        v7 = *(v3 + 32);
       }
 
-      v8 = v4 < 4;
-      v9 = memcmp(v6, __s2, v7);
-      v10 = v9 < 0;
-      if (!v9)
+      if (v5 >= 4)
       {
-        v10 = v8;
-      }
-
-      v11 = !v10;
-      if (v10)
-      {
-        v12 = 8;
+        v8 = 4;
       }
 
       else
       {
-        v12 = 0;
+        v8 = v5;
       }
 
+      v9 = v5 < 4;
+      v10 = memcmp(v7, __s2, v8);
+      v11 = v10 < 0;
+      if (!v10)
+      {
+        v11 = v9;
+      }
+
+      v12 = !v11;
       if (v11)
       {
-        v3 = v2;
+        v13 = 8;
       }
 
-      v2 = *(v2 + v12);
+      else
+      {
+        v13 = 0;
+      }
+
+      if (v12)
+      {
+        v4 = v3;
+      }
+
+      v3 = *(v3 + v13);
     }
 
-    while (v2);
-    if (v3 != v1)
+    while (v3);
+    if (v4 != v2)
     {
-      v13 = *(v3 + 55);
-      v14 = v13;
-      if ((v13 & 0x80u) != 0)
+      v14 = *(v4 + 55);
+      v15 = v14;
+      if ((v14 & 0x80u) != 0)
       {
-        v13 = *(v3 + 40);
+        v14 = *(v4 + 40);
       }
 
-      if (v14 >= 0)
+      if (v15 >= 0)
       {
-        v15 = (v3 + 32);
-      }
-
-      else
-      {
-        v15 = *(v3 + 32);
-      }
-
-      if (v13 >= 4)
-      {
-        v16 = 4;
+        v16 = (v4 + 32);
       }
 
       else
       {
-        v16 = v13;
+        v16 = *(v4 + 32);
       }
 
-      v17 = v13 > 4;
-      v18 = memcmp(__s2, v15, v16);
-      v19 = v18 < 0;
-      if (!v18)
+      if (v14 >= 4)
       {
-        v19 = v17;
+        v17 = 4;
       }
 
-      if (!v19 && v3 != v1)
+      else
       {
-        if (*(v3 + 64) == 17424)
+        v17 = v14;
+      }
+
+      v18 = v14 > 4;
+      v19 = memcmp(__s2, v16, v17);
+      v20 = v19 < 0;
+      if (!v19)
+      {
+        v20 = v18;
+      }
+
+      if (!v20 && v4 != v2)
+      {
+        if (*(v4 + 64) == 17424)
         {
           operator new();
         }
 
-        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlsk", *(v3 + 64), 17424);
+        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlsk", *(v4 + 64), 17424);
       }
     }
   }
@@ -8105,117 +8103,117 @@ uint64_t getBlobAsExact<jlsk_v101>(uint64_t a1)
   return 0;
 }
 
-uint64_t getBlobAsExact<jlsk_v100>(uint64_t a1)
+uint64_t getBlobAsExact<jlsk_v100>(uint64_t a1, void **a2)
 {
-  v22 = 4;
+  v23 = 4;
   strcpy(__s2, "jlsk");
-  v1 = a1 + 8;
-  v2 = *(a1 + 8);
-  if (v2)
+  v2 = a1 + 8;
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    v3 = a1 + 8;
+    v4 = a1 + 8;
     do
     {
-      v4 = *(v2 + 55);
-      v5 = v4;
-      if ((v4 & 0x80u) != 0)
+      v5 = *(v3 + 55);
+      v6 = v5;
+      if ((v5 & 0x80u) != 0)
       {
-        v4 = *(v2 + 40);
+        v5 = *(v3 + 40);
       }
 
-      if (v5 >= 0)
+      if (v6 >= 0)
       {
-        v6 = (v2 + 32);
-      }
-
-      else
-      {
-        v6 = *(v2 + 32);
-      }
-
-      if (v4 >= 4)
-      {
-        v7 = 4;
+        v7 = (v3 + 32);
       }
 
       else
       {
-        v7 = v4;
+        v7 = *(v3 + 32);
       }
 
-      v8 = v4 < 4;
-      v9 = memcmp(v6, __s2, v7);
-      v10 = v9 < 0;
-      if (!v9)
+      if (v5 >= 4)
       {
-        v10 = v8;
-      }
-
-      v11 = !v10;
-      if (v10)
-      {
-        v12 = 8;
+        v8 = 4;
       }
 
       else
       {
-        v12 = 0;
+        v8 = v5;
       }
 
+      v9 = v5 < 4;
+      v10 = memcmp(v7, __s2, v8);
+      v11 = v10 < 0;
+      if (!v10)
+      {
+        v11 = v9;
+      }
+
+      v12 = !v11;
       if (v11)
       {
-        v3 = v2;
+        v13 = 8;
       }
 
-      v2 = *(v2 + v12);
+      else
+      {
+        v13 = 0;
+      }
+
+      if (v12)
+      {
+        v4 = v3;
+      }
+
+      v3 = *(v3 + v13);
     }
 
-    while (v2);
-    if (v3 != v1)
+    while (v3);
+    if (v4 != v2)
     {
-      v13 = *(v3 + 55);
-      v14 = v13;
-      if ((v13 & 0x80u) != 0)
+      v14 = *(v4 + 55);
+      v15 = v14;
+      if ((v14 & 0x80u) != 0)
       {
-        v13 = *(v3 + 40);
+        v14 = *(v4 + 40);
       }
 
-      if (v14 >= 0)
+      if (v15 >= 0)
       {
-        v15 = (v3 + 32);
-      }
-
-      else
-      {
-        v15 = *(v3 + 32);
-      }
-
-      if (v13 >= 4)
-      {
-        v16 = 4;
+        v16 = (v4 + 32);
       }
 
       else
       {
-        v16 = v13;
+        v16 = *(v4 + 32);
       }
 
-      v17 = v13 > 4;
-      v18 = memcmp(__s2, v15, v16);
-      v19 = v18 < 0;
-      if (!v18)
+      if (v14 >= 4)
       {
-        v19 = v17;
+        v17 = 4;
       }
 
-      if (!v19 && v3 != v1)
+      else
       {
-        if (*(v3 + 64) == 18689)
+        v17 = v14;
+      }
+
+      v18 = v14 > 4;
+      v19 = memcmp(__s2, v16, v17);
+      v20 = v19 < 0;
+      if (!v19)
+      {
+        v20 = v18;
+      }
+
+      if (!v20 && v4 != v2)
+      {
+        if (*(v4 + 64) == 18689)
         {
           operator new();
         }
 
-        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlsk", *(v3 + 64), 18689);
+        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlsk", *(v4 + 64), 18689);
       }
     }
   }
@@ -8223,117 +8221,117 @@ uint64_t getBlobAsExact<jlsk_v100>(uint64_t a1)
   return 0;
 }
 
-uint64_t getBlobAsExact<jlnv_v100>(uint64_t a1)
+uint64_t getBlobAsExact<jlnv_v100>(uint64_t a1, void **a2)
 {
-  v22 = 4;
+  v23 = 4;
   strcpy(__s2, "jlnv");
-  v1 = a1 + 8;
-  v2 = *(a1 + 8);
-  if (v2)
+  v2 = a1 + 8;
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    v3 = a1 + 8;
+    v4 = a1 + 8;
     do
     {
-      v4 = *(v2 + 55);
-      v5 = v4;
-      if ((v4 & 0x80u) != 0)
+      v5 = *(v3 + 55);
+      v6 = v5;
+      if ((v5 & 0x80u) != 0)
       {
-        v4 = *(v2 + 40);
+        v5 = *(v3 + 40);
       }
 
-      if (v5 >= 0)
+      if (v6 >= 0)
       {
-        v6 = (v2 + 32);
-      }
-
-      else
-      {
-        v6 = *(v2 + 32);
-      }
-
-      if (v4 >= 4)
-      {
-        v7 = 4;
+        v7 = (v3 + 32);
       }
 
       else
       {
-        v7 = v4;
+        v7 = *(v3 + 32);
       }
 
-      v8 = v4 < 4;
-      v9 = memcmp(v6, __s2, v7);
-      v10 = v9 < 0;
-      if (!v9)
+      if (v5 >= 4)
       {
-        v10 = v8;
-      }
-
-      v11 = !v10;
-      if (v10)
-      {
-        v12 = 8;
+        v8 = 4;
       }
 
       else
       {
-        v12 = 0;
+        v8 = v5;
       }
 
+      v9 = v5 < 4;
+      v10 = memcmp(v7, __s2, v8);
+      v11 = v10 < 0;
+      if (!v10)
+      {
+        v11 = v9;
+      }
+
+      v12 = !v11;
       if (v11)
       {
-        v3 = v2;
+        v13 = 8;
       }
 
-      v2 = *(v2 + v12);
+      else
+      {
+        v13 = 0;
+      }
+
+      if (v12)
+      {
+        v4 = v3;
+      }
+
+      v3 = *(v3 + v13);
     }
 
-    while (v2);
-    if (v3 != v1)
+    while (v3);
+    if (v4 != v2)
     {
-      v13 = *(v3 + 55);
-      v14 = v13;
-      if ((v13 & 0x80u) != 0)
+      v14 = *(v4 + 55);
+      v15 = v14;
+      if ((v14 & 0x80u) != 0)
       {
-        v13 = *(v3 + 40);
+        v14 = *(v4 + 40);
       }
 
-      if (v14 >= 0)
+      if (v15 >= 0)
       {
-        v15 = (v3 + 32);
-      }
-
-      else
-      {
-        v15 = *(v3 + 32);
-      }
-
-      if (v13 >= 4)
-      {
-        v16 = 4;
+        v16 = (v4 + 32);
       }
 
       else
       {
-        v16 = v13;
+        v16 = *(v4 + 32);
       }
 
-      v17 = v13 > 4;
-      v18 = memcmp(__s2, v15, v16);
-      v19 = v18 < 0;
-      if (!v18)
+      if (v14 >= 4)
       {
-        v19 = v17;
+        v17 = 4;
       }
 
-      if (!v19 && v3 != v1)
+      else
       {
-        if (*(v3 + 64) == 33672)
+        v17 = v14;
+      }
+
+      v18 = v14 > 4;
+      v19 = memcmp(__s2, v16, v17);
+      v20 = v19 < 0;
+      if (!v19)
+      {
+        v20 = v18;
+      }
+
+      if (!v20 && v4 != v2)
+      {
+        if (*(v4 + 64) == 33672)
         {
           operator new();
         }
 
-        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlnv", *(v3 + 64), 33672);
+        peridot_depth_log("%s: blob of wrong size (%lu bytes - expected it to be %lu)", "jlnv", *(v4 + 64), 33672);
       }
     }
   }

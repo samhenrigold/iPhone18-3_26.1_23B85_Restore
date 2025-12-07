@@ -183,29 +183,29 @@
     goto LABEL_53;
   }
 
-  v85 = completionCopy;
+  v84 = completionCopy;
   v22 = CSLogCategoryVT;
   if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
   {
     v23 = v22;
     localizedDescription = [errorCopy localizedDescription];
     *buf = 136316162;
-    v103 = "[CSVoiceTriggerFirstPassHearst _handleSecondPassResult:secondPassRequest:deviceId:requestOption:error:completion:]";
-    v104 = 1026;
-    *v105 = result;
-    *&v105[4] = 2114;
-    *&v105[6] = voiceTriggerEventInfo;
-    *&v105[14] = 2114;
-    *&v105[16] = idCopy;
-    *&v105[24] = 2114;
-    *&v105[26] = localizedDescription;
+    v102 = "[CSVoiceTriggerFirstPassHearst _handleSecondPassResult:secondPassRequest:deviceId:requestOption:error:completion:]";
+    v103 = 1026;
+    *v104 = result;
+    *&v104[4] = 2114;
+    *&v104[6] = voiceTriggerEventInfo;
+    *&v104[14] = 2114;
+    *&v104[16] = idCopy;
+    *&v104[24] = 2114;
+    *&v104[26] = localizedDescription;
     _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s Second Pass Result, %{public}d, %{public}@, %{public}@, %{public}@", buf, 0x30u);
   }
 
   v21 = requestCopy;
-  v86 = resultCopy;
-  v87 = errorCopy;
-  v88 = optionCopy;
+  v85 = resultCopy;
+  v86 = errorCopy;
+  v87 = optionCopy;
   if (voiceTriggerEventInfo)
   {
     v25 = kVTEITriggeredPh;
@@ -213,53 +213,53 @@
 
     if (v26)
     {
-      v84 = idCopy;
-      v100 = 0u;
-      v101 = 0u;
-      v98 = 0u;
+      v83 = idCopy;
       v99 = 0u;
+      v100 = 0u;
+      v97 = 0u;
+      v98 = 0u;
       v27 = self->_phrasesToSkipBoronDecisionMaking;
-      v28 = [(NSArray *)v27 countByEnumeratingWithState:&v98 objects:v110 count:16];
+      v28 = [(NSArray *)v27 countByEnumeratingWithState:&v97 objects:v109 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v99;
+        v30 = *v98;
         while (2)
         {
           for (i = 0; i != v29; i = i + 1)
           {
-            if (*v99 != v30)
+            if (*v98 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            v32 = *(*(&v98 + 1) + 8 * i);
-            v33 = [voiceTriggerEventInfo objectForKeyedSubscript:{v25, v84}];
+            v32 = *(*(&v97 + 1) + 8 * i);
+            v33 = [voiceTriggerEventInfo objectForKeyedSubscript:{v25, v83}];
             LODWORD(v32) = [v32 isEqualToString:v33];
 
             if (v32)
             {
-              v62 = CSLogCategoryVT;
+              v61 = CSLogCategoryVT;
               if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
               {
-                v63 = v62;
-                v64 = [voiceTriggerEventInfo objectForKeyedSubscript:v25];
+                v62 = v61;
+                v63 = [voiceTriggerEventInfo objectForKeyedSubscript:v25];
                 *buf = 136315394;
-                v103 = "[CSVoiceTriggerFirstPassHearst _handleSecondPassResult:secondPassRequest:deviceId:requestOption:error:completion:]";
-                v104 = 2112;
-                *v105 = v64;
-                _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "%s Ignoring boron based decision making as triggered phrase %@", buf, 0x16u);
+                v102 = "[CSVoiceTriggerFirstPassHearst _handleSecondPassResult:secondPassRequest:deviceId:requestOption:error:completion:]";
+                v103 = 2112;
+                *v104 = v63;
+                _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "%s Ignoring boron based decision making as triggered phrase %@", buf, 0x16u);
               }
 
               v21 = requestCopy;
-              idCopy = v84;
-              completionCopy = v85;
+              idCopy = v83;
+              completionCopy = v84;
               selfCopy2 = self;
               goto LABEL_31;
             }
           }
 
-          v29 = [(NSArray *)v27 countByEnumeratingWithState:&v98 objects:v110 count:16];
+          v29 = [(NSArray *)v27 countByEnumeratingWithState:&v97 objects:v109 count:16];
           if (v29)
           {
             continue;
@@ -270,11 +270,11 @@
       }
 
       v21 = requestCopy;
-      idCopy = v84;
+      idCopy = v83;
     }
   }
 
-  v34 = [voiceTriggerEventInfo objectForKeyedSubscript:{kVTEItriggerEndSeconds, v84}];
+  v34 = [voiceTriggerEventInfo objectForKeyedSubscript:{kVTEItriggerEndSeconds, v83}];
   [v34 floatValue];
   v36 = v35;
 
@@ -295,31 +295,31 @@
     remoteMicVADThreshold = self->_remoteMicVADThreshold;
     minimumPhraseLengthForVADGating = self->_minimumPhraseLengthForVADGating;
     *buf = 136316674;
-    v103 = "[CSVoiceTriggerFirstPassHearst _handleSecondPassResult:secondPassRequest:deviceId:requestOption:error:completion:]";
-    v104 = 2050;
-    *v105 = v48;
-    *&v105[8] = 2050;
-    *&v105[10] = remoteMicVADThreshold;
-    *&v105[18] = 2050;
-    *&v105[20] = v36;
-    *&v105[28] = 2050;
-    *&v105[30] = minimumPhraseLengthForVADGating;
-    v106 = 2050;
-    v107 = v42;
-    v108 = 2050;
-    v109 = v39;
+    v102 = "[CSVoiceTriggerFirstPassHearst _handleSecondPassResult:secondPassRequest:deviceId:requestOption:error:completion:]";
+    v103 = 2050;
+    *v104 = v48;
+    *&v104[8] = 2050;
+    *&v104[10] = remoteMicVADThreshold;
+    *&v104[18] = 2050;
+    *&v104[20] = v36;
+    *&v104[28] = 2050;
+    *&v104[30] = minimumPhraseLengthForVADGating;
+    v105 = 2050;
+    v106 = v42;
+    v107 = 2050;
+    v108 = v39;
     _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "%s remoteMicVADScore : %{public}f, remoteMicVADThreshold : %{public}f, triggerEndSeconds : %{public}f, minPhraseLength : %{public}f shadowMicScore: %{public}f shadowMicScoreThreshold: %{public}f", buf, 0x48u);
   }
 
-  v94[0] = _NSConcreteStackBlock;
-  v94[1] = 3221225472;
-  v94[2] = sub_1000FCAF8;
-  v94[3] = &unk_1002518A8;
-  v96 = v39;
-  v97 = v42;
-  v95 = &stru_100251880;
-  v49 = objc_retainBlock(v94);
-  rtModelRequestOptions = [v88 rtModelRequestOptions];
+  v93[0] = _NSConcreteStackBlock;
+  v93[1] = 3221225472;
+  v93[2] = sub_1000FCAF8;
+  v93[3] = &unk_1002518A8;
+  v95 = v39;
+  v96 = v42;
+  v94 = &stru_100251880;
+  v49 = objc_retainBlock(v93);
+  rtModelRequestOptions = [v87 rtModelRequestOptions];
   accessoryInfo = [rtModelRequestOptions accessoryInfo];
   supportsAlwaysOnAccelerometer = [accessoryInfo supportsAlwaysOnAccelerometer];
 
@@ -331,64 +331,63 @@
 
   else
   {
-    v56 = self->_minimumPhraseLengthForVADGating;
     v55 = (v49[2])(v49);
   }
 
-  completionCopy = v85;
+  completionCopy = v84;
   if (v55 && result == 1)
   {
-    v57 = CSLogCategoryVT;
+    v56 = CSLogCategoryVT;
     if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
     {
-      v58 = v57;
+      v57 = v56;
       [v21 remoteMicVADScore];
-      v59 = self->_remoteMicVADThreshold;
-      v60 = self->_minimumPhraseLengthForVADGating;
+      v58 = self->_remoteMicVADThreshold;
+      v59 = self->_minimumPhraseLengthForVADGating;
       *buf = 136316162;
-      v103 = "[CSVoiceTriggerFirstPassHearst _handleSecondPassResult:secondPassRequest:deviceId:requestOption:error:completion:]";
-      v104 = 2050;
-      *v105 = v61;
-      *&v105[8] = 2050;
-      *&v105[10] = v59;
-      *&v105[18] = 2050;
-      *&v105[20] = v36;
-      *&v105[28] = 2050;
-      *&v105[30] = v60;
-      _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "%s Trigger is rejected since remoteMicVADScore is %{public}f, remoteMicVADThreshold is %{public}f, triggerEndSeconds is %{public}f, minPhraseLength is %{public}f", buf, 0x34u);
+      v102 = "[CSVoiceTriggerFirstPassHearst _handleSecondPassResult:secondPassRequest:deviceId:requestOption:error:completion:]";
+      v103 = 2050;
+      *v104 = v60;
+      *&v104[8] = 2050;
+      *&v104[10] = v58;
+      *&v104[18] = 2050;
+      *&v104[20] = v36;
+      *&v104[28] = 2050;
+      *&v104[30] = v59;
+      _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%s Trigger is rejected since remoteMicVADScore is %{public}f, remoteMicVADThreshold is %{public}f, triggerEndSeconds is %{public}f, minPhraseLength is %{public}f", buf, 0x34u);
     }
 
     result = 9;
   }
 
-  v27 = v95;
+  v27 = v94;
 LABEL_31:
 
-  v65 = [voiceTriggerEventInfo mutableCopy];
+  v64 = [voiceTriggerEventInfo mutableCopy];
   [v21 remoteMicVADScore];
-  v66 = [NSNumber numberWithFloat:?];
-  [v65 setObject:v66 forKey:kVTEIRemoteMicVADScore];
+  v65 = [NSNumber numberWithFloat:?];
+  [v64 setObject:v65 forKey:kVTEIRemoteMicVADScore];
 
-  *&v67 = selfCopy2->_remoteMicVADThreshold;
-  v68 = [NSNumber numberWithFloat:v67];
-  [v65 setObject:v68 forKey:kVTEIRemoteMicVADThreshold];
+  *&v66 = selfCopy2->_remoteMicVADThreshold;
+  v67 = [NSNumber numberWithFloat:v66];
+  [v64 setObject:v67 forKey:kVTEIRemoteMicVADThreshold];
 
-  *&v69 = selfCopy2->_remoteMicVADMyriadThreshold;
-  v70 = [NSNumber numberWithFloat:v69];
-  [v65 setObject:v70 forKey:kVTEIRemoteMicVADMyriadThreshold];
+  *&v68 = selfCopy2->_remoteMicVADMyriadThreshold;
+  v69 = [NSNumber numberWithFloat:v68];
+  [v64 setObject:v69 forKey:kVTEIRemoteMicVADMyriadThreshold];
 
   if (result <= 2)
   {
-    resultCopy = v86;
+    resultCopy = v85;
     if (result == 1)
     {
       WeakRetained = objc_loadWeakRetained(&selfCopy2->_delegate);
-      v79 = objc_opt_respondsToSelector();
+      v78 = objc_opt_respondsToSelector();
 
-      if (v79)
+      if (v78)
       {
-        v73 = objc_loadWeakRetained(&selfCopy2->_delegate);
-        [v73 voiceTriggerDidDetectKeyword:v65 deviceId:idCopy];
+        v72 = objc_loadWeakRetained(&selfCopy2->_delegate);
+        [v72 voiceTriggerDidDetectKeyword:v64 deviceId:idCopy];
         goto LABEL_46;
       }
 
@@ -397,13 +396,13 @@ LABEL_31:
 
     if (result == 2)
     {
-      v71 = objc_loadWeakRetained(&selfCopy2->_delegate);
-      v72 = objc_opt_respondsToSelector();
+      v70 = objc_loadWeakRetained(&selfCopy2->_delegate);
+      v71 = objc_opt_respondsToSelector();
 
-      if (v72)
+      if (v71)
       {
-        v73 = objc_loadWeakRetained(&selfCopy2->_delegate);
-        [v73 voiceTriggerDidRejected:v65 deviceId:idCopy];
+        v72 = objc_loadWeakRetained(&selfCopy2->_delegate);
+        [v72 voiceTriggerDidRejected:v64 deviceId:idCopy];
 LABEL_46:
 
         goto LABEL_47;
@@ -413,16 +412,16 @@ LABEL_46:
     }
 
 LABEL_40:
-    v76 = CSLogCategoryVT;
+    v75 = CSLogCategoryVT;
     if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_ERROR))
     {
-      v73 = v76;
-      localizedDescription2 = [v87 localizedDescription];
+      v72 = v75;
+      localizedDescription2 = [v86 localizedDescription];
       *buf = 136315394;
-      v103 = "[CSVoiceTriggerFirstPassHearst _handleSecondPassResult:secondPassRequest:deviceId:requestOption:error:completion:]";
-      v104 = 2114;
-      *v105 = localizedDescription2;
-      _os_log_error_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "%s VoiceTrigger Second Pass has failed : %{public}@", buf, 0x16u);
+      v102 = "[CSVoiceTriggerFirstPassHearst _handleSecondPassResult:secondPassRequest:deviceId:requestOption:error:completion:]";
+      v103 = 2114;
+      *v104 = localizedDescription2;
+      _os_log_error_impl(&_mh_execute_header, v72, OS_LOG_TYPE_ERROR, "%s VoiceTrigger Second Pass has failed : %{public}@", buf, 0x16u);
 
       goto LABEL_46;
     }
@@ -430,16 +429,16 @@ LABEL_40:
     goto LABEL_47;
   }
 
-  resultCopy = v86;
+  resultCopy = v85;
   if (result == 3)
   {
-    v80 = objc_loadWeakRetained(&selfCopy2->_delegate);
-    v81 = objc_opt_respondsToSelector();
+    v79 = objc_loadWeakRetained(&selfCopy2->_delegate);
+    v80 = objc_opt_respondsToSelector();
 
-    if (v81)
+    if (v80)
     {
-      v73 = objc_loadWeakRetained(&selfCopy2->_delegate);
-      [v73 voiceTriggerDidDetectNearMiss:v65 deviceId:idCopy];
+      v72 = objc_loadWeakRetained(&selfCopy2->_delegate);
+      [v72 voiceTriggerDidDetectNearMiss:v64 deviceId:idCopy];
       goto LABEL_46;
     }
 
@@ -451,44 +450,44 @@ LABEL_40:
     goto LABEL_40;
   }
 
-  v74 = objc_loadWeakRetained(&selfCopy2->_delegate);
-  v75 = objc_opt_respondsToSelector();
+  v73 = objc_loadWeakRetained(&selfCopy2->_delegate);
+  v74 = objc_opt_respondsToSelector();
 
-  if (v75)
+  if (v74)
   {
-    v73 = objc_loadWeakRetained(&selfCopy2->_delegate);
-    [v73 voiceTriggerDidDetectSpeakerReject:voiceTriggerEventInfo];
+    v72 = objc_loadWeakRetained(&selfCopy2->_delegate);
+    [v72 voiceTriggerDidDetectSpeakerReject:voiceTriggerEventInfo];
     goto LABEL_46;
   }
 
 LABEL_47:
   if ([resultCopy isSecondChanceCandidate])
   {
-    v82 = [[CSVoiceTriggerSecondChanceContext alloc] initWithWindowStartTime:mach_absolute_time()];
+    v81 = [[CSVoiceTriggerSecondChanceContext alloc] initWithWindowStartTime:mach_absolute_time()];
   }
 
   else
   {
-    v82 = 0;
+    v81 = 0;
   }
 
-  [v21 setSecondChanceContext:v82];
+  [v21 setSecondChanceContext:v81];
   queue = selfCopy2->_queue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000FCCE8;
   block[3] = &unk_1002533C8;
-  v92 = selfCopy2;
-  v93 = result;
-  v91 = v21;
+  v91 = selfCopy2;
+  v92 = result;
+  v90 = v21;
   dispatch_async(queue, block);
   if (completionCopy)
   {
     completionCopy[2](completionCopy, 1, 0);
   }
 
-  errorCopy = v87;
-  optionCopy = v88;
+  errorCopy = v86;
+  optionCopy = v87;
 LABEL_53:
 }
 

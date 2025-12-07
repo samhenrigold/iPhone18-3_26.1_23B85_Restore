@@ -3,7 +3,7 @@
 
 @implementation AXSEarpieceNoiseCancellationEnabled
 
-uint64_t ___AXSEarpieceNoiseCancellationEnabled_block_invoke()
+void *___AXSEarpieceNoiseCancellationEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

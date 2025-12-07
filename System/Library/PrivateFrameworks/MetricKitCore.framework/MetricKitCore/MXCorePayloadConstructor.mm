@@ -11,7 +11,7 @@
 
 + (id)buildDiagnosticPayloadForClient:(id)client fromClientDiagnosticsDictionary:(id)dictionary withDateString:(id)string
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   dictionaryCopy = dictionary;
   stringCopy = string;
@@ -35,7 +35,7 @@ LABEL_5:
     {
       allKeys = [dictionaryCopy allKeys];
       *buf = 138412290;
-      v99 = allKeys;
+      v98 = allKeys;
       _os_log_impl(&dword_258D6F000, v14, OS_LOG_TYPE_DEFAULT, "Constructing payload for data sources: %@", buf, 0xCu);
     }
 
@@ -45,7 +45,7 @@ LABEL_5:
     }
 
     v16 = objc_alloc_init(MEMORY[0x277CCA968]);
-    v71 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
+    v70 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
     [v16 setLocale:?];
     [v16 setDateFormat:@"yyyy-MM-dd HH:mm"];
     localTimeZone = [MEMORY[0x277CBEBB0] localTimeZone];
@@ -53,21 +53,21 @@ LABEL_5:
 
     date = [MEMORY[0x277CBEAA8] date];
     v19 = [v16 stringFromDate:date];
-    v78 = [v16 dateFromString:v19];
+    v77 = [v16 dateFromString:v19];
 
     date2 = [MEMORY[0x277CBEAA8] date];
     v21 = [v16 stringFromDate:date2];
-    v72 = v16;
-    v77 = [v16 dateFromString:v21];
+    v71 = v16;
+    v76 = [v16 dateFromString:v21];
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       +[MXCorePayloadConstructor buildDiagnosticPayloadForClient:fromClientDiagnosticsDictionary:withDateString:];
     }
 
-    v73 = v10;
-    v74 = stringCopy;
-    v76 = clientCopy;
+    v72 = v10;
+    v73 = stringCopy;
+    v75 = clientCopy;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       +[MXCorePayloadConstructor buildDiagnosticPayloadForClient:fromClientDiagnosticsDictionary:withDateString:];
@@ -78,29 +78,29 @@ LABEL_5:
 
     v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v81 = v23;
+    v80 = v23;
     if (v23)
     {
-      v93 = 0u;
-      v94 = 0u;
-      v91 = 0u;
       v92 = 0u;
+      v93 = 0u;
+      v90 = 0u;
+      v91 = 0u;
       v26 = v23;
-      v27 = [v26 countByEnumeratingWithState:&v91 objects:v97 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v90 objects:v96 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v92;
+        v29 = *v91;
         do
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v92 != v29)
+            if (*v91 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            v31 = *(*(&v91 + 1) + 8 * i);
+            v31 = *(*(&v90 + 1) + 8 * i);
             cpuExceptionDiagnostic = [v31 cpuExceptionDiagnostic];
 
             if (cpuExceptionDiagnostic)
@@ -118,7 +118,7 @@ LABEL_5:
             }
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v91 objects:v97 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v90 objects:v96 count:16];
         }
 
         while (v28);
@@ -135,32 +135,32 @@ LABEL_5:
 
     v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v82 = v24;
-    v79 = v37;
-    v80 = v14;
+    v81 = v24;
+    v78 = v37;
+    v79 = v14;
     if (v37)
     {
       v40 = dictionaryCopy;
-      v89 = 0u;
-      v90 = 0u;
-      v87 = 0u;
       v88 = 0u;
+      v89 = 0u;
+      v86 = 0u;
+      v87 = 0u;
       v41 = v37;
-      v42 = [v41 countByEnumeratingWithState:&v87 objects:v96 count:16];
+      v42 = [v41 countByEnumeratingWithState:&v86 objects:v95 count:16];
       if (v42)
       {
         v43 = v42;
-        v44 = *v88;
+        v44 = *v87;
         do
         {
           for (j = 0; j != v43; ++j)
           {
-            if (*v88 != v44)
+            if (*v87 != v44)
             {
               objc_enumerationMutation(v41);
             }
 
-            v46 = *(*(&v87 + 1) + 8 * j);
+            v46 = *(*(&v86 + 1) + 8 * j);
             hangDiagnostic = [v46 hangDiagnostic];
 
             if (hangDiagnostic)
@@ -178,16 +178,16 @@ LABEL_5:
             }
           }
 
-          v43 = [v41 countByEnumeratingWithState:&v87 objects:v96 count:16];
+          v43 = [v41 countByEnumeratingWithState:&v86 objects:v95 count:16];
         }
 
         while (v43);
       }
 
       dictionaryCopy = v40;
-      v37 = v79;
-      v14 = v80;
-      v24 = v82;
+      v37 = v78;
+      v14 = v79;
+      v24 = v81;
     }
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
@@ -196,33 +196,33 @@ LABEL_5:
     }
 
     v51 = [&unk_286A1BB80 objectAtIndexedSubscript:5];
-    v75 = dictionaryCopy;
+    v74 = dictionaryCopy;
     v52 = [dictionaryCopy objectForKey:v51];
 
     v53 = objc_alloc_init(MEMORY[0x277CBEB18]);
     if (v52)
     {
-      v85 = 0u;
-      v86 = 0u;
-      v83 = 0u;
       v84 = 0u;
-      v70 = v52;
+      v85 = 0u;
+      v82 = 0u;
+      v83 = 0u;
+      v69 = v52;
       v54 = v52;
-      v55 = [v54 countByEnumeratingWithState:&v83 objects:v95 count:16];
+      v55 = [v54 countByEnumeratingWithState:&v82 objects:v94 count:16];
       if (v55)
       {
         v56 = v55;
-        v57 = *v84;
+        v57 = *v83;
         do
         {
           for (k = 0; k != v56; ++k)
           {
-            if (*v84 != v57)
+            if (*v83 != v57)
             {
               objc_enumerationMutation(v54);
             }
 
-            v59 = *(*(&v83 + 1) + 8 * k);
+            v59 = *(*(&v82 + 1) + 8 * k);
             crashDiagnostic = [v59 crashDiagnostic];
 
             if (crashDiagnostic)
@@ -232,16 +232,16 @@ LABEL_5:
             }
           }
 
-          v56 = [v54 countByEnumeratingWithState:&v83 objects:v95 count:16];
+          v56 = [v54 countByEnumeratingWithState:&v82 objects:v94 count:16];
         }
 
         while (v56);
       }
 
-      v37 = v79;
-      v14 = v80;
-      v24 = v82;
-      v52 = v70;
+      v37 = v78;
+      v14 = v79;
+      v24 = v81;
+      v52 = v69;
     }
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
@@ -284,7 +284,7 @@ LABEL_5:
         +[MXCorePayloadConstructor buildDiagnosticPayloadForClient:fromClientDiagnosticsDictionary:withDateString:];
       }
 
-      v65 = [objc_alloc(MEMORY[0x277CD7968]) initWithTimeStampBegin:v78 withTimeStampEnd:v77 withDiagnostics:v62];
+      v65 = [objc_alloc(MEMORY[0x277CD7968]) initWithTimeStampBegin:v77 withTimeStampEnd:v76 withDiagnostics:v62];
     }
 
     else
@@ -292,17 +292,17 @@ LABEL_5:
       v65 = 0;
     }
 
-    dictionaryCopy = v75;
-    clientCopy = v76;
-    v10 = v73;
-    stringCopy = v74;
+    dictionaryCopy = v74;
+    clientCopy = v75;
+    v10 = v72;
+    stringCopy = v73;
     goto LABEL_72;
   }
 
-  v68 = [&unk_286A1BB38 objectAtIndexedSubscript:5];
-  v69 = [dictionaryCopy objectForKey:v68];
+  v67 = [&unk_286A1BB38 objectAtIndexedSubscript:5];
+  v68 = [dictionaryCopy objectForKey:v67];
 
-  if (v69)
+  if (v68)
   {
     goto LABEL_5;
   }
@@ -315,14 +315,12 @@ LABEL_5:
   v65 = 0;
 LABEL_72:
 
-  v66 = *MEMORY[0x277D85DE8];
-
   return v65;
 }
 
 + (id)buildMetricPayloadForClient:(id)client fromClientMetricsDictionary:(id)dictionary
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   dictionaryCopy = dictionary;
   oslog = os_log_create("com.apple.metrickit.core.payload", "constructor");
@@ -333,56 +331,56 @@ LABEL_72:
 
 LABEL_4:
     v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v28 = dictionaryCopy;
+    v27 = dictionaryCopy;
     obj = dictionaryCopy;
-    v30 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
-    if (v30)
+    v29 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
+    if (v29)
     {
-      v29 = *v40;
+      v28 = *v39;
       do
       {
         v11 = 0;
         do
         {
-          if (*v40 != v29)
+          if (*v39 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v32 = v11;
-          v12 = *(*(&v39 + 1) + 8 * v11);
+          v31 = v11;
+          v12 = *(*(&v38 + 1) + 8 * v11);
           v13 = [obj objectForKeyedSubscript:v12];
           if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v44 = v13;
+            v43 = v13;
             _os_log_debug_impl(&dword_258D6F000, oslog, OS_LOG_TYPE_DEBUG, "Service data to parse: %@", buf, 0xCu);
           }
 
-          v37 = 0u;
-          v38 = 0u;
-          v35 = 0u;
           v36 = 0u;
+          v37 = 0u;
+          v34 = 0u;
+          v35 = 0u;
           v14 = v13;
-          v15 = [v14 countByEnumeratingWithState:&v35 objects:v47 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v34 objects:v46 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v36;
+            v17 = *v35;
             do
             {
               for (i = 0; i != v16; ++i)
               {
-                if (*v36 != v17)
+                if (*v35 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v19 = *(*(&v35 + 1) + 8 * i);
+                v19 = *(*(&v34 + 1) + 8 * i);
                 v20 = [v10 objectForKeyedSubscript:v19];
 
                 if (v20)
@@ -391,9 +389,9 @@ LABEL_4:
                   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412546;
-                    v44 = v21;
-                    v45 = 2112;
-                    v46 = v19;
+                    v43 = v21;
+                    v44 = 2112;
+                    v45 = v19;
                     _os_log_debug_impl(&dword_258D6F000, oslog, OS_LOG_TYPE_DEBUG, "Payload: %@ exists for date string: %@", buf, 0x16u);
                   }
 
@@ -410,20 +408,20 @@ LABEL_4:
                 }
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v35 objects:v47 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v34 objects:v46 count:16];
             }
 
             while (v16);
           }
 
-          v11 = v32 + 1;
+          v11 = v31 + 1;
         }
 
-        while (v32 + 1 != v30);
-        v30 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+        while (v31 + 1 != v29);
+        v29 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
       }
 
-      while (v30);
+      while (v29);
     }
 
     v24 = oslog;
@@ -434,7 +432,7 @@ LABEL_4:
 
     allValues = [v10 allValues];
 
-    dictionaryCopy = v28;
+    dictionaryCopy = v27;
     goto LABEL_28;
   }
 
@@ -453,8 +451,6 @@ LABEL_4:
 
   allValues = 0;
 LABEL_28:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return allValues;
 }
@@ -840,31 +836,31 @@ LABEL_43:
 
 + (id)buildSamplePayloadForClient:(id)client withDateString:(id)string
 {
-  v348[3] = *MEMORY[0x277D85DE8];
+  v347[3] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CD7A00];
   stringCopy = string;
   clientCopy = client;
-  v307 = [v5 alloc];
+  v306 = [v5 alloc];
   v8 = objc_alloc_init(MEMORY[0x277CCA968]);
-  v311 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
+  v310 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
   [v8 setLocale:?];
   [v8 setDateFormat:@"yyyy-MM-dd HH:mm"];
   localTimeZone = [MEMORY[0x277CBEBB0] localTimeZone];
   [v8 setTimeZone:localTimeZone];
 
   v10 = [stringCopy stringByAppendingString:@" 00:00"];
-  v338 = [v8 dateFromString:v10];
+  v337 = [v8 dateFromString:v10];
 
   v11 = [stringCopy stringByAppendingString:@" 23:59"];
 
-  v312 = v8;
-  v337 = [v8 dateFromString:v11];
+  v311 = v8;
+  v336 = [v8 dateFromString:v11];
 
-  v339 = 0;
-  v12 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:clientCopy allowPlaceholder:0 error:&v339];
+  v338 = 0;
+  v12 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:clientCopy allowPlaceholder:0 error:&v338];
 
-  v310 = v339;
-  if (v310)
+  v309 = v338;
+  if (v309)
   {
 
     v12 = 0;
@@ -880,16 +876,16 @@ LABEL_43:
   {
     [v12 bundleVersion];
   }
-  v336 = ;
+  v335 = ;
 
   bundleVersion = [v12 bundleVersion];
   v14 = objc_alloc(MEMORY[0x277CD79F8]);
   [MEMORY[0x277D28708] regionFormat];
-  v15 = v309 = v12;
+  v15 = v308 = v12;
   osVersion = [MEMORY[0x277D28708] osVersion];
   modelIdentifier = [MEMORY[0x277D28708] modelIdentifier];
   platformArchitecture = [MEMORY[0x277D28708] platformArchitecture];
-  v335 = [v14 initWithRegionFormat:v15 osVersion:osVersion deviceType:modelIdentifier appBuildVersion:bundleVersion platformArchitecture:platformArchitecture];
+  v334 = [v14 initWithRegionFormat:v15 osVersion:osVersion deviceType:modelIdentifier appBuildVersion:bundleVersion platformArchitecture:platformArchitecture];
 
   v19 = objc_alloc(MEMORY[0x277CD7928]);
   v20 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -898,13 +894,13 @@ LABEL_43:
   v23 = objc_alloc(MEMORY[0x277CCAB10]);
   v24 = [objc_alloc(MEMORY[0x277CCAD98]) initWithSymbol:@"kiloinstructions"];
   v25 = [v23 initWithDoubleValue:v24 unit:100.0];
-  v334 = [v19 initWithCumulativeCPUTimeMeasurement:v22 withCumulativeCPUInstructions:v25];
+  v333 = [v19 initWithCumulativeCPUTimeMeasurement:v22 withCumulativeCPUInstructions:v25];
 
   v26 = objc_alloc(MEMORY[0x277CD79B0]);
   v27 = objc_alloc(MEMORY[0x277CCAB10]);
   seconds2 = [MEMORY[0x277CCADD0] seconds];
   v29 = [v27 initWithDoubleValue:seconds2 unit:20.0];
-  v333 = [v26 initWithCumulativeGPUTimeMeasurement:v29];
+  v332 = [v26 initWithCumulativeGPUTimeMeasurement:v29];
 
   v30 = objc_alloc(MEMORY[0x277CD79D0]);
   v31 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -913,7 +909,7 @@ LABEL_43:
   v34 = objc_alloc(MEMORY[0x277CCAB10]);
   bars2 = [MEMORY[0x277CD7A58] bars];
   v36 = [v34 initWithDoubleValue:bars2 unit:1.0];
-  v306 = [v30 initWithBucketStart:v33 bucketEnd:v36 bucketCount:20];
+  v305 = [v30 initWithBucketStart:v33 bucketEnd:v36 bucketCount:20];
 
   v37 = objc_alloc(MEMORY[0x277CD79D0]);
   v38 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -922,7 +918,7 @@ LABEL_43:
   v41 = objc_alloc(MEMORY[0x277CCAB10]);
   bars4 = [MEMORY[0x277CD7A58] bars];
   v43 = [v41 initWithDoubleValue:bars4 unit:2.0];
-  v305 = [v37 initWithBucketStart:v40 bucketEnd:v43 bucketCount:30];
+  v304 = [v37 initWithBucketStart:v40 bucketEnd:v43 bucketCount:30];
 
   v44 = objc_alloc(MEMORY[0x277CD79D0]);
   v45 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -931,14 +927,14 @@ LABEL_43:
   v48 = objc_alloc(MEMORY[0x277CCAB10]);
   bars6 = [MEMORY[0x277CD7A58] bars];
   v50 = [v48 initWithDoubleValue:bars6 unit:3.0];
-  v304 = [v44 initWithBucketStart:v47 bucketEnd:v50 bucketCount:50];
+  v303 = [v44 initWithBucketStart:v47 bucketEnd:v50 bucketCount:50];
 
   v51 = objc_alloc(MEMORY[0x277CD7948]);
-  v348[0] = v306;
-  v348[1] = v305;
-  v348[2] = v304;
-  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v348 count:3];
-  v332 = [v51 initWithCellularConditionTime:v52];
+  v347[0] = v305;
+  v347[1] = v304;
+  v347[2] = v303;
+  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v347 count:3];
+  v331 = [v51 initWithCellularConditionTime:v52];
 
   v53 = objc_alloc(MEMORY[0x277CD78E8]);
   v54 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -953,12 +949,12 @@ LABEL_43:
   v63 = objc_alloc(MEMORY[0x277CCAB10]);
   seconds6 = [MEMORY[0x277CCADD0] seconds];
   v65 = [v63 initWithDoubleValue:seconds6 unit:30.0];
-  v331 = [v53 initWithCumulativeForegroundTimeMeasurement:v56 cumulativeBackgroundTimeMeasurement:v59 cumulativeBackgroundAudioTimeMeasurement:v62 cumulativeBackgroundLocationTimeMeasurement:v65];
+  v330 = [v53 initWithCumulativeForegroundTimeMeasurement:v56 cumulativeBackgroundTimeMeasurement:v59 cumulativeBackgroundAudioTimeMeasurement:v62 cumulativeBackgroundLocationTimeMeasurement:v65];
 
-  v329 = objc_alloc(MEMORY[0x277CD79D8]);
+  v328 = objc_alloc(MEMORY[0x277CD79D8]);
   v66 = objc_alloc(MEMORY[0x277CCAB10]);
   seconds7 = [MEMORY[0x277CCADD0] seconds];
-  v323 = [v66 initWithDoubleValue:seconds7 unit:30.0];
+  v322 = [v66 initWithDoubleValue:seconds7 unit:30.0];
   v67 = objc_alloc(MEMORY[0x277CCAB10]);
   seconds8 = [MEMORY[0x277CCADD0] seconds];
   v68 = [v67 initWithDoubleValue:seconds8 unit:20.0];
@@ -974,7 +970,7 @@ LABEL_43:
   v78 = objc_alloc(MEMORY[0x277CCAB10]);
   seconds12 = [MEMORY[0x277CCADD0] seconds];
   v80 = [v78 initWithDoubleValue:seconds12 unit:20.0];
-  v330 = [v329 initWithCumulativeBestAccuracyTimeMeasurement:v323 cumulativeBestAccuracyForNavigationTimeMeasurement:v68 nearestTenMetersAccuracyTimeMeasurement:v71 hundredMetersAccuracyTimeMeasurement:v74 kilometerAccuracyTimeMeasurement:v77 threeKilometerAccuracyTimeMeasurement:v80];
+  v329 = [v328 initWithCumulativeBestAccuracyTimeMeasurement:v322 cumulativeBestAccuracyForNavigationTimeMeasurement:v68 nearestTenMetersAccuracyTimeMeasurement:v71 hundredMetersAccuracyTimeMeasurement:v74 kilometerAccuracyTimeMeasurement:v77 threeKilometerAccuracyTimeMeasurement:v80];
 
   v81 = objc_alloc(MEMORY[0x277CD7A08]);
   v82 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -989,7 +985,7 @@ LABEL_43:
   v91 = objc_alloc(MEMORY[0x277CCAB10]);
   kilobytes4 = [MEMORY[0x277CCAE18] kilobytes];
   v93 = [v91 initWithDoubleValue:kilobytes4 unit:80000.0];
-  v328 = [v81 initWithCumulativeWifiUploadMeasurement:v84 cumulativeWifiDownloadMeasurement:v87 cumulativeCellularUploadMeasurement:v90 cumulativeCellularDownloadMeasurement:v93];
+  v327 = [v81 initWithCumulativeWifiUploadMeasurement:v84 cumulativeWifiDownloadMeasurement:v87 cumulativeCellularUploadMeasurement:v90 cumulativeCellularDownloadMeasurement:v93];
 
   v94 = objc_alloc(MEMORY[0x277CD79D0]);
   v95 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -998,7 +994,7 @@ LABEL_43:
   v98 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds2 = [MEMORY[0x277CCADD0] milliseconds];
   v100 = [v98 initWithDoubleValue:milliseconds2 unit:100.0];
-  v303 = [v94 initWithBucketStart:v97 bucketEnd:v100 bucketCount:50];
+  v302 = [v94 initWithBucketStart:v97 bucketEnd:v100 bucketCount:50];
 
   v101 = objc_alloc(MEMORY[0x277CD79D0]);
   v102 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1007,7 +1003,7 @@ LABEL_43:
   v105 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds4 = [MEMORY[0x277CCADD0] milliseconds];
   v107 = [v105 initWithDoubleValue:milliseconds4 unit:400.0];
-  v302 = [v101 initWithBucketStart:v104 bucketEnd:v107 bucketCount:60];
+  v301 = [v101 initWithBucketStart:v104 bucketEnd:v107 bucketCount:60];
 
   v108 = objc_alloc(MEMORY[0x277CD79D0]);
   v109 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1016,20 +1012,20 @@ LABEL_43:
   v112 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds6 = [MEMORY[0x277CCADD0] milliseconds];
   v114 = [v112 initWithDoubleValue:milliseconds6 unit:700.0];
-  v301 = [v108 initWithBucketStart:v111 bucketEnd:v114 bucketCount:30];
+  v300 = [v108 initWithBucketStart:v111 bucketEnd:v114 bucketCount:30];
 
   v115 = objc_alloc(MEMORY[0x277CD78D8]);
-  v347[0] = v303;
-  v347[1] = v302;
-  v347[2] = v301;
-  v116 = [MEMORY[0x277CBEA60] arrayWithObjects:v347 count:3];
-  v326 = [v115 initWithAppResponsivenessData:v116];
+  v346[0] = v302;
+  v346[1] = v301;
+  v346[2] = v300;
+  v116 = [MEMORY[0x277CBEA60] arrayWithObjects:v346 count:3];
+  v325 = [v115 initWithAppResponsivenessData:v116];
 
   v117 = objc_alloc(MEMORY[0x277CD7970]);
   v118 = objc_alloc(MEMORY[0x277CCAB10]);
   kilobytes5 = [MEMORY[0x277CCAE18] kilobytes];
   v120 = [v118 initWithDoubleValue:kilobytes5 unit:1300.0];
-  v324 = [v117 initWithCumulativeLogicalWritesMeasurement:v120];
+  v323 = [v117 initWithCumulativeLogicalWritesMeasurement:v120];
 
   v121 = objc_alloc(MEMORY[0x277CD79F0]);
   v122 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1040,7 +1036,7 @@ LABEL_43:
   kilobytes7 = [MEMORY[0x277CCAE18] kilobytes];
   v128 = [v126 initWithDoubleValue:kilobytes7 unit:100000.0];
   v129 = [v125 initWithMeasurement:v128 sampleCount:500 standardDeviation:0.0];
-  v300 = [v121 initWithPeakMemoryUsageMeasurement:v124 averageMemoryUsageMeasurement:v129];
+  v299 = [v121 initWithPeakMemoryUsageMeasurement:v124 averageMemoryUsageMeasurement:v129];
 
   v130 = objc_alloc(MEMORY[0x277CD79D0]);
   v131 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1049,7 +1045,7 @@ LABEL_43:
   v134 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds8 = [MEMORY[0x277CCADD0] milliseconds];
   v136 = [v134 initWithDoubleValue:milliseconds8 unit:100.0];
-  v319 = [v130 initWithBucketStart:v133 bucketEnd:v136 bucketCount:50];
+  v318 = [v130 initWithBucketStart:v133 bucketEnd:v136 bucketCount:50];
 
   v137 = objc_alloc(MEMORY[0x277CD79D0]);
   v138 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1058,7 +1054,7 @@ LABEL_43:
   v141 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds10 = [MEMORY[0x277CCADD0] milliseconds];
   v143 = [v141 initWithDoubleValue:milliseconds10 unit:400.0];
-  v299 = [v137 initWithBucketStart:v140 bucketEnd:v143 bucketCount:60];
+  v298 = [v137 initWithBucketStart:v140 bucketEnd:v143 bucketCount:60];
 
   v144 = objc_alloc(MEMORY[0x277CD79D0]);
   v145 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1067,7 +1063,7 @@ LABEL_43:
   v148 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds12 = [MEMORY[0x277CCADD0] milliseconds];
   v150 = [v148 initWithDoubleValue:milliseconds12 unit:700.0];
-  v298 = [v144 initWithBucketStart:v147 bucketEnd:v150 bucketCount:30];
+  v297 = [v144 initWithBucketStart:v147 bucketEnd:v150 bucketCount:30];
 
   v151 = objc_alloc(MEMORY[0x277CD79D0]);
   v152 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1076,7 +1072,7 @@ LABEL_43:
   v155 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds14 = [MEMORY[0x277CCADD0] milliseconds];
   v157 = [v155 initWithDoubleValue:milliseconds14 unit:200.0];
-  v322 = [v151 initWithBucketStart:v154 bucketEnd:v157 bucketCount:60];
+  v321 = [v151 initWithBucketStart:v154 bucketEnd:v157 bucketCount:60];
 
   v158 = objc_alloc(MEMORY[0x277CD79D0]);
   v159 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1085,7 +1081,7 @@ LABEL_43:
   v162 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds16 = [MEMORY[0x277CCADD0] milliseconds];
   v164 = [v162 initWithDoubleValue:milliseconds16 unit:300.0];
-  v321 = [v158 initWithBucketStart:v161 bucketEnd:v164 bucketCount:70];
+  v320 = [v158 initWithBucketStart:v161 bucketEnd:v164 bucketCount:70];
 
   v165 = objc_alloc(MEMORY[0x277CD79D0]);
   v166 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1094,14 +1090,14 @@ LABEL_43:
   v169 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds18 = [MEMORY[0x277CCADD0] milliseconds];
   v171 = [v169 initWithDoubleValue:milliseconds18 unit:500.0];
-  v320 = [v165 initWithBucketStart:v168 bucketEnd:v171 bucketCount:80];
+  v319 = [v165 initWithBucketStart:v168 bucketEnd:v171 bucketCount:80];
 
-  v315 = objc_alloc(MEMORY[0x277CD7A30]);
-  v313 = objc_alloc(MEMORY[0x277CD7A18]);
-  v346[0] = v319;
-  v346[1] = v299;
-  v346[2] = v298;
-  v295 = [MEMORY[0x277CBEA60] arrayWithObjects:v346 count:3];
+  v314 = objc_alloc(MEMORY[0x277CD7A30]);
+  v312 = objc_alloc(MEMORY[0x277CD7A18]);
+  v345[0] = v318;
+  v345[1] = v298;
+  v345[2] = v297;
+  v294 = [MEMORY[0x277CBEA60] arrayWithObjects:v345 count:3];
   v172 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds19 = [MEMORY[0x277CCADD0] milliseconds];
   v173 = [v172 initWithDoubleValue:milliseconds19 unit:30000.0];
@@ -1116,15 +1112,15 @@ LABEL_43:
   v182 = objc_alloc(MEMORY[0x277CCAB10]);
   v183 = [objc_alloc(MEMORY[0x277CCAD98]) initWithSymbol:@"ms per s"];
   v184 = [v182 initWithDoubleValue:v183 unit:50.0];
-  v185 = [v313 initWithHistogramDurationData:v295 withCumulativeCPUTime:v173 withAverageMemory:v178 withCumulativeLogicalWrites:v181 withCumulativeHitchTimeRatio:v184];
-  v297 = [v315 initWithSignpostName:@"TestSignpostName1" withSignpostCategory:@"TestSignpostCategory1" withTotalCount:30 withSignpostIntervalData:v185];
+  v185 = [v312 initWithHistogramDurationData:v294 withCumulativeCPUTime:v173 withAverageMemory:v178 withCumulativeLogicalWrites:v181 withCumulativeHitchTimeRatio:v184];
+  v296 = [v314 initWithSignpostName:@"TestSignpostName1" withSignpostCategory:@"TestSignpostCategory1" withTotalCount:30 withSignpostIntervalData:v185];
 
   v186 = objc_alloc(MEMORY[0x277CD7A30]);
   v187 = objc_alloc(MEMORY[0x277CD7A18]);
-  v345[0] = v322;
-  v345[1] = v321;
-  v345[2] = v320;
-  v188 = [MEMORY[0x277CBEA60] arrayWithObjects:v345 count:3];
+  v344[0] = v321;
+  v344[1] = v320;
+  v344[2] = v319;
+  v188 = [MEMORY[0x277CBEA60] arrayWithObjects:v344 count:3];
   v189 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds20 = [MEMORY[0x277CCADD0] milliseconds];
   v191 = [v189 initWithDoubleValue:milliseconds20 unit:50000.0];
@@ -1137,7 +1133,7 @@ LABEL_43:
   kilobytes11 = [MEMORY[0x277CCAE18] kilobytes];
   v199 = [v197 initWithDoubleValue:kilobytes11 unit:700.0];
   v200 = [v187 initWithHistogramDurationData:v188 withCumulativeCPUTime:v191 withAverageMemory:v196 withCumulativeLogicalWrites:v199];
-  v296 = [v186 initWithSignpostName:@"TestSignpostName2" withSignpostCategory:@"TestSignpostCategory2" withTotalCount:40 withSignpostIntervalData:v200];
+  v295 = [v186 initWithSignpostName:@"TestSignpostName2" withSignpostCategory:@"TestSignpostCategory2" withTotalCount:40 withSignpostIntervalData:v200];
 
   v201 = objc_alloc(MEMORY[0x277CD7998]);
   v202 = objc_alloc(MEMORY[0x277CD78F8]);
@@ -1145,7 +1141,7 @@ LABEL_43:
   v204 = [MEMORY[0x277CD7A40] apl];
   v205 = [v203 initWithDoubleValue:v204 unit:50.0];
   v206 = [v202 initWithMeasurement:v205 sampleCount:500 standardDeviation:0.0];
-  v294 = [v201 initWithAveragePictureLevel:v206];
+  v293 = [v201 initWithAveragePictureLevel:v206];
 
   v207 = objc_alloc(MEMORY[0x277CD78A8]);
   v208 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1154,12 +1150,12 @@ LABEL_43:
   v211 = objc_alloc(MEMORY[0x277CCAB10]);
   v212 = [objc_alloc(MEMORY[0x277CCAD98]) initWithSymbol:@"ms per s"];
   v213 = [v211 initWithDoubleValue:v212 unit:1000.0];
-  v293 = [v207 initWithHitchTimeRatio:v210 perceivedHitchTimeRatio:v213];
+  v292 = [v207 initWithHitchTimeRatio:v210 perceivedHitchTimeRatio:v213];
 
   v214 = objc_alloc(MEMORY[0x277CD78B8]);
   v215 = [objc_alloc(MEMORY[0x277CD79A8]) initWithNormalAppExitCount:1 withMemoryResourceLimitExitCount:1 withCPUResourceLimitExitCount:1 withBadAccessExitCount:1 withAbnormalExitCount:1 withIllegalInstructionExitCount:1 withAppWatchDogExitCount:1];
   v216 = [objc_alloc(MEMORY[0x277CD7910]) initWithNormalAppExitCount:1 memoryResourceLimitExitCount:1 cpuResourceLimitExitCount:1 memoryPressureExitCount:1 badAccessExitCount:1 abnormalExitCount:1 illegalInstructionExitCount:1 appWatchDogExitCount:1 cumulativeSuspendedWithLockedFileExitCount:1 cumulativeBackgroundTaskAssertionTimeoutExitCount:1 cumulativeBackgroundURLSessionCompletionTimeoutExitCount:1 cumulativeBackgroundFetchCompletionTimeoutExitCount:1];
-  v292 = [v214 initWithForegroundExitData:v215 backgroundExitData:v216];
+  v291 = [v214 initWithForegroundExitData:v215 backgroundExitData:v216];
 
   v217 = objc_alloc(MEMORY[0x277CD79D0]);
   v218 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1168,7 +1164,7 @@ LABEL_43:
   v221 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds22 = [MEMORY[0x277CCADD0] milliseconds];
   v223 = [v221 initWithDoubleValue:milliseconds22 unit:1010.0];
-  v318 = [v217 initWithBucketStart:v220 bucketEnd:v223 bucketCount:50];
+  v317 = [v217 initWithBucketStart:v220 bucketEnd:v223 bucketCount:50];
 
   v224 = objc_alloc(MEMORY[0x277CD79D0]);
   v225 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1177,7 +1173,7 @@ LABEL_43:
   v228 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds24 = [MEMORY[0x277CCADD0] milliseconds];
   v230 = [v228 initWithDoubleValue:milliseconds24 unit:2010.0];
-  v316 = [v224 initWithBucketStart:v227 bucketEnd:v230 bucketCount:60];
+  v315 = [v224 initWithBucketStart:v227 bucketEnd:v230 bucketCount:60];
 
   v231 = objc_alloc(MEMORY[0x277CD79D0]);
   v232 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1186,7 +1182,7 @@ LABEL_43:
   v235 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds26 = [MEMORY[0x277CCADD0] milliseconds];
   v237 = [v235 initWithDoubleValue:milliseconds26 unit:3010.0];
-  v314 = [v231 initWithBucketStart:v234 bucketEnd:v237 bucketCount:30];
+  v313 = [v231 initWithBucketStart:v234 bucketEnd:v237 bucketCount:30];
 
   v238 = objc_alloc(MEMORY[0x277CD79D0]);
   v239 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1195,7 +1191,7 @@ LABEL_43:
   v242 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds28 = [MEMORY[0x277CCADD0] milliseconds];
   v244 = [v242 initWithDoubleValue:milliseconds28 unit:210.0];
-  v291 = [v238 initWithBucketStart:v241 bucketEnd:v244 bucketCount:60];
+  v290 = [v238 initWithBucketStart:v241 bucketEnd:v244 bucketCount:60];
 
   v245 = objc_alloc(MEMORY[0x277CD79D0]);
   v246 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1204,7 +1200,7 @@ LABEL_43:
   v249 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds30 = [MEMORY[0x277CCADD0] milliseconds];
   v251 = [v249 initWithDoubleValue:milliseconds30 unit:310.0];
-  v290 = [v245 initWithBucketStart:v248 bucketEnd:v251 bucketCount:70];
+  v289 = [v245 initWithBucketStart:v248 bucketEnd:v251 bucketCount:70];
 
   v252 = objc_alloc(MEMORY[0x277CD79D0]);
   v253 = objc_alloc(MEMORY[0x277CCAB10]);
@@ -1213,31 +1209,31 @@ LABEL_43:
   v256 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds32 = [MEMORY[0x277CCADD0] milliseconds];
   v258 = [v256 initWithDoubleValue:milliseconds32 unit:510.0];
-  v289 = [v252 initWithBucketStart:v255 bucketEnd:v258 bucketCount:80];
+  v288 = [v252 initWithBucketStart:v255 bucketEnd:v258 bucketCount:80];
 
   v259 = objc_alloc(MEMORY[0x277CD78C8]);
-  v344[0] = v318;
-  v344[1] = v316;
-  v344[2] = v314;
-  v260 = [MEMORY[0x277CBEA60] arrayWithObjects:v344 count:3];
-  v343[0] = v291;
-  v343[1] = v290;
-  v343[2] = v289;
-  v261 = [MEMORY[0x277CBEA60] arrayWithObjects:v343 count:3];
-  v342[0] = v318;
-  v342[1] = v316;
-  v342[2] = v314;
-  v262 = [MEMORY[0x277CBEA60] arrayWithObjects:v342 count:3];
-  v341[0] = v318;
-  v341[1] = v316;
-  v341[2] = v314;
-  v263 = [MEMORY[0x277CBEA60] arrayWithObjects:v341 count:3];
-  v288 = [v259 initWithLaunchTimeData:v260 withResumeTimeData:v261 withActivationTimeData:v262 withExtendedLaunchTimeData:v263];
+  v343[0] = v317;
+  v343[1] = v315;
+  v343[2] = v313;
+  v260 = [MEMORY[0x277CBEA60] arrayWithObjects:v343 count:3];
+  v342[0] = v290;
+  v342[1] = v289;
+  v342[2] = v288;
+  v261 = [MEMORY[0x277CBEA60] arrayWithObjects:v342 count:3];
+  v341[0] = v317;
+  v341[1] = v315;
+  v341[2] = v313;
+  v262 = [MEMORY[0x277CBEA60] arrayWithObjects:v341 count:3];
+  v340[0] = v317;
+  v340[1] = v315;
+  v340[2] = v313;
+  v263 = [MEMORY[0x277CBEA60] arrayWithObjects:v340 count:3];
+  v287 = [v259 initWithLaunchTimeData:v260 withResumeTimeData:v261 withActivationTimeData:v262 withExtendedLaunchTimeData:v263];
 
-  v284 = objc_alloc(MEMORY[0x277CD7980]);
+  v283 = objc_alloc(MEMORY[0x277CD7980]);
   v264 = objc_alloc(MEMORY[0x277CCAB10]);
   kilobytes12 = [MEMORY[0x277CCAE18] kilobytes];
-  v283 = [v264 initWithDoubleValue:kilobytes12 unit:2000.0];
+  v282 = [v264 initWithDoubleValue:kilobytes12 unit:2000.0];
   v265 = objc_alloc(MEMORY[0x277CCAB10]);
   kilobytes13 = [MEMORY[0x277CCAE18] kilobytes];
   v266 = [v265 initWithDoubleValue:kilobytes13 unit:60000.0];
@@ -1253,41 +1249,39 @@ LABEL_43:
   v276 = objc_alloc(MEMORY[0x277CCAB10]);
   kilobytes17 = [MEMORY[0x277CCAE18] kilobytes];
   v278 = [v276 initWithDoubleValue:kilobytes17 unit:60000.0];
-  v285 = [v284 initWithTotalBinaryFileSize:v283 totalBinaryFileCount:2 totalDataFileSize:v266 totalDataFileCount:2 totalCacheFolderSize:v269 totalCloneSize:v272 totalDiskSpaceUsedSize:v275 totalDiskSpaceCapacity:v278];
+  v284 = [v283 initWithTotalBinaryFileSize:v282 totalBinaryFileCount:2 totalDataFileSize:v266 totalDataFileCount:2 totalCacheFolderSize:v269 totalCloneSize:v272 totalDiskSpaceUsedSize:v275 totalDiskSpaceCapacity:v278];
 
-  v279 = [v307 initWithAppVersion:v336 withMutipleAppVersions:0 withTimeStampBegin:v338 withTimeStampEnd:v337];
-  [v279 setMetaData:v335];
-  [v279 setCpuMetrics:v334];
-  [v279 setGpuMetrics:v333];
-  [v279 setCellularConditionMetrics:v332];
-  [v279 setApplicationTimeMetrics:v331];
-  [v279 setLocationActivityMetrics:v330];
-  [v279 setNetworkTransferMetrics:v328];
-  [v279 setApplicationLaunchMetrics:v288];
-  [v279 setApplicationResponsivenessMetrics:v326];
-  [v279 setDiskIOMetrics:v324];
-  [v279 setDisplayMetrics:v294];
-  [v279 setAnimationMetrics:v293];
-  [v279 setApplicationExitMetrics:v292];
-  [v279 setMemoryMetrics:v300];
-  [v279 setDiskSpaceUsageMetrics:v285];
-  v340[0] = v297;
-  v340[1] = v296;
-  v280 = [MEMORY[0x277CBEA60] arrayWithObjects:v340 count:2];
+  v279 = [v306 initWithAppVersion:v335 withMutipleAppVersions:0 withTimeStampBegin:v337 withTimeStampEnd:v336];
+  [v279 setMetaData:v334];
+  [v279 setCpuMetrics:v333];
+  [v279 setGpuMetrics:v332];
+  [v279 setCellularConditionMetrics:v331];
+  [v279 setApplicationTimeMetrics:v330];
+  [v279 setLocationActivityMetrics:v329];
+  [v279 setNetworkTransferMetrics:v327];
+  [v279 setApplicationLaunchMetrics:v287];
+  [v279 setApplicationResponsivenessMetrics:v325];
+  [v279 setDiskIOMetrics:v323];
+  [v279 setDisplayMetrics:v293];
+  [v279 setAnimationMetrics:v292];
+  [v279 setApplicationExitMetrics:v291];
+  [v279 setMemoryMetrics:v299];
+  [v279 setDiskSpaceUsageMetrics:v284];
+  v339[0] = v296;
+  v339[1] = v295;
+  v280 = [MEMORY[0x277CBEA60] arrayWithObjects:v339 count:2];
   [v279 setSignpostMetrics:v280];
-
-  v281 = *MEMORY[0x277D85DE8];
 
   return v279;
 }
 
 + (id)buildSampleDiagnosticPayloadForClient:(id)client withDateString:(id)string
 {
-  v97[5] = *MEMORY[0x277D85DE8];
+  v96[5] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA968];
   clientCopy = client;
   v6 = objc_alloc_init(v4);
-  v83 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
+  v82 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
   [v6 setLocale:?];
   [v6 setDateFormat:@"yyyy-MM-dd HH:mm"];
   localTimeZone = [MEMORY[0x277CBEBB0] localTimeZone];
@@ -1295,12 +1289,12 @@ LABEL_43:
 
   date = [MEMORY[0x277CBEAA8] date];
   v9 = [v6 stringFromDate:date];
-  v82 = [v6 dateFromString:v9];
+  v81 = [v6 dateFromString:v9];
 
   date2 = [MEMORY[0x277CBEAA8] date];
   v11 = [v6 stringFromDate:date2];
-  v84 = v6;
-  v81 = [v6 dateFromString:v11];
+  v83 = v6;
+  v80 = [v6 dateFromString:v11];
 
   v12 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:clientCopy allowPlaceholder:0 error:0];
   shortVersionString = [v12 shortVersionString];
@@ -1313,28 +1307,28 @@ LABEL_43:
   {
     [v12 bundleVersion];
   }
-  v90 = ;
+  v89 = ;
 
   bundleVersion = [v12 bundleVersion];
   v14 = objc_alloc(MEMORY[0x277CD79F8]);
   [MEMORY[0x277D28708] regionFormat];
-  v15 = v80 = v12;
+  v15 = v79 = v12;
   osVersion = [MEMORY[0x277D28708] osVersion];
   modelIdentifier = [MEMORY[0x277D28708] modelIdentifier];
   platformArchitecture = [MEMORY[0x277D28708] platformArchitecture];
   v19 = [v14 initWithRegionFormat:v15 osVersion:osVersion deviceType:modelIdentifier appBuildVersion:bundleVersion platformArchitecture:platformArchitecture];
 
-  v88 = v19;
+  v87 = v19;
   [v19 setLowPowerModeEnabled:1];
   [v19 setIsTestFlightApp:0];
   [v19 setPid:123];
   v20 = objc_alloc(MEMORY[0x277CCAB10]);
   seconds = [MEMORY[0x277CCADD0] seconds];
-  v87 = [v20 initWithDoubleValue:seconds unit:20.0];
+  v86 = [v20 initWithDoubleValue:seconds unit:20.0];
 
   v22 = objc_alloc(MEMORY[0x277CCAB10]);
   bytes = [MEMORY[0x277CCAE18] bytes];
-  v89 = [v22 initWithDoubleValue:bytes unit:2000.0];
+  v88 = [v22 initWithDoubleValue:bytes unit:2000.0];
 
   v24 = objc_alloc(MEMORY[0x277CD7940]);
   v25 = objc_alloc(MEMORY[0x277CBEA60]);
@@ -1348,7 +1342,7 @@ LABEL_43:
   v33 = [v27 initWithObjects:{v32, 0}];
   v34 = [v26 initWithTopCallStackFrames:v33 isAttributedThread:1];
   v35 = [v25 initWithObjects:v34];
-  v86 = [v24 initWithThreadArray:v35 aggregatedByProcess:1];
+  v85 = [v24 initWithThreadArray:v35 aggregatedByProcess:1];
 
   v36 = objc_alloc(MEMORY[0x277CD7940]);
   v37 = objc_alloc(MEMORY[0x277CBEA60]);
@@ -1365,73 +1359,68 @@ LABEL_43:
   v48 = [v36 initWithThreadArray:v47 aggregatedByProcess:0];
 
   date3 = [MEMORY[0x277CBEAA8] date];
-  LOBYTE(v67) = 0;
-  v77 = [objc_alloc(MEMORY[0x277CD7A38]) initWithSubSystem:@"testEventSubsystem" category:@"testEventCategory" name:@"testEventName" beginTimeStamp:date3 endTimeStamp:0 duration:0 isInterval:v67];
+  LOBYTE(v66) = 0;
+  v76 = [objc_alloc(MEMORY[0x277CD7A38]) initWithSubSystem:@"testEventSubsystem" category:@"testEventCategory" name:@"testEventName" beginTimeStamp:date3 endTimeStamp:0 duration:0 isInterval:v66];
   v50 = objc_alloc(MEMORY[0x277CD7A38]);
-  v78 = date3;
+  v77 = date3;
   v51 = [date3 addTimeInterval:-5.0];
   v52 = objc_alloc(MEMORY[0x277CCAB10]);
   milliseconds = [MEMORY[0x277CCADD0] milliseconds];
   v54 = [v52 initWithDoubleValue:milliseconds unit:5000.0];
-  LOBYTE(v68) = 1;
-  v76 = [v50 initWithSubSystem:@"testIntervalSubsystem" category:@"testIntervalCategory" name:@"testIntervalName" beginTimeStamp:v51 endTimeStamp:date3 duration:v54 isInterval:v68];
+  LOBYTE(v67) = 1;
+  v75 = [v50 initWithSubSystem:@"testIntervalSubsystem" category:@"testIntervalCategory" name:@"testIntervalName" beginTimeStamp:v51 endTimeStamp:date3 duration:v54 isInterval:v67];
 
   array = [MEMORY[0x277CBEB18] array];
-  [array addObject:v77];
   [array addObject:v76];
-  v85 = [objc_alloc(MEMORY[0x277CD7918]) initWithMetaData:v88 applicationVersion:v87 signpostData:? pid:? callStack:? totalCpuTime:? totalSampledTime:?];
-  v72 = [objc_alloc(MEMORY[0x277CD79C0]) initWithMetaData:v88 applicationVersion:v90 signpostData:array pid:123 callStack:v48 hangDuration:v87];
-  v75 = v48;
-  v71 = [objc_alloc(MEMORY[0x277CD78C0]) initWithMetaData:v88 applicationVersion:v90 signpostData:array pid:123 callStack:v48 launchDuration:v87];
-  v73 = [objc_alloc(MEMORY[0x277CD7988]) initWithMetaData:v88 applicationVersion:v90 signpostData:array pid:123 totalWritesCaused:v89 stackTrace:v86];
-  v74 = [objc_alloc(MEMORY[0x277CD7960]) initWithComposedMessage:@"*** -[NSArray objectAtIndex:]: index 0 beyond bounds for empty array" formatString:@"*** -[%@ %@]: index %@ beyond bounds for empty array" arguments:&unk_286A1BC28 type:@"NSRangeException" className:@"NSException" exceptionName:@"NSRangeException"];
-  v56 = [objc_alloc(MEMORY[0x277CD7958]) initWithMetaData:v88 applicationVersion:v90 signpostData:array pid:123 terminationReason:@"Namespace SIGNAL applicationSpecificInfo:Code 0xb" virtualMemoryRegionInfo:&unk_286A1BC40 exceptionType:@"0 is not in any region.  Bytes before following region: 4000000000 REGION TYPE                      START - END             [ VSIZE] PRT/MAX SHRMOD  REGION DETAIL UNUSED SPACE AT START ---> __TEXT                 0000000000000000-0000000000000000 [   32K] r-x/r-x SM=COW  ...pp/Test" exceptionCode:&unk_286A1BC88 exceptionReason:&unk_286A1BCA0 signal:v74 stackTrace:{&unk_286A1BCB8, v48}];
+  [array addObject:v75];
+  v84 = [objc_alloc(MEMORY[0x277CD7918]) initWithMetaData:v87 applicationVersion:v86 signpostData:? pid:? callStack:? totalCpuTime:? totalSampledTime:?];
+  v71 = [objc_alloc(MEMORY[0x277CD79C0]) initWithMetaData:v87 applicationVersion:v89 signpostData:array pid:123 callStack:v48 hangDuration:v86];
+  v74 = v48;
+  v70 = [objc_alloc(MEMORY[0x277CD78C0]) initWithMetaData:v87 applicationVersion:v89 signpostData:array pid:123 callStack:v48 launchDuration:v86];
+  v72 = [objc_alloc(MEMORY[0x277CD7988]) initWithMetaData:v87 applicationVersion:v89 signpostData:array pid:123 totalWritesCaused:v88 stackTrace:v85];
+  v73 = [objc_alloc(MEMORY[0x277CD7960]) initWithComposedMessage:@"*** -[NSArray objectAtIndex:]: index 0 beyond bounds for empty array" formatString:@"*** -[%@ %@]: index %@ beyond bounds for empty array" arguments:&unk_286A1BC28 type:@"NSRangeException" className:@"NSException" exceptionName:@"NSRangeException"];
+  v56 = [objc_alloc(MEMORY[0x277CD7958]) initWithMetaData:v87 applicationVersion:v89 signpostData:array pid:123 terminationReason:@"Namespace SIGNAL applicationSpecificInfo:Code 0xb" virtualMemoryRegionInfo:&unk_286A1BC40 exceptionType:@"0 is not in any region.  Bytes before following region: 4000000000 REGION TYPE                      START - END             [ VSIZE] PRT/MAX SHRMOD  REGION DETAIL UNUSED SPACE AT START ---> __TEXT                 0000000000000000-0000000000000000 [   32K] r-x/r-x SM=COW  ...pp/Test" exceptionCode:&unk_286A1BC88 exceptionReason:&unk_286A1BCA0 signal:v73 stackTrace:{&unk_286A1BCB8, v48}];
   v57 = objc_alloc(MEMORY[0x277CD7968]);
-  v70 = [MEMORY[0x277CBEAA8] now];
+  v69 = [MEMORY[0x277CBEAA8] now];
   v58 = [MEMORY[0x277CBEAA8] now];
-  v95 = v73;
-  v96[0] = @"diskWriteExceptionDiagnostics";
-  v59 = [MEMORY[0x277CBEA60] arrayWithObjects:&v95 count:1];
-  v97[0] = v59;
-  v96[1] = @"hangDiagnostics";
   v94 = v72;
-  v60 = [MEMORY[0x277CBEA60] arrayWithObjects:&v94 count:1];
-  v97[1] = v60;
-  v96[2] = @"appLaunchDiagnostics";
+  v95[0] = @"diskWriteExceptionDiagnostics";
+  v59 = [MEMORY[0x277CBEA60] arrayWithObjects:&v94 count:1];
+  v96[0] = v59;
+  v95[1] = @"hangDiagnostics";
   v93 = v71;
-  v61 = [MEMORY[0x277CBEA60] arrayWithObjects:&v93 count:1];
-  v97[2] = v61;
-  v96[3] = @"cpuExceptionDiagnostics";
-  v92 = v85;
-  v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v92 count:1];
-  v97[3] = v62;
-  v96[4] = @"crashDiagnostics";
-  v91 = v56;
-  v63 = [MEMORY[0x277CBEA60] arrayWithObjects:&v91 count:1];
-  v97[4] = v63;
-  v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:5];
-  v69 = [v57 initWithTimeStampBegin:v70 withTimeStampEnd:v58 withDiagnostics:v64];
+  v60 = [MEMORY[0x277CBEA60] arrayWithObjects:&v93 count:1];
+  v96[1] = v60;
+  v95[2] = @"appLaunchDiagnostics";
+  v92 = v70;
+  v61 = [MEMORY[0x277CBEA60] arrayWithObjects:&v92 count:1];
+  v96[2] = v61;
+  v95[3] = @"cpuExceptionDiagnostics";
+  v91 = v84;
+  v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v91 count:1];
+  v96[3] = v62;
+  v95[4] = @"crashDiagnostics";
+  v90 = v56;
+  v63 = [MEMORY[0x277CBEA60] arrayWithObjects:&v90 count:1];
+  v96[4] = v63;
+  v64 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:v95 count:5];
+  v68 = [v57 initWithTimeStampBegin:v69 withTimeStampEnd:v58 withDiagnostics:v64];
 
-  v65 = *MEMORY[0x277D85DE8];
-
-  return v69;
+  return v68;
 }
 
 + (void)buildDiagnosticPayloadForClient:fromClientDiagnosticsDictionary:withDateString:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)buildDiagnosticPayloadForClient:fromClientDiagnosticsDictionary:withDateString:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(&dword_258D6F000, v0, OS_LOG_TYPE_DEBUG, "Construction Step: Date Data: %@, %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_258D6F000, v0, OS_LOG_TYPE_DEBUG, "Construction Step: Date Data: %@, %@", v1, 0x16u);
 }
 
 + (void)buildDiagnosticPayloadForClient:fromClientDiagnosticsDictionary:withDateString:.cold.3()
@@ -1469,23 +1458,12 @@ LABEL_43:
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-+ (void)buildDiagnosticPayloadForClient:fromClientDiagnosticsDictionary:withDateString:.cold.8()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_3(&dword_258D6F000, v0, v1, "No diagnostic service payloads found for client: %@ date: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 + (void)buildMetricPayloadForClient:(void *)a1 fromClientMetricsDictionary:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 allValues];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)updatePayload:withServiceString:withSourceData:withDateString:forClient:.cold.1()
@@ -1498,24 +1476,19 @@ LABEL_43:
 + (void)updatePayload:withServiceString:withSourceData:withDateString:forClient:.cold.2()
 {
   OUTLINED_FUNCTION_8();
-  v9 = *MEMORY[0x277D85DE8];
   [v1 beginDate];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_7_0() endDate];
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)updatePayload:withServiceString:withSourceData:withDateString:forClient:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)updatePayload:withServiceString:withSourceData:withDateString:forClient:.cold.5()
@@ -1527,11 +1500,9 @@ LABEL_43:
 
 + (void)updatePayload:withServiceString:withSourceData:withDateString:forClient:.cold.7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)constructPayloadWithServiceString:withSourceData:withDateString:forClient:.cold.1()
@@ -1541,30 +1512,18 @@ LABEL_43:
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-+ (void)constructPayloadWithServiceString:withSourceData:withDateString:forClient:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_3(&dword_258D6F000, v0, v1, "Error retrieving app record for %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 + (void)constructPayloadWithServiceString:withSourceData:withDateString:forClient:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)constructPayloadWithServiceString:withSourceData:withDateString:forClient:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)constructPayloadWithServiceString:withSourceData:withDateString:forClient:.cold.5()
@@ -1576,19 +1535,16 @@ LABEL_43:
 
 + (void)constructPayloadWithServiceString:withSourceData:withDateString:forClient:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)constructPayloadWithServiceString:withSourceData:withDateString:forClient:.cold.7()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_258D6F000, v0, OS_LOG_TYPE_ERROR, "Compatible service string not found. Received: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_258D6F000, v0, OS_LOG_TYPE_ERROR, "Compatible service string not found. Received: %@", v1, 0xCu);
 }
 
 + (void)constructPayloadWithServiceString:withSourceData:withDateString:forClient:.cold.8()
@@ -1601,24 +1557,19 @@ LABEL_43:
 + (void)constructPayloadWithServiceString:withSourceData:withDateString:forClient:.cold.9()
 {
   OUTLINED_FUNCTION_8();
-  v9 = *MEMORY[0x277D85DE8];
   [v1 beginDate];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_7_0() endDate];
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_3();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)constructPayloadWithServiceString:withSourceData:withDateString:forClient:.cold.10()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)constructPayloadWithServiceString:withSourceData:withDateString:forClient:.cold.12()
@@ -1630,11 +1581,9 @@ LABEL_43:
 
 + (void)constructPayloadWithServiceString:withSourceData:withDateString:forClient:.cold.14()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

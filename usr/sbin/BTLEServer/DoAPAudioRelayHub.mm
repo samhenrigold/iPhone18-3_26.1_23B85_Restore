@@ -4,6 +4,7 @@
 - (BOOL)isXpcConnectedForDeviceType:(int64_t)type;
 - (DoAPAudioRelayHub)init;
 - (id)relayForIdentifier:(id)identifier;
+- (id)relayWithIdentifier:(id)identifier deviceType:(int64_t)type properties:(id)properties codecType:(unsigned __int8)codecType;
 - (void)handleCheckInMsg:(id)msg applicationID:(const char *)d;
 - (void)handleConnection:(id)connection;
 - (void)handleConnectionEvent:(id)event;
@@ -68,6 +69,44 @@
   v3 = qword_1000DDAB8;
 
   return v3;
+}
+
+- (id)relayWithIdentifier:(id)identifier deviceType:(int64_t)type properties:(id)properties codecType:(unsigned __int8)codecType
+{
+  codecTypeCopy = codecType;
+  identifierCopy = identifier;
+  propertiesCopy = properties;
+  v12 = [(DoAPAudioRelayHub *)self relayForIdentifier:identifierCopy];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = qword_1000DDBC8;
+    if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = 138412290;
+      v19 = v13;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "DoAPAudioRelayHub - Publishing DoAPAudioRelay %@ already done", &v18, 0xCu);
+    }
+  }
+
+  else
+  {
+    v13 = [[DoAPAudioRelay alloc] initWithIdentifier:identifierCopy deviceType:type properties:propertiesCopy codecType:codecTypeCopy hub:self];
+    doapAudioRelays = [(DoAPAudioRelayHub *)self doapAudioRelays];
+    [doapAudioRelays addObject:v13];
+
+    v16 = qword_1000DDBC8;
+    if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = 138412290;
+      v19 = v13;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "DoAPAudioRelayHub - Publishing DoAPAudioRelay %@", &v18, 0xCu);
+    }
+
+    [(DoAPAudioRelay *)v13 publish];
+  }
+
+  return v13;
 }
 
 - (BOOL)isXpcConnectedForDeviceType:(int64_t)type
@@ -711,9 +750,9 @@ LABEL_24:
         [v18 setValue:identifier2 forKey:@"kMsgArgIdentifier"];
       }
 
-      if ([v16 codec])
+      if (objc_msgSend_codec(v16))
       {
-        v26 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [v16 codec]);
+        v26 = [NSNumber numberWithUnsignedChar:objc_msgSend_codec(v16)];
         [v18 setValue:v26 forKey:@"kMsgCodecType"];
       }
 

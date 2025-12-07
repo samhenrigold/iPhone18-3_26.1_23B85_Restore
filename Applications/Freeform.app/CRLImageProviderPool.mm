@@ -68,7 +68,7 @@
 {
   assetCopy = asset;
   type = [assetCopy type];
-  v5 = sub_1000ECC48();
+  v5 = sub_1000ECC48(type);
   v6 = [type conformsToType:v5];
 
   if (v6)
@@ -90,7 +90,7 @@
   dataCopy = data;
   type = [dataCopy type];
   identifier = [type identifier];
-  v6 = sub_1000ECC48();
+  v6 = sub_1000ECC48(identifier);
   v7 = [type conformsToType:v6];
 
   if (v7)

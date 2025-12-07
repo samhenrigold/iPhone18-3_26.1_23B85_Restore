@@ -228,7 +228,7 @@ void __84__WFChooseFromListAction_resolveSlot_withProcessedValue_parameter_input
 
 - (void)presentAlertWithUserInterface:(id)interface prompt:(id)prompt input:(id)input
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   interfaceCopy = interface;
   promptCopy = prompt;
   inputCopy = input;
@@ -281,8 +281,8 @@ void __84__WFChooseFromListAction_resolveSlot_withProcessedValue_parameter_input
     }
   }
 
-  v41 = inputCopy;
-  v43 = interfaceCopy;
+  v40 = inputCopy;
+  v42 = interfaceCopy;
   if (bOOLValue & bOOLValue2)
   {
     v25 = [MEMORY[0x277CCAA78] indexSetWithIndexesInRange:{0, objc_msgSend(items, "count", inputCopy)}];
@@ -294,7 +294,7 @@ void __84__WFChooseFromListAction_resolveSlot_withProcessedValue_parameter_input
   }
 
   v26 = v25;
-  v27 = [MEMORY[0x277CFC218] alertWithPreferredStyle:{1, v41}];
+  v27 = [MEMORY[0x277CFC218] alertWithPreferredStyle:{1, v40}];
   if ([promptCopy length])
   {
     v28 = promptCopy;
@@ -306,39 +306,39 @@ void __84__WFChooseFromListAction_resolveSlot_withProcessedValue_parameter_input
   }
 
   [v27 setTitle:v28];
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __69__WFChooseFromListAction_presentAlertWithUserInterface_prompt_input___block_invoke;
-  v51[3] = &unk_278C19C10;
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __69__WFChooseFromListAction_presentAlertWithUserInterface_prompt_input___block_invoke;
+  v50[3] = &unk_278C19C10;
   v29 = v26;
-  v52 = v29;
-  v55 = bOOLValue;
+  v51 = v29;
+  v54 = bOOLValue;
   v30 = v27;
-  v53 = v30;
+  v52 = v30;
   selfCopy = self;
-  v31 = [items if_compactMap:v51];
+  v31 = [items if_compactMap:v50];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v32 = [v31 countByEnumeratingWithState:&v47 objects:v56 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v46 objects:v55 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v48;
+    v34 = *v47;
     do
     {
       for (i = 0; i != v33; ++i)
       {
-        if (*v48 != v34)
+        if (*v47 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        [v30 addButton:*(*(&v47 + 1) + 8 * i)];
+        [v30 addButton:*(*(&v46 + 1) + 8 * i)];
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v47 objects:v56 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v46 objects:v55 count:16];
     }
 
     while (v33);
@@ -351,19 +351,17 @@ void __84__WFChooseFromListAction_resolveSlot_withProcessedValue_parameter_input
   {
     v37 = MEMORY[0x277CFC220];
     v38 = WFLocalizedString(@"Done");
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __69__WFChooseFromListAction_presentAlertWithUserInterface_prompt_input___block_invoke_4;
-    v44[3] = &unk_278C21508;
-    v45 = v31;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __69__WFChooseFromListAction_presentAlertWithUserInterface_prompt_input___block_invoke_4;
+    v43[3] = &unk_278C21508;
+    v44 = v31;
     selfCopy2 = self;
-    v39 = [v37 buttonWithTitle:v38 style:0 preferred:1 handler:v44];
+    v39 = [v37 buttonWithTitle:v38 style:0 preferred:1 handler:v43];
     [v30 addButton:v39];
   }
 
-  [v43 presentAlert:v30];
-
-  v40 = *MEMORY[0x277D85DE8];
+  [v42 presentAlert:v30];
 }
 
 id __69__WFChooseFromListAction_presentAlertWithUserInterface_prompt_input___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -401,28 +399,28 @@ id __69__WFChooseFromListAction_presentAlertWithUserInterface_prompt_input___blo
 
 void __69__WFChooseFromListAction_presentAlertWithUserInterface_prompt_input___block_invoke_4(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         if ([v8 isSelected])
         {
           v9 = *(a1 + 40);
@@ -432,7 +430,7 @@ void __69__WFChooseFromListAction_presentAlertWithUserInterface_prompt_input___b
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -442,7 +440,6 @@ void __69__WFChooseFromListAction_presentAlertWithUserInterface_prompt_input___b
   [*(a1 + 40) setOutput:v12];
 
   [*(a1 + 40) finishRunningWithError:0];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __69__WFChooseFromListAction_presentAlertWithUserInterface_prompt_input___block_invoke_2(uint64_t a1)
@@ -469,7 +466,7 @@ uint64_t __69__WFChooseFromListAction_presentAlertWithUserInterface_prompt_input
 
 - (id)contentItemsFromSelectedItem:(id)item
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   attributionSet = [itemCopy attributionSet];
   v5 = [attributionSet attributionSetByFilteringNeighborsOfContentItem:itemCopy];
@@ -483,13 +480,11 @@ uint64_t __69__WFChooseFromListAction_presentAlertWithUserInterface_prompt_input
 
   else
   {
-    v10[0] = itemCopy;
-    items = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = itemCopy;
+    items = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   }
 
   v7 = items;
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

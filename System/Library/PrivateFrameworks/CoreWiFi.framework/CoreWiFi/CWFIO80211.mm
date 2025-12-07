@@ -13,14 +13,14 @@
 
 - (CWFIO80211)init
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   notification = 0;
-  v73.receiver = self;
-  v73.super_class = CWFIO80211;
-  v2 = [(CWFIO80211 *)&v73 init];
+  v72.receiver = self;
+  v72.super_class = CWFIO80211;
+  v2 = [(CWFIO80211 *)&v72 init];
   if (!v2)
   {
-    goto LABEL_79;
+    goto LABEL_76;
   }
 
   v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -30,7 +30,7 @@
 
   if (!v2->_mutexQueue)
   {
-    goto LABEL_79;
+    goto LABEL_76;
   }
 
   v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -40,62 +40,62 @@
 
   if (!v2->_eventQueue)
   {
-    goto LABEL_79;
+    goto LABEL_76;
   }
 
   mainPort = 0;
   v9 = MEMORY[0x1E69E99F8];
   if (MEMORY[0x1E12E9640](*MEMORY[0x1E69E99F8], &mainPort))
   {
-    goto LABEL_79;
+    goto LABEL_76;
   }
 
   v10 = IONotificationPortCreate(mainPort);
   v2->_portRef = v10;
   if (!v10)
   {
-    goto LABEL_79;
+    goto LABEL_76;
   }
 
   v2->_publishIO80211SkywalkInterface = 0;
   v11 = IOServiceAddMatchingNotification(v10, "IOServiceMatched", &unk_1F5BBD610, sub_1E0C148E0, v2, &v2->_publishIO80211SkywalkInterface);
   if (v11)
   {
-    v32 = v11;
-    v33 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v34 = CWFGetOSLog();
-    if (v34)
+    v31 = v11;
+    v32 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v33 = CWFGetOSLog();
+    if (v33)
     {
-      v35 = CWFGetOSLog();
+      v34 = CWFGetOSLog();
     }
 
     else
     {
-      v35 = MEMORY[0x1E69E9C10];
-      v61 = MEMORY[0x1E69E9C10];
+      v34 = MEMORY[0x1E69E9C10];
+      v60 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_64;
+      v74 = 134219778;
+      v75 = v32 / 0x3B9ACA00;
+      v76 = 2048;
+      v77 = v32 % 0x3B9ACA00 / 0x3E8;
+      v78 = 2082;
+      v79 = "[CWFIO80211 init]";
+      v80 = 2082;
+      v81 = "CWFIO80211.m";
+      v82 = 1024;
+      v83 = 144;
+      v84 = 1024;
+      *v85 = v31;
+      *&v85[4] = 2112;
+      *&v85[6] = @"IO80211InterfaceRole";
+      *&v85[14] = 2112;
+      *&v85[16] = @"Infrastructure";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 16, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) IOServiceAddMatchingNotification() failed with error %d (%@:%@)", &v74, 74);
     }
 
-    v75 = 134219778;
-    v76 = v33 / 0x3B9ACA00;
-    v77 = 2048;
-    v78 = v33 % 0x3B9ACA00 / 0x3E8;
-    v79 = 2082;
-    v80 = "[CWFIO80211 init]";
-    v81 = 2082;
-    v82 = "CWFIO80211.m";
-    v83 = 1024;
-    v84 = 144;
-    v85 = 1024;
-    *v86 = v32;
-    *&v86[4] = 2112;
-    *&v86[6] = @"IO80211InterfaceRole";
-    *&v86[14] = 2112;
-    *&v86[16] = @"Infrastructure";
     goto LABEL_63;
   }
 
@@ -103,57 +103,57 @@
   v12 = IOServiceAddMatchingNotification(v2->_portRef, "IOServiceTerminate", &unk_1F5BBD660, sub_1E0C148EC, v2, &v2->_terminatedIO80211SkywalkInterface);
   if (v12)
   {
-    v36 = v12;
-    v37 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v38 = CWFGetOSLog();
-    if (v38)
+    v35 = v12;
+    v36 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v37 = CWFGetOSLog();
+    if (v37)
     {
-      v35 = CWFGetOSLog();
+      v34 = CWFGetOSLog();
     }
 
     else
     {
-      v35 = MEMORY[0x1E69E9C10];
-      v62 = MEMORY[0x1E69E9C10];
+      v34 = MEMORY[0x1E69E9C10];
+      v61 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_64;
+      v74 = 134219778;
+      v75 = v36 / 0x3B9ACA00;
+      v76 = 2048;
+      v77 = v36 % 0x3B9ACA00 / 0x3E8;
+      v78 = 2082;
+      v79 = "[CWFIO80211 init]";
+      v80 = 2082;
+      v81 = "CWFIO80211.m";
+      v82 = 1024;
+      v83 = 149;
+      v84 = 1024;
+      *v85 = v35;
+      *&v85[4] = 2112;
+      *&v85[6] = @"IO80211InterfaceRole";
+      *&v85[14] = 2112;
+      *&v85[16] = @"Infrastructure";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 16, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) IOServiceAddMatchingNotification() failed with error %d (%@:%@)", &v74, 74);
     }
 
-    v75 = 134219778;
-    v76 = v37 / 0x3B9ACA00;
-    v77 = 2048;
-    v78 = v37 % 0x3B9ACA00 / 0x3E8;
-    v79 = 2082;
-    v80 = "[CWFIO80211 init]";
-    v81 = 2082;
-    v82 = "CWFIO80211.m";
-    v83 = 1024;
-    v84 = 149;
-    v85 = 1024;
-    *v86 = v36;
-    *&v86[4] = 2112;
-    *&v86[6] = @"IO80211InterfaceRole";
-    *&v86[14] = 2112;
-    *&v86[16] = @"Infrastructure";
     goto LABEL_63;
   }
 
   sub_1E0C1547C(0, v2->_publishIO80211SkywalkInterface, @"IOServiceMatched");
   sub_1E0C1547C(0, v2->_terminatedIO80211SkywalkInterface, @"IOServiceTerminate");
-  v71 = 0;
-  if (MEMORY[0x1E12E9640](*v9, &v71))
+  v70 = 0;
+  if (MEMORY[0x1E12E9640](*v9, &v70))
   {
-    goto LABEL_79;
+    goto LABEL_76;
   }
 
-  v13 = IONotificationPortCreate(v71);
+  v13 = IONotificationPortCreate(v70);
   v2->_portRefVirtual = v13;
   if (!v13)
   {
-    goto LABEL_79;
+    goto LABEL_76;
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -162,7 +162,7 @@
 
   if (!v2->_publishIO80211VirtualInterfaceMap)
   {
-    goto LABEL_79;
+    goto LABEL_76;
   }
 
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
@@ -171,48 +171,48 @@
 
   if (!v2->_terminatedIO80211VirtualInterfaceMap)
   {
-    goto LABEL_79;
+    goto LABEL_76;
   }
 
   notification = 0;
   v18 = IOServiceAddMatchingNotification(v2->_portRef, "IOServiceMatched", &unk_1F5BBD6B0, sub_1E0C148F8, v2, &notification);
   if (v18)
   {
-    v39 = v18;
-    v40 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v41 = CWFGetOSLog();
-    if (v41)
+    v38 = v18;
+    v39 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v40 = CWFGetOSLog();
+    if (v40)
     {
-      v35 = CWFGetOSLog();
+      v34 = CWFGetOSLog();
     }
 
     else
     {
-      v35 = MEMORY[0x1E69E9C10];
-      v63 = MEMORY[0x1E69E9C10];
+      v34 = MEMORY[0x1E69E9C10];
+      v62 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_64;
+      v74 = 134219778;
+      v75 = v39 / 0x3B9ACA00;
+      v76 = 2048;
+      v77 = v39 % 0x3B9ACA00 / 0x3E8;
+      v78 = 2082;
+      v79 = "[CWFIO80211 init]";
+      v80 = 2082;
+      v81 = "CWFIO80211.m";
+      v82 = 1024;
+      v83 = 173;
+      v84 = 1024;
+      *v85 = v38;
+      *&v85[4] = 2112;
+      *&v85[6] = @"IO80211VirtualInterfaceRole";
+      *&v85[14] = 2112;
+      *&v85[16] = @"WiFi-Aware Data";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 16, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) IOServiceAddMatchingNotification() failed with error %d (%@:%@)", &v74, 74);
     }
 
-    v75 = 134219778;
-    v76 = v40 / 0x3B9ACA00;
-    v77 = 2048;
-    v78 = v40 % 0x3B9ACA00 / 0x3E8;
-    v79 = 2082;
-    v80 = "[CWFIO80211 init]";
-    v81 = 2082;
-    v82 = "CWFIO80211.m";
-    v83 = 1024;
-    v84 = 173;
-    v85 = 1024;
-    *v86 = v39;
-    *&v86[4] = 2112;
-    *&v86[6] = @"IO80211VirtualInterfaceRole";
-    *&v86[14] = 2112;
-    *&v86[16] = @"WiFi-Aware Data";
     goto LABEL_63;
   }
 
@@ -223,39 +223,39 @@
 
   if (!v20)
   {
-    v42 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v43 = CWFGetOSLog();
-    if (v43)
+    v41 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v42 = CWFGetOSLog();
+    if (v42)
     {
-      v44 = CWFGetOSLog();
+      v43 = CWFGetOSLog();
     }
 
     else
     {
-      v44 = MEMORY[0x1E69E9C10];
-      v64 = MEMORY[0x1E69E9C10];
+      v43 = MEMORY[0x1E69E9C10];
+      v63 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_77;
+      v74 = 134219522;
+      v75 = v41 / 0x3B9ACA00;
+      v76 = 2048;
+      v77 = v41 % 0x3B9ACA00 / 0x3E8;
+      v78 = 2082;
+      v79 = "[CWFIO80211 init]";
+      v80 = 2082;
+      v81 = "CWFIO80211.m";
+      v82 = 1024;
+      v83 = 176;
+      v84 = 2112;
+      *v85 = @"IO80211VirtualInterfaceRole";
+      *&v85[8] = 2112;
+      *&v85[10] = @"WiFi-Aware Data";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v43, 16, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) Invalid map (%@:%@)", &v74, 68);
     }
 
-    v75 = 134219522;
-    v76 = v42 / 0x3B9ACA00;
-    v77 = 2048;
-    v78 = v42 % 0x3B9ACA00 / 0x3E8;
-    v79 = 2082;
-    v80 = "[CWFIO80211 init]";
-    v81 = 2082;
-    v82 = "CWFIO80211.m";
-    v83 = 1024;
-    v84 = 176;
-    v85 = 2112;
-    *v86 = @"IO80211VirtualInterfaceRole";
-    *&v86[8] = 2112;
-    *&v86[10] = @"WiFi-Aware Data";
-    goto LABEL_76;
+    goto LABEL_74;
   }
 
   sub_1E0C1547C(0, notification, @"IOServiceMatched");
@@ -263,42 +263,42 @@
   v21 = IOServiceAddMatchingNotification(v2->_portRef, "IOServiceTerminate", &unk_1F5BBD700, sub_1E0C14904, v2, &notification);
   if (v21)
   {
-    v45 = v21;
-    v46 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v47 = CWFGetOSLog();
-    if (v47)
+    v44 = v21;
+    v45 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v46 = CWFGetOSLog();
+    if (v46)
     {
-      v48 = CWFGetOSLog();
+      v47 = CWFGetOSLog();
     }
 
     else
     {
-      v48 = MEMORY[0x1E69E9C10];
-      v65 = MEMORY[0x1E69E9C10];
+      v47 = MEMORY[0x1E69E9C10];
+      v64 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_72;
+      v74 = 134219778;
+      v75 = v45 / 0x3B9ACA00;
+      v76 = 2048;
+      v77 = v45 % 0x3B9ACA00 / 0x3E8;
+      v78 = 2082;
+      v79 = "[CWFIO80211 init]";
+      v80 = 2082;
+      v81 = "CWFIO80211.m";
+      v82 = 1024;
+      v83 = 186;
+      v84 = 1024;
+      *v85 = v44;
+      *&v85[4] = 2112;
+      *&v85[6] = @"IO80211VirtualInterfaceRole";
+      *&v85[14] = 2112;
+      *&v85[16] = @"WiFi-Aware Data";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v47, 16, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) IOServiceAddMatchingNotification() failed with error %d (%@:%@)", &v74, 74);
     }
 
-    v75 = 134219778;
-    v76 = v46 / 0x3B9ACA00;
-    v77 = 2048;
-    v78 = v46 % 0x3B9ACA00 / 0x3E8;
-    v79 = 2082;
-    v80 = "[CWFIO80211 init]";
-    v81 = 2082;
-    v82 = "CWFIO80211.m";
-    v83 = 1024;
-    v84 = 186;
-    v85 = 1024;
-    *v86 = v45;
-    *&v86[4] = 2112;
-    *&v86[6] = @"IO80211VirtualInterfaceRole";
-    *&v86[14] = 2112;
-    *&v86[16] = @"WiFi-Aware Data";
-    goto LABEL_71;
+    goto LABEL_70;
   }
 
   v22 = [MEMORY[0x1E696B098] valueWithPointer:notification];
@@ -308,39 +308,39 @@
 
   if (!v23)
   {
-    v49 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v50 = CWFGetOSLog();
-    if (v50)
+    v48 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v49 = CWFGetOSLog();
+    if (v49)
     {
-      v44 = CWFGetOSLog();
+      v43 = CWFGetOSLog();
     }
 
     else
     {
-      v44 = MEMORY[0x1E69E9C10];
-      v66 = MEMORY[0x1E69E9C10];
+      v43 = MEMORY[0x1E69E9C10];
+      v65 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_77;
+      v74 = 134219522;
+      v75 = v48 / 0x3B9ACA00;
+      v76 = 2048;
+      v77 = v48 % 0x3B9ACA00 / 0x3E8;
+      v78 = 2082;
+      v79 = "[CWFIO80211 init]";
+      v80 = 2082;
+      v81 = "CWFIO80211.m";
+      v82 = 1024;
+      v83 = 189;
+      v84 = 2112;
+      *v85 = @"IO80211VirtualInterfaceRole";
+      *&v85[8] = 2112;
+      *&v85[10] = @"WiFi-Aware Data";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v43, 16, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) Invalid map (%@:%@)", &v74, 68);
     }
 
-    v75 = 134219522;
-    v76 = v49 / 0x3B9ACA00;
-    v77 = 2048;
-    v78 = v49 % 0x3B9ACA00 / 0x3E8;
-    v79 = 2082;
-    v80 = "[CWFIO80211 init]";
-    v81 = 2082;
-    v82 = "CWFIO80211.m";
-    v83 = 1024;
-    v84 = 189;
-    v85 = 2112;
-    *v86 = @"IO80211VirtualInterfaceRole";
-    *&v86[8] = 2112;
-    *&v86[10] = @"WiFi-Aware Data";
-    goto LABEL_76;
+    goto LABEL_74;
   }
 
   sub_1E0C1547C(0, notification, @"IOServiceMatched");
@@ -348,48 +348,45 @@
   v24 = IOServiceAddMatchingNotification(v2->_portRef, "IOServiceMatched", &unk_1F5BBD750, sub_1E0C148F8, v2, &notification);
   if (v24)
   {
-    v51 = v24;
-    v52 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v53 = CWFGetOSLog();
-    if (v53)
+    v50 = v24;
+    v51 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v52 = CWFGetOSLog();
+    if (v52)
     {
-      v35 = CWFGetOSLog();
+      v34 = CWFGetOSLog();
     }
 
     else
     {
-      v35 = MEMORY[0x1E69E9C10];
-      v67 = MEMORY[0x1E69E9C10];
+      v34 = MEMORY[0x1E69E9C10];
+      v66 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_64;
+      v74 = 134219778;
+      v75 = v51 / 0x3B9ACA00;
+      v76 = 2048;
+      v77 = v51 % 0x3B9ACA00 / 0x3E8;
+      v78 = 2082;
+      v79 = "[CWFIO80211 init]";
+      v80 = 2082;
+      v81 = "CWFIO80211.m";
+      v82 = 1024;
+      v83 = 200;
+      v84 = 1024;
+      *v85 = v50;
+      *&v85[4] = 2112;
+      *&v85[6] = @"IO80211VirtualInterfaceRole";
+      *&v85[14] = 2112;
+      *&v85[16] = @"SoftAP";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 16, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) IOServiceAddMatchingNotification() failed with error %d (%@:%@)", &v74, 74);
     }
 
-    v75 = 134219778;
-    v76 = v52 / 0x3B9ACA00;
-    v77 = 2048;
-    v78 = v52 % 0x3B9ACA00 / 0x3E8;
-    v79 = 2082;
-    v80 = "[CWFIO80211 init]";
-    v81 = 2082;
-    v82 = "CWFIO80211.m";
-    v83 = 1024;
-    v84 = 200;
-    v85 = 1024;
-    *v86 = v51;
-    *&v86[4] = 2112;
-    *&v86[6] = @"IO80211VirtualInterfaceRole";
-    *&v86[14] = 2112;
-    *&v86[16] = @"SoftAP";
 LABEL_63:
-    _os_log_send_and_compose_impl();
-LABEL_64:
 
-LABEL_79:
-    v2 = 0;
-    goto LABEL_21;
+LABEL_76:
+    return 0;
   }
 
   v25 = [MEMORY[0x1E696B098] valueWithPointer:notification];
@@ -399,39 +396,39 @@ LABEL_79:
 
   if (!v26)
   {
-    v54 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v55 = CWFGetOSLog();
-    if (v55)
+    v53 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v54 = CWFGetOSLog();
+    if (v54)
     {
-      v44 = CWFGetOSLog();
+      v43 = CWFGetOSLog();
     }
 
     else
     {
-      v44 = MEMORY[0x1E69E9C10];
-      v68 = MEMORY[0x1E69E9C10];
+      v43 = MEMORY[0x1E69E9C10];
+      v67 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_77;
+      v74 = 134219522;
+      v75 = v53 / 0x3B9ACA00;
+      v76 = 2048;
+      v77 = v53 % 0x3B9ACA00 / 0x3E8;
+      v78 = 2082;
+      v79 = "[CWFIO80211 init]";
+      v80 = 2082;
+      v81 = "CWFIO80211.m";
+      v82 = 1024;
+      v83 = 203;
+      v84 = 2112;
+      *v85 = @"IO80211VirtualInterfaceRole";
+      *&v85[8] = 2112;
+      *&v85[10] = @"SoftAP";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v43, 16, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) Invalid map (%@:%@)", &v74, 68);
     }
 
-    v75 = 134219522;
-    v76 = v54 / 0x3B9ACA00;
-    v77 = 2048;
-    v78 = v54 % 0x3B9ACA00 / 0x3E8;
-    v79 = 2082;
-    v80 = "[CWFIO80211 init]";
-    v81 = 2082;
-    v82 = "CWFIO80211.m";
-    v83 = 1024;
-    v84 = 203;
-    v85 = 2112;
-    *v86 = @"IO80211VirtualInterfaceRole";
-    *&v86[8] = 2112;
-    *&v86[10] = @"SoftAP";
-    goto LABEL_76;
+    goto LABEL_74;
   }
 
   sub_1E0C1547C(0, notification, @"IOServiceMatched");
@@ -439,46 +436,44 @@ LABEL_79:
   v27 = IOServiceAddMatchingNotification(v2->_portRef, "IOServiceTerminate", &unk_1F5BBD7A0, sub_1E0C14904, v2, &notification);
   if (v27)
   {
-    v56 = v27;
-    v57 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v58 = CWFGetOSLog();
-    if (v58)
+    v55 = v27;
+    v56 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v57 = CWFGetOSLog();
+    if (v57)
     {
-      v48 = CWFGetOSLog();
+      v47 = CWFGetOSLog();
     }
 
     else
     {
-      v48 = MEMORY[0x1E69E9C10];
-      v69 = MEMORY[0x1E69E9C10];
+      v47 = MEMORY[0x1E69E9C10];
+      v68 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_72;
+      v74 = 134219778;
+      v75 = v56 / 0x3B9ACA00;
+      v76 = 2048;
+      v77 = v56 % 0x3B9ACA00 / 0x3E8;
+      v78 = 2082;
+      v79 = "[CWFIO80211 init]";
+      v80 = 2082;
+      v81 = "CWFIO80211.m";
+      v82 = 1024;
+      v83 = 213;
+      v84 = 1024;
+      *v85 = v55;
+      *&v85[4] = 2112;
+      *&v85[6] = @"IO80211VirtualInterfaceRole";
+      *&v85[14] = 2112;
+      *&v85[16] = @"SoftAP";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v47, 16, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) IOServiceAddMatchingNotification() failed with error %d (%@:%@)", &v74, 74);
     }
 
-    v75 = 134219778;
-    v76 = v57 / 0x3B9ACA00;
-    v77 = 2048;
-    v78 = v57 % 0x3B9ACA00 / 0x3E8;
-    v79 = 2082;
-    v80 = "[CWFIO80211 init]";
-    v81 = 2082;
-    v82 = "CWFIO80211.m";
-    v83 = 1024;
-    v84 = 213;
-    v85 = 1024;
-    *v86 = v56;
-    *&v86[4] = 2112;
-    *&v86[6] = @"IO80211VirtualInterfaceRole";
-    *&v86[14] = 2112;
-    *&v86[16] = @"SoftAP";
-LABEL_71:
-    _os_log_send_and_compose_impl();
-LABEL_72:
+LABEL_70:
 
-    goto LABEL_79;
+    goto LABEL_76;
   }
 
   v28 = [MEMORY[0x1E696B098] valueWithPointer:notification];
@@ -488,59 +483,55 @@ LABEL_72:
 
   if (!v29)
   {
-    v59 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v60 = CWFGetOSLog();
-    if (v60)
+    v58 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v59 = CWFGetOSLog();
+    if (v59)
     {
-      v44 = CWFGetOSLog();
+      v43 = CWFGetOSLog();
     }
 
     else
     {
-      v44 = MEMORY[0x1E69E9C10];
-      v70 = MEMORY[0x1E69E9C10];
+      v43 = MEMORY[0x1E69E9C10];
+      v69 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_77;
+      v74 = 134219522;
+      v75 = v58 / 0x3B9ACA00;
+      v76 = 2048;
+      v77 = v58 % 0x3B9ACA00 / 0x3E8;
+      v78 = 2082;
+      v79 = "[CWFIO80211 init]";
+      v80 = 2082;
+      v81 = "CWFIO80211.m";
+      v82 = 1024;
+      v83 = 216;
+      v84 = 2112;
+      *v85 = @"IO80211VirtualInterfaceRole";
+      *&v85[8] = 2112;
+      *&v85[10] = @"SoftAP";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v43, 16, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) Invalid map (%@:%@)", &v74, 68);
     }
 
-    v75 = 134219522;
-    v76 = v59 / 0x3B9ACA00;
-    v77 = 2048;
-    v78 = v59 % 0x3B9ACA00 / 0x3E8;
-    v79 = 2082;
-    v80 = "[CWFIO80211 init]";
-    v81 = 2082;
-    v82 = "CWFIO80211.m";
-    v83 = 1024;
-    v84 = 216;
-    v85 = 2112;
-    *v86 = @"IO80211VirtualInterfaceRole";
-    *&v86[8] = 2112;
-    *&v86[10] = @"SoftAP";
-LABEL_76:
-    _os_log_send_and_compose_impl();
-LABEL_77:
+LABEL_74:
 
     if (notification)
     {
       IOObjectRelease(notification);
     }
 
-    goto LABEL_79;
+    goto LABEL_76;
   }
 
   sub_1E0C1547C(0, notification, @"IOServiceMatched");
-LABEL_21:
-  v30 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (void)dealloc
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   publishIO80211SkywalkInterface = self->_publishIO80211SkywalkInterface;
   if (publishIO80211SkywalkInterface)
   {
@@ -553,65 +544,65 @@ LABEL_21:
     IOObjectRelease(terminatedIO80211SkywalkInterface);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   allValues = [(NSMutableDictionary *)self->_publishIO80211VirtualInterfaceMap allValues];
-  v6 = [allValues countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         if ([v10 pointerValue])
         {
           IOObjectRelease([v10 pointerValue]);
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v7);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   allValues2 = [(NSMutableDictionary *)self->_terminatedIO80211VirtualInterfaceMap allValues];
-  v12 = [allValues2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v12 = [allValues2 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(allValues2);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * j);
+        v16 = *(*(&v19 + 1) + 8 * j);
         if ([v16 pointerValue])
         {
           IOObjectRelease([v16 pointerValue]);
         }
       }
 
-      v13 = [allValues2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v13 = [allValues2 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v13);
@@ -623,10 +614,9 @@ LABEL_21:
     IONotificationPortDestroy(portRef);
   }
 
-  v19.receiver = self;
-  v19.super_class = CWFIO80211;
-  [(CWFIO80211 *)&v19 dealloc];
-  v18 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = CWFIO80211;
+  [(CWFIO80211 *)&v18 dealloc];
 }
 
 - (void)startEventMonitoring
@@ -696,45 +686,44 @@ LABEL_21:
 
 - (id)IO80211ControllerInfo
 {
-  v38 = *MEMORY[0x1E69E9840];
-  existing = 0;
+  v36 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E696CD60];
   v3 = IOServiceMatching("IOEthernetInterface");
   mainPort = v2;
-  MatchingServices = IOServiceGetMatchingServices(v2, v3, &existing);
+  MatchingServices = IOServiceGetMatchingServices(v2, v3, &mainPort + 1);
   if (MatchingServices)
   {
-    v17 = MatchingServices;
-    v18 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v19 = CWFGetOSLog();
-    if (v19)
+    v16 = MatchingServices;
+    v17 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v18 = CWFGetOSLog();
+    if (v18)
     {
-      v20 = CWFGetOSLog();
+      v19 = CWFGetOSLog();
     }
 
     else
     {
+      v19 = MEMORY[0x1E69E9C10];
       v20 = MEMORY[0x1E69E9C10];
-      v21 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *properties = 134219522;
-      *&properties[4] = v18 / 0x3B9ACA00;
-      v26 = 2048;
-      v27 = v18 % 0x3B9ACA00 / 0x3E8;
+      *&properties[4] = v17 / 0x3B9ACA00;
+      v24 = 2048;
+      v25 = v17 % 0x3B9ACA00 / 0x3E8;
+      v26 = 2082;
+      v27 = "__findWiFiController";
       v28 = 2082;
-      v29 = "__findWiFiController";
-      v30 = 2082;
-      v31 = "CWFIO80211.m";
+      v29 = "CWFIO80211.m";
+      v30 = 1024;
+      v31 = 465;
       v32 = 1024;
-      v33 = 465;
-      v34 = 1024;
-      v35 = v17;
-      v36 = 2112;
-      v37 = @"IOEthernetInterface";
-      _os_log_send_and_compose_impl();
+      v33 = v16;
+      v34 = 2112;
+      v35 = @"IOEthernetInterface";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 16, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) IOServiceGetMatchingServices() failed with error %d matching(%@)", properties, 64, mainPort);
     }
 
     v10 = 0;
@@ -745,7 +734,7 @@ LABEL_21:
     v5 = *MEMORY[0x1E695E480];
     while (1)
     {
-      v6 = IOIteratorNext(existing);
+      v6 = IOIteratorNext(HIDWORD(mainPort));
       if (!v6)
       {
         break;
@@ -825,17 +814,15 @@ LABEL_21:
 
     v10 = 0;
 LABEL_26:
-    IOObjectRelease(existing);
+    IOObjectRelease(HIDWORD(mainPort));
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)IO80211InterfaceInfo:(id)info error:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (Mutable)
@@ -852,21 +839,23 @@ LABEL_26:
 
     else
     {
-      v15 = CWFGetOSLog();
-      if (v15)
+      v14 = CWFGetOSLog();
+      if (v14)
       {
-        v16 = CWFGetOSLog();
+        v15 = CWFGetOSLog();
       }
 
       else
       {
-        v16 = MEMORY[0x1E69E9C10];
-        v18 = MEMORY[0x1E69E9C10];
+        v15 = MEMORY[0x1E69E9C10];
+        v17 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        _os_log_send_and_compose_impl();
+        v18 = 138543362;
+        v19 = infoCopy;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] (%{public}@) matchingServiceDict alloc failed", &v18, 12);
       }
 
       v10 = 0;
@@ -877,27 +866,27 @@ LABEL_26:
 
   else
   {
-    v13 = CWFGetOSLog();
-    if (v13)
+    v12 = CWFGetOSLog();
+    if (v12)
     {
-      v14 = CWFGetOSLog();
+      v13 = CWFGetOSLog();
     }
 
     else
     {
-      v14 = MEMORY[0x1E69E9C10];
-      v17 = MEMORY[0x1E69E9C10];
+      v13 = MEMORY[0x1E69E9C10];
+      v16 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v18 = 138543362;
+      v19 = infoCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 16, "[corewifi] (%{public}@) propertyDictionaryRef alloc failed", &v18, 12);
     }
 
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

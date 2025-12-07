@@ -9,10 +9,12 @@
 - (void)availabilityUpdatedForService:(id)service error:(id)error;
 - (void)channelSequenceChangedEvent:(id)event;
 - (void)registerAvailabilityUpdatesForService:(id)service;
+- (void)softAPChannelChangedEvent:(BOOL)event channelNumber:(unsigned __int16)number;
 - (void)startConnectionUsingProxy:(id)proxy completionHandler:(id)handler;
 - (void)threadCoexistenceEvent:(id)event;
 - (void)updatedAWDLState:(id)state;
 - (void)updatedLowLatencyStatistics;
+- (void)updatedRealtimeMode:(BOOL)mode;
 - (void)updatedStatistics;
 @end
 
@@ -133,9 +135,7 @@
 
   else
   {
-    v5 = [MEMORY[0x277CBEB18] arrayWithObject:service];
-    v6 = self->_interestedUniqueIdentifiers;
-    self->_interestedUniqueIdentifiers = v5;
+    self->_interestedUniqueIdentifiers = [MEMORY[0x277CBEB18] arrayWithObject:service];
 
     MEMORY[0x2821F96F8]();
   }
@@ -175,6 +175,18 @@
   }
 }
 
+- (void)updatedRealtimeMode:(BOOL)mode
+{
+  modeCopy = mode;
+  realtimeModeUpdatedHandler = [(WiFiP2PAWDLStateMonitor *)self realtimeModeUpdatedHandler];
+
+  if (realtimeModeUpdatedHandler)
+  {
+    realtimeModeUpdatedHandler2 = [(WiFiP2PAWDLStateMonitor *)self realtimeModeUpdatedHandler];
+    realtimeModeUpdatedHandler2[2](realtimeModeUpdatedHandler2, modeCopy);
+  }
+}
+
 - (void)threadCoexistenceEvent:(id)event
 {
   eventCopy = event;
@@ -184,6 +196,19 @@
   {
     threadCoexistenceEventHandler2 = [(WiFiP2PAWDLStateMonitor *)self threadCoexistenceEventHandler];
     (threadCoexistenceEventHandler2)[2](threadCoexistenceEventHandler2, eventCopy);
+  }
+}
+
+- (void)softAPChannelChangedEvent:(BOOL)event channelNumber:(unsigned __int16)number
+{
+  numberCopy = number;
+  eventCopy = event;
+  softAPChannelChangedEventHandler = [(WiFiP2PAWDLStateMonitor *)self softAPChannelChangedEventHandler];
+
+  if (softAPChannelChangedEventHandler)
+  {
+    softAPChannelChangedEventHandler2 = [(WiFiP2PAWDLStateMonitor *)self softAPChannelChangedEventHandler];
+    softAPChannelChangedEventHandler2[2](softAPChannelChangedEventHandler2, eventCopy, numberCopy);
   }
 }
 
@@ -228,112 +253,112 @@
 
 - (id)lowLatencyStatisticsDifferenceBetweenPrevious:(id)previous current:(id)current
 {
-  v82[2] = *MEMORY[0x277D85DE8];
+  v81[2] = *MEMORY[0x277D85DE8];
   previousCopy = previous;
   currentCopy = current;
-  v82[0] = @"LL_STATS_ACTIVE_SERVICES_BITMAP";
-  v82[1] = @"LL_STATS_REMOTE_CAMERA_ACTIVE";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:2];
-  v81[0] = @"LL_STATS_ISSDB";
-  v81[1] = @"LL_STATS_COUNTRY_CODE";
-  v81[2] = @"LL_STATS_PEERRSSI24G";
-  v81[3] = @"LL_STATS_PEERRSSI5G";
-  v81[4] = @"LL_STATS_TX_AVG_CCA";
-  v81[5] = @"LL_STATS_SELF_INFRA_PRE_START";
-  v81[6] = @"LL_STATS_SELF_INFRA_POST_START";
-  v81[7] = @"LL_STATS_PEER_INFRA_PRE_START";
-  v81[8] = @"LL_STATS_PEER_INFRA_POST_START";
-  v81[9] = @"LL_STATS_LIMITED_TX_MIN_RATE";
-  v81[10] = @"LL_STATS_PREF_5G_CHAN_COUNT";
-  v81[11] = @"LL_STATS_PREF_2G_CHAN_COUNT";
-  v81[12] = @"LL_STATS_IS_ODEON_ACTIVE";
-  v81[13] = @"LL_STATS_2G_IN_CHAN_SEQ";
-  v81[14] = @"LL_STATS_SIDECAR_SERV_TYPE_BITMAP";
-  v81[15] = @"LL_STATS_RTG_ID";
-  v81[16] = @"LL_STATS_REDUCED_AWDL_BW";
-  v81[17] = @"LL_STATS_REDUCED_BW_PERCENT_SESSION";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:18];
-  v80[0] = @"LL_STATS_BSSSTEERING_ATTEMPT_COUNT";
-  v80[1] = @"LL_STATS_BSSSTEERING_SUCCESS_COUNT";
-  v80[2] = @"LL_STATS_BSSSTEERING_FAILURE_COUNT";
-  v80[3] = @"LL_STATS_BSSSTEERING_TIMEOUT_COUNT";
-  v80[4] = @"LL_STATS_INFRA_DISCONNECTED_POLICY_COUNT";
-  v80[5] = @"LL_STATS_INFRA_DISCONNECTED_FAILURE_COUNT";
-  v80[6] = @"LL_STATS_SESSION_DURATION";
-  v80[7] = @"LL_STATS_IDLE_SLOTS_COUNT";
-  v80[8] = @"LL_STATS_SYNC_ERRORS_COUNT";
-  v80[9] = @"LL_STATS_CHANNEL_SEQ_MISMATCH_COUNT";
-  v80[10] = @"LL_STATS_PARENT_NODE_CHANGE_COUNT";
-  v80[11] = @"LL_STATS_ROOT_NODE_CHANGE_COUNT";
-  v80[12] = @"LL_STATS_WATCHDOG_OR_CHIPTRAP_COUNT";
-  v80[13] = @"LL_STATS_TXSUCCESSCOUNT";
-  v80[14] = @"LL_STATS_TXEXPIREDCOUNT";
-  v80[15] = @"LL_STATS_TXNOBUFFCOUNT";
-  v80[16] = @"LL_STATS_TXNOACKCOUNT";
-  v80[17] = @"LL_STATS_TXFAILCOUNT";
-  v80[18] = @"LL_STATS_TXNORESOURCESCOUNT";
-  v80[19] = @"LL_STATS_TXIOERRORCOUNT";
-  v80[20] = @"LL_STATS_TXMBFREECOUNT";
-  v80[21] = @"LL_STATS_TXCHIPMODEERRCOUNT";
-  v80[22] = @"LL_STATS_TXNOREMOTEPEERCOUNT";
-  v80[23] = @"LL_STATS_TXINTRERRCOUNT";
-  v80[24] = @"LL_STATS_TXDRPCOUNT";
-  v80[25] = @"LL_STATS_TXFWFREEPKTCOUNT";
-  v80[26] = @"LL_STATS_TXMAXRETRIESCOUNT";
-  v80[27] = @"LL_STATS_TXFORCELIFETIMEEXPIREDCOUNT";
-  v80[28] = @"LL_STATS_TXERRORCOUNT";
-  v80[29] = @"LL_STATS_TX_ON_5G_COUNT";
-  v80[30] = @"LL_STATS_TX_ON_2G_COUNT";
-  v80[31] = @"LL_STATS_TX_OVERRIDE_ON_5G_COUNT";
-  v80[32] = @"LL_STATS_TX_NA_COUNT";
-  v80[33] = @"LL_STATS_RX_PACKET_COUNT";
-  v80[34] = @"LL_STATS_RX_ON_5G_COUNT";
-  v80[35] = @"LL_STATS_RX_ON_2G_COUNT";
-  v80[36] = @"LL_STATS_TX_REQUEUE_COUNT";
-  v80[37] = @"LL_STATS_TX_REQUEUE_FAIL_COUNT";
-  v80[38] = @"LL_STATS_TX_SWITCH_NAV_COUNT";
-  v80[39] = @"LL_STATS_TX_SWITCH_HOF_COUNT";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:40];
-  v79[0] = @"LL_STATS_TX_TOTAL_DELAY";
-  v79[1] = @"LL_STATS_TX_COMPLETION_DELAY";
-  v79[2] = @"LL_STATS_TX_IPCL_DELAY";
-  v79[3] = @"LL_STATS_TX_FW_DELAY";
-  v79[4] = @"LL_STATS_TX_HW_DELAY";
-  v79[5] = @"LL_STATS_TX_DATA_RATE";
-  v79[6] = @"LL_STATS_TX_RETRIES";
-  v79[7] = @"LL_STATS_TX_PACKET_BURST_SIZE";
-  v79[8] = @"LL_STATS_TX_PACKET_BURST_INTERVAL";
-  v79[9] = @"LL_STATS_TX_PACKET_EXPIRY";
-  v79[10] = @"LL_STATS_TX_CONSECUTIVE_ERRORS";
-  v79[11] = @"LL_STATS_TX_CCA";
-  v79[12] = @"LL_STATS_REQUEUE_COUNT";
-  v79[13] = @"LL_STATS_RX_TOTAL_DELAY";
-  v79[14] = @"LL_STATS_RX_IPC_DELAY";
-  v79[15] = @"LL_STATS_RX_FW_DELAY";
-  v79[16] = @"LL_STATS_RX_DATA_RATE";
-  v79[17] = @"LL_STATS_RX_RSSI";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:18];
+  v81[0] = @"LL_STATS_ACTIVE_SERVICES_BITMAP";
+  v81[1] = @"LL_STATS_REMOTE_CAMERA_ACTIVE";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:2];
+  v80[0] = @"LL_STATS_ISSDB";
+  v80[1] = @"LL_STATS_COUNTRY_CODE";
+  v80[2] = @"LL_STATS_PEERRSSI24G";
+  v80[3] = @"LL_STATS_PEERRSSI5G";
+  v80[4] = @"LL_STATS_TX_AVG_CCA";
+  v80[5] = @"LL_STATS_SELF_INFRA_PRE_START";
+  v80[6] = @"LL_STATS_SELF_INFRA_POST_START";
+  v80[7] = @"LL_STATS_PEER_INFRA_PRE_START";
+  v80[8] = @"LL_STATS_PEER_INFRA_POST_START";
+  v80[9] = @"LL_STATS_LIMITED_TX_MIN_RATE";
+  v80[10] = @"LL_STATS_PREF_5G_CHAN_COUNT";
+  v80[11] = @"LL_STATS_PREF_2G_CHAN_COUNT";
+  v80[12] = @"LL_STATS_IS_ODEON_ACTIVE";
+  v80[13] = @"LL_STATS_2G_IN_CHAN_SEQ";
+  v80[14] = @"LL_STATS_SIDECAR_SERV_TYPE_BITMAP";
+  v80[15] = @"LL_STATS_RTG_ID";
+  v80[16] = @"LL_STATS_REDUCED_AWDL_BW";
+  v80[17] = @"LL_STATS_REDUCED_BW_PERCENT_SESSION";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:18];
+  v79[0] = @"LL_STATS_BSSSTEERING_ATTEMPT_COUNT";
+  v79[1] = @"LL_STATS_BSSSTEERING_SUCCESS_COUNT";
+  v79[2] = @"LL_STATS_BSSSTEERING_FAILURE_COUNT";
+  v79[3] = @"LL_STATS_BSSSTEERING_TIMEOUT_COUNT";
+  v79[4] = @"LL_STATS_INFRA_DISCONNECTED_POLICY_COUNT";
+  v79[5] = @"LL_STATS_INFRA_DISCONNECTED_FAILURE_COUNT";
+  v79[6] = @"LL_STATS_SESSION_DURATION";
+  v79[7] = @"LL_STATS_IDLE_SLOTS_COUNT";
+  v79[8] = @"LL_STATS_SYNC_ERRORS_COUNT";
+  v79[9] = @"LL_STATS_CHANNEL_SEQ_MISMATCH_COUNT";
+  v79[10] = @"LL_STATS_PARENT_NODE_CHANGE_COUNT";
+  v79[11] = @"LL_STATS_ROOT_NODE_CHANGE_COUNT";
+  v79[12] = @"LL_STATS_WATCHDOG_OR_CHIPTRAP_COUNT";
+  v79[13] = @"LL_STATS_TXSUCCESSCOUNT";
+  v79[14] = @"LL_STATS_TXEXPIREDCOUNT";
+  v79[15] = @"LL_STATS_TXNOBUFFCOUNT";
+  v79[16] = @"LL_STATS_TXNOACKCOUNT";
+  v79[17] = @"LL_STATS_TXFAILCOUNT";
+  v79[18] = @"LL_STATS_TXNORESOURCESCOUNT";
+  v79[19] = @"LL_STATS_TXIOERRORCOUNT";
+  v79[20] = @"LL_STATS_TXMBFREECOUNT";
+  v79[21] = @"LL_STATS_TXCHIPMODEERRCOUNT";
+  v79[22] = @"LL_STATS_TXNOREMOTEPEERCOUNT";
+  v79[23] = @"LL_STATS_TXINTRERRCOUNT";
+  v79[24] = @"LL_STATS_TXDRPCOUNT";
+  v79[25] = @"LL_STATS_TXFWFREEPKTCOUNT";
+  v79[26] = @"LL_STATS_TXMAXRETRIESCOUNT";
+  v79[27] = @"LL_STATS_TXFORCELIFETIMEEXPIREDCOUNT";
+  v79[28] = @"LL_STATS_TXERRORCOUNT";
+  v79[29] = @"LL_STATS_TX_ON_5G_COUNT";
+  v79[30] = @"LL_STATS_TX_ON_2G_COUNT";
+  v79[31] = @"LL_STATS_TX_OVERRIDE_ON_5G_COUNT";
+  v79[32] = @"LL_STATS_TX_NA_COUNT";
+  v79[33] = @"LL_STATS_RX_PACKET_COUNT";
+  v79[34] = @"LL_STATS_RX_ON_5G_COUNT";
+  v79[35] = @"LL_STATS_RX_ON_2G_COUNT";
+  v79[36] = @"LL_STATS_TX_REQUEUE_COUNT";
+  v79[37] = @"LL_STATS_TX_REQUEUE_FAIL_COUNT";
+  v79[38] = @"LL_STATS_TX_SWITCH_NAV_COUNT";
+  v79[39] = @"LL_STATS_TX_SWITCH_HOF_COUNT";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:40];
+  v78[0] = @"LL_STATS_TX_TOTAL_DELAY";
+  v78[1] = @"LL_STATS_TX_COMPLETION_DELAY";
+  v78[2] = @"LL_STATS_TX_IPCL_DELAY";
+  v78[3] = @"LL_STATS_TX_FW_DELAY";
+  v78[4] = @"LL_STATS_TX_HW_DELAY";
+  v78[5] = @"LL_STATS_TX_DATA_RATE";
+  v78[6] = @"LL_STATS_TX_RETRIES";
+  v78[7] = @"LL_STATS_TX_PACKET_BURST_SIZE";
+  v78[8] = @"LL_STATS_TX_PACKET_BURST_INTERVAL";
+  v78[9] = @"LL_STATS_TX_PACKET_EXPIRY";
+  v78[10] = @"LL_STATS_TX_CONSECUTIVE_ERRORS";
+  v78[11] = @"LL_STATS_TX_CCA";
+  v78[12] = @"LL_STATS_REQUEUE_COUNT";
+  v78[13] = @"LL_STATS_RX_TOTAL_DELAY";
+  v78[14] = @"LL_STATS_RX_IPC_DELAY";
+  v78[15] = @"LL_STATS_RX_FW_DELAY";
+  v78[16] = @"LL_STATS_RX_DATA_RATE";
+  v78[17] = @"LL_STATS_RX_RSSI";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:18];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
   v10 = v5;
-  v11 = [v10 countByEnumeratingWithState:&v71 objects:v78 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v70 objects:v77 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v72;
+    v13 = *v71;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v72 != v13)
+        if (*v71 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v71 + 1) + 8 * i);
+        v15 = *(*(&v70 + 1) + 8 * i);
         v16 = [previousCopy objectForKey:v15];
         if (v16)
         {
@@ -341,32 +366,32 @@
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v71 objects:v78 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v70 objects:v77 count:16];
     }
 
     while (v12);
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   v17 = v6;
-  v18 = [v17 countByEnumeratingWithState:&v67 objects:v77 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v66 objects:v76 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v68;
+    v20 = *v67;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v68 != v20)
+        if (*v67 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v67 + 1) + 8 * j);
+        v22 = *(*(&v66 + 1) + 8 * j);
         v23 = [currentCopy objectForKey:v22];
         if (v23)
         {
@@ -374,35 +399,35 @@
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v67 objects:v77 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v66 objects:v76 count:16];
     }
 
     while (v19);
   }
 
-  v52 = v17;
-  v53 = v10;
+  v51 = v17;
+  v52 = v10;
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   obj = v7;
-  v24 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
+  v24 = [obj countByEnumeratingWithState:&v62 objects:v75 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v64;
+    v26 = *v63;
     do
     {
       for (k = 0; k != v25; ++k)
       {
-        if (*v64 != v26)
+        if (*v63 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v63 + 1) + 8 * k);
+        v28 = *(*(&v62 + 1) + 8 * k);
         v29 = [previousCopy valueForKey:v28];
         integerValue = [v29 integerValue];
 
@@ -413,32 +438,32 @@
         [dictionary setObject:v33 forKey:v28];
       }
 
-      v25 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
+      v25 = [obj countByEnumeratingWithState:&v62 objects:v75 count:16];
     }
 
     while (v25);
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
-  v54 = v8;
-  v34 = [v54 countByEnumeratingWithState:&v59 objects:v75 count:16];
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v53 = v8;
+  v34 = [v53 countByEnumeratingWithState:&v58 objects:v74 count:16];
   if (v34)
   {
     v35 = v34;
-    v56 = *v60;
+    v55 = *v59;
     do
     {
       for (m = 0; m != v35; ++m)
       {
-        if (*v60 != v56)
+        if (*v59 != v55)
         {
-          objc_enumerationMutation(v54);
+          objc_enumerationMutation(v53);
         }
 
-        v37 = *(*(&v59 + 1) + 8 * m);
+        v37 = *(*(&v58 + 1) + 8 * m);
         v38 = [previousCopy objectForKey:v37];
         v39 = [currentCopy objectForKey:v37];
         array = [MEMORY[0x277CBEB18] array];
@@ -473,13 +498,11 @@
         [dictionary setObject:v49 forKey:v37];
       }
 
-      v35 = [v54 countByEnumeratingWithState:&v59 objects:v75 count:16];
+      v35 = [v53 countByEnumeratingWithState:&v58 objects:v74 count:16];
     }
 
     while (v35);
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

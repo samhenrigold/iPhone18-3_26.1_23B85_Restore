@@ -31,7 +31,7 @@
   v14 = view2;
   if (view2)
   {
-    [view2 transform];
+    objc_msgSend_transform(view2);
   }
 
   else

@@ -1,11 +1,25 @@
 @interface USWebUsageReport
 - (USWebUsageReport)initWithCoder:(id)coder;
+- (USWebUsageReport)initWithDomainIdentifier:(id)identifier webUsageTrusted:(BOOL)trusted totalUsageTime:(double)time webUsageByDomain:(id)domain;
 - (id)description;
 - (void)_usWebUsageReportCommonInitWithDomainIdentifier:(id)identifier webUsageTrusted:(BOOL)trusted totalUsageTime:(double)time webUsageByDomain:(id)domain;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation USWebUsageReport
+
+- (USWebUsageReport)initWithDomainIdentifier:(id)identifier webUsageTrusted:(BOOL)trusted totalUsageTime:(double)time webUsageByDomain:(id)domain
+{
+  trustedCopy = trusted;
+  v13.receiver = self;
+  v13.super_class = USWebUsageReport;
+  domainCopy = domain;
+  identifierCopy = identifier;
+  v11 = [(USWebUsageReport *)&v13 init];
+  [(USWebUsageReport *)v11 _usWebUsageReportCommonInitWithDomainIdentifier:identifierCopy webUsageTrusted:trustedCopy totalUsageTime:domainCopy webUsageByDomain:time, v13.receiver, v13.super_class];
+
+  return v11;
+}
 
 - (void)_usWebUsageReportCommonInitWithDomainIdentifier:(id)identifier webUsageTrusted:(BOOL)trusted totalUsageTime:(double)time webUsageByDomain:(id)domain
 {
@@ -24,7 +38,7 @@
 
 - (USWebUsageReport)initWithCoder:(id)coder
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"DomainIdentifier"];
   if ([coderCopy containsValueForKey:@"WebUsageTrusted"])
@@ -46,9 +60,9 @@
   v13 = v12;
   if (v5 && v11 && v12)
   {
-    v19.receiver = self;
-    v19.super_class = USWebUsageReport;
-    v14 = [(USWebUsageReport *)&v19 init];
+    v18.receiver = self;
+    v18.super_class = USWebUsageReport;
+    v14 = [(USWebUsageReport *)&v18 init];
     [coderCopy decodeDoubleForKey:@"TotalUsageTime"];
     [(USWebUsageReport *)v14 _usWebUsageReportCommonInitWithDomainIdentifier:v5 webUsageTrusted:v6 totalUsageTime:v11 webUsageByDomain:?];
     self = v14;
@@ -60,13 +74,13 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138544130;
-      v21 = v5;
-      v22 = 1026;
-      v23 = v6;
-      v24 = 2114;
-      v25 = v11;
-      v26 = 1026;
-      v27 = v13;
+      v20 = v5;
+      v21 = 1026;
+      v22 = v6;
+      v23 = 2114;
+      v24 = v11;
+      v25 = 1026;
+      v26 = v13;
       _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to decode USWebUsageReport with domainIdentifier: %{public}@, webUsageTrusted: %{public}d, webUsageByDomain: %{public}@, hasTotalUsageTime: %{public}d", buf, 0x22u);
     }
 
@@ -76,7 +90,6 @@
     selfCopy = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -121,7 +134,7 @@
   return v10;
 }
 
-uint64_t __31__USWebUsageReport_description__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__31__USWebUsageReport_description__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1 + 32;
   v4 = *(a1 + 32);

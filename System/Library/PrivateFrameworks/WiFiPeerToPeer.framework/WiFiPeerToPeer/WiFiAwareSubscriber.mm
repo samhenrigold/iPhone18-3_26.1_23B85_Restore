@@ -8,8 +8,11 @@
 - (void)startConnectionUsingProxy:(id)proxy completionHandler:(id)handler;
 - (void)subscribeDetectedMulticastError:(int64_t)error fromMulticastSender:(id)sender;
 - (void)subscribeFailedToStartWithError:(int64_t)error;
+- (void)subscribeLostDiscoveryResultForPublishID:(unsigned __int8)d address:(id)address;
 - (void)subscribeReceivedDataBlobForMulticastSession:(id)session fromPeer:(id)peer;
 - (void)subscribeReceivedDiscoveryResult:(id)result;
+- (void)subscribeReceivedMessage:(id)message fromPublishID:(unsigned __int8)d address:(id)address;
+- (void)subscribeStartedWithInstanceID:(unsigned __int8)d;
 - (void)subscribeTerminatedWithReason:(int64_t)reason;
 - (void)updateTimeout:(unint64_t)timeout completionHandler:(id)handler;
 @end
@@ -131,9 +134,31 @@
   return v8;
 }
 
+- (void)subscribeStartedWithInstanceID:(unsigned __int8)d
+{
+  subscribeID = self->_subscribeID;
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:d];
+  v6 = self->_subscribeID;
+  self->_subscribeID = v5;
+
+  if (!subscribeID)
+  {
+    delegate = [(WiFiAwareSubscriber *)self delegate];
+    [delegate subscriberStarted:self];
+  }
+}
+
+- (void)subscribeLostDiscoveryResultForPublishID:(unsigned __int8)d address:(id)address
+{
+  dCopy = d;
+  addressCopy = address;
+  delegate = [(WiFiAwareSubscriber *)self delegate];
+  [delegate subscriber:self lostDiscoveryResultForPublishID:dCopy address:addressCopy];
+}
+
 - (void)subscribeReceivedDiscoveryResult:(id)result
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   delegate = [(WiFiAwareSubscriber *)self delegate];
   if (objc_opt_respondsToSelector())
@@ -146,20 +171,18 @@
     [delegate subscriber:self receivedDiscoveyResult:resultCopy];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = delegate;
-      _os_log_error_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "WiFiAwareSubscriberDelegate %{public}@ is using deprecated method - (void)subscriber:receivedDiscoveyResult: should be using - (void)subscriber:receivedDiscoveryResult: instead.", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = delegate;
+      _os_log_error_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "WiFiAwareSubscriberDelegate %{public}@ is using deprecated method - (void)subscriber:receivedDiscoveyResult: should be using - (void)subscriber:receivedDiscoveryResult: instead.", &v6, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
-    v7 = 138543362;
-    v8 = delegate;
-    _os_log_fault_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "WiFiAwareSubscriberDelegate %{public}@ is missing required method - (void)subscriber:receivedDiscoveryResult:", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = delegate;
+    _os_log_fault_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "WiFiAwareSubscriberDelegate %{public}@ is missing required method - (void)subscriber:receivedDiscoveryResult:", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)subscribeDetectedMulticastError:(int64_t)error fromMulticastSender:(id)sender
@@ -201,6 +224,18 @@
   xpcConnection = self->_xpcConnection;
 
   [(WiFiP2PXPCConnection *)xpcConnection stop];
+}
+
+- (void)subscribeReceivedMessage:(id)message fromPublishID:(unsigned __int8)d address:(id)address
+{
+  dCopy = d;
+  messageCopy = message;
+  addressCopy = address;
+  delegate = [(WiFiAwareSubscriber *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate subscriber:self receivedMessage:messageCopy fromPublishID:dCopy address:addressCopy];
+  }
 }
 
 - (WiFiAwareSubscriberDelegate)delegate

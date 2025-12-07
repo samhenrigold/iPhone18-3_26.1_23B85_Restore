@@ -1,5 +1,6 @@
 @interface TSXDaemonServiceClientExported
 - (TSXDaemonServiceClient)object;
+- (void)daemonClientNotification:(unsigned int)notification ioResult:(unsigned int)result arguments:(ScalarArgsArrayUserReference *)arguments;
 - (void)daemonClientRefresh;
 - (void)msgServiceNotification:(unsigned __int16)notification arguments:(const ScalarArgsArrayUserReference *)arguments;
 @end
@@ -21,6 +22,27 @@ void __53__TSXDaemonServiceClientExported_daemonClientRefresh__block_invoke()
   [v1 daemonClientRefresh];
 
   objc_autoreleasePoolPop(v0);
+}
+
+- (void)daemonClientNotification:(unsigned int)notification ioResult:(unsigned int)result arguments:(ScalarArgsArrayUserReference *)arguments
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v8 = objc_autoreleasePoolPush();
+  if (arguments && arguments->var1)
+  {
+    [_TSF_IODConnection dispatchNotificationForClientID:"dispatchNotificationForClientID:ioResult:args:numArgs:" ioResult:? args:? numArgs:?];
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v9[0] = 67109376;
+    v9[1] = notification;
+    v10 = 1024;
+    resultCopy = result;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSXDaemonServiceClientExported:daemonClientNotification called with no arguments, client ID %u, result %08x result\n", v9, 0xEu);
+  }
+
+  objc_autoreleasePoolPop(v8);
 }
 
 - (void)msgServiceNotification:(unsigned __int16)notification arguments:(const ScalarArgsArrayUserReference *)arguments
@@ -50,24 +72,11 @@ void __53__TSXDaemonServiceClientExported_daemonClientRefresh__block_invoke()
 
 void __67__TSXDaemonServiceClientExported_msgServiceNotification_arguments___block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = +[TSMSGService sharedMSGService];
-  v4 = v3;
-  if (*(a1 + 32))
-  {
-    v5 = *(a1 + 168);
-    v6 = a1 + 40;
-  }
+  v1 = objc_autoreleasePoolPush();
+  v2 = +[TSMSGService sharedMSGService];
+  [v2 dispatchMSGNotification:? args:? numArgs:?];
 
-  else
-  {
-    v6 = 0;
-    v5 = 0;
-  }
-
-  [v3 dispatchMSGNotification:*(a1 + 176) args:v6 numArgs:v5];
-
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 - (TSXDaemonServiceClient)object

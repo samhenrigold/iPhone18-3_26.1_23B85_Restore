@@ -73,18 +73,18 @@
 + (id)tvSpecialization
 {
   v2 = objc_alloc_init(MEMORY[0x1E696EC30]);
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(v2);
   v4 = [v3 localizedStringForKey:@"WHATS_NEW_SYNDICATION_TV_HEADER" value:&stru_1F04268F8 table:@"ChatKit"];
   [v2 setTitle:v4];
 
-  v5 = CKFrameworkBundle();
-  v6 = [v5 localizedStringForKey:@"WHATS_NEW_SYNDICATION_TV_SUBTITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  [v2 setSubtitle:v6];
+  v6 = CKFrameworkBundle(v5);
+  v7 = [v6 localizedStringForKey:@"WHATS_NEW_SYNDICATION_TV_SUBTITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  [v2 setSubtitle:v7];
 
-  v7 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"HighlightTV"];
-  v8 = UIImagePNGRepresentation(v7);
-  v9 = [objc_alloc(MEMORY[0x1E696EC68]) initWithData:v8 MIMEType:@"image/png"];
-  [v2 setArtwork:v9];
+  v8 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"HighlightTV"];
+  v9 = UIImagePNGRepresentation(v8);
+  v10 = [objc_alloc(MEMORY[0x1E696EC68]) initWithData:v9 MIMEType:@"image/png"];
+  [v2 setArtwork:v10];
 
   return v2;
 }
@@ -92,18 +92,18 @@
 + (id)podcastSpecialization
 {
   v2 = objc_alloc_init(MEMORY[0x1E696ED48]);
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(v2);
   v4 = [v3 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PODCAST_HEADER" value:&stru_1F04268F8 table:@"ChatKit"];
   [v2 setEpisodeName:v4];
 
-  v5 = CKFrameworkBundle();
-  v6 = [v5 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PODCAST_SUBTITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  [v2 setPodcastName:v6];
+  v6 = CKFrameworkBundle(v5);
+  v7 = [v6 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PODCAST_SUBTITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  [v2 setPodcastName:v7];
 
-  v7 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"HighlightPodcast"];
-  v8 = UIImagePNGRepresentation(v7);
-  v9 = [objc_alloc(MEMORY[0x1E696EC68]) initWithData:v8 MIMEType:@"image/png"];
-  [v2 setArtwork:v9];
+  v8 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"HighlightPodcast"];
+  v9 = UIImagePNGRepresentation(v8);
+  v10 = [objc_alloc(MEMORY[0x1E696EC68]) initWithData:v9 MIMEType:@"image/png"];
+  [v2 setArtwork:v10];
 
   return v2;
 }
@@ -111,18 +111,18 @@
 + (id)musicSpecialization
 {
   v2 = objc_alloc_init(MEMORY[0x1E696ED58]);
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(v2);
   v4 = [v3 localizedStringForKey:@"WHATS_NEW_SYNDICATION_MUSIC_HEADER" value:&stru_1F04268F8 table:@"ChatKit"];
   [v2 setName:v4];
 
-  v5 = CKFrameworkBundle();
-  v6 = [v5 localizedStringForKey:@"WHATS_NEW_SYNDICATION_MUSIC_SUBTITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  [v2 setArtist:v6];
+  v6 = CKFrameworkBundle(v5);
+  v7 = [v6 localizedStringForKey:@"WHATS_NEW_SYNDICATION_MUSIC_SUBTITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  [v2 setArtist:v7];
 
-  v7 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"HighlightMusic"];
-  v8 = UIImagePNGRepresentation(v7);
-  v9 = [objc_alloc(MEMORY[0x1E696EC68]) initWithData:v8 MIMEType:@"image/png"];
-  [v2 setArtwork:v9];
+  v8 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"HighlightMusic"];
+  v9 = UIImagePNGRepresentation(v8);
+  v10 = [objc_alloc(MEMORY[0x1E696EC68]) initWithData:v9 MIMEType:@"image/png"];
+  [v2 setArtwork:v10];
 
   return v2;
 }

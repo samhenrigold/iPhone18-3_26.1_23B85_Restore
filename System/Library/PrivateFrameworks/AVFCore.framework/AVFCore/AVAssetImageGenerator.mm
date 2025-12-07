@@ -266,7 +266,7 @@ LABEL_5:
   }
 }
 
-uint64_t __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_completionHandler___block_invoke(uint64_t a1)
+void *__82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_completionHandler___block_invoke(uint64_t a1)
 {
   v24 = *MEMORY[0x1E69E9840];
   v19 = 0u;
@@ -294,7 +294,7 @@ uint64_t __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_comp
         v18 = 0;
         if (v7)
         {
-          [v7 CMTimeValue];
+          objc_msgSend_CMTimeValue(v7);
         }
 
         v8 = [*(a1 + 40) _makeAutoreleasedAssetReader];
@@ -314,7 +314,7 @@ uint64_t __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_comp
         v13[5] = v8;
         v13[6] = *(a1 + 48);
         dispatch_async(v12, v13);
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -383,7 +383,7 @@ __n128 __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_comple
   return result;
 }
 
-uint64_t __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_completionHandler___block_invoke_4(uint64_t a1)
+void *__82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_completionHandler___block_invoke_4(uint64_t a1)
 {
   v30 = *MEMORY[0x1E69E9840];
   v20 = [*(a1 + 32) _optionsDictionary];
@@ -443,7 +443,7 @@ uint64_t __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_comp
         v21[8] = v8;
         v21[9] = v14;
         dispatch_async(v13, v21);
-        ++v4;
+        v4 = v4 + 1;
       }
 
       while (v3 != v4);
@@ -457,7 +457,7 @@ uint64_t __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_comp
   return result;
 }
 
-void __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_completionHandler___block_invoke_6(uint64_t a1, uint64_t a2, uint64_t a3)
+void __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_completionHandler___block_invoke_6(uint64_t a1, const char *a2, uint64_t a3)
 {
   v4 = *(a1 + 32);
   if (*(a1 + 80) == 1)
@@ -468,13 +468,13 @@ void __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_completi
       v6 = *(a1 + 48);
       if (v6)
       {
-        [v6 CMTimeValue];
+        objc_msgSend_CMTimeValue(v6, a2, a3);
       }
 
       else
       {
-        v18 = 0uLL;
-        v19 = 0;
+        v19 = 0uLL;
+        v20 = 0;
       }
 
       v8 = *(a1 + 56);
@@ -482,10 +482,10 @@ void __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_completi
       if (v9)
       {
         v10 = *MEMORY[0x1E695E480];
-        v20 = v18;
         v21 = v19;
-        a3 = v9(v5, &v20, v8, v10);
-        if (!a3)
+        v22 = v20;
+        v11 = v9(v5, &v21, v8, v10);
+        if (!v11)
         {
           goto LABEL_13;
         }
@@ -493,10 +493,10 @@ void __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_completi
 
       else
       {
-        a3 = 4294954514;
+        v11 = 4294954514;
       }
 
-      v7 = [*(a1 + 40) _NSErrorForError:a3];
+      v7 = [*(a1 + 40) _NSErrorForError:v11];
     }
 
     else
@@ -510,33 +510,33 @@ void __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_completi
 LABEL_13:
   if (v4)
   {
-    v11 = *(a1 + 72);
-    v12 = *(a1 + 48);
-    if (v12)
+    v12 = *(a1 + 72);
+    v13 = *(a1 + 48);
+    if (v13)
     {
-      [v12 CMTimeValue];
+      objc_msgSend_CMTimeValue(v13);
     }
 
     else
     {
-      v20 = 0uLL;
-      v21 = 0;
+      v21 = 0uLL;
+      v22 = 0;
     }
 
-    v13 = *(v11 + 16);
-    v18 = *MEMORY[0x1E6960C70];
-    v19 = *(MEMORY[0x1E6960C70] + 16);
-    v13(v11, &v20, 0, &v18, 1, v4);
-    v14 = *(a1 + 40);
-    v15 = *(*(v14 + 8) + 120);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_completionHandler___block_invoke_7;
-    v17[3] = &unk_1E7460DF0;
-    v16 = *(a1 + 64);
-    v17[4] = v14;
-    v17[5] = v16;
-    dispatch_async(v15, v17);
+    v14 = *(v12 + 16);
+    v19 = *MEMORY[0x1E6960C70];
+    v20 = *(MEMORY[0x1E6960C70] + 16);
+    v14(v12, &v21, 0, &v19, 1, v4);
+    v15 = *(a1 + 40);
+    v16 = *(*(v15 + 8) + 120);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __82__AVAssetImageGenerator_generateCGImagesAsynchronouslyForTimes_completionHandler___block_invoke_7;
+    v18[3] = &unk_1E7460DF0;
+    v17 = *(a1 + 64);
+    v18[4] = v15;
+    v18[5] = v17;
+    dispatch_async(v16, v18);
   }
 }
 
@@ -791,7 +791,7 @@ LABEL_17:
     v10 = [v6 objectForKey:@"CompletionHandler"];
     if (v9)
     {
-      [v9 CMTimeValue];
+      objc_msgSend_CMTimeValue(v9);
     }
 
     else
@@ -826,7 +826,7 @@ LABEL_17:
     {
       if (v8)
       {
-        [v8 CMTimeValue];
+        objc_msgSend_CMTimeValue(v8);
       }
 
       else
@@ -846,7 +846,7 @@ LABEL_17:
     {
       if (v8)
       {
-        [v8 CMTimeValue];
+        objc_msgSend_CMTimeValue(v8);
       }
 
       else
@@ -916,7 +916,7 @@ uint64_t __36__AVAssetImageGenerator__serverDied__block_invoke(uint64_t a1)
         v9 = AVLocalizedError(@"AVFoundationErrorDomain", -11819, 0);
         if (v7)
         {
-          [v7 CMTimeValue];
+          objc_msgSend_CMTimeValue(v7);
         }
 
         else
@@ -1143,7 +1143,7 @@ LABEL_19:
 
   else
   {
-    return AVLocalizedErrorWithUnderlyingOSStatus(error, 0);
+    return AVLocalizedErrorWithUnderlyingOSStatus(*&error, 0);
   }
 }
 
@@ -1309,7 +1309,7 @@ LABEL_12:
       v24 = OUTLINED_FUNCTION_1_1();
       if (v24)
       {
-        [v24 preferredTransform];
+        objc_msgSend_preferredTransform(v24);
       }
 
       v27 = v7 * 0.0 + 0.0 * v5;

@@ -235,8 +235,8 @@
 
 - (NSString)description
 {
-  v26[3] = *MEMORY[0x1E69E9840];
-  v25[0] = @"disableReappearPlaceholder";
+  v25[3] = *MEMORY[0x1E69E9840];
+  v24[0] = @"disableReappearPlaceholder";
   if ([(AMSUIWebErrorPageModel *)self disableReappearPlaceholder])
   {
     v3 = @"true";
@@ -247,8 +247,8 @@
     v3 = @"false";
   }
 
-  v26[0] = v3;
-  v25[1] = @"errorMessageInternalOnly";
+  v25[0] = v3;
+  v24[1] = @"errorMessageInternalOnly";
   if ([(AMSUIWebErrorPageModel *)self errorMessageInternalOnly])
   {
     v4 = @"true";
@@ -259,12 +259,12 @@
     v4 = @"false";
   }
 
-  v26[1] = v4;
-  v25[2] = @"windowSize";
+  v25[1] = v4;
+  v24[2] = @"windowSize";
   [(AMSUIWebErrorPageModel *)self windowSize];
-  v5 = NSStringFromCGSize(v28);
-  v26[2] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
+  v5 = NSStringFromCGSize(v27);
+  v25[2] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
   v7 = [v6 mutableCopy];
 
   action = [(AMSUIWebErrorPageModel *)self action];
@@ -325,8 +325,6 @@
 
   v22 = [v7 description];
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v22;
 }
 
@@ -371,7 +369,7 @@ void __49__AMSUIWebErrorPageModel__startMonitoringNetwork__block_invoke(uint64_t
   }
 }
 
-uint64_t __49__AMSUIWebErrorPageModel__startMonitoringNetwork__block_invoke_2(uint64_t a1)
+void *__49__AMSUIWebErrorPageModel__startMonitoringNetwork__block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 40);
   result = [*(a1 + 32) hasNetworkConnection];

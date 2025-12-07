@@ -17,6 +17,7 @@
 - (NSUUID)uniqueIdentifier;
 - (id)category;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)hf_updateIsFavorite:(BOOL)favorite;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
 - (id)name;
 - (id)room;
@@ -38,38 +39,38 @@
 
 + (BOOL)_hasValidKeys:(id)keys
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   keysCopy = keys;
-  v19[0] = @"name";
-  v19[1] = @"type";
-  v19[2] = @"room";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+  v18[0] = @"name";
+  v18[1] = @"type";
+  v18[2] = @"room";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = v17 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = v16 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     v8 = 1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = [keysCopy objectForKeyedSubscript:{*(*(&v14 + 1) + 8 * i), v14}];
+        v10 = [keysCopy objectForKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
         v11 = v10 != 0;
 
         v8 &= v11;
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -80,7 +81,6 @@
     v8 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -199,9 +199,9 @@
 - (id)room
 {
   v3 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v3 home];
+  v4 = objc_msgSend_home(v3);
 
-  rooms = [home rooms];
+  rooms = [v4 rooms];
   v6 = MEMORY[0x277CCAC30];
   applicationData = [(HFDemoModeAccessory *)self applicationData];
   v8 = [applicationData objectForKeyedSubscript:@"room"];
@@ -216,7 +216,7 @@
 
   else
   {
-    [home roomForEntireHome];
+    [v4 roomForEntireHome];
   }
   v11 = ;
 
@@ -316,6 +316,17 @@
   }
 }
 
+- (id)hf_updateIsFavorite:(BOOL)favorite
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:favorite];
+  applicationData = [(HFDemoModeAccessory *)self applicationData];
+  [applicationData setObject:v4 forKeyedSubscript:@"HFApplicationDataAccessoryIsFavoriteKey"];
+
+  v6 = MEMORY[0x277D2C900];
+
+  return [v6 futureWithNoResult];
+}
+
 - (HFServiceNameComponents)hf_serviceNameComponents
 {
   applicationData = [(HFDemoModeAccessory *)self applicationData];
@@ -334,8 +345,8 @@
   v4 = [HFDemoModeAccessory alloc];
   applicationData = [(HFDemoModeAccessory *)self applicationData];
   dictionary = [applicationData dictionary];
-  home = [(HFDemoModeAccessory *)self home];
-  v8 = [(HFDemoModeAccessory *)v4 initWithContentsOfDictionary:dictionary forHome:home];
+  v7 = objc_msgSend_home(self);
+  v8 = [(HFDemoModeAccessory *)v4 initWithContentsOfDictionary:dictionary forHome:v7];
 
   return v8;
 }
@@ -345,8 +356,8 @@
   v4 = [HFDemoModeAccessory alloc];
   applicationData = [(HFDemoModeAccessory *)self applicationData];
   dictionary = [applicationData dictionary];
-  home = [(HFDemoModeAccessory *)self home];
-  v8 = [(HFDemoModeAccessory *)v4 initWithContentsOfDictionary:dictionary forHome:home];
+  v7 = objc_msgSend_home(self);
+  v8 = [(HFDemoModeAccessory *)v4 initWithContentsOfDictionary:dictionary forHome:v7];
 
   return v8;
 }
@@ -432,24 +443,22 @@ void __60__HFDemoModeAccessory_initWithContentsOfDictionary_forHome___block_invo
 
 void __67__HFDemoModeAccessory__demoModeAccessoryTypeToHomeKitAccessoryType__block_invoke_2()
 {
-  v6[5] = *MEMORY[0x277D85DE8];
+  v5[5] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CCE870];
-  v5[0] = @"AppleTV";
-  v5[1] = @"HomePod";
+  v4[0] = @"AppleTV";
+  v4[1] = @"HomePod";
   v1 = *MEMORY[0x277CCE8B0];
-  v6[0] = v0;
-  v6[1] = v1;
-  v5[2] = @"HomePodMini";
-  v5[3] = @"MediaSystem-HomePod";
-  v6[2] = v1;
-  v6[3] = v1;
-  v5[4] = @"MediaSystem-HomePodMini";
-  v6[4] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:5];
+  v5[0] = v0;
+  v5[1] = v1;
+  v4[2] = @"HomePodMini";
+  v4[3] = @"MediaSystem-HomePod";
+  v5[2] = v1;
+  v5[3] = v1;
+  v4[4] = @"MediaSystem-HomePodMini";
+  v5[4] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:5];
   v3 = qword_280E025E8;
   qword_280E025E8 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateManufacturerInfoWithString:(id)string forKey:(id)key

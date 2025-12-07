@@ -46,17 +46,17 @@
     collectionViewLayout = [(CKConversationListCollectionView *)self collectionViewLayout];
     v9 = [collectionViewLayout _layoutAttributesForItemNearestPosition:x maximumDistance:{y, 1000.0}];
 
-    indexPath = [v9 indexPath];
+    v10 = objc_msgSend_indexPath(v9);
   }
 
   else
   {
     v12.receiver = self;
     v12.super_class = CKConversationListCollectionView;
-    indexPath = [(CKConversationListCollectionView *)&v12 _indexPathForInsertionAtPoint:pathCopy sourceIndexPath:x, y];
+    v10 = [(CKConversationListCollectionView *)&v12 _indexPathForInsertionAtPoint:pathCopy sourceIndexPath:x, y];
   }
 
-  return indexPath;
+  return v10;
 }
 
 @end

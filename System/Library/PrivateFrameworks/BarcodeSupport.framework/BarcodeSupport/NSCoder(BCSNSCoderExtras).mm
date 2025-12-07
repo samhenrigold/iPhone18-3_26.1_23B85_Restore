@@ -6,18 +6,18 @@
 
 - (id)_bcs_strictlyDecodeObjectOfClass:()BCSNSCoderExtras forKey:
 {
-  v1 = [self decodeObjectOfClass:? forKey:?];
+  v3 = [self decodeObjectOfClass:? forKey:?];
   if (objc_opt_isKindOfClass())
   {
-    v2 = v1;
+    v4 = v3;
   }
 
   else
   {
-    v2 = 0;
+    v4 = 0;
   }
 
-  return v2;
+  return v4;
 }
 
 @end

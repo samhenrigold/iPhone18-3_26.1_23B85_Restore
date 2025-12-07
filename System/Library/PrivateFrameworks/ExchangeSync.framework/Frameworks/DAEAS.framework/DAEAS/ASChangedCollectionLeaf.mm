@@ -117,20 +117,20 @@
 
 - (void)parseASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict account:(id)account
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v46.receiver = self;
-  v46.super_class = ASChangedCollectionLeaf;
-  [(ASItem *)&v46 parseASParseContext:context root:root parent:parent callbackDict:dict streamCallbackDict:callbackDict account:account];
+  v50 = *MEMORY[0x277D85DE8];
+  v45.receiver = self;
+  v45.super_class = ASChangedCollectionLeaf;
+  [(ASItem *)&v45 parseASParseContext:context root:root parent:parent callbackDict:dict streamCallbackDict:callbackDict account:account];
   parsingState = self->super._parsingState;
   if (parsingState < 2)
   {
-    goto LABEL_5;
+    return;
   }
 
   if (parsingState == 4 || parsingState == 3)
   {
     self->super._parsingState = parsingState;
-    goto LABEL_5;
+    return;
   }
 
   [(ASChangedCollectionLeaf *)self setIsResponse:0];
@@ -138,43 +138,43 @@
   {
     [(ASChangedCollectionLeaf *)self setStatus:&unk_285D57BA0];
     [(ASChangedCollectionLeaf *)self setChangeType:0];
-    goto LABEL_5;
+    return;
   }
 
-  v11 = self->super._token & 0x3F;
-  if (v11 <= 8)
+  v10 = self->super._token & 0x3F;
+  if (v10 <= 8)
   {
-    if (v11 == 7)
+    if (v10 == 7)
     {
       selfCopy5 = self;
-      v13 = 0;
+      v12 = 0;
       goto LABEL_19;
     }
 
-    if (v11 == 8)
+    if (v10 == 8)
     {
       selfCopy5 = self;
-      v13 = 1;
+      v12 = 1;
       goto LABEL_19;
     }
 
 LABEL_38:
-    v37 = DALoggingwithCategory();
-    v38 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v37, v38))
+    v36 = DALoggingwithCategory();
+    v37 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v36, v37))
     {
-      v39 = objc_opt_class();
-      v40 = NSStringFromClass(v39);
+      v38 = objc_opt_class();
+      v39 = NSStringFromClass(v38);
       token = self->super._token;
       *buf = 138412546;
-      v48 = v40;
-      v49 = 1024;
-      v50 = token;
-      _os_log_impl(&dword_24A0AC000, v37, v38, "%@ created with unknown token %d", buf, 0x12u);
+      v47 = v39;
+      v48 = 1024;
+      v49 = token;
+      _os_log_impl(&dword_24A0AC000, v36, v37, "%@ created with unknown token %d", buf, 0x12u);
     }
 
     status = [(ASChangedCollectionLeaf *)self status];
-    if (!status || (v43 = status, -[ASChangedCollectionLeaf status](self, "status"), v44 = objc_claimAutoreleasedReturnValue(), v45 = [v44 intValue], v44, v43, v45 == 1))
+    if (!status || (v42 = status, -[ASChangedCollectionLeaf status](self, "status"), v43 = objc_claimAutoreleasedReturnValue(), v44 = [v43 intValue], v43, v42, v44 == 1))
     {
       [(ASChangedCollectionLeaf *)self setStatus:&unk_285D57B88];
     }
@@ -182,48 +182,48 @@ LABEL_38:
     goto LABEL_20;
   }
 
-  if (v11 == 9)
+  if (v10 == 9)
   {
     selfCopy5 = self;
-    v13 = 2;
+    v12 = 2;
     goto LABEL_19;
   }
 
-  if (v11 == 10)
+  if (v10 == 10)
   {
     selfCopy5 = self;
-    v13 = 3;
+    v12 = 3;
     goto LABEL_19;
   }
 
-  if (v11 != 33)
+  if (v10 != 33)
   {
     goto LABEL_38;
   }
 
   selfCopy5 = self;
-  v13 = 7;
+  v12 = 7;
 LABEL_19:
-  [(ASChangedCollectionLeaf *)selfCopy5 setChangeType:v13];
+  [(ASChangedCollectionLeaf *)selfCopy5 setChangeType:v12];
 LABEL_20:
   if (self->super._codePage)
   {
-    v14 = DALoggingwithCategory();
-    v15 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v14, v15))
+    v13 = DALoggingwithCategory();
+    v14 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v13, v14))
     {
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
       codePage = self->super._codePage;
       *buf = 138412546;
-      v48 = v17;
-      v49 = 1024;
-      v50 = codePage;
-      _os_log_impl(&dword_24A0AC000, v14, v15, "%@ created with unknown code page %d", buf, 0x12u);
+      v47 = v16;
+      v48 = 1024;
+      v49 = codePage;
+      _os_log_impl(&dword_24A0AC000, v13, v14, "%@ created with unknown code page %d", buf, 0x12u);
     }
 
     status2 = [(ASChangedCollectionLeaf *)self status];
-    if (!status2 || (v20 = status2, -[ASChangedCollectionLeaf status](self, "status"), v21 = objc_claimAutoreleasedReturnValue(), v22 = [v21 intValue], v21, v20, v22 == 1))
+    if (!status2 || (v19 = status2, -[ASChangedCollectionLeaf status](self, "status"), v20 = objc_claimAutoreleasedReturnValue(), v21 = [v20 intValue], v20, v19, v21 == 1))
     {
       [(ASChangedCollectionLeaf *)self setStatus:&unk_285D57B88];
     }
@@ -241,15 +241,15 @@ LABEL_20:
 
   if (intValue != 1)
   {
-    v26 = DALoggingwithCategory();
-    v27 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v26, v27))
+    v25 = DALoggingwithCategory();
+    v26 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v25, v26))
     {
       status5 = [(ASChangedCollectionLeaf *)self status];
       intValue2 = [status5 intValue];
       *buf = 67109120;
-      LODWORD(v48) = intValue2;
-      _os_log_impl(&dword_24A0AC000, v26, v27, "This leaf node has an unsuccessful status code (has %d)", buf, 8u);
+      LODWORD(v47) = intValue2;
+      _os_log_impl(&dword_24A0AC000, v25, v26, "This leaf node has an unsuccessful status code (has %d)", buf, 8u);
     }
   }
 
@@ -257,41 +257,49 @@ LABEL_20:
 
   if (!serverID)
   {
-    v31 = DALoggingwithCategory();
-    v32 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v31, v32))
+    v30 = DALoggingwithCategory();
+    v31 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v30, v31))
     {
       *buf = 0;
-      _os_log_impl(&dword_24A0AC000, v31, v32, "ServerID for this leaf node was not set in the response.", buf, 2u);
+      _os_log_impl(&dword_24A0AC000, v30, v31, "ServerID for this leaf node was not set in the response.", buf, 2u);
     }
 
     status6 = [(ASChangedCollectionLeaf *)self status];
-    if (!status6 || (v34 = status6, -[ASChangedCollectionLeaf status](self, "status"), v35 = objc_claimAutoreleasedReturnValue(), v36 = [v35 intValue], v35, v34, v36 == 1))
+    if (!status6 || (v33 = status6, -[ASChangedCollectionLeaf status](self, "status"), v34 = objc_claimAutoreleasedReturnValue(), v35 = [v34 intValue], v34, v33, v35 == 1))
     {
       [(ASChangedCollectionLeaf *)self setStatus:&unk_285D57B88];
     }
   }
-
-LABEL_5:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appendActiveSyncDataForTask:(id)task toWBXMLData:(id)data
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 3);
   if (os_log_type_enabled(v5, v6))
   {
-    v8 = 136315138;
+    v7 = 136315138;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_24A0AC000, v5, v6, "%s to be implemented by subclass", &v8, 0xCu);
+    _os_log_impl(&dword_24A0AC000, v5, v6, "%s to be implemented by subclass", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadClientIDs
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = DALoggingwithCategory();
+  v4 = *(MEMORY[0x277D03988] + 3);
+  if (os_log_type_enabled(v3, v4))
+  {
+    v5 = 136315138;
+    Name = sel_getName(a2);
+    _os_log_impl(&dword_24A0AC000, v3, v4, "%s to be implemented by subclass", &v5, 0xCu);
+  }
+}
+
+- (int64_t)dataclass
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
@@ -303,22 +311,6 @@ LABEL_5:
     _os_log_impl(&dword_24A0AC000, v3, v4, "%s to be implemented by subclass", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (int64_t)dataclass
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = DALoggingwithCategory();
-  v4 = *(MEMORY[0x277D03988] + 3);
-  if (os_log_type_enabled(v3, v4))
-  {
-    v7 = 136315138;
-    Name = sel_getName(a2);
-    _os_log_impl(&dword_24A0AC000, v3, v4, "%s to be implemented by subclass", &v7, 0xCu);
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
   return -1;
 }
 

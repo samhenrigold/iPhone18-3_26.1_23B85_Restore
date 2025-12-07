@@ -21,7 +21,7 @@
 - (void)layoutSubviews
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for ClimateIndicator();
+  v6.super_class = type metadata accessor for ClimateIndicator(0);
   v2 = v6.receiver;
   [(ClimateIndicator *)&v6 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC7Climate16ClimateIndicator_circularBackgroundView];

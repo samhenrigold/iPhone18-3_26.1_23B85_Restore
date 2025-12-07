@@ -1,74 +1,369 @@
-void sub_1000DBF58()
+void sub_1000DA160(void *a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v3 = sub_100063A54(a1);
+  if (sub_1000776B4(v3))
   {
-    sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    v4 = [a1 localizedDescription];
+    sub_100006E3C();
+    sub_100077688(&_mh_execute_header, v5, v6, "Could not setInitialODRAssetPromises with error - %{public}@", v7, v8, v9, v10);
   }
 }
 
-void sub_1000DBFF4()
+void sub_1000DA1FC(void *a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v3 = sub_100063A54(a1);
+  if (sub_1000776B4(v3))
   {
-    sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    v4 = [a1 localizedDescription];
+    sub_100006E3C();
+    sub_100077688(&_mh_execute_header, v5, v6, "Could not set place holder promise with error - %{public}@", v7, v8, v9, v10);
   }
 }
 
-void sub_1000DC090(int a1)
+void sub_1000DA298(void *a1)
 {
-  v2 = sub_100063A54();
+  v3 = sub_100063A54(a1);
+  if (sub_1000776B4(v3))
+  {
+    v4 = [a1 localizedDescription];
+    sub_100006E3C();
+    sub_100077688(&_mh_execute_header, v5, v6, "Could not set app asset promise with error - %{public}@", v7, v8, v9, v10);
+  }
+}
+
+void sub_1000DA334(void *a1)
+{
+  v3 = sub_100063A54(a1);
+  if (sub_1000776B4(v3))
+  {
+    v4 = [a1 localizedDescription];
+    sub_100006E3C();
+    sub_100077688(&_mh_execute_header, v5, v6, "Could not set configuration comlete with error - %{public}@", v7, v8, v9, v10);
+  }
+}
+
+void sub_1000DA3D0(uint64_t a1)
+{
+  v3 = sub_100063A54(a1);
+  if (sub_1000776B4(v3))
+  {
+    LODWORD(v10) = 138543362;
+    *(&v10 + 4) = a1;
+    sub_100077688(&_mh_execute_header, v4, v5, "Could not copy IPA/Patch file from cache: %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
+  }
+}
+
+void sub_1000DA45C(void *a1)
+{
+  v3 = sub_100063A54(a1);
+  if (sub_1000776B4(v3))
+  {
+    v4 = [a1 localizedDescription];
+    sub_100006E3C();
+    sub_100077688(&_mh_execute_header, v5, v6, "Set install options failed with error - %{public}@", v7, v8, v9, v10);
+  }
+}
+
+void sub_1000DA4F8(void *a1)
+{
+  v2 = sub_100063A54(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  {
+    v3 = [a1 localizedDescription];
+    sub_100006E3C();
+    sub_1000776A8();
+    _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0xCu);
+  }
+}
+
+void sub_1000DA5AC(uint64_t a1, void *a2)
+{
+  v6 = [a2 localizedDescription];
+  sub_1000776A8();
+  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
+}
+
+void sub_1000DA6C4(void *a1)
+{
+  v1 = [a1 localizedDescription];
+  sub_100006E3C();
+  sub_1000776A8();
+  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
+}
+
+void sub_1000DA754(int *a1, uint8_t *buf, os_log_t log)
+{
+  v3 = *a1;
+  *buf = 67240192;
+  *(buf + 1) = v3;
+  _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Failed to read data to buffer: %{public, errno}d", buf, 8u);
+}
+
+void sub_1000DA7A0(NSObject *a1, NSObject **a2)
+{
+  if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
+  {
+    *v4 = 0;
+    _os_log_error_impl(&_mh_execute_header, a1, OS_LOG_TYPE_ERROR, "Failed to instantiate NSData object.", v4, 2u);
+  }
+
+  *a2 = a1;
+}
+
+void sub_1000DA870(uint64_t a1, int *a2, uint8_t *buf, os_log_t log)
+{
+  v4 = *a2;
+  *buf = 138543618;
+  *(buf + 4) = a1;
+  *(buf + 6) = 1026;
+  *(buf + 14) = v4;
+  _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Failed to open file: %{public}@ - %{public, errno}d", buf, 0x12u);
+}
+
+void sub_1000DAA04(uint64_t a1)
+{
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  {
+    *v2 = 0;
+    _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Cannot generate custom domains.", v2, 2u);
+  }
+}
+
+void sub_1000DAAB4(uint64_t a1, NSObject *a2)
+{
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Cannot load domains.plist from %{public}@.", &v2, 0xCu);
+}
+
+void sub_1000DAB2C(uint64_t a1, uint64_t a2, os_log_t log)
+{
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "Manifest file path %{public}@ is not same as real path: %{public}@", &v3, 0x16u);
+}
+
+void sub_1000DABB4(uint64_t a1, NSObject *a2)
+{
+  v2 = 136315394;
+  v3 = "[WhitelistChecker handleSystemContainerFiles:withMetadata:]";
+  v4 = 2114;
+  v5 = a1;
+  _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%s:Container check failed for %{public}@", &v2, 0x16u);
+}
+
+void sub_1000DB24C(uint8_t *buf, _BYTE *a2, os_log_t log)
+{
+  *buf = 0;
+  *a2 = 0;
+  _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Failed to set background download environment. Will try again..", buf, 2u);
+}
+
+void sub_1000DB28C(void *a1, void *a2)
+{
+  v4 = sub_100063A54(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  {
+    *v5 = 0;
+    _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to build components from manifest", v5, 2u);
+  }
+}
+
+void sub_1000DB310(uint64_t a1, NSObject *a2)
+{
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Failed to set background download environment after %ld attempts. Bailing out.", &v2, 0xCu);
+}
+
+void sub_1000DB388(void *a1, NSObject *a2)
+{
+  v3 = [a1 device];
+  v4 = 134217984;
+  v5 = [v3 backgroundDownloadState];
+  _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "Called quitBackgroundDownload when background state:%lu", &v4, 0xCu);
+}
+
+void sub_1000DB424(uint64_t a1, void *a2, NSObject *a3)
+{
+  v5 = [a2 name];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_debug_impl(&_mh_execute_header, a3, OS_LOG_TYPE_DEBUG, "Dispatching operation %{public}@ to queue %{public}@", &v6, 0x16u);
+}
+
+void sub_1000DB5C8(NSObject *a1, NSObject **a2)
+{
+  if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
+  {
+    v10 = 0;
+    sub_10000C708(&_mh_execute_header, v4, v5, "Failed to save device language.", v6, v7, v8, v9, v10);
+  }
+
+  *a2 = a1;
+}
+
+void sub_1000DB620(NSObject *a1, NSObject **a2)
+{
+  if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
+  {
+    v10 = 0;
+    sub_10000C708(&_mh_execute_header, v4, v5, "Failed to save device region.", v6, v7, v8, v9, v10);
+  }
+
+  *a2 = a1;
+}
+
+void sub_1000DBB04(int a1, NSObject *a2)
+{
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "SecTrustEvaluate returned fail: %d", v2, 8u);
+}
+
+void sub_1000DBB7C(const void *a1)
+{
+  v2 = sub_100063A54(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  {
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "[MSDHubTrustEvaluate trustDAServer:]";
+    sub_100020E84(&_mh_execute_header, v3, v4, "%s: Cannot load demounit root CA certificate.", v5, v6, v7, v8, v9, DWORD2(v9));
+  }
+
+  CFRelease(a1);
+}
+
+void sub_1000DBC24(uint64_t a1)
+{
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
+  {
+    sub_100008384();
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void sub_1000DBCF4(uint64_t a1, NSObject *a2)
+{
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "This certificate is not for iosdm: %{public}@", &v2, 0xCu);
+}
+
+void sub_1000DBD6C(const void *a1)
+{
+  v2 = sub_100063A54(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  {
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "[MSDHubTrustEvaluate trustServerWithApplePKI:]";
+    sub_100020E84(&_mh_execute_header, v3, v4, "%s: Cannot load certificate.", v5, v6, v7, v8, v9, DWORD2(v9));
+  }
+
+  CFRelease(a1);
+}
+
+void sub_1000DBE14(uint64_t a1)
+{
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
+  {
+    sub_100008384();
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void sub_1000DBEB0(const void *a1)
+{
+  v2 = sub_100063A54(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  {
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "[MSDHubTrustEvaluate trustServerWithAxinoePKI:]";
+    sub_100020E84(&_mh_execute_header, v3, v4, "%s: Cannot load certificate.", v5, v6, v7, v8, v9, DWORD2(v9));
+  }
+
+  CFRelease(a1);
+}
+
+void sub_1000DBF58(uint64_t a1)
+{
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
+  {
+    sub_100008384();
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void sub_1000DBFF4(uint64_t a1)
+{
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
+  {
+    sub_100008384();
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void sub_1000DC090(uint64_t a1)
+{
+  v1 = a1;
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = 136315394;
     v4 = "[MSDHubTrustEvaluate trustServer:withRootCA:withHostName:]";
     v5 = 2048;
-    v6 = a1;
+    v6 = v1;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s: Cannot set anchor certificates: %ld", &v3, 0x16u);
   }
 }
 
-void sub_1000DC14C()
+void sub_1000DC14C(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
   }
 }
 
-void sub_1000DC1E4()
+void sub_1000DC1E4(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
-void sub_1000DC280()
+void sub_1000DC280(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
 void sub_1000DC31C(void *a1, NSObject **a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = [a1 getName];
     sub_100006E3C();
-    sub_100020E84(&_mh_execute_header, v6, v7, "%{public}@: invalid request", v8, v9, v10, v11, v12);
+    sub_100020E84(&_mh_execute_header, v6, v7, "%{public}@: invalid request", v8, v9, v10, v11);
   }
 
   *a2 = v4;
@@ -76,12 +371,12 @@ void sub_1000DC31C(void *a1, NSObject **a2)
 
 void sub_1000DC3D0(void *a1, NSObject **a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = [a1 getName];
     sub_100006E3C();
-    sub_100020E84(&_mh_execute_header, v6, v7, "%{public}@: cannot send request to nil path", v8, v9, v10, v11, v12);
+    sub_100020E84(&_mh_execute_header, v6, v7, "%{public}@: cannot send request to nil path", v8, v9, v10, v11);
   }
 
   *a2 = v4;
@@ -89,12 +384,12 @@ void sub_1000DC3D0(void *a1, NSObject **a2)
 
 void sub_1000DC484(void *a1, NSObject **a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = [a1 getName];
     sub_100006E3C();
-    sub_100020E84(&_mh_execute_header, v6, v7, "%{public}@: Failed to convert input to query items", v8, v9, v10, v11, v12);
+    sub_100020E84(&_mh_execute_header, v6, v7, "%{public}@: Failed to convert input to query items", v8, v9, v10, v11);
   }
 
   *a2 = v4;
@@ -104,28 +399,28 @@ void sub_1000DC538(void *a1)
 {
   v1 = [a1 getName];
   sub_100006E3C();
-  sub_100006E1C(&_mh_execute_header, v2, v3, "%{public}@: invalid request", v4, v5, v6, v7, v8);
+  sub_100006E1C(&_mh_execute_header, v2, v3, "%{public}@: invalid request", v4, v5, v6, v7);
 }
 
 void sub_1000DC5BC(void *a1)
 {
   v1 = [a1 getName];
   sub_100006E3C();
-  sub_100006E1C(&_mh_execute_header, v2, v3, "%{public}@: failed to convert to task info", v4, v5, v6, v7, v8);
+  sub_100006E1C(&_mh_execute_header, v2, v3, "%{public}@: failed to convert to task info", v4, v5, v6, v7);
 }
 
 void sub_1000DC640(void *a1)
 {
   v1 = [a1 getName];
   sub_100006E3C();
-  sub_100006E1C(&_mh_execute_header, v2, v3, "%{public}@: cannot send request to nil endpoint", v4, v5, v6, v7, v8);
+  sub_100006E1C(&_mh_execute_header, v2, v3, "%{public}@: cannot send request to nil endpoint", v4, v5, v6, v7);
 }
 
 void sub_1000DC6C4(void *a1)
 {
   v1 = [a1 getName];
   sub_100006E3C();
-  sub_100006E1C(&_mh_execute_header, v2, v3, "%{public}@: failed to generate post data", v4, v5, v6, v7, v8);
+  sub_100006E1C(&_mh_execute_header, v2, v3, "%{public}@: failed to generate post data", v4, v5, v6, v7);
 }
 
 void sub_1000DC75C(os_log_t log)
@@ -159,35 +454,35 @@ void sub_1000DC8F4()
   _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "%s - Failed to get all localizations or localizations is in wrong format.  Bundle:  %{public}@", v1, 0x16u);
 }
 
-void sub_1000DC998()
+void sub_1000DC998(uint64_t a1)
 {
-  v0 = sub_100063A54();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_1000055D4();
     sub_100008384();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
   }
 }
 
-void sub_1000DCA44()
+void sub_1000DCA44(uint64_t a1)
 {
-  v0 = sub_100063A54();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_1000055D4();
     sub_100008384();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
   }
 }
 
-void sub_1000DCAF0()
+void sub_1000DCAF0(uint64_t a1)
 {
-  v0 = sub_100063A54();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_100008384();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
   }
 }
 
@@ -221,7 +516,7 @@ void sub_1000DCD9C()
 
 void sub_1000DCE0C(uint64_t a1, void *a2, void *a3)
 {
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = 138543362;
@@ -244,20 +539,6 @@ void sub_1000DCF54()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1000DCFC8(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_100008394();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_1000DD040(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_100008394();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_1000DD0B8(void *a1, uint8_t *buf, void *a3, os_log_t log)
 {
   *buf = 138543362;
@@ -272,10 +553,14 @@ void sub_1000DD114(void *a1, uint8_t *buf, os_log_t log, void *a4)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Timed out while waiting for %{public}@ to download", buf, 0xCu);
 }
 
-void sub_1000DD174(uint64_t a1)
+void sub_1000DD174(uint64_t a1, uint64_t a2)
 {
-  v7 = [MSDAssetUpdater assetToString:*(a1 + 32)];
-  sub_100017378(&_mh_execute_header, v1, v2, "Asset download failed with status %ld\n%{public}@", v3, v4, v5, v6, 2u);
+  v3 = [MSDAssetUpdater assetToString:*(a1 + 32)];
+  *v10 = 134218242;
+  *&v10[4] = a2;
+  *&v10[12] = 2114;
+  *&v10[14] = v3;
+  sub_100017378(&_mh_execute_header, v4, v5, "Asset download failed with status %ld\n%{public}@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 void sub_1000DD224(uint64_t a1, NSObject *a2)
@@ -288,13 +573,17 @@ void sub_1000DD224(uint64_t a1, NSObject *a2)
 
 void sub_1000DD2CC(void *a1)
 {
-  v7 = [a1 localizedDescription];
-  sub_100017378(&_mh_execute_header, v1, v2, "An error occurred while retrieving contents of %{public}@ - %{public}@", v3, v4, v5, v6, 2u);
+  v1 = [a1 localizedDescription];
+  *v8 = 138543618;
+  *&v8[4] = @"/System/Library/UnifiedAssetFramework/AssetSets";
+  *&v8[12] = 2114;
+  *&v8[14] = v1;
+  sub_100017378(&_mh_execute_header, v2, v3, "An error occurred while retrieving contents of %{public}@ - %{public}@", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
 }
 
 void sub_1000DD368(uint64_t a1, NSObject **a2)
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10003AD94();
@@ -347,7 +636,7 @@ void sub_1000DD6F0()
 
 void sub_1000DD76C(uint64_t a1, void *a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v6[0] = 136315394;
@@ -359,7 +648,7 @@ void sub_1000DD76C(uint64_t a1, void *a2)
 
 void sub_1000DD828(void *a1, void *a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = 136315394;
@@ -372,7 +661,7 @@ void sub_1000DD828(void *a1, void *a2)
 
 void sub_1000DD900(uint64_t a1, void *a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v6[0] = 136315394;
@@ -384,7 +673,7 @@ void sub_1000DD900(uint64_t a1, void *a2)
 
 void sub_1000DD9BC(void *a1)
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = [a1 localizedDescription];
@@ -417,14 +706,14 @@ void sub_1000DDB70(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "App was not uninstalled. Disposition: %ld", &v2, 0xCu);
 }
 
-void sub_1000DE508()
+void sub_1000DE508(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100024E68();
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
@@ -436,24 +725,24 @@ void sub_1000DE59C(uint64_t a1, void *a2)
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void sub_1000DE644()
+void sub_1000DE644(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
-    v2 = *__error();
+    __error();
     sub_100024E68();
     sub_100008384();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
   }
 }
 
-void sub_1000DE6EC()
+void sub_1000DE6EC(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
-    v2 = *__error();
+    __error();
     sub_100024E68();
     sub_100008384();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
@@ -462,7 +751,7 @@ void sub_1000DE6EC()
 
 void sub_1000DE794(uint64_t a1, NSObject **a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = __error();
@@ -476,69 +765,69 @@ void sub_1000DE794(uint64_t a1, NSObject **a2)
   *a2 = v4;
 }
 
-void sub_1000DE858()
+void sub_1000DE858(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
-    v2 = __error();
-    strerror(*v2);
+    v3 = __error();
+    strerror(*v3);
     sub_100024E68();
     sub_100086020();
+    sub_100008384();
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  }
+}
+
+void sub_1000DE940(uint64_t a1)
+{
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
+  {
+    v3 = __error();
+    strerror(*v3);
+    sub_100024E68();
+    sub_100086020();
+    sub_100008384();
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  }
+}
+
+void sub_1000DE9E4(uint64_t a1)
+{
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
+  {
+    sub_100024E68();
+    sub_100008384();
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void sub_1000DEA78(uint64_t a1)
+{
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
+  {
     sub_100008384();
     _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
   }
 }
 
-void sub_1000DE940()
+void sub_1000DEB28(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
-  {
-    v2 = __error();
-    strerror(*v2);
-    sub_100024E68();
-    sub_100086020();
-    sub_100008384();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  }
-}
-
-void sub_1000DE9E4()
-{
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100024E68();
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  }
-}
-
-void sub_1000DEA78()
-{
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
-  {
-    sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  }
-}
-
-void sub_1000DEB28()
-{
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
-  {
-    sub_100024E68();
-    sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
 void sub_1000DEBBC(uint64_t a1, void *a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (sub_1000083A0(v4))
   {
     v5 = [a2 localizedDescription];
@@ -548,25 +837,25 @@ void sub_1000DEBBC(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000DEC7C()
+void sub_1000DEC7C(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100024E68();
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
-void sub_1000DED10()
+void sub_1000DED10(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100024E68();
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
@@ -579,13 +868,13 @@ void sub_1000DEDA4(uint64_t a1, uint64_t a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Cannot remove extended attribte %{public}s from %{public}@.", &v3, 0x16u);
 }
 
-void sub_1000DEE70()
+void sub_1000DEE70(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
@@ -682,7 +971,8 @@ void sub_1000DF43C(NSObject *a1)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
-    sub_10006DBEC(&_mh_execute_header, v2, v3, "demo updater is busy; ignoring install call", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_10006DBEC(&_mh_execute_header, v2, v3, "demo updater is busy; ignoring install call", v4, v5, v6, v7, v8);
   }
 }
 
@@ -690,7 +980,8 @@ void sub_1000DF48C(NSObject *a1)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
-    sub_10006DBEC(&_mh_execute_header, v2, v3, "demo updater is busy.", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_10006DBEC(&_mh_execute_header, v2, v3, "demo updater is busy.", v4, v5, v6, v7, v8);
   }
 }
 
@@ -698,7 +989,8 @@ void sub_1000DF4DC(NSObject *a1)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT))
   {
-    sub_10006DBEC(&_mh_execute_header, v2, v3, "demo updater is NOT busy.", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_10006DBEC(&_mh_execute_header, v2, v3, "demo updater is NOT busy.", v4, v5, v6, v7, v8);
   }
 }
 
@@ -810,7 +1102,7 @@ void sub_1000DFA24(void *a1)
 
 uint64_t sub_1000DFAB0(uint64_t a1, void *a2, void *a3)
 {
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     v7 = [a2 device];
@@ -860,18 +1152,19 @@ void sub_1000DFE14()
 id sub_1000DFE50()
 {
   sub_100018954();
-  v2 = sub_100063A54();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = sub_100063A54(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    sub_100018934(&_mh_execute_header, v3, v4, "Failed to load cached bundle metadata", v5, v6, v7, v8, 0);
+    v12 = 0;
+    sub_100018934(&_mh_execute_header, v4, v5, "Failed to load cached bundle metadata", v6, v7, v8, v9, v12);
   }
 
   *v1 = 0;
   sub_1000C1390(v1, 3727740942, @"Failed to load cached manifest file");
-  v9 = *v1;
+  v10 = *v1;
   *v0 = *v1;
 
-  return v9;
+  return v10;
 }
 
 void sub_1000DFEEC()
@@ -881,35 +1174,35 @@ void sub_1000DFEEC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1000DFF5C()
+void sub_1000DFF5C(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_1000055D4();
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
   }
 }
 
-void sub_1000E0000()
+void sub_1000E0000(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_1000055D4();
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
   }
 }
 
-void sub_1000E00B8()
+void sub_1000E00B8(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
@@ -923,43 +1216,44 @@ void sub_1000E0150()
 id sub_1000E01C0()
 {
   sub_100018954();
-  v2 = sub_100063A54();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = sub_100063A54(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    sub_100018934(&_mh_execute_header, v3, v4, "Selected bundle metadata do not contain file name", v5, v6, v7, v8, 0);
+    v12 = 0;
+    sub_100018934(&_mh_execute_header, v4, v5, "Selected bundle metadata do not contain file name", v6, v7, v8, v9, v12);
   }
 
   *v1 = 0;
   sub_1000C1390(v1, 3727740942, @"Selected bundle metadata do not contain file name");
-  v9 = *v1;
+  v10 = *v1;
   *v0 = *v1;
 
-  return v9;
+  return v10;
 }
 
-void sub_1000E025C()
+void sub_1000E025C(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
-void sub_1000E02F8()
+void sub_1000E02F8(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
 void sub_1000E03D8(void *a1, uint64_t a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = [a1 getName];
@@ -974,22 +1268,28 @@ void sub_1000E03D8(void *a1, uint64_t a2)
 void sub_1000E04AC(void *a1)
 {
   v1 = [a1 localizedDescription];
-  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to list directory contents - %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to list directory contents - %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-void sub_1000E0534()
+void sub_1000E0534(uint64_t a1)
 {
-  v0 = sub_100063A54();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = sub_100063A54(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    sub_100006E1C(&_mh_execute_header, v1, v2, "Failed to copy file from content cache: %{public}@", v3, v4, v5, v6, 2u);
+    LODWORD(v9) = 138543362;
+    *(&v9 + 4) = a1;
+    sub_100006E1C(&_mh_execute_header, v3, v4, "Failed to copy file from content cache: %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
   }
 }
 
 void sub_1000E05CC(void *a1)
 {
   v1 = [a1 localizedDescription];
-  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to remove file: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to remove file: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_1000E08A8(uint64_t a1, NSObject *a2)
@@ -1007,11 +1307,11 @@ void sub_1000E0928(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "The value for key %{public}@ has a type that is not supported yet", &v2, 0xCu);
 }
 
-void sub_1000E09A0()
+void sub_1000E09A0(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
   sub_100008384();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void sub_1000E0A44(void *a1)
@@ -1023,7 +1323,7 @@ void sub_1000E0A44(void *a1)
 
 void sub_1000E0ACC(uint64_t a1, void *a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5[0] = 136315394;
@@ -1035,7 +1335,7 @@ void sub_1000E0ACC(uint64_t a1, void *a2)
 
 void sub_1000E0B90(void *a1)
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = [a1 localizedDescription];
@@ -1064,7 +1364,7 @@ void sub_1000E0CDC()
 
 void sub_1000E0D60(void *a1)
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = [a1 localizedDescription];
@@ -1075,13 +1375,13 @@ void sub_1000E0D60(void *a1)
   }
 }
 
-void sub_1000E1338()
+void sub_1000E1338(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
@@ -1106,35 +1406,35 @@ void sub_1000E167C()
   sub_1000159F8(&_mh_execute_header, v0, v1, "%s: No matching certificate for %{public}@.", v2);
 }
 
-void sub_1000E16F4()
+void sub_1000E16F4(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
-void sub_1000E1750()
+void sub_1000E1750(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
 void sub_1000E17AC()
 {
   sub_10006DBE0();
-  v0 = sub_100063A54();
-  if (sub_10006DBC8(v0))
+  v1 = sub_100063A54(v0);
+  if (sub_10006DBC8(v1))
   {
     sub_10003ADA4();
     sub_10003AD94();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
   }
 
   sub_10003ADD4();
@@ -1143,22 +1443,22 @@ void sub_1000E17AC()
 void sub_1000E1850()
 {
   sub_10006DBE0();
-  v2 = sub_100063A54();
-  if (sub_10006DBC8(v2))
+  v3 = sub_100063A54(v2);
+  if (sub_10006DBC8(v3))
   {
     sub_10003ADA4();
     sub_10003AD94();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
   }
 }
 
-void sub_1000E18FC()
+void sub_1000E18FC(uint64_t a1)
 {
-  v0 = sub_100063A54();
-  if (sub_10006DBC8(v0))
+  v1 = sub_100063A54(a1);
+  if (sub_10006DBC8(v1))
   {
     sub_10003AD94();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
   }
 
   sub_10003ADD4();
@@ -1180,13 +1480,13 @@ void sub_1000E1A14(NSObject *a1)
   }
 }
 
-void sub_1000E1AA8()
+void sub_1000E1AA8(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
@@ -1241,71 +1541,71 @@ void sub_1000E1D18()
   sub_10003ADD4();
 }
 
-void sub_1000E1DA8(unsigned int *a1)
+void sub_1000E1DA8()
 {
-  v1 = *a1;
-  v4[0] = 136315394;
+  v2[0] = 136315394;
   sub_100093C90();
-  sub_1000159F8(&_mh_execute_header, v2, v3, "%s: certificate trust evaluation failed: %ld", v4);
+  sub_1000159F8(&_mh_execute_header, v0, v1, "%s: certificate trust evaluation failed: %ld", v2);
 }
 
 void sub_1000E1E24()
 {
   sub_100018954();
-  v3 = sub_100063A54();
-  if (sub_100018978(v3))
+  v4 = sub_100063A54(v3);
+  if (sub_100018978(v4))
   {
     sub_10005F09C();
-    _os_log_error_impl(v6, v7, v8, v9, v10, v11);
+    _os_log_error_impl(v7, v8, v9, v10, v11, v12);
   }
 
-  v4 = *(*(v1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = 0;
+  v5 = *(*(v1 + 32) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = 0;
 
   *v0 = 1;
 }
 
-void sub_1000E1F30(int a1)
+void sub_1000E1F30(uint64_t a1)
 {
-  v2 = sub_100063A54();
+  v1 = a1;
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = 136315394;
     v4 = "[MSDDemoManifestCheck verifySignature:forData:withKey:]";
     v5 = 1024;
-    v6 = a1;
+    v6 = v1;
     _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "%s: Failed in verifying signature(%d)", &v3, 0x12u);
   }
 }
 
-void sub_1000E20EC()
+void sub_1000E20EC(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
-void sub_1000E2148()
+void sub_1000E2148(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
-void sub_1000E21E4()
+void sub_1000E21E4(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
@@ -1350,24 +1650,24 @@ void sub_1000E241C()
 void sub_1000E248C()
 {
   sub_10006DBE0();
-  v2 = sub_100063A54();
-  if (sub_10006DBC8(v2))
+  v3 = sub_100063A54(v2);
+  if (sub_10006DBC8(v3))
   {
     sub_10003ADA4();
     sub_10003AD94();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
   }
 }
 
 void sub_1000E2538()
 {
   sub_10006DBE0();
-  v0 = sub_100063A54();
-  if (sub_10006DBC8(v0))
+  v1 = sub_100063A54(v0);
+  if (sub_10006DBC8(v1))
   {
     sub_10003ADA4();
     sub_10003AD94();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
   }
 
   sub_10003ADD4();
@@ -1376,12 +1676,12 @@ void sub_1000E2538()
 void sub_1000E25DC()
 {
   sub_10006DBE0();
-  v0 = sub_100063A54();
-  if (sub_10006DBC8(v0))
+  v1 = sub_100063A54(v0);
+  if (sub_10006DBC8(v1))
   {
     sub_10003ADA4();
     sub_10003AD94();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
   }
 
   sub_10003ADD4();
@@ -1390,11 +1690,11 @@ void sub_1000E25DC()
 void sub_1000E2680()
 {
   sub_100018954();
-  v3 = sub_100063A54();
-  if (sub_100018978(v3))
+  v4 = sub_100063A54(v3);
+  if (sub_100018978(v4))
   {
     sub_100093CA4();
-    _os_log_error_impl(v4, v5, v6, v7, v8, v9);
+    _os_log_error_impl(v5, v6, v7, v8, v9, v10);
   }
 }
 
@@ -1430,7 +1730,7 @@ void sub_1000E2858()
 
 void sub_1000E28C8(void *a1)
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(a1);
   if (sub_10006DBC8(v3))
   {
     sub_10003AD94();
@@ -1440,7 +1740,7 @@ void sub_1000E28C8(void *a1)
 
 void sub_1000E292C(uint64_t a1, void *a2, void *a3)
 {
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(a1);
   if (sub_100018978(v6))
   {
     sub_10005F09C();
@@ -1451,11 +1751,11 @@ void sub_1000E292C(uint64_t a1, void *a2, void *a3)
 void sub_1000E29E0()
 {
   sub_10006DBE0();
-  v2 = sub_100063A54();
-  if (sub_10006DBC8(v2))
+  v3 = sub_100063A54(v2);
+  if (sub_10006DBC8(v3))
   {
     sub_10003AD94();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
   }
 }
 
@@ -1477,8 +1777,9 @@ void sub_1000E2B64(NSObject *a1, uint64_t a2, NSObject **a3)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    v12 = HIDWORD(*(*a2 + 40));
-    sub_100020E84(&_mh_execute_header, v6, v7, "Failed to load manifest factory metadata from %{public}@; directory does not exist", v8, v9, v10, v11, 2u);
+    LODWORD(v12) = 138543362;
+    *(&v12 + 4) = *(*a2 + 40);
+    sub_100020E84(&_mh_execute_header, v6, v7, "Failed to load manifest factory metadata from %{public}@; directory does not exist", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a3 = a1;
@@ -1488,11 +1789,33 @@ void sub_1000E2C08(NSObject *a1, uint64_t a2, NSObject **a3)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    v12 = HIDWORD(*(*a2 + 40));
-    sub_100020E84(&_mh_execute_header, v6, v7, "Failed to load manifest factory metadata from %{public}@; path is not a directory", v8, v9, v10, v11, 2u);
+    LODWORD(v12) = 138543362;
+    *(&v12 + 4) = *(*a2 + 40);
+    sub_100020E84(&_mh_execute_header, v6, v7, "Failed to load manifest factory metadata from %{public}@; path is not a directory", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a3 = a1;
+}
+
+void sub_1000E2CAC(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100024E1C(&_mh_execute_header, a2, a3, "Failed to load factory metadata from path %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000E2D18(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100024E1C(&_mh_execute_header, a2, a3, "Content.plist file %{public}@ does not exist", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000E2D84(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_100024E1C(&_mh_execute_header, a2, a3, "Failed to load Content.plist at path %{public}@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000E2E04(os_log_t log)
@@ -1515,12 +1838,13 @@ void sub_1000E2E84(void *a1, NSObject *a2)
 
 void sub_1000E3024(uint64_t a1, void *a2)
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = [a2 localizedDescription];
+    v11 = 136315650;
     sub_1000055D4();
-    sub_10009711C(&_mh_execute_header, v5, v6, "%s - error creating directory at %{public}@. Error: %{public}@", v7, v8, v9, v10, 2u);
+    sub_10009711C(&_mh_execute_header, v5, v6, "%s - error creating directory at %{public}@. Error: %{public}@", v7, v8, v9, v10, v11);
   }
 }
 
@@ -1528,8 +1852,9 @@ void sub_1000E30F0(void *a1, void *a2)
 {
   v3 = [a1 settingsFilePath];
   v4 = [a2 localizedDescription];
+  v11 = 136315650;
   sub_1000055D4();
-  sub_10009711C(&_mh_execute_header, v5, v6, "%s - Error initializing the default system settings file %{public}@ with values - Error: %{public}@", v7, v8, v9, v10, 2u);
+  sub_10009711C(&_mh_execute_header, v5, v6, "%s - Error initializing the default system settings file %{public}@ with values - Error: %{public}@", v7, v8, v9, v10, v11);
 }
 
 void sub_1000E31AC(os_log_t log)
@@ -1546,6 +1871,31 @@ void sub_1000E3230(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s - The shallow refresh settings refresher is uninitialized. No settings revert will be done", &v1, 0xCu);
 }
 
+void sub_1000E3384(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float a9)
+{
+  *v9 = 136315394;
+  *&v9[4] = "[MSDSettingsRefresher volume]";
+  *&v9[12] = 2050;
+  *&v9[14] = a9;
+  sub_100097100(&_mh_execute_header, a1, a3, "%s - Current system volume value: %{public}1.2f", a5, a6, a7, a8, *v9, *&v9[8], *&v9[16]);
+}
+
+void sub_1000E340C()
+{
+  v6 = 136315394;
+  sub_1000055D4();
+  sub_100097100(&_mh_execute_header, v0, v1, "%s - Current system true tone setting: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000E3484(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136315394;
+  *&v8[4] = "[MSDSettingsRefresher airplaneMode]";
+  *&v8[12] = 2112;
+  *&v8[14] = a1;
+  sub_100097100(&_mh_execute_header, a2, a3, "%s - Current system airplane mode setting: %@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16]);
+}
+
 void sub_1000E3504()
 {
   v1[0] = 136315394;
@@ -1554,149 +1904,163 @@ void sub_1000E3504()
   _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "%s - Invalid current airdrop setting read. Defaulting to %{public}@", v1, 0x16u);
 }
 
-void sub_1000E3970()
+void sub_1000E3594()
 {
-  v0 = sub_100063A54();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v6 = 136315394;
+  sub_1000055D4();
+  sub_100097100(&_mh_execute_header, v0, v1, "%s - Current system AirDrop mode setting: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000E3970(uint64_t a1)
+{
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    *v1 = 0;
-    _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "Failed ApplePKI and AxinoePKI trust evaluation", v1, 2u);
+    *v2 = 0;
+    _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "Failed ApplePKI and AxinoePKI trust evaluation", v2, 2u);
   }
 }
 
-void sub_1000E39DC()
+void sub_1000E39DC(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
-void sub_1000E3A38()
+void sub_1000E3A38(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
 void sub_1000E3B88(const void *a1)
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    sub_100020E84(&_mh_execute_header, v3, v4, "%s: Cannot load certificate.", v5, v6, v7, v8, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "[MSDSessionBaseTrustEvaluate trustServerWithApplePKI:]";
+    sub_100020E84(&_mh_execute_header, v3, v4, "%s: Cannot load certificate.", v5, v6, v7, v8, v9, DWORD2(v9));
   }
 
   CFRelease(a1);
 }
 
-void sub_1000E3C30()
+void sub_1000E3C30(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
 void sub_1000E3CCC(const void *a1)
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    sub_100020E84(&_mh_execute_header, v3, v4, "%s: Cannot load certificate.", v5, v6, v7, v8, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "[MSDSessionBaseTrustEvaluate trustServerWithAxinoePKI:]";
+    sub_100020E84(&_mh_execute_header, v3, v4, "%s: Cannot load certificate.", v5, v6, v7, v8, v9, DWORD2(v9));
   }
 
   CFRelease(a1);
 }
 
-void sub_1000E3D74()
+void sub_1000E3D74(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
-void sub_1000E3E10()
+void sub_1000E3E10(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
-void sub_1000E3EAC(int a1)
+void sub_1000E3EAC(uint64_t a1)
 {
-  v2 = sub_100063A54();
+  v1 = a1;
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = 136315394;
     v4 = "[MSDSessionBaseTrustEvaluate trustServer:withRootCA:withHostName:]";
     v5 = 2048;
-    v6 = a1;
+    v6 = v1;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s: Cannot set anchor certificates: %ld", &v3, 0x16u);
   }
 }
 
-void sub_1000E3F68()
+void sub_1000E3F68(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
-void sub_1000E4004()
+void sub_1000E4004(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
 void sub_1000E4114(const void *a1)
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    sub_100020E84(&_mh_execute_header, v3, v4, "%s: Cannot load demounit root CA certificate.", v5, v6, v7, v8, 2u);
+    LODWORD(v9) = 136315138;
+    *(&v9 + 4) = "[MSDSessionFMHTrustEvaluate trustServer:isRedirect:]";
+    sub_100020E84(&_mh_execute_header, v3, v4, "%s: Cannot load demounit root CA certificate.", v5, v6, v7, v8, v9, DWORD2(v9));
   }
 
   CFRelease(a1);
 }
 
-void sub_1000E41BC()
+void sub_1000E41BC(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
-void sub_1000E4258()
+void sub_1000E4258(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
@@ -1718,7 +2082,7 @@ void sub_1000E4454(void *a1)
 
 void sub_1000E44E0(void *a1)
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(a1);
   if (sub_1000083A0(v3))
   {
     v4 = [a1 path];
@@ -1750,29 +2114,29 @@ void sub_1000E4640(NSObject *a1, void *a2)
   }
 }
 
-void sub_1000E46F8()
+void sub_1000E46F8(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
-void sub_1000E4794()
+void sub_1000E4794(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
 void sub_1000E482C(void *a1, NSObject **a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = [a1 path];
@@ -1785,7 +2149,7 @@ void sub_1000E482C(void *a1, NSObject **a2)
 
 void sub_1000E48E8(void *a1, NSObject **a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = [a1 path];
@@ -1796,20 +2160,20 @@ void sub_1000E48E8(void *a1, NSObject **a2)
   *a2 = v4;
 }
 
-void sub_1000E49A4()
+void sub_1000E49A4(uint64_t a1)
 {
-  v1 = sub_100063A54();
-  if (sub_1000083A0(v1))
+  v2 = sub_100063A54(a1);
+  if (sub_1000083A0(v2))
   {
     sub_1000055D4();
     sub_100008384();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
   }
 }
 
 void sub_1000E4A48(uint64_t a1, void *a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (sub_1000083A0(v4))
   {
     v5 = [a2 localizedDescription];
@@ -1826,32 +2190,32 @@ void sub_1000E4B14(void *a1)
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_1000E4BE8(uint64_t a1)
+void sub_1000E4C54(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(a1 + 48);
-  sub_10009B948();
-  sub_10001B0D4(&_mh_execute_header, v2, v3, "MSDRapportMessageHandler: Incoming options: %{public}@", v4, v5, v6, v7, v8);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  sub_10001B0D4(&_mh_execute_header, a2, a3, "MSDRapportMessageHandler: Incoming options: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void sub_1000E4CC0(uint64_t a1)
+void sub_1000E4CC0()
 {
-  sub_10009B964(a1, __stack_chk_guard);
+  sub_10009B964(__stack_chk_guard);
   sub_10009B948();
-  sub_100024E1C(&_mh_execute_header, v1, v2, "MSDRapportMessageHandler: XPC connection to sender RPCompanionLinkClient interrupted for device: %{public}@", v3, v4, v5, v6, v7);
+  sub_100024E1C(&_mh_execute_header, v0, v1, "MSDRapportMessageHandler: XPC connection to sender RPCompanionLinkClient interrupted for device: %{public}@", v2, v3, v4, v5);
 }
 
-void sub_1000E4D28(uint64_t a1)
+void sub_1000E4D28()
 {
-  sub_10009B964(a1, __stack_chk_guard);
+  sub_10009B964(__stack_chk_guard);
   sub_10009B948();
-  sub_100024E1C(&_mh_execute_header, v1, v2, "MSDRapportMessageHandler: XPC connection to sender RPCompanionLinkClient invalidated for device: %{public}@", v3, v4, v5, v6, v7);
+  sub_100024E1C(&_mh_execute_header, v0, v1, "MSDRapportMessageHandler: XPC connection to sender RPCompanionLinkClient invalidated for device: %{public}@", v2, v3, v4, v5);
 }
 
-void sub_1000E4D90(uint64_t a1)
+void sub_1000E4D90()
 {
-  sub_10009B964(a1, __stack_chk_guard);
+  sub_10009B964(__stack_chk_guard);
   sub_10009B948();
-  sub_100024E1C(&_mh_execute_header, v1, v2, "MSDRapportMessageHandler: Link connection lost for device: %{public}@", v3, v4, v5, v6, v7);
+  sub_100024E1C(&_mh_execute_header, v0, v1, "MSDRapportMessageHandler: Link connection lost for device: %{public}@", v2, v3, v4, v5);
 }
 
 void sub_1000E4DF8(uint64_t a1, uint64_t a2)
@@ -1862,11 +2226,11 @@ void sub_1000E4DF8(uint64_t a1, uint64_t a2)
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void sub_1000E4E8C(uint64_t a1)
+void sub_1000E4E8C()
 {
-  sub_10009B964(a1, __stack_chk_guard);
+  sub_10009B964(__stack_chk_guard);
   sub_10009B948();
-  sub_100024E1C(&_mh_execute_header, v1, v2, "MSDRapportMessageHandler: No RPCompanionLinkClient found for device: %{public}@", v3, v4, v5, v6, v7);
+  sub_100024E1C(&_mh_execute_header, v0, v1, "MSDRapportMessageHandler: No RPCompanionLinkClient found for device: %{public}@", v2, v3, v4, v5);
 }
 
 void sub_1000E4EF4(uint64_t a1, uint64_t a2)
@@ -1889,14 +2253,14 @@ void sub_1000E5030(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_100006E3C();
-  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to get file last modified date: %{public}@", v4, v5, v6, v7, v8);
+  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to get file last modified date: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_1000E50B4(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_100006E3C();
-  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to locate xctspawn tool: %{public}@", v4, v5, v6, v7, v8);
+  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to locate xctspawn tool: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_1000E5138(uint64_t a1, int a2, os_log_t log)
@@ -1912,14 +2276,14 @@ void sub_1000E51C0(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_100006E3C();
-  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to deserialize JSON data: %{public}@", v4, v5, v6, v7, v8);
+  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to deserialize JSON data: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_1000E5244(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_100006E3C();
-  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to load JSON data: %{public}@", v4, v5, v6, v7, v8);
+  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to load JSON data: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_1000E52C8(int a1, NSObject *a2)
@@ -1931,7 +2295,7 @@ void sub_1000E52C8(int a1, NSObject *a2)
 
 void sub_1000E53C8(uint64_t a1)
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = 138543362;
@@ -1943,13 +2307,17 @@ void sub_1000E53C8(uint64_t a1)
 void sub_1000E57B0(void *a1)
 {
   v1 = [a1 localizedDescription];
-  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to query recovery key availability: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to query recovery key availability: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_1000E5838(void *a1)
 {
   v1 = [a1 localizedDescription];
-  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to generate recovery key: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to generate recovery key: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_1000E58C0(uint64_t a1, NSObject *a2)
@@ -1963,23 +2331,23 @@ void sub_1000E5938(void *a1)
 {
   v1 = [a1 getName];
   sub_100069728();
-  sub_100017378(&_mh_execute_header, v2, v3, "%{public}@: required key not found: %{public}@", v4, v5, v6, v7, v8);
+  sub_100017378(&_mh_execute_header, v2, v3, "%{public}@: required key not found: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_1000E59C8(void *a1)
 {
   v1 = [a1 getName];
   sub_100069728();
-  sub_100017378(&_mh_execute_header, v2, v3, "%{public}@: error from the server: %{public}@", v4, v5, v6, v7, v8);
+  sub_100017378(&_mh_execute_header, v2, v3, "%{public}@: error from the server: %{public}@", v4, v5, v6, v7);
 }
 
-void sub_1000E5ABC()
+void sub_1000E5ABC(uint64_t a1)
 {
-  v0 = sub_100063A54();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "No expire epoch found.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "No expire epoch found.", v2, 2u);
   }
 }
 
@@ -1987,22 +2355,29 @@ void sub_1000E5B24(void *a1, void *a2)
 {
   v3 = [a1 path];
   v4 = [a2 localizedDescription];
+  v11 = 136315650;
   sub_10009F014();
-  sub_10009711C(&_mh_execute_header, v5, v6, "%s - Failed to load file:  %{public}@ - Error:  %{public}@", v7, v8, v9, v10, 2u);
+  sub_10009711C(&_mh_execute_header, v5, v6, "%s - Failed to load file:  %{public}@ - Error:  %{public}@", v7, v8, v9, v10, v11);
 }
 
 void sub_1000E5BD4(uint64_t a1, void *a2)
 {
-  v8 = [a2 localizedDescription];
-  sub_10009711C(&_mh_execute_header, v2, v3, "%s - Failed to create folder:  %{public}@ - Error:  %{public}@", v4, v5, v6, v7, 2u);
+  v3 = [a2 localizedDescription];
+  *v10 = 136315650;
+  *&v10[4] = "[MSDFileDownloadCredentials saveInfoToFile:]";
+  *&v10[12] = 2114;
+  *&v10[14] = a1;
+  *&v10[22] = 2114;
+  sub_10009711C(&_mh_execute_header, v4, v5, "%s - Failed to create folder:  %{public}@ - Error:  %{public}@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16], v3);
 }
 
 void sub_1000E5C88(void *a1, void *a2)
 {
   v3 = [a1 path];
   v4 = [a2 localizedDescription];
+  v11 = 136315650;
   sub_10009F014();
-  sub_10009711C(&_mh_execute_header, v5, v6, "%s - Failed to save info to file:  %{public}@ - Error:  %{public}@", v7, v8, v9, v10, 2u);
+  sub_10009711C(&_mh_execute_header, v5, v6, "%s - Failed to save info to file:  %{public}@ - Error:  %{public}@", v7, v8, v9, v10, v11);
 }
 
 void sub_1000E5D38(void *a1, uint64_t a2, NSObject *a3)
@@ -2017,11 +2392,13 @@ void sub_1000E5D38(void *a1, uint64_t a2, NSObject *a3)
 
 void *sub_1000E5DE8(void *a1, void *a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v6 = [a1 getName];
-    sub_100020E84(&_mh_execute_header, v7, v8, "%{public}@: failed to convert data to dict", v9, v10, v11, v12, 2u);
+    LODWORD(v13) = 138543362;
+    *(&v13 + 4) = v6;
+    sub_100020E84(&_mh_execute_header, v7, v8, "%{public}@: failed to convert data to dict", v9, v10, v11, v12, v13, DWORD2(v13));
   }
 
   return sub_1000C1390(a2, 3727744512, @"Unexpected server response.");
@@ -2029,11 +2406,13 @@ void *sub_1000E5DE8(void *a1, void *a2)
 
 void *sub_1000E5EB8(void *a1, void *a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v6 = [a1 getName];
-    sub_100020E84(&_mh_execute_header, v7, v8, "%{public}@: no data received.", v9, v10, v11, v12, 2u);
+    LODWORD(v13) = 138543362;
+    *(&v13 + 4) = v6;
+    sub_100020E84(&_mh_execute_header, v7, v8, "%{public}@: no data received.", v9, v10, v11, v12, v13, DWORD2(v13));
   }
 
   return sub_1000C1390(a2, 3727740934, @"Request rejected by server.");
@@ -2069,19 +2448,19 @@ void sub_1000E6168(uint64_t a1, void *a2)
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void sub_1000E6204()
+void sub_1000E6204(uint64_t a1)
 {
-  v0 = sub_100063A54();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_100008384();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
   }
 }
 
 void sub_1000E6400(void *a1, NSObject **a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = [a1 localizedDescription];
@@ -2094,7 +2473,7 @@ void sub_1000E6400(void *a1, NSObject **a2)
 
 void sub_1000E64C4(void *a1)
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = [a1 localizedDescription];
@@ -2108,28 +2487,28 @@ void sub_1000E6574(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_100006E3C();
-  sub_100006E1C(&_mh_execute_header, v2, v3, "MSDNearbyObjectMonitor: Failed to create NIDevicePresenceConfiguration: %{public}@", v4, v5, v6, v7, v8);
+  sub_100006E1C(&_mh_execute_header, v2, v3, "MSDNearbyObjectMonitor: Failed to create NIDevicePresenceConfiguration: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_1000E65FC(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_100006E3C();
-  sub_100006E1C(&_mh_execute_header, v2, v3, "MSDNearbyObjectMonitor: Failed to activate device scanner: %{public}@", v4, v5, v6, v7, v8);
+  sub_100006E1C(&_mh_execute_header, v2, v3, "MSDNearbyObjectMonitor: Failed to activate device scanner: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_1000E6680(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_100006E3C();
-  sub_100006E1C(&_mh_execute_header, v2, v3, "MSDNearbyObjectMonitor: NISession invalidated with error: %{public}@", v4, v5, v6, v7, v8);
+  sub_100006E1C(&_mh_execute_header, v2, v3, "MSDNearbyObjectMonitor: NISession invalidated with error: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_1000E696C(uint64_t a1, void *a2)
 {
   v2 = [a2 localizedDescription];
   sub_100016B1C();
-  sub_100017378(&_mh_execute_header, v3, v4, "Failed to install OS update (%{public}s) - %{public}@", v5, v6, v7, v8, v9);
+  sub_100017378(&_mh_execute_header, v3, v4, "Failed to install OS update (%{public}s) - %{public}@", v5, v6, v7, v8);
 }
 
 void sub_1000E6A00(uint64_t a1, NSObject *a2)
@@ -2168,30 +2547,30 @@ void sub_1000E6C70(uint64_t a1, void *a2)
           goto LABEL_6;
         }
 
-        v13 = sub_100063A54();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = sub_100063A54(v11);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          *v14 = 0;
-          _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to update FDC", v14, 2u);
+          *v15 = 0;
+          _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to update FDC", v15, 2u);
         }
 
-        v12 = [NSError errorDomainMSDWithCode:3727744737 message:@"Cannot write file."];
+        v13 = [NSError errorDomainMSDWithCode:3727744737 message:@"Cannot write file."];
       }
 
       else
       {
-        v11 = sub_100063A54();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = sub_100063A54(0);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "FDC response does not contain credential dictionary", buf, 2u);
+          _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "FDC response does not contain credential dictionary", buf, 2u);
         }
 
-        v12 = [NSError errorDomainMSDWithCode:3727744512 message:@"Unexpected server response."];
+        v13 = [NSError errorDomainMSDWithCode:3727744512 message:@"Unexpected server response."];
         v7 = 0;
       }
 
-      [sub_1000A9AA0() setError:v12];
+      [sub_1000A9AA0() setError:v13];
 
       goto LABEL_6;
     }
@@ -2231,14 +2610,14 @@ void sub_1000E6FCC(void *a1)
 {
   v1 = [a1 savePath];
   sub_100006E3C();
-  sub_100006E1C(&_mh_execute_header, v2, v3, "Cannot find %{public}@", v4, v5, v6, v7, v8);
+  sub_100006E1C(&_mh_execute_header, v2, v3, "Cannot find %{public}@", v4, v5, v6, v7);
 }
 
 void sub_1000E7050(void *a1)
 {
   v1 = [a1 appID];
   sub_100006E3C();
-  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to get IPA from server for app %{public}@", v4, v5, v6, v7, v8);
+  sub_100006E1C(&_mh_execute_header, v2, v3, "Failed to get IPA from server for app %{public}@", v4, v5, v6, v7);
 }
 
 void sub_1000E70D4(NSObject *a1, void *a2)
@@ -2247,18 +2626,18 @@ void sub_1000E70D4(NSObject *a1, void *a2)
   {
     v4 = [a2 getName];
     sub_100006E3C();
-    sub_100006E1C(&_mh_execute_header, v5, v6, "%{public}@: does not conform to MSDDownloadFileDetailsProtocol.", v7, v8, v9, v10, v11);
+    sub_100006E1C(&_mh_execute_header, v5, v6, "%{public}@: does not conform to MSDDownloadFileDetailsProtocol.", v7, v8, v9, v10);
   }
 }
 
-void sub_1000E729C()
+void sub_1000E729C(uint64_t a1)
 {
-  v0 = sub_100063A54();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v1 = 136315138;
-    v2 = "[MSDUIHelper stopFullScreenUI:]_block_invoke";
-    _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "%s: Cannot create xpc dict.", &v1, 0xCu);
+    v2 = 136315138;
+    v3 = "[MSDUIHelper stopFullScreenUI:]_block_invoke";
+    _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "%s: Cannot create xpc dict.", &v2, 0xCu);
   }
 }
 
@@ -2267,7 +2646,9 @@ void sub_1000E7418()
   sub_100018954();
   if (sub_10003ADE0(v0))
   {
-    sub_100020E84(&_mh_execute_header, v1, v2, "%s: Cannot create xpc dict.", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[MSDUIHelper demoUpdateFailed:]_block_invoke";
+    sub_100020E84(&_mh_execute_header, v1, v2, "%s: Cannot create xpc dict.", v3, v4, v5, v6, v7, DWORD2(v7));
   }
 
   sub_10003ADD4();
@@ -2278,7 +2659,9 @@ void sub_1000E74A0()
   sub_100018954();
   if (sub_10003ADE0(v0))
   {
-    sub_100020E84(&_mh_execute_header, v1, v2, "%s: Attempt to report an nil error", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[MSDUIHelper demoUpdateFailed:]_block_invoke";
+    sub_100020E84(&_mh_execute_header, v1, v2, "%s: Attempt to report an nil error", v3, v4, v5, v6, v7, DWORD2(v7));
   }
 
   sub_10003ADD4();
@@ -2289,7 +2672,9 @@ void sub_1000E7528()
   sub_100018954();
   if (sub_10003ADE0(v0))
   {
-    sub_100020E84(&_mh_execute_header, v1, v2, "%s: Cannot create xpc dict.", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[MSDUIHelper demoUpdateProgress:]_block_invoke";
+    sub_100020E84(&_mh_execute_header, v1, v2, "%s: Cannot create xpc dict.", v3, v4, v5, v6, v7, DWORD2(v7));
   }
 
   sub_10003ADD4();
@@ -2300,7 +2685,9 @@ void sub_1000E75B0()
   sub_100018954();
   if (sub_10003ADE0(v0))
   {
-    sub_100020E84(&_mh_execute_header, v1, v2, "%s: Cannot create xpc dict.", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[MSDUIHelper demoUpdateAllowCancel:]_block_invoke";
+    sub_100020E84(&_mh_execute_header, v1, v2, "%s: Cannot create xpc dict.", v3, v4, v5, v6, v7, DWORD2(v7));
   }
 
   sub_10003ADD4();
@@ -2311,7 +2698,9 @@ void sub_1000E7638()
   sub_100018954();
   if (sub_10003ADE0(v0))
   {
-    sub_100020E84(&_mh_execute_header, v1, v2, "%s: Cannot create xpc dict.", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "[MSDUIHelper demoUpdateDisableIdleTimer:]_block_invoke";
+    sub_100020E84(&_mh_execute_header, v1, v2, "%s: Cannot create xpc dict.", v3, v4, v5, v6, v7, DWORD2(v7));
   }
 
   sub_10003ADD4();
@@ -2393,13 +2782,13 @@ void sub_1000E8194()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1000E8204()
+void sub_1000E8204(uint64_t a1)
 {
-  v0 = sub_100063A54();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_100008384();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
   }
 }
 
@@ -2431,7 +2820,7 @@ void sub_1000E86F4(os_log_t log)
 
 void sub_1000E8778(uint64_t a1)
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = 138543362;
@@ -2472,20 +2861,20 @@ void sub_1000E8A6C(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s - Error writing locale info to the MSDPreferences file", &v1, 0xCu);
 }
 
-void sub_1000E8B34()
+void sub_1000E8B34(uint64_t a1)
 {
-  v0 = sub_100063A54();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v1 = 138543362;
-    v2 = @"HDR";
-    _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "Missing key %{public}@ in display settings.", &v1, 0xCu);
+    v2 = 138543362;
+    v3 = @"HDR";
+    _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Missing key %{public}@ in display settings.", &v2, 0xCu);
   }
 }
 
 void sub_1000E9460(uint64_t a1)
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = 138543362;
@@ -2508,13 +2897,13 @@ void sub_1000E9544()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000E9580()
+void sub_1000E9580(uint64_t a1)
 {
-  v0 = sub_100063A54();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    *v2 = 0;
-    sub_1000B4CE8(&_mh_execute_header, v0, v1, "Failed to save wifi settings to our preferences file.", v2);
+    *v3 = 0;
+    sub_1000B4CE8(&_mh_execute_header, v1, v2, "Failed to save wifi settings to our preferences file.", v3);
   }
 }
 
@@ -2548,24 +2937,24 @@ void sub_1000E9698()
 
 void sub_1000E96D4(void *a1, NSObject **a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = [a1 localizedDescription];
     sub_100006E3C();
-    sub_100020E84(&_mh_execute_header, v6, v7, "Failed to start monitoring for CWFEventTypeLinkChanged event. Error %{public}@", v8, v9, v10, v11, v12);
+    sub_100020E84(&_mh_execute_header, v6, v7, "Failed to start monitoring for CWFEventTypeLinkChanged event. Error %{public}@", v8, v9, v10, v11);
   }
 
   *a2 = v4;
 }
 
-void sub_1000E97FC()
+void sub_1000E97FC(uint64_t a1)
 {
-  v0 = sub_100063A54();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    *v2 = 0;
-    sub_1000B4CE8(&_mh_execute_header, v0, v1, "Unable to get SSID for current network.", v2);
+    *v3 = 0;
+    sub_1000B4CE8(&_mh_execute_header, v1, v2, "Unable to get SSID for current network.", v3);
   }
 }
 
@@ -2599,12 +2988,12 @@ void sub_1000E9B6C()
 
 void sub_1000E9BA8(void *a1)
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = [a1 localizedDescription];
     sub_100006E3C();
-    sub_100020E84(&_mh_execute_header, v4, v5, "Failed to remove known WiFi network - %{public}@", v6, v7, v8, v9, v10);
+    sub_100020E84(&_mh_execute_header, v4, v5, "Failed to remove known WiFi network - %{public}@", v6, v7, v8, v9);
   }
 }
 
@@ -2715,14 +3104,14 @@ uint64_t sub_1000EA594(void *a1, uint64_t *a2)
 
   [a1 setObject:v8 forKeyedSubscript:@"Reason"];
 
-  v9 = sub_100063A54();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = sub_100063A54(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v11 = 136315394;
-    v12 = "[MSDDemoPeerResponder _handleSetLanguageAndRegion:]";
-    v13 = 2114;
-    v14 = v5;
-    _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s - error:  %{public}@", &v11, 0x16u);
+    v12 = 136315394;
+    v13 = "[MSDDemoPeerResponder _handleSetLanguageAndRegion:]";
+    v14 = 2114;
+    v15 = v5;
+    _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s - error:  %{public}@", &v12, 0x16u);
   }
 
   return 0;
@@ -2885,31 +3274,29 @@ void sub_1000EB2E4(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Unknown contaier type: %{public}@", &v2, 0xCu);
 }
 
-void sub_1000EB35C(uint64_t a1, uint64_t a2, uint64_t *a3)
+void sub_1000EB35C(uint64_t a1)
 {
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v5 = *a3;
     sub_1000C1B50();
-    sub_10009711C(&_mh_execute_header, v6, v7, "Cannot remove data for container %{public}@(%{public}@), error code is %lld", v8, v9, v10, v11, v12);
+    sub_10009711C(&_mh_execute_header, v2, v3, "Cannot remove data for container %{public}@(%{public}@), error code is %lld", v4, v5, v6, v7);
   }
 }
 
-void sub_1000EB404(uint64_t a1, uint64_t a2, uint64_t *a3)
+void sub_1000EB404(uint64_t a1)
 {
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v1 = sub_100063A54(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v5 = *a3;
     sub_1000C1B50();
-    sub_10009711C(&_mh_execute_header, v6, v7, "Cannot create container object for %{public}@(%{public}@): %lld", v8, v9, v10, v11, v12);
+    sub_10009711C(&_mh_execute_header, v2, v3, "Cannot create container object for %{public}@(%{public}@): %lld", v4, v5, v6, v7);
   }
 }
 
 void sub_1000EB4AC(uint64_t a1, void *a2)
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = [a2 localizedDescription];

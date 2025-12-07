@@ -2,7 +2,7 @@
 + (BOOL)updateMinMaxXYOfParabola:(double *)parabola withPoint:;
 - (BOOL)isValidRadius:(float)radius withPrecedingRadius:;
 - (VNParabolaDetection)init;
-- (float)getRsquareOfEquation:(const double *)equation yValues:(__n128)values equationConstants:;
+- (float)getRsquareOfEquation:(double *)equation yValues:(__n128)values equationConstants:;
 - (id).cxx_construct;
 - (uint64_t)processContoursForParabolas:(uint64_t)parabolas withPTS:(uint64_t)s objectMinimumPixelSize:(uint64_t)size bufferWidth:(uint64_t)width bufferHeight:;
 @end
@@ -660,7 +660,7 @@ LABEL_133:
     v54 = (self + 16);
     v51 = v250;
     v52 = v251;
-    v101 = v53 + 4;
+    v101 = (v53 + 4);
     if (v98 < v100)
     {
       if (v310.f64[0] != *v281)
@@ -793,11 +793,11 @@ LABEL_158:
           *v281 = v310;
           *&v281[16] = *v311;
           *&v281[28] = *&v311[12];
-          v101 = v53 + 4;
+          v101 = (v53 + 4);
           goto LABEL_159;
         }
 
-        v101 = v53 + 4;
+        v101 = (v53 + 4);
         if (v160)
         {
 LABEL_159:
@@ -1199,9 +1199,9 @@ LABEL_271:
         if (*(self + 124) && *(self + 128))
         {
           v310.f64[0] = 0.0;
-          std::vector<double>::vector[abi:ne200100](v268, (v288 - v287) >> 3);
+          std::vector<double>::vector[abi:ne200100](v268, (v288 - v287) >> 3, &v310);
           v310.f64[0] = 0.0;
-          std::vector<double>::vector[abi:ne200100](__p, (v291 - v290) >> 3);
+          std::vector<double>::vector[abi:ne200100](__p, (v291 - v290) >> 3, &v310);
           v189 = v287;
           v190 = v288;
           v191 = *v268;
@@ -1599,7 +1599,7 @@ LABEL_320:
   return result;
 }
 
-- (float)getRsquareOfEquation:(const double *)equation yValues:(__n128)values equationConstants:
+- (float)getRsquareOfEquation:(double *)equation yValues:(__n128)values equationConstants:
 {
   v4 = equation - a2;
   if (equation == a2)

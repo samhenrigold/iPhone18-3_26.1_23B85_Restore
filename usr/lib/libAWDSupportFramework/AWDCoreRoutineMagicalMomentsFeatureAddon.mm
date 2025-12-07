@@ -54,7 +54,6 @@
 
   if (*&self->_has)
   {
-    value = self->_value;
 
     PBDataWriterWriteInt32Field();
   }

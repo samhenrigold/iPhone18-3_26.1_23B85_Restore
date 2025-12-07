@@ -1479,56 +1479,56 @@ LABEL_23:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create camera rules!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create camera rules!", v2, v3, v4, v5);
 }
 
 - (void)setupH264WifiRules
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d H264 Wifi rules: failed to allocate QVGA15 rule", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d H264 Wifi rules: failed to allocate QVGA15 rule", v2, v3, v4, v5);
 }
 
 - (void)setupHEVCRules
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate videoRulesWiFiEncoding for HEVC", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate videoRulesWiFiEncoding for HEVC", v2, v3, v4, v5);
 }
 
 - (void)setUp1080pRules:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d H264 Wi-Fi rules: failed to allocate 1664x1248 30 FPS rule", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d H264 Wi-Fi rules: failed to allocate 1664x1248 30 FPS rule", v2, v3, v4, v5);
 }
 
 - (void)setUp1080pRules:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d H264 Wi-Fi rules: failed to allocate 1920x1080 30 FPS rule", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d H264 Wi-Fi rules: failed to allocate 1920x1080 30 FPS rule", v2, v3, v4, v5);
 }
 
 - (void)setUp1080pRules:.cold.3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate videoRulesWiFiDecoding for HEVC", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate videoRulesWiFiDecoding for HEVC", v2, v3, v4, v5);
 }
 
 - (void)setUp1080pRules:.cold.4()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate videoRulesWiFiEncoding for HEVC", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate videoRulesWiFiEncoding for HEVC", v2, v3, v4, v5);
 }
 
 - (void)resetEncodingRulesForCameraIsHD:isWVGA:is1080:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to Setup Rules", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to Setup Rules", v2, v3, v4, v5);
 }
 
 @end

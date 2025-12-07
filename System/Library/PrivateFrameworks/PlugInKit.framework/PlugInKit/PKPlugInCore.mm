@@ -1,4 +1,5 @@
 @interface PKPlugInCore
++ (id)readSDKDictionary:(id)dictionary forPlatform:(unsigned int)platform externalProviders:(id)providers;
 - (BOOL)hasEntitlement:(id)entitlement;
 - (BOOL)isAppExtension;
 - (BOOL)isData;
@@ -25,6 +26,7 @@
 - (PKPlugInCore)init;
 - (PKPlugInCore)initWithExternalProviders:(id)providers;
 - (PKPlugInCore)initWithForm:(id)form externalProviders:(id)providers;
+- (PKPlugInCore)initWithName:(id)name extensionPointPlatform:(unsigned int)platform url:(id)url bundleInfo:(id)info uuid:(id)uuid discoveryInstanceUUID:(id)d extensionPointCache:(id)cache externalProviders:(id)self0;
 - (id)_localizedFileProviderActionNamesForPKDict:(id)dict fromBundle:(id)bundle;
 - (id)attribute:(id)attribute;
 - (id)debugDescription;
@@ -141,7 +143,7 @@
 
 - (NSString)localizedName
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->_localizedName)
@@ -158,26 +160,25 @@
     identifier = [(PKPlugInCore *)selfCopy identifier];
     version = [(PKPlugInCore *)selfCopy version];
     localizedName = selfCopy->_localizedName;
-    v11 = 138544130;
-    v12 = uuid;
-    v13 = 2112;
-    v14 = identifier;
-    v15 = 2112;
-    v16 = version;
-    v17 = 2112;
-    v18 = localizedName;
-    _os_log_impl(&dword_1C6892000, v3, OS_LOG_TYPE_INFO, "[u %{public}@] [%@(%@)] got localized name: %@", &v11, 0x2Au);
+    v10 = 138544130;
+    v11 = uuid;
+    v12 = 2112;
+    v13 = identifier;
+    v14 = 2112;
+    v15 = version;
+    v16 = 2112;
+    v17 = localizedName;
+    _os_log_impl(&dword_1C6892000, v3, OS_LOG_TYPE_INFO, "[u %{public}@] [%@(%@)] got localized name: %@", &v10, 0x2Au);
   }
 
   v8 = selfCopy->_localizedName;
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (NSString)localizedShortName
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->_localizedShortName)
@@ -194,26 +195,25 @@
     identifier = [(PKPlugInCore *)selfCopy identifier];
     version = [(PKPlugInCore *)selfCopy version];
     localizedShortName = selfCopy->_localizedShortName;
-    v11 = 138544130;
-    v12 = uuid;
-    v13 = 2112;
-    v14 = identifier;
-    v15 = 2112;
-    v16 = version;
-    v17 = 2112;
-    v18 = localizedShortName;
-    _os_log_impl(&dword_1C6892000, v3, OS_LOG_TYPE_INFO, "[u %{public}@] [%@(%@)] got localized short name: %@", &v11, 0x2Au);
+    v10 = 138544130;
+    v11 = uuid;
+    v12 = 2112;
+    v13 = identifier;
+    v14 = 2112;
+    v15 = version;
+    v16 = 2112;
+    v17 = localizedShortName;
+    _os_log_impl(&dword_1C6892000, v3, OS_LOG_TYPE_INFO, "[u %{public}@] [%@(%@)] got localized short name: %@", &v10, 0x2Au);
   }
 
   v8 = selfCopy->_localizedShortName;
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (void)_loadLocalizedNames
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   external = [(PKPlugInCore *)self external];
   v5 = [external ls];
@@ -252,9 +252,9 @@
   if (!v10)
   {
 LABEL_7:
-    v33 = 0;
-    v15 = [(PKPlugInCore *)self useBundle:@"." error:&v33];
-    v16 = v33;
+    v32 = 0;
+    v15 = [(PKPlugInCore *)self useBundle:@"." error:&v32];
+    v16 = v32;
     if (v15)
     {
       external3 = [(PKPlugInCore *)self external];
@@ -295,18 +295,18 @@ LABEL_7:
         uuid2 = [(PKPlugInCore *)self uuid];
         identifier = [(PKPlugInCore *)self identifier];
         version = [(PKPlugInCore *)self version];
-        v31 = self->_localizedName;
-        v32 = self->_localizedShortName;
+        v30 = self->_localizedName;
+        v31 = self->_localizedShortName;
         *buf = 138544386;
-        v35 = uuid2;
-        v36 = 2112;
-        v37 = identifier;
-        v38 = 2112;
-        v39 = version;
-        v40 = 2112;
-        v41 = v31;
-        v42 = 2112;
-        v43 = v32;
+        v34 = uuid2;
+        v35 = 2112;
+        v36 = identifier;
+        v37 = 2112;
+        v38 = version;
+        v39 = 2112;
+        v40 = v30;
+        v41 = 2112;
+        v42 = v31;
         _os_log_debug_impl(&dword_1C6892000, v26, OS_LOG_TYPE_DEBUG, "[u %{public}@] [%@(%@)] BundleInfo[BundleDisplayName] is [%@], BundleInfo[BundleName] is [%@]", buf, 0x34u);
       }
     }
@@ -322,7 +322,6 @@ LABEL_7:
   }
 
   objc_autoreleasePoolPop(v3);
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -416,7 +415,7 @@ LABEL_7:
     v4 = pklog_handle_for_category(7);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_1C68B5F20();
+      sub_1C68B5F20(v2);
     }
 
     goto LABEL_7;
@@ -434,9 +433,9 @@ LABEL_8:
 
   if (!identifier)
   {
-    v27 = @"missing identifier (no NSExtensionIdentifier, nor even CFBundleIdentifier)";
+    v29 = @"missing identifier (no NSExtensionIdentifier, nor even CFBundleIdentifier)";
 LABEL_21:
-    pkErrorf(12, v27, v5, v6, v7, v8, v9, v10, v34);
+    pkErrorf(12, v29, v5, v6, v7, v8, v9, v10, v36);
     goto LABEL_22;
   }
 
@@ -444,10 +443,10 @@ LABEL_21:
 
   if (!protocolSpec)
   {
-    v28 = PKProtocolInfoKey;
+    v30 = PKProtocolInfoKey;
 LABEL_10:
-    pkErrorf(12, @"missing %@ key in Info.plist or SDK", v12, v13, v14, v15, v16, v17, *v28);
-    v32 = LABEL_22:;
+    pkErrorf(12, @"missing %@ key in Info.plist or SDK", v12, v13, v14, v15, v16, v17, *v30);
+    v34 = LABEL_22:;
     goto LABEL_23;
   }
 
@@ -455,27 +454,28 @@ LABEL_10:
 
   if (!attributes)
   {
-    v28 = PKAttributesInfoKey;
+    v30 = PKAttributesInfoKey;
     goto LABEL_10;
   }
 
   isAppExtension = [(PKPlugInCore *)self isAppExtension];
   if (!isAppExtension)
   {
-    v26 = 0;
+    v28 = 0;
     goto LABEL_17;
   }
 
   principalSpec = [(PKPlugInCore *)self principalSpec];
-  if ([principalSpec isEqualToString:@"NSObject"])
+  v26 = [principalSpec isEqualToString:@"NSObject"];
+  if (v26)
   {
-    v26 = 0;
+    v28 = 0;
     goto LABEL_17;
   }
 
-  if (!pkUseInternalDiagnostics())
+  if (!pkUseInternalDiagnostics(v26, v27))
   {
-    v26 = 1;
+    v28 = 1;
 LABEL_17:
     if (isAppExtension)
     {
@@ -483,7 +483,7 @@ LABEL_17:
     }
 
 LABEL_13:
-    if (!v26)
+    if (!v28)
     {
       goto LABEL_19;
     }
@@ -491,9 +491,9 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v29 = [(PKPlugInCore *)self url];
-  path = [v29 path];
-  v26 = [path hasPrefix:@"/AppleInternal/"] ^ 1;
+  v31 = [(PKPlugInCore *)self url];
+  path = [v31 path];
+  v28 = [path hasPrefix:@"/AppleInternal/"] ^ 1;
 
   if (!isAppExtension)
   {
@@ -502,7 +502,7 @@ LABEL_13:
 
 LABEL_18:
 
-  if (v26)
+  if (v28)
   {
 LABEL_14:
     pkErrorf(12, @"Application Extensions may not use the %@ key", v19, v20, v21, v22, v23, v24, @"PrincipalClass");
@@ -510,28 +510,28 @@ LABEL_14:
   }
 
 LABEL_19:
-  v31 = [(PKPlugInCore *)self pluginKey:@"PassProxy"];
+  v33 = [(PKPlugInCore *)self pluginKey:@"PassProxy"];
 
-  if (v31)
+  if (v33)
   {
-    v34 = @"PassProxy";
-    v27 = @"the %@ key is not supported on this platform";
+    v36 = @"PassProxy";
+    v29 = @"the %@ key is not supported on this platform";
     goto LABEL_21;
   }
 
   if ([(PKPlugInCore *)self isHybrid])
   {
-    v32 = pkError(12, @"hybrid plug-ins are not supported on this platform");
+    v34 = pkError(12, @"hybrid plug-ins are not supported on this platform");
   }
 
   else
   {
-    v32 = 0;
+    v34 = 0;
   }
 
 LABEL_23:
 
-  return v32;
+  return v34;
 }
 
 - (BOOL)isHybrid
@@ -563,6 +563,26 @@ LABEL_23:
   }
 
   return v7;
+}
+
+- (PKPlugInCore)initWithName:(id)name extensionPointPlatform:(unsigned int)platform url:(id)url bundleInfo:(id)info uuid:(id)uuid discoveryInstanceUUID:(id)d extensionPointCache:(id)cache externalProviders:(id)self0
+{
+  v14 = *&platform;
+  nameCopy = name;
+  urlCopy = url;
+  infoCopy = info;
+  uuidCopy = uuid;
+  dCopy = d;
+  cacheCopy = cache;
+  v22 = [(PKPlugInCore *)self initWithExternalProviders:providers];
+  v23 = v22;
+  if (v22 && ![(PKPlugInCore *)v22 setupWithName:nameCopy extensionPointPlatform:v14 url:urlCopy bundleInfo:infoCopy uuid:uuidCopy discoveryInstanceUUID:dCopy extensionPointCache:cacheCopy])
+  {
+
+    v23 = 0;
+  }
+
+  return v23;
 }
 
 - (PKPlugInCore)initWithForm:(id)form externalProviders:(id)providers
@@ -614,7 +634,7 @@ LABEL_23:
 
 - (BOOL)setupWithName:(id)name extensionPointPlatform:(unsigned int)platform url:(id)url bundleInfo:(id)info uuid:(id)uuid discoveryInstanceUUID:(id)d extensionPointCache:(id)cache
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   urlCopy = url;
   infoCopy = info;
@@ -637,32 +657,32 @@ LABEL_23:
 
     if (cacheCopy)
     {
-      v33 = dCopy;
+      v32 = dCopy;
       v23 = [(PKPlugInCore *)self normalizeInfoDictionary:infoCopy];
       v24 = [(PKPlugInCore *)self resolveSDKWithInfoPlist:v23 extensionPointCache:v22];
 
-      v34 = v24;
+      v33 = v24;
       v25 = [(PKPlugInCore *)self setDictionaries:v24];
       if (v25)
       {
         [(PKPlugInCore *)self canonicalize];
-        dCopy = v33;
+        dCopy = v32;
       }
 
       else
       {
         log = pklog_handle_for_category(6);
-        dCopy = v33;
+        dCopy = v32;
         if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
         {
           *buf = 138413058;
-          v36 = v33;
-          v37 = 2114;
-          v38 = nameCopy;
-          v39 = 2114;
-          v40 = urlCopy;
-          v41 = 2114;
-          v42 = infoCopy;
+          v35 = v32;
+          v36 = 2114;
+          v37 = nameCopy;
+          v38 = 2114;
+          v39 = urlCopy;
+          v40 = 2114;
+          v41 = infoCopy;
           _os_log_error_impl(&dword_1C6892000, log, OS_LOG_TYPE_ERROR, "[d %@] malformed plugin dictionary in plugin [%{public}@] at [%{public}@]: %{public}@", buf, 0x2Au);
         }
       }
@@ -704,13 +724,13 @@ LABEL_16:
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
       *buf = 138413058;
-      v36 = dCopy;
-      v37 = 2114;
-      v38 = nameCopy;
-      v39 = 2114;
-      v40 = urlCopy;
-      v41 = 2114;
-      v42 = infoCopy;
+      v35 = dCopy;
+      v36 = 2114;
+      v37 = nameCopy;
+      v38 = 2114;
+      v39 = urlCopy;
+      v40 = 2114;
+      v41 = infoCopy;
       _os_log_error_impl(&dword_1C6892000, p_super, OS_LOG_TYPE_ERROR, "[d %@] malformed plugin dictionary in plugin [%{public}@] at [%{public}@]: %{public}@", buf, 0x2Au);
       v27 = 0;
       goto LABEL_21;
@@ -732,13 +752,12 @@ LABEL_16:
 LABEL_21:
 
 LABEL_23:
-  v30 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
 - (BOOL)setDictionaries:(id)dictionaries
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dictionariesCopy = dictionaries;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -760,15 +779,15 @@ LABEL_23:
           identifier = [(PKPlugInCore *)self identifier];
           [(PKPlugInCore *)self version];
           *buf = 138413314;
-          v18 = discoveryInstanceUUID;
-          v19 = 2114;
-          v20 = uuid;
-          v21 = 2112;
-          v22 = identifier;
-          v24 = v23 = 2112;
-          v11 = v24;
-          v25 = 2114;
-          v26 = @"Multiple";
+          v17 = discoveryInstanceUUID;
+          v18 = 2114;
+          v19 = uuid;
+          v20 = 2112;
+          v21 = identifier;
+          v23 = v22 = 2112;
+          v11 = v23;
+          v24 = 2114;
+          v25 = @"Multiple";
           _os_log_impl(&dword_1C6892000, v8, OS_LOG_TYPE_DEFAULT, "[d %@] [u %{public}@] [%@(%@)] multiplexed plug-ins (%{public}@ key) obsolete and ignored", buf, 0x34u);
         }
       }
@@ -789,17 +808,16 @@ LABEL_23:
     isKindOfClass = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return isKindOfClass & 1;
 }
 
 - (BOOL)setupWithForm:(id)form
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   formCopy = form;
   v5 = objc_alloc(MEMORY[0x1E695DFF8]);
   v6 = [formCopy objectForKeyedSubscript:@"path"];
-  v45 = [v5 initFileURLWithPath:v6];
+  v44 = [v5 initFileURLWithPath:v6];
 
   v7 = [formCopy objectForKeyedSubscript:@"discoveryInstanceUUID"];
   if (v7)
@@ -819,7 +837,7 @@ LABEL_23:
   v12 = objc_alloc(MEMORY[0x1E696AFB0]);
   v13 = [formCopy objectForKeyedSubscript:@"uuid"];
   v14 = [v12 initWithUUIDString:v13];
-  LODWORD(unsignedIntValue) = [(PKPlugInCore *)self setupWithName:v10 extensionPointPlatform:unsignedIntValue url:v45 bundleInfo:v11 uuid:v14 discoveryInstanceUUID:v8 extensionPointCache:0];
+  LODWORD(unsignedIntValue) = [(PKPlugInCore *)self setupWithName:v10 extensionPointPlatform:unsignedIntValue url:v44 bundleInfo:v11 uuid:v14 discoveryInstanceUUID:v8 extensionPointCache:0];
 
   if (unsignedIntValue)
   {
@@ -868,16 +886,16 @@ LABEL_23:
     {
       identifier = [(PKPlugInCore *)self identifier];
       [(PKPlugInCore *)self annotations];
-      v44 = v7;
+      v43 = v7;
       v30 = v23;
       v31 = unsignedIntValue;
       unsignedIntValue = v9;
       v32 = v8;
       v34 = v33 = v17;
       *buf = 138412546;
-      v47 = identifier;
-      v48 = 2112;
-      v49 = v34;
+      v46 = identifier;
+      v47 = 2112;
+      v48 = v34;
       _os_log_impl(&dword_1C6892000, v28, OS_LOG_TYPE_INFO, "%@: annotations = %@", buf, 0x16u);
 
       v17 = v33;
@@ -885,7 +903,7 @@ LABEL_23:
       v9 = unsignedIntValue;
       LOBYTE(unsignedIntValue) = v31;
       v23 = v30;
-      v7 = v44;
+      v7 = v43;
     }
 
     v35 = [formCopy objectForKeyedSubscript:@"localizedContainingDisplayName"];
@@ -906,9 +924,9 @@ LABEL_23:
       }
 
       *buf = 138412546;
-      v47 = identifier2;
-      v48 = 2080;
-      v49 = v40;
+      v46 = identifier2;
+      v47 = 2080;
+      v48 = v40;
       _os_log_impl(&dword_1C6892000, v37, OS_LOG_TYPE_INFO, "%@: %s be managed by runningboard", buf, 0x16u);
     }
 
@@ -916,8 +934,58 @@ LABEL_23:
     [(PKPlugInCore *)self setLaunchPersonas:v41];
   }
 
-  v42 = *MEMORY[0x1E69E9840];
   return unsignedIntValue;
+}
+
++ (id)readSDKDictionary:(id)dictionary forPlatform:(unsigned int)platform externalProviders:(id)providers
+{
+  v6 = *&platform;
+  v24 = *MEMORY[0x1E69E9840];
+  dictionaryCopy = dictionary;
+  providersCopy = providers;
+  v9 = pklog_handle_for_category(3);
+  v10 = os_signpost_id_make_with_pointer(v9, dictionaryCopy);
+
+  v11 = pklog_handle_for_category(3);
+  v12 = v11;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  {
+    v22 = 138543362;
+    v23 = dictionaryCopy;
+    _os_signpost_emit_with_name_impl(&dword_1C6892000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "LSSDKDictionary", " name=%{public, signpost.description:attribute}@ ", &v22, 0xCu);
+  }
+
+  v13 = [providersCopy ls];
+
+  v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
+  v15 = [v13 extensionPointForIdentifier:dictionaryCopy platform:v14];
+  sdkEntry = [v15 sdkEntry];
+
+  v17 = pklog_handle_for_category(3);
+  v18 = v17;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  {
+    LOWORD(v22) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C6892000, v18, OS_SIGNPOST_INTERVAL_END, v10, "LSSDKDictionary", &unk_1C68BDED5, &v22, 2u);
+  }
+
+  if (sdkEntry)
+  {
+    v19 = sdkEntry;
+  }
+
+  else
+  {
+    v20 = pklog_handle_for_category(3);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      sub_1C68B5B54(dictionaryCopy, v6, v20);
+    }
+
+    v19 = 0;
+  }
+
+  return v19;
 }
 
 - (id)resolveSDKWithInfoPlist:(id)plist extensionPointCache:(id)cache
@@ -942,24 +1010,24 @@ LABEL_23:
 
 - (id)mergeSDKDictionary:(id)dictionary intoExtensionDictionary:(id)extensionDictionary
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [extensionDictionary mutableCopy];
   sdkOnlyKeyPaths = [(PKPlugInCore *)self sdkOnlyKeyPaths];
   [v7 pk_removeItemsAtKeyPaths:sdkOnlyKeyPaths];
 
   v9 = MEMORY[0x1E695DFD8];
-  v31[0] = @"NSExtension";
-  v31[1] = @"Shared";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+  v30[0] = @"NSExtension";
+  v30[1] = @"Shared";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
   v11 = [v9 setWithObjects:{v10, 0}];
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = sub_1C68A7114;
-  v20[3] = &unk_1E827F8E8;
-  v20[4] = self;
-  [v7 pk_overlayDictionary:dictionaryCopy existingValuesTakePrecedent:1 exceptKeyPaths:v11 exemptionHandler:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = sub_1C68A7114;
+  v19[3] = &unk_1E827F8E8;
+  v19[4] = self;
+  [v7 pk_overlayDictionary:dictionaryCopy existingValuesTakePrecedent:1 exceptKeyPaths:v11 exemptionHandler:v19];
 
   v12 = pklog_handle_for_category(6);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
@@ -967,22 +1035,20 @@ LABEL_23:
     uuid = [(PKPlugInCore *)self uuid];
     identifier = [(PKPlugInCore *)self identifier];
     version = [(PKPlugInCore *)self version];
-    v18 = [v7 objectForKeyedSubscript:@"NSExtension"];
-    v19 = [v7 objectForKeyedSubscript:@"XPCService"];
+    v17 = [v7 objectForKeyedSubscript:@"NSExtension"];
+    v18 = [v7 objectForKeyedSubscript:@"XPCService"];
     *buf = 138544386;
-    v22 = uuid;
-    v23 = 2112;
-    v24 = identifier;
-    v25 = 2112;
-    v26 = version;
-    v27 = 2112;
-    v28 = v18;
-    v29 = 2112;
-    v30 = v19;
+    v21 = uuid;
+    v22 = 2112;
+    v23 = identifier;
+    v24 = 2112;
+    v25 = version;
+    v26 = 2112;
+    v27 = v17;
+    v28 = 2112;
+    v29 = v18;
     _os_log_debug_impl(&dword_1C6892000, v12, OS_LOG_TYPE_DEBUG, "[u %{public}@] [%@(%@)] Merged plugin dictionary; NSExtension = %@, XPCService = %@", buf, 0x34u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1001,28 +1067,28 @@ LABEL_23:
 
 - (id)export:(id *)export
 {
-  v41[11] = *MEMORY[0x1E69E9840];
+  v40[11] = *MEMORY[0x1E69E9840];
   bundleInfoDictionary = [(PKPlugInCore *)self bundleInfoDictionary];
   v5 = [bundleInfoDictionary mutableCopy];
 
   [v5 removeObjectForKey:@"CFBundleInfoPlistURL"];
-  v35 = MEMORY[0x1E695DF90];
-  v40[0] = @"hubProtocolVersion";
-  v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[PKPlugInCore hubProtocolVersion](self, "hubProtocolVersion")}];
-  v41[0] = v38;
-  v40[1] = @"path";
+  v34 = MEMORY[0x1E695DF90];
+  v39[0] = @"hubProtocolVersion";
+  v37 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[PKPlugInCore hubProtocolVersion](self, "hubProtocolVersion")}];
+  v40[0] = v37;
+  v39[1] = @"path";
   path = [(PKPlugInCore *)self path];
-  v41[1] = path;
-  v40[2] = @"systemResident";
-  v36 = [MEMORY[0x1E696AD98] numberWithBool:{-[PKPlugInCore onSystemVolume](self, "onSystemVolume")}];
-  v41[2] = v36;
-  v40[3] = @"identifier";
+  v40[1] = path;
+  v39[2] = @"systemResident";
+  v35 = [MEMORY[0x1E696AD98] numberWithBool:{-[PKPlugInCore onSystemVolume](self, "onSystemVolume")}];
+  v40[2] = v35;
+  v39[3] = @"identifier";
   identifier = [(PKPlugInCore *)self identifier];
-  v41[3] = identifier;
-  v40[4] = @"original-identifier";
+  v40[3] = identifier;
+  v39[4] = @"original-identifier";
   originalIdentifier = [(PKPlugInCore *)self originalIdentifier];
-  v41[4] = originalIdentifier;
-  v40[5] = @"version";
+  v40[4] = originalIdentifier;
+  v39[5] = @"version";
   version = [(PKPlugInCore *)self version];
   if (version)
   {
@@ -1034,18 +1100,18 @@ LABEL_23:
     version2 = @"<none>";
   }
 
-  v41[5] = version2;
-  v41[6] = v5;
-  v39 = v5;
-  v40[6] = @"bundleInfo";
-  v40[7] = @"uuid";
+  v40[5] = version2;
+  v40[6] = v5;
+  v38 = v5;
+  v39[6] = @"bundleInfo";
+  v39[7] = @"uuid";
   uuid = [(PKPlugInCore *)self uuid];
   uUIDString = [uuid UUIDString];
-  v41[7] = uUIDString;
-  v40[8] = @"lastmodified";
+  v40[7] = uUIDString;
+  v39[8] = @"lastmodified";
   v10 = [MEMORY[0x1E696AD98] numberWithLong:{-[PKPlugInCore lastModified](self, "lastModified")}];
-  v41[8] = v10;
-  v40[9] = @"annotations";
+  v40[8] = v10;
+  v39[9] = @"annotations";
   annotations = [(PKPlugInCore *)self annotations];
   v12 = annotations;
   v13 = MEMORY[0x1E695E0F8];
@@ -1054,12 +1120,12 @@ LABEL_23:
     v13 = annotations;
   }
 
-  v41[9] = v13;
-  v40[10] = @"isRBManaged";
+  v40[9] = v13;
+  v39[10] = @"isRBManaged";
   v14 = [MEMORY[0x1E696AD98] numberWithBool:{-[PKPlugInCore isRBManaged](self, "isRBManaged")}];
-  v41[10] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:11];
-  v16 = [v35 dictionaryWithDictionary:v15];
+  v40[10] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:11];
+  v16 = [v34 dictionaryWithDictionary:v15];
 
   if (version)
   {
@@ -1117,8 +1183,6 @@ LABEL_23:
     [v16 setObject:launchPersonas2 forKeyedSubscript:@"launchPersonas"];
   }
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
@@ -1136,12 +1200,12 @@ LABEL_23:
 
 - (void)updateFromForm:(id)form
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   formCopy = form;
   v5 = pklog_handle_for_category(10);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_1C68B5DA0(self, formCopy, v5);
+    sub_1C68B5DA0(self, formCopy, v5, v6, v7, v8, v9, v10, v24, *v26, *&v26[16], *&v26[24], *v27, *&v27[8], *&v27[16], *&v27[24], v28, v29, *(&v29 + 1), v30, v31, v32);
   }
 
   if (![(PKPlugInCore *)self annotationTimestamp])
@@ -1149,27 +1213,27 @@ LABEL_23:
     goto LABEL_21;
   }
 
-  v6 = [formCopy objectForKeyedSubscript:@"annotations"];
-  v7 = [v6 objectForKeyedSubscript:@"bootuuid"];
+  v11 = [formCopy objectForKeyedSubscript:@"annotations"];
+  v12 = [v11 objectForKeyedSubscript:@"bootuuid"];
 
   bootInstance = [formCopy objectForKeyedSubscript:@"annotations"];
-  v9 = [bootInstance objectForKeyedSubscript:@"timestamp"];
+  v14 = [bootInstance objectForKeyedSubscript:@"timestamp"];
 
-  if (v9)
+  if (v14)
   {
-    v10 = v7 == 0;
+    v15 = v12 == 0;
   }
 
   else
   {
-    v10 = 1;
+    v15 = 1;
   }
 
-  v11 = !v10;
-  if (v10)
+  v16 = !v15;
+  if (v15)
   {
-    v13 = 1;
-    if (!v11)
+    v18 = 1;
+    if (!v16)
     {
       goto LABEL_16;
     }
@@ -1178,11 +1242,11 @@ LABEL_23:
   }
 
   bootInstance = [(PKPlugInCore *)self bootInstance];
-  if ([v7 isEqualToString:bootInstance])
+  if ([v12 isEqualToString:bootInstance])
   {
-    unsignedLongLongValue = [v9 unsignedLongLongValue];
-    v13 = unsignedLongLongValue <= [(PKPlugInCore *)self annotationTimestamp];
-    if (!v11)
+    unsignedLongLongValue = [v14 unsignedLongLongValue];
+    v18 = unsignedLongLongValue <= [(PKPlugInCore *)self annotationTimestamp];
+    if (!v16)
     {
       goto LABEL_16;
     }
@@ -1192,58 +1256,57 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v13 = 1;
-  if (v11)
+  v18 = 1;
+  if (v16)
   {
     goto LABEL_15;
   }
 
 LABEL_16:
-  if (!v13)
+  if (!v18)
   {
 
 LABEL_21:
     [(PKPlugInCore *)self setAnnotationTimestamp:0];
-    v18 = [formCopy objectForKeyedSubscript:@"annotations"];
-    [(PKPlugInCore *)self setAnnotations:v18];
+    v23 = [formCopy objectForKeyedSubscript:@"annotations"];
+    [(PKPlugInCore *)self setAnnotations:v23];
 
     goto LABEL_22;
   }
 
-  v14 = pklog_handle_for_category(10);
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v19 = pklog_handle_for_category(10);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    uuid = [(PKPlugInCore *)self uuid];
+    *v26 = [(PKPlugInCore *)self uuid];
     identifier = [(PKPlugInCore *)self identifier];
     version = [(PKPlugInCore *)self version];
-    unsignedLongLongValue2 = [v9 unsignedLongLongValue];
+    unsignedLongLongValue2 = [v14 unsignedLongLongValue];
     bootInstance2 = [(PKPlugInCore *)self bootInstance];
-    *buf = 138545154;
-    v23 = uuid;
-    v24 = 2112;
-    v25 = identifier;
-    v26 = 2112;
-    v27 = version;
-    v28 = 2080;
-    v29 = "[PKPlugInCore updateFromForm:]";
-    v30 = 2112;
-    v31 = v7;
-    v32 = 2048;
-    v33 = unsignedLongLongValue2;
-    v34 = 2112;
-    v35 = bootInstance2;
-    v36 = 2048;
-    annotationTimestamp = [(PKPlugInCore *)self annotationTimestamp];
-    _os_log_impl(&dword_1C6892000, v14, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] %s ignoring annotation update (%@, %llu) vs. (%@, %llu)", buf, 0x52u);
+    *&v26[8] = 138545154;
+    *&v26[12] = *v26;
+    *&v26[20] = 2112;
+    *&v26[22] = identifier;
+    *&v26[30] = 2112;
+    *&v26[32] = version;
+    *v27 = 2080;
+    *&v27[2] = "[PKPlugInCore updateFromForm:]";
+    *&v27[10] = 2112;
+    *&v27[12] = v12;
+    *&v27[20] = 2048;
+    *&v27[22] = unsignedLongLongValue2;
+    *&v27[30] = 2112;
+    v28 = bootInstance2;
+    LOWORD(v29) = 2048;
+    *(&v29 + 2) = [(PKPlugInCore *)self annotationTimestamp];
+    _os_log_impl(&dword_1C6892000, v19, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] %s ignoring annotation update (%@, %llu) vs. (%@, %llu)", &v26[8], 0x52u);
   }
 
 LABEL_22:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAnnotation:(id)annotation value:(id)value
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   annotationCopy = annotation;
   valueCopy = value;
   [(PKPlugInCore *)self setAnnotationTimestamp:mach_continuous_time()];
@@ -1258,22 +1321,20 @@ LABEL_22:
     uuid = [(PKPlugInCore *)self uuid];
     identifier = [(PKPlugInCore *)self identifier];
     version = [(PKPlugInCore *)self version];
-    v16 = 138544642;
-    v17 = uuid;
-    v18 = 2112;
-    v19 = identifier;
-    v20 = 2112;
-    v22 = 2080;
-    v21 = version;
-    v23 = "[PKPlugInCore setAnnotation:value:]";
-    v24 = 2112;
-    v25 = annotationCopy;
-    v26 = 2112;
-    v27 = valueCopy;
-    _os_log_debug_impl(&dword_1C6892000, v11, OS_LOG_TYPE_DEBUG, "[u %{public}@] [%@(%@)] %s set annotation %@ : %@", &v16, 0x3Eu);
+    v15 = 138544642;
+    v16 = uuid;
+    v17 = 2112;
+    v18 = identifier;
+    v19 = 2112;
+    v21 = 2080;
+    v20 = version;
+    v22 = "[PKPlugInCore setAnnotation:value:]";
+    v23 = 2112;
+    v24 = annotationCopy;
+    v25 = 2112;
+    v26 = valueCopy;
+    _os_log_debug_impl(&dword_1C6892000, v11, OS_LOG_TYPE_DEBUG, "[u %{public}@] [%@(%@)] %s set annotation %@ : %@", &v15, 0x3Eu);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)oldStyle
@@ -1328,7 +1389,7 @@ LABEL_22:
 
 - (id)infoKey:(id)key
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   bundleInfoDictionary = [(PKPlugInCore *)self bundleInfoDictionary];
   v6 = [bundleInfoDictionary objectForKeyedSubscript:keyCopy];
@@ -1339,20 +1400,18 @@ LABEL_22:
     uuid = [(PKPlugInCore *)self uuid];
     identifier = [(PKPlugInCore *)self identifier];
     version = [(PKPlugInCore *)self version];
-    v13 = 138544386;
-    v14 = uuid;
-    v15 = 2112;
-    v16 = identifier;
-    v17 = 2112;
-    v18 = version;
-    v19 = 2112;
-    v20 = keyCopy;
-    v21 = 2112;
-    v22 = v6;
-    _os_log_debug_impl(&dword_1C6892000, v7, OS_LOG_TYPE_DEBUG, "[u %{public}@] [%@(%@)] info [%@] => [%@]", &v13, 0x34u);
+    v12 = 138544386;
+    v13 = uuid;
+    v14 = 2112;
+    v15 = identifier;
+    v16 = 2112;
+    v17 = version;
+    v18 = 2112;
+    v19 = keyCopy;
+    v20 = 2112;
+    v21 = v6;
+    _os_log_debug_impl(&dword_1C6892000, v7, OS_LOG_TYPE_DEBUG, "[u %{public}@] [%@(%@)] info [%@] => [%@]", &v12, 0x34u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1403,26 +1462,26 @@ LABEL_22:
 
 - (void)localizedInfoDictionaryForKeys:(id)keys completion:(id)completion
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   completionCopy = completion;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v9 = dictionary;
   if (self->_bundleInfoDictionary)
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v10 = keysCopy;
-    v11 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v11)
     {
-      v28 = completionCopy;
-      v29 = keysCopy;
-      v31 = 0;
-      v12 = *v33;
-      v30 = *MEMORY[0x1E696A578];
+      v27 = completionCopy;
+      v28 = keysCopy;
+      v30 = 0;
+      v12 = *v32;
+      v29 = *MEMORY[0x1E696A578];
       while (1)
       {
         v13 = 0;
@@ -1438,12 +1497,12 @@ LABEL_22:
 
         do
         {
-          if (*v33 != v12)
+          if (*v32 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v32 + 1) + 8 * v13);
+          v15 = *(*(&v31 + 1) + 8 * v13);
           if ([v15 isEqualToString:@"CFBundleName"])
           {
             localizedShortName = [(PKPlugInCore *)self localizedShortName];
@@ -1471,14 +1530,14 @@ LABEL_14:
           {
 
             v17 = MEMORY[0x1E696ABC0];
-            v38 = v30;
+            v37 = v29;
             v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Value of info dictionary key %@ for plugin %@ does not conform to secure coding!", v15, self->_identifier];
-            v39 = v18;
-            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+            v38 = v18;
+            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
             [v17 errorWithDomain:@"PlugInKit" code:-1 userInfo:v19];
             v21 = v20 = v10;
 
-            v31 = v21;
+            v30 = v21;
             v10 = v20;
             v9 = 0;
 
@@ -1492,13 +1551,13 @@ LABEL_18:
         }
 
         while (v14 != v13);
-        v11 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
         if (!v11)
         {
 LABEL_24:
-          completionCopy = v28;
-          keysCopy = v29;
-          v22 = v31;
+          completionCopy = v27;
+          keysCopy = v28;
+          v22 = v30;
           goto LABEL_27;
         }
       }
@@ -1511,10 +1570,10 @@ LABEL_24:
   {
 
     v23 = MEMORY[0x1E696ABC0];
-    v36 = *MEMORY[0x1E696A578];
+    v35 = *MEMORY[0x1E696A578];
     v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to resolve plugin for %@", self->_identifier];
-    v37 = v24;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    v36 = v24;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
     v22 = [v23 errorWithDomain:@"PlugInKit" code:-1 userInfo:v25];
 
     v10 = v24;
@@ -1530,7 +1589,6 @@ LABEL_27:
   }
 
   completionCopy[2](completionCopy, v9, v22);
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)localizedFileProviderActionNames

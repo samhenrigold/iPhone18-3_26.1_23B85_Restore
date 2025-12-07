@@ -24,7 +24,7 @@
     dispatchQueue = v2->_dispatchQueue;
     v2->_dispatchQueue = v7;
 
-    v2->_collectingMetrics = sub_10030B4C0();
+    v2->_collectingMetrics = sub_10030B4C0(Restrictions);
     v9 = +[AMSDevice buildVersion];
     osBuild = v2->_osBuild;
     v2->_osBuild = v9;
@@ -34,7 +34,7 @@
     v2->_platform = v11;
 
     v13 = +[NSNotificationCenter defaultCenter];
-    v14 = sub_1003BBF50();
+    v14 = sub_1003BBF50(Device);
     isHRNMode = [v14 isHRNMode];
 
     if ((isHRNMode & 1) == 0)
@@ -139,7 +139,7 @@
     v28 = sub_1001F42FC;
     v29 = sub_1001F430C;
     v30 = 0;
-    v12 = sub_10036C90C();
+    v12 = sub_10036C90C(AppUsageDatabaseStore);
     v22[0] = _NSConcreteStackBlock;
     v22[1] = 3221225472;
     v22[2] = sub_1001F4314;

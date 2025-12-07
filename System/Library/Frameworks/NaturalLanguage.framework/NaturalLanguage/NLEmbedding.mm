@@ -26,7 +26,6 @@
 + (unint64_t)currentRevisionForType:(id)type locale:(id)locale;
 + (void)requestAssetsForEmbeddingType:(id)type language:(id)language withCompletionHandler:(id)handler;
 - (BOOL)getVector:(float *)vector forString:(NSString *)string;
-- (NLDistance)distanceBetweenString:(NSString *)firstString andString:(NSString *)secondString distanceType:(NLDistanceType)distanceType;
 - (NLEmbedding)initWithContentsOfURL:(id)l error:(id *)p_isa;
 - (NLEmbedding)initWithData:(id)data error:(id *)error;
 - (NLEmbedding)initWithMLModel:(id)model error:(id *)error;
@@ -66,18 +65,18 @@
 
 - (NLEmbedding)initWithType:(id)type architecture:(id)architecture locale:(id)locale version:(id)version
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   typeCopy = type;
   architectureCopy = architecture;
   localeCopy = locale;
   versionCopy = version;
   v14 = MEMORY[0x1E695DF90];
   v15 = *MEMORY[0x1E69981F8];
-  v23[0] = *MEMORY[0x1E6998208];
-  v23[1] = v15;
-  v24[0] = typeCopy;
-  v24[1] = localeCopy;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v22[0] = *MEMORY[0x1E6998208];
+  v22[1] = v15;
+  v23[0] = typeCopy;
+  v23[1] = localeCopy;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
   v17 = [v14 dictionaryWithDictionary:v16];
 
   if (architectureCopy)
@@ -100,9 +99,9 @@
 
     else
     {
-      v22.receiver = self;
-      v22.super_class = NLEmbedding;
-      v19 = [(NLEmbedding *)&v22 init];
+      v21.receiver = self;
+      v21.super_class = NLEmbedding;
+      v19 = [(NLEmbedding *)&v21 init];
       if (v19)
       {
         v19->_embedding = selfCopy;
@@ -114,25 +113,24 @@
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)_createEmbeddingRefWithContentsOfURL:(id)l
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   path = [l path];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v11 = 0;
-  if ([defaultManager fileExistsAtPath:path isDirectory:&v11] && (v11 & 1) == 0)
+  v10 = 0;
+  if ([defaultManager fileExistsAtPath:path isDirectory:&v10] && (v10 & 1) == 0)
   {
     v6 = *MEMORY[0x1E6998210];
     v7 = *MEMORY[0x1E6998200];
-    v12[0] = *MEMORY[0x1E6998208];
-    v12[1] = v7;
-    v13[0] = v6;
-    v13[1] = path;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v11[0] = *MEMORY[0x1E6998208];
+    v11[1] = v7;
+    v12[0] = v6;
+    v12[1] = path;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
     v5 = NLStringEmbeddingCreateWithOptions();
   }
 
@@ -141,20 +139,19 @@
     v5 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)_initWithContentsOfURL:(id)l error:(id *)p_isa
 {
   selfCopy = self;
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v6 = [(NLEmbedding *)self _createEmbeddingRefWithContentsOfURL:l];
   if (v6 && (v7 = v6, NLStringEmbeddingGetDimension() >= 1))
   {
-    v13.receiver = selfCopy;
-    v13.super_class = NLEmbedding;
-    v8 = [(NLEmbedding *)&v13 init];
+    v12.receiver = selfCopy;
+    v12.super_class = NLEmbedding;
+    v8 = [(NLEmbedding *)&v12 init];
     if (v8)
     {
       v8->_embedding = v7;
@@ -167,27 +164,26 @@
   else if (p_isa)
   {
     v9 = MEMORY[0x1E696ABC0];
-    v14 = *MEMORY[0x1E696A578];
-    v15[0] = @"Failed to load embedding file";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x1E696A578];
+    v14[0] = @"Failed to load embedding file";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     *p_isa = [v9 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v10];
 
     p_isa = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
 - (NLEmbedding)initWithContentsOfURL:(id)l error:(id *)p_isa
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   path = [lCopy path];
   pathExtension = [path pathExtension];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v25 = 0;
-  if (([defaultManager fileExistsAtPath:path isDirectory:&v25] & 1) == 0)
+  v24 = 0;
+  if (([defaultManager fileExistsAtPath:path isDirectory:&v24] & 1) == 0)
   {
     if (!p_isa)
     {
@@ -195,15 +191,15 @@
     }
 
     v12 = MEMORY[0x1E696ABC0];
-    v30 = *MEMORY[0x1E696A578];
-    v31[0] = @"Could not find embedding file";
+    v29 = *MEMORY[0x1E696A578];
+    v30[0] = @"Could not find embedding file";
     v13 = MEMORY[0x1E695DF20];
-    v14 = v31;
-    v15 = &v30;
+    v14 = v30;
+    v15 = &v29;
     goto LABEL_7;
   }
 
-  if (v25)
+  if (v24)
   {
     goto LABEL_3;
   }
@@ -216,11 +212,11 @@
     }
 
     v12 = MEMORY[0x1E696ABC0];
-    v28 = *MEMORY[0x1E696A578];
-    v29 = @"Cannot load embedding from uncompiled mlmodel file";
+    v27 = *MEMORY[0x1E696A578];
+    v28 = @"Cannot load embedding from uncompiled mlmodel file";
     v13 = MEMORY[0x1E695DF20];
-    v14 = &v29;
-    v15 = &v28;
+    v14 = &v28;
+    v15 = &v27;
 LABEL_7:
     v16 = [v13 dictionaryWithObjects:v14 forKeys:v15 count:1];
     *p_isa = [v12 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v16];
@@ -228,7 +224,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if (v25)
+  if (v24)
   {
 LABEL_3:
     v10 = [NLModel modelWithContentsOfURL:lCopy error:p_isa];
@@ -246,64 +242,62 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v19 = [(NLEmbedding *)self _createEmbeddingRefWithContentsOfURL:lCopy];
-  if (!v19 || (v20 = v19, NLStringEmbeddingGetDimension() < 1))
+  v18 = [(NLEmbedding *)self _createEmbeddingRefWithContentsOfURL:lCopy];
+  if (!v18 || (v19 = v18, NLStringEmbeddingGetDimension() < 1))
   {
     if (p_isa)
     {
-      v22 = MEMORY[0x1E696ABC0];
-      v26 = *MEMORY[0x1E696A578];
-      v27 = @"Failed to load embedding file";
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-      *p_isa = [v22 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v23];
+      v21 = MEMORY[0x1E696ABC0];
+      v25 = *MEMORY[0x1E696A578];
+      v26 = @"Failed to load embedding file";
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      *p_isa = [v21 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v22];
     }
 
     goto LABEL_3;
   }
 
-  v24.receiver = self;
-  v24.super_class = NLEmbedding;
-  v21 = [(NLEmbedding *)&v24 init];
-  if (v21)
+  v23.receiver = self;
+  v23.super_class = NLEmbedding;
+  v20 = [(NLEmbedding *)&v23 init];
+  if (v20)
   {
-    v21->_embedding = v20;
+    v20->_embedding = v19;
   }
 
-  self = v21;
+  self = v20;
   p_isa = &self->super.isa;
 LABEL_9:
 
-  v17 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
 - (void)_createEmbeddingRefWithData:(id)data
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E69981F0];
-  v10[0] = *MEMORY[0x1E6998208];
-  v10[1] = v3;
-  v11[0] = *MEMORY[0x1E6998210];
-  v11[1] = data;
+  v9[0] = *MEMORY[0x1E6998208];
+  v9[1] = v3;
+  v10[0] = *MEMORY[0x1E6998210];
+  v10[1] = data;
   v4 = MEMORY[0x1E695DF20];
   dataCopy = data;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   v7 = NLStringEmbeddingCreateWithOptions();
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (id)_initWithData:(id)data error:(id *)p_isa
 {
   selfCopy = self;
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v6 = [(NLEmbedding *)self _createEmbeddingRefWithData:data];
   if (v6 && (v7 = v6, NLStringEmbeddingGetDimension() >= 1))
   {
-    v13.receiver = selfCopy;
-    v13.super_class = NLEmbedding;
-    v8 = [(NLEmbedding *)&v13 init];
+    v12.receiver = selfCopy;
+    v12.super_class = NLEmbedding;
+    v8 = [(NLEmbedding *)&v12 init];
     if (v8)
     {
       v8->_embedding = v7;
@@ -316,28 +310,27 @@ LABEL_9:
   else if (p_isa)
   {
     v9 = MEMORY[0x1E696ABC0];
-    v14 = *MEMORY[0x1E696A578];
-    v15[0] = @"Failed to load embedding data";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x1E696A578];
+    v14[0] = @"Failed to load embedding data";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     *p_isa = [v9 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:5 userInfo:v10];
 
     p_isa = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
 - (NLEmbedding)initWithData:(id)data error:(id *)error
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v7 = [(NLEmbedding *)self _createEmbeddingRefWithData:dataCopy];
   if (v7 && (v8 = v7, NLStringEmbeddingGetDimension() >= 1))
   {
-    v17.receiver = self;
-    v17.super_class = NLEmbedding;
-    v9 = [(NLEmbedding *)&v17 init];
+    v16.receiver = self;
+    v16.super_class = NLEmbedding;
+    v9 = [(NLEmbedding *)&v16 init];
     if (v9)
     {
       v9->_embedding = v8;
@@ -352,9 +345,9 @@ LABEL_9:
     if (error)
     {
       v11 = MEMORY[0x1E696ABC0];
-      v18 = *MEMORY[0x1E696A578];
-      v19[0] = @"Failed to load embedding data";
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v17 = *MEMORY[0x1E696A578];
+      v18[0] = @"Failed to load embedding data";
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       *error = [v11 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:5 userInfo:v12];
     }
 
@@ -373,22 +366,21 @@ LABEL_9:
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
 - (NLEmbedding)initWithNLModel:(id)model error:(id *)p_isa
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   modelCopy = model;
   embedding = [modelCopy embedding];
   _embeddingRef = [embedding _embeddingRef];
 
   if (_embeddingRef)
   {
-    v15.receiver = self;
-    v15.super_class = NLEmbedding;
-    v10 = [(NLEmbedding *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = NLEmbedding;
+    v10 = [(NLEmbedding *)&v14 init];
     if (v10)
     {
       v10->_embedding = CFRetain(_embeddingRef);
@@ -402,15 +394,14 @@ LABEL_9:
   else if (p_isa)
   {
     v11 = MEMORY[0x1E696ABC0];
-    v16 = *MEMORY[0x1E696A578];
-    v17[0] = @"Failed to load embedding file";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A578];
+    v16[0] = @"Failed to load embedding file";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     *p_isa = [v11 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:6 userInfo:v12];
 
     p_isa = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
@@ -567,63 +558,55 @@ LABEL_9:
   return v9;
 }
 
-- (NLDistance)distanceBetweenString:(NSString *)firstString andString:(NSString *)secondString distanceType:(NLDistanceType)distanceType
-{
-  embedding = self->_embedding;
-  NLStringEmbeddingGetDistance();
-  return v6;
-}
-
 - (void)enumerateNeighborsForString:(NSString *)string maximumCount:(NSUInteger)maxCount maximumDistance:(NLDistance)maxDistance distanceType:(NLDistanceType)distanceType usingBlock:(void *)block
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v8 = block;
-  embedding = self->_embedding;
-  v10 = NLStringEmbeddingCopyNeighborsWithDistances();
-  allKeys = [v10 allKeys];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __96__NLEmbedding_enumerateNeighborsForString_maximumCount_maximumDistance_distanceType_usingBlock___block_invoke;
-  v29[3] = &unk_1E7628EA8;
-  v12 = v10;
-  v30 = v12;
-  v13 = [allKeys sortedArrayUsingComparator:v29];
+  v29 = *MEMORY[0x1E69E9840];
+  v7 = block;
+  v8 = NLStringEmbeddingCopyNeighborsWithDistances();
+  allKeys = [v8 allKeys];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __96__NLEmbedding_enumerateNeighborsForString_maximumCount_maximumDistance_distanceType_usingBlock___block_invoke;
+  v26[3] = &unk_1E7628EA8;
+  v10 = v8;
+  v27 = v10;
+  v11 = [allKeys sortedArrayUsingComparator:v26];
 
-  v27 = 0u;
-  v28 = 0u;
+  v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
-  if (v15)
+  v22 = 0u;
+  v23 = 0u;
+  v12 = v11;
+  v13 = [v12 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  if (v13)
   {
-    v16 = v15;
-    v17 = *v26;
+    v14 = v13;
+    v15 = *v23;
 LABEL_3:
-    v18 = 0;
+    v16 = 0;
     while (1)
     {
-      if (*v26 != v17)
+      if (*v23 != v15)
       {
-        objc_enumerationMutation(v14);
+        objc_enumerationMutation(v12);
       }
 
-      v19 = *(*(&v25 + 1) + 8 * v18);
-      v20 = [v12 objectForKey:v19];
-      [v20 doubleValue];
-      v22 = v21;
+      v17 = *(*(&v22 + 1) + 8 * v16);
+      v18 = [v10 objectForKey:v17];
+      [v18 doubleValue];
+      v20 = v19;
 
-      v24 = 0;
-      v8[2](v8, v19, &v24, v22);
-      if (v24)
+      v21 = 0;
+      v7[2](v7, v17, &v21, v20);
+      if (v21)
       {
         break;
       }
 
-      if (v16 == ++v18)
+      if (v14 == ++v16)
       {
-        v16 = [v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
-        if (v16)
+        v14 = [v12 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        if (v14)
         {
           goto LABEL_3;
         }
@@ -632,8 +615,6 @@ LABEL_3:
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __96__NLEmbedding_enumerateNeighborsForString_maximumCount_maximumDistance_distanceType_usingBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -675,54 +656,53 @@ uint64_t __96__NLEmbedding_enumerateNeighborsForString_maximumCount_maximumDista
 
 - (void)enumerateNeighborsForVector:(NSArray *)vector maximumCount:(NSUInteger)maxCount maximumDistance:(NLDistance)maxDistance distanceType:(NLDistanceType)distanceType usingBlock:(void *)block
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v8 = block;
-  embedding = self->_embedding;
-  v10 = NLStringEmbeddingCopyNeighborsForVectorWithDistances();
-  allKeys = [v10 allKeys];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __96__NLEmbedding_enumerateNeighborsForVector_maximumCount_maximumDistance_distanceType_usingBlock___block_invoke;
-  v29[3] = &unk_1E7628EA8;
-  v12 = v10;
-  v30 = v12;
-  v13 = [allKeys sortedArrayUsingComparator:v29];
+  v29 = *MEMORY[0x1E69E9840];
+  v7 = block;
+  v8 = NLStringEmbeddingCopyNeighborsForVectorWithDistances();
+  allKeys = [v8 allKeys];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __96__NLEmbedding_enumerateNeighborsForVector_maximumCount_maximumDistance_distanceType_usingBlock___block_invoke;
+  v26[3] = &unk_1E7628EA8;
+  v10 = v8;
+  v27 = v10;
+  v11 = [allKeys sortedArrayUsingComparator:v26];
 
-  v27 = 0u;
-  v28 = 0u;
+  v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
-  if (v15)
+  v22 = 0u;
+  v23 = 0u;
+  v12 = v11;
+  v13 = [v12 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  if (v13)
   {
-    v16 = v15;
-    v17 = *v26;
+    v14 = v13;
+    v15 = *v23;
 LABEL_3:
-    v18 = 0;
+    v16 = 0;
     while (1)
     {
-      if (*v26 != v17)
+      if (*v23 != v15)
       {
-        objc_enumerationMutation(v14);
+        objc_enumerationMutation(v12);
       }
 
-      v19 = *(*(&v25 + 1) + 8 * v18);
-      v20 = [v12 objectForKey:v19];
-      [v20 doubleValue];
-      v22 = v21;
+      v17 = *(*(&v22 + 1) + 8 * v16);
+      v18 = [v10 objectForKey:v17];
+      [v18 doubleValue];
+      v20 = v19;
 
-      v24 = 0;
-      v8[2](v8, v19, &v24, v22);
-      if (v24)
+      v21 = 0;
+      v7[2](v7, v17, &v21, v20);
+      if (v21)
       {
         break;
       }
 
-      if (v16 == ++v18)
+      if (v14 == ++v16)
       {
-        v16 = [v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
-        if (v16)
+        v14 = [v12 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        if (v14)
         {
           goto LABEL_3;
         }
@@ -731,8 +711,6 @@ LABEL_3:
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __96__NLEmbedding_enumerateNeighborsForVector_maximumCount_maximumDistance_distanceType_usingBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -764,90 +742,84 @@ uint64_t __96__NLEmbedding_enumerateNeighborsForVector_maximumCount_maximumDista
 
 - (NSArray)vectorForString:(NSString *)string
 {
-  embedding = self->_embedding;
-  v4 = NLStringEmbeddingCopyVector();
+  v3 = NLStringEmbeddingCopyVector();
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)getVector:(float *)vector forString:(NSString *)string
 {
-  embedding = self->_embedding;
-  v7 = NLStringEmbeddingCopyData();
-  v8 = v7;
-  if (v7)
+  v6 = NLStringEmbeddingCopyData();
+  v7 = v6;
+  if (v6)
   {
-    bytes = [v7 bytes];
+    bytes = [v6 bytes];
     if ([(NLEmbedding *)self dimension])
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        vector[v10] = *(bytes + 4 * v10);
-        ++v10;
+        vector[v9] = *(bytes + 4 * v9);
+        ++v9;
       }
 
-      while (v10 < [(NLEmbedding *)self dimension]);
+      while (v9 < [(NLEmbedding *)self dimension]);
     }
   }
 
-  return v8 != 0;
+  return v7 != 0;
 }
 
 - (id)vectorsForTokenizedSentences:(id)sentences maxTokens:(unint64_t)tokens
 {
   sentencesCopy = sentences;
-  v7 = [sentencesCopy count];
-  embedding = self->_embedding;
+  v6 = [sentencesCopy count];
   Dimension = NLStringEmbeddingGetDimension();
-  dimension = [MEMORY[0x1E695DF88] dataWithLength:4 * tokens * v7 * Dimension];
+  dimension = [MEMORY[0x1E695DF88] dataWithLength:4 * tokens * v6 * Dimension];
   dimension2 = [MEMORY[0x1E695DF88] dataWithLength:4 * Dimension];
   [dimension mutableBytes];
   [dimension2 mutableBytes];
-  v12 = self->_embedding;
   LODWORD(tokens) = NLStringEmbeddingFillWordVectors();
 
   if (tokens)
   {
-    v13 = dimension;
+    v10 = dimension;
   }
 
   else
   {
-    v13 = 0;
+    v10 = 0;
   }
 
-  v14 = v13;
+  v11 = v10;
 
-  return v13;
+  return v10;
 }
 
 - (id)vectorsForUntokenizedSentences:(id)sentences maxTokens:(unint64_t)tokens
 {
   sentencesCopy = sentences;
-  v7 = [sentencesCopy count];
-  embedding = self->_embedding;
+  v6 = [sentencesCopy count];
   Dimension = NLStringEmbeddingGetDimension();
-  dimension = [MEMORY[0x1E695DF88] dataWithLength:4 * tokens * v7 * Dimension];
+  dimension = [MEMORY[0x1E695DF88] dataWithLength:4 * tokens * v6 * Dimension];
   dimension2 = [MEMORY[0x1E695DF88] dataWithLength:4 * Dimension];
   [dimension mutableBytes];
   [dimension2 mutableBytes];
-  v12 = self->_embedding;
   LODWORD(tokens) = NLStringEmbeddingFillTokenVectorsWithShape();
 
   if (tokens)
   {
-    v13 = dimension;
+    v10 = dimension;
   }
 
   else
   {
-    v13 = 0;
+    v10 = 0;
   }
 
-  v14 = v13;
+  v11 = v10;
 
-  return v13;
+  return v10;
 }
 
 - (id)vectorsForTokenizedSentences:(id)sentences untokenizedSentences:(id)untokenizedSentences maxTokens:(unint64_t)tokens
@@ -870,9 +842,8 @@ uint64_t __96__NLEmbedding_enumerateNeighborsForVector_maximumCount_maximumDista
 
 - (NLLanguage)language
 {
-  embedding = self->_embedding;
-  v3 = NLStringEmbeddingCopyModelLocale();
-  localeIdentifier = [v3 localeIdentifier];
+  v2 = NLStringEmbeddingCopyModelLocale();
+  localeIdentifier = [v2 localeIdentifier];
 
   return localeIdentifier;
 }
@@ -880,13 +851,12 @@ uint64_t __96__NLEmbedding_enumerateNeighborsForVector_maximumCount_maximumDista
 - (NSUInteger)revision
 {
   valuePtr = 0;
-  embedding = self->_embedding;
   result = NLStringEmbeddingCopyVersion();
   if (result)
   {
-    v4 = result;
+    v3 = result;
     CFNumberGetValue(result, kCFNumberNSIntegerType, &valuePtr);
-    CFRelease(v4);
+    CFRelease(v3);
     return valuePtr;
   }
 
@@ -895,34 +865,34 @@ uint64_t __96__NLEmbedding_enumerateNeighborsForVector_maximumCount_maximumDista
 
 + (id)supportedRevisionsForType:(id)type locale:(id)locale
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = NLStringEmbeddingCopySupportedVersions();
   indexSet = [MEMORY[0x1E696AD50] indexSet];
   if (v4)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [indexSet addIndex:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "unsignedIntegerValue", v13)}];
+          [indexSet addIndex:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "unsignedIntegerValue", v12)}];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
@@ -930,8 +900,6 @@ uint64_t __96__NLEmbedding_enumerateNeighborsForVector_maximumCount_maximumDista
 
     CFRelease(v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return indexSet;
 }
@@ -1048,16 +1016,16 @@ uint64_t __96__NLEmbedding_enumerateNeighborsForVector_maximumCount_maximumDista
 
 + (BOOL)_writeEmbeddingForDictionary:(id)dictionary language:(id)language revision:(unint64_t)revision toURL:(id)l orData:(id)data error:(id *)error
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   languageCopy = language;
   lCopy = l;
-  memset(v56, 0, sizeof(v56));
+  memset(v55, 0, sizeof(v55));
   errorCopy = error;
   dataCopy = data;
-  if ([dictionaryCopy countByEnumeratingWithState:v56 objects:v66 count:16])
+  if ([dictionaryCopy countByEnumeratingWithState:v55 objects:v65 count:16])
   {
-    v15 = [dictionaryCopy objectForKey:**(&v56[0] + 1)];
+    v15 = [dictionaryCopy objectForKey:**(&v55[0] + 1)];
     v16 = [v15 count];
   }
 
@@ -1066,26 +1034,26 @@ uint64_t __96__NLEmbedding_enumerateNeighborsForVector_maximumCount_maximumDista
     v16 = 0;
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v17 = dictionaryCopy;
-  v18 = [v17 countByEnumeratingWithState:&v52 objects:v65 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v51 objects:v64 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v53;
+    v20 = *v52;
 LABEL_6:
     v21 = 0;
     while (1)
     {
-      if (*v53 != v20)
+      if (*v52 != v20)
       {
         objc_enumerationMutation(v17);
       }
 
-      v22 = *(*(&v52 + 1) + 8 * v21);
+      v22 = *(*(&v51 + 1) + 8 * v21);
       v23 = [v17 objectForKey:v22];
       v24 = [v23 count];
 
@@ -1096,7 +1064,7 @@ LABEL_6:
 
       if (v19 == ++v21)
       {
-        v19 = [v17 countByEnumeratingWithState:&v52 objects:v65 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v51 objects:v64 count:16];
         if (v19)
         {
           goto LABEL_6;
@@ -1111,9 +1079,9 @@ LABEL_6:
     if (errorCopy)
     {
       v28 = MEMORY[0x1E696ABC0];
-      v59 = *MEMORY[0x1E696A578];
-      v60 = @"Embedding dictionary has mismatched dimensions";
-      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+      v58 = *MEMORY[0x1E696A578];
+      v59 = @"Embedding dictionary has mismatched dimensions";
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
       [v28 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:4 userInfo:v29];
       *errorCopy = v30 = 0;
       v26 = languageCopy;
@@ -1157,7 +1125,7 @@ LABEL_12:
 
       v32 = lCopy;
       v34 = 10;
-      v51 = v27;
+      v50 = v27;
       do
       {
         if (!(v16 % v34))
@@ -1180,22 +1148,22 @@ LABEL_12:
       }
 
       v36 = MEMORY[0x1E695DF90];
-      v63[0] = *MEMORY[0x1E6998230];
+      v62[0] = *MEMORY[0x1E6998230];
       v37 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:revision];
-      v64[0] = v37;
-      v63[1] = *MEMORY[0x1E6998240];
+      v63[0] = v37;
+      v62[1] = *MEMORY[0x1E6998240];
       v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v35];
-      v64[1] = v38;
-      v63[2] = *MEMORY[0x1E6998238];
+      v63[1] = v38;
+      v62[2] = *MEMORY[0x1E6998238];
       v39 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v25];
-      v64[2] = v39;
-      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:3];
+      v63[2] = v39;
+      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:v62 count:3];
       v29 = [v36 dictionaryWithDictionary:v40];
 
-      v41 = v51;
-      if (v51)
+      v41 = v50;
+      if (v50)
       {
-        [v29 setObject:v51 forKey:*MEMORY[0x1E69981F8]];
+        [v29 setObject:v50 forKey:*MEMORY[0x1E69981F8]];
       }
 
       v31 = dataCopy;
@@ -1215,10 +1183,10 @@ LABEL_12:
       if (errorCopy && (v43 & 1) == 0)
       {
         v44 = MEMORY[0x1E696ABC0];
-        v61 = *MEMORY[0x1E696A578];
-        v62 = @"Failed to save embedding file";
-        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
-        v41 = v51;
+        v60 = *MEMORY[0x1E696A578];
+        v61 = @"Failed to save embedding file";
+        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+        v41 = v50;
         *errorCopy = [v44 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:7 userInfo:v45];
       }
     }
@@ -1235,9 +1203,9 @@ LABEL_12:
       }
 
       v33 = MEMORY[0x1E696ABC0];
-      v57 = *MEMORY[0x1E696A578];
-      v58 = @"Embedding dictionary is missing data";
-      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+      v56 = *MEMORY[0x1E696A578];
+      v57 = @"Embedding dictionary is missing data";
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
       [v33 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:4 userInfo:v29];
       *errorCopy = v30 = 0;
       v32 = lCopy;
@@ -1248,7 +1216,6 @@ LABEL_40:
 
 LABEL_41:
 
-  v46 = *MEMORY[0x1E69E9840];
   return v30;
 }
 

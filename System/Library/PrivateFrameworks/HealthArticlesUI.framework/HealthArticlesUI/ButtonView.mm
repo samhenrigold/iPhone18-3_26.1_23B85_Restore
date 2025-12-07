@@ -60,10 +60,10 @@
   {
     v5 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC16HealthArticlesUI10ButtonView_buttonAction);
     selfCopy = self;
-    v7 = sub_25131ACF0(v4);
+    v7 = sub_25131ACF0(v4, v5);
     v4(v7);
 
-    sub_251324764(v4);
+    sub_251324764(v4, v5);
   }
 }
 

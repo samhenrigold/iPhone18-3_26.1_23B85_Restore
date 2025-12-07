@@ -20,108 +20,108 @@
 
 - (void)configureStageInputOutputDescriptor:(id)descriptor withDeformerFunction:(id)function
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v6 = objc_msgSend_stageInputAttributes(function, a2, descriptor, function);
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v36, v40, 16);
+  v6 = objc_msgSend_stageInputAttributes(function, a2, descriptor);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v35, v39, 16);
   if (v8)
   {
-    v12 = v8;
-    v13 = *v37;
+    v11 = v8;
+    v12 = *v36;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v37 != v13)
+        if (*v36 != v12)
         {
           objc_enumerationMutation(v6);
         }
 
-        v15 = *(*(&v36 + 1) + 8 * i);
-        if (objc_msgSend_attributeIndex(v15, v9, v10, v11, v34, v35))
+        v14 = *(*(&v35 + 1) + 8 * i);
+        if (objc_msgSend_attributeIndex(v14, v9, v10, v33, v34))
         {
-          if (objc_msgSend_attributeIndex(v15, v16, v17, v11) == 3)
+          if (objc_msgSend_attributeIndex(v14, v15, v16) == 3)
           {
-            v20 = *&self->_stageInputOutputDescriptors.dstPositions.bufferAttributeOffset;
-            v34 = *&self->_stageInputOutputDescriptors.dstPositions.isActive;
-            v35 = v20;
+            v19 = *&self->_stageInputOutputDescriptors.dstPositions.bufferAttributeOffset;
+            v33 = *&self->_stageInputOutputDescriptors.dstPositions.isActive;
+            v34 = v19;
             descriptorCopy6 = descriptor;
-            v22 = 3;
+            v21 = 3;
           }
 
-          else if (objc_msgSend_attributeIndex(v15, v18, v19, v11) == 1)
+          else if (objc_msgSend_attributeIndex(v14, v17, v18) == 1)
           {
-            v26 = *&self->_stageInputOutputDescriptors.srcNormals.bufferAttributeOffset;
-            v34 = *&self->_stageInputOutputDescriptors.srcNormals.isActive;
-            v35 = v26;
+            v25 = *&self->_stageInputOutputDescriptors.srcNormals.bufferAttributeOffset;
+            v33 = *&self->_stageInputOutputDescriptors.srcNormals.isActive;
+            v34 = v25;
             descriptorCopy6 = descriptor;
-            v22 = 1;
+            v21 = 1;
           }
 
-          else if (objc_msgSend_attributeIndex(v15, v24, v25, v11) == 4)
+          else if (objc_msgSend_attributeIndex(v14, v23, v24) == 4)
           {
-            v29 = *&self->_stageInputOutputDescriptors.dstNormals.bufferAttributeOffset;
-            v34 = *&self->_stageInputOutputDescriptors.dstNormals.isActive;
-            v35 = v29;
+            v28 = *&self->_stageInputOutputDescriptors.dstNormals.bufferAttributeOffset;
+            v33 = *&self->_stageInputOutputDescriptors.dstNormals.isActive;
+            v34 = v28;
             descriptorCopy6 = descriptor;
-            v22 = 4;
+            v21 = 4;
           }
 
-          else if (objc_msgSend_attributeIndex(v15, v27, v28, v11) == 2)
+          else if (objc_msgSend_attributeIndex(v14, v26, v27) == 2)
           {
-            v32 = *&self->_stageInputOutputDescriptors.srcTangents.bufferAttributeOffset;
-            v34 = *&self->_stageInputOutputDescriptors.srcTangents.isActive;
-            v35 = v32;
+            v31 = *&self->_stageInputOutputDescriptors.srcTangents.bufferAttributeOffset;
+            v33 = *&self->_stageInputOutputDescriptors.srcTangents.isActive;
+            v34 = v31;
             descriptorCopy6 = descriptor;
-            v22 = 2;
+            v21 = 2;
           }
 
           else
           {
-            if (objc_msgSend_attributeIndex(v15, v30, v31, v11) != 5)
+            if (objc_msgSend_attributeIndex(v14, v29, v30) != 5)
             {
               continue;
             }
 
-            v33 = *&self->_stageInputOutputDescriptors.dstTangents.bufferAttributeOffset;
-            v34 = *&self->_stageInputOutputDescriptors.dstTangents.isActive;
-            v35 = v33;
+            v32 = *&self->_stageInputOutputDescriptors.dstTangents.bufferAttributeOffset;
+            v33 = *&self->_stageInputOutputDescriptors.dstTangents.isActive;
+            v34 = v32;
             descriptorCopy6 = descriptor;
-            v22 = 5;
+            v21 = 5;
           }
         }
 
         else
         {
-          v23 = *&self->_stageInputOutputDescriptors.srcPositions.bufferAttributeOffset;
-          v34 = *&self->_stageInputOutputDescriptors.srcPositions.isActive;
-          v35 = v23;
+          v22 = *&self->_stageInputOutputDescriptors.srcPositions.bufferAttributeOffset;
+          v33 = *&self->_stageInputOutputDescriptors.srcPositions.isActive;
+          v34 = v22;
           descriptorCopy6 = descriptor;
-          v22 = 0;
+          v21 = 0;
         }
 
-        sub_1AF1E7700(descriptorCopy6, v22, &v34, v11);
+        sub_1AF1E7700(descriptorCopy6, v21, &v33);
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v36, v40, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v35, v39, 16);
     }
 
-    while (v12);
+    while (v11);
   }
 }
 
 - (unint64_t)_currentFrameHash
 {
   currentUpdateRenderContext = self->_stack->_currentUpdateRenderContext;
-  v5 = objc_msgSend_engineContext(currentUpdateRenderContext, a2, v2, v3);
-  v6 = sub_1AF1302C4(v5);
-  v10 = objc_msgSend_currentFrameIndex(currentUpdateRenderContext, v7, v8, v9);
-  v11 = 0x9DDFEA08EB382D69 * (v10 ^ ((0x9DDFEA08EB382D69 * (v10 ^ currentUpdateRenderContext)) >> 47) ^ (0x9DDFEA08EB382D69 * (v10 ^ currentUpdateRenderContext)));
-  v12 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * *&v6) ^ ((0xC6A4A7935BD1E995 * *&v6) >> 47))) ^ 0x35253C9ADE8F4CA8 ^ (0x9DDFEA08EB382D69 * (v11 ^ (v11 >> 47))));
-  return (0xC6A4A7935BD1E995 * (v12 ^ (v12 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v12 ^ (v12 >> 47))) >> 47);
+  v4 = objc_msgSend_engineContext(currentUpdateRenderContext, a2, v2);
+  v5 = sub_1AF1302C4(v4);
+  v8 = objc_msgSend_currentFrameIndex(currentUpdateRenderContext, v6, v7);
+  v9 = 0x9DDFEA08EB382D69 * (v8 ^ ((0x9DDFEA08EB382D69 * (v8 ^ currentUpdateRenderContext)) >> 47) ^ (0x9DDFEA08EB382D69 * (v8 ^ currentUpdateRenderContext)));
+  v10 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * *&v5) ^ ((0xC6A4A7935BD1E995 * *&v5) >> 47))) ^ 0x35253C9ADE8F4CA8 ^ (0x9DDFEA08EB382D69 * (v9 ^ (v9 >> 47))));
+  return (0xC6A4A7935BD1E995 * (v10 ^ (v10 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v10 ^ (v10 >> 47))) >> 47);
 }
 
 - (__n128)_currentTransforms

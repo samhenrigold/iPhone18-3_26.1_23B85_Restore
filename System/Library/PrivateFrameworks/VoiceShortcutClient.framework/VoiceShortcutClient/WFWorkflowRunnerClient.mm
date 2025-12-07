@@ -28,20 +28,20 @@
 
 - (void)start
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     descriptor = [(WFWorkflowRunnerClient *)self descriptor];
     runRequest = [(WFWorkflowRunnerClient *)self runRequest];
     *buf = 136315906;
-    v30 = "[WFWorkflowRunnerClient start]";
-    v31 = 2112;
+    v29 = "[WFWorkflowRunnerClient start]";
+    v30 = 2112;
     selfCopy = self;
-    v33 = 2112;
-    v34 = descriptor;
-    v35 = 2112;
-    v36 = runRequest;
+    v32 = 2112;
+    v33 = descriptor;
+    v34 = 2112;
+    v35 = runRequest;
     _os_log_impl(&dword_1B1DE3000, v3, OS_LOG_TYPE_DEFAULT, "%s Starting shortcut run from client: %@, descriptor: %@, request: %@", buf, 0x2Au);
   }
 
@@ -52,12 +52,12 @@
 
   runRequest2 = [(WFWorkflowRunnerClient *)self runRequest];
   descriptor2 = [(WFWorkflowRunnerClient *)self descriptor];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __31__WFWorkflowRunnerClient_start__block_invoke;
-  v28[3] = &unk_1E7AFFB50;
-  v28[4] = self;
-  v8 = [(WFWorkflowRunnerClient *)self runWorkflowWithRequest:runRequest2 descriptor:descriptor2 completion:v28];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __31__WFWorkflowRunnerClient_start__block_invoke;
+  v27[3] = &unk_1E7AFFB50;
+  v27[4] = self;
+  v8 = [(WFWorkflowRunnerClient *)self runWorkflowWithRequest:runRequest2 descriptor:descriptor2 completion:v27];
   [(WFWorkflowRunnerClient *)self setContext:v8];
 
   descriptor3 = [(WFWorkflowRunnerClient *)self descriptor];
@@ -118,16 +118,16 @@
     v24 = runSource;
     v25 = @"unknown";
     *buf = 138412802;
-    v30 = v18;
+    v29 = v18;
     if (runSource)
     {
       v25 = runSource;
     }
 
-    v31 = 2112;
+    v30 = 2112;
     selfCopy = v21;
-    v33 = 2112;
-    v34 = v25;
+    v32 = 2112;
+    v33 = v25;
     _os_signpost_emit_with_name_impl(&dword_1B1DE3000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v15, "RunWorkflow", "WorkflowID=%{signpost.description:attribute}@,WorkflowName=%{signpost.description:attribute}@,RunSource=%{signpost.description:attribute}@", buf, 0x20u);
   }
 
@@ -135,7 +135,6 @@
   [(WFWorkflowRunnerClient *)self beginObservingProgressForWorkflowWithRunningContext:context2];
 
   [(WFWorkflowRunnerClient *)self retainSelf];
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isRunning
@@ -266,7 +265,7 @@ void *__78__WFWorkflowRunnerClient_beginObservingProgressForWorkflowWithRunningC
 
 - (void)handleWorkflowRunResult:(id)result completion:(id)completion
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   completionCopy = completion;
   v8 = objc_opt_class();
@@ -290,9 +289,9 @@ void *__78__WFWorkflowRunnerClient_beginObservingProgressForWorkflowWithRunningC
           {
             delegate2 = [(WFWorkflowRunnerClient *)self delegate];
             *buf = 136315394;
-            v48 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]";
-            v49 = 2112;
-            v50 = delegate2;
+            v47 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]";
+            v48 = 2112;
+            v49 = delegate2;
             _os_log_impl(&dword_1B1DE3000, v14, OS_LOG_TYPE_DEBUG, "%s Preparing result with outputs for client (%@)", buf, 0x16u);
           }
 
@@ -302,13 +301,13 @@ void *__78__WFWorkflowRunnerClient_beginObservingProgressForWorkflowWithRunningC
           block[2] = __61__WFWorkflowRunnerClient_handleWorkflowRunResult_completion___block_invoke;
           block[3] = &unk_1E7B024B0;
           v13 = v13;
-          v43 = v13;
+          v42 = v13;
           selfCopy = self;
-          v45 = v10;
-          v46 = completionCopy;
+          v44 = v10;
+          v45 = completionCopy;
           dispatch_async(v16, block);
 
-          delegate4 = v43;
+          delegate4 = v42;
 LABEL_30:
 
           goto LABEL_31;
@@ -326,9 +325,9 @@ LABEL_30:
       {
         delegate3 = [(WFWorkflowRunnerClient *)self delegate];
         *buf = 136315394;
-        v48 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]";
-        v49 = 2112;
-        v50 = delegate3;
+        v47 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]";
+        v48 = 2112;
+        v49 = delegate3;
         _os_log_impl(&dword_1B1DE3000, v34, OS_LOG_TYPE_DEBUG, "%s Preparing result without output for client (%@)", buf, 0x16u);
       }
 
@@ -354,9 +353,9 @@ LABEL_30:
       {
         delegate7 = [(WFWorkflowRunnerClient *)self delegate];
         *buf = 136315394;
-        v48 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]";
-        v49 = 2112;
-        v50 = delegate7;
+        v47 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]";
+        v48 = 2112;
+        v49 = delegate7;
       }
 
       delegate8 = [(WFWorkflowRunnerClient *)self delegate];
@@ -367,9 +366,9 @@ LABEL_30:
     {
       delegate9 = [(WFWorkflowRunnerClient *)self delegate];
       *buf = 136315394;
-      v48 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]";
-      v49 = 2112;
-      v50 = delegate9;
+      v47 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]";
+      v48 = 2112;
+      v49 = delegate9;
       _os_log_impl(&dword_1B1DE3000, delegate8, OS_LOG_TYPE_ERROR, "%s Workflow finished running, but client (%@) does not respond to -workflowRunnerClient:didFinishRunningWorkflowWithError:cancelled: or workflowRunnerClient:didFinishRunningWorkflowWithOutput:error:cancelled:", buf, 0x16u);
     }
 
@@ -385,9 +384,9 @@ LABEL_30:
     {
       delegate10 = [(WFWorkflowRunnerClient *)self delegate];
       *buf = 136315394;
-      v48 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]";
-      v49 = 2112;
-      v50 = delegate10;
+      v47 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]";
+      v48 = 2112;
+      v49 = delegate10;
       _os_log_impl(&dword_1B1DE3000, v30, OS_LOG_TYPE_DEBUG, "%s Delivering workflow run result to client: %@", buf, 0x16u);
     }
 
@@ -404,26 +403,25 @@ LABEL_25:
   {
     delegate12 = [(WFWorkflowRunnerClient *)self delegate];
     *buf = 136315394;
-    v48 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]";
-    v49 = 2112;
-    v50 = delegate12;
+    v47 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]";
+    v48 = 2112;
+    v49 = delegate12;
     _os_log_impl(&dword_1B1DE3000, v21, OS_LOG_TYPE_DEBUG, "%s Preparing output for client (%@)", buf, 0x16u);
   }
 
   v23 = dispatch_get_global_queue(25, 0);
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __61__WFWorkflowRunnerClient_handleWorkflowRunResult_completion___block_invoke_98;
-  v37[3] = &unk_1E7B024B0;
-  v38 = v20;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __61__WFWorkflowRunnerClient_handleWorkflowRunResult_completion___block_invoke_98;
+  v36[3] = &unk_1E7B024B0;
+  v37 = v20;
   selfCopy2 = self;
-  v40 = v10;
-  v41 = completionCopy;
+  v39 = v10;
+  v40 = completionCopy;
   v24 = v20;
-  dispatch_async(v23, v37);
+  dispatch_async(v23, v36);
 
 LABEL_31:
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __61__WFWorkflowRunnerClient_handleWorkflowRunResult_completion___block_invoke(uint64_t a1)
@@ -485,16 +483,16 @@ void __61__WFWorkflowRunnerClient_handleWorkflowRunResult_completion___block_inv
 
 uint64_t __61__WFWorkflowRunnerClient_handleWorkflowRunResult_completion___block_invoke_3_100(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) delegate];
-    v8 = 136315394;
-    v9 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]_block_invoke_3";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_DEFAULT, "%s Delivering workflow run result to client: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]_block_invoke_3";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_DEFAULT, "%s Delivering workflow run result to client: %@", &v7, 0x16u);
   }
 
   v4 = [*(a1 + 32) delegate];
@@ -506,9 +504,7 @@ uint64_t __61__WFWorkflowRunnerClient_handleWorkflowRunResult_completion___block
 
   [v4 workflowRunnerClient:*(a1 + 32) didFinishRunningWorkflowWithOutput:*(a1 + 40) error:v5 cancelled:{objc_msgSend(*(a1 + 64), "isCancelled")}];
 
-  result = (*(*(a1 + 72) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 72) + 16))();
 }
 
 void __61__WFWorkflowRunnerClient_handleWorkflowRunResult_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -531,24 +527,22 @@ void __61__WFWorkflowRunnerClient_handleWorkflowRunResult_completion___block_inv
 
 uint64_t __61__WFWorkflowRunnerClient_handleWorkflowRunResult_completion___block_invoke_3(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) delegate];
-    v7 = 136315394;
-    v8 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]_block_invoke_3";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_DEFAULT, "%s Delivering workflow run result to client: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[WFWorkflowRunnerClient handleWorkflowRunResult:completion:]_block_invoke_3";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1B1DE3000, v2, OS_LOG_TYPE_DEFAULT, "%s Delivering workflow run result to client: %@", &v6, 0x16u);
   }
 
   v4 = [*(a1 + 32) delegate];
   [v4 workflowRunnerClient:*(a1 + 32) didFinishRunningWorkflowWithAllResults:*(a1 + 40) error:*(a1 + 48) cancelled:{objc_msgSend(*(a1 + 56), "isCancelled")}];
 
-  result = (*(*(a1 + 64) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 64) + 16))();
 }
 
 - (void)handleWorkflowDidStart:(id)start
@@ -566,16 +560,16 @@ uint64_t __61__WFWorkflowRunnerClient_handleWorkflowRunResult_completion___block
 
 - (void)dispatchWorkflowResultHandlingWithResult:(id)result
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v5 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     delegate = [(WFWorkflowRunnerClient *)self delegate];
     *buf = 136315394;
-    v17 = "[WFWorkflowRunnerClient dispatchWorkflowResultHandlingWithResult:]";
-    v18 = 2112;
-    v19 = delegate;
+    v16 = "[WFWorkflowRunnerClient dispatchWorkflowResultHandlingWithResult:]";
+    v17 = 2112;
+    v18 = delegate;
     _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_DEBUG, "%s Workflow finished running, preparing to deliver result to client: %@", buf, 0x16u);
   }
 
@@ -591,16 +585,14 @@ uint64_t __61__WFWorkflowRunnerClient_handleWorkflowRunResult_completion___block
   }
 
   delegateQueue = [(WFWorkflowRunnerClient *)self delegateQueue];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __67__WFWorkflowRunnerClient_dispatchWorkflowResultHandlingWithResult___block_invoke;
-  v14[3] = &unk_1E7B02180;
-  v14[4] = self;
-  v15 = resultCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __67__WFWorkflowRunnerClient_dispatchWorkflowResultHandlingWithResult___block_invoke;
+  v13[3] = &unk_1E7B02180;
+  v13[4] = self;
+  v14 = resultCopy;
   v12 = resultCopy;
-  dispatch_async(delegateQueue, v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  dispatch_async(delegateQueue, v13);
 }
 
 uint64_t __67__WFWorkflowRunnerClient_dispatchWorkflowResultHandlingWithResult___block_invoke(uint64_t a1)

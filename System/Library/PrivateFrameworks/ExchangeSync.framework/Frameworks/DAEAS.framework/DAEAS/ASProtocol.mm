@@ -41,66 +41,34 @@
 
 - (id)_initWithVersion:(id)version capabilitiesVersion:(id)capabilitiesVersion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   versionCopy = version;
   capabilitiesVersionCopy = capabilitiesVersion;
-  if ([versionCopy isEqualToString:@"2.5"])
+  if (([versionCopy isEqualToString:@"2.5"] & 1) == 0 && (objc_msgSend(versionCopy, "isEqualToString:", @"12.1") & 1) == 0 && (objc_msgSend(versionCopy, "isEqualToString:", @"14.0") & 1) == 0 && (objc_msgSend(versionCopy, "isEqualToString:", @"14.1") & 1) == 0 && (objc_msgSend(versionCopy, "isEqualToString:", @"16.0") & 1) == 0)
   {
-    v8 = off_278FC6F40;
+    [versionCopy isEqualToString:@"16.1"];
   }
 
-  else if ([versionCopy isEqualToString:@"12.1"])
+  v8 = objc_opt_class();
+  v9 = DALoggingwithCategory();
+  v10 = *(MEMORY[0x277D03988] + 5);
+  if (os_log_type_enabled(v9, v10))
   {
-    v8 = off_278FC6F18;
+    v13 = 138412290;
+    v14 = v8;
+    _os_log_impl(&dword_24A0AC000, v9, v10, "EAS Protocol Manager set to %@", &v13, 0xCu);
   }
 
-  else if ([versionCopy isEqualToString:@"14.0"])
-  {
-    v8 = off_278FC6F20;
-  }
+  v11 = objc_opt_new();
+  [v11 _setCapabilitiesVersion:capabilitiesVersionCopy];
 
-  else if ([versionCopy isEqualToString:@"14.1"])
-  {
-    v8 = off_278FC6F28;
-  }
-
-  else if ([versionCopy isEqualToString:@"16.0"])
-  {
-    v8 = off_278FC6F30;
-  }
-
-  else
-  {
-    v9 = [versionCopy isEqualToString:@"16.1"];
-    v8 = off_278FC6F78;
-    if (v9)
-    {
-      v8 = off_278FC6F38;
-    }
-  }
-
-  v10 = *v8;
-  v11 = objc_opt_class();
-  v12 = DALoggingwithCategory();
-  v13 = *(MEMORY[0x277D03988] + 5);
-  if (os_log_type_enabled(v12, v13))
-  {
-    v17 = 138412290;
-    v18 = v11;
-    _os_log_impl(&dword_24A0AC000, v12, v13, "EAS Protocol Manager set to %@", &v17, 0xCu);
-  }
-
-  v14 = objc_opt_new();
-  [v14 _setCapabilitiesVersion:capabilitiesVersionCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v11;
 }
 
 - (id)_usernameOnlyPortionOfUserString:(id)string
 {
   stringCopy = string;
-  v4 = [stringCopy rangeOfString:@"\\""];
+  v4 = [stringCopy rangeOfString:@"\"];
   if (v4 == 0x7FFFFFFFFFFFFFFFLL || (v5 = v4, v4 >= [stringCopy length] - 1))
   {
     v6 = stringCopy;

@@ -39,7 +39,7 @@
 {
   if (self->m_pCStorage)
   {
-    closeStorage(&self->m_pCStorage);
+    closeStorage(&self->m_pCStorage, a2);
   }
 }
 

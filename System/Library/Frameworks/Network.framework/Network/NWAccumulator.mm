@@ -289,7 +289,7 @@ void __22__NWAccumulator_reset__block_invoke(uint64_t a1)
     v11 = __nwlog_obj();
     *buf = 136446210;
     v29 = "[NWAccumulator registerObserverForKeyPath:ofObject:alreadyRegistered:]";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null keyPath", buf, 12);
 
     v27 = OS_LOG_TYPE_ERROR;
     v26 = 0;
@@ -388,7 +388,7 @@ LABEL_33:
   v16 = __nwlog_obj();
   *buf = 136446210;
   v29 = "[NWAccumulator registerObserverForKeyPath:ofObject:alreadyRegistered:]";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s called with null object", buf, 12);
 
   v27 = OS_LOG_TYPE_ERROR;
   v26 = 0;

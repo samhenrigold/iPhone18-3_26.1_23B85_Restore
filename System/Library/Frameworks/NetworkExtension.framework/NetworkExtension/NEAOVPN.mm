@@ -2,40 +2,67 @@
 - (BOOL)checkValidityAndCollectErrors:(id)errors;
 - (NEAOVPN)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NEAOVPN
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v7 appendPrettyBOOL:-[NEAOVPN isEnabled](self withName:"isEnabled") andIndent:@"enabled" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEAOVPN isToggleEnabled](self withName:"isToggleEnabled") andIndent:@"toggle-enabled" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEAOVPN isAllowCaptiveWebSheet](self withName:"isAllowCaptiveWebSheet") andIndent:@"allow-captive-websheet" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEAOVPN isAllowAllCaptiveNetworkPlugins](self withName:"isAllowAllCaptiveNetworkPlugins") andIndent:@"allow-all-captive-network-plugins" options:{v5, options}];
+  interfaceProtocolMapping = [(NEAOVPN *)self interfaceProtocolMapping];
+  [v7 appendPrettyObject:interfaceProtocolMapping withName:@"interface-to-protocol-mapping" andIndent:v5 options:options];
+
+  activeInterfaceProtocolKey = [(NEAOVPN *)self activeInterfaceProtocolKey];
+  [v7 appendPrettyObject:activeInterfaceProtocolKey withName:@"active-interface-protocol-key" andIndent:v5 options:options];
+
+  serviceExceptions = [(NEAOVPN *)self serviceExceptions];
+  [v7 appendPrettyObject:serviceExceptions withName:@"service-exceptions" andIndent:v5 options:options];
+
+  applicationExceptions = [(NEAOVPN *)self applicationExceptions];
+  [v7 appendPrettyObject:applicationExceptions withName:@"application-exceptions" andIndent:v5 options:options];
+
+  allowedCaptiveNetworkPlugins = [(NEAOVPN *)self allowedCaptiveNetworkPlugins];
+  [v7 appendPrettyObject:allowedCaptiveNetworkPlugins withName:@"allowed-captive-network-plugins" andIndent:v5 options:options];
+
+  return v7;
+}
+
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   interfaceProtocolMapping = [(NEAOVPN *)self interfaceProtocolMapping];
 
   if (interfaceProtocolMapping)
   {
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     obj = [(NEAOVPN *)self interfaceProtocolMapping];
-    v6 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+    v6 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v60;
+      v8 = *v59;
       LODWORD(interfaceProtocolMapping) = 1;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v60 != v8)
+          if (*v59 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v59 + 1) + 8 * i);
+          v10 = *(*(&v58 + 1) + 8 * i);
           if ((isa_nsstring(v10) & 1) == 0)
           {
             [NEConfiguration addError:errorsCopy toList:?];
@@ -58,7 +85,7 @@
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+        v7 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
       }
 
       while (v7);
@@ -79,26 +106,26 @@
 
   if (serviceExceptions)
   {
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     obja = [(NEAOVPN *)self serviceExceptions];
-    v14 = [obja countByEnumeratingWithState:&v55 objects:v65 count:16];
+    v14 = [obja countByEnumeratingWithState:&v54 objects:v64 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v56;
+      v16 = *v55;
       do
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v56 != v16)
+          if (*v55 != v16)
           {
             objc_enumerationMutation(obja);
           }
 
-          v18 = *(*(&v55 + 1) + 8 * j);
+          v18 = *(*(&v54 + 1) + 8 * j);
           if ((isa_nsstring(v18) & 1) == 0)
           {
             [NEConfiguration addError:errorsCopy toList:?];
@@ -121,7 +148,7 @@
           }
         }
 
-        v15 = [obja countByEnumeratingWithState:&v55 objects:v65 count:16];
+        v15 = [obja countByEnumeratingWithState:&v54 objects:v64 count:16];
       }
 
       while (v15);
@@ -132,26 +159,26 @@
 
   if (applicationExceptions)
   {
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     objb = [(NEAOVPN *)self applicationExceptions];
-    v22 = [objb countByEnumeratingWithState:&v51 objects:v64 count:16];
+    v22 = [objb countByEnumeratingWithState:&v50 objects:v63 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v52;
+      v24 = *v51;
       do
       {
         for (k = 0; k != v23; ++k)
         {
-          if (*v52 != v24)
+          if (*v51 != v24)
           {
             objc_enumerationMutation(objb);
           }
 
-          v26 = *(*(&v51 + 1) + 8 * k);
+          v26 = *(*(&v50 + 1) + 8 * k);
           if ((isa_nsstring(v26) & 1) == 0)
           {
             [NEConfiguration addError:errorsCopy toList:?];
@@ -195,7 +222,7 @@
           }
         }
 
-        v23 = [objb countByEnumeratingWithState:&v51 objects:v64 count:16];
+        v23 = [objb countByEnumeratingWithState:&v50 objects:v63 count:16];
       }
 
       while (v23);
@@ -206,26 +233,26 @@
 
   if (allowedCaptiveNetworkPlugins)
   {
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     objc = [(NEAOVPN *)self allowedCaptiveNetworkPlugins];
-    v34 = [objc countByEnumeratingWithState:&v47 objects:v63 count:16];
+    v34 = [objc countByEnumeratingWithState:&v46 objects:v62 count:16];
     if (v34)
     {
       v35 = v34;
-      v36 = *v48;
+      v36 = *v47;
       do
       {
         for (m = 0; m != v35; ++m)
         {
-          if (*v48 != v36)
+          if (*v47 != v36)
           {
             objc_enumerationMutation(objc);
           }
 
-          v38 = *(*(&v47 + 1) + 8 * m);
+          v38 = *(*(&v46 + 1) + 8 * m);
           if ((isa_nsstring(v38) & 1) == 0)
           {
             [NEConfiguration addError:errorsCopy toList:?];
@@ -248,14 +275,13 @@
           }
         }
 
-        v35 = [objc countByEnumeratingWithState:&v47 objects:v63 count:16];
+        v35 = [objc countByEnumeratingWithState:&v46 objects:v62 count:16];
       }
 
       while (v35);
     }
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return interfaceProtocolMapping;
 }
 

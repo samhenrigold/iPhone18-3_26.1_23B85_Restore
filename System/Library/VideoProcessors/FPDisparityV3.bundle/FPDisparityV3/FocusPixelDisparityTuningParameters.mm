@@ -220,427 +220,443 @@ LABEL_15:
 - (int)readFPDisparity_v3_Config:(id)config
 {
   configCopy = config;
-  v6 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
-  if (!v6)
+  v7 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+  if (!v7)
   {
-    sub_29579C9A0(&v199);
+    sub_29579C9A0(&v216);
 LABEL_35:
-    v182 = v199;
+    v184 = v216;
     goto LABEL_32;
   }
 
   if (!configCopy)
   {
-    sub_29579C8F4(&v199);
+    sub_29579C8F4(&v216);
     goto LABEL_35;
   }
 
-  v198 = objc_msgSend_objectForKeyedSubscript_(configCopy, v5, @"reg");
-  if (!v198)
+  v215 = objc_msgSend_objectForKeyedSubscript_(configCopy, v6, @"reg");
+  if (!v215)
   {
     sub_29579C880();
 LABEL_42:
-    v182 = -12780;
+    v184 = -12780;
     goto LABEL_32;
   }
 
-  v8 = objc_msgSend_objectForKeyedSubscript_(configCopy, v7, @"cost");
-  if (!v8)
+  v9 = objc_msgSend_objectForKeyedSubscript_(configCopy, v8, @"cost");
+  if (!v9)
   {
-    sub_29579C7F4(v198);
+    sub_29579C7F4(v215);
     goto LABEL_42;
   }
 
-  v10 = v8;
-  v11 = objc_msgSend_objectForKeyedSubscript_(configCopy, v9, @"solver");
-  if (!v11)
+  v11 = v9;
+  v12 = objc_msgSend_objectForKeyedSubscript_(configCopy, v10, @"solver");
+  if (!v12)
   {
-    sub_29579C760(v10, v198);
+    sub_29579C760(v11, v215);
     goto LABEL_42;
   }
 
-  v13 = v11;
-  v197 = objc_msgSend_objectForKeyedSubscript_(configCopy, v12, @"hbf");
-  if (!v197)
+  v14 = v12;
+  v214 = objc_msgSend_objectForKeyedSubscript_(configCopy, v13, @"hbf");
+  if (!v214)
   {
-    sub_29579C6BC(v13, v10, v198);
+    sub_29579C6BC(v14, v11, v215);
     goto LABEL_42;
   }
 
-  v195 = objc_msgSend_objectForKeyedSubscript_(configCopy, v14, @"preprocessing");
-  if (!v195)
+  v212 = objc_msgSend_objectForKeyedSubscript_(configCopy, v15, @"preprocessing");
+  if (!v212)
   {
-    sub_29579C610(v197, v13, v10, v198);
+    sub_29579C610(v214, v14, v11, v215);
     goto LABEL_42;
   }
 
-  v194 = objc_msgSend_objectForKeyedSubscript_(configCopy, v15, @"postprocessing");
-  if (!v194)
+  v211 = objc_msgSend_objectForKeyedSubscript_(configCopy, v16, @"postprocessing");
+  if (!v211)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v198, v201, v203, v205, v207, v209);
 
     goto LABEL_42;
   }
 
-  v16 = objc_opt_new();
+  v17 = objc_opt_new();
   FPDisparityEstimator_Config = self->_FPDisparityEstimator_Config;
-  self->_FPDisparityEstimator_Config = v16;
+  self->_FPDisparityEstimator_Config = v17;
 
-  if (!self->_FPDisparityEstimator_Config || (v18 = objc_opt_new()) == 0)
+  if (!self->_FPDisparityEstimator_Config)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
-    fig_log_get_emitter();
-    v182 = FigSignalErrorAtGM();
-LABEL_47:
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v198, v201, v203, v205, v207, v209);
+    emitter = fig_log_get_emitter();
+    v192 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954510, "<<<< FocusPixelDisparity Tuning >>>>", 202);
+LABEL_45:
+    v184 = v192;
+LABEL_49:
 
     goto LABEL_32;
   }
 
-  v19 = v18;
+  v19 = objc_opt_new();
+  if (!v19)
+  {
+    fig_log_get_emitter();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v198, v201, v203, v205, v207, v209);
+    v193 = fig_log_get_emitter();
+    v192 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v193, 4294954510, "<<<< FocusPixelDisparity Tuning >>>>", 207);
+    goto LABEL_45;
+  }
+
+  v20 = v19;
   selfCopy = self;
-  v199 = 0;
-  sub_29578DE10(v10, @"nview", &v199);
-  objc_msgSend_setNView_(v19, v20, v199);
-  v199 = 0;
-  sub_29578DE70(v10, @"microlens_spatial_offset", 0, &v199);
-  LODWORD(v21) = v199;
-  objc_msgSend_setMicrolensSpatialOffset_(v19, v22, v23, v21);
-  v199 = 0;
-  sub_29578DE70(v10, @"foreground_push", 0, &v199);
-  LODWORD(v24) = v199;
-  objc_msgSend_setForegroundPush_(v19, v25, v26, v24);
-  v199 = 0;
-  sub_29578DE70(v10, @"background_push", 0, &v199);
-  LODWORD(v27) = v199;
-  objc_msgSend_setBackgroundPush_(v19, v28, v29, v27);
-  v199 = 0;
-  sub_29578DE10(v10, @"rigid_window_support", &v199);
-  objc_msgSend_setRigidWindowSupport_(v19, v30, v199);
-  v199 = 0;
-  sub_29578DE70(v10, @"cost_map_antialiasing_strength", 0, &v199);
-  LODWORD(v31) = v199;
-  objc_msgSend_setCostMapAntialiasingStrength_(v19, v32, v33, v31);
-  v199 = 0;
-  sub_29578DE70(v10, @"cost_epsilon", 0, &v199);
-  LODWORD(v34) = v199;
-  objc_msgSend_setCostEpsilon_(v19, v35, v36, v34);
-  v199 = 0;
-  sub_29578DE70(v10, @"lens_field_curvature_a0", 0, &v199);
-  LODWORD(v37) = v199;
-  objc_msgSend_setLensFieldCurvatureA0_(v19, v38, v39, v37);
-  v199 = 0;
-  sub_29578DE70(v10, @"lens_field_curvature_a1", 0, &v199);
-  LODWORD(v40) = v199;
-  objc_msgSend_setLensFieldCurvatureA1_(v19, v41, v42, v40);
-  v199 = 0;
-  sub_29578DE70(v10, @"lens_field_curvature_a2", 0, &v199);
-  LODWORD(v43) = v199;
-  objc_msgSend_setLensFieldCurvatureA2_(v19, v44, v45, v43);
-  v199 = 0;
-  sub_29578DE70(v10, @"lens_field_curvature_a3", 0, &v199);
-  LODWORD(v46) = v199;
-  objc_msgSend_setLensFieldCurvatureA3_(v19, v47, v48, v46);
-  v199 = 0;
-  sub_29578DE70(v10, @"lens_field_curvature_a4", 0, &v199);
-  LODWORD(v49) = v199;
-  objc_msgSend_setLensFieldCurvatureA4_(v19, v50, v51, v49);
-  v199 = 0;
-  sub_29578DE70(v10, @"circle_of_confusion_gain", 0, &v199);
-  LODWORD(v52) = v199;
-  objc_msgSend_setCircleOfConfusionGain_(v19, v53, v54, v52);
-  v199 = 0;
-  sub_29578DE70(v10, @"circle_of_confusion_offset", 0, &v199);
-  LODWORD(v55) = v199;
-  objc_msgSend_setCircleOfConfusionOffset_(v19, v56, v57, v55);
-  v199 = 0;
-  sub_29578DE70(v10, @"radial_exponent", 0, &v199);
-  LODWORD(v58) = v199;
-  objc_msgSend_setRadialExponent_(v19, v59, v60, v58);
-  v199 = 0;
-  sub_29578DE70(v10, @"radial_gain", 0, &v199);
-  LODWORD(v61) = v199;
-  objc_msgSend_setRadialGain_(v19, v62, v63, v61);
-  v199 = 0;
-  sub_29578DE70(v10, @"radial_min", 0, &v199);
-  LODWORD(v64) = v199;
-  objc_msgSend_setRadialMin_(v19, v65, v66, v64);
-  v199 = 0;
-  sub_29578DE70(v10, @"AGC_low", 0, &v199);
-  LODWORD(v67) = v199;
-  objc_msgSend_setAGCLow_(v19, v68, v69, v67);
-  v199 = 0;
-  sub_29578DE70(v10, @"AGC_high", 0, &v199);
-  LODWORD(v70) = v199;
-  v193 = v19;
-  objc_msgSend_setAGCHigh_(v19, v71, v72, v70);
-  v73 = objc_alloc(MEMORY[0x29EDB8DE8]);
-  v75 = objc_msgSend_initWithCapacity_(v73, v74, 20);
+  v216 = 0;
+  sub_29578DE10(v11, @"nview", &v216);
+  objc_msgSend_setNView_(v20, v21, v216);
+  v216 = 0;
+  sub_29578DE70(v11, @"microlens_spatial_offset", 0, &v216);
+  LODWORD(v22) = v216;
+  objc_msgSend_setMicrolensSpatialOffset_(v20, v23, v24, v22);
+  v216 = 0;
+  sub_29578DE70(v11, @"foreground_push", 0, &v216);
+  LODWORD(v25) = v216;
+  objc_msgSend_setForegroundPush_(v20, v26, v27, v25);
+  v216 = 0;
+  sub_29578DE70(v11, @"background_push", 0, &v216);
+  LODWORD(v28) = v216;
+  objc_msgSend_setBackgroundPush_(v20, v29, v30, v28);
+  v216 = 0;
+  sub_29578DE10(v11, @"rigid_window_support", &v216);
+  objc_msgSend_setRigidWindowSupport_(v20, v31, v216);
+  v216 = 0;
+  sub_29578DE70(v11, @"cost_map_antialiasing_strength", 0, &v216);
+  LODWORD(v32) = v216;
+  objc_msgSend_setCostMapAntialiasingStrength_(v20, v33, v34, v32);
+  v216 = 0;
+  sub_29578DE70(v11, @"cost_epsilon", 0, &v216);
+  LODWORD(v35) = v216;
+  objc_msgSend_setCostEpsilon_(v20, v36, v37, v35);
+  v216 = 0;
+  sub_29578DE70(v11, @"lens_field_curvature_a0", 0, &v216);
+  LODWORD(v38) = v216;
+  objc_msgSend_setLensFieldCurvatureA0_(v20, v39, v40, v38);
+  v216 = 0;
+  sub_29578DE70(v11, @"lens_field_curvature_a1", 0, &v216);
+  LODWORD(v41) = v216;
+  objc_msgSend_setLensFieldCurvatureA1_(v20, v42, v43, v41);
+  v216 = 0;
+  sub_29578DE70(v11, @"lens_field_curvature_a2", 0, &v216);
+  LODWORD(v44) = v216;
+  objc_msgSend_setLensFieldCurvatureA2_(v20, v45, v46, v44);
+  v216 = 0;
+  sub_29578DE70(v11, @"lens_field_curvature_a3", 0, &v216);
+  LODWORD(v47) = v216;
+  objc_msgSend_setLensFieldCurvatureA3_(v20, v48, v49, v47);
+  v216 = 0;
+  sub_29578DE70(v11, @"lens_field_curvature_a4", 0, &v216);
+  LODWORD(v50) = v216;
+  objc_msgSend_setLensFieldCurvatureA4_(v20, v51, v52, v50);
+  v216 = 0;
+  sub_29578DE70(v11, @"circle_of_confusion_gain", 0, &v216);
+  LODWORD(v53) = v216;
+  objc_msgSend_setCircleOfConfusionGain_(v20, v54, v55, v53);
+  v216 = 0;
+  sub_29578DE70(v11, @"circle_of_confusion_offset", 0, &v216);
+  LODWORD(v56) = v216;
+  objc_msgSend_setCircleOfConfusionOffset_(v20, v57, v58, v56);
+  v216 = 0;
+  sub_29578DE70(v11, @"radial_exponent", 0, &v216);
+  LODWORD(v59) = v216;
+  objc_msgSend_setRadialExponent_(v20, v60, v61, v59);
+  v216 = 0;
+  sub_29578DE70(v11, @"radial_gain", 0, &v216);
+  LODWORD(v62) = v216;
+  objc_msgSend_setRadialGain_(v20, v63, v64, v62);
+  v216 = 0;
+  sub_29578DE70(v11, @"radial_min", 0, &v216);
+  LODWORD(v65) = v216;
+  objc_msgSend_setRadialMin_(v20, v66, v67, v65);
+  v216 = 0;
+  sub_29578DE70(v11, @"AGC_low", 0, &v216);
+  LODWORD(v68) = v216;
+  objc_msgSend_setAGCLow_(v20, v69, v70, v68);
+  v216 = 0;
+  sub_29578DE70(v11, @"AGC_high", 0, &v216);
+  LODWORD(v71) = v216;
+  v210 = v20;
+  objc_msgSend_setAGCHigh_(v20, v72, v73, v71);
+  v74 = objc_alloc(MEMORY[0x29EDB8DE8]);
+  v76 = objc_msgSend_initWithCapacity_(v74, v75, 20);
   for (i = 0; i != 20; ++i)
   {
-    v199 = 0;
-    sub_29578DE70(v10, @"correction_coefficients_weights", i, &v199);
-    LODWORD(v77) = v199;
-    v80 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v78, v79, v77);
-    objc_msgSend_setObject_atIndexedSubscript_(v75, v81, v80, i);
+    v216 = 0;
+    sub_29578DE70(v11, @"correction_coefficients_weights", i, &v216);
+    LODWORD(v78) = v216;
+    v81 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v79, v80, v78);
+    objc_msgSend_setObject_atIndexedSubscript_(v76, v82, v81, i);
   }
 
-  objc_msgSend_setCorrectionCoefficientsWeights_(v193, v82, v75);
+  v84 = v210;
+  objc_msgSend_setCorrectionCoefficientsWeights_(v210, v83, v76);
 
-  objc_msgSend_setFPcostParameters_(self->_FPDisparityEstimator_Config, v83, v193);
-  v84 = objc_opt_new();
-  if (!v84)
+  objc_msgSend_setFPcostParameters_(self->_FPDisparityEstimator_Config, v85, v210);
+  v86 = objc_opt_new();
+  if (!v86)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v198, v201, v203, v205, self, v210);
     fig_log_get_emitter();
-    v182 = FigSignalErrorAtGM();
-LABEL_46:
+    v184 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v194, v196, v199);
+LABEL_48:
 
-    goto LABEL_47;
+    goto LABEL_49;
   }
 
-  v85 = v84;
-  v199 = 0;
-  sub_29578DE70(v195, @"black_level_offset", 0, &v199);
-  LODWORD(v86) = v199;
-  objc_msgSend_setBlackLevelOffset_(v85, v87, v88, v86);
-  v199 = 0;
-  sub_29578DE70(v195, @"black_level_scaling", 0, &v199);
-  LODWORD(v89) = v199;
-  objc_msgSend_setBlackLevelScaling_(v85, v90, v91, v89);
-  objc_msgSend_setFPpreprocessingParameters_(self->_FPDisparityEstimator_Config, v92, v85);
-  v93 = objc_opt_new();
-  if (!v93)
+  v87 = v86;
+  v216 = 0;
+  sub_29578DE70(v212, @"black_level_offset", 0, &v216);
+  LODWORD(v88) = v216;
+  objc_msgSend_setBlackLevelOffset_(v87, v89, v90, v88);
+  v216 = 0;
+  sub_29578DE70(v212, @"black_level_scaling", 0, &v216);
+  LODWORD(v91) = v216;
+  objc_msgSend_setBlackLevelScaling_(v87, v92, v93, v91);
+  objc_msgSend_setFPpreprocessingParameters_(self->_FPDisparityEstimator_Config, v94, v87);
+  v95 = objc_opt_new();
+  if (!v95)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v198, v201, v203, v205, self, v210);
     fig_log_get_emitter();
-    v182 = FigSignalErrorAtGM();
+    v184 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v195, v197, v200);
 
-    goto LABEL_46;
+    goto LABEL_48;
   }
 
-  v190 = v85;
-  v191 = configCopy;
-  v196 = v6;
-  v199 = 0;
-  v94 = v93;
-  sub_29578DE70(v194, @"shift_to_disparity_ratio", 0, &v199);
-  LODWORD(v95) = v199;
-  objc_msgSend_setShiftToDisparityRatio_(v94, v96, v97, v95);
-  v199 = 0;
-  sub_29578DE70(v194, @"max_residual1", 0, &v199);
-  LODWORD(v98) = v199;
-  objc_msgSend_setCalibrationMaxResidual1_(v94, v99, v100, v98);
-  v199 = 0;
-  sub_29578DE70(v194, @"max_residual2", 0, &v199);
-  LODWORD(v101) = v199;
-  objc_msgSend_setCalibrationMaxResidual2_(v94, v102, v103, v101);
-  v189 = v94;
-  objc_msgSend_setFPpostprocessingParameters_(selfCopy->_FPDisparityEstimator_Config, v104, v94);
-  v105 = 0;
+  v204 = v87;
+  v206 = configCopy;
+  v213 = v7;
+  v216 = 0;
+  v96 = v95;
+  sub_29578DE70(v211, @"shift_to_disparity_ratio", 0, &v216);
+  LODWORD(v97) = v216;
+  objc_msgSend_setShiftToDisparityRatio_(v96, v98, v99, v97);
+  v216 = 0;
+  sub_29578DE70(v211, @"max_residual1", 0, &v216);
+  LODWORD(v100) = v216;
+  objc_msgSend_setCalibrationMaxResidual1_(v96, v101, v102, v100);
+  v216 = 0;
+  sub_29578DE70(v211, @"max_residual2", 0, &v216);
+  LODWORD(v103) = v216;
+  objc_msgSend_setCalibrationMaxResidual2_(v96, v104, v105, v103);
+  v202 = v96;
+  objc_msgSend_setFPpostprocessingParameters_(selfCopy->_FPDisparityEstimator_Config, v106, v96);
+  v107 = 0;
   while (1)
   {
-    v106 = objc_opt_new();
-    v107 = objc_opt_new();
     v108 = objc_opt_new();
     v109 = objc_opt_new();
     v110 = objc_opt_new();
-    v111 = v110;
-    if (v106)
+    v111 = objc_opt_new();
+    v112 = objc_opt_new();
+    v113 = v112;
+    if (v108)
     {
-      if (v107)
+      if (v109)
       {
-        if (v108)
+        if (v110)
         {
-          if (v109)
+          if (v111)
           {
-            if (v110)
+            if (v112)
             {
-              v199 = 0;
-              sub_29578DE70(v198, @"alpha", v105, &v199);
-              LODWORD(v112) = v199;
-              objc_msgSend_setAlpha_(v107, v113, v114, v112);
-              v199 = 0;
-              sub_29578DE70(v198, @"beta", v105, &v199);
-              LODWORD(v115) = v199;
-              objc_msgSend_setBeta_(v107, v116, v117, v115);
-              v199 = 0;
-              sub_29578DE70(v198, @"gain", v105, &v199);
-              LODWORD(v118) = v199;
-              objc_msgSend_setGain_(v107, v119, v120, v118);
-              v199 = 0;
-              sub_29578DE70(v198, @"offset", v105, &v199);
-              LODWORD(v121) = v199;
-              objc_msgSend_setOffset_(v107, v122, v123, v121);
-              v199 = 0;
-              sub_29578DE70(v198, @"segmentation_bias_background", v105, &v199);
-              LODWORD(v124) = v199;
-              objc_msgSend_setSegmentation_bias_background_(v107, v125, v126, v124);
-              v199 = 0;
-              sub_29578DE70(v198, @"segmentation_bias_foreground", v105, &v199);
-              LODWORD(v127) = v199;
-              objc_msgSend_setSegmentation_bias_foreground_(v107, v128, v129, v127);
-              v199 = 0;
-              sub_29578DE70(v13, @"a_checkerboard", v105, &v199);
-              LODWORD(v130) = v199;
-              objc_msgSend_setA_checkerboard_(v108, v131, v132, v130);
-              v199 = 0;
-              sub_29578DE70(v13, @"b_checkerboard", v105, &v199);
-              LODWORD(v133) = v199;
-              objc_msgSend_setB_checkerboard_(v108, v134, v135, v133);
-              v199 = 0;
-              sub_29578DE70(v13, @"tau", v105, &v199);
-              LODWORD(v136) = v199;
-              objc_msgSend_setTau_(v108, v137, v138, v136);
-              v199 = 0;
-              sub_29578DE70(v13, @"sigma", v105, &v199);
-              LODWORD(v139) = v199;
-              objc_msgSend_setSigma_(v108, v140, v141, v139);
-              v199 = 0;
-              sub_29578DE70(v13, @"theta", v105, &v199);
-              LODWORD(v142) = v199;
-              objc_msgSend_setTheta_(v108, v143, v144, v142);
-              v199 = 0;
-              sub_29578DE70(v13, @"huber_eps", v105, &v199);
-              LODWORD(v145) = v199;
-              objc_msgSend_setHuber_eps_(v108, v146, v147, v145);
-              v199 = 0;
-              sub_29578DECC(v13, @"warpings", v105, &v199);
-              objc_msgSend_setWarpings_(v108, v148, v199);
-              v199 = 0;
-              sub_29578DECC(v13, @"iterations", v105, &v199);
-              objc_msgSend_setIterations_(v108, v149, v199);
-              v199 = 0;
-              sub_29578DECC(v197, @"scales", v105, &v199);
-              objc_msgSend_setScales_(v109, v150, v199);
-              v199 = 0;
-              sub_29578DECC(v197, @"radius", v105, &v199);
-              objc_msgSend_setRadius_(v109, v151, v199);
-              v199 = 0;
-              sub_29578DECC(v197, @"padding", v105, &v199);
-              objc_msgSend_setPadding_(v109, v152, v199);
-              v199 = 0;
-              sub_29578DE70(v197, @"sigma_0", v105, &v199);
-              LODWORD(v153) = v199;
-              objc_msgSend_setSigma_0_(v109, v154, v155, v153);
-              v199 = 0;
-              sub_29578DE70(v197, @"sigma_1", v105, &v199);
-              LODWORD(v156) = v199;
-              objc_msgSend_setSigma_1_(v109, v157, v158, v156);
-              v199 = 0;
-              sub_29578DE70(v197, @"sigma_2", v105, &v199);
-              LODWORD(v159) = v199;
-              objc_msgSend_setSigma_2_(v109, v160, v161, v159);
-              v199 = 0;
-              sub_29578DE70(v10, @"lambda", v105, &v199);
-              LODWORD(v162) = v199;
-              objc_msgSend_setLambda_(v111, v163, v164, v162);
-              v199 = 0;
-              sub_29578DE70(v10, @"step", v105, &v199);
-              LODWORD(v165) = v199;
-              objc_msgSend_setStep_(v111, v166, v167, v165);
-              v199 = 0;
-              sub_29578DE70(v10, @"step_lowlight", v105, &v199);
-              LODWORD(v168) = v199;
-              objc_msgSend_setStepLowlight_(v111, v169, v170, v168);
-              v199 = 0;
-              sub_29578DE70(v10, @"lambda_background", v105, &v199);
-              LODWORD(v171) = v199;
-              objc_msgSend_setLambda_background_(v111, v172, v173, v171);
-              v199 = 0;
-              sub_29578DE70(v10, @"lambda_foreground", v105, &v199);
-              LODWORD(v174) = v199;
-              objc_msgSend_setLambda_foreground_(v111, v175, v176, v174);
-              objc_msgSend_setSolverParameters_(v106, v177, v108);
-              objc_msgSend_setRegularizationParameters_(v106, v178, v107);
-              objc_msgSend_setHbfParameters_(v106, v179, v109);
-              objc_msgSend_setCostParameters_(v106, v180, v111);
-              objc_msgSend_setObject_atIndexedSubscript_(v196, v181, v106, v105);
-              v182 = 0;
-              v183 = 1;
+              v216 = 0;
+              sub_29578DE70(v215, @"alpha", v107, &v216);
+              LODWORD(v114) = v216;
+              objc_msgSend_setAlpha_(v109, v115, v116, v114);
+              v216 = 0;
+              sub_29578DE70(v215, @"beta", v107, &v216);
+              LODWORD(v117) = v216;
+              objc_msgSend_setBeta_(v109, v118, v119, v117);
+              v216 = 0;
+              sub_29578DE70(v215, @"gain", v107, &v216);
+              LODWORD(v120) = v216;
+              objc_msgSend_setGain_(v109, v121, v122, v120);
+              v216 = 0;
+              sub_29578DE70(v215, @"offset", v107, &v216);
+              LODWORD(v123) = v216;
+              objc_msgSend_setOffset_(v109, v124, v125, v123);
+              v216 = 0;
+              sub_29578DE70(v215, @"segmentation_bias_background", v107, &v216);
+              LODWORD(v126) = v216;
+              objc_msgSend_setSegmentation_bias_background_(v109, v127, v128, v126);
+              v216 = 0;
+              sub_29578DE70(v215, @"segmentation_bias_foreground", v107, &v216);
+              LODWORD(v129) = v216;
+              objc_msgSend_setSegmentation_bias_foreground_(v109, v130, v131, v129);
+              v216 = 0;
+              sub_29578DE70(v14, @"a_checkerboard", v107, &v216);
+              LODWORD(v132) = v216;
+              objc_msgSend_setA_checkerboard_(v110, v133, v134, v132);
+              v216 = 0;
+              sub_29578DE70(v14, @"b_checkerboard", v107, &v216);
+              LODWORD(v135) = v216;
+              objc_msgSend_setB_checkerboard_(v110, v136, v137, v135);
+              v216 = 0;
+              sub_29578DE70(v14, @"tau", v107, &v216);
+              LODWORD(v138) = v216;
+              objc_msgSend_setTau_(v110, v139, v140, v138);
+              v216 = 0;
+              sub_29578DE70(v14, @"sigma", v107, &v216);
+              LODWORD(v141) = v216;
+              objc_msgSend_setSigma_(v110, v142, v143, v141);
+              v216 = 0;
+              sub_29578DE70(v14, @"theta", v107, &v216);
+              LODWORD(v144) = v216;
+              objc_msgSend_setTheta_(v110, v145, v146, v144);
+              v216 = 0;
+              sub_29578DE70(v14, @"huber_eps", v107, &v216);
+              LODWORD(v147) = v216;
+              objc_msgSend_setHuber_eps_(v110, v148, v149, v147);
+              v216 = 0;
+              sub_29578DECC(v14, @"warpings", v107, &v216);
+              objc_msgSend_setWarpings_(v110, v150, v216);
+              v216 = 0;
+              sub_29578DECC(v14, @"iterations", v107, &v216);
+              objc_msgSend_setIterations_(v110, v151, v216);
+              v216 = 0;
+              sub_29578DECC(v214, @"scales", v107, &v216);
+              objc_msgSend_setScales_(v111, v152, v216);
+              v216 = 0;
+              sub_29578DECC(v214, @"radius", v107, &v216);
+              objc_msgSend_setRadius_(v111, v153, v216);
+              v216 = 0;
+              sub_29578DECC(v214, @"padding", v107, &v216);
+              objc_msgSend_setPadding_(v111, v154, v216);
+              v216 = 0;
+              sub_29578DE70(v214, @"sigma_0", v107, &v216);
+              LODWORD(v155) = v216;
+              objc_msgSend_setSigma_0_(v111, v156, v157, v155);
+              v216 = 0;
+              sub_29578DE70(v214, @"sigma_1", v107, &v216);
+              LODWORD(v158) = v216;
+              objc_msgSend_setSigma_1_(v111, v159, v160, v158);
+              v216 = 0;
+              sub_29578DE70(v214, @"sigma_2", v107, &v216);
+              LODWORD(v161) = v216;
+              objc_msgSend_setSigma_2_(v111, v162, v163, v161);
+              v216 = 0;
+              sub_29578DE70(v11, @"lambda", v107, &v216);
+              LODWORD(v164) = v216;
+              objc_msgSend_setLambda_(v113, v165, v166, v164);
+              v216 = 0;
+              sub_29578DE70(v11, @"step", v107, &v216);
+              LODWORD(v167) = v216;
+              objc_msgSend_setStep_(v113, v168, v169, v167);
+              v216 = 0;
+              sub_29578DE70(v11, @"step_lowlight", v107, &v216);
+              LODWORD(v170) = v216;
+              objc_msgSend_setStepLowlight_(v113, v171, v172, v170);
+              v216 = 0;
+              sub_29578DE70(v11, @"lambda_background", v107, &v216);
+              LODWORD(v173) = v216;
+              objc_msgSend_setLambda_background_(v113, v174, v175, v173);
+              v216 = 0;
+              sub_29578DE70(v11, @"lambda_foreground", v107, &v216);
+              LODWORD(v176) = v216;
+              objc_msgSend_setLambda_foreground_(v113, v177, v178, v176);
+              objc_msgSend_setSolverParameters_(v108, v179, v110);
+              objc_msgSend_setRegularizationParameters_(v108, v180, v109);
+              objc_msgSend_setHbfParameters_(v108, v181, v111);
+              objc_msgSend_setCostParameters_(v108, v182, v113);
+              objc_msgSend_setObject_atIndexedSubscript_(v213, v183, v108, v107);
+              v184 = 0;
+              v185 = 1;
               goto LABEL_22;
             }
 
-            sub_29579C2B4(&v199);
+            sub_29579C2B4(&v216);
           }
 
           else
           {
-            sub_29579C360(&v199);
+            sub_29579C360(&v216);
           }
         }
 
         else
         {
-          sub_29579C40C(&v199);
+          sub_29579C40C(&v216);
         }
       }
 
       else
       {
-        sub_29579C4B8(&v199);
+        sub_29579C4B8(&v216);
       }
     }
 
     else
     {
-      sub_29579C564(&v199);
+      sub_29579C564(&v216);
     }
 
-    v183 = 0;
-    v182 = v199;
+    v185 = 0;
+    v184 = v216;
 LABEL_22:
 
-    if ((v183 & 1) == 0)
+    if ((v185 & 1) == 0)
     {
       break;
     }
 
-    if (++v105 == 8)
+    if (++v107 == 8)
     {
-      v6 = v196;
-      v186 = objc_msgSend_copy(v196, v184, v185);
-      objc_msgSend_setLevelsParameters_(selfCopy->_FPDisparityEstimator_Config, v187, v186);
+      v7 = v213;
+      v188 = objc_msgSend_copy(v213, v186, v187);
+      objc_msgSend_setLevelsParameters_(selfCopy->_FPDisparityEstimator_Config, v189, v188);
 
-      v182 = 0;
-      configCopy = v191;
+      v184 = 0;
+      configCopy = v206;
       goto LABEL_32;
     }
   }
 
-  configCopy = v191;
-  v6 = v196;
+  configCopy = v206;
+  v7 = v213;
 LABEL_32:
 
-  return v182;
+  return v184;
 }
 
 - (FocusPixelDisparityTuningParameters)initWithTuningDictionary:(id)dictionary cameraInfoByPortType:(id)type
 {
   dictionaryCopy = dictionary;
-  v8 = objc_msgSend_init(self, v6, v7);
-  v10 = v8;
-  if (!v8)
+  v9 = objc_msgSend_init(self, v7, v8);
+  v11 = v9;
+  if (!v9)
   {
     goto LABEL_6;
   }
 
-  if (objc_msgSend_readFPDisparity_v3_Config_(v8, v9, dictionaryCopy))
+  FPDisparity_v3_Config = objc_msgSend_readFPDisparity_v3_Config_(v9, v10, dictionaryCopy);
+  if (FPDisparity_v3_Config)
   {
+    v15 = FPDisparity_v3_Config;
     fig_log_get_emitter();
-    FigDebugAssert3();
+    v16 = v15;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v16, v4, v17, v18, v19, v20, vars0, vars8);
 LABEL_6:
-    v11 = 0;
+    v13 = 0;
     goto LABEL_4;
   }
 
-  v11 = v10;
+  v13 = v11;
 LABEL_4:
 
-  return v11;
+  return v13;
 }
 
 @end

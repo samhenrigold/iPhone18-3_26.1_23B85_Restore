@@ -7,10 +7,10 @@
 
 - (PFCloudKitLogging)init
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = PFCloudKitLogging;
-  v2 = [(PFCloudKitLogging *)&v8 init];
+  v8 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = PFCloudKitLogging;
+  v2 = [(PFCloudKitLogging *)&v7 init];
   if (v2)
   {
     __ckLoggingOverride = 2;
@@ -25,7 +25,7 @@
         __ckLoggingOverride = 0;
 LABEL_10:
         objc_autoreleasePoolPop(v3);
-        goto LABEL_11;
+        return v2;
       case 3:
         v5 = 16;
         break;
@@ -38,8 +38,6 @@ LABEL_10:
     goto LABEL_10;
   }
 
-LABEL_11:
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

@@ -25,7 +25,7 @@
   return [PAEColorSolid properties]::sPropertiesDict;
 }
 
-uint64_t __27__PAEColorSolid_properties__block_invoke()
+void *__27__PAEColorSolid_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:1];
@@ -66,7 +66,7 @@ uint64_t __27__PAEColorSolid_properties__block_invoke()
         [output bounds];
         v25 = v8;
         v26 = v9;
-        [(PAESharedDefaultBase *)self getPixelTransformForImage:output];
+        objc_msgSend_getPixelTransformForImage_(self);
         v10.f64[0] = v25;
         v10.f64[1] = v26;
         __asm { FMOV            V1.2D, #-0.5 }

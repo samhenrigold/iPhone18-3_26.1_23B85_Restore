@@ -52,7 +52,7 @@
 
 - (void)fetchDataForAttachment:(id)attachment consumer:(id)consumer progress:(id)progress completion:(id)completion
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   attachmentCopy = attachment;
   consumerCopy = consumer;
   progressCopy = progress;
@@ -60,27 +60,27 @@
   aBlock[1] = 3221225472;
   aBlock[2] = __87__MFAttachmentLibraryDataProvider_fetchDataForAttachment_consumer_progress_completion___block_invoke;
   aBlock[3] = &unk_2798B6FF0;
-  v32 = progressCopy;
-  v37 = v32;
+  v31 = progressCopy;
+  v36 = v31;
   completionCopy = completion;
-  v35 = _Block_copy(aBlock);
+  v34 = _Block_copy(aBlock);
   v14 = [attachmentCopy url];
   v15 = [(MFAttachmentLibraryDataProvider *)self messageForAttachment:attachmentCopy];
   messageStore = [v15 messageStore];
   mf_lastPartNumber = [v14 mf_lastPartNumber];
-  v33 = consumerCopy;
+  v32 = consumerCopy;
   if (mf_lastPartNumber)
   {
     readFromDisk = [attachmentCopy readFromDisk];
     if (readFromDisk)
     {
       v18 = objc_alloc(MEMORY[0x277D24F88]);
-      v39[0] = consumerCopy;
+      v38[0] = consumerCopy;
       v19 = 1;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
       v21 = [v18 initWithConsumers:v20 expectedSize:{objc_msgSend(attachmentCopy, "encodedFileSize")}];
 
-      [v21 setProgressBlock:v35];
+      [v21 setProgressBlock:v34];
       [v21 appendData:readFromDisk];
       v22 = 0;
       v23 = 0;
@@ -88,14 +88,14 @@
 
     else
     {
-      v31 = [attachmentCopy decodeFilterWithDataConsumer:consumerCopy];
+      v30 = [attachmentCopy decodeFilterWithDataConsumer:consumerCopy];
       v24 = objc_alloc(MEMORY[0x277D24F88]);
-      v38 = v31;
+      v37 = v30;
       v22 = 1;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
       v21 = [v24 initWithConsumers:v25 expectedSize:{objc_msgSend(attachmentCopy, "encodedFileSize")}];
 
-      [v21 setProgressBlock:v35];
+      [v21 setProgressBlock:v34];
       messageBody = [v15 messageBody];
       v27 = [messageBody partWithNumber:mf_lastPartNumber];
 
@@ -126,10 +126,8 @@
   }
 
   [v21 done];
-  [v33 done];
+  [v32 done];
   completionCopy[2](completionCopy, v19, v23, v22);
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __87__MFAttachmentLibraryDataProvider_fetchDataForAttachment_consumer_progress_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -142,7 +140,7 @@ uint64_t __87__MFAttachmentLibraryDataProvider_fetchDataForAttachment_consumer_p
 
 - (id)messageForAttachment:(id)attachment
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   attachmentCopy = attachment;
   part = [attachmentCopy part];
   mimeBody = [part mimeBody];
@@ -177,15 +175,13 @@ uint64_t __87__MFAttachmentLibraryDataProvider_fetchDataForAttachment_consumer_p
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           ef_publicDescription = [message ef_publicDescription];
-          v18 = 138543362;
-          v19 = ef_publicDescription;
-          _os_log_impl(&dword_258BDA000, v14, OS_LOG_TYPE_INFO, "#Attachments failed to find a store for message %{public}@, things may behave unexpectedly", &v18, 0xCu);
+          v17 = 138543362;
+          v18 = ef_publicDescription;
+          _os_log_impl(&dword_258BDA000, v14, OS_LOG_TYPE_INFO, "#Attachments failed to find a store for message %{public}@, things may behave unexpectedly", &v17, 0xCu);
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return message;
 }

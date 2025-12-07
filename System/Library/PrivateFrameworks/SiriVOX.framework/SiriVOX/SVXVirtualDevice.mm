@@ -14,118 +14,115 @@
 
 - (id)_createBuiltInModules:(id)modules preferences:(id)preferences analytics:(id)analytics moduleFactory:(id)factory
 {
-  v38[6] = *MEMORY[0x277D85DE8];
+  v37[6] = *MEMORY[0x277D85DE8];
   modulesCopy = modules;
   factoryCopy = factory;
   v9 = [[SVXQueuePerformer alloc] initWithIdentifier:@"com.apple.SiriVOXService.session-manager" qosClass:33 relativePriority:0 options:2];
   v10 = [factoryCopy createModuleWithIdentifier:@"com.apple.SiriVOXService.client-service" class:objc_opt_class() qos:33];
-  v38[0] = v10;
+  v37[0] = v10;
   v11 = [factoryCopy createModuleWithIdentifier:@"com.apple.SiriVOXService.service-command" class:objc_opt_class() performer:v9];
-  v38[1] = v11;
-  v31 = v9;
+  v37[1] = v11;
+  v30 = v9;
   v12 = [factoryCopy createModuleWithIdentifier:@"com.apple.SiriVOXService.session-manager" class:objc_opt_class() performer:v9];
-  v38[2] = v12;
+  v37[2] = v12;
   v13 = [factoryCopy createModuleWithIdentifier:@"com.apple.SiriVOXService.speech-synthesis" class:objc_opt_class() qos:33];
-  v38[3] = v13;
+  v37[3] = v13;
   v14 = [factoryCopy createModuleWithIdentifier:@"com.apple.SiriVOXService.synthesis-manager" class:objc_opt_class() qos:33];
-  v38[4] = v14;
+  v37[4] = v14;
   v15 = [factoryCopy createModuleWithIdentifier:@"com.apple.SiriVOXService.system-observation" class:objc_opt_class() qos:17];
-  v38[5] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:6];
+  v37[5] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:6];
 
   if ([modulesCopy isDefault])
   {
     v17 = [factoryCopy createModuleWithIdentifier:@"com.apple.SiriVOXService.device-setup" class:objc_opt_class() qos:21];
-    v37 = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+    v36 = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
     v19 = [v16 arrayByAddingObjectsFromArray:v18];
 
     v16 = v19;
   }
 
   v20 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v16, "count")}];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v21 = v16;
-  v22 = [v21 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v33;
+    v24 = *v32;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v33 != v24)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = *(*(&v32 + 1) + 8 * i);
+        v26 = *(*(&v31 + 1) + 8 * i);
         identifier = [v26 identifier];
         [v20 setObject:v26 forKey:identifier];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v23);
   }
 
   v28 = [v20 copy];
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
 
 - (void)_stopWithModuleInstanceMap:(id)map
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   mapCopy = map;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = [(NSDictionary *)self->_modulesByIdentifier allKeys];
-  v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         v10 = [mapCopy moduleInstanceWithIdentifier:v9];
         v11 = [(NSDictionary *)self->_modulesByIdentifier objectForKeyedSubscript:v9];
         performer = [v11 performer];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __47__SVXVirtualDevice__stopWithModuleInstanceMap___block_invoke;
-        v17[3] = &unk_279C68ED0;
-        v18 = v10;
-        v19 = mapCopy;
-        v20 = v11;
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __47__SVXVirtualDevice__stopWithModuleInstanceMap___block_invoke;
+        v16[3] = &unk_279C68ED0;
+        v17 = v10;
+        v18 = mapCopy;
+        v19 = v11;
         v13 = v11;
         v14 = v10;
-        [performer performBlock:v17];
+        [performer performBlock:v16];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__SVXVirtualDevice__stopWithModuleInstanceMap___block_invoke(uint64_t a1)
@@ -138,52 +135,50 @@ uint64_t __47__SVXVirtualDevice__stopWithModuleInstanceMap___block_invoke(uint64
 
 - (void)_startWithModuleInstanceMap:(id)map platformDependencies:(id)dependencies
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   dependenciesCopy = dependencies;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = [(NSDictionary *)self->_modulesByIdentifier allKeys];
-  v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         v13 = [mapCopy moduleInstanceWithIdentifier:v12];
         v14 = [(NSDictionary *)self->_modulesByIdentifier objectForKeyedSubscript:v12];
         performer = [v14 performer];
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __69__SVXVirtualDevice__startWithModuleInstanceMap_platformDependencies___block_invoke;
-        v20[3] = &unk_279C68930;
-        v21 = v13;
-        v22 = mapCopy;
-        v23 = dependenciesCopy;
-        v24 = v14;
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __69__SVXVirtualDevice__startWithModuleInstanceMap_platformDependencies___block_invoke;
+        v19[3] = &unk_279C68930;
+        v20 = v13;
+        v21 = mapCopy;
+        v22 = dependenciesCopy;
+        v23 = v14;
         v16 = v14;
         v17 = v13;
-        [performer performBlock:v20];
+        [performer performBlock:v19];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v9);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __69__SVXVirtualDevice__startWithModuleInstanceMap_platformDependencies___block_invoke(uint64_t a1)

@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar detailExtraction:(SGMDetailExtractionType_)extraction selfIdName:(SGMTypeSafeBool_)name extractionModelVersion:(unint64_t)version receivedConverstationTurn:(SGMTypeSafeBool_)turn knownSuggestedContactDetail:(SGMTypeSafeBool_)detail curatedContactDetail:(SGMTypeSafeBool_)contactDetail throughApp:(SGMContactDetailUsedApp_)self0 contactDetailUsed:(SGMContactDetailType_)self1
 {
-  v47[8] = *MEMORY[0x1E69E9840];
+  v46[8] = *MEMORY[0x1E69E9840];
   if (extraction.var0 >= 0xA)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -46,7 +46,7 @@
     v22 = @"0";
   }
 
-  v45 = v22;
+  v44 = v22;
   if (turn.var0)
   {
     if (turn.var0 == 1)
@@ -150,30 +150,28 @@ LABEL_19:
   }
 
   tracker = self->_tracker;
-  v47[0] = v21;
-  v47[1] = v45;
+  v46[0] = v21;
+  v46[1] = v44;
   v42 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:version];
-  v47[2] = v42;
-  v47[3] = v25;
-  v47[4] = v26;
-  v47[5] = v31;
-  v47[6] = v37;
-  v47[7] = v38;
-  v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:8];
+  v46[2] = v42;
+  v46[3] = v25;
+  v46[4] = v26;
+  v46[5] = v31;
+  v46[6] = v37;
+  v46[7] = v38;
+  v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:8];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v43 value:scalarCopy];
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMContactDetailConversationTurn)init
 {
-  v18[8] = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = SGMContactDetailConversationTurn;
-  v2 = [(SGMContactDetailConversationTurn *)&v17 init];
+  v17[8] = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = SGMContactDetailConversationTurn;
+  v2 = [(SGMContactDetailConversationTurn *)&v16 init];
   if (v2)
   {
-    v16 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"DetailExtraction"];
+    v15 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"DetailExtraction"];
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"SelfIdName"];
     v4 = [MEMORY[0x1E69C5B40] propertyWithName:@"ExtractionModelVersion" range:0 clampValues:{1000, 1}];
     v5 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"ReceivedConverstationTurn"];
@@ -182,21 +180,20 @@ LABEL_19:
     v8 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"ThroughApp"];
     v9 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"ContactDetailUsed"];
     v10 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v18[0] = v16;
-    v18[1] = v3;
-    v18[2] = v4;
-    v18[3] = v5;
-    v18[4] = v6;
-    v18[5] = v7;
-    v18[6] = v8;
-    v18[7] = v9;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:8];
+    v17[0] = v15;
+    v17[1] = v3;
+    v17[2] = v4;
+    v17[3] = v5;
+    v17[4] = v6;
+    v17[5] = v7;
+    v17[6] = v8;
+    v17[7] = v9;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:8];
     v12 = [v10 initWithFeatureId:@"Found" event:@"ContactDetailConversationTurn" registerProperties:v11 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v12;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

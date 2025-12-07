@@ -41,11 +41,10 @@
 
 + (id)recordPropertyMap
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"triggerData";
-  v6[0] = @"data";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"triggerData";
+  v5[0] = @"data";
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }

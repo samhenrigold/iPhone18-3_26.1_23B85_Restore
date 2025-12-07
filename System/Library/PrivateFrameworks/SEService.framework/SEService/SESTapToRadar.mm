@@ -90,10 +90,10 @@ uint64_t __28__SESTapToRadar_getInstance__block_invoke()
 
 - (SESTapToRadar)init
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = SESTapToRadar;
-  v2 = [(SESTapToRadar *)&v18 init];
+  v20 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = SESTapToRadar;
+  v2 = [(SESTapToRadar *)&v17 init];
   if (!v2)
   {
     goto LABEL_5;
@@ -105,7 +105,7 @@ uint64_t __28__SESTapToRadar_getInstance__block_invoke()
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446210;
-      v20 = "/System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices";
+      v19 = "/System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices";
       v15 = "Failed to dlopen %{public}s";
 LABEL_10:
       _os_log_impl(&dword_1C7B9A000, v14, OS_LOG_TYPE_ERROR, v15, buf, 0xCu);
@@ -125,7 +125,7 @@ LABEL_11:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v20 = @"LSApplicationWorkspace";
+      v19 = @"LSApplicationWorkspace";
       v15 = "Failed to get class %{public}@";
       goto LABEL_10;
     }
@@ -156,7 +156,6 @@ LABEL_5:
   v13 = v2;
 LABEL_12:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -184,7 +183,7 @@ LABEL_12:
 - (void)_requestTapToRadarSync:(id)sync component:(id)component client:(id)client fullArchive:(BOOL)archive
 {
   archiveCopy = archive;
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   syncCopy = sync;
   componentCopy = component;
   clientCopy = client;
@@ -204,13 +203,13 @@ LABEL_13:
     goto LABEL_33;
   }
 
-  if (SpringBoardServicesLibraryCore())
+  if (SpringBoardServicesLibraryCore(0))
   {
     v15 = getSBUserNotificationDismissOnLock();
 
     if (v15)
     {
-      v35 = archiveCopy;
+      v34 = archiveCopy;
       v13 = [(NSUserDefaults *)self->_userDefaults objectForKey:@"TTR-Prohibit-Until-ByClient"];
       v16 = [v13 objectForKeyedSubscript:clientCopy];
       if (v16)
@@ -229,7 +228,7 @@ LABEL_13:
           if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
             *buf = 138543362;
-            v44 = v16;
+            v43 = v16;
             _os_log_impl(&dword_1C7B9A000, v21, OS_LOG_TYPE_INFO, "TTR is prohibited until %{public}@", buf, 0xCu);
           }
 
@@ -237,26 +236,26 @@ LABEL_13:
         }
       }
 
-      v38 = v16;
+      v37 = v16;
       v22 = *MEMORY[0x1E695EE60];
-      v41[0] = *MEMORY[0x1E695EE58];
-      v41[1] = v22;
-      v42[0] = @"SecureElementService Error Detected!";
-      v42[1] = @"Please file a Radar";
+      v40[0] = *MEMORY[0x1E695EE58];
+      v40[1] = v22;
+      v41[0] = @"SecureElementService Error Detected!";
+      v41[1] = @"Please file a Radar";
       v23 = *MEMORY[0x1E695EE70];
-      v41[2] = *MEMORY[0x1E695EE78];
-      v41[3] = v23;
-      v42[2] = @"File Radar";
-      v42[3] = @"Not Now";
+      v40[2] = *MEMORY[0x1E695EE78];
+      v40[3] = v23;
+      v41[2] = @"File Radar";
+      v41[3] = @"Not Now";
       v24 = *MEMORY[0x1E695EE68];
-      v41[4] = *MEMORY[0x1E695EE98];
-      v41[5] = v24;
-      v42[4] = @"Never bother me again";
-      v42[5] = MEMORY[0x1E695E118];
+      v40[4] = *MEMORY[0x1E695EE98];
+      v40[5] = v24;
+      v41[4] = @"Never bother me again";
+      v41[5] = MEMORY[0x1E695E118];
       v25 = getSBUserNotificationDismissOnLock();
-      v41[6] = v25;
-      v42[6] = MEMORY[0x1E695E110];
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:7];
+      v40[6] = v25;
+      v41[6] = MEMORY[0x1E695E110];
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:7];
 
       error = 0;
       v26 = CFUserNotificationCreate(0, 0.0, 3uLL, &error, v21);
@@ -267,12 +266,12 @@ LABEL_13:
         if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v44) = error;
+          LODWORD(v43) = error;
           _os_log_impl(&dword_1C7B9A000, v31, OS_LOG_TYPE_ERROR, "Couldn't create notification! %d", buf, 8u);
         }
 
         userNotification = self->_userNotification;
-        v16 = v38;
+        v16 = v37;
         if (!userNotification)
         {
           goto LABEL_29;
@@ -288,11 +287,11 @@ LABEL_13:
           Main = CFRunLoopGetMain();
           CFRunLoopAddSource(Main, self->_runLoopSource, *MEMORY[0x1E695E8D0]);
           log = SESDefaultLogObject();
-          v16 = v38;
+          v16 = v37;
           if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v44 = clientCopy;
+            v43 = clientCopy;
             _os_log_impl(&dword_1C7B9A000, log, OS_LOG_TYPE_INFO, "TTR prompt created for %@", buf, 0xCu);
           }
 
@@ -300,7 +299,7 @@ LABEL_13:
           objc_storeStrong(&self->_pendingRequestReason, sync);
           objc_storeStrong(&self->_component, component);
           ttrOptions = self->_ttrOptions;
-          if (v35)
+          if (v34)
           {
             v30 = &unk_1F4762D88;
           }
@@ -316,7 +315,7 @@ LABEL_13:
         }
 
         v33 = SESDefaultLogObject();
-        v16 = v38;
+        v16 = v37;
         if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
@@ -344,13 +343,11 @@ LABEL_32:
   }
 
 LABEL_33:
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleCallbackSync:(unint64_t)sync
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_new();
   v6 = objc_opt_new();
   dispatch_assert_queue_V2(self->_queue);
@@ -364,9 +361,9 @@ LABEL_33:
         pendingRequestReason = self->_pendingRequestReason;
         pendingRequestClient = self->_pendingRequestClient;
         *buf = 138412546;
-        v52 = pendingRequestClient;
-        v53 = 2112;
-        v54 = pendingRequestReason;
+        v51 = pendingRequestClient;
+        v52 = 2112;
+        v53 = pendingRequestReason;
         _os_log_impl(&dword_1C7B9A000, v7, OS_LOG_TYPE_INFO, "User canceled response for %@/%@", buf, 0x16u);
       }
 
@@ -391,7 +388,7 @@ LABEL_33:
 
       else
       {
-        v45 = v6;
+        v44 = v6;
         v13 = [(NSString *)self->_component isEqualToString:@"KML"];
         if (v13)
         {
@@ -456,52 +453,52 @@ LABEL_33:
         v26 = [MEMORY[0x1E696AF60] queryItemWithName:@"Description" value:self->_pendingRequestReason];
         [v5 addObject:v26];
 
-        v48 = 0u;
-        v49 = 0u;
-        v46 = 0u;
         v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
         v27 = self->_ttrOptions;
-        v28 = [(NSDictionary *)v27 countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v28 = [(NSDictionary *)v27 countByEnumeratingWithState:&v45 objects:v49 count:16];
         if (v28)
         {
           v29 = v28;
-          v30 = *v47;
+          v30 = *v46;
           do
           {
             for (i = 0; i != v29; ++i)
             {
-              if (*v47 != v30)
+              if (*v46 != v30)
               {
                 objc_enumerationMutation(v27);
               }
 
-              v32 = *(*(&v46 + 1) + 8 * i);
+              v32 = *(*(&v45 + 1) + 8 * i);
               v33 = MEMORY[0x1E696AF60];
               v34 = [(NSDictionary *)self->_ttrOptions objectForKeyedSubscript:v32];
               v35 = [v33 queryItemWithName:v32 value:v34];
               [v5 addObject:v35];
             }
 
-            v29 = [(NSDictionary *)v27 countByEnumeratingWithState:&v46 objects:v50 count:16];
+            v29 = [(NSDictionary *)v27 countByEnumeratingWithState:&v45 objects:v49 count:16];
           }
 
           while (v29);
         }
 
-        v6 = v45;
-        [v45 setScheme:@"tap-to-radar"];
-        [v45 setHost:@"new"];
-        [v45 setQueryItems:v5];
+        v6 = v44;
+        [v44 setScheme:@"tap-to-radar"];
+        [v44 setHost:@"new"];
+        [v44 setQueryItems:v5];
         v36 = SESDefaultLogObject();
         if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v52 = v45;
+          v51 = v44;
           _os_log_impl(&dword_1C7B9A000, v36, OS_LOG_TYPE_INFO, "URL: %{public}@", buf, 0xCu);
         }
 
         distantFuture = [(objc_class *)self->_lsApplicationWorkspace defaultWorkspace];
-        v37 = [v45 URL];
+        v37 = [v44 URL];
         [distantFuture openURL:v37 configuration:0 completionHandler:0];
       }
     }
@@ -544,8 +541,6 @@ LABEL_33:
       _os_log_impl(&dword_1C7B9A000, p_super, OS_LOG_TYPE_ERROR, "Ignoring TTR callback with no pending request", buf, 2u);
     }
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setProhibitUntil:(id)until forClient:(id)client

@@ -5,19 +5,20 @@ BOOL amfi_developer_mode_status()
   return !sysctlbyname("security.mac.amfi.developer_mode_status", &v2, &v3, 0, 0) && v2 == 1;
 }
 
-uint64_t AMFIExecutionPreflight(void *a1, int a2, void *a3, AMFIError **a4)
+uint64_t AMFIExecutionPreflight(void *a1, uint64_t a2, void *a3, AMFIError **a4)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v6 = a2;
+  v65 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a3;
-  if ((a2 - 2) < 4 || a2 == 11)
+  if ((v6 - 2) < 4 || v6 == 11)
   {
     v9 = v7;
     v10 = v8;
     v11 = v10;
-    v57 = v8;
-    v58 = a4;
-    v56 = v9;
+    v56 = v8;
+    v57 = a4;
+    v55 = v9;
     if (!v10 || ![v10 count])
     {
       v18 = [[AMFIPathValidator_ios alloc] initWithURL:v9];
@@ -29,9 +30,9 @@ uint64_t AMFIExecutionPreflight(void *a1, int a2, void *a3, AMFIError **a4)
       goto LABEL_13;
     }
 
-    v55 = v9;
-    v54 = v11;
-    v12 = [v54 objectForKey:@"sliceOffset"];
+    v54 = v9;
+    v53 = v11;
+    v12 = [v53 objectForKey:@"sliceOffset"];
     objc_opt_class();
     v13 = v12;
     if (objc_opt_isKindOfClass())
@@ -48,7 +49,7 @@ uint64_t AMFIExecutionPreflight(void *a1, int a2, void *a3, AMFIError **a4)
 
     if (v13 && !v14)
     {
-      v16 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v55];
+      v16 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v54];
       v17 = +[AMFIFMKLog generic];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
@@ -58,7 +59,7 @@ uint64_t AMFIExecutionPreflight(void *a1, int a2, void *a3, AMFIError **a4)
       goto LABEL_50;
     }
 
-    v30 = [v54 objectForKey:@"cpuType"];
+    v30 = [v53 objectForKey:@"cpuType"];
 
     objc_opt_class();
     v13 = v30;
@@ -76,7 +77,7 @@ uint64_t AMFIExecutionPreflight(void *a1, int a2, void *a3, AMFIError **a4)
 
     if (v13 && !v31)
     {
-      v16 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v55];
+      v16 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v54];
       v17 = +[AMFIFMKLog generic];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
@@ -86,7 +87,7 @@ uint64_t AMFIExecutionPreflight(void *a1, int a2, void *a3, AMFIError **a4)
       goto LABEL_50;
     }
 
-    v33 = [v54 objectForKey:@"cpuSubType"];
+    v33 = [v53 objectForKey:@"cpuSubType"];
 
     objc_opt_class();
     v34 = v33;
@@ -104,7 +105,7 @@ uint64_t AMFIExecutionPreflight(void *a1, int a2, void *a3, AMFIError **a4)
 
     if (v34 && !v31)
     {
-      v16 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v55];
+      v16 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v54];
       v17 = +[AMFIFMKLog generic];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
@@ -115,7 +116,7 @@ uint64_t AMFIExecutionPreflight(void *a1, int a2, void *a3, AMFIError **a4)
       goto LABEL_50;
     }
 
-    v37 = [v54 objectForKey:{@"flags", v35}];
+    v37 = [v53 objectForKey:{@"flags", v35}];
 
     objc_opt_class();
     v38 = v37;
@@ -133,10 +134,10 @@ uint64_t AMFIExecutionPreflight(void *a1, int a2, void *a3, AMFIError **a4)
 
     if (v38)
     {
-      v41 = v53;
+      v41 = v52;
       if (!v31)
       {
-        v16 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v55];
+        v16 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v54];
         v17 = +[AMFIFMKLog generic];
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
@@ -164,7 +165,7 @@ LABEL_51:
         if (!v42)
         {
 LABEL_55:
-          a4 = v58;
+          a4 = v57;
 LABEL_56:
           v47 = v23;
           v27 = 0;
@@ -172,7 +173,7 @@ LABEL_56:
 LABEL_57:
 
           v29 = v26;
-          v8 = v57;
+          v8 = v56;
           if (!a4)
           {
             goto LABEL_60;
@@ -187,12 +188,12 @@ LABEL_57:
           v45 = [v22 unsignedLongLongValue];
           if (v19)
           {
-            v46 = -[AMFIPathValidator_ios initWithURL:withFileOffset:withFlags:](v44, "initWithURL:withFileOffset:withFlags:", v55, v45, [v19 intValue]);
+            v46 = -[AMFIPathValidator_ios initWithURL:withFileOffset:withFlags:](v44, "initWithURL:withFileOffset:withFlags:", v54, v45, [v19 intValue]);
           }
 
           else
           {
-            v46 = [(AMFIPathValidator_ios *)v44 initWithURL:v55 withFileOffset:v45];
+            v46 = [(AMFIPathValidator_ios *)v44 initWithURL:v54 withFileOffset:v45];
           }
 
           v18 = v46;
@@ -206,7 +207,7 @@ LABEL_13:
           {
             v26 = 0;
             v27 = 1;
-            a4 = v58;
+            a4 = v57;
             goto LABEL_57;
           }
 
@@ -215,10 +216,10 @@ LABEL_13:
 
         if (v21)
         {
-          v50 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v55];
+          v49 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v54];
 
-          v51 = +[AMFIFMKLog generic];
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+          v50 = +[AMFIFMKLog generic];
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
           {
             AMFIExecutionPreflight_cold_5();
           }
@@ -228,16 +229,16 @@ LABEL_13:
         {
           if (v19)
           {
-            v18 = -[AMFIPathValidator_ios initWithURL:withFlags:]([AMFIPathValidator_ios alloc], "initWithURL:withFlags:", v55, [v19 intValue]);
+            v18 = -[AMFIPathValidator_ios initWithURL:withFlags:]([AMFIPathValidator_ios alloc], "initWithURL:withFlags:", v54, [v19 intValue]);
             v21 = 0;
             v22 = 0;
             goto LABEL_13;
           }
 
-          v50 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v55];
+          v49 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v54];
 
-          v51 = +[AMFIFMKLog generic];
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+          v50 = +[AMFIFMKLog generic];
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
           {
             AMFIExecutionPreflight_cold_5();
           }
@@ -245,20 +246,20 @@ LABEL_13:
           v19 = 0;
         }
 
-        a4 = v58;
+        a4 = v57;
 
         v22 = 0;
-        v23 = v50;
+        v23 = v49;
         goto LABEL_56;
       }
     }
 
     else
     {
-      v41 = v53;
+      v41 = v52;
       if (!v31)
       {
-        if (!v53)
+        if (!v52)
         {
           v13 = 0;
           v34 = 0;
@@ -268,19 +269,19 @@ LABEL_13:
         }
 
 LABEL_47:
-        v16 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v55];
+        v16 = [[AMFIError alloc] initWithAMFIErrorCode:-404 withURL:v54];
         v17 = +[AMFIFMKLog generic];
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v52 = [v55 path];
+          v51 = [v54 path];
           *buf = 138413058;
           *&buf[4] = v31;
-          v60 = 2112;
-          v61 = v53;
-          v62 = 2112;
-          v63 = v14;
-          v64 = 2112;
-          v65 = v52;
+          v59 = 2112;
+          v60 = v52;
+          v61 = 2112;
+          v62 = v14;
+          v63 = 2112;
+          v64 = v51;
           _os_log_error_impl(&dword_240EEA000, v17, OS_LOG_TYPE_ERROR, "Invalid options combination cpuType: (%@) cpuSubType: (%@) sliceOffset: (%@) for: %@", buf, 0x2Au);
         }
 
@@ -319,7 +320,6 @@ LABEL_58:
 
 LABEL_60:
 
-  v48 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -918,11 +918,11 @@ __CFString *errorStringForAMFIErrorCode(uint64_t a1)
   }
 }
 
-uint64_t errorCodeForMISError(int a1)
+uint64_t errorCodeForMISError(uint64_t a1)
 {
   if (a1 + 402620399) < 0xE && ((0x2237u >> (a1 - 17)))
   {
-    return qword_240EF6E48[a1 + 402620399];
+    return qword_240EF6E48[(a1 + 402620399)];
   }
 
   v3 = +[AMFIFMKLog generic];
@@ -934,7 +934,7 @@ uint64_t errorCodeForMISError(int a1)
   return -400;
 }
 
-uint64_t AMFIShouldShowDeveloperModeSettings()
+BOOL AMFIShouldShowDeveloperModeSettings()
 {
   if (amfi_developer_mode_status())
   {
@@ -958,9 +958,9 @@ uint64_t AMFIShouldShowDeveloperModeSettings()
   return v2;
 }
 
-void sub_240EED6B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_240EED6B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -984,17 +984,14 @@ uint64_t __AMFIShouldShowDeveloperModeSettings_block_invoke(uint64_t a1, _BYTE *
 
 uint64_t amfi_interface_cdhash_in_trustcache(__int128 *a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
   result = 22;
   if (a1 && a2 == 20 && a3)
   {
     *a3 = 0;
-    v7 = *a1;
-    v8 = *(a1 + 4);
     result = __sandbox_ms();
     if (result)
     {
-      result = *__error();
+      return *__error();
     }
 
     else
@@ -1003,7 +1000,6 @@ uint64_t amfi_interface_cdhash_in_trustcache(__int128 *a1, uint64_t a2, void *a3
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1027,101 +1023,73 @@ uint64_t amfi_interface_query_bootarg_state(void *a1)
 
 uint64_t amfi_interface_get_local_signing_private_key(_BYTE *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v5 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   memset(__s2, 0, sizeof(__s2));
-  if (a1)
+  if (!a1)
   {
-    a1[144] = 0;
-    *(a1 + 7) = 0uLL;
-    *(a1 + 8) = 0uLL;
-    *(a1 + 5) = 0uLL;
-    *(a1 + 6) = 0uLL;
-    *(a1 + 3) = 0uLL;
-    *(a1 + 4) = 0uLL;
-    *(a1 + 1) = 0uLL;
-    *(a1 + 2) = 0uLL;
-    *a1 = 0uLL;
-    result = __sandbox_ms();
-    if (!result)
-    {
-      result = 2 * (memcmp(a1, __s2, 0x91uLL) == 0);
-    }
+    return 22;
   }
 
-  else
+  a1[144] = 0;
+  *(a1 + 7) = 0uLL;
+  *(a1 + 8) = 0uLL;
+  *(a1 + 5) = 0uLL;
+  *(a1 + 6) = 0uLL;
+  *(a1 + 3) = 0uLL;
+  *(a1 + 4) = 0uLL;
+  *(a1 + 1) = 0uLL;
+  *(a1 + 2) = 0uLL;
+  *a1 = 0uLL;
+  result = __sandbox_ms();
+  if (!result)
   {
-    result = 22;
+    return 2 * (memcmp(a1, __s2, 0x91uLL) == 0);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t amfi_interface_get_local_signing_public_key(_BYTE *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v5 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   memset(__s2, 0, sizeof(__s2));
-  if (a1)
+  if (!a1)
   {
-    a1[96] = 0;
-    *(a1 + 4) = 0uLL;
-    *(a1 + 5) = 0uLL;
-    *(a1 + 2) = 0uLL;
-    *(a1 + 3) = 0uLL;
-    *a1 = 0uLL;
-    *(a1 + 1) = 0uLL;
-    result = __sandbox_ms();
-    if (!result)
-    {
-      result = 2 * (memcmp(a1, __s2, 0x61uLL) == 0);
-    }
+    return 22;
   }
 
-  else
+  a1[96] = 0;
+  *(a1 + 4) = 0uLL;
+  *(a1 + 5) = 0uLL;
+  *(a1 + 2) = 0uLL;
+  *(a1 + 3) = 0uLL;
+  *a1 = 0uLL;
+  *(a1 + 1) = 0uLL;
+  result = __sandbox_ms();
+  if (!result)
   {
-    result = 22;
+    return 2 * (memcmp(a1, __s2, 0x61uLL) == 0);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t amfi_interface_set_local_signing_public_key(_OWORD *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v12 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   memset(__s2, 0, sizeof(__s2));
   if (!a1 || !memcmp(a1, __s2, 0x61uLL))
   {
-    result = 22;
+    return 22;
   }
 
   else
   {
-    v8 = a1[4];
-    v9 = a1[5];
-    v10 = *(a1 + 96);
-    v4 = *a1;
-    v5 = a1[1];
-    v6 = a1[2];
-    v7 = a1[3];
-    result = __sandbox_ms();
+    return __sandbox_ms();
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t amfi_interface_authorize_local_signing(__int128 *a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  v4 = *(a1 + 4);
-  result = __sandbox_ms();
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 BOOL amfi_developer_mode_resolved()
@@ -1144,56 +1112,45 @@ uint64_t amfi_launch_constraint_set_spawnattr(uint64_t a1, uint64_t a2, uint64_t
   }
 }
 
-uint64_t amfi_launch_constraint_matches_process(__int128 *a1, uint64_t a2, unint64_t a3, uint64_t a4)
+uint64_t amfi_launch_constraint_matches_process(_OWORD *a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   v4 = a4;
-  v11[128] = *MEMORY[0x277D85DE8];
-  if (!a2 || !a3)
+  v7[128] = *MEMORY[0x277D85DE8];
+  if (a2 && a3)
   {
-    if (a4)
+    if (a3 <= 0x4000)
+    {
+      bzero(v7, 0x400uLL);
+      v6 = 5;
+      if (!v4)
+      {
+        v4 = &v6;
+      }
+
+      if (!__sandbox_ms() && !*v4)
+      {
+        return 1;
+      }
+    }
+
+    else if (a4)
     {
       result = 0;
       *a4 = 5;
-      strcpy((a4 + 4), "No Constraint provided");
-      goto LABEL_13;
+      strcpy((a4 + 4), "Constraint too large");
+      return result;
     }
-
-    goto LABEL_12;
   }
 
-  if (a3 <= 0x4000)
+  else if (a4)
   {
-    bzero(v11, 0x400uLL);
-    v10 = 5;
-    if (!v4)
-    {
-      v4 = &v10;
-    }
-
-    v8 = *a1;
-    v9 = a1[1];
-    if (!__sandbox_ms() && !*v4)
-    {
-      result = 1;
-      goto LABEL_13;
-    }
-
-    goto LABEL_12;
-  }
-
-  if (!a4)
-  {
-LABEL_12:
     result = 0;
-    goto LABEL_13;
+    *a4 = 5;
+    strcpy((a4 + 4), "No Constraint provided");
+    return result;
   }
 
-  result = 0;
-  *a4 = 5;
-  strcpy((a4 + 4), "Constraint too large");
-LABEL_13:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t validateCodeSigningFlags(void (**a1)(int *, uint64_t), uint64_t a2)
@@ -1385,7 +1342,7 @@ LABEL_3:
   return v6 & 1;
 }
 
-uint64_t verifyFactLessOperator(uint64_t a1, char *a2, uint64_t a3, _BYTE *a4, _BYTE *a5)
+uint64_t verifyFactLessOperator(unsigned int *a1, char *a2, uint64_t a3, _BYTE *a4, _BYTE *a5)
 {
   *a4 = 0;
   *a5 = 0;
@@ -1399,11 +1356,11 @@ uint64_t verifyFactLessOperator(uint64_t a1, char *a2, uint64_t a3, _BYTE *a4, _
 
     else if (!IsKnownForCategory)
     {
-      (*(a1 + 72))(a1, 4);
+      (*(a1 + 9))(a1, 4);
       goto LABEL_23;
     }
 
-    (*(a1 + 72))(a1, 1);
+    (*(a1 + 9))(a1, 1);
     goto LABEL_23;
   }
 
@@ -1417,7 +1374,7 @@ uint64_t verifyFactLessOperator(uint64_t a1, char *a2, uint64_t a3, _BYTE *a4, _
   {
     if (keyIsKnownOperatorArrayOperator(a2))
     {
-      if ((*(a1 + 16))(a3) == 16)
+      if ((*(a1 + 2))(a3) == 16)
       {
         v19 = 0;
         v20 = &v19;
@@ -1427,7 +1384,7 @@ uint64_t verifyFactLessOperator(uint64_t a1, char *a2, uint64_t a3, _BYTE *a4, _
         v16 = &v15;
         v17 = 0x2000000000;
         v18 = 0;
-        v11 = *(a1 + 48);
+        v11 = *(a1 + 6);
         v14[0] = MEMORY[0x277D85DD0];
         v14[1] = 0x40000000;
         v14[2] = __verifyOperatorArray_block_invoke;
@@ -1447,12 +1404,12 @@ uint64_t verifyFactLessOperator(uint64_t a1, char *a2, uint64_t a3, _BYTE *a4, _
         return v12 & 1;
       }
 
-      (*(a1 + 72))(a1, 3);
+      (*(a1 + 9))(a1, 3);
     }
 
     else
     {
-      (*(a1 + 72))(a1, 10);
+      (*(a1 + 9))(a1, 10);
     }
 
 LABEL_23:
@@ -1463,7 +1420,7 @@ LABEL_23:
   return verifyOptionalDictionary(a1, a3, 0);
 }
 
-uint64_t verifyFactName(uint64_t a1, char *__s1, uint64_t a3, _BYTE *a4)
+uint64_t verifyFactName(unsigned int *a1, char *__s1, uint64_t a3, _BYTE *a4)
 {
   *a4 = 0;
   v26 = 0;
@@ -1482,7 +1439,7 @@ uint64_t verifyFactName(uint64_t a1, char *__s1, uint64_t a3, _BYTE *a4)
         {
           if (v12 == 2)
           {
-            v18 = (*(a1 + 16))(a3, IsKnownForCategory);
+            v18 = (*(a1 + 2))(a3, IsKnownForCategory);
             if ((v18 & 2) == 0)
             {
               if (v18 == 32)
@@ -1505,10 +1462,10 @@ LABEL_32:
             goto LABEL_20;
           }
 
-          if ((*(a1 + 16))(a3) == 32)
+          if ((*(a1 + 2))(a3) == 32)
           {
-            v24 = *(a1 + 4) + 1;
-            *(a1 + 4) = v24;
+            v24 = a1[1] + 1;
+            a1[1] = v24;
             if (v24 < 6)
             {
               v32[0] = 0;
@@ -1519,7 +1476,7 @@ LABEL_32:
               v29 = &v28;
               v30 = 0x2000000000;
               v31 = 1;
-              v25 = *(a1 + 40);
+              v25 = *(a1 + 5);
               v27[0] = MEMORY[0x277D85DD0];
               v27[1] = 0x40000000;
               v27[2] = __verifyQueryTypeFact_block_invoke;
@@ -1528,21 +1485,21 @@ LABEL_32:
               v27[6] = a1;
               v27[4] = v32;
               v25(a3, v27);
-              --*(a1 + 4);
+              --a1[1];
               v19 = *(v29 + 24);
               _Block_object_dispose(&v28, 8);
               _Block_object_dispose(v32, 8);
               return v19 & 1;
             }
 
-            (*(a1 + 72))(a1, 13);
+            (*(a1 + 9))(a1, 13);
             goto LABEL_20;
           }
 
           goto LABEL_30;
         }
 
-        if ((*(a1 + 16))(a3, IsKnownForCategory))
+        if ((*(a1 + 2))(a3, IsKnownForCategory))
         {
           goto LABEL_31;
         }
@@ -1553,7 +1510,7 @@ LABEL_32:
         switch(v12)
         {
           case 4:
-            v21 = (*(a1 + 16))(a3, IsKnownForCategory);
+            v21 = (*(a1 + 2))(a3, IsKnownForCategory);
             if (v21 == 4)
             {
               goto LABEL_31;
@@ -1569,7 +1526,7 @@ LABEL_32:
 
             break;
           case 64:
-            if ((*(a1 + 16))(a3, IsKnownForCategory) == 32)
+            if ((*(a1 + 2))(a3, IsKnownForCategory) == 32)
             {
               v14 = a1;
               v15 = a3;
@@ -1581,7 +1538,7 @@ LABEL_32:
 
             break;
           case 8:
-            v13 = (*(a1 + 16))(a3, IsKnownForCategory);
+            v13 = (*(a1 + 2))(a3, IsKnownForCategory);
             if (v13 != 8)
             {
               if (v13 == 32)
@@ -1609,7 +1566,7 @@ LABEL_31:
       }
 
 LABEL_30:
-      (*(a1 + 72))(a1, 3);
+      (*(a1 + 9))(a1, 3);
       goto LABEL_20;
     }
 
@@ -1627,11 +1584,11 @@ LABEL_30:
   if (v17)
   {
 LABEL_19:
-    (*(a1 + 72))(a1, v10);
+    (*(a1 + 9))(a1, v10);
     goto LABEL_20;
   }
 
-  (*(a1 + 72))(a1, 4);
+  (*(a1 + 9))(a1, 4);
 LABEL_20:
   v19 = 0;
   return v19 & 1;
@@ -1656,8 +1613,9 @@ BOOL keyIsKnownBooleanOperator(_BOOL8 __s1)
   return __s1;
 }
 
-uint64_t verifyOptionalDictionary(uint64_t a1, uint64_t a2, int a3)
+uint64_t verifyOptionalDictionary(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   if ((*(a1 + 16))(a2) != 32)
   {
     (*(a1 + 72))(a1, 3);
@@ -1680,9 +1638,9 @@ uint64_t verifyOptionalDictionary(uint64_t a1, uint64_t a2, int a3)
     v13[1] = v13;
     v13[2] = 0x2000000000;
     v14 = 0;
-    if (a3)
+    if (v3)
     {
-      if (verifyFactOperatorDictionary(a1, a2, a3, v22, 1, 0))
+      if (verifyFactOperatorDictionary(a1, a2, v3, v22, 1, 0))
       {
         --*(a1 + 4);
         v7 = 1;
@@ -1769,17 +1727,17 @@ uint64_t keyIsKnownForCategory(char *a1, int a2)
   return result;
 }
 
-uint64_t __verifyOptionalDictionary_block_invoke(void *a1, char *a2, uint64_t a3)
+uint64_t __verifyOptionalDictionary_block_invoke(uint64_t a1, char *a2, uint64_t a3)
 {
-  (*(a1[7] + 56))();
-  if (*(*(a1[4] + 8) + 24) >= 1)
+  (*(*(a1 + 56) + 56))();
+  if (*(*(*(a1 + 32) + 8) + 24) >= 1)
   {
-    v6 = *(a1[7] + 72);
+    v6 = *(*(a1 + 56) + 72);
 LABEL_3:
     v6();
 LABEL_4:
     result = 0;
-    *(*(a1[5] + 8) + 24) = 0;
+    *(*(*(a1 + 40) + 8) + 24) = 0;
     return result;
   }
 
@@ -1787,22 +1745,22 @@ LABEL_4:
   {
     if (keyIsKnownOperator(a2))
     {
-      v6 = *(a1[7] + 72);
+      v6 = *(*(a1 + 56) + 72);
       goto LABEL_3;
     }
   }
 
-  else if ((verifyFactName(a1[7], a2, a3, (*(a1[6] + 8) + 24)) & 1) == 0 && (*(*(a1[6] + 8) + 24) & 1) == 0)
+  else if ((verifyFactName(*(a1 + 56), a2, a3, (*(*(a1 + 48) + 8) + 24)) & 1) == 0 && (*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
   {
     goto LABEL_4;
   }
 
-  (*(a1[7] + 64))();
-  ++*(*(a1[4] + 8) + 24);
+  (*(*(a1 + 56) + 64))();
+  ++*(*(*(a1 + 32) + 8) + 24);
   return 1;
 }
 
-BOOL keyIsKnownOperator(const char *a1)
+BOOL keyIsKnownOperator(char *a1)
 {
   if (keyIsKnownNumericOnlyOperator(a1))
   {
@@ -1978,8 +1936,8 @@ LABEL_29:
 
     if (*(a1 + 64))
     {
-      v20 = (*(*(a1 + 48) + 24))(a3);
-      if (((*(*(a1 + 64) + 16))(*(a1 + 48), v20) & 1) == 0)
+      v19 = (*(*(a1 + 48) + 24))(a3);
+      if (((*(*(a1 + 64) + 16))(*(a1 + 48), v19) & 1) == 0)
       {
         goto LABEL_36;
       }
@@ -2000,29 +1958,29 @@ LABEL_25:
       goto LABEL_36;
     }
 
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2000000000;
-    v26 = 1;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2000000000;
+    v25 = 1;
     (*(v13 + 56))(v13, "Array");
     v14 = *(v13 + 48);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 0x40000000;
-    v21[2] = __verifyInArray_block_invoke;
-    v21[3] = &unk_278CBBC28;
-    v22 = v9;
-    v21[4] = &v23;
-    v21[5] = v13;
-    v14(a3, v21);
-    if ((v24[3] & 1) == 0)
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 0x40000000;
+    v20[2] = __verifyInArray_block_invoke;
+    v20[3] = &unk_278CBBC28;
+    v21 = v9;
+    v20[4] = &v22;
+    v20[5] = v13;
+    v14(a3, v20);
+    if ((v23[3] & 1) == 0)
     {
-      _Block_object_dispose(&v23, 8);
+      _Block_object_dispose(&v22, 8);
       goto LABEL_36;
     }
 
     (*(v13 + 64))(v13);
-    v15 = *(v24 + 24);
-    _Block_object_dispose(&v23, 8);
+    v15 = *(v23 + 24);
+    _Block_object_dispose(&v22, 8);
     if ((v15 & 1) == 0)
     {
       goto LABEL_36;
@@ -2043,9 +2001,9 @@ LABEL_25:
       }
 
 LABEL_39:
-      v19 = *(a1 + 48);
+      v18 = *(a1 + 48);
       *(*(*(a1 + 40) + 8) + 24) = 0;
-      v7 = *(v19 + 72);
+      v7 = *(v18 + 72);
       goto LABEL_3;
     }
 
@@ -2077,7 +2035,6 @@ LABEL_26:
   if (v10)
   {
 LABEL_34:
-    v18 = *(*(*(a1 + 40) + 8) + 24);
     (*(*(a1 + 48) + 72))();
     goto LABEL_36;
   }
@@ -2151,26 +2108,26 @@ uint64_t __verifyOperatorArray_block_invoke(void *a1, uint64_t a2)
   return result;
 }
 
-uint64_t __verifyOperatorArrayTuple_block_invoke(void *a1, uint64_t a2)
+uint64_t __verifyOperatorArrayTuple_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = (*(a1[7] + 16))(a2);
-  v5 = *(*(a1[4] + 8) + 24);
+  v4 = (*(*(a1 + 56) + 16))(a2);
+  v5 = *(*(*(a1 + 32) + 8) + 24);
   if (v5 != 1)
   {
     if (!v5)
     {
-      v6 = a1[7];
+      v6 = *(a1 + 56);
       if (v4 == 4)
       {
-        *(*(a1[6] + 8) + 24) = (*(v6 + 32))(a2);
-        v7 = *(*(a1[6] + 8) + 24);
+        *(*(*(a1 + 48) + 8) + 24) = (*(v6 + 32))(a2);
+        v7 = *(*(*(a1 + 48) + 8) + 24);
         IsKnownFactlessDictOperator = keyIsKnownFactlessDictOperator(v7);
-        v9 = a1[7];
+        v9 = *(a1 + 56);
         if (IsKnownFactlessDictOperator)
         {
           (*(v9 + 56))(v9, v7);
 LABEL_9:
-          ++*(*(a1[4] + 8) + 24);
+          ++*(*(*(a1 + 32) + 8) + 24);
           return 1;
         }
 
@@ -2184,36 +2141,36 @@ LABEL_9:
           v12 = 4;
         }
 
-        (*(a1[7] + 72))(a1[7], v12);
+        (*(*(a1 + 56) + 72))(*(a1 + 56), v12);
       }
 
       else
       {
-        (*(v6 + 72))(a1[7], 2);
+        (*(v6 + 72))(*(a1 + 56), 2);
       }
 
       goto LABEL_18;
     }
 
-    v11 = *(a1[7] + 72);
+    v11 = *(*(a1 + 56) + 72);
 LABEL_13:
     v11();
 LABEL_18:
     result = 0;
-    *(*(a1[5] + 8) + 24) = 0;
+    *(*(*(a1 + 40) + 8) + 24) = 0;
     return result;
   }
 
   if (v4 != 32)
   {
-    v11 = *(a1[7] + 72);
+    v11 = *(*(a1 + 56) + 72);
     goto LABEL_13;
   }
 
-  *(*(a1[5] + 8) + 24) = verifyFactLessOperator(a1[7], *(*(a1[6] + 8) + 24), a2, &v14, &v13);
-  if (*(*(a1[5] + 8) + 24) == 1)
+  *(*(*(a1 + 40) + 8) + 24) = verifyFactLessOperator(*(a1 + 56), *(*(*(a1 + 48) + 8) + 24), a2, &v14, &v13);
+  if (*(*(*(a1 + 40) + 8) + 24) == 1)
   {
-    (*(a1[7] + 64))();
+    (*(*(a1 + 56) + 64))();
     goto LABEL_9;
   }
 
@@ -2425,53 +2382,48 @@ uint64_t AMFIInitiateDataMigration()
 
 uint64_t AMFIGetSEPDeviceState(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
   v2 = +[AMFIConnection newConnection];
-  v9 = 0;
   if (v2)
   {
     v3 = v2;
-    [v2 getSEPStateWithError:&v9];
-    v4 = v9;
+    objc_msgSend_getSEPStateWithError_(v2);
+    v4 = 0;
+    v11 = v7;
+    v12 = v8;
+    v13 = v9;
     v14 = v10;
-    v15 = v11;
-    v16 = v12;
-    v17 = v13;
 
     if (v4)
     {
       v5 = NSErrorToAMFIReturn(v4);
 
-      goto LABEL_7;
+      return v5;
     }
   }
 
   else
   {
-    v17 = 0;
-    v15 = 0u;
-    v16 = 0u;
-    v14 = 0u;
+    v14 = 0;
+    v12 = 0u;
+    v13 = 0u;
+    v11 = 0u;
   }
 
   v5 = 0;
   if (a1)
   {
-    v6 = v15;
-    *a1 = v14;
-    *(a1 + 16) = v6;
-    *(a1 + 32) = v16;
-    *(a1 + 48) = v17;
+    *a1 = v11;
+    *(a1 + 16) = v12;
+    *(a1 + 32) = v13;
+    *(a1 + 48) = v14;
   }
 
-LABEL_7:
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t AMFIProfileRequiresReboot(void *a1, _BYTE *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a1;
   if (!v3)
   {
@@ -2504,9 +2456,9 @@ LABEL_11:
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v13 = "AMFIProfileRequiresReboot";
-    v14 = 2112;
-    v15 = v3;
+    v12 = "AMFIProfileRequiresReboot";
+    v13 = 2112;
+    v14 = v3;
     _os_log_impl(&dword_240EEA000, v4, OS_LOG_TYPE_DEFAULT, "[%s] request for profile: %@", buf, 0x16u);
   }
 
@@ -2522,7 +2474,6 @@ LABEL_11:
   v8 = 0;
 LABEL_15:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -2538,9 +2489,9 @@ void sub_240EF00B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t AMFIProfileScheduleTrust(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v10 = 0;
+  v9 = 0;
   v2 = +[AMFIFMKLog generic];
   v3 = v2;
   if (v1)
@@ -2548,13 +2499,13 @@ uint64_t AMFIProfileScheduleTrust(void *a1)
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v12 = "AMFIProfileScheduleTrust";
-      v13 = 2112;
-      v14 = v1;
+      v11 = "AMFIProfileScheduleTrust";
+      v12 = 2112;
+      v13 = v1;
       _os_log_impl(&dword_240EEA000, v3, OS_LOG_TYPE_DEFAULT, "%s: attempting to schedule profile: %@", buf, 0x16u);
     }
 
-    v4 = AMFIProfileRequiresReboot(v1, &v10);
+    v4 = AMFIProfileRequiresReboot(v1, &v9);
     if (v4)
     {
       v5 = v4;
@@ -2565,10 +2516,10 @@ uint64_t AMFIProfileScheduleTrust(void *a1)
       }
     }
 
-    else if (v10)
+    else if (v9)
     {
-      v8 = +[AMFIConnection newConnection];
-      v3 = [v8 stageProfileForUuid:v1];
+      v7 = +[AMFIConnection newConnection];
+      v3 = [v7 stageProfileForUuid:v1];
 
       if (!v3)
       {
@@ -2576,8 +2527,8 @@ uint64_t AMFIProfileScheduleTrust(void *a1)
         goto LABEL_11;
       }
 
-      v9 = +[AMFIFMKLog generic];
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = +[AMFIFMKLog generic];
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         AMFIProfileScheduleTrust_cold_2();
       }
@@ -2608,7 +2559,6 @@ uint64_t AMFIProfileScheduleTrust(void *a1)
   }
 
 LABEL_11:
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2732,7 +2682,7 @@ void sub_240EF051C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t AMFIProfileCommitProfile(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = +[AMFIFMKLog generic];
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
@@ -2743,10 +2693,10 @@ uint64_t AMFIProfileCommitProfile(void *a1)
       goto LABEL_7;
     }
 
-    v13 = 136315394;
-    v14 = "AMFIProfileCommitProfile";
-    v15 = 2112;
-    v16 = v1;
+    v12 = 136315394;
+    v13 = "AMFIProfileCommitProfile";
+    v14 = 2112;
+    v15 = v1;
     v4 = "[%s] attempting to commit profile: %@";
     v5 = v2;
     v6 = 22;
@@ -2759,14 +2709,14 @@ uint64_t AMFIProfileCommitProfile(void *a1)
       goto LABEL_7;
     }
 
-    v13 = 136315138;
-    v14 = "AMFIProfileCommitProfile";
+    v12 = 136315138;
+    v13 = "AMFIProfileCommitProfile";
     v4 = "[%s] attempting to remove staged profile";
     v5 = v2;
     v6 = 12;
   }
 
-  _os_log_impl(&dword_240EEA000, v5, OS_LOG_TYPE_DEFAULT, v4, &v13, v6);
+  _os_log_impl(&dword_240EEA000, v5, OS_LOG_TYPE_DEFAULT, v4, &v12, v6);
 LABEL_7:
 
   v7 = +[AMFIConnection newConnection];
@@ -2788,14 +2738,14 @@ LABEL_7:
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-uint64_t AMFIProfileSetTrust(unsigned int a1, void *a2)
+uint64_t AMFIProfileSetTrust(uint64_t a1, void *a2)
 {
+  v2 = a1;
   v3 = a2;
-  v4 = AMFIProfileSetTrustWithOptions(v3, a1, 0);
+  v4 = AMFIProfileSetTrustWithOptions(v3, v2, 0);
 
   return v4;
 }
@@ -2813,7 +2763,7 @@ uint64_t AMFIProfileSetTrustWithOptions(void *a1, unsigned int a2, void *a3)
 
 uint64_t AMFIProfileSetTeamIDTrustWithOptions(void *a1, uint64_t a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a1;
   if (!v5)
   {
@@ -2848,10 +2798,10 @@ LABEL_11:
   {
     *buf = 136315650;
     *&buf[4] = "AMFIProfileSetTeamIDTrustWithOptions";
-    v32 = 2112;
-    v33 = v5;
-    v34 = 1024;
-    v35 = a2;
+    v31 = 2112;
+    v32 = v5;
+    v33 = 1024;
+    v34 = a2;
     _os_log_impl(&dword_240EEA000, v6, OS_LOG_TYPE_DEFAULT, "[%s] attempting to set trust for team ID: %@ | %u", buf, 0x1Cu);
   }
 
@@ -2871,8 +2821,8 @@ LABEL_11:
     {
       *buf = 136315394;
       *&buf[4] = "_getTeamIDAuxiliarySignature";
-      v32 = 2112;
-      v33 = v7;
+      v31 = 2112;
+      v32 = v7;
       _os_log_impl(&dword_240EEA000, v17, OS_LOG_TYPE_DEFAULT, "[%s] auxiliary signature unsupported: %@", buf, 0x16u);
     }
 
@@ -2890,28 +2840,28 @@ LABEL_11:
 
     else
     {
-      v30 = v7;
-      v29 = v14;
+      v29 = v7;
+      v28 = v14;
       v19 = +[AMFIConnection newConnection];
       *buf = 0;
-      v20 = [v19 signTeamID:v30 withSignType:a2 withLAContext:0 withError:buf];
+      v20 = [v19 signTeamID:v29 withSignType:a2 withLAContext:0 withError:buf];
       v21 = *buf;
 
       v22 = v20;
       if (!v20)
       {
-        v22 = v29;
-        if (!v29)
+        v22 = v28;
+        if (!v28)
         {
           v22 = 0;
           if (v21)
           {
-            v27 = NSErrorToAMFIReturn(v21);
+            v26 = NSErrorToAMFIReturn(v21);
             v22 = 0;
-            if (v27 != 13)
+            if (v26 != 13)
             {
-              v28 = +[AMFIFMKLog generic];
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+              v27 = +[AMFIFMKLog generic];
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
                 AMFIProfileSetTeamIDTrustWithOptions_cold_2();
               }
@@ -2952,7 +2902,6 @@ LABEL_11:
 
 LABEL_26:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -2968,7 +2917,7 @@ uint64_t AMFIProfileRemoveTrust(void *a1)
 
 uint64_t AMFIProfileRemoveTeamIDTrust(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = +[AMFIFMKLog generic];
   v3 = v2;
@@ -2976,11 +2925,11 @@ uint64_t AMFIProfileRemoveTeamIDTrust(void *a1)
   {
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315394;
-      v10 = "AMFIProfileRemoveTeamIDTrust";
-      v11 = 2112;
-      v12 = v1;
-      _os_log_impl(&dword_240EEA000, v3, OS_LOG_TYPE_DEFAULT, "[%s] attempting to remove trust for team ID: %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "AMFIProfileRemoveTeamIDTrust";
+      v10 = 2112;
+      v11 = v1;
+      _os_log_impl(&dword_240EEA000, v3, OS_LOG_TYPE_DEFAULT, "[%s] attempting to remove trust for team ID: %@", &v8, 0x16u);
     }
 
     v4 = +[AMFIConnection newConnection];
@@ -3012,21 +2961,20 @@ uint64_t AMFIProfileRemoveTeamIDTrust(void *a1)
   }
 
 LABEL_13:
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t AMFISupervisedModeSetState(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = +[AMFIFMKLog generic];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "AMFISupervisedModeSetState";
-    v11 = 1024;
-    v12 = a1;
-    _os_log_impl(&dword_240EEA000, v2, OS_LOG_TYPE_DEFAULT, "[%s] setting supervised state: %u", &v9, 0x12u);
+    v8 = 136315394;
+    v9 = "AMFISupervisedModeSetState";
+    v10 = 1024;
+    v11 = a1;
+    _os_log_impl(&dword_240EEA000, v2, OS_LOG_TYPE_DEFAULT, "[%s] setting supervised state: %u", &v8, 0x12u);
   }
 
   v3 = +[AMFIConnection newConnection];
@@ -3048,21 +2996,20 @@ uint64_t AMFISupervisedModeSetState(uint64_t a1)
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t AMFIDemoModeSetState(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = +[AMFIFMKLog generic];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "AMFIDemoModeSetState";
-    v11 = 1024;
-    v12 = a1;
-    _os_log_impl(&dword_240EEA000, v2, OS_LOG_TYPE_DEFAULT, "[%s] setting demo state: %u", &v9, 0x12u);
+    v8 = 136315394;
+    v9 = "AMFIDemoModeSetState";
+    v10 = 1024;
+    v11 = a1;
+    _os_log_impl(&dword_240EEA000, v2, OS_LOG_TYPE_DEFAULT, "[%s] setting demo state: %u", &v8, 0x12u);
   }
 
   v3 = +[AMFIConnection newConnection];
@@ -3084,20 +3031,19 @@ uint64_t AMFIDemoModeSetState(uint64_t a1)
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t AMFIMDMModeEnroll(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = +[AMFIFMKLog generic];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "AMFIMDMModeEnroll";
-    _os_log_impl(&dword_240EEA000, v2, OS_LOG_TYPE_DEFAULT, "[%s] enabling MDM state", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "AMFIMDMModeEnroll";
+    _os_log_impl(&dword_240EEA000, v2, OS_LOG_TYPE_DEFAULT, "[%s] enabling MDM state", &v8, 0xCu);
   }
 
   v3 = +[AMFIConnection newConnection];
@@ -3119,19 +3065,18 @@ uint64_t AMFIMDMModeEnroll(void *a1)
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t AMFIMDMModeRemove()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = +[AMFIFMKLog generic];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "AMFIMDMModeRemove";
-    _os_log_impl(&dword_240EEA000, v0, OS_LOG_TYPE_DEFAULT, "[%s] removing MDM state", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "AMFIMDMModeRemove";
+    _os_log_impl(&dword_240EEA000, v0, OS_LOG_TYPE_DEFAULT, "[%s] removing MDM state", &v6, 0xCu);
   }
 
   v1 = +[AMFIConnection newConnection];
@@ -3153,7 +3098,6 @@ uint64_t AMFIMDMModeRemove()
     v4 = 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -3264,35 +3208,35 @@ void iterateDictionary(void *a1, void *a2)
 
 void iterateArray(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = a1;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v11 != v7)
+      if (*v10 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      if (!v3[2](v3, *(*(&v10 + 1) + 8 * v8)))
+      if (!v3[2](v3, *(*(&v9 + 1) + 8 * v8)))
       {
         break;
       }
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -3302,8 +3246,6 @@ LABEL_3:
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void pushKeyContext(uint64_t a1, uint64_t a2)
@@ -3695,19 +3637,17 @@ void pushKeyContext_0(uint64_t a1, const char *a2)
     v2 = *(a1 + 8);
     if (v2)
     {
-      count = xpc_array_get_count(*(v2 + 8));
-      v5 = *(v2 + 8);
-      if (*v2 >= count)
+      if (*v2 >= xpc_array_get_count(*(v2 + 8)))
       {
-        v6 = -1;
+        v4 = -1;
       }
 
       else
       {
-        v6 = *v2;
+        v4 = *v2;
       }
 
-      xpc_array_set_string(*(v2 + 8), v6, a2);
+      xpc_array_set_string(*(v2 + 8), v4, a2);
       ++*v2;
     }
   }
@@ -3809,9 +3749,9 @@ uint64_t LWCRTypeVerificationXPCDictionary_RequirementsOnly(uint64_t a1, int a2,
   return v6;
 }
 
-void sub_240EF2738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_240EF2738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3823,174 +3763,150 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_240EF29A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_240EF29A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_240EF2C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_240EF2C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_240EF2F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_240EF31CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_240EF3424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_240EF2F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_240EF36A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_240EF31CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_240EF38C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_240EF3AC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_240EF3424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a11);
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_240EF36A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_240EF3CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_240EF38C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_240EF3EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_240EF3AC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_240EF409C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_240EF3CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_240EF4284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_240EF3EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_240EF409C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+void sub_240EF4284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void AMFIExecutionPreflight_cold_1()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_2(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_2(v0 v1)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void AMFIExecutionPreflight_cold_2()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_2(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_2(v0 v1)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void AMFIExecutionPreflight_cold_3()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_2(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_2(v0 v1)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void AMFIExecutionPreflight_cold_4()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_2(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_2(v0 v1)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void AMFIExecutionPreflight_cold_5()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_2(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_2(v0 v1)];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void AMFIExecutionPreflight_cold_7(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 path];
+  v6 = [a1 path];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void AMFICopySwiftPlaygroundsSigningKey_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFICopySwiftPlaygroundsSigningKey_cold_2()
@@ -3998,14 +3914,6 @@ void AMFICopySwiftPlaygroundsSigningKey_cold_2()
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void AMFICopySwiftPlaygroundsSigningKey_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFICopySwiftPlaygroundsSigningKey_cold_4()
@@ -4031,21 +3939,12 @@ void AMFICopySwiftPlaygroundsSigningKey_cold_6()
 
 void AMFICopySwiftPlaygroundsSigningKey_cold_7(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2080;
-  v7 = a1;
-  _os_log_error_impl(&dword_240EEA000, log, OS_LOG_TYPE_ERROR, "SecKeyCreate error: %ld (%s)", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void AMFICopySwiftPlaygroundsSigningKey_cold_8()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2080;
+  v6 = a1;
+  _os_log_error_impl(&dword_240EEA000, log, OS_LOG_TYPE_ERROR, "SecKeyCreate error: %ld (%s)", &v3, 0x16u);
 }
 
 void AMFICopySwiftPlaygroundsSigningKey_cold_9()
@@ -4083,14 +3982,6 @@ void AMFICopySwiftPlaygroundsSigningKey_cold_13()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void AMFICopySwiftPlaygroundsSigningKey_cold_14()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void AMFICopySwiftPlaygroundsSigningKey_cold_15()
 {
   OUTLINED_FUNCTION_1_0();
@@ -4098,34 +3989,17 @@ void AMFICopySwiftPlaygroundsSigningKey_cold_15()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void AMFICopySwiftPlaygroundsSigningKey_cold_16()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void AMFICopySwiftPlaygroundsSigningKey_cold_17()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void AMFICopySwiftPlaygroundsSigningKey_cold_18(NSObject *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *__error();
   v3 = __error();
   v4 = strerror(*v3);
-  v6[0] = 67109378;
-  v6[1] = v2;
-  v7 = 2080;
-  v8 = v4;
-  _os_log_error_impl(&dword_240EEA000, a1, OS_LOG_TYPE_ERROR, "unable to add public key to AMFI: %d (%s)", v6, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = 67109378;
+  v5[1] = v2;
+  v6 = 2080;
+  v7 = v4;
+  _os_log_error_impl(&dword_240EEA000, a1, OS_LOG_TYPE_ERROR, "unable to add public key to AMFI: %d (%s)", v5, 0x12u);
 }
 
 void AMFICopySwiftPlaygroundsSigningKey_cold_19()
@@ -4142,224 +4016,132 @@ void AMFICopySwiftPlaygroundsSigningKey_cold_20()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void errorCodeForMISError_cold_1(int a1, NSObject *a2)
+void errorCodeForMISError_cold_1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 67109378;
-  v5[1] = a1;
-  v6 = 2112;
-  v7 = MISCopyErrorStringForErrorCode();
-  v3 = v7;
-  _os_log_error_impl(&dword_240EEA000, a2, OS_LOG_TYPE_ERROR, "Unexpected MISError (0x%x): %@", v5, 0x12u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109378;
+  v4[1] = a1;
+  v5 = 2112;
+  v6 = MISCopyErrorStringForErrorCode();
+  v3 = v6;
+  _os_log_error_impl(&dword_240EEA000, a2, OS_LOG_TYPE_ERROR, "Unexpected MISError (0x%x): %@", v4, 0x12u);
 }
 
 void AMFIProfileRequiresReboot_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIProfileRequiresReboot_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void AMFIProfileRequiresReboot_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void AMFIProfileRequiresReboot_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIProfileScheduleTrust_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIProfileScheduleTrust_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIProfileScheduleTrust_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void AMFIProfileScheduleTrust_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIProfileGetScheduledProfile_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIProfileGetScheduledProfile_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIProfileGetScheduledProfile_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIProfileGetScheduledProfile_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void AMFIProfileGetScheduledProfile_cold_5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIProfileCommitProfile_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void AMFIProfileSetTeamIDTrustWithOptions_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIProfileSetTeamIDTrustWithOptions_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIProfileSetTeamIDTrustWithOptions_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void AMFIProfileSetTeamIDTrustWithOptions_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIProfileRemoveTeamIDTrust_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void AMFIProfileRemoveTeamIDTrust_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFISupervisedModeSetState_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIDemoModeSetState_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIMDMModeEnroll_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void AMFIMDMModeRemove_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }

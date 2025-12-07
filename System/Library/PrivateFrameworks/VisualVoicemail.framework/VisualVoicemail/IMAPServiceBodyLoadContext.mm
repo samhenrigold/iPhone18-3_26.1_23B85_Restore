@@ -22,7 +22,7 @@
   if (v4)
   {
     v4->mambaID = d;
-    v6 = sub_100015F94();
+    v6 = sub_100015F94(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       mambaID = v5->mambaID;
@@ -45,7 +45,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100015F94();
+  v3 = sub_100015F94(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = self->mambaID;
@@ -117,7 +117,7 @@ LABEL_8:
   {
     currentPart = [(MFProgressiveMimeParser *)self->_parser currentPart];
     v5 = currentPart;
-    if (!currentPart || (v6 = [currentPart range], v8 = v7, lastOffset = self->_lastOffset, v7 <= lastOffset))
+    if (!currentPart || (v6 = objc_msgSend_range(currentPart), v8 = v7, lastOffset = self->_lastOffset, v7 <= lastOffset))
     {
 LABEL_24:
 

@@ -7,11 +7,10 @@
 - (uint64_t)Any
 {
   v5 = a3;
-  v7 = *(self + 32);
-  v6 = *(self + 40);
+  v6 = *(self + 32);
   if (a2)
   {
-    v8 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    v7 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
     if (!v5)
     {
       goto LABEL_4;
@@ -20,7 +19,7 @@
     goto LABEL_3;
   }
 
-  v8 = 0;
+  v7 = 0;
   if (a3)
   {
 LABEL_3:
@@ -29,8 +28,8 @@ LABEL_3:
 
 LABEL_4:
 
-  v9 = a4;
-  v7(v8, v5, a4);
+  v8 = a4;
+  v6(v7, v5, a4);
 }
 
 @end

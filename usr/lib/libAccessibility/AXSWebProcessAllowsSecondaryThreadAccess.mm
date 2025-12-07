@@ -3,7 +3,7 @@
 
 @implementation AXSWebProcessAllowsSecondaryThreadAccess
 
-uint64_t ___AXSWebProcessAllowsSecondaryThreadAccess_block_invoke()
+void *___AXSWebProcessAllowsSecondaryThreadAccess_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

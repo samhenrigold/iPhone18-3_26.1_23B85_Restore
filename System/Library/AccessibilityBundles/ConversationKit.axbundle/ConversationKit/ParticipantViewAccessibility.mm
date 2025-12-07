@@ -188,10 +188,9 @@ LABEL_5:
 void __50__ParticipantViewAccessibility__axHandleSingleTap__block_invoke(uint64_t a1)
 {
   objc_opt_class();
-  v2 = *(a1 + 32);
-  v3 = __UIAccessibilityCastAsClass();
-  v4 = [v3 interactions];
-  [v4 enumerateObjectsUsingBlock:&__block_literal_global_7];
+  v1 = __UIAccessibilityCastAsClass();
+  v2 = [v1 interactions];
+  [v2 enumerateObjectsUsingBlock:&__block_literal_global_7];
 }
 
 void __50__ParticipantViewAccessibility__axHandleSingleTap__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)

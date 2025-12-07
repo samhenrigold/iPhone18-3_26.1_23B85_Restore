@@ -21,7 +21,7 @@
 
 - (BOOL)validateForLimits
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   enmlContent = [(ENNote *)self enmlContent];
   v4 = [enmlContent length];
   if (v4 < +[EDAMLimitsConstants EDAM_NOTE_CONTENT_LEN_MIN])
@@ -33,8 +33,7 @@ LABEL_4:
     v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Note fails validation for content length: %@", self];
     [logger evernoteLogInfoString:v10];
 
-    v11 = 0;
-    goto LABEL_18;
+    return 0;
   }
 
   enmlContent2 = [(ENNote *)self enmlContent];
@@ -55,27 +54,27 @@ LABEL_4:
     v12 = +[EDAMLimitsConstants EDAM_RESOURCE_SIZE_MAX_PREMIUM];
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   resources = [(ENNote *)self resources];
-  v16 = [resources countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v16 = [resources countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v16)
   {
     v17 = v16;
     v18 = v12;
-    v19 = *v29;
+    v19 = *v28;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v29 != v19)
+        if (*v28 != v19)
         {
           objc_enumerationMutation(resources);
         }
 
-        data = [*(*(&v28 + 1) + 8 * i) data];
+        data = [*(*(&v27 + 1) + 8 * i) data];
         v22 = [data length];
 
         if (v22 > v18)
@@ -90,7 +89,7 @@ LABEL_4:
         }
       }
 
-      v17 = [resources countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v17 = [resources countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v17)
       {
         continue;
@@ -103,29 +102,18 @@ LABEL_4:
   v11 = 1;
 LABEL_17:
 
-LABEL_18:
-  v26 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (id)EDAMNoteToReplaceServiceNoteGUID:(id)d
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   dCopy = d;
   serviceNote = [(ENNote *)self serviceNote];
-  if (!serviceNote)
+  if (serviceNote && (-[ENNote serviceNote](self, "serviceNote"), v5 = objc_claimAutoreleasedReturnValue(), [v5 guid], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", dCopy), v6, v5, serviceNote, v7))
   {
-    goto LABEL_4;
-  }
-
-  serviceNote2 = [(ENNote *)self serviceNote];
-  guid = [serviceNote2 guid];
-  v7 = [guid isEqualToString:dCopy];
-
-  if (v7)
-  {
-    serviceNote3 = [(ENNote *)self serviceNote];
-    v9 = [serviceNote3 copy];
+    serviceNote2 = [(ENNote *)self serviceNote];
+    v9 = [serviceNote2 copy];
 
     [(EDAMNote *)v9 setGuid:0];
     [(EDAMNote *)v9 setNotebookGuid:0];
@@ -134,7 +122,6 @@ LABEL_18:
 
   else
   {
-LABEL_4:
     v9 = objc_alloc_init(EDAMNote);
   }
 
@@ -224,60 +211,59 @@ LABEL_16:
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v61 = 0u;
-  v62 = 0u;
   v59 = 0u;
   v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   resources = [(ENNote *)self resources];
-  v37 = [resources countByEnumeratingWithState:&v59 objects:v64 count:16];
+  v37 = [resources countByEnumeratingWithState:&v57 objects:v62 count:16];
   if (v37)
   {
-    v38 = *v60;
+    v38 = *v58;
     do
     {
       for (i = 0; i != v37; ++i)
       {
-        if (*v60 != v38)
+        if (*v58 != v38)
         {
           objc_enumerationMutation(resources);
         }
 
-        eDAMResource = [*(*(&v59 + 1) + 8 * i) EDAMResource];
+        eDAMResource = [*(*(&v57 + 1) + 8 * i) EDAMResource];
         if (eDAMResource)
         {
           [array addObject:eDAMResource];
         }
       }
 
-      v37 = [resources countByEnumeratingWithState:&v59 objects:v64 count:16];
+      v37 = [resources countByEnumeratingWithState:&v57 objects:v62 count:16];
     }
 
     while (v37);
   }
 
   [(EDAMNote *)v9 setResources:array];
-  v57 = 0u;
-  v58 = 0u;
   v55 = 0u;
   v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   edamAttributes = [(ENNote *)self edamAttributes];
   allKeys = [edamAttributes allKeys];
 
-  v43 = [allKeys countByEnumeratingWithState:&v55 objects:v63 count:16];
+  v43 = [allKeys countByEnumeratingWithState:&v53 objects:v61 count:16];
   if (v43)
   {
-    v44 = *v56;
-    v52 = *MEMORY[0x277CCA7D8];
+    v44 = *v54;
     do
     {
       for (j = 0; j != v43; ++j)
       {
-        if (*v56 != v44)
+        if (*v54 != v44)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v46 = *(*(&v55 + 1) + 8 * j);
+        v46 = *(*(&v53 + 1) + 8 * j);
         edamAttributes2 = [(ENNote *)self edamAttributes];
         v48 = [edamAttributes2 valueForKey:v46];
 
@@ -285,13 +271,11 @@ LABEL_16:
         [attributes7 setValue:v48 forKey:v46];
       }
 
-      v43 = [allKeys countByEnumeratingWithState:&v55 objects:v63 count:16];
+      v43 = [allKeys countByEnumeratingWithState:&v53 objects:v61 count:16];
     }
 
     while (v43);
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -319,12 +303,12 @@ LABEL_16:
 
 - (void)generateHTMLData:(id)data
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = dataCopy;
   if (dataCopy)
   {
-    v32 = dataCopy;
+    v31 = dataCopy;
     enmlContent = [(ENNote *)self enmlContent];
     if (!enmlContent)
     {
@@ -332,31 +316,31 @@ LABEL_16:
       enmlContent = [v7 enmlWithNote:self];
     }
 
-    v31 = enmlContent;
+    v30 = enmlContent;
     v8 = MEMORY[0x277CBEB18];
     resources = [(ENNote *)self resources];
     v10 = [v8 arrayWithCapacity:{objc_msgSend(resources, "count")}];
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     resources2 = [(ENNote *)self resources];
-    v12 = [resources2 countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v12 = [resources2 countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v36;
+      v14 = *v35;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v36 != v14)
+          if (*v35 != v14)
           {
             objc_enumerationMutation(resources2);
           }
 
-          v16 = *(*(&v35 + 1) + 8 * i);
+          v16 = *(*(&v34 + 1) + 8 * i);
           eDAMResource = [v16 EDAMResource];
           attributes = [eDAMResource attributes];
           sourceURL = [attributes sourceURL];
@@ -377,20 +361,20 @@ LABEL_16:
           [v10 addObject:eDAMResource];
         }
 
-        v13 = [resources2 countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v13 = [resources2 countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v13);
     }
 
     v26 = objc_alloc_init(ENMLUtility);
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __27__ENNote_generateHTMLData___block_invoke;
-    v33[3] = &unk_278C1EB88;
-    v5 = v32;
-    v34 = v32;
-    [(ENMLUtility *)v26 generateHTMLFromENML:v31 referencedResources:v10 completion:v33];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __27__ENNote_generateHTMLData___block_invoke;
+    v32[3] = &unk_278C1EB88;
+    v5 = v31;
+    v33 = v31;
+    [(ENMLUtility *)v26 generateHTMLFromENML:v30 referencedResources:v10 completion:v32];
   }
 
   else
@@ -400,8 +384,6 @@ LABEL_16:
     v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"-generateHTMLData: requires a completion handler!"];
     [logger evernoteLogErrorString:v29];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __27__ENNote_generateHTMLData___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -427,12 +409,12 @@ void __27__ENNote_generateHTMLData___block_invoke(uint64_t a1, void *a2, void *a
 
 - (void)generateWebArchiveData:(id)data
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = dataCopy;
   if (dataCopy)
   {
-    v39 = dataCopy;
+    v38 = dataCopy;
     enmlContent = [(ENNote *)self enmlContent];
     if (!enmlContent)
     {
@@ -440,32 +422,32 @@ void __27__ENNote_generateHTMLData___block_invoke(uint64_t a1, void *a2, void *a
       enmlContent = [v7 enmlWithNote:self];
     }
 
-    v38 = enmlContent;
+    v37 = enmlContent;
     v8 = MEMORY[0x277CBEB18];
     resources = [(ENNote *)self resources];
     v10 = [v8 arrayWithCapacity:{objc_msgSend(resources, "count")}];
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     selfCopy = self;
     resources2 = [(ENNote *)self resources];
-    v12 = [resources2 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v12 = [resources2 countByEnumeratingWithState:&v43 objects:v47 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v45;
+      v14 = *v44;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v45 != v14)
+          if (*v44 != v14)
           {
             objc_enumerationMutation(resources2);
           }
 
-          v16 = *(*(&v44 + 1) + 8 * i);
+          v16 = *(*(&v43 + 1) + 8 * i);
           eDAMResource = [v16 EDAMResource];
           attributes = [eDAMResource attributes];
           sourceURL = [attributes sourceURL];
@@ -486,7 +468,7 @@ void __27__ENNote_generateHTMLData___block_invoke(uint64_t a1, void *a2, void *a
           [v10 addObject:eDAMResource];
         }
 
-        v13 = [resources2 countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v13 = [resources2 countByEnumeratingWithState:&v43 objects:v47 count:16];
       }
 
       while (v13);
@@ -506,17 +488,17 @@ void __27__ENNote_generateHTMLData___block_invoke(uint64_t a1, void *a2, void *a
       v30 = 0;
     }
 
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __33__ENNote_generateWebArchiveData___block_invoke;
-    v40[3] = &unk_278C1DD30;
-    v5 = v39;
-    v42 = v10;
-    v43 = v39;
-    v41 = v30;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __33__ENNote_generateWebArchiveData___block_invoke;
+    v39[3] = &unk_278C1DD30;
+    v5 = v38;
+    v41 = v10;
+    v42 = v38;
+    v40 = v30;
     v34 = v10;
     v35 = v30;
-    [(ENMLUtility *)v26 generateHTMLFromENML:v38 referencedResources:v34 completion:v40];
+    [(ENMLUtility *)v26 generateHTMLFromENML:v37 referencedResources:v34 completion:v39];
   }
 
   else
@@ -526,43 +508,41 @@ void __27__ENNote_generateHTMLData___block_invoke(uint64_t a1, void *a2, void *a
     v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"-generateWebArchiveData: requires a completion handler!"];
     [logger evernoteLogErrorString:v33];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __33__ENNote_generateWebArchiveData___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (a2)
   {
-    v31 = v5;
-    v29 = [a2 dataUsingEncoding:4];
-    v28 = [[ENWebResource alloc] initWithData:v29 URL:*(a1 + 32) MIMEType:@"text/html" textEncodingName:@"UTF-8" frameName:0];
-    v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v30 = v5;
+    v28 = [a2 dataUsingEncoding:4];
+    v27 = [[ENWebResource alloc] initWithData:v28 URL:*(a1 + 32) MIMEType:@"text/html" textEncodingName:@"UTF-8" frameName:0];
+    v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v30 = a1;
+    v29 = a1;
     obj = *(a1 + 40);
-    v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v35;
+      v9 = *v34;
       do
       {
         v10 = 0;
         do
         {
-          if (*v35 != v9)
+          if (*v34 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v34 + 1) + 8 * v10);
+          v11 = *(*(&v33 + 1) + 8 * v10);
           v12 = [ENWebResource alloc];
           v13 = [v11 data];
           v14 = [v13 body];
@@ -573,23 +553,23 @@ void __33__ENNote_generateWebArchiveData___block_invoke(uint64_t a1, void *a2, v
           v19 = [v11 mime];
           v20 = [(ENWebResource *)v12 initWithData:v14 URL:v18 MIMEType:v19 textEncodingName:0 frameName:0];
 
-          [v33 addObject:v20];
+          [v32 addObject:v20];
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v8 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v8);
     }
 
-    v21 = [[ENWebArchive alloc] initWithMainResource:v28 subresources:v33 subframeArchives:0];
-    v22 = *(v30 + 48);
+    v21 = [[ENWebArchive alloc] initWithMainResource:v27 subresources:v32 subframeArchives:0];
+    v22 = *(v29 + 48);
     v23 = [(ENWebArchive *)v21 data];
     (*(v22 + 16))(v22, v23);
 
-    v6 = v31;
+    v6 = v30;
   }
 
   else
@@ -601,8 +581,6 @@ void __33__ENNote_generateWebArchiveData___block_invoke(uint64_t a1, void *a2, v
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllResources
@@ -666,30 +644,30 @@ void __33__ENNote_generateWebArchiveData___block_invoke(uint64_t a1, void *a2, v
 
 - (void)setTagNames:(id)names
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   array = [MEMORY[0x277CBEB18] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = namesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
+        v11 = *(*(&v15 + 1) + 8 * v10);
         v12 = +[EDAMLimitsConstants EDAM_TAG_NAME_REGEX];
         v13 = [v11 en_scrubUsingRegex:v12 withMinLength:+[EDAMLimitsConstants EDAM_TAG_NAME_LEN_MIN](EDAMLimitsConstants maxLength:{"EDAM_TAG_NAME_LEN_MIN"), +[EDAMLimitsConstants EDAM_TAG_NAME_LEN_MAX](EDAMLimitsConstants, "EDAM_TAG_NAME_LEN_MAX")}];
 
@@ -702,7 +680,7 @@ void __33__ENNote_generateWebArchiveData___block_invoke(uint64_t a1, void *a2, v
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -719,8 +697,6 @@ void __33__ENNote_generateWebArchiveData___block_invoke(uint64_t a1, void *a2, v
   }
 
   objc_storeStrong(&self->_tagNames, v14);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setContent:(id)content
@@ -743,11 +719,11 @@ void __33__ENNote_generateWebArchiveData___block_invoke(uint64_t a1, void *a2, v
 
 - (ENNote)initWithServiceNote:(id)note
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   noteCopy = note;
-  v35.receiver = self;
-  v35.super_class = ENNote;
-  v5 = [(ENNote *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = ENNote;
+  v5 = [(ENNote *)&v34 init];
   if (v5)
   {
     title = [noteCopy title];
@@ -776,27 +752,27 @@ void __33__ENNote_generateWebArchiveData___block_invoke(uint64_t a1, void *a2, v
     resources = v5->_resources;
     v5->_resources = v18;
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     resources = [noteCopy resources];
-    v21 = [resources countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v21 = [resources countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v32;
+      v23 = *v31;
       do
       {
         v24 = 0;
         do
         {
-          if (*v32 != v23)
+          if (*v31 != v23)
           {
             objc_enumerationMutation(resources);
           }
 
-          v25 = [ENResource resourceWithServiceResource:*(*(&v31 + 1) + 8 * v24)];
+          v25 = [ENResource resourceWithServiceResource:*(*(&v30 + 1) + 8 * v24)];
           if (v25)
           {
             [(NSMutableArray *)v5->_resources addObject:v25];
@@ -806,7 +782,7 @@ void __33__ENNote_generateWebArchiveData___block_invoke(uint64_t a1, void *a2, v
         }
 
         while (v22 != v24);
-        v22 = [resources countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v22 = [resources countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v22);
@@ -822,7 +798,6 @@ void __33__ENNote_generateWebArchiveData___block_invoke(uint64_t a1, void *a2, v
     [serviceNote2 setResources:0];
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

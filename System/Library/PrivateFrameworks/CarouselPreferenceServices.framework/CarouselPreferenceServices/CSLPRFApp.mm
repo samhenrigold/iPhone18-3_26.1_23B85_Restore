@@ -2,6 +2,7 @@
 + (id)appWithACXRemoteApplication:(id)application;
 + (id)appWithApplicationRecord:(id)record;
 + (id)appWithBBSectionInfo:(id)info;
++ (id)appWithBundleID:(id)d name:(id)name sdkVersion:(id)version supportsAlwaysOnDisplay:(BOOL)display defaultsToPrivateAlwaysOnDisplayTreatment:(BOOL)treatment;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)supportsSmartStack;
 - (CSLPRFApp)initWithBundleIdentifier:(id)identifier localizedName:(id)name sdkVersion:(id)version supportsAlwaysOnDisplay:(BOOL)display defaultsToPrivateAlwaysOnDisplayTreatment:(BOOL)treatment applicationRecord:(id)record remoteApplicationRecord:(id)applicationRecord bbSectionInfo:(id)self0;
@@ -120,12 +121,12 @@
 
 - (BOOL)supportsSmartStack
 {
-  v24[3] = *MEMORY[0x277D85DE8];
+  v23[3] = *MEMORY[0x277D85DE8];
   unionedBackgroundModes = [(CSLPRFApp *)self unionedBackgroundModes];
-  v24[0] = @"com.apple.Fitness";
-  v24[1] = @"com.apple.Bridge";
-  v24[2] = @"com.apple.NanoNowPlaying";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
+  v23[0] = @"com.apple.Fitness";
+  v23[1] = @"com.apple.Bridge";
+  v23[2] = @"com.apple.NanoNowPlaying";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
   bundleIdentifier = [(CSLPRFApp *)self bundleIdentifier];
   v6 = [v4 containsObject:bundleIdentifier];
 
@@ -136,19 +137,19 @@
 
   else
   {
-    v23[0] = @"com.apple.NanoCompass.watchkitapp";
-    v23[1] = @"com.apple.NanoAlarm";
-    v23[2] = @"com.apple.NanoPassbook";
-    v23[3] = @"com.apple.VoiceMemos";
-    v23[4] = @"com.apple.nanomusicrecognition";
-    v23[5] = @"com.apple.NanoNowPlaying";
-    v23[6] = @"com.apple.NanoStopwatch";
-    v23[7] = @"com.apple.Mind";
-    v23[8] = @"com.apple.private.NanoTimer";
-    v23[9] = @"com.apple.NanoAllMusicApps";
-    v23[10] = @"com.apple.NanoAllWorkoutApps";
-    v23[11] = @"com.apple.NanoPhone";
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:12];
+    v22[0] = @"com.apple.NanoCompass.watchkitapp";
+    v22[1] = @"com.apple.NanoAlarm";
+    v22[2] = @"com.apple.NanoPassbook";
+    v22[3] = @"com.apple.VoiceMemos";
+    v22[4] = @"com.apple.nanomusicrecognition";
+    v22[5] = @"com.apple.NanoNowPlaying";
+    v22[6] = @"com.apple.NanoStopwatch";
+    v22[7] = @"com.apple.Mind";
+    v22[8] = @"com.apple.private.NanoTimer";
+    v22[9] = @"com.apple.NanoAllMusicApps";
+    v22[10] = @"com.apple.NanoAllWorkoutApps";
+    v22[11] = @"com.apple.NanoPhone";
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:12];
     bundleIdentifier2 = [(CSLPRFApp *)self bundleIdentifier];
     LOBYTE(v10) = [v8 containsObject:bundleIdentifier2];
 
@@ -159,32 +160,32 @@
         dispatch_once(&supportsSmartStack_onceToken, &__block_literal_global_1193);
       }
 
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v11 = unionedBackgroundModes;
-      v10 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v10)
       {
-        v12 = *v19;
+        v12 = *v18;
         while (2)
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v19 != v12)
+            if (*v18 != v12)
             {
               objc_enumerationMutation(v11);
             }
 
-            if ([supportsSmartStack___sessionCapableBackgroundModes containsObject:{*(*(&v18 + 1) + 8 * i), v18}])
+            if ([supportsSmartStack___sessionCapableBackgroundModes containsObject:{*(*(&v17 + 1) + 8 * i), v17}])
             {
               LOBYTE(v10) = 1;
               goto LABEL_17;
             }
           }
 
-          v10 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v10 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (v10)
           {
             continue;
@@ -203,21 +204,18 @@ LABEL_17:
     v7 = v10 | supportsLiveActivities;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v7 & 1;
 }
 
 void __31__CSLPRFApp_supportsSmartStack__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"physical-therapy";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = @"physical-therapy";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   v2 = [v0 setWithArray:v1];
   v3 = supportsSmartStack___sessionCapableBackgroundModes;
   supportsSmartStack___sessionCapableBackgroundModes = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (NSMutableArray)unionedBackgroundModes
@@ -261,16 +259,16 @@ void __31__CSLPRFApp_supportsSmartStack__block_invoke()
 
 - (CSLPRFApp)initWithBundleIdentifier:(id)identifier localizedName:(id)name sdkVersion:(id)version supportsAlwaysOnDisplay:(BOOL)display defaultsToPrivateAlwaysOnDisplayTreatment:(BOOL)treatment applicationRecord:(id)record remoteApplicationRecord:(id)applicationRecord bbSectionInfo:(id)self0
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   nameCopy = name;
   versionCopy = version;
   recordCopy = record;
   applicationRecordCopy = applicationRecord;
   infoCopy = info;
-  v50.receiver = self;
-  v50.super_class = CSLPRFApp;
-  v21 = [(CSLPRFApp *)&v50 init];
+  v49.receiver = self;
+  v49.super_class = CSLPRFApp;
+  v21 = [(CSLPRFApp *)&v49 init];
   v22 = v21;
   if (!v21)
   {
@@ -331,25 +329,25 @@ void __31__CSLPRFApp_supportsSmartStack__block_invoke()
     applicationRecord = [mEMORY[0x277D2BCF8] getActivePairedDevice];
 
     mEMORY[0x277CEAF80] = [MEMORY[0x277CEAF80] sharedDeviceConnection];
-    v41 = v22->_bundleIdentifier;
-    v49 = 0;
-    v42 = [mEMORY[0x277CEAF80] applicationOnPairedDevice:applicationRecord withBundleID:v41 error:&v49];
-    v43 = v49;
+    v40 = v22->_bundleIdentifier;
+    v48 = 0;
+    v41 = [mEMORY[0x277CEAF80] applicationOnPairedDevice:applicationRecord withBundleID:v40 error:&v48];
+    v42 = v48;
     remoteApplicationRecord = v22->_remoteApplicationRecord;
-    v22->_remoteApplicationRecord = v42;
-    v45 = v43;
+    v22->_remoteApplicationRecord = v41;
+    v44 = v42;
 
-    if (v45)
+    if (v44)
     {
-      v46 = cslprf_settings_log();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v45 = cslprf_settings_log();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        v47 = v22->_bundleIdentifier;
+        v46 = v22->_bundleIdentifier;
         *buf = 138412546;
-        v52 = v47;
-        v53 = 2112;
-        v54 = v45;
-        _os_log_error_impl(&dword_22CE92000, v46, OS_LOG_TYPE_ERROR, "error retrieving remote application record with bundleID:%@ error:%@", buf, 0x16u);
+        v51 = v46;
+        v52 = 2112;
+        v53 = v44;
+        _os_log_error_impl(&dword_22CE92000, v45, OS_LOG_TYPE_ERROR, "error retrieving remote application record with bundleID:%@ error:%@", buf, 0x16u);
       }
     }
   }
@@ -364,7 +362,6 @@ LABEL_10:
 
 LABEL_14:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -398,22 +395,22 @@ LABEL_14:
 
 + (id)appWithBBSectionInfo:(id)info
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   sectionID = [infoCopy sectionID];
   sectionID2 = [infoCopy sectionID];
-  v18 = 0;
-  v7 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:sectionID2 allowPlaceholder:0 error:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:sectionID2 allowPlaceholder:0 error:&v17];
+  v8 = v17;
   if (v8)
   {
     v9 = cslprf_settings_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v20 = sectionID2;
-      v21 = 2112;
-      v22 = v8;
+      v19 = sectionID2;
+      v20 = 2112;
+      v21 = v8;
       _os_log_error_impl(&dword_22CE92000, v9, OS_LOG_TYPE_ERROR, "error retrieving application record with bundleID:%@ error:%@", buf, 0x16u);
     }
   }
@@ -443,8 +440,6 @@ LABEL_10:
   sDKVersion = [v7 SDKVersion];
   v15 = [v13 initWithBundleIdentifier:sectionID2 localizedName:sectionID sdkVersion:sDKVersion supportsAlwaysOnDisplay:objc_msgSend(v7 defaultsToPrivateAlwaysOnDisplayTreatment:"supportsAlwaysOnDisplay") applicationRecord:objc_msgSend(v7 bbSectionInfo:{"defaultsToPrivateAlwaysOnDisplayTreatment"), v7, infoCopy}];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
@@ -470,6 +465,18 @@ LABEL_10:
   v9 = [v5 initWithBundleIdentifier:bundleIdentifier localizedName:cslprf_displayName sdkVersion:sdkVersion supportsAlwaysOnDisplay:objc_msgSend(applicationCopy defaultsToPrivateAlwaysOnDisplayTreatment:"supportsAlwaysOnDisplay") applicationRecord:objc_msgSend(applicationCopy remoteApplicationRecord:"defaultsToPrivateAlwaysOnDisplayTreatment") bbSectionInfo:{0, applicationCopy, 0}];
 
   return v9;
+}
+
++ (id)appWithBundleID:(id)d name:(id)name sdkVersion:(id)version supportsAlwaysOnDisplay:(BOOL)display defaultsToPrivateAlwaysOnDisplayTreatment:(BOOL)treatment
+{
+  treatmentCopy = treatment;
+  displayCopy = display;
+  versionCopy = version;
+  nameCopy = name;
+  dCopy = d;
+  v15 = [[self alloc] initWithBundleIdentifier:dCopy localizedName:nameCopy sdkVersion:versionCopy supportsAlwaysOnDisplay:displayCopy defaultsToPrivateAlwaysOnDisplayTreatment:treatmentCopy applicationRecord:0 bbSectionInfo:0];
+
+  return v15;
 }
 
 @end

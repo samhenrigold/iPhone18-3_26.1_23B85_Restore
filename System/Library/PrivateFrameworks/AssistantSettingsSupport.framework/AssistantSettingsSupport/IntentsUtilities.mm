@@ -27,78 +27,74 @@
 
 void __46__IntentsUtilities_intentsAppsWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3)
   {
     v6 = [a3 localizedDescription];
     NSLog(&cfstr_ErrorLoadingIn.isa, v6);
 
-    v7 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v8 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_7];
-    v9 = [v5 filteredArrayUsingPredicate:v8];
+    v7 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_7];
+    v8 = [v5 filteredArrayUsingPredicate:v7];
 
-    if ([v9 count])
+    if ([v8 count])
     {
-      v25 = v5;
-      v10 = [*(a1 + 48) fetchEnabledAppIds];
+      v22 = v5;
+      v9 = [*(a1 + 48) fetchEnabledAppIds];
+      v23 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v29 = 0u;
-      v11 = v9;
-      v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
-      if (v12)
+      v10 = v8;
+      v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      if (v11)
       {
-        v13 = v12;
-        v14 = *v27;
+        v12 = v11;
+        v13 = *v24;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v12; ++i)
           {
-            if (*v27 != v14)
+            if (*v24 != v13)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v10);
             }
 
-            v16 = *(*(&v26 + 1) + 8 * i);
-            v17 = [v16 applicationIdentifier];
-            v18 = [IntentsApp alloc];
-            v19 = [*(a1 + 48) _displayNameForApp:v16];
-            v20 = -[IntentsApp initWithAppId:displayName:accessGranted:](v18, "initWithAppId:displayName:accessGranted:", v17, v19, [v10 containsObject:v17]);
+            v15 = *(*(&v23 + 1) + 8 * i);
+            v16 = [v15 applicationIdentifier];
+            v17 = [IntentsApp alloc];
+            v18 = [*(a1 + 48) _displayNameForApp:v15];
+            v19 = -[IntentsApp initWithAppId:displayName:accessGranted:](v17, "initWithAppId:displayName:accessGranted:", v16, v18, [v9 containsObject:v16]);
 
-            [*(a1 + 32) addObject:v20];
+            [*(a1 + 32) addObject:v19];
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
-        while (v13);
+        while (v12);
       }
 
-      v21 = *(a1 + 40);
-      if (v21)
+      v20 = *(a1 + 40);
+      if (v20)
       {
-        v22 = [*(a1 + 32) sortedArrayUsingSelector:sel_compareWithIntentsApp_];
-        (*(v21 + 16))(v21, v22);
+        v21 = [*(a1 + 32) sortedArrayUsingSelector:sel_compareWithIntentsApp_];
+        (*(v20 + 16))(v20, v21);
       }
 
-      v5 = v25;
+      v5 = v22;
     }
 
     else
     {
-      v23 = *(a1 + 32);
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__IntentsUtilities_intentsAppsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
@@ -111,62 +107,59 @@ uint64_t __46__IntentsUtilities_intentsAppsWithCompletion___block_invoke_2(uint6
 
 + (id)fetchEnabledAppIds
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v24 = "+[IntentsUtilities fetchEnabledAppIds]";
+    v22 = "+[IntentsUtilities fetchEnabledAppIds]";
     _os_log_impl(&dword_2413B9000, v2, OS_LOG_TYPE_DEFAULT, "%s Fetching enabled app TCC ids", buf, 0xCu);
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v4 = *MEMORY[0x277D6C210];
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v5 = TCCAccessCopyInformation();
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v6)
+  v4 = TCCAccessCopyInformation();
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v19;
-    v9 = MEMORY[0x277D6C0C8];
-    v10 = MEMORY[0x277D6C0D0];
+    v6 = v5;
+    v7 = *v17;
+    v8 = MEMORY[0x277D6C0C8];
+    v9 = MEMORY[0x277D6C0D0];
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v8)
+        if (*v17 != v7)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v4);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
-        v13 = [v12 objectForKey:{*v9, v18}];
-        v14 = [v12 objectForKey:*v10];
-        if ([v14 BOOLValue])
+        v11 = *(*(&v16 + 1) + 8 * i);
+        v12 = [v11 objectForKey:{*v8, v16}];
+        v13 = [v11 objectForKey:*v9];
+        if ([v13 BOOLValue])
         {
-          v15 = CFBundleGetIdentifier(v13);
-          [array addObject:v15];
+          v14 = CFBundleGetIdentifier(v12);
+          [array addObject:v14];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 + (BOOL)isIntentsEnabledForAppId:(id)id
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v4 = [MEMORY[0x277CBEA60] arrayWithObjects:{@"com.apple.Home", @"com.apple.MobileSMS", 0}];
   v5 = +[IntentsUtilities fetchEnabledAppIds];
@@ -177,47 +170,45 @@ uint64_t __46__IntentsUtilities_intentsAppsWithCompletion___block_invoke_2(uint6
     v8 = v7;
     v9 = [v6 containsObject:idCopy];
     v10 = @"disabled";
-    v15 = "+[IntentsUtilities isIntentsEnabledForAppId:]";
+    v14 = "+[IntentsUtilities isIntentsEnabledForAppId:]";
     *buf = 136315650;
-    v16 = 2112;
+    v15 = 2112;
     if (v9)
     {
       v10 = @"enabled";
     }
 
-    v17 = v10;
-    v18 = 2112;
-    v19 = idCopy;
+    v16 = v10;
+    v17 = 2112;
+    v18 = idCopy;
     _os_log_impl(&dword_2413B9000, v8, OS_LOG_TYPE_DEFAULT, "%s Intent is %@ for app id: %@", buf, 0x20u);
   }
 
   v11 = [v6 containsObject:idCopy];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 + (void)setAccess:(BOOL)access appID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [MEMORY[0x277CC1E88] bundleProxyForIdentifier:dCopy];
   v6 = CFBundleCreate(0, [v5 bundleURL]);
   if (v6)
   {
     v7 = v6;
-    v8 = *MEMORY[0x277D6C210];
     if (TCCAccessSetForBundle())
     {
       notify_post("com.apple.assistant.siri_settings_did_change");
-      v9 = *MEMORY[0x277CEF098];
+      v8 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v12 = "+[IntentsUtilities setAccess:appID:]";
-        v13 = 2112;
-        v14 = dCopy;
-        _os_log_impl(&dword_2413B9000, v9, OS_LOG_TYPE_DEFAULT, "%s Successfully set TCC access for app %@", buf, 0x16u);
+        v10 = "+[IntentsUtilities setAccess:appID:]";
+        v11 = 2112;
+        v12 = dCopy;
+        _os_log_impl(&dword_2413B9000, v8, OS_LOG_TYPE_DEFAULT, "%s Successfully set TCC access for app %@", buf, 0x16u);
       }
     }
 
@@ -228,8 +219,6 @@ uint64_t __46__IntentsUtilities_intentsAppsWithCompletion___block_invoke_2(uint6
 
     CFRelease(v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_displayNameForApp:(id)app

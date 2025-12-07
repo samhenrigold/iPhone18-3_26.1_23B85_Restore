@@ -3,6 +3,7 @@
 - (_INPBGetVisualCodeIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)visualCodeTypeAsString:(int)string;
 - (int)StringAsVisualCodeType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -158,7 +159,6 @@ LABEL_10:
 
   if ([(_INPBGetVisualCodeIntent *)self hasVisualCodeType])
   {
-    visualCodeType = self->_visualCodeType;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -204,6 +204,21 @@ LABEL_10:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)visualCodeTypeAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E727E770 + string);
   }
 
   return v4;

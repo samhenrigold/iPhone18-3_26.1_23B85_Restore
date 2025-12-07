@@ -32,13 +32,13 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1005DA2C4();
+  sub_1005DA2C4(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1005DA3F4();
+  sub_1005DA3F4(selfCopy);
 }
 
 - (void)scrollViewDidScroll:(id)scroll

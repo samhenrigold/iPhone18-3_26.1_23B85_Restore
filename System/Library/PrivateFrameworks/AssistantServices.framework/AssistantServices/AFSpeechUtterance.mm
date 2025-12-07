@@ -13,17 +13,17 @@
 
 - (id)dictionaryRepresentation
 {
-  v12[4] = *MEMORY[0x1E69E9840];
+  v11[4] = *MEMORY[0x1E69E9840];
   confidenceScore = self->_confidenceScore;
-  v12[0] = self->_interpretationIndices;
-  v11[0] = @"interpretationIndices";
-  v11[1] = @"confidenceScore";
+  v11[0] = self->_interpretationIndices;
+  v10[0] = @"interpretationIndices";
+  v10[1] = @"confidenceScore";
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:confidenceScore];
-  v12[1] = v4;
-  v11[2] = @"source";
+  v11[1] = v4;
+  v10[2] = @"source";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:self->_source];
-  v12[2] = v5;
-  v11[3] = @"interpretation";
+  v11[2] = v5;
+  v10[3] = @"interpretation";
   interpretation = self->_interpretation;
   if (interpretation)
   {
@@ -35,10 +35,8 @@
     [MEMORY[0x1E695DFB0] null];
   }
   v7 = ;
-  v12[3] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:4];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[3] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
 
   return v8;
 }
@@ -194,17 +192,17 @@ void __40__AFSpeechUtterance_initWithDictionary___block_invoke(uint64_t a1, void
 
 - (AFSpeechUtterance)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = AFSpeechUtterance;
-  v5 = [(AFSpeechUtterance *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = AFSpeechUtterance;
+  v5 = [(AFSpeechUtterance *)&v14 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"_interpretationIndices"];
     interpretationIndices = v5->_interpretationIndices;
@@ -217,7 +215,6 @@ void __40__AFSpeechUtterance_initWithDictionary___block_invoke(uint64_t a1, void
     v5->_interpretation = v11;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

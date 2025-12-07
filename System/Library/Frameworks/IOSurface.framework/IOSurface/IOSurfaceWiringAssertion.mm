@@ -7,25 +7,24 @@
 
 - (IOSurfaceWiringAssertion)initWithIOSurfaceClient:(__IOSurfaceClient *)client
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = IOSurfaceWiringAssertion;
-  v4 = [(IOSurfaceWiringAssertion *)&v8 init];
+  v8 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = IOSurfaceWiringAssertion;
+  v4 = [(IOSurfaceWiringAssertion *)&v7 init];
   MachPortWithOptions = IOSurfaceClientCreateMachPortWithOptions(client, 1uLL);
   v4->_mach_port = MachPortWithOptions;
   if (!MachPortWithOptions)
   {
 
-    v4 = 0;
+    return 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   mach_port = self->_mach_port;
   if (mach_port)
   {
@@ -33,10 +32,9 @@
     self->_mach_port = 0;
   }
 
-  v5.receiver = self;
-  v5.super_class = IOSurfaceWiringAssertion;
-  [(IOSurfaceWiringAssertion *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = IOSurfaceWiringAssertion;
+  [(IOSurfaceWiringAssertion *)&v4 dealloc];
 }
 
 @end

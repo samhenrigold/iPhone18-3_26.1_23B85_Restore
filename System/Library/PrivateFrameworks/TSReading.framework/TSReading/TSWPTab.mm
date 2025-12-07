@@ -19,22 +19,23 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    _kTabStopAlignmentStringLeft = [TSWPBundle() localizedStringForKey:@"Left" value:&stru_287D36338 table:@"TSText"];
-    _kTabStopAlignmentStringCenter = [TSWPBundle() localizedStringForKey:@"Center" value:&stru_287D36338 table:@"TSText"];
-    _kTabStopAlignmentStringRight = [TSWPBundle() localizedStringForKey:@"Right" value:&stru_287D36338 table:@"TSText"];
-    _kTabStopAlignmentStringDecimal = [TSWPBundle() localizedStringForKey:@"Decimal" value:&stru_287D36338 table:@"TSText"];
-    _kTabStopDisplayStringNone = [TSWPBundle() localizedStringForKey:@"None" value:&stru_287D36338 table:@"TSText"];
-    _kTabStopDisplayStringPoint = [TSWPBundle() localizedStringForKey:@"....." value:&stru_287D36338 table:@"TSText"];
-    _kTabStopDisplayStringDash = [TSWPBundle() localizedStringForKey:@"-----" value:&stru_287D36338 table:@"TSText"];
-    _kTabStopDisplayStringUnderscore = [TSWPBundle() localizedStringForKey:@"_____" value:&stru_287D36338 table:@"TSText"];
-    _kTabStopDisplayStringArrow = [TSWPBundle() localizedStringForKey:@"→→→" value:&stru_287D36338 table:@"TSText"];
-    _kTabStopLeaderStringPoint = [TSWPBundle() localizedStringForKey:@"." value:&stru_287D36338 table:@"TSText"];
-    _kTabStopLeaderStringDash = [TSWPBundle() localizedStringForKey:@"-" value:&stru_287D36338 table:@"TSText"];
-    _kTabStopLeaderStringUnderscore = [TSWPBundle() localizedStringForKey:@"_" value:&stru_287D36338 table:@"TSText"];
-    _kTabStopLeaderStringArrow = [TSWPBundle() localizedStringForKey:@"→" value:&stru_287D36338 table:@"TSText"];
-    _kTabStopLeaderStringArrowRTL = [TSWPBundle() localizedStringForKey:@"←" value:&stru_287D36338 table:@"TSText"];
+    _kTabStopAlignmentStringLeft = [TSWPBundle(v3 v4)];
+    _kTabStopAlignmentStringCenter = [TSWPBundle(_kTabStopAlignmentStringLeft v5)];
+    _kTabStopAlignmentStringRight = [TSWPBundle(_kTabStopAlignmentStringCenter v6)];
+    _kTabStopAlignmentStringDecimal = [TSWPBundle(_kTabStopAlignmentStringRight v7)];
+    _kTabStopDisplayStringNone = [TSWPBundle(_kTabStopAlignmentStringDecimal v8)];
+    _kTabStopDisplayStringPoint = [TSWPBundle(_kTabStopDisplayStringNone v9)];
+    _kTabStopDisplayStringDash = [TSWPBundle(_kTabStopDisplayStringPoint v10)];
+    _kTabStopDisplayStringUnderscore = [TSWPBundle(_kTabStopDisplayStringDash v11)];
+    _kTabStopDisplayStringArrow = [TSWPBundle(_kTabStopDisplayStringUnderscore v12)];
+    _kTabStopLeaderStringPoint = [TSWPBundle(_kTabStopDisplayStringArrow v13)];
+    _kTabStopLeaderStringDash = [TSWPBundle(_kTabStopLeaderStringPoint v14)];
+    _kTabStopLeaderStringUnderscore = [TSWPBundle(_kTabStopLeaderStringDash v15)];
+    _kTabStopLeaderStringArrow = [TSWPBundle(_kTabStopLeaderStringUnderscore v16)];
+    _kTabStopLeaderStringArrowRTL = [TSWPBundle(_kTabStopLeaderStringArrow v17)];
   }
 }
 

@@ -56,7 +56,7 @@
   {
     path = self->_path;
     *buf = 138412290;
-    v17 = path;
+    v16 = path;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "LocalSocketProxy: Started to path %@", buf, 0xCu);
   }
 
@@ -68,35 +68,34 @@
 
   nw_listener_set_queue(self->_listener, self->_queue);
   objc_initWeak(&location, self);
-  v8 = self->_listener;
-  v13[1] = _NSConcreteStackBlock;
-  v13[2] = 3221225472;
-  v13[3] = sub_100024BA4;
-  v13[4] = &unk_1000A2268;
-  objc_copyWeak(&v14, &location);
-  v13[5] = self;
+  v12[1] = _NSConcreteStackBlock;
+  v12[2] = 3221225472;
+  v12[3] = sub_100024BA4;
+  v12[4] = &unk_1000A2268;
+  objc_copyWeak(&v13, &location);
+  v12[5] = self;
   nw_listener_set_event_handler();
-  v9 = self->_listener;
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100024C40;
-  v12[3] = &unk_1000A2290;
-  objc_copyWeak(v13, &location);
-  nw_listener_set_new_connection_handler(v9, v12);
-  v10 = _PKLogCategory(PKLogCategoryNetwork[0]);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v8 = self->_listener;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100024C40;
+  v11[3] = &unk_1000A2290;
+  objc_copyWeak(v12, &location);
+  nw_listener_set_new_connection_handler(v8, v11);
+  v9 = _PKLogCategory(PKLogCategoryNetwork[0]);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = self->_listener;
+    v10 = self->_listener;
     *buf = 134218242;
-    v17 = v11;
-    v18 = 2112;
-    v19 = v11;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "LocalSocketProxy: Starting listener %p <%@>", buf, 0x16u);
+    v16 = v10;
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "LocalSocketProxy: Starting listener %p <%@>", buf, 0x16u);
   }
 
   nw_listener_start(self->_listener);
-  objc_destroyWeak(v13);
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(v12);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
 }
 

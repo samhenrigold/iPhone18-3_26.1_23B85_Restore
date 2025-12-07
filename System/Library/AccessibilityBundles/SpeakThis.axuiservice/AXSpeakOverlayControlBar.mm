@@ -29,6 +29,7 @@
 - (void)changeToStopButton;
 - (void)dealloc;
 - (void)didUpdateFocusInContext:(id)context withAnimationCoordinator:(id)coordinator;
+- (void)setHidesMainViews:(BOOL)views;
 - (void)showErrorMessage:(id)message;
 - (void)showLoading;
 - (void)showMainUI;
@@ -313,6 +314,19 @@
   speakFingerButton = self->_speakFingerButton;
 
   [(AXSpeakScreenButton *)speakFingerButton setEnabled:v3];
+}
+
+- (void)setHidesMainViews:(BOOL)views
+{
+  viewsCopy = views;
+  [(UIActivityIndicatorView *)self->_activityIndicatorView setHidden:1];
+  [(UILabel *)self->_errorLabel setHidden:1];
+  [(UILabel *)self->_headerLabel setHidden:viewsCopy];
+  [(AXSpeakScreenButton *)self->_playPauseButton setHidden:viewsCopy];
+  [(AXSpeakScreenButton *)self->_rewindButton setHidden:viewsCopy];
+  forwardButton = self->_forwardButton;
+
+  [(AXSpeakScreenButton *)forwardButton setHidden:viewsCopy];
 }
 
 - (void)showLoading
@@ -1475,44 +1489,43 @@ LABEL_13:
     v7 = +[AXSettings sharedInstance];
     showSpeechController = [v7 showSpeechController];
 
-    v9 = self->_tabModeButton;
     headerLabel = self->_headerLabel;
     if (showSpeechController)
     {
       speakFingerButton = self->_speakFingerButton;
-      v19[0] = self->_tabModeButton;
-      v19[1] = headerLabel;
+      v18[0] = self->_tabModeButton;
+      v18[1] = headerLabel;
       rewindButton = self->_rewindButton;
-      v19[2] = speakFingerButton;
-      v19[3] = rewindButton;
+      v18[2] = speakFingerButton;
+      v18[3] = rewindButton;
       forwardButton = self->_forwardButton;
-      v19[4] = self->_playPauseButton;
-      v19[5] = forwardButton;
-      v19[6] = self->_speedButton;
-      p_tabModeButton = v19;
+      v18[4] = self->_playPauseButton;
+      v18[5] = forwardButton;
+      v18[6] = self->_speedButton;
+      p_tabModeButton = v18;
       v6 = 7;
     }
 
     else
     {
-      v18[0] = self->_tabModeButton;
-      v18[1] = headerLabel;
-      v14 = self->_speakFingerButton;
-      v18[2] = self->_stopButton;
-      v18[3] = v14;
+      v17[0] = self->_tabModeButton;
+      v17[1] = headerLabel;
+      v13 = self->_speakFingerButton;
+      v17[2] = self->_stopButton;
+      v17[3] = v13;
       playPauseButton = self->_playPauseButton;
-      v18[4] = self->_rewindButton;
-      v18[5] = playPauseButton;
+      v17[4] = self->_rewindButton;
+      v17[5] = playPauseButton;
       speedButton = self->_speedButton;
-      v18[6] = self->_forwardButton;
-      v18[7] = speedButton;
-      p_tabModeButton = v18;
+      v17[6] = self->_forwardButton;
+      v17[7] = speedButton;
+      p_tabModeButton = v17;
       v6 = 8;
     }
   }
 
-  v17 = [NSArray arrayWithObjects:p_tabModeButton count:v6];
-  [(AXSpeakOverlayControlBar *)self setAccessibilityElements:v17];
+  v16 = [NSArray arrayWithObjects:p_tabModeButton count:v6];
+  [(AXSpeakOverlayControlBar *)self setAccessibilityElements:v16];
 }
 
 - (void)didUpdateFocusInContext:(id)context withAnimationCoordinator:(id)coordinator

@@ -124,7 +124,7 @@
     self->_parameters = v7;
   }
 
-  if ([fieldCopy isEqualToString:@"backgroundImage"] || objc_msgSend(fieldCopy, "isEqualToString:", @"profileImage"))
+  if (objc_msgSend_isEqualToString_(fieldCopy) || objc_msgSend_isEqualToString_(fieldCopy))
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -195,13 +195,13 @@ LABEL_9:
   v8 = v7;
   if (v7)
   {
-    if ([v7 isEqualToString:@"success"])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v9 = 1;
       goto LABEL_12;
     }
 
-    if (([v8 isEqualToString:@"handleAlreadyExists"] & 1) != 0 || objc_msgSend(v8, "isEqualToString:", @"ResourceAlreadyExists"))
+    if ((objc_msgSend_isEqualToString_(v8) & 1) != 0 || objc_msgSend_isEqualToString_(v8))
     {
       v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SKUIErrorDomain" code:5 userInfo:0];
       v11 = v27[5];

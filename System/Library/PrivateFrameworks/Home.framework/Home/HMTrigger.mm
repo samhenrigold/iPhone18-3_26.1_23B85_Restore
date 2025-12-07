@@ -69,7 +69,7 @@ uint64_t __49__HMTrigger_HFAdditions__hf_shouldDisplayTrigger__block_invoke_2(ui
   if (v5)
   {
     v6 = [v5 characteristic];
-    v7 = [v6 service];
+    v7 = objc_msgSend_service(v6);
     v8 = [v7 hf_isProgrammableSwitch] ^ 1;
   }
 

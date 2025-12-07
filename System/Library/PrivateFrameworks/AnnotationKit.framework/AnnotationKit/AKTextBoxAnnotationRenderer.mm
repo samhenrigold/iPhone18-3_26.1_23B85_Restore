@@ -208,7 +208,7 @@ LABEL_12:
   CGContextSaveGState(context);
   v53[0] = 0;
   memset(&v52, 0, sizeof(v52));
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:v53];
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper);
   transform = v52;
   CGContextConcatCTM(context, &transform);
   CGContextSaveGState(context);
@@ -349,83 +349,61 @@ LABEL_13:
   [self _concreteDraggingBoundsInsetsForAnnotation:annotationCopy];
   v19 = v18;
   v21 = v20;
-  v40.origin.x = v11;
-  v40.origin.y = v13;
-  v40.size.width = v15;
-  v40.size.height = v17;
-  v41 = CGRectInset(v40, v19, v21);
-  v22 = v41.origin.x;
-  v23 = v41.origin.y;
-  width = v41.size.width;
-  height = v41.size.height;
+  v39.origin.x = v11;
+  v39.origin.y = v13;
+  v39.size.width = v15;
+  v39.size.height = v17;
+  v40 = CGRectInset(v39, v19, v21);
+  v22 = v40.origin.x;
+  v23 = v40.origin.y;
+  width = v40.size.width;
+  height = v40.size.height;
   v36 = 0;
-  [AKGeometryHelper rotationTransformForRectangularAnnotation:annotationCopy hasRotation:&v36, 0, 0, 0, 0, 0, 0];
-  if (v36 == 1)
+  objc_msgSend_rotationTransformForRectangularAnnotation_hasRotation_(AKGeometryHelper, 0, 0, 0, 0, 0, 0);
+  v41.origin.x = v22;
+  v41.origin.y = v23;
+  v41.size.width = width;
+  v41.size.height = height;
+  v38.x = x;
+  v38.y = y;
+  v27 = 0;
+  if (CGRectContainsPoint(v41, v38))
   {
-    v42.origin.x = v22;
-    v42.origin.y = v23;
-    v42.size.width = width;
-    v42.size.height = height;
-    v26 = CGPathCreateWithRect(v42, &v35);
-    v37.x = x;
-    v37.y = y;
-    if (CGPathContainsPoint(v26, 0, v37, 0))
-    {
-LABEL_3:
-      v27 = 1;
-      goto LABEL_13;
-    }
-  }
-
-  else
-  {
-    v43.origin.x = v22;
-    v43.origin.y = v23;
-    v43.size.width = width;
-    v43.size.height = height;
-    v39.x = x;
-    v39.y = y;
-    v26 = 0;
-    if (CGRectContainsPoint(v43, v39))
-    {
-      goto LABEL_3;
-    }
-  }
-
-  [annotationCopy strokeWidth];
-  if (v28 <= 0.0 || ([annotationCopy strokeColor], v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277D75348], "clearColor"), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v29, "akIsEqualToColor:", v30), v30, v29, (v31 & 1) != 0))
-  {
-    v27 = 0;
+    v26 = 1;
   }
 
   else
   {
     [annotationCopy strokeWidth];
-    if (v32 > thickness)
+    if (v28 <= 0.0 || ([annotationCopy strokeColor], v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277D75348], "clearColor"), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v29, "akIsEqualToColor:", v30), v30, v29, (v31 & 1) != 0))
     {
-      thickness = v32;
+      v26 = 0;
     }
 
-    if (!v26)
+    else
     {
-      v44.origin.x = v22;
-      v44.origin.y = v23;
-      v44.size.width = width;
-      v44.size.height = height;
-      v26 = CGPathCreateWithRect(v44, &v35);
-    }
+      [annotationCopy strokeWidth];
+      if (v32 > thickness)
+      {
+        thickness = v32;
+      }
 
-    v33 = [AKAnnotationRendererUtilities newStandardStrokedBorderPathWithPath:v26 withStrokeWidth:thickness];
-    v38.x = x;
-    v38.y = y;
-    v27 = CGPathContainsPoint(v33, 0, v38, 0);
-    CGPathRelease(v33);
+      v42.origin.x = v22;
+      v42.origin.y = v23;
+      v42.size.width = width;
+      v42.size.height = height;
+      v27 = CGPathCreateWithRect(v42, &v35);
+      v33 = [AKAnnotationRendererUtilities newStandardStrokedBorderPathWithPath:v27 withStrokeWidth:thickness];
+      v37.x = x;
+      v37.y = y;
+      v26 = CGPathContainsPoint(v33, 0, v37, 0);
+      CGPathRelease(v33);
+    }
   }
 
-LABEL_13:
-  CGPathRelease(v26);
+  CGPathRelease(v27);
 
-  return v27;
+  return v26;
 }
 
 @end

@@ -12,9 +12,11 @@
 - (int64_t)count;
 - (int64_t)indexOfElementWithId:(id)id;
 - (int64_t)visibleCount;
+- (void)_addElement:(id)element forceHidden:(BOOL)hidden;
 - (void)_performOrEnqueueBlock:(id)block;
 - (void)_removeElementWithId:(id)id;
 - (void)_removeSection:(id)section;
+- (void)_updateElementWithId:(id)id withNewFeatureSet:(id)set forceHidden:(BOOL)hidden;
 - (void)addElement:(id)element forceHidden:(BOOL)hidden;
 - (void)performBatchUpdates:(id)updates;
 - (void)removeElementWithId:(id)id;
@@ -181,7 +183,7 @@ void __27__RESection_setComparator___block_invoke_3(uint64_t a1, uint64_t a2, vo
 
 - (int64_t)_compareElement:(id)element toElement:(id)toElement level:(unint64_t)level
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   toElementCopy = toElement;
   v10 = [(NSMutableDictionary *)self->_subsections objectForKeyedSubscript:elementCopy];
@@ -207,8 +209,8 @@ LABEL_9:
       v19 = 0;
 LABEL_31:
       elements = self->_elements;
-      v30 = [v12 elementIdAtIndex:0];
-      v20 = [(NSMutableDictionary *)elements objectForKeyedSubscript:v30];
+      v29 = [v12 elementIdAtIndex:0];
+      v20 = [(NSMutableDictionary *)elements objectForKeyedSubscript:v29];
 
       if (v19)
       {
@@ -232,9 +234,9 @@ LABEL_31:
     }
 
 LABEL_30:
-    v27 = self->_elements;
-    v28 = [v10 elementIdAtIndex:0];
-    v19 = [(NSMutableDictionary *)v27 objectForKeyedSubscript:v28];
+    v26 = self->_elements;
+    v27 = [v10 elementIdAtIndex:0];
+    v19 = [(NSMutableDictionary *)v26 objectForKeyedSubscript:v27];
 
     if (v12)
     {
@@ -263,11 +265,11 @@ LABEL_11:
       identifier = [v19 identifier];
       [v20 identifier];
       *buf = 138412802;
-      v34 = v22;
-      v35 = 2112;
-      v36 = identifier;
-      v38 = v37 = 2112;
-      v31 = v38;
+      v33 = v22;
+      v34 = 2112;
+      v35 = identifier;
+      v37 = v36 = 2112;
+      v30 = v37;
       _os_log_debug_impl(&dword_22859F000, v23, OS_LOG_TYPE_DEBUG, "Comparator (%@) [%@] to [%@]", buf, 0x20u);
     }
 
@@ -321,7 +323,6 @@ LABEL_11:
 
 LABEL_22:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -518,6 +519,111 @@ LABEL_22:
   [(RESection *)self _performOrEnqueueBlock:v8];
 }
 
+- (void)_addElement:(id)element forceHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  v32 = *MEMORY[0x277D85DE8];
+  elementCopy = element;
+  v7 = elementCopy;
+  if (hiddenCopy)
+  {
+    hiddenElements = self->_hiddenElements;
+    identifier = [elementCopy identifier];
+    [(NSMutableSet *)hiddenElements addObject:identifier];
+  }
+
+  v10 = [(RESection *)self _groupIdentifierForElement:v7];
+  if (v10)
+  {
+    v11 = RELogForDomain(6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      v25 = @"NO";
+      *v27 = 138413058;
+      *&v27[4] = self;
+      if (hiddenCopy)
+      {
+        v25 = @"YES";
+      }
+
+      *&v27[12] = 2112;
+      *&v27[14] = v7;
+      v28 = 2112;
+      v29 = v25;
+      v30 = 2112;
+      v31 = v10;
+      _os_log_debug_impl(&dword_22859F000, v11, OS_LOG_TYPE_DEBUG, "%@ add element %@ forceHidden %@ to subsection %@", v27, 0x2Au);
+    }
+
+    identifier4 = [(NSMutableDictionary *)self->_subsections objectForKeyedSubscript:v10];
+    if (identifier4)
+    {
+      goto LABEL_10;
+    }
+
+    v13 = [(RESection *)self _groupForIdentifier:v10];
+    v14 = [(RESection *)self _createSectionForGroup:v13];
+    if (v14)
+    {
+      identifier4 = v14;
+      [(REElementQueue *)self->_queue addElement:v10 hidden:1];
+      v15 = RELogForDomain(6);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        [RESection _addElement:forceHidden:];
+      }
+
+LABEL_10:
+      elements = self->_elements;
+      identifier2 = [v7 identifier];
+      [(NSMutableDictionary *)elements setValue:v7 forKey:identifier2];
+
+      [identifier4 addElement:v7 forceHidden:hiddenCopy];
+      goto LABEL_21;
+    }
+
+    v18 = RELogForDomain(6);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    {
+      [RESection _addElement:forceHidden:];
+    }
+
+    v19 = RELogForDomain(6);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    {
+      [RESection _addElement:forceHidden:];
+    }
+  }
+
+  v20 = RELogForDomain(6);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  {
+    v26 = @"NO";
+    *v27 = 138412802;
+    *&v27[4] = self;
+    *&v27[12] = 2112;
+    if (hiddenCopy)
+    {
+      v26 = @"YES";
+    }
+
+    *&v27[14] = v7;
+    v28 = 2112;
+    v29 = v26;
+    _os_log_debug_impl(&dword_22859F000, v20, OS_LOG_TYPE_DEBUG, "%@ add element %@ forceHidden %@", v27, 0x20u);
+  }
+
+  v21 = hiddenCopy || [(REMLElementComparator *)self->_comparator shouldHideElement:v7];
+  v22 = self->_elements;
+  identifier3 = [v7 identifier];
+  [(NSMutableDictionary *)v22 setValue:v7 forKey:identifier3];
+
+  queue = self->_queue;
+  identifier4 = [v7 identifier];
+  [(REElementQueue *)queue addElement:identifier4 hidden:v21];
+LABEL_21:
+}
+
 - (void)removeElementWithId:(id)id
 {
   idCopy = id;
@@ -533,7 +639,7 @@ LABEL_22:
 
 - (void)_removeElementWithId:(id)id
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v5 = [(NSMutableDictionary *)self->_elements objectForKeyedSubscript:idCopy];
   v6 = [(RESection *)self _groupIdentifierForElement:v5];
@@ -542,13 +648,13 @@ LABEL_22:
     v7 = RELogForDomain(6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 138412802;
+      v13 = 138412802;
       selfCopy = self;
-      v16 = 2112;
-      v17 = idCopy;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_debug_impl(&dword_22859F000, v7, OS_LOG_TYPE_DEBUG, "%@ remove element %@ from subsection %@", &v14, 0x20u);
+      v15 = 2112;
+      v16 = idCopy;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_debug_impl(&dword_22859F000, v7, OS_LOG_TYPE_DEBUG, "%@ remove element %@ from subsection %@", &v13, 0x20u);
     }
 
     v8 = [(NSMutableDictionary *)self->_subsections objectForKeyedSubscript:v6];
@@ -589,8 +695,6 @@ LABEL_22:
   [(NSMutableDictionary *)self->_elements removeObjectForKey:idCopy];
   [(NSMutableSet *)self->_hiddenElements removeObject:idCopy];
 LABEL_16:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateElementWithId:(id)id withNewFeatureSet:(id)set forceHidden:(BOOL)hidden
@@ -608,6 +712,115 @@ LABEL_16:
   v10 = setCopy;
   v11 = idCopy;
   [(RESection *)self _performOrEnqueueBlock:v12];
+}
+
+- (void)_updateElementWithId:(id)id withNewFeatureSet:(id)set forceHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  v36 = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  setCopy = set;
+  v10 = [(NSMutableDictionary *)self->_elements objectForKeyedSubscript:idCopy];
+  v11 = [v10 copy];
+
+  v12 = [(RESection *)self _groupIdentifierForElement:v11];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __64__RESection__updateElementWithId_withNewFeatureSet_forceHidden___block_invoke;
+  v24[3] = &unk_2785F9D50;
+  v13 = v11;
+  v25 = v13;
+  [(__CFString *)setCopy enumerateFeaturesUsingBlock:v24];
+  v14 = [(RESection *)self _groupIdentifierForElement:v13];
+  if (v12 == v14 || ([(__CFString *)v12 isEqual:v14]& 1) != 0)
+  {
+    [(NSMutableDictionary *)self->_elements setObject:v13 forKeyedSubscript:idCopy];
+    hiddenElements = self->_hiddenElements;
+    if (hiddenCopy)
+    {
+      [(NSMutableSet *)hiddenElements addObject:idCopy];
+    }
+
+    else
+    {
+      [(NSMutableSet *)hiddenElements removeObject:idCopy];
+    }
+
+    v16 = RELogForDomain(6);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+    if (v14)
+    {
+      if (v17)
+      {
+        v22 = @"NO";
+        *buf = 138413314;
+        selfCopy3 = self;
+        if (hiddenCopy)
+        {
+          v22 = @"YES";
+        }
+
+        v28 = 2112;
+        v29 = idCopy;
+        v30 = 2112;
+        v31 = setCopy;
+        v32 = 2112;
+        v33 = v22;
+        v34 = 2112;
+        v35 = v14;
+        _os_log_debug_impl(&dword_22859F000, v16, OS_LOG_TYPE_DEBUG, "%@ update element %@ with feature set %@ forceHidden %@ to subsection %@", buf, 0x34u);
+      }
+
+      v18 = [(NSMutableDictionary *)self->_subsections objectForKeyedSubscript:v14];
+      [v18 updateElementWithId:idCopy withNewFeatureSet:setCopy forceHidden:hiddenCopy];
+    }
+
+    else
+    {
+      if (v17)
+      {
+        v23 = @"NO";
+        *buf = 138413058;
+        selfCopy3 = self;
+        if (hiddenCopy)
+        {
+          v23 = @"YES";
+        }
+
+        v28 = 2112;
+        v29 = idCopy;
+        v30 = 2112;
+        v31 = setCopy;
+        v32 = 2112;
+        v33 = v23;
+        _os_log_debug_impl(&dword_22859F000, v16, OS_LOG_TYPE_DEBUG, "%@ update element %@ with feature set %@ forceHidden %@", buf, 0x2Au);
+      }
+
+      v21 = hiddenCopy || [(REMLElementComparator *)self->_comparator shouldHideElement:v13];
+      [(REElementQueue *)self->_queue updatePositionForElement:idCopy hidden:v21];
+    }
+  }
+
+  else
+  {
+    v19 = RELogForDomain(6);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138413058;
+      selfCopy3 = self;
+      v28 = 2112;
+      v29 = idCopy;
+      v30 = 2112;
+      v31 = v12;
+      v32 = 2112;
+      v33 = v14;
+      _os_log_debug_impl(&dword_22859F000, v19, OS_LOG_TYPE_DEBUG, "%@ trying to change group of element %@ from %@ to %@", buf, 0x2Au);
+    }
+
+    [(RESection *)self removeElementWithId:idCopy];
+    v20 = [[REMLElement alloc] initWithIdentifier:idCopy featureMap:setCopy];
+    [(RESection *)self addElement:v20 forceHidden:hiddenCopy];
+  }
 }
 
 void __64__RESection__updateElementWithId_withNewFeatureSet_forceHidden___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -663,39 +876,37 @@ void __64__RESection__updateElementWithId_withNewFeatureSet_forceHidden___block_
 
 void __33__RESection_performBatchUpdates___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = *(*(a1 + 32) + 64);
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        (*(*(*(&v7 + 1) + 8 * v5) + 16))(*(*(&v7 + 1) + 8 * v5));
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)containsElementWithId:(id)id
@@ -916,63 +1127,23 @@ void __42__RESection_sectionDidUpdateContentOrder___block_invoke(uint64_t a1)
 
 - (void)setComparator:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_22859F000, a2, a3, "%@ begin loading new comparator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_0(&dword_22859F000, a2, a3, "%@ begin loading new comparator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setComparator:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_22859F000, a2, a3, "%@ finish loading new comparator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_addElement:forceHidden:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_2(&dword_22859F000, v0, v1, "%@ creating new subsection %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_addElement:forceHidden:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_2(&dword_22859F000, v0, v1, "%@ not creating new subsection for identifier %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_addElement:forceHidden:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_2(&dword_22859F000, v0, v1, "%@ no subsections available for element %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_removeElementWithId:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_2(&dword_22859F000, v0, v1, "%@ removing empty subsection %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_removeElementWithId:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_2(&dword_22859F000, v0, v1, "%@ remove element %@");
-  v2 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_0(&dword_22859F000, a2, a3, "%@ finish loading new comparator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)sectionDidUpdateContentOrder:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_22859F000, a2, a3, "Section (%@) did update content", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_0(&dword_22859F000, a2, a3, "Section (%@) did update content", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

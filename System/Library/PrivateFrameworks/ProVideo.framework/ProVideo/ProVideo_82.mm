@@ -133,8 +133,8 @@ void OZElement::OZElement(OZElement *this, const OZElement *a2, uint64_t a3)
   OZChannelBase::setFlag((this + 18432), 8, 0);
   LODWORD(v12.var0) = 0;
   ElementBlendModes = PCBlend::getElementBlendModes(&v12, v7);
-  OZChannelEnum::setTags((this + 6832), ElementBlendModes, v12.var0);
-  OZChannelEnum::setTags((this + 10952), ElementBlendModes, v12.var0);
+  OZChannelEnum::setTags(this + 854, ElementBlendModes, v12.var0);
+  OZChannelEnum::setTags(this + 1369, ElementBlendModes, v12.var0);
   if ((a3 & 1) == 0)
   {
     v9 = a2 + 18408;
@@ -184,12 +184,12 @@ void OZElement::OZElement(OZElement *this, const OZElement *a2, uint64_t a3)
   (*v11)(this);
 }
 
-void sub_2600B3AE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, OZChannel *a9, OZChannel *a10, OZChannel *a11, OZChannel *a12, OZChannel *a13, OZChannel *a14, OZChannel *a15, OZChannel *a16, OZChannel *a17, OZChannel *a18, OZChannelBase *a19, PCString a20)
+void sub_2600B3AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, OZChannel *a9, OZChannel *a10, OZChannel *a11, OZChannel *a12, OZChannel *a13, OZChannel *a14, OZChannel *a15, OZChannel *a16, OZChannel *a17, OZChannel *a18, OZChannelBase *a19, PCString a20)
 {
   v24 = *(v20 + 18768);
   if (v24)
   {
-    (*(*v24 + 24))(v24);
+    (*(*v24 + 24))(v24, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v25 = *(v20 + 18760);
@@ -299,13 +299,13 @@ void OZElement::~OZElement(OZElement *this)
   OZChannelColorNoAlpha::~OZChannelColorNoAlpha((this + 12800));
   OZChannelFolder::~OZChannelFolder((this + 12672));
   OZChannel::~OZChannel((this + 12512));
-  OZChannelEnum::~OZChannelEnum((this + 12256));
-  OZChannelEnum::~OZChannelEnum((this + 12000));
-  OZChannelEnum::~OZChannelEnum((this + 11744));
+  OZChannelEnum::~OZChannelEnum(this + 1532);
+  OZChannelEnum::~OZChannelEnum(this + 1500);
+  OZChannelEnum::~OZChannelEnum(this + 1468);
   OZChannel::~OZChannel((this + 11592));
   OZChannelFolder::~OZChannelFolder((this + 11464));
-  OZChannelEnum::~OZChannelEnum((this + 11208));
-  OZChannelEnum::~OZChannelEnum((this + 10952));
+  OZChannelEnum::~OZChannelEnum(this + 1401);
+  OZChannelEnum::~OZChannelEnum(this + 1369);
   OZChannel::~OZChannel((this + 10800));
   OZChannel::~OZChannel((this + 10648));
   OZChannel::~OZChannel((this + 10496));
@@ -317,13 +317,13 @@ void OZElement::~OZElement(OZElement *this)
   OZLightingFolder::~OZLightingFolder((this + 8384));
   OZChannelBool::~OZChannelBool((this + 8232));
   OZChannelPercent::~OZChannelPercent((this + 8080));
-  OZChannelEnum::~OZChannelEnum((this + 7824));
+  OZChannelEnum::~OZChannelEnum(this + 978);
   OZChannelPercent::~OZChannelPercent((this + 7672));
   OZChannelPercent::~OZChannelPercent((this + 7520));
   OZChannelPercent::~OZChannelPercent((this + 7368));
   OZChannel::~OZChannel((this + 7216));
   OZChannelFolder::~OZChannelFolder((this + 7088));
-  OZChannelBlendMode::~OZChannelBlendMode((this + 6832));
+  OZChannelBlendMode::~OZChannelBlendMode(this + 854);
   OZChannelPercent::~OZChannelPercent((this + 6680));
   OZChannelFolder::~OZChannelFolder((this + 6552));
   OZChannelBase::setRangeName(v2, v12);
@@ -529,9 +529,9 @@ CGColorSpace **OZElement::copyAtTime(OZElement *this, const OZSceneNode *a2, CMT
   return PCCFRef<CGColorSpace *>::~PCCFRef(&v54.var1._obj);
 }
 
-void sub_2600B4FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2600B4FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -573,7 +573,7 @@ uint64_t OZElement::isLit(OZElement *this, const OZRenderParams *a2)
   }
 }
 
-const void *OZElement::getFreezeFootage(OZElement *this)
+void *OZElement::getFreezeFootage(OZElement *this)
 {
   result = OZChanSceneNodeRef::getNode((this + 18560));
   if (result)
@@ -745,14 +745,14 @@ OZChannelFolder *OZElement::removeMask(OZElement *this, OZSceneNode *a2)
   return OZChannelFolder::removeDescendant((this + 18432), v9);
 }
 
-uint64_t OZElement::getMasks(uint64_t a1)
+uint64_t *OZElement::getMasks(uint64_t a1, uint64_t *a2)
 {
-  v2 = (*(*a1 + 1104))(a1);
+  v3 = (*(*a1 + 1104))(a1);
   result = (*(*a1 + 1112))(a1);
-  if (v2 != result)
+  if (v3 != result)
   {
-    v4 = *(v2 + 16);
-    if (v4)
+    v5 = v3[2];
+    if (v5)
     {
       {
         operator new();
@@ -1019,7 +1019,7 @@ BOOL OZElement::hitCheck(uint64_t a1, double *a2, uint64_t a3, const LiCamera *a
   }
 
   v16 = (*(*a1 + 272))(a1);
-  OZScene::calcWorldToFilmSpaceMatrixForCamera(v16, a4, &v34);
+  OZScene::calcWorldToFilmSpaceMatrixForCamera(&v34, v16, a4);
   v30 = v38;
   v31 = *v39;
   v32 = *&v39[16];
@@ -1047,28 +1047,28 @@ BOOL OZElement::hitCheck(uint64_t a1, double *a2, uint64_t a3, const LiCamera *a
   v43.f64[1] = v24 / v23;
   v40 = v42[1];
   v41 = v42[0];
-  if (PCRect<double>::clipLine(a2, &v41, v40.f64))
+  if (PCRect<double>::clipLine(a2, &v41, &v40))
   {
     return 1;
   }
 
   v40 = v42[2];
   v41 = v42[1];
-  if (PCRect<double>::clipLine(a2, &v41, v40.f64))
+  if (PCRect<double>::clipLine(a2, &v41, &v40))
   {
     return 1;
   }
 
   v40 = v43;
   v41 = v42[2];
-  if (PCRect<double>::clipLine(a2, &v41, v40.f64))
+  if (PCRect<double>::clipLine(a2, &v41, &v40))
   {
     return 1;
   }
 
   v40 = v42[0];
   v41 = v43;
-  return PCRect<double>::clipLine(a2, &v41, v40.f64);
+  return PCRect<double>::clipLine(a2, &v41, &v40);
 }
 
 uint64_t OZElement::getDescendantAtIndex(OZElement *this, int a2)
@@ -1127,7 +1127,7 @@ uint64_t OZElement::canIsolateInViewer(OZElement *this)
   return result;
 }
 
-uint64_t OZElement::writeBody(OZElement *this, PCSerializerWriteStream *a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t OZElement::writeBody(OZElement *this, PCSerializerWriteStream *a2, uint64_t a3, _BOOL4 a4, uint64_t a5)
 {
   PCSerializerWriteStream::pushScope(a2, &OZElementScope);
   v10 = *(this + 4598);
@@ -1473,7 +1473,7 @@ float non-virtual thunk toOZElement::getDimensions(OZElement *this, float *a2, f
   return result;
 }
 
-float64x2_t OZElement::getImageBoundsWithEffectsAndCrop(void *a1, uint64_t a2, uint64_t a3)
+float64x2_t OZElement::getImageBoundsWithEffectsAndCrop(void *a1, float64x2_t *a2, uint64_t a3)
 {
   if ((*(*a1 + 416))(a1))
   {
@@ -1485,10 +1485,10 @@ float64x2_t OZElement::getImageBoundsWithEffectsAndCrop(void *a1, uint64_t a2, u
     (*(*a1 + 1520))(a1, a2, a3);
   }
 
-  result.f64[0] = *(a2 + 16);
+  result.f64[0] = a2[1].f64[0];
   if (result.f64[0] >= 0.0)
   {
-    result.f64[0] = *(a2 + 24);
+    result.f64[0] = a2[1].f64[1];
     if (result.f64[0] >= 0.0)
     {
       if (*(a3 + 240) == 1)
@@ -1541,10 +1541,10 @@ float64x2_t OZElement::getImageBoundsWithEffectsAndCrop(void *a1, uint64_t a2, u
         v9 = 0uLL;
       }
 
-      v19 = vsubq_f64(*(a2 + 16), vaddq_f64(v7, v9));
+      v19 = vsubq_f64(a2[1], vaddq_f64(v7, v9));
       result = vbicq_s8(v19, vcltzq_f64(v19));
       *a2 = vaddq_f64(v7, *a2);
-      *(a2 + 16) = result;
+      a2[1] = result;
     }
   }
 
@@ -1903,7 +1903,7 @@ LABEL_11:
   return result;
 }
 
-BOOL OZElement::getProjectedBounds(OZElement *a1, uint64_t a2, double *a3, uint64_t a4)
+BOOL OZElement::getProjectedBounds(OZElement *a1, _OWORD *a2, double *a3, uint64_t a4)
 {
   v27[0] = 0.0;
   v27[1] = 0.0;
@@ -2311,13 +2311,12 @@ void OZElement::getScale(OZElement *this, double *a2, double *a3, double *a4, co
   }
 }
 
-uint64_t OZElement::createSnapSetForCamera(uint64_t a1, const LiCamera *a2, uint64_t a3, uint64_t a4, int a5, int a6)
+void *OZElement::createSnapSetForCamera(uint64_t a1, const LiCamera *a2, uint64_t **a3, uint64_t a4, int a5, int a6)
 {
-  v35 = 0.0;
-  v36 = 0.0;
+  v35 = 0uLL;
   __asm { FMOV            V0.2D, #-1.0 }
 
-  v37 = _Q0;
+  v36 = _Q0;
   (*(*a1 + 1488))(a1, &v35, a4);
   v34 = 0x3FF0000000000000;
   v31 = 0x3FF0000000000000;
@@ -2331,55 +2330,55 @@ uint64_t OZElement::createSnapSetForCamera(uint64_t a1, const LiCamera *a2, uint
   v33 = 0u;
   (*(*a1 + 1256))(a1, &v25, a4);
   v17 = (*(*a1 + 272))(a1);
-  OZScene::calcWorldToFilmSpaceMatrixForCamera(v17, a2, v24);
+  OZScene::calcWorldToFilmSpaceMatrixForCamera(v24, v17, a2);
   PCMatrix44Tmpl<double>::leftMult(&v25, v24);
   result = PCMatrix44Tmpl<double>::transformRect<double>(&v25, &v35, &v35);
   if (result)
   {
-    if (v35 >= -2147483650.0 && v35 <= 2147483650.0)
+    if (*&v35 >= -2147483650.0 && *&v35 <= 2147483650.0)
     {
-      v19 = v35 + *&v37;
-      if (v35 + *&v37 >= -2147483650.0 && v19 <= 2147483650.0 && v36 >= -2147483650.0 && v36 <= 2147483650.0)
+      v19 = *&v35 + *&v36;
+      if (*&v35 + *&v36 >= -2147483650.0 && v19 <= 2147483650.0 && *(&v35 + 1) >= -2147483650.0 && *(&v35 + 1) <= 2147483650.0)
       {
-        v20 = v36 + *(&v37 + 1);
-        if (v36 + *(&v37 + 1) >= -2147483650.0 && *(&v37 + 1) >= 0.0 && *&v37 >= 0.0 && v20 <= 2147483650.0)
+        v20 = *(&v35 + 1) + *(&v36 + 1);
+        if (*(&v35 + 1) + *(&v36 + 1) >= -2147483650.0 && *(&v36 + 1) >= 0.0 && *&v36 >= 0.0 && v20 <= 2147483650.0)
         {
           if (a5)
           {
-            OZSnap::OZSnap(v23, 258, (v35 + v19) * 0.5, v36, v20);
-            std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v23);
-            OZSnap::OZSnap(v23, 514, (v36 + v36 + *(&v37 + 1)) * 0.5, v35, v35 + *&v37);
-            result = std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v23);
+            OZSnap::OZSnap(v23, 258, (*&v35 + v19) * 0.5, *(&v35 + 1), v20);
+            std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v23, v23);
+            OZSnap::OZSnap(v23, 514, (*(&v35 + 1) + *(&v35 + 1) + *(&v36 + 1)) * 0.5, *&v35, *&v35 + *&v36);
+            result = std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v23, v23);
           }
 
           if (a6)
           {
-            v21 = *&v37;
-            if (*&v37 > 2.0)
+            v21 = *&v36;
+            if (*&v36 > 2.0)
             {
-              v21 = *&v37 + v35 - (v35 + 1.0) + -2.0;
-              v35 = v35 + 1.0;
-              *&v37 = v21;
+              v21 = *&v36 + *&v35 - (*&v35 + 1.0) + -2.0;
+              *&v35 = *&v35 + 1.0;
+              *&v36 = v21;
             }
 
-            v22 = *(&v37 + 1);
-            if (*(&v37 + 1) > 2.0)
+            v22 = *(&v36 + 1);
+            if (*(&v36 + 1) > 2.0)
             {
-              v22 = *(&v37 + 1) + v36 - (v36 + 1.0) + -2.0;
-              v36 = v36 + 1.0;
-              *(&v37 + 1) = v22;
+              v22 = *(&v36 + 1) + *(&v35 + 1) - (*(&v35 + 1) + 1.0) + -2.0;
+              *(&v35 + 1) = *(&v35 + 1) + 1.0;
+              *(&v36 + 1) = v22;
             }
 
             if (v21 >= 0.0 && v22 >= 0.0)
             {
-              OZSnap::OZSnap(v23, 257, v35, v36, v36 + v22);
-              std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v23);
-              OZSnap::OZSnap(v23, 260, v35 + *&v37, v36, v36 + *(&v37 + 1));
-              std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v23);
-              OZSnap::OZSnap(v23, 513, v36, v35, v35 + *&v37);
-              std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v23);
-              OZSnap::OZSnap(v23, 516, v36 + *(&v37 + 1), v35, v35 + *&v37);
-              return std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v23);
+              OZSnap::OZSnap(v23, 257, *&v35, *(&v35 + 1), *(&v35 + 1) + v22);
+              std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v23, v23);
+              OZSnap::OZSnap(v23, 260, *&v35 + *&v36, *(&v35 + 1), *(&v35 + 1) + *(&v36 + 1));
+              std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v23, v23);
+              OZSnap::OZSnap(v23, 513, *(&v35 + 1), *&v35, *&v35 + *&v36);
+              std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v23, v23);
+              OZSnap::OZSnap(v23, 516, *(&v35 + 1) + *(&v36 + 1), *&v35, *&v35 + *&v36);
+              return std::__tree<OZSnap>::__emplace_unique_key_args<OZSnap,OZSnap>(a3, v23, v23);
             }
           }
         }
@@ -2440,10 +2439,10 @@ LABEL_6:
   return std::__list_imp<unsigned int>::clear(&v13);
 }
 
-void sub_2600B9350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2600B9350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  PCSharedCount::~PCSharedCount(v11 + 1);
+  va_start(va, a18);
+  PCSharedCount::~PCSharedCount(v18 + 1);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -2489,9 +2488,9 @@ void *PCPtr<void>::operator=<PCLightWrapOptions>(void *a1, const PCSharedCount *
   return a1;
 }
 
-void sub_2600B9538(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600B9538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -2624,9 +2623,9 @@ LABEL_9:
   return v10;
 }
 
-void sub_2600B9A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2600B9A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -2778,7 +2777,7 @@ uint64_t OZElement::getColorConversionType(OZElement *this)
   }
 }
 
-BOOL OZElement::projectPointToObject(uint64_t a1, uint64_t a2, double *a3, double *a4, uint64_t *a5)
+BOOL OZElement::projectPointToObject(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
   v8 = *a4;
   v9 = *a5;
@@ -2798,8 +2797,8 @@ BOOL OZElement::projectPointToObject(uint64_t a1, uint64_t a2, double *a3, doubl
   v14 = 0;
   v15 = 0xBFF0000000000000;
   result = PCIntersectRayWithPlane(v16, v13, &v19);
-  v12 = v19.f64[1];
-  *a3 = v19.f64[0];
+  v12 = *&v19.f64[1];
+  *a3 = *&v19.f64[0];
   *a4 = v12;
   *a5 = v20;
   return result;
@@ -2892,7 +2891,14 @@ double OZElement::calcTranslationRelativeToCamera(uint64_t a1, uint64_t a2, uint
   return result;
 }
 
-void OZElement::allowDrag(OZElement *this, OZFactoryBase *lpsrc, OZChannelBase *a3, unsigned int a4, unsigned int *a5, unsigned int *a6, int a7)
+void sub_2600BA5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
+{
+  va_start(va, a48);
+  OZRenderParams::~OZRenderParams(va);
+  _Unwind_Resume(a1);
+}
+
+void OZElement::allowDrag(OZElement *this, OZFactoryBase *lpsrc, OZChannelBase *a3, unsigned int a4, unsigned int *a5, unsigned int *a6, unsigned int a7)
 {
   *a5 = 0;
   {
@@ -3080,19 +3086,19 @@ uint64_t OZElement::setLithiumTransform(OZElement *this, LiSceneObject *a2, OZRe
   return result;
 }
 
-uint64_t OZElement::cropImageSourceIfNecessary@<X0>(uint64_t a1@<X0>, const PCSharedCount *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, PCSharedCount *a5@<X8>)
+void OZElement::cropImageSourceIfNecessary(uint64_t a1@<X0>, const PCSharedCount *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, PCSharedCount *a5@<X8>)
 {
   a5->var0 = a2->var0;
   PCSharedCount::PCSharedCount(a5 + 1, a2 + 1);
   v8 = (*(*a1 + 1616))(a1, a3);
-  result = (*(*a1 + 1608))(a1);
-  if (*(a4 + 256) == 1 && ((result | v8) & 1) != 0)
+  v9 = (*(*a1 + 1608))(a1);
+  if (*(a4 + 256) == 1 && ((v9 | v8) & 1) != 0)
   {
     v21 = 0.0;
     v19 = 0.0;
     v20 = 0.0;
     v18 = 0.0;
-    if (result)
+    if (v9)
     {
       (*(*a1 + 1728))(a1, a3, &v21, &v20, &v19, &v18);
     }
@@ -3116,8 +3122,6 @@ uint64_t OZElement::cropImageSourceIfNecessary@<X0>(uint64_t a1@<X0>, const PCSh
     *(&v17 + 1) = *(&v17 + 1) - (v19 + v18);
     operator new();
   }
-
-  return result;
 }
 
 void OZCrop::OZCrop(OZCrop *this)
@@ -3143,14 +3147,14 @@ void sub_2600BB244(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2600BB7FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, PCSharedCount a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_2600BB7FC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, PCSharedCount a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
 {
-  MEMORY[0x2666E9F00](v48, 0x10A0C403FC0B694);
+  MEMORY[0x2666E9F00](v48, 0x10A0C403FC0B694, a3, a4, a5, a6, a7, a8);
   PCSharedCount::~PCSharedCount(v49 + 1);
   _Unwind_Resume(a1);
 }
 
-LiGraphBuilder **std::unique_ptr<LiGraphBuilder>::~unique_ptr[abi:ne200100](LiGraphBuilder **a1)
+PCSharedCount **std::unique_ptr<LiGraphBuilder>::~unique_ptr[abi:ne200100](PCSharedCount **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -3163,10 +3167,10 @@ LiGraphBuilder **std::unique_ptr<LiGraphBuilder>::~unique_ptr[abi:ne200100](LiGr
   return a1;
 }
 
-void sub_2600BBA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2600BBA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  MEMORY[0x2666E9F00](v4, 0x10B1C40DE3F20C5);
+  va_start(va, a7);
+  MEMORY[0x2666E9F00](v7, 0x10B1C40DE3F20C5, a3, a4);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -3323,9 +3327,9 @@ LABEL_6:
   return v5;
 }
 
-void sub_2600BC648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2600BC648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -3353,56 +3357,56 @@ void *OZElement::setupGraphBuilder(uint64_t a1)
   return result;
 }
 
-PCSharedCount *OZElement::makeDropShadow@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const PCSharedCount *a3@<X2>, uint64_t a4@<X3>, PCSharedCount *a5@<X8>)
+PCSharedCount *OZElement::makeDropShadow@<X0>(uint64_t a1@<X0>, LiImageSource **a2@<X1>, const PCSharedCount *a3@<X2>, CMTime *a4@<X3>, PCSharedCount *a7@<X8>)
 {
-  *&v22.var0.var0 = *a4;
-  v22.var0.var1[1] = *(a4 + 16);
-  OZChannel::getValueAsDouble((a1 + 13808), &v22, 0.0);
-  if (fabs(v10) >= 0.0000001)
+  *&v24.var0.var0 = *&a4->value;
+  *&v24.var0.var1[1] = a4->epoch;
+  OZChannel::getValueAsDouble((a1 + 13808), &v24, 0.0);
+  if (fabs(v12) >= 0.0000001)
   {
-    *&v22.var0.var0 = *a4;
-    v22.var0.var1[1] = *(a4 + 16);
-    OZChannel::getValueAsDouble((a1 + 14112), &v22, 0.0);
-    *&v22.var0.var0 = *a4;
-    v22.var0.var1[1] = *(a4 + 16);
-    OZChannel::getValueAsDouble((a1 + 14264), &v22, 0.0);
-    __sincos_stret(v12);
-    *&v22.var0.var0 = *a4;
-    v22.var0.var1[1] = *(a4 + 16);
-    OZChannel::getValueAsInt((a1 + 14416), &v22, 0.0);
-    *&v22.var0.var0 = *a4;
-    v22.var0.var1[1] = *(a4 + 16);
-    v13 = (*(*a1 + 1576))(a1, &v22);
-    v21 = *a4;
-    OZElement::getDropShadowColor(a1, &v21, &v22);
+    *&v24.var0.var0 = *&a4->value;
+    *&v24.var0.var1[1] = a4->epoch;
+    OZChannel::getValueAsDouble((a1 + 14112), &v24, 0.0);
+    *&v24.var0.var0 = *&a4->value;
+    *&v24.var0.var1[1] = a4->epoch;
+    OZChannel::getValueAsDouble((a1 + 14264), &v24, 0.0);
+    __sincos_stret(v14);
+    *&v24.var0.var0 = *&a4->value;
+    *&v24.var0.var1[1] = a4->epoch;
+    OZChannel::getValueAsInt((a1 + 14416), &v24, 0.0);
+    *&v24.var0.var0 = *&a4->value;
+    *&v24.var0.var1[1] = a4->epoch;
+    v15 = (*(*a1 + 1576))(a1, &v24);
+    v23 = *a4;
+    OZElement::getDropShadowColor(&v24, a1, &v23);
     WorkingColorSpace = OZRenderParams::getWorkingColorSpace(a4);
-    PCWorkingColor::PCWorkingColor(&v23, &v22, WorkingColorSpace);
-    PCCFRef<CGColorSpace *>::~PCCFRef(&v22.var1._obj);
-    *&v22.var0.var0 = *a4;
-    v22.var0.var1[1] = *(a4 + 16);
-    OZChannel::getValueAsDouble((a1 + 13960), &v22, 0.0);
-    if (OZRenderParams::isDynamicRangeTrackingRender(a4) && (v15 = OZRenderParams::getWorkingColorDescription(a4), FxColorDescription::isHDR(v15)))
+    PCWorkingColor::PCWorkingColor(&v25, &v24, WorkingColorSpace);
+    PCCFRef<CGColorSpace *>::~PCCFRef(&v24.var1._obj);
+    *&v24.var0.var0 = *&a4->value;
+    *&v24.var0.var1[1] = a4->epoch;
+    OZChannel::getValueAsDouble((a1 + 13960), &v24, 0.0);
+    if (OZRenderParams::isDynamicRangeTrackingRender(a4) && (v17 = OZRenderParams::getWorkingColorDescription(a4), FxColorDescription::isHDR(v17)))
     {
-      v21.value = v23;
-      *&v21.timescale = v24;
-      v16 = OZRenderParams::getWorkingColorSpace(a4);
-      v17 = OZRenderParams::getWorkingColorSpace(a4);
+      v23.value = v25;
+      *&v23.timescale = v26;
+      v18 = OZRenderParams::getWorkingColorSpace(a4);
+      v19 = OZRenderParams::getWorkingColorSpace(a4);
       WorkingColorDescription = OZRenderParams::getWorkingColorDescription(a4);
       ToneMapMethod = FxColorDescription::getToneMapMethod(WorkingColorDescription);
-      PCColorUtil::transform(ToneMapMethod, &v21.value, v16, 0, v17, 1, &v22);
-      PCWorkingColor::setRGB(&v23, *&v22.var0.var0, *(&v22.var0.var0 + 1), *v22.var0.var1);
+      PCColorUtil::transform(&v24.var0.var0, ToneMapMethod, &v23.value, v18, 0, v19, 1);
+      PCWorkingColor::setRGB(&v25, *&v24.var0.var0, *(&v24.var0.var0 + 1), *v24.var0.var1);
     }
 
     else if (OZRenderParams::isRenderForHDR_Deprecated(a4))
     {
-      v21.value = v23;
-      *&v21.timescale = v24;
-      v20 = OZRenderParams::getWorkingColorSpace(a4);
-      FxApplyBT2446A(&v21, v20, &v22.var0.var0);
-      PCWorkingColor::setRGB(&v23, *&v22.var0.var0, *(&v22.var0.var0 + 1), *v22.var0.var1);
+      v23.value = v25;
+      *&v23.timescale = v26;
+      v22 = OZRenderParams::getWorkingColorSpace(a4);
+      FxApplyBT2446A(&v23, v22, &v24.var0.var0);
+      PCWorkingColor::setRGB(&v25, *&v24.var0.var0, *(&v24.var0.var0 + 1), *v24.var0.var1);
     }
 
-    if (!v13 || PCBlend::treatsBlackLikeNormal(v13) && fabsf(*&v23) < 0.00001 && fabsf(*(&v23 + 1)) < 0.00001 && fabsf(v24) < 0.00001)
+    if (!v15 || PCBlend::treatsBlackLikeNormal(v15) && fabsf(*&v25) < 0.00001 && fabsf(*(&v25 + 1)) < 0.00001 && fabsf(v26) < 0.00001)
     {
       operator new();
     }
@@ -3416,7 +3420,7 @@ PCSharedCount *OZElement::makeDropShadow@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>
     operator new();
   }
 
-  return PCPtr<LiImageSource>::PCPtr<OZGradientSource>(a5, a3);
+  return PCPtr<LiImageSource>::PCPtr<OZGradientSource>(a7, a3);
 }
 
 void sub_2600BD2A8(_Unwind_Exception *a1)
@@ -3505,7 +3509,7 @@ LABEL_23:
   }
 }
 
-void sub_2600BDBC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, PCSharedCount a61)
+void sub_2600BDBC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, PCSharedCount a61)
 {
   PCSharedCount::~PCSharedCount(v61 + 1);
   OZRenderGraphState::~OZRenderGraphState(&a21);
@@ -3688,8 +3692,7 @@ uint64_t OZElement::modifyGraphState(OZElement *this, CMTime *a2, OZRenderGraphS
 
 float64x2_t OZElement::getFilmback@<Q0>(OZElement *this@<X0>, const OZRenderState *a2@<X1>, float64x2_t *a3@<X8>)
 {
-  a3->f64[0] = 0.0;
-  a3->f64[1] = 0.0;
+  *a3 = 0uLL;
   v4 = (*(*this + 272))(this, a2);
   if (v4)
   {
@@ -3749,15 +3752,14 @@ void OZElement::getPrecompCamera(OZElement *this@<X0>, CMTime *a2@<X1>, int a3@<
       v11 = *(this + 121);
       if (v11)
       {
-        v15 = *a2;
-        ActiveCamera = OZScene::getActiveCamera(v11, &v15);
+        v14 = *a2;
+        ActiveCamera = OZScene::getActiveCamera(v11, &v14);
         Node = OZScene::getNode(v11, ActiveCamera);
         if (Node)
         {
-          if (v14)
           {
-            v15 = *a2;
-            OZCamera::cameraAtTime(v14, &v15);
+            v14 = *a2;
+            OZCamera::cameraAtTime();
           }
         }
       }
@@ -3827,9 +3829,9 @@ uint64_t isChannelNondefault(OZChannelBase *a1)
   return 1;
 }
 
-void sub_2600BEA60(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600BEA60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -4364,9 +4366,9 @@ LABEL_13:
   return result;
 }
 
-void sub_2600BFCD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2600BFCD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -4967,19 +4969,17 @@ void virtual thunk toPCBlendOptions::~PCBlendOptions(PCBlendOptions *this)
   JUMPOUT(0x2666E9F00);
 }
 
-void *std::vector<PCVector3<double>>::reserve(void *result, unint64_t a2)
+void std::vector<PCVector3<double>>::reserve(uint64_t *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0xAAAAAAAAAAAAAABLL)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<PCVector3<double>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<PCVector3<double>>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_2600C2558(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -4992,7 +4992,7 @@ void sub_2600C2558(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::list<OZEffect *>::__move_assign(uint64_t *a1, void *a2)
+void *std::list<OZEffect *>::__move_assign(uint64_t *a1, uint64_t *a2)
 {
   result = std::__list_imp<unsigned int>::clear(a1);
   v5 = a2[2];
@@ -5058,7 +5058,7 @@ uint64_t OZGetSubstanceLayerDictionary(void)
   return [MaterialPlist objectForKey:@"substance"];
 }
 
-id OZCreateURLForAssetLayer(NSDictionary *a1)
+void *OZCreateURLForAssetLayer(NSDictionary *a1)
 {
   v2 = [(NSDictionary *)a1 objectForKey:@"image asset"];
   if (!v2)
@@ -5086,24 +5086,24 @@ id OZCreateURLForAssetLayer(NSDictionary *a1)
     }
   }
 
-  OZGetAssetURL(v2, &v5);
+  OZGetAssetURL(&v5, v2);
   v3 = v5;
   PCURL::~PCURL(&v5);
   return v3;
 }
 
-void sub_2600C2928(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600C2928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCURL::~PCURL(va);
   _Unwind_Resume(a1);
 }
 
-void OZGetAssetURL(NSDictionary *a1@<X0>, PCURL *a2@<X8>)
+void OZGetAssetURL(PCURL *__return_ptr a1@<X8>, NSDictionary *a2@<X0>)
 {
-  v4 = [(NSDictionary *)a1 objectForKey:@"name"];
-  v5 = [(NSDictionary *)a1 objectForKey:@"extension"];
-  v6 = [(NSDictionary *)a1 objectForKey:@"subdir"];
+  v4 = [(NSDictionary *)a2 objectForKey:@"name"];
+  v5 = [(NSDictionary *)a2 objectForKey:@"extension"];
+  v6 = [(NSDictionary *)a2 objectForKey:@"subdir"];
   if (v6)
   {
     v7 = [@"PhysicalLayerAssets/" stringByAppendingString:v6];
@@ -5116,13 +5116,13 @@ void OZGetAssetURL(NSDictionary *a1@<X0>, PCURL *a2@<X8>)
 
   v8 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.ozone.framework"];
   PCAutoreleasePool::PCAutoreleasePool(&v9);
-  PCURL::PCURL(a2, [v8 URLForResource:v4 withExtension:v5 subdirectory:v7]);
+  PCURL::PCURL(a1, [v8 URLForResource:v4 withExtension:v5 subdirectory:v7]);
   PCAutoreleasePool::~PCAutoreleasePool(&v9);
 }
 
-void sub_2600C2A2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600C2A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCAutoreleasePool::~PCAutoreleasePool(va);
   _Unwind_Resume(a1);
 }
@@ -5197,7 +5197,7 @@ void sub_2600C2C14(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-CGColorSpace **OZGradientSource::getHelium@<X0>(OZGradientSource *this@<X0>, LiAgent *a2@<X1>, void *a3@<X8>)
+CGColorSpace **OZGradientSource::getHelium@<X0>(OZGradientSource *this@<X0>, LiAgent *a2@<X1>, HGradientBlend **a3@<X8>)
 {
   RequestedColorDescription = LiAgent::getRequestedColorDescription(a2);
   CGColorSpace = FxColorDescription::getCGColorSpace((*(a2 + 6) + 160));
@@ -5251,7 +5251,7 @@ void sub_2600C2E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   PCCFRef<CGColorSpace *>::~PCCFRef(&a11);
@@ -5407,7 +5407,7 @@ float OZImageNode::getDimensions(OZImageNode *this, float *a2, float *a3, const 
   return result;
 }
 
-void OZImageNode::makeRenderTemporalSource(OZImageNode *this@<X0>, PCSharedCount *a2@<X8>)
+void OZImageNode::makeRenderTemporalSource(OZImageNode *this@<X0>, PCSharedCount *a4@<X8>)
 {
   (*(*this + 168))(&v5);
   if (v5)
@@ -5415,15 +5415,15 @@ void OZImageNode::makeRenderTemporalSource(OZImageNode *this@<X0>, PCSharedCount
     operator new();
   }
 
-  a2->var0 = 0;
-  PCSharedCount::PCSharedCount(a2 + 1);
+  a4->var0 = 0;
+  PCSharedCount::PCSharedCount(a4 + 1);
   PCSharedCount::~PCSharedCount(&v6);
 }
 
-void sub_2600C387C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2600C387C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  PCSharedCount::~PCSharedCount(v4 + 1);
+  va_start(va, a7);
+  PCSharedCount::~PCSharedCount(v7 + 1);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -5454,11 +5454,11 @@ void sub_2600C39B8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2600C3ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2600C3ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  PCSharedCount::~PCSharedCount(v6 + 1);
-  PCSharedCount::~PCSharedCount(v7 + 1);
+  va_start(va, a11);
+  PCSharedCount::~PCSharedCount(v11 + 1);
+  PCSharedCount::~PCSharedCount(v12 + 1);
   PCSharedCount::~PCSharedCount(va);
   _Unwind_Resume(a1);
 }
@@ -5474,9 +5474,9 @@ __n128 OZRenderNode::getBounds(uint64_t a1, __n128 *a2)
 void OZImageElement::registerRetiming(OZImageElement *this)
 {
   {
-    OZRetimingUtil::RetimingExaminer::RetimingExaminer(&OZImageElement::registerRetiming(void)::sRetimer);
-    OZImageElement::registerRetiming(void)::sRetimer = &unk_287283290;
-    __cxa_atexit(OZRetimingUtil::RetimingExaminerTemplate<OZImageElement>::~RetimingExaminerTemplate, &OZImageElement::registerRetiming(void)::sRetimer, &dword_25F8F0000);
+    OZRetimingUtil::RetimingExaminer::RetimingExaminer(OZImageElement::registerRetiming(void)::sRetimer);
+    OZImageElement::registerRetiming(void)::sRetimer[0] = &unk_287283290;
+    __cxa_atexit(OZRetimingUtil::RetimingExaminerTemplate<OZImageElement>::~RetimingExaminerTemplate, OZImageElement::registerRetiming(void)::sRetimer, &dword_25F8F0000);
   }
 }
 
@@ -5487,182 +5487,182 @@ void OZImageElement::OZImageElement(OZImageElement *this, OZFactory *a2, const P
   v5[2] = &unk_2872817F8;
   v5[6] = &unk_287281A50;
   v5[816] = &unk_287281AA8;
-  PCURL::PCURL(v43, @"Channel Image Element Footage Folder");
-  OZChannelFolder::OZChannelFolder((this + 18776), v43, (this + 320), 0x144u, 0, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Footage");
-  OZChanFootageRefWithPicker::OZChanFootageRefWithPicker((this + 18904), v43, (this + 18776), 0x12Cu, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Footage");
-  OZChanFootageRefWithPicker::OZChanFootageRefWithPicker((this + 19112), v43, (this + 320), 0x12Cu, 0xAu);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Page Number");
+  PCURL::PCURL(v47, @"Channel Image Element Footage Folder");
+  OZChannelFolder::OZChannelFolder((this + 18776), v47, (this + 320), 0x144u, 0, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Footage");
+  OZChanFootageRefWithPicker::OZChanFootageRefWithPicker((this + 18904), v47, (this + 18776), 0x12Cu, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Footage");
+  OZChanFootageRefWithPicker::OZChanFootageRefWithPicker((this + 19112), v47, (this + 320), 0x12Cu, 0xAu);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Page Number");
   Instance = OZImageElement::OZImageElement_pageNumberImpl::getInstance(v6);
   v8 = OZImageElement::OZImageElement_pageNumberInfo::getInstance(Instance);
-  OZChannelUint32::OZChannelUint32((this + 19320), 1.0, v43, (this + 320), 0x12Du, 0, Instance, v8);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Background Color");
-  OZChannelColor::OZChannelColor((this + 19472), 1.0, 1.0, 1.0, 1.0, v43, (this + 320), 0x12Eu, 0x10002u, 6u);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Time Scale");
+  OZChannelUint32::OZChannelUint32((this + 19320), 1.0, v47, (this + 320), 0x12Du, 0, Instance, v8);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Background Color");
+  OZChannelColor::OZChannelColor((this + 19472), 1.0, 1.0, 1.0, 1.0, v47, (this + 320), 0x12Eu, 0x10002u, 6u);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Time Scale");
   v10 = OZImageElement::OZImageElement_timeScaleImpl::getInstance(v9);
-  OZChannelDouble::OZChannelDouble((this + 20632), 1.0, v43, (this + 320), 0x135u, 4259840, v10, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Time Reverse");
-  OZChannelBool::OZChannelBool((this + 20784), 0, v43, (this + 320), 0x136u, 0x410000u, 0, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Time Remap Enum");
-  PCURL::PCURL(&v42, @"Channel Image Element Time Remap Label");
-  OZChannelEnum::OZChannelEnum((this + 20936), 0, v43, &v42, (this + 320), 0x12Fu, 2, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Retime Frame");
-  OZChannelRetimeFrame::OZChannelRetimeFrame((this + 21192), 1.0, v43, (this + 320), 0x130u, 131074);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Retime Frame Cache");
+  OZChannelDouble::OZChannelDouble((this + 20632), 1.0, v47, (this + 320), 0x135u, 4259840, v10, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Time Reverse");
+  OZChannelBool::OZChannelBool((this + 20784), 0, v47, (this + 320), 0x136u, 0x410000u, 0, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Time Remap Enum");
+  PCURL::PCURL(&v46, @"Channel Image Element Time Remap Label");
+  OZChannelEnum::OZChannelEnum((this + 20936), 0, v47, &v46, (this + 320), 0x12Fu, 2, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Retime Frame");
+  OZChannelRetimeFrame::OZChannelRetimeFrame((this + 21192), 1.0, v47, (this + 320), 0x130u, 131074);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Retime Frame Cache");
   v12 = OZImageElement::OZImageElement_retimeFrameCacheImpl::getInstance(v11);
-  OZChannelDouble::OZChannelDouble((this + 21344), 1.0, v43, (this + 320), 0x13Fu, 131074, v12, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Retime Sampling Enum");
-  PCURL::PCURL(&v42, @"Channel Image Element Retime Sampling Label");
-  OZChannelEnumRetime::OZChannelEnumRetime((this + 21496), v43, &v42, (this + 320), 0x131u, 2u);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element End Condition Enum");
-  PCURL::PCURL(&v42, @"Channel Image Element End Condition Label");
-  OZChannelEnum::OZChannelEnum((this + 21752), v43, &v42, (this + 320), 0x132u, 2u, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Loop Duration");
+  OZChannelDouble::OZChannelDouble((this + 21344), 1.0, v47, (this + 320), 0x13Fu, 131074, v12, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Retime Sampling Enum");
+  PCURL::PCURL(&v46, @"Channel Image Element Retime Sampling Label");
+  OZChannelEnumRetime::OZChannelEnumRetime((this + 21496), v47, &v46, (this + 320), 0x131u, 2u);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element End Condition Enum");
+  PCURL::PCURL(&v46, @"Channel Image Element End Condition Label");
+  OZChannelEnum::OZChannelEnum((this + 21752), v47, &v46, (this + 320), 0x132u, 2u, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Loop Duration");
   v14 = OZImageElement::OZImageElement_loopDurationImpl::getInstance(v13);
-  OZChannelDouble::OZChannelDouble((this + 22008), 0.0, v43, (this + 320), 0x133u, 32770, v14, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Duration Cache");
-  OZChannelDouble::OZChannelDouble((this + 22160), 0.0, v43, (this + 320), 0x140u, 2, 0, 0);
-  PCString::~PCString(v43);
-  PCSharedCount::PCSharedCount(v43);
-  PCURL::PCURL(&v42, @"Channel Image Element Layer Number");
+  OZChannelDouble::OZChannelDouble((this + 22008), 0.0, v47, (this + 320), 0x133u, 32770, v14, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Duration Cache");
+  OZChannelDouble::OZChannelDouble((this + 22160), 0.0, v47, (this + 320), 0x140u, 2, 0, 0);
+  PCString::~PCString(v47);
+  PCSharedCount::PCSharedCount(v47);
+  PCURL::PCURL(&v46, @"Channel Image Element Layer Number");
   v16 = OZImageElement::OZImageElement_layerImpl::getInstance(v15);
   v17 = OZImageElement::OZImageElement_layerInfo::getInstance(v16);
-  OZChannelEnumLayer::OZChannelEnumLayer((this + 22312), v43, &v42, (this + 320), 0x134u, 2u, v16, v17);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Zone");
-  OZChannelBool::OZChannelBool((this + 22568), 0, v43, (this + 448), 0x137u, 0x80u, 0, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Fit Mode Enum");
-  PCURL::PCURL(&v42, @"Channel Image Element Drop Fit Mode Label");
-  OZChannelEnum::OZChannelEnum((this + 22720), v43, &v42, (this + 448), 0x13Du, 0, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCString::PCString(v43, "Passthrough Placeholder");
-  OZChannelBool::OZChannelBool((this + 22976), 0, v43, (this + 448), 0x153u, 0, 0, 0);
-  PCString::~PCString(v43);
-  v18 = PCString::PCString(v43, "Source ID");
+  OZChannelEnumLayer::OZChannelEnumLayer((this + 22312), v47, &v46, (this + 320), 0x134u, 2u, v16, v17);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Zone");
+  OZChannelBool::OZChannelBool((this + 22568), 0, v47, (this + 448), 0x137u, 0x80u, 0, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Fit Mode Enum");
+  PCURL::PCURL(&v46, @"Channel Image Element Drop Fit Mode Label");
+  OZChannelEnum::OZChannelEnum((this + 22720), v47, &v46, (this + 448), 0x13Du, 0, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCString::PCString(v47, "Passthrough Placeholder");
+  OZChannelBool::OZChannelBool((this + 22976), 0, v47, (this + 448), 0x153u, 0, 0, 0);
+  PCString::~PCString(v47);
+  PCString::PCString(v47, "Source ID");
   v19 = OZImageElement::OZImageElement_dropInputIDImpl::getInstance(v18);
   v20 = OZImageElement::OZImageElement_dropInputIDInfo::getInstance(v19);
-  OZChannelUint32::OZChannelUint32((this + 23128), 0, v43, (this + 448), 0x154u, 2, v19, v20);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Use Display Aspect");
-  OZChannelBool::OZChannelBool((this + 23280), 0, v43, (this + 448), 0x143u, 0, 0, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Type Enum");
-  PCURL::PCURL(&v42, @"Channel Image Element Drop Type Label");
-  OZChannelEnum::OZChannelEnum((this + 23432), 0, v43, &v42, (this + 448), 0x141u, 0, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Type Enum (Composition)");
-  PCURL::PCURL(&v42, @"Channel Image Element Drop Type Label");
-  OZChannelEnum::OZChannelEnum((this + 23688), 0, v43, &v42, (this + 448), 0x14Bu, 136446088, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Type Enum (Generator)");
-  PCURL::PCURL(&v42, @"Channel Image Element Drop Type Label");
-  OZChannelEnum::OZChannelEnum((this + 23944), 0, v43, &v42, (this + 448), 0x14Cu, 136446088, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Type Enum (Effect)");
-  PCURL::PCURL(&v42, @"Channel Image Element Drop Type Label");
-  OZChannelEnum::OZChannelEnum((this + 24200), 0, v43, &v42, (this + 448), 0x14Du, 136446088, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Type Enum (Effect, No Off)");
-  PCURL::PCURL(&v42, @"Channel Image Element Drop Type Label");
-  OZChannelEnum::OZChannelEnum((this + 24456), 0, v43, &v42, (this + 448), 0x14Eu, 136446088, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Type Enum (Title)");
-  PCURL::PCURL(&v42, @"Channel Image Element Drop Type Label");
-  OZChannelEnum::OZChannelEnum((this + 24712), 0, v43, &v42, (this + 448), 0x14Fu, 136446088, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Type Enum (Title, No Off)");
-  PCURL::PCURL(&v42, @"Channel Image Element Drop Type Label");
-  OZChannelEnum::OZChannelEnum((this + 24968), 0, v43, &v42, (this + 448), 0x150u, 136446088, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Type Enum (Transition)");
-  PCURL::PCURL(&v42, @"Channel Image Element Drop Type Label");
-  OZChannelEnum::OZChannelEnum((this + 25224), 0, v43, &v42, (this + 448), 0x151u, 136446088, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Type Enum (Transition, No Off)");
-  PCURL::PCURL(&v42, @"Channel Image Element Drop Type Label");
-  OZChannelEnum::OZChannelEnum((this + 25480), 0, v43, &v42, (this + 448), 0x152u, 136446088, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Media Type Enum");
-  PCURL::PCURL(&v42, @"Channel Image Element Drop Media Type Label");
-  OZChannelEnum::OZChannelEnum((this + 25736), 0, v43, &v42, (this + 448), 0x142u, 0, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Replaced");
-  OZChannelBool::OZChannelBool(this + 171, 0, v43, (this + 448), 0x138u, 2u, 0, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Fit Factor");
-  OZChannelScale::OZChannelScale((this + 26144), 1.0, 1.0, v43, (this + 448), 0x13Eu, 2u, 2u, 0, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Pan");
+  OZChannelUint32::OZChannelUint32((this + 23128), 0, v47, (this + 448), 0x154u, 2, v19, v20);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Use Display Aspect");
+  OZChannelBool::OZChannelBool((this + 23280), 0, v47, (this + 448), 0x143u, 0, 0, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Type Enum");
+  PCURL::PCURL(&v46, @"Channel Image Element Drop Type Label");
+  OZChannelEnum::OZChannelEnum((this + 23432), 0, v47, &v46, (this + 448), 0x141u, 0, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Type Enum (Composition)");
+  PCURL::PCURL(&v46, @"Channel Image Element Drop Type Label");
+  OZChannelEnum::OZChannelEnum((this + 23688), 0, v47, &v46, (this + 448), 0x14Bu, 136446088, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Type Enum (Generator)");
+  PCURL::PCURL(&v46, @"Channel Image Element Drop Type Label");
+  OZChannelEnum::OZChannelEnum((this + 23944), 0, v47, &v46, (this + 448), 0x14Cu, 136446088, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Type Enum (Effect)");
+  PCURL::PCURL(&v46, @"Channel Image Element Drop Type Label");
+  OZChannelEnum::OZChannelEnum((this + 24200), 0, v47, &v46, (this + 448), 0x14Du, 136446088, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Type Enum (Effect, No Off)");
+  PCURL::PCURL(&v46, @"Channel Image Element Drop Type Label");
+  OZChannelEnum::OZChannelEnum((this + 24456), 0, v47, &v46, (this + 448), 0x14Eu, 136446088, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Type Enum (Title)");
+  PCURL::PCURL(&v46, @"Channel Image Element Drop Type Label");
+  OZChannelEnum::OZChannelEnum((this + 24712), 0, v47, &v46, (this + 448), 0x14Fu, 136446088, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Type Enum (Title, No Off)");
+  PCURL::PCURL(&v46, @"Channel Image Element Drop Type Label");
+  OZChannelEnum::OZChannelEnum((this + 24968), 0, v47, &v46, (this + 448), 0x150u, 136446088, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Type Enum (Transition)");
+  PCURL::PCURL(&v46, @"Channel Image Element Drop Type Label");
+  OZChannelEnum::OZChannelEnum((this + 25224), 0, v47, &v46, (this + 448), 0x151u, 136446088, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Type Enum (Transition, No Off)");
+  PCURL::PCURL(&v46, @"Channel Image Element Drop Type Label");
+  OZChannelEnum::OZChannelEnum((this + 25480), 0, v47, &v46, (this + 448), 0x152u, 136446088, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Media Type Enum");
+  PCURL::PCURL(&v46, @"Channel Image Element Drop Media Type Label");
+  OZChannelEnum::OZChannelEnum((this + 25736), 0, v47, &v46, (this + 448), 0x142u, 0, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Replaced");
+  OZChannelBool::OZChannelBool(this + 171, 0, v47, (this + 448), 0x138u, 2u, 0, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Fit Factor");
+  OZChannelScale::OZChannelScale((this + 26144), 1.0, 1.0, v47, (this + 448), 0x13Eu, 2u, 2u, 0, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Pan");
   v22 = OZImageElement::OZImageElement_dropPanImpl::getInstance(v21);
   v23 = OZImageElement::OZImageElement_dropPanInfo::getInstance(v22);
-  OZChannelPosition::OZChannelPosition((this + 26584), 0.0, 0.0, v43, (this + 448), 0x146u, 0, 2u, v22, v23);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Scale");
+  OZChannelPosition::OZChannelPosition((this + 26584), 0.0, 0.0, v47, (this + 448), 0x146u, 0, 2u, v22, v23);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Scale");
   v25 = OZImageElement::OZImageElement_dropScaleImpl::getInstance(v24);
-  OZChannelScale::OZChannelScale((this + 27288), 1.0, 1.0, v43, (this + 448), 0x147u, 0, 2u, v25, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Fill Opaque");
+  OZChannelScale::OZChannelScale((this + 27288), 1.0, 1.0, v47, (this + 448), 0x147u, 0, 2u, v25, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Fill Opaque");
   v27 = OZImageElement::OZImageElement_dropFillOpaqueImpl::getInstance(v26);
-  OZChannelBool::OZChannelBool((this + 27728), 0, v43, (this + 448), 0x148u, 0, v27, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Fill Color");
-  OZChannelColor::OZChannelColor((this + 27880), 0.0, 0.0, 0.0, 1.0, v43, (this + 448), 0x149u, 0, 6u);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Clear");
-  OZChannelButton::OZChannelButton((this + 29040), OZImageElement::clearDropZoneCallbackStub, this, v43, (this + 448), 0x13Bu, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Width");
+  OZChannelBool::OZChannelBool((this + 27728), 0, v47, (this + 448), 0x148u, 0, v27, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Fill Color");
+  OZChannelColor::OZChannelColor((this + 27880), 0.0, 0.0, 0.0, 1.0, v47, (this + 448), 0x149u, 0, 6u);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Clear");
+  OZChannelButton::OZChannelButton((this + 29040), OZImageElement::clearDropZoneCallbackStub, this, v47, (this + 448), 0x13Bu, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Width");
   v29 = OZImageElement::OZImageElement_dropWidthImpl::getInstance(v28);
   v30 = OZImageElement::OZImageElement_dropWidthInfo::getInstance(v29);
-  OZChannelUint32::OZChannelUint32((this + 29232), 1.0, v43, (this + 448), 0x139u, 2, v29, v30);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Drop Height");
+  OZChannelUint32::OZChannelUint32((this + 29232), 1.0, v47, (this + 448), 0x139u, 2, v29, v30);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Drop Height");
   v32 = OZImageElement::OZImageElement_dropHeightImpl::getInstance(v31);
   v33 = OZImageElement::OZImageElement_dropHeightInfo::getInstance(v32);
-  OZChannelUint32::OZChannelUint32((this + 29384), 1.0, v43, (this + 448), 0x13Au, 2, v32, v33);
-  PCString::~PCString(v43);
-  PCString::PCString(v43, "Remove Background");
-  OZChannelBool::OZChannelBool((this + 29536), 0, v43, (this + 448), 0x155u, 0, 0, 0);
-  PCString::~PCString(v43);
-  PCString::PCString(v43, "Apply Motion Lights To Subject");
-  OZChannelBool::OZChannelBool((this + 29688), 0, v43, (this + 448), 0x156u, 0, 0, 0);
-  PCString::~PCString(v43);
-  PCString::PCString(v43, "Use Camera Source");
-  OZChannelBool::OZChannelBool((this + 29840), 0, v43, (this + 448), 0x157u, 0, 0, 0);
-  PCString::~PCString(v43);
-  PCString::PCString(v43, "Hidden Channel");
-  OZChannelBool::OZChannelBool((this + 29992), 0, v43, (this + 448), 0x14Au, 0xAu, 0, 0);
-  PCString::~PCString(v43);
+  OZChannelUint32::OZChannelUint32((this + 29384), 1.0, v47, (this + 448), 0x13Au, 2, v32, v33);
+  PCString::~PCString(v47);
+  PCString::PCString(v47, "Remove Background");
+  OZChannelBool::OZChannelBool((this + 29536), 0, v47, (this + 448), 0x155u, 0, 0, 0);
+  PCString::~PCString(v47);
+  PCString::PCString(v47, "Apply Motion Lights To Subject");
+  OZChannelBool::OZChannelBool((this + 29688), 0, v47, (this + 448), 0x156u, 0, 0, 0);
+  PCString::~PCString(v47);
+  PCString::PCString(v47, "Use Camera Source");
+  OZChannelBool::OZChannelBool((this + 29840), 0, v47, (this + 448), 0x157u, 0, 0, 0);
+  PCString::~PCString(v47);
+  PCString::PCString(v47, "Hidden Channel");
+  OZChannelBool::OZChannelBool((this + 29992), 0, v47, (this + 448), 0x14Au, 0xAu, 0, 0);
+  PCString::~PCString(v47);
   *(this + 30144) = 0;
   PCWorkingColorVector::PCWorkingColorVector((this + 30148));
   PCURL::PCURL((this + 30168), "", 0);
@@ -5684,39 +5684,39 @@ void OZImageElement::OZImageElement(OZImageElement *this, OZFactory *a2, const P
   *(this + 30296) = 0u;
   *(this + 30312) = 0u;
   *(this + 30328) = 0u;
-  PCURL::PCURL(v43, @"Channel Image Element Cinematography Folder");
-  OZChannelFolder::OZChannelFolder((this + 30352), v43, (this + 320), 0x158u, 0, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Focus Enum");
-  PCURL::PCURL(&v42, @"Channel Image Element Focus");
-  OZChannelEnum::OZChannelEnum((this + 30480), v43, &v42, (this + 30352), 0x159u, 2u, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Aperture");
-  OZChannelDouble::OZChannelDouble((this + 30736), 1.4, v43, (this + 30352), 0x15Au, 0, 0, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Disparity");
-  OZChannelDouble::OZChannelDouble((this + 30888), 0.0, v43, (this + 30352), 0x15Bu, 2, 0, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element FX Type Mode Enum");
-  PCURL::PCURL(&v42, @"Channel Image Element FX Type");
-  OZChannelEnum::OZChannelEnum((this + 31040), v43, &v42, (this + 30352), 0x15Du, 2u, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element User Focus Points");
-  OZChannelPosition::OZChannelPosition((this + 31296), v43, (this + 30352), 0x15Cu, 0, 2u, 0, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Display Mode Enum");
-  PCURL::PCURL(&v42, @"Channel Image Element Display Mode");
-  OZChannelEnum::OZChannelEnum((this + 32000), v43, &v42, (this + 30352), 0x15Eu, 2u, 0, 0);
-  PCString::~PCString(&v42);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Initialized");
-  OZChannelBool::OZChannelBool((this + 32256), 0, v43, (this + 30352), 0x15Fu, 2u, 0, 0);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Retimed");
-  OZChannelBool::OZChannelBool((this + 32408), 0, v43, (this + 30352), 0x160u, 2u, 0, 0);
-  PCString::~PCString(v43);
+  PCURL::PCURL(v47, @"Channel Image Element Cinematography Folder");
+  OZChannelFolder::OZChannelFolder((this + 30352), v47, (this + 320), 0x158u, 0, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Focus Enum");
+  PCURL::PCURL(&v46, @"Channel Image Element Focus");
+  OZChannelEnum::OZChannelEnum((this + 30480), v47, &v46, (this + 30352), 0x159u, 2u, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Aperture");
+  OZChannelDouble::OZChannelDouble((this + 30736), 1.4, v47, (this + 30352), 0x15Au, 0, 0, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Disparity");
+  OZChannelDouble::OZChannelDouble((this + 30888), 0.0, v47, (this + 30352), 0x15Bu, 2, 0, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element FX Type Mode Enum");
+  PCURL::PCURL(&v46, @"Channel Image Element FX Type");
+  OZChannelEnum::OZChannelEnum((this + 31040), v47, &v46, (this + 30352), 0x15Du, 2u, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element User Focus Points");
+  OZChannelPosition::OZChannelPosition((this + 31296), v47, (this + 30352), 0x15Cu, 0, 2u, 0, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Display Mode Enum");
+  PCURL::PCURL(&v46, @"Channel Image Element Display Mode");
+  OZChannelEnum::OZChannelEnum((this + 32000), v47, &v46, (this + 30352), 0x15Eu, 2u, 0, 0);
+  PCString::~PCString(&v46);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Initialized");
+  OZChannelBool::OZChannelBool((this + 32256), 0, v47, (this + 30352), 0x15Fu, 2u, 0, 0);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Retimed");
+  OZChannelBool::OZChannelBool((this + 32408), 0, v47, (this + 30352), 0x160u, 2u, 0, 0);
+  PCString::~PCString(v47);
   *(this + 4072) = 0;
   *(this + 2035) = 0u;
   OZChannelFolder::setFoldFlag((this + 56), 0x4000);
@@ -5734,8 +5734,8 @@ void OZImageElement::OZImageElement(OZImageElement *this, OZFactory *a2, const P
   OZChannelBase::setFlag((this + 21192), 128, 0);
   OZChannelBase::setFlag((this + 21344), 128, 0);
   *(this + 30145) = 0;
-  OZImageElement::getRetimingHash(this);
-  *(this + 30148) = *&v43[0].var0;
+  OZImageElement::getRetimingHash(this, v35, v36, v37, v38);
+  *(this + 30148) = *&v47[0].var0;
   OZChannelBase::setFlag((this + 22976), 2, 0);
   OZChannelBase::setFlag((this + 22976), 8, 0);
   OZChannelBase::setFlag((this + 22976), 0x1000000000, 0);
@@ -5790,7 +5790,7 @@ void OZImageElement::OZImageElement(OZImageElement *this, OZFactory *a2, const P
   OZChannelFolder::saveStateAsDefault((this + 27880));
   OZChannelBase::saveStateAsDefault((this + 23280));
   OZChannelBase::saveStateAsDefault((this + 29040));
-  OZChannelBase::setRangeName(this, v35);
+  OZChannelBase::setRangeName(this, v39);
   OZChannelFolder::setFoldFlag((this + 30352), 131076);
   OZChannelBase::setResetCallback(this + 271, OZImageElementCinematographyResetCallback, this, 0);
   OZChannelFolder::removeDescendant((this + 320), this + 271);
@@ -5802,13 +5802,13 @@ void OZImageElement::OZImageElement(OZImageElement *this, OZFactory *a2, const P
   OZChannel::setCoarseDelta((this + 30736), 0.1);
   OZChannel::setFineDelta((this + 30736), 0.01);
   OZChannel::setInterpolation((this + 30736), 1);
-  PCString::PCString(v43, "PISliderTransformerAperture");
-  v36 = PCString::cf_str(v43);
-  OZChannel::setSliderTransformerName((this + 30736), v36);
-  PCString::~PCString(v43);
-  PCURL::PCURL(v43, @"Channel Image Element Aperture Suffix");
-  OZChannel::setSuffix((this + 30736), v43);
-  PCString::~PCString(v43);
+  PCString::PCString(v47, "PISliderTransformerAperture");
+  v40 = PCString::cf_str(v47);
+  OZChannel::setSliderTransformerName((this + 30736), v40);
+  PCString::~PCString(v47);
+  PCURL::PCURL(v47, @"Channel Image Element Aperture Suffix");
+  OZChannel::setSuffix((this + 30736), v47);
+  PCString::~PCString(v47);
   OZChannelBase::setFlag((this + 30888), 0x20000000000, 0);
   OZChannelBase::saveStateAsDefault((this + 30480));
   OZChannelBase::saveStateAsDefault((this + 30888));
@@ -5890,7 +5890,7 @@ void sub_2600C5AC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OZImageElement::clearDropZoneCallbackStub(OZImageElement *this, void *a2)
+void OZImageElement::clearDropZoneCallbackStub(uint64_t this, void *a2)
 {
   if (this)
   {
@@ -5906,8 +5906,8 @@ void OZImageElement::clearDropZoneCallbackStub(OZImageElement *this, void *a2)
     else
     {
       ValueAsInt = OZChannel::getValueAsInt((this + 22568), MEMORY[0x277CC08F0], 0.0);
-      v3[1576] = ValueAsInt != 0;
-      v3[1577] = 1;
+      *(v3 + 1576) = ValueAsInt != 0;
+      *(v3 + 1577) = 1;
       if (!ValueAsInt)
       {
         return;
@@ -6173,9 +6173,9 @@ LABEL_51:
   return result;
 }
 
-void sub_2600C6AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2600C6AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   PCURL::~PCURL(va);
   _Unwind_Resume(a1);
 }
@@ -6272,7 +6272,7 @@ void OZImageElement::OZImageElement(OZImageElement *this, const OZImageElement *
   OZChannelBool::OZChannelBool((this + 29992), (a2 + 29992), (this + 448));
   *(this + 30144) = *(a2 + 30144);
   PCWorkingColorVector::PCWorkingColorVector((this + 30148));
-  PCURL::PCURL((this + 30168), (a2 + 30168));
+  PCURL::PCURL((this + 30168), a2 + 3771);
   v6 = *(a2 + 1886);
   *(this + 3774) = *(a2 + 3774);
   *(this + 1886) = v6;
@@ -6293,7 +6293,7 @@ void OZImageElement::OZImageElement(OZImageElement *this, const OZImageElement *
   *(this + 30312) = 0u;
   *(this + 30328) = 0u;
   *(this + 30296) = 0u;
-  OZChannelFolder::OZChannelFolder((this + 30352), (a2 + 30352), (this + 320));
+  OZChannelFolder::OZChannelFolder((this + 30352), a2 + 271, (this + 320));
   OZChannelEnum::OZChannelEnum((this + 30480), (a2 + 30480), (this + 30352));
   OZChannel::OZChannel((this + 30736), (a2 + 30736), (this + 30352));
   *(this + 3842) = &unk_287245C60;
@@ -6311,10 +6311,10 @@ void OZImageElement::OZImageElement(OZImageElement *this, const OZImageElement *
   *(this + 30148) = *(a2 + 30148);
   OZChannelButton::setPrivateData((this + 29040), this);
   *(this + 30145) = *(a2 + 30145);
-  if ((OZImageElement::hasBeenRetimedFromLastHash(a2) & 1) == 0)
+  if ((OZImageElement::hasBeenRetimedFromLastHash(a2, v7, v8, v9, v10) & 1) == 0)
   {
-    OZImageElement::getRetimingHash(this);
-    *(this + 30148) = v12;
+    OZImageElement::getRetimingHash(this, v11, v12, v13, v14);
+    *(this + 30148) = v20;
   }
 
   OZChannelBase::setRangeName(this, a2);
@@ -6418,14 +6418,14 @@ void OZImageElement::~OZImageElement(OZImageElement *this, const PCString *a2)
 
   OZChannelBool::~OZChannelBool((this + 32408));
   OZChannelBool::~OZChannelBool((this + 32256));
-  OZChannelEnum::~OZChannelEnum((this + 32000));
+  OZChannelEnum::~OZChannelEnum(this + 4000);
   OZChannelPosition::~OZChannelPosition((this + 31296));
-  OZChannelEnum::~OZChannelEnum((this + 31040));
+  OZChannelEnum::~OZChannelEnum(this + 3880);
   OZChannel::~OZChannel((this + 30888));
   OZChannel::~OZChannel((this + 30736));
-  OZChannelEnum::~OZChannelEnum((this + 30480));
+  OZChannelEnum::~OZChannelEnum(this + 3810);
   OZChannelFolder::~OZChannelFolder((this + 30352));
-  PCURL::~PCURL((this + 30168));
+  PCURL::~PCURL(this + 3771);
   OZChannelBool::~OZChannelBool((this + 29992));
   OZChannelBool::~OZChannelBool((this + 29840));
   OZChannelBool::~OZChannelBool((this + 29688));
@@ -6442,29 +6442,29 @@ void OZImageElement::~OZImageElement(OZImageElement *this, const PCString *a2)
   OZChannelPosition::~OZChannelPosition((this + 26584));
   OZChannel2D::~OZChannel2D((this + 26144));
   OZChannelBool::~OZChannelBool(this + 171);
-  OZChannelEnum::~OZChannelEnum((this + 25736));
-  OZChannelEnum::~OZChannelEnum((this + 25480));
-  OZChannelEnum::~OZChannelEnum((this + 25224));
-  OZChannelEnum::~OZChannelEnum((this + 24968));
-  OZChannelEnum::~OZChannelEnum((this + 24712));
-  OZChannelEnum::~OZChannelEnum((this + 24456));
-  OZChannelEnum::~OZChannelEnum((this + 24200));
-  OZChannelEnum::~OZChannelEnum((this + 23944));
-  OZChannelEnum::~OZChannelEnum((this + 23688));
-  OZChannelEnum::~OZChannelEnum((this + 23432));
+  OZChannelEnum::~OZChannelEnum(this + 3217);
+  OZChannelEnum::~OZChannelEnum(this + 3185);
+  OZChannelEnum::~OZChannelEnum(this + 3153);
+  OZChannelEnum::~OZChannelEnum(this + 3121);
+  OZChannelEnum::~OZChannelEnum(this + 3089);
+  OZChannelEnum::~OZChannelEnum(this + 3057);
+  OZChannelEnum::~OZChannelEnum(this + 3025);
+  OZChannelEnum::~OZChannelEnum(this + 2993);
+  OZChannelEnum::~OZChannelEnum(this + 2961);
+  OZChannelEnum::~OZChannelEnum(this + 2929);
   OZChannelBool::~OZChannelBool((this + 23280));
   OZChannel::~OZChannel((this + 23128));
   OZChannelBool::~OZChannelBool((this + 22976));
-  OZChannelEnum::~OZChannelEnum((this + 22720));
+  OZChannelEnum::~OZChannelEnum(this + 2840);
   OZChannelBool::~OZChannelBool((this + 22568));
   OZChannelEnum::~OZChannelEnum(this + 2789);
   OZChannel::~OZChannel((this + 22160));
   OZChannel::~OZChannel((this + 22008));
-  OZChannelEnum::~OZChannelEnum((this + 21752));
+  OZChannelEnum::~OZChannelEnum(this + 2719);
   OZChannelEnum::~OZChannelEnum(this + 2687);
   OZChannel::~OZChannel((this + 21344));
   OZChannelRetimeFrame::~OZChannelRetimeFrame((this + 21192));
-  OZChannelEnum::~OZChannelEnum((this + 20936));
+  OZChannelEnum::~OZChannelEnum(this + 2617);
   OZChannelBool::~OZChannelBool((this + 20784));
   OZChannel::~OZChannel((this + 20632));
   *(this + 2434) = &unk_28724C608;
@@ -6516,7 +6516,7 @@ void non-virtual thunk toOZImageElement::~OZImageElement(OZImageElement *this, c
   JUMPOUT(0x2666E9F00);
 }
 
-OZFootage *OZImageElement::operator=(uint64_t a1, const void *a2)
+void OZImageElement::operator=(uint64_t a1, const void *a2)
 {
   OZElement::operator=(a1, a2);
   if (!v4)
@@ -6598,10 +6598,10 @@ OZFootage *OZImageElement::operator=(uint64_t a1, const void *a2)
   *(a1 + 30248) = v6[1368];
   *(a1 + 30249) = 0;
   *(a1 + 30250) = v6[1370];
-  if ((OZImageElement::hasBeenRetimedFromLastHash(v5) & 1) == 0)
+  if ((OZImageElement::hasBeenRetimedFromLastHash(v5, v9, v10, v11, v12) & 1) == 0)
   {
-    OZImageElement::getRetimingHash(a1);
-    *(a1 + 30148) = v10;
+    OZImageElement::getRetimingHash(a1, v13, v14, v15, v16);
+    *(a1 + 30148) = v17;
   }
 
   OZChannelFolder::operator=(a1 + 30352);
@@ -6619,7 +6619,7 @@ OZFootage *OZImageElement::operator=(uint64_t a1, const void *a2)
     std::vector<OZPtcDecisionInfo>::__assign_with_size[abi:ne200100]<OZPtcDecisionInfo*,OZPtcDecisionInfo*>((a1 + 32560), *(v5 + 4070), *(v5 + 4071), 0xAAAAAAAAAAAAAAABLL * ((*(v5 + 4071) - *(v5 + 4070)) >> 4));
   }
 
-  return OZImageElement::ptcCopyScriptData(a1, v5);
+  OZImageElement::ptcCopyScriptData(a1, v5);
 }
 
 void *OZImageElement::getFootage(OZImageElement *this)
@@ -6828,7 +6828,7 @@ uint64_t OZImageElement::replaceFootage(OZImageElement *this, const __CFURL **a2
   v7 = *(v3 + 1504);
   if (v7)
   {
-    v7 = OZChannelBase::setRangeName(v7, 1);
+    OZChannelBase::setRangeName(v7, 1);
   }
 
   Instance = PMMediaManager::getInstance(v7);
@@ -6860,10 +6860,10 @@ uint64_t OZImageElement::replaceFootage(OZImageElement *this, const __CFURL **a2
         PCString::~PCString(v22);
         (*(*this + 1128))(v22, this);
         memset(&v21, 0, sizeof(v21));
-        TimeOffset = OZChannelObjectRootBase::getTimeOffset((this + 56), &v21);
+        TimeOffset = OZChannelObjectRootBase::getTimeOffset(&v21, (this + 56));
         (*(*this + 1448))(this, SceneNode, a3, 0, TimeOffset);
         v15 = (*(*this + 640))(this);
-        OZSceneSettings::getFrameDuration((*(this + 121) + 336), &v20);
+        OZSceneSettings::getFrameDuration(&v20, (*(this + 121) + 336));
         OZRetimingUtil::SetTimeOffsetAndExtent(v15, &v21, v22, &v20, v16);
         v17 = (*(**(this + 120) + 640))();
         OZChannelObjectRoot::recomputeTimeRangeFromChildren(v17, 1, 1, 1, 1, 0);
@@ -6992,7 +6992,7 @@ LABEL_18:
   if ((*(*this + 272))(this))
   {
     v23 = (*(*this + 272))(this);
-    OZSceneSettings::getFrameDuration((v23 + 336), &time1);
+    OZSceneSettings::getFrameDuration(&time1, (v23 + 336));
     v39 = time1;
   }
 
@@ -7010,7 +7010,7 @@ LABEL_18:
 
     else
     {
-      OZPreferenceManager::getDefaultStillDuration(&v39, &time1);
+      OZPreferenceManager::getDefaultStillDuration(&time1, &v39);
       *&v40.value = *&time1.value;
       epoch = time1.epoch;
     }
@@ -7190,13 +7190,13 @@ CGColorSpace **OZImageElement::resetFitMode(OZImageElement *this, double a2)
     __asm { FMOV            V0.2D, #1.0 }
 
     v121 = _Q0;
-    OZScene::getCurrentTime(*(this + 121), &v89);
+    OZScene::getCurrentTime(&v89, *(this + 121));
     *&v122.var0.var0 = v89;
     v122.var0.var3 = v90;
     HIDWORD(v101) = OZChannel::getValueAsInt((this + 22312), MEMORY[0x277CC08F0], 0.0);
     OZFootage::getTextureResolution(v5, v123, &v122, &v91);
     v12 = v124;
-    v13 = (*(*v5 + 1368))(v5);
+    v13 = (*(*v5 + 171))(v5);
     if (*(this + 30249) == 1)
     {
       if ((*(this + 30248) & 1) == 0)
@@ -7456,7 +7456,7 @@ LABEL_69:
     v77 = v37;
     v38 = v33;
     v39 = v24;
-    if (*(v5 + 8072))
+    if (v5[1009])
     {
       PGGetCurrentPGContext(&v89);
       v38 = v33;
@@ -7569,28 +7569,28 @@ void sub_2600CA66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-OZFootage *OZImageElement::didAddToScene(OZImageElement *this, OZScene *a2)
+void OZImageElement::didAddToScene(OZImageElement *this, OZScene *a2)
 {
-  v21 = **&MEMORY[0x277CC08F0];
+  v20 = **&MEMORY[0x277CC08F0];
   OZTransformNode::didAddToScene(this, a2);
   if (a2)
   {
-    OZSceneSettings::OZSceneSettings(v17, (a2 + 336));
-    epoch = v17[0].epoch;
-    v5 = *&v17[0].timescale;
-    v6 = v18;
-    OZSceneSettings::getFrameDuration((a2 + 336), &time2);
+    OZSceneSettings::OZSceneSettings(v16, a2 + 336);
+    epoch = v16[0].epoch;
+    v5 = *&v16[0].timescale;
+    v6 = v17;
+    OZSceneSettings::getFrameDuration(&time2, (a2 + 336));
     operator*(&time2, &time1, epoch);
-    v16 = vcvtq_f64_f32(vcvt_f32_s32(v5));
-    v21 = time1;
-    v17[0].value = &unk_287283398;
-    PCString::~PCString(&v20);
-    PCCFRef<CGColorSpace *>::~PCCFRef(&v19);
+    v15 = vcvtq_f64_f32(vcvt_f32_s32(v5));
+    v20 = time1;
+    v16[0].value = &unk_287283398;
+    PCString::~PCString(&v19);
+    PCCFRef<CGColorSpace *>::~PCCFRef(&v18);
   }
 
   else
   {
-    v16 = xmmword_260850050;
+    v15 = xmmword_260850050;
     v6 = 1.0;
   }
 
@@ -7620,39 +7620,37 @@ OZFootage *OZImageElement::didAddToScene(OZImageElement *this, OZScene *a2)
 
   if (v9 == 1.0 || v11 == 1.0)
   {
-    OZChannel::setValue((this + 29232), v7, v6 * v16.f64[0], 0);
-    OZChannel::setValue((this + 29384), v7, v16.f64[1], 0);
+    OZChannel::setValue((this + 29232), v7, v6 * v15.f64[0], 0);
+    OZChannel::setValue((this + 29384), v7, v15.f64[1], 0);
     OZChannel2D::setValue((this + 26144), v7, 1.0 / v6, 1.0, 0);
-    v17[0] = *(this + 208);
+    v16[0] = *(this + 208);
     time1 = *(this + 232);
     time2 = *v7;
     if (!CMTimeCompare(&time1, &time2))
     {
-      v17[1] = v21;
+      v16[1] = v20;
       if (a2)
       {
-        OZSceneSettings::getFrameDuration((a2 + 336), &time1);
-        OZRetimingUtil::SetTimeExtent((this + 56), v17, &time1, v14);
+        OZSceneSettings::getFrameDuration(&time1, (a2 + 336));
+        OZRetimingUtil::SetTimeExtent((this + 56), v16, &time1, v14);
       }
     }
   }
 
 LABEL_16:
-  result = OZImageElement::showHideDropZoneChannels(this, 0);
+  OZImageElement::showHideDropZoneChannels(this, 0);
   if (a2)
   {
     if ((*(a2 + 1576) & 1) == 0)
     {
-      return OZImageElement::ptcLoadCinematicScript(this);
+      OZImageElement::ptcLoadCinematicScript(this);
     }
   }
-
-  return result;
 }
 
-void sub_2600CA948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2600CA948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   OZSceneSettings::~OZSceneSettings(va);
   _Unwind_Resume(a1);
 }
@@ -7850,7 +7848,7 @@ CGColorSpace **OZImageElement::gridFit(CGColorSpace **this, OZFootage *a2)
     __asm { FMOV            V2.2D, #0.5 }
 
     v43 = vsubq_f64(v43, vaddq_f64(v43, vmulq_f64(v44, _Q2)));
-    (*(*v3 + 2264))(v3, &v43);
+    (*(*v3 + 283))(v3, &v43);
     PCCFRef<CGColorSpace *>::~PCCFRef(&v34);
     return PCCFRef<CGColorSpace *>::~PCCFRef(&v33);
   }
@@ -7911,61 +7909,60 @@ LABEL_3:
 
     else
     {
-      v62[0] = 0;
-      v62[1] = 0;
+      v61[0] = 0;
+      v61[1] = 0;
       __asm { FMOV            V0.2D, #-1.0 }
 
-      v63 = _Q0;
-      OZRenderState::OZRenderState(&v61, a3);
-      v30 = xmmword_260343AA0;
-      v31 = 0x3FF0000000000000;
+      v62 = _Q0;
+      OZRenderState::OZRenderState(&v60, a3);
+      v29 = xmmword_260343AA0;
+      v30 = 0x3FF0000000000000;
+      v31 = 0;
       v32 = 0;
       v33 = 0;
-      v34 = 0;
-      v35 = 0x3FF0000000000000;
+      v34 = 0x3FF0000000000000;
+      v35 = 0;
       v36 = 0;
       v37 = 0;
-      v38 = 0;
-      v43 = 0;
-      v40 = 0;
-      v41 = 0;
-      v39 = 0x3FF0000000000000;
       v42 = 0;
-      v44 = *MEMORY[0x277CC08F0];
-      v45 = *(MEMORY[0x277CC08F0] + 16);
+      v39 = 0;
+      v40 = 0;
+      v38 = 0x3FF0000000000000;
+      v41 = 0;
+      v43 = *MEMORY[0x277CC08F0];
+      v44 = *(MEMORY[0x277CC08F0] + 16);
+      v45 = 0;
       v46 = 0;
       v47 = 0;
       v48 = 0;
-      v49 = 0;
-      v50 = 0x100000000;
+      v49 = 0x100000000;
+      v50 = 0;
       v51 = 0;
       v52 = 0;
-      v53 = 0;
-      v54 = 768;
-      v55 = 0x408F400000000000;
+      v53 = 768;
+      v54 = 0x408F400000000000;
+      v55 = 0;
       v56 = 0;
       v57 = 0;
-      v58 = 0;
-      v59 = -1;
+      v58 = -1;
       __asm { FMOV            V0.2D, #1.0 }
 
-      v60 = _Q0;
-      var0 = v61.var0;
-      OZImageElement::globalToFootageTime(a1, &var0, &v28);
-      *&v61.var0.var0 = v28;
-      v61.var0.var3 = v29;
-      HIDWORD(v40) = OZChannel::getValueAsInt((a1 + 22312), MEMORY[0x277CC08F0], 0.0);
-      (*(*Footage + 1568))(Footage, v62, &v61, &v30);
-      v15 = v63;
+      v59 = _Q0;
+      var0 = v60.var0;
+      OZImageElement::globalToFootageTime(&v28, a1, &var0);
+      v60.var0 = v28;
+      HIDWORD(v39) = OZChannel::getValueAsInt((a1 + 22312), MEMORY[0x277CC08F0], 0.0);
+      (*(*Footage + 1568))(Footage, v61, &v60, &v29);
+      v15 = v62;
       __asm { FMOV            V1.2D, #-0.5 }
 
-      *a2 = vmulq_f64(v63, _Q1);
+      *a2 = vmulq_f64(v62, _Q1);
       *(a2 + 1) = v15;
       v17 = *(a2 + 1);
       *v8 = *a2;
       *(a1 + 30232) = v17;
-      PCCFRef<CGColorSpace *>::~PCCFRef(&v53);
       PCCFRef<CGColorSpace *>::~PCCFRef(&v52);
+      PCCFRef<CGColorSpace *>::~PCCFRef(&v51);
     }
   }
 
@@ -7984,37 +7981,37 @@ void sub_2600CB1A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void OZImageElement::globalToFootageTime(OZImageElement *this@<X0>, CMTime *a2@<X1>, uint64_t a3@<X8>)
+void OZImageElement::globalToFootageTime(CMTime *__return_ptr a1@<X8>, OZImageElement *this@<X0>, CMTime *a3@<X1>)
 {
   Footage = OZImageElement::getFootage(this);
   if (Footage && (*(*Footage + 1376))(Footage) == 1)
   {
     v7 = MEMORY[0x277CC08F0];
-    *a3 = *MEMORY[0x277CC08F0];
+    *&a1->value = *MEMORY[0x277CC08F0];
     v8 = *(v7 + 16);
   }
 
   else
   {
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
+    a1->value = 0;
+    *&a1->timescale = 0;
+    a1->epoch = 0;
     v9 = (*(*this + 640))(this);
-    OZRetimingUtil::RemapTimeValue(v9, a2, a3);
+    OZRetimingUtil::RemapTimeValue(v9, a3, a1);
     memset(&v16, 0, sizeof(v16));
     (*(*this + 2304))(&v16, this);
-    time1 = *a3;
+    time1 = *a1;
     v10 = MEMORY[0x277CC08F0];
     time2 = **&MEMORY[0x277CC08F0];
     if (CMTimeCompare(&time1, &time2) < 0)
     {
-      *a3 = *v10;
+      *&a1->value = *v10;
       v8 = *(v10 + 16);
     }
 
     else
     {
-      time1 = *a3;
+      time1 = *a1;
       time2 = v16;
       if (CMTimeCompare(&time1, &time2) < 0)
       {
@@ -8022,34 +8019,34 @@ void OZImageElement::globalToFootageTime(OZImageElement *this@<X0>, CMTime *a2@<
       }
 
       v11 = (*(*this + 272))(this);
-      OZSceneSettings::getFrameDuration((v11 + 336), &v12);
+      OZSceneSettings::getFrameDuration(&v12, (v11 + 336));
       time1 = v16;
       *&time2.value = v12;
       time2.epoch = v13;
       PC_CMTimeSaferSubtract(&time1, &time2, &v14);
-      *a3 = v14;
+      *&a1->value = v14;
       v8 = v15;
     }
   }
 
-  *(a3 + 16) = v8;
+  a1->epoch = v8;
 }
 
-void OZImageElement::getRetimedHeliumGraphNoInterpolation(_anonymous_namespace_ *this@<X1>, const OZRenderParams *a2@<X2>, uint64_t a3@<X3>, const void *a4@<X4>, double *a5@<X5>, BOOL *a6@<X6>, void *a7@<X7>, HGBitmapLoader **a8@<X8>)
+void OZImageElement::getRetimedHeliumGraphNoInterpolation(_anonymous_namespace_ *this@<X1>, FxColorDescription *a3@<X2>, uint64_t a4@<X3>, const void *a5@<X4>, double *a6@<X5>, BOOL *a7@<X6>, void *a8@<X7>, HGNode **x8_0@<X8>)
 {
-  v16 = *a2;
-  v17.value = 0;
-  *a2 = v18;
-  *(a2 + 49) = 0;
-  *(a2 + 50) = 0;
-  OZFootage::getHeliumGraph(this, a2, a3, a4, a5, a6, a7, a8);
+  pcColorDesc = a3->_pcColorDesc;
+  v18.value = 0;
+  a3->_pcColorDesc = v19;
+  *&a3[12]._pcColorDesc._dynamicRange = 0;
+  *&a3[12]._pcColorDesc._toneMapMethod._gain = 0;
+  OZFootage::getHeliumGraph(this, a3, a4, a5, a6, a7, a8, x8_0);
 }
 
 double anonymous namespace::GetBlendingParams(_anonymous_namespace_ *this, const CMTime *a2, CMTime *a3, CMTime *a4, CMTime *a5, double *a6, BOOL *a7)
 {
   OZFootage::getFootageTime(this, a2, a3);
   memset(&v21, 0, sizeof(v21));
-  OZFootage::getFrameDuration(this, &v21);
+  OZFootage::getFrameDuration(&v21, this);
   memset(&v20, 0, sizeof(v20));
   time = *a3;
   v22 = v21;
@@ -8111,9 +8108,9 @@ void getMotionBlurTimes(CMTime *a1, int a2, int a3, OZImageElement *a4, OZFootag
 
   v41 = 0;
   memset(&v38, 0, sizeof(v38));
-  OZFootage::getFrameDuration(this, &v38);
+  OZFootage::getFrameDuration(&v38, this);
   memset(&v37, 0, sizeof(v37));
-  OZSceneSettings::getFrameDuration((a6 + 336), &v37);
+  OZSceneSettings::getFrameDuration(&v37, (a6 + 336));
   if (a2)
   {
     v17 = 0;
@@ -8126,7 +8123,7 @@ void getMotionBlurTimes(CMTime *a1, int a2, int a3, OZImageElement *a4, OZFootag
       v43 = *a1;
       v42 = v34;
       PC_CMTimeSaferAdd(&v43, &v42, &v35);
-      OZImageElement::globalToFootageTime(a4, &v35, &v36);
+      OZImageElement::globalToFootageTime(&v36, a4, &v35);
       OZFootage::getFootageTime(this, &v36, &v43);
       LOBYTE(v35.value) = 0;
       v20 = std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<CMTime *>,CMTime,std::__identity,std::__less<void,void>>(__p, &v43, 0xAAAAAAAAAAAAAAABLL * ((v40 - __p) >> 3));
@@ -8224,14 +8221,14 @@ void sub_2600CB8F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void OZImageElement::getRetimedHeliumGraphMotionBlur(OZFootage *this@<X2>, uint64_t *a2@<X0>, uint64_t a3@<X1>, OZRenderParams *a4@<X3>, uint64_t a5@<X4>, const void *a6@<X5>, uint64_t a7@<X6>, double *a8@<X7>, uint64_t *a9@<X8>, void *a10)
+void OZImageElement::getRetimedHeliumGraphMotionBlur(OZFootage *this@<X2>, OZImageElement *a2@<X0>, uint64_t a3@<X1>, OZRenderParams *a4@<X3>, uint64_t a5@<X4>, const void *a6@<X5>, uint64_t a7@<X6>, double *a8@<X7>, uint64_t *a9@<X8>, void *a10)
 {
   v34 = 0;
   v35 = 0;
   v36 = 0;
   *&v33._pcColorDesc._colorSpaceRef._obj = *a3;
   *&v33._pcColorDesc._toneMapMethod._gain = *(a3 + 16);
-  getMotionBlurTimes(&v33, *(a3 + 500), *(a3 + 496), a2, this, a2[121], &v34, *(a3 + 504));
+  getMotionBlurTimes(&v33, *(a3 + 500), *(a3 + 496), a2, this, *(a2 + 121), &v34, *(a3 + 504));
   v17 = v35 - v34;
   WorkingColorDescription = a7;
   if ((v35 - v34) >= 0x21)
@@ -8341,46 +8338,46 @@ void OZImageElement::getRetimedHeliumGraphMotionBlur(OZFootage *this@<X2>, uint6
   }
 }
 
-void sub_2600CBC40(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, ...)
+void sub_2600CBC40(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
 {
-  va_start(va2, a4);
-  va_start(va1, a4);
-  va_start(va, a4);
-  v7 = va_arg(va1, void (***)(void **));
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va2, a7);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v10 = va_arg(va1, void **);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v11 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
   v14 = va_arg(va2, void);
-  v15 = va_arg(va2, void);
-  if (v7)
+  v16 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
+  v18 = va_arg(va2, void);
+  if (v10)
   {
-    (*v7)[3](v7);
+    (*(*v10 + 3))(v10, a2, a3, a4);
   }
 
-  if (*a3)
+  if (*a6)
   {
-    (*(**a3 + 24))(*a3);
+    (*(**a6 + 24))(*a6, a2, a3, a4);
   }
 
-  va_copy(v7, va1);
+  va_copy(v10, va1);
   std::vector<FxBalancedBlendRecord>::__destroy_vector::operator()[abi:ne200100](va);
   PCCFRef<CGColorSpace *>::~PCCFRef(va2);
-  v6 = *(v4 - 104);
-  if (v6)
+  v9 = *(v7 - 104);
+  if (v9)
   {
-    *(v4 - 96) = v6;
-    operator delete(v6);
+    *(v7 - 96) = v9;
+    operator delete(v9);
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<FxBalancedBlendRecord>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+uint64_t std::vector<FxBalancedBlendRecord>::push_back[abi:ne200100](void *a1, uint64_t *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<FxBalancedBlendRecord>::__emplace_back_slow_path<FxBalancedBlendRecord const&>(a1, a2);
   }
@@ -8391,7 +8388,7 @@ uint64_t std::vector<FxBalancedBlendRecord>::push_back[abi:ne200100](uint64_t a1
     result = v3 + 16;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -8430,7 +8427,7 @@ void OZImageElement::getRetimedHeliumGraph(uint64_t a1@<X0>, uint64_t a2@<X1>, O
   }
 }
 
-void OZImageElement::createDropZoneGridHeliumGraph(_anonymous_namespace_ *a1, uint64_t a2, FxColorDescription *a3, uint64_t a4)
+void OZImageElement::createDropZoneGridHeliumGraph(_anonymous_namespace_ *a1, const void *a2, FxColorDescription *a3, uint64_t a4)
 {
   FxColorDescription::setDynamicRange(a3, 0);
   *(a4 + 120) = 0x3FF0000000000000;
@@ -8445,26 +8442,26 @@ void OZImageElement::createDropZoneGridHeliumGraph(_anonymous_namespace_ *a1, ui
   *(a4 + 104) = 0u;
   if (*(a1 + 80) == 1)
   {
-    CGColorSpace = FxColorDescription::getCGColorSpace(a3);
+    FxColorDescription::getCGColorSpace(a3);
   }
 
-  v9 = FxColorDescription::getCGColorSpace(a3);
+  FxColorDescription::getCGColorSpace(a3);
 }
 
-void sub_2600CC17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2600CC17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v6 = va_arg(va1, CGColorSpace *);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v8 = va_arg(va1, CGColorSpace *);
   v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   PCCFRef<CGColorSpace *>::~PCCFRef(va1);
-  v5 = *(v3 - 56);
-  if (v5)
+  v7 = *(v5 - 56);
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
   _Unwind_Resume(a1);
@@ -8496,7 +8493,7 @@ void OZImageElement::clearDropZoneCallback(OZImageElement *this)
     if (Footage)
     {
       LODWORD(v9.var0) = Footage[20];
-      std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v10, &v9);
+      std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&v10, &v9, &v9);
     }
   }
 
@@ -8519,7 +8516,7 @@ void OZImageElement::clearDropZoneCallback(OZImageElement *this)
   PCURL::~PCURL(&v12);
 }
 
-void sub_2600CC5B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, char a11, void *a12)
+void sub_2600CC5B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, uint64_t a11, void *a12)
 {
   PCString::~PCString(&a10);
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&a11, a12);
@@ -8571,9 +8568,9 @@ void OZImageElement::setDropZonePlaceholder(OZImageElement *this)
   PCURL::~PCURL(&v7);
 }
 
-void sub_2600CC750(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600CC750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCURL::~PCURL(va);
   _Unwind_Resume(a1);
 }
@@ -8641,11 +8638,11 @@ void sub_2600CC964(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t OZImageElement::isDefaultDropZoneFootage(const PCURL *a1)
+BOOL OZImageElement::isDefaultDropZoneFootage(CFURLRef *a1)
 {
-  v2 = PCURL::PCURL(v13, a1);
+  PCURL::PCURL(&v13, a1);
   isDefaultDropZoneFootageForType = OZImageElement::isDefaultDropZoneFootageForType(v2, 0);
-  PCURL::~PCURL(v13);
+  PCURL::~PCURL(&v13);
   if (isDefaultDropZoneFootageForType)
   {
     return 1;
@@ -8681,9 +8678,9 @@ uint64_t OZImageElement::isDefaultDropZoneFootage(const PCURL *a1)
   return v7;
 }
 
-void sub_2600CCA94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600CCA94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCURL::~PCURL(va);
   _Unwind_Resume(a1);
 }
@@ -8701,7 +8698,7 @@ CMTime *OZImageElement::globalToLocalTime@<X0>(OZImageElement *this@<X0>, CMTime
 double OZImageElement::localToGlobalTime@<D0>(OZImageElement *this@<X0>, CMTime *a2@<X1>, uint64_t a3@<X8>)
 {
   OZChannel::getValueAsDouble((this + 20632), MEMORY[0x277CC08F0], 0.0);
-  operator/(&a2->value, &v8, v6);
+  operator/(&a2->value, v6, &v8);
   return OZSceneNode::localToGlobalTime(this, &v8, a3);
 }
 
@@ -8714,7 +8711,7 @@ OZChannelBase *OZImageElement::didResetCinematography(OZImageElement *this)
   return OZImageElement::ptcFillCinematographyDataChannels(this);
 }
 
-unint64_t OZImageElement::estimateRenderMemory(OZImageElement *a1, uint64_t a2, unsigned int *a3)
+unint64_t OZImageElement::estimateRenderMemory(OZImageElement *a1, uint64_t a2, OZRenderParams *a3)
 {
   Footage = OZImageElement::getFootage(a1);
   if (Footage)
@@ -8759,7 +8756,7 @@ unint64_t OZImageElement::estimateRenderMemory(OZImageElement *a1, uint64_t a2, 
     OZImageElement::calculateFrameRequestSettings(a1, a3, WorkingColorDescription, v6, &v48, &v17, &v16, &v15);
   }
 
-  return a3[82] * a3[81] * a3[84] * (a3[83] >> 3);
+  return *(a3 + 82) * *(a3 + 81) * *(a3 + 84) * (*(a3 + 83) >> 3);
 }
 
 void sub_2600CD17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, CGColorSpace *a34)
@@ -8901,7 +8898,14 @@ LABEL_25:
   return 0;
 }
 
-uint64_t OZImageElement::calcHashForState(uint64_t a1, const void *a2, const OZRenderParams *a3, uint64_t a4, uint64_t a5)
+void sub_2600CD604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  OZRenderParams::~OZRenderParams(va);
+  _Unwind_Resume(a1);
+}
+
+void OZImageElement::calcHashForState(uint64_t a1, void *a2, const OZRenderParams *a3, uint64_t a4, int a5)
 {
   Footage = OZImageElement::getFootage(a1);
   if (Footage)
@@ -8928,18 +8932,16 @@ uint64_t OZImageElement::calcHashForState(uint64_t a1, const void *a2, const OZR
 
     if (!OZObjectManipulator::isInObjectList(v11 + 16, a4))
     {
-      if (v14)
+      if (v13)
       {
-        v22 = *PCHashWriteStream::getHash(v14)->i8;
-        OZRenderParams::OZRenderParams(&v18, a3);
-        v16 = 0uLL;
+        v19 = *PCHashWriteStream::getHash(v13)->i8;
+        OZRenderParams::OZRenderParams(&v16, a3);
+        memset(&v15, 0, sizeof(v15));
+        v14 = *a3;
+        OZImageElement::globalToFootageTime(&v15, a1, &v14);
+        v16 = v15;
         v17 = 0;
-        v15 = *a3;
-        OZImageElement::globalToFootageTime(a1, &v15, &v16);
-        v18 = v16;
-        v20 = 0;
-        v21 = 0;
-        v19 = v17;
+        v18 = 0;
         OZObjectManipulator::getHashForState();
       }
 
@@ -8955,12 +8957,12 @@ LABEL_7:
 
   OZChannelBase::setRangeName(a1, a3);
 
-  return OZTransformNode::calcHashForState(a1, a2, a3, a4, a5);
+  OZTransformNode::calcHashForState(a1, a2, a3, a4, a5);
 }
 
-void sub_2600CD914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2600CD914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   OZRenderParams::~OZRenderParams(va);
   _Unwind_Resume(a1);
 }
@@ -8968,57 +8970,57 @@ void sub_2600CD914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 CGColorSpace **OZImageElement::updatePropertiesFromFootage(OZImageElement *this, OZFootage *a2)
 {
   OZImageElement::updateLayerChannel(this, 1);
-  (*(*a2 + 1232))(&v74, a2);
-  PCURL::operator=(this + 3771, &v74);
-  PCURL::~PCURL(&v74);
-  (*(*this + 1128))(&v74, this);
-  *(this + 1886) = *&v74.var1;
-  *(this + 3774) = *&v74.var3;
+  (*(*a2 + 1232))(&v78, a2);
+  PCURL::operator=(this + 3771, &v78);
+  PCURL::~PCURL(&v78);
+  (*(*this + 1128))(&v78, this);
+  *(this + 1886) = *&v78.var1;
+  *(this + 3774) = *&v78.var3;
   if (OZImageElement::isInputSource(this))
   {
     OZChannelBase::setFlag((this + 26584), 0x1000000000, 1);
     OZChannelBase::setFlag((this + 27288), 0x1000000000, 1);
   }
 
-  OZRenderState::OZRenderState(&v74);
-  v44 = xmmword_260343AA0;
-  v45 = 0x3FF0000000000000;
-  v46 = 0;
-  v47 = 0;
-  v48 = 0;
+  OZRenderState::OZRenderState(&v78);
+  v48 = xmmword_260343AA0;
   v49 = 0x3FF0000000000000;
   v50 = 0;
   v51 = 0;
   v52 = 0;
-  v56 = 0;
-  v54 = 0uLL;
   v53 = 0x3FF0000000000000;
+  v54 = 0;
   v55 = 0;
-  v57 = *MEMORY[0x277CC08F0];
-  v58 = *(MEMORY[0x277CC08F0] + 16);
-  v59 = 0;
+  v56 = 0;
   v60 = 0;
-  v61 = 0;
-  v62 = 0;
-  v63 = 0x100000000;
+  v58 = 0uLL;
+  v57 = 0x3FF0000000000000;
+  v59 = 0;
+  v61 = *MEMORY[0x277CC08F0];
+  v62 = *(MEMORY[0x277CC08F0] + 16);
+  v63 = 0;
   v64 = 0;
   v65 = 0;
   v66 = 0;
-  v67 = 768;
-  v68 = 0x408F400000000000;
+  v67 = 0x100000000;
+  v68 = 0;
   v69 = 0;
   v70 = 0;
-  v71 = 0;
-  v72 = -1;
+  v71 = 768;
+  v72 = 0x408F400000000000;
+  v73 = 0;
+  v74 = 0;
+  v75 = 0;
+  v76 = -1;
   __asm { FMOV            V0.2D, #1.0 }
 
-  v73 = _Q0;
-  *(&v54 + 4) = OZChannel::getValueAsInt((this + 22312), MEMORY[0x277CC08F0], 0.0);
-  v43 = 0;
-  (*(*a2 + 1576))(a2, &v43 + 4, &v43, &v74, &v44);
-  OZChannel::getValueAsDouble((this + 29232), &v74, 0.0);
+  v77 = _Q0;
+  *(&v58 + 4) = OZChannel::getValueAsInt((this + 22312), MEMORY[0x277CC08F0], 0.0);
+  v47 = 0;
+  (*(*a2 + 1576))(a2, &v47 + 4, &v47, &v78, &v48);
+  OZChannel::getValueAsDouble((this + 29232), &v78, 0.0);
   v10 = v9;
-  OZChannel::getValueAsDouble((this + 29384), &v74, 0.0);
+  OZChannel::getValueAsDouble((this + 29384), &v78, 0.0);
   v12 = v11;
   if (*(this + 30249) == 1)
   {
@@ -9041,8 +9043,8 @@ CGColorSpace **OZImageElement::updatePropertiesFromFootage(OZImageElement *this,
 
   if (v10 == 1.0 || v12 == 1.0)
   {
-    OZChannel::setValue((this + 29232), MEMORY[0x277CC08F0], *(&v43 + 1), 0);
-    OZChannel::setValue((this + 29384), MEMORY[0x277CC08F0], *&v43, 0);
+    OZChannel::setValue((this + 29232), MEMORY[0x277CC08F0], *(&v47 + 1), 0);
+    OZChannel::setValue((this + 29384), MEMORY[0x277CC08F0], *&v47, 0);
   }
 
 LABEL_10:
@@ -9069,8 +9071,8 @@ LABEL_10:
     {
       v25 = (*(*this + 640))(this);
       v26 = (*(*this + 272))(this);
-      OZSceneSettings::getFrameDuration((v26 + 336), &v40);
-      OZRetimingUtil::FixLoadedRetimingState(v25, &v40, v27);
+      OZSceneSettings::getFrameDuration(&v44, (v26 + 336));
+      OZRetimingUtil::FixLoadedRetimingState(v25, &v44, v27);
     }
   }
 
@@ -9087,37 +9089,37 @@ LABEL_10:
     if ((v17 - 1) < 3)
     {
       v21 = (*(*this + 640))(this);
-      (*(*a2 + 1128))(&v40, a2);
-      v42 = *&v41[8];
-      OZRetimingUtil::SetLoopOffset(v21, &v42, v22);
+      (*(*a2 + 1128))(&v44, a2);
+      v46 = *&v45[8];
+      OZRetimingUtil::SetLoopOffset(v21, &v46, v22);
     }
 
-    v23 = vcvtq_f64_f32(__PAIR64__(v43, HIDWORD(v43)));
+    v23 = vcvtq_f64_f32(__PAIR64__(v47, HIDWORD(v47)));
     __asm { FMOV            V1.2D, #0.5 }
 
-    v40 = vsubq_f64(0, vaddq_f64(vmulq_f64(v23, _Q1), 0));
-    *v41 = v23;
-    (*(*this + 2264))(this, &v40);
+    v44 = vsubq_f64(0, vaddq_f64(vmulq_f64(v23, _Q1), 0));
+    *v45 = v23;
+    (*(*this + 2264))(this, &v44);
   }
 
   v31 = (*(*this + 640))(this);
   v32 = (*(*this + 272))(this);
-  OZSceneSettings::getFrameDuration((v32 + 336), &v40);
-  OZRetimingUtil::FixLoopOffset(v31, &v40, v33);
+  OZSceneSettings::getFrameDuration(&v44, (v32 + 336));
+  OZRetimingUtil::FixLoopOffset(v31, &v44, v33);
   if (*(this + 30145) == 1)
   {
-    OZImageElement::getRetimingHash(this);
-    *(this + 30148) = v40;
+    OZImageElement::getRetimingHash(this, v34, v35, v36, v37);
+    *(this + 30148) = v44;
   }
 
   if ((*(*this + 272))(this) && *((*(*this + 272))(this) + 1584))
   {
-    v35 = *(*((*(*this + 272))(this) + 1584) + 160);
+    v39 = *(*((*(*this + 272))(this) + 1584) + 160);
   }
 
   else
   {
-    v35 = 0;
+    v39 = 0;
   }
 
   if (*(this + 30249) == 1)
@@ -9130,18 +9132,18 @@ LABEL_10:
 
   else
   {
-    v36 = OZChannel::getValueAsInt((this + 22568), MEMORY[0x277CC08F0], 0.0);
-    *(this + 30248) = v36 != 0;
+    v40 = OZChannel::getValueAsInt((this + 22568), MEMORY[0x277CC08F0], 0.0);
+    *(this + 30248) = v40 != 0;
     *(this + 30249) = 1;
-    if (!v36)
+    if (!v40)
     {
       goto LABEL_42;
     }
   }
 
   Footage = OZImageElement::getFootage(this);
-  v38 = Footage;
-  if (Footage && (((*(*Footage + 1432))(Footage) & 1) != 0 || (*(*v38 + 1616))(v38) && OZImageElement::isBackgroundDropZone(this)) && ((v35 | v38[1540]) & 1) == 0)
+  v42 = Footage;
+  if (Footage && (((*(*Footage + 1432))(Footage) & 1) != 0 || (*(*v42 + 1616))(v42) && OZImageElement::isBackgroundDropZone(this)) && ((v39 | v42[1540]) & 1) == 0)
   {
     if (*(this + 4684) > 4u)
     {
@@ -9155,10 +9157,10 @@ LABEL_10:
   }
 
 LABEL_42:
-  OZChannelBase::setRangeName(this, v34);
+  OZChannelBase::setRangeName(this, v38);
   OZImageElement::showHideDropZoneChannels(this, 1);
-  PCCFRef<CGColorSpace *>::~PCCFRef(&v66);
-  return PCCFRef<CGColorSpace *>::~PCCFRef(&v65);
+  PCCFRef<CGColorSpace *>::~PCCFRef(&v70);
+  return PCCFRef<CGColorSpace *>::~PCCFRef(&v69);
 }
 
 void sub_2600CE164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, CGColorSpace *a42)
@@ -9502,10 +9504,10 @@ CGColorSpace **OZImageElement::resetFitModeToSceneDims(CGColorSpace **this, doub
     }
   }
 
-  v7 = (*(*v5 + 272))(v5);
+  v7 = (*(*v5 + 34))(v5);
   if (v7)
   {
-    OZSceneSettings::OZSceneSettings(v11, (v7 + 336));
+    OZSceneSettings::OZSceneSettings(v11, v7 + 336);
     v8 = *&v11[6];
     v10 = vcvtq_f64_f32(vcvt_f32_s32(v11[1]));
     v11[0] = &unk_287283398;
@@ -9519,14 +9521,14 @@ CGColorSpace **OZImageElement::resetFitModeToSceneDims(CGColorSpace **this, doub
     v8 = 1.0;
   }
 
-  if ((OZImageElement::isInputSource(v5) & 1) != 0 || OZChannel::getValueAsInt((v5 + 22976), MEMORY[0x277CC08F0], 0.0) || OZChannel::getValueAsInt((v5 + 29840), MEMORY[0x277CC08F0], 0.0))
+  if ((OZImageElement::isInputSource(v5) & 1) != 0 || OZChannel::getValueAsInt((v5 + 2872), MEMORY[0x277CC08F0], 0.0) || OZChannel::getValueAsInt((v5 + 3730), MEMORY[0x277CC08F0], 0.0))
   {
     v9 = MEMORY[0x277CC08F0];
-    OZChannel::setValue((v5 + 29232), MEMORY[0x277CC08F0], v8 * v10.f64[0], 1);
-    OZChannel2D::setValue((v5 + 26144), v9, 1.0 / v8, 1.0, 1);
-    if (OZChannel::getValueAsInt((v5 + 29840), v9, 0.0))
+    OZChannel::setValue((v5 + 3654), MEMORY[0x277CC08F0], v8 * v10.f64[0], 1);
+    OZChannel2D::setValue((v5 + 3268), v9, 1.0 / v8, 1.0, 1);
+    if (OZChannel::getValueAsInt((v5 + 3730), v9, 0.0))
     {
-      OZChannel::setValue((v5 + 29384), MEMORY[0x277CC08F0], v10.f64[1], 1);
+      OZChannel::setValue((v5 + 3673), MEMORY[0x277CC08F0], v10.f64[1], 1);
     }
 
     return OZImageElement::resetFitMode(v5);
@@ -9537,7 +9539,7 @@ CGColorSpace **OZImageElement::resetFitModeToSceneDims(CGColorSpace **this, doub
     this = OZImageElement::isBackgroundDropZone(v5);
     if (this)
     {
-      this = OZChannel::getValueAsInt((v5 + 23280), MEMORY[0x277CC08F0], 0.0);
+      this = OZChannel::getValueAsInt((v5 + 2910), MEMORY[0x277CC08F0], 0.0);
       if (a3 != a2)
       {
         if (this)
@@ -9600,9 +9602,9 @@ LABEL_3:
   }
 }
 
-void sub_2600CEDE4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600CEDE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCURL::~PCURL(va);
   _Unwind_Resume(a1);
 }
@@ -9656,9 +9658,9 @@ LABEL_3:
   }
 }
 
-void sub_2600CEF7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600CEF7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCURL::~PCURL(va);
   _Unwind_Resume(a1);
 }
@@ -9712,9 +9714,9 @@ uint64_t OZImageElement::getIconID(OZImageElement *this)
   return v3;
 }
 
-void sub_2600CF0D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2600CF0D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCURL::~PCURL(va);
   _Unwind_Resume(a1);
 }

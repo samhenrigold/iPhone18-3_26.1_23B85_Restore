@@ -20,9 +20,11 @@
 
 uint64_t __29__DOCPostLaunchBuffer_shared__block_invoke()
 {
-  shared_sharedInstance = [(DOCOperationBuffer *)[DOCPostLaunchBuffer alloc] initWithLabel:@"postLaunch"];
+  v0 = [(DOCOperationBuffer *)[DOCPostLaunchBuffer alloc] initWithLabel:@"postLaunch"];
+  v1 = shared_sharedInstance;
+  shared_sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (DOCPostLaunchBuffer)initWithLabel:(id)label targetQueue:(id)queue

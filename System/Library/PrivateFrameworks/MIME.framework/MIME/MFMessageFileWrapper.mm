@@ -292,12 +292,12 @@ LABEL_24:
 
 - (MFMessageFileWrapper)initWithPath:(id)path
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   memset(__b, 170, sizeof(__b));
-  v16.receiver = self;
-  v16.super_class = MFMessageFileWrapper;
-  v6 = [(MFMessageFileWrapper *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = MFMessageFileWrapper;
+  v6 = [(MFMessageFileWrapper *)&v15 init];
   if (v6 && [pathCopy getFileSystemRepresentation:__b maxLength:1023])
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -337,7 +337,6 @@ LABEL_24:
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

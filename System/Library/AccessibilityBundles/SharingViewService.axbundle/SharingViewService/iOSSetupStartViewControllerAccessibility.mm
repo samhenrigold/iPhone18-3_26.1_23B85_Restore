@@ -1,6 +1,7 @@
 @interface iOSSetupStartViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation iOSSetupStartViewControllerAccessibility
@@ -27,6 +28,14 @@
 
   v6 = [(iOSSetupStartViewControllerAccessibility *)self safeValueForKey:@"_titleLabel"];
   [v6 setAccessibilityTraits:*MEMORY[0x29EDC7F80]];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = iOSSetupStartViewControllerAccessibility;
+  [(iOSSetupStartViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(iOSSetupStartViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

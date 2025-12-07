@@ -37,7 +37,7 @@
 
 - (id)configurationForLoadingModelDataWithStoreURLBag:(id)bag error:(id *)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   bagCopy = bag;
   objc_storeStrong(&self->_storeURLBag, bag);
   request = [(MPStoreModelRequestOperation *)self request];
@@ -53,8 +53,8 @@
     [(MPStoreModelRequestOperation *)self remainingTimeInterval];
     [v12 setTimeoutInterval:?];
     v13 = objc_alloc(MEMORY[0x277CD60D0]);
-    v18[0] = v12;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17[0] = v12;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
     v15 = [v13 initWithURLRequests:v14];
   }
 
@@ -68,8 +68,6 @@
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -242,7 +240,7 @@ LABEL_9:
 
 - (void)_writeResponseDictionaryToDisk:(id)disk
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   diskCopy = disk;
   request = [(MPStoreModelRequestOperation *)self request];
   cacheURL = [request cacheURL];
@@ -251,9 +249,9 @@ LABEL_9:
   {
     if (diskCopy)
     {
-      v20 = 0;
-      v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:diskCopy options:0 error:&v20];
-      v8 = v20;
+      v19 = 0;
+      v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:diskCopy options:0 error:&v19];
+      v8 = v19;
       if (v8)
       {
         v9 = NMLogForCategory(9);
@@ -267,9 +265,9 @@ LABEL_9:
       {
         request2 = [(MPStoreModelRequestOperation *)self request];
         cacheURL2 = [request2 cacheURL];
-        v19 = 0;
-        v12 = [v7 writeToURL:cacheURL2 options:1 error:&v19];
-        v9 = v19;
+        v18 = 0;
+        v12 = [v7 writeToURL:cacheURL2 options:1 error:&v18];
+        v9 = v18;
 
         v13 = NMLogForCategory(9);
         v14 = v13;
@@ -281,9 +279,9 @@ LABEL_9:
             request4 = [(MPStoreModelRequestOperation *)self request];
             cacheURL3 = [request4 cacheURL];
             *buf = 138412546;
-            v22 = request3;
-            v23 = 2112;
-            v24 = cacheURL3;
+            v21 = request3;
+            v22 = 2112;
+            v23 = cacheURL3;
             _os_log_impl(&dword_25B251000, v14, OS_LOG_TYPE_DEFAULT, "[NMAPIRequestOperation] Cached new response for %@ at cacheURL %@", buf, 0x16u);
           }
         }
@@ -313,13 +311,11 @@ LABEL_9:
       [NMAPIRequestOperation _writeResponseDictionaryToDisk:?];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_readResponseDictionaryFromDisk
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   request = [(MPStoreModelRequestOperation *)self request];
   cacheURL = [request cacheURL];
 
@@ -328,9 +324,9 @@ LABEL_9:
     v5 = MEMORY[0x277CBEA90];
     request2 = [(MPStoreModelRequestOperation *)self request];
     cacheURL2 = [request2 cacheURL];
-    v19 = 0;
-    v8 = [v5 dataWithContentsOfURL:cacheURL2 options:0 error:&v19];
-    v9 = v19;
+    v18 = 0;
+    v8 = [v5 dataWithContentsOfURL:cacheURL2 options:0 error:&v18];
+    v9 = v18;
 
     if (v9)
     {
@@ -345,9 +341,9 @@ LABEL_9:
 
     else
     {
-      v18 = 0;
-      v11 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v18];
-      v10 = v18;
+      v17 = 0;
+      v11 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v17];
+      v10 = v17;
       v12 = NMLogForCategory(9);
       v13 = v12;
       if (v10)
@@ -363,7 +359,7 @@ LABEL_9:
         request3 = [(MPStoreModelRequestOperation *)self request];
         cacheURL3 = [request3 cacheURL];
         *buf = 138412290;
-        v21 = cacheURL3;
+        v20 = cacheURL3;
         _os_log_impl(&dword_25B251000, v13, OS_LOG_TYPE_DEFAULT, "[NMAPIRequestOperation] Found file at cacheURL (%@)", buf, 0xCu);
       }
     }
@@ -380,29 +376,27 @@ LABEL_9:
     v11 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)_adjustedPayload:(id)payload path:(id)path
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   pathCopy = path;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v8 = [payloadCopy mutableCopy];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __47__NMAPIRequestOperation__adjustedPayload_path___block_invoke;
-    v24[3] = &unk_27993B078;
-    v25 = v8;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __47__NMAPIRequestOperation__adjustedPayload_path___block_invoke;
+    v23[3] = &unk_27993B078;
+    v24 = v8;
     selfCopy = self;
-    v27 = pathCopy;
+    v26 = pathCopy;
     v9 = v8;
-    [v9 enumerateKeysAndObjectsUsingBlock:v24];
+    [v9 enumerateKeysAndObjectsUsingBlock:v23];
     v10 = [v9 copy];
 
 LABEL_12:
@@ -413,30 +407,30 @@ LABEL_12:
   if (objc_opt_isKindOfClass())
   {
     v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(payloadCopy, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v11 = payloadCopy;
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = [(NMAPIRequestOperation *)self _adjustedPayload:*(*(&v20 + 1) + 8 * i) path:pathCopy, v20];
+          v16 = [(NMAPIRequestOperation *)self _adjustedPayload:*(*(&v19 + 1) + 8 * i) path:pathCopy, v19];
           [v9 addObject:v16];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v13);
@@ -459,8 +453,6 @@ LABEL_12:
 
   v10 = v17;
 LABEL_18:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -534,82 +526,45 @@ void __57__NMAPIRequestOperation__personalizeResponse_completion___block_invoke_
 
 - (void)produceResponseWithLoadedOutput:completion:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(&dword_25B251000, v0, OS_LOG_TYPE_DEBUG, "[NMAPIRequestOperation] Loaded output: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)produceResponseWithLoadedOutput:completion:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3(&dword_25B251000, v0, v1, "[NMAPIRequestOperation] Expected dictionary for loaded output: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)produceResponseWithLoadedOutput:completion:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3(&dword_25B251000, v0, v1, "[NMAPIRequestOperation] Server Object Database import failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)produceResponseWithLoadedOutput:completion:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3(&dword_25B251000, v0, v1, "[NMAPIRequestOperation] Parsing failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25B251000, v0, OS_LOG_TYPE_DEBUG, "[NMAPIRequestOperation] Loaded output: %@", v1, 0xCu);
 }
 
 - (void)_writeResponseDictionaryToDisk:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 request];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeResponseDictionaryToDisk:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 request];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeResponseDictionaryToDisk:(void *)a1 .cold.4(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 request];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readResponseDictionaryFromDisk
 {
   OUTLINED_FUNCTION_4();
-  v9 = *MEMORY[0x277D85DE8];
   request = [v0 request];
   cacheURL = [request cacheURL];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

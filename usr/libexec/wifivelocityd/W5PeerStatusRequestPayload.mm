@@ -17,24 +17,25 @@
 - (W5PeerStatusRequestPayload)initWithRequest:(id)request
 {
   requestCopy = request;
-  v9.receiver = self;
-  v9.super_class = W5PeerStatusRequestPayload;
-  v5 = [(W5PeerStatusRequestPayload *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = W5PeerStatusRequestPayload;
+  v5 = [(W5PeerStatusRequestPayload *)&v10 init];
   if (!v5 || (v6 = [requestCopy objectForKey:@"version"], (v5->_version = v6) == 0))
   {
 
     v7 = sub_100098A04();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315906;
-      v11 = "[W5PeerStatusRequestPayload initWithRequest:]";
-      v12 = 2080;
-      v13 = "W5PeerStatusRequestPayload.m";
-      v14 = 1024;
-      v15 = 37;
-      v16 = 2114;
-      v17 = 0;
-      _os_log_send_and_compose_impl();
+      v11 = 136315906;
+      v12 = "[W5PeerStatusRequestPayload initWithRequest:]";
+      v13 = 2080;
+      v14 = "W5PeerStatusRequestPayload.m";
+      v15 = 1024;
+      v16 = 37;
+      v17 = 2114;
+      v18 = 0;
+      v9 = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] %s (%s:%u) init error (error='%{public}@'", &v11, v9);
     }
 
     v5 = 0;

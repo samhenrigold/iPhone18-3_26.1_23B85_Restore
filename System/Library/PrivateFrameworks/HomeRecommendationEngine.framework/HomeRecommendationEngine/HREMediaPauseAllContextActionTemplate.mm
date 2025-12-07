@@ -27,14 +27,12 @@
 
 - (id)_lazy_actionMap
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = NSStringFromProtocol(&unk_28666EF10);
-  v7 = v2;
+  v6 = v2;
   v3 = [HREMediaPlaybackActionMap actionMapWithState:2 volume:0 playbackArchive:0];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

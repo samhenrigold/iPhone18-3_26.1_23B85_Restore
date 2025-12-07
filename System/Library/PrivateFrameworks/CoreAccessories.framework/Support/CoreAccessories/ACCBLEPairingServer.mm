@@ -8,8 +8,11 @@
 - (BOOL)releaseAccessory:(id)accessory xpcConn:(id)conn;
 - (BOOL)reserveAccessory:(id)accessory xpcConn:(id)conn;
 - (void)accessoryBLEPairingAttached:(id)attached blePairingUUID:(id)d accInfoDict:(id)dict supportedPairTypes:(id)types;
+- (void)accessoryBLEPairingDataUpdate:(id)update blePairingUUID:(id)d pairType:(unsigned __int8)type pairData:(id)data;
 - (void)accessoryBLEPairingDetached:(id)detached blePairingUUID:(id)d;
 - (void)accessoryBLEPairingFinished:(id)finished blePairingUUID:(id)d;
+- (void)accessoryBLEPairingInfoUpdate:(id)update blePairingUUID:(id)d pairType:(unsigned __int8)type pairInfoList:(id)list;
+- (void)accessoryBLEPairingStateUpdate:(id)update blePairingUUID:(id)d validMask:(unsigned int)mask btRadioOn:(BOOL)on pairingState:(int)state pairingModeOn:(BOOL)modeOn;
 - (void)dealloc;
 - (void)iterateAttachedConnectionsSync:(id)sync;
 - (void)iterateBLEPairingProviderListSync:(id)sync;
@@ -1267,6 +1270,543 @@ void __66__ACCBLEPairingServer_accessoryBLEPairingDetached_blePairingUUID___bloc
   }
 
   *a3 = 1;
+}
+
+- (void)accessoryBLEPairingStateUpdate:(id)update blePairingUUID:(id)d validMask:(unsigned int)mask btRadioOn:(BOOL)on pairingState:(int)state pairingModeOn:(BOOL)modeOn
+{
+  modeOnCopy = modeOn;
+  onCopy = on;
+  v10 = *&mask;
+  updateCopy = update;
+  dCopy = d;
+  if (gLogObjects)
+  {
+    v15 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v15 = 1;
+  }
+
+  if (v15)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v17 = &_os_log_default;
+    v16 = &_os_log_default;
+  }
+
+  else
+  {
+    v17 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138413570;
+    v39 = updateCopy;
+    v40 = 2112;
+    v41 = dCopy;
+    v42 = 1024;
+    *v43 = v10;
+    *&v43[4] = 1024;
+    *&v43[6] = onCopy;
+    v44 = 1024;
+    stateCopy = state;
+    v46 = 1024;
+    v47 = modeOnCopy;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "BLEPairing server, accessoryBLEPairingStateUpdate: %@, blePairingUUID=%@, validMask=%xh btRadioOn=%d pairingState=%d pairingModeOn=%d", buf, 0x2Eu);
+  }
+
+  v18 = [(NSMutableDictionary *)self->_registeredAccessoryConnections objectForKey:updateCopy];
+  blePairingProviderListByUID = self->_blePairingProviderListByUID;
+  activeProvider = [v18 activeProvider];
+  v21 = [(NSMutableDictionary *)blePairingProviderListByUID objectForKey:activeProvider];
+
+  if (v18)
+  {
+    v22 = v21 == 0;
+  }
+
+  else
+  {
+    v22 = 1;
+  }
+
+  if (v22)
+  {
+    if (gLogObjects && gNumLogObjects >= 5)
+    {
+      remoteObject2 = *(gLogObjects + 32);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      remoteObject2 = &_os_log_default;
+      v30 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(remoteObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412802;
+      v39 = updateCopy;
+      v40 = 2112;
+      v41 = v18;
+      v42 = 2112;
+      *v43 = v21;
+      v31 = "BLEPairing server, accessoryBLEPairingStateUpdate: %@, Invalid accessory=%@ or no active providerInfo=%@";
+      v32 = remoteObject2;
+      v33 = 32;
+LABEL_46:
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, v31, buf, v33);
+    }
+  }
+
+  else
+  {
+    stateCopy2 = state;
+    v24 = modeOnCopy;
+    v25 = dCopy;
+    remoteObject = [v21 remoteObject];
+
+    if (gLogObjects)
+    {
+      v27 = gNumLogObjects <= 4;
+    }
+
+    else
+    {
+      v27 = 1;
+    }
+
+    v28 = !v27;
+    if (remoteObject)
+    {
+      if (v28)
+      {
+        v29 = *(gLogObjects + 32);
+        dCopy = v25;
+      }
+
+      else
+      {
+        dCopy = v25;
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          platform_connectionInfo_configStreamGetCategories_cold_2();
+        }
+
+        v29 = &_os_log_default;
+        v34 = &_os_log_default;
+      }
+
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412802;
+        v39 = updateCopy;
+        v40 = 2112;
+        v41 = v18;
+        v42 = 2112;
+        *v43 = v21;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "BLEPairing server, accessoryBLEPairingStateUpdate: %@, accessory=%@ providerInfo=%@", buf, 0x20u);
+      }
+
+      remoteObject2 = [v21 remoteObject];
+      [remoteObject2 accessoryBLEPairingStateUpdate:updateCopy blePairingUUID:dCopy validMask:v10 btRadioOn:onCopy pairingState:stateCopy2 pairingModeOn:v24];
+      goto LABEL_47;
+    }
+
+    if (v28)
+    {
+      remoteObject2 = *(gLogObjects + 32);
+      dCopy = v25;
+    }
+
+    else
+    {
+      dCopy = v25;
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      remoteObject2 = &_os_log_default;
+      v35 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(remoteObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412546;
+      v39 = updateCopy;
+      v40 = 2112;
+      v41 = v21;
+      v31 = "BLEPairing server, accessoryBLEPairingStateUpdate: %@, Provider doesn't respond to selector, providerInfo=%@";
+      v32 = remoteObject2;
+      v33 = 22;
+      goto LABEL_46;
+    }
+  }
+
+LABEL_47:
+}
+
+- (void)accessoryBLEPairingInfoUpdate:(id)update blePairingUUID:(id)d pairType:(unsigned __int8)type pairInfoList:(id)list
+{
+  typeCopy = type;
+  updateCopy = update;
+  dCopy = d;
+  listCopy = list;
+  if (gLogObjects)
+  {
+    v13 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v13 = 1;
+  }
+
+  if (v13)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v15 = &_os_log_default;
+    v14 = &_os_log_default;
+  }
+
+  else
+  {
+    v15 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    v32 = 138413058;
+    v33 = updateCopy;
+    v34 = 2112;
+    v35 = dCopy;
+    v36 = 1024;
+    LODWORD(v37[0]) = typeCopy;
+    WORD2(v37[0]) = 2112;
+    *(v37 + 6) = listCopy;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "BLEPairing server, accessoryBLEPairingInfoUpdate: %@, blePairingUUID=%@, pairType=%d pairingInfoList=%@", &v32, 0x26u);
+  }
+
+  v16 = [(NSMutableDictionary *)self->_registeredAccessoryConnections objectForKey:updateCopy];
+  blePairingProviderListByUID = self->_blePairingProviderListByUID;
+  activeProvider = [v16 activeProvider];
+  v19 = [(NSMutableDictionary *)blePairingProviderListByUID objectForKey:activeProvider];
+
+  if (v16)
+  {
+    v20 = v19 == 0;
+  }
+
+  else
+  {
+    v20 = 1;
+  }
+
+  if (v20)
+  {
+    if (gLogObjects && gNumLogObjects >= 5)
+    {
+      remoteObject2 = *(gLogObjects + 32);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      remoteObject2 = &_os_log_default;
+      v26 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(remoteObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v32 = 138412802;
+      v33 = updateCopy;
+      v34 = 2112;
+      v35 = v16;
+      v36 = 2112;
+      v37[0] = v19;
+      v27 = "BLEPairing server, accessoryBLEPairingInfoUpdate: %@, Invalid accessory=%@ or no active providerInfo=%@";
+      v28 = remoteObject2;
+      v29 = 32;
+LABEL_46:
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, v27, &v32, v29);
+    }
+  }
+
+  else
+  {
+    remoteObject = [v19 remoteObject];
+
+    if (gLogObjects)
+    {
+      v23 = gNumLogObjects <= 4;
+    }
+
+    else
+    {
+      v23 = 1;
+    }
+
+    v24 = !v23;
+    if (remoteObject)
+    {
+      if (v24)
+      {
+        v25 = *(gLogObjects + 32);
+      }
+
+      else
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          platform_connectionInfo_configStreamGetCategories_cold_2();
+        }
+
+        v25 = &_os_log_default;
+        v30 = &_os_log_default;
+      }
+
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        v32 = 138412802;
+        v33 = updateCopy;
+        v34 = 2112;
+        v35 = v16;
+        v36 = 2112;
+        v37[0] = v19;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "BLEPairing server, accessoryBLEPairingInfoUpdate: %@, accessory=%@ providerInfo=%@", &v32, 0x20u);
+      }
+
+      remoteObject2 = [v19 remoteObject];
+      [remoteObject2 accessoryBLEPairingInfoUpdate:updateCopy blePairingUUID:dCopy pairType:typeCopy pairInfoList:listCopy];
+      goto LABEL_47;
+    }
+
+    if (v24)
+    {
+      remoteObject2 = *(gLogObjects + 32);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      remoteObject2 = &_os_log_default;
+      v31 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(remoteObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v32 = 138412546;
+      v33 = updateCopy;
+      v34 = 2112;
+      v35 = dCopy;
+      v27 = "BLEPairing server, accessoryBLEPairingInfoUpdate: %@, blePairingUUID=%@, invalid provider.remoteObject = nil";
+      v28 = remoteObject2;
+      v29 = 22;
+      goto LABEL_46;
+    }
+  }
+
+LABEL_47:
+}
+
+- (void)accessoryBLEPairingDataUpdate:(id)update blePairingUUID:(id)d pairType:(unsigned __int8)type pairData:(id)data
+{
+  typeCopy = type;
+  updateCopy = update;
+  dCopy = d;
+  dataCopy = data;
+  if (gLogObjects)
+  {
+    v13 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v13 = 1;
+  }
+
+  if (v13)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v15 = &_os_log_default;
+    v14 = &_os_log_default;
+  }
+
+  else
+  {
+    v15 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    v32 = 138413058;
+    v33 = updateCopy;
+    v34 = 2112;
+    v35 = dCopy;
+    v36 = 1024;
+    LODWORD(v37[0]) = typeCopy;
+    WORD2(v37[0]) = 2112;
+    *(v37 + 6) = dataCopy;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "BLEPairing server, accessoryBLEPairingDataUpdate: %@, blePairingUUID=%@, pairType=%d pairData=%@", &v32, 0x26u);
+  }
+
+  v16 = [(NSMutableDictionary *)self->_registeredAccessoryConnections objectForKey:updateCopy];
+  blePairingProviderListByUID = self->_blePairingProviderListByUID;
+  activeProvider = [v16 activeProvider];
+  v19 = [(NSMutableDictionary *)blePairingProviderListByUID objectForKey:activeProvider];
+
+  if (v16)
+  {
+    v20 = v19 == 0;
+  }
+
+  else
+  {
+    v20 = 1;
+  }
+
+  if (v20)
+  {
+    if (gLogObjects && gNumLogObjects >= 5)
+    {
+      remoteObject2 = *(gLogObjects + 32);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      remoteObject2 = &_os_log_default;
+      v26 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(remoteObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v32 = 138412802;
+      v33 = updateCopy;
+      v34 = 2112;
+      v35 = v16;
+      v36 = 2112;
+      v37[0] = v19;
+      v27 = "BLEPairing server, accessoryBLEPairingDataUpdate: %@, Invalid accessory=%@ or no active providerInfo=%@";
+      v28 = remoteObject2;
+      v29 = 32;
+LABEL_46:
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, v27, &v32, v29);
+    }
+  }
+
+  else
+  {
+    remoteObject = [v19 remoteObject];
+
+    if (gLogObjects)
+    {
+      v23 = gNumLogObjects <= 4;
+    }
+
+    else
+    {
+      v23 = 1;
+    }
+
+    v24 = !v23;
+    if (remoteObject)
+    {
+      if (v24)
+      {
+        v25 = *(gLogObjects + 32);
+      }
+
+      else
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          platform_connectionInfo_configStreamGetCategories_cold_2();
+        }
+
+        v25 = &_os_log_default;
+        v30 = &_os_log_default;
+      }
+
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        v32 = 138412802;
+        v33 = updateCopy;
+        v34 = 2112;
+        v35 = v16;
+        v36 = 2112;
+        v37[0] = v19;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "BLEPairing server, accessoryBLEPairingDataUpdate: %@, accessory=%@ providerInfo=%@", &v32, 0x20u);
+      }
+
+      remoteObject2 = [v19 remoteObject];
+      [remoteObject2 accessoryBLEPairingDataUpdate:updateCopy blePairingUUID:dCopy pairType:typeCopy pairData:dataCopy];
+      goto LABEL_47;
+    }
+
+    if (v24)
+    {
+      remoteObject2 = *(gLogObjects + 32);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      remoteObject2 = &_os_log_default;
+      v31 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(remoteObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v32 = 138412546;
+      v33 = updateCopy;
+      v34 = 2112;
+      v35 = dCopy;
+      v27 = "BLEPairing server, accessoryBLEPairingDataUpdate: %@, blePairingUUID=%@, invalid provider.remoteObject = nil";
+      v28 = remoteObject2;
+      v29 = 22;
+      goto LABEL_46;
+    }
+  }
+
+LABEL_47:
 }
 
 - (void)accessoryBLEPairingFinished:(id)finished blePairingUUID:(id)d

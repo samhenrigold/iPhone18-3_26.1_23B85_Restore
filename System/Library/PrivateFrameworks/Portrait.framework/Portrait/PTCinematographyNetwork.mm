@@ -83,36 +83,36 @@ LABEL_7:
 
 + (id)firstExistingVersion:(id)version
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v13 = 0u;
+  v19 = *MEMORY[0x277D85DE8];
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
   versionCopy = version;
-  v5 = [versionCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [versionCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(versionCopy);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        if ([self existsVersionString:{v9, v13}])
+        v9 = *(*(&v14 + 1) + 8 * i);
+        if ([self existsVersionString:{v9, v14}])
         {
-          v11 = v9;
-          v10 = versionCopy;
+          v12 = v9;
+          v11 = versionCopy;
           goto LABEL_13;
         }
       }
 
-      v6 = [versionCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [versionCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -122,16 +122,16 @@ LABEL_7:
     }
   }
 
-  v10 = _PTLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = _PTLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     +[PTCinematographyNetwork firstExistingVersion:];
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_13:
 
-  return v11;
+  return v12;
 }
 
 + (BOOL)existsVersionString:(id)string
@@ -158,7 +158,7 @@ LABEL_13:
 
 - (PTCinematographyNetwork)initWithVersionString:(id)string
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v7 = PTVersionStringWithComponents(stringCopy, 1);
@@ -169,11 +169,11 @@ LABEL_13:
     v10 = [v6 URLForResource:@"model.parameters" withExtension:@"json" subdirectory:v8];
     if (!v10)
     {
-      v11 = _PTLogSystem();
+      v11 = _PTLogSystem(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v19 = v7;
+        v20 = v7;
         _os_log_impl(&dword_2243FB000, v11, OS_LOG_TYPE_DEFAULT, "no model parameters json file for version %@", buf, 0xCu);
       }
     }
@@ -182,25 +182,26 @@ LABEL_13:
     if (v12)
     {
       v13 = [(PTCinematographyNetwork *)self _initWithNetwork:v9 parameters:v12];
+      v14 = v13;
       if (v13)
       {
-        v14 = _PTLogSystem();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v15 = _PTLogSystem(v13);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           [PTCinematographyNetwork initWithVersionString:];
         }
 
-        objc_storeStrong(v13 + 153, string);
+        objc_storeStrong(v14 + 153, string);
       }
 
-      self = v13;
+      self = v14;
       selfCopy = self;
     }
 
     else
     {
-      v16 = _PTLogSystem();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = _PTLogSystem(0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [PTCinematographyNetwork initWithVersionString:];
       }
@@ -211,7 +212,7 @@ LABEL_13:
 
   else
   {
-    v10 = _PTLogSystem();
+    v10 = _PTLogSystem(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PTCinematographyNetwork initWithVersionString:];
@@ -225,104 +226,105 @@ LABEL_13:
 
 - (id)_initWithNetwork:(id)network parameters:(id)parameters
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   parametersCopy = parameters;
-  v39.receiver = self;
-  v39.super_class = PTCinematographyNetwork;
-  v8 = [(PTCinematographyNetwork *)&v39 init];
+  v40.receiver = self;
+  v40.super_class = PTCinematographyNetwork;
+  v8 = [(PTCinematographyNetwork *)&v40 init];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(&v8->_params, parameters);
-    if ([(PTCinematographyNetwork *)v9 _loadEspressoNetwork:networkCopy])
+    v10 = [(PTCinematographyNetwork *)v9 _loadEspressoNetwork:networkCopy];
+    if (v10)
     {
-      v32 = parametersCopy;
+      v33 = parametersCopy;
       v9->_step_i = -1;
       *&v9->_lastNetworkPredictionIndex = xmmword_2244A52E0;
-      v10 = [PTCinematographyDetection alloc];
-      v37 = *MEMORY[0x277CC0888];
-      v38 = *(MEMORY[0x277CC0888] + 16);
-      v11 = [(PTCinematographyDetection *)v10 initWithTime:&v37 rect:*MEMORY[0x277CBF3A0] focusDistance:*(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24), 0.0];
+      v11 = [PTCinematographyDetection alloc];
+      v38 = *MEMORY[0x277CC0888];
+      v39 = *(MEMORY[0x277CC0888] + 16);
+      v12 = [(PTCinematographyDetection *)v11 initWithTime:&v38 rect:*MEMORY[0x277CBF3A0] focusDistance:*(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24), 0.0];
       zeroDisparityDetection = v9->_zeroDisparityDetection;
-      v9->_zeroDisparityDetection = v11;
+      v9->_zeroDisparityDetection = v12;
 
       [(PTCinematographyDetection *)v9->_zeroDisparityDetection setDetectionType:101];
       [(PTCinematographyDetection *)v9->_zeroDisparityDetection setTrackIdentifier:0x1000000000];
-      v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:v9->_x_in.height];
+      v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:v9->_x_in.height];
       networkDetections = v9->_networkDetections;
-      v9->_networkDetections = v13;
+      v9->_networkDetections = v14;
 
       indexSet = [MEMORY[0x277CCAB58] indexSet];
       unusedIndexes = v9->_unusedIndexes;
       v9->_unusedIndexes = indexSet;
 
       array = [MEMORY[0x277CBEB18] array];
-      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
       params = [(PTCinematographyNetwork *)v9 params];
       inputSchemas = [params inputSchemas];
 
-      v20 = [inputSchemas countByEnumeratingWithState:&v33 objects:v40 count:16];
-      if (v20)
+      v21 = [inputSchemas countByEnumeratingWithState:&v34 objects:v41 count:16];
+      if (v21)
       {
-        v21 = v20;
-        v22 = *v34;
+        v22 = v21;
+        v23 = *v35;
         do
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v22; ++i)
           {
-            if (*v34 != v22)
+            if (*v35 != v23)
             {
               objc_enumerationMutation(inputSchemas);
             }
 
-            v24 = *(*(&v33 + 1) + 8 * i);
-            v25 = [PTCinematographyNetworkSignal alloc];
-            params2 = [v24 params];
-            v27 = [(PTCinematographyNetworkSignal *)v25 initWithModelDictionary:params2];
+            v25 = *(*(&v34 + 1) + 8 * i);
+            v26 = [PTCinematographyNetworkSignal alloc];
+            params2 = [v25 params];
+            v28 = [(PTCinematographyNetworkSignal *)v26 initWithModelDictionary:params2];
 
-            [array addObject:v27];
+            [array addObject:v28];
           }
 
-          v21 = [inputSchemas countByEnumeratingWithState:&v33 objects:v40 count:16];
+          v22 = [inputSchemas countByEnumeratingWithState:&v34 objects:v41 count:16];
         }
 
-        while (v21);
+        while (v22);
       }
 
-      v28 = [array copy];
+      v29 = [array copy];
       inputSignals = v9->_inputSignals;
-      v9->_inputSignals = v28;
+      v9->_inputSignals = v29;
 
       bzero(v9->_x_in.data, 4 * v9->_x_in.width * v9->_x_in.height);
       bzero(v9->_mask_in.data, 4 * v9->_mask_in.height);
       bzero(v9->_hx_out.data, 4 * v9->_hx_out.width * v9->_hx_out.height);
       bzero(v9->_cx_out.data, 4 * v9->_cx_out.width * v9->_cx_out.height);
-      v30 = v9;
-      parametersCopy = v32;
+      v31 = v9;
+      parametersCopy = v33;
     }
 
     else
     {
-      array = _PTLogSystem();
+      array = _PTLogSystem(v10);
       if (os_log_type_enabled(array, OS_LOG_TYPE_ERROR))
       {
         [PTCinematographyNetwork _initWithNetwork:parameters:];
       }
 
-      v30 = 0;
+      v31 = 0;
     }
   }
 
   else
   {
-    v30 = 0;
+    v31 = 0;
   }
 
-  return v30;
+  return v31;
 }
 
 - (void)dealloc
@@ -359,21 +361,21 @@ LABEL_13:
     {
       lastFocusDetection = [(PTCinematographyNetwork *)self lastFocusDetection];
 
-      v11 = _PTLogSystem();
-      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
+      v12 = _PTLogSystem(v11);
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
       if (lastFocusDetection)
       {
-        if (v12)
+        if (v13)
         {
           [PTCinematographyNetwork stepWithFrameDetections:];
         }
 
         lastFocusDetection2 = [(PTCinematographyNetwork *)self lastFocusDetection];
-        v14 = [detectionsCopy detectionForTrackIdentifier:{objc_msgSend(lastFocusDetection2, "trackIdentifier")}];
-        v15 = v14;
-        if (v14)
+        v15 = [detectionsCopy detectionForTrackIdentifier:{objc_msgSend(lastFocusDetection2, "trackIdentifier")}];
+        v16 = v15;
+        if (v15)
         {
-          lastFocusDetection3 = v14;
+          lastFocusDetection3 = v15;
         }
 
         else
@@ -386,7 +388,7 @@ LABEL_13:
 
       else
       {
-        if (v12)
+        if (v13)
         {
           [PTCinematographyNetwork stepWithFrameDetections:];
         }
@@ -403,21 +405,20 @@ LABEL_13:
   {
   }
 
-  v31 = 0uLL;
-  v32 = 0;
+  v35 = 0uLL;
+  v36 = 0;
   if (detectionsCopy)
   {
-    [detectionsCopy presentationTime];
+    objc_msgSend_presentationTime(detectionsCopy);
   }
 
-  [(PTCinematographyNetwork *)self _setNetworkInputsFromNetworkDetections];
-  v17 = _PTLogSystem();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
+  v18 = _PTLogSystem([(PTCinematographyNetwork *)self _setNetworkInputsFromNetworkDetections]);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
 
-  if (v18)
+  if (v19)
   {
-    v19 = _PTLogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v21 = _PTLogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       [PTCinematographyNetwork stepWithFrameDetections:];
     }
@@ -426,13 +427,13 @@ LABEL_13:
   }
 
   _networkPredictionIndex = [(PTCinematographyNetwork *)self _networkPredictionIndex];
-  v21 = _PTLogSystem();
-  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG);
+  v23 = _PTLogSystem(_networkPredictionIndex);
+  v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG);
 
-  if (v22)
+  if (v24)
   {
-    v23 = _PTLogSystem();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v26 = _PTLogSystem(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       [PTCinematographyNetwork stepWithFrameDetections:];
     }
@@ -440,12 +441,13 @@ LABEL_13:
     [(PTCinematographyNetwork *)self _debugLogNetworkOutputs];
   }
 
-  v29 = v31;
-  v30 = v32;
-  if ([(PTCinematographyNetwork *)self _shouldIgnoreNetworkPredictionIndex:_networkPredictionIndex time:&v29])
+  v33 = v35;
+  v34 = v36;
+  v27 = [(PTCinematographyNetwork *)self _shouldIgnoreNetworkPredictionIndex:_networkPredictionIndex time:&v33];
+  if (v27)
   {
-    v24 = _PTLogSystem();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v28 = _PTLogSystem(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       [(PTCinematographyNetwork *)self stepWithFrameDetections:_networkPredictionIndex];
     }
@@ -459,9 +461,9 @@ LABEL_13:
     autoFocusDetection = [detectionsCopy autoFocusDetection];
   }
 
-  v29 = v31;
-  v30 = v32;
-  [(PTCinematographyNetwork *)self _updateLastNetworkPredictionIndex:_networkPredictionIndex time:&v29];
+  v33 = v35;
+  v34 = v36;
+  [(PTCinematographyNetwork *)self _updateLastNetworkPredictionIndex:_networkPredictionIndex time:&v33];
 LABEL_27:
   params2 = [(PTCinematographyNetwork *)self params];
   runOnlyWhenDetectorDidRun = [params2 runOnlyWhenDetectorDidRun];
@@ -514,7 +516,7 @@ LABEL_8:
   v18 = v17;
   if (v17)
   {
-    [v17 time];
+    objc_msgSend_time(v17);
   }
 
   else
@@ -522,13 +524,13 @@ LABEL_8:
     memset(&time1, 0, sizeof(time1));
   }
 
-  v21 = *time;
-  v19 = CMTimeCompare(&time1, &v21);
+  v22 = *time;
+  v19 = CMTimeCompare(&time1, &v22);
 
   if (v19 < 0)
   {
-    v20 = _PTLogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v21 = _PTLogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       [PTCinematographyNetwork _updateLastNetworkPredictionIndex:lastNetworkPredictionIndex time:?];
     }
@@ -568,17 +570,8 @@ LABEL_9:
 
       if (v8)
       {
-        v9 = _PTLogSystem();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-        {
-          [PTCinematographyNetwork _loadEspressoNetwork:];
-        }
-      }
-
-      else if (espresso_plan_build())
-      {
-        v9 = _PTLogSystem();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = _PTLogSystem(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           [PTCinematographyNetwork _loadEspressoNetwork:];
         }
@@ -586,94 +579,114 @@ LABEL_9:
 
       else
       {
-        [@"x" UTF8String];
-        if (espresso_network_bind_buffer())
+        v11 = espresso_plan_build();
+        if (v11)
         {
-          v12 = _PTLogSystem();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v10 = _PTLogSystem(v11);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             [PTCinematographyNetwork _loadEspressoNetwork:];
           }
         }
 
-        [@"hx_in" UTF8String];
-        if (espresso_network_bind_buffer())
+        else
         {
-          v13 = _PTLogSystem();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          [@"x" UTF8String];
+          v14 = espresso_network_bind_buffer();
+          if (v14)
+          {
+            v15 = _PTLogSystem(v14);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+            {
+              [PTCinematographyNetwork _loadEspressoNetwork:];
+            }
+          }
+
+          [@"hx_in" UTF8String];
+          v16 = espresso_network_bind_buffer();
+          if (v16)
+          {
+            v17 = _PTLogSystem(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            {
+              [PTCinematographyNetwork _loadEspressoNetwork:];
+            }
+          }
+
+          [@"cx_in" UTF8String];
+          v18 = espresso_network_bind_buffer();
+          if (v18)
+          {
+            v19 = _PTLogSystem(v18);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            {
+              [PTCinematographyNetwork _loadEspressoNetwork:];
+            }
+          }
+
+          [@"mask" UTF8String];
+          v20 = espresso_network_bind_buffer();
+          if (v20)
+          {
+            v21 = _PTLogSystem(v20);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            {
+              [PTCinematographyNetwork _loadEspressoNetwork:];
+            }
+          }
+
+          [@"hx_out" UTF8String];
+          v22 = espresso_network_bind_buffer();
+          if (v22)
+          {
+            v23 = _PTLogSystem(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            {
+              [PTCinematographyNetwork _loadEspressoNetwork:];
+            }
+          }
+
+          [@"cx_out" UTF8String];
+          v24 = espresso_network_bind_buffer();
+          if (v24)
+          {
+            v25 = _PTLogSystem(v24);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            {
+              [PTCinematographyNetwork _loadEspressoNetwork:];
+            }
+          }
+
+          [@"pred" UTF8String];
+          v26 = espresso_network_bind_buffer();
+          if (v26)
+          {
+            v27 = _PTLogSystem(v26);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            {
+              [PTCinematographyNetwork _loadEspressoNetwork:];
+            }
+          }
+
+          if (self->_x_in.height)
+          {
+            v12 = 1;
+            goto LABEL_14;
+          }
+
+          v10 = _PTLogSystem(v26);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             [PTCinematographyNetwork _loadEspressoNetwork:];
           }
-        }
-
-        [@"cx_in" UTF8String];
-        if (espresso_network_bind_buffer())
-        {
-          v14 = _PTLogSystem();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-          {
-            [PTCinematographyNetwork _loadEspressoNetwork:];
-          }
-        }
-
-        [@"mask" UTF8String];
-        if (espresso_network_bind_buffer())
-        {
-          v15 = _PTLogSystem();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-          {
-            [PTCinematographyNetwork _loadEspressoNetwork:];
-          }
-        }
-
-        [@"hx_out" UTF8String];
-        if (espresso_network_bind_buffer())
-        {
-          v16 = _PTLogSystem();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-          {
-            [PTCinematographyNetwork _loadEspressoNetwork:];
-          }
-        }
-
-        [@"cx_out" UTF8String];
-        if (espresso_network_bind_buffer())
-        {
-          v17 = _PTLogSystem();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-          {
-            [PTCinematographyNetwork _loadEspressoNetwork:];
-          }
-        }
-
-        [@"pred" UTF8String];
-        if (espresso_network_bind_buffer())
-        {
-          v18 = _PTLogSystem();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-          {
-            [PTCinematographyNetwork _loadEspressoNetwork:];
-          }
-        }
-
-        if (self->_x_in.height)
-        {
-          v10 = 1;
-          goto LABEL_14;
-        }
-
-        v9 = _PTLogSystem();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-        {
-          [PTCinematographyNetwork _loadEspressoNetwork:];
         }
       }
     }
 
     else
     {
-      v9 = _PTLogSystem();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _PTLogSystem(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [PTCinematographyNetwork _loadEspressoNetwork:];
       }
@@ -682,17 +695,17 @@ LABEL_9:
 
   else
   {
-    v9 = _PTLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _PTLogSystem(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PTCinematographyNetwork _loadEspressoNetwork:];
     }
   }
 
-  v10 = 0;
+  v12 = 0;
 LABEL_14:
 
-  return v10;
+  return v12;
 }
 
 - (BOOL)_shouldIgnoreNetworkPredictionIndex:(unint64_t)index time:(id *)time
@@ -717,7 +730,7 @@ LABEL_14:
   v13 = v12;
   if (v12)
   {
-    [v12 time];
+    objc_msgSend_time(v12);
   }
 
   else
@@ -765,7 +778,7 @@ LABEL_14:
       v12 = v11;
       if (v11)
       {
-        [v11 time];
+        objc_msgSend_time(v11);
       }
 
       else
@@ -806,7 +819,7 @@ LABEL_14:
   memset(&v41, 0, sizeof(v41));
   if (detectionsCopy)
   {
-    [detectionsCopy presentationTime];
+    objc_msgSend_presentationTime(detectionsCopy);
   }
 
   networkDetections = [(PTCinematographyNetwork *)self networkDetections];
@@ -832,7 +845,7 @@ LABEL_14:
     memset(&v40, 0, sizeof(v40));
     if (detectionsCopy)
     {
-      [detectionsCopy presentationTime];
+      objc_msgSend_presentationTime(detectionsCopy);
     }
 
     else
@@ -967,35 +980,35 @@ LABEL_14:
 
 - (unint64_t)_networkPredictionIndex
 {
-  espresso_plan_execute_sync();
+  v3 = espresso_plan_execute_sync();
   height = self->_pred_out.height;
   if (height < 2)
   {
-    v4 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
     data = self->_pred_out.data;
-    v6 = *data;
+    v7 = *data;
     for (i = 1; i != height; ++i)
     {
-      if (v6 < data[i])
+      if (v7 < data[i])
       {
-        v4 = i;
-        v6 = data[i];
+        v5 = i;
+        v7 = data[i];
       }
     }
   }
 
-  v8 = _PTLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _PTLogSystem(v3);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [PTCinematographyNetwork _networkPredictionIndex];
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)_detectionAtNetworkIndex:(unint64_t)index frameDetections:(id)detections
@@ -1006,8 +1019,8 @@ LABEL_14:
 
   if (v8)
   {
-    v9 = _PTLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _PTLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PTCinematographyNetwork _detectionAtNetworkIndex:index frameDetections:?];
     }
@@ -1021,26 +1034,26 @@ LABEL_14:
     }
 
     networkDetections = [(PTCinematographyNetwork *)self networkDetections];
-    v11 = [networkDetections count];
+    v12 = [networkDetections count];
 
-    if (v11 > index)
+    if (v12 > index)
     {
       networkDetections2 = [(PTCinematographyNetwork *)self networkDetections];
-      v13 = [networkDetections2 objectAtIndexedSubscript:index];
-      trackIdentifier = [v13 trackIdentifier];
+      v14 = [networkDetections2 objectAtIndexedSubscript:index];
+      trackIdentifier = [v14 trackIdentifier];
 
-      v15 = [detectionsCopy detectionForTrackIdentifier:trackIdentifier];
-      v16 = v15;
-      if (v15)
+      v16 = [detectionsCopy detectionForTrackIdentifier:trackIdentifier];
+      v17 = v16;
+      if (v16)
       {
-        index = v15;
+        index = v16;
       }
 
       else
       {
         networkDetections3 = [(PTCinematographyNetwork *)self networkDetections];
-        v19 = [networkDetections3 objectAtIndexedSubscript:index];
-        index = [v19 copy];
+        v20 = [networkDetections3 objectAtIndexedSubscript:index];
+        index = [v20 copy];
       }
 
       goto LABEL_10;
@@ -1325,7 +1338,7 @@ LABEL_10:
   v6 = v5;
   if (v5)
   {
-    [v5 time];
+    objc_msgSend_time(v5);
   }
 
   else
@@ -1350,7 +1363,7 @@ LABEL_10:
     v13 = v12;
     if (v12)
     {
-      [v12 time];
+      objc_msgSend_time(v12);
     }
 
     else
@@ -1368,7 +1381,7 @@ LABEL_10:
       v17 = v16;
       if (v16)
       {
-        [v16 time];
+        objc_msgSend_time(v16);
       }
 
       else
@@ -1421,7 +1434,7 @@ LABEL_10:
       v10 = v9;
       if (v9)
       {
-        [v9 time];
+        objc_msgSend_time(v9);
       }
 
       else
@@ -1483,18 +1496,18 @@ LABEL_10:
 
   if (index)
   {
-    v8 = _PTLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = _PTLogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [PTCinematographyNetwork _setMissingDetectionAtIndex:time:];
     }
   }
 
   networkDetections2 = [(PTCinematographyNetwork *)self networkDetections];
-  v10 = [networkDetections2 objectAtIndexedSubscript:index];
-  v11 = *&time->var0;
+  v11 = [networkDetections2 objectAtIndexedSubscript:index];
+  v12 = *&time->var0;
   var3 = time->var3;
-  [(PTCinematographyNetwork *)self _setDetection:v10 asInputRow:index time:&v11 missing:1];
+  [(PTCinematographyNetwork *)self _setDetection:v11 asInputRow:index time:&v12 missing:1];
 }
 
 - (BOOL)_shouldResetDetectionFromType:(unint64_t)type toType:(unint64_t)toType
@@ -1522,8 +1535,8 @@ LABEL_10:
     [PTCinematographyNetwork _setNetworkDetection:atIndex:time:];
   }
 
-  v11 = _PTLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = _PTLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [PTCinematographyNetwork _setNetworkDetection:atIndex:time:];
   }
@@ -1544,8 +1557,8 @@ LABEL_12:
   }
 
   networkDetections3 = [(PTCinematographyNetwork *)self networkDetections];
-  v15 = [networkDetections3 objectAtIndexedSubscript:index];
-  trackIdentifier = [v15 trackIdentifier];
+  v16 = [networkDetections3 objectAtIndexedSubscript:index];
+  trackIdentifier = [v16 trackIdentifier];
   if (trackIdentifier != [v9 trackIdentifier])
   {
 
@@ -1553,30 +1566,30 @@ LABEL_12:
   }
 
   networkDetections4 = [(PTCinematographyNetwork *)self networkDetections];
-  v17 = [networkDetections4 objectAtIndexedSubscript:index];
-  v18 = -[PTCinematographyNetwork _shouldResetDetectionFromType:toType:](self, "_shouldResetDetectionFromType:toType:", [v17 detectionType], objc_msgSend(v9, "detectionType"));
+  v18 = [networkDetections4 objectAtIndexedSubscript:index];
+  v19 = -[PTCinematographyNetwork _shouldResetDetectionFromType:toType:](self, "_shouldResetDetectionFromType:toType:", [v18 detectionType], objc_msgSend(v9, "detectionType"));
 
-  if (v18)
+  if (v19)
   {
 LABEL_13:
     unusedIndexes2 = [(PTCinematographyNetwork *)self unusedIndexes];
     [unusedIndexes2 removeIndex:index];
 
-    v23 = *&time->var0;
+    v24 = *&time->var0;
     var3 = time->var3;
-    [(PTCinematographyNetwork *)self _setDetection:v9 asInputRow:index time:&v23 missing:0];
+    [(PTCinematographyNetwork *)self _setDetection:v9 asInputRow:index time:&v24 missing:0];
     bzero(self->_hx_out.data + 4 * self->_hx_out.width * index, 4 * self->_hx_out.width);
     bzero(self->_cx_out.data + 4 * self->_cx_out.width * index, 4 * self->_cx_out.width);
     goto LABEL_14;
   }
 
-  v23 = *&time->var0;
+  v24 = *&time->var0;
   var3 = time->var3;
-  [(PTCinematographyNetwork *)self _setDetection:v9 asInputRow:index time:&v23 missing:0];
+  [(PTCinematographyNetwork *)self _setDetection:v9 asInputRow:index time:&v24 missing:0];
 LABEL_14:
-  v20 = [v9 copy];
+  v21 = [v9 copy];
   networkDetections5 = [(PTCinematographyNetwork *)self networkDetections];
-  [networkDetections5 setObject:v20 atIndexedSubscript:index];
+  [networkDetections5 setObject:v21 atIndexedSubscript:index];
 }
 
 - (void)_debugLogNetworkInputs
@@ -1612,14 +1625,13 @@ LABEL_14:
 
 - (void)_debugLogAllNetworkInputs
 {
-  v3 = _PTLogSystem();
+  v3 = _PTLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PTCinematographyNetwork _debugLogAllNetworkInputs];
   }
 
-  [(PTCinematographyNetwork *)self _debugLogNetworkInputs];
-  v4 = _PTLogSystem();
+  v4 = _PTLogSystem([(PTCinematographyNetwork *)self _debugLogNetworkInputs]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [PTCinematographyNetwork _debugLogAllNetworkInputs];
@@ -1627,34 +1639,34 @@ LABEL_14:
 
   if (self->_hx_in.height)
   {
-    v5 = 0;
+    v6 = 0;
     do
     {
-      _DebugLogEspressoBufferRow(&self->_hx_in.data, v5++);
+      _DebugLogEspressoBufferRow(&self->_hx_in.data, v6++);
     }
 
-    while (v5 < self->_hx_in.height);
+    while (v6 < self->_hx_in.height);
   }
 
-  v6 = _PTLogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = _PTLogSystem(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [PTCinematographyNetwork _debugLogAllNetworkInputs];
   }
 
   if (self->_cx_in.height)
   {
-    v7 = 0;
+    v9 = 0;
     do
     {
-      _DebugLogEspressoBufferRow(&self->_cx_in.data, v7++);
+      _DebugLogEspressoBufferRow(&self->_cx_in.data, v9++);
     }
 
-    while (v7 < self->_cx_in.height);
+    while (v9 < self->_cx_in.height);
   }
 
-  v8 = _PTLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v10 = _PTLogSystem(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [PTCinematographyNetwork _debugLogAllNetworkInputs];
   }

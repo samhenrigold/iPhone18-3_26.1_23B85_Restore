@@ -46,13 +46,11 @@
 
   v4 = objc_opt_class();
   v5 = objc_opt_class();
-  appId = self->_appId;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     sub_10AA0(a2, self, v4);
   }
 
-  anchor = self->_anchor;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     sub_10B08(a2, self, v5);
@@ -96,7 +94,9 @@
     v5 = objc_opt_class();
     if (v5 == objc_opt_class())
     {
-      LODWORD(self) = -[NSString isEqualToString:](selfCopy->_appId, "isEqualToString:", [equal appId]);
+      appId = selfCopy->_appId;
+      [equal appId];
+      LODWORD(self) = objc_msgSend_isEqualToString_(appId);
       if (self)
       {
         anchor = selfCopy->_anchor;

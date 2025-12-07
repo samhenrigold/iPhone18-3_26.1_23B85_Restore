@@ -13,35 +13,36 @@
 {
   scrollCopy = scroll;
   selfCopy = self;
-  sub_24E2262DC();
+  sub_24E2262DC(scrollCopy);
 }
 
 - (void)scrollViewWillBeginDecelerating:(id)decelerating
 {
   deceleratingCopy = decelerating;
   selfCopy = self;
-  sub_24E226370();
+  sub_24E226370(deceleratingCopy);
 }
 
 - (void)scrollViewDidEndDecelerating:(id)decelerating
 {
   deceleratingCopy = decelerating;
   selfCopy = self;
-  sub_24E226404();
+  sub_24E226404(deceleratingCopy);
 }
 
 - (void)scrollViewDidEndDragging:(id)dragging willDecelerate:(BOOL)decelerate
 {
+  decelerateCopy = decelerate;
   draggingCopy = dragging;
   selfCopy = self;
-  sub_24E226498();
+  sub_24E226498(draggingCopy, decelerateCopy);
 }
 
 - (void)scrollViewWillBeginDragging:(id)dragging
 {
   draggingCopy = dragging;
   selfCopy = self;
-  sub_24E226534();
+  sub_24E226534(draggingCopy);
 }
 
 - (void)scrollViewWillEndDragging:(id)dragging withVelocity:(CGPoint)velocity targetContentOffset:(CGPoint *)offset

@@ -5,16 +5,16 @@ os_log_t define_nph_log(char *category)
   return v1;
 }
 
-id nph_general_log()
+id nph_general_log(uint64_t a1)
 {
   if (qword_22A80 != -1)
   {
     sub_DE28();
   }
 
-  v1 = qword_22A78;
+  v2 = qword_22A78;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A20(id a1)
@@ -24,16 +24,16 @@ void sub_1A20(id a1)
   _objc_release_x1();
 }
 
-id nph_sos_general_log()
+id nph_sos_general_log(uint64_t a1)
 {
   if (qword_22A90 != -1)
   {
     sub_DE3C();
   }
 
-  v1 = qword_22A88;
+  v2 = qword_22A88;
 
-  return v1;
+  return v2;
 }
 
 void sub_1AA8(id a1)
@@ -43,16 +43,16 @@ void sub_1AA8(id a1)
   _objc_release_x1();
 }
 
-id nph_sos_newton_log()
+id nph_sos_newton_log(uint64_t a1)
 {
   if (qword_22AA0 != -1)
   {
     sub_DE50();
   }
 
-  v1 = qword_22A98;
+  v2 = qword_22A98;
 
-  return v1;
+  return v2;
 }
 
 void sub_1B30(id a1)
@@ -93,16 +93,16 @@ void sub_385C(uint64_t a1)
   [v2 setImage:*(a1 + 32)];
 }
 
-id CTSUServerQueue()
+id CTSUServerQueue(uint64_t a1)
 {
   if (qword_22AB0 != -1)
   {
     sub_DE64();
   }
 
-  v1 = qword_22AA8;
+  v2 = qword_22AA8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3AF4(id a1)
@@ -113,17 +113,17 @@ void sub_3AF4(id a1)
 
   if (!qword_22AA8)
   {
-    v3 = nph_general_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = nph_general_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315138;
-      v5 = "dispatch_queue_t CTSUServerQueue(void)_block_invoke";
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "%s - unable to create sCTServerQueue", &v4, 0xCu);
+      v5 = 136315138;
+      v6 = "dispatch_queue_t CTSUServerQueue(void)_block_invoke";
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "%s - unable to create sCTServerQueue", &v5, 0xCu);
     }
   }
 }
 
-uint64_t CTSUServerConnectionRef()
+uint64_t CTSUServerConnectionRef(uint64_t a1, uint64_t a2)
 {
   if (qword_22AC0 != -1)
   {
@@ -135,25 +135,25 @@ uint64_t CTSUServerConnectionRef()
 
 void sub_3BFC(id a1)
 {
-  _CTServerConnectionAddIdentifierException();
-  v1 = CTSUServerQueue();
+  v1 = _CTServerConnectionAddIdentifierException();
+  v2 = CTSUServerQueue(v1);
   qword_22AB8 = _CTServerConnectionCreateOnTargetQueue();
 
   if (!qword_22AB8)
   {
-    v2 = nph_general_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v4 = nph_general_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = 136315138;
-      v4 = "CTServerConnectionRef CTSUServerConnectionRef(void)_block_invoke";
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "%s - unable to create sCTServerConnectionRef", &v3, 0xCu);
+      v5 = 136315138;
+      v6 = "CTServerConnectionRef CTSUServerConnectionRef(void)_block_invoke";
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "%s - unable to create sCTServerConnectionRef", &v5, 0xCu);
     }
   }
 }
 
 void sub_3D00(id a1, __CFString *a2, __CFDictionary *a3)
 {
-  v5 = nph_general_log();
+  v5 = nph_general_log(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315650;
@@ -170,10 +170,11 @@ void sub_4060(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = nph_general_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = nph_general_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_DE8C();
     }
@@ -183,24 +184,24 @@ void sub_4060(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v8 = [v5 appDataUsageForPeriod:0];
-    v9 = nph_general_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v9 = [v5 appDataUsageForPeriod:0];
+    v10 = nph_general_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v15 = v8;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "App Data Usage Array: %@", buf, 0xCu);
+      v16 = v9;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "App Data Usage Array: %@", buf, 0xCu);
     }
 
-    v10 = *(a1 + 32);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_4214;
-    v11[3] = &unk_1C6F8;
-    v11[4] = v10;
-    v12 = v5;
-    v13 = *(a1 + 40);
-    [v10 _getappDataUsageArrayfromTempArray:v8 forSystemServices:0 withCompletion:v11];
+    v11 = *(a1 + 32);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_4214;
+    v12[3] = &unk_1C6F8;
+    v12[4] = v11;
+    v13 = v5;
+    v14 = *(a1 + 40);
+    [v11 _getappDataUsageArrayfromTempArray:v9 forSystemServices:0 withCompletion:v12];
   }
 }
 
@@ -225,9 +226,9 @@ void sub_42B4(uint64_t a1, void *a2)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_4620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_4620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -243,7 +244,7 @@ void sub_4668(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = nph_general_log();
+  v7 = nph_general_log(v6);
   v8 = v7;
   if (v6)
   {
@@ -303,16 +304,16 @@ void sub_4668(uint64_t a1, void *a2, void *a3)
   (*(v17 + 16))(v17, v18);
 }
 
-void sub_4DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_4DC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -344,7 +345,7 @@ void sub_4F50(id a1)
   [v3 setCountStyle:3];
 }
 
-uint64_t NPHDeviceOSIsInternalInstall()
+uint64_t NPHDeviceOSIsInternalInstall(uint64_t a1, uint64_t a2)
 {
   if (qword_22AD8 != -1)
   {
@@ -354,7 +355,7 @@ uint64_t NPHDeviceOSIsInternalInstall()
   return byte_22AE0;
 }
 
-uint64_t NPHDeviceHasBaseband()
+uint64_t NPHDeviceHasBaseband(uint64_t a1, uint64_t a2)
 {
   if (qword_22AE8 != -1)
   {
@@ -372,7 +373,7 @@ id NPHIsCerberusEnabled()
   return v1;
 }
 
-uint64_t NPHIsWalkaboutEnabled()
+uint64_t NPHIsWalkaboutEnabled(uint64_t a1, uint64_t a2)
 {
   if (qword_22AF8 != -1)
   {
@@ -451,10 +452,10 @@ void NPHSetTmpDirPrefix()
 
   if ((v2 & 1) == 0)
   {
-    v3 = nph_general_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = nph_general_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_DFDC(v3);
+      sub_DFDC(v4);
     }
   }
 }
@@ -532,12 +533,13 @@ void sub_5CD0(uint64_t a1)
 void sub_6E10(id a1, NSError *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = nph_general_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = nph_general_log(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_E094(v2, v3);
+      sub_E094(v3, v4);
     }
   }
 }
@@ -590,9 +592,9 @@ void sub_85F0(uint64_t a1)
   v8 = [v7 serviceSubscriptionsShouldShowAddNewRemotePlan];
   v9 = [v8 count];
 
-  v43[0] = @"activeCellularPlansSection";
-  v42[0] = @"key";
-  v42[1] = @"count";
+  v40[0] = @"activeCellularPlansSection";
+  v39[0] = @"key";
+  v39[1] = @"count";
   v10 = [*(a1 + 32) activeCellularPlans];
   v11 = [v10 count];
   if (&v6[v4])
@@ -616,66 +618,63 @@ void sub_85F0(uint64_t a1)
   }
 
   v14 = [NSNumber numberWithUnsignedInteger:v13];
-  v43[1] = v14;
-  v42[2] = @"header";
-  v15 = *(a1 + 32);
-  v16 = [NSBundle bundleForClass:objc_opt_class()];
-  v17 = [v16 localizedStringForKey:@"ACTIVE_CELLULAR_PLANS_HEADER" value:&stru_1CD90 table:0];
-  v43[2] = v17;
-  v18 = [NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:3];
-  [v2 addObject:v18];
+  v40[1] = v14;
+  v39[2] = @"header";
+  v15 = [NSBundle bundleForClass:objc_opt_class()];
+  v16 = [v15 localizedStringForKey:@"ACTIVE_CELLULAR_PLANS_HEADER" value:&stru_1CD90 table:0];
+  v40[2] = v16;
+  v17 = [NSDictionary dictionaryWithObjects:v40 forKeys:v39 count:3];
+  [v2 addObject:v17];
 
-  v19 = [*(a1 + 32) inactiveCellularPlans];
-  v20 = [v19 count];
+  v18 = [*(a1 + 32) inactiveCellularPlans];
+  v19 = [v18 count];
 
-  if (v20)
+  if (v19)
   {
-    v41[0] = @"inactiveCellularPlansSection";
-    v40[0] = @"key";
-    v40[1] = @"count";
-    v21 = [*(a1 + 32) inactiveCellularPlans];
-    v22 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v21 count]);
-    v41[1] = v22;
-    v40[2] = @"header";
-    v23 = *(a1 + 32);
-    v24 = [NSBundle bundleForClass:objc_opt_class()];
-    v25 = [v24 localizedStringForKey:@"DISABLED_CELLULAR_PLANS_HEADER" value:&stru_1CD90 table:0];
-    v41[2] = v25;
-    v26 = [NSDictionary dictionaryWithObjects:v41 forKeys:v40 count:3];
-    [v2 addObject:v26];
+    v38[0] = @"inactiveCellularPlansSection";
+    v37[0] = @"key";
+    v37[1] = @"count";
+    v20 = [*(a1 + 32) inactiveCellularPlans];
+    v21 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v20 count]);
+    v38[1] = v21;
+    v37[2] = @"header";
+    v22 = [NSBundle bundleForClass:objc_opt_class()];
+    v23 = [v22 localizedStringForKey:@"DISABLED_CELLULAR_PLANS_HEADER" value:&stru_1CD90 table:0];
+    v38[2] = v23;
+    v24 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:3];
+    [v2 addObject:v24];
   }
 
   if ([*(a1 + 32) _shouldShowCellularDataUsage])
   {
-    v39[0] = @"appsDataUsageSection";
-    v38[0] = @"key";
-    v38[1] = @"count";
-    v27 = [*(a1 + 32) appsDataUsageArray];
-    v28 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v27 count]);
-    v39[1] = v28;
-    v38[2] = @"header";
-    v29 = *(a1 + 32);
-    v30 = [NSBundle bundleForClass:objc_opt_class()];
-    v31 = [v30 localizedStringForKey:@"CELLULAR_DATA_USAGE_GROUP_HEADER" value:&stru_1CD90 table:0];
-    v39[2] = v31;
-    v32 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:3];
-    [v2 addObject:v32];
+    v36[0] = @"appsDataUsageSection";
+    v35[0] = @"key";
+    v35[1] = @"count";
+    v25 = [*(a1 + 32) appsDataUsageArray];
+    v26 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v25 count]);
+    v36[1] = v26;
+    v35[2] = @"header";
+    v27 = [NSBundle bundleForClass:objc_opt_class()];
+    v28 = [v27 localizedStringForKey:@"CELLULAR_DATA_USAGE_GROUP_HEADER" value:&stru_1CD90 table:0];
+    v36[2] = v28;
+    v29 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:3];
+    [v2 addObject:v29];
 
-    v36[0] = @"key";
-    v36[1] = @"count";
-    v37[0] = @"resetDataUsageSection";
-    v37[1] = &off_1DDC8;
-    v36[2] = @"header";
-    v37[2] = &stru_1CD90;
-    v33 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:3];
-    [v2 addObject:v33];
+    v33[0] = @"key";
+    v33[1] = @"count";
+    v34[0] = @"resetDataUsageSection";
+    v34[1] = &off_1DDC8;
+    v33[2] = @"header";
+    v34[2] = &stru_1CD90;
+    v30 = [NSDictionary dictionaryWithObjects:v34 forKeys:v33 count:3];
+    [v2 addObject:v30];
   }
 
-  v34 = [v2 copy];
-  [*(a1 + 32) setSections:v34];
+  v31 = [v2 copy];
+  [*(a1 + 32) setSections:v31];
 
-  v35 = [*(a1 + 32) tableView];
-  [v35 reloadData];
+  v32 = [*(a1 + 32) tableView];
+  [v32 reloadData];
 }
 
 BOOL sub_8AFC(id a1, NSError *a2)
@@ -712,7 +711,7 @@ void sub_8C38(uint64_t a1)
 void sub_8CF8(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = nph_general_log();
+  v6 = nph_general_log(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
@@ -775,7 +774,7 @@ void sub_90FC(uint64_t a1, char a2, void *a3)
 
 void sub_9198(int8x16_t *a1)
 {
-  v2 = nph_general_log();
+  v2 = nph_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[3].u8[0];
@@ -831,23 +830,22 @@ BOOL sub_9C90(id a1, NSError *a2)
 
 id sub_9F30(uint64_t a1)
 {
-  v2 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = nph_general_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v2 = nph_general_log(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      sub_E1F0(v2);
+      sub_E1F0();
     }
 
     [*(a1 + 40) presentError:*(a1 + 32)];
   }
 
-  v4 = [*(a1 + 48) objectForKeyedSubscript:kActiveCellularPlans];
-  [*(a1 + 40) setActiveCellularPlans:v4];
+  v3 = [*(a1 + 48) objectForKeyedSubscript:kActiveCellularPlans];
+  [*(a1 + 40) setActiveCellularPlans:v3];
 
-  v5 = [*(a1 + 48) objectForKeyedSubscript:kInactiveCellularPlans];
-  [*(a1 + 40) setInactiveCellularPlans:v5];
+  v4 = [*(a1 + 48) objectForKeyedSubscript:kInactiveCellularPlans];
+  [*(a1 + 40) setInactiveCellularPlans:v4];
 
   [*(a1 + 40) _promptUserForConsentIfNecessary];
   return [*(a1 + 40) _updateTableView];
@@ -863,7 +861,7 @@ id sub_A10C(uint64_t a1, uint64_t a2)
 
 void sub_A2E4(id a1)
 {
-  v1 = nph_general_log();
+  v1 = nph_general_log(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v2 = 136315138;
@@ -885,7 +883,7 @@ void sub_A514(uint64_t a1, uint64_t a2)
 
 void sub_A584(uint64_t a1)
 {
-  v2 = nph_general_log();
+  v2 = nph_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -919,7 +917,7 @@ void sub_A584(uint64_t a1)
 
 void sub_ACCC(uint64_t a1)
 {
-  v2 = nph_general_log();
+  v2 = nph_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -953,7 +951,7 @@ void sub_ACCC(uint64_t a1)
 
 id sub_B28C(uint64_t a1)
 {
-  v2 = nph_general_log();
+  v2 = nph_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -984,57 +982,57 @@ void sub_B4F4(uint64_t a1, char a2, void *a3)
 
 void sub_B5B8(uint64_t a1)
 {
-  v2 = nph_general_log();
+  v2 = nph_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 56);
     v4 = *(a1 + 32);
-    v13 = 136315650;
-    v14 = "[NPHCSBridgeCellularSettingsViewController _removePlan:]_block_invoke_2";
-    v15 = 1024;
-    v16 = v3;
-    v17 = 2112;
-    v18 = v4;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "%s wasSuccessful:%d error:%@", &v13, 0x1Cu);
+    v15 = 136315650;
+    v16 = "[NPHCSBridgeCellularSettingsViewController _removePlan:]_block_invoke_2";
+    v17 = 1024;
+    v18 = v3;
+    v19 = 2112;
+    v20 = v4;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "%s wasSuccessful:%d error:%@", &v15, 0x1Cu);
   }
 
   if ((*(a1 + 56) & 1) == 0)
   {
-    v5 = *(a1 + 32);
-    if (v5)
+    v6 = *(a1 + 32);
+    if (v6)
     {
-      v6 = +[NPHCellularBridgeUIManager sharedInstance];
-      v7 = [v6 subscriptionContextForCellularPlanItem:*(a1 + 40)];
-      v8 = [NSError NPHCellularSanitizedError:v5 forSubscriptionContext:v7];
+      v7 = +[NPHCellularBridgeUIManager sharedInstance];
+      v8 = [v7 subscriptionContextForCellularPlanItem:*(a1 + 40)];
+      v9 = [NSError NPHCellularSanitizedError:v6 forSubscriptionContext:v8];
 
-      v9 = nph_general_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = nph_general_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_E27C();
       }
 
-      [*(a1 + 48) presentError:v8];
+      [*(a1 + 48) presentError:v9];
     }
 
     else
     {
-      v10 = nph_general_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = nph_general_log(v5);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_E2F8();
       }
 
-      v11 = *(a1 + 48);
-      v8 = [NSBundle bundleForClass:objc_opt_class()];
-      v12 = [v8 localizedStringForKey:@"REMOVE_PLAN_UNSUCCESSFUL" value:&stru_1CD90 table:0];
-      [v11 presentErrorMessage:v12];
+      v13 = *(a1 + 48);
+      v9 = [NSBundle bundleForClass:objc_opt_class()];
+      v14 = [v9 localizedStringForKey:@"REMOVE_PLAN_UNSUCCESSFUL" value:&stru_1CD90 table:0];
+      [v13 presentErrorMessage:v14];
     }
   }
 }
 
 void sub_B968(id a1)
 {
-  v1 = nph_general_log();
+  v1 = nph_general_log(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_E378();
@@ -1045,7 +1043,7 @@ void sub_B9AC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = nph_general_log();
+  v7 = nph_general_log(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136315650;
@@ -1312,11 +1310,11 @@ void sub_D130()
   sub_D458(v15, v16, 0, v17);
 }
 
-id sub_D330()
+id sub_D330(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for NPHCSCellularUsageHeaderView();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for NPHCSCellularUsageHeaderView();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 void sub_D3F4(uint64_t a1, uint64_t a2, void *a3)
@@ -1338,7 +1336,6 @@ uint64_t sub_D4CC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1359,13 +1356,6 @@ unint64_t sub_D514()
   return result;
 }
 
-uint64_t sub_D558@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *(v2 + a2);
-  *(v2 + a2) = a1;
-  return _objc_release_x1();
-}
-
 id sub_D56C()
 {
   v3 = *(v1 + 1024);
@@ -1373,7 +1363,7 @@ id sub_D56C()
   return [v0 v3];
 }
 
-uint64_t *sub_D588()
+void *sub_D588()
 {
   type metadata accessor for Localization();
   swift_allocObject();
@@ -1382,11 +1372,10 @@ uint64_t *sub_D588()
   return result;
 }
 
-uint64_t *sub_D5C4()
+void *sub_D5C4()
 {
   v0[3] = 0x617A696C61636F4CLL;
   v0[4] = 0xEB00000000656C62;
-  v1 = *v0;
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   v0[2] = [objc_opt_self() bundleForClass:ObjCClassFromMetadata];
   return v0;
@@ -1398,14 +1387,7 @@ uint64_t sub_D65C(Swift::String a1)
   v4._countAndFlagsBits = 0xE000000000000000;
   v5._countAndFlagsBits = 0;
   v5._object = 0xE000000000000000;
-  return sub_E3F8(a1, *(v1 + 24), v2, v5, v4);
-}
-
-uint64_t sub_D698()
-{
-  v1 = *(v0 + 32);
-
-  return v0;
+  return sub_E3F8(a1, *(v1 + 24), v2, v5, 0, v4);
 }
 
 uint64_t sub_D6C0()
@@ -1413,13 +1395,6 @@ uint64_t sub_D6C0()
   sub_D698();
 
   return _swift_deallocClassInstance(v0, 40, 7);
-}
-
-uint64_t sub_D7B8(uint64_t a1)
-{
-  v2 = *(v1 + OBJC_IVAR____TtC22CellularBridgeSettings24NPHCSFooterHyperLinkView_textView);
-  *(v1 + OBJC_IVAR____TtC22CellularBridgeSettings24NPHCSFooterHyperLinkView_textView) = a1;
-  return _objc_release_x1();
 }
 
 id sub_D7CC(uint64_t a1, uint64_t a2)
@@ -1510,11 +1485,11 @@ void sub_D928()
   [v30 activateConstraints:isa];
 }
 
-id sub_DD8C()
+id sub_DD8C(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for NPHCSFooterHyperLinkView();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for NPHCSFooterHyperLinkView();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 id sub_DDF4()
@@ -1569,13 +1544,6 @@ void sub_E174()
   sub_5014();
   sub_C124();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-}
-
-void sub_E1F0(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_C124();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 void sub_E27C()

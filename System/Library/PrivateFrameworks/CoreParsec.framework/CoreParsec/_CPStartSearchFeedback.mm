@@ -105,7 +105,6 @@ LABEL_14:
   to;
   if ([(_CPStartSearchFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -113,7 +112,6 @@ LABEL_14:
 
   if (input)
   {
-    input = self->_input;
     PBDataWriterWriteStringField();
   }
 
@@ -121,25 +119,21 @@ LABEL_14:
 
   if (uuid)
   {
-    uuid = self->_uuid;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPStartSearchFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPStartSearchFeedback *)self queryId])
   {
-    queryId = self->_queryId;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPStartSearchFeedback *)self searchType])
   {
-    searchType = self->_searchType;
     PBDataWriterWriteInt32Field();
   }
 

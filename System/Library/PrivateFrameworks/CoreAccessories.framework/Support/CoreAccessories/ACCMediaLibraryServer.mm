@@ -5,6 +5,7 @@
 - (BOOL)findMediaLibraryInfoSync:(id)sync block:(id)block;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (BOOL)nexUpdateStartFull:(id)full accessory:(id)accessory;
+- (void)accessoryMediaLibraryAttached:(id)attached windowPerLibrary:(unsigned int)library;
 - (void)accessoryMediaLibraryDetached:(id)detached;
 - (void)accessoryMediaLibraryUpdate:(id)update windowPerLibrary:(unsigned int)library;
 - (void)confirmPlaylistContentUpdate:(id)update library:(id)library lastRevision:(id)revision;
@@ -1167,6 +1168,63 @@ void __60__ACCMediaLibraryServer_listener_shouldAcceptNewConnection___block_invo
   *a3 = 1;
 }
 
+- (void)accessoryMediaLibraryAttached:(id)attached windowPerLibrary:(unsigned int)library
+{
+  v4 = *&library;
+  attachedCopy = attached;
+  if (gLogObjects)
+  {
+    v7 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  if (v7)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v9 = &_os_log_default;
+    v8 = &_os_log_default;
+  }
+
+  else
+  {
+    v9 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412546;
+    v17 = attachedCopy;
+    v18 = 1024;
+    v19 = v4;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "MediaLibrary server, accessoryMediaLibraryAttached: connection %@, windowPerLibrary %d", buf, 0x12u);
+  }
+
+  v10 = [(NSMutableDictionary *)self->_registeredAccessoryConnections objectForKey:attachedCopy];
+
+  if (!v10)
+  {
+    v11 = [[_ACCMediaLibraryAccessoryInfo alloc] initWithUID:attachedCopy windowPerLibrary:v4];
+    [(NSMutableDictionary *)self->_registeredAccessoryConnections setObject:v11 forKey:attachedCopy];
+  }
+
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = __72__ACCMediaLibraryServer_accessoryMediaLibraryAttached_windowPerLibrary___block_invoke;
+  v13[3] = &unk_100229D50;
+  v14 = attachedCopy;
+  v15 = v4;
+  v12 = attachedCopy;
+  [(ACCMediaLibraryServer *)self iterateMediaLibraryProviderListSync:v13];
+}
+
 void __72__ACCMediaLibraryServer_accessoryMediaLibraryAttached_windowPerLibrary___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = [a2 remoteObject];
@@ -1414,9 +1472,8 @@ void __70__ACCMediaLibraryServer_accessoryMediaLibraryUpdate_windowPerLibrary___
 
 void __167__ACCMediaLibraryServer_startMediaLibraryUpdate_library_lastRevision_mediaItemProperties_playlistProperties_playlistContentStyle_playlistContentProperties_reqOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v4 = [a2 remoteObject];
-  v3 = *(a1 + 72);
-  [v4 startMediaLibraryUpdate:*(a1 + 32) library:*(a1 + 40) lastRevision:*(a1 + 48) mediaItemProperties:*(a1 + 56) playlistProperties:*(a1 + 64) playlistContentStyle:*(a1 + 88) playlistContentProperties:v3 reqOptions:*(a1 + 80)];
+  v3 = [a2 remoteObject];
+  [v3 startMediaLibraryUpdate:*(a1 + 32) library:*(a1 + 40) lastRevision:*(a1 + 48) mediaItemProperties:*(a1 + 56) playlistProperties:*(a1 + 64) playlistContentStyle:*(a1 + 88) playlistContentProperties:*(a1 + 72) reqOptions:*(a1 + 80)];
 }
 
 - (void)stopMediaLibraryUpdate:(id)update library:(id)library

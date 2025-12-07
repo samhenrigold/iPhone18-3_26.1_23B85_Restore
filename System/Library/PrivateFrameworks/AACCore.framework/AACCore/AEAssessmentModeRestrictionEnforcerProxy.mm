@@ -70,16 +70,11 @@
 - (void)shouldBeginRestrictingForAssessmentModeWithCompletion:(id)completion
 {
   completionCopy = completion;
-  if (self)
-  {
-    queue = self->_queue;
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v16 = v6;
-  v7 = v6;
-  OUTLINED_FUNCTION_3_0(v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  v15 = v5;
+  v6 = v5;
+  OUTLINED_FUNCTION_3_0(v6, v7, v8, v9, v10, v11, v12, v13, v14);
 }
 
 void __98__AEAssessmentModeRestrictionEnforcerProxy_shouldBeginRestrictingForAssessmentModeWithCompletion___block_invoke(uint64_t a1)
@@ -100,32 +95,21 @@ void __98__AEAssessmentModeRestrictionEnforcerProxy_shouldBeginRestrictingForAss
 void __98__AEAssessmentModeRestrictionEnforcerProxy_shouldBeginRestrictingForAssessmentModeWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  if (v4)
-  {
-    v5 = *(v4 + 16);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v15 = *(a1 + 40);
-  v6 = v3;
-  OUTLINED_FUNCTION_3_0(v6, v7, v8, v9, v10, v11, v12, v13, v14);
+  v13 = *(a1 + 40);
+  v4 = v3;
+  OUTLINED_FUNCTION_3_0(v4, v5, v6, v7, v8, v9, v10, v11, v12);
 }
 
 - (void)shouldEndRestrictingForAssessmentModeWithCompletion:(id)completion
 {
   completionCopy = completion;
-  if (self)
-  {
-    queue = self->_queue;
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v16 = v6;
-  v7 = v6;
-  OUTLINED_FUNCTION_3_0(v7, v8, v9, v10, v11, v12, v13, v14, v15);
+  v15 = v5;
+  v6 = v5;
+  OUTLINED_FUNCTION_3_0(v6, v7, v8, v9, v10, v11, v12, v13, v14);
 }
 
 void __96__AEAssessmentModeRestrictionEnforcerProxy_shouldEndRestrictingForAssessmentModeWithCompletion___block_invoke(uint64_t a1)
@@ -146,17 +130,11 @@ void __96__AEAssessmentModeRestrictionEnforcerProxy_shouldEndRestrictingForAsses
 void __96__AEAssessmentModeRestrictionEnforcerProxy_shouldEndRestrictingForAssessmentModeWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  if (v4)
-  {
-    v5 = *(v4 + 16);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4_0();
-  v15 = *(a1 + 40);
-  v6 = v3;
-  OUTLINED_FUNCTION_3_0(v6, v7, v8, v9, v10, v11, v12, v13, v14);
+  v13 = *(a1 + 40);
+  v4 = v3;
+  OUTLINED_FUNCTION_3_0(v4, v5, v6, v7, v8, v9, v10, v11, v12);
 }
 
 @end

@@ -1,7 +1,7 @@
 @interface SMSuggestionEnumerationOptions
++ (id)getEnumerationOptionsForLatestSuggestionSortedByCreationDateIncludeSuppressed:(BOOL)suppressed filteredToSuggestionTriggers:(id)triggers filteredToSuggestionUserTypes:(id)types filteredToSessionTypes:(id)sessionTypes;
 - (SMSuggestionEnumerationOptions)initWithBatchSize:(unint64_t)size fetchLimit:(unint64_t)limit offset:(unint64_t)offset includeSuppressed:(BOOL)suppressed sortByCreationDate:(BOOL)date ascending:(BOOL)ascending dateInterval:(id)interval filteredToSuggestionTriggers:(id)self0 filteredToSuggestionUserTypes:(id)self1 filteredToSessionTypes:(id)self2;
 - (SMSuggestionEnumerationOptions)initWithCoder:(id)coder;
-- (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -33,13 +33,6 @@
   }
 
   return v19;
-}
-
-- (id)copyWithZone:(_NSZone *)zone
-{
-  v4 = [objc_opt_class() allocWithZone:zone];
-  filteredToSuggestionUserTypes = self->_filteredToSuggestionUserTypes;
-  return [v4 initWithBatchSize:self->_batchSize fetchLimit:self->_fetchLimit offset:self->_offset includeSuppressed:self->_includeSuppressed sortByCreationDate:self->_sortByCreationDate ascending:self->_ascending dateInterval:self->_dateInterval filteredToSuggestionTriggers:self->_filteredToSuggestionTriggers filteredToSuggestionUserTypes:filteredToSuggestionUserTypes filteredToSessionTypes:self->_filteredToSessionTypes];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -119,6 +112,17 @@
   v13 = [v15 stringWithFormat:@"batchSize, %lu, fetchLimit, %lu, offset, %lu, include suppressed, %@, sort by creation date, %@, ascending, %@, dateinterval, %@, filteredToSuggestionTriggers, %@, filteredToSuggestionUserTypes, %@, filteredToSessionTypes, %@", batchSize, fetchLimit, offset, v6, v7, v8, dateInterval, filteredToSuggestionTriggers, filteredToSuggestionUserTypes, filteredToSessionTypes];
 
   return v13;
+}
+
++ (id)getEnumerationOptionsForLatestSuggestionSortedByCreationDateIncludeSuppressed:(BOOL)suppressed filteredToSuggestionTriggers:(id)triggers filteredToSuggestionUserTypes:(id)types filteredToSessionTypes:(id)sessionTypes
+{
+  suppressedCopy = suppressed;
+  sessionTypesCopy = sessionTypes;
+  typesCopy = types;
+  triggersCopy = triggers;
+  v12 = [[SMSuggestionEnumerationOptions alloc] initWithBatchSize:0 fetchLimit:1 offset:0 includeSuppressed:suppressedCopy sortByCreationDate:1 ascending:0 dateInterval:0 filteredToSuggestionTriggers:triggersCopy filteredToSuggestionUserTypes:typesCopy filteredToSessionTypes:sessionTypesCopy];
+
+  return v12;
 }
 
 @end

@@ -69,7 +69,7 @@
 
 + (id)_arrayFromValues:(uint64_t)values
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   objc_opt_class();
@@ -89,76 +89,73 @@ LABEL_5:
   }
 
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = v2;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v4 addObject:{*(*(&v12 + 1) + 8 * i), v12}];
+        [v4 addObject:{*(*(&v11 + 1) + 8 * i), v11}];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
 LABEL_14:
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)bindToStatement:(sqlite3_stmt *)statement bindingIndex:(int *)index
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_values;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        HDSQLiteBindFoundationValueToStatement(statement, *index, *(*(&v12 + 1) + 8 * v10));
+        HDSQLiteBindFoundationValueToStatement(statement, *index, *(*(&v11 + 1) + 8 * v10));
         ++*index;
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal

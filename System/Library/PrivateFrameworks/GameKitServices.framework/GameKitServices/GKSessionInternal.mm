@@ -4,6 +4,7 @@
 - (BOOL)isPeerBusy:(id)busy;
 - (BOOL)parseServiceName:(const char *)name intoDisplayName:(id *)displayName pid:(unsigned int *)pid state:(id *)state;
 - (BOOL)passesSendDataSanityCheck:(id)check toPeers:(id)peers withDataMode:(unsigned int)mode error:(id *)error;
+- (BOOL)sendData:(id)data toPeers:(id)peers withDataMode:(unsigned int)mode enableOOB:(BOOL)b error:(id *)error;
 - (BOOL)sendDataToAllPeers:(id)peers withDataMode:(unsigned int)mode error:(id *)error;
 - (BOOL)tryConnectToPeer:(id)peer;
 - (GKSessionInternal)initWithConnection:(id)connection session:(id)session delegate:(id)delegate;
@@ -21,23 +22,28 @@
 - (void)dealloc;
 - (void)denyConnectionFromPeer:(id)peer;
 - (void)didFindService:(const char *)service fromIF:(const char *)f withError:(int)error moreComing:(BOOL)coming;
+- (void)didLookupHostname:(_DNSServiceRef_t *)hostname forPeer:(id)peer hostName:(const char *)name address:(const sockaddr_in *)address interface:(unsigned int)interface withError:(int)error moreComing:(BOOL)coming;
 - (void)didPublishWithError:(int)error;
 - (void)didRemoveService:(const char *)service fromIF:(const char *)f withError:(int)error moreComing:(BOOL)coming;
+- (void)didResolveService:(_DNSServiceRef_t *)service forPeer:(id)peer hostName:(const char *)name port:(unsigned __int16)port interface:(unsigned int)interface txtLen:(unsigned __int16)len txtRecord:(const void *)record withError:(int)self0 moreComing:(BOOL)self1;
+- (void)didUpdateTXTRecordForPeer:(id)peer fromIF:(const char *)f txtLen:(unsigned __int16)len txtRecord:(const void *)record withError:(int)error moreComing:(BOOL)coming;
 - (void)disconnectFromAllPeers;
 - (void)disconnectPeerFromAllPeers:(id)peers;
 - (void)handleEvents;
+- (void)handleNewGKOOBAudioMessage:(id)message messageData:(id)data remotePID:(unsigned int)d callbackData:(id *)callbackData maxCallbackCount:(int)count checkDelegateCallbackSelector:(BOOL *)selector tellDelegateSelector:(SEL *)delegateSelector callbackCount:(int *)self0;
 - (void)lock;
 - (void)processTXTRecordForPeer:(id)peer txtLen:(unsigned __int16)len txtRecord:(const void *)record;
 - (void)publish;
 - (void)receiveDOOB:(id)b fromPeer:(id)peer inSession:(id)session context:(void *)context;
 - (void)reset;
+- (void)sendCallbacksToDelegate:(id *)delegate remotePeer:(unsigned int)peer;
 - (void)setAvailable:(BOOL)available;
 - (void)setBusy:(BOOL)busy;
 - (void)setDOOBReceiveHandler:(id)handler withContext:(void *)context inBand:(unsigned int)band;
 - (void)setDataReceiveHandler:(id)handler withContext:(void *)context;
 - (void)setDelegate:(id)delegate;
+- (void)setDisplayName:(id)name forPeer:(unsigned int)peer;
 - (void)setPrivateDelegate:(id)delegate;
-- (void)setWifiEnabled:(BOOL)enabled;
 - (void)stopOldService;
 - (void)stopResolvingAllPeers;
 - (void)tellDelegate_connectionRequestToPeerFailed:(id)failed;
@@ -64,7 +70,7 @@
 - (id)newNSErrorFromHRESULT:(int)t description:(id)description reason:(id)reason
 {
   v6 = 0;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (description && reason)
   {
     v9 = objc_alloc(MEMORY[0x277CBEAC0]);
@@ -80,27 +86,26 @@
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v16 = v11;
-      v17 = 2080;
-      v18 = "[GKSessionInternal(_private) newNSErrorFromHRESULT:description:reason:]";
-      v19 = 1024;
-      v20 = 733;
-      v21 = 1024;
+      v15 = v11;
+      v16 = 2080;
+      v17 = "[GKSessionInternal(_private) newNSErrorFromHRESULT:description:reason:]";
+      v18 = 1024;
+      v19 = 733;
+      v20 = 1024;
       tCopy = t;
-      v23 = 2112;
+      v22 = 2112;
       localizedDescription = [v10 localizedDescription];
       _os_log_error_impl(&dword_24E50C000, v12, OS_LOG_TYPE_ERROR, " [%s] %s:%d Error: %d -- %@.", buf, 0x2Cu);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (id)newNSErrorFromGKSessionError:(int)error description:(id)description reason:(id)reason
 {
   v6 = 0;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (description && reason)
   {
     v9 = objc_alloc(MEMORY[0x277CBEAC0]);
@@ -116,21 +121,83 @@
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v16 = v11;
-      v17 = 2080;
-      v18 = "[GKSessionInternal(_private) newNSErrorFromGKSessionError:description:reason:]";
-      v19 = 1024;
-      v20 = 747;
-      v21 = 1024;
+      v15 = v11;
+      v16 = 2080;
+      v17 = "[GKSessionInternal(_private) newNSErrorFromGKSessionError:description:reason:]";
+      v18 = 1024;
+      v19 = 747;
+      v20 = 1024;
       errorCopy = error;
-      v23 = 2112;
+      v22 = 2112;
       localizedDescription = [v10 localizedDescription];
       _os_log_error_impl(&dword_24E50C000, v12, OS_LOG_TYPE_ERROR, " [%s] %s:%d Error: %d -- %@.", buf, 0x2Cu);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
+}
+
+- (void)setDisplayName:(id)name forPeer:(unsigned int)peer
+{
+  v4 = *&peer;
+  v30 = *MEMORY[0x277D85DE8];
+  v7 = [(GKTable *)self->_peerInfoTable objectForKey:*&peer];
+  if (v7)
+  {
+    v8 = v7;
+    if (VRTraceGetErrorLogLevelForModule() >= 7)
+    {
+      v9 = VRTraceErrorLogLevelToCSTR();
+      v10 = *MEMORY[0x277CE5818];
+      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+      {
+        displayName = [v8 displayName];
+        displayName = self->_displayName;
+        v16 = 136316674;
+        v17 = v9;
+        v18 = 2080;
+        v19 = "[GKSessionInternal(_private) setDisplayName:forPeer:]";
+        v20 = 1024;
+        v21 = 768;
+        v22 = 1024;
+        v23 = v4;
+        v24 = 2112;
+        nameCopy2 = displayName;
+        v26 = 2112;
+        nameCopy = name;
+        v28 = 2112;
+        v29 = displayName;
+        _os_log_impl(&dword_24E50C000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d setDisplayNameForPeer: %d => %@ (try set to %@)  (this is %@)", &v16, 0x40u);
+      }
+    }
+
+    [v8 tryDetruncateDisplayName:name];
+    name = [v8 displayName];
+  }
+
+  [(GKTable *)self->_peerNameTable setObject:name forKey:v4];
+  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    v13 = VRTraceErrorLogLevelToCSTR();
+    v14 = *MEMORY[0x277CE5818];
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = self->_displayName;
+      v16 = 136316418;
+      v17 = v13;
+      v18 = 2080;
+      v19 = "[GKSessionInternal(_private) setDisplayName:forPeer:]";
+      v20 = 1024;
+      v21 = 775;
+      v22 = 1024;
+      v23 = v4;
+      v24 = 2112;
+      nameCopy2 = name;
+      v26 = 2112;
+      nameCopy = v15;
+      _os_log_impl(&dword_24E50C000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d setDisplayNameForPeer: %d => %@  (this is %@)", &v16, 0x36u);
+    }
+  }
 }
 
 - (void)tellDelegate_sessionDidFailWithError:(id)error
@@ -161,7 +228,7 @@
 
 - (void)tellDelegate_didConnectPeer:(id)peer
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (self->_shutdown)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -177,13 +244,13 @@
   }
 
   v5 = [peer objectForKeyedSubscript:@"peerID"];
-  v30 = 0;
+  v29 = 0;
   v6 = [peer objectForKeyedSubscript:@"data"];
   v7 = 2;
   if (v6)
   {
-    [v6 getBytes:&v30 length:4];
-    if (v30)
+    [v6 getBytes:&v29 length:4];
+    if (v29)
     {
       v7 = 5;
     }
@@ -205,7 +272,7 @@
     {
       if (privateDelegate)
       {
-        v28 = [-[GKSessionPrivateDelegate description](privateDelegate "description")];
+        uTF8String = [objc_msgSend_description(privateDelegate) UTF8String];
         if (delegate)
         {
           goto LABEL_13;
@@ -214,34 +281,34 @@
 
       else
       {
-        v28 = "<nil>";
+        uTF8String = "<nil>";
         if (delegate)
         {
 LABEL_13:
-          v12 = [-[GKSessionDelegate description](delegate description];
+          v12 = [objc_msgSend_description(delegate uTF8String)];
           if (v5)
           {
 LABEL_14:
-            v13 = [objc_msgSend(v5 description];
+            v13 = [objc_msgSend_description(v5 uTF8String)];
 LABEL_18:
             v14 = [(GKList *)self->_peersConnected count];
             maxPeers = self->maxPeers;
             *buf = 136316930;
-            v32 = v10;
-            v33 = 2080;
-            v34 = "[GKSessionInternal(_private) tellDelegate_didConnectPeer:]";
-            v35 = 1024;
-            v36 = 820;
-            v37 = 2080;
-            v38 = v29;
-            v39 = 2080;
-            v40 = v12;
-            v41 = 2080;
-            *v42 = v13;
-            *&v42[8] = 1024;
-            v43 = v14 + 1;
-            v44 = 1024;
-            v45 = maxPeers;
+            v31 = v10;
+            v32 = 2080;
+            v33 = "[GKSessionInternal(_private) tellDelegate_didConnectPeer:]";
+            v34 = 1024;
+            v35 = 820;
+            v36 = 2080;
+            v37 = v28;
+            v38 = 2080;
+            v39 = v12;
+            v40 = 2080;
+            *v41 = v13;
+            *&v41[8] = 1024;
+            v42 = v14 + 1;
+            v43 = 1024;
+            v44 = maxPeers;
             _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [%s, %s]: didConnectToPeer: %s -- cur/max: %d/%d", buf, 0x46u);
             goto LABEL_19;
           }
@@ -271,22 +338,22 @@ LABEL_19:
     {
       if (v5)
       {
-        v18 = [objc_msgSend(v5 "description")];
+        uTF8String2 = [objc_msgSend_description(v5) UTF8String];
       }
 
       else
       {
-        v18 = "<nil>";
+        uTF8String2 = "<nil>";
       }
 
       *buf = 136315906;
-      v32 = v16;
-      v33 = 2080;
-      v34 = "[GKSessionInternal(_private) tellDelegate_didConnectPeer:]";
-      v35 = 1024;
-      v36 = 822;
-      v37 = 2080;
-      v38 = v18;
+      v31 = v16;
+      v32 = 2080;
+      v33 = "[GKSessionInternal(_private) tellDelegate_didConnectPeer:]";
+      v34 = 1024;
+      v35 = 822;
+      v36 = 2080;
+      v37 = uTF8String2;
       _os_log_impl(&dword_24E50C000, v17, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d did-connect-to-peer.%s", buf, 0x26u);
     }
   }
@@ -302,19 +369,19 @@ LABEL_19:
         v21 = [(GKList *)self->_peersConnected count];
         v22 = self->maxPeers;
         *buf = 136316674;
-        v32 = v19;
-        v33 = 2080;
-        v34 = "[GKSessionInternal(_private) tellDelegate_didConnectPeer:]";
-        v35 = 1024;
-        v36 = 825;
-        v37 = 2112;
-        v38 = privateDelegate;
-        v39 = 2112;
-        v40 = v5;
-        v41 = 1024;
-        *v42 = v21 + 1;
-        *&v42[4] = 1024;
-        *&v42[6] = v22;
+        v31 = v19;
+        v32 = 2080;
+        v33 = "[GKSessionInternal(_private) tellDelegate_didConnectPeer:]";
+        v34 = 1024;
+        v35 = 825;
+        v36 = 2112;
+        v37 = privateDelegate;
+        v38 = 2112;
+        v39 = v5;
+        v40 = 1024;
+        *v41 = v21 + 1;
+        *&v41[4] = 1024;
+        *&v41[6] = v22;
         _os_log_impl(&dword_24E50C000, v20, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: didConnectToPeer: %@ -- cur/max: %d/%d", buf, 0x3Cu);
       }
     }
@@ -333,19 +400,19 @@ LABEL_19:
         v25 = [(GKList *)self->_peersConnected count];
         v26 = self->maxPeers;
         *buf = 136316674;
-        v32 = v23;
-        v33 = 2080;
-        v34 = "[GKSessionInternal(_private) tellDelegate_didConnectPeer:]";
-        v35 = 1024;
-        v36 = 830;
-        v37 = 2112;
-        v38 = delegate;
-        v39 = 2112;
-        v40 = v5;
-        v41 = 1024;
-        *v42 = v25 + 1;
-        *&v42[4] = 1024;
-        *&v42[6] = v26;
+        v31 = v23;
+        v32 = 2080;
+        v33 = "[GKSessionInternal(_private) tellDelegate_didConnectPeer:]";
+        v34 = 1024;
+        v35 = 830;
+        v36 = 2112;
+        v37 = delegate;
+        v38 = 2112;
+        v39 = v5;
+        v40 = 1024;
+        *v41 = v25 + 1;
+        *&v41[4] = 1024;
+        *&v41[6] = v26;
         _os_log_impl(&dword_24E50C000, v24, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: didConnectToPeer: %@ -- cur/max: %d/%d", buf, 0x3Cu);
       }
     }
@@ -356,13 +423,11 @@ LABEL_19:
   pthread_mutex_unlock(&self->_delegateLock);
   [(GKVoiceChatSessionListener *)self->_voiceChatListener session:self peer:v5 didChangeState:v7];
 LABEL_37:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellDelegate_didDisconnectPeer:(id)peer
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (self->_shutdown)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -391,7 +456,7 @@ LABEL_37:
     {
       if (privateDelegate)
       {
-        v21 = [-[GKSessionPrivateDelegate description](privateDelegate "description")];
+        uTF8String = [objc_msgSend_description(privateDelegate) UTF8String];
         if (delegate)
         {
           goto LABEL_9;
@@ -400,45 +465,45 @@ LABEL_37:
 
       else
       {
-        v21 = "<nil>";
+        uTF8String = "<nil>";
         if (delegate)
         {
 LABEL_9:
-          v12 = [-[GKSessionDelegate description](delegate "description")];
+          uTF8String2 = [objc_msgSend_description(delegate) UTF8String];
           if (v5)
           {
 LABEL_10:
-            v13 = [objc_msgSend(v5 "description")];
+            uTF8String3 = [objc_msgSend_description(v5) UTF8String];
 LABEL_14:
             v14 = [(GKList *)self->_peersConnected count];
             maxPeers = self->maxPeers;
             *buf = 136316930;
-            v23 = v10;
-            v24 = 2080;
-            v25 = "[GKSessionInternal(_private) tellDelegate_didDisconnectPeer:]";
-            v26 = 1024;
-            v27 = 856;
-            v28 = 2080;
-            v29 = v21;
-            v30 = 2080;
-            v31 = v12;
-            v32 = 2080;
-            v33 = v13;
-            v34 = 1024;
-            v35 = v14 + 1;
-            v36 = 1024;
-            v37 = maxPeers;
+            v22 = v10;
+            v23 = 2080;
+            v24 = "[GKSessionInternal(_private) tellDelegate_didDisconnectPeer:]";
+            v25 = 1024;
+            v26 = 856;
+            v27 = 2080;
+            v28 = uTF8String;
+            v29 = 2080;
+            v30 = uTF8String2;
+            v31 = 2080;
+            v32 = uTF8String3;
+            v33 = 1024;
+            v34 = v14 + 1;
+            v35 = 1024;
+            v36 = maxPeers;
             _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d tell [%s, %s] didDisconnectFromPeer: %s -- cur/max: %d/%d", buf, 0x46u);
             goto LABEL_15;
           }
 
 LABEL_13:
-          v13 = "<nil>";
+          uTF8String3 = "<nil>";
           goto LABEL_14;
         }
       }
 
-      v12 = "<nil>";
+      uTF8String2 = "<nil>";
       if (v5)
       {
         goto LABEL_10;
@@ -457,22 +522,22 @@ LABEL_15:
     {
       if (v5)
       {
-        v18 = [objc_msgSend(v5 "description")];
+        uTF8String4 = [objc_msgSend_description(v5) UTF8String];
       }
 
       else
       {
-        v18 = "<nil>";
+        uTF8String4 = "<nil>";
       }
 
       *buf = 136315906;
-      v23 = v16;
-      v24 = 2080;
-      v25 = "[GKSessionInternal(_private) tellDelegate_didDisconnectPeer:]";
-      v26 = 1024;
-      v27 = 858;
-      v28 = 2080;
-      v29 = v18;
+      v22 = v16;
+      v23 = 2080;
+      v24 = "[GKSessionInternal(_private) tellDelegate_didDisconnectPeer:]";
+      v25 = 1024;
+      v26 = 858;
+      v27 = 2080;
+      v28 = uTF8String4;
       _os_log_impl(&dword_24E50C000, v17, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d did-disconnect-from-peer.%s", buf, 0x26u);
     }
   }
@@ -492,12 +557,11 @@ LABEL_15:
   [(GKVoiceChatSessionListener *)self->_voiceChatListener session:self peer:v5 didChangeState:3];
 
 LABEL_27:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellDelegate_isConnectingPeer:(id)peer
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (self->_shutdown)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -523,23 +587,23 @@ LABEL_27:
       {
         if (v5)
         {
-          v10 = [objc_msgSend(v5 "description")];
+          uTF8String = [objc_msgSend_description(v5) UTF8String];
         }
 
         else
         {
-          v10 = "<nil>";
+          uTF8String = "<nil>";
         }
 
-        v17 = 136315906;
-        v18 = v8;
-        v19 = 2080;
-        v20 = "[GKSessionInternal(_private) tellDelegate_isConnectingPeer:]";
-        v21 = 1024;
-        v22 = 891;
-        v23 = 2080;
-        v24 = v10;
-        _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d isConnectingPeer: %s", &v17, 0x26u);
+        v16 = 136315906;
+        v17 = v8;
+        v18 = 2080;
+        v19 = "[GKSessionInternal(_private) tellDelegate_isConnectingPeer:]";
+        v20 = 1024;
+        v21 = 891;
+        v22 = 2080;
+        v23 = uTF8String;
+        _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d isConnectingPeer: %s", &v16, 0x26u);
       }
     }
 
@@ -551,23 +615,23 @@ LABEL_27:
       {
         if (v5)
         {
-          v13 = [objc_msgSend(v5 "description")];
+          uTF8String2 = [objc_msgSend_description(v5) UTF8String];
         }
 
         else
         {
-          v13 = "<nil>";
+          uTF8String2 = "<nil>";
         }
 
-        v17 = 136315906;
-        v18 = v11;
-        v19 = 2080;
-        v20 = "[GKSessionInternal(_private) tellDelegate_isConnectingPeer:]";
-        v21 = 1024;
-        v22 = 892;
-        v23 = 2080;
-        v24 = v13;
-        _os_log_impl(&dword_24E50C000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d is-connecting-to-peer.%s", &v17, 0x26u);
+        v16 = 136315906;
+        v17 = v11;
+        v18 = 2080;
+        v19 = "[GKSessionInternal(_private) tellDelegate_isConnectingPeer:]";
+        v20 = 1024;
+        v21 = 892;
+        v22 = 2080;
+        v23 = uTF8String2;
+        _os_log_impl(&dword_24E50C000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d is-connecting-to-peer.%s", &v16, 0x26u);
       }
     }
 
@@ -586,13 +650,11 @@ LABEL_27:
 
     pthread_mutex_unlock(&self->_delegateLock);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellDelegate_peerDidBecomeAvailable:(id)available
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self->_shutdown)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -616,15 +678,15 @@ LABEL_27:
       v9 = *v7;
       if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 136315906;
-        v17 = v8;
-        v18 = 2080;
-        v19 = "[GKSessionInternal(_private) tellDelegate_peerDidBecomeAvailable:]";
-        v20 = 1024;
-        v21 = 919;
-        v22 = 2112;
-        v23 = v5;
-        _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peerDidBecomeAvailable: %@", &v16, 0x26u);
+        v15 = 136315906;
+        v16 = v8;
+        v17 = 2080;
+        v18 = "[GKSessionInternal(_private) tellDelegate_peerDidBecomeAvailable:]";
+        v19 = 1024;
+        v20 = 919;
+        v21 = 2112;
+        v22 = v5;
+        _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peerDidBecomeAvailable: %@", &v15, 0x26u);
       }
     }
 
@@ -636,23 +698,23 @@ LABEL_27:
       {
         if (v5)
         {
-          v12 = [objc_msgSend(v5 "description")];
+          uTF8String = [objc_msgSend_description(v5) UTF8String];
         }
 
         else
         {
-          v12 = "<nil>";
+          uTF8String = "<nil>";
         }
 
-        v16 = 136315906;
-        v17 = v10;
-        v18 = 2080;
-        v19 = "[GKSessionInternal(_private) tellDelegate_peerDidBecomeAvailable:]";
-        v20 = 1024;
-        v21 = 921;
-        v22 = 2080;
-        v23 = v12;
-        _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peer-did-become-available.%s", &v16, 0x26u);
+        v15 = 136315906;
+        v16 = v10;
+        v17 = 2080;
+        v18 = "[GKSessionInternal(_private) tellDelegate_peerDidBecomeAvailable:]";
+        v19 = 1024;
+        v20 = 921;
+        v21 = 2080;
+        v22 = uTF8String;
+        _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peer-did-become-available.%s", &v15, 0x26u);
       }
     }
 
@@ -671,13 +733,11 @@ LABEL_27:
 
     pthread_mutex_unlock(&self->_delegateLock);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellDelegate_peerDidBecomeUnavailable:(id)unavailable
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self->_shutdown)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -701,15 +761,15 @@ LABEL_27:
       v9 = *v7;
       if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 136315906;
-        v17 = v8;
-        v18 = 2080;
-        v19 = "[GKSessionInternal(_private) tellDelegate_peerDidBecomeUnavailable:]";
-        v20 = 1024;
-        v21 = 948;
-        v22 = 2112;
-        v23 = v5;
-        _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peerDidBecomeUnavailable: %@", &v16, 0x26u);
+        v15 = 136315906;
+        v16 = v8;
+        v17 = 2080;
+        v18 = "[GKSessionInternal(_private) tellDelegate_peerDidBecomeUnavailable:]";
+        v19 = 1024;
+        v20 = 948;
+        v21 = 2112;
+        v22 = v5;
+        _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peerDidBecomeUnavailable: %@", &v15, 0x26u);
       }
     }
 
@@ -721,23 +781,23 @@ LABEL_27:
       {
         if (v5)
         {
-          v12 = [objc_msgSend(v5 "description")];
+          uTF8String = [objc_msgSend_description(v5) UTF8String];
         }
 
         else
         {
-          v12 = "<nil>";
+          uTF8String = "<nil>";
         }
 
-        v16 = 136315906;
-        v17 = v10;
-        v18 = 2080;
-        v19 = "[GKSessionInternal(_private) tellDelegate_peerDidBecomeUnavailable:]";
-        v20 = 1024;
-        v21 = 950;
-        v22 = 2080;
-        v23 = v12;
-        _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peer-did-become-unavailable.%s", &v16, 0x26u);
+        v15 = 136315906;
+        v16 = v10;
+        v17 = 2080;
+        v18 = "[GKSessionInternal(_private) tellDelegate_peerDidBecomeUnavailable:]";
+        v19 = 1024;
+        v20 = 950;
+        v21 = 2080;
+        v22 = uTF8String;
+        _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peer-did-become-unavailable.%s", &v15, 0x26u);
       }
     }
 
@@ -756,8 +816,6 @@ LABEL_27:
 
     pthread_mutex_unlock(&self->_delegateLock);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellDelegate_didReceiveBand_RetryICE:(id)e
@@ -791,7 +849,7 @@ LABEL_27:
 
 - (void)tellDelegate_didReceiveData:(id)data
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (!self->_shutdown)
   {
     v5 = [data objectForKeyedSubscript:@"peerID"];
@@ -807,21 +865,21 @@ LABEL_27:
       {
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 136316674;
-          v13 = v8;
-          v14 = 2080;
-          v15 = "[GKSessionInternal(_private) tellDelegate_didReceiveData:]";
-          v16 = 1024;
-          v17 = 1000;
-          v18 = 2048;
+          v11 = 136316674;
+          v12 = v8;
+          v13 = 2080;
+          v14 = "[GKSessionInternal(_private) tellDelegate_didReceiveData:]";
+          v15 = 1024;
+          v16 = 1000;
+          v17 = 2048;
           delegate = [(GKSessionInternal *)self delegate];
-          v20 = 2048;
+          v19 = 2048;
           privateDelegate = [(GKSessionInternal *)self privateDelegate];
-          v22 = 1024;
-          v23 = [v6 length];
-          v24 = 2080;
+          v21 = 1024;
+          v22 = [v6 length];
+          v23 = 2080;
           uTF8String = [v5 UTF8String];
-          _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d tellDelegate[%p, %p]_didReceiveData of length [%d] from [%s]", &v12, 0x40u);
+          _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d tellDelegate[%p, %p]_didReceiveData of length [%d] from [%s]", &v11, 0x40u);
           if (!dataReceiveHandler)
           {
             goto LABEL_13;
@@ -833,21 +891,21 @@ LABEL_27:
 
       else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v12 = 136316674;
-        v13 = v8;
-        v14 = 2080;
-        v15 = "[GKSessionInternal(_private) tellDelegate_didReceiveData:]";
-        v16 = 1024;
-        v17 = 1000;
-        v18 = 2048;
+        v11 = 136316674;
+        v12 = v8;
+        v13 = 2080;
+        v14 = "[GKSessionInternal(_private) tellDelegate_didReceiveData:]";
+        v15 = 1024;
+        v16 = 1000;
+        v17 = 2048;
         delegate = [(GKSessionInternal *)self delegate];
-        v20 = 2048;
+        v19 = 2048;
         privateDelegate = [(GKSessionInternal *)self privateDelegate];
-        v22 = 1024;
-        v23 = [v6 length];
-        v24 = 2080;
+        v21 = 1024;
+        v22 = [v6 length];
+        v23 = 2080;
         uTF8String = [v5 UTF8String];
-        _os_log_debug_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEBUG, " [%s] %s:%d tellDelegate[%p, %p]_didReceiveData of length [%d] from [%s]", &v12, 0x40u);
+        _os_log_debug_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEBUG, " [%s] %s:%d tellDelegate[%p, %p]_didReceiveData of length [%d] from [%s]", &v11, 0x40u);
         if (!dataReceiveHandler)
         {
           goto LABEL_13;
@@ -880,13 +938,11 @@ LABEL_12:
   }
 
 LABEL_14:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellDelegate_didReceiveDataFromPeerWithContext:(id)context
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (self->_shutdown)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -916,21 +972,21 @@ LABEL_14:
   {
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136316674;
-      v17 = v8;
-      v18 = 2080;
-      v19 = "[GKSessionInternal(_private) tellDelegate_didReceiveDataFromPeerWithContext:]";
+      v15 = 136316674;
+      v16 = v8;
+      v17 = 2080;
+      v18 = "[GKSessionInternal(_private) tellDelegate_didReceiveDataFromPeerWithContext:]";
+      v19 = 1024;
       v20 = 1024;
-      v21 = 1024;
-      v22 = 2048;
-      *v23 = [(GKSessionInternal *)self delegate];
-      *&v23[8] = 2048;
-      *&v23[10] = [(GKSessionInternal *)self privateDelegate];
-      v24 = 1024;
-      v25 = [v6 length];
-      v26 = 2080;
+      v21 = 2048;
+      *v22 = [(GKSessionInternal *)self delegate];
+      *&v22[8] = 2048;
+      *&v22[10] = [(GKSessionInternal *)self privateDelegate];
+      v23 = 1024;
+      v24 = [v6 length];
+      v25 = 2080;
       uTF8String = [v5 UTF8String];
-      _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d tellDelegate[%p, %p]_didReceiveData of length [%d] from [%s]", &v16, 0x40u);
+      _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d tellDelegate[%p, %p]_didReceiveData of length [%d] from [%s]", &v15, 0x40u);
       if (!dataReceiveHandler)
       {
         goto LABEL_16;
@@ -953,21 +1009,21 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v16 = 136316674;
-  v17 = v8;
-  v18 = 2080;
-  v19 = "[GKSessionInternal(_private) tellDelegate_didReceiveDataFromPeerWithContext:]";
+  v15 = 136316674;
+  v16 = v8;
+  v17 = 2080;
+  v18 = "[GKSessionInternal(_private) tellDelegate_didReceiveDataFromPeerWithContext:]";
+  v19 = 1024;
   v20 = 1024;
-  v21 = 1024;
-  v22 = 2048;
-  *v23 = [(GKSessionInternal *)self delegate];
-  *&v23[8] = 2048;
-  *&v23[10] = [(GKSessionInternal *)self privateDelegate];
-  v24 = 1024;
-  v25 = [v6 length];
-  v26 = 2080;
+  v21 = 2048;
+  *v22 = [(GKSessionInternal *)self delegate];
+  *&v22[8] = 2048;
+  *&v22[10] = [(GKSessionInternal *)self privateDelegate];
+  v23 = 1024;
+  v24 = [v6 length];
+  v25 = 2080;
   uTF8String = [v5 UTF8String];
-  _os_log_debug_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEBUG, " [%s] %s:%d tellDelegate[%p, %p]_didReceiveData of length [%d] from [%s]", &v16, 0x40u);
+  _os_log_debug_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEBUG, " [%s] %s:%d tellDelegate[%p, %p]_didReceiveData of length [%d] from [%s]", &v15, 0x40u);
   if (!dataReceiveHandler)
   {
     goto LABEL_16;
@@ -982,29 +1038,27 @@ LABEL_12:
     {
       v13 = [v6 length];
       uTF8String2 = [v5 UTF8String];
-      v16 = 136316162;
-      v17 = v11;
-      v18 = 2080;
-      v19 = "[GKSessionInternal(_private) tellDelegate_didReceiveDataFromPeerWithContext:]";
-      v20 = 1024;
-      v21 = 1027;
-      v22 = 1024;
-      *v23 = v13;
-      *&v23[4] = 2080;
-      *&v23[6] = uTF8String2;
-      _os_log_impl(&dword_24E50C000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Inform handler did receiveVoiceChatData of length=%d from peerID=%s", &v16, 0x2Cu);
+      v15 = 136316162;
+      v16 = v11;
+      v17 = 2080;
+      v18 = "[GKSessionInternal(_private) tellDelegate_didReceiveDataFromPeerWithContext:]";
+      v19 = 1024;
+      v20 = 1027;
+      v21 = 1024;
+      *v22 = v13;
+      *&v22[4] = 2080;
+      *&v22[6] = uTF8String2;
+      _os_log_impl(&dword_24E50C000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Inform handler did receiveVoiceChatData of length=%d from peerID=%s", &v15, 0x2Cu);
     }
   }
 
   [dataReceiveHandler receiveVoiceChatData:v6 fromPeer:v5];
 LABEL_16:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellDelegate_gotInvited:(id)invited
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (self->_shutdown)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -1028,23 +1082,23 @@ LABEL_16:
       {
         if (v5)
         {
-          v8 = [objc_msgSend(v5 "description")];
+          uTF8String = [objc_msgSend_description(v5) UTF8String];
         }
 
         else
         {
-          v8 = "<nil>";
+          uTF8String = "<nil>";
         }
 
-        v16 = 136315906;
-        v17 = v6;
-        v18 = 2080;
-        v19 = "[GKSessionInternal(_private) tellDelegate_gotInvited:]";
-        v20 = 1024;
-        v21 = 1043;
-        v22 = 2080;
-        v23 = v8;
-        _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d did-receive-connection-request-from-peer.%s", &v16, 0x26u);
+        v15 = 136315906;
+        v16 = v6;
+        v17 = 2080;
+        v18 = "[GKSessionInternal(_private) tellDelegate_gotInvited:]";
+        v19 = 1024;
+        v20 = 1043;
+        v21 = 2080;
+        v22 = uTF8String;
+        _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d did-receive-connection-request-from-peer.%s", &v15, 0x26u);
       }
     }
 
@@ -1059,17 +1113,17 @@ LABEL_16:
         v12 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v16 = 136316162;
-          v17 = v11;
-          v18 = 2080;
-          v19 = "[GKSessionInternal(_private) tellDelegate_gotInvited:]";
-          v20 = 1024;
-          v21 = 1049;
-          v22 = 2112;
-          v23 = privateDelegate;
-          v24 = 2112;
-          v25 = v5;
-          _os_log_impl(&dword_24E50C000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@ didReceiveConnectionRequestFromPeer: %@", &v16, 0x30u);
+          v15 = 136316162;
+          v16 = v11;
+          v17 = 2080;
+          v18 = "[GKSessionInternal(_private) tellDelegate_gotInvited:]";
+          v19 = 1024;
+          v20 = 1049;
+          v21 = 2112;
+          v22 = privateDelegate;
+          v23 = 2112;
+          v24 = v5;
+          _os_log_impl(&dword_24E50C000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@ didReceiveConnectionRequestFromPeer: %@", &v15, 0x30u);
         }
       }
 
@@ -1084,17 +1138,17 @@ LABEL_16:
         v14 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v16 = 136316162;
-          v17 = v13;
-          v18 = 2080;
-          v19 = "[GKSessionInternal(_private) tellDelegate_gotInvited:]";
-          v20 = 1024;
-          v21 = 1053;
-          v22 = 2112;
-          v23 = delegate;
-          v24 = 2112;
-          v25 = v5;
-          _os_log_impl(&dword_24E50C000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@ didReceiveConnectionRequestFromPeer: %@", &v16, 0x30u);
+          v15 = 136316162;
+          v16 = v13;
+          v17 = 2080;
+          v18 = "[GKSessionInternal(_private) tellDelegate_gotInvited:]";
+          v19 = 1024;
+          v20 = 1053;
+          v21 = 2112;
+          v22 = delegate;
+          v23 = 2112;
+          v24 = v5;
+          _os_log_impl(&dword_24E50C000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@ didReceiveConnectionRequestFromPeer: %@", &v15, 0x30u);
         }
       }
 
@@ -1103,13 +1157,11 @@ LABEL_16:
 
     pthread_mutex_unlock(&self->_delegateLock);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellDelegate_connectionRequestToPeerFailed:(id)failed
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (self->_shutdown)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -1135,23 +1187,23 @@ LABEL_16:
       {
         if (v5)
         {
-          v10 = [objc_msgSend(v5 "description")];
+          uTF8String = [objc_msgSend_description(v5) UTF8String];
         }
 
         else
         {
-          v10 = "<nil>";
+          uTF8String = "<nil>";
         }
 
-        v18 = 136315906;
-        v19 = v8;
-        v20 = 2080;
-        v21 = "[GKSessionInternal(_private) tellDelegate_connectionRequestToPeerFailed:]";
-        v22 = 1024;
-        v23 = 1076;
-        v24 = 2080;
-        v25 = v10;
-        _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d connection-request-to-peer-failed.%s", &v18, 0x26u);
+        v17 = 136315906;
+        v18 = v8;
+        v19 = 2080;
+        v20 = "[GKSessionInternal(_private) tellDelegate_connectionRequestToPeerFailed:]";
+        v21 = 1024;
+        v22 = 1076;
+        v23 = 2080;
+        v24 = uTF8String;
+        _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d connection-request-to-peer-failed.%s", &v17, 0x26u);
       }
     }
 
@@ -1166,17 +1218,17 @@ LABEL_16:
         v14 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v18 = 136316162;
-          v19 = v13;
-          v20 = 2080;
-          v21 = "[GKSessionInternal(_private) tellDelegate_connectionRequestToPeerFailed:]";
-          v22 = 1024;
-          v23 = 1082;
-          v24 = 2112;
-          v25 = privateDelegate;
-          v26 = 2112;
-          v27 = v5;
-          _os_log_impl(&dword_24E50C000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@ connectionRequestToPeerFailed: %@", &v18, 0x30u);
+          v17 = 136316162;
+          v18 = v13;
+          v19 = 2080;
+          v20 = "[GKSessionInternal(_private) tellDelegate_connectionRequestToPeerFailed:]";
+          v21 = 1024;
+          v22 = 1082;
+          v23 = 2112;
+          v24 = privateDelegate;
+          v25 = 2112;
+          v26 = v5;
+          _os_log_impl(&dword_24E50C000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@ connectionRequestToPeerFailed: %@", &v17, 0x30u);
         }
       }
 
@@ -1191,17 +1243,17 @@ LABEL_16:
         v16 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v18 = 136316162;
-          v19 = v15;
-          v20 = 2080;
-          v21 = "[GKSessionInternal(_private) tellDelegate_connectionRequestToPeerFailed:]";
-          v22 = 1024;
-          v23 = 1086;
-          v24 = 2112;
-          v25 = delegate;
-          v26 = 2112;
-          v27 = v5;
-          _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@ connectionRequestToPeerFailed: %@", &v18, 0x30u);
+          v17 = 136316162;
+          v18 = v15;
+          v19 = 2080;
+          v20 = "[GKSessionInternal(_private) tellDelegate_connectionRequestToPeerFailed:]";
+          v21 = 1024;
+          v22 = 1086;
+          v23 = 2112;
+          v24 = delegate;
+          v25 = 2112;
+          v26 = v5;
+          _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@ connectionRequestToPeerFailed: %@", &v17, 0x30u);
         }
       }
 
@@ -1210,13 +1262,11 @@ LABEL_16:
 
     pthread_mutex_unlock(&self->_delegateLock);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellDelegate_peerDidBecomeBusy:(id)busy
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (self->_shutdown)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -1240,23 +1290,23 @@ LABEL_16:
       {
         if (v5)
         {
-          v8 = [objc_msgSend(v5 "description")];
+          uTF8String = [objc_msgSend_description(v5) UTF8String];
         }
 
         else
         {
-          v8 = "<nil>";
+          uTF8String = "<nil>";
         }
 
-        v13 = 136315906;
-        v14 = v6;
-        v15 = 2080;
-        v16 = "[GKSessionInternal(_private) tellDelegate_peerDidBecomeBusy:]";
-        v17 = 1024;
-        v18 = 1107;
-        v19 = 2080;
-        v20 = v8;
-        _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peer-did-become-busy.%s", &v13, 0x26u);
+        v12 = 136315906;
+        v13 = v6;
+        v14 = 2080;
+        v15 = "[GKSessionInternal(_private) tellDelegate_peerDidBecomeBusy:]";
+        v16 = 1024;
+        v17 = 1107;
+        v18 = 2080;
+        v19 = uTF8String;
+        _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d peer-did-become-busy.%s", &v12, 0x26u);
       }
     }
 
@@ -1270,17 +1320,17 @@ LABEL_16:
         v11 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v13 = 136316162;
-          v14 = v10;
-          v15 = 2080;
-          v16 = "[GKSessionInternal(_private) tellDelegate_peerDidBecomeBusy:]";
-          v17 = 1024;
-          v18 = 1112;
-          v19 = 2112;
-          v20 = privateDelegate;
-          v21 = 2112;
-          v22 = v5;
-          _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: peerDidBecomeBusy: %@", &v13, 0x30u);
+          v12 = 136316162;
+          v13 = v10;
+          v14 = 2080;
+          v15 = "[GKSessionInternal(_private) tellDelegate_peerDidBecomeBusy:]";
+          v16 = 1024;
+          v17 = 1112;
+          v18 = 2112;
+          v19 = privateDelegate;
+          v20 = 2112;
+          v21 = v5;
+          _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: peerDidBecomeBusy: %@", &v12, 0x30u);
         }
       }
 
@@ -1289,13 +1339,11 @@ LABEL_16:
 
     pthread_mutex_unlock(&self->_delegateLock);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellDelegate_initiateRelay:(id)relay
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (self->_shutdown)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -1320,23 +1368,23 @@ LABEL_16:
       {
         if (v5)
         {
-          v9 = [objc_msgSend(v5 "description")];
+          uTF8String = [objc_msgSend_description(v5) UTF8String];
         }
 
         else
         {
-          v9 = "<nil>";
+          uTF8String = "<nil>";
         }
 
-        v18 = 136315906;
-        v19 = v7;
-        v20 = 2080;
-        v21 = "[GKSessionInternal(_private) tellDelegate_initiateRelay:]";
-        v22 = 1024;
-        v23 = 1130;
-        v24 = 2080;
-        v25 = v9;
-        _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d initiate-relay.%s", &v18, 0x26u);
+        v17 = 136315906;
+        v18 = v7;
+        v19 = 2080;
+        v20 = "[GKSessionInternal(_private) tellDelegate_initiateRelay:]";
+        v21 = 1024;
+        v22 = 1130;
+        v23 = 2080;
+        v24 = uTF8String;
+        _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d initiate-relay.%s", &v17, 0x26u);
       }
     }
 
@@ -1346,13 +1394,13 @@ LABEL_16:
       v11 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 136315650;
-        v19 = v10;
-        v20 = 2080;
-        v21 = "[GKSessionInternal(_private) tellDelegate_initiateRelay:]";
-        v22 = 1024;
-        v23 = 1132;
-        _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d tellDelegate_initiateRelay", &v18, 0x1Cu);
+        v17 = 136315650;
+        v18 = v10;
+        v19 = 2080;
+        v20 = "[GKSessionInternal(_private) tellDelegate_initiateRelay:]";
+        v21 = 1024;
+        v22 = 1132;
+        _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d tellDelegate_initiateRelay", &v17, 0x1Cu);
       }
     }
 
@@ -1368,19 +1416,19 @@ LABEL_16:
           v14 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
-            v18 = 136316418;
-            v19 = v13;
-            v20 = 2080;
-            v21 = "[GKSessionInternal(_private) tellDelegate_initiateRelay:]";
-            v22 = 1024;
-            v23 = 1141;
-            v24 = 2112;
-            v25 = privateDelegate;
-            v26 = 2112;
-            v27 = v6;
-            v28 = 2112;
-            v29 = v5;
-            _os_log_impl(&dword_24E50C000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: initiateRelay: %@ forPeer: %@", &v18, 0x3Au);
+            v17 = 136316418;
+            v18 = v13;
+            v19 = 2080;
+            v20 = "[GKSessionInternal(_private) tellDelegate_initiateRelay:]";
+            v21 = 1024;
+            v22 = 1141;
+            v23 = 2112;
+            v24 = privateDelegate;
+            v25 = 2112;
+            v26 = v6;
+            v27 = 2112;
+            v28 = v5;
+            _os_log_impl(&dword_24E50C000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: initiateRelay: %@ forPeer: %@", &v17, 0x3Au);
           }
         }
 
@@ -1395,19 +1443,19 @@ LABEL_16:
           v16 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
-            v18 = 136316418;
-            v19 = v15;
-            v20 = 2080;
-            v21 = "[GKSessionInternal(_private) tellDelegate_initiateRelay:]";
-            v22 = 1024;
-            v23 = 1146;
-            v24 = 2112;
-            v25 = privateDelegate;
-            v26 = 2112;
-            v27 = v6;
-            v28 = 2112;
-            v29 = v5;
-            _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: initiateRelay: %@ forPeer: %@", &v18, 0x3Au);
+            v17 = 136316418;
+            v18 = v15;
+            v19 = 2080;
+            v20 = "[GKSessionInternal(_private) tellDelegate_initiateRelay:]";
+            v21 = 1024;
+            v22 = 1146;
+            v23 = 2112;
+            v24 = privateDelegate;
+            v25 = 2112;
+            v26 = v6;
+            v27 = 2112;
+            v28 = v5;
+            _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: initiateRelay: %@ forPeer: %@", &v17, 0x3Au);
           }
         }
 
@@ -1417,13 +1465,11 @@ LABEL_16:
       pthread_mutex_unlock(&self->_delegateLock);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellDelegate_updateRelay:(id)relay
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (self->_shutdown)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -1448,23 +1494,23 @@ LABEL_16:
       {
         if (v5)
         {
-          v9 = [objc_msgSend(v5 "description")];
+          uTF8String = [objc_msgSend_description(v5) UTF8String];
         }
 
         else
         {
-          v9 = "<nil>";
+          uTF8String = "<nil>";
         }
 
-        v18 = 136315906;
-        v19 = v7;
-        v20 = 2080;
-        v21 = "[GKSessionInternal(_private) tellDelegate_updateRelay:]";
-        v22 = 1024;
-        v23 = 1162;
-        v24 = 2080;
-        v25 = v9;
-        _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d update-relay.%s", &v18, 0x26u);
+        v17 = 136315906;
+        v18 = v7;
+        v19 = 2080;
+        v20 = "[GKSessionInternal(_private) tellDelegate_updateRelay:]";
+        v21 = 1024;
+        v22 = 1162;
+        v23 = 2080;
+        v24 = uTF8String;
+        _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d update-relay.%s", &v17, 0x26u);
       }
     }
 
@@ -1474,13 +1520,13 @@ LABEL_16:
       v11 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 136315650;
-        v19 = v10;
-        v20 = 2080;
-        v21 = "[GKSessionInternal(_private) tellDelegate_updateRelay:]";
-        v22 = 1024;
-        v23 = 1164;
-        _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d tellDelegate_updateRelay", &v18, 0x1Cu);
+        v17 = 136315650;
+        v18 = v10;
+        v19 = 2080;
+        v20 = "[GKSessionInternal(_private) tellDelegate_updateRelay:]";
+        v21 = 1024;
+        v22 = 1164;
+        _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d tellDelegate_updateRelay", &v17, 0x1Cu);
       }
     }
 
@@ -1496,19 +1542,19 @@ LABEL_16:
           v14 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
-            v18 = 136316418;
-            v19 = v13;
-            v20 = 2080;
-            v21 = "[GKSessionInternal(_private) tellDelegate_updateRelay:]";
-            v22 = 1024;
-            v23 = 1173;
-            v24 = 2112;
-            v25 = privateDelegate;
-            v26 = 2112;
-            v27 = v6;
-            v28 = 2112;
-            v29 = v5;
-            _os_log_impl(&dword_24E50C000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: initiateRelay: %@ forPeer: %@", &v18, 0x3Au);
+            v17 = 136316418;
+            v18 = v13;
+            v19 = 2080;
+            v20 = "[GKSessionInternal(_private) tellDelegate_updateRelay:]";
+            v21 = 1024;
+            v22 = 1173;
+            v23 = 2112;
+            v24 = privateDelegate;
+            v25 = 2112;
+            v26 = v6;
+            v27 = 2112;
+            v28 = v5;
+            _os_log_impl(&dword_24E50C000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: initiateRelay: %@ forPeer: %@", &v17, 0x3Au);
           }
         }
 
@@ -1523,19 +1569,19 @@ LABEL_16:
           v16 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
-            v18 = 136316418;
-            v19 = v15;
-            v20 = 2080;
-            v21 = "[GKSessionInternal(_private) tellDelegate_updateRelay:]";
-            v22 = 1024;
-            v23 = 1178;
-            v24 = 2112;
-            v25 = privateDelegate;
-            v26 = 2112;
-            v27 = v6;
-            v28 = 2112;
-            v29 = v5;
-            _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: updateRelay: %@ forPeer: %@", &v18, 0x3Au);
+            v17 = 136316418;
+            v18 = v15;
+            v19 = 2080;
+            v20 = "[GKSessionInternal(_private) tellDelegate_updateRelay:]";
+            v21 = 1024;
+            v22 = 1178;
+            v23 = 2112;
+            v24 = privateDelegate;
+            v25 = 2112;
+            v26 = v6;
+            v27 = 2112;
+            v28 = v5;
+            _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: updateRelay: %@ forPeer: %@", &v17, 0x3Au);
           }
         }
 
@@ -1545,13 +1591,11 @@ LABEL_16:
       pthread_mutex_unlock(&self->_delegateLock);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tellDelegate_networkStatisticsChanged:(id)changed
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (self->_shutdown)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -1576,23 +1620,23 @@ LABEL_16:
       {
         if (v5)
         {
-          v9 = [objc_msgSend(v5 "description")];
+          uTF8String = [objc_msgSend_description(v5) UTF8String];
         }
 
         else
         {
-          v9 = "<nil>";
+          uTF8String = "<nil>";
         }
 
-        v17 = 136315906;
-        v18 = v7;
-        v19 = 2080;
-        v20 = "[GKSessionInternal(_private) tellDelegate_networkStatisticsChanged:]";
-        v21 = 1024;
-        v22 = 1194;
-        v23 = 2080;
-        v24 = v9;
-        _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d network-stats-changed.%s", &v17, 0x26u);
+        v16 = 136315906;
+        v17 = v7;
+        v18 = 2080;
+        v19 = "[GKSessionInternal(_private) tellDelegate_networkStatisticsChanged:]";
+        v20 = 1024;
+        v21 = 1194;
+        v22 = 2080;
+        v23 = uTF8String;
+        _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d network-stats-changed.%s", &v16, 0x26u);
       }
     }
 
@@ -1604,23 +1648,23 @@ LABEL_16:
       {
         if (v6)
         {
-          v12 = [objc_msgSend(v6 "description")];
+          uTF8String2 = [objc_msgSend_description(v6) UTF8String];
         }
 
         else
         {
-          v12 = "<nil>";
+          uTF8String2 = "<nil>";
         }
 
-        v17 = 136315906;
-        v18 = v10;
-        v19 = 2080;
-        v20 = "[GKSessionInternal(_private) tellDelegate_networkStatisticsChanged:]";
-        v21 = 1024;
-        v22 = 1196;
-        v23 = 2080;
-        v24 = v12;
-        _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d tellDelegate_networkStatisticsChanged: [%s]", &v17, 0x26u);
+        v16 = 136315906;
+        v17 = v10;
+        v18 = 2080;
+        v19 = "[GKSessionInternal(_private) tellDelegate_networkStatisticsChanged:]";
+        v20 = 1024;
+        v21 = 1196;
+        v22 = 2080;
+        v23 = uTF8String2;
+        _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d tellDelegate_networkStatisticsChanged: [%s]", &v16, 0x26u);
       }
     }
 
@@ -1634,17 +1678,17 @@ LABEL_16:
         v15 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v17 = 136316162;
-          v18 = v14;
-          v19 = 2080;
-          v20 = "[GKSessionInternal(_private) tellDelegate_networkStatisticsChanged:]";
-          v21 = 1024;
-          v22 = 1201;
-          v23 = 2112;
-          v24 = privateDelegate;
-          v25 = 2112;
-          v26 = v6;
-          _os_log_impl(&dword_24E50C000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: stats-changed: %@", &v17, 0x30u);
+          v16 = 136316162;
+          v17 = v14;
+          v18 = 2080;
+          v19 = "[GKSessionInternal(_private) tellDelegate_networkStatisticsChanged:]";
+          v20 = 1024;
+          v21 = 1201;
+          v22 = 2112;
+          v23 = privateDelegate;
+          v24 = 2112;
+          v25 = v6;
+          _os_log_impl(&dword_24E50C000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@: stats-changed: %@", &v16, 0x30u);
         }
       }
 
@@ -1653,26 +1697,24 @@ LABEL_16:
 
     pthread_mutex_unlock(&self->_delegateLock);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)parseServiceName:(const char *)name intoDisplayName:(id *)displayName pid:(unsigned int *)pid state:(id *)state
 {
-  v68 = *MEMORY[0x277D85DE8];
-  v58 = -21846;
-  v56 = -21846;
-  v57 = -86;
+  v67 = *MEMORY[0x277D85DE8];
+  v57 = -21846;
   v55 = -21846;
+  v56 = -86;
+  v54 = -21846;
+  v52 = -1431655766;
   v53 = -1431655766;
-  v54 = -1431655766;
-  if (sscanf(name, "%2c", &v58) <= 0)
+  if (sscanf(name, "%2c", &v57) <= 0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 7)
     {
 LABEL_40:
       LOBYTE(v13) = 0;
-      goto LABEL_41;
+      return v13;
     }
 
     v11 = VRTraceErrorLogLevelToCSTR();
@@ -1680,26 +1722,26 @@ LABEL_40:
     v13 = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT);
     if (!v13)
     {
-      goto LABEL_41;
+      return v13;
     }
 
     *buf = 136315906;
-    v60 = v11;
-    v61 = 2080;
-    v62 = "[GKSessionInternal(_private) parseServiceName:intoDisplayName:pid:state:]";
-    v63 = 1024;
-    v64 = 1240;
-    v65 = 2080;
-    *v66 = name;
+    v59 = v11;
+    v60 = 2080;
+    v61 = "[GKSessionInternal(_private) parseServiceName:intoDisplayName:pid:state:]";
+    v62 = 1024;
+    v63 = 1240;
+    v64 = 2080;
+    *v65 = name;
     v14 = " [%s] %s:%d parseServiceName: invalid format: %s";
     goto LABEL_38;
   }
 
-  if (v58 - 65 > 0x19)
+  if (v57 - 65 > 0x19)
   {
-    if (v58 - 97 > 0x19)
+    if (v57 - 97 > 0x19)
     {
-      if (v58 == 95)
+      if (v57 == 95)
       {
         v15 = 63;
       }
@@ -1709,7 +1751,7 @@ LABEL_40:
         v15 = 64;
       }
 
-      if (v58 == 45)
+      if (v57 == 45)
       {
         v10 = 62;
       }
@@ -1719,26 +1761,26 @@ LABEL_40:
         v10 = v15;
       }
 
-      if (v58 - 48 < 0xA)
+      if (v57 - 48 < 0xA)
       {
-        v10 = v58 - 48;
+        v10 = v57 - 48;
       }
     }
 
     else
     {
-      v10 = v58 - 61;
+      v10 = v57 - 61;
     }
   }
 
   else
   {
-    v10 = v58 - 55;
+    v10 = v57 - 55;
   }
 
   v16 = v10;
-  v17 = HIBYTE(v58) - 48;
-  if (HIBYTE(v58) == 95)
+  v17 = HIBYTE(v57) - 48;
+  if (HIBYTE(v57) == 95)
   {
     v18 = 63;
   }
@@ -1748,7 +1790,7 @@ LABEL_40:
     v18 = 64;
   }
 
-  if (HIBYTE(v58) == 45)
+  if (HIBYTE(v57) == 45)
   {
     v18 = 62;
   }
@@ -1758,9 +1800,9 @@ LABEL_40:
     LOBYTE(v17) = v18;
   }
 
-  if (HIBYTE(v58) - 97 <= 0x19)
+  if (HIBYTE(v57) - 97 <= 0x19)
   {
-    v19 = HIBYTE(v58) - 61;
+    v19 = HIBYTE(v57) - 61;
   }
 
   else
@@ -1768,8 +1810,8 @@ LABEL_40:
     v19 = v17;
   }
 
-  v20 = HIBYTE(v58) - 55;
-  if (HIBYTE(v58) - 65 > 0x19)
+  v20 = HIBYTE(v57) - 55;
+  if (HIBYTE(v57) - 65 > 0x19)
   {
     v20 = v19;
   }
@@ -1786,197 +1828,197 @@ LABEL_40:
     v13 = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT);
     if (!v13)
     {
-      goto LABEL_41;
+      return v13;
     }
 
     *buf = 136315906;
-    v60 = v26;
-    v61 = 2080;
-    v62 = "[GKSessionInternal(_private) parseServiceName:intoDisplayName:pid:state:]";
-    v63 = 1024;
-    v64 = 1246;
-    v65 = 2080;
-    *v66 = name;
+    v59 = v26;
+    v60 = 2080;
+    v61 = "[GKSessionInternal(_private) parseServiceName:intoDisplayName:pid:state:]";
+    v62 = 1024;
+    v63 = 1246;
+    v64 = 2080;
+    *v65 = name;
     v14 = " [%s] %s:%d parseServiceName: invalid version: %s";
     goto LABEL_38;
   }
 
   if (!(v16 | v20))
   {
-    if (sscanf(name, "%*2c%6c%3c%n", &v54, &v56, &v53) <= 1)
+    if (sscanf(name, "%*2c%6c%3c%n", &v53, &v55, &v52) <= 1)
     {
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
         goto LABEL_40;
       }
 
-      v28 = VRTraceErrorLogLevelToCSTR();
+      v27 = VRTraceErrorLogLevelToCSTR();
       v12 = *MEMORY[0x277CE5818];
       v13 = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT);
       if (!v13)
       {
-        goto LABEL_41;
+        return v13;
       }
 
       *buf = 136315906;
-      v60 = v28;
-      v61 = 2080;
-      v62 = "[GKSessionInternal(_private) parseServiceName:intoDisplayName:pid:state:]";
-      v63 = 1024;
-      v64 = 1258;
-      v65 = 2080;
-      *v66 = name;
+      v59 = v27;
+      v60 = 2080;
+      v61 = "[GKSessionInternal(_private) parseServiceName:intoDisplayName:pid:state:]";
+      v62 = 1024;
+      v63 = 1258;
+      v64 = 2080;
+      *v65 = name;
       v14 = " [%s] %s:%d parseServiceName: invalid format: %s";
       goto LABEL_38;
     }
 
-    if (v54 - 65 > 0x19)
+    if (v53 - 65 > 0x19)
     {
-      if (v54 - 97 > 0x19)
+      if (v53 - 97 > 0x19)
       {
-        v29 = v54 - 48;
-        if (v54 - 48 >= 0xA)
+        v28 = v53 - 48;
+        if (v53 - 48 >= 0xA)
         {
-          if (v54 == 95)
+          if (v53 == 95)
           {
-            v30 = 63;
+            v29 = 63;
 LABEL_55:
-            if (BYTE1(v54) - 65 > 0x19)
+            if (BYTE1(v53) - 65 > 0x19)
             {
-              if (BYTE1(v54) - 97 > 0x19)
+              if (BYTE1(v53) - 97 > 0x19)
               {
-                v31 = BYTE1(v54) - 48;
-                if (BYTE1(v54) - 48 >= 0xA)
+                v30 = BYTE1(v53) - 48;
+                if (BYTE1(v53) - 48 >= 0xA)
                 {
-                  if (BYTE1(v54) == 95)
+                  if (BYTE1(v53) == 95)
                   {
-                    v32 = 4032;
+                    v31 = 4032;
 LABEL_64:
-                    if (BYTE2(v54) - 65 > 0x19)
+                    if (BYTE2(v53) - 65 > 0x19)
                     {
-                      if (BYTE2(v54) - 97 > 0x19)
+                      if (BYTE2(v53) - 97 > 0x19)
                       {
-                        v33 = BYTE2(v54) - 48;
-                        if (BYTE2(v54) - 48 >= 0xA)
+                        v32 = BYTE2(v53) - 48;
+                        if (BYTE2(v53) - 48 >= 0xA)
                         {
-                          if (BYTE2(v54) == 95)
+                          if (BYTE2(v53) == 95)
                           {
-                            v34 = 258048;
+                            v33 = 258048;
 LABEL_73:
-                            if (HIBYTE(v54) - 65 > 0x19)
+                            if (HIBYTE(v53) - 65 > 0x19)
                             {
-                              if (HIBYTE(v54) - 97 > 0x19)
+                              if (HIBYTE(v53) - 97 > 0x19)
                               {
-                                v35 = HIBYTE(v54) - 48;
-                                if (HIBYTE(v54) - 48 >= 0xA)
+                                v34 = HIBYTE(v53) - 48;
+                                if (HIBYTE(v53) - 48 >= 0xA)
                                 {
-                                  if (HIBYTE(v54) == 95)
+                                  if (HIBYTE(v53) == 95)
                                   {
-                                    v36 = 16515072;
+                                    v35 = 16515072;
                                     goto LABEL_82;
                                   }
 
-                                  if (HIBYTE(v54) != 45)
+                                  if (HIBYTE(v53) != 45)
                                   {
                                     goto LABEL_110;
                                   }
 
-                                  v35 = 62;
+                                  v34 = 62;
                                 }
                               }
 
                               else
                               {
-                                v35 = HIBYTE(v54) - 61;
+                                v34 = HIBYTE(v53) - 61;
                               }
                             }
 
                             else
                             {
-                              v35 = HIBYTE(v54) - 55;
+                              v34 = HIBYTE(v53) - 55;
                             }
 
-                            v36 = v35 << 18;
+                            v35 = v34 << 18;
 LABEL_82:
-                            if (v55 - 65 <= 0x19)
+                            if (v54 - 65 <= 0x19)
                             {
-                              v37 = v55 - 55;
+                              v36 = v54 - 55;
 LABEL_90:
-                              v38 = v37 << 24;
+                              v37 = v36 << 24;
 LABEL_91:
-                              if (HIBYTE(v55) - 65 <= 0x19)
+                              if (HIBYTE(v54) - 65 <= 0x19)
                               {
-                                v39 = HIBYTE(v55) - 55;
+                                v38 = HIBYTE(v54) - 55;
                                 goto LABEL_95;
                               }
 
-                              if (HIBYTE(v55) - 97 <= 0x19)
+                              if (HIBYTE(v54) - 97 <= 0x19)
                               {
-                                v39 = HIBYTE(v55) - 61;
+                                v38 = HIBYTE(v54) - 61;
                                 goto LABEL_95;
                               }
 
-                              v43 = HIBYTE(v55) - 48;
-                              if (v43 >= 0xA)
+                              v42 = HIBYTE(v54) - 48;
+                              if (v42 >= 0xA)
                               {
-                                if (HIBYTE(v55) != 45)
+                                if (HIBYTE(v54) != 45)
                                 {
-                                  v40 = HIBYTE(v55) == 95;
-                                  v41 = -4;
+                                  v39 = HIBYTE(v54) == 95;
+                                  v40 = -4;
 LABEL_96:
-                                  if (v40)
+                                  if (v39)
                                   {
-                                    v42 = v41;
+                                    v41 = v40;
                                   }
 
                                   else
                                   {
-                                    v42 = v41 + 1;
+                                    v41 = v40 + 1;
                                   }
 
                                   goto LABEL_111;
                                 }
 
-                                v39 = 62;
+                                v38 = 62;
 LABEL_95:
-                                v40 = (v39 & 0x3C) == 4;
-                                v41 = -5;
+                                v39 = (v38 & 0x3C) == 4;
+                                v40 = -5;
                                 goto LABEL_96;
                               }
 
-                              if ((HIBYTE(v55) & 0xC) != 4 && v43 > 3u)
+                              if ((HIBYTE(v54) & 0xC) != 4 && v42 > 3u)
                               {
-                                v42 = -4;
+                                v41 = -4;
                               }
 
                               else
                               {
-                                v42 = -5;
+                                v41 = -5;
                               }
 
-                              if (v43 >= 4u)
+                              if (v42 >= 4u)
                               {
                                 goto LABEL_111;
                               }
 
-                              if (v56 == 65)
+                              if (v55 == 65)
                               {
-                                v45 = MEMORY[0x277CBEC28];
+                                v44 = MEMORY[0x277CBEC28];
                                 goto LABEL_123;
                               }
 
-                              if (v56 == 66)
+                              if (v55 == 66)
                               {
-                                v45 = MEMORY[0x277CBEC38];
+                                v44 = MEMORY[0x277CBEC38];
 LABEL_123:
-                                v48 = (v32 + v30 + v34 + v36 + v38) | (v43 << 30);
-                                v49 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v45, @"busy", 0}];
-                                *pid = v48;
-                                v50 = objc_alloc(MEMORY[0x277CCACA8]);
-                                *displayName = [v50 initWithUTF8String:&name[v53]];
-                                *state = v49;
+                                v47 = (v31 + v29 + v33 + v35 + v37) | (v42 << 30);
+                                v48 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v44, @"busy", 0}];
+                                *pid = v47;
+                                v49 = objc_alloc(MEMORY[0x277CCACA8]);
+                                *displayName = [v49 initWithUTF8String:&name[v52]];
+                                *state = v48;
                                 LOBYTE(v13) = 1;
-                                goto LABEL_41;
+                                return v13;
                               }
 
                               if (VRTraceGetErrorLogLevelForModule() < 7)
@@ -1984,22 +2026,22 @@ LABEL_123:
                                 goto LABEL_40;
                               }
 
-                              v51 = VRTraceErrorLogLevelToCSTR();
+                              v50 = VRTraceErrorLogLevelToCSTR();
                               v12 = *MEMORY[0x277CE5818];
                               v13 = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT);
                               if (!v13)
                               {
-                                goto LABEL_41;
+                                return v13;
                               }
 
                               *buf = 136315906;
-                              v60 = v51;
-                              v61 = 2080;
-                              v62 = "[GKSessionInternal(_private) parseServiceName:intoDisplayName:pid:state:]";
-                              v63 = 1024;
-                              v64 = 1275;
-                              v65 = 2080;
-                              *v66 = name;
+                              v59 = v50;
+                              v60 = 2080;
+                              v61 = "[GKSessionInternal(_private) parseServiceName:intoDisplayName:pid:state:]";
+                              v62 = 1024;
+                              v63 = 1275;
+                              v64 = 2080;
+                              *v65 = name;
                               v14 = " [%s] %s:%d parseServiceName: busy state missing: %s";
 LABEL_38:
                               v24 = v12;
@@ -2007,131 +2049,131 @@ LABEL_38:
                               goto LABEL_39;
                             }
 
-                            if (v55 - 97 <= 0x19)
+                            if (v54 - 97 <= 0x19)
                             {
-                              v37 = v55 - 61;
+                              v36 = v54 - 61;
                               goto LABEL_90;
                             }
 
-                            v37 = v55 - 48;
-                            if (v37 < 0xA)
+                            v36 = v54 - 48;
+                            if (v36 < 0xA)
                             {
                               goto LABEL_90;
                             }
 
-                            if (v55 == 95)
+                            if (v54 == 95)
                             {
-                              v38 = 1056964608;
+                              v37 = 1056964608;
                               goto LABEL_91;
                             }
 
-                            if (v55 == 45)
+                            if (v54 == 45)
                             {
-                              v37 = 62;
+                              v36 = 62;
                               goto LABEL_90;
                             }
 
 LABEL_110:
-                            v42 = -3;
+                            v41 = -3;
 LABEL_111:
                             if (VRTraceGetErrorLogLevelForModule() < 7)
                             {
                               goto LABEL_40;
                             }
 
-                            v46 = VRTraceErrorLogLevelToCSTR();
-                            v47 = *MEMORY[0x277CE5818];
+                            v45 = VRTraceErrorLogLevelToCSTR();
+                            v46 = *MEMORY[0x277CE5818];
                             v13 = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT);
                             if (!v13)
                             {
-                              goto LABEL_41;
+                              return v13;
                             }
 
                             *buf = 136316162;
-                            v60 = v46;
-                            v61 = 2080;
-                            v62 = "[GKSessionInternal(_private) parseServiceName:intoDisplayName:pid:state:]";
-                            v63 = 1024;
-                            v64 = 1265;
-                            v65 = 2080;
-                            *v66 = name;
-                            *&v66[8] = 1024;
-                            v67 = v42;
+                            v59 = v45;
+                            v60 = 2080;
+                            v61 = "[GKSessionInternal(_private) parseServiceName:intoDisplayName:pid:state:]";
+                            v62 = 1024;
+                            v63 = 1265;
+                            v64 = 2080;
+                            *v65 = name;
+                            *&v65[8] = 1024;
+                            v66 = v41;
                             v14 = " [%s] %s:%d parseServiceName: invalid peer ID: %s (%d)";
-                            v24 = v47;
+                            v24 = v46;
                             v25 = 44;
                             goto LABEL_39;
                           }
 
-                          if (BYTE2(v54) != 45)
+                          if (BYTE2(v53) != 45)
                           {
                             goto LABEL_110;
                           }
 
-                          v33 = 62;
+                          v32 = 62;
                         }
                       }
 
                       else
                       {
-                        v33 = BYTE2(v54) - 61;
+                        v32 = BYTE2(v53) - 61;
                       }
                     }
 
                     else
                     {
-                      v33 = BYTE2(v54) - 55;
+                      v32 = BYTE2(v53) - 55;
                     }
 
-                    v34 = v33 << 12;
+                    v33 = v32 << 12;
                     goto LABEL_73;
                   }
 
-                  if (BYTE1(v54) != 45)
+                  if (BYTE1(v53) != 45)
                   {
                     goto LABEL_110;
                   }
 
-                  v31 = 62;
+                  v30 = 62;
                 }
               }
 
               else
               {
-                v31 = BYTE1(v54) - 61;
+                v30 = BYTE1(v53) - 61;
               }
             }
 
             else
             {
-              v31 = BYTE1(v54) - 55;
+              v30 = BYTE1(v53) - 55;
             }
 
-            v32 = v31 << 6;
+            v31 = v30 << 6;
             goto LABEL_64;
           }
 
-          if (v54 != 45)
+          if (v53 != 45)
           {
             goto LABEL_110;
           }
 
-          v29 = 62;
+          v28 = 62;
         }
       }
 
       else
       {
-        v29 = v54 - 61;
+        v28 = v53 - 61;
       }
     }
 
     else
     {
-      v29 = v54 - 55;
+      v28 = v53 - 55;
     }
 
-    v30 = v29;
+    v29 = v28;
     goto LABEL_55;
   }
 
@@ -2146,15 +2188,15 @@ LABEL_111:
   if (v13)
   {
     *buf = 136316162;
-    v60 = v22;
-    v61 = 2080;
-    v62 = "[GKSessionInternal(_private) parseServiceName:intoDisplayName:pid:state:]";
-    v63 = 1024;
-    v64 = 1251;
-    v65 = 1024;
-    *v66 = v16;
-    *&v66[4] = 1024;
-    *&v66[6] = v21;
+    v59 = v22;
+    v60 = 2080;
+    v61 = "[GKSessionInternal(_private) parseServiceName:intoDisplayName:pid:state:]";
+    v62 = 1024;
+    v63 = 1251;
+    v64 = 1024;
+    *v65 = v16;
+    *&v65[4] = 1024;
+    *&v65[6] = v21;
     v14 = " [%s] %s:%d parseServiceName: unsupported version: %d-%d";
     v24 = v23;
     v25 = 40;
@@ -2163,8 +2205,6 @@ LABEL_39:
     goto LABEL_40;
   }
 
-LABEL_41:
-  v27 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -2221,7 +2261,7 @@ LABEL_41:
 
 - (void)stopResolvingAllPeers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_connection)
   {
     [(GKTable *)self->_peerInfoTable makeObjectsPerformSelector:sel_clearResolving];
@@ -2232,15 +2272,15 @@ LABEL_41:
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         dnsServiceResolveConnection = self->_dnsServiceResolveConnection;
-        v8 = 136315906;
-        v9 = v3;
-        v10 = 2080;
-        v11 = "[GKSessionInternal(_private) stopResolvingAllPeers]";
-        v12 = 1024;
-        v13 = 1305;
-        v14 = 1024;
-        v15 = dnsServiceResolveConnection;
-        _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_dnsServiceResolveConnection) (%08X)", &v8, 0x22u);
+        v7 = 136315906;
+        v8 = v3;
+        v9 = 2080;
+        v10 = "[GKSessionInternal(_private) stopResolvingAllPeers]";
+        v11 = 1024;
+        v12 = 1305;
+        v13 = 1024;
+        v14 = dnsServiceResolveConnection;
+        _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_dnsServiceResolveConnection) (%08X)", &v7, 0x22u);
       }
     }
 
@@ -2252,13 +2292,11 @@ LABEL_41:
 
     self->_dnsServiceResolveConnection = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didPublishWithError:(int)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
@@ -2266,12 +2304,12 @@ LABEL_41:
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v18 = v5;
-      v19 = 2080;
-      v20 = "[GKSessionInternal(_private) didPublishWithError:]";
-      v21 = 1024;
-      v22 = 1313;
-      v23 = 1024;
+      v17 = v5;
+      v18 = 2080;
+      v19 = "[GKSessionInternal(_private) didPublishWithError:]";
+      v20 = 1024;
+      v21 = 1313;
+      v22 = 1024;
       errorCopy = error;
       _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d didPublish: %d", buf, 0x22u);
     }
@@ -2289,12 +2327,12 @@ LABEL_41:
         {
           service = self->_service;
           *buf = 136315906;
-          v18 = v7;
-          v19 = 2080;
-          v20 = "[GKSessionInternal(_private) didPublishWithError:]";
-          v21 = 1024;
-          v22 = 1317;
-          v23 = 1024;
+          v17 = v7;
+          v18 = 2080;
+          v19 = "[GKSessionInternal(_private) didPublishWithError:]";
+          v20 = 1024;
+          v21 = 1317;
+          v22 = 1024;
           errorCopy = service;
           _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_service) (%08X)", buf, 0x22u);
         }
@@ -2314,12 +2352,12 @@ LABEL_41:
         {
           serviceBrowser = self->_serviceBrowser;
           *buf = 136315906;
-          v18 = v10;
-          v19 = 2080;
-          v20 = "[GKSessionInternal(_private) didPublishWithError:]";
-          v21 = 1024;
-          v22 = 1322;
-          v23 = 1024;
+          v17 = v10;
+          v18 = 2080;
+          v19 = "[GKSessionInternal(_private) didPublishWithError:]";
+          v20 = 1024;
+          v21 = 1322;
+          v22 = 1024;
           errorCopy = serviceBrowser;
           _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_serviceBrowser) (%08X)", buf, 0x22u);
         }
@@ -2369,8 +2407,6 @@ LABEL_41:
   {
     self->_isPublishing = 1;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lock
@@ -2397,54 +2433,1393 @@ LABEL_41:
   }
 }
 
+- (void)handleNewGKOOBAudioMessage:(id)message messageData:(id)data remotePID:(unsigned int)d callbackData:(id *)callbackData maxCallbackCount:(int)count checkDelegateCallbackSelector:(BOOL *)selector tellDelegateSelector:(SEL *)delegateSelector callbackCount:(int *)self0
+{
+  v13 = *&d;
+  v29 = *MEMORY[0x277D85DE8];
+  [(GKSessionInternal *)self dataReceiveHandler];
+  if (objc_opt_respondsToSelector())
+  {
+    v17 = *callbackCount;
+    if (v17 >= count)
+    {
+      if (VRTraceGetErrorLogLevelForModule() >= 5)
+      {
+        v21 = VRTraceErrorLogLevelToCSTR();
+        v22 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          v23 = 136315650;
+          v24 = v21;
+          v25 = 2080;
+          v26 = "[GKSessionInternal(callback) handleNewGKOOBAudioMessage:messageData:remotePID:callbackData:maxCallbackCount:checkDelegateCallbackSelector:tellDelegateSelector:callbackCount:]";
+          v27 = 1024;
+          v28 = 1757;
+          _os_log_impl(&dword_24E50C000, v22, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Already reached the max allowed delegate callback count", &v23, 0x1Cu);
+        }
+      }
+    }
+
+    else
+    {
+      callbackData[v17] = data;
+      v18 = *callbackCount;
+      selector[v18] = 0;
+      delegateSelector[v18] = sel_tellDelegate_didReceiveDataFromPeerWithContext_;
+      *callbackCount = v18 + 1;
+    }
+  }
+
+  else
+  {
+    voiceChatListener = self->_voiceChatListener;
+    if (!voiceChatListener)
+    {
+      voiceChatListener = [[GKVoiceChatSessionListener alloc] initWithSession:self];
+      self->_voiceChatListener = voiceChatListener;
+    }
+
+    v20 = [(GKSessionInternal *)self stringForGCKID:v13];
+
+    [(GKVoiceChatSessionListener *)voiceChatListener receivedNewVoiceChatOOBMessage:message fromPeerID:v20];
+  }
+}
+
+- (void)sendCallbacksToDelegate:(id *)delegate remotePeer:(unsigned int)peer
+{
+  v4 = *&peer;
+  v214 = *MEMORY[0x277D85DE8];
+  v185 = objc_alloc_init(MEMORY[0x277CCA8B0]);
+  memset(v211, 170, sizeof(v211));
+  LOBYTE(v193) = -86;
+  memset(v209, 170, sizeof(v209));
+  v207 = 0xAAAAAAAAAAAAAAAALL;
+  v208 = 0xAAAAAAAAAAAAAAAALL;
+  v192 = 0;
+  if (delegate->var0 != 4 && VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    v6 = VRTraceErrorLogLevelToCSTR();
+    v7 = *MEMORY[0x277CE5818];
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+    {
+      var0 = delegate->var0;
+      *buf = 136316162;
+      v196 = v6;
+      v197 = 2080;
+      v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+      v199 = 1024;
+      v200 = 1798;
+      v201 = 1024;
+      *v202 = var0;
+      *&v202[4] = 1024;
+      *&v202[6] = v4;
+      _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d sendCallbacksToDelegate: %d for remotePID [%x]", buf, 0x28u);
+    }
+  }
+
+  v212 = 0xAAAAAAAAAAAAAAAALL;
+  [(GKSessionInternal *)self lock];
+  v213 = 0;
+  v212 = 0;
+  memset(v210, 0, sizeof(v210));
+  v193 = 257;
+  v194 = 1;
+  v187 = [(GKAutoPeerIDTable *)self->_peerIDTable objectForKey:v4];
+  v9 = [(GKTable *)self->_peerInfoTable objectForKey:v4];
+  v10 = 1;
+  switch(delegate->var0)
+  {
+    case 0:
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v81 = VRTraceErrorLogLevelToCSTR();
+        v82 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          v83 = delegate->var0;
+          *buf = 136315906;
+          v196 = v81;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 1866;
+          v201 = 1024;
+          *v202 = v83;
+          _os_log_impl(&dword_24E50C000, v82, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Got event: %d - GCKSessionEvent_Invited", buf, 0x22u);
+        }
+      }
+
+      v84 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:delegate->var1 length:delegate->var2 encoding:4];
+      [(GKSessionInternal *)self setDisplayName:v84 forPeer:v4];
+      if (!self->_sessionStarted)
+      {
+        if (VRTraceGetErrorLogLevelForModule() >= 7)
+        {
+          v101 = VRTraceErrorLogLevelToCSTR();
+          v102 = *MEMORY[0x277CE5818];
+          if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 136315650;
+            v196 = v101;
+            v197 = 2080;
+            v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+            v199 = 1024;
+            v200 = 1872;
+            _os_log_impl(&dword_24E50C000, v102, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d not available - rejecting incoming", buf, 0x1Cu);
+          }
+        }
+
+        GCKSessionRespondToInvitation(self->sessionRef, v4, 0);
+      }
+
+      [(GKList *)self->_peersPendingIncomingInvitation addID:v4];
+      v209[1] = sel_session_peer_didChangeState_;
+      v209[2] = sel_session_didReceiveConnectionRequestFromPeer_;
+      v207 = sel_tellDelegate_isConnectingPeer_;
+      v208 = sel_tellDelegate_gotInvited_;
+      v192 = 2;
+
+      goto LABEL_116;
+    case 1:
+    case 0xD:
+      TimingLog(3, 0, "Network connected...");
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v11 = VRTraceErrorLogLevelToCSTR();
+        v12 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          v13 = delegate->var0;
+          isSearching = self->_isSearching;
+          v15 = self->_serviceBrowser != 0;
+          var2 = delegate->var2;
+          *buf = 136316674;
+          v196 = v11;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 1895;
+          v201 = 1024;
+          *v202 = v13;
+          *&v202[4] = 1024;
+          *&v202[6] = isSearching;
+          v203 = 1024;
+          v204 = v15;
+          v205 = 1024;
+          v206 = var2;
+          _os_log_impl(&dword_24E50C000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Got event: %d - GCKSessionEvent_Connected (%d, %d) (namelen:%d)", buf, 0x34u);
+        }
+      }
+
+      p_peersConnected = &self->_peersConnected;
+      if (![(GKList *)self->_peersConnected hasID:v4])
+      {
+        v56 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:delegate->var1 length:delegate->var2 encoding:4];
+        [(GKSessionInternal *)self setDisplayName:v56 forPeer:v4];
+        connection = self->_connection;
+        if (connection)
+        {
+          [(GKConnection *)connection setParticipantID:v56 forPeerID:v187];
+        }
+
+        if (v9)
+        {
+          [v9 setNeedsToTimeout:0];
+          if (VRTraceGetErrorLogLevelForModule() >= 7)
+          {
+            v58 = VRTraceErrorLogLevelToCSTR();
+            v59 = *MEMORY[0x277CE5818];
+            if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 136315906;
+              v196 = v58;
+              v197 = 2080;
+              v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+              v199 = 1024;
+              v200 = 1913;
+              v201 = 2112;
+              *v202 = v56;
+              _os_log_impl(&dword_24E50C000, v59, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** Stop resolving: %@ connected", buf, 0x26u);
+            }
+          }
+
+          [v9 stopResolving];
+        }
+
+        [(GKList *)*p_peersConnected addID:v4];
+        if (*MEMORY[0x277CE5800] > 6 || (*MEMORY[0x277CE5810] & 1) != 0)
+        {
+          [GKSessionInternal(callback) sendCallbacksToDelegate:? remotePeer:?];
+        }
+
+        [(GKList *)self->_peersPendingIncomingInvitation removeID:v4];
+        [(GKList *)self->_peersPendingOutgoingInvitation removeID:v4];
+        if (self->_isSearching && self->_serviceBrowser)
+        {
+          if (VRTraceGetErrorLogLevelForModule() >= 7)
+          {
+            v60 = VRTraceErrorLogLevelToCSTR();
+            v61 = *MEMORY[0x277CE5818];
+            if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+            {
+              serviceBrowser = self->_serviceBrowser;
+              *buf = 136315906;
+              v196 = v60;
+              v197 = 2080;
+              v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+              v199 = 1024;
+              v200 = 1926;
+              v201 = 1024;
+              *v202 = serviceBrowser;
+              _os_log_impl(&dword_24E50C000, v61, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_serviceBrowser) (%08X)", buf, 0x22u);
+            }
+          }
+
+          DNSServiceRefDeallocate(self->_serviceBrowser);
+          self->_serviceBrowser = 0;
+          self->_isSearching = 0;
+          [(GKList *)self->_peersForCleanup addIDsFromList:self->_peersAvailable];
+          if (VRTraceGetErrorLogLevelForModule() >= 7)
+          {
+            v63 = VRTraceErrorLogLevelToCSTR();
+            v64 = *MEMORY[0x277CE5818];
+            if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+            {
+              v65 = [(GKList *)self->_peersAvailable count];
+              v66 = [(GKList *)self->_peersForCleanup count];
+              *buf = 136316162;
+              v196 = v63;
+              v197 = 2080;
+              v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+              v199 = 1024;
+              v200 = 1934;
+              v201 = 1024;
+              *v202 = v65;
+              *&v202[4] = 1024;
+              *&v202[6] = v66;
+              _os_log_impl(&dword_24E50C000, v64, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d moving %d available peers to future removal (%d)", buf, 0x28u);
+            }
+          }
+
+          [(GKList *)self->_peersAvailable removeAllIDs];
+          [(GKTable *)self->_peerInfoTable makeObjectsPerformSelector:sel_stopTXTRecordMonitoring];
+        }
+
+        v209[1] = sel_session_peer_didChangeState_;
+        v207 = sel_tellDelegate_didConnectPeer_;
+        *buf = delegate->var0 == 13;
+        v210[0] = [MEMORY[0x277CBEA90] dataWithBytes:buf length:4];
+        v10 = 1;
+        v192 = 1;
+
+        goto LABEL_223;
+      }
+
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v18 = VRTraceErrorLogLevelToCSTR();
+        v19 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315906;
+          v196 = v18;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 1899;
+          v201 = 1024;
+          *v202 = v4;
+          v20 = " [%s] %s:%d New peer (%d) already connected";
+          goto LABEL_13;
+        }
+      }
+
+      goto LABEL_116;
+    case 2:
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v29 = VRTraceErrorLogLevelToCSTR();
+        v30 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          v31 = delegate->var0;
+          *buf = 136315906;
+          v196 = v29;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 1954;
+          v201 = 1024;
+          *v202 = v31;
+          _os_log_impl(&dword_24E50C000, v30, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Got event: %d - GCKSessionEvent_Failed", buf, 0x22u);
+        }
+      }
+
+      [(GKConnection *)self->_connection reportingAgent];
+      reportingGKLog();
+      if (v9)
+      {
+        [v9 setNeedsToTimeout:0];
+        if (VRTraceGetErrorLogLevelForModule() >= 7)
+        {
+          v32 = VRTraceErrorLogLevelToCSTR();
+          v33 = *MEMORY[0x277CE5818];
+          if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+          {
+            displayName = [v9 displayName];
+            *buf = 136315906;
+            v196 = v32;
+            v197 = 2080;
+            v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+            v199 = 1024;
+            v200 = 1959;
+            v201 = 2112;
+            *v202 = displayName;
+            _os_log_impl(&dword_24E50C000, v33, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** Stop resolving: %@ failed to connect", buf, 0x26u);
+          }
+        }
+
+        [v9 stopResolving];
+      }
+
+      selfCopy3 = self;
+      v36 = [(GKList *)self->_peersPendingIncomingInvitation hasID:v4];
+      if (v36)
+      {
+        LODWORD(v212) = 30506;
+        v211[3] = [GCKGameConnectivityKitBundle(v36 v37)];
+        v211[0] = [GCKGameConnectivityKitBundle(v211[3] v38)];
+        v209[1] = sel_session_connectionWithPeerFailed_withError_;
+        v207 = sel_tellDelegate_connectionRequestToPeerFailed_;
+        v192 = 1;
+        peersPendingIncomingInvitation = self->_peersPendingIncomingInvitation;
+      }
+
+      else
+      {
+        v95 = [(GKList *)self->_peersPendingOutgoingInvitation hasID:v4];
+        if (!v95)
+        {
+          LODWORD(v212) = 30201;
+          v211[3] = [GCKGameConnectivityKitBundle(v95 v96)];
+          v211[0] = [GCKGameConnectivityKitBundle(v211[3] v121)];
+          v209[1] = sel_session_connectionWithPeerFailed_withError_;
+          v207 = sel_tellDelegate_connectionRequestToPeerFailed_;
+          v192 = 1;
+          selfCopy3 = self;
+          goto LABEL_156;
+        }
+
+        var3_low = LOWORD(delegate->var3);
+        if (var3_low == 41)
+        {
+          LODWORD(v212) = 30510;
+          v211[3] = [GCKGameConnectivityKitBundle(v95 v96)];
+          v99 = GCKGameConnectivityKitBundle(v211[3], v137);
+          v100 = @"Found in progress after success.";
+        }
+
+        else if (var3_low == 23)
+        {
+          LODWORD(v212) = 30503;
+          v211[3] = [GCKGameConnectivityKitBundle(v95 v96)];
+          v99 = GCKGameConnectivityKitBundle(v211[3], v98);
+          v100 = @"Invitation timed out.";
+        }
+
+        else
+        {
+          LODWORD(v212) = 30505;
+          v211[3] = [GCKGameConnectivityKitBundle(v95 v96)];
+          v99 = GCKGameConnectivityKitBundle(v211[3], v138);
+          v100 = @"Failed while pending outgoing invitation.";
+        }
+
+        v211[0] = [v99 localizedStringForKey:v100 value:&stru_286195238 table:@"GKSessionEvent"];
+        v209[1] = sel_session_connectionWithPeerFailed_withError_;
+        v207 = sel_tellDelegate_connectionRequestToPeerFailed_;
+        v192 = 1;
+        selfCopy3 = self;
+        peersPendingIncomingInvitation = self->_peersPendingOutgoingInvitation;
+      }
+
+      [(GKList *)peersPendingIncomingInvitation removeID:v4];
+LABEL_156:
+      if (selfCopy3->_connection || [(GKList *)selfCopy3->_peersConnected count]|| [(GKList *)selfCopy3->_peersPendingIncomingInvitation count]|| [(GKList *)selfCopy3->_peersPendingOutgoingInvitation count])
+      {
+        goto LABEL_222;
+      }
+
+      if (VRTraceGetErrorLogLevelForModule() < 7)
+      {
+        goto LABEL_221;
+      }
+
+      v139 = VRTraceErrorLogLevelToCSTR();
+      v140 = *MEMORY[0x277CE5818];
+      if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_221;
+      }
+
+      if (v9)
+      {
+        displayName2 = [v9 displayName];
+      }
+
+      else
+      {
+        displayName2 = 0;
+      }
+
+      *buf = 136315906;
+      v196 = v139;
+      v197 = 2080;
+      v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+      v199 = 1024;
+      v200 = 2017;
+      v201 = 2112;
+      *v202 = displayName2;
+      v173 = " [%s] %s:%d ** Stop resolving ALL: %@ connection failed and no more connected/incoming/outgoing";
+      goto LABEL_220;
+    case 3:
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v44 = VRTraceErrorLogLevelToCSTR();
+        v45 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          v46 = delegate->var0;
+          *buf = 136316162;
+          v196 = v44;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 2025;
+          v201 = 1024;
+          *v202 = v46;
+          *&v202[4] = 1024;
+          *&v202[6] = v4;
+          _os_log_impl(&dword_24E50C000, v45, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Got event: %d - GCKSessionEvent_Disconnected for peer %08X.", buf, 0x28u);
+        }
+      }
+
+      [(GKConnection *)self->_connection reportingAgent];
+      reportingGKLog();
+      if (v9)
+      {
+        [v9 setNeedsToTimeout:0];
+        if (VRTraceGetErrorLogLevelForModule() >= 7)
+        {
+          v47 = VRTraceErrorLogLevelToCSTR();
+          v48 = *MEMORY[0x277CE5818];
+          if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+          {
+            displayName3 = [v9 displayName];
+            *buf = 136315906;
+            v196 = v47;
+            v197 = 2080;
+            v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+            v199 = 1024;
+            v200 = 2032;
+            v201 = 2112;
+            *v202 = displayName3;
+            _os_log_impl(&dword_24E50C000, v48, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** Stop resolving: %@ disconnected", buf, 0x26u);
+          }
+        }
+
+        [v9 stopResolving];
+      }
+
+      if ((delegate->var3 & 0x80000000) == 0)
+      {
+        v50 = &self->_peersConnected;
+        if ([(GKList *)self->_peersConnected hasID:v4])
+        {
+          [(GKList *)*v50 removeID:v4];
+          if (*MEMORY[0x277CE5800] > 6 || (*MEMORY[0x277CE5810] & 1) != 0)
+          {
+            [GKSessionInternal(callback) sendCallbacksToDelegate:v50 remotePeer:?];
+          }
+
+          v51 = [(GKList *)self->_peersAvailable hasID:v4];
+          if (v9 && !v51)
+          {
+            [(GKTable *)self->_peerInfoTable removeObjectForKey:v4];
+          }
+
+          goto LABEL_167;
+        }
+
+        if ([(GKList *)self->_peersPendingOutgoingInvitation hasID:v4])
+        {
+          if (VRTraceGetErrorLogLevelForModule() >= 7)
+          {
+            v111 = VRTraceErrorLogLevelToCSTR();
+            v112 = *MEMORY[0x277CE5818];
+            if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 136315650;
+              v196 = v111;
+              v197 = 2080;
+              v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+              v199 = 1024;
+              v200 = 2113;
+              _os_log_impl(&dword_24E50C000, v112, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Remote declined", buf, 0x1Cu);
+            }
+          }
+
+          v113 = [(GKList *)self->_peersPendingOutgoingInvitation removeID:v4];
+          LODWORD(v212) = 30502;
+          v211[3] = [GCKGameConnectivityKitBundle(v113 v114)];
+          v116 = GCKGameConnectivityKitBundle(v211[3], v115);
+          v117 = @"Remote declined.";
+          goto LABEL_187;
+        }
+
+        if ([(GKList *)self->_peersPendingIncomingInvitation hasID:v4])
+        {
+          if (VRTraceGetErrorLogLevelForModule() >= 7)
+          {
+            v127 = VRTraceErrorLogLevelToCSTR();
+            v128 = *MEMORY[0x277CE5818];
+            if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 136315650;
+              v196 = v127;
+              v197 = 2080;
+              v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+              v199 = 1024;
+              v200 = 2126;
+              _os_log_impl(&dword_24E50C000, v128, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Remote cancelled", buf, 0x1Cu);
+            }
+          }
+
+          [(GKConnection *)self->_connection reportingAgent];
+          reportingGKLog();
+          v129 = [(GKList *)self->_peersPendingIncomingInvitation removeID:v4];
+          LODWORD(v212) = 30504;
+          v211[3] = [GCKGameConnectivityKitBundle(v129 v130)];
+          v211[0] = [GCKGameConnectivityKitBundle(v211[3] v131)];
+          v209[1] = sel_session_connectionWithPeerFailed_withError_;
+          v207 = sel_tellDelegate_connectionRequestToPeerFailed_;
+          v192 = 1;
+          goto LABEL_189;
+        }
+
+        if (self->_connection)
+        {
+          if (VRTraceGetErrorLogLevelForModule() < 7)
+          {
+            goto LABEL_116;
+          }
+
+          v145 = VRTraceErrorLogLevelToCSTR();
+          v19 = *MEMORY[0x277CE5818];
+          if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_116;
+          }
+
+          *buf = 136315906;
+          v196 = v145;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 2140;
+          v201 = 1024;
+          *v202 = v4;
+          v20 = " [%s] %s:%d Cancelled peer (%d) already disconnected";
+LABEL_13:
+          v21 = v19;
+          v22 = 34;
+          goto LABEL_14;
+        }
+
+        if (v9)
+        {
+          [v9 setNeedsToTimeout:0];
+        }
+
+        if (VRTraceGetErrorLogLevelForModule() >= 7)
+        {
+          v159 = VRTraceErrorLogLevelToCSTR();
+          v160 = *MEMORY[0x277CE5818];
+          if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 136315650;
+            v196 = v159;
+            v197 = 2080;
+            v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+            v199 = 1024;
+            v200 = 2146;
+            _os_log_impl(&dword_24E50C000, v160, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Local accepted but disconnected", buf, 0x1Cu);
+          }
+        }
+
+        [(GKList *)self->_peersPendingIncomingInvitation removeID:v4];
+        if (VRTraceGetErrorLogLevelForModule() < 5)
+        {
+          goto LABEL_189;
+        }
+
+        v161 = VRTraceErrorLogLevelToCSTR();
+        v162 = *MEMORY[0x277CE5818];
+        if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_189;
+        }
+
+        v163 = delegate->var0;
+        *buf = 136316418;
+        v196 = v161;
+        v197 = 2080;
+        v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+        v199 = 1024;
+        v200 = 2148;
+        v201 = 1024;
+        *v202 = 2148;
+        *&v202[4] = 1024;
+        *&v202[6] = v4;
+        v203 = 1024;
+        v204 = v163;
+        v164 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/GameKitServices.subproj/Sources/Gecko/GKSession_Internal.m:%d: Local side accepted but PID (0x%08X) disconnected. event->eventType = %d";
+        v165 = v162;
+        v166 = 46;
+LABEL_211:
+        _os_log_impl(&dword_24E50C000, v165, OS_LOG_TYPE_DEFAULT, v164, buf, v166);
+LABEL_189:
+        if (!self->_connection && ![(GKList *)self->_peersConnected count]&& ![(GKList *)self->_peersPendingIncomingInvitation count]&& ![(GKList *)self->_peersPendingOutgoingInvitation count])
+        {
+          if (VRTraceGetErrorLogLevelForModule() >= 7)
+          {
+            v157 = VRTraceErrorLogLevelToCSTR();
+            v140 = *MEMORY[0x277CE5818];
+            if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+            {
+              if (v9)
+              {
+                displayName4 = [v9 displayName];
+              }
+
+              else
+              {
+                displayName4 = 0;
+              }
+
+              *buf = 136315906;
+              v196 = v157;
+              v197 = 2080;
+              v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+              v199 = 1024;
+              v200 = 2155;
+              v201 = 2112;
+              *v202 = displayName4;
+              v173 = " [%s] %s:%d ** Stop resolving ALL: %@ disconnected and no more connected/incoming/outgoing";
+LABEL_220:
+              _os_log_impl(&dword_24E50C000, v140, OS_LOG_TYPE_DEFAULT, v173, buf, 0x26u);
+            }
+          }
+
+LABEL_221:
+          [(GKSessionInternal *)self stopResolvingAllPeers];
+        }
+
+LABEL_222:
+        v10 = 0;
+        goto LABEL_223;
+      }
+
+      var3 = delegate->var3;
+      v104 = &self->_peersConnected;
+      v105 = [(GKList *)self->_peersConnected hasID:v4];
+      if (var3 == 23)
+      {
+        if (!v105)
+        {
+          if ([(GKList *)self->_peersPendingOutgoingInvitation hasID:v4])
+          {
+            v133 = [(GKList *)self->_peersPendingOutgoingInvitation removeID:v4];
+            LODWORD(v212) = 30503;
+            v135 = GCKGameConnectivityKitBundle(v133, v134);
+            v136 = @"Outgoing invitation timed out.";
+          }
+
+          else
+          {
+            if (![(GKList *)self->_peersPendingIncomingInvitation hasID:v4])
+            {
+              if (VRTraceGetErrorLogLevelForModule() < 5)
+              {
+                goto LABEL_189;
+              }
+
+              v170 = VRTraceErrorLogLevelToCSTR();
+              v171 = *MEMORY[0x277CE5818];
+              if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+              {
+                goto LABEL_189;
+              }
+
+              *buf = 136316162;
+              v196 = v170;
+              v197 = 2080;
+              v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+              v199 = 1024;
+              v200 = 2066;
+              v201 = 1024;
+              *v202 = 2066;
+              *&v202[4] = 1024;
+              *&v202[6] = v4;
+              v164 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/GameKitServices.subproj/Sources/Gecko/GKSession_Internal.m:%d: PID 0x%08X timed out, but not known to us.";
+              v165 = v171;
+              v166 = 40;
+              goto LABEL_211;
+            }
+
+            v154 = [(GKList *)self->_peersPendingIncomingInvitation removeID:v4];
+            LODWORD(v212) = 30503;
+            v135 = GCKGameConnectivityKitBundle(v154, v155);
+            v136 = @"Incoming invitation timed out.";
+          }
+
+          v211[3] = [v135 localizedStringForKey:v136 value:&stru_286195238 table:@"GKSessionEvent"];
+          v116 = GCKGameConnectivityKitBundle(v211[3], v156);
+          v117 = @"Invitation timed out.";
+LABEL_187:
+          v211[0] = [v116 localizedStringForKey:v117 value:&stru_286195238 table:@"GKSessionEvent"];
+          v209[1] = sel_session_connectionWithPeerFailed_withError_;
+          v144 = sel_tellDelegate_connectionRequestToPeerFailed_;
+          goto LABEL_188;
+        }
+
+        v106 = [(GKList *)*v104 removeID:v4];
+        if (*MEMORY[0x277CE5800] > 6 || (*MEMORY[0x277CE5810] & 1) != 0)
+        {
+          v106 = [GKSessionInternal(callback) sendCallbacksToDelegate:v104 remotePeer:?];
+        }
+
+        LODWORD(v212) = 30503;
+        v211[3] = [GCKGameConnectivityKitBundle(v106 v107)];
+        v109 = GCKGameConnectivityKitBundle(v211[3], v108);
+        v110 = @"Connection timed out.";
+      }
+
+      else
+      {
+        if (!v105 && ![(GKList *)self->_peersPendingOutgoingInvitation hasID:v4]&& ![(GKList *)self->_peersPendingIncomingInvitation hasID:v4])
+        {
+          if (VRTraceGetErrorLogLevelForModule() < 5)
+          {
+            goto LABEL_189;
+          }
+
+          v167 = VRTraceErrorLogLevelToCSTR();
+          v168 = *MEMORY[0x277CE5818];
+          if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_189;
+          }
+
+          v169 = delegate->var3;
+          *buf = 136316674;
+          v196 = v167;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 2093;
+          v201 = 1024;
+          *v202 = 2093;
+          *&v202[4] = 1024;
+          *&v202[6] = v169;
+          v203 = 1024;
+          v204 = v169;
+          v205 = 1024;
+          v206 = v4;
+          v164 = " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/GameKitServices.subproj/Sources/Gecko/GKSession_Internal.m:%d: Received unknown event->status %08x (%d) for an unknown PID (0x%08X)";
+          v165 = v168;
+          v166 = 52;
+          goto LABEL_211;
+        }
+
+        [(GKList *)self->_peersConnected removeID:v4];
+        [(GKList *)self->_peersPendingOutgoingInvitation removeID:v4];
+        v122 = [(GKList *)self->_peersPendingIncomingInvitation removeID:v4];
+        if (*MEMORY[0x277CE5800] > 6 || (*MEMORY[0x277CE5810] & 1) != 0)
+        {
+          v122 = [GKSessionInternal(callback) sendCallbacksToDelegate:v104 remotePeer:?];
+        }
+
+        if ((delegate->var3 & 0x40000000) != 0)
+        {
+          LODWORD(v212) = 30205;
+          v142 = MEMORY[0x277CCACA8];
+          v143 = [GCKGameConnectivityKitBundle(v122 v123)];
+          v124 = [v142 stringWithFormat:v143, *__error()];
+          v126 = @"Connection error: system error";
+        }
+
+        else
+        {
+          LODWORD(v212) = 30203;
+          v124 = [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(GCKGameConnectivityKitBundle(v122, v123), "localizedStringForKey:value:table:", @"Connection error: internal (%08X).", &stru_286195238, @"GKSessionEvent", delegate->var3];
+          v126 = @"Connection error: internal";
+        }
+
+        v211[3] = v124;
+        v109 = GCKGameConnectivityKitBundle(v124, v125);
+        v110 = v126;
+      }
+
+      v211[0] = [v109 localizedStringForKey:v110 value:&stru_286195238 table:@"GKSessionEvent"];
+LABEL_167:
+      v209[1] = sel_session_peer_didChangeState_;
+      v144 = sel_tellDelegate_didDisconnectPeer_;
+LABEL_188:
+      v207 = v144;
+      v192 = 1;
+      goto LABEL_189;
+    case 4:
+      if (![(GKList *)self->_peersConnected hasID:v4]|| !delegate->var1 || ![(GKSessionInternal *)self dataReceiveHandler])
+      {
+        goto LABEL_223;
+      }
+
+      v210[0] = [MEMORY[0x277CBEA90] dataWithBytes:delegate->var1 length:delegate->var2];
+      LOBYTE(v193) = 0;
+      v67 = sel_tellDelegate_didReceiveData_;
+      goto LABEL_96;
+    case 6:
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v68 = VRTraceErrorLogLevelToCSTR();
+        v69 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          v70 = delegate->var0;
+          *buf = 136316162;
+          v196 = v68;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 2210;
+          v201 = 1024;
+          *v202 = v70;
+          *&v202[4] = 1024;
+          *&v202[6] = v4;
+          _os_log_impl(&dword_24E50C000, v69, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Got event: %d - GCKSessionEvent_IncomingOOBPacket from %X", buf, 0x28u);
+        }
+      }
+
+      if (![(GKList *)self->_peersConnected hasID:v4])
+      {
+        goto LABEL_223;
+      }
+
+      var1 = delegate->var1;
+      if (!var1)
+      {
+        goto LABEL_223;
+      }
+
+      v72 = [MEMORY[0x277CBEA90] dataWithBytes:var1 length:delegate->var2];
+      v73 = [GKOOBMessageFactory newMessageFromData:v72];
+      if (!v73)
+      {
+        if (delegate->var3 == 1)
+        {
+          if (self->_doobReceiveHandler[1])
+          {
+            v210[0] = [MEMORY[0x277CBEA90] dataWithBytes:delegate->var1 length:delegate->var2];
+            LOBYTE(v193) = 0;
+            v207 = sel_tellDelegate_didReceiveBand_RetryICE_;
+            v10 = 1;
+            goto LABEL_97;
+          }
+
+          if (VRTraceGetErrorLogLevelForModule() < 7)
+          {
+            goto LABEL_116;
+          }
+
+          v172 = VRTraceErrorLogLevelToCSTR();
+          v153 = *MEMORY[0x277CE5818];
+          if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_116;
+          }
+
+          *buf = 136315650;
+          v196 = v172;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 2243;
+          v20 = " [%s] %s:%d GCKOOBand_RetryICE: oob message no band handler registered ";
+        }
+
+        else
+        {
+          if (VRTraceGetErrorLogLevelForModule() < 7)
+          {
+            goto LABEL_116;
+          }
+
+          v152 = VRTraceErrorLogLevelToCSTR();
+          v153 = *MEMORY[0x277CE5818];
+          if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_116;
+          }
+
+          *buf = 136315650;
+          v196 = v152;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 2252;
+          v20 = " [%s] %s:%d GCKSessionEvent_IncomingOOBPacket: oob message band specifier out-of-range...";
+        }
+
+        v21 = v153;
+        v22 = 28;
+LABEL_14:
+        _os_log_impl(&dword_24E50C000, v21, OS_LOG_TYPE_DEFAULT, v20, buf, v22);
+LABEL_116:
+        v10 = 1;
+        goto LABEL_223;
+      }
+
+      v74 = v73;
+      type = [v73 type];
+      if (type == 1500)
+      {
+        if (VRTraceGetErrorLogLevelForModule() >= 7)
+        {
+          v146 = VRTraceErrorLogLevelToCSTR();
+          v147 = *MEMORY[0x277CE5818];
+          if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 136315650;
+            v196 = v146;
+            v197 = 2080;
+            v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+            v199 = 1024;
+            v200 = 2222;
+            _os_log_impl(&dword_24E50C000, v147, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GCKSessionEvent_IncomingOOBPacket: disconnect from all peers", buf, 0x1Cu);
+          }
+        }
+
+        [(GKSessionInternal *)self disconnectFromAllPeers];
+        goto LABEL_180;
+      }
+
+      if (type == 1600)
+      {
+        [(GKSessionInternal *)self handleNewGKOOBAudioMessage:v74 messageData:v72 remotePID:v4 callbackData:v210 maxCallbackCount:3 checkDelegateCallbackSelector:&v193 tellDelegateSelector:&v207 callbackCount:&v192];
+        if (VRTraceGetErrorLogLevelForModule() < 7)
+        {
+          goto LABEL_180;
+        }
+
+        v76 = VRTraceErrorLogLevelToCSTR();
+        v77 = *MEMORY[0x277CE5818];
+        if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_180;
+        }
+
+        *buf = 136315650;
+        v196 = v76;
+        v197 = 2080;
+        v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+        v199 = 1024;
+        v200 = 2219;
+        v78 = " [%s] %s:%d Incoming reliable audio packet";
+        v79 = v77;
+        v80 = 28;
+      }
+
+      else
+      {
+        if (VRTraceGetErrorLogLevelForModule() < 7)
+        {
+          goto LABEL_180;
+        }
+
+        v148 = VRTraceErrorLogLevelToCSTR();
+        v149 = *MEMORY[0x277CE5818];
+        if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_180;
+        }
+
+        type2 = [v74 type];
+        *buf = 136315906;
+        v196 = v148;
+        v197 = 2080;
+        v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+        v199 = 1024;
+        v200 = 2226;
+        v201 = 1024;
+        *v202 = type2;
+        v78 = " [%s] %s:%d GCKSessionEvent_IncomingOOBPacket: unknown OOB packet type %d";
+        v79 = v149;
+        v80 = 34;
+      }
+
+      _os_log_impl(&dword_24E50C000, v79, OS_LOG_TYPE_DEFAULT, v78, buf, v80);
+LABEL_180:
+      v151 = v74;
+      goto LABEL_116;
+    case 7:
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v88 = VRTraceErrorLogLevelToCSTR();
+        v89 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          v90 = delegate->var0;
+          *buf = 136316162;
+          v196 = v88;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 2260;
+          v201 = 1024;
+          *v202 = v90;
+          *&v202[4] = 1024;
+          *&v202[6] = v4;
+          _os_log_impl(&dword_24E50C000, v89, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Got event: %d - GCKSessionEvent_OutgoingOOBPacket to %X", buf, 0x28u);
+        }
+      }
+
+      if (![(GKList *)self->_peersConnected hasID:v4]|| !delegate->var1)
+      {
+        goto LABEL_223;
+      }
+
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v91 = VRTraceErrorLogLevelToCSTR();
+        v92 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          v93 = delegate->var2;
+          *buf = 136315906;
+          v196 = v91;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 2262;
+          v201 = 1024;
+          *v202 = v93;
+          _os_log_impl(&dword_24E50C000, v92, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GCKSessionEvent_OutgoingOOBPacket: [buflen == %d]", buf, 0x22u);
+        }
+      }
+
+      v94 = [MEMORY[0x277CBEA90] dataWithBytes:delegate->var1 length:delegate->var2];
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___block_invoke_301;
+      block[3] = &unk_279682C18;
+      block[4] = self;
+      block[5] = v94;
+      block[6] = v187;
+      v27 = MEMORY[0x277D85CD0];
+      v28 = block;
+      goto LABEL_107;
+    case 8:
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v85 = VRTraceErrorLogLevelToCSTR();
+        v86 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          v87 = delegate->var0;
+          *buf = 136316162;
+          v196 = v85;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 2183;
+          v201 = 1024;
+          *v202 = v87;
+          *&v202[4] = 1024;
+          *&v202[6] = v4;
+          _os_log_impl(&dword_24E50C000, v86, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Got event: %d - GCKSessionEvent_SendSelfOOBPacket from %X", buf, 0x28u);
+        }
+      }
+
+      if (!delegate->var1)
+      {
+        goto LABEL_223;
+      }
+
+      if (delegate->var3 != 1)
+      {
+        if (VRTraceGetErrorLogLevelForModule() < 7)
+        {
+          goto LABEL_223;
+        }
+
+        v118 = VRTraceErrorLogLevelToCSTR();
+        v119 = *MEMORY[0x277CE5818];
+        if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_223;
+        }
+
+        *buf = 136315650;
+        v196 = v118;
+        v197 = 2080;
+        v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+        v199 = 1024;
+        v200 = 2205;
+        v120 = " [%s] %s:%d GCKSessionEvent_SendSelfOOBPacket: oob message band specifier out-of-range...";
+LABEL_149:
+        _os_log_impl(&dword_24E50C000, v119, OS_LOG_TYPE_DEFAULT, v120, buf, 0x1Cu);
+        goto LABEL_223;
+      }
+
+      if (!self->_doobReceiveHandler[1])
+      {
+        if (VRTraceGetErrorLogLevelForModule() < 7)
+        {
+          goto LABEL_223;
+        }
+
+        v132 = VRTraceErrorLogLevelToCSTR();
+        v119 = *MEMORY[0x277CE5818];
+        if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_223;
+        }
+
+        *buf = 136315650;
+        v196 = v132;
+        v197 = 2080;
+        v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+        v199 = 1024;
+        v200 = 2196;
+        v120 = " [%s] %s:%d GCKOOBand_RetryICE: oob message no band handler registered ";
+        goto LABEL_149;
+      }
+
+      v210[0] = [MEMORY[0x277CBEA90] dataWithBytes:? length:?];
+      LOBYTE(v193) = 0;
+      v67 = sel_tellDelegate_didReceiveBand_RetryICE_;
+LABEL_96:
+      v207 = v67;
+LABEL_97:
+      v192 = 1;
+LABEL_223:
+
+      selfCopy5 = self;
+      [(GKSessionInternal *)self unlock];
+      pthread_mutex_lock(&self->_delegateLock);
+      if (v192 >= 1)
+      {
+        for (i = 0; i < v192; ++i)
+        {
+          if (*(&v193 + i) == 1)
+          {
+            [(GKSessionInternal *)selfCopy5 delegate];
+            if ((objc_opt_respondsToSelector() & 1) == 0)
+            {
+              [(GKSessionInternal *)selfCopy5 privateDelegate];
+              if ((objc_opt_respondsToSelector() & 1) == 0)
+              {
+                continue;
+              }
+            }
+          }
+
+          v176 = *(&v212 + i);
+          if (v176)
+          {
+            v177 = [(GKSessionInternal *)selfCopy5 newNSErrorFromGKSessionError:v176 description:v211[i + 3] reason:v211[i]];
+            v178 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v187, @"peerID", v177, @"NSError", 0}];
+
+            selfCopy5 = self;
+          }
+
+          else
+          {
+            v179 = v210[i];
+            v180 = objc_alloc(MEMORY[0x277CBEAC0]);
+            if (v179)
+            {
+              v181 = [v180 initWithObjectsAndKeys:{v187, @"peerID", v210[i], @"data", 0}];
+            }
+
+            else
+            {
+              v181 = [v180 initWithObjectsAndKeys:{v187, @"peerID", 0, v183, v184}];
+            }
+
+            v178 = v181;
+          }
+
+          [(GKSessionInternal *)selfCopy5 performSelectorOnMainThread:(&v207)[i] withObject:v178 waitUntilDone:0];
+        }
+      }
+
+      pthread_mutex_unlock(&selfCopy5->_delegateLock);
+
+      if (selfCopy5->_connection)
+      {
+        v182 = 1;
+      }
+
+      else
+      {
+        v182 = v10;
+      }
+
+      if ((v182 & 1) == 0 && ![(GKList *)selfCopy5->_peersConnected count]&& selfCopy5->_mode - 1 <= 1 && selfCopy5->_sessionStarted && !selfCopy5->_isSearching && !selfCopy5->_shutdown)
+      {
+        selfCopy5->_isSearching = 1;
+        [(GKSessionInternal *)selfCopy5 browse];
+      }
+
+      [v185 drain];
+      return;
+    case 9:
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v23 = VRTraceErrorLogLevelToCSTR();
+        v24 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          v25 = delegate->var0;
+          *buf = 136315906;
+          v196 = v23;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 1822;
+          v201 = 1024;
+          *v202 = v25;
+          _os_log_impl(&dword_24E50C000, v24, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Got event: %d - GCKSessionEvent_RelayInitiate", buf, 0x22u);
+        }
+      }
+
+      v26 = [MEMORY[0x277CCAC58] propertyListFromData:objc_msgSend(MEMORY[0x277CBEA90] mutabilityOption:"dataWithBytes:length:" format:delegate->var1 errorDescription:{delegate->var2), 0, 0, 0}];
+      v191[0] = MEMORY[0x277D85DD0];
+      v191[1] = 3221225472;
+      v191[2] = __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___block_invoke;
+      v191[3] = &unk_279682C18;
+      v191[4] = self;
+      v191[5] = v187;
+      v191[6] = v26;
+      v27 = MEMORY[0x277D85CD0];
+      v28 = v191;
+      goto LABEL_107;
+    case 0xA:
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v52 = VRTraceErrorLogLevelToCSTR();
+        v53 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          v54 = delegate->var0;
+          *buf = 136315906;
+          v196 = v52;
+          v197 = 2080;
+          v198 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]";
+          v199 = 1024;
+          v200 = 1844;
+          v201 = 1024;
+          *v202 = v54;
+          _os_log_impl(&dword_24E50C000, v53, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Got event: %d - GCKSessionEvent_RelayUpdate", buf, 0x22u);
+        }
+      }
+
+      v55 = [MEMORY[0x277CCAC58] propertyListFromData:objc_msgSend(MEMORY[0x277CBEA90] mutabilityOption:"dataWithBytes:length:" format:delegate->var1 errorDescription:{delegate->var2), 0, 0, 0}];
+      v190[0] = MEMORY[0x277D85DD0];
+      v190[1] = 3221225472;
+      v190[2] = __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___block_invoke_223;
+      v190[3] = &unk_279682C18;
+      v190[4] = self;
+      v190[5] = v187;
+      v190[6] = v55;
+      v27 = MEMORY[0x277D85CD0];
+      v28 = v190;
+      goto LABEL_107;
+    case 0xC:
+      v40 = malloc_type_malloc((delegate->var2 + 24), 0x101004035137979uLL);
+      if (!v40)
+      {
+        goto LABEL_223;
+      }
+
+      v41 = v40;
+      v42 = *&delegate->var2;
+      *v40 = *&delegate->var0;
+      v43 = v40 + 24;
+      *(v41 + 1) = v43;
+      *(v41 + 2) = v42;
+      memcpy(v43, delegate->var1, delegate->var2);
+      v188[0] = MEMORY[0x277D85DD0];
+      v188[1] = 3221225472;
+      v188[2] = __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___block_invoke_2;
+      v188[3] = &unk_279683018;
+      v188[4] = self;
+      v188[5] = v187;
+      v188[6] = v41;
+      v27 = MEMORY[0x277D85CD0];
+      v28 = v188;
+LABEL_107:
+      dispatch_async(v27, v28);
+      goto LABEL_223;
+    default:
+      goto LABEL_223;
+  }
+}
+
 uint64_t __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___block_invoke(void *a1)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v1 = a1[5];
-  v8[0] = @"peerID";
-  v8[1] = @"dict";
-  v9[0] = v1;
+  v7[0] = @"peerID";
+  v7[1] = @"dict";
+  v8[0] = v1;
   v3 = a1[6];
-  v6 = @"GKSRelayInitiateInfo";
-  v7 = v3;
-  v9[1] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
-  result = [v2 tellDelegate_initiateRelay:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v9, v8, 2)}];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = @"GKSRelayInitiateInfo";
+  v6 = v3;
+  v8[1] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v6 forKeys:&v5 count:1];
+  return [v2 tellDelegate_initiateRelay:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v8, v7, 2)}];
 }
 
 uint64_t __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___block_invoke_223(void *a1)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v1 = a1[5];
-  v8[0] = @"peerID";
-  v8[1] = @"dict";
-  v9[0] = v1;
+  v7[0] = @"peerID";
+  v7[1] = @"dict";
+  v8[0] = v1;
   v3 = a1[6];
-  v6 = @"GKSRelayUpdateInfo";
-  v7 = v3;
-  v9[1] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
-  result = [v2 tellDelegate_updateRelay:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v9, v8, 2)}];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = @"GKSRelayUpdateInfo";
+  v6 = v3;
+  v8[1] = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v6 forKeys:&v5 count:1];
+  return [v2 tellDelegate_updateRelay:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v8, v7, 2)}];
 }
 
 uint64_t __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___block_invoke_301(void *a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v1 = a1[4];
   v2 = a1[5];
-  v5[0] = a1[6];
-  result = [v1 sendData:v2 toPeers:objc_msgSend(MEMORY[0x277CBEA60] withDataMode:"arrayWithObjects:count:" enableOOB:v5 error:{1), 0, 1, 0}];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[0] = a1[6];
+  return [v1 sendData:v2 toPeers:objc_msgSend(MEMORY[0x277CBEA60] withDataMode:"arrayWithObjects:count:" enableOOB:v4 error:{1), 0, 1, 0}];
 }
 
 void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v2 = VRTraceErrorLogLevelToCSTR();
@@ -2453,22 +3828,18 @@ void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___bloc
     {
       v4 = *(*(a1 + 48) + 16);
       *buf = 136315906;
-      v10 = v2;
-      v11 = 2080;
-      v12 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]_block_invoke_2";
-      v13 = 1024;
-      v14 = 2282;
-      v15 = 1024;
-      v16 = v4;
+      v6 = v2;
+      v7 = 2080;
+      v8 = "[GKSessionInternal(callback) sendCallbacksToDelegate:remotePeer:]_block_invoke_2";
+      v9 = 1024;
+      v10 = 2282;
+      v11 = 1024;
+      v12 = v4;
       _os_log_impl(&dword_24E50C000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GCKSessionEvent_ReportStatistics: [buflen == %d]", buf, 0x22u);
     }
   }
 
-  v5 = *(*(a1 + 32) + 64);
-  v6 = *(a1 + 48);
-  v7 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  GCKSessionDecodeChannelStatistics();
+  GCKSessionDecodeChannelStatistics(*(*(a1 + 32) + 64), *(*(a1 + 48) + 8), *(*(a1 + 48) + 16));
 }
 
 - (void)setDelegate:(id)delegate
@@ -2489,43 +3860,41 @@ void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___bloc
 
 - (GKSessionInternal)initWithConnection:(id)connection session:(id)session delegate:(id)delegate
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = GKSessionInternal;
-  v8 = [(GKSessionInternal *)&v12 init];
+  v11 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = GKSessionInternal;
+  v8 = [(GKSessionInternal *)&v10 init];
   if (v8)
   {
     VRTraceReset();
-    v8->_session = session;
-    v8->_wifiEnabled = 1;
-    v8->_sReset = -1;
-    v8->_pid = [connection gckPID];
-    v8->sessionRef = [connection gckSession];
-    objc_storeWeak(&v8->_delegate, delegate);
+    *(v8 + 1) = session;
+    *(v8 + 426) = 1;
+    *(v8 + 98) = -1;
+    *(v8 + 12) = [connection gckPID];
+    *(v8 + 8) = [connection gckSession];
+    objc_storeWeak(v8 + 11, delegate);
     [connection setEventDelegate:v8];
-    v8->_connection = connection;
-    sessionRef = v8->sessionRef;
-    GCKSessionSetEventCallback();
+    *(v8 + 10) = connection;
+    GCKSessionSetEventCallback(*(v8 + 8), AGPNetworkEventListener, v8);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (GKSessionInternal)initWithSessionID:(id)d displayName:(id)name session:(id)session sessionMode:(unsigned int)mode
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = GKSessionInternal;
-  v10 = [(GKSessionInternal *)&v20 init];
+  v29 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = GKSessionInternal;
+  v10 = [(GKSessionInternal *)&v19 init];
   if (v10)
   {
     VRTraceReset();
-    v10->_session = session;
-    v10->_connection = 0;
-    v10->_mode = mode;
-    v10->_wifiEnabled = 1;
-    v10->_sReset = -1;
+    *(v10 + 1) = session;
+    *(v10 + 10) = 0;
+    *(v10 + 87) = mode;
+    *(v10 + 426) = 1;
+    *(v10 + 98) = -1;
     if (![name length])
     {
       v11 = MEMORY[0x277CCACA8];
@@ -2539,33 +3908,32 @@ void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___bloc
       d = [objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")];
     }
 
-    v10->sessionID = d;
+    *(v10 + 45) = d;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
       v14 = VRTraceErrorLogLevelToCSTR();
       v15 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        sessionID = v10->sessionID;
+        v16 = *(v10 + 45);
         buf[0] = 136316162;
         *&buf[1] = v14;
-        v22 = 2080;
-        v23 = "[GKSessionInternal initWithSessionID:displayName:session:sessionMode:]";
-        v24 = 1024;
-        v25 = 2514;
-        v26 = 2112;
-        v27 = sessionID;
-        v28 = 2112;
+        v21 = 2080;
+        v22 = "[GKSessionInternal initWithSessionID:displayName:session:sessionMode:]";
+        v23 = 1024;
+        v24 = 2514;
+        v25 = 2112;
+        v26 = v16;
+        v27 = 2112;
         nameCopy = name;
         _os_log_impl(&dword_24E50C000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d initWithSessionID: %@ displayName: %@", buf, 0x30u);
       }
     }
 
-    GCKSessionCreateUniqueID();
-    if (!GCKSessionCreate(1))
+    UniqueID = GCKSessionCreateUniqueID();
+    if (!GCKSessionCreate(1, UniqueID, AGPNetworkEventListener, v10, v10 + 8))
     {
-      sessionRef = v10->sessionRef;
-      AGPSessionCreate();
+      AGPSessionCreate(*(v10 + 8), UniqueID, GKNetworkEventListener, v10, v10 + 9);
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -2577,16 +3945,15 @@ void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___bloc
       }
     }
 
-    v10 = 0;
+    return 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)reset
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v3 = VRTraceErrorLogLevelToCSTR();
@@ -2594,17 +3961,17 @@ void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___bloc
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       displayName = self->_displayName;
-      v26 = 136316162;
-      v27 = v3;
-      v28 = 2080;
-      v29 = "[GKSessionInternal reset]";
-      v30 = 1024;
-      v31 = 2620;
-      v32 = 2048;
-      *v33 = self;
-      *&v33[8] = 2112;
-      v34 = displayName;
-      _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d session[%p] [%@] reset", &v26, 0x30u);
+      v24 = 136316162;
+      v25 = v3;
+      v26 = 2080;
+      v27 = "[GKSessionInternal reset]";
+      v28 = 1024;
+      v29 = 2620;
+      v30 = 2048;
+      *v31 = self;
+      *&v31[8] = 2112;
+      v32 = displayName;
+      _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d session[%p] [%@] reset", &v24, 0x30u);
     }
   }
 
@@ -2618,33 +3985,31 @@ void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___bloc
   v6 = [(GKList *)self->_peersPendingIncomingInvitation allMatchingObjectsFromTable:self->_peerIDTable];
   if ([v6 count])
   {
-    sessionRef = self->sessionRef;
-    [objc_msgSend(v6 objectAtIndexedSubscript:{0), "unsignedIntValue"}];
-    GCKSessionRespondToInvitation();
+    GCKSessionRespondToInvitation(self->sessionRef, [objc_msgSend(v6 objectAtIndexedSubscript:{0), "unsignedIntValue"}], 0);
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v8 = VRTraceErrorLogLevelToCSTR();
-    v9 = *MEMORY[0x277CE5818];
+    v7 = VRTraceErrorLogLevelToCSTR();
+    v8 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [(GKTable *)self->_peerIDTable count];
-      v11 = [(GKTable *)self->_peerNameTable count];
-      v12 = [(GKTable *)self->_peerInfoTable count];
-      v26 = 136316418;
-      v27 = v8;
-      v28 = 2080;
-      v29 = "[GKSessionInternal reset]";
+      v9 = [(GKTable *)self->_peerIDTable count];
+      v10 = [(GKTable *)self->_peerNameTable count];
+      v11 = [(GKTable *)self->_peerInfoTable count];
+      v24 = 136316418;
+      v25 = v7;
+      v26 = 2080;
+      v27 = "[GKSessionInternal reset]";
+      v28 = 1024;
+      v29 = 2641;
       v30 = 1024;
-      v31 = 2641;
-      v32 = 1024;
-      *v33 = v10;
-      *&v33[4] = 1024;
-      *&v33[6] = v11;
-      LOWORD(v34) = 1024;
-      *(&v34 + 2) = v12;
-      _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _peerIDTable:%d, _peerNameTable:%d, _peerInfoTable:%d", &v26, 0x2Eu);
+      *v31 = v9;
+      *&v31[4] = 1024;
+      *&v31[6] = v10;
+      LOWORD(v32) = 1024;
+      *(&v32 + 2) = v11;
+      _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _peerIDTable:%d, _peerNameTable:%d, _peerInfoTable:%d", &v24, 0x2Eu);
     }
   }
 
@@ -2658,26 +4023,26 @@ void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___bloc
   [(GKList *)self->_peersPendingOutgoingInvitation removeAllIDs];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v13 = VRTraceErrorLogLevelToCSTR();
-    v14 = *MEMORY[0x277CE5818];
+    v12 = VRTraceErrorLogLevelToCSTR();
+    v13 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v15 = [(GKTable *)self->_peerIDTable count];
-      v16 = [(GKTable *)self->_peerNameTable count];
-      v17 = [(GKTable *)self->_peerInfoTable count];
-      v26 = 136316418;
-      v27 = v13;
-      v28 = 2080;
-      v29 = "[GKSessionInternal reset]";
+      v14 = [(GKTable *)self->_peerIDTable count];
+      v15 = [(GKTable *)self->_peerNameTable count];
+      v16 = [(GKTable *)self->_peerInfoTable count];
+      v24 = 136316418;
+      v25 = v12;
+      v26 = 2080;
+      v27 = "[GKSessionInternal reset]";
+      v28 = 1024;
+      v29 = 2652;
       v30 = 1024;
-      v31 = 2652;
-      v32 = 1024;
-      *v33 = v15;
-      *&v33[4] = 1024;
-      *&v33[6] = v16;
-      LOWORD(v34) = 1024;
-      *(&v34 + 2) = v17;
-      _os_log_impl(&dword_24E50C000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _peerIDTable:%d, _peerNameTable:%d, _peerInfoTable:%d", &v26, 0x2Eu);
+      *v31 = v14;
+      *&v31[4] = 1024;
+      *&v31[6] = v15;
+      LOWORD(v32) = 1024;
+      *(&v32 + 2) = v16;
+      _os_log_impl(&dword_24E50C000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _peerIDTable:%d, _peerNameTable:%d, _peerInfoTable:%d", &v24, 0x2Eu);
     }
   }
 
@@ -2695,20 +4060,20 @@ void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___bloc
     self->_service = 0;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v19 = VRTraceErrorLogLevelToCSTR();
-      v20 = *MEMORY[0x277CE5818];
+      v18 = VRTraceErrorLogLevelToCSTR();
+      v19 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         dnsServiceConnection = self->_dnsServiceConnection;
-        v26 = 136315906;
-        v27 = v19;
-        v28 = 2080;
-        v29 = "[GKSessionInternal reset]";
+        v24 = 136315906;
+        v25 = v18;
+        v26 = 2080;
+        v27 = "[GKSessionInternal reset]";
+        v28 = 1024;
+        v29 = 2664;
         v30 = 1024;
-        v31 = 2664;
-        v32 = 1024;
-        *v33 = dnsServiceConnection;
-        _os_log_impl(&dword_24E50C000, v20, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_dnsServiceConnection) (%08X)", &v26, 0x22u);
+        *v31 = dnsServiceConnection;
+        _os_log_impl(&dword_24E50C000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_dnsServiceConnection) (%08X)", &v24, 0x22u);
       }
     }
 
@@ -2721,20 +4086,20 @@ void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___bloc
     [(GKTable *)self->_peerInfoTable makeObjectsPerformSelector:sel_clearResolving];
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v22 = VRTraceErrorLogLevelToCSTR();
-      v23 = *MEMORY[0x277CE5818];
+      v21 = VRTraceErrorLogLevelToCSTR();
+      v22 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         dnsServiceResolveConnection = self->_dnsServiceResolveConnection;
-        v26 = 136315906;
-        v27 = v22;
-        v28 = 2080;
-        v29 = "[GKSessionInternal reset]";
+        v24 = 136315906;
+        v25 = v21;
+        v26 = 2080;
+        v27 = "[GKSessionInternal reset]";
+        v28 = 1024;
+        v29 = 2670;
         v30 = 1024;
-        v31 = 2670;
-        v32 = 1024;
-        *v33 = dnsServiceResolveConnection;
-        _os_log_impl(&dword_24E50C000, v23, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_dnsServiceResolveConnection) (%08X)", &v26, 0x22u);
+        *v31 = dnsServiceResolveConnection;
+        _os_log_impl(&dword_24E50C000, v22, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_dnsServiceResolveConnection) (%08X)", &v24, 0x22u);
       }
     }
 
@@ -2746,12 +4111,11 @@ void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___bloc
   self->_sessionStarted = 0;
   pthread_mutex_unlock(&self->_delegateLock);
   [(GKSessionInternal *)self unlock];
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v3 = VRTraceErrorLogLevelToCSTR();
@@ -2760,23 +4124,22 @@ void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___bloc
     {
       displayName = self->_displayName;
       *buf = 136316162;
-      v8 = v3;
-      v9 = 2080;
-      v10 = "[GKSessionInternal dealloc]";
-      v11 = 1024;
-      v12 = 2682;
-      v13 = 2048;
+      v7 = v3;
+      v8 = 2080;
+      v9 = "[GKSessionInternal dealloc]";
+      v10 = 1024;
+      v11 = 2682;
+      v12 = 2048;
       selfCopy = self;
-      v15 = 2112;
-      v16 = displayName;
+      v14 = 2112;
+      v15 = displayName;
       _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d session[%p] [%@] dealloc", buf, 0x30u);
     }
   }
 
   [(GKSessionInternal *)self reset];
   objc_storeWeak(&self->_dataReceiveHandler, 0);
-  agpSessionRef = self->agpSessionRef;
-  AGPSessionRelease();
+  AGPSessionRelease(self->agpSessionRef);
 }
 
 - (NSString)displayName
@@ -2788,7 +4151,7 @@ void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___bloc
 
 - (id)displayNameForPeer:(id)peer
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   intValue = [peer intValue];
   if (intValue != self->_pid)
   {
@@ -2798,26 +4161,26 @@ void __66__GKSessionInternal_callback__sendCallbacksToDelegate_remotePeer___bloc
       displayName = v8;
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
-        goto LABEL_21;
+        return displayName;
       }
 
       v9 = VRTraceErrorLogLevelToCSTR();
       v10 = *MEMORY[0x277CE5818];
       if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_21;
+        return displayName;
       }
 
-      v17 = 136316162;
-      v18 = v9;
-      v19 = 2080;
-      v20 = "[GKSessionInternal displayNameForPeer:]";
-      v21 = 1024;
-      v22 = 2728;
-      v23 = 1024;
-      v24 = intValue;
-      v25 = 2112;
-      v26 = displayName;
+      v16 = 136316162;
+      v17 = v9;
+      v18 = 2080;
+      v19 = "[GKSessionInternal displayNameForPeer:]";
+      v20 = 1024;
+      v21 = 2728;
+      v22 = 1024;
+      v23 = intValue;
+      v24 = 2112;
+      v25 = displayName;
       v11 = " [%s] %s:%d displayNameForPeer: %d = %@ (table)";
     }
 
@@ -2837,37 +4200,37 @@ LABEL_17:
         }
 
         displayName = 0;
-        goto LABEL_21;
+        return displayName;
       }
 
       displayName = v13;
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
-        goto LABEL_21;
+        return displayName;
       }
 
       v14 = VRTraceErrorLogLevelToCSTR();
       v10 = *MEMORY[0x277CE5818];
       if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_21;
+        return displayName;
       }
 
-      v17 = 136316162;
-      v18 = v14;
-      v19 = 2080;
-      v20 = "[GKSessionInternal displayNameForPeer:]";
-      v21 = 1024;
-      v22 = 2732;
-      v23 = 1024;
-      v24 = intValue;
-      v25 = 2112;
-      v26 = displayName;
+      v16 = 136316162;
+      v17 = v14;
+      v18 = 2080;
+      v19 = "[GKSessionInternal displayNameForPeer:]";
+      v20 = 1024;
+      v21 = 2732;
+      v22 = 1024;
+      v23 = intValue;
+      v24 = 2112;
+      v25 = displayName;
       v11 = " [%s] %s:%d displayNameForPeer: %d = %@ (peer)";
     }
 
-    _os_log_impl(&dword_24E50C000, v10, OS_LOG_TYPE_DEFAULT, v11, &v17, 0x2Cu);
-    goto LABEL_21;
+    _os_log_impl(&dword_24E50C000, v10, OS_LOG_TYPE_DEFAULT, v11, &v16, 0x2Cu);
+    return displayName;
   }
 
   displayName = [(GKSessionInternal *)self displayName];
@@ -2877,17 +4240,17 @@ LABEL_17:
     v7 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136316162;
-      v18 = v6;
-      v19 = 2080;
-      v20 = "[GKSessionInternal displayNameForPeer:]";
-      v21 = 1024;
-      v22 = 2726;
-      v23 = 1024;
-      v24 = intValue;
-      v25 = 2112;
-      v26 = displayName;
-      _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d displayNameForPeer: %d = %@ (self)", &v17, 0x2Cu);
+      v16 = 136316162;
+      v17 = v6;
+      v18 = 2080;
+      v19 = "[GKSessionInternal displayNameForPeer:]";
+      v20 = 1024;
+      v21 = 2726;
+      v22 = 1024;
+      v23 = intValue;
+      v24 = 2112;
+      v25 = displayName;
+      _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d displayNameForPeer: %d = %@ (self)", &v16, 0x2Cu);
     }
   }
 
@@ -2896,10 +4259,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-LABEL_21:
-  result = displayName;
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return displayName;
 }
 
 - (BOOL)passesSendDataSanityCheck:(id)check toPeers:(id)peers withDataMode:(unsigned int)mode error:(id *)error
@@ -2939,17 +4299,142 @@ LABEL_21:
   return v8 ^ 1;
 }
 
+- (BOOL)sendData:(id)data toPeers:(id)peers withDataMode:(unsigned int)mode enableOOB:(BOOL)b error:(id *)error
+{
+  bCopy = b;
+  modeCopy = mode;
+  v49 = *MEMORY[0x277D85DE8];
+  if (error)
+  {
+    *error = 0;
+  }
+
+  v13 = [(GKSessionInternal *)self passesSendDataSanityCheck:data toPeers:peers withDataMode:*&mode error:error];
+  if (v13)
+  {
+    dataCopy = data;
+    peersCopy = peers;
+    bytes = [data bytes];
+    v36 = [data length];
+    [(GKSessionInternal *)self lock];
+    if ([peers count])
+    {
+      errorCopy = error;
+      v17 = 0;
+      v18 = 0;
+      v19 = 0;
+      v35 = modeCopy;
+      do
+      {
+        v20 = [peers objectAtIndexedSubscript:v17];
+        if (v20)
+        {
+          v21 = v20;
+          if ([(NSString *)[(GKSession *)self->_session peerID] isEqualToString:v20])
+          {
+            -[GKSessionInternal performSelector:withObject:](self, "performSelector:withObject:", sel_tellDelegate_didReceiveData_, [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{v21, @"peerID", data, @"data", 0}]);
+          }
+
+          else
+          {
+            intValue = [v21 intValue];
+            v37 = -1431655766;
+            v38 = intValue;
+            agpSessionRef = self->agpSessionRef;
+            if (bCopy)
+            {
+              if (modeCopy == 1)
+              {
+                AGPSessionSendAudioTo(agpSessionRef, &v38, 1, bytes, v36, &v37);
+              }
+
+              v24 = v36;
+              v25 = modeCopy;
+              v26 = 1;
+            }
+
+            else
+            {
+              v24 = v36;
+              v25 = modeCopy;
+              v26 = 0;
+            }
+
+            v27 = AGPSessionSendTo(agpSessionRef, &v38, 1, bytes, v24, &v37, v25, v26);
+            if (v27)
+            {
+              ++v18;
+              if (VRTraceGetErrorLogLevelForModule() >= 7)
+              {
+                v28 = v18;
+                v29 = bytes;
+                v30 = bCopy;
+                v31 = VRTraceErrorLogLevelToCSTR();
+                v32 = *MEMORY[0x277CE5818];
+                if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 136316162;
+                  v40 = v31;
+                  v41 = 2080;
+                  v42 = "[GKSessionInternal sendData:toPeers:withDataMode:enableOOB:error:]";
+                  v43 = 1024;
+                  v44 = 2821;
+                  v45 = 2048;
+                  v46 = v38;
+                  v47 = 2048;
+                  v48 = v27;
+                  _os_log_impl(&dword_24E50C000, v32, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AGPSessionSendTo failed for peer:(%lx) error:(%lX)\n", buf, 0x30u);
+                }
+
+                bCopy = v30;
+                bytes = v29;
+                v18 = v28;
+                modeCopy = v35;
+              }
+            }
+
+            else
+            {
+              v27 = v19;
+            }
+
+            v19 = v27;
+          }
+        }
+
+        ++v17;
+      }
+
+      while (v17 < [peers count]);
+      [(GKSessionInternal *)self unlock];
+      if (errorCopy && v18)
+      {
+        *errorCopy = -[GKSessionInternal newNSErrorFromGKSessionError:description:reason:](self, "newNSErrorFromGKSessionError:description:reason:", 30202, @"Send data error.", [MEMORY[0x277CCACA8] stringWithFormat:@"AGPSessionSendTo failed (%08X).", v19]);
+      }
+    }
+
+    else
+    {
+      [(GKSessionInternal *)self unlock];
+      v18 = 0;
+    }
+
+    LOBYTE(v13) = v18 != [peers count];
+  }
+
+  return v13;
+}
+
 - (BOOL)sendDataToAllPeers:(id)peers withDataMode:(unsigned int)mode error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (peers)
   {
     peersCopy = peers;
-    [peers bytes];
-    [peers length];
+    bytes = [peers bytes];
+    v10 = [peers length];
     [(GKSessionInternal *)self lock];
-    agpSessionRef = self->agpSessionRef;
-    AGPSessionBroadcast();
+    AGPSessionBroadcast(self->agpSessionRef, bytes, v10, mode);
   }
 
   if (error)
@@ -2962,53 +4447,51 @@ LABEL_21:
     goto LABEL_8;
   }
 
-  v9 = VRTraceErrorLogLevelToCSTR();
-  v10 = *MEMORY[0x277CE5818];
-  v11 = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT);
-  if (v11)
+  v11 = VRTraceErrorLogLevelToCSTR();
+  v12 = *MEMORY[0x277CE5818];
+  v13 = os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT);
+  if (v13)
   {
     *buf = 136315650;
-    v15 = v9;
-    v16 = 2080;
-    v17 = "[GKSessionInternal sendDataToAllPeers:withDataMode:error:]";
-    v18 = 1024;
-    v19 = 2850;
-    _os_log_impl(&dword_24E50C000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d sendDataToAllPeers - bad parameter", buf, 0x1Cu);
+    v16 = v11;
+    v17 = 2080;
+    v18 = "[GKSessionInternal sendDataToAllPeers:withDataMode:error:]";
+    v19 = 1024;
+    v20 = 2850;
+    _os_log_impl(&dword_24E50C000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d sendDataToAllPeers - bad parameter", buf, 0x1Cu);
 LABEL_8:
-    LOBYTE(v11) = 0;
+    LOBYTE(v13) = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v13;
 }
 
 - (void)receiveDOOB:(id)b fromPeer:(id)peer inSession:(id)session context:(void *)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v10 = VRTraceErrorLogLevelToCSTR();
     v11 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136316418;
-      v14 = v10;
-      v15 = 2080;
-      v16 = "[GKSessionInternal receiveDOOB:fromPeer:inSession:context:]";
-      v17 = 1024;
-      v18 = 2890;
-      v19 = 1024;
-      v20 = [b length];
-      v21 = 2048;
+      v12 = 136316418;
+      v13 = v10;
+      v14 = 2080;
+      v15 = "[GKSessionInternal receiveDOOB:fromPeer:inSession:context:]";
+      v16 = 1024;
+      v17 = 2890;
+      v18 = 1024;
+      v19 = [b length];
+      v20 = 2048;
       intValue = [peer intValue];
-      v23 = 2112;
-      v24 = [session displayNameForPeer:peer];
-      _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RetryICE:: gcksession:didReceiveDOOB: %d bytes fromPeer: %08lx %@", &v13, 0x36u);
+      v22 = 2112;
+      v23 = [session displayNameForPeer:peer];
+      _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RetryICE:: gcksession:didReceiveDOOB: %d bytes fromPeer: %08lx %@", &v12, 0x36u);
     }
   }
 
   GCKSessionReceiveDOOB(self->sessionRef, [peer intValue], objc_msgSend(b, "bytes"), objc_msgSend(b, "length"));
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDOOBReceiveHandler:(id)handler withContext:(void *)context inBand:(unsigned int)band
@@ -3069,7 +4552,7 @@ LABEL_11:
 
 - (void)timeoutConnectToPeer:(id)peer
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CCA8B0]);
   ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
   v7 = MEMORY[0x277CE5818];
@@ -3082,26 +4565,26 @@ LABEL_11:
       displayName = self->_displayName;
       [peer connectTimeout];
       *buf = 136316162;
-      v25 = v8;
-      v26 = 2080;
-      v27 = "[GKSessionInternal timeoutConnectToPeer:]";
-      v28 = 1024;
-      v29 = 2952;
-      v30 = 2112;
-      v31 = displayName;
-      v32 = 2048;
-      *v33 = v11;
+      v23 = v8;
+      v24 = 2080;
+      v25 = "[GKSessionInternal timeoutConnectToPeer:]";
+      v26 = 1024;
+      v27 = 2952;
+      v28 = 2112;
+      v29 = displayName;
+      v30 = 2048;
+      *v31 = v11;
       _os_log_impl(&dword_24E50C000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [%@] timeoutConnectToPeer: scheduled for %.3lf seconds in the future", buf, 0x30u);
     }
   }
 
-  *(&v23.tv_usec + 1) = -1431655766;
+  *(&v21.tv_usec + 1) = -1431655766;
   [peer connectTimeout];
   v13 = v12;
-  v23.tv_sec = v12;
+  v21.tv_sec = v12;
   [peer connectTimeout];
-  v23.tv_usec = ((v14 - v13) * 1000000.0);
-  select(0, 0, 0, 0, &v23);
+  v21.tv_usec = ((v14 - v13) * 1000000.0);
+  select(0, 0, 0, 0, &v21);
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v15 = VRTraceErrorLogLevelToCSTR();
@@ -3113,37 +4596,34 @@ LABEL_11:
       v19 = -[GKList hasID:](self->_peersConnected, "hasID:", [peer pid]);
       needsToTimeout = [peer needsToTimeout];
       *buf = 136316674;
-      v25 = v15;
-      v26 = 2080;
-      v27 = "[GKSessionInternal timeoutConnectToPeer:]";
-      v28 = 1024;
-      v29 = 2959;
-      v30 = 2112;
-      v31 = v17;
+      v23 = v15;
+      v24 = 2080;
+      v25 = "[GKSessionInternal timeoutConnectToPeer:]";
+      v26 = 1024;
+      v27 = 2959;
+      v28 = 2112;
+      v29 = v17;
+      v30 = 1024;
+      *v31 = v18;
+      *&v31[4] = 1024;
+      *&v31[6] = v19;
       v32 = 1024;
-      *v33 = v18;
-      *&v33[4] = 1024;
-      *&v33[6] = v19;
-      v34 = 1024;
-      v35 = needsToTimeout;
+      v33 = needsToTimeout;
       _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [%@] timeoutConnectToPeer: %d - connected?(%d) needs to?(%d)", buf, 0x38u);
     }
   }
 
   if (!-[GKList hasID:](self->_peersConnected, "hasID:", [peer pid]) && objc_msgSend(peer, "needsToTimeout"))
   {
-    sessionRef = self->sessionRef;
-    [peer pid];
-    GCKSessionCancelConnectToLocalService();
+    GCKSessionCancelConnectToLocalService(self->sessionRef, [peer pid]);
   }
 
   [v5 drain];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectToPeer:(id)peer withTimeout:(double)timeout
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   intValue = [peer intValue];
   v8 = [(GKTable *)self->_peerInfoTable objectForKey:intValue];
   if (v8)
@@ -3157,11 +4637,11 @@ LABEL_11:
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v36 = v10;
-        v37 = 2080;
-        v38 = "[GKSessionInternal connectToPeer:withTimeout:]";
-        v39 = 1024;
-        v40 = 3009;
+        v32 = v10;
+        v33 = 2080;
+        v34 = "[GKSessionInternal connectToPeer:withTimeout:]";
+        v35 = 1024;
+        v36 = 3009;
         _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** Stop resolving? potentially previous resolves", buf, 0x1Cu);
       }
     }
@@ -3177,38 +4657,30 @@ LABEL_11:
     [v9 setNeedsToTimeout:1];
     [objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")];
     [(GKConnection *)self->_connection reportingAgent];
-    pid = self->_pid;
     connectingGKLog();
     [(GKConnection *)self->_connection reportingAgent];
-    if (self->_displayName)
-    {
-      displayName = self->_displayName;
-    }
-
     reportingGKAppInfo();
     if ([(GKSessionInternal *)self checkDNSConnection])
     {
-      if (VRTraceGetErrorLogLevelForModule() < 7)
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        goto LABEL_30;
+        v13 = VRTraceErrorLogLevelToCSTR();
+        v14 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315650;
+          v32 = v13;
+          v33 = 2080;
+          v34 = "[GKSessionInternal connectToPeer:withTimeout:]";
+          v35 = 1024;
+          v36 = 3053;
+          v15 = " [%s] %s:%d Connect: Unable to use DNS connection!";
+          v16 = v14;
+          v17 = 28;
+LABEL_27:
+          _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
+        }
       }
-
-      v15 = VRTraceErrorLogLevelToCSTR();
-      v16 = *MEMORY[0x277CE5818];
-      if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_30;
-      }
-
-      *buf = 136315650;
-      v36 = v15;
-      v37 = 2080;
-      v38 = "[GKSessionInternal connectToPeer:withTimeout:]";
-      v39 = 1024;
-      v40 = 3053;
-      v17 = " [%s] %s:%d Connect: Unable to use DNS connection!";
-      v18 = v16;
-      v19 = 28;
     }
 
     else
@@ -3216,120 +4688,100 @@ LABEL_11:
       sdRef = self->_dnsServiceResolveConnection;
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v21 = VRTraceErrorLogLevelToCSTR();
-        v22 = *MEMORY[0x277CE5818];
+        v18 = VRTraceErrorLogLevelToCSTR();
+        v19 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v36 = v21;
-          v37 = 2080;
-          v38 = "[GKSessionInternal connectToPeer:withTimeout:]";
-          v39 = 1024;
-          v40 = 3029;
-          v41 = 2112;
-          *v42 = peer;
-          _os_log_impl(&dword_24E50C000, v22, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ********** BEGIN RESOLVE: %@", buf, 0x26u);
+          v32 = v18;
+          v33 = 2080;
+          v34 = "[GKSessionInternal connectToPeer:withTimeout:]";
+          v35 = 1024;
+          v36 = 3029;
+          v37 = 2112;
+          *v38 = peer;
+          _os_log_impl(&dword_24E50C000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ********** BEGIN RESOLVE: %@", buf, 0x26u);
         }
       }
 
-      v23 = DNSServiceResolve(&sdRef, 0x24000u, 0, [objc_msgSend(v9 "serviceName")], -[NSString UTF8String](self->serviceType, "UTF8String"), "local.", gkResolveCallback, v9);
-      if (v23)
+      v20 = DNSServiceResolve(&sdRef, 0x24000u, 0, [objc_msgSend(v9 "serviceName")], -[NSString UTF8String](self->serviceType, "UTF8String"), "local.", gkResolveCallback, v9);
+      if (v20)
       {
-        v24 = v23;
-        if (VRTraceGetErrorLogLevelForModule() < 7)
+        v21 = v20;
+        if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          goto LABEL_30;
+          v22 = VRTraceErrorLogLevelToCSTR();
+          v23 = *MEMORY[0x277CE5818];
+          if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+          {
+            v24 = [objc_msgSend(v9 "serviceName")];
+            uTF8String = [(NSString *)self->serviceType UTF8String];
+            *buf = 136316418;
+            v32 = v22;
+            v33 = 2080;
+            v34 = "[GKSessionInternal connectToPeer:withTimeout:]";
+            v35 = 1024;
+            v36 = 3041;
+            v37 = 1024;
+            *v38 = v21;
+            *&v38[4] = 2080;
+            *&v38[6] = v24;
+            v39 = 2080;
+            v40 = uTF8String;
+            v15 = " [%s] %s:%d resolve failed right away: %d [%s][%s]";
+            v16 = v23;
+            v17 = 54;
+            goto LABEL_27;
+          }
         }
-
-        v25 = VRTraceErrorLogLevelToCSTR();
-        v26 = *MEMORY[0x277CE5818];
-        if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_30;
-        }
-
-        v27 = [objc_msgSend(v9 "serviceName")];
-        uTF8String = [(NSString *)self->serviceType UTF8String];
-        *buf = 136316418;
-        v36 = v25;
-        v37 = 2080;
-        v38 = "[GKSessionInternal connectToPeer:withTimeout:]";
-        v39 = 1024;
-        v40 = 3041;
-        v41 = 1024;
-        *v42 = v24;
-        *&v42[4] = 2080;
-        *&v42[6] = v27;
-        v43 = 2080;
-        v44 = uTF8String;
-        v17 = " [%s] %s:%d resolve failed right away: %d [%s][%s]";
-        v18 = v26;
-        v19 = 54;
       }
 
       else
       {
         [v9 setResolveService:sdRef];
-        if (VRTraceGetErrorLogLevelForModule() < 7)
+        if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          goto LABEL_30;
+          v26 = VRTraceErrorLogLevelToCSTR();
+          v27 = *MEMORY[0x277CE5818];
+          if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+          {
+            serviceName = [v9 serviceName];
+            *buf = 136316418;
+            v32 = v26;
+            v33 = 2080;
+            v34 = "[GKSessionInternal connectToPeer:withTimeout:]";
+            v35 = 1024;
+            v36 = 3047;
+            v37 = 2112;
+            *v38 = serviceName;
+            *&v38[8] = 1024;
+            *&v38[10] = sdRef;
+            v39 = 1024;
+            LODWORD(v40) = 0;
+            v15 = " [%s] %s:%d peer [%@]: pending resolve: %08X (shares from %08X)";
+            v16 = v27;
+            v17 = 50;
+            goto LABEL_27;
+          }
         }
-
-        v29 = VRTraceErrorLogLevelToCSTR();
-        v30 = *MEMORY[0x277CE5818];
-        if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_30;
-        }
-
-        serviceName = [v9 serviceName];
-        *buf = 136316418;
-        v36 = v29;
-        v37 = 2080;
-        v38 = "[GKSessionInternal connectToPeer:withTimeout:]";
-        v39 = 1024;
-        v40 = 3047;
-        v41 = 2112;
-        *v42 = serviceName;
-        *&v42[8] = 1024;
-        *&v42[10] = sdRef;
-        v43 = 1024;
-        LODWORD(v44) = 0;
-        v17 = " [%s] %s:%d peer [%@]: pending resolve: %08X (shares from %08X)";
-        v18 = v30;
-        v19 = 50;
       }
     }
-
-    _os_log_impl(&dword_24E50C000, v18, OS_LOG_TYPE_DEFAULT, v17, buf, v19);
-LABEL_30:
-    v32 = *MEMORY[0x277D85DE8];
-    return;
   }
 
-  if (!peer)
+  else if (peer)
   {
-    goto LABEL_30;
-  }
-
-  [(GKSessionInternal *)self delegate];
-  if ((objc_opt_respondsToSelector() & 1) == 0)
-  {
-    [(GKSessionInternal *)self privateDelegate];
-    if ((objc_opt_respondsToSelector() & 1) == 0)
+    [(GKSessionInternal *)self delegate];
+    if (objc_opt_respondsToSelector() & 1) != 0 || ([(GKSessionInternal *)self privateDelegate], (objc_opt_respondsToSelector()))
     {
-      goto LABEL_30;
+      v29 = [(GKSessionInternal *)self newNSErrorFromGKSessionError:30501 description:@"The peerID was not found." reason:@"Invalid peerID."];
+      -[GKSessionInternal performSelectorOnMainThread:withObject:waitUntilDone:](self, "performSelectorOnMainThread:withObject:waitUntilDone:", sel_tellDelegate_connectionRequestToPeerFailed_, [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{peer, @"peerID", v29, @"NSError", 0}], 0);
     }
   }
-
-  v33 = [(GKSessionInternal *)self newNSErrorFromGKSessionError:30501 description:@"The peerID was not found." reason:@"Invalid peerID."];
-  -[GKSessionInternal performSelectorOnMainThread:withObject:waitUntilDone:](self, "performSelectorOnMainThread:withObject:waitUntilDone:", sel_tellDelegate_connectionRequestToPeerFailed_, [objc_alloc(MEMORY[0x277CBEAC0]) initWithObjectsAndKeys:{peer, @"peerID", v33, @"NSError", 0}], 0);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelConnectToPeer:(id)peer
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->_shutdown)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -3344,38 +4796,36 @@ LABEL_30:
 
   else if (peer)
   {
-    v4 = -[GKTable objectForKey:](self->_peerInfoTable, "objectForKey:", [peer intValue]);
-    if (v4)
+    intValue = [peer intValue];
+    v5 = [(GKTable *)self->_peerInfoTable objectForKey:intValue];
+    if (v5)
     {
-      v5 = v4;
+      v6 = v5;
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v6 = VRTraceErrorLogLevelToCSTR();
-        v7 = *MEMORY[0x277CE5818];
+        v7 = VRTraceErrorLogLevelToCSTR();
+        v8 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v10 = 136315906;
-          v11 = v6;
-          v12 = 2080;
-          v13 = "[GKSessionInternal cancelConnectToPeer:]";
-          v14 = 1024;
-          v15 = 3070;
-          v16 = 2112;
-          displayName = [v5 displayName];
-          _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** Stop resolving: %@ local cancelled", &v10, 0x26u);
+          v9 = 136315906;
+          v10 = v7;
+          v11 = 2080;
+          v12 = "[GKSessionInternal cancelConnectToPeer:]";
+          v13 = 1024;
+          v14 = 3070;
+          v15 = 2112;
+          displayName = [v6 displayName];
+          _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** Stop resolving: %@ local cancelled", &v9, 0x26u);
         }
       }
 
-      [v5 stopResolving];
+      [v6 stopResolving];
     }
 
     [(GKConnection *)self->_connection reportingAgent];
     reportingGKLog();
-    sessionRef = self->sessionRef;
-    GCKSessionCancelConnectToLocalService();
+    GCKSessionCancelConnectToLocalService(self->sessionRef, intValue);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)acceptConnectionFromPeer:(id)peer error:(id *)error
@@ -3401,20 +4851,13 @@ LABEL_30:
   {
     if (peer)
     {
-      [peer intValue];
+      intValue = [peer intValue];
       [objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")];
       [(GKConnection *)self->_connection reportingAgent];
-      pid = self->_pid;
       connectingGKLog();
       [(GKConnection *)self->_connection reportingAgent];
-      if (self->_displayName)
-      {
-        displayName = self->_displayName;
-      }
-
       reportingGKAppInfo();
-      sessionRef = self->sessionRef;
-      GCKSessionRespondToInvitation();
+      GCKSessionRespondToInvitation(self->sessionRef, intValue, 1);
     }
 
     if (error)
@@ -3442,12 +4885,13 @@ LABEL_30:
 
   else if (peer)
   {
-    -[GKList removeID:](self->_peersPendingIncomingInvitation, "removeID:", [peer intValue]);
+    intValue = [peer intValue];
+    [(GKList *)self->_peersPendingIncomingInvitation removeID:intValue];
     [(GKConnection *)self->_connection reportingAgent];
     reportingGKLog();
     sessionRef = self->sessionRef;
 
-    GCKSessionRespondToInvitation();
+    GCKSessionRespondToInvitation(sessionRef, intValue, 0);
   }
 }
 
@@ -3475,13 +4919,8 @@ LABEL_5:
     }
   }
 
-  else
+  else if (peers)
   {
-    if (!peers)
-    {
-      goto LABEL_21;
-    }
-
     intValue = [peers intValue];
     [(GKConnection *)self->_connection reportingAgent];
     reportingGKLog();
@@ -3497,7 +4936,8 @@ LABEL_5:
         bytes = [v10 bytes];
         v13 = [v10 length];
         [(GKSessionInternal *)self lock];
-        v14 = AGPSessionSendTo(self->agpSessionRef, &intValue, 1, bytes, v13);
+        v21 = -1431655766;
+        v14 = AGPSessionSendTo(self->agpSessionRef, &intValue, 1, bytes, v13, &v21, 0, 1);
         if (v14)
         {
           v15 = v14;
@@ -3559,24 +4999,19 @@ LABEL_5:
       }
     }
   }
-
-LABEL_21:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectFromAllPeers
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d cannot disconnect self after reset", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d cannot disconnect self after reset", v2, v3, v4, v5);
 }
 
 - (void)setAvailable:(BOOL)available
 {
   availableCopy = available;
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
@@ -3585,12 +5020,12 @@ LABEL_21:
     {
       *buf = 136315906;
       *&buf[4] = v5;
-      v42 = 2080;
-      v43 = "[GKSessionInternal setAvailable:]";
-      v44 = 1024;
-      v45 = 3189;
-      v46 = 1024;
-      v47 = availableCopy;
+      v41 = 2080;
+      v42 = "[GKSessionInternal setAvailable:]";
+      v43 = 1024;
+      v44 = 3189;
+      v45 = 1024;
+      v46 = availableCopy;
       _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d setAvailable: %d", buf, 0x22u);
     }
   }
@@ -3605,15 +5040,15 @@ LABEL_21:
       {
         *buf = 136315650;
         *&buf[4] = v7;
-        v42 = 2080;
-        v43 = "[GKSessionInternal setAvailable:]";
-        v44 = 1024;
-        v45 = 3192;
+        v41 = 2080;
+        v42 = "[GKSessionInternal setAvailable:]";
+        v43 = 1024;
+        v44 = 3192;
         _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d cannot setavailable after reset", buf, 0x1Cu);
       }
     }
 
-    goto LABEL_63;
+    return;
   }
 
   if (availableCopy)
@@ -3660,12 +5095,12 @@ LABEL_45:
             sessionStarted = self->_sessionStarted;
             *buf = 136315906;
             *&buf[4] = v30;
-            v42 = 2080;
-            v43 = "[GKSessionInternal setAvailable:]";
-            v44 = 1024;
-            v45 = 3271;
-            v46 = 1024;
-            v47 = sessionStarted;
+            v41 = 2080;
+            v42 = "[GKSessionInternal setAvailable:]";
+            v43 = 1024;
+            v44 = 3271;
+            v45 = 1024;
+            v46 = sessionStarted;
             _os_log_impl(&dword_24E50C000, v31, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d sessionStarted: %d", buf, 0x22u);
           }
         }
@@ -3688,12 +5123,12 @@ LABEL_45:
                   serviceBrowser = self->_serviceBrowser;
                   *buf = 136315906;
                   *&buf[4] = v34;
-                  v42 = 2080;
-                  v43 = "[GKSessionInternal setAvailable:]";
-                  v44 = 1024;
-                  v45 = 3286;
-                  v46 = 1024;
-                  v47 = serviceBrowser;
+                  v41 = 2080;
+                  v42 = "[GKSessionInternal setAvailable:]";
+                  v43 = 1024;
+                  v44 = 3286;
+                  v45 = 1024;
+                  v46 = serviceBrowser;
                   _os_log_impl(&dword_24E50C000, v35, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_serviceBrowser) (%08X)", buf, 0x22u);
                 }
               }
@@ -3721,12 +5156,12 @@ LABEL_45:
                   service = self->_service;
                   *buf = 136315906;
                   *&buf[4] = v37;
-                  v42 = 2080;
-                  v43 = "[GKSessionInternal setAvailable:]";
-                  v44 = 1024;
-                  v45 = 3298;
-                  v46 = 1024;
-                  v47 = service;
+                  v41 = 2080;
+                  v42 = "[GKSessionInternal setAvailable:]";
+                  v43 = 1024;
+                  v44 = 3298;
+                  v45 = 1024;
+                  v46 = service;
                   _os_log_impl(&dword_24E50C000, v38, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_service) (%08X)", buf, 0x22u);
                 }
               }
@@ -3740,7 +5175,7 @@ LABEL_45:
           }
         }
 
-        goto LABEL_63;
+        return;
       }
 
       v11 = @"Network not available.";
@@ -3775,16 +5210,16 @@ LABEL_45:
       isPublishing = self->_isPublishing;
       *buf = 136316418;
       *&buf[4] = v15;
-      v42 = 2080;
-      v43 = "[GKSessionInternal setAvailable:]";
-      v44 = 1024;
-      v45 = 3197;
-      v46 = 1024;
-      v47 = v17;
-      v48 = 1024;
-      v49 = isSearching;
-      v50 = 1024;
-      v51 = isPublishing;
+      v41 = 2080;
+      v42 = "[GKSessionInternal setAvailable:]";
+      v43 = 1024;
+      v44 = 3197;
+      v45 = 1024;
+      v46 = v17;
+      v47 = 1024;
+      v48 = isSearching;
+      v49 = 1024;
+      v50 = isPublishing;
       _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d sessionStarted: %d  (%d, %d)", buf, 0x2Eu);
     }
   }
@@ -3805,12 +5240,12 @@ LABEL_45:
             v23 = self->_serviceBrowser;
             *buf = 136315906;
             *&buf[4] = v21;
-            v42 = 2080;
-            v43 = "[GKSessionInternal setAvailable:]";
-            v44 = 1024;
-            v45 = 3207;
-            v46 = 1024;
-            v47 = v23;
+            v41 = 2080;
+            v42 = "[GKSessionInternal setAvailable:]";
+            v43 = 1024;
+            v44 = 3207;
+            v45 = 1024;
+            v46 = v23;
             _os_log_impl(&dword_24E50C000, v22, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_serviceBrowser) (%08X)", buf, 0x22u);
           }
         }
@@ -3839,12 +5274,12 @@ LABEL_45:
               v26 = self->_service;
               *buf = 136315906;
               *&buf[4] = v24;
-              v42 = 2080;
-              v43 = "[GKSessionInternal setAvailable:]";
-              v44 = 1024;
-              v45 = 3219;
-              v46 = 1024;
-              v47 = v26;
+              v41 = 2080;
+              v42 = "[GKSessionInternal setAvailable:]";
+              v43 = 1024;
+              v44 = 3219;
+              v45 = 1024;
+              v46 = v26;
               _os_log_impl(&dword_24E50C000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_service) (%08X)", buf, 0x22u);
             }
           }
@@ -3858,9 +5293,6 @@ LABEL_45:
 
     self->_sessionStarted = 0;
   }
-
-LABEL_63:
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (id)peersWithConnectionState:(unsigned int)state
@@ -3903,10 +5335,10 @@ LABEL_9:
 
 - (void)stopOldService
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v7 = xmmword_24E590860;
-  DWORD2(v7) = 0;
-  select(0, 0, 0, 0, &v7);
+  v15 = *MEMORY[0x277D85DE8];
+  v6 = xmmword_24E590860;
+  DWORD2(v6) = 0;
+  select(0, 0, 0, 0, &v6);
   oldService = self->_oldService;
   if (oldService)
   {
@@ -3918,26 +5350,24 @@ LABEL_9:
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v9 = v4;
-        v10 = 2080;
-        v11 = "[GKSessionInternal stopOldService]";
-        v12 = 1024;
-        v13 = 3361;
-        v14 = 1024;
-        v15 = oldService;
+        v8 = v4;
+        v9 = 2080;
+        v10 = "[GKSessionInternal stopOldService]";
+        v11 = 1024;
+        v12 = 3361;
+        v13 = 1024;
+        v14 = oldService;
         _os_log_impl(&dword_24E50C000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_serviceToStop) (%08X)", buf, 0x22u);
       }
     }
 
     DNSServiceRefDeallocate(oldService);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBusy:(BOOL)busy
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (self->_isBusy != busy)
   {
     self->_isBusy = busy;
@@ -3975,17 +5405,17 @@ LABEL_9:
             Length = 0;
           }
 
-          v17 = 136316162;
-          v18 = v7;
-          v19 = 2080;
-          v20 = "[GKSessionInternal setBusy:]";
-          v21 = 1024;
-          v22 = 3401;
-          v23 = 1024;
-          *v24 = v6;
-          *&v24[4] = 1024;
-          *&v24[6] = Length;
-          _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceUpdateRecord() (use?=%d len=%d)", &v17, 0x28u);
+          v16 = 136316162;
+          v17 = v7;
+          v18 = 2080;
+          v19 = "[GKSessionInternal setBusy:]";
+          v20 = 1024;
+          v21 = 3401;
+          v22 = 1024;
+          *v23 = v6;
+          *&v23[4] = 1024;
+          *&v23[6] = Length;
+          _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceUpdateRecord() (use?=%d len=%d)", &v16, 0x28u);
         }
       }
 
@@ -4004,39 +5434,27 @@ LABEL_9:
 
       updated = DNSServiceUpdateRecord(service, 0, 0x20000u, v11, BytesPtr, 0);
       TXTRecordDeallocate(&txtRecord);
-      if (updated)
+      if (updated && VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        if (VRTraceGetErrorLogLevelForModule() >= 7)
+        v14 = VRTraceErrorLogLevelToCSTR();
+        v15 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          v14 = VRTraceErrorLogLevelToCSTR();
-          v15 = *MEMORY[0x277CE5818];
-          if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
-          {
-            v17 = 136315906;
-            v18 = v14;
-            v19 = 2080;
-            v20 = "[GKSessionInternal setBusy:]";
-            v21 = 1024;
-            v22 = 3410;
-            v23 = 2048;
-            *v24 = self;
-            _os_log_impl(&dword_24E50C000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d failed to set busy state for session[%p]", &v17, 0x26u);
-          }
+          v16 = 136315906;
+          v17 = v14;
+          v18 = 2080;
+          v19 = "[GKSessionInternal setBusy:]";
+          v20 = 1024;
+          v21 = 3410;
+          v22 = 2048;
+          *v23 = self;
+          _os_log_impl(&dword_24E50C000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d failed to set busy state for session[%p]", &v16, 0x26u);
         }
       }
     }
 
     [(GKSessionInternal *)self unlock];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setWifiEnabled:(BOOL)enabled
-{
-  self->_wifiEnabled = enabled;
-  sessionRef = self->sessionRef;
-  GCKSessionSetWifiEnabled();
 }
 
 - (BOOL)isPeerBusy:(id)busy
@@ -4053,9 +5471,9 @@ LABEL_9:
 
 - (void)handleEvents
 {
-  v72 = *MEMORY[0x277D85DE8];
-  v58.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-  *&v58.tv_usec = 0xAAAAAAAAAAAAAAAALL;
+  v71 = *MEMORY[0x277D85DE8];
+  v57.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+  *&v57.tv_usec = 0xAAAAAAAAAAAAAAAALL;
   v3 = objc_alloc_init(MEMORY[0x277CCA8B0]);
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
@@ -4079,9 +5497,9 @@ LABEL_9:
   [(GKSessionInternal *)self lock];
   if (!self->_stopHandlingEvents)
   {
-    v57 = 0;
+    v56 = 0;
     *&v6 = 136315906;
-    v56 = v6;
+    v55 = v6;
     do
     {
       if (self->_shutdown)
@@ -4105,12 +5523,12 @@ LABEL_9:
           v8 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
-            *v59 = 136315650;
-            v60 = v41;
-            v61 = 2080;
-            v62 = "[GKSessionInternal handleEvents]";
-            v63 = 1024;
-            v64 = 3487;
+            *v58 = 136315650;
+            v59 = v41;
+            v60 = 2080;
+            v61 = "[GKSessionInternal handleEvents]";
+            v62 = 1024;
+            v63 = 3487;
             v9 = " [%s] %s:%d handleEvents stop... (cannot create reset socket)";
             goto LABEL_8;
           }
@@ -4165,9 +5583,9 @@ LABEL_9:
         if (v13 < v19)
         {
 LABEL_31:
-          v58.tv_sec = 30;
-          v58.tv_usec = 0;
-          v21 = select(v19 + 1, &buf, 0, 0, &v58);
+          v57.tv_sec = 30;
+          v57.tv_usec = 0;
+          v21 = select(v19 + 1, &buf, 0, 0, &v57);
           v22 = v21;
           if (v21 < 0)
           {
@@ -4177,30 +5595,30 @@ LABEL_31:
             {
               if (ErrorLogLevelForModule >= 7)
               {
-                v46 = VRTraceErrorLogLevelToCSTR();
-                v47 = *MEMORY[0x277CE5818];
+                v45 = VRTraceErrorLogLevelToCSTR();
+                v46 = *MEMORY[0x277CE5818];
                 if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                 {
-                  v48 = *__error();
-                  v49 = __error();
-                  v50 = strerror(*v49);
-                  *v59 = 136316418;
-                  v60 = v46;
-                  v61 = 2080;
-                  v62 = "[GKSessionInternal handleEvents]";
-                  v63 = 1024;
-                  v64 = 3585;
-                  v65 = 1024;
-                  v66 = v22;
-                  v67 = 1024;
-                  v68 = v48;
-                  v69 = 2080;
-                  v70 = v50;
-                  v51 = " [%s] %s:%d select failed (%d): %d: %s";
-                  v52 = v47;
-                  v53 = 50;
+                  v47 = *__error();
+                  v48 = __error();
+                  v49 = strerror(*v48);
+                  *v58 = 136316418;
+                  v59 = v45;
+                  v60 = 2080;
+                  v61 = "[GKSessionInternal handleEvents]";
+                  v62 = 1024;
+                  v63 = 3585;
+                  v64 = 1024;
+                  v65 = v22;
+                  v66 = 1024;
+                  v67 = v47;
+                  v68 = 2080;
+                  v69 = v49;
+                  v50 = " [%s] %s:%d select failed (%d): %d: %s";
+                  v51 = v46;
+                  v52 = 50;
 LABEL_71:
-                  _os_log_impl(&dword_24E50C000, v52, OS_LOG_TYPE_DEFAULT, v51, v59, v53);
+                  _os_log_impl(&dword_24E50C000, v51, OS_LOG_TYPE_DEFAULT, v50, v58, v52);
                   goto LABEL_64;
                 }
               }
@@ -4214,17 +5632,17 @@ LABEL_71:
               v37 = *MEMORY[0x277CE5818];
               if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
               {
-                *v59 = 136315650;
-                v60 = v36;
-                v61 = 2080;
-                v62 = "[GKSessionInternal handleEvents]";
-                v63 = 1024;
-                v64 = 3580;
+                *v58 = 136315650;
+                v59 = v36;
+                v60 = 2080;
+                v61 = "[GKSessionInternal handleEvents]";
+                v62 = 1024;
+                v63 = 3580;
                 v31 = v37;
                 v32 = " [%s] %s:%d handleEvents: EBADF - retrying...";
                 v33 = 28;
 LABEL_51:
-                _os_log_impl(&dword_24E50C000, v31, OS_LOG_TYPE_DEFAULT, v32, v59, v33);
+                _os_log_impl(&dword_24E50C000, v31, OS_LOG_TYPE_DEFAULT, v32, v58, v33);
               }
             }
           }
@@ -4247,15 +5665,15 @@ LABEL_51:
                       v26 = *MEMORY[0x277CE5818];
                       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                       {
-                        *v59 = v56;
-                        v60 = v25;
-                        v61 = 2080;
-                        v62 = "[GKSessionInternal handleEvents]";
-                        v63 = 1024;
-                        v64 = 3594;
-                        v65 = 1024;
-                        v66 = v24;
-                        _os_log_impl(&dword_24E50C000, v26, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d process dnsservice conn failed: %d", v59, 0x22u);
+                        *v58 = v55;
+                        v59 = v25;
+                        v60 = 2080;
+                        v61 = "[GKSessionInternal handleEvents]";
+                        v62 = 1024;
+                        v63 = 3594;
+                        v64 = 1024;
+                        v65 = v24;
+                        _os_log_impl(&dword_24E50C000, v26, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d process dnsservice conn failed: %d", v58, 0x22u);
                       }
                     }
                   }
@@ -4279,14 +5697,14 @@ LABEL_51:
                       v30 = *MEMORY[0x277CE5818];
                       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
                       {
-                        *v59 = v56;
-                        v60 = v29;
-                        v61 = 2080;
-                        v62 = "[GKSessionInternal handleEvents]";
-                        v63 = 1024;
-                        v64 = 3600;
-                        v65 = 1024;
-                        v66 = v28;
+                        *v58 = v55;
+                        v59 = v29;
+                        v60 = 2080;
+                        v61 = "[GKSessionInternal handleEvents]";
+                        v62 = 1024;
+                        v63 = 3600;
+                        v64 = 1024;
+                        v65 = v28;
                         v31 = v30;
                         v32 = " [%s] %s:%d process dnsservice resolve conn failed: %d";
                         v33 = 34;
@@ -4312,23 +5730,23 @@ LABEL_51:
       }
 
       v38 = VRTraceGetErrorLogLevelForModule();
-      if (v57 == 3)
+      if (v56 == 3)
       {
         if (v38 >= 7)
         {
-          v54 = VRTraceErrorLogLevelToCSTR();
-          v55 = *MEMORY[0x277CE5818];
+          v53 = VRTraceErrorLogLevelToCSTR();
+          v54 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
-            *v59 = 136315650;
-            v60 = v54;
-            v61 = 2080;
-            v62 = "[GKSessionInternal handleEvents]";
-            v63 = 1024;
-            v64 = 3562;
-            v51 = " [%s] %s:%d handleEvents: nothing to do - quitting";
-            v52 = v55;
-            v53 = 28;
+            *v58 = 136315650;
+            v59 = v53;
+            v60 = 2080;
+            v61 = "[GKSessionInternal handleEvents]";
+            v62 = 1024;
+            v63 = 3562;
+            v50 = " [%s] %s:%d handleEvents: nothing to do - quitting";
+            v51 = v54;
+            v52 = 28;
             goto LABEL_71;
           }
         }
@@ -4342,20 +5760,20 @@ LABEL_51:
         v40 = *MEMORY[0x277CE5818];
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
-          *v59 = 136315650;
-          v60 = v39;
-          v61 = 2080;
-          v62 = "[GKSessionInternal handleEvents]";
-          v63 = 1024;
-          v64 = 3567;
-          _os_log_impl(&dword_24E50C000, v40, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d handleEvents: nothing to do - retry after 1 second", v59, 0x1Cu);
+          *v58 = 136315650;
+          v59 = v39;
+          v60 = 2080;
+          v61 = "[GKSessionInternal handleEvents]";
+          v62 = 1024;
+          v63 = 3567;
+          _os_log_impl(&dword_24E50C000, v40, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d handleEvents: nothing to do - retry after 1 second", v58, 0x1Cu);
         }
       }
 
-      ++v57;
-      v58.tv_sec = 1;
-      v58.tv_usec = 0;
-      select(0, 0, 0, 0, &v58);
+      ++v56;
+      v57.tv_sec = 1;
+      v57.tv_usec = 0;
+      select(0, 0, 0, 0, &v57);
       memset(&buf, 0, sizeof(buf));
 LABEL_53:
       [(GKSessionInternal *)self lock];
@@ -4370,15 +5788,15 @@ LABEL_53:
     v8 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      *v59 = 136315650;
-      v60 = v7;
-      v61 = 2080;
-      v62 = "[GKSessionInternal handleEvents]";
-      v63 = 1024;
-      v64 = 3477;
+      *v58 = 136315650;
+      v59 = v7;
+      v60 = 2080;
+      v61 = "[GKSessionInternal handleEvents]";
+      v62 = 1024;
+      v63 = 3477;
       v9 = " [%s] %s:%d handleEvents stop...";
 LABEL_8:
-      _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, v9, v59, 0x1Cu);
+      _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, v9, v58, 0x1Cu);
     }
   }
 
@@ -4392,26 +5810,25 @@ LABEL_64:
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       v44 = [(GKSessionInternal *)self retainCount];
-      *v59 = 136315906;
-      v60 = v42;
-      v61 = 2080;
-      v62 = "[GKSessionInternal handleEvents]";
-      v63 = 1024;
-      v64 = 3658;
-      v65 = 1024;
-      v66 = v44;
-      _os_log_impl(&dword_24E50C000, v43, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d handleEvents ended (%d)", v59, 0x22u);
+      *v58 = 136315906;
+      v59 = v42;
+      v60 = 2080;
+      v61 = "[GKSessionInternal handleEvents]";
+      v62 = 1024;
+      v63 = 3658;
+      v64 = 1024;
+      v65 = v44;
+      _os_log_impl(&dword_24E50C000, v43, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d handleEvents ended (%d)", v58, 0x22u);
     }
   }
 
   *&self->_handleEventsRunning = 0;
   [v3 drain];
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)checkDNSConnection
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(GKSessionInternal *)self lock];
   if (self->_shutdown)
   {
@@ -4423,28 +5840,28 @@ LABEL_64:
     Connection = DNSServiceCreateConnection(&self->_dnsServiceConnection);
     if (Connection)
     {
-      v6 = Connection;
+      v5 = Connection;
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
         goto LABEL_2;
       }
 
-      v7 = VRTraceErrorLogLevelToCSTR();
-      v8 = *MEMORY[0x277CE5818];
+      v6 = VRTraceErrorLogLevelToCSTR();
+      v7 = *MEMORY[0x277CE5818];
       if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_2;
       }
 
-      *v15 = 136315906;
-      *&v15[4] = v7;
-      *&v15[12] = 2080;
-      *&v15[14] = "[GKSessionInternal checkDNSConnection]";
-      *&v15[22] = 1024;
-      LODWORD(v16) = 3678;
-      WORD2(v16) = 1024;
-      *(&v16 + 6) = v6;
-      v9 = " [%s] %s:%d DNSServiceCreateConnection failed: %d";
+      *v14 = 136315906;
+      *&v14[4] = v6;
+      *&v14[12] = 2080;
+      *&v14[14] = "[GKSessionInternal checkDNSConnection]";
+      *&v14[22] = 1024;
+      LODWORD(v15) = 3678;
+      WORD2(v15) = 1024;
+      *(&v15 + 6) = v5;
+      v8 = " [%s] %s:%d DNSServiceCreateConnection failed: %d";
       goto LABEL_15;
     }
 
@@ -4456,74 +5873,65 @@ LABEL_64:
     }
   }
 
-  if (self->_dnsServiceResolveConnection)
+  if (!self->_dnsServiceResolveConnection)
   {
-LABEL_5:
-    [(GKSessionInternal *)self unlock];
-    result = 0;
-    goto LABEL_6;
-  }
-
-  v10 = DNSServiceCreateConnection(&self->_dnsServiceResolveConnection);
-  if (!v10)
-  {
-    v14 = self->_sReset;
-    if (v14 != -1)
+    v9 = DNSServiceCreateConnection(&self->_dnsServiceResolveConnection);
+    if (!v9)
     {
-      close(v14);
-      self->_sReset = -1;
+      v13 = self->_sReset;
+      if (v13 != -1)
+      {
+        close(v13);
+        self->_sReset = -1;
+      }
+
+      goto LABEL_5;
     }
 
-    goto LABEL_5;
-  }
-
-  v11 = v10;
-  DNSServiceRefDeallocate(self->_dnsServiceConnection);
-  self->_dnsServiceConnection = 0;
-  if (VRTraceGetErrorLogLevelForModule() >= 7)
-  {
-    v12 = VRTraceErrorLogLevelToCSTR();
-    v8 = *MEMORY[0x277CE5818];
-    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+    v10 = v9;
+    DNSServiceRefDeallocate(self->_dnsServiceConnection);
+    self->_dnsServiceConnection = 0;
+    if (VRTraceGetErrorLogLevelForModule() < 7 || (v11 = VRTraceErrorLogLevelToCSTR(), v7 = *MEMORY[0x277CE5818], !os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT)))
     {
-      *v15 = 136315906;
-      *&v15[4] = v12;
-      *&v15[12] = 2080;
-      *&v15[14] = "[GKSessionInternal checkDNSConnection]";
-      *&v15[22] = 1024;
-      LODWORD(v16) = 3692;
-      WORD2(v16) = 1024;
-      *(&v16 + 6) = v11;
-      v9 = " [%s] %s:%d DNSServiceCreateConnection failed2: %d";
-LABEL_15:
-      _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, v9, v15, 0x22u);
-    }
-  }
-
 LABEL_2:
-  [(GKSessionInternal *)self unlock:*v15];
-  result = 1;
-LABEL_6:
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+      [(GKSessionInternal *)self unlock:*v14];
+      return 1;
+    }
+
+    *v14 = 136315906;
+    *&v14[4] = v11;
+    *&v14[12] = 2080;
+    *&v14[14] = "[GKSessionInternal checkDNSConnection]";
+    *&v14[22] = 1024;
+    LODWORD(v15) = 3692;
+    WORD2(v15) = 1024;
+    *(&v15 + 6) = v10;
+    v8 = " [%s] %s:%d DNSServiceCreateConnection failed2: %d";
+LABEL_15:
+    _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, v8, v14, 0x22u);
+    goto LABEL_2;
+  }
+
+LABEL_5:
+  [(GKSessionInternal *)self unlock];
+  return 0;
 }
 
 - (void)publish
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
-  v6 = v0;
+  v5 = v0;
   OUTLINED_FUNCTION_5_0();
-  v7 = 3780;
-  v8 = v1;
-  v9 = v2;
-  _os_log_error_impl(&dword_24E50C000, v3, OS_LOG_TYPE_ERROR, " [%s] %s:%d publish failed: %d", v5, 0x22u);
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = 3780;
+  v7 = v1;
+  v8 = v2;
+  _os_log_error_impl(&dword_24E50C000, v3, OS_LOG_TYPE_ERROR, " [%s] %s:%d publish failed: %d", v4, 0x22u);
 }
 
 - (void)cleanupExAvailablePeers
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [(GKList *)self->_peersForCleanup count];
   if (v3)
   {
@@ -4534,13 +5942,13 @@ LABEL_6:
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v12 = v4;
-        v13 = 2080;
-        v14 = "[GKSessionInternal cleanupExAvailablePeers]";
-        v15 = 1024;
-        v16 = 3817;
-        v17 = 1024;
-        v18 = v3;
+        v11 = v4;
+        v12 = 2080;
+        v13 = "[GKSessionInternal cleanupExAvailablePeers]";
+        v14 = 1024;
+        v15 = 3817;
+        v16 = 1024;
+        v17 = v3;
         _os_log_impl(&dword_24E50C000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d cleanup previous available peers: (%d)", buf, 0x22u);
       }
     }
@@ -4574,14 +5982,12 @@ LABEL_6:
 
     [(GKList *)self->_peersForCleanup removeAllIDs];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processTXTRecordForPeer:(id)peer txtLen:(unsigned __int16)len txtRecord:(const void *)record
 {
   lenCopy = len;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (len && record)
   {
     if (TXTRecordContainsKey(len, record, "state"))
@@ -4609,17 +6015,17 @@ LABEL_6:
         v15 = [peer pid];
         isBusy = [peer isBusy];
         *valueLen = 136316418;
-        v21 = v13;
-        v22 = 2080;
-        v23 = "[GKSessionInternal processTXTRecordForPeer:txtLen:txtRecord:]";
-        v24 = 1024;
-        v25 = 3860;
-        v26 = 1024;
+        v20 = v13;
+        v21 = 2080;
+        v22 = "[GKSessionInternal processTXTRecordForPeer:txtLen:txtRecord:]";
+        v23 = 1024;
+        v24 = 3860;
+        v25 = 1024;
         recordCopy = v15;
-        v28 = 1024;
-        v29 = isBusy;
-        v30 = 1024;
-        v31 = v10;
+        v27 = 1024;
+        v28 = isBusy;
+        v29 = 1024;
+        v30 = v10;
         _os_log_impl(&dword_24E50C000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** peer %d: oldbusy=%d, newbusy=%d", valueLen, 0x2Eu);
       }
     }
@@ -4649,29 +6055,94 @@ LABEL_6:
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       *valueLen = 136316162;
-      v21 = v11;
-      v22 = 2080;
-      v23 = "[GKSessionInternal processTXTRecordForPeer:txtLen:txtRecord:]";
-      v24 = 1024;
-      v25 = 3846;
-      v26 = 1024;
+      v20 = v11;
+      v21 = 2080;
+      v22 = "[GKSessionInternal processTXTRecordForPeer:txtLen:txtRecord:]";
+      v23 = 1024;
+      v24 = 3846;
+      v25 = 1024;
       recordCopy = record;
-      v28 = 1024;
-      v29 = lenCopy;
+      v27 = 1024;
+      v28 = lenCopy;
       _os_log_impl(&dword_24E50C000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** no TXT record to process: txtRecord=%08X, txtLen=%u", valueLen, 0x28u);
     }
   }
+}
 
-  v19 = *MEMORY[0x277D85DE8];
+- (void)didUpdateTXTRecordForPeer:(id)peer fromIF:(const char *)f txtLen:(unsigned __int16)len txtRecord:(const void *)record withError:(int)error moreComing:(BOOL)coming
+{
+  v30 = *MEMORY[0x277D85DE8];
+  if (error)
+  {
+    if (VRTraceGetErrorLogLevelForModule() >= 7)
+    {
+      v9 = VRTraceErrorLogLevelToCSTR();
+      v10 = *MEMORY[0x277CE5818];
+      if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+      {
+        v22 = 136315906;
+        v23 = v9;
+        v24 = 2080;
+        v25 = "[GKSessionInternal didUpdateTXTRecordForPeer:fromIF:txtLen:txtRecord:withError:moreComing:]";
+        v26 = 1024;
+        v27 = 3874;
+        v28 = 1024;
+        LODWORD(fCopy) = error;
+        v11 = " [%s] %s:%d Bonjour query error: %d";
+        v12 = v10;
+        v13 = 34;
+LABEL_9:
+        _os_log_impl(&dword_24E50C000, v12, OS_LOG_TYPE_DEFAULT, v11, &v22, v13);
+      }
+    }
+  }
+
+  else
+  {
+    lenCopy = len;
+    if (-[GKSessionInternal filterService:withPID:](self, "filterService:withPID:", f, [peer pid]))
+    {
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v20 = VRTraceErrorLogLevelToCSTR();
+        v21 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          v22 = 136315906;
+          v23 = v20;
+          v24 = 2080;
+          v25 = "[GKSessionInternal didUpdateTXTRecordForPeer:fromIF:txtLen:txtRecord:withError:moreComing:]";
+          v26 = 1024;
+          v27 = 3877;
+          v28 = 2080;
+          fCopy = f;
+          v11 = " [%s] %s:%d resolved to [%s] - skipping";
+          v12 = v21;
+          v13 = 38;
+          goto LABEL_9;
+        }
+      }
+    }
+
+    else
+    {
+      [(GKSessionInternal *)self processTXTRecordForPeer:peer txtLen:lenCopy txtRecord:record];
+      if (!coming)
+      {
+
+        [(GKSessionInternal *)self cleanupExAvailablePeers];
+      }
+    }
+  }
 }
 
 - (void)didFindService:(const char *)service fromIF:(const char *)f withError:(int)error moreComing:(BOOL)coming
 {
   buf[127] = *MEMORY[0x277D85DE8];
-  v45 = 0xAAAAAAAAAAAAAAAALL;
-  v44 = -1431655766;
-  v43 = 0xAAAAAAAAAAAAAAAALL;
-  if ([(GKSessionInternal *)self parseServiceName:service intoDisplayName:&v45 pid:&v44 state:&v43])
+  v44 = 0xAAAAAAAAAAAAAAAALL;
+  v43 = -1431655766;
+  v42 = 0xAAAAAAAAAAAAAAAALL;
+  if ([(GKSessionInternal *)self parseServiceName:service intoDisplayName:&v44 pid:&v43 state:&v42])
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
@@ -4679,8 +6150,8 @@ LABEL_6:
       v12 = *MEMORY[0x277CE5818];
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
-        v13 = v44;
-        v14 = [(GKList *)self->_peersForCleanup hasID:v44];
+        v13 = v43;
+        v14 = [(GKList *)self->_peersForCleanup hasID:v43];
         LODWORD(buf[0]) = 136316162;
         *(buf + 4) = v11;
         WORD2(buf[1]) = 2080;
@@ -4695,8 +6166,8 @@ LABEL_6:
       }
     }
 
-    [(GKList *)self->_peersForCleanup removeID:v44];
-    if ([(GKSessionInternal *)self filterService:f withPID:v44])
+    [(GKList *)self->_peersForCleanup removeID:v43];
+    if ([(GKSessionInternal *)self filterService:f withPID:v43])
     {
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
@@ -4729,10 +6200,10 @@ LABEL_9:
       _os_log_impl(&dword_24E50C000, v18, OS_LOG_TYPE_DEFAULT, v17, buf, v19);
 LABEL_15:
 
-      goto LABEL_40;
+      return;
     }
 
-    if (self->_mode == 2 && v44 == self->_pid)
+    if (self->_mode == 2 && v43 == self->_pid)
     {
       if (VRTraceGetErrorLogLevelForModule() < 7)
       {
@@ -4758,7 +6229,7 @@ LABEL_15:
       goto LABEL_9;
     }
 
-    v22 = [v43 objectForKeyedSubscript:@"busy"];
+    v22 = [v42 objectForKeyedSubscript:@"busy"];
     if (v22)
     {
       bOOLValue = [v22 BOOLValue];
@@ -4769,7 +6240,7 @@ LABEL_15:
       bOOLValue = 0;
     }
 
-    v24 = [(GKTable *)self->_peerInfoTable objectForKey:v44];
+    v24 = [(GKTable *)self->_peerInfoTable objectForKey:v43];
     if (v24)
     {
       v25 = v24;
@@ -4780,7 +6251,7 @@ LABEL_37:
     }
 
     v26 = [GKPeerInternal alloc];
-    v25 = -[GKPeerInternal initWithPID:displayName:serviceName:](v26, "initWithPID:displayName:serviceName:", v44, v45, [MEMORY[0x277CCACA8] stringWithUTF8String:service]);
+    v25 = -[GKPeerInternal initWithPID:displayName:serviceName:](v26, "initWithPID:displayName:serviceName:", v43, v44, [MEMORY[0x277CCACA8] stringWithUTF8String:service]);
     [(GKPeerInternal *)v25 setSession:self];
     [(GKPeerInternal *)v25 setBusy:bOOLValue];
     sdRef = self->_dnsServiceConnection;
@@ -4802,16 +6273,16 @@ LABEL_37:
         goto LABEL_30;
       }
 
-      *v46 = 136316162;
-      v47 = v29;
-      v48 = 2080;
-      v49 = "[GKSessionInternal didFindService:fromIF:withError:moreComing:]";
-      v50 = 1024;
-      v51 = 3984;
-      v52 = 1024;
-      *v53 = v44;
-      *&v53[4] = 1024;
-      *&v53[6] = v28;
+      *v45 = 136316162;
+      v46 = v29;
+      v47 = 2080;
+      v48 = "[GKSessionInternal didFindService:fromIF:withError:moreComing:]";
+      v49 = 1024;
+      v50 = 3984;
+      v51 = 1024;
+      *v52 = v43;
+      *&v52[4] = 1024;
+      *&v52[6] = v28;
       v31 = " [%s] %s:%d ** cannot construct fullname! no busy state updates for peer %u (error=%d)";
       v32 = v30;
       v33 = 40;
@@ -4837,51 +6308,51 @@ LABEL_31:
           v39 = *MEMORY[0x277CE5818];
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
-            *v46 = 136315906;
-            v47 = v38;
-            v48 = 2080;
-            v49 = "[GKSessionInternal didFindService:fromIF:withError:moreComing:]";
-            v50 = 1024;
-            v51 = 3997;
-            v52 = 2080;
-            *v53 = buf;
-            _os_log_impl(&dword_24E50C000, v39, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => called DNSServiceQueryRecord() (fullname=[%s])", v46, 0x26u);
+            *v45 = 136315906;
+            v46 = v38;
+            v47 = 2080;
+            v48 = "[GKSessionInternal didFindService:fromIF:withError:moreComing:]";
+            v49 = 1024;
+            v50 = 3997;
+            v51 = 2080;
+            *v52 = buf;
+            _os_log_impl(&dword_24E50C000, v39, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => called DNSServiceQueryRecord() (fullname=[%s])", v45, 0x26u);
           }
         }
 
         [(GKPeerInternal *)v25 setTxtRecordService:sdRef];
         [(GKSessionInternal *)self lock];
-        [(GKTable *)self->_peerInfoTable setObject:v25 forKey:v44];
-        [(GKList *)self->_peersAvailable addID:v44];
+        [(GKTable *)self->_peerInfoTable setObject:v25 forKey:v43];
+        [(GKList *)self->_peersAvailable addID:v43];
         [(GKSessionInternal *)self unlock];
         [(GKSessionInternal *)self delegate];
         if (objc_opt_respondsToSelector() & 1) != 0 || ([(GKSessionInternal *)self privateDelegate], (objc_opt_respondsToSelector()))
         {
           v40 = objc_alloc(MEMORY[0x277CBEAC0]);
-          -[GKSessionInternal performSelectorOnMainThread:withObject:waitUntilDone:](self, "performSelectorOnMainThread:withObject:waitUntilDone:", sel_tellDelegate_peerDidBecomeAvailable_, [v40 initWithObjectsAndKeys:{-[GKAutoPeerIDTable objectForKey:](self->_peerIDTable, "objectForKey:", v44), @"peerID", 0}], 0);
+          -[GKSessionInternal performSelectorOnMainThread:withObject:waitUntilDone:](self, "performSelectorOnMainThread:withObject:waitUntilDone:", sel_tellDelegate_peerDidBecomeAvailable_, [v40 initWithObjectsAndKeys:{-[GKAutoPeerIDTable objectForKey:](self->_peerIDTable, "objectForKey:", v43), @"peerID", 0}], 0);
         }
 
         goto LABEL_37;
       }
 
-      *v46 = 136316418;
-      v47 = v36;
-      v48 = 2080;
-      v49 = "[GKSessionInternal didFindService:fromIF:withError:moreComing:]";
-      v50 = 1024;
-      v51 = 3994;
-      v52 = 2080;
-      *v53 = buf;
-      *&v53[8] = 1024;
-      v54 = v44;
-      v55 = 1024;
-      v56 = v35;
+      *v45 = 136316418;
+      v46 = v36;
+      v47 = 2080;
+      v48 = "[GKSessionInternal didFindService:fromIF:withError:moreComing:]";
+      v49 = 1024;
+      v50 = 3994;
+      v51 = 2080;
+      *v52 = buf;
+      *&v52[8] = 1024;
+      v53 = v43;
+      v54 = 1024;
+      v55 = v35;
       v31 = " [%s] %s:%d ** cannot query TXT record [%s]! no busy state updates for peer %u (error=%d)";
       v32 = v37;
       v33 = 50;
     }
 
-    _os_log_impl(&dword_24E50C000, v32, OS_LOG_TYPE_DEFAULT, v31, v46, v33);
+    _os_log_impl(&dword_24E50C000, v32, OS_LOG_TYPE_DEFAULT, v31, v45, v33);
     goto LABEL_30;
   }
 
@@ -4890,18 +6361,15 @@ LABEL_38:
   {
     [(GKSessionInternal *)self cleanupExAvailablePeers];
   }
-
-LABEL_40:
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didRemoveService:(const char *)service fromIF:(const char *)f withError:(int)error moreComing:(BOOL)coming
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v31 = 0xAAAAAAAAAAAAAAAALL;
-  v30 = -1431655766;
-  v29 = 0xAAAAAAAAAAAAAAAALL;
-  if (![(GKSessionInternal *)self parseServiceName:service intoDisplayName:&v31 pid:&v30 state:&v29])
+  v42 = *MEMORY[0x277D85DE8];
+  v30 = 0xAAAAAAAAAAAAAAAALL;
+  v29 = -1431655766;
+  v28 = 0xAAAAAAAAAAAAAAAALL;
+  if (![(GKSessionInternal *)self parseServiceName:service intoDisplayName:&v30 pid:&v29 state:&v28])
   {
 LABEL_27:
     if (!coming)
@@ -4909,7 +6377,7 @@ LABEL_27:
       [(GKSessionInternal *)self cleanupExAvailablePeers];
     }
 
-    goto LABEL_29;
+    return;
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -4918,24 +6386,24 @@ LABEL_27:
     v12 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = v30;
-      v14 = [(GKList *)self->_peersForCleanup hasID:v30];
+      v13 = v29;
+      v14 = [(GKList *)self->_peersForCleanup hasID:v29];
       *buf = 136316162;
-      v33 = v11;
-      v34 = 2080;
-      v35 = "[GKSessionInternal didRemoveService:fromIF:withError:moreComing:]";
-      v36 = 1024;
-      v37 = 4025;
-      v38 = 1024;
-      *v39 = v13;
-      *&v39[4] = 1024;
-      *&v39[6] = v14;
+      v32 = v11;
+      v33 = 2080;
+      v34 = "[GKSessionInternal didRemoveService:fromIF:withError:moreComing:]";
+      v35 = 1024;
+      v36 = 4025;
+      v37 = 1024;
+      *v38 = v13;
+      *&v38[4] = 1024;
+      *&v38[6] = v14;
       _os_log_impl(&dword_24E50C000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _peersForCleanup: contains %d ?= %d", buf, 0x28u);
     }
   }
 
-  [(GKList *)self->_peersForCleanup removeID:v30];
-  if ([(GKSessionInternal *)self filterService:f withPID:v30])
+  [(GKList *)self->_peersForCleanup removeID:v29];
+  if ([(GKSessionInternal *)self filterService:f withPID:v29])
   {
     if (VRTraceGetErrorLogLevelForModule() < 7)
     {
@@ -4950,16 +6418,16 @@ LABEL_27:
     }
 
     *buf = 136316418;
-    v33 = v15;
-    v34 = 2080;
-    v35 = "[GKSessionInternal didRemoveService:fromIF:withError:moreComing:]";
-    v36 = 1024;
-    v37 = 4029;
-    v38 = 2080;
-    *v39 = service;
-    *&v39[8] = 2080;
+    v32 = v15;
+    v33 = 2080;
+    v34 = "[GKSessionInternal didRemoveService:fromIF:withError:moreComing:]";
+    v35 = 1024;
+    v36 = 4029;
+    v37 = 2080;
+    *v38 = service;
+    *&v38[8] = 2080;
     fCopy = f;
-    v41 = 1024;
+    v40 = 1024;
     errorCopy = error;
     v17 = " [%s] %s:%d browse rejected: [%s] from [%s] (%d)";
     v18 = v16;
@@ -4968,10 +6436,10 @@ LABEL_9:
     _os_log_impl(&dword_24E50C000, v18, OS_LOG_TYPE_DEFAULT, v17, buf, v19);
 LABEL_15:
 
-    goto LABEL_29;
+    return;
   }
 
-  if (self->_mode == 2 && v30 == self->_pid)
+  if (self->_mode == 2 && v29 == self->_pid)
   {
     if (VRTraceGetErrorLogLevelForModule() < 7)
     {
@@ -4986,11 +6454,11 @@ LABEL_15:
     }
 
     *buf = 136315650;
-    v33 = v20;
-    v34 = 2080;
-    v35 = "[GKSessionInternal didRemoveService:fromIF:withError:moreComing:]";
-    v36 = 1024;
-    v37 = 4035;
+    v32 = v20;
+    v33 = 2080;
+    v34 = "[GKSessionInternal didRemoveService:fromIF:withError:moreComing:]";
+    v35 = 1024;
+    v36 = 4035;
     v17 = " [%s] %s:%d didRemove: skipping self";
     v18 = v21;
     v19 = 28;
@@ -5003,49 +6471,46 @@ LABEL_15:
     v23 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v24 = v30;
-      v25 = [(GKList *)self->_peersConnected hasID:v30];
+      v24 = v29;
+      v25 = [(GKList *)self->_peersConnected hasID:v29];
       *buf = 136316162;
-      v33 = v22;
-      v34 = 2080;
-      v35 = "[GKSessionInternal didRemoveService:fromIF:withError:moreComing:]";
-      v36 = 1024;
-      v37 = 4041;
-      v38 = 1024;
-      *v39 = v24;
-      *&v39[4] = 1024;
-      *&v39[6] = v25;
+      v32 = v22;
+      v33 = 2080;
+      v34 = "[GKSessionInternal didRemoveService:fromIF:withError:moreComing:]";
+      v35 = 1024;
+      v36 = 4041;
+      v37 = 1024;
+      *v38 = v24;
+      *&v38[4] = 1024;
+      *&v38[6] = v25;
       _os_log_impl(&dword_24E50C000, v23, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Peer [%d] removed? (%d).\n", buf, 0x28u);
     }
   }
 
-  v26 = [(GKTable *)self->_peerInfoTable objectForKey:v30];
+  v26 = [(GKTable *)self->_peerInfoTable objectForKey:v29];
   [v26 setServiceCount:{objc_msgSend(v26, "serviceCount") - 1}];
   if ([v26 serviceCount] <= 0)
   {
-    [(GKList *)self->_peersAvailable removeID:v30];
-    if (v26 && ![(GKList *)self->_peersConnected hasID:v30]&& ![(GKList *)self->_peersPendingOutgoingInvitation hasID:v30])
+    [(GKList *)self->_peersAvailable removeID:v29];
+    if (v26 && ![(GKList *)self->_peersConnected hasID:v29]&& ![(GKList *)self->_peersPendingOutgoingInvitation hasID:v29])
     {
-      [(GKTable *)self->_peerInfoTable removeObjectForKey:v30];
+      [(GKTable *)self->_peerInfoTable removeObjectForKey:v29];
     }
 
     [(GKSessionInternal *)self delegate];
     if (objc_opt_respondsToSelector() & 1) != 0 || ([(GKSessionInternal *)self privateDelegate], (objc_opt_respondsToSelector()))
     {
       v27 = objc_alloc(MEMORY[0x277CBEAC0]);
-      -[GKSessionInternal performSelectorOnMainThread:withObject:waitUntilDone:](self, "performSelectorOnMainThread:withObject:waitUntilDone:", sel_tellDelegate_peerDidBecomeUnavailable_, [v27 initWithObjectsAndKeys:{-[GKAutoPeerIDTable objectForKey:](self->_peerIDTable, "objectForKey:", v30), @"peerID", 0}], 0);
+      -[GKSessionInternal performSelectorOnMainThread:withObject:waitUntilDone:](self, "performSelectorOnMainThread:withObject:waitUntilDone:", sel_tellDelegate_peerDidBecomeUnavailable_, [v27 initWithObjectsAndKeys:{-[GKAutoPeerIDTable objectForKey:](self->_peerIDTable, "objectForKey:", v29), @"peerID", 0}], 0);
     }
 
     goto LABEL_27;
   }
-
-LABEL_29:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)browse
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   [(GKSessionInternal *)self lock];
   if (self->_shutdown)
   {
@@ -5056,11 +6521,11 @@ LABEL_29:
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v32 = v3;
-        v33 = 2080;
-        v34 = "[GKSessionInternal browse]";
-        v35 = 1024;
-        v36 = 4124;
+        v31 = v3;
+        v32 = 2080;
+        v33 = "[GKSessionInternal browse]";
+        v34 = 1024;
+        v35 = 4124;
         v5 = " [%s] %s:%d cannot browse after reset";
 LABEL_9:
         _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, v5, buf, 0x1Cu);
@@ -5077,11 +6542,11 @@ LABEL_9:
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v32 = v6;
-        v33 = 2080;
-        v34 = "[GKSessionInternal browse]";
-        v35 = 1024;
-        v36 = 4131;
+        v31 = v6;
+        v32 = 2080;
+        v33 = "[GKSessionInternal browse]";
+        v34 = 1024;
+        v35 = 4131;
         v5 = " [%s] %s:%d dns connection not initialized";
         goto LABEL_9;
       }
@@ -5100,13 +6565,13 @@ LABEL_9:
         {
           serviceBrowser = self->_serviceBrowser;
           *buf = 136315906;
-          v32 = v7;
-          v33 = 2080;
-          v34 = "[GKSessionInternal browse]";
-          v35 = 1024;
-          v36 = 4137;
-          v37 = 1024;
-          LODWORD(v38) = serviceBrowser;
+          v31 = v7;
+          v32 = 2080;
+          v33 = "[GKSessionInternal browse]";
+          v34 = 1024;
+          v35 = 4137;
+          v36 = 1024;
+          LODWORD(v37) = serviceBrowser;
           _os_log_impl(&dword_24E50C000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_serviceBrowser) (%08X) -- was already browsing?  closing old service...", buf, 0x22u);
         }
       }
@@ -5125,13 +6590,13 @@ LABEL_9:
       {
         uTF8String = [(NSString *)self->serviceType UTF8String];
         *buf = 136315906;
-        v32 = v10;
-        v33 = 2080;
-        v34 = "[GKSessionInternal browse]";
-        v35 = 1024;
-        v36 = 4146;
-        v37 = 2080;
-        v38 = uTF8String;
+        v31 = v10;
+        v32 = 2080;
+        v33 = "[GKSessionInternal browse]";
+        v34 = 1024;
+        v35 = 4146;
+        v36 = 2080;
+        v37 = uTF8String;
         _os_log_impl(&dword_24E50C000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceBrowse() (servicetype=%s)", buf, 0x26u);
       }
     }
@@ -5147,13 +6612,13 @@ LABEL_9:
         if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v32 = v15;
-          v33 = 2080;
-          v34 = "[GKSessionInternal browse]";
-          v35 = 1024;
-          v36 = 4153;
-          v37 = 1024;
-          LODWORD(v38) = v14;
+          v31 = v15;
+          v32 = 2080;
+          v33 = "[GKSessionInternal browse]";
+          v34 = 1024;
+          v35 = 4153;
+          v36 = 1024;
+          LODWORD(v37) = v14;
           _os_log_impl(&dword_24E50C000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d browse failed: %d", buf, 0x22u);
         }
       }
@@ -5169,13 +6634,13 @@ LABEL_9:
           {
             service = self->_service;
             *buf = 136315906;
-            v32 = v17;
-            v33 = 2080;
-            v34 = "[GKSessionInternal browse]";
-            v35 = 1024;
-            v36 = 4157;
-            v37 = 1024;
-            LODWORD(v38) = service;
+            v31 = v17;
+            v32 = 2080;
+            v33 = "[GKSessionInternal browse]";
+            v34 = 1024;
+            v35 = 4157;
+            v36 = 1024;
+            LODWORD(v37) = service;
             _os_log_impl(&dword_24E50C000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d => calling DNSServiceRefDeallocate(_service) (%08X)", buf, 0x22u);
           }
         }
@@ -5202,13 +6667,13 @@ LABEL_9:
           {
             localizedDescription = [v20 localizedDescription];
             *buf = 136315906;
-            v32 = v22;
-            v33 = 2080;
-            v34 = "[GKSessionInternal browse]";
-            v35 = 1024;
-            v36 = 4167;
-            v37 = 2112;
-            v38 = localizedDescription;
+            v31 = v22;
+            v32 = 2080;
+            v33 = "[GKSessionInternal browse]";
+            v34 = 1024;
+            v35 = 4167;
+            v36 = 2112;
+            v37 = localizedDescription;
             _os_log_impl(&dword_24E50C000, v23, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Error: %@.", buf, 0x26u);
           }
         }
@@ -5222,11 +6687,11 @@ LABEL_9:
           if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v32 = v25;
-            v33 = 2080;
-            v34 = "[GKSessionInternal browse]";
-            v35 = 1024;
-            v36 = 4175;
+            v31 = v25;
+            v32 = 2080;
+            v33 = "[GKSessionInternal browse]";
+            v34 = 1024;
+            v35 = 4175;
             _os_log_impl(&dword_24E50C000, v26, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** Stop resolving ALL: browse error", buf, 0x1Cu);
           }
         }
@@ -5245,13 +6710,13 @@ LABEL_9:
         {
           v29 = [(GKSessionInternal *)self retainCount];
           *buf = 136315906;
-          v32 = v27;
-          v33 = 2080;
-          v34 = "[GKSessionInternal browse]";
-          v35 = 1024;
-          v36 = 4183;
-          v37 = 1024;
-          LODWORD(v38) = v29;
+          v31 = v27;
+          v32 = 2080;
+          v33 = "[GKSessionInternal browse]";
+          v34 = 1024;
+          v35 = 4183;
+          v36 = 1024;
+          LODWORD(v37) = v29;
           _os_log_impl(&dword_24E50C000, v28, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d start handleEvents (%d)", buf, 0x22u);
         }
       }
@@ -5262,44 +6727,49 @@ LABEL_9:
   }
 
   [(GKSessionInternal *)self unlock];
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)tryConnectToPeer:(id)peer
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v18 = -1431655766;
-  memset(v17, 170, sizeof(v17));
+  v27 = *MEMORY[0x277D85DE8];
+  v20 = -1431655766;
+  memset(v19, 170, sizeof(v19));
   if ([peer usableAddrs])
   {
-    [peer removeAndReturnLookupList:&v17[2] andAddrList:&v17[1] andInterfaceList:v17 count:&v18];
-    if (v18)
+    [peer removeAndReturnLookupList:&v19[2] andAddrList:&v19[1] andInterfaceList:v19 count:&v20];
+    if (v20)
     {
-      v5 = malloc_type_malloc(8 * v18, 0x2004093837F09uLL);
-      if (v18 >= 1)
+      v5 = malloc_type_malloc(8 * v20, 0x2004093837F09uLL);
+      if (v20 < 1)
+      {
+        v7 = 0;
+      }
+
+      else
       {
         v6 = 0;
         v7 = 0;
         do
         {
-          DNSServiceRefDeallocate(*(v17[2] + 8 * v6));
-          v8 = v17[1];
-          if (*(v17[1] + 8 * v6))
+          DNSServiceRefDeallocate(*(v19[2] + 8 * v6));
+          v8 = v19[1];
+          if (*(v19[1] + 8 * v6))
           {
-            *(v17[0] + 4 * v7) = *(v17[0] + 4 * v6);
+            *(v19[0] + 4 * v7) = *(v19[0] + 4 * v6);
             v5[v7++] = [*(v8 + 8 * v6) bytes];
           }
 
           ++v6;
         }
 
-        while (v6 < v18);
+        while (v6 < v20);
       }
 
       sessionRef = self->sessionRef;
-      [peer pid];
+      v15 = [peer pid];
+      v16 = v19[0];
       [peer connectTimeout];
-      GCKSessionConnectToLocalService();
+      GCKSessionConnectToLocalService(sessionRef, v15, v5, v7, v16, v17);
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -5309,16 +6779,16 @@ LABEL_9:
       if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v20 = v12;
-        v21 = 2080;
-        v22 = "[GKSessionInternal tryConnectToPeer:]";
-        v23 = 1024;
-        v24 = 4209;
+        v22 = v12;
+        v23 = 2080;
+        v24 = "[GKSessionInternal tryConnectToPeer:]";
+        v25 = 1024;
+        v26 = 4209;
         _os_log_impl(&dword_24E50C000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d no usable addresses - wait for more", buf, 0x1Cu);
       }
     }
 
-    [GKPeerInternal freeLookupList:v17[2] andAddrList:v17[1] andInterfaceList:v17[0] count:v18];
+    [GKPeerInternal freeLookupList:v19[2] andAddrList:v19[1] andInterfaceList:v19[0] count:v20];
     goto LABEL_16;
   }
 
@@ -5326,7 +6796,7 @@ LABEL_9:
   {
 LABEL_16:
     LOBYTE(v11) = 0;
-    goto LABEL_18;
+    return v11;
   }
 
   v9 = VRTraceErrorLogLevelToCSTR();
@@ -5335,103 +6805,409 @@ LABEL_16:
   if (v11)
   {
     *buf = 136315650;
-    v20 = v9;
-    v21 = 2080;
-    v22 = "[GKSessionInternal tryConnectToPeer:]";
-    v23 = 1024;
-    v24 = 4201;
+    v22 = v9;
+    v23 = 2080;
+    v24 = "[GKSessionInternal tryConnectToPeer:]";
+    v25 = 1024;
+    v26 = 4201;
     _os_log_impl(&dword_24E50C000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d no usable addresses - wait for more", buf, 0x1Cu);
     goto LABEL_16;
   }
 
-LABEL_18:
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
+}
+
+- (void)didLookupHostname:(_DNSServiceRef_t *)hostname forPeer:(id)peer hostName:(const char *)name address:(const sockaddr_in *)address interface:(unsigned int)interface withError:(int)error moreComing:(BOOL)coming
+{
+  v10 = *&interface;
+  v44 = *MEMORY[0x277D85DE8];
+  s_addr = address->sin_addr.s_addr;
+  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    v16 = VRTraceErrorLogLevelToCSTR();
+    v17 = *MEMORY[0x277CE5818];
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = bswap32(s_addr);
+      *buf = 136317698;
+      v25 = v16;
+      v26 = 2080;
+      v27 = "[GKSessionInternal didLookupHostname:forPeer:hostName:address:interface:withError:moreComing:]";
+      v28 = 1024;
+      v29 = 4275;
+      v30 = 1024;
+      *v31 = hostname;
+      *&v31[4] = 2080;
+      *&v31[6] = name;
+      v32 = 1024;
+      v33 = HIBYTE(v18);
+      v34 = 1024;
+      v35 = BYTE2(v18);
+      v36 = 1024;
+      v37 = BYTE1(v18);
+      v38 = 1024;
+      v39 = v18;
+      v40 = 1024;
+      errorCopy = error;
+      v42 = 1024;
+      comingCopy = coming;
+      _os_log_impl(&dword_24E50C000, v17, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ** %08x ** host[%s] lookup: %u.%u.%u.%u (%d) (more? %d)", buf, 0x50u);
+    }
+  }
+
+  if (!error)
+  {
+    peerCopy = peer;
+    if ([peer containsLookupService:hostname])
+    {
+      [peer setAddr:address interface:v10 forLookupService:hostname];
+      if (!coming)
+      {
+        if ([(GKSessionInternal *)self tryConnectToPeer:peer])
+        {
+          if (VRTraceGetErrorLogLevelForModule() >= 7)
+          {
+            v20 = VRTraceErrorLogLevelToCSTR();
+            v21 = *MEMORY[0x277CE5818];
+            if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+            {
+              if (peerCopy)
+              {
+                displayName = [peerCopy displayName];
+              }
+
+              else
+              {
+                displayName = 0;
+              }
+
+              *buf = 136315906;
+              v25 = v20;
+              v26 = 2080;
+              v27 = "[GKSessionInternal didLookupHostname:forPeer:hostName:address:interface:withError:moreComing:]";
+              v28 = 1024;
+              v29 = 4300;
+              v30 = 2112;
+              *v31 = displayName;
+              _os_log_impl(&dword_24E50C000, v21, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Stop resolving: %@ invitation started from getaddrinfo callback", buf, 0x26u);
+            }
+          }
+
+          [peerCopy stopResolving];
+        }
+      }
+    }
+  }
+}
+
+- (void)didResolveService:(_DNSServiceRef_t *)service forPeer:(id)peer hostName:(const char *)name port:(unsigned __int16)port interface:(unsigned int)interface txtLen:(unsigned __int16)len txtRecord:(const void *)record withError:(int)self0 moreComing:(BOOL)self1
+{
+  lenCopy = len;
+  portCopy = port;
+  v62 = *MEMORY[0x277D85DE8];
+  memset(v61, 170, sizeof(v61));
+  if (!if_indextoname(interface, v61))
+  {
+    v61[0] = 0;
+  }
+
+  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    v17 = VRTraceErrorLogLevelToCSTR();
+    v18 = *MEMORY[0x277CE5818];
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136316674;
+      v50 = v17;
+      v51 = 2080;
+      v52 = "[GKSessionInternal didResolveService:forPeer:hostName:port:interface:txtLen:txtRecord:withError:moreComing:]";
+      v53 = 1024;
+      v54 = 4340;
+      v55 = 1024;
+      *v56 = service;
+      *&v56[4] = 1024;
+      *&v56[6] = interface;
+      v57 = 2080;
+      v58 = v61;
+      v59 = 1024;
+      comingCopy = coming;
+      _os_log_impl(&dword_24E50C000, v18, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d didResolveService: %x from %d [%s] (more? %d)", buf, 0x38u);
+    }
+  }
+
+  if (error)
+  {
+    if (VRTraceGetErrorLogLevelForModule() < 7)
+    {
+      goto LABEL_15;
+    }
+
+    v19 = VRTraceErrorLogLevelToCSTR();
+    v20 = *MEMORY[0x277CE5818];
+    if (!os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_15;
+    }
+
+    *buf = 136315906;
+    v50 = v19;
+    v51 = 2080;
+    v52 = "[GKSessionInternal didResolveService:forPeer:hostName:port:interface:txtLen:txtRecord:withError:moreComing:]";
+    v53 = 1024;
+    v54 = 4344;
+    v55 = 1024;
+    *v56 = error;
+    v21 = " [%s] %s:%d Bonjour resolve error: %d";
+    v22 = v20;
+    v23 = 34;
+    goto LABEL_14;
+  }
+
+  if (!-[GKSessionInternal filterService:withPID:](self, "filterService:withPID:", v61, [peer pid]))
+  {
+    v26 = 1;
+    goto LABEL_16;
+  }
+
+  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    v24 = VRTraceErrorLogLevelToCSTR();
+    v25 = *MEMORY[0x277CE5818];
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315906;
+      v50 = v24;
+      v51 = 2080;
+      v52 = "[GKSessionInternal didResolveService:forPeer:hostName:port:interface:txtLen:txtRecord:withError:moreComing:]";
+      v53 = 1024;
+      v54 = 4347;
+      v55 = 2080;
+      *v56 = v61;
+      v21 = " [%s] %s:%d resolved to [%s] - skipping";
+      v22 = v25;
+      v23 = 38;
+LABEL_14:
+      _os_log_impl(&dword_24E50C000, v22, OS_LOG_TYPE_DEFAULT, v21, buf, v23);
+    }
+  }
+
+LABEL_15:
+  v26 = 0;
+LABEL_16:
+  [(GKSessionInternal *)self processTXTRecordForPeer:peer txtLen:lenCopy txtRecord:record];
+  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    v27 = VRTraceErrorLogLevelToCSTR();
+    v28 = *MEMORY[0x277CE5818];
+    if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+    {
+      v29 = [peer pid];
+      resolveService = [peer resolveService];
+      *buf = 136316418;
+      v50 = v27;
+      v51 = 2080;
+      v52 = "[GKSessionInternal didResolveService:forPeer:hostName:port:interface:txtLen:txtRecord:withError:moreComing:]";
+      v53 = 1024;
+      v54 = 4355;
+      v55 = 1024;
+      *v56 = v29;
+      *&v56[4] = 1024;
+      *&v56[6] = resolveService;
+      v57 = 1024;
+      LODWORD(v58) = service;
+      _os_log_impl(&dword_24E50C000, v28, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d resolve check peer %d service %08x == %08x?", buf, 0x2Eu);
+    }
+  }
+
+  if ([peer resolveService] == service)
+  {
+    [peer setServicePort:portCopy];
+    if (v26)
+    {
+      if ([(GKSessionInternal *)self checkDNSConnection])
+      {
+        if (VRTraceGetErrorLogLevelForModule() >= 7)
+        {
+          v31 = VRTraceErrorLogLevelToCSTR();
+          v32 = *MEMORY[0x277CE5818];
+          if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 136315650;
+            v50 = v31;
+            v51 = 2080;
+            v52 = "[GKSessionInternal didResolveService:forPeer:hostName:port:interface:txtLen:txtRecord:withError:moreComing:]";
+            v53 = 1024;
+            v54 = 4380;
+            v33 = " [%s] %s:%d Lookup: Unable to use DNS connection!";
+            v34 = v32;
+            v35 = 28;
+LABEL_33:
+            _os_log_impl(&dword_24E50C000, v34, OS_LOG_TYPE_DEFAULT, v33, buf, v35);
+          }
+        }
+      }
+
+      else
+      {
+        sdRef = self->_dnsServiceResolveConnection;
+        AddrInfo = DNSServiceGetAddrInfo(&sdRef, 0x24000u, interface, 1u, name, hostnameLookupCallback, peer);
+        if (AddrInfo)
+        {
+          v37 = AddrInfo;
+          if (VRTraceGetErrorLogLevelForModule() >= 7)
+          {
+            v38 = VRTraceErrorLogLevelToCSTR();
+            v39 = *MEMORY[0x277CE5818];
+            if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 136315906;
+              v50 = v38;
+              v51 = 2080;
+              v52 = "[GKSessionInternal didResolveService:forPeer:hostName:port:interface:txtLen:txtRecord:withError:moreComing:]";
+              v53 = 1024;
+              v54 = 4377;
+              v55 = 1024;
+              *v56 = v37;
+              v33 = " [%s] %s:%d hostname lookup failed (%d)";
+              v34 = v39;
+              v35 = 34;
+              goto LABEL_33;
+            }
+          }
+        }
+
+        else
+        {
+          [peer addLookup:sdRef];
+          if (VRTraceGetErrorLogLevelForModule() >= 7)
+          {
+            v40 = VRTraceErrorLogLevelToCSTR();
+            v41 = *MEMORY[0x277CE5818];
+            if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+            {
+              v42 = sdRef;
+              resolveService2 = [peer resolveService];
+              *buf = 136316162;
+              v50 = v40;
+              v51 = 2080;
+              v52 = "[GKSessionInternal didResolveService:forPeer:hostName:port:interface:txtLen:txtRecord:withError:moreComing:]";
+              v53 = 1024;
+              v54 = 4375;
+              v55 = 1024;
+              *v56 = v42;
+              *&v56[4] = 1024;
+              *&v56[6] = resolveService2;
+              v33 = " [%s] %s:%d hostname lookup service %08X shares from %08X";
+              v34 = v41;
+              v35 = 40;
+              goto LABEL_33;
+            }
+          }
+        }
+      }
+    }
+
+    if (!coming && [(GKSessionInternal *)self tryConnectToPeer:peer])
+    {
+      if (VRTraceGetErrorLogLevelForModule() >= 7)
+      {
+        v44 = VRTraceErrorLogLevelToCSTR();
+        v45 = *MEMORY[0x277CE5818];
+        if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
+        {
+          if (peer)
+          {
+            displayName = [peer displayName];
+          }
+
+          else
+          {
+            displayName = 0;
+          }
+
+          *buf = 136315906;
+          v50 = v44;
+          v51 = 2080;
+          v52 = "[GKSessionInternal didResolveService:forPeer:hostName:port:interface:txtLen:txtRecord:withError:moreComing:]";
+          v53 = 1024;
+          v54 = 4386;
+          v55 = 2112;
+          *v56 = displayName;
+          _os_log_impl(&dword_24E50C000, v45, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Stop resolving: %@ invitation started from resolve callback", buf, 0x26u);
+        }
+      }
+
+      [peer stopResolving];
+    }
+  }
 }
 
 - (void)initWithConnection:session:delegate:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d Error in GCKSessionCreate. *", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d Error in GCKSessionCreate. *", v2, v3, v4, v5);
 }
 
 - (void)initWithConnection:session:delegate:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d Error in AGPSessionCreate. *", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d Error in AGPSessionCreate. *", v2, v3, v4, v5);
 }
 
 - (void)initWithConnection:session:delegate:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d Error in GCKSessionSetEventCallback. *", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d Error in GCKSessionSetEventCallback. *", v2, v3, v4, v5);
 }
 
 - (void)initWithSessionID:displayName:session:sessionMode:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d Error in GCKSessionCreate.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d Error in GCKSessionCreate.", v2, v3, v4, v5);
 }
 
 - (void)initWithSessionID:displayName:session:sessionMode:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d Error in AGPSessionCreate.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d Error in AGPSessionCreate.", v2, v3, v4, v5);
 }
 
 - (void)displayNameForPeer:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
-  v5 = v0;
+  v4 = v0;
   OUTLINED_FUNCTION_5_0();
-  v6 = 2737;
-  v7 = 2112;
-  v8 = v1;
-  _os_log_error_impl(&dword_24E50C000, v2, OS_LOG_TYPE_ERROR, " [%s] %s:%d displayNameForPeer: %@ not found", v4, 0x26u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2737;
+  v6 = 2112;
+  v7 = v1;
+  _os_log_error_impl(&dword_24E50C000, v2, OS_LOG_TYPE_ERROR, " [%s] %s:%d displayNameForPeer: %@ not found", v3, 0x26u);
 }
 
 - (void)cancelConnectToPeer:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d cannot cancel after reset", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d cannot cancel after reset", v2, v3, v4, v5);
 }
 
 - (void)acceptConnectionFromPeer:error:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d cannot accept after reset", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d cannot accept after reset", v2, v3, v4, v5);
 }
 
 - (void)denyConnectionFromPeer:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d cannot deny after reset", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d cannot deny after reset", v2, v3, v4, v5);
 }
 
 @end

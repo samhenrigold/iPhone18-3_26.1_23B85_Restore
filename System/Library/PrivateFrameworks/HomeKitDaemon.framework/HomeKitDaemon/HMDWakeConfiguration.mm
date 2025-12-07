@@ -143,37 +143,37 @@ LABEL_21:
 
 - (id)serializeWithError:(id *)error
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
+  v53 = *MEMORY[0x277D85DE8];
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
+  v36 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v32 = 0u;
   TLV8BufferInit();
   reserved = [(HMDWakeConfiguration *)self reserved];
 
   if (reserved)
   {
     reserved2 = [(HMDWakeConfiguration *)self reserved];
-    v32 = 0;
-    v7 = [reserved2 serializeWithError:&v32];
-    v8 = v32;
+    v31 = 0;
+    v7 = [reserved2 serializeWithError:&v31];
+    v8 = v31;
 
     if (!v8)
     {
@@ -205,9 +205,9 @@ LABEL_10:
   if (custom1)
   {
     custom12 = [(HMDWakeConfiguration *)self custom1];
-    v31 = 0;
-    v7 = [custom12 serializeWithError:&v31];
-    v8 = v31;
+    v30 = 0;
+    v7 = [custom12 serializeWithError:&v30];
+    v8 = v30;
 
     if (!v8)
     {
@@ -265,9 +265,9 @@ LABEL_19:
   if (custom2)
   {
     custom22 = [(HMDWakeConfiguration *)self custom2];
-    v30 = 0;
-    v7 = [custom22 serializeWithError:&v30];
-    v8 = v30;
+    v29 = 0;
+    v7 = [custom22 serializeWithError:&v29];
+    v8 = v29;
 
     if (v8)
     {
@@ -320,12 +320,10 @@ LABEL_19:
     }
   }
 
-  v20 = [MEMORY[0x277CBEA90] dataWithBytes:v33 length:?];
+  v20 = [MEMORY[0x277CBEA90] dataWithBytes:v32 length:?];
   v8 = 0;
 LABEL_42:
   TLV8BufferFree();
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

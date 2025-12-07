@@ -1,6 +1,7 @@
 @interface TUDialRequest
 + (BOOL)isHandleEmergencyNumber:(id)number telephonyProvider:(id)provider;
 + (id)callProviderManagerGeneratorBlock;
++ (id)defaultAppCallProviderForDialType:(int64_t)type originatingUIType:(int)iType isSOS:(BOOL)s handles:(id)handles ttyType:(int64_t)ttyType;
 + (id)legacyAddressBookIdentifierToContactIdentifierTransformBlock;
 + (id)providerForIntentPreferredCallProvider:(int64_t)provider recentCallProviderId:(id)id callCapability:(int64_t)capability providerManager:(id)manager;
 + (id)senderIdentityClientGeneratorBlock;
@@ -40,6 +41,8 @@
 - (TUDialRequest)initWithDialIntent:(id)intent providerManager:(id)manager contactsDataSource:(id)source senderIdentityClient:(id)client isEmergencyServicesOverrideEnabled:(BOOL)enabled;
 - (TUDialRequest)initWithProvider:(id)provider;
 - (TUDialRequest)initWithProvider:(id)provider featureFlags:(id)flags;
+- (TUDialRequest)initWithService:(int)service;
+- (TUDialRequest)initWithService:(int)service featureFlags:(id)flags;
 - (TUDialRequest)initWithURL:(id)l;
 - (TUDialRequest)initWithURL:(id)l featureFlags:(id)flags;
 - (TUDialRequest)initWithURL:(id)l translationRequestConfiguration:(id)configuration;
@@ -53,10 +56,12 @@
 - (id)URLQueryItems;
 - (id)URLScheme;
 - (id)_contactFromINPerson:(id)person contactsDataSource:(id)source bestGuessHandle:(id *)handle;
+- (id)_validityErrorsForRelay:(BOOL)relay;
 - (id)allowProviderFallbackQueryItem;
 - (id)audioSourceIdentifierURLQueryItem;
 - (id)bundleIdentifier;
 - (id)bypassInterventionQueryItem;
+- (id)callProviderFromURLComponents:(id)components handles:(id)handles dialType:(int64_t)type originatingUIType:(int)iType isSOS:(BOOL)s ttyType:(int64_t)ttyType video:(BOOL *)video featureFlags:(id)self0;
 - (id)callProviderIdentiferFromURLComponents:(id)components;
 - (id)callProviderIdentifierURLQueryItem;
 - (id)contactIdentifierFromURLComponents:(id)components;
@@ -180,7 +185,7 @@
 
 - (id)validityErrorForUnspecifiedProvider
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   provider = [(TUDialRequest *)self provider];
 
   if (provider)
@@ -190,31 +195,29 @@
 
   else
   {
-    v8 = *MEMORY[0x1E696A578];
+    v7 = *MEMORY[0x1E696A578];
     v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No provider specified"];
-    v9[0] = v4;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v8[0] = v4;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
     v3 = [MEMORY[0x1E696ABC0] errorWithDomain:@"TUDialRequestValidityErrorDomain" code:1 userInfo:v5];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)validityErrorForDestinationIDWithVoicemail
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   handle = [(TUDialRequest *)self handle];
   if (handle && (v4 = handle, v5 = [(TUDialRequest *)self dialType], v4, v5 == 2))
   {
-    v13 = *MEMORY[0x1E696A578];
+    v12 = *MEMORY[0x1E696A578];
     v6 = MEMORY[0x1E696AEC0];
     handle2 = [(TUDialRequest *)self handle];
     v8 = [v6 stringWithFormat:@"handle is non-nil (%@) and dialType is Voicemail", handle2];
-    v14[0] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
     v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"TUDialRequestValidityErrorDomain" code:2 userInfo:v9];
   }
@@ -224,14 +227,12 @@
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (id)validityErrorForNonNormalDialTypeWithoutTelephony
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if ([(TUDialRequest *)self service]== 1 || ![(TUDialRequest *)self dialType])
   {
     v5 = 0;
@@ -239,22 +240,20 @@
 
   else
   {
-    v8 = *MEMORY[0x1E696A578];
+    v7 = *MEMORY[0x1E696A578];
     v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"dialType (%lu) is not Normal but service (%d) is not Telephony", -[TUDialRequest dialType](self, "dialType"), -[TUDialRequest service](self, "service")];
-    v9[0] = v3;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v8[0] = v3;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
     v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"TUDialRequestValidityErrorDomain" code:3 userInfo:v4];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)validityErrorForEmergencyCall
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   handle = [(TUDialRequest *)self handle];
   if (!handle || (v4 = handle, v5 = [(TUDialRequest *)self dialType], v4, v5 != 1))
   {
@@ -273,34 +272,34 @@
   }
 
   v8 = isEmergencyNumberOrIsWhitelistedBlock;
-  v63 = _Block_copy(isEmergencyNumberOrIsWhitelistedBlock);
+  v64 = _Block_copy(isEmergencyNumberOrIsWhitelistedBlock);
 
   localSenderIdentityAccountUUID = [(TUDialRequest *)self localSenderIdentityAccountUUID];
-  v62 = localSenderIdentityAccountUUID;
+  v63 = localSenderIdentityAccountUUID;
   if (localSenderIdentityAccountUUID)
   {
     v10 = localSenderIdentityAccountUUID;
     provider = [(TUDialRequest *)self provider];
     v12 = [provider senderIdentityForAccountUUID:v10];
 
-    v13 = TUDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = TUDefaultLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       handle2 = [(TUDialRequest *)self handle];
       *buf = 138412546;
-      v82 = handle2;
-      v83 = 2112;
-      v84 = v12;
-      _os_log_impl(&dword_1956FD000, v13, OS_LOG_TYPE_DEFAULT, "Checking whether %@ is an emergency number for sender identity %@", buf, 0x16u);
+      v83 = handle2;
+      v84 = 2112;
+      v85 = v12;
+      _os_log_impl(&dword_1956FD000, v14, OS_LOG_TYPE_DEFAULT, "Checking whether %@ is an emergency number for sender identity %@", buf, 0x16u);
     }
 
     if (v12)
     {
       handle3 = [(TUDialRequest *)self handle];
       value = [handle3 value];
-      v17 = v63[2](v63, value, v12);
+      v18 = v64[2](v64, value, v12);
 
-      if (v17)
+      if (v18)
       {
         goto LABEL_30;
       }
@@ -310,55 +309,55 @@
   provider2 = [(TUDialRequest *)self provider];
   prioritizedSenderIdentities = [provider2 prioritizedSenderIdentities];
 
-  v20 = [prioritizedSenderIdentities count];
-  v21 = TUDefaultLog();
-  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-  if (v20)
+  v22 = [prioritizedSenderIdentities count];
+  v23 = TUDefaultLog(v22);
+  v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+  if (v22)
   {
-    if (v22)
+    if (v24)
     {
       handle4 = [(TUDialRequest *)self handle];
       *buf = 138412546;
-      v82 = handle4;
-      v83 = 2112;
-      v84 = prioritizedSenderIdentities;
-      _os_log_impl(&dword_1956FD000, v21, OS_LOG_TYPE_DEFAULT, "Checking whether %@ is an emergency number for any of the following sender identities %@", buf, 0x16u);
+      v83 = handle4;
+      v84 = 2112;
+      v85 = prioritizedSenderIdentities;
+      _os_log_impl(&dword_1956FD000, v23, OS_LOG_TYPE_DEFAULT, "Checking whether %@ is an emergency number for any of the following sender identities %@", buf, 0x16u);
     }
 
-    v74 = 0u;
     v75 = 0u;
-    v72 = 0u;
+    v76 = 0u;
     v73 = 0u;
+    v74 = 0u;
     accountUUID = prioritizedSenderIdentities;
-    v25 = [accountUUID countByEnumeratingWithState:&v72 objects:v80 count:16];
-    if (v25)
+    v27 = [accountUUID countByEnumeratingWithState:&v73 objects:v81 count:16];
+    if (v27)
     {
-      v26 = v25;
-      v27 = *v73;
+      v28 = v27;
+      v29 = *v74;
       while (2)
       {
-        for (i = 0; i != v26; ++i)
+        for (i = 0; i != v28; ++i)
         {
-          if (*v73 != v27)
+          if (*v74 != v29)
           {
             objc_enumerationMutation(accountUUID);
           }
 
-          v29 = *(*(&v72 + 1) + 8 * i);
+          v31 = *(*(&v73 + 1) + 8 * i);
           handle5 = [(TUDialRequest *)self handle];
           value2 = [handle5 value];
-          v32 = v63[2](v63, value2, v29);
+          v34 = v64[2](v64, value2, v31);
 
-          if (v32)
+          if (v34)
           {
-            v12 = v29;
+            v12 = v31;
 
             goto LABEL_30;
           }
         }
 
-        v26 = [accountUUID countByEnumeratingWithState:&v72 objects:v80 count:16];
-        if (v26)
+        v28 = [accountUUID countByEnumeratingWithState:&v73 objects:v81 count:16];
+        if (v28)
         {
           continue;
         }
@@ -367,33 +366,33 @@
       }
     }
 
-    v33 = 0;
+    v35 = 0;
     v12 = 0;
     goto LABEL_33;
   }
 
-  if (v22)
+  if (v24)
   {
     provider3 = [(TUDialRequest *)self provider];
     *buf = 138412290;
-    v82 = provider3;
-    _os_log_impl(&dword_1956FD000, v21, OS_LOG_TYPE_DEFAULT, "No sender identities found on provider %@", buf, 0xCu);
+    v83 = provider3;
+    _os_log_impl(&dword_1956FD000, v23, OS_LOG_TYPE_DEFAULT, "No sender identities found on provider %@", buf, 0xCu);
   }
 
   handle6 = [(TUDialRequest *)self handle];
   value3 = [handle6 value];
-  v37 = v63[2](v63, value3, 0);
+  v39 = v64[2](v64, value3, 0);
 
   v12 = 0;
-  if (v37)
+  if (v39)
   {
 LABEL_30:
-    v38 = TUDefaultLog();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v40 = TUDefaultLog(v19);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v82 = v12;
-      _os_log_impl(&dword_1956FD000, v38, OS_LOG_TYPE_DEFAULT, "Emergency or whitelisted number detected; updating dial request with emergency sender identity %@", buf, 0xCu);
+      v83 = v12;
+      _os_log_impl(&dword_1956FD000, v40, OS_LOG_TYPE_DEFAULT, "Emergency or whitelisted number detected; updating dial request with emergency sender identity %@", buf, 0xCu);
     }
 
     uUID = [v12 UUID];
@@ -401,49 +400,49 @@ LABEL_30:
 
     accountUUID = [v12 accountUUID];
     [(TUDialRequest *)self setLocalSenderIdentityAccountUUID:accountUUID];
-    v33 = 1;
+    v35 = 1;
 LABEL_33:
 
     goto LABEL_34;
   }
 
-  v33 = 0;
+  v35 = 0;
 LABEL_34:
-  v70 = 0u;
   v71 = 0u;
-  v68 = 0u;
+  v72 = 0u;
   v69 = 0u;
+  v70 = 0u;
   provider4 = [(TUDialRequest *)self provider];
   emergencyLabeledHandles = [provider4 emergencyLabeledHandles];
 
-  v42 = [emergencyLabeledHandles countByEnumeratingWithState:&v68 objects:v79 count:16];
-  if (v42)
+  v44 = [emergencyLabeledHandles countByEnumeratingWithState:&v69 objects:v80 count:16];
+  if (v44)
   {
-    v43 = v42;
-    v44 = *v69;
+    v45 = v44;
+    v46 = *v70;
 LABEL_36:
-    v45 = 0;
+    v47 = 0;
     while (1)
     {
-      if (*v69 != v44)
+      if (*v70 != v46)
       {
         objc_enumerationMutation(emergencyLabeledHandles);
       }
 
-      v46 = *(*(&v68 + 1) + 8 * v45);
+      v48 = *(*(&v69 + 1) + 8 * v47);
       handle7 = [(TUDialRequest *)self handle];
-      handle8 = [v46 handle];
-      v49 = [handle7 isEqualToHandle:handle8];
+      handle8 = [v48 handle];
+      v51 = [handle7 isEqualToHandle:handle8];
 
-      if (v49)
+      if (v51)
       {
         goto LABEL_52;
       }
 
-      if (v43 == ++v45)
+      if (v45 == ++v47)
       {
-        v43 = [emergencyLabeledHandles countByEnumeratingWithState:&v68 objects:v79 count:16];
-        if (v43)
+        v45 = [emergencyLabeledHandles countByEnumeratingWithState:&v69 objects:v80 count:16];
+        if (v45)
         {
           goto LABEL_36;
         }
@@ -453,40 +452,40 @@ LABEL_36:
     }
   }
 
-  v66 = 0u;
   v67 = 0u;
-  v64 = 0u;
+  v68 = 0u;
   v65 = 0u;
+  v66 = 0u;
   provider5 = [(TUDialRequest *)self provider];
   emergencyLabeledHandles = [provider5 emergencyHandles];
 
-  v51 = [emergencyLabeledHandles countByEnumeratingWithState:&v64 objects:v78 count:16];
-  if (v51)
+  v53 = [emergencyLabeledHandles countByEnumeratingWithState:&v65 objects:v79 count:16];
+  if (v53)
   {
-    v52 = v51;
-    v53 = *v65;
+    v54 = v53;
+    v55 = *v66;
 LABEL_44:
-    v54 = 0;
+    v56 = 0;
     while (1)
     {
-      if (*v65 != v53)
+      if (*v66 != v55)
       {
         objc_enumerationMutation(emergencyLabeledHandles);
       }
 
-      v55 = *(*(&v64 + 1) + 8 * v54);
+      v57 = *(*(&v65 + 1) + 8 * v56);
       handle9 = [(TUDialRequest *)self handle];
-      LOBYTE(v55) = [handle9 isEqualToHandle:v55];
+      LOBYTE(v57) = [handle9 isEqualToHandle:v57];
 
-      if (v55)
+      if (v57)
       {
         break;
       }
 
-      if (v52 == ++v54)
+      if (v54 == ++v56)
       {
-        v52 = [emergencyLabeledHandles countByEnumeratingWithState:&v64 objects:v78 count:16];
-        if (v52)
+        v54 = [emergencyLabeledHandles countByEnumeratingWithState:&v65 objects:v79 count:16];
+        if (v54)
         {
           goto LABEL_44;
         }
@@ -504,14 +503,14 @@ LABEL_53:
 
 LABEL_50:
 
-  if ((v33 & 1) == 0)
+  if ((v35 & 1) == 0)
   {
-    v76 = *MEMORY[0x1E696A578];
-    v59 = MEMORY[0x1E696AEC0];
+    v77 = *MEMORY[0x1E696A578];
+    v60 = MEMORY[0x1E696AEC0];
     handle10 = [(TUDialRequest *)self handle];
-    v61 = [v59 stringWithFormat:@"handle (%@) for emergency call dial request is not an emergency number (isEmergencyOrWhitelistedSOSNumber=%d isTelephonyApprovedEmergencyHandle=%d originatingUIType=%ld)", handle10, 0, 0, -[TUDialRequest originatingUIType](self, "originatingUIType"), v62];
-    v77 = v61;
-    emergencyLabeledHandles = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+    v62 = [v60 stringWithFormat:@"handle (%@) for emergency call dial request is not an emergency number (isEmergencyOrWhitelistedSOSNumber=%d isTelephonyApprovedEmergencyHandle=%d originatingUIType=%ld)", handle10, 0, 0, -[TUDialRequest originatingUIType](self, "originatingUIType"), v63];
+    v78 = v62;
+    emergencyLabeledHandles = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
 
     v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"TUDialRequestValidityErrorDomain" code:5 userInfo:emergencyLabeledHandles];
     goto LABEL_53;
@@ -521,20 +520,19 @@ LABEL_50:
 LABEL_54:
 
 LABEL_55:
-  v57 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)validityErrorForVideoUnsupported
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (-[TUDialRequest isVideo](self, "isVideo") && (-[TUDialRequest provider](self, "provider"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 supportsAudioAndVideo], v3, (v4 & 1) == 0))
   {
-    v10 = *MEMORY[0x1E696A578];
+    v9 = *MEMORY[0x1E696A578];
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Requested video for a provider which doesn't support it"];
-    v11[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
     v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"TUDialRequestValidityErrorDomain" code:6 userInfo:v7];
   }
@@ -544,14 +542,12 @@ LABEL_55:
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)validityErrorForNormalDialTypeWithUnknownDestination
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   handle = [(TUDialRequest *)self handle];
   value = [handle value];
   if ([value length])
@@ -576,22 +572,21 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v12 = *MEMORY[0x1E696A578];
-  v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"destinationID and contactIdentifier are both nil/empty and dialType is Normal"];
-  v13[0] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x1E696A578];
+  v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"destinationID and contactIdentifier are both nil/empty and dialType is Normal"];
+  v12[0] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
-  v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"TUDialRequestValidityErrorDomain" code:7 userInfo:v11];
+  v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"TUDialRequestValidityErrorDomain" code:7 userInfo:v10];
 
 LABEL_6:
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)validityErrorForSOS
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if ([(TUDialRequest *)self dialType]== 1 || ![(TUDialRequest *)self isSOS])
   {
     v5 = 0;
@@ -599,15 +594,13 @@ LABEL_6:
 
   else
   {
-    v8 = *MEMORY[0x1E696A578];
+    v7 = *MEMORY[0x1E696A578];
     v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Requested SOS for non emergency dialType"];
-    v9[0] = v3;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v8[0] = v3;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
     v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"TUDialRequestValidityErrorDomain" code:9 userInfo:v4];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -639,13 +632,13 @@ LABEL_6:
 
 - (id)validityErrorForEndpointNotOnCurrentDeviceForNonRelayableService
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if ([(TUDialRequest *)self service]== 3 && ![(TUDialRequest *)self endpointOnCurrentDevice])
   {
-    v8 = *MEMORY[0x1E696A578];
+    v7 = *MEMORY[0x1E696A578];
     v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"service (%d) is not relayable but endpointOnCurrentDevice is set", -[TUDialRequest service](self, "service")];
-    v9[0] = v4;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v8[0] = v4;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
     v3 = [MEMORY[0x1E696ABC0] errorWithDomain:@"TUDialRequestValidityErrorDomain" code:4 userInfo:v5];
   }
@@ -655,14 +648,12 @@ LABEL_6:
     v3 = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (id)validityErrorForUnsupportedHandleType
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   handle = [(TUDialRequest *)self handle];
   if (handle)
   {
@@ -677,16 +668,14 @@ LABEL_6:
 
     else
     {
-      v11 = *MEMORY[0x1E696A578];
+      v10 = *MEMORY[0x1E696A578];
       v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Provider does not support the specified handle type"];
-      v12[0] = v7;
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+      v11[0] = v7;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
       handle = [MEMORY[0x1E696ABC0] errorWithDomain:@"TUDialRequestValidityErrorDomain" code:8 userInfo:v8];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return handle;
 }
@@ -860,46 +849,109 @@ LABEL_6:
   }
 }
 
++ (id)defaultAppCallProviderForDialType:(int64_t)type originatingUIType:(int)iType isSOS:(BOOL)s handles:(id)handles ttyType:(int64_t)ttyType
+{
+  sCopy = s;
+  v9 = *&iType;
+  v33 = *MEMORY[0x1E69E9840];
+  handlesCopy = handles;
+  callProviderManagerGeneratorBlock = [self callProviderManagerGeneratorBlock];
+  v14 = callProviderManagerGeneratorBlock[2]();
+
+  v15 = [self dialTypeShouldForceTelephony:type];
+  if (v15 & 1) != 0 || (v15 = [self originatingUITypeShouldForceTelephony:v9], (v15) || (v15 = objc_msgSend(self, "ttyTypeShouldForceTelephony:", ttyType), (v15) || sCopy)
+  {
+    v16 = TUDefaultLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      v25 = 134218752;
+      typeCopy = type;
+      v27 = 2048;
+      v28 = v9;
+      v29 = 1024;
+      v30 = sCopy;
+      v31 = 2048;
+      ttyTypeCopy = ttyType;
+      _os_log_impl(&dword_1956FD000, v16, OS_LOG_TYPE_DEFAULT, "Using telephonyProvider for TUDialRequest dialType: %ld originatingUIType: %ld isSOS: %d ttyType:%ld", &v25, 0x26u);
+    }
+
+    telephonyProvider = [v14 telephonyProvider];
+  }
+
+  else
+  {
+    anyObject = [handlesCopy anyObject];
+    if (anyObject && ([v14 telephonyProvider], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(self, "isHandleEmergencyNumber:telephonyProvider:", anyObject, v20), v20, v21))
+    {
+      v23 = TUDefaultLog(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        v25 = 138412290;
+        typeCopy = anyObject;
+        _os_log_impl(&dword_1956FD000, v23, OS_LOG_TYPE_DEFAULT, "Using telephonyProvider due to emergency number TUDialRequest handle %@", &v25, 0xCu);
+      }
+
+      telephonyProvider2 = [v14 telephonyProvider];
+    }
+
+    else
+    {
+      telephonyProvider2 = [v14 defaultAppProvider];
+    }
+
+    telephonyProvider = telephonyProvider2;
+  }
+
+  return telephonyProvider;
+}
+
 + (BOOL)isHandleEmergencyNumber:(id)number telephonyProvider:(id)provider
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   providerCopy = provider;
-  v43 = 0u;
-  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   emergencyHandles = [providerCopy emergencyHandles];
-  v9 = [emergencyHandles countByEnumeratingWithState:&v43 objects:v53 count:16];
+  v9 = [emergencyHandles countByEnumeratingWithState:&v45 objects:v55 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v44;
+    v11 = *v46;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v44 != v11)
+        if (*v46 != v11)
         {
           objc_enumerationMutation(emergencyHandles);
         }
 
-        v13 = *(*(&v43 + 1) + 8 * i);
-        if (([numberCopy isEquivalentToHandle:v13] & 1) != 0 || objc_msgSend(numberCopy, "isEqualToHandle:", v13))
+        v13 = *(*(&v45 + 1) + 8 * i);
+        v14 = [numberCopy isEquivalentToHandle:v13];
+        if ((v14 & 1) == 0)
         {
-          prioritizedSenderIdentities = TUDefaultLog();
-          if (os_log_type_enabled(prioritizedSenderIdentities, OS_LOG_TYPE_DEFAULT))
+          v14 = [numberCopy isEqualToHandle:v13];
+          if (!v14)
           {
-            *buf = 0;
-            _os_log_impl(&dword_1956FD000, prioritizedSenderIdentities, OS_LOG_TYPE_DEFAULT, "TUHandle is in TelephonyProvider emergencyHandles", buf, 2u);
+            continue;
           }
-
-          LOBYTE(v25) = 1;
-          goto LABEL_39;
         }
+
+        prioritizedSenderIdentities = TUDefaultLog(v14);
+        if (os_log_type_enabled(prioritizedSenderIdentities, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_1956FD000, prioritizedSenderIdentities, OS_LOG_TYPE_DEFAULT, "TUHandle is in TelephonyProvider emergencyHandles", buf, 2u);
+        }
+
+        LOBYTE(v27) = 1;
+        goto LABEL_39;
       }
 
-      v10 = [emergencyHandles countByEnumeratingWithState:&v43 objects:v53 count:16];
+      v10 = [emergencyHandles countByEnumeratingWithState:&v45 objects:v55 count:16];
       if (v10)
       {
         continue;
@@ -909,56 +961,56 @@ LABEL_6:
     }
   }
 
+  v43 = 0u;
+  v44 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
   emergencyHandles = [providerCopy emergencyLabeledHandles];
-  v14 = [emergencyHandles countByEnumeratingWithState:&v39 objects:v52 count:16];
-  if (v14)
+  v15 = [emergencyHandles countByEnumeratingWithState:&v41 objects:v54 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = *v40;
+    v16 = v15;
+    v17 = *v42;
     while (2)
     {
-      v17 = providerCopy;
-      for (j = 0; j != v15; ++j)
+      v18 = providerCopy;
+      for (j = 0; j != v16; ++j)
       {
-        if (*v40 != v16)
+        if (*v42 != v17)
         {
           objc_enumerationMutation(emergencyHandles);
         }
 
-        v19 = *(*(&v39 + 1) + 8 * j);
-        handle = [v19 handle];
+        v20 = *(*(&v41 + 1) + 8 * j);
+        handle = [v20 handle];
         if ([numberCopy isEquivalentToHandle:handle])
         {
 
 LABEL_32:
-          prioritizedSenderIdentities = TUDefaultLog();
+          prioritizedSenderIdentities = TUDefaultLog(v24);
           if (os_log_type_enabled(prioritizedSenderIdentities, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
             _os_log_impl(&dword_1956FD000, prioritizedSenderIdentities, OS_LOG_TYPE_DEFAULT, "TUHandle is in TelephonyProvider emergencyLabeledHandles", buf, 2u);
           }
 
-          LOBYTE(v25) = 1;
-          providerCopy = v17;
+          LOBYTE(v27) = 1;
+          providerCopy = v18;
           goto LABEL_39;
         }
 
-        handle2 = [v19 handle];
-        v22 = [numberCopy isEqualToHandle:handle2];
+        handle2 = [v20 handle];
+        v23 = [numberCopy isEqualToHandle:handle2];
 
-        if (v22)
+        if (v23)
         {
           goto LABEL_32;
         }
       }
 
-      v15 = [emergencyHandles countByEnumeratingWithState:&v39 objects:v52 count:16];
-      providerCopy = v17;
-      if (v15)
+      v16 = [emergencyHandles countByEnumeratingWithState:&v41 objects:v54 count:16];
+      providerCopy = v18;
+      if (v16)
       {
         continue;
       }
@@ -970,49 +1022,49 @@ LABEL_32:
   senderIdentityClientGeneratorBlock = [self senderIdentityClientGeneratorBlock];
   emergencyHandles = senderIdentityClientGeneratorBlock[2]();
 
+  v39 = 0u;
+  v40 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
   prioritizedSenderIdentities = [providerCopy prioritizedSenderIdentities];
-  v25 = [prioritizedSenderIdentities countByEnumeratingWithState:&v35 objects:v51 count:16];
-  if (v25)
+  v27 = [prioritizedSenderIdentities countByEnumeratingWithState:&v37 objects:v53 count:16];
+  if (v27)
   {
-    v34 = providerCopy;
-    v26 = *v36;
+    v36 = providerCopy;
+    v28 = *v38;
     while (2)
     {
-      for (k = 0; k != v25; k = (k + 1))
+      for (k = 0; k != v27; k = (k + 1))
       {
-        if (*v36 != v26)
+        if (*v38 != v28)
         {
           objc_enumerationMutation(prioritizedSenderIdentities);
         }
 
-        v28 = *(*(&v35 + 1) + 8 * k);
+        v30 = *(*(&v37 + 1) + 8 * k);
         value = [numberCopy value];
-        uUID = [v28 UUID];
-        v31 = [emergencyHandles isEmergencyNumberForDigits:value senderIdentityUUID:uUID];
+        uUID = [v30 UUID];
+        v33 = [emergencyHandles isEmergencyNumberForDigits:value senderIdentityUUID:uUID];
 
-        if (v31)
+        if (v33)
         {
-          v25 = TUDefaultLog();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v27 = TUDefaultLog(v34);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v48 = v28;
-            v49 = 2112;
-            v50 = numberCopy;
-            _os_log_impl(&dword_1956FD000, v25, OS_LOG_TYPE_DEFAULT, "TUSenderIdentity %@ recognizing handle %@ as emergency number", buf, 0x16u);
+            v50 = v30;
+            v51 = 2112;
+            v52 = numberCopy;
+            _os_log_impl(&dword_1956FD000, v27, OS_LOG_TYPE_DEFAULT, "TUSenderIdentity %@ recognizing handle %@ as emergency number", buf, 0x16u);
           }
 
-          LOBYTE(v25) = 1;
+          LOBYTE(v27) = 1;
           goto LABEL_38;
         }
       }
 
-      v25 = [prioritizedSenderIdentities countByEnumeratingWithState:&v35 objects:v51 count:16];
-      if (v25)
+      v27 = [prioritizedSenderIdentities countByEnumeratingWithState:&v37 objects:v53 count:16];
+      if (v27)
       {
         continue;
       }
@@ -1021,13 +1073,12 @@ LABEL_32:
     }
 
 LABEL_38:
-    providerCopy = v34;
+    providerCopy = v36;
   }
 
 LABEL_39:
 
-  v32 = *MEMORY[0x1E69E9840];
-  return v25;
+  return v27;
 }
 
 - (TUDialRequest)initWithProvider:(id)provider
@@ -1067,6 +1118,38 @@ LABEL_39:
   }
 
   return v11;
+}
+
+- (TUDialRequest)initWithService:(int)service featureFlags:(id)flags
+{
+  v4 = *&service;
+  flagsCopy = flags;
+  v12 = 0;
+  callProviderManagerGeneratorBlock = [objc_opt_class() callProviderManagerGeneratorBlock];
+  v8 = callProviderManagerGeneratorBlock[2]();
+
+  v9 = [v8 providerWithService:v4 video:&v12];
+  if (v9 && (v10 = [(TUDialRequest *)self initWithProvider:v9 featureFlags:flagsCopy], (self = v10) != 0))
+  {
+    v10->_video = v12;
+  }
+
+  else
+  {
+
+    self = 0;
+  }
+
+  return self;
+}
+
+- (TUDialRequest)initWithService:(int)service
+{
+  v3 = *&service;
+  v5 = objc_alloc_init(TUFeatureFlags);
+  v6 = [(TUDialRequest *)self initWithService:v3 featureFlags:v5];
+
+  return v6;
 }
 
 - (TUDialRequest)initWithURL:(id)l translationRequestConfiguration:(id)configuration
@@ -1480,36 +1563,36 @@ LABEL_8:
 - (TUDialRequest)initWithDialIntent:(id)intent providerManager:(id)manager contactsDataSource:(id)source senderIdentityClient:(id)client isEmergencyServicesOverrideEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v171 = *MEMORY[0x1E69E9840];
+  v179 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   managerCopy = manager;
   sourceCopy = source;
   obj = client;
   clientCopy = client;
   v14 = intentCopy;
-  v152 = clientCopy;
-  v15 = TUDefaultLog();
+  v160 = clientCopy;
+  v15 = TUDefaultLog(clientCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy5 = intentCopy;
-    v165 = 2048;
+    v173 = 2048;
     triggerMethod = [(TUDialRequest *)intentCopy triggerMethod];
     _os_log_impl(&dword_1956FD000, v15, OS_LOG_TYPE_DEFAULT, "intent: %@ intent.triggerMethod: %ld", buf, 0x16u);
   }
 
-  v145 = [objc_opt_class() originatingUITypeForExecutionContext:{-[TUDialRequest _executionContext](intentCopy, "_executionContext")}];
+  v153 = [objc_opt_class() originatingUITypeForExecutionContext:{-[TUDialRequest _executionContext](intentCopy, "_executionContext")}];
   CUTWeakLinkClass();
   CUTWeakLinkClass();
   CUTWeakLinkClass();
   v16 = CUTWeakLinkSymbol();
-  v153 = intentCopy;
+  v161 = intentCopy;
   if ([(TUDialRequest *)intentCopy _idiom]!= 4)
   {
-    v155 = 0;
+    v163 = 0;
     _originatingDeviceRapportEffectiveIdentifier2 = 0;
-    v154 = 0;
-    v147 = 1;
+    v162 = 0;
+    v155 = 1;
     goto LABEL_22;
   }
 
@@ -1527,8 +1610,8 @@ LABEL_8:
     if (bOOLValue)
     {
       _originatingDeviceIDSIdentifier2 = [(TUDialRequest *)intentCopy _originatingDeviceIDSIdentifier];
-      v23 = TUDefaultLog();
-      v154 = _originatingDeviceIDSIdentifier2;
+      v23 = TUDefaultLog(_originatingDeviceIDSIdentifier2);
+      v162 = _originatingDeviceIDSIdentifier2;
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -1536,12 +1619,12 @@ LABEL_8:
         _os_log_impl(&dword_1956FD000, v23, OS_LOG_TYPE_DEFAULT, "Intent contains an originatingDeviceIDSIdentifier: %@", buf, 0xCu);
       }
 
-      v155 = 0;
+      v163 = 0;
       _originatingDeviceRapportEffectiveIdentifier2 = 0;
       self = selfCopy;
 LABEL_20:
 
-      v147 = 0;
+      v155 = 0;
       goto LABEL_22;
     }
   }
@@ -1552,11 +1635,11 @@ LABEL_20:
 
   _originatingDeviceRapportMediaSystemIdentifier = [(TUDialRequest *)v14 _originatingDeviceRapportMediaSystemIdentifier];
 
-  v147 = _originatingDeviceRapportMediaSystemIdentifier == 0;
+  v155 = _originatingDeviceRapportMediaSystemIdentifier == 0;
   if (_originatingDeviceRapportMediaSystemIdentifier)
   {
     _originatingDeviceRapportMediaSystemIdentifier2 = [(TUDialRequest *)v14 _originatingDeviceRapportMediaSystemIdentifier];
-    v26 = TUDefaultLog();
+    v26 = TUDefaultLog(_originatingDeviceRapportMediaSystemIdentifier2);
     self = selfCopy;
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
@@ -1574,11 +1657,11 @@ LABEL_20:
 
   _originatingDeviceRapportEffectiveIdentifier = [(TUDialRequest *)v14 _originatingDeviceRapportEffectiveIdentifier];
 
-  v155 = _originatingDeviceRapportMediaSystemIdentifier2;
+  v163 = _originatingDeviceRapportMediaSystemIdentifier2;
   if (_originatingDeviceRapportEffectiveIdentifier)
   {
     _originatingDeviceRapportEffectiveIdentifier2 = [(TUDialRequest *)v14 _originatingDeviceRapportEffectiveIdentifier];
-    v23 = TUDefaultLog();
+    v23 = TUDefaultLog(_originatingDeviceRapportEffectiveIdentifier2);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1586,17 +1669,17 @@ LABEL_20:
       _os_log_impl(&dword_1956FD000, v23, OS_LOG_TYPE_DEFAULT, "Intent contains an originatingDeviceRapportEffectiveIdentifier: %@", buf, 0xCu);
     }
 
-    v154 = 0;
+    v162 = 0;
     goto LABEL_20;
   }
 
   _originatingDeviceRapportEffectiveIdentifier2 = 0;
-  v154 = 0;
+  v162 = 0;
 LABEL_22:
   if (objc_opt_isKindOfClass())
   {
     v28 = v14;
-    v29 = TUDefaultLog();
+    v29 = TUDefaultLog(v28);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       audioRoute = [v28 audioRoute];
@@ -1604,10 +1687,10 @@ LABEL_22:
       preferredCallProvider = [v28 preferredCallProvider];
       *buf = 134218496;
       selfCopy5 = audioRoute;
-      v165 = 2048;
+      v173 = 2048;
       triggerMethod = ttyType;
-      v167 = 2048;
-      v168 = preferredCallProvider;
+      v175 = 2048;
+      v176 = preferredCallProvider;
       _os_log_impl(&dword_1956FD000, v29, OS_LOG_TYPE_DEFAULT, "Start call intent has audioRoute: %ld ttyType: %ld preferredCallProvider: %ld", buf, 0x20u);
     }
 
@@ -1617,7 +1700,7 @@ LABEL_22:
     v35 = [v28 callCapability]== 2;
     if ([v28 audioRoute]== 1)
     {
-      v36 = TUDefaultLog();
+      v36 = TUDefaultLog(1);
       if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -1629,76 +1712,76 @@ LABEL_22:
 
     else
     {
-      if (!v16 || [v28 audioRoute]!= *v16)
+      if (!v16 || (v46 = [v28 audioRoute], v46 != *v16))
       {
-        v52 = firstObject;
+        v53 = firstObject;
         recordDeviceUID = [v28 recordDeviceUID];
         uUIDString = [recordDeviceUID UUIDString];
-        v55 = [uUIDString length];
+        v56 = [uUIDString length];
 
-        if (v55)
+        if (v56)
         {
           recordDeviceUID2 = [v28 recordDeviceUID];
           uUIDString2 = [recordDeviceUID2 UUIDString];
 
-          v57 = TUDefaultLog();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+          v59 = TUDefaultLog(v58);
+          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
             selfCopy5 = uUIDString2;
-            _os_log_impl(&dword_1956FD000, v57, OS_LOG_TYPE_DEFAULT, "Intent contains a recordDeviceUID, setting audioSourceIdentifier to %@", buf, 0xCu);
+            _os_log_impl(&dword_1956FD000, v59, OS_LOG_TYPE_DEFAULT, "Intent contains a recordDeviceUID, setting audioSourceIdentifier to %@", buf, 0xCu);
           }
         }
 
         else
         {
           recordDeviceIdentifier = [v28 recordDeviceIdentifier];
-          v70 = [recordDeviceIdentifier length];
+          v74 = [recordDeviceIdentifier length];
 
-          if (v70)
+          if (v74)
           {
             uUIDString2 = [v28 recordDeviceIdentifier];
-            v71 = TUDefaultLog();
-            firstObject = v52;
-            if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+            v75 = TUDefaultLog(uUIDString2);
+            firstObject = v53;
+            if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
               selfCopy5 = uUIDString2;
-              _os_log_impl(&dword_1956FD000, v71, OS_LOG_TYPE_DEFAULT, "Intent contains a recordDeviceIdentifier, setting audioSourceIdentifier to %@", buf, 0xCu);
+              _os_log_impl(&dword_1956FD000, v75, OS_LOG_TYPE_DEFAULT, "Intent contains a recordDeviceIdentifier, setting audioSourceIdentifier to %@", buf, 0xCu);
             }
 
 LABEL_67:
-            v50 = [objc_opt_class() dialRequestTypeForIntentDestinationType:{-[NSObject destinationType](v28, "destinationType")}];
+            v51 = [objc_opt_class() dialRequestTypeForIntentDestinationType:{-[NSObject destinationType](v28, "destinationType")}];
             if (_TUIsInternalInstall() && enabledCopy && [v28 destinationType]== 2)
             {
-              v72 = TUDefaultLog();
-              if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+              v76 = TUDefaultLog(2);
+              if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_1956FD000, v72, OS_LOG_TYPE_DEFAULT, "Emergency override enabled on internal build, and dial request dial type is emergency. Overriding destination type to normal to bypass dialRequest validation check for emergency calls.", buf, 2u);
+                _os_log_impl(&dword_1956FD000, v76, OS_LOG_TYPE_DEFAULT, "Emergency override enabled on internal build, and dial request dial type is emergency. Overriding destination type to normal to bypass dialRequest validation check for emergency calls.", buf, 2u);
               }
 
-              v50 = 0;
+              v51 = 0;
             }
 
-            v51 = [objc_opt_class() ttyTypeForIntentTTYType:{-[NSObject ttyType](v28, "ttyType")}];
-            if (!v51)
+            v52 = [objc_opt_class() ttyTypeForIntentTTYType:{-[NSObject ttyType](v28, "ttyType")}];
+            if (!v52)
             {
               if ([v28 _idiom]== 4)
               {
-                v73 = TUDefaultLog();
-                if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+                v77 = TUDefaultLog(4);
+                if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_1956FD000, v73, OS_LOG_TYPE_DEFAULT, "Request is from a homepod, setting ttyType to none", buf, 2u);
+                  _os_log_impl(&dword_1956FD000, v77, OS_LOG_TYPE_DEFAULT, "Request is from a homepod, setting ttyType to none", buf, 2u);
                 }
 
-                v51 = 1;
+                v52 = 1;
               }
 
               else
               {
-                v51 = 0;
+                v52 = 0;
               }
             }
 
@@ -1710,22 +1793,22 @@ LABEL_67:
               emergencyProvider = [managerCopy emergencyProvider];
               if (_TUIsInternalInstall() && enabledCopy && [v28 destinationType]== 2)
               {
-                v76 = TUDefaultLog();
-                if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+                v81 = TUDefaultLog(2);
+                if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_1956FD000, v76, OS_LOG_TYPE_DEFAULT, "Emergency override enabled on internal build, and dial request dial type is emergency. Overriding destination type to normal to bypass dialRequest validation check for emergency calls.", buf, 2u);
+                  _os_log_impl(&dword_1956FD000, v81, OS_LOG_TYPE_DEFAULT, "Emergency override enabled on internal build, and dial request dial type is emergency. Overriding destination type to normal to bypass dialRequest validation check for emergency calls.", buf, 2u);
                 }
 
 LABEL_90:
-                v50 = 0;
+                v51 = 0;
 LABEL_100:
-                v87 = TUDefaultLog();
-                if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
+                v92 = TUDefaultLog(voicemailProvider);
+                if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
                   selfCopy5 = emergencyProvider;
-                  _os_log_impl(&dword_1956FD000, v87, OS_LOG_TYPE_DEFAULT, "Determined call intent provider: %@", buf, 0xCu);
+                  _os_log_impl(&dword_1956FD000, v92, OS_LOG_TYPE_DEFAULT, "Determined call intent provider: %@", buf, 0xCu);
                 }
 
                 goto LABEL_138;
@@ -1734,56 +1817,58 @@ LABEL_100:
 
             else
             {
-              if (v50 == 2)
+              if (v51 == 2)
               {
-                emergencyProvider = [managerCopy voicemailProvider];
+                voicemailProvider = [managerCopy voicemailProvider];
+                emergencyProvider = voicemailProvider;
                 goto LABEL_100;
               }
 
-              if (v50 != 1)
+              if (v51 != 1)
               {
-                if (v50)
+                if (v51)
                 {
                   emergencyProvider = 0;
                   goto LABEL_100;
                 }
 
-                v148 = objc_opt_class();
-                v77 = v51;
+                v156 = objc_opt_class();
+                v82 = v52;
                 preferredCallProvider2 = [v28 preferredCallProvider];
                 callRecordToCallBack = [v28 callRecordToCallBack];
                 [callRecordToCallBack providerId];
-                v81 = v80 = firstObject;
+                v86 = v85 = firstObject;
                 callCapability = [v28 callCapability];
-                v83 = preferredCallProvider2;
-                v51 = v77;
-                v84 = [v148 providerForIntentPreferredCallProvider:v83 recentCallProviderId:v81 callCapability:callCapability providerManager:managerCopy];
+                v88 = preferredCallProvider2;
+                v52 = v82;
+                v89 = [v156 providerForIntentPreferredCallProvider:v88 recentCallProviderId:v86 callCapability:callCapability providerManager:managerCopy];
 
-                firstObject = v80;
-                emergencyProvider = v84;
+                firstObject = v85;
+                emergencyProvider = v89;
                 goto LABEL_90;
               }
 
               emergencyProvider = [managerCopy emergencyProvider];
             }
 
-            if ([v28 triggerMethod]== 4 && ![(TUDialRequest *)uUIDString2 length])
+            voicemailProvider = [v28 triggerMethod];
+            if (voicemailProvider == 4 && (voicemailProvider = [(TUDialRequest *)uUIDString2 length]) == 0)
             {
-              v85 = TUDefaultLog();
-              if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+              v90 = TUDefaultLog(0);
+              if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_1956FD000, v85, OS_LOG_TYPE_DEFAULT, "It's an emergency call. Siri was triggered by HeySiri, and audioSourceIdentifier isn't set already. setting audioSourceIdentifier to speaker phone.", buf, 2u);
+                _os_log_impl(&dword_1956FD000, v90, OS_LOG_TYPE_DEFAULT, "It's an emergency call. Siri was triggered by HeySiri, and audioSourceIdentifier isn't set already. setting audioSourceIdentifier to speaker phone.", buf, 2u);
               }
 
-              v86 = @"TUCallSourceIdentifierSpeakerRoute";
-              v50 = 1;
-              uUIDString2 = v86;
+              v91 = @"TUCallSourceIdentifierSpeakerRoute";
+              v51 = 1;
+              uUIDString2 = v91;
             }
 
             else
             {
-              v50 = 1;
+              v51 = 1;
             }
 
             goto LABEL_100;
@@ -1792,15 +1877,15 @@ LABEL_100:
           uUIDString2 = 0;
         }
 
-        firstObject = v52;
+        firstObject = v53;
         goto LABEL_67;
       }
 
-      v46 = TUDefaultLog();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+      v47 = TUDefaultLog(v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1956FD000, v46, OS_LOG_TYPE_DEFAULT, "Intent contains a Hey Siri audio route, setting audioSourceIdentifier to TUCallSourceIdentifierHeySiri", buf, 2u);
+        _os_log_impl(&dword_1956FD000, v47, OS_LOG_TYPE_DEFAULT, "Intent contains a Hey Siri audio route, setting audioSourceIdentifier to TUCallSourceIdentifierHeySiri", buf, 2u);
       }
 
       v37 = &TUCallSourceIdentifierHeySiri;
@@ -1814,7 +1899,7 @@ LABEL_100:
   if (objc_opt_isKindOfClass())
   {
     v28 = v14;
-    v39 = TUDefaultLog();
+    v39 = TUDefaultLog(v28);
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       audioRoute2 = [v28 audioRoute];
@@ -1822,10 +1907,10 @@ LABEL_100:
       preferredCallProvider3 = [v28 preferredCallProvider];
       *buf = 134218496;
       selfCopy5 = audioRoute2;
-      v165 = 2048;
+      v173 = 2048;
       triggerMethod = ttyType2;
-      v167 = 2048;
-      v168 = preferredCallProvider3;
+      v175 = 2048;
+      v176 = preferredCallProvider3;
       _os_log_impl(&dword_1956FD000, v39, OS_LOG_TYPE_DEFAULT, "Start call audio intent has audioRoute: %ld ttyType: %ld preferredCallProvider: %ld", buf, 0x20u);
     }
 
@@ -1834,7 +1919,7 @@ LABEL_100:
 
     if ([v28 audioRoute]== 1)
     {
-      v44 = TUDefaultLog();
+      v44 = TUDefaultLog(1);
       if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -1846,76 +1931,76 @@ LABEL_100:
 
     else
     {
-      if (!v16 || [v28 audioRoute]!= *v16)
+      if (!v16 || (v60 = [v28 audioRoute], v60 != *v16))
       {
-        v63 = firstObject;
+        v66 = firstObject;
         recordDeviceUID3 = [v28 recordDeviceUID];
         uUIDString3 = [recordDeviceUID3 UUIDString];
-        v66 = [uUIDString3 length];
+        v69 = [uUIDString3 length];
 
-        if (v66)
+        if (v69)
         {
           recordDeviceUID4 = [v28 recordDeviceUID];
           uUIDString2 = [recordDeviceUID4 UUIDString];
 
-          v68 = TUDefaultLog();
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+          v72 = TUDefaultLog(v71);
+          if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
             selfCopy5 = uUIDString2;
-            _os_log_impl(&dword_1956FD000, v68, OS_LOG_TYPE_DEFAULT, "Intent contains a recordDeviceUID, setting audioSourceIdentifier to %@", buf, 0xCu);
+            _os_log_impl(&dword_1956FD000, v72, OS_LOG_TYPE_DEFAULT, "Intent contains a recordDeviceUID, setting audioSourceIdentifier to %@", buf, 0xCu);
           }
         }
 
         else
         {
           recordDeviceIdentifier2 = [v28 recordDeviceIdentifier];
-          v89 = [recordDeviceIdentifier2 length];
+          v94 = [recordDeviceIdentifier2 length];
 
-          if (v89)
+          if (v94)
           {
             uUIDString2 = [v28 recordDeviceIdentifier];
-            v90 = TUDefaultLog();
-            firstObject = v63;
-            if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+            v95 = TUDefaultLog(uUIDString2);
+            firstObject = v66;
+            if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
               selfCopy5 = uUIDString2;
-              _os_log_impl(&dword_1956FD000, v90, OS_LOG_TYPE_DEFAULT, "Intent contains a recordDeviceIdentifier, setting audioSourceIdentifier to %@", buf, 0xCu);
+              _os_log_impl(&dword_1956FD000, v95, OS_LOG_TYPE_DEFAULT, "Intent contains a recordDeviceIdentifier, setting audioSourceIdentifier to %@", buf, 0xCu);
             }
 
 LABEL_107:
-            v50 = [objc_opt_class() dialRequestTypeForIntentDestinationType:{-[NSObject destinationType](v28, "destinationType")}];
+            v51 = [objc_opt_class() dialRequestTypeForIntentDestinationType:{-[NSObject destinationType](v28, "destinationType")}];
             if (_TUIsInternalInstall() && enabledCopy && [v28 destinationType]== 2)
             {
-              v91 = TUDefaultLog();
-              if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+              v96 = TUDefaultLog(2);
+              if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_1956FD000, v91, OS_LOG_TYPE_DEFAULT, "Emergency override enabled on internal build, and dial request dial type is emergency. Overriding destination type to normal to bypass dialRequest validation check for emergency calls.", buf, 2u);
+                _os_log_impl(&dword_1956FD000, v96, OS_LOG_TYPE_DEFAULT, "Emergency override enabled on internal build, and dial request dial type is emergency. Overriding destination type to normal to bypass dialRequest validation check for emergency calls.", buf, 2u);
               }
 
-              v50 = 0;
+              v51 = 0;
             }
 
-            v51 = [objc_opt_class() ttyTypeForIntentTTYType:{-[NSObject ttyType](v28, "ttyType")}];
-            if (!v51)
+            v52 = [objc_opt_class() ttyTypeForIntentTTYType:{-[NSObject ttyType](v28, "ttyType")}];
+            if (!v52)
             {
               if ([v28 _idiom]== 4)
               {
-                v92 = TUDefaultLog();
-                if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
+                v97 = TUDefaultLog(4);
+                if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_1956FD000, v92, OS_LOG_TYPE_DEFAULT, "Request is from a homepod, setting ttyType to none", buf, 2u);
+                  _os_log_impl(&dword_1956FD000, v97, OS_LOG_TYPE_DEFAULT, "Request is from a homepod, setting ttyType to none", buf, 2u);
                 }
 
-                v51 = 1;
+                v52 = 1;
               }
 
               else
               {
-                v51 = 0;
+                v52 = 0;
               }
             }
 
@@ -1925,59 +2010,61 @@ LABEL_107:
             if (emergencyType2 == 1)
             {
               emergencyProvider = [managerCopy emergencyProvider];
-              v50 = 1;
-              if (_TUIsInternalInstall() && enabledCopy)
+              destinationType = _TUIsInternalInstall();
+              v51 = 1;
+              if (destinationType && enabledCopy)
               {
-                if ([v28 destinationType]== 2)
+                destinationType = [v28 destinationType];
+                if (destinationType == 2)
                 {
-                  v95 = TUDefaultLog();
-                  if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+                  v101 = TUDefaultLog(2);
+                  if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_1956FD000, v95, OS_LOG_TYPE_DEFAULT, "Emergency override enabled on internal build, and dial request dial type is emergency. Overriding destination type to normal to bypass dialRequest validation check for emergency calls.", buf, 2u);
+                    _os_log_impl(&dword_1956FD000, v101, OS_LOG_TYPE_DEFAULT, "Emergency override enabled on internal build, and dial request dial type is emergency. Overriding destination type to normal to bypass dialRequest validation check for emergency calls.", buf, 2u);
                   }
 
-                  v50 = 0;
+                  v51 = 0;
                 }
 
                 else
                 {
-                  v50 = 1;
+                  v51 = 1;
                 }
               }
 
               goto LABEL_135;
             }
 
-            if (v50 == 2)
+            if (v51 == 2)
             {
-              voicemailProvider = [managerCopy voicemailProvider];
+              destinationType = [managerCopy voicemailProvider];
             }
 
-            else if (v50 == 1)
+            else if (v51 == 1)
             {
-              voicemailProvider = [managerCopy emergencyProvider];
+              destinationType = [managerCopy emergencyProvider];
             }
 
             else
             {
-              if (v50)
+              if (v51)
               {
                 emergencyProvider = 0;
                 goto LABEL_135;
               }
 
-              voicemailProvider = [objc_opt_class() providerForIntentPreferredCallProvider:-[NSObject preferredCallProvider](v28 recentCallProviderId:"preferredCallProvider") callCapability:0 providerManager:{1, managerCopy}];
+              destinationType = [objc_opt_class() providerForIntentPreferredCallProvider:-[NSObject preferredCallProvider](v28 recentCallProviderId:"preferredCallProvider") callCapability:0 providerManager:{1, managerCopy}];
             }
 
-            emergencyProvider = voicemailProvider;
+            emergencyProvider = destinationType;
 LABEL_135:
-            v97 = TUDefaultLog();
-            if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+            v102 = TUDefaultLog(destinationType);
+            if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
               selfCopy5 = emergencyProvider;
-              _os_log_impl(&dword_1956FD000, v97, OS_LOG_TYPE_DEFAULT, "Determined audio call intent provider: %@", buf, 0xCu);
+              _os_log_impl(&dword_1956FD000, v102, OS_LOG_TYPE_DEFAULT, "Determined audio call intent provider: %@", buf, 0xCu);
             }
 
             v35 = 0;
@@ -1987,15 +2074,15 @@ LABEL_135:
           uUIDString2 = 0;
         }
 
-        firstObject = v63;
+        firstObject = v66;
         goto LABEL_107;
       }
 
-      v58 = TUDefaultLog();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+      v61 = TUDefaultLog(v60);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1956FD000, v58, OS_LOG_TYPE_DEFAULT, "Intent contains a Hey Siri audio route, setting audioSourceIdentifier to TUCallSourceIdentifierHeySiri", buf, 2u);
+        _os_log_impl(&dword_1956FD000, v61, OS_LOG_TYPE_DEFAULT, "Intent contains a Hey Siri audio route, setting audioSourceIdentifier to TUCallSourceIdentifierHeySiri", buf, 2u);
       }
 
       v45 = &TUCallSourceIdentifierHeySiri;
@@ -2008,10 +2095,10 @@ LABEL_135:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     firstObject = 0;
-    v59 = 0;
-    v60 = 0;
-    contactIdentifier3 = 0;
     v62 = 0;
+    v63 = 0;
+    identifier = 0;
+    v65 = 0;
     emergencyProvider = 0;
     goto LABEL_182;
   }
@@ -2020,7 +2107,7 @@ LABEL_135:
   firstObject = [contacts3 firstObject];
 
   emergencyProvider = [managerCopy faceTimeProvider];
-  v28 = TUDefaultLog();
+  v28 = TUDefaultLog(emergencyProvider);
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -2029,42 +2116,42 @@ LABEL_135:
   }
 
   uUIDString2 = 0;
-  v50 = 0;
   v51 = 0;
+  v52 = 0;
   v35 = 1;
 LABEL_138:
 
   if (!emergencyProvider)
   {
-    v60 = uUIDString2;
-    v59 = 0;
-    contactIdentifier3 = 0;
+    v63 = uUIDString2;
     v62 = 0;
+    identifier = 0;
+    v65 = 0;
     v38 = managerCopy;
     goto LABEL_182;
   }
 
-  v149 = emergencyProvider;
-  v141 = v51;
-  v98 = TUDefaultLog();
-  v151 = firstObject;
-  if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
+  v157 = emergencyProvider;
+  v149 = v52;
+  v104 = TUDefaultLog(v103);
+  v159 = firstObject;
+  if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
   {
     personHandle3 = [(TUDialRequest *)firstObject personHandle];
     personHandle4 = [(TUDialRequest *)firstObject personHandle];
     value = [personHandle4 value];
     contactIdentifier = [(TUDialRequest *)firstObject contactIdentifier];
     *buf = 138413058;
-    selfCopy5 = v151;
-    v165 = 2112;
+    selfCopy5 = v159;
+    v173 = 2112;
     triggerMethod = personHandle3;
-    v167 = 2112;
-    v168 = value;
-    v169 = 2112;
-    v170 = contactIdentifier;
-    _os_log_impl(&dword_1956FD000, v98, OS_LOG_TYPE_DEFAULT, "Determining destinationID and contactIdentifier for INPerson: %@ (personHandle=%@, personHandle.value=%@, contactIdentifier=%@)", buf, 0x2Au);
+    v175 = 2112;
+    v176 = value;
+    v177 = 2112;
+    v178 = contactIdentifier;
+    _os_log_impl(&dword_1956FD000, v104, OS_LOG_TYPE_DEFAULT, "Determining destinationID and contactIdentifier for INPerson: %@ (personHandle=%@, personHandle.value=%@, contactIdentifier=%@)", buf, 0x2Au);
 
-    firstObject = v151;
+    firstObject = v159;
   }
 
   personHandle5 = [(TUDialRequest *)firstObject personHandle];
@@ -2072,12 +2159,13 @@ LABEL_138:
   if ([value2 length])
   {
     contactIdentifier2 = [(TUDialRequest *)firstObject contactIdentifier];
-    v106 = [contactIdentifier2 length];
+    v112 = [contactIdentifier2 length];
 
-    if (v106)
+    if (v112)
     {
-      v62 = [TUHandle handleWithPerson:firstObject];
+      v65 = [TUHandle handleWithPerson:firstObject];
       contactIdentifier3 = [(TUDialRequest *)firstObject contactIdentifier];
+      identifier = contactIdentifier3;
       goto LABEL_154;
     }
   }
@@ -2098,199 +2186,199 @@ LABEL_138:
       contactStore = [objc_opt_class() contactStore];
     }
 
-    v108 = contactStore;
-    v160 = 0;
-    v109 = [(TUDialRequest *)self _contactFromINPerson:firstObject contactsDataSource:contactStore bestGuessHandle:&v160];
-    v110 = v160;
-    v111 = TUDefaultLog();
-    if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
+    v115 = contactStore;
+    v168 = 0;
+    v116 = [(TUDialRequest *)self _contactFromINPerson:firstObject contactsDataSource:contactStore bestGuessHandle:&v168];
+    v117 = v168;
+    v118 = TUDefaultLog(v117);
+    if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      selfCopy5 = v109;
-      _os_log_impl(&dword_1956FD000, v111, OS_LOG_TYPE_DEFAULT, "Obtained CNContact from INPerson: %@", buf, 0xCu);
+      selfCopy5 = v116;
+      _os_log_impl(&dword_1956FD000, v118, OS_LOG_TYPE_DEFAULT, "Obtained CNContact from INPerson: %@", buf, 0xCu);
     }
 
-    v62 = v110;
-    contactIdentifier3 = [(TUDialRequest *)v109 identifier];
+    v65 = v117;
+    identifier = [(TUDialRequest *)v116 identifier];
   }
 
   else
   {
-    contactIdentifier3 = 0;
-    v62 = 0;
+    identifier = 0;
+    v65 = 0;
   }
 
 LABEL_154:
-  v112 = TUDefaultLog();
-  if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
+  v119 = TUDefaultLog(contactIdentifier3);
+  if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    selfCopy5 = v62;
-    v165 = 2112;
-    triggerMethod = contactIdentifier3;
-    _os_log_impl(&dword_1956FD000, v112, OS_LOG_TYPE_DEFAULT, "Using the following handle and contactIdentifier: %@, %@", buf, 0x16u);
+    selfCopy5 = v65;
+    v173 = 2112;
+    triggerMethod = identifier;
+    _os_log_impl(&dword_1956FD000, v119, OS_LOG_TYPE_DEFAULT, "Using the following handle and contactIdentifier: %@, %@", buf, 0x16u);
   }
 
   telephonyProvider = [managerCopy telephonyProvider];
-  v114 = TUDefaultLog();
-  if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
+  v121 = TUDefaultLog(telephonyProvider);
+  if (os_log_type_enabled(v121, OS_LOG_TYPE_DEFAULT))
   {
     prioritizedSenderIdentities = [telephonyProvider prioritizedSenderIdentities];
     *buf = 138412290;
     selfCopy5 = prioritizedSenderIdentities;
-    _os_log_impl(&dword_1956FD000, v114, OS_LOG_TYPE_DEFAULT, "Sender identities the device holds %@", buf, 0xCu);
+    _os_log_impl(&dword_1956FD000, v121, OS_LOG_TYPE_DEFAULT, "Sender identities the device holds %@", buf, 0xCu);
   }
 
   prioritizedSenderIdentities2 = [telephonyProvider prioritizedSenderIdentities];
-  v144 = sourceCopy;
-  v142 = v35;
-  v140 = v50;
+  v152 = sourceCopy;
+  v150 = v35;
+  v148 = v51;
   if ([prioritizedSenderIdentities2 count] < 2)
   {
     selfCopy6 = self;
     self = 0;
-    v143 = 0;
+    v151 = 0;
     firstObject2 = 0;
-    v128 = 0;
+    v136 = 0;
 LABEL_175:
 
     goto LABEL_176;
   }
 
-  v117 = [contactIdentifier3 length];
+  v124 = [identifier length];
 
-  if (v117)
+  if (v124)
   {
-    v139 = uUIDString2;
-    v118 = MEMORY[0x1E695CD58];
-    v162 = contactIdentifier3;
-    v119 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v162 count:1];
-    v120 = [v118 predicateForContactsWithIdentifiers:v119];
+    v147 = uUIDString2;
+    v125 = MEMORY[0x1E695CD58];
+    v170 = identifier;
+    v126 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v170 count:1];
+    v127 = [v125 predicateForContactsWithIdentifiers:v126];
 
     descriptorForRequiredKeys = [MEMORY[0x1E695CEB0] descriptorForRequiredKeys];
-    v161 = descriptorForRequiredKeys;
-    prioritizedSenderIdentities2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v161 count:1];
+    v169 = descriptorForRequiredKeys;
+    prioritizedSenderIdentities2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v169 count:1];
 
-    v159 = 0;
-    v143 = v120;
-    v122 = [sourceCopy unifiedContactsMatchingPredicate:v120 keysToFetch:prioritizedSenderIdentities2 error:&v159];
-    v123 = v159;
-    v138 = v122;
-    if (!v122)
+    v167 = 0;
+    v151 = v127;
+    v129 = [sourceCopy unifiedContactsMatchingPredicate:v127 keysToFetch:prioritizedSenderIdentities2 error:&v167];
+    v130 = v167;
+    v131 = v130;
+    v146 = v129;
+    if (!v129)
     {
       selfCopy6 = self;
-      v127 = TUDefaultLog();
-      if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+      v135 = TUDefaultLog(v130);
+      if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        selfCopy5 = v151;
-        v165 = 2112;
-        triggerMethod = v123;
-        _os_log_impl(&dword_1956FD000, v127, OS_LOG_TYPE_DEFAULT, "[WARN] Error obtaining contact from INPerson %@: %@", buf, 0x16u);
+        selfCopy5 = v159;
+        v173 = 2112;
+        triggerMethod = v131;
+        _os_log_impl(&dword_1956FD000, v135, OS_LOG_TYPE_DEFAULT, "[WARN] Error obtaining contact from INPerson %@: %@", buf, 0x16u);
       }
 
       self = 0;
       firstObject2 = 0;
-      v128 = v123;
+      v136 = v131;
       goto LABEL_174;
     }
 
-    firstObject2 = [v122 firstObject];
+    firstObject2 = [v129 firstObject];
     selfCopy6 = self;
     contactGeminiManager = [(TUDialRequest *)self contactGeminiManager];
-    v158 = v123;
-    v127 = [contactGeminiManager bestSenderIdentityForContact:firstObject2 error:&v158];
-    v128 = v158;
+    v166 = v131;
+    v135 = [contactGeminiManager bestSenderIdentityForContact:firstObject2 error:&v166];
+    v136 = v166;
 
-    if (v127)
+    if (v135)
     {
-      self = [v127 accountUUID];
-      v129 = TUDefaultLog();
-      if (os_log_type_enabled(v129, OS_LOG_TYPE_DEFAULT))
+      self = [v135 accountUUID];
+      v138 = TUDefaultLog(self);
+      if (os_log_type_enabled(v138, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         selfCopy5 = self;
-        _os_log_impl(&dword_1956FD000, v129, OS_LOG_TYPE_DEFAULT, "Contact preferred accountUUIDData %@", buf, 0xCu);
+        _os_log_impl(&dword_1956FD000, v138, OS_LOG_TYPE_DEFAULT, "Contact preferred accountUUIDData %@", buf, 0xCu);
       }
     }
 
     else
     {
-      if (!v128)
+      if (!v136)
       {
         self = 0;
         goto LABEL_174;
       }
 
-      v129 = TUDefaultLog();
-      if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
+      v138 = TUDefaultLog(v137);
+      if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
       {
-        [TUDialRequest initWithDialIntent:v128 providerManager:v129 contactsDataSource:? senderIdentityClient:? isEmergencyServicesOverrideEnabled:?];
+        [TUDialRequest initWithDialIntent:v136 providerManager:v138 contactsDataSource:? senderIdentityClient:? isEmergencyServicesOverrideEnabled:?];
       }
 
       self = 0;
     }
 
 LABEL_174:
-    uUIDString2 = v139;
+    uUIDString2 = v147;
     goto LABEL_175;
   }
 
   selfCopy6 = self;
   self = 0;
-  v143 = 0;
+  v151 = 0;
   firstObject2 = 0;
-  v128 = 0;
+  v136 = 0;
 LABEL_176:
-  firstObject = v151;
-  displayName = [(TUDialRequest *)v151 displayName];
-  [(TUDialRequest *)v62 setSiriDisplayName:displayName];
+  firstObject = v159;
+  displayName = [(TUDialRequest *)v159 displayName];
+  [(TUDialRequest *)v65 setSiriDisplayName:displayName];
 
-  emergencyProvider = [(TUDialRequest *)selfCopy6 initWithProvider:v149];
+  emergencyProvider = [(TUDialRequest *)selfCopy6 initWithProvider:v157];
   if (emergencyProvider)
   {
-    if (v62)
+    if (v65)
     {
-      [MEMORY[0x1E695DFD8] setWithObject:v62];
+      [MEMORY[0x1E695DFD8] setWithObject:v65];
     }
 
     else
     {
       [MEMORY[0x1E695DFD8] set];
     }
-    v131 = ;
-    v132 = *(emergencyProvider + 80);
-    *(emergencyProvider + 80) = v131;
+    v140 = ;
+    v141 = *(emergencyProvider + 80);
+    *(emergencyProvider + 80) = v140;
 
-    objc_storeStrong((emergencyProvider + 88), contactIdentifier3);
-    customIdentifier = [(TUDialRequest *)v151 customIdentifier];
-    v134 = *(emergencyProvider + 96);
+    objc_storeStrong((emergencyProvider + 88), identifier);
+    customIdentifier = [(TUDialRequest *)v159 customIdentifier];
+    v143 = *(emergencyProvider + 96);
     *(emergencyProvider + 96) = customIdentifier;
 
-    *(emergencyProvider + 8) = v142;
-    *(emergencyProvider + 72) = v140;
-    *(emergencyProvider + 112) = v141;
-    *(emergencyProvider + 24) = v145;
+    *(emergencyProvider + 8) = v150;
+    *(emergencyProvider + 72) = v148;
+    *(emergencyProvider + 112) = v149;
+    *(emergencyProvider + 24) = v153;
     objc_storeStrong((emergencyProvider + 104), uUIDString2);
     objc_storeStrong((emergencyProvider + 40), obj);
-    objc_storeStrong((emergencyProvider + 152), v154);
-    objc_storeStrong((emergencyProvider + 160), v155);
+    objc_storeStrong((emergencyProvider + 152), v162);
+    objc_storeStrong((emergencyProvider + 160), v163);
     objc_storeStrong((emergencyProvider + 168), _originatingDeviceRapportEffectiveIdentifier2);
-    *(emergencyProvider + 14) = v147;
+    *(emergencyProvider + 14) = v155;
     objc_storeStrong((emergencyProvider + 192), self);
     *(emergencyProvider + 15) = 0;
   }
 
-  v60 = uUIDString2;
+  v63 = uUIDString2;
 
   v38 = managerCopy;
-  sourceCopy = v144;
-  v59 = v149;
+  sourceCopy = v152;
+  v62 = v157;
 LABEL_182:
 
-  v135 = emergencyProvider;
-  v136 = *MEMORY[0x1E69E9840];
-  return v135;
+  v144 = emergencyProvider;
+  return v144;
 }
 
 - (TUDialRequest)init
@@ -2531,7 +2619,7 @@ LABEL_19:
   }
 
   v12 = [managerCopy providerWithIdentifier:idCopy];
-  v14 = TUDefaultLog();
+  v14 = TUDefaultLog(v12);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [TUDialRequest providerForIntentPreferredCallProvider:v12 recentCallProviderId:v14 callCapability:? providerManager:?];
@@ -2570,17 +2658,16 @@ LABEL_16:
 
 - (void)setOriginatingUIType:(int)type
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5 = TUDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v5 = TUDefaultLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = type;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Setting originating UI type to =%d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = type;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Setting originating UI type to =%d", v6, 8u);
   }
 
   self->_originatingUIType = type;
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (int)originatingUITypeForString:(id)string
@@ -2998,28 +3085,28 @@ uint64_t __54__TUDialRequest_isEmergencyNumberOrIsWhitelistedBlock__block_invoke
 
 - (id)sanitizedHandles
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DFA8] set];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   handles = [(TUDialRequest *)self handles];
-  v5 = [handles countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [handles countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(handles);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         normalizedValue = [v9 normalizedValue];
         controlCharacterSet = [MEMORY[0x1E696AB08] controlCharacterSet];
         v12 = [normalizedValue stringByTrimmingCharactersInSet:controlCharacterSet];
@@ -3039,49 +3126,48 @@ uint64_t __54__TUDialRequest_isEmergencyNumberOrIsWhitelistedBlock__block_invoke
         }
       }
 
-      v6 = [handles countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [handles countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
   }
 
   v16 = [v3 copy];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (id)contactNamesByHandleWithContactsDataSource:(id)source
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   v4 = MEMORY[0x1E695DF90];
   handles = [(TUDialRequest *)self handles];
   v6 = [v4 dictionaryWithCapacity:{objc_msgSend(handles, "count")}];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = [(TUDialRequest *)self sanitizedHandles];
-  v7 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v7 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(*(&v24 + 1) + 8 * i);
         v12 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:0];
-        v29 = v12;
-        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
+        v28 = v12;
+        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
 
         if ([v11 length])
         {
@@ -3114,14 +3200,13 @@ uint64_t __54__TUDialRequest_isEmergencyNumberOrIsWhitelistedBlock__block_invoke
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v8 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v8);
   }
 
   v20 = [v6 copy];
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -3179,6 +3264,143 @@ uint64_t __54__TUDialRequest_isEmergencyNumberOrIsWhitelistedBlock__block_invoke
   bOOLValue = [value BOOLValue];
 
   return bOOLValue;
+}
+
+- (id)callProviderFromURLComponents:(id)components handles:(id)handles dialType:(int64_t)type originatingUIType:(int)iType isSOS:(BOOL)s ttyType:(int64_t)ttyType video:(BOOL *)video featureFlags:(id)self0
+{
+  sCopy = s;
+  v12 = *&iType;
+  videoCopy = video;
+  componentsCopy = components;
+  handlesCopy = handles;
+  flagsCopy = flags;
+  callProviderManagerGeneratorBlock = [objc_opt_class() callProviderManagerGeneratorBlock];
+  v19 = callProviderManagerGeneratorBlock[2]();
+
+  scheme = [componentsCopy scheme];
+  if ([MEMORY[0x1E695DFF8] isDefaultCallingAppScheme:scheme] && ((TUDefaultAppsEnabled(flagsCopy) & 1) != 0 || objc_msgSend(flagsCopy, "uplevelFTAEnabled")))
+  {
+    v21 = handlesCopy;
+    faceTimeProvider = [objc_opt_class() defaultAppCallProviderForDialType:type originatingUIType:v12 isSOS:sCopy handles:handlesCopy ttyType:ttyType];
+LABEL_5:
+    v23 = 0;
+    goto LABEL_16;
+  }
+
+  tUDialRequestSchemeTelephony = [MEMORY[0x1E695DFF8] TUDialRequestSchemeTelephony];
+  if ([scheme isEqualToIgnoringCase:tUDialRequestSchemeTelephony] & 1) != 0 || (objc_msgSend(scheme, "isEqualToIgnoringCase:", @"telprompt") & 1) != 0 || (objc_msgSend(scheme, "isEqualToIgnoringCase:", @"telemergencycall") & 1) != 0 || (objc_msgSend(scheme, "isEqualToIgnoringCase:", @"callto"))
+  {
+    goto LABEL_12;
+  }
+
+  tUDialRequestSchemeForceTelephony = [MEMORY[0x1E695DFF8] TUDialRequestSchemeForceTelephony];
+  if ([scheme isEqualToIgnoringCase:tUDialRequestSchemeForceTelephony])
+  {
+
+LABEL_12:
+LABEL_13:
+    telephonyProvider = [v19 telephonyProvider];
+LABEL_14:
+    faceTimeProvider = telephonyProvider;
+    v23 = 0;
+LABEL_15:
+    v21 = handlesCopy;
+    goto LABEL_16;
+  }
+
+  tUDialRequestSchemeForceTelephonyPrompt = [MEMORY[0x1E695DFF8] TUDialRequestSchemeForceTelephonyPrompt];
+  v29 = [scheme isEqualToIgnoringCase:tUDialRequestSchemeForceTelephonyPrompt];
+
+  if (v29)
+  {
+    goto LABEL_13;
+  }
+
+  tUDialRequestSchemeFaceTimeAudio = [MEMORY[0x1E695DFF8] TUDialRequestSchemeFaceTimeAudio];
+  if ([scheme isEqualToIgnoringCase:tUDialRequestSchemeFaceTimeAudio] & 1) != 0 || (objc_msgSend(scheme, "isEqualToIgnoringCase:", @"facetime-audio-prompt"))
+  {
+    goto LABEL_26;
+  }
+
+  tUDialRequestSchemeFaceTime = [MEMORY[0x1E695DFF8] TUDialRequestSchemeFaceTime];
+  if ([scheme isEqualToIgnoringCase:tUDialRequestSchemeFaceTime])
+  {
+
+LABEL_26:
+LABEL_27:
+    faceTimeProvider = [v19 faceTimeProvider];
+    tUDialRequestSchemeFaceTime2 = [MEMORY[0x1E695DFF8] TUDialRequestSchemeFaceTime];
+    if ([scheme isEqualToIgnoringCase:tUDialRequestSchemeFaceTime2])
+    {
+
+      v21 = handlesCopy;
+    }
+
+    else
+    {
+      v33 = [scheme isEqualToIgnoringCase:@"facetime-prompt"];
+
+      v21 = handlesCopy;
+      if ((v33 & 1) == 0)
+      {
+        goto LABEL_5;
+      }
+    }
+
+    v23 = 1;
+    goto LABEL_16;
+  }
+
+  v34 = [scheme isEqualToIgnoringCase:@"facetime-prompt"];
+
+  if (v34)
+  {
+    goto LABEL_27;
+  }
+
+  if ([scheme isEqualToIgnoringCase:@"tincan"])
+  {
+    telephonyProvider = [v19 tinCanProvider];
+    goto LABEL_14;
+  }
+
+  v21 = handlesCopy;
+  if (([scheme isEqualToIgnoringCase:@"superbox-audio"] & 1) == 0 && !objc_msgSend(scheme, "isEqualToIgnoringCase:", @"superbox-video"))
+  {
+    if (([scheme isEqualToIgnoringCase:@"callkit-audio"] & 1) != 0 || (objc_msgSend(scheme, "isEqualToIgnoringCase:", @"callkit-video") & 1) != 0 || objc_msgSend(scheme, "isEqualToIgnoringCase:", @"callkit-audio-prompt"))
+    {
+      v35 = [(TUDialRequest *)self callProviderIdentiferFromURLComponents:componentsCopy];
+      if ([v35 length])
+      {
+        faceTimeProvider = [v19 providerWithIdentifier:v35];
+        v23 = [scheme isEqualToIgnoringCase:@"callkit-video"];
+      }
+
+      else
+      {
+        v23 = 0;
+        faceTimeProvider = 0;
+      }
+    }
+
+    else
+    {
+      v23 = 0;
+      faceTimeProvider = 0;
+    }
+
+    goto LABEL_15;
+  }
+
+  faceTimeProvider = [v19 superboxProvider];
+  v23 = [scheme isEqualToIgnoringCase:@"superbox-video"];
+LABEL_16:
+  if (videoCopy)
+  {
+    *videoCopy = v23;
+  }
+
+  return faceTimeProvider;
 }
 
 - (id)destinationIDFromURL:(id)l
@@ -4338,7 +4560,7 @@ LABEL_6:
 {
   intentsCopy = intents;
   selfCopy = self;
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   if (![(TUDialRequest *)self isValid])
   {
     v17 = 0;
@@ -4350,29 +4572,29 @@ LABEL_6:
 
   if (v6)
   {
-    v75 = intentsCopy;
+    v74 = intentsCopy;
     array = [MEMORY[0x1E695DF70] array];
+    v77 = 0u;
     v78 = 0u;
     v79 = 0u;
     v80 = 0u;
-    v81 = 0u;
     v7 = selfCopy;
     obj = [(TUDialRequest *)selfCopy handles];
-    v8 = [obj countByEnumeratingWithState:&v78 objects:v82 count:16];
+    v8 = [obj countByEnumeratingWithState:&v77 objects:v81 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v79;
+      v10 = *v78;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v79 != v10)
+          if (*v78 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          personHandle = [*(*(&v78 + 1) + 8 * i) personHandle];
+          personHandle = [*(*(&v77 + 1) + 8 * i) personHandle];
           v13 = objc_alloc(CUTWeakLinkClass());
           contactIdentifier = [(TUDialRequest *)v7 contactIdentifier];
           providerCustomIdentifier = [(TUDialRequest *)v7 providerCustomIdentifier];
@@ -4381,14 +4603,14 @@ LABEL_6:
           [array addObject:v16];
         }
 
-        v9 = [obj countByEnumeratingWithState:&v78 objects:v82 count:16];
+        v9 = [obj countByEnumeratingWithState:&v77 objects:v81 count:16];
       }
 
       while (v9);
     }
 
     selfCopy = v7;
-    intentsCopy = v75;
+    intentsCopy = v74;
   }
 
   else
@@ -4600,9 +4822,78 @@ LABEL_43:
   }
 
 LABEL_46:
-  v73 = *MEMORY[0x1E69E9840];
 
   return v17;
+}
+
+- (id)_validityErrorsForRelay:(BOOL)relay
+{
+  array = [MEMORY[0x1E695DF70] array];
+  validityErrorForUnspecifiedProvider = [(TUDialRequest *)self validityErrorForUnspecifiedProvider];
+  if (validityErrorForUnspecifiedProvider)
+  {
+    [array addObject:validityErrorForUnspecifiedProvider];
+  }
+
+  validityErrorForDestinationIDWithVoicemail = [(TUDialRequest *)self validityErrorForDestinationIDWithVoicemail];
+
+  if (validityErrorForDestinationIDWithVoicemail)
+  {
+    [array addObject:validityErrorForDestinationIDWithVoicemail];
+  }
+
+  validityErrorForNonNormalDialTypeWithoutTelephony = [(TUDialRequest *)self validityErrorForNonNormalDialTypeWithoutTelephony];
+
+  if (validityErrorForNonNormalDialTypeWithoutTelephony)
+  {
+    [array addObject:validityErrorForNonNormalDialTypeWithoutTelephony];
+  }
+
+  validityErrorForEndpointNotOnCurrentDeviceForNonRelayableService = [(TUDialRequest *)self validityErrorForEndpointNotOnCurrentDeviceForNonRelayableService];
+
+  if (validityErrorForEndpointNotOnCurrentDeviceForNonRelayableService)
+  {
+    [array addObject:validityErrorForEndpointNotOnCurrentDeviceForNonRelayableService];
+  }
+
+  validityErrorForEmergencyCall = [(TUDialRequest *)self validityErrorForEmergencyCall];
+
+  if (validityErrorForEmergencyCall)
+  {
+    [array addObject:validityErrorForEmergencyCall];
+  }
+
+  validityErrorForVideoUnsupported = [(TUDialRequest *)self validityErrorForVideoUnsupported];
+
+  if (validityErrorForVideoUnsupported)
+  {
+    [array addObject:validityErrorForVideoUnsupported];
+  }
+
+  validityErrorForNormalDialTypeWithUnknownDestination = [(TUDialRequest *)self validityErrorForNormalDialTypeWithUnknownDestination];
+
+  if (validityErrorForNormalDialTypeWithUnknownDestination)
+  {
+    [array addObject:validityErrorForNormalDialTypeWithUnknownDestination];
+  }
+
+  validityErrorForUnsupportedHandleType = [(TUDialRequest *)self validityErrorForUnsupportedHandleType];
+
+  if (validityErrorForUnsupportedHandleType)
+  {
+    [array addObject:validityErrorForUnsupportedHandleType];
+  }
+
+  validityErrorForSOS = [(TUDialRequest *)self validityErrorForSOS];
+
+  if (validityErrorForSOS)
+  {
+    [array addObject:validityErrorForSOS];
+  }
+
+  v14 = [array copy];
+
+  return v14;
 }
 
 - (id)dialRequestByReplacingProvider:(id)provider
@@ -4629,7 +4920,7 @@ LABEL_46:
 
 - (id)_contactFromINPerson:(id)person contactsDataSource:(id)source bestGuessHandle:(id *)handle
 {
-  v66[1] = *MEMORY[0x1E69E9840];
+  v69[1] = *MEMORY[0x1E69E9840];
   personCopy = person;
   sourceCopy = source;
   *handle = 0;
@@ -4640,8 +4931,8 @@ LABEL_46:
   {
     v11 = MEMORY[0x1E695CD58];
     contactIdentifier2 = [personCopy contactIdentifier];
-    v66[0] = contactIdentifier2;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:1];
+    v69[0] = contactIdentifier2;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:1];
     v14 = [v11 predicateForContactsWithIdentifiers:v13];
 LABEL_3:
     v15 = v14;
@@ -4652,21 +4943,21 @@ LABEL_4:
 
   personHandle = [personCopy personHandle];
   value = [personHandle value];
-  v25 = [value length];
+  v27 = [value length];
 
-  if (!v25)
+  if (!v27)
   {
     displayName = [personCopy displayName];
-    v32 = [displayName length];
+    v35 = [displayName length];
 
-    if (!v32)
+    if (!v35)
     {
       goto LABEL_22;
     }
 
-    v33 = MEMORY[0x1E695CD58];
+    v36 = MEMORY[0x1E695CD58];
     contactIdentifier2 = [personCopy displayName];
-    v34 = [v33 predicateForContactsMatchingName:contactIdentifier2];
+    v37 = [v36 predicateForContactsMatchingName:contactIdentifier2];
     goto LABEL_47;
   }
 
@@ -4685,14 +4976,14 @@ LABEL_4:
         v13 = [objc_alloc(MEMORY[0x1E695CF50]) initWithStringValue:contactIdentifier2];
         if (!v13)
         {
-          v29 = TUDefaultLog();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v32 = TUDefaultLog(0);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v62 = contactIdentifier2;
-            v30 = "[WARN] Could not create CNPhoneNumber from personHandle.value with phone number type: %@";
+            v65 = contactIdentifier2;
+            v33 = "[WARN] Could not create CNPhoneNumber from personHandle.value with phone number type: %@";
 LABEL_54:
-            _os_log_impl(&dword_1956FD000, v29, OS_LOG_TYPE_DEFAULT, v30, buf, 0xCu);
+            _os_log_impl(&dword_1956FD000, v32, OS_LOG_TYPE_DEFAULT, v33, buf, 0xCu);
             goto LABEL_55;
           }
 
@@ -4708,12 +4999,12 @@ LABEL_54:
     goto LABEL_46;
   }
 
-  v54 = TUDefaultLog();
-  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+  v56 = TUDefaultLog(v31);
+  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v62 = personCopy;
-    _os_log_impl(&dword_1956FD000, v54, OS_LOG_TYPE_DEFAULT, "[WARN] INPersonHandle has no type, attempting to infer from value %@", buf, 0xCu);
+    v65 = personCopy;
+    _os_log_impl(&dword_1956FD000, v56, OS_LOG_TYPE_DEFAULT, "[WARN] INPersonHandle has no type, attempting to infer from value %@", buf, 0xCu);
   }
 
   if ([contactIdentifier2 _appearsToBePhoneNumber])
@@ -4721,12 +5012,12 @@ LABEL_54:
     v13 = [objc_alloc(MEMORY[0x1E695CF50]) initWithStringValue:contactIdentifier2];
     if (!v13)
     {
-      v29 = TUDefaultLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v32 = TUDefaultLog(0);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v62 = contactIdentifier2;
-        v30 = "[WARN] Could not create CNPhoneNumber from personHandle.value with unknown type: %@";
+        v65 = contactIdentifier2;
+        v33 = "[WARN] Could not create CNPhoneNumber from personHandle.value with unknown type: %@";
         goto LABEL_54;
       }
 
@@ -4748,19 +5039,19 @@ LABEL_43:
   if (_appearsToBeEmail)
   {
 LABEL_46:
-    v34 = [MEMORY[0x1E695CD58] predicateForContactsMatchingEmailAddress:contactIdentifier2];
+    v37 = [MEMORY[0x1E695CD58] predicateForContactsMatchingEmailAddress:contactIdentifier2];
 LABEL_47:
-    v15 = v34;
+    v15 = v37;
     goto LABEL_5;
   }
 
-  v58 = TUDefaultLog();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+  v61 = TUDefaultLog(v60);
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
   {
     personHandle5 = [personCopy personHandle];
     *buf = 138412290;
-    v62 = personHandle5;
-    _os_log_impl(&dword_1956FD000, v58, OS_LOG_TYPE_DEFAULT, "[WARN] Could not infer INPersonHandleType for person %@", buf, 0xCu);
+    v65 = personHandle5;
+    _os_log_impl(&dword_1956FD000, v61, OS_LOG_TYPE_DEFAULT, "[WARN] Could not infer INPersonHandleType for person %@", buf, 0xCu);
   }
 
 LABEL_51:
@@ -4769,38 +5060,39 @@ LABEL_5:
 
   if (v15)
   {
-    v16 = *MEMORY[0x1E695C330];
-    v65[0] = *MEMORY[0x1E695C208];
-    v65[1] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:2];
-    v60 = 0;
-    v18 = [sourceCopy unifiedContactsMatchingPredicate:v15 keysToFetch:v17 error:&v60];
-    v19 = v60;
-    if (v18)
+    v17 = *MEMORY[0x1E695C330];
+    v68[0] = *MEMORY[0x1E695C208];
+    v68[1] = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:2];
+    v63 = 0;
+    v19 = [sourceCopy unifiedContactsMatchingPredicate:v15 keysToFetch:v18 error:&v63];
+    v20 = v63;
+    v21 = v20;
+    if (v19)
     {
-      firstObject = [v18 firstObject];
-      v21 = TUDefaultLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      firstObject = [v19 firstObject];
+      v23 = TUDefaultLog(firstObject);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = [v18 count];
+        v24 = [v19 count];
         *buf = 134218242;
-        v62 = v22;
-        v63 = 2112;
-        v64 = firstObject;
-        _os_log_impl(&dword_1956FD000, v21, OS_LOG_TYPE_DEFAULT, "Found %ld contacts matching INPerson, using %@", buf, 0x16u);
+        v65 = v24;
+        v66 = 2112;
+        v67 = firstObject;
+        _os_log_impl(&dword_1956FD000, v23, OS_LOG_TYPE_DEFAULT, "Found %ld contacts matching INPerson, using %@", buf, 0x16u);
       }
     }
 
     else
     {
-      v21 = TUDefaultLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = TUDefaultLog(v20);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v62 = personCopy;
-        v63 = 2112;
-        v64 = v19;
-        _os_log_impl(&dword_1956FD000, v21, OS_LOG_TYPE_DEFAULT, "[WARN] Error obtaining contact from INPerson %@: %@", buf, 0x16u);
+        v65 = personCopy;
+        v66 = 2112;
+        v67 = v21;
+        _os_log_impl(&dword_1956FD000, v23, OS_LOG_TYPE_DEFAULT, "[WARN] Error obtaining contact from INPerson %@: %@", buf, 0x16u);
       }
 
       firstObject = 0;
@@ -4810,61 +5102,61 @@ LABEL_5:
   }
 
 LABEL_22:
-  v17 = TUDefaultLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = TUDefaultLog(v16);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v62 = personCopy;
-    _os_log_impl(&dword_1956FD000, v17, OS_LOG_TYPE_DEFAULT, "[WARN] Could not create contact search predicate for INPerson: %@", buf, 0xCu);
+    v65 = personCopy;
+    _os_log_impl(&dword_1956FD000, v18, OS_LOG_TYPE_DEFAULT, "[WARN] Could not create contact search predicate for INPerson: %@", buf, 0xCu);
   }
 
   v15 = 0;
-  v19 = 0;
+  v21 = 0;
   firstObject = 0;
 LABEL_25:
 
   personHandle6 = [personCopy personHandle];
   value3 = [personHandle6 value];
-  v37 = [value3 length];
+  v40 = [value3 length];
 
-  if (!v37)
+  if (!v40)
   {
     phoneNumbers = [firstObject phoneNumbers];
-    v44 = [phoneNumbers count];
+    v46 = [phoneNumbers count];
 
-    if (v44)
+    if (v46)
     {
       phoneNumbers2 = [firstObject phoneNumbers];
       firstObject2 = [phoneNumbers2 firstObject];
       value4 = [firstObject2 value];
       stringValue = [value4 stringValue];
 
-      v49 = 2;
+      v51 = 2;
     }
 
     else
     {
       emailAddresses = [firstObject emailAddresses];
-      v51 = [emailAddresses count];
+      v53 = [emailAddresses count];
 
-      if (!v51)
+      if (!v53)
       {
         stringValue = 0;
-        v49 = 1;
+        v51 = 1;
 LABEL_34:
         if ([stringValue length])
         {
-          v52 = [TUHandle alloc];
+          v54 = [TUHandle alloc];
           displayName2 = [personCopy displayName];
-          v38 = [(TUHandle *)v52 initWithType:v49 value:stringValue siriDisplayName:displayName2];
+          v41 = [(TUHandle *)v54 initWithType:v51 value:stringValue siriDisplayName:displayName2];
         }
 
         else
         {
-          v38 = 0;
+          v41 = 0;
         }
 
-        if (v38)
+        if (v41)
         {
           goto LABEL_27;
         }
@@ -4875,24 +5167,23 @@ LABEL_34:
       phoneNumbers2 = [firstObject emailAddresses];
       firstObject2 = [phoneNumbers2 firstObject];
       stringValue = [firstObject2 value];
-      v49 = 3;
+      v51 = 3;
     }
 
     goto LABEL_34;
   }
 
-  v38 = [TUHandle handleWithPerson:personCopy];
-  if (v38)
+  v41 = [TUHandle handleWithPerson:personCopy];
+  if (v41)
   {
 LABEL_27:
-    v39 = v38;
-    *handle = v38;
+    v42 = v41;
+    *handle = v41;
   }
 
 LABEL_28:
-  v40 = firstObject;
+  v43 = firstObject;
 
-  v41 = *MEMORY[0x1E69E9840];
   return firstObject;
 }
 
@@ -5551,22 +5842,19 @@ LABEL_28:
 
 - (void)initWithDialIntent:(uint64_t)a1 providerManager:(NSObject *)a2 contactsDataSource:senderIdentityClient:isEmergencyServicesOverrideEnabled:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Could not find sender identity for contact %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Could not find sender identity for contact %@", &v2, 0xCu);
 }
 
 + (void)providerForIntentPreferredCallProvider:(void *)a1 recentCallProviderId:(NSObject *)a2 callCapability:providerManager:.cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 bundleIdentifier];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1956FD000, a2, OS_LOG_TYPE_DEBUG, "Using third-party provider: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1956FD000, a2, OS_LOG_TYPE_DEBUG, "Using third-party provider: %@", &v4, 0xCu);
 }
 
 @end

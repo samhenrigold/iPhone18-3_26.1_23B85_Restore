@@ -24,70 +24,70 @@
 
 - (id)suggestionLayoutFromCache
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = __atxlog_handle_blending();
+  v14 = *MEMORY[0x1E69E9840];
+  v3 = __atxlog_handle_blending(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [MEMORY[0x1E698B028] stringForConsumerSubtype:self->_consumer];
-    v11 = 138412290;
-    v12 = v4;
-    _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_DEFAULT, "Accessing Blending's suggestionLayout cache for consumer subtype: %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = v4;
+    _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_DEFAULT, "Accessing Blending's suggestionLayout cache for consumer subtype: %@", &v12, 0xCu);
   }
 
   consumer = self->_consumer;
   p_consumer = &self->_consumer;
   v7 = [*(p_consumer + 1) cachedLayoutForConsumerSubType:consumer expectedClass:objc_opt_class()];
-  if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  if (v7 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v9 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_blending(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [(ATXProactiveSuggestionClient *)p_consumer suggestionLayoutFromCache];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = v7;
+    v9 = v7;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)spotlightSuggestionLayoutFromCache
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = __atxlog_handle_blending();
+  v14 = *MEMORY[0x1E69E9840];
+  v3 = __atxlog_handle_blending(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [MEMORY[0x1E698B028] stringForConsumerSubtype:self->_consumer];
-    v11 = 138412290;
-    v12 = v4;
-    _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_DEFAULT, "Accessing Blending's spotlightSuggestionLayout cache for consumer subtype: %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = v4;
+    _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_DEFAULT, "Accessing Blending's spotlightSuggestionLayout cache for consumer subtype: %@", &v12, 0xCu);
   }
 
   consumer = self->_consumer;
   p_consumer = &self->_consumer;
   v7 = [*(p_consumer + 1) cachedLayoutForConsumerSubType:consumer expectedClass:objc_opt_class()];
-  if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  if (v7 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v9 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_blending(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [(ATXProactiveSuggestionClient *)p_consumer spotlightSuggestionLayoutFromCache];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = v7;
+    v9 = v7;
   }
 
-  return v8;
+  return v9;
 }
 
 - (ATXProactiveSuggestionClient)initWithConsumerSubType:(unsigned __int8)type
@@ -183,7 +183,7 @@
 void __61__ATXProactiveSuggestionClient_remoteSyncBlendingLayerServer__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_blending();
+  v3 = __atxlog_handle_blending(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __61__ATXProactiveSuggestionClient_remoteSyncBlendingLayerServer__block_invoke_cold_1(v2, v3);
@@ -206,25 +206,29 @@ void __61__ATXProactiveSuggestionClient_remoteSyncBlendingLayerServer__block_inv
   [(NSXPCConnection *)v7 resume];
 }
 
-void __62__ATXProactiveSuggestionClient_setupRemoteClientXPCConnection__block_invoke()
+void __62__ATXProactiveSuggestionClient_setupRemoteClientXPCConnection__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_blending(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __62__ATXProactiveSuggestionClient_setupRemoteClientXPCConnection__block_invoke_cold_1(v0);
+    __62__ATXProactiveSuggestionClient_setupRemoteClientXPCConnection__block_invoke_cold_1(v1);
   }
 }
 
 - (void)suggestionLayoutFromCache
 {
   v1 = [MEMORY[0x1E698B028] stringForConsumerSubtype:*self];
-  OUTLINED_FUNCTION_0(&dword_1BF549000, v2, v3, "A suggestion client tried to access cached suggestions for consumerSubType: %@, but the object type wasn't an ATXSuggestionLayout.", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_1BF549000, v2, v3, "A suggestion client tried to access cached suggestions for consumerSubType: %@, but the object type wasn't an ATXSuggestionLayout.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)spotlightSuggestionLayoutFromCache
 {
   v1 = [MEMORY[0x1E698B028] stringForConsumerSubtype:*self];
-  OUTLINED_FUNCTION_0(&dword_1BF549000, v2, v3, "A suggestion client tried to access cached suggestions for consumerSubType: %@, but the object type wasn't an ATXSpotlightSuggestionLayout.", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_1BF549000, v2, v3, "A suggestion client tried to access cached suggestions for consumerSubType: %@, but the object type wasn't an ATXSpotlightSuggestionLayout.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)remoteSyncBlendingLayerServer

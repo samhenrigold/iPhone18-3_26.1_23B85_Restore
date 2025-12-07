@@ -3,6 +3,7 @@
 - (BOOL)interfaceCellularViaFallback;
 - (BOOL)interfaceCellularViaIndependentFallback;
 - (BOOL)isSubFlow;
+- (NWStatsUDPSnapshot)initWithDetails:(const nstat_msg_src_details_convenient *)details startTime:(double)time flowFlags:(unsigned int)flags previously:(details_subset_for_deltas *)previously peerEgressCellularCounts:(const nstat_interface_counts *)counts;
 - (double)flowSnapshotTimeIntervalSinceReferenceDate;
 - (double)flowStartTimeIntervalSinceReferenceDate;
 - (id)descriptorDescription;
@@ -295,6 +296,21 @@
   v11 = [v4 initWithFormat:@"desc  ifidx %d flags 0x%x pid %d epid %d uuid %@ euuid %@ pname %s", traffic_mgt_flags, ifnet_properties, s_addr, epid, v9, v10, &_details_ptr->var0.conn.euuid[8]];
 
   return v11;
+}
+
+- (NWStatsUDPSnapshot)initWithDetails:(const nstat_msg_src_details_convenient *)details startTime:(double)time flowFlags:(unsigned int)flags previously:(details_subset_for_deltas *)previously peerEgressCellularCounts:(const nstat_interface_counts *)counts
+{
+  v11.receiver = self;
+  v11.super_class = NWStatsUDPSnapshot;
+  v8 = [(NWStatsProtocolSnapshot *)&v11 initWithDetails:details startTime:*&flags flowFlags:previously previously:counts peerEgressCellularCounts:?];
+  v9 = v8;
+  if (v8)
+  {
+    v8->_descriptor = ([(NWStatsProtocolSnapshot *)v8 _details_ptr]+ 488);
+    v9->_startTimeInterval = time;
+  }
+
+  return v9;
 }
 
 @end

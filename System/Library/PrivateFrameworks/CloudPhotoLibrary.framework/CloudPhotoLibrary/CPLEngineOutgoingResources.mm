@@ -82,7 +82,7 @@
 
 - (id)resourceTypesToUploadForChange:(id)change
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   _pushContext = [changeCopy _pushContext];
   uploadIdentifier = [_pushContext uploadIdentifier];
@@ -91,18 +91,18 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = __CPLStorageOSLogDomain_22429();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = __CPLStorageOSLogDomain_22429();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v16 = changeCopy;
-        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "%@ has no upload identifiers but has resources to upload", buf, 0xCu);
+        v15 = changeCopy;
+        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "%@ has no upload identifiers but has resources to upload", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineOutgoingResources.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v14 lineNumber:98 description:{@"%@ has no upload identifiers but has resources to upload", changeCopy}];
+    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineOutgoingResources.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v13 lineNumber:98 description:{@"%@ has no upload identifiers but has resources to upload", changeCopy}];
 
     abort();
   }
@@ -110,40 +110,38 @@
   platformObject = [(CPLEngineStorage *)self platformObject];
   v9 = [platformObject resourceTypesToUploadForUploadIdentifier:uploadIdentifier];
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (BOOL)deleteResourcesToUploadWithUploadIdentifier:(id)identifier error:(id *)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   engineStore = [(CPLEngineStorage *)self engineStore];
   resourceStorage = [engineStore resourceStorage];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   platformObject = [(CPLEngineStorage *)self platformObject];
   platformObject2 = [platformObject resourcesToUploadForUploadIdentifier:identifierCopy];
 
-  v11 = [platformObject2 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v11 = [platformObject2 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(platformObject2);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
+        v15 = *(*(&v19 + 1) + 8 * i);
         if (([resourceStorage dropResourceForUpload:v15 error:error] & 1) == 0)
         {
           if ((_CPLSilentLogging & 1) == 0)
@@ -152,7 +150,7 @@
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v25 = v15;
+              v24 = v15;
               _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "Failed to drop resource for upload: %@", buf, 0xCu);
             }
           }
@@ -162,7 +160,7 @@
         }
       }
 
-      v12 = [platformObject2 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v12 = [platformObject2 countByEnumeratingWithState:&v19 objects:v25 count:16];
       if (v12)
       {
         continue;
@@ -176,59 +174,58 @@
   v16 = [platformObject2 deleteResourcesToUploadWithUploadIdentifier:identifierCopy error:error];
 LABEL_15:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (BOOL)storeResourcesToUpload:(id)upload withUploadIdentifier:(id)identifier shouldCheckResources:(BOOL)resources error:(id *)error
 {
   resourcesCopy = resources;
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   uploadCopy = upload;
   identifierCopy = identifier;
   selfCopy = self;
   engineStore = [(CPLEngineStorage *)self engineStore];
   resourceStorage = [engineStore resourceStorage];
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = uploadCopy;
-  v14 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v14 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v14)
   {
     v15 = v14;
-    v39 = a2;
-    v16 = *v45;
+    v38 = a2;
+    v16 = *v44;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v45 != v16)
+        if (*v44 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v44 + 1) + 8 * i);
+        v18 = *(*(&v43 + 1) + 8 * i);
         identity = [v18 identity];
         fingerPrint = [identity fingerPrint];
         if (!fingerPrint || (v21 = fingerPrint, [identity fileUTI], v22 = objc_claimAutoreleasedReturnValue(), v22, v21, !v22))
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v36 = __CPLStorageOSLogDomain_22429();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+            v35 = __CPLStorageOSLogDomain_22429();
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v49 = v18;
-              _os_log_impl(&dword_1DC05A000, v36, OS_LOG_TYPE_ERROR, "Resource should be fully formed here: %@", buf, 0xCu);
+              v48 = v18;
+              _os_log_impl(&dword_1DC05A000, v35, OS_LOG_TYPE_ERROR, "Resource should be fully formed here: %@", buf, 0xCu);
             }
           }
 
           currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-          v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineOutgoingResources.m"];
-          [currentHandler handleFailureInMethod:v39 object:selfCopy file:v38 lineNumber:46 description:{@"Resource should be fully formed here: %@", v18}];
+          v37 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineOutgoingResources.m"];
+          [currentHandler handleFailureInMethod:v38 object:selfCopy file:v37 lineNumber:46 description:{@"Resource should be fully formed here: %@", v18}];
 
           abort();
         }
@@ -243,7 +240,7 @@ LABEL_15:
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v49 = v18;
+              v48 = v18;
               _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_DEBUG, "Storing for upload: %@", buf, 0xCu);
             }
           }
@@ -266,9 +263,9 @@ LABEL_15:
 
         else
         {
-          v43 = 0;
-          v28 = [resourceStorage storeResourceCopyForUpload:v18 error:&v43];
-          v29 = v43;
+          v42 = 0;
+          v28 = [resourceStorage storeResourceCopyForUpload:v18 error:&v42];
+          v29 = v42;
           v30 = v29;
           if (v28)
           {
@@ -300,7 +297,7 @@ LABEL_29:
         }
       }
 
-      v15 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v15 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
       LOBYTE(v32) = 1;
       if (v15)
       {
@@ -318,17 +315,16 @@ LABEL_29:
 
 LABEL_30:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
 - (BOOL)deleteRecordsForScopeIndex:(int64_t)index maxCount:(int64_t)count deletedCount:(int64_t *)deletedCount error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   platformObject = [(CPLEngineStorage *)self platformObject];
-  v27 = 0;
-  LODWORD(count) = [platformObject deleteRecordsForScopeIndex:index maxCount:count deletedCount:deletedCount discardedResources:&v27 error:error];
-  v12 = v27;
+  v26 = 0;
+  LODWORD(count) = [platformObject deleteRecordsForScopeIndex:index maxCount:count deletedCount:deletedCount discardedResources:&v26 error:error];
+  v12 = v26;
 
   if (count)
   {
@@ -337,33 +333,33 @@ LABEL_30:
       engineStore = [(CPLEngineStorage *)self engineStore];
       resourceStorage = [engineStore resourceStorage];
 
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v15 = v12;
-      v16 = [v15 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v24;
+        v18 = *v23;
         while (2)
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v24 != v18)
+            if (*v23 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            if (![resourceStorage dropResourceForUpload:*(*(&v23 + 1) + 8 * i) error:{error, v23}])
+            if (![resourceStorage dropResourceForUpload:*(*(&v22 + 1) + 8 * i) error:{error, v22}])
             {
               v20 = 0;
               goto LABEL_14;
             }
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v22 objects:v27 count:16];
           if (v17)
           {
             continue;
@@ -388,7 +384,6 @@ LABEL_14:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

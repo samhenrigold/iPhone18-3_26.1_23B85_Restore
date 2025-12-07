@@ -5,6 +5,7 @@
 - (id)textField:(id)field editMenuForCharactersInRange:(_NSRange)range suggestedActions:(id)actions;
 - (void)configureNextViewController:(id)controller;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCEnterCodeViewController
@@ -73,6 +74,15 @@
   v9 = +[UIColor redColor];
   footnoteLabel = [(HSPCTextFieldViewController *)self footnoteLabel];
   [footnoteLabel setTextColor:v9];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = HSPCEnterCodeViewController;
+  [(HSPCTextFieldViewController *)&v5 viewWillAppear:appear];
+  textField = [(HSPCTextFieldViewController *)self textField];
+  [textField becomeFirstResponder];
 }
 
 - (id)commitConfiguration

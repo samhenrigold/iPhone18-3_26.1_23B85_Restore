@@ -239,31 +239,31 @@ LABEL_12:
 - (MobileTimerAssistantAlarmSearch)searchWithAlarms:(id)alarms
 {
   alarmsCopy = alarms;
-  v82 = objc_opt_new();
+  v83 = objc_opt_new();
   sanitizedAlarmLabelForComparison = [(MobileTimerAssistantAlarmSearch *)self sanitizedAlarmLabelForComparison];
-  v92 = 0u;
   v93 = 0u;
   v94 = 0u;
   v95 = 0u;
+  v96 = 0u;
   v6 = alarmsCopy;
   v7 = sanitizedAlarmLabelForComparison;
   obj = v6;
-  v8 = [v6 countByEnumeratingWithState:&v92 objects:v98 count:16];
-  v81 = sanitizedAlarmLabelForComparison;
+  v8 = [v6 countByEnumeratingWithState:&v93 objects:v99 count:16];
+  v82 = sanitizedAlarmLabelForComparison;
   if (v8)
   {
     v9 = v8;
-    v10 = *v93;
+    v10 = *v94;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v93 != v10)
+        if (*v94 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v92 + 1) + 8 * i);
+        v12 = *(*(&v93 + 1) + 8 * i);
         if (MTShouldHandleForEucalyptus() && [v12 isSleepAlarm])
         {
           if (![v12 isSingleTimeAlarm])
@@ -285,7 +285,7 @@ LABEL_12:
 
           if (v17 != -1)
           {
-            [v82 addObject:v12];
+            [v83 addObject:v12];
           }
 
           continue;
@@ -356,32 +356,31 @@ LABEL_12:
           {
 
 LABEL_26:
-            v90 = 0u;
             v91 = 0u;
-            v88 = 0u;
+            v92 = 0u;
             v89 = 0u;
+            v90 = 0u;
             frequency3 = [(MobileTimerAssistantAlarmSearch *)self frequency];
-            v44 = [frequency3 countByEnumeratingWithState:&v88 objects:v97 count:16];
+            v44 = [frequency3 countByEnumeratingWithState:&v89 objects:v98 count:16];
             if (v44)
             {
               v45 = v44;
               v46 = 0;
-              v47 = *v89;
+              v47 = *v90;
               do
               {
-                for (j = 0; j != v45; j = j + 1)
+                for (j = 0; j != v45; ++j)
                 {
-                  if (*v89 != v47)
+                  if (*v90 != v47)
                   {
                     objc_enumerationMutation(frequency3);
                   }
 
-                  v49 = *(*(&v88 + 1) + 8 * j);
-                  v50 = SAAlarmDayOfWeekForString();
-                  v46 |= MTAlarmRepeatDayFromSAAlarmDayOfWeek(v50);
+                  v49 = SAAlarmDayOfWeekForString();
+                  v46 |= MTAlarmRepeatDayFromSAAlarmDayOfWeek(v49);
                 }
 
-                v45 = [frequency3 countByEnumeratingWithState:&v88 objects:v97 count:16];
+                v45 = [frequency3 countByEnumeratingWithState:&v89 objects:v98 count:16];
               }
 
               while (v45);
@@ -392,9 +391,9 @@ LABEL_26:
               v46 = 0;
             }
 
-            v51 = ([v12 repeatSchedule] & v46) == 0;
-            v7 = v81;
-            if (v51)
+            v50 = ([v12 repeatSchedule] & v46) == 0;
+            v7 = v82;
+            if (v50)
             {
               continue;
             }
@@ -420,127 +419,128 @@ LABEL_26:
 LABEL_36:
         if (v7)
         {
-          v52 = v7;
-          v53 = objc_opt_class();
+          v51 = v7;
+          v52 = objc_opt_class();
           displayTitle = [v12 displayTitle];
-          v55 = [v53 sanitizeAlarmLabelForComparison:displayTitle];
+          v54 = [v52 sanitizeAlarmLabelForComparison:displayTitle];
 
-          if ([&stru_14A20 isEqualToString:v52] && objc_msgSend(&stru_14A20, "isEqualToString:", v55))
+          if ([&stru_14A20 isEqualToString:v51] && objc_msgSend(&stru_14A20, "isEqualToString:", v54))
           {
             label = [(MobileTimerAssistantAlarmSearch *)self label];
 
             displayTitle2 = [v12 displayTitle];
 
-            v55 = displayTitle2;
+            v54 = displayTitle2;
           }
 
           else
           {
-            label = v52;
+            label = v51;
           }
 
-          v58 = [v52 length];
-          v59 = +[NSLocale currentLocale];
-          v60 = [label compare:v55 options:129 range:0 locale:{v58, v59}];
+          v57 = [v51 length];
+          v58 = +[NSLocale currentLocale];
+          v59 = [label compare:v54 options:129 range:0 locale:{v57, v58}];
 
-          if (v60)
+          if (v59)
           {
             continue;
           }
         }
 
 LABEL_42:
-        [v82 addObject:v12];
+        [v83 addObject:v12];
         continue;
       }
 
-      v9 = [obj countByEnumeratingWithState:&v92 objects:v98 count:16];
+      v9 = [obj countByEnumeratingWithState:&v93 objects:v99 count:16];
     }
 
     while (v9);
   }
 
-  v61 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v82, "count")}];
-  v84 = 0u;
+  v60 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v83, "count")}];
   v85 = 0u;
   v86 = 0u;
   v87 = 0u;
-  v62 = v82;
-  v63 = [v62 countByEnumeratingWithState:&v84 objects:v96 count:16];
-  if (v63)
+  v88 = 0u;
+  v61 = v83;
+  v62 = [v61 countByEnumeratingWithState:&v85 objects:v97 count:16];
+  if (v62)
   {
-    v64 = v63;
-    v65 = *v85;
+    v63 = v62;
+    v64 = *v86;
     do
     {
-      for (k = 0; k != v64; k = k + 1)
+      for (k = 0; k != v63; k = k + 1)
       {
-        if (*v85 != v65)
+        if (*v86 != v64)
         {
-          objc_enumerationMutation(v62);
+          objc_enumerationMutation(v61);
         }
 
-        v67 = *(*(&v84 + 1) + 8 * k);
-        if ([v67 isSleepAlarm])
+        v66 = *(*(&v85 + 1) + 8 * k);
+        if ([v66 isSleepAlarm])
         {
-          v68 = objc_alloc_init(SAAlarmSleepAlarm);
-          v69 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v67 bedtimeHour]);
-          [v68 setBedtimeHour:v69];
+          v67 = objc_alloc_init(SAAlarmSleepAlarm);
+          v68 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v66 bedtimeHour]);
+          [v67 setBedtimeHour:v68];
 
-          v70 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v67 bedtimeMinute]);
-          [v68 setBedtimeMinute:v70];
+          v69 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v66 bedtimeMinute]);
+          [v67 setBedtimeMinute:v69];
 
-          [v68 setIsFiringNext:&__kCFBooleanFalse];
+          [v67 setIsFiringNext:&__kCFBooleanFalse];
           if (MTShouldHandleForEucalyptus())
           {
-            v71 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v67 isSingleTimeAlarm]);
-            [v68 setIsOverride:v71];
+            v70 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v66 isSingleTimeAlarm]);
+            [v67 setIsOverride:v70];
           }
 
           else
           {
-            [v68 setIsOverride:&__kCFBooleanFalse];
+            [v67 setIsOverride:&__kCFBooleanFalse];
           }
         }
 
         else
         {
-          v68 = objc_alloc_init(SAAlarmObject);
+          v67 = objc_alloc_init(SAAlarmObject);
         }
 
-        alarmURL2 = [v67 alarmURL];
-        [v68 setIdentifier:alarmURL2];
+        alarmURL2 = [v66 alarmURL];
+        [v67 setIdentifier:alarmURL2];
 
-        v73 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v67 hour]);
-        [v68 setHour:v73];
+        v72 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v66 hour]);
+        [v67 setHour:v72];
 
-        v74 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v67 minute]);
-        [v68 setMinute:v74];
+        v73 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v66 minute]);
+        [v67 setMinute:v73];
 
-        v75 = SAAlarmFrequencyFromRepeatSchedule([v67 repeatSchedule]);
-        [v68 setFrequency:v75];
+        repeatSchedule = [v66 repeatSchedule];
+        v76 = SAAlarmFrequencyFromRepeatSchedule(repeatSchedule, v75);
+        [v67 setFrequency:v76];
 
-        displayTitle3 = [v67 displayTitle];
-        [v68 setLabel:displayTitle3];
+        displayTitle3 = [v66 displayTitle];
+        [v67 setLabel:displayTitle3];
 
-        v77 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v67 isEnabled]);
-        [v68 setEnabled:v77];
+        v78 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v66 isEnabled]);
+        [v67 setEnabled:v78];
 
-        v78 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v67 isFiring]);
-        [v68 setFiring:v78];
+        v79 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v66 isFiring]);
+        [v67 setFiring:v79];
 
-        [v61 addObject:v68];
+        [v60 addObject:v67];
       }
 
-      v64 = [v62 countByEnumeratingWithState:&v84 objects:v96 count:16];
+      v63 = [v61 countByEnumeratingWithState:&v85 objects:v97 count:16];
     }
 
-    while (v64);
+    while (v63);
   }
 
-  v79 = [[SAAlarmSearchCompleted alloc] initWithResults:v61];
+  v80 = [[SAAlarmSearchCompleted alloc] initWithResults:v60];
 
-  return v79;
+  return v80;
 }
 
 - (id)sanitizedAlarmLabelForComparison

@@ -57,18 +57,17 @@
 
 - (void)_forceDeviceIdentificationTokenUpdateWithCompletionHandler:()SSBPrivate
 {
-  v4 = *a2;
   if (*&a3->__val_)
   {
-    v5 = nsErrorFromReplyErrorCode(*a3);
+    v4 = nsErrorFromReplyErrorCode(*a3);
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  v6 = v5;
+  v5 = v4;
   (*(*(self + 8) + 16))();
 }
 
@@ -84,8 +83,7 @@
 {
   v6 = *a2;
   v7 = *(a2 + 2);
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   if (*&a3->__val_)
   {
@@ -211,18 +209,17 @@
 
 - (void)_forceLoadRemoteConfigurationFromDiskWithCompletionHandler:()SSBPrivate
 {
-  v4 = *a2;
   if (*&a3->__val_)
   {
-    v5 = nsErrorFromReplyErrorCode(*a3);
+    v4 = nsErrorFromReplyErrorCode(*a3);
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  v6 = v5;
+  v5 = v4;
   (*(*(self + 8) + 16))();
 }
 
@@ -236,18 +233,17 @@
 
 - (void)_forceUpdateRemoteConfigurationFromServerWithCompletionHandler:()SSBPrivate
 {
-  v4 = *a2;
   if (*&a3->__val_)
   {
-    v5 = nsErrorFromReplyErrorCode(*a3);
+    v4 = nsErrorFromReplyErrorCode(*a3);
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  v6 = v5;
+  v5 = v4;
   (*(*(self + 8) + 16))();
 }
 
@@ -261,18 +257,17 @@
 
 - (void)_deleteAllDatabasesWithCompletionHandler:()SSBPrivate
 {
-  v4 = *a2;
   if (*&a3->__val_)
   {
-    v5 = nsErrorFromReplyErrorCode(*a3);
+    v4 = nsErrorFromReplyErrorCode(*a3);
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  v6 = v5;
+  v5 = v4;
   (*(*(self + 8) + 16))();
 }
 
@@ -346,18 +341,17 @@
 
 - (void)_getSafeBrowsingEnabledState:()SSBPrivate
 {
-  v4 = *a2;
   if (*&a3->__val_)
   {
-    v5 = nsErrorFromReplyErrorCode(*a3);
+    v4 = nsErrorFromReplyErrorCode(*a3);
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  v6 = v5;
+  v5 = v4;
   (*(*(self + 8) + 16))();
 }
 

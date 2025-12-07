@@ -155,10 +155,10 @@
 
 - (void)parseASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict account:(id)account
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = ASSettingsTaskOofGetResponse;
-  [(ASItem *)&v13 parseASParseContext:context root:root parent:parent callbackDict:dict streamCallbackDict:callbackDict account:account];
+  v15 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = ASSettingsTaskOofGetResponse;
+  [(ASItem *)&v12 parseASParseContext:context root:root parent:parent callbackDict:dict streamCallbackDict:callbackDict account:account];
   parsingState = self->super._parsingState;
   if (parsingState >= 2)
   {
@@ -179,13 +179,11 @@
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)convertToDAOofParams
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   oofState = [(ASSettingsTaskOofGetResponse *)self oofState];
 
@@ -229,26 +227,26 @@
     [v3 setEndTime:v18];
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   oofMessages = [(ASSettingsTaskOofGetResponse *)self oofMessages];
-  v20 = [oofMessages countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v20 = [oofMessages countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v44;
+    v22 = *v43;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v44 != v22)
+        if (*v43 != v22)
         {
           objc_enumerationMutation(oofMessages);
         }
 
-        v24 = *(*(&v43 + 1) + 8 * i);
+        v24 = *(*(&v42 + 1) + 8 * i);
         audience = [v24 audience];
 
         if (audience)
@@ -309,13 +307,11 @@ LABEL_26:
         }
       }
 
-      v21 = [oofMessages countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v21 = [oofMessages countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
     while (v21);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -14,9 +14,9 @@
 
 - (id)_initWithCSIHeader:(const _csiheader *)header version:(unsigned int)version
 {
-  v42.receiver = self;
-  v42.super_class = _CUIThemeTextureImageRendition;
-  v6 = [(CUIThemeRendition *)&v42 _initWithCSIHeader:header version:*&version];
+  v29.receiver = self;
+  v29.super_class = _CUIThemeTextureImageRendition;
+  v6 = [(CUIThemeRendition *)&v29 _initWithCSIHeader:header version:*&version];
   v6[27] = [[NSMutableArray alloc] initWithCapacity:header->var11.var0];
   var10 = header->var10;
   v8 = &header->var11.var1[header->var11.var0];
@@ -53,21 +53,21 @@
 
     if (var6 == 1380401751)
     {
-      v21 = (*(header + 7) & 0xF) - 3;
-      if (v21 > 2)
+      v15 = (*(header + 7) & 0xF) - 3;
+      if (v15 > 2)
       {
-        v22 = &kCGColorSpaceSRGB;
+        v16 = &kCGColorSpaceSRGB;
       }
 
       else
       {
-        v22 = qword_1E72514C0[v21];
+        v16 = qword_1E72514C0[v15];
       }
 
-      DeviceRGB = CGColorSpaceCreateWithName(*v22);
+      DeviceRGB = CGColorSpaceCreateWithName(*v16);
       if (!DeviceRGB)
       {
-        _CUILog(1, "Defaulting to sRGB colorspace", v28, v29, v30, v31, v32, v33, v41);
+        _CUILog(1, "Defaulting to sRGB colorspace");
         DeviceRGB = CGColorSpaceCreateDeviceRGB();
       }
 
@@ -75,23 +75,23 @@
     }
 
 LABEL_21:
-    v23 = +[NSAssertionHandler currentHandler];
-    v24 = objc_opt_class();
-    v25 = NSStringFromClass(v24);
-    [(NSAssertionHandler *)v23 handleFailureInMethod:a2 object:v6 file:@"CUIThemeRendition.m" lineNumber:2907 description:@"CoreUI: [%@ %@] unknown pixel format %d", v25, NSStringFromSelector(a2), header->var6];
-    v26 = 0;
+    v17 = +[NSAssertionHandler currentHandler];
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    [(NSAssertionHandler *)v17 handleFailureInMethod:a2 object:v6 file:@"CUIThemeRendition.m" lineNumber:2907 description:@"CoreUI: [%@ %@] unknown pixel format %d", v19, NSStringFromSelector(a2), header->var6];
+    v20 = 0;
     goto LABEL_29;
   }
 
   if (var6 == 1095911234)
   {
-    v27 = &kCGColorSpaceGenericRGB;
+    v21 = &kCGColorSpaceGenericRGB;
     if ((*(header + 7) & 0xF) != 0)
     {
-      v27 = &kCGColorSpaceSRGB;
+      v21 = &kCGColorSpaceSRGB;
     }
 
-    DeviceRGB = CGColorSpaceCreateWithName(*v27);
+    DeviceRGB = CGColorSpaceCreateWithName(*v21);
     goto LABEL_28;
   }
 
@@ -116,51 +116,51 @@ LABEL_21:
     goto LABEL_28;
   }
 
-  _CUILog(1, "Defaulting to Device Gray colorspace", v15, v16, v17, v18, v19, v20, v41);
+  _CUILog(1, "Defaulting to Device Gray colorspace");
 LABEL_20:
   DeviceRGB = CGColorSpaceCreateDeviceGray();
 LABEL_28:
-  v26 = DeviceRGB;
+  v20 = DeviceRGB;
 LABEL_29:
   if (header->var11.var0)
   {
-    v34 = 0;
+    v22 = 0;
     do
     {
-      v35 = (v9 + header->var11.var1[v34]);
-      if (!v34)
+      v23 = (v9 + header->var11.var1[v22]);
+      if (!v22)
       {
-        var0 = v35->var1.var0;
+        var0 = v23->var1.var0;
         renditionFlags = [v6 renditionFlags];
         *renditionFlags = *renditionFlags & 0xFFFFFFFD | (2 * ((var0 >> 1) & 1));
       }
 
-      v38 = objc_alloc_init(CSITextureHelper);
-      v38->bmp = v35;
-      v38->colorspaceHint = CGColorSpaceRetain(v26);
+      v26 = objc_alloc_init(CSITextureHelper);
+      v26->bmp = v23;
+      v26->colorspaceHint = CGColorSpaceRetain(v20);
       if (v10)
       {
-        v39 = *v10;
+        v27 = *v10;
       }
 
       else
       {
-        v39 = 0;
+        v27 = 0;
       }
 
-      v38->sourceRowbytes = v39;
-      v38->width = header->var3;
-      v38->height = header->var4;
-      v38->pixelFormat = header->var6;
-      [v6[27] addObject:v38];
+      v26->sourceRowbytes = v27;
+      v26->width = header->var3;
+      v26->height = header->var4;
+      v26->pixelFormat = header->var6;
+      [v6[27] addObject:v26];
 
-      ++v34;
+      ++v22;
     }
 
-    while (v34 < header->var11.var0);
+    while (v22 < header->var11.var0);
   }
 
-  CGColorSpaceRelease(v26);
+  CGColorSpaceRelease(v20);
   return v6;
 }
 

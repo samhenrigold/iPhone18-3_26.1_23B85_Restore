@@ -14,7 +14,7 @@ void __get_DKAnyStringIdentifierClass_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "_DKAnyStringIdentifier");
     CoreDuetLibrary();
   }
 }

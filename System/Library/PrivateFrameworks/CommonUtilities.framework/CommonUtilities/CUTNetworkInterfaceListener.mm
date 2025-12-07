@@ -26,9 +26,9 @@
 
 - (CUTNetworkInterfaceListener)init
 {
-  v13.receiver = self;
-  v13.super_class = CUTNetworkInterfaceListener;
-  v2 = [(CUTNetworkInterfaceListener *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = CUTNetworkInterfaceListener;
+  v2 = [(CUTNetworkInterfaceListener *)&v14 init];
   if (v2)
   {
     v3 = objc_autoreleasePoolPush();
@@ -46,12 +46,12 @@
     *(v2 + 1) = v6;
     if (v6)
     {
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"State:/Network/Interface/[^/]+/IPv4", @"State:/Network/Interface/[^/]+/IPv6", 0}];
-      if (SCDynamicStoreSetNotificationKeys(*(v2 + 1), 0, v7))
+      v8 = objc_msgSend_arrayWithObjects_(MEMORY[0x1E695DEC8], v7, @"State:/Network/Interface/[^/]+/IPv4", @"State:/Network/Interface/[^/]+/IPv6", 0);
+      if (SCDynamicStoreSetNotificationKeys(*(v2 + 1), 0, v8))
       {
-        v8 = *(v2 + 1);
-        v9 = dispatch_get_global_queue(0, 0);
-        SCDynamicStoreSetDispatchQueue(v8, v9);
+        v9 = *(v2 + 1);
+        v10 = dispatch_get_global_queue(0, 0);
+        SCDynamicStoreSetDispatchQueue(v9, v10);
       }
 
       else
@@ -72,7 +72,7 @@
     }
 
     objc_autoreleasePoolPop(v3);
-    v10 = v2;
+    v11 = v2;
   }
 
   return v2;
@@ -88,80 +88,79 @@
 
 - (void)_handleNetworkChange:(id)change
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
+  v33 = *MEMORY[0x1E69E9840];
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   obj = change;
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v4)
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v28, v32, 16);
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v23;
-    v20 = *v23;
+    v7 = v5;
+    v8 = *v29;
+    v26 = *v29;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v6)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * i);
-        v9 = [(__CFString *)v8 hasPrefix:@"State:/Network/Interface/en", v20];
-        v10 = [(__CFString *)v8 hasPrefix:@"State:/Network/Interface/pdp_ip"];
-        v11 = v10;
-        if ((v9 & 1) != 0 || v10)
+        v10 = *(*(&v28 + 1) + 8 * i);
+        hasPrefix = objc_msgSend_hasPrefix_(v10, v6, @"State:/Network/Interface/en", v26);
+        v13 = objc_msgSend_hasPrefix_(v10, v12, @"State:/Network/Interface/pdp_ip");
+        v14 = v13;
+        if ((hasPrefix & 1) != 0 || v13)
         {
-          v12 = [(__CFString *)v8 hasSuffix:@"/IPv6"];
-          v13 = SCDynamicStoreCopyValue(self->_dynamicStore, v8);
-          if (v13)
+          hasSuffix = objc_msgSend_hasSuffix_(v10, v6, @"/IPv6");
+          v16 = SCDynamicStoreCopyValue(self->_dynamicStore, v10);
+          if (v16)
           {
-            v14 = v13;
+            v17 = v16;
             TypeID = CFDictionaryGetTypeID();
-            if (TypeID == CFGetTypeID(v14))
+            if (TypeID == CFGetTypeID(v17))
             {
-              v16 = [v14 objectForKey:@"Addresses"];
-              v17 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v16];
-              [(CUTNetworkInterfaceListener *)self _notifyDelegatesOfAddressChange:v17 isIPv6:v12];
+              v20 = objc_msgSend_objectForKey_(v17, v19, @"Addresses");
+              v21 = objc_alloc(MEMORY[0x1E695DFD8]);
+              v23 = objc_msgSend_initWithArray_(v21, v22, v20);
+              objc_msgSend__notifyDelegatesOfAddressChange_isIPv6_(self, v24, v23, hasSuffix);
             }
 
-            CFRelease(v14);
-            v18 = 1;
-            v6 = v20;
-            if (v11)
+            CFRelease(v17);
+            v25 = 1;
+            v8 = v26;
+            if (v14)
             {
 LABEL_12:
-              [(CUTNetworkInterfaceListener *)self _notifyDelegatesOfCellChange:v18];
+              objc_msgSend__notifyDelegatesOfCellChange_(self, v6, v25);
               continue;
             }
           }
 
           else
           {
-            v18 = 0;
-            if (v11)
+            v25 = 0;
+            if (v14)
             {
               goto LABEL_12;
             }
           }
 
-          if (v9)
+          if (hasPrefix)
           {
-            [(CUTNetworkInterfaceListener *)self _notifyDelegatesOfWifiChange:v18];
+            objc_msgSend__notifyDelegatesOfWifiChange_(self, v6, v25);
           }
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v28, v32, 16);
     }
 
-    while (v5);
+    while (v7);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyDelegatesOfWifiChange:(int)change

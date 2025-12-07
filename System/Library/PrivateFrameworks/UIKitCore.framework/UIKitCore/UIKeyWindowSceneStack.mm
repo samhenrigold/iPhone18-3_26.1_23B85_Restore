@@ -132,7 +132,7 @@ LABEL_4:
 
   v13 = [v12 session];
   v14 = [v13 role];
-  v15 = [v14 isEqualToString:@"UIWindowSceneSessionTypeCoverSheet"];
+  isEqualToString = objc_msgSend_isEqualToString_(v14);
 
   if (a3)
   {
@@ -146,19 +146,19 @@ LABEL_4:
 
   v17 = [v16 session];
   v18 = [v17 role];
-  v19 = [v18 isEqualToString:@"UIWindowSceneSessionTypeCoverSheet"];
+  v19 = objc_msgSend_isEqualToString_(v18);
 
-  if (((v15 | v19 ^ 1) & 1) == 0)
+  if (((isEqualToString | v19 ^ 1) & 1) == 0)
   {
     return -1;
   }
 
-  if (((v15 ^ 1 | v19) & 1) == 0)
+  if (((isEqualToString ^ 1 | v19) & 1) == 0)
   {
     return 1;
   }
 
-  if (v5 | v6 && ((v15 ^ 1 | v19 ^ 1) & 1) != 0)
+  if (v5 | v6 && ((isEqualToString ^ 1 | v19 ^ 1) & 1) != 0)
   {
     if (v5 == 1 && v6 == 1)
     {
@@ -283,7 +283,7 @@ void __59___UIKeyWindowSceneStack_keyWindowSceneInStackPassingTest___block_invok
     a2 = *(a2 + 8);
   }
 
-  if ((*(v7 + 16))(v7, a2))
+  if ((*(v7 + 16))(v7, a2, a3))
   {
     if (v5)
     {

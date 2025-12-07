@@ -33,7 +33,7 @@
 
 - (id)matchingRemoteIdentityUserForHome:()HMDUser
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (!v4)
   {
@@ -44,11 +44,11 @@
     {
       v17 = HMFGetLogIdentifier();
       identifier = [selfCopy2 identifier];
-      v21 = 138543618;
-      v22 = v17;
-      v23 = 2112;
-      v24 = identifier;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to find matching identity user for home as home was nil for message %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v17;
+      v22 = 2112;
+      v23 = identifier;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to find matching identity user for home as home was nil for message %@", &v20, 0x16u);
 
 LABEL_16:
     }
@@ -68,11 +68,11 @@ LABEL_17:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v17;
-      v23 = 2112;
-      v24 = selfCopy2;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to find matching identity user for home because message is not remote: %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v17;
+      v22 = 2112;
+      v23 = selfCopy2;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to find matching identity user for home because message is not remote: %@", &v20, 0x16u);
       goto LABEL_16;
     }
 
@@ -95,11 +95,11 @@ LABEL_17:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = HMFGetLogIdentifier();
-        v21 = 138543618;
-        v22 = v13;
-        v23 = 2112;
-        v24 = selfCopy3;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to find matching identity user for home for message %@", &v21, 0x16u);
+        v20 = 138543618;
+        v21 = v13;
+        v22 = 2112;
+        v23 = selfCopy3;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to find matching identity user for home for message %@", &v20, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -108,7 +108,6 @@ LABEL_17:
   }
 
 LABEL_18:
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

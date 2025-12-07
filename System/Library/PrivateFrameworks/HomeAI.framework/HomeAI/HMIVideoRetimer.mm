@@ -53,7 +53,7 @@
       CMTimeSubtract(&v11.duration, &lhs, &v9);
       CMSampleBufferCreateCopyWithNewTiming(0, self->_lastSample, 1, &v11, &sampleBufferOut);
       delegate = [(HMIVideoRetimer *)self delegate];
-      [delegate retimer:self didRetimeSampleBuffer:sampleBufferOut];
+      [delegate retimer:? didRetimeSampleBuffer:?];
 
       CFRelease(sampleBufferOut);
       CFRelease(self->_lastSample);
@@ -94,7 +94,7 @@
       CMTimeSubtract(&time1.duration, &time2, &v11);
       CMSampleBufferCreateCopyWithNewTiming(0, self->_lastSample, 1, &time1, &sampleBufferOut);
       delegate = [(HMIVideoRetimer *)self delegate];
-      [delegate retimer:self didRetimeSampleBuffer:sampleBufferOut];
+      [delegate retimer:? didRetimeSampleBuffer:?];
 
       CFRelease(sampleBufferOut);
     }

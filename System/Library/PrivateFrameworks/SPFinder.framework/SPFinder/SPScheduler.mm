@@ -43,7 +43,7 @@
 
 - (SPSchedulerXPCProtocol)proxy
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   queue = [(SPScheduler *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -60,9 +60,9 @@
     {
       serviceDescription2 = [(SPScheduler *)self serviceDescription];
       machService = [serviceDescription2 machService];
-      v15 = 138412290;
-      v16 = machService;
-      _os_log_impl(&dword_2643BF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SPScheduler: Establishing XPC connection to %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = machService;
+      _os_log_impl(&dword_2643BF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "SPScheduler: Establishing XPC connection to %@", &v14, 0xCu);
     }
 
     session2 = [(SPScheduler *)self session];
@@ -71,8 +71,6 @@
 
   session3 = [(SPScheduler *)self session];
   proxy = [session3 proxy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return proxy;
 }

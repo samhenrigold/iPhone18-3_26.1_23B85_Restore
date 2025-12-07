@@ -27,58 +27,56 @@
 
 - (void)buildView
 {
-  v40[8] = *MEMORY[0x277D85DE8];
+  v39[8] = *MEMORY[0x277D85DE8];
   backgroundView = [(AEDBannerView *)self backgroundView];
   [(AEDBannerView *)self addSubview:backgroundView];
 
   titleLabel = [(AEDBannerView *)self titleLabel];
   [(AEDBannerView *)self addSubview:titleLabel];
 
-  v26 = MEMORY[0x277CCAAD0];
+  v25 = MEMORY[0x277CCAAD0];
   backgroundView2 = [(AEDBannerView *)self backgroundView];
   leadingAnchor = [backgroundView2 leadingAnchor];
   leadingAnchor2 = [(AEDBannerView *)self leadingAnchor];
-  v36 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v40[0] = v36;
+  v35 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v39[0] = v35;
   backgroundView3 = [(AEDBannerView *)self backgroundView];
   trailingAnchor = [backgroundView3 trailingAnchor];
   trailingAnchor2 = [(AEDBannerView *)self trailingAnchor];
-  v32 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v40[1] = v32;
+  v31 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v39[1] = v31;
   backgroundView4 = [(AEDBannerView *)self backgroundView];
   topAnchor = [backgroundView4 topAnchor];
   topAnchor2 = [(AEDBannerView *)self topAnchor];
-  v28 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v40[2] = v28;
+  v27 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v39[2] = v27;
   backgroundView5 = [(AEDBannerView *)self backgroundView];
   bottomAnchor = [backgroundView5 bottomAnchor];
   bottomAnchor2 = [(AEDBannerView *)self bottomAnchor];
-  v23 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v40[3] = v23;
+  v22 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v39[3] = v22;
   titleLabel2 = [(AEDBannerView *)self titleLabel];
   leadingAnchor3 = [titleLabel2 leadingAnchor];
   leadingAnchor4 = [(AEDBannerView *)self leadingAnchor];
-  v19 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:5.0];
-  v40[4] = v19;
+  v18 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:5.0];
+  v39[4] = v18;
   titleLabel3 = [(AEDBannerView *)self titleLabel];
   trailingAnchor3 = [titleLabel3 trailingAnchor];
   trailingAnchor4 = [(AEDBannerView *)self trailingAnchor];
   v5 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-5.0];
-  v40[5] = v5;
+  v39[5] = v5;
   titleLabel4 = [(AEDBannerView *)self titleLabel];
   topAnchor3 = [titleLabel4 topAnchor];
   topAnchor4 = [(AEDBannerView *)self topAnchor];
   v9 = [topAnchor3 constraintEqualToAnchor:topAnchor4 constant:13.0];
-  v40[6] = v9;
+  v39[6] = v9;
   titleLabel5 = [(AEDBannerView *)self titleLabel];
   bottomAnchor3 = [titleLabel5 bottomAnchor];
   bottomAnchor4 = [(AEDBannerView *)self bottomAnchor];
   v13 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:-13.0];
-  v40[7] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:8];
-  [v26 activateConstraints:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v39[7] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:8];
+  [v25 activateConstraints:v14];
 }
 
 - (UIView)backgroundView

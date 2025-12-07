@@ -67,7 +67,7 @@
   v21 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   completionCopy = completion;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v19 = 138412290;

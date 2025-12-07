@@ -15,9 +15,9 @@
   {
     v6 = [HMIMemoryAVAsset alloc];
     data = [fragmentCopy data];
-    v8 = [(HMIMemoryAVAsset *)v6 initWithData:data];
+    v8 = [(HMIMemoryAVAsset *)v6 initWithData:?];
 
-    v9 = [[HMIVideoAssetReader alloc] initWithAsset:v8];
+    v9 = [[HMIVideoAssetReader alloc] initWithAsset:?];
     reader = v5->_reader;
     v5->_reader = v9;
   }
@@ -31,21 +31,16 @@
   handlerCopy = handler;
   v8 = objc_opt_new();
   v9 = objc_opt_new();
-  [v8 setDelegate:v9];
+  [v8 setDelegate:?];
   array = [MEMORY[0x277CBEB18] array];
   v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __72__HMIVideoFrameGenerator_generateVideoFramesForTimes_completionHandler___block_invoke;
-  v19 = &unk_2787542D8;
   v11 = timesCopy;
-  v20 = v11;
   v12 = array;
-  v21 = v12;
-  [v9 setDecoderDidDecodeSampleBuffer:&v16];
+  [v9 setDecoderDidDecodeSampleBuffer:{v16, 3221225472, __72__HMIVideoFrameGenerator_generateVideoFramesForTimes_completionHandler___block_invoke, &unk_2787542D8}];
   while (1)
   {
-    v13 = [(HMIVideoFrameGenerator *)self reader:v16];
-    copyNextSampleBuffer = [v13 copyNextSampleBuffer];
+    reader = [(HMIVideoFrameGenerator *)self reader];
+    copyNextSampleBuffer = [reader copyNextSampleBuffer];
 
     if (!copyNextSampleBuffer)
     {
@@ -55,7 +50,7 @@
     if (HMICMSampleBufferIsVideo(copyNextSampleBuffer))
     {
       CopyWithoutEdits = HMICMSampleBufferCreateCopyWithoutEdits(copyNextSampleBuffer);
-      [v8 handleSampleBuffer:CopyWithoutEdits outputFrame:1];
+      [v8 handleSampleBuffer:? outputFrame:?];
       CFRelease(CopyWithoutEdits);
     }
 
@@ -68,19 +63,13 @@
 
 void __72__HMIVideoFrameGenerator_generateVideoFramesForTimes_completionHandler___block_invoke(uint64_t a1, uint64_t a2, opaqueCMSampleBuffer *a3)
 {
-  memset(&v10, 0, sizeof(v10));
-  HMICMSampleBufferGetPresentationTimeRange(a3, &v10);
-  v5 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __72__HMIVideoFrameGenerator_generateVideoFramesForTimes_completionHandler___block_invoke_2;
-  v8[3] = &__block_descriptor_80_e17_B16__0__NSValue_8l;
-  v9 = v10;
-  if ([v5 na_any:v8])
+  memset(&v6, 0, sizeof(v6));
+  HMICMSampleBufferGetPresentationTimeRange(a3, &v6);
+  if ([*(a1 + 32) na_any:{MEMORY[0x277D85DD0], 3221225472, __72__HMIVideoFrameGenerator_generateVideoFramesForTimes_completionHandler___block_invoke_2, &__block_descriptor_80_e17_B16__0__NSValue_8l, *&v6.start.value, *&v6.start.epoch, *&v6.duration.timescale}])
   {
-    v6 = *(a1 + 40);
-    v7 = [[HMIVideoFrame alloc] initWithSampleBuffer:a3];
-    [v6 addObject:v7];
+    v4 = *(a1 + 40);
+    v5 = [[HMIVideoFrame alloc] initWithSampleBuffer:?];
+    [v4 addObject:?];
   }
 }
 
@@ -88,7 +77,7 @@ BOOL __72__HMIVideoFrameGenerator_generateVideoFramesForTimes_completionHandler_
 {
   if (a2)
   {
-    [a2 CMTimeValue];
+    [&time CMTimeValue];
   }
 
   else

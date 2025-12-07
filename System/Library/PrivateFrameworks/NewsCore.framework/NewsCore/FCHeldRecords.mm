@@ -162,31 +162,31 @@
 
 - (void)enumerateRecordsAndInterestTokensInOrder:(id)order withBlock:(id)block
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   orderCopy = order;
   blockCopy = block;
   if (blockCopy)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
-    v8 = [orderCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v8 = [orderCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         v11 = 0;
         do
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(orderCopy);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * v11);
+          v12 = *(*(&v18 + 1) + 8 * v11);
           recordsByID = [(FCHeldRecords *)self recordsByID];
           v14 = [recordsByID objectForKey:v12];
 
@@ -212,14 +212,12 @@
         }
 
         while (v9 != v11);
-        v9 = [orderCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [orderCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)transformRecordsWithBlock:(id)block
@@ -321,37 +319,35 @@ void __47__FCHeldRecords_transformRecordsByIDWithBlock___block_invoke(uint64_t a
 
 - (id)heldRecordsPassingTest:(id)test
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   testCopy = test;
   if (!testCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "test"];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "test"];
     *buf = 136315906;
-    v17 = "[FCHeldRecords heldRecordsPassingTest:]";
-    v18 = 2080;
-    v19 = "FCHeldRecords.m";
-    v20 = 1024;
-    v21 = 146;
-    v22 = 2114;
-    v23 = v12;
+    v16 = "[FCHeldRecords heldRecordsPassingTest:]";
+    v17 = 2080;
+    v18 = "FCHeldRecords.m";
+    v19 = 1024;
+    v20 = 146;
+    v21 = 2114;
+    v22 = v11;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v5 = objc_opt_new();
   recordsByID = [(FCHeldRecords *)self recordsByID];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __40__FCHeldRecords_heldRecordsPassingTest___block_invoke;
-  v13[3] = &unk_1E7C41118;
-  v14 = v5;
-  v15 = testCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __40__FCHeldRecords_heldRecordsPassingTest___block_invoke;
+  v12[3] = &unk_1E7C41118;
+  v13 = v5;
+  v14 = testCopy;
   v7 = v5;
   v8 = testCopy;
-  [recordsByID enumerateKeysAndObjectsUsingBlock:v13];
+  [recordsByID enumerateKeysAndObjectsUsingBlock:v12];
 
   v9 = [(FCHeldRecords *)self heldRecordsForIDs:v7];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -367,19 +363,19 @@ void __40__FCHeldRecords_heldRecordsPassingTest___block_invoke(uint64_t a1, void
 
 - (id)heldRecordsForIDs:(id)ds
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if (!dsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordIDs"];
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordIDs"];
     *buf = 136315906;
-    v15 = "[FCHeldRecords heldRecordsForIDs:]";
-    v16 = 2080;
-    v17 = "FCHeldRecords.m";
-    v18 = 1024;
-    v19 = 163;
-    v20 = 2114;
-    v21 = v13;
+    v14 = "[FCHeldRecords heldRecordsForIDs:]";
+    v15 = 2080;
+    v16 = "FCHeldRecords.m";
+    v17 = 1024;
+    v18 = 163;
+    v19 = 2114;
+    v20 = v12;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -389,8 +385,6 @@ void __40__FCHeldRecords_heldRecordsPassingTest___block_invoke(uint64_t a1, void
   interestTokensByID = [(FCHeldRecords *)self interestTokensByID];
   v9 = [interestTokensByID fc_subdictionaryForKeys:dsCopy];
   v10 = [(FCHeldRecords *)v5 initWithRecordsByID:v7 interestTokensByID:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

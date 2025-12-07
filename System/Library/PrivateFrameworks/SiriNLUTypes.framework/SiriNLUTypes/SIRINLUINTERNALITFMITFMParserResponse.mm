@@ -15,7 +15,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 36);
@@ -47,35 +47,33 @@
     [(SIRINLUINTERNALITFMITFMParserResponse *)self setParser:?];
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = *(v5 + 2);
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [(SIRINLUINTERNALITFMITFMParserResponse *)self addHypotheses:*(*(&v15 + 1) + 8 * i), v15];
+        [(SIRINLUINTERNALITFMITFMParserResponse *)self addHypotheses:*(*(&v14 + 1) + 8 * i), v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -138,7 +136,6 @@ LABEL_9:
     goto LABEL_18;
   }
 
-  v5 = *(equalCopy + 36);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 36) & 2) == 0)
@@ -147,7 +144,7 @@ LABEL_9:
     }
 
 LABEL_18:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_19;
   }
 
@@ -156,7 +153,6 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v6 = *(equalCopy + 32);
   if (self->_classificationLabel)
   {
     if ((*(equalCopy + 32) & 1) == 0)
@@ -193,22 +189,22 @@ LABEL_4:
   hypotheses = self->_hypotheses;
   if (hypotheses | *(equalCopy + 2))
   {
-    v9 = [(NSMutableArray *)hypotheses isEqual:?];
+    v7 = [(NSMutableArray *)hypotheses isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v7 = 1;
   }
 
 LABEL_19:
 
-  return v9;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -229,36 +225,35 @@ LABEL_19:
   v9 = v6[3];
   v6[3] = v8;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = self->_hypotheses;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v18 + 1) + 8 * i) copyWithZone:{zone, v18}];
+        v15 = [*(*(&v17 + 1) + 8 * i) copyWithZone:{zone, v17}];
         [v6 addHypotheses:v15];
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -303,19 +298,17 @@ LABEL_19:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   has = self->_has;
   if ((has & 2) != 0)
   {
-    classificationLabel = self->_classificationLabel;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if (has)
   {
-    classificationProbability = self->_classificationProbability;
     PBDataWriterWriteFloatField();
   }
 
@@ -324,41 +317,38 @@ LABEL_19:
     PBDataWriterWriteSubmessage();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v8 = self->_hypotheses;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_hypotheses;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v16;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   has = self->_has;
   if ((has & 2) != 0)
@@ -386,30 +376,30 @@ LABEL_19:
   if ([(NSMutableArray *)self->_hypotheses count])
   {
     v10 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_hypotheses, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v11 = self->_hypotheses;
-    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation2 = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           [v10 addObject:dictionaryRepresentation2];
         }
 
-        v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v13);
@@ -417,8 +407,6 @@ LABEL_19:
 
     [dictionary setObject:v10 forKey:@"hypotheses"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

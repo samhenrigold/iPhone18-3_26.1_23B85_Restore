@@ -56,7 +56,7 @@ LABEL_5:
   v23 = "+[NWConnection connectionWithInternalConnection:]";
   v24 = 1024;
   v25 = v6;
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s Parameters must specify a valid data mode for new connections (received %u)", buf, 18);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;
@@ -163,7 +163,7 @@ LABEL_23:
   v3 = gLogObj;
   *buf = 136446210;
   v17 = "+[NWConnection connectionWithConnectedSocket:]";
-  v4 = _os_log_send_and_compose_impl();
+  v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s Must all connectionWithConnectedSocket on a subclass of NWConnection", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v14 = 0;
@@ -259,7 +259,7 @@ LABEL_11:
 
 + (id)connectionWithEndpoint:(id)endpoint parameters:(id)parameters
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   parametersCopy = parameters;
   if ([parametersCopy dataMode] == 2)
@@ -286,15 +286,14 @@ LABEL_7:
   networkd_settings_init();
   v10 = gLogObj;
   *buf = 136446466;
-  v28 = "+[NWConnection connectionWithEndpoint:parameters:]";
-  v29 = 1024;
+  v27 = "+[NWConnection connectionWithEndpoint:parameters:]";
+  v28 = 1024;
   dataMode = [parametersCopy dataMode];
-  LODWORD(v24) = 18;
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s Parameters must specify a valid data mode for new connections (received %u)", buf, 18);
 
   type = OS_LOG_TYPE_ERROR;
-  v25 = 0;
-  if (__nwlog_fault(v11, &type, &v25))
+  v24 = 0;
+  if (__nwlog_fault(v11, &type, &v24))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
@@ -306,8 +305,8 @@ LABEL_7:
       {
         dataMode2 = [parametersCopy dataMode];
         *buf = 136446466;
-        v28 = "+[NWConnection connectionWithEndpoint:parameters:]";
-        v29 = 1024;
+        v27 = "+[NWConnection connectionWithEndpoint:parameters:]";
+        v28 = 1024;
         dataMode = dataMode2;
         v15 = "%{public}s Parameters must specify a valid data mode for new connections (received %u)";
 LABEL_22:
@@ -320,7 +319,7 @@ LABEL_23:
 
     else
     {
-      if (v25 == 1)
+      if (v24 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -334,11 +333,11 @@ LABEL_23:
           {
             dataMode3 = [parametersCopy dataMode];
             *buf = 136446722;
-            v28 = "+[NWConnection connectionWithEndpoint:parameters:]";
-            v29 = 1024;
+            v27 = "+[NWConnection connectionWithEndpoint:parameters:]";
+            v28 = 1024;
             dataMode = dataMode3;
-            v31 = 2082;
-            v32 = backtrace_string;
+            v30 = 2082;
+            v31 = backtrace_string;
             _os_log_impl(&dword_181A37000, v12, v17, "%{public}s Parameters must specify a valid data mode for new connections (received %u), dumping backtrace:%{public}s", buf, 0x1Cu);
           }
 
@@ -353,8 +352,8 @@ LABEL_23:
 
         dataMode4 = [parametersCopy dataMode];
         *buf = 136446466;
-        v28 = "+[NWConnection connectionWithEndpoint:parameters:]";
-        v29 = 1024;
+        v27 = "+[NWConnection connectionWithEndpoint:parameters:]";
+        v28 = 1024;
         dataMode = dataMode4;
         v15 = "%{public}s Parameters must specify a valid data mode for new connections (received %u), no backtrace";
         v21 = v12;
@@ -370,8 +369,8 @@ LABEL_23:
       {
         dataMode5 = [parametersCopy dataMode];
         *buf = 136446466;
-        v28 = "+[NWConnection connectionWithEndpoint:parameters:]";
-        v29 = 1024;
+        v27 = "+[NWConnection connectionWithEndpoint:parameters:]";
+        v28 = 1024;
         dataMode = dataMode5;
         v15 = "%{public}s Parameters must specify a valid data mode for new connections (received %u), backtrace limit exceeded";
         goto LABEL_22;
@@ -428,7 +427,7 @@ LABEL_8:
   v5 = gLogObj;
   *buf = 136446210;
   v19 = "[NWConnection parameters]";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s nw_connection_copy_parameters failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -543,7 +542,7 @@ LABEL_15:
   v5 = gLogObj;
   *buf = 136446210;
   v19 = "[NWConnection endpoint]";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s nw_connection_copy_endpoint failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -814,7 +813,7 @@ LABEL_15:
   v9 = __nwlog_obj();
   *buf = 136446210;
   v20 = "[NWConnection initWithInternalConnection:]";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -895,6 +894,7 @@ LABEL_3:
 
 - (NWConnection)initWithConnectedSocket:(int)socket
 {
+  v3 = *&socket;
   v34 = *MEMORY[0x1E69E9840];
   v29.receiver = self;
   v29.super_class = NWConnection;
@@ -904,7 +904,7 @@ LABEL_3:
     v21 = __nwlog_obj();
     *buf = 136446210;
     v31 = "[NWConnection initWithConnectedSocket:]";
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v27 = 0;
@@ -1009,7 +1009,7 @@ LABEL_20:
     }
   }
 
-  v6 = nw_connection_create_with_connected_socket(socket, v5);
+  v6 = nw_connection_create_with_connected_socket(v3, v5);
   [(NWConnection *)v4 setInternalConnection:v6];
 
   internalConnection = [(NWConnection *)v4 internalConnection];
@@ -1021,7 +1021,7 @@ LABEL_20:
     v9 = gLogObj;
     *buf = 136446210;
     v31 = "[NWConnection initWithConnectedSocket:]";
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s nw_connection_create_with_connected_socket failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v27 = 0;
@@ -1156,7 +1156,7 @@ LABEL_22:
   v16 = __nwlog_obj();
   *buf = 136446210;
   v27 = "[NWConnection initWithEndpoint:parameters:]";
-  v17 = _os_log_send_and_compose_impl();
+  v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v23 = 0;

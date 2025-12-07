@@ -3,7 +3,7 @@
 - (ARTrackedRaycastPostProcessor)initWithSession:(id)session;
 - (BOOL)result:(id)result isCloseEnoughToInitialResultForRaycast:(id)raycast;
 - (NSArray)trackedRaycasts;
-- (double)updatePose:(__n128)pose referenceOriginTransform:(__n128)transform oldRayOrigin:(simd_float4)origin oldRayDirection:(simd_float4)direction newRayOrigin:(simd_float4)rayOrigin newRayDirection:(simd_float4)rayDirection;
+- (uint64_t)updatePose:(double)pose referenceOriginTransform:(double)transform oldRayOrigin:(__n128)origin oldRayDirection:(__n128)direction newRayOrigin:(__n128)rayOrigin newRayDirection:(__n128)rayDirection;
 - (void)addTrackedRaycast:(id)raycast andProcessInitialResults:(id)results;
 - (void)dealloc;
 - (void)invalidateAllRaycasts;
@@ -390,7 +390,7 @@ void __55__ARTrackedRaycastPostProcessor_processUpdatedResults___block_invoke_2(
           v93 = v13;
           v84 = v16;
           v87 = v15;
-          [v10 transform];
+          objc_msgSend_transform(v10);
           v17 = 0;
           v107 = v18;
           v108 = v19;
@@ -530,14 +530,15 @@ void __55__ARTrackedRaycastPostProcessor_processUpdatedResults___block_invoke_2(
   dispatch_semaphore_signal(_trackedRaycastSemaphore);
 }
 
-- (double)updatePose:(__n128)pose referenceOriginTransform:(__n128)transform oldRayOrigin:(simd_float4)origin oldRayDirection:(simd_float4)direction newRayOrigin:(simd_float4)rayOrigin newRayDirection:(simd_float4)rayDirection
+- (uint64_t)updatePose:(double)pose referenceOriginTransform:(double)transform oldRayOrigin:(__n128)origin oldRayDirection:(__n128)direction newRayOrigin:(__n128)rayOrigin newRayDirection:(__n128)rayDirection
 {
-  v20 = *MEMORY[0x1E69E9840];
-  *v8.i64 = ARVisionTransformFromWorldTransform(self, a2, pose, transform, origin, direction, rayOrigin, rayDirection);
-  ARMatrix4x4RowMajorRotationAndTranslation(v19, &v18, v8, v9, v10, v11);
+  v26 = *MEMORY[0x1E69E9840];
+  *v14.i64 = ARVisionTransformFromWorldTransform(*&self, *&a2, *&pose, *&transform, origin, direction, rayOrigin, rayDirection);
+  ARMatrix4x4RowMajorRotationAndTranslation(v25, &v24, v14, v15, v16, v17);
   CV3DUpdateHitTestResultPose();
-  *v21.columns[0].i64 = ARMatrix4x4MakeRowMajorTransform(v17);
-  return ARWorldTransformFromVisionTransform(v21, origin, direction, rayOrigin, rayDirection);
+  *v27.columns[0].i64 = ARMatrix4x4MakeRowMajorTransform(v23);
+  ARWorldTransformFromVisionTransform(v27, origin, direction, rayOrigin, rayDirection);
+  return result;
 }
 
 - (BOOL)result:(id)result isCloseEnoughToInitialResultForRaycast:(id)raycast
@@ -630,7 +631,8 @@ void __49__ARTrackedRaycastPostProcessor_updateFromTimer___block_invoke(uint64_t
     {
       [v9 worldTransform];
       v106 = v11;
-      *v124.columns[0].i64 = ARMatrix3x3FromMatrix4x4([v10 worldTransform]);
+      [v10 worldTransform];
+      ARMatrix3x3FromMatrix4x4();
       *v12.i64 = simd_quaternion(v124);
       v102 = v12;
       p_vtable = &OBJC_METACLASS___ARTrackedRaycastPostProcessor.vtable;
@@ -638,7 +640,8 @@ void __49__ARTrackedRaycastPostProcessor_updateFromTimer___block_invoke(uint64_t
       v15 = [v14 lastObject];
       [v15 worldTransform];
       v108 = v16;
-      *v125.columns[0].i64 = ARMatrix3x3FromMatrix4x4([v15 worldTransform]);
+      [v15 worldTransform];
+      ARMatrix3x3FromMatrix4x4();
       *v17.i64 = simd_quaternion(v125);
       v18 = v17;
       v19 = vsubq_f32(v108, v106);

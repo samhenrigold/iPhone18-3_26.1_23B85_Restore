@@ -11,8 +11,10 @@
 - (id)dataForZipEntry:(id)entry inDataToWrite:(id)write;
 - (id)filenameForData:(id)data preferredFilename:(id)filename;
 - (id)linkOrCopyData:(id)data fromURL:(id)l fromTemporaryLocation:(BOOL)location decryptionInfo:(id)info preferredFilename:(id)filename error:(id *)error;
+- (id)newComponentWriteChannelWithPackageLocator:(id)locator compressionAlgorithm:(int64_t)algorithm storeOutsideObjectArchive:(BOOL)archive;
 - (id)newCompressionComponentWriteChannelWithComponentWriteChannel:(id)channel compressionAlgorithm:(int64_t)algorithm;
 - (id)newPackageWithPackageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties fileFormatVersion:(unint64_t)version decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate;
+- (id)newRawComponentWriteChannelWithPackageLocator:(id)locator storeOutsideObjectArchive:(BOOL)archive;
 - (id)newRawDataWriteChannelForRelativePath:(id)path originalLastModificationDate:(id)date originalSize:(unint64_t)size originalCRC:(unsigned int)c forceCalculatingSizeAndCRCForPreservingLastModificationDate:(BOOL)modificationDate;
 - (id)packageEntryInfoForComponentLocator:(id)locator isStoredOutsideObjectArchive:(BOOL)archive packageURL:(id)l;
 - (id)writtenPackageWithURL:(id)l;
@@ -146,7 +148,7 @@ LABEL_17:
   dataCopy = data;
   propertiesCopy = properties;
   metadataCopy = metadata;
-  v82 = propertiesCopy;
+  v81 = propertiesCopy;
   metadataCopy2 = metadata;
   policyCopy = policy;
   keyCopy = key;
@@ -154,24 +156,24 @@ LABEL_17:
   supportPackageCopy = supportPackage;
   obj = delegate;
   progressCopy = progress;
-  v87 = lCopy;
+  v86 = lCopy;
   if ([lCopy isFileURL])
   {
-    v92.receiver = self;
-    v92.super_class = TSPPackageWriter;
-    v25 = [(TSPPackageWriter *)&v92 init];
+    v91.receiver = self;
+    v91.super_class = TSPPackageWriter;
+    v25 = [(TSPPackageWriter *)&v91 init];
     if (!v25)
     {
-      v47 = 0;
+      v46 = 0;
 LABEL_33:
       if (error && !v25)
       {
-        *error = [NSError tsp_ensureSaveErrorWithError:v47];
+        *error = [NSError tsp_ensureSaveErrorWithError:v46];
       }
 
       selfCopy2 = v25;
 
-      v46 = selfCopy2;
+      v45 = selfCopy2;
       goto LABEL_37;
     }
 
@@ -193,52 +195,51 @@ LABEL_33:
     objc_storeStrong(&v25->_originalDocumentPackage, package);
     objc_storeStrong(&v25->_originalSupportPackage, supportPackage);
     objc_storeWeak(&v25->_fileCoordinatorDelegate, obj);
-    v32 = [(TSPPackageWriter *)v25 newPackageWithPackageIdentifier:identifierCopy documentProperties:v82 fileFormatVersion:version decryptionKey:keyCopy fileCoordinatorDelegate:v25];
+    v32 = [(TSPPackageWriter *)v25 newPackageWithPackageIdentifier:identifierCopy documentProperties:v81 fileFormatVersion:version decryptionKey:keyCopy fileCoordinatorDelegate:v25];
     writtenPackage = v25->_writtenPackage;
     v25->_writtenPackage = v32;
 
     v25->_updateType = type;
     objc_storeStrong(&v25->_progress, progress);
-    v34 = v25->_writtenPackage;
-    v35 = [objc_opt_class() zipArchiveURLFromPackageURL:lCopy];
-    v36 = v35;
+    v34 = [objc_opt_class() zipArchiveURLFromPackageURL:lCopy];
+    v35 = v34;
     if (mode)
     {
-      v91 = 0;
-      v37 = [v35 checkResourceIsReachableAndReturnError:&v91];
-      v38 = v91;
-      if (!v37)
+      v90 = 0;
+      v36 = [v34 checkResourceIsReachableAndReturnError:&v90];
+      v37 = v90;
+      if (!v36)
       {
 LABEL_25:
-        v88 = 0;
-        v41 = &v88;
-        v42 = [[TSUZipFileWriter alloc] initWithURL:v36 error:&v88];
-        v39 = 0;
+        v87 = 0;
+        v40 = &v87;
+        v41 = [[TSUZipFileWriter alloc] initWithURL:v35 error:&v87];
+        v38 = 0;
         goto LABEL_26;
       }
 
-      v90 = v38;
-      v39 = [TSUZipFileArchive zipArchiveFromURL:v36 options:0 error:&v90];
-      v40 = v90;
+      v89 = v37;
+      v38 = [TSUZipFileArchive zipArchiveFromURL:v35 options:0 error:&v89];
+      v39 = v89;
 
-      if (v39)
+      if (v38)
       {
-        v89 = 0;
-        v41 = &v89;
-        v42 = [[TSUZipFileWriter alloc] initWithZipFileArchive:v39 error:&v89];
-        v38 = v40;
+        v88 = 0;
+        v40 = &v88;
+        v41 = [[TSUZipFileWriter alloc] initWithZipFileArchive:v38 error:&v88];
+        v37 = v39;
 LABEL_26:
-        v47 = *v41;
+        v46 = *v40;
         zipArchiveWriter = v25->_zipArchiveWriter;
-        v25->_zipArchiveWriter = v42;
+        v25->_zipArchiveWriter = v41;
 
-        v50 = v38;
+        v49 = v37;
         if (v25->_zipArchiveWriter)
         {
-          v51 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-          v52 = dispatch_queue_create("TSPPackageWriter.Error", v51);
+          v50 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+          v51 = dispatch_queue_create("TSPPackageWriter.Error", v50);
           errorQueue = v25->_errorQueue;
-          v25->_errorQueue = v52;
+          v25->_errorQueue = v51;
 
           v25->_isOpened = 1;
         }
@@ -250,42 +251,42 @@ LABEL_26:
             sub_10014F9AC();
           }
 
-          v54 = UnsafePointer;
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+          v53 = UnsafePointer;
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
           {
-            v80 = v36;
-            v56 = objc_opt_class();
-            v57 = NSStringFromClass(v56);
-            domain = [v47 domain];
-            code = [v47 code];
-            tsp_isRecoverable = [v47 tsp_isRecoverable];
-            tsp_hintsDescription = [v47 tsp_hintsDescription];
-            v62 = tsp_hintsDescription;
-            v63 = &stru_1001D3878;
+            v79 = v35;
+            v55 = objc_opt_class();
+            v56 = NSStringFromClass(v55);
+            domain = [v46 domain];
+            code = [v46 code];
+            tsp_isRecoverable = [v46 tsp_isRecoverable];
+            tsp_hintsDescription = [v46 tsp_hintsDescription];
+            v61 = tsp_hintsDescription;
+            v62 = &stru_1001D3878;
             *buf = 138413826;
-            v94 = v80;
-            v64 = tsp_isRecoverable == 0;
-            v36 = v80;
-            v95 = 2114;
-            if (!v64)
+            v93 = v79;
+            v63 = tsp_isRecoverable == 0;
+            v35 = v79;
+            v94 = 2114;
+            if (!v63)
             {
-              v63 = @"recoverable=YES, ";
+              v62 = @"recoverable=YES, ";
             }
 
-            v96 = v57;
-            v97 = 2114;
-            v98 = domain;
-            v99 = 2048;
-            v100 = code;
-            v101 = 2114;
-            v102 = v63;
-            v103 = 2114;
-            v104 = tsp_hintsDescription;
-            v105 = 2112;
-            v106 = v47;
-            _os_log_error_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "Failed to create ZIP archive writer. zipArchiveURL=%@, error=errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", buf, 0x48u);
+            v95 = v56;
+            v96 = 2114;
+            v97 = domain;
+            v98 = 2048;
+            v99 = code;
+            v100 = 2114;
+            v101 = v62;
+            v102 = 2114;
+            v103 = tsp_hintsDescription;
+            v104 = 2112;
+            v105 = v46;
+            _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "Failed to create ZIP archive writer. zipArchiveURL=%@, error=errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", buf, 0x48u);
 
-            v50 = v38;
+            v49 = v37;
           }
 
           v25 = 0;
@@ -294,50 +295,50 @@ LABEL_26:
         goto LABEL_33;
       }
 
-      if (v40)
+      if (v39)
       {
         if (UnsafePointer != -1)
         {
           sub_10014F8E8();
         }
 
-        v48 = UnsafePointer;
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v47 = UnsafePointer;
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
-          v81 = v36;
-          v65 = objc_opt_class();
-          v66 = NSStringFromClass(v65);
-          domain2 = [v40 domain];
-          code2 = [v40 code];
-          tsp_isRecoverable2 = [v40 tsp_isRecoverable];
-          tsp_hintsDescription2 = [v40 tsp_hintsDescription];
-          v71 = tsp_hintsDescription2;
-          v72 = &stru_1001D3878;
+          v80 = v35;
+          v64 = objc_opt_class();
+          v65 = NSStringFromClass(v64);
+          domain2 = [v39 domain];
+          code2 = [v39 code];
+          tsp_isRecoverable2 = [v39 tsp_isRecoverable];
+          tsp_hintsDescription2 = [v39 tsp_hintsDescription];
+          v70 = tsp_hintsDescription2;
+          v71 = &stru_1001D3878;
           *buf = 138413826;
-          v94 = v81;
-          v64 = tsp_isRecoverable2 == 0;
-          v36 = v81;
-          v95 = 2114;
-          if (!v64)
+          v93 = v80;
+          v63 = tsp_isRecoverable2 == 0;
+          v35 = v80;
+          v94 = 2114;
+          if (!v63)
           {
-            v72 = @"recoverable=YES, ";
+            v71 = @"recoverable=YES, ";
           }
 
-          v96 = v66;
-          v97 = 2114;
-          v98 = domain2;
-          v99 = 2048;
-          v100 = code2;
-          v101 = 2114;
-          v102 = v72;
-          v103 = 2114;
-          v104 = tsp_hintsDescription2;
-          v105 = 2112;
-          v106 = v40;
-          _os_log_error_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "Error reading zip archive, zipArchiveURL=%@, errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", buf, 0x48u);
+          v95 = v65;
+          v96 = 2114;
+          v97 = domain2;
+          v98 = 2048;
+          v99 = code2;
+          v100 = 2114;
+          v101 = v71;
+          v102 = 2114;
+          v103 = tsp_hintsDescription2;
+          v104 = 2112;
+          v105 = v39;
+          _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "Error reading zip archive, zipArchiveURL=%@, errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", buf, 0x48u);
         }
 
-        v38 = v40;
+        v37 = v39;
         goto LABEL_25;
       }
 
@@ -352,7 +353,7 @@ LABEL_26:
       }
     }
 
-    v38 = 0;
+    v37 = 0;
     goto LABEL_25;
   }
 
@@ -367,27 +368,27 @@ LABEL_26:
     sub_10014F858();
   }
 
-  v43 = [NSString stringWithUTF8String:"[TSPPackageWriter initWithURL:documentTargetURL:relativeURLForExternalData:packageIdentifier:documentProperties:documentMetadata:fileFormatVersion:updateType:cloneMode:documentSaveValidationPolicy:encryptionKey:originalDocumentPackage:originalSupportPackage:fileCoordinatorDelegate:progress:error:]"];
-  v44 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageWriter.mm"];
-  [TSUAssertionHandler handleFailureInFunction:v43 file:v44 lineNumber:156 isFatal:0 description:"Don't support writing to non-file URLs"];
+  v42 = [NSString stringWithUTF8String:"[TSPPackageWriter initWithURL:documentTargetURL:relativeURLForExternalData:packageIdentifier:documentProperties:documentMetadata:fileFormatVersion:updateType:cloneMode:documentSaveValidationPolicy:encryptionKey:originalDocumentPackage:originalSupportPackage:fileCoordinatorDelegate:progress:error:]"];
+  v43 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageWriter.mm"];
+  [TSUAssertionHandler handleFailureInFunction:v42 file:v43 lineNumber:156 isFatal:0 description:"Don't support writing to non-file URLs"];
 
   +[TSUAssertionHandler logBacktraceThrottled];
   if (error)
   {
     [NSError tsp_saveDocumentErrorWithUserInfo:0];
     selfCopy2 = self;
-    *error = v46 = 0;
+    *error = v45 = 0;
   }
 
   else
   {
-    v46 = 0;
+    v45 = 0;
     selfCopy2 = self;
   }
 
 LABEL_37:
 
-  return v46;
+  return v45;
 }
 
 - (void)dealloc
@@ -405,18 +406,18 @@ LABEL_37:
       sub_10014F9E8();
     }
 
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Didn't close", v2, v3, v4, v5, v6, v7, v8, "[TSPPackageWriter dealloc]");
-    v9 = [NSString stringWithUTF8String:"[TSPPackageWriter dealloc]"];
-    v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageWriter.mm"];
-    [TSUAssertionHandler handleFailureInFunction:v9 file:v10 lineNumber:229 isFatal:1 description:"Didn't close"];
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Didn't close", "[TSPPackageWriter dealloc]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageWriter.mm", 229);
+    v2 = [NSString stringWithUTF8String:"[TSPPackageWriter dealloc]"];
+    v3 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageWriter.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v2 file:v3 lineNumber:229 isFatal:1 description:"Didn't close"];
 
     TSUCrashBreakpoint();
     abort();
   }
 
-  v11.receiver = self;
-  v11.super_class = TSPPackageWriter;
-  [(TSPPackageWriter *)&v11 dealloc];
+  v4.receiver = self;
+  v4.super_class = TSPPackageWriter;
+  [(TSPPackageWriter *)&v4 dealloc];
 }
 
 - (TSPPackage)originalPackage
@@ -586,6 +587,86 @@ LABEL_15:
 LABEL_16:
 
   return v7;
+}
+
+- (id)newComponentWriteChannelWithPackageLocator:(id)locator compressionAlgorithm:(int64_t)algorithm storeOutsideObjectArchive:(BOOL)archive
+{
+  archiveCopy = archive;
+  locatorCopy = locator;
+  [(TSPPackageWriter *)self closeCurrentChannel];
+  v9 = [(TSPPackageWriter *)self newRawComponentWriteChannelWithPackageLocator:locatorCopy storeOutsideObjectArchive:archiveCopy];
+  if (v9 && (!self->_encryptionKey || (v10 = [[TSPCryptoComponentWriteChannel alloc] initWithWriteChannel:v9 encryptionInfo:self->_encryptionKey], v9, (v9 = v10) != 0)))
+  {
+    v11 = [(TSPPackageWriter *)self newCompressionComponentWriteChannelWithComponentWriteChannel:v9 compressionAlgorithm:algorithm];
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  componentWriteChannel = self->_componentWriteChannel;
+  self->_componentWriteChannel = v11;
+  v13 = v11;
+
+  v14 = self->_componentWriteChannel;
+  return v14;
+}
+
+- (id)newRawComponentWriteChannelWithPackageLocator:(id)locator storeOutsideObjectArchive:(BOOL)archive
+{
+  archiveCopy = archive;
+  locatorCopy = locator;
+  if (!locatorCopy)
+  {
+    +[TSUAssertionHandler _atomicIncrementAssertCount];
+    if (TSUAssertCat_init_token != -1)
+    {
+      sub_10014FBF0();
+    }
+
+    if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      sub_10014FC04();
+    }
+
+    v7 = [NSString stringWithUTF8String:"[TSPPackageWriter newRawComponentWriteChannelWithPackageLocator:storeOutsideObjectArchive:]"];
+    v8 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageWriter.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v7 file:v8 lineNumber:330 isFatal:0 description:"invalid nil value for '%{public}s'", "packageLocator"];
+
+    +[TSUAssertionHandler logBacktraceThrottled];
+  }
+
+  if (archiveCopy)
+  {
+    +[TSUAssertionHandler _atomicIncrementAssertCount];
+    if (TSUAssertCat_init_token != -1)
+    {
+      sub_10014FCB0();
+    }
+
+    if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      sub_10014FCD8();
+    }
+
+    v9 = [NSString stringWithUTF8String:"[TSPPackageWriter newRawComponentWriteChannelWithPackageLocator:storeOutsideObjectArchive:]"];
+    v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageWriter.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v9 file:v10 lineNumber:331 isFatal:0 description:"Components outside the object archive are not supported"];
+
+    +[TSUAssertionHandler logBacktraceThrottled];
+  }
+
+  originalPackage = [(TSPPackageWriter *)self originalPackage];
+  v12 = [originalPackage packageEntryInfoForComponentLocator:locatorCopy isStoredOutsideObjectArchive:archiveCopy];
+
+  componentZipArchiveWriter = [(TSPPackageWriter *)self componentZipArchiveWriter];
+  v14 = [TSPPackage objectArchiveEntryPathForPackageLocator:locatorCopy];
+  lastModificationDate = [v12 lastModificationDate];
+  [componentZipArchiveWriter beginEntryWithName:v14 force32BitSize:1 lastModificationDate:lastModificationDate size:objc_msgSend(v12 CRC:"encodedLength") forceCalculatingSizeAndCRCForPreservingLastModificationDate:{objc_msgSend(v12, "CRC"), 1}];
+
+  v16 = [[TSPPackageWriterComponentWriteChannel alloc] initWithArchiveWriter:componentZipArchiveWriter];
+  return v16;
 }
 
 - (BOOL)flushPendingWritesReturningError:(id *)error
@@ -1204,52 +1285,51 @@ LABEL_29:
 - (id)writtenPackageWithURL:(id)l
 {
   lCopy = l;
-  writtenPackage = self->_writtenPackage;
-  v6 = objc_opt_class();
-  v7 = [TSUZipFileArchive alloc];
+  v5 = objc_opt_class();
+  v6 = [TSUZipFileArchive alloc];
   zipArchiveWriter = [(TSPPackageWriter *)self zipArchiveWriter];
-  v9 = [v6 zipArchiveURLFromPackageURL:lCopy];
-  v23 = 0;
-  v10 = -[TSUZipFileArchive initWithWriter:forReadingFromURL:options:error:](v7, "initWithWriter:forReadingFromURL:options:error:", zipArchiveWriter, v9, [v6 zipArchiveOptions], &v23);
-  v11 = v23;
+  v8 = [v5 zipArchiveURLFromPackageURL:lCopy];
+  v22 = 0;
+  v9 = -[TSUZipFileArchive initWithWriter:forReadingFromURL:options:error:](v6, "initWithWriter:forReadingFromURL:options:error:", zipArchiveWriter, v8, [v5 zipArchiveOptions], &v22);
+  v10 = v22;
 
-  if (!v10)
+  if (!v9)
   {
     if (UnsafePointer != -1)
     {
       sub_10014FF94();
     }
 
-    v12 = UnsafePointer;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = UnsafePointer;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       path = [lCopy path];
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
-      domain = [v11 domain];
-      code = [v11 code];
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      domain = [v10 domain];
+      code = [v10 code];
       *buf = 138413314;
-      v25 = path;
-      v26 = 2114;
-      v27 = v20;
-      v28 = 2114;
-      v29 = domain;
-      v30 = 2048;
-      v31 = code;
-      v32 = 2112;
-      v33 = v11;
-      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to load written zip archive: %@. errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", buf, 0x34u);
+      v24 = path;
+      v25 = 2114;
+      v26 = v19;
+      v27 = 2114;
+      v28 = domain;
+      v29 = 2048;
+      v30 = code;
+      v31 = 2112;
+      v32 = v10;
+      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to load written zip archive: %@. errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", buf, 0x34u);
     }
   }
 
-  v13 = self->_writtenPackage;
+  writtenPackage = self->_writtenPackage;
   WeakRetained = objc_loadWeakRetained(&self->_fileCoordinatorDelegate);
-  [(TSPPackage *)v13 setZipArchive:v10 fileCoordinatorDelegate:WeakRetained];
+  [(TSPPackage *)writtenPackage setZipArchive:v9 fileCoordinatorDelegate:WeakRetained];
 
-  v15 = self->_writtenPackage;
-  v16 = v15;
+  v14 = self->_writtenPackage;
+  v15 = v14;
 
-  return v15;
+  return v14;
 }
 
 - (id)newPackageWithPackageIdentifier:(unsigned __int8)identifier documentProperties:(id)properties fileFormatVersion:(unint64_t)version decryptionKey:(id)key fileCoordinatorDelegate:(id)delegate

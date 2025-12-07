@@ -161,25 +161,25 @@ uint64_t sub_100002320(uint64_t a1)
   return v2;
 }
 
-uint64_t *sub_100002844(uint64_t *result, unint64_t a2, __int32 *a3, int16x4_t a4)
+void sub_100002844(const void **a1, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
-  v5 = *result;
-  v4 = result[1];
-  v6 = (v4 - *result) >> 2;
+  v5 = *a1;
+  v4 = a1[1];
+  v6 = (v4 - *a1) >> 2;
   if (a2 <= v6)
   {
     if (a2 >= v6)
     {
-      return result;
+      return;
     }
 
-    v12 = v5 + 4 * a2;
+    v12 = &v5[4 * a2];
   }
 
   else
   {
     v7 = a2 - v6;
-    v8 = result[2];
+    v8 = a1[2];
     if (v7 > (v8 - v4) >> 2)
     {
       if (!(a2 >> 62))
@@ -211,7 +211,7 @@ uint64_t *sub_100002844(uint64_t *result, unint64_t a2, __int32 *a3, int16x4_t a
     v13 = (v7 + 0x3FFFFFFFFFFFFFFFLL) & 0x3FFFFFFFFFFFFFFFLL;
     v14 = vdupq_n_s64(v13);
     v15 = v13 - ((v7 + 0x3FFFFFFFFFFFFFFFLL) & 3);
-    v16 = (v4 + 8);
+    v16 = v4 + 8;
     v17 = -4;
     do
     {
@@ -238,14 +238,13 @@ uint64_t *sub_100002844(uint64_t *result, unint64_t a2, __int32 *a3, int16x4_t a
     }
 
     while (v15 != v17);
-    v12 = v4 + 4 * v7;
+    v12 = &v4[4 * v7];
   }
 
-  result[1] = v12;
-  return result;
+  a1[1] = v12;
 }
 
-void sub_100002A88(uint64_t a1, void *a2)
+void sub_100002A88(uint64_t a1, uint64_t *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -546,6 +545,13 @@ LABEL_17:
   }
 }
 
+void sub_100004058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
+{
+  va_start(va, a54);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_1000040A0(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -716,10 +722,11 @@ uint64_t sub_100004C98(void *a1)
   return v4;
 }
 
-void sub_1000052CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1000052CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a28, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -845,7 +852,7 @@ void sub_100006F48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-id sub_10000726C(void *a1, void *a2, uint64_t a3)
+NSMutableDictionary *sub_10000726C(void *a1, void *a2, uint64_t a3)
 {
   v4 = a1;
   v29 = a2;
@@ -904,7 +911,7 @@ id sub_10000726C(void *a1, void *a2, uint64_t a3)
   return v28;
 }
 
-void sub_100007E48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_100007E48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, NSErrorUserInfoKey a63)
 {
   if (a2)
   {
@@ -946,13 +953,13 @@ uint64_t sub_100008240(uint64_t result, uint64_t a2)
 
 uint64_t sub_100008258(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v43 = *&a2;
-  v6 = COERCE_DOUBLE(a3);
+  v43 = a2;
+  v6 = a3;
   v44 = a4;
-  for (i = 0; i < [*&v6 numberOfDataPoints]; ++i)
+  for (i = 0; i < [v6 numberOfDataPoints]; ++i)
   {
     v51 = 0;
-    v8 = [*&v6 dataPointAtIndex:i error:&v51];
+    v8 = [v6 dataPointAtIndex:i error:&v51];
     v9 = v51;
     if (v9)
     {
@@ -961,7 +968,7 @@ uint64_t sub_100008258(uint64_t a1, uint64_t a2, void *a3, void *a4)
       if (os_log_type_enabled(qword_10003FF18, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        v54 = *&v43;
+        v54 = v43;
         _os_log_error_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "epochCallback is unable to retrieve output of iteration %lu", buf, 0xCu);
       }
 
@@ -996,9 +1003,9 @@ LABEL_38:
   if (os_log_type_enabled(qword_10003FF18, OS_LOG_TYPE_INFO))
   {
     *buf = 134218242;
-    v54 = *&v43;
+    v54 = v43;
     v55 = 2112;
-    v56 = v6;
+    v56 = *&v6;
     _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Espresso training iteration=%lu result=%@", buf, 0x16u);
   }
 
@@ -1008,7 +1015,7 @@ LABEL_38:
   if (os_log_type_enabled(qword_10003FF18, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v54 = *&v43;
+    v54 = v43;
     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Finish running train epoch number %lu", buf, 0xCu);
   }
 
@@ -1101,7 +1108,7 @@ LABEL_37:
           *buf = 138412546;
           v54 = v25;
           v55 = 2048;
-          v56 = v43;
+          v56 = *&v43;
           v38 = "Unable to set %@ after epoch %lu";
           v39 = v41;
           v40 = 22;
@@ -1583,6 +1590,13 @@ id sub_10000D0AC(uint64_t a1, void *a2)
   return v4;
 }
 
+void sub_10000DEBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_10000DF04(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -1777,13 +1791,12 @@ void sub_10000E52C(uint64_t a1, uint64_t a2, void *a3)
 
 void sub_10000E9A4(uint64_t a1)
 {
-  v5 = *(a1 + 32);
-  v2 = [NSArray arrayWithObjects:&v5 count:1];
+  v4 = *(a1 + 32);
+  v2 = [NSArray arrayWithObjects:&v4 count:1];
   v3 = [[NSMutableDictionary alloc] initWithDictionary:*(a1 + 40)];
   [v3 setObject:&off_10003B1B0 forKeyedSubscript:@"nbestAlignmentSourceBound"];
   [v3 setObject:&off_10003B1B0 forKeyedSubscript:@"nbestAlignmentTargetBound"];
-  v4 = *(a1 + 96);
-  [*(a1 + 48) generateConfusionPairsWithUUID:*(a1 + 56) parameters:v3 language:*(a1 + 64) task:*(a1 + 72) samplingRate:*(a1 + 112) recognizedNbest:v2 recognizedText:*(a1 + 80) correctedText:*(a1 + 88) selectedAlternatives:v4 completion:*(a1 + 104)];
+  [*(a1 + 48) generateConfusionPairsWithUUID:*(a1 + 56) parameters:v3 language:*(a1 + 64) task:*(a1 + 72) samplingRate:*(a1 + 112) recognizedNbest:v2 recognizedText:*(a1 + 80) correctedText:*(a1 + 88) selectedAlternatives:*(a1 + 96) completion:*(a1 + 104)];
 }
 
 void sub_10000EC84(uint64_t a1)
@@ -2665,7 +2678,7 @@ LABEL_6:
   xpc_transaction_exit_clean();
 }
 
-void sub_100012114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40)
+void sub_100012114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40)
 {
   v47 = v45;
 
@@ -2860,7 +2873,7 @@ id sub_100012AD0(void *a1, void *a2)
   return v10;
 }
 
-void sub_100012D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_100012D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -3081,7 +3094,7 @@ LABEL_18:
   xpc_transaction_exit_clean();
 }
 
-void sub_100013920(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42)
+void sub_100013920(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42)
 {
   if (a2)
   {
@@ -3703,27 +3716,26 @@ void sub_100015EAC(void *a1)
 {
   *(*(a1[7] + 8) + 24) = 1;
   v2 = [NSString stringWithFormat:@"Attachments download timeout after %.2f seconds", a1[8]];
-  v9 = NSLocalizedDescriptionKey;
-  v10 = v2;
-  v3 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v8 = NSLocalizedDescriptionKey;
+  v9 = v2;
+  v3 = [NSDictionary dictionaryWithObjects:&v9 forKeys:&v8 count:1];
   v4 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:151 userInfo:v3];
 
   v5 = qword_10003FF28;
   if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v8 = v4;
+    v7 = v4;
     _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Attachments download timed out: %@", buf, 0xCu);
   }
 
   [*(a1[4] + 24) cancel];
-  v6 = a1[5];
   (*(a1[6] + 16))();
 }
 
 void sub_100016040(uint64_t a1, void *a2, void *a3)
 {
-  v143 = a2;
+  v132 = a2;
   v5 = a3;
   if (*(*(*(a1 + 88) + 8) + 24))
   {
@@ -3742,27 +3754,26 @@ void sub_100016040(uint64_t a1, void *a2, void *a3)
 
   if (!v5)
   {
-    v10 = v143;
-    v11 = v10;
-    v142 = a1;
-    if (*(a1 + 56) && [v10 count])
+    v9 = v132;
+    v10 = v9;
+    v131 = a1;
+    if (*(a1 + 56) && [v9 count])
     {
-      v12 = [v11 firstObject];
-      v176 = 0;
-      v141 = [SMTUtils decompressArchiveWithURL:v12 outError:&v176];
-      v13 = v176;
+      v11 = [v10 firstObject];
+      v165 = 0;
+      v130 = [SMTUtils decompressArchiveWithURL:v11 outError:&v165];
+      v12 = v165;
 
-      if (!v141 || v13)
+      if (!v130 || v12)
       {
-        v61 = qword_10003FF28;
+        v59 = qword_10003FF28;
         if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_ERROR))
         {
           *__dst = 138412290;
-          *&__dst[4] = v13;
-          _os_log_error_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "Failed to extract test set: %@", __dst, 0xCu);
+          *&__dst[4] = v12;
+          _os_log_error_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "Failed to extract test set: %@", __dst, 0xCu);
         }
 
-        v62 = *(a1 + 48);
         (*(*(a1 + 72) + 16))();
 
         goto LABEL_95;
@@ -3771,208 +3782,206 @@ void sub_100016040(uint64_t a1, void *a2, void *a3)
 
     else
     {
-      v141 = v11;
+      v130 = v10;
     }
 
-    v140 = [*(a1 + 64) objectForKeyedSubscript:@"trainingDataReplacement"];
+    v129 = [*(a1 + 64) objectForKeyedSubscript:@"trainingDataReplacement"];
 
-    v144 = objc_opt_new();
-    v148 = objc_opt_new();
-    if (v140)
+    v133 = objc_opt_new();
+    v137 = objc_opt_new();
+    if (v129)
     {
-      v130 = [*(a1 + 64) objectForKeyedSubscript:@"trainingDataReplacement"];
-      [SMTGlobalNNLM attachmentURL:v141 withName:v130];
-      v132 = v175 = 0;
-      v14 = [NSString stringWithContentsOfURL:v132 encoding:4 error:&v175];
-      v134 = v175;
-      v136 = v14;
-      v15 = +[NSCharacterSet newlineCharacterSet];
-      v138 = [v14 componentsSeparatedByCharactersInSet:v15];
+      v119 = [*(a1 + 64) objectForKeyedSubscript:@"trainingDataReplacement"];
+      [SMTGlobalNNLM attachmentURL:v130 withName:v119];
+      v121 = v164 = 0;
+      v13 = [NSString stringWithContentsOfURL:v121 encoding:4 error:&v164];
+      v123 = v164;
+      v125 = v13;
+      v14 = +[NSCharacterSet newlineCharacterSet];
+      v127 = [v13 componentsSeparatedByCharactersInSet:v14];
 
-      v16 = [*(v142 + 64) objectForKeyedSubscript:@"splitOffsets"];
-      v17 = v16;
-      v18 = &off_10003B278;
-      if (v16)
+      v15 = [*(v131 + 64) objectForKeyedSubscript:@"splitOffsets"];
+      v16 = v15;
+      v17 = &off_10003B278;
+      if (v15)
       {
-        v18 = v16;
+        v17 = v15;
       }
 
-      v19 = v18;
+      v18 = v17;
 
-      v173 = 0u;
-      v174 = 0u;
-      v171 = 0u;
-      v172 = 0u;
-      obj = v138;
-      v20 = [obj countByEnumeratingWithState:&v171 objects:v193 count:16];
-      if (v20)
+      v162 = 0u;
+      v163 = 0u;
+      v160 = 0u;
+      v161 = 0u;
+      obj = v127;
+      v19 = [obj countByEnumeratingWithState:&v160 objects:v182 count:16];
+      if (v19)
       {
-        v21 = *v172;
+        v20 = *v161;
         do
         {
-          for (i = 0; i != v20; i = i + 1)
+          for (i = 0; i != v19; i = i + 1)
           {
-            if (*v172 != v21)
+            if (*v161 != v20)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = *(*(&v171 + 1) + 8 * i);
-            v24 = v23;
-            v25 = [v23 UTF8String];
-            v26 = v19;
-            v27 = strlen(v25);
-            if (v27 >= 0x7FFFFFFFFFFFFFF8)
+            v22 = *(*(&v160 + 1) + 8 * i);
+            v23 = v22;
+            v24 = [v22 UTF8String];
+            v25 = v18;
+            v26 = strlen(v24);
+            if (v26 >= 0x7FFFFFFFFFFFFFF8)
             {
               sub_100017944();
             }
 
-            v28 = v27;
-            if (v27 >= 0x17)
+            v27 = v26;
+            if (v26 >= 0x17)
             {
               operator new();
             }
 
-            v197 = v27;
-            if (v27)
+            v186 = v26;
+            if (v26)
             {
-              memcpy(__dst, v25, v27);
+              memcpy(__dst, v24, v26);
             }
 
-            __dst[v28] = 0;
-            v29 = sub_10001795C(__dst);
-            if (v197 < 0)
+            __dst[v27] = 0;
+            v28 = sub_10001795C(__dst);
+            if (v186 < 0)
             {
               operator delete(*__dst);
             }
 
-            v30 = [v26 objectAtIndexedSubscript:0];
-            [v30 floatValue];
-            v31 = (v29 % 0x3E8) / 1000.0;
-            v33 = v31 > v32;
+            v29 = [v25 objectAtIndexedSubscript:0];
+            [v29 floatValue];
+            v30 = (v28 % 0x3E8) / 1000.0;
+            v32 = v30 > v31;
 
-            if (v33)
+            if (v32)
             {
-              v34 = [v26 objectAtIndexedSubscript:1];
-              [v34 floatValue];
-              v36 = v31 > v35;
+              v33 = [v25 objectAtIndexedSubscript:1];
+              [v33 floatValue];
+              v35 = v30 > v34;
 
-              if (v36)
+              if (v35)
               {
-                v37 = 2;
+                v36 = 2;
               }
 
               else
               {
-                v37 = 1;
+                v36 = 1;
               }
             }
 
             else
             {
-              v37 = 0;
+              v36 = 0;
             }
 
-            v38 = +[NSCharacterSet whitespaceCharacterSet];
-            v39 = [v23 componentsSeparatedByCharactersInSet:v38];
+            v37 = +[NSCharacterSet whitespaceCharacterSet];
+            v38 = [v22 componentsSeparatedByCharactersInSet:v37];
 
-            if ([v39 count])
+            if ([v38 count])
             {
-              v40 = v148;
-              if (v37 == 2 || (v40 = v144, !v37))
+              v39 = v137;
+              if (v36 == 2 || (v39 = v133, !v36))
               {
-                [v40 addObject:v39];
+                [v39 addObject:v38];
               }
             }
           }
 
-          v20 = [obj countByEnumeratingWithState:&v171 objects:v193 count:16];
+          v19 = [obj countByEnumeratingWithState:&v160 objects:v182 count:16];
         }
 
-        while (v20);
+        while (v19);
       }
 
-      v41 = qword_10003FF28;
+      v40 = qword_10003FF28;
       if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
       {
         *__dst = 0;
-        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "data from attachments loaded", __dst, 2u);
+        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "data from attachments loaded", __dst, 2u);
       }
 
-      v42 = v142;
+      v41 = v131;
 LABEL_46:
-      [*(*(*(v42 + 96) + 8) + 40) setTrainData:v144];
-      [*(*(*(v42 + 96) + 8) + 40) setEvalData:v148];
-      if (!v140)
+      [*(*(*(v41 + 96) + 8) + 40) setTrainData:v133];
+      [*(*(*(v41 + 96) + 8) + 40) setEvalData:v137];
+      if (!v129)
       {
-        v63 = [*(v42 + 64) objectForKeyedSubscript:@"minDataCount"];
-        v64 = v63;
-        if (!v63)
+        v60 = [*(v41 + 64) objectForKeyedSubscript:@"minDataCount"];
+        v61 = v60;
+        if (!v60)
         {
-          v63 = &off_10003B198;
+          v60 = &off_10003B198;
         }
 
-        v65 = [v63 unsignedIntValue];
+        v62 = [v60 unsignedIntValue];
 
-        v66 = [SMTUserData checkDataAmountQuickly:v65];
-        v67 = *(*(v142 + 104) + 8);
-        v68 = *(v67 + 40);
-        *(v67 + 40) = v66;
+        v63 = [SMTUserData checkDataAmountQuickly:v62];
+        v64 = *(*(v131 + 104) + 8);
+        v65 = *(v64 + 40);
+        *(v64 + 40) = v63;
 
-        v69 = *(*(*(v142 + 104) + 8) + 40);
-        v42 = v142;
-        if (v69)
+        v66 = *(*(*(v131 + 104) + 8) + 40);
+        v41 = v131;
+        if (v66)
         {
-          v70 = qword_10003FF28;
+          v67 = qword_10003FF28;
           if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_ERROR))
           {
             *__dst = 138412290;
-            *&__dst[4] = v69;
-            _os_log_error_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, "%@", __dst, 0xCu);
-            v115 = *(*(*(v142 + 104) + 8) + 40);
+            *&__dst[4] = v66;
+            _os_log_error_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "%@", __dst, 0xCu);
           }
 
-          v71 = *(v142 + 48);
-          (*(*(v142 + 72) + 16))();
+          (*(*(v131 + 72) + 16))();
           goto LABEL_94;
         }
       }
 
-      v43 = qword_10003FF28;
+      v42 = qword_10003FF28;
       if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
       {
         *__dst = 0;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "Successfully downloaded attachments for Global NNLM training", __dst, 2u);
+        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "Successfully downloaded attachments for Global NNLM training", __dst, 2u);
       }
 
-      v156[0] = _NSConcreteStackBlock;
-      v156[1] = 3221225472;
-      v156[2] = sub_100018074;
-      v156[3] = &unk_100038C40;
-      v159 = *(v42 + 72);
-      v45 = *(v42 + 48);
-      v44 = (v42 + 48);
-      v46 = v45;
-      v47 = *(v44 - 1);
-      v157 = v46;
-      v158 = v47;
-      v48 = objc_retainBlock(v156);
-      v49 = qword_10003FF30;
+      v145[0] = _NSConcreteStackBlock;
+      v145[1] = 3221225472;
+      v145[2] = sub_100018074;
+      v145[3] = &unk_100038C40;
+      v148 = *(v41 + 72);
+      v44 = *(v41 + 48);
+      v43 = (v41 + 48);
+      v45 = v44;
+      v46 = *(v43 - 1);
+      v146 = v45;
+      v147 = v46;
+      v47 = objc_retainBlock(v145);
+      v48 = qword_10003FF30;
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1000182C0;
       block[3] = &unk_100038C68;
-      v154 = *(v142 + 96);
-      v50 = v141;
-      v155 = *(v142 + 104);
-      v150 = v50;
-      v152 = v48;
-      v151 = *v44;
-      v153 = *(v142 + 80);
-      v51 = v48;
-      dispatch_async(v49, block);
+      v143 = *(v131 + 96);
+      v49 = v130;
+      v144 = *(v131 + 104);
+      v139 = v49;
+      v141 = v47;
+      v140 = *v43;
+      v142 = *(v131 + 80);
+      v50 = v47;
+      dispatch_async(v48, block);
 
-      v52 = v159;
+      v51 = v148;
 LABEL_93:
 
 LABEL_94:
@@ -3982,131 +3991,128 @@ LABEL_95:
     }
 
     obja = objc_alloc_init(SMTSpeechAssets);
-    v53 = [*(a1 + 64) objectForKeyedSubscript:@"language"];
-    v54 = v53;
-    if (!v53)
+    v52 = [*(a1 + 64) objectForKeyedSubscript:@"language"];
+    v53 = v52;
+    if (!v52)
     {
-      v53 = @"en-US";
+      v52 = @"en-US";
     }
 
-    v55 = [(__CFString *)v53 stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+    v54 = [(__CFString *)v52 stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
 
-    v170 = 0;
-    v56 = [(SMTSpeechAssets *)obja fetchAssetPathForInstalledLanguage:v55 outError:&v170];
-    v52 = v170;
-    v145 = v56;
-    if (v52 || ![v56 length])
+    v159 = 0;
+    v55 = [(SMTSpeechAssets *)obja fetchAssetPathForInstalledLanguage:v54 outError:&v159];
+    v51 = v159;
+    v134 = v55;
+    if (v51 || ![v55 length])
     {
-      v191 = NSLocalizedDescriptionKey;
-      v192 = @"Unable to fetch asset";
-      v57 = [NSDictionary dictionaryWithObjects:&v192 forKeys:&v191 count:1];
-      v58 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:102 userInfo:v57];
+      v180 = NSLocalizedDescriptionKey;
+      v181 = @"Unable to fetch asset";
+      v56 = [NSDictionary dictionaryWithObjects:&v181 forKeys:&v180 count:1];
+      v57 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:102 userInfo:v56];
 
-      v59 = qword_10003FF28;
+      v58 = qword_10003FF28;
       if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_ERROR))
       {
         *__dst = 138412546;
-        *&__dst[4] = v55;
-        v195 = 2112;
-        v196 = v58;
-        _os_log_error_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "Failed to get asset for language %@: %@", __dst, 0x16u);
+        *&__dst[4] = v54;
+        v184 = 2112;
+        v185 = v57;
+        _os_log_error_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "Failed to get asset for language %@: %@", __dst, 0x16u);
       }
 
-      v60 = *(a1 + 48);
       (*(*(a1 + 72) + 16))();
 
       goto LABEL_93;
     }
 
-    v72 = qword_10003FF28;
+    v68 = qword_10003FF28;
     if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
     {
       *__dst = 138412290;
-      *&__dst[4] = v56;
-      _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_INFO, "Found speech asset in %@", __dst, 0xCu);
+      *&__dst[4] = v55;
+      _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_INFO, "Found speech asset in %@", __dst, 0xCu);
     }
 
-    v139 = [v56 stringByAppendingPathComponent:@"mini.json"];
-    v73 = [*(a1 + 64) valueForKey:@"dataConfigFilename"];
-    v74 = v73 == 0;
+    v128 = [v55 stringByAppendingPathComponent:@"mini.json"];
+    v69 = [*(a1 + 64) valueForKey:@"dataConfigFilename"];
+    v70 = v69 == 0;
 
-    if (v74)
+    if (v70)
     {
-      v189 = NSLocalizedDescriptionKey;
-      v99 = [NSString stringWithFormat:@"Unable to read recipe[%@]", @"dataConfigFilename"];
-      v190 = v99;
-      v100 = [NSDictionary dictionaryWithObjects:&v190 forKeys:&v189 count:1];
-      v101 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:151 userInfo:v100];
+      v178 = NSLocalizedDescriptionKey;
+      v94 = [NSString stringWithFormat:@"Unable to read recipe[%@]", @"dataConfigFilename"];
+      v179 = v94;
+      v95 = [NSDictionary dictionaryWithObjects:&v179 forKeys:&v178 count:1];
+      v96 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:151 userInfo:v95];
 
-      v102 = qword_10003FF28;
+      v97 = qword_10003FF28;
       if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_ERROR))
       {
         *__dst = 138412290;
-        *&__dst[4] = v101;
-        _os_log_error_impl(&_mh_execute_header, v102, OS_LOG_TYPE_ERROR, "Failed to find data config url: %@", __dst, 0xCu);
+        *&__dst[4] = v96;
+        _os_log_error_impl(&_mh_execute_header, v97, OS_LOG_TYPE_ERROR, "Failed to find data config url: %@", __dst, 0xCu);
       }
 
-      v103 = *(a1 + 48);
       (*(*(a1 + 72) + 16))();
     }
 
     else
     {
-      v75 = [*(a1 + 64) objectForKeyedSubscript:@"dataConfigFilename"];
-      v137 = [SMTGlobalNNLM attachmentURL:v141 withName:v75];
+      v71 = [*(a1 + 64) objectForKeyedSubscript:@"dataConfigFilename"];
+      v126 = [SMTGlobalNNLM attachmentURL:v130 withName:v71];
 
-      if (v137)
+      if (v126)
       {
-        [v137 path];
-        v168 = 0u;
-        v169 = 0u;
-        v166 = 0u;
-        v135 = v167 = 0u;
-        v185[0] = v135;
-        v185[1] = v139;
-        v76 = [NSArray arrayWithObjects:v185 count:2];
-        v77 = [v76 countByEnumeratingWithState:&v166 objects:v186 count:16];
-        if (v77)
+        [v126 path];
+        v157 = 0u;
+        v158 = 0u;
+        v155 = 0u;
+        v124 = v156 = 0u;
+        v174[0] = v124;
+        v174[1] = v128;
+        v72 = [NSArray arrayWithObjects:v174 count:2];
+        v73 = [v72 countByEnumeratingWithState:&v155 objects:v175 count:16];
+        if (v73)
         {
-          v78 = *v167;
+          v74 = *v156;
           while (2)
           {
-            for (j = 0; j != v77; j = j + 1)
+            for (j = 0; j != v73; j = j + 1)
             {
-              if (*v167 != v78)
+              if (*v156 != v74)
               {
-                objc_enumerationMutation(v76);
+                objc_enumerationMutation(v72);
               }
 
-              v80 = *(*(&v166 + 1) + 8 * j);
-              v81 = +[NSFileManager defaultManager];
-              v82 = [v81 fileExistsAtPath:v80];
+              v76 = *(*(&v155 + 1) + 8 * j);
+              v77 = +[NSFileManager defaultManager];
+              v78 = [v77 fileExistsAtPath:v76];
 
-              if ((v82 & 1) == 0)
+              if ((v78 & 1) == 0)
               {
-                v183 = NSLocalizedDescriptionKey;
-                v104 = [NSString stringWithFormat:@"File does not exist %@", v80];
-                v184 = v104;
-                v105 = [NSDictionary dictionaryWithObjects:&v184 forKeys:&v183 count:1];
-                v106 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:102 userInfo:v105];
+                v172 = NSLocalizedDescriptionKey;
+                v98 = [NSString stringWithFormat:@"File does not exist %@", v76];
+                v173 = v98;
+                v99 = [NSDictionary dictionaryWithObjects:&v173 forKeys:&v172 count:1];
+                v100 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:102 userInfo:v99];
 
-                v107 = qword_10003FF28;
+                v101 = qword_10003FF28;
                 if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_ERROR))
                 {
                   *__dst = 138412290;
-                  *&__dst[4] = v106;
-                  _os_log_error_impl(&_mh_execute_header, v107, OS_LOG_TYPE_ERROR, "Failed to load file: %@", __dst, 0xCu);
+                  *&__dst[4] = v100;
+                  _os_log_error_impl(&_mh_execute_header, v101, OS_LOG_TYPE_ERROR, "Failed to load file: %@", __dst, 0xCu);
                 }
 
-                v108 = *(v142 + 48);
-                (*(*(v142 + 72) + 16))();
+                (*(*(v131 + 72) + 16))();
 
                 goto LABEL_92;
               }
             }
 
-            v77 = [v76 countByEnumeratingWithState:&v166 objects:v186 count:16];
-            if (v77)
+            v73 = [v72 countByEnumeratingWithState:&v155 objects:v175 count:16];
+            if (v73)
             {
               continue;
             }
@@ -4115,107 +4121,105 @@ LABEL_95:
           }
         }
 
-        v83 = [[_EARLmData alloc] initWithConfiguration:v135 recognizerConfiguration:v139];
-        if (v83)
+        v79 = [[_EARLmData alloc] initWithConfiguration:v124 recognizerConfiguration:v128];
+        if (v79)
         {
-          v164[0] = _NSConcreteStackBlock;
-          v164[1] = 3221225472;
-          v164[2] = sub_100017DAC;
-          v164[3] = &unk_100038BF0;
+          v153[0] = _NSConcreteStackBlock;
+          v153[1] = 3221225472;
+          v153[2] = sub_100017DAC;
+          v153[3] = &unk_100038BF0;
+          v80 = v79;
+          v154 = v80;
+          v122 = objc_retainBlock(v153);
+          v81 = [v80 sources];
+          v82 = [v80 queryLimit];
+          [v80 maxAge];
           v84 = v83;
-          v165 = v84;
-          v133 = objc_retainBlock(v164);
-          v85 = [v84 sources];
-          v86 = [v84 queryLimit];
-          [v84 maxAge];
-          v88 = v87;
-          [v84 minAge];
-          [SMTUserData enumerateDocumentSources:v85 limit:v86 maxAge:v133 minAge:v88 block:v89];
+          [v80 minAge];
+          [SMTUserData enumerateDocumentSources:v81 limit:v82 maxAge:v122 minAge:v84 block:v85];
 
-          v162[0] = _NSConcreteStackBlock;
-          v162[1] = 3221225472;
-          v162[2] = sub_100017E5C;
-          v162[3] = &unk_100038C18;
-          v90 = v144;
-          v163 = v90;
-          v131 = objc_retainBlock(v162);
-          [v84 enumerateSentencesOfType:0 block:v131];
-          v91 = [v90 count];
-          v92 = [*(v142 + 64) objectForKeyedSubscript:@"minDataCount"];
-          LODWORD(v91) = v91 < [v92 unsignedIntValue];
+          v151[0] = _NSConcreteStackBlock;
+          v151[1] = 3221225472;
+          v151[2] = sub_100017E5C;
+          v151[3] = &unk_100038C18;
+          v86 = v133;
+          v152 = v86;
+          v120 = objc_retainBlock(v151);
+          [v80 enumerateSentencesOfType:0 block:v120];
+          v87 = [v86 count];
+          v88 = [*(v131 + 64) objectForKeyedSubscript:@"minDataCount"];
+          LODWORD(v87) = v87 < [v88 unsignedIntValue];
 
-          if (v91)
+          if (v87)
           {
-            v179 = NSLocalizedDescriptionKey;
-            v93 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Insufficient training data (%lu)", [v90 count]);
-            v180 = v93;
-            v94 = [NSDictionary dictionaryWithObjects:&v180 forKeys:&v179 count:1];
-            v95 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:2 userInfo:v94];
+            v168 = NSLocalizedDescriptionKey;
+            v89 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Insufficient training data (%lu)", [v86 count]);
+            v169 = v89;
+            v90 = [NSDictionary dictionaryWithObjects:&v169 forKeys:&v168 count:1];
+            v91 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:2 userInfo:v90];
 
-            v96 = qword_10003FF28;
+            v92 = qword_10003FF28;
             if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_ERROR))
             {
               *__dst = 138412290;
-              *&__dst[4] = v95;
-              _os_log_error_impl(&_mh_execute_header, v96, OS_LOG_TYPE_ERROR, "Insufficient training data: %@", __dst, 0xCu);
+              *&__dst[4] = v91;
+              _os_log_error_impl(&_mh_execute_header, v92, OS_LOG_TYPE_ERROR, "Insufficient training data: %@", __dst, 0xCu);
             }
 
-            v97 = *(v142 + 48);
-            (*(*(v142 + 72) + 16))();
-            v98 = 0;
+            (*(*(v131 + 72) + 16))();
+            v93 = 0;
           }
 
           else
           {
-            v160[0] = _NSConcreteStackBlock;
-            v160[1] = 3221225472;
-            v160[2] = sub_100017F68;
-            v160[3] = &unk_100038C18;
-            v120 = v148;
-            v161 = v120;
-            v121 = objc_retainBlock(v160);
-            [v84 enumerateSentencesOfType:2 block:v121];
-            v122 = [v120 count];
-            v98 = v122 != 0;
-            if (v122)
+            v149[0] = _NSConcreteStackBlock;
+            v149[1] = 3221225472;
+            v149[2] = sub_100017F68;
+            v149[3] = &unk_100038C18;
+            v110 = v137;
+            v150 = v110;
+            v111 = objc_retainBlock(v149);
+            [v80 enumerateSentencesOfType:2 block:v111];
+            v112 = [v110 count];
+            v93 = v112 != 0;
+            if (v112)
             {
-              v123 = qword_10003FF28;
+              v113 = qword_10003FF28;
               if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
               {
                 *__dst = 0;
-                _os_log_impl(&_mh_execute_header, v123, OS_LOG_TYPE_INFO, "data from device loaded", __dst, 2u);
+                _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_INFO, "data from device loaded", __dst, 2u);
               }
 
-              v124 = *(v142 + 40);
-              v125 = *(v142 + 64);
-              v126 = [*(*(*(v142 + 96) + 8) + 40) vocab];
-              [v124 recordWordsAndOov:v125 data:v84 vocab:v126];
+              v114 = *(v131 + 40);
+              v115 = *(v131 + 64);
+              v116 = [*(*(*(v131 + 96) + 8) + 40) vocab];
+              [v114 recordWordsAndOov:v115 data:v80 vocab:v116];
             }
 
             else
             {
-              v177 = NSLocalizedDescriptionKey;
-              v178 = @"No data left for evaluation";
-              v127 = [NSDictionary dictionaryWithObjects:&v178 forKeys:&v177 count:1];
-              v126 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:2 userInfo:v127];
+              v166 = NSLocalizedDescriptionKey;
+              v167 = @"No data left for evaluation";
+              v117 = [NSDictionary dictionaryWithObjects:&v167 forKeys:&v166 count:1];
+              v116 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:2 userInfo:v117];
 
-              v128 = qword_10003FF28;
+              v118 = qword_10003FF28;
               if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_ERROR))
               {
                 *__dst = 138412290;
-                *&__dst[4] = v126;
-                _os_log_error_impl(&_mh_execute_header, v128, OS_LOG_TYPE_ERROR, "Insufficient evaluation data: %@", __dst, 0xCu);
+                *&__dst[4] = v116;
+                _os_log_error_impl(&_mh_execute_header, v118, OS_LOG_TYPE_ERROR, "Insufficient evaluation data: %@", __dst, 0xCu);
               }
 
-              v129 = *(v142 + 48);
-              (*(*(v142 + 72) + 16))();
+              (*(*(v131 + 72) + 16))();
             }
 
-            v95 = v161;
+            v91 = v150;
           }
 
-          v42 = v142;
-          if (!v98)
+          v41 = v131;
+          if (!v93)
           {
             goto LABEL_94;
           }
@@ -4223,47 +4227,45 @@ LABEL_95:
           goto LABEL_46;
         }
 
-        v181 = NSLocalizedDescriptionKey;
-        v182 = @"Unable to create data loader";
-        v116 = [NSDictionary dictionaryWithObjects:&v182 forKeys:&v181 count:1];
-        v117 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:1 userInfo:v116];
+        v170 = NSLocalizedDescriptionKey;
+        v171 = @"Unable to create data loader";
+        v107 = [NSDictionary dictionaryWithObjects:&v171 forKeys:&v170 count:1];
+        v108 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:1 userInfo:v107];
 
-        v118 = qword_10003FF28;
+        v109 = qword_10003FF28;
         if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_ERROR))
         {
           *__dst = 138412290;
-          *&__dst[4] = v117;
-          _os_log_error_impl(&_mh_execute_header, v118, OS_LOG_TYPE_ERROR, "Failed to load LM data: %@", __dst, 0xCu);
+          *&__dst[4] = v108;
+          _os_log_error_impl(&_mh_execute_header, v109, OS_LOG_TYPE_ERROR, "Failed to load LM data: %@", __dst, 0xCu);
         }
 
-        v119 = *(v142 + 48);
-        (*(*(v142 + 72) + 16))();
+        (*(*(v131 + 72) + 16))();
       }
 
       else
       {
-        v187 = NSLocalizedDescriptionKey;
-        v109 = [*(a1 + 64) objectForKeyedSubscript:@"dataConfigFilename"];
-        v110 = [NSString stringWithFormat:@"No data-conf file attached: %@", v109];
-        v188 = v110;
-        v111 = [NSDictionary dictionaryWithObjects:&v188 forKeys:&v187 count:1];
-        v112 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:151 userInfo:v111];
+        v176 = NSLocalizedDescriptionKey;
+        v102 = [*(a1 + 64) objectForKeyedSubscript:@"dataConfigFilename"];
+        v103 = [NSString stringWithFormat:@"No data-conf file attached: %@", v102];
+        v177 = v103;
+        v104 = [NSDictionary dictionaryWithObjects:&v177 forKeys:&v176 count:1];
+        v105 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:151 userInfo:v104];
 
-        v113 = qword_10003FF28;
+        v106 = qword_10003FF28;
         if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_ERROR))
         {
           *__dst = 138412290;
-          *&__dst[4] = v112;
-          _os_log_error_impl(&_mh_execute_header, v113, OS_LOG_TYPE_ERROR, "Failed to load data config: %@", __dst, 0xCu);
+          *&__dst[4] = v105;
+          _os_log_error_impl(&_mh_execute_header, v106, OS_LOG_TYPE_ERROR, "Failed to load data config: %@", __dst, 0xCu);
         }
 
-        v114 = *(a1 + 48);
         (*(*(a1 + 72) + 16))();
       }
     }
 
 LABEL_92:
-    v52 = obja;
+    v51 = obja;
     goto LABEL_93;
   }
 
@@ -4275,7 +4277,6 @@ LABEL_92:
     _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to download session attachments with error:%@", __dst, 0xCu);
   }
 
-  v9 = *(a1 + 48);
   (*(*(a1 + 72) + 16))();
 LABEL_5:
 }
@@ -4484,11 +4485,10 @@ uint64_t sub_100018074(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = v6;
+      v17 = v6;
       _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
-    v8 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 
@@ -4496,32 +4496,31 @@ uint64_t sub_100018074(uint64_t a1, void *a2, void *a3)
   {
     if ((*(*(a1 + 40) + 40) & 1) == 0 && ![*(a1 + 32) taskIsDeferred])
     {
-      v14 = 0;
+      v12 = 0;
       goto LABEL_11;
     }
 
-    v16 = NSLocalizedDescriptionKey;
-    v9 = [NSString stringWithFormat:@"Training canceled after %@", v5];
-    v17 = v9;
-    v10 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-    v11 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:4 userInfo:v10];
+    v14 = NSLocalizedDescriptionKey;
+    v8 = [NSString stringWithFormat:@"Training canceled after %@", v5];
+    v15 = v8;
+    v9 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v10 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:4 userInfo:v9];
 
-    v12 = qword_10003FF28;
+    v11 = qword_10003FF28;
     if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = v11;
-      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+      v17 = v10;
+      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
 
-    v13 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 
-  v14 = 1;
+  v12 = 1;
 LABEL_11:
 
-  return v14;
+  return v12;
 }
 
 void sub_1000182C0(uint64_t a1)
@@ -4532,69 +4531,61 @@ void sub_1000182C0(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = *(*(*(a1 + 72) + 8) + 40);
   if (((*(*(a1 + 48) + 16))() & 1) == 0)
   {
-    v6 = [*(*(*(a1 + 64) + 8) + 40) setup];
-    v7 = *(*(a1 + 72) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    v5 = [*(*(*(a1 + 64) + 8) + 40) setup];
+    v6 = *(*(a1 + 72) + 8);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = v5;
 
-    v9 = *(*(*(a1 + 72) + 8) + 40);
     if (((*(*(a1 + 48) + 16))() & 1) == 0)
     {
-      v10 = [*(*(*(a1 + 64) + 8) + 40) evaluate];
-      v11 = *(*(a1 + 72) + 8);
-      v12 = *(v11 + 40);
-      *(v11 + 40) = v10;
+      v8 = [*(*(*(a1 + 64) + 8) + 40) evaluate];
+      v9 = *(*(a1 + 72) + 8);
+      v10 = *(v9 + 40);
+      *(v9 + 40) = v8;
 
-      v13 = *(*(*(a1 + 72) + 8) + 40);
       if (((*(*(a1 + 48) + 16))() & 1) == 0)
       {
-        v14 = [*(*(*(a1 + 64) + 8) + 40) train];
-        v15 = *(*(a1 + 72) + 8);
-        v16 = *(v15 + 40);
-        *(v15 + 40) = v14;
+        v11 = [*(*(*(a1 + 64) + 8) + 40) train];
+        v12 = *(*(a1 + 72) + 8);
+        v13 = *(v12 + 40);
+        *(v12 + 40) = v11;
 
-        v17 = *(*(*(a1 + 72) + 8) + 40);
         if (((*(*(a1 + 48) + 16))() & 1) == 0)
         {
-          v18 = [*(*(*(a1 + 64) + 8) + 40) evaluate];
-          v19 = *(*(a1 + 72) + 8);
-          v20 = *(v19 + 40);
-          *(v19 + 40) = v18;
+          v14 = [*(*(*(a1 + 64) + 8) + 40) evaluate];
+          v15 = *(*(a1 + 72) + 8);
+          v16 = *(v15 + 40);
+          *(v15 + 40) = v14;
 
-          v21 = *(*(*(a1 + 72) + 8) + 40);
           if (((*(*(a1 + 48) + 16))() & 1) == 0)
           {
-            v22 = *(*(*(a1 + 64) + 8) + 40);
-            v23 = [*(a1 + 40) recipe];
-            v24 = [v22 computeDelta:{objc_msgSend(v23, "pluginShouldAddNoiseAndEncryptResult")}];
-            v25 = *(*(a1 + 72) + 8);
-            v26 = *(v25 + 40);
-            *(v25 + 40) = v24;
+            v17 = *(*(*(a1 + 64) + 8) + 40);
+            v18 = [*(a1 + 40) recipe];
+            v19 = [v17 computeDelta:{objc_msgSend(v18, "pluginShouldAddNoiseAndEncryptResult")}];
+            v20 = *(*(a1 + 72) + 8);
+            v21 = *(v20 + 40);
+            *(v20 + 40) = v19;
 
-            v27 = *(*(*(a1 + 72) + 8) + 40);
             if (((*(*(a1 + 48) + 16))() & 1) == 0)
             {
-              v28 = [*(*(*(a1 + 64) + 8) + 40) delta];
-              v29 = [*(*(*(a1 + 64) + 8) + 40) results];
-              if (![*(*(*(a1 + 64) + 8) + 40) deltaIsPartial] || (objc_msgSend(*(*(*(a1 + 64) + 8) + 40), "evaluatePartialDelta"), v30 = objc_claimAutoreleasedReturnValue(), v31 = *(*(a1 + 72) + 8), v32 = *(v31 + 40), *(v31 + 40) = v30, v32, v33 = *(*(*(a1 + 72) + 8) + 40), ((*(*(a1 + 48) + 16))() & 1) == 0))
+              v22 = [*(*(*(a1 + 64) + 8) + 40) delta];
+              v23 = [*(*(*(a1 + 64) + 8) + 40) results];
+              if (![*(*(*(a1 + 64) + 8) + 40) deltaIsPartial] || (objc_msgSend(*(*(*(a1 + 64) + 8) + 40), "evaluatePartialDelta"), v24 = objc_claimAutoreleasedReturnValue(), v25 = *(*(a1 + 72) + 8), v26 = *(v25 + 40), *(v25 + 40) = v24, v26, ((*(*(a1 + 48) + 16))() & 1) == 0))
               {
-                v34 = *(*(a1 + 64) + 8);
-                v35 = *(v34 + 40);
-                *(v34 + 40) = 0;
+                v27 = *(*(a1 + 64) + 8);
+                v28 = *(v27 + 40);
+                *(v27 + 40) = 0;
 
-                v36 = qword_10003FF28;
+                v29 = qword_10003FF28;
                 if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
                 {
-                  v39 = 138412290;
-                  v40 = v29;
-                  _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Training completed with result=%@", &v39, 0xCu);
+                  v30 = 138412290;
+                  v31 = v23;
+                  _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Training completed with result=%@", &v30, 0xCu);
                 }
 
-                v37 = *(*(*(a1 + 72) + 8) + 40);
-                v38 = *(a1 + 40);
                 (*(*(a1 + 56) + 16))();
               }
             }
@@ -4605,7 +4596,7 @@ void sub_1000182C0(uint64_t a1)
   }
 }
 
-uint64_t sub_100018688(uint64_t a1)
+void sub_100018688(uint64_t a1)
 {
   v2 = *(a1 + 40);
   if (v2)
@@ -4615,10 +4606,10 @@ uint64_t sub_100018688(uint64_t a1)
 
   +[SMTUtils cleanupTemporaryDirectory];
 
-  return xpc_transaction_exit_clean();
+  xpc_transaction_exit_clean();
 }
 
-uint64_t sub_1000186D4(uint64_t a1)
+void sub_1000186D4(uint64_t a1)
 {
   v2 = *(a1 + 40);
   if (v2)
@@ -4628,7 +4619,7 @@ uint64_t sub_1000186D4(uint64_t a1)
 
   +[SMTUtils cleanupTemporaryDirectory];
 
-  return xpc_transaction_exit_clean();
+  xpc_transaction_exit_clean();
 }
 
 id sub_100018C4C()
@@ -4655,9 +4646,9 @@ id sub_100018C4C()
   return v1;
 }
 
-void sub_100018D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100018D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4762,7 +4753,6 @@ LABEL_10:
 
 uint64_t sub_1000191B0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10003FF48 = result;
   return result;
@@ -4779,37 +4769,36 @@ void sub_1000193DC(uint64_t a1)
   block[2] = sub_10001B174;
   block[3] = &unk_100038A60;
   block[4] = *(a1 + 32);
-  v103 = v3;
+  v102 = v3;
   dispatch_after(v4, v3, block);
-  v125[0] = _NSConcreteStackBlock;
-  v125[1] = 3221225472;
-  v125[2] = sub_10001B1E8;
-  v125[3] = &unk_100038A88;
-  v126 = *(a1 + 56);
-  v106 = objc_retainBlock(v125);
+  v124[0] = _NSConcreteStackBlock;
+  v124[1] = 3221225472;
+  v124[2] = sub_10001B1E8;
+  v124[3] = &unk_100038A88;
+  v125 = *(a1 + 56);
+  v105 = objc_retainBlock(v124);
   v5 = *(a1 + 40);
-  v105 = *(a1 + 48);
+  v104 = *(a1 + 48);
   v6 = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, 1uLL, 1);
-  v109 = [v6 firstObject];
+  v108 = [v6 firstObject];
 
-  v7 = [v109 stringByAppendingPathComponent:@"Assistant/SpeechPersonalizedLM"];
-  v107 = [v7 stringByStandardizingPath];
+  v7 = [v108 stringByAppendingPathComponent:@"Assistant/SpeechPersonalizedLM"];
+  v106 = [v7 stringByStandardizingPath];
 
-  v8 = [v109 stringByAppendingPathComponent:@"Assistant/SpeechPersonalizedLM_Fides"];
-  v108 = [v8 stringByStandardizingPath];
+  v8 = [v108 stringByAppendingPathComponent:@"Assistant/SpeechPersonalizedLM_Fides"];
+  v107 = [v8 stringByStandardizingPath];
 
   v9 = qword_10003FF28;
   if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v147 = v107;
-    v148 = 2112;
-    v149 = v108;
+    v146 = v106;
+    v147 = 2112;
+    v148 = v107;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "PLM: personalizedLMPath=%@ fidesPersonalizedLMPath=%@", buf, 0x16u);
   }
 
-  v10 = *(a1 + 65);
-  v11 = qword_10003FF28;
+  v10 = qword_10003FF28;
   if (*(a1 + 64))
   {
     if (*(a1 + 65))
@@ -4817,13 +4806,13 @@ void sub_1000193DC(uint64_t a1)
       if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "PLM: Client is DictationPersonalizationFidesPlugin", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "PLM: Client is DictationPersonalizationFidesPlugin", buf, 2u);
       }
 
-      [_EARLmModel removeWithDirectory:v108];
-      v12 = v108;
+      [_EARLmModel removeWithDirectory:v107];
+      v11 = v107;
 LABEL_12:
-      v13 = v12;
+      v12 = v11;
       goto LABEL_16;
     }
   }
@@ -4833,68 +4822,68 @@ LABEL_12:
     if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "PLM: Client is 24-hour job", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "PLM: Client is 24-hour job", buf, 2u);
     }
 
+    [_EARLmModel removeWithDirectory:v106];
     [_EARLmModel removeWithDirectory:v107];
-    [_EARLmModel removeWithDirectory:v108];
-    v12 = v107;
+    v11 = v106;
     goto LABEL_12;
   }
 
   if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "PLM: Client is PersonalizedLmFidesPlugin", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "PLM: Client is PersonalizedLmFidesPlugin", buf, 2u);
   }
 
-  v13 = 0;
+  v12 = 0;
 LABEL_16:
   if (![*(a1 + 32) shouldStop])
   {
-    v15 = qword_10003FF28;
+    v14 = qword_10003FF28;
     if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
-      v147 = v5;
-      v148 = 2112;
-      v149 = v105;
-      v150 = 2112;
-      v151 = v13;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "PLM: Training start with language=%@ configuration=%@ directory=%@", buf, 0x20u);
+      v146 = v5;
+      v147 = 2112;
+      v148 = v104;
+      v149 = 2112;
+      v150 = v12;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "PLM: Training start with language=%@ configuration=%@ directory=%@", buf, 0x20u);
     }
 
     if (![v5 length])
     {
-      v14 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:204 userInfo:0];
-      (v106[2])(v106, 0, v14);
+      v13 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:204 userInfo:0];
+      (v105[2])(v105, 0, v13);
       goto LABEL_26;
     }
 
-    v104 = [v5 stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+    v103 = [v5 stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
 
-    v16 = objc_alloc_init(SMTSpeechAssets);
-    v124 = 0;
-    v100 = v16;
-    v101 = [(SMTSpeechAssets *)v16 fetchAssetPathForInstalledLanguage:v104 outError:&v124];
-    v17 = v124;
-    v18 = qword_10003FF28;
-    v19 = os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO);
-    v102 = v17;
-    if (v17)
+    v15 = objc_alloc_init(SMTSpeechAssets);
+    v123 = 0;
+    v99 = v15;
+    v100 = [(SMTSpeechAssets *)v15 fetchAssetPathForInstalledLanguage:v103 outError:&v123];
+    v16 = v123;
+    v17 = qword_10003FF28;
+    v18 = os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO);
+    v101 = v16;
+    if (v16)
     {
-      if (v19)
+      if (v18)
       {
         *buf = 138412290;
-        v147 = v17;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "PLM: Fetch asset error %@", buf, 0xCu);
+        v146 = v16;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "PLM: Fetch asset error %@", buf, 0xCu);
       }
 
-      (v106[2])(v106, 0, v17);
-      v20 = 0;
+      (v105[2])(v105, 0, v16);
+      v19 = 0;
 LABEL_73:
 
-      if (v20)
+      if (v19)
       {
         goto LABEL_74;
       }
@@ -4902,123 +4891,123 @@ LABEL_73:
       goto LABEL_27;
     }
 
-    if (v19)
+    if (v18)
     {
       *buf = 138412290;
-      v147 = v101;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "PLM: Resolved asset=%@", buf, 0xCu);
+      v146 = v100;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "PLM: Resolved asset=%@", buf, 0xCu);
     }
 
-    if (![v101 length])
+    if (![v100 length])
     {
-      v26 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:102 userInfo:0];
-      (v106[2])(v106, 0, v26);
-      v20 = 0;
+      v25 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:102 userInfo:0];
+      (v105[2])(v105, 0, v25);
+      v19 = 0;
 LABEL_72:
 
       goto LABEL_73;
     }
 
-    v98 = [v101 stringByAppendingPathComponent:@"mini.json"];
-    v21 = [[_EARSpeechModelInfo alloc] initWithConfig:v98];
-    v22 = [v21 version];
+    v97 = [v100 stringByAppendingPathComponent:@"mini.json"];
+    v20 = [[_EARSpeechModelInfo alloc] initWithConfig:v97];
+    v21 = [v20 version];
 
-    v121[0] = _NSConcreteStackBlock;
-    v121[1] = 3221225472;
-    v121[2] = sub_10001B270;
-    v121[3] = &unk_100038AB0;
-    v94 = v104;
-    v122 = v94;
-    v96 = v22;
-    v123 = v96;
-    v97 = objc_retainBlock(v121);
-    if (![v105 length])
+    v120[0] = _NSConcreteStackBlock;
+    v120[1] = 3221225472;
+    v120[2] = sub_10001B270;
+    v120[3] = &unk_100038AB0;
+    v93 = v103;
+    v121 = v93;
+    v95 = v21;
+    v122 = v95;
+    v96 = objc_retainBlock(v120);
+    if (![v104 length])
     {
-      v27 = v98;
+      v26 = v97;
 
-      v105 = v27;
+      v104 = v26;
       goto LABEL_44;
     }
 
-    v23 = v105;
-    v24 = v23;
-    if (v23)
+    v22 = v104;
+    v23 = v22;
+    if (v22)
     {
-      v25 = v23;
-      if (realpath_DARWIN_EXTSN([v24 fileSystemRepresentation], buf))
+      v24 = v22;
+      if (realpath_DARWIN_EXTSN([v23 fileSystemRepresentation], buf))
       {
-        v105 = [NSString stringWithUTF8String:buf];
+        v104 = [NSString stringWithUTF8String:buf];
 LABEL_42:
 
-        if (![v105 hasPrefix:@"/private/var/tmp/com.apple.siri-distributed-evaluation/"] || (objc_msgSend(v105, "hasSuffix:", @"/lm-personalize.json") & 1) == 0)
+        if (![v104 hasPrefix:@"/private/var/tmp/com.apple.siri-distributed-evaluation/"] || (objc_msgSend(v104, "hasSuffix:", @"/lm-personalize.json") & 1) == 0)
         {
-          v40 = [[NSString alloc] initWithFormat:@"Input configuration(%@) does not match expected path", v105];
-          v41 = qword_10003FF28;
+          v39 = [[NSString alloc] initWithFormat:@"Input configuration(%@) does not match expected path", v104];
+          v40 = qword_10003FF28;
           if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
           {
             *buf = 138543362;
-            v147 = v40;
-            _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "PLM: %{public}@", buf, 0xCu);
+            v146 = v39;
+            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "PLM: %{public}@", buf, 0xCu);
           }
 
-          v142 = NSLocalizedDescriptionKey;
-          v143 = v40;
-          obj = v40;
-          v37 = [NSDictionary dictionaryWithObjects:&v143 forKeys:&v142 count:1];
-          v38 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:206 userInfo:v37];
-          (v106[2])(v106, 0, v38);
-          v20 = 0;
+          v141 = NSLocalizedDescriptionKey;
+          v142 = v39;
+          obj = v39;
+          v36 = [NSDictionary dictionaryWithObjects:&v142 forKeys:&v141 count:1];
+          v37 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:206 userInfo:v36];
+          (v105[2])(v105, 0, v37);
+          v19 = 0;
           goto LABEL_71;
         }
 
 LABEL_44:
-        v119 = 0u;
-        v120 = 0u;
-        v117 = 0u;
         v118 = 0u;
-        v140 = v98;
-        obj = [NSArray arrayWithObjects:&v140 count:1];
-        v30 = [obj countByEnumeratingWithState:&v117 objects:v141 count:16];
-        if (v30)
+        v119 = 0u;
+        v116 = 0u;
+        v117 = 0u;
+        v139 = v97;
+        obj = [NSArray arrayWithObjects:&v139 count:1];
+        v29 = [obj countByEnumeratingWithState:&v116 objects:v140 count:16];
+        if (v29)
         {
-          v31 = *v118;
+          v30 = *v117;
           while (2)
           {
-            for (i = 0; i != v30; i = i + 1)
+            for (i = 0; i != v29; i = i + 1)
             {
-              if (*v118 != v31)
+              if (*v117 != v30)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v33 = *(*(&v117 + 1) + 8 * i);
-              v34 = +[NSFileManager defaultManager];
-              v35 = [v34 fileExistsAtPath:v33];
+              v32 = *(*(&v116 + 1) + 8 * i);
+              v33 = +[NSFileManager defaultManager];
+              v34 = [v33 fileExistsAtPath:v32];
 
-              if ((v35 & 1) == 0)
+              if ((v34 & 1) == 0)
               {
-                v42 = qword_10003FF28;
+                v41 = qword_10003FF28;
                 if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v147 = v33;
-                  _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "PLM: File does not exist %@", buf, 0xCu);
+                  v146 = v32;
+                  _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "PLM: File does not exist %@", buf, 0xCu);
                 }
 
-                v37 = [NSString stringWithFormat:@"File does not exist %@", v33];
-                v138 = NSLocalizedDescriptionKey;
-                v38 = (v97[2])(v97, v37);
-                v139 = v38;
-                v39 = [NSDictionary dictionaryWithObjects:&v139 forKeys:&v138 count:1];
-                v43 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:102 userInfo:v39];
-                (v106[2])(v106, 0, v43);
-                v20 = 0;
+                v36 = [NSString stringWithFormat:@"File does not exist %@", v32];
+                v137 = NSLocalizedDescriptionKey;
+                v37 = (v96[2])(v96, v36);
+                v138 = v37;
+                v38 = [NSDictionary dictionaryWithObjects:&v138 forKeys:&v137 count:1];
+                v42 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:102 userInfo:v38];
+                (v105[2])(v105, 0, v42);
+                v19 = 0;
                 goto LABEL_63;
               }
             }
 
-            v30 = [obj countByEnumeratingWithState:&v117 objects:v141 count:16];
-            if (v30)
+            v29 = [obj countByEnumeratingWithState:&v116 objects:v140 count:16];
+            if (v29)
             {
               continue;
             }
@@ -5027,53 +5016,53 @@ LABEL_44:
           }
         }
 
-        v36 = [NSURL fileURLWithPath:v105];
-        v116 = 0;
-        v37 = [NSString stringWithContentsOfURL:v36 encoding:4 error:&v116];
-        obj = v116;
+        v35 = [NSURL fileURLWithPath:v104];
+        v115 = 0;
+        v36 = [NSString stringWithContentsOfURL:v35 encoding:4 error:&v115];
+        obj = v115;
 
-        if (obj || ([v37 containsString:@"lm-personalize"] & 1) == 0)
+        if (obj || ([v36 containsString:@"lm-personalize"] & 1) == 0)
         {
-          v44 = qword_10003FF28;
+          v43 = qword_10003FF28;
           if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "PLM: Disabled", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "PLM: Disabled", buf, 2u);
           }
 
-          v38 = objc_alloc_init(NSMutableDictionary);
-          [v38 setObject:@"Disabled" forKeyedSubscript:NSLocalizedDescriptionKey];
+          v37 = objc_alloc_init(NSMutableDictionary);
+          [v37 setObject:@"Disabled" forKeyedSubscript:NSLocalizedDescriptionKey];
           if (obj)
           {
-            [v38 setObject:obj forKeyedSubscript:NSUnderlyingErrorKey];
+            [v37 setObject:obj forKeyedSubscript:NSUnderlyingErrorKey];
           }
 
-          v39 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:202 userInfo:v38];
-          (v106[2])(v106, 0, v39);
+          v38 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:202 userInfo:v37];
+          (v105[2])(v105, 0, v38);
           goto LABEL_69;
         }
 
-        v38 = [[_EARLmData alloc] initWithConfiguration:v105 recognizerConfiguration:v98];
-        if (!v38)
+        v37 = [[_EARLmData alloc] initWithConfiguration:v104 recognizerConfiguration:v97];
+        if (!v37)
         {
-          v46 = qword_10003FF28;
+          v45 = qword_10003FF28;
           if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_INFO, "PLM: Cannot create data", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "PLM: Cannot create data", buf, 2u);
           }
 
-          v136 = NSLocalizedDescriptionKey;
-          v39 = (v97[2])(v97, @"Cannot create data");
-          v137 = v39;
-          v93 = [NSDictionary dictionaryWithObjects:&v137 forKeys:&v136 count:1];
-          v47 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:201 userInfo:v93];
-          (v106[2])(v106, 0, v47);
-          v20 = 0;
+          v135 = NSLocalizedDescriptionKey;
+          v38 = (v96[2])(v96, @"Cannot create data");
+          v136 = v38;
+          v92 = [NSDictionary dictionaryWithObjects:&v136 forKeys:&v135 count:1];
+          v46 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:201 userInfo:v92];
+          (v105[2])(v105, 0, v46);
+          v19 = 0;
 LABEL_116:
 
           obj = 0;
-          v43 = v93;
+          v42 = v92;
 LABEL_63:
 
           goto LABEL_70;
@@ -5081,291 +5070,291 @@ LABEL_63:
 
         if ([*(a1 + 32) shouldStop])
         {
-          v39 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:4 userInfo:0];
-          (v106[2])(v106, 0, v39);
+          v38 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:4 userInfo:0];
+          (v105[2])(v105, 0, v38);
           obj = 0;
 LABEL_69:
-          v20 = 0;
+          v19 = 0;
 LABEL_70:
 
 LABEL_71:
-          v26 = v98;
+          v25 = v97;
           goto LABEL_72;
         }
 
-        v39 = [[_EARLmModel alloc] initWithConfiguration:v105];
-        if (v39)
+        v38 = [[_EARLmModel alloc] initWithConfiguration:v104];
+        if (v38)
         {
-          v48 = [[_EARLmEvaluator alloc] initWithConfiguration:v105 recognizerConfiguration:v98];
-          if (v48)
+          v47 = [[_EARLmEvaluator alloc] initWithConfiguration:v104 recognizerConfiguration:v97];
+          if (v47)
           {
-            v93 = v48;
-            v49 = objc_alloc_init(NSMutableDictionary);
-            v50 = v94;
-            v95 = v49;
-            [v49 setObject:v50 forKeyedSubscript:@"language"];
-            [v49 setObject:v96 forKeyedSubscript:@"asset"];
-            v51 = qword_10003FF28;
+            v92 = v47;
+            v48 = objc_alloc_init(NSMutableDictionary);
+            v49 = v93;
+            v94 = v48;
+            [v48 setObject:v49 forKeyedSubscript:@"language"];
+            [v48 setObject:v95 forKeyedSubscript:@"asset"];
+            v50 = qword_10003FF28;
             if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_INFO, "PLM: Fetching data", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "PLM: Fetching data", buf, 2u);
             }
 
-            v52 = +[NSProcessInfo processInfo];
-            [v52 systemUptime];
-            v54 = v53;
+            v51 = +[NSProcessInfo processInfo];
+            [v51 systemUptime];
+            v53 = v52;
 
-            v55 = [v38 sources];
-            v56 = [v38 queryLimit];
-            [v38 maxAge];
-            v58 = v57;
-            [v38 minAge];
-            v60 = v59;
-            v113[0] = _NSConcreteStackBlock;
-            v113[1] = 3221225472;
-            v113[2] = sub_10001B2C4;
-            v113[3] = &unk_100038AD8;
-            v61 = v38;
-            v62 = *(a1 + 32);
-            v91 = v61;
+            v54 = [v37 sources];
+            v55 = [v37 queryLimit];
+            [v37 maxAge];
+            v57 = v56;
+            [v37 minAge];
+            v59 = v58;
+            v112[0] = _NSConcreteStackBlock;
+            v112[1] = 3221225472;
+            v112[2] = sub_10001B2C4;
+            v112[3] = &unk_100038AD8;
+            v60 = v37;
+            v61 = *(a1 + 32);
+            v90 = v60;
+            v113 = v60;
             v114 = v61;
-            v115 = v62;
-            [SMTUserData enumerateDocumentSources:v55 limit:v56 maxAge:v113 minAge:v58 block:v60];
+            [SMTUserData enumerateDocumentSources:v54 limit:v55 maxAge:v112 minAge:v57 block:v59];
 
             if ([*(a1 + 32) shouldStop])
             {
-              v63 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:4 userInfo:0];
-              (v106[2])(v106, 0, v63);
+              v62 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:4 userInfo:0];
+              (v105[2])(v105, 0, v62);
 LABEL_101:
-              v20 = 0;
+              v19 = 0;
               goto LABEL_114;
             }
 
-            v68 = +[NSProcessInfo processInfo];
-            [v68 systemUptime];
-            v70 = v69;
+            v67 = +[NSProcessInfo processInfo];
+            [v67 systemUptime];
+            v69 = v68;
 
-            v63 = objc_alloc_init(NSMutableDictionary);
-            v71 = [v91 metrics];
-            [v63 addEntriesFromDictionary:v71];
+            v62 = objc_alloc_init(NSMutableDictionary);
+            v70 = [v90 metrics];
+            [v62 addEntriesFromDictionary:v70];
 
-            v72 = [NSNumber numberWithDouble:v70 - v54];
-            [v63 setObject:v72 forKey:@"textProcessingDuration"];
+            v71 = [NSNumber numberWithDouble:v69 - v53];
+            [v62 setObject:v71 forKey:@"textProcessingDuration"];
 
-            [v95 setObject:v63 forKeyedSubscript:@"data"];
-            v73 = qword_10003FF28;
+            [v94 setObject:v62 forKeyedSubscript:@"data"];
+            v72 = qword_10003FF28;
             if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_INFO, "PLM: Start training", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_INFO, "PLM: Start training", buf, 2u);
             }
 
-            v112[0] = _NSConcreteStackBlock;
-            v112[1] = 3221225472;
-            v112[2] = sub_10001B384;
-            v112[3] = &unk_100038B00;
-            v112[4] = *(a1 + 32);
-            if (([v39 trainWithData:v91 shouldStop:v112] & 1) == 0)
+            v111[0] = _NSConcreteStackBlock;
+            v111[1] = 3221225472;
+            v111[2] = sub_10001B384;
+            v111[3] = &unk_100038B00;
+            v111[4] = *(a1 + 32);
+            if (([v38 trainWithData:v90 shouldStop:v111] & 1) == 0)
             {
-              v74 = qword_10003FF28;
+              v73 = qword_10003FF28;
               if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_INFO, "PLM: Stopped after training", buf, 2u);
+                _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_INFO, "PLM: Stopped after training", buf, 2u);
               }
 
-              (v106[2])(v106, v95, 0);
+              (v105[2])(v105, v94, 0);
               goto LABEL_101;
             }
 
             if ([*(a1 + 32) shouldStop])
             {
-              v89 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:4 userInfo:0];
-              (v106[2])(v106, 0, v89);
-              v20 = 0;
+              v88 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:4 userInfo:0];
+              (v105[2])(v105, 0, v88);
+              v19 = 0;
 
 LABEL_114:
-              v65 = v114;
+              v64 = v113;
               goto LABEL_115;
             }
 
-            v90 = [v39 metrics];
-            if (v90)
+            v89 = [v38 metrics];
+            if (v89)
             {
-              [v95 setObject:v90 forKeyedSubscript:@"model"];
+              [v94 setObject:v89 forKeyedSubscript:@"model"];
             }
 
-            v88 = [v39 handle];
-            if (v88)
+            v87 = [v38 handle];
+            if (v87)
             {
-              *v144 = 0;
-              v110 = 0;
-              v111[0] = _NSConcreteStackBlock;
-              v111[1] = 3221225472;
-              v111[2] = sub_10001B38C;
-              v111[3] = &unk_100038B00;
-              v111[4] = *(a1 + 32);
-              v75 = [v93 runEvaluationWithData:v91 handle:v88 shouldStop:v111 result:&v110 bestWeight:v144];
-              v92 = v110;
+              *v143 = 0;
+              v109 = 0;
+              v110[0] = _NSConcreteStackBlock;
+              v110[1] = 3221225472;
+              v110[2] = sub_10001B38C;
+              v110[3] = &unk_100038B00;
+              v110[4] = *(a1 + 32);
+              v74 = [v92 runEvaluationWithData:v90 handle:v87 shouldStop:v110 result:&v109 bestWeight:v143];
+              v91 = v109;
               if ([*(a1 + 32) shouldStop])
               {
-                v77 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:4 userInfo:0];
-                (v106[2])(v106, 0, v77);
+                v76 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:4 userInfo:0];
+                (v105[2])(v105, 0, v76);
               }
 
               else
               {
-                if (v92)
+                if (v91)
                 {
-                  [v95 setObject:v92 forKeyedSubscript:@"eval"];
+                  [v94 setObject:v91 forKeyedSubscript:@"eval"];
                 }
 
-                if ((v75 & 1) == 0)
-                {
-                  v83 = qword_10003FF28;
-                  if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
-                  {
-                    *buf = 0;
-                    _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_INFO, "PLM: Stopped after evaluation", buf, 2u);
-                  }
-
-                  (v106[2])(v106, v95, 0);
-                  v20 = 0;
-                  goto LABEL_112;
-                }
-
-                LODWORD(v76) = *v144;
-                [v39 setWeight:v76];
-                v81 = [v13 length];
-                v20 = v81 != 0;
-                if (!v81 || ([v39 writeToDirectory:v13] & 1) != 0)
+                if ((v74 & 1) == 0)
                 {
                   v82 = qword_10003FF28;
                   if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
                   {
-                    *buf = 138412290;
-                    v147 = v95;
-                    _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_INFO, "PLM: Done. Result: %@", buf, 0xCu);
+                    *buf = 0;
+                    _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_INFO, "PLM: Stopped after evaluation", buf, 2u);
                   }
 
-                  (v106[2])(v106, v95, 0);
+                  (v105[2])(v105, v94, 0);
+                  v19 = 0;
                   goto LABEL_112;
                 }
 
-                v84 = qword_10003FF28;
+                LODWORD(v75) = *v143;
+                [v38 setWeight:v75];
+                v80 = [v12 length];
+                v19 = v80 != 0;
+                if (!v80 || ([v38 writeToDirectory:v12] & 1) != 0)
+                {
+                  v81 = qword_10003FF28;
+                  if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
+                  {
+                    *buf = 138412290;
+                    v146 = v94;
+                    _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_INFO, "PLM: Done. Result: %@", buf, 0xCu);
+                  }
+
+                  (v105[2])(v105, v94, 0);
+                  goto LABEL_112;
+                }
+
+                v83 = qword_10003FF28;
                 if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v147 = v13;
-                  _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_INFO, "PLM: Write failure: %@", buf, 0xCu);
+                  v146 = v12;
+                  _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_INFO, "PLM: Write failure: %@", buf, 0xCu);
                 }
 
-                v77 = [NSString stringWithFormat:@"Write failure: %@", v13];
-                v128 = NSLocalizedDescriptionKey;
-                v85 = (v97[2])(v97, v77);
-                v129 = v85;
-                v86 = [NSDictionary dictionaryWithObjects:&v129 forKeys:&v128 count:1];
-                v87 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:3 userInfo:v86];
-                (v106[2])(v106, 0, v87);
+                v76 = [NSString stringWithFormat:@"Write failure: %@", v12];
+                v127 = NSLocalizedDescriptionKey;
+                v84 = (v96[2])(v96, v76);
+                v128 = v84;
+                v85 = [NSDictionary dictionaryWithObjects:&v128 forKeys:&v127 count:1];
+                v86 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:3 userInfo:v85];
+                (v105[2])(v105, 0, v86);
               }
             }
 
             else
             {
-              v78 = qword_10003FF28;
+              v77 = qword_10003FF28;
               if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_INFO, "PLM: Failed to get handle", buf, 2u);
+                _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_INFO, "PLM: Failed to get handle", buf, 2u);
               }
 
-              v130 = NSLocalizedDescriptionKey;
-              v92 = (v97[2])(v97, @"Failed to get handle");
-              v131 = v92;
-              v79 = [NSDictionary dictionaryWithObjects:&v131 forKeys:&v130 count:1];
-              v80 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:201 userInfo:v79];
-              (v106[2])(v106, 0, v80);
+              v129 = NSLocalizedDescriptionKey;
+              v91 = (v96[2])(v96, @"Failed to get handle");
+              v130 = v91;
+              v78 = [NSDictionary dictionaryWithObjects:&v130 forKeys:&v129 count:1];
+              v79 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:201 userInfo:v78];
+              (v105[2])(v105, 0, v79);
             }
 
-            v20 = 0;
+            v19 = 0;
 LABEL_112:
 
             goto LABEL_114;
           }
 
-          v66 = qword_10003FF28;
+          v65 = qword_10003FF28;
           if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_INFO, "PLM: Cannot create evaluator", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_INFO, "PLM: Cannot create evaluator", buf, 2u);
           }
 
-          v132 = NSLocalizedDescriptionKey;
-          v95 = (v97[2])(v97, @"Cannot create evaluator");
-          v133 = v95;
-          v65 = [NSDictionary dictionaryWithObjects:&v133 forKeys:&v132 count:1];
-          v67 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:201 userInfo:v65];
-          (v106[2])(v106, 0, v67);
+          v131 = NSLocalizedDescriptionKey;
+          v94 = (v96[2])(v96, @"Cannot create evaluator");
+          v132 = v94;
+          v64 = [NSDictionary dictionaryWithObjects:&v132 forKeys:&v131 count:1];
+          v66 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:201 userInfo:v64];
+          (v105[2])(v105, 0, v66);
 
-          v93 = 0;
+          v92 = 0;
         }
 
         else
         {
-          v64 = qword_10003FF28;
+          v63 = qword_10003FF28;
           if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_INFO, "PLM: Cannot create model", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_INFO, "PLM: Cannot create model", buf, 2u);
           }
 
-          v134 = NSLocalizedDescriptionKey;
-          v135 = (v97[2])(v97, @"Cannot create model");
-          v93 = v135;
-          v95 = [NSDictionary dictionaryWithObjects:&v135 forKeys:&v134 count:1];
-          v65 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:201 userInfo:v95];
-          (v106[2])(v106, 0, v65);
+          v133 = NSLocalizedDescriptionKey;
+          v134 = (v96[2])(v96, @"Cannot create model");
+          v92 = v134;
+          v94 = [NSDictionary dictionaryWithObjects:&v134 forKeys:&v133 count:1];
+          v64 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:201 userInfo:v94];
+          (v105[2])(v105, 0, v64);
         }
 
-        v20 = 0;
+        v19 = 0;
 LABEL_115:
 
-        v47 = v95;
+        v46 = v94;
         goto LABEL_116;
       }
 
-      v28 = [[NSString alloc] initWithFormat:@"Failed to get absolute path for path=%@ errorno=%d", v24, *__error()];
-      v29 = qword_10003FF28;
+      v27 = [[NSString alloc] initWithFormat:@"Failed to get absolute path for path=%@ errorno=%d", v23, *__error()];
+      v28 = qword_10003FF28;
       if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
       {
-        *v144 = 138412290;
-        v145 = v28;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "PLM: %@", v144, 0xCu);
+        *v143 = 138412290;
+        v144 = v27;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "PLM: %@", v143, 0xCu);
       }
     }
 
-    v105 = 0;
+    v104 = 0;
     goto LABEL_42;
   }
 
-  v14 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:4 userInfo:0];
-  (v106[2])(v106, 0, v14);
+  v13 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:4 userInfo:0];
+  (v105[2])(v105, 0, v13);
 LABEL_26:
 
-  v104 = v5;
+  v103 = v5;
 LABEL_27:
-  if ([v13 length])
+  if ([v12 length])
   {
-    [_EARLmModel removeWithDirectory:v13];
+    [_EARLmModel removeWithDirectory:v12];
   }
 
 LABEL_74:
-  v45 = qword_10003FF28;
+  v44 = qword_10003FF28;
   if (os_log_type_enabled(qword_10003FF28, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "PLM: Exiting...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "PLM: Exiting...", buf, 2u);
   }
 
   xpc_transaction_exit_clean();
@@ -5432,12 +5421,12 @@ void sub_10001B2C4(uint64_t a1, void *a2, void *a3, void *a4, unsigned __int8 *a
   *a5 = v11;
 }
 
-void sub_10001B474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_10001B474(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = SpeechModelTrainingConnection;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -5469,7 +5458,7 @@ void sub_10001B604(uint64_t a1)
   }
 }
 
-void sub_10001B98C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, NSErrorUserInfoKey a20)
+void sub_10001B98C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, NSErrorUserInfoKey a20)
 {
   if (a2)
   {
@@ -5585,7 +5574,7 @@ void sub_10001D0B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *sub_10001D0D8(_BYTE *a1, char *__s)
+void *sub_10001D0D8(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -5599,45 +5588,45 @@ _BYTE *sub_10001D0D8(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void *sub_10001D190(void *a1, void *a2)
+void *sub_10001D190(float *a1, void *a2, __int128 **a3)
 {
-  v4 = sub_10001795C(a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = sub_10001795C(a2);
+  v6 = v5;
+  v7 = *(a1 + 2);
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -5645,44 +5634,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!sub_10001D408(v11 + 2, a2))
+  if (!sub_10001D408(v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 BOOL sub_10001D408(void *a1, void *a2)
@@ -5715,7 +5704,6 @@ BOOL sub_10001D408(void *a1, void *a2)
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -5829,7 +5817,7 @@ void *sub_10001D6DC(_BYTE *__dst, void *__src, unint64_t a3)
   return memmove(__dst, __src, v3);
 }
 
-void sub_10001DCC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46)
+void sub_10001DCC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, void *a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46)
 {
   if (a20 < 0)
   {
@@ -5871,7 +5859,7 @@ void sub_10001DDFC(void *a1, void *a2, unint64_t a3, _BYTE *a4)
         v17 = a1[4];
         v18 = *(v17 + 64);
         v21 = __p;
-        sub_10001D190((v17 + 40), __p)[5] = v18;
+        sub_10001D190((v17 + 40), __p, &v21)[5] = v18;
         if (v20 < 0)
         {
           operator delete(__p[0]);
@@ -5925,35 +5913,35 @@ void sub_10001E0A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *sub_10001E12C(void *a1, void *a2)
+void *sub_10001E12C(void *a1, void *a2, __int128 **a3)
 {
-  v4 = sub_10001795C(a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = sub_10001795C(a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -5961,44 +5949,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!sub_10001D408(v11 + 2, a2))
+  if (!sub_10001D408(v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_10001E488(void ***a1)
@@ -6036,7 +6024,7 @@ void sub_10001E488(void ***a1)
   }
 }
 
-void sub_10001EAD0(uint64_t *a1, unint64_t a2)
+void sub_10001EAD0(char **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -6046,18 +6034,18 @@ void sub_10001EAD0(uint64_t *a1, unint64_t a2)
   {
     if (a2 < v5)
     {
-      v11 = v3 + 24 * a2;
+      v11 = (v3 + 24 * a2);
       if (v4 != v11)
       {
         v12 = a1[1];
         do
         {
-          v14 = *(v12 - 24);
+          v14 = *(v12 - 3);
           v12 -= 24;
           v13 = v14;
           if (v14)
           {
-            *(v4 - 16) = v13;
+            *(v4 - 2) = v13;
             operator delete(v13);
           }
 
@@ -6078,7 +6066,7 @@ void sub_10001EAD0(uint64_t *a1, unint64_t a2)
     {
       if (a2 <= 0xAAAAAAAAAAAAAAALL)
       {
-        v8 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v3) >> 3);
+        v8 = 0xAAAAAAAAAAAAAAABLL * (&v7[-v3] >> 3);
         v9 = 2 * v8;
         if (2 * v8 <= a2)
         {
@@ -6107,11 +6095,11 @@ void sub_10001EAD0(uint64_t *a1, unint64_t a2)
     }
 
     bzero(a1[1], 24 * ((24 * v6 - 24) / 0x18) + 24);
-    a1[1] = v4 + 24 * ((24 * v6 - 24) / 0x18) + 24;
+    a1[1] = &v4[24 * ((24 * v6 - 24) / 0x18) + 24];
   }
 }
 
-void sub_10001ECA8(uint64_t *a1, unint64_t a2)
+void sub_10001ECA8(char **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -6123,7 +6111,7 @@ void sub_10001ECA8(uint64_t *a1, unint64_t a2)
       return;
     }
 
-    v11 = v3 + 4 * a2;
+    v11 = (v3 + 4 * a2);
   }
 
   else
@@ -6134,7 +6122,7 @@ void sub_10001ECA8(uint64_t *a1, unint64_t a2)
     {
       if (!(a2 >> 62))
       {
-        v8 = v7 - v3;
+        v8 = &v7[-v3];
         v9 = v8 >> 1;
         if (v8 >> 1 <= a2)
         {
@@ -6158,7 +6146,7 @@ void sub_10001ECA8(uint64_t *a1, unint64_t a2)
     }
 
     bzero(a1[1], 4 * v6);
-    v11 = v4 + 4 * v6;
+    v11 = &v4[4 * v6];
   }
 
   a1[1] = v11;
@@ -6233,7 +6221,7 @@ void sub_1000200B8(uint64_t a1, void *a2)
     v15 = v14;
     if (v14)
     {
-      [v14 asbd];
+      objc_msgSend_asbd(v14);
       v16 = DWORD2(v54);
 
       if (DWORD2(v54) == 1869641075)
@@ -6387,7 +6375,7 @@ LABEL_51:
         v25 = v24;
         if (v24)
         {
-          [v24 asbd];
+          objc_msgSend_asbd(v24);
           v26 = v49;
         }
 
@@ -6557,32 +6545,32 @@ uint64_t *sub_10002168C(void *a1, int a2)
   return result;
 }
 
-uint64_t *sub_100021740(void *a1, int a2)
+uint64_t *sub_100021740(void *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -6590,50 +6578,50 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_100022094(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100022094(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = SMTSimpleMmapBuffer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6780,9 +6768,9 @@ id sub_100024154()
   return v1;
 }
 
-void sub_10002421C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002421C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6820,9 +6808,9 @@ void sub_100024234()
   }
 }
 
-void sub_100024380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100024380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6860,9 +6848,9 @@ void sub_100024398()
   }
 }
 
-void sub_1000244E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000244E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6914,7 +6902,6 @@ LABEL_7:
 
 uint64_t sub_1000246A0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10003FF98 = result;
   return result;

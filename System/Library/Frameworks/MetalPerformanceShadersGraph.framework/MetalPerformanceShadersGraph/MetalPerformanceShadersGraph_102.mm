@@ -308,7 +308,7 @@ LABEL_27:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseGreaterThanEqual,llvm::SmallVector<mlir::Value,6u> &>(uint64_t **a1, uint64_t a2, uint64_t a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseGreaterThanEqual,llvm::SmallVector<mlir::Value,6u> &>(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
   v15[5] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -323,7 +323,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseGreaterThanEqual,llvm::S
   mlir::ValueRange::ValueRange(v15, *a3, *(a3 + 8));
   mlir::anec::ElementwiseEqual::build(a1, v14, v15[0], v15[1], 0, 0);
   v9 = mlir::OpBuilder::create(a1, v14);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseGreaterThanEqual,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseGreaterThanEqual,void>::id)
   {
     v10 = v9;
   }
@@ -499,7 +499,7 @@ LABEL_26:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseGreaterThanEqualZero,mlir::Value &>(uint64_t **a1, uint64_t a2, uint64_t *a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseGreaterThanEqualZero,mlir::Value &>(uint64_t **a1, uint64_t a2, uint64_t *a3)
 {
   v15[38] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -513,7 +513,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseGreaterThanEqualZero,mli
   mlir::OperationState::OperationState(v15, a2, v7);
   mlir::anec::ElementwiseGreaterThanEqualZero::build(a1, v15, *a3);
   v9 = mlir::OpBuilder::create(a1, v15);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseGreaterThanEqualZero,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseGreaterThanEqualZero,void>::id)
   {
     v10 = v9;
   }
@@ -900,7 +900,7 @@ LABEL_27:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseLessThan,llvm::SmallVector<mlir::Value,6u> &>(uint64_t **a1, uint64_t a2, uint64_t a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseLessThan,llvm::SmallVector<mlir::Value,6u> &>(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
   v15[5] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -915,7 +915,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseLessThan,llvm::SmallVect
   mlir::ValueRange::ValueRange(v15, *a3, *(a3 + 8));
   mlir::anec::ElementwiseEqual::build(a1, v14, v15[0], v15[1], 0, 0);
   v9 = mlir::OpBuilder::create(a1, v14);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThan,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThan,void>::id)
   {
     v10 = v9;
   }
@@ -1091,7 +1091,7 @@ LABEL_26:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseLessThanZero,mlir::Value &>(uint64_t **a1, uint64_t a2, uint64_t *a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseLessThanZero,mlir::Value &>(uint64_t **a1, uint64_t a2, uint64_t *a3)
 {
   v15[38] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -1105,7 +1105,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseLessThanZero,mlir::Value
   mlir::OperationState::OperationState(v15, a2, v7);
   mlir::anec::ElementwiseGreaterThanEqualZero::build(a1, v15, *a3);
   v9 = mlir::OpBuilder::create(a1, v15);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThanZero,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThanZero,void>::id)
   {
     v10 = v9;
   }
@@ -1492,7 +1492,7 @@ LABEL_27:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseLessThanEqual,llvm::SmallVector<mlir::Value,6u> &>(uint64_t **a1, uint64_t a2, uint64_t a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseLessThanEqual,llvm::SmallVector<mlir::Value,6u> &>(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
   v15[5] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -1507,7 +1507,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseLessThanEqual,llvm::Smal
   mlir::ValueRange::ValueRange(v15, *a3, *(a3 + 8));
   mlir::anec::ElementwiseEqual::build(a1, v14, v15[0], v15[1], 0, 0);
   v9 = mlir::OpBuilder::create(a1, v14);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThanEqual,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThanEqual,void>::id)
   {
     v10 = v9;
   }
@@ -1683,7 +1683,7 @@ LABEL_26:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseLessThanEqualZero,mlir::Value &>(uint64_t **a1, uint64_t a2, uint64_t *a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseLessThanEqualZero,mlir::Value &>(uint64_t **a1, uint64_t a2, uint64_t *a3)
 {
   v15[38] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -1697,7 +1697,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseLessThanEqualZero,mlir::
   mlir::OperationState::OperationState(v15, a2, v7);
   mlir::anec::ElementwiseGreaterThanEqualZero::build(a1, v15, *a3);
   v9 = mlir::OpBuilder::create(a1, v15);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThanEqualZero,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseLessThanEqualZero,void>::id)
   {
     v10 = v9;
   }
@@ -1711,73 +1711,73 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseLessThanEqualZero,mlir::
   return v10;
 }
 
-void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::NotOp,mlir::anec::ElementwiseEqualZero>::~ConvertElementwiseUnary(uint64_t a1)
+void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::NotOp,mlir::anec::ElementwiseEqualZero>::~ConvertElementwiseUnary(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *a1 = &unk_1F5B0F1C0;
-  v2 = *(a1 + 128);
-  v3 = *(a1 + 136);
-  if (v3)
+  v5 = *(a1 + 128);
+  v6 = *(a1 + 136);
+  if (v6)
   {
-    v4 = -56 * v3;
-    v5 = v2 + 56 * v3 - 48;
+    v7 = -56 * v6;
+    v8 = v5 + 56 * v6 - 48;
     do
     {
-      if (*(v5 + 47) < 0)
+      if (*(v8 + 47) < 0)
       {
-        operator delete(*(v5 + 24));
+        operator delete(*(v8 + 24));
       }
 
-      v6 = *v5;
-      if (llvm::APFloatBase::PPCDoubleDouble(v2) == v6)
+      v9 = *v8;
+      if (llvm::APFloatBase::PPCDoubleDouble(v5) == v9)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v5);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v8);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(v5);
+        llvm::detail::IEEEFloat::~IEEEFloat(v8);
       }
 
-      v5 -= 56;
-      v4 += 56;
+      v8 -= 56;
+      v7 += 56;
     }
 
-    while (v4);
-    v2 = *(a1 + 128);
+    while (v7);
+    v5 = *(a1 + 128);
   }
 
-  if (v2 != (a1 + 144))
+  if (v5 != (a1 + 144))
   {
-    free(v2);
+    free(v5);
   }
 
-  v7 = *(a1 + 120);
-  v8 = *(a1 + 104);
-  if (v7)
+  v10 = *(a1 + 120);
+  v11 = *(a1 + 104);
+  if (v10)
   {
-    v9 = 32 * v7;
+    v12 = 32 * v10;
     do
     {
-      if (*v8 <= 0xFFFFFFFD && *(v8 + 31) < 0)
+      if (*v11 <= 0xFFFFFFFD && *(v11 + 31) < 0)
       {
-        operator delete(*(v8 + 8));
+        operator delete(*(v11 + 8));
       }
 
-      v8 += 32;
-      v9 -= 32;
+      v11 += 32;
+      v12 -= 32;
     }
 
-    while (v9);
-    v8 = *(a1 + 104);
-    v10 = (32 * *(a1 + 120));
+    while (v12);
+    v11 = *(a1 + 104);
+    v13 = (32 * *(a1 + 120));
   }
 
   else
   {
-    v10 = 0;
+    v13 = 0;
   }
 
-  llvm::deallocate_buffer(v8, v10);
+  llvm::deallocate_buffer(v11, v13);
 }
 
 {
@@ -2007,24 +2007,24 @@ LABEL_34:
 uint64_t mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::NotOp,mlir::anec::ElementwiseEqualZero>::matchAndRewriteWithStaticShapes(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, mlir::Float16Type **a4)
 {
   v5 = a1;
-  v69[9] = *MEMORY[0x1E69E9840];
+  v72[9] = *MEMORY[0x1E69E9840];
   v6 = *(a3 + 40);
   v7 = *(a3 + 48);
-  v68[0] = v69;
-  v68[1] = 0x400000000;
-  v69[8] = 4;
-  v64 = 0;
-  v65 = v67;
-  v66 = 0x400000000;
-  v62 = 0;
-  v63 = v6;
+  v71[0] = v72;
+  v71[1] = 0x400000000;
+  v72[8] = 4;
+  v67 = 0;
+  v68 = v70;
+  v69 = 0x400000000;
+  v65 = 0;
+  v66 = v6;
   if (v7)
   {
     v8 = 0;
     v9 = 0;
     while (1)
     {
-      a1 = mlir::ValueRange::dereference_iterator(&v63, v9);
+      a1 = mlir::ValueRange::dereference_iterator(&v66, v9);
       v10 = *(v5 + 30);
       if (!v10)
       {
@@ -2045,100 +2045,100 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v56 = &v58;
-      v57 = 0x100000000;
-      matched = mlir::matchConstantWithFloatVector<float>(a1, &v56);
-      v16 = matched & (v57 == 1);
-      if (v16)
+      v59 = &v61;
+      v60 = 0x100000000;
+      matched = mlir::matchConstantWithFloatVector<float>(a1, &v59);
+      v19 = matched & (v60 == 1);
+      if (v19)
       {
-        v17 = llvm::detail::IEEEFloat::IEEEFloat(v59, *v56);
-        v18 = llvm::APFloatBase::IEEEsingle(v17);
-        llvm::APFloat::Storage::Storage(&v61, v59, v18);
-        llvm::detail::IEEEFloat::~IEEEFloat(v59);
-        v20 = llvm::APFloatBase::IEEEhalf(v19);
-        v59[0] = 0;
-        llvm::APFloat::convert(&__p, v20, 1, v59);
-        v22 = v11 + 32 * v12;
-        v25 = *(v22 + 8);
-        v23 = v22 + 8;
-        v24 = v25;
-        v26 = *(v23 + 23);
-        if (v26 >= 0)
+        v20 = llvm::detail::IEEEFloat::IEEEFloat(v62, *v59, v16, v17, v18);
+        v21 = llvm::APFloatBase::IEEEsingle(v20);
+        llvm::APFloat::Storage::Storage(&v64, v62, v21);
+        llvm::detail::IEEEFloat::~IEEEFloat(v62);
+        v23 = llvm::APFloatBase::IEEEhalf(v22);
+        LOBYTE(v62[0]) = 0;
+        llvm::APFloat::convert(&__p, v23, 1, v62);
+        v25 = v11 + 32 * v12;
+        v28 = *(v25 + 8);
+        v26 = v25 + 8;
+        v27 = v28;
+        v29 = *(v26 + 23);
+        if (v29 >= 0)
         {
-          v27 = v23;
+          v30 = v26;
         }
 
         else
         {
-          v27 = v24;
+          v30 = v27;
         }
 
-        v28 = *(v23 + 8);
-        if (v26 >= 0)
+        v31 = *(v26 + 8);
+        if (v29 >= 0)
         {
-          v29 = v26;
+          v32 = v29;
         }
 
         else
         {
-          v29 = v28;
+          v32 = v31;
         }
 
-        F16Type = mlir::Builder::getF16Type(a4 + 1, v21);
+        F16Type = mlir::Builder::getF16Type(a4 + 1, v24);
         FloatAttr = mlir::Builder::getFloatAttr((a4 + 1), F16Type, &__p);
-        v32 = mlir::NamedAttrList::set(v68, v27, v29, FloatAttr);
-        v33 = v61;
-        if (llvm::APFloatBase::PPCDoubleDouble(v32) == v33)
+        v35 = mlir::NamedAttrList::set(v71, v30, v32, FloatAttr);
+        v36 = v64;
+        if (llvm::APFloatBase::PPCDoubleDouble(v35) == v36)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+          llvm::detail::IEEEFloat::~IEEEFloat(&v64);
         }
       }
 
       else
       {
         __p = operator new(0x30uLL);
-        v61 = xmmword_1E0982700;
+        v64 = xmmword_1E0982700;
         strcpy(__p, "Failed to extract fpValues from the operand");
-        v54 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
-        if (SHIBYTE(v61) < 0)
+        v57 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
+        if (SHIBYTE(v64) < 0)
         {
           operator delete(__p);
         }
       }
 
-      a1 = v56;
-      if (v56 != &v58)
+      a1 = v59;
+      if (v59 != &v61)
       {
-        free(v56);
+        free(v59);
       }
 
-      if ((v16 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        v52 = v54;
+        v55 = v57;
         goto LABEL_45;
       }
 
 LABEL_4:
-      v8 = v62 + 1;
-      v9 = v64 + 1;
-      ++v62;
-      v64 = v9;
+      v8 = v65 + 1;
+      v9 = v67 + 1;
+      ++v65;
+      v67 = v9;
       if (v9 == v7)
       {
         goto LABEL_29;
       }
     }
 
-    v35 = 1;
+    v38 = 1;
     while (v13 != -1)
     {
-      v36 = v12 + v35++;
-      v12 = v36 & (v10 - 1);
+      v39 = v12 + v38++;
+      v12 = v39 & (v10 - 1);
       v13 = *(v11 + 32 * v12);
       if (v13 == v8)
       {
@@ -2147,104 +2147,104 @@ LABEL_4:
     }
 
 LABEL_8:
-    v14 = v66;
-    if (v66 >= HIDWORD(v66))
+    v14 = v69;
+    if (v69 >= HIDWORD(v69))
     {
-      v34 = a1;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v65, v67, v66 + 1, 8);
-      a1 = v34;
-      v14 = v66;
+      v37 = a1;
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v68, v70, v69 + 1, 8);
+      a1 = v37;
+      v14 = v69;
     }
 
-    *(v65 + v14) = a1;
-    LODWORD(v66) = v66 + 1;
+    *(v68 + v14) = a1;
+    LODWORD(v69) = v69 + 1;
     goto LABEL_4;
   }
 
 LABEL_29:
-  v37 = *(v5 + 34);
-  if (v37)
+  v40 = *(v5 + 34);
+  if (v40)
   {
-    v38 = *(v5 + 16);
-    v39 = llvm::APFloatBase::PPCDoubleDouble(a1);
-    v40 = v38 + 32;
-    v41 = 56 * v37;
+    v41 = *(v5 + 16);
+    v42 = llvm::APFloatBase::PPCDoubleDouble(a1);
+    v43 = v41 + 32;
+    v44 = 56 * v40;
     do
     {
-      v42 = (v40 - 24);
-      if (v39 == *(v40 - 24))
+      v45 = (v43 - 24);
+      if (v42 == *(v43 - 24))
       {
-        v43 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v61, v42);
+        v46 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v64, v45);
       }
 
       else
       {
-        v43 = llvm::detail::IEEEFloat::IEEEFloat(&v61, v42);
+        v46 = llvm::detail::IEEEFloat::IEEEFloat(&v64, v45);
       }
 
-      v44 = llvm::APFloatBase::IEEEhalf(v43);
-      v59[0] = 0;
-      llvm::APFloat::convert(&__p, v44, 1, v59);
-      v46 = *(v40 + 23);
-      if (v46 >= 0)
+      v47 = llvm::APFloatBase::IEEEhalf(v46);
+      LOBYTE(v62[0]) = 0;
+      llvm::APFloat::convert(&__p, v47, 1, v62);
+      v49 = *(v43 + 23);
+      if (v49 >= 0)
       {
-        v47 = v40;
+        v50 = v43;
       }
 
       else
       {
-        v47 = *v40;
+        v50 = *v43;
       }
 
-      if (v46 >= 0)
+      if (v49 >= 0)
       {
-        v48 = *(v40 + 23);
+        v51 = *(v43 + 23);
       }
 
       else
       {
-        v48 = *(v40 + 8);
+        v51 = *(v43 + 8);
       }
 
-      v49 = mlir::Builder::getF16Type(a4 + 1, v45);
-      v50 = mlir::Builder::getFloatAttr((a4 + 1), v49, &__p);
-      mlir::NamedAttrList::append(v68, v47, v48, v50);
-      if (v39 == v61)
+      v52 = mlir::Builder::getF16Type(a4 + 1, v48);
+      v53 = mlir::Builder::getFloatAttr((a4 + 1), v52, &__p);
+      mlir::NamedAttrList::append(v71, v50, v51, v53);
+      if (v42 == v64)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v64);
       }
 
-      v40 += 56;
-      v41 -= 56;
+      v43 += 56;
+      v44 -= 56;
     }
 
-    while (v41);
+    while (v44);
   }
 
-  mlir::ValueRange::ValueRange(&__p, v65, v66);
-  v51 = mlir::OpBuilder::create<mlir::anec::ElementwiseEqualZero,mlir::ValueRange,mlir::NamedAttrList &>(a4 + 1, *(a2 + 24), &__p, v68);
-  (*(*a4 + 1))(a4, a2, v51);
-  v52 = 1;
+  mlir::ValueRange::ValueRange(&__p, v68, v69);
+  v54 = mlir::OpBuilder::create<mlir::anec::ElementwiseEqualZero,mlir::ValueRange,mlir::NamedAttrList &>((a4 + 1), *(a2 + 24), &__p, v71);
+  (*(*a4 + 1))(a4, a2, v54);
+  v55 = 1;
 LABEL_45:
-  if (v65 != v67)
+  if (v68 != v70)
   {
-    free(v65);
+    free(v68);
   }
 
-  if (v68[0] != v69)
+  if (v71[0] != v72)
   {
-    free(v68[0]);
+    free(v71[0]);
   }
 
-  return v52;
+  return v55;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseEqualZero,mlir::ValueRange,mlir::NamedAttrList &>(uint64_t *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseEqualZero,mlir::ValueRange,mlir::NamedAttrList &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
 {
   v21[38] = *MEMORY[0x1E69E9840];
   v18 = a2;
@@ -2261,7 +2261,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseEqualZero,mlir::ValueRan
   Attrs = mlir::NamedAttrList::getAttrs(a4);
   mlir::anec::Ceil::build(a1, v21, v12, v11, Attrs, v14);
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseEqualZero,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseEqualZero,void>::id)
   {
     v16 = v15;
   }
@@ -2652,7 +2652,7 @@ LABEL_53:
               v166 = v126;
               v138 = mlir::ValueRange::dereference_iterator(&v166, 0);
               v38 = *(v28 + 24);
-              v39 = (*(v138 + 8) & 0xFFFFFFFFFFFFFFF8);
+              v39 = (*(v138 + 1) & 0xFFFFFFFFFFFFFFF8);
               if (v39)
               {
                 v40 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v39 + 8);
@@ -2925,7 +2925,7 @@ LABEL_136:
                           v94 = 0;
                         }
 
-                        v95 = mlir::DenseElementsAttr::getFromRawBuffer(v90, v94, v142, 8 * v143, 8, 1, 0);
+                        v95 = mlir::DenseElementsAttr::getFromRawBuffer(v90, v94, v142, 8 * v143);
                         mlir::NamedAttrList::set(v165, StringAttr, v95);
                         __p = "stride";
                         v164 = 259;
@@ -2940,7 +2940,7 @@ LABEL_136:
                           v97 = 0;
                         }
 
-                        v98 = mlir::DenseElementsAttr::getFromRawBuffer(v90, v97, v145, 8 * v146, 8, 1, 0);
+                        v98 = mlir::DenseElementsAttr::getFromRawBuffer(v90, v97, v145, 8 * v146);
                         mlir::NamedAttrList::set(v165, v96, v98);
                         __p = "padding";
                         v164 = 259;
@@ -2955,12 +2955,12 @@ LABEL_136:
                           v100 = 0;
                         }
 
-                        v101 = mlir::DenseElementsAttr::getFromRawBuffer(v92, v100, v139, 8 * v140, 8, 1, 0);
+                        v101 = mlir::DenseElementsAttr::getFromRawBuffer(v92, v100, v139, 8 * v140);
                         mlir::NamedAttrList::set(v165, v99, v101);
                         if (v125)
                         {
                           UnitAttr = mlir::Builder::getUnitAttr((a4 + 8), v102);
-                          mlir::NamedAttrList::set(v165, "inc_pad", 7, UnitAttr);
+                          mlir::NamedAttrList::set(v165, "inc_pad", 7uLL, UnitAttr);
                         }
 
                         v104 = mlir::OpBuilder::create<mlir::anec::AveragePool,mlir::Value &,mlir::NamedAttrList &>((a4 + 8), *(v127 + 24), &v138, v165);
@@ -2968,7 +2968,7 @@ LABEL_136:
                         v133 = v104 - 16;
                         if (v124)
                         {
-                          v106 = (*(v104 - 8) & 0xFFFFFFFFFFFFFFF8);
+                          v106 = (*(v104 - 1) & 0xFFFFFFFFFFFFFFF8);
                           if (v106)
                           {
                             v107 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v106 + 8);
@@ -3224,7 +3224,7 @@ LABEL_38:
     goto LABEL_24;
   }
 
-  v121 = std::__throw_bad_optional_access[abi:nn200100]();
+  std::__throw_bad_optional_access[abi:nn200100]();
   return llvm::SmallVectorImpl<unsigned long long>::resize(v121, v122, v123);
 }
 
@@ -3246,7 +3246,7 @@ LABEL_11:
       v12 = a2 - v3;
       v13 = result;
       v11 = a3;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(result, result + 16, a2, 8);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(result, (result + 16), a2, 8);
       a3 = v11;
       v4 = v12;
       result = v13;
@@ -3582,7 +3582,7 @@ char *std::rotate[abi:nn200100]<unsigned long long *>(char *__src, char *a2, cha
   return v3;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::AveragePool,mlir::Value &,mlir::NamedAttrList &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t a3, mlir::NamedAttrList *a4)
+char *mlir::OpBuilder::create<mlir::anec::AveragePool,mlir::Value &,mlir::NamedAttrList &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t a3, mlir::NamedAttrList *a4)
 {
   v19[38] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -3597,7 +3597,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::AveragePool,mlir::Value &,mlir::Nam
   Attrs = mlir::NamedAttrList::getAttrs(a4);
   mlir::anec::AveragePool::build(a1, v19, a3, 1uLL, Attrs, v12);
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::AveragePool,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::AveragePool,void>::id)
   {
     v14 = v13;
   }
@@ -3821,7 +3821,7 @@ LABEL_34:
   return result;
 }
 
-uint64_t mlir::anonymous namespace::ConvertPool<mlir::mps::PoolL2NormOp,mlir::anec::L2NormPool>::matchAndRewriteWithStaticShapes(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+char *mlir::anonymous namespace::ConvertPool<mlir::mps::PoolL2NormOp,mlir::anec::L2NormPool>::matchAndRewriteWithStaticShapes(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v164 = *MEMORY[0x1E69E9840];
   v125 = a2;
@@ -3987,7 +3987,7 @@ LABEL_53:
               v163 = v123;
               v135 = mlir::ValueRange::dereference_iterator(&v163, 0);
               v37 = *(v27 + 24);
-              v38 = (*(v135 + 8) & 0xFFFFFFFFFFFFFFF8);
+              v38 = (*(v135 + 1) & 0xFFFFFFFFFFFFFFF8);
               if (v38)
               {
                 v39 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v38 + 8);
@@ -4260,7 +4260,7 @@ LABEL_136:
                           v93 = 0;
                         }
 
-                        v94 = mlir::DenseElementsAttr::getFromRawBuffer(v89, v93, v139, 8 * v140, 8, 1, 0);
+                        v94 = mlir::DenseElementsAttr::getFromRawBuffer(v89, v93, v139, 8 * v140);
                         mlir::NamedAttrList::set(v162, StringAttr, v94);
                         __p = "stride";
                         v161 = 259;
@@ -4275,7 +4275,7 @@ LABEL_136:
                           v96 = 0;
                         }
 
-                        v97 = mlir::DenseElementsAttr::getFromRawBuffer(v89, v96, v142, 8 * v143, 8, 1, 0);
+                        v97 = mlir::DenseElementsAttr::getFromRawBuffer(v89, v96, v142, 8 * v143);
                         mlir::NamedAttrList::set(v162, v95, v97);
                         __p = "padding";
                         v161 = 259;
@@ -4290,14 +4290,14 @@ LABEL_136:
                           v99 = 0;
                         }
 
-                        v100 = mlir::DenseElementsAttr::getFromRawBuffer(v91, v99, v136, 8 * v137, 8, 1, 0);
+                        v100 = mlir::DenseElementsAttr::getFromRawBuffer(v91, v99, v136, 8 * v137);
                         mlir::NamedAttrList::set(v162, v98, v100);
                         v101 = mlir::OpBuilder::create<mlir::anec::L2NormPool,mlir::Value &,mlir::NamedAttrList &>((a4 + 8), *(v124 + 24), &v135, v162);
                         v102 = v101 - 16;
                         v130 = v101 - 16;
                         if (v122)
                         {
-                          v103 = (*(v101 - 8) & 0xFFFFFFFFFFFFFFF8);
+                          v103 = (*(v101 - 1) & 0xFFFFFFFFFFFFFFF8);
                           if (v103)
                           {
                             v104 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v103 + 8);
@@ -4553,11 +4553,11 @@ LABEL_38:
     goto LABEL_24;
   }
 
-  v118 = std::__throw_bad_optional_access[abi:nn200100]();
+  std::__throw_bad_optional_access[abi:nn200100]();
   return mlir::OpBuilder::create<mlir::anec::L2NormPool,mlir::Value &,mlir::NamedAttrList &>(v118, v119, v120, v121);
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::L2NormPool,mlir::Value &,mlir::NamedAttrList &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t a3, mlir::NamedAttrList *a4)
+char *mlir::OpBuilder::create<mlir::anec::L2NormPool,mlir::Value &,mlir::NamedAttrList &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t a3, mlir::NamedAttrList *a4)
 {
   v19[38] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -4572,7 +4572,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::L2NormPool,mlir::Value &,mlir::Name
   Attrs = mlir::NamedAttrList::getAttrs(a4);
   mlir::anec::L2NormPool::build(a1, v19, a3, 1uLL, Attrs, v12);
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::L2NormPool,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::L2NormPool,void>::id)
   {
     v14 = v13;
   }
@@ -4797,7 +4797,7 @@ LABEL_34:
   return result;
 }
 
-uint64_t mlir::anonymous namespace::ConvertPool<mlir::mps::PoolMaxOp,mlir::anec::MaxPool>::matchAndRewriteWithStaticShapes(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+char *mlir::anonymous namespace::ConvertPool<mlir::mps::PoolMaxOp,mlir::anec::MaxPool>::matchAndRewriteWithStaticShapes(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v164 = *MEMORY[0x1E69E9840];
   v125 = a2;
@@ -4963,7 +4963,7 @@ LABEL_53:
               v163 = v123;
               v135 = mlir::ValueRange::dereference_iterator(&v163, 0);
               v37 = *(v27 + 24);
-              v38 = (*(v135 + 8) & 0xFFFFFFFFFFFFFFF8);
+              v38 = (*(v135 + 1) & 0xFFFFFFFFFFFFFFF8);
               if (v38)
               {
                 v39 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v38 + 8);
@@ -5236,7 +5236,7 @@ LABEL_136:
                           v93 = 0;
                         }
 
-                        v94 = mlir::DenseElementsAttr::getFromRawBuffer(v89, v93, v139, 8 * v140, 8, 1, 0);
+                        v94 = mlir::DenseElementsAttr::getFromRawBuffer(v89, v93, v139, 8 * v140);
                         mlir::NamedAttrList::set(v162, StringAttr, v94);
                         __p = "stride";
                         v161 = 259;
@@ -5251,7 +5251,7 @@ LABEL_136:
                           v96 = 0;
                         }
 
-                        v97 = mlir::DenseElementsAttr::getFromRawBuffer(v89, v96, v142, 8 * v143, 8, 1, 0);
+                        v97 = mlir::DenseElementsAttr::getFromRawBuffer(v89, v96, v142, 8 * v143);
                         mlir::NamedAttrList::set(v162, v95, v97);
                         __p = "padding";
                         v161 = 259;
@@ -5266,14 +5266,14 @@ LABEL_136:
                           v99 = 0;
                         }
 
-                        v100 = mlir::DenseElementsAttr::getFromRawBuffer(v91, v99, v136, 8 * v137, 8, 1, 0);
+                        v100 = mlir::DenseElementsAttr::getFromRawBuffer(v91, v99, v136, 8 * v137);
                         mlir::NamedAttrList::set(v162, v98, v100);
                         v101 = mlir::OpBuilder::create<mlir::anec::MaxPool,mlir::Value &,mlir::NamedAttrList &>((a4 + 8), *(v124 + 24), &v135, v162);
                         v102 = v101 - 16;
                         v130 = v101 - 16;
                         if (v122)
                         {
-                          v103 = (*(v101 - 8) & 0xFFFFFFFFFFFFFFF8);
+                          v103 = (*(v101 - 1) & 0xFFFFFFFFFFFFFFF8);
                           if (v103)
                           {
                             v104 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v103 + 8);
@@ -5529,11 +5529,11 @@ LABEL_38:
     goto LABEL_24;
   }
 
-  v118 = std::__throw_bad_optional_access[abi:nn200100]();
+  std::__throw_bad_optional_access[abi:nn200100]();
   return mlir::OpBuilder::create<mlir::anec::MaxPool,mlir::Value &,mlir::NamedAttrList &>(v118, v119, v120, v121);
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::MaxPool,mlir::Value &,mlir::NamedAttrList &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t a3, mlir::NamedAttrList *a4)
+char *mlir::OpBuilder::create<mlir::anec::MaxPool,mlir::Value &,mlir::NamedAttrList &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t a3, mlir::NamedAttrList *a4)
 {
   v19[38] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -5548,7 +5548,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::MaxPool,mlir::Value &,mlir::NamedAt
   Attrs = mlir::NamedAttrList::getAttrs(a4);
   mlir::anec::MaxPool::build(a1, v19, a3, 1uLL, Attrs, v12);
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::MaxPool,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::MaxPool,void>::id)
   {
     v14 = v13;
   }
@@ -6202,7 +6202,7 @@ LABEL_74:
     v75 = 0;
   }
 
-  v109[0] = mlir::DenseElementsAttr::getFromRawBuffer(v65, v75, v118, 8 * v119, 8, 1, 0);
+  v109[0] = mlir::DenseElementsAttr::getFromRawBuffer(v65, v75, v118, 8 * v119);
   if (v68)
   {
     v77 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v68 + 8);
@@ -6213,7 +6213,7 @@ LABEL_74:
     v77 = 0;
   }
 
-  v133[0] = mlir::DenseElementsAttr::getFromRawBuffer(v68, v77, v113[0], 8 * LODWORD(v113[1]), 8, 1, 0);
+  v133[0] = mlir::DenseElementsAttr::getFromRawBuffer(v68, v77, v113[0], 8 * LODWORD(v113[1]));
   if (v65)
   {
     v78 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v65 + 8);
@@ -6224,7 +6224,7 @@ LABEL_74:
     v78 = 0;
   }
 
-  v98 = mlir::DenseElementsAttr::getFromRawBuffer(v65, v78, v115, 8 * v116, 8, 1, 0);
+  v98 = mlir::DenseElementsAttr::getFromRawBuffer(v65, v78, v115, 8 * v116);
   UnitAttr = mlir::Builder::getUnitAttr((a4 + 8), v79);
   v99 = mlir::OpBuilder::create<mlir::anec::AveragePool,mlir::Value &,mlir::DenseIntElementsAttr,mlir::DenseIntElementsAttr,mlir::DenseIntElementsAttr,mlir::UnitAttr>((a4 + 8), v74, &v99, v109, v133, &v98, &UnitAttr) - 16;
   v80 = *(v115 + 1) * *v115 * *(v115 + 2);
@@ -6269,7 +6269,7 @@ LABEL_74:
   }
 
 LABEL_114:
-  v92 = std::__throw_bad_optional_access[abi:nn200100]();
+  std::__throw_bad_optional_access[abi:nn200100]();
   return llvm::SmallVector<unsigned long long,3u>::SmallVector(v92, v93, v94);
 }
 
@@ -6281,7 +6281,7 @@ void *llvm::SmallVector<unsigned long long,3u>::SmallVector(void *a1, const void
   if (v5 >= 4)
   {
     v6 = a2;
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a1, (a1 + 2), v5, 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 2, v5, 8);
     a2 = v6;
     v7 = *(a1 + 2);
     v8 = 8 * a3;
@@ -6307,7 +6307,7 @@ LABEL_6:
   return a1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::AveragePool,mlir::Value &,mlir::DenseIntElementsAttr,mlir::DenseIntElementsAttr,mlir::DenseIntElementsAttr,mlir::UnitAttr>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
+char *mlir::OpBuilder::create<mlir::anec::AveragePool,mlir::Value &,mlir::DenseIntElementsAttr,mlir::DenseIntElementsAttr,mlir::DenseIntElementsAttr,mlir::UnitAttr>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
 {
   v23[38] = *MEMORY[0x1E69E9840];
   v20 = a2;
@@ -6321,7 +6321,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::AveragePool,mlir::Value &,mlir::Den
   mlir::OperationState::OperationState(v23, a2, v15);
   mlir::anec::AveragePool::build(a1, v23, *a3, *a4, *a5, *a6, *a7);
   v17 = mlir::OpBuilder::create(a1, v23);
-  if (*(*(v17 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::AveragePool,void>::id)
+  if (*(*(v17 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::AveragePool,void>::id)
   {
     v18 = v17;
   }
@@ -6335,73 +6335,73 @@ uint64_t mlir::OpBuilder::create<mlir::anec::AveragePool,mlir::Value &,mlir::Den
   return v18;
 }
 
-void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::CeilOp,mlir::anec::Ceil>::~ConvertElementwiseUnary(uint64_t a1)
+void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::CeilOp,mlir::anec::Ceil>::~ConvertElementwiseUnary(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *a1 = &unk_1F5B0F3F0;
-  v2 = *(a1 + 128);
-  v3 = *(a1 + 136);
-  if (v3)
+  v5 = *(a1 + 128);
+  v6 = *(a1 + 136);
+  if (v6)
   {
-    v4 = -56 * v3;
-    v5 = v2 + 56 * v3 - 48;
+    v7 = -56 * v6;
+    v8 = v5 + 56 * v6 - 48;
     do
     {
-      if (*(v5 + 47) < 0)
+      if (*(v8 + 47) < 0)
       {
-        operator delete(*(v5 + 24));
+        operator delete(*(v8 + 24));
       }
 
-      v6 = *v5;
-      if (llvm::APFloatBase::PPCDoubleDouble(v2) == v6)
+      v9 = *v8;
+      if (llvm::APFloatBase::PPCDoubleDouble(v5) == v9)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v5);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v8);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(v5);
+        llvm::detail::IEEEFloat::~IEEEFloat(v8);
       }
 
-      v5 -= 56;
-      v4 += 56;
+      v8 -= 56;
+      v7 += 56;
     }
 
-    while (v4);
-    v2 = *(a1 + 128);
+    while (v7);
+    v5 = *(a1 + 128);
   }
 
-  if (v2 != (a1 + 144))
+  if (v5 != (a1 + 144))
   {
-    free(v2);
+    free(v5);
   }
 
-  v7 = *(a1 + 120);
-  v8 = *(a1 + 104);
-  if (v7)
+  v10 = *(a1 + 120);
+  v11 = *(a1 + 104);
+  if (v10)
   {
-    v9 = 32 * v7;
+    v12 = 32 * v10;
     do
     {
-      if (*v8 <= 0xFFFFFFFD && *(v8 + 31) < 0)
+      if (*v11 <= 0xFFFFFFFD && *(v11 + 31) < 0)
       {
-        operator delete(*(v8 + 8));
+        operator delete(*(v11 + 8));
       }
 
-      v8 += 32;
-      v9 -= 32;
+      v11 += 32;
+      v12 -= 32;
     }
 
-    while (v9);
-    v8 = *(a1 + 104);
-    v10 = (32 * *(a1 + 120));
+    while (v12);
+    v11 = *(a1 + 104);
+    v13 = (32 * *(a1 + 120));
   }
 
   else
   {
-    v10 = 0;
+    v13 = 0;
   }
 
-  llvm::deallocate_buffer(v8, v10);
+  llvm::deallocate_buffer(v11, v13);
 }
 
 {
@@ -6631,24 +6631,24 @@ LABEL_34:
 uint64_t mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::CeilOp,mlir::anec::Ceil>::matchAndRewriteWithStaticShapes(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, mlir::Float16Type **a4)
 {
   v5 = a1;
-  v69[9] = *MEMORY[0x1E69E9840];
+  v72[9] = *MEMORY[0x1E69E9840];
   v6 = *(a3 + 40);
   v7 = *(a3 + 48);
-  v68[0] = v69;
-  v68[1] = 0x400000000;
-  v69[8] = 4;
-  v64 = 0;
-  v65 = v67;
-  v66 = 0x400000000;
-  v62 = 0;
-  v63 = v6;
+  v71[0] = v72;
+  v71[1] = 0x400000000;
+  v72[8] = 4;
+  v67 = 0;
+  v68 = v70;
+  v69 = 0x400000000;
+  v65 = 0;
+  v66 = v6;
   if (v7)
   {
     v8 = 0;
     v9 = 0;
     while (1)
     {
-      a1 = mlir::ValueRange::dereference_iterator(&v63, v9);
+      a1 = mlir::ValueRange::dereference_iterator(&v66, v9);
       v10 = *(v5 + 30);
       if (!v10)
       {
@@ -6669,100 +6669,100 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v56 = &v58;
-      v57 = 0x100000000;
-      matched = mlir::matchConstantWithFloatVector<float>(a1, &v56);
-      v16 = matched & (v57 == 1);
-      if (v16)
+      v59 = &v61;
+      v60 = 0x100000000;
+      matched = mlir::matchConstantWithFloatVector<float>(a1, &v59);
+      v19 = matched & (v60 == 1);
+      if (v19)
       {
-        v17 = llvm::detail::IEEEFloat::IEEEFloat(v59, *v56);
-        v18 = llvm::APFloatBase::IEEEsingle(v17);
-        llvm::APFloat::Storage::Storage(&v61, v59, v18);
-        llvm::detail::IEEEFloat::~IEEEFloat(v59);
-        v20 = llvm::APFloatBase::IEEEhalf(v19);
-        v59[0] = 0;
-        llvm::APFloat::convert(&__p, v20, 1, v59);
-        v22 = v11 + 32 * v12;
-        v25 = *(v22 + 8);
-        v23 = v22 + 8;
-        v24 = v25;
-        v26 = *(v23 + 23);
-        if (v26 >= 0)
+        v20 = llvm::detail::IEEEFloat::IEEEFloat(v62, *v59, v16, v17, v18);
+        v21 = llvm::APFloatBase::IEEEsingle(v20);
+        llvm::APFloat::Storage::Storage(&v64, v62, v21);
+        llvm::detail::IEEEFloat::~IEEEFloat(v62);
+        v23 = llvm::APFloatBase::IEEEhalf(v22);
+        LOBYTE(v62[0]) = 0;
+        llvm::APFloat::convert(&__p, v23, 1, v62);
+        v25 = v11 + 32 * v12;
+        v28 = *(v25 + 8);
+        v26 = v25 + 8;
+        v27 = v28;
+        v29 = *(v26 + 23);
+        if (v29 >= 0)
         {
-          v27 = v23;
+          v30 = v26;
         }
 
         else
         {
-          v27 = v24;
+          v30 = v27;
         }
 
-        v28 = *(v23 + 8);
-        if (v26 >= 0)
+        v31 = *(v26 + 8);
+        if (v29 >= 0)
         {
-          v29 = v26;
+          v32 = v29;
         }
 
         else
         {
-          v29 = v28;
+          v32 = v31;
         }
 
-        F16Type = mlir::Builder::getF16Type(a4 + 1, v21);
+        F16Type = mlir::Builder::getF16Type(a4 + 1, v24);
         FloatAttr = mlir::Builder::getFloatAttr((a4 + 1), F16Type, &__p);
-        v32 = mlir::NamedAttrList::set(v68, v27, v29, FloatAttr);
-        v33 = v61;
-        if (llvm::APFloatBase::PPCDoubleDouble(v32) == v33)
+        v35 = mlir::NamedAttrList::set(v71, v30, v32, FloatAttr);
+        v36 = v64;
+        if (llvm::APFloatBase::PPCDoubleDouble(v35) == v36)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+          llvm::detail::IEEEFloat::~IEEEFloat(&v64);
         }
       }
 
       else
       {
         __p = operator new(0x30uLL);
-        v61 = xmmword_1E0982700;
+        v64 = xmmword_1E0982700;
         strcpy(__p, "Failed to extract fpValues from the operand");
-        v54 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
-        if (SHIBYTE(v61) < 0)
+        v57 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
+        if (SHIBYTE(v64) < 0)
         {
           operator delete(__p);
         }
       }
 
-      a1 = v56;
-      if (v56 != &v58)
+      a1 = v59;
+      if (v59 != &v61)
       {
-        free(v56);
+        free(v59);
       }
 
-      if ((v16 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        v52 = v54;
+        v55 = v57;
         goto LABEL_45;
       }
 
 LABEL_4:
-      v8 = v62 + 1;
-      v9 = v64 + 1;
-      ++v62;
-      v64 = v9;
+      v8 = v65 + 1;
+      v9 = v67 + 1;
+      ++v65;
+      v67 = v9;
       if (v9 == v7)
       {
         goto LABEL_29;
       }
     }
 
-    v35 = 1;
+    v38 = 1;
     while (v13 != -1)
     {
-      v36 = v12 + v35++;
-      v12 = v36 & (v10 - 1);
+      v39 = v12 + v38++;
+      v12 = v39 & (v10 - 1);
       v13 = *(v11 + 32 * v12);
       if (v13 == v8)
       {
@@ -6771,104 +6771,104 @@ LABEL_4:
     }
 
 LABEL_8:
-    v14 = v66;
-    if (v66 >= HIDWORD(v66))
+    v14 = v69;
+    if (v69 >= HIDWORD(v69))
     {
-      v34 = a1;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v65, v67, v66 + 1, 8);
-      a1 = v34;
-      v14 = v66;
+      v37 = a1;
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v68, v70, v69 + 1, 8);
+      a1 = v37;
+      v14 = v69;
     }
 
-    *(v65 + v14) = a1;
-    LODWORD(v66) = v66 + 1;
+    *(v68 + v14) = a1;
+    LODWORD(v69) = v69 + 1;
     goto LABEL_4;
   }
 
 LABEL_29:
-  v37 = *(v5 + 34);
-  if (v37)
+  v40 = *(v5 + 34);
+  if (v40)
   {
-    v38 = *(v5 + 16);
-    v39 = llvm::APFloatBase::PPCDoubleDouble(a1);
-    v40 = v38 + 32;
-    v41 = 56 * v37;
+    v41 = *(v5 + 16);
+    v42 = llvm::APFloatBase::PPCDoubleDouble(a1);
+    v43 = v41 + 32;
+    v44 = 56 * v40;
     do
     {
-      v42 = (v40 - 24);
-      if (v39 == *(v40 - 24))
+      v45 = (v43 - 24);
+      if (v42 == *(v43 - 24))
       {
-        v43 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v61, v42);
+        v46 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v64, v45);
       }
 
       else
       {
-        v43 = llvm::detail::IEEEFloat::IEEEFloat(&v61, v42);
+        v46 = llvm::detail::IEEEFloat::IEEEFloat(&v64, v45);
       }
 
-      v44 = llvm::APFloatBase::IEEEhalf(v43);
-      v59[0] = 0;
-      llvm::APFloat::convert(&__p, v44, 1, v59);
-      v46 = *(v40 + 23);
-      if (v46 >= 0)
+      v47 = llvm::APFloatBase::IEEEhalf(v46);
+      LOBYTE(v62[0]) = 0;
+      llvm::APFloat::convert(&__p, v47, 1, v62);
+      v49 = *(v43 + 23);
+      if (v49 >= 0)
       {
-        v47 = v40;
+        v50 = v43;
       }
 
       else
       {
-        v47 = *v40;
+        v50 = *v43;
       }
 
-      if (v46 >= 0)
+      if (v49 >= 0)
       {
-        v48 = *(v40 + 23);
+        v51 = *(v43 + 23);
       }
 
       else
       {
-        v48 = *(v40 + 8);
+        v51 = *(v43 + 8);
       }
 
-      v49 = mlir::Builder::getF16Type(a4 + 1, v45);
-      v50 = mlir::Builder::getFloatAttr((a4 + 1), v49, &__p);
-      mlir::NamedAttrList::append(v68, v47, v48, v50);
-      if (v39 == v61)
+      v52 = mlir::Builder::getF16Type(a4 + 1, v48);
+      v53 = mlir::Builder::getFloatAttr((a4 + 1), v52, &__p);
+      mlir::NamedAttrList::append(v71, v50, v51, v53);
+      if (v42 == v64)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v64);
       }
 
-      v40 += 56;
-      v41 -= 56;
+      v43 += 56;
+      v44 -= 56;
     }
 
-    while (v41);
+    while (v44);
   }
 
-  mlir::ValueRange::ValueRange(&__p, v65, v66);
-  v51 = mlir::OpBuilder::create<mlir::anec::Ceil,mlir::ValueRange,mlir::NamedAttrList &>(a4 + 1, *(a2 + 24), &__p, v68);
-  (*(*a4 + 1))(a4, a2, v51);
-  v52 = 1;
+  mlir::ValueRange::ValueRange(&__p, v68, v69);
+  v54 = mlir::OpBuilder::create<mlir::anec::Ceil,mlir::ValueRange,mlir::NamedAttrList &>((a4 + 1), *(a2 + 24), &__p, v71);
+  (*(*a4 + 1))(a4, a2, v54);
+  v55 = 1;
 LABEL_45:
-  if (v65 != v67)
+  if (v68 != v70)
   {
-    free(v65);
+    free(v68);
   }
 
-  if (v68[0] != v69)
+  if (v71[0] != v72)
   {
-    free(v68[0]);
+    free(v71[0]);
   }
 
-  return v52;
+  return v55;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Ceil,mlir::ValueRange,mlir::NamedAttrList &>(uint64_t *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
+char *mlir::OpBuilder::create<mlir::anec::Ceil,mlir::ValueRange,mlir::NamedAttrList &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
 {
   v21[38] = *MEMORY[0x1E69E9840];
   v18 = a2;
@@ -6885,7 +6885,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Ceil,mlir::ValueRange,mlir::NamedAt
   Attrs = mlir::NamedAttrList::getAttrs(a4);
   mlir::anec::Ceil::build(a1, v21, v12, v11, Attrs, v14);
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Ceil,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Ceil,void>::id)
   {
     v16 = v15;
   }
@@ -6899,73 +6899,73 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Ceil,mlir::ValueRange,mlir::NamedAt
   return v16;
 }
 
-void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::ErfOp,mlir::anec::Erf>::~ConvertElementwiseUnary(uint64_t a1)
+void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::ErfOp,mlir::anec::Erf>::~ConvertElementwiseUnary(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *a1 = &unk_1F5B0F460;
-  v2 = *(a1 + 128);
-  v3 = *(a1 + 136);
-  if (v3)
+  v5 = *(a1 + 128);
+  v6 = *(a1 + 136);
+  if (v6)
   {
-    v4 = -56 * v3;
-    v5 = v2 + 56 * v3 - 48;
+    v7 = -56 * v6;
+    v8 = v5 + 56 * v6 - 48;
     do
     {
-      if (*(v5 + 47) < 0)
+      if (*(v8 + 47) < 0)
       {
-        operator delete(*(v5 + 24));
+        operator delete(*(v8 + 24));
       }
 
-      v6 = *v5;
-      if (llvm::APFloatBase::PPCDoubleDouble(v2) == v6)
+      v9 = *v8;
+      if (llvm::APFloatBase::PPCDoubleDouble(v5) == v9)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v5);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v8);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(v5);
+        llvm::detail::IEEEFloat::~IEEEFloat(v8);
       }
 
-      v5 -= 56;
-      v4 += 56;
+      v8 -= 56;
+      v7 += 56;
     }
 
-    while (v4);
-    v2 = *(a1 + 128);
+    while (v7);
+    v5 = *(a1 + 128);
   }
 
-  if (v2 != (a1 + 144))
+  if (v5 != (a1 + 144))
   {
-    free(v2);
+    free(v5);
   }
 
-  v7 = *(a1 + 120);
-  v8 = *(a1 + 104);
-  if (v7)
+  v10 = *(a1 + 120);
+  v11 = *(a1 + 104);
+  if (v10)
   {
-    v9 = 32 * v7;
+    v12 = 32 * v10;
     do
     {
-      if (*v8 <= 0xFFFFFFFD && *(v8 + 31) < 0)
+      if (*v11 <= 0xFFFFFFFD && *(v11 + 31) < 0)
       {
-        operator delete(*(v8 + 8));
+        operator delete(*(v11 + 8));
       }
 
-      v8 += 32;
-      v9 -= 32;
+      v11 += 32;
+      v12 -= 32;
     }
 
-    while (v9);
-    v8 = *(a1 + 104);
-    v10 = (32 * *(a1 + 120));
+    while (v12);
+    v11 = *(a1 + 104);
+    v13 = (32 * *(a1 + 120));
   }
 
   else
   {
-    v10 = 0;
+    v13 = 0;
   }
 
-  llvm::deallocate_buffer(v8, v10);
+  llvm::deallocate_buffer(v11, v13);
 }
 
 {
@@ -7195,24 +7195,24 @@ LABEL_34:
 uint64_t mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::ErfOp,mlir::anec::Erf>::matchAndRewriteWithStaticShapes(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, mlir::Float16Type **a4)
 {
   v5 = a1;
-  v69[9] = *MEMORY[0x1E69E9840];
+  v72[9] = *MEMORY[0x1E69E9840];
   v6 = *(a3 + 40);
   v7 = *(a3 + 48);
-  v68[0] = v69;
-  v68[1] = 0x400000000;
-  v69[8] = 4;
-  v64 = 0;
-  v65 = v67;
-  v66 = 0x400000000;
-  v62 = 0;
-  v63 = v6;
+  v71[0] = v72;
+  v71[1] = 0x400000000;
+  v72[8] = 4;
+  v67 = 0;
+  v68 = v70;
+  v69 = 0x400000000;
+  v65 = 0;
+  v66 = v6;
   if (v7)
   {
     v8 = 0;
     v9 = 0;
     while (1)
     {
-      a1 = mlir::ValueRange::dereference_iterator(&v63, v9);
+      a1 = mlir::ValueRange::dereference_iterator(&v66, v9);
       v10 = *(v5 + 30);
       if (!v10)
       {
@@ -7233,100 +7233,100 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v56 = &v58;
-      v57 = 0x100000000;
-      matched = mlir::matchConstantWithFloatVector<float>(a1, &v56);
-      v16 = matched & (v57 == 1);
-      if (v16)
+      v59 = &v61;
+      v60 = 0x100000000;
+      matched = mlir::matchConstantWithFloatVector<float>(a1, &v59);
+      v19 = matched & (v60 == 1);
+      if (v19)
       {
-        v17 = llvm::detail::IEEEFloat::IEEEFloat(v59, *v56);
-        v18 = llvm::APFloatBase::IEEEsingle(v17);
-        llvm::APFloat::Storage::Storage(&v61, v59, v18);
-        llvm::detail::IEEEFloat::~IEEEFloat(v59);
-        v20 = llvm::APFloatBase::IEEEhalf(v19);
-        v59[0] = 0;
-        llvm::APFloat::convert(&__p, v20, 1, v59);
-        v22 = v11 + 32 * v12;
-        v25 = *(v22 + 8);
-        v23 = v22 + 8;
-        v24 = v25;
-        v26 = *(v23 + 23);
-        if (v26 >= 0)
+        v20 = llvm::detail::IEEEFloat::IEEEFloat(v62, *v59, v16, v17, v18);
+        v21 = llvm::APFloatBase::IEEEsingle(v20);
+        llvm::APFloat::Storage::Storage(&v64, v62, v21);
+        llvm::detail::IEEEFloat::~IEEEFloat(v62);
+        v23 = llvm::APFloatBase::IEEEhalf(v22);
+        LOBYTE(v62[0]) = 0;
+        llvm::APFloat::convert(&__p, v23, 1, v62);
+        v25 = v11 + 32 * v12;
+        v28 = *(v25 + 8);
+        v26 = v25 + 8;
+        v27 = v28;
+        v29 = *(v26 + 23);
+        if (v29 >= 0)
         {
-          v27 = v23;
+          v30 = v26;
         }
 
         else
         {
-          v27 = v24;
+          v30 = v27;
         }
 
-        v28 = *(v23 + 8);
-        if (v26 >= 0)
+        v31 = *(v26 + 8);
+        if (v29 >= 0)
         {
-          v29 = v26;
+          v32 = v29;
         }
 
         else
         {
-          v29 = v28;
+          v32 = v31;
         }
 
-        F16Type = mlir::Builder::getF16Type(a4 + 1, v21);
+        F16Type = mlir::Builder::getF16Type(a4 + 1, v24);
         FloatAttr = mlir::Builder::getFloatAttr((a4 + 1), F16Type, &__p);
-        v32 = mlir::NamedAttrList::set(v68, v27, v29, FloatAttr);
-        v33 = v61;
-        if (llvm::APFloatBase::PPCDoubleDouble(v32) == v33)
+        v35 = mlir::NamedAttrList::set(v71, v30, v32, FloatAttr);
+        v36 = v64;
+        if (llvm::APFloatBase::PPCDoubleDouble(v35) == v36)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+          llvm::detail::IEEEFloat::~IEEEFloat(&v64);
         }
       }
 
       else
       {
         __p = operator new(0x30uLL);
-        v61 = xmmword_1E0982700;
+        v64 = xmmword_1E0982700;
         strcpy(__p, "Failed to extract fpValues from the operand");
-        v54 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
-        if (SHIBYTE(v61) < 0)
+        v57 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
+        if (SHIBYTE(v64) < 0)
         {
           operator delete(__p);
         }
       }
 
-      a1 = v56;
-      if (v56 != &v58)
+      a1 = v59;
+      if (v59 != &v61)
       {
-        free(v56);
+        free(v59);
       }
 
-      if ((v16 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        v52 = v54;
+        v55 = v57;
         goto LABEL_45;
       }
 
 LABEL_4:
-      v8 = v62 + 1;
-      v9 = v64 + 1;
-      ++v62;
-      v64 = v9;
+      v8 = v65 + 1;
+      v9 = v67 + 1;
+      ++v65;
+      v67 = v9;
       if (v9 == v7)
       {
         goto LABEL_29;
       }
     }
 
-    v35 = 1;
+    v38 = 1;
     while (v13 != -1)
     {
-      v36 = v12 + v35++;
-      v12 = v36 & (v10 - 1);
+      v39 = v12 + v38++;
+      v12 = v39 & (v10 - 1);
       v13 = *(v11 + 32 * v12);
       if (v13 == v8)
       {
@@ -7335,104 +7335,104 @@ LABEL_4:
     }
 
 LABEL_8:
-    v14 = v66;
-    if (v66 >= HIDWORD(v66))
+    v14 = v69;
+    if (v69 >= HIDWORD(v69))
     {
-      v34 = a1;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v65, v67, v66 + 1, 8);
-      a1 = v34;
-      v14 = v66;
+      v37 = a1;
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v68, v70, v69 + 1, 8);
+      a1 = v37;
+      v14 = v69;
     }
 
-    *(v65 + v14) = a1;
-    LODWORD(v66) = v66 + 1;
+    *(v68 + v14) = a1;
+    LODWORD(v69) = v69 + 1;
     goto LABEL_4;
   }
 
 LABEL_29:
-  v37 = *(v5 + 34);
-  if (v37)
+  v40 = *(v5 + 34);
+  if (v40)
   {
-    v38 = *(v5 + 16);
-    v39 = llvm::APFloatBase::PPCDoubleDouble(a1);
-    v40 = v38 + 32;
-    v41 = 56 * v37;
+    v41 = *(v5 + 16);
+    v42 = llvm::APFloatBase::PPCDoubleDouble(a1);
+    v43 = v41 + 32;
+    v44 = 56 * v40;
     do
     {
-      v42 = (v40 - 24);
-      if (v39 == *(v40 - 24))
+      v45 = (v43 - 24);
+      if (v42 == *(v43 - 24))
       {
-        v43 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v61, v42);
+        v46 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v64, v45);
       }
 
       else
       {
-        v43 = llvm::detail::IEEEFloat::IEEEFloat(&v61, v42);
+        v46 = llvm::detail::IEEEFloat::IEEEFloat(&v64, v45);
       }
 
-      v44 = llvm::APFloatBase::IEEEhalf(v43);
-      v59[0] = 0;
-      llvm::APFloat::convert(&__p, v44, 1, v59);
-      v46 = *(v40 + 23);
-      if (v46 >= 0)
+      v47 = llvm::APFloatBase::IEEEhalf(v46);
+      LOBYTE(v62[0]) = 0;
+      llvm::APFloat::convert(&__p, v47, 1, v62);
+      v49 = *(v43 + 23);
+      if (v49 >= 0)
       {
-        v47 = v40;
+        v50 = v43;
       }
 
       else
       {
-        v47 = *v40;
+        v50 = *v43;
       }
 
-      if (v46 >= 0)
+      if (v49 >= 0)
       {
-        v48 = *(v40 + 23);
+        v51 = *(v43 + 23);
       }
 
       else
       {
-        v48 = *(v40 + 8);
+        v51 = *(v43 + 8);
       }
 
-      v49 = mlir::Builder::getF16Type(a4 + 1, v45);
-      v50 = mlir::Builder::getFloatAttr((a4 + 1), v49, &__p);
-      mlir::NamedAttrList::append(v68, v47, v48, v50);
-      if (v39 == v61)
+      v52 = mlir::Builder::getF16Type(a4 + 1, v48);
+      v53 = mlir::Builder::getFloatAttr((a4 + 1), v52, &__p);
+      mlir::NamedAttrList::append(v71, v50, v51, v53);
+      if (v42 == v64)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v64);
       }
 
-      v40 += 56;
-      v41 -= 56;
+      v43 += 56;
+      v44 -= 56;
     }
 
-    while (v41);
+    while (v44);
   }
 
-  mlir::ValueRange::ValueRange(&__p, v65, v66);
-  v51 = mlir::OpBuilder::create<mlir::anec::Erf,mlir::ValueRange,mlir::NamedAttrList &>(a4 + 1, *(a2 + 24), &__p, v68);
-  (*(*a4 + 1))(a4, a2, v51);
-  v52 = 1;
+  mlir::ValueRange::ValueRange(&__p, v68, v69);
+  v54 = mlir::OpBuilder::create<mlir::anec::Erf,mlir::ValueRange,mlir::NamedAttrList &>((a4 + 1), *(a2 + 24), &__p, v71);
+  (*(*a4 + 1))(a4, a2, v54);
+  v55 = 1;
 LABEL_45:
-  if (v65 != v67)
+  if (v68 != v70)
   {
-    free(v65);
+    free(v68);
   }
 
-  if (v68[0] != v69)
+  if (v71[0] != v72)
   {
-    free(v68[0]);
+    free(v71[0]);
   }
 
-  return v52;
+  return v55;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Erf,mlir::ValueRange,mlir::NamedAttrList &>(uint64_t *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
+char *mlir::OpBuilder::create<mlir::anec::Erf,mlir::ValueRange,mlir::NamedAttrList &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
 {
   v21[38] = *MEMORY[0x1E69E9840];
   v18 = a2;
@@ -7449,7 +7449,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Erf,mlir::ValueRange,mlir::NamedAtt
   Attrs = mlir::NamedAttrList::getAttrs(a4);
   mlir::anec::Ceil::build(a1, v21, v12, v11, Attrs, v14);
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Erf,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Erf,void>::id)
   {
     v16 = v15;
   }
@@ -7463,73 +7463,73 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Erf,mlir::ValueRange,mlir::NamedAtt
   return v16;
 }
 
-void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::ExponentBase2Op,mlir::anec::Exp2>::~ConvertElementwiseUnary(uint64_t a1)
+void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::ExponentBase2Op,mlir::anec::Exp2>::~ConvertElementwiseUnary(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *a1 = &unk_1F5B0F4D0;
-  v2 = *(a1 + 128);
-  v3 = *(a1 + 136);
-  if (v3)
+  v5 = *(a1 + 128);
+  v6 = *(a1 + 136);
+  if (v6)
   {
-    v4 = -56 * v3;
-    v5 = v2 + 56 * v3 - 48;
+    v7 = -56 * v6;
+    v8 = v5 + 56 * v6 - 48;
     do
     {
-      if (*(v5 + 47) < 0)
+      if (*(v8 + 47) < 0)
       {
-        operator delete(*(v5 + 24));
+        operator delete(*(v8 + 24));
       }
 
-      v6 = *v5;
-      if (llvm::APFloatBase::PPCDoubleDouble(v2) == v6)
+      v9 = *v8;
+      if (llvm::APFloatBase::PPCDoubleDouble(v5) == v9)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v5);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v8);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(v5);
+        llvm::detail::IEEEFloat::~IEEEFloat(v8);
       }
 
-      v5 -= 56;
-      v4 += 56;
+      v8 -= 56;
+      v7 += 56;
     }
 
-    while (v4);
-    v2 = *(a1 + 128);
+    while (v7);
+    v5 = *(a1 + 128);
   }
 
-  if (v2 != (a1 + 144))
+  if (v5 != (a1 + 144))
   {
-    free(v2);
+    free(v5);
   }
 
-  v7 = *(a1 + 120);
-  v8 = *(a1 + 104);
-  if (v7)
+  v10 = *(a1 + 120);
+  v11 = *(a1 + 104);
+  if (v10)
   {
-    v9 = 32 * v7;
+    v12 = 32 * v10;
     do
     {
-      if (*v8 <= 0xFFFFFFFD && *(v8 + 31) < 0)
+      if (*v11 <= 0xFFFFFFFD && *(v11 + 31) < 0)
       {
-        operator delete(*(v8 + 8));
+        operator delete(*(v11 + 8));
       }
 
-      v8 += 32;
-      v9 -= 32;
+      v11 += 32;
+      v12 -= 32;
     }
 
-    while (v9);
-    v8 = *(a1 + 104);
-    v10 = (32 * *(a1 + 120));
+    while (v12);
+    v11 = *(a1 + 104);
+    v13 = (32 * *(a1 + 120));
   }
 
   else
   {
-    v10 = 0;
+    v13 = 0;
   }
 
-  llvm::deallocate_buffer(v8, v10);
+  llvm::deallocate_buffer(v11, v13);
 }
 
 {
@@ -7759,24 +7759,24 @@ LABEL_34:
 uint64_t mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::ExponentBase2Op,mlir::anec::Exp2>::matchAndRewriteWithStaticShapes(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, mlir::Float16Type **a4)
 {
   v5 = a1;
-  v69[9] = *MEMORY[0x1E69E9840];
+  v72[9] = *MEMORY[0x1E69E9840];
   v6 = *(a3 + 40);
   v7 = *(a3 + 48);
-  v68[0] = v69;
-  v68[1] = 0x400000000;
-  v69[8] = 4;
-  v64 = 0;
-  v65 = v67;
-  v66 = 0x400000000;
-  v62 = 0;
-  v63 = v6;
+  v71[0] = v72;
+  v71[1] = 0x400000000;
+  v72[8] = 4;
+  v67 = 0;
+  v68 = v70;
+  v69 = 0x400000000;
+  v65 = 0;
+  v66 = v6;
   if (v7)
   {
     v8 = 0;
     v9 = 0;
     while (1)
     {
-      a1 = mlir::ValueRange::dereference_iterator(&v63, v9);
+      a1 = mlir::ValueRange::dereference_iterator(&v66, v9);
       v10 = *(v5 + 30);
       if (!v10)
       {
@@ -7797,100 +7797,100 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v56 = &v58;
-      v57 = 0x100000000;
-      matched = mlir::matchConstantWithFloatVector<float>(a1, &v56);
-      v16 = matched & (v57 == 1);
-      if (v16)
+      v59 = &v61;
+      v60 = 0x100000000;
+      matched = mlir::matchConstantWithFloatVector<float>(a1, &v59);
+      v19 = matched & (v60 == 1);
+      if (v19)
       {
-        v17 = llvm::detail::IEEEFloat::IEEEFloat(v59, *v56);
-        v18 = llvm::APFloatBase::IEEEsingle(v17);
-        llvm::APFloat::Storage::Storage(&v61, v59, v18);
-        llvm::detail::IEEEFloat::~IEEEFloat(v59);
-        v20 = llvm::APFloatBase::IEEEhalf(v19);
-        v59[0] = 0;
-        llvm::APFloat::convert(&__p, v20, 1, v59);
-        v22 = v11 + 32 * v12;
-        v25 = *(v22 + 8);
-        v23 = v22 + 8;
-        v24 = v25;
-        v26 = *(v23 + 23);
-        if (v26 >= 0)
+        v20 = llvm::detail::IEEEFloat::IEEEFloat(v62, *v59, v16, v17, v18);
+        v21 = llvm::APFloatBase::IEEEsingle(v20);
+        llvm::APFloat::Storage::Storage(&v64, v62, v21);
+        llvm::detail::IEEEFloat::~IEEEFloat(v62);
+        v23 = llvm::APFloatBase::IEEEhalf(v22);
+        LOBYTE(v62[0]) = 0;
+        llvm::APFloat::convert(&__p, v23, 1, v62);
+        v25 = v11 + 32 * v12;
+        v28 = *(v25 + 8);
+        v26 = v25 + 8;
+        v27 = v28;
+        v29 = *(v26 + 23);
+        if (v29 >= 0)
         {
-          v27 = v23;
+          v30 = v26;
         }
 
         else
         {
-          v27 = v24;
+          v30 = v27;
         }
 
-        v28 = *(v23 + 8);
-        if (v26 >= 0)
+        v31 = *(v26 + 8);
+        if (v29 >= 0)
         {
-          v29 = v26;
+          v32 = v29;
         }
 
         else
         {
-          v29 = v28;
+          v32 = v31;
         }
 
-        F16Type = mlir::Builder::getF16Type(a4 + 1, v21);
+        F16Type = mlir::Builder::getF16Type(a4 + 1, v24);
         FloatAttr = mlir::Builder::getFloatAttr((a4 + 1), F16Type, &__p);
-        v32 = mlir::NamedAttrList::set(v68, v27, v29, FloatAttr);
-        v33 = v61;
-        if (llvm::APFloatBase::PPCDoubleDouble(v32) == v33)
+        v35 = mlir::NamedAttrList::set(v71, v30, v32, FloatAttr);
+        v36 = v64;
+        if (llvm::APFloatBase::PPCDoubleDouble(v35) == v36)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+          llvm::detail::IEEEFloat::~IEEEFloat(&v64);
         }
       }
 
       else
       {
         __p = operator new(0x30uLL);
-        v61 = xmmword_1E0982700;
+        v64 = xmmword_1E0982700;
         strcpy(__p, "Failed to extract fpValues from the operand");
-        v54 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
-        if (SHIBYTE(v61) < 0)
+        v57 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
+        if (SHIBYTE(v64) < 0)
         {
           operator delete(__p);
         }
       }
 
-      a1 = v56;
-      if (v56 != &v58)
+      a1 = v59;
+      if (v59 != &v61)
       {
-        free(v56);
+        free(v59);
       }
 
-      if ((v16 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        v52 = v54;
+        v55 = v57;
         goto LABEL_45;
       }
 
 LABEL_4:
-      v8 = v62 + 1;
-      v9 = v64 + 1;
-      ++v62;
-      v64 = v9;
+      v8 = v65 + 1;
+      v9 = v67 + 1;
+      ++v65;
+      v67 = v9;
       if (v9 == v7)
       {
         goto LABEL_29;
       }
     }
 
-    v35 = 1;
+    v38 = 1;
     while (v13 != -1)
     {
-      v36 = v12 + v35++;
-      v12 = v36 & (v10 - 1);
+      v39 = v12 + v38++;
+      v12 = v39 & (v10 - 1);
       v13 = *(v11 + 32 * v12);
       if (v13 == v8)
       {
@@ -7899,104 +7899,104 @@ LABEL_4:
     }
 
 LABEL_8:
-    v14 = v66;
-    if (v66 >= HIDWORD(v66))
+    v14 = v69;
+    if (v69 >= HIDWORD(v69))
     {
-      v34 = a1;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v65, v67, v66 + 1, 8);
-      a1 = v34;
-      v14 = v66;
+      v37 = a1;
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v68, v70, v69 + 1, 8);
+      a1 = v37;
+      v14 = v69;
     }
 
-    *(v65 + v14) = a1;
-    LODWORD(v66) = v66 + 1;
+    *(v68 + v14) = a1;
+    LODWORD(v69) = v69 + 1;
     goto LABEL_4;
   }
 
 LABEL_29:
-  v37 = *(v5 + 34);
-  if (v37)
+  v40 = *(v5 + 34);
+  if (v40)
   {
-    v38 = *(v5 + 16);
-    v39 = llvm::APFloatBase::PPCDoubleDouble(a1);
-    v40 = v38 + 32;
-    v41 = 56 * v37;
+    v41 = *(v5 + 16);
+    v42 = llvm::APFloatBase::PPCDoubleDouble(a1);
+    v43 = v41 + 32;
+    v44 = 56 * v40;
     do
     {
-      v42 = (v40 - 24);
-      if (v39 == *(v40 - 24))
+      v45 = (v43 - 24);
+      if (v42 == *(v43 - 24))
       {
-        v43 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v61, v42);
+        v46 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v64, v45);
       }
 
       else
       {
-        v43 = llvm::detail::IEEEFloat::IEEEFloat(&v61, v42);
+        v46 = llvm::detail::IEEEFloat::IEEEFloat(&v64, v45);
       }
 
-      v44 = llvm::APFloatBase::IEEEhalf(v43);
-      v59[0] = 0;
-      llvm::APFloat::convert(&__p, v44, 1, v59);
-      v46 = *(v40 + 23);
-      if (v46 >= 0)
+      v47 = llvm::APFloatBase::IEEEhalf(v46);
+      LOBYTE(v62[0]) = 0;
+      llvm::APFloat::convert(&__p, v47, 1, v62);
+      v49 = *(v43 + 23);
+      if (v49 >= 0)
       {
-        v47 = v40;
+        v50 = v43;
       }
 
       else
       {
-        v47 = *v40;
+        v50 = *v43;
       }
 
-      if (v46 >= 0)
+      if (v49 >= 0)
       {
-        v48 = *(v40 + 23);
+        v51 = *(v43 + 23);
       }
 
       else
       {
-        v48 = *(v40 + 8);
+        v51 = *(v43 + 8);
       }
 
-      v49 = mlir::Builder::getF16Type(a4 + 1, v45);
-      v50 = mlir::Builder::getFloatAttr((a4 + 1), v49, &__p);
-      mlir::NamedAttrList::append(v68, v47, v48, v50);
-      if (v39 == v61)
+      v52 = mlir::Builder::getF16Type(a4 + 1, v48);
+      v53 = mlir::Builder::getFloatAttr((a4 + 1), v52, &__p);
+      mlir::NamedAttrList::append(v71, v50, v51, v53);
+      if (v42 == v64)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v64);
       }
 
-      v40 += 56;
-      v41 -= 56;
+      v43 += 56;
+      v44 -= 56;
     }
 
-    while (v41);
+    while (v44);
   }
 
-  mlir::ValueRange::ValueRange(&__p, v65, v66);
-  v51 = mlir::OpBuilder::create<mlir::anec::Exp2,mlir::ValueRange,mlir::NamedAttrList &>(a4 + 1, *(a2 + 24), &__p, v68);
-  (*(*a4 + 1))(a4, a2, v51);
-  v52 = 1;
+  mlir::ValueRange::ValueRange(&__p, v68, v69);
+  v54 = mlir::OpBuilder::create<mlir::anec::Exp2,mlir::ValueRange,mlir::NamedAttrList &>((a4 + 1), *(a2 + 24), &__p, v71);
+  (*(*a4 + 1))(a4, a2, v54);
+  v55 = 1;
 LABEL_45:
-  if (v65 != v67)
+  if (v68 != v70)
   {
-    free(v65);
+    free(v68);
   }
 
-  if (v68[0] != v69)
+  if (v71[0] != v72)
   {
-    free(v68[0]);
+    free(v71[0]);
   }
 
-  return v52;
+  return v55;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Exp2,mlir::ValueRange,mlir::NamedAttrList &>(uint64_t *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
+char *mlir::OpBuilder::create<mlir::anec::Exp2,mlir::ValueRange,mlir::NamedAttrList &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
 {
   v21[38] = *MEMORY[0x1E69E9840];
   v18 = a2;
@@ -8013,7 +8013,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Exp2,mlir::ValueRange,mlir::NamedAt
   Attrs = mlir::NamedAttrList::getAttrs(a4);
   mlir::anec::Ceil::build(a1, v21, v12, v11, Attrs, v14);
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Exp2,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Exp2,void>::id)
   {
     v16 = v15;
   }
@@ -8027,73 +8027,73 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Exp2,mlir::ValueRange,mlir::NamedAt
   return v16;
 }
 
-void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::FloorOp,mlir::anec::Floor>::~ConvertElementwiseUnary(uint64_t a1)
+void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::FloorOp,mlir::anec::Floor>::~ConvertElementwiseUnary(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *a1 = &unk_1F5B0F540;
-  v2 = *(a1 + 128);
-  v3 = *(a1 + 136);
-  if (v3)
+  v5 = *(a1 + 128);
+  v6 = *(a1 + 136);
+  if (v6)
   {
-    v4 = -56 * v3;
-    v5 = v2 + 56 * v3 - 48;
+    v7 = -56 * v6;
+    v8 = v5 + 56 * v6 - 48;
     do
     {
-      if (*(v5 + 47) < 0)
+      if (*(v8 + 47) < 0)
       {
-        operator delete(*(v5 + 24));
+        operator delete(*(v8 + 24));
       }
 
-      v6 = *v5;
-      if (llvm::APFloatBase::PPCDoubleDouble(v2) == v6)
+      v9 = *v8;
+      if (llvm::APFloatBase::PPCDoubleDouble(v5) == v9)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v5);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v8);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(v5);
+        llvm::detail::IEEEFloat::~IEEEFloat(v8);
       }
 
-      v5 -= 56;
-      v4 += 56;
+      v8 -= 56;
+      v7 += 56;
     }
 
-    while (v4);
-    v2 = *(a1 + 128);
+    while (v7);
+    v5 = *(a1 + 128);
   }
 
-  if (v2 != (a1 + 144))
+  if (v5 != (a1 + 144))
   {
-    free(v2);
+    free(v5);
   }
 
-  v7 = *(a1 + 120);
-  v8 = *(a1 + 104);
-  if (v7)
+  v10 = *(a1 + 120);
+  v11 = *(a1 + 104);
+  if (v10)
   {
-    v9 = 32 * v7;
+    v12 = 32 * v10;
     do
     {
-      if (*v8 <= 0xFFFFFFFD && *(v8 + 31) < 0)
+      if (*v11 <= 0xFFFFFFFD && *(v11 + 31) < 0)
       {
-        operator delete(*(v8 + 8));
+        operator delete(*(v11 + 8));
       }
 
-      v8 += 32;
-      v9 -= 32;
+      v11 += 32;
+      v12 -= 32;
     }
 
-    while (v9);
-    v8 = *(a1 + 104);
-    v10 = (32 * *(a1 + 120));
+    while (v12);
+    v11 = *(a1 + 104);
+    v13 = (32 * *(a1 + 120));
   }
 
   else
   {
-    v10 = 0;
+    v13 = 0;
   }
 
-  llvm::deallocate_buffer(v8, v10);
+  llvm::deallocate_buffer(v11, v13);
 }
 
 {
@@ -8323,24 +8323,24 @@ LABEL_34:
 uint64_t mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::FloorOp,mlir::anec::Floor>::matchAndRewriteWithStaticShapes(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, mlir::Float16Type **a4)
 {
   v5 = a1;
-  v69[9] = *MEMORY[0x1E69E9840];
+  v72[9] = *MEMORY[0x1E69E9840];
   v6 = *(a3 + 40);
   v7 = *(a3 + 48);
-  v68[0] = v69;
-  v68[1] = 0x400000000;
-  v69[8] = 4;
-  v64 = 0;
-  v65 = v67;
-  v66 = 0x400000000;
-  v62 = 0;
-  v63 = v6;
+  v71[0] = v72;
+  v71[1] = 0x400000000;
+  v72[8] = 4;
+  v67 = 0;
+  v68 = v70;
+  v69 = 0x400000000;
+  v65 = 0;
+  v66 = v6;
   if (v7)
   {
     v8 = 0;
     v9 = 0;
     while (1)
     {
-      a1 = mlir::ValueRange::dereference_iterator(&v63, v9);
+      a1 = mlir::ValueRange::dereference_iterator(&v66, v9);
       v10 = *(v5 + 30);
       if (!v10)
       {
@@ -8361,100 +8361,100 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v56 = &v58;
-      v57 = 0x100000000;
-      matched = mlir::matchConstantWithFloatVector<float>(a1, &v56);
-      v16 = matched & (v57 == 1);
-      if (v16)
+      v59 = &v61;
+      v60 = 0x100000000;
+      matched = mlir::matchConstantWithFloatVector<float>(a1, &v59);
+      v19 = matched & (v60 == 1);
+      if (v19)
       {
-        v17 = llvm::detail::IEEEFloat::IEEEFloat(v59, *v56);
-        v18 = llvm::APFloatBase::IEEEsingle(v17);
-        llvm::APFloat::Storage::Storage(&v61, v59, v18);
-        llvm::detail::IEEEFloat::~IEEEFloat(v59);
-        v20 = llvm::APFloatBase::IEEEhalf(v19);
-        v59[0] = 0;
-        llvm::APFloat::convert(&__p, v20, 1, v59);
-        v22 = v11 + 32 * v12;
-        v25 = *(v22 + 8);
-        v23 = v22 + 8;
-        v24 = v25;
-        v26 = *(v23 + 23);
-        if (v26 >= 0)
+        v20 = llvm::detail::IEEEFloat::IEEEFloat(v62, *v59, v16, v17, v18);
+        v21 = llvm::APFloatBase::IEEEsingle(v20);
+        llvm::APFloat::Storage::Storage(&v64, v62, v21);
+        llvm::detail::IEEEFloat::~IEEEFloat(v62);
+        v23 = llvm::APFloatBase::IEEEhalf(v22);
+        LOBYTE(v62[0]) = 0;
+        llvm::APFloat::convert(&__p, v23, 1, v62);
+        v25 = v11 + 32 * v12;
+        v28 = *(v25 + 8);
+        v26 = v25 + 8;
+        v27 = v28;
+        v29 = *(v26 + 23);
+        if (v29 >= 0)
         {
-          v27 = v23;
+          v30 = v26;
         }
 
         else
         {
-          v27 = v24;
+          v30 = v27;
         }
 
-        v28 = *(v23 + 8);
-        if (v26 >= 0)
+        v31 = *(v26 + 8);
+        if (v29 >= 0)
         {
-          v29 = v26;
+          v32 = v29;
         }
 
         else
         {
-          v29 = v28;
+          v32 = v31;
         }
 
-        F16Type = mlir::Builder::getF16Type(a4 + 1, v21);
+        F16Type = mlir::Builder::getF16Type(a4 + 1, v24);
         FloatAttr = mlir::Builder::getFloatAttr((a4 + 1), F16Type, &__p);
-        v32 = mlir::NamedAttrList::set(v68, v27, v29, FloatAttr);
-        v33 = v61;
-        if (llvm::APFloatBase::PPCDoubleDouble(v32) == v33)
+        v35 = mlir::NamedAttrList::set(v71, v30, v32, FloatAttr);
+        v36 = v64;
+        if (llvm::APFloatBase::PPCDoubleDouble(v35) == v36)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+          llvm::detail::IEEEFloat::~IEEEFloat(&v64);
         }
       }
 
       else
       {
         __p = operator new(0x30uLL);
-        v61 = xmmword_1E0982700;
+        v64 = xmmword_1E0982700;
         strcpy(__p, "Failed to extract fpValues from the operand");
-        v54 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
-        if (SHIBYTE(v61) < 0)
+        v57 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
+        if (SHIBYTE(v64) < 0)
         {
           operator delete(__p);
         }
       }
 
-      a1 = v56;
-      if (v56 != &v58)
+      a1 = v59;
+      if (v59 != &v61)
       {
-        free(v56);
+        free(v59);
       }
 
-      if ((v16 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        v52 = v54;
+        v55 = v57;
         goto LABEL_45;
       }
 
 LABEL_4:
-      v8 = v62 + 1;
-      v9 = v64 + 1;
-      ++v62;
-      v64 = v9;
+      v8 = v65 + 1;
+      v9 = v67 + 1;
+      ++v65;
+      v67 = v9;
       if (v9 == v7)
       {
         goto LABEL_29;
       }
     }
 
-    v35 = 1;
+    v38 = 1;
     while (v13 != -1)
     {
-      v36 = v12 + v35++;
-      v12 = v36 & (v10 - 1);
+      v39 = v12 + v38++;
+      v12 = v39 & (v10 - 1);
       v13 = *(v11 + 32 * v12);
       if (v13 == v8)
       {
@@ -8463,104 +8463,104 @@ LABEL_4:
     }
 
 LABEL_8:
-    v14 = v66;
-    if (v66 >= HIDWORD(v66))
+    v14 = v69;
+    if (v69 >= HIDWORD(v69))
     {
-      v34 = a1;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v65, v67, v66 + 1, 8);
-      a1 = v34;
-      v14 = v66;
+      v37 = a1;
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v68, v70, v69 + 1, 8);
+      a1 = v37;
+      v14 = v69;
     }
 
-    *(v65 + v14) = a1;
-    LODWORD(v66) = v66 + 1;
+    *(v68 + v14) = a1;
+    LODWORD(v69) = v69 + 1;
     goto LABEL_4;
   }
 
 LABEL_29:
-  v37 = *(v5 + 34);
-  if (v37)
+  v40 = *(v5 + 34);
+  if (v40)
   {
-    v38 = *(v5 + 16);
-    v39 = llvm::APFloatBase::PPCDoubleDouble(a1);
-    v40 = v38 + 32;
-    v41 = 56 * v37;
+    v41 = *(v5 + 16);
+    v42 = llvm::APFloatBase::PPCDoubleDouble(a1);
+    v43 = v41 + 32;
+    v44 = 56 * v40;
     do
     {
-      v42 = (v40 - 24);
-      if (v39 == *(v40 - 24))
+      v45 = (v43 - 24);
+      if (v42 == *(v43 - 24))
       {
-        v43 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v61, v42);
+        v46 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v64, v45);
       }
 
       else
       {
-        v43 = llvm::detail::IEEEFloat::IEEEFloat(&v61, v42);
+        v46 = llvm::detail::IEEEFloat::IEEEFloat(&v64, v45);
       }
 
-      v44 = llvm::APFloatBase::IEEEhalf(v43);
-      v59[0] = 0;
-      llvm::APFloat::convert(&__p, v44, 1, v59);
-      v46 = *(v40 + 23);
-      if (v46 >= 0)
+      v47 = llvm::APFloatBase::IEEEhalf(v46);
+      LOBYTE(v62[0]) = 0;
+      llvm::APFloat::convert(&__p, v47, 1, v62);
+      v49 = *(v43 + 23);
+      if (v49 >= 0)
       {
-        v47 = v40;
+        v50 = v43;
       }
 
       else
       {
-        v47 = *v40;
+        v50 = *v43;
       }
 
-      if (v46 >= 0)
+      if (v49 >= 0)
       {
-        v48 = *(v40 + 23);
+        v51 = *(v43 + 23);
       }
 
       else
       {
-        v48 = *(v40 + 8);
+        v51 = *(v43 + 8);
       }
 
-      v49 = mlir::Builder::getF16Type(a4 + 1, v45);
-      v50 = mlir::Builder::getFloatAttr((a4 + 1), v49, &__p);
-      mlir::NamedAttrList::append(v68, v47, v48, v50);
-      if (v39 == v61)
+      v52 = mlir::Builder::getF16Type(a4 + 1, v48);
+      v53 = mlir::Builder::getFloatAttr((a4 + 1), v52, &__p);
+      mlir::NamedAttrList::append(v71, v50, v51, v53);
+      if (v42 == v64)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v64);
       }
 
-      v40 += 56;
-      v41 -= 56;
+      v43 += 56;
+      v44 -= 56;
     }
 
-    while (v41);
+    while (v44);
   }
 
-  mlir::ValueRange::ValueRange(&__p, v65, v66);
-  v51 = mlir::OpBuilder::create<mlir::anec::Floor,mlir::ValueRange,mlir::NamedAttrList &>(a4 + 1, *(a2 + 24), &__p, v68);
-  (*(*a4 + 1))(a4, a2, v51);
-  v52 = 1;
+  mlir::ValueRange::ValueRange(&__p, v68, v69);
+  v54 = mlir::OpBuilder::create<mlir::anec::Floor,mlir::ValueRange,mlir::NamedAttrList &>((a4 + 1), *(a2 + 24), &__p, v71);
+  (*(*a4 + 1))(a4, a2, v54);
+  v55 = 1;
 LABEL_45:
-  if (v65 != v67)
+  if (v68 != v70)
   {
-    free(v65);
+    free(v68);
   }
 
-  if (v68[0] != v69)
+  if (v71[0] != v72)
   {
-    free(v68[0]);
+    free(v71[0]);
   }
 
-  return v52;
+  return v55;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Floor,mlir::ValueRange,mlir::NamedAttrList &>(uint64_t *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
+char *mlir::OpBuilder::create<mlir::anec::Floor,mlir::ValueRange,mlir::NamedAttrList &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
 {
   v21[38] = *MEMORY[0x1E69E9840];
   v18 = a2;
@@ -8577,7 +8577,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Floor,mlir::ValueRange,mlir::NamedA
   Attrs = mlir::NamedAttrList::getAttrs(a4);
   mlir::anec::Ceil::build(a1, v21, v12, v11, Attrs, v14);
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Floor,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Floor,void>::id)
   {
     v16 = v15;
   }
@@ -8591,73 +8591,73 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Floor,mlir::ValueRange,mlir::NamedA
   return v16;
 }
 
-void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::SignOp,mlir::anec::Sign>::~ConvertElementwiseUnary(uint64_t a1)
+void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::SignOp,mlir::anec::Sign>::~ConvertElementwiseUnary(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *a1 = &unk_1F5B0F5B0;
-  v2 = *(a1 + 128);
-  v3 = *(a1 + 136);
-  if (v3)
+  v5 = *(a1 + 128);
+  v6 = *(a1 + 136);
+  if (v6)
   {
-    v4 = -56 * v3;
-    v5 = v2 + 56 * v3 - 48;
+    v7 = -56 * v6;
+    v8 = v5 + 56 * v6 - 48;
     do
     {
-      if (*(v5 + 47) < 0)
+      if (*(v8 + 47) < 0)
       {
-        operator delete(*(v5 + 24));
+        operator delete(*(v8 + 24));
       }
 
-      v6 = *v5;
-      if (llvm::APFloatBase::PPCDoubleDouble(v2) == v6)
+      v9 = *v8;
+      if (llvm::APFloatBase::PPCDoubleDouble(v5) == v9)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v5);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v8);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(v5);
+        llvm::detail::IEEEFloat::~IEEEFloat(v8);
       }
 
-      v5 -= 56;
-      v4 += 56;
+      v8 -= 56;
+      v7 += 56;
     }
 
-    while (v4);
-    v2 = *(a1 + 128);
+    while (v7);
+    v5 = *(a1 + 128);
   }
 
-  if (v2 != (a1 + 144))
+  if (v5 != (a1 + 144))
   {
-    free(v2);
+    free(v5);
   }
 
-  v7 = *(a1 + 120);
-  v8 = *(a1 + 104);
-  if (v7)
+  v10 = *(a1 + 120);
+  v11 = *(a1 + 104);
+  if (v10)
   {
-    v9 = 32 * v7;
+    v12 = 32 * v10;
     do
     {
-      if (*v8 <= 0xFFFFFFFD && *(v8 + 31) < 0)
+      if (*v11 <= 0xFFFFFFFD && *(v11 + 31) < 0)
       {
-        operator delete(*(v8 + 8));
+        operator delete(*(v11 + 8));
       }
 
-      v8 += 32;
-      v9 -= 32;
+      v11 += 32;
+      v12 -= 32;
     }
 
-    while (v9);
-    v8 = *(a1 + 104);
-    v10 = (32 * *(a1 + 120));
+    while (v12);
+    v11 = *(a1 + 104);
+    v13 = (32 * *(a1 + 120));
   }
 
   else
   {
-    v10 = 0;
+    v13 = 0;
   }
 
-  llvm::deallocate_buffer(v8, v10);
+  llvm::deallocate_buffer(v11, v13);
 }
 
 {
@@ -8887,24 +8887,24 @@ LABEL_34:
 uint64_t mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::SignOp,mlir::anec::Sign>::matchAndRewriteWithStaticShapes(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, mlir::Float16Type **a4)
 {
   v5 = a1;
-  v69[9] = *MEMORY[0x1E69E9840];
+  v72[9] = *MEMORY[0x1E69E9840];
   v6 = *(a3 + 40);
   v7 = *(a3 + 48);
-  v68[0] = v69;
-  v68[1] = 0x400000000;
-  v69[8] = 4;
-  v64 = 0;
-  v65 = v67;
-  v66 = 0x400000000;
-  v62 = 0;
-  v63 = v6;
+  v71[0] = v72;
+  v71[1] = 0x400000000;
+  v72[8] = 4;
+  v67 = 0;
+  v68 = v70;
+  v69 = 0x400000000;
+  v65 = 0;
+  v66 = v6;
   if (v7)
   {
     v8 = 0;
     v9 = 0;
     while (1)
     {
-      a1 = mlir::ValueRange::dereference_iterator(&v63, v9);
+      a1 = mlir::ValueRange::dereference_iterator(&v66, v9);
       v10 = *(v5 + 30);
       if (!v10)
       {
@@ -8925,100 +8925,100 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v56 = &v58;
-      v57 = 0x100000000;
-      matched = mlir::matchConstantWithFloatVector<float>(a1, &v56);
-      v16 = matched & (v57 == 1);
-      if (v16)
+      v59 = &v61;
+      v60 = 0x100000000;
+      matched = mlir::matchConstantWithFloatVector<float>(a1, &v59);
+      v19 = matched & (v60 == 1);
+      if (v19)
       {
-        v17 = llvm::detail::IEEEFloat::IEEEFloat(v59, *v56);
-        v18 = llvm::APFloatBase::IEEEsingle(v17);
-        llvm::APFloat::Storage::Storage(&v61, v59, v18);
-        llvm::detail::IEEEFloat::~IEEEFloat(v59);
-        v20 = llvm::APFloatBase::IEEEhalf(v19);
-        v59[0] = 0;
-        llvm::APFloat::convert(&__p, v20, 1, v59);
-        v22 = v11 + 32 * v12;
-        v25 = *(v22 + 8);
-        v23 = v22 + 8;
-        v24 = v25;
-        v26 = *(v23 + 23);
-        if (v26 >= 0)
+        v20 = llvm::detail::IEEEFloat::IEEEFloat(v62, *v59, v16, v17, v18);
+        v21 = llvm::APFloatBase::IEEEsingle(v20);
+        llvm::APFloat::Storage::Storage(&v64, v62, v21);
+        llvm::detail::IEEEFloat::~IEEEFloat(v62);
+        v23 = llvm::APFloatBase::IEEEhalf(v22);
+        LOBYTE(v62[0]) = 0;
+        llvm::APFloat::convert(&__p, v23, 1, v62);
+        v25 = v11 + 32 * v12;
+        v28 = *(v25 + 8);
+        v26 = v25 + 8;
+        v27 = v28;
+        v29 = *(v26 + 23);
+        if (v29 >= 0)
         {
-          v27 = v23;
+          v30 = v26;
         }
 
         else
         {
-          v27 = v24;
+          v30 = v27;
         }
 
-        v28 = *(v23 + 8);
-        if (v26 >= 0)
+        v31 = *(v26 + 8);
+        if (v29 >= 0)
         {
-          v29 = v26;
+          v32 = v29;
         }
 
         else
         {
-          v29 = v28;
+          v32 = v31;
         }
 
-        F16Type = mlir::Builder::getF16Type(a4 + 1, v21);
+        F16Type = mlir::Builder::getF16Type(a4 + 1, v24);
         FloatAttr = mlir::Builder::getFloatAttr((a4 + 1), F16Type, &__p);
-        v32 = mlir::NamedAttrList::set(v68, v27, v29, FloatAttr);
-        v33 = v61;
-        if (llvm::APFloatBase::PPCDoubleDouble(v32) == v33)
+        v35 = mlir::NamedAttrList::set(v71, v30, v32, FloatAttr);
+        v36 = v64;
+        if (llvm::APFloatBase::PPCDoubleDouble(v35) == v36)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+          llvm::detail::IEEEFloat::~IEEEFloat(&v64);
         }
       }
 
       else
       {
         __p = operator new(0x30uLL);
-        v61 = xmmword_1E0982700;
+        v64 = xmmword_1E0982700;
         strcpy(__p, "Failed to extract fpValues from the operand");
-        v54 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
-        if (SHIBYTE(v61) < 0)
+        v57 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
+        if (SHIBYTE(v64) < 0)
         {
           operator delete(__p);
         }
       }
 
-      a1 = v56;
-      if (v56 != &v58)
+      a1 = v59;
+      if (v59 != &v61)
       {
-        free(v56);
+        free(v59);
       }
 
-      if ((v16 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        v52 = v54;
+        v55 = v57;
         goto LABEL_45;
       }
 
 LABEL_4:
-      v8 = v62 + 1;
-      v9 = v64 + 1;
-      ++v62;
-      v64 = v9;
+      v8 = v65 + 1;
+      v9 = v67 + 1;
+      ++v65;
+      v67 = v9;
       if (v9 == v7)
       {
         goto LABEL_29;
       }
     }
 
-    v35 = 1;
+    v38 = 1;
     while (v13 != -1)
     {
-      v36 = v12 + v35++;
-      v12 = v36 & (v10 - 1);
+      v39 = v12 + v38++;
+      v12 = v39 & (v10 - 1);
       v13 = *(v11 + 32 * v12);
       if (v13 == v8)
       {
@@ -9027,104 +9027,104 @@ LABEL_4:
     }
 
 LABEL_8:
-    v14 = v66;
-    if (v66 >= HIDWORD(v66))
+    v14 = v69;
+    if (v69 >= HIDWORD(v69))
     {
-      v34 = a1;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v65, v67, v66 + 1, 8);
-      a1 = v34;
-      v14 = v66;
+      v37 = a1;
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v68, v70, v69 + 1, 8);
+      a1 = v37;
+      v14 = v69;
     }
 
-    *(v65 + v14) = a1;
-    LODWORD(v66) = v66 + 1;
+    *(v68 + v14) = a1;
+    LODWORD(v69) = v69 + 1;
     goto LABEL_4;
   }
 
 LABEL_29:
-  v37 = *(v5 + 34);
-  if (v37)
+  v40 = *(v5 + 34);
+  if (v40)
   {
-    v38 = *(v5 + 16);
-    v39 = llvm::APFloatBase::PPCDoubleDouble(a1);
-    v40 = v38 + 32;
-    v41 = 56 * v37;
+    v41 = *(v5 + 16);
+    v42 = llvm::APFloatBase::PPCDoubleDouble(a1);
+    v43 = v41 + 32;
+    v44 = 56 * v40;
     do
     {
-      v42 = (v40 - 24);
-      if (v39 == *(v40 - 24))
+      v45 = (v43 - 24);
+      if (v42 == *(v43 - 24))
       {
-        v43 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v61, v42);
+        v46 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v64, v45);
       }
 
       else
       {
-        v43 = llvm::detail::IEEEFloat::IEEEFloat(&v61, v42);
+        v46 = llvm::detail::IEEEFloat::IEEEFloat(&v64, v45);
       }
 
-      v44 = llvm::APFloatBase::IEEEhalf(v43);
-      v59[0] = 0;
-      llvm::APFloat::convert(&__p, v44, 1, v59);
-      v46 = *(v40 + 23);
-      if (v46 >= 0)
+      v47 = llvm::APFloatBase::IEEEhalf(v46);
+      LOBYTE(v62[0]) = 0;
+      llvm::APFloat::convert(&__p, v47, 1, v62);
+      v49 = *(v43 + 23);
+      if (v49 >= 0)
       {
-        v47 = v40;
+        v50 = v43;
       }
 
       else
       {
-        v47 = *v40;
+        v50 = *v43;
       }
 
-      if (v46 >= 0)
+      if (v49 >= 0)
       {
-        v48 = *(v40 + 23);
+        v51 = *(v43 + 23);
       }
 
       else
       {
-        v48 = *(v40 + 8);
+        v51 = *(v43 + 8);
       }
 
-      v49 = mlir::Builder::getF16Type(a4 + 1, v45);
-      v50 = mlir::Builder::getFloatAttr((a4 + 1), v49, &__p);
-      mlir::NamedAttrList::append(v68, v47, v48, v50);
-      if (v39 == v61)
+      v52 = mlir::Builder::getF16Type(a4 + 1, v48);
+      v53 = mlir::Builder::getFloatAttr((a4 + 1), v52, &__p);
+      mlir::NamedAttrList::append(v71, v50, v51, v53);
+      if (v42 == v64)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v64);
       }
 
-      v40 += 56;
-      v41 -= 56;
+      v43 += 56;
+      v44 -= 56;
     }
 
-    while (v41);
+    while (v44);
   }
 
-  mlir::ValueRange::ValueRange(&__p, v65, v66);
-  v51 = mlir::OpBuilder::create<mlir::anec::Sign,mlir::ValueRange,mlir::NamedAttrList &>(a4 + 1, *(a2 + 24), &__p, v68);
-  (*(*a4 + 1))(a4, a2, v51);
-  v52 = 1;
+  mlir::ValueRange::ValueRange(&__p, v68, v69);
+  v54 = mlir::OpBuilder::create<mlir::anec::Sign,mlir::ValueRange,mlir::NamedAttrList &>((a4 + 1), *(a2 + 24), &__p, v71);
+  (*(*a4 + 1))(a4, a2, v54);
+  v55 = 1;
 LABEL_45:
-  if (v65 != v67)
+  if (v68 != v70)
   {
-    free(v65);
+    free(v68);
   }
 
-  if (v68[0] != v69)
+  if (v71[0] != v72)
   {
-    free(v68[0]);
+    free(v71[0]);
   }
 
-  return v52;
+  return v55;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Sign,mlir::ValueRange,mlir::NamedAttrList &>(uint64_t *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
+char *mlir::OpBuilder::create<mlir::anec::Sign,mlir::ValueRange,mlir::NamedAttrList &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
 {
   v21[38] = *MEMORY[0x1E69E9840];
   v18 = a2;
@@ -9141,7 +9141,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Sign,mlir::ValueRange,mlir::NamedAt
   Attrs = mlir::NamedAttrList::getAttrs(a4);
   mlir::anec::Ceil::build(a1, v21, v12, v11, Attrs, v14);
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Sign,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Sign,void>::id)
   {
     v16 = v15;
   }
@@ -9155,73 +9155,73 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Sign,mlir::ValueRange,mlir::NamedAt
   return v16;
 }
 
-void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::TruncateOp,mlir::anec::Trunc>::~ConvertElementwiseUnary(uint64_t a1)
+void mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::TruncateOp,mlir::anec::Trunc>::~ConvertElementwiseUnary(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   *a1 = &unk_1F5B0F620;
-  v2 = *(a1 + 128);
-  v3 = *(a1 + 136);
-  if (v3)
+  v5 = *(a1 + 128);
+  v6 = *(a1 + 136);
+  if (v6)
   {
-    v4 = -56 * v3;
-    v5 = v2 + 56 * v3 - 48;
+    v7 = -56 * v6;
+    v8 = v5 + 56 * v6 - 48;
     do
     {
-      if (*(v5 + 47) < 0)
+      if (*(v8 + 47) < 0)
       {
-        operator delete(*(v5 + 24));
+        operator delete(*(v8 + 24));
       }
 
-      v6 = *v5;
-      if (llvm::APFloatBase::PPCDoubleDouble(v2) == v6)
+      v9 = *v8;
+      if (llvm::APFloatBase::PPCDoubleDouble(v5) == v9)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v5);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(v8);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(v5);
+        llvm::detail::IEEEFloat::~IEEEFloat(v8);
       }
 
-      v5 -= 56;
-      v4 += 56;
+      v8 -= 56;
+      v7 += 56;
     }
 
-    while (v4);
-    v2 = *(a1 + 128);
+    while (v7);
+    v5 = *(a1 + 128);
   }
 
-  if (v2 != (a1 + 144))
+  if (v5 != (a1 + 144))
   {
-    free(v2);
+    free(v5);
   }
 
-  v7 = *(a1 + 120);
-  v8 = *(a1 + 104);
-  if (v7)
+  v10 = *(a1 + 120);
+  v11 = *(a1 + 104);
+  if (v10)
   {
-    v9 = 32 * v7;
+    v12 = 32 * v10;
     do
     {
-      if (*v8 <= 0xFFFFFFFD && *(v8 + 31) < 0)
+      if (*v11 <= 0xFFFFFFFD && *(v11 + 31) < 0)
       {
-        operator delete(*(v8 + 8));
+        operator delete(*(v11 + 8));
       }
 
-      v8 += 32;
-      v9 -= 32;
+      v11 += 32;
+      v12 -= 32;
     }
 
-    while (v9);
-    v8 = *(a1 + 104);
-    v10 = (32 * *(a1 + 120));
+    while (v12);
+    v11 = *(a1 + 104);
+    v13 = (32 * *(a1 + 120));
   }
 
   else
   {
-    v10 = 0;
+    v13 = 0;
   }
 
-  llvm::deallocate_buffer(v8, v10);
+  llvm::deallocate_buffer(v11, v13);
 }
 
 {
@@ -9451,24 +9451,24 @@ LABEL_34:
 uint64_t mlir::anonymous namespace::ConvertElementwiseUnary<mlir::mps::TruncateOp,mlir::anec::Trunc>::matchAndRewriteWithStaticShapes(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3, mlir::Float16Type **a4)
 {
   v5 = a1;
-  v69[9] = *MEMORY[0x1E69E9840];
+  v72[9] = *MEMORY[0x1E69E9840];
   v6 = *(a3 + 40);
   v7 = *(a3 + 48);
-  v68[0] = v69;
-  v68[1] = 0x400000000;
-  v69[8] = 4;
-  v64 = 0;
-  v65 = v67;
-  v66 = 0x400000000;
-  v62 = 0;
-  v63 = v6;
+  v71[0] = v72;
+  v71[1] = 0x400000000;
+  v72[8] = 4;
+  v67 = 0;
+  v68 = v70;
+  v69 = 0x400000000;
+  v65 = 0;
+  v66 = v6;
   if (v7)
   {
     v8 = 0;
     v9 = 0;
     while (1)
     {
-      a1 = mlir::ValueRange::dereference_iterator(&v63, v9);
+      a1 = mlir::ValueRange::dereference_iterator(&v66, v9);
       v10 = *(v5 + 30);
       if (!v10)
       {
@@ -9489,100 +9489,100 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v56 = &v58;
-      v57 = 0x100000000;
-      matched = mlir::matchConstantWithFloatVector<float>(a1, &v56);
-      v16 = matched & (v57 == 1);
-      if (v16)
+      v59 = &v61;
+      v60 = 0x100000000;
+      matched = mlir::matchConstantWithFloatVector<float>(a1, &v59);
+      v19 = matched & (v60 == 1);
+      if (v19)
       {
-        v17 = llvm::detail::IEEEFloat::IEEEFloat(v59, *v56);
-        v18 = llvm::APFloatBase::IEEEsingle(v17);
-        llvm::APFloat::Storage::Storage(&v61, v59, v18);
-        llvm::detail::IEEEFloat::~IEEEFloat(v59);
-        v20 = llvm::APFloatBase::IEEEhalf(v19);
-        v59[0] = 0;
-        llvm::APFloat::convert(&__p, v20, 1, v59);
-        v22 = v11 + 32 * v12;
-        v25 = *(v22 + 8);
-        v23 = v22 + 8;
-        v24 = v25;
-        v26 = *(v23 + 23);
-        if (v26 >= 0)
+        v20 = llvm::detail::IEEEFloat::IEEEFloat(v62, *v59, v16, v17, v18);
+        v21 = llvm::APFloatBase::IEEEsingle(v20);
+        llvm::APFloat::Storage::Storage(&v64, v62, v21);
+        llvm::detail::IEEEFloat::~IEEEFloat(v62);
+        v23 = llvm::APFloatBase::IEEEhalf(v22);
+        LOBYTE(v62[0]) = 0;
+        llvm::APFloat::convert(&__p, v23, 1, v62);
+        v25 = v11 + 32 * v12;
+        v28 = *(v25 + 8);
+        v26 = v25 + 8;
+        v27 = v28;
+        v29 = *(v26 + 23);
+        if (v29 >= 0)
         {
-          v27 = v23;
+          v30 = v26;
         }
 
         else
         {
-          v27 = v24;
+          v30 = v27;
         }
 
-        v28 = *(v23 + 8);
-        if (v26 >= 0)
+        v31 = *(v26 + 8);
+        if (v29 >= 0)
         {
-          v29 = v26;
+          v32 = v29;
         }
 
         else
         {
-          v29 = v28;
+          v32 = v31;
         }
 
-        F16Type = mlir::Builder::getF16Type(a4 + 1, v21);
+        F16Type = mlir::Builder::getF16Type(a4 + 1, v24);
         FloatAttr = mlir::Builder::getFloatAttr((a4 + 1), F16Type, &__p);
-        v32 = mlir::NamedAttrList::set(v68, v27, v29, FloatAttr);
-        v33 = v61;
-        if (llvm::APFloatBase::PPCDoubleDouble(v32) == v33)
+        v35 = mlir::NamedAttrList::set(v71, v30, v32, FloatAttr);
+        v36 = v64;
+        if (llvm::APFloatBase::PPCDoubleDouble(v35) == v36)
         {
-          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+          llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
         }
 
         else
         {
-          llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+          llvm::detail::IEEEFloat::~IEEEFloat(&v64);
         }
       }
 
       else
       {
         __p = operator new(0x30uLL);
-        v61 = xmmword_1E0982700;
+        v64 = xmmword_1E0982700;
         strcpy(__p, "Failed to extract fpValues from the operand");
-        v54 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
-        if (SHIBYTE(v61) < 0)
+        v57 = mlir::logMatchFailure(&__p, *(a2 + 24), a4);
+        if (SHIBYTE(v64) < 0)
         {
           operator delete(__p);
         }
       }
 
-      a1 = v56;
-      if (v56 != &v58)
+      a1 = v59;
+      if (v59 != &v61)
       {
-        free(v56);
+        free(v59);
       }
 
-      if ((v16 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
-        v52 = v54;
+        v55 = v57;
         goto LABEL_45;
       }
 
 LABEL_4:
-      v8 = v62 + 1;
-      v9 = v64 + 1;
-      ++v62;
-      v64 = v9;
+      v8 = v65 + 1;
+      v9 = v67 + 1;
+      ++v65;
+      v67 = v9;
       if (v9 == v7)
       {
         goto LABEL_29;
       }
     }
 
-    v35 = 1;
+    v38 = 1;
     while (v13 != -1)
     {
-      v36 = v12 + v35++;
-      v12 = v36 & (v10 - 1);
+      v39 = v12 + v38++;
+      v12 = v39 & (v10 - 1);
       v13 = *(v11 + 32 * v12);
       if (v13 == v8)
       {
@@ -9591,104 +9591,104 @@ LABEL_4:
     }
 
 LABEL_8:
-    v14 = v66;
-    if (v66 >= HIDWORD(v66))
+    v14 = v69;
+    if (v69 >= HIDWORD(v69))
     {
-      v34 = a1;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(&v65, v67, v66 + 1, 8);
-      a1 = v34;
-      v14 = v66;
+      v37 = a1;
+      llvm::SmallVectorBase<unsigned int>::grow_pod(&v68, v70, v69 + 1, 8);
+      a1 = v37;
+      v14 = v69;
     }
 
-    *(v65 + v14) = a1;
-    LODWORD(v66) = v66 + 1;
+    *(v68 + v14) = a1;
+    LODWORD(v69) = v69 + 1;
     goto LABEL_4;
   }
 
 LABEL_29:
-  v37 = *(v5 + 34);
-  if (v37)
+  v40 = *(v5 + 34);
+  if (v40)
   {
-    v38 = *(v5 + 16);
-    v39 = llvm::APFloatBase::PPCDoubleDouble(a1);
-    v40 = v38 + 32;
-    v41 = 56 * v37;
+    v41 = *(v5 + 16);
+    v42 = llvm::APFloatBase::PPCDoubleDouble(a1);
+    v43 = v41 + 32;
+    v44 = 56 * v40;
     do
     {
-      v42 = (v40 - 24);
-      if (v39 == *(v40 - 24))
+      v45 = (v43 - 24);
+      if (v42 == *(v43 - 24))
       {
-        v43 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v61, v42);
+        v46 = llvm::detail::DoubleAPFloat::DoubleAPFloat(&v64, v45);
       }
 
       else
       {
-        v43 = llvm::detail::IEEEFloat::IEEEFloat(&v61, v42);
+        v46 = llvm::detail::IEEEFloat::IEEEFloat(&v64, v45);
       }
 
-      v44 = llvm::APFloatBase::IEEEhalf(v43);
-      v59[0] = 0;
-      llvm::APFloat::convert(&__p, v44, 1, v59);
-      v46 = *(v40 + 23);
-      if (v46 >= 0)
+      v47 = llvm::APFloatBase::IEEEhalf(v46);
+      LOBYTE(v62[0]) = 0;
+      llvm::APFloat::convert(&__p, v47, 1, v62);
+      v49 = *(v43 + 23);
+      if (v49 >= 0)
       {
-        v47 = v40;
+        v50 = v43;
       }
 
       else
       {
-        v47 = *v40;
+        v50 = *v43;
       }
 
-      if (v46 >= 0)
+      if (v49 >= 0)
       {
-        v48 = *(v40 + 23);
+        v51 = *(v43 + 23);
       }
 
       else
       {
-        v48 = *(v40 + 8);
+        v51 = *(v43 + 8);
       }
 
-      v49 = mlir::Builder::getF16Type(a4 + 1, v45);
-      v50 = mlir::Builder::getFloatAttr((a4 + 1), v49, &__p);
-      mlir::NamedAttrList::append(v68, v47, v48, v50);
-      if (v39 == v61)
+      v52 = mlir::Builder::getF16Type(a4 + 1, v48);
+      v53 = mlir::Builder::getFloatAttr((a4 + 1), v52, &__p);
+      mlir::NamedAttrList::append(v71, v50, v51, v53);
+      if (v42 == v64)
       {
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v64);
       }
 
       else
       {
-        llvm::detail::IEEEFloat::~IEEEFloat(&v61);
+        llvm::detail::IEEEFloat::~IEEEFloat(&v64);
       }
 
-      v40 += 56;
-      v41 -= 56;
+      v43 += 56;
+      v44 -= 56;
     }
 
-    while (v41);
+    while (v44);
   }
 
-  mlir::ValueRange::ValueRange(&__p, v65, v66);
-  v51 = mlir::OpBuilder::create<mlir::anec::Trunc,mlir::ValueRange,mlir::NamedAttrList &>(a4 + 1, *(a2 + 24), &__p, v68);
-  (*(*a4 + 1))(a4, a2, v51);
-  v52 = 1;
+  mlir::ValueRange::ValueRange(&__p, v68, v69);
+  v54 = mlir::OpBuilder::create<mlir::anec::Trunc,mlir::ValueRange,mlir::NamedAttrList &>((a4 + 1), *(a2 + 24), &__p, v71);
+  (*(*a4 + 1))(a4, a2, v54);
+  v55 = 1;
 LABEL_45:
-  if (v65 != v67)
+  if (v68 != v70)
   {
-    free(v65);
+    free(v68);
   }
 
-  if (v68[0] != v69)
+  if (v71[0] != v72)
   {
-    free(v68[0]);
+    free(v71[0]);
   }
 
-  return v52;
+  return v55;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Trunc,mlir::ValueRange,mlir::NamedAttrList &>(uint64_t *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
+char *mlir::OpBuilder::create<mlir::anec::Trunc,mlir::ValueRange,mlir::NamedAttrList &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
 {
   v21[38] = *MEMORY[0x1E69E9840];
   v18 = a2;
@@ -9705,7 +9705,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Trunc,mlir::ValueRange,mlir::NamedA
   Attrs = mlir::NamedAttrList::getAttrs(a4);
   mlir::anec::Ceil::build(a1, v21, v12, v11, Attrs, v14);
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Trunc,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Trunc,void>::id)
   {
     v16 = v15;
   }

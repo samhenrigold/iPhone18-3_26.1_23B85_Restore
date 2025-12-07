@@ -1,4 +1,5 @@
 @interface PushedMailboxTableCell
++ (id)_iconForType:(int64_t)type nested:(BOOL)nested;
 + (int)_cacheIndexForType:(int64_t)type;
 - (PushedMailboxTableCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier;
 - (void)_setupMailFolderIconForImage:(id)image;
@@ -15,7 +16,7 @@
 + (int)_cacheIndexForType:(int64_t)type
 {
   v3 = -3;
-  for (i = &_mailFolderImages; *i != type; i += 3)
+  for (i = _mailFolderImages; *i != type; i += 3)
   {
     v3 += 3;
     if (v3 >= 0x12)
@@ -25,6 +26,21 @@
   }
 
   return v3 + 5;
+}
+
++ (id)_iconForType:(int64_t)type nested:(BOOL)nested
+{
+  nested = [PushedMailboxTableCell _cacheIndexForType:type, nested];
+  result = _mailFolderImages[nested];
+  if (!result)
+  {
+    v6 = &_mailFolderImages[nested];
+    v7 = [MEMORY[0x277D755B8] systemImageNamed:*(v6 - 1)];
+    result = [v7 imageWithTintColor:{objc_msgSend(MEMORY[0x277D75348], "_systemInteractionTintColor")}];
+    *v6 = result;
+  }
+
+  return result;
 }
 
 - (PushedMailboxTableCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
@@ -174,7 +190,6 @@ LABEL_5:
   [(UIImageView *)self->_mailboxIcon frame];
   width = v22.size.width;
   height = v22.size.height;
-  self->_level;
   CGRectGetWidth(v22);
   UIRoundToViewScale();
   v19 = v18;

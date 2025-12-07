@@ -13,19 +13,17 @@
 
 - (_BlastDoorLPImage)init
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4.receiver = self;
-  v4.super_class = _BlastDoorLPImage;
-  result = [(_BlastDoorLPImage *)&v4 init];
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = *MEMORY[0x277D85DE8];
+  v3.receiver = self;
+  v3.super_class = _BlastDoorLPImage;
+  return [(_BlastDoorLPImage *)&v3 init];
 }
 
 - (id)_initWithImage:(id)image
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   imageCopy = image;
-  if (imageCopy && (v14.receiver = self, v14.super_class = _BlastDoorLPImage, (self = [(_BlastDoorLPImage *)&v14 init]) != 0))
+  if (imageCopy && (v13.receiver = self, v13.super_class = _BlastDoorLPImage, (self = [(_BlastDoorLPImage *)&v13 init]) != 0))
   {
     v5 = [imageCopy[1] copy];
     data = self->_data;
@@ -49,7 +47,6 @@
     selfCopy = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -69,11 +66,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v13.receiver = self;
-  v13.super_class = _BlastDoorLPImage;
-  if ([(_BlastDoorLPImage *)&v13 isEqual:equalCopy])
+  v12.receiver = self;
+  v12.super_class = _BlastDoorLPImage;
+  if ([(_BlastDoorLPImage *)&v12 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -111,17 +108,16 @@
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (_BlastDoorLPImage)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = _BlastDoorLPImage;
-  v5 = [(_BlastDoorLPImage *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = _BlastDoorLPImage;
+  v5 = [(_BlastDoorLPImage *)&v17 init];
   if (v5)
   {
     v6 = [coderCopy _bd_lp_strictlyDecodeNSDataForKey:@"data"];
@@ -154,7 +150,6 @@
     v15 = v5;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -6,10 +6,10 @@
 
 + (BOOL)isHexaKey:(id)key
 {
-  sub_1C86F8EFC();
-  v3 = static CKKnowledgeStoreUtils.isHexaKey(_:)();
+  v3 = sub_1C86F8EFC();
+  v5 = static CKKnowledgeStoreUtils.isHexaKey(_:)(v3, v4);
 
-  return v3 & 1;
+  return v5 & 1;
 }
 
 @end

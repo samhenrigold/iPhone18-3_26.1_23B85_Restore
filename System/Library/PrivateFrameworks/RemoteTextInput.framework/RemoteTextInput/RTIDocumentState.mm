@@ -1000,44 +1000,43 @@ LABEL_49:
   else
   {
     location = range.location;
-    documentState = self->_documentState;
     if (objc_opt_respondsToSelector())
     {
       truncatedRangeInSelectedText = [(TIDocumentState *)self->_documentState truncatedRangeInSelectedText];
       if (truncatedRangeInSelectedText != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v9 = truncatedRangeInSelectedText;
-        v10 = v8;
+        v8 = truncatedRangeInSelectedText;
+        v9 = v7;
         contextBeforeInput = [(TIDocumentState *)self->_documentState contextBeforeInput];
-        v12 = [contextBeforeInput length] + v9;
+        v11 = [contextBeforeInput length] + v8;
 
-        if (v12 < location || v12 - location >= length)
+        if (v11 < location || v11 - location >= length)
         {
-          if (v12 < location)
+          if (v11 < location)
           {
-            v14 = v10;
+            v13 = v9;
           }
 
           else
           {
-            v14 = 0;
+            v13 = 0;
           }
 
-          location += v14;
+          location += v13;
         }
 
         else
         {
-          length += v10;
+          length += v9;
         }
       }
     }
   }
 
-  v15 = location;
-  v16 = length;
-  result.length = v16;
-  result.location = v15;
+  v14 = location;
+  v15 = length;
+  result.length = v15;
+  result.location = v14;
   return result;
 }
 
@@ -1045,33 +1044,29 @@ LABEL_49:
 {
   length = range.length;
   location = range.location;
-  if (range.location != 0x7FFFFFFFFFFFFFFFLL)
+  if (range.location != 0x7FFFFFFFFFFFFFFFLL && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    documentState = self->_documentState;
-    if (objc_opt_respondsToSelector())
+    truncatedRangeInSelectedText = [(TIDocumentState *)self->_documentState truncatedRangeInSelectedText];
+    if (truncatedRangeInSelectedText != 0x7FFFFFFFFFFFFFFFLL)
     {
-      truncatedRangeInSelectedText = [(TIDocumentState *)self->_documentState truncatedRangeInSelectedText];
-      if (truncatedRangeInSelectedText != 0x7FFFFFFFFFFFFFFFLL)
+      if (truncatedRangeInSelectedText + v7 >= length)
       {
-        if (truncatedRangeInSelectedText + v8 >= length)
-        {
-          v9 = 0;
-        }
-
-        else
-        {
-          v9 = v8;
-        }
-
-        length -= v9;
+        v8 = 0;
       }
+
+      else
+      {
+        v8 = v7;
+      }
+
+      length -= v8;
     }
   }
 
-  v10 = location;
-  v11 = length;
-  result.length = v11;
-  result.location = v10;
+  v9 = location;
+  v10 = length;
+  result.length = v10;
+  result.location = v9;
   return result;
 }
 
@@ -1095,9 +1090,7 @@ LABEL_49:
   documentState = self->_documentState;
   if (range.location == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v5 = [(TIDocumentState *)documentState documentStateAfterCollapsingSelection:0x7FFFFFFFFFFFFFFFLL];
-    v6 = self->_documentState;
-    self->_documentState = v5;
+    self->_documentState = [(TIDocumentState *)documentState documentStateAfterCollapsingSelection:0x7FFFFFFFFFFFFFFFLL];
   }
 
   else
@@ -1105,84 +1098,84 @@ LABEL_49:
     length = range.length;
     location = range.location;
     contextBeforeInput = [(TIDocumentState *)documentState contextBeforeInput];
-    v10 = contextBeforeInput;
+    v8 = contextBeforeInput;
     if (contextBeforeInput)
     {
-      v11 = contextBeforeInput;
+      v9 = contextBeforeInput;
     }
 
     else
     {
-      v11 = &stru_1F0D9AA78;
+      v9 = &stru_1F0D9AA78;
     }
 
-    v26 = v11;
+    v24 = v9;
 
     selectedText = [(TIDocumentState *)self->_documentState selectedText];
-    v13 = selectedText;
+    v11 = selectedText;
     if (selectedText)
     {
-      v14 = selectedText;
+      v12 = selectedText;
     }
 
     else
     {
-      v14 = &stru_1F0D9AA78;
+      v12 = &stru_1F0D9AA78;
     }
 
-    v15 = v14;
+    v13 = v12;
 
     contextAfterInput = [(TIDocumentState *)self->_documentState contextAfterInput];
-    v17 = contextAfterInput;
+    v15 = contextAfterInput;
     if (contextAfterInput)
     {
-      v18 = contextAfterInput;
+      v16 = contextAfterInput;
     }
 
     else
     {
-      v18 = &stru_1F0D9AA78;
+      v16 = &stru_1F0D9AA78;
     }
 
-    v19 = v18;
+    v17 = v16;
 
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", v26, v15, v19];
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", v24, v13, v17];
 
-    if (location >= [v20 length])
+    if (location >= [v18 length])
     {
-      v21 = v20;
-      v24 = 0;
-      v23 = 0;
+      v19 = v18;
+      v22 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v21 = [v20 substringToIndex:location];
-      v22 = location + length;
-      if (location + length <= [v20 length])
+      v19 = [v18 substringToIndex:location];
+      v20 = location + length;
+      if (location + length <= [v18 length])
       {
         if (length)
         {
-          v23 = [v20 substringWithRange:{location, length}];
+          v21 = [v18 substringWithRange:{location, length}];
         }
 
         else
         {
-          v23 = 0;
+          v21 = 0;
         }
 
-        v24 = [v20 substringFromIndex:v22];
+        v22 = [v18 substringFromIndex:v20];
       }
 
       else
       {
-        v23 = [v20 substringFromIndex:location];
-        v24 = 0;
+        v21 = [v18 substringFromIndex:location];
+        v22 = 0;
       }
     }
 
-    v25 = [objc_alloc(MEMORY[0x1E69D9590]) initWithContextBefore:v21 markedText:0 selectedText:v23 contextAfter:v24 selectedRangeInMarkedText:{0x7FFFFFFFFFFFFFFFLL, 0}];
-    [(RTIDocumentState *)self setDocumentState:v25];
+    v23 = [objc_alloc(MEMORY[0x1E69D9590]) initWithContextBefore:v19 markedText:0 selectedText:v21 contextAfter:v22 selectedRangeInMarkedText:{0x7FFFFFFFFFFFFFFFLL, 0}];
+    [(RTIDocumentState *)self setDocumentState:v23];
   }
 
   MEMORY[0x1EEE66BB8]();
@@ -1225,28 +1218,8 @@ LABEL_49:
   }
 
   [stateCopy caretRectInWindow];
-  if (CGRectIsNull(v131))
+  if (CGRectIsNull(v131) || (-[RTIDocumentState caretRectInWindow](self, "caretRectInWindow"), v7 = v6, v9 = v8, v11 = v10, v13 = v12, [v5 caretRectInWindow], v141.origin.x = v14, v141.origin.y = v15, v141.size.width = v16, v141.size.height = v17, v132.origin.x = v7, v132.origin.y = v9, v132.size.width = v11, v132.size.height = v13, CGRectEqualToRect(v132, v141)))
   {
-    goto LABEL_4;
-  }
-
-  [(RTIDocumentState *)self caretRectInWindow];
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  [v5 caretRectInWindow];
-  v141.origin.x = v14;
-  v141.origin.y = v15;
-  v141.size.width = v16;
-  v141.size.height = v17;
-  v132.origin.x = v7;
-  v132.origin.y = v9;
-  v132.size.width = v11;
-  v132.size.height = v13;
-  if (CGRectEqualToRect(v132, v141))
-  {
-LABEL_4:
     v18 = 0;
   }
 
@@ -1591,6 +1564,28 @@ LABEL_57:
 LABEL_61:
 
   return v18;
+}
+
+NSUInteger __41__RTIDocumentState_mergeInDocumentState___block_invoke(NSRange a1)
+{
+  location = a1.location;
+  v2.location = *a1.length;
+  v2.length = *(a1.length + 4);
+  v3 = *(*(a1.location + 32) + 8);
+  a1.location = *(v3 + 32);
+  if (a1.location == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    *(v3 + 32) = v2;
+  }
+
+  else
+  {
+    a1.length = *(v3 + 40);
+    a1 = NSUnionRange(a1, v2);
+    *(*(*(location + 32) + 8) + 32) = a1;
+  }
+
+  return a1.location;
 }
 
 void __41__RTIDocumentState_mergeInDocumentState___block_invoke_2(uint64_t a1, unsigned int *a2)
@@ -1992,7 +1987,7 @@ void __59__RTIDocumentState_rectsForCharacterRange_withGranularity___block_invok
   }
 }
 
-NSUInteger __70__RTIDocumentState_enumerateRectsWithOptions_range_granularity_block___block_invoke(NSUInteger result, float *a2)
+uint64_t __70__RTIDocumentState_enumerateRectsWithOptions_range_granularity_block___block_invoke(uint64_t result, float *a2)
 {
   v3 = result;
   v4 = *(result + 40);
@@ -2000,11 +1995,11 @@ NSUInteger __70__RTIDocumentState_enumerateRectsWithOptions_range_granularity_bl
   {
     v6 = *a2;
     v5 = *(a2 + 1);
-    v16.location = *(result + 48);
-    v16.length = *(v3 + 56);
-    v17.location = *a2;
-    v17.length = *(a2 + 1);
-    v11 = NSIntersectionRange(v16, v17);
+    v15.location = *(result + 48);
+    v15.length = *(v3 + 56);
+    v16.location = *a2;
+    v16.length = *(a2 + 1);
+    v11 = NSIntersectionRange(v15, v16);
     result = v11.location;
     if (v11.location == v6 && v11.length == v5)
     {
@@ -2012,10 +2007,9 @@ NSUInteger __70__RTIDocumentState_enumerateRectsWithOptions_range_granularity_bl
       v8.n128_f64[0] = a2[3];
       v9.n128_f64[0] = a2[4];
       v10.n128_f64[0] = a2[5];
-      v13 = *(a2 + 28);
-      v14 = *(*(v3 + 32) + 16);
+      v13 = *(*(v3 + 32) + 16);
 
-      return v14(v7, v8, v9, v10);
+      return v13(v7, v8, v9, v10);
     }
   }
 
@@ -2135,22 +2129,20 @@ BOOL __43__RTIDocumentState_characterIndexForPoint___block_invoke(uint64_t a1, f
 
 void __36__RTIDocumentState_encodeWithCoder___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[RTIDocumentState encodeWithCoder:]_block_invoke_2";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_19A2A6000, a2, OS_LOG_TYPE_ERROR, "%s  RTIDocumentState with TIAttributedDocumentState: non-serializable attribute encountered: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[RTIDocumentState encodeWithCoder:]_block_invoke_2";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_19A2A6000, a2, OS_LOG_TYPE_ERROR, "%s  RTIDocumentState with TIAttributedDocumentState: non-serializable attribute encountered: %@", &v2, 0x16u);
 }
 
 - (void)firstRectForCharacterRange:(os_log_t)log withGranularity:isVerticalOut:actualRange:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[RTIDocumentState firstRectForCharacterRange:withGranularity:isVerticalOut:actualRange:]";
-  _os_log_error_impl(&dword_19A2A6000, log, OS_LOG_TYPE_ERROR, "%s  ERROR: We are falling back to the first value. The client is not setting the range correctly.", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[RTIDocumentState firstRectForCharacterRange:withGranularity:isVerticalOut:actualRange:]";
+  _os_log_error_impl(&dword_19A2A6000, log, OS_LOG_TYPE_ERROR, "%s  ERROR: We are falling back to the first value. The client is not setting the range correctly.", &v1, 0xCu);
 }
 
 @end

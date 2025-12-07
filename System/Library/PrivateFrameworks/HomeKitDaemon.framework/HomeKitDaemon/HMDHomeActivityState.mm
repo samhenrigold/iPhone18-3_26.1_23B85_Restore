@@ -72,11 +72,11 @@
 
 - (void)onInitialTransition:(id)transition
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   transitionCopy = transition;
-  v13.receiver = self;
-  v13.super_class = HMDHomeActivityState;
-  [(HMDHierarchicalStateMachineState *)&v13 onInitialTransition:transitionCopy];
+  v12.receiver = self;
+  v12.super_class = HMDHomeActivityState;
+  [(HMDHierarchicalStateMachineState *)&v12 onInitialTransition:transitionCopy];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -87,23 +87,21 @@
     v10 = NSStringFromClass(v9);
     name = [transitionCopy name];
     *buf = 138543874;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v10;
-    v18 = 2112;
-    v19 = name;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v10;
+    v17 = 2112;
+    v18 = name;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@onInitialTransition : %@ / %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDHomeActivityState *)selfCopy checkAndNotifyAllConsumersAboutStateChangeDueToEvent:transitionCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkAndNotifyAllConsumersAboutStateChangeDueToEvent:(id)event
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   stateType = [objc_opt_class() stateType];
   if (stateType > 0xA || ((0x729uLL >> stateType) & 1) != 0)
@@ -114,11 +112,11 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2112;
-      v17 = eventCopy;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Not notifying state change because it is unknown. Event: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2112;
+      v16 = eventCopy;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Not notifying state change because it is unknown. Event: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -132,13 +130,11 @@
 
     [(HMDHomeActivityState *)self notifyStateChangeToAllConsumers:v6 withHoldInfo:0 transitionalStateEndDate:v8 reason:[HMDHomeActivityStateMachine reasonForStateEvent:eventCopy]];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyStateChangeToAllConsumers:(unint64_t)consumers withHoldInfo:(id)info transitionalStateEndDate:(id)date reason:(int64_t)reason
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   dateCopy = date;
   homeActivityStateMachine = [(HMDHomeActivityState *)self homeActivityStateMachine];
@@ -156,20 +152,18 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v17;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Asked to notifyStateChangeToAllConsumers but homeActivityStateMachine was unexpectedly nil", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v17;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Asked to notifyStateChangeToAllConsumers but homeActivityStateMachine was unexpectedly nil", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)lookupAndTransitionToState:(unint64_t)state withEvent:(id)event
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v7 = [(HMDHierarchicalStateMachineState *)self hsm];
   v8 = HMDHomeActivityStateTypeToString(state);
@@ -189,17 +183,16 @@
     {
       v13 = HMFGetLogIdentifier();
       v14 = HMDHomeActivityStateTypeToString(state);
-      v17 = 138543618;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the state : %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2112;
+      v19 = v14;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the state : %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9 != 0;
 }
 
@@ -245,10 +238,9 @@
 
 void __35__HMDHomeActivityState_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_53142;
-  logCategory__hmf_once_v7_53142 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_53142;
+  logCategory__hmf_once_v7_53142 = v0;
 }
 
 + (unint64_t)stateType

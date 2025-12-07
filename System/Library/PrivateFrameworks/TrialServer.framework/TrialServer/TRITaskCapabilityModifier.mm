@@ -88,17 +88,17 @@
 
 + (id)parseFromData:(id)data
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v3 = [(TRIPBMessage *)TRIPersistedTaskCapabilityModifier parseFromData:data error:&v13];
-  v4 = v13;
+  v15 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v3 = [(TRIPBMessage *)TRIPersistedTaskCapabilityModifier parseFromData:data error:&v12];
+  v4 = v12;
   if (!v3)
   {
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = v4;
+      v14 = v4;
       _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Unable to parse buffer as TRIPersistedTaskCapabilityModifier: %@", buf, 0xCu);
     }
 
@@ -116,7 +116,7 @@
     v7 = objc_opt_class();
     v8 = NSStringFromClass(v7);
     *buf = 138412290;
-    v15 = v8;
+    v14 = v8;
     v9 = "Cannot decode message of type %@ with missing field: add";
 LABEL_15:
     _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, v9, buf, 0xCu);
@@ -133,10 +133,10 @@ LABEL_15:
   v6 = TRILogCategory_Server();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = objc_opt_class();
-    v8 = NSStringFromClass(v12);
+    v11 = objc_opt_class();
+    v8 = NSStringFromClass(v11);
     *buf = 138412290;
-    v15 = v8;
+    v14 = v8;
     v9 = "Cannot decode message of type %@ with missing field: remove";
     goto LABEL_15;
   }
@@ -146,29 +146,27 @@ LABEL_10:
   v5 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (TRITaskCapabilityModifier)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"pb"];
 
   if (v5)
   {
-    v16 = 0;
-    v6 = [(TRIPBMessage *)TRIPersistedTaskCapabilityModifier parseFromData:v5 error:&v16];
-    v7 = v16;
+    v15 = 0;
+    v6 = [(TRIPBMessage *)TRIPersistedTaskCapabilityModifier parseFromData:v5 error:&v15];
+    v7 = v15;
     if (!v6)
     {
       v9 = TRILogCategory_Server();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v7;
+        v17 = v7;
         _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Unable to parse buffer as TRIPersistedTaskCapabilityModifier: %@", buf, 0xCu);
       }
 
@@ -195,10 +193,10 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v15 = objc_opt_class();
-      v11 = NSStringFromClass(v15);
+      v14 = objc_opt_class();
+      v11 = NSStringFromClass(v14);
       *buf = 138412290;
-      v18 = v11;
+      v17 = v11;
       v12 = "Cannot decode message of type %@ with missing field: remove";
     }
 
@@ -213,7 +211,7 @@ LABEL_12:
       v10 = objc_opt_class();
       v11 = NSStringFromClass(v10);
       *buf = 138412290;
-      v18 = v11;
+      v17 = v11;
       v12 = "Cannot decode message of type %@ with missing field: add";
     }
 
@@ -225,7 +223,6 @@ LABEL_12:
   selfCopy = 0;
 LABEL_14:
 
-  v13 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

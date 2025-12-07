@@ -18,12 +18,10 @@
 
 - (NSString)name
 {
-  v2 = *&self->config[OBJC_IVAR____TtC19HomeUtilityServices20UtilityConfiguration_config + 240];
-  v3 = *&self->config[OBJC_IVAR____TtC19HomeUtilityServices20UtilityConfiguration_config + 248];
 
-  v4 = sub_20E0091C4();
+  v2 = sub_20E0091C4();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)shortName
@@ -42,20 +40,19 @@
 
   if (v3)
   {
-    v4 = *&self->config[OBJC_IVAR____TtC19HomeUtilityServices20UtilityConfiguration_config + 296];
 
-    v5 = sub_20E0091C4();
+    v4 = sub_20E0091C4();
 
-    v6 = v5;
+    v5 = v4;
   }
 
   else
   {
 LABEL_6:
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (NSDictionary)alternateSuppliers
@@ -100,24 +97,23 @@ LABEL_6:
 - (NSURL)OAuthURL
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C8520D0, &qword_20E00AB70);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
   sub_20DF6E3D0();
 
-  v8 = sub_20E008AF4();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_20E008AF4();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_20E008A64();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_20E008A64();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (int64_t)accessTokenValidity
@@ -146,12 +142,10 @@ LABEL_6:
 
 - (NSString)termsAndAgreement
 {
-  v2 = *&self->config[OBJC_IVAR____TtC19HomeUtilityServices20UtilityConfiguration_config + 504];
-  v3 = *&self->config[OBJC_IVAR____TtC19HomeUtilityServices20UtilityConfiguration_config + 512];
 
-  v4 = sub_20E0091C4();
+  v2 = sub_20E0091C4();
 
-  return v4;
+  return v2;
 }
 
 - (_TtC19HomeUtilityServices19UtilityOrganization)organizationInformation
@@ -191,27 +185,26 @@ LABEL_6:
 - (void)trustedAccountFingerprintEnabledWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C8522B0, &qword_20E00B1F0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_20E0094C4();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_20E0094C4();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_20E00C078;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_20E00C078;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_20E00C080;
-  v13[5] = v12;
+  v12[4] = &unk_20E00C080;
+  v12[5] = v11;
   selfCopy = self;
-  sub_20DFF7DC8(0, 0, v8, &unk_20E00B210, v13);
+  sub_20DFF7DC8(0, 0, v7, &unk_20E00B210, v12);
 }
 
 - (_TtC19HomeUtilityServices20UtilityConfiguration)init

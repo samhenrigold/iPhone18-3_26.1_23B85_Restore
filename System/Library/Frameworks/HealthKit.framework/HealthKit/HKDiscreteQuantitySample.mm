@@ -33,25 +33,7 @@
   _unit = [(HKQuantity *)self->_minimumQuantity _unit];
   v11 = [quantityType isCompatibleWithUnit:_unit];
 
-  if ((v11 & 1) == 0)
-  {
-    goto LABEL_11;
-  }
-
-  v9 = 136;
-  _unit2 = [(HKQuantity *)self->_maximumQuantity _unit];
-  v13 = [quantityType isCompatibleWithUnit:_unit2];
-
-  if ((v13 & 1) == 0)
-  {
-    goto LABEL_11;
-  }
-
-  v9 = 144;
-  _unit3 = [(HKQuantity *)self->_mostRecentQuantity _unit];
-  v15 = [quantityType isCompatibleWithUnit:_unit3];
-
-  if (v15)
+  if (v11 & 1) != 0 && (v9 = 136, -[HKQuantity _unit](self->_maximumQuantity, "_unit"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [quantityType isCompatibleWithUnit:v12], v12, (v13) && (v9 = 144, -[HKQuantity _unit](self->_mostRecentQuantity, "_unit"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(quantityType, "isCompatibleWithUnit:", v14), v14, (v15))
   {
     startDate = [(NSDateInterval *)self->_mostRecentQuantityDateInterval startDate];
     [startDate timeIntervalSinceReferenceDate];
@@ -89,7 +71,6 @@ LABEL_10:
 
   else
   {
-LABEL_11:
     v25 = MEMORY[0x1E696ABC0];
     v26 = objc_opt_class();
     v27 = objc_opt_class();

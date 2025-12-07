@@ -1,4 +1,5 @@
 @interface GCDTimer
++ (id)scheduledTimerWithTimeInterval:(double)interval queue:(id)queue repeating:(BOOL)repeating block:(id)block;
 - (GCDTimer)initWithTimeInterval:(double)interval queue:(id)queue repeating:(BOOL)repeating block:(id)block;
 - (id)description;
 - (void)dealloc;
@@ -123,6 +124,18 @@ void __55__GCDTimer_initWithTimeInterval_queue_repeating_block___block_invoke(ui
   v7 = [v3 stringWithFormat:@"%@ <repeating: %s, next fire: %@>", v4, v5, fireDate];
 
   return v7;
+}
+
++ (id)scheduledTimerWithTimeInterval:(double)interval queue:(id)queue repeating:(BOOL)repeating block:(id)block
+{
+  repeatingCopy = repeating;
+  blockCopy = block;
+  queueCopy = queue;
+  v11 = [[GCDTimer alloc] initWithTimeInterval:queueCopy queue:repeatingCopy repeating:blockCopy block:interval];
+
+  dispatch_resume(v11->_source);
+
+  return v11;
 }
 
 @end

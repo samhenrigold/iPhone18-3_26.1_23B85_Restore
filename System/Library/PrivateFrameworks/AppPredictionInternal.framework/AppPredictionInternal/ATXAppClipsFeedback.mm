@@ -82,129 +82,128 @@
 
 - (BOOL)shouldShowAppClipWithHeroAppPrediction:(id)prediction
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   predictionCopy = prediction;
-  if (![MEMORY[0x277D42590] isInternalBuild] || (v5 = *MEMORY[0x277CEBDC8], LOBYTE(v33) = 0, !CFPreferencesGetAppBooleanValue(v5, *MEMORY[0x277CEBD00], &v33)))
+  if (![MEMORY[0x277D42590] isInternalBuild] || (v5 = *MEMORY[0x277CEBDC8], LOBYTE(v36) = 0, AppBooleanValue = CFPreferencesGetAppBooleanValue(v5, *MEMORY[0x277CEBD00], &v36), !AppBooleanValue))
   {
-    v6 = +[ATXHeroAndClipConstants sharedInstance];
+    v7 = +[ATXHeroAndClipConstants sharedInstance];
     if ([(ATXAppClipsFeedback *)self _shouldHideAppClipForLowEngagementNoDecay:predictionCopy])
     {
       [(ATXAppClipsFeedback *)self _rejectsForAppClipWithHeroAppPredictionNoDecay:predictionCopy];
-      v9 = v8;
+      v10 = v9;
       [(ATXAppClipsFeedback *)self _engagementForAppClipWithHeroAppPredictionNoDecay:predictionCopy];
-      v11 = v10;
-      [(ATXAppClipsFeedback *)self _confirmsForAppClipWithHeroAppPredictionNoDecay:predictionCopy];
-      v13 = v12;
-      v14 = __atxlog_handle_hero();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v12 = v11;
+      v13 = [(ATXAppClipsFeedback *)self _confirmsForAppClipWithHeroAppPredictionNoDecay:predictionCopy];
+      v15 = v14;
+      v16 = __atxlog_handle_hero(v13);
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_10:
-        v7 = 0;
+        v8 = 0;
 LABEL_21:
 
         goto LABEL_22;
       }
 
-      [v6 appClipsPerAppClipEngagementThresholdNoDecay];
-      v33 = 138413314;
-      v34 = predictionCopy;
-      v35 = 2048;
-      v36 = v9;
-      v37 = 2048;
-      v38 = v11;
-      v39 = 2048;
-      v40 = v15;
-      v41 = 2048;
-      v42 = v13;
-      v16 = "%@ has enough non-decaying rejects: %f, and engagement is: %f which is less than the threshold: %f. Hence, not showing this suggestion. Confirms: %f.";
+      [v7 appClipsPerAppClipEngagementThresholdNoDecay];
+      v36 = 138413314;
+      v37 = predictionCopy;
+      v38 = 2048;
+      v39 = v10;
+      v40 = 2048;
+      v41 = v12;
+      v42 = 2048;
+      v43 = v17;
+      v44 = 2048;
+      v45 = v15;
+      v18 = "%@ has enough non-decaying rejects: %f, and engagement is: %f which is less than the threshold: %f. Hence, not showing this suggestion. Confirms: %f.";
 LABEL_9:
-      _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, v16, &v33, 0x34u);
+      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, v18, &v36, 0x34u);
       goto LABEL_10;
     }
 
     [(ATXAppClipsFeedback *)self _rejectsForAppClipWithHeroAppPrediction:predictionCopy];
-    v18 = v17;
-    [(ATXAppClipsFeedback *)self _confirmsForAppClipWithHeroAppPrediction:predictionCopy];
     v20 = v19;
-    [v6 appClipsPerAppClipMinRejects];
-    if (v18 >= v21)
+    [(ATXAppClipsFeedback *)self _confirmsForAppClipWithHeroAppPrediction:predictionCopy];
+    v22 = v21;
+    appClipsPerAppClipMinRejects = [v7 appClipsPerAppClipMinRejects];
+    if (v20 >= v24)
     {
       [(ATXAppClipsFeedback *)self _engagementForAppClipWithHeroAppPrediction:predictionCopy];
-      v26 = v25;
-      [v6 appClipsPerAppClipEngagementThreshold];
-      v28 = v27;
-      v14 = __atxlog_handle_hero();
-      v29 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-      if (v26 < v28)
+      v29 = v28;
+      appClipsPerAppClipEngagementThreshold = [v7 appClipsPerAppClipEngagementThreshold];
+      v32 = v31;
+      v16 = __atxlog_handle_hero(appClipsPerAppClipEngagementThreshold);
+      v33 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+      if (v29 < v32)
       {
-        if (!v29)
+        if (!v33)
         {
           goto LABEL_10;
         }
 
-        [v6 appClipsPerAppClipEngagementThreshold];
-        v33 = 138413314;
-        v34 = predictionCopy;
-        v35 = 2048;
-        v36 = v18;
-        v37 = 2048;
-        v38 = v26;
-        v39 = 2048;
-        v40 = v30;
-        v41 = 2048;
-        v42 = v20;
-        v16 = "%@ has enough rejects: %f, and engagement is: %f which is less than the threshold: %f. Hence, not showing this suggestion. Confirms: %f.";
+        [v7 appClipsPerAppClipEngagementThreshold];
+        v36 = 138413314;
+        v37 = predictionCopy;
+        v38 = 2048;
+        v39 = v20;
+        v40 = 2048;
+        v41 = v29;
+        v42 = 2048;
+        v43 = v34;
+        v44 = 2048;
+        v45 = v22;
+        v18 = "%@ has enough rejects: %f, and engagement is: %f which is less than the threshold: %f. Hence, not showing this suggestion. Confirms: %f.";
         goto LABEL_9;
       }
 
-      if (v29)
+      if (v33)
       {
-        v33 = 134218496;
-        v34 = v20;
-        v35 = 2048;
-        v36 = v18;
-        v37 = 2048;
-        v38 = v26;
-        v22 = "All app clip specific thresholds passed. Confirms: %f, Rejects: %f, Engagement: %f";
-        v23 = v14;
-        v24 = 32;
+        v36 = 134218496;
+        v37 = v22;
+        v38 = 2048;
+        v39 = v20;
+        v40 = 2048;
+        v41 = v29;
+        v25 = "All app clip specific thresholds passed. Confirms: %f, Rejects: %f, Engagement: %f";
+        v26 = v16;
+        v27 = 32;
         goto LABEL_19;
       }
     }
 
     else
     {
-      v14 = __atxlog_handle_hero();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = __atxlog_handle_hero(appClipsPerAppClipMinRejects);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v33 = 134218240;
-        v34 = v20;
-        v35 = 2048;
-        v36 = v18;
-        v22 = "Not enough app clip specific rejects to consider engagement.  Confirms: %f, Rejects: %f ";
-        v23 = v14;
-        v24 = 22;
+        v36 = 134218240;
+        v37 = v22;
+        v38 = 2048;
+        v39 = v20;
+        v25 = "Not enough app clip specific rejects to consider engagement.  Confirms: %f, Rejects: %f ";
+        v26 = v16;
+        v27 = 22;
 LABEL_19:
-        _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, v22, &v33, v24);
+        _os_log_impl(&dword_2263AA000, v26, OS_LOG_TYPE_DEFAULT, v25, &v36, v27);
       }
     }
 
-    v7 = 1;
+    v8 = 1;
     goto LABEL_21;
   }
 
-  v6 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = __atxlog_handle_hero(AppBooleanValue);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v33) = 0;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Defaults for OverrideHeroAppPredictionEligibility set to True: Overriding app clip user engagement feedback", &v33, 2u);
+    LOWORD(v36) = 0;
+    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Defaults for OverrideHeroAppPredictionEligibility set to True: Overriding app clip user engagement feedback", &v36, 2u);
   }
 
-  v7 = 1;
+  v8 = 1;
 LABEL_22:
 
-  v31 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v8;
 }
 
 - (double)feedbackScoreForAppClipWithHeroAppPrediction:(id)prediction
@@ -226,93 +225,92 @@ LABEL_22:
 
 - (BOOL)shouldShowAppClips
 {
-  v31 = *MEMORY[0x277D85DE8];
-  if (![MEMORY[0x277D42590] isInternalBuild] || (v3 = *MEMORY[0x277CEBDC8], LOBYTE(v23) = 0, !CFPreferencesGetAppBooleanValue(v3, *MEMORY[0x277CEBD00], &v23)))
+  v33 = *MEMORY[0x277D85DE8];
+  if (![MEMORY[0x277D42590] isInternalBuild] || (v3 = *MEMORY[0x277CEBDC8], LOBYTE(v25) = 0, AppBooleanValue = CFPreferencesGetAppBooleanValue(v3, *MEMORY[0x277CEBD00], &v25), !AppBooleanValue))
   {
-    v4 = +[ATXHeroAndClipConstants sharedInstance];
+    v5 = +[ATXHeroAndClipConstants sharedInstance];
     [(ATXAppClipsFeedback *)self _overallConfirms];
-    v7 = v6;
+    v8 = v7;
     [(ATXAppClipsFeedback *)self _overallRejects];
-    v9 = v8;
-    [v4 appClipsOverallMinRejects];
-    if (v9 >= v10)
+    v10 = v9;
+    appClipsOverallMinRejects = [v5 appClipsOverallMinRejects];
+    if (v10 >= v12)
     {
       [(ATXAppClipsFeedback *)self _overallAppClipsengagement];
-      v16 = v15;
-      [v4 appClipsOverallEngagementThreshold];
       v18 = v17;
-      v11 = __atxlog_handle_hero();
-      v19 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-      if (v16 < v18)
+      appClipsOverallEngagementThreshold = [v5 appClipsOverallEngagementThreshold];
+      v21 = v20;
+      v13 = __atxlog_handle_hero(appClipsOverallEngagementThreshold);
+      v22 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+      if (v18 < v21)
       {
-        if (v19)
+        if (v22)
         {
-          [v4 appClipsOverallEngagementThreshold];
-          v23 = 134218752;
-          v24 = v9;
-          v25 = 2048;
-          v26 = v16;
+          [v5 appClipsOverallEngagementThreshold];
+          v25 = 134218752;
+          v26 = v10;
           v27 = 2048;
-          v28 = v20;
+          v28 = v18;
           v29 = 2048;
-          v30 = v7;
-          _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "There are enough overall rejects: %f, and overall App Clips Engagement is: %f which is less than the threshold: %f. Hence, not showing app clip suggestions. Confirms: %f", &v23, 0x2Au);
+          v30 = v23;
+          v31 = 2048;
+          v32 = v8;
+          _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "There are enough overall rejects: %f, and overall App Clips Engagement is: %f which is less than the threshold: %f. Hence, not showing app clip suggestions. Confirms: %f", &v25, 0x2Au);
         }
 
-        v5 = 0;
+        v6 = 0;
         goto LABEL_17;
       }
 
-      if (v19)
+      if (v22)
       {
-        v23 = 134218496;
-        v24 = v7;
-        v25 = 2048;
-        v26 = v9;
+        v25 = 134218496;
+        v26 = v8;
         v27 = 2048;
-        v28 = v16;
-        v12 = "All overall app clip thresholds passed. Confirms: %f, Rejects: %f, Engagement: %f";
-        v13 = v11;
-        v14 = 32;
+        v28 = v10;
+        v29 = 2048;
+        v30 = v18;
+        v14 = "All overall app clip thresholds passed. Confirms: %f, Rejects: %f, Engagement: %f";
+        v15 = v13;
+        v16 = 32;
         goto LABEL_15;
       }
     }
 
     else
     {
-      v11 = __atxlog_handle_hero();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = __atxlog_handle_hero(appClipsOverallMinRejects);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 134218240;
-        v24 = v7;
-        v25 = 2048;
-        v26 = v9;
-        v12 = "Not enough overall rejects to consider engagement. Confirms: %f, Rejects: %f";
-        v13 = v11;
-        v14 = 22;
+        v25 = 134218240;
+        v26 = v8;
+        v27 = 2048;
+        v28 = v10;
+        v14 = "Not enough overall rejects to consider engagement. Confirms: %f, Rejects: %f";
+        v15 = v13;
+        v16 = 22;
 LABEL_15:
-        _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, v12, &v23, v14);
+        _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, v14, &v25, v16);
       }
     }
 
-    v5 = 1;
+    v6 = 1;
 LABEL_17:
 
     goto LABEL_18;
   }
 
-  v4 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = __atxlog_handle_hero(AppBooleanValue);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v23) = 0;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "Defaults for OverrideHeroAppPredictionEligibility set to True: Overriding app clip user engagement feedback", &v23, 2u);
+    LOWORD(v25) = 0;
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Defaults for OverrideHeroAppPredictionEligibility set to True: Overriding app clip user engagement feedback", &v25, 2u);
   }
 
-  v5 = 1;
+  v6 = 1;
 LABEL_18:
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v6;
 }
 
 - (double)_overallAppClipsengagement

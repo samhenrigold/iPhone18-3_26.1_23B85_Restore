@@ -13,38 +13,37 @@
 
 - (id)localizedStringForKey:(id)key subscriptionContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v5 = [(TPSCarrierBundleController *)self localizedStringForKey:key subscriptionContext:context error:&v14];
-  v6 = v14;
+  v22 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v5 = [(TPSCarrierBundleController *)self localizedStringForKey:key subscriptionContext:context error:&v15];
+  v6 = v15;
+  v8 = v6;
   if (v6)
   {
-    v7 = TPSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = TPSLog(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v12 = v11;
-      v13 = NSStringFromSelector(a2);
+      v12 = objc_opt_class();
+      v13 = v12;
+      v14 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v6;
-      _os_log_error_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", buf, 0x20u);
+      v17 = v12;
+      v18 = 2112;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v8;
+      _os_log_error_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", buf, 0x20u);
     }
 
-    v8 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v8 = v5;
+    v10 = v5;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v10;
 }
 
 - (id)localizedStringForKey:(id)key subscriptionContext:(id)context error:(id *)error
@@ -59,38 +58,37 @@
 
 - (id)objectForKey:(id)key subscriptionContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v5 = [(TPSCarrierBundleController *)self objectForKey:key subscriptionContext:context error:&v14];
-  v6 = v14;
+  v22 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v5 = [(TPSCarrierBundleController *)self objectForKey:key subscriptionContext:context error:&v15];
+  v6 = v15;
+  v8 = v6;
   if (v6)
   {
-    v7 = TPSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = TPSLog(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v12 = v11;
-      v13 = NSStringFromSelector(a2);
+      v12 = objc_opt_class();
+      v13 = v12;
+      v14 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v6;
-      _os_log_error_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", buf, 0x20u);
+      v17 = v12;
+      v18 = 2112;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v8;
+      _os_log_error_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", buf, 0x20u);
     }
 
-    v8 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v8 = v5;
+    v10 = v5;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v10;
 }
 
 - (id)objectForKey:(id)key subscriptionContext:(id)context error:(id *)error
@@ -107,38 +105,37 @@
 
 - (id)objectForKeyHierarchy:(id)hierarchy subscriptionContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v5 = [(TPSCarrierBundleController *)self objectForKeyHierarchy:hierarchy subscriptionContext:context error:&v14];
-  v6 = v14;
+  v22 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v5 = [(TPSCarrierBundleController *)self objectForKeyHierarchy:hierarchy subscriptionContext:context error:&v15];
+  v6 = v15;
+  v8 = v6;
   if (v6)
   {
-    v7 = TPSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = TPSLog(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v12 = v11;
-      v13 = NSStringFromSelector(a2);
+      v12 = objc_opt_class();
+      v13 = v12;
+      v14 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v6;
-      _os_log_error_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", buf, 0x20u);
+      v17 = v12;
+      v18 = 2112;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v8;
+      _os_log_error_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", buf, 0x20u);
     }
 
-    v8 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v8 = v5;
+    v10 = v5;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v10;
 }
 
 - (id)objectForKeyHierarchy:(id)hierarchy subscriptionContext:(id)context error:(id *)error
@@ -157,12 +154,12 @@
 {
   v12 = *MEMORY[0x277D85DE8];
   changeCopy = change;
-  v5 = TPSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSLog(changeCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v11 = changeCopy;
-    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "Carrier bundle changed for subscription context %@.", buf, 0xCu);
+    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "Carrier bundle changed for subscription context %@.", buf, 0xCu);
   }
 
   v8[0] = MEMORY[0x277D85DD0];
@@ -171,36 +168,34 @@
   v8[3] = &unk_2782E39D0;
   v8[4] = self;
   v9 = changeCopy;
-  v6 = changeCopy;
+  v7 = changeCopy;
   [(TPSController *)self performAtomicDelegateBlock:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __50__TPSCarrierBundleController_carrierBundleChange___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [*(a1 + 32) delegateToQueue];
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       v6 = 0;
       do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * v6);
+        v7 = *(*(&v14 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           v8 = [*(a1 + 32) delegateToQueue];
@@ -214,7 +209,7 @@ void __50__TPSCarrierBundleController_carrierBundleChange___block_invoke(uint64_
           v11 = *(a1 + 40);
           block[4] = v7;
           block[5] = v10;
-          v14 = v11;
+          v13 = v11;
           dispatch_async(v9, block);
         }
 
@@ -222,25 +217,23 @@ void __50__TPSCarrierBundleController_carrierBundleChange___block_invoke(uint64_
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)operatorBundleChange:(id)change
 {
   v12 = *MEMORY[0x277D85DE8];
   changeCopy = change;
-  v5 = TPSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSLog(changeCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v11 = changeCopy;
-    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "Operator bundle changed for subscription context %@.", buf, 0xCu);
+    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "Operator bundle changed for subscription context %@.", buf, 0xCu);
   }
 
   v8[0] = MEMORY[0x277D85DD0];
@@ -249,36 +242,34 @@ void __50__TPSCarrierBundleController_carrierBundleChange___block_invoke(uint64_
   v8[3] = &unk_2782E39D0;
   v8[4] = self;
   v9 = changeCopy;
-  v6 = changeCopy;
+  v7 = changeCopy;
   [(TPSController *)self performAtomicDelegateBlock:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __51__TPSCarrierBundleController_operatorBundleChange___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [*(a1 + 32) delegateToQueue];
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       v6 = 0;
       do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * v6);
+        v7 = *(*(&v14 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           v8 = [*(a1 + 32) delegateToQueue];
@@ -292,7 +283,7 @@ void __51__TPSCarrierBundleController_operatorBundleChange___block_invoke(uint64
           v11 = *(a1 + 40);
           block[4] = v7;
           block[5] = v10;
-          v14 = v11;
+          v13 = v11;
           dispatch_async(v9, block);
         }
 
@@ -300,13 +291,11 @@ void __51__TPSCarrierBundleController_operatorBundleChange___block_invoke(uint64
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

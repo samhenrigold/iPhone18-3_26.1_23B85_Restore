@@ -14,7 +14,7 @@
   v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   colorCopy = color;
   sub_190D56B20();
-  v9 = type metadata accessor for CKBubbleMaterialConfiguration();
+  v9 = type metadata accessor for CKBubbleMaterialConfiguration(0);
   v10 = objc_allocWithZone(v9);
   (*(v5 + 16))(v10 + OBJC_IVAR____TtC7ChatKit29CKBubbleMaterialConfiguration_wrapped, v7, v4);
   v13.receiver = v10;
@@ -30,7 +30,7 @@
 {
   collectionCopy = collection;
   selfCopy = self;
-  v7 = sub_190CF2524();
+  v7 = sub_190CF2524(collectionCopy);
 
   return v7;
 }

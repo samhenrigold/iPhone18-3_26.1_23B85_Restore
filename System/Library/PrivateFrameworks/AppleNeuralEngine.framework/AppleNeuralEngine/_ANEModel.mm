@@ -18,12 +18,14 @@
 - (id)description;
 - (id)procedureInfoForProcedureIndex:(unsigned int)index;
 - (id)shallowCopy;
+- (id)symbolIndicesForProcedureIndex:(unsigned int)index indexArrayKey:(id)key;
 - (unint64_t)hash;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 - (void)resetOnUnload;
 - (void)setCacheURLIdentifier:(id)identifier;
 - (void)updateModelAttributes:(id)attributes state:(unint64_t)state;
+- (void)updateModelAttributes:(id)attributes state:(unint64_t)state programHandle:(unint64_t)handle intermediateBufferHandle:(unint64_t)bufferHandle queueDepth:(char)depth;
 @end
 
 @implementation _ANEModel
@@ -93,21 +95,20 @@
 - (void)dealloc
 {
   self->_state = 5;
-  string_id = self->_string_id;
-  v5 = kdebug_trace_string();
-  self->_string_id = v5;
-  if (v5 == -1)
+  v4 = kdebug_trace_string();
+  self->_string_id = v4;
+  if (v4 == -1)
   {
-    v6 = +[_ANELog common];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v5 = +[_ANELog common];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [_ANEModel initWithModelAtURL:a2 sourceURL:? UUID:? key:? identifierSource:? cacheURLIdentifier:? modelAttributes:? standardizeURL:? string_id:? generateNewStringId:? mpsConstants:?];
     }
   }
 
-  v7.receiver = self;
-  v7.super_class = _ANEModel;
-  [(_ANEModel *)&v7 dealloc];
+  v6.receiver = self;
+  v6.super_class = _ANEModel;
+  [(_ANEModel *)&v6 dealloc];
 }
 
 - (void)resetOnUnload
@@ -399,7 +400,7 @@ LABEL_13:
 
 + (id)correctFileURLFormat:(id)format
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   formatCopy = format;
   v5 = formatCopy;
   if (formatCopy)
@@ -429,11 +430,11 @@ LABEL_13:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = NSStringFromSelector(a2);
-        v14 = 138412546;
-        v15 = v10;
-        v16 = 2112;
-        v17 = v5;
-        _os_log_impl(&dword_1AD246000, v9, OS_LOG_TYPE_INFO, "%@: modelURL=%@ doesn't have scheme", &v14, 0x16u);
+        v13 = 138412546;
+        v14 = v10;
+        v15 = 2112;
+        v16 = v5;
+        _os_log_impl(&dword_1AD246000, v9, OS_LOG_TYPE_INFO, "%@: modelURL=%@ doesn't have scheme", &v13, 0x16u);
       }
 
       v11 = MEMORY[0x1E695DFF8];
@@ -454,7 +455,6 @@ LABEL_13:
   }
 
 LABEL_14:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -466,6 +466,21 @@ LABEL_14:
   [(_ANEModel *)self setModelAttributes:attributesCopy];
 
   [(_ANEModel *)self setState:state];
+
+  os_unfair_lock_unlock(&self->_l);
+}
+
+- (void)updateModelAttributes:(id)attributes state:(unint64_t)state programHandle:(unint64_t)handle intermediateBufferHandle:(unint64_t)bufferHandle queueDepth:(char)depth
+{
+  depthCopy = depth;
+  attributesCopy = attributes;
+  os_unfair_lock_lock(&self->_l);
+  [(_ANEModel *)self setModelAttributes:attributesCopy];
+
+  [(_ANEModel *)self setState:state];
+  [(_ANEModel *)self setProgramHandle:handle];
+  [(_ANEModel *)self setIntermediateBufferHandle:bufferHandle];
+  [(_ANEModel *)self setQueueDepth:depthCopy];
 
   os_unfair_lock_unlock(&self->_l);
 }
@@ -524,6 +539,82 @@ LABEL_14:
   _Block_object_dispose(&v19, 8);
 
   return v15;
+}
+
+- (id)symbolIndicesForProcedureIndex:(unsigned int)index indexArrayKey:(id)key
+{
+  v4 = *&index;
+  v35 = *MEMORY[0x1E69E9840];
+  keyCopy = key;
+  v8 = [(_ANEModel *)self procedureInfoForProcedureIndex:v4];
+  indexSet = [MEMORY[0x1E696AD50] indexSet];
+  if (v8)
+  {
+    v10 = [v8 objectForKeyedSubscript:keyCopy];
+    objc_opt_class();
+    v11 = v10;
+    if (objc_opt_isKindOfClass())
+    {
+      v12 = v11;
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    v13 = v12;
+
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v14 = v13;
+    v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v15)
+    {
+      v16 = v15;
+      v17 = *v23;
+      do
+      {
+        for (i = 0; i != v16; ++i)
+        {
+          if (*v23 != v17)
+          {
+            objc_enumerationMutation(v14);
+          }
+
+          [indexSet addIndex:{objc_msgSend(*(*(&v22 + 1) + 8 * i), "unsignedIntegerValue", v22)}];
+        }
+
+        v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      }
+
+      while (v16);
+    }
+  }
+
+  else
+  {
+    v14 = +[_ANELog common];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    {
+      v21 = NSStringFromSelector(a2);
+      *buf = 138413058;
+      v28 = v21;
+      v29 = 2048;
+      selfCopy = self;
+      v31 = 2112;
+      selfCopy2 = self;
+      v33 = 1024;
+      v34 = v4;
+      _os_log_debug_impl(&dword_1AD246000, v14, OS_LOG_TYPE_DEBUG, "%@: model[%p]=%@ missing procedure info for index=%d", buf, 0x26u);
+    }
+  }
+
+  v19 = [indexSet copy];
+
+  return v19;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -808,127 +899,96 @@ LABEL_30:
 
 - (void)initWithModelAtURL:(const char *)a1 sourceURL:UUID:key:identifierSource:cacheURLIdentifier:modelAttributes:standardizeURL:string_id:generateNewStringId:mpsConstants:.cold.1(const char *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(a1);
-  v2 = *__error();
+  __error();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 - (void)initWithModelAtURL:(const char *)a1 sourceURL:UUID:key:identifierSource:cacheURLIdentifier:modelAttributes:standardizeURL:string_id:generateNewStringId:mpsConstants:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithModelAtURL:(const char *)a1 sourceURL:UUID:key:identifierSource:cacheURLIdentifier:modelAttributes:standardizeURL:string_id:generateNewStringId:mpsConstants:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithModelAtURL:sourceURL:UUID:key:identifierSource:cacheURLIdentifier:modelAttributes:standardizeURL:string_id:generateNewStringId:mpsConstants:.cold.4()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCacheURLIdentifier:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCacheURLIdentifier:(const char *)a1 .cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)correctFileURLFormat:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = NSStringFromSelector(v1);
-  v9 = [v0 scheme];
+  v8 = [v0 scheme];
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)correctFileURLFormat:(os_log_t)log .cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "+[_ANEModel correctFileURLFormat:]";
-  _os_log_debug_impl(&dword_1AD246000, log, OS_LOG_TYPE_DEBUG, "%s modelURL is nil", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "+[_ANEModel correctFileURLFormat:]";
+  _os_log_debug_impl(&dword_1AD246000, log, OS_LOG_TYPE_DEBUG, "%s modelURL is nil", &v1, 0xCu);
 }
 
 - (void)encodeWithCoder:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = NSStringFromSelector(v1);
+  v7 = NSStringFromSelector(v1);
   [v0 identifierSource];
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithCoder:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyWithZone:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

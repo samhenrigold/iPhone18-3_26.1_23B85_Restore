@@ -203,19 +203,19 @@ uint64_t __75__PDAssertionCoordinator_invalidateAssertionOfType_withIdentifier_h
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (void)assertionOfType:(unint64_t)type withIdentifier:(id)identifier shouldInvalidateWhenBackgrounded:(BOOL)backgrounded
@@ -353,19 +353,19 @@ uint64_t __65__PDAssertionCoordinator_assertionOfType_withIdentifier_isValid___b
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (void)hasValidAssertionOfType:(unint64_t)type completion:(id)completion
@@ -535,19 +535,19 @@ uint64_t __52__PDAssertionCoordinator__acquireAssertion_handler___block_invoke(u
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (void)_addRequestForAssertion:(id)assertion handler:(id)handler

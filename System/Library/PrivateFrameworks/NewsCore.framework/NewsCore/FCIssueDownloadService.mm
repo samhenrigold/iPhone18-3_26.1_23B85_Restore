@@ -54,7 +54,7 @@
 
 - (id)fetchCachedIssueWithID:(id)d completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dCopy = d;
   handlerCopy = handler;
   v8 = [FCOfflineIssueFetchOperation alloc];
@@ -64,96 +64,90 @@
 
   [(FCOperation *)v11 setQualityOfService:9];
   [(FCOfflineIssueFetchOperation *)v11 setCachedOnly:1];
-  v28[0] = 0;
-  v28[1] = v28;
-  v28[2] = 0x3032000000;
-  v28[3] = __Block_byref_object_copy__53;
-  v28[4] = __Block_byref_object_dispose__53;
-  v29 = +[FCContentArchive empty];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __67__FCIssueDownloadService_fetchCachedIssueWithID_completionHandler___block_invoke;
-  v27[3] = &unk_1E7C36EF0;
-  v27[4] = v28;
-  [(FCOfflineIssueFetchOperation *)v11 setArchiveHandler:v27];
-  v20 = MEMORY[0x1E69E9820];
-  v21 = 3221225472;
-  v22 = __67__FCIssueDownloadService_fetchCachedIssueWithID_completionHandler___block_invoke_2;
-  v23 = &unk_1E7C36F18;
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x3032000000;
+  v27[3] = __Block_byref_object_copy__53;
+  v27[4] = __Block_byref_object_dispose__53;
+  v28 = +[FCContentArchive empty];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __67__FCIssueDownloadService_fetchCachedIssueWithID_completionHandler___block_invoke;
+  v26[3] = &unk_1E7C36EF0;
+  v26[4] = v27;
+  [(FCOfflineIssueFetchOperation *)v11 setArchiveHandler:v26];
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __67__FCIssueDownloadService_fetchCachedIssueWithID_completionHandler___block_invoke_2;
+  v22 = &unk_1E7C36F18;
   v12 = dCopy;
-  v24 = v12;
+  v23 = v12;
   v13 = handlerCopy;
-  v25 = v13;
-  v26 = v28;
-  [(FCOfflineIssueFetchOperation *)v11 setFetchCompletionHandler:&v20];
+  v24 = v13;
+  v25 = v27;
+  [(FCOfflineIssueFetchOperation *)v11 setFetchCompletionHandler:&v19];
   v14 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = [(FCOperation *)v11 shortOperationDescription:v20];
+    v15 = [(FCOperation *)v11 shortOperationDescription:v19];
     *buf = 138543618;
-    v31 = v12;
-    v32 = 2114;
-    v33 = v15;
+    v30 = v12;
+    v31 = 2114;
+    v32 = v15;
     _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "Will check cache for issue %{public}@ with operation %{public}@", buf, 0x16u);
   }
 
   [FCTaskScheduler scheduleBackgroundDownloadOperation:v11];
-  v16 = v25;
+  v16 = v24;
   v17 = v11;
 
-  _Block_object_dispose(v28, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v27, 8);
 
   return v17;
 }
 
 void __67__FCIssueDownloadService_fetchCachedIssueWithID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v10[0] = *(*(*(a1 + 32) + 8) + 40);
-  v10[1] = a2;
+  v9[2] = *MEMORY[0x1E69E9840];
+  v9[0] = *(*(*(a1 + 32) + 8) + 40);
+  v9[1] = a2;
   v3 = MEMORY[0x1E695DEC8];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:v10 count:2];
+  v5 = [v3 arrayWithObjects:v9 count:2];
   v6 = [FCContentArchive archiveWithChildArchives:v5];
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __67__FCIssueDownloadService_fetchCachedIssueWithID_completionHandler___block_invoke_2(void *a1, void *a2, void *a3)
+void __67__FCIssueDownloadService_fetchCachedIssueWithID_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v8 = @"not cached";
-    v9 = a1[4];
+    v9 = *(a1 + 32);
     if (!v6)
     {
       v8 = @"success";
     }
 
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2114;
-    v15 = v8;
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Concluded cache check for issue %{public}@ with status %{public}@", &v12, 0x16u);
+    v10 = 138543618;
+    v11 = v9;
+    v12 = 2114;
+    v13 = v8;
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Concluded cache check for issue %{public}@ with status %{public}@", &v10, 0x16u);
   }
 
-  v10 = *(*(a1[6] + 8) + 40);
-  (*(a1[5] + 16))();
-
-  v11 = *MEMORY[0x1E69E9840];
+  (*(*(a1 + 40) + 16))();
 }
 
 - (int64_t)isIssueDownloadedEnoughToRead:(id)read
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   readCopy = read;
   context = [(FCIssueDownloadService *)self context];
   internalContentContext = [context internalContentContext];
@@ -180,7 +174,7 @@ void __67__FCIssueDownloadService_fetchCachedIssueWithID_completionHandler___blo
           if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v33 = readCopy;
+            v32 = readCopy;
             _os_log_impl(&dword_1B63EF000, v21, OS_LOG_TYPE_DEFAULT, "Issue %{public}@ has unknown readability because it's a PDF issue'", buf, 0xCu);
           }
 
@@ -194,7 +188,7 @@ void __67__FCIssueDownloadService_fetchCachedIssueWithID_completionHandler___blo
           if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v33 = readCopy;
+            v32 = readCopy;
             _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, "Issue %{public}@ is readable", buf, 0xCu);
           }
 
@@ -202,36 +196,36 @@ void __67__FCIssueDownloadService_fetchCachedIssueWithID_completionHandler___blo
           goto LABEL_18;
         }
 
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_21;
-        v24[3] = &unk_1E7C3F068;
-        v25 = readCopy;
-        __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_21(v24);
-        v20 = v25;
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_21;
+        v23[3] = &unk_1E7C3F068;
+        v24 = readCopy;
+        __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_21(v23);
+        v20 = v24;
       }
 
       else
       {
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_20;
-        v26[3] = &unk_1E7C3F068;
-        v27 = readCopy;
-        __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_20(v26);
-        v20 = v27;
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_20;
+        v25[3] = &unk_1E7C3F068;
+        v26 = readCopy;
+        __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_20(v25);
+        v20 = v26;
       }
     }
 
     else
     {
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_19;
-      v28[3] = &unk_1E7C3F068;
-      v29 = readCopy;
-      __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_19(v28);
-      v20 = v29;
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_19;
+      v27[3] = &unk_1E7C3F068;
+      v28 = readCopy;
+      __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_19(v27);
+      v20 = v28;
     }
 
     v19 = 0;
@@ -240,81 +234,76 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke;
-  v30[3] = &unk_1E7C3F068;
-  v31 = readCopy;
-  __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke(v30);
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke;
+  v29[3] = &unk_1E7C3F068;
+  v30 = readCopy;
+  __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke(v29);
   v19 = 0;
-  v9 = v31;
+  v9 = v30;
 LABEL_19:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 uint64_t __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Issue %{public}@ is not readable because its issue record is not cached", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Issue %{public}@ is not readable because its issue record is not cached", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_19(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Issue %{public}@ is not readable because it has no metadata asset handle", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Issue %{public}@ is not readable because it has no metadata asset handle", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_20(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Issue %{public}@ is not readable because its metadata is not cached", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Issue %{public}@ is not readable because its metadata is not cached", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __56__FCIssueDownloadService_isIssueDownloadedEnoughToRead___block_invoke_21(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Issue %{public}@ is not readable because its cover article is not readable", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Issue %{public}@ is not readable because its cover article is not readable", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

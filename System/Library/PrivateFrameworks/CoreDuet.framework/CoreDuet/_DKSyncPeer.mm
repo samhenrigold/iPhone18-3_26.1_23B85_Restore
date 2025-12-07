@@ -91,23 +91,22 @@ LABEL_8:
     }
 
     identifier = [(_DKSyncPeer *)self identifier];
-    sourceDeviceID = self->_sourceDeviceID;
-    v10 = [v4 initWithFormat:@"<%@ %p: me=%@, identifier=%@, name=%@, model=%@, sourceDeviceID=%@, zoneName=%@>", v6, self, v7, identifier, self->_name, self->_model, sourceDeviceID, self->_zoneName];
+    v9 = [v4 initWithFormat:@"<%@ %p: me=%@, identifier=%@, name=%@, model=%@, sourceDeviceID=%@, zoneName=%@>", v6, self, v7, identifier, self->_name, self->_model, self->_sourceDeviceID, self->_zoneName];
   }
 
   else
   {
     identifier = [(_DKSyncPeer *)self identifier];
-    v17 = *&self->_name;
+    v16 = *&self->_name;
     version = self->_version;
-    v12 = self->_sourceDeviceID;
+    sourceDeviceID = self->_sourceDeviceID;
     idsDeviceIdentifier = self->_idsDeviceIdentifier;
     zoneName = self->_zoneName;
     dk_localtimeString = [(NSDate *)self->_lastSeenDate dk_localtimeString];
-    v10 = [v4 initWithFormat:@"<%@ %p: identifier=%@, name=%@, model=%@, version=%@, sourceDeviceID=%@, idsDeviceIdentifier=%@, zoneName=%@, lastSeenDate=%@>", v6, self, identifier, v17, version, v12, idsDeviceIdentifier, zoneName, dk_localtimeString];
+    v9 = [v4 initWithFormat:@"<%@ %p: identifier=%@, name=%@, model=%@, version=%@, sourceDeviceID=%@, idsDeviceIdentifier=%@, zoneName=%@, lastSeenDate=%@>", v6, self, identifier, v16, version, sourceDeviceID, idsDeviceIdentifier, zoneName, dk_localtimeString];
   }
 
-  return v10;
+  return v9;
 }
 
 @end

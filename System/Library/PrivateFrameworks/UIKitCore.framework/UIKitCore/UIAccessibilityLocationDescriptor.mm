@@ -72,9 +72,9 @@
     v5 = equalCopy;
     attributedName = [(UIAccessibilityLocationDescriptor *)self attributedName];
     attributedName2 = [v5 attributedName];
-    v8 = [attributedName isEqual:attributedName2];
+    isEqual = objc_msgSend_isEqual_(attributedName);
 
-    if (v8 && (-[UIAccessibilityLocationDescriptor view](self, "view"), v9 = objc_claimAutoreleasedReturnValue(), [v5 view], v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v9 == v10))
+    if (isEqual && (-[UIAccessibilityLocationDescriptor view](self, "view"), v9 = objc_claimAutoreleasedReturnValue(), [v5 view], v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v9 == v10))
     {
       [(UIAccessibilityLocationDescriptor *)self point];
       v14 = v13;

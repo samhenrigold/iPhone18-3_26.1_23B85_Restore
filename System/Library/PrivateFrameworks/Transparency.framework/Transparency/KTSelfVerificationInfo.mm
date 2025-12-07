@@ -200,31 +200,31 @@ LABEL_26:
 
 - (id)description
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"KTSelfVerificationInfo: "];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   uriToServerLoggableDatas = [(KTSelfVerificationInfo *)self uriToServerLoggableDatas];
-  v5 = [uriToServerLoggableDatas countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v5 = [uriToServerLoggableDatas countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v25;
+    v7 = *v24;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(uriToServerLoggableDatas);
         }
 
-        [v3 appendFormat:@"%@, ", *(*(&v24 + 1) + 8 * i)];
+        [v3 appendFormat:@"%@, ", *(*(&v23 + 1) + 8 * i)];
       }
 
-      v6 = [uriToServerLoggableDatas countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v6 = [uriToServerLoggableDatas countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v6);
@@ -236,30 +236,30 @@ LABEL_26:
   if (syncedLoggableDatas)
   {
     [v3 appendFormat:@"syncedDatas: [\n"];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     syncedLoggableDatas2 = [(KTSelfVerificationInfo *)self syncedLoggableDatas];
-    v11 = [syncedLoggableDatas2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v11 = [syncedLoggableDatas2 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (j = 0; j != v12; ++j)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(syncedLoggableDatas2);
           }
 
-          shortDescription = [*(*(&v20 + 1) + 8 * j) shortDescription];
+          shortDescription = [*(*(&v19 + 1) + 8 * j) shortDescription];
           [v3 appendFormat:@"%@, \n", shortDescription];
         }
 
-        v12 = [syncedLoggableDatas2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v12 = [syncedLoggableDatas2 countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v12);
@@ -276,14 +276,12 @@ LABEL_26:
     [v3 appendFormat:@"error=%@\n", failure2];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (NSDictionary)diagnosticsJsonDictionary
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (+[TransparencyAnalytics hasInternalDiagnostics])
   {
@@ -301,30 +299,30 @@ LABEL_26:
     syncedLoggableDatas2 = [(KTSelfVerificationInfo *)self syncedLoggableDatas];
     v10 = [v8 arrayWithCapacity:{objc_msgSend(syncedLoggableDatas2, "count")}];
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     syncedLoggableDatas3 = [(KTSelfVerificationInfo *)self syncedLoggableDatas];
-    v12 = [syncedLoggableDatas3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v12 = [syncedLoggableDatas3 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v24;
+      v14 = *v23;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v24 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(syncedLoggableDatas3);
           }
 
-          diagnosticsJsonDictionary = [*(*(&v23 + 1) + 8 * i) diagnosticsJsonDictionary];
+          diagnosticsJsonDictionary = [*(*(&v22 + 1) + 8 * i) diagnosticsJsonDictionary];
           [v10 addObject:diagnosticsJsonDictionary];
         }
 
-        v13 = [syncedLoggableDatas3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v13 = [syncedLoggableDatas3 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v13);
@@ -340,8 +338,6 @@ LABEL_26:
   failure = [(KTSelfVerificationInfo *)self failure];
   v20 = [TransparencyError diagnosticError:failure];
   [dictionary setObject:v20 forKeyedSubscript:@"error"];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

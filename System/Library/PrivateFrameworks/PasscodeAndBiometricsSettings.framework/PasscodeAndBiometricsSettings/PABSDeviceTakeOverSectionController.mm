@@ -24,6 +24,7 @@
 - (void)showDTOAlertForFailureToToggleToState:(BOOL)state withRatchetError:(unint64_t)error;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)toggleStatusTo:(id)to;
+- (void)toggleToStrictMode:(BOOL)mode;
 - (void)updateFooterForSecurityOptionsGroupSpecifier:(id)specifier;
 - (void)updateFooterForToggleGroupSpecifier:(id)specifier;
 - (void)updateSpecifiersWithPreCheckResults;
@@ -113,15 +114,15 @@ LABEL_7:
 
 - (void)printSpecifiersDescription:(id)description
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   v4 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"DTO Summary: "];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v5 = descriptionCopy;
-  v6 = [v5 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (!v6)
   {
     v8 = 0;
@@ -130,19 +131,19 @@ LABEL_7:
 
   v7 = v6;
   v8 = 0;
-  v9 = *v35;
-  v32 = *MEMORY[0x277D40090];
+  v9 = *v34;
+  v31 = *MEMORY[0x277D40090];
   do
   {
     v10 = 0;
     do
     {
-      if (*v35 != v9)
+      if (*v34 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v34 + 1) + 8 * v10);
+      v11 = *(*(&v33 + 1) + 8 * v10);
       identifier = [v11 identifier];
       v13 = [identifier isEqualToString:@"DTO_TOGGLE_GROUP_ID"];
 
@@ -224,7 +225,7 @@ LABEL_8:
         v23 = [v21 numberWithBool:{objc_msgSend(dtoController, "isStrictModeEnabled")}];
         [v4 appendFormat:@"| Group 2: Options (Strict Mode = %@)", v23];
 
-        v24 = [v11 objectForKeyedSubscript:v32];
+        v24 = [v11 objectForKeyedSubscript:v31];
 
         v8 = v24;
       }
@@ -234,7 +235,7 @@ LABEL_13:
     }
 
     while (v7 != v10);
-    v29 = [v5 countByEnumeratingWithState:&v34 objects:v40 count:16];
+    v29 = [v5 countByEnumeratingWithState:&v33 objects:v39 count:16];
     v7 = v29;
   }
 
@@ -245,11 +246,9 @@ LABEL_29:
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v39 = v4;
+    v38 = v4;
     _os_log_impl(&dword_25E0E9000, v30, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSpecifiers:(id)specifiers toExistingSpecifiers:(id)existingSpecifiers atIndex:(unint64_t)index
@@ -396,25 +395,25 @@ LABEL_10:
 
 - (void)toggleStatusTo:(id)to
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   toCopy = to;
   v5 = PABSLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = toCopy;
-    _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "DTO: User toggled to state [%@]", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = toCopy;
+    _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "DTO: User toggled to state [%@]", &v10, 0xCu);
   }
 
   getStatus = [(PABSDeviceTakeOverSectionController *)self getStatus];
   v7 = PABSLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = toCopy;
-    v13 = 2112;
-    v14 = getStatus;
-    _os_log_impl(&dword_25E0E9000, v7, OS_LOG_TYPE_DEFAULT, "DTO toggle: Set: %@ , current is %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = toCopy;
+    v12 = 2112;
+    v13 = getStatus;
+    _os_log_impl(&dword_25E0E9000, v7, OS_LOG_TYPE_DEFAULT, "DTO toggle: Set: %@ , current is %@", &v10, 0x16u);
   }
 
   bOOLValue = [toCopy BOOLValue];
@@ -423,8 +422,8 @@ LABEL_10:
     v9 = PABSLogForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "DTO toggle:: Set: ignoring", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "DTO toggle:: Set: ignoring", &v10, 2u);
     }
   }
 
@@ -437,8 +436,6 @@ LABEL_10:
   {
     [(PABSDeviceTakeOverSectionController *)self proceedToDisableDTO];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)proceedToEnableDTO
@@ -453,27 +450,26 @@ LABEL_10:
 
 void __57__PABSDeviceTakeOverSectionController_proceedToEnableDTO__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = PABSLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithBool:a2];
     *buf = 138412290;
-    v11 = v5;
+    v10 = v5;
     _os_log_impl(&dword_25E0E9000, v4, OS_LOG_TYPE_DEFAULT, "DTO: Turn On Protection [Prechecks: %@]", buf, 0xCu);
   }
 
   objc_initWeak(buf, *(a1 + 32));
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __57__PABSDeviceTakeOverSectionController_proceedToEnableDTO__block_invoke_95;
-  v7[3] = &unk_279A033A8;
-  objc_copyWeak(&v8, buf);
-  v9 = a2;
-  dispatch_async(MEMORY[0x277D85CD0], v7);
-  objc_destroyWeak(&v8);
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __57__PABSDeviceTakeOverSectionController_proceedToEnableDTO__block_invoke_95;
+  v6[3] = &unk_279A033A8;
+  objc_copyWeak(&v7, buf);
+  v8 = a2;
+  dispatch_async(MEMORY[0x277D85CD0], v6);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __57__PABSDeviceTakeOverSectionController_proceedToEnableDTO__block_invoke_95(uint64_t a1)
@@ -516,27 +512,26 @@ void __57__PABSDeviceTakeOverSectionController_proceedToEnableDTO__block_invoke_
 
 void __48__PABSDeviceTakeOverSectionController_enableDTO__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = PABSLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
     *buf = 138412290;
-    v10 = v5;
+    v9 = v5;
     _os_log_impl(&dword_25E0E9000, v4, OS_LOG_TYPE_DEFAULT, "DTO: Turn On Protection [%@]", buf, 0xCu);
   }
 
   objc_initWeak(buf, *(a1 + 32));
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __48__PABSDeviceTakeOverSectionController_enableDTO__block_invoke_98;
-  v7[3] = &unk_279A039B8;
-  objc_copyWeak(v8, buf);
-  v8[1] = a2;
-  dispatch_async(MEMORY[0x277D85CD0], v7);
-  objc_destroyWeak(v8);
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __48__PABSDeviceTakeOverSectionController_enableDTO__block_invoke_98;
+  v6[3] = &unk_279A039B8;
+  objc_copyWeak(v7, buf);
+  v7[1] = a2;
+  dispatch_async(MEMORY[0x277D85CD0], v6);
+  objc_destroyWeak(v7);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PABSDeviceTakeOverSectionController_enableDTO__block_invoke_98(uint64_t a1)
@@ -658,27 +653,26 @@ void __58__PABSDeviceTakeOverSectionController_proceedToDisableDTO__block_invoke
 
 void __49__PABSDeviceTakeOverSectionController_disableDTO__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = PABSLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
     *buf = 138412290;
-    v10 = v5;
+    v9 = v5;
     _os_log_impl(&dword_25E0E9000, v4, OS_LOG_TYPE_DEFAULT, "DTO: Turn Off Protection [%@]", buf, 0xCu);
   }
 
   objc_initWeak(buf, *(a1 + 32));
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __49__PABSDeviceTakeOverSectionController_disableDTO__block_invoke_100;
-  v7[3] = &unk_279A039B8;
-  objc_copyWeak(v8, buf);
-  v8[1] = a2;
-  dispatch_async(MEMORY[0x277D85CD0], v7);
-  objc_destroyWeak(v8);
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __49__PABSDeviceTakeOverSectionController_disableDTO__block_invoke_100;
+  v6[3] = &unk_279A039B8;
+  objc_copyWeak(v7, buf);
+  v7[1] = a2;
+  dispatch_async(MEMORY[0x277D85CD0], v6);
+  objc_destroyWeak(v7);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __49__PABSDeviceTakeOverSectionController_disableDTO__block_invoke_100(uint64_t a1)
@@ -781,7 +775,7 @@ void __74__PABSDeviceTakeOverSectionController_updateSpecifiersWithPreCheckResul
 
 void __74__PABSDeviceTakeOverSectionController_updateSpecifiersWithPreCheckResults__block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = PABSLogForCategory(0);
   v4 = v3;
@@ -797,11 +791,11 @@ void __74__PABSDeviceTakeOverSectionController_updateSpecifiersWithPreCheckResul
         v7 = &stru_286FD1EF8;
       }
 
-      v9 = 138412546;
-      v10 = v5;
-      v11 = 2112;
-      v12 = v7;
-      _os_log_impl(&dword_25E0E9000, v4, OS_LOG_TYPE_DEFAULT, "DTO: preliminary checks [%@] %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v5;
+      v10 = 2112;
+      v11 = v7;
+      _os_log_impl(&dword_25E0E9000, v4, OS_LOG_TYPE_DEFAULT, "DTO: preliminary checks [%@] %@", &v8, 0x16u);
     }
 
     [*(a1 + 32) setDtoToggleMustBeDisabledReason:*(a1 + 40)];
@@ -815,8 +809,6 @@ void __74__PABSDeviceTakeOverSectionController_updateSpecifiersWithPreCheckResul
       __74__PABSDeviceTakeOverSectionController_updateSpecifiersWithPreCheckResults__block_invoke_2_cold_1();
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpFindMyEnablementStatus
@@ -836,7 +828,7 @@ void __74__PABSDeviceTakeOverSectionController_updateSpecifiersWithPreCheckResul
 
 void __66__PABSDeviceTakeOverSectionController_setUpFindMyEnablementStatus__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -856,9 +848,9 @@ void __66__PABSDeviceTakeOverSectionController_setUpFindMyEnablementStatus__bloc
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v8, "isFindMyEnabled")}];
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "Find My Device: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "Find My Device: %@", &v11, 0xCu);
     }
   }
 
@@ -870,13 +862,11 @@ void __66__PABSDeviceTakeOverSectionController_setUpFindMyEnablementStatus__bloc
       __66__PABSDeviceTakeOverSectionController_setUpFindMyEnablementStatus__block_invoke_cold_2();
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ensureAccountSecurityIsSufficientWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = PSUsedByHSA2Account();
   v6 = PSJoinedCDPCircleAccount();
@@ -900,9 +890,9 @@ void __66__PABSDeviceTakeOverSectionController_setUpFindMyEnablementStatus__bloc
       v9 = [MEMORY[0x277CCABB0] numberWithBool:v5];
       v10 = [MEMORY[0x277CCABB0] numberWithBool:v6];
       *buf = 138412546;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v10;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v10;
       _os_log_impl(&dword_25E0E9000, v7, OS_LOG_TYPE_DEFAULT, "Account security: Upgrading since HSA2 [%@] CDPCircle [%@]", buf, 0x16u);
     }
 
@@ -919,12 +909,12 @@ void __66__PABSDeviceTakeOverSectionController_setUpFindMyEnablementStatus__bloc
 
       [v14 setPresentingViewController:self];
       v16 = [objc_alloc(MEMORY[0x277CFDAF0]) initWithContext:v14];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __87__PABSDeviceTakeOverSectionController_ensureAccountSecurityIsSufficientWithCompletion___block_invoke;
-      v19[3] = &unk_279A03300;
-      v20 = completionCopy;
-      [v16 performDeviceToDeviceEncryptionStateRepairWithCompletion:v19];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __87__PABSDeviceTakeOverSectionController_ensureAccountSecurityIsSufficientWithCompletion___block_invoke;
+      v18[3] = &unk_279A03300;
+      v19 = completionCopy;
+      [v16 performDeviceToDeviceEncryptionStateRepairWithCompletion:v18];
     }
 
     else
@@ -939,13 +929,11 @@ void __66__PABSDeviceTakeOverSectionController_setUpFindMyEnablementStatus__bloc
       completionCopy[2](completionCopy, 0);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __87__PABSDeviceTakeOverSectionController_ensureAccountSecurityIsSufficientWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = PSUsedByHSA2Account();
   v7 = PSJoinedCDPCircleAccount();
@@ -956,31 +944,30 @@ void __87__PABSDeviceTakeOverSectionController_ensureAccountSecurityIsSufficient
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-      v16 = 138412290;
-      v17 = v10;
-      _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "Account security: Upgrading [Success] - Repaired: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v10;
+      _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "Account security: Upgrading [Success] - Repaired: %@", &v15, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v12 = [MEMORY[0x277CCABB0] numberWithBool:v6];
-    v13 = [MEMORY[0x277CCABB0] numberWithBool:v7 & 1];
-    v14 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-    v15 = [v5 description];
-    v16 = 138413058;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v13;
-    v20 = 2112;
-    v21 = v14;
-    v22 = 2112;
-    v23 = v15;
-    _os_log_error_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_ERROR, "Account security: Upgrading [Failed] since HSA2 [%@] CDPCircle [%@] - Repaired: %@ Error: %@", &v16, 0x2Au);
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:v6];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:v7 & 1];
+    v13 = [MEMORY[0x277CCABB0] numberWithBool:a2];
+    v14 = [v5 description];
+    v15 = 138413058;
+    v16 = v11;
+    v17 = 2112;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v13;
+    v21 = 2112;
+    v22 = v14;
+    _os_log_error_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_ERROR, "Account security: Upgrading [Failed] since HSA2 [%@] CDPCircle [%@] - Repaired: %@ Error: %@", &v15, 0x2Au);
   }
 
   (*(*(a1 + 32) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performPreEnableDTOChecksWithCompletion:(id)completion
@@ -1072,16 +1059,16 @@ uint64_t __82__PABSDeviceTakeOverSectionController_showAlertForFindMyIsDisabledW
     objc_initWeak(location, self);
     v10 = MEMORY[0x277D750F8];
     v11 = PABS_LocalizedStringForPasscodeLock(@"DTO_ALERT_COULD_NOT_TOGGLE_LEARN_MORE_BUTTON");
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __94__PABSDeviceTakeOverSectionController_showDTOAlertForFailureToToggleToState_withRatchetError___block_invoke;
-    v22[3] = &unk_279A03AC8;
-    v24 = stateCopy;
-    objc_copyWeak(&v23, location);
-    v12 = [v10 actionWithTitle:v11 style:0 handler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __94__PABSDeviceTakeOverSectionController_showDTOAlertForFailureToToggleToState_withRatchetError___block_invoke;
+    v21[3] = &unk_279A03AC8;
+    v23 = stateCopy;
+    objc_copyWeak(&v22, location);
+    v12 = [v10 actionWithTitle:v11 style:0 handler:v21];
     [v9 addAction:v12];
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(location);
   }
 
@@ -1102,12 +1089,12 @@ uint64_t __82__PABSDeviceTakeOverSectionController_showAlertForFindMyIsDisabledW
 
   v14 = MEMORY[0x277D750F8];
   v15 = PABS_LocalizedStringForPasscodeLock(@"DTO_ALERT_OK_BUTTON");
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __94__PABSDeviceTakeOverSectionController_showDTOAlertForFailureToToggleToState_withRatchetError___block_invoke_146;
-  v20[3] = &__block_descriptor_33_e23_v16__0__UIAlertAction_8l;
-  v21 = stateCopy;
-  v16 = [v14 actionWithTitle:v15 style:0 handler:v20];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __94__PABSDeviceTakeOverSectionController_showDTOAlertForFailureToToggleToState_withRatchetError___block_invoke_146;
+  v19[3] = &__block_descriptor_33_e23_v16__0__UIAlertAction_8l;
+  v20 = stateCopy;
+  v16 = [v14 actionWithTitle:v15 style:0 handler:v19];
   [v9 addAction:v16];
 
   v17 = PABSLogForCategory(0);
@@ -1125,12 +1112,11 @@ uint64_t __82__PABSDeviceTakeOverSectionController_showAlertForFindMyIsDisabledW
   }
 
   [(PABSDeviceTakeOverSectionController *)self presentViewController:v9 animated:1 completion:0];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __94__PABSDeviceTakeOverSectionController_showDTOAlertForFailureToToggleToState_withRatchetError___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = PABSLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -1144,9 +1130,9 @@ void __94__PABSDeviceTakeOverSectionController_showDTOAlertForFailureToToggleToS
       v3 = @"Off";
     }
 
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_25E0E9000, v2, OS_LOG_TYPE_DEFAULT, "DTO: Turn %@ Protection [Failed] - Alert [Dismissed - Learn More]", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_25E0E9000, v2, OS_LOG_TYPE_DEFAULT, "DTO: Turn %@ Protection [Failed] - Alert [Dismissed - Learn More]", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -1164,13 +1150,11 @@ void __94__PABSDeviceTakeOverSectionController_showDTOAlertForFailureToToggleToS
       __94__PABSDeviceTakeOverSectionController_showDTOAlertForFailureToToggleToState_withRatchetError___block_invoke_cold_1();
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __94__PABSDeviceTakeOverSectionController_showDTOAlertForFailureToToggleToState_withRatchetError___block_invoke_146(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = PABSLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -1184,17 +1168,15 @@ void __94__PABSDeviceTakeOverSectionController_showDTOAlertForFailureToToggleToS
       v3 = @"Off";
     }
 
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_25E0E9000, v2, OS_LOG_TYPE_DEFAULT, "DTO: Turn %@ Protection [Failed] - Alert [Dismissed]", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_25E0E9000, v2, OS_LOG_TYPE_DEFAULT, "DTO: Turn %@ Protection [Failed] - Alert [Dismissed]", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getSpecifiersForSecurityOptionsGroup:(id)group
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   v5 = objc_opt_new();
   v6 = MEMORY[0x277D3FAD8];
@@ -1225,7 +1207,7 @@ void __94__PABSDeviceTakeOverSectionController_showDTOAlertForFailureToToggleToS
   {
     v18 = [MEMORY[0x277CCABB0] numberWithBool:isStrictModeEnabled];
     *buf = 138412290;
-    v23 = v18;
+    v22 = v18;
     _os_log_impl(&dword_25E0E9000, v17, OS_LOG_TYPE_DEFAULT, "DTO: Strict Mode [%@]", buf, 0xCu);
   }
 
@@ -1240,8 +1222,6 @@ void __94__PABSDeviceTakeOverSectionController_showDTOAlertForFailureToToggleToS
   }
 
   [v8 setProperty:v19 forKey:*MEMORY[0x277D40090]];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1261,6 +1241,22 @@ void __94__PABSDeviceTakeOverSectionController_showDTOAlertForFailureToToggleToS
   }
 
   [specifierCopy setProperty:v4 forKey:*MEMORY[0x277D3FF88]];
+}
+
+- (void)toggleToStrictMode:(BOOL)mode
+{
+  modeCopy = mode;
+  objc_initWeak(&location, self);
+  dtoController = [(PABSDeviceTakeOverSectionController *)self dtoController];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __58__PABSDeviceTakeOverSectionController_toggleToStrictMode___block_invoke;
+  v6[3] = &unk_279A03B10;
+  objc_copyWeak(&v7, &location);
+  [dtoController toggleToStrictMode:modeCopy withCompletion:v6];
+
+  objc_destroyWeak(&v7);
+  objc_destroyWeak(&location);
 }
 
 void __58__PABSDeviceTakeOverSectionController_toggleToStrictMode___block_invoke(uint64_t a1, char a2)
@@ -1474,22 +1470,19 @@ void __78__PABSDeviceTakeOverSectionController_showAlertForFailedToUpdateSecurit
 
 void __66__PABSDeviceTakeOverSectionController_setUpFindMyEnablementStatus__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 description];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_25E0E9000, a2, OS_LOG_TYPE_ERROR, "Find My Device: Failed to retrieve state: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_25E0E9000, a2, OS_LOG_TYPE_ERROR, "Find My Device: Failed to retrieve state: %@", &v4, 0xCu);
 }
 
 - (void)ensureAccountSecurityIsSufficientWithCompletion:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = 0;
-  _os_log_error_impl(&dword_25E0E9000, log, OS_LOG_TYPE_ERROR, "Account security: Upgrading [Failed] - %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = 0;
+  _os_log_error_impl(&dword_25E0E9000, log, OS_LOG_TYPE_ERROR, "Account security: Upgrading [Failed] - %@", &v1, 0xCu);
 }
 
 @end

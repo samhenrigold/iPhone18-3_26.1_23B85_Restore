@@ -116,7 +116,7 @@
   v5 = objc_opt_class();
   if (v5)
   {
-    [v5 pointsVectorFromFilePath:pathCopy];
+    objc_msgSend_pointsVectorFromFilePath_(v5);
     v7 = __p;
     if (v14 != __p)
     {
@@ -477,6 +477,7 @@ LABEL_18:
 
 + (BaselineTestStats_s)compareResults:(__CVBuffer *)results toBaseLineInPath:(id)path ignoreRefZeros:(BOOL)zeros outlierPercentile:(float)percentile
 {
+  zerosCopy = zeros;
   v9 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:path];
   CVPixelBufferLockBaseAddress(results, 1uLL);
   Width = CVPixelBufferGetWidth(results);
@@ -489,7 +490,7 @@ LABEL_18:
     {
       BaseAddress = CVPixelBufferGetBaseAddress(results);
       BytesPerRow = CVPixelBufferGetBytesPerRow(results);
-      v19 = compareRawBuffers<half,half>(percentile, BaseAddress, BytesPerRow, [v9 bytes], 4 * Width, 2 * Width, Height, 0, zeros);
+      v19 = compareRawBuffers<half,half>(percentile, BaseAddress, BytesPerRow, [v9 bytes], 4 * Width, 2 * Width, Height, 0, zerosCopy);
       goto LABEL_12;
     }
 
@@ -514,7 +515,7 @@ LABEL_18:
 LABEL_10:
     v23 = CVPixelBufferGetBaseAddress(results);
     v24 = CVPixelBufferGetBytesPerRow(results);
-    v19 = compareRawBuffers<float,float>(v23, v24, [v9 bytes], 4 * Width, Width, Height, 0, zeros, percentile);
+    v19 = compareRawBuffers<float,float>(v23, v24, [v9 bytes], 4 * Width, Width, Height, 0, zerosCopy, percentile);
     goto LABEL_12;
   }
 
@@ -523,7 +524,7 @@ LABEL_10:
 LABEL_9:
     v17 = CVPixelBufferGetBaseAddress(results);
     v18 = CVPixelBufferGetBytesPerRow(results);
-    v19 = compareRawBuffers<half,half>(percentile, v17, v18, [v9 bytes], 2 * Width, Width, Height, 0, zeros);
+    v19 = compareRawBuffers<half,half>(percentile, v17, v18, [v9 bytes], 2 * Width, Width, Height, 0, zerosCopy);
 LABEL_12:
     v13 = v19;
     v14 = v20;
@@ -605,8 +606,8 @@ LABEL_12:
       v22 = 0.0;
       do
       {
-        PixelBufferUtils::asVImageBuffer(buffer, v28, *v30, &v50);
-        PixelBufferUtils::asVImageBuffer(refBuffer, v28, *v30, &v49);
+        PixelBufferUtils::asVImageBuffer(&v50, buffer, v28, *v30);
+        PixelBufferUtils::asVImageBuffer(&v49, refBuffer, v28, *v30);
         v48 = v50;
         v47 = v49;
         *&v31 = percentile;
@@ -628,8 +629,8 @@ LABEL_12:
     else
     {
       v36 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(buffer, *MEMORY[0x277CBF3A0], &v50);
-      PixelBufferUtils::asVImageBuffer(refBuffer, *v36, &v49);
+      PixelBufferUtils::asVImageBuffer(&v50, buffer, *MEMORY[0x277CBF3A0]);
+      PixelBufferUtils::asVImageBuffer(&v49, refBuffer, *v36);
       v48 = v50;
       v47 = v49;
       *&v37 = percentile;
@@ -658,6 +659,8 @@ LABEL_15:
 
 + (BaselineTestStats_s)compareVImageBuffer:(vImage_Buffer *)buffer pixelTypeResult:(unsigned int)result offset:(CGSize)offset toRefBuffer:(vImage_Buffer *)refBuffer pixelTypeRef:(unsigned int)ref ignoreResultZeros:(BOOL)zeros ignoreRefZeros:(BOOL)refZeros outlierPercentile:(float)self0
 {
+  refZerosCopy = refZeros;
+  zerosCopy = zeros;
   v13 = *&ref;
   height = offset.height;
   width = offset.width;
@@ -764,7 +767,7 @@ LABEL_31:
     v40 = isF16Type(result);
     if (v40 && isF16Type(v13))
     {
-      v30 = compareRawBuffers<half,half>(percentile, buffer->data + 2 * v93, v96, &v27[2 * v94], v97, v19 * v20, v98, zeros, refZeros);
+      v30 = compareRawBuffers<half,half>(percentile, buffer->data + 2 * v93, v96, &v27[2 * v94], v97, v19 * v20, v98, zerosCopy, refZerosCopy);
       goto LABEL_29;
     }
 
@@ -817,7 +820,7 @@ LABEL_58:
           while (1)
           {
             v48 = *&v44[4 * v46 + v96 * v43];
-            if (v48 == 0.0 && zeros)
+            if (v48 == 0.0 && zerosCopy)
             {
               goto LABEL_57;
             }
@@ -827,7 +830,7 @@ LABEL_58:
               break;
             }
 
-            if (!refZeros)
+            if (!refZerosCopy)
             {
               v49 = v48 / 0.0001;
               goto LABEL_56;
@@ -974,7 +977,7 @@ LABEL_79:
         v56 = &v54[v97 * (v95 + v52)];
         __asm { FCMP            H0, #0 }
 
-        if (_ZF && zeros)
+        if (_ZF && zerosCopy)
         {
           goto LABEL_78;
         }
@@ -984,7 +987,7 @@ LABEL_79:
           break;
         }
 
-        if (!refZeros)
+        if (!refZerosCopy)
         {
           __asm { FCVT            D0, H0 }
 
@@ -1089,7 +1092,7 @@ LABEL_107:
       while (1)
       {
         v76 = *&v74[4 * v75 + v96 * v72];
-        if (v76 == 0.0 && zeros)
+        if (v76 == 0.0 && zerosCopy)
         {
           goto LABEL_106;
         }
@@ -1101,7 +1104,7 @@ LABEL_107:
           break;
         }
 
-        if (!refZeros)
+        if (!refZerosCopy)
         {
           v79 = v76 / 0.0001;
           goto LABEL_105;
@@ -1131,7 +1134,7 @@ LABEL_110:
         if (v13 == 1278226534)
         {
 LABEL_122:
-          v30 = compareRawBuffers<half,float>(percentile, buffer->data + 2 * v93, v96, &v27[4 * v94], v97, v19 * v20, v98, zeros, refZeros);
+          v30 = compareRawBuffers<half,float>(percentile, buffer->data + 2 * v93, v96, &v27[4 * v94], v97, v19 * v20, v98, zerosCopy, refZerosCopy);
           goto LABEL_29;
         }
 
@@ -1181,7 +1184,7 @@ LABEL_122:
 LABEL_150:
       if (v13 == 825306677 || v13 == 1647392359 || v13 == 825437747)
       {
-        v30 = compareRawBuffers<unsigned short,unsigned short>(buffer->data + 2 * v93, v96, &v27[2 * v94], v97, v19 * v20, v98, zeros, refZeros, percentile);
+        v30 = compareRawBuffers<unsigned short,unsigned short>(buffer->data + 2 * v93, v96, &v27[2 * v94], v97, v19 * v20, v98, zerosCopy, refZerosCopy, percentile);
         goto LABEL_29;
       }
 
@@ -1192,7 +1195,7 @@ LABEL_155:
 
     if (v13 == 32 || v13 == 1278226488 || v13 == 1111970369)
     {
-      v30 = compareRawBuffers<unsigned char,unsigned char>(buffer->data + v93, v96, &v27[v94], v97, v19 * v20, v98, zeros, refZeros, percentile);
+      v30 = compareRawBuffers<unsigned char,unsigned char>(buffer->data + v93, v96, &v27[v94], v97, v19 * v20, v98, zerosCopy, refZerosCopy, percentile);
       goto LABEL_29;
     }
 
@@ -1213,7 +1216,7 @@ LABEL_149:
   }
 
 LABEL_28:
-  v30 = compareRawBuffers<float,float>(buffer->data + 4 * v22, rowBytes, &v27[4 * v21], v97, v19 * v20, v98, zeros, refZeros, percentile);
+  v30 = compareRawBuffers<float,float>(buffer->data + 4 * v22, rowBytes, &v27[4 * v21], v97, v19 * v20, v98, zerosCopy, refZerosCopy, percentile);
 LABEL_29:
   v34 = v30;
   v35 = v31;

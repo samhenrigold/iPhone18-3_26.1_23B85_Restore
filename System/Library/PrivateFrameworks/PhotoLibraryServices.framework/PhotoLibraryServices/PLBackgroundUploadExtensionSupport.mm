@@ -66,7 +66,7 @@ LABEL_12:
 + (BOOL)_validInfoDictionaryFromExtensionRecord:(id)record extensionPointLabel:(id)label
 {
   recordCopy = record;
-  if ([label isEqualToString:@"com.apple.photos.background-upload"])
+  if (objc_msgSend_isEqualToString_(label))
   {
     v7 = [self _baseURLFromExtensionRecord:recordCopy];
     v8 = v7 != 0;
@@ -154,7 +154,7 @@ LABEL_12:
       _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_INFO, "client does not have an extension record", buf, 2u);
     }
 
-    v12 = 0;
+    isEqualToString = 0;
     goto LABEL_17;
   }
 
@@ -168,7 +168,7 @@ LABEL_12:
       if (identifier)
       {
         v11 = identifier;
-        v12 = [identifier isEqualToString:labelCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 LABEL_16:
 
 LABEL_17:
@@ -195,14 +195,14 @@ LABEL_17:
       }
     }
 
-    v12 = 0;
+    isEqualToString = 0;
     goto LABEL_16;
   }
 
-  v12 = 0;
+  isEqualToString = 0;
 LABEL_18:
 
-  return v12;
+  return isEqualToString;
 }
 
 + (int64_t)containsValidExtensionFromAuditToken:(id *)token extensionPointLabel:(id)label

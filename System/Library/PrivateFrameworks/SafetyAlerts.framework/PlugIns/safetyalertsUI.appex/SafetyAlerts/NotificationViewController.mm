@@ -351,7 +351,7 @@ LABEL_9:
       v111 = 0u;
       memset(buf, 0, sizeof(buf));
       v61 = objc_alloc_init(MKStandardMapConfiguration);
-      [MKMapConfiguration _cartographicConfigurationForMapConfiguration:v61];
+      objc_msgSend__cartographicConfigurationForMapConfiguration_(MKMapConfiguration);
 
       *&buf[24] = 0;
       v62 = [_MKCartographicMapConfiguration alloc];

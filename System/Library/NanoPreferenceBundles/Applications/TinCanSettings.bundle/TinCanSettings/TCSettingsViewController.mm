@@ -17,6 +17,7 @@
 - (void)dealloc;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TCSettingsViewController
@@ -71,6 +72,27 @@
   [table setAllowsSelectionDuringEditing:1];
 
   [(TCSettingsViewController *)self _updateEditDoneButton];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v13.receiver = self;
+  v13.super_class = TCSettingsViewController;
+  [(TCSettingsViewController *)&v13 viewWillAppear:appear];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  v5 = [_NSLocalizedStringResource alloc];
+  v6 = +[NSLocale currentLocale];
+  bundleURL = [v4 bundleURL];
+  v8 = [v5 initWithKey:@"TINCAN_NAV_TITLE" table:@"Localizable" locale:v6 bundleURL:bundleURL];
+
+  bundleIdentifier = [v4 bundleIdentifier];
+  bundleIdentifier2 = [v4 bundleIdentifier];
+  v11 = [NSString stringWithFormat:@"bridge:root=%@", bundleIdentifier2];
+  v12 = [NSURL URLWithString:v11];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v8 localizedNavigationComponents:&__NSArray0__struct deepLink:v12];
+
+  [(TCSettingsViewController *)self reloadSpecifiers];
+  [(TCSettingsViewController *)self _updateForEditingState];
 }
 
 - (id)localizedPaneTitle

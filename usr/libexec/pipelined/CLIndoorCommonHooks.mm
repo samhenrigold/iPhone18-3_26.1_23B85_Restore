@@ -28,7 +28,7 @@
     var2 = a7->var2;
     if (var2 || (var2 = v44) != 0)
     {
-      [var2 gpsLocation];
+      objc_msgSend_gpsLocation(var2);
     }
 
     else

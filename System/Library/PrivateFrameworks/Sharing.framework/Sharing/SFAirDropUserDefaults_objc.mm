@@ -6,6 +6,8 @@
 + (BOOL)privateContactDiscoveryEnabled;
 + (BOOL)solariumEnabled;
 + (BOOL)systemLevelProgressEnabled;
++ (void)setCellularUsageEnabled:(BOOL)enabled;
++ (void)setNearFieldSharingEnabled:(BOOL)enabled;
 @end
 
 @implementation SFAirDropUserDefaults_objc
@@ -58,12 +60,26 @@
   return objcNearFieldSharingEnabled;
 }
 
++ (void)setNearFieldSharingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = +[SFAirDropUserDefaults shared];
+  [v4 setObjcNearFieldSharingEnabled:enabledCopy];
+}
+
 + (BOOL)cellularUsageEnabled
 {
   v2 = +[SFAirDropUserDefaults shared];
   objcCellularUsageEnabled = [v2 objcCellularUsageEnabled];
 
   return objcCellularUsageEnabled;
+}
+
++ (void)setCellularUsageEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = +[SFAirDropUserDefaults shared];
+  [v4 setObjcCellularUsageEnabled:enabledCopy];
 }
 
 @end

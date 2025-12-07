@@ -54,7 +54,7 @@
   return [PAEBadFilm properties]::sPropertiesDict;
 }
 
-uint64_t __24__PAEBadFilm_properties__block_invoke()
+void *__24__PAEBadFilm_properties__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEAC0]);
   v1 = [MEMORY[0x277CCABB0] numberWithBool:0];
@@ -718,7 +718,7 @@ uint64_t __24__PAEBadFilm_properties__block_invoke()
   v44 = 0u;
   if (input)
   {
-    [input imageInfo];
+    objc_msgSend_imageInfo(input, a2);
   }
 
   v42 = 0;
@@ -728,7 +728,7 @@ uint64_t __24__PAEBadFilm_properties__block_invoke()
   v39 = 0u;
   if (output)
   {
-    [output imageInfo];
+    objc_msgSend_imageInfo(output, a2);
   }
 
   v9 = v43;
@@ -762,7 +762,7 @@ uint64_t __24__PAEBadFilm_properties__block_invoke()
   [(PAEBadFilm *)self getBrightness:&v37 saturation:&v36 dust:&v35 + 4 scratches:&v35 scratchColor:v48 hair:&v34 randomSeed:&v33 jitter:&v32 focus:&v31 grain:&v30 autoRandFreq:&v29 withParmsAPI:v10 atTime:info->var0.var1];
   imageType = [input imageType];
   v16 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
-  [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
+  objc_msgSend_getPixelTransformForImage_(self);
   if (v16)
   {
     v17 = imageType == 3;
@@ -779,18 +779,19 @@ uint64_t __24__PAEBadFilm_properties__block_invoke()
     v18 = HGRectMake4i(v9 / -2, *(&v9 + 1) / -2, v9 - v9 / 2, *(&v9 + 1) - *(&v9 + 1) / 2);
     v20 = v19;
     v21 = HGObject::operator new(0x80uLL);
-    *&v22 = HGBitmap::HGBitmap(v21, v18, v20, 22).n128_u64[0];
-    [(PAEBadFilm *)self createDust:HIDWORD(v35) scratches:v35 scratchColor:v48 hair:v34 randomSeed:v33 autoRandFreq:v29 buffer:v22 atTime:v21 pixelTransform:info->var0.var1, v28];
-    v23 = HGObject::operator new(0x1F0uLL);
-    HGBitmapLoader::HGBitmapLoader(v23, v21);
-    [(PAESharedDefaultBase *)self getScaleForImage:input];
+    HGBitmap::HGBitmap(v21, v18, v20, 22);
+    [(PAEBadFilm *)self createDust:HIDWORD(v35) scratches:v35 scratchColor:v48 hair:v34 randomSeed:v33 autoRandFreq:v29 buffer:v21 atTime:info->var0.var1 pixelTransform:v28];
+    v22 = HGObject::operator new(0x1F0uLL);
+    HGBitmapLoader::HGBitmapLoader(v22, v21);
+    objc_msgSend_getScaleForImage_(self);
     [objc_msgSend(v12 colorMatrixFromDesiredRGBToYCbCrAtTime:{info->var0.var1), "matrix"}];
     if (v30 != 0.0)
     {
-      [(PAESharedDefaultBase *)self getInversePixelTransformForImage:input, v30];
-      v24 = v38;
+      objc_msgSend_getInversePixelTransformForImage_(self, v30);
+      v23 = v38;
+      v24 = DWORD2(v38);
       [(PAESharedDefaultBase *)self frameFromFxTime:info->var0.var1 forPlugIn:self];
-      PAEGenerateNoise(v30, v25, v24, *(&v24 + 1), 2, 0, 1, 0);
+      PAEGenerateNoise(v23, v24, 2, 0, 1, 0, v30, v25);
     }
 
     v26 = HGObject::operator new(0x1A0uLL);

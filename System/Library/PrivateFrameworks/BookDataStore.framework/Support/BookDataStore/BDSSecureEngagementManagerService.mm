@@ -6,6 +6,7 @@
 - (void)dealloc;
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion;
 - (void)engagementDataIncludingDeleted:(BOOL)deleted forKey:(id)key completion:(id)completion;
+- (void)fetchEngagementDatasIncludingDeleted:(BOOL)deleted completion:(id)completion;
 - (void)getEngagementDataChangesSince:(id)since completion:(id)completion;
 - (void)hasSaltChangedWithCompletion:(id)completion;
 - (void)setEngagementData:(id)data completion:(id)completion;
@@ -107,6 +108,30 @@
   sub_1000C8388(deleted, v8, v10, sub_1000CAC7C, v11);
 }
 
+- (void)fetchEngagementDatasIncludingDeleted:(BOOL)deleted completion:(id)completion
+{
+  deletedCopy = deleted;
+  v6 = _Block_copy(completion);
+  v7 = swift_allocObject();
+  *(v7 + 16) = v6;
+  v8 = *(&self->super.isa + OBJC_IVAR___BDSSecureEngagementManagerService_dataManager);
+  v9 = swift_allocObject();
+  *(v9 + 16) = sub_1000CAC6C;
+  *(v9 + 24) = v7;
+  v12[4] = sub_1000CAC74;
+  v12[5] = v9;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 1107296256;
+  v12[2] = sub_1000C88CC;
+  v12[3] = &unk_100245398;
+  v10 = _Block_copy(v12);
+  selfCopy = self;
+
+  [v8 fetchCloudDataIncludingDeleted:deletedCopy completion:v10];
+
+  _Block_release(v10);
+}
+
 - (void)getEngagementDataChangesSince:(id)since completion:(id)completion
 {
   v6 = _Block_copy(completion);
@@ -166,10 +191,11 @@
     selfCopy2 = self;
     v9 = 0;
     v8 = 0;
+    v6 = 0;
   }
 
   [v7 dissociateCloudDataFromSyncWithCompletion:v9];
-  sub_1000044D8(v8);
+  sub_1000044D8(v8, v6);
   _Block_release(v9);
 }
 
@@ -190,7 +216,7 @@
 
   sub_1000C9A10(v3, v4);
 
-  sub_1000044D8(v3);
+  sub_1000044D8(v3, v4);
 }
 
 - (id)entityName

@@ -3,6 +3,7 @@
 - (BOOL)processDeviceInterface:(unsigned int)interface;
 - (BOOL)sendEvent:(id)event;
 - (BOOL)sendNextEvent;
+- (BOOL)sendRequest:(id)request needsData:(BOOL)data;
 - (BOOL)sendResponse:(id)response;
 - (BOOL)startResponder;
 - (PTPDeviceUSBTransport)initWithDelegate:(id)delegate;
@@ -28,6 +29,7 @@
 - (void)sendDataPacketsSplit:(id)split;
 - (void)setUsbCore:(PTPDeviceUSBCore *)core;
 - (void)stop;
+- (void)waitForHostConnection:(BOOL)connection;
 @end
 
 @implementation PTPDeviceUSBTransport
@@ -463,7 +465,8 @@ LABEL_31:
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
-  if ([(PTPDeviceUSBTransport *)self role]== 1)
+  deviceInterfaceInterfaceRef = [(PTPDeviceUSBTransport *)self role];
+  if (deviceInterfaceInterfaceRef == 1)
   {
     [(PTPDeviceUSBTransport *)self setRole:0];
     [(PTPDeviceUSBTransport *)self setConnected:0];
@@ -486,19 +489,19 @@ LABEL_31:
     {
       v14 = 0;
       *buf = 0;
-      (*(*deviceInterfaceInterfaceRef + 36))(deviceInterfaceInterfaceRef, buf, &v14);
+      (*(*deviceInterfaceInterfaceRef + 288))(deviceInterfaceInterfaceRef, buf, &v14);
       if (*buf)
       {
         [(PTPDeviceUSBTransport *)self deactivate];
       }
 
       (*(*self->_usbCore._deviceInterfaceInterfaceRef + 5))(self->_usbCore._deviceInterfaceInterfaceRef, 0);
-      (*(*self->_usbCore._deviceInterfaceInterfaceRef + 3))(self->_usbCore._deviceInterfaceInterfaceRef);
+      deviceInterfaceInterfaceRef = (*(*self->_usbCore._deviceInterfaceInterfaceRef + 3))(self->_usbCore._deviceInterfaceInterfaceRef);
       self->_usbCore._deviceInterfaceInterfaceRef = 0;
     }
   }
 
-  v12 = sub_10000C470();
+  v12 = sub_10000C470(deviceInterfaceInterfaceRef);
   delegate = [v12 delegate];
 
   if (delegate)
@@ -511,15 +514,15 @@ LABEL_31:
 
 - (void)activate:(unsigned int)activate
 {
-  v82 = 0;
-  if ((*(*self->_usbCore._deviceInterfaceInterfaceRef + 36))(self->_usbCore._deviceInterfaceInterfaceRef, &v82 + 4, &v82))
+  v79 = 0;
+  if ((*(*self->_usbCore._deviceInterfaceInterfaceRef + 36))(self->_usbCore._deviceInterfaceInterfaceRef, &v79 + 4, &v79))
   {
     v4 = 0;
   }
 
   else
   {
-    v4 = HIDWORD(v82) == 1;
+    v4 = HIDWORD(v79) == 1;
   }
 
   if (v4)
@@ -534,7 +537,7 @@ LABEL_31:
       v5 = v7;
     }
 
-    v8 = [NSString stringWithFormat:@"✅ <activated> at %d speed", v82];
+    v8 = [NSString stringWithFormat:@"✅ <activated> at %d speed", v79];
     v9 = _gICOSLog;
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
     {
@@ -542,9 +545,9 @@ LABEL_31:
       v11 = v9;
       uTF8String = [(__CFString *)v5 UTF8String];
       *buf = 136446466;
-      v84 = uTF8String;
-      v85 = 2114;
-      v86 = v8;
+      v81 = uTF8String;
+      v82 = 2114;
+      v83 = v8;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
@@ -569,20 +572,19 @@ LABEL_31:
     goto LABEL_15;
   }
 
-  readDataRef = self->_readDataRef;
   self->_readBuffer = IOUSBDeviceDataGetBytePtr();
   if ((*(*self->_usbCore._deviceInterfaceInterfaceRef + 26))(self->_usbCore._deviceInterfaceInterfaceRef, self->_writeBufferSize, &self->_writeDataRef))
   {
     __ICOSLogCreate();
-    v27 = @"<USB>";
-    v28 = v27;
-    if ([(__CFString *)v27 length]>= 0x15)
+    v26 = @"<USB>";
+    v27 = v26;
+    if ([(__CFString *)v26 length]>= 0x15)
     {
-      v29 = [(__CFString *)v27 substringWithRange:0, 18];
-      v28 = [v29 stringByAppendingString:@".."];
+      v28 = [(__CFString *)v26 substringWithRange:0, 18];
+      v27 = [v28 stringByAppendingString:@".."];
     }
 
-    v30 = [NSString stringWithFormat:@"❌ ifIfRef->createData write(%8d)", self->_writeBufferSize];
+    v29 = [NSString stringWithFormat:@"❌ ifIfRef->createData write(%8d)", self->_writeBufferSize];
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_ERROR))
     {
       sub_1000246F4();
@@ -591,37 +593,37 @@ LABEL_31:
     _gPTPDeviceDataBufferSize = 0x100000;
     self->_writeBufferSize = 0x100000;
     __ICOSLogCreate();
-    v31 = v27;
-    v32 = v31;
-    if ([(__CFString *)v31 length]>= 0x15)
+    v30 = v26;
+    v31 = v30;
+    if ([(__CFString *)v30 length]>= 0x15)
     {
-      v33 = [(__CFString *)v31 substringWithRange:0, 18];
-      v32 = [v33 stringByAppendingString:@".."];
+      v32 = [(__CFString *)v30 substringWithRange:0, 18];
+      v31 = [v32 stringByAppendingString:@".."];
     }
 
     0x100000 = [NSString stringWithFormat:@"Attempting smaller allocation... %d", 0x100000];
-    v35 = _gICOSLog;
+    v34 = _gICOSLog;
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = v32;
-      v37 = v35;
-      uTF8String2 = [v32 UTF8String];
+      v35 = v31;
+      v36 = v34;
+      uTF8String2 = [v31 UTF8String];
       *buf = 136446466;
-      v84 = uTF8String2;
-      v85 = 2114;
-      v86 = 0x100000;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      v81 = uTF8String2;
+      v82 = 2114;
+      v83 = 0x100000;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
     if ((*(*self->_usbCore._deviceInterfaceInterfaceRef + 26))(self->_usbCore._deviceInterfaceInterfaceRef, self->_writeBufferSize, &self->_writeDataRef))
     {
       __ICOSLogCreate();
-      v13 = v31;
+      v13 = v30;
       v14 = v13;
       if ([(__CFString *)v13 length]>= 0x15)
       {
-        v39 = [(__CFString *)v13 substringWithRange:0, 18];
-        v14 = [v39 stringByAppendingString:@".."];
+        v38 = [(__CFString *)v13 substringWithRange:0, 18];
+        v14 = [v38 stringByAppendingString:@".."];
       }
 
       v16 = [NSString stringWithFormat:@"❌ ifIfRef->createData write(%8d)", self->_writeBufferSize];
@@ -634,7 +636,6 @@ LABEL_31:
     }
   }
 
-  writeDataRef = self->_writeDataRef;
   self->_writeBuffer = IOUSBDeviceDataGetBytePtr();
   if ((*(*self->_usbCore._deviceInterfaceInterfaceRef + 26))(self->_usbCore._deviceInterfaceInterfaceRef, [(PTPDeviceUSBTransport *)self eventDataBufferSize], &self->_eventDataRef))
   {
@@ -643,8 +644,8 @@ LABEL_31:
     v14 = v13;
     if ([(__CFString *)v13 length]>= 0x15)
     {
-      v41 = [(__CFString *)v13 substringWithRange:0, 18];
-      v14 = [v41 stringByAppendingString:@".."];
+      v39 = [(__CFString *)v13 substringWithRange:0, 18];
+      v14 = [v39 stringByAppendingString:@".."];
     }
 
     v16 = [NSString stringWithFormat:@"❌ ifIfRef->createData event(%8d)", [(PTPDeviceUSBTransport *)self eventDataBufferSize]];
@@ -656,19 +657,18 @@ LABEL_31:
     goto LABEL_15;
   }
 
-  eventDataRef = self->_eventDataRef;
   [(PTPDeviceUSBTransport *)self setEventDataBuffer:IOUSBDeviceDataGetBytePtr()];
-  v43 = (*(*self->_usbCore._deviceInterfaceInterfaceRef + 25))(self->_usbCore._deviceInterfaceInterfaceRef, self->_bulkPipeIn, &self->_maxPacketSizeBulkIn);
+  v40 = (*(*self->_usbCore._deviceInterfaceInterfaceRef + 25))(self->_usbCore._deviceInterfaceInterfaceRef, self->_bulkPipeIn, &self->_maxPacketSizeBulkIn);
   __ICOSLogCreate();
   v13 = @"<USB>";
-  v44 = [(__CFString *)v13 length];
-  if (v43)
+  v41 = [(__CFString *)v13 length];
+  if (v40)
   {
     v14 = v13;
-    if (v44 >= 0x15)
+    if (v41 >= 0x15)
     {
-      v45 = [(__CFString *)v13 substringWithRange:0, 18];
-      v14 = [v45 stringByAppendingString:@".."];
+      v42 = [(__CFString *)v13 substringWithRange:0, 18];
+      v14 = [v42 stringByAppendingString:@".."];
     }
 
     v16 = [NSString stringWithFormat:@"❌ ifIfRef->getPipeCurrentMaxPacketSize [Bulk-IN]"];
@@ -680,37 +680,37 @@ LABEL_31:
     goto LABEL_15;
   }
 
-  v46 = v13;
-  if (v44 >= 0x15)
+  v43 = v13;
+  if (v41 >= 0x15)
   {
-    v47 = [(__CFString *)v13 substringWithRange:0, 18];
-    v46 = [v47 stringByAppendingString:@".."];
+    v44 = [(__CFString *)v13 substringWithRange:0, 18];
+    v43 = [v44 stringByAppendingString:@".."];
   }
 
-  v48 = [NSString stringWithFormat:@"_maxPacketSizeBulkIn: %d\n", self->_maxPacketSizeBulkIn];
-  v49 = _gICOSLog;
+  v45 = [NSString stringWithFormat:@"_maxPacketSizeBulkIn: %d\n", self->_maxPacketSizeBulkIn];
+  v46 = _gICOSLog;
   if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
   {
-    v50 = v46;
-    v51 = v49;
-    uTF8String3 = [v46 UTF8String];
+    v47 = v43;
+    v48 = v46;
+    uTF8String3 = [v43 UTF8String];
     *buf = 136446466;
-    v84 = uTF8String3;
-    v85 = 2114;
-    v86 = v48;
-    _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    v81 = uTF8String3;
+    v82 = 2114;
+    v83 = v45;
+    _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
-  v53 = (*(*self->_usbCore._deviceInterfaceInterfaceRef + 25))(self->_usbCore._deviceInterfaceInterfaceRef, self->_bulkPipeOut, &self->_maxPacketSizeBulkOut);
+  v50 = (*(*self->_usbCore._deviceInterfaceInterfaceRef + 25))(self->_usbCore._deviceInterfaceInterfaceRef, self->_bulkPipeOut, &self->_maxPacketSizeBulkOut);
   __ICOSLogCreate();
-  if (v53)
+  if (v50)
   {
     v13 = v13;
     v14 = v13;
     if ([(__CFString *)v13 length]>= 0x15)
     {
-      v54 = [(__CFString *)v13 substringWithRange:0, 18];
-      v14 = [v54 stringByAppendingString:@".."];
+      v51 = [(__CFString *)v13 substringWithRange:0, 18];
+      v14 = [v51 stringByAppendingString:@".."];
     }
 
     v16 = [NSString stringWithFormat:@"❌ ifIfRef->getPipeCurrentMaxPacketSize [Bulk-OUT]"];
@@ -722,38 +722,38 @@ LABEL_31:
     goto LABEL_15;
   }
 
-  v55 = &stru_100038B48;
+  v52 = &stru_100038B48;
   if ([&stru_100038B48 length] >= 0x15)
   {
-    v56 = [&stru_100038B48 substringWithRange:{0, 18}];
-    v55 = [v56 stringByAppendingString:@".."];
+    v53 = [&stru_100038B48 substringWithRange:{0, 18}];
+    v52 = [v53 stringByAppendingString:@".."];
   }
 
-  v57 = [NSString stringWithFormat:@"_maxPacketSizeBulkOut: %d\n", self->_maxPacketSizeBulkOut];
-  v58 = _gICOSLog;
+  v54 = [NSString stringWithFormat:@"_maxPacketSizeBulkOut: %d\n", self->_maxPacketSizeBulkOut];
+  v55 = _gICOSLog;
   if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
   {
-    v59 = v55;
-    v60 = v58;
-    uTF8String4 = [(__CFString *)v55 UTF8String];
+    v56 = v52;
+    v57 = v55;
+    uTF8String4 = [(__CFString *)v52 UTF8String];
     *buf = 136446466;
-    v84 = uTF8String4;
-    v85 = 2114;
-    v86 = v57;
-    _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    v81 = uTF8String4;
+    v82 = 2114;
+    v83 = v54;
+    _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
-  v62 = (*(*self->_usbCore._deviceInterfaceInterfaceRef + 25))(self->_usbCore._deviceInterfaceInterfaceRef, self->_interruptPipeIn, &self->_maxPacketSizeInterruptIn);
+  v59 = (*(*self->_usbCore._deviceInterfaceInterfaceRef + 25))(self->_usbCore._deviceInterfaceInterfaceRef, self->_interruptPipeIn, &self->_maxPacketSizeInterruptIn);
   __ICOSLogCreate();
   v13 = v13;
-  v63 = [(__CFString *)v13 length];
-  if (v62)
+  v60 = [(__CFString *)v13 length];
+  if (v59)
   {
     v14 = v13;
-    if (v63 >= 0x15)
+    if (v60 >= 0x15)
     {
-      v64 = [(__CFString *)v13 substringWithRange:0, 18];
-      v14 = [v64 stringByAppendingString:@".."];
+      v61 = [(__CFString *)v13 substringWithRange:0, 18];
+      v14 = [v61 stringByAppendingString:@".."];
     }
 
     v16 = [NSString stringWithFormat:@"❌ ifIfRef->getPipeCurrentMaxPacketSize [Interrupt-IN]"];
@@ -785,9 +785,9 @@ LABEL_17:
       v23 = v21;
       uTF8String5 = [(__CFString *)v17 UTF8String];
       *buf = 136446466;
-      v84 = uTF8String5;
-      v85 = 2114;
-      v86 = v20;
+      v81 = uTF8String5;
+      v82 = 2114;
+      v83 = v20;
       _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
@@ -795,38 +795,38 @@ LABEL_17:
     goto LABEL_22;
   }
 
-  v65 = v13;
-  if (v63 >= 0x15)
+  v62 = v13;
+  if (v60 >= 0x15)
   {
-    v66 = [(__CFString *)v13 substringWithRange:0, 18];
-    v65 = [v66 stringByAppendingString:@".."];
+    v63 = [(__CFString *)v13 substringWithRange:0, 18];
+    v62 = [v63 stringByAppendingString:@".."];
   }
 
-  v67 = [NSString stringWithFormat:@"_maxPacketSizeInterruptIn: %d\n", self->_maxPacketSizeInterruptIn];
-  v68 = _gICOSLog;
+  v64 = [NSString stringWithFormat:@"_maxPacketSizeInterruptIn: %d\n", self->_maxPacketSizeInterruptIn];
+  v65 = _gICOSLog;
   if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
   {
-    v69 = v65;
-    v70 = v68;
-    uTF8String6 = [v65 UTF8String];
+    v66 = v62;
+    v67 = v65;
+    uTF8String6 = [v62 UTF8String];
     *buf = 136446466;
-    v84 = uTF8String6;
-    v85 = 2114;
-    v86 = v67;
-    _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    v81 = uTF8String6;
+    v82 = 2114;
+    v83 = v64;
+    _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
   [(PTPDeviceUSBTransport *)self setConnected:1];
   self->_sendEvents = 1;
   self->_numberOfSendEventsTimedOut = 0;
-  v72 = NSSelectorFromString(@"transportActivated");
+  v69 = NSSelectorFromString(@"transportActivated");
   delegate = [(PTPDeviceUSBTransport *)self delegate];
-  v74 = objc_opt_respondsToSelector();
+  v71 = objc_opt_respondsToSelector();
 
-  if (v74)
+  if (v71)
   {
     delegate2 = [(PTPDeviceUSBTransport *)self delegate];
-    [delegate2 performSelector:v72];
+    [delegate2 performSelector:v69];
   }
 
   if ([(PTPDeviceUSBTransport *)self readBulkData])
@@ -838,30 +838,66 @@ LABEL_17:
   v17 = v13;
   if ([(__CFString *)v17 length]>= 0x15)
   {
-    v76 = [(__CFString *)v17 substringWithRange:0, 18];
-    v77 = [v76 stringByAppendingString:@".."];
+    v73 = [(__CFString *)v17 substringWithRange:0, 18];
+    v74 = [v73 stringByAppendingString:@".."];
 
-    v17 = v77;
+    v17 = v74;
   }
 
   v20 = [NSString stringWithFormat:@"✅ <activate> Connected"];
-  v78 = _gICOSLog;
+  v75 = _gICOSLog;
   if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
   {
-    v79 = v17;
-    v80 = v78;
+    v76 = v17;
+    v77 = v75;
     uTF8String7 = [(__CFString *)v17 UTF8String];
     *buf = 136446466;
-    v84 = uTF8String7;
-    v85 = 2114;
-    v86 = v20;
-    _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    v81 = uTF8String7;
+    v82 = 2114;
+    v83 = v20;
+    _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
   v25 = 0;
 LABEL_22:
 
   [(PTPDeviceUSBTransport *)self waitForHostConnection:v25];
+}
+
+- (void)waitForHostConnection:(BOOL)connection
+{
+  v4 = [NSNumber numberWithBool:connection];
+  connectionTimerQueue = [(PTPDeviceUSBTransport *)self connectionTimerQueue];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_1000064B8;
+  v7[3] = &unk_100038830;
+  v8 = v4;
+  selfCopy = self;
+  v6 = v4;
+  dispatch_async(connectionTimerQueue, v7);
+}
+
+- (BOOL)sendRequest:(id)request needsData:(BOOL)data
+{
+  dataCopy = data;
+  requestCopy = request;
+  [(PTPDeviceUSBTransport *)self setDelegateNeedsData:dataCopy];
+  [(PTPDeviceUSBTransport *)self setDelegateNeedsResponse:1];
+  if ([(PTPDeviceUSBTransport *)self connected])
+  {
+    v7 = [requestCopy contentForUSBUsingBuffer:self->_writeBuffer capacity:self->_writeBufferSize];
+    v8 = [(PTPDeviceUSBTransport *)self writeBulkData:v7];
+
+    v9 = v8 == 0;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
 }
 
 - (void)sendDataPackets:(id)packets
@@ -1656,8 +1692,6 @@ LABEL_13:
   }
 
   v4 = *(*self->_usbCore._deviceInterfaceInterfaceRef + 22);
-  interruptPipeIn = self->_interruptPipeIn;
-  eventDataRef = self->_eventDataRef;
 
   return v4();
 }
@@ -1807,27 +1841,25 @@ LABEL_16:
     v12 = v10;
     *buf = 136446466;
     uTF8String = [v7 UTF8String];
-    v24 = 2114;
-    v25 = v9;
+    v22 = 2114;
+    v23 = v9;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
-  eventDataRef = self->_eventDataRef;
   BytePtr = IOUSBDeviceDataGetBytePtr();
-  v15 = self->_eventDataRef;
   Capacity = IOUSBDeviceDataGetCapacity();
-  if (BytePtr && (v17 = Capacity, Capacity == -[PTPDeviceUSBTransport eventDataBufferSize](self, "eventDataBufferSize")) && ([v3 contentForUSBUsingBuffer:BytePtr capacity:v17], v18 = objc_claimAutoreleasedReturnValue(), v19 = -[PTPDeviceUSBTransport writeInterruptData:](self, "writeInterruptData:", v18), v18, !v19))
+  if (BytePtr && (v15 = Capacity, Capacity == -[PTPDeviceUSBTransport eventDataBufferSize](self, "eventDataBufferSize")) && ([v3 contentForUSBUsingBuffer:BytePtr capacity:v15], v16 = objc_claimAutoreleasedReturnValue(), v17 = -[PTPDeviceUSBTransport writeInterruptData:](self, "writeInterruptData:", v16), v16, !v17))
   {
     [(PTPDeviceUSBTransport *)self performSelector:"checkInterruptWriteCompletion:" withObject:v3 afterDelay:5.0];
-    v20 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v20 = 0;
+    v18 = 0;
   }
 
-  return v20;
+  return v18;
 }
 
 - (int)readBulkData

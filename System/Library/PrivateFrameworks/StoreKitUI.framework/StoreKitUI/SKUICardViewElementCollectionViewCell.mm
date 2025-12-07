@@ -1240,7 +1240,7 @@ LABEL_22:
   return v15;
 }
 
-void __78__SKUICardViewElementCollectionViewCell_updateWithItemState_context_animated___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __78__SKUICardViewElementCollectionViewCell_updateWithItemState_context_animated___block_invoke(uint64_t a1, void *a2, uint64_t a3, unsigned __int8 *a4)
 {
   v7 = [a2 elementType];
   if (v7 == 66 || v7 == 62)

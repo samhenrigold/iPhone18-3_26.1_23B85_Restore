@@ -26,16 +26,17 @@
   colorCopy = color;
   if (self->_backgroundColor != colorCopy)
   {
-    v7 = colorCopy;
+    v8 = colorCopy;
     objc_storeStrong(&self->_backgroundColor, color);
-    if (_os_feature_enabled_impl())
+    colorCopy = _os_feature_enabled_impl();
+    if (colorCopy)
     {
       vuiContentView = [(VUIBaseCollectionViewCell *)self vuiContentView];
-      [vuiContentView setBackgroundColor:v7];
+      [vuiContentView setBackgroundColor:v8];
     }
   }
 
-  MEMORY[0x1EEE66BE0]();
+  MEMORY[0x1EEE66BE0](colorCopy, v6);
 }
 
 - (VUIBaseCollectionViewCell)initWithFrame:(CGRect)frame

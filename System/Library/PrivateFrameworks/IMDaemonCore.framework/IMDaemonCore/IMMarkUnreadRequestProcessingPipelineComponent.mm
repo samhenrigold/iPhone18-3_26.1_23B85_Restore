@@ -28,7 +28,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   gUID = [inputCopy GUID];
   if (IMOSLoggingEnabled())
@@ -37,7 +37,7 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v20 = gUID;
+      v19 = gUID;
       _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "<IMMarkUnreadRequestProcessingPipelineComponent> Started processing mark unread request for message GUID: %@", buf, 0xCu);
     }
   }
@@ -55,7 +55,7 @@
           if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v20 = gUID;
+            v19 = gUID;
             _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Successfully marked message (%@) as unread", buf, 0xCu);
           }
         }
@@ -64,8 +64,8 @@
         firstObject = [v9 firstObject];
         [inputCopy setChat:firstObject];
 
-        v18 = v7;
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+        v17 = v7;
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
         [inputCopy setMessageItems:v11];
       }
 
@@ -88,15 +88,13 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v20 = gUID;
+        v19 = gUID;
         _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Ignoring mark unread request not from me for message: %@", buf, 0xCu);
       }
     }
 
     v12 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

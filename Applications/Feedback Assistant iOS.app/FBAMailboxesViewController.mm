@@ -24,6 +24,7 @@
 - (int64_t)sectionForTeam:(id)team;
 - (unint64_t)fbkNewFeedbackButtonState;
 - (void)_beginBugForTeam:(id)team sender:(id)sender;
+- (void)applySnapshotAnimated:(BOOL)animated;
 - (void)awakeFromNib;
 - (void)beginBugForTeam:(id)team sender:(id)sender;
 - (void)beginFeedbackWithDraftItem:(id)item;
@@ -51,6 +52,7 @@
 - (void)reloadApp;
 - (void)respondToUrlAction:(id)action;
 - (void)runDelayedUrlActionIfNeeded;
+- (void)setFBAPreferencesEnabled:(BOOL)enabled;
 - (void)shouldShowBatchUIWithCompletion:(id)completion;
 - (void)showBatchUIWithAction:(id)action;
 - (void)showItemWithUrlAction:(id)action;
@@ -58,7 +60,10 @@
 - (void)showTargetedFeedbackLoadErrorAlert;
 - (void)showTargetedSurveyLoadErrorAlert;
 - (void)tryLaunchingDraft:(id)draft orStub:(id)stub orBugForm:(id)form forTeam:(id)team withSender:(id)sender;
+- (void)updateUIAnimated:(BOOL)animated;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation FBAMailboxesViewController
@@ -343,6 +348,54 @@
   }
 
   return v5;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v11.receiver = self;
+  v11.super_class = FBAMailboxesViewController;
+  [(FBAMailboxesViewController *)&v11 viewWillAppear:appear];
+  presentedViewController = [(FBAMailboxesViewController *)self presentedViewController];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    [(FBAMailboxesViewController *)self dismissViewControllerAnimated:0 completion:0];
+  }
+
+  collectionView = [(FBAMailboxesViewController *)self collectionView];
+  collectionView2 = [(FBAMailboxesViewController *)self collectionView];
+  indexPathsForSelectedItems = [collectionView2 indexPathsForSelectedItems];
+  firstObject = [indexPathsForSelectedItems firstObject];
+  [collectionView deselectItemAtIndexPath:firstObject animated:0];
+
+  [(FBAMailboxesViewController *)self applySnapshot];
+  collectionView3 = [(FBAMailboxesViewController *)self collectionView];
+  [collectionView3 reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = FBAMailboxesViewController;
+  [(FBAMailboxesViewController *)&v8 viewDidAppear:appear];
+  data = [(FBAMailboxesViewController *)self data];
+  isReloadingContentAndFormItems = [data isReloadingContentAndFormItems];
+
+  if (isReloadingContentAndFormItems)
+  {
+    v6 = +[NSBundle mainBundle];
+    v7 = [v6 localizedStringForKey:@"LOADING_ELLIPSES" value:&stru_1000E2210 table:0];
+    [(FBAMailboxesViewController *)self fbkResumeSpinnerWithStatus:v7 userInteractionEnabled:1];
+  }
+
+  else
+  {
+    [(FBAMailboxesViewController *)self fbkHideSpinner];
+  }
+
+  [(FBAMailboxesViewController *)self runDelayedUrlActionIfNeeded];
 }
 
 - (void)didReceiveMemoryWarning
@@ -763,6 +816,54 @@ LABEL_6:
   return v3;
 }
 
+- (void)applySnapshotAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = +[NSProcessInfo processInfo];
+  environment = [v5 environment];
+  v7 = [environment objectForKeyedSubscript:@"FBK_UNIT_TEST"];
+
+  if (!v7)
+  {
+    if ([(FBAMailboxesViewController *)self isApplyingSnapshot])
+    {
+      v8 = +[FBALog appHandle];
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      {
+        LOWORD(buf[0]) = 0;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Already updating UI in mailboxes. Will defer to next run loop", buf, 2u);
+      }
+
+      makeSnapshot = +[NSOperationQueue mainQueue];
+      v15[0] = _NSConcreteStackBlock;
+      v15[1] = 3221225472;
+      v15[2] = sub_100020ED8;
+      v15[3] = &unk_1000DE548;
+      v15[4] = self;
+      v16 = animatedCopy;
+      [makeSnapshot addOperationWithBlock:v15];
+    }
+
+    else
+    {
+      makeSnapshot = [(FBAMailboxesViewController *)self makeSnapshot];
+      v10 = objc_initWeak(buf, self);
+      [(FBAMailboxesViewController *)self setIsApplyingSnapshot:1];
+
+      diffableDataSource = [(FBAMailboxesViewController *)self diffableDataSource];
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_100020EE8;
+      v12[3] = &unk_1000DE708;
+      objc_copyWeak(&v13, buf);
+      [diffableDataSource applySnapshot:makeSnapshot animatingDifferences:animatedCopy completion:v12];
+
+      objc_destroyWeak(&v13);
+      objc_destroyWeak(buf);
+    }
+  }
+}
+
 - (BOOL)hasContentItemsToShow
 {
   v2 = +[FBKData sharedInstance];
@@ -771,6 +872,85 @@ LABEL_6:
   v5 = [contentItems count] != 0;
 
   return v5;
+}
+
+- (void)updateUIAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = +[FBALog appHandle];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446210;
+    v22 = "[FBAMailboxesViewController updateUIAnimated:]";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}s", buf, 0xCu);
+  }
+
+  v6 = +[FBKData sharedInstance];
+  currentUser = [v6 currentUser];
+
+  if (currentUser)
+  {
+    teamsContainingContent = [currentUser teamsContainingContent];
+    v9 = +[FBKData sharedInstance];
+    pendingConsents = [v9 pendingConsents];
+    if (pendingConsents)
+    {
+      v11 = pendingConsents;
+      v12 = +[FBKData sharedInstance];
+      pendingConsents2 = [v12 pendingConsents];
+      v14 = [pendingConsents2 count];
+
+      if (v14)
+      {
+        [(FBAMailboxesViewController *)self showLoadingView];
+        [(FBAMailboxesViewController *)self setHasFinishedFirstLoad:0];
+        splitViewController = [(FBAMailboxesViewController *)self splitViewController];
+        v20[0] = _NSConcreteStackBlock;
+        v20[1] = 3221225472;
+        v20[2] = sub_10002126C;
+        v20[3] = &unk_1000DE430;
+        v20[4] = self;
+        [splitViewController drainAndPresentConsentsWithCompletion:v20];
+
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+    }
+
+    if ([teamsContainingContent count])
+    {
+      [(FBAMailboxesViewController *)self hideLoadingView];
+      teamSortDescriptors = [(FBAMailboxesViewController *)self teamSortDescriptors];
+      v17 = [teamsContainingContent sortedArrayUsingDescriptors:teamSortDescriptors];
+      [(FBAMailboxesViewController *)self setSortedTeams:v17];
+
+      if ([(FBAMailboxesViewController *)self isViewLoaded])
+      {
+        view = [(FBAMailboxesViewController *)self view];
+        window = [view window];
+
+        if (window)
+        {
+          [(FBAMailboxesViewController *)self applySnapshotAnimated:animatedCopy];
+        }
+      }
+    }
+  }
+
+  else
+  {
+    teamsContainingContent = +[FBALog appHandle];
+    if (os_log_type_enabled(teamsContainingContent, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, teamsContainingContent, OS_LOG_TYPE_INFO, "user is nil, no teams", buf, 2u);
+    }
+  }
+
+LABEL_14:
 }
 
 - (unint64_t)fbkNewFeedbackButtonState
@@ -2123,6 +2303,24 @@ LABEL_20:
   }
 }
 
+- (void)setFBAPreferencesEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = +[FBALog appHandle];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    v8 = 136446466;
+    v9 = "[FBAMailboxesViewController setFBAPreferencesEnabled:]";
+    v10 = 1024;
+    v11 = enabledCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "[%{public}s: %i", &v8, 0x12u);
+  }
+
+  navigationItem = [(FBAMailboxesViewController *)self navigationItem];
+  _largeTitleAccessoryView = [navigationItem _largeTitleAccessoryView];
+  [_largeTitleAccessoryView setEnabled:enabledCopy];
+}
+
 - (BOOL)userIsEnrolledInAnySeedingProgram
 {
   sortedTeams = [(FBAMailboxesViewController *)self sortedTeams];
@@ -2203,18 +2401,17 @@ LABEL_20:
 {
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v14 = sub_100049A10(viewCopy, v11);
+  v13 = sub_100049A10(viewCopy, v10);
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 
-  return v14;
+  return v13;
 }
 
 - (void)presentNonParticipantView
@@ -2245,7 +2442,7 @@ LABEL_20:
   teamCopy = team;
   selfCopy = self;
   sub_10004A17C(stub, item, form, action, team, v13, v14);
-  sub_10004BA44(v13);
+  sub_10004BA44(v13, v14);
 }
 
 - (void)controller:(id)controller didFinishSubmissionWithError:(id)error
@@ -2275,15 +2472,13 @@ LABEL_20:
 {
   v5 = _Block_copy(dismiss);
   *(swift_allocObject() + 16) = v5;
-  v6 = type metadata accessor for ScoreController();
-  v7 = *(v6 + 48);
-  v8 = *(v6 + 52);
+  type metadata accessor for ScoreController();
   swift_allocObject();
   ScoreController.init()();
-  v9 = objc_allocWithZone(type metadata accessor for BatchEvaluationViewController());
-  v10 = BatchEvaluationViewController.init(scoreController:useNavigationStack:showsCloseButton:onDismiss:)();
+  v6 = objc_allocWithZone(type metadata accessor for BatchEvaluationViewController());
+  v7 = BatchEvaluationViewController.init(scoreController:useNavigationStack:showsCloseButton:onDismiss:)();
 
-  return v10;
+  return v7;
 }
 
 - (void)shouldShowBatchUIWithCompletion:(id)completion

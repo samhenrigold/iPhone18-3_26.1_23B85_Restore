@@ -28,15 +28,14 @@
 
 - (BOOL)addContextValue:(id)value toArrayAtKeyPath:(id)path
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   valueCopy = value;
   contextStore = [(BMCoreDuetMediaUsageStore *)self contextStore];
-  v12[0] = valueCopy;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = valueCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
 
   LOBYTE(valueCopy) = [contextStore addObjects:v9 toArrayAtKeyPath:pathCopy];
-  v10 = *MEMORY[0x1E69E9840];
   return valueCopy;
 }
 
@@ -52,13 +51,13 @@
 
 - (BOOL)saveKnowledgeEvent:(id)event error:(id *)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if (eventCopy)
   {
     knowledgeStore = [(BMCoreDuetMediaUsageStore *)self knowledgeStore];
-    v12[0] = eventCopy;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = eventCopy;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     v9 = [knowledgeStore saveObjects:v8 error:error];
   }
 
@@ -73,7 +72,6 @@
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

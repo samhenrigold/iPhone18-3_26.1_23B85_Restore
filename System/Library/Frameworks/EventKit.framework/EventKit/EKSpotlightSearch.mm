@@ -22,15 +22,15 @@
 
 - (EKSpotlightSearch)initWithSearchWithCSQuery:(id)query inStore:(id)store inCalendars:(id)calendars resultHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   queryCopy = query;
   storeCopy = store;
   calendarsCopy = calendars;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
-  v34.receiver = self;
-  v34.super_class = EKSpotlightSearch;
-  v17 = [(EKSpotlightSearch *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = EKSpotlightSearch;
+  v17 = [(EKSpotlightSearch *)&v33 init];
   if (v17)
   {
     objc_initWeak(&location, v17);
@@ -38,68 +38,67 @@
     v18 = EKWeakLinkClass();
     EKWeakLinkClass();
     v19 = objc_opt_new();
-    v36[0] = *MEMORY[0x1E6964B30];
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
+    v35[0] = *MEMORY[0x1E6964B30];
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
     [v19 setFetchAttributes:v20];
 
-    v35 = *MEMORY[0x1E6993188];
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+    v34 = *MEMORY[0x1E6993188];
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
     [v19 setBundleIDs:v21];
 
     v22 = [[v18 alloc] initWithQueryString:queryCopy context:v19];
     csQuery = v17->csQuery;
     v17->csQuery = v22;
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resultHandler_completionHandler___block_invoke;
-    v29[3] = &unk_1E77FFDE0;
-    objc_copyWeak(&v32, &location);
-    v30 = calendarsCopy;
-    v31 = handlerCopy;
-    [(CSSearchQuery *)v17->csQuery setFoundItemsHandler:v29];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resultHandler_completionHandler___block_invoke_2;
-    v26[3] = &unk_1E77FFE08;
-    v27 = completionHandlerCopy;
-    objc_copyWeak(&v28, &location);
-    [(CSSearchQuery *)v17->csQuery setCompletionHandler:v26];
-    objc_destroyWeak(&v28);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resultHandler_completionHandler___block_invoke;
+    v28[3] = &unk_1E77FFDE0;
+    objc_copyWeak(&v31, &location);
+    v29 = calendarsCopy;
+    v30 = handlerCopy;
+    [(CSSearchQuery *)v17->csQuery setFoundItemsHandler:v28];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resultHandler_completionHandler___block_invoke_2;
+    v25[3] = &unk_1E77FFE08;
+    v26 = completionHandlerCopy;
+    objc_copyWeak(&v27, &location);
+    [(CSSearchQuery *)v17->csQuery setCompletionHandler:v25];
+    objc_destroyWeak(&v27);
 
-    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(&location);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 void __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resultHandler_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v2, "count")}];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = v2;
-  v4 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v4 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v36;
+    v6 = *v35;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v36 != v6)
+        if (*v35 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v35 + 1) + 8 * i);
+        v8 = *(*(&v34 + 1) + 8 * i);
         v9 = [v8 attributeSet];
         v10 = [v9 startDate];
         if (v10)
@@ -125,12 +124,12 @@ void __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resul
           v17 = EKLogHandle;
           if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
           {
-            __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resultHandler_completionHandler___block_invoke_cold_1(v39, v17, v8, &v40);
+            __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resultHandler_completionHandler___block_invoke_cold_1(v38, v17, v8, &v39);
           }
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v5 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
     while (v5);
@@ -150,12 +149,12 @@ void __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resul
     [v24 setCachedNextOccurrenceDateOnRepeatingRemindersInEvents:v20 withDateMap:v3];
 
     v25 = MEMORY[0x1E696AE18];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resultHandler_completionHandler___block_invoke_14;
-    v33[3] = &unk_1E77FFDB8;
-    v34 = v23;
-    v26 = [v25 predicateWithBlock:v33];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resultHandler_completionHandler___block_invoke_14;
+    v32[3] = &unk_1E77FFDB8;
+    v33 = v23;
+    v26 = [v25 predicateWithBlock:v32];
     v27 = [v20 filteredArrayUsingPredicate:v26];
 
     if ([v27 count])
@@ -170,8 +169,6 @@ void __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resul
   {
     v27 = v20;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resultHandler_completionHandler___block_invoke_14(uint64_t a1, void *a2)
@@ -217,38 +214,38 @@ void __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resul
 
 - (void)setCachedNextOccurrenceDateOnRepeatingRemindersInEvents:(id)events withDateMap:(id)map
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   mapCopy = map;
-  v21 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v20 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v6 = eventsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         if ([v11 hasRecurrenceRules] && objc_msgSend(v11, "isReminderIntegrationEvent"))
         {
           calendarItemIdentifier = [v11 calendarItemIdentifier];
-          v13 = [v21 objectForKeyedSubscript:calendarItemIdentifier];
+          v13 = [v20 objectForKeyedSubscript:calendarItemIdentifier];
           if (!v13)
           {
             v13 = [mapCopy objectForKeyedSubscript:calendarItemIdentifier];
-            [v21 setObject:v13 forKeyedSubscript:calendarItemIdentifier];
+            [v20 setObject:v13 forKeyedSubscript:calendarItemIdentifier];
             [v13 sortUsingSelector:sel_compare_];
           }
 
@@ -264,13 +261,11 @@ void __99__EKSpotlightSearch_initWithSearchWithCSQuery_inStore_inCalendars_resul
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 + (id)queryStringForSearchTerm:(id)term matchingTypes:(unint64_t)types fromStartDate:(id)date toEndDate:(id)endDate

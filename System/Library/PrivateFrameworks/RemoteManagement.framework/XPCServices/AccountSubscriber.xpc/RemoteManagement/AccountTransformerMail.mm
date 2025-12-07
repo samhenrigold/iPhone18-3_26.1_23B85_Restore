@@ -92,7 +92,7 @@ LABEL_9:
     v13 = objc_opt_new();
   }
 
-  v61 = v10;
+  v58 = v10;
   v15 = +[RMLog accountTransformerMail];
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
@@ -103,167 +103,160 @@ LABEL_9:
   [persistentAccount setAuthenticated:1];
 
   v17 = [propertiesCopy objectForKeyedSubscript:@"RemoteManagementAccountType"];
-  v18 = [v17 isEqualToString:ACAccountTypeIdentifierIMAP];
-  v19 = IMAPAccount_ptr;
-  if (!v18)
-  {
-    v19 = POPAccount_ptr;
-  }
+  [v17 isEqualToString:ACAccountTypeIdentifierIMAP];
+  v18 = objc_opt_class();
 
-  v20 = *v19;
-  v21 = objc_opt_class();
-
-  v22 = [[v21 alloc] initWithPersistentAccount:accountCopy];
-  v23 = NSStringFromClass(v21);
-  [v22 setAccountProperty:v23 forKey:MFMailAccountClass];
+  v19 = [[v18 alloc] initWithPersistentAccount:accountCopy];
+  v20 = NSStringFromClass(v18);
+  [v19 setAccountProperty:v20 forKey:MFMailAccountClass];
 
   [accountCopy setAuthenticated:1];
-  v80[0] = _NSConcreteStackBlock;
-  v80[1] = 3221225472;
-  v80[2] = sub_1000103AC;
-  v80[3] = &unk_10001CCC8;
-  v24 = v22;
-  v81 = v24;
-  v60 = accountCopy;
-  v82 = v60;
-  v25 = propertiesCopy;
-  v83 = v25;
-  [v25 enumerateKeysAndObjectsUsingBlock:v80];
-  v78[0] = _NSConcreteStackBlock;
-  v78[1] = 3221225472;
-  v78[2] = sub_100010AE8;
-  v78[3] = &unk_10001CDE0;
-  v26 = v13;
-  v79 = v26;
-  [v25 enumerateKeysAndObjectsUsingBlock:v78];
-  [v24 setDeliveryAccount:v26];
-  identifier = [v26 identifier];
-  [v24 setAccountProperty:identifier forKey:@"RemoteManagementSecondaryAccountIdentifier"];
+  v77[0] = _NSConcreteStackBlock;
+  v77[1] = 3221225472;
+  v77[2] = sub_1000103AC;
+  v77[3] = &unk_10001CCC8;
+  v21 = v19;
+  v78 = v21;
+  v57 = accountCopy;
+  v79 = v57;
+  v22 = propertiesCopy;
+  v80 = v22;
+  [v22 enumerateKeysAndObjectsUsingBlock:v77];
+  v75[0] = _NSConcreteStackBlock;
+  v75[1] = 3221225472;
+  v75[2] = sub_100010AE8;
+  v75[3] = &unk_10001CDE0;
+  v23 = v13;
+  v76 = v23;
+  [v22 enumerateKeysAndObjectsUsingBlock:v75];
+  [v21 setDeliveryAccount:v23];
+  identifier = [v23 identifier];
+  [v21 setAccountProperty:identifier forKey:@"RemoteManagementSecondaryAccountIdentifier"];
 
-  identifier2 = [v24 identifier];
-  [v26 setAccountProperty:identifier2 forKey:@"RemoteManagementPrimaryAccountIdentifier"];
+  identifier2 = [v21 identifier];
+  [v23 setAccountProperty:identifier2 forKey:@"RemoteManagementPrimaryAccountIdentifier"];
 
   +[MailAccount reloadAccounts];
-  v29 = +[MailAccount mailAccounts];
-  v30 = [v29 mutableCopy];
+  v26 = +[MailAccount mailAccounts];
+  v27 = [v26 mutableCopy];
 
-  [v30 addObject:v24];
-  v31 = [v25 objectForKeyedSubscript:ACAccountPropertyPersonaIdentifier];
-  v32 = +[RMLog accountTransformerMail];
-  v33 = &NSStringFromClass_ptr;
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+  [v27 addObject:v21];
+  v28 = [v22 objectForKeyedSubscript:ACAccountPropertyPersonaIdentifier];
+  v29 = +[RMLog accountTransformerMail];
+  v30 = &NSStringFromClass_ptr;
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
     sub_100013840();
   }
 
-  v74[0] = _NSConcreteStackBlock;
-  v74[1] = 3221225472;
-  v74[2] = sub_100010DB4;
-  v74[3] = &unk_10001CE08;
-  v34 = v31;
-  v75 = v34;
-  v59 = v30;
-  v76 = v59;
-  v35 = v24;
-  v77 = v35;
-  v36 = [DMCPersonaHelper performBlockUnderPersona:v34 block:v74];
-  v37 = +[RMLog accountTransformerMail];
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+  v71[0] = _NSConcreteStackBlock;
+  v71[1] = 3221225472;
+  v71[2] = sub_100010DB4;
+  v71[3] = &unk_10001CE08;
+  v31 = v28;
+  v72 = v31;
+  v56 = v27;
+  v73 = v56;
+  v32 = v21;
+  v74 = v32;
+  v33 = [DMCPersonaHelper performBlockUnderPersona:v31 block:v71];
+  v34 = +[RMLog accountTransformerMail];
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
   {
     sub_1000138A8();
   }
 
-  [DeliveryAccount addDeliveryAccount:v26];
-  v38 = +[RMLog accountTransformerMail];
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+  [DeliveryAccount addDeliveryAccount:v23];
+  v35 = +[RMLog accountTransformerMail];
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
   {
     sub_100013910();
   }
 
-  v71[0] = _NSConcreteStackBlock;
-  v71[1] = 3221225472;
-  v71[2] = sub_100010E20;
-  v71[3] = &unk_10001CD78;
-  v39 = v34;
-  v72 = v39;
-  v58 = v26;
-  v73 = v58;
-  v40 = [DMCPersonaHelper performBlockUnderPersona:v39 block:v71];
-  v41 = [v25 objectForKeyedSubscript:@"_remotemanagement_smimeSigningIdentity"];
+  v68[0] = _NSConcreteStackBlock;
+  v68[1] = 3221225472;
+  v68[2] = sub_100010E20;
+  v68[3] = &unk_10001CD78;
+  v36 = v31;
+  v69 = v36;
+  v55 = v23;
+  v70 = v55;
+  v37 = [DMCPersonaHelper performBlockUnderPersona:v36 block:v68];
+  v38 = [v22 objectForKeyedSubscript:@"_remotemanagement_smimeSigningIdentity"];
 
-  if (v41)
+  if (v38)
   {
-    v42 = [v35 accountPropertyForKey:MailAccountEmailAddresses];
-    v67 = 0u;
-    v68 = 0u;
-    v69 = 0u;
-    v70 = 0u;
-    v43 = [v42 countByEnumeratingWithState:&v67 objects:v85 count:16];
-    if (v43)
-    {
-      v44 = v43;
-      v45 = *v68;
-      do
-      {
-        for (i = 0; i != v44; i = i + 1)
-        {
-          if (*v68 != v45)
-          {
-            objc_enumerationMutation(v42);
-          }
-
-          v47 = *(*(&v67 + 1) + 8 * i);
-          v48 = [v25 objectForKeyedSubscript:@"_remotemanagement_smimeSigningIdentity"];
-          [v35 setSigningIdentityPersistentReference:v48 forAddress:v47];
-        }
-
-        v44 = [v42 countByEnumeratingWithState:&v67 objects:v85 count:16];
-      }
-
-      while (v44);
-    }
-
-    v33 = &NSStringFromClass_ptr;
-  }
-
-  v49 = [v25 objectForKeyedSubscript:@"_remotemanagement_smimeEncryptionIdentity"];
-
-  if (v49)
-  {
-    v50 = [v35 accountPropertyForKey:MailAccountEmailAddresses];
-    v63 = 0u;
+    v39 = [v32 accountPropertyForKey:MailAccountEmailAddresses];
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v51 = [v50 countByEnumeratingWithState:&v63 objects:v84 count:16];
-    if (v51)
+    v67 = 0u;
+    v40 = [v39 countByEnumeratingWithState:&v64 objects:v82 count:16];
+    if (v40)
     {
-      v52 = v51;
-      v53 = *v64;
+      v41 = v40;
+      v42 = *v65;
       do
       {
-        for (j = 0; j != v52; j = j + 1)
+        for (i = 0; i != v41; i = i + 1)
         {
-          if (*v64 != v53)
+          if (*v65 != v42)
           {
-            objc_enumerationMutation(v50);
+            objc_enumerationMutation(v39);
           }
 
-          v55 = *(*(&v63 + 1) + 8 * j);
-          v56 = [v25 objectForKeyedSubscript:@"_remotemanagement_smimeEncryptionIdentity"];
-          [v35 setEncryptionIdentityPersistentReference:v56 forAddress:v55];
+          v44 = *(*(&v64 + 1) + 8 * i);
+          v45 = [v22 objectForKeyedSubscript:@"_remotemanagement_smimeSigningIdentity"];
+          [v32 setSigningIdentityPersistentReference:v45 forAddress:v44];
         }
 
-        v52 = [v50 countByEnumeratingWithState:&v63 objects:v84 count:16];
+        v41 = [v39 countByEnumeratingWithState:&v64 objects:v82 count:16];
       }
 
-      while (v52);
+      while (v41);
     }
 
-    v33 = &NSStringFromClass_ptr;
+    v30 = &NSStringFromClass_ptr;
   }
 
-  accountTransformerMail = [v33[133] accountTransformerMail];
+  v46 = [v22 objectForKeyedSubscript:@"_remotemanagement_smimeEncryptionIdentity"];
+
+  if (v46)
+  {
+    v47 = [v32 accountPropertyForKey:MailAccountEmailAddresses];
+    v60 = 0u;
+    v61 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v48 = [v47 countByEnumeratingWithState:&v60 objects:v81 count:16];
+    if (v48)
+    {
+      v49 = v48;
+      v50 = *v61;
+      do
+      {
+        for (j = 0; j != v49; j = j + 1)
+        {
+          if (*v61 != v50)
+          {
+            objc_enumerationMutation(v47);
+          }
+
+          v52 = *(*(&v60 + 1) + 8 * j);
+          v53 = [v22 objectForKeyedSubscript:@"_remotemanagement_smimeEncryptionIdentity"];
+          [v32 setEncryptionIdentityPersistentReference:v53 forAddress:v52];
+        }
+
+        v49 = [v47 countByEnumeratingWithState:&v60 objects:v81 count:16];
+      }
+
+      while (v49);
+    }
+
+    v30 = &NSStringFromClass_ptr;
+  }
+
+  accountTransformerMail = [v30[133] accountTransformerMail];
   if (os_log_type_enabled(accountTransformerMail, OS_LOG_TYPE_DEBUG))
   {
     sub_100013978();
@@ -280,167 +273,160 @@ LABEL_9:
   if (recreationCopy)
   {
     v8 = [propertiesCopy objectForKeyedSubscript:@"RemoteManagementAccountType"];
-    v9 = [v8 isEqualToString:ACAccountTypeIdentifierIMAP];
-    v10 = IMAPAccount_ptr;
-    if (!v9)
+    [v8 isEqualToString:ACAccountTypeIdentifierIMAP];
+    v9 = objc_opt_class();
+
+    v10 = [[v9 alloc] initWithPersistentAccount:recreationCopy];
+    username = [v10 username];
+    v12 = [v7 objectForKeyedSubscript:@"_remotemanagement_username"];
+    v13 = [username isEqualToString:v12];
+
+    if (v13)
     {
-      v10 = POPAccount_ptr;
-    }
+      hostname = [v10 hostname];
+      v15 = [v7 objectForKeyedSubscript:@"_remotemanagement_hostname"];
+      v16 = [hostname isEqualToString:v15];
 
-    v11 = *v10;
-    v12 = objc_opt_class();
-
-    v13 = [[v12 alloc] initWithPersistentAccount:recreationCopy];
-    username = [v13 username];
-    v15 = [v7 objectForKeyedSubscript:@"_remotemanagement_username"];
-    v16 = [username isEqualToString:v15];
-
-    if (v16)
-    {
-      hostname = [v13 hostname];
-      v18 = [v7 objectForKeyedSubscript:@"_remotemanagement_hostname"];
-      v19 = [hostname isEqualToString:v18];
-
-      if (v19)
+      if (v16)
       {
-        v20 = [v7 objectForKeyedSubscript:@"_remotemanagement_port"];
-        if (v20 && (v21 = [v13 portNumber], v21 != -[NSObject unsignedIntValue](v20, "unsignedIntValue")))
+        v17 = [v7 objectForKeyedSubscript:@"_remotemanagement_port"];
+        if (v17 && (v18 = [v10 portNumber], v18 != -[NSObject unsignedIntValue](v17, "unsignedIntValue")))
         {
-          v25 = +[RMLog accountTransformerMail];
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v22 = +[RMLog accountTransformerMail];
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            *v48 = 0;
-            v38 = "Configuration change to inbound mail port number requires account to be recreated";
-            v39 = v48;
-            goto LABEL_27;
+            *v45 = 0;
+            v35 = "Configuration change to inbound mail port number requires account to be recreated";
+            v36 = v45;
+            goto LABEL_25;
           }
         }
 
         else
         {
-          v22 = NSStringFromClass(v12);
-          v23 = [recreationCopy objectForKeyedSubscript:MFMailAccountClass];
-          v24 = [v22 isEqualToString:v23];
+          v19 = NSStringFromClass(v9);
+          v20 = [recreationCopy objectForKeyedSubscript:MFMailAccountClass];
+          v21 = [v19 isEqualToString:v20];
 
-          if (v24)
+          if (v21)
           {
-            v25 = [recreationCopy objectForKeyedSubscript:@"RemoteManagementSecondaryAccountIdentifier"];
-            if (!v25)
+            v22 = [recreationCopy objectForKeyedSubscript:@"RemoteManagementSecondaryAccountIdentifier"];
+            if (!v22)
             {
-LABEL_15:
-              v35 = 0;
-LABEL_35:
+LABEL_13:
+              v32 = 0;
+LABEL_33:
 
-              goto LABEL_36;
+              goto LABEL_34;
             }
 
-            v26 = [SMTPAccount accountWithIdentifier:v25];
-            username2 = [v26 username];
-            v28 = [v7 objectForKeyedSubscript:@"_remotemanagement_usernameSecondary"];
-            v29 = [username2 isEqualToString:v28];
+            v23 = [SMTPAccount accountWithIdentifier:v22];
+            username2 = [v23 username];
+            v25 = [v7 objectForKeyedSubscript:@"_remotemanagement_usernameSecondary"];
+            v26 = [username2 isEqualToString:v25];
 
-            if (v29)
+            if (v26)
             {
-              hostname2 = [v26 hostname];
-              v31 = [v7 objectForKeyedSubscript:@"_remotemanagement_hostnameSecondary"];
-              v32 = [hostname2 isEqualToString:v31];
+              hostname2 = [v23 hostname];
+              v28 = [v7 objectForKeyedSubscript:@"_remotemanagement_hostnameSecondary"];
+              v29 = [hostname2 isEqualToString:v28];
 
-              if (v32)
+              if (v29)
               {
-                v33 = [v7 objectForKeyedSubscript:@"_remotemanagement_portSecondary"];
-                if (!v33 || (v34 = [v26 portNumber], v34 == -[NSObject unsignedIntValue](v33, "unsignedIntValue")))
+                v30 = [v7 objectForKeyedSubscript:@"_remotemanagement_portSecondary"];
+                if (!v30 || (v31 = [v23 portNumber], v31 == -[NSObject unsignedIntValue](v30, "unsignedIntValue")))
                 {
 
-                  goto LABEL_15;
+                  goto LABEL_13;
                 }
 
-                v43 = +[RMLog accountTransformerMail];
-                if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                v40 = +[RMLog accountTransformerMail];
+                if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v44 = 0;
-                  _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Configuration change to outbound mail port number requires account to be recreated", v44, 2u);
+                  *v41 = 0;
+                  _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Configuration change to outbound mail port number requires account to be recreated", v41, 2u);
                 }
 
-                goto LABEL_33;
+                goto LABEL_31;
               }
 
-              v33 = +[RMLog accountTransformerMail];
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+              v30 = +[RMLog accountTransformerMail];
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
               {
-                *v45 = 0;
-                v40 = "Configuration change to outbound mail hostname requires account to be recreated";
-                v41 = v45;
-                goto LABEL_32;
+                *v42 = 0;
+                v37 = "Configuration change to outbound mail hostname requires account to be recreated";
+                v38 = v42;
+                goto LABEL_30;
               }
             }
 
             else
             {
-              v33 = +[RMLog accountTransformerMail];
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+              v30 = +[RMLog accountTransformerMail];
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
               {
-                v46 = 0;
-                v40 = "Configuration change to outbound mail username requires account to be recreated.";
-                v41 = &v46;
-LABEL_32:
-                _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, v40, v41, 2u);
+                v43 = 0;
+                v37 = "Configuration change to outbound mail username requires account to be recreated.";
+                v38 = &v43;
+LABEL_30:
+                _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, v37, v38, 2u);
               }
             }
 
-LABEL_33:
+LABEL_31:
 
-            goto LABEL_34;
+            goto LABEL_32;
           }
 
-          v25 = +[RMLog accountTransformerMail];
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v22 = +[RMLog accountTransformerMail];
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            v47 = 0;
-            v38 = "Configuration change to inbound mail type requires account to be recreated";
-            v39 = &v47;
-LABEL_27:
-            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, v38, v39, 2u);
+            v44 = 0;
+            v35 = "Configuration change to inbound mail type requires account to be recreated";
+            v36 = &v44;
+LABEL_25:
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, v35, v36, 2u);
           }
         }
 
-LABEL_34:
-        v35 = 1;
-        goto LABEL_35;
+LABEL_32:
+        v32 = 1;
+        goto LABEL_33;
       }
 
-      v20 = +[RMLog accountTransformerMail];
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v17 = +[RMLog accountTransformerMail];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v36 = "Configuration change to inbound mail hostname requires account to be recreated";
-        v37 = buf;
-        goto LABEL_21;
+        v33 = "Configuration change to inbound mail hostname requires account to be recreated";
+        v34 = buf;
+        goto LABEL_19;
       }
     }
 
     else
     {
-      v20 = +[RMLog accountTransformerMail];
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v17 = +[RMLog accountTransformerMail];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v50 = 0;
-        v36 = "Configuration change to inbound mail username requires account to be recreated.";
-        v37 = &v50;
-LABEL_21:
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, v36, v37, 2u);
+        v47 = 0;
+        v33 = "Configuration change to inbound mail username requires account to be recreated.";
+        v34 = &v47;
+LABEL_19:
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v33, v34, 2u);
       }
     }
 
-    v35 = 1;
-LABEL_36:
+    v32 = 1;
+LABEL_34:
 
-    goto LABEL_37;
+    goto LABEL_35;
   }
 
-  v35 = 0;
-LABEL_37:
+  v32 = 0;
+LABEL_35:
 
-  return v35;
+  return v32;
 }
 
 - (void)configurationUIForConfiguration:(id)configuration completionHandler:(id)handler

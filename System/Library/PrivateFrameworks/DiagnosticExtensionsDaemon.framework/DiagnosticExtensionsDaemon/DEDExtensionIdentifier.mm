@@ -34,7 +34,7 @@ void __29__DEDExtensionIdentifier_log__block_invoke()
 
 + (id)parseDEDIdentifierString:(id)string
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v4 = [stringCopy componentsSeparatedByString:@"."];
   v5 = [v4 mutableCopy];
@@ -47,18 +47,16 @@ void __29__DEDExtensionIdentifier_log__block_invoke()
   {
     [v5 removeLastObject];
     v9 = [v5 componentsJoinedByString:@"."];
-    v13[0] = v9;
-    v13[1] = lastObject;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[0] = v9;
+    v12[1] = lastObject;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   }
 
   else
   {
-    v14[0] = stringCopy;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = stringCopy;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -188,9 +186,8 @@ LABEL_10:
 uint64_t __41__DEDExtensionIdentifier_archivedClasses__block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CBEB98];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  archivedClasses_classes = [v1 setWithObjects:{v3, objc_opt_class(), 0}];
+  v2 = objc_opt_class();
+  archivedClasses_classes = [v1 setWithObjects:{v2, objc_opt_class(), 0}];
 
   return MEMORY[0x2821F96F8]();
 }

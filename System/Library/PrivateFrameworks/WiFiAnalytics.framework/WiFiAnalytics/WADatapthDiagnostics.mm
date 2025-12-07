@@ -8,10 +8,10 @@
 
 - (WADatapthDiagnostics)initWithWADatapthDiagnosticsReport:(const void *)report length:(unint64_t)length
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v20.receiver = self;
-  v20.super_class = WADatapthDiagnostics;
-  v6 = [(WADatapthDiagnostics *)&v20 init];
+  v26 = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = WADatapthDiagnostics;
+  v6 = [(WADatapthDiagnostics *)&v19 init];
   v7 = objc_autoreleasePoolPush();
   v8 = [MEMORY[0x1E695DEF0] dataWithBytes:report length:length];
   if (!v8)
@@ -20,9 +20,9 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446466;
-      v22 = "[WADatapthDiagnostics initWithWADatapthDiagnosticsReport:length:]";
-      v23 = 1024;
-      v24 = 50;
+      v21 = "[WADatapthDiagnostics initWithWADatapthDiagnosticsReport:length:]";
+      v22 = 1024;
+      v23 = 50;
       _os_log_impl(&dword_1C8460000, v10, OS_LOG_TYPE_ERROR, "%{public}s::%d:resultData failed", buf, 0x12u);
     }
 
@@ -30,9 +30,9 @@
   }
 
   v6->_action = 2;
-  v19 = 0;
-  v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v8 error:&v19];
-  v10 = v19;
+  v18 = 0;
+  v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v8 error:&v18];
+  v10 = v18;
   awdReport = v6->_awdReport;
   v6->_awdReport = v9;
 
@@ -48,16 +48,16 @@
 
   if (!v12)
   {
-    v17 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v22 = "[WADatapthDiagnostics initWithWADatapthDiagnosticsReport:length:]";
-      v23 = 1024;
-      v24 = 56;
-      v25 = 2112;
-      v26 = v10;
-      _os_log_impl(&dword_1C8460000, v17, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive WAMessage: %@", buf, 0x1Cu);
+      v21 = "[WADatapthDiagnostics initWithWADatapthDiagnosticsReport:length:]";
+      v22 = 1024;
+      v23 = 56;
+      v24 = 2112;
+      v25 = v10;
+      _os_log_impl(&dword_1C8460000, v16, OS_LOG_TYPE_ERROR, "%{public}s::%d:Failed to unarchive WAMessage: %@", buf, 0x1Cu);
     }
 
 LABEL_16:
@@ -71,16 +71,15 @@ LABEL_16:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 136446466;
-    v22 = "[WADatapthDiagnostics initWithWADatapthDiagnosticsReport:length:]";
-    v23 = 1024;
-    v24 = 58;
+    v21 = "[WADatapthDiagnostics initWithWADatapthDiagnosticsReport:length:]";
+    v22 = 1024;
+    v23 = 58;
     _os_log_impl(&dword_1C8460000, v13, OS_LOG_TYPE_INFO, "%{public}s::%d:Success", buf, 0x12u);
   }
 
   v14 = v6;
 LABEL_10:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -99,20 +98,20 @@ LABEL_10:
 
 - (PBCodable)awdReport
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   awdReport = self->_awdReport;
   if (!awdReport)
   {
-    v11 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136446466;
-      v14 = "[WADatapthDiagnostics awdReport]";
-      v15 = 1024;
-      v16 = 75;
-      v12 = "%{public}s::%d:_awdReport missing";
+      v12 = 136446466;
+      v13 = "[WADatapthDiagnostics awdReport]";
+      v14 = 1024;
+      v15 = 75;
+      v11 = "%{public}s::%d:_awdReport missing";
 LABEL_13:
-      _os_log_impl(&dword_1C8460000, v11, OS_LOG_TYPE_ERROR, v12, &v13, 0x12u);
+      _os_log_impl(&dword_1C8460000, v10, OS_LOG_TYPE_ERROR, v11, &v12, 0x12u);
     }
 
 LABEL_14:
@@ -126,14 +125,14 @@ LABEL_14:
 
   if (v5)
   {
-    v11 = WALogCategoryDefaultHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = WALogCategoryDefaultHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136446466;
-      v14 = "[WADatapthDiagnostics awdReport]";
-      v15 = 1024;
-      v16 = 78;
-      v12 = "%{public}s::%d:_awdReport 0 stallNotifications";
+      v12 = 136446466;
+      v13 = "[WADatapthDiagnostics awdReport]";
+      v14 = 1024;
+      v15 = 78;
+      v11 = "%{public}s::%d:_awdReport 0 stallNotifications";
       goto LABEL_13;
     }
 
@@ -145,18 +144,17 @@ LABEL_14:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = self->_awdReport;
-    v13 = 136446722;
-    v14 = "[WADatapthDiagnostics awdReport]";
-    v15 = 1024;
-    v16 = 85;
-    v17 = 2114;
-    v18 = v7;
-    _os_log_impl(&dword_1C8460000, v6, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Generated wifi datapath diagnostics report: %{public}@", &v13, 0x1Cu);
+    v12 = 136446722;
+    v13 = "[WADatapthDiagnostics awdReport]";
+    v14 = 1024;
+    v15 = 85;
+    v16 = 2114;
+    v17 = v7;
+    _os_log_impl(&dword_1C8460000, v6, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Generated wifi datapath diagnostics report: %{public}@", &v12, 0x1Cu);
   }
 
   v8 = self->_awdReport;
 LABEL_6:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

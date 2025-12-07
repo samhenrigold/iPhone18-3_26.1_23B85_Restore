@@ -1,114 +1,95 @@
-uint64_t usbuf_hexdump(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t usbuf_hexdump(uint64_t result, uint64_t a2, int a3, const char *a4, int a5)
 {
-  if ((a5 & 0xFF00) != 0)
-  {
-    v8 = BYTE1(a5);
-  }
-
-  else
-  {
-    v8 = 32;
-  }
-
-  v31 = a3;
   if (a3 >= 1)
   {
-    v9 = a5;
-    v10 = a4;
-    v12 = result;
-    v13 = 0;
+    v5 = a5;
+    v6 = a4;
+    v8 = result;
+    v9 = 0;
     if (a5)
     {
-      v14 = a5;
+      v10 = a5;
     }
 
     else
     {
-      v14 = 16;
+      v10 = 16;
     }
 
-    v33 = v14;
-    v32 = a5;
-    while (1)
+    v19 = v10;
+    do
     {
-      if (v10)
+      if (v6)
       {
-        usbuf_printf(v12, "%s", a3, a4, a5, a6, a7, a8, v10);
+        usbuf_printf(v8, "%s", v6);
       }
 
-      if ((v9 & 0x10000) == 0)
+      if ((v5 & 0x10000) == 0)
       {
-        usbuf_printf(v12, "%04x  ", a3, a4, a5, a6, a7, a8, v13);
+        usbuf_printf(v8, "%04x  ", v9);
       }
 
-      if ((v9 & 0x20000) == 0)
+      if ((v5 & 0x20000) == 0)
       {
-        v15 = v33;
-        v16 = v13;
+        v11 = v19;
+        v12 = v9;
         do
         {
-          if (v16 >= v31)
+          if (v12 >= a3)
           {
-            usbuf_printf(v12, "   ", a3, a4, a5, a6, a7, a8, v27);
+            usbuf_printf(v8, "   ");
           }
 
           else
           {
-            v29 = *(a2 + v16);
-            usbuf_printf(v12, "%c%02x", a3, a4, a5, a6, a7, a8, v8);
+            usbuf_printf(v8, "%c%02x");
           }
 
-          ++v16;
-          --v15;
+          ++v12;
+          --v11;
         }
 
-        while (v15);
+        while (v11);
       }
 
-      v9 = v32;
-      if ((v32 & 0x40000) == 0)
+      v5 = a5;
+      if ((a5 & 0x40000) == 0)
       {
-        break;
+        usbuf_printf(v8, "  |");
+        v13 = v19;
+        v14 = v9;
+        do
+        {
+          if (v14 >= a3)
+          {
+            usbuf_printf(v8, " ", v15);
+          }
+
+          else if (*(a2 + v14) - 32 > 0x5E)
+          {
+            usbuf_printf(v8, ".", v15);
+          }
+
+          else
+          {
+            usbuf_printf(v8, "%c");
+          }
+
+          ++v14;
+          --v13;
+        }
+
+        while (v13);
+        usbuf_printf(v8, "|");
+        v5 = a5;
       }
 
-LABEL_29:
-      result = usbuf_printf(v12, "\n", a3, a4, a5, a6, a7, a8, v27);
-      v13 += v33;
-      v10 = a4;
-      if (v13 >= v31)
-      {
-        return result;
-      }
+      result = usbuf_printf(v8, "\n");
+      v9 += v19;
+      v6 = a4;
     }
 
-    usbuf_printf(v12, "  |", a3, a4, a5, a6, a7, a8, v27);
-    v23 = v33;
-    v24 = v13;
-    while (v24 < v31)
-    {
-      if (*(a2 + v24) - 32 > 0x5E)
-      {
-        v25 = v12;
-        v26 = ".";
-        goto LABEL_26;
-      }
-
-      usbuf_printf(v12, "%c", v17, v18, v19, v20, v21, v22, *(a2 + v24));
-LABEL_27:
-      ++v24;
-      if (!--v23)
-      {
-        usbuf_printf(v12, "|", v17, v18, v19, v20, v21, v22, v28);
-        v9 = v32;
-        goto LABEL_29;
-      }
-    }
-
-    v25 = v12;
-    v26 = " ";
-LABEL_26:
-    usbuf_printf(v25, v26, v17, v18, v19, v20, v21, v22, v28);
-    goto LABEL_27;
+    while (v9 < a3);
   }
 
   return result;
@@ -158,7 +139,7 @@ void *usbuf_new(_OWORD *a1, uint64_t a2, int a3, unsigned __int16 a4)
 
   v10 = v8 | a4;
   v11 = a3;
-  v7[4] = a3;
+  *(v7 + 4) = a3;
   *v7 = a2;
   *(v7 + 12) = v10 | 0x200000;
   if (!a2)
@@ -183,7 +164,7 @@ void *usbuf_new(_OWORD *a1, uint64_t a2, int a3, unsigned __int16 a4)
       }
 
       v11 = v13;
-      v7[4] = v13;
+      *(v7 + 4) = v13;
     }
 
     v14 = malloc_type_calloc(1uLL, v11, 0x7FF3EAA2uLL);

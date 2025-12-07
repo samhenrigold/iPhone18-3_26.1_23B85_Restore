@@ -833,26 +833,25 @@ uint64_t nghttp2_session_close_stream(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v11 = *(v7 + 116);
-  v12 = (*(a1 + 2723) == 0) ^ a2;
   if ((v11 & 1) == 0)
   {
     if ((((*(a1 + 2723) == 0) ^ a2) & 1) == 0)
     {
-      v13 = 2488;
+      v12 = 2488;
 LABEL_22:
-      --*(a1 + v13);
+      --*(a1 + v12);
       goto LABEL_23;
     }
 
 LABEL_19:
-    v13 = 2496;
+    v12 = 2496;
     goto LABEL_22;
   }
 
   if (((*(a1 + 2723) == 0) ^ a2))
   {
 LABEL_21:
-    v13 = 2504;
+    v12 = 2504;
     goto LABEL_22;
   }
 
@@ -863,61 +862,61 @@ LABEL_23:
     session_ob_data_remove(a1, v7);
   }
 
-  v14 = *(a1 + 24);
-  if (v14)
+  v13 = *(a1 + 24);
+  if (v13)
   {
-    v15 = *(v7 + 80);
-    v16 = *(a1 + 32);
-    LODWORD(v17) = (-297201227 * (*(a1 + 16) + v15)) >> -v16;
-    v18 = *a1;
-    v19 = (*a1 + 16 * v17);
-    if (*(v19 + 1))
+    v14 = *(v7 + 80);
+    v15 = *(a1 + 32);
+    LODWORD(v16) = (-297201227 * (*(a1 + 16) + v14)) >> -v15;
+    v17 = *a1;
+    v18 = (*a1 + 16 * v16);
+    if (*(v18 + 1))
     {
-      v20 = ~(-1 << v16);
-      v21 = -1;
+      v19 = ~(-1 << v15);
+      v20 = -1;
       do
       {
-        if (++v21 > *v19)
+        if (++v20 > *v18)
         {
           break;
         }
 
-        if (v19[1] == v15)
+        if (v18[1] == v14)
         {
-          v22 = (v17 + 1) & v20;
-          v23 = v18 + 16 * v22;
-          if (*(v23 + 8))
+          v21 = (v16 + 1) & v19;
+          v22 = v17 + 16 * v21;
+          if (*(v22 + 8))
           {
-            while (*v23)
+            while (*v22)
             {
-              v24 = v23;
-              --*v23;
-              *v19 = *v23;
-              v22 = (v22 + 1) & v20;
-              v23 = *a1 + 16 * v22;
-              v19 = v24;
-              if (!*(v23 + 8))
+              v23 = v22;
+              --*v22;
+              *v18 = *v22;
+              v21 = (v21 + 1) & v19;
+              v22 = *a1 + 16 * v21;
+              v18 = v23;
+              if (!*(v22 + 8))
               {
                 goto LABEL_37;
               }
             }
 
-            v24 = v19;
+            v23 = v18;
 LABEL_37:
-            v14 = *(a1 + 24);
-            v19 = v24;
+            v13 = *(a1 + 24);
+            v18 = v23;
           }
 
-          *(v19 + 1) = 0;
-          *(a1 + 24) = v14 - 1;
+          *(v18 + 1) = 0;
+          *(a1 + 24) = v13 - 1;
           break;
         }
 
-        v17 = (v17 + 1) & v20;
-        v19 = (v18 + 16 * v17);
+        v16 = (v16 + 1) & v19;
+        v18 = (v17 + 16 * v16);
       }
 
-      while (*(v19 + 1));
+      while (*(v18 + 1));
     }
   }
 
@@ -1053,9 +1052,9 @@ uint64_t session_close_stream_on_goaway(uint64_t a1, int a2, int a3)
   return result;
 }
 
-uint64_t nghttp2_frame_pack_headers(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t nghttp2_frame_pack_headers(uint64_t ***a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   if (*a1 != v3)
   {
     __assert_rtn("nghttp2_frame_pack_headers", "nghttp2_frame.c", 367, "bufs->head == bufs->cur");
@@ -1077,9 +1076,9 @@ uint64_t nghttp2_frame_pack_headers(uint64_t a1, uint64_t a2, uint64_t a3)
     v7 = 0;
   }
 
-  v8 = *(v3 + 24) + v7;
-  *(v3 + 24) = v8;
-  *(v3 + 32) = v8;
+  v8 = v3[3] + v7;
+  v3[3] = v8;
+  v3[4] = v8;
   v9 = nghttp2_hd_deflate_hd_bufs(a3, a1, *(a2 + 40), *(a2 + 48));
   if (v9 == -502)
   {
@@ -1091,8 +1090,8 @@ uint64_t nghttp2_frame_pack_headers(uint64_t a1, uint64_t a2, uint64_t a3)
     v10 = v9;
   }
 
-  v11 = *(v3 + 24) + v6;
-  *(v3 + 24) = v11;
+  v11 = v3[3] + v6;
+  v3[3] = v11;
   if (!v10)
   {
     if ((*(a2 + 13) & 0x20) != 0)
@@ -1114,7 +1113,7 @@ uint64_t nghttp2_frame_pack_headers(uint64_t a1, uint64_t a2, uint64_t a3)
       v14 = 0;
       do
       {
-        v14 = v14 + v13[4] - v13[3];
+        v14 = v13[4] + v14 - v13[3];
         v13 = *v13;
       }
 
@@ -1135,7 +1134,7 @@ uint64_t nghttp2_frame_pack_headers(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t emit_indname_block(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  *&v22[15] = *MEMORY[0x29EDCA608];
+  *&v20[15] = *MEMORY[0x29EDCA608];
   v6 = a2 + 1;
   if (a4)
   {
@@ -1154,7 +1153,7 @@ uint64_t emit_indname_block(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
     if (v9 < 0x80)
     {
       __src = (0x100040u >> (8 * a4)) & v7 | ~v7;
-      v15 = v22;
+      v15 = v20;
       v10 = 2;
     }
 
@@ -1172,14 +1171,11 @@ uint64_t emit_indname_block(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
       while (v13);
       if (v11 > 0xE)
       {
-        result = 4294966773;
-LABEL_17:
-        v17 = *MEMORY[0x29EDCA608];
-        return result;
+        return 4294966773;
       }
 
       __src = (0x100040u >> (8 * a4)) & v7 | ~v7;
-      v15 = v22;
+      v15 = v20;
       do
       {
         *v15++ = v9 | 0x80;
@@ -1201,22 +1197,21 @@ LABEL_17:
   }
 
   result = nghttp2_bufs_add(a1, &__src, v10);
-  if (result)
+  if (!result)
   {
-    goto LABEL_17;
+    v17 = *(a3 + 8);
+    v18 = *(a3 + 24);
+
+    return emit_string(a1, v17, v18);
   }
 
-  v18 = *(a3 + 8);
-  v19 = *(a3 + 24);
-  v20 = *MEMORY[0x29EDCA608];
-
-  return emit_string(a1, v18, v19);
+  return result;
 }
 
 uint64_t emit_string(uint64_t a1, char *a2, size_t a3)
 {
   v4 = a2;
-  *&v31[15] = *MEMORY[0x29EDCA608];
+  *&v29[15] = *MEMORY[0x29EDCA608];
   if (a3)
   {
     v6 = 0;
@@ -1264,7 +1259,7 @@ uint64_t emit_string(uint64_t a1, char *a2, size_t a3)
       }
 
       __src = v18;
-      v19 = v31;
+      v19 = v29;
       v12 = 2;
     }
 
@@ -1282,8 +1277,7 @@ uint64_t emit_string(uint64_t a1, char *a2, size_t a3)
       while (v16);
       if (v14 > 0xE)
       {
-        result = 4294966773;
-        goto LABEL_28;
+        return 4294966773;
       }
 
       if (v10 < a3)
@@ -1297,7 +1291,7 @@ uint64_t emit_string(uint64_t a1, char *a2, size_t a3)
       }
 
       __src = v20;
-      v19 = v31;
+      v19 = v29;
       do
       {
         *v19++ = v13 | 0x80;
@@ -1319,96 +1313,95 @@ uint64_t emit_string(uint64_t a1, char *a2, size_t a3)
   }
 
   result = nghttp2_bufs_add(a1, &__src, v12);
-  if (result)
+  if (!result)
   {
-LABEL_28:
-    v22 = *MEMORY[0x29EDCA608];
-  }
-
-  else
-  {
-    if (v10 < a3)
+    if (v10 >= a3)
     {
-      v23 = 0;
-      v24 = 0;
-      v25 = &v4[a3];
-      v26 = *(a1 + 8);
-      v27 = *(v26 + 16) - *(v26 + 32);
-      while (1)
-      {
-        v28 = *v4++;
-        v24 |= huff_sym_table[2 * v28 + 1] << (32 - v23);
-        v23 += huff_sym_table[2 * v28];
-        if (v23 >= 0x20)
-        {
-          if (v27 <= 3)
-          {
-            while (1)
-            {
-              result = nghttp2_bufs_addb(a1, SHIBYTE(v24));
-              if (result)
-              {
-                goto LABEL_28;
-              }
 
-              v24 <<= 8;
-              v23 -= 8;
-              if (v23 <= 7)
-              {
-                v26 = *(a1 + 8);
-                v27 = *(v26 + 16) - *(v26 + 32);
-                goto LABEL_37;
-              }
-            }
-          }
-
-          **(v26 + 32) = bswap32(HIDWORD(v24));
-          v26 = *(a1 + 8);
-          *(v26 + 32) += 4;
-          v27 -= 4;
-          v24 <<= 32;
-          v23 -= 32;
-        }
-
-LABEL_37:
-        if (v4 == v25)
-        {
-          if (v23 < 8)
-          {
-LABEL_41:
-            if (!v23 || (result = nghttp2_bufs_addb(a1, HIBYTE(v24) | ~(-1 << (8 - v23))), !result))
-            {
-              result = 0;
-            }
-          }
-
-          else
-          {
-            while (1)
-            {
-              result = nghttp2_bufs_addb(a1, SHIBYTE(v24));
-              if (result)
-              {
-                break;
-              }
-
-              v24 <<= 8;
-              v23 -= 8;
-              if (v23 <= 7)
-              {
-                goto LABEL_41;
-              }
-            }
-          }
-
-          goto LABEL_28;
-        }
-      }
+      return nghttp2_bufs_add(a1, v4, a3);
     }
 
-    v29 = *MEMORY[0x29EDCA608];
+    v22 = 0;
+    v23 = 0;
+    v24 = &v4[a3];
+    v25 = *(a1 + 8);
+    v26 = *(v25 + 16) - *(v25 + 32);
+    while (1)
+    {
+      v27 = *v4++;
+      v23 |= huff_sym_table[2 * v27 + 1] << (32 - v22);
+      v22 += huff_sym_table[2 * v27];
+      if (v22 >= 0x20)
+      {
+        if (v26 <= 3)
+        {
+          while (1)
+          {
+            result = nghttp2_bufs_addb(a1, SHIBYTE(v23));
+            if (result)
+            {
+              return result;
+            }
 
-    return nghttp2_bufs_add(a1, v4, a3);
+            v23 <<= 8;
+            v22 -= 8;
+            if (v22 <= 7)
+            {
+              v25 = *(a1 + 8);
+              v26 = *(v25 + 16) - *(v25 + 32);
+              goto LABEL_37;
+            }
+          }
+        }
+
+        **(v25 + 32) = bswap32(HIDWORD(v23));
+        v25 = *(a1 + 8);
+        *(v25 + 32) += 4;
+        v26 -= 4;
+        v23 <<= 32;
+        v22 -= 32;
+      }
+
+LABEL_37:
+      if (v4 == v24)
+      {
+        if (v22 < 8)
+        {
+LABEL_41:
+          if (!v22)
+          {
+            return 0;
+          }
+
+          result = nghttp2_bufs_addb(a1, HIBYTE(v23) | ~(-1 << (8 - v22)));
+          if (!result)
+          {
+            return 0;
+          }
+        }
+
+        else
+        {
+          while (1)
+          {
+            result = nghttp2_bufs_addb(a1, SHIBYTE(v23));
+            if (result)
+            {
+              break;
+            }
+
+            v23 <<= 8;
+            v22 -= 8;
+            if (v22 <= 7)
+            {
+              goto LABEL_41;
+            }
+          }
+        }
+
+        return result;
+      }
+    }
   }
 
   return result;
@@ -1804,7 +1797,7 @@ uint64_t hd_context_free(uint64_t *a1)
       v4 = hd_ringbuf_get(a1, v3);
       nghttp2_rcbuf_decref(v4[1]);
       nghttp2_rcbuf_decref(*v4);
-      (v2[2])(v4, *v2);
+      (*(v2 + 16))(v4, *v2);
       ++v3;
     }
 
@@ -1812,7 +1805,7 @@ uint64_t hd_context_free(uint64_t *a1)
   }
 
   v5 = *a1;
-  v6 = v2[2];
+  v6 = *(v2 + 16);
   v7 = *v2;
 
   return v6(v5, v7);
@@ -2112,7 +2105,7 @@ LABEL_59:
       *(v4 + 2672) = 0;
     }
 
-    if (!a3 && !session_is_closing(v4))
+    if (!a3 && !session_is_closing(v4, a2))
     {
       v26 = nghttp2_session_add_settings(v4, 1, 0, 0);
       if (v26)
@@ -2503,7 +2496,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t nghttp2_submit_rst_stream(uint64_t a1, uint64_t a2, int a3, int a4)
+uint64_t nghttp2_submit_rst_stream(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a3)
   {
@@ -2913,7 +2906,6 @@ uint64_t nghttp2_stream_get_state(uint64_t a1)
     return 7;
   }
 
-  v1 = *(a1 + 117);
   if (*(a1 + 116))
   {
     if (*(a1 + 117))
@@ -3080,63 +3072,63 @@ uint64_t nghttp2_hd_inflate_change_table_size(uint64_t a1, unint64_t a2)
 
 uint64_t emit_table_size(uint64_t a1, unint64_t a2)
 {
-  *&v12[15] = *MEMORY[0x29EDCA608];
-  if (a2 <= 0x1E)
+  *&v11[15] = *MEMORY[0x29EDCA608];
+  if (a2 > 0x1E)
+  {
+    v3 = a2 - 31;
+    if (a2 - 31 < 0x80)
+    {
+      __src = 63;
+      v8 = v11;
+      v2 = 2;
+    }
+
+    else
+    {
+      v4 = 0;
+      v5 = a2 - 31;
+      do
+      {
+        v6 = v5 >> 14;
+        v5 >>= 7;
+        ++v4;
+      }
+
+      while (v6);
+      if (v4 > 0xE)
+      {
+        return 4294966773;
+      }
+
+      __src = 63;
+      v8 = v11;
+      do
+      {
+        *v8++ = v3 | 0x80;
+        v9 = v3 >> 14;
+        v3 >>= 7;
+      }
+
+      while (v9);
+      v2 = v4 + 2;
+    }
+
+    *v8 = v3;
+  }
+
+  else
   {
     __src = a2 | 0x20;
     v2 = 1;
-LABEL_13:
-    result = nghttp2_bufs_add(a1, &__src, v2);
-    goto LABEL_14;
   }
 
-  v3 = a2 - 31;
-  if (a2 - 31 < 0x80)
-  {
-    __src = 63;
-    v8 = v12;
-    v2 = 2;
-LABEL_12:
-    *v8 = v3;
-    goto LABEL_13;
-  }
-
-  v4 = 0;
-  v5 = a2 - 31;
-  do
-  {
-    v6 = v5 >> 14;
-    v5 >>= 7;
-    ++v4;
-  }
-
-  while (v6);
-  if (v4 <= 0xE)
-  {
-    __src = 63;
-    v8 = v12;
-    do
-    {
-      *v8++ = v3 | 0x80;
-      v9 = v3 >> 14;
-      v3 >>= 7;
-    }
-
-    while (v9);
-    v2 = v4 + 2;
-    goto LABEL_12;
-  }
-
-  result = 4294966773;
-LABEL_14:
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  return nghttp2_bufs_add(a1, &__src, v2);
 }
 
 uint64_t nghttp2_hd_deflate_hd2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v10 = *(a1 + 32);
-  v11 = (v10[1])(48, *v10);
+  v11 = (*(v10 + 8))(48, *v10);
   if (!v11)
   {
     return -901;
@@ -3153,17 +3145,17 @@ uint64_t nghttp2_hd_deflate_hd2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
     v11[2] = a2 + a3;
   }
 
-  v18[0] = v11;
-  v18[1] = v11;
-  v19 = v10;
-  v20 = a3;
-  v21 = vdupq_n_s64(1uLL);
-  v22 = xmmword_298402630;
-  v12 = nghttp2_hd_deflate_hd_bufs(a1, v18, a4, a5);
-  if (v18[0])
+  v17[0] = v11;
+  v17[1] = v11;
+  v18 = v10;
+  v19 = a3;
+  v20 = vdupq_n_s64(1uLL);
+  v21 = xmmword_298402630;
+  v12 = nghttp2_hd_deflate_hd_bufs(a1, v17, a4, a5);
+  if (v17[0])
   {
     v13 = 0;
-    v14 = v18[0];
+    v14 = v17[0];
     do
     {
       v13 = v13 + v14[4] - v14[3];
@@ -3171,8 +3163,7 @@ uint64_t nghttp2_hd_deflate_hd2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
     }
 
     while (v14);
-    v15 = *v19;
-    (v19[2])();
+    (*(v18 + 16))();
   }
 
   else
@@ -3180,10 +3171,10 @@ uint64_t nghttp2_hd_deflate_hd2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
     v13 = 0;
   }
 
-  v17 = v12;
+  v16 = v12;
   if (!v12)
   {
-    v17 = v13;
+    v16 = v13;
   }
 
   if (v12 == -502)
@@ -3193,31 +3184,31 @@ uint64_t nghttp2_hd_deflate_hd2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
 
   else
   {
-    return v17;
+    return v16;
   }
 }
 
-uint64_t nghttp2_hd_deflate_hd_vec2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t nghttp2_hd_deflate_hd_vec2(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v8 = *(a1 + 32);
   if (a3)
   {
-    v31 = (v8[1])(48 * a3, *v8);
-    if (v31)
+    v30 = (v8[1])(48 * a3, *v8);
+    if (v30)
     {
       v11 = 0;
       v12 = 0;
       v13 = (a2 + 8);
-      v14 = &v31;
+      v14 = &v30;
       v15 = a3;
       do
       {
-        v16 = v31;
-        v17 = (v31 + v11);
+        v16 = v30;
+        v17 = (v30 + v11);
         v18 = *(v13 - 1);
         v19 = *v13;
         v17[4] = v18;
@@ -3240,12 +3231,12 @@ uint64_t nghttp2_hd_deflate_hd_vec2(uint64_t a1, uint64_t a2, uint64_t a3, uint6
       }
 
       while (v15);
-      *&v27 = v31;
-      *(&v27 + 1) = v31;
-      v28 = v8;
-      v29.i64[0] = a3;
-      v29.i64[1] = a3;
-      v30 = a3;
+      *&v26 = v30;
+      *(&v26 + 1) = v30;
+      v27 = v8;
+      v28.i64[0] = a3;
+      v28.i64[1] = a3;
+      v29 = a3;
       goto LABEL_10;
     }
 
@@ -3261,17 +3252,17 @@ uint64_t nghttp2_hd_deflate_hd_vec2(uint64_t a1, uint64_t a2, uint64_t a3, uint6
   v20[1] = 0u;
   v20[2] = 0u;
   *v20 = 0u;
-  *&v27 = v20;
-  *(&v27 + 1) = v20;
-  v28 = v8;
-  v29 = vdupq_n_s64(1uLL);
-  v30 = xmmword_298402630;
+  *&v26 = v20;
+  *(&v26 + 1) = v20;
+  v27 = v8;
+  v28 = vdupq_n_s64(1uLL);
+  v29 = xmmword_298402630;
 LABEL_10:
-  v21 = nghttp2_hd_deflate_hd_bufs(a1, &v27, a4, a5);
-  if (v27)
+  v21 = nghttp2_hd_deflate_hd_bufs(a1, &v26, a4, a5);
+  if (v26)
   {
     v22 = 0;
-    v23 = v27;
+    v23 = v26;
     do
     {
       v22 = v22 + v23[4] - v23[3];
@@ -3279,8 +3270,7 @@ LABEL_10:
     }
 
     while (v23);
-    v24 = *v28;
-    (*(v28 + 16))();
+    (*(v27 + 16))();
   }
 
   else
@@ -3288,10 +3278,10 @@ LABEL_10:
     v22 = 0;
   }
 
-  v26 = v21;
+  v25 = v21;
   if (!v21)
   {
-    v26 = v22;
+    v25 = v22;
   }
 
   if (v21 == -502)
@@ -3301,7 +3291,7 @@ LABEL_10:
 
   else
   {
-    return v26;
+    return v25;
   }
 }
 
@@ -3385,7 +3375,7 @@ uint64_t nghttp2_hd_deflate_del(uint64_t *a1)
   return v3(a1, v4);
 }
 
-uint64_t nghttp2_hd_inflate_hd3(uint64_t a1, uint64_t a2, _DWORD *a3, unsigned __int8 *a4, uint64_t a5, int a6)
+size_t nghttp2_hd_inflate_hd3(uint64_t a1, uint64_t a2, _DWORD *a3, unsigned __int8 *a4, uint64_t a5, int a6)
 {
   v12 = 0;
   v13 = 0;
@@ -3459,7 +3449,7 @@ uint64_t nghttp2_hd_inflate_del(uint64_t *a1)
   return v3(a1, v4);
 }
 
-_DWORD *hd_get_table_entry(void *a1, uint64_t a2)
+unsigned int *hd_get_table_entry(void *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -3716,7 +3706,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t parser_bare_item(uint64_t *a1, void *a2)
+uint64_t parser_bare_item(unsigned __int8 **a1, void *a2)
 {
   v2 = *a1;
   v3 = **a1;
@@ -3759,7 +3749,7 @@ uint64_t parser_bare_item(uint64_t *a1, void *a2)
 LABEL_4:
       v6 = a1[1];
       v7 = (v2 + 1);
-      for (*a1 = v2 + 1; v7 != v6; *a1 = v7)
+      for (*a1 = (v2 + 1); v7 != v6; *a1 = v7)
       {
         v8 = *v7;
         if ((v8 - 33) > 0x39 || ((1 << (v8 - 33)) & 0x3FFFFFF03FFF67DLL) == 0)
@@ -3781,7 +3771,7 @@ LABEL_4:
       {
         *a2 = 4;
         a2[1] = v2;
-        a2[2] = *a1 - v2;
+        a2[2] = &(*a1)[-v2];
       }
 
       return v4;
@@ -3931,7 +3921,7 @@ LABEL_5:
       v9 = (v2 + v5++);
       v6 = v8 + 10 * v6 - 48;
       *a1 = (v9 + 1);
-      if ((v2 + v5) == v3)
+      if (v2 + v5 == v3)
       {
         goto LABEL_20;
       }
@@ -3958,7 +3948,7 @@ LABEL_5:
       else
       {
         v10 = 0;
-        v11 = &v3[~v2];
+        v11 = ~v2 + v3;
         while (1)
         {
           v12 = *(v2 + v10 + v5 + 1);
@@ -5058,7 +5048,7 @@ uint64_t nghttp2_submit_origin(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
     v12 = 0;
   }
 
-  v20 = (*(a1 + 2368))(160, *(a1 + 2360));
+  v20 = (*(a1 + 2368))(160, *(a1 + 2360), a3);
   if (!v20)
   {
     (*(a1 + 2376))(v12, *(a1 + 2360));
@@ -5200,7 +5190,7 @@ uint64_t nghttp2_submit_request2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   return submit_request_shared(a1, a3, a4, v7, a6);
 }
 
-uint64_t nghttp2_submit_response(uint64_t a1, int a2, uint64_t a3, uint64_t a4, __int128 *a5)
+uint64_t nghttp2_submit_response(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int128 *a5)
 {
   v6 = 0;
   v7 = 0uLL;
@@ -5297,7 +5287,7 @@ uint64_t nghttp2_submit_extension(uint64_t a1, unsigned int a2, char a3, int a4,
   }
 
   v9 = a2;
-  if (!*(a1 + 2312) && !*(a1 + 2304))
+  if (*(a1 + 2304) == 0)
   {
     return 4294966777;
   }
@@ -5347,7 +5337,7 @@ uint64_t nghttp2_session_get_stream(uint64_t *a1, int a2)
   return result;
 }
 
-uint64_t nghttp2_session_client_new(uint64_t *a1, __int128 *a2, uint64_t a3)
+uint64_t nghttp2_session_client_new(uint64_t *a1, int64x2_t *a2, uint64_t a3)
 {
   v6 = 0;
   result = session_new(&v6, a2, a3, 0, 0, 0);
@@ -5361,7 +5351,7 @@ uint64_t nghttp2_session_client_new(uint64_t *a1, __int128 *a2, uint64_t a3)
   return result;
 }
 
-uint64_t nghttp2_session_client_new3(uint64_t *a1, __int128 *a2, uint64_t a3, __int128 *a4, uint64_t (**a5)(uint64_t, uint64_t, void))
+uint64_t nghttp2_session_client_new3(uint64_t *a1, int64x2_t *a2, uint64_t a3, __int128 *a4, uint64_t (**a5)(uint64_t, uint64_t, void))
 {
   v8 = 0;
   result = session_new(&v8, a2, a3, 0, a4, a5);
@@ -5375,7 +5365,7 @@ uint64_t nghttp2_session_client_new3(uint64_t *a1, __int128 *a2, uint64_t a3, __
   return result;
 }
 
-uint64_t nghttp2_session_server_new(uint64_t *a1, __int128 *a2, uint64_t a3)
+uint64_t nghttp2_session_server_new(uint64_t *a1, int64x2_t *a2, uint64_t a3)
 {
   v6 = 0;
   result = session_new(&v6, a2, a3, 1, 0, 0);
@@ -5389,7 +5379,7 @@ uint64_t nghttp2_session_server_new(uint64_t *a1, __int128 *a2, uint64_t a3)
   return result;
 }
 
-uint64_t nghttp2_session_server_new3(uint64_t *a1, __int128 *a2, uint64_t a3, __int128 *a4, uint64_t (**a5)(uint64_t, uint64_t, void))
+uint64_t nghttp2_session_server_new3(uint64_t *a1, int64x2_t *a2, uint64_t a3, __int128 *a4, uint64_t (**a5)(uint64_t, uint64_t, void))
 {
   v8 = 0;
   result = session_new(&v8, a2, a3, 1, a4, a5);
@@ -5403,7 +5393,7 @@ uint64_t nghttp2_session_server_new3(uint64_t *a1, __int128 *a2, uint64_t a3, __
   return result;
 }
 
-uint64_t nghttp2_session_server_new2(uint64_t *a1, __int128 *a2, uint64_t a3, __int128 *a4)
+uint64_t nghttp2_session_server_new2(uint64_t *a1, int64x2_t *a2, uint64_t a3, __int128 *a4)
 {
   v7 = 0;
   result = session_new(&v7, a2, a3, 1, a4, 0);
@@ -5892,10 +5882,10 @@ uint64_t nghttp2_session_consume(uint64_t a1, int a2, uint64_t a3)
   return result;
 }
 
-size_t nghttp2_session_recv()
+int64_t nghttp2_session_recv()
 {
   v0 = MEMORY[0x2A1C7C4A8]();
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   while (1)
   {
     v1 = v0[269];
@@ -5913,13 +5903,13 @@ size_t nghttp2_session_recv()
 
     if (v2 > 0x4000)
     {
-      goto LABEL_16;
+      return 4294966394;
     }
 
     result = nghttp2_session_mem_recv2(v0, __src, v2);
-    if ((result & 0x8000000000000000) != 0)
+    if (result < 0)
     {
-      goto LABEL_17;
+      return result;
     }
 
     if (result != v3)
@@ -5932,19 +5922,13 @@ size_t nghttp2_session_recv()
   {
     if (v2 == -504 || v2 == 0)
     {
-      result = 0;
-      goto LABEL_17;
+      return 0;
     }
 
-LABEL_16:
-    result = 4294966394;
-    goto LABEL_17;
+    return 4294966394;
   }
 
-  result = 4294966789;
-LABEL_17:
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return 4294966789;
 }
 
 uint64_t nghttp2_session_get_stream_effective_recv_data_length(uint64_t *a1, int a2)
@@ -6191,7 +6175,7 @@ uint64_t nghttp2_session_get_stream_remote_close(uint64_t *a1, int a2)
   }
 }
 
-uint64_t nghttp2_session_set_next_stream_id(uint64_t a1, int a2)
+uint64_t nghttp2_session_set_next_stream_id(uint64_t a1, unsigned int a2)
 {
   if (a2 >= 1 && *(a1 + 2592) <= a2)
   {

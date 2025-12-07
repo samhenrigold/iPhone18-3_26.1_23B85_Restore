@@ -584,32 +584,33 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v15 = __atxlog_handle_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      [ATXSpotlightEvent initWithProto:];
+      [ATXSpotlightEvent initWithProto:?];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  date = [(ATXPBSpotlightEvent *)v5 date];
-  eventType = [(ATXPBSpotlightEvent *)v5 eventType];
-  appConsumerSubType = [(ATXPBSpotlightEvent *)v5 appConsumerSubType];
-  actionConsumerSubType = [(ATXPBSpotlightEvent *)v5 actionConsumerSubType];
-  appBlendingCacheId = [(ATXPBSpotlightEvent *)v5 appBlendingCacheId];
-  actionBlendingCacheId = [(ATXPBSpotlightEvent *)v5 actionBlendingCacheId];
-  appSuggestionIds = [(ATXPBSpotlightEvent *)v5 appSuggestionIds];
-  actionSuggestionIds = [(ATXPBSpotlightEvent *)v5 actionSuggestionIds];
-  documentSuggestionIds = [(ATXPBSpotlightEvent *)v5 documentSuggestionIds];
-  v11 = [ATXSpotlightEventMetadata alloc];
-  metadata = [(ATXPBSpotlightEvent *)v5 metadata];
+  v6 = protoCopy;
+  date = [(ATXPBSpotlightEvent *)v6 date];
+  eventType = [(ATXPBSpotlightEvent *)v6 eventType];
+  appConsumerSubType = [(ATXPBSpotlightEvent *)v6 appConsumerSubType];
+  actionConsumerSubType = [(ATXPBSpotlightEvent *)v6 actionConsumerSubType];
+  appBlendingCacheId = [(ATXPBSpotlightEvent *)v6 appBlendingCacheId];
+  actionBlendingCacheId = [(ATXPBSpotlightEvent *)v6 actionBlendingCacheId];
+  appSuggestionIds = [(ATXPBSpotlightEvent *)v6 appSuggestionIds];
+  actionSuggestionIds = [(ATXPBSpotlightEvent *)v6 actionSuggestionIds];
+  documentSuggestionIds = [(ATXPBSpotlightEvent *)v6 documentSuggestionIds];
+  v12 = [ATXSpotlightEventMetadata alloc];
+  metadata = [(ATXPBSpotlightEvent *)v6 metadata];
 
-  v13 = [(ATXSpotlightEventMetadata *)v11 initWithProto:metadata];
-  self = [(ATXSpotlightEvent *)self initWithAbsoluteDate:eventType eventType:appConsumerSubType appConsumerSubType:actionConsumerSubType actionConsumerSubType:appBlendingCacheId appBlendingCacheId:actionBlendingCacheId actionBlendingCacheId:appSuggestionIds appSuggestionIds:date actionSuggestionIds:actionSuggestionIds documentSuggestionIds:documentSuggestionIds metadata:v13];
+  v14 = [(ATXSpotlightEventMetadata *)v12 initWithProto:metadata];
+  self = [(ATXSpotlightEvent *)self initWithAbsoluteDate:eventType eventType:appConsumerSubType appConsumerSubType:actionConsumerSubType actionConsumerSubType:appBlendingCacheId appBlendingCacheId:actionBlendingCacheId actionBlendingCacheId:appSuggestionIds appSuggestionIds:date actionSuggestionIds:actionSuggestionIds documentSuggestionIds:documentSuggestionIds metadata:v14];
 
   selfCopy = self;
 LABEL_8:
@@ -1034,11 +1035,13 @@ LABEL_18:
   return v7;
 }
 
-- (void)initWithProto:.cold.1()
+- (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0(&dword_1BF549000, v2, v3, "%@: tried to initialize with a non-ATXPBSpotlightEvent proto", v4, v5, v6, v7, 2u);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0(&dword_1BF549000, v3, v4, "%@: tried to initialize with a non-ATXPBSpotlightEvent proto", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

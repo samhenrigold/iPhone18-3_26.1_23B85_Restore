@@ -5,12 +5,12 @@
 
 void ___WriteMMappedImage_block_invoke()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAA00] defaultManager];
-  v1 = _BridgeIconCachePath();
-  v7 = 0;
-  v2 = [v0 createDirectoryAtPath:v1 withIntermediateDirectories:0 attributes:0 error:&v7];
-  v3 = v7;
+  v1 = _BridgeIconCachePath(v0);
+  v8 = 0;
+  v2 = [v0 createDirectoryAtPath:v1 withIntermediateDirectories:0 attributes:0 error:&v8];
+  v3 = v8;
 
   if (v2)
   {
@@ -25,14 +25,18 @@ void ___WriteMMappedImage_block_invoke()
   if (!v4)
   {
     v5 = bps_utility_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v6 = _BridgeIconCachePath();
-      *buf = 138412546;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v3;
-      _os_log_impl(&dword_241E74000, v5, OS_LOG_TYPE_DEFAULT, "Failed to create (%@) dir: %@", buf, 0x16u);
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+      if (v6)
+      {
+        v7 = _BridgeIconCachePath(v6);
+        *buf = 138412546;
+        v10 = v7;
+        v11 = 2112;
+        v12 = v3;
+        _os_log_impl(&dword_241E74000, v5, OS_LOG_TYPE_DEFAULT, "Failed to create (%@) dir: %@", buf, 0x16u);
+      }
     }
   }
 }

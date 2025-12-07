@@ -1,6 +1,7 @@
 @interface LAPSFetchNewPasscodeResult
 - (LAPSFetchNewPasscodeResult)initWithPasscode:(id)passcode isPasscodeRecoveryEnabled:(BOOL)enabled;
 - (LAPSFetchNewPasscodeResult)initWithRawPasscode:(id)passcode;
+- (LAPSFetchNewPasscodeResult)initWithRawPasscode:(id)passcode isPasscodeRecoveryEnabled:(BOOL)enabled;
 @end
 
 @implementation LAPSFetchNewPasscodeResult
@@ -19,6 +20,16 @@
   }
 
   return v9;
+}
+
+- (LAPSFetchNewPasscodeResult)initWithRawPasscode:(id)passcode isPasscodeRecoveryEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  passcodeCopy = passcode;
+  v7 = [[LAPSPasscode alloc] initWithPasscode:passcodeCopy];
+
+  v8 = [(LAPSFetchNewPasscodeResult *)self initWithPasscode:v7 isPasscodeRecoveryEnabled:enabledCopy];
+  return v8;
 }
 
 - (LAPSFetchNewPasscodeResult)initWithRawPasscode:(id)passcode

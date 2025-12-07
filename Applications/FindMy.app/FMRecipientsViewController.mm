@@ -181,14 +181,14 @@
 
 - (NSArray)keyCommands
 {
-  sub_10007EBC0(&qword_1006AFC30);
+  sub_10007EBC0(&qword_1006AFC30, &unk_1005523E0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1005528C0;
   v4 = objc_opt_self();
   selfCopy = self;
   *(v3 + 32) = [v4 keyCommandWithInput:UIKeyInputEscape modifierFlags:0 action:"cancelActionWithSender:"];
 
-  sub_10000905C(0, &unk_1006B50D0);
+  sub_10000905C(0, &unk_1006B50D0, UIKeyCommand_ptr);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -204,7 +204,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for FMRecipientsViewController();
+  v5.super_class = type metadata accessor for FMRecipientsViewController(0);
   v4 = v5.receiver;
   [(FMRecipientsViewController *)&v5 viewWillAppear:appearCopy];
   sub_10019415C();
@@ -225,7 +225,7 @@
       [textView resignFirstResponder];
 
       v8.receiver = selfCopy;
-      v8.super_class = type metadata accessor for FMRecipientsViewController();
+      v8.super_class = type metadata accessor for FMRecipientsViewController(0);
       [(FMRecipientsViewController *)&v8 viewWillDisappear:disappearCopy];
 
       return;
@@ -250,7 +250,7 @@
 {
   disappearCopy = disappear;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for FMRecipientsViewController();
+  v6.super_class = type metadata accessor for FMRecipientsViewController(0);
   v4 = v6.receiver;
   [(FMRecipientsViewController *)&v6 viewDidDisappear:disappearCopy];
   v5 = *&v4[OBJC_IVAR____TtC6FindMy26FMRecipientsViewController_peopleSuggester];
@@ -308,7 +308,7 @@
   pickerCopy = picker;
   propertyCopy = property;
   selfCopy = self;
-  sub_10030DAE0(propertyCopy);
+  sub_10030DAE0(propertyCopy, selfCopy, v8);
 }
 
 @end

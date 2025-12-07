@@ -37,10 +37,10 @@
 
 - (NTSourceAvailabilityManager)initWithAvailabilityEntriesInPreferredOrder:(id)order queue:(id)queue
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   orderCopy = order;
   queueCopy = queue;
-  v18 = orderCopy;
+  v17 = orderCopy;
   if (!orderCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     [NTSourceAvailabilityManager initWithAvailabilityEntriesInPreferredOrder:queue:];
@@ -51,9 +51,9 @@
     [NTSourceAvailabilityManager initWithAvailabilityEntriesInPreferredOrder:queue:];
   }
 
-  v27.receiver = self;
-  v27.super_class = NTSourceAvailabilityManager;
-  v8 = [(NTSourceAvailabilityManager *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = NTSourceAvailabilityManager;
+  v8 = [(NTSourceAvailabilityManager *)&v26 init];
   if (v8)
   {
     v9 = [orderCopy copy];
@@ -62,36 +62,36 @@
 
     objc_storeStrong(&v8->_queue, queue);
     objc_initWeak(&location, v8);
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v11 = orderCopy;
-    v12 = [v11 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v21 objects:v27 count:16];
     if (v12)
     {
-      v13 = *v23;
+      v13 = *v22;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v23 != v13)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = *(*(&v22 + 1) + 8 * i);
-          v19[0] = MEMORY[0x277D85DD0];
-          v19[1] = 3221225472;
-          v19[2] = __81__NTSourceAvailabilityManager_initWithAvailabilityEntriesInPreferredOrder_queue___block_invoke;
-          v19[3] = &unk_2799835B8;
-          v20 = queueCopy;
-          objc_copyWeak(&v21, &location);
-          [v15 setAvailabilityChangedNotificationBlock:v19];
-          objc_destroyWeak(&v21);
+          v15 = *(*(&v21 + 1) + 8 * i);
+          v18[0] = MEMORY[0x277D85DD0];
+          v18[1] = 3221225472;
+          v18[2] = __81__NTSourceAvailabilityManager_initWithAvailabilityEntriesInPreferredOrder_queue___block_invoke;
+          v18[3] = &unk_2799835B8;
+          v19 = queueCopy;
+          objc_copyWeak(&v20, &location);
+          [v15 setAvailabilityChangedNotificationBlock:v18];
+          objc_destroyWeak(&v20);
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v21 objects:v27 count:16];
       }
 
       while (v12);
@@ -101,7 +101,6 @@
     objc_destroyWeak(&location);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -172,32 +171,28 @@ void __81__NTSourceAvailabilityManager_initWithAvailabilityEntriesInPreferredOrd
 
 - (void)initWithAvailabilityEntriesInPreferredOrder:queue:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "availabilityEntries"];
   *buf = 136315906;
-  v3 = "[NTSourceAvailabilityManager initWithAvailabilityEntriesInPreferredOrder:queue:]";
-  v4 = 2080;
-  v5 = "NTSourceAvailabilityManager.m";
-  v6 = 1024;
+  v2 = "[NTSourceAvailabilityManager initWithAvailabilityEntriesInPreferredOrder:queue:]";
+  v3 = 2080;
+  v4 = "NTSourceAvailabilityManager.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithAvailabilityEntriesInPreferredOrder:queue:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "availabilityEntries.count > 0"];
   *buf = 136315906;
-  v3 = "[NTSourceAvailabilityManager initWithAvailabilityEntriesInPreferredOrder:queue:]";
-  v4 = 2080;
-  v5 = "NTSourceAvailabilityManager.m";
-  v6 = 1024;
+  v2 = "[NTSourceAvailabilityManager initWithAvailabilityEntriesInPreferredOrder:queue:]";
+  v3 = 2080;
+  v4 = "NTSourceAvailabilityManager.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

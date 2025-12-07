@@ -19,7 +19,7 @@
 
 + (id)transportDataWithSequenceNumberManager:(id)manager
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   nextSendSequenceNumber = [managerCopy nextSendSequenceNumber];
   if (nextSendSequenceNumber)
@@ -37,18 +37,18 @@
       }
     }
 
-    v19[0] = 0;
-    v19[1] = 0;
+    v18[0] = 0;
+    v18[1] = 0;
     currentSessionIdentifier = [managerCopy currentSessionIdentifier];
-    [currentSessionIdentifier getUUIDBytes:v19];
+    [currentSessionIdentifier getUUIDBytes:v18];
 
-    v9 = [MEMORY[0x277CBEA90] dataWithBytes:v19 length:16];
+    v9 = [MEMORY[0x277CBEA90] dataWithBytes:v18 length:16];
     [(BLTPBTransportData *)v5 setSessionIdentifier:v9];
   }
 
   else
   {
-    v10 = blt_ids_log();
+    v10 = blt_ids_log(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(BLTPBTransportData(SequenceNumberManager) *)managerCopy transportDataWithSequenceNumberManager:v10, v11, v12, v13, v14, v15, v16];
@@ -56,8 +56,6 @@
 
     v5 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -191,39 +189,36 @@
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    sequenceNumber = self->_sequenceNumber;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    isInitialSequenceNumber = self->_isInitialSequenceNumber;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sessionIdentifier)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    sessionState = self->_sessionState;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_md5)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -308,7 +303,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 40);
   if (has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_sequenceNumber != *(equalCopy + 1))
@@ -329,7 +323,6 @@
       goto LABEL_24;
     }
 
-    v9 = *(equalCopy + 36);
     if (self->_isInitialSequenceNumber)
     {
       if ((*(equalCopy + 36) & 1) == 0)
@@ -358,13 +351,12 @@
   if (![(NSData *)sessionIdentifier isEqual:?])
   {
 LABEL_24:
-    v11 = 0;
+    v8 = 0;
     goto LABEL_25;
   }
 
   has = self->_has;
 LABEL_12:
-  v8 = *(equalCopy + 40);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_sessionState != *(equalCopy + 8))
@@ -381,17 +373,17 @@ LABEL_12:
   md5 = self->_md5;
   if (md5 | *(equalCopy + 2))
   {
-    v11 = [(NSData *)md5 isEqual:?];
+    v8 = [(NSData *)md5 isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v8 = 1;
   }
 
 LABEL_25:
 
-  return v11;
+  return v8;
 }
 
 - (unint64_t)hash

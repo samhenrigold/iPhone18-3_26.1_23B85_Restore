@@ -155,7 +155,7 @@
         v7 = [MEMORY[0x277CCA9B8] hk_error:100 format:@"Enumerator experienced fatal error while filling value buffer"];
       }
 
-      v8 = [v7 copy];
+      v8 = objc_msgSend_copy(v7);
       fatalError = self->_fatalError;
       self->_fatalError = v8;
 
@@ -402,7 +402,7 @@ LABEL_23:
     v19 = [MEMORY[0x277CCA9B8] hk_error:100 format:@"Enumerator experienced fatal error while filling value buffer"];
   }
 
-  v32 = [v19 copy];
+  v32 = objc_msgSend_copy(v19);
   fatalError = self->_fatalError;
   self->_fatalError = v32;
 
@@ -536,7 +536,7 @@ uint64_t __76__HDQuantitySampleSeriesDataEnumerator__fillValueBufferFromSQLiteWi
   }
 
   self->_lastFetchedDatumTime = timestamp;
-  std::deque<std::tuple<double,double,float>>::emplace_back<double &,double &,float &>(&self->_data.__map_.__first_, &timestampCopy, &valueCopy, &durationCopy);
+  std::deque<std::tuple<double,double,float>>::emplace_back<double &,double &,float &>(&self->_data, &timestampCopy, &valueCopy, &durationCopy);
 }
 
 - (id).cxx_construct

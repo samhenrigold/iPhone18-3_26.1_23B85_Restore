@@ -3,8 +3,8 @@
 - (BOOL)isPrepared;
 - (BWRenderListAnimator)initWithInitialParameters:(id)parameters initialRenderList:(id)list finalParameters:(id)finalParameters finalRenderList:(id)renderList animation:(int64_t)animation;
 - (id)interpolateParameters;
-- (uint64_t)_configureSpringSimulationWithAnimation:(uint64_t)result;
 - (uint64_t)_parametersContainLiveStageRendering:(uint64_t)rendering;
+- (void)_configureSpringSimulationWithAnimation:(void *)result;
 - (void)dealloc;
 - (void)prepareWithInputVideoFormat:(id)format inputMediaPropertiesByAttachedMediaKey:(id)key;
 - (void)setPrepared:(uint64_t)prepared;
@@ -533,7 +533,7 @@ LABEL_53:
   }
 }
 
-- (uint64_t)_configureSpringSimulationWithAnimation:(uint64_t)result
+- (void)_configureSpringSimulationWithAnimation:(void *)result
 {
   if (result)
   {

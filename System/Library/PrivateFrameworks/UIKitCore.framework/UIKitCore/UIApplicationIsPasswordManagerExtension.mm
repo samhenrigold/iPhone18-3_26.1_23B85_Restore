@@ -17,7 +17,7 @@ void ___UIApplicationIsPasswordManagerExtension_block_invoke()
     {
       v2 = v0;
       v1 = [v0 identifier];
-      byte_1EA992DB2 = [v1 isEqualToString:@"com.apple.authentication-services-credential-provider-ui"];
+      byte_1EA992DB2 = objc_msgSend_isEqualToString_(v1);
 
       v0 = v2;
     }

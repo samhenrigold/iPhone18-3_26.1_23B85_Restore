@@ -189,49 +189,42 @@
   memset(__b, 0, sizeof(__b));
   obj = [(NSMutableDictionary *)selfCopy->_alsNodes allValues];
   v8 = [obj countByEnumeratingWithState:__b objects:v14 count:16];
-  if (v8)
+  if (!v8)
   {
-    v4 = *__b[2];
-    v5 = 0;
-    v6 = v8;
-    while (1)
+    return 0;
+  }
+
+  v4 = *__b[2];
+  v5 = 0;
+  v6 = v8;
+  while (1)
+  {
+    v3 = v5;
+    if (*__b[2] != v4)
     {
-      v3 = v5;
-      if (*__b[2] != v4)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v10 = 0;
-      v10 = *(__b[1] + 8 * v5);
-      if (([v10 builtIn] & 1) == 0)
-      {
-        break;
-      }
-
-      ++v5;
-      if (v3 + 1 >= v6)
-      {
-        v5 = 0;
-        v6 = [obj countByEnumeratingWithState:__b objects:v14 count:16];
-        if (!v6)
-        {
-          goto LABEL_9;
-        }
-      }
+      objc_enumerationMutation(obj);
     }
 
-    v13 = 1;
+    v10 = 0;
+    v10 = *(__b[1] + 8 * v5);
+    if (([v10 builtIn] & 1) == 0)
+    {
+      break;
+    }
+
+    ++v5;
+    if (v3 + 1 >= v6)
+    {
+      v5 = 0;
+      v6 = [obj countByEnumeratingWithState:__b objects:v14 count:16];
+      if (!v6)
+      {
+        return 0;
+      }
+    }
   }
 
-  else
-  {
-LABEL_9:
-    v13 = 0;
-  }
-
-  *MEMORY[0x1E69E9840];
-  return v13 & 1;
+  return 1;
 }
 
 - (BOOL)hasRearALS
@@ -242,49 +235,42 @@ LABEL_9:
   memset(__b, 0, sizeof(__b));
   obj = [(NSMutableDictionary *)selfCopy->_alsNodes allValues];
   v8 = [obj countByEnumeratingWithState:__b objects:v14 count:16];
-  if (v8)
+  if (!v8)
   {
-    v4 = *__b[2];
-    v5 = 0;
-    v6 = v8;
-    while (1)
+    return 0;
+  }
+
+  v4 = *__b[2];
+  v5 = 0;
+  v6 = v8;
+  while (1)
+  {
+    v3 = v5;
+    if (*__b[2] != v4)
     {
-      v3 = v5;
-      if (*__b[2] != v4)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v10 = 0;
-      v10 = *(__b[1] + 8 * v5);
-      if ([v10 placement] == 2 || objc_msgSend(v10, "location") == 258)
-      {
-        break;
-      }
-
-      ++v5;
-      if (v3 + 1 >= v6)
-      {
-        v5 = 0;
-        v6 = [obj countByEnumeratingWithState:__b objects:v14 count:16];
-        if (!v6)
-        {
-          goto LABEL_10;
-        }
-      }
+      objc_enumerationMutation(obj);
     }
 
-    v13 = 1;
+    v10 = 0;
+    v10 = *(__b[1] + 8 * v5);
+    if ([v10 placement] == 2 || objc_msgSend(v10, "location") == 258)
+    {
+      break;
+    }
+
+    ++v5;
+    if (v3 + 1 >= v6)
+    {
+      v5 = 0;
+      v6 = [obj countByEnumeratingWithState:__b objects:v14 count:16];
+      if (!v6)
+      {
+        return 0;
+      }
+    }
   }
 
-  else
-  {
-LABEL_10:
-    v13 = 0;
-  }
-
-  *MEMORY[0x1E69E9840];
-  return v13 & 1;
+  return 1;
 }
 
 - (void)cancelFirstSampleTimeout
@@ -321,17 +307,15 @@ LABEL_10:
       _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_INFO, "ts=%f Cancelling first sample timeout", v6, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-uint64_t __28__CBColorModuleShared_start__block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__28__CBColorModuleShared_start__block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
     if (a3)
     {
-      return [*(result + 32) sendNotificationForKey:a2 andValue:a3];
+      return [result[4] sendNotificationForKey:a2 andValue:a3];
     }
   }
 
@@ -391,9 +375,7 @@ uint64_t __28__CBColorModuleShared_start__block_invoke(uint64_t result, uint64_t
   v38 = [(CBColorModuleShared *)self initWithBrightnessControl:control queue:queue backlightConfig:config moduleType:type];
   if (!v38)
   {
-LABEL_34:
-    v39 = v38;
-    goto LABEL_44;
+    return v38;
   }
 
   v38->_modules = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -493,7 +475,7 @@ LABEL_34:
       }
     }
 
-    goto LABEL_34;
+    return v38;
   }
 
   if (_COREBRIGHTNESS_LOG_DEFAULT)
@@ -549,10 +531,7 @@ LABEL_34:
   [(CBColorModuleShared *)v38 stop];
   MEMORY[0x1E69E5920](v38);
   v38 = 0;
-  v39 = 0;
-LABEL_44:
-  *MEMORY[0x1E69E9840];
-  return v39;
+  return 0;
 }
 
 - (id)initDFRHarmonyWithSKL:(id)l queue:(id)queue
@@ -564,9 +543,7 @@ LABEL_44:
   v23 = [(CBColorModuleShared *)self initWithBrightnessControl:l queue:queue backlightConfig:0 moduleType:3];
   if (!v23)
   {
-LABEL_11:
-    v24 = v23;
-    goto LABEL_21;
+    return v23;
   }
 
   v23->super._logHandle = os_log_create("com.apple.CoreBrightness.CBColorModule.DFR", "default");
@@ -580,7 +557,7 @@ LABEL_11:
       _os_log_impl(&dword_1DE8E5000, logHandle, v15, "initialized DFR color module (display #%u)", v25, 8u);
     }
 
-    goto LABEL_11;
+    return v23;
   }
 
   if (_COREBRIGHTNESS_LOG_DEFAULT)
@@ -636,10 +613,7 @@ LABEL_11:
   [(CBColorModuleShared *)v23 stop];
   MEMORY[0x1E69E5920](v23);
   v23 = 0;
-  v24 = 0;
-LABEL_21:
-  *MEMORY[0x1E69E9840];
-  return v24;
+  return 0;
 }
 
 - (CBColorModuleShared)initWithBrightnessControl:(id)control queue:(id)queue backlightConfig:(id)config moduleType:(unint64_t)type
@@ -788,7 +762,6 @@ uint64_t __28__CBColorModuleShared_start__block_invoke_2(uint64_t a1)
   }
 
   [(StockholmALSCoexHandler *)selfCopy->_nfcCoex stop];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -921,8 +894,6 @@ uint64_t __28__CBColorModuleShared_start__block_invoke_2(uint64_t a1)
       _os_log_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_INFO, "Ammolite without Color ALS: %d", v13, 8u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)displayBrightnessFactorPropertyHandler:(id)handler
@@ -984,8 +955,6 @@ uint64_t __28__CBColorModuleShared_start__block_invoke_2(uint64_t a1)
   {
     CFXResetAdaptation(self->_colorStruct.cfx, 0.1);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)displayBrightnessFactorUpdate:(float)update
@@ -1043,7 +1012,7 @@ uint64_t __28__CBColorModuleShared_start__block_invoke_2(uint64_t a1)
           sample = [(CBColorFilter *)selfCopy->_colorFilter sample];
           if (sample)
           {
-            [(CBColorSample *)sample colorSample];
+            objc_msgSend_colorSample(sample);
           }
 
           else
@@ -1090,7 +1059,7 @@ uint64_t __28__CBColorModuleShared_start__block_invoke_2(uint64_t a1)
                 v25 = [copyALSSamples objectAtIndexedSubscript:0];
                 if (v25)
                 {
-                  [v25 colorSample];
+                  objc_msgSend_colorSample(v25);
                 }
 
                 else
@@ -1102,7 +1071,7 @@ uint64_t __28__CBColorModuleShared_start__block_invoke_2(uint64_t a1)
                 v19 = [copyALSSamples objectAtIndexedSubscript:0];
                 if (v19)
                 {
-                  [v19 colorSample];
+                  objc_msgSend_colorSample(v19);
                 }
 
                 else
@@ -1215,8 +1184,6 @@ uint64_t __28__CBColorModuleShared_start__block_invoke_2(uint64_t a1)
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)copyALSSamples
@@ -1263,7 +1230,6 @@ uint64_t __28__CBColorModuleShared_start__block_invoke_2(uint64_t a1)
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -1346,7 +1312,6 @@ uint64_t __28__CBColorModuleShared_start__block_invoke_2(uint64_t a1)
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v20 & 1;
 }
 
@@ -1400,8 +1365,6 @@ uint64_t __28__CBColorModuleShared_start__block_invoke_2(uint64_t a1)
     dispatch_source_set_event_handler(timeoutTimer, &handler);
     dispatch_resume(selfCopy->_timeoutTimer);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t a1)
@@ -1495,8 +1458,6 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
       _os_log_error_impl(&dword_1DE8E5000, v2, v3, "Timer is invalid", v8, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)BLRFactorPropertyHandler:(id)handler
@@ -1647,12 +1608,11 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
     {
       *&v4 = CFXOverrideBlueLightReductionCCTRange(self->_colorStruct.cfx, v11, *&v10, *(&v10 + 1));
       [(CBColorModuleShared *)self setPreferenceInternal:handler forKey:@"CBBlueLightReductionCCTRange", v4];
-      v7 = 1;
+      return 1;
     }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v7 & 1;
+  return v7;
 }
 
 - (BOOL)CALabShiftPropertyHandler:(id)handler
@@ -1763,8 +1723,7 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
     }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v10 & 1;
+  return v10;
 }
 
 - (BOOL)CAStrengthPropertyHandler:(id)handler
@@ -1800,33 +1759,34 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
 
 - (BOOL)CAFixedStrengthPropertyHandler:(id)handler
 {
-  v6 = 0;
+  v7 = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [handler floatValue];
-    v5 = v3;
+    v6 = v3;
     if (v3 >= 0.0)
     {
-      v5 = fminf(fmaxf(v3, 0.0), 1.0);
+      v6 = fminf(fmaxf(v3, 0.0), 1.0);
     }
 
     [(CBColorModuleShared *)self setPreferenceInternal:handler forKey:@"CBFixedAdaptationStrength"];
-    self->_colorStruct.harmonyFixedStrength = v5;
+    self->_colorStruct.harmonyFixedStrength = v6;
     if (self->_colorStruct.harmonyFixedStrength < 0.0)
     {
-      CFXSetAmbientAdaptationStrength(self->_colorStruct.cfx, self->_colorStruct.harmonyStrength, 0.0);
+      *&v4 = self->_colorStruct.harmonyStrength;
     }
 
     else
     {
-      CFXSetAmbientAdaptationStrength(self->_colorStruct.cfx, self->_colorStruct.harmonyFixedStrength, 0.0);
+      *&v4 = self->_colorStruct.harmonyFixedStrength;
     }
 
+    CFXSetAmbientAdaptationStrength(self->_colorStruct.cfx, v4, 0.0);
     return 1;
   }
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)CAStrengthRampPeriodTweakPropertyHandler:(id)handler
@@ -1852,77 +1812,78 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
   if (self->_colorStruct.harmonyHWSupported && self->_colorStruct.cfx && self->_colorStruct.harmonyFixedStrength < 0.0)
   {
     self->_colorStruct.harmonyStrength = update;
-    CFXSetAmbientAdaptationStrength(self->_colorStruct.cfx, self->_colorStruct.harmonyStrength, period);
+    *&v4 = self->_colorStruct.harmonyStrength;
+    CFXSetAmbientAdaptationStrength(self->_colorStruct.cfx, v4, period);
   }
 }
 
 - (BOOL)CAWeakestColorAdaptationModePropertyHandler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v32 = a2;
+  v31 = a2;
   handlerCopy = handler;
-  v30 = 0;
+  v29 = 0;
   handlerCopy2 = handler;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v29 = [handlerCopy objectForKey:@"ColorAdaptationModesTargetSub"];
-    v16 = v29;
+    v28 = [handlerCopy objectForKey:@"ColorAdaptationModesTargetSub"];
+    v15 = v28;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v28 = [v29 count];
-      if (v28)
+      v27 = [v28 count];
+      if (v27)
       {
-        v27 = v11;
-        v15 = v11 - ((4 * v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v26 = v28;
-        for (i = 0; i < v28; ++i)
+        v26 = v10;
+        v14 = &v10[-((4 * v27 + 15) & 0xFFFFFFFFFFFFFFF0)];
+        v25 = v27;
+        for (i = 0; i < v27; ++i)
         {
-          v24 = [v29 objectAtIndex:i];
-          v14 = v24;
+          v23 = [v28 objectAtIndex:i];
+          v13 = v23;
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            intValue = [v24 intValue];
-            *(v15 + 4 * i) = intValue;
+            intValue = [v23 intValue];
+            *&v14[4 * i] = intValue;
           }
         }
 
-        v23 = [handlerCopy objectForKey:@"ColorAdaptationStrengthPeriod"];
-        v13 = v23;
+        v22 = [handlerCopy objectForKey:@"ColorAdaptationStrengthPeriod"];
+        v12 = v22;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v23 floatValue];
-          v22 = v4;
+          [v22 floatValue];
+          v21 = v4;
           if (selfCopy->_colorStruct.harmonyHWSupported && selfCopy->_colorStruct.cfx && selfCopy->_colorStruct.harmonyFixedStrength < 0.0)
           {
-            v30 = 1;
-            v12 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
-            CFXSetWeakestAmbientAdaptationMode(selfCopy->_colorStruct.cfx, v15, v28, v22);
-            v21 = 0.0;
-            v20 = CFXGetAmbientAdaptationMode(*(&selfCopy->super.super.isa + v12[661]), &v21);
+            v29 = 1;
+            v11 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
+            CFXSetWeakestAmbientAdaptationMode(selfCopy->_colorStruct.cfx, v14, v27, v21);
+            v20 = 0.0;
+            v19 = CFXGetAmbientAdaptationMode(*(&selfCopy->super.super.isa + v11[661]), &v20);
             v5 = objc_alloc(MEMORY[0x1E696AD98]);
-            v19 = [v5 initWithInt:v20];
-            if (v19)
+            v18 = [v5 initWithInt:v19];
+            if (v18)
             {
-              [(NSMutableDictionary *)selfCopy->_properties setObject:v19 forKey:@"ColorAdaptationMode"];
+              [(NSMutableDictionary *)selfCopy->_properties setObject:v18 forKey:@"ColorAdaptationMode"];
             }
 
-            selfCopy->_colorStruct.harmonyStrength = v21;
+            selfCopy->_colorStruct.harmonyStrength = v20;
             v6 = objc_alloc(MEMORY[0x1E696AD98]);
-            *&v7 = v21;
-            v19 = [v6 initWithFloat:v7];
-            if (v19)
+            *&v7 = v20;
+            v18 = [v6 initWithFloat:v7];
+            if (v18)
             {
               v8 = objc_alloc(MEMORY[0x1E695DF20]);
-              v18 = [v8 initWithObjectsAndKeys:{v19, @"ColorAdaptationStrengthSub", v23, @"ColorAdaptationStrengthPeriod", 0}];
+              v17 = [v8 initWithObjectsAndKeys:{v18, @"ColorAdaptationStrengthSub", v22, @"ColorAdaptationStrengthPeriod", 0}];
 
-              if (v18)
+              if (v17)
               {
-                [(NSMutableDictionary *)selfCopy->_properties setObject:v18 forKey:@"ColorAdaptationStrength"];
+                [(NSMutableDictionary *)selfCopy->_properties setObject:v17 forKey:@"ColorAdaptationStrength"];
               }
             }
           }
@@ -1931,9 +1892,7 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
     }
   }
 
-  v11[3] = v30 & 1;
-  v9 = __OFSUB__(*MEMORY[0x1E69E9840], v34);
-  return v30 & 1;
+  return v29 & 1;
 }
 
 - (BOOL)CAWeakestColorAdaptationModeAnimatedPropertyHandler:(id)handler
@@ -2112,7 +2071,6 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -2244,7 +2202,6 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
     MEMORY[0x1E69E5920](v16);
   }
 
-  *MEMORY[0x1E69E9840];
   return v26 & 1;
 }
 
@@ -2395,7 +2352,7 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
       selfCopy->_ammoliteEnabledStatus = 0;
     }
 
-    v28 = 1;
+    return 1;
   }
 
   else
@@ -2429,11 +2386,8 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
       _os_log_error_impl(&dword_1DE8E5000, v24, v23, "Wrong value for Ammolite property handler: (%{public}@) %@", v29, 0x16u);
     }
 
-    v28 = 0;
+    return 0;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v28 & 1;
 }
 
 - (void)initAmmolite
@@ -2778,8 +2732,6 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)ammoliteSupported
@@ -2839,7 +2791,6 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Ammolite%s supported", v11, 0xCu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v8 & 1;
 }
 
@@ -2863,16 +2814,17 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
 
     if (self->_colorStruct.harmonyActive)
     {
-      cfx = self->_colorStruct.cfx;
       if (v3)
       {
-        CFXSetAmbientAdaptationStrength(cfx, 0.0, v7);
+        harmonyStrength = 0.0;
       }
 
       else
       {
-        CFXSetAmbientAdaptationStrength(cfx, self->_colorStruct.harmonyStrength, v7);
+        harmonyStrength = self->_colorStruct.harmonyStrength;
       }
+
+      CFXSetAmbientAdaptationStrength(self->_colorStruct.cfx, COERCE_DOUBLE(LODWORD(harmonyStrength)), v7);
     }
 
     if (self->_colorStruct.nightModeSupported)
@@ -2912,9 +2864,9 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
 
 - (BOOL)CoreBrightnessFeaturesDisabledPropertyHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v33 = a2;
+  v35 = a2;
   handlerCopy = handler;
   if (self->super._logHandle)
   {
@@ -2936,105 +2888,107 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
     logHandle = inited;
   }
 
-  v31 = logHandle;
-  v30 = OS_LOG_TYPE_DEBUG;
+  v33 = logHandle;
+  v32 = OS_LOG_TYPE_DEBUG;
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
   {
-    __os_log_helper_16_2_1_8_64(v35, handlerCopy);
-    _os_log_debug_impl(&dword_1DE8E5000, v31, v30, "CoreBrightnessFeaturesDisabled handler called with dict %@", v35, 0xCu);
+    __os_log_helper_16_2_1_8_64(v37, handlerCopy);
+    _os_log_debug_impl(&dword_1DE8E5000, v33, v32, "CoreBrightnessFeaturesDisabled handler called with dict %@", v37, 0xCu);
   }
 
-  v29 = 0;
-  v28 = 0;
+  v31 = 0;
+  v30 = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v28 = [handlerCopy objectForKey:@"DisableWPShift"];
+    v30 = [handlerCopy objectForKey:@"DisableWPShift"];
   }
 
   else
   {
-    v28 = MEMORY[0x1E695E110];
+    v30 = MEMORY[0x1E695E110];
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    selfCopy->_colorEffectsEnabled = ([v28 BOOLValue] ^ 1) & 1;
+    selfCopy->_colorEffectsEnabled = ([v30 BOOLValue] ^ 1) & 1;
     [objc_msgSend(handlerCopy objectForKey:{@"ReenablementRampPeriod", "floatValue"}];
-    v27 = v3;
+    v29 = v3;
     [objc_msgSend(handlerCopy objectForKey:{@"DisablementRampPeriod", "floatValue"}];
-    v26 = v4;
+    v28 = v4;
     if (selfCopy->_colorStruct.harmonyActive)
     {
       if (selfCopy->_colorEffectsEnabled)
       {
         if (selfCopy->super._logHandle)
         {
-          v17 = selfCopy->super._logHandle;
+          v19 = selfCopy->super._logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v16 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v18 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v16 = init_default_corebrightness_log();
+            v18 = init_default_corebrightness_log();
           }
 
-          v17 = v16;
+          v19 = v18;
         }
 
-        v25 = v17;
-        v24 = 2;
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v27 = v19;
+        v26 = 2;
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
-          v14 = v25;
-          v15 = v24;
-          __os_log_helper_16_0_0(v23);
-          _os_log_debug_impl(&dword_1DE8E5000, v14, v15, "Suspend harmony: OFF", v23, 2u);
+          v16 = v27;
+          v17 = v26;
+          __os_log_helper_16_0_0(v25);
+          _os_log_debug_impl(&dword_1DE8E5000, v16, v17, "Suspend harmony: OFF", v25, 2u);
         }
 
-        CFXSuspendHarmony(selfCopy->_colorStruct.cfx, 0, v27);
+        *&v5 = v29;
+        CFXSuspendHarmony(selfCopy->_colorStruct.cfx, 0, v5);
       }
 
       else
       {
         if (selfCopy->super._logHandle)
         {
-          v13 = selfCopy->super._logHandle;
+          v15 = selfCopy->super._logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v12 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v14 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v12 = init_default_corebrightness_log();
+            v14 = init_default_corebrightness_log();
           }
 
-          v13 = v12;
+          v15 = v14;
         }
 
-        v22 = v13;
-        v21 = 2;
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v24 = v15;
+        v23 = 2;
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
-          v10 = v22;
-          v11 = v21;
-          __os_log_helper_16_0_0(v20);
-          _os_log_debug_impl(&dword_1DE8E5000, v10, v11, "Suspend harmony: ON", v20, 2u);
+          v12 = v24;
+          v13 = v23;
+          __os_log_helper_16_0_0(v22);
+          _os_log_debug_impl(&dword_1DE8E5000, v12, v13, "Suspend harmony: ON", v22, 2u);
         }
 
-        CFXSuspendHarmony(selfCopy->_colorStruct.cfx, 1, v26);
+        *&v6 = v28;
+        CFXSuspendHarmony(selfCopy->_colorStruct.cfx, 1, v6);
       }
     }
 
@@ -3043,23 +2997,23 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
       cfx = selfCopy->_colorStruct.cfx;
       if (!selfCopy->_colorEffectsEnabled)
       {
-        v5 = 0;
+        v7 = 0;
       }
 
       else
       {
-        v5 = -1;
+        v7 = -1;
       }
 
-      v9 = v5;
+      v11 = v7;
       if (selfCopy->_colorEffectsEnabled)
       {
-        CFXSetBlueReductionFactorOverride(cfx, v9, v27);
+        CFXSetBlueReductionFactorOverride(cfx, v11, v29);
       }
 
       else
       {
-        CFXSetBlueReductionFactorOverride(cfx, v9, v26);
+        CFXSetBlueReductionFactorOverride(cfx, v11, v28);
       }
     }
 
@@ -3068,8 +3022,8 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
       if (selfCopy->_colorEffectsEnabled)
       {
         [(CBColorModuleShared *)selfCopy initAmmolite];
-        v6 = CFXAmmoliteEnabled(selfCopy->_colorStruct.cfx);
-        selfCopy->_ammoliteEnabledStatus = v6;
+        v8 = CFXAmmoliteEnabled(selfCopy->_colorStruct.cfx);
+        selfCopy->_ammoliteEnabledStatus = v8;
       }
 
       else
@@ -3085,11 +3039,10 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
       selfCopy->_ammoliteEnabledStatus = 0;
     }
 
-    v29 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v29 & 1;
+  return v31;
 }
 
 - (BOOL)serializedAggregatedConfigPropertyHandler:(id)handler
@@ -3288,15 +3241,15 @@ uint64_t __45__CBColorModuleShared_armFirstALSSampleTimer__block_invoke(uint64_t
   }
 }
 
-uint64_t __41__CBColorModuleShared_enableMitigations___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+void *__41__CBColorModuleShared_enableMitigations___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v9 = *MEMORY[0x1E69E9840];
   if (a2 && a3)
   {
-    if (*(*(result + 32) + 16))
+    if (*(result[4] + 16))
     {
-      v4 = *(*(result + 32) + 16);
+      v4 = *(result[4] + 16);
     }
 
     else
@@ -3320,10 +3273,9 @@ uint64_t __41__CBColorModuleShared_enableMitigations___block_invoke(uint64_t res
       _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "Notification block key=%@, value=%@\n", v8, 0x16u);
     }
 
-    result = [*(v5 + 32) sendNotificationForKey:a2 andValue:a3];
+    return [v5[4] sendNotificationForKey:a2 andValue:a3];
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3575,17 +3527,16 @@ uint64_t __41__CBColorModuleShared_enableMitigations___block_invoke(uint64_t res
     MEMORY[0x1E69E5920](v54);
   }
 
-  *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (BOOL)ttRestrictionHandler:(id)handler
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = [handler intValue] != 0;
+    v7 = [handler intValue] != 0;
     if (self->super._logHandle)
     {
       logHandle = self->super._logHandle;
@@ -3593,28 +3544,26 @@ uint64_t __41__CBColorModuleShared_enableMitigations___block_invoke(uint64_t res
 
     else
     {
-      v5 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-      logHandle = v5;
+      v4 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+      logHandle = v4;
     }
 
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_0_1_4_0(v11, v8);
-      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Setting TT restriction = %d\n", v11, 8u);
+      __os_log_helper_16_0_1_4_0(v10, v7);
+      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Setting TT restriction = %d\n", v10, 8u);
     }
   }
 
-  v7 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.CoreBrightness"];
-  if (v7)
+  v6 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.CoreBrightness"];
+  if (v6)
   {
-    [v7 setObject:handler forKey:@"TTRestrictionEnable"];
-    [v7 synchronize];
-    MEMORY[0x1E69E5920](v7);
+    [v6 setObject:handler forKey:@"TTRestrictionEnable"];
+    [v6 synchronize];
+    MEMORY[0x1E69E5920](v6);
   }
 
-  ttRestrictionReload = [(CBColorModuleShared *)self ttRestrictionReload];
-  *MEMORY[0x1E69E9840];
-  return ttRestrictionReload;
+  return [(CBColorModuleShared *)self ttRestrictionReload];
 }
 
 - (BOOL)CEEnablePropertyHandler:(id)handler key:(id)key
@@ -3663,7 +3612,6 @@ uint64_t __41__CBColorModuleShared_enableMitigations___block_invoke(uint64_t res
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
@@ -3683,7 +3631,7 @@ uint64_t __41__CBColorModuleShared_enableMitigations___block_invoke(uint64_t res
     sample = [(CBColorFilter *)selfCopy->_colorFilter sample];
     if (sample)
     {
-      [(CBColorSample *)sample colorSample];
+      objc_msgSend_colorSample(sample);
     }
 
     else
@@ -3781,11 +3729,10 @@ uint64_t __41__CBColorModuleShared_enableMitigations___block_invoke(uint64_t res
     [(CBColorModuleShared *)self updateSensorPolicy];
     [(CBColorModuleShared *)self updateColorFilterMode];
     [(CBColorModuleShared *)self updateAvailability];
-    v8 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v8 & 1;
+  return v8;
 }
 
 - (BOOL)displayPresetHarmonyHandler:(id)handler
@@ -3828,11 +3775,10 @@ uint64_t __41__CBColorModuleShared_enableMitigations___block_invoke(uint64_t res
     }
 
     [(CBColorModuleShared *)self sendNotificationForKey:@"CBDisplayPresetDisableHarmony" andValue:handler];
-    v6 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v6 & 1;
+  return v6;
 }
 
 - (void)handleHIDEventInternal:(__IOHIDEvent *)internal from:(__IOHIDServiceClient *)from
@@ -3853,12 +3799,18 @@ uint64_t __41__CBColorModuleShared_enableMitigations___block_invoke(uint64_t res
     v60 = IOHIDEventGetIntegerValue() / 1000000.0;
     harmonyStrength = selfCopy->_colorStruct.harmonyStrength;
     v58 = 0;
-    if (v61 >= 0.0 && v61 <= 1.0)
+    v6 = v61;
+    if (v61 >= 0.0)
     {
-      v57 = 1035489772;
-      v6 = 0.27 - (0.09 * v61);
-      harmonyStrength = v6;
-      v58 = 1;
+      v6 = v61;
+      if (v61 <= 1.0)
+      {
+        v57 = 1035489772;
+        v6 = 0.27 - (0.09 * v61);
+        *&v6 = v6;
+        harmonyStrength = *&v6;
+        v58 = 1;
+      }
     }
 
     if ((v58 & 1) != 0 && selfCopy->_colorStruct.harmonyHWSupported && selfCopy->_colorStruct.cfx)
@@ -3866,7 +3818,8 @@ uint64_t __41__CBColorModuleShared_enableMitigations___block_invoke(uint64_t res
       selfCopy->_colorStruct.harmonyStrength = harmonyStrength;
       if (selfCopy->_colorStruct.harmonyFixedStrength < 0.0)
       {
-        CFXSetAmbientAdaptationStrength(selfCopy->_colorStruct.cfx, selfCopy->_colorStruct.harmonyStrength, v60);
+        *&v6 = selfCopy->_colorStruct.harmonyStrength;
+        CFXSetAmbientAdaptationStrength(selfCopy->_colorStruct.cfx, v6, v60);
       }
 
       if (selfCopy->super._logHandle)
@@ -3898,13 +3851,13 @@ uint64_t __41__CBColorModuleShared_enableMitigations___block_invoke(uint64_t res
       }
     }
 
-    goto LABEL_93;
+    return;
   }
 
   v54 = [CBHIDEvent newEvent:internalCopy andService:fromCopy];
   if (!v54)
   {
-    goto LABEL_93;
+    return;
   }
 
   objc_opt_class();
@@ -3912,7 +3865,7 @@ uint64_t __41__CBColorModuleShared_enableMitigations___block_invoke(uint64_t res
   {
 LABEL_92:
     MEMORY[0x1E69E5920](v54);
-    goto LABEL_93;
+    return;
   }
 
   if (!selfCopy->_displayOn)
@@ -3947,7 +3900,7 @@ LABEL_92:
     }
 
     MEMORY[0x1E69E5920](v54);
-    goto LABEL_93;
+    return;
   }
 
   if (!selfCopy->_firstALSEventArrived || !selfCopy->_nfcCoex || ![(StockholmALSCoexHandler *)selfCopy->_nfcCoex dropALSColorSamples])
@@ -4158,8 +4111,6 @@ LABEL_90:
   }
 
   MEMORY[0x1E69E5920](v54);
-LABEL_93:
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)handleALSEvent:(id)event
@@ -4294,7 +4245,7 @@ LABEL_93:
       memset(v20, 0, sizeof(v20));
       if (eventCopy)
       {
-        [eventCopy colorSample];
+        objc_msgSend_colorSample(eventCopy);
       }
 
       else
@@ -4330,8 +4281,6 @@ LABEL_93:
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)getRegistryIDForHIDServiceClient:(__IOHIDServiceClient *)client
@@ -4835,7 +4784,7 @@ void __43__CBColorModuleShared_handleHIDEvent_from___block_invoke(uint64_t a1)
       _os_log_debug_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEBUG, "service: %p relevant:%d services-> %@", v115, 0x1Cu);
     }
 
-    v114 = v110 & 1;
+    return v110 & 1;
   }
 
   else
@@ -4870,22 +4819,19 @@ void __43__CBColorModuleShared_handleHIDEvent_from___block_invoke(uint64_t a1)
       _os_log_error_impl(&dword_1DE8E5000, log, v43, "HID service client pointer is NULL", v107, 2u);
     }
 
-    v114 = 0;
+    return 0;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v114 & 1;
 }
 
-uint64_t __43__CBColorModuleShared_addHIDServiceClient___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+void *__43__CBColorModuleShared_addHIDServiceClient___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v9 = *MEMORY[0x1E69E9840];
   if (a2 && a3)
   {
-    if (*(*(*(*(result + 32) + 8) + 40) + 16))
+    if (*(*(*(result[4] + 8) + 40) + 16))
     {
-      v4 = *(*(*(*(result + 32) + 8) + 40) + 16);
+      v4 = *(*(*(result[4] + 8) + 40) + 16);
     }
 
     else
@@ -4909,10 +4855,9 @@ uint64_t __43__CBColorModuleShared_addHIDServiceClient___block_invoke(uint64_t r
       _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "Notification block key=%@, value=%@\n", v8, 0x16u);
     }
 
-    result = [*(*(*(v5 + 32) + 8) + 40) handleFilterNotificationForKey:a2 withProperty:a3];
+    return [*(*(v5[4] + 8) + 40) handleFilterNotificationForKey:a2 withProperty:a3];
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4928,15 +4873,15 @@ uint64_t __43__CBColorModuleShared_addHIDServiceClient___block_invoke_214(uint64
   return result;
 }
 
-uint64_t __43__CBColorModuleShared_addHIDServiceClient___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
+void *__43__CBColorModuleShared_addHIDServiceClient___block_invoke_2(void *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v9 = *MEMORY[0x1E69E9840];
   if (a2 && a3)
   {
-    if (*(*(*(*(result + 32) + 8) + 40) + 16))
+    if (*(*(*(result[4] + 8) + 40) + 16))
     {
-      v4 = *(*(*(*(result + 32) + 8) + 40) + 16);
+      v4 = *(*(*(result[4] + 8) + 40) + 16);
     }
 
     else
@@ -4960,10 +4905,9 @@ uint64_t __43__CBColorModuleShared_addHIDServiceClient___block_invoke_2(uint64_t
       _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "Notification block key=%@, value=%@\n", v8, 0x16u);
     }
 
-    result = [*(*(*(v5 + 32) + 8) + 40) handleFilterNotificationForKey:a2 withProperty:a3];
+    return [*(*(v5[4] + 8) + 40) handleFilterNotificationForKey:a2 withProperty:a3];
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5144,8 +5088,6 @@ uint64_t __43__CBColorModuleShared_addHIDServiceClient___block_invoke_2(uint64_t
 
     MEMORY[0x1E69E5920](v16);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAvailability
@@ -5315,7 +5257,6 @@ LABEL_19:
 
   [(CBColorModuleShared *)selfCopy updateHarmonySupport];
   [(CBColorModuleShared *)selfCopy updateActivity];
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)supportsColorRepairability
@@ -5397,7 +5338,7 @@ LABEL_19:
           sample = [(CBColorFilter *)selfCopy->_colorFilter sample];
           if (sample)
           {
-            [(CBColorSample *)sample colorSample];
+            objc_msgSend_colorSample(sample);
           }
 
           else
@@ -5515,8 +5456,6 @@ LABEL_19:
 
     [(CBColorModuleShared *)selfCopy updateAggregatedConfigWithObject:v5 forKey:@"ColorAdaptationActive"];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __37__CBColorModuleShared_updateActivity__block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
@@ -5833,8 +5772,6 @@ void __37__CBColorModuleShared_updateActivity__block_invoke(uint64_t a1, uint64_
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)initColorStruct
@@ -6041,8 +5978,6 @@ void __37__CBColorModuleShared_updateActivity__block_invoke(uint64_t a1, uint64_
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)enableCarryLog
@@ -6229,9 +6164,9 @@ float __77__CBColorModuleShared_parseAdaptationModeMappingArray_strengths_streng
 
 - (void)activateColorAdaptation
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v49 = a2;
+  v50 = a2;
   if (self->_colorStruct.cfx)
   {
     if (!selfCopy->_colorStruct.harmonyHWSupported)
@@ -6257,12 +6192,12 @@ float __77__CBColorModuleShared_parseAdaptationModeMappingArray_strengths_streng
         logHandle = inited;
       }
 
-      v48 = logHandle;
-      v47 = OS_LOG_TYPE_INFO;
+      v49 = logHandle;
+      v48 = OS_LOG_TYPE_INFO;
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
       {
-        __os_log_helper_16_0_1_4_0(v53, selfCopy->_colorStruct.harmonyHWSupported);
-        _os_log_impl(&dword_1DE8E5000, v48, v47, "Harmony supported?? %d", v53, 8u);
+        __os_log_helper_16_0_1_4_0(v54, selfCopy->_colorStruct.harmonyHWSupported);
+        _os_log_impl(&dword_1DE8E5000, v49, v48, "Harmony supported?? %d", v54, 8u);
       }
 
       if (selfCopy->_colorStruct.harmonyHWSupported)
@@ -6278,55 +6213,55 @@ float __77__CBColorModuleShared_parseAdaptationModeMappingArray_strengths_streng
           selfCopy->_ammoliteEnabledStatus = 1;
         }
 
+        v47 = 0;
         v46 = 0;
         v45 = 0;
-        v44 = 0;
-        if (selfCopy->_backlightConfig && ([(CBPrimitiveConfigurationProvider *)selfCopy->_backlightConfig loadUint:@"truetone-shift-a" toDestination:&v45]& 1) != 0 && ([(CBPrimitiveConfigurationProvider *)selfCopy->_backlightConfig loadUint:@"truetone-shift-b" toDestination:&v44]& 1) != 0)
+        if (selfCopy->_backlightConfig && ([(CBPrimitiveConfigurationProvider *)selfCopy->_backlightConfig loadUint:@"truetone-shift-a" toDestination:&v46]& 1) != 0 && ([(CBPrimitiveConfigurationProvider *)selfCopy->_backlightConfig loadUint:@"truetone-shift-b" toDestination:&v45]& 1) != 0)
         {
-          v2 = v45 / 65536.0;
-          *&v46 = v2;
-          v3 = v44 / 65536.0;
-          *(&v46 + 1) = v3;
+          v2 = v46 / 65536.0;
+          *&v47 = v2;
+          v3 = v45 / 65536.0;
+          *(&v47 + 1) = v3;
           if (selfCopy->super._logHandle)
           {
-            v25 = selfCopy->super._logHandle;
+            v26 = selfCopy->super._logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v24 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v25 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v24 = init_default_corebrightness_log();
+              v25 = init_default_corebrightness_log();
             }
 
-            v25 = v24;
+            v26 = v25;
           }
 
-          v43 = v25;
-          v42 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v44 = v26;
+          v43 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
-            __os_log_helper_16_0_2_8_0_8_0(v52, COERCE__INT64(*&v46), COERCE__INT64(*(&v46 + 1)));
-            _os_log_impl(&dword_1DE8E5000, v43, v42, "TrueTone: shift-a = %f, shift-b = %f", v52, 0x16u);
+            __os_log_helper_16_0_2_8_0_8_0(v53, COERCE__INT64(*&v47), COERCE__INT64(*(&v47 + 1)));
+            _os_log_impl(&dword_1DE8E5000, v44, v43, "TrueTone: shift-a = %f, shift-b = %f", v53, 0x16u);
           }
 
-          CFXSetABShift(selfCopy->_colorStruct.cfx, &v46);
+          CFXSetABShift(selfCopy->_colorStruct.cfx, &v47);
         }
 
-        v41 = [(NSMutableDictionary *)selfCopy->_properties objectForKey:@"SupportedColorFX"];
-        if (v41)
+        v42 = [(NSMutableDictionary *)selfCopy->_properties objectForKey:@"SupportedColorFX"];
+        if (v42)
         {
-          [v41 setObject:MEMORY[0x1E695E118] forKey:@"SupportsAmbientColorAdaptation"];
+          [v42 setObject:MEMORY[0x1E695E118] forKey:@"SupportsAmbientColorAdaptation"];
         }
 
         selfCopy->_colorStruct.harmonyEnabled = 1;
-        v40 = 0;
-        CFXGetAdaptationModesMapping(selfCopy->_colorStruct.cfx, v51, 6);
+        v41 = 0;
+        CFXGetAdaptationModesMapping(selfCopy->_colorStruct.cfx, v52, 6);
         if (selfCopy->_backlightConfig)
         {
           copyTrueToneStrength = [(CBPrimitiveConfigurationProvider *)selfCopy->_backlightConfig copyTrueToneStrength];
@@ -6335,135 +6270,137 @@ float __77__CBColorModuleShared_parseAdaptationModeMappingArray_strengths_streng
             for (i = 0; i < 6; ++i)
             {
               [objc_msgSend(copyTrueToneStrength objectAtIndexedSubscript:{i), "floatValue"}];
-              v51[i] = v4;
+              v52[i] = v4;
             }
 
-            v40 = 1;
+            v41 = 1;
             MEMORY[0x1E69E5920](copyTrueToneStrength);
           }
         }
 
-        v37 = [(CBColorModuleShared *)selfCopy copyPreferenceInternalForKey:@"CBAdaptationModeMapping2"];
+        v38 = [(CBColorModuleShared *)selfCopy copyPreferenceInternalForKey:@"CBAdaptationModeMapping2"];
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [(CBColorModuleShared *)selfCopy parseAdaptationModeMappingArray:v37 strengths:v51 strengthNum:6])
+        if ((objc_opt_isKindOfClass() & 1) != 0 && [(CBColorModuleShared *)selfCopy parseAdaptationModeMappingArray:v38 strengths:v52 strengthNum:6])
         {
-          v40 = 1;
+          v41 = 1;
         }
 
-        *&v5 = MEMORY[0x1E69E5920](v37).n128_u64[0];
-        if (v40)
+        *&v5 = MEMORY[0x1E69E5920](v38).n128_u64[0];
+        if (v41)
         {
-          CFXSetAdaptationModesMapping(selfCopy->_colorStruct.cfx, v51, 6);
+          CFXSetAdaptationModesMapping(selfCopy->_colorStruct.cfx, v52, 6);
         }
 
-        v36 = [(CBColorModuleShared *)selfCopy newAdaptationModeMappingDictionary:v51 strengthNum:6, v5];
-        if (v36)
+        v37 = [(CBColorModuleShared *)selfCopy newAdaptationModeMappingDictionary:v52 strengthNum:6, v5];
+        if (v37)
         {
-          [(NSMutableDictionary *)selfCopy->_properties setValue:v36 forKey:@"ColorAdaptationModeMapping"];
-          MEMORY[0x1E69E5920](v36);
+          [(NSMutableDictionary *)selfCopy->_properties setValue:v37 forKey:@"ColorAdaptationModeMapping"];
+          MEMORY[0x1E69E5920](v37);
         }
 
-        v35 = 1;
-        CFXSetWeakestAmbientAdaptationMode(selfCopy->_colorStruct.cfx, &v35, 1, 0.0);
-        v35 = CFXGetAmbientAdaptationMode(selfCopy->_colorStruct.cfx, &selfCopy->_colorStruct.harmonyStrength);
+        v36 = 1;
+        CFXSetWeakestAmbientAdaptationMode(selfCopy->_colorStruct.cfx, &v36, 1, 0.0);
+        v36 = CFXGetAmbientAdaptationMode(selfCopy->_colorStruct.cfx, &selfCopy->_colorStruct.harmonyStrength);
         v6 = objc_alloc(MEMORY[0x1E696AD98]);
         *&v7 = selfCopy->_colorStruct.harmonyStrength;
-        v34 = [v6 initWithFloat:v7];
-        if (v34)
+        v35 = [v6 initWithFloat:v7];
+        if (v35)
         {
-          v33 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v34, @"ColorAdaptationStrengthSub", 0}];
-          if (v33)
+          v34 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v35, @"ColorAdaptationStrengthSub", 0}];
+          if (v34)
           {
-            [(NSMutableDictionary *)selfCopy->_properties setValue:v33 forKey:@"ColorAdaptationStrength"];
-            MEMORY[0x1E69E5920](v33);
+            [(NSMutableDictionary *)selfCopy->_properties setValue:v34 forKey:@"ColorAdaptationStrength"];
+            MEMORY[0x1E69E5920](v34);
           }
 
-          MEMORY[0x1E69E5920](v34);
+          MEMORY[0x1E69E5920](v35);
         }
 
         v8 = objc_alloc(MEMORY[0x1E696AD98]);
-        v34 = [v8 initWithInt:v35];
-        if (v34)
+        v35 = [v8 initWithInt:v36];
+        if (v35)
         {
-          [(NSMutableDictionary *)selfCopy->_properties setValue:v34 forKey:@"ColorAdaptationMode"];
-          MEMORY[0x1E69E5920](v34);
+          [(NSMutableDictionary *)selfCopy->_properties setValue:v35 forKey:@"ColorAdaptationMode"];
+          MEMORY[0x1E69E5920](v35);
         }
 
-        v37 = [(CBColorModuleShared *)selfCopy copyPreferenceInternalForKey:@"CBFixedAdaptationStrength"];
+        v38 = [(CBColorModuleShared *)selfCopy copyPreferenceInternalForKey:@"CBFixedAdaptationStrength"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v37 floatValue];
-          v32 = v9;
+          [v38 floatValue];
+          v33 = v9;
           selfCopy->_colorStruct.harmonyFixedStrength = v9;
-          [(NSMutableDictionary *)selfCopy->_properties setValue:v37 forKey:@"FixedColorAdaptationStrength"];
+          [(NSMutableDictionary *)selfCopy->_properties setValue:v38 forKey:@"FixedColorAdaptationStrength"];
         }
 
-        *&v10 = MEMORY[0x1E69E5920](v37).n128_u64[0];
+        *&v10 = MEMORY[0x1E69E5920](v38).n128_u64[0];
         [(CBColorModuleShared *)selfCopy setLabShift];
-        if (selfCopy->_colorStruct.harmonyFixedStrength >= 0.0)
+        *&v11 = selfCopy->_colorStruct.harmonyFixedStrength;
+        if (*&v11 >= 0.0)
         {
-          CFXSetAmbientAdaptationStrength(selfCopy->_colorStruct.cfx, selfCopy->_colorStruct.harmonyFixedStrength, 0.0);
+          *&v11 = selfCopy->_colorStruct.harmonyFixedStrength;
+          v11 = CFXSetAmbientAdaptationStrength(selfCopy->_colorStruct.cfx, v11, 0.0);
         }
 
-        v37 = [(CBColorModuleShared *)selfCopy copyPreferenceInternalForKey:@"CBColorAdaptationEnabled"];
+        v38 = [(CBColorModuleShared *)selfCopy copyPreferenceInternalForKey:@"CBColorAdaptationEnabled", v11];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          bOOLValue = [v37 BOOLValue];
+          bOOLValue = [v38 BOOLValue];
           selfCopy->_colorStruct.harmonyEnabled = bOOLValue;
         }
 
-        *&v12 = MEMORY[0x1E69E5920](v37).n128_u64[0];
-        v22 = MEMORY[0x1E695E110];
-        v23 = MEMORY[0x1E695E118];
+        *&v13 = MEMORY[0x1E69E5920](v38).n128_u64[0];
+        v23 = MEMORY[0x1E695E110];
+        v24 = MEMORY[0x1E695E118];
         if (selfCopy->_colorStruct.harmonyEnabled)
         {
-          v13 = MEMORY[0x1E695E118];
+          v14 = MEMORY[0x1E695E118];
         }
 
         else
         {
-          v13 = MEMORY[0x1E695E110];
+          v14 = MEMORY[0x1E695E110];
         }
 
-        [(NSMutableDictionary *)selfCopy->_properties setValue:v13 forKey:v12];
+        [(NSMutableDictionary *)selfCopy->_properties setValue:v14 forKey:v13];
         [(CBColorModuleShared *)selfCopy updateActivity];
         [CBAnalytics harmonyEnabled:selfCopy->_colorStruct.harmonyEnabled byUser:0];
         if (selfCopy->_colorStruct.harmonyEnabled)
         {
-          v14 = v23;
+          v15 = v24;
         }
 
         else
         {
-          v14 = v22;
+          v15 = v23;
         }
 
-        [(CBColorModuleShared *)selfCopy sendNotificationForKey:@"ColorAdaptationEnabled" andValue:v14];
-        v31 = CFXGetStrengthRampTweakFactor(selfCopy->_colorStruct.cfx);
-        v37 = [(CBColorModuleShared *)selfCopy copyPreferenceInternalForKey:@"CBStrengthRampPeriodTweak"];
+        [(CBColorModuleShared *)selfCopy sendNotificationForKey:@"ColorAdaptationEnabled" andValue:v15];
+        v32 = CFXGetStrengthRampTweakFactor(selfCopy->_colorStruct.cfx);
+        v38 = [(CBColorModuleShared *)selfCopy copyPreferenceInternalForKey:@"CBStrengthRampPeriodTweak"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v37 floatValue];
-          v31 = v15;
+          [v38 floatValue];
+          v32 = v16;
         }
 
-        MEMORY[0x1E69E5920](v37);
-        if (v31 < 0.0)
+        MEMORY[0x1E69E5920](v38);
+        if (v32 < 0.0)
         {
-          v31 = 0.0;
+          v32 = 0.0;
         }
 
-        CFXSetStrengthRampTweakFactor(selfCopy->_colorStruct.cfx, v31);
-        v16 = objc_alloc(MEMORY[0x1E696AD98]);
-        *&v17 = v31;
-        v34 = [v16 initWithFloat:v17];
-        if (v34)
+        CFXSetStrengthRampTweakFactor(selfCopy->_colorStruct.cfx, v32);
+        v17 = objc_alloc(MEMORY[0x1E696AD98]);
+        *&v18 = v32;
+        v35 = [v17 initWithFloat:v18];
+        if (v35)
         {
-          [(NSMutableDictionary *)selfCopy->_properties setValue:v34 forKey:@"StrengthRampPeriodTweak"];
-          MEMORY[0x1E69E5920](v34);
+          [(NSMutableDictionary *)selfCopy->_properties setValue:v35 forKey:@"StrengthRampPeriodTweak"];
+          MEMORY[0x1E69E5920](v35);
         }
 
         if (selfCopy->_colorStruct.moduleType == 1)
@@ -6478,36 +6415,34 @@ float __77__CBColorModuleShared_parseAdaptationModeMappingArray_strengths_streng
   {
     if (selfCopy->super._logHandle)
     {
-      v21 = selfCopy->super._logHandle;
+      v22 = selfCopy->super._logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v20 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v21 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v20 = init_default_corebrightness_log();
+        v21 = init_default_corebrightness_log();
       }
 
-      v21 = v20;
+      v22 = v21;
     }
 
-    oslog = v21;
-    v29 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    oslog = v22;
+    v30 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = oslog;
-      v19 = v29;
-      __os_log_helper_16_0_0(v28);
-      _os_log_impl(&dword_1DE8E5000, v18, v19, "CFX was not initialized", v28, 2u);
+      v19 = oslog;
+      v20 = v30;
+      __os_log_helper_16_0_0(v29);
+      _os_log_impl(&dword_1DE8E5000, v19, v20, "CFX was not initialized", v29, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)inputAmbientColorSample:(CFXColorSample *)sample force:(BOOL)force trust:(BOOL)trust
@@ -6555,37 +6490,34 @@ float __77__CBColorModuleShared_parseAdaptationModeMappingArray_strengths_streng
 
     CFXInputAmbientColor(self->_colorStruct.cfx, sample->XYZ, forceCopy);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setNativeWhitePoint
 {
-  v9 = MEMORY[0x1E69E5918];
+  v8 = MEMORY[0x1E69E5918];
   selfCopy = self;
-  v18 = a2;
-  v17 = 0;
-  [(CBBrightnessProxy *)self->_brightnessControlProxy nativeWhitePoint];
-  v17 = __PAIR64__(v3, v2);
+  v17 = a2;
   v16 = 0;
-  v15 = @"whitePointD50XYZ";
-  v14 = NSSelectorFromString(&cfstr_Whitepointd50x.isa);
-  brightnessControlProxy = selfCopy->_brightnessControlProxy;
+  [(CBBrightnessProxy *)self->_brightnessControlProxy nativeWhitePoint];
+  v16 = __PAIR64__(v3, v2);
+  v15 = 0;
+  v14 = @"whitePointD50XYZ";
+  v13 = NSSelectorFromString(&cfstr_Whitepointd50x.isa);
   if (objc_opt_respondsToSelector())
   {
-    v13[1] = v9;
-    v16 = v9(selfCopy->_brightnessControlProxy, v14);
+    v12[1] = v8;
+    v15 = v8(selfCopy->_brightnessControlProxy, v13);
   }
 
   if (selfCopy->_colorStruct.cfx)
   {
-    if (*&v17 > 0.0 && *(&v17 + 1) > 0.0)
+    if (*&v16 > 0.0 && *(&v16 + 1) > 0.0)
     {
-      v13[0] = v17;
-      CFXSetNativeWhitePoint(selfCopy->_colorStruct.cfx, v13);
+      v12[0] = v16;
+      CFXSetNativeWhitePoint(selfCopy->_colorStruct.cfx, v12);
     }
 
-    if (v16)
+    if (v15)
     {
       CFXSetOutputFormat(selfCopy->_colorStruct.cfx, 1, 1, 0);
       if (selfCopy->super._logHandle)
@@ -6613,9 +6545,9 @@ float __77__CBColorModuleShared_parseAdaptationModeMappingArray_strengths_streng
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
       {
         log = oslog;
-        v6 = type;
-        __os_log_helper_16_0_0(v10);
-        _os_log_impl(&dword_1DE8E5000, log, v6, "Setting matrix format to D50 XYZ", v10, 2u);
+        v5 = type;
+        __os_log_helper_16_0_0(v9);
+        _os_log_impl(&dword_1DE8E5000, log, v5, "Setting matrix format to D50 XYZ", v9, 2u);
       }
     }
   }
@@ -6721,16 +6653,12 @@ float __77__CBColorModuleShared_parseAdaptationModeMappingArray_strengths_streng
       dispatch_async(queue, &block);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 double __55__CBColorModuleShared_sendNotificationForKey_andValue___block_invoke(uint64_t a1)
 {
   if (*(a1 + 32))
   {
-    v1 = *(a1 + 32);
-    v2 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
     _Block_release(*(a1 + 48));
   }
@@ -6895,8 +6823,6 @@ LABEL_22:
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)handleNotificationForKey:(id)key withProperty:(id)property
@@ -7015,7 +6941,7 @@ LABEL_22:
   return v6;
 }
 
-uint64_t __42__CBColorModuleShared_copyPropertyForKey___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__42__CBColorModuleShared_copyPropertyForKey___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 conformsToProtocol:&unk_1F59CBED8];
   if (result)
@@ -7168,7 +7094,6 @@ uint64_t __42__CBColorModuleShared_copyPropertyForKey___block_invoke(uint64_t a1
     _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "key=%@ result=%@", v25, 0x16u);
   }
 
-  *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -7275,8 +7200,7 @@ LABEL_88:
       _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "key=%@ property=%@ result=%d", v27, 0x1Cu);
     }
 
-    v26 = v21;
-    goto LABEL_105;
+    return v21;
   }
 
   if (([keyCopy isEqualToString:@"BlueLightReductionCCTTargetKey"] & 1) != 0 && !-[CBColorModuleShared isDFR](selfCopy, "isDFR"))
@@ -7518,10 +7442,7 @@ LABEL_88:
     }
   }
 
-  v26 = 1;
-LABEL_105:
-  *MEMORY[0x1E69E9840];
-  return v26 & 1;
+  return 1;
 }
 
 - (BOOL)clamshellStatePropertyHandler:(id)handler
@@ -7653,16 +7574,16 @@ LABEL_105:
   }
 }
 
-uint64_t __48__CBColorModuleShared_reportResetTimerWithStop___block_invoke(uint64_t result)
+void *__48__CBColorModuleShared_reportResetTimerWithStop___block_invoke(void *result)
 {
-  if (*(*(result + 32) + 72))
+  if (*(*(result + 4) + 72))
   {
-    *(*(result + 32) + 72) = 0;
+    *(*(result + 4) + 72) = 0;
   }
 
-  else if (*(*(result + 32) + 200) == 1)
+  else if (*(*(result + 4) + 200) == 1)
   {
-    return [*(result + 32) reportCommitWithStop:0];
+    return [*(result + 4) reportCommitWithStop:0];
   }
 
   return result;
@@ -7933,7 +7854,6 @@ uint64_t __48__CBColorModuleShared_reportResetTimerWithStop___block_invoke(uint6
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v31;
 }
 
@@ -7988,7 +7908,6 @@ uint64_t __48__CBColorModuleShared_reportResetTimerWithStop___block_invoke(uint6
     CFXOverrideRampPeriod(self->_colorStruct.cfx, -1.0);
   }
 
-  *MEMORY[0x1E69E9840];
   return 1;
 }
 

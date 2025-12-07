@@ -16,20 +16,20 @@
 {
   v3 = [(NTKPigmentEditOptionAccessibility *)self safeStringForKey:@"_fullname"];
   v4 = AXCFormattedString();
-  v6 = accessibilityLocalizedString(v4, v5);
-  if ([v6 isEqualToString:{v4, v3}])
+  v5 = accessibilityLocalizedString(v4);
+  if ([v5 isEqualToString:{v4, v3}])
   {
-    v7 = [(NTKPigmentEditOptionAccessibility *)self safeStringForKey:@"localizedName"];
+    v6 = [(NTKPigmentEditOptionAccessibility *)self safeStringForKey:@"localizedName"];
   }
 
   else
   {
-    v7 = v6;
+    v6 = v5;
   }
 
-  v8 = v7;
+  v7 = v6;
 
-  return v8;
+  return v7;
 }
 
 @end

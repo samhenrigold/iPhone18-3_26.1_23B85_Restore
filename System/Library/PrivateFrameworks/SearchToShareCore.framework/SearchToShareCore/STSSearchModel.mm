@@ -23,6 +23,7 @@
 - (void)performSearchWithQueryString:(id)string requestType:(int64_t)type completion:(id)completion;
 - (void)performZKWSearchQueryWithCompletion:(id)completion;
 - (void)prefetchRecentsWithCompletion:(id)completion;
+- (void)removeQuerySuggestions;
 - (void)removeResultAtIndexPath:(id)path;
 - (void)saveReportConcernStoreToUserDefaults;
 - (void)session:(id)session bag:(id)bag didLoadWithError:(id)error;
@@ -1072,6 +1073,13 @@ void __54__STSSearchModel__updateSearchProviderImageForResult___block_invoke_2(u
   v5 = [v7 imageWithRenderingMode:2];
   v6 = +[STSImageCache sharedCache];
   [v6 setSearchProviderImage:v5];
+}
+
+- (void)removeQuerySuggestions
+{
+  querySuggestions = self->_querySuggestions;
+  self->_querySuggestions = MEMORY[0x277CBEBF8];
+  MEMORY[0x2821F96F8](self, querySuggestions);
 }
 
 - (void)_clearSectionsAndNotifyDelegate

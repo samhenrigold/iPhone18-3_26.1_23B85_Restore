@@ -25,7 +25,7 @@
 
 void __100__AXVisualAlertSBNCSoundController_playSoundAndReadOutForNotificationRequest_presentingDestination___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) sectionIdentifier];
   v3 = [*(a1 + 32) categoryIdentifier];
   v4 = [MEMORY[0x277CE6998] sharedInstance];
@@ -41,12 +41,12 @@ void __100__AXVisualAlertSBNCSoundController_playSoundAndReadOutForNotificationR
     {
       v9 = AXColorizeFormatLog();
       Name = sel_getName(*(a1 + 40));
-      v47 = *(a1 + 32);
+      v46 = *(a1 + 32);
       v10 = _AXStringForArgs();
       if (os_log_type_enabled(v7, v8))
       {
         *buf = 138543362;
-        v50 = v10;
+        v49 = v10;
         _os_log_impl(&dword_27102A000, v7, v8, "%{public}@", buf, 0xCu);
       }
     }
@@ -68,28 +68,28 @@ void __100__AXVisualAlertSBNCSoundController_playSoundAndReadOutForNotificationR
     v19 = AXOSLogLevelFromAXLogLevel();
     if (os_log_type_enabled(v18, v19))
     {
-      v48 = v14;
+      v47 = v14;
       v20 = v2;
       v21 = v12;
       v22 = v3;
       v23 = AXColorizeFormatLog();
-      v46 = v13;
+      v45 = v13;
       v24 = _AXStringForArgs();
       if (os_log_type_enabled(v18, v19))
       {
         *buf = 138543362;
-        v50 = v24;
+        v49 = v24;
         _os_log_impl(&dword_27102A000, v18, v19, "%{public}@", buf, 0xCu);
       }
 
       v3 = v22;
       v12 = v21;
       v2 = v20;
-      v14 = v48;
+      v14 = v47;
     }
   }
 
-  if (([v12 _accessibilityBoolValueForKey:{@"AXTurnedOnScreen", v46}] | v13))
+  if (([v12 _accessibilityBoolValueForKey:{@"AXTurnedOnScreen", v45}] | v13))
   {
     if ([v2 isEqualToString:@"com.apple.springboard.SBDismissOnlyAlertItem"])
     {
@@ -109,7 +109,7 @@ void __100__AXVisualAlertSBNCSoundController_playSoundAndReadOutForNotificationR
           if (os_log_type_enabled(v28, v29))
           {
             *buf = 138543362;
-            v50 = v31;
+            v49 = v31;
 LABEL_23:
             _os_log_impl(&dword_27102A000, v28, v29, "%{public}@", buf, 0xCu);
             goto LABEL_24;
@@ -132,17 +132,17 @@ LABEL_23:
 
       if ([v2 isEqualToString:@"com.apple.mobiletimer"])
       {
-        v37 = [MEMORY[0x277CE6998] sharedInstance];
-        v38 = [v37 ignoreLogging];
+        v36 = [MEMORY[0x277CE6998] sharedInstance];
+        v37 = [v36 ignoreLogging];
 
         if (v14)
         {
-          if (v38)
+          if (v37)
           {
             goto LABEL_28;
           }
 
-          v39 = [MEMORY[0x277CE6998] identifier];
+          v38 = [MEMORY[0x277CE6998] identifier];
           v28 = AXLoggerForFacility();
 
           v29 = AXOSLogLevelFromAXLogLevel();
@@ -159,25 +159,25 @@ LABEL_23:
           }
 
           *buf = 138543362;
-          v50 = v31;
+          v49 = v31;
           goto LABEL_23;
         }
 
-        if ((v38 & 1) == 0)
+        if ((v37 & 1) == 0)
         {
-          v40 = [MEMORY[0x277CE6998] identifier];
-          v41 = AXLoggerForFacility();
+          v39 = [MEMORY[0x277CE6998] identifier];
+          v40 = AXLoggerForFacility();
 
-          v42 = AXOSLogLevelFromAXLogLevel();
-          if (os_log_type_enabled(v41, v42))
+          v41 = AXOSLogLevelFromAXLogLevel();
+          if (os_log_type_enabled(v40, v41))
           {
-            v43 = AXColorizeFormatLog();
-            v44 = _AXStringForArgs();
-            if (os_log_type_enabled(v41, v42))
+            v42 = AXColorizeFormatLog();
+            v43 = _AXStringForArgs();
+            if (os_log_type_enabled(v40, v41))
             {
               *buf = 138543362;
-              v50 = v44;
-              _os_log_impl(&dword_27102A000, v41, v42, "%{public}@", buf, 0xCu);
+              v49 = v43;
+              _os_log_impl(&dword_27102A000, v40, v41, "%{public}@", buf, 0xCu);
             }
           }
         }
@@ -210,7 +210,7 @@ LABEL_23:
         if (os_log_type_enabled(v28, v29))
         {
           *buf = 138543362;
-          v50 = v31;
+          v49 = v31;
           goto LABEL_23;
         }
 
@@ -224,17 +224,15 @@ LABEL_25:
 LABEL_28:
   v35 = +[AXVisualAlertManager sharedVisualAlertManager];
   [v35 removeBulletin:*(a1 + 32)];
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopSoundForNotificationRequest:(id)request
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = AXVisualAlertSBNCSoundController;
+  v16 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = AXVisualAlertSBNCSoundController;
   requestCopy = request;
-  [(AXVisualAlertSBNCSoundController *)&v14 stopSoundForNotificationRequest:requestCopy];
+  [(AXVisualAlertSBNCSoundController *)&v13 stopSoundForNotificationRequest:requestCopy];
   sectionIdentifier = [requestCopy sectionIdentifier];
 
   mEMORY[0x277CE6998] = [MEMORY[0x277CE6998] sharedInstance];
@@ -254,7 +252,7 @@ LABEL_28:
       if (os_log_type_enabled(v9, v10))
       {
         *buf = 138543362;
-        v16 = v12;
+        v15 = v12;
         _os_log_impl(&dword_27102A000, v9, v10, "%{public}@", buf, 0xCu);
       }
     }
@@ -265,8 +263,6 @@ LABEL_28:
   {
     [_VisualAlertManager _handleEndVisualAlertForAlarm];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

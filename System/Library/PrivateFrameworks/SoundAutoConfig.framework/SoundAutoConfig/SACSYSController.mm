@@ -29,7 +29,7 @@
 
 - (void)startServiceConnection
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
@@ -49,23 +49,23 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3042000000;
-  v16 = sub_26B241D7C;
-  v17 = sub_26B241D88;
-  objc_initWeak(v18, self);
+  v15 = sub_26B241D7C;
+  v16 = sub_26B241D88;
+  objc_initWeak(v17, self);
   v6 = self->mServiceConnection;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = sub_26B241D90;
-  v14[3] = &unk_279CD4D30;
-  v14[4] = buf;
-  [(NSXPCConnection *)v6 setInterruptionHandler:v14];
-  v7 = self->mServiceConnection;
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
-  v13[2] = sub_26B241DF4;
+  v13[2] = sub_26B241D90;
   v13[3] = &unk_279CD4D30;
   v13[4] = buf;
-  [(NSXPCConnection *)v7 setInvalidationHandler:v13];
+  [(NSXPCConnection *)v6 setInterruptionHandler:v13];
+  v7 = self->mServiceConnection;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_26B241DF4;
+  v12[3] = &unk_279CD4D30;
+  v12[4] = buf;
+  [(NSXPCConnection *)v7 setInvalidationHandler:v12];
   v8 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287BC6800];
   [(NSXPCConnection *)self->mServiceConnection setExportedInterface:v8];
 
@@ -78,8 +78,7 @@
 
   [*p_mProxyInterface registerAsClientWithConnectionType:1];
   _Block_object_dispose(buf, 8);
-  objc_destroyWeak(v18);
-  v12 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(v17);
 }
 
 - (void)handleServiceCrash

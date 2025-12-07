@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int64_t)opt_in_status;
 - (void)setApp_id:(id)app_id;
+- (void)setIs_partial:(BOOL)is_partial;
 - (void)setOpt_in_status:(int64_t)opt_in_status;
 - (void)setOptions:(id)options;
 - (void)setParagraphs:(id)paragraphs;
@@ -116,6 +117,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setIs_partial:(BOOL)is_partial
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:is_partial];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

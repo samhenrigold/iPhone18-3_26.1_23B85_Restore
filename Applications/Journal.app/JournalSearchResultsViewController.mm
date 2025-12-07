@@ -16,11 +16,11 @@
 - (void)viewDidLoad
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for JournalSearchResultsViewController();
+  v5.super_class = type metadata accessor for JournalSearchResultsViewController(0);
   v2 = v5.receiver;
   [(JournalEntryCollectionViewController *)&v5 viewDidLoad];
   defaultCenter = [objc_opt_self() defaultCenter];
-  sub_1000065A8(0, &unk_100AE9310);
+  sub_1000065A8(0, &unk_100AE9310, NSCoreDataCoreSpotlightDelegate_ptr);
   updated = static NSCoreDataCoreSpotlightDelegate.indexDidUpdateNotification.getter();
   [defaultCenter addObserver:v2 selector:"spotlightIndexUpdated:" name:updated object:0];
 }
@@ -32,7 +32,7 @@
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for JournalSearchResultsViewController();
+  v9 = type metadata accessor for JournalSearchResultsViewController(0);
   v11.receiver = self;
   v11.super_class = v9;
   selfCopy = self;
@@ -94,7 +94,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_1005602C8(viewCopy);
+  LOBYTE(self) = sub_1005602C8(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -109,7 +109,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_1005606E8(viewCopy);
+  sub_1005606E8(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -123,7 +123,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_100561990();
+  LOBYTE(self) = sub_100561990(v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -151,7 +151,7 @@
   controllerCopy = controller;
   snapshotCopy = snapshot;
   selfCopy = self;
-  sub_1006D508C(controllerCopy, snapshotCopy);
+  sub_1006D508C(controllerCopy, snapshotCopy, v8);
 }
 
 @end

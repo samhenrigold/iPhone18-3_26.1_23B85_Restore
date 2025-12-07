@@ -773,9 +773,9 @@ LABEL_15:
 
     if (_preferredStatusBarStyleAnimationParameters && v12)
     {
-      v14 = [(NSDictionary *)_preferredStatusBarStyleAnimationParameters isEqual:v12];
+      isEqual = objc_msgSend_isEqual_(_preferredStatusBarStyleAnimationParameters);
 
-      if (v14)
+      if (isEqual)
       {
         v15 = 0;
         goto LABEL_16;

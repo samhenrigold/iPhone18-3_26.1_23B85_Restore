@@ -31,9 +31,9 @@
 - (FMDCodableFactory)initWithClasses:(id)classes
 {
   classesCopy = classes;
-  v31.receiver = self;
-  v31.super_class = FMDCodableFactory;
-  v5 = [(FMDCodableFactory *)&v31 init];
+  v32.receiver = self;
+  v32.super_class = FMDCodableFactory;
+  v5 = [(FMDCodableFactory *)&v32 init];
   if (v5)
   {
     v6 = +[FMDCodableFactory _defaultClassTypeMap];
@@ -42,27 +42,27 @@
     v8 = +[FMDCodableFactory _defaultObjectTypeKeys];
     v9 = [NSMutableSet setWithArray:v8];
 
-    v29 = 0u;
     v30 = 0u;
-    v27 = 0u;
+    v31 = 0u;
     v28 = 0u;
-    v26 = classesCopy;
+    v29 = 0u;
+    v27 = classesCopy;
     v10 = classesCopy;
-    v11 = [v10 countByEnumeratingWithState:&v27 objects:v38 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v28 objects:v39 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v28;
+      v13 = *v29;
       do
       {
         for (i = 0; i != v12; i = i + 1)
         {
-          if (*v28 != v13)
+          if (*v29 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v27 + 1) + 8 * i);
+          v15 = *(*(&v28 + 1) + 8 * i);
           if ([v15 conformsToProtocol:&OBJC_PROTOCOL___FMDCodable])
           {
             objectType = [v15 objectType];
@@ -73,7 +73,7 @@
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v27 objects:v38 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v28 objects:v39 count:16];
       }
 
       while (v12);
@@ -87,21 +87,21 @@
     objectTypeKeys = v5->_objectTypeKeys;
     v5->_objectTypeKeys = allObjects;
 
-    v22 = sub_10017DAFC();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = sub_10017DAFC(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       objectTypeKeys = [(FMDCodableFactory *)v5 objectTypeKeys];
       classTypeMapping = [(FMDCodableFactory *)v5 classTypeMapping];
       *buf = 138412802;
-      v33 = v5;
-      v34 = 2112;
-      v35 = objectTypeKeys;
-      v36 = 2112;
-      v37 = classTypeMapping;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Factory(%@) classes with object mappings: %@ and map %@", buf, 0x20u);
+      v34 = v5;
+      v35 = 2112;
+      v36 = objectTypeKeys;
+      v37 = 2112;
+      v38 = classTypeMapping;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Factory(%@) classes with object mappings: %@ and map %@", buf, 0x20u);
     }
 
-    classesCopy = v26;
+    classesCopy = v27;
   }
 
   return v5;
@@ -111,9 +111,9 @@
 {
   keysCopy = keys;
   mapCopy = map;
-  v22.receiver = self;
-  v22.super_class = FMDCodableFactory;
-  v8 = [(FMDCodableFactory *)&v22 init];
+  v23.receiver = self;
+  v23.super_class = FMDCodableFactory;
+  v8 = [(FMDCodableFactory *)&v23 init];
   if (v8)
   {
     v9 = +[FMDCodableFactory _defaultClassTypeMap];
@@ -132,18 +132,18 @@
     objectTypeKeys = v8->_objectTypeKeys;
     v8->_objectTypeKeys = allObjects;
 
-    v18 = sub_10017DAFC();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_10017DAFC(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       objectTypeKeys = [(FMDCodableFactory *)v8 objectTypeKeys];
       classTypeMapping = [(FMDCodableFactory *)v8 classTypeMapping];
       *buf = 138412802;
-      v24 = v8;
-      v25 = 2112;
-      v26 = objectTypeKeys;
-      v27 = 2112;
-      v28 = classTypeMapping;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Factory(%@) key-value with object mappings: %@ and map %@", buf, 0x20u);
+      v25 = v8;
+      v26 = 2112;
+      v27 = objectTypeKeys;
+      v28 = 2112;
+      v29 = classTypeMapping;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Factory(%@) key-value with object mappings: %@ and map %@", buf, 0x20u);
     }
   }
 

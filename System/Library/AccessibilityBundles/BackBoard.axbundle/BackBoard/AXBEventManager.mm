@@ -1,11 +1,15 @@
 @interface AXBEventManager
 + (id)sharedManager;
 - (AXBEventManager)init;
+- (CGPoint)convertPoint:(CGPoint)point fromContextId:(unsigned int)id displayId:(unsigned int)displayId;
+- (CGPoint)convertPoint:(CGPoint)point toContextId:(unsigned int)id displayId:(unsigned int)displayId;
 - (int)systemAppPid;
+- (unsigned)clientPortForContextId:(unsigned int)id;
+- (unsigned)contextIdForPosition:(CGPoint)position displayId:(unsigned int)id;
+- (unsigned)contextIdHosterForContextId:(unsigned int)id;
 - (unsigned)machPortForPoint:(CGPoint)point;
 - (unsigned)systemEventPort;
 - (void)_normalizeEventForContext:(id)context;
-- (void)clearLastRecordPostedThrougHID;
 - (void)dispatchEventRepresentationToClient:(id)client;
 - (void)postEvent:(id)event systemEvent:(BOOL)systemEvent afterNamedTap:(id)tap namedTaps:(id)taps;
 @end
@@ -77,6 +81,64 @@ uint64_t __32__AXBEventManager_sharedManager__block_invoke()
   return result;
 }
 
+- (CGPoint)convertPoint:(CGPoint)point toContextId:(unsigned int)id displayId:(unsigned int)displayId
+{
+  v5 = *&displayId;
+  v6 = *&id;
+  y = point.y;
+  x = point.x;
+  v9 = _WindowDisplay;
+  if (v5)
+  {
+    server = [MEMORY[0x29EDBBAE0] server];
+    v11 = [server displayWithDisplayId:v5];
+
+    v9 = v11;
+  }
+
+  if (v6)
+  {
+    [v9 convertPoint:v6 toContextId:{AXRotateToScreen(v5, x, y)}];
+    x = v12;
+    y = v13;
+  }
+
+  v14 = x;
+  v15 = y;
+  result.y = v15;
+  result.x = v14;
+  return result;
+}
+
+- (CGPoint)convertPoint:(CGPoint)point fromContextId:(unsigned int)id displayId:(unsigned int)displayId
+{
+  v5 = *&displayId;
+  v6 = *&id;
+  y = point.y;
+  x = point.x;
+  v9 = _WindowDisplay;
+  if (v5)
+  {
+    server = [MEMORY[0x29EDBBAE0] server];
+    v11 = [server displayWithDisplayId:v5];
+
+    v9 = v11;
+  }
+
+  if (v6)
+  {
+    [v9 convertPoint:v6 fromContextId:{x, y}];
+    x = v12;
+    y = v13;
+  }
+
+  v14 = x;
+  v15 = y;
+  result.y = v15;
+  result.x = v14;
+  return result;
+}
+
 - (void)_normalizeEventForContext:(id)context
 {
   contextCopy = context;
@@ -85,26 +147,26 @@ uint64_t __32__AXBEventManager_sharedManager__block_invoke()
   if (!v4)
   {
     [contextCopy windowLocation];
-    v6 = AXRotateToScreen();
-    v8 = [_WindowDisplay contextIdAtPosition:{fmax(v6, 0.0), fmax(v7, 0.0)}];
+    v8 = AXRotateToScreen(0, v6, v7);
+    v10 = [_WindowDisplay contextIdAtPosition:{fmax(v8, 0.0), fmax(v9, 0.0)}];
     handInfo = [contextCopy handInfo];
     [contextCopy windowLocation];
-    [(AXBEventManager *)self convertPoint:v8 toContextId:0 displayId:?];
+    [(AXBEventManager *)self convertPoint:v10 toContextId:0 displayId:?];
     [contextCopy setWindowLocation:?];
     paths = [handInfo paths];
-    v11 = [paths count];
+    v13 = [paths count];
 
-    if (v11)
+    if (v13)
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v13; ++i)
       {
         paths2 = [handInfo paths];
-        v14 = [paths2 objectAtIndexedSubscript:i];
+        v16 = [paths2 objectAtIndexedSubscript:i];
 
-        [v14 pathLocation];
-        [(AXBEventManager *)self convertPoint:v8 toContextId:0 displayId:?];
-        [v14 setPathLocation:?];
-        [v14 setPathWindowContextID:v8];
+        [v16 pathLocation];
+        [(AXBEventManager *)self convertPoint:v10 toContextId:0 displayId:?];
+        [v16 setPathLocation:?];
+        [v16 setPathWindowContextID:v10];
       }
     }
 
@@ -114,7 +176,7 @@ uint64_t __32__AXBEventManager_sharedManager__block_invoke()
 
 - (void)dispatchEventRepresentationToClient:(id)client
 {
-  v63 = *MEMORY[0x29EDCA608];
+  v61 = *MEMORY[0x29EDCA608];
   clientCopy = client;
   v5 = +[AXBackBoardGlue hidClientConnectionManager];
   v6 = [clientCopy fakeTouchScaleEventRepresentation:0];
@@ -140,7 +202,7 @@ uint64_t __32__AXBEventManager_sharedManager__block_invoke()
 
       if (firstObject)
       {
-        v59 = 0;
+        v57 = 0;
         pathIndex = [firstObject pathIndex];
         touchCounter = [MEMORY[0x29EDBDF58] touchCounter];
         [firstObject pathLocation];
@@ -151,11 +213,11 @@ uint64_t __32__AXBEventManager_sharedManager__block_invoke()
         *&v19 = v18;
         [firstObject pathLocation];
         v21 = v20;
-        v58 = __PAIR64__(touchCounter, pathIndex);
-        LODWORD(v60) = 0;
-        *(&v60 + 1) = v15;
-        v61 = __PAIR64__(v19, v17);
-        v62 = v21;
+        v56 = __PAIR64__(touchCounter, pathIndex);
+        LODWORD(v58) = 0;
+        *(&v58 + 1) = v15;
+        v59 = __PAIR64__(v19, v17);
+        v60 = v21;
         [v6 contextId];
         BKSHIDEventSetDigitizerInfoWithSubEventInfos();
       }
@@ -186,10 +248,10 @@ uint64_t __32__AXBEventManager_sharedManager__block_invoke()
     if (!AXEventTypeShouldLetBackboardProcess())
     {
 LABEL_17:
-      v58 = 0;
-      v59 = &v58;
-      v60 = 0x2020000000;
-      v61 = 0;
+      v56 = 0;
+      v57 = &v56;
+      v58 = 0x2020000000;
+      v59 = 0;
       if (![v6 contextId])
       {
         clientId = [v6 clientId];
@@ -200,8 +262,8 @@ LABEL_17:
             goto LABEL_21;
           }
 
-          v42 = [NSClassFromString(&cfstr_Bksystemshells.isa) safeValueForKey:@"sharedInstance"];
-          clientId = [v42 safeValueForKey:@"primarySystemShell"];
+          v40 = [NSClassFromString(&cfstr_Bksystemshells.isa) safeValueForKey:@"sharedInstance"];
+          clientId = [v40 safeValueForKey:@"primarySystemShell"];
 
           if (!clientId)
           {
@@ -211,25 +273,25 @@ LABEL_17:
             if ((ignoreLogging & 1) == 0)
             {
               identifier = [MEMORY[0x29EDBD6B8] identifier];
-              v46 = AXLoggerForFacility();
+              v44 = AXLoggerForFacility();
 
-              v47 = AXOSLogLevelFromAXLogLevel();
-              if (os_log_type_enabled(v46, v47))
+              v45 = AXOSLogLevelFromAXLogLevel();
+              if (os_log_type_enabled(v44, v45))
               {
-                v48 = AXColorizeFormatLog();
-                v49 = _AXStringForArgs();
-                if (os_log_type_enabled(v46, v47))
+                v46 = AXColorizeFormatLog();
+                v47 = _AXStringForArgs();
+                if (os_log_type_enabled(v44, v45))
                 {
                   LODWORD(buf) = 138543362;
-                  *(&buf + 4) = v49;
-                  _os_log_impl(&dword_29BBBD000, v46, v47, "%{public}@", &buf, 0xCu);
+                  *(&buf + 4) = v47;
+                  _os_log_impl(&dword_29BBBD000, v44, v45, "%{public}@", &buf, 0xCu);
                 }
               }
             }
           }
 
-          v50 = [clientId safeValueForKey:@"bundleIdentifier"];
-          [v6 setClientId:v50];
+          v48 = [clientId safeValueForKey:@"bundleIdentifier"];
+          [v6 setClientId:v48];
         }
       }
 
@@ -241,22 +303,22 @@ LABEL_21:
       {
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v56 = 0x2020000000;
-        v57 = 0;
+        v54 = 0x2020000000;
+        v55 = 0;
         v29 = v5;
-        v54 = v6;
+        v52 = v6;
         AXPerformSafeBlock();
         v30 = *(*(&buf + 1) + 24);
 
         _Block_object_dispose(&buf, 8);
         if (v30 >= 1)
         {
-          v53 = v29;
+          v51 = v29;
           AXPerformSafeBlock();
         }
       }
 
-      if (v59[3])
+      if (v57[3])
       {
         goto LABEL_29;
       }
@@ -267,20 +329,19 @@ LABEL_21:
         [v6 setTaskPort:{objc_msgSend(serverIfRunning, "taskNamePortOfContextId:", objc_msgSend(v6, "contextId"))}];
       }
 
-      v52 = v5;
+      v50 = v5;
       v32 = v6;
       AXPerformSafeBlock();
 
-      if (v59[3])
+      if (v57[3])
       {
 LABEL_29:
         CFAbsoluteTimeGetCurrent();
-        v51 = v6;
+        v49 = v6;
         AXPerformSafeBlock();
-        v33 = v59[3];
         IOHIDEventSystemConnectionDispatchEvent();
-        CFRelease(v59[3]);
-        v34 = v51;
+        CFRelease(v57[3]);
+        v33 = v49;
       }
 
       else
@@ -294,25 +355,25 @@ LABEL_29:
         }
 
         identifier2 = [MEMORY[0x29EDBD6B8] identifier];
-        v34 = AXLoggerForFacility();
+        v33 = AXLoggerForFacility();
 
-        v39 = AXOSLogLevelFromAXLogLevel();
-        if (os_log_type_enabled(v34, v39))
+        v37 = AXOSLogLevelFromAXLogLevel();
+        if (os_log_type_enabled(v33, v37))
         {
-          v40 = AXColorizeFormatLog();
-          v41 = _AXStringForArgs();
-          if (os_log_type_enabled(v34, v39))
+          v38 = AXColorizeFormatLog();
+          v39 = _AXStringForArgs();
+          if (os_log_type_enabled(v33, v37))
           {
             LODWORD(buf) = 138543362;
-            *(&buf + 4) = v41;
-            _os_log_impl(&dword_29BBBD000, v34, v39, "%{public}@", &buf, 0xCu);
+            *(&buf + 4) = v39;
+            _os_log_impl(&dword_29BBBD000, v33, v37, "%{public}@", &buf, 0xCu);
           }
         }
       }
 
 LABEL_31:
       CFRelease(v8);
-      _Block_object_dispose(&v58, 8);
+      _Block_object_dispose(&v56, 8);
       goto LABEL_32;
     }
 
@@ -330,8 +391,6 @@ LABEL_31:
   }
 
 LABEL_32:
-
-  v35 = *MEMORY[0x29EDCA608];
 }
 
 double __55__AXBEventManager_dispatchEventRepresentationToClient___block_invoke()
@@ -367,7 +426,7 @@ void __55__AXBEventManager_dispatchEventRepresentationToClient___block_invoke_2(
   *(*(*(a1 + 40) + 8) + 24) = [*(a1 + 32) copyClientForDestination:v3];
 }
 
-uint64_t __55__AXBEventManager_dispatchEventRepresentationToClient___block_invoke_4(uint64_t a1)
+void *__55__AXBEventManager_dispatchEventRepresentationToClient___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) copyClientForTaskPort:{objc_msgSend(*(a1 + 40), "taskPort")}];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -376,49 +435,54 @@ uint64_t __55__AXBEventManager_dispatchEventRepresentationToClient___block_invok
 
 void __55__AXBEventManager_dispatchEventRepresentationToClient___block_invoke_5(uint64_t a1)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   if ([*(a1 + 32) type] == 3001)
   {
-    v2 = *(a1 + 48);
-    v3 = BKSHIDEventGetDigitizerAttributes();
-    v4 = [v3 pathAttributes];
+    v2 = BKSHIDEventGetDigitizerAttributes();
+    v3 = [v2 pathAttributes];
+    v14 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v5)
+    v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v4)
     {
-      v6 = v5;
-      v7 = *v18;
+      v5 = v4;
+      v6 = *v15;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v5; ++i)
         {
-          if (*v18 != v7)
+          if (*v15 != v6)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
-          [v9 preciseLocationX];
-          v11 = v10;
-          [v9 preciseLocationY];
-          [*(a1 + 40) convertPoint:objc_msgSend(*(a1 + 32) fromContextId:"contextId") displayId:{objc_msgSend(*(a1 + 32), "displayId"), v11, v12}];
-          +[AXBackBoardGlue _applyExtendedHitTestInformationForCAScreenCoordinates:displayUUID:toPathAttributes:secureName:excludeContextIDs:](AXBackBoardGlue, "_applyExtendedHitTestInformationForCAScreenCoordinates:displayUUID:toPathAttributes:secureName:excludeContextIDs:", 0, v9, [*(a1 + 32) secureName], 0, v13, v14);
+          v8 = *(*(&v14 + 1) + 8 * i);
+          [v8 preciseLocationX];
+          v10 = v9;
+          [v8 preciseLocationY];
+          [*(a1 + 40) convertPoint:objc_msgSend(*(a1 + 32) fromContextId:"contextId") displayId:{objc_msgSend(*(a1 + 32), "displayId"), v10, v11}];
+          +[AXBackBoardGlue _applyExtendedHitTestInformationForCAScreenCoordinates:displayUUID:toPathAttributes:secureName:excludeContextIDs:](AXBackBoardGlue, "_applyExtendedHitTestInformationForCAScreenCoordinates:displayUUID:toPathAttributes:secureName:excludeContextIDs:", 0, v8, [*(a1 + 32) secureName], 0, v12, v13);
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
-      while (v6);
+      while (v5);
     }
 
-    v15 = *(a1 + 48);
     BKSHIDEventSetAttributes();
   }
+}
 
-  v16 = *MEMORY[0x29EDCA608];
+- (unsigned)contextIdHosterForContextId:(unsigned int)id
+{
+  v3 = *&id;
+  serverIfRunning = [MEMORY[0x29EDBBAE0] serverIfRunning];
+  LODWORD(v3) = [serverIfRunning contextIdHostingContextId:v3];
+
+  return v3;
 }
 
 - (void)postEvent:(id)event systemEvent:(BOOL)systemEvent afterNamedTap:(id)tap namedTaps:(id)taps
@@ -563,16 +627,37 @@ LABEL_35:
 LABEL_36:
 }
 
-- (void)clearLastRecordPostedThrougHID
+- (unsigned)clientPortForContextId:(unsigned int)id
 {
-  lastHIDRecord = self->_lastHIDRecord;
-  self->_lastHIDRecord = 0;
-  MEMORY[0x2A1C71028]();
+  v3 = *&id;
+  serverIfRunning = [MEMORY[0x29EDBBAE0] serverIfRunning];
+  LODWORD(v3) = [serverIfRunning clientPortOfContextId:v3];
+
+  return v3;
+}
+
+- (unsigned)contextIdForPosition:(CGPoint)position displayId:(unsigned int)id
+{
+  v4 = *&id;
+  v5 = AXRotateToScreen(id, position.x, position.y);
+  v7 = v6;
+  v8 = _WindowDisplay;
+  if (v4)
+  {
+    server = [MEMORY[0x29EDBBAE0] server];
+    v10 = [server displayWithDisplayId:v4];
+
+    v8 = v10;
+  }
+
+  v11 = [v8 contextIdAtPosition:{v5, v7}];
+
+  return v11;
 }
 
 - (unsigned)machPortForPoint:(CGPoint)point
 {
-  result = [_WindowDisplay clientPortAtPosition:AXRotateToScreen()];
+  result = [_WindowDisplay clientPortAtPosition:{AXRotateToScreen(0, point.x, point.y)}];
   if (!result)
   {
 
@@ -584,11 +669,10 @@ LABEL_36:
 
 - (void)dispatchEventRepresentationToClient:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Could not create an event ref from: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Could not create an event ref from: %@", &v2, 0xCu);
 }
 
 @end

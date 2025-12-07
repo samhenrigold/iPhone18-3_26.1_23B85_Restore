@@ -81,9 +81,8 @@
 void __63__PRRegulatoryAssistanceEndpoint_connectWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(a1 + 32) + 16);
-  v5 = a2;
+  v4 = a2;
   dispatch_assert_queue_V2(v3);
-  v4 = *(a1 + 32);
   (*(*(*(*(a1 + 40) + 8) + 40) + 16))();
 }
 

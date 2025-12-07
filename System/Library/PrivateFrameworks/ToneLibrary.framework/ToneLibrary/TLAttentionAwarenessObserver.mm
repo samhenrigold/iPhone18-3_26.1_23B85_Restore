@@ -124,25 +124,23 @@ void __36__TLAttentionAwarenessObserver_init__block_invoke(uint64_t a1)
   dispatch_async(v8, block);
 }
 
-uint64_t __36__TLAttentionAwarenessObserver_init__block_invoke_2(uint64_t a1)
+uint64_t __36__TLAttentionAwarenessObserver_init__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x1E69E9840];
-  v2 = TLLogPlayback();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = TLLogPlayback(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
     v7 = 138543618;
-    v8 = v3;
+    v8 = v4;
     v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_1D9356000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: -init: Created %{public}@.", &v7, 0x16u);
+    v10 = v5;
+    _os_log_impl(&dword_1D9356000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: -init: Created %{public}@.", &v7, 0x16u);
   }
 
   objc_storeStrong((*(a1 + 32) + 40), *(a1 + 40));
-  result = [*(a1 + 32) _didCompleteInitialization];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _didCompleteInitialization];
 }
 
 - (void)dealloc
@@ -220,48 +218,46 @@ void __39__TLAttentionAwarenessObserver_dealloc__block_invoke_2(uint64_t a1)
   v13 = 0;
   v3 = [v2 invalidateWithError:&v13];
   v4 = v13;
-  v5 = TLLogPlayback();
-  v6 = v5;
+  v6 = TLLogPlayback(v4, v5);
+  v7 = v6;
   if (v3)
   {
-    v7 = v4 == 0;
+    v8 = v4 == 0;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if (v7)
+  if (v8)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 32);
-      v11 = *(*(*(a1 + 40) + 8) + 40);
+      v11 = *(a1 + 32);
+      v12 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 138543618;
-      v15 = v10;
+      v15 = v11;
       v16 = 2114;
-      v17 = v11;
-      _os_log_impl(&dword_1D9356000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: -dealloc: Successfully invalidated %{public}@.", buf, 0x16u);
+      v17 = v12;
+      _os_log_impl(&dword_1D9356000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: -dealloc: Successfully invalidated %{public}@.", buf, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 32);
-    v9 = *(*(*(a1 + 40) + 8) + 40);
+    v9 = *(a1 + 32);
+    v10 = *(*(*(a1 + 40) + 8) + 40);
     *buf = 138544130;
-    v15 = v8;
+    v15 = v9;
     v16 = 2114;
-    v17 = v9;
+    v17 = v10;
     v18 = 1024;
     v19 = v3;
     v20 = 2114;
     v21 = v4;
-    _os_log_error_impl(&dword_1D9356000, v6, OS_LOG_TYPE_ERROR, "%{public}@: -dealloc: -invalidateWithError: on %{public}@ returned didSucceed = %{BOOL}d and error = %{public}@.", buf, 0x26u);
+    _os_log_error_impl(&dword_1D9356000, v7, OS_LOG_TYPE_ERROR, "%{public}@: -dealloc: -invalidateWithError: on %{public}@ returned didSucceed = %{BOOL}d and error = %{public}@.", buf, 0x26u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)supportsAttenuatingTonesForAttentionDetected
@@ -336,7 +332,7 @@ _BYTE *__65__TLAttentionAwarenessObserver_pollForAttentionWithEventHandler___blo
   dispatch_async(accessQueue, v7);
 }
 
-uint64_t __64__TLAttentionAwarenessObserver_cancelPollForAttentionWithToken___block_invoke(uint64_t a1)
+void *__64__TLAttentionAwarenessObserver_cancelPollForAttentionWithToken___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) removeObjectForKey:*(a1 + 40)];
   v3 = *(a1 + 32);
@@ -356,136 +352,134 @@ uint64_t __64__TLAttentionAwarenessObserver_cancelPollForAttentionWithToken___bl
 
 - (void)_beginPollingForAttention
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __57__TLAttentionAwarenessObserver__beginPollingForAttention__block_invoke(uint64_t a1)
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v43[2] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v32 = 0;
-  v3 = [v2 resumeWithError:&v32];
-  v4 = v32;
+  v37 = 0;
+  v3 = [v2 resumeWithError:&v37];
+  v4 = v37;
+  v6 = v4;
   if (v4)
   {
-    v5 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v5 = v3;
+    v7 = v3;
   }
 
-  v6 = TLLogPlayback();
-  v7 = v6;
-  if (v5)
+  v8 = TLLogPlayback(v4, v5);
+  v9 = v8;
+  if (v7)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v8 = *(a1 + 40);
+      v11 = *(a1 + 32);
+      v10 = *(a1 + 40);
       *buf = 138543618;
-      v34 = v8;
-      v35 = 2114;
-      v36 = v9;
-      _os_log_impl(&dword_1D9356000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: -_beginPollingForAttention: Successfully resumed %{public}@.", buf, 0x16u);
+      v39 = v10;
+      v40 = 2114;
+      v41 = v11;
+      _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: -_beginPollingForAttention: Successfully resumed %{public}@.", buf, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v26 = *(a1 + 32);
-    v25 = *(a1 + 40);
+    v31 = *(a1 + 32);
+    v30 = *(a1 + 40);
     *buf = 138544130;
-    v34 = v25;
-    v35 = 2114;
-    v36 = v26;
-    v37 = 1024;
-    LODWORD(v38[0]) = v3;
-    WORD2(v38[0]) = 2114;
-    *(v38 + 6) = v4;
-    _os_log_error_impl(&dword_1D9356000, v7, OS_LOG_TYPE_ERROR, "%{public}@: -_beginPollingForAttention: -resumeWithError: on %{public}@ returned didSucceed = %{BOOL}d and error = %{public}@.", buf, 0x26u);
+    v39 = v30;
+    v40 = 2114;
+    v41 = v31;
+    v42 = 1024;
+    LODWORD(v43[0]) = v3;
+    WORD2(v43[0]) = 2114;
+    *(v43 + 6) = v6;
+    _os_log_error_impl(&dword_1D9356000, v9, OS_LOG_TYPE_ERROR, "%{public}@: -_beginPollingForAttention: -resumeWithError: on %{public}@ returned didSucceed = %{BOOL}d and error = %{public}@.", buf, 0x26u);
   }
 
-  v10 = [MEMORY[0x1E695DF00] distantFuture];
-  [v10 timeIntervalSinceNow];
-  v12 = v11;
+  v12 = [MEMORY[0x1E695DF00] distantFuture];
+  [v12 timeIntervalSinceNow];
+  v14 = v13;
 
-  v13 = TLLogPlayback();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v17 = TLLogPlayback(v15, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = *(a1 + 32);
-    v14 = *(a1 + 40);
+    v19 = *(a1 + 32);
+    v18 = *(a1 + 40);
     *buf = 138543874;
-    v34 = v14;
-    v35 = 2048;
-    v36 = v12;
-    v37 = 2114;
-    v38[0] = v15;
-    _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: -_beginPollingForAttention: Will begin polling for attention until distant future (%f) with %{public}@.", buf, 0x20u);
+    v39 = v18;
+    v40 = 2048;
+    v41 = v14;
+    v42 = 2114;
+    v43[0] = v19;
+    _os_log_impl(&dword_1D9356000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: -_beginPollingForAttention: Will begin polling for attention until distant future (%f) with %{public}@.", buf, 0x20u);
   }
 
-  v16 = *(a1 + 32);
-  v17 = dispatch_get_global_queue(2, 0);
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __57__TLAttentionAwarenessObserver__beginPollingForAttention__block_invoke_19;
-  v30[3] = &unk_1E85799C8;
-  objc_copyWeak(&v31, (a1 + 48));
-  v29 = 0;
-  v18 = [v16 pollForAttentionWithTimeout:v17 queue:v30 block:&v29 error:v12];
-  v19 = v29;
+  v20 = *(a1 + 32);
+  v21 = dispatch_get_global_queue(2, 0);
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __57__TLAttentionAwarenessObserver__beginPollingForAttention__block_invoke_19;
+  v35[3] = &unk_1E85799C8;
+  objc_copyWeak(&v36, (a1 + 48));
+  v34 = 0;
+  v22 = [v20 pollForAttentionWithTimeout:v21 queue:v35 block:&v34 error:v14];
+  v23 = v34;
 
-  if (v19)
+  if (v23)
   {
-    v20 = 0;
+    v26 = 0;
   }
 
   else
   {
-    v20 = v18;
+    v26 = v22;
   }
 
-  if (v20 == 1)
+  if (v26 == 1)
   {
-    v21 = TLLogPlayback();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v27 = TLLogPlayback(v24, v25);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(a1 + 32);
-      v22 = *(a1 + 40);
+      v29 = *(a1 + 32);
+      v28 = *(a1 + 40);
       *buf = 138543618;
-      v34 = v22;
-      v35 = 2114;
-      v36 = v23;
-      _os_log_impl(&dword_1D9356000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: -_beginPollingForAttention: Did begin polling successfully from %{public}@.", buf, 0x16u);
+      v39 = v28;
+      v40 = 2114;
+      v41 = v29;
+      _os_log_impl(&dword_1D9356000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@: -_beginPollingForAttention: Did begin polling successfully from %{public}@.", buf, 0x16u);
     }
   }
 
   else
   {
-    v21 = TLLogPlayback();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v27 = TLLogPlayback(v24, v25);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v28 = *(a1 + 32);
-      v27 = *(a1 + 40);
+      v33 = *(a1 + 32);
+      v32 = *(a1 + 40);
       *buf = 138544130;
-      v34 = v27;
-      v35 = 2114;
-      v36 = v28;
-      v37 = 1024;
-      LODWORD(v38[0]) = v18;
-      WORD2(v38[0]) = 2114;
-      *(v38 + 6) = v19;
-      _os_log_error_impl(&dword_1D9356000, v21, OS_LOG_TYPE_ERROR, "%{public}@: -_beginPollingForAttention: -pollForAttentionWithTimeout:error: on %{public}@ returned didSucceedInitializingPoll = %{BOOL}d and errorPolling = %{public}@.", buf, 0x26u);
+      v39 = v32;
+      v40 = 2114;
+      v41 = v33;
+      v42 = 1024;
+      LODWORD(v43[0]) = v22;
+      WORD2(v43[0]) = 2114;
+      *(v43 + 6) = v23;
+      _os_log_error_impl(&dword_1D9356000, v27, OS_LOG_TYPE_ERROR, "%{public}@: -_beginPollingForAttention: -pollForAttentionWithTimeout:error: on %{public}@ returned didSucceedInitializingPoll = %{BOOL}d and errorPolling = %{public}@.", buf, 0x26u);
     }
   }
 
-  objc_destroyWeak(&v31);
-  v24 = *MEMORY[0x1E69E9840];
+  objc_destroyWeak(&v36);
 }
 
 void __57__TLAttentionAwarenessObserver__beginPollingForAttention__block_invoke_19(uint64_t a1, uint64_t a2, void *a3)
@@ -513,143 +507,139 @@ void __57__TLAttentionAwarenessObserver__beginPollingForAttention__block_invoke_
 
 - (void)_endPollingForAttention
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __55__TLAttentionAwarenessObserver__endPollingForAttention__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v23 = 0;
-  v3 = [v2 cancelPollForAttentionWithError:&v23];
-  v4 = v23;
-  v5 = TLLogPlayback();
-  v6 = v5;
+  v24 = 0;
+  v3 = [v2 cancelPollForAttentionWithError:&v24];
+  v4 = v24;
+  v6 = TLLogPlayback(v4, v5);
+  v7 = v6;
   if (v3)
   {
-    v7 = v4 == 0;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  if (v7)
-  {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      v11 = *(a1 + 32);
-      v10 = *(a1 + 40);
-      *buf = 138543618;
-      v25 = v10;
-      v26 = 2114;
-      v27 = v11;
-      _os_log_impl(&dword_1D9356000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: -_endPollingForAttention: Successfully cancelled poll for attention on %{public}@.", buf, 0x16u);
-    }
-  }
-
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-  {
-    v9 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    *buf = 138544130;
-    v25 = v8;
-    v26 = 2114;
-    v27 = v9;
-    v28 = 1024;
-    v29 = v3;
-    v30 = 2114;
-    v31 = v4;
-    _os_log_error_impl(&dword_1D9356000, v6, OS_LOG_TYPE_ERROR, "%{public}@: -_endPollingForAttention: -cancelPollForAttentionWithError: on %{public}@ returned didSucceed = %{BOOL}d and error = %{public}@.", buf, 0x26u);
-  }
-
-  v12 = *(a1 + 32);
-  v22 = 0;
-  v13 = [v12 suspendWithError:&v22];
-  v14 = v22;
-  v15 = TLLogPlayback();
-  v16 = v15;
-  if (!v13 || v14)
-  {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      v21 = *(a1 + 32);
-      v20 = *(a1 + 40);
-      *buf = 138544130;
-      v25 = v20;
-      v26 = 2114;
-      v27 = v21;
-      v28 = 1024;
-      v29 = v13;
-      v30 = 2114;
-      v31 = v14;
-      _os_log_error_impl(&dword_1D9356000, v16, OS_LOG_TYPE_ERROR, "%{public}@: -_endPollingForAttention: -suspendWithError: on %{public}@ returned didSucceed = %{BOOL}d and error = %{public}@.", buf, 0x26u);
-    }
-  }
-
-  else if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    v18 = *(a1 + 32);
-    v17 = *(a1 + 40);
-    *buf = 138543618;
-    v25 = v17;
-    v26 = 2114;
-    v27 = v18;
-    _os_log_impl(&dword_1D9356000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: -_endPollingForAttention: Successfully suspended %{public}@.", buf, 0x16u);
-  }
-
-  v19 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_didReceiveAttentionPollingEventOfType:(unint64_t)type attentionEvent:(id)event
-{
-  v20 = *MEMORY[0x1E69E9840];
-  eventCopy = event;
-  [(TLAttentionAwarenessObserver *)self _assertRunningOnAccessQueue];
-  v7 = TLLogPlayback();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-  {
-    v14 = 138543874;
-    selfCopy = self;
-    v16 = 2048;
-    typeCopy = type;
-    v18 = 2114;
-    v19 = eventCopy;
-    _os_log_impl(&dword_1D9356000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: -_didReceiveAttentionPollingEventOfType:(%ld) attentionEvent:(%{public}@).", &v14, 0x20u);
-  }
-
-  if (type == 2)
-  {
-    v8 = 1;
-    v10 = 1;
-    v9 = 1;
+    v8 = v4 == 0;
   }
 
   else
   {
     v8 = 0;
+  }
+
+  if (v8)
+  {
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = *(a1 + 32);
+      v11 = *(a1 + 40);
+      *buf = 138543618;
+      v26 = v11;
+      v27 = 2114;
+      v28 = v12;
+      _os_log_impl(&dword_1D9356000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: -_endPollingForAttention: Successfully cancelled poll for attention on %{public}@.", buf, 0x16u);
+    }
+  }
+
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  {
+    v10 = *(a1 + 32);
+    v9 = *(a1 + 40);
+    *buf = 138544130;
+    v26 = v9;
+    v27 = 2114;
+    v28 = v10;
+    v29 = 1024;
+    v30 = v3;
+    v31 = 2114;
+    v32 = v4;
+    _os_log_error_impl(&dword_1D9356000, v7, OS_LOG_TYPE_ERROR, "%{public}@: -_endPollingForAttention: -cancelPollForAttentionWithError: on %{public}@ returned didSucceed = %{BOOL}d and error = %{public}@.", buf, 0x26u);
+  }
+
+  v13 = *(a1 + 32);
+  v23 = 0;
+  v14 = [v13 suspendWithError:&v23];
+  v15 = v23;
+  v17 = TLLogPlayback(v15, v16);
+  v18 = v17;
+  if (!v14 || v15)
+  {
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      v22 = *(a1 + 32);
+      v21 = *(a1 + 40);
+      *buf = 138544130;
+      v26 = v21;
+      v27 = 2114;
+      v28 = v22;
+      v29 = 1024;
+      v30 = v14;
+      v31 = 2114;
+      v32 = v15;
+      _os_log_error_impl(&dword_1D9356000, v18, OS_LOG_TYPE_ERROR, "%{public}@: -_endPollingForAttention: -suspendWithError: on %{public}@ returned didSucceed = %{BOOL}d and error = %{public}@.", buf, 0x26u);
+    }
+  }
+
+  else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    v20 = *(a1 + 32);
+    v19 = *(a1 + 40);
+    *buf = 138543618;
+    v26 = v19;
+    v27 = 2114;
+    v28 = v20;
+    _os_log_impl(&dword_1D9356000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: -_endPollingForAttention: Successfully suspended %{public}@.", buf, 0x16u);
+  }
+}
+
+- (void)_didReceiveAttentionPollingEventOfType:(unint64_t)type attentionEvent:(id)event
+{
+  v21 = *MEMORY[0x1E69E9840];
+  eventCopy = event;
+  _assertRunningOnAccessQueue = [(TLAttentionAwarenessObserver *)self _assertRunningOnAccessQueue];
+  v9 = TLLogPlayback(_assertRunningOnAccessQueue, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 138543874;
+    selfCopy = self;
+    v17 = 2048;
+    typeCopy = type;
+    v19 = 2114;
+    v20 = eventCopy;
+    _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: -_didReceiveAttentionPollingEventOfType:(%ld) attentionEvent:(%{public}@).", &v15, 0x20u);
+  }
+
+  if (type == 2)
+  {
+    v10 = 1;
+    v12 = 1;
+    v11 = 1;
+  }
+
+  else
+  {
+    v10 = 0;
     if (type == 1)
     {
-      v9 = 0;
-      v10 = 1;
+      v11 = 0;
+      v12 = 1;
     }
 
     else
     {
-      v10 = 0;
-      v9 = 0;
+      v12 = 0;
+      v11 = 0;
     }
   }
 
   allValues = [(NSMutableDictionary *)self->_pollingForAttentionEventHandlers allValues];
-  v12 = [allValues copy];
+  v14 = [allValues copy];
 
-  if (v8)
+  if (v10)
   {
     if (self->_isPollingForAttention)
     {
@@ -659,21 +649,17 @@ void __55__TLAttentionAwarenessObserver__endPollingForAttention__block_invoke(ui
     [(NSMutableDictionary *)self->_pollingForAttentionEventHandlers removeAllObjects];
   }
 
-  if (v10)
+  if (v12)
   {
-    [(TLAttentionAwarenessObserver *)self _invokePollingForAttentionEventHandlers:v12 eventType:v9];
+    [(TLAttentionAwarenessObserver *)self _invokePollingForAttentionEventHandlers:v14 eventType:v11];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didCompleteInitialization
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invokePollingForAttentionEventHandlers:(id)handlers eventType:(int64_t)type
@@ -694,40 +680,37 @@ void __55__TLAttentionAwarenessObserver__endPollingForAttention__block_invoke(ui
 
 void __82__TLAttentionAwarenessObserver__invokePollingForAttentionEventHandlers_eventType___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v3)
+  v1 = *(a1 + 32);
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v4 = v3;
-    v5 = *v10;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v1);
         }
 
-        v7 = *(a1 + 40);
-        (*(*(*(&v9 + 1) + 8 * v6) + 16))(*(*(&v9 + 1) + 8 * v6));
-        ++v6;
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
+        ++v5;
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v4);
+    while (v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_assertRunningOnAccessQueue

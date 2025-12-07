@@ -72,7 +72,7 @@
   {
     identifier = self->_identifier;
     self->_identifier = 0;
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](self, identifier);
   }
 }
 

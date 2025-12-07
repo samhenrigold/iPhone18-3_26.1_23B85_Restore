@@ -52,7 +52,7 @@
     [v7 opacity];
     if (v9 != v10)
     {
-      v13 = 0;
+      isEqual = 0;
 LABEL_11:
 
       goto LABEL_12;
@@ -60,11 +60,11 @@ LABEL_11:
 
     backgroundColor = [(UIInterfaceActionHighlightAttributes *)self backgroundColor];
     backgroundColor2 = [v7 backgroundColor];
-    if (backgroundColor == backgroundColor2 || (-[UIInterfaceActionHighlightAttributes backgroundColor](self, "backgroundColor"), v3 = objc_claimAutoreleasedReturnValue(), [v7 backgroundColor], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "isEqual:", v4)))
+    if (backgroundColor == backgroundColor2 || (-[UIInterfaceActionHighlightAttributes backgroundColor](self, "backgroundColor"), v3 = objc_claimAutoreleasedReturnValue(), [v7 backgroundColor], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend_isEqual_(v3)))
     {
       filters = [(UIInterfaceActionHighlightAttributes *)self filters];
       filters2 = [v7 filters];
-      v13 = [filters isEqual:filters2];
+      isEqual = objc_msgSend_isEqual_(filters);
 
       if (backgroundColor == backgroundColor2)
       {
@@ -76,16 +76,16 @@ LABEL_10:
 
     else
     {
-      v13 = 0;
+      isEqual = 0;
     }
 
     goto LABEL_10;
   }
 
-  v13 = 0;
+  isEqual = 0;
 LABEL_12:
 
-  return v13;
+  return isEqual;
 }
 
 - (double)opacity
@@ -129,7 +129,7 @@ LABEL_12:
   if (backgroundColor)
   {
     v3 = +[UIColor clearColor];
-    LODWORD(backgroundColor) = ![(UIColor *)backgroundColor isEqual:v3];
+    LODWORD(backgroundColor) = objc_msgSend_isEqual_(backgroundColor) ^ 1;
   }
 
   return backgroundColor;

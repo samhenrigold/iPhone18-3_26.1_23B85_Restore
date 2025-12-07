@@ -3,62 +3,59 @@
 
 @implementation APBrokerGroupCallNextBroker
 
-void ___APBrokerGroupCallNextBroker_block_invoke(uint64_t a1)
+void ___APBrokerGroupCallNextBroker_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v5 = *(a1 + 32);
+  v4 = *(a1 + 40);
   if (gLogCategory_APBrokerGroup <= 30 && (gLogCategory_APBrokerGroup != -1 || _LogCategory_Initialize()))
   {
-    ___APBrokerGroupCallNextBroker_block_invoke_cold_1(v2);
+    ___APBrokerGroupCallNextBroker_block_invoke_cold_1(v4, a2, a3);
   }
 
-  v4 = *(v2 + 8);
-  v5 = FigCFWeakReferenceHolderCopyReferencedObject();
-  if (!v5)
+  v6 = FigCFWeakReferenceHolderCopyReferencedObject();
+  if (!v6)
   {
-    *(v2 + 40) = 1;
-    *(v2 + 44) = -71148;
+    *(v4 + 40) = 1;
+    *(v4 + 11) = -71148;
     if (gLogCategory_APBrokerGroup <= 30 && (gLogCategory_APBrokerGroup != -1 || _LogCategory_Initialize()))
     {
-      v10 = *v2;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APBrokerGroup, "void _APBrokerGroupHandleBrokerResult(FigCFWeakReferenceHolderRef, APBrokerGroupOperationData *)", 33554462, "[%{ptr}] [%{ptr}] BrokerGroup released, cancelling operation\n", *v4, v4 + 5);
     }
   }
 
-  if (*(v2 + 40))
+  if (*(v4 + 40))
   {
-    if (!*(v2 + 44))
+    if (!*(v4 + 11))
     {
-      if (v3)
+      if (v5)
       {
-        v6 = FigCFWeakReferenceHolderCopyReferencedObject();
-        if (v6)
+        v7 = FigCFWeakReferenceHolderCopyReferencedObject();
+        if (v7)
         {
           if (gLogCategory_APBrokerGroup <= 50 && (gLogCategory_APBrokerGroup != -1 || _LogCategory_Initialize()))
           {
-            v11 = *v2;
-            LogPrintF();
+            LogPrintF(&gLogCategory_APBrokerGroup, "void _APBrokerGroupUpdatePrimaryBroker(APBrokerGroupRef, FigCFWeakReferenceHolderRef, APBrokerGroupOperationData *)", 33554482, "[%{ptr}] [%{ptr}] Updating primary broker to [%{ptr}]\n", *v4, v4 + 5, v7);
           }
 
-          v7 = v5[6];
-          GroupID = APBrokerGroupGetGroupID(v6);
-          v5[6] = GroupID;
+          v8 = v6[6];
+          GroupID = APBrokerGroupGetGroupID(v7);
+          v6[6] = GroupID;
           if (GroupID)
           {
             CFRetain(GroupID);
           }
 
-          if (v7)
+          if (v8)
           {
-            CFRelease(v7);
+            CFRelease(v8);
           }
 
-          CFRelease(v6);
+          CFRelease(v7);
         }
 
         else
         {
-          ___APBrokerGroupCallNextBroker_block_invoke_cold_2(gLogCategory_APBrokerGroup, v2);
+          ___APBrokerGroupCallNextBroker_block_invoke_cold_2(gLogCategory_APBrokerGroup, v4, (v4 + 5));
         }
       }
 
@@ -68,8 +65,8 @@ void ___APBrokerGroupCallNextBroker_block_invoke(uint64_t a1)
       }
     }
 
-    _APBrokerGroupDoneCallingBrokers(v5, v2);
-    if (v5)
+    _APBrokerGroupDoneCallingBrokers(v6, v4);
+    if (v6)
     {
       goto LABEL_25;
     }
@@ -77,38 +74,35 @@ void ___APBrokerGroupCallNextBroker_block_invoke(uint64_t a1)
 
   else
   {
-    _APBrokerGroupCallNextBroker(v5, v2);
-    if (v5)
+    _APBrokerGroupCallNextBroker(v6, v4);
+    if (v6)
     {
 LABEL_25:
-      CFRelease(v5);
+      CFRelease(v6);
     }
   }
 
-  v9 = *(a1 + 32);
-  if (v9)
+  v10 = *(a1 + 32);
+  if (v10)
   {
 
-    CFRelease(v9);
+    CFRelease(v10);
   }
 }
 
-uint64_t ___APBrokerGroupCallNextBroker_block_invoke_cold_1(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = *(a1 + 11);
-  *(a1 + 40);
-  return OUTLINED_FUNCTION_7_0();
-}
-
-uint64_t ___APBrokerGroupCallNextBroker_block_invoke_cold_2(uint64_t result, uint64_t *a2)
+uint64_t ___APBrokerGroupCallNextBroker_block_invoke_cold_2(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result <= 30)
   {
-    if (result != -1 || (result = OUTLINED_FUNCTION_8_0(), result))
+    if (result != -1)
     {
-      v3 = *a2;
-      return OUTLINED_FUNCTION_7_0();
+      return OUTLINED_FUNCTION_7_0(&gLogCategory_APBrokerGroup, "void _APBrokerGroupUpdatePrimaryBroker(APBrokerGroupRef, FigCFWeakReferenceHolderRef, APBrokerGroupOperationData *)", a3, "[%{ptr}] [%{ptr}] Broker released. Not updating primary broker\n");
+    }
+
+    result = OUTLINED_FUNCTION_8_0(&gLogCategory_APBrokerGroup);
+    if (result)
+    {
+      return OUTLINED_FUNCTION_7_0(&gLogCategory_APBrokerGroup, "void _APBrokerGroupUpdatePrimaryBroker(APBrokerGroupRef, FigCFWeakReferenceHolderRef, APBrokerGroupOperationData *)", a3, "[%{ptr}] [%{ptr}] Broker released. Not updating primary broker\n");
     }
   }
 

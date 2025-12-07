@@ -196,7 +196,6 @@ void __78__AKBiometricRatchetHook__armBiometricRatchetWithServerAttributes_compl
 
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_biometricRatchetUIContextFromAttributes:(id)attributes
@@ -243,7 +242,6 @@ void __78__AKBiometricRatchetHook__armBiometricRatchetWithServerAttributes_compl
   objc_storeStrong(&v9, 0);
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -275,7 +273,6 @@ void __78__AKBiometricRatchetHook__armBiometricRatchetWithServerAttributes_compl
   objc_storeStrong(&v6, 0);
   objc_storeStrong(&ratchetState, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateResponseWithContext
@@ -291,7 +288,6 @@ void __78__AKBiometricRatchetHook__armBiometricRatchetWithServerAttributes_compl
   *&v2 = MEMORY[0x277D82BD8](v3).n128_u64[0];
   [(AKBiometricRatchetHook *)selfCopy setServerHookResponse:v4[0], v2];
   objc_storeStrong(v4, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (RUIServerHookDelegate)delegate

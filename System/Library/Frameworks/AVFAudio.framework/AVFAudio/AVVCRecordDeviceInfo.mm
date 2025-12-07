@@ -7,7 +7,7 @@
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (kAVVCScope)
   {
     if (*(kAVVCScope + 8))
@@ -19,10 +19,10 @@
         if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315650;
-          v8 = "AVVoiceController.mm";
-          v9 = 1024;
-          v10 = 231;
-          v11 = 2048;
+          v7 = "AVVoiceController.mm";
+          v8 = 1024;
+          v9 = 231;
+          v10 = 2048;
           selfCopy = self;
           _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVCRecordDeviceInfo dealloc. self(%p)", buf, 0x1Cu);
         }
@@ -30,19 +30,18 @@
     }
   }
 
-  v6.receiver = self;
-  v6.super_class = AVVCRecordDeviceInfo;
-  [(AVVCRecordDeviceInfo *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = AVVCRecordDeviceInfo;
+  [(AVVCRecordDeviceInfo *)&v5 dealloc];
 }
 
 - (AVVCRecordDeviceInfo)initWithRecordingEngine:(shared_ptr<AVVCRecordingEngine>)engine
 {
   var0 = engine.var0;
-  v48 = *MEMORY[0x1E69E9840];
-  v39.receiver = self;
-  v39.super_class = AVVCRecordDeviceInfo;
-  v4 = [(AVVCRecordDeviceInfo *)&v39 init:engine.var0];
+  v47 = *MEMORY[0x1E69E9840];
+  v38.receiver = self;
+  v38.super_class = AVVCRecordDeviceInfo;
+  v4 = [(AVVCRecordDeviceInfo *)&v38 init:engine.var0];
   if (v4)
   {
     if (!kAVVCScope)
@@ -131,11 +130,11 @@ LABEL_17:
                 if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136315650;
-                  v41 = "AVVoiceController.mm";
-                  v42 = 1024;
-                  v43 = 213;
-                  v44 = 2112;
-                  v45 = v21;
+                  v40 = "AVVoiceController.mm";
+                  v41 = 1024;
+                  v42 = 213;
+                  v43 = 2112;
+                  v44 = v21;
                   _os_log_impl(&dword_1BA5AC000, v25, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVCRecordDeviceInfo initWithRecordingEngine: recordDeviceName(%@)", buf, 0x1Cu);
                 }
               }
@@ -166,11 +165,11 @@ LABEL_17:
                 if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136315650;
-                  v41 = "AVVoiceController.mm";
-                  v42 = 1024;
-                  v43 = 215;
-                  v44 = 2112;
-                  v45 = v15;
+                  v40 = "AVVoiceController.mm";
+                  v41 = 1024;
+                  v42 = 215;
+                  v43 = 2112;
+                  v44 = v15;
                   _os_log_impl(&dword_1BA5AC000, v29, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVCRecordDeviceInfo initWithRecordingEngine: remoteDeviceUUID(%@)", buf, 0x1Cu);
                 }
               }
@@ -221,11 +220,11 @@ LABEL_17:
                 {
                   remoteDeviceCategory = v4->_remoteDeviceCategory;
                   *buf = 136315650;
-                  v41 = "AVVoiceController.mm";
-                  v42 = 1024;
-                  v43 = 218;
-                  v44 = 1024;
-                  LODWORD(v45) = remoteDeviceCategory;
+                  v40 = "AVVoiceController.mm";
+                  v41 = 1024;
+                  v42 = 218;
+                  v43 = 1024;
+                  LODWORD(v44) = remoteDeviceCategory;
                   _os_log_impl(&dword_1BA5AC000, v35, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVCRecordDeviceInfo initWithVoiceController: remoteDeviceCategory(%d)", buf, 0x18u);
                 }
               }
@@ -245,7 +244,7 @@ LABEL_17:
       v4->_remoteDeviceCategory = 0;
 LABEL_60:
 
-      goto LABEL_61;
+      return v4;
     }
 
     v7 = *var0;
@@ -262,13 +261,13 @@ LABEL_11:
         v12 = [v9 stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v7, v10, v11];
 LABEL_13:
         *buf = 136315906;
-        v41 = "AVVoiceController.mm";
-        v42 = 1024;
-        v43 = 192;
-        v44 = 2112;
-        v45 = v12;
-        v46 = 2048;
-        v47 = v4;
+        v40 = "AVVoiceController.mm";
+        v41 = 1024;
+        v42 = 192;
+        v43 = 2112;
+        v44 = v12;
+        v45 = 2048;
+        v46 = v4;
         _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVCRecordDeviceInfo initWithRecordingEngine[%@]. self(%p)", buf, 0x26u);
         if (v8)
         {
@@ -291,8 +290,6 @@ LABEL_13:
     goto LABEL_13;
   }
 
-LABEL_61:
-  v37 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

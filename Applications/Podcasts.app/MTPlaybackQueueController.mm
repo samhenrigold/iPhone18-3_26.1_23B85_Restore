@@ -479,7 +479,7 @@ LABEL_15:
       v24 = currentChapter2;
       if (currentChapter2)
       {
-        [currentChapter2 assetTimeRange];
+        objc_msgSend_assetTimeRange(currentChapter2);
       }
 
       else

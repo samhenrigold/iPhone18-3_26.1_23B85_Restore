@@ -229,7 +229,7 @@ LABEL_27:
 
 void __159__ATXEventTravelTimeDataSourceInternal_travelTimeInfoForEventID_location_expectedArrivalDate_transportType_localOnlyAfterFirstUpdate_heuristicDevice_callback___block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3[1] objectForKey:*(a1 + 32)];
   v5 = *(*(a1 + 80) + 8);
@@ -300,9 +300,9 @@ void __159__ATXEventTravelTimeDataSourceInternal_travelTimeInfoForEventID_locati
       v14 = v13;
       [*(a1 + 40) coordinate];
       *buf = 134218240;
-      v32 = v14;
-      v33 = 2048;
-      v34 = v15;
+      v31 = v14;
+      v32 = 2048;
+      v33 = v15;
       _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_INFO, "Begin Route Hypothesis to destination: (%f, %f)", buf, 0x16u);
     }
 
@@ -313,18 +313,18 @@ void __159__ATXEventTravelTimeDataSourceInternal_travelTimeInfoForEventID_locati
 
     v19 = *(a1 + 80);
     v20 = *(*(v19 + 8) + 40);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __159__ATXEventTravelTimeDataSourceInternal_travelTimeInfoForEventID_location_expectedArrivalDate_transportType_localOnlyAfterFirstUpdate_heuristicDevice_callback___block_invoke_35;
-    v25[3] = &unk_278C3D0D8;
-    v30 = *(a1 + 96);
-    v28 = v19;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __159__ATXEventTravelTimeDataSourceInternal_travelTimeInfoForEventID_location_expectedArrivalDate_transportType_localOnlyAfterFirstUpdate_heuristicDevice_callback___block_invoke_35;
+    v24[3] = &unk_278C3D0D8;
+    v29 = *(a1 + 96);
+    v27 = v19;
     v21 = *(a1 + 40);
-    v29 = *(a1 + 88);
+    v28 = *(a1 + 88);
     v22 = *(a1 + 72);
-    v26 = v21;
-    v27 = v22;
-    [v20 startHypothesizingWithUpdateHandler:v25];
+    v25 = v21;
+    v26 = v22;
+    [v20 startHypothesizingWithUpdateHandler:v24];
     [v3[1] setObject:*(*(*(a1 + 80) + 8) + 40) forKey:*(a1 + 32)];
     v23 = __atxlog_handle_heuristic();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
@@ -332,13 +332,11 @@ void __159__ATXEventTravelTimeDataSourceInternal_travelTimeInfoForEventID_locati
       __159__ATXEventTravelTimeDataSourceInternal_travelTimeInfoForEventID_location_expectedArrivalDate_transportType_localOnlyAfterFirstUpdate_heuristicDevice_callback___block_invoke_cold_2();
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __159__ATXEventTravelTimeDataSourceInternal_travelTimeInfoForEventID_location_expectedArrivalDate_transportType_localOnlyAfterFirstUpdate_heuristicDevice_callback___block_invoke_35(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     [*(*(*(a1 + 48) + 8) + 40) onlyPerformLocalUpdates];
@@ -350,11 +348,11 @@ void __159__ATXEventTravelTimeDataSourceInternal_travelTimeInfoForEventID_locati
     [*(a1 + 32) coordinate];
     v4 = v3;
     [*(a1 + 32) coordinate];
-    v13 = 134218240;
-    v14 = v4;
-    v15 = 2048;
-    v16 = v5;
-    _os_log_impl(&dword_23E3EA000, v2, OS_LOG_TYPE_INFO, "Route hypothesizer received update (%f, %f). Checking for validity.", &v13, 0x16u);
+    v12 = 134218240;
+    v13 = v4;
+    v14 = 2048;
+    v15 = v5;
+    _os_log_impl(&dword_23E3EA000, v2, OS_LOG_TYPE_INFO, "Route hypothesizer received update (%f, %f). Checking for validity.", &v12, 0x16u);
   }
 
   if ([*(*(*(a1 + 48) + 8) + 40) state] == 2 || objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "state") == 3)
@@ -364,9 +362,9 @@ void __159__ATXEventTravelTimeDataSourceInternal_travelTimeInfoForEventID_locati
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = [*(*(*(a1 + 48) + 8) + 40) state];
-      v13 = 134217984;
-      v14 = v7;
-      _os_log_impl(&dword_23E3EA000, v6, OS_LOG_TYPE_INFO, "Route hypothesizer has failed. Status: %lu. Note: This could be because user is too far from the desired destination.", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = v7;
+      _os_log_impl(&dword_23E3EA000, v6, OS_LOG_TYPE_INFO, "Route hypothesizer has failed. Status: %lu. Note: This could be because user is too far from the desired destination.", &v12, 0xCu);
     }
   }
 
@@ -378,18 +376,16 @@ void __159__ATXEventTravelTimeDataSourceInternal_travelTimeInfoForEventID_locati
       [*(a1 + 32) coordinate];
       v10 = v9;
       [*(a1 + 32) coordinate];
-      v13 = 134218240;
-      v14 = v10;
-      v15 = 2048;
-      v16 = v11;
-      _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_INFO, "Hypothesis is valid (%f, %f). Posting ATXEventTravelTimeUpdated notification.", &v13, 0x16u);
+      v12 = 134218240;
+      v13 = v10;
+      v14 = 2048;
+      v15 = v11;
+      _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_INFO, "Hypothesis is valid (%f, %f). Posting ATXEventTravelTimeUpdated notification.", &v12, 0x16u);
     }
 
     v6 = [MEMORY[0x277CCAB98] defaultCenter];
     [v6 postNotificationName:@"ATXTravelTimeUpdated" object:*(a1 + 40)];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __159__ATXEventTravelTimeDataSourceInternal_travelTimeInfoForEventID_location_expectedArrivalDate_transportType_localOnlyAfterFirstUpdate_heuristicDevice_callback___block_invoke_41(uint64_t a1, uint64_t a2)

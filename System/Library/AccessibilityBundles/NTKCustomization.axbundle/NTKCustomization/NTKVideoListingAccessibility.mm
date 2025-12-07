@@ -7,21 +7,21 @@
 - (id)accessibilityLabel
 {
   v2 = [(NTKVideoListingAccessibility *)self safeIntegerForKey:@"variant"];
-  v4 = accessibilityLocalizedString(*(&AccessibilityClockFaceVideoDescription + v2), v3);
-  v5 = v4;
+  v3 = accessibilityLocalizedString(*(&AccessibilityClockFaceVideoDescription + v2));
+  v4 = v3;
   if (v2)
   {
-    v6 = v4;
+    v5 = v3;
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  v7 = v6;
+  v6 = v5;
 
-  return v6;
+  return v5;
 }
 
 @end

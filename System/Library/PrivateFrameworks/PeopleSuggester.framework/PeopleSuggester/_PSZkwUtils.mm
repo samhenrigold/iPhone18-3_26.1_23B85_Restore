@@ -6,7 +6,7 @@
 
 + (id)clientModelMismatchErrorResponseForRequest:(id)request requestedClientModelId:(id)id actualClientModelId:(id)modelId
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E696AEC0];
   requestCopy = request;
   modelId = [v7 stringWithFormat:@"Wrong delegate for request. Expected %@ but found %@.", id, modelId];
@@ -21,24 +21,21 @@
   getATXSuggestionRequestResponseClass();
   v13 = objc_opt_class();
   v14 = NSStringFromClass(v13);
-  v20 = *MEMORY[0x1E696A578];
-  v21[0] = modelId;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v19 = *MEMORY[0x1E696A578];
+  v20[0] = modelId;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   v16 = [v12 errorWithDomain:v14 code:5 userInfo:v15];
   v17 = [v11 initWithSuggestions:0 feedbackMetadata:0 originalRequest:requestCopy responseCode:3 error:v16];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 + (void)clientModelMismatchErrorResponseForRequest:(uint64_t)a1 requestedClientModelId:(NSObject *)a2 actualClientModelId:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Client model mismatch when fetching ZKW suggestion: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Client model mismatch when fetching ZKW suggestion: %@", &v2, 0xCu);
 }
 
 @end

@@ -216,7 +216,7 @@
   v16 = 0u;
   v13 = 0u;
   v14 = 0u;
-  [NUCropModel _imageTransformFromPitch:pitch * 3.14159265 / 180.0 yaw:yaw * 3.14159265 / 180.0 roll:roll * 3.14159265 / 180.0 imageRect:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+  objc_msgSend__imageTransformFromPitch_yaw_roll_imageRect_(NUCropModel, a2, pitch * 3.14159265 / 180.0, yaw * 3.14159265 / 180.0, roll * 3.14159265 / 180.0, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
   v22 = vld4q_f64(v17.i64);
   v6 = vzip2q_s64(v13, v15);
   v7 = vzip1q_s64(v14, v16);
@@ -683,7 +683,7 @@ LABEL_10:
       v20 = v19;
       if (v19)
       {
-        [v19 extent];
+        objc_msgSend_extent(v19);
       }
 
       else
@@ -1465,7 +1465,7 @@ LABEL_7:
   v3 = pipelineState;
   if (pipelineState)
   {
-    [pipelineState time];
+    objc_msgSend_time(pipelineState);
     v4 = v6 & 1;
   }
 

@@ -151,7 +151,7 @@
         v9 = *(*(&v15 + 1) + 8 * i);
         playbackDeviceIDs = self->_playbackDeviceIDs;
         identifier = [v9 identifier];
-        v12 = [(NSMutableDictionary *)playbackDeviceIDs objectForKey:identifier];
+        v12 = objc_msgSend_objectForKey_(playbackDeviceIDs);
 
         if (v12)
         {
@@ -810,11 +810,11 @@ LABEL_24:
         {
           if (v10)
           {
-            [v10 operatingSystemVersion];
+            objc_msgSend_operatingSystemVersion(v10);
             v12 = v24;
-            [v10 operatingSystemVersion];
+            objc_msgSend_operatingSystemVersion(v10);
             v13 = v23;
-            [v10 operatingSystemVersion];
+            objc_msgSend_operatingSystemVersion(v10);
             v14 = v22;
           }
 
@@ -914,7 +914,7 @@ LABEL_24:
   {
     playbackDeviceIDs = self->_playbackDeviceIDs;
     identifier = [deviceCopy identifier];
-    v13 = [(NSMutableDictionary *)playbackDeviceIDs objectForKey:identifier];
+    v13 = objc_msgSend_objectForKey_(playbackDeviceIDs);
 
     if (v13)
     {
@@ -968,7 +968,7 @@ LABEL_24:
     isRemotePlaybackDevice = [_ad_siriSharedDataProtobuf isRemotePlaybackDevice];
     playbackDeviceIDs = self->_playbackDeviceIDs;
     identifier = [deviceCopy identifier];
-    v17 = [(NSMutableDictionary *)playbackDeviceIDs objectForKey:identifier];
+    v17 = objc_msgSend_objectForKey_(playbackDeviceIDs);
 
     if (isRemotePlaybackDevice)
     {
@@ -1094,7 +1094,7 @@ LABEL_23:
     [(ADCompanionService *)self _updateSiriInfoDictionary];
   }
 
-  [(ADCompanionService *)self _updateAssistantIDMapForDevice:deviceCopy, *v35];
+  [(ADCompanionService *)self _updateAssistantIDMapForDevice:deviceCopy, *v35, *&v35[8]];
   if (AFIsHorseman())
   {
     idsDeviceIdentifier = [deviceCopy idsDeviceIdentifier];
@@ -1155,7 +1155,7 @@ LABEL_23:
       isRemotePlaybackDevice = [_ad_siriSharedDataProtobuf isRemotePlaybackDevice];
       playbackDeviceIDs = self->_playbackDeviceIDs;
       identifier2 = [deviceCopy identifier];
-      v26 = [(NSMutableDictionary *)playbackDeviceIDs objectForKey:identifier2];
+      v26 = objc_msgSend_objectForKey_(playbackDeviceIDs);
       v27 = v26;
       if (isRemotePlaybackDevice)
       {
@@ -1410,7 +1410,7 @@ LABEL_29:
 {
   dictionaryCopy = dictionary;
   objc_opt_class();
-  v5 = [dictionaryCopy objectForKey:@"text"];
+  v5 = objc_msgSend_objectForKey_(dictionaryCopy);
   if (v5 && (objc_opt_isKindOfClass() & 1) == 0)
   {
     v23 = AFSiriLogContextDaemon;
@@ -1428,7 +1428,7 @@ LABEL_29:
 
   else
   {
-    v6 = [dictionaryCopy objectForKey:@"handoffRequestData"];
+    v6 = objc_msgSend_objectForKey_(dictionaryCopy);
     if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       v24 = AFSiriLogContextDaemon;
@@ -1446,7 +1446,7 @@ LABEL_29:
 
     else
     {
-      v7 = [dictionaryCopy objectForKey:@"handoffOriginDeviceName"];
+      v7 = objc_msgSend_objectForKey_(dictionaryCopy);
       if (v7 && (objc_opt_isKindOfClass() & 1) == 0)
       {
         v25 = AFSiriLogContextDaemon;
@@ -1464,7 +1464,7 @@ LABEL_29:
 
       else
       {
-        v8 = [dictionaryCopy objectForKey:@"handoffURLString"];
+        v8 = objc_msgSend_objectForKey_(dictionaryCopy);
         if (v8 && (objc_opt_isKindOfClass() & 1) == 0)
         {
           v26 = AFSiriLogContextDaemon;
@@ -1482,7 +1482,7 @@ LABEL_29:
 
         else
         {
-          v9 = [dictionaryCopy objectForKey:@"handoffTurnIdentifier"];
+          v9 = objc_msgSend_objectForKey_(dictionaryCopy);
           if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
             v27 = AFSiriLogContextDaemon;
@@ -1500,7 +1500,7 @@ LABEL_29:
 
           else
           {
-            v10 = [dictionaryCopy objectForKey:@"handoffRequiresUserInteraction"];
+            v10 = objc_msgSend_objectForKey_(dictionaryCopy);
             if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
             {
               v28 = AFSiriLogContextDaemon;
@@ -1518,7 +1518,7 @@ LABEL_29:
 
             else
             {
-              v38 = [dictionaryCopy objectForKey:@"handoffNotification"];
+              v38 = objc_msgSend_objectForKey_(dictionaryCopy);
               if (v38 && (objc_opt_isKindOfClass() & 1) == 0)
               {
                 v29 = AFSiriLogContextDaemon;
@@ -1537,7 +1537,7 @@ LABEL_29:
 
               else
               {
-                v37 = [dictionaryCopy objectForKey:@"isSiriXRequest"];
+                v37 = objc_msgSend_objectForKey_(dictionaryCopy);
                 if (v37 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
                 {
                   v30 = AFSiriLogContextDaemon;
@@ -1556,7 +1556,7 @@ LABEL_29:
 
                 else
                 {
-                  v11 = [dictionaryCopy objectForKey:@"isATVHandoff"];
+                  v11 = objc_msgSend_objectForKey_(dictionaryCopy);
                   v36 = v11;
                   if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
                   {
@@ -2811,7 +2811,7 @@ LABEL_35:
   messageCopy = message;
   identifierCopy = identifier;
   completionCopy = completion;
-  v13 = [messageCopy objectForKey:@"messageID"];
+  v13 = objc_msgSend_objectForKey_(messageCopy);
   v14 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
   {
@@ -3008,7 +3008,7 @@ LABEL_36:
   dispatch_assert_queue_V2(self->_serialQueue);
   if (messageCopy)
   {
-    v5 = [(NSMutableDictionary *)self->_timerInfo objectForKey:messageCopy];
+    v5 = objc_msgSend_objectForKey_(self->_timerInfo);
     heartbeatTimer = [v5 heartbeatTimer];
     [heartbeatTimer cancelIfNotAlreadyCanceled];
 
@@ -3067,7 +3067,7 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v16 = [(NSMutableDictionary *)self->_timerInfo objectForKey:messageCopy];
+  v16 = objc_msgSend_objectForKey_(self->_timerInfo);
 
   if (v16)
   {
@@ -3249,7 +3249,7 @@ LABEL_19:
   dispatch_assert_queue_V2(self->_serialQueue);
   playbackDeviceIDs = self->_playbackDeviceIDs;
   identifier = [deviceCopy identifier];
-  v8 = [(NSMutableDictionary *)playbackDeviceIDs objectForKey:identifier];
+  v8 = objc_msgSend_objectForKey_(playbackDeviceIDs);
 
   if (v8)
   {
@@ -3265,7 +3265,7 @@ LABEL_12:
     airplayRouteId = [_ad_siriSharedDataProtobuf airplayRouteId];
     if (airplayRouteId)
     {
-      v12 = [v8 objectForKey:airplayRouteId];
+      v12 = objc_msgSend_objectForKey_(v8);
 
       if (!v12)
       {
@@ -3331,10 +3331,10 @@ LABEL_13:
 
     playbackDeviceIDs = self->_playbackDeviceIDs;
     identifier = [deviceCopy identifier];
-    v17 = [(NSMutableDictionary *)playbackDeviceIDs objectForKey:identifier];
+    v17 = objc_msgSend_objectForKey_(playbackDeviceIDs);
 
     airplayRouteId = [_ad_siriSharedDataProtobuf airplayRouteId];
-    v19 = [v17 objectForKey:airplayRouteId];
+    v19 = objc_msgSend_objectForKey_(v17);
     [v6 setHashedRouteId:v19];
   }
 
@@ -3429,7 +3429,7 @@ LABEL_13:
     if (v15)
     {
       _newRequestDictionary = [(ADCompanionService *)self _newRequestDictionary];
-      v16 = [_newRequestDictionary objectForKey:@"messageID"];
+      v16 = objc_msgSend_objectForKey_(_newRequestDictionary);
       v30[0] = _NSConcreteStackBlock;
       v30[1] = 3221225472;
       v30[2] = sub_10025AA40;
@@ -3538,7 +3538,7 @@ LABEL_13:
     {
       if (v17)
       {
-        v18 = [v15 objectForKey:@"messageID"];
+        v18 = objc_msgSend_objectForKey_(v15);
         v36[0] = _NSConcreteStackBlock;
         v36[1] = 3221225472;
         v36[2] = sub_10025B3C4;
@@ -3916,7 +3916,7 @@ LABEL_16:
       _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%s Removed %@", &v12, 0x16u);
     }
 
-    v11 = [(NSMutableDictionary *)self->_intermediateMessageIDs objectForKey:v8];
+    v11 = objc_msgSend_objectForKey_(self->_intermediateMessageIDs);
     [v11 removeObject:dsCopy];
   }
 
@@ -3940,7 +3940,7 @@ LABEL_16:
     v9 = [(ADCompanionService *)self _rapportEffectiveIdForPeer:peerCopy];
     if ([v9 length])
     {
-      v10 = [(NSMutableDictionary *)self->_intermediateMessageIDs objectForKey:v9];
+      v10 = objc_msgSend_objectForKey_(self->_intermediateMessageIDs);
       v11 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
       {
@@ -4015,7 +4015,7 @@ LABEL_16:
   v7 = [(ADCompanionService *)self _rapportEffectiveIdForPeer:peerCopy];
   if ([v7 length])
   {
-    v8 = [(NSMutableDictionary *)self->_intermediateMessageIDs objectForKey:v7];
+    v8 = objc_msgSend_objectForKey_(self->_intermediateMessageIDs);
     if (!v8)
     {
       v8 = objc_alloc_init(NSMutableSet);
@@ -4062,10 +4062,10 @@ LABEL_16:
 
 - (id)_getExecutionIdFromRequest:(id)request
 {
-  v3 = [request objectForKey:@"executionContext"];
+  v3 = objc_msgSend_objectForKey_(request, a2, @"executionContext");
   if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v4 = [v3 objectForKey:@"executionID"];
+    v4 = objc_msgSend_objectForKey_(v3);
   }
 
   else
@@ -4725,7 +4725,7 @@ LABEL_17:
   handlerCopy = handler;
   typeCopy = type;
   dispatch_assert_queue_V2(self->_serialQueue);
-  v8 = [(NSMapTable *)self->_handlerForMessageType objectForKey:typeCopy];
+  v8 = objc_msgSend_objectForKey_(self->_handlerForMessageType);
   v9 = [v8 isEqual:handlerCopy];
 
   if (v9)
@@ -4862,7 +4862,7 @@ LABEL_25:
       _newRequestDictionary = [(ADCompanionService *)self _newRequestDictionary];
       [_newRequestDictionary setObject:typeCopy forKey:@"type"];
       [_newRequestDictionary setObject:messageCopy forKey:@"payload"];
-      [_newRequestDictionary objectForKey:@"messageID"];
+      objc_msgSend_objectForKey_(_newRequestDictionary);
       v39[0] = _NSConcreteStackBlock;
       v39[1] = 3221225472;
       v39[2] = sub_1002601B0;
@@ -5319,7 +5319,7 @@ LABEL_26:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v13 = [requestCopy objectForKey:@"idsDeviceId"];
+    v13 = objc_msgSend_objectForKey_(requestCopy);
     if (v13)
     {
       objc_opt_class();
@@ -5357,7 +5357,7 @@ LABEL_26:
       }
     }
 
-    v14 = [requestCopy objectForKey:@"homeKitId"];
+    v14 = objc_msgSend_objectForKey_(requestCopy);
     if (v14)
     {
       objc_opt_class();
@@ -5395,7 +5395,7 @@ LABEL_26:
       }
     }
 
-    v15 = [requestCopy objectForKey:@"assistantId"];
+    v15 = objc_msgSend_objectForKey_(requestCopy);
     if (v15)
     {
       v16 = v15;
@@ -5573,11 +5573,11 @@ LABEL_61:
 - (void)_prepAWDLClientLinkIfMessageReceivedOverAWDL:(id)l
 {
   lCopy = l;
-  v5 = [lCopy objectForKey:@"messageLinkType"];
+  v5 = objc_msgSend_objectForKey_(lCopy);
   v6 = v5;
   if (v5 && [v5 isEqualToString:@"AWDL"])
   {
-    v7 = [lCopy objectForKey:@"idsDeviceId"];
+    v7 = objc_msgSend_objectForKey_(lCopy);
     v8 = AFSiriLogContextDaemon;
     if (v7)
     {
@@ -5659,13 +5659,13 @@ LABEL_61:
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%s incoming command request: %@ %@ %@", buf, 0x2Au);
   }
 
-  v15 = [requestCopy objectForKey:@"messageLinkType"];
+  v15 = objc_msgSend_objectForKey_(requestCopy);
   v16 = v15;
   if (!v15 || ![v15 isEqualToString:@"AWDL"])
   {
     v120 = 0;
 LABEL_10:
-    v18 = [requestCopy objectForKey:@"forwardsToIDSDeviceId"];
+    v18 = objc_msgSend_objectForKey_(requestCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -5677,7 +5677,7 @@ LABEL_10:
       v19 = 0;
     }
 
-    v20 = [requestCopy objectForKey:@"forwardsToAssistantId"];
+    v20 = objc_msgSend_objectForKey_(requestCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -5789,10 +5789,10 @@ LABEL_10:
 
     if (!isLostModeActive)
     {
-      dictionary = [requestCopy objectForKey:@"command"];
+      dictionary = objc_msgSend_objectForKey_(requestCopy);
       if (!dictionary)
       {
-        v30 = [requestCopy objectForKey:@"serializedCommand"];
+        v30 = objc_msgSend_objectForKey_(requestCopy);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -5871,7 +5871,7 @@ LABEL_10:
 
           [(ADPeerInfo *)v56 setAssistantIdentifier:v110];
           [(ADPeerInfo *)v56 setHomeKitAccessoryIdentifier:v117];
-          v58 = [requestCopy objectForKey:@"airPlayRouteIDs"];
+          v58 = objc_msgSend_objectForKey_(requestCopy);
           v109 = v56;
           if (v58)
           {
@@ -5955,7 +5955,7 @@ LABEL_86:
 
           v113 = v60;
           [(ADPeerInfo *)v56 setAirPlayRouteIdentifiers:v60];
-          v82 = [optionsCopy objectForKey:RPOptionSenderIDSDeviceID];
+          v82 = objc_msgSend_objectForKey_(optionsCopy);
           if (v82)
           {
             v83 = [(ADCompanionService *)self _companionLinkDeviceForUniqueIDSIdentifier:v82 allowsAWDLFallback:v120];
@@ -5993,7 +5993,7 @@ LABEL_86:
             }
           }
 
-          v88 = [requestCopy objectForKey:@"userInterfaceIdiom"];
+          v88 = objc_msgSend_objectForKey_(requestCopy);
           v108 = v82;
           if (v88)
           {
@@ -6015,7 +6015,7 @@ LABEL_86:
 
           v106 = v88;
           [(ADPeerInfo *)v56 setUserInterfaceIdiom:v88];
-          v91 = [requestCopy objectForKey:@"aceVersion"];
+          v91 = objc_msgSend_objectForKey_(requestCopy);
           if (v91)
           {
             objc_opt_class();
@@ -6035,7 +6035,7 @@ LABEL_86:
           }
 
           [(ADPeerInfo *)v56 setAceVersion:v91];
-          v93 = [requestCopy objectForKey:@"mediaSystemId"];
+          v93 = objc_msgSend_objectForKey_(requestCopy);
           v122 = v91;
           if (v93)
           {
@@ -6055,7 +6055,7 @@ LABEL_86:
           }
 
           [(ADPeerInfo *)v56 setMediaSystemIdentifier:v93];
-          v95 = [requestCopy objectForKey:@"executionContext"];
+          v95 = objc_msgSend_objectForKey_(requestCopy);
           if (v95)
           {
             objc_opt_class();
@@ -6504,7 +6504,7 @@ LABEL_123:
     [v16 systemUptime];
     v18 = v17;
 
-    v19 = [(NSMutableDictionary *)self->_deviceUpdateLog objectForKey:idsDeviceIdentifier];
+    v19 = objc_msgSend_objectForKey_(self->_deviceUpdateLog);
     v20 = v19;
     if (v19 && ([v19 doubleValue], vabdd_f64(v18, v21) <= 3600.0))
     {

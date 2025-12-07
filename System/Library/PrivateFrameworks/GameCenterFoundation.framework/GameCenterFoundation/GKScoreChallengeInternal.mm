@@ -46,23 +46,23 @@ void __51__GKScoreChallengeInternal_secureCodedPropertyKeys__block_invoke(uint64
 
 - (id)serverRepresentationForReceivingPlayer:(id)player
 {
-  v24[4] = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = GKScoreChallengeInternal;
-  v5 = [(GKChallengeInternal *)&v22 serverRepresentationForReceivingPlayer:player];
+  v23[4] = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = GKScoreChallengeInternal;
+  v5 = [(GKChallengeInternal *)&v21 serverRepresentationForReceivingPlayer:player];
   v6 = [v5 mutableCopy];
 
   [v6 setObject:&unk_283B33418 forKey:@"challenge-type"];
-  v23[0] = @"value";
+  v22[0] = @"value";
   v7 = MEMORY[0x277CCABB0];
   score = [(GKScoreChallengeInternal *)self score];
-  v20 = [v7 numberWithLongLong:{objc_msgSend(score, "value")}];
-  v24[0] = v20;
-  v23[1] = @"leaderboard-id";
+  v19 = [v7 numberWithLongLong:{objc_msgSend(score, "value")}];
+  v23[0] = v19;
+  v22[1] = @"leaderboard-id";
   score2 = [(GKScoreChallengeInternal *)self score];
   leaderboardIdentifier = [score2 leaderboardIdentifier];
-  v24[1] = leaderboardIdentifier;
-  v23[2] = @"timestamp";
+  v23[1] = leaderboardIdentifier;
+  v22[2] = @"timestamp";
   score3 = [(GKScoreChallengeInternal *)self score];
   date = [score3 date];
   if (date)
@@ -77,13 +77,13 @@ void __51__GKScoreChallengeInternal_secureCodedPropertyKeys__block_invoke(uint64
     [MEMORY[0x277CBEAA8] _gkServerTimestamp];
   }
   v12 = ;
-  v24[2] = v12;
-  v23[3] = @"context";
+  v23[2] = v12;
+  v22[3] = @"context";
   v13 = MEMORY[0x277CCABB0];
   score5 = [(GKScoreChallengeInternal *)self score];
   v15 = [v13 numberWithLongLong:{objc_msgSend(score5, "context")}];
-  v24[3] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
+  v23[3] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:4];
 
   if (date)
   {
@@ -92,7 +92,6 @@ void __51__GKScoreChallengeInternal_secureCodedPropertyKeys__block_invoke(uint64
   }
 
   [v6 setObject:v16 forKey:@"score"];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
